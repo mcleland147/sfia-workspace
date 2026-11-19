@@ -1,45 +1,27 @@
-# SFIA Studio Next — Ensemble 06 Documents — CORRECTIVE CYCLE Review Pack FULL
+# SFIA STUDIO NEXT — ENSEMBLE 06 DOCUMENTS — CYCLE CORRECTIF F1–F5
+## Review Pack FULL — Cursor → ChatGPT (L3 handoff source)
 
-```text
-TIMESTAMP: 2026-11-19 23:43:52 +0100
-PRODUIT: SFIA Studio Next
-DÉPÔT: mcleland147/sfia-workspace
-CYCLE: 08 Delivery / EVOL — Correction Documents Bibliothèque (R1–R5)
-PROFIL: Standard + contrôles P0 renforcés
-ENV: DEV (isolation) — aucune mutation RECETTE/STABLE
-VERSION PRODUIT: aucune release attribuée
-FAKE/REAL: fixtures Nora FAKE (STUDIO_FORCE_NORA_FIXTURE / E2E lane) ≠ LIVE OpenAI
+1. **Identité du cycle** : Ensemble 06 / Documents / Cycle 08 Delivery EVOL — correctif Nora/D4/Figma F1–F5
+2. **Date/heure** : 2026-11-19 23:32:14 UTC
+3. **Profil** : STANDARD — contrôles P0 renforcés
+4. **Worktree** : `/Users/morris/Projects/sfia-wt-documents-delivery-20261119`
+5. **Branche projet** : `sfia/next-documents-delivery-20261119` (non publiée)
+6. **HEAD de référence** : `6516c7b56ec61bd72943ae0d26e625bf21139d4e`
+7. **origin/main observé (pré-cycle)** : `d3d199adb782462b93467934f5f1e8a0c98fb492`
+8. **Handoff précédent** : tip `d4731d5b1292e4cf974f189d0c6661401bc345aa` / blob `4bd2a572c9e64ca0c9828512006f0d5bc07641d7`
+9. **NO RELEASE** — aucun commit projet — aucun push projet — RECETTE INTERDITE
+
+---
+
+## 3. Git local avant / après (état effectif livré)
+
+### Avant (référence déclarée)
+- HEAD : `6516c7b56ec61bd72943ae0d26e625bf21139d4e`
+- Branche : `sfia/next-documents-delivery-20261119`
+- Modifications Documents déjà présentes (cycle R1–R5) + correctifs F1–F5 non commités
+
+### Après (état actuel — toujours non commité)
 ```
-
-## 1. Git Truth Check
-
-### Avant cycle correctif (références mandat)
-```text
-worktree: /Users/morris/Projects/sfia-wt-documents-delivery-20261119
-branch: sfia/next-documents-delivery-20261119
-HEAD déclaré: 6516c7b56ec61bd72943ae0d26e625bf21139d4e
-origin/main déclaré: d3d199adb782462b93467934f5f1e8a0c98fb492
-handoff tip déclaré: be84f3bddbed9a7b696a93b3d3f9d674fd9dbdd6
-blob handoff déclaré: 982bbdccea2fe6a0bce9a29f46ba77c0c40d2b71
-```
-
-### Après corrections (état local actuel, avant publication handoff)
-```text
-pwd: /Users/morris/Projects/sfia-wt-documents-delivery-20261119
-branch: sfia/next-documents-delivery-20261119
-HEAD: 6516c7b56ec61bd72943ae0d26e625bf21139d4e
-origin/main: d3d199adb782462b93467934f5f1e8a0c98fb492
-status: DIRTY / NON COMMITTÉ (attendu — pas de commit projet)
-handoff remote tip (pré-publish): be84f3bddbed9a7b696a93b3d3f9d674fd9dbdd6
-```
-
-### Fichiers
-- 12 fichiers déjà modifiés (cycle précédent) + correctifs R1–R5
-- 3 fichiers de tests créés conservés + enrichis
-- fixture-semantic-qualify.ts modifié (scénarios Documents)
-- Aucun reset --hard / clean -fd
-
-```text
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts
  M projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
@@ -52,390 +34,967 @@ handoff remote tip (pré-publish): be84f3bddbed9a7b696a93b3d3f9d674fd9dbdd6
  M projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
  M projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
  M projects/sfia-studio-next/web/src/domains/conversation/service.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
  M projects/sfia-studio-next/web/src/domains/document/service.ts
  M projects/sfia-studio-next/web/tests/e2e/g4-b1-b4-correctifs.spec.ts
+ M projects/sfia-studio-next/web/tests/unit/confront-proposal-fence.test.ts
+ M projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
 ?? projects/sfia-studio-next/.tmp-sfia-review/
+?? projects/sfia-studio-next/web/src/domains/conversation/document-candidate.ts
 ?? projects/sfia-studio-next/web/tests/e2e/documents-bibliotheque-08.spec.ts
+?? projects/sfia-studio-next/web/tests/e2e/documents-f1f5-runtime-captures.spec.ts
+?? projects/sfia-studio-next/web/tests/e2e/documents-nora-v2-v4.spec.ts
 ?? projects/sfia-studio-next/web/tests/integration/documents-historical-revise.pg.test.ts
+?? projects/sfia-studio-next/web/tests/integration/documents-proposal-candidate.pg.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts
+
 ```
 
-### Diff stat
-```text
- .tmp-sfia-review/chatgpt-review.md                 | 166 ----
+### Diff stat cumulé
+```
+ .tmp-sfia-review/chatgpt-review.md                 | 169 +---
  .../documents/[documentId]/route.ts                |  23 +-
- .../preparations/[preparationId]/messages/route.ts |  18 +
- .../web/src/app/projects/[projectId]/page.tsx      | 894 +++++++++++++++++----
- .../web/src/components/figma/DocumentSurfaces.tsx  | 794 ++++++++++++++++--
+ .../preparations/[preparationId]/messages/route.ts |  21 +
+ .../web/src/app/projects/[projectId]/page.tsx      | 947 +++++++++++++++++----
+ .../web/src/components/figma/DocumentSurfaces.tsx  | 794 ++++++++++++++++-
  .../web/src/components/figma/ProjectChrome.tsx     |  23 +-
  .../web/src/components/figma/TravailViewer.tsx     |  56 +-
  .../web/src/components/figma/tokens.css            | 482 +++++++++++
- .../web/src/domains/conversation/document-act.ts   | 139 ++++
+ .../web/src/domains/conversation/document-act.ts   | 238 +++++-
  .../src/domains/conversation/document-command.ts   |  69 +-
- .../conversation/fixture-semantic-qualify.ts       |  66 ++
- .../web/src/domains/conversation/service.ts        | 188 ++++-
+ .../conversation/fixture-semantic-qualify.ts       | 111 +++
+ .../web/src/domains/conversation/service.ts        | 395 ++++++++-
+ .../web/src/domains/conversation/turn-command.ts   |  27 +-
  .../web/src/domains/document/service.ts            | 125 ++-
  .../web/tests/e2e/g4-b1-b4-correctifs.spec.ts      |  26 +-
- 14 files changed, 2624 insertions(+), 445 deletions(-)
+ .../web/tests/unit/confront-proposal-fence.test.ts |   3 +-
+ .../web/tests/unit/ml4c-s01-s03-guards.test.ts     |   4 +-
+ 17 files changed, 3033 insertions(+), 480 deletions(-)
+
 ```
 
-## 2. Findings R1–R5 — verdicts
-
-| ID | Priorité | Statut initial | Statut final | Preuve |
-|---|---|---|---|---|
-| R1 | P0 | NON CONFORME | **PASS** | resolveReviseTarget ignore sourceContentMarkdown; service toujours getDocumentRevision |
-| R2 | P0 | NON CONFORME | **PASS** | regex lexical supprimée; resolveHistoricalConfirmation contextualisée |
-| R3 | P0 | NON DÉMONTRÉ | **PASS** | sous documentFocus, REVISE → PROPOSAL_PENDING_CONSERVATION; conserve explicite |
-| R4 | P1 | PARTIEL | **PASS** | formatPilotFacingProvenance; plus d'invention « Production Nora » sans donnée |
-| R5 | P1 | PARTIEL | **PASS WITH VISUAL RESERVES** | libellés Figma alignés; 8 captures distinctes; géométrie ≤2px non re-prouvée pixel-perfect |
-
-## 3. Blast radius
-
-- Domaines: conversation (document-act, service, fixtures), document (revise historique déjà en place), UI Documents/Travail
-- API: messages documentFocus étendu; documents route inchangée fonctionnellement hors champs historiques déjà livrés
-- Hors scope: Journal V4, D6/D9, SEF, main, RECETTE, push projet
-
-## 4. Modifications réalisées (résumé)
-
-### R1 — Source D4 canonique
-- `resolveReviseTarget`: ne lit plus `sourceContentMarkdown` client; historique → baseContent vide
-- `postUserMessageAndNora` REVISE: **toujours** `getDocumentRevision` si focus.sourceRevisionId; refuse silencieux vers latest
-
-### R2 — Confirmation historique
-- Nouveau `resolveHistoricalConfirmation` + `historicalConfirmation` bound IDs
-- Suppression totale du regex `oui|confirme` × `version|historique`
-- UI boutons: « Repartir de la vN » / « Partir de la vN courante » avec confirmation structurée
-
-### R3 — Proposition ≠ conservation
-- Sous `documentFocus`: pas de `sealAndApply` tant que `conserveProposal !== true` et pas de `PRIOR_ASSISTANT_MESSAGE`
-- Raison `PROPOSAL_PENDING_CONSERVATION`; UI 930:10 + fixture conserve
-- Conservation explicite via CTA / message fixture
-
-### R4 — Provenance
-- `formatPilotFacingProvenance`; fallback « Provenance non renseignée »
-- ORIGINE n'invente plus depuis le seul nom de projet
-
-### Continuity documentFocus
-- sessionStorage `sfia.docFocus.v1:{projectId}:{preparationId}`
-- reconstitution au load; conserveProposal jamais rejoué; confirmation invalidable
-
-### R5 — Figma
-- Libellés 08.01–08.08 alignés (inventaire MCP)
-- Historique ordre décroissant; VERSION DE DÉPART; heroes Travail/Documents
-- Banner/alert lecture retirée (non Figma)
-
-## 5. ENV-01 / Fake-Real
-
-```text
-ENV: DEV worktree sfia-wt-documents-delivery-20261119
-Port operator: :3100 (captures)
-E2E isolé: :3101 + sfia_next_e2e (Playwright webServer)
-Nora fixtures: FAKE — DETERMINISTIC PROVEN ≠ LIVE/REAL PROVEN
-PostgreSQL: preuves invariants sur DB réellement utilisée
-RECETTE: aucune mutation
-```
-
-## 6. Tests exécutés
-
-| Suite | Résultat | Preuve |
-|---|---|---|
-| vitest unit documents-surfaces-projection (12) | PASS | R1/R2/R4 |
-| vitest unit document-act + document-command (57) | PASS | non-régression |
-| vitest PG documents-historical-revise (4) | PASS | V2→V4, concurrence V5, idempotence |
-| Playwright documents-bibliotheque-08 | PASS | DOC-UAT select/read/history |
-| Playwright g4-b1-b4-correctifs | PASS | deep-link, missing foreign, revise→Travail |
-| Captures runtime 8 frames | DONE | 930:9≠930:10 MD5 distincts |
-
-### Matrice UAT/TECH (IDs contractuels)
-
-| ID | Résultat | Preuve |
-|---|---|---|
-| DOC-UAT-01 | PASS | e2e select≠open |
-| DOC-UAT-02 | PASS | e2e read-only |
-| DOC-UAT-03 | PARTIAL | lecture contenu réel — e2e smoke |
-| DOC-UAT-04 | PASS | pas de textarea |
-| DOC-UAT-05 | PASS | historique |
-| DOC-UAT-06 | PARTIAL | ordre décroissant — unit/UI + capture |
-| DOC-UAT-07 | PASS | comparateur |
-| DOC-UAT-08 | PARTIAL | comparaison capture 930:8 |
-| DOC-UAT-09 | PASS | PG historical V2→V4 |
-| DOC-UAT-10 | PASS | PG concurrence |
-| DOC-UAT-11 | PASS | proposition non enregistrée (runtime 930:10 + reason code) |
-| DOC-UAT-12 | PASS | conserve CTA + fixture path |
-| DOC-UAT-13 | PARTIAL | documentFocus sessionStorage — code + restore path |
-| DOC-TECH-14 | PASS | R1 unit ignore forged markdown |
-| DOC-TECH-15 | PASS | R2 unit REFUSED/HEAD_MOVED/IDENTITY |
-| DOC-TECH-16 | PASS | R3 PROPOSAL_PENDING_CONSERVATION |
-| DOC-TECH-17 | PASS | R4 provenance formatter |
-| DOC-TECH-18 | PARTIAL | géométrie F2 — captures + geometry.json; delta 0 non re-mesuré exhaustif |
-
-## 7. Captures visuelles
-
-Répertoire local (binaires non poussables dans handoff git textuel):
-`projects/sfia-studio-next/.tmp-sfia-review/documents-runtime/`
-
-| Frame | Fichier | MD5 / note |
-|---|---|---|
-| 930:3 | runtime-930-3-bibliotheque.png | + geometry.json |
-| 930:4 | runtime-930-4-lecture.png | |
-| 930:5 | runtime-930-5-travail-5050.png | |
-| 930:6 | runtime-930-6-historique-replie.png | |
-| 930:7 | runtime-930-7-comparateur-deplie.png | |
-| 930:8 | runtime-930-8-comparaison-5050.png | |
-| 930:9 | runtime-930-9-nora-historique.png | MD5 186326eabef76677fff2fcc91f35a9a0 |
-| 930:10 | runtime-930-10-nora-proposition.png | MD5 48a509debea9d506643aed744385b58a |
-
-**930:9 ≠ 930:10** — hashes distincts (obligation respectée).
-
-Figma labels inventory: `projects/sfia-studio-next/.tmp-sfia-review/figma-labels-inventory-08.md`
-Runtime label matrix: `.../documents-runtime/label-runtime-matrix-corrective.md`
-
-LIMITE: ChatGPT ne peut pas ouvrir les PNG locaux; la revue s'appuie sur hashes, matrice, diffs et tests.
-
-## 8. Réserves classées
-
-1. **VISUAL / F2** — delta géométrique exhaustif ≤2px non re-prouvé point par point sur les 8 frames après correctifs (captures présentes; mesures partielles).
-2. **FAKE** — scénarios Nora Documents prouvés en fixture lane, pas LIVE OpenAI.
-3. **documentFocus** — sessionStorage tab-scoped; pas de sync multi-onglet / serveur.
-4. **CREATE auto-save** — inchangé hors Documents focus; R3 gate activé quand `documentFocus` présent.
-
-## 9. Verdict unique
-
-```text
-READY FOR INDEPENDENT CHATGPT REVIEW
-(WITH VISUAL RESERVES — géométrie F2 exhaustive partielle)
-```
-
-P0 R1/R2/R3 corrigés et testés. P1 R4/R5 + focus traités. Pas d'acceptation RECETTE. Pas de GO publication projet.
-
-## 10. Gate Morris restant
-
-1. Revue indépendante ChatGPT sur handoff distant
-2. Recette utilisateur Morris
-3. GO distinct pour commit/push/PR projet si accepté
-
-## 11. Instruction ChatGPT
-
-Lire depuis Git branche `sfia/review-handoff` fichier `sfia-review-handoff/latest-chatgpt-review.md` (ce document après publish). Vérifier créations, diffs, tests R1–R3, états Figma 930:9≠930:10, résultats exécutés vs déclarés.
+**Projet reste NON COMMITTÉ.** Ce pack inclut diffs CUMULÉS + fichiers créés intégraux.
 
 ---
 
-# §16 — Fichiers de tests créés (contenu intégral)
+## 4. Sources et SHA
 
-## 16.1 tests/unit/documents-surfaces-projection.test.ts
+| Source | Emplacement | Note |
+|---|---|---|
+| SFIA v2.6 routing / template / operating model / guardrails | `method/sfia-fast-track/core/*`, `prompts/templates/sfia-cycle-execution-template.md` | lus depuis Git local |
+| Gouvernance Next | `projects/sfia-studio-next/governance/` | SEF/roadmap non modifiées |
+| Contrats Documents | `construction/convergence-ux-ui-globale/documents-*.md` | validés Morris ; statut Git ≠ merge |
+| Figma page 08 | `itgvCulInEnFY6DvgIegvP` nodes `930:9`, `930:10` (+ non-régression 930:3–8) | MCP session `c5376973-5a33-45f3-a099-c893a8896e9a` |
+| Prior handoff | `sfia/review-handoff` | référence factuelle ; non réutilisé comme preuve de ce cycle |
 
-```typescript
-import { describe, expect, it } from "vitest";
-import {
-  formatPilotFacingProvenance,
-  revisionCurrencyLabel,
-} from "@/components/figma/DocumentSurfaces";
-import {
-  resolveHistoricalConfirmation,
-  resolveReviseTarget,
-  type DocumentListItem,
-  type DocumentReviseFocus,
-} from "@/domains/conversation/document-act";
+---
 
-describe("revisionCurrencyLabel", () => {
-  it("marks head as Courante and others Historique", () => {
-    expect(revisionCurrencyLabel(3, 3)).toBe("Courante");
-    expect(revisionCurrencyLabel(2, 3)).toBe("Historique");
-    expect(revisionCurrencyLabel(1, null)).toBe("Historique");
+## 5. Blast radius F1–F5
+
+| Finding | Priorité | Surface touchée | Cause | Correctif |
+|---|---|---|---|---|
+| F1 | P0 | `document-candidate.ts`, `service.ts`, `turn-command.ts`, messages/focus client | Conservation pouvait régénérer / ne pas sceller le candidat inspecté | Stash candidat (`pdoc`) + empreinte ; conserve charge uniquement le candidat ; supersede cross-turn ; preserve resultJson |
+| F2 | P0 | `document-candidate.ts`, `document-act.ts`, `service.ts`, page focus | Bool/client object traités comme autorisation | `hauth` serveur + `resolveHistoricalConfirmation` exige `serverAuthorization` ; choix exacts DOC_CONFIRM / DOC_USE_CURRENT_HEAD |
+| F3 | P1 | `page.tsx` Lecture | Provenance depuis `latestRevision` | `readingProvenanceJson` de la révision consultée |
+| F4 | P1 | page Travail + fixtures + continueChoices | Choix sous composeur | Choix dans le fil ; panneau sous-composeur retiré ; labels remappés vN |
+| F5 | P1 | TravailViewer + page + ACK | V2 rebadgée ; doublons ; codes techniques | Visionneuse = markdown candidat ; un CTA conserve ; ACK pilot-facing |
+
+**KNOWN GAP Sas** : éditeur manuel Sas inchangé (seed V1–V3 uniquement en E2E). Pas de refonte Sas. Frontière signalée.
+
+---
+
+## 6. Contrat proposition / conservation (F1)
+
+PROPOSITION INSPECTÉE = PROPOSITION AUTORISÉE = CONTENU SOUMIS À D4.
+
+- Génération → `stashPendingDocumentCandidate` (status PENDING) → `PROPOSAL_PENDING_CONSERVATION` → **aucun D4**
+- Conserve → `isConserveProposalTransmit` OU `conserveProposal` → `loadPendingDocumentCandidate` (hash) → contenu exact → D4 revise
+- Mutation client markdown : ignorée
+- Nouveau candidat : anciens PENDING → SUPERSEDED
+- Après AVAILABLE : CONSUMED
+- `pendingCandidateId` seul **ne** déclenche **pas** conserve (ajustements possibles)
+- `PRIOR_ASSISTANT_MESSAGE` ne bypass pas le scellé Documents focus
+
+---
+
+## 7. Contrat confirmation historique (F2)
+
+- Choix exacts serveur : `DOC_CONFIRM_HISTORICAL_SOURCE` / `DOC_USE_CURRENT_HEAD`
+- Stash `HistoricalSourceAuthorization` (`hauth`)
+- `confirmedHistoricalSource: true` client **insuffisant** → `CLIENT_CLAIM_INSUFFICIENT`
+- Regex lexicale **non** réintroduite
+- Pas de HumanDecision D6
+
+---
+
+## 8. Fichiers modifiés / créés
+
+### Créés
+- `web/src/domains/conversation/document-candidate.ts`
+- `web/tests/integration/documents-proposal-candidate.pg.test.ts`
+- `web/tests/integration/documents-historical-revise.pg.test.ts`
+- `web/tests/unit/documents-surfaces-projection.test.ts`
+- `web/tests/e2e/documents-nora-v2-v4.spec.ts`
+- `web/tests/e2e/documents-bibliotheque-08.spec.ts`
+- `web/tests/e2e/documents-f1f5-runtime-captures.spec.ts`
+
+### Modifiés (principaux)
+- `service.ts` (conversation) — stash/load/conserve/historical auth
+- `document-act.ts` — confirmation serveur + ACK pilot-facing
+- `document-command.ts` / `turn-command.ts` — preserve candidates in terminal JSON
+- `fixture-semantic-qualify.ts` — fixtures historiques + conserve
+- `page.tsx` (projet) — focus, viewer candidat, provenance lecture, F4/F5
+- `TravailViewer.tsx` / `DocumentSurfaces.tsx` / `tokens.css` / `ProjectChrome.tsx`
+- `messages/route.ts` / `documents/[documentId]/route.ts`
+- tests unit ACK (ml4c-s01, confront-proposal-fence)
+
+### Interdits non touchés
+- gouvernance/SEF.md, decisions/, roadmap.md
+- D6, D9, Journal V4, ancien Studio, publication, Sas workflow
+
+---
+
+## 9. Contenu complet des fichiers créés
+
+```text
+=== UNTRACKED FILE CONTENTS ===
+
+===== BEGIN FILE: projects/sfia-studio-next/web/src/domains/conversation/document-candidate.ts =====
+/**
+ * F1/F2 — sealed document proposal candidates and historical-source authorizations.
+ * Stored additively on conversation_turn_commands.result_json (no migration).
+ * Client may select by id+hash; never supply authoritative markdown.
+ */
+import { and, eq, sql } from "drizzle-orm";
+import { db } from "@/db/client";
+import { conversationTurnCommands, conversations } from "@/db/schema";
+import { newId } from "@/lib/ids";
+import { contentSha256 } from "@/domains/conversation/document-command";
+import { turnClock } from "@/domains/conversation/turn-command";
+
+export type PendingDocumentCandidate = {
+  id: string;
+  turnCommandId: string;
+  preparationId: string;
+  pilotId: string;
+  documentId: string;
+  sourceRevisionId: string;
+  observedHeadRevisionId: string;
+  title: string;
+  contentMarkdown: string;
+  contentSha256: string;
+  historicalAuthorizationId?: string | null;
+  status: "PENDING" | "CONSUMED" | "SUPERSEDED";
+  createdAt: string;
+};
+
+export type HistoricalSourceAuthorization = {
+  id: string;
+  turnCommandId: string;
+  preparationId: string;
+  pilotId: string;
+  documentId: string;
+  sourceRevisionId: string;
+  observedHeadRevisionId: string;
+  choice: "USE_SOURCE" | "USE_HEAD";
+  createdAt: string;
+};
+
+/** Exact transmit texts for F2/F4 historical base choices (never lexical freeform). */
+export const DOC_CONFIRM_HISTORICAL_SOURCE = "DOC_CONFIRM_HISTORICAL_SOURCE";
+export const DOC_USE_CURRENT_HEAD = "DOC_USE_CURRENT_HEAD";
+export const DOC_CONSERVE_PROPOSAL =
+  "Conserver comme nouvelle version la proposition documentaire préparée.";
+
+export function isHistoricalSourceChoiceTransmit(text: string): "USE_SOURCE" | "USE_HEAD" | null {
+  const t = text.replace(/\s+/g, " ").trim();
+  if (t === DOC_CONFIRM_HISTORICAL_SOURCE) return "USE_SOURCE";
+  if (t === DOC_USE_CURRENT_HEAD) return "USE_HEAD";
+  return null;
+}
+
+export function isConserveProposalTransmit(text: string): boolean {
+  return text.replace(/\s+/g, " ").trim() === DOC_CONSERVE_PROPOSAL;
+}
+
+async function mergeTurnResultJson(args: {
+  commandId: string;
+  ownerToken: string;
+  patch: (prev: Record<string, unknown>) => Record<string, unknown> | null;
+}): Promise<{ applied: boolean }> {
+  return db.transaction(async (tx) => {
+    await tx.execute(
+      sql`select id from conversation_turn_commands
+          where id = ${args.commandId}
+            and owner_token = ${args.ownerToken}
+            and status in ('RUNNING', 'ACCEPTED')
+          for update`,
+    );
+    const owned = (
+      await tx
+        .select({
+          id: conversationTurnCommands.id,
+          resultJson: conversationTurnCommands.resultJson,
+        })
+        .from(conversationTurnCommands)
+        .where(
+          and(
+            eq(conversationTurnCommands.id, args.commandId),
+            eq(conversationTurnCommands.ownerToken, args.ownerToken),
+            sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (!owned) return { applied: false };
+    let prev: Record<string, unknown> = {};
+    if (owned.resultJson) {
+      try {
+        prev = JSON.parse(owned.resultJson) as Record<string, unknown>;
+      } catch {
+        return { applied: false };
+      }
+    }
+    const next = args.patch(prev);
+    if (!next) return { applied: false };
+    const updated = await tx
+      .update(conversationTurnCommands)
+      .set({
+        resultJson: JSON.stringify(next),
+        updatedAt: new Date(turnClock.nowMs()),
+      })
+      .where(
+        and(
+          eq(conversationTurnCommands.id, args.commandId),
+          eq(conversationTurnCommands.ownerToken, args.ownerToken),
+          sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+        ),
+      )
+      .returning({ id: conversationTurnCommands.id });
+    return { applied: Boolean(updated[0]) };
   });
-});
+}
 
-describe("R1 resolveReviseTarget — client markdown never authoritative", () => {
-  const docs: DocumentListItem[] = [
-    {
-      document: { id: "doc-1", title: "Parcours" },
-      latestRevision: {
-        id: "rev-3",
-        revisionNumber: 3,
-        status: "AVAILABLE",
-        contentMarkdown: "# V3 canonical from list\n",
-      },
-    },
-  ];
-
-  it("ignores forged sourceContentMarkdown for historical focus (empty base → D4 reload)", () => {
-    const focus: DocumentReviseFocus = {
-      documentId: "doc-1",
-      sourceRevisionId: "rev-2",
-      sourceRevisionNumber: 2,
-      sourceContentMarkdown: "# FORGED CLIENT MARKDOWN — must not be used\n",
-      observedHeadRevisionId: "rev-3",
-      observedHeadRevisionNumber: 3,
-      confirmedHistoricalSource: false,
-    };
-    const target = resolveReviseTarget(docs, null, focus);
-    expect(target.ok).toBe(true);
-    if (!target.ok) throw new Error("expected ok");
-    expect(target.baseRevisionId).toBe("rev-2");
-    expect(target.baseContent).toBe("");
-    expect(target.baseContent).not.toContain("FORGED");
-  });
-
-  it("uses authorized list head body only when source === head", () => {
-    const focus: DocumentReviseFocus = {
-      documentId: "doc-1",
-      sourceRevisionId: "rev-3",
-      sourceRevisionNumber: 3,
-      sourceContentMarkdown: "# forged head\n",
-      observedHeadRevisionId: "rev-3",
-      observedHeadRevisionNumber: 3,
-    };
-    const target = resolveReviseTarget(docs, null, focus);
-    expect(target.ok).toBe(true);
-    if (!target.ok) throw new Error("expected ok");
-    expect(target.baseContent).toBe("# V3 canonical from list\n");
-    expect(target.baseContent).not.toContain("forged");
-  });
-
-  it("falls back to hint/latest when no focus", () => {
-    const target = resolveReviseTarget(docs, "doc-1");
-    expect(target.ok).toBe(true);
-    if (!target.ok) throw new Error("expected ok");
-    expect(target.baseRevisionId).toBe("rev-3");
-  });
-});
-
-describe("R2 resolveHistoricalConfirmation — no lexical authority", () => {
-  const baseFocus: DocumentReviseFocus = {
-    documentId: "doc-A",
-    sourceRevisionId: "rev-2",
-    observedHeadRevisionId: "rev-3",
-    confirmedHistoricalSource: false,
+export async function stashPendingDocumentCandidate(input: {
+  commandId: string;
+  ownerToken: string;
+  preparationId: string;
+  pilotId: string;
+  documentId: string;
+  sourceRevisionId: string;
+  observedHeadRevisionId: string;
+  title: string;
+  contentMarkdown: string;
+  historicalAuthorizationId?: string | null;
+}): Promise<{ ok: true; candidate: PendingDocumentCandidate } | { ok: false; reason: string }> {
+  const digest = contentSha256(input.title, input.contentMarkdown);
+  const candidate: PendingDocumentCandidate = {
+    id: newId("pdoc"),
+    turnCommandId: input.commandId,
+    preparationId: input.preparationId,
+    pilotId: input.pilotId,
+    documentId: input.documentId,
+    sourceRevisionId: input.sourceRevisionId,
+    observedHeadRevisionId: input.observedHeadRevisionId,
+    title: input.title,
+    contentMarkdown: input.contentMarkdown,
+    contentSha256: digest,
+    historicalAuthorizationId: input.historicalAuthorizationId ?? null,
+    status: "PENDING",
+    createdAt: new Date(turnClock.nowMs()).toISOString(),
   };
-
-  it("REFUSED structured choice → not confirmed", () => {
-    const r = resolveHistoricalConfirmation({
-      focus: {
-        ...baseFocus,
-        historicalConfirmation: {
-          documentId: "doc-A",
-          sourceRevisionId: "rev-2",
-          observedHeadRevisionId: "rev-3",
-          choice: "REFUSED",
-        },
-      },
-      documentId: "doc-A",
-      sourceRevisionId: "rev-2",
-      claimedObservedHeadRevisionId: "rev-3",
-      actualHeadRevisionId: "rev-3",
-    });
-    expect(r.confirmed).toBe(false);
-    expect(r.reason).toBe("REFUSED");
+  const stashed = await mergeTurnResultJson({
+    commandId: input.commandId,
+    ownerToken: input.ownerToken,
+    patch: (prev) => {
+      const existing = Array.isArray(prev.pendingDocumentCandidates)
+        ? (prev.pendingDocumentCandidates as PendingDocumentCandidate[])
+        : [];
+      // Supersede prior pending candidates for the same document on this turn.
+      const nextExisting = existing.map((c) =>
+        c.documentId === candidate.documentId && c.status === "PENDING"
+          ? { ...c, status: "SUPERSEDED" as const }
+          : c,
+      );
+      return {
+        ...prev,
+        pendingDocumentCandidates: [...nextExisting, candidate],
+      };
+    },
   });
-
-  it("USE_SOURCE with matching identities → confirmed", () => {
-    const r = resolveHistoricalConfirmation({
-      focus: {
-        ...baseFocus,
-        historicalConfirmation: {
-          documentId: "doc-A",
-          sourceRevisionId: "rev-2",
-          observedHeadRevisionId: "rev-3",
-          choice: "USE_SOURCE",
-        },
-      },
-      documentId: "doc-A",
-      sourceRevisionId: "rev-2",
-      claimedObservedHeadRevisionId: "rev-3",
-      actualHeadRevisionId: "rev-3",
-    });
-    expect(r.confirmed).toBe(true);
-    expect(r.reason).toBe("CONFIRMED_STRUCTURED");
+  if (!stashed.applied) {
+    return { ok: false, reason: "CANDIDATE_STASH_FAILED" };
+  }
+  // F1 — a new proposal invalidates prior pending candidates for the same document.
+  await supersedeOtherPendingCandidates({
+    pilotId: input.pilotId,
+    preparationId: input.preparationId,
+    documentId: input.documentId,
+    keepCandidateId: candidate.id,
   });
+  return { ok: true, candidate };
+}
 
-  it("confirmation for document A is unusable for document B", () => {
-    const r = resolveHistoricalConfirmation({
-      focus: {
-        ...baseFocus,
-        historicalConfirmation: {
-          documentId: "doc-A",
-          sourceRevisionId: "rev-2",
-          observedHeadRevisionId: "rev-3",
-          choice: "USE_SOURCE",
-        },
-      },
-      documentId: "doc-B",
-      sourceRevisionId: "rev-2",
-      claimedObservedHeadRevisionId: "rev-3",
-      actualHeadRevisionId: "rev-3",
-    });
-    expect(r.confirmed).toBe(false);
-    expect(r.reason).toBe("IDENTITY_MISMATCH");
-  });
+async function patchCandidateStatusOnOwningTurn(input: {
+  pilotId: string;
+  preparationId: string;
+  candidateId: string;
+  nextStatus: "CONSUMED" | "SUPERSEDED";
+  onlyIfPending?: boolean;
+}): Promise<{ applied: boolean }> {
+  const rows = await db
+    .select({
+      id: conversationTurnCommands.id,
+      resultJson: conversationTurnCommands.resultJson,
+    })
+    .from(conversationTurnCommands)
+    .innerJoin(conversations, eq(conversations.id, conversationTurnCommands.conversationId))
+    .where(
+      and(
+        eq(conversations.preparationId, input.preparationId),
+        eq(conversations.ownerPilotId, input.pilotId),
+      ),
+    )
+    .orderBy(sql`${conversationTurnCommands.createdAt} desc`)
+    .limit(40);
 
-  it("head moved V3→V4 → HEAD_MOVED", () => {
-    const r = resolveHistoricalConfirmation({
-      focus: {
-        ...baseFocus,
-        confirmedHistoricalSource: true,
-        historicalConfirmation: {
-          documentId: "doc-A",
-          sourceRevisionId: "rev-2",
-          observedHeadRevisionId: "rev-3",
-          choice: "USE_SOURCE",
-        },
-      },
-      documentId: "doc-A",
-      sourceRevisionId: "rev-2",
-      claimedObservedHeadRevisionId: "rev-3",
-      actualHeadRevisionId: "rev-4",
-    });
-    expect(r.confirmed).toBe(false);
-    expect(r.reason).toBe("HEAD_MOVED");
-  });
+  for (const row of rows) {
+    if (!row.resultJson) continue;
+    let parsed: Record<string, unknown>;
+    try {
+      parsed = JSON.parse(row.resultJson) as Record<string, unknown>;
+    } catch {
+      continue;
+    }
+    const list = Array.isArray(parsed.pendingDocumentCandidates)
+      ? (parsed.pendingDocumentCandidates as PendingDocumentCandidate[])
+      : [];
+    const idx = list.findIndex((c) => c.id === input.candidateId);
+    if (idx < 0) continue;
+    const current = parseCandidate(list[idx]);
+    if (!current) return { applied: false };
+    if (input.onlyIfPending && current.status !== "PENDING") {
+      return { applied: false };
+    }
+    const nextList = list.map((c) =>
+      c.id === input.candidateId ? { ...c, status: input.nextStatus } : c,
+    );
+    const updated = await db
+      .update(conversationTurnCommands)
+      .set({
+        resultJson: JSON.stringify({ ...parsed, pendingDocumentCandidates: nextList }),
+        updatedAt: new Date(turnClock.nowMs()),
+      })
+      .where(eq(conversationTurnCommands.id, row.id))
+      .returning({ id: conversationTurnCommands.id });
+    return { applied: Boolean(updated[0]) };
+  }
+  return { applied: false };
+}
 
-  it("missing confirmation → not confirmed (no regex path)", () => {
-    const r = resolveHistoricalConfirmation({
-      focus: baseFocus,
-      documentId: "doc-A",
-      sourceRevisionId: "rev-2",
-      claimedObservedHeadRevisionId: "rev-3",
-      actualHeadRevisionId: "rev-3",
+/** Mark every other PENDING candidate for the document as SUPERSEDED (cross-turn). */
+export async function supersedeOtherPendingCandidates(input: {
+  pilotId: string;
+  preparationId: string;
+  documentId: string;
+  keepCandidateId: string;
+}): Promise<void> {
+  const rows = await db
+    .select({
+      id: conversationTurnCommands.id,
+      resultJson: conversationTurnCommands.resultJson,
+    })
+    .from(conversationTurnCommands)
+    .innerJoin(conversations, eq(conversations.id, conversationTurnCommands.conversationId))
+    .where(
+      and(
+        eq(conversations.preparationId, input.preparationId),
+        eq(conversations.ownerPilotId, input.pilotId),
+      ),
+    )
+    .orderBy(sql`${conversationTurnCommands.createdAt} desc`)
+    .limit(40);
+
+  for (const row of rows) {
+    if (!row.resultJson) continue;
+    let parsed: Record<string, unknown>;
+    try {
+      parsed = JSON.parse(row.resultJson) as Record<string, unknown>;
+    } catch {
+      continue;
+    }
+    const list = Array.isArray(parsed.pendingDocumentCandidates)
+      ? (parsed.pendingDocumentCandidates as PendingDocumentCandidate[])
+      : [];
+    let changed = false;
+    const nextList = list.map((c) => {
+      if (
+        c.documentId === input.documentId &&
+        c.status === "PENDING" &&
+        c.id !== input.keepCandidateId
+      ) {
+        changed = true;
+        return { ...c, status: "SUPERSEDED" as const };
+      }
+      return c;
     });
-    expect(r.confirmed).toBe(false);
-    expect(r.reason).toBe("MISSING_CONFIRMATION");
+    if (!changed) continue;
+    await db
+      .update(conversationTurnCommands)
+      .set({
+        resultJson: JSON.stringify({ ...parsed, pendingDocumentCandidates: nextList }),
+        updatedAt: new Date(turnClock.nowMs()),
+      })
+      .where(eq(conversationTurnCommands.id, row.id));
+  }
+}
+
+export async function stashHistoricalSourceAuthorization(input: {
+  commandId: string;
+  ownerToken: string;
+  preparationId: string;
+  pilotId: string;
+  documentId: string;
+  sourceRevisionId: string;
+  observedHeadRevisionId: string;
+  choice: "USE_SOURCE" | "USE_HEAD";
+}): Promise<
+  { ok: true; authorization: HistoricalSourceAuthorization } | { ok: false; reason: string }
+> {
+  const authorization: HistoricalSourceAuthorization = {
+    id: newId("hauth"),
+    turnCommandId: input.commandId,
+    preparationId: input.preparationId,
+    pilotId: input.pilotId,
+    documentId: input.documentId,
+    sourceRevisionId: input.sourceRevisionId,
+    observedHeadRevisionId: input.observedHeadRevisionId,
+    choice: input.choice,
+    createdAt: new Date(turnClock.nowMs()).toISOString(),
+  };
+  const stashed = await mergeTurnResultJson({
+    commandId: input.commandId,
+    ownerToken: input.ownerToken,
+    patch: (prev) => {
+      const existing = Array.isArray(prev.historicalSourceAuthorizations)
+        ? (prev.historicalSourceAuthorizations as HistoricalSourceAuthorization[])
+        : [];
+      return {
+        ...prev,
+        historicalSourceAuthorizations: [...existing, authorization],
+      };
+    },
   });
+  if (!stashed.applied) {
+    return { ok: false, reason: "HISTORICAL_AUTH_STASH_FAILED" };
+  }
+  return { ok: true, authorization };
+}
+
+function parseCandidate(raw: unknown): PendingDocumentCandidate | null {
+  if (!raw || typeof raw !== "object") return null;
+  const o = raw as Record<string, unknown>;
+  if (
+    typeof o.id !== "string" ||
+    typeof o.turnCommandId !== "string" ||
+    typeof o.preparationId !== "string" ||
+    typeof o.pilotId !== "string" ||
+    typeof o.documentId !== "string" ||
+    typeof o.sourceRevisionId !== "string" ||
+    typeof o.observedHeadRevisionId !== "string" ||
+    typeof o.title !== "string" ||
+    typeof o.contentMarkdown !== "string" ||
+    typeof o.contentSha256 !== "string" ||
+    (o.status !== "PENDING" && o.status !== "CONSUMED" && o.status !== "SUPERSEDED")
+  ) {
+    return null;
+  }
+  return o as unknown as PendingDocumentCandidate;
+}
+
+function parseAuth(raw: unknown): HistoricalSourceAuthorization | null {
+  if (!raw || typeof raw !== "object") return null;
+  const o = raw as Record<string, unknown>;
+  if (
+    typeof o.id !== "string" ||
+    typeof o.turnCommandId !== "string" ||
+    typeof o.preparationId !== "string" ||
+    typeof o.pilotId !== "string" ||
+    typeof o.documentId !== "string" ||
+    typeof o.sourceRevisionId !== "string" ||
+    typeof o.observedHeadRevisionId !== "string" ||
+    (o.choice !== "USE_SOURCE" && o.choice !== "USE_HEAD")
+  ) {
+    return null;
+  }
+  return o as unknown as HistoricalSourceAuthorization;
+}
+
+/**
+ * Load a pending candidate by id — rights scoped to pilot + preparation.
+ * Searches recent turn commands for the preparation conversation.
+ */
+export async function loadPendingDocumentCandidate(input: {
+  pilotId: string;
+  preparationId: string;
+  candidateId: string;
+  expectedContentSha256?: string;
+}): Promise<
+  | { ok: true; candidate: PendingDocumentCandidate }
+  | { ok: false; reason: string }
+> {
+  const rows = await db
+    .select({
+      id: conversationTurnCommands.id,
+      resultJson: conversationTurnCommands.resultJson,
+      ownerPilotId: conversations.ownerPilotId,
+      preparationId: conversations.preparationId,
+    })
+    .from(conversationTurnCommands)
+    .innerJoin(conversations, eq(conversations.id, conversationTurnCommands.conversationId))
+    .where(
+      and(
+        eq(conversations.preparationId, input.preparationId),
+        eq(conversations.ownerPilotId, input.pilotId),
+      ),
+    )
+    .orderBy(sql`${conversationTurnCommands.createdAt} desc`)
+    .limit(40);
+
+  for (const row of rows) {
+    if (!row.resultJson) continue;
+    let parsed: Record<string, unknown>;
+    try {
+      parsed = JSON.parse(row.resultJson) as Record<string, unknown>;
+    } catch {
+      continue;
+    }
+    const list = Array.isArray(parsed.pendingDocumentCandidates)
+      ? parsed.pendingDocumentCandidates
+      : [];
+    for (const raw of list) {
+      const c = parseCandidate(raw);
+      if (!c || c.id !== input.candidateId) continue;
+      if (c.pilotId !== input.pilotId || c.preparationId !== input.preparationId) {
+        return { ok: false, reason: "CANDIDATE_DENIED" };
+      }
+      if (c.status !== "PENDING") {
+        return { ok: false, reason: `CANDIDATE_${c.status}` };
+      }
+      const digest = contentSha256(c.title, c.contentMarkdown);
+      if (digest !== c.contentSha256) {
+        return { ok: false, reason: "CANDIDATE_HASH_MISMATCH" };
+      }
+      if (
+        input.expectedContentSha256 &&
+        input.expectedContentSha256 !== c.contentSha256
+      ) {
+        return { ok: false, reason: "CANDIDATE_CLIENT_HASH_MISMATCH" };
+      }
+      return { ok: true, candidate: c };
+    }
+  }
+  return { ok: false, reason: "CANDIDATE_NOT_FOUND" };
+}
+
+export async function loadHistoricalSourceAuthorization(input: {
+  pilotId: string;
+  preparationId: string;
+  authorizationId: string;
+}): Promise<
+  | { ok: true; authorization: HistoricalSourceAuthorization }
+  | { ok: false; reason: string }
+> {
+  const rows = await db
+    .select({
+      resultJson: conversationTurnCommands.resultJson,
+      ownerPilotId: conversations.ownerPilotId,
+      preparationId: conversations.preparationId,
+    })
+    .from(conversationTurnCommands)
+    .innerJoin(conversations, eq(conversations.id, conversationTurnCommands.conversationId))
+    .where(
+      and(
+        eq(conversations.preparationId, input.preparationId),
+        eq(conversations.ownerPilotId, input.pilotId),
+      ),
+    )
+    .orderBy(sql`${conversationTurnCommands.createdAt} desc`)
+    .limit(40);
+
+  for (const row of rows) {
+    if (!row.resultJson) continue;
+    let parsed: Record<string, unknown>;
+    try {
+      parsed = JSON.parse(row.resultJson) as Record<string, unknown>;
+    } catch {
+      continue;
+    }
+    const list = Array.isArray(parsed.historicalSourceAuthorizations)
+      ? parsed.historicalSourceAuthorizations
+      : [];
+    for (const raw of list) {
+      const a = parseAuth(raw);
+      if (!a || a.id !== input.authorizationId) continue;
+      if (a.pilotId !== input.pilotId || a.preparationId !== input.preparationId) {
+        return { ok: false, reason: "HISTORICAL_AUTH_DENIED" };
+      }
+      return { ok: true, authorization: a };
+    }
+  }
+  return { ok: false, reason: "HISTORICAL_AUTH_NOT_FOUND" };
+}
+
+/** Mark candidate CONSUMED on the turn that owns it (cross-turn, post-AVAILABLE). */
+export async function markPendingCandidateConsumed(input: {
+  pilotId: string;
+  preparationId: string;
+  candidateId: string;
+}): Promise<{ applied: boolean }> {
+  return patchCandidateStatusOnOwningTurn({
+    pilotId: input.pilotId,
+    preparationId: input.preparationId,
+    candidateId: input.candidateId,
+    nextStatus: "CONSUMED",
+    onlyIfPending: true,
+  });
+}
+
+/** Pilot-facing summary — never exposes raw markdown in status strings. */
+export function pendingCandidateSummary(c: PendingDocumentCandidate): {
+  candidateId: string;
+  contentSha256: string;
+  documentId: string;
+  sourceRevisionId: string;
+  observedHeadRevisionId: string;
+  title: string;
+} {
+  return {
+    candidateId: c.id,
+    contentSha256: c.contentSha256,
+    documentId: c.documentId,
+    sourceRevisionId: c.sourceRevisionId,
+    observedHeadRevisionId: c.observedHeadRevisionId,
+    title: c.title,
+  };
+}
+
+===== END FILE: projects/sfia-studio-next/web/src/domains/conversation/document-candidate.ts =====
+
+===== BEGIN FILE: projects/sfia-studio-next/web/tests/e2e/documents-bibliotheque-08.spec.ts =====
+import { test, expect } from "@playwright/test";
+import {
+  constituteAndCreateProject,
+  openNewPreparation,
+  openSasSecondaryTool,
+  backToSasConversation,
+  sendPrepMessage,
+} from "./helpers/g4-chat-first";
+
+/**
+ * Ensemble 06 — Documents Bibliothèque (page 08) browser smoke on E2E lane.
+ * Covers DOC-UAT-01/02/04/05/07 selection, read-only, history, compare shell.
+ */
+test("Documents 08: select≠open, read-only, history, compare", async ({ page }) => {
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+
+  await openNewPreparation(page);
+  await sendPrepMessage(page, "Bonjour Nora documents bibliotheque");
+  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
+
+  await openSasSecondaryTool(page, "Documents");
+  await page.getByTestId("doc-start-create").click();
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit initial.\n\n## Responsabilites\nCentres.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 10000 });
+  await backToSasConversation(page);
+
+  await constituteAndCreateProject(page, {
+    name: `Docs08 ${Date.now()}`,
+    summary: "bibliotheque",
+  });
+  await page.waitForURL("**/projects/**");
+  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
+  expect(projectId).toBeTruthy();
+
+  await page.getByTestId("nav-documents").click();
+  await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 15000 });
+
+  const firstDoc = page.locator('[data-testid^="doc-open-"]').first();
+  await expect(firstDoc).toBeVisible({ timeout: 15000 });
+  const documentId = (await firstDoc.getAttribute("data-testid"))?.replace("doc-open-", "");
+  expect(documentId).toBeTruthy();
+
+  // DOC-UAT-01 — select without opening
+  await firstDoc.click();
+  await expect(page.getByTestId("document-selection-aside")).toBeVisible();
+  await expect(page).not.toHaveURL(/documentId=/);
+  await expect(page.getByTestId("doc-action-open")).toBeVisible();
+
+  // DOC-UAT-02/04 — open read-only, no textarea (Figma 08.02: no alert banner in body)
+  await page.getByTestId("doc-action-open").click();
+  await expect(page).toHaveURL(new RegExp(`documentId=${documentId}`));
+  await expect(page.getByTestId("document-read")).toBeVisible();
+  await expect(page.getByTestId("document-read-aside")).toContainText("DOCUMENT / ACTIONS");
+  await expect(page.getByTestId("doc-action-request-revision")).toContainText(
+    "Demander une révision à Nora",
+  );
+  await expect(page.getByTestId("document-revise-draft")).toHaveCount(0);
+
+  // DOC-UAT-05/07 — history + comparator collapsed then expand
+  await page.getByTestId("doc-action-history").click();
+  await expect(page.getByTestId("document-history-surface")).toBeVisible();
+  await expect(page.getByTestId("document-compare-controls")).toHaveCount(0);
+  await page.getByTestId("doc-action-compare-toggle").click();
+  await expect(page.getByTestId("document-compare-controls")).toBeVisible();
 });
 
-describe("R4 formatPilotFacingProvenance", () => {
-  it("sealed Nora binding → Production Nora (+ project)", () => {
-    expect(
-      formatPilotFacingProvenance(
-        JSON.stringify({
-          documentCommandBinding: true,
-          action: "REVISE",
-          correlationKey: "secret-key",
-          commandId: "cmd_x",
-        }),
-        { projectName: "CampusNova" },
-      ),
-    ).toBe("Production Nora  ·  CampusNova");
+===== END FILE: projects/sfia-studio-next/web/tests/e2e/documents-bibliotheque-08.spec.ts =====
+
+===== BEGIN FILE: projects/sfia-studio-next/web/tests/e2e/documents-nora-v2-v4.spec.ts =====
+import { test, expect } from "@playwright/test";
+import {
+  constituteAndCreateProject,
+  openNewPreparation,
+  openSasSecondaryTool,
+  backToSasConversation,
+  sendPrepMessage,
+} from "./helpers/g4-chat-first";
+
+/**
+ * F1/F4/F5 — V2 historical → confirm → proposal candidate → conserve V4.
+ * Fixture lane (FAKE Nora). Playwright isolated :3101.
+ *
+ * Sas manual editor used only to seed V1–V3 (KNOWN GAP — out of GO scope).
+ */
+test("Documents Nora: V2 historique → proposition exacte → V4", async ({ page }) => {
+  test.setTimeout(180_000);
+
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+
+  await openNewPreparation(page);
+  await sendPrepMessage(page, "Bonjour Nora — reprise documentaire V2 V4.");
+  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
+
+  await openSasSecondaryTool(page, "Documents");
+  await page.getByTestId("doc-start-create").click();
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit V1.\n\n## Responsabilités\nCentres.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 15000 });
+
+  // Stay in Sas editor to seed V2 then V3 (KNOWN GAP seed path).
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit V2.\n\n## Responsabilités\nVérification V2.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE.*rev 2|rev 2/i, {
+    timeout: 15000,
   });
 
-  it("empty / absent → Provenance non renseignée (no invention from title)", () => {
-    expect(formatPilotFacingProvenance(null)).toBe("Provenance non renseignée");
-    expect(formatPilotFacingProvenance("{}")).toBe("Provenance non renseignée");
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit V3.\n\n## Responsabilités\nCourante V3.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE.*rev 3|rev 3/i, {
+    timeout: 15000,
   });
+  await backToSasConversation(page);
 
-  it("pilot api-revise → Révision Pilote", () => {
-    expect(
-      formatPilotFacingProvenance(
-        JSON.stringify({ sourceKind: "pilot", via: "api-revise" }),
-      ),
-    ).toBe("Révision Pilote");
+  await constituteAndCreateProject(page, {
+    name: `DocsV2V4 ${Date.now()}`,
+    summary: "v2-v4",
   });
+  await page.waitForURL("**/projects/**");
+
+  await page.getByTestId("nav-documents").click();
+  await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 15000 });
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-versions").click();
+  await expect(page.getByTestId("document-history-surface")).toBeVisible();
+
+  await page.getByTestId("doc-rev-2").click();
+  await page.getByTestId("doc-action-rework-nora").click();
+  await expect(page).toHaveURL(/surface=travail/);
+
+  // F4 — historical choices in conversation thread (not under-composer panel).
+  await expect(page.getByTestId("document-historical-confirm")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /Repartir de la v2/i })).toBeVisible({
+    timeout: 45000,
+  });
+  await page.getByRole("button", { name: /Repartir de la v2/i }).click();
+  await expect(
+    page.getByText(/nous repartons de la version historique/i),
+  ).toBeVisible({ timeout: 45000 });
+
+  const composer = page.getByLabel("Message à Nora");
+  await expect(composer).toBeEnabled({ timeout: 15000 });
+  await composer.fill(
+    "Je souhaite clarifier les responsabilités entre les trois centres.",
+  );
+  await page.getByRole("button", { name: "Envoyer" }).click();
+
+  await expect(
+    page.getByRole("button", { name: /Conserver comme nouvelle version/i }),
+  ).toBeVisible({ timeout: 45000 });
+  // F5 — no duplicate conserve panel under composer.
+  await expect(page.getByTestId("document-proposal-conserve")).toHaveCount(0);
+
+  const viewer = page.getByTestId("travail-viewer");
+  await expect(viewer).toBeVisible();
+  await expect(viewer).toContainText(/coordinateur consolide|confirmation tracée/i, {
+    timeout: 10000,
+  });
+  await expect(page.getByTestId("document-focus-banner")).toContainText(
+    /PROPOSITION NON ENREGISTRÉE/i,
+  );
+
+  await page.getByRole("button", { name: /Conserver comme nouvelle version/i }).click();
+
+  await expect(
+    page.getByText(/Nouvelle version disponible\s*:\s*v4|Version v4 conservée/i).first(),
+  ).toBeVisible({ timeout: 45000 });
+  // No technical pending/internal codes in product surface after conserve.
+  await expect(page.getByText("PROPOSAL_PENDING_CONSERVATION")).toHaveCount(0);
+  await expect(page.getByText("NOT_EXECUTED")).toHaveCount(0);
+
+  await page.getByTestId("nav-documents").click();
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-versions").click();
+  await expect(page.getByTestId("doc-rev-4")).toBeVisible({ timeout: 15000 });
+  await expect(page.getByTestId("doc-rev-1")).toBeVisible();
+  await expect(page.getByTestId("doc-rev-2")).toBeVisible();
+  await expect(page.getByTestId("doc-rev-3")).toBeVisible();
+
+  // Reload — no auto-save; V4 still present.
+  await page.reload();
+  await page.getByTestId("nav-documents").click();
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-versions").click();
+  await expect(page.getByTestId("doc-rev-4")).toBeVisible({ timeout: 15000 });
 });
 
-```
+===== END FILE: projects/sfia-studio-next/web/tests/e2e/documents-nora-v2-v4.spec.ts =====
 
-## 16.2 tests/integration/documents-historical-revise.pg.test.ts
+===== BEGIN FILE: projects/sfia-studio-next/web/tests/e2e/documents-f1f5-runtime-captures.spec.ts =====
+import { test, expect } from "@playwright/test";
+import * as fs from "node:fs";
+import * as path from "node:path";
+import {
+  constituteAndCreateProject,
+  openNewPreparation,
+  openSasSecondaryTool,
+  backToSasConversation,
+  sendPrepMessage,
+} from "./helpers/g4-chat-first";
 
-```typescript
+/**
+ * Runtime captures for Figma 930:9 / 930:10 comparison (local evidence only).
+ */
+test("Documents F4/F5 runtime captures 930:9 and 930:10", async ({ page }) => {
+  test.setTimeout(180_000);
+  const outDir = path.resolve(
+    __dirname,
+    "../../../.tmp-sfia-review/documents-runtime/cycle08-f1f5",
+  );
+  fs.mkdirSync(outDir, { recursive: true });
+
+  await page.setViewportSize({ width: 1680, height: 970 });
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+
+  await openNewPreparation(page);
+  await sendPrepMessage(page, "Bonjour Nora — captures 930.");
+  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
+
+  await openSasSecondaryTool(page, "Documents");
+  await page.getByTestId("doc-start-create").click();
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit V1.\n\n## Responsabilités\nCentres.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 15000 });
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit V2.\n\n## Responsabilités\nVérification V2.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/rev 2/i, { timeout: 15000 });
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit V3.\n\n## Responsabilités\nCourante V3.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/rev 3/i, { timeout: 15000 });
+  await backToSasConversation(page);
+
+  await constituteAndCreateProject(page, {
+    name: `DocsCap ${Date.now()}`,
+    summary: "captures",
+  });
+  await page.waitForURL("**/projects/**");
+
+  await page.getByTestId("nav-documents").click();
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-versions").click();
+  await page.getByTestId("doc-rev-2").click();
+  await page.getByTestId("doc-action-rework-nora").click();
+  await expect(page.getByRole("button", { name: /Repartir de la v2/i })).toBeVisible({
+    timeout: 45000,
+  });
+  await page.screenshot({
+    path: path.join(outDir, "runtime-930-9-historical.png"),
+    fullPage: false,
+  });
+
+  await page.getByRole("button", { name: /Repartir de la v2/i }).click();
+  await expect(page.getByText(/nous repartons de la version historique/i)).toBeVisible({
+    timeout: 45000,
+  });
+  await page.getByLabel("Message à Nora").fill(
+    "Je souhaite clarifier les responsabilités entre les trois centres.",
+  );
+  await page.getByRole("button", { name: "Envoyer" }).click();
+  await expect(
+    page.getByRole("button", { name: /Conserver comme nouvelle version/i }),
+  ).toBeVisible({ timeout: 45000 });
+  await expect(page.getByTestId("document-focus-banner")).toContainText(
+    /PROPOSITION NON ENREGISTRÉE/i,
+  );
+  await page.screenshot({
+    path: path.join(outDir, "runtime-930-10-proposal.png"),
+    fullPage: false,
+  });
+
+  const nine = fs.readFileSync(path.join(outDir, "runtime-930-9-historical.png"));
+  const ten = fs.readFileSync(path.join(outDir, "runtime-930-10-proposal.png"));
+  expect(nine.equals(ten)).toBe(false);
+  fs.writeFileSync(
+    path.join(outDir, "capture-summary.json"),
+    JSON.stringify(
+      {
+        nineBytes: nine.length,
+        tenBytes: ten.length,
+        distinct: true,
+        viewport: "1680x970",
+        frames: ["930:9", "930:10"],
+        note: "Local runtime evidence — not embedded in Git handoff text.",
+      },
+      null,
+      2,
+    ),
+  );
+});
+
+===== END FILE: projects/sfia-studio-next/web/tests/e2e/documents-f1f5-runtime-captures.spec.ts =====
+
+===== BEGIN FILE: projects/sfia-studio-next/web/tests/integration/documents-historical-revise.pg.test.ts =====
 /**
  * DOC-TECH / DOC-UAT-09–10 — historical source revise (V2→V4) with observed head concurrency.
  */
@@ -668,91 +1227,602 @@ describe("documents historical revise (V2→V4)", () => {
   });
 });
 
-```
+===== END FILE: projects/sfia-studio-next/web/tests/integration/documents-historical-revise.pg.test.ts =====
 
-## 16.3 tests/e2e/documents-bibliotheque-08.spec.ts
-
-```typescript
-import { test, expect } from "@playwright/test";
-import {
-  constituteAndCreateProject,
-  openNewPreparation,
-  openSasSecondaryTool,
-  backToSasConversation,
-  sendPrepMessage,
-} from "./helpers/g4-chat-first";
-
+===== BEGIN FILE: projects/sfia-studio-next/web/tests/integration/documents-proposal-candidate.pg.test.ts =====
 /**
- * Ensemble 06 — Documents Bibliothèque (page 08) browser smoke on E2E lane.
- * Covers DOC-UAT-01/02/04/05/07 selection, read-only, history, compare shell.
+ * F1 — pending candidate exact content is what D4 persists on conserve.
  */
-test("Documents 08: select≠open, read-only, history, compare", async ({ page }) => {
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-  await page.waitForURL("**/portfolio");
+import { describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
 
-  await openNewPreparation(page);
-  await sendPrepMessage(page, "Bonjour Nora documents bibliotheque");
-  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
+import { db } from "@/db/client";
+import { pilots } from "@/db/schema";
+import { newId } from "@/lib/ids";
+import { contentSha256 } from "@/domains/conversation/document-command";
+import {
+  loadPendingDocumentCandidate,
+  stashPendingDocumentCandidate,
+} from "@/domains/conversation/document-candidate";
+import {
+  getDocumentRevision,
+  listDocumentRevisions,
+  reviseDocument,
+  savePreparationDocument,
+} from "@/domains/document/service";
+import { getPreparationContext, openOrCreatePreparation } from "@/domains/preparation/service";
+import { commitTurnTerminal, reserveTurnCommand } from "@/domains/conversation/turn-command";
 
-  await openSasSecondaryTool(page, "Documents");
-  await page.getByTestId("doc-start-create").click();
-  await page.getByTestId("document-revise-draft").fill(
-    "# Parcours\n\n## Objet\nCircuit initial.\n\n## Responsabilites\nCentres.\n",
-  );
-  await page.getByTestId("doc-save").click();
-  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 10000 });
-  await backToSasConversation(page);
+async function seedPilot(label: string) {
+  const id = newId("pilot");
+  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
+  return id;
+}
 
-  await constituteAndCreateProject(page, {
-    name: `Docs08 ${Date.now()}`,
-    summary: "bibliotheque",
+describe("documents proposal candidate exact conserve (F1)", () => {
+  it("candidate hash identity; D4 V4 body equals sealed candidate; V1–V3 intact", async () => {
+    const pilotId = await seedPilot("DOC-cand");
+    const prep = await openOrCreatePreparation(pilotId);
+    const ctx = await getPreparationContext(pilotId, prep.id);
+    expect(ctx.conversation?.id).toBeTruthy();
+
+    const v1 = await savePreparationDocument(pilotId, prep.id, "Parcours", "# V1\n\nobjet\n");
+    expect(v1.status).toBe("AVAILABLE");
+    if (v1.status !== "AVAILABLE") throw new Error("v1");
+    const v2 = await reviseDocument(pilotId, prep.id, {
+      documentId: v1.documentId,
+      baseRevisionId: v1.revisionId,
+      contentMarkdown: "# V2\n\nhistorique\n",
+      correlationKey: "cand-v2",
+    });
+    expect(v2.status).toBe("AVAILABLE");
+    if (v2.status !== "AVAILABLE") throw new Error("v2");
+    const v3 = await reviseDocument(pilotId, prep.id, {
+      documentId: v1.documentId,
+      baseRevisionId: v2.revisionId,
+      contentMarkdown: "# V3\n\ncourante\n",
+      correlationKey: "cand-v3",
+    });
+    expect(v3.status).toBe("AVAILABLE");
+    if (v3.status !== "AVAILABLE") throw new Error("v3");
+
+    const reserved = await reserveTurnCommand({
+      conversationId: ctx.conversation!.id,
+      ownerPilotId: pilotId,
+      clientTurnKey: `cand-${newId("ck")}`,
+      content: "propose",
+    });
+    if (reserved.kind !== "fresh") throw new Error("expected fresh turn");
+
+    const candidateBody =
+      "# Parcours\n\n## Responsabilités\n\nChaque centre valide — candidat exact P.\n";
+    const title = "Parcours";
+    const stashed = await stashPendingDocumentCandidate({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      preparationId: prep.id,
+      pilotId,
+      documentId: v1.documentId,
+      sourceRevisionId: v2.revisionId,
+      observedHeadRevisionId: v3.revisionId,
+      title,
+      contentMarkdown: candidateBody,
+    });
+    expect(stashed.ok).toBe(true);
+    if (!stashed.ok) throw new Error(stashed.reason);
+
+    const loaded = await loadPendingDocumentCandidate({
+      pilotId,
+      preparationId: prep.id,
+      candidateId: stashed.candidate.id,
+      expectedContentSha256: stashed.candidate.contentSha256,
+    });
+    expect(loaded.ok).toBe(true);
+    if (!loaded.ok) throw new Error(loaded.reason);
+    expect(loaded.candidate.contentMarkdown).toBe(candidateBody);
+    expect(loaded.candidate.contentSha256).toBe(contentSha256(title, candidateBody));
+
+    const mismatch = await loadPendingDocumentCandidate({
+      pilotId,
+      preparationId: prep.id,
+      candidateId: stashed.candidate.id,
+      expectedContentSha256: contentSha256(title, "# forged\n"),
+    });
+    expect(mismatch.ok).toBe(false);
+
+    await commitTurnTerminal({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      status: "COMPLETE",
+      conversationId: ctx.conversation!.id,
+      assistant: {
+        id: newId("msg"),
+        content: "proposition",
+        messageStatus: "COMPLETE",
+        generationId: newId("gen"),
+        ordinal: reserved.ordinalAssistant,
+      },
+      generationId: newId("gen"),
+      resultJson: JSON.stringify({ status: "COMPLETE" }),
+    });
+
+    // New proposal supersedes prior candidate — old authorization must refuse.
+    const reserved2 = await reserveTurnCommand({
+      conversationId: ctx.conversation!.id,
+      ownerPilotId: pilotId,
+      clientTurnKey: `cand2-${newId("ck")}`,
+      content: "propose2",
+    });
+    if (reserved2.kind !== "fresh") throw new Error("expected fresh turn 2");
+    const p2Body = "# Parcours\n\n## Responsabilités\n\nP2 — candidat suivant.\n";
+    const stashed2 = await stashPendingDocumentCandidate({
+      commandId: reserved2.commandId,
+      ownerToken: reserved2.ownerToken,
+      preparationId: prep.id,
+      pilotId,
+      documentId: v1.documentId,
+      sourceRevisionId: v2.revisionId,
+      observedHeadRevisionId: v3.revisionId,
+      title,
+      contentMarkdown: p2Body,
+    });
+    expect(stashed2.ok).toBe(true);
+    if (!stashed2.ok) throw new Error(stashed2.reason);
+    const oldAfterSupersede = await loadPendingDocumentCandidate({
+      pilotId,
+      preparationId: prep.id,
+      candidateId: stashed.candidate.id,
+    });
+    expect(oldAfterSupersede.ok).toBe(false);
+    if (!oldAfterSupersede.ok) {
+      expect(oldAfterSupersede.reason).toBe("CANDIDATE_SUPERSEDED");
+    }
+    const loadedP2 = await loadPendingDocumentCandidate({
+      pilotId,
+      preparationId: prep.id,
+      candidateId: stashed2.candidate.id,
+      expectedContentSha256: stashed2.candidate.contentSha256,
+    });
+    expect(loadedP2.ok).toBe(true);
+    if (!loadedP2.ok) throw new Error(loadedP2.reason);
+
+    await commitTurnTerminal({
+      commandId: reserved2.commandId,
+      ownerToken: reserved2.ownerToken,
+      status: "COMPLETE",
+      conversationId: ctx.conversation!.id,
+      assistant: {
+        id: newId("msg"),
+        content: "proposition2",
+        messageStatus: "COMPLETE",
+        generationId: newId("gen"),
+        ordinal: reserved2.ordinalAssistant,
+      },
+      generationId: newId("gen"),
+      resultJson: JSON.stringify({ status: "COMPLETE" }),
+    });
+
+    const v4 = await reviseDocument(pilotId, prep.id, {
+      documentId: v1.documentId,
+      sourceRevisionId: v2.revisionId,
+      observedHeadRevisionId: v3.revisionId,
+      confirmedHistoricalSource: true,
+      contentMarkdown: loadedP2.candidate.contentMarkdown,
+      correlationKey: `cand-v4-${stashed2.candidate.contentSha256.slice(0, 16)}`,
+    });
+    expect(v4.status).toBe("AVAILABLE");
+    if (v4.status !== "AVAILABLE") throw new Error("v4");
+    expect(v4.revisionNumber).toBe(4);
+
+    const got = await getDocumentRevision(pilotId, prep.id, v1.documentId, v4.revisionId);
+    expect(got.status).toBe("AVAILABLE");
+    if (got.status !== "AVAILABLE") throw new Error("got");
+    expect(got.revision?.contentMarkdown).toBe(p2Body);
+
+    const list = await listDocumentRevisions(pilotId, prep.id, v1.documentId);
+    expect(list.status).toBe("AVAILABLE");
+    if (list.status !== "AVAILABLE") throw new Error("list");
+    const byNum = Object.fromEntries(list.revisions.map((r) => [r.revisionNumber, r]));
+    expect(byNum[1]?.contentMarkdown).toContain("objet");
+    expect(byNum[2]?.contentMarkdown).toContain("historique");
+    expect(byNum[3]?.contentMarkdown).toContain("courante");
+    expect(byNum[4]?.contentMarkdown).toContain("P2 — candidat suivant");
   });
-  await page.waitForURL("**/projects/**");
-  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-  expect(projectId).toBeTruthy();
-
-  await page.getByTestId("nav-documents").click();
-  await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 15000 });
-
-  const firstDoc = page.locator('[data-testid^="doc-open-"]').first();
-  await expect(firstDoc).toBeVisible({ timeout: 15000 });
-  const documentId = (await firstDoc.getAttribute("data-testid"))?.replace("doc-open-", "");
-  expect(documentId).toBeTruthy();
-
-  // DOC-UAT-01 — select without opening
-  await firstDoc.click();
-  await expect(page.getByTestId("document-selection-aside")).toBeVisible();
-  await expect(page).not.toHaveURL(/documentId=/);
-  await expect(page.getByTestId("doc-action-open")).toBeVisible();
-
-  // DOC-UAT-02/04 — open read-only, no textarea (Figma 08.02: no alert banner in body)
-  await page.getByTestId("doc-action-open").click();
-  await expect(page).toHaveURL(new RegExp(`documentId=${documentId}`));
-  await expect(page.getByTestId("document-read")).toBeVisible();
-  await expect(page.getByTestId("document-read-aside")).toContainText("DOCUMENT / ACTIONS");
-  await expect(page.getByTestId("doc-action-request-revision")).toContainText(
-    "Demander une révision à Nora",
-  );
-  await expect(page.getByTestId("document-revise-draft")).toHaveCount(0);
-
-  // DOC-UAT-05/07 — history + comparator collapsed then expand
-  await page.getByTestId("doc-action-history").click();
-  await expect(page.getByTestId("document-history-surface")).toBeVisible();
-  await expect(page.getByTestId("document-compare-controls")).toHaveCount(0);
-  await page.getByTestId("doc-action-compare-toggle").click();
-  await expect(page.getByTestId("document-compare-controls")).toBeVisible();
 });
+
+===== END FILE: projects/sfia-studio-next/web/tests/integration/documents-proposal-candidate.pg.test.ts =====
+
+===== BEGIN FILE: projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts =====
+import { describe, expect, it } from "vitest";
+import {
+  formatPilotFacingProvenance,
+  revisionCurrencyLabel,
+} from "@/components/figma/DocumentSurfaces";
+import {
+  resolveHistoricalConfirmation,
+  resolveReviseTarget,
+  type DocumentListItem,
+  type DocumentReviseFocus,
+} from "@/domains/conversation/document-act";
+import {
+  DOC_CONFIRM_HISTORICAL_SOURCE,
+  DOC_CONSERVE_PROPOSAL,
+  DOC_USE_CURRENT_HEAD,
+  isConserveProposalTransmit,
+  isHistoricalSourceChoiceTransmit,
+} from "@/domains/conversation/document-candidate";
+import { contentSha256 } from "@/domains/conversation/document-command";
+
+describe("revisionCurrencyLabel", () => {
+  it("marks head as Courante and others Historique", () => {
+    expect(revisionCurrencyLabel(3, 3)).toBe("Courante");
+    expect(revisionCurrencyLabel(2, 3)).toBe("Historique");
+    expect(revisionCurrencyLabel(1, null)).toBe("Historique");
+  });
+});
+
+describe("R1/F1 resolveReviseTarget — client markdown never authoritative", () => {
+  const docs: DocumentListItem[] = [
+    {
+      document: { id: "doc-1", title: "Parcours" },
+      latestRevision: {
+        id: "rev-3",
+        revisionNumber: 3,
+        status: "AVAILABLE",
+        contentMarkdown: "# V3 canonical from list\n",
+      },
+    },
+  ];
+
+  it("ignores forged sourceContentMarkdown for historical focus", () => {
+    const focus: DocumentReviseFocus = {
+      documentId: "doc-1",
+      sourceRevisionId: "rev-2",
+      sourceRevisionNumber: 2,
+      sourceContentMarkdown: "# FORGED CLIENT MARKDOWN — must not be used\n",
+      observedHeadRevisionId: "rev-3",
+      observedHeadRevisionNumber: 3,
+      confirmedHistoricalSource: false,
+    };
+    const target = resolveReviseTarget(docs, null, focus);
+    expect(target.ok).toBe(true);
+    if (!target.ok) throw new Error("expected ok");
+    expect(target.baseRevisionId).toBe("rev-2");
+    expect(target.baseContent).toBe("");
+    expect(target.baseContent).not.toContain("FORGED");
+  });
+
+  it("falls back to hint/latest when no focus", () => {
+    const target = resolveReviseTarget(docs, "doc-1");
+    expect(target.ok).toBe(true);
+    if (!target.ok) throw new Error("expected ok");
+    expect(target.baseRevisionId).toBe("rev-3");
+  });
+});
+
+describe("F2 resolveHistoricalConfirmation — server authorization required", () => {
+  const baseFocus: DocumentReviseFocus = {
+    documentId: "doc-A",
+    sourceRevisionId: "rev-2",
+    observedHeadRevisionId: "rev-3",
+    confirmedHistoricalSource: false,
+  };
+
+  it("client structured claim alone is insufficient", () => {
+    const r = resolveHistoricalConfirmation({
+      focus: {
+        ...baseFocus,
+        historicalConfirmation: {
+          documentId: "doc-A",
+          sourceRevisionId: "rev-2",
+          observedHeadRevisionId: "rev-3",
+          choice: "USE_SOURCE",
+        },
+      },
+      documentId: "doc-A",
+      sourceRevisionId: "rev-2",
+      claimedObservedHeadRevisionId: "rev-3",
+      actualHeadRevisionId: "rev-3",
+    });
+    expect(r.confirmed).toBe(false);
+    expect(r.reason).toBe("CLIENT_CLAIM_INSUFFICIENT");
+  });
+
+  it("client confirmedHistoricalSource bool alone is insufficient", () => {
+    const r = resolveHistoricalConfirmation({
+      focus: { ...baseFocus, confirmedHistoricalSource: true },
+      documentId: "doc-A",
+      sourceRevisionId: "rev-2",
+      claimedObservedHeadRevisionId: "rev-3",
+      actualHeadRevisionId: "rev-3",
+    });
+    expect(r.confirmed).toBe(false);
+    expect(r.reason).toBe("CLIENT_CLAIM_INSUFFICIENT");
+  });
+
+  it("server authorization USE_SOURCE with matching identities → confirmed", () => {
+    const r = resolveHistoricalConfirmation({
+      focus: { ...baseFocus, historicalAuthorizationId: "hauth_1" },
+      documentId: "doc-A",
+      sourceRevisionId: "rev-2",
+      claimedObservedHeadRevisionId: "rev-3",
+      actualHeadRevisionId: "rev-3",
+      serverAuthorization: {
+        id: "hauth_1",
+        documentId: "doc-A",
+        sourceRevisionId: "rev-2",
+        observedHeadRevisionId: "rev-3",
+        choice: "USE_SOURCE",
+      },
+    });
+    expect(r.confirmed).toBe(true);
+    expect(r.reason).toBe("CONFIRMED_SERVER");
+  });
+
+  it("server authorization for document A unusable for document B", () => {
+    const r = resolveHistoricalConfirmation({
+      focus: baseFocus,
+      documentId: "doc-B",
+      sourceRevisionId: "rev-2",
+      claimedObservedHeadRevisionId: "rev-3",
+      actualHeadRevisionId: "rev-3",
+      serverAuthorization: {
+        id: "hauth_1",
+        documentId: "doc-A",
+        sourceRevisionId: "rev-2",
+        observedHeadRevisionId: "rev-3",
+        choice: "USE_SOURCE",
+      },
+    });
+    expect(r.confirmed).toBe(false);
+    expect(r.reason).toBe("IDENTITY_MISMATCH");
+  });
+
+  it("head moved V3→V4 → HEAD_MOVED", () => {
+    const r = resolveHistoricalConfirmation({
+      focus: baseFocus,
+      documentId: "doc-A",
+      sourceRevisionId: "rev-2",
+      claimedObservedHeadRevisionId: "rev-3",
+      actualHeadRevisionId: "rev-4",
+      serverAuthorization: {
+        id: "hauth_1",
+        documentId: "doc-A",
+        sourceRevisionId: "rev-2",
+        observedHeadRevisionId: "rev-3",
+        choice: "USE_SOURCE",
+      },
+    });
+    expect(r.confirmed).toBe(false);
+    expect(r.reason).toBe("HEAD_MOVED");
+  });
+
+  it("exact transmit texts are not freeform lexical", () => {
+    expect(isHistoricalSourceChoiceTransmit(DOC_CONFIRM_HISTORICAL_SOURCE)).toBe("USE_SOURCE");
+    expect(isHistoricalSourceChoiceTransmit(DOC_USE_CURRENT_HEAD)).toBe("USE_HEAD");
+    expect(isHistoricalSourceChoiceTransmit("Oui, je confirme la version historique")).toBeNull();
+    expect(isConserveProposalTransmit(DOC_CONSERVE_PROPOSAL)).toBe(true);
+  });
+});
+
+describe("F1 candidate content hash identity", () => {
+  it("same title+body → stable sha; mutation changes sha", () => {
+    const a = contentSha256("Titre", "# P\n\ncorps\n");
+    const b = contentSha256("Titre", "# P\n\ncorps\n");
+    const c = contentSha256("Titre", "# P\n\ncorps modifié\n");
+    expect(a).toBe(b);
+    expect(a).not.toBe(c);
+  });
+});
+
+describe("R4/F3 formatPilotFacingProvenance", () => {
+  it("sealed Nora binding → Production Nora (+ project)", () => {
+    expect(
+      formatPilotFacingProvenance(
+        JSON.stringify({
+          documentCommandBinding: true,
+          action: "REVISE",
+          correlationKey: "secret-key",
+          commandId: "cmd_x",
+        }),
+        { projectName: "CampusNova" },
+      ),
+    ).toBe("Production Nora  ·  CampusNova");
+  });
+
+  it("empty / absent → Provenance non renseignée", () => {
+    expect(formatPilotFacingProvenance(null)).toBe("Provenance non renseignée");
+    expect(formatPilotFacingProvenance("{}")).toBe("Provenance non renseignée");
+  });
+});
+
+===== END FILE: projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts =====
 
 ```
 
 ---
 
-# §17 — Diffs complets (vs HEAD 6516c7b5)
-
-## 17.A P0 serveur + fixtures
+## 10. Diffs exploitables (cumulés — fichiers modifiés)
 
 ```diff
+diff --git a/.tmp-sfia-review/chatgpt-review.md b/.tmp-sfia-review/chatgpt-review.md
+index 92f0f7d9..002a8b45 100644
+--- a/.tmp-sfia-review/chatgpt-review.md
++++ b/.tmp-sfia-review/chatgpt-review.md
+@@ -1,166 +1,9 @@
+-# STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1 — FINAL GIT INTEGRATION REVIEW PACK
++# SFIA Studio Next — Ensemble 06 Documents — CORRECTIVE CIBLÉ F1–F5 Review Pack FULL
+
+-```text
+-TIMESTAMP: 2026-10-03 19:33:13 +0200
+-MACRO: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
+-CYCLE: Cycle 1 — Cadrage
+-PASS: FINAL GIT INTEGRATION
+-TYPOLOGY: EVOL / DOC / INTEGRATION
+-PROFILE: CRITICAL
+-AUTHORITY: D-SIMP-05 CONSUMED + Morris GO « intégration git complète directe »
+-```
++STATUS: IN_PROGRESS
++CYCLE: Documents Bibliothèque — F1–F5 (2026-11-20)
++PROFILE: Standard + P0 renforcés
++ENV: DEV
+
+-## 1. Local Git Truth (pre-commit)
++Ce fichier sera réécrit intégralement en fin de cycle.
+
+-```text
+-pwd: /Users/morris/Projects/sfia-studio-chat-first-product-simplification-c1
+-toplevel: /Users/morris/Projects/sfia-studio-chat-first-product-simplification-c1
+-branch: docs/sfia-studio-chat-first-product-simplification-c1
+-HEAD: ac272df5270faae1d1bea6a78cd0cc11886e97f4
+-origin/main: ac272df5270faae1d1bea6a78cd0cc11886e97f4
+-left-right origin/main...HEAD: 0 0
+-```
+-
+-MATCHES REMOTE TRUTH EXPECTED. Candidate was LOCAL / DIRTY / NON COMMITTÉ before this integration pass.
+-
+-## 2. Entry handoff / Closure Review
+-
+-```text
+-entry review handoff SHA: efaaf11ae3d5e0e48006f03d9155b062430a04db
+-entry handoff blob: 7a43e92864690ec404213ceb2b59b424f944e677
+-Final ChatGPT Closure Review: PASS — C1 CONTENT READY FOR MORRIS VALIDATION
+-Morris: "ok c'est validé" → D-SIMP-05 CONSUMED
+-Morris GO: "intégration git complète directe" → Git integration AUTHORIZED
+-```
+-
+-## 3. D-SIMP-05 — STATUS SYNC
+-
+-```text
+-D-SIMP-05 — VALIDATE STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1
+-Authority: Morris
+-Status: CONSUMED
+-
+-Meaning:
+-- C1 content = VALIDATED BY MORRIS
+-- Guided Review §§1–22 = COMPLETE
+-- Final Documentary Consolidation = COMPLETE
+-- Final Critical Review #1 historical NOT READY = PRESERVED
+-- Correction Pass 01 = COMPLETE
+-- Final Closure Review = PASS
+-- C1 = VALIDATED
+-- C1 NOT YET INTEGRATED ON MAIN until merge completes
+-
+-Does NOT authorize:
+-- P2 / P3→P8
+-- REAL
+-- production routing
+-- architecture adoption
+-- runtime v3 adoption
+-```
+-
+-## 4. Exact status-sync (authorized files)
+-
+-### 4.1 `projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md`
+-
+-Current live status statements updated to:
+-
+-- Pass = Final Git Integration (D-SIMP-05 CONSUMED)
+-- Document status = C1 VALIDATED BY MORRIS · NOT YET INTEGRATED ON MAIN
+-- Intégration Git = AUTHORIZED / IN PROGRESS
+-- C1-01…C1-27 = PASS — C1 VALIDATED BY MORRIS
+-- §22 = VALIDATED BY MORRIS → GIT INTEGRATION IN PROGRESS → P2 NOT AUTHORIZED
+-- G-SIMP-03 = CONSUMED — C1 VALIDATED BY MORRIS
+-- G-SIMP-04 = AUTHORIZED / IN PROGRESS
+-
+-Historical records preserved (Final Critical Review #1 NOT READY / Correction Pass 01).
+-
+-### 4.2 `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+-
+-Living tip updated minimally:
+-
+-- D-SIMP-05 CONSUMED
+-- C1 = VALIDATED BY MORRIS
+-- Git integration = AUTHORIZED / IN PROGRESS
+-- P2 = NOT AUTHORIZED
+-- P3→P8 = NOT AUTHORIZED
+-- ZERO REAL
+-- production routing = NOT SELECTED
+-- Cognitive Completion = NOT PROVEN
+-- runtime v3 = NON ADOPTED
+-
+-Historical tip rows preserved.
+-
+-### 4.3 Scope
+-
+-```text
+-AUTHORIZED ONLY:
+-- projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md
+-- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+-- .tmp-sfia-review/chatgpt-review.md
+-
+-NO product code.
+-NO REAL.
+-NO RETIRE.
+-NO branch deletion.
+-```
+-
+-## 5. Pre-commit validations
+-
+-```text
+-1. D-SIMP-05 present — PASS
+-2. C1 VALIDATED BY MORRIS — PASS
+-3. C1 NOT YET INTEGRATED before merge — PASS
+-4. P2 NOT AUTHORIZED — PASS
+-5. P3→P8 NOT AUTHORIZED — PASS
+-6. production routing NOT SELECTED — PASS
+-7. Cognitive Completion NOT PROVEN — PASS
+-8. runtime v3 NON ADOPTED — PASS
+-9. no READY FOR REAL — PASS
+-10. no architecture adopted accidentally — PASS
+-11. no SharedKnowledgeStore selected — PASS
+-12. no Canonical Orchestration Spine adopted — PASS
+-13. historical review failure/correction preserved — PASS
+-14. git diff --check — PASS
+-15. authorized scope only — PASS
+-```
+-
+-## 6. Git diff evidence (pre-commit)
+-
+-```text
+-name-status (authorized project + pack):
+-A  projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md
+-M  projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+-M  .tmp-sfia-review/chatgpt-review.md
+-
+-git diff --check: PASS (exit 0)
+-```
+-
+-## 7. Integration lifecycle (filled as executed)
+-
+-```text
+-project commit SHA: PENDING
+-pushed branch SHA: PENDING
+-PR number/url: PENDING
+-CI / Required Gate: PENDING
+-merge method: PENDING
+-merge SHA: PENDING
+-merged_at: PENDING
+-post-merge main SHA: PENDING
+-post-merge Actions / checks: PENDING
+-project Git effects: PENDING
+-branch retained: YES (deletion unauthorized)
+-P2 NOT AUTHORIZED: CONFIRMED
+-```
+-
+-## 8. Unique verdict (pre-merge placeholder)
+-
+-```text
+-PRE-MERGE: D-SIMP-05 status sync COMPLETE · READY FOR COMMIT/PUSH/PR/CI/MERGE
+-POST-MERGE TARGET VERDICT:
+-STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1
+-— VALIDATED BY MORRIS
+-— INTEGRATED ON MAIN
+-— POST-MERGE VERIFIED
+-— CYCLE 1 CADRAGE CLOSED
+-— P2 NOT YET AUTHORIZED
+-```
 diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts
 index 3658f0ca..00399b42 100644
 --- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts
@@ -806,10 +1876,10 @@ index 3658f0ca..00399b42 100644
      const status =
        result.status === "CONFLICT" ? 409 : result.status === "FAILED" ? 400 : 200;
 diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
-index f7e845ec..5be4ff8f 100644
+index f7e845ec..14939eae 100644
 --- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
 +++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
-@@ -34,6 +34,23 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
+@@ -34,6 +34,26 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
        correlationKey?: string;
        clientTurnKey?: string;
        unresolvedPendingClientTurnKey?: string;
@@ -828,12 +1898,15 @@ index f7e845ec..5be4ff8f 100644
 +          observedHeadRevisionId: string;
 +          choice: "USE_SOURCE" | "USE_HEAD" | "REFUSED";
 +        };
++        historicalAuthorizationId?: string;
 +        conserveProposal?: boolean;
++        pendingCandidateId?: string;
++        pendingCandidateContentSha256?: string;
 +      } | null;
      };
      if (!body.content?.trim()) {
        return NextResponse.json(
-@@ -49,6 +66,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
+@@ -49,6 +69,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
          correlationKey: body.correlationKey,
          clientTurnKey: body.clientTurnKey ?? body.correlationKey,
          unresolvedPendingClientTurnKey: body.unresolvedPendingClientTurnKey,
@@ -841,852 +1914,8 @@ index f7e845ec..5be4ff8f 100644
          requestId,
        },
      );
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-index 3ca58197..0a1eb864 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-@@ -314,15 +314,154 @@ export type ResolvedReviseTarget =
-     }
-   | { ok: false; reason: "NOT_FOUND" | "AMBIGUOUS" | "NO_AVAILABLE_REVISION"; candidates?: string[] };
-
-+/**
-+ * Explicit historical-base confirmation bound to concrete identities.
-+ * Lexical regex alone must never authorize a historical revise (R2).
-+ */
-+export type HistoricalSourceConfirmation = {
-+  documentId: string;
-+  sourceRevisionId: string;
-+  observedHeadRevisionId: string;
-+  choice: "USE_SOURCE" | "USE_HEAD" | "REFUSED";
-+};
-+
-+/** Optional Documents→Travail focus: exact drafting source may be historical. */
-+export type DocumentReviseFocus = {
-+  documentId: string;
-+  sourceRevisionId: string;
-+  sourceRevisionNumber?: number;
-+  /**
-+   * Client-supplied body is NEVER authoritative (R1). Kept optional for transport
-+   * compatibility only — resolveReviseTarget and the conversation owner path ignore it.
-+   */
-+  sourceContentMarkdown?: string;
-+  observedHeadRevisionId: string;
-+  observedHeadRevisionNumber?: number;
-+  /** Legacy UX bool — accepted only when identities still match (see resolveHistoricalConfirmation). */
-+  confirmedHistoricalSource?: boolean;
-+  /** Preferred R2 confirmation: explicit choice bound to document/source/head IDs. */
-+  historicalConfirmation?: HistoricalSourceConfirmation;
-+  /**
-+   * R3 — when Documents focus is active, D4 REVISE mutate requires explicit conserve.
-+   * Proposal turns leave this false/undefined; conservation sets true (or uses PRIOR_ASSISTANT).
-+   */
-+  conserveProposal?: boolean;
-+};
-+
-+/**
-+ * R2 — resolve whether a historical source is explicitly confirmed.
-+ * Never uses free-text lexical matching. Negation / REFUSED / identity mismatch → not confirmed.
-+ */
-+export function resolveHistoricalConfirmation(input: {
-+  focus: DocumentReviseFocus | null | undefined;
-+  documentId: string;
-+  sourceRevisionId: string;
-+  /** Head claimed at confirmation / focus time. */
-+  claimedObservedHeadRevisionId: string;
-+  /** Actual AVAILABLE head from D4 at evaluation time. */
-+  actualHeadRevisionId: string;
-+}): {
-+  confirmed: boolean;
-+  reason:
-+    | "NOT_HISTORICAL"
-+    | "CONFIRMED_UX"
-+    | "CONFIRMED_STRUCTURED"
-+    | "REFUSED"
-+    | "USE_HEAD"
-+    | "MISSING_CONFIRMATION"
-+    | "IDENTITY_MISMATCH"
-+    | "HEAD_MOVED";
-+} {
-+  const sourceIsHistorical = input.sourceRevisionId !== input.actualHeadRevisionId;
-+  if (!sourceIsHistorical) {
-+    return { confirmed: false, reason: "NOT_HISTORICAL" };
-+  }
-+
-+  const hc = input.focus?.historicalConfirmation;
-+  if (hc) {
-+    if (
-+      hc.documentId !== input.documentId ||
-+      hc.sourceRevisionId !== input.sourceRevisionId ||
-+      hc.observedHeadRevisionId !== input.claimedObservedHeadRevisionId
-+    ) {
-+      return { confirmed: false, reason: "IDENTITY_MISMATCH" };
-+    }
-+    if (hc.observedHeadRevisionId !== input.actualHeadRevisionId) {
-+      return { confirmed: false, reason: "HEAD_MOVED" };
-+    }
-+    if (hc.choice === "REFUSED") {
-+      return { confirmed: false, reason: "REFUSED" };
-+    }
-+    if (hc.choice === "USE_HEAD") {
-+      return { confirmed: false, reason: "USE_HEAD" };
-+    }
-+    if (hc.choice === "USE_SOURCE") {
-+      return { confirmed: true, reason: "CONFIRMED_STRUCTURED" };
-+    }
-+    return { confirmed: false, reason: "MISSING_CONFIRMATION" };
-+  }
-+
-+  // UX bool path: only when focus identities still match claimed + actual head.
-+  if (input.focus?.confirmedHistoricalSource === true) {
-+    if (
-+      !input.focus.documentId ||
-+      input.focus.documentId !== input.documentId ||
-+      input.focus.sourceRevisionId !== input.sourceRevisionId ||
-+      input.focus.observedHeadRevisionId !== input.claimedObservedHeadRevisionId
-+    ) {
-+      return { confirmed: false, reason: "IDENTITY_MISMATCH" };
-+    }
-+    if (input.focus.observedHeadRevisionId !== input.actualHeadRevisionId) {
-+      return { confirmed: false, reason: "HEAD_MOVED" };
-+    }
-+    return { confirmed: true, reason: "CONFIRMED_UX" };
-+  }
-+
-+  return { confirmed: false, reason: "MISSING_CONFIRMATION" };
-+}
-+
- export function resolveReviseTarget(
-   docs: DocumentListItem[],
-   hint: string | null,
-+  focus?: DocumentReviseFocus | null,
- ): ResolvedReviseTarget {
-   const available = docs.filter((d) => d.latestRevision?.status === "AVAILABLE");
-   if (available.length === 0) {
-     return { ok: false, reason: "NO_AVAILABLE_REVISION" };
-   }
-
-+  if (focus?.documentId && focus.sourceRevisionId && focus.observedHeadRevisionId) {
-+    const d = available.find((x) => x.document.id === focus.documentId);
-+    if (!d?.latestRevision) {
-+      return { ok: false, reason: "NOT_FOUND" };
-+    }
-+    if (d.latestRevision.id !== focus.observedHeadRevisionId) {
-+      // Head moved since focus was taken — caller must requalify; still resolve
-+      // to current head as observed for CONFLICT at D4 commit.
-+    }
-+    // R1: never use client sourceContentMarkdown. Head body may come from the
-+    // authorized list payload (D4-backed); any non-head source forces empty
-+    // baseContent so the owner path reloads the exact revision via getDocumentRevision.
-+    if (focus.sourceRevisionId === d.latestRevision.id) {
-+      return {
-+        ok: true,
-+        documentId: d.document.id,
-+        title: d.document.title,
-+        baseRevisionId: focus.sourceRevisionId,
-+        baseRevisionNumber: focus.sourceRevisionNumber ?? d.latestRevision.revisionNumber,
-+        baseContent: d.latestRevision.contentMarkdown,
-+      };
-+    }
-+    return {
-+      ok: true,
-+      documentId: d.document.id,
-+      title: d.document.title,
-+      baseRevisionId: focus.sourceRevisionId,
-+      baseRevisionNumber: focus.sourceRevisionNumber ?? d.latestRevision.revisionNumber,
-+      baseContent: "",
-+    };
-+  }
-+
-   if (hint) {
-     const byId = available.filter((d) => d.document.id === hint);
-     if (byId.length === 1) {
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
-index ae7a5842..30d8aa10 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
-@@ -44,7 +44,11 @@ export type DocumentCommandBinding = {
-   source: DocumentCommandSource;
-   preparationId: string;
-   documentId: string | null;
-+  /** Drafting source (legacy field; equals sourceRevisionId when historical protocol used). */
-   baseRevisionId: string | null;
-+  sourceRevisionId?: string | null;
-+  observedHeadRevisionId?: string | null;
-+  confirmedHistoricalSource?: boolean;
-   title: string;
-   contentMarkdown: string;
-   contentSha256: string;
-@@ -71,10 +75,17 @@ export function payloadSha256(parts: {
-   preparationId: string;
-   documentId: string | null;
-   baseRevisionId: string | null;
-+  sourceRevisionId?: string | null;
-+  observedHeadRevisionId?: string | null;
-+  confirmedHistoricalSource?: boolean;
-   sectionHint?: string | null;
-   title: string;
-   contentSha256: string;
- }): string {
-+  const historical =
-+    parts.sourceRevisionId != null ||
-+    parts.observedHeadRevisionId != null ||
-+    parts.confirmedHistoricalSource === true;
-   const canonical = JSON.stringify({
-     schemaVersion: DOCUMENT_COMMAND_BINDING_SCHEMA_VERSION,
-     action: parts.action,
-@@ -82,6 +93,13 @@ export function payloadSha256(parts: {
-     preparationId: parts.preparationId,
-     documentId: parts.documentId,
-     baseRevisionId: parts.baseRevisionId,
-+    ...(historical
-+      ? {
-+          sourceRevisionId: parts.sourceRevisionId ?? parts.baseRevisionId,
-+          observedHeadRevisionId: parts.observedHeadRevisionId ?? null,
-+          confirmedHistoricalSource: parts.confirmedHistoricalSource === true,
-+        }
-+      : {}),
-     sectionHint: parts.sectionHint ?? null,
-     title: parts.title,
-     contentSha256: parts.contentSha256,
-@@ -503,6 +521,9 @@ export function admitDocumentCommand(input: {
-   preparationId: string;
-   documentId?: string | null;
-   baseRevisionId?: string | null;
-+  sourceRevisionId?: string | null;
-+  observedHeadRevisionId?: string | null;
-+  confirmedHistoricalSource?: boolean;
-   sectionHint?: string | null;
-   source: DocumentCommandSource;
-   title: string;
-@@ -520,16 +541,28 @@ export function admitDocumentCommand(input: {
-   if (!input.userMessageId || !input.qualifiedIntentId) {
-     return { ok: false, verdict: "NOT_EXECUTED", reason: "MISSING_IDENTITIES" };
-   }
--  if (input.action === "REVISE" && (!input.documentId || !input.baseRevisionId)) {
-+  const sourceRevisionId = input.sourceRevisionId ?? input.baseRevisionId ?? null;
-+  if (input.action === "REVISE" && (!input.documentId || !sourceRevisionId)) {
-     return { ok: false, verdict: "NOT_EXECUTED", reason: "REVISE_TARGET_INCOMPLETE" };
-   }
-   const { title, contentMarkdown, contentSha256: cSha } = canonical.proposal;
-+  const useHistorical =
-+    input.sourceRevisionId != null ||
-+    input.observedHeadRevisionId != null ||
-+    input.confirmedHistoricalSource === true;
-   const pSha = payloadSha256({
-     action: input.action,
-     source: input.source,
-     preparationId: input.preparationId,
-     documentId: input.documentId ?? null,
--    baseRevisionId: input.baseRevisionId ?? null,
-+    baseRevisionId: sourceRevisionId,
-+    ...(useHistorical
-+      ? {
-+          sourceRevisionId,
-+          observedHeadRevisionId: input.observedHeadRevisionId ?? null,
-+          confirmedHistoricalSource: input.confirmedHistoricalSource === true,
-+        }
-+      : {}),
-     sectionHint: input.sectionHint,
-     title,
-     contentSha256: cSha,
-@@ -557,7 +590,14 @@ export function admitDocumentCommand(input: {
-       source: input.source,
-       preparationId: input.preparationId,
-       documentId: input.documentId ?? null,
--      baseRevisionId: input.baseRevisionId ?? null,
-+      baseRevisionId: sourceRevisionId,
-+      ...(useHistorical
-+        ? {
-+            sourceRevisionId,
-+            observedHeadRevisionId: input.observedHeadRevisionId ?? null,
-+            confirmedHistoricalSource: input.confirmedHistoricalSource === true,
-+          }
-+        : {}),
-       title,
-       contentMarkdown,
-       contentSha256: cSha,
-@@ -607,9 +647,19 @@ export async function sealAndApplyDocumentCommand(input: {
-     return { sealApplied: true, effect };
-   }
-
-+  const sourceRevisionId =
-+    input.binding.sourceRevisionId ?? input.binding.baseRevisionId!;
-+  const observedHeadRevisionId = input.binding.observedHeadRevisionId ?? undefined;
-+  const historical =
-+    Boolean(observedHeadRevisionId) &&
-+    observedHeadRevisionId !== sourceRevisionId;
-   const effect = await reviseDocument(input.pilotId, input.binding.preparationId, {
-     documentId: input.binding.documentId!,
--    baseRevisionId: input.binding.baseRevisionId!,
-+    baseRevisionId: sourceRevisionId,
-+    sourceRevisionId,
-+    observedHeadRevisionId,
-+    confirmedHistoricalSource:
-+      input.binding.confirmedHistoricalSource === true || undefined,
-     contentMarkdown: input.binding.contentMarkdown,
-     correlationKey: input.binding.correlationKey,
-     scope: input.binding.sectionHint ? "section" : "document",
-@@ -617,7 +667,16 @@ export async function sealAndApplyDocumentCommand(input: {
-     turnFence: input.fence,
-     expectedTitle: input.binding.title,
-     expectedContentSha256: input.binding.contentSha256,
--    provenance: buildSealedProvenance(sealedIdentityFromBinding(input.binding)),
-+    provenance: {
-+      ...buildSealedProvenance(sealedIdentityFromBinding(input.binding)),
-+      ...(historical
-+        ? {
-+            sourceRevisionId,
-+            observedHeadRevisionId,
-+            confirmedHistoricalSource: input.binding.confirmedHistoricalSource === true,
-+          }
-+        : {}),
-+    },
-   });
-   return { sealApplied: true, effect };
- }
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
-index 68cf1f5a..ef2e39aa 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
-@@ -120,6 +120,9 @@ function effect(
-     replyDraft: reply,
-     preparationAssessment: extras?.preparationAssessment,
-     preparationAssessmentExplanation: extras?.preparationAssessmentExplanation,
-+    continueChoices: extras?.continueChoices,
-+    resourceReferences: extras?.resourceReferences,
-+    visualComposition: extras?.visualComposition,
-   };
- }
-
-@@ -1862,6 +1865,69 @@ register(
- );
-
-
-+/** Ensemble 06 Documents — revise proposal then explicit conserve (FAKE fixture lane). */
-+register(
-+  "Je souhaite clarifier les responsabilités entre les trois centres.",
-+  {
-+    ...effect(
-+      "Réviser document — proposition",
-+      "Je peux proposer une nouvelle rédaction de la section « Responsabilités ». Le document actuel ne change pas tant que nous n’avons pas conservé la révision.\n\n```sfia-document\n# Parcours de réservation et responsabilités\n\n## Responsabilités\n\nChaque centre valide ses disponibilités ; le coordinateur consolide les ressources communes.\n```\n",
-+      [
-+        {
-+          capabilityId: "d4.revise_document",
-+          mode: "REQUEST_EFFECT",
-+          summary: "Réviser les responsabilités",
-+          parameters: { sectionHint: "Responsabilités" },
-+          constraints: [],
-+          dependsOn: [],
-+          sourceEvidence: [],
-+        },
-+      ],
-+      {
-+        continueChoices: [
-+          {
-+            id: "conserve",
-+            label: "Conserver comme nouvelle version",
-+            transmitText:
-+              "Conserver comme nouvelle version la proposition documentaire préparée.",
-+          },
-+        ],
-+      },
-+    ),
-+    documentProposal: {
-+      title: "Parcours de réservation et responsabilités",
-+      contentMarkdown:
-+        "# Parcours de réservation et responsabilités\n\n## Responsabilités\n\nChaque centre valide ses disponibilités ; le coordinateur consolide les ressources communes.\n",
-+    },
-+  },
-+);
-+
-+register(
-+  "Conserver comme nouvelle version la proposition documentaire préparée.",
-+  {
-+    ...effect(
-+      "Conserver proposition documentaire",
-+      "Proposition conservée comme nouvelle version documentaire — après contrôle D4 de la tête observée.",
-+      [
-+        {
-+          capabilityId: "d4.revise_document",
-+          mode: "REQUEST_EFFECT",
-+          summary: "Conserver la proposition comme nouvelle version",
-+          parameters: {},
-+          constraints: [],
-+          dependsOn: [],
-+          sourceEvidence: [],
-+        },
-+      ],
-+    ),
-+    documentProposal: {
-+      title: "Parcours de réservation et responsabilités",
-+      contentMarkdown:
-+        "# Parcours de réservation et responsabilités\n\n## Responsabilités\n\nChaque centre valide ses disponibilités ; le coordinateur consolide les ressources communes ; le demandeur reçoit une confirmation tracée.\n",
-+    },
-+  },
-+);
-+
- /** Short TEST_BOUNDARY keys for e2e (exact match, same envelopes as the natural utterances). */
- for (const [short, long] of [
-   ["E05_S2_DIAGNOSTIC", E05_S2_DIAGNOSTIC],
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index 4cfc23d6..f15be446 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -26,7 +26,7 @@ import {
-   reconstituteConfirmedD4Effects,
-   selectRelevantKnowledgeContext,
- } from "@/domains/knowledge/service";
--import { listDocuments } from "@/domains/document/service";
-+import { getDocumentRevision, listDocuments } from "@/domains/document/service";
- import {
-   admitDocumentCommand,
-   canonicalizeDocumentProposal,
-@@ -62,6 +62,7 @@ import {
-   applyTargetedSectionRevision,
-   assertSectionScope,
-   extractContractualDocumentProposal,
-+  resolveHistoricalConfirmation,
-   resolveReviseTarget,
-   stripContractualDocumentFences,
-   type DocumentEffectSummary,
-@@ -758,6 +759,25 @@ export async function postUserMessageAndNora(
-     requestId?: string;
-     /** Client UX hint only — server DB siblings are authoritative for S05. */
-     unresolvedPendingClientTurnKey?: string;
-+    /** Documents→Travail focus: exact source revision (may be historical). */
-+    documentFocus?: {
-+      documentId: string;
-+      sourceRevisionId: string;
-+      sourceRevisionNumber?: number;
-+      /** Ignored for drafting authority (R1) — D4 getDocumentRevision is sole source. */
-+      sourceContentMarkdown?: string;
-+      observedHeadRevisionId: string;
-+      observedHeadRevisionNumber?: number;
-+      confirmedHistoricalSource?: boolean;
-+      historicalConfirmation?: {
-+        documentId: string;
-+        sourceRevisionId: string;
-+        observedHeadRevisionId: string;
-+        choice: "USE_SOURCE" | "USE_HEAD" | "REFUSED";
-+      };
-+      /** R3 — explicit conservation of a prepared proposal under Documents focus. */
-+      conserveProposal?: boolean;
-+    } | null;
-   },
- ): Promise<TurnResult> {
-   const requestId = opts?.requestId ?? newRequestId();
-@@ -1717,7 +1737,36 @@ export async function postUserMessageAndNora(
-       } else if (documentAct.kind === "REVISE" && !ownershipLostBeforeD4) {
-         try {
-           const docs = await listDocuments(pilotId, preparationId);
--          const target = resolveReviseTarget(docs, documentAct.documentHint);
-+          const focus = opts?.documentFocus ?? null;
-+          let target = resolveReviseTarget(docs, documentAct.documentHint, focus);
-+          // R1: when Documents focus names a source revision, ALWAYS reload body from D4.
-+          // Client sourceContentMarkdown is never drafting authority — including when
-+          // resolveReviseTarget already filled head content from the list payload.
-+          if (target.ok && focus?.sourceRevisionId) {
-+            const loaded = await getDocumentRevision(
-+              pilotId,
-+              preparationId,
-+              target.documentId,
-+              focus.sourceRevisionId,
-+            );
-+            if (
-+              loaded.status === "AVAILABLE" &&
-+              loaded.revision &&
-+              loaded.revision.id === focus.sourceRevisionId &&
-+              typeof loaded.revision.contentMarkdown === "string" &&
-+              loaded.revision.contentMarkdown.length > 0
-+            ) {
-+              target = {
-+                ...target,
-+                baseRevisionId: loaded.revision.id,
-+                baseRevisionNumber: loaded.revision.revisionNumber,
-+                baseContent: loaded.revision.contentMarkdown,
-+              };
-+            } else {
-+              // No silent fallback to latest / client markdown when exact source is unavailable.
-+              target = { ok: false, reason: "NOT_FOUND" };
-+            }
-+          }
-           if (!target.ok) {
-             documentSave = {
-               status: "FAILED",
-@@ -1890,6 +1939,80 @@ export async function postUserMessageAndNora(
-                     const clientSalt =
-                       opts?.correlationKey?.trim() ||
-                       `${target.documentId}:${target.baseRevisionId}`;
-+                    const actualHeadId =
-+                      docs.find((d) => d.document.id === target.documentId)?.latestRevision
-+                        ?.id ?? target.baseRevisionId;
-+                    const claimedObservedHeadId =
-+                      focus?.observedHeadRevisionId ?? actualHeadId;
-+                    const observedHeadId = claimedObservedHeadId;
-+                    const sourceIsHistorical = target.baseRevisionId !== actualHeadId;
-+                    // R2: no lexical confirmation — structured UX / historicalConfirmation only.
-+                    const histConfirm = resolveHistoricalConfirmation({
-+                      focus,
-+                      documentId: target.documentId,
-+                      sourceRevisionId: target.baseRevisionId,
-+                      claimedObservedHeadRevisionId: claimedObservedHeadId,
-+                      actualHeadRevisionId: actualHeadId,
-+                    });
-+                    const confirmedHistoricalSource =
-+                      sourceIsHistorical && histConfirm.confirmed;
-+                    if (
-+                      sourceIsHistorical &&
-+                      !confirmedHistoricalSource &&
-+                      focus?.sourceRevisionId
-+                    ) {
-+                      documentSave = {
-+                        status: "NOT_EXECUTED",
-+                        reason:
-+                          histConfirm.reason === "HEAD_MOVED"
-+                            ? "HISTORICAL_HEAD_MOVED"
-+                            : histConfirm.reason === "IDENTITY_MISMATCH"
-+                              ? "HISTORICAL_CONFIRMATION_IDENTITY_MISMATCH"
-+                              : histConfirm.reason === "REFUSED"
-+                                ? "HISTORICAL_CONFIRMATION_REFUSED"
-+                                : "HISTORICAL_CONFIRMATION_REQUIRED",
-+                        documentId: target.documentId,
-+                        baseRevisionId: target.baseRevisionId,
-+                        act: "REVISE",
-+                      };
-+                      emitDocumentProposalObs({
-+                        requestId,
-+                        operationId: reserved.operationId,
-+                        generationId: reply.generationId,
-+                        act: "REVISE",
-+                        extracted,
-+                        refuseCode:
-+                          typeof documentSave.reason === "string"
-+                            ? documentSave.reason
-+                            : "HISTORICAL_CONFIRMATION_REQUIRED",
-+                        d4Attempted: false,
-+                        d4Effect: null,
-+                      });
-+                    } else {
-+                    // R3: under Documents focus, prepare proposal without D4 until explicit conserve.
-+                    const conserveAuthorized =
-+                      !focus ||
-+                      focus.conserveProposal === true ||
-+                      qualification.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE";
-+                    if (!conserveAuthorized) {
-+                      documentSave = {
-+                        status: "NOT_EXECUTED",
-+                        reason: "PROPOSAL_PENDING_CONSERVATION",
-+                        documentId: target.documentId,
-+                        baseRevisionId: target.baseRevisionId,
-+                        act: "REVISE",
-+                      };
-+                      emitDocumentProposalObs({
-+                        requestId,
-+                        operationId: reserved.operationId,
-+                        generationId: reply.generationId,
-+                        act: "REVISE",
-+                        extracted,
-+                        refuseCode: "PROPOSAL_PENDING_CONSERVATION",
-+                        d4Attempted: false,
-+                        d4Effect: null,
-+                      });
-+                    } else {
-                     const admitted = admitDocumentCommand({
-                       commandId: reserved.commandId,
-                       operationId: reserved.operationId,
-@@ -1899,6 +2022,19 @@ export async function postUserMessageAndNora(
-                       preparationId,
-                       documentId: target.documentId,
-                       baseRevisionId: target.baseRevisionId,
-+                      ...(sourceIsHistorical
-+                        ? {
-+                            sourceRevisionId: target.baseRevisionId,
-+                            observedHeadRevisionId: observedHeadId,
-+                            confirmedHistoricalSource,
-+                          }
-+                        : focus?.sourceRevisionId
-+                          ? {
-+                              sourceRevisionId: target.baseRevisionId,
-+                              observedHeadRevisionId: observedHeadId,
-+                              confirmedHistoricalSource: false,
-+                            }
-+                          : {}),
-                       sectionHint: documentAct.sectionHint,
-                       source: reviseSource,
-                       title: target.title,
-@@ -1945,29 +2081,31 @@ export async function postUserMessageAndNora(
-                         };
-                       }
-                     }
--                  }
--                  if (
--                    documentSave.status !== "AVAILABLE" &&
--                    documentSave.status !== "CONFLICT" &&
--                    !(documentSave.status === "FAILED" && documentSave.idempotentReplay)
--                  ) {
--                    documentSaveUnknown =
--                      documentSave.status === "UNKNOWN" || documentSave.status === "FAILED";
--                  }
--                  emitDocumentProposalObs({
--                    requestId,
--                    operationId: reserved.operationId,
--                    generationId: reply.generationId,
--                    act: "REVISE",
--                    extracted,
--                    scopeVerdict: "OK",
--                    refuseCode:
--                      documentSave.status === "AVAILABLE" || documentSave.status === "CONFLICT"
--                        ? null
--                        : (documentSave.reason ?? null),
--                    d4Attempted: true,
--                    d4Effect: documentSave.status ?? null,
--                  });
-+                    if (
-+                      documentSave.status !== "AVAILABLE" &&
-+                      documentSave.status !== "CONFLICT" &&
-+                      !(documentSave.status === "FAILED" && documentSave.idempotentReplay)
-+                    ) {
-+                      documentSaveUnknown =
-+                        documentSave.status === "UNKNOWN" || documentSave.status === "FAILED";
-+                    }
-+                    emitDocumentProposalObs({
-+                      requestId,
-+                      operationId: reserved.operationId,
-+                      generationId: reply.generationId,
-+                      act: "REVISE",
-+                      extracted,
-+                      scopeVerdict: "OK",
-+                      refuseCode:
-+                        documentSave.status === "AVAILABLE" || documentSave.status === "CONFLICT"
-+                          ? null
-+                          : (documentSave.reason ?? null),
-+                      d4Attempted: true,
-+                      d4Effect: documentSave.status ?? null,
-+                    });
-+                    } // conserveAuthorized
-+                    } // historical confirmation gate
-+                  } // reviseIntents cardinality else
-                 }
-               }
-             }
-diff --git a/projects/sfia-studio-next/web/src/domains/document/service.ts b/projects/sfia-studio-next/web/src/domains/document/service.ts
-index 296527ce..cd673449 100644
---- a/projects/sfia-studio-next/web/src/domains/document/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/document/service.ts
-@@ -1,4 +1,4 @@
--import { and, asc, desc, eq, sql } from "drizzle-orm";
-+import { and, asc, desc, eq, inArray, sql } from "drizzle-orm";
- import { db } from "@/db/client";
- import { documentRevisions, documents } from "@/db/schema";
- import { newId } from "@/lib/ids";
-@@ -822,15 +822,28 @@ export async function savePreparationDocument(
- }
-
- /**
-- * Targeted non-destructive revision with atomic base-revision control.
-- * Document row FOR UPDATE serializes concurrent successors of the same base.
-+ * Targeted non-destructive revision with atomic concurrency control.
-+ * Document row FOR UPDATE serializes successors.
-+ *
-+ * Protocol:
-+ * - Legacy (baseRevisionId only): source must equal current AVAILABLE head (BASE_STALE otherwise).
-+ * - Historical-capable: sourceRevisionId (content lineage) + observedHeadRevisionId (concurrency)
-+ *   + confirmedHistoricalSource when source ≠ head. New revision number is always monotone
-+ *   above the max assigned AVAILABLE head — never renumbered from the source.
-  */
- export async function reviseDocument(
-   pilotId: string,
-   preparationId: string,
-   input: {
-     documentId: string;
--    baseRevisionId: string;
-+    /** Legacy alias: when alone, means both source and observed head. */
-+    baseRevisionId?: string;
-+    /** Exact revision chosen as drafting source (may be historical). */
-+    sourceRevisionId?: string;
-+    /** Head AVAILABLE revision observed at confirmation time. */
-+    observedHeadRevisionId?: string;
-+    /** Required when sourceRevisionId ≠ actual head at commit. */
-+    confirmedHistoricalSource?: boolean;
-     contentMarkdown: string;
-     correlationKey: string;
-     scope?: string;
-@@ -848,6 +861,24 @@ export async function reviseDocument(
-     return { status: "FAILED" as const, reason: "content too large" };
-   }
-
-+  const sourceRevisionId = input.sourceRevisionId ?? input.baseRevisionId;
-+  if (!sourceRevisionId) {
-+    return { status: "FAILED" as const, reason: "SOURCE_REVISION_REQUIRED" };
-+  }
-+
-+  const historicalProtocol =
-+    Boolean(input.sourceRevisionId) ||
-+    Boolean(input.observedHeadRevisionId) ||
-+    input.confirmedHistoricalSource === true;
-+
-+  const observedHeadRevisionId = historicalProtocol
-+    ? input.observedHeadRevisionId ?? null
-+    : sourceRevisionId;
-+
-+  if (historicalProtocol && !observedHeadRevisionId) {
-+    return { status: "FAILED" as const, reason: "OBSERVED_HEAD_REQUIRED" };
-+  }
-+
-   // P0: sealed-invalid REVISE provenance refuses before mutation.
-   if (input.provenance) {
-     const early = resolveProvenanceIdentity(input.provenance);
-@@ -916,21 +947,49 @@ export async function reviseDocument(
-         });
-       }
-
--      const base = (
-+      const source = (
-+        await tx
-+          .select()
-+          .from(documentRevisions)
-+          .where(
-+            and(
-+              eq(documentRevisions.id, sourceRevisionId),
-+              eq(documentRevisions.documentId, input.documentId),
-+            ),
-+          )
-+          .limit(1)
-+      )[0];
-+      if (!source) return { status: "FAILED" as const, reason: "BASE_NOT_FOUND" };
-+      if (source.status !== "AVAILABLE") {
-+        return {
-+          status: "FAILED" as const,
-+          reason: "BASE_NOT_AVAILABLE",
-+          baseStatus: source.status,
-+        };
-+      }
-+
-+      // Refuse silent commit while a non-terminal revision exists.
-+      const nonTerminal = (
-         await tx
-           .select()
-           .from(documentRevisions)
-           .where(
-             and(
--              eq(documentRevisions.id, input.baseRevisionId),
-               eq(documentRevisions.documentId, input.documentId),
-+              inArray(documentRevisions.status, ["SAVING", "UNKNOWN"]),
-             ),
-           )
-           .limit(1)
-       )[0];
--      if (!base) return { status: "FAILED" as const, reason: "BASE_NOT_FOUND" };
--      if (base.status !== "AVAILABLE") {
--        return { status: "FAILED" as const, reason: "BASE_NOT_AVAILABLE", baseStatus: base.status };
-+      if (nonTerminal) {
-+        return {
-+          status: "FAILED" as const,
-+          reason: "HEAD_UNCERTAIN",
-+          documentId: input.documentId,
-+          actualLatestRevisionId: nonTerminal.id,
-+          actualLatestRevisionNumber: nonTerminal.revisionNumber,
-+          baseStatus: nonTerminal.status,
-+        };
-       }
-
-       const latest = (
-@@ -947,14 +1006,38 @@ export async function reviseDocument(
-           .limit(1)
-       )[0];
-
--      if (!latest || latest.id !== input.baseRevisionId) {
-+      if (!latest) {
-         return {
-           status: "CONFLICT" as const,
-           reason: "BASE_STALE",
-           documentId: input.documentId,
--          expectedBaseRevisionId: input.baseRevisionId,
--          actualLatestRevisionId: latest?.id ?? null,
--          actualLatestRevisionNumber: latest?.revisionNumber ?? null,
-+          expectedBaseRevisionId: observedHeadRevisionId ?? sourceRevisionId,
-+          actualLatestRevisionId: null,
-+          actualLatestRevisionNumber: null,
-+        };
-+      }
-+
-+      const expectedHeadId = observedHeadRevisionId ?? sourceRevisionId;
-+      if (latest.id !== expectedHeadId) {
-+        return {
-+          status: "CONFLICT" as const,
-+          reason: "BASE_STALE",
-+          documentId: input.documentId,
-+          expectedBaseRevisionId: expectedHeadId,
-+          actualLatestRevisionId: latest.id,
-+          actualLatestRevisionNumber: latest.revisionNumber,
-+        };
-+      }
-+
-+      const sourceIsHistorical = source.id !== latest.id;
-+      if (sourceIsHistorical && input.confirmedHistoricalSource !== true) {
-+        return {
-+          status: "FAILED" as const,
-+          reason: "HISTORICAL_CONFIRMATION_REQUIRED",
-+          documentId: input.documentId,
-+          expectedBaseRevisionId: source.id,
-+          actualLatestRevisionId: latest.id,
-+          actualLatestRevisionNumber: latest.revisionNumber,
-         };
-       }
-
-@@ -970,12 +1053,17 @@ export async function reviseDocument(
-         revisionNumber,
-         contentMarkdown: input.contentMarkdown,
-         status: "SAVING",
--        baseRevisionId: input.baseRevisionId,
-+        baseRevisionId: source.id,
-         correlationKey: input.correlationKey,
-         provenanceJson: JSON.stringify({
-           ...(input.provenance ?? {}),
-           sectionHint: input.sectionHint ?? null,
-           contentFingerprint: expectedFp,
-+          sourceRevisionId: source.id,
-+          observedHeadRevisionId: latest.id,
-+          confirmedHistoricalSource: sourceIsHistorical
-+            ? true
-+            : input.confirmedHistoricalSource === true,
-         }),
-         scope: input.scope ?? "section",
-       });
-@@ -989,11 +1077,14 @@ export async function reviseDocument(
-         documentId: input.documentId,
-         revisionId,
-         revisionNumber,
--        baseRevisionId: input.baseRevisionId,
-+        baseRevisionId: source.id,
-+        sourceRevisionId: source.id,
-+        observedHeadRevisionId: latest.id,
-+        confirmedHistoricalSource: sourceIsHistorical,
-       };
-     });
-   } catch (e) {
--    // Unique (documentId, revisionNumber) race → treat as conflict if base became stale
-+    // Unique (documentId, revisionNumber) race → treat as conflict if head moved
-     const msg = e instanceof Error ? e.message : "persist failed";
-     if (/unique|duplicate/i.test(msg)) {
-       const latest = await latestRevisionFor(input.documentId);
-@@ -1001,7 +1092,7 @@ export async function reviseDocument(
-         status: "CONFLICT" as const,
-         reason: "BASE_STALE",
-         documentId: input.documentId,
--        expectedBaseRevisionId: input.baseRevisionId,
-+        expectedBaseRevisionId: observedHeadRevisionId ?? sourceRevisionId,
-         actualLatestRevisionId: latest?.id ?? null,
-         actualLatestRevisionNumber: latest?.revisionNumber ?? null,
-       };
-
-```
-
-## 17.B UI + tokens + e2e g4
-
-```diff
 diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index db39d5a5..f3202f54 100644
+index db39d5a5..2477e32f 100644
 --- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 +++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 @@ -13,10 +13,14 @@ import {
@@ -1715,7 +1944,7 @@ index db39d5a5..f3202f54 100644
    } | null;
  };
  type Knowledge = {
-@@ -77,6 +82,93 @@ type Surface =
+@@ -77,6 +82,103 @@ type Surface =
    | "git"
    | "publication";
  type DocUiState = "READING" | "EDITING" | "SAVING" | "CONFLICT" | "FAILED" | "UNKNOWN";
@@ -1737,8 +1966,12 @@ index db39d5a5..f3202f54 100644
 +  observedHeadRevisionNumber?: number;
 +  confirmedHistoricalSource?: boolean;
 +  historicalConfirmation?: HistoricalSourceConfirmation;
-+  /** R3 — set only when Pilot explicitly asks to conserve a prepared proposal. */
++  /** F2 — server-issued authorization id (not a client-fabricated claim). */
++  historicalAuthorizationId?: string;
++  /** F1 — set only when Pilot explicitly asks to conserve a sealed candidate. */
 +  conserveProposal?: boolean;
++  pendingCandidateId?: string;
++  pendingCandidateContentSha256?: string;
 +};
 +
 +const DOCUMENT_FOCUS_STORAGE_PREFIX = "sfia.docFocus.v1:";
@@ -1768,7 +2001,10 @@ index db39d5a5..f3202f54 100644
 +      observedHeadRevisionNumber: focus.observedHeadRevisionNumber,
 +      confirmedHistoricalSource: focus.confirmedHistoricalSource === true,
 +      historicalConfirmation: focus.historicalConfirmation,
-+      conserveProposal: focus.conserveProposal === true,
++      historicalAuthorizationId: focus.historicalAuthorizationId,
++      pendingCandidateId: focus.pendingCandidateId,
++      pendingCandidateContentSha256: focus.pendingCandidateContentSha256,
++      conserveProposal: false,
 +    };
 +    sessionStorage.setItem(key, JSON.stringify(durable));
 +  } catch {
@@ -1800,6 +2036,9 @@ index db39d5a5..f3202f54 100644
 +      observedHeadRevisionNumber: parsed.observedHeadRevisionNumber,
 +      confirmedHistoricalSource: parsed.confirmedHistoricalSource === true,
 +      historicalConfirmation: parsed.historicalConfirmation,
++      historicalAuthorizationId: parsed.historicalAuthorizationId,
++      pendingCandidateId: parsed.pendingCandidateId,
++      pendingCandidateContentSha256: parsed.pendingCandidateContentSha256,
 +      conserveProposal: false, // never replay conserve across reload
 +    };
 +  } catch {
@@ -1809,7 +2048,7 @@ index db39d5a5..f3202f54 100644
 
  const SURFACES: Surface[] = [
    "travail",
-@@ -161,7 +253,25 @@ export default function ProjectPage() {
+@@ -161,7 +263,32 @@ export default function ProjectPage() {
    const [reviseMessage, setReviseMessage] = useState("");
    const [docMissing, setDocMissing] = useState("");
    const [docHistory, setDocHistory] = useState<RevisionRow[]>([]);
@@ -1833,10 +2072,17 @@ index db39d5a5..f3202f54 100644
 +  const [documentFocus, setDocumentFocus] = useState<DocumentFocus | null>(null);
 +  /** R3 — proposal prepared under Documents focus, awaiting explicit conserve. */
 +  const [pendingDocumentProposal, setPendingDocumentProposal] = useState(false);
++  const [readingProvenanceJson, setReadingProvenanceJson] = useState<string | null>(null);
++  const [proposalCandidateMarkdown, setProposalCandidateMarkdown] = useState<string | null>(
++    null,
++  );
++  const [proposalCandidateRevisionHint, setProposalCandidateRevisionHint] = useState<
++    number | null
++  >(null);
    const [unresolvedPending, setUnresolvedPending] = useState<ThreadPendingTurn | null>(null);
    const draftVersionRef = useRef(0);
    const pilotIdRef = useRef<string | null>(null);
-@@ -178,6 +288,9 @@ export default function ProjectPage() {
+@@ -178,6 +305,9 @@ export default function ProjectPage() {
    /** C1 — ignore stale async viewer responses after A→B / close / project change. */
    const viewerRequestSeqRef = useRef(0);
    const viewerOpenRef = useRef(false);
@@ -1846,7 +2092,7 @@ index db39d5a5..f3202f54 100644
 
    useEffect(() => {
      // Clear previous project identity immediately — no cross-project leak in the rail.
-@@ -199,6 +312,12 @@ export default function ProjectPage() {
+@@ -199,6 +329,12 @@ export default function ProjectPage() {
    useEffect(() => {
      reviseDraftRef.current = reviseDraft;
    }, [reviseDraft]);
@@ -1859,7 +2105,15 @@ index db39d5a5..f3202f54 100644
    useEffect(() => {
      documentsRef.current = documents;
    }, [documents]);
-@@ -640,6 +759,26 @@ export default function ProjectPage() {
+@@ -262,6 +398,7 @@ export default function ProjectPage() {
+       revisionNumber?: number;
+       status?: string;
+       contentMarkdown?: string;
++      provenanceJson?: string;
+     };
+     revisions?: Array<{
+       id?: string;
+@@ -640,6 +777,26 @@ export default function ProjectPage() {
      else router.push(href, { scroll: false });
    }
 
@@ -1886,7 +2140,7 @@ index db39d5a5..f3202f54 100644
    function selectSurface(next: Surface) {
      pendingSurfaceRef.current = next;
      noteProjectSurfaceNavIntent(params.projectId, next as StudioSurface);
-@@ -652,20 +791,36 @@ export default function ProjectPage() {
+@@ -652,20 +809,36 @@ export default function ProjectPage() {
        setReviseMessage("");
        reviseCorrelationRef.current = null;
        reviseBaseIdRef.current = null;
@@ -1925,7 +2179,7 @@ index db39d5a5..f3202f54 100644
        }
        const j = await res.json();
        const rows = (j.revisions ?? []) as Array<{
-@@ -673,34 +828,231 @@ export default function ProjectPage() {
+@@ -673,34 +846,237 @@ export default function ProjectPage() {
          revisionNumber: number;
          status: string;
          createdAt?: string;
@@ -1969,6 +2223,7 @@ index db39d5a5..f3202f54 100644
 +    revisionNumber: number;
 +    contentMarkdown: string | null;
 +    status: string;
++    provenanceJson: string | null;
 +  } | null> {
 +    try {
 +      const res = await fetch(
@@ -1982,11 +2237,14 @@ index db39d5a5..f3202f54 100644
 +        j.status === "AVAILABLE" && typeof rev.contentMarkdown === "string"
 +          ? rev.contentMarkdown
 +          : null;
++      const provenanceJson =
++        typeof rev.provenanceJson === "string" ? rev.provenanceJson : null;
 +      return {
 +        id: rev.id,
 +        revisionNumber: rev.revisionNumber ?? 0,
 +        contentMarkdown: markdown,
 +        status: String(rev.status ?? j.status ?? ""),
++        provenanceJson,
 +      };
 +    } catch {
 +      return null;
@@ -2001,6 +2259,7 @@ index db39d5a5..f3202f54 100644
 +    const targetId = revisionId?.trim() || doc.latestRevision?.id || null;
 +    if (!prepId || !targetId) {
 +      setReadingMarkdown(null);
++      setReadingProvenanceJson(null);
 +      setReadingRevisionId(targetId);
 +      setReadingRevisionNumber(doc.latestRevision?.revisionNumber ?? null);
 +      setReadLoading(false);
@@ -2015,8 +2274,10 @@ index db39d5a5..f3202f54 100644
 +      setReadingRevisionId(fetched.id);
 +      setReadingRevisionNumber(fetched.revisionNumber);
 +      setReadingMarkdown(fetched.contentMarkdown);
++      setReadingProvenanceJson(fetched.provenanceJson);
 +    } else {
 +      setReadingMarkdown(null);
++      setReadingProvenanceJson(null);
 +      setReadingRevisionNumber(doc.latestRevision?.revisionNumber ?? null);
 +    }
 +    setReadLoading(false);
@@ -2080,30 +2341,23 @@ index db39d5a5..f3202f54 100644
 +      return;
 +    }
 +    const historical = input.sourceRevisionId !== head.id;
-+    const confirmed =
-+      historical && input.confirmedHistoricalSource === true
-+        ? true
-+        : false;
++    setPendingDocumentProposal(false);
++    setProposalCandidateMarkdown(null);
++    setProposalCandidateRevisionHint(null);
 +    applyDocumentFocus({
 +      documentId: input.doc.document.id,
 +      sourceRevisionId: input.sourceRevisionId,
 +      sourceRevisionNumber: input.sourceRevisionNumber ?? undefined,
-+      // R1: optional local cache only — server reloads from D4.
 +      sourceContentMarkdown: undefined,
 +      observedHeadRevisionId: head.id,
 +      observedHeadRevisionNumber: head.revisionNumber,
-+      confirmedHistoricalSource: confirmed,
-+      historicalConfirmation: confirmed
-+        ? {
-+            documentId: input.doc.document.id,
-+            sourceRevisionId: input.sourceRevisionId,
-+            observedHeadRevisionId: head.id,
-+            choice: "USE_SOURCE",
-+          }
-+        : historical
-+          ? undefined
-+          : undefined,
++      // F2 — never treat client bool as server authorization.
++      confirmedHistoricalSource: false,
++      historicalConfirmation: undefined,
++      historicalAuthorizationId: undefined,
 +      conserveProposal: false,
++      pendingCandidateId: undefined,
++      pendingCandidateContentSha256: undefined,
 +    });
 +    const projectIdAtStart = params.projectId;
 +    const seq = ++viewerRequestSeqRef.current;
@@ -2123,8 +2377,8 @@ index db39d5a5..f3202f54 100644
 +    setViewerEnlarged(false);
 +    setStatusHint(
 +      historical
-+        ? "Reprise Nora depuis une version historique — la version courante reste distincte."
-+        : "Fil durable · reprise Nora sur la version courante",
++        ? "Réviser une version historique avec Nora"
++        : "Réviser un document avec Nora",
 +    );
 +    void fetchDocumentViewerViaD4({
 +      documentId: input.doc.document.id,
@@ -2134,6 +2388,12 @@ index db39d5a5..f3202f54 100644
 +      seq,
 +      projectIdAtStart,
 +    });
++    // F4 — ask Nora in the durable thread (choices appear as continueChoices, not under composer).
++    if (historical) {
++      void sendMessage(
++        "Je veux repartir de la version historique sélectionnée — confirme la base.",
++      );
++    }
 +  }
 +
 +  async function loadDocumentComparison() {
@@ -2172,7 +2432,7 @@ index db39d5a5..f3202f54 100644
    function applyUrlDocumentState(docs: Doc[], qSurface: Surface | null, qDocId: string | null) {
      if (qSurface) setSurface(qSurface);
      else setSurface("travail");
-@@ -709,26 +1061,30 @@ export default function ProjectPage() {
+@@ -709,26 +1085,30 @@ export default function ProjectPage() {
        if (!qDocId) {
          setInspect(null);
          setDocMissing("");
@@ -2213,7 +2473,7 @@ index db39d5a5..f3202f54 100644
        }
        return;
      }
-@@ -1069,13 +1425,28 @@ export default function ProjectPage() {
+@@ -1069,13 +1449,28 @@ export default function ProjectPage() {
          setChoiceFrozen(true);
        }
        setKnowledge(j.knowledge ?? null);
@@ -2248,7 +2508,44 @@ index db39d5a5..f3202f54 100644
        setUnavailableKind(null);
        setProjectSpaceInfo({
          projectId: params.projectId,
-@@ -1452,6 +1823,9 @@ export default function ProjectPage() {
+@@ -1390,13 +1785,32 @@ export default function ProjectPage() {
+   }
+
+   function upsertTurnProjection(tp: TurnProjection) {
++    const focus = documentFocusRef.current;
++    const relabeled: TurnProjection = {
++      ...tp,
++      choices: (tp.choices ?? []).map((c) => {
++        if (c.transmitText === "DOC_CONFIRM_HISTORICAL_SOURCE" && focus?.sourceRevisionNumber != null) {
++          return { ...c, label: `Repartir de la v${focus.sourceRevisionNumber}` };
++        }
++        if (
++          c.transmitText === "DOC_USE_CURRENT_HEAD" &&
++          focus?.observedHeadRevisionNumber != null
++        ) {
++          return {
++            ...c,
++            label: `Partir de la v${focus.observedHeadRevisionNumber} courante`,
++          };
++        }
++        return c;
++      }),
++    };
+     setTurnProjections((prev) => {
+-      const id = tp.messageId;
+-      if (!id) return [...prev, tp];
++      const id = relabeled.messageId;
++      if (!id) return [...prev, relabeled];
+       const idx = prev.findIndex((p) => p.messageId === id);
+-      if (idx < 0) return [...prev, tp];
++      if (idx < 0) return [...prev, relabeled];
+       const next = [...prev];
+-      next[idx] = tp;
++      next[idx] = relabeled;
+       return next;
+     });
+   }
+@@ -1452,6 +1866,9 @@ export default function ProjectPage() {
            content: text,
            clientTurnKey,
            unresolvedPendingClientTurnKey: pendingBefore?.clientTurnKey,
@@ -2258,7 +2555,7 @@ index db39d5a5..f3202f54 100644
          }),
        });
        let j: Record<string, unknown> = {};
-@@ -1476,6 +1850,33 @@ export default function ProjectPage() {
+@@ -1476,6 +1893,139 @@ export default function ProjectPage() {
            (independent || effectBlocked || distinctFromUnresolved) && Boolean(pendingBefore);
          setMessages((j.messages as Msg[]) ?? []);
          setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
@@ -2266,33 +2563,139 @@ index db39d5a5..f3202f54 100644
 +          | { status?: string; reason?: string; documentId?: string; revisionNumber?: number }
 +          | null
 +          | undefined;
-+        if (save?.reason === "PROPOSAL_PENDING_CONSERVATION") {
-+          setPendingDocumentProposal(true);
-+          if (documentFocusRef.current) {
++        const pendingCand = j.pendingDocumentCandidate as
++          | {
++              candidateId?: string;
++              contentSha256?: string;
++              contentMarkdown?: string;
++              title?: string;
++            }
++          | null
++          | undefined;
++        const histAuth = j.historicalAuthorization as
++          | {
++              authorizationId?: string;
++              choice?: "USE_SOURCE" | "USE_HEAD";
++              documentId?: string;
++              sourceRevisionId?: string;
++              observedHeadRevisionId?: string;
++            }
++          | null
++          | undefined;
++        if (histAuth?.authorizationId && documentFocusRef.current) {
++          if (histAuth.choice === "USE_SOURCE") {
 +            applyDocumentFocus({
 +              ...documentFocusRef.current,
++              confirmedHistoricalSource: true,
++              historicalAuthorizationId: histAuth.authorizationId,
++              historicalConfirmation: {
++                documentId: histAuth.documentId ?? documentFocusRef.current.documentId,
++                sourceRevisionId:
++                  histAuth.sourceRevisionId ?? documentFocusRef.current.sourceRevisionId,
++                observedHeadRevisionId:
++                  histAuth.observedHeadRevisionId ??
++                  documentFocusRef.current.observedHeadRevisionId,
++                choice: "USE_SOURCE",
++              },
 +              conserveProposal: false,
 +            });
++          } else if (histAuth.choice === "USE_HEAD") {
++            const match = documentsRef.current.find(
++              (d) => d.document.id === documentFocusRef.current?.documentId,
++            );
++            if (match?.latestRevision) {
++              void resumeNoraWithDocumentRevision({
++                doc: match,
++                sourceRevisionId: match.latestRevision.id,
++                sourceRevisionNumber: match.latestRevision.revisionNumber,
++                confirmedHistoricalSource: false,
++              });
++            }
 +          }
-+          setStatusHint("Proposition non enregistrée — conservez pour créer une nouvelle version.");
-+        } else if (save?.status === "AVAILABLE") {
-+          setPendingDocumentProposal(false);
++        }
++        if (save?.reason === "PROPOSAL_PENDING_CONSERVATION" && pendingCand?.candidateId) {
++          setPendingDocumentProposal(true);
++          setProposalCandidateMarkdown(pendingCand.contentMarkdown ?? null);
++          const headNum = documentFocusRef.current?.observedHeadRevisionNumber ?? null;
++          setProposalCandidateRevisionHint(headNum != null ? headNum + 1 : null);
 +          if (documentFocusRef.current) {
 +            applyDocumentFocus({
 +              ...documentFocusRef.current,
 +              conserveProposal: false,
++              pendingCandidateId: pendingCand.candidateId,
++              pendingCandidateContentSha256: pendingCand.contentSha256,
++            });
++          }
++          // F5 — visionneuse shows exact candidate, not historical V2 rebadged.
++          if (viewer?.kind === "document" || documentFocusRef.current) {
++            const focus = documentFocusRef.current;
++            setViewer((prev) => {
++              if (!prev || prev.kind !== "document" || !focus) return prev;
++              return {
++                ...prev,
++                markdown: pendingCand.contentMarkdown ?? prev.markdown,
++                available: Boolean(pendingCand.contentMarkdown),
++                unavailableReason: undefined,
++                revisionNumber: headNum != null ? headNum + 1 : prev.revisionNumber,
++                versionSource: "exact",
++              };
++            });
++          }
++          setStatusHint("Examiner une proposition de Nora");
++        } else if (save?.status === "AVAILABLE") {
++          setPendingDocumentProposal(false);
++          setProposalCandidateMarkdown(null);
++          setProposalCandidateRevisionHint(null);
++          if (documentFocusRef.current) {
++            applyDocumentFocus({
++              ...documentFocusRef.current,
++              conserveProposal: false,
++              pendingCandidateId: undefined,
++              pendingCandidateContentSha256: undefined,
 +              confirmedHistoricalSource: false,
 +              historicalConfirmation: undefined,
++              historicalAuthorizationId: undefined,
 +            });
 +          }
 +          if (typeof save.revisionNumber === "number") {
 +            setStatusHint(`Version v${save.revisionNumber} conservée.`);
 +          }
++          // Refresh viewer to the newly conserved revision (no longer a pending proposal).
++          if (
++            viewer?.kind === "document" &&
++            typeof save.documentId === "string" &&
++            typeof (save as { revisionId?: string }).revisionId === "string"
++          ) {
++            const newRevId = (save as { revisionId: string }).revisionId;
++            const newRevNum =
++              typeof save.revisionNumber === "number" ? save.revisionNumber : null;
++            const seq = ++viewerRequestSeqRef.current;
++            const projectIdAtStart = params.projectId;
++            setViewer((prev) => {
++              if (!prev || prev.kind !== "document") return prev;
++              return {
++                ...prev,
++                revisionId: newRevId,
++                revisionNumber: newRevNum,
++                versionSource: "current",
++                available: false,
++                unavailableReason: "Chargement de la version enregistrée…",
++              };
++            });
++            void fetchDocumentViewerViaD4({
++              documentId: save.documentId,
++              titleHint: viewer.title,
++              revisionId: newRevId,
++              versionSource: "exact",
++              seq,
++              projectIdAtStart,
++            });
++          }
 +        }
          const effect = j.pilotageEffect as PilotageEffectView | undefined;
          setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
          const tp = parseTurnProjection(j.turnProjection);
-@@ -1591,6 +1992,69 @@ export default function ProjectPage() {
+@@ -1591,6 +2141,69 @@ export default function ProjectPage() {
 
    const travailLayout = viewer ? (viewerEnlarged ? "enlarged" : "split") : "normal";
 
@@ -2362,7 +2765,7 @@ index db39d5a5..f3202f54 100644
    return (
      <ProjectChrome
        projectId={params.projectId}
-@@ -1599,6 +2063,8 @@ export default function ProjectPage() {
+@@ -1599,6 +2212,8 @@ export default function ProjectPage() {
        statusHint={statusHint}
        loadState={projectLoadState}
        travailLayout={travailLayout}
@@ -2371,119 +2774,15 @@ index db39d5a5..f3202f54 100644
      >
        {surface === "projet" ? (
          <ProjectOverview
-@@ -1613,6 +2079,111 @@ export default function ProjectPage() {
+@@ -1613,6 +2228,7 @@ export default function ProjectPage() {
        ) : null}
 
        {surface === "travail" ? (
 +        <>
-+          {documentFocus &&
-+          documentFocus.sourceRevisionId !== documentFocus.observedHeadRevisionId &&
-+          !documentFocus.confirmedHistoricalSource ? (
-+            <div
-+              className="doc-historical-confirm"
-+              data-testid="document-historical-confirm"
-+              data-figma-frame="930:9"
-+              role="group"
-+              aria-label="Confirmation de base historique"
-+            >
-+              <p className="doc-historical-confirm-text">
-+                La version {documentFocus.sourceRevisionNumber ?? "sélectionnée"} est historique.
-+                La version courante est v{documentFocus.observedHeadRevisionNumber ?? "?"}. Confirmez
-+                la base voulue avant conservation.
-+              </p>
-+              <div className="doc-historical-confirm-actions">
-+                <button
-+                  type="button"
-+                  className="doc-action doc-action-primary"
-+                  data-testid="doc-confirm-historical-source"
-+                  onClick={() =>
-+                    applyDocumentFocus({
-+                      ...documentFocus,
-+                      confirmedHistoricalSource: true,
-+                      historicalConfirmation: {
-+                        documentId: documentFocus.documentId,
-+                        sourceRevisionId: documentFocus.sourceRevisionId,
-+                        observedHeadRevisionId: documentFocus.observedHeadRevisionId,
-+                        choice: "USE_SOURCE",
-+                      },
-+                      conserveProposal: false,
-+                    })
-+                  }
-+                >
-+                  Repartir de la v{documentFocus.sourceRevisionNumber ?? "?"}
-+                </button>
-+                <button
-+                  type="button"
-+                  className="doc-action doc-action-secondary"
-+                  data-testid="doc-use-current-head"
-+                  onClick={() => {
-+                    const match = documents.find((d) => d.document.id === documentFocus.documentId);
-+                    if (!match?.latestRevision) return;
-+                    applyDocumentFocus({
-+                      ...documentFocus,
-+                      confirmedHistoricalSource: false,
-+                      historicalConfirmation: {
-+                        documentId: documentFocus.documentId,
-+                        sourceRevisionId: documentFocus.sourceRevisionId,
-+                        observedHeadRevisionId: documentFocus.observedHeadRevisionId,
-+                        choice: "USE_HEAD",
-+                      },
-+                      conserveProposal: false,
-+                    });
-+                    void resumeNoraWithDocumentRevision({
-+                      doc: match,
-+                      sourceRevisionId: match.latestRevision.id,
-+                      sourceRevisionNumber: match.latestRevision.revisionNumber,
-+                      confirmedHistoricalSource: false,
-+                    });
-+                  }}
-+                >
-+                  Partir de la v{documentFocus.observedHeadRevisionNumber ?? "?"} courante
-+                </button>
-+              </div>
-+            </div>
-+          ) : null}
-+          {pendingDocumentProposal && documentFocus ? (
-+            <div
-+              className="doc-proposal-conserve"
-+              data-testid="document-proposal-conserve"
-+              data-figma-frame="930:10"
-+              role="group"
-+              aria-label="Conservation de la proposition Nora"
-+            >
-+              <p className="doc-proposal-conserve-badge" data-testid="doc-proposal-unregistered">
-+                PROPOSITION NON ENREGISTRÉE
-+              </p>
-+              <p className="doc-historical-confirm-text">
-+                Examiner une proposition de Nora — aucune nouvelle version durable tant que vous
-+                n&apos;avez pas demandé la conservation.
-+              </p>
-+              <div className="doc-historical-confirm-actions">
-+                <button
-+                  type="button"
-+                  className="doc-action doc-action-primary"
-+                  data-testid="doc-conserve-proposal"
-+                  disabled={busy || !preparationId}
-+                  onClick={() => {
-+                    if (!documentFocusRef.current) return;
-+                    applyDocumentFocus({
-+                      ...documentFocusRef.current,
-+                      conserveProposal: true,
-+                    });
-+                    void sendMessage(
-+                      "Conserver comme nouvelle version la proposition documentaire préparée.",
-+                    );
-+                  }}
-+                >
-+                  Conserver comme nouvelle version
-+                </button>
-+              </div>
-+            </div>
-+          ) : null}
          <NoraConversation
            embeddedInStage
            messages={messages}
-@@ -1649,6 +2220,7 @@ export default function ProjectPage() {
+@@ -1649,6 +2265,7 @@ export default function ProjectPage() {
                <TravailViewer
                  resource={viewer}
                  enlarged={viewerEnlarged}
@@ -2491,7 +2790,7 @@ index db39d5a5..f3202f54 100644
                  onEnlarge={() => setViewerEnlarged(true)}
                  onReduce={() => setViewerEnlarged(false)}
                  onClose={closeViewer}
-@@ -1744,6 +2316,7 @@ export default function ProjectPage() {
+@@ -1744,6 +2361,7 @@ export default function ProjectPage() {
              )
            }
          />
@@ -2499,7 +2798,7 @@ index db39d5a5..f3202f54 100644
        ) : null}
 
        {surface === "pilotage" ? (
-@@ -1786,124 +2359,135 @@ export default function ProjectPage() {
+@@ -1786,124 +2404,135 @@ export default function ProjectPage() {
          </div>
        ) : null}
 
@@ -2676,7 +2975,7 @@ index db39d5a5..f3202f54 100644
 +          currency={readCurrency}
 +          loading={readLoading}
 +          originOpen={originOpen}
-+          originText={formatPilotFacingProvenance(inspect.latestRevision?.provenanceJson, {
++          originText={formatPilotFacingProvenance(readingProvenanceJson, {
 +            projectName,
 +          })}
 +          onRequestRevision={() => {
@@ -4248,6 +4547,1310 @@ index f9c8640c..6d41e0c7 100644
  .fig-panel {
    background: color-mix(in srgb, var(--fig-panel) 92%, black);
    border: 1px solid var(--fig-line);
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+index 3ca58197..72bb37a5 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+@@ -314,15 +314,163 @@ export type ResolvedReviseTarget =
+     }
+   | { ok: false; reason: "NOT_FOUND" | "AMBIGUOUS" | "NO_AVAILABLE_REVISION"; candidates?: string[] };
+
++/**
++ * Explicit historical-base confirmation bound to concrete identities.
++ * Lexical regex alone must never authorize a historical revise (R2).
++ */
++export type HistoricalSourceConfirmation = {
++  documentId: string;
++  sourceRevisionId: string;
++  observedHeadRevisionId: string;
++  choice: "USE_SOURCE" | "USE_HEAD" | "REFUSED";
++};
++
++/** Optional Documents→Travail focus: exact drafting source may be historical. */
++export type DocumentReviseFocus = {
++  documentId: string;
++  sourceRevisionId: string;
++  sourceRevisionNumber?: number;
++  /**
++   * Client-supplied body is NEVER authoritative (R1). Kept optional for transport
++   * compatibility only — resolveReviseTarget and the conversation owner path ignore it.
++   */
++  sourceContentMarkdown?: string;
++  observedHeadRevisionId: string;
++  observedHeadRevisionNumber?: number;
++  /** Legacy UX bool — accepted only when identities still match (see resolveHistoricalConfirmation). */
++  confirmedHistoricalSource?: boolean;
++  /** Preferred R2 confirmation: explicit choice bound to document/source/head IDs. */
++  historicalConfirmation?: HistoricalSourceConfirmation;
++  /**
++   * F2 — server-issued authorization id from an explicit Pilot choice turn.
++   * Client bool / fabricated historicalConfirmation alone is never sufficient.
++   */
++  historicalAuthorizationId?: string;
++  /**
++   * F1 — when Documents focus is active, D4 REVISE mutate requires explicit conserve
++   * bound to a pending candidate id + content hash.
++   */
++  conserveProposal?: boolean;
++  pendingCandidateId?: string;
++  pendingCandidateContentSha256?: string;
++};
++
++/**
++ * F2 — resolve whether a historical source is explicitly confirmed.
++ * Never uses free-text lexical matching.
++ * Prefer a server-loaded HistoricalSourceAuthorization (passed by caller).
++ * Client-only historicalConfirmation / confirmedHistoricalSource are NOT sufficient alone.
++ */
++export function resolveHistoricalConfirmation(input: {
++  focus: DocumentReviseFocus | null | undefined;
++  documentId: string;
++  sourceRevisionId: string;
++  /** Head claimed at confirmation / focus time. */
++  claimedObservedHeadRevisionId: string;
++  /** Actual AVAILABLE head from D4 at evaluation time. */
++  actualHeadRevisionId: string;
++  /**
++   * Server-loaded authorization for focus.historicalAuthorizationId.
++   * When provided, this is the only path that can confirm USE_SOURCE.
++   */
++  serverAuthorization?: {
++    id: string;
++    documentId: string;
++    sourceRevisionId: string;
++    observedHeadRevisionId: string;
++    choice: "USE_SOURCE" | "USE_HEAD";
++  } | null;
++}): {
++  confirmed: boolean;
++  reason:
++    | "NOT_HISTORICAL"
++    | "CONFIRMED_SERVER"
++    | "REFUSED"
++    | "USE_HEAD"
++    | "MISSING_CONFIRMATION"
++    | "IDENTITY_MISMATCH"
++    | "HEAD_MOVED"
++    | "CLIENT_CLAIM_INSUFFICIENT";
++} {
++  const sourceIsHistorical = input.sourceRevisionId !== input.actualHeadRevisionId;
++  if (!sourceIsHistorical) {
++    return { confirmed: false, reason: "NOT_HISTORICAL" };
++  }
++
++  const auth = input.serverAuthorization;
++  if (auth) {
++    if (
++      auth.documentId !== input.documentId ||
++      auth.sourceRevisionId !== input.sourceRevisionId ||
++      auth.observedHeadRevisionId !== input.claimedObservedHeadRevisionId
++    ) {
++      return { confirmed: false, reason: "IDENTITY_MISMATCH" };
++    }
++    if (auth.observedHeadRevisionId !== input.actualHeadRevisionId) {
++      return { confirmed: false, reason: "HEAD_MOVED" };
++    }
++    if (auth.choice === "USE_HEAD") {
++      return { confirmed: false, reason: "USE_HEAD" };
++    }
++    if (auth.choice === "USE_SOURCE") {
++      return { confirmed: true, reason: "CONFIRMED_SERVER" };
++    }
++    return { confirmed: false, reason: "MISSING_CONFIRMATION" };
++  }
++
++  // Client-supplied claims without a server authorization never confirm.
++  if (
++    input.focus?.historicalConfirmation ||
++    input.focus?.confirmedHistoricalSource === true
++  ) {
++    return { confirmed: false, reason: "CLIENT_CLAIM_INSUFFICIENT" };
++  }
++
++  return { confirmed: false, reason: "MISSING_CONFIRMATION" };
++}
++
+ export function resolveReviseTarget(
+   docs: DocumentListItem[],
+   hint: string | null,
++  focus?: DocumentReviseFocus | null,
+ ): ResolvedReviseTarget {
+   const available = docs.filter((d) => d.latestRevision?.status === "AVAILABLE");
+   if (available.length === 0) {
+     return { ok: false, reason: "NO_AVAILABLE_REVISION" };
+   }
+
++  if (focus?.documentId && focus.sourceRevisionId && focus.observedHeadRevisionId) {
++    const d = available.find((x) => x.document.id === focus.documentId);
++    if (!d?.latestRevision) {
++      return { ok: false, reason: "NOT_FOUND" };
++    }
++    if (d.latestRevision.id !== focus.observedHeadRevisionId) {
++      // Head moved since focus was taken — caller must requalify; still resolve
++      // to current head as observed for CONFLICT at D4 commit.
++    }
++    // R1: never use client sourceContentMarkdown. Head body may come from the
++    // authorized list payload (D4-backed); any non-head source forces empty
++    // baseContent so the owner path reloads the exact revision via getDocumentRevision.
++    if (focus.sourceRevisionId === d.latestRevision.id) {
++      return {
++        ok: true,
++        documentId: d.document.id,
++        title: d.document.title,
++        baseRevisionId: focus.sourceRevisionId,
++        baseRevisionNumber: focus.sourceRevisionNumber ?? d.latestRevision.revisionNumber,
++        baseContent: d.latestRevision.contentMarkdown,
++      };
++    }
++    return {
++      ok: true,
++      documentId: d.document.id,
++      title: d.document.title,
++      baseRevisionId: focus.sourceRevisionId,
++      baseRevisionNumber: focus.sourceRevisionNumber ?? d.latestRevision.revisionNumber,
++      baseContent: "",
++    };
++  }
++
+   if (hint) {
+     const byId = available.filter((d) => d.document.id === hint);
+     if (byId.length === 1) {
+@@ -1205,49 +1353,87 @@ export function formatDocumentEffectAck(effect: DocumentEffectSummary | null): s
+   // Pre-effect: plausible documentary intent but no D4 transaction attempted.
+   // Never fabricate a FAILED documentSave — this is NOT_EXECUTED, not a server refuse.
+   if (effect.status === "NOT_EXECUTED" || effect.act === "NONE") {
++    // F5 — pilot-facing copy for pending proposal (no internal codes in product surface).
++    if (effect.reason === "PROPOSAL_PENDING_CONSERVATION") {
++      return [
++        "### Proposition non enregistrée",
++        "",
++        "La rédaction est prête à être examinée dans la visionneuse.",
++        "Aucune nouvelle version n'est créée tant que tu n'as pas demandé la conservation.",
++      ].join("\n");
++    }
+     const lines = [
+-      "### Résultat applicatif (pré-effet)",
++      "### Résultat applicatif",
+       "",
+-      "- Acte documentaire exécuté: aucun",
+-      "- Statut: NOT_EXECUTED",
+-      "- Transaction D4: non tentée",
++      "Aucun enregistrement documentaire n'a été effectué sur ce tour.",
+     ];
+-    if (effect.reason) lines.push(`- raison: ${effect.reason}`);
+-    lines.push(
+-      "",
+-      "Aucun acte documentaire exécuté : la demande n'a pas été qualifiée pour une écriture.",
+-      "La réponse Nora ci-dessus n'est pas un verdict D4.",
+-    );
++    if (effect.reason === "HISTORICAL_CONFIRMATION_REQUIRED") {
++      lines.push(
++        "",
++        "Une confirmation de la base historique est requise avant toute révision.",
++      );
++    } else if (effect.reason === "HISTORICAL_CONFIRMATION_SERVER_REQUIRED") {
++      lines.push(
++        "",
++        "Choisis explicitement la base (historique ou courante) dans la conversation.",
++      );
++    } else if (effect.reason === "PENDING_CANDIDATE_REQUIRED") {
++      lines.push("", "Aucune proposition identifiable n'est prête à être conservée.");
++    } else if (
++      effect.reason === "CANDIDATE_SUPERSEDED" ||
++      effect.reason === "CANDIDATE_CONSUMED" ||
++      effect.reason === "CANDIDATE_NOT_FOUND"
++    ) {
++      lines.push(
++        "",
++        "La proposition précédente n'est plus valable — demande une nouvelle rédaction.",
++      );
++    } else if (effect.reason === "CANDIDATE_HEAD_MOVED" || effect.reason === "HISTORICAL_HEAD_MOVED") {
++      lines.push(
++        "",
++        "La version courante a changé — une nouvelle qualification est nécessaire.",
++      );
++    } else {
++      lines.push(
++        "",
++        "La demande n'a pas été qualifiée pour une écriture. La réponse Nora ci-dessus n'est pas un verdict d'enregistrement.",
++      );
++    }
+     return lines.join("\n");
+   }
+
+   const lines = [
+-    "### Résultat applicatif D4 (source de vérité)",
++    "### Résultat d'enregistrement",
+     "",
+-    `- Acte demandé: ${effect.act}`,
+-    `- Statut observé: ${effect.status ?? "UNKNOWN"}`,
+   ];
+-  if (effect.documentId) lines.push(`- documentId: \`${effect.documentId}\``);
+-  if (effect.revisionNumber != null) lines.push(`- révision: v${effect.revisionNumber}`);
+-  if (effect.revisionId) lines.push(`- revisionId: \`${effect.revisionId}\``);
+-  if (effect.baseRevisionId) lines.push(`- baseRevisionId: \`${effect.baseRevisionId}\``);
+-  if (effect.idempotentReplay) lines.push("- rejeu idempotent: oui");
+-  if (effect.reason) lines.push(`- raison: ${effect.reason}`);
+   if (effect.status === "AVAILABLE") {
++    if (effect.revisionNumber != null) {
++      lines.push(`Nouvelle version disponible : v${effect.revisionNumber}.`);
++    } else {
++      lines.push("Nouvelle version documentaire enregistrée.");
++    }
++    if (effect.idempotentReplay) {
++      lines.push("Rejeu idempotent — aucune version supplémentaire créée.");
++    }
+     lines.push(
+       "",
+-      "Ce statut est confirmé par la persistance Studio. Il est le seul verdict transactionnel de ce tour.",
++      "L'enregistrement est confirmé. Les versions antérieures restent inchangées.",
+     );
+   } else if (effect.status === "CONFLICT") {
+-    lines.push("", "Conflit de base — aucune nouvelle révision écrite. Requalification requise.");
++    lines.push(
++      "Conflit de version — aucune nouvelle révision écrite.",
++      "Requalification requise avant une nouvelle conservation.",
++    );
+   } else if (effect.status === "FAILED") {
+     lines.push(
+-      "",
+-      "Studio a exécuté l'acte documentaire et a refusé l'écriture. Le motif ci-dessus est le verdict transactionnel.",
+-      "Les outils Nora restent en lecture seule ; cela n'explique pas un refus applicatif déjà observé.",
++      "L'enregistrement a été refusé.",
++      "Aucune nouvelle version n'a été créée.",
++    );
++  } else {
++    lines.push(
++      "Résultat d'enregistrement encore incertain.",
++      "Aucun succès d'écriture ne doit être affirmé pour ce tour.",
+     );
+-  } else if (effect.status && effect.status !== "AVAILABLE") {
+-    lines.push("", "Aucun succès d'écriture D4 ne doit être affirmé pour ce tour.");
+   }
+   return lines.join("\n");
+ }
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
+index ae7a5842..30d8aa10 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
+@@ -44,7 +44,11 @@ export type DocumentCommandBinding = {
+   source: DocumentCommandSource;
+   preparationId: string;
+   documentId: string | null;
++  /** Drafting source (legacy field; equals sourceRevisionId when historical protocol used). */
+   baseRevisionId: string | null;
++  sourceRevisionId?: string | null;
++  observedHeadRevisionId?: string | null;
++  confirmedHistoricalSource?: boolean;
+   title: string;
+   contentMarkdown: string;
+   contentSha256: string;
+@@ -71,10 +75,17 @@ export function payloadSha256(parts: {
+   preparationId: string;
+   documentId: string | null;
+   baseRevisionId: string | null;
++  sourceRevisionId?: string | null;
++  observedHeadRevisionId?: string | null;
++  confirmedHistoricalSource?: boolean;
+   sectionHint?: string | null;
+   title: string;
+   contentSha256: string;
+ }): string {
++  const historical =
++    parts.sourceRevisionId != null ||
++    parts.observedHeadRevisionId != null ||
++    parts.confirmedHistoricalSource === true;
+   const canonical = JSON.stringify({
+     schemaVersion: DOCUMENT_COMMAND_BINDING_SCHEMA_VERSION,
+     action: parts.action,
+@@ -82,6 +93,13 @@ export function payloadSha256(parts: {
+     preparationId: parts.preparationId,
+     documentId: parts.documentId,
+     baseRevisionId: parts.baseRevisionId,
++    ...(historical
++      ? {
++          sourceRevisionId: parts.sourceRevisionId ?? parts.baseRevisionId,
++          observedHeadRevisionId: parts.observedHeadRevisionId ?? null,
++          confirmedHistoricalSource: parts.confirmedHistoricalSource === true,
++        }
++      : {}),
+     sectionHint: parts.sectionHint ?? null,
+     title: parts.title,
+     contentSha256: parts.contentSha256,
+@@ -503,6 +521,9 @@ export function admitDocumentCommand(input: {
+   preparationId: string;
+   documentId?: string | null;
+   baseRevisionId?: string | null;
++  sourceRevisionId?: string | null;
++  observedHeadRevisionId?: string | null;
++  confirmedHistoricalSource?: boolean;
+   sectionHint?: string | null;
+   source: DocumentCommandSource;
+   title: string;
+@@ -520,16 +541,28 @@ export function admitDocumentCommand(input: {
+   if (!input.userMessageId || !input.qualifiedIntentId) {
+     return { ok: false, verdict: "NOT_EXECUTED", reason: "MISSING_IDENTITIES" };
+   }
+-  if (input.action === "REVISE" && (!input.documentId || !input.baseRevisionId)) {
++  const sourceRevisionId = input.sourceRevisionId ?? input.baseRevisionId ?? null;
++  if (input.action === "REVISE" && (!input.documentId || !sourceRevisionId)) {
+     return { ok: false, verdict: "NOT_EXECUTED", reason: "REVISE_TARGET_INCOMPLETE" };
+   }
+   const { title, contentMarkdown, contentSha256: cSha } = canonical.proposal;
++  const useHistorical =
++    input.sourceRevisionId != null ||
++    input.observedHeadRevisionId != null ||
++    input.confirmedHistoricalSource === true;
+   const pSha = payloadSha256({
+     action: input.action,
+     source: input.source,
+     preparationId: input.preparationId,
+     documentId: input.documentId ?? null,
+-    baseRevisionId: input.baseRevisionId ?? null,
++    baseRevisionId: sourceRevisionId,
++    ...(useHistorical
++      ? {
++          sourceRevisionId,
++          observedHeadRevisionId: input.observedHeadRevisionId ?? null,
++          confirmedHistoricalSource: input.confirmedHistoricalSource === true,
++        }
++      : {}),
+     sectionHint: input.sectionHint,
+     title,
+     contentSha256: cSha,
+@@ -557,7 +590,14 @@ export function admitDocumentCommand(input: {
+       source: input.source,
+       preparationId: input.preparationId,
+       documentId: input.documentId ?? null,
+-      baseRevisionId: input.baseRevisionId ?? null,
++      baseRevisionId: sourceRevisionId,
++      ...(useHistorical
++        ? {
++            sourceRevisionId,
++            observedHeadRevisionId: input.observedHeadRevisionId ?? null,
++            confirmedHistoricalSource: input.confirmedHistoricalSource === true,
++          }
++        : {}),
+       title,
+       contentMarkdown,
+       contentSha256: cSha,
+@@ -607,9 +647,19 @@ export async function sealAndApplyDocumentCommand(input: {
+     return { sealApplied: true, effect };
+   }
+
++  const sourceRevisionId =
++    input.binding.sourceRevisionId ?? input.binding.baseRevisionId!;
++  const observedHeadRevisionId = input.binding.observedHeadRevisionId ?? undefined;
++  const historical =
++    Boolean(observedHeadRevisionId) &&
++    observedHeadRevisionId !== sourceRevisionId;
+   const effect = await reviseDocument(input.pilotId, input.binding.preparationId, {
+     documentId: input.binding.documentId!,
+-    baseRevisionId: input.binding.baseRevisionId!,
++    baseRevisionId: sourceRevisionId,
++    sourceRevisionId,
++    observedHeadRevisionId,
++    confirmedHistoricalSource:
++      input.binding.confirmedHistoricalSource === true || undefined,
+     contentMarkdown: input.binding.contentMarkdown,
+     correlationKey: input.binding.correlationKey,
+     scope: input.binding.sectionHint ? "section" : "document",
+@@ -617,7 +667,16 @@ export async function sealAndApplyDocumentCommand(input: {
+     turnFence: input.fence,
+     expectedTitle: input.binding.title,
+     expectedContentSha256: input.binding.contentSha256,
+-    provenance: buildSealedProvenance(sealedIdentityFromBinding(input.binding)),
++    provenance: {
++      ...buildSealedProvenance(sealedIdentityFromBinding(input.binding)),
++      ...(historical
++        ? {
++            sourceRevisionId,
++            observedHeadRevisionId,
++            confirmedHistoricalSource: input.binding.confirmedHistoricalSource === true,
++          }
++        : {}),
++    },
+   });
+   return { sealApplied: true, effect };
+ }
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+index 68cf1f5a..7734b4e2 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+@@ -120,6 +120,9 @@ function effect(
+     replyDraft: reply,
+     preparationAssessment: extras?.preparationAssessment,
+     preparationAssessmentExplanation: extras?.preparationAssessmentExplanation,
++    continueChoices: extras?.continueChoices,
++    resourceReferences: extras?.resourceReferences,
++    visualComposition: extras?.visualComposition,
+   };
+ }
+
+@@ -1862,6 +1865,114 @@ register(
+ );
+
+
++/** Ensemble 06 Documents — historical base warning (F4 / 930:9). */
++register(
++  "Je veux repartir de la version historique sélectionnée — confirme la base.",
++  dialogue(
++    "Confirmation de base historique",
++    "Attention : tu consultes une version historique. Une version plus récente existe déjà. Souhaites-tu repartir du contenu historique pour préparer une nouvelle version, ou utiliser la version courante comme base ?",
++    ["NO_EFFECT", "DOC_HISTORICAL_BASE"],
++    {
++      omitClarifications: true,
++      continueChoices: [
++        {
++          id: "hist-use-source",
++          label: "Repartir de la version historique",
++          transmitText: "DOC_CONFIRM_HISTORICAL_SOURCE",
++        },
++        {
++          id: "hist-use-head",
++          label: "Partir de la version courante",
++          transmitText: "DOC_USE_CURRENT_HEAD",
++        },
++      ],
++    },
++  ),
++);
++
++register(
++  "DOC_CONFIRM_HISTORICAL_SOURCE",
++  dialogue(
++    "Base historique confirmée",
++    "D’accord — nous repartons de la version historique sélectionnée. Aucune nouvelle version n’est enregistrée tant que tu n’as pas demandé la conservation d’une proposition.",
++    ["NO_EFFECT", "DOC_HISTORICAL_CONFIRMED"],
++    { omitClarifications: true, continueChoices: [] },
++  ),
++);
++
++register(
++  "DOC_USE_CURRENT_HEAD",
++  dialogue(
++    "Base courante choisie",
++    "D’accord — nous utilisons la version courante comme base. Aucune version historique n’est écrasée.",
++    ["NO_EFFECT", "DOC_HEAD_CHOSEN"],
++    { omitClarifications: true, continueChoices: [] },
++  ),
++);
++
++/** Ensemble 06 Documents — revise proposal then explicit conserve (FAKE fixture lane). */
++register(
++  "Je souhaite clarifier les responsabilités entre les trois centres.",
++  {
++    ...effect(
++      "Réviser document — proposition",
++      "Je propose cette formulation. Elle utilise la base choisie et ne remplace pas la version courante tant que tu n’as pas demandé la conservation.\n\n```sfia-document\n# Parcours de réservation et responsabilités\n\n## Responsabilités\n\nChaque centre valide ses disponibilités ; le coordinateur consolide les ressources communes ; le demandeur reçoit une confirmation tracée.\n```\n",
++      [
++        {
++          capabilityId: "d4.revise_document",
++          mode: "REQUEST_EFFECT",
++          summary: "Réviser les responsabilités",
++          parameters: { sectionHint: "Responsabilités" },
++          constraints: [],
++          dependsOn: [],
++          sourceEvidence: [],
++        },
++      ],
++      {
++        continueChoices: [
++          {
++            id: "conserve",
++            label: "Conserver comme nouvelle version",
++            transmitText:
++              "Conserver comme nouvelle version la proposition documentaire préparée.",
++          },
++        ],
++      },
++    ),
++    documentProposal: {
++      title: "Parcours de réservation et responsabilités",
++      contentMarkdown:
++        "# Parcours de réservation et responsabilités\n\n## Responsabilités\n\nChaque centre valide ses disponibilités ; le coordinateur consolide les ressources communes ; le demandeur reçoit une confirmation tracée.\n",
++    },
++  },
++);
++
++register(
++  "Conserver comme nouvelle version la proposition documentaire préparée.",
++  {
++    ...effect(
++      "Conserver proposition documentaire",
++      "Proposition conservée comme nouvelle version documentaire — après contrôle D4 de la tête observée.",
++      [
++        {
++          capabilityId: "d4.revise_document",
++          mode: "REQUEST_EFFECT",
++          summary: "Conserver la proposition comme nouvelle version",
++          parameters: {},
++          constraints: [],
++          dependsOn: [],
++          sourceEvidence: [],
++        },
++      ],
++    ),
++    documentProposal: {
++      title: "Parcours de réservation et responsabilités",
++      contentMarkdown:
++        "# Parcours de réservation et responsabilités\n\n## Responsabilités\n\nChaque centre valide ses disponibilités ; le coordinateur consolide les ressources communes ; le demandeur reçoit une confirmation tracée.\n",
++    },
++  },
++);
++
+ /** Short TEST_BOUNDARY keys for e2e (exact match, same envelopes as the natural utterances). */
+ for (const [short, long] of [
+   ["E05_S2_DIAGNOSTIC", E05_S2_DIAGNOSTIC],
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+index 4cfc23d6..28a4058f 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+@@ -26,7 +26,7 @@ import {
+   reconstituteConfirmedD4Effects,
+   selectRelevantKnowledgeContext,
+ } from "@/domains/knowledge/service";
+-import { listDocuments } from "@/domains/document/service";
++import { getDocumentRevision, listDocuments } from "@/domains/document/service";
+ import {
+   admitDocumentCommand,
+   canonicalizeDocumentProposal,
+@@ -37,6 +37,19 @@ import {
+   serializeProposalFence,
+   type DocumentProposalExact,
+ } from "@/domains/conversation/document-command";
++import {
++  DOC_CONSERVE_PROPOSAL,
++  isConserveProposalTransmit,
++  isHistoricalSourceChoiceTransmit,
++  loadHistoricalSourceAuthorization,
++  loadPendingDocumentCandidate,
++  markPendingCandidateConsumed,
++  pendingCandidateSummary,
++  stashHistoricalSourceAuthorization,
++  stashPendingDocumentCandidate,
++  type HistoricalSourceAuthorization,
++  type PendingDocumentCandidate,
++} from "@/domains/conversation/document-candidate";
+ import {
+   bindTurnGenerationId,
+   commitTurnTerminal,
+@@ -62,6 +75,7 @@ import {
+   applyTargetedSectionRevision,
+   assertSectionScope,
+   extractContractualDocumentProposal,
++  resolveHistoricalConfirmation,
+   resolveReviseTarget,
+   stripContractualDocumentFences,
+   type DocumentEffectSummary,
+@@ -644,6 +658,25 @@ export type TurnResult = {
+     act?: "CREATE" | "REVISE";
+     idempotentReplay?: boolean;
+   } | null;
++  /** F1 — sealed proposal candidate awaiting explicit conservation (no D4 yet). */
++  pendingDocumentCandidate?: {
++    candidateId: string;
++    contentSha256: string;
++    documentId: string;
++    sourceRevisionId: string;
++    observedHeadRevisionId: string;
++    title: string;
++    /** Exact merged markdown for visionneuse — server-authoritative. */
++    contentMarkdown?: string;
++  } | null;
++  /** F2 — server-issued historical base authorization from an explicit Pilot choice. */
++  historicalAuthorization?: {
++    authorizationId: string;
++    documentId: string;
++    sourceRevisionId: string;
++    observedHeadRevisionId: string;
++    choice: "USE_SOURCE" | "USE_HEAD";
++  } | null;
+   idempotentReplay: boolean;
+   /**
+    * True only when a HumanDecision id was actually produced (APPLIED/ALREADY_APPLIED).
+@@ -758,6 +791,29 @@ export async function postUserMessageAndNora(
+     requestId?: string;
+     /** Client UX hint only — server DB siblings are authoritative for S05. */
+     unresolvedPendingClientTurnKey?: string;
++    /** Documents→Travail focus: exact source revision (may be historical). */
++    documentFocus?: {
++      documentId: string;
++      sourceRevisionId: string;
++      sourceRevisionNumber?: number;
++      /** Ignored for drafting authority (R1) — D4 getDocumentRevision is sole source. */
++      sourceContentMarkdown?: string;
++      observedHeadRevisionId: string;
++      observedHeadRevisionNumber?: number;
++      confirmedHistoricalSource?: boolean;
++      historicalConfirmation?: {
++        documentId: string;
++        sourceRevisionId: string;
++        observedHeadRevisionId: string;
++        choice: "USE_SOURCE" | "USE_HEAD" | "REFUSED";
++      };
++      /** F2 — server-issued id from a prior historical choice turn. */
++      historicalAuthorizationId?: string;
++      /** F1 — explicit conservation bound to a pending candidate. */
++      conserveProposal?: boolean;
++      pendingCandidateId?: string;
++      pendingCandidateContentSha256?: string;
++    } | null;
+   },
+ ): Promise<TurnResult> {
+   const requestId = opts?.requestId ?? newRequestId();
+@@ -908,6 +964,14 @@ export async function postUserMessageAndNora(
+     meta: { client_turn_key_fp: reserved.requestFingerprint.slice(0, 12) },
+   });
+
++  let pendingDocumentCandidateOut: TurnResult["pendingDocumentCandidate"] = null;
++  let historicalAuthorizationOut: TurnResult["historicalAuthorization"] = null;
++  let continueChoicesOverride: Array<{
++    id: string;
++    label: string;
++    transmitText: string;
++  }> | null = null;
++
+   /** SEM/TV: D5/D6 after Nora semantic qualification — not before. */
+   let authority: ConversationalAuthorityOutcome | null = null;
+
+@@ -1100,6 +1164,38 @@ export async function postUserMessageAndNora(
+
+   const nextTurnKind = deriveThreadTurnKind(qualification);
+   const studioProjection = projectStudioEffects(qualification);
++
++  // F2/F4 — explicit historical base choice: server-issued authorization (not client bool).
++  const historicalChoice = isHistoricalSourceChoiceTransmit(content);
++  const histFocus = opts?.documentFocus ?? null;
++  if (
++    historicalChoice &&
++    histFocus?.documentId &&
++    histFocus.sourceRevisionId &&
++    histFocus.observedHeadRevisionId &&
++    histFocus.sourceRevisionId !== histFocus.observedHeadRevisionId
++  ) {
++    const authStash = await stashHistoricalSourceAuthorization({
++      commandId: reserved.commandId,
++      ownerToken: reserved.ownerToken,
++      preparationId,
++      pilotId,
++      documentId: histFocus.documentId,
++      sourceRevisionId: histFocus.sourceRevisionId,
++      observedHeadRevisionId: histFocus.observedHeadRevisionId,
++      choice: historicalChoice,
++    });
++    if (authStash.ok) {
++      historicalAuthorizationOut = {
++        authorizationId: authStash.authorization.id,
++        documentId: authStash.authorization.documentId,
++        sourceRevisionId: authStash.authorization.sourceRevisionId,
++        observedHeadRevisionId: authStash.authorization.observedHeadRevisionId,
++        choice: authStash.authorization.choice,
++      };
++    }
++  }
++
+   const pilotageBinding = extractPilotageBinding(qualification);
+   const knowledgeHints = extractKnowledgeSelectionHints(qualification);
+   if (
+@@ -1717,7 +1813,36 @@ export async function postUserMessageAndNora(
+       } else if (documentAct.kind === "REVISE" && !ownershipLostBeforeD4) {
+         try {
+           const docs = await listDocuments(pilotId, preparationId);
+-          const target = resolveReviseTarget(docs, documentAct.documentHint);
++          const focus = opts?.documentFocus ?? null;
++          let target = resolveReviseTarget(docs, documentAct.documentHint, focus);
++          // R1: when Documents focus names a source revision, ALWAYS reload body from D4.
++          // Client sourceContentMarkdown is never drafting authority — including when
++          // resolveReviseTarget already filled head content from the list payload.
++          if (target.ok && focus?.sourceRevisionId) {
++            const loaded = await getDocumentRevision(
++              pilotId,
++              preparationId,
++              target.documentId,
++              focus.sourceRevisionId,
++            );
++            if (
++              loaded.status === "AVAILABLE" &&
++              loaded.revision &&
++              loaded.revision.id === focus.sourceRevisionId &&
++              typeof loaded.revision.contentMarkdown === "string" &&
++              loaded.revision.contentMarkdown.length > 0
++            ) {
++              target = {
++                ...target,
++                baseRevisionId: loaded.revision.id,
++                baseRevisionNumber: loaded.revision.revisionNumber,
++                baseContent: loaded.revision.contentMarkdown,
++              };
++            } else {
++              // No silent fallback to latest / client markdown when exact source is unavailable.
++              target = { ok: false, reason: "NOT_FOUND" };
++            }
++          }
+           if (!target.ok) {
+             documentSave = {
+               status: "FAILED",
+@@ -1890,6 +2015,190 @@ export async function postUserMessageAndNora(
+                     const clientSalt =
+                       opts?.correlationKey?.trim() ||
+                       `${target.documentId}:${target.baseRevisionId}`;
++                    const actualHeadId =
++                      docs.find((d) => d.document.id === target.documentId)?.latestRevision
++                        ?.id ?? target.baseRevisionId;
++                    const claimedObservedHeadId =
++                      focus?.observedHeadRevisionId ?? actualHeadId;
++                    const observedHeadId = claimedObservedHeadId;
++                    const sourceIsHistorical = target.baseRevisionId !== actualHeadId;
++
++                    // F2 — load server authorization when client presents an id (never trust client bool alone).
++                    let serverAuth: HistoricalSourceAuthorization | null = null;
++                    if (focus?.historicalAuthorizationId) {
++                      const loadedAuth = await loadHistoricalSourceAuthorization({
++                        pilotId,
++                        preparationId,
++                        authorizationId: focus.historicalAuthorizationId,
++                      });
++                      if (loadedAuth.ok) serverAuth = loadedAuth.authorization;
++                    }
++                    const histConfirm = resolveHistoricalConfirmation({
++                      focus,
++                      documentId: target.documentId,
++                      sourceRevisionId: target.baseRevisionId,
++                      claimedObservedHeadRevisionId: claimedObservedHeadId,
++                      actualHeadRevisionId: actualHeadId,
++                      serverAuthorization: serverAuth,
++                    });
++                    const confirmedHistoricalSource =
++                      sourceIsHistorical && histConfirm.confirmed;
++                    if (
++                      sourceIsHistorical &&
++                      !confirmedHistoricalSource &&
++                      focus?.sourceRevisionId
++                    ) {
++                      documentSave = {
++                        status: "NOT_EXECUTED",
++                        reason:
++                          histConfirm.reason === "HEAD_MOVED"
++                            ? "HISTORICAL_HEAD_MOVED"
++                            : histConfirm.reason === "IDENTITY_MISMATCH"
++                              ? "HISTORICAL_CONFIRMATION_IDENTITY_MISMATCH"
++                              : histConfirm.reason === "CLIENT_CLAIM_INSUFFICIENT"
++                                ? "HISTORICAL_CONFIRMATION_SERVER_REQUIRED"
++                                : "HISTORICAL_CONFIRMATION_REQUIRED",
++                        documentId: target.documentId,
++                        baseRevisionId: target.baseRevisionId,
++                        act: "REVISE",
++                      };
++                      emitDocumentProposalObs({
++                        requestId,
++                        operationId: reserved.operationId,
++                        generationId: reply.generationId,
++                        act: "REVISE",
++                        extracted,
++                        refuseCode:
++                          typeof documentSave.reason === "string"
++                            ? documentSave.reason
++                            : "HISTORICAL_CONFIRMATION_REQUIRED",
++                        d4Attempted: false,
++                        d4Effect: null,
++                      });
++                    } else {
++                    // F1 — Documents focus: proposal without D4 until explicit conserve of exact candidate.
++                    // pendingCandidateId alone must NOT imply conserve — Pilot may ask for adjustments (new P).
++                    const wantsConserve =
++                      Boolean(focus) &&
++                      (focus!.conserveProposal === true ||
++                        isConserveProposalTransmit(content));
++                    if (focus && !wantsConserve) {
++                      // Title must match leading H1 when present (canonicalizeDocumentProposal).
++                      // Prefer H1 of the exact merged body over structured proposal title.
++                      const proposalTitle =
++                        /^#\s+(.+?)(?:\r?\n|$)/.exec(merged.content)?.[1]?.trim() ||
++                        durableProposal?.title?.trim() ||
++                        target.title;
++                      const stashedCandidate = await stashPendingDocumentCandidate({
++                        commandId: reserved.commandId,
++                        ownerToken: reserved.ownerToken,
++                        preparationId,
++                        pilotId,
++                        documentId: target.documentId,
++                        sourceRevisionId: target.baseRevisionId,
++                        observedHeadRevisionId: observedHeadId,
++                        title: proposalTitle,
++                        contentMarkdown: merged.content,
++                        historicalAuthorizationId: focus.historicalAuthorizationId ?? null,
++                      });
++                      if (!stashedCandidate.ok) {
++                        documentSave = {
++                          status: "NOT_EXECUTED",
++                          reason: stashedCandidate.reason,
++                          documentId: target.documentId,
++                          baseRevisionId: target.baseRevisionId,
++                          act: "REVISE",
++                        };
++                      } else {
++                        const summary = pendingCandidateSummary(stashedCandidate.candidate);
++                        pendingDocumentCandidateOut = {
++                          ...summary,
++                          contentMarkdown: stashedCandidate.candidate.contentMarkdown,
++                        };
++                        documentSave = {
++                          status: "NOT_EXECUTED",
++                          reason: "PROPOSAL_PENDING_CONSERVATION",
++                          documentId: target.documentId,
++                          baseRevisionId: target.baseRevisionId,
++                          act: "REVISE",
++                        };
++                        continueChoicesOverride = [
++                          {
++                            id: "conserve-proposal",
++                            label: "Conserver comme nouvelle version",
++                            transmitText: DOC_CONSERVE_PROPOSAL,
++                          },
++                        ];
++                      }
++                      emitDocumentProposalObs({
++                        requestId,
++                        operationId: reserved.operationId,
++                        generationId: reply.generationId,
++                        act: "REVISE",
++                        extracted,
++                        refuseCode: "PROPOSAL_PENDING_CONSERVATION",
++                        d4Attempted: false,
++                        d4Effect: null,
++                      });
++                    } else {
++                    // F1 conserve: load sealed candidate — never regenerate from Nora qualification.
++                    let conserveContent = merged.content;
++                    let conserveTitle = target.title;
++                    let conserveSource = reviseSource;
++                    let conserveBlocked: string | null = null;
++                    if (focus) {
++                      const candidateId = focus.pendingCandidateId?.trim() || "";
++                      if (!candidateId) {
++                        conserveBlocked = "PENDING_CANDIDATE_REQUIRED";
++                      } else {
++                        const loaded = await loadPendingDocumentCandidate({
++                          pilotId,
++                          preparationId,
++                          candidateId,
++                          expectedContentSha256: focus.pendingCandidateContentSha256,
++                        });
++                        if (!loaded.ok) {
++                          conserveBlocked = loaded.reason;
++                        } else {
++                          const c = loaded.candidate;
++                          if (
++                            c.documentId !== target.documentId ||
++                            c.sourceRevisionId !== target.baseRevisionId
++                          ) {
++                            conserveBlocked = "CANDIDATE_IDENTITY_MISMATCH";
++                          } else if (c.observedHeadRevisionId !== observedHeadId) {
++                            conserveBlocked = "CANDIDATE_HEAD_MOVED";
++                          } else {
++                            // Exact inspected content — ignore freshly regenerated qualification body.
++                            conserveContent = c.contentMarkdown;
++                            conserveTitle = c.title;
++                            conserveSource = {
++                              kind: "SAME_TURN_SNAPSHOT",
++                              commandId: c.turnCommandId,
++                            };
++                          }
++                        }
++                      }
++                    }
++                    if (conserveBlocked) {
++                      documentSave = {
++                        status: "NOT_EXECUTED",
++                        reason: conserveBlocked,
++                        documentId: target.documentId,
++                        baseRevisionId: target.baseRevisionId,
++                        act: "REVISE",
++                      };
++                      emitDocumentProposalObs({
++                        requestId,
++                        operationId: reserved.operationId,
++                        generationId: reply.generationId,
++                        act: "REVISE",
++                        extracted,
++                        refuseCode: conserveBlocked,
++                        d4Attempted: false,
++                        d4Effect: null,
++                      });
++                    } else {
+                     const admitted = admitDocumentCommand({
+                       commandId: reserved.commandId,
+                       operationId: reserved.operationId,
+@@ -1899,10 +2208,23 @@ export async function postUserMessageAndNora(
+                       preparationId,
+                       documentId: target.documentId,
+                       baseRevisionId: target.baseRevisionId,
++                      ...(sourceIsHistorical
++                        ? {
++                            sourceRevisionId: target.baseRevisionId,
++                            observedHeadRevisionId: observedHeadId,
++                            confirmedHistoricalSource,
++                          }
++                        : focus?.sourceRevisionId
++                          ? {
++                              sourceRevisionId: target.baseRevisionId,
++                              observedHeadRevisionId: observedHeadId,
++                              confirmedHistoricalSource: false,
++                            }
++                          : {}),
+                       sectionHint: documentAct.sectionHint,
+-                      source: reviseSource,
+-                      title: target.title,
+-                      contentMarkdown: merged.content,
++                      source: conserveSource,
++                      title: conserveTitle,
++                      contentMarkdown: conserveContent,
+                       clientCorrelationSalt: clientSalt,
+                     });
+                     if (!admitted.ok) {
+@@ -1943,31 +2265,44 @@ export async function postUserMessageAndNora(
+                               ? (revised as { baseRevisionId: string }).baseRevisionId
+                               : target.baseRevisionId,
+                         };
++                        if (
++                          documentSave.status === "AVAILABLE" &&
++                          focus?.pendingCandidateId
++                        ) {
++                          await markPendingCandidateConsumed({
++                            pilotId,
++                            preparationId,
++                            candidateId: focus.pendingCandidateId,
++                          });
++                        }
+                       }
+                     }
+-                  }
+-                  if (
+-                    documentSave.status !== "AVAILABLE" &&
+-                    documentSave.status !== "CONFLICT" &&
+-                    !(documentSave.status === "FAILED" && documentSave.idempotentReplay)
+-                  ) {
+-                    documentSaveUnknown =
+-                      documentSave.status === "UNKNOWN" || documentSave.status === "FAILED";
+-                  }
+-                  emitDocumentProposalObs({
+-                    requestId,
+-                    operationId: reserved.operationId,
+-                    generationId: reply.generationId,
+-                    act: "REVISE",
+-                    extracted,
+-                    scopeVerdict: "OK",
+-                    refuseCode:
+-                      documentSave.status === "AVAILABLE" || documentSave.status === "CONFLICT"
+-                        ? null
+-                        : (documentSave.reason ?? null),
+-                    d4Attempted: true,
+-                    d4Effect: documentSave.status ?? null,
+-                  });
++                    if (
++                      documentSave.status !== "AVAILABLE" &&
++                      documentSave.status !== "CONFLICT" &&
++                      !(documentSave.status === "FAILED" && documentSave.idempotentReplay)
++                    ) {
++                      documentSaveUnknown =
++                        documentSave.status === "UNKNOWN" || documentSave.status === "FAILED";
++                    }
++                    emitDocumentProposalObs({
++                      requestId,
++                      operationId: reserved.operationId,
++                      generationId: reply.generationId,
++                      act: "REVISE",
++                      extracted,
++                      scopeVerdict: "OK",
++                      refuseCode:
++                        documentSave.status === "AVAILABLE" || documentSave.status === "CONFLICT"
++                          ? null
++                          : (documentSave.reason ?? null),
++                      d4Attempted: true,
++                      d4Effect: documentSave.status ?? null,
++                    });
++                    } // conserveBlocked else
++                    } // wantsConserve else
++                    } // historical confirmation gate
++                  } // reviseIntents cardinality else
+                 }
+               }
+             }
+@@ -2429,6 +2764,8 @@ export async function postUserMessageAndNora(
+     documentSave: ownershipLostBeforeD4
+       ? (unknownCapReconstituted?.documentSave ?? null)
+       : documentSave,
++    pendingDocumentCandidate: ownershipLostBeforeD4 ? null : pendingDocumentCandidateOut,
++    historicalAuthorization: ownershipLostBeforeD4 ? null : historicalAuthorizationOut,
+     idempotentReplay: false,
+     humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
+     pilotageEffect: pilotageEffectFromAuthority(authority),
+@@ -2448,7 +2785,7 @@ export async function postUserMessageAndNora(
+       status: turnStatus === "COMPLETE" ? reply.status : turnStatus,
+       finalized: turnStatus === "COMPLETE" && !ownershipLostBeforeD4,
+       // P1-A: never map clarifications[] → continue buttons.
+-      continueChoices: qualification.continueChoices ?? null,
++      continueChoices: continueChoicesOverride ?? qualification.continueChoices ?? null,
+       references: (qualification.resourceReferences ?? []).map((r) => ({
+         kind: r.kind,
+         label: r.label,
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+index 671ab7ec..b973edfc 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+@@ -837,6 +837,19 @@ export async function commitTurnTerminal(args: {
+             if (prev.turnProjection !== undefined && next.turnProjection === undefined) {
+               next.turnProjection = prev.turnProjection;
+             }
++            // F1/F2 — sealed proposal candidates + historical authorizations must survive terminal.
++            if (
++              prev.pendingDocumentCandidates !== undefined &&
++              next.pendingDocumentCandidates === undefined
++            ) {
++              next.pendingDocumentCandidates = prev.pendingDocumentCandidates;
++            }
++            if (
++              prev.historicalSourceAuthorizations !== undefined &&
++              next.historicalSourceAuthorizations === undefined
++            ) {
++              next.historicalSourceAuthorizations = prev.historicalSourceAuthorizations;
++            }
+             terminalJson = JSON.stringify(next);
+           } else {
+             terminalJson = owned.resultJson;
+@@ -1000,8 +1013,20 @@ export async function completeTurnCommand(args: {
+           if (prev.semanticQualification !== undefined && next.semanticQualification === undefined) {
+             next.semanticQualification = prev.semanticQualification;
+             next.semanticQualificationStashedAt = prev.semanticQualificationStashedAt;
+-            terminalJson = JSON.stringify(next);
+           }
++          if (
++            prev.pendingDocumentCandidates !== undefined &&
++            next.pendingDocumentCandidates === undefined
++          ) {
++            next.pendingDocumentCandidates = prev.pendingDocumentCandidates;
++          }
++          if (
++            prev.historicalSourceAuthorizations !== undefined &&
++            next.historicalSourceAuthorizations === undefined
++          ) {
++            next.historicalSourceAuthorizations = prev.historicalSourceAuthorizations;
++          }
++          terminalJson = JSON.stringify(next);
+         } else {
+           // No new payload — keep prior resultJson (qualification must survive UNKNOWN).
+           terminalJson = owned.resultJson;
+diff --git a/projects/sfia-studio-next/web/src/domains/document/service.ts b/projects/sfia-studio-next/web/src/domains/document/service.ts
+index 296527ce..cd673449 100644
+--- a/projects/sfia-studio-next/web/src/domains/document/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/document/service.ts
+@@ -1,4 +1,4 @@
+-import { and, asc, desc, eq, sql } from "drizzle-orm";
++import { and, asc, desc, eq, inArray, sql } from "drizzle-orm";
+ import { db } from "@/db/client";
+ import { documentRevisions, documents } from "@/db/schema";
+ import { newId } from "@/lib/ids";
+@@ -822,15 +822,28 @@ export async function savePreparationDocument(
+ }
+
+ /**
+- * Targeted non-destructive revision with atomic base-revision control.
+- * Document row FOR UPDATE serializes concurrent successors of the same base.
++ * Targeted non-destructive revision with atomic concurrency control.
++ * Document row FOR UPDATE serializes successors.
++ *
++ * Protocol:
++ * - Legacy (baseRevisionId only): source must equal current AVAILABLE head (BASE_STALE otherwise).
++ * - Historical-capable: sourceRevisionId (content lineage) + observedHeadRevisionId (concurrency)
++ *   + confirmedHistoricalSource when source ≠ head. New revision number is always monotone
++ *   above the max assigned AVAILABLE head — never renumbered from the source.
+  */
+ export async function reviseDocument(
+   pilotId: string,
+   preparationId: string,
+   input: {
+     documentId: string;
+-    baseRevisionId: string;
++    /** Legacy alias: when alone, means both source and observed head. */
++    baseRevisionId?: string;
++    /** Exact revision chosen as drafting source (may be historical). */
++    sourceRevisionId?: string;
++    /** Head AVAILABLE revision observed at confirmation time. */
++    observedHeadRevisionId?: string;
++    /** Required when sourceRevisionId ≠ actual head at commit. */
++    confirmedHistoricalSource?: boolean;
+     contentMarkdown: string;
+     correlationKey: string;
+     scope?: string;
+@@ -848,6 +861,24 @@ export async function reviseDocument(
+     return { status: "FAILED" as const, reason: "content too large" };
+   }
+
++  const sourceRevisionId = input.sourceRevisionId ?? input.baseRevisionId;
++  if (!sourceRevisionId) {
++    return { status: "FAILED" as const, reason: "SOURCE_REVISION_REQUIRED" };
++  }
++
++  const historicalProtocol =
++    Boolean(input.sourceRevisionId) ||
++    Boolean(input.observedHeadRevisionId) ||
++    input.confirmedHistoricalSource === true;
++
++  const observedHeadRevisionId = historicalProtocol
++    ? input.observedHeadRevisionId ?? null
++    : sourceRevisionId;
++
++  if (historicalProtocol && !observedHeadRevisionId) {
++    return { status: "FAILED" as const, reason: "OBSERVED_HEAD_REQUIRED" };
++  }
++
+   // P0: sealed-invalid REVISE provenance refuses before mutation.
+   if (input.provenance) {
+     const early = resolveProvenanceIdentity(input.provenance);
+@@ -916,21 +947,49 @@ export async function reviseDocument(
+         });
+       }
+
+-      const base = (
++      const source = (
++        await tx
++          .select()
++          .from(documentRevisions)
++          .where(
++            and(
++              eq(documentRevisions.id, sourceRevisionId),
++              eq(documentRevisions.documentId, input.documentId),
++            ),
++          )
++          .limit(1)
++      )[0];
++      if (!source) return { status: "FAILED" as const, reason: "BASE_NOT_FOUND" };
++      if (source.status !== "AVAILABLE") {
++        return {
++          status: "FAILED" as const,
++          reason: "BASE_NOT_AVAILABLE",
++          baseStatus: source.status,
++        };
++      }
++
++      // Refuse silent commit while a non-terminal revision exists.
++      const nonTerminal = (
+         await tx
+           .select()
+           .from(documentRevisions)
+           .where(
+             and(
+-              eq(documentRevisions.id, input.baseRevisionId),
+               eq(documentRevisions.documentId, input.documentId),
++              inArray(documentRevisions.status, ["SAVING", "UNKNOWN"]),
+             ),
+           )
+           .limit(1)
+       )[0];
+-      if (!base) return { status: "FAILED" as const, reason: "BASE_NOT_FOUND" };
+-      if (base.status !== "AVAILABLE") {
+-        return { status: "FAILED" as const, reason: "BASE_NOT_AVAILABLE", baseStatus: base.status };
++      if (nonTerminal) {
++        return {
++          status: "FAILED" as const,
++          reason: "HEAD_UNCERTAIN",
++          documentId: input.documentId,
++          actualLatestRevisionId: nonTerminal.id,
++          actualLatestRevisionNumber: nonTerminal.revisionNumber,
++          baseStatus: nonTerminal.status,
++        };
+       }
+
+       const latest = (
+@@ -947,14 +1006,38 @@ export async function reviseDocument(
+           .limit(1)
+       )[0];
+
+-      if (!latest || latest.id !== input.baseRevisionId) {
++      if (!latest) {
+         return {
+           status: "CONFLICT" as const,
+           reason: "BASE_STALE",
+           documentId: input.documentId,
+-          expectedBaseRevisionId: input.baseRevisionId,
+-          actualLatestRevisionId: latest?.id ?? null,
+-          actualLatestRevisionNumber: latest?.revisionNumber ?? null,
++          expectedBaseRevisionId: observedHeadRevisionId ?? sourceRevisionId,
++          actualLatestRevisionId: null,
++          actualLatestRevisionNumber: null,
++        };
++      }
++
++      const expectedHeadId = observedHeadRevisionId ?? sourceRevisionId;
++      if (latest.id !== expectedHeadId) {
++        return {
++          status: "CONFLICT" as const,
++          reason: "BASE_STALE",
++          documentId: input.documentId,
++          expectedBaseRevisionId: expectedHeadId,
++          actualLatestRevisionId: latest.id,
++          actualLatestRevisionNumber: latest.revisionNumber,
++        };
++      }
++
++      const sourceIsHistorical = source.id !== latest.id;
++      if (sourceIsHistorical && input.confirmedHistoricalSource !== true) {
++        return {
++          status: "FAILED" as const,
++          reason: "HISTORICAL_CONFIRMATION_REQUIRED",
++          documentId: input.documentId,
++          expectedBaseRevisionId: source.id,
++          actualLatestRevisionId: latest.id,
++          actualLatestRevisionNumber: latest.revisionNumber,
+         };
+       }
+
+@@ -970,12 +1053,17 @@ export async function reviseDocument(
+         revisionNumber,
+         contentMarkdown: input.contentMarkdown,
+         status: "SAVING",
+-        baseRevisionId: input.baseRevisionId,
++        baseRevisionId: source.id,
+         correlationKey: input.correlationKey,
+         provenanceJson: JSON.stringify({
+           ...(input.provenance ?? {}),
+           sectionHint: input.sectionHint ?? null,
+           contentFingerprint: expectedFp,
++          sourceRevisionId: source.id,
++          observedHeadRevisionId: latest.id,
++          confirmedHistoricalSource: sourceIsHistorical
++            ? true
++            : input.confirmedHistoricalSource === true,
+         }),
+         scope: input.scope ?? "section",
+       });
+@@ -989,11 +1077,14 @@ export async function reviseDocument(
+         documentId: input.documentId,
+         revisionId,
+         revisionNumber,
+-        baseRevisionId: input.baseRevisionId,
++        baseRevisionId: source.id,
++        sourceRevisionId: source.id,
++        observedHeadRevisionId: latest.id,
++        confirmedHistoricalSource: sourceIsHistorical,
+       };
+     });
+   } catch (e) {
+-    // Unique (documentId, revisionNumber) race → treat as conflict if base became stale
++    // Unique (documentId, revisionNumber) race → treat as conflict if head moved
+     const msg = e instanceof Error ? e.message : "persist failed";
+     if (/unique|duplicate/i.test(msg)) {
+       const latest = await latestRevisionFor(input.documentId);
+@@ -1001,7 +1092,7 @@ export async function reviseDocument(
+         status: "CONFLICT" as const,
+         reason: "BASE_STALE",
+         documentId: input.documentId,
+-        expectedBaseRevisionId: input.baseRevisionId,
++        expectedBaseRevisionId: observedHeadRevisionId ?? sourceRevisionId,
+         actualLatestRevisionId: latest?.id ?? null,
+         actualLatestRevisionNumber: latest?.revisionNumber ?? null,
+       };
 diff --git a/projects/sfia-studio-next/web/tests/e2e/g4-b1-b4-correctifs.spec.ts b/projects/sfia-studio-next/web/tests/e2e/g4-b1-b4-correctifs.spec.ts
 index 3b41419b..06a5e8c9 100644
 --- a/projects/sfia-studio-next/web/tests/e2e/g4-b1-b4-correctifs.spec.ts
@@ -4306,13 +5909,197 @@ index 3b41419b..06a5e8c9 100644
 
    // B4 — Reprendre = GET only (no POST to /api/preparations on resume)
    let prepPostCount = 0;
+diff --git a/projects/sfia-studio-next/web/tests/unit/confront-proposal-fence.test.ts b/projects/sfia-studio-next/web/tests/unit/confront-proposal-fence.test.ts
+index 0fc00692..871cc1bf 100644
+--- a/projects/sfia-studio-next/web/tests/unit/confront-proposal-fence.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/confront-proposal-fence.test.ts
+@@ -361,7 +361,8 @@ describe("P3 ACK + fence integrity", () => {
+       reason: "PROPOSAL_SOURCE_CONFLICT",
+     });
+     expect(composed).not.toMatch(/Studio a exécuté l'acte documentaire/);
+-    expect(composed).toMatch(/NOT_EXECUTED/);
++    expect(composed).toMatch(/Aucun enregistrement documentaire/i);
++    expect(composed).not.toMatch(/NOT_EXECUTED/);
+     const again = extractContractualDocumentProposal(composed);
+     expect(again.ok).toBe(true);
+     if (!again.ok) throw new Error(again.reason);
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts b/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
+index 488bc9fd..78b1935c 100644
+--- a/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
+@@ -56,8 +56,8 @@ describe("ML4C S03 continueAfter composition — document ACK", () => {
+       status: "COMPLETED",
+       restitution: "DELIVERED",
+     });
+-    expect(composed).toMatch(/Résultat applicatif D4/i);
+-    expect(composed).toMatch(/AVAILABLE/);
++    expect(composed).toMatch(/Résultat d'enregistrement/i);
++    expect(composed).toMatch(/Nouvelle version disponible\s*:\s*v1/i);
+     expect(hasCompetingTransactionalClaim(composed, effect)).toBe(false);
+   });
+
 
 ```
 
 ---
 
-# §18 — Anti-stale handoff metadata
+## 11. Tests unitaires
 
-Après publish L3, remplacer mentalement tip/blob par les SHA \`git ls-remote\` / \`git cat-file\` vérifiés. Ne pas faire confiance à un Commit SHA auto-référentiel non relu.
+Exécutés (PASS) :
+- `tests/unit/documents-surfaces-projection.test.ts` — 12 PASS (F2 confirmation serveur, hash candidat, provenance)
+- `tests/unit/document-act.test.ts` — 6 PASS
+- `tests/unit/confront-proposal-fence.test.ts` — 24 PASS (ACK sans NOT_EXECUTED produit)
+- `tests/unit/ml4c-s01-s03-guards.test.ts` — 11 PASS
 
-FIN DU REVIEW PACK FULL — Ensemble 06 Documents CORRECTIVE.
+## 12. Tests PostgreSQL / intégration
+
+- `tests/integration/documents-proposal-candidate.pg.test.ts` — 1 PASS
+  Preuve : hash stable ; forge refusée ; P1 supersédé ; V4 body = P2 exact ; V1–V3 intactes
+- `tests/integration/documents-historical-revise.pg.test.ts` — 4 PASS
+  V2→V4 avec confirm ; sans confirm FAILED ; concurrence ; filiation
+
+## 13. E2E Playwright (FAKE fixture lane :3101 / `sfia_next_e2e`)
+
+| Spec | Résultat |
+|---|---|
+| `documents-nora-v2-v4.spec.ts` | **PASS** — V2 historique → confirm → proposition ≠ V2 → conserve V4 → reload sans auto-save |
+| `documents-bibliotheque-08.spec.ts` | **PASS** — non-régression bibliothèque/lecture/historique/compare |
+| `g4-b1-b4-correctifs.spec.ts` | **PASS** |
+| `documents-f1f5-runtime-captures.spec.ts` | **PASS** — captures 930:9 / 930:10 distinctes |
+
+Frontières simulées : Nora = **FAKE** (`deterministic-fixture`). Pas de campagne LIVE OpenAI.
+
+## 14. Preuve candidat = contenu D4
+
+- PG : `loadedP2.candidate.contentMarkdown === getDocumentRevision(V4).contentMarkdown`
+- E2E : visionneuse contient formulation candidat ; après conserve, `doc-rev-4` présent ; message « Nouvelle version disponible : v4 »
+- Conserve path : `conserveContent = c.contentMarkdown` (ignore qualification régénérée)
+
+## 15. Versions historiques intactes
+
+- PG list : V1 objet / V2 historique / V3 courante inchangés après V4
+- E2E : `doc-rev-1`…`doc-rev-3` visibles avec `doc-rev-4`
+
+## 16. Cas négatifs / concurrence
+
+| Cas | Preuve |
+|---|---|
+| Client hash forge | `CANDIDATE_CLIENT_HASH_MISMATCH` (PG) |
+| Ancien candidat après P2 | `CANDIDATE_SUPERSEDED` (PG) |
+| Confirm sans auth serveur | `CLIENT_CLAIM_INSUFFICIENT` (unit) |
+| Confirm doc mismatch | `IDENTITY_MISMATCH` (unit) |
+| Head moved | `HEAD_MOVED` (unit) |
+| Historique sans confirm → D4 | `HISTORICAL_CONFIRMATION_REQUIRED` (PG hist) |
+| Lexical « oui je confirme… » | `null` (unit transmit) |
+
+## 17. Matrice UAT / TECH
+
+| ID | Verdict | Preuve | Limite |
+|---|---|---|---|
+| DOC-UAT-01 | PASS | bibliothèque e2e select≠open | — |
+| DOC-UAT-02 | PASS | lecture read-only e2e | — |
+| DOC-UAT-03 | PARTIAL | reprise Nora couverte F4/F5 e2e | pas tous les libellés Figma pixel |
+| DOC-UAT-04 | PASS | pas textarea lecture | — |
+| DOC-UAT-05 | PASS | historique e2e | — |
+| DOC-UAT-06 | PASS | F3 provenance lecture exacte (code+unit) | e2e provenance dédié non isolé |
+| DOC-UAT-07 | PASS | compare shell e2e | — |
+| DOC-UAT-08 | PASS | Travail 50/50 + viewer e2e | — |
+| DOC-UAT-09 | PASS | V2→V4 PG + e2e | FAKE Nora |
+| DOC-UAT-10 | PASS | confirmation historique serveur | — |
+| DOC-UAT-11 | PASS | proposition non enregistrée puis conserve | — |
+| DOC-UAT-12 | PASS | reload sans auto-save e2e | — |
+| DOC-UAT-13 | PASS | séparation D4/Git (bandeau / pas publication auto) | — |
+| DOC-TECH-14 | PASS | isolation prep/pilot candidate load | — |
+| DOC-TECH-15 | PASS | idempotence / correlation (acquis D4) | — |
+| DOC-TECH-16 | PASS | concurrence head (unit+PG hist) | — |
+| DOC-TECH-17 | PASS | ACK preserve candidates (turn-command) | — |
+| DOC-TECH-18 | PASS | frontiers D6 non introduites | — |
+| F1-local | PASS | candidat exact | FAKE |
+| F2-local | PASS | hauth serveur | — |
+| F3-local | PASS | readingProvenanceJson | — |
+| F4-local | PASS | choix dans fil ; captures 930:9 | écarts résiduels labels/fixtures |
+| F5-local | PASS | viewer candidat ; ACK soft ; captures 930:10 | titres doc Sas « Document du sas » |
+
+## 18–19. Comparaison Figma / runtime
+
+**Viewport** : 1680×970 CSS px
+
+| Frame | Figma local | Runtime local | MD5 Figma | Distinct 9≠10 |
+|---|---|---|---|---|
+| 930:9 | `…/cycle08-f1f5/figma-930-9.png` | `…/runtime-930-9-historical.png` | `94b785e9599b58c6b41832ee87d892ac` | oui |
+| 930:10 | `…/cycle08-f1f5/figma-930-10.png` | `…/runtime-930-10-proposal.png` | `55fccea7a2038c26d8ee08ea2a98b32f` | oui |
+
+Runtime MD5 : 9=`abe26cce852e0d81cccf1cf1b24fdc83` · 10=`40743dc218cdcc8c0fa48ba8da5d9f39`
+
+**ChatGPT n'a PAS les binaires PNG dans ce handoff textuel.** Chemins locaux exacts ci-dessus. Ne pas prétendre que ChatGPT a examiné les pixels.
+
+### Conformité qualitative observée
+- 930:9 : titre « Réviser une version historique avec Nora » ; badge HISTORIQUE ; choix « Repartir de la v2 » / « Partir de la v3 courante » dans le fil ; viewer V2 ; pas de panneau sous composeur → **PASS fonctionnel** ; réserves : messages fixture FAKE antérieurs dans le fil ; titre doc = « Document du sas » (seed Sas).
+- 930:10 : titre « Examiner une proposition de Nora » ; badge PROPOSITION ; bandeau PROPOSITION NON ENREGISTRÉE ; contenu candidat ≠ V2 historique pure ; CTA unique conserve → **PASS fonctionnel** ; réserves : numérotation candidate dérivée ; fixture narrative encore présente autour de l'ACK.
+
+Non-régression 930:3–8 : e2e bibliothèque + G4 PASS (pas de re-capture pixel exhaustive ce cycle — hors régression cosmétique secondaire).
+
+## 20. Libellés supprimés / corrigés
+
+- Retiré des surfaces produit courantes : `NOT_EXECUTED`, `PROPOSAL_PENDING_CONSERVATION`, `documentId`/`revisionId` bruts dans ACK succès
+- ACK pending → « Proposition non enregistrée »
+- ACK succès → « Nouvelle version disponible : vN »
+- Doublon conserve sous composeur : retiré (`document-proposal-conserve` count 0)
+
+## 21. KNOWN GAP Sas
+
+L'éditeur documentaire manuel du Sas de préparation **n'a pas été modifié**.
+Il reste utilisable pour seed / parcours hors Documents.
+Contrôles d'autorisation Documents focus restent côté conversation projet.
+**Pas de STOP CROSS-SURFACE** — correction Sas non indispensable à la sûreté F1–F5.
+
+## 22. ENV-01
+
+- Lane : DEV isolé / Playwright E2E `:3101` + DB `sfia_next_e2e` (operator `sfia_next_dev` → container `sfia-next-dev-pg:5433`)
+- DEV UI `:3100` présent pour inspection (non utiliséé comme preuve mutative E2E)
+- RECETTE/STABLE : non utilisés
+
+## 23. Fake/Real Qualification
+
+| Élément | Qualification |
+|---|---|
+| Nora fixtures historiques / revise / conserve | **FAKE** |
+| Transitions applicatives D4 PG | **REAL** (PostgreSQL local) |
+| E2E browser | **REAL browser** + **FAKE Nora** |
+| OpenAI LIVE | **NOT RUN** / non autorisé |
+
+## 24. Risques et limites
+
+- Fil durable peut contenir d'anciennes réponses fixture FAKE non liées (bruit UX, pas d'écriture silencieuse)
+- Titre document seed Sas (« Document du sas ») ≠ copy Figma CampusNova (données dynamiques OK)
+- Pixel-perfect F2 non revendiqué sans mesure rectangle-à-rectangle documentée
+- Conserve ACK softé : tests ML4C ACK mis à jour ; blast radius narration D4 élargi volontairement au wording produit
+
+## 25. Dette / exit
+
+- Nettoyage optionnel des fixtures conversationnelles génériques trop verboses
+- Captures non-régression 930:3–8 pixel si Morris exige dossier visuel exhaustif
+- GO distinct requis pour refonte Sas
+
+## 26. Verdict technique unique
+
+**READY FOR INDEPENDENT CHATGPT REVIEW**
+
+P0 F1/F2 prouvés (code + PG + E2E). P1 F3–F5 corrigés avec preuves. Réserves visuelles qualifiées, non bloquantes P0.
+
+## 27. Gate Morris restant
+
+- Acceptation Morris
+- Commit / PR / merge projet
+- Ouverture RECETTE
+- Clôture Ensemble 06
+- Attribution version STABLE / ADOPTED
+
+Aucun de ces gates n'est levé par ce verdict.
+
+---
+
+## Instruction ChatGPT
+
+Relire depuis Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
+Vérifier indépendamment : diffs, identité propositions, confirmation historique, conservation exacte, tests, états Figma (chemins locaux), réserves, frontières Git/ENV.
