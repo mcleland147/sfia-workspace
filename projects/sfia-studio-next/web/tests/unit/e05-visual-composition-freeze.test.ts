@@ -41,40 +41,28 @@ describe("E05 visual composition freeze (Morris 19/11/2026)", () => {
     expect("visualComposition" in NoraTurnQualificationSchema.shape).toBe(true);
   });
 
-  it("LIVE soft schema truncates oversize replyDraft and strips unknown intent parameters", () => {
-    const parsed = NoraTurnQualificationLiveOutputSchema.safeParse({
+  it("LIVE output schema is a plain ZodObject without visualComposition (SDK-compatible)", () => {
+    // Agents SDK requires a ZodObject (shape present) — not ZodEffects/preprocess.
+    expect(NoraTurnQualificationLiveOutputSchema.shape).toBeTypeOf("object");
+    expect("visualComposition" in NoraTurnQualificationLiveOutputSchema.shape).toBe(false);
+    const ok = NoraTurnQualificationLiveOutputSchema.safeParse({
       schemaVersion: "ml4c-sem-qual-v1",
       status: "QUALIFIED",
       goal: "g",
-      clarifications: ["q".repeat(500)],
-      replyDraft: "R".repeat(20001),
-      intents: [
-        {
-          id: "i1",
-          capabilityId: "d4.record_knowledge",
-          mode: "REQUEST_EFFECT",
-          summary: "s",
-          parameters: {
-            knowledgeKind: "ACQUIS",
-            knowledgeStatement: "K".repeat(5001),
-            epistemic: "recommended",
-            inventedExtra: "should-strip",
-          },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
+      clarifications: [],
+      replyDraft: "ok",
+      intents: [],
     });
-    expect(parsed.success).toBe(true);
-    if (!parsed.success) return;
-    expect(parsed.data.replyDraft.length).toBe(20000);
-    expect(parsed.data.clarifications?.[0]?.length).toBe(400);
-    expect(parsed.data.intents[0]?.parameters.knowledgeStatement?.length).toBe(5000);
-    expect(
-      (parsed.data.intents[0]?.parameters as Record<string, unknown>).inventedExtra,
-    ).toBeUndefined();
-    expect(validateNoraTurnQualification(parsed.data).ok).toBe(true);
+    expect(ok.success).toBe(true);
+    const over = NoraTurnQualificationLiveOutputSchema.safeParse({
+      schemaVersion: "ml4c-sem-qual-v1",
+      status: "QUALIFIED",
+      goal: "g",
+      clarifications: [],
+      replyDraft: "R".repeat(20001),
+      intents: [],
+    });
+    expect(over.success).toBe(false);
   });
 
   it("validated qualification without visualComposition stays textual", () => {

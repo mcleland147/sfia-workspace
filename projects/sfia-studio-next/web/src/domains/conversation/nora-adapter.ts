@@ -893,7 +893,7 @@ async function runLiveWithTools(
         maxTurns,
         model_requested: NORA_STUDY_MODEL,
         max_turns_note: "maxTurns≠maxProviderCalls",
-        live_output_schema: "soft_bound_no_visual",
+        live_output_schema: "plain_omit_visual",
       },
     });
 
@@ -1010,7 +1010,7 @@ async function runLiveWithTools(
           zod_issue_path: diag.zod_issue_path,
           validation_rule_hint: diag.validation_rule_hint,
           msg_fingerprint: diag.msg_fingerprint,
-          live_output_schema: "soft_bound_no_visual",
+          live_output_schema: "plain_omit_visual",
         },
       });
 
