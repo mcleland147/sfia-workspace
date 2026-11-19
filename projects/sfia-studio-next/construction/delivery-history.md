@@ -4,6 +4,18 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-19-KNOWLEDGE-STATEMENT-5000
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~17:10 CET |
+| Macro-lot | Ensemble 05+06 — correctif UNKNOWN schema |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Plafond `knowledgeStatement` 500→5000 + cutover RECETTE `:3200` |
+| Cause | DEV LIVE: `intents.N.parameters.knowledgeStatement` Too big ≤500 |
+| Parent | `d3017338` gel E05 / Journal quality |
+| Verdict Cursor | voir cutover |
+
 ## delivery_id: DELIV-2026-11-19-E05-FREEZE-JOURNAL-QUALITY
 
 | Field | Value |

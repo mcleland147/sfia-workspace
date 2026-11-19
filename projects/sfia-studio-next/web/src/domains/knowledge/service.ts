@@ -1077,7 +1077,7 @@ export async function maybeCapitalizeFromExchange(
                   "@/domains/knowledge/journal"
                 );
                 const syn = await appendSubjectSummaryRevision(pilotId, projectId, s.subjectId, {
-                  summaryMarkdown: summaryMarkdown.slice(0, 4000),
+                  summaryMarkdown: summaryMarkdown.slice(0, 5000),
                   provenance: {
                     sourceKind: "message",
                     sourceId: input.userMessageId,

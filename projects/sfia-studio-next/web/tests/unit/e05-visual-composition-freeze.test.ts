@@ -59,6 +59,46 @@ describe("E05 visual composition freeze (Morris 19/11/2026)", () => {
     expect(validated.value.replyDraft).toMatch(/Inventaire Lille/);
   });
 
+  it("knowledgeStatement schema accepts up to 5000 characters (CampusNova UNKNOWN corrective)", () => {
+    const ok = "x".repeat(5000);
+    const over = "x".repeat(5001);
+    const base = {
+      schemaVersion: "ml4c-sem-qual-v1" as const,
+      status: "QUALIFIED" as const,
+      goal: "g",
+      clarifications: [],
+      replyDraft: "ok",
+      intents: [
+        {
+          id: "i1",
+          capabilityId: "d4.record_knowledge" as const,
+          mode: "REQUEST_EFFECT" as const,
+          summary: "s",
+          parameters: {
+            knowledgeKind: "SUBJECT" as const,
+            knowledgeStatement: ok,
+            epistemic: "recommended" as const,
+          },
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+    };
+    expect(validateNoraTurnQualification(base).ok).toBe(true);
+    expect(
+      validateNoraTurnQualification({
+        ...base,
+        intents: [
+          {
+            ...base.intents[0]!,
+            parameters: { ...base.intents[0]!.parameters, knowledgeStatement: over },
+          },
+        ],
+      }).ok,
+    ).toBe(false);
+  });
+
   it("editorialCompactKnowledgeStatement shortens and strips narrative preamble", () => {
     const long =
       "Selon le Pilote, le centre de Lille possède effectivement douze ordinateurs portables dont le nombre opérationnel a été corrigé après vérification inventaire, ce qui modifie la capacité mobilisable pour les formations du lundi et implique aussi de tenir compte des prêts déjà consentis ainsi que du registre papier actuellement tenu à l'accueil pour les remises et retours.";

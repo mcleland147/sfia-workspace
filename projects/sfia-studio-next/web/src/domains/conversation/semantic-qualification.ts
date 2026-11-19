@@ -100,7 +100,8 @@ export const QualifiedIntentItemSchema = z.object({
       notes: z.string().max(400).optional(),
       /** Typed D4 continuity capitalisation (RG-KNOW-001) — owner still validates. */
       knowledgeKind: KnowledgeRecordKindSchema.optional(),
-      knowledgeStatement: z.string().max(500).optional(),
+      /** Raised 500→5000 (2026-11-19): SUBJECT synthesis / rich ACQUIS were failing LIVE schema validation (CampusNova UNKNOWN). */
+      knowledgeStatement: z.string().max(5000).optional(),
       epistemic: KnowledgeEpistemicSchema.optional(),
       subjectTitle: z.string().max(120).optional(),
       subjectId: z.string().max(120).optional(),
