@@ -4,6 +4,38 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-FIGMA-UX
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~12:15 CET |
+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 Figma UX corrective |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** · **NO RECETTE CUTOVER** |
+| GO Morris | NON CONFORME UX Figma → correctif obligatoire ; cutover RECETTE hors mandat |
+| Parent | local `d5bf7eb7` (build RECETTE toujours servi) |
+| Scope | ProjectJournal V4 shell · tokens · Chrome breadcrumb-only · deep-link race · 11 captures |
+| Figma | 11 frames `itgvCulInEnFY6DvgIegvP` page 828:2 lus via MCP |
+| Provenance CampusFlow | Classification A — titre D4 fragment conversationnel, pas de fuite |
+| Verdict Cursor | `FIGMA TO RUNTIME ALIGNED — READY FOR MORRIS VISUAL REVIEW` (réserves pixel / J-C14) |
+
+
+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~11:33 CET |
+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 qualification + RECETTE |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Qualification technique + mise à disposition sur RECETTE existante |
+| Candidate | `d5bf7eb762a21cc309744bb703926e2c0bc844ed` · tree `f5c05cb94f5137d06a26107b7003ab1bf073f923` · BUILD `PV12SV9VToVGK-ReSxTqk` |
+| Parent RECETTE | `5c94c867…` / `IEINNuPl0bHWJOWkh0ZhG` |
+| Scope | QA DEV · migration 014 additive RECETTE · cutover même `:3200` / LaunchAgent · smoke · manifeste |
+| DB | `sfia_next_recette_ml4` · 014 applied · counts 23/560 preserved |
+| Rollback | `ROLLBACK-TO-5c94c867.sh` + dump `ml4d-e06-journal-20261119-pre-d5bf7eb7` |
+| Manifeste | `construction/ensemble-06-journal-recette-manifest.md` |
+| Verdict Cursor | `RECETTE TECHNICALLY AVAILABLE — READY FOR MORRIS USER ACCEPTANCE` |
+
+
 ## delivery_id: DELIV-2026-11-19-JOURNAL-V4-LIVE-PARTIAL
 
 | Field | Value |

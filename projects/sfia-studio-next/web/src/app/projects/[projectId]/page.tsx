@@ -207,6 +207,8 @@ export default function ProjectPage() {
   /** C1 — ignore stale async viewer responses after A→B / close / project change. */
   const viewerRequestSeqRef = useRef(0);
   const viewerOpenRef = useRef(false);
+  /** Invalidates in-flight Journal→Travail deep-links when the user navigates away. */
+  const surfaceNavGenRef = useRef(0);
 
   useEffect(() => {
     // Clear previous project identity immediately — no cross-project leak in the rail.
@@ -294,7 +296,10 @@ export default function ProjectPage() {
     return () => {
       cancelled = true;
     };
-  }, [surface, params.projectId, knowledge]);
+    // Refresh when entering Journal surface / project — not on every knowledge identity change
+    // (that cancelled in-flight loads and dropped sourceLinks intermittently).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [surface, params.projectId]);
 
   useEffect(() => {
     projectIdRef.current = params.projectId;
@@ -727,6 +732,7 @@ export default function ProjectPage() {
   }
 
   function selectSurface(next: Surface) {
+    surfaceNavGenRef.current += 1;
     pendingSurfaceRef.current = next;
     noteProjectSurfaceNavIntent(params.projectId, next as StudioSurface);
     setSurface(next);
@@ -1283,6 +1289,7 @@ export default function ProjectPage() {
 
   // B2 — keep surface/document in sync with URL on Back/Forward without one-shot lock.
   useEffect(() => {
+    surfaceNavGenRef.current += 1;
     const qSurface = parseSurface(searchParams.get("surface"));
     const qDocId = searchParams.get("documentId");
     applyUrlDocumentState(documentsRef.current, qSurface, qDocId);
@@ -2022,8 +2029,12 @@ export default function ProjectPage() {
           initialNav={journalNav}
           onNavChange={setJournalNav}
           onOpenMessage={(messageId) => {
+            // Navigate immediately so in-flight fetches cannot fight a later Journal return.
+            setFocusStatus(null);
+            setFocusMessageId(messageId);
+            selectSurface("travail");
+            const navGen = surfaceNavGenRef.current;
             void (async () => {
-              setFocusStatus(null);
               const local = messages.find((m) => m.id === messageId);
               if (!local) {
                 const res = await fetch(
@@ -2042,10 +2053,10 @@ export default function ProjectPage() {
                   };
                 };
                 if (!res.ok || !body.message) {
+                  if (navGen !== surfaceNavGenRef.current) return;
                   setFocusStatus(
                     body.reason ?? "Message introuvable ou accès refusé — retour Journal possible.",
                   );
-                  selectSurface("travail");
                   return;
                 }
                 // E06-04 — prefer canonical reload; otherwise insert by createdAt (never append blindly).
@@ -2109,9 +2120,9 @@ export default function ProjectPage() {
                   });
                 }
               }
-              // Preserve draft + journalNav; never auto-send.
+              // Preserve draft + journalNav; never auto-send. Surface already switched above.
+              if (navGen !== surfaceNavGenRef.current) return;
               setFocusMessageId(messageId);
-              selectSurface("travail");
             })();
           }}
           onOpenDocument={(documentId, revisionId) => {

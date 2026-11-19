@@ -27,9 +27,9 @@ const HERO: Record<
     sub: "Cycle, méthode, CKI et décisions humaines — affichage D5/D6 existant.",
   },
   journal: {
-    kicker: "Espace projet  /  Journal",
-    title: "Sujets et acquis",
-    sub: "Sujets, acquis et points ouverts — présentation sans nouvelle autorité.",
+    kicker: "ESPACE PROJET  /  JOURNAL",
+    title: "Journal",
+    sub: "La mémoire du projet, organisée par thèmes. Retrouvez l’essentiel sans remonter toute la conversation.",
   },
   document: {
     kicker: "Espace projet  /  Documents Nora",
@@ -65,6 +65,9 @@ export function ProjectChrome(props: {
   const surfaceLabel = PROJECT_SURFACE_LABELS[props.surface];
   const displayName = props.projectName?.trim() || "Projet";
   const isTravail = props.surface === "travail";
+  /** Journal V4 — hero lives inside ProjectJournal (full vs compact 40/60). */
+  const isJournal = props.surface === "journal";
+  const breadcrumbOnly = isTravail || isJournal;
 
   const continuityBadge =
     isTravail && props.statusHint && !/^chargement/i.test(props.statusHint) ? (
@@ -90,7 +93,7 @@ export function ProjectChrome(props: {
 
   return (
     <div
-      className={`fig-page project-space-page${isTravail ? " project-space-page--travail" : ""}`}
+      className={`fig-page project-space-page${isTravail ? " project-space-page--travail" : ""}${isJournal ? " project-space-page--journal" : ""}`}
       data-project-surface={props.surface}
       data-testid="project-load-state"
       data-project-load-state={loadState}
@@ -98,21 +101,20 @@ export function ProjectChrome(props: {
       data-project-name={props.projectName ?? ""}
     >
       <div
-        className={`project-space-header${isTravail ? " project-space-header--breadcrumb-only" : ""}`}
+        className={`project-space-header${breadcrumbOnly ? " project-space-header--breadcrumb-only" : ""}`}
         data-testid="project-space-header"
       >
         <div className="fig-breadcrumb project-space-breadcrumb">
           <span data-testid="project-breadcrumb">
-            SFIA Studio&nbsp;&nbsp;/&nbsp;&nbsp;Projet&nbsp;&nbsp;/&nbsp;&nbsp;
-            <span className="text-[var(--fg)]">{displayName}</span>
-            &nbsp;&nbsp;/&nbsp;&nbsp;{surfaceLabel}
+            SFIA Studio&nbsp;&nbsp;/&nbsp;&nbsp;{displayName}&nbsp;&nbsp;/&nbsp;&nbsp;
+            {surfaceLabel}
           </span>
           <span className="project-space-badge" data-testid="project-espace-badge">
             ESPACE PROJET
           </span>
         </div>
 
-        {!isTravail ? (
+        {!breadcrumbOnly ? (
           <header className="project-space-hero space-y-1">
             <p className="fig-kicker project-space-kicker">{hero.kicker}</p>
             <div className="project-space-hero-row">

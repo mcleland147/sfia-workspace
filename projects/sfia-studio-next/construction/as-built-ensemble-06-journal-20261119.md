@@ -1,65 +1,61 @@
-# As-built — Ensemble 06 / Journal V4 (candidat local)
+# As-built — Ensemble 06 / Journal V4
 
 | Métadonnée | Valeur |
 |---|---|
-| Date | 19/11/2026 (cycle 4 — complétude §5 + LIVE borné arrêté) |
+| Date | 19/11/2026 — correctif UX Figma-to-runtime |
 | Branche | `sfia/next-journal-delivery-20261119` |
-| Base docs cycle 1 | `6879d34e` |
-| Matrice docs distante (lue, non fusionnée) | `c3f1254c` (v0.3 §14) |
-| Base `main` | `d3d199ad` |
-| Versioning | `NO RELEASE` / `0.0.0-dev` |
-| Lane | DEV / e2e (`127.0.0.1:5433`, `:3101`) — LIVE tenté `:3103` — RECETTE/STABLE non mutées |
+| Parent candidat RECETTE | `d5bf7eb762a21cc309744bb703926e2c0bc844ed` |
+| Base `main` | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
+| Docs matrice | v0.6 §17 (`864e09bf` documentaire) |
+| Versioning | `NO RELEASE` / STABLE NOT AVAILABLE |
+| RECETTE | **non cutover** ce cycle — candidat DEV pour GO Morris |
 
-## Cycles 1–3 (conservés)
+## Correctif UX (présent cycle)
 
-- Migration additive `014` + Journal D4/UI/API
-- E06-01..06 : scope projet, UNVERIFIED Git, message chrono, seed BROWSER, resolve source réelle
+### Non-conformités Morris corrigées
 
-## Cycle 4 — correctifs matrice §14 + LIVE
-
-### §5 déterministe
-
-| ID | Correction |
+| Constat | Correction |
 |---|---|
-| J-C08 | Seed : titre feuille sans token « traçabilité » ; badge match `acquis` en BROWSER |
-| J-C11 | Recherche décisions : explication-only (`multicritèreorion`) ; UI n’utilise plus `kind` comme hit |
-| J-C13 | Retour Journal via rail (pas `page.goto` comme preuve) ; search/filtre/layout conservés |
-| J-C14 | Clic source document → Travail viewer exact (`viewerOpenRef`) ; contenu v2 asserté |
-| J-C07 | PG : deux préparations liées au même projet, sujets homonymes non fusionnés |
-| J-C05 | Resolve refusé si révision non AVAILABLE |
-| J-C16 | Gate route journal-fixture + refus DEV sans STUDIO_E2E |
+| Titre « Sujets et acquis » | `ProjectChrome` journal → hero déplacé ; titre **Journal** dans `ProjectJournal` |
+| Textes D4/D6 techniques | Supprimés de l’UI Pilote |
+| Viewer vide permanent | Mode exploration pleine largeur sans panneau idle |
+| Arborescence non Figma | Hiérarchie éditoriale groupes/enfants, guides, blurbs |
+| Copy hors cible | Sous-titre Figma exact Sujets / Décisions |
 
-### LIVE CampusFlow (GO Morris, arrêté sur demande)
+### Fichiers touchés
 
-- Projet DEV fictif créé ; provider `openai-agents-sdk-live` constaté sur **E01**
-- Durée E01 ≈ 647 s ; réponse Nora réelle archivée
-- **E02–E20 / T10 / T20 : NON EXÉCUTÉS** (arrêt Morris/opérateur)
-- Journal T0 : vide (attendu avant capitalisation)
-- Preuves locales : `.tmp-sfia-review/journal-live-campusflow-20261119/` (non commit)
+- `web/src/components/figma/ProjectJournal.tsx` — shell V4
+- `web/src/components/figma/tokens.css` — styles 835:71 / 842 / 860
+- `web/src/components/figma/ProjectChrome.tsx` — breadcrumb-only Journal
+- `web/src/app/projects/[projectId]/page.tsx` — deep-link nav + fetch Journal sans cancel race
+- `web/tests/e2e/journal-v4-*.spec.ts` — parcours + captures
 
-### Artefacts test LIVE (conservés pour reprise manuelle)
+### Anomalie CampusFlow (provenance)
 
-- `web/tests/e2e/journal-nora-live-campusflow.spec.ts`
-- `web/playwright.journal-live.config.ts`
-- Commande : `STUDIO_ALLOW_LIVE_BOUNDED=1` + `OPENAI_API_KEY` + `npx playwright test --config=playwright.journal-live.config.ts`
+| Champ | Valeur |
+|---|---|
+| projectId | `proj_1b52eb8f-3c63-4c72-a4dd-a47f34e1bb4d` |
+| project name | CampusFlow |
+| owner_pilot_id | `pilot_98a7a89e-ba00-42c6-84d5-680eff67b73c` |
+| subjectId | `subj_8eb4e9ce-3922-4c27-a16b-cfc0c817b912` |
+| title | fragment conversationnel (« la première source Git… SHA… ») |
+| summary | vide |
+| Classification | **A — contenu légitime mal présenté** (titre D4 = extrait de fil) |
+| Fuite interprojets | **NON** — même projet / même Pilote |
 
 ## Preuves
 
-| Commande | Résultat |
+| Contrôle | Résultat |
 |---|---|
-| `tsc --noEmit` | PASS |
-| `npm run lint` | PASS (warnings préexistants) |
-| `next build` | PASS |
-| unit journal-cognition + fixture-gate | PASS |
-| PG journal-d4-revisions | PASS (15) |
-| PG ml3-pilotage | PASS (49) |
-| Playwright journal-v4-parcours | PASS (2) |
-| LIVE 20 tours | **1/20 PARTIAL** — arrêté après E01 |
-| ML2/ML4C/E05 full e2e | NOT RUN |
-| VISUAL REVIEW | PENDING MORRIS — RECETTE |
+| tsc | PASS |
+| unit journal + fixture-gate | 14/14 PASS |
+| Captures DEV 1680×970 (11 frames) | produites sous `.tmp-sfia-review/figma-ux-after/` |
+| Playwright parcours | voir Review Pack (retries / réserves J-C14) |
+| RECETTE cutover | **NON** — GO Morris requis |
+| VISUAL REVIEW Morris | **PENDING** |
 
 ## Autorité
 
 - D6 non muté depuis Journal
-- Aucun push projet / PR / merge
-- Revue visuelle Morris en RECETTE uniquement
+- Aucun faux contenu en DB RECETTE
+- Aucun push produit / PR / merge

@@ -90,6 +90,37 @@ export type JournalNavState = {
 type Tab = "subjects" | "decisions";
 type LayoutMode = "full" | "split" | "enlarged";
 
+const COPY = {
+  kicker: "ESPACE PROJET  /  JOURNAL",
+  title: "Journal",
+  subjectsSub:
+    "La mémoire du projet, organisée par thèmes. Retrouvez l’essentiel sans remonter toute la conversation.",
+  subjectsSubCompact: "La mémoire du projet, organisée par thèmes.",
+  decisionsSub: "Comprendre ce qui a été arbitré et pourquoi.",
+  themesLabel: "THÈMES DU PROJET",
+  themesHint: "Organisation évolutive · entretenue par Nora",
+  decisionsLabel: "DÉCISIONS DURABLES DU PROJET",
+  searchSubjects: "Rechercher un sujet…",
+  searchDecisions: "Rechercher une décision…",
+  openPoints: "◌  Points ouverts",
+  emptySubjects: "Aucun thème capitalisé pour l’instant. Les sujets apparaîtront ici lorsqu’ils seront durablement retenus.",
+  emptyDecisions: "Aucune décision durable enregistrée pour ce projet.",
+  searchEmptySubjects: "Aucun sujet ne correspond à cette recherche.",
+  searchEmptyDecisions: "Aucune décision ne correspond à cette recherche.",
+  memoryKicker: "MÉMOIRE DU PROJET   /   SUJET",
+  decisionKicker: "DÉCISION DURABLE",
+  synthesis: "LA SYNTHÈSE",
+  retained: "CE QU’ON RETIENT",
+  clarify: "À ÉCLAIRCIR",
+  children: "SOUS-THÈMES",
+  sources: "ÉCHANGE DE RÉFÉRENCE",
+  continue: "CONTINUER LE TRAVAIL",
+  continueCta: "Poursuivre ce sujet avec Nora",
+  enlarge: "⤢ Agrandir",
+  reduce: "Réduire",
+  close: "×",
+} as const;
+
 function buildSubjectTree(subjects: JournalSubject[]) {
   const byParent = new Map<string | null, JournalSubject[]>();
   for (const s of subjects.filter((x) => x.status === "ACTIVE")) {
@@ -121,74 +152,46 @@ function subjectBreadcrumb(
   return path;
 }
 
-function SubjectTreeNodes(props: {
-  parentId: string | null;
-  tree: Map<string | null, JournalSubject[]>;
-  depth: number;
-  selectedId: string | null;
-  openPointsOnly: boolean;
-  openBySubject: Map<string, number>;
-  search: string;
-  matchBySubject: Map<string, string>;
-  onSelect: (id: string) => void;
-}) {
-  const nodes = props.tree.get(props.parentId) ?? [];
-  if (nodes.length === 0) return null;
-  const q = props.search.trim().toLowerCase();
-  const nodeVisible = (s: JournalSubject): boolean => {
-    const openCount = props.openBySubject.get(s.id) ?? 0;
-    if (props.openPointsOnly && openCount === 0) {
-      const childOpen = (props.tree.get(s.id) ?? []).some((c) => nodeVisible(c));
-      if (!childOpen) return false;
-    }
-    if (!q) return true;
-    if (props.matchBySubject.has(s.id)) return true;
-    const children = props.tree.get(s.id) ?? [];
-    return children.some((c) => nodeVisible(c));
-  };
-  return (
-  <ul className="journal-tree-level" data-depth={props.depth}>
-      {nodes.map((s) => {
-        if (!nodeVisible(s)) return null;
-        const openCount = props.openBySubject.get(s.id) ?? 0;
-        const matchReason = props.matchBySubject.get(s.id);
-        return (
-          <li key={s.id}>
-            <button
-              type="button"
-              className={`journal-tree-node${props.selectedId === s.id ? " is-selected" : ""}`}
-              data-testid={`journal-subject-${s.id}`}
-              style={{ paddingLeft: `${8 + props.depth * 14}px` }}
-              onClick={() => props.onSelect(s.id)}
-            >
-              <span className="journal-tree-title">{s.title}</span>
-              {matchReason ? (
-                <span className="fig-tag fig-tag-muted" data-testid={`journal-match-${s.id}`}>
-                  {matchReason}
-                </span>
-              ) : null}
-              {openCount > 0 ? (
-                <span className="fig-tag fig-tag-warn" data-testid={`journal-open-count-${s.id}`}>
-                  {openCount}
-                </span>
-              ) : null}
-            </button>
-            <SubjectTreeNodes
-              parentId={s.id}
-              tree={props.tree}
-              depth={props.depth + 1}
-              selectedId={props.selectedId}
-              openPointsOnly={props.openPointsOnly}
-              openBySubject={props.openBySubject}
-              search={props.search}
-              matchBySubject={props.matchBySubject}
-              onSelect={props.onSelect}
-            />
-          </li>
-        );
-      })}
-    </ul>
-  );
+/** First editorial line from summary markdown — never invent content. */
+function subjectBlurb(subject: JournalSubject): string {
+  const raw = subject.summary?.summaryMarkdown?.trim() ?? "";
+  if (!raw) return "";
+  const line =
+    raw
+      .split(/\r?\n/)
+      .map((l) => l.replace(/^#+\s*/, "").replace(/[*_`]/g, "").trim())
+      .find((l) => l.length > 0) ?? "";
+  return line.length > 160 ? `${line.slice(0, 157)}…` : line;
+}
+
+function decisionBlurb(d: JournalDecision): string {
+  const expl = d.explanation?.explanationMarkdown?.trim() ?? "";
+  if (expl) {
+    const line = expl
+      .split(/\r?\n/)
+      .map((l) => l.replace(/^#+\s*/, "").replace(/[*_`]/g, "").trim())
+      .find((l) => l.length > 0);
+    if (line) return line.length > 140 ? `${line.slice(0, 137)}…` : line;
+  }
+  return d.statement.length > 140 ? `${d.statement.slice(0, 137)}…` : d.statement;
+}
+
+function decisionStatusLabel(d: JournalDecision): { label: string; tone: "ok" | "warn" | "muted" } {
+  if (d.supersededByDecisionId || d.applicable === false) {
+    return { label: "REMPLACÉE", tone: "muted" };
+  }
+  const st = d.state.toUpperCase();
+  if (st.includes("SUSPEND")) return { label: "SUSPENDUE", tone: "warn" };
+  if (
+    st.includes("ACTIVE") ||
+    st.includes("EFFECTIVE") ||
+    st.includes("APPLICABLE") ||
+    st === "DECIDED" ||
+    d.applicable === true
+  ) {
+    return { label: "EN VIGUEUR", tone: "ok" };
+  }
+  return { label: st || "D6", tone: "muted" };
 }
 
 export function ProjectJournal(props: {
@@ -219,6 +222,7 @@ export function ProjectJournal(props: {
     props.initialNav?.selectedDecisionId ?? null,
   );
   const [layout, setLayout] = useState<LayoutMode>(props.initialNav?.layout ?? "full");
+  const [expanded, setExpanded] = useState<Set<string>>(() => new Set());
 
   const decisions = useMemo(() => props.decisions ?? [], [props.decisions]);
   const restrictions = props.restrictions ?? [];
@@ -243,6 +247,20 @@ export function ProjectJournal(props: {
     () => new Map(props.subjects.map((s) => [s.id, s] as const)),
     [props.subjects],
   );
+
+  const roots = tree.get(null) ?? [];
+
+  // Expand parents that have children by default on first subject load.
+  useEffect(() => {
+    setExpanded((prev) => {
+      if (prev.size > 0) return prev;
+      const next = new Set<string>();
+      for (const s of props.subjects) {
+        if ((tree.get(s.id) ?? []).length > 0) next.add(s.id);
+      }
+      return next;
+    });
+  }, [props.subjects, tree]);
 
   const openBySubject = useMemo(() => {
     const map = new Map<string, number>();
@@ -330,11 +348,49 @@ export function ProjectJournal(props: {
     setLayout("split");
   };
 
+  const clearSelection = () => {
+    setSelectedSubjectId(null);
+    setSelectedDecisionId(null);
+    setLayout("full");
+  };
+
+  const toggleExpand = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const nodeVisible = (s: JournalSubject): boolean => {
+    const openCount = openBySubject.get(s.id) ?? 0;
+    if (openPointsOnly && openCount === 0) {
+      const childOpen = (tree.get(s.id) ?? []).some((c) => nodeVisible(c));
+      if (!childOpen) return false;
+    }
+    const q = search.trim();
+    if (!q) return true;
+    if (matchBySubject.has(s.id)) return true;
+    const children = tree.get(s.id) ?? [];
+    return children.some((c) => nodeVisible(c));
+  };
+
   const showSearchEmpty =
     tab === "subjects" && search.trim().length > 0 && matchBySubject.size === 0;
 
   const showDecisionSearchEmpty =
     tab === "decisions" && search.trim().length > 0 && filteredDecisions.length === 0;
+
+  const subtitle =
+    tab === "decisions"
+      ? COPY.decisionsSub
+      : layoutMode === "full"
+        ? COPY.subjectsSub
+        : COPY.subjectsSubCompact;
+
+  const isParentSelected = selectedSubject ? (tree.get(selectedSubject.id) ?? []).length > 0 : false;
 
   return (
     <div
@@ -343,327 +399,556 @@ export function ProjectJournal(props: {
       data-testid="project-journal"
       data-journal-layout={layoutMode}
     >
-      <div className="journal-head fig-section-head">
-        <div>
-          <p className="fig-kicker">Journal</p>
-          <h2 className="fig-section-title">Sujets et décisions durables</h2>
-          <p className="fig-hero-sub !mt-1">
-            Consultation capitalisée (D4) et actes D6 en lecture seule — aucune HumanDecision créée
-            ici.
+      <div className="journal-main-column" hidden={layoutMode === "enlarged"}>
+        <header className="journal-v4-head">
+          <p className="journal-v4-kicker">{COPY.kicker}</p>
+          <div className="journal-v4-title-row">
+            <h1 className="journal-v4-title" data-testid="journal-title">
+              {COPY.title}
+            </h1>
+            {props.onBackToThread ? (
+              <button
+                type="button"
+                className="journal-v4-back-thread"
+                data-testid="journal-back-thread"
+                onClick={props.onBackToThread}
+              >
+                Retour au fil
+              </button>
+            ) : null}
+          </div>
+          <p className="journal-v4-sub" data-testid="journal-subtitle">
+            {subtitle}
           </p>
-        </div>
-        {props.onBackToThread ? (
+        </header>
+
+        <div className="journal-tabs" role="tablist" data-testid="journal-tabs">
           <button
             type="button"
-            className="btn secondary"
-            data-testid="journal-back-thread"
-            onClick={props.onBackToThread}
+            role="tab"
+            aria-selected={tab === "subjects"}
+            className={`journal-tab${tab === "subjects" ? " is-active" : ""}`}
+            data-testid="journal-tab-subjects"
+            onClick={() => {
+              setTab("subjects");
+              setSelectedDecisionId(null);
+              if (!selectedSubjectId) setLayout("full");
+            }}
           >
-            Retour au fil
+            Sujets
           </button>
-        ) : null}
-      </div>
-
-      <div className="journal-tabs" role="tablist" data-testid="journal-tabs">
-        <button
-          type="button"
-          role="tab"
-          aria-selected={tab === "subjects"}
-          className={`journal-tab${tab === "subjects" ? " is-active" : ""}`}
-          data-testid="journal-tab-subjects"
-          onClick={() => {
-            setTab("subjects");
-            setSelectedDecisionId(null);
-            if (!selectedSubjectId) setLayout("full");
-          }}
-        >
-          Sujets
-        </button>
-        <button
-          type="button"
-          role="tab"
-          aria-selected={tab === "decisions"}
-          className={`journal-tab${tab === "decisions" ? " is-active" : ""}`}
-          data-testid="journal-tab-decisions"
-          onClick={() => {
-            setTab("decisions");
-            setSelectedSubjectId(null);
-            if (!selectedDecisionId) setLayout("full");
-          }}
-        >
-          Décisions
-        </button>
-      </div>
-
-      <div className="journal-toolbar">
-        <input
-          type="search"
-          className="journal-search"
-          data-testid="journal-search"
-          placeholder={tab === "subjects" ? "Rechercher sujets, acquis…" : "Rechercher décisions…"}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        {tab === "subjects" ? (
-          <label className="journal-filter-open" data-testid="journal-filter-open-points">
-            <input
-              type="checkbox"
-              checked={openPointsOnly}
-              onChange={(e) => setOpenPointsOnly(e.target.checked)}
-            />
-            Points ouverts
-          </label>
-        ) : null}
-      </div>
-
-      {emptySubjects && tab === "subjects" ? (
-        <div className="fig-panel space-y-3" data-testid="journal-empty-structure">
-          <h3 className="fig-panel-title">Structure du journal</h3>
-          <p className="text-sm muted">Aucun sujet capitalisé pour l&apos;instant.</p>
-        </div>
-      ) : (
-        <div className="journal-body" data-testid="journal-split">
-          <aside
-            className="journal-rail fig-panel"
-            data-testid="journal-rail"
-            hidden={layoutMode === "enlarged"}
+          <button
+            type="button"
+            role="tab"
+            aria-selected={tab === "decisions"}
+            className={`journal-tab${tab === "decisions" ? " is-active" : ""}`}
+            data-testid="journal-tab-decisions"
+            onClick={() => {
+              setTab("decisions");
+              setSelectedSubjectId(null);
+              if (!selectedDecisionId) setLayout("full");
+            }}
           >
-            {tab === "subjects" ? (
-              <div className="journal-tree-wrap" data-testid="journal-tree">
-                {showSearchEmpty ? (
-                  <p className="text-sm muted" data-testid="journal-search-empty">
-                    Aucun sujet ne correspond à cette recherche.
-                  </p>
-                ) : (
-                  <SubjectTreeNodes
-                    parentId={null}
+            Décisions
+          </button>
+        </div>
+
+        <div className="journal-search-wrap">
+          <span className="journal-search-icon" aria-hidden>
+            ⌕
+          </span>
+          <input
+            type="search"
+            className="journal-search"
+            data-testid="journal-search"
+            placeholder={tab === "subjects" ? COPY.searchSubjects : COPY.searchDecisions}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
+        {tab === "subjects" ? (
+          <div className="journal-section-bar">
+            <p className="journal-section-label">{COPY.themesLabel}</p>
+            {layoutMode === "full" ? (
+              <p className="journal-section-hint">{COPY.themesHint}</p>
+            ) : null}
+            <button
+              type="button"
+              className={`journal-filter-open${openPointsOnly ? " is-active" : ""}`}
+              data-testid="journal-filter-open-points"
+              aria-pressed={openPointsOnly}
+              onClick={() => setOpenPointsOnly((v) => !v)}
+            >
+              {COPY.openPoints}
+            </button>
+          </div>
+        ) : (
+          <div className="journal-section-bar">
+            <p className="journal-section-label">{COPY.decisionsLabel}</p>
+          </div>
+        )}
+
+        {tab === "subjects" ? (
+          emptySubjects ? (
+            <div className="journal-hierarchy journal-empty" data-testid="journal-empty-structure">
+              <p className="journal-empty-copy">{COPY.emptySubjects}</p>
+            </div>
+          ) : showSearchEmpty ? (
+            <div className="journal-hierarchy" data-testid="journal-tree">
+              <p className="journal-empty-copy" data-testid="journal-search-empty">
+                {COPY.searchEmptySubjects}
+              </p>
+            </div>
+          ) : (
+            <div className="journal-hierarchy" data-testid="journal-tree">
+              {roots.map((s) =>
+                nodeVisible(s) ? (
+                  <SubjectHierarchyBlock
+                    key={s.id}
+                    subject={s}
                     tree={tree}
-                    depth={0}
+                    expanded={expanded}
                     selectedId={selectedSubjectId}
-                    openPointsOnly={openPointsOnly}
                     openBySubject={openBySubject}
-                    search={search}
                     matchBySubject={matchBySubject}
+                    nodeVisible={nodeVisible}
+                    onToggle={toggleExpand}
                     onSelect={pickSubject}
                   />
-                )}
-                {props.onRenameSubject && selectedSubject ? (
+                ) : null,
+              )}
+              {props.onRenameSubject && selectedSubject ? (
+                <button
+                  type="button"
+                  className="btn secondary"
+                  data-testid="journal-rename-subject"
+                  onClick={() => {
+                    const t = window.prompt("Nouveau titre", selectedSubject.title);
+                    if (t) props.onRenameSubject?.(selectedSubject.id, t);
+                  }}
+                >
+                  Renommer le sujet
+                </button>
+              ) : null}
+              {props.splitSlot}
+            </div>
+          )
+        ) : (
+          <DecisionList
+            decisions={filteredDecisions}
+            selectedId={selectedDecisionId}
+            showEmpty={showDecisionSearchEmpty}
+            emptyCopy={COPY.emptyDecisions}
+            searchEmptyCopy={COPY.searchEmptyDecisions}
+            onSelect={pickDecision}
+          />
+        )}
+      </div>
+
+      {layoutMode !== "full" ? (
+        <section
+          className={`journal-viewer${isParentSelected ? " is-parent" : ""}`}
+          data-testid="journal-viewer"
+          data-viewer-kind={tab === "subjects" ? (isParentSelected ? "parent" : "autonomous") : "decision"}
+        >
+          {tab === "subjects" && selectedSubject ? (
+            <>
+              <header className="journal-viewer-banner">
+                <div className="journal-viewer-banner-text">
+                  <p className="journal-viewer-kicker">{COPY.memoryKicker}</p>
+                  <h2 className="journal-viewer-title" data-testid="journal-viewer-subject-title">
+                    {selectedSubject.title}
+                  </h2>
+                  <SubjectBreadcrumb path={subjectBreadcrumb(selectedSubject.id, byId)} />
+                  <p className="journal-viewer-lede">
+                    {subjectBlurb(selectedSubject) ||
+                      "Comprendre ce qu’on sait, ce qui reste ouvert et pourquoi."}
+                  </p>
+                  <span className="journal-viewer-type">
+                    {isParentSelected ? "Sujet parent" : "Sujet autonome"}
+                  </span>
+                </div>
+                <div className="journal-viewer-actions">
+                  {layoutMode === "enlarged" ? (
+                    <button
+                      type="button"
+                      className="journal-viewer-btn"
+                      data-testid="journal-viewer-reduce"
+                      onClick={() => setLayout("split")}
+                    >
+                      {COPY.reduce}
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="journal-viewer-btn"
+                      data-testid="journal-viewer-enlarge"
+                      onClick={() => setLayout("enlarged")}
+                    >
+                      {COPY.enlarge}
+                    </button>
+                  )}
                   <button
                     type="button"
-                    className="btn secondary"
-                    data-testid="journal-rename-subject"
-                    onClick={() => {
-                      const t = window.prompt("Nouveau titre", selectedSubject.title);
-                      if (t) props.onRenameSubject?.(selectedSubject.id, t);
-                    }}
+                    className="journal-viewer-btn journal-viewer-close"
+                    data-testid="journal-viewer-close"
+                    aria-label="Fermer"
+                    onClick={clearSelection}
                   >
-                    Renommer le sujet
+                    {COPY.close}
                   </button>
-                ) : null}
-                {props.splitSlot}
-              </div>
-            ) : (
-              <DecisionList
-                decisions={filteredDecisions}
-                selectedId={selectedDecisionId}
-                showEmpty={showDecisionSearchEmpty}
-                onSelect={pickDecision}
-              />
-            )}
-          </aside>
+                </div>
+              </header>
 
-          <section className="journal-viewer fig-panel" data-testid="journal-viewer">
-            {tab === "subjects" ? (
-              selectedSubject ? (
-                <>
-                  <header className="journal-viewer-head">
-                    <SubjectBreadcrumb path={subjectBreadcrumb(selectedSubject.id, byId)} />
-                    <h3 className="fig-panel-title" data-testid="journal-viewer-subject-title">
-                      {selectedSubject.title}
-                    </h3>
-                    <JournalLayoutActions
-                      layout={layoutMode}
-                      onEnlarge={() => setLayout("enlarged")}
-                      onReduce={() => setLayout("split")}
-                    />
-                  </header>
-                  <div className="journal-viewer-body">
-                    <section className="space-y-2">
-                      <h4 className="text-sm font-medium">Synthèse</h4>
-                      {selectedSubject.summary?.summaryMarkdown ? (
-                        <div data-testid="journal-subject-summary">
-                          <SafeMarkdown content={selectedSubject.summary.summaryMarkdown} />
-                          <p className="text-xs muted">
-                            Révision {selectedSubject.summary.revisionNumber}
-                          </p>
-                        </div>
-                      ) : (
-                        <p className="text-sm muted" data-testid="journal-subject-summary-empty">
-                          Synthèse non encore disponible.
-                        </p>
-                      )}
-                    </section>
-                    {childSubjects.length > 0 ? (
-                      <section className="space-y-2">
-                        <h4 className="text-sm font-medium">Sous-sujets</h4>
-                        <ul className="journal-child-list">
-                          {childSubjects.map((c) => (
-                            <li key={c.id}>
-                              <button type="button" className="btn secondary" onClick={() => pickSubject(c.id)}>
-                                {c.title}
-                              </button>
-                            </li>
-                          ))}
-                        </ul>
-                      </section>
-                    ) : null}
-                    <section className="space-y-2">
-                      <h4 className="text-sm font-medium">Acquis courants</h4>
-                      {selectedAcquis.length === 0 ? (
-                        <p className="text-sm muted">Aucun acquis CURRENT pour ce sujet.</p>
-                      ) : (
-                        selectedAcquis.map((a) => (
-                          <div key={a.id} className="fig-msg text-sm" data-subject-id={a.subjectId ?? ""}>
-                            <span className="fig-tag fig-tag-muted mr-2">{a.kind}</span>
-                            {a.statement}
-                          </div>
-                        ))
-                      )}
-                    </section>
-                    <section className="space-y-2">
-                      <h4 className="text-sm font-medium">Points ouverts</h4>
-                      {selectedOpen.length === 0 ? (
-                        <p className="text-sm muted">Aucun point ouvert rattaché.</p>
-                      ) : (
-                        selectedOpen.map((o) => (
-                          <div
-                            key={o.id}
-                            className="fig-msg text-sm"
-                            data-testid={`journal-open-point-${o.id}`}
-                            data-subject-id={o.subjectId ?? ""}
-                          >
-                            {o.statement}
-                          </div>
-                        ))
-                      )}
-                    </section>
-                    {selectedContradictions.length > 0 ? (
-                      <section className="space-y-2" data-testid="journal-contradictions">
-                        <h4 className="text-sm font-medium">Contradictions non résolues</h4>
-                        {selectedContradictions.map((c) => (
-                          <div
-                            key={`${c.leftAcquisId}-${c.rightAcquisId}`}
-                            className="fig-msg text-sm"
-                            data-testid={`journal-contradiction-${c.leftAcquisId}`}
-                          >
-                            <span className="fig-tag fig-tag-warn mr-2">UNRESOLVED</span>
-                            {c.reason}
-                            <p className="text-xs muted mt-1">A · {c.leftStatement.slice(0, 160)}</p>
-                            <p className="text-xs muted">B · {c.rightStatement.slice(0, 160)}</p>
-                          </div>
-                        ))}
-                      </section>
-                    ) : null}
-                    {selectedSources.length > 0 ? (
-                      <section className="space-y-2" data-testid="journal-sources">
-                        <h4 className="text-sm font-medium">Sources</h4>
-                        <ul className="journal-source-list">
-                          {selectedSources.map((s) => (
-                            <li key={`${s.ownerKind}-${s.ownerId}-${s.sourceId ?? s.revisionId ?? s.documentId}`}>
-                              <SourceChip
-                                link={s}
-                                onOpenMessage={props.onOpenMessage}
-                                onOpenDocument={props.onOpenDocument}
-                              />
-                            </li>
-                          ))}
-                        </ul>
-                      </section>
-                    ) : null}
-                  </div>
-                </>
-              ) : (
-                <p className="text-sm muted" data-testid="journal-viewer-idle">
-                  Sélectionnez un sujet dans l&apos;arborescence.
-                </p>
-              )
-            ) : selectedDecision ? (
-              <>
-                <header className="journal-viewer-head">
-                  <h3 className="fig-panel-title" data-testid="journal-decision-viewer-title">
-                    {selectedDecision.kind} · {selectedDecision.state}
-                  </h3>
-                  <JournalLayoutActions
-                    layout={layoutMode}
-                    onEnlarge={() => setLayout("enlarged")}
-                    onReduce={() => setLayout("split")}
-                  />
-                </header>
-                <div className="journal-viewer-body" data-testid="journal-decision-viewer">
-                  <section className="space-y-2">
-                    <h4 className="text-sm font-medium">Choix retenu (D6)</h4>
-                    <p className="text-sm">{selectedDecision.statement || "—"}</p>
-                    <p className="text-xs muted" data-testid="journal-decision-applicability">
-                      {selectedDecision.scope} · état={selectedDecision.state}
-                      {selectedDecision.applicable === false ? " · non applicable / historique" : " · applicable"}
-                      {selectedDecision.supersededByDecisionId
-                        ? ` · remplacé par ${selectedDecision.supersededByDecisionId}`
-                        : ""}
-                      {" · effet "}
-                      {new Date(selectedDecision.effectiveAt).toLocaleString("fr-FR")}
+              <div className="journal-viewer-body">
+                <section className="journal-card journal-card-synthesis">
+                  <p className="journal-card-kicker">{COPY.synthesis}</p>
+                  {selectedSubject.summary?.summaryMarkdown ? (
+                    <div data-testid="journal-subject-summary">
+                      <SafeMarkdown content={selectedSubject.summary.summaryMarkdown} />
+                    </div>
+                  ) : (
+                    <p className="journal-muted" data-testid="journal-subject-summary-empty">
+                      Synthèse non encore disponible.
                     </p>
+                  )}
+                </section>
+
+                {childSubjects.length > 0 ? (
+                  <section className="journal-card">
+                    <p className="journal-card-kicker">{COPY.children}</p>
+                    <ul className="journal-child-list">
+                      {childSubjects.map((c) => (
+                        <li key={c.id}>
+                          <button
+                            type="button"
+                            className="journal-child-link"
+                            onClick={() => pickSubject(c.id)}
+                          >
+                            <span>{c.title}</span>
+                            <span aria-hidden>↗</span>
+                          </button>
+                          {subjectBlurb(c) ? (
+                            <p className="journal-row-desc">{subjectBlurb(c)}</p>
+                          ) : null}
+                        </li>
+                      ))}
+                    </ul>
                   </section>
-                  <section className="space-y-2">
-                    <h4 className="text-sm font-medium">Pourquoi ce choix ? (narratif D4)</h4>
-                    {selectedDecision.explanation?.explanationMarkdown ? (
-                      <>
-                        {selectedDecision.explanation.potentiallyStale ? (
-                          <p className="fig-tag fig-tag-warn" data-testid="journal-explanation-stale">
-                            Explication potentiellement périmée — revalider l&apos;acte D6.
-                          </p>
-                        ) : null}
-                        <SafeMarkdown content={selectedDecision.explanation.explanationMarkdown} />
-                      </>
+                ) : null}
+
+                <div className="journal-card-row">
+                  <section className="journal-card journal-card-half">
+                    <p className="journal-card-kicker">{COPY.retained}</p>
+                    {selectedAcquis.length === 0 ? (
+                      <p className="journal-muted">Aucun acquis courant.</p>
                     ) : (
-                      <p className="text-sm muted" data-testid="journal-explanation-empty">
-                        Explication contextuelle non encore disponible.
-                      </p>
+                      selectedAcquis.map((a) => (
+                        <p key={a.id} className="journal-acquis-line" data-subject-id={a.subjectId ?? ""}>
+                          {a.statement}
+                        </p>
+                      ))
                     )}
                   </section>
-                  {activeRestrictions.length > 0 ? (
-                    <section className="space-y-2">
-                      <h4 className="text-sm font-medium">Restrictions D6 actives</h4>
-                      <ul className="journal-restriction-list">
-                        {activeRestrictions.map((r) => (
-                          <li key={r.id} className="text-xs muted" data-testid={`journal-restriction-${r.id}`}>
-                            {r.targetKind} · {r.targetRef} ({r.status})
-                          </li>
-                        ))}
-                      </ul>
-                    </section>
-                  ) : null}
-                  {historicalRestrictions.length > 0 ? (
-                    <section className="space-y-2">
-                      <h4 className="text-sm font-medium">Restrictions historiques</h4>
-                      <ul className="journal-restriction-list">
-                        {historicalRestrictions.map((r) => (
-                          <li key={r.id} className="text-xs muted" data-testid={`journal-restriction-hist-${r.id}`}>
-                            {r.targetKind} · {r.targetRef} ({r.status})
-                          </li>
-                        ))}
-                      </ul>
-                    </section>
-                  ) : null}
+                  <section className="journal-card journal-card-half">
+                    <p className="journal-card-kicker">{COPY.clarify}</p>
+                    {selectedOpen.length === 0 ? (
+                      <p className="journal-muted">Aucun point ouvert.</p>
+                    ) : (
+                      selectedOpen.map((o) => (
+                        <p
+                          key={o.id}
+                          className="journal-open-line"
+                          data-testid={`journal-open-point-${o.id}`}
+                          data-subject-id={o.subjectId ?? ""}
+                        >
+                          {o.statement}
+                        </p>
+                      ))
+                    )}
+                  </section>
                 </div>
-              </>
-            ) : (
-              <p className="text-sm muted" data-testid="journal-viewer-idle">
-                Sélectionnez une décision durable.
-              </p>
-            )}
-          </section>
-        </div>
-      )}
+
+                {selectedContradictions.length > 0 ? (
+                  <section className="journal-card" data-testid="journal-contradictions">
+                    <p className="journal-card-kicker">CONTRADICTIONS</p>
+                    {selectedContradictions.map((c) => (
+                      <div
+                        key={`${c.leftAcquisId}-${c.rightAcquisId}`}
+                        data-testid={`journal-contradiction-${c.leftAcquisId}`}
+                      >
+                        <p className="journal-acquis-line">{c.reason}</p>
+                      </div>
+                    ))}
+                  </section>
+                ) : null}
+
+                {selectedSources.length > 0 ? (
+                  <section className="journal-card" data-testid="journal-sources">
+                    <p className="journal-card-kicker">{COPY.sources}</p>
+                    <ul className="journal-source-list">
+                      {selectedSources.map((s) => (
+                        <li key={`${s.ownerKind}-${s.ownerId}-${s.sourceId ?? s.revisionId ?? s.documentId}`}>
+                          <SourceChip
+                            link={s}
+                            onOpenMessage={props.onOpenMessage}
+                            onOpenDocument={props.onOpenDocument}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ) : null}
+
+                {props.onBackToThread ? (
+                  <button
+                    type="button"
+                    className="journal-continue"
+                    data-testid="journal-continue-travail"
+                    onClick={props.onBackToThread}
+                  >
+                    <span>
+                      <span className="journal-card-kicker">{COPY.continue}</span>
+                      <span className="journal-continue-cta">{COPY.continueCta}</span>
+                    </span>
+                    <span aria-hidden>↗</span>
+                  </button>
+                ) : null}
+              </div>
+            </>
+          ) : null}
+
+          {tab === "decisions" && selectedDecision ? (
+            <>
+              <header className="journal-viewer-banner">
+                <div className="journal-viewer-banner-text">
+                  <p className="journal-viewer-kicker">{COPY.decisionKicker}</p>
+                  <h2 className="journal-viewer-title" data-testid="journal-decision-viewer-title">
+                    {selectedDecision.statement || selectedDecision.kind}
+                  </h2>
+                  <p className="journal-viewer-lede">{decisionBlurb(selectedDecision)}</p>
+                  <span className={`journal-status journal-status-${decisionStatusLabel(selectedDecision).tone}`}>
+                    {decisionStatusLabel(selectedDecision).label}
+                  </span>
+                </div>
+                <div className="journal-viewer-actions">
+                  {layoutMode === "enlarged" ? (
+                    <button
+                      type="button"
+                      className="journal-viewer-btn"
+                      data-testid="journal-viewer-reduce"
+                      onClick={() => setLayout("split")}
+                    >
+                      {COPY.reduce}
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="journal-viewer-btn"
+                      data-testid="journal-viewer-enlarge"
+                      onClick={() => setLayout("enlarged")}
+                    >
+                      {COPY.enlarge}
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    className="journal-viewer-btn journal-viewer-close"
+                    data-testid="journal-viewer-close"
+                    aria-label="Fermer"
+                    onClick={clearSelection}
+                  >
+                    {COPY.close}
+                  </button>
+                </div>
+              </header>
+              <div className="journal-viewer-body" data-testid="journal-decision-viewer">
+                <section className="journal-card journal-card-synthesis">
+                  <p className="journal-card-kicker">CHOIX RETENU</p>
+                  <p className="journal-acquis-line">{selectedDecision.statement || "—"}</p>
+                  <p className="journal-muted" data-testid="journal-decision-applicability">
+                    {selectedDecision.scope}
+                    {selectedDecision.applicable === false
+                      ? " · non applicable / historique"
+                      : " · applicable"}
+                    {selectedDecision.supersededByDecisionId ? " · remplacé" : ""}
+                  </p>
+                </section>
+                <section className="journal-card">
+                  <p className="journal-card-kicker">POURQUOI CE CHOIX</p>
+                  {selectedDecision.explanation?.explanationMarkdown ? (
+                    <>
+                      {selectedDecision.explanation.potentiallyStale ? (
+                        <p className="journal-warn" data-testid="journal-explanation-stale">
+                          Explication potentiellement périmée.
+                        </p>
+                      ) : null}
+                      <SafeMarkdown content={selectedDecision.explanation.explanationMarkdown} />
+                    </>
+                  ) : (
+                    <p className="journal-muted" data-testid="journal-explanation-empty">
+                      Explication contextuelle non encore disponible.
+                    </p>
+                  )}
+                </section>
+                {activeRestrictions.length > 0 ? (
+                  <section className="journal-card">
+                    <p className="journal-card-kicker">RESTRICTIONS ACTIVES</p>
+                    <ul className="journal-restriction-list">
+                      {activeRestrictions.map((r) => (
+                        <li key={r.id} data-testid={`journal-restriction-${r.id}`}>
+                          {r.targetKind} · {r.targetRef}
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ) : null}
+                {historicalRestrictions.length > 0 ? (
+                  <section className="journal-card">
+                    <p className="journal-card-kicker">RESTRICTIONS HISTORIQUES</p>
+                    <ul className="journal-restriction-list">
+                      {historicalRestrictions.map((r) => (
+                        <li key={r.id} data-testid={`journal-restriction-hist-${r.id}`}>
+                          {r.targetKind} · {r.targetRef}
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ) : null}
+              </div>
+            </>
+          ) : null}
+        </section>
+      ) : null}
+    </div>
+  );
+}
+
+function SubjectHierarchyBlock(props: {
+  subject: JournalSubject;
+  tree: Map<string | null, JournalSubject[]>;
+  expanded: Set<string>;
+  selectedId: string | null;
+  openBySubject: Map<string, number>;
+  matchBySubject: Map<string, string>;
+  nodeVisible: (s: JournalSubject) => boolean;
+  onToggle: (id: string, e: React.MouseEvent) => void;
+  onSelect: (id: string) => void;
+}) {
+  const children = (props.tree.get(props.subject.id) ?? []).filter(props.nodeVisible);
+  const hasChildren = (props.tree.get(props.subject.id) ?? []).length > 0;
+  const isOpen = props.expanded.has(props.subject.id);
+  const openCount = props.openBySubject.get(props.subject.id) ?? 0;
+  const matchReason = props.matchBySubject.get(props.subject.id);
+  const blurb = subjectBlurb(props.subject);
+  const selected = props.selectedId === props.subject.id;
+
+  return (
+    <div
+      className={`journal-group${selected ? " is-selected" : ""}${hasChildren ? " is-parent" : " is-leaf"}`}
+    >
+      <button
+        type="button"
+        className="journal-group-head"
+        data-testid={`journal-subject-${props.subject.id}`}
+        onClick={() => props.onSelect(props.subject.id)}
+      >
+        {hasChildren ? (
+          <span
+            className="journal-expand"
+            role="presentation"
+            onClick={(e) => props.onToggle(props.subject.id, e)}
+          >
+            {isOpen ? "⌄" : "▸"}
+          </span>
+        ) : (
+          <span className="journal-expand is-leaf-mark" aria-hidden>
+            ▸
+          </span>
+        )}
+        <span className="journal-group-text">
+          <span className="journal-group-title">{props.subject.title}</span>
+          {blurb ? <span className="journal-row-desc">{blurb}</span> : null}
+          {matchReason ? (
+            <span className="journal-match" data-testid={`journal-match-${props.subject.id}`}>
+              {matchReason}
+            </span>
+          ) : null}
+        </span>
+        {hasChildren && isOpen ? (
+          <span className="journal-axes">
+            {children.length} {children.length > 1 ? "AXES" : "AXE"}
+          </span>
+        ) : null}
+        {openCount > 0 ? (
+          <span className="journal-open-badge" data-testid={`journal-open-count-${props.subject.id}`}>
+            {openCount}
+          </span>
+        ) : null}
+        <span className="journal-open-arrow" aria-hidden>
+          ↗
+        </span>
+      </button>
+
+      {hasChildren && isOpen ? (
+        <ul className="journal-children">
+          {children.map((c) => {
+            const cBlurb = subjectBlurb(c);
+            const cMatch = props.matchBySubject.get(c.id);
+            const cOpen = props.openBySubject.get(c.id) ?? 0;
+            const cSelected = props.selectedId === c.id;
+            const grand = (props.tree.get(c.id) ?? []).filter(props.nodeVisible);
+            return (
+              <li key={c.id} className={cSelected ? "is-selected" : undefined}>
+                <button
+                  type="button"
+                  className={`journal-child-row${cSelected ? " is-selected" : ""}`}
+                  data-testid={`journal-subject-${c.id}`}
+                  onClick={() => props.onSelect(c.id)}
+                >
+                  <span className="journal-group-text">
+                    <span className="journal-child-title">{c.title}</span>
+                    {cBlurb ? <span className="journal-row-desc">{cBlurb}</span> : null}
+                    {cMatch ? (
+                      <span className="journal-match" data-testid={`journal-match-${c.id}`}>
+                        {cMatch}
+                      </span>
+                    ) : null}
+                  </span>
+                  {cOpen > 0 ? (
+                    <span className="journal-open-badge" data-testid={`journal-open-count-${c.id}`}>
+                      {cOpen}
+                    </span>
+                  ) : null}
+                  <span className="journal-open-arrow" aria-hidden>
+                    ↗
+                  </span>
+                </button>
+                {grand.length > 0 ? (
+                  <ul className="journal-grandchildren">
+                    {grand.map((g) => (
+                      <li key={g.id}>
+                        <button
+                          type="button"
+                          className={`journal-child-row is-nested${props.selectedId === g.id ? " is-selected" : ""}`}
+                          data-testid={`journal-subject-${g.id}`}
+                          onClick={() => props.onSelect(g.id)}
+                        >
+                          <span className="journal-child-title">{g.title}</span>
+                          <span className="journal-open-arrow" aria-hidden>
+                            ↗
+                          </span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
     </div>
   );
 }
@@ -671,29 +956,9 @@ export function ProjectJournal(props: {
 function SubjectBreadcrumb(props: { path: string[] }) {
   if (props.path.length <= 1) return null;
   return (
-    <p className="text-xs muted journal-breadcrumb" data-testid="journal-subject-breadcrumb">
+    <p className="journal-breadcrumb" data-testid="journal-subject-breadcrumb">
       {props.path.join(" › ")}
     </p>
-  );
-}
-
-function JournalLayoutActions(props: {
-  layout: LayoutMode;
-  onEnlarge: () => void;
-  onReduce: () => void;
-}) {
-  return (
-    <div className="journal-viewer-actions">
-      {props.layout === "enlarged" ? (
-        <button type="button" className="btn secondary" data-testid="journal-viewer-reduce" onClick={props.onReduce}>
-          Réduire
-        </button>
-      ) : (
-        <button type="button" className="btn secondary" data-testid="journal-viewer-enlarge" onClick={props.onEnlarge}>
-          Agrandir
-        </button>
-      )}
-    </div>
   );
 }
 
@@ -710,7 +975,7 @@ function SourceChip(props: {
   return (
     <button
       type="button"
-      className="btn secondary journal-source-chip"
+      className="journal-source-chip"
       data-testid={`journal-source-${s.ownerId}`}
       data-currentness={s.currentness}
       disabled={!canMessage && !canDoc}
@@ -720,8 +985,11 @@ function SourceChip(props: {
         else if (canDoc && docId) props.onOpenDocument?.(docId, s.revisionId ?? null);
       }}
     >
-      <span className="font-medium text-xs">{label}</span>
-      <span className="text-xs muted block">{s.detail.slice(0, 120)}</span>
+      <span className="journal-source-label">{label}</span>
+      <span className="journal-row-desc">{s.detail.slice(0, 160)}</span>
+      <span className="journal-source-cta">
+        Retrouver {s.sourceKind === "message" ? "cet échange dans Travail" : "ce document"} ↗
+      </span>
     </button>
   );
 }
@@ -730,43 +998,58 @@ function DecisionList(props: {
   decisions: JournalDecision[];
   selectedId: string | null;
   showEmpty: boolean;
+  emptyCopy: string;
+  searchEmptyCopy: string;
   onSelect: (id: string) => void;
 }) {
   if (props.showEmpty) {
     return (
-      <p className="text-sm muted" data-testid="journal-search-empty">
-        Aucune décision ne correspond à cette recherche.
-      </p>
+      <div className="journal-hierarchy" data-testid="journal-decision-list">
+        <p className="journal-empty-copy" data-testid="journal-search-empty">
+          {props.searchEmptyCopy}
+        </p>
+      </div>
     );
   }
   if (props.decisions.length === 0) {
     return (
-      <p className="text-sm muted" data-testid="journal-decisions-empty">
-        Aucune HumanDecision enregistrée pour ce projet.
-      </p>
+      <div className="journal-hierarchy" data-testid="journal-decision-list">
+        <p className="journal-empty-copy" data-testid="journal-decisions-empty">
+          {props.emptyCopy}
+        </p>
+      </div>
     );
   }
   return (
-    <ul className="journal-decision-list">
-      {props.decisions.map((d) => (
-        <li key={d.id}>
-          <button
-            type="button"
-            className={`journal-decision-row${props.selectedId === d.id ? " is-selected" : ""}`}
-            data-testid={`journal-decision-${d.id}`}
-            onClick={() => props.onSelect(d.id)}
-          >
-            <span className="font-medium text-sm">{d.kind}</span>
-            <span className="fig-tag fig-tag-muted">{d.state}</span>
-            {d.applicable === false ? (
-              <span className="fig-tag fig-tag-warn">historique</span>
-            ) : (
-              <span className="fig-tag fig-tag-ok">applicable</span>
-            )}
-            <span className="text-xs muted block mt-1">{d.statement.slice(0, 120)}</span>
-          </button>
-        </li>
-      ))}
+    <ul className="journal-decision-list" data-testid="journal-decision-list">
+      {props.decisions.map((d) => {
+        const st = decisionStatusLabel(d);
+        return (
+          <li key={d.id}>
+            <button
+              type="button"
+              className={`journal-decision-row${props.selectedId === d.id ? " is-selected" : ""}`}
+              data-testid={`journal-decision-${d.id}`}
+              onClick={() => props.onSelect(d.id)}
+            >
+              <span className="journal-decision-main">
+                <span className="journal-decision-title">{d.statement || d.kind}</span>
+                <span className="journal-row-desc">{decisionBlurb(d)}</span>
+                <span className="journal-decision-meta">
+                  {d.kind} · {d.scope}
+                </span>
+              </span>
+              <span className={`journal-status journal-status-${st.tone}`}>
+                <span className="journal-status-dot" aria-hidden />
+                {st.label}
+              </span>
+              <span className="journal-open-arrow" aria-hidden>
+                ↗
+              </span>
+            </button>
+          </li>
+        );
+      })}
     </ul>
   );
 }
