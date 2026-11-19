@@ -3,7 +3,7 @@
 
 | Métadonnée | Valeur |
 | --- | --- |
-| Version | v0.2 — 19 novembre 2026 (Europe/Paris) |
+| Version | v0.3 — 19 novembre 2026 (Europe/Paris) |
 | Statut du présent document | **DOCUMENTED / WORKING DRAFT — NON NORMATIF / NON VALIDATED SPEC** |
 | Objet | Capitaliser les fondements, les orientations de conception et les questions ouvertes de la convergence Journal |
 | Périmètre | Ensemble 06 « Documents et Journal » ; **Journal en priorité**, puis Bibliothèque Documents |
@@ -138,7 +138,7 @@ Deux choses différentes existent :
 | **Sujet devenu parent** | Vision consolidée et cheminement général, principales orientations et accès aux enfants | Uniquement les acquis ou questions propres à l'ensemble ; références structurantes ; sous-sujets et liens utiles |
 | **Sous-sujet** | Synthèse approfondie de son périmètre | Acquis spécifiques, questions et points à reprendre, liens D6, références du thème ; peut à son tour devenir parent |
 
-**Principe anti-redondance :** la synthèse du parent et celle de l'enfant décrivent **la même réalité à des niveaux de granularité différents**, pas deux versions concurrentes de la vérité. Les détails du sous-sujet ne sont pas répétées en bloc au parent ; un parent peut conserver un élément général qui ne relève d'aucun enfant.
+**Principe anti-redondance :** la synthèse du parent et celle de l'enfant décrivent **la même réalité à des niveaux de granularité différents**, pas deux versions concurrentes de la vérité. Les détails du sous-sujet ne sont pas répétés en bloc au parent ; un parent peut conserver un élément général qui ne relève d'aucun enfant.
 
 **Trame de fiche candidate (sections conditionnelles, ordre non figé) :**
 
@@ -190,6 +190,21 @@ Deux choses différentes existent :
 **Anti-complexité :** évoquer ponctuellement les décisions pendant une discussion sur le Journal ne crée pas automatiquement le sous-sujet « Consultation des décisions ». Celui-ci devient utile lorsqu'une investigation identifiable nécessite une continuité et une synthèse propres. L'absence de sous-sujet est un état nominal valide ; la séparation peut intervenir plus tard et rester réversible avec provenance.
 
 **Reste à arbitrer** : gestion des ambiguïtés, sujets proches et chevauchements, signalement discret des réorganisations au Pilote, stratégie de consolidation après correction, représentation des événements de transformation et critères testables de justesse/coût.
+
+### 4.6. Visibilité discrète des actualisations du Journal — principe UX accepté le 19/11
+
+**PRINCIPE DE CONCEPTION ACCEPTÉ PAR MORRIS EN CONVERSATION (modèle B) ; détails d'interface et preuves encore à qualifier.** L'entretien de la mémoire est **autonome et peu intrusif** : Nora ne commente pas constamment ses opérations de capitalisation et ne demande pas une validation rituelle pour enrichir ou organiser les sujets.
+
+- **Lecture nominale :** le Pilote ouvre le Journal et trouve la connaissance effectivement disponible, consolidée et lisible. Aucune chronologie technique ni notification systématique ne doit masquer sa synthèse.
+- **Signal discret, contextuel :** lorsqu'une actualisation durable est **confirmée**, la fiche peut montrer une information sobre (« actualisé le… » ou équivalent), sans transformer le Journal en centre de notifications.
+- **Compréhension facultative des changements :** une consultation secondaire des évolutions *significatives* (p. ex. nouvelle branche, fusion, correction importante) peut être utile ; elle ne doit pas reproduire tous les messages ni chaque opération de Nora. La pertinence, la forme et la granularité restent à concevoir.
+- **Vérité d'état :** distinguer connaissance effectivement persistée, actualisation proposée/en cours, retard, échec ou état incertain ; **ne jamais afficher « à jour » ou annoncer un succès sur une simple intention de mise à jour**. Si l'information de fraîcheur n'est pas fiable ou disponible, ne pas inventer de date.
+- **Proportionnalité :** un échange sans apport durable ne produit ni activité visible artificielle, ni badge, ni écriture obligatoire.
+- **Non-interférence :** une actualisation de mémoire ne change pas seule le statut d'une HumanDecision, n'envoie pas de message et ne décide pas à la place du Pilote.
+
+**À arbitrer en UX/Figma :** lieu et libellé du signal (fiche, vue Sujets ou métadonnée secondaire), apparence des modifications importantes, cas de mémoire incomplète/indisponible, moment où rafraîchir la vue ouverte, absence d'effet de distraction dans le fil Nora.
+
+**À qualifier lors de la convergence fonctionnelle et technique :** source fiable de l'horodatage, cohérence entre fil et mémoire, latence/staleness acceptable, atomicité/reprise après échec, continuité des sujets après une correction et preuve que l'affichage reflète la dernière révision effectivement conservée.
 
 ## 5. Références conversationnelles — contrat d'expérience candidat
 
@@ -283,6 +298,7 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 | Parent consolidé, enfants détaillés, acquis du parent seulement si réellement généraux | Réduit la duplication sans interdire les informations générales | **PRINCIPE ACCEPTÉ / VISUEL À ARBITRER** | Contenus conditionnels et hiérarchie Figma |
 | Synthèses réellement rédigées, mémoire réévaluée en continu mais écriture sélective | Besoin explicite Morris, compatible R1/R2 | **PRINCIPE ACCEPTÉ / MÉCANISME À QUALIFIER** | Cas de réévaluation, consolidation, panne et reprise |
 | Émergence de sous-sujets selon leur autonomie sémantique, non par quota | Proposition ChatGPT en réponse au besoin d'intelligence de classement | **PROPOSITION À ÉPROUVER** | Exemples positif/négatif et critères d'acceptation |
+| Actualisation discrète, non intrusive, visible seulement si confirmée | Modèle B proposé puis accepté sur le principe par Morris | **PRINCIPE UX ACCEPTÉ / FIGMA À ARBITRER** | Placement, moment, révision effective, panne, absence de badge artificiel |
 | Un seul rail existant, pas de second rail permanent | Objection explicite Morris au wireframe | **CONTRAINTE UX CONFIRMÉE** | Figma sur géométrie réelle |
 | Arborescence pleine surface puis fiche centrale | Préférence ChatGPT, non acceptée formellement | **PROPOSITION À ARBITRER** | Présentation visuelle Figma |
 | Quelques échanges clés, liens vers messages exacts, pas tous les messages | Préoccupation de sobriété Morris, proposition ChatGPT | **DIRECTION CANDIDATE** | Sélection, deep link, présentation |
@@ -295,7 +311,7 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 ### Prochains arbitrages — cible avant code
 
 1. **Fiche évolutive du sujet** : déclinaison visuelle d'un sujet autonome, d'un parent et d'un enfant avec sections conditionnelles, sans changement de type métier ni second rail.
-2. **Vie de la mémoire dans la conversation** : cas d'enrichissement, d'absence de changement, de correction et de réorganisation, sélection sémantique et qualité de synthèse.
+2. **Vie de la mémoire dans la conversation** : cas d'enrichissement, d'absence de changement, de correction et de réorganisation, sélection sémantique, qualité de synthèse et **signal discret d'actualisation confirmée**.
 3. **Navigation nominale** : liste, recherche, arborescence, fiche détaillée, retour, état vide, responsive ; réconcilier avec rail existant.
 4. **Références conversationnelles** : critères de sélection, nombre naturel, aperçu, exactitude du lien vers le fil et retour.
 5. **Points à reprendre** : accès transversal simple, niveau de visibilité sans troisième registre.
@@ -317,5 +333,6 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 | --- | --- | --- |
 | 19/11/2026 — v0.1 | Première consolidation structurée des échanges de cadrage Journal, fondements R1/R2/R3, principes UX, propositions et arbitrages ouverts | **DOCUMENTED / WORKING DRAFT**, branche documentaire ; contenu à continuer et faire valider par Morris |
 | 19/11/2026 — v0.2 | Réconciliation conceptuelle R1/R2 : sujet autonome pouvant devenir parent, présentation adaptative, non-duplication, consolidation sémantique vivante par Nora, réévaluation à chaque échange sans écriture obligatoire, critères candidats de création de sous-sujets, scénarios et registre d'arbitrages | **DOCUMENTED / PRINCIPES ACCEPTÉS EN CONVERSATION** ; détails UX et technique non validés |
+| 19/11/2026 — v0.3 | Principe UX d'actualisation discrète accepté : signal léger fondé sur une actualisation effectivement conservée, détails secondaires, aucun statut ou horaire inventé ; revue d'exhaustivité R1/R2 demandée avant validation finale/Figma | **DOCUMENTED / WORKING DRAFT** ; contrat complet soumis à revue de couverture R1/R2 |
 
-**Suite immédiate :** approfondir **le cycle vivant de la connaissance** et les cas de consolidation, puis traduire dans Figma le sujet autonome et son passage à une hiérarchie (parent/enfant) sur les proportions réelles du produit ; validation Morris avant réconciliation technique.
+**Suite immédiate :** mener une **revue de couverture exhaustive des exigences R1/R2 liées au Journal et à ses dépendances** (mémoire, Nora, décisions, continuité, sources) ; consigner les écarts et arbitrages complémentaires avant de figer la conception puis **passer aux maquettes Figma**, sur les proportions réelles du produit. Le principe d'actualisation discrète accepté ici ne vaut pas validation finale du contrat fonctionnel.
