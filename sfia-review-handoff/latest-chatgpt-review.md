@@ -2,181 +2,210 @@
 
 | Champ | Valeur |
 |---|---|
-| Date / heure | 2026-11-19 ~13:40 CET |
-| Cycle | 8 — Delivery / implémentation corrective |
+| Date / heure | 2026-11-19 ~14:30 CET |
+| Cycle | 9 — Revue / diagnostic technique |
 | Profil | CRITICAL |
-| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 |
-| Typologie | UX CORRECTIVE / CONFORMANCE / QA / RECETTE |
-| Versioning | **NO RELEASE** — STABLE NOT AVAILABLE |
+| Typologie | INC / INVESTIGATION |
+| Mode | **READ-ONLY — NO CORRECTIVE DELIVERY** |
+| Macro-lot | Ensemble 06 — Journal / continuité Nora-D4 |
 | Review Pack | FULL |
 | Review Handoff | REQUIRED / PUBLISH-IN-CYCLE |
 
 ---
 
-## 1. Source Git et vérifications
+## 1. Git Truth Check
 
 | Contrôle | Résultat |
 |---|---|
 | Worktree | `/Users/morris/Projects/sfia-wt-journal-delivery-20261119` |
 | Remote | `mcleland147/sfia-workspace` |
 | Branche | `sfia/next-journal-delivery-20261119` |
-| HEAD initial (pixel) | `6c658f9124b3ada48fb01047b2b0ffb7fa5703c3` |
-| Tree initial | `fa420659cd652953435c3b53a5b6d783accae745` |
-| HEAD final gelé | `3fc8af5fe97e2d03d139854d008b4724ab4cbd5c` |
-| Tree final | `57cdb89a693a58ff5c1098d762a22f1e1372c401` |
-| Base `origin/main` | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
-| Push produit | **AUCUN** |
-| Matrice v0.7 | **non modifiée** (lecture seule) |
+| HEAD local | `b9a0c9c3d16cbd68014daec999addab9feb70002` (as-built post-cutover) |
+| Tree | `befbb9ed23442b5b969ecab5afbba0506d4c8b21` |
+| Gel code RECETTE | `3fc8af5fe97e2d03d139854d008b4724ab4cbd5c` |
+| `origin/main` | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
+| Matrice v0.7 | non modifiée (lecture seule) |
+| Mutations produit ce cycle | **AUCUNE** |
+| Dirty | artefacts `.tmp-sfia-review/**` untracked seulement |
 
-Commit gel :
-
-```
-fix(next): Journal V4 final Figma label and liseré conformance
-```
-
-Fichiers du gel (hors as-built post-cutover) :
-
-- `projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx`
-- `projects/sfia-studio-next/web/src/components/figma/tokens.css`
-- `projects/sfia-studio-next/web/tests/e2e/journal-v4-figma-captures.spec.ts`
-- `projects/sfia-studio-next/construction/as-built-ensemble-06-journal-20261119.md`
-- `projects/sfia-studio-next/construction/delivery-history.md`
-
-Artefacts `.tmp-sfia-review/**` : **préservés, non commités**.
+STOP Git : non requis — identité cohérente avec le delivery Journal.
 
 ---
 
-## 2. Extraction Figma (MCP) — libellés statiques
+## 2. Identité RECETTE (ENV-01, read-only)
 
-Fichier `itgvCulInEnFY6DvgIegvP` · page `828:2` · onze frames.
-
-| Frame | Parcours | Libellés statiques contractuels (extrait) |
-|---|---|---|
-| `835:71` | Exploration | Journal · Sujets/Décisions · THÈMES DU PROJET · Points ouverts |
-| `842:26` | Autonome 40/60 | LA SYNTHÈSE · CE QU’ON RETIENT · À ÉCLAIRCIR · CONTINUER LE TRAVAIL |
-| `842:131` | Parent 40/60 | LA SYNTHÈSE · EXPLORER LES SOUS-SUJETS · LA VISION GLOBALE |
-| `835:159` | Autonome agrandi | LA SYNTHÈSE · CE QU’ON RETIENT · À ÉCLAIRCIR · ÉCHANGE DE RÉFÉRENCE · REPÈRES DU SUJET · SOURCES ET HISTORIQUE · POUR ALLER PLUS LOIN |
-| `835:239` | Parent agrandi | PARCOURS DU THÈME / SOUS-SUJETS · REPÈRES DU SUJET |
-| `859:42` | Recherche | SYNTHÈSE ACTUELLE · POURQUOI CE SUJET · CHEMIN D’ORIGINE · RÉFÉRENCE ESSENTIELLE |
-| `859:146` | Points ouverts | POINTS SIGNIFICATIFS ENCORE OUVERTS · QUESTION ENCORE OUVERTE · CONTEXTE DU SUJET · ORIGINE ET SUIVI |
-| `860:58` | Décisions nominales | DÉCISIONS DURABLES DU PROJET · statuts D6 |
-| `860:136` | Décision 40/60 | LE CHOIX RETENU · LE RAISONNEMENT… · CONTEXTE ET SOURCES… |
-| `860:251` | Recherche décisions | même structure lecteur décision |
-| `860:360` | Décision agrandie | REPÈRES DE DÉCISION · AUTORITÉ / SOURCE · PORTÉE / VALIDITÉ · ÉVOLUTIONS |
-
-Preuves PNG Figma : `.tmp-sfia-review/figma-v4-frames/`
-Contrat visuel : `.tmp-sfia-review/figma-v4-visual-contract.md`
-
----
-
-## 3. Table de correspondance Figma → Runtime (statique)
-
-| Frame | Section Figma | Texte Figma | Runtime (COPY / UI) | Verdict |
-|---|---|---|---|---|
-| 842:131 | Parent explorer | EXPLORER LES SOUS-SUJETS | COPY exact | CORRIGÉ |
-| 842:131 | Parent vision | LA VISION GLOBALE | COPY exact (≠ REPÈRE PARENT) | CORRIGÉ |
-| 835:239 | Parent parcours | PARCOURS DU THÈME / SOUS-SUJETS | COPY exact | CORRIGÉ |
-| 835:159 / 239 | Aside | REPÈRES DU SUJET | COPY exact | CORRIGÉ |
-| 835:159 | Aside | SOURCES ET HISTORIQUE · POUR ALLER PLUS LOIN | COPY exact | CORRIGÉ |
-| 859:42 | Recherche | SYNTHÈSE ACTUELLE · POURQUOI CE SUJET · CHEMIN D’ORIGINE · RÉFÉRENCE ESSENTIELLE | COPY exact | CORRIGÉ |
-| 859:146 | Points | POINTS SIGNIFICATIFS… · QUESTION… · CONTEXTE… · ORIGINE ET SUIVI | COPY exact | CORRIGÉ |
-| 860:360 | Décision | LE CHOIX RETENU · LE RAISONNEMENT QUI A CONDUIT AU CHOIX · CONTEXTE ET SOURCES ESSENTIELLES · REPÈRES DE DÉCISION · AUTORITÉ / SOURCE · PORTÉE / VALIDITÉ · ÉVOLUTIONS | COPY exact (≠ POURQUOI CE CHOIX / REPÈRES générique) | CORRIGÉ |
-| * | Contenu métier | titres / synthèses / D6 | données réelles Journal | PRÉSERVÉ |
-| C09 | Liserés | barre accent | padding ≥18px · overlap assert | CORRIGÉ |
-| C10 | Empty | panneau compact | flex 0 0 auto · height &lt;320 | CORRIGÉ |
-
----
-
-## 4. Diffs utiles (résumé)
-
-**ProjectJournal.tsx** — réconciliation objet `COPY` et sections C01–C08 (parent ≠ autonome ; recherche ; points ouverts ; décision agrandie).
-
-**tokens.css** — liserés hors texte ; `.journal-empty { flex: 0 0 auto; }`.
-
-**journal-v4-figma-captures.spec.ts** — oracles de libellés exacts + géométrie empty + absence de chevauchement liseré.
-
----
-
-## 5. Tests
-
-| Suite | Résultat |
+| Champ | Observé |
 |---|---|
-| TypeScript `tsc --noEmit` | PASS |
-| Playwright Journal V4 captures + parcours + seed gate | **3/3 PASS** (~25.8s) — `/tmp/pw-final-ux.txt` |
-| Captures runtime 1680×970 (11 + empty) | `.tmp-sfia-review/figma-ux-after/` · `capture-report.json` ok=true |
-| Distinctions parent ≠ leaf | leaf=`Continuité Git` · parent=`Architecture cible` |
-| Fixtures en production RECETTE | 403 `E2E_FIXTURE_FORBIDDEN` |
+| URL | `http://127.0.0.1:3200` |
+| HTML BUILD_ID | `VkuCNyaO0VIUbNtM2KJfO` |
+| Fichier `.next/BUILD_ID` | `VkuCNyaO0VIUbNtM2KJfO` |
+| SOURCE_SHA (start script / OBS) | `3fc8af5fe97e2d03d139854d008b4724ab4cbd5c` |
+| Worktree cwd | `…/ensemble06-recette-build-3fc8af5f/projects/sfia-studio-next/web` |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` running (launchd pid 33153 · node 33168) |
+| DB | `sfia_next_recette_ml4` @ `127.0.0.1:5434` |
+| Schéma 014 | tables `knowledge_*` + revisions présentes |
+| Compteurs globaux (après campagne) | projects=24 · messages=576 · knowledge_subjects=4 (aucun CampusNova) |
 
-Comparaison visuelle frame-par-frame : Figma PNGs vs runtime PNGs dans `.tmp-sfia-review/`. Différences de **données illustratives** tolérées. Différences de **libellés statiques / sections / chevauchement** : bloquantes → corrigées et oracle-assertées. Revue esthétique finale : **Morris UAT**.
+Aucune mutation service / migration / seed / LIVE.
 
 ---
 
-## 6. RECETTE — identité post-cutover
+## 3. Identité CampusNova (non sensible)
 
 | Champ | Valeur |
 |---|---|
-| URL | `http://127.0.0.1:3200` |
-| SOURCE_SHA | `3fc8af5fe97e2d03d139854d008b4724ab4cbd5c` |
-| BUILD_ID (fichier + HTML) | `VkuCNyaO0VIUbNtM2KJfO` |
-| Worktree | `…/sfia-workspace-next-ml4d-ensemble06-recette-build-3fc8af5f` |
-| Service / PID | `com.sfia.studio.next.recette.ml4d-ux004` / launchd pid 33153 · node 33168 |
-| DB (non secret) | `sfia_next_recette_ml4` · host `127.0.0.1:5434` · rôle `sfia_next_recette_ml4` |
-| Schéma 014 | présent (tables revisions / open_point_events) — **aucune migration nouvelle** |
-| Données | projects=23 · messages=560 · conversations=196 · knowledge_subjects=4 |
-| Backup dump | `…/ml4d-e06-journal-20261119-pre-d5bf7eb7/sfia_next_recette_ml4.dump` |
-| Rollback | `…/3fc8af5f/ROLLBACK-TO-d5bf7eb7.sh` → `PV12SV9VToVGK-ReSxTqk` |
-| Préflight | dérive ML3/`ZCk…` sur :3200 ; KeepAlive concurrents bootout temporaire (plists conservés) |
+| projectId | `proj_b8fc5a55-c49c-4df7-bd3c-2beef7059f86` |
+| name | CampusNova |
+| owner_pilot_id | `pilot_98a7a89e-ba00-42c6-84d5-680eff67b73c` |
+| preparationId | `prep_339f6863-3cb8-489b-bdc8-9470ddaded0b` |
+| conversationId | `conv_6032bb7c-5050-46eb-accc-3a92439d84ee` |
+| link attached_at | `2026-11-19 13:02:20Z` (création projet depuis SAS) |
+| Messages | 16 (8 tours) — 6 COMPLETE assistant · 2 UNKNOWN |
+| D4 subjects / acquis / open_points | **0 / 0 / 0** pour ce projectId et ce preparationId |
 
-### Smoke technique
+Chronologie SAS → Projet : conversation créée `12:53:17Z` ; projet lié `13:02:20Z` ; tours 1–4 avant lien, tours 5–8 à cheval / après. Aucune écriture D4 ni avant ni après.
 
-- `/login` 200 · BUILD_ID HTML = `VkuCNyaO0VIUbNtM2KJfO`
-- DEV test login → portfolio OK
-- Projet historique ouverture · API journal 200 · clés knowledge/decisions/restrictions
-- Journal non auth → 401
-- Fixtures E2E → 403
-- Aucune injection fixture / seed RECETTE
-- Compteurs DB inchangés après bascule
-
-Preuves : `.tmp-sfia-review/recette-smoke-final-20261119/`
+Isolation : sujets existants = CampusFlow (1) + 3 prep-only historiques — **aucune fuite** vers CampusNova. Pas de STOP SECURITY.
 
 ---
 
-## 7. Couverture produit (impact)
+## 4. Question centrale — réponses A–H (preuve)
 
-| Obligation | Statut |
+| Q | Réponse | Preuve |
+|---|---|---|
+| A. Nora ne propose-t-elle aucune capitalisation ? | **OUI** | 8/8 tours : 0 intent `d4.record_knowledge` |
+| B. Propositions rejetées ? | **NON** | Jamais proposées → `capitalisationAttempted=[]` |
+| C. Persistance D4 défaillante ? | **NON observée** | Chemin non alimenté ; pas d'erreur `capitalisation_failed` |
+| D. Mauvais projet/pilote ? | **NON pour l'absence** | CampusNova correctement vide ; autres projets inchangés |
+| E. Projection Journal exclut ? | **NON** | DB vide ⇒ projection vide attendue |
+| F. API pleine / UI vide ? | **NON** | DB 0 sujets ; pas d'écart API/UI démontré |
+| G. Traitement différé ? | **NON observé** | Pipeline synchrone post-tour ; pas de job différé |
+| H. Sélectivité contractuelle ? | **Partiel** | Zéro écriture sans proposition = conforme SEM-02 ; mais **aucune** proposition malgré contenu de continuité = rupture cognitive / conduction |
+
+---
+
+## 5. Flux réel et premier point de rupture
+
+```text
+MESSAGE PILOTE
+  → messages COMPLETE (persistés)                    PASS
+TRAITEMENT D3 / Nora LIVE
+  → qualification QUALIFIED (tours COMPLETE)
+  → intents = d3.converse (ou d2.create_project x1)
+  → AUCUN d4.record_knowledge REQUEST_EFFECT         FAIL ← PREMIER RUPTURE
+extractKnowledgeProposals(qualification)
+  → []                                               PASS (fidèle)
+maybeCapitalizeFromExchange(... proposals:[])
+  → selectionLimit = « Aucune proposition… zéro écriture D4 »
+  → aucune ensureSubject / capitalizeAcquis / openPoint
+                                                         PASS (fidèle au gate)
+knowledge_* CampusNova
+  → 0 lignes                                         PASS (conséquence)
+getJournalProjection / API / UI
+  → empty « Aucun thème capitalisé… »                PASS (conséquence)
+```
+
+**Premier maillon défaillant :** qualification cognitive D3 — Nora n'émet pas d'intentions typées `d4.record_knowledge` (mode `REQUEST_EFFECT`) malgré des tours COMPLETE avec réponses structurées et un message utilisateur à signal de continuité (ordinal 15).
+
+`COMPLETE` = réponse conversationnelle terminée + CAS. **≠** preuve de persistance D4.
+
+---
+
+## 6. Matrice causale (pipeline)
+
+| Étape | Composant | Cherché | Observation | Preuve | Statut |
+|---|---|---|---|---|---|
+| Persist user | `messages` | 8 user COMPLETE | présents | SQL ordinals | PASS |
+| Nora LIVE | `nora-adapter` | stream + qual | COMPLETE ou UNKNOWN | OBS + turn_commands | PASS |
+| Qual intents | `semanticQualification` | `d4.record_knowledge` | **0** sur 8 tours | `result_json` | **FAIL** |
+| Extract proposals | `extractKnowledgeProposals` | proposals>0 | [] | code + result_json limit | PASS |
+| D4 write | `maybeCapitalizeFromExchange` | subjects/acquis | non appelé en écriture | capitalisationAttempted=[] | PASS |
+| DB | `knowledge_subjects` | project rows | 0 | SQL | PASS |
+| Journal API | `getJournalProjection` | subjects | cohérent avec DB vide | code + SQL | PASS |
+| UI empty | ProjectJournal | empty state | attendu si 0 sujets | contrat UI | PASS |
+| Prompt LIVE | `QUALIFICATION_INSTRUCTIONS` | guidance record_knowledge | **absente** du texte | grep nora-adapter@3fc8af5f | **FAIL contributive** |
+
+---
+
+## 7. Causes
+
+### 1. Cause racine PROUVÉE
+
+**D3 n'a produit aucune proposition typée `d4.record_knowledge` sur la campagne CampusNova**, donc le pipeline D4 n'a rien écrit et le Journal a fidèlement affiché l'absence de thèmes.
+
+Localisation : enveloppe de qualification (`semanticQualification.intents`) par tour dans `conversation_turn_commands.result_json` ; consommation dans `service.ts` → `extractKnowledgeProposals` → `maybeCapitalizeFromExchange`.
+
+Effet utilisateur : Journal > Sujets vide après synthèse substantielle en Travail.
+
+Blast radius : tout projet dont Nora omet `d4.record_knowledge` restera sans mémoire Journal, même si la conversation est riche. Non limité à un bug UI Ensemble 06. Spécificité CampusNova : incident observé ici ; mécanisme général du code servi.
+
+### 2. Causes contributives PROUVÉES
+
+- Instructions LIVE (`nora-adapter.ts` `QUALIFICATION_INSTRUCTIONS`) : **aucune mention** de `d4.record_knowledge` / `knowledgeKind` / capitalisation Journal ; guidance forte sur `d4.create_document` et règle restrictive `REQUEST_EFFECT` (« demande positive d'effet », jamais hypothèse).
+- Tours UNKNOWN (ordinals 5–6) : `qualification_status=UNAVAILABLE` → capitalisation impossible ces tours (échec schema stream, incident distinct).
+- `document_act` toujours `SEMANTIC_NONE` / `d4_attempted=false` — pas de confusion document vs connaissance, mais confirme qu'aucun effet D4 n'a été engagé.
+
+### 3. Hypothèses NON PROUVÉES
+
+- Seuil cognitif interne du modèle refusant volontairement la capitalisation malgré un prompt adéquat (le prompt adéquat est **absent**).
+- Besoin d'un mot-clé Pilote exact non couvert (ordinal 15 a un signal continuité lexical ; toujours 0 proposition).
+- Défaut latent de `getJournalProjection` masquant des lignes (contredit par SQL 0).
+
+### 4. Causes exclues
+
+- Bug d'affichage Journal seul.
+- Écriture D4 échouée / avalée (pas d'OBS `capitalisation_failed` ; attempted vide).
+- Mauvais rattachement projectId pour des sujets existants CampusNova (aucun sujet).
+- Fuite interprojets / isolation rompue.
+- Migration 014 manquante.
+- Fixtures E2E (conversation REAL CampusNova ; fixtures 403 en production).
+
+### 5. Limites d'observabilité
+
+- Texte exception provider non journalisé (UNKNOWN).
+- Contenu conversationnel non recopié ici (contrat anonymisation).
+- Login DEV Pilot A ≠ owner CampusNova → API journal 404 pour ce pilote (isolation) ; preuve D4 via SQL owner scope.
+
+---
+
+## 8. Qualification contractuelle
+
+| Exigence | Lecture face à l'incident |
 |---|---|
-| J-C01–J-C16 (libellés / compositions / empty / liserés touchés) | IMPLEMENTED + COVERAGE VERIFIED (oracles) |
-| Comportements parcours / recherche / points / décisions | BEHAVIOR PROVEN (Playwright E2E) |
-| RECETTE | RECETTE TECHNICALLY AVAILABLE |
-| UAT Morris | MORRIS UAT PENDING |
+| RG-KNOW-001 sélective | Gate « zéro proposition ⇒ zéro écriture » **respecté** |
+| RG-KNOW-011 / 015 continuité | Matière utile **non** devenue durable — **écart produit** |
+| J-C01 synthèses durables | Non produites (pas d'objets) |
+| J-C15 isolation | Respectée |
+| Contrat tech Journal § capitalisation | « D3 décide ce qu'il propose, D4 contrôle ce qui est sauvé » — D3 n'a rien proposé |
 
-Hors impact non réouvert : LIVE Nora, REAL Git externe, Gate C, STABLE, ADOPTED.
-
----
-
-## 8. Interdictions contrôlées
-
-| Interdit | Statut |
-|---|---|
-| Push produit / PR / merge / main | Respecté |
-| Matrice v0.7 / SEF / Roadmap / ADR | Non modifiés |
-| Figma redesign | Non |
-| Nouvelle RECETTE / DB / migration | Non |
-| Mutation D6 / fixtures RECETTE | Non |
-| Gate C / STABLE / ADOPTED | Non |
+Ce n'est **pas** « empty Journal alors que D4 est plein ».
+Ce n'est **pas** non plus une sélectivité saine pleinement justifiée : capacité schéma + fixture `d4.record_knowledge` existent, mais la conduction LIVE n'active pas la capacité.
 
 ---
 
-## 9. Gaps / réserves
+## 9. Plan correctif proposé (NON EXÉCUTÉ)
 
-- Revue visuelle esthétique finale = **Morris** (pas revendiquée ALIGNED 11/11 esthétique).
-- Agents LaunchAgent concurrents (ml3/ml4/…) ont été déchargés pour libérer `:3200` ; plists intacts — réactivation hors mandat Journal si besoin.
-- Portfolio Pilot A n’expose qu’un sous-ensemble des 23 projets (ownership) — compteurs DB globaux préservés.
+**Objectif :** restaurer la conduction D3→D4 existante sans nouveau moteur.
+
+1. **Prompt / policy Nora** — ajouter dans `QUALIFICATION_INSTRUCTIONS` des règles explicites :
+   - quand émettre `d4.record_knowledge` REQUEST_EFFECT (acquis stables, sujets, points ouverts utiles à la reprise) ;
+   - distinction réponse visible (`d3.converse` + visualComposition) vs enregistrement durable ;
+   - capitalisation sélective : pas tout message, mais consolidation / faits structurants / questions ouvertes durables oui ;
+   - paramètres `knowledgeKind` / `knowledgeStatement` / `subjectTitle` / `epistemic` / `continuityReason`.
+2. **Observabilité** — OBS dédié `d3.turn.knowledge_proposals` (count by kind) pour chaque tour COMPLETE.
+3. **Tests** — fixture/unit déjà présente ; ajouter oracle E2E DEV : tour consolidant ⇒ ≥1 `d4.record_knowledge` ⇒ sujet visible Journal (fake provider) ; non-régression « dialogue banal ⇒ 0 écriture ».
+4. **Rattrapage CampusNova** — **pas automatique**. Après correctif : soit nouvelle demande Pilote de consolidation (LIVE), soit outil de reprise borné sous GO Morris distinct (ré-qualification / propositions manuelles) — **hors ce diagnostic**.
+
+Risques : sur-capitalisation si le prompt est trop agressif ; régression REQUEST_EFFECT documents ; pas de mutation D6.
+
+Gate Morris : **GO correctif** requis avant toute implémentation.
 
 ---
 
 ## 10. Verdict
 
-**JOURNAL V4 CORRECTIVE DELIVERY VERIFIED — RECETTE TECHNICALLY AVAILABLE — MORRIS UAT PENDING**
+**ROOT CAUSE IDENTIFIED — CORRECTIVE GO REQUIRED**
 
-Décisions Morris encore requises : réception visuelle/fonctionnelle UAT sur `http://127.0.0.1:3200` ; arbitrage éventuel sur réactivation des autres lanes RECETTE (ml3/ml4) hors port 3200.
+Aucune modification produit. Aucun déploiement. Aucune mutation DB. Aucun LIVE rejoué.
+
+Fake/Real : preuves = SQL + `result_json` + OBS RECETTE sur conversation CampusNova réelle ; fixtures DEV non utilisées comme substitut.
