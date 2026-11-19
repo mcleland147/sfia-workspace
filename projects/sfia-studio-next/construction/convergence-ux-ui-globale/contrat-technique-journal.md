@@ -3,11 +3,11 @@
 
 | Métadonnée | Valeur |
 | --- | --- |
-| Version | **v0.1 — 19 novembre 2026** |
+| Version | **v0.2 — 19 novembre 2026** |
 | Statut | **CANDIDATE TECHNICAL CONTRACT / DOCUMENTED — NON VALIDATED ARCHITECTURE / AUCUN GO CURSOR** |
 | Nature | **Dossier intégré** : audit AS-IS, architecture cible candidate, contrats techniques, contrôles de cohérence, qualification de couverture et préparation des preuves |
 | Capacité | Journal du projet : Sujets, Décisions, recherche, points ouverts, continuité cognitive et sources |
-| Produit / lot | SFIA Studio Next / R5 ML4D — Ensemble 06 ; **Journal uniquement**, Bibliothèque Documents reste propriétaire de sa propre expérience |
+| Produit / lot | SFIA Studio Next / R5 — Ensemble 06, **UX ML4D et extensions fonctionnelles D3/D4/D6 sous gate distinct** ; Journal uniquement, Bibliothèque Documents conserve sa propre expérience |
 | Autorité fonctionnelle | **[Contrat fonctionnel/UX Journal v1.0](journal-contrat-fonctionnel-ux-candidat.md)** — **VALIDATED SPEC par Morris le 19/11/2026** ; onze frames Figma V4 validées en conception |
 | Base code et architecture analysée | **mcleland147/sfia-workspace — main@d3d199adb782462b93467934f5f1e8a0c98fb492** |
 | Branche de publication | **sfia/next-journal-conception-fonctionnelle-ux-20261119** — candidate, distincte de main |
@@ -32,7 +32,7 @@ Ce dossier a trois résultats concrets :
 
 ### 1.1. Jalon et placement en trajectoire
 
-- Roadmap `état courant : ML4C **CLOSED WITH RESERVES**, ML4D **en trajectoire de convergence**, Gate C **OPEN**, ML5 et R6 **non acquis**. Le [registre ML4D](registre-central-revues.md) `2 inscrit Ensemble 06 Documents/Journal parmi les surfaces à revoir ; la [fiche de reprise](ensemble-06-documents-journal-reprise.md) indique des prérequis et ne vaut pas GO delivery.
+- Roadmap — état courant : ML4C **CLOSED WITH RESERVES**, ML4D **en trajectoire de convergence**, Gate C **OPEN**, ML5 et R6 **non acquis**. Le [registre ML4D](registre-central-revues.md) section 2 inscrit Ensemble 06 Documents/Journal parmi les surfaces à revoir ; la [fiche de reprise](ensemble-06-documents-journal-reprise.md) indique des prérequis et ne vaut pas GO delivery.
 - [Décision R5 du 11/11](../../governance/decisions/2026-11-11-r5-convergence-fonctionnelle-ux-trajectoire.md) : **UX des capacités existantes = ML4D** ; ajout ou modification fonctionnelle profonde, API, données, autorité ou persistance = **changement à qualifier et arbitrer**, sans faire passer tout changement sous l'étiquette « cosmétique ML4D ».
 - **Proposition de gestion :** conserver **un macro-lot intégrateur « Journal cohérent de bout en bout »** dans la préparation et les preuves. Identifier en son sein le **socle de transposition UX ML4D** et les **extensions métier/données D3/D4/D6 conditionnelles**. Si le gate ML4D n'autorise que l'UX, les travaux structurels ne sont **pas exécutés** par anticipation : leur périmètre, gate et trajectoire sont présentés ensemble à Morris.
 - La revue technique n'ouvre aucun nouveau cycle SFIA v2.6 et ne clôt pas Ensemble 06 ni ML4D.
@@ -42,12 +42,12 @@ Ce dossier a trois résultats concrets :
 | Niveau | Source sur Git | Consommation dans ce dossier |
 | --- | --- | --- |
 | Autorité | [R4 ADR approuvés](../../governance/decisions/2026-11-04-r4-architecture-exit.md), [SEF v0.2](../../governance/SEF.md), [Roadmap](../../governance/roadmap.md), [naming VALIDATED](../../governance/product-naming-conventions.md) | Application modulaire Next, source transactionnelle PostgreSQL, D1–D9 propriétaires, gates, statut et noms produit |
-| Produit | [R1 vision](../../cadrage/vision-produit.md) ``2.8–2.14, [R2 D4](../../conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md), [R2 D6](../../conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md) et [R2 D3](../../conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md) | Règles de récupération, de provenance, de sujets, de décisions et de reprise |
-| UX gelée | [Journal fonctionnel/UX v1.0](journal-contrat-fonctionnel-ux-candidat.md) ``2.1–2.3, 4–9 ; [Figma V4 Journal](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=828-2) | **11 frames approuvées**, deux onglets, filtre, recherche et lecture 40/60 |
+| Produit | [R1 vision](../../cadrage/vision-produit.md) §§2.8–2.14, [R2 D4](../../conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md), [R2 D6](../../conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md) et [R2 D3](../../conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md) | Règles de récupération, de provenance, de sujets, de décisions et de reprise |
+| UX gelée | [Journal fonctionnel/UX v1.0](journal-contrat-fonctionnel-ux-candidat.md) §§2.1–2.3, 4–9 ; [Figma V4 Journal](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=828-2) | **11 frames approuvées**, deux onglets, filtre, recherche et lecture 40/60 |
 | Technique existante | [R4 architecture](../../architecture-technique/cadrage-r4.md), [R5 ML2](../ml2-production-et-capitalisation-nora/specification-technique.md), [R5 ML3](../ml3-pilotage-et-decisions/specification-technique.md) | Frontières D3/D4/D6 et contrats de continuité/idempotence, as-built historique |
 | Interfaces adjacentes | [Contrat Technique Travail avec Nora](contrat-technique-travail-avec-nora.md) et registre ML4D | Reprise fil/scroll, brouillon, visionneuse Travail séparée, sans régression Ensemble 05 |
-| Code observé | `3 et annexe A ; HEAD main ci-dessus | **Source d'observation** ; tout contrat non encore codé est qualifié comme écart |
-| Preuves disponibles | `10, fichiers des tests présents dans web/tests ; CI historiques mentionnées dans Roadmap | **COVERAGE TO ASSESS** : les sources de tests existent, leur exécution actuelle n'a pas été faite ici |
+| Code observé | §3 et annexe A ; HEAD main ci-dessus | **Source d'observation** ; tout contrat non encore codé est qualifié comme écart |
+| Preuves disponibles | §10, fichiers des tests présents dans web/tests ; CI historiques mentionnées dans Roadmap | **COVERAGE TO ASSESS** : les sources de tests existent, leur exécution actuelle n'a pas été faite ici |
 
 R4 exclut un moteur parallèle, des microservices par domaine et un second stockage autorisant. Les données R5 actuelles sont en PostgreSQL/Drizzle. Aucune option vectorielle ou orchestrateur générique n'est choisie par ce dossier.
 
@@ -168,7 +168,7 @@ Réutiliser si suffisant la recherche PostgreSQL existante pour **D4**, après c
 
 ### 5.6. Journal V4 et navigation (Front, D3, D4, D6)
 
-Les **11 frames V4 de `9.3 du contrat fonctionnel** forment le contrat visuel. La page projet et le shell existants restent maîtres du rail global. Créer un **état de lecture Journal** indépendant de TravailViewer, sans route/second chat fantôme ni duplication du rail :
+Les **11 frames V4 du §9.3 du contrat fonctionnel** forment le contrat visuel. La page projet et le shell existants restent maîtres du rail global. Créer un **état de lecture Journal** indépendant de TravailViewer, sans route/second chat fantôme ni duplication du rail :
 - État nominal : Journal pleine largeur, deux onglets, arborescence ou liste D6, barre de recherche contextualisée, filtre Points ouverts côté Sujets uniquement.
 - Sélection : **même Journal réadapté** à 40 % navigation / 60 % visionneuse ; conserver identité et place du contexte liste, requête, filtre, expansion, sélection et scroll.
 - Agrandissement : lecture de l'objet sur surface principale, informations enrichies, action Réduire sans repartir sur une page neuve ; viewport plus étroit = variante accessible/reflow **à tester**, pas 40/60 serré de force.
@@ -189,7 +189,7 @@ Les **11 frames V4 de `9.3 du contrat fonctionnel** forment le contrat visuel. L
 | Capter/mettre à jour mémoire | génération/tour, sujet et version attendue, propositions et références | commit confirmé/idempotence, nouvelles versions, statut honnête | D3 propose, D4 écrit ; verrou/compare, retry sûr |
 | Ouvrir une source | messageId, docId/revision ou repo/ref/SHA | contenu disponible + statut/qualité/permission | D3/D4/D9 ; revalidation à chaque accès |
 
-**Intégration HTTP candidate :** réutiliser `routes actuelles (GET projet, GET knowledge, GET décisions), puis ajouter **des lectures spécialisées ciblées** si nécessaire pour pagination et volume. Ne pas déverser le transcript/les documents entiers dans la réponse Journal pour obtenir un panneau 60 %. Toute nouvelle route devra respecter session serveur, codes d'erreur cohérents, contrats typés et test d'isolation.
+**Intégration HTTP candidate :** réutiliser les routes actuelles (GET projet, GET knowledge, GET décisions), puis ajouter **des lectures spécialisées ciblées** si nécessaire pour pagination et volume. Ne pas déverser le transcript/les documents entiers dans la réponse Journal pour obtenir un panneau 60 %. Toute nouvelle route devra respecter session serveur, codes d'erreur cohérents, contrats typés et test d'isolation.
 
 ## 6. Persistance : options, recommandation et STOP de migration
 
@@ -294,7 +294,7 @@ Les tables PostgreSQL D4 permettent identité, parentage, provenanceJson des acq
 
 **Niveaux de preuve :** UNIT/PG pour modèles/transaction/permissions, API pour DTOs/statuts, BROWSER F2/G5 pour transitions et Figma, évaluation cognitive avec sources contrôlées + LIVE Nora borné si autorisé, REAL Git uniquement si la capacité et les accès le nécessitent et sont réellement disponibles. Chaque preuve cite SHA produit, lane, fixture/données, date, résultat, réserves ; pas de PASS global construit sur un seul niveau.
 
-**Qualité de la synthèse :** ajouter revue comparative pilotée par exemples déterminants et négatifs, pas seulement « texte non vide » ; mesurer fidélité, informations réellement retrouvées, distinction histoire/actuel, refus d'inférer un motif et facilité de lecture. **Le progrès cognitif doit être démontrable**, conformément à SEF `6.3.
+**Qualité de la synthèse :** ajouter revue comparative pilotée par exemples déterminants et négatifs, pas seulement « texte non vide » ; mesurer fidélité, informations réellement retrouvées, distinction histoire/actuel, refus d'inférer un motif et facilité de lecture. **Le progrès cognitif doit être démontrable**, conformément à SEF §6.3.
 
 ## 11. Séquencement intégré proposé — sans micro-cycles et sans GO anticipé
 
@@ -340,8 +340,55 @@ Le besoin métier/UX et Figma **ne sont pas rouverts**. La revue présente seule
 | **T-05 — UX V4, recherche et retour au fil** | OUVERTE — gap code | Figma ↔ BROWSER, liens exacts, performance et régression E05 |
 | **T-06 — couverture cognitive et longue session** | OUVERTE — non prouvé | Scénarios avec 1 000+ messages, coûts/latence, qualité de synthèse et reprise |
 | **T-07 — dossier d'exécution et gates** | BLOQUÉ AVANT REVUE | Contrat technique et arbitrages Morris, routing/template Git et GO distinct |
+| **T-08 — portée projet et identité inter-préparations** | OUVERTE — divergence de lecture observée | Scoping server project-wide/renvoi sas, tests multi-préparation et isolation, sans copie D4 |
 
 **Aucune réserve n'est « fermée » par l'écriture du dossier.**
+
+## 15. Addendum de revue technique D0 — vérification complémentaire du 19/11/2026
+
+**STATUT : RECOMMANDATIONS CANDIDATES / AUCUNE DÉCISION D2 NOUVELLE.** Baseline et code examinés : main@d3d199adb782462b93467934f5f1e8a0c98fb492. Git local, état réel DB et RECETTE : NON OBSERVÉS. Le GO de poursuite permet l'analyse et ce dossier D1 ; pas de migration, code, prompt Cursor ni Gate C. La VALIDATED SPEC fonctionnelle/UX v1.0 et les 11 frames Figma restent inchangées.
+
+### 15.1. Continuité de connaissance : portée projet versus préparation
+
+**Constat vérifié dans le code :** dans domains/knowledge/service.ts, listKnowledge(pilotId, preparationId) et selectRelevantKnowledgeContext restent strictement limités à la préparation active. Dans domains/conversation/d4-read-tools.ts, searchProjectResources utilise également scope.preparationId. Dans domains/preparation/project-context.ts, getOwnedProjectContext choisit une seule liaison de préparation pour un projet avec limit(1) ; cette préparation sert ensuite à charger la connaissance. En revanche, domains/conversation/history-tools.ts::resolveAuthorizedHistoryScope énumère les conversations de toutes les préparations reliées au même projet et appartenant au Pilote. Dans db/schema.ts, preparationProjectLinks possède une clé primaire preparationId sans unicité de projectId visible dans la définition consultée : **plusieurs préparations par projet sont techniquement plausibles, mais aucun état multi-préparation réel n'a été observé**.
+
+**Risque :** Nora peut retrouver un message historique que le Journal D4 de cette préparation ne restitue pas ; cela ne prouve pas une perte DB, mais une incohérence potentielle des portées de récupération.
+
+**Cible technique candidate :** résoudre côté serveur la portée de connaissances **du projet actuellement autorisé**, tout en gardant preparationId comme provenance, source transactionnelle et contrainte d'accès. Construire une lecture D4 project-wide bornée des préparations effectivement liées, sans copie ni fusion automatique des sujets homonymes ; conserver des APIs de préparation pour le sas. Réutiliser la politique d'isolation de l'historique sans coupler D3 et D4 en moteur unique. Si le produit ne peut réellement avoir qu'une préparation par projet, documenter et prouver cette contrainte avant de construire un mécanisme inutile.
+
+**Preuves discriminantes :** deux préparations rattachées au même projet, même Pilote, mémoire de la première consultable depuis la seconde ; titres identiques mais identités distinctes ; aucune fuite vers un second projet/Pilote dans liste, recherche, compteur ou source. Source inaccessible => réponse DENIED/STALE honnête.
+
+### 15.2. Homonymes, parent courant et filiation historique
+
+**Constat vérifié :** ensureSubject valide éventuellement un parent, mais réutilise un sujet ACTIVE par combinaison preparationId + ownerPilotId + title, sans intégrer le parent dans le critère. Deux sous-sujets portant le même nom sous des parents différents peuvent donc être confondus. splitSubject crée un nouvel objet avec originatedFromSubjectId mais ne renseigne pas le parentSubjectId dans l'appel observé. mergeSubjects déplace les acquis et points, mais sa gestion des enfants existants n'est pas explicitée dans le code inspecté.
+
+**Direction candidate :** l'équivalence sémantique n'est **jamais** démontrée par l'égalité des titres. Distinguer création d'identité, résolution des sujets existants, déplacement/reparentage, création d'enfant, fusion/scission et événements d'origine ; vérifier parent ACTIVE, même projet/Pilote, absence de cycle, références et enfants. Filiation d'origine ≠ relation parent actuelle. Maintenir le même ID de la feuille lorsqu'elle devient parent.
+
+**Preuves :** deux parents avec un sous-sujet « Contraintes » chacun ; sujets distincts si le sens ou la portée diffère. Feuille→parent conservant le même id ; refus du parent cyclique/étranger ; split/merge atomique sans enfant orphelin ni source perdue.
+
+### 15.3. Persistance des synthèses — décision architecturale à instruire
+
+**Constat vérifié :** D4 expose acquis/points et knowledge_subject_events mais pas de version courante immuable d'une synthèse éditoriale de sujet. D6 conserve la décision et ses restrictions mais pas de synthèse narrative de motivations.
+
+**Option A :** extension compacte de knowledge_subjects avec résumé courant, version et sources, historique complet et cohérent par knowledge_subject_events. **Option B :** révisions immuables minimales de synthèses D4, référencées par subjectId et, pour les explications, par decisionId D6, avec projection du courant. **Préférence de conception conditionnelle : B si l'historique, la provenance et la concurrence ne peuvent être garantis simplement par A**. Le verdict ne se déduit pas du nombre de tables ; comparer correction, split/merge concurrent, source obsolète/révoquée, acte D6 remplacé, ACK perdu et restauration.
+
+**Invariants des deux options :** un seul propriétaire D4, versions non destructives, sources exactes et droit actuel, qualification factuelle/hypothétique, correlation/idempotence, expectedVersion, état UNKNOWN repris avant retry, distinction de la synthèse et de l'acte officiel. **D6 ne change pas d'autorité.** Aucun nouveau moteur, cache autorisant ou indexation exhaustive du fil. **STOP DDL :** évaluation du modèle réel, blast radius, backfill/rollback, politique DATA-01 et GO architecture/données explicite de Morris.
+
+### 15.4. Frontière ML4D et architecture : un intégrateur, des gates séparés
+
+**Décision R5 existante conservée :** ML4D couvre la convergence UX/UI des capacités déjà construites ; les évolutions sémantiques D3, les writes D4, la persistance et le contrat d'autorité D6 ne sont pas de simples retouches graphiques. Les besoins indispensables identifiés pour la cible validée doivent être qualifiés et soumis à Morris selon leurs impacts.
+
+**Trajectoire candidate :** un **dossier intégrateur « Journal cohérent du projet »** avec (a) continuité de connaissance et projection fiable D3/D4/D6, (b) parcours Journal V4 et lectures spécialisées, (c) tests PG/API/BROWSER/cognition et non-régression Ensemble 05. Regrouper code, tests et documentation sous une seule responsabilité d'intégration ; ne scinder en cycles que si la frontière d'autorité, la migration ou une vraie dépendance l'impose.
+
+**Gates :** (1) contribution documentaire D1 sur branche candidate, SHA/diff/relecture distante ; (2) validation d'architecture D2 spécifique à l'éventuelle extension structurante et à son delta DB ; (3) GO de réalisation Cursor D3 après revue de ce contrat, sourcing SFIA v2.6, IN/OUT et tests, avec branche et STOP ; (4) Gate C/PR/merge/STABLE/ADOPTED distincts. **Ce dossier ne satisfait automatiquement aucun de ces gates au-delà de sa publication documentaire.**
+
+### 15.5. Verdict intermédiaire et critères de sortie
+
+**Convergence technique : FAVORABLE EN PRINCIPE, NON ENCORE AUTORISÉE EN CODE.** R4 et la modularité D3/D4/D6 sont conservés ; aucune refonte de domaine n'est justifiée par le diagnostic. Les réserves T-01 (persistance), T-02 (identités/parentage), T-03 (sources/statuts), T-04 (explication D6), T-05 (V4), T-06 (reprise cognitive) et **T-08 (portée projet vs préparation)** restent à prouver/traiter.
+
+**Prochaine entrée de réalisation :** contrat technique revu, risque/option de stockage statué par Morris si structurant, preuve d'absence de contradiction avec D6, délimitation des effets ML4D vs extension fonctionnelle, tests négatifs spécifiés, contrat Cursor SFIA v2.6 préparé seulement après GO technique. Aucun GO de PR/merge ni délai de livraison inféré.
+
+**Statut : DOCUMENTED / TECHNICAL CONTRACT v0.2 CANDIDATE / NO CODE / NO MIGRATION / NO CURSOR PROMPT / NO GATE C / NOT ADOPTED.**
 
 ## Annexe A — Liens vérifiables des surfaces, services et tests
 
@@ -353,10 +400,11 @@ Le besoin métier/UX et Figma **ne sont pas rouverts**. La revue présente seule
 
 **Contrats visuels précis (Figma V4 approuvés) :** [page Journal](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=828-2) ; Sujets [exploration](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-71), [40/60](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=842-26), [agrandi](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-159) ; [Recherche Sujets](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=859-42), [Points ouverts](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=859-146) ; Décisions [nominal](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=860-58), [40/60](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=860-136), [recherche](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=860-251), [agrandi](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=860-360) ; cinquième frame Sujets : [parent agrandi](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-239), [parent 40/60](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=842-131).
 
-**Source d'épreuve :** tests ML2/ML3/ML4C/E04 cités en `10. La présence d'un chemin n'atteste pas son exécution, ni que tous les comportements v1.0 sont couverts.
+**Source d'épreuve :** tests ML2/ML3/ML4C/E04 cités au §10. La présence d'un chemin n'atteste pas son exécution, ni que tous les comportements v1.0 sont couverts.
 
 ## Annexe B — Historique
 
 | Date/version | Intervention | Statut |
 | --- | --- | --- |
 | 19/11/2026 — v0.1 | Diagnostic code Git main, mapping R1/R2/R4/R5 et Figma V4, proposition d'architecture et options de persistance, 12 contrôles de cohérence, risques, couverture QA et préparation des gates | **DOCUMENTED / CANDIDATE TECHNICAL CONTRACT** — à revoir avec Morris ; aucune autorisation technique ni preuve de runtime |
+| 19/11/2026 — v0.2 | Revue D0 : périmètre projet/préparation, sujets homonymes, synthèses versionnées, frontières ML4D et gates ; correction des liens Markdown | **DOCUMENTED / TECHNICAL CANDIDATE**, no code or Cursor GO |
