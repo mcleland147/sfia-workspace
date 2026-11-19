@@ -2115,22 +2115,34 @@ export default function ProjectPage() {
             })();
           }}
           onOpenDocument={(documentId, revisionId) => {
+            // J-C14 — open exact D4 revision in Travail viewer (same continuity pattern as message).
+            // Preserve journalNav; do not invent content if D4 refuses.
+            const titleHint =
+              documents.find((d) => d.document.id === documentId)?.document.title ?? "Document";
+            const seq = ++viewerRequestSeqRef.current;
+            viewerOpenRef.current = true;
+            setViewer({
+              kind: "document",
+              documentId,
+              title: titleHint,
+              revisionId: revisionId ?? null,
+              revisionNumber: null,
+              versionSource: revisionId ? "exact" : "current",
+              markdown: null,
+              available: false,
+              unavailableReason: "Vérification D4 de la révision citée…",
+            });
             void fetchDocumentViewerViaD4({
               documentId,
-              titleHint:
-                documents.find((d) => d.document.id === documentId)?.document.title ?? "Document",
+              titleHint,
               revisionId: revisionId ?? null,
               versionSource: revisionId ? "exact" : "current",
-              seq: ++viewerRequestSeqRef.current,
+              seq,
               projectIdAtStart: params.projectId,
             });
-            selectSurface("document");
-            // Keep inspect aligned when opening from Journal (J-C14).
+            selectSurface("travail");
             const match = documents.find((d) => d.document.id === documentId);
-            if (match) {
-              setInspect(match);
-              syncSurfaceUrl("document", documentId, "push");
-            }
+            if (match) setInspect(match);
           }}
           onBackToThread={() => selectSurface("travail")}
         />

@@ -379,6 +379,124 @@ describe("Journal D4 revisions (PG)", () => {
     expect(row?.state).toBe("APPLICABLE");
   });
 
+  it("J-C07 two preparations linked to same project share knowledge without title merge", async () => {
+    const { preparationProjectLinks } = await import("@/db/schema");
+    const pilotId = await seedPilot("J-twoprep");
+    const first = await seedLinkedProject(pilotId, "Campus deux preps");
+    const prep2 = await openOrCreatePreparation(pilotId);
+    await db.insert(preparationProjectLinks).values({
+      preparationId: prep2.id,
+      projectId: first.projectId,
+    });
+
+    const subj1 = await ensureSubject(pilotId, first.prep.id, "Réservation salles");
+    await capitalizeAcquis(pilotId, first.prep.id, {
+      statement: "Acquis capitalisé depuis la première préparation du même projet.",
+      kind: "HYPOTHESIS",
+      subjectId: subj1.subjectId,
+      provenance: { sourceKind: "pilot", epistemic: "observed" },
+    });
+
+    const subj2 = await ensureSubject(pilotId, prep2.id, "Réservation salles");
+    expect(subj2.subjectId).not.toBe(subj1.subjectId);
+    await capitalizeAcquis(pilotId, prep2.id, {
+      statement: "Acquis distinct de la seconde préparation, même titre de sujet.",
+      kind: "HYPOTHESIS",
+      subjectId: subj2.subjectId,
+      provenance: { sourceKind: "pilot", epistemic: "observed" },
+    });
+
+    const bundle = await listProjectKnowledge(pilotId, first.projectId);
+    expect(bundle.preparationIds).toEqual(
+      expect.arrayContaining([first.prep.id, prep2.id]),
+    );
+    expect(bundle.subjects.filter((s) => s.title === "Réservation salles")).toHaveLength(2);
+    expect(
+      bundle.acquis.some((a) => a.statement.includes("première préparation")),
+    ).toBe(true);
+    expect(
+      bundle.acquis.some((a) => a.statement.includes("seconde préparation")),
+    ).toBe(true);
+
+    const foreign = await seedLinkedProject(pilotId, "Autre projet isolé");
+    const leak = await listProjectKnowledge(pilotId, foreign.projectId);
+    expect(leak.subjects.every((s) => s.title !== "Réservation salles")).toBe(true);
+  });
+
+  it("J-C05 refuses resolve on non-AVAILABLE revision (withdrawn/inaccessible)", async () => {
+    const { documentRevisions } = await import("@/db/schema");
+    const pilotId = await seedPilot("J-irr");
+    const { prep, projectId } = await seedLinkedProject(pilotId, "Pertinence source");
+    const subj = await ensureSubject(pilotId, prep.id, "Accès SSO");
+    const pt = await openPoint(pilotId, prep.id, {
+      statement: "Le SSO est-il techniquement confirmé pour CampusFlow?",
+      subjectId: subj.subjectId,
+      provenance: { sourceKind: "message", sourceId: "m-sso" },
+    });
+    const doc = await savePreparationDocument(
+      pilotId,
+      prep.id,
+      "Note budgétaire hors sujet",
+      "# Budget\nDocument réel mais non pertinent pour le SSO.",
+      undefined,
+      { correlationKey: `irr-doc-${projectId}`, provenance: { sourceKind: "pilot" } },
+    );
+    if (!("revisionId" in doc) || !doc.revisionId) {
+      throw new Error(`expected revisionId, got ${doc.status}`);
+    }
+    const revisionId = String(doc.revisionId);
+    await db
+      .update(documentRevisions)
+      .set({ status: "FAILED" })
+      .where(eq(documentRevisions.id, revisionId));
+
+    const denied = await resolveOpenPointFactually(pilotId, projectId, pt.openPointId!, {
+      reason: "doc withdrawn",
+      provenance: {
+        sourceKind: "revision",
+        sourceId: revisionId,
+        epistemic: "established",
+      },
+      operationId: `irr-resolve-${pt.openPointId}`,
+    });
+    expect(denied.status).toBe("FAILED");
+    if (denied.status === "FAILED") {
+      expect(denied.reason).toBe("DOCUMENT_REVISION_NOT_AVAILABLE");
+    }
+    const stillOpen = (
+      await db.select().from(knowledgeOpenPoints).where(eq(knowledgeOpenPoints.id, pt.openPointId!))
+    )[0];
+    expect(stillOpen.status).toBe("OPEN");
+  });
+
+  it("J-C11 searchJournalDecisions matches explanation-only token", async () => {
+    const pilotId = await seedPilot("J-d11");
+    const { projectId } = await seedLinkedProject(pilotId, "Recherche décisions");
+    const decisionId = await db.transaction(async (tx) =>
+      insertHumanDecision(tx, {
+        projectId,
+        pilotId,
+        sourceKind: "pilotage",
+        sourceRef: "cmd-d11",
+        kind: "TRAJECTORY",
+        objectRef: "traj-d11",
+        statement: "Acte officiel sans le token exclusif dans le libellé.",
+      }),
+    );
+    await appendDecisionExplanationRevision(pilotId, projectId, decisionId, {
+      explanationMarkdown: "Motifs détaillés avec token exclusif multicritèreorion dans l'explication.",
+      provenance: { sourceKind: "message", sourceId: "m-d11", epistemic: "observed" },
+      operationId: `expl-d11-${decisionId}`,
+    });
+    const hits = await searchJournalDecisions(pilotId, projectId, "multicritèreorion");
+    expect(
+      hits.results.some((r) => r.matchKind === "explanation" && r.decisionId === decisionId),
+    ).toBe(true);
+    // Kind/label alone must not produce a decision hit.
+    const miss = await searchJournalDecisions(pilotId, projectId, "TRAJECTORY");
+    expect(miss.results.some((r) => r.decisionId === decisionId)).toBe(false);
+  });
+
   it("E06-05 markOpenPointReactivated refuses cross-project same pilot", async () => {
     const pilotId = await seedPilot("J-e605");
     const a = await seedLinkedProject(pilotId, "Projet E605 A");

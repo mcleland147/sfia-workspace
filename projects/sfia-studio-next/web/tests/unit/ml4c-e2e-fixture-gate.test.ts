@@ -68,4 +68,24 @@ describe("C-03 E2E fixture mutation gate", () => {
     expect(route).not.toMatch(/authorizePublication|dispatchPublication|insertHumanDecision/);
     expect(route).toMatch(/Does NOT create HumanDecision/);
   });
+
+  it("Journal fixture route also uses e2eFixtureMutationsAllowed", () => {
+    const route = readFileSync(
+      join(__dirname, "../../src/app/api/dev/e2e/journal-fixture/route.ts"),
+      "utf8",
+    );
+    expect(route).toMatch(/e2eFixtureMutationsAllowed/);
+    expect(route).toMatch(/E2E_FIXTURE_FORBIDDEN/);
+    expect(route).toMatch(/seedJournalE2EScenario/);
+  });
+
+  it("FIX: DEV without STUDIO_E2E refuses", () => {
+    const r = e2eFixtureMutationsAllowed({
+      NODE_ENV: "development",
+      STUDIO_LANE: "DEV",
+      STUDIO_E2E: "",
+    } as NodeJS.ProcessEnv);
+    expect(r.ok).toBe(false);
+    expect(r.reason).toBe("STUDIO_E2E_REQUIRED");
+  });
 });

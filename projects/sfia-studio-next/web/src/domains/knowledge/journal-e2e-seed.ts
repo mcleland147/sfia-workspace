@@ -2,7 +2,7 @@
  * DEV/E2E-only Journal scenario seed — uses real D4/D6 domain writes.
  * Gate: caller must enforce e2eFixtureMutationsAllowed().
  */
-import { and, asc, desc, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { db } from "@/db/client";
 import { conversations, knowledgeAcquis, knowledgeOpenPoints, messages } from "@/db/schema";
 import {
@@ -27,6 +27,7 @@ export type JournalE2ESeedResult = {
   otherParentId: string;
   homonymLeafId: string;
   acquisId: string;
+  documentAcquisId: string;
   openPointId: string;
   resolvedOpenPointId: string;
   decisionApplicableId: string;
@@ -93,9 +94,10 @@ export async function seedJournalE2EScenario(input: {
   const longThreadCount = input.longThreadCount ?? 24;
 
   const parent = await ensureSubject(pilotId, preparationId, "Architecture cible");
-  const leaf = await ensureSubject(pilotId, preparationId, "Traçabilité Git", parent.subjectId);
+  // J-C08 — leaf/homonym titles must NOT contain the acquis-only search token.
+  const leaf = await ensureSubject(pilotId, preparationId, "Continuité Git", parent.subjectId);
   const otherParent = await ensureSubject(pilotId, preparationId, "Budget et risques");
-  const homonym = await ensureSubject(pilotId, preparationId, "Traçabilité Git", otherParent.subjectId);
+  const homonym = await ensureSubject(pilotId, preparationId, "Continuité Git", otherParent.subjectId);
 
   const acquis = await capitalizeAcquis(pilotId, preparationId, {
     statement:
@@ -107,7 +109,7 @@ export async function seedJournalE2EScenario(input: {
 
   await appendSubjectSummaryRevision(pilotId, projectId, leaf.subjectId!, {
     summaryMarkdown:
-      "Synthèse versionnée : la traçabilité Git reste un point de vigilance à clarifier avec sources.",
+      "Synthèse versionnée : la continuité des preuves Git reste un point de vigilance à clarifier avec sources.",
     provenance: { sourceKind: "nora", generationId: "seed-sum-1", epistemic: "limited" },
     operationId: `seed-sum-${leaf.subjectId}`,
     enforceHonesty: true,
@@ -180,7 +182,7 @@ export async function seedJournalE2EScenario(input: {
   );
   await appendDecisionExplanationRevision(pilotId, projectId, decisionApplicableId, {
     explanationMarkdown:
-      "Pourquoi ce choix : alternatives B écartées faute de traçabilité ; motivations et contraintes sourcées.",
+      "Pourquoi ce choix : alternatives B écartées faute de preuves solides ; motivations et contraintes sourcées. Token exclusif explication : multicritèreorion.",
     provenance: { sourceKind: "message", sourceId: "seed-msg-expl", epistemic: "observed" },
     operationId: `seed-expl-${decisionApplicableId}`,
     preparationId,
@@ -245,7 +247,7 @@ export async function seedJournalE2EScenario(input: {
     if (i === longThreadCount - 1) lateMessageId = id;
   }
 
-  // Point Journal sources at the real early message + document revision.
+  // Point Journal sources at the real early message + document revision (J-C13 / J-C14).
   if (acquis.status === "AVAILABLE" && "acquisId" in acquis && earlyMessageId) {
     await db
       .update(knowledgeAcquis)
@@ -258,6 +260,32 @@ export async function seedJournalE2EScenario(input: {
         }),
       })
       .where(eq(knowledgeAcquis.id, String(acquis.acquisId)));
+  }
+  // Dedicated acquis with exact document revision provenance for J-C14 click path.
+  const docAcquis = await capitalizeAcquis(pilotId, preparationId, {
+    statement: "La publication technique est documentée dans la révision canonique v2.",
+    kind: "FACT",
+    subjectId: otherParent.subjectId,
+    provenance: {
+      sourceKind: "revision",
+      sourceId: revisionIdV2 || revisionIdV1,
+      epistemic: "established",
+    },
+  });
+  if (docAcquis.status === "AVAILABLE" && "acquisId" in docAcquis) {
+    await db
+      .update(knowledgeAcquis)
+      .set({
+        provenanceJson: JSON.stringify({
+          sourceKind: "revision",
+          sourceId: revisionIdV2 || revisionIdV1,
+          documentId,
+          revisionId: revisionIdV2 || revisionIdV1,
+          epistemic: "established",
+          notedAt: new Date().toISOString(),
+        }),
+      })
+      .where(eq(knowledgeAcquis.id, String(docAcquis.acquisId)));
   }
   if (open.openPointId && earlyMessageId) {
     await db
@@ -282,6 +310,10 @@ export async function seedJournalE2EScenario(input: {
     homonymLeafId: homonym.subjectId!,
     acquisId:
       acquis.status === "AVAILABLE" && "acquisId" in acquis ? String(acquis.acquisId) : "",
+    documentAcquisId:
+      docAcquis.status === "AVAILABLE" && "acquisId" in docAcquis
+        ? String(docAcquis.acquisId)
+        : "",
     openPointId: open.openPointId!,
     resolvedOpenPointId: openResolved.openPointId!,
     decisionApplicableId,

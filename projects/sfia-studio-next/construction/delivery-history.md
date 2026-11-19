@@ -4,6 +4,21 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-LIVE-PARTIAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~11:05 CET |
+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 cycle 4 §5 + LIVE |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Complétude §5 + LIVE 20 tours CampusFlow (arrêt opérateur après E01) |
+| Parent | local `a122bf27` |
+| Scope | J-C08/11/13/14/07/05/16 oracles · viewerOpenRef J-C14 · LIVE E01 REAL BOUNDARY PARTIAL |
+| QA | tsc/lint/build PASS · UNIT+PG Journal PASS · Playwright seeded 2/2 · ML3 PG 49 PASS · LIVE 1/20 puis STOP |
+| Visual | **VISUAL REVIEW PENDING MORRIS — RECETTE** |
+| Verdict Cursor | `READY FOR MORRIS REVIEW WITH RESERVES — §5 DETERMINISTIC + LIVE E01 ONLY` |
+
+
 ## delivery_id: DELIV-2026-11-19-JOURNAL-V4-E06-CORRECTIVE
 
 | Field | Value |

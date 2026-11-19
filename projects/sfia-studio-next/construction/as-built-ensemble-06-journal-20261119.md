@@ -2,57 +2,60 @@
 
 | Métadonnée | Valeur |
 |---|---|
-| Date | 19/11/2026 (cycle 3 — E06-01..06) |
+| Date | 19/11/2026 (cycle 4 — complétude §5 + LIVE borné arrêté) |
 | Branche | `sfia/next-journal-delivery-20261119` |
 | Base docs cycle 1 | `6879d34e` |
-| Matrice docs distante (lue, non fusionnée) | `2ae685a5` (v0.2) |
+| Matrice docs distante (lue, non fusionnée) | `c3f1254c` (v0.3 §14) |
 | Base `main` | `d3d199ad` |
 | Versioning | `NO RELEASE` / `0.0.0-dev` |
-| Lane | DEV / e2e (`127.0.0.1:5433`, `:3101`) — RECETTE/STABLE non mutées |
+| Lane | DEV / e2e (`127.0.0.1:5433`, `:3101`) — LIVE tenté `:3103` — RECETTE/STABLE non mutées |
 
-## Cycles 1–2 (conservés)
+## Cycles 1–3 (conservés)
 
-- Migration additive `014` + `db-migrate.sh` 001→014
-- Journal D4 revisions, UI V4, API, recherche, explications D6
-- Helpers cognition J-C04/06 + deep-link message/document
+- Migration additive `014` + Journal D4/UI/API
+- E06-01..06 : scope projet, UNVERIFIED Git, message chrono, seed BROWSER, resolve source réelle
 
-## Cycle 3 — corrections E06
+## Cycle 4 — correctifs matrice §14 + LIVE
 
-### E06-05 — portée sécurité
-- `markOpenPointReactivated` utilise `loadOwnedOpenPoint(pilot, project, id)`
-- Refus interprojets même Pilote ; zéro écriture si refus ; idempotence conservée
+### §5 déterministe
 
-### E06-03 — currentness Git
-- `main`+SHA déclarés → **UNVERIFIED** (jamais CURRENT sans vérification distante)
-- Ref non-main → **CANDIDATE**
-- Overclaim gate traite UNVERIFIED
+| ID | Correction |
+|---|---|
+| J-C08 | Seed : titre feuille sans token « traçabilité » ; badge match `acquis` en BROWSER |
+| J-C11 | Recherche décisions : explication-only (`multicritèreorion`) ; UI n’utilise plus `kind` comme hit |
+| J-C13 | Retour Journal via rail (pas `page.goto` comme preuve) ; search/filtre/layout conservés |
+| J-C14 | Clic source document → Travail viewer exact (`viewerOpenRef`) ; contenu v2 asserté |
+| J-C07 | PG : deux préparations liées au même projet, sujets homonymes non fusionnés |
+| J-C05 | Resolve refusé si révision non AVAILABLE |
+| J-C16 | Gate route journal-fixture + refus DEV sans STUDIO_E2E |
 
-### E06-04 — message exact
-- Deep-link : reload canonique ou insertion par `createdAt` (pas d’append aveugle)
-- Brouillon préservé ; zéro auto-send
+### LIVE CampusFlow (GO Morris, arrêté sur demande)
 
-### E06-01 — BROWSER non vide
-- Fixture DEV `/api/dev/e2e/journal-fixture` (gate STUDIO_E2E)
-- Playwright assertions obligatoires sur sujets/40-60/recherche/décisions/message/document
+- Projet DEV fictif créé ; provider `openai-agents-sdk-live` constaté sur **E01**
+- Durée E01 ≈ 647 s ; réponse Nora réelle archivée
+- **E02–E20 / T10 / T20 : NON EXÉCUTÉS** (arrêt Morris/opérateur)
+- Journal T0 : vide (attendu avant capitalisation)
+- Preuves locales : `.tmp-sfia-review/journal-live-campusflow-20261119/` (non commit)
 
-### E06-02 — mémoire D3/D4 déterministe
-- Tests PG : révisions de synthèse + réactivation pertinente / négative
-- LIVE Nora : toujours NOT RUN / hors GO
+### Artefacts test LIVE (conservés pour reprise manuelle)
 
-### E06-06 — D6 / documents / migrate
-- Resolve factuel exige source document/message **réellement accessible**
-- Restriction D6 ACTIVE intacte après resolve
-- `db-migrate.sh` inclut `014`
+- `web/tests/e2e/journal-nora-live-campusflow.spec.ts`
+- `web/playwright.journal-live.config.ts`
+- Commande : `STUDIO_ALLOW_LIVE_BOUNDED=1` + `OPENAI_API_KEY` + `npx playwright test --config=playwright.journal-live.config.ts`
 
-## Preuves (cycle 3)
+## Preuves
 
 | Commande | Résultat |
 |---|---|
 | `tsc --noEmit` | PASS |
-| unit journal-cognition | PASS |
-| PG journal-d4-revisions | PASS (12+) |
-| Playwright journal-v4-parcours (seeded) | PASS |
-| LIVE Nora / REAL Git | NOT RUN |
+| `npm run lint` | PASS (warnings préexistants) |
+| `next build` | PASS |
+| unit journal-cognition + fixture-gate | PASS |
+| PG journal-d4-revisions | PASS (15) |
+| PG ml3-pilotage | PASS (49) |
+| Playwright journal-v4-parcours | PASS (2) |
+| LIVE 20 tours | **1/20 PARTIAL** — arrêté après E01 |
+| ML2/ML4C/E05 full e2e | NOT RUN |
 | VISUAL REVIEW | PENDING MORRIS — RECETTE |
 
 ## Autorité

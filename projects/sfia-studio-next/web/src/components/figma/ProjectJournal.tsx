@@ -302,14 +302,14 @@ export function ProjectJournal(props: {
       ? decisions.find((d) => d.id === selectedDecisionId) ?? null
       : null;
 
+  /** J-C11 — match statement or explanation; never treat kind/label alone as a hit. */
   const filteredDecisions = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (tab !== "decisions" || !q) return decisions;
     return decisions.filter(
       (d) =>
         d.statement.toLowerCase().includes(q) ||
-        (d.explanation?.explanationMarkdown.toLowerCase().includes(q) ?? false) ||
-        d.kind.toLowerCase().includes(q),
+        (d.explanation?.explanationMarkdown.toLowerCase().includes(q) ?? false),
     );
   }, [decisions, search, tab]);
 

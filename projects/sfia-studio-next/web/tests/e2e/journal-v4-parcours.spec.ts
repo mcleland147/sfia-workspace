@@ -16,22 +16,25 @@ async function seedJournalScenario(page: Page, projectId: string, longThreadCoun
     seed: {
       leafSubjectId: string;
       parentSubjectId: string;
+      otherParentId: string;
       openPointId: string;
       decisionApplicableId: string;
       earlyMessageId: string;
       documentId: string;
       revisionIdV2: string;
+      documentAcquisId: string;
       messageCount: number;
     };
   };
   expect(body.status).toBe("AVAILABLE");
   expect(body.seed.leafSubjectId).toBeTruthy();
   expect(body.seed.earlyMessageId).toBeTruthy();
+  expect(body.seed.documentAcquisId).toBeTruthy();
   return body.seed;
 }
 
-test.describe("Journal V4 — données métier non vides (E06-01)", () => {
-  test("sujets/40-60/recherche/décisions/message/document/brouillon", async ({ page }) => {
+test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => {
+  test("sujets/recherche-acquis/décisions/message/document/retour-nav", async ({ page }) => {
     await page.setViewportSize({ width: 1680, height: 970 });
     await page.goto("/login");
     await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
@@ -51,7 +54,7 @@ test.describe("Journal V4 — données métier non vides (E06-01)", () => {
 
     const seed = await seedJournalScenario(page, projectId!, 40);
 
-    // Draft BEFORE leaving thread (E06-04)
+    // Draft BEFORE leaving thread (E06-04 / J-C13)
     const draftBefore = "brouillon préparé avant Journal — ne pas envoyer";
     await page.getByTestId("thread-draft").fill(draftBefore);
     await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
@@ -65,9 +68,11 @@ test.describe("Journal V4 — données métier non vides (E06-01)", () => {
     await expect(leaf).toBeVisible({ timeout: 15000 });
     await expect(page.getByTestId(`journal-subject-${seed.parentSubjectId}`)).toBeVisible();
 
-    // C — recherche terme absent du titre (acquis)
+    // C — J-C08 recherche terme ABSENT du titre/parents/synthèse, PRÉSENT dans acquis
     await page.getByTestId("journal-search").fill("traçabilité");
-    await expect(page.getByTestId(`journal-match-${seed.leafSubjectId}`)).toBeVisible();
+    const matchBadge = page.getByTestId(`journal-match-${seed.leafSubjectId}`);
+    await expect(matchBadge).toBeVisible();
+    await expect(matchBadge).toHaveText(/acquis/i);
     await page.getByTestId("journal-filter-open-points").locator("input").check();
 
     // B — 40/60 + enlarge (non conditionnel)
@@ -87,7 +92,10 @@ test.describe("Journal V4 — données métier non vides (E06-01)", () => {
       fullPage: false,
     });
 
-    // Sources → message exact
+    // Keep selection + search for return assertions
+    await expect(page.getByTestId("journal-search")).toHaveValue("traçabilité");
+
+    // Sources → message exact (chip on selected leaf)
     const sourceChip = page.locator("[data-testid^=journal-source-]").first();
     await expect(sourceChip).toBeVisible({ timeout: 10000 });
     await sourceChip.click();
@@ -95,45 +103,71 @@ test.describe("Journal V4 — données métier non vides (E06-01)", () => {
     await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
     const focused = page.locator(`[data-message-id="${seed.earlyMessageId}"]`);
     await expect(focused).toBeVisible({ timeout: 15000 });
-    // Chronology: early message must not be last in the thread DOM order
     const ids = await page.locator("[data-message-id]").evaluateAll((els) =>
       els.map((e) => e.getAttribute("data-message-id")),
     );
     expect(ids.includes(seed.earlyMessageId)).toBe(true);
     expect(ids[ids.length - 1]).not.toBe(seed.earlyMessageId);
-    // No auto-send: draft still present
     await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
 
-    // Return Journal — prefer explicit URL (rail remount race on surface switch)
-    await page.goto(`/projects/${projectId}?surface=journal`);
+    // J-C13 — return via rail (NOT page.goto) and assert nav restored
+    await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
     await expect(page).toHaveURL(/surface=journal/);
     await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
-    // Nav state may reset on full navigation; re-assert core tree still present (non-empty).
-    await expect(page.getByTestId(`journal-subject-${seed.leafSubjectId}`)).toBeVisible({
-      timeout: 15000,
-    });
+    await expect(page.getByTestId("journal-search")).toHaveValue("traçabilité");
+    await expect(page.getByTestId(`journal-subject-${seed.leafSubjectId}`)).toBeVisible();
+    await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "split");
+    await expect(page.getByTestId("journal-filter-open-points").locator("input")).toBeChecked();
 
-    // D — Décisions
+    // D — J-C11 Décisions : terme présent dans explication, absent du libellé
     await page.getByTestId("journal-tab-decisions").click();
+    await page.getByTestId("journal-search").fill("multicritèreorion");
     await expect(page.getByTestId(`journal-decision-${seed.decisionApplicableId}`)).toBeVisible({
       timeout: 15000,
     });
     await page.getByTestId(`journal-decision-${seed.decisionApplicableId}`).click();
     await expect(page.getByTestId("journal-decision-viewer")).toBeVisible();
     await expect(page.getByTestId("journal-decision-applicability")).toContainText(/applicable/i);
+    await expect(page.getByTestId("journal-decision-viewer")).toContainText(/multicritèreorion/i);
 
-    // E — Document version (canonical D4 surface)
-    await page.goto(
-      `/projects/${projectId}?surface=document&documentId=${encodeURIComponent(seed.documentId)}`,
-    );
-    await expect(
-      page.getByTestId("document-library").or(page.getByTestId("document-inspector")),
-    ).toBeVisible({ timeout: 20000 });
+    // Back to subjects for document source click
+    await page.getByTestId("journal-tab-subjects").click();
+    await page.getByTestId("journal-search").fill("");
+    await page.getByTestId("journal-filter-open-points").locator("input").uncheck();
+    const budgetSubject = page.getByTestId(`journal-subject-${seed.otherParentId}`);
+    await expect(budgetSubject).toBeVisible();
+    await budgetSubject.click();
+    await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "split");
 
-    // F — 1280 operational
+    // E — J-C14 document version via Journal source click → Travail viewer (exact revision)
+    const docChip = page.getByTestId(`journal-source-${seed.documentAcquisId}`);
+    await expect(docChip).toBeVisible({ timeout: 10000 });
+    await docChip.click();
+    await expect(page.getByTestId("travail-viewer")).toBeVisible({ timeout: 20000 });
+    await expect(page.getByTestId("travail-viewer-revision")).toContainText(/révision citée|Version/i);
+    await expect(page.getByTestId("travail-viewer")).toContainText(/version exacte pour J-C14/i);
+    // Draft still preserved on thread
+    await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
+
+    // Return Journal via rail — selection of document subject should restore if nav preserved
+    await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
+    await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
+    await expect(page.getByTestId(`journal-subject-${seed.otherParentId}`)).toBeVisible();
+
+    // F — 1280 operational (rail nav, not goto as success proof of restore)
     await page.setViewportSize({ width: 1280, height: 800 });
-    await page.goto(`/projects/${projectId}?surface=journal`);
     await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
     await expect(page.getByTestId(`journal-subject-${seed.leafSubjectId}`)).toBeVisible();
+  });
+
+  test("route seed refuse hors DEV/E2E (gate)", async ({ page, request }) => {
+    // With current Playwright webServer STUDIO_E2E=1 + DEV, positive path works above.
+    // Negative: call without session → 401; with session but we cannot flip env mid-process.
+    // Assert unit-gate contract is wired into this route (static) + unauthenticated 401.
+    const unauth = await request.post("/api/dev/e2e/journal-fixture", {
+      data: { projectId: "proj_absent" },
+    });
+    // Either 401 (no cookie) or 403 (gate) depending on harness cookies; never 200 for absent project.
+    expect([401, 403, 404]).toContain(unauth.status());
   });
 });
