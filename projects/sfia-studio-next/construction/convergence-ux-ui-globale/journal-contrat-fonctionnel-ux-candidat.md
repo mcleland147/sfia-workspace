@@ -3,7 +3,7 @@
 
 | Métadonnée | Valeur |
 | --- | --- |
-| Version | v0.3 — 19 novembre 2026 (Europe/Paris) |
+| Version | v0.4 — 19 novembre 2026 (Europe/Paris) |
 | Statut du présent document | **DOCUMENTED / WORKING DRAFT — NON NORMATIF / NON VALIDATED SPEC** |
 | Objet | Capitaliser les fondements, les orientations de conception et les questions ouvertes de la convergence Journal |
 | Périmètre | Ensemble 06 « Documents et Journal » ; **Journal en priorité**, puis Bibliothèque Documents |
@@ -327,6 +327,41 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 
 **État local et RECETTE au moment de la rédaction : NON OBSERVÉS.** Aucune exécution LIVE, validation du design, clôture Ensemble 06, Gate C, STABLE ou ADOPTED n'est revendiquée.
 
+### 11.1. Revue de couverture R1/R2 — 19 novembre 2026 (avant validation finale)
+
+**Nature : ANALYSE DOCUMENTAIRE / NON ARBITRÉE.** Relecture depuis `main@d3d199adb782462b93467934f5f1e8a0c98fb492` ; comparaison avec le présent contrat candidat de branche. Cette revue ne modifie ni les sources R1/R2, ni leurs statuts, ni l'état du code. Les écarts désignent ici **la formulation de notre cible fonctionnelle/UX**, pas une défaillance prouvée du runtime.
+
+**Sources directement confrontées :**
+- [R1 §§2.8–2.14 et E2E 04 (§2.33)](../../cadrage/vision-produit.md) : mémoire, hiérarchie, Journal, points ouverts, sources multiples, décision/provenance, reprise ;
+- [D4 R2 — connaissance, règles RG-KNOW-001..026 et PF-KNOW-01..20](../../conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md) : seuls §§3–6 et addenda réellement applicables gardent leur qualification d'origine ;
+- [D3 R2 — Conduite de Nora](../../conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md) et [cadrage de continuité cognitive](../../cadrage/conduite-intentions-continuite-cognitive-nora-studio.md) ;
+- [D6 R2 — décisions et gouvernance](../../conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md), [D2 R2 — sas et continuité](../../conception-fonctionnelle/creation-de-projet-et-continuite-du-sas.md), [D5 R2 — trajectoire](../../conception-fonctionnelle/trajectoire-cycles-et-guidance-cki.md), [D8 R2 — résultats et preuves](../../conception-fonctionnelle/resultats-et-preuves.md), [D9 R2 — Git](../../conception-fonctionnelle/integration-git-gouvernee.md), [D1 R2 — accès](../../conception-fonctionnelle/acces-et-portefeuille.md).
+
+| Famille de besoins R1/R2 | Couverture dans notre contrat v0.4 | Qualification et action candidate |
+| --- | --- | --- |
+| Mémoire vivante inter-sessions/cycles, même fil | **COUVERT AU NIVEAU CIBLE** | Tester après coupure, sas→projet, cycle changé, longue conversation ; R1 §2.33, KNOW-011/015 |
+| Sujet simple → parent → sous-sujets, identité/filiation | **COUVERT AU NIVEAU CIBLE** | Vérifier par scènes de réorganisation, fusion/scission, correction ; R1 §2.10, KNOW-003 |
+| Capitalisation sélective, synthèses véritablement rédigées, réévaluation sans écriture systématique | **COUVERT AU NIVEAU CIBLE** | Qualité des synthèses, absence de doublons, pas d'acte D6 inventé ; KNOW-001/005, D3 CONV-006 |
+| **Points ouverts : maintien et réactivation opportune** | **PARTIEL** | La fiche et « Points à reprendre » sont conçus ; expliciter que Nora doit pouvoir **réintroduire** une question ancienne devenue pertinente, sans rappel mécanique ni clôture par silence ; R1 §2.12, KNOW-004/011 |
+| **Résolution d'une question factuelle vs réserve gouvernée** | **PARTIEL** | Décrire la fermeture **sourcée** d'une question factuelle, sa réouverture en cas de contradiction, et l'absence de levée automatique d'une réserve, suspension ou acceptation de risque D6 ; R1 §2.12, KNOW-008/009, GOV-017/018 |
+| **Confrontation des synthèses à l'actualité des sources et aux contradictions** | **PARTIEL** | Ajouter une lecture « actuel / historique / hypothétique / source insuffisante », avec version/date/ref réelle et signalement d'un conflit déterminant ; R1 §§2.13/2.14, KNOW-006..013, CTX-003/005 |
+| **Références essentielles : conversation ET autres sources** | **PARTIEL** | Conserver la priorité aux extraits clés du fil, mais **ne pas exclure** documents internes/version, Git autorisé, preuve D8 ou autre source réellement consultée lorsqu'elle fonde un acquis ; aucune « bibliothèque parallèle » ni duplication ; KNOW-006/010/019/020, R1 §2.13 |
+| **Documents conservés retrouvables depuis le Journal** | **PARTIEL** | Rendre possible le lien vers un document canonique D4 et sa version lorsqu'il est pertinent à un sujet ; Bibliothèque Documents reste propriétaire de la consultation/révision ; KNOW-016..020, PF-KNOW-11/14 |
+| **Récupération active et complémentaire par Nora** | **PARTIEL** | La mémoire sert aussi à la **reprise cognitive** : si le contexte initial est insuffisant, lecture/recherche complémentaire proportionnée de sources autorisées, sans déclarer une lecture partielle comme exhaustive ; KNOW-011/021..023, CTX-002/003, PF-KNOW-15 |
+| Décisions D6, états et remplacements, autorité non dupliquée | **SOCLE COUVERT / VUE DÉTAILLÉE NON CONÇUE** | Préciser dans Figma auteur, portée, décision applicable vs historique, suspension/révision et retour aux sources ; R1 §2.11, GOV-009..018 |
+| Isolation projet, sas→projet, Git candidat≠main et source révoquée | **COUVERT EN INVARIANTS / ÉTATS UX À CONCEVOIR** | Éprouver perte d'accès, changement de projet, sessions interrompues, absence Git, récupération partielle ; KNOW-002/012..015/020 ; CRE-019 ; ACC-005/011 |
+| Honnêteté de sauvegarde, panne/retry, chronologie des évolutions | **SOCLE COUVERT / PREUVE NON FAITE** | Actualisation discrète basée sur l'effet **confirmé**, récupération d'un écrit partiel, pas de double mutation ni date de « fraîcheur » inventée ; KNOW-013/018/024..026 |
+| Frontière source et preuve / état d'exécution / document approuvé | **COUVERT EN PRINCIPE** | Une synthèse ou citation ne devient pas conformité D8, publication Git ou HumanDecision ; R1 §§2.13/2.14, KNOW-010, D8/D9 |
+| Recherche et navigation à volume long, responsive/accessibilité | **CIBLE PARTIELLE / FIGMA À CONCEVOIR** | Arborescence et lecture principale, recherche pertinente, liens profonds, navigation retour, cas vides/erreur, petits écrans ; R1 §2.10 et E2E 04, R3 |
+
+**Écart central identifié :** la conception courante est solide pour la **lecture synthétique** et la **structuration**, mais elle doit encore rendre explicites la **réactivation intelligente des questions**, la **réconciliation avec les sources primaires**, l'**usage de la mémoire par Nora en reprise**, et l'**accès à une ressource documentaire conservée depuis le Journal**. Ces contrats étaient déjà présents dans R1/R2 : **ce ne sont pas de nouvelles capacités produit inventées**.
+
+**Simplification préservée :** ces besoins ne créent ni troisième onglet principal, ni registre bis des points ouverts, ni catalogue exhaustif des messages, ni moteur de recherche universel imposé, ni synchronisation Git automatique.
+
+**Arbitrages encore nécessaires avant figer la cible :** comment montrer sans surcharge les points ouverts/résolus, un désaccord de sources et la date/portée d'une synthèse ; comment combiner quelques **échanges clés** et d'autres **références déterminantes** ; quelle profondeur de détail donner à l'écran Décisions. Les responsabilités de sécurité et d'autorité, déjà validées R1/R2, ne sont pas réouvertes.
+
+**Gate de cette revue :** `REVIEW R1/R2 COMPLETED AT DOCUMENTARY LEVEL — TARGET CONTRACT STILL CANDIDATE`. Le passage à Figma est possible pour visualiser et arbitrer **les propositions** ; il ne constitue pas une validation globale des comportements ni une preuve d'implémentation.
+
 ## 12. Historique du document
 
 | Date/version | Modification | Autorité / statut |
@@ -334,5 +369,6 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 | 19/11/2026 — v0.1 | Première consolidation structurée des échanges de cadrage Journal, fondements R1/R2/R3, principes UX, propositions et arbitrages ouverts | **DOCUMENTED / WORKING DRAFT**, branche documentaire ; contenu à continuer et faire valider par Morris |
 | 19/11/2026 — v0.2 | Réconciliation conceptuelle R1/R2 : sujet autonome pouvant devenir parent, présentation adaptative, non-duplication, consolidation sémantique vivante par Nora, réévaluation à chaque échange sans écriture obligatoire, critères candidats de création de sous-sujets, scénarios et registre d'arbitrages | **DOCUMENTED / PRINCIPES ACCEPTÉS EN CONVERSATION** ; détails UX et technique non validés |
 | 19/11/2026 — v0.3 | Principe UX d'actualisation discrète accepté : signal léger fondé sur une actualisation effectivement conservée, détails secondaires, aucun statut ou horaire inventé ; revue d'exhaustivité R1/R2 demandée avant validation finale/Figma | **DOCUMENTED / WORKING DRAFT** ; contrat complet soumis à revue de couverture R1/R2 |
+| 19/11/2026 — v0.4 | Revue de couverture R1/R2 sur les sources du Journal et ses interfaces D1–D9 ; tableau des acquis, lacunes d'explicitation, renvois canoniques et points UX à arbitrer | **DOCUMENTED / REVIEWED AT SOURCE LEVEL** ; aucune promotion automatique en VALIDATED SPEC |
 
-**Suite immédiate :** mener une **revue de couverture exhaustive des exigences R1/R2 liées au Journal et à ses dépendances** (mémoire, Nora, décisions, continuité, sources) ; consigner les écarts et arbitrages complémentaires avant de figer la conception puis **passer aux maquettes Figma**, sur les proportions réelles du produit. Le principe d'actualisation discrète accepté ici ne vaut pas validation finale du contrat fonctionnel.
+**Suite immédiate :** partager les constats de la revue de couverture, arbitrer la présentation minimale des quatre écarts explicités (questions, sources, reprise cognitive, références documentaires), puis concevoir les frames Figma **Sujets — arborescence**, **Sujet autonome**, **Sujet devenu parent**, **Sous-sujet détaillé** et leurs états essentiels sur la géométrie réelle. Prévoir ensuite **Décisions** et accès transversal aux points ouverts, sans nouvelle autorité. Cible et contrat final restent soumis à Morris.
