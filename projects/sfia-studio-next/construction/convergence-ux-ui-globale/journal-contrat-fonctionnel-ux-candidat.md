@@ -3,7 +3,7 @@
 
 | Métadonnée | Valeur |
 | --- | --- |
-| Version | v0.7 — 19 novembre 2026 (Europe/Paris) |
+| Version | v0.8 — 19 novembre 2026 (Europe/Paris) |
 | Statut du présent document | **DOCUMENTED / WORKING DRAFT — NON NORMATIF / NON VALIDATED SPEC** |
 | Objet | Capitaliser les fondements, les orientations de conception et les questions ouvertes de la convergence Journal |
 | Périmètre | Ensemble 06 « Documents et Journal » ; **Journal en priorité**, puis Bibliothèque Documents |
@@ -85,9 +85,9 @@ Cette hiérarchie prime sur la quantité d'objets, de filtres ou de fonctions vi
 
 **SOCLE VALIDÉ :** accès transversal aux questions/réserves/blocages non résolus ; continuité de leur état et de leur provenance.
 
-**PROPOSITION À ARBITRER :** un point ouvert apparaît **d'abord dans son sujet d'origine**. Un accès secondaire « Points à reprendre » rassemble les points significatifs encore ouverts du projet avec lien vers leur sujet et source, **sans imposer un graphe de liens entre tous les sujets**, un troisième registre ou une gestion administrative.
+**PRINCIPE UX ACCEPTÉ EN CONVERSATION LE 19/11 :** un point ouvert existe et se consulte **d'abord dans son sujet d'origine** ; l'accès transversal est proposé comme un **filtre secondaire « Points ouverts » dans la vue Sujets**, à proximité immédiate de la recherche, et non comme bouton d'en-tête ou troisième onglet. Lorsqu'il est activé, il donne une projection des questions, réserves, blocages et conditions significatives encore ouvertes avec leur **sujet d'origine**, leur nature et leur provenance utiles. Choisir une entrée ouvre son sujet dans la visionneuse 40/60 en mettant le point concerné en contexte. La désactivation du filtre restitue l'arborescence et son état conservable.
 
-**Évolution demandée pendant la revue :** supprimer de l'arborescence principale les boutons « Tous » / « Avec points ouverts », jugés artificiels et susceptibles de brouiller la compréhension. L'emplacement exact de l'accès transversal reste à dessiner.
+L'affichage doit distinguer **question factuelle résolue sur preuve** et **réserve/levée gouvernée D6** ; l'absence d'échange récent ne clôt rien. **Ne pas créer** un registre bis, un troisième onglet, une tâche à cocher sans autorité ni une obligation d'administration par le Pilote. L'aspect précis du filtre sera évalué en Figma ; les boutons « Tous »/« Avec points ouverts » précédemment rejetés et le bouton « Points à reprendre » d'en-tête ne sont pas la cible.
 
 ### 3.4. Historique : éviter le doublon conversationnel
 
@@ -107,7 +107,7 @@ Deux choses différentes existent :
 - Les parents peuvent être dépliés pour exposer les sous-sujets ; recherche/filtrage à qualifier selon les volumes, sans imposer d'outils prématurés.
 - Chaque entrée est lisible comme un thème, pas comme un identifiant technique ni une fiche de gestion.
 
-**Disposition actuellement privilégiée par ChatGPT mais PAS validée par Morris :** liste/arborescence → ouverture d'une fiche de sujet en **pleine zone centrale**, avec fil d'Ariane et retour à la liste. Ceci répond à la critique explicite du panneau permanent trop étroit au côté du rail existant. Les proportions et transitions restent à vérifier dans la géométrie R3.
+**DISPOSITION ACCEPTÉE EN PRINCIPE PAR MORRIS LE 19/11 :** **même écran Journal**, initialement en exploration pleine largeur ; la sélection d'un sujet **réadapte cette même surface** (titre « Journal », onglets, recherche, arborescence, sélection et position conservés) à environ **40 % de la zone projet**, pendant qu'une visionneuse de lecture occupe les **60 % restants**. La visionneuse peut s'agrandir dans l'espace principal avec sa présentation enrichie, puis revenir au mode partagé **sans perdre l'état de l'arborescence, de la recherche ou du sujet**. Le rail global de la page 05 reste inchangé ; **aucun deuxième explorateur distinct ni changement de page induit**. La DA Figma V4 (base visuelle retenue par Morris pour la suite, non réception technique) transpose ce principe. À petite largeur, ne pas comprimer aveuglément les deux panneaux : une variante de consultation / retour sera à qualifier.
 
 ### 4.2. Un sujet unique, vivant et éventuellement hiérarchisé — principe de conception accepté le 19/11
 
@@ -232,13 +232,78 @@ Le message est une **référence à la conversation d'origine**, pas une copie i
 
 « Poursuivre avec Nora sur le sujet » devrait préparer une référence au sujet consulté et revenir au fil continu, **sans envoyer automatiquement un message**. Ce n'est pas le même geste que « Consulter le message d'origine » : le premier sert à continuer, le second à relire.
 
-## 6. Journal / Décisions — cible structurante à détailler ensuite
+## 6. Recherche du Journal et consultation des Décisions — contrat fonctionnel/UX consolidé (19/11)
 
-**SOCLE VALIDÉ R1/R2 :** seconde vue principale du Journal, indépendante de l'arborescence des sujets et consultable sans conversation obligatoire. Elle montre les actes réels du Pilote, leur auteur, leur portée, leur validité actuelle et leur historique selon D6.
+**STATUT : PRINCIPES FONCTIONNELS ACCEPTÉS PAR MORRIS EN CONVERSATION LE 19/11 ; CONTRAT DOCUMENTÉ CANDIDAT.** Cette section précise R1 §2.11, la recherche et les parcours R2 D4/D6, sans créer de domaine supplémentaire ni déclarer l'implémentation ou la preuve. **La lecture de la décision est une interprétation sémantique contextualisée, jamais une réécriture de l'acte officiel.**
 
-**DIRECTION DE CONCEPTION :** les fiches Sujets peuvent renvoyer vers une décision liée. L'onglet Décisions permet recherche/inspection, y compris décision remplacée, suspendue ou révoquée ; il ne réplique ni ne modifie l'autorité D6 par simple consultation.
+### 6.1. Recherche contextualisée par onglet — périmètre accepté
 
-**ENCORE À CONCEVOIR** : écran nominal, liste/inspection, relations avec Pilotage, recherche, variantes et états d'accès, profondeur historique et possibilité de revenir au sujet ou échange d'origine.
+- **Sujets :** recherche dans les **connaissances durablement capitalisées** du projet autorisé : titres actuels, synthèses, acquis importants, questions/points ouverts et relations hiérarchiques ou libellés historiques lorsque leur provenance et leur récupération sont disponibles. Les termes du contenu d'un sujet peuvent donc le faire ressortir **même s'ils ne figurent pas dans son titre**.
+- **Décisions :** recherche des **actes D6 conservés** correspondant à la portée « décisions durables », via objet, choix, portée, identifiants/relations autorisées, motifs/contextes synthétisés disponibles et états courants ou historiques **vérifiés auprès de D6**. Ne jamais indexer comme décision opposable un extrait de conversation, une recommandation de Nora ou un texte Git portant le mot « validé ».
+- **Interaction :** la barre de recherche suit l'onglet actif ; **pas de moteur global de recherche supplémentaire** en V1 UX et **pas de recherche exhaustive du transcript depuis le Journal**. Nora/D3 conserve sa capacité distincte d'investigation transversale, dans les accès réels.
+- **Résultat :** montrer nom intelligible, courte explication du lien avec la requête si justifiable, chemin hiérarchique et éventuelle nature/état du résultat, sans citations fictives ; ouvrir l'objet dans la **visionneuse de droite 40/60** en conservant la requête. Les sous-sujets sont identifiables via leurs parents, sans exiger que tout le niveau parent corresponde aux mêmes termes.
+- **Recherche vide / effacée :** vue standard Sujets (arborescence) ou Décisions (liste nominale), avec état de dépliage, sélection et scroll restitués lorsque réellement conservés. **Aucun résultat** signifie « rien dans les éléments consultables/indexés à ce stade », **pas** « cela n'a jamais été évoqué ».
+- **Pertinence :** un résultat exact sur le titre et un résultat dans la synthèse sont distinguables. Une compréhension sémantique plus large est souhaitable si utile, mais **ni moteur embeddings, ni score opaque, ni indexation intégrale** ne sont imposés à ce stade ; tester la récupération sur variations de termes, sujets renommés et longues sessions avant choix algorithmique.
+- **Conditions et droits :** ne rechercher/afficher que dans le projet et les sources actuellement accessibles ; aucune fuite via résultat, snippet, comptage, autocomplétion, lien profond ou état d'erreur. Une source déterminante manquante conduit à une indication honnête, pas à une certitude.
+- **Performance :** recherche progressive utilisable sur projet volumineux (1000+ messages, sujets remaniés, nombreuses décisions), avec coût/latence maîtrisés et critères quantitatifs à établir en contrat technique puis recette ; l'UI ne doit pas bloquer toute la session sur une recherche.
+
+**À qualifier visuellement :** état de recherche en cours, correspondance affichée, absence de résultat, effacement, dépliage des ancêtres utiles, sélection et retour depuis la fiche ; clavier/focus, compact 1280 et navigation sans dépendre de la couleur. Aucune proposition « ⌘K » n'est validée.
+
+### 6.2. Points ouverts — filtre transversal sobre
+
+Le filtre **« Points ouverts »**, second niveau de la vue Sujets, projette les **questions, réserves, blocages, contradictions et conditions non résolues** de différents sujets en conservant le **titre du point, le sujet d'origine, la nature/portée et un indice de pertinence réellement disponible**. Il ne réécrit pas leur statut, ne clôt rien et ne crée pas de troisième onglet. Dans une fiche, les points du sujet restent présentés normalement.
+
+**Interaction :** activer le filtre → consulter les points pertinents du projet ; sélectionner un point → voir le sujet dans la visionneuse et, si possible, la section concernée ; désactiver → retour à la navigation standard. La **combinaison avec une requête texte** est à représenter : le résultat doit être explicite (intersection attendue ou absence de résultats), pas un mélange ambigu entre sujets et points. Le filtre peut coexister avec la recherche Sujets sans affecter Décisions.
+
+**Restriction critique :** une source factuelle peut justifier une clôture sémantique D4 ; une suspension, réserve ou acceptation nécessitant un Pilote ne peut pas être levée par un filtre ou la seule synthèse Nora (R1 §§2.11–2.12, R2 RG-KNOW-004/009, RG-GOV-017/018).
+
+### 6.3. Décisions — liste, recherche et consultation
+
+**Résultat utilisateur :** comprendre **ce qui a été réellement arbitré**, **pourquoi ce choix a été fait** selon les éléments fiables retrouvés, **dans quelle portée** il est applicable aujourd'hui et **comment il a évolué**.
+
+**Périmètre accepté :** l'onglet Décisions est une **vue consultative des arbitrages durables et réellement conservés par D6**. Montrer leurs révisions, remplacements, suspensions, restrictions et révocations pertinentes. Les GO de cycle, mandats d'effet et acceptations spécialisées ne sont pas artificiellement mélangés comme événements indistincts ; ils restent dans leur objet propriétaire et peuvent être **référencés lorsqu'ils éclairent la décision**. Aucune préférence passagère, recommandation, proposition de contrat, résultat d'exécution ou contenu documentaire ne devient une nouvelle décision pour remplir la liste.
+
+**Parcours V4 candidat accepté en principe :** Journal → onglet Décisions dans la **même enveloppe**, liste/parcours pleine zone → sélectionner une décision → Journal compact **40 % / visionneuse 60 %** → « Agrandir » vers fiche contextualisée avec éléments secondaires → « Réduire » en retrouvant filtres, sélection et position ; retour au fil Nora ou à un sujet lié sur action explicite, **sans envoi automatique** et sans altérer D6. Le Journal ne duplique pas l'écran Pilotage ni l'exécution.
+
+**Fiche de décision — six informations attendues, conditionnelles à la disponibilité réelle :**
+1. **Arbitrage exprimé et synthèse du choix :** intitulé clair, ce qui a été retenu, objet et conséquence dans sa portée réelle ;
+2. **État officiel courant** : applicable selon D6 / remplacé / amendé / suspendu / révoqué, avec prudence sur effets temporels et conditions ; ne pas afficher « en vigueur » à partir d'une reconstruction Nora ;
+3. **Portée** : projet, cycle/activité/ressource, conditions, limites et restrictions éventuellement pertinentes ;
+4. **Auteur compétent, acte d'origine et prise d'effet** : attribution et date/événement lorsqu'ils sont vérifiés ;
+5. **Contexte et raisons du choix** : **synthèse explicative construite sémantiquement**, plus riche qu'une citation, à partir du **cheminement des échanges**, des alternatives, contraintes, objectifs et sources réellement consultés ; références essentielles vers les messages exacts, documents ou preuves utiles ;
+6. **Évolutions et liens** : relations avec d'autres actes D6, versions, remplacements, sujets concernés et historique contextualisé ; conservation de l'ancien même lorsque l'applicabilité évolue.
+
+### 6.4. Synthèse décisionnelle intelligente — distinction fondatrice
+
+**Précision explicite demandée puis acceptée par Morris le 19/11 :** le Pilote doit pouvoir ouvrir Décisions et comprendre l'arbitrage **dans son histoire et son intention**, sans déchiffrer une suite de citations du fil. Il ne s'agit **ni** de copier le texte d'un ou deux derniers messages **ni** d'enregistrer la conclusion isolée comme « raison officielle ».
+
+**Contrat de production/restitution candidat :**
+1. **Partir de l'acte D6 identifié** (auteur, texte/choix source, objet, portée, statut courant) ; si l'acte officiel n'est pas disponible ou vérifiable, **ne pas créer de fausse fiche D6 autorisante**.
+2. **Retrouver les contextes pertinents** dans le fil Nora et les sources autorisées : motivation initiale, problème, options discutées, contraintes, objections, risques, compromis, évolutions ultérieures. **Ne pas s'arrêter aux deux derniers messages** ; approfondir de manière proportionnée si une décision structurante requiert plus de contexte.
+3. **Confronter** ce cheminement aux sources déterminantes et à l'histoire D6 : distinguer la motivation réellement exprimée, l'interprétation raisonnablement déduite par Nora, une hypothèse, une information devenue historique et une contradiction non résolue.
+4. **Rédiger une explication globale cohérente** et accessible (« contexte du choix », « raisons déterminantes », « ce que cela implique » si pertinent), sans assembler un verbatim. La synthèse peut être mise à jour quand la connaissance s'enrichit, **mais elle ne modifie jamais le choix officiel, l'auteur, la portée, l'applicabilité ou la date D6**.
+5. **Assurer la provenance et l'honnêteté :** références essentielles réellement exploitables, signalement des raisons non retrouvables, source périmée ou inaccessible ; **ne jamais inventer un consensus, une intention implicite ou un arbitrage**. Si une interprétation est incertaine, l'indiquer explicitement et ne pas la présenter comme la justification confirmée du Pilote.
+6. **Ne pas surcharger la fiche :** la zone de lecture montre d'abord choix, explication, état/portée ; l'historique détaillé, les références et les conditions secondaires restent accessibles à la demande ou en mode agrandi.
+
+**Architecture de responsabilité à préserver :** D6 reste propriétaire du **fait de décision et de son application** ; D3/Nora assure l'**analyse et la rédaction sémantique** ; D4 gère les **connaissances/références contextualisées** sans registre D6 autonome. Le lieu de persistance d'un éventuel résumé enrichi et son actualisation doivent être réconciliés avec code/architecture existants, sans déduire qu'une chaîne cognitive fonctionne déjà.
+
+### 6.5. Cas limites et critères de conception
+
+| Scénario | Résultat attendu |
+| --- | --- |
+| Recherche terme dans acquis, pas dans titre | Sujet retrouvé avec chemin et justification lisible |
+| Sujet renommé/scindé | Identité et sources permettant la récupération ; aucun doublon artificiel |
+| Recherche + filtre Points ouverts | Résultats cohérents avec les points **encore ouverts** et leur origine |
+| Aucune correspondance / accès révoqué / chargement partiel | État honnête, pas de contenu privé ni certitude d'absence globale |
+| Décision actuelle versus remplacée | Statut D6 clairement distinct, motif et filiation inspectables |
+| Décision suspendue / conflit de portée | Restriction opposable représentée sans levée ni permission déduite |
+| Décision avec parcours long et alternatives | Synthèse éditoriale cohérente des motivations **appuyées par sources**, non transcript |
+| Décision dont la motivation ne peut être reconstituée | Fiche officielle lisible, **contexte incomplet explicitement indiqué**, aucune raison inventée |
+| Décision évoquée dans un sujet puis réorganisé | Même objet et état D6 dans tous les points d'entrée ; liens maintenus |
+| Recherche dans 1000+ messages / nombreux sujets | Recherche sur connaissance capitalisée performante et reprise correcte, sans prétendre indexer exhaustivement le fil |
+| Consulter, changer filtre, agrandir et revenir | État de navigation restitué lorsqu'il est conservé ; aucun message envoyé ni nouvel acte créé |
+
+**OUT du périmètre initial :** moteur global de recherche multi-sources, second agent de décision, administration d'un index par le Pilote, création d'une décision en un clic sur résultat, modification directe de HumanDecision depuis le Journal, indexation automatique de chaque message, déploiement/code sans gate. **Gates :** revue Figma Recherche/Décisions puis validation explicite du contrat fonctionnel complet par Morris ; ensuite réconciliation architecture/code/preuves, qualification ML4D et éventuel mandat Cursor distinct.
 
 ## 7. Contrats de responsabilité et frontières
 
@@ -317,11 +382,11 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 
 **État de navigation à préserver en cible :** sujet sélectionné, branches ouvertes, recherche/filtre et position de défilement de l'arborescence lors du passage partagé ↔ agrandi et du retour au Journal. Le mode de lecture ne doit ni envoyer un message à Nora ni changer les faits, les décisions ou la mémoire par sa seule ouverture. Un sous-sujet suit le même parcours que le sujet ; la granularité de son contenu varie selon son niveau.
 
-**Dimensions Figma vérifiées :** frames desktop 1680 × 970, rail/page 05 de 246 px, en-tête de 70 px ; mode partagé composé de deux panneaux de 668 px dans la surface principale, sans second rail global. Les cinq frames sont éditables et non interactives ; les actions visibles décrivent une cible, pas un comportement testé.
+**Historique des dimensions :** V3 présentait deux panneaux de 668 px. **État V4 courant retenu par Morris en discussion :** **Journal compact 526 px (environ 40 %) + visionneuse 784 px (environ 60 %)**, espace entre les panneaux, rail projet existant 246 px, en-tête 70 px ; cinq frames candidates de 1680 × 970 éditables et non interactives. La V4 adopte la présentation éditoriale plus soignée que Morris juge suffisamment bonne pour poursuivre, sans déclaration de réception UX globale ni comportement testé.
 
 **Point ouvert « Points à reprendre » :** l'**accès transversal** est déjà exigé par R1/R2, mais le bouton ajouté en haut à droite du Journal était une **proposition non validée**. Il a été retiré de la frame initiale ; son emplacement/forme sera redéfini sans créer d'onglet principal ou de registre concurrent.
 
-**Recherche — spécification non arbitrée :** la barre est laissée comme **affordance de conception** avec le libellé neutre « Rechercher un sujet… » ; le raccourci `⌘K` a été retiré. La portée exacte (titre, synthèse, sous-sujets, décisions, sources), les résultats, l'état filtré de l'arborescence, la pertinence, le volume et le traitement des sources inaccessibles sont **à instruire avant VALIDATED SPEC**.
+**Recherche — principes désormais acceptés par Morris :** recherche **contextualisée par onglet**, sur **connaissances capitalisées Sujets** ou **actes D6 Décisions**, sans transcript global, avec résultat ouvrant la visionneuse ; filtre transversal « Points ouverts » discret dans Sujets. Les états/variantes visuelles restent à revoir et valider sur Figma (§6). Le raccourci `⌘K` n'a pas été validé.
 
 **Gate :** proposition visuelle à réviser avec Morris ; ne pas déduire un GO technique, une couverture navigateur ou une adoption de ces frames.
 
@@ -339,10 +404,12 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 | Émergence de sous-sujets selon leur autonomie sémantique, non par quota | Proposition ChatGPT en réponse au besoin d'intelligence de classement | **PROPOSITION À ÉPROUVER** | Exemples positif/négatif et critères d'acceptation |
 | Actualisation discrète, non intrusive, visible seulement si confirmée | Modèle B proposé puis accepté sur le principe par Morris | **PRINCIPE UX ACCEPTÉ / FIGMA À ARBITRER** | Placement, moment, révision effective, panne, absence de badge artificiel |
 | Un seul rail existant, pas de second rail permanent | Objection explicite Morris au wireframe | **CONTRAINTE UX CONFIRMÉE** | Figma sur géométrie réelle |
-| Lecture partagée 50/50 avec arborescence persistante et expansion réversible | Nouveau parcours proposé par Morris en s'appuyant sur les frames 05.09/05.11 ; maquettes candidates créées | **PROPOSITION UX MORRIS / NON ENCORE VALIDÉE** | Revue des cinq frames §9.2, navigation et densité |
-| Points à reprendre : accès transversal maintenu, bouton d'en-tête retiré | R1/R2 valident le besoin, non sa place dans le Journal | **EXIGENCE VALIDÉE / EMPLACEMENT À ARBITRER** | Parcours transversal sobre |
-| Recherche dans les sujets | Barre jugée intéressante ; contrat de recherche absent à ce stade | **FONCTIONNALITÉ À SPÉCIFIER** | Portée, résultats, permissions, performance |
-| Arborescence pleine surface puis fiche centrale | Préférence ChatGPT, non acceptée formellement | **PROPOSITION À ARBITRER** | Présentation visuelle Figma |
+| Journal initial se réadaptant en 40/60 + visionneuse puis agrandissement réversible | Proposé et accepté par Morris ; V4 enrichie sur page Figma candidate 07 | **PRINCIPE UX ACCEPTÉ / V4 BASE VISUELLE RETENUE**, non preuve d'implémentation | Recherche et Décisions sur la même interaction |
+| Points ouverts : filtre secondaire dans Sujets, sans onglet ni bouton en-tête | Principe proposé puis accepté par Morris le 19/11 | **PRINCIPE UX ACCEPTÉ / ÉTATS FIGMA À REVOIR** | Filtre, origine, cas recherche combinée |
+| Recherche contextualisée par onglet, sans transcript global | Portée Sujets/Décisions et comportement 40/60 acceptés par Morris (§6.1) | **PRINCIPE FONCTIONNEL ACCEPTÉ / TECHNIQUE OUVERTE** | Maquettes résultats/retours/états limites |
+| Décisions durables D6 : liste, recherche, inspection, historique | Périmètre consultatif et frontières D6 acceptés par Morris (§6.3) | **PRINCIPE FONCTIONNEL ACCEPTÉ / FIGMA À REVOIR** | États réel/historique/suspendu, relation avec Pilotage |
+| Synthèse explicative des décisions à partir du contexte étendu | Exigence explicite Morris : comprendre intention, motifs, alternatives et évolution ; sources retrouvables, aucun résumé verbatim (§6.4) | **PRINCIPE ACCEPTÉ / COMPORTEMENT À PROUVER** | Parcours long, motifs incomplets, divergence, résumé non autorisant |
+| Ancien modèle liste → fiche séparée plein écran | Historique d'exploration rejeté au profit du Journal qui se réadapte | **HISTORIQUE OBSOLÈTE / NON CIBLE** | Aucune réouverture |
 | Quelques échanges clés, liens vers messages exacts, pas tous les messages | Préoccupation de sobriété Morris, proposition ChatGPT | **DIRECTION CANDIDATE** | Sélection, deep link, présentation |
 | Historique des transformations hors premier plan | Proposition pour éviter un second transcript | **DIRECTION CANDIDATE** | Besoin et affordance secondaire |
 | Points ouverts rattachés au sujet et retrouvables globalement | R1/R2 pour l'accès transversal ; UX simplifiée proposée | **SOCLE VALIDÉ / DÉTAIL UX À ARBITRER** | Localisation de l'accès |
@@ -352,13 +419,11 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 
 ### Prochains arbitrages — cible avant code
 
-1. **Fiche évolutive du sujet** : déclinaison visuelle d'un sujet autonome, d'un parent et d'un enfant avec sections conditionnelles, sans changement de type métier ni second rail.
-2. **Vie de la mémoire dans la conversation** : cas d'enrichissement, d'absence de changement, de correction et de réorganisation, sélection sémantique, qualité de synthèse et **signal discret d'actualisation confirmée**.
-3. **Navigation nominale** : liste, recherche, arborescence, fiche détaillée, retour, état vide, responsive ; réconcilier avec rail existant.
-4. **Références conversationnelles** : critères de sélection, nombre naturel, aperçu, exactitude du lien vers le fil et retour.
-5. **Points à reprendre** : accès transversal simple, niveau de visibilité sans troisième registre.
-6. **Décisions** : affichage de la vue principale et lien avec Pilotage/D6, sans double autorité.
-7. **Maquettes Figma candidates** : composition sur vrais viewports et états, relecture et validation Morris.
+1. **Revue Figma Recherche/Décisions :** états Sujets recherchés, filtre Points ouverts, liste Décisions, sélection/inspection et vue agrandie sur la base V4 ; revue Morris avant prétention à VALIDATED SPEC.
+2. **Qualité des synthèses décisionnelles :** vérifier par scénarios longs la distinction acte officiel D6 / interprétation sourcée, la reconstruction de la motivation et les cas de sources manquantes.
+3. **Navigation et états limites :** préservation de recherche/filtre/sélection/scroll, retour au fil Nora, suppression d'accès, décision remplacée/suspendue, source indisponible, accessibilité/compact.
+4. **Recherche utile et proportionnée :** pertinence, projet volumineux, coût/latence, frontières des sources, sans choix technique prématuré.
+5. **Après validation Morris :** réconcilier code/API/persistance/flux D3/D4/D6 et données Figma, blast radius, gates, preuves, puis seulement qualifier un macro-lot Cursor.
 
 ### Après cible visuelle et fonctionnelle validée
 
@@ -415,5 +480,6 @@ Conserver palette, typographie, rail projet et composants de l'application exist
 | 19/11/2026 — v0.5 | Référencement de trois frames Figma natives candidates sur page séparée : sommaire, sujet autonome, sujet parent ; reprise des limites de conception et absence de validation UX | **DESIGN CANDIDAT / NON VALIDÉ**, aucun changement de code/recette |
 | 19/11/2026 — v0.6 | Rejet de la direction artistique Figma V1 par Morris, reconstruction des trois écrans selon la page 05 (rail et en-tête réutilisés), références Figma V2 réconciliées, V1 candidate retirée | **DESIGN CANDIDAT / À REVOIR AVEC MORRIS**, aucune validation du design ni du fonctionnement |
 | 19/11/2026 — v0.7 | Navigation candidate Exploration → 50/50 persistant → lecture agrandie ; référence aux écrans 05.09/05.11, deux nouvelles frames partagées, agrandissement réversible, retrait du bouton « Points à reprendre » et du raccourci recherche non spécifiés | **DESIGN CANDIDAT / PARCOURS À ARBITRER**, aucun code ni test produit |
+| 19/11/2026 — v0.8 | Consolidation Morris : V4 visuelle, 40/60 adaptatif, recherche contextualisée par onglet, filtre Points ouverts, Décisions D6 durables, synthèse sémantique contextualisée des motifs et arbitrages, limites d'autorité, cas de recette et points Figma à présenter | **PRINCIPES FONCTIONNELS ACCEPTÉS / DOCUMENTED**, validation UX finale et technique en attente |
 
-**Suite immédiate :** revue UX par Morris des **cinq frames** du Journal (§9.2), en priorité 50/50 et passage agrandi ; ensuite spécifier le comportement de la recherche et l'accès transversal aux points ouverts, puis traiter Décisions. Garder le contrat fonctionnel candidat et les décisions D6 chez leur propriétaire ; aucun GO code ou ADOPTED déduit.
+**Suite immédiate :** matérialiser sur la page Figma Journal V4 les états de **recherche Sujets**, du **filtre Points ouverts** et de **Décisions (liste, recherche, lecture 40/60 et agrandie)** ; revue Morris. Ensuite seulement réconciliation de l'existant/code et préparation du contrat technique selon SEF/SFIA v2.6, gates et mandat distincts. Aucun GO code, Gate C, merge ou ADOPTED déduit.
