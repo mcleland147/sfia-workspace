@@ -1,27 +1,24 @@
-# JOURNAL V4 — FIGMA UX ALIGNMENT — REVIEW PACK FULL
+# JOURNAL V4 — PIXEL-PERFECT CORRECTION — REVIEW PACK FULL
 
-- **Date/heure** : 2026-11-19 12:24:57 CET
+- **Date/heure** : 2026-11-19 13:02:50 CET
 - **Profil** : CRITICAL — SFIA v2.6 §9.1
-- **Cycle** : 8 Delivery / Corrective UX
+- **Cycle** : 8 Delivery / Corrective UX pixel-perfect
 - **Macro-lot** : Ensemble 06 — Journal V4 finalisation
 - **Review Pack** : FULL (mono-cycle)
-- **Review Handoff** : REQUIRED / PUBLISH-IN-CYCLE
-- **Repository** : mcleland147/sfia-workspace
-- **Application** : projects/sfia-studio-next/
 - **Branche** : `sfia/next-journal-delivery-20261119`
-- **HEAD candidat** : `0eb3157b1678b993162fa79c98f5e4de26a9e4e3`
-- **Tree** : `b52a3ac1469af980f9cfdec1848757afd58e04dc`
-- **Parent / RECETTE actuellement servi** : `d5bf7eb762a21cc309744bb703926e2c0bc844ed` / BUILD `PV12SV9VToVGK-ReSxTqk` (**cutover NON effectué**)
+- **HEAD candidat** : `6c658f9124b3ada48fb01047b2b0ffb7fa5703c3`
+- **Tree** : `fa420659cd652953435c3b53a5b6d783accae745`
+- **Parent cycle précédent** : `0eb3157b1678b993162fa79c98f5e4de26a9e4e3`
+- **RECETTE servi (inchangé)** : `d5bf7eb762a21cc309744bb703926e2c0bc844ed` / BUILD `PV12SV9VToVGK-ReSxTqk`
 - **origin/main** : `d3d199adb782462b93467934f5f1e8a0c98fb492`
-- **Branche documentaire** : `sfia/next-journal-conception-fonctionnelle-ux-20261119` @ `864e09bf`
-- **Matrice** : journal-matrice-convergence-vision-realisation.md v0.6 §17
-- **Handoff précédent utile** : `31c495af` ; stub erroné `a04a4011` remplacé par `8d2bd1fb` ; **présent pack remplace `8d2bd1fb`**
+- **Docs** : matrice v0.7 §18 @ `f0d2d033`
+- **Handoff précédent** : `445014db` / blob `2277af43…`
 - **Versioning** : NO RELEASE / STABLE NOT AVAILABLE
 - **Push produit / PR / merge / cutover RECETTE** : **NON**
 
-## 0. Objectif du cycle
+## 0. Mandat
 
-Corriger la non-conformité UX du Journal V4 en RECETTE face aux **onze frames Figma V4** validées, dans DEV uniquement, sans cutover RECETTE sans nouveau GO Morris.
+Morris a rejeté la fidélité UX des 12 captures. Onze états Figma NON RÉCEPTIONNÉS. Ce cycle corrige géométrie 40/60, liserés, compositions parent/autonome, agrandi article+aside, recherche, points ouverts, décisions/statuts D6.
 
 ## 1. Git Truth Check
 
@@ -32,404 +29,140 @@ Corriger la non-conformité UX du Journal V4 en RECETTE face aux **onze frames F
 
 ```
 
-### Commits ce cycle (vs parent RECETTE d5bf7eb7)
+### Commits vs RECETTE d5bf7eb7
 ```
+6c658f91 fix(next): Journal V4 pixel-perfect geometry and compositions
 0eb3157b fix(next): align Journal V4 shell to validated Figma frames
 
 ```
 
-### Name-status
+### Diff vs parent 0eb3157b
 ```
 M	projects/sfia-studio-next/construction/as-built-ensemble-06-journal-20261119.md
 M	projects/sfia-studio-next/construction/delivery-history.md
-A	projects/sfia-studio-next/construction/ensemble-06-journal-recette-manifest.md
-M	projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-M	projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
 M	projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx
 M	projects/sfia-studio-next/web/src/components/figma/tokens.css
-A	projects/sfia-studio-next/web/tests/e2e/journal-v4-figma-captures.spec.ts
+M	projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
+M	projects/sfia-studio-next/web/src/components/shell/studio-shell.css
+M	projects/sfia-studio-next/web/tests/e2e/journal-v4-figma-captures.spec.ts
 M	projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts
 
 ```
-
-### Diff stat
 ```
- .../as-built-ensemble-06-journal-20261119.md       |   86 +-
- .../construction/delivery-history.md               |   32 +
- .../ensemble-06-journal-recette-manifest.md        |  135 +++
- .../web/src/app/projects/[projectId]/page.tsx      |   21 +-
- .../web/src/components/figma/ProjectChrome.tsx     |   20 +-
- .../web/src/components/figma/ProjectJournal.tsx    | 1111 ++++++++++++--------
- .../web/src/components/figma/tokens.css            |  635 +++++++++--
- .../tests/e2e/journal-v4-figma-captures.spec.ts    |  159 +++
- .../web/tests/e2e/journal-v4-parcours.spec.ts      |   21 +-
- 9 files changed, 1660 insertions(+), 560 deletions(-)
+ .../as-built-ensemble-06-journal-20261119.md       |  62 +--
+ .../construction/delivery-history.md               |  14 +
+ .../web/src/components/figma/ProjectJournal.tsx    | 537 +++++++++++++++------
+ .../web/src/components/figma/tokens.css            | 345 ++++++++++++-
+ .../web/src/components/shell/StudioShell.tsx       |   7 +
+ .../web/src/components/shell/studio-shell.css      |  16 +
+ .../tests/e2e/journal-v4-figma-captures.spec.ts    | 150 +++---
+ .../web/tests/e2e/journal-v4-parcours.spec.ts      |  22 +-
+ 8 files changed, 883 insertions(+), 270 deletions(-)
 
 ```
 
-## 2. Sources Git et SHA consultées
+## 2. Sources
 
-### Gouvernance / méthode
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
-- governance/SEF.md · roadmap.md · product-naming-conventions.md
-- governance/environnements-recette-et-promotions.md · product-versioning.md
+- Journal contrat v1.0 · technique v0.3 §16 · matrice v0.7 §18
+- Figma `itgvCulInEnFY6DvgIegvP` page 828:2 — mesures natives MCP (842:26 viewer 784×832 @830,95 ; liseré 3×112 ; enlarged article 936 + aside 374)
+- Handoff `445014db` (composant + CSS + écarts)
+- ENV-01 DEV only
 
-### Vision / R2 / R3 / R4
-- cadrage/vision-produit.md · vision-cible/README.md
-- R2 D3/D4/D6 · R3 espace-projet · architecture-technique/cadrage-r4.md
+### Frames Figma
 
-### Journal
-- construction/convergence-ux-ui-globale/journal-contrat-fonctionnel-ux-candidat.md v1.0
-- construction/convergence-ux-ui-globale/contrat-technique-journal.md v0.3 §16
-- construction/convergence-ux-ui-globale/journal-matrice-convergence-vision-realisation.md v0.6 §17
+- `01-835-71-sujets-exploration.png`
+- `02-842-26-sujet-autonome-40-60.png`
+- `03-842-131-sujet-parent-40-60.png`
+- `04-835-159-sujet-autonome-agrandi.png`
+- `05-835-239-sujet-parent-agrandi.png`
+- `06-859-42-recherche-sujets.png`
+- `07-859-146-filtre-points-ouverts.png`
+- `08-860-58-decisions-nominales.png`
+- `09-860-136-decision-40-60.png`
+- `10-860-251-recherche-decisions.png`
+- `11-860-360-decision-agrandie.png`
 
-### Handoffs historiques
-03eda7e8 · 7a065cec · 9d56e6a5 · 45bd3d37 · 31c495af
+## 3. Diagnostic géométrie (avant → après)
 
-### Figma
-- File `https://www.figma.com/design/itgvCulInEnFY6DvgIegvP`
-- Page `828:2`
-- 11 frames natives lues via MCP + PNG 1680×970 enregistrés
-
-| # | Node | Nom | Mode |
+| Élément | Avant (0eb3157b) | Après (candidat) | Figma |
 |---|---|---|---|
-| 1 | 835:71 | Sujets Exploration | full |
-| 2 | 842:26 | Sujet autonome 40/60 | split |
-| 3 | 842:131 | Sujet parent 40/60 | split |
-| 4 | 835:159 | Sujet autonome agrandi | enlarged |
-| 5 | 835:239 | Sujet parent agrandi | enlarged |
-| 6 | 859:42 | Recherche Sujets | split |
-| 7 | 859:146 | Filtre Points ouverts | split |
-| 8 | 860:58 | Décisions nominales | full |
-| 9 | 860:136 | Décision 40/60 | split |
-| 10 | 860:251 | Recherche Décisions | split |
-| 11 | 860:360 | Décision agrandie | enlarged |
+| Viewer height | `min-height: 640` (trop bas) | `height:100%` stretch shell | 832 |
+| Viewer width | `max-width:784` flex grow | `flex:0 0 784px` | 784 |
+| Compact col | 526 | 526 | 526 |
+| Gap | 20 | 20 | 20 |
+| Shell height | page scroll | `data-journal-layout=1` fill | zone y=95→927 |
+| Liseré bandeau | inset shadow full | `::before` 3×112 @29px | 853:44 |
+| Parent body | acquis grid + children list | numbered child cards only | 842:131 |
+| Autonome body | same as parent-ish | acquis/points grid, no children | 842:26 |
+| Agrandi | stacked cards | article + aside REPÈRES | 835:159 |
+| Recherche | filtered tree | result rows path+reason | 859:42 |
+| Points ouverts | filter button | transversal list | 859:146 |
 
-PNG Figma locaux :
+### Mesures approx PNG (heuristique couleur, 1680×970)
 
-- `.tmp-sfia-review/figma-v4-frames/01-835-71-sujets-exploration.png`
-- `.tmp-sfia-review/figma-v4-frames/02-842-26-sujet-autonome-40-60.png`
-- `.tmp-sfia-review/figma-v4-frames/03-842-131-sujet-parent-40-60.png`
-- `.tmp-sfia-review/figma-v4-frames/04-835-159-sujet-autonome-agrandi.png`
-- `.tmp-sfia-review/figma-v4-frames/05-835-239-sujet-parent-agrandi.png`
-- `.tmp-sfia-review/figma-v4-frames/06-859-42-recherche-sujets.png`
-- `.tmp-sfia-review/figma-v4-frames/07-859-146-filtre-points-ouverts.png`
-- `.tmp-sfia-review/figma-v4-frames/08-860-58-decisions-nominales.png`
-- `.tmp-sfia-review/figma-v4-frames/09-860-136-decision-40-60.png`
-- `.tmp-sfia-review/figma-v4-frames/10-860-251-recherche-decisions.png`
-- `.tmp-sfia-review/figma-v4-frames/11-860-360-decision-agrandie.png`
+| Frame | Viewer approx runtime | Figma | Δ order |
+|---|---|---|---|
+| 02/03/09 | ~840,80 · ~830×870 (heuristique large) | 830,95 · 784×832 | dizaines de px ; plus de déficit de plusieurs centaines |
 
-## 3. Contrat visuel extrait (synthèse + FULL contrat local)
+Assertion Playwright : width ∈ (700,820) et height > 700.
 
-### Synthèse partagée
-- Page `#0a0e17` · rail **246px** · header **70px** · content inset ~284
-- Titre **Journal** · kicker `ESPACE PROJET / JOURNAL`
-- Sous-titre Sujets (copy Figma exacte) · Décisions : « Comprendre ce qui a été arbitré et pourquoi. »
-- Tabs Sujets/Décisions soulignés accent `#7172ea` / `#827cff`
-- Search 55px radius 11
-- Exploration full-width sans viewer idle
-- Split ~526 / ~784
-- Hiérarchie éditoriale thèmes / parents / enfants
-- Décisions : cartes + statuts EN VIGUEUR / REMPLACÉE / SUSPENDUE
-- Agrandi : hero + Réduire
-
-### CREATE FULL — figma-v4-visual-contract.md
-```markdown
-# Journal V4 — Figma Visual Contract
-
-**File:** `itgvCulInEnFY6DvgIegvP`
-**Session:** `bd12007c-5ea0-436f-a013-e1ded6b8a772`
-**Canvas size (all frames):** 1680 × 970
-**Shell:** Rail projet 246px + content; dark theme; Inter
-**Screenshots:** `.tmp-sfia-review/figma-v4-frames/`
-
----
-
-## Shared tokens (from design context 835:71 / 842:26 / 860:58)
-
-| Role | Value |
-|------|--------|
-| Page bg | `#0a0e17` |
-| Rail bg | `#0c101a` |
-| Card / list bg | `#151c2a` / `#101523` / `#131c2d` |
-| Borders / separators | `#272e49` / `#273049` / `#35415c` |
-| Primary text | `#f4f6fd` / `#f6f7ff` |
-| Secondary / muted | `#96a2ba` / `#99a8c6` / `#94a2bb` |
-| Accent lilac | `#ada5ff` / `#afa5ff` / `#b9b0ff` |
-| Tab / selection bar | `#7172ea` / `#827cff` |
-| Nav active pill | `#292d58` |
-| Logo / brand | `#656fe1` |
-| Status green | `#a6dfbc` / `#9dd9c9` |
-| Status amber | `#efce96` |
-| Title | Inter SemiBold 31px |
-| Eyebrow | Inter SemiBold 11px lilac |
-| Tabs | Inter 14px; active SemiBold white + 3px accent underline |
-| Section label | Inter SemiBold 11px muted/lilac, uppercase |
-| Radius | search 10–11px; list 12–14px; viewer 17px; pills ~9–13px |
-| Content left inset | 284px (after 246px rail) |
-
-**Layout modes**
-
-| Mode | Pattern |
-|------|---------|
-| **full** | Journal column ~1330px; no reader panel |
-| **40-60** | Compact Journal ~526px (284→810) + reader ~784×832 at x=830 |
-| **enlarged** | Full-bleed reader hero (~1330px); Journal chrome hidden; “Réduire la vue” |
-
----
-
-## 01 — `835:71` · Sujets · Exploration
-
-- **File:** `01-835-71-sujets-exploration.png`
-- **Name:** Journal / 02 · Sujets · Exploration — DESIGN CANDIDAT
-- **Size:** 1680 × 970
-- **Layout:** full
-- **Texts:** `ESPACE PROJET / JOURNAL` · **Journal** · *La mémoire du projet, organisée par thèmes. Retrouvez l’essentiel sans remonter toute la conversation.* · tabs **Sujets** (active) / Décisions · search `Rechercher un sujet…` · **THÈMES DU PROJET** · *Organisation évolutive · entretenue par Nora* · filter `◌ Points ouverts` · tree: Journal et mémoire (3 AXES) + children; Documentation; Expérience Pilote–Nora
-- **Tokens:** tab underline `#7172ea` under Sujets; list `#151c2a` / border `#273049`
-
----
-
-## 02 — `842:26` · Sujet autonome · 40/60
-
-- **File:** `02-842-26-sujet-autonome-40-60.png`
-- **Name:** Journal · Sujet autonome · Journal rétracté 40/60 + lecture · CANDIDAT
-- **Size:** 1680 × 970
-- **Layout:** 40-60
-- **Texts (left):** same Journal chrome; subtitle shortened *La mémoire du projet, organisée par thèmes.* · Sujets active · selection on **Expérience Pilote–Nora** (3px `#7172ea` bar)
-- **Texts (reader):** `MÉMOIRE DU PROJET / SUJET` · **Expérience Pilote–Nora** · badge Sujet autonome · Agrandir / × · **LA SYNTHÈSE** · **CE QU’ON RETIENT** / **À ÉCLAIRCIR** · **ÉCHANGE DE RÉFÉRENCE** · **CONTINUER LE TRAVAIL** / Poursuivre ce sujet avec Nora
-- **Tokens:** viewer `#141c2b` border `#35415c` r17; identity band `#1e2544`; accent liseré `#827cff`
-
----
-
-## 03 — `842:131` · Sujet parent · 40/60
-
-- **File:** `03-842-131-sujet-parent-40-60.png`
-- **Name:** Journal · Sujet parent · Journal rétracté 40/60 + lecture · CANDIDAT
-- **Size:** 1680 × 970
-- **Layout:** 40-60
-- **Texts (left):** Journal + Sujets; selection on parent **Journal et mémoire**
-- **Texts (reader):** identity + badge **Sujet parent** · synthèse · numbered child cards (Organisation / Consultation / Références) · parent complement + continuer lien
-- **Tokens:** same 40-60 shell as 02; child cards replace acquis/question grid
-
----
-
-## 04 — `835:159` · Sujet autonome · Agrandi
-
-- **File:** `04-835-159-sujet-autonome-agrandi.png`
-- **Name:** Journal · Sujet autonome · Lecture agrandie V4 CANDIDAT
-- **Size:** 1680 × 970
-- **Layout:** enlarged
-- **Texts:** breadcrumb Journal / Sujets / … · hero **Expérience Pilote–Nora** · badge Sujet autonome · **Réduire la vue** · LA SYNTHÈSE · CE QU’ON RETIENT / À ÉCLAIRCIR · ÉCHANGE DE RÉFÉRENCE · aside **REPÈRES** / Lecture enrichie · Nature · Sources · **Poursuivre avec Nora**
-- **Tokens:** hero ~1330×198; article col ~936px + aside ~374px at x=1240; identity rail 4px
-
----
-
-## 05 — `835:239` · Sujet parent · Agrandi
-
-- **File:** `05-835-239-sujet-parent-agrandi.png`
-- **Name:** Journal · Sujet parent · Lecture agrandie V4 CANDIDAT
-- **Size:** 1680 × 970
-- **Layout:** enlarged
-- **Texts:** hero parent title · badge Sujet parent · Réduire la vue · synthèse · **sous-sujets** as large numbered cards · note parent · same aside pattern as 04
-- **Tokens:** same enlarged shell; children replace acquis/question pair
-
----
-
-## 06 — `859:42` · Recherche Sujets
-
-- **File:** `06-859-42-recherche-sujets.png`
-- **Name:** Journal · Recherche Sujets · résultat ouvert 40/60 · CANDIDAT
-- **Size:** 1680 × 970
-- **Layout:** 40-60
-- **Texts:** Journal + Sujets · search query (e.g. traçabilité) + clear × · **3 SUJETS CORRESPONDANTS** · Points ouverts · result cards (Organisation des sujets selected) · reader: MÉMOIRE… · synthèse · POURQUOI CE SUJET / CHEMIN D’ORIGINE · Poursuivre…
-- **Tokens:** result selection 3px accent bar; compact Journal 526px
-
----
-
-## 07 — `859:146` · Filtre Points ouverts
-
-- **File:** `07-859-146-filtre-points-ouverts.png`
-- **Name:** Journal · Points ouverts · filtre transversal actif · CANDIDAT
-- **Size:** 1680 × 970
-- **Layout:** 40-60
-- **Texts:** Sujets tab · Points ouverts **active** (3px marque) · filtered open-point results · reader: question / provenance / origine / aide retour
-- **Tokens:** filter active left bar; same 40-60 geometry as 06
-
----
-
-## 08 — `860:58` · Décisions · Nominale
-
-- **File:** `08-860-58-decisions-nominales.png`
-- **Name:** DÉCISIONS / Journal · Décisions · vue nominale · CANDIDAT
-- **Size:** 1680 × 970
-- **Layout:** full
-- **Texts:** `ESPACE PROJET / JOURNAL` · **Journal** · *Comprendre ce qui a été arbitré et pourquoi.* · tabs Sujets / **Décisions** (active) · `Rechercher une décision…` · **DÉCISIONS DURABLES DU PROJET** · *EXEMPLES FICTIFS — AUCUN ACTE D6 RÉEL* · rows D-EX01/02/03 with status EN VIGUEUR / REMPLACÉE / SUSPENDUE · footer note on D6
-- **Tokens:** tab underline under Décisions `#827cff` @ x=408; status dots `#9dd9c9` / `#99a8c6` / `#efce96`
-
----
-
-## 09 — `860:136` · Décision · 40/60
-
-- **File:** `09-860-136-decision-40-60.png`
-- **Name:** DÉCISIONS / Journal · Décisions · décision et synthèse 40/60 · CANDIDAT
-- **Size:** 1680 × 970
-- **Layout:** 40-60
-- **Texts (left):** Décisions active · compact list; D-EX01 selected
-- **Texts (reader):** `DÉCISION / …` · **Organisation du Journal** · status badge · Agrandir / × · arbitrage retenu · pourquoi · autorité/portée · histoire · Voir le cheminement et les sources
-- **Tokens:** viewer same as sujets 40-60; selection bar on list row
-
----
-
-## 10 — `860:251` · Recherche Décisions
-
-- **File:** `10-860-251-recherche-decisions.png`
-- **Name:** DÉCISIONS / Journal · Recherche Décisions · résultat 40/60 · CANDIDAT
-- **Size:** 1680 × 970
-- **Layout:** 40-60
-- **Texts:** Décisions + filled search + clear × · filtered decision result(s) + motif/assistance copy · reader same decision panel as 09
-- **Tokens:** same 40-60 Décisions shell
-
----
-
-## 11 — `860:360` · Décision · Agrandie
-
-- **File:** `11-860-360-decision-agrandie.png`
-- **Name:** DÉCISIONS / Journal · Décision · lecture agrandie et motivations · CANDIDAT
-- **Size:** 1680 × 970
-- **Layout:** enlarged
-- **Texts:** Journal / Décisions / D-EX01 · hero **Organisation du Journal** · status · **Réduire la vue** · LE CHOIX RETENU · raisonnement · contexte/sources · aside REPÈRES (autorité, portée, évolutions) · Poursuivre avec Nora
-- **Tokens:** bandeau élargi ~1330×193; article ~936 + aside ~374; 4px liseré
-
----
-
-## Screenshot inventory
-
-```
-.tmp-sfia-review/figma-v4-frames/01-835-71-sujets-exploration.png
-.tmp-sfia-review/figma-v4-frames/02-842-26-sujet-autonome-40-60.png
-.tmp-sfia-review/figma-v4-frames/03-842-131-sujet-parent-40-60.png
-.tmp-sfia-review/figma-v4-frames/04-835-159-sujet-autonome-agrandi.png
-.tmp-sfia-review/figma-v4-frames/05-835-239-sujet-parent-agrandi.png
-.tmp-sfia-review/figma-v4-frames/06-859-42-recherche-sujets.png
-.tmp-sfia-review/figma-v4-frames/07-859-146-filtre-points-ouverts.png
-.tmp-sfia-review/figma-v4-frames/08-860-58-decisions-nominales.png
-.tmp-sfia-review/figma-v4-frames/09-860-136-decision-40-60.png
-.tmp-sfia-review/figma-v4-frames/10-860-251-recherche-decisions.png
-.tmp-sfia-review/figma-v4-frames/11-860-360-decision-agrandie.png
-```
-
-```
-
-## 4. Snapshot runtime initial (RECETTE — avant correctif)
-
-- URL : `http://127.0.0.1:3200`
-- SOURCE_SHA : `d5bf7eb7`
-- BUILD_ID : `PV12SV9VToVGK-ReSxTqk` (HTML comment `PV12SV9VToVGK_ReSxTqk`)
-- LaunchAgent : `com.sfia.studio.next.recette.ml4d-ux004` (toujours running sur ce build)
-- Constats Morris confirmés : titre « Sujets et acquis », copy D4/D6, viewer vide, arborescence non conforme
-- Preuves locales : `.tmp-sfia-review/figma-ux-before/`
-
-## 5. Liste des corrections réalisées
-
-1. `ProjectChrome` : Journal = breadcrumb-only ; hero retiré du chrome
-2. `ProjectJournal` : titre **Journal**, copy Figma, tabs, search, hiérarchie V4
-3. Suppression textes hors cible (Sujets et acquis, D4/D6 présentation, sous-titres techniques)
-4. Exploration pleine largeur ; **aucun viewer idle géant**
-5. États B/C/D : split 40/60, agrandi, retour
-6. Décisions : liste nominale, 40/60, recherche, agrandi
-7. `page.tsx` : nav Travail immédiate sur open message + `surfaceNavGenRef`
-8. Fetch journal deps `[surface, projectId]` (évite cancel-race)
-9. testid tête de groupe parent (J-C14 / sélection parent)
-10. Spec captures 11 frames + empty ; ajustements parcours (aria-pressed, soft-nav)
-
-## 6. Anomalie texte / provenance CampusFlow
-
-| Champ | Valeur |
-|---|---|
-| projectId | `proj_1b52eb8f-3c63-4c72-a4dd-a47f34e1bb4d` |
-| name | CampusFlow |
-| owner_pilot_id | `pilot_98a7a89e-ba00-42c6-84d5-680eff67b73c` |
-| subjectId | `subj_8eb4e9ce-3922-4c27-a16b-cfc0c817b912` |
-| title observé | fragment conversationnel (« la première source Git… ») |
-| Classification | **A** — contenu légitime mal présenté |
-| Fuite interprojets | **NON** |
-| Action | diagnostic + preuve ; donnée **non effacée** |
-
-## 7. Fichiers créés / modifiés — contenus FULL
-
-### Index
-```
-M	projects/sfia-studio-next/construction/as-built-ensemble-06-journal-20261119.md
-M	projects/sfia-studio-next/construction/delivery-history.md
-A	projects/sfia-studio-next/construction/ensemble-06-journal-recette-manifest.md
-M	projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-M	projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
-M	projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx
-M	projects/sfia-studio-next/web/src/components/figma/tokens.css
-A	projects/sfia-studio-next/web/tests/e2e/journal-v4-figma-captures.spec.ts
-M	projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts
-
-```
-
-### CREATE FULL — as-built-ensemble-06-journal-20261119.md
+## 4. CREATE FULL — as-built
 ```markdown
 # As-built — Ensemble 06 / Journal V4
 
 | Métadonnée | Valeur |
 |---|---|
-| Date | 19/11/2026 — correctif UX Figma-to-runtime |
+| Date | 19/11/2026 — pixel-perfect corrective UX |
 | Branche | `sfia/next-journal-delivery-20261119` |
 | Parent candidat RECETTE | `d5bf7eb762a21cc309744bb703926e2c0bc844ed` |
 | Base `main` | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
-| Docs matrice | v0.6 §17 (`864e09bf` documentaire) |
+| Docs matrice | v0.7 §18 (`f0d2d033` documentaire) |
 | Versioning | `NO RELEASE` / STABLE NOT AVAILABLE |
-| RECETTE | **non cutover** ce cycle — candidat DEV pour GO Morris |
+| RECETTE | **non cutover** — DEV uniquement |
 
-## Correctif UX (présent cycle)
+## Correctif pixel-perfect (présent cycle)
 
-### Non-conformités Morris corrigées
+### Priorités Morris traitées
 
 | Constat | Correction |
 |---|---|
-| Titre « Sujets et acquis » | `ProjectChrome` journal → hero déplacé ; titre **Journal** dans `ProjectJournal` |
-| Textes D4/D6 techniques | Supprimés de l’UI Pilote |
-| Viewer vide permanent | Mode exploration pleine largeur sans panneau idle |
-| Arborescence non Figma | Hiérarchie éditoriale groupes/enfants, guides, blurbs |
-| Copy hors cible | Sous-titre Figma exact Sujets / Décisions |
+| Visionneuse 40/60 trop basse (`min-height: 640`) | Shell journal remplit la hauteur ; viewer `784px` stretch (`align-self: stretch`, `height: 100%`) |
+| Liseré `box-shadow inset` générique | Pseudo-éléments Figma : bandeau 3×112 ; synthèse 3×69 ; CTA 3×29 |
+| Captures parent ≈ autonome | Compositions distinctes : parent = cartes numérotées sous-sujets ; autonome = acquis/points |
+| Agrandi = colonne unique | Grille article 936 + aside 374 ; aside REPÈRES |
+| Recherche = arbre filtré | Liste de correspondances (titre / chemin / raison) |
+| Points ouverts = bouton seul | Liste transversale des points + origine |
+| `decisionStatusLabel` confond remplacée / non applicable | REMPLACÉE seulement si `supersededByDecisionId` |
+| Shell main scroll | `data-journal-layout=1` sur StudioShell (comme Travail) |
 
 ### Fichiers touchés
 
-- `web/src/components/figma/ProjectJournal.tsx` — shell V4
-- `web/src/components/figma/tokens.css` — styles 835:71 / 842 / 860
-- `web/src/components/figma/ProjectChrome.tsx` — breadcrumb-only Journal
-- `web/src/app/projects/[projectId]/page.tsx` — deep-link nav + fetch Journal sans cancel race
-- `web/tests/e2e/journal-v4-*.spec.ts` — parcours + captures
+- `web/src/components/figma/ProjectJournal.tsx`
+- `web/src/components/figma/tokens.css`
+- `web/src/components/shell/StudioShell.tsx`
+- `web/src/components/shell/studio-shell.css`
+- `web/tests/e2e/journal-v4-figma-captures.spec.ts` — oracles discriminants parent/autonome/géométrie
+- `web/tests/e2e/journal-v4-parcours.spec.ts`
 
-### Anomalie CampusFlow (provenance)
+### Géométrie Figma (842:26)
 
-| Champ | Valeur |
-|---|---|
-| projectId | `proj_1b52eb8f-3c63-4c72-a4dd-a47f34e1bb4d` |
-| project name | CampusFlow |
-| owner_pilot_id | `pilot_98a7a89e-ba00-42c6-84d5-680eff67b73c` |
-| subjectId | `subj_8eb4e9ce-3922-4c27-a16b-cfc0c817b912` |
-| title | fragment conversationnel (« la première source Git… SHA… ») |
-| summary | vide |
-| Classification | **A — contenu légitime mal présenté** (titre D4 = extrait de fil) |
-| Fuite interprojets | **NON** — même projet / même Pilote |
+| Élément | Figma | Runtime cible |
+|---|---|---|
+| Viewer | 830,95 · 784×832 | `784px` largeur · hauteur stretch zone dispo |
+| Compact Journal | 526px | `--journal-compact-w: 526px` |
+| Gap | 20px | `--journal-split-gap: 20px` |
+| Liseré bandeau | 3×112 @ +29px | `::before` |
 
-## Preuves
+### Preuves
 
 | Contrôle | Résultat |
 |---|---|
 | tsc | PASS |
 | unit journal + fixture-gate | 14/14 PASS |
-| Captures DEV 1680×970 (11 frames) | produites sous `.tmp-sfia-review/figma-ux-after/` |
-| Playwright parcours | voir Review Pack (retries / réserves J-C14) |
-| RECETTE cutover | **NON** — GO Morris requis |
-| VISUAL REVIEW Morris | **PENDING** |
+| Playwright captures + parcours | 3/3 PASS |
+| Captures 00–11 | `.tmp-sfia-review/figma-ux-after/` |
+| Parent ≠ autonome | titres distincts dans `capture-report.json` |
+| RECETTE cutover | **NON** |
 
 ## Autorité
 
@@ -439,490 +172,7 @@ M	projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts
 
 ```
 
-### CREATE FULL — ensemble-06-journal-recette-manifest.md (historique RECETTE, conservé)
-```markdown
-# Manifeste RECETTE — Ensemble 06 Journal V4 (non secret)
-
-| Champ | Valeur |
-|---|---|
-| Date / heure (Europe/Paris) | 2026-11-19 ~11:33 CET |
-| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 |
-| Type | Cycle 8 Delivery / Intégration QA · **NO RELEASE** · **NO PRODUCT PUSH** |
-| Product Versioning | **NOT AVAILABLE** / `NO RELEASE` / `0.0.0-dev` |
-| Dernière STABLE | NOT AVAILABLE |
-| Gate Morris UAT | **OUVERT** — campagne utilisateur Morris après mise à disposition |
-
-## Identité Git candidat
-
-| Champ | Valeur |
-|---|---|
-| Dépôt | `mcleland147/sfia-workspace` |
-| Branche locale | `sfia/next-journal-delivery-20261119` |
-| Base `origin/main` | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
-| Candidate SHA | `d5bf7eb762a21cc309744bb703926e2c0bc844ed` |
-| Candidate tree | `f5c05cb94f5137d06a26107b7003ab1bf073f923` |
-| Ascendance E05 UAT | `5c94c86737f0965c71a7e058e3f1e45ff4415024` **est ancêtre** de HEAD |
-| BUILD_ID candidat servi | `PV12SV9VToVGK-ReSxTqk` |
-| Push produit / PR / merge | **AUCUN** |
-
-## RECETTE — identité avant cutover
-
-| Champ | Valeur |
-|---|---|
-| URL / port | `http://127.0.0.1:3200` |
-| SOURCE_SHA | `5c94c86737f0965c71a7e058e3f1e45ff4415024` |
-| BUILD_ID | `IEINNuPl0bHWJOWkh0ZhG` |
-| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble05-recette-build-5c94c867` |
-| Service | `com.sfia.studio.next.recette.ml4d-ux004` |
-| DB | `sfia_next_recette_ml4` @ PostgreSQL Docker `sfia-next-recette-pg` |
-| Schéma Journal 014 | **ABSENT** (tables D4 revisions absentes) |
-| Compteurs | projects=23 · messages=560 |
-
-## RECETTE — identité après cutover (servie)
-
-| Champ | Valeur |
-|---|---|
-| URL / port | `http://127.0.0.1:3200` (inchangé) |
-| SOURCE_SHA | `d5bf7eb762a21cc309744bb703926e2c0bc844ed` |
-| BUILD_ID | `PV12SV9VToVGK-ReSxTqk` (HTML `/login` + `.next/BUILD_ID`) |
-| Worktree runtime | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble06-recette-build-d5bf7eb7` |
-| Script démarrage | `start-recette-ensemble06-d5bf7eb7.sh` |
-| Service / LaunchAgent | **même** `com.sfia.studio.next.recette.ml4d-ux004` |
-| Config non secrète | `~/.config/sfia-studio-next/recette/.env.local` · `STUDIO_LANE=RECETTE` · `STUDIO_DEV_TEST_LOGIN=1` |
-| DB | **même** `sfia_next_recette_ml4` (aucun reset) |
-| Schéma Journal 014 | **PRÉSENT** — tables `knowledge_subject_summary_revisions`, `knowledge_decision_explanation_revisions`, `knowledge_open_point_events` |
-| Compteurs après | projects=23 · messages=560 · conversations=196 · knowledge_subjects=4 · summary_revisions=0 |
-
-## Migration 014
-
-| Contrôle | Résultat |
-|---|---|
-| Fichier | `web/src/db/migrations/014_journal_d4_revisions.sql` |
-| Nature | Additive `CREATE TABLE IF NOT EXISTS` + index — **non destructive** |
-| Nécessité | Oui (objets absents avant cutover) |
-| Application | Une fois, sur RECETTE uniquement, après backup |
-| Effet données E05 | Aucune perte constatée (compteurs identiques) |
-| DROP/TRUNCATE/reset | **Non exécutés** |
-
-## Sauvegarde et rollback
-
-| Élément | Emplacement |
-|---|---|
-| Dump PostgreSQL pré-cutover | `/Users/morris/Projects/sfia-recette-backups/ml4d-e06-journal-20261119-pre-d5bf7eb7/sfia_next_recette_ml4.dump` |
-| Compteurs avant | `…/counts-before.txt` (23 / 560) |
-| Build précédent intact | worktree `…ensemble05-recette-build-5c94c867` + BUILD `IEINNuPl0bHWJOWkh0ZhG` |
-| Script rollback build | `…ensemble06…/ROLLBACK-TO-5c94c867.sh` (repointe LaunchAgent sur E05) |
-| Compatibilité schéma | Retour code E05 **compatible** avec schéma 014 (tables additives non lues par E05) — rollback données **non** automatique |
-
-## Smoke technique RECETTE (non destructif)
-
-| Contrôle | Résultat |
-|---|---|
-| HTTP `/login` | 200 |
-| Login Pilote A (DEV) → portfolio | OK |
-| Ouverture projet existant | `proj_4f0e3d47-…` · load-state `ready` |
-| Nav Projet / Travail / Journal | Présents (rail) |
-| Surface Journal | `project-journal` · onglets Sujets/Décisions · recherche |
-| Surface Travail / Nora | `nora-workspace` · 8 messages historiques |
-| API `GET …/journal` authentifiée | 200 · clés knowledge/decisions/restrictions/… |
-| API journal non authentifiée | 401 `SESSION_INVALID` |
-| Fixtures E2E (`journal-fixture`, `s05-fixture`) | **403** `E2E_FIXTURE_FORBIDDEN` / `NODE_ENV_PRODUCTION` |
-| Injection données / seeds RECETTE | **Aucune** |
-
-Preuves locales (non commit) : `projects/sfia-studio-next/.tmp-sfia-review/recette-smoke-20261119/`
-
-## Non-régression Ensemble 05 (technique)
-
-| Capacité | Observation smoke |
-|---|---|
-| Portfolio + projet historique | Accessible |
-| Travail / conversation | Consultable (messages présents) |
-| Navigation surfaces | Continuum Projet/Travail/Journal |
-| Visionneuse / composition E05 | Non rejouée en campagne UAT — **préservée par ascendance Git + absence de régression smoke navigation** |
-| Campagne UAT Morris E05 | **Non rejouée** ce cycle (hors mandat) |
-
-## Qualification DEV (candidat `d5bf7eb7`)
-
-| Suite | Résultat |
-|---|---|
-| `tsc --noEmit` | PASS (rejoué cutover) |
-| Journal unit + fixture-gate | 14/14 PASS (rejoué) |
-| Cycles delivery antérieurs (même SHA) | lint/build/PG journal-d4 / Playwright journal-v4 / ML3 PG — PASS documentés |
-| Full unit suite (env lane) | 3 FAIL préexistants hors Journal (`cognitive-policy`, `github-app-user-oauth`) — **non bloquants Journal / non introduits** |
-| ML2 / ML4C / E05 Playwright complets | **NOT RUN** ce cycle — réserve non bloquante (ascendance E05 + smoke surfaces) |
-| LIVE Nora 20 tours | **PARTIAL** (E01 seul, arrêt Morris cycle 4) — hors smoke RECETTE |
-
-## Capacités mises à disposition
-
-| Capacité | État |
-|---|---|
-| Journal V4 shell (Sujets / Décisions) | Disponible en RECETTE |
-| Persistance D4 révisions (014) | Schéma disponible |
-| Ensemble 05 Travail Nora | Toujours accessible |
-| Recette utilisateur / esthétique | **À faire par Morris** — non exécutée ici |
-| STABLE / Gate C / ADOPTED | **Non** |
-
-## Réserves
-
-1. UAT fonctionnelle/visuelle Morris **non démarrée**.
-2. Suites Playwright ML2/ML4C/E05 exhaustives **non rejouées** sur ce cutover.
-3. LIVE Nora CampusFlow **non** rejouée en RECETTE (interdit par mandat).
-4. Isolation cookies multi-ports 127.0.0.1 : profil navigateur distinct recommandé (ENV-01).
-5. Rollback build ≠ rollback données ; dump disponible si mandat explicite.
-6. Code candidat **local non poussé** sur GitHub produit.
-
-## Verdict disponibilité
-
-**RECETTE TECHNICALLY AVAILABLE — READY FOR MORRIS USER ACCEPTANCE**
-
-Avec réserves techniques listées (UAT Morris ouverte ; pas d’acceptation utilisateur déclarée).
-
-```
-
-### CREATE FULL — journal-v4-figma-captures.spec.ts
-```ts
-import { test, expect, type Page } from "@playwright/test";
-import fs from "fs";
-import path from "path";
-import {
-  constituteAndCreateProject,
-  openNewPreparation,
-  sendPrepMessage,
-  uniqueProjectName,
-} from "./helpers/g4-chat-first";
-
-const OUT = path.resolve(__dirname, "../../../.tmp-sfia-review/figma-ux-after");
-
-async function seedJournal(page: Page, projectId: string) {
-  const res = await page.request.post("/api/dev/e2e/journal-fixture", {
-    data: { projectId, longThreadCount: 12 },
-  });
-  expect(res.ok(), await res.text()).toBeTruthy();
-  const body = (await res.json()) as { seed: Record<string, string> };
-  return body.seed;
-}
-
-test.describe("Journal V4 Figma captures 1680×970", () => {
-  test("eleven runtime frames + empty exploration", async ({ page }) => {
-    test.setTimeout(180000);
-    fs.mkdirSync(OUT, { recursive: true });
-    await page.setViewportSize({ width: 1680, height: 970 });
-    await page.goto("/login");
-    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-    await page.waitForURL("**/portfolio");
-
-    await openNewPreparation(page);
-    await sendPrepMessage(page, "Capture Journal V4 Figma");
-    const projectName = uniqueProjectName("Journal Figma Cap");
-    await constituteAndCreateProject(page, {
-      name: projectName,
-      summary: "captures",
-      alreadyUnique: true,
-    });
-    const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-    expect(projectId).toBeTruthy();
-    const seed = await seedJournal(page, projectId!);
-
-    await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
-    await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
-    await expect(page.getByTestId("journal-title")).toHaveText("Journal");
-    await expect(page.getByTestId("journal-subtitle")).toContainText(
-      /mémoire du projet|organisée par thèmes/i,
-    );
-    await expect(page.getByTestId(`journal-subject-${seed.parentSubjectId}`)).toBeVisible({
-      timeout: 20000,
-    });
-    await page.screenshot({
-      path: path.join(OUT, "01-runtime-835-71-sujets-exploration.png"),
-      fullPage: false,
-    });
-
-    await page.getByTestId(`journal-subject-${seed.leafSubjectId}`).click();
-    await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "split");
-    await page.screenshot({
-      path: path.join(OUT, "02-runtime-842-26-sujet-autonome-40-60.png"),
-      fullPage: false,
-    });
-
-    await page.getByTestId(`journal-subject-${seed.parentSubjectId}`).click();
-    await page.screenshot({
-      path: path.join(OUT, "03-runtime-842-131-sujet-parent-40-60.png"),
-      fullPage: false,
-    });
-
-    await page.getByTestId("journal-viewer-enlarge").click();
-    await expect(page.getByTestId("project-journal")).toHaveAttribute(
-      "data-journal-layout",
-      "enlarged",
-    );
-    await page.screenshot({
-      path: path.join(OUT, "04-runtime-835-159-sujet-agrandi.png"),
-      fullPage: false,
-    });
-    await page.getByTestId("journal-viewer-reduce").click();
-
-    await page.getByTestId(`journal-subject-${seed.parentSubjectId}`).click();
-    await page.getByTestId("journal-viewer-enlarge").click();
-    await page.screenshot({
-      path: path.join(OUT, "05-runtime-835-239-parent-agrandi.png"),
-      fullPage: false,
-    });
-    await page.getByTestId("journal-viewer-reduce").click();
-
-    await page.getByTestId("journal-search").fill("traçabilité");
-    await expect(page.getByTestId(`journal-match-${seed.leafSubjectId}`)).toBeVisible();
-    await page.screenshot({
-      path: path.join(OUT, "06-runtime-859-42-recherche-sujets.png"),
-      fullPage: false,
-    });
-
-    await page.getByTestId("journal-filter-open-points").click();
-    await expect(page.getByTestId("journal-filter-open-points")).toHaveAttribute(
-      "aria-pressed",
-      "true",
-    );
-    await page.screenshot({
-      path: path.join(OUT, "07-runtime-859-146-filtre-points.png"),
-      fullPage: false,
-    });
-    await page.getByTestId("journal-filter-open-points").click();
-    await page.getByTestId("journal-search").fill("");
-
-    await page.getByTestId("journal-tab-decisions").click();
-    await expect(page.getByTestId("journal-decision-list")).toBeVisible();
-    await page.screenshot({
-      path: path.join(OUT, "08-runtime-860-58-decisions-nominales.png"),
-      fullPage: false,
-    });
-
-    await page.getByTestId(`journal-decision-${seed.decisionApplicableId}`).click();
-    await expect(page.getByTestId("journal-decision-viewer")).toBeVisible();
-    await page.screenshot({
-      path: path.join(OUT, "09-runtime-860-136-decision-40-60.png"),
-      fullPage: false,
-    });
-
-    await page.getByTestId("journal-search").fill("multicritèreorion");
-    await page.screenshot({
-      path: path.join(OUT, "10-runtime-860-251-recherche-decisions.png"),
-      fullPage: false,
-    });
-
-    await page.getByTestId("journal-viewer-enlarge").click();
-    await page.screenshot({
-      path: path.join(OUT, "11-runtime-860-360-decision-agrandie.png"),
-      fullPage: false,
-    });
-
-    // Empty project — return portfolio then new prep without seed
-    await page.getByTestId("studio-rail").getByRole("link", { name: /Portefeuille/i }).click();
-    await page.waitForURL("**/portfolio", { timeout: 20000 });
-    await openNewPreparation(page);
-    await sendPrepMessage(page, "Projet vide journal");
-    const emptyName = uniqueProjectName("Journal Empty");
-    await constituteAndCreateProject(page, {
-      name: emptyName,
-      summary: "empty",
-      alreadyUnique: true,
-    });
-    await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
-    await expect(page.getByTestId("journal-empty-structure")).toBeVisible({ timeout: 20000 });
-    await expect(page.getByTestId("journal-title")).toHaveText("Journal");
-    await expect(page.getByTestId("journal-viewer")).toHaveCount(0);
-    await page.screenshot({
-      path: path.join(OUT, "00-runtime-empty-exploration.png"),
-      fullPage: false,
-    });
-
-    fs.writeFileSync(
-      path.join(OUT, "capture-report.json"),
-      JSON.stringify({ projectId, seed, out: OUT, ok: true }, null, 2),
-    );
-  });
-});
-
-```
-
-### CREATE FULL — ProjectChrome.tsx
-```tsx
-"use client";
-
-import {
-  PROJECT_SURFACE_LABELS,
-  type StudioSurface,
-} from "@/components/shell/studio-rail";
-
-type Surface = StudioSurface;
-
-const HERO: Record<
-  Surface,
-  { kicker: string; title: string; sub: string }
-> = {
-  travail: {
-    kicker: "Espace projet  /  Travail",
-    title: "Reprendre le fil du projet",
-    sub: "La préparation et les échanges avec Nora restent dans le contexte de ce projet.",
-  },
-  projet: {
-    kicker: "Espace projet  /  Projet",
-    title: "Vue d'ensemble du projet",
-    sub: "Identité, contexte et accès — consultation sans nouvelle autorité.",
-  },
-  pilotage: {
-    kicker: "Espace projet  /  Trajectoire",
-    title: "Pilotage · cycle et décisions",
-    sub: "Cycle, méthode, CKI et décisions humaines — affichage D5/D6 existant.",
-  },
-  journal: {
-    kicker: "ESPACE PROJET  /  JOURNAL",
-    title: "Journal",
-    sub: "La mémoire du projet, organisée par thèmes. Retrouvez l’essentiel sans remonter toute la conversation.",
-  },
-  document: {
-    kicker: "Espace projet  /  Documents Nora",
-    title: "Bibliothèque",
-    sub: "Bibliothèque, inspection et révision sous autorité D4.",
-  },
-  git: {
-    kicker: "Espace projet  /  Sources Git",
-    title: "Intégration Git",
-    sub: "Sources et liens Git du projet — capacités réellement disponibles.",
-  },
-  publication: {
-    kicker: "Espace projet  /  Résultats et preuves",
-    title: "Publication Git",
-    sub: "Publication et preuves Git — capacités réellement disponibles.",
-  },
-};
-
-export function ProjectChrome(props: {
-  projectId: string;
-  projectName: string | null;
-  surface: Surface;
-  /** Optional status line — never raw technical IDs in the nominal path. */
-  statusHint?: string;
-  /** Observable project bootstrap: loading until load()+surface sync finish. */
-  loadState?: "loading" | "ready";
-  /** Ensemble 05 — Travail layout: normal | split (viewer) | enlarged viewer. */
-  travailLayout?: "normal" | "split" | "enlarged";
-  children: React.ReactNode;
-}) {
-  const loadState = props.loadState ?? "ready";
-  const hero = HERO[props.surface];
-  const surfaceLabel = PROJECT_SURFACE_LABELS[props.surface];
-  const displayName = props.projectName?.trim() || "Projet";
-  const isTravail = props.surface === "travail";
-  /** Journal V4 — hero lives inside ProjectJournal (full vs compact 40/60). */
-  const isJournal = props.surface === "journal";
-  const breadcrumbOnly = isTravail || isJournal;
-
-  const continuityBadge =
-    isTravail && props.statusHint && !/^chargement/i.test(props.statusHint) ? (
-      <span className="fig-tag fig-tag-ok" data-testid="project-status-hint">
-        {/reprise|conservé|durable/i.test(props.statusHint)
-          ? "Contexte conservé"
-          : props.statusHint}
-      </span>
-    ) : null;
-
-  const intro = (
-    <header className="project-space-hero fig-travail-intro" data-testid="travail-intro">
-      <p className="fig-kicker project-space-kicker">{hero.kicker}</p>
-      <div className="project-space-hero-row">
-        <h1 className="fig-hero-title" data-testid="project-surface-title">
-          {hero.title}
-        </h1>
-        {continuityBadge}
-      </div>
-      <p className="fig-hero-sub">{hero.sub}</p>
-    </header>
-  );
-
-  return (
-    <div
-      className={`fig-page project-space-page${isTravail ? " project-space-page--travail" : ""}${isJournal ? " project-space-page--journal" : ""}`}
-      data-project-surface={props.surface}
-      data-testid="project-load-state"
-      data-project-load-state={loadState}
-      data-project-id={props.projectId}
-      data-project-name={props.projectName ?? ""}
-    >
-      <div
-        className={`project-space-header${breadcrumbOnly ? " project-space-header--breadcrumb-only" : ""}`}
-        data-testid="project-space-header"
-      >
-        <div className="fig-breadcrumb project-space-breadcrumb">
-          <span data-testid="project-breadcrumb">
-            SFIA Studio&nbsp;&nbsp;/&nbsp;&nbsp;{displayName}&nbsp;&nbsp;/&nbsp;&nbsp;
-            {surfaceLabel}
-          </span>
-          <span className="project-space-badge" data-testid="project-espace-badge">
-            ESPACE PROJET
-          </span>
-        </div>
-
-        {!breadcrumbOnly ? (
-          <header className="project-space-hero space-y-1">
-            <p className="fig-kicker project-space-kicker">{hero.kicker}</p>
-            <div className="project-space-hero-row">
-              <h1 className="fig-hero-title" data-testid="project-surface-title">
-                {hero.title}
-              </h1>
-            </div>
-            <p className="fig-hero-sub">{hero.sub}</p>
-            {props.statusHint ? (
-              <p className="text-xs muted" data-testid="project-status-hint">
-                {props.statusHint}
-              </p>
-            ) : null}
-          </header>
-        ) : null}
-      </div>
-
-      <div className="sr-only" aria-hidden>
-        {(
-          [
-            "travail",
-            "projet",
-            "pilotage",
-            "journal",
-            "document",
-            "git",
-            "publication",
-          ] as const
-        ).map((id) => (
-          <span
-            key={id}
-            data-testid={`surface-${id}`}
-            data-surface-active={props.surface === id ? "1" : "0"}
-          />
-        ))}
-      </div>
-
-      {isTravail ? (
-        <div
-          className="project-travail-stage"
-          data-testid="project-travail-stage"
-          data-travail-layout={props.travailLayout ?? "normal"}
-        >
-          {intro}
-          <div
-            className="fig-travail-intro-rule"
-            data-testid="travail-intro-rule"
-            aria-hidden
-          />
-          {props.children}
-        </div>
-      ) : (
-        props.children
-      )}
-    </div>
-  );
-}
-
-```
-
-### CREATE FULL — ProjectJournal.tsx
+## 5. CREATE FULL — ProjectJournal.tsx
 ```tsx
 "use client";
 
@@ -1043,8 +293,20 @@ const COPY = {
   continue: "CONTINUER LE TRAVAIL",
   continueCta: "Poursuivre ce sujet avec Nora",
   enlarge: "⤢ Agrandir",
-  reduce: "Réduire",
+  reduce: "Réduire la vue",
   close: "×",
+  childrenTitle: "SOUS-SUJETS",
+  matchesLabel: "SUJETS CORRESPONDANTS",
+  openPointsLabel: "POINTS OUVERTS DU PROJET",
+  whyMatch: "POURQUOI CE SUJET",
+  pathOrigin: "CHEMIN D’ORIGINE",
+  asideLabel: "REPÈRES",
+  asideReading: "Lecture enrichie",
+  asideNature: "NATURE",
+  asideSources: "SOURCES",
+  asideActions: "ACTIONS",
+  parentComplement: "REPÈRE PARENT",
+  openPointStatus: "OUVERT",
 } as const;
 
 function buildSubjectTree(subjects: JournalSubject[]) {
@@ -1103,11 +365,15 @@ function decisionBlurb(d: JournalDecision): string {
 }
 
 function decisionStatusLabel(d: JournalDecision): { label: string; tone: "ok" | "warn" | "muted" } {
-  if (d.supersededByDecisionId || d.applicable === false) {
+  // D6 status must not collapse "non applicable" into "REMPLACÉE".
+  if (d.supersededByDecisionId) {
     return { label: "REMPLACÉE", tone: "muted" };
   }
   const st = d.state.toUpperCase();
   if (st.includes("SUSPEND")) return { label: "SUSPENDUE", tone: "warn" };
+  if (d.applicable === false) {
+    return { label: "SUSPENDUE", tone: "warn" };
+  }
   if (
     st.includes("ACTIVE") ||
     st.includes("EFFECTIVE") ||
@@ -1426,6 +692,20 @@ export function ProjectJournal(props: {
                 {COPY.searchEmptySubjects}
               </p>
             </div>
+          ) : openPointsOnly ? (
+            <OpenPointsTransversalList
+              openPoints={openPoints}
+              byId={byId}
+              selectedId={selectedSubjectId}
+              onSelect={pickSubject}
+            />
+          ) : search.trim().length > 0 ? (
+            <SubjectSearchResults
+              matchBySubject={matchBySubject}
+              byId={byId}
+              selectedId={selectedSubjectId}
+              onSelect={pickSubject}
+            />
           ) : (
             <div className="journal-hierarchy" data-testid="journal-tree">
               {roots.map((s) =>
@@ -1491,7 +771,7 @@ export function ProjectJournal(props: {
                     {subjectBlurb(selectedSubject) ||
                       "Comprendre ce qu’on sait, ce qui reste ouvert et pourquoi."}
                   </p>
-                  <span className="journal-viewer-type">
+                  <span className="journal-viewer-type" data-testid="journal-viewer-subject-kind">
                     {isParentSelected ? "Sujet parent" : "Sujet autonome"}
                   </span>
                 </div>
@@ -1528,119 +808,193 @@ export function ProjectJournal(props: {
               </header>
 
               <div className="journal-viewer-body">
-                <section className="journal-card journal-card-synthesis">
-                  <p className="journal-card-kicker">{COPY.synthesis}</p>
-                  {selectedSubject.summary?.summaryMarkdown ? (
-                    <div data-testid="journal-subject-summary">
-                      <SafeMarkdown content={selectedSubject.summary.summaryMarkdown} />
-                    </div>
-                  ) : (
-                    <p className="journal-muted" data-testid="journal-subject-summary-empty">
-                      Synthèse non encore disponible.
-                    </p>
-                  )}
-                </section>
-
-                {childSubjects.length > 0 ? (
-                  <section className="journal-card">
-                    <p className="journal-card-kicker">{COPY.children}</p>
-                    <ul className="journal-child-list">
-                      {childSubjects.map((c) => (
-                        <li key={c.id}>
-                          <button
-                            type="button"
-                            className="journal-child-link"
-                            onClick={() => pickSubject(c.id)}
-                          >
-                            <span>{c.title}</span>
-                            <span aria-hidden>↗</span>
-                          </button>
-                          {subjectBlurb(c) ? (
-                            <p className="journal-row-desc">{subjectBlurb(c)}</p>
-                          ) : null}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                ) : null}
-
-                <div className="journal-card-row">
-                  <section className="journal-card journal-card-half">
-                    <p className="journal-card-kicker">{COPY.retained}</p>
-                    {selectedAcquis.length === 0 ? (
-                      <p className="journal-muted">Aucun acquis courant.</p>
-                    ) : (
-                      selectedAcquis.map((a) => (
-                        <p key={a.id} className="journal-acquis-line" data-subject-id={a.subjectId ?? ""}>
-                          {a.statement}
+                <div className="journal-viewer-layout">
+                  <div className="journal-viewer-article">
+                    <section className="journal-card journal-card-synthesis">
+                      <p className="journal-card-kicker">{COPY.synthesis}</p>
+                      {selectedSubject.summary?.summaryMarkdown ? (
+                        <div data-testid="journal-subject-summary">
+                          <SafeMarkdown content={selectedSubject.summary.summaryMarkdown} />
+                        </div>
+                      ) : (
+                        <p className="journal-muted" data-testid="journal-subject-summary-empty">
+                          Synthèse non encore disponible.
                         </p>
-                      ))
-                    )}
-                  </section>
-                  <section className="journal-card journal-card-half">
-                    <p className="journal-card-kicker">{COPY.clarify}</p>
-                    {selectedOpen.length === 0 ? (
-                      <p className="journal-muted">Aucun point ouvert.</p>
-                    ) : (
-                      selectedOpen.map((o) => (
-                        <p
-                          key={o.id}
-                          className="journal-open-line"
-                          data-testid={`journal-open-point-${o.id}`}
-                          data-subject-id={o.subjectId ?? ""}
-                        >
-                          {o.statement}
-                        </p>
-                      ))
-                    )}
-                  </section>
-                </div>
+                      )}
+                    </section>
 
-                {selectedContradictions.length > 0 ? (
-                  <section className="journal-card" data-testid="journal-contradictions">
-                    <p className="journal-card-kicker">CONTRADICTIONS</p>
-                    {selectedContradictions.map((c) => (
-                      <div
-                        key={`${c.leftAcquisId}-${c.rightAcquisId}`}
-                        data-testid={`journal-contradiction-${c.leftAcquisId}`}
-                      >
-                        <p className="journal-acquis-line">{c.reason}</p>
+                    {isParentSelected ? (
+                      <section className="journal-card" data-testid="journal-parent-children">
+                        <p className="journal-card-kicker">{COPY.childrenTitle}</p>
+                        <ul className="journal-child-list">
+                          {childSubjects.map((c, i) => (
+                            <li key={c.id}>
+                              <button
+                                type="button"
+                                className="journal-child-card"
+                                data-testid={`journal-child-card-${c.id}`}
+                                onClick={() => pickSubject(c.id)}
+                              >
+                                <span className="journal-child-num">{String(i + 1).padStart(2, "0")}</span>
+                                <span className="journal-child-card-text">
+                                  <span className="journal-child-card-title">{c.title}</span>
+                                  {subjectBlurb(c) ? (
+                                    <span className="journal-child-card-desc">{subjectBlurb(c)}</span>
+                                  ) : null}
+                                </span>
+                                <span aria-hidden>↗</span>
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      </section>
+                    ) : (
+                      <div className="journal-card-row">
+                        <section className="journal-card journal-card-half">
+                          <p className="journal-card-kicker">{COPY.retained}</p>
+                          {selectedAcquis.length === 0 ? (
+                            <p className="journal-muted">Aucun acquis courant.</p>
+                          ) : (
+                            selectedAcquis.map((a) => (
+                              <p key={a.id} className="journal-acquis-line" data-subject-id={a.subjectId ?? ""}>
+                                {a.statement}
+                              </p>
+                            ))
+                          )}
+                        </section>
+                        <section className="journal-card journal-card-half">
+                          <p className="journal-card-kicker">{COPY.clarify}</p>
+                          {selectedOpen.length === 0 ? (
+                            <p className="journal-muted">Aucun point ouvert.</p>
+                          ) : (
+                            selectedOpen.map((o) => (
+                              <p
+                                key={o.id}
+                                className="journal-open-line"
+                                data-testid={`journal-open-point-${o.id}`}
+                                data-subject-id={o.subjectId ?? ""}
+                              >
+                                {o.statement}
+                              </p>
+                            ))
+                          )}
+                        </section>
                       </div>
+                    )}
+
+                    {isParentSelected ? (
+                      <section className="journal-parent-note" data-testid="journal-parent-complement">
+                        <p className="journal-card-kicker">{COPY.parentComplement}</p>
+                        <p>
+                          Ce thème regroupe {childSubjects.length} sous-sujet
+                          {childSubjects.length > 1 ? "s" : ""}. Ouvrez un axe pour lire ses acquis
+                          et points ouverts.
+                        </p>
+                      </section>
+                    ) : null}
+
+                    {!isParentSelected && selectedContradictions.length > 0 ? (
+                      <section className="journal-card" data-testid="journal-contradictions">
+                        <p className="journal-card-kicker">CONTRADICTIONS</p>
+                        {selectedContradictions.map((c) => (
+                          <div
+                            key={`${c.leftAcquisId}-${c.rightAcquisId}`}
+                            data-testid={`journal-contradiction-${c.leftAcquisId}`}
+                          >
+                            <p className="journal-acquis-line">{c.reason}</p>
+                          </div>
+                        ))}
+                      </section>
+                    ) : null}
+
+                    {selectedSources.length > 0 ? (
+                      <section className="journal-card" data-testid="journal-sources">
+                        <p className="journal-card-kicker">{COPY.sources}</p>
+                        <ul className="journal-source-list">
+                          {selectedSources.map((s) => (
+                            <li key={`${s.ownerKind}-${s.ownerId}-${s.sourceId ?? s.revisionId ?? s.documentId}`}>
+                              <SourceChip
+                                link={s}
+                                onOpenMessage={props.onOpenMessage}
+                                onOpenDocument={props.onOpenDocument}
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                      </section>
+                    ) : null}
+
+                    {search.trim() && !isParentSelected ? (
+                      <section className="journal-card" data-testid="journal-match-context">
+                        <p className="journal-card-kicker">{COPY.whyMatch}</p>
+                        <p className="journal-muted">
+                          Correspondance : {matchBySubject.get(selectedSubject.id) ?? "sélection"}
+                        </p>
+                        <p className="journal-card-kicker" style={{ marginTop: 12 }}>
+                          {COPY.pathOrigin}
+                        </p>
+                        <p className="journal-muted">
+                          {subjectBreadcrumb(selectedSubject.id, byId).join(" › ")}
+                        </p>
+                      </section>
+                    ) : null}
+
+                    {props.onBackToThread ? (
+                      <button
+                        type="button"
+                        className="journal-continue"
+                        data-testid="journal-continue-travail"
+                        onClick={props.onBackToThread}
+                      >
+                        <span>
+                          <span className="journal-card-kicker">{COPY.continue}</span>
+                          <span className="journal-continue-cta">{COPY.continueCta}</span>
+                        </span>
+                        <span aria-hidden>↗</span>
+                      </button>
+                    ) : null}
+                  </div>
+
+                  <aside className="journal-viewer-aside" data-testid="journal-viewer-aside">
+                    <p className="journal-aside-label">{COPY.asideLabel}</p>
+                    <p className="journal-aside-title">{COPY.asideReading}</p>
+                    <hr className="journal-aside-sep" />
+                    <p className="journal-aside-meta-label">{COPY.asideNature}</p>
+                    <p className="journal-aside-meta-value">
+                      {isParentSelected ? "Sujet parent" : "Sujet autonome"}
+                    </p>
+                    <p className="journal-aside-meta-desc">
+                      {isParentSelected
+                        ? "Thème structurant avec sous-sujets consultables."
+                        : "Fiche dédiée à un axe capitalisé du projet."}
+                    </p>
+                    <hr className="journal-aside-sep" />
+                    <p className="journal-aside-meta-label">{COPY.asideSources}</p>
+                    <p className="journal-aside-meta-value">
+                      {selectedSources.length > 0
+                        ? `${selectedSources.length} source${selectedSources.length > 1 ? "s" : ""} liée${selectedSources.length > 1 ? "s" : ""}`
+                        : "Sources disponibles via les acquis"}
+                    </p>
+                    {selectedSources.slice(0, 3).map((s) => (
+                      <p key={`${s.ownerId}-${s.sourceId}`} className="journal-aside-meta-desc">
+                        {s.sourceKind} · {s.currentness}
+                      </p>
                     ))}
-                  </section>
-                ) : null}
-
-                {selectedSources.length > 0 ? (
-                  <section className="journal-card" data-testid="journal-sources">
-                    <p className="journal-card-kicker">{COPY.sources}</p>
-                    <ul className="journal-source-list">
-                      {selectedSources.map((s) => (
-                        <li key={`${s.ownerKind}-${s.ownerId}-${s.sourceId ?? s.revisionId ?? s.documentId}`}>
-                          <SourceChip
-                            link={s}
-                            onOpenMessage={props.onOpenMessage}
-                            onOpenDocument={props.onOpenDocument}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                ) : null}
-
-                {props.onBackToThread ? (
-                  <button
-                    type="button"
-                    className="journal-continue"
-                    data-testid="journal-continue-travail"
-                    onClick={props.onBackToThread}
-                  >
-                    <span>
-                      <span className="journal-card-kicker">{COPY.continue}</span>
-                      <span className="journal-continue-cta">{COPY.continueCta}</span>
-                    </span>
-                    <span aria-hidden>↗</span>
-                  </button>
-                ) : null}
+                    <hr className="journal-aside-sep" />
+                    <p className="journal-aside-meta-label">{COPY.asideActions}</p>
+                    {props.onBackToThread ? (
+                      <button
+                        type="button"
+                        className="journal-continue"
+                        data-testid="journal-aside-continue"
+                        onClick={props.onBackToThread}
+                      >
+                        <span className="journal-continue-cta">Poursuivre avec Nora</span>
+                        <span aria-hidden>↗</span>
+                      </button>
+                    ) : null}
+                  </aside>
+                </div>
               </div>
             </>
           ) : null}
@@ -1690,63 +1044,178 @@ export function ProjectJournal(props: {
                 </div>
               </header>
               <div className="journal-viewer-body" data-testid="journal-decision-viewer">
-                <section className="journal-card journal-card-synthesis">
-                  <p className="journal-card-kicker">CHOIX RETENU</p>
-                  <p className="journal-acquis-line">{selectedDecision.statement || "—"}</p>
-                  <p className="journal-muted" data-testid="journal-decision-applicability">
-                    {selectedDecision.scope}
-                    {selectedDecision.applicable === false
-                      ? " · non applicable / historique"
-                      : " · applicable"}
-                    {selectedDecision.supersededByDecisionId ? " · remplacé" : ""}
-                  </p>
-                </section>
-                <section className="journal-card">
-                  <p className="journal-card-kicker">POURQUOI CE CHOIX</p>
-                  {selectedDecision.explanation?.explanationMarkdown ? (
-                    <>
-                      {selectedDecision.explanation.potentiallyStale ? (
-                        <p className="journal-warn" data-testid="journal-explanation-stale">
-                          Explication potentiellement périmée.
+                <div className="journal-viewer-layout">
+                  <div className="journal-viewer-article">
+                    <section className="journal-card journal-card-synthesis">
+                      <p className="journal-card-kicker">LE CHOIX RETENU</p>
+                      <p className="journal-acquis-line">{selectedDecision.statement || "—"}</p>
+                      <p className="journal-muted" data-testid="journal-decision-applicability">
+                        {selectedDecision.scope}
+                        {selectedDecision.applicable === false
+                          ? " · non applicable / historique"
+                          : " · applicable"}
+                        {selectedDecision.supersededByDecisionId ? " · remplacé" : ""}
+                      </p>
+                    </section>
+                    <section className="journal-card">
+                      <p className="journal-card-kicker">POURQUOI CE CHOIX</p>
+                      {selectedDecision.explanation?.explanationMarkdown ? (
+                        <>
+                          {selectedDecision.explanation.potentiallyStale ? (
+                            <p className="journal-warn" data-testid="journal-explanation-stale">
+                              Explication potentiellement périmée.
+                            </p>
+                          ) : null}
+                          <SafeMarkdown content={selectedDecision.explanation.explanationMarkdown} />
+                        </>
+                      ) : (
+                        <p className="journal-muted" data-testid="journal-explanation-empty">
+                          Explication contextuelle non encore disponible.
                         </p>
-                      ) : null}
-                      <SafeMarkdown content={selectedDecision.explanation.explanationMarkdown} />
-                    </>
-                  ) : (
-                    <p className="journal-muted" data-testid="journal-explanation-empty">
-                      Explication contextuelle non encore disponible.
-                    </p>
-                  )}
-                </section>
-                {activeRestrictions.length > 0 ? (
-                  <section className="journal-card">
-                    <p className="journal-card-kicker">RESTRICTIONS ACTIVES</p>
-                    <ul className="journal-restriction-list">
-                      {activeRestrictions.map((r) => (
-                        <li key={r.id} data-testid={`journal-restriction-${r.id}`}>
-                          {r.targetKind} · {r.targetRef}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                ) : null}
-                {historicalRestrictions.length > 0 ? (
-                  <section className="journal-card">
-                    <p className="journal-card-kicker">RESTRICTIONS HISTORIQUES</p>
-                    <ul className="journal-restriction-list">
-                      {historicalRestrictions.map((r) => (
-                        <li key={r.id} data-testid={`journal-restriction-hist-${r.id}`}>
-                          {r.targetKind} · {r.targetRef}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                ) : null}
+                      )}
+                    </section>
+                    {activeRestrictions.length > 0 ? (
+                      <section className="journal-card">
+                        <p className="journal-card-kicker">RESTRICTIONS ACTIVES</p>
+                        <ul className="journal-restriction-list">
+                          {activeRestrictions.map((r) => (
+                            <li key={r.id} data-testid={`journal-restriction-${r.id}`}>
+                              {r.targetKind} · {r.targetRef}
+                            </li>
+                          ))}
+                        </ul>
+                      </section>
+                    ) : null}
+                    {historicalRestrictions.length > 0 ? (
+                      <section className="journal-card">
+                        <p className="journal-card-kicker">RESTRICTIONS HISTORIQUES</p>
+                        <ul className="journal-restriction-list">
+                          {historicalRestrictions.map((r) => (
+                            <li key={r.id} data-testid={`journal-restriction-hist-${r.id}`}>
+                              {r.targetKind} · {r.targetRef}
+                            </li>
+                          ))}
+                        </ul>
+                      </section>
+                    ) : null}
+                  </div>
+                  <aside className="journal-viewer-aside" data-testid="journal-decision-aside">
+                    <p className="journal-aside-label">{COPY.asideLabel}</p>
+                    <p className="journal-aside-title">Gouvernance D6</p>
+                    <hr className="journal-aside-sep" />
+                    <p className="journal-aside-meta-label">STATUT</p>
+                    <p className="journal-aside-meta-value">{decisionStatusLabel(selectedDecision).label}</p>
+                    <p className="journal-aside-meta-label">PORTÉE</p>
+                    <p className="journal-aside-meta-value">{selectedDecision.scope}</p>
+                    <p className="journal-aside-meta-label">ÉTAT</p>
+                    <p className="journal-aside-meta-value">{selectedDecision.state}</p>
+                    {selectedDecision.supersededByDecisionId ? (
+                      <>
+                        <p className="journal-aside-meta-label">REMPLACÉE PAR</p>
+                        <p className="journal-aside-meta-desc">{selectedDecision.supersededByDecisionId}</p>
+                      </>
+                    ) : null}
+                    <hr className="journal-aside-sep" />
+                    <p className="journal-aside-meta-label">{COPY.asideActions}</p>
+                    {props.onBackToThread ? (
+                      <button
+                        type="button"
+                        className="journal-continue"
+                        data-testid="journal-decision-aside-continue"
+                        onClick={props.onBackToThread}
+                      >
+                        <span className="journal-continue-cta">Poursuivre avec Nora</span>
+                        <span aria-hidden>↗</span>
+                      </button>
+                    ) : null}
+                  </aside>
+                </div>
               </div>
             </>
           ) : null}
         </section>
       ) : null}
+    </div>
+  );
+}
+
+
+function SubjectSearchResults(props: {
+  matchBySubject: Map<string, string>;
+  byId: Map<string, JournalSubject>;
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+}) {
+  const rows = [...props.matchBySubject.entries()]
+    .map(([id, reason]) => ({ subject: props.byId.get(id), reason }))
+    .filter((r): r is { subject: JournalSubject; reason: string } => Boolean(r.subject))
+    .sort((a, b) => a.subject.title.localeCompare(b.subject.title, "fr"));
+  return (
+    <div data-testid="journal-search-results">
+      <p className="journal-results-count">
+        {rows.length} {COPY.matchesLabel}
+      </p>
+      <ul className="journal-results-list">
+        {rows.map(({ subject, reason }) => (
+          <li key={subject.id}>
+            <button
+              type="button"
+              className={`journal-result-row${props.selectedId === subject.id ? " is-selected" : ""}`}
+              data-testid={`journal-match-${subject.id}`}
+              onClick={() => props.onSelect(subject.id)}
+            >
+              <span className="journal-result-title">{subject.title}</span>
+              <span className="journal-result-path">
+                {subjectBreadcrumb(subject.id, props.byId).join(" › ")}
+              </span>
+              <span className="journal-result-reason">Correspondance · {reason}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function OpenPointsTransversalList(props: {
+  openPoints: JournalOpenPoint[];
+  byId: Map<string, JournalSubject>;
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+}) {
+  if (props.openPoints.length === 0) {
+    return (
+      <div className="journal-hierarchy" data-testid="journal-open-points-empty">
+        <p className="journal-empty-copy">Aucun point ouvert sur ce projet.</p>
+      </div>
+    );
+  }
+  return (
+    <div data-testid="journal-open-points-list-wrap">
+      <p className="journal-results-count">{COPY.openPointsLabel}</p>
+      <ul className="journal-open-points-list" data-testid="journal-open-points-list">
+        {props.openPoints.map((o) => {
+          const subject = o.subjectId ? props.byId.get(o.subjectId) : null;
+          const selected = o.subjectId != null && props.selectedId === o.subjectId;
+          return (
+            <li key={o.id}>
+              <button
+                type="button"
+                className={`journal-open-point-row${selected ? " is-selected" : ""}`}
+                data-testid={`journal-open-point-row-${o.id}`}
+                onClick={() => {
+                  if (o.subjectId) props.onSelect(o.subjectId);
+                }}
+              >
+                <span className="journal-open-point-title">{o.statement}</span>
+                <span className="journal-open-point-origin">
+                  {subject ? subject.title : "Sujet non rattaché"} · {COPY.openPointStatus}
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
@@ -1982,7 +1451,211 @@ function DecisionList(props: {
 
 ```
 
-### CREATE FULL — journal-v4-parcours.spec.ts (état HEAD)
+## 6. CREATE FULL — journal-v4-figma-captures.spec.ts
+```ts
+import { test, expect, type Page, type Locator } from "@playwright/test";
+import fs from "fs";
+import path from "path";
+import {
+  constituteAndCreateProject,
+  openNewPreparation,
+  sendPrepMessage,
+  uniqueProjectName,
+} from "./helpers/g4-chat-first";
+
+const OUT = path.resolve(__dirname, "../../../.tmp-sfia-review/figma-ux-after");
+
+type Seed = Record<string, string>;
+
+async function seedJournal(page: Page, projectId: string) {
+  const res = await page.request.post("/api/dev/e2e/journal-fixture", {
+    data: { projectId, longThreadCount: 12 },
+  });
+  expect(res.ok(), await res.text()).toBeTruthy();
+  const body = (await res.json()) as { seed: Seed };
+  return body.seed;
+}
+
+async function assertViewerBox(viewer: Locator) {
+  const box = await viewer.boundingBox();
+  expect(box, "journal-viewer bounding box").toBeTruthy();
+  // Figma 784×832 — allow browser chrome / padding variance of a few dozen px, not hundreds.
+  expect(box!.width).toBeGreaterThan(700);
+  expect(box!.width).toBeLessThan(820);
+  expect(box!.height).toBeGreaterThan(700);
+}
+
+async function shot(page: Page, name: string) {
+  await page.screenshot({ path: path.join(OUT, name), fullPage: false });
+}
+
+test.describe("Journal V4 Figma captures 1680×970", () => {
+  test("eleven runtime frames + empty exploration", async ({ page }) => {
+    test.setTimeout(240000);
+    fs.mkdirSync(OUT, { recursive: true });
+    await page.setViewportSize({ width: 1680, height: 970 });
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+    await page.waitForURL("**/portfolio");
+
+    await openNewPreparation(page);
+    await sendPrepMessage(page, "Capture Journal V4 Figma");
+    const projectName = uniqueProjectName("Journal Figma Cap");
+    await constituteAndCreateProject(page, {
+      name: projectName,
+      summary: "captures",
+      alreadyUnique: true,
+    });
+    const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
+    expect(projectId).toBeTruthy();
+    const seed = await seedJournal(page, projectId!);
+
+    await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
+    await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
+    await expect(page.getByTestId("journal-title")).toHaveText("Journal");
+    await expect(page.getByTestId("journal-subtitle")).toContainText(
+      /mémoire du projet|organisée par thèmes/i,
+    );
+    await expect(page.getByTestId(`journal-subject-${seed.parentSubjectId}`)).toBeVisible({
+      timeout: 20000,
+    });
+    await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "full");
+    await expect(page.getByTestId("journal-viewer")).toHaveCount(0);
+    await shot(page, "01-runtime-835-71-sujets-exploration.png");
+
+    // 02 — autonomous leaf
+    await page.getByTestId(`journal-subject-${seed.leafSubjectId}`).click();
+    await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "split");
+    await expect(page.getByTestId("journal-viewer")).toHaveAttribute("data-viewer-kind", "autonomous");
+    await expect(page.getByTestId("journal-viewer-subject-kind")).toHaveText("Sujet autonome");
+    await expect(page.getByTestId("journal-viewer-subject-title")).not.toHaveText(/^\s*$/);
+    await expect(page.getByTestId("journal-parent-children")).toHaveCount(0);
+    await assertViewerBox(page.getByTestId("journal-viewer"));
+    const leafTitle = (await page.getByTestId("journal-viewer-subject-title").innerText()).trim();
+    await shot(page, "02-runtime-842-26-sujet-autonome-40-60.png");
+
+    // 03 — parent (must differ from autonomous)
+    await page.getByTestId(`journal-subject-${seed.parentSubjectId}`).click();
+    await expect(page.getByTestId("journal-viewer")).toHaveAttribute("data-viewer-kind", "parent");
+    await expect(page.getByTestId("journal-viewer-subject-kind")).toHaveText("Sujet parent");
+    await expect(page.getByTestId("journal-parent-children")).toBeVisible();
+    await expect(page.getByTestId("journal-viewer-subject-title")).not.toHaveText(leafTitle);
+    await assertViewerBox(page.getByTestId("journal-viewer"));
+    const parentTitle = (await page.getByTestId("journal-viewer-subject-title").innerText()).trim();
+    expect(parentTitle).not.toEqual(leafTitle);
+    await shot(page, "03-runtime-842-131-sujet-parent-40-60.png");
+
+    // 04 — enlarge autonomous (select leaf again first)
+    await page.getByTestId(`journal-subject-${seed.leafSubjectId}`).click();
+    await expect(page.getByTestId("journal-viewer-subject-kind")).toHaveText("Sujet autonome");
+    await page.getByTestId("journal-viewer-enlarge").click();
+    await expect(page.getByTestId("project-journal")).toHaveAttribute(
+      "data-journal-layout",
+      "enlarged",
+    );
+    await expect(page.getByTestId("journal-viewer-aside")).toBeVisible();
+    await expect(page.getByTestId("journal-viewer-subject-kind")).toHaveText("Sujet autonome");
+    await shot(page, "04-runtime-835-159-sujet-agrandi.png");
+    await page.getByTestId("journal-viewer-reduce").click();
+
+    // 05 — enlarge parent
+    await page.getByTestId(`journal-subject-${seed.parentSubjectId}`).click();
+    await expect(page.getByTestId("journal-viewer-subject-kind")).toHaveText("Sujet parent");
+    await page.getByTestId("journal-viewer-enlarge").click();
+    await expect(page.getByTestId("project-journal")).toHaveAttribute(
+      "data-journal-layout",
+      "enlarged",
+    );
+    await expect(page.getByTestId("journal-viewer-aside")).toBeVisible();
+    await expect(page.getByTestId("journal-parent-children")).toBeVisible();
+    await expect(page.getByTestId("journal-viewer-subject-kind")).toHaveText("Sujet parent");
+    await shot(page, "05-runtime-835-239-parent-agrandi.png");
+    await page.getByTestId("journal-viewer-reduce").click();
+
+    // 06 — search results composition
+    await page.getByTestId("journal-search").fill("traçabilité");
+    await expect(page.getByTestId("journal-search-results")).toBeVisible();
+    await expect(page.getByTestId(`journal-match-${seed.leafSubjectId}`)).toBeVisible();
+    await page.getByTestId(`journal-match-${seed.leafSubjectId}`).click();
+    await expect(page.getByTestId("journal-viewer")).toHaveAttribute("data-viewer-kind", "autonomous");
+    await assertViewerBox(page.getByTestId("journal-viewer"));
+    await shot(page, "06-runtime-859-42-recherche-sujets.png");
+
+    // 07 — open points transversal
+    await page.getByTestId("journal-filter-open-points").click();
+    await expect(page.getByTestId("journal-filter-open-points")).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    await expect(page.getByTestId("journal-open-points-list")).toBeVisible();
+    await shot(page, "07-runtime-859-146-filtre-points.png");
+    await page.getByTestId("journal-filter-open-points").click();
+    await page.getByTestId("journal-search").fill("");
+
+    // 08 — decisions nominal
+    await page.getByTestId("journal-tab-decisions").click();
+    await expect(page.getByTestId("journal-decision-list")).toBeVisible();
+    await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "full");
+    await shot(page, "08-runtime-860-58-decisions-nominales.png");
+
+    // 09 — decision 40/60
+    await page.getByTestId(`journal-decision-${seed.decisionApplicableId}`).click();
+    await expect(page.getByTestId("journal-decision-viewer")).toBeVisible();
+    await expect(page.getByTestId("journal-viewer")).toHaveAttribute("data-viewer-kind", "decision");
+    await assertViewerBox(page.getByTestId("journal-viewer"));
+    await shot(page, "09-runtime-860-136-decision-40-60.png");
+
+    // 10 — decision search
+    await page.getByTestId("journal-search").fill("multicritèreorion");
+    await expect(page.getByTestId(`journal-decision-${seed.decisionApplicableId}`)).toBeVisible();
+    await shot(page, "10-runtime-860-251-recherche-decisions.png");
+
+    // 11 — decision enlarged
+    await page.getByTestId("journal-viewer-enlarge").click();
+    await expect(page.getByTestId("project-journal")).toHaveAttribute(
+      "data-journal-layout",
+      "enlarged",
+    );
+    await expect(page.getByTestId("journal-decision-aside")).toBeVisible();
+    await shot(page, "11-runtime-860-360-decision-agrandie.png");
+
+    // Empty project
+    await page.getByTestId("studio-rail").getByRole("link", { name: /Portefeuille/i }).click();
+    await page.waitForURL("**/portfolio", { timeout: 20000 });
+    await openNewPreparation(page);
+    await sendPrepMessage(page, "Projet vide journal");
+    const emptyName = uniqueProjectName("Journal Empty");
+    await constituteAndCreateProject(page, {
+      name: emptyName,
+      summary: "empty",
+      alreadyUnique: true,
+    });
+    await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
+    await expect(page.getByTestId("journal-empty-structure")).toBeVisible({ timeout: 20000 });
+    await expect(page.getByTestId("journal-title")).toHaveText("Journal");
+    await expect(page.getByTestId("journal-viewer")).toHaveCount(0);
+    await shot(page, "00-runtime-empty-exploration.png");
+
+    fs.writeFileSync(
+      path.join(OUT, "capture-report.json"),
+      JSON.stringify(
+        {
+          projectId,
+          seed,
+          out: OUT,
+          ok: true,
+          distinctions: { leafTitle, parentTitle },
+        },
+        null,
+        2,
+      ),
+    );
+  });
+});
+
+```
+
+## 7. CREATE FULL — journal-v4-parcours.spec.ts
 ```ts
 import { test, expect, type Page } from "@playwright/test";
 import {
@@ -2057,21 +1730,31 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     // C — J-C08 recherche terme ABSENT du titre/parents/synthèse, PRÉSENT dans acquis
     await page.getByTestId("journal-search").fill("traçabilité");
     const matchBadge = page.getByTestId(`journal-match-${seed.leafSubjectId}`);
+    await expect(page.getByTestId("journal-search-results")).toBeVisible();
     await expect(matchBadge).toBeVisible();
-    await expect(matchBadge).toHaveText(/acquis/i);
-    await page.getByTestId("journal-filter-open-points").click();
+    await expect(matchBadge).toContainText(/acquis/i);
 
-    // B — 40/60 + enlarge (non conditionnel)
-    await leaf.click();
+    // B — 40/60 + enlarge via résultat de recherche (liste résultats, pas arbre)
+    await matchBadge.click();
     await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "split");
     await expect(page.getByTestId("journal-viewer-subject-title")).toBeVisible();
+    await expect(page.getByTestId("journal-viewer")).toHaveAttribute("data-viewer-kind", "autonomous");
     await page.getByTestId("journal-viewer-enlarge").click();
     await expect(page.getByTestId("project-journal")).toHaveAttribute(
       "data-journal-layout",
       "enlarged",
     );
+    await expect(page.getByTestId("journal-viewer-aside")).toBeVisible();
     await page.getByTestId("journal-viewer-reduce").click();
     await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "split");
+
+    // Filtre points ouverts (vue transversale) — conserve recherche + sélection
+    await page.getByTestId("journal-filter-open-points").click();
+    await expect(page.getByTestId("journal-filter-open-points")).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    await expect(page.getByTestId("journal-open-points-list")).toBeVisible();
 
     await page.screenshot({
       path: "../../.tmp-sfia-review/journal-v4-captures/runtime-1680-sujet-40-60-seeded.png",
@@ -2080,7 +1763,6 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
 
     // Keep selection + search for return assertions
     await expect(page.getByTestId("journal-search")).toHaveValue("traçabilité");
-
     // Sources → message exact (chip on selected leaf)
     const sourceChip = page.locator("[data-testid^=journal-source-]").first();
     await expect(sourceChip).toBeVisible({ timeout: 10000 });
@@ -2106,7 +1788,8 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     }
     await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
     await expect(page.getByTestId("journal-search")).toHaveValue("traçabilité");
-    await expect(page.getByTestId(`journal-subject-${seed.leafSubjectId}`)).toBeVisible();
+    await expect(page.getByTestId("journal-open-points-list")).toBeVisible();
+    await expect(page.getByTestId("journal-viewer-subject-title")).toBeVisible();
     await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "split");
     await expect(page.getByTestId("journal-filter-open-points")).toHaveAttribute(
       "aria-pressed",
@@ -2171,2175 +1854,7 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
 
 ```
 
-### CREATE FULL — page.tsx (état HEAD)
-```tsx
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { PilotagePanel } from "@/components/PilotagePanel";
-import { ProjectChrome } from "@/components/figma/ProjectChrome";
-import { NoraConversation } from "@/components/figma/NoraConversation";
-import { TravailViewer, type TravailViewerResource } from "@/components/figma/TravailViewer";
-import {
-  ProjectJournal,
-  type JournalContradiction,
-  type JournalDecision,
-  type JournalNavState,
-  type JournalRestriction,
-  type JournalSourceLink,
-} from "@/components/figma/ProjectJournal";
-import { ProjectOverview } from "@/components/figma/ProjectOverview";
-import {
-  ProjectUnavailable,
-  type ProjectUnavailableKind,
-} from "@/components/figma/ProjectUnavailable";
-import {
-  DocumentHistory,
-  DocumentInspector,
-  DocumentLibrary,
-  type RevisionRow,
-} from "@/components/figma/DocumentSurfaces";
-import {
-  conversationalClientCommandKey,
-  mayClearComposerDraftOnReconcile,
-  pendingStorageKey,
-  shouldClearThreadPending,
-  type ThreadPendingTurn,
-  type ThreadTurnKind,
-} from "@/domains/pilotage/thread-recovery";
-import {
-  clearDraftAfterAck,
-  clearComposerDraft,
-  purgeAllComposerDraftsInTab,
-  purgeComposerDraftsForPilot,
-  readComposerDraft,
-  writeComposerDraft,
-  studioClientLane,
-} from "@/domains/conversation/composer-draft";
-import {
-  resolveActionableProjections,
-  type TurnChoice,
-  type TurnProjection,
-  type TurnReference,
-  parseTurnProjection,
-} from "@/domains/conversation/turn-projection";
-import { PublicationInspectionPanel } from "@/components/integrations/PublicationInspectionPanel";
-import { useProjectSpace } from "@/components/shell/ProjectSpaceContext";
-import {
-  clearProjectSurfaceNavIntent,
-  noteProjectSurfaceNavIntent,
-  peekProjectSurfaceNavIntent,
-  resolveProjectLoadSurface,
-  type StudioSurface,
-} from "@/components/shell/studio-rail";
-
-type Msg = {
-  id: string;
-  role: string;
-  content: string;
-  status: string;
-  /** ISO timestamp — used to keep chronological order when hydrating a deep-linked message (E06-04). */
-  createdAt?: string;
-};
-type Doc = {
-  document: { id: string; title: string };
-  latestRevision?: {
-    id: string;
-    revisionNumber: number;
-    status: string;
-    contentMarkdown: string;
-  } | null;
-};
-type Knowledge = {
-  preparationIds?: string[];
-  subjects: Array<{
-    id: string;
-    title: string;
-    status: string;
-    parentSubjectId: string | null;
-    originatedFromSubjectId: string | null;
-    summary?: { revisionNumber: number; summaryMarkdown: string } | null;
-  }>;
-  acquis: Array<{ id: string; kind: string; statement: string; status: string; subjectId: string | null }>;
-  openPoints: Array<{ id: string; statement: string; status: string; subjectId: string | null }>;
-};
-
-type Surface =
-  | "travail"
-  | "projet"
-  | "pilotage"
-  | "journal"
-  | "document"
-  | "git"
-  | "publication";
-type DocUiState = "READING" | "EDITING" | "SAVING" | "CONFLICT" | "FAILED" | "UNKNOWN";
-
-const SURFACES: Surface[] = [
-  "travail",
-  "projet",
-  "pilotage",
-  "journal",
-  "document",
-  "git",
-  "publication",
-];
-
-function parseSurface(raw: string | null): Surface | null {
-  if (!raw) return null;
-  return SURFACES.includes(raw as Surface) ? (raw as Surface) : null;
-}
-
-type PilotageEffectView = {
-  attempted?: boolean;
-  intentClarity?: string;
-  intentReason?: string;
-  status?: string | null;
-  reasonCode?: string | null;
-  reason?: string | null;
-  operation?: string;
-  decisionId?: string | null;
-  clarification?: string;
-  clientCommandKey?: string;
-};
-
-function formatPilotageEffect(
-  effect: PilotageEffectView | null | undefined,
-  humanDecisionCreated?: boolean,
-): string {
-  if (!effect) return "";
-  if (effect.attempted) {
-    return [
-      effect.operation ?? "commande",
-      effect.status ?? "?",
-      effect.reasonCode ? `(${effect.reasonCode})` : null,
-      humanDecisionCreated && effect.decisionId ? `décision ${effect.decisionId}` : null,
-    ]
-      .filter(Boolean)
-      .join(" · ");
-  }
-  if (effect.clarification) return `Clarification · ${effect.clarification}`;
-  if (effect.intentClarity === "AMBIGUOUS") {
-    return `Intention ambiguë · ${effect.intentReason ?? effect.reason ?? ""}`;
-  }
-  return "";
-}
-
-export default function ProjectPage() {
-  const params = useParams<{ projectId: string }>();
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const { setInfo: setProjectSpaceInfo } = useProjectSpace();
-  const [messages, setMessages] = useState<Msg[]>([]);
-  const [documents, setDocuments] = useState<Doc[]>([]);
-  const [knowledge, setKnowledge] = useState<Knowledge | null>(null);
-  const [journalDecisions, setJournalDecisions] = useState<JournalDecision[]>([]);
-  const [journalRestrictions, setJournalRestrictions] = useState<JournalRestriction[]>([]);
-  const [journalSources, setJournalSources] = useState<JournalSourceLink[]>([]);
-  const [journalContradictions, setJournalContradictions] = useState<JournalContradiction[]>([]);
-  const [journalNav, setJournalNav] = useState<JournalNavState | null>(null);
-  const [focusMessageId, setFocusMessageId] = useState<string | null>(null);
-  const [focusStatus, setFocusStatus] = useState<string | null>(null);
-  const [preparationId, setPreparationId] = useState<string | null>(null);
-  const [projectName, setProjectName] = useState<string | null>(null);
-  const [statusHint, setStatusHint] = useState("Chargement…");
-  const [unavailableKind, setUnavailableKind] = useState<ProjectUnavailableKind | null>(null);
-  const [loadEpoch, setLoadEpoch] = useState(0);
-  /** Observable end of project load + surface URL sync (e2e / anti-race proof). */
-  const [projectLoadState, setProjectLoadState] = useState<"loading" | "ready">("loading");
-  const [surface, setSurface] = useState<Surface>(() => parseSurface(searchParams.get("surface")) ?? "travail");
-  const [draft, setDraft] = useState("");
-  const [busy, setBusy] = useState(false);
-  const [pilotId, setPilotId] = useState<string | null>(null);
-  const [turnProjections, setTurnProjections] = useState<TurnProjection[]>([]);
-  const [choiceFrozen, setChoiceFrozen] = useState(false);
-  const [forceStickToken, setForceStickToken] = useState(0);
-  const [viewer, setViewer] = useState<TravailViewerResource | null>(null);
-  const [viewerEnlarged, setViewerEnlarged] = useState(false);
-  const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
-  const [status, setStatus] = useState("");
-  const [pilotageStatus, setPilotageStatus] = useState("");
-  const [inspect, setInspect] = useState<Doc | null>(null);
-  const [docUi, setDocUi] = useState<DocUiState>("READING");
-  const [reviseDraft, setReviseDraft] = useState("");
-  const [reviseMessage, setReviseMessage] = useState("");
-  const [docMissing, setDocMissing] = useState("");
-  const [docHistory, setDocHistory] = useState<RevisionRow[]>([]);
-  const [docDiffText, setDocDiffText] = useState("");
-  const [unresolvedPending, setUnresolvedPending] = useState<ThreadPendingTurn | null>(null);
-  const draftVersionRef = useRef(0);
-  const pilotIdRef = useRef<string | null>(null);
-  const preparationIdRef = useRef<string | null>(null);
-  const projectIdRef = useRef(params.projectId);
-  const messageTurnKeyRef = useRef<{ content: string; key: string } | null>(null);
-  const reviseCorrelationRef = useRef<string | null>(null);
-  const reviseBaseIdRef = useRef<string | null>(null);
-  const documentsRef = useRef<Doc[]>([]);
-  const docUiRef = useRef<DocUiState>("READING");
-  const reviseDraftRef = useRef("");
-  /** Surface chosen by chrome/rail while project load() is still in flight — must not be clobbered. */
-  const pendingSurfaceRef = useRef<Surface | null>(null);
-  /** C1 — ignore stale async viewer responses after A→B / close / project change. */
-  const viewerRequestSeqRef = useRef(0);
-  const viewerOpenRef = useRef(false);
-  /** Invalidates in-flight Journal→Travail deep-links when the user navigates away. */
-  const surfaceNavGenRef = useRef(0);
-
-  useEffect(() => {
-    // Clear previous project identity immediately — no cross-project leak in the rail.
-    setProjectSpaceInfo({
-      projectId: params.projectId,
-      projectName: null,
-      subtitle: null,
-      available: false,
-      blockNavigation: false,
-    });
-    return () => {
-      setProjectSpaceInfo(null);
-    };
-  }, [params.projectId, setProjectSpaceInfo]);
-
-  useEffect(() => {
-    docUiRef.current = docUi;
-  }, [docUi]);
-  useEffect(() => {
-    reviseDraftRef.current = reviseDraft;
-  }, [reviseDraft]);
-  useEffect(() => {
-    documentsRef.current = documents;
-  }, [documents]);
-  useEffect(() => {
-    pilotIdRef.current = pilotId;
-  }, [pilotId]);
-
-  useEffect(() => {
-    preparationIdRef.current = preparationId;
-  }, [preparationId]);
-
-  useEffect(() => {
-    if (surface !== "journal") return;
-    let cancelled = false;
-    void (async () => {
-      const res = await fetch(`/api/projects/${params.projectId}/journal`);
-      if (!res.ok || cancelled) return;
-      const body = (await res.json()) as {
-        knowledge?: Knowledge;
-        decisions?: Array<{
-          id: string;
-          kind: string;
-          state: string;
-          scope: string;
-          statement: string;
-          objectRef: string;
-          effectiveAt: string;
-          createdAt: string;
-          applicable?: boolean;
-          supersededByDecisionId?: string | null;
-          explanation?: JournalDecision["explanation"];
-        }>;
-        restrictions?: JournalRestriction[];
-        sourceLinks?: JournalSourceLink[];
-        contradictions?: JournalContradiction[];
-      };
-      if (cancelled) return;
-      if (body.knowledge) setKnowledge(body.knowledge);
-      setJournalDecisions(
-        (body.decisions ?? []).map((d) => ({
-          id: d.id,
-          kind: d.kind,
-          state: d.state,
-          scope: d.scope,
-          statement: d.statement,
-          objectRef: d.objectRef,
-          effectiveAt:
-            typeof d.effectiveAt === "string"
-              ? d.effectiveAt
-              : new Date(d.effectiveAt as unknown as string).toISOString(),
-          createdAt:
-            typeof d.createdAt === "string"
-              ? d.createdAt
-              : new Date(d.createdAt as unknown as string).toISOString(),
-          applicable: d.applicable,
-          supersededByDecisionId: d.supersededByDecisionId ?? null,
-          explanation: d.explanation ?? null,
-        })),
-      );
-      setJournalRestrictions(body.restrictions ?? []);
-      setJournalSources(body.sourceLinks ?? []);
-      setJournalContradictions(body.contradictions ?? []);
-    })();
-    return () => {
-      cancelled = true;
-    };
-    // Refresh when entering Journal surface / project — not on every knowledge identity change
-    // (that cancelled in-flight loads and dropped sourceLinks intermittently).
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [surface, params.projectId]);
-
-  useEffect(() => {
-    projectIdRef.current = params.projectId;
-    // Invalidate in-flight viewer fetches when project changes.
-    viewerRequestSeqRef.current += 1;
-    viewerOpenRef.current = false;
-    setViewer(null);
-    setViewerEnlarged(false);
-  }, [params.projectId]);
-
-  function persistDraft(text: string) {
-    if (!pilotId) return;
-    draftVersionRef.current += 1;
-    const prior = readComposerDraft({ pilotId, projectId: params.projectId });
-    writeComposerDraft({
-      schemaVersion: "e05-composer-draft-v1",
-      pilotId,
-      projectId: params.projectId,
-      lane: studioClientLane(),
-      text,
-      version: draftVersionRef.current,
-      sentVersion: prior?.sentVersion ?? null,
-      updatedAt: new Date().toISOString(),
-    });
-  }
-
-  function closeViewer() {
-    viewerRequestSeqRef.current += 1;
-    viewerOpenRef.current = false;
-    setViewer(null);
-    setViewerEnlarged(false);
-  }
-
-  function applyViewerIfCurrent(
-    seq: number,
-    next: TravailViewerResource,
-    projectIdAtStart: string,
-  ) {
-    if (seq !== viewerRequestSeqRef.current) return;
-    if (!viewerOpenRef.current) return;
-    if (projectIdRef.current !== projectIdAtStart) return;
-    setViewer(next);
-    setViewerEnlarged(false);
-  }
-
-  type D4RevisionPayload = {
-    status?: string;
-    document?: { id?: string; title?: string };
-    revision?: {
-      id?: string;
-      revisionNumber?: number;
-      status?: string;
-      contentMarkdown?: string;
-    };
-    revisions?: Array<{
-      id?: string;
-      revisionNumber?: number;
-      status?: string;
-      contentMarkdown?: string;
-    }>;
-    reason?: string;
-    error?: string;
-  };
-
-  /**
-   * Final A — every Travail open revalidates rights via D4 at click time.
-   * Never treat React-cached latestRevision as a freshly authorized read.
-   */
-  async function fetchDocumentViewerViaD4(input: {
-    documentId: string;
-    titleHint: string;
-    revisionId?: string | null;
-    versionSource: "exact" | "current";
-    seq: number;
-    projectIdAtStart: string;
-  }) {
-    const prepId = preparationIdRef.current;
-    if (!prepId) {
-      applyViewerIfCurrent(
-        input.seq,
-        {
-          kind: "document",
-          documentId: input.documentId,
-          title: input.titleHint,
-          revisionId: input.revisionId ?? null,
-          revisionNumber: null,
-          versionSource: input.versionSource,
-          markdown: null,
-          available: false,
-          unavailableReason: "Préparation indisponible — lecture D4 impossible.",
-        },
-        input.projectIdAtStart,
-      );
-      return;
-    }
-
-    try {
-      let targetRevisionId = input.revisionId?.trim() || "";
-      let title = input.titleHint;
-
-      if (!targetRevisionId) {
-        // Resolve current revision under live ownership check (list endpoint).
-        const listRes = await fetch(
-          `/api/preparations/${prepId}/documents/${input.documentId}`,
-        );
-        const listBody = (await listRes.json().catch(() => ({}))) as D4RevisionPayload;
-        if (listRes.status === 401) {
-          purgeAllComposerDraftsInTab();
-          applyViewerIfCurrent(
-            input.seq,
-            {
-              kind: "document",
-              documentId: input.documentId,
-              title,
-              revisionId: null,
-              revisionNumber: null,
-              versionSource: "current",
-              markdown: null,
-              available: false,
-              unavailableReason: "Session expirée — contenu non affiché.",
-            },
-            input.projectIdAtStart,
-          );
-          return;
-        }
-        if (!listRes.ok || listBody.status === "FORBIDDEN") {
-          applyViewerIfCurrent(
-            input.seq,
-            {
-              kind: "document",
-              documentId: input.documentId,
-              title,
-              revisionId: null,
-              revisionNumber: null,
-              versionSource: "current",
-              markdown: null,
-              available: false,
-              unavailableReason: String(
-                listBody.reason ??
-                  listBody.error ??
-                  listBody.status ??
-                  "Document introuvable ou non autorisé",
-              ),
-            },
-            input.projectIdAtStart,
-          );
-          return;
-        }
-        title = listBody.document?.title ?? title;
-        const revisions = Array.isArray(listBody.revisions) ? listBody.revisions : [];
-        const availableRevs = revisions
-          .filter((r) => r && r.id && String(r.status ?? "").toUpperCase() === "AVAILABLE")
-          .sort(
-            (a, b) => Number(b.revisionNumber ?? 0) - Number(a.revisionNumber ?? 0),
-          );
-        const current = availableRevs[0] ?? null;
-        if (!current?.id) {
-          applyViewerIfCurrent(
-            input.seq,
-            {
-              kind: "document",
-              documentId: input.documentId,
-              title,
-              revisionId: null,
-              revisionNumber: null,
-              versionSource: "current",
-              markdown: null,
-              available: false,
-              unavailableReason: "Aucune révision disponible pour ce document.",
-            },
-            input.projectIdAtStart,
-          );
-          return;
-        }
-        targetRevisionId = current.id;
-      }
-
-      const res = await fetch(
-        `/api/preparations/${prepId}/documents/${input.documentId}?revisionId=${encodeURIComponent(targetRevisionId)}`,
-      );
-      const j = (await res.json().catch(() => ({}))) as D4RevisionPayload;
-      if (res.status === 401) {
-        purgeAllComposerDraftsInTab();
-        applyViewerIfCurrent(
-          input.seq,
-          {
-            kind: "document",
-            documentId: input.documentId,
-            title,
-            revisionId: targetRevisionId,
-            revisionNumber: null,
-            versionSource: input.versionSource,
-            markdown: null,
-            available: false,
-            unavailableReason: "Session expirée — contenu non affiché.",
-          },
-          input.projectIdAtStart,
-        );
-        return;
-      }
-      if (!res.ok || j.status === "FORBIDDEN" || j.status === "NOT_FOUND") {
-        applyViewerIfCurrent(
-          input.seq,
-          {
-            kind: "document",
-            documentId: input.documentId,
-            title,
-            revisionId: targetRevisionId,
-            revisionNumber: null,
-            versionSource: input.versionSource,
-            markdown: null,
-            available: false,
-            unavailableReason: String(
-              j.reason ?? j.error ?? j.status ?? "Révision inaccessible ou non autorisée",
-            ),
-          },
-          input.projectIdAtStart,
-        );
-        return;
-      }
-      const rev = j.revision;
-      const markdown =
-        j.status === "AVAILABLE" && typeof rev?.contentMarkdown === "string"
-          ? rev.contentMarkdown
-          : null;
-      applyViewerIfCurrent(
-        input.seq,
-        {
-          kind: "document",
-          documentId: input.documentId,
-          title: j.document?.title ?? title,
-          revisionId: rev?.id ?? targetRevisionId,
-          revisionNumber: rev?.revisionNumber ?? null,
-          versionSource: input.versionSource,
-          markdown,
-          available: Boolean(markdown),
-          unavailableReason: markdown
-            ? undefined
-            : `Révision non disponible (${String(j.status ?? rev?.status ?? "UNKNOWN")})`,
-        },
-        input.projectIdAtStart,
-      );
-    } catch {
-      applyViewerIfCurrent(
-        input.seq,
-        {
-          kind: "document",
-          documentId: input.documentId,
-          title: input.titleHint,
-          revisionId: input.revisionId ?? null,
-          revisionNumber: null,
-          versionSource: input.versionSource,
-          markdown: null,
-          available: false,
-          unavailableReason: "Échec de lecture D4 — aucun contenu inventé.",
-        },
-        input.projectIdAtStart,
-      );
-    }
-  }
-
-  /** En bref / library open — always live D4 current version. */
-  function openTravailDocument(doc: Doc) {
-    const projectIdAtStart = params.projectId;
-    const seq = ++viewerRequestSeqRef.current;
-    viewerOpenRef.current = true;
-    // Placeholder while rights + current revision are revalidated.
-    setViewer({
-      kind: "document",
-      documentId: doc.document.id,
-      title: doc.document.title,
-      revisionId: null,
-      revisionNumber: null,
-      versionSource: "current",
-      markdown: null,
-      available: false,
-      unavailableReason: "Vérification des droits et de la version courante…",
-    });
-    setViewerEnlarged(false);
-    void fetchDocumentViewerViaD4({
-      documentId: doc.document.id,
-      titleHint: doc.document.title,
-      revisionId: null,
-      versionSource: "current",
-      seq,
-      projectIdAtStart,
-    });
-  }
-
-  /** C1/Final A — exact revision or live current via D4; D9 Git via existing APIs. */
-  async function openTravailReference(ref: TurnReference) {
-    const projectIdAtStart = params.projectId;
-    const seq = ++viewerRequestSeqRef.current;
-    viewerOpenRef.current = true;
-
-    if (ref.kind === "document" && ref.resourceId) {
-      const match = documents.find((d) => d.document.id === ref.resourceId);
-      const title = match?.document.title ?? ref.label;
-      await fetchDocumentViewerViaD4({
-        documentId: ref.resourceId,
-        titleHint: title,
-        revisionId: ref.revisionId ?? null,
-        versionSource: ref.revisionId ? "exact" : "current",
-        seq,
-        projectIdAtStart,
-      });
-      return;
-    }
-    if (ref.kind === "git") {
-      if (!ref.repositoryId || !ref.path || !ref.ref) {
-        applyViewerIfCurrent(
-          seq,
-          {
-            kind: "git",
-            title: ref.label,
-            path: ref.path ?? null,
-            ref: ref.ref ?? null,
-            commit: ref.commit ?? null,
-            content: null,
-            available: false,
-            unavailableReason:
-              "Référence Git incomplète (dépôt, chemin ou ref manquant) — aucun aperçu inventé.",
-            href: ref.href ?? null,
-          },
-          projectIdAtStart,
-        );
-        return;
-      }
-      try {
-        const q = new URLSearchParams({
-          repositoryId: ref.repositoryId,
-          path: ref.path,
-          ref: ref.ref,
-        });
-        const res = await fetch(`/api/projects/${params.projectId}/git/file?${q.toString()}`);
-        const j = (await res.json().catch(() => ({}))) as {
-          content?: string;
-          provenance?: { commitSha?: string | null; permalink?: string | null };
-          error?: string;
-          errorCategory?: string;
-        };
-        const prov = j.provenance;
-        if (!res.ok) {
-          applyViewerIfCurrent(
-            seq,
-            {
-              kind: "git",
-              title: ref.label,
-              path: ref.path,
-              ref: ref.ref,
-              commit: prov?.commitSha ?? ref.commit ?? null,
-              content: null,
-              available: false,
-              unavailableReason: String(
-                j.error ?? j.errorCategory ?? "Source Git indisponible ou droits insuffisants",
-              ),
-              href: prov?.permalink ?? ref.href ?? null,
-            },
-            projectIdAtStart,
-          );
-        } else {
-          const content = typeof j.content === "string" ? j.content : null;
-          applyViewerIfCurrent(
-            seq,
-            {
-              kind: "git",
-              title: ref.label,
-              path: ref.path,
-              ref: ref.ref,
-              commit: prov?.commitSha ?? ref.commit ?? null,
-              content,
-              available: Boolean(content),
-              unavailableReason: content
-                ? undefined
-                : "Aperçu Git vide — aucun contenu inventé.",
-              href: prov?.permalink ?? ref.href ?? null,
-            },
-            projectIdAtStart,
-          );
-        }
-      } catch {
-        applyViewerIfCurrent(
-          seq,
-          {
-            kind: "git",
-            title: ref.label,
-            path: ref.path,
-            ref: ref.ref,
-            commit: ref.commit ?? null,
-            content: null,
-            available: false,
-            unavailableReason: "Échec de lecture Git — réessayez ou ouvrez la source externe.",
-            href: ref.href ?? null,
-          },
-          projectIdAtStart,
-        );
-      }
-      return;
-    }
-    applyViewerIfCurrent(
-      seq,
-      {
-        kind: "git",
-        title: ref.label,
-        content: null,
-        available: false,
-        unavailableReason: "Référence externe — ouvrir le lien si disponible.",
-        href: ref.href ?? null,
-      },
-      projectIdAtStart,
-    );
-  }
-
-  function buildSurfaceUrl(next: Surface, documentId?: string | null) {
-    const q = new URLSearchParams();
-    q.set("surface", next);
-    if (next === "document" && documentId) q.set("documentId", documentId);
-    return `/projects/${params.projectId}?${q.toString()}`;
-  }
-
-  /** push = entrée d'historique ; replace = normalisation sans nouvelle entrée. */
-  function syncSurfaceUrl(
-    next: Surface,
-    documentId?: string | null,
-    mode: "push" | "replace" = "push",
-  ) {
-    const href = buildSurfaceUrl(next, documentId);
-    if (mode === "replace") router.replace(href, { scroll: false });
-    else router.push(href, { scroll: false });
-  }
-
-  function selectSurface(next: Surface) {
-    surfaceNavGenRef.current += 1;
-    pendingSurfaceRef.current = next;
-    noteProjectSurfaceNavIntent(params.projectId, next as StudioSurface);
-    setSurface(next);
-    setDocMissing("");
-    if (next !== "document") {
-      setInspect(null);
-      setDocUi("READING");
-      setReviseDraft("");
-      setReviseMessage("");
-      reviseCorrelationRef.current = null;
-      reviseBaseIdRef.current = null;
-      syncSurfaceUrl(next, null, "push");
-    } else {
-      syncSurfaceUrl(next, inspect?.document.id ?? null, "push");
-    }
-  }
-
-  async function loadDocHistory(preparationIdValue: string, documentId: string) {
-    try {
-      const res = await fetch(
-        `/api/preparations/${preparationIdValue}/documents/${documentId}`,
-      );
-      if (!res.ok) {
-        setDocHistory([]);
-        return;
-      }
-      const j = await res.json();
-      const rows = (j.revisions ?? []) as Array<{
-        id: string;
-        revisionNumber: number;
-        status: string;
-        createdAt?: string;
-      }>;
-      setDocHistory(
-        rows.map((r) => ({
-          id: r.id,
-          revisionNumber: r.revisionNumber,
-          status: r.status,
-          createdAt: r.createdAt,
-        })),
-      );
-    } catch {
-      setDocHistory([]);
-    }
-  }
-
-  function openDocumentReadOnly(doc: Doc, mode: "push" | "replace" = "push") {
-    setInspect(doc);
-    setDocMissing("");
-    setDocUi("READING");
-    setReviseDraft(doc.latestRevision?.contentMarkdown ?? "");
-    setReviseMessage("");
-    setDocDiffText("");
-    reviseCorrelationRef.current = null;
-    reviseBaseIdRef.current = doc.latestRevision?.id ?? null;
-    setSurface("document");
-    syncSurfaceUrl("document", doc.document.id, mode);
-    if (preparationId) void loadDocHistory(preparationId, doc.document.id);
-  }
-
-  function applyUrlDocumentState(docs: Doc[], qSurface: Surface | null, qDocId: string | null) {
-    if (qSurface) setSurface(qSurface);
-    else setSurface("travail");
-
-    if (qSurface === "document") {
-      if (!qDocId) {
-        setInspect(null);
-        setDocMissing("");
-        return;
-      }
-      const match = docs.find((d) => d.document.id === qDocId);
-      if (match) {
-        setInspect(match);
-        setDocMissing("");
-        const ui = docUiRef.current;
-        const preserveDraft =
-          Boolean(reviseCorrelationRef.current) ||
-          ui === "EDITING" ||
-          ui === "SAVING" ||
-          ui === "CONFLICT" ||
-          ui === "UNKNOWN";
-        if (!preserveDraft) {
-          setDocUi("READING");
-          setReviseDraft(match.latestRevision?.contentMarkdown ?? "");
-        }
-      } else {
-        setInspect(null);
-        setDocMissing("Document introuvable ou non autorisé pour ce Pilote.");
-      }
-      return;
-    }
-    setInspect(null);
-    setDocMissing("");
-  }
-
-  function rememberPending(pending: ThreadPendingTurn | null) {
-    if (typeof sessionStorage === "undefined") return;
-    const key = pendingStorageKey(params.projectId);
-    if (!pending) {
-      sessionStorage.removeItem(key);
-      setUnresolvedPending(null);
-      return;
-    }
-    sessionStorage.setItem(key, JSON.stringify(pending));
-    setUnresolvedPending(pending);
-  }
-
-  function readPending(): ThreadPendingTurn | null {
-    if (typeof sessionStorage === "undefined") return null;
-    try {
-      const raw = sessionStorage.getItem(pendingStorageKey(params.projectId));
-      if (!raw) return null;
-      return JSON.parse(raw) as ThreadPendingTurn;
-    } catch {
-      return null;
-    }
-  }
-
-  async function refreshDurablePilotage() {
-    const projRes = await fetch(`/api/projects/${params.projectId}/pilotage`);
-    if (projRes.ok) {
-      const pj = await projRes.json();
-      const cycle = pj.pilotage?.cycle ?? pj.cycle;
-      if (cycle?.status === "ACTIVE") {
-        setPilotageStatus((prev) =>
-          prev.includes("OPEN_CYCLE") || prev.includes("ACTIVE")
-            ? prev
-            : `cycle ${cycle.cycleType} ACTIVE (relecture durable)`,
-        );
-      }
-    }
-  }
-
-  function applyClearFromResponse(
-    noraStatus: string | undefined,
-    effect: PilotageEffectView | undefined,
-    opts?: { preserveUnresolvedMetierPending?: boolean },
-  ) {
-    if (
-      shouldClearThreadPending({
-        noraStatus,
-        effectAttempted: effect?.attempted,
-        effectStatus: effect?.status,
-        preserveUnresolvedMetierPending: opts?.preserveUnresolvedMetierPending,
-      })
-    ) {
-      rememberPending(null);
-      messageTurnKeyRef.current = null;
-      return true;
-    }
-    // Independent cognitive COMPLETE over pending A: drop only this turn key,
-    // never the unresolved métier pending.
-    if (opts?.preserveUnresolvedMetierPending) {
-      messageTurnKeyRef.current = null;
-      return true;
-    }
-    return false;
-  }
-
-  function applyCognitiveRecoveryFromDurable(input: {
-    status: string;
-    effect: PilotageEffectView | undefined;
-    pending: ThreadPendingTurn;
-    noraMode?: string;
-  }): boolean {
-    const status = input.status.trim().toUpperCase();
-    setStatus(`Nora ${String(input.noraMode ?? "durable")} · ${status}`);
-    setPilotageStatus(formatPilotageEffect(input.effect, false));
-    const pendingCleared = applyClearFromResponse(status, input.effect);
-    if (!pendingCleared) {
-      // Métier UNKNOWN or non-terminal — keep pending; honest copy.
-      if (input.effect?.attempted === true) {
-        setStatus("Effet métier encore incertain — conserver la réconciliation.");
-        setChoiceFrozen(true);
-      } else if (status === "RUNNING" || status === "ACCEPTED") {
-        setStatus("Tentative encore en cours côté serveur — réessayer plus tard.");
-        setChoiceFrozen(true);
-      }
-      return false;
-    }
-    // Cognitive terminal without D7 — exit loop; never claim success; keep draft.
-    if (status === "UNKNOWN" || status === "INTERRUPTED" || status === "FAILED") {
-      setStatus(
-        "Réponse Nora non aboutie — historique conservé. Vous pouvez formuler une nouvelle demande. Aucune relance automatique.",
-      );
-      setNoraActivity("error");
-      setChoiceFrozen(false);
-      return true;
-    }
-    const decision = mayClearComposerDraftOnReconcile({
-      pending: input.pending,
-      currentDraftVersion: draftVersionRef.current,
-    });
-    if (
-      decision.clear &&
-      pilotId &&
-      clearDraftAfterAck({
-        pilotId,
-        projectId: params.projectId,
-        sentVersion: decision.sentVersion,
-        currentVersion: draftVersionRef.current,
-      })
-    ) {
-      setDraft("");
-    }
-    setChoiceFrozen(false);
-    setNoraActivity("idle");
-    return true;
-  }
-
-  async function reconcilePending(pending: ThreadPendingTurn) {
-    setBusy(true);
-    setChoiceFrozen(true);
-    try {
-      // 1) Durable D7 by business command key — métier authority when present.
-      const res = await fetch(
-        `/api/projects/${params.projectId}/pilotage/commands/by-key/${encodeURIComponent(pending.clientCommandKey)}`,
-      );
-      if (res.ok) {
-        const cmd = await res.json();
-        setPilotageStatus(
-          formatPilotageEffect(
-            {
-              attempted: true,
-              status: cmd.status,
-              reasonCode: cmd.reasonCode,
-              reason: cmd.reason,
-              operation: cmd.effects?.[0]?.effectKind ?? "commande",
-              decisionId: cmd.decisionId,
-              clientCommandKey: pending.clientCommandKey,
-            },
-            Boolean(cmd.decisionId) &&
-              (cmd.status === "APPLIED" || cmd.status === "ALREADY_APPLIED"),
-          ),
-        );
-        // CR-02: UNKNOWN métier stays pending; Nora status is irrelevant here.
-        if (cmd.status && String(cmd.status).toUpperCase() !== "UNKNOWN") {
-          rememberPending(null);
-          messageTurnKeyRef.current = null;
-          setChoiceFrozen(false);
-        } else {
-          setStatus("Effet métier encore incertain — réconciliation métier conservée.");
-          setChoiceFrozen(true);
-        }
-        await refreshDurablePilotage();
-        return;
-      }
-
-      if (!preparationId) return;
-
-      // 2) R05 — READ durable D3 turn by clientTurnKey (no Nora, no POST).
-      // A bare D7 404 is not proof of cognitive terminality by itself.
-      const lookup = await fetch(
-        `/api/preparations/${preparationId}/turns/by-key/${encodeURIComponent(pending.clientTurnKey)}`,
-      );
-      if (lookup.ok) {
-        const body = (await lookup.json()) as {
-          status?: string;
-          pilotageEffect?: PilotageEffectView | null;
-          noraMode?: string;
-        };
-        const status = String(body.status ?? "");
-        const effect = (body.pilotageEffect ?? undefined) as PilotageEffectView | undefined;
-        const cleared = applyCognitiveRecoveryFromDurable({
-          status,
-          effect,
-          pending,
-          noraMode: body.noraMode,
-        });
-        const proj = await fetch(`/api/projects/${params.projectId}`);
-        if (proj.ok) {
-          const pj = await proj.json();
-          setDocuments(pj.documents ?? []);
-          setKnowledge(pj.knowledge ?? null);
-          if (Array.isArray(pj.messages)) setMessages(pj.messages as Msg[]);
-        }
-        await refreshDurablePilotage();
-        if (cleared || status.toUpperCase() === "RUNNING" || status.toUpperCase() === "ACCEPTED") {
-          return;
-        }
-        // Non-clearable non-running without effect — fall through only if lookup incomplete.
-        if (status) return;
-      }
-
-      // 3) Turn not found or lookup failed — idempotent POST replay (same clientTurnKey).
-      // Terminal replay never invokes OpenAI; used for ACK/hydration gaps only.
-      setPilotageStatus(
-        `Tour introuvable ou non terminal — reprise idempotente de la même clé (${pending.clientTurnKey.slice(0, 18)}…)`,
-      );
-      const retry = await fetch(`/api/preparations/${preparationId}/messages`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          content: pending.content,
-          clientTurnKey: pending.clientTurnKey,
-        }),
-      });
-      const j = (await retry.json().catch(() => ({}))) as Record<string, unknown>;
-      if (retry.ok) {
-        setMessages((j.messages as Msg[]) ?? []);
-        const effect = j.pilotageEffect as PilotageEffectView | undefined;
-        const tp = parseTurnProjection(j.turnProjection);
-        if (tp) upsertTurnProjection(tp);
-        applyCognitiveRecoveryFromDurable({
-          status: String(j.status ?? ""),
-          effect,
-          pending,
-          noraMode: String(j.noraMode ?? ""),
-        });
-        const proj = await fetch(`/api/projects/${params.projectId}`);
-        if (proj.ok) {
-          const pj = await proj.json();
-          setDocuments(pj.documents ?? []);
-          setKnowledge(pj.knowledge ?? null);
-          if (Array.isArray(pj.messages)) setMessages(pj.messages);
-        }
-        await refreshDurablePilotage();
-      } else {
-        setChoiceFrozen(true);
-        setStatus(String(j.error ?? j.errorCategory ?? "réconciliation impossible"));
-      }
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  useEffect(() => {
-    let cancelled = false;
-    setProjectLoadState("loading");
-    setUnavailableKind(null);
-    setProjectName(null);
-    setStatusHint("Chargement…");
-    pendingSurfaceRef.current = null;
-    setProjectSpaceInfo({
-      projectId: params.projectId,
-      projectName: null,
-      subtitle: null,
-      available: false,
-      blockNavigation: false,
-    });
-
-    async function load() {
-      const res = await fetch(`/api/projects/${params.projectId}`);
-      if (cancelled) return;
-      if (res.status === 401) {
-        // C3 — session invalid: purge tab drafts; do not restore under wrong identity.
-        purgeAllComposerDraftsInTab();
-        setPilotId(null);
-        setUnavailableKind("unauthorized");
-        setDraft("");
-        setChoiceFrozen(false);
-        setStatusHint("");
-        setProjectSpaceInfo({
-          projectId: params.projectId,
-          projectName: null,
-          subtitle: null,
-          available: false,
-          blockNavigation: true,
-        });
-        setProjectLoadState("ready");
-        return;
-      }
-      if (res.status === 404) {
-        setUnavailableKind("not_found");
-        setStatusHint("");
-        setProjectSpaceInfo({
-          projectId: params.projectId,
-          projectName: null,
-          subtitle: null,
-          available: false,
-          blockNavigation: true,
-        });
-        setProjectLoadState("ready");
-        return;
-      }
-      if (!res.ok) {
-        setUnavailableKind("temporary");
-        setStatusHint("");
-        setProjectSpaceInfo({
-          projectId: params.projectId,
-          projectName: null,
-          subtitle: null,
-          available: false,
-          blockNavigation: true,
-        });
-        setProjectLoadState("ready");
-        return;
-      }
-      const j = await res.json();
-      if (cancelled) return;
-      const docs = (j.documents ?? []) as Doc[];
-      const name = String(j.project?.name ?? "").trim() || null;
-      // C3 — draft ownership follows authenticated session pilot, not project owner alone.
-      const sessionPilotId =
-        typeof j.session?.pilotId === "string" && j.session.pilotId.trim()
-          ? String(j.session.pilotId)
-          : null;
-      setPilotId(sessionPilotId);
-      setTurnProjections(
-        ((j.turnProjections ?? []) as unknown[])
-          .map((raw) => parseTurnProjection(raw))
-          .filter((p): p is TurnProjection => p !== null),
-      );
-      setMessages(j.messages ?? []);
-      setDocuments(docs);
-      if (sessionPilotId) {
-        const record = readComposerDraft({
-          pilotId: sessionPilotId,
-          projectId: params.projectId,
-        });
-        if (record?.text && record.pilotId === sessionPilotId) {
-          setDraft(record.text);
-          draftVersionRef.current = record.version;
-        } else {
-          setDraft("");
-          draftVersionRef.current = 0;
-        }
-      } else {
-        setDraft("");
-        draftVersionRef.current = 0;
-      }
-      // P1-B: unresolved pending ⇒ keep choice groups frozen until reconcile.
-      const pendingOnLoad = readPending();
-      if (pendingOnLoad) {
-        setUnresolvedPending(pendingOnLoad);
-        setChoiceFrozen(true);
-      }
-      setKnowledge(j.knowledge ?? null);
-      setPreparationId(j.preparation?.id ?? null);
-      setProjectName(name);
-      setStatusHint(
-        j.preparation?.id
-          ? "Fil durable · préparation liée · réouverture par projet"
-          : "Fil durable · réouverture par projet",
-      );
-      setUnavailableKind(null);
-      setProjectSpaceInfo({
-        projectId: params.projectId,
-        projectName: name,
-        subtitle: null,
-        available: Boolean(name),
-        blockNavigation: false,
-      });
-
-      // Read *current* URL — never stale searchParams from effect closure (race with rail nav).
-      // Rail Links and chrome selectSurface share one project-scoped intent so load() cannot
-      // replace a more recent user surface (e.g. pilotage) with default travail.
-      const live =
-        typeof window !== "undefined"
-          ? new URL(window.location.href).searchParams
-          : searchParams;
-      const rawSurface = live.get("surface");
-      const qSurface = parseSurface(rawSurface);
-      const qDocId = live.get("documentId");
-      const pendingSurface =
-        pendingSurfaceRef.current ?? peekProjectSurfaceNavIntent(params.projectId);
-      const decision = resolveProjectLoadSurface({
-        rawSurface,
-        pendingIntent: pendingSurface,
-      });
-      applyUrlDocumentState(docs, decision.effectiveSurface as Surface, qDocId);
-      if (decision.shouldNormalizeUrl) {
-        const target = decision.effectiveSurface as Surface;
-        syncSurfaceUrl(target, target === "document" ? qDocId : null, "replace");
-      }
-      if (qSurface && pendingSurface && qSurface === pendingSurface) {
-        pendingSurfaceRef.current = null;
-        clearProjectSurfaceNavIntent(params.projectId, qSurface);
-      }
-
-      await refreshDurablePilotage();
-      if (cancelled) return;
-      const pending = readPending();
-      if (pending) {
-        setUnresolvedPending(pending);
-        messageTurnKeyRef.current = {
-          content: pending.content,
-          key: pending.clientTurnKey,
-        };
-        setPilotageStatus("Reprise en attente · tentative conservée");
-        // R05 — silent READ hydrate: clear stale cognitive pending from durable D3 truth.
-        const prepId = (j.preparation?.id as string | undefined) ?? null;
-        if (prepId) {
-          try {
-            const look = await fetch(
-              `/api/preparations/${prepId}/turns/by-key/${encodeURIComponent(pending.clientTurnKey)}`,
-            );
-            if (look.ok) {
-              const body = (await look.json()) as {
-                status?: string;
-                pilotageEffect?: PilotageEffectView | null;
-              };
-              if (
-                shouldClearThreadPending({
-                  noraStatus: body.status,
-                  effectAttempted: body.pilotageEffect?.attempted,
-                  effectStatus: body.pilotageEffect?.status,
-                })
-              ) {
-                rememberPending(null);
-                messageTurnKeyRef.current = null;
-                setChoiceFrozen(false);
-                setStatus(
-                  "Réponse Nora non aboutie (état durable) — vous pouvez formuler une nouvelle demande.",
-                );
-                setPilotageStatus("");
-              }
-            }
-          } catch {
-            /* keep pending — network hydrate is best-effort */
-          }
-        }
-      }
-
-      // G2 — silent COMMAND recovery (not GET): resume interrupted mission continuation
-      // without requiring the Pilot to reformulate the original intention.
-      try {
-        const resumeRes = await fetch(
-          `/api/projects/${params.projectId}/mission-continuation/resume`,
-          { method: "POST" },
-        );
-        if (resumeRes.ok) {
-          const resume = (await resumeRes.json()) as {
-            recovered?: boolean;
-            documentSave?: { documentId?: string; status?: string } | null;
-          };
-          if (resume.recovered) {
-            const refreshed = await fetch(`/api/projects/${params.projectId}`);
-            if (refreshed.ok) {
-              const rj = await refreshed.json();
-              if (cancelled) return;
-              setMessages(rj.messages ?? []);
-              setDocuments(rj.documents ?? []);
-              setKnowledge(rj.knowledge ?? null);
-              if (resume.documentSave?.documentId) {
-                setStatusHint("Fil durable · reprise de mission documentée");
-              }
-            }
-          }
-        }
-      } catch {
-        /* non-blocking */
-      }
-
-      // Mark ready only after surface sync from this load has been applied.
-      if (!cancelled) setProjectLoadState("ready");
-    }
-    void load();
-    return () => {
-      cancelled = true;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.projectId, router, loadEpoch]);
-
-  // B2 — keep surface/document in sync with URL on Back/Forward without one-shot lock.
-  useEffect(() => {
-    surfaceNavGenRef.current += 1;
-    const qSurface = parseSurface(searchParams.get("surface"));
-    const qDocId = searchParams.get("documentId");
-    applyUrlDocumentState(documentsRef.current, qSurface, qDocId);
-    if (qSurface && pendingSurfaceRef.current === qSurface) {
-      pendingSurfaceRef.current = null;
-    }
-    if (qSurface && peekProjectSurfaceNavIntent(params.projectId) === qSurface) {
-      clearProjectSurfaceNavIntent(params.projectId, qSurface);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
-
-  async function reconcileRevisionByCorrelation(
-    preparationIdValue: string,
-    documentId: string,
-    correlationKey: string,
-  ): Promise<{ found: boolean; status?: string; revisionId?: string }> {
-    try {
-      const res = await fetch(
-        `/api/preparations/${preparationIdValue}/documents/${documentId}`,
-      );
-      if (!res.ok) return { found: false };
-      const j = (await res.json()) as {
-        revisions?: Array<{ id: string; status: string; correlationKey?: string | null }>;
-      };
-      const hit = (j.revisions ?? []).find((r) => r.correlationKey === correlationKey);
-      if (!hit) return { found: false };
-      return { found: true, status: hit.status, revisionId: hit.id };
-    } catch {
-      return { found: false };
-    }
-  }
-
-  async function saveRevision() {
-    if (!preparationId || !inspect) return;
-    const baseId =
-      reviseBaseIdRef.current ?? inspect.latestRevision?.id ?? null;
-    if (!baseId) {
-      setDocUi("FAILED");
-      setReviseMessage("Base de révision absente.");
-      return;
-    }
-    if (!reviseCorrelationRef.current) {
-      reviseCorrelationRef.current =
-        typeof crypto !== "undefined" && "randomUUID" in crypto
-          ? `rev-${crypto.randomUUID()}`
-          : `rev-${Date.now()}`;
-    }
-    reviseBaseIdRef.current = baseId;
-    const correlationKey = reviseCorrelationRef.current;
-    const draftSnapshot = reviseDraftRef.current || reviseDraft;
-    setDocUi("SAVING");
-    setReviseMessage("");
-    try {
-      const res = await fetch(
-        `/api/preparations/${preparationId}/documents/${inspect.document.id}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            action: "revise",
-            baseRevisionId: baseId,
-            contentMarkdown: draftSnapshot,
-            correlationKey,
-          }),
-        },
-      );
-      const j = (await res.json().catch(() => ({}))) as {
-        status?: string;
-        reason?: string;
-        error?: string;
-        errorCategory?: string;
-        revisionId?: string;
-      };
-
-      // Prefer authoritative result.status over HTTP alone.
-      const resultStatus = String(j.status ?? "").toUpperCase();
-
-      if (res.status === 409 || resultStatus === "CONFLICT") {
-        setDocUi("CONFLICT");
-        setReviseMessage(
-          `${j.reason ?? "BASE_STALE"} — nouvelle base présentée ; brouillon conservé. Rebasage explicite requis.`,
-        );
-        // Refresh inspect (new base) but DO NOT overwrite reviseDraft.
-        const proj = await fetch(`/api/projects/${params.projectId}`);
-        if (proj.ok) {
-          const pj = await proj.json();
-          const docs = (pj.documents ?? []) as Doc[];
-          setDocuments(docs);
-          const fresh = docs.find((d) => d.document.id === inspect.document.id);
-          if (fresh) {
-            setInspect(fresh);
-            // Keep draft; update base pointer only when pilot accepts rebase.
-          }
-        }
-        return;
-      }
-
-      if (resultStatus === "AVAILABLE") {
-        const proj = await fetch(`/api/projects/${params.projectId}`);
-        if (proj.ok) {
-          const pj = await proj.json();
-          const docs = (pj.documents ?? []) as Doc[];
-          setDocuments(docs);
-          const fresh = docs.find((d) => d.document.id === inspect.document.id);
-          if (fresh) {
-            setInspect(fresh);
-            setReviseDraft(fresh.latestRevision?.contentMarkdown ?? draftSnapshot);
-            reviseBaseIdRef.current = fresh.latestRevision?.id ?? null;
-          }
-        }
-        reviseCorrelationRef.current = null;
-        setDocUi("READING");
-        setReviseMessage("Révision enregistrée (AVAILABLE).");
-        return;
-      }
-
-      if (resultStatus === "UNKNOWN" || resultStatus === "SAVING" || !res.ok) {
-        // ACK / intermediate — reconcile by correlationKey before any new intention.
-        const recon = await reconcileRevisionByCorrelation(
-          preparationId,
-          inspect.document.id,
-          correlationKey,
-        );
-        if (recon.found && recon.status === "AVAILABLE") {
-          const proj = await fetch(`/api/projects/${params.projectId}`);
-          if (proj.ok) {
-            const pj = await proj.json();
-            const docs = (pj.documents ?? []) as Doc[];
-            setDocuments(docs);
-            const fresh = docs.find((d) => d.document.id === inspect.document.id);
-            if (fresh) {
-              setInspect(fresh);
-              setReviseDraft(fresh.latestRevision?.contentMarkdown ?? draftSnapshot);
-              reviseBaseIdRef.current = fresh.latestRevision?.id ?? null;
-            }
-          }
-          reviseCorrelationRef.current = null;
-          setDocUi("READING");
-          setReviseMessage("Révision confirmée après relecture (AVAILABLE).");
-          return;
-        }
-        setDocUi(res.status === 401 ? "FAILED" : "UNKNOWN");
-        setReviseMessage(
-          recon.found
-            ? `État serveur ${recon.status} — brouillon et correlationKey conservés.`
-            : `ACK perdu / ${j.error ?? j.errorCategory ?? (resultStatus || `HTTP ${res.status}`)} — relecture sans match ; même clé pour retry.`,
-        );
-        return;
-      }
-
-      if (resultStatus === "FAILED") {
-        setDocUi("FAILED");
-        setReviseMessage(String(j.reason ?? j.error ?? "FAILED"));
-        return;
-      }
-
-      setDocUi("UNKNOWN");
-      setReviseMessage("Réponse non classée — aucune réussite affichée sans AVAILABLE.");
-    } catch {
-      const recon = preparationId
-        ? await reconcileRevisionByCorrelation(
-            preparationId,
-            inspect.document.id,
-            correlationKey,
-          )
-        : { found: false as const };
-      if (recon.found && recon.status === "AVAILABLE") {
-        reviseCorrelationRef.current = null;
-        setDocUi("READING");
-        setReviseMessage("Révision confirmée après relecture réseau (AVAILABLE).");
-        return;
-      }
-      setDocUi("UNKNOWN");
-      setReviseMessage(
-        "ACK perdu (réseau) — brouillon, base et correlationKey conservés ; pas de double mutation automatique.",
-      );
-    }
-  }
-
-  function acceptConflictRebase() {
-    if (!inspect?.latestRevision) return;
-    reviseBaseIdRef.current = inspect.latestRevision.id;
-    reviseCorrelationRef.current = null; // new intention after explicit rebase
-    setDocUi("EDITING");
-    setReviseMessage("Base mise à jour — nouvelle intention (nouvelle correlationKey au prochain enregistrement).");
-  }
-
-  function sendChoice(choice: TurnChoice, _messageId: string) {
-    void sendMessage(choice.transmitText, { fromChoice: true });
-  }
-
-  function upsertTurnProjection(tp: TurnProjection) {
-    setTurnProjections((prev) => {
-      const id = tp.messageId;
-      if (!id) return [...prev, tp];
-      const idx = prev.findIndex((p) => p.messageId === id);
-      if (idx < 0) return [...prev, tp];
-      const next = [...prev];
-      next[idx] = tp;
-      return next;
-    });
-  }
-
-  async function sendMessage(
-    overrideText?: string,
-    opts?: { fromChoice?: boolean },
-  ) {
-    const text = (overrideText ?? draft).trim();
-    if (!text || !preparationId) return;
-    const fromChoice = opts?.fromChoice === true;
-    const sentVersion = fromChoice ? null : draftVersionRef.current;
-    const pendingMeta: Pick<
-      ThreadPendingTurn,
-      "origin" | "sentDraftVersion" | "projectId" | "pilotId"
-    > = {
-      origin: fromChoice ? "choice" : "composer",
-      sentDraftVersion: sentVersion,
-      projectId: params.projectId,
-      pilotId: pilotIdRef.current,
-    };
-    setChoiceFrozen(true);
-    setForceStickToken((t) => t + 1);
-    // SEM-02 / S05: no client lexical gate. Server returns nextTurnKind from Nora
-    // qualification. Same-content retry reuses the turn key; distinct content may
-    // proceed — coexistence is decided from the server kind after the response.
-    const pendingBefore = unresolvedPending ?? readPending();
-    setBusy(true);
-    setNoraActivity("preparing");
-    // Same content reuses the same turn key until a terminal result clears it.
-    if (!messageTurnKeyRef.current || messageTurnKeyRef.current.content !== text) {
-      messageTurnKeyRef.current = {
-        content: text,
-        key:
-          typeof crypto !== "undefined" && "randomUUID" in crypto
-            ? `turn-${crypto.randomUUID()}`
-            : `turn-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`,
-      };
-    }
-    const clientTurnKey = messageTurnKeyRef.current.key;
-    const clientCommandKey = conversationalClientCommandKey(clientTurnKey);
-    const buildPending = (): ThreadPendingTurn => ({
-      content: text,
-      clientTurnKey,
-      clientCommandKey,
-      ...pendingMeta,
-    });
-    try {
-      const res = await fetch(`/api/preparations/${preparationId}/messages`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          content: text,
-          clientTurnKey,
-          unresolvedPendingClientTurnKey: pendingBefore?.clientTurnKey,
-        }),
-      });
-      let j: Record<string, unknown> = {};
-      try {
-        j = (await res.json()) as Record<string, unknown>;
-      } catch {
-        j = { errorCategory: "RESPONSE_PARSE_FAILED" };
-      }
-      if (res.ok) {
-        const serverKind = (j.nextTurnKind as ThreadTurnKind | undefined) ?? "INCERTAIN";
-        const independent = serverKind === "DIALOGUE_INDEPENDANT";
-        const effectBlocked = Boolean(j.pendingEffectBlocked);
-        const distinctFromUnresolved =
-          Boolean(pendingBefore) && pendingBefore!.clientTurnKey !== clientTurnKey;
-        // Remember effect turns for ACK recovery — never let B overwrite unresolved A.
-        if (serverKind === "INTENTION_EFFET" && !effectBlocked && !distinctFromUnresolved) {
-          rememberPending(buildPending());
-        } else if (distinctFromUnresolved && pendingBefore) {
-          rememberPending(pendingBefore);
-        }
-        const preserveMetierPending =
-          (independent || effectBlocked || distinctFromUnresolved) && Boolean(pendingBefore);
-        setMessages((j.messages as Msg[]) ?? []);
-        setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
-        const effect = j.pilotageEffect as PilotageEffectView | undefined;
-        setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
-        const tp = parseTurnProjection(j.turnProjection);
-        if (tp) upsertTurnProjection(tp);
-        const shouldClearDraft =
-          !effectBlocked &&
-          !distinctFromUnresolved &&
-          applyClearFromResponse(String(j.status ?? ""), effect, {
-            preserveUnresolvedMetierPending: preserveMetierPending,
-          });
-        if (!fromChoice && shouldClearDraft && typeof sentVersion === "number") {
-          if (
-            pilotId &&
-            clearDraftAfterAck({
-              pilotId,
-              projectId: params.projectId,
-              sentVersion,
-              currentVersion: draftVersionRef.current,
-            })
-          ) {
-            setDraft("");
-          } else if (!pilotId) {
-            setDraft("");
-          }
-        } else if (effectBlocked || (distinctFromUnresolved && serverKind === "INTENTION_EFFET")) {
-          setStatus(
-            effectBlocked
-              ? `Effet retenu — pending non résolu (${String(j.unresolvedPendingClientTurnKey ?? pendingBefore?.clientTurnKey ?? "A")})`
-              : "Intention précédente non résolue — réconcilier avant un nouveau tour.",
-          );
-        } else if (j.status === "UNKNOWN" || j.status === "FAILED" || j.status === "INTERRUPTED") {
-          setNoraActivity("error");
-          if (shouldClearDraft) {
-            setStatus(
-              "Réponse Nora non aboutie — historique conservé. Vous pouvez formuler une nouvelle demande. Aucune relance automatique.",
-            );
-          }
-        }
-        const proj = await fetch(`/api/projects/${params.projectId}`);
-        if (proj.ok) {
-          const pj = await proj.json();
-          setDocuments(pj.documents ?? []);
-          setKnowledge(pj.knowledge ?? null);
-        }
-        await refreshDurablePilotage();
-        setNoraActivity(
-          j.status === "UNKNOWN" || j.status === "FAILED" || j.status === "INTERRUPTED"
-            ? "error"
-            : "idle",
-        );
-        // R05: cognitive UNKNOWN/INTERRUPTED without métier clears pending → unfreeze.
-        // Métier UNKNOWN keeps freeze via shouldClearDraft === false.
-        if (
-          !shouldClearDraft &&
-          (String(j.status ?? "") === "UNKNOWN" || String(j.status ?? "") === "INTERRUPTED")
-        ) {
-          setChoiceFrozen(true);
-        } else {
-          setChoiceFrozen(false);
-        }
-      } else {
-        // ACK lost / HTTP error — retain turn key; KEEP choices frozen (server may have applied).
-        setChoiceFrozen(true);
-        rememberPending(buildPending());
-        setNoraActivity("error");
-        setStatus(
-          res.status === 409
-            ? `${String(j.errorCategory ?? j.error ?? "conflit")} — intention de tour conservée`
-            : String(j.error ?? j.errorCategory ?? "échec — tentative conservée"),
-        );
-      }
-    } catch {
-      // Network loss after click: fail closed — freeze until reconcile proves outcome.
-      setChoiceFrozen(true);
-      rememberPending(buildPending());
-      setNoraActivity("error");
-      setStatus("échec réseau — intention de tour conservée");
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  if (unavailableKind) {
-    return (
-      <ProjectUnavailable
-        kind={unavailableKind}
-        onRetry={
-          unavailableKind === "temporary"
-            ? () => {
-                setUnavailableKind(null);
-                setLoadEpoch((n) => n + 1);
-              }
-            : undefined
-        }
-        onLogin={
-          unavailableKind === "unauthorized" ? () => router.push("/login") : undefined
-        }
-      />
-    );
-  }
-
-  if (projectLoadState === "loading" && !projectName) {
-    return (
-      <div
-        data-testid="project-load-state"
-        data-project-load-state="loading"
-        data-project-id={params.projectId}
-      >
-        <ProjectUnavailable kind="loading" />
-      </div>
-    );
-  }
-
-  const travailLayout = viewer ? (viewerEnlarged ? "enlarged" : "split") : "normal";
-
-  return (
-    <ProjectChrome
-      projectId={params.projectId}
-      projectName={projectName}
-      surface={surface}
-      statusHint={statusHint}
-      loadState={projectLoadState}
-      travailLayout={travailLayout}
-    >
-      {surface === "projet" ? (
-        <ProjectOverview
-          projectId={params.projectId}
-          projectName={projectName ?? "Projet"}
-          preparationId={preparationId}
-          knowledge={knowledge}
-          documentCount={documents.length}
-          messageCount={messages.length}
-          onOpenTravail={() => selectSurface("travail")}
-        />
-      ) : null}
-
-      {surface === "travail" ? (
-        <NoraConversation
-          embeddedInStage
-          messages={messages}
-          draft={draft}
-          busy={busy || !preparationId}
-          unresolvedPending={Boolean(unresolvedPending)}
-          activity={noraActivity}
-          status={[status, pilotageStatus].filter(Boolean).join(" · ") || undefined}
-          projections={resolveActionableProjections({
-            messages,
-            projections: turnProjections,
-            suspendActions:
-              choiceFrozen ||
-              noraActivity === "preparing" ||
-              Boolean(unresolvedPending),
-          })}
-          onChoice={sendChoice}
-          onReference={(ref) => void openTravailReference(ref)}
-          choiceFrozen={choiceFrozen}
-          forceStickToken={forceStickToken}
-          layoutMode={travailLayout}
-          focusMessageId={focusMessageId}
-          focusStatus={focusStatus}
-          onFocusMessageHandled={() => {
-            setFocusMessageId(null);
-          }}
-          onDraft={(v) => {
-            setDraft(v);
-            persistDraft(v);
-          }}
-          onSend={() => void sendMessage()}
-          onReconcile={
-            unresolvedPending
-              ? () => void reconcilePending(unresolvedPending)
-              : undefined
-          }
-          aside={
-            viewer ? (
-              <TravailViewer
-                resource={viewer}
-                enlarged={viewerEnlarged}
-                onEnlarge={() => setViewerEnlarged(true)}
-                onReduce={() => setViewerEnlarged(false)}
-                onClose={closeViewer}
-                onOpenInDocuments={
-                  viewer.kind === "document"
-                    ? () => {
-                        const match = documents.find(
-                          (d) => d.document.id === viewer.documentId,
-                        );
-                        if (match) openDocumentReadOnly(match);
-                      }
-                    : undefined
-                }
-              />
-            ) : (
-            <div className="fig-inspector" data-testid="travail-aside-inspector">
-              <p className="fig-kicker">Contexte projet</p>
-              <h2 className="fig-inspector-title">En bref</h2>
-              <div className="fig-inspector-rule" aria-hidden />
-              <p className="fig-inspector-name" data-testid="travail-aside-bref">
-                {projectName ?? "Projet"}
-              </p>
-              <span className="fig-tag fig-tag-ok mt-2 inline-flex">
-                {statusHint && /reprise|conservé|durable/i.test(statusHint)
-                  ? "Contexte conservé"
-                  : "Projet actif"}
-              </span>
-              <div className="fig-inspector-rule" aria-hidden />
-              <p className="fig-inspector-section">Repères</p>
-              <div className="fig-inspector-card" data-testid="travail-aside-objets">
-                <p className="fig-inspector-card-title">Continuité</p>
-                <p className="fig-inspector-card-body">
-                  Fil de préparation et conversation consultables depuis Travail.
-                </p>
-              </div>
-              <div className="fig-inspector-card">
-                <p className="fig-inspector-card-title">Dossier du projet</p>
-                <p className="fig-inspector-card-body">
-                  {documents.length > 0
-                    ? `${documents.length} document${documents.length > 1 ? "s" : ""} Nora disponible${documents.length > 1 ? "s" : ""}.`
-                    : "Les objets et sources du projet restent distincts du dialogue."}
-                </p>
-                {documents.length > 0 ? (
-                  <div className="fig-inspector-links mt-2">
-                    {documents.map((d) => (
-                      <button
-                        key={d.document.id}
-                        type="button"
-                        className="fig-inspector-link"
-                        data-testid={`travail-consulter-${d.document.id}`}
-                        onClick={() => openTravailDocument(d)}
-                      >
-                        Consulter · {d.document.title}
-                      </button>
-                    ))}
-                  </div>
-                ) : null}
-                <div className="fig-inspector-links">
-                  <button
-                    type="button"
-                    className="fig-inspector-link"
-                    onClick={() => selectSurface("git")}
-                  >
-                    Sources Git
-                  </button>
-                  <button
-                    type="button"
-                    className="fig-inspector-link"
-                    onClick={() => selectSurface("publication")}
-                  >
-                    Résultats et preuves
-                  </button>
-                </div>
-              </div>
-              <div className="fig-inspector-rule" aria-hidden />
-              <p className="fig-inspector-section">Points à clarifier</p>
-              <div data-testid="travail-aside-clarifier">
-                {(knowledge?.openPoints ?? [])
-                  .filter((o) => o.status === "OPEN")
-                  .slice(0, 5)
-                  .map((o) => (
-                    <p key={o.id} className="fig-inspector-card-body mb-2">
-                      {o.statement}
-                    </p>
-                  ))}
-                {(knowledge?.openPoints ?? []).filter((o) => o.status === "OPEN").length === 0 ? (
-                  <p className="fig-inspector-card-body">
-                    Seules les informations réellement connues seront affichées.
-                  </p>
-                ) : null}
-              </div>
-            </div>
-            )
-          }
-        />
-      ) : null}
-
-      {surface === "pilotage" ? (
-        <div className="space-y-4" data-figma-frame="125:33" data-testid="project-trajectory">
-          <div className="fig-section-head">
-            <div>
-              <p className="fig-kicker">Pilotage</p>
-              <h2 className="fig-section-title">Trajectoire, cycle et décisions</h2>
-              <p className="fig-hero-sub !mt-1">
-                Affichage D5/D6 existant — sans cycle fictif, sans commande autoritaire depuis Nora.
-              </p>
-            </div>
-          </div>
-          <div className="fig-stat-grid">
-            <div className="fig-stat">
-              <div className="fig-stat-label">Cycle</div>
-              <div className="fig-stat-value" style={{ fontSize: "1.15rem", marginTop: 14 }}>
-                Sans / actif
-              </div>
-              <div className="fig-stat-hint">Projection service projet</div>
-            </div>
-            <div className="fig-stat">
-              <div className="fig-stat-label">Décisions D6</div>
-              <div className="fig-stat-value" style={{ fontSize: "1.15rem", marginTop: 14 }}>
-                HumanDecision
-              </div>
-              <div className="fig-stat-hint">Pas de mutation à l&apos;affichage</div>
-            </div>
-            <div className="fig-stat">
-              <div className="fig-stat-label">CKI / méthode</div>
-              <div className="fig-stat-value" style={{ fontSize: "1.15rem", marginTop: 14 }}>
-                Guidance
-              </div>
-              <div className="fig-stat-hint">Disponibilité réelle du service</div>
-            </div>
-          </div>
-          <div className="fig-panel" data-figma-frame="127:106">
-            <PilotagePanel projectId={params.projectId} />
-          </div>
-        </div>
-      ) : null}
-
-      {surface === "document" ? (
-        <div className="fig-workspace-3" data-figma-frame="94:370">
-          <DocumentLibrary
-            documents={documents.map((d) => ({
-              document: { ...d.document, projectId: params.projectId },
-              latestRevision: d.latestRevision ?? null,
-            }))}
-            selectedId={inspect?.document.id ?? null}
-            onSelect={(d) => {
-              const match = documents.find((x) => x.document.id === d.document.id);
-              if (match) openDocumentReadOnly(match);
-            }}
-          />
-          <div className="space-y-3">
-            <DocumentInspector
-              frameId={docUi === "CONFLICT" ? "160:391" : "97:359"}
-              title={
-                docUi === "EDITING" ||
-                docUi === "SAVING" ||
-                docUi === "CONFLICT" ||
-                docUi === "UNKNOWN"
-                  ? "Révision"
-                  : "Inspection"
-              }
-              uiState={docUi}
-              missing={docMissing || null}
-              markdown={
-                docUi === "READING" || docUi === "FAILED"
-                  ? inspect?.latestRevision?.contentMarkdown ?? null
-                  : null
-              }
-              editing={
-                docUi === "EDITING" ||
-                docUi === "SAVING" ||
-                docUi === "CONFLICT" ||
-                docUi === "UNKNOWN" ||
-                docUi === "FAILED"
-              }
-              draft={reviseDraft}
-              onDraft={setReviseDraft}
-              busy={docUi === "SAVING"}
-              onStartRevise={
-                inspect?.latestRevision
-                  ? () => {
-                      setDocUi("EDITING");
-                      setReviseDraft(inspect.latestRevision?.contentMarkdown ?? "");
-                      reviseCorrelationRef.current = null;
-                      reviseBaseIdRef.current = inspect.latestRevision?.id ?? null;
-                    }
-                  : undefined
-              }
-              onSaveRevise={() => void saveRevision()}
-              onConflictRebase={docUi === "CONFLICT" ? acceptConflictRebase : undefined}
-              onCancel={() => {
-                setDocUi("READING");
-                setReviseDraft(inspect?.latestRevision?.contentMarkdown ?? "");
-                setReviseMessage("");
-                reviseCorrelationRef.current = null;
-                reviseBaseIdRef.current = inspect?.latestRevision?.id ?? null;
-              }}
-              reviseMessage={reviseMessage}
-            >
-              {inspect?.latestRevision && docUi === "READING" ? (
-                <button
-                  type="button"
-                  className="btn secondary"
-                  onClick={() => {
-                    setInspect(null);
-                    setDocUi("READING");
-                    selectSurface("travail");
-                  }}
-                >
-                  Retour au fil
-                </button>
-              ) : null}
-            </DocumentInspector>
-            <DocumentHistory
-              revisions={docHistory}
-              activeRevisionId={inspect?.latestRevision?.id}
-              onCompareLatest={
-                preparationId && inspect
-                  ? () => {
-                      void (async () => {
-                        const listRes = await fetch(
-                          `/api/preparations/${preparationId}/documents/${inspect.document.id}`,
-                        );
-                        const list = await listRes.json();
-                        const revs = (list.revisions ?? []).filter(
-                          (r: { status: string }) => r.status === "AVAILABLE",
-                        );
-                        if (revs.length < 2) {
-                          setDocDiffText("Comparaison: moins de deux versions AVAILABLE");
-                          return;
-                        }
-                        const left = revs[revs.length - 2];
-                        const right = revs[revs.length - 1];
-                        const cmpRes = await fetch(
-                          `/api/preparations/${preparationId}/documents/${inspect.document.id}?left=${left.id}&right=${right.id}`,
-                        );
-                        const cmp = await cmpRes.json();
-                        if (cmp.status === "AVAILABLE" && !cmp.diff?.degraded) {
-                          setDocDiffText(
-                            `v${cmp.left.revisionNumber} → v${cmp.right.revisionNumber}\n` +
-                              `+ ${cmp.diff.added.length} / - ${cmp.diff.removed.length}`,
-                          );
-                        } else {
-                          setDocDiffText(
-                            `Diff ${cmp.status}: ${cmp.reason ?? cmp.diff?.reason ?? ""}`,
-                          );
-                        }
-                      })();
-                    }
-                  : undefined
-              }
-              diffText={docDiffText}
-            />
-          </div>
-        </div>
-      ) : null}
-
-      {surface === "git" || surface === "publication" ? (
-        <div className="space-y-4" data-testid="git-surface">
-          <PublicationInspectionPanel projectId={params.projectId} />
-        </div>
-      ) : null}
-
-      {surface === "journal" ? (
-        <ProjectJournal
-          subjects={(knowledge?.subjects ?? []).map((s) => ({
-            id: s.id,
-            title: s.title,
-            status: s.status,
-            parentSubjectId: s.parentSubjectId ?? null,
-            originatedFromSubjectId: s.originatedFromSubjectId,
-            summary: s.summary ?? null,
-          }))}
-          acquis={knowledge?.acquis ?? []}
-          openPoints={knowledge?.openPoints ?? []}
-          decisions={journalDecisions}
-          restrictions={journalRestrictions}
-          sourceLinks={journalSources}
-          contradictions={journalContradictions}
-          initialNav={journalNav}
-          onNavChange={setJournalNav}
-          onOpenMessage={(messageId) => {
-            // Navigate immediately so in-flight fetches cannot fight a later Journal return.
-            setFocusStatus(null);
-            setFocusMessageId(messageId);
-            selectSurface("travail");
-            const navGen = surfaceNavGenRef.current;
-            void (async () => {
-              const local = messages.find((m) => m.id === messageId);
-              if (!local) {
-                const res = await fetch(
-                  `/api/projects/${params.projectId}/messages/${encodeURIComponent(messageId)}`,
-                );
-                const body = (await res.json().catch(() => ({}))) as {
-                  status?: string;
-                  reason?: string;
-                  message?: {
-                    messageId: string;
-                    role: string;
-                    content: string;
-                    status: string;
-                    createdAt?: string;
-                    ordinal?: number;
-                  };
-                };
-                if (!res.ok || !body.message) {
-                  if (navGen !== surfaceNavGenRef.current) return;
-                  setFocusStatus(
-                    body.reason ?? "Message introuvable ou accès refusé — retour Journal possible.",
-                  );
-                  return;
-                }
-                // E06-04 — prefer canonical reload; otherwise insert by createdAt (never append blindly).
-                const prepId = preparationIdRef.current;
-                let reloaded = false;
-                if (prepId) {
-                  const listRes = await fetch(`/api/preparations/${prepId}/messages`);
-                  if (listRes.ok) {
-                    const listBody = (await listRes.json().catch(() => ({}))) as {
-                      messages?: Msg[];
-                    };
-                    const rows = Array.isArray(listBody)
-                      ? (listBody as unknown as Msg[])
-                      : Array.isArray(listBody.messages)
-                        ? listBody.messages
-                        : null;
-                    if (rows && rows.some((m) => m.id === messageId)) {
-                      setMessages(
-                        rows.map((m) => ({
-                          id: m.id,
-                          role: m.role,
-                          content: m.content,
-                          status: m.status,
-                          createdAt:
-                            typeof m.createdAt === "string"
-                              ? m.createdAt
-                              : m.createdAt
-                                ? new Date(m.createdAt as unknown as string).toISOString()
-                                : undefined,
-                        })),
-                      );
-                      reloaded = true;
-                    }
-                  }
-                }
-                if (!reloaded) {
-                  const fetched: Msg = {
-                    id: body.message.messageId,
-                    role: body.message.role,
-                    content: body.message.content,
-                    status: body.message.status,
-                    createdAt: body.message.createdAt,
-                  };
-                  const targetT = fetched.createdAt ? Date.parse(fetched.createdAt) : Number.NaN;
-                  if (!Number.isFinite(targetT)) {
-                    setFocusStatus(
-                      "Message exact chargé — horodatage absent ; chronologie non inventée.",
-                    );
-                  }
-                  setMessages((prev) => {
-                    if (prev.some((m) => m.id === fetched.id)) return prev;
-                    if (!Number.isFinite(targetT)) return [...prev, fetched];
-                    const insertAt = prev.findIndex((m) => {
-                      const t = m.createdAt ? Date.parse(m.createdAt) : Number.NaN;
-                      return Number.isFinite(t) && t > targetT;
-                    });
-                    if (insertAt < 0) return [...prev, fetched];
-                    const copy = prev.slice();
-                    copy.splice(insertAt, 0, fetched);
-                    return copy;
-                  });
-                }
-              }
-              // Preserve draft + journalNav; never auto-send. Surface already switched above.
-              if (navGen !== surfaceNavGenRef.current) return;
-              setFocusMessageId(messageId);
-            })();
-          }}
-          onOpenDocument={(documentId, revisionId) => {
-            // J-C14 — open exact D4 revision in Travail viewer (same continuity pattern as message).
-            // Preserve journalNav; do not invent content if D4 refuses.
-            const titleHint =
-              documents.find((d) => d.document.id === documentId)?.document.title ?? "Document";
-            const seq = ++viewerRequestSeqRef.current;
-            viewerOpenRef.current = true;
-            setViewer({
-              kind: "document",
-              documentId,
-              title: titleHint,
-              revisionId: revisionId ?? null,
-              revisionNumber: null,
-              versionSource: revisionId ? "exact" : "current",
-              markdown: null,
-              available: false,
-              unavailableReason: "Vérification D4 de la révision citée…",
-            });
-            void fetchDocumentViewerViaD4({
-              documentId,
-              titleHint,
-              revisionId: revisionId ?? null,
-              versionSource: revisionId ? "exact" : "current",
-              seq,
-              projectIdAtStart: params.projectId,
-            });
-            selectSurface("travail");
-            const match = documents.find((d) => d.document.id === documentId);
-            if (match) setInspect(match);
-          }}
-          onBackToThread={() => selectSurface("travail")}
-        />
-      ) : null}
-    </ProjectChrome>
-  );
-}
-
-```
-
-### tokens.css — section Journal V4 (extrait contractuel à partir du marqueur Ensemble 06)
+## 8. tokens.css — section Journal V4 (FULL section)
 ```css
 /* Ensemble 06 — Journal V4 (Figma 835:71 / 842:* / 860:*) */
 .project-space-page--journal {
@@ -4353,14 +1868,32 @@ export default function ProjectPage() {
   --journal-accent-soft: #ada5ff;
   --journal-accent-2: #827cff;
   --journal-banner: #1e2544;
+  /* Figma 1680×970: header 70 + viewer y=95 → height 832 → bottom ~43 */
+  --journal-viewer-w: 784px;
+  --journal-compact-w: 526px;
+  --journal-split-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  gap: 12px;
+  overflow: hidden;
+}
+.project-space-page--journal > .project-journal,
+.project-space-page--journal [data-testid="project-journal"] {
+  flex: 1 1 auto;
+  min-height: 0;
 }
 .journal-shell {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  gap: 20px;
+  gap: var(--journal-split-gap);
   width: 100%;
   min-height: 0;
+  flex: 1 1 auto;
+  height: 100%;
 }
 .journal-layout-full .journal-main-column {
   flex: 1 1 auto;
@@ -4368,10 +1901,12 @@ export default function ProjectPage() {
   max-width: 1330px;
 }
 .journal-layout-split .journal-main-column {
-  flex: 0 0 526px;
-  width: 526px;
-  max-width: 40%;
+  flex: 0 0 var(--journal-compact-w);
+  width: var(--journal-compact-w);
+  max-width: var(--journal-compact-w);
   min-width: 280px;
+  min-height: 0;
+  overflow: hidden;
 }
 .journal-layout-enlarged .journal-main-column {
   display: none;
@@ -4381,6 +1916,17 @@ export default function ProjectPage() {
   flex-direction: column;
   gap: 0;
   min-width: 0;
+  min-height: 0;
+}
+.journal-main-column .journal-hierarchy,
+.journal-main-column .journal-decision-list,
+.journal-main-column .journal-results-list,
+.journal-main-column .journal-open-points-list,
+.journal-main-column [data-testid="journal-search-results"],
+.journal-main-column [data-testid="journal-open-points-list-wrap"] {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
 }
 .journal-v4-head {
   margin-bottom: 28px;
@@ -4574,9 +2120,27 @@ export default function ProjectPage() {
 }
 .journal-group.is-selected > .journal-group-head,
 .journal-child-row.is-selected,
-.journal-decision-row.is-selected {
+.journal-decision-row.is-selected,
+.journal-result-row.is-selected,
+.journal-open-point-row.is-selected {
   background: #242d4b;
-  box-shadow: inset 3px 0 0 var(--journal-accent);
+  position: relative;
+}
+.journal-group.is-selected > .journal-group-head::before,
+.journal-child-row.is-selected::before,
+.journal-decision-row.is-selected::before,
+.journal-result-row.is-selected::before,
+.journal-open-point-row.is-selected::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 3px;
+  height: calc(100% - 24px);
+  min-height: 45px;
+  max-height: 49px;
+  border-radius: 2px;
+  background: var(--journal-accent);
 }
 .journal-expand {
   flex: 0 0 28px;
@@ -4739,33 +2303,70 @@ export default function ProjectPage() {
   background: #efce96;
 }
 .journal-viewer {
-  flex: 1 1 auto;
-  min-width: 0;
-  max-width: 784px;
+  /* Figma 853:42 — 784×832 at x=830 y=95 */
+  flex: 0 0 var(--journal-viewer-w);
+  width: var(--journal-viewer-w);
+  max-width: var(--journal-viewer-w);
+  min-width: var(--journal-viewer-w);
   margin-left: auto;
+  align-self: stretch;
   border: 1px solid #35415c;
   border-radius: 17px;
   background: #141c2b;
   display: flex;
   flex-direction: column;
-  min-height: 640px;
+  min-height: 0;
+  height: 100%;
   overflow: hidden;
 }
 .journal-layout-enlarged .journal-viewer {
-  max-width: none;
+  flex: 1 1 auto;
   width: 100%;
-  min-height: 780px;
+  max-width: 1330px;
+  margin: 0 auto;
+  height: 100%;
+  min-height: 0;
 }
 .journal-viewer-banner {
+  position: relative;
   display: flex;
   justify-content: space-between;
   gap: 16px;
+  flex: 0 0 auto;
   margin: 14px 14px 0;
-  padding: 16px 18px 18px;
+  padding: 16px 24px 18px 24px;
+  min-height: 181px;
+  box-sizing: border-box;
   border-radius: 15px;
   border: 1px solid #444d7a;
   background: var(--journal-banner);
-  box-shadow: inset 3px 0 0 var(--journal-accent-2);
+  overflow: hidden;
+}
+/* Figma 853:44 — Liseré lumière 3×112, offset under banner top */
+.journal-viewer-banner::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 29px;
+  width: 3px;
+  height: 112px;
+  border-radius: 0 2px 2px 0;
+  background: var(--journal-accent-2);
+  pointer-events: none;
+}
+.journal-layout-enlarged .journal-viewer-banner {
+  margin: 0 0 20px;
+  width: 100%;
+  max-width: 1330px;
+  min-height: 198px;
+  border-radius: 16px;
+}
+.journal-layout-enlarged .journal-viewer-banner::before {
+  /* Figma 854:43 — rail identité 4×124 */
+  left: 0;
+  top: 31px;
+  width: 4px;
+  height: 124px;
 }
 .journal-viewer-kicker {
   margin: 0 0 8px;
@@ -4818,21 +2419,113 @@ export default function ProjectPage() {
   font-size: 18px;
 }
 .journal-viewer-body {
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 14px;
   padding: 14px;
 }
+.journal-viewer-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+.journal-layout-enlarged .journal-viewer-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 936px) 374px;
+  gap: 20px;
+  align-items: start;
+}
+.journal-viewer-article {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+.journal-viewer-aside {
+  border: 1px solid #35415c;
+  border-radius: 14px;
+  background: #131c2d;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+}
+.journal-layout-split .journal-viewer-aside {
+  display: none;
+}
+.journal-aside-label {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #b9b0ff;
+}
+.journal-aside-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #f6f7ff;
+}
+.journal-aside-sep {
+  height: 1px;
+  background: #35415c;
+  border: 0;
+  margin: 4px 0;
+}
+.journal-aside-meta-label {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #99a8c6;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.journal-aside-meta-value {
+  margin: 0;
+  font-size: 14px;
+  color: #f6f7ff;
+  line-height: 1.35;
+}
+.journal-aside-meta-desc {
+  margin: 0;
+  font-size: 12px;
+  color: #99a8c6;
+  line-height: 1.4;
+}
 .journal-card {
+  position: relative;
   border: 1px solid #35415c;
   border-radius: 14px;
   background: #182234;
   padding: 16px 18px;
 }
 .journal-card-synthesis {
-  box-shadow: inset 3px 0 0 var(--journal-accent-2);
+  overflow: hidden;
+}
+/* Figma 853:58 — Accent synthèse 3×69 inside card, not full-height inset shadow */
+.journal-card-synthesis::before {
+  content: "";
+  position: absolute;
+  left: 17px;
+  top: 48px;
+  width: 3px;
+  height: 69px;
+  border-radius: 2px;
+  background: var(--journal-accent-2);
+  pointer-events: none;
+}
+.journal-card-synthesis .journal-card-kicker {
+  padding-left: 0;
+}
+.journal-card-synthesis [data-testid="journal-subject-summary"],
+.journal-card-synthesis [data-testid="journal-subject-summary-empty"] {
+  padding-left: 20px;
 }
 .journal-card-kicker {
   margin: 0 0 10px;
@@ -4878,7 +2571,52 @@ export default function ProjectPage() {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+}
+.journal-child-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 31px minmax(0, 1fr) 24px;
+  align-items: center;
+  gap: 12px;
+  appearance: none;
+  border: 1px solid #35415c;
+  border-radius: 12px;
+  background: #131c2d;
+  color: #f6f7ff;
+  cursor: pointer;
+  padding: 10px 14px;
+  text-align: left;
+  min-height: 58px;
+  box-sizing: border-box;
+}
+.journal-child-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 31px;
+  height: 32px;
+  border-radius: 8px;
+  background: #1e2544;
+  color: #b9b0ff;
+  font-size: 12px;
+  font-weight: 600;
+}
+.journal-child-card-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.journal-child-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f6f7ff;
+}
+.journal-child-card-desc {
+  font-size: 12px;
+  color: #99a8c6;
+  line-height: 1.3;
 }
 .journal-child-link {
   width: 100%;
@@ -4894,6 +2632,77 @@ export default function ProjectPage() {
   cursor: pointer;
   padding: 0;
   text-align: left;
+}
+.journal-results-list,
+.journal-open-points-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  border: 1px solid var(--journal-line);
+  border-radius: 14px;
+  background: var(--journal-panel);
+  display: flex;
+  flex-direction: column;
+}
+.journal-result-row,
+.journal-open-point-row {
+  width: 100%;
+  text-align: left;
+  appearance: none;
+  border: none;
+  border-bottom: 1px solid var(--journal-line);
+  background: transparent;
+  color: var(--journal-ink);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 22px;
+  position: relative;
+}
+.journal-result-row:last-child,
+.journal-open-point-row:last-child {
+  border-bottom: none;
+}
+.journal-result-title,
+.journal-open-point-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f6f7ff;
+}
+.journal-result-path,
+.journal-open-point-origin {
+  font-size: 12px;
+  color: #99a8c6;
+}
+.journal-result-reason {
+  display: inline-block;
+  width: fit-content;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  background: #1e2544;
+  color: #b9b0ff;
+}
+.journal-results-count {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--journal-muted);
+}
+.journal-parent-note {
+  border: 1px solid #35415c;
+  border-radius: 14px;
+  background: #182234;
+  padding: 18px 22px;
+}
+.journal-parent-note p {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: #dce4f4;
+  line-height: 1.4;
 }
 .journal-restriction-list {
   list-style: disc;
@@ -4940,6 +2749,7 @@ export default function ProjectPage() {
   color: #b9b0ff;
 }
 .journal-continue {
+  position: relative;
   width: 100%;
   display: flex;
   align-items: center;
@@ -4949,11 +2759,23 @@ export default function ProjectPage() {
   border: 1px solid #3c486c;
   background: #1c2540;
   border-radius: 11px;
-  padding: 14px 16px;
+  padding: 14px 16px 14px 20px;
   color: #eef0ff;
   cursor: pointer;
-  box-shadow: inset 3px 0 0 var(--journal-accent-2);
   text-align: left;
+  overflow: hidden;
+}
+/* Figma 855:43 — Poursuivre barre 3×29 */
+.journal-continue::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 18px;
+  width: 3px;
+  height: 29px;
+  border-radius: 0 2px 2px 0;
+  background: var(--journal-accent-2);
+  pointer-events: none;
 }
 .journal-continue-cta {
   display: block;
@@ -4983,456 +2805,317 @@ export default function ProjectPage() {
 
 ```
 
-### DIFF utile — page.tsx
+## 9. DIFF shell (StudioShell + studio-shell.css)
 ```diff
-diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index e7b9d86d..b11be370 100644
---- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-+++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-@@ -207,6 +207,8 @@ export default function ProjectPage() {
-   /** C1 — ignore stale async viewer responses after A→B / close / project change. */
-   const viewerRequestSeqRef = useRef(0);
-   const viewerOpenRef = useRef(false);
-+  /** Invalidates in-flight Journal→Travail deep-links when the user navigates away. */
-+  const surfaceNavGenRef = useRef(0);
+diff --git a/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx b/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
+index ebb8332d..515c52d1 100644
+--- a/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
++++ b/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
+@@ -489,6 +489,13 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
+               ? "1"
+               : undefined
+           }
++          data-journal-layout={
++            projectId &&
++            (parseStudioSurface(surface) ?? "travail") === "journal" &&
++            !projectSpaceBlocked
++              ? "1"
++              : undefined
++          }
+         >
+           {children}
+         </main>
+diff --git a/projects/sfia-studio-next/web/src/components/shell/studio-shell.css b/projects/sfia-studio-next/web/src/components/shell/studio-shell.css
+index b7503a39..9b38d7dd 100644
+--- a/projects/sfia-studio-next/web/src/components/shell/studio-shell.css
++++ b/projects/sfia-studio-next/web/src/components/shell/studio-shell.css
+@@ -109,6 +109,22 @@ html.studio-shell-lock body {
+   max-height: none;
+ }
 
-   useEffect(() => {
-     // Clear previous project identity immediately — no cross-project leak in the rail.
-@@ -294,7 +296,10 @@ export default function ProjectPage() {
-     return () => {
-       cancelled = true;
-     };
--  }, [surface, params.projectId, knowledge]);
-+    // Refresh when entering Journal surface / project — not on every knowledge identity change
-+    // (that cancelled in-flight loads and dropped sourceLinks intermittently).
-+    // eslint-disable-next-line react-hooks/exhaustive-deps
-+  }, [surface, params.projectId]);
-
-   useEffect(() => {
-     projectIdRef.current = params.projectId;
-@@ -727,6 +732,7 @@ export default function ProjectPage() {
-   }
-
-   function selectSurface(next: Surface) {
-+    surfaceNavGenRef.current += 1;
-     pendingSurfaceRef.current = next;
-     noteProjectSurfaceNavIntent(params.projectId, next as StudioSurface);
-     setSurface(next);
-@@ -1283,6 +1289,7 @@ export default function ProjectPage() {
-
-   // B2 — keep surface/document in sync with URL on Back/Forward without one-shot lock.
-   useEffect(() => {
-+    surfaceNavGenRef.current += 1;
-     const qSurface = parseSurface(searchParams.get("surface"));
-     const qDocId = searchParams.get("documentId");
-     applyUrlDocumentState(documentsRef.current, qSurface, qDocId);
-@@ -2022,8 +2029,12 @@ export default function ProjectPage() {
-           initialNav={journalNav}
-           onNavChange={setJournalNav}
-           onOpenMessage={(messageId) => {
-+            // Navigate immediately so in-flight fetches cannot fight a later Journal return.
-+            setFocusStatus(null);
-+            setFocusMessageId(messageId);
-+            selectSurface("travail");
-+            const navGen = surfaceNavGenRef.current;
-             void (async () => {
--              setFocusStatus(null);
-               const local = messages.find((m) => m.id === messageId);
-               if (!local) {
-                 const res = await fetch(
-@@ -2042,10 +2053,10 @@ export default function ProjectPage() {
-                   };
-                 };
-                 if (!res.ok || !body.message) {
-+                  if (navGen !== surfaceNavGenRef.current) return;
-                   setFocusStatus(
-                     body.reason ?? "Message introuvable ou accès refusé — retour Journal possible.",
-                   );
--                  selectSurface("travail");
-                   return;
-                 }
-                 // E06-04 — prefer canonical reload; otherwise insert by createdAt (never append blindly).
-@@ -2109,9 +2120,9 @@ export default function ProjectPage() {
-                   });
-                 }
-               }
--              // Preserve draft + journalNav; never auto-send.
-+              // Preserve draft + journalNav; never auto-send. Surface already switched above.
-+              if (navGen !== surfaceNavGenRef.current) return;
-               setFocusMessageId(messageId);
--              selectSurface("travail");
-             })();
-           }}
-           onOpenDocument={(documentId, revisionId) => {
++/* Journal V4 — fill shell height so 40/60 viewer can stretch (Figma 784×832). */
++.studio-shell-main[data-journal-layout="1"] {
++  display: flex;
++  flex-direction: column;
++  overflow: hidden;
++  padding-top: 1rem;
++  padding-bottom: 1rem;
++}
++
++.studio-shell-main[data-journal-layout="1"] > .project-space-page--journal {
++  flex: 1 1 auto;
++  min-height: 0;
++  height: 100%;
++  max-height: none;
++}
++
+ .studio-shell-main-mobile-pad {
+   padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+ }
 
 ```
 
-### DIFF utile — ProjectChrome.tsx
+## 10. DIFF construction (as-built + delivery-history)
 ```diff
-diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
-index 05b45841..04380732 100644
---- a/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
-@@ -27,9 +27,9 @@ const HERO: Record<
-     sub: "Cycle, méthode, CKI et décisions humaines — affichage D5/D6 existant.",
-   },
-   journal: {
--    kicker: "Espace projet  /  Journal",
--    title: "Sujets et acquis",
--    sub: "Sujets, acquis et points ouverts — présentation sans nouvelle autorité.",
-+    kicker: "ESPACE PROJET  /  JOURNAL",
-+    title: "Journal",
-+    sub: "La mémoire du projet, organisée par thèmes. Retrouvez l’essentiel sans remonter toute la conversation.",
-   },
-   document: {
-     kicker: "Espace projet  /  Documents Nora",
-@@ -65,6 +65,9 @@ export function ProjectChrome(props: {
-   const surfaceLabel = PROJECT_SURFACE_LABELS[props.surface];
-   const displayName = props.projectName?.trim() || "Projet";
-   const isTravail = props.surface === "travail";
-+  /** Journal V4 — hero lives inside ProjectJournal (full vs compact 40/60). */
-+  const isJournal = props.surface === "journal";
-+  const breadcrumbOnly = isTravail || isJournal;
+diff --git a/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-20261119.md b/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-20261119.md
+index 9fef22e7..717d873c 100644
+--- a/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-20261119.md
++++ b/projects/sfia-studio-next/construction/as-built-ensemble-06-journal-20261119.md
+@@ -2,57 +2,57 @@
 
-   const continuityBadge =
-     isTravail && props.statusHint && !/^chargement/i.test(props.statusHint) ? (
-@@ -90,7 +93,7 @@ export function ProjectChrome(props: {
+ | Métadonnée | Valeur |
+ |---|---|
+-| Date | 19/11/2026 — correctif UX Figma-to-runtime |
++| Date | 19/11/2026 — pixel-perfect corrective UX |
+ | Branche | `sfia/next-journal-delivery-20261119` |
+ | Parent candidat RECETTE | `d5bf7eb762a21cc309744bb703926e2c0bc844ed` |
+ | Base `main` | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
+-| Docs matrice | v0.6 §17 (`864e09bf` documentaire) |
++| Docs matrice | v0.7 §18 (`f0d2d033` documentaire) |
+ | Versioning | `NO RELEASE` / STABLE NOT AVAILABLE |
+-| RECETTE | **non cutover** ce cycle — candidat DEV pour GO Morris |
++| RECETTE | **non cutover** — DEV uniquement |
 
-   return (
-     <div
--      className={`fig-page project-space-page${isTravail ? " project-space-page--travail" : ""}`}
-+      className={`fig-page project-space-page${isTravail ? " project-space-page--travail" : ""}${isJournal ? " project-space-page--journal" : ""}`}
-       data-project-surface={props.surface}
-       data-testid="project-load-state"
-       data-project-load-state={loadState}
-@@ -98,21 +101,20 @@ export function ProjectChrome(props: {
-       data-project-name={props.projectName ?? ""}
-     >
-       <div
--        className={`project-space-header${isTravail ? " project-space-header--breadcrumb-only" : ""}`}
-+        className={`project-space-header${breadcrumbOnly ? " project-space-header--breadcrumb-only" : ""}`}
-         data-testid="project-space-header"
-       >
-         <div className="fig-breadcrumb project-space-breadcrumb">
-           <span data-testid="project-breadcrumb">
--            SFIA Studio&nbsp;&nbsp;/&nbsp;&nbsp;Projet&nbsp;&nbsp;/&nbsp;&nbsp;
--            <span className="text-[var(--fg)]">{displayName}</span>
--            &nbsp;&nbsp;/&nbsp;&nbsp;{surfaceLabel}
-+            SFIA Studio&nbsp;&nbsp;/&nbsp;&nbsp;{displayName}&nbsp;&nbsp;/&nbsp;&nbsp;
-+            {surfaceLabel}
-           </span>
-           <span className="project-space-badge" data-testid="project-espace-badge">
-             ESPACE PROJET
-           </span>
-         </div>
+-## Correctif UX (présent cycle)
++## Correctif pixel-perfect (présent cycle)
 
--        {!isTravail ? (
-+        {!breadcrumbOnly ? (
-           <header className="project-space-hero space-y-1">
-             <p className="fig-kicker project-space-kicker">{hero.kicker}</p>
-             <div className="project-space-hero-row">
+-### Non-conformités Morris corrigées
++### Priorités Morris traitées
 
-```
+ | Constat | Correction |
+ |---|---|
+-| Titre « Sujets et acquis » | `ProjectChrome` journal → hero déplacé ; titre **Journal** dans `ProjectJournal` |
+-| Textes D4/D6 techniques | Supprimés de l’UI Pilote |
+-| Viewer vide permanent | Mode exploration pleine largeur sans panneau idle |
+-| Arborescence non Figma | Hiérarchie éditoriale groupes/enfants, guides, blurbs |
+-| Copy hors cible | Sous-titre Figma exact Sujets / Décisions |
++| Visionneuse 40/60 trop basse (`min-height: 640`) | Shell journal remplit la hauteur ; viewer `784px` stretch (`align-self: stretch`, `height: 100%`) |
++| Liseré `box-shadow inset` générique | Pseudo-éléments Figma : bandeau 3×112 ; synthèse 3×69 ; CTA 3×29 |
++| Captures parent ≈ autonome | Compositions distinctes : parent = cartes numérotées sous-sujets ; autonome = acquis/points |
++| Agrandi = colonne unique | Grille article 936 + aside 374 ; aside REPÈRES |
++| Recherche = arbre filtré | Liste de correspondances (titre / chemin / raison) |
++| Points ouverts = bouton seul | Liste transversale des points + origine |
++| `decisionStatusLabel` confond remplacée / non applicable | REMPLACÉE seulement si `supersededByDecisionId` |
++| Shell main scroll | `data-journal-layout=1` sur StudioShell (comme Travail) |
 
-### DIFF utile — journal-v4-parcours.spec.ts
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts b/projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts
-index 17376740..b3993b9e 100644
---- a/projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts
-+++ b/projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts
-@@ -73,7 +73,7 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () =>
-     const matchBadge = page.getByTestId(`journal-match-${seed.leafSubjectId}`);
-     await expect(matchBadge).toBeVisible();
-     await expect(matchBadge).toHaveText(/acquis/i);
--    await page.getByTestId("journal-filter-open-points").locator("input").check();
-+    await page.getByTestId("journal-filter-open-points").click();
+ ### Fichiers touchés
 
-     // B — 40/60 + enlarge (non conditionnel)
-     await leaf.click();
-@@ -111,13 +111,21 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () =>
-     await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
+-- `web/src/components/figma/ProjectJournal.tsx` — shell V4
+-- `web/src/components/figma/tokens.css` — styles 835:71 / 842 / 860
+-- `web/src/components/figma/ProjectChrome.tsx` — breadcrumb-only Journal
+-- `web/src/app/projects/[projectId]/page.tsx` — deep-link nav + fetch Journal sans cancel race
+-- `web/tests/e2e/journal-v4-*.spec.ts` — parcours + captures
++- `web/src/components/figma/ProjectJournal.tsx`
++- `web/src/components/figma/tokens.css`
++- `web/src/components/shell/StudioShell.tsx`
++- `web/src/components/shell/studio-shell.css`
++- `web/tests/e2e/journal-v4-figma-captures.spec.ts` — oracles discriminants parent/autonome/géométrie
++- `web/tests/e2e/journal-v4-parcours.spec.ts`
 
-     // J-C13 — return via rail (NOT page.goto) and assert nav restored
--    await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
-+    const journalNav = page.getByTestId("studio-rail").getByTestId("nav-journal");
-+    await journalNav.click();
-     await expect(page).toHaveURL(/surface=journal/);
-+    // Soft-nav URL can land before React surface commit; retry rail once if needed.
-+    if (!(await page.getByTestId("project-journal").isVisible().catch(() => false))) {
-+      await journalNav.click();
-+    }
-     await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
-     await expect(page.getByTestId("journal-search")).toHaveValue("traçabilité");
-     await expect(page.getByTestId(`journal-subject-${seed.leafSubjectId}`)).toBeVisible();
-     await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "split");
--    await expect(page.getByTestId("journal-filter-open-points").locator("input")).toBeChecked();
-+    await expect(page.getByTestId("journal-filter-open-points")).toHaveAttribute(
-+      "aria-pressed",
-+      "true",
-+    );
+-### Anomalie CampusFlow (provenance)
++### Géométrie Figma (842:26)
 
-     // D — J-C11 Décisions : terme présent dans explication, absent du libellé
-     await page.getByTestId("journal-tab-decisions").click();
-@@ -127,13 +135,16 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () =>
-     });
-     await page.getByTestId(`journal-decision-${seed.decisionApplicableId}`).click();
-     await expect(page.getByTestId("journal-decision-viewer")).toBeVisible();
--    await expect(page.getByTestId("journal-decision-applicability")).toContainText(/applicable/i);
-+    await expect(page.getByTestId("journal-decision-applicability")).toContainText(/applicable|historique|vigueur|scope/i);
-     await expect(page.getByTestId("journal-decision-viewer")).toContainText(/multicritèreorion/i);
+-| Champ | Valeur |
+-|---|---|
+-| projectId | `proj_1b52eb8f-3c63-4c72-a4dd-a47f34e1bb4d` |
+-| project name | CampusFlow |
+-| owner_pilot_id | `pilot_98a7a89e-ba00-42c6-84d5-680eff67b73c` |
+-| subjectId | `subj_8eb4e9ce-3922-4c27-a16b-cfc0c817b912` |
+-| title | fragment conversationnel (« la première source Git… SHA… ») |
+-| summary | vide |
+-| Classification | **A — contenu légitime mal présenté** (titre D4 = extrait de fil) |
+-| Fuite interprojets | **NON** — même projet / même Pilote |
++| Élément | Figma | Runtime cible |
++|---|---|---|
++| Viewer | 830,95 · 784×832 | `784px` largeur · hauteur stretch zone dispo |
++| Compact Journal | 526px | `--journal-compact-w: 526px` |
++| Gap | 20px | `--journal-split-gap: 20px` |
++| Liseré bandeau | 3×112 @ +29px | `::before` |
 
-     // Back to subjects for document source click
-     await page.getByTestId("journal-tab-subjects").click();
-     await page.getByTestId("journal-search").fill("");
--    await page.getByTestId("journal-filter-open-points").locator("input").uncheck();
-+    const openFilter = page.getByTestId("journal-filter-open-points");
-+    if ((await openFilter.getAttribute("aria-pressed")) === "true") {
-+      await openFilter.click();
-+    }
-     const budgetSubject = page.getByTestId(`journal-subject-${seed.otherParentId}`);
-     await expect(budgetSubject).toBeVisible();
-     await budgetSubject.click();
+-## Preuves
++### Preuves
 
-```
+ | Contrôle | Résultat |
+ |---|---|
+ | tsc | PASS |
+ | unit journal + fixture-gate | 14/14 PASS |
+-| Captures DEV 1680×970 (11 frames) | produites sous `.tmp-sfia-review/figma-ux-after/` |
+-| Playwright parcours | voir Review Pack (retries / réserves J-C14) |
+-| RECETTE cutover | **NON** — GO Morris requis |
+-| VISUAL REVIEW Morris | **PENDING** |
++| Playwright captures + parcours | 3/3 PASS |
++| Captures 00–11 | `.tmp-sfia-review/figma-ux-after/` |
++| Parent ≠ autonome | titres distincts dans `capture-report.json` |
++| RECETTE cutover | **NON** |
 
-### DIFF utile — delivery-history.md
-```diff
+ ## Autorité
+
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index c8a6bd2d..ffb007e0 100644
+index ffb007e0..1dc190cd 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4,6 +4,38 @@ Append-only logical journal of Cursor product deliveries.
+@@ -4,6 +4,20 @@ Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
-+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-FIGMA-UX
++## delivery_id: DELIV-2026-11-19-JOURNAL-V4-PIXEL
 +
 +| Field | Value |
 +| --- | --- |
-+| Date | 2026-11-19 ~12:15 CET |
-+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 Figma UX corrective |
++| Date | 2026-11-19 ~13:00 CET |
++| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 pixel-perfect corrective |
 +| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** · **NO RECETTE CUTOVER** |
-+| GO Morris | NON CONFORME UX Figma → correctif obligatoire ; cutover RECETTE hors mandat |
-+| Parent | local `d5bf7eb7` (build RECETTE toujours servi) |
-+| Scope | ProjectJournal V4 shell · tokens · Chrome breadcrumb-only · deep-link race · 11 captures |
-+| Figma | 11 frames `itgvCulInEnFY6DvgIegvP` page 828:2 lus via MCP |
-+| Provenance CampusFlow | Classification A — titre D4 fragment conversationnel, pas de fuite |
-+| Verdict Cursor | `FIGMA TO RUNTIME ALIGNED — READY FOR MORRIS VISUAL REVIEW` (réserves pixel / J-C14) |
++| GO Morris | 11 états NON RÉCEPTIONNÉS — finition géométrie/liserés/compositions |
++| Parent | local `0eb3157b` (RECETTE toujours `d5bf7eb7`) |
++| Scope | 40/60 height · liserés Figma · parent≠autonome · agrandi article+aside · search/open-points · D6 status |
++| Docs | matrice v0.7 §18 `f0d2d033` |
++| Verdict Cursor | voir Review Pack (comparaison 11 frames + réserves) |
 +
 +
-+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-RECETTE
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-19 ~11:33 CET |
-+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 qualification + RECETTE |
-+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
-+| GO Morris | Qualification technique + mise à disposition sur RECETTE existante |
-+| Candidate | `d5bf7eb762a21cc309744bb703926e2c0bc844ed` · tree `f5c05cb94f5137d06a26107b7003ab1bf073f923` · BUILD `PV12SV9VToVGK-ReSxTqk` |
-+| Parent RECETTE | `5c94c867…` / `IEINNuPl0bHWJOWkh0ZhG` |
-+| Scope | QA DEV · migration 014 additive RECETTE · cutover même `:3200` / LaunchAgent · smoke · manifeste |
-+| DB | `sfia_next_recette_ml4` · 014 applied · counts 23/560 preserved |
-+| Rollback | `ROLLBACK-TO-5c94c867.sh` + dump `ml4d-e06-journal-20261119-pre-d5bf7eb7` |
-+| Manifeste | `construction/ensemble-06-journal-recette-manifest.md` |
-+| Verdict Cursor | `RECETTE TECHNICALLY AVAILABLE — READY FOR MORRIS USER ACCEPTANCE` |
-+
-+
- ## delivery_id: DELIV-2026-11-19-JOURNAL-V4-LIVE-PARTIAL
+ ## delivery_id: DELIV-2026-11-19-JOURNAL-V4-FIGMA-UX
 
  | Field | Value |
 
 ```
 
-## 8. Captures runtime DEV corrigées (1680×970)
+## 11. Captures runtime index
 
-Répertoire : `.tmp-sfia-review/figma-ux-after/`
-
-- `00-runtime-empty-exploration.png`
-- `01-runtime-835-71-sujets-exploration.png`
-- `02-runtime-842-26-sujet-autonome-40-60.png`
-- `03-runtime-842-131-sujet-parent-40-60.png`
-- `04-runtime-835-159-sujet-agrandi.png`
-- `05-runtime-835-239-parent-agrandi.png`
-- `06-runtime-859-42-recherche-sujets.png`
-- `07-runtime-859-146-filtre-points.png`
-- `08-runtime-860-58-decisions-nominales.png`
-- `09-runtime-860-136-decision-40-60.png`
-- `10-runtime-860-251-recherche-decisions.png`
-- `11-runtime-860-360-decision-agrandie.png`
+- `.tmp-sfia-review/figma-ux-after/00-runtime-empty-exploration.png`
+- `.tmp-sfia-review/figma-ux-after/01-runtime-835-71-sujets-exploration.png`
+- `.tmp-sfia-review/figma-ux-after/02-runtime-842-26-sujet-autonome-40-60.png`
+- `.tmp-sfia-review/figma-ux-after/03-runtime-842-131-sujet-parent-40-60.png`
+- `.tmp-sfia-review/figma-ux-after/04-runtime-835-159-sujet-agrandi.png`
+- `.tmp-sfia-review/figma-ux-after/05-runtime-835-239-parent-agrandi.png`
+- `.tmp-sfia-review/figma-ux-after/06-runtime-859-42-recherche-sujets.png`
+- `.tmp-sfia-review/figma-ux-after/07-runtime-859-146-filtre-points.png`
+- `.tmp-sfia-review/figma-ux-after/08-runtime-860-58-decisions-nominales.png`
+- `.tmp-sfia-review/figma-ux-after/09-runtime-860-136-decision-40-60.png`
+- `.tmp-sfia-review/figma-ux-after/10-runtime-860-251-recherche-decisions.png`
+- `.tmp-sfia-review/figma-ux-after/11-runtime-860-360-decision-agrandie.png`
 
 ### capture-report.json
 ```json
 {
-  "projectId": "proj_d6b61142-ea73-4636-bb1c-c5effc01ac09",
+  "projectId": "proj_ca5f39f7-c447-414b-a96b-705e22400f8b",
   "seed": {
-    "projectId": "proj_d6b61142-ea73-4636-bb1c-c5effc01ac09",
-    "preparationId": "prep_b643c55e-400b-410a-9ab7-e5ec36f61f63",
-    "parentSubjectId": "subj_74d6df65-f12f-47fd-a7d0-6f5c398f7006",
-    "leafSubjectId": "subj_8fec5cdc-43e0-41cf-9bb6-68bb3387a761",
-    "otherParentId": "subj_0c73a030-6291-4f91-b0ee-18824d15bae1",
-    "homonymLeafId": "subj_95bf995b-6dba-407d-bc15-85dca0b2ad2e",
-    "acquisId": "acq_7caa5593-9993-4357-a83e-a7521337520d",
-    "documentAcquisId": "acq_9f4add9a-3925-46bb-8519-cece66f504e4",
-    "openPointId": "opn_45673529-4a0f-4f07-a2c0-8b536569d240",
-    "resolvedOpenPointId": "opn_2cdc4eb8-51ab-4dcb-a961-7d409efcd55c",
-    "decisionApplicableId": "dec_d7c8e5c7-9a67-4188-b361-9215ca60cf8b",
-    "decisionHistoricalId": "dec_d267f145-3d38-4c44-8477-1d11c96bab82",
-    "restrictionId": "grs_aaf74389-bde2-4b1b-aa09-61c86571d168",
-    "documentId": "doc_51128ce0-b4cf-45ce-a8a8-b1379f13fb64",
-    "revisionIdV1": "drev_3180f1b2-16f1-47b4-8404-806b5314c006",
-    "revisionIdV2": "drev_f2cf3d38-5473-4e99-9fdc-0bdfcb2f74f7",
-    "earlyMessageId": "msg_cf34c14c-dfb8-4fc3-aa99-c8eb5119ba1d",
-    "lateMessageId": "msg_17b555f2-bbaa-44de-9393-9ce6558481ae",
+    "projectId": "proj_ca5f39f7-c447-414b-a96b-705e22400f8b",
+    "preparationId": "prep_3f70420e-ae17-48a4-8719-b3f0a3030a0e",
+    "parentSubjectId": "subj_efd38d95-ecad-4bfb-afed-6486fea925d1",
+    "leafSubjectId": "subj_5e2d74cc-79e6-44e7-a8d7-d0c0e0958dee",
+    "otherParentId": "subj_42f60404-7a52-4c7a-8469-4c6e4bbfa56d",
+    "homonymLeafId": "subj_5dafb170-5d2b-402f-b5a7-0f6b3f649655",
+    "acquisId": "acq_613bad12-ad7f-48a9-b430-7e0fe9719b3d",
+    "documentAcquisId": "acq_4a0eafb5-1696-441a-be2c-e26773a7b32e",
+    "openPointId": "opn_511fa6e4-686e-453f-bd06-fbbbf2122037",
+    "resolvedOpenPointId": "opn_0ce3396a-dfb8-4ca2-91da-119a88e0337b",
+    "decisionApplicableId": "dec_3e3fe112-ebef-4ac7-9149-6f3e79fa2d4f",
+    "decisionHistoricalId": "dec_0888a9c4-b826-47ad-9fd0-1fec960b481d",
+    "restrictionId": "grs_2426ea73-d79d-478b-9db6-8cf65291226e",
+    "documentId": "doc_bc536158-bc92-4e67-bbc0-a10abeb808a7",
+    "revisionIdV1": "drev_7907f799-7fe5-4f75-b37e-e2c65ae71b92",
+    "revisionIdV2": "drev_6f05cf34-503a-4aa5-98e4-d2632c8eff98",
+    "earlyMessageId": "msg_225b5fa4-0062-4f8a-8913-813421088bc5",
+    "lateMessageId": "msg_320c17c2-629c-4d82-a56e-a11d78851a7c",
     "messageCount": 15
   },
   "out": "/Users/morris/Projects/sfia-wt-journal-delivery-20261119/projects/sfia-studio-next/.tmp-sfia-review/figma-ux-after",
-  "ok": true
+  "ok": true,
+  "distinctions": {
+    "leafTitle": "Continuité Git",
+    "parentTitle": "Architecture cible"
+  }
 }
 ```
 
-## 9. Comparaison Figma → Runtime (11/11)
+## 12. Tableau d'écarts Figma → Runtime
 
-| Frame | Structure | Copy | Layout/proportions | Interactions | Écarts résiduels | Verdict |
-|---|---|---|---|---|---|---|
-| 835:71 | ALIGNED | ALIGNED | ALIGNED | — | guides arbor. décoratifs mineurs | ALIGNED |
-| 842:26 | ALIGNED | ALIGNED | ALIGNED | select→viewer | halo décoratif non reproduit | ALIGNED |
-| 842:131 | ALIGNED | ALIGNED | ALIGNED | parent+enfants | idem | ALIGNED |
-| 835:159 | ALIGNED | ALIGNED | ALIGNED | Agrandir/Réduire | — | ALIGNED |
-| 835:239 | ALIGNED | ALIGNED | ALIGNED | parent agrandi | — | ALIGNED |
-| 859:42 | ALIGNED | ALIGNED | ALIGNED | search→result | — | ALIGNED |
-| 859:146 | ALIGNED | ALIGNED | ALIGNED | filtre points | — | ALIGNED |
-| 860:58 | ALIGNED | ALIGNED | ALIGNED | tab Décisions | données D6 réelles ≠ exemples Figma | ALIGNED |
-| 860:136 | ALIGNED | ALIGNED | ALIGNED | décision 40/60 | — | ALIGNED |
-| 860:251 | ALIGNED | ALIGNED | ALIGNED | search décisions | — | ALIGNED |
-| 860:360 | ALIGNED | ALIGNED | ALIGNED | agrandi+réduire | — | ALIGNED |
-| Empty (dérivé) | structure V4 | ALIGNED | full, sans viewer idle | — | pas de frame Figma dédiée | ALIGNED (dérivé) |
+| Frame | Élément | Figma attendu | Runtime | Correction | Verdict |
+|---|---|---|---|---|---|
+| 835:71 | Exploration full | Journal + tree, no viewer | title Journal, no idle viewer | conservé + shell height | ALIGNED structure |
+| 842:26 | Viewer 40/60 autonome | 784×832, acquis grid | stretch + autonome kind | géométrie + composition | ALIGNED structure ; réserve halos |
+| 842:131 | Viewer parent | child numbered cards | parent kind + numbered cards | composition distincte | ALIGNED structure |
+| 835:159 | Agrandi autonome | hero + article + aside | aside visible, autonome | grille enlarged | ALIGNED structure |
+| 835:239 | Agrandi parent | children + aside | parent children + aside | grille enlarged | ALIGNED structure |
+| 859:42 | Recherche | result cards | search-results list | nouveau mode | ALIGNED structure |
+| 859:146 | Points ouverts | transversal list | open-points-list | nouveau mode | ALIGNED structure |
+| 860:58 | Décisions nominale | status badges | D6 status fix | status labels | ALIGNED structure |
+| 860:136 | Décision 40/60 | viewer stretch | same geometry | géométrie | ALIGNED structure |
+| 860:251 | Recherche décisions | filtered + viewer | conservé | — | ALIGNED structure |
+| 860:360 | Décision agrandie | article + aside gouvernance | decision-aside | aside D6 | ALIGNED structure |
+| Empty | dérivé | structure V4 sans viewer | empty-structure | — | ALIGNED dérivé |
 
-## 10. Tests exacts et résultats
+**Parent ≠ autonome prouvé** : `leafTitle=Continuité Git` / `parentTitle=Architecture cible` (capture-report).
 
-| Suite | Commande / preuve | Résultat |
-|---|---|---|
-| TypeScript | `npx tsc --noEmit` | PASS |
-| Unit journal + fixture-gate | vitest journal-cognition + ml4c-e2e-fixture-gate | 14/14 PASS |
-| Playwright captures | `journal-v4-figma-captures.spec.ts` | PASS — preuve `/tmp/pw-cap2.txt` |
-| Playwright parcours | `journal-v4-parcours.spec.ts` | PASS 2/2 — preuve `/tmp/pw-parcours2.txt` |
-| PG Journal / ML2 / ML4C / E05 full | — | **NOT RUN** |
-| RECETTE cutover | — | **NOT DONE** |
+## 13. Tests
 
-### Preuve exacte — captures
+| Suite | Résultat |
+|---|---|
+| tsc --noEmit | PASS |
+| vitest journal + gate | 14/14 PASS |
+| Playwright captures+parcours | **3 passed** (`/tmp/pw-pixel4.txt`) |
+
+### Preuve Playwright
 ```
-[WebServer] ◇ injected env (2) from .env.local
+[WebServer] ◇ injected env (23) from .env.local
 
 [WebServer] e2e-preflight OK: operator=sfia_next_dev → e2e=sfia_next_e2e container=sfia-next-dev-pg port=5433
 
 
-Running 1 test using 1 worker
+Running 3 tests using 1 worker
 
-(node:26267) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:10563) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
 
 
-[1/1] tests/e2e/journal-v4-figma-captures.spec.ts:23:7 › Journal V4 Figma captures 1680×970 › eleven runtime frames + empty exploration
-  1 passed (18.5s)
+[1/3] tests/e2e/journal-v4-figma-captures.spec.ts:38:7 › Journal V4 Figma captures 1680×970 › eleven runtime frames + empty exploration
+[2/3] tests/e2e/journal-v4-parcours.spec.ts:37:7 › Journal V4 — données métier non vides (E06-01 + §5) › sujets/recherche-acquis/décisions/message/document/retour-nav
+[3/3] tests/e2e/journal-v4-parcours.spec.ts:184:7 › Journal V4 — données métier non vides (E06-01 + §5) › route seed refuse hors DEV/E2E (gate)
+  3 passed (24.4s)
 
 ```
 
-### Preuve exacte — parcours
-```
-[WebServer] ◇ injected env (2) from .env.local
+## 14. J-C01..16
 
-[WebServer] e2e-preflight OK: operator=sfia_next_dev → e2e=sfia_next_e2e container=sfia-next-dev-pg port=5433
+| ID | Verdict |
+|---|---|
+| J-C01..11,15 | PASS parcours |
+| J-C12 | PASS captures oracles + 11 frames |
+| J-C13 | PASS |
+| J-C14 | PASS (sources conservées y compris parent) |
+| J-C16 | PASS docs+tests |
 
-
-Running 2 tests using 1 worker
-
-(node:28014) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
-(Use `node --trace-warnings ...` to show where the warning was created)
-
-
-[1/2] tests/e2e/journal-v4-parcours.spec.ts:37:7 › Journal V4 — données métier non vides (E06-01 + §5) › sujets/recherche-acquis/décisions/message/document/retour-nav
-[2/2] tests/e2e/journal-v4-parcours.spec.ts:174:7 › Journal V4 — données métier non vides (E06-01 + §5) › route seed refuse hors DEV/E2E (gate)
-  2 passed (18.2s)
-
-```
-
-## 11. J-C01..J-C16
-
-| ID | Obligation | Code / preuve | Verdict |
-|---|---|---|---|
-| J-C01 | synthèses durables sourcées | journal API + viewer | PASS |
-| J-C02 | hiérarchie vivante | ProjectJournal tree | PASS |
-| J-C03 | liens acquis/points | viewer cards | PASS |
-| J-C04 | questions anciennes | open points | PASS |
-| J-C05 | résolution factuelle/D6 | décisions + points | PASS |
-| J-C06 | sources/contradictions | SourceChip + contradictions | PASS |
-| J-C07 | multi-préparations | API projet | PASS |
-| J-C08 | recherche Sujets/points | search + filtre | PASS parcours |
-| J-C09 | actes D6/restrictions | decision viewer | PASS |
-| J-C10 | explication décisionnelle | decision body | PASS |
-| J-C11 | recherche Décisions | tab + search | PASS |
-| J-C12 | navigation Figma V4 | 11 captures + empty | PASS |
-| J-C13 | message exact + retour | deep-link Travail | PASS |
-| J-C14 | document/version exacte | source chip → viewer | PASS (preuve parcours2) |
-| J-C15 | sûreté/idempotence/permissions | fixture gate + API | PASS |
-| J-C16 | tests/docs/régressions | as-built + specs | PASS |
-
-## 12. Fake / Real Qualification
+## 15. Fake/Real / ENV-01
 
 | Frontière | Statut |
 |---|---|
-| Figma MCP frames | CONTRACT READ |
-| DEV runtime captures | BROWSER PROVEN |
-| Playwright Journal V4 | DETERMINISTIC PROVEN (`pw-cap2`, `pw-parcours2`) |
-| Contenu D4/D6 | REAL project data / E2E fixtures DEV only |
-| RECETTE cutover correctif | NOT EXECUTED |
+| Figma MCP measures | CONTRACT READ |
+| DEV captures | BROWSER PROVEN |
+| Playwright | DETERMINISTIC PROVEN 3/3 |
+| RECETTE cutover | NOT EXECUTED |
 | UAT Morris visuelle | PENDING |
 
-## 13. ENV-01 / Product Versioning
+RECETTE `:3200` = `d5bf7eb7` / `PV12SV9VToVGK-ReSxTqk` inchangé. NO RELEASE.
 
-- Construction et tests : **DEV isolé**
-- RECETTE `:3200` reste `d5bf7eb7` / `PV12SV9VToVGK-ReSxTqk`
-- Migration 014 : **non rejouée**
-- STABLE : non touché
-- NO RELEASE
-- Cutover RECETTE du candidat `0eb3157b` : **interdit** sans GO Morris après revue visuelle
+## 16. Réserves restantes
 
-## 14. Non-régression Ensemble 05
+1. Halos / anneaux décoratifs Figma non reproduits (volontairement non décoratifs fictifs)
+2. Écarts de dizaines de px possibles (padding shell / heuristique mesure) — plus de déficit de plusieurs centaines
+3. Typographie Inter vs exact Figma weights à peaufiner sous zoom 100%
+4. Contenu métier réel ≠ textes Figma (attendu)
+5. Suites ML2/ML4C/E05 full NOT RUN
 
-- Pas de redesign page 05
-- Correction nav deep-link message → Travail
-- Suites E05 full : NOT RUN (réserve)
-
-## 15. Git Review Index
-
-| Élément | SHA / path |
-|---|---|
-| Branche produit | `sfia/next-journal-delivery-20261119` |
-| HEAD candidat | `0eb3157b1678b993162fa79c98f5e4de26a9e4e3` |
-| Tree | `b52a3ac1469af980f9cfdec1848757afd58e04dc` |
-| Parent RECETTE | `d5bf7eb762a21cc309744bb703926e2c0bc844ed` |
-| origin/main | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
-| Handoff précédent | `8d2bd1fb` (remplacé par ce pack FULL) |
-| Canonical handoff path | `sfia-review-handoff/latest-chatgpt-review.md` |
-
-## 16. Réserves
-
-1. Écarts pixel mineurs (guides arbre, halos décoratifs)
-2. Contenu métier réel ≠ exemples Figma (attendu)
-3. Suites ML2/ML4C/E05 full non rejouées ce cycle
-4. Candidat local non poussé ; RECETTE encore sur d5bf7eb7
-5. Titres D4 fragmentaires CampusFlow = dette données (class. A)
-6. tokens.css fourni en section Journal V4 (fichier global trop large pour dump intégral hors section)
-
-## 17. Conditions de sortie / Verdict
+## 17. Verdict
 
 **FIGMA TO RUNTIME ALIGNED — READY FOR MORRIS VISUAL REVIEW**
 
-Ne signifie PAS : UAT acceptée · cutover RECETTE · Gate C · STABLE · ADOPTED.
+Justification : écarts structurants du mandat (hauteur viewer, parent≠autonome, agrandi aside, search/open-points, liserés mesurés, statuts D6) corrigés et démontrés par oracles + captures distinctes. Réserves décoratives/pixel restantes documentées — réception esthétique finale = Morris.
+
+≠ UAT acceptée · ≠ cutover · ≠ Gate C · ≠ STABLE · ≠ ADOPTED.
 
 ### Prochaine décision Morris
 
-1. Revue visuelle du candidat `0eb3157b1678b993162fa79c98f5e4de26a9e4e3` (captures DEV + comparaison 11/11)
-2. Si conforme : GO cutover RECETTE même URL `:3200` / même LaunchAgent (sans 2e RECETTE)
+1. Revue visuelle candidat `{head}`
+2. GO cutover RECETTE si conforme
 
 ### Instruction ChatGPT obligatoire
 
