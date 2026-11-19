@@ -4,9 +4,9 @@
 |---|---|
 | Date | 19/11/2026 — correctif consolidation V4 (synthèse ACQUIS-only + densité + UX) |
 | Branche | `sfia/next-journal-delivery-20261119` |
-| HEAD candidat | *(renseigné au cutover)* |
-| Tree | *(renseigné au cutover)* |
-| RECETTE BUILD_ID | *(renseigné au cutover)* |
+| HEAD candidat | `02e24e4292733a85ae1c4f506971909b1849d4b4` |
+| Tree | `fc89dad4749f8d85b2d8d9d0b9b6bcadbe697a54` |
+| RECETTE BUILD_ID | `7yhVJFP0_Bm4cYc62Bo7` |
 | Base `main` | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
 | Docs matrice | v0.7 §18 (`f0d2d033`) — lecture seule |
 | Versioning | `NO RELEASE` / STABLE NOT AVAILABLE |
