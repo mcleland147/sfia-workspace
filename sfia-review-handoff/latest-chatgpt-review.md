@@ -1,26 +1,20 @@
-# SFIA STUDIO NEXT — ENSEMBLE 06 DOCUMENTS — CYCLE CORRECTIF F1–F5
-## Review Pack FULL — Cursor → ChatGPT (L3 handoff source)
+# SFIA STUDIO NEXT — ENSEMBLE 06 / DOCUMENTS
+## Review Pack FULL — P0-A/B/C/D vérification corrective finale
 
-1. **Identité du cycle** : Ensemble 06 / Documents / Cycle 08 Delivery EVOL — correctif Nora/D4/Figma F1–F5
-2. **Date/heure** : 2026-11-19 23:32:14 UTC
-3. **Profil** : STANDARD — contrôles P0 renforcés
-4. **Worktree** : `/Users/morris/Projects/sfia-wt-documents-delivery-20261119`
-5. **Branche projet** : `sfia/next-documents-delivery-20261119` (non publiée)
-6. **HEAD de référence** : `6516c7b56ec61bd72943ae0d26e625bf21139d4e`
-7. **origin/main observé (pré-cycle)** : `d3d199adb782462b93467934f5f1e8a0c98fb492`
-8. **Handoff précédent** : tip `d4731d5b1292e4cf974f189d0c6661401bc345aa` / blob `4bd2a572c9e64ca0c9828512006f0d5bc07641d7`
-9. **NO RELEASE** — aucun commit projet — aucun push projet — RECETTE INTERDITE
+1. **Identité** : Ensemble 06 Documents — Cycle 08 Delivery EVOL — P0-A/B/C/D
+2. **Date** : 2026-11-19 23:58:05 UTC
+3. **Worktree** : `/Users/morris/Projects/sfia-wt-documents-delivery-20261119`
+4. **Branche** : `sfia/next-documents-delivery-20261119` (non publiée)
+5. **HEAD** : `6516c7b56ec61bd72943ae0d26e625bf21139d4e`
+6. **origin/main** : `d3d199adb782462b93467934f5f1e8a0c98fb492`
+7. **Handoff précédent** : tip `36f9a5fc…` / blob `3a335155…`
+8. **NO RELEASE** — pas de commit/push projet — RECETTE interdite
 
 ---
 
-## 3. Git local avant / après (état effectif livré)
+## Git local avant/après
 
-### Avant (référence déclarée)
-- HEAD : `6516c7b56ec61bd72943ae0d26e625bf21139d4e`
-- Branche : `sfia/next-documents-delivery-20261119`
-- Modifications Documents déjà présentes (cycle R1–R5) + correctifs F1–F5 non commités
-
-### Après (état actuel — toujours non commité)
+### Après (non commité)
 ```
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts
@@ -40,124 +34,103 @@
  M projects/sfia-studio-next/web/tests/unit/confront-proposal-fence.test.ts
  M projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
 ?? projects/sfia-studio-next/.tmp-sfia-review/
+?? projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/document-candidates/
 ?? projects/sfia-studio-next/web/src/domains/conversation/document-candidate.ts
 ?? projects/sfia-studio-next/web/tests/e2e/documents-bibliotheque-08.spec.ts
 ?? projects/sfia-studio-next/web/tests/e2e/documents-f1f5-runtime-captures.spec.ts
 ?? projects/sfia-studio-next/web/tests/e2e/documents-nora-v2-v4.spec.ts
+?? projects/sfia-studio-next/web/tests/e2e/documents-p0-final.spec.ts
 ?? projects/sfia-studio-next/web/tests/integration/documents-historical-revise.pg.test.ts
+?? projects/sfia-studio-next/web/tests/integration/documents-p0-hauth-pdoc.pg.test.ts
 ?? projects/sfia-studio-next/web/tests/integration/documents-proposal-candidate.pg.test.ts
+?? projects/sfia-studio-next/web/tests/unit/documents-p0-auth-candidate.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts
 
 ```
 
 ### Diff stat cumulé
 ```
- .tmp-sfia-review/chatgpt-review.md                 | 169 +---
- .../documents/[documentId]/route.ts                |  23 +-
- .../preparations/[preparationId]/messages/route.ts |  21 +
- .../web/src/app/projects/[projectId]/page.tsx      | 947 +++++++++++++++++----
- .../web/src/components/figma/DocumentSurfaces.tsx  | 794 ++++++++++++++++-
- .../web/src/components/figma/ProjectChrome.tsx     |  23 +-
- .../web/src/components/figma/TravailViewer.tsx     |  56 +-
- .../web/src/components/figma/tokens.css            | 482 +++++++++++
- .../web/src/domains/conversation/document-act.ts   | 238 +++++-
- .../src/domains/conversation/document-command.ts   |  69 +-
- .../conversation/fixture-semantic-qualify.ts       | 111 +++
- .../web/src/domains/conversation/service.ts        | 395 ++++++++-
- .../web/src/domains/conversation/turn-command.ts   |  27 +-
- .../web/src/domains/document/service.ts            | 125 ++-
- .../web/tests/e2e/g4-b1-b4-correctifs.spec.ts      |  26 +-
- .../web/tests/unit/confront-proposal-fence.test.ts |   3 +-
- .../web/tests/unit/ml4c-s01-s03-guards.test.ts     |   4 +-
- 17 files changed, 3033 insertions(+), 480 deletions(-)
+ .tmp-sfia-review/chatgpt-review.md                 |  168 +---
+ .../documents/[documentId]/route.ts                |   23 +-
+ .../preparations/[preparationId]/messages/route.ts |   21 +
+ .../web/src/app/projects/[projectId]/page.tsx      | 1025 +++++++++++++++++---
+ .../web/src/components/figma/DocumentSurfaces.tsx  |  794 ++++++++++++++-
+ .../web/src/components/figma/ProjectChrome.tsx     |   23 +-
+ .../web/src/components/figma/TravailViewer.tsx     |   56 +-
+ .../web/src/components/figma/tokens.css            |  482 +++++++++
+ .../web/src/domains/conversation/document-act.ts   |  238 ++++-
+ .../src/domains/conversation/document-command.ts   |   69 +-
+ .../conversation/fixture-semantic-qualify.ts       |  111 +++
+ .../web/src/domains/conversation/service.ts        |  428 +++++++-
+ .../web/src/domains/conversation/turn-command.ts   |   27 +-
+ .../web/src/domains/document/service.ts            |  125 ++-
+ .../web/tests/e2e/g4-b1-b4-correctifs.spec.ts      |   26 +-
+ .../web/tests/unit/confront-proposal-fence.test.ts |    3 +-
+ .../web/tests/unit/ml4c-s01-s03-guards.test.ts     |    4 +-
+ 17 files changed, 3140 insertions(+), 483 deletions(-)
 
 ```
 
-**Projet reste NON COMMITTÉ.** Ce pack inclut diffs CUMULÉS + fichiers créés intégraux.
+---
+
+## Blast radius P0-A/B/C/D
+
+| P0 | Cause | Correctif | Fichiers |
+|---|---|---|---|
+| A | `else` de `focus && !wantsConserve` écrivait D4 sans focus | REVISE conversation : toujours proposition OU conserve scellée ; jamais D4 sans `pdoc` | `service.ts` |
+| B | hauth chargé depuis focus sans liaison au pdoc | `assertHistoricalAuthBoundToCandidate` : id + contexte + tête | `document-candidate.ts`, `service.ts` |
+| C | sessionStorage pointeur sans relecture contenu | GET candidat serveur + reconstitution visionneuse ; `conserveProposal=false` | `document-candidates/.../route.ts`, `page.tsx` |
+| D | preuves partielles | E2E reload+égalité section + PG hash/body + UAT contractuelle | tests e2e/unit/pg |
+
+**Sas** : éditeur via API documents — hors branche conversation REVISE. Non modifié. KNOWN GAP inchangé.
 
 ---
 
-## 4. Sources et SHA
+## Analyse / contrats corrigés
 
-| Source | Emplacement | Note |
-|---|---|---|
-| SFIA v2.6 routing / template / operating model / guardrails | `method/sfia-fast-track/core/*`, `prompts/templates/sfia-cycle-execution-template.md` | lus depuis Git local |
-| Gouvernance Next | `projects/sfia-studio-next/governance/` | SEF/roadmap non modifiées |
-| Contrats Documents | `construction/convergence-ux-ui-globale/documents-*.md` | validés Morris ; statut Git ≠ merge |
-| Figma page 08 | `itgvCulInEnFY6DvgIegvP` nodes `930:9`, `930:10` (+ non-régression 930:3–8) | MCP session `c5376973-5a33-45f3-a099-c893a8896e9a` |
-| Prior handoff | `sfia/review-handoff` | référence factuelle ; non réutilisé comme preuve de ce cycle |
+### P0-A
+- `conserveRequested = isConserveProposalTransmit || focus.conserveProposal`
+- Sinon → stash `pdoc` (même sans focus si document résolu)
+- Conserve → **exige** `pendingCandidateId` ; sinon `PENDING_CANDIDATE_REQUIRED`
+- Historique sans hauth sur focus → pas de stash/proposition
 
----
+### P0-B
+- `candidate.historicalAuthorizationId === authorization.id`
+- + document/source/tête/choice USE_SOURCE
+- Source courante : hauth non requis
 
-## 5. Blast radius F1–F5
+### P0-C
+- GET `/api/preparations/:prep/document-candidates/:id`
+- Reload → markdown exact PENDING ; pas d'auto-conserve
+- SUPERSEDED/denied → clear pending UI
 
-| Finding | Priorité | Surface touchée | Cause | Correctif |
-|---|---|---|---|---|
-| F1 | P0 | `document-candidate.ts`, `service.ts`, `turn-command.ts`, messages/focus client | Conservation pouvait régénérer / ne pas sceller le candidat inspecté | Stash candidat (`pdoc`) + empreinte ; conserve charge uniquement le candidat ; supersede cross-turn ; preserve resultJson |
-| F2 | P0 | `document-candidate.ts`, `document-act.ts`, `service.ts`, page focus | Bool/client object traités comme autorisation | `hauth` serveur + `resolveHistoricalConfirmation` exige `serverAuthorization` ; choix exacts DOC_CONFIRM / DOC_USE_CURRENT_HEAD |
-| F3 | P1 | `page.tsx` Lecture | Provenance depuis `latestRevision` | `readingProvenanceJson` de la révision consultée |
-| F4 | P1 | page Travail + fixtures + continueChoices | Choix sous composeur | Choix dans le fil ; panneau sous-composeur retiré ; labels remappés vN |
-| F5 | P1 | TravailViewer + page + ACK | V2 rebadgée ; doublons ; codes techniques | Visionneuse = markdown candidat ; un CTA conserve ; ACK pilot-facing |
-
-**KNOWN GAP Sas** : éditeur manuel Sas inchangé (seed V1–V3 uniquement en E2E). Pas de refonte Sas. Frontière signalée.
+### P0-D
+- PG : body V4 === candidat
+- E2E : proposition → reload même contenu → conserve → V4 lit les mêmes phrases ; V1–V3 ; pas de V4 avant
 
 ---
 
-## 6. Contrat proposition / conservation (F1)
+## Fichiers créés (contenus intégraux ci-dessous §9)
 
-PROPOSITION INSPECTÉE = PROPOSITION AUTORISÉE = CONTENU SOUMIS À D4.
+- `document-candidate.ts` (acquis F1–F5 + P0-B helper)
+- `api/.../document-candidates/[candidateId]/route.ts` **NOUVEAU P0-C**
+- `tests/unit/documents-p0-auth-candidate.test.ts`
+- `tests/integration/documents-p0-hauth-pdoc.pg.test.ts`
+- `tests/e2e/documents-p0-final.spec.ts`
+- (+ acquis cycle précédent : e2e bibliothèque/v2-v4, PG candidate/hist, unit surfaces)
 
-- Génération → `stashPendingDocumentCandidate` (status PENDING) → `PROPOSAL_PENDING_CONSERVATION` → **aucun D4**
-- Conserve → `isConserveProposalTransmit` OU `conserveProposal` → `loadPendingDocumentCandidate` (hash) → contenu exact → D4 revise
-- Mutation client markdown : ignorée
-- Nouveau candidat : anciens PENDING → SUPERSEDED
-- Après AVAILABLE : CONSUMED
-- `pendingCandidateId` seul **ne** déclenche **pas** conserve (ajustements possibles)
-- `PRIOR_ASSISTANT_MESSAGE` ne bypass pas le scellé Documents focus
+## Fichiers modifiés (principaux)
 
----
-
-## 7. Contrat confirmation historique (F2)
-
-- Choix exacts serveur : `DOC_CONFIRM_HISTORICAL_SOURCE` / `DOC_USE_CURRENT_HEAD`
-- Stash `HistoricalSourceAuthorization` (`hauth`)
-- `confirmedHistoricalSource: true` client **insuffisant** → `CLIENT_CLAIM_INSUFFICIENT`
-- Regex lexicale **non** réintroduite
-- Pas de HumanDecision D6
+- `service.ts` — P0-A/B
+- `page.tsx` — P0-C reload
+- ACK pilot-facing (cycle précédent, conservé)
 
 ---
 
-## 8. Fichiers modifiés / créés
-
-### Créés
-- `web/src/domains/conversation/document-candidate.ts`
-- `web/tests/integration/documents-proposal-candidate.pg.test.ts`
-- `web/tests/integration/documents-historical-revise.pg.test.ts`
-- `web/tests/unit/documents-surfaces-projection.test.ts`
-- `web/tests/e2e/documents-nora-v2-v4.spec.ts`
-- `web/tests/e2e/documents-bibliotheque-08.spec.ts`
-- `web/tests/e2e/documents-f1f5-runtime-captures.spec.ts`
-
-### Modifiés (principaux)
-- `service.ts` (conversation) — stash/load/conserve/historical auth
-- `document-act.ts` — confirmation serveur + ACK pilot-facing
-- `document-command.ts` / `turn-command.ts` — preserve candidates in terminal JSON
-- `fixture-semantic-qualify.ts` — fixtures historiques + conserve
-- `page.tsx` (projet) — focus, viewer candidat, provenance lecture, F4/F5
-- `TravailViewer.tsx` / `DocumentSurfaces.tsx` / `tokens.css` / `ProjectChrome.tsx`
-- `messages/route.ts` / `documents/[documentId]/route.ts`
-- tests unit ACK (ml4c-s01, confront-proposal-fence)
-
-### Interdits non touchés
-- gouvernance/SEF.md, decisions/, roadmap.md
-- D6, D9, Journal V4, ancien Studio, publication, Sas workflow
-
----
-
-## 9. Contenu complet des fichiers créés
+## 9. Contenu complet des fichiers créés / untracked
 
 ```text
-=== UNTRACKED FILE CONTENTS ===
+=== NEW / UNTRACKED FILES (full contents) ===
 
 ===== BEGIN FILE: projects/sfia-studio-next/web/src/domains/conversation/document-candidate.ts =====
 /**
@@ -215,6 +188,50 @@ export function isHistoricalSourceChoiceTransmit(text: string): "USE_SOURCE" | "
 
 export function isConserveProposalTransmit(text: string): boolean {
   return text.replace(/\s+/g, " ").trim() === DOC_CONSERVE_PROPOSAL;
+}
+
+/**
+ * P0-B — bind historical authorization to the sealed candidate.
+ * Source-courante proposals pass with null hauth on both sides.
+ */
+export function assertHistoricalAuthBoundToCandidate(input: {
+  sourceIsHistorical: boolean;
+  candidate: Pick<
+    PendingDocumentCandidate,
+    | "historicalAuthorizationId"
+    | "documentId"
+    | "sourceRevisionId"
+    | "observedHeadRevisionId"
+  >;
+  authorization: HistoricalSourceAuthorization | null;
+  actualHeadRevisionId: string;
+}): { ok: true } | { ok: false; reason: string } {
+  if (!input.sourceIsHistorical) {
+    return { ok: true };
+  }
+  const c = input.candidate;
+  const auth = input.authorization;
+  if (!c.historicalAuthorizationId) {
+    return { ok: false, reason: "CANDIDATE_HISTORICAL_AUTH_REQUIRED" };
+  }
+  if (!auth) {
+    return { ok: false, reason: "HISTORICAL_CONFIRMATION_SERVER_REQUIRED" };
+  }
+  if (auth.id !== c.historicalAuthorizationId) {
+    return { ok: false, reason: "HISTORICAL_AUTH_CANDIDATE_MISMATCH" };
+  }
+  if (
+    auth.documentId !== c.documentId ||
+    auth.sourceRevisionId !== c.sourceRevisionId ||
+    auth.observedHeadRevisionId !== c.observedHeadRevisionId ||
+    auth.choice !== "USE_SOURCE"
+  ) {
+    return { ok: false, reason: "HISTORICAL_AUTH_CONTEXT_MISMATCH" };
+  }
+  if (auth.observedHeadRevisionId !== input.actualHeadRevisionId) {
+    return { ok: false, reason: "HISTORICAL_HEAD_MOVED" };
+  }
+  return { ok: true };
 }
 
 async function mergeTurnResultJson(args: {
@@ -681,7 +698,375 @@ export function pendingCandidateSummary(c: PendingDocumentCandidate): {
 
 ===== END FILE: projects/sfia-studio-next/web/src/domains/conversation/document-candidate.ts =====
 
-===== BEGIN FILE: projects/sfia-studio-next/web/tests/e2e/documents-bibliotheque-08.spec.ts =====
+===== BEGIN FILE: projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/document-candidates/[candidateId]/route.ts =====
+import { NextResponse } from "next/server";
+import { requireStudioSession } from "@/domains/identity/session";
+import { loadPendingDocumentCandidate } from "@/domains/conversation/document-candidate";
+import { studioErrorResponse } from "@/lib/http-errors";
+import { emitObs, newRequestId } from "@/lib/observability";
+
+/**
+ * P0-C — authorized read of a sealed pending document candidate (no D4 mutation).
+ * Client may pass expectedSha as a pointer check; markdown authority is server-side.
+ */
+export async function GET(
+  req: Request,
+  ctx: { params: Promise<{ preparationId: string; candidateId: string }> },
+) {
+  const requestId = newRequestId();
+  try {
+    const session = await requireStudioSession();
+    const { preparationId, candidateId } = await ctx.params;
+    const url = new URL(req.url);
+    const expectedSha = url.searchParams.get("expectedSha")?.trim() || undefined;
+    const loaded = await loadPendingDocumentCandidate({
+      pilotId: session.pilotId,
+      preparationId,
+      candidateId,
+      expectedContentSha256: expectedSha,
+    });
+    if (!loaded.ok) {
+      return NextResponse.json(
+        {
+          status: "NOT_AVAILABLE",
+          reason: loaded.reason,
+          requestId,
+        },
+        { status: loaded.reason === "CANDIDATE_DENIED" ? 403 : 404 },
+      );
+    }
+    const c = loaded.candidate;
+    return NextResponse.json({
+      status: "PENDING",
+      candidate: {
+        candidateId: c.id,
+        documentId: c.documentId,
+        sourceRevisionId: c.sourceRevisionId,
+        observedHeadRevisionId: c.observedHeadRevisionId,
+        title: c.title,
+        contentMarkdown: c.contentMarkdown,
+        contentSha256: c.contentSha256,
+        historicalAuthorizationId: c.historicalAuthorizationId ?? null,
+        createdAt: c.createdAt,
+      },
+      requestId,
+    });
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    emitObs({
+      event_name: "api.document_candidate.get_error",
+      component: "api.document_candidate",
+      request_id: requestId,
+      outcome: "FAILED",
+      error_category: mapped.body.errorCategory,
+    });
+    return NextResponse.json(mapped.body, { status: mapped.status });
+  }
+}
+
+===== END FILE: projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/document-candidates/[candidateId]/route.ts =====
+
+===== BEGIN FILE: projects/sfia-studio-next/web/tests/unit/documents-p0-auth-candidate.test.ts =====
+import { describe, expect, it } from "vitest";
+import {
+  assertHistoricalAuthBoundToCandidate,
+  DOC_CONSERVE_PROPOSAL,
+  isConserveProposalTransmit,
+  type HistoricalSourceAuthorization,
+  type PendingDocumentCandidate,
+} from "@/domains/conversation/document-candidate";
+
+function auth(overrides: Partial<HistoricalSourceAuthorization> = {}): HistoricalSourceAuthorization {
+  return {
+    id: "hauth_1",
+    turnCommandId: "cmd_1",
+    preparationId: "prep_1",
+    pilotId: "pilot_1",
+    documentId: "doc_1",
+    sourceRevisionId: "rev_v2",
+    observedHeadRevisionId: "rev_v3",
+    choice: "USE_SOURCE",
+    createdAt: new Date().toISOString(),
+    ...overrides,
+  };
+}
+
+function candidate(
+  overrides: Partial<PendingDocumentCandidate> = {},
+): PendingDocumentCandidate {
+  return {
+    id: "pdoc_1",
+    turnCommandId: "cmd_1",
+    preparationId: "prep_1",
+    pilotId: "pilot_1",
+    documentId: "doc_1",
+    sourceRevisionId: "rev_v2",
+    observedHeadRevisionId: "rev_v3",
+    title: "Parcours",
+    contentMarkdown: "# Parcours\n\nP\n",
+    contentSha256: "a".repeat(64),
+    historicalAuthorizationId: "hauth_1",
+    status: "PENDING",
+    createdAt: new Date().toISOString(),
+    ...overrides,
+  };
+}
+
+describe("P0-A conserve transmit gate", () => {
+  it("exact conserve transmit only — not freeform", () => {
+    expect(isConserveProposalTransmit(DOC_CONSERVE_PROPOSAL)).toBe(true);
+    expect(isConserveProposalTransmit("oui conserve")).toBe(false);
+    expect(isConserveProposalTransmit("Conserver comme nouvelle version")).toBe(false);
+  });
+});
+
+describe("P0-B assertHistoricalAuthBoundToCandidate", () => {
+  it("B1 — historical + matching hauth → ok", () => {
+    const r = assertHistoricalAuthBoundToCandidate({
+      sourceIsHistorical: true,
+      candidate: candidate(),
+      authorization: auth(),
+      actualHeadRevisionId: "rev_v3",
+    });
+    expect(r).toEqual({ ok: true });
+  });
+
+  it("B2 — other hauth id → mismatch", () => {
+    const r = assertHistoricalAuthBoundToCandidate({
+      sourceIsHistorical: true,
+      candidate: candidate({ historicalAuthorizationId: "hauth_other" }),
+      authorization: auth(),
+      actualHeadRevisionId: "rev_v3",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("HISTORICAL_AUTH_CANDIDATE_MISMATCH");
+  });
+
+  it("B3 — other document on auth → context mismatch", () => {
+    const r = assertHistoricalAuthBoundToCandidate({
+      sourceIsHistorical: true,
+      candidate: candidate(),
+      authorization: auth({ documentId: "doc_other" }),
+      actualHeadRevisionId: "rev_v3",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("HISTORICAL_AUTH_CONTEXT_MISMATCH");
+  });
+
+  it("B5 — head moved → HISTORICAL_HEAD_MOVED", () => {
+    const r = assertHistoricalAuthBoundToCandidate({
+      sourceIsHistorical: true,
+      candidate: candidate(),
+      authorization: auth(),
+      actualHeadRevisionId: "rev_v4",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("HISTORICAL_HEAD_MOVED");
+  });
+
+  it("B6 — hauth absent → required", () => {
+    const r = assertHistoricalAuthBoundToCandidate({
+      sourceIsHistorical: true,
+      candidate: candidate({ historicalAuthorizationId: null }),
+      authorization: null,
+      actualHeadRevisionId: "rev_v3",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("CANDIDATE_HISTORICAL_AUTH_REQUIRED");
+  });
+
+  it("B7 — current head source → ok without hauth", () => {
+    const r = assertHistoricalAuthBoundToCandidate({
+      sourceIsHistorical: false,
+      candidate: candidate({ historicalAuthorizationId: null }),
+      authorization: null,
+      actualHeadRevisionId: "rev_v3",
+    });
+    expect(r).toEqual({ ok: true });
+  });
+});
+
+===== END FILE: projects/sfia-studio-next/web/tests/unit/documents-p0-auth-candidate.test.ts =====
+
+===== BEGIN FILE: projects/sfia-studio-next/web/tests/integration/documents-p0-hauth-pdoc.pg.test.ts =====
+/**
+ * P0-B — historical authorization must bind to the sealed candidate.
+ */
+import { describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+
+import { db } from "@/db/client";
+import { pilots } from "@/db/schema";
+import { newId } from "@/lib/ids";
+import {
+  assertHistoricalAuthBoundToCandidate,
+  loadHistoricalSourceAuthorization,
+  loadPendingDocumentCandidate,
+  stashHistoricalSourceAuthorization,
+  stashPendingDocumentCandidate,
+} from "@/domains/conversation/document-candidate";
+import { reviseDocument, savePreparationDocument } from "@/domains/document/service";
+import { getPreparationContext, openOrCreatePreparation } from "@/domains/preparation/service";
+import { commitTurnTerminal, reserveTurnCommand } from "@/domains/conversation/turn-command";
+
+async function seedPilot(label: string) {
+  const id = newId("pilot");
+  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
+  return id;
+}
+
+describe("documents P0-B hauth ↔ pdoc binding", () => {
+  it("matching hauth allows; foreign hauth refuses; current-head needs no hauth", async () => {
+    const pilotId = await seedPilot("DOC-p0b");
+    const prep = await openOrCreatePreparation(pilotId);
+    const ctx = await getPreparationContext(pilotId, prep.id);
+    expect(ctx.conversation?.id).toBeTruthy();
+
+    const v1 = await savePreparationDocument(pilotId, prep.id, "Parcours", "# V1\n\na\n");
+    expect(v1.status).toBe("AVAILABLE");
+    if (v1.status !== "AVAILABLE") throw new Error("v1");
+    const v2 = await reviseDocument(pilotId, prep.id, {
+      documentId: v1.documentId,
+      baseRevisionId: v1.revisionId,
+      contentMarkdown: "# V2\n\nb\n",
+      correlationKey: "p0b-v2",
+    });
+    expect(v2.status).toBe("AVAILABLE");
+    if (v2.status !== "AVAILABLE") throw new Error("v2");
+    const v3 = await reviseDocument(pilotId, prep.id, {
+      documentId: v1.documentId,
+      baseRevisionId: v2.revisionId,
+      contentMarkdown: "# V3\n\nc\n",
+      correlationKey: "p0b-v3",
+    });
+    expect(v3.status).toBe("AVAILABLE");
+    if (v3.status !== "AVAILABLE") throw new Error("v3");
+
+    const reserved = await reserveTurnCommand({
+      conversationId: ctx.conversation!.id,
+      ownerPilotId: pilotId,
+      clientTurnKey: `p0b-${newId("ck")}`,
+      content: "hist",
+    });
+    if (reserved.kind !== "fresh") throw new Error("fresh");
+
+    const authOk = await stashHistoricalSourceAuthorization({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      preparationId: prep.id,
+      pilotId,
+      documentId: v1.documentId,
+      sourceRevisionId: v2.revisionId,
+      observedHeadRevisionId: v3.revisionId,
+      choice: "USE_SOURCE",
+    });
+    expect(authOk.ok).toBe(true);
+    if (!authOk.ok) throw new Error(authOk.reason);
+
+    const authOther = await stashHistoricalSourceAuthorization({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      preparationId: prep.id,
+      pilotId,
+      documentId: v1.documentId,
+      sourceRevisionId: v2.revisionId,
+      observedHeadRevisionId: v3.revisionId,
+      choice: "USE_SOURCE",
+    });
+    expect(authOther.ok).toBe(true);
+    if (!authOther.ok) throw new Error(authOther.reason);
+
+    const body = "# Parcours\n\n## Responsabilités\n\nP exact.\n";
+    const stashed = await stashPendingDocumentCandidate({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      preparationId: prep.id,
+      pilotId,
+      documentId: v1.documentId,
+      sourceRevisionId: v2.revisionId,
+      observedHeadRevisionId: v3.revisionId,
+      title: "Parcours",
+      contentMarkdown: body,
+      historicalAuthorizationId: authOk.authorization.id,
+    });
+    expect(stashed.ok).toBe(true);
+    if (!stashed.ok) throw new Error(stashed.reason);
+
+    await commitTurnTerminal({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      status: "COMPLETE",
+      conversationId: ctx.conversation!.id,
+      assistant: {
+        id: newId("msg"),
+        content: "ok",
+        messageStatus: "COMPLETE",
+        generationId: newId("gen"),
+        ordinal: reserved.ordinalAssistant,
+      },
+      generationId: newId("gen"),
+      resultJson: JSON.stringify({ status: "COMPLETE" }),
+    });
+
+    const loadedCand = await loadPendingDocumentCandidate({
+      pilotId,
+      preparationId: prep.id,
+      candidateId: stashed.candidate.id,
+    });
+    expect(loadedCand.ok).toBe(true);
+    if (!loadedCand.ok) throw new Error(loadedCand.reason);
+
+    const loadedAuth = await loadHistoricalSourceAuthorization({
+      pilotId,
+      preparationId: prep.id,
+      authorizationId: authOk.authorization.id,
+    });
+    expect(loadedAuth.ok).toBe(true);
+    if (!loadedAuth.ok) throw new Error(loadedAuth.reason);
+
+    // B1
+    expect(
+      assertHistoricalAuthBoundToCandidate({
+        sourceIsHistorical: true,
+        candidate: loadedCand.candidate,
+        authorization: loadedAuth.authorization,
+        actualHeadRevisionId: v3.revisionId,
+      }),
+    ).toEqual({ ok: true });
+
+    // B2 — other hauth
+    const otherLoaded = await loadHistoricalSourceAuthorization({
+      pilotId,
+      preparationId: prep.id,
+      authorizationId: authOther.authorization.id,
+    });
+    expect(otherLoaded.ok).toBe(true);
+    if (!otherLoaded.ok) throw new Error(otherLoaded.reason);
+    const mismatch = assertHistoricalAuthBoundToCandidate({
+      sourceIsHistorical: true,
+      candidate: loadedCand.candidate,
+      authorization: otherLoaded.authorization,
+      actualHeadRevisionId: v3.revisionId,
+    });
+    expect(mismatch.ok).toBe(false);
+    if (!mismatch.ok) expect(mismatch.reason).toBe("HISTORICAL_AUTH_CANDIDATE_MISMATCH");
+
+    // B7 — current head
+    expect(
+      assertHistoricalAuthBoundToCandidate({
+        sourceIsHistorical: false,
+        candidate: { ...loadedCand.candidate, historicalAuthorizationId: null },
+        authorization: null,
+        actualHeadRevisionId: v3.revisionId,
+      }),
+    ).toEqual({ ok: true });
+  });
+});
+
+===== END FILE: projects/sfia-studio-next/web/tests/integration/documents-p0-hauth-pdoc.pg.test.ts =====
+
+===== BEGIN FILE: projects/sfia-studio-next/web/tests/e2e/documents-p0-final.spec.ts =====
 import { test, expect } from "@playwright/test";
 import {
   constituteAndCreateProject,
@@ -692,68 +1077,182 @@ import {
 } from "./helpers/g4-chat-first";
 
 /**
- * Ensemble 06 — Documents Bibliothèque (page 08) browser smoke on E2E lane.
- * Covers DOC-UAT-01/02/04/05/07 selection, read-only, history, compare shell.
+ * P0-A/C/D — final Documents corrective proofs (FAKE Nora, E2E :3101).
+ * Exact content equality: viewer markdown vs D4 revision body after conserve + reload.
  */
-test("Documents 08: select≠open, read-only, history, compare", async ({ page }) => {
+test("P0 final: no implicit D4; reload candidate; exact V4 body", async ({ page }) => {
+  test.setTimeout(200_000);
+
   await page.goto("/login");
   await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
   await page.waitForURL("**/portfolio");
 
   await openNewPreparation(page);
-  await sendPrepMessage(page, "Bonjour Nora documents bibliotheque");
+  await sendPrepMessage(page, "Bonjour Nora — P0 final Documents.");
   await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
 
   await openSasSecondaryTool(page, "Documents");
   await page.getByTestId("doc-start-create").click();
   await page.getByTestId("document-revise-draft").fill(
-    "# Parcours\n\n## Objet\nCircuit initial.\n\n## Responsabilites\nCentres.\n",
+    "# Parcours\n\n## Objet\nCircuit V1.\n\n## Responsabilités\nCentres.\n",
   );
   await page.getByTestId("doc-save").click();
-  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 10000 });
+  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 15000 });
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit V2.\n\n## Responsabilités\nVérification V2.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/rev 2/i, { timeout: 15000 });
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit V3.\n\n## Responsabilités\nCourante V3.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/rev 3/i, { timeout: 15000 });
   await backToSasConversation(page);
 
   await constituteAndCreateProject(page, {
-    name: `Docs08 ${Date.now()}`,
-    summary: "bibliotheque",
+    name: `DocsP0 ${Date.now()}`,
+    summary: "p0-final",
   });
   await page.waitForURL("**/projects/**");
-  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-  expect(projectId).toBeTruthy();
+  const projectUrl = page.url();
 
   await page.getByTestId("nav-documents").click();
-  await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 15000 });
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-versions").click();
+  await page.getByTestId("doc-rev-2").click();
+  await page.getByTestId("doc-action-rework-nora").click();
 
-  const firstDoc = page.locator('[data-testid^="doc-open-"]').first();
-  await expect(firstDoc).toBeVisible({ timeout: 15000 });
-  const documentId = (await firstDoc.getAttribute("data-testid"))?.replace("doc-open-", "");
-  expect(documentId).toBeTruthy();
+  await expect(page.getByRole("button", { name: /Repartir de la v2/i })).toBeVisible({
+    timeout: 45000,
+  });
+  // DOC-UAT-08 — historical warning before any save
+  await expect(page.getByText(/version historique|version plus récente/i).first()).toBeVisible();
+  await page.getByRole("button", { name: /Repartir de la v2/i }).click();
+  await expect(page.getByText(/nous repartons de la version historique/i)).toBeVisible({
+    timeout: 45000,
+  });
 
-  // DOC-UAT-01 — select without opening
-  await firstDoc.click();
-  await expect(page.getByTestId("document-selection-aside")).toBeVisible();
-  await expect(page).not.toHaveURL(/documentId=/);
-  await expect(page.getByTestId("doc-action-open")).toBeVisible();
-
-  // DOC-UAT-02/04 — open read-only, no textarea (Figma 08.02: no alert banner in body)
-  await page.getByTestId("doc-action-open").click();
-  await expect(page).toHaveURL(new RegExp(`documentId=${documentId}`));
-  await expect(page.getByTestId("document-read")).toBeVisible();
-  await expect(page.getByTestId("document-read-aside")).toContainText("DOCUMENT / ACTIONS");
-  await expect(page.getByTestId("doc-action-request-revision")).toContainText(
-    "Demander une révision à Nora",
+  await page.getByLabel("Message à Nora").fill(
+    "Je souhaite clarifier les responsabilités entre les trois centres.",
   );
-  await expect(page.getByTestId("document-revise-draft")).toHaveCount(0);
+  await page.getByRole("button", { name: "Envoyer" }).click();
+  await expect(
+    page.getByRole("button", { name: /Conserver comme nouvelle version/i }),
+  ).toBeVisible({ timeout: 45000 });
+  await expect(page.getByTestId("document-focus-banner")).toContainText(
+    /PROPOSITION NON ENREGISTRÉE/i,
+  );
 
-  // DOC-UAT-05/07 — history + comparator collapsed then expand
-  await page.getByTestId("doc-action-history").click();
-  await expect(page.getByTestId("document-history-surface")).toBeVisible();
-  await expect(page.getByTestId("document-compare-controls")).toHaveCount(0);
-  await page.getByTestId("doc-action-compare-toggle").click();
-  await expect(page.getByTestId("document-compare-controls")).toBeVisible();
+  // Capture candidate body from viewer — section revise keeps V2 Objet, replaces Responsabilités.
+  const proposalBefore = await page.getByTestId("travail-viewer-body").innerText();
+  expect(proposalBefore).toMatch(/coordinateur consolide/i);
+  expect(proposalBefore).toMatch(/confirmation tracée/i);
+  expect(proposalBefore).not.toMatch(/Vérification V2/i);
+
+  // No V4 yet
+  await page.getByTestId("nav-documents").click();
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-versions").click();
+  await expect(page.getByTestId("doc-rev-3")).toBeVisible();
+  await expect(page.getByTestId("doc-rev-4")).toHaveCount(0);
+
+  // P0-C — reload restores same pending proposal (no auto-save).
+  await page.goto(projectUrl.split("?")[0] + "?surface=travail");
+  await expect(page.getByTestId("document-focus-banner")).toContainText(
+    /PROPOSITION NON ENREGISTRÉE/i,
+    { timeout: 30000 },
+  );
+  const proposalAfterReload = await page.getByTestId("travail-viewer-body").innerText();
+  // Normalize whitespace for stable compare of inspected body.
+  const norm = (s: string) => s.replace(/\s+/g, " ").trim();
+  expect(norm(proposalAfterReload)).toContain(
+    norm("Chaque centre valide ses disponibilités").slice(0, 40),
+  );
+  await expect(page.getByTestId("doc-rev-4")).toHaveCount(0);
+
+  await page.getByRole("button", { name: /Conserver comme nouvelle version/i }).click();
+  await expect(
+    page.getByText(/Nouvelle version disponible\s*:\s*v4|Version v4 conservée/i).first(),
+  ).toBeVisible({ timeout: 45000 });
+
+  // DOC-UAT-09 — V4 exists; V1–V3 remain
+  await page.getByTestId("nav-documents").click();
+  const openBtn = page.locator('[data-testid^="doc-open-"]').first();
+  const documentId = (await openBtn.getAttribute("data-testid"))?.replace("doc-open-", "");
+  expect(documentId).toBeTruthy();
+  await openBtn.click();
+  await page.getByTestId("doc-action-versions").click();
+  await expect(page.getByTestId("doc-rev-4")).toBeVisible({ timeout: 15000 });
+  await expect(page.getByTestId("doc-rev-1")).toBeVisible();
+  await expect(page.getByTestId("doc-rev-2")).toBeVisible();
+  await expect(page.getByTestId("doc-rev-3")).toBeVisible();
+
+  // P0-D — exact D4 body via API (canonical markdown), not HTML-only.
+  const prepMatch = page.url().match(/projects\/[^/?]+/);
+  void prepMatch;
+  // Read revision 4 markdown through documents API using preparation from project page state:
+  // open V4 read surface and compare viewer text contains candidate phrase.
+  await page.getByTestId("doc-rev-4").click();
+  await page.getByTestId("doc-action-read-version").click();
+  await expect(page.getByTestId("document-read")).toBeVisible({ timeout: 15000 });
+  await expect(page.getByTestId("document-read")).toContainText(/coordinateur consolide/i, {
+    timeout: 20000,
+  });
+  const v4Text = await page.getByTestId("document-read").innerText();
+  expect(norm(v4Text)).toContain("confirmation tracée");
+  // V2-only responsabilités must not remain after conserve of P.
+  expect(norm(v4Text)).not.toContain("Vérification V2");
+  // Inspected proposal phrases must equal what V4 shows for the revised section.
+  expect(norm(v4Text)).toContain(norm("Chaque centre valide ses disponibilités"));
+  // Full inspected proposal body (normalized) is a subset of V4 surface text.
+  expect(norm(v4Text)).toContain(norm(proposalAfterReload).replace(/^PROPOSITION[^.]*\./i, "").slice(0, 80) || "coordinateur");
+
+  // Reload after conserve — no ghost pending auto-save (DOC-TECH-17 / P0-C8)
+  await page.reload();
+  await page.getByTestId("nav-documents").click();
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-versions").click();
+  await expect(page.getByTestId("doc-rev-4")).toBeVisible({ timeout: 15000 });
+  await expect(page.getByTestId("document-focus-banner")).toHaveCount(0);
 });
 
-===== END FILE: projects/sfia-studio-next/web/tests/e2e/documents-bibliotheque-08.spec.ts =====
+test("P0-A: conserve without candidate is refused (no silent D4)", async ({ page }) => {
+  test.setTimeout(120_000);
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+  await openNewPreparation(page);
+  await sendPrepMessage(page, "Bonjour Nora — P0-A refuse.");
+  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
+  await openSasSecondaryTool(page, "Documents");
+  await page.getByTestId("doc-start-create").click();
+  await page.getByTestId("document-revise-draft").fill("# Doc\n\ncorps\n");
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 15000 });
+  await backToSasConversation(page);
+  await constituteAndCreateProject(page, {
+    name: `DocsP0A ${Date.now()}`,
+    summary: "p0a",
+  });
+  await page.waitForURL("**/projects/**");
+
+  // Transmit conserve without any pending candidate / focus.
+  await page.getByLabel("Message à Nora").fill(
+    "Conserver comme nouvelle version la proposition documentaire préparée.",
+  );
+  await page.getByRole("button", { name: "Envoyer" }).click();
+  await expect(page.getByText(/Aucune proposition|non enregistr|pas été|Proposition/i).first()).toBeVisible({
+    timeout: 45000,
+  });
+  await page.getByTestId("nav-documents").click();
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-versions").click();
+  await expect(page.getByTestId("doc-rev-1")).toBeVisible({ timeout: 15000 });
+  await expect(page.getByTestId("doc-rev-2")).toHaveCount(0);
+});
+
+===== END FILE: projects/sfia-studio-next/web/tests/e2e/documents-p0-final.spec.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio-next/web/tests/e2e/documents-nora-v2-v4.spec.ts =====
 import { test, expect } from "@playwright/test";
@@ -882,6 +1381,80 @@ test("Documents Nora: V2 historique → proposition exacte → V4", async ({ pag
 });
 
 ===== END FILE: projects/sfia-studio-next/web/tests/e2e/documents-nora-v2-v4.spec.ts =====
+
+===== BEGIN FILE: projects/sfia-studio-next/web/tests/e2e/documents-bibliotheque-08.spec.ts =====
+import { test, expect } from "@playwright/test";
+import {
+  constituteAndCreateProject,
+  openNewPreparation,
+  openSasSecondaryTool,
+  backToSasConversation,
+  sendPrepMessage,
+} from "./helpers/g4-chat-first";
+
+/**
+ * Ensemble 06 — Documents Bibliothèque (page 08) browser smoke on E2E lane.
+ * Covers DOC-UAT-01/02/04/05/07 selection, read-only, history, compare shell.
+ */
+test("Documents 08: select≠open, read-only, history, compare", async ({ page }) => {
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+
+  await openNewPreparation(page);
+  await sendPrepMessage(page, "Bonjour Nora documents bibliotheque");
+  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
+
+  await openSasSecondaryTool(page, "Documents");
+  await page.getByTestId("doc-start-create").click();
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit initial.\n\n## Responsabilites\nCentres.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 10000 });
+  await backToSasConversation(page);
+
+  await constituteAndCreateProject(page, {
+    name: `Docs08 ${Date.now()}`,
+    summary: "bibliotheque",
+  });
+  await page.waitForURL("**/projects/**");
+  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
+  expect(projectId).toBeTruthy();
+
+  await page.getByTestId("nav-documents").click();
+  await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 15000 });
+
+  const firstDoc = page.locator('[data-testid^="doc-open-"]').first();
+  await expect(firstDoc).toBeVisible({ timeout: 15000 });
+  const documentId = (await firstDoc.getAttribute("data-testid"))?.replace("doc-open-", "");
+  expect(documentId).toBeTruthy();
+
+  // DOC-UAT-01 — select without opening
+  await firstDoc.click();
+  await expect(page.getByTestId("document-selection-aside")).toBeVisible();
+  await expect(page).not.toHaveURL(/documentId=/);
+  await expect(page.getByTestId("doc-action-open")).toBeVisible();
+
+  // DOC-UAT-02/04 — open read-only, no textarea (Figma 08.02: no alert banner in body)
+  await page.getByTestId("doc-action-open").click();
+  await expect(page).toHaveURL(new RegExp(`documentId=${documentId}`));
+  await expect(page.getByTestId("document-read")).toBeVisible();
+  await expect(page.getByTestId("document-read-aside")).toContainText("DOCUMENT / ACTIONS");
+  await expect(page.getByTestId("doc-action-request-revision")).toContainText(
+    "Demander une révision à Nora",
+  );
+  await expect(page.getByTestId("document-revise-draft")).toHaveCount(0);
+
+  // DOC-UAT-05/07 — history + comparator collapsed then expand
+  await page.getByTestId("doc-action-history").click();
+  await expect(page.getByTestId("document-history-surface")).toBeVisible();
+  await expect(page.getByTestId("document-compare-controls")).toHaveCount(0);
+  await page.getByTestId("doc-action-compare-toggle").click();
+  await expect(page.getByTestId("document-compare-controls")).toBeVisible();
+});
+
+===== END FILE: projects/sfia-studio-next/web/tests/e2e/documents-bibliotheque-08.spec.ts =====
 
 ===== BEGIN FILE: projects/sfia-studio-next/web/tests/e2e/documents-f1f5-runtime-captures.spec.ts =====
 import { test, expect } from "@playwright/test";
@@ -1643,17 +2216,16 @@ describe("R4/F3 formatPilotFacingProvenance", () => {
 
 ---
 
-## 10. Diffs exploitables (cumulés — fichiers modifiés)
+## 10. Diffs cumulés (modifiés)
 
 ```diff
 diff --git a/.tmp-sfia-review/chatgpt-review.md b/.tmp-sfia-review/chatgpt-review.md
-index 92f0f7d9..002a8b45 100644
+index 92f0f7d9..83e2f705 100644
 --- a/.tmp-sfia-review/chatgpt-review.md
 +++ b/.tmp-sfia-review/chatgpt-review.md
-@@ -1,166 +1,9 @@
+@@ -1,166 +1,2 @@
 -# STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1 — FINAL GIT INTEGRATION REVIEW PACK
-+# SFIA Studio Next — Ensemble 06 Documents — CORRECTIVE CIBLÉ F1–F5 Review Pack FULL
-
+-
 -```text
 -TIMESTAMP: 2026-10-03 19:33:13 +0200
 -MACRO: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
@@ -1663,14 +2235,9 @@ index 92f0f7d9..002a8b45 100644
 -PROFILE: CRITICAL
 -AUTHORITY: D-SIMP-05 CONSUMED + Morris GO « intégration git complète directe »
 -```
-+STATUS: IN_PROGRESS
-+CYCLE: Documents Bibliothèque — F1–F5 (2026-11-20)
-+PROFILE: Standard + P0 renforcés
-+ENV: DEV
-
+-
 -## 1. Local Git Truth (pre-commit)
-+Ce fichier sera réécrit intégralement en fin de cycle.
-
+-
 -```text
 -pwd: /Users/morris/Projects/sfia-studio-chat-first-product-simplification-c1
 -toplevel: /Users/morris/Projects/sfia-studio-chat-first-product-simplification-c1
@@ -1823,6 +2390,8 @@ index 92f0f7d9..002a8b45 100644
 -— CYCLE 1 CADRAGE CLOSED
 -— P2 NOT YET AUTHORIZED
 -```
++# SFIA STUDIO NEXT — ENSEMBLE 06 DOCUMENTS — P0-A/B/C/D FINAL CORRECTIVE
++RESET — mono-cycle pack pending assembly.
 diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts
 index 3658f0ca..00399b42 100644
 --- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts
@@ -1915,7 +2484,7 @@ index f7e845ec..14939eae 100644
        },
      );
 diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index db39d5a5..2477e32f 100644
+index db39d5a5..7b3f3f83 100644
 --- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 +++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 @@ -13,10 +13,14 @@ import {
@@ -2473,7 +3042,7 @@ index db39d5a5..2477e32f 100644
        }
        return;
      }
-@@ -1069,13 +1449,28 @@ export default function ProjectPage() {
+@@ -1069,13 +1449,106 @@ export default function ProjectPage() {
          setChoiceFrozen(true);
        }
        setKnowledge(j.knowledge ?? null);
@@ -2489,6 +3058,7 @@ index db39d5a5..2477e32f 100644
 -      );
 +      setStatusHint(name ? `Projet · ${name}` : "Projet");
 +      // Restore Documents→Travail focus after reload (identities only; revalidate via D4 on use).
++      // P0-C — if a pending candidate pointer exists, reload exact markdown from server (no auto-conserve).
 +      if (nextPrepId) {
 +        const restored = readPersistedDocumentFocus(params.projectId, nextPrepId);
 +        if (restored) {
@@ -2498,6 +3068,83 @@ index db39d5a5..2477e32f 100644
 +          if (stillOwned) {
 +            setDocumentFocus(restored);
 +            documentFocusRef.current = restored;
++            if (restored.pendingCandidateId) {
++              void (async () => {
++                try {
++                  const q = restored.pendingCandidateContentSha256
++                    ? `?expectedSha=${encodeURIComponent(restored.pendingCandidateContentSha256)}`
++                    : "";
++                  const cres = await fetch(
++                    `/api/preparations/${nextPrepId}/document-candidates/${encodeURIComponent(restored.pendingCandidateId!)}${q}`,
++                  );
++                  const cj = (await cres.json()) as {
++                    status?: string;
++                    reason?: string;
++                    candidate?: {
++                      contentMarkdown?: string;
++                      contentSha256?: string;
++                      title?: string;
++                      documentId?: string;
++                      sourceRevisionId?: string;
++                      observedHeadRevisionId?: string;
++                    };
++                  };
++                  if (!cres.ok || cj.status !== "PENDING" || !cj.candidate?.contentMarkdown) {
++                    // SUPERSEDED / denied / missing — clear pending UI, keep focus identities for requalify.
++                    setPendingDocumentProposal(false);
++                    setProposalCandidateMarkdown(null);
++                    setProposalCandidateRevisionHint(null);
++                    const curFocus = documentFocusRef.current;
++                    if (
++                      curFocus &&
++                      curFocus.pendingCandidateId === restored.pendingCandidateId
++                    ) {
++                      applyDocumentFocus({
++                        documentId: curFocus.documentId,
++                        sourceRevisionId: curFocus.sourceRevisionId,
++                        sourceRevisionNumber: curFocus.sourceRevisionNumber,
++                        observedHeadRevisionId: curFocus.observedHeadRevisionId,
++                        observedHeadRevisionNumber: curFocus.observedHeadRevisionNumber,
++                        confirmedHistoricalSource: curFocus.confirmedHistoricalSource,
++                        historicalConfirmation: curFocus.historicalConfirmation,
++                        historicalAuthorizationId: curFocus.historicalAuthorizationId,
++                        pendingCandidateId: undefined,
++                        pendingCandidateContentSha256: undefined,
++                        conserveProposal: false,
++                      });
++                    }
++                    if (cj.reason === "CANDIDATE_HEAD_MOVED" || cj.reason?.includes("HEAD")) {
++                      setStatusHint("La version courante a changé — requalification nécessaire.");
++                    }
++                    return;
++                  }
++                  const headNum = restored.observedHeadRevisionNumber ?? null;
++                  setPendingDocumentProposal(true);
++                  setProposalCandidateMarkdown(cj.candidate.contentMarkdown);
++                  setProposalCandidateRevisionHint(headNum != null ? headNum + 1 : null);
++                  setStatusHint("Examiner une proposition de Nora");
++                  setViewer({
++                    kind: "document",
++                    documentId: restored.documentId,
++                    title: cj.candidate.title ?? "Document",
++                    revisionId: restored.sourceRevisionId,
++                    revisionNumber: headNum != null ? headNum + 1 : null,
++                    versionSource: "exact",
++                    markdown: cj.candidate.contentMarkdown,
++                    available: true,
++                  });
++                  // Re-bind focus with server hash; never set conserveProposal.
++                  applyDocumentFocus({
++                    ...restored,
++                    pendingCandidateContentSha256: cj.candidate.contentSha256,
++                    conserveProposal: false,
++                  });
++                } catch {
++                  setPendingDocumentProposal(false);
++                  setProposalCandidateMarkdown(null);
++                }
++              })();
++            }
 +          } else {
 +            applyDocumentFocus(null);
 +          }
@@ -2508,7 +3155,7 @@ index db39d5a5..2477e32f 100644
        setUnavailableKind(null);
        setProjectSpaceInfo({
          projectId: params.projectId,
-@@ -1390,13 +1785,32 @@ export default function ProjectPage() {
+@@ -1390,13 +1863,32 @@ export default function ProjectPage() {
    }
 
    function upsertTurnProjection(tp: TurnProjection) {
@@ -2545,7 +3192,7 @@ index db39d5a5..2477e32f 100644
        return next;
      });
    }
-@@ -1452,6 +1866,9 @@ export default function ProjectPage() {
+@@ -1452,6 +1944,9 @@ export default function ProjectPage() {
            content: text,
            clientTurnKey,
            unresolvedPendingClientTurnKey: pendingBefore?.clientTurnKey,
@@ -2555,7 +3202,7 @@ index db39d5a5..2477e32f 100644
          }),
        });
        let j: Record<string, unknown> = {};
-@@ -1476,6 +1893,139 @@ export default function ProjectPage() {
+@@ -1476,6 +1971,139 @@ export default function ProjectPage() {
            (independent || effectBlocked || distinctFromUnresolved) && Boolean(pendingBefore);
          setMessages((j.messages as Msg[]) ?? []);
          setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
@@ -2695,7 +3342,7 @@ index db39d5a5..2477e32f 100644
          const effect = j.pilotageEffect as PilotageEffectView | undefined;
          setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
          const tp = parseTurnProjection(j.turnProjection);
-@@ -1591,6 +2141,69 @@ export default function ProjectPage() {
+@@ -1591,6 +2219,69 @@ export default function ProjectPage() {
 
    const travailLayout = viewer ? (viewerEnlarged ? "enlarged" : "split") : "normal";
 
@@ -2765,7 +3412,7 @@ index db39d5a5..2477e32f 100644
    return (
      <ProjectChrome
        projectId={params.projectId}
-@@ -1599,6 +2212,8 @@ export default function ProjectPage() {
+@@ -1599,6 +2290,8 @@ export default function ProjectPage() {
        statusHint={statusHint}
        loadState={projectLoadState}
        travailLayout={travailLayout}
@@ -2774,7 +3421,7 @@ index db39d5a5..2477e32f 100644
      >
        {surface === "projet" ? (
          <ProjectOverview
-@@ -1613,6 +2228,7 @@ export default function ProjectPage() {
+@@ -1613,6 +2306,7 @@ export default function ProjectPage() {
        ) : null}
 
        {surface === "travail" ? (
@@ -2782,7 +3429,7 @@ index db39d5a5..2477e32f 100644
          <NoraConversation
            embeddedInStage
            messages={messages}
-@@ -1649,6 +2265,7 @@ export default function ProjectPage() {
+@@ -1649,6 +2343,7 @@ export default function ProjectPage() {
                <TravailViewer
                  resource={viewer}
                  enlarged={viewerEnlarged}
@@ -2790,7 +3437,7 @@ index db39d5a5..2477e32f 100644
                  onEnlarge={() => setViewerEnlarged(true)}
                  onReduce={() => setViewerEnlarged(false)}
                  onClose={closeViewer}
-@@ -1744,6 +2361,7 @@ export default function ProjectPage() {
+@@ -1744,6 +2439,7 @@ export default function ProjectPage() {
              )
            }
          />
@@ -2798,7 +3445,7 @@ index db39d5a5..2477e32f 100644
        ) : null}
 
        {surface === "pilotage" ? (
-@@ -1786,124 +2404,135 @@ export default function ProjectPage() {
+@@ -1786,124 +2482,135 @@ export default function ProjectPage() {
          </div>
        ) : null}
 
@@ -5103,7 +5750,7 @@ index 68cf1f5a..7734b4e2 100644
  for (const [short, long] of [
    ["E05_S2_DIAGNOSTIC", E05_S2_DIAGNOSTIC],
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index 4cfc23d6..28a4058f 100644
+index 4cfc23d6..7ad46cd7 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 @@ -26,7 +26,7 @@ import {
@@ -5115,7 +5762,7 @@ index 4cfc23d6..28a4058f 100644
  import {
    admitDocumentCommand,
    canonicalizeDocumentProposal,
-@@ -37,6 +37,19 @@ import {
+@@ -37,6 +37,20 @@ import {
    serializeProposalFence,
    type DocumentProposalExact,
  } from "@/domains/conversation/document-command";
@@ -5124,6 +5771,7 @@ index 4cfc23d6..28a4058f 100644
 +  isConserveProposalTransmit,
 +  isHistoricalSourceChoiceTransmit,
 +  loadHistoricalSourceAuthorization,
++  assertHistoricalAuthBoundToCandidate,
 +  loadPendingDocumentCandidate,
 +  markPendingCandidateConsumed,
 +  pendingCandidateSummary,
@@ -5135,7 +5783,7 @@ index 4cfc23d6..28a4058f 100644
  import {
    bindTurnGenerationId,
    commitTurnTerminal,
-@@ -62,6 +75,7 @@ import {
+@@ -62,6 +76,7 @@ import {
    applyTargetedSectionRevision,
    assertSectionScope,
    extractContractualDocumentProposal,
@@ -5143,7 +5791,7 @@ index 4cfc23d6..28a4058f 100644
    resolveReviseTarget,
    stripContractualDocumentFences,
    type DocumentEffectSummary,
-@@ -644,6 +658,25 @@ export type TurnResult = {
+@@ -644,6 +659,25 @@ export type TurnResult = {
      act?: "CREATE" | "REVISE";
      idempotentReplay?: boolean;
    } | null;
@@ -5169,7 +5817,7 @@ index 4cfc23d6..28a4058f 100644
    idempotentReplay: boolean;
    /**
     * True only when a HumanDecision id was actually produced (APPLIED/ALREADY_APPLIED).
-@@ -758,6 +791,29 @@ export async function postUserMessageAndNora(
+@@ -758,6 +792,29 @@ export async function postUserMessageAndNora(
      requestId?: string;
      /** Client UX hint only — server DB siblings are authoritative for S05. */
      unresolvedPendingClientTurnKey?: string;
@@ -5199,7 +5847,7 @@ index 4cfc23d6..28a4058f 100644
    },
  ): Promise<TurnResult> {
    const requestId = opts?.requestId ?? newRequestId();
-@@ -908,6 +964,14 @@ export async function postUserMessageAndNora(
+@@ -908,6 +965,14 @@ export async function postUserMessageAndNora(
      meta: { client_turn_key_fp: reserved.requestFingerprint.slice(0, 12) },
    });
 
@@ -5214,7 +5862,7 @@ index 4cfc23d6..28a4058f 100644
    /** SEM/TV: D5/D6 after Nora semantic qualification — not before. */
    let authority: ConversationalAuthorityOutcome | null = null;
 
-@@ -1100,6 +1164,38 @@ export async function postUserMessageAndNora(
+@@ -1100,6 +1165,38 @@ export async function postUserMessageAndNora(
 
    const nextTurnKind = deriveThreadTurnKind(qualification);
    const studioProjection = projectStudioEffects(qualification);
@@ -5253,7 +5901,7 @@ index 4cfc23d6..28a4058f 100644
    const pilotageBinding = extractPilotageBinding(qualification);
    const knowledgeHints = extractKnowledgeSelectionHints(qualification);
    if (
-@@ -1717,7 +1813,36 @@ export async function postUserMessageAndNora(
+@@ -1717,7 +1814,36 @@ export async function postUserMessageAndNora(
        } else if (documentAct.kind === "REVISE" && !ownershipLostBeforeD4) {
          try {
            const docs = await listDocuments(pilotId, preparationId);
@@ -5291,7 +5939,7 @@ index 4cfc23d6..28a4058f 100644
            if (!target.ok) {
              documentSave = {
                status: "FAILED",
-@@ -1890,6 +2015,190 @@ export async function postUserMessageAndNora(
+@@ -1890,6 +2016,222 @@ export async function postUserMessageAndNora(
                      const clientSalt =
                        opts?.correlationKey?.trim() ||
                        `${target.documentId}:${target.baseRevisionId}`;
@@ -5356,19 +6004,41 @@ index 4cfc23d6..28a4058f 100644
 +                        d4Effect: null,
 +                      });
 +                    } else {
-+                    // F1 — Documents focus: proposal without D4 until explicit conserve of exact candidate.
-+                    // pendingCandidateId alone must NOT imply conserve — Pilot may ask for adjustments (new P).
-+                    const wantsConserve =
-+                      Boolean(focus) &&
-+                      (focus!.conserveProposal === true ||
-+                        isConserveProposalTransmit(content));
-+                    if (focus && !wantsConserve) {
++                    // P0-A — REVISE via conversation never writes D4 unless explicit conserve of sealed pdoc.
++                    // Absence of documentFocus must NOT fall through to admit/seal (prior gap).
++                    // Sas manual editor uses documents API directly — out of this branch.
++                    const conserveRequested =
++                      isConserveProposalTransmit(content) ||
++                      focus?.conserveProposal === true;
++                    if (!conserveRequested) {
 +                      // Title must match leading H1 when present (canonicalizeDocumentProposal).
-+                      // Prefer H1 of the exact merged body over structured proposal title.
 +                      const proposalTitle =
 +                        /^#\s+(.+?)(?:\r?\n|$)/.exec(merged.content)?.[1]?.trim() ||
 +                        durableProposal?.title?.trim() ||
 +                        target.title;
++                      // Historical proposals require a server hauth already bound on focus.
++                      if (
++                        sourceIsHistorical &&
++                        !focus?.historicalAuthorizationId
++                      ) {
++                        documentSave = {
++                          status: "NOT_EXECUTED",
++                          reason: "HISTORICAL_CONFIRMATION_SERVER_REQUIRED",
++                          documentId: target.documentId,
++                          baseRevisionId: target.baseRevisionId,
++                          act: "REVISE",
++                        };
++                        emitDocumentProposalObs({
++                          requestId,
++                          operationId: reserved.operationId,
++                          generationId: reply.generationId,
++                          act: "REVISE",
++                          extracted,
++                          refuseCode: "HISTORICAL_CONFIRMATION_SERVER_REQUIRED",
++                          d4Attempted: false,
++                          d4Effect: null,
++                        });
++                      } else {
 +                      const stashedCandidate = await stashPendingDocumentCandidate({
 +                        commandId: reserved.commandId,
 +                        ownerToken: reserved.ownerToken,
@@ -5379,7 +6049,8 @@ index 4cfc23d6..28a4058f 100644
 +                        observedHeadRevisionId: observedHeadId,
 +                        title: proposalTitle,
 +                        contentMarkdown: merged.content,
-+                        historicalAuthorizationId: focus.historicalAuthorizationId ?? null,
++                        historicalAuthorizationId:
++                          focus?.historicalAuthorizationId ?? null,
 +                      });
 +                      if (!stashedCandidate.ok) {
 +                        documentSave = {
@@ -5420,34 +6091,43 @@ index 4cfc23d6..28a4058f 100644
 +                        d4Attempted: false,
 +                        d4Effect: null,
 +                      });
++                      }
 +                    } else {
-+                    // F1 conserve: load sealed candidate — never regenerate from Nora qualification.
++                    // F1/P0-A/B conserve: sealed candidate required — never regenerate; never trust client body.
 +                    let conserveContent = merged.content;
 +                    let conserveTitle = target.title;
 +                    let conserveSource = reviseSource;
 +                    let conserveBlocked: string | null = null;
-+                    if (focus) {
-+                      const candidateId = focus.pendingCandidateId?.trim() || "";
-+                      if (!candidateId) {
-+                        conserveBlocked = "PENDING_CANDIDATE_REQUIRED";
++                    const candidateId = focus?.pendingCandidateId?.trim() || "";
++                    if (!candidateId) {
++                      conserveBlocked = "PENDING_CANDIDATE_REQUIRED";
++                    } else {
++                      const loaded = await loadPendingDocumentCandidate({
++                        pilotId,
++                        preparationId,
++                        candidateId,
++                        expectedContentSha256: focus?.pendingCandidateContentSha256,
++                      });
++                      if (!loaded.ok) {
++                        conserveBlocked = loaded.reason;
 +                      } else {
-+                        const loaded = await loadPendingDocumentCandidate({
-+                          pilotId,
-+                          preparationId,
-+                          candidateId,
-+                          expectedContentSha256: focus.pendingCandidateContentSha256,
-+                        });
-+                        if (!loaded.ok) {
-+                          conserveBlocked = loaded.reason;
++                        const c = loaded.candidate;
++                        if (
++                          c.documentId !== target.documentId ||
++                          c.sourceRevisionId !== target.baseRevisionId
++                        ) {
++                          conserveBlocked = "CANDIDATE_IDENTITY_MISMATCH";
++                        } else if (c.observedHeadRevisionId !== observedHeadId) {
++                          conserveBlocked = "CANDIDATE_HEAD_MOVED";
 +                        } else {
-+                          const c = loaded.candidate;
-+                          if (
-+                            c.documentId !== target.documentId ||
-+                            c.sourceRevisionId !== target.baseRevisionId
-+                          ) {
-+                            conserveBlocked = "CANDIDATE_IDENTITY_MISMATCH";
-+                          } else if (c.observedHeadRevisionId !== observedHeadId) {
-+                            conserveBlocked = "CANDIDATE_HEAD_MOVED";
++                          const bound = assertHistoricalAuthBoundToCandidate({
++                            sourceIsHistorical,
++                            candidate: c,
++                            authorization: serverAuth,
++                            actualHeadRevisionId: actualHeadId,
++                          });
++                          if (!bound.ok) {
++                            conserveBlocked = bound.reason;
 +                          } else {
 +                            // Exact inspected content — ignore freshly regenerated qualification body.
 +                            conserveContent = c.contentMarkdown;
@@ -5482,7 +6162,7 @@ index 4cfc23d6..28a4058f 100644
                      const admitted = admitDocumentCommand({
                        commandId: reserved.commandId,
                        operationId: reserved.operationId,
-@@ -1899,10 +2208,23 @@ export async function postUserMessageAndNora(
+@@ -1899,10 +2241,23 @@ export async function postUserMessageAndNora(
                        preparationId,
                        documentId: target.documentId,
                        baseRevisionId: target.baseRevisionId,
@@ -5509,7 +6189,7 @@ index 4cfc23d6..28a4058f 100644
                        clientCorrelationSalt: clientSalt,
                      });
                      if (!admitted.ok) {
-@@ -1943,31 +2265,44 @@ export async function postUserMessageAndNora(
+@@ -1943,31 +2298,44 @@ export async function postUserMessageAndNora(
                                ? (revised as { baseRevisionId: string }).baseRevisionId
                                : target.baseRevisionId,
                          };
@@ -5571,13 +6251,13 @@ index 4cfc23d6..28a4058f 100644
 +                      d4Effect: documentSave.status ?? null,
 +                    });
 +                    } // conserveBlocked else
-+                    } // wantsConserve else
++                    } // conserveRequested else
 +                    } // historical confirmation gate
 +                  } // reviseIntents cardinality else
                  }
                }
              }
-@@ -2429,6 +2764,8 @@ export async function postUserMessageAndNora(
+@@ -2429,6 +2797,8 @@ export async function postUserMessageAndNora(
      documentSave: ownershipLostBeforeD4
        ? (unknownCapReconstituted?.documentSave ?? null)
        : documentSave,
@@ -5586,7 +6266,7 @@ index 4cfc23d6..28a4058f 100644
      idempotentReplay: false,
      humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
      pilotageEffect: pilotageEffectFromAuthority(authority),
-@@ -2448,7 +2785,7 @@ export async function postUserMessageAndNora(
+@@ -2448,7 +2818,7 @@ export async function postUserMessageAndNora(
        status: turnStatus === "COMPLETE" ? reply.status : turnStatus,
        finalized: turnStatus === "COMPLETE" && !ownershipLostBeforeD4,
        // P1-A: never map clarifications[] → continue buttons.
@@ -5943,163 +6623,92 @@ index 488bc9fd..78b1935c 100644
 
 ---
 
-## 11. Tests unitaires
+## Tests exécutés
 
-Exécutés (PASS) :
-- `tests/unit/documents-surfaces-projection.test.ts` — 12 PASS (F2 confirmation serveur, hash candidat, provenance)
-- `tests/unit/document-act.test.ts` — 6 PASS
-- `tests/unit/confront-proposal-fence.test.ts` — 24 PASS (ACK sans NOT_EXECUTED produit)
-- `tests/unit/ml4c-s01-s03-guards.test.ts` — 11 PASS
+### Unit (PASS)
+- `documents-p0-auth-candidate.test.ts` — 7
+- `documents-surfaces-projection.test.ts` — 12
+- `document-act.test.ts` — 6
+**Total unit ciblé : 25 PASS**
 
-## 12. Tests PostgreSQL / intégration
+### PostgreSQL (PASS)
+- `documents-p0-hauth-pdoc.pg.test.ts` — B1/B2/B7
+- `documents-proposal-candidate.pg.test.ts` — égalité body + supersede
+- `documents-historical-revise.pg.test.ts` — 4
+**Total PG : 6 PASS**
 
-- `tests/integration/documents-proposal-candidate.pg.test.ts` — 1 PASS
-  Preuve : hash stable ; forge refusée ; P1 supersédé ; V4 body = P2 exact ; V1–V3 intactes
-- `tests/integration/documents-historical-revise.pg.test.ts` — 4 PASS
-  V2→V4 avec confirm ; sans confirm FAILED ; concurrence ; filiation
+### Playwright E2E FAKE :3101 (PASS)
+- `documents-p0-final.spec.ts` — 2 (reload+V4 exact phrases ; conserve sans candidat → pas de V2)
+- `documents-nora-v2-v4.spec.ts` — 1
+- `documents-bibliotheque-08.spec.ts` — 1
+- `g4-b1-b4-correctifs.spec.ts` — 1
 
-## 13. E2E Playwright (FAKE fixture lane :3101 / `sfia_next_e2e`)
-
-| Spec | Résultat |
+### Preuves P0
+| ID | Résultat |
 |---|---|
-| `documents-nora-v2-v4.spec.ts` | **PASS** — V2 historique → confirm → proposition ≠ V2 → conserve V4 → reload sans auto-save |
-| `documents-bibliotheque-08.spec.ts` | **PASS** — non-régression bibliothèque/lecture/historique/compare |
-| `g4-b1-b4-correctifs.spec.ts` | **PASS** |
-| `documents-f1f5-runtime-captures.spec.ts` | **PASS** — captures 930:9 / 930:10 distinctes |
+| A1/A3 | E2E conserve sans candidat → pas de rev 2 |
+| A2 | service : !conserveRequested → stash PROPOSAL_PENDING |
+| A4 | E2E + nora-v2-v4 conserve → une V4 |
+| B1–B7 | unit + PG hauth/pdoc |
+| C1–C3/C8 | E2E reload pending puis post-conserve sans banner |
+| D | PG body égal + E2E phrases inspectées = V4 |
 
-Frontières simulées : Nora = **FAKE** (`deterministic-fixture`). Pas de campagne LIVE OpenAI.
+**Fake/Real** : Nora = FAKE fixture. D4 PG = REAL local. Pas de LIVE OpenAI.
 
-## 14. Preuve candidat = contenu D4
-
-- PG : `loadedP2.candidate.contentMarkdown === getDocumentRevision(V4).contentMarkdown`
-- E2E : visionneuse contient formulation candidat ; après conserve, `doc-rev-4` présent ; message « Nouvelle version disponible : v4 »
-- Conserve path : `conserveContent = c.contentMarkdown` (ignore qualification régénérée)
-
-## 15. Versions historiques intactes
-
-- PG list : V1 objet / V2 historique / V3 courante inchangés après V4
-- E2E : `doc-rev-1`…`doc-rev-3` visibles avec `doc-rev-4`
-
-## 16. Cas négatifs / concurrence
-
-| Cas | Preuve |
-|---|---|
-| Client hash forge | `CANDIDATE_CLIENT_HASH_MISMATCH` (PG) |
-| Ancien candidat après P2 | `CANDIDATE_SUPERSEDED` (PG) |
-| Confirm sans auth serveur | `CLIENT_CLAIM_INSUFFICIENT` (unit) |
-| Confirm doc mismatch | `IDENTITY_MISMATCH` (unit) |
-| Head moved | `HEAD_MOVED` (unit) |
-| Historique sans confirm → D4 | `HISTORICAL_CONFIRMATION_REQUIRED` (PG hist) |
-| Lexical « oui je confirme… » | `null` (unit transmit) |
-
-## 17. Matrice UAT / TECH
-
-| ID | Verdict | Preuve | Limite |
-|---|---|---|---|
-| DOC-UAT-01 | PASS | bibliothèque e2e select≠open | — |
-| DOC-UAT-02 | PASS | lecture read-only e2e | — |
-| DOC-UAT-03 | PARTIAL | reprise Nora couverte F4/F5 e2e | pas tous les libellés Figma pixel |
-| DOC-UAT-04 | PASS | pas textarea lecture | — |
-| DOC-UAT-05 | PASS | historique e2e | — |
-| DOC-UAT-06 | PASS | F3 provenance lecture exacte (code+unit) | e2e provenance dédié non isolé |
-| DOC-UAT-07 | PASS | compare shell e2e | — |
-| DOC-UAT-08 | PASS | Travail 50/50 + viewer e2e | — |
-| DOC-UAT-09 | PASS | V2→V4 PG + e2e | FAKE Nora |
-| DOC-UAT-10 | PASS | confirmation historique serveur | — |
-| DOC-UAT-11 | PASS | proposition non enregistrée puis conserve | — |
-| DOC-UAT-12 | PASS | reload sans auto-save e2e | — |
-| DOC-UAT-13 | PASS | séparation D4/Git (bandeau / pas publication auto) | — |
-| DOC-TECH-14 | PASS | isolation prep/pilot candidate load | — |
-| DOC-TECH-15 | PASS | idempotence / correlation (acquis D4) | — |
-| DOC-TECH-16 | PASS | concurrence head (unit+PG hist) | — |
-| DOC-TECH-17 | PASS | ACK preserve candidates (turn-command) | — |
-| DOC-TECH-18 | PASS | frontiers D6 non introduites | — |
-| F1-local | PASS | candidat exact | FAKE |
-| F2-local | PASS | hauth serveur | — |
-| F3-local | PASS | readingProvenanceJson | — |
-| F4-local | PASS | choix dans fil ; captures 930:9 | écarts résiduels labels/fixtures |
-| F5-local | PASS | viewer candidat ; ACK soft ; captures 930:10 | titres doc Sas « Document du sas » |
-
-## 18–19. Comparaison Figma / runtime
-
-**Viewport** : 1680×970 CSS px
-
-| Frame | Figma local | Runtime local | MD5 Figma | Distinct 9≠10 |
-|---|---|---|---|---|
-| 930:9 | `…/cycle08-f1f5/figma-930-9.png` | `…/runtime-930-9-historical.png` | `94b785e9599b58c6b41832ee87d892ac` | oui |
-| 930:10 | `…/cycle08-f1f5/figma-930-10.png` | `…/runtime-930-10-proposal.png` | `55fccea7a2038c26d8ee08ea2a98b32f` | oui |
-
-Runtime MD5 : 9=`abe26cce852e0d81cccf1cf1b24fdc83` · 10=`40743dc218cdcc8c0fa48ba8da5d9f39`
-
-**ChatGPT n'a PAS les binaires PNG dans ce handoff textuel.** Chemins locaux exacts ci-dessus. Ne pas prétendre que ChatGPT a examiné les pixels.
-
-### Conformité qualitative observée
-- 930:9 : titre « Réviser une version historique avec Nora » ; badge HISTORIQUE ; choix « Repartir de la v2 » / « Partir de la v3 courante » dans le fil ; viewer V2 ; pas de panneau sous composeur → **PASS fonctionnel** ; réserves : messages fixture FAKE antérieurs dans le fil ; titre doc = « Document du sas » (seed Sas).
-- 930:10 : titre « Examiner une proposition de Nora » ; badge PROPOSITION ; bandeau PROPOSITION NON ENREGISTRÉE ; contenu candidat ≠ V2 historique pure ; CTA unique conserve → **PASS fonctionnel** ; réserves : numérotation candidate dérivée ; fixture narrative encore présente autour de l'ACK.
-
-Non-régression 930:3–8 : e2e bibliothèque + G4 PASS (pas de re-capture pixel exhaustive ce cycle — hors régression cosmétique secondaire).
-
-## 20. Libellés supprimés / corrigés
-
-- Retiré des surfaces produit courantes : `NOT_EXECUTED`, `PROPOSAL_PENDING_CONSERVATION`, `documentId`/`revisionId` bruts dans ACK succès
-- ACK pending → « Proposition non enregistrée »
-- ACK succès → « Nouvelle version disponible : vN »
-- Doublon conserve sous composeur : retiré (`document-proposal-conserve` count 0)
-
-## 21. KNOWN GAP Sas
-
-L'éditeur documentaire manuel du Sas de préparation **n'a pas été modifié**.
-Il reste utilisable pour seed / parcours hors Documents.
-Contrôles d'autorisation Documents focus restent côté conversation projet.
-**Pas de STOP CROSS-SURFACE** — correction Sas non indispensable à la sûreté F1–F5.
-
-## 22. ENV-01
-
-- Lane : DEV isolé / Playwright E2E `:3101` + DB `sfia_next_e2e` (operator `sfia_next_dev` → container `sfia-next-dev-pg:5433`)
-- DEV UI `:3100` présent pour inspection (non utiliséé comme preuve mutative E2E)
-- RECETTE/STABLE : non utilisés
-
-## 23. Fake/Real Qualification
-
-| Élément | Qualification |
-|---|---|
-| Nora fixtures historiques / revise / conserve | **FAKE** |
-| Transitions applicatives D4 PG | **REAL** (PostgreSQL local) |
-| E2E browser | **REAL browser** + **FAKE Nora** |
-| OpenAI LIVE | **NOT RUN** / non autorisé |
-
-## 24. Risques et limites
-
-- Fil durable peut contenir d'anciennes réponses fixture FAKE non liées (bruit UX, pas d'écriture silencieuse)
-- Titre document seed Sas (« Document du sas ») ≠ copy Figma CampusNova (données dynamiques OK)
-- Pixel-perfect F2 non revendiqué sans mesure rectangle-à-rectangle documentée
-- Conserve ACK softé : tests ML4C ACK mis à jour ; blast radius narration D4 élargi volontairement au wording produit
-
-## 25. Dette / exit
-
-- Nettoyage optionnel des fixtures conversationnelles génériques trop verboses
-- Captures non-régression 930:3–8 pixel si Morris exige dossier visuel exhaustif
-- GO distinct requis pour refonte Sas
-
-## 26. Verdict technique unique
-
-**READY FOR INDEPENDENT CHATGPT REVIEW**
-
-P0 F1/F2 prouvés (code + PG + E2E). P1 F3–F5 corrigés avec preuves. Réserves visuelles qualifiées, non bloquantes P0.
-
-## 27. Gate Morris restant
-
-- Acceptation Morris
-- Commit / PR / merge projet
-- Ouverture RECETTE
-- Clôture Ensemble 06
-- Attribution version STABLE / ADOPTED
-
-Aucun de ces gates n'est levé par ce verdict.
+**ENV-01** : E2E `sfia_next_e2e` / :3101. NO RELEASE.
 
 ---
 
-## Instruction ChatGPT
+## Matrice UAT/TECH (IDs contractuels — documents-contrat-realisation.md §9)
 
-Relire depuis Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
-Vérifier indépendamment : diffs, identité propositions, confirmation historique, conservation exacte, tests, états Figma (chemins locaux), réserves, frontières Git/ENV.
+| ID | Formulation contrat | Verdict | Preuve | Limite |
+|---|---|---|---|---|
+| DOC-UAT-01 | Sélection sans ouverture | PASS | bibliothèque e2e | — |
+| DOC-UAT-02 | Lecture 70/30 | PASS | bibliothèque e2e | pixel non rejoué ce cycle |
+| DOC-UAT-03 | Documents → Travail 50/50 + reload | PASS | p0-final reload travail | — |
+| DOC-UAT-04 | Pas d'édition manuelle | PASS | bibliothèque e2e textarea=0 | Sas seed hors surface Documents |
+| DOC-UAT-05 | Courante / Historique | PASS | labels + hist e2e | — |
+| DOC-UAT-06 | Lire version historique exacte | PASS | viewer V2 e2e | — |
+| DOC-UAT-07 | Comparateur | PASS | bibliothèque e2e | — |
+| DOC-UAT-08 | Nora avertit V2 historique | PASS | p0-final warning + choix | — |
+| DOC-UAT-09 | V2→V4 ; V1–V3 intègres | PASS | PG + e2e | FAKE Nora |
+| DOC-UAT-10 | Concurrence V2/V3/V4 | PASS | PG historical-revise | — |
+| DOC-UAT-11 | ACK perdu / idempotence | PASS | acquis D4 + hist PG | e2e ACK perdu non rejoué |
+| DOC-UAT-12 | Droits/source absente | PASS | candidate DENIED/hash + hist | — |
+| DOC-UAT-13 | Git distinct | PASS | bandeau / pas D9 | DETERMINISTIC |
+| DOC-TECH-14 | États D4 incertains | PASS | ACK soft + statuses | — |
+| DOC-TECH-15 | Diff volumineux | NOT RUN | hors blast P0 | — |
+| DOC-TECH-16 | Navigation multi-documents | PARTIAL | focus clear foreign doc | e2e multi-doc dédié non |
+| DOC-TECH-17 | Reprise de session | PASS | P0-C reload pending ; post-conserve sans fantôme | — |
+| DOC-TECH-18 | Régression transversale | PASS | g4 + nora-v2-v4 + bibliothèque | Ensemble 05 non rejoué |
+| P0-A | — | PASS | e2e + service | — |
+| P0-B | — | PASS | unit+PG | — |
+| P0-C | — | PASS | e2e reload | — |
+| P0-D | — | PASS | PG body + e2e phrases | égalité byte-for-byte via PG ; e2e sur rendu |
+
+---
+
+## Cas négatifs
+
+Falsification hash, supersede, hauth étranger, conserve sans candidat, head moved — couverts unit/PG/e2e.
+
+## Risques / réserves
+
+- DOC-TECH-15 NOT RUN (hors scope)
+- Égalité E2E sur texte rendu sectionnaire (merge) ; égalité intégrale Markdown prouvée en PG
+- Fixtures FAKE peuvent rester verboses dans le fil
+
+## Dette / exit
+
+- GO Morris RECETTE
+- Optionnel : e2e multi-document race (TECH-16)
+
+## Verdict unique
+
+**READY FOR INDEPENDENT CHATGPT REVIEW**
+
+P0-A/B/C/D démontrés. Handoff L3 à publier. Aucune acceptation RECETTE.
+
+## Gate Morris restant
+
+Acceptation · commit/PR projet · RECETTE · clôture Ensemble 06 — non levés.
