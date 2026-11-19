@@ -4,6 +4,21 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-19-LIVE-PROSE-SOFT-TARGET-2000
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~19:50 CET |
+| Macro-lot | Ensemble 05+06 — anti-UNKNOWN schéma LIVE prose |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Soft target (= anciens max) + hard max 2000 sur prose secondaire · cutover RECETTE `:3200` |
+| Fix | `LIVE_PROSE_HARD_MAX` · instructions Nora cibles · IDs/labels UI inchangés |
+| HEAD | `d3950948` · tree `926c3822` · BUILD `2HWeuv_daXJXjd5PstRO` |
+| Parent | notes-2000 `98225104` / BUILD `b48Kw86lEVMh4Ph_sVyZ` |
+| Counters | projects=24 · messages=610 · conversations=197 · knowledge_subjects=6 **COUNTERS_OK** |
+| Rollback | `ROLLBACK-TO-98225104.sh` + dump `ml4d-e06-journal-20261119-pre-d3950948` |
+| Verdict Cursor | cutover PASS |
+
 ## delivery_id: DELIV-2026-11-19-NORA-NOTES-2000-UNKNOWN
 
 | Field | Value |

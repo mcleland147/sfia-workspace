@@ -2,14 +2,28 @@
 
 | Métadonnée | Valeur |
 |---|---|
-| Date | 19/11/2026 — correctif LIVE `parameters.notes` 400→2000 (UNKNOWN décision) |
+| Date | 19/11/2026 — LIVE prose soft-target + hard max 2000 |
 | Branche | `sfia/next-journal-delivery-20261119` |
-| HEAD candidat | `98225104695f9aa565e4cf1f9e543d19634ee90b` |
-| Tree | `00f6edb16c23e64968ffec7c8c57c82d304bcf74` |
-| RECETTE BUILD_ID | `b48Kw86lEVMh4Ph_sVyZ` (Next disk `hFR40amR_WR1tyfkFmpAc`) |
+| HEAD candidat | `d3950948286f73df8a7d7ef15920141721a33df2` |
+| Tree | `926c38220187f063e960fa746c8cfd86aa27df9d` |
+| RECETTE BUILD_ID | `2HWeuv_daXJXjd5PstRO` (Next disk `yghin0GodBcqLQQQmq-Q_`) |
 | Base `main` | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
 | Docs matrice | v0.7 §18 (`f0d2d033`) — lecture seule |
 | Versioning | `NO RELEASE` / STABLE NOT AVAILABLE |
+
+## Correctif LIVE prose — soft target + hard max 2000 (19/11 soir)
+
+| Champ | Valeur |
+|---|---|
+| Pattern | Cible souple = ancien `.max` Zod · plafond dur `LIVE_PROSE_HARD_MAX=2000` (pas de `z.preprocess` LIVE) |
+| Scope | goal / projectIntention / desiredOutcome / initialScope / clarifications / summary / statement / notes / hints / constraints / sourceEvidence / transmitText / paths / href / document title / preparationAssessmentExplanation |
+| Hors scope | IDs, enums, `projectName`/`subjectTitle`, labels UI, `replyDraft` 20k, `knowledgeStatement` 5k, `contentMarkdown` 100k |
+| URL | `http://127.0.0.1:3200` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble06-recette-build-d3950948` |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` |
+| Counters | projects=24 · messages=610 · conversations=197 · knowledge_subjects=6 **COUNTERS_OK** |
+| Dump | `/Users/morris/Projects/sfia-recette-backups/ml4d-e06-journal-20261119-pre-d3950948/sfia_next_recette_ml4.dump` |
+| Rollback | `…/d3950948/ROLLBACK-TO-98225104.sh` → BUILD `b48Kw86lEVMh4Ph_sVyZ` |
 
 ## Correctif UNKNOWN décision — `parameters.notes` (19/11 soir)
 
