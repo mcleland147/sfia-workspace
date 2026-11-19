@@ -186,7 +186,15 @@ Contrairement à ChatGPT (`application_read_file` → `{}`), Cursor a reçu **co
 - source : `.tmp-sfia-review/chatgpt-review.md`
 - branch : `sfia/review-handoff`
 - file : `sfia-review-handoff/latest-chatgpt-review.md`
-- (SHA / remote verification renseignés après publication)
+- handoff remote commit before : `a70a63411ccb65392ad428ef7a8d1fd4273f3130`
+- handoff local/remote commit after : `3bc68d11d7f3a9b00f06c5b89235a8b871760bbd`
+- blob : `64cb1734a9ed066ed29d31ba44853bad67097484`
+- push handoff : **done**
+- remote verification : **yes** (`HANDOFF UPDATED — REMOTE VERIFIED`)
+- remote file re-read : **yes**
+- retour branche initiale : **yes** (`project/sfia-task-manager-cycle-4-ux-ui` @ `139f45fd…`)
+- cohérence projet / staged : **yes** (aucun staged ; untracked inchangés)
+- verdict handoff : **HANDOFF UPDATED — REMOTE VERIFIED**
 
 ---
 
