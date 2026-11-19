@@ -4,6 +4,17 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-19-PENDING-TURN-IN-PROGRESS
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~17:20 CET |
+| Macro-lot | Ensemble 05+06 — correctif reconcile pending |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** |
+| GO Morris | Ne plus mémoriser clé orpheline sur TURN_IN_PROGRESS ; recover depuis fil ; cutover RECETTE |
+| Parent | `758d2267` knowledgeStatement 5000 |
+| Verdict Cursor | voir cutover |
+
 ## delivery_id: DELIV-2026-11-19-KNOWLEDGE-STATEMENT-5000
 
 | Field | Value |

@@ -29,7 +29,9 @@ import {
   conversationalClientCommandKey,
   mayClearComposerDraftOnReconcile,
   pendingStorageKey,
+  recoverOrphanPendingFromMessages,
   shouldClearThreadPending,
+  shouldRememberPendingOnSendHttpError,
   type ThreadPendingTurn,
   type ThreadTurnKind,
 } from "@/domains/pilotage/thread-recovery";
@@ -943,9 +945,41 @@ export default function ProjectPage() {
     return true;
   }
 
+  async function refreshProjectThreadSnapshot(): Promise<Msg[]> {
+    const proj = await fetch(`/api/projects/${params.projectId}`);
+    if (!proj.ok) return [];
+    const pj = await proj.json();
+    setDocuments(pj.documents ?? []);
+    setKnowledge(pj.knowledge ?? null);
+    const msgs = Array.isArray(pj.messages) ? (pj.messages as Msg[]) : [];
+    if (msgs.length) setMessages(msgs);
+    return msgs;
+  }
+
+  async function tryClearOrphanPendingFromThread(
+    pending: ThreadPendingTurn,
+    msgs: Msg[],
+  ): Promise<boolean> {
+    const recovered = recoverOrphanPendingFromMessages({
+      pendingContent: pending.content,
+      messages: msgs,
+    });
+    if (!recovered.clear) return false;
+    applyCognitiveRecoveryFromDurable({
+      status: recovered.noraStatus,
+      effect: undefined,
+      pending,
+      noraMode: "thread-orphan-recovery",
+    });
+    await refreshDurablePilotage();
+    return true;
+  }
+
   async function reconcilePending(pending: ThreadPendingTurn) {
     setBusy(true);
     setChoiceFrozen(true);
+    setNoraActivity("preparing");
+    setStatus("Vérification de l'état serveur…");
     try {
       // 1) Durable D7 by business command key — métier authority when present.
       const res = await fetch(
@@ -973,15 +1007,21 @@ export default function ProjectPage() {
           rememberPending(null);
           messageTurnKeyRef.current = null;
           setChoiceFrozen(false);
+          setNoraActivity("idle");
         } else {
           setStatus("Effet métier encore incertain — réconciliation métier conservée.");
           setChoiceFrozen(true);
+          setNoraActivity("error");
         }
         await refreshDurablePilotage();
         return;
       }
 
-      if (!preparationId) return;
+      if (!preparationId) {
+        setStatus("Préparation indisponible — recharger la page puis réessayer.");
+        setNoraActivity("error");
+        return;
+      }
 
       // 2) R05 — READ durable D3 turn by clientTurnKey (no Nora, no POST).
       // A bare D7 404 is not proof of cognitive terminality by itself.
@@ -1002,19 +1042,22 @@ export default function ProjectPage() {
           pending,
           noraMode: body.noraMode,
         });
-        const proj = await fetch(`/api/projects/${params.projectId}`);
-        if (proj.ok) {
-          const pj = await proj.json();
-          setDocuments(pj.documents ?? []);
-          setKnowledge(pj.knowledge ?? null);
-          if (Array.isArray(pj.messages)) setMessages(pj.messages as Msg[]);
-        }
+        await refreshProjectThreadSnapshot();
         await refreshDurablePilotage();
         if (cleared || status.toUpperCase() === "RUNNING" || status.toUpperCase() === "ACCEPTED") {
+          if (status.toUpperCase() === "RUNNING" || status.toUpperCase() === "ACCEPTED") {
+            setNoraActivity("preparing");
+          }
           return;
         }
         // Non-clearable non-running without effect — fall through only if lookup incomplete.
         if (status) return;
+      }
+
+      // 2b) Orphan pending key: recover from durable thread before POST replay.
+      const snapshot = await refreshProjectThreadSnapshot();
+      if (await tryClearOrphanPendingFromThread(pending, snapshot)) {
+        return;
       }
 
       // 3) Turn not found or lookup failed — idempotent POST replay (same clientTurnKey).
@@ -1042,16 +1085,24 @@ export default function ProjectPage() {
           pending,
           noraMode: String(j.noraMode ?? ""),
         });
-        const proj = await fetch(`/api/projects/${params.projectId}`);
-        if (proj.ok) {
-          const pj = await proj.json();
-          setDocuments(pj.documents ?? []);
-          setKnowledge(pj.knowledge ?? null);
-          if (Array.isArray(pj.messages)) setMessages(pj.messages);
-        }
+        await refreshProjectThreadSnapshot();
         await refreshDurablePilotage();
       } else {
+        const cat = String(j.errorCategory ?? "");
+        if (retry.status === 409 && cat.toUpperCase() === "TURN_IN_PROGRESS") {
+          const again = await refreshProjectThreadSnapshot();
+          if (await tryClearOrphanPendingFromThread(pending, again)) {
+            return;
+          }
+          setChoiceFrozen(true);
+          setNoraActivity("preparing");
+          setStatus(
+            "Un tour est déjà en cours côté serveur pour cette conversation — attendre la fin puis réessayer « Vérifier et reprendre ». Aucune nouvelle clé locale n'a été créée.",
+          );
+          return;
+        }
         setChoiceFrozen(true);
+        setNoraActivity("error");
         setStatus(String(j.error ?? j.errorCategory ?? "réconciliation impossible"));
       }
     } finally {
@@ -1630,15 +1681,32 @@ export default function ProjectPage() {
           setChoiceFrozen(false);
         }
       } else {
-        // ACK lost / HTTP error — retain turn key; KEEP choices frozen (server may have applied).
+        // ACK lost / HTTP error — KEEP choices frozen (server may have applied).
+        // TURN_IN_PROGRESS: this clientTurnKey was NOT reserved — never orphan-remember it.
         setChoiceFrozen(true);
-        rememberPending(buildPending());
+        const errCat = String(j.errorCategory ?? "");
+        const remember = shouldRememberPendingOnSendHttpError({
+          httpStatus: res.status,
+          errorCategory: errCat,
+        });
+        if (remember) {
+          rememberPending(buildPending());
+        } else if (pendingBefore) {
+          rememberPending(pendingBefore);
+        }
         setNoraActivity("error");
-        setStatus(
-          res.status === 409
-            ? `${String(j.errorCategory ?? j.error ?? "conflit")} — intention de tour conservée`
-            : String(j.error ?? j.errorCategory ?? "échec — tentative conservée"),
-        );
+        if (res.status === 409 && errCat.toUpperCase() === "TURN_IN_PROGRESS") {
+          setStatus(
+            "TURN_IN_PROGRESS — un tour est déjà en cours sur le serveur. Attendre ou utiliser « Vérifier et reprendre » sur la tentative précédente. Aucune clé orpheline n'a été enregistrée.",
+          );
+          await refreshProjectThreadSnapshot();
+        } else {
+          setStatus(
+            res.status === 409
+              ? `${errCat || String(j.error ?? "conflit")} — intention de tour conservée`
+              : String(j.error ?? j.errorCategory ?? "échec — tentative conservée"),
+          );
+        }
       }
     } catch {
       // Network loss after click: fail closed — freeze until reconcile proves outcome.
