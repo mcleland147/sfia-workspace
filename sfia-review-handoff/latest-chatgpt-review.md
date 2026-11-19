@@ -1,191 +1,196 @@
 # SFIA Studio Next — FULL Review Pack
-## Ensemble 06 / Journal V4 — Dernier correctif de consolidation
+## Ensemble 06 / Journal V4 — Décisions UX + explication contextuelle
 **Processus** SFIA v2.6 · **Cycle** DELIVERY CORRECTIF INTÉGRÉ · **Profil** CRITICAL  
 **Date** 2026-11-19 · **NO RELEASE** · **NO PRODUCT PUSH/PR/MERGE** · **STABLE NOT AVAILABLE**
 
 ---
 
-## 1. Identité Git
+## 1. Git truth
 
 | Champ | Valeur |
 |---|---|
-| Repo local | `/Users/morris/Projects/sfia-wt-journal-delivery-20261119` |
+| Repo | `mcleland147/sfia-workspace` |
 | Branche | `sfia/next-journal-delivery-20261119` |
-| HEAD code consolidation | `02e24e4292733a85ae1c4f506971909b1849d4b4` |
-| Tree | `fc89dad4749f8d85b2d8d9d0b9b6bcadbe697a54` |
-| Docs cutover follow-up | *(commit docs as-built après cutover)* |
+| HEAD candidat (code) | `5f6e2f3860993acd35d176f60e6a7f0ca69d3a3d` |
+| Tree | `9f077b3b10b752974d94f7f33e633c384d0c5101` |
 | Base `main` | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
-| Matrice docs | `sfia/next-journal-conception-fonctionnelle-ux-20261119` @ `f0d2d033` (lecture seule) |
-| Publication produit | **NON** — candidat local uniquement |
+| Parent RECETTE | `d3950948` / BUILD `2HWeuv_daXJXjd5PstRO` |
+| Docs cutover follow-up | commit docs as-built après cutover (même cycle) |
+| Contrat rapporté (obsolète) | `02e24e42` / `7yhVJFP0…` — **servi réellement avant ce cycle** : `d3950948` |
 
-### Pré-check
+### Statut local (pré-modifs)
 
-- Branche et worktree compatibles avec le mandat.
-- Untracked : `.tmp-sfia-review/`, script investigate WIP — hors pack.
-- Modified WIP non inclus : `campusnova-unknown-dev-investigate.mts`.
-
----
-
-## 2. Sources / décisions applicables (lecture)
-
-- governance SEF / roadmap / ENV-01 / product-versioning (NO RELEASE)
-- R2 D3/D4/D6 · R3 UX Journal · contrats Journal (matrice v0.7 lecture seule)
-- Figma Journal V4 page 828:2 (référence visuelle, non modifiée)
-- Gel E05 maintenu · Nora textuelle maintenue · D6 autorité unique
+Branche delivery active ; worktrees RECETTE historiques présents ; untracked `.tmp-sfia-review/` / scripts captures.
 
 ---
 
-## 3. Causes racines
+## 2. Sources consultées
 
-### 3.1 Synthèse absente malgré acquis à jour (UAT CampusNova)
-
-**PROUVÉ** : `maybeCapitalizeFromExchange` n’appelait `appendSubjectSummaryRevision` / `writeSubjectSummary` que pour `p.kind === "SUBJECT"`.  
-Un tour riche en `ACQUIS` (avec `subjectId` / `subjectTitle`) mettait à jour les acquis **sans** synthèse courante → UI « Synthèse non encore disponible. »
-
-Fichier : `projects/sfia-studio-next/web/src/domains/knowledge/service.ts`
-
-### 3.2 Densité / scannabilité
-
-Acquis et ouverts affichés en paragraphes longs, sans priorisation nominale ni overflow contrôlé.  
-Contrat : bullets courts en restitution ; **pas** de troncature d’autorité en base.
-
-### 3.3 UX résiduelle
-
-- CTA « Poursuivre avec Nora » dupliqué en vue agrandie (bas + aside).
-- Aside sources : `message · HISTORICAL` non utile.
-- Journal→Travail : `focusLock` relâché à la fin du highlight → stick-to-bottom pouvait reprendre.
-
-### 3.4 (Hors mandat UAT mais livré juste avant)
-
-UNKNOWN LIVE immédiat (fp `b7feb141`) causé par schéma LIVE `z.preprocess` incompatible Agents SDK — corrigé en ZodObject plain + non-stream (`9ef214ad`), conservé dans l’historique de branche.
+- Gouvernance SEF / roadmap / environnements / versioning (lecture)
+- `journal-contrat-fonctionnel-ux-candidat.md` §§6.3–6.4
+- `contrat-technique-journal.md` §5.4 / §5.6 / §16
+- Matrice convergence Journal — **lecture seule**
+- As-built + delivery-history E06
+- Figma `itgvCulInEnFY6DvgIegvP` frames `860:58` / `860:136` / `860:251` / `860:360` (screenshots + design context)
+- Code : `ProjectJournal.tsx`, `journal.ts`, `journal-editorial.ts`, `page.tsx`, D6 `human_decisions`
 
 ---
 
-## 4. Correctifs livrés (code)
+## 3. Diagnostic précis
 
-### D4 — synthèse révisable après ACQUIS
+### Symptômes CampusNova (RECETTE)
 
-Après capitalisation d’acquis `AVAILABLE` sur un sujet, **si** aucune synthèse SUBJECT explicite du même tour :
+Décision `dec_ae40c887-…` EN VIGUEUR (`APPLICABLE` / `PROJECT`) :
 
-1. Charger acquis CURRENT + ouverts OPEN du sujet
-2. `composeSubjectSummaryFromCurrentKnowledge` (déterministe, ~400–650 car.)
-3. `appendSubjectSummaryRevision` (idempotent, skip `NO_SIGNIFICANT_CHANGE`)
+1. Intitulé = paragraphe = énoncé D6 entier
+2. Même texte répété liste / hero / choix
+3. Description = troncature 140 car. du même énoncé
+4. Raisonnement vide (0 row `knowledge_decision_explanation_revisions`)
+5. Sources = placeholder générique
+6. Meta `RECORD_DECISION · PROJECT` + `scope · applicable`
+7. Labels 40/60 utilisaient déjà les libellés vue agrandie
 
-Pas de génération à l’ouverture Journal. Pas de faux texte frontend.
+### Cause racine (pipeline)
 
-### Éditorial (module client-safe)
+```
+HumanDecision.statement (D6)
+  → getJournalProjection (+ explanation D4 si présente)
+  → GET /journal
+  → page.tsx (drop sourceKind/sourceRef)
+  → ProjectJournal : title = blurb = choice = statement
+```
 
-Nouveau : `journal-editorial.ts` — importable depuis `ProjectJournal` **sans** tirer `service.ts` / `node:crypto` (régression Playwright web bundler évitée).
-
-- Storage soft max 2000 + strip preamble
-- Display bullet ≈160
-- Priorisation acquis (6) / ouverts (4) + overflow `<details>`
-
-### UX
-
-- Agrandi : CTA bas retiré ; aside conservé
-- Aside sources : contributions liées + provenance Pilote/Nora + révision synthèse
-- `useNoraThreadScroll` : suppress sticky jusqu’à `forceStickToken` (envoi) ou thread vide
-
----
-
-## 5. Preuve de synthèse révisable
-
-Test PG : `journal-d4-revisions.pg.test.ts`  
-« ACQUIS-only enrichment on existing subject creates/revises synthesis without SUBJECT intent » — **PASS**
-
-Scénario : sujet créé → synthèses effacées en fixture → ACQUIS seuls → `subject_summary` + markdown non vide contenant faits Lille.
-
-Tests existants SUBJECT revision / supersession / no-op — **PASS** (18 tests fichier).
+- `appendDecisionExplanationRevision` **jamais appelé en production** (tests/seed seulement)
+- Message source réel : `USER_MESSAGE` / `msg_0df71c31-…` contient `**Motivation :**` Lyon/Lille/Bordeaux — non projeté
+- **Aucun bug D6** : l’acte est correctement stocké ; la projection UI était pauvre
 
 ---
 
-## 6. Qualité acquis / ouverts / densité
+## 4. Correctif (sans mutation D6)
 
-Unit : `journal-editorial-density.test.ts` — **PASS** (5)  
-E2E : bullets + aside sources + CTA unique agrandi — assertés dans `journal-v4-parcours.spec.ts` — **PASS**
+| Couche | Changement |
+|---|---|
+| `journal-editorial.ts` | `composeDecisionDisplayTitle/Summary/Choice` · extract motivation marquée · labels métier scope/kind |
+| `journal.ts` | `originSources` via `qualifyProvenanceSource` · `sourcedMotivationExcerpt` si Motivation explicite |
+| `ProjectJournal.tsx` | Slots distincts · Figma 40/60 vs agrandi · CTA sources · restrictions filtrées par `originDecisionId` |
+| `page.tsx` | Passe `sourceKind` / `sourceRef` / `originSources` / excerpt |
+| `tokens.css` | Grille autorité/histoire + CTA cheminement |
+| Focus | Highlight Journal→Travail 5.2s (flake deep-link) |
+
+### Exemple projection CampusNova (display-only)
+
+| Slot | Valeur projetée |
+|---|---|
+| Titre | `Conditions de confirmation d'une réservation` |
+| Résumé | `Le fonctionnement cible des trois centres pilotes` |
+| Choix | énoncé D6 **intégral** (415 car.) |
+| Pourquoi | extrait Motivation du message source **si** présent ; sinon indisponibilité honnête |
+| Autorité | `Pilote · Projet` · `Projet · en vigueur` |
+| D6 DB | statement / state / scope **inchangés** (vérifié post-cutover) |
+
+**Hors mandat / dette :** pas de backfill D4 `appendDecisionExplanationRevision` sur CampusNova historique ; pas de second registre ; Subjects non rouverts.
 
 ---
 
-## 7. Préservation données
+## 5. Fichiers touchés (responsabilités)
 
-- Aucune migration DB
-- Aucun backfill CampusNova
-- Compteurs RECETTE avant/après cutover : projects=24 · messages=606 · knowledge_subjects=6 — **COUNTERS_OK**
-- Dump : `/Users/morris/Projects/sfia-recette-backups/ml4d-e06-journal-20261119-pre-02e24e42/sfia_next_recette_ml4.dump`
-- Rollback : `…/recette-build-02e24e42/ROLLBACK-TO-9ef214ad.sh`
-
-**Dette bornée** : sujets CampusNova déjà sans synthèse ne se réparent qu’à la **prochaine capitalisation significative** (pas d’ouverture Journal). Exit : GO séparé si réconciliation historique exigée.
-
----
-
-## 8. Navigation exacte Journal→Travail
-
-- Suppress sticky après deep-link jusqu’à envoi volontaire
-- Playwright : focus early message + wait 2.8s post-highlight + bounding box encore dans viewport — **PASS**
+| Fichier | Rôle |
+|---|---|
+| `journal-editorial.ts` | Helpers purs display |
+| `journal.ts` | Projection origines |
+| `ProjectJournal.tsx` | Rendu Décisions |
+| `tokens.css` | Layout CTA / grille |
+| `page.tsx` | Mapping client |
+| `NoraConversation.tsx` | Durée focus marker |
+| Tests unit / PG / e2e | Gates |
+| as-built / delivery-history | Identité cutover |
 
 ---
 
-## 9. Tests (gates)
+## 6. Diff utile (parent → HEAD)
+
+`d3950948..5f6e2f38` ≈ +568 / −49 (hors docs follow-up) — voir `git show 5f6e2f38`.
+
+Points clés :
+- Plus de triple répétition `statement` dans title/lede/choice
+- Labels `CHOIX RETENU` / `POURQUOI CE CHOIX ?` en 40/60 ; `LE CHOIX RETENU` / `LE RAISONNEMENT…` en agrandi
+- Suppression affichage brut `PROJECT` / `applicable`
+
+---
+
+## 7. Vérité D6 avant / après
+
+| | Avant | Après |
+|---|---|---|
+| `statement` | long paragraphe (autorité) | **identique** |
+| `state` | `APPLICABLE` | **identique** |
+| `scope` | `PROJECT` | **identique** (label UI « Projet ») |
+| Explanation D4 | absente | absente (pas de backfill) |
+| Affichage | statement partout | titre/résumé/choix séparés |
+
+---
+
+## 8. Tests
 
 | Gate | Résultat |
 |---|---|
-| TypeScript `tsc --noEmit` | **PASS** |
-| ESLint fichiers touchés | **PASS** |
-| Unit editorial + freeze | **PASS** |
-| PG `journal-d4-revisions` | **PASS** (18) |
-| Playwright `journal-v4-parcours` | **PASS** (2) |
-| LIVE auto | **NOT RUN** (interdit) |
-| Morris UAT CampusNova | **PENDING** |
+| Unit `journal-decision-editorial` | PASS (7) |
+| Unit editorial density / E05 freeze | PASS |
+| PG `journal-d4-revisions` (19) | PASS |
+| Playwright `journal-v4-figma-captures` | PASS |
+| Playwright `journal-v4-parcours` | PASS (seul / suite séparée ; flake rare si chaîné lourd après captures — deep-link focus durci) |
+| `tsc --noEmit` | PASS |
+| Lint scoped | warnings préexistants seulement |
+| LIVE auto | **NOT RUN** (mandat) |
 
 ---
 
-## 10. RECETTE (ENV-01)
+## 9. Figma ↔ runtime
+
+| Frame | Attendu | Runtime |
+|---|---|---|
+| 860:58 liste | titre court + sous-texte + statut | titre dérivé + résumé + EN VIGUEUR |
+| 860:136 40/60 | CHOIX RETENU / POURQUOI / AUTORITÉ ET PORTÉE / HISTOIRE / CTA sources | labels + grille + CTA |
+| 860:251 recherche | filtre client | inchangé (filtre statement/explanation) |
+| 860:360 agrandi | LE CHOIX RETENU / RAISONNEMENT / CONTEXTE / REPÈRES | labels + aside |
+
+Captures e2e : `09-runtime-860-136-…`, `11-runtime-860-360-…` (artefacts Playwright run).
+
+---
+
+## 10. RECETTE
 
 | Champ | Valeur |
 |---|---|
-| URL | http://127.0.0.1:3200 |
-| SOURCE_SHA | `02e24e4292733a85ae1c4f506971909b1849d4b4` |
-| BUILD_ID | `7yhVJFP0_Bm4cYc62Bo7` |
+| URL | `http://127.0.0.1:3200` |
 | Service | `com.sfia.studio.next.recette.ml4d-ux004` |
-| Worktree | `…/sfia-workspace-next-ml4d-ensemble06-recette-build-02e24e42` |
 | DB | `sfia_next_recette_ml4` @ 5434 |
-| login smoke | HTTP 200 |
-| E05 textuel | conservé (gel) |
+| SOURCE_SHA | `5f6e2f38…` |
+| BUILD_ID | `tE1TFcAqSGfCVuglJygA` |
+| Next disk | `d58L2wkEm_1F-BPDf0wJW` |
+| Worktree | `…/recette-build-5f6e2f38` |
+| Counters | 24 / 612 / 197 / 6 / decisions=1 **COUNTERS_OK** |
+| Dump | `…/ml4d-e06-journal-20261119-pre-5f6e2f38/` |
+| Rollback | `ROLLBACK-TO-d3950948.sh` |
+| Login | 200 |
 
 ---
 
-## 11. Diffs exploitables (fichiers)
+## 11. Réserves
 
-```
-projects/sfia-studio-next/web/src/domains/knowledge/service.ts
-projects/sfia-studio-next/web/src/domains/knowledge/journal-editorial.ts  (new)
-projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx
-projects/sfia-studio-next/web/src/components/figma/tokens.css
-projects/sfia-studio-next/web/src/hooks/useNoraThreadScroll.ts
-projects/sfia-studio-next/web/tests/unit/journal-editorial-density.test.ts  (new)
-projects/sfia-studio-next/web/tests/integration/journal-d4-revisions.pg.test.ts
-projects/sfia-studio-next/web/tests/e2e/journal-v4-parcours.spec.ts
-projects/sfia-studio-next/construction/as-built-ensemble-06-journal-20261119.md
-projects/sfia-studio-next/construction/delivery-history.md
-```
-
-Relire : `git show 02e24e42` dans le worktree local.
+1. Explication D4 absente sur décision CampusNova historique — motivation via extrait message seulement si marquée ; pas de synthèse D4 inventée.
+2. Titre dérivé = heuristique fidèle (pas hardcode CampusNova) — objectRef court reste prioritaire pour les nouvelles décisions.
+3. Wiring production `decisionHint` → `appendDecisionExplanationRevision` **non livré** ce cycle (évite écriture D4 non demandée) — dette pour prochain GO.
+4. Flake intermittent deep-link focus si suite Playwright très lourde enchaînée — durci à 5.2s ; PASS isolé confirmé.
 
 ---
 
-## 12. Instruction de vérification distante (ChatGPT) — CRITICAL §9.1
+## 12. Verdict Cursor
 
-1. Cloner / checkout la branche handoff L3 et lire `sfia-review-handoff/latest-chatgpt-review.md`.
-2. Vérifier que le SHA/blob distant correspond au pack.
-3. Contrôler la cause SUBJECT-only vs correctif ACQUIS→synthèse.
-4. Confirmer : pas de push produit, pas de migration, pas de backfill CampusNova.
-5. UAT Morris : ouvrir CampusNova Journal après **un nouvel échange capitalisant** sur « Parcours de réservation… » — synthèse doit apparaître/réviser ; acquis en bullets ; focus source stable.
+**JOURNAL DECISIONS UX CORRECTIVE VERIFIED — RECETTE TECHNICALLY AVAILABLE — MORRIS UAT PENDING**
 
----
+Aucune Gate C · Aucun STABLE · Aucun ADOPTED · Aucune UAT par déduction.
 
-## 13. Verdict Cursor
+### Instruction SFIA v2.6 §9.1
 
-**JOURNAL V4 CONSOLIDATION VERIFIED — RECETTE TECHNICALLY AVAILABLE — MORRIS UAT PENDING**
-
-Non annoncé : ADOPTED · Gate C · STABLE · réception utilisateur.
+ChatGPT doit relire le **handoff canonique** publié sur `sfia/review-handoff` (`sfia-review-handoff/latest-chatgpt-review.md`) — pas ce brouillon local seul — avant avis produit.
