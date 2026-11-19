@@ -1,8 +1,8 @@
 # SFIA Studio Next — Ensemble 06 / Journal
 ## Matrice vivante de convergence — vision, contrats, UX, réalisation Cursor et preuves
 
-**Version :** v0.6 — 19 novembre 2026 (Europe/Paris)  
-**Statut :** **DOCUMENTED / REPRISE UAT MORRIS — VISUAL FIDELITY NO-GO POUR JOURNAL / DELIVERY CORRECTIF REQUIS / AUCUNE ADOPTION**  
+**Version :** v0.7 — 19 novembre 2026 (Europe/Paris)  
+**Statut :** **DOCUMENTED / AUDIT 12 CAPTURES DEV VS 11 FIGMA — FIGMA-TO-RUNTIME PARTIAL / CORRECTIF NON REÇU / CUTOVER NON AUTORISÉ**  
 **Périmètre :** Journal du projet : Sujets, mémoire, points ouverts, Décisions, recherche, sources et continuité Nora. La Bibliothèque Documents reste propriétaire de sa propre expérience ; seuls les liens depuis le Journal entrent ici.  
 **Autorité de la vision et des gates :** Morris. **Rôle du présent document :** outil de revue ChatGPT, sans créer de doctrine, de décision D6, de nouvelle spécification produit ni de statut ADOPTED.  
 **Mode Git :** création documentaire sur la branche candidate **sfia/next-journal-conception-fonctionnelle-ux-20261119** ; pas de push produit, PR, merge, mise à jour de la Roadmap, migration ou code.  
@@ -12,7 +12,26 @@
 
 ---
 
-## État courant — retour Morris RECETTE et audit Figma du 19/11/2026 (v0.6)
+## État courant — revue indépendante des 12 captures DEV vs Figma et handoff FULL (v0.7)
+
+**Verdict : FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED / NOT READY FOR RECETTE CUTOVER.** Cette conclusion provient d'une comparaison **visuelle effective** des **douze PNG runtime 1680×970 fournis par Morris** (état vide + 11 noms de frames), confrontés aux **onze captures natives Figma** récupérées depuis `itgvCulInEnFY6DvgIegvP` page `828:2` (Figma MCP, 19/11/2026). **Les données illustratives ne sont pas exigées à l'identique** ; les écarts sont dans la structure et les parcours.
+
+**Handoff canonique actualisé pendant cette revue :** branche `sfia/review-handoff@445014db103ba244ec9c627da2a71556828256cc`, [lecture du pack FULL](https://github.com/mcleland147/sfia-workspace/blob/445014db103ba244ec9c627da2a71556828256cc/sfia-review-handoff/latest-chatgpt-review.md), blob `2277af43c47db54b7aebe73c58eba06de5ceaf10`, **5 487 lignes**. Ce nouveau pack **remplace** le handoff initial incomplet `8d2bd1fb` (1 333 lignes). Il inclut désormais code complet de ProjectJournal.tsx et page.tsx, spec Playwright captures et parcours, ProjectChrome, CSS Journal pertinent, diffs et logs ciblés : **la réserve « modified content missing » antérieure est matériellement réduite/levée pour les chemins critiques reproduits**. Son évaluation visuelle « 11/11 ALIGNED » est en revanche **contredite par les PNG**. Le code produit candidat `sfia/next-journal-delivery-20261119@0eb3157b1678b993162fa79c98f5e4de26a9e4e3` reste **local/non publié**, sans réexécution autonome par ChatGPT ; la RECETTE `:3200` reste, selon pack, sur `d5bf7eb7`.
+
+**Preuves discriminantes :**
+- Les PNG `02-runtime-842-26-sujet-autonome-40-60.png` et `03-runtime-842-131-sujet-parent-40-60.png` ne diffèrent que de **21 pixels sur 1 629 600** (0,0013 %) ; les deux affichent le même sujet et le badge **« Sujet autonome »**, alors que Figma 842:131 exige un **sujet parent** avec cartes d'enfants numérotées et vision globale.
+- Le test de captures est PASS si la capture existe : `journal-v4-figma-captures.spec.ts` clique le parent puis prend un screenshot **sans assertion sur le viewer title, `selectedSubjectId`, badge `Sujet parent` ou liste de descendants**. La capture 05 dite parent agrandi montre encore **« Continuité Git » / « Sujet autonome »** ; cela invalide l'oracle parent et ne prouve pas les deux parcours distincts.
+- Les vues agrandies 04/05/11 utilisent des blocs majoritairement empilés sur toute la largeur, tandis que Figma 835:159, 835:239 et 860:360 exige une **colonne principale avec aside de repères**, sections et sous-sujets spécifiques. Écart **STRUCTURAL**, pas décoratif.
+- Les captures recherche 06 et filtre 07 conservent l'arbre et le viewer du sujet sélectionné ; Figma 859:42 demande des cartes de **résultats contextualisés**, 859:146 une **liste transversale de points ouverts** et une lecture centrée sur le point. L'activation UI du filtre n'établit pas ce parcours.
+- Décisions : nominal 08 proche du langage de cartes, mais la lecture 09 et recherche 10 sont simplifiées (histoire, autorité/portée, justification contextualisée), et 11 agrandie ne reproduit pas le panneau latéral Figma. Une autre réserve sémantique du code : `decisionStatusLabel` traite `applicable === false` comme **REMPLACÉE** avant le statut `SUSPENDUE` ; vérifier que la projection ne confond pas non-applicable/suspendue/révoquée et véritable remplacement.
+
+**Progrès à préserver** : titre « Journal », copy Figma, exploration pleine largeur, état vide sobre sans viewer permanent, rail/onglets/recherche, split et agrandissement disponibles, jeux DEV isolés ; **ne pas revenir** à la première version RECETTE non conforme. **Les tests tsc/unit/Playwright rapportés prouvent des assertions ciblées, pas la comparaison perceptive des états.**
+
+**À faire dans le même macro-lot correctif** : aligner précisément les états parent/autonome, grand lecteur à deux colonnes, résultat recherche, points ouverts transversaux, décision enrichie ; corriger les oracles E2E par **assertions sémantiques et structurelles par frame** avant screenshot, et distinguer les données naturelles des examples Figma ; revue CSS/captures après correction. **Morris garde le verdict esthétique de RECETTE** après un GO cutover séparé. Aucun push produit/PR/merge/cutover/ADOPTED autorisé par cette revue.
+
+**Voir §18 : nouvelle matrice de 11 états et contrôle de sortie.** Les sections antérieures restent des instantanés historiques.
+
+## État historique — retour Morris RECETTE et audit Figma du 19/11/2026 (snapshot v0.6)
 
 **Verdict actuel : JOURNAL UX NOT READY — FIGMA TO RUNTIME PARTIAL / DELIVERY REQUIRED ; conformité visuelle de l'exploration : NON CONFORME.** L'environnement RECETTE technique reste disponible selon le [handoff 31c495af](https://github.com/mcleland147/sfia-workspace/blob/31c495af5c5afeadcc5e120b32427ceafd61acf5/sfia-review-handoff/latest-chatgpt-review.md), mais cette disponibilité **ne vaut pas livraison conforme à Figma**. Morris a fourni une capture de la RECETTE de CampusFlow (19/11/2026) et rejette explicitement l'UX actuelle : titre « Sujets et acquis », contenu réduit à une phrase brute isolée, deux très grands panneaux presque vides, textes explicatifs redondants. Il exige **l'identité visuelle des onze frames Figma V4 validées**, sans variante approchante ; le titre de la surface doit être « Journal ».
 
@@ -565,6 +584,43 @@ Les six références majeures sont à lire **ensemble** : vision R1, R2 D3/D4/D6
 
 **NOT READY — JOURNAL UX DOES NOT MATCH VALIDATED FIGMA.** La cause immédiate est la divergence du layout et des libellés sur la capture de la RECETTE. Le périmètre exact des autres écarts visuels sera établi par 11 comparaisons Figma/runtime ; anomalie de texte Git à investiguer sans conclure prématurément à une fuite. **Prochaine action : contrat Cursor Critical de correction visuelle et fonctionnelle V4 à l'identique**, puis vérification du candidat DEV et GO Morris distinct pour mettre à jour RECETTE.
 
+## 18. Septième revue — douze captures DEV livrées, comparaison Figma/native et handoff corrigé
+
+### 18.1. Matrice visuelle effective — 11 frames
+
+| Frame | État | Qualification de revue | Motif / sortie |
+| --- | --- | --- | --- |
+| [835:71](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-71) | Exploration Sujets | **PARTIAL** | Titre, présentation et état arbre rapprochés ; hiérarchie/densité/repères et interaction restent à comparer sur objet réel |
+| [842:26](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=842-26) | Autonome 40/60 | **PARTIAL** | Split et contenu présents, mais référence/sections non attendues ou non chargées au moment de capture ; attendre contenu complet |
+| [842:131](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=842-131) | Parent 40/60 | **FAIL** | PNG 03 identique au 02 à 21 pixels près : même enfant et badge « Sujet autonome », pas fiche parent/3 enfants |
+| [835:159](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-159) | Autonome agrandi | **FAIL** | Pas de colonne de repères Figma ; blocs pleine largeur, composition attendue article + aside absente |
+| [835:239](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=835-239) | Parent agrandi | **FAIL** | PNG 05 affiche encore « Sujet autonome », sans sous-sujets parent ni aside de repères |
+| [859:42](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=859-42) | Recherche Sujets | **PARTIAL / LAYOUT GAP** | Mot-clé trouvé dans acquis, mais arbre filtré persiste au lieu des cartes de résultats avec origine/raisons attendues |
+| [859:146](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=859-146) | Points ouverts transversaux | **FAIL** | Bouton actif seulement ; même sujet affiché, pas liste transverse de questions avec provenance et fiche question |
+| [860:58](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=860-58) | Décisions nominales | **PARTIAL** | Onglet, cartes et statuts proches ; la donnée D6 diffère légitimement de l'exemple, hiérarchie et repères incomplets |
+| [860:136](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=860-136) | Décision 40/60 | **PARTIAL / STRUCTURAL GAP** | Choix/motifs/restrictions visibles ; autorité, portée, historique et séparation du récit attendus par Figma non reproduits |
+| [860:251](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=860-251) | Recherche Décisions | **PARTIAL** | Filtre et décision trouvée ; présentation de correspondance et navigation/contextes Figma incomplets |
+| [860:360](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=860-360) | Décision agrandie | **FAIL** | Grande colonne unique au lieu de fiche principale + aside de repères (autorité/portée/évolutions), contexte sources absent |
+
+**État supplémentaire :** `00-runtime-empty-exploration.png` — **ACCEPTABLE EN DIRECTION**, état dérivé non spécifié par frame Figma : titre Journal, explication honnête, pas de viewer inerte. L'acceptation esthétique finale demeure Morris.
+
+### 18.2. Cause du faux « 11/11 ALIGNED »
+
+Le test `journal-v4-figma-captures.spec.ts` contrôle essentiellement la **présence** des éléments et effectue douze screenshots ; il ne compare pas les pixels/geometries des PNG avec les frames natives ni ne garantit pour les captures 03/05 un `Sujet parent` réellement sélectionné. Une seule spec Playwright PASS sur 12 images **n'est pas une preuve de 11 conformités visuelles**. Vérification par lecture du code complet dans le nouveau handoff `445014db` : aucun oracle fort parent, pas de mesure de conformité. **La conclusion ALIGNED du tableau Cursor est réfutée sur plusieurs états par confrontation visuelle indépendante**.
+
+### 18.3. Correctifs et preuves de sortie, sans nouveau chantier
+
+1. **Vues parent/autonome discriminées** : assertions parent id, badge, titre, childCount, hiérarchie, cartographie sous-sujets, puis PNG ; sélection du parent réellement persistée au moment de la capture.
+2. **Agrandi conforme** : article + aside Figma, résumé/sous-sujets/acquis/questions/sources et repères D6 spécifiques ; ne pas présenter une simple liste de cartes pleine largeur.
+3. **Recherche et Points ouverts** : liste de résultats contextualisés + liste de questions traversant les sujets, fiche point et provenance ; contrôle fonctionnel sans changer autorité.
+4. **Décisions** : vue détaillée autorité/historique, statut officiel opposable (éviter « non applicable = remplacée » sans distinction), contexte, source et lecteur agrandi en deux colonnes.
+5. **Tests et pack** : vérifier les onze vues sémantiquement **avant capture**, reproduire la géométrie native, comparer PNG réellement côte à côte et intégrer le verdict de chaque frame sans PASS générique. Préserver tsc/PG/sécurité/E05 et déclarer explicitement les suites full non exécutées.
+6. **Gates** : candidat `0eb3157b` non prêt pour cutover. Conserver RECETTE existante servie `d5bf7eb7` et sa sauvegarde ; nouveau build/GO Morris distinct après preuves révisées. Aucune reprise de la campagne automatisée.
+
+### 18.4. Verdict
+
+**FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED / NOT READY FOR MORRIS UX RECETTE.** Cette revue couvre la fidélité visuelle à partir de douze captures transmises, **pas** une réception du code d'exécution en RECETTE. Le nouveau handoff FULL permet d'inspecter le code critique ; il ne transforme pas des captures matériellement différentes en équivalence Figma. Résoudre les défauts du même delivery avant soumission au gate Morris.
+
 ## 12. Historique documentaire
 
 | Date/version | Opération et source | Qualification |
@@ -575,4 +631,5 @@ Les six références majeures sont à lire **ensemble** : vision R1, R2 D3/D4/D6
 | **19/11/2026 — v0.4** | Revue du handoff 45bd3d37, matrice §15 complète J-C01…16/C1…14/LIVE-Q01…08 ; E01 provider réel distinct des 19 non exécutés, latence/coût et reprise qualifiés | **DOCUMENTED D1 CANDIDATE** ; aucune relance LIVE, aucun effet code/DB/RECETTE ni adoption |
 | **19/11/2026 — v0.5** | Handoff 31c495af relu, §16 couvre 16 J-C et 8 réserves DEP-01..08, distinction DEV/smoke/UAT et démarrage de la campagne Morris | **DOCUMENTED D1 CANDIDATE**, aucun effet code/DB/RECETTE, aucun push produit, pas de Gate C |
 | **19/11/2026 — v0.6** | Audit de la capture Morris RECETTE contre onze frames natives Figma ; §17 nouveau registre UX-01..08 et matrice J-C01..16 de non-dérive ; aucune modification des contrats validés | **DOCUMENTED — D1 CANDIDATE / UX NO-GO**, sans code, sans déploiement, sans push projet/PR/merge/Gate C |
+| **19/11/2026 — v0.7** | Douze captures runtime utilisateur vs onze frames natives Figma ; nouveau handoff FULL 445014db relu ; §18 statut frame-par-frame, défaut de test parent 21 pixels, aside agrandis, parcours recherche/points et exactitude D6 ; snapshot append-only | **DOCUMENTED D1 — FIGMA PARTIAL / NO CUTOVER**, pas de modification produit, RECETTE, PR ou adoption |
 
