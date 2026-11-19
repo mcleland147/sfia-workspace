@@ -71,21 +71,31 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     // C — J-C08 recherche terme ABSENT du titre/parents/synthèse, PRÉSENT dans acquis
     await page.getByTestId("journal-search").fill("traçabilité");
     const matchBadge = page.getByTestId(`journal-match-${seed.leafSubjectId}`);
+    await expect(page.getByTestId("journal-search-results")).toBeVisible();
     await expect(matchBadge).toBeVisible();
-    await expect(matchBadge).toHaveText(/acquis/i);
-    await page.getByTestId("journal-filter-open-points").click();
+    await expect(matchBadge).toContainText(/acquis/i);
 
-    // B — 40/60 + enlarge (non conditionnel)
-    await leaf.click();
+    // B — 40/60 + enlarge via résultat de recherche (liste résultats, pas arbre)
+    await matchBadge.click();
     await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "split");
     await expect(page.getByTestId("journal-viewer-subject-title")).toBeVisible();
+    await expect(page.getByTestId("journal-viewer")).toHaveAttribute("data-viewer-kind", "autonomous");
     await page.getByTestId("journal-viewer-enlarge").click();
     await expect(page.getByTestId("project-journal")).toHaveAttribute(
       "data-journal-layout",
       "enlarged",
     );
+    await expect(page.getByTestId("journal-viewer-aside")).toBeVisible();
     await page.getByTestId("journal-viewer-reduce").click();
     await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "split");
+
+    // Filtre points ouverts (vue transversale) — conserve recherche + sélection
+    await page.getByTestId("journal-filter-open-points").click();
+    await expect(page.getByTestId("journal-filter-open-points")).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    await expect(page.getByTestId("journal-open-points-list")).toBeVisible();
 
     await page.screenshot({
       path: "../../.tmp-sfia-review/journal-v4-captures/runtime-1680-sujet-40-60-seeded.png",
@@ -94,7 +104,6 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
 
     // Keep selection + search for return assertions
     await expect(page.getByTestId("journal-search")).toHaveValue("traçabilité");
-
     // Sources → message exact (chip on selected leaf)
     const sourceChip = page.locator("[data-testid^=journal-source-]").first();
     await expect(sourceChip).toBeVisible({ timeout: 10000 });
@@ -120,7 +129,8 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     }
     await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
     await expect(page.getByTestId("journal-search")).toHaveValue("traçabilité");
-    await expect(page.getByTestId(`journal-subject-${seed.leafSubjectId}`)).toBeVisible();
+    await expect(page.getByTestId("journal-open-points-list")).toBeVisible();
+    await expect(page.getByTestId("journal-viewer-subject-title")).toBeVisible();
     await expect(page.getByTestId("project-journal")).toHaveAttribute("data-journal-layout", "split");
     await expect(page.getByTestId("journal-filter-open-points")).toHaveAttribute(
       "aria-pressed",

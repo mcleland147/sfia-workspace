@@ -3559,14 +3559,32 @@
   --journal-accent-soft: #ada5ff;
   --journal-accent-2: #827cff;
   --journal-banner: #1e2544;
+  /* Figma 1680×970: header 70 + viewer y=95 → height 832 → bottom ~43 */
+  --journal-viewer-w: 784px;
+  --journal-compact-w: 526px;
+  --journal-split-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  gap: 12px;
+  overflow: hidden;
+}
+.project-space-page--journal > .project-journal,
+.project-space-page--journal [data-testid="project-journal"] {
+  flex: 1 1 auto;
+  min-height: 0;
 }
 .journal-shell {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  gap: 20px;
+  gap: var(--journal-split-gap);
   width: 100%;
   min-height: 0;
+  flex: 1 1 auto;
+  height: 100%;
 }
 .journal-layout-full .journal-main-column {
   flex: 1 1 auto;
@@ -3574,10 +3592,12 @@
   max-width: 1330px;
 }
 .journal-layout-split .journal-main-column {
-  flex: 0 0 526px;
-  width: 526px;
-  max-width: 40%;
+  flex: 0 0 var(--journal-compact-w);
+  width: var(--journal-compact-w);
+  max-width: var(--journal-compact-w);
   min-width: 280px;
+  min-height: 0;
+  overflow: hidden;
 }
 .journal-layout-enlarged .journal-main-column {
   display: none;
@@ -3587,6 +3607,17 @@
   flex-direction: column;
   gap: 0;
   min-width: 0;
+  min-height: 0;
+}
+.journal-main-column .journal-hierarchy,
+.journal-main-column .journal-decision-list,
+.journal-main-column .journal-results-list,
+.journal-main-column .journal-open-points-list,
+.journal-main-column [data-testid="journal-search-results"],
+.journal-main-column [data-testid="journal-open-points-list-wrap"] {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
 }
 .journal-v4-head {
   margin-bottom: 28px;
@@ -3780,9 +3811,27 @@
 }
 .journal-group.is-selected > .journal-group-head,
 .journal-child-row.is-selected,
-.journal-decision-row.is-selected {
+.journal-decision-row.is-selected,
+.journal-result-row.is-selected,
+.journal-open-point-row.is-selected {
   background: #242d4b;
-  box-shadow: inset 3px 0 0 var(--journal-accent);
+  position: relative;
+}
+.journal-group.is-selected > .journal-group-head::before,
+.journal-child-row.is-selected::before,
+.journal-decision-row.is-selected::before,
+.journal-result-row.is-selected::before,
+.journal-open-point-row.is-selected::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 3px;
+  height: calc(100% - 24px);
+  min-height: 45px;
+  max-height: 49px;
+  border-radius: 2px;
+  background: var(--journal-accent);
 }
 .journal-expand {
   flex: 0 0 28px;
@@ -3945,33 +3994,70 @@
   background: #efce96;
 }
 .journal-viewer {
-  flex: 1 1 auto;
-  min-width: 0;
-  max-width: 784px;
+  /* Figma 853:42 — 784×832 at x=830 y=95 */
+  flex: 0 0 var(--journal-viewer-w);
+  width: var(--journal-viewer-w);
+  max-width: var(--journal-viewer-w);
+  min-width: var(--journal-viewer-w);
   margin-left: auto;
+  align-self: stretch;
   border: 1px solid #35415c;
   border-radius: 17px;
   background: #141c2b;
   display: flex;
   flex-direction: column;
-  min-height: 640px;
+  min-height: 0;
+  height: 100%;
   overflow: hidden;
 }
 .journal-layout-enlarged .journal-viewer {
-  max-width: none;
+  flex: 1 1 auto;
   width: 100%;
-  min-height: 780px;
+  max-width: 1330px;
+  margin: 0 auto;
+  height: 100%;
+  min-height: 0;
 }
 .journal-viewer-banner {
+  position: relative;
   display: flex;
   justify-content: space-between;
   gap: 16px;
+  flex: 0 0 auto;
   margin: 14px 14px 0;
-  padding: 16px 18px 18px;
+  padding: 16px 24px 18px 24px;
+  min-height: 181px;
+  box-sizing: border-box;
   border-radius: 15px;
   border: 1px solid #444d7a;
   background: var(--journal-banner);
-  box-shadow: inset 3px 0 0 var(--journal-accent-2);
+  overflow: hidden;
+}
+/* Figma 853:44 — Liseré lumière 3×112, offset under banner top */
+.journal-viewer-banner::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 29px;
+  width: 3px;
+  height: 112px;
+  border-radius: 0 2px 2px 0;
+  background: var(--journal-accent-2);
+  pointer-events: none;
+}
+.journal-layout-enlarged .journal-viewer-banner {
+  margin: 0 0 20px;
+  width: 100%;
+  max-width: 1330px;
+  min-height: 198px;
+  border-radius: 16px;
+}
+.journal-layout-enlarged .journal-viewer-banner::before {
+  /* Figma 854:43 — rail identité 4×124 */
+  left: 0;
+  top: 31px;
+  width: 4px;
+  height: 124px;
 }
 .journal-viewer-kicker {
   margin: 0 0 8px;
@@ -4024,21 +4110,113 @@
   font-size: 18px;
 }
 .journal-viewer-body {
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 14px;
   padding: 14px;
 }
+.journal-viewer-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+.journal-layout-enlarged .journal-viewer-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 936px) 374px;
+  gap: 20px;
+  align-items: start;
+}
+.journal-viewer-article {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+.journal-viewer-aside {
+  border: 1px solid #35415c;
+  border-radius: 14px;
+  background: #131c2d;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+}
+.journal-layout-split .journal-viewer-aside {
+  display: none;
+}
+.journal-aside-label {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #b9b0ff;
+}
+.journal-aside-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #f6f7ff;
+}
+.journal-aside-sep {
+  height: 1px;
+  background: #35415c;
+  border: 0;
+  margin: 4px 0;
+}
+.journal-aside-meta-label {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #99a8c6;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.journal-aside-meta-value {
+  margin: 0;
+  font-size: 14px;
+  color: #f6f7ff;
+  line-height: 1.35;
+}
+.journal-aside-meta-desc {
+  margin: 0;
+  font-size: 12px;
+  color: #99a8c6;
+  line-height: 1.4;
+}
 .journal-card {
+  position: relative;
   border: 1px solid #35415c;
   border-radius: 14px;
   background: #182234;
   padding: 16px 18px;
 }
 .journal-card-synthesis {
-  box-shadow: inset 3px 0 0 var(--journal-accent-2);
+  overflow: hidden;
+}
+/* Figma 853:58 — Accent synthèse 3×69 inside card, not full-height inset shadow */
+.journal-card-synthesis::before {
+  content: "";
+  position: absolute;
+  left: 17px;
+  top: 48px;
+  width: 3px;
+  height: 69px;
+  border-radius: 2px;
+  background: var(--journal-accent-2);
+  pointer-events: none;
+}
+.journal-card-synthesis .journal-card-kicker {
+  padding-left: 0;
+}
+.journal-card-synthesis [data-testid="journal-subject-summary"],
+.journal-card-synthesis [data-testid="journal-subject-summary-empty"] {
+  padding-left: 20px;
 }
 .journal-card-kicker {
   margin: 0 0 10px;
@@ -4084,7 +4262,52 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+}
+.journal-child-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 31px minmax(0, 1fr) 24px;
+  align-items: center;
+  gap: 12px;
+  appearance: none;
+  border: 1px solid #35415c;
+  border-radius: 12px;
+  background: #131c2d;
+  color: #f6f7ff;
+  cursor: pointer;
+  padding: 10px 14px;
+  text-align: left;
+  min-height: 58px;
+  box-sizing: border-box;
+}
+.journal-child-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 31px;
+  height: 32px;
+  border-radius: 8px;
+  background: #1e2544;
+  color: #b9b0ff;
+  font-size: 12px;
+  font-weight: 600;
+}
+.journal-child-card-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.journal-child-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f6f7ff;
+}
+.journal-child-card-desc {
+  font-size: 12px;
+  color: #99a8c6;
+  line-height: 1.3;
 }
 .journal-child-link {
   width: 100%;
@@ -4100,6 +4323,77 @@
   cursor: pointer;
   padding: 0;
   text-align: left;
+}
+.journal-results-list,
+.journal-open-points-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  border: 1px solid var(--journal-line);
+  border-radius: 14px;
+  background: var(--journal-panel);
+  display: flex;
+  flex-direction: column;
+}
+.journal-result-row,
+.journal-open-point-row {
+  width: 100%;
+  text-align: left;
+  appearance: none;
+  border: none;
+  border-bottom: 1px solid var(--journal-line);
+  background: transparent;
+  color: var(--journal-ink);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 22px;
+  position: relative;
+}
+.journal-result-row:last-child,
+.journal-open-point-row:last-child {
+  border-bottom: none;
+}
+.journal-result-title,
+.journal-open-point-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f6f7ff;
+}
+.journal-result-path,
+.journal-open-point-origin {
+  font-size: 12px;
+  color: #99a8c6;
+}
+.journal-result-reason {
+  display: inline-block;
+  width: fit-content;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  background: #1e2544;
+  color: #b9b0ff;
+}
+.journal-results-count {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--journal-muted);
+}
+.journal-parent-note {
+  border: 1px solid #35415c;
+  border-radius: 14px;
+  background: #182234;
+  padding: 18px 22px;
+}
+.journal-parent-note p {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: #dce4f4;
+  line-height: 1.4;
 }
 .journal-restriction-list {
   list-style: disc;
@@ -4146,6 +4440,7 @@
   color: #b9b0ff;
 }
 .journal-continue {
+  position: relative;
   width: 100%;
   display: flex;
   align-items: center;
@@ -4155,11 +4450,23 @@
   border: 1px solid #3c486c;
   background: #1c2540;
   border-radius: 11px;
-  padding: 14px 16px;
+  padding: 14px 16px 14px 20px;
   color: #eef0ff;
   cursor: pointer;
-  box-shadow: inset 3px 0 0 var(--journal-accent-2);
   text-align: left;
+  overflow: hidden;
+}
+/* Figma 855:43 — Poursuivre barre 3×29 */
+.journal-continue::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 18px;
+  width: 3px;
+  height: 29px;
+  border-radius: 0 2px 2px 0;
+  background: var(--journal-accent-2);
+  pointer-events: none;
 }
 .journal-continue-cta {
   display: block;

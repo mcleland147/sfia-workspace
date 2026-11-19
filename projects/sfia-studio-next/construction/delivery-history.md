@@ -4,6 +4,20 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-PIXEL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~13:00 CET |
+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 pixel-perfect corrective |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** · **NO RECETTE CUTOVER** |
+| GO Morris | 11 états NON RÉCEPTIONNÉS — finition géométrie/liserés/compositions |
+| Parent | local `0eb3157b` (RECETTE toujours `d5bf7eb7`) |
+| Scope | 40/60 height · liserés Figma · parent≠autonome · agrandi article+aside · search/open-points · D6 status |
+| Docs | matrice v0.7 §18 `f0d2d033` |
+| Verdict Cursor | voir Review Pack (comparaison 11 frames + réserves) |
+
+
 ## delivery_id: DELIV-2026-11-19-JOURNAL-V4-FIGMA-UX
 
 | Field | Value |

@@ -117,8 +117,20 @@ const COPY = {
   continue: "CONTINUER LE TRAVAIL",
   continueCta: "Poursuivre ce sujet avec Nora",
   enlarge: "⤢ Agrandir",
-  reduce: "Réduire",
+  reduce: "Réduire la vue",
   close: "×",
+  childrenTitle: "SOUS-SUJETS",
+  matchesLabel: "SUJETS CORRESPONDANTS",
+  openPointsLabel: "POINTS OUVERTS DU PROJET",
+  whyMatch: "POURQUOI CE SUJET",
+  pathOrigin: "CHEMIN D’ORIGINE",
+  asideLabel: "REPÈRES",
+  asideReading: "Lecture enrichie",
+  asideNature: "NATURE",
+  asideSources: "SOURCES",
+  asideActions: "ACTIONS",
+  parentComplement: "REPÈRE PARENT",
+  openPointStatus: "OUVERT",
 } as const;
 
 function buildSubjectTree(subjects: JournalSubject[]) {
@@ -177,11 +189,15 @@ function decisionBlurb(d: JournalDecision): string {
 }
 
 function decisionStatusLabel(d: JournalDecision): { label: string; tone: "ok" | "warn" | "muted" } {
-  if (d.supersededByDecisionId || d.applicable === false) {
+  // D6 status must not collapse "non applicable" into "REMPLACÉE".
+  if (d.supersededByDecisionId) {
     return { label: "REMPLACÉE", tone: "muted" };
   }
   const st = d.state.toUpperCase();
   if (st.includes("SUSPEND")) return { label: "SUSPENDUE", tone: "warn" };
+  if (d.applicable === false) {
+    return { label: "SUSPENDUE", tone: "warn" };
+  }
   if (
     st.includes("ACTIVE") ||
     st.includes("EFFECTIVE") ||
@@ -500,6 +516,20 @@ export function ProjectJournal(props: {
                 {COPY.searchEmptySubjects}
               </p>
             </div>
+          ) : openPointsOnly ? (
+            <OpenPointsTransversalList
+              openPoints={openPoints}
+              byId={byId}
+              selectedId={selectedSubjectId}
+              onSelect={pickSubject}
+            />
+          ) : search.trim().length > 0 ? (
+            <SubjectSearchResults
+              matchBySubject={matchBySubject}
+              byId={byId}
+              selectedId={selectedSubjectId}
+              onSelect={pickSubject}
+            />
           ) : (
             <div className="journal-hierarchy" data-testid="journal-tree">
               {roots.map((s) =>
@@ -565,7 +595,7 @@ export function ProjectJournal(props: {
                     {subjectBlurb(selectedSubject) ||
                       "Comprendre ce qu’on sait, ce qui reste ouvert et pourquoi."}
                   </p>
-                  <span className="journal-viewer-type">
+                  <span className="journal-viewer-type" data-testid="journal-viewer-subject-kind">
                     {isParentSelected ? "Sujet parent" : "Sujet autonome"}
                   </span>
                 </div>
@@ -602,119 +632,193 @@ export function ProjectJournal(props: {
               </header>
 
               <div className="journal-viewer-body">
-                <section className="journal-card journal-card-synthesis">
-                  <p className="journal-card-kicker">{COPY.synthesis}</p>
-                  {selectedSubject.summary?.summaryMarkdown ? (
-                    <div data-testid="journal-subject-summary">
-                      <SafeMarkdown content={selectedSubject.summary.summaryMarkdown} />
-                    </div>
-                  ) : (
-                    <p className="journal-muted" data-testid="journal-subject-summary-empty">
-                      Synthèse non encore disponible.
-                    </p>
-                  )}
-                </section>
-
-                {childSubjects.length > 0 ? (
-                  <section className="journal-card">
-                    <p className="journal-card-kicker">{COPY.children}</p>
-                    <ul className="journal-child-list">
-                      {childSubjects.map((c) => (
-                        <li key={c.id}>
-                          <button
-                            type="button"
-                            className="journal-child-link"
-                            onClick={() => pickSubject(c.id)}
-                          >
-                            <span>{c.title}</span>
-                            <span aria-hidden>↗</span>
-                          </button>
-                          {subjectBlurb(c) ? (
-                            <p className="journal-row-desc">{subjectBlurb(c)}</p>
-                          ) : null}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                ) : null}
-
-                <div className="journal-card-row">
-                  <section className="journal-card journal-card-half">
-                    <p className="journal-card-kicker">{COPY.retained}</p>
-                    {selectedAcquis.length === 0 ? (
-                      <p className="journal-muted">Aucun acquis courant.</p>
-                    ) : (
-                      selectedAcquis.map((a) => (
-                        <p key={a.id} className="journal-acquis-line" data-subject-id={a.subjectId ?? ""}>
-                          {a.statement}
+                <div className="journal-viewer-layout">
+                  <div className="journal-viewer-article">
+                    <section className="journal-card journal-card-synthesis">
+                      <p className="journal-card-kicker">{COPY.synthesis}</p>
+                      {selectedSubject.summary?.summaryMarkdown ? (
+                        <div data-testid="journal-subject-summary">
+                          <SafeMarkdown content={selectedSubject.summary.summaryMarkdown} />
+                        </div>
+                      ) : (
+                        <p className="journal-muted" data-testid="journal-subject-summary-empty">
+                          Synthèse non encore disponible.
                         </p>
-                      ))
-                    )}
-                  </section>
-                  <section className="journal-card journal-card-half">
-                    <p className="journal-card-kicker">{COPY.clarify}</p>
-                    {selectedOpen.length === 0 ? (
-                      <p className="journal-muted">Aucun point ouvert.</p>
-                    ) : (
-                      selectedOpen.map((o) => (
-                        <p
-                          key={o.id}
-                          className="journal-open-line"
-                          data-testid={`journal-open-point-${o.id}`}
-                          data-subject-id={o.subjectId ?? ""}
-                        >
-                          {o.statement}
-                        </p>
-                      ))
-                    )}
-                  </section>
-                </div>
+                      )}
+                    </section>
 
-                {selectedContradictions.length > 0 ? (
-                  <section className="journal-card" data-testid="journal-contradictions">
-                    <p className="journal-card-kicker">CONTRADICTIONS</p>
-                    {selectedContradictions.map((c) => (
-                      <div
-                        key={`${c.leftAcquisId}-${c.rightAcquisId}`}
-                        data-testid={`journal-contradiction-${c.leftAcquisId}`}
-                      >
-                        <p className="journal-acquis-line">{c.reason}</p>
+                    {isParentSelected ? (
+                      <section className="journal-card" data-testid="journal-parent-children">
+                        <p className="journal-card-kicker">{COPY.childrenTitle}</p>
+                        <ul className="journal-child-list">
+                          {childSubjects.map((c, i) => (
+                            <li key={c.id}>
+                              <button
+                                type="button"
+                                className="journal-child-card"
+                                data-testid={`journal-child-card-${c.id}`}
+                                onClick={() => pickSubject(c.id)}
+                              >
+                                <span className="journal-child-num">{String(i + 1).padStart(2, "0")}</span>
+                                <span className="journal-child-card-text">
+                                  <span className="journal-child-card-title">{c.title}</span>
+                                  {subjectBlurb(c) ? (
+                                    <span className="journal-child-card-desc">{subjectBlurb(c)}</span>
+                                  ) : null}
+                                </span>
+                                <span aria-hidden>↗</span>
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      </section>
+                    ) : (
+                      <div className="journal-card-row">
+                        <section className="journal-card journal-card-half">
+                          <p className="journal-card-kicker">{COPY.retained}</p>
+                          {selectedAcquis.length === 0 ? (
+                            <p className="journal-muted">Aucun acquis courant.</p>
+                          ) : (
+                            selectedAcquis.map((a) => (
+                              <p key={a.id} className="journal-acquis-line" data-subject-id={a.subjectId ?? ""}>
+                                {a.statement}
+                              </p>
+                            ))
+                          )}
+                        </section>
+                        <section className="journal-card journal-card-half">
+                          <p className="journal-card-kicker">{COPY.clarify}</p>
+                          {selectedOpen.length === 0 ? (
+                            <p className="journal-muted">Aucun point ouvert.</p>
+                          ) : (
+                            selectedOpen.map((o) => (
+                              <p
+                                key={o.id}
+                                className="journal-open-line"
+                                data-testid={`journal-open-point-${o.id}`}
+                                data-subject-id={o.subjectId ?? ""}
+                              >
+                                {o.statement}
+                              </p>
+                            ))
+                          )}
+                        </section>
                       </div>
+                    )}
+
+                    {isParentSelected ? (
+                      <section className="journal-parent-note" data-testid="journal-parent-complement">
+                        <p className="journal-card-kicker">{COPY.parentComplement}</p>
+                        <p>
+                          Ce thème regroupe {childSubjects.length} sous-sujet
+                          {childSubjects.length > 1 ? "s" : ""}. Ouvrez un axe pour lire ses acquis
+                          et points ouverts.
+                        </p>
+                      </section>
+                    ) : null}
+
+                    {!isParentSelected && selectedContradictions.length > 0 ? (
+                      <section className="journal-card" data-testid="journal-contradictions">
+                        <p className="journal-card-kicker">CONTRADICTIONS</p>
+                        {selectedContradictions.map((c) => (
+                          <div
+                            key={`${c.leftAcquisId}-${c.rightAcquisId}`}
+                            data-testid={`journal-contradiction-${c.leftAcquisId}`}
+                          >
+                            <p className="journal-acquis-line">{c.reason}</p>
+                          </div>
+                        ))}
+                      </section>
+                    ) : null}
+
+                    {selectedSources.length > 0 ? (
+                      <section className="journal-card" data-testid="journal-sources">
+                        <p className="journal-card-kicker">{COPY.sources}</p>
+                        <ul className="journal-source-list">
+                          {selectedSources.map((s) => (
+                            <li key={`${s.ownerKind}-${s.ownerId}-${s.sourceId ?? s.revisionId ?? s.documentId}`}>
+                              <SourceChip
+                                link={s}
+                                onOpenMessage={props.onOpenMessage}
+                                onOpenDocument={props.onOpenDocument}
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                      </section>
+                    ) : null}
+
+                    {search.trim() && !isParentSelected ? (
+                      <section className="journal-card" data-testid="journal-match-context">
+                        <p className="journal-card-kicker">{COPY.whyMatch}</p>
+                        <p className="journal-muted">
+                          Correspondance : {matchBySubject.get(selectedSubject.id) ?? "sélection"}
+                        </p>
+                        <p className="journal-card-kicker" style={{ marginTop: 12 }}>
+                          {COPY.pathOrigin}
+                        </p>
+                        <p className="journal-muted">
+                          {subjectBreadcrumb(selectedSubject.id, byId).join(" › ")}
+                        </p>
+                      </section>
+                    ) : null}
+
+                    {props.onBackToThread ? (
+                      <button
+                        type="button"
+                        className="journal-continue"
+                        data-testid="journal-continue-travail"
+                        onClick={props.onBackToThread}
+                      >
+                        <span>
+                          <span className="journal-card-kicker">{COPY.continue}</span>
+                          <span className="journal-continue-cta">{COPY.continueCta}</span>
+                        </span>
+                        <span aria-hidden>↗</span>
+                      </button>
+                    ) : null}
+                  </div>
+
+                  <aside className="journal-viewer-aside" data-testid="journal-viewer-aside">
+                    <p className="journal-aside-label">{COPY.asideLabel}</p>
+                    <p className="journal-aside-title">{COPY.asideReading}</p>
+                    <hr className="journal-aside-sep" />
+                    <p className="journal-aside-meta-label">{COPY.asideNature}</p>
+                    <p className="journal-aside-meta-value">
+                      {isParentSelected ? "Sujet parent" : "Sujet autonome"}
+                    </p>
+                    <p className="journal-aside-meta-desc">
+                      {isParentSelected
+                        ? "Thème structurant avec sous-sujets consultables."
+                        : "Fiche dédiée à un axe capitalisé du projet."}
+                    </p>
+                    <hr className="journal-aside-sep" />
+                    <p className="journal-aside-meta-label">{COPY.asideSources}</p>
+                    <p className="journal-aside-meta-value">
+                      {selectedSources.length > 0
+                        ? `${selectedSources.length} source${selectedSources.length > 1 ? "s" : ""} liée${selectedSources.length > 1 ? "s" : ""}`
+                        : "Sources disponibles via les acquis"}
+                    </p>
+                    {selectedSources.slice(0, 3).map((s) => (
+                      <p key={`${s.ownerId}-${s.sourceId}`} className="journal-aside-meta-desc">
+                        {s.sourceKind} · {s.currentness}
+                      </p>
                     ))}
-                  </section>
-                ) : null}
-
-                {selectedSources.length > 0 ? (
-                  <section className="journal-card" data-testid="journal-sources">
-                    <p className="journal-card-kicker">{COPY.sources}</p>
-                    <ul className="journal-source-list">
-                      {selectedSources.map((s) => (
-                        <li key={`${s.ownerKind}-${s.ownerId}-${s.sourceId ?? s.revisionId ?? s.documentId}`}>
-                          <SourceChip
-                            link={s}
-                            onOpenMessage={props.onOpenMessage}
-                            onOpenDocument={props.onOpenDocument}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                ) : null}
-
-                {props.onBackToThread ? (
-                  <button
-                    type="button"
-                    className="journal-continue"
-                    data-testid="journal-continue-travail"
-                    onClick={props.onBackToThread}
-                  >
-                    <span>
-                      <span className="journal-card-kicker">{COPY.continue}</span>
-                      <span className="journal-continue-cta">{COPY.continueCta}</span>
-                    </span>
-                    <span aria-hidden>↗</span>
-                  </button>
-                ) : null}
+                    <hr className="journal-aside-sep" />
+                    <p className="journal-aside-meta-label">{COPY.asideActions}</p>
+                    {props.onBackToThread ? (
+                      <button
+                        type="button"
+                        className="journal-continue"
+                        data-testid="journal-aside-continue"
+                        onClick={props.onBackToThread}
+                      >
+                        <span className="journal-continue-cta">Poursuivre avec Nora</span>
+                        <span aria-hidden>↗</span>
+                      </button>
+                    ) : null}
+                  </aside>
+                </div>
               </div>
             </>
           ) : null}
@@ -764,63 +868,178 @@ export function ProjectJournal(props: {
                 </div>
               </header>
               <div className="journal-viewer-body" data-testid="journal-decision-viewer">
-                <section className="journal-card journal-card-synthesis">
-                  <p className="journal-card-kicker">CHOIX RETENU</p>
-                  <p className="journal-acquis-line">{selectedDecision.statement || "—"}</p>
-                  <p className="journal-muted" data-testid="journal-decision-applicability">
-                    {selectedDecision.scope}
-                    {selectedDecision.applicable === false
-                      ? " · non applicable / historique"
-                      : " · applicable"}
-                    {selectedDecision.supersededByDecisionId ? " · remplacé" : ""}
-                  </p>
-                </section>
-                <section className="journal-card">
-                  <p className="journal-card-kicker">POURQUOI CE CHOIX</p>
-                  {selectedDecision.explanation?.explanationMarkdown ? (
-                    <>
-                      {selectedDecision.explanation.potentiallyStale ? (
-                        <p className="journal-warn" data-testid="journal-explanation-stale">
-                          Explication potentiellement périmée.
+                <div className="journal-viewer-layout">
+                  <div className="journal-viewer-article">
+                    <section className="journal-card journal-card-synthesis">
+                      <p className="journal-card-kicker">LE CHOIX RETENU</p>
+                      <p className="journal-acquis-line">{selectedDecision.statement || "—"}</p>
+                      <p className="journal-muted" data-testid="journal-decision-applicability">
+                        {selectedDecision.scope}
+                        {selectedDecision.applicable === false
+                          ? " · non applicable / historique"
+                          : " · applicable"}
+                        {selectedDecision.supersededByDecisionId ? " · remplacé" : ""}
+                      </p>
+                    </section>
+                    <section className="journal-card">
+                      <p className="journal-card-kicker">POURQUOI CE CHOIX</p>
+                      {selectedDecision.explanation?.explanationMarkdown ? (
+                        <>
+                          {selectedDecision.explanation.potentiallyStale ? (
+                            <p className="journal-warn" data-testid="journal-explanation-stale">
+                              Explication potentiellement périmée.
+                            </p>
+                          ) : null}
+                          <SafeMarkdown content={selectedDecision.explanation.explanationMarkdown} />
+                        </>
+                      ) : (
+                        <p className="journal-muted" data-testid="journal-explanation-empty">
+                          Explication contextuelle non encore disponible.
                         </p>
-                      ) : null}
-                      <SafeMarkdown content={selectedDecision.explanation.explanationMarkdown} />
-                    </>
-                  ) : (
-                    <p className="journal-muted" data-testid="journal-explanation-empty">
-                      Explication contextuelle non encore disponible.
-                    </p>
-                  )}
-                </section>
-                {activeRestrictions.length > 0 ? (
-                  <section className="journal-card">
-                    <p className="journal-card-kicker">RESTRICTIONS ACTIVES</p>
-                    <ul className="journal-restriction-list">
-                      {activeRestrictions.map((r) => (
-                        <li key={r.id} data-testid={`journal-restriction-${r.id}`}>
-                          {r.targetKind} · {r.targetRef}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                ) : null}
-                {historicalRestrictions.length > 0 ? (
-                  <section className="journal-card">
-                    <p className="journal-card-kicker">RESTRICTIONS HISTORIQUES</p>
-                    <ul className="journal-restriction-list">
-                      {historicalRestrictions.map((r) => (
-                        <li key={r.id} data-testid={`journal-restriction-hist-${r.id}`}>
-                          {r.targetKind} · {r.targetRef}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                ) : null}
+                      )}
+                    </section>
+                    {activeRestrictions.length > 0 ? (
+                      <section className="journal-card">
+                        <p className="journal-card-kicker">RESTRICTIONS ACTIVES</p>
+                        <ul className="journal-restriction-list">
+                          {activeRestrictions.map((r) => (
+                            <li key={r.id} data-testid={`journal-restriction-${r.id}`}>
+                              {r.targetKind} · {r.targetRef}
+                            </li>
+                          ))}
+                        </ul>
+                      </section>
+                    ) : null}
+                    {historicalRestrictions.length > 0 ? (
+                      <section className="journal-card">
+                        <p className="journal-card-kicker">RESTRICTIONS HISTORIQUES</p>
+                        <ul className="journal-restriction-list">
+                          {historicalRestrictions.map((r) => (
+                            <li key={r.id} data-testid={`journal-restriction-hist-${r.id}`}>
+                              {r.targetKind} · {r.targetRef}
+                            </li>
+                          ))}
+                        </ul>
+                      </section>
+                    ) : null}
+                  </div>
+                  <aside className="journal-viewer-aside" data-testid="journal-decision-aside">
+                    <p className="journal-aside-label">{COPY.asideLabel}</p>
+                    <p className="journal-aside-title">Gouvernance D6</p>
+                    <hr className="journal-aside-sep" />
+                    <p className="journal-aside-meta-label">STATUT</p>
+                    <p className="journal-aside-meta-value">{decisionStatusLabel(selectedDecision).label}</p>
+                    <p className="journal-aside-meta-label">PORTÉE</p>
+                    <p className="journal-aside-meta-value">{selectedDecision.scope}</p>
+                    <p className="journal-aside-meta-label">ÉTAT</p>
+                    <p className="journal-aside-meta-value">{selectedDecision.state}</p>
+                    {selectedDecision.supersededByDecisionId ? (
+                      <>
+                        <p className="journal-aside-meta-label">REMPLACÉE PAR</p>
+                        <p className="journal-aside-meta-desc">{selectedDecision.supersededByDecisionId}</p>
+                      </>
+                    ) : null}
+                    <hr className="journal-aside-sep" />
+                    <p className="journal-aside-meta-label">{COPY.asideActions}</p>
+                    {props.onBackToThread ? (
+                      <button
+                        type="button"
+                        className="journal-continue"
+                        data-testid="journal-decision-aside-continue"
+                        onClick={props.onBackToThread}
+                      >
+                        <span className="journal-continue-cta">Poursuivre avec Nora</span>
+                        <span aria-hidden>↗</span>
+                      </button>
+                    ) : null}
+                  </aside>
+                </div>
               </div>
             </>
           ) : null}
         </section>
       ) : null}
+    </div>
+  );
+}
+
+
+function SubjectSearchResults(props: {
+  matchBySubject: Map<string, string>;
+  byId: Map<string, JournalSubject>;
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+}) {
+  const rows = [...props.matchBySubject.entries()]
+    .map(([id, reason]) => ({ subject: props.byId.get(id), reason }))
+    .filter((r): r is { subject: JournalSubject; reason: string } => Boolean(r.subject))
+    .sort((a, b) => a.subject.title.localeCompare(b.subject.title, "fr"));
+  return (
+    <div data-testid="journal-search-results">
+      <p className="journal-results-count">
+        {rows.length} {COPY.matchesLabel}
+      </p>
+      <ul className="journal-results-list">
+        {rows.map(({ subject, reason }) => (
+          <li key={subject.id}>
+            <button
+              type="button"
+              className={`journal-result-row${props.selectedId === subject.id ? " is-selected" : ""}`}
+              data-testid={`journal-match-${subject.id}`}
+              onClick={() => props.onSelect(subject.id)}
+            >
+              <span className="journal-result-title">{subject.title}</span>
+              <span className="journal-result-path">
+                {subjectBreadcrumb(subject.id, props.byId).join(" › ")}
+              </span>
+              <span className="journal-result-reason">Correspondance · {reason}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function OpenPointsTransversalList(props: {
+  openPoints: JournalOpenPoint[];
+  byId: Map<string, JournalSubject>;
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+}) {
+  if (props.openPoints.length === 0) {
+    return (
+      <div className="journal-hierarchy" data-testid="journal-open-points-empty">
+        <p className="journal-empty-copy">Aucun point ouvert sur ce projet.</p>
+      </div>
+    );
+  }
+  return (
+    <div data-testid="journal-open-points-list-wrap">
+      <p className="journal-results-count">{COPY.openPointsLabel}</p>
+      <ul className="journal-open-points-list" data-testid="journal-open-points-list">
+        {props.openPoints.map((o) => {
+          const subject = o.subjectId ? props.byId.get(o.subjectId) : null;
+          const selected = o.subjectId != null && props.selectedId === o.subjectId;
+          return (
+            <li key={o.id}>
+              <button
+                type="button"
+                className={`journal-open-point-row${selected ? " is-selected" : ""}`}
+                data-testid={`journal-open-point-row-${o.id}`}
+                onClick={() => {
+                  if (o.subjectId) props.onSelect(o.subjectId);
+                }}
+              >
+                <span className="journal-open-point-title">{o.statement}</span>
+                <span className="journal-open-point-origin">
+                  {subject ? subject.title : "Sujet non rattaché"} · {COPY.openPointStatus}
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
