@@ -1,35 +1,37 @@
 # SFIA Review Pack FULL — Ensemble 07 · Projet, Trajectoire et conduite conversationnelle Nora
 
-**Date/heure:** 2026-11-20T17:14:55.352074+00:00
+**Date/heure:** 2026-11-20T17:26:34+00:00
 **Cycle:** Standard EVOL · Delivery projet · R5/ML4D Ensemble 07 · Gate C OPEN
 **Profil:** Standard (QA Figma renforcée) · Classe **NO RELEASE**
 **Worktree:** `/Users/morris/Projects/sfia-wt-ensemble07-projet-trajectoire-20261120`
 **Branche:** `sfia/next-ensemble07-projet-trajectoire-delivery`
-**HEAD:** `e36fd8b0531c4f649830990a18f9cfdaecb3c03f`
+**HEAD:** `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` (working tree uncommitted — base contrat)
 **Base contrat:** `e36fd8b0531c4f649830990a18f9cfdaecb3c03f`
-**origin/main:** `6e93a33d64dfeea2eab88fb7896d733b34053f97` (inchangé vs cadrage)
+**origin/main:** `6e93a33d64dfeea2eab88fb7896d733b34053f97`
 
 ## Verdict candidat
 
 **FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED**
 
-Preuves fonctionnelles DEV solides (qualification, message unique, verrou admission, build, tests PG).
-Captures Figma 13/13 établies avant code. Runtime navigateur prouvé pour Projet / Travail (message proactif) / Trajectoire proposition, mais **pas encore 13/13 paires comparées** au viewport 1680×970. Écarts structurels résiduels vs maquettes (chrome titres, densités, panneaux détail 09.03–09.05).
+Vertical slice fonctionnel DEV prouvé (création → qualification durable → proposition D5 + message Nora unique → verrou compositeur UI+API).
+Fidélité visuelle itérée : 09.06 / 09.10 / 09.11 / 09.04 / 09.05 / 05.17 rapprochés Figma après rewrite TrajectoryBoard + chrome breadcrumb-only.
+Manquent encore des paires runtime fidèles pour 09.02 / 09.03 / 09.08 / 09.09 (cycle ACTIVE/CLOSED via GO D6→D5 non seedé) et SAS 06 popup isolée. 09.07 clarification non obtenue (seed a produit PROPOSED).
 
 ## Fake / Real
 
 | Frontière | Qualification |
 |-----------|---------------|
-| Nora / forecast initial | DETERMINISTIC / FAKE (forecast-builder + fixture) |
+| Nora / forecast initial | DETERMINISTIC / FAKE (forecast-builder + STUDIO_FORCE_NORA_FIXTURE) |
 | PostgreSQL DEV :5433 | REAL local DEV |
-| Browser DEV :3100 | BROWSER PROVEN (3 surfaces) |
+| Browser DEV :3100 | BROWSER PROVEN (surfaces listées) |
+| Hold capture | STUDIO_DEV_HOLD_INITIAL_QUALIFICATION=1 DEV-only pour geler PENDING (09.10/05.17) |
 | Fournisseur LIVE | LIVE NOT PROVEN |
-| CKI DELIVERED | NOT APPLICABLE (aucun cycle ouvert) |
+| CKI DELIVERED | NOT APPLICABLE (aucun cycle ouvert dans captures) |
 
 ## Git status (worktree)
 
 ```
-M .tmp-sfia-review/chatgpt-review.md
+ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio-next/construction/delivery-history.md
  M projects/sfia-studio-next/web/scripts/db-migrate.sh
  M projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
@@ -37,6 +39,7 @@ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
  M projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
  M projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+ M projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
  M projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
  M projects/sfia-studio-next/web/src/db/schema.ts
  M projects/sfia-studio-next/web/src/domains/conversation/service.ts
@@ -58,58 +61,103 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts
+
 ```
 
 ## Diff stat
 
 ```
-.tmp-sfia-review/chatgpt-review.md                 | 250 ++++++------------
- .../construction/delivery-history.md               |  15 ++
- .../sfia-studio-next/web/scripts/db-migrate.sh     |   3 +-
- .../[preparationId]/create-project/route.ts        |  23 ++
- .../web/src/app/api/projects/[projectId]/route.ts  |   2 +
- .../src/app/preparations/[preparationId]/page.tsx  |  29 +-
- .../web/src/app/projects/[projectId]/page.tsx      |  88 ++++---
- .../web/src/components/figma/NoraConversation.tsx  |  29 +-
- .../web/src/components/figma/ProjectOverview.tsx   | 291 ++++++++++++---------
- projects/sfia-studio-next/web/src/db/schema.ts     |  36 +++
- .../web/src/domains/conversation/service.ts        |   4 +
- .../web/src/domains/pilotage/service.ts            |  29 ++
- .../web/src/domains/pilotage/types.ts              |  14 +
- .../web/src/domains/preparation/project-context.ts |  62 ++++-
- .../sfia-studio-next/web/src/lib/http-errors.ts    |   2 +
- 15 files changed, 545 insertions(+), 332 deletions(-)
+ .tmp-sfia-review/chatgpt-review.md                 | 2946 +++++++++++++++++++-
+ .../construction/delivery-history.md               |   16 +
+ .../sfia-studio-next/web/scripts/db-migrate.sh     |    3 +-
+ .../[preparationId]/create-project/route.ts        |   23 +
+ .../web/src/app/api/projects/[projectId]/route.ts  |    2 +
+ .../src/app/preparations/[preparationId]/page.tsx  |   29 +-
+ .../web/src/app/projects/[projectId]/page.tsx      |   88 +-
+ .../web/src/components/figma/NoraConversation.tsx  |   42 +-
+ .../web/src/components/figma/ProjectChrome.tsx     |   16 +-
+ .../web/src/components/figma/ProjectOverview.tsx   |  289 +-
+ projects/sfia-studio-next/web/src/db/schema.ts     |   36 +
+ .../web/src/domains/conversation/service.ts        |    4 +
+ .../web/src/domains/pilotage/service.ts            |   29 +
+ .../web/src/domains/pilotage/types.ts              |   14 +
+ .../web/src/domains/preparation/project-context.ts |   62 +-
+ .../sfia-studio-next/web/src/lib/http-errors.ts    |    2 +
+ 16 files changed, 3275 insertions(+), 326 deletions(-)
+
 ```
 
-## Architecture
+## Grille Figma ↔ runtime (viewport 1680×970)
 
-Option A hybride : `ensureInitialQualification` après create → `processInitialQualification` découplé → D5 PROPOSE + forecast_json + message assistant corrélé. Admission `QUALIFICATION_IN_PROGRESS`. UI : SasCreateProgressPopup, NoraConversation lock, ProjectOverview, TrajectoryBoard ; PilotagePanel diagnostic conservé.
+| Ref | Figma | Runtime | Statut | Écarts connus |
+|-----|-------|---------|--------|---------------|
+| 09.01 | figma/09.01-projet-vue-ensemble.png | runtime/09.01-projet-approx-sans-cycle-runtime.png | Partiellement conforme | Pas de cycle ACTIVE seedé — structure sans-cycle proche 09.06 |
+| 09.02 | figma/09.02-trajectoire-vue-principale.png | — | Capture requise | Parcours CLOSED/ACTIVE/ENVISAGÉE non seedé GO |
+| 09.03 | figma/09.03-bilan-historique.png | (UI présente via click bilan) | Capture requise | UI bilan avec lacunes historiques honnêtes ; pas de closed cycle seedé |
+| 09.04 | figma/09.04-etape-future.png | runtime/09.04-etape-future-runtime.png | Conforme structure | Libellés Figma présents ; données métier réelles |
+| 09.05 | figma/09.05-cki-methode.png | runtime/09.05-cki-methode-runtime.png | Partiellement conforme | CKI absent sans cycle (attendu) ; méthode ABSENT |
+| 09.06 | figma/09.06-projet-sans-cycle.png | runtime/09.06-projet-runtime.png | Conforme structure | Compteurs à 0 (données vides réelles) ; chrome hero retiré |
+| 09.07 | figma/09.07-trajectoire-init.png | runtime/09.07-trajectoire-init-or-proposal-runtime.png | Non conforme état | Seed clarification a produit PROPOSED |
+| 09.08 | figma/09.08-entre-deux-cycles.png | — | Capture requise | Nécessite cycle clos + pas d'actif |
+| 09.09 | figma/09.09-premier-cycle-actif.png | — | Capture requise | Nécessite OPEN_CYCLE après GO |
+| SAS06 | figma/sas-06-popup-creation.png | runtime/sas-06-prep-or-popup-runtime.png | Partiellement conforme | Popup composant présent ; capture = page prep attachée |
+| 05.17 | figma/travail-05.17-compositeur-verrouille.png | runtime/05.17-travail-compositeur-verrouille-runtime.png | Partiellement conforme | Lock + libellé OK ; hero Travail générique ; bandeau activité Figma incomplet |
+| 09.10 | figma/09.10-trajectoire-analyse-en-cours.png | runtime/09.10-trajectoire-analyse-runtime.png | Conforme structure | Stepper / CTA / textes alignés ; diagnostic Pilotage encore visible |
+| 09.11 | figma/09.11-premiere-proposition-sequentielle.png | runtime/09.11-trajectoire-runtime.png | Conforme structure | Cartes séquentielles horizontales + CTA Figma ; 2 steps (données) vs 3 illustratifs Figma |
 
-## Figma contrat
+### Inventaire captures
 
-Session `35b80def-cc14-4f44-897f-8b7ecfe1cce4` · fileKey `itgvCulInEnFY6DvgIegvP` · 13 frames lus · captures `.tmp-sfia-review/ensemble07-evidence/figma/` · contrat JSON `figma-visual-contract.json`.
+**Figma (13):**
+- `.tmp-sfia-review/ensemble07-evidence/figma/09.01-projet-vue-ensemble.png` sha256=5f403dc1ca9bf1b6 bytes=100847
+- `.tmp-sfia-review/ensemble07-evidence/figma/09.02-trajectoire-vue-principale.png` sha256=6d785fc71ab3c6e7 bytes=116627
+- `.tmp-sfia-review/ensemble07-evidence/figma/09.03-bilan-historique.png` sha256=4c7d8eff3d1f1c63 bytes=121474
+- `.tmp-sfia-review/ensemble07-evidence/figma/09.04-etape-future.png` sha256=f498a6dcdc70aba0 bytes=100233
+- `.tmp-sfia-review/ensemble07-evidence/figma/09.05-cki-methode.png` sha256=160f4b3ef50992f1 bytes=138086
+- `.tmp-sfia-review/ensemble07-evidence/figma/09.06-projet-sans-cycle.png` sha256=cd31d7b2c2e598f9 bytes=104794
+- `.tmp-sfia-review/ensemble07-evidence/figma/09.07-trajectoire-init.png` sha256=a7bfecb9292b8e63 bytes=85386
+- `.tmp-sfia-review/ensemble07-evidence/figma/09.08-entre-deux-cycles.png` sha256=05fd79562e5505f6 bytes=95056
+- `.tmp-sfia-review/ensemble07-evidence/figma/09.09-premier-cycle-actif.png` sha256=08f1300d8849c2a9 bytes=94291
+- `.tmp-sfia-review/ensemble07-evidence/figma/09.10-trajectoire-analyse-en-cours.png` sha256=57c15c9320978047 bytes=87029
+- `.tmp-sfia-review/ensemble07-evidence/figma/09.11-premiere-proposition-sequentielle.png` sha256=90aa0f2e1ba4554e bytes=102737
+- `.tmp-sfia-review/ensemble07-evidence/figma/sas-06-popup-creation.png` sha256=dc0b6cbe1c4d64b6 bytes=139300
+- `.tmp-sfia-review/ensemble07-evidence/figma/travail-05.17-compositeur-verrouille.png` sha256=488a2e31cb2b1e0b bytes=135784
 
-## Runtime captures (partielles)
+**Runtime (12):**
+- `.tmp-sfia-review/ensemble07-evidence/runtime/05.17-or-travail-runtime.png` sha256=c472c8be59e411b9 bytes=134736
+- `.tmp-sfia-review/ensemble07-evidence/runtime/05.17-travail-compositeur-verrouille-runtime.png` sha256=ff2a40d31bba91f1 bytes=132460
+- `.tmp-sfia-review/ensemble07-evidence/runtime/09.01-projet-approx-sans-cycle-runtime.png` sha256=aab13d453c0badc4 bytes=116171
+- `.tmp-sfia-review/ensemble07-evidence/runtime/09.04-etape-future-runtime.png` sha256=4d97ef104f7b6438 bytes=86200
+- `.tmp-sfia-review/ensemble07-evidence/runtime/09.05-cki-methode-runtime.png` sha256=eac8688e24eab812 bytes=95198
+- `.tmp-sfia-review/ensemble07-evidence/runtime/09.06-projet-runtime.png` sha256=aab13d453c0badc4 bytes=116171
+- `.tmp-sfia-review/ensemble07-evidence/runtime/09.07-trajectoire-init-or-proposal-runtime.png` sha256=de17481eadece706 bytes=120526
+- `.tmp-sfia-review/ensemble07-evidence/runtime/09.10-trajectoire-analyse-runtime.png` sha256=4c17da8e4c563e8d bytes=99600
+- `.tmp-sfia-review/ensemble07-evidence/runtime/09.11-trajectoire-runtime.png` sha256=ed78dc881669e8c1 bytes=121548
+- `.tmp-sfia-review/ensemble07-evidence/runtime/_login-probe.png` sha256=fc0e98c32ed50eaf bytes=136267
+- `.tmp-sfia-review/ensemble07-evidence/runtime/sas-06-prep-or-popup-runtime.png` sha256=1a5129dec81a019f bytes=113401
+- `.tmp-sfia-review/ensemble07-evidence/runtime/travail-apres-proposition-runtime.png` sha256=0a1591e2e4dab56e bytes=141543
 
-`.tmp-sfia-review/ensemble07-evidence/runtime/` — 09.06, travail, 09.11 (1680×970).
+## Architecture choisie (Option A hybride)
+
+1. createProjectCommand inchangé (idempotence D2).
+2. ensureInitialQualification + processInitialQualification (une opération/projet, claim token, terminal PROPOSED|CLARIFICATION|FAILED).
+3. PROPOSE_TRAJECTORY D5 avec forecast_json additif (migration 015).
+4. Un message assistant unique corrélé ; admission D3 refuse tours Pilote si PENDING/RUNNING/UNKNOWN.
+5. Projection partagée initialQualification dans contexte projet → UI Travail + Trajectoire.
+6. PilotagePanel conservé sous details diagnostic — capacités D5/D6 non retirées.
+
+**Rejeté:** nouveau bus/workflow moteur ; suppression PilotagePanel avant GO conversationnel prouvé ; migration destructive.
 
 ## Tests exécutés
 
-- `vitest` unit+integration E07 : PASS
-- `npm run build` : PASS
-- `tsc --noEmit` : PASS
-
-## Réserves / décision Morris
-
-1. Continuer itérations fidélité visuelle 13 frames avant READY.
-2. Enrichir 09.03/09.04/09.05 (bilan / étape / CKI).
-3. E2E Playwright dédié create→lock→unlock.
-4. Pas de merge/PR/release sans GO.
-
+- npx tsc --noEmit PASS
+- npm run test:unit — 85 files / 686 tests PASS
+- npm run test:integration — 34 files / 516 tests PASS (incl. ensemble07 PG)
+- Browser DEV captures Playwright 1680×970 — voir grille
+- LIVE fournisseur NOT PROVEN
 
 ## Fichiers créés (contenu intégral)
 
-### `projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql` (sha256:1d44a872997c5233…, 1283 bytes)
+### `projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql`
 
 ```
 -- Ensemble 07 — initial trajectory qualification operation (one per project).
@@ -147,217 +195,7 @@ ALTER TABLE trajectory_revisions
   ADD COLUMN IF NOT EXISTS forecast_json jsonb;
 ```
 
-### `projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts` (sha256:4dfc600973c87c19…, 6424 bytes)
-
-```
-import { createHash } from "crypto";
-import { CYCLE_TYPES, type CycleType, isCycleType } from "@/domains/pilotage/cki-resolve";
-import type { PreparationProjection } from "@/domains/preparation/projection";
-
-export type ForecastStep = {
-  order: number;
-  cycleType: CycleType;
-  rationale: string;
-  certainty: "QUALIFIED" | "ENVISIONED";
-};
-
-export type ForecastBuildResult =
-  | { kind: "PROPOSE"; steps: ForecastStep[]; orientation: string; summary: string }
-  | { kind: "CLARIFICATION"; question: string; missing: string[] };
-
-const CYCLE_LABELS: Record<CycleType, string> = {
-  CADRAGE: "cadrage",
-  CONCEPTION_FONCTIONNELLE: "conception fonctionnelle",
-  ARCHITECTURE_FONCTIONNELLE: "architecture fonctionnelle",
-  UX_UI: "conception UX",
-  BACKLOG: "backlog",
-  ARCHITECTURE_TECHNIQUE: "architecture technique",
-  INTEGRATION_DEVOPS: "intégration DevOps",
-  DELIVERY: "delivery",
-  QA_VALIDATION: "validation qualité",
-  SECURITE: "sécurité",
-  DEPLOIEMENT_RELEASE: "déploiement release",
-  OBSERVABILITE: "observabilité",
-  PR_READINESS: "préparation PR",
-  POST_MERGE: "post-merge",
-  CAPITALISATION: "capitalisation",
-};
-
-function projectionTextBundle(projection: PreparationProjection | null, previewSummary: string): string {
-  const parts: string[] = [];
-  if (projection?.intention?.value?.trim()) parts.push(projection.intention.value.trim());
-  if (projection?.desiredOutcome?.value?.trim()) parts.push(projection.desiredOutcome.value.trim());
-  if (projection?.initialScope?.value?.trim()) parts.push(projection.initialScope.value.trim());
-  if (previewSummary.trim()) parts.push(previewSummary.trim());
-  for (const q of projection?.openQuestions ?? []) {
-    if (q.value?.trim()) parts.push(q.value.trim());
-  }
-  return parts.join("\n");
-}
-
-function inferPreferredFirstCycle(
-  projection: PreparationProjection | null,
-  bundle: string,
-): CycleType | null {
-  const explicit = projection?.suggestion?.explanation?.trim() ?? "";
-  const haystack = `${explicit}\n${bundle}`.toLowerCase();
-  for (const type of CYCLE_TYPES) {
-    const label = CYCLE_LABELS[type];
-    const token = type.toLowerCase().replace(/_/g, " ");
-    if (haystack.includes(label) || haystack.includes(token)) {
-      return type;
-    }
-  }
-  if (/\bux\b|interface utilisateur|expérience utilisateur/i.test(haystack)) return "UX_UI";
-  if (/architecture technique|stack technique/i.test(haystack)) return "ARCHITECTURE_TECHNIQUE";
-  if (/backlog|user story|stories/i.test(haystack)) return "BACKLOG";
-  return null;
-}
-
-function followOnCycles(first: CycleType, bundle: string): CycleType[] {
-  const lower = bundle.toLowerCase();
-  const out: CycleType[] = [];
-  const push = (t: CycleType) => {
-    if (t !== first && !out.includes(t)) out.push(t);
-  };
-  if (first === "CADRAGE") {
-    push("CONCEPTION_FONCTIONNELLE");
-    if (/ux|interface|écran/i.test(lower)) push("UX_UI");
-  } else if (first === "CONCEPTION_FONCTIONNELLE") {
-    push("UX_UI");
-  } else if (first === "UX_UI") {
-    push("BACKLOG");
-  } else if (first === "ARCHITECTURE_TECHNIQUE") {
-    push("INTEGRATION_DEVOPS");
-  }
-  return out.slice(0, 2);
-}
-
-export function buildInitialForecast(input: {
-  projection: PreparationProjection | null;
-  previewSummary: string;
-}): ForecastBuildResult {
-  const bundle = projectionTextBundle(input.projection, input.previewSummary);
-  if (!bundle.trim()) {
-    return {
-      kind: "CLARIFICATION",
-      question:
-        "Pour proposer une trajectoire de cycles utile, précisez l'intention du projet et le résultat visé dans le fil de préparation.",
-      missing: ["intention", "résultat visé"],
-    };
-  }
-  const hasIntention =
-    Boolean(input.projection?.intention?.value?.trim()) ||
-    Boolean(input.projection?.desiredOutcome?.value?.trim());
-  if (!hasIntention && bundle.length < 24) {
-    return {
-      kind: "CLARIFICATION",
-      question:
-        "J'ai besoin de comprendre ce que vous voulez accomplir avec ce projet — pouvez-vous formuler l'intention et le premier résultat attendu ?",
-      missing: ["intention"],
-    };
-  }
-
-  const first = inferPreferredFirstCycle(input.projection, bundle) ?? "CADRAGE";
-  const follow = followOnCycles(first, bundle);
-  const steps: ForecastStep[] = [
-    {
-      order: 1,
-      cycleType: first,
-      rationale: "Premier cycle recommandé à partir de votre intention et du périmètre qualifié.",
-      certainty: "QUALIFIED",
-    },
-    ...follow.map((cycleType, i) => ({
-      order: i + 2,
-      cycleType,
-      rationale: "Suite envisagée si le premier cycle confirme la direction.",
-      certainty: "ENVISIONED" as const,
-    })),
-  ];
-
-  const labels = steps.map((s) => CYCLE_LABELS[s.cycleType]);
-  const orientation = `Trajectoire séquentielle proposée : ${labels.join(" → ")}.`;
-  const summary = `Je recommande d'ouvrir d'abord un cycle ${CYCLE_LABELS[first]}, puis d'envisager ${labels.slice(1).join(", ") || "la suite"} selon ce que nous qualifions ensemble.`;
-
-  return { kind: "PROPOSE", steps, orientation, summary };
-}
-
-export function qualificationInputFingerprint(input: {
-  preparationId: string;
-  projection: PreparationProjection | null;
-  previewSummary: string;
-  creationRevision: number;
-}): string {
-  const payload = {
-    preparationId: input.preparationId,
-    creationRevision: input.creationRevision,
-    previewSummary: input.previewSummary.trim(),
-    projectionRevision: input.projection?.revision ?? 0,
-    intention: input.projection?.intention?.value ?? "",
-    desiredOutcome: input.projection?.desiredOutcome?.value ?? "",
-    initialScope: input.projection?.initialScope?.value ?? "",
-  };
-  return createHash("sha256").update(JSON.stringify(payload)).digest("hex");
-}
-
-export function parseForecastJson(raw: unknown): ForecastStep[] | null {
-  if (!Array.isArray(raw)) return null;
-  const steps: ForecastStep[] = [];
-  for (const row of raw) {
-    if (!row || typeof row !== "object") return null;
-    const o = row as Record<string, unknown>;
-    const cycleType = typeof o.cycleType === "string" && isCycleType(o.cycleType) ? o.cycleType : null;
-    if (!cycleType) return null;
-    steps.push({
-      order: typeof o.order === "number" ? o.order : steps.length + 1,
-      cycleType,
-      rationale: typeof o.rationale === "string" ? o.rationale : "",
-      certainty: o.certainty === "ENVISIONED" ? "ENVISIONED" : "QUALIFIED",
-    });
-  }
-  return steps.length ? steps.sort((a, b) => a.order - b.order) : null;
-}
-```
-
-### `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts` (sha256:3a6f848cc8156f23…, 924 bytes)
-
-```
-import type { ForecastStep } from "@/domains/pilotage/forecast-builder";
-
-export const QUALIFICATION_STATUSES = [
-  "PENDING",
-  "RUNNING",
-  "PROPOSED",
-  "CLARIFICATION",
-  "FAILED",
-  "UNKNOWN",
-] as const;
-
-export type QualificationStatus = (typeof QUALIFICATION_STATUSES)[number];
-
-export const QUALIFICATION_PHASES = ["ENGAGED", "ANALYZING", "PUBLISHING", "TERMINAL"] as const;
-
-export type QualificationPhase = (typeof QUALIFICATION_PHASES)[number];
-
-export type InitialQualificationProjection = {
-  operationId: string;
-  projectId: string;
-  preparationId: string;
-  status: QualificationStatus;
-  phase: QualificationPhase;
-  version: number;
-  uiStep: 1 | 2 | 3 | null;
-  composerLocked: boolean;
-  composerLockReason: string;
-  trajectoryRevisionId: string | null;
-  assistantMessageId: string | null;
-  forecastSteps: ForecastStep[] | null;
-  clarificationQuestion: string | null;
-  errorCode: string | null;
-};
-```
-
-### `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts` (sha256:e35d8e21d8e699ba…, 16318 bytes)
+### `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts`
 
 ```
 import { and, asc, eq, sql } from "drizzle-orm";
@@ -710,6 +548,16 @@ export async function processInitialQualification(
     return rowToProjection(row, parsed.forecastSteps, parsed.clarificationQuestion);
   }
 
+  /** DEV visual capture only — freeze PENDING/RUNNING so 09.10 / 05.17 remain observable. */
+  if (
+    process.env.STUDIO_LANE === "DEV" &&
+    process.env.STUDIO_DEV_HOLD_INITIAL_QUALIFICATION === "1" &&
+    !opts?.force
+  ) {
+    const parsed = parseResultJson(row.resultJson);
+    return rowToProjection(row, parsed.forecastSteps, parsed.clarificationQuestion);
+  }
+
   const ownerToken = newId("iqtk");
   const now = new Date();
 
@@ -889,7 +737,217 @@ export async function assertPilotTurnNotBlockedByQualification(
 export { blocksPilotTurnAdmission, isInitialQualificationComposerLocked } from "@/domains/pilotage/qualification-lock";
 ```
 
-### `projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts` (sha256:68dbb259f9d55b59…, 1339 bytes)
+### `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts`
+
+```
+import type { ForecastStep } from "@/domains/pilotage/forecast-builder";
+
+export const QUALIFICATION_STATUSES = [
+  "PENDING",
+  "RUNNING",
+  "PROPOSED",
+  "CLARIFICATION",
+  "FAILED",
+  "UNKNOWN",
+] as const;
+
+export type QualificationStatus = (typeof QUALIFICATION_STATUSES)[number];
+
+export const QUALIFICATION_PHASES = ["ENGAGED", "ANALYZING", "PUBLISHING", "TERMINAL"] as const;
+
+export type QualificationPhase = (typeof QUALIFICATION_PHASES)[number];
+
+export type InitialQualificationProjection = {
+  operationId: string;
+  projectId: string;
+  preparationId: string;
+  status: QualificationStatus;
+  phase: QualificationPhase;
+  version: number;
+  uiStep: 1 | 2 | 3 | null;
+  composerLocked: boolean;
+  composerLockReason: string;
+  trajectoryRevisionId: string | null;
+  assistantMessageId: string | null;
+  forecastSteps: ForecastStep[] | null;
+  clarificationQuestion: string | null;
+  errorCode: string | null;
+};
+```
+
+### `projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts`
+
+```
+import { createHash } from "crypto";
+import { CYCLE_TYPES, type CycleType, isCycleType } from "@/domains/pilotage/cki-resolve";
+import type { PreparationProjection } from "@/domains/preparation/projection";
+
+export type ForecastStep = {
+  order: number;
+  cycleType: CycleType;
+  rationale: string;
+  certainty: "QUALIFIED" | "ENVISIONED";
+};
+
+export type ForecastBuildResult =
+  | { kind: "PROPOSE"; steps: ForecastStep[]; orientation: string; summary: string }
+  | { kind: "CLARIFICATION"; question: string; missing: string[] };
+
+const CYCLE_LABELS: Record<CycleType, string> = {
+  CADRAGE: "cadrage",
+  CONCEPTION_FONCTIONNELLE: "conception fonctionnelle",
+  ARCHITECTURE_FONCTIONNELLE: "architecture fonctionnelle",
+  UX_UI: "conception UX",
+  BACKLOG: "backlog",
+  ARCHITECTURE_TECHNIQUE: "architecture technique",
+  INTEGRATION_DEVOPS: "intégration DevOps",
+  DELIVERY: "delivery",
+  QA_VALIDATION: "validation qualité",
+  SECURITE: "sécurité",
+  DEPLOIEMENT_RELEASE: "déploiement release",
+  OBSERVABILITE: "observabilité",
+  PR_READINESS: "préparation PR",
+  POST_MERGE: "post-merge",
+  CAPITALISATION: "capitalisation",
+};
+
+function projectionTextBundle(projection: PreparationProjection | null, previewSummary: string): string {
+  const parts: string[] = [];
+  if (projection?.intention?.value?.trim()) parts.push(projection.intention.value.trim());
+  if (projection?.desiredOutcome?.value?.trim()) parts.push(projection.desiredOutcome.value.trim());
+  if (projection?.initialScope?.value?.trim()) parts.push(projection.initialScope.value.trim());
+  if (previewSummary.trim()) parts.push(previewSummary.trim());
+  for (const q of projection?.openQuestions ?? []) {
+    if (q.value?.trim()) parts.push(q.value.trim());
+  }
+  return parts.join("\n");
+}
+
+function inferPreferredFirstCycle(
+  projection: PreparationProjection | null,
+  bundle: string,
+): CycleType | null {
+  const explicit = projection?.suggestion?.explanation?.trim() ?? "";
+  const haystack = `${explicit}\n${bundle}`.toLowerCase();
+  for (const type of CYCLE_TYPES) {
+    const label = CYCLE_LABELS[type];
+    const token = type.toLowerCase().replace(/_/g, " ");
+    if (haystack.includes(label) || haystack.includes(token)) {
+      return type;
+    }
+  }
+  if (/\bux\b|interface utilisateur|expérience utilisateur/i.test(haystack)) return "UX_UI";
+  if (/architecture technique|stack technique/i.test(haystack)) return "ARCHITECTURE_TECHNIQUE";
+  if (/backlog|user story|stories/i.test(haystack)) return "BACKLOG";
+  return null;
+}
+
+function followOnCycles(first: CycleType, bundle: string): CycleType[] {
+  const lower = bundle.toLowerCase();
+  const out: CycleType[] = [];
+  const push = (t: CycleType) => {
+    if (t !== first && !out.includes(t)) out.push(t);
+  };
+  if (first === "CADRAGE") {
+    push("CONCEPTION_FONCTIONNELLE");
+    if (/ux|interface|écran/i.test(lower)) push("UX_UI");
+  } else if (first === "CONCEPTION_FONCTIONNELLE") {
+    push("UX_UI");
+  } else if (first === "UX_UI") {
+    push("BACKLOG");
+  } else if (first === "ARCHITECTURE_TECHNIQUE") {
+    push("INTEGRATION_DEVOPS");
+  }
+  return out.slice(0, 2);
+}
+
+export function buildInitialForecast(input: {
+  projection: PreparationProjection | null;
+  previewSummary: string;
+}): ForecastBuildResult {
+  const bundle = projectionTextBundle(input.projection, input.previewSummary);
+  if (!bundle.trim()) {
+    return {
+      kind: "CLARIFICATION",
+      question:
+        "Pour proposer une trajectoire de cycles utile, précisez l'intention du projet et le résultat visé dans le fil de préparation.",
+      missing: ["intention", "résultat visé"],
+    };
+  }
+  const hasIntention =
+    Boolean(input.projection?.intention?.value?.trim()) ||
+    Boolean(input.projection?.desiredOutcome?.value?.trim());
+  if (!hasIntention && bundle.length < 24) {
+    return {
+      kind: "CLARIFICATION",
+      question:
+        "J'ai besoin de comprendre ce que vous voulez accomplir avec ce projet — pouvez-vous formuler l'intention et le premier résultat attendu ?",
+      missing: ["intention"],
+    };
+  }
+
+  const first = inferPreferredFirstCycle(input.projection, bundle) ?? "CADRAGE";
+  const follow = followOnCycles(first, bundle);
+  const steps: ForecastStep[] = [
+    {
+      order: 1,
+      cycleType: first,
+      rationale: "Premier cycle recommandé à partir de votre intention et du périmètre qualifié.",
+      certainty: "QUALIFIED",
+    },
+    ...follow.map((cycleType, i) => ({
+      order: i + 2,
+      cycleType,
+      rationale: "Suite envisagée si le premier cycle confirme la direction.",
+      certainty: "ENVISIONED" as const,
+    })),
+  ];
+
+  const labels = steps.map((s) => CYCLE_LABELS[s.cycleType]);
+  const orientation = `Trajectoire séquentielle proposée : ${labels.join(" → ")}.`;
+  const summary = `Je recommande d'ouvrir d'abord un cycle ${CYCLE_LABELS[first]}, puis d'envisager ${labels.slice(1).join(", ") || "la suite"} selon ce que nous qualifions ensemble.`;
+
+  return { kind: "PROPOSE", steps, orientation, summary };
+}
+
+export function qualificationInputFingerprint(input: {
+  preparationId: string;
+  projection: PreparationProjection | null;
+  previewSummary: string;
+  creationRevision: number;
+}): string {
+  const payload = {
+    preparationId: input.preparationId,
+    creationRevision: input.creationRevision,
+    previewSummary: input.previewSummary.trim(),
+    projectionRevision: input.projection?.revision ?? 0,
+    intention: input.projection?.intention?.value ?? "",
+    desiredOutcome: input.projection?.desiredOutcome?.value ?? "",
+    initialScope: input.projection?.initialScope?.value ?? "",
+  };
+  return createHash("sha256").update(JSON.stringify(payload)).digest("hex");
+}
+
+export function parseForecastJson(raw: unknown): ForecastStep[] | null {
+  if (!Array.isArray(raw)) return null;
+  const steps: ForecastStep[] = [];
+  for (const row of raw) {
+    if (!row || typeof row !== "object") return null;
+    const o = row as Record<string, unknown>;
+    const cycleType = typeof o.cycleType === "string" && isCycleType(o.cycleType) ? o.cycleType : null;
+    if (!cycleType) return null;
+    steps.push({
+      order: typeof o.order === "number" ? o.order : steps.length + 1,
+      cycleType,
+      rationale: typeof o.rationale === "string" ? o.rationale : "",
+      certainty: o.certainty === "ENVISIONED" ? "ENVISIONED" : "QUALIFIED",
+    });
+  }
+  return steps.length ? steps.sort((a, b) => a.order - b.order) : null;
+}
+```
+
+### `projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts`
 
 ```
 import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
@@ -925,12 +983,14 @@ export function blocksPilotTurnAdmission(q: InitialQualificationProjection | nul
 }
 ```
 
-### `projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx` (sha256:3aa1ee6969c37d64…, 7396 bytes)
+### `projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx`
 
 ```
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import type { ForecastStep } from "@/domains/pilotage/forecast-builder";
 import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
 import type { PilotageProjection } from "@/domains/pilotage/types";
 
@@ -945,179 +1005,745 @@ function labelCycle(type: string): string {
   return CYCLE_LABELS[type] ?? type.replace(/_/g, " ");
 }
 
+type DetailView =
+  | { kind: "main" }
+  | { kind: "bilan"; cycleId: string }
+  | { kind: "future"; cycleType: string; rationale?: string | null }
+  | { kind: "cki" };
+
+/** Exposed for screenshot seeding / e2e when parcours banner is absent (proposition-only). */
+function CkiShortcut(props: { onOpen: () => void }) {
+  return (
+    <button
+      type="button"
+      className="text-xs font-semibold text-[#7477ed] hover:underline"
+      data-testid="trajectory-open-cki"
+      onClick={props.onOpen}
+    >
+      Accès CKI et méthode
+    </button>
+  );
+}
+
 export function TrajectoryBoard(props: {
   projectId: string;
   pilotage: PilotageProjection | null;
   initialQualification: InitialQualificationProjection | null;
   onOpenTravail: () => void;
 }) {
+  const [detail, setDetail] = useState<DetailView>({ kind: "main" });
   const q = props.initialQualification;
   const cycle = props.pilotage?.cycle;
   const proposed = props.pilotage?.trajectory.proposed;
   const retained = props.pilotage?.trajectory.retained;
   const forecast =
-    proposed?.forecastSteps ??
-    q?.forecastSteps ??
-  null;
+    proposed?.forecastSteps ?? retained?.forecastSteps ?? q?.forecastSteps ?? null;
   const closed = props.pilotage?.closedCycles ?? [];
+  const showAnalyzing = Boolean(q && (q.status === "PENDING" || q.status === "RUNNING"));
+  const showClarification = q?.status === "CLARIFICATION";
+  const showFailed = q?.status === "FAILED";
+  const showProposal =
+    !showAnalyzing &&
+    !showClarification &&
+    !cycle &&
+    closed.length === 0 &&
+    Boolean(forecast && forecast.length > 0);
 
-  const showAnalyzing = q && (q.status === "PENDING" || q.status === "RUNNING");
+  if (detail.kind === "bilan") {
+    const closedCycle = closed.find((c) => c.id === detail.cycleId);
+    return (
+      <BilanHistoriqueView
+        projectId={props.projectId}
+        cycle={closedCycle ?? null}
+        onBack={() => setDetail({ kind: "main" })}
+      />
+    );
+  }
+
+  if (detail.kind === "future") {
+    return (
+      <EtapeFutureView
+        cycleType={detail.cycleType}
+        rationale={detail.rationale}
+        onBack={() => setDetail({ kind: "main" })}
+        onOpenTravail={props.onOpenTravail}
+      />
+    );
+  }
+
+  if (detail.kind === "cki") {
+    return (
+      <CkiMethodeView
+        pilotage={props.pilotage}
+        onBack={() => setDetail({ kind: "main" })}
+      />
+    );
+  }
 
   return (
-    <div className="trajectory-board space-y-4" data-testid="trajectory-board">
+    <div className="trajectory-board space-y-5" data-testid="trajectory-board">
+      <header className="space-y-2" data-testid="trajectory-hero">
+        <p className="fig-kicker text-[#7477ed]">ESPACE PROJET / TRAJECTOIRE</p>
+        <h2 className="fig-hero-title">Trajectoire du projet</h2>
+        <p className="fig-hero-sub max-w-3xl">
+          {showAnalyzing
+            ? "Le projet est créé. Nora prépare actuellement une première orientation de cycles."
+            : showProposal
+              ? "Nora a formulé une orientation initiale. Elle reste à examiner et à décider avec vous."
+              : showClarification
+                ? "Aucune trajectoire définie tant que la direction n’est pas précisée avec Nora."
+                : "Ce qui est terminé, ce qui est en cours et ce qui pourrait suivre."}
+        </p>
+      </header>
+
       {showAnalyzing ? (
-        <section
-          className="fig-panel border border-[#7477ed33]"
-          data-testid="trajectory-qualification-progress"
-          data-step={q.uiStep ?? 1}
-        >
-          <p className="fig-kicker text-[#7477ed]">QUALIFICATION EN COURS</p>
-          <h2 className="fig-section-title">Nora prépare votre trajectoire</h2>
-          <p className="text-sm text-[#a3b0c7]">
-            Étape {q.uiStep ?? 2}/3 — identification des cycles et références CKI consultables.
-            Aucun CKI principal n&apos;est activé tant qu&apos;un cycle n&apos;est pas ouvert.
-          </p>
-          <button type="button" className="btn secondary mt-3" onClick={props.onOpenTravail}>
-            Revenir à Travail ↗
-          </button>
-        </section>
+        <AnalyzingCard
+          uiStep={q?.uiStep ?? 2}
+          onOpenTravail={props.onOpenTravail}
+        />
       ) : null}
 
-      {q?.status === "CLARIFICATION" ? (
-        <section className="fig-panel" data-testid="trajectory-clarification">
+      {showClarification ? (
+        <section
+          className="fig-panel space-y-3 text-center py-10"
+          data-testid="trajectory-clarification"
+        >
           <p className="fig-kicker text-[#7477ed]">TRAJECTOIRE À CONSTRUIRE</p>
-          <h2 className="fig-section-title">Aucune trajectoire définie</h2>
-          <p className="text-sm">{q.clarificationQuestion}</p>
-          <button type="button" className="btn secondary mt-3" onClick={props.onOpenTravail}>
+          <h3 className="text-[1.7rem] font-semibold text-[#f3f5ff]">
+            Aucune trajectoire définie
+          </h3>
+          <p className="text-sm text-[#a3b0c7] max-w-xl mx-auto">
+            {q?.clarificationQuestion ??
+              "Nora a besoin d’une précision ciblée avant de proposer une suite de cycles."}
+          </p>
+          <button type="button" className="btn primary mt-2" onClick={props.onOpenTravail}>
             Travailler sur le projet avec Nora ↗
           </button>
         </section>
       ) : null}
 
-      {q?.status === "FAILED" ? (
-        <section className="fig-panel" data-testid="trajectory-incident">
+      {showFailed ? (
+        <section className="fig-panel space-y-2" data-testid="trajectory-incident">
           <p className="fig-kicker text-[#a3b0c7]">Incident technique</p>
-          <h2 className="fig-section-title">Qualification interrompue</h2>
+          <h3 className="fig-section-title">Qualification interrompue</h3>
           <p className="text-sm text-[#a3b0c7]">
             Le projet reste accessible. Reprenez la conversation pour préciser la direction.
           </p>
+          <button type="button" className="btn secondary mt-2" onClick={props.onOpenTravail}>
+            Revenir à Travail ↗
+          </button>
         </section>
       ) : null}
 
-      <section className="fig-panel space-y-3" data-testid="trajectory-roadmap">
-        <p className="fig-kicker">Trajectoire</p>
-        <h2 className="fig-section-title">
-          {cycle ? "Cycle actif et suites envisagées" : "Vue principale"}
-        </h2>
-
-        {closed.length > 0 ? (
-          <div data-testid="trajectory-closed-cycles">
-            <h3 className="text-xs uppercase tracking-wide text-[#a3b0c7]">Cycles clos</h3>
-            <ul className="text-sm space-y-1 mt-1">
-              {closed.map((c) => (
-                <li key={c.id}>
-                  <span className="text-[#6cdbba]">{labelCycle(c.cycleType)}</span>
-                  <span className="text-[#a3b0c7]"> — {c.objective.slice(0, 80)}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
-
-        {cycle ? (
-          <CycleCard
-            label="Actif"
-            cycleType={cycle.cycleType}
-            objective={cycle.objective}
-            tone="active"
+      {showProposal && forecast ? (
+        <>
+          <PropositionInitialeCard
+            forecast={forecast}
+            retainedId={retained?.id}
+            proposedId={proposed?.id}
+            onOpenTravail={props.onOpenTravail}
+            onOpenFuture={(step) =>
+              setDetail({
+                kind: "future",
+                cycleType: step.cycleType,
+                rationale: step.rationale,
+              })
+            }
           />
-        ) : (
+          <div className="flex justify-end">
+            <CkiShortcut onOpen={() => setDetail({ kind: "cki" })} />
+          </div>
+        </>
+      ) : null}
+
+      {!showAnalyzing && !showClarification && !showProposal ? (
+        <ParcoursPrincipal
+          projectId={props.projectId}
+          closed={closed}
+          cycle={cycle ?? null}
+          forecast={forecast}
+          method={props.pilotage?.method ?? null}
+          onOpenBilan={(cycleId) => setDetail({ kind: "bilan", cycleId })}
+          onOpenFuture={(cycleType, rationale) =>
+            setDetail({ kind: "future", cycleType, rationale })
+          }
+          onOpenCki={() => setDetail({ kind: "cki" })}
+          onOpenTravail={props.onOpenTravail}
+        />
+      ) : null}
+    </div>
+  );
+}
+
+function AnalyzingCard(props: { uiStep: number; onOpenTravail: () => void }) {
+  const step = Math.min(3, Math.max(1, props.uiStep));
+  return (
+    <section
+      className="fig-panel border border-[#7477ed44] space-y-4 py-10 text-center"
+      data-testid="trajectory-qualification-progress"
+      data-step={step}
+    >
+      <div
+        className="mx-auto flex h-14 w-14 items-center justify-center rounded-full"
+        style={{ background: "radial-gradient(circle, #7477ed55 0%, #7477ed11 70%)" }}
+        aria-hidden
+      >
+        <span className="text-xl font-semibold text-[#a8adff]">a</span>
+      </div>
+      <p className="fig-kicker text-[#7477ed]">QUALIFICATION EN COURS</p>
+      <h3 className="text-[1.7rem] font-semibold text-[#f3f5ff]">
+        Nora prépare votre trajectoire
+      </h3>
+      <p className="text-sm text-[#a3b0c7] max-w-xl mx-auto">
+        Elle confronte les éléments du SAS aux cycles pertinents pour proposer une progression
+        adaptée.
+      </p>
+      <ol className="flex flex-wrap items-center justify-center gap-4 text-sm text-[#a3b0c7] pt-2">
+        <li className={step >= 1 ? "text-[#6cdbba]" : ""}>
+          {step > 1 ? "✓" : "●"} Projet créé
+        </li>
+        <li className={step === 2 ? "text-[#f3f5ff]" : step > 2 ? "text-[#6cdbba]" : ""}>
+          {step > 2 ? "✓" : step === 2 ? "●" : "○"} Identification des cycles · {Math.min(step, 2)} / 3
+        </li>
+        <li className={step >= 3 ? "text-[#f3f5ff]" : ""}>
+          {step >= 3 ? "●" : "○"} Réponse de Nora à venir
+        </li>
+      </ol>
+      <button type="button" className="btn primary mt-4" onClick={props.onOpenTravail}>
+        Revenir à Travail ↗
+      </button>
+      <p className="text-xs text-[#7787a4] pt-2">
+        L&apos;état s&apos;actualise ici dès que la qualification progresse. Aucun cycle n&apos;est
+        encore ouvert.
+      </p>
+    </section>
+  );
+}
+
+function PropositionInitialeCard(props: {
+  forecast: ForecastStep[];
+  retainedId?: string | null;
+  proposedId?: string | null;
+  onOpenTravail: () => void;
+  onOpenFuture: (step: ForecastStep) => void;
+}) {
+  return (
+    <section
+      className="fig-panel space-y-5"
+      data-testid="trajectory-proposal-sequential"
+      style={{ borderColor: "#2b3850" }}
+    >
+      <div>
+        <p className="fig-kicker text-[#7477ed]">PROPOSITION INITIALE DE NORA</p>
+        <h3 className="text-[1.45rem] font-semibold text-[#f3f5ff] mt-1">
+          Une progression possible pour ce projet
+        </h3>
+        <p className="text-sm text-[#a3b0c7] mt-2 max-w-3xl">
+          Une suite séquentielle de cycles ; ce ne sont pas trois options concurrentes. Aucun cycle
+          n&apos;est encore ouvert.
+        </p>
+      </div>
+
+      <div className="flex flex-wrap items-stretch gap-3" data-testid="trajectory-forecast-steps">
+        {props.forecast.map((step, idx) => {
+          const isFirst = idx === 0;
+          return (
+            <div key={`${step.order}-${step.cycleType}`} className="flex items-stretch gap-3 min-w-0">
+              <button
+                type="button"
+                onClick={() => props.onOpenFuture(step)}
+                className="fig-panel text-left space-y-2 min-w-[200px] max-w-[260px] flex-1"
+                style={{
+                  borderColor: isFirst ? "#7477ed88" : "#2b3850",
+                  background: isFirst ? "#7477ed0d" : "transparent",
+                }}
+                data-testid={`trajectory-forecast-step-${step.order}`}
+              >
+                <p className="text-[10px] uppercase tracking-wide text-[#a3b0c7]">
+                  {String(step.order).padStart(2, "0")}{" "}
+                  {isFirst ? "Premier cycle recommandé" : "Suite envisagée"}
+                </p>
+                <p className="text-lg font-semibold text-[#f3f5ff]">
+                  {labelCycle(step.cycleType)}
+                </p>
+                {step.rationale ? (
+                  <p className="text-sm text-[#a3b0c7] line-clamp-3">{step.rationale}</p>
+                ) : null}
+              </button>
+              {idx < props.forecast.length - 1 ? (
+                <span className="self-center text-[#7787a4]" aria-hidden>
+                  →
+                </span>
+              ) : null}
+            </div>
+          );
+        })}
+      </div>
+
+      <div
+        className="rounded-md border px-3 py-2 text-xs text-[#a3b0c7]"
+        style={{ borderColor: "#2b3850", background: "#0b0f1a66" }}
+      >
+        Proposition non retenue · Aucun cycle ouvert · Le Pilote peut accepter, réorienter ou
+        demander des précisions
+        {props.proposedId && !props.retainedId ? (
+          <span className="text-[#6cdbba]"> · Proposition D5 enregistrée</span>
+        ) : null}
+      </div>
+
+      <div className="flex justify-end">
+        <button type="button" className="btn primary" onClick={props.onOpenTravail}>
+          Examiner avec Nora dans Travail ↗
+        </button>
+      </div>
+    </section>
+  );
+}
+
+function ParcoursPrincipal(props: {
+  projectId: string;
+  closed: NonNullable<PilotageProjection["closedCycles"]>;
+  cycle: PilotageProjection["cycle"];
+  forecast: ForecastStep[] | null;
+  method: PilotageProjection["method"] | null;
+  onOpenBilan: (cycleId: string) => void;
+  onOpenFuture: (cycleType: string, rationale?: string | null) => void;
+  onOpenCki: () => void;
+  onOpenTravail: () => void;
+}) {
+  const cards: Array<{
+    key: string;
+    order: string;
+    title: string;
+    status: "closed" | "active" | "envisioned";
+    statusLabel: string;
+    actionLabel?: string;
+    onAction?: () => void;
+    subtitle?: string;
+  }> = [];
+
+  props.closed.forEach((c, i) => {
+    cards.push({
+      key: c.id,
+      order: String(i + 1).padStart(2, "0"),
+      title: labelCycle(c.cycleType),
+      status: "closed",
+      statusLabel: "✓ Clôturé",
+      actionLabel: "Voir le bilan ↗",
+      onAction: () => props.onOpenBilan(c.id),
+    });
+  });
+
+  if (props.cycle) {
+    cards.push({
+      key: props.cycle.id,
+      order: String(cards.length + 1).padStart(2, "0"),
+      title: labelCycle(props.cycle.cycleType),
+      status: "active",
+      statusLabel: "● Actif",
+      subtitle: "Cycle en cours",
+    });
+  }
+
+  const futureSteps =
+    props.forecast?.filter((s) => {
+      if (props.cycle && s.cycleType === props.cycle.cycleType) return false;
+      if (props.closed.some((c) => c.cycleType === s.cycleType)) return false;
+      return true;
+    }) ?? [];
+
+  futureSteps.forEach((step) => {
+    cards.push({
+      key: `f-${step.order}-${step.cycleType}`,
+      order: String(cards.length + 1).padStart(2, "0"),
+      title: labelCycle(step.cycleType),
+      status: "envisioned",
+      statusLabel: "○ Envisagée",
+      actionLabel: "Voir l'étape ↗",
+      onAction: () => props.onOpenFuture(step.cycleType, step.rationale),
+    });
+  });
+
+  const closedCount = props.closed.length;
+  const activeCount = props.cycle ? 1 : 0;
+
+  return (
+    <div className="space-y-5" data-testid="trajectory-roadmap">
+      <section className="space-y-3">
+        <div className="flex flex-wrap items-end justify-between gap-2">
+          <div>
+            <p className="fig-kicker">PARCOURS DU PROJET</p>
+            <p className="text-xs text-[#7787a4] mt-1">
+              {activeCount} CYCLE ACTIF · {closedCount} CLÔTURÉ{closedCount > 1 ? "S" : ""}
+            </p>
+          </div>
+        </div>
+
+        {cards.length === 0 ? (
           <p className="text-sm text-[#a3b0c7]" data-testid="trajectory-no-active-cycle">
-            Aucun cycle actif — la trajectoire reste une proposition tant qu&apos;un GO n&apos;est pas exprimé.
+            Aucun cycle actif — la trajectoire reste une proposition tant qu&apos;un GO n&apos;est
+            pas exprimé.
           </p>
+        ) : (
+          <div className="flex flex-wrap items-stretch gap-3">
+            {cards.map((card, idx) => (
+              <div key={card.key} className="flex items-stretch gap-3">
+                <article
+                  className="fig-panel space-y-2 min-w-[180px] max-w-[240px]"
+                  style={{
+                    borderColor:
+                      card.status === "closed"
+                        ? "#6cdbba55"
+                        : card.status === "active"
+                          ? "#7477ed88"
+                          : "#2b3850",
+                  }}
+                  data-testid={
+                    card.status === "active"
+                      ? "trajectory-active-cycle"
+                      : card.status === "closed"
+                        ? "trajectory-closed-cycle"
+                        : "trajectory-future-cycle"
+                  }
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="text-[10px] uppercase tracking-wide text-[#a3b0c7]">
+                      {card.order} {card.title}
+                    </p>
+                    <span
+                      className="text-xs font-semibold whitespace-nowrap"
+                      style={{
+                        color:
+                          card.status === "closed"
+                            ? "#6cdbba"
+                            : card.status === "active"
+                              ? "#a8adff"
+                              : "#a3b0c7",
+                      }}
+                    >
+                      {card.statusLabel}
+                    </span>
+                  </div>
+                  {card.subtitle ? (
+                    <p className="text-sm text-[#f3f5ff]">{card.subtitle}</p>
+                  ) : null}
+                  {card.onAction && card.actionLabel ? (
+                    <button
+                      type="button"
+                      className="text-sm font-semibold text-[#7477ed] hover:underline"
+                      onClick={card.onAction}
+                    >
+                      {card.actionLabel}
+                    </button>
+                  ) : null}
+                </article>
+                {idx < cards.length - 1 ? (
+                  <span className="self-center text-[#7787a4]" aria-hidden>
+                    →
+                  </span>
+                ) : null}
+              </div>
+            ))}
+          </div>
         )}
 
-        {forecast && forecast.length > 0 ? (
-          <section data-testid="trajectory-proposal-sequential" className="space-y-2">
-            <p className="fig-kicker text-[#7477ed]">PROPOSITION INITIALE DE NORA</p>
-            <h3 className="fig-section-title text-base">Une progression possible pour ce projet</h3>
-            <ForecastSteps forecast={forecast} retainedId={retained?.id} proposedId={proposed?.id} />
-            <button type="button" className="btn secondary" onClick={props.onOpenTravail}>
-              Lire le message de Nora ↗
-            </button>
-          </section>
-        ) : proposed ? (
-          <p className="text-sm">{proposed.orientation}</p>
-        ) : !showAnalyzing && q?.status !== "CLARIFICATION" ? (
-          <p className="text-sm text-[#a3b0c7]">Aucune proposition de trajectoire pour l&apos;instant.</p>
+        {!props.cycle && closedCount > 0 ? (
+          <p className="text-sm text-[#a3b0c7]" data-testid="trajectory-between-cycles">
+            Aucun cycle actif — un prochain cycle peut être retenu après GO du Pilote.
+          </p>
         ) : null}
       </section>
 
-      <p className="text-xs text-[#a3b0c7]">
-        <Link href={`/projects/${props.projectId}?surface=travail`} className="underline-offset-2 hover:underline text-[#7477ed]">
-          Travail avec Nora
-        </Link>
-        {" · consultation sans mutation"}
+      {props.cycle ? (
+        <section
+          className="fig-panel space-y-3"
+          data-testid="trajectory-cycle-actif-panel"
+          style={{ borderColor: "#7477ed44" }}
+        >
+          <p className="fig-kicker text-[#7477ed]">CYCLE ACTIF</p>
+          <h3 className="text-[1.45rem] font-semibold text-[#f3f5ff]">
+            {labelCycle(props.cycle.cycleType)}
+          </h3>
+          <p className="text-sm text-[#a3b0c7]">{props.cycle.objective}</p>
+          <div className="flex flex-wrap gap-4 pt-1">
+            <Link
+              href={`/projects/${props.projectId}?surface=journal`}
+              className="text-sm font-semibold text-[#7477ed] hover:underline"
+            >
+              Consulter le Journal ↗
+            </Link>
+            <button
+              type="button"
+              className="text-sm font-semibold text-[#7477ed] hover:underline"
+              onClick={props.onOpenCki}
+            >
+              Accès CKI et méthode
+            </button>
+          </div>
+        </section>
+      ) : null}
+
+      <button
+        type="button"
+        className="w-full fig-panel flex items-center justify-between text-left"
+        data-testid="trajectory-cki-banner"
+        onClick={props.onOpenCki}
+        style={{ borderColor: "#2b3850" }}
+      >
+        <span className="text-sm text-[#f3f5ff]">Guidance CKI et méthode</span>
+        <span className="text-sm text-[#7477ed]">
+          {props.cycle?.cki.ckiId
+            ? `${props.cycle.cki.ckiId} · ${labelCycle(props.cycle.cycleType)} ›`
+            : props.method?.presence === "RETAINED"
+              ? `${props.method.methodRef} ›`
+              : "Références ›"}
+        </span>
+      </button>
+    </div>
+  );
+}
+
+function BilanHistoriqueView(props: {
+  projectId: string;
+  cycle: { id: string; cycleType: string; objective: string; closedAt: string | null } | null;
+  onBack: () => void;
+}) {
+  const closedLabel = props.cycle?.closedAt
+    ? new Date(props.cycle.closedAt).toLocaleDateString("fr-FR")
+    : null;
+  return (
+    <div className="space-y-5" data-testid="trajectory-bilan-historique">
+      <header className="flex flex-wrap items-start justify-between gap-3">
+        <div className="space-y-2">
+          <p className="fig-kicker text-[#7477ed]">TRAJECTOIRE / HISTORIQUE DES CYCLES</p>
+          <h2 className="fig-hero-title">
+            Bilan du {props.cycle ? labelCycle(props.cycle.cycleType).toLowerCase() : "cycle"}
+          </h2>
+          <p className="text-sm text-[#a3b0c7]">
+            {closedLabel
+              ? `Cycle clôturé le ${closedLabel}`
+              : "Cycle clôturé — date de clôture non disponible"}
+          </p>
+        </div>
+        <button
+          type="button"
+          className="text-sm font-semibold text-[#7477ed] hover:underline"
+          onClick={props.onBack}
+        >
+          ← Retour à la trajectoire
+        </button>
+      </header>
+
+      <section className="fig-panel space-y-2">
+        <p className="fig-kicker text-[#7477ed]">RÉSULTAT À LA CLÔTURE</p>
+        <p className="text-sm text-[#f3f5ff]">
+          {props.cycle?.objective?.trim() ||
+            "Objectif de clôture non reconstitué depuis les sources durables."}
+        </p>
+        <p className="text-xs text-[#a3b0c7] text-right">Clôture décidée par le Pilote</p>
+      </section>
+
+      <section className="space-y-3">
+        <div className="flex items-end justify-between gap-2">
+          <h3 className="text-lg font-semibold text-[#f3f5ff]">Travaux et éléments réalisés</h3>
+          {closedLabel ? (
+            <p className="text-xs text-[#7787a4]">SITUATION AU {closedLabel}</p>
+          ) : null}
+        </div>
+        <div className="grid gap-4 lg:grid-cols-3">
+          <BilanGapCard
+            title="Sujets abordés"
+            note="Projection historique bornée non encore capturée pour ce cycle — lacune signalée, aucun inventaire fictif."
+            href={`/projects/${props.projectId}?surface=journal`}
+            linkLabel="Consulter les sujets ↗"
+          />
+          <BilanGapCard
+            title="Réserves transmises"
+            note="Les réserves à date de clôture ne sont pas reconstituables ici sans capture bornée."
+            href={`/projects/${props.projectId}?surface=journal`}
+            linkLabel="Consulter le Journal ↗"
+          />
+          <BilanGapCard
+            title="Documents produits"
+            note="Versions documentaires à la clôture non projetées dans ce panneau."
+            href={`/projects/${props.projectId}?surface=document`}
+            linkLabel="Consulter les documents ↗"
+          />
+        </div>
+      </section>
+
+      <p className="text-xs text-[#7787a4]">
+        Ce bilan conserve l&apos;état à la clôture. Le Journal, les réserves et les documents
+        continuent d&apos;évoluer dans le projet.
       </p>
     </div>
   );
 }
 
-function CycleCard(props: {
-  label: string;
-  cycleType: string;
-  objective: string;
-  tone: "active" | "future";
+function BilanGapCard(props: {
+  title: string;
+  note: string;
+  href: string;
+  linkLabel: string;
 }) {
   return (
-    <article
-      className="rounded-lg border px-3 py-2"
-      style={{
-        borderColor: props.tone === "active" ? "#7477ed55" : "#a3b0c755",
-        background: props.tone === "active" ? "#f3f5ff0d" : "transparent",
-      }}
-      data-testid={props.tone === "active" ? "trajectory-active-cycle" : "trajectory-future-cycle"}
-    >
-      <p className="text-[10px] uppercase tracking-wide text-[#a3b0c7]">{props.label}</p>
-      <p className="font-medium text-[#f3f5ff]">{labelCycle(props.cycleType)}</p>
-      <p className="text-sm text-[#a3b0c7]">{props.objective}</p>
-    </article>
+    <section className="fig-panel space-y-2">
+      <h4 className="font-semibold text-[#f3f5ff]">{props.title}</h4>
+      <p className="text-sm text-[#a3b0c7]">{props.note}</p>
+      <Link href={props.href} className="text-sm font-semibold text-[#7477ed] hover:underline">
+        {props.linkLabel}
+      </Link>
+    </section>
   );
 }
 
-function ForecastSteps(props: {
-  forecast: NonNullable<NonNullable<PilotageProjection["trajectory"]["proposed"]>["forecastSteps"]>;
-  retainedId?: string | null;
-  proposedId?: string | null;
+function EtapeFutureView(props: {
+  cycleType: string;
+  rationale?: string | null;
+  onBack: () => void;
+  onOpenTravail: () => void;
 }) {
-  if (!props.forecast) return null;
   return (
-    <div data-testid="trajectory-forecast-steps" className="space-y-2">
-      <h3 className="text-xs uppercase tracking-wide text-[#a3b0c7]">Séquence proposée</h3>
-      <ol className="space-y-2">
-        {props.forecast.map((step) => (
-          <li
-            key={`${step.order}-${step.cycleType}`}
-            className="text-sm border-l-2 pl-3"
-            style={{ borderColor: step.certainty === "QUALIFIED" ? "#7477ed" : "#a3b0c7" }}
-          >
-            <span className="font-medium text-[#f3f5ff]">{labelCycle(step.cycleType)}</span>
-            <span className="text-[#a3b0c7]">
-              {step.certainty === "ENVISIONED" ? " (envisagé)" : ""}
-            </span>
-            {step.rationale ? <p className="text-[#a3b0c7] mt-0.5">{step.rationale}</p> : null}
-          </li>
-        ))}
-      </ol>
-      {props.proposedId && !props.retainedId ? (
-        <p className="text-xs text-[#6cdbba]">Proposition D5 non retenue — décision Pilote attendue.</p>
-      ) : null}
+    <div className="space-y-5" data-testid="trajectory-etape-future">
+      <header className="flex flex-wrap items-start justify-between gap-3">
+        <div className="space-y-2">
+          <p className="fig-kicker text-[#7477ed]">TRAJECTOIRE / ÉTAPE ENVISAGÉE</p>
+          <h2 className="fig-hero-title">{labelCycle(props.cycleType)}</h2>
+        </div>
+        <button
+          type="button"
+          className="text-sm font-semibold text-[#7477ed] hover:underline"
+          onClick={props.onBack}
+        >
+          ← Retour à la trajectoire
+        </button>
+      </header>
+
+      <section className="fig-panel space-y-3">
+        <div className="flex items-start justify-between gap-2">
+          <p className="fig-kicker text-[#7477ed]">ÉTAPE ENVISAGÉE</p>
+          <span className="text-xs font-semibold text-[#a3b0c7]">○ Cycle non ouvert</span>
+        </div>
+        <section className="space-y-1">
+          <p className="text-[10px] uppercase tracking-wide text-[#a3b0c7]">
+            FINALITÉ ACTUELLEMENT ENVISAGÉE
+          </p>
+          <p className="text-sm text-[#f3f5ff]">
+            {props.rationale?.trim() ||
+              "Finalité à préciser avec Nora — aucune ouverture automatique."}
+          </p>
+        </section>
+        <section className="space-y-1">
+          <p className="text-[10px] uppercase tracking-wide text-[#a3b0c7]">
+            CE QUI RESTE À DÉFINIR
+          </p>
+          <p className="text-sm text-[#a3b0c7]">
+            Objectif opérationnel, critères de clôture et CKI principal — uniquement après GO du
+            Pilote.
+          </p>
+        </section>
+        <div className="flex justify-end pt-2">
+          <button type="button" className="btn primary" onClick={props.onOpenTravail}>
+            Ouvrir le travail avec Nora ↗
+          </button>
+        </div>
+      </section>
     </div>
   );
 }
+
+function CkiMethodeView(props: {
+  pilotage: PilotageProjection | null;
+  onBack: () => void;
+}) {
+  const cycle = props.pilotage?.cycle;
+  const method = props.pilotage?.method;
+  return (
+    <div className="space-y-5" data-testid="trajectory-cki-methode">
+      <header className="flex flex-wrap items-start justify-between gap-3">
+        <div className="space-y-2">
+          <p className="fig-kicker text-[#7477ed]">TRAJECTOIRE / RÉFÉRENCES DU CYCLE</p>
+          <h2 className="fig-hero-title">CKI et méthode</h2>
+          <p className="fig-hero-sub max-w-3xl">
+            Deux références distinctes : la spécialisation cognitive du cycle et la méthode
+            applicable au projet.
+          </p>
+        </div>
+        <button
+          type="button"
+          className="text-sm font-semibold text-[#7477ed] hover:underline"
+          onClick={props.onBack}
+        >
+          ← Retour à la trajectoire
+        </button>
+      </header>
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        <section className="fig-panel space-y-3">
+          <p className="fig-kicker text-[#7477ed]">CKI PRINCIPAL</p>
+          {cycle?.cki.ckiId ? (
+            <>
+              <h3 className="text-lg font-semibold text-[#f3f5ff]">{cycle.cki.ckiId}</h3>
+              <p className="text-xs text-[#a3b0c7]">
+                Disponibilité {cycle.cki.availability}
+                {cycle.cki.pinnedVersion ? ` · pin ${cycle.cki.pinnedVersion}` : ""}
+                {cycle.cki.contentDigest
+                  ? ` · digest ${cycle.cki.contentDigest.slice(0, 12)}`
+                  : ""}
+              </p>
+              <p className="text-sm text-[#a3b0c7]">
+                ASSOCIATED / RESOLVED / DELIVERED restent distincts — aucun claim DELIVERED sans
+                preuve d&apos;attachement.
+              </p>
+            </>
+          ) : (
+            <>
+              <h3 className="text-lg font-semibold text-[#f3f5ff]">Aucun CKI principal actif</h3>
+              <p className="text-sm text-[#a3b0c7]">
+                Le catalogue peut être consulté ; un CKI principal n&apos;existe qu&apos;avec un
+                cycle réellement ouvert.
+              </p>
+            </>
+          )}
+        </section>
+
+        <section className="fig-panel space-y-3">
+          <p className="fig-kicker text-[#7477ed]">MÉTHODE DU PROJET</p>
+          {method?.presence === "RETAINED" ? (
+            <>
+              <h3 className="text-lg font-semibold text-[#f3f5ff]">
+                {method.methodRef} · {method.methodVersion}
+              </h3>
+              <p className="text-sm text-[#a3b0c7]">
+                Méthode retenue par décision Pilote
+                {method.usageRestricted ? " — usage restreint" : ""}.
+              </p>
+              {method.usageNote ? (
+                <p className="text-sm text-[#a3b0c7]">{method.usageNote}</p>
+              ) : null}
+            </>
+          ) : (
+            <>
+              <h3 className="text-lg font-semibold text-[#f3f5ff]">Aucune méthode retenue</h3>
+              <p className="text-sm text-[#a3b0c7]">
+                La méthode applicable est distincte du CKI et n&apos;est imposée par Nora.
+              </p>
+            </>
+          )}
+        </section>
+      </div>
+
+      <p className="text-xs text-[#7787a4]">
+        Lecture des références existantes : aucun nouveau résumé IA n&apos;est généré à
+        l&apos;ouverture de cette page.
+      </p>
+    </div>
+  );
+}
+
 ```
 
-### `projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx` (sha256:d46ebc57892b5578…, 3096 bytes)
+### `projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx`
 
 ```
 "use client";
@@ -1215,174 +1841,7 @@ export function SasCreateProgressPopup(props: {
 }
 ```
 
-### `projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts` (sha256:5e645a18d1e45650…, 1861 bytes)
-
-```
-import { describe, expect, it } from "vitest";
-import { buildInitialForecast } from "@/domains/pilotage/forecast-builder";
-import type { PreparationProjection } from "@/domains/preparation/projection";
-
-function projection(partial: Partial<PreparationProjection>): PreparationProjection {
-  return {
-    schemaVersion: 1,
-    preparationId: "prep_1",
-    revision: 1,
-    updatedFromTurnKey: null,
-    observedAt: null,
-    name: null,
-    intention: null,
-    desiredOutcome: null,
-    initialScope: null,
-    openQuestions: [],
-    suggestion: null,
-    ...partial,
-  };
-}
-
-describe("ensemble07 forecast builder", () => {
-  it("returns CLARIFICATION when no durable text", () => {
-    const r = buildInitialForecast({ projection: null, previewSummary: "   " });
-    expect(r.kind).toBe("CLARIFICATION");
-  });
-
-  it("prefers CADRAGE when intention is present", () => {
-    const r = buildInitialForecast({
-      projection: projection({
-        intention: {
-          value: "Lancer un produit B2B pour équipes terrain",
-          status: "PILOT_EXPRESSED",
-          source: { kind: "PILOT_TURN", ref: "t1" },
-          isCurrent: true,
-        },
-      }),
-      previewSummary: "Terrain",
-    });
-    expect(r.kind).toBe("PROPOSE");
-    if (r.kind === "PROPOSE") {
-      expect(r.steps[0]!.cycleType).toBe("CADRAGE");
-    }
-  });
-
-  it("honours explicit UX cycle mention", () => {
-    const r = buildInitialForecast({
-      projection: projection({
-        intention: {
-          value: "Concevoir l'expérience utilisateur d'une application mobile",
-          status: "PILOT_EXPRESSED",
-          source: { kind: "PILOT_TURN", ref: "t1" },
-          isCurrent: true,
-        },
-      }),
-      previewSummary: "",
-    });
-    expect(r.kind).toBe("PROPOSE");
-    if (r.kind === "PROPOSE") {
-      expect(r.steps[0]!.cycleType).toBe("UX_UI");
-    }
-  });
-});
-```
-
-### `projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts` (sha256:d642205cccad1b47…, 1477 bytes)
-
-```
-import { describe, expect, it } from "vitest";
-import {
-  blocksPilotTurnAdmission,
-  isInitialQualificationComposerLocked,
-} from "@/domains/pilotage/qualification-lock";
-import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
-
-function q(status: InitialQualificationProjection["status"]): InitialQualificationProjection {
-  return {
-    operationId: "iq_1",
-    projectId: "proj_1",
-    preparationId: "prep_1",
-    status,
-    phase: status === "PROPOSED" ? "TERMINAL" : "ANALYZING",
-    version: 1,
-    uiStep: 2,
-    composerLocked: false,
-    composerLockReason: "",
-    trajectoryRevisionId: null,
-    assistantMessageId: null,
-    forecastSteps: null,
-    clarificationQuestion: null,
-    errorCode: null,
-  };
-}
-
-describe("ensemble07 qualification lock", () => {
-  it("locks composer while PENDING or RUNNING", () => {
-    expect(isInitialQualificationComposerLocked(q("PENDING"))).toBe(true);
-    expect(isInitialQualificationComposerLocked(q("RUNNING"))).toBe(true);
-    expect(isInitialQualificationComposerLocked(q("PROPOSED"))).toBe(false);
-    expect(isInitialQualificationComposerLocked(q("CLARIFICATION"))).toBe(false);
-    expect(isInitialQualificationComposerLocked(q("FAILED"))).toBe(false);
-  });
-
-  it("blocks pilot admission same as composer lock for in-flight", () => {
-    expect(blocksPilotTurnAdmission(q("RUNNING"))).toBe(true);
-    expect(blocksPilotTurnAdmission(q("PROPOSED"))).toBe(false);
-  });
-});
-```
-
-### `projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts` (sha256:bc2fd85e9445034d…, 1297 bytes)
-
-```
-import { describe, expect, it, vi } from "vitest";
-
-vi.mock("@/db/client", () => ({
-  db: {
-    select: vi.fn(),
-    insert: vi.fn(),
-  },
-}));
-
-import { ensureInitialQualification } from "@/domains/pilotage/initial-qualification";
-
-describe("ensureInitialQualification idempotency (mocked)", () => {
-  it("returns existing projection when row already present", async () => {
-    const { db } = await import("@/db/client");
-    const existing = {
-      id: "iqop_1",
-      projectId: "proj_1",
-      preparationId: "prep_1",
-      pilotId: "pilot_1",
-      status: "PENDING",
-      phase: "ENGAGED",
-      version: 1,
-      inputFingerprint: "fp",
-      trajectoryRevisionId: null,
-      assistantMessageId: null,
-      resultJson: null,
-      errorCode: null,
-      ownerToken: null,
-      claimedAt: null,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-
-    const chain = {
-      from: () => chain,
-      where: () => chain,
-      limit: () => Promise.resolve([existing]),
-    };
-    vi.mocked(db.select).mockReturnValue(chain as never);
-
-    const r = await ensureInitialQualification({
-      projectId: "proj_1",
-      preparationId: "prep_1",
-      pilotId: "pilot_1",
-    });
-    expect(r.operationId).toBe("iqop_1");
-    expect(db.insert).not.toHaveBeenCalled();
-  });
-});
-```
-
-### `projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts` (sha256:ba381e02c4024dce…, 10657 bytes)
+### `projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts`
 
 ```
 import { beforeAll, describe, expect, it, vi } from "vitest";
@@ -1654,7 +2113,174 @@ describe("Ensemble 07 initial qualification (PG)", () => {
 });
 ```
 
-### `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md` (sha256:ce3006c35ce51660…, 2516 bytes)
+### `projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts`
+
+```
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("@/db/client", () => ({
+  db: {
+    select: vi.fn(),
+    insert: vi.fn(),
+  },
+}));
+
+import { ensureInitialQualification } from "@/domains/pilotage/initial-qualification";
+
+describe("ensureInitialQualification idempotency (mocked)", () => {
+  it("returns existing projection when row already present", async () => {
+    const { db } = await import("@/db/client");
+    const existing = {
+      id: "iqop_1",
+      projectId: "proj_1",
+      preparationId: "prep_1",
+      pilotId: "pilot_1",
+      status: "PENDING",
+      phase: "ENGAGED",
+      version: 1,
+      inputFingerprint: "fp",
+      trajectoryRevisionId: null,
+      assistantMessageId: null,
+      resultJson: null,
+      errorCode: null,
+      ownerToken: null,
+      claimedAt: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    const chain = {
+      from: () => chain,
+      where: () => chain,
+      limit: () => Promise.resolve([existing]),
+    };
+    vi.mocked(db.select).mockReturnValue(chain as never);
+
+    const r = await ensureInitialQualification({
+      projectId: "proj_1",
+      preparationId: "prep_1",
+      pilotId: "pilot_1",
+    });
+    expect(r.operationId).toBe("iqop_1");
+    expect(db.insert).not.toHaveBeenCalled();
+  });
+});
+```
+
+### `projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts`
+
+```
+import { describe, expect, it } from "vitest";
+import { buildInitialForecast } from "@/domains/pilotage/forecast-builder";
+import type { PreparationProjection } from "@/domains/preparation/projection";
+
+function projection(partial: Partial<PreparationProjection>): PreparationProjection {
+  return {
+    schemaVersion: 1,
+    preparationId: "prep_1",
+    revision: 1,
+    updatedFromTurnKey: null,
+    observedAt: null,
+    name: null,
+    intention: null,
+    desiredOutcome: null,
+    initialScope: null,
+    openQuestions: [],
+    suggestion: null,
+    ...partial,
+  };
+}
+
+describe("ensemble07 forecast builder", () => {
+  it("returns CLARIFICATION when no durable text", () => {
+    const r = buildInitialForecast({ projection: null, previewSummary: "   " });
+    expect(r.kind).toBe("CLARIFICATION");
+  });
+
+  it("prefers CADRAGE when intention is present", () => {
+    const r = buildInitialForecast({
+      projection: projection({
+        intention: {
+          value: "Lancer un produit B2B pour équipes terrain",
+          status: "PILOT_EXPRESSED",
+          source: { kind: "PILOT_TURN", ref: "t1" },
+          isCurrent: true,
+        },
+      }),
+      previewSummary: "Terrain",
+    });
+    expect(r.kind).toBe("PROPOSE");
+    if (r.kind === "PROPOSE") {
+      expect(r.steps[0]!.cycleType).toBe("CADRAGE");
+    }
+  });
+
+  it("honours explicit UX cycle mention", () => {
+    const r = buildInitialForecast({
+      projection: projection({
+        intention: {
+          value: "Concevoir l'expérience utilisateur d'une application mobile",
+          status: "PILOT_EXPRESSED",
+          source: { kind: "PILOT_TURN", ref: "t1" },
+          isCurrent: true,
+        },
+      }),
+      previewSummary: "",
+    });
+    expect(r.kind).toBe("PROPOSE");
+    if (r.kind === "PROPOSE") {
+      expect(r.steps[0]!.cycleType).toBe("UX_UI");
+    }
+  });
+});
+```
+
+### `projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts`
+
+```
+import { describe, expect, it } from "vitest";
+import {
+  blocksPilotTurnAdmission,
+  isInitialQualificationComposerLocked,
+} from "@/domains/pilotage/qualification-lock";
+import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
+
+function q(status: InitialQualificationProjection["status"]): InitialQualificationProjection {
+  return {
+    operationId: "iq_1",
+    projectId: "proj_1",
+    preparationId: "prep_1",
+    status,
+    phase: status === "PROPOSED" ? "TERMINAL" : "ANALYZING",
+    version: 1,
+    uiStep: 2,
+    composerLocked: false,
+    composerLockReason: "",
+    trajectoryRevisionId: null,
+    assistantMessageId: null,
+    forecastSteps: null,
+    clarificationQuestion: null,
+    errorCode: null,
+  };
+}
+
+describe("ensemble07 qualification lock", () => {
+  it("locks composer while PENDING or RUNNING", () => {
+    expect(isInitialQualificationComposerLocked(q("PENDING"))).toBe(true);
+    expect(isInitialQualificationComposerLocked(q("RUNNING"))).toBe(true);
+    expect(isInitialQualificationComposerLocked(q("PROPOSED"))).toBe(false);
+    expect(isInitialQualificationComposerLocked(q("CLARIFICATION"))).toBe(false);
+    expect(isInitialQualificationComposerLocked(q("FAILED"))).toBe(false);
+  });
+
+  it("blocks pilot admission same as composer lock for in-flight", () => {
+    expect(blocksPilotTurnAdmission(q("RUNNING"))).toBe(true);
+    expect(blocksPilotTurnAdmission(q("PROPOSED"))).toBe(false);
+  });
+});
+```
+
+### `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md`
 
 ```
 # Ensemble 07 — As-built (qualification initiale Projet / Trajectoire / Nora)
@@ -1708,82 +2334,726 @@ Option A hybride (dossier §8.1) :
 
 ```
 
-## Fichiers modifiés (diff utile)
+### `projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts`
 
-### `projects/sfia-studio-next/web/scripts/db-migrate.sh`
+```
+import { config } from "dotenv";
+config({ path: ".env.local" });
+process.env.STUDIO_LANE = "DEV";
+process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
 
-```diff
-diff --git a/projects/sfia-studio-next/web/scripts/db-migrate.sh b/projects/sfia-studio-next/web/scripts/db-migrate.sh
-index cc81197d..9a298db6 100755
---- a/projects/sfia-studio-next/web/scripts/db-migrate.sh
-+++ b/projects/sfia-studio-next/web/scripts/db-migrate.sh
-@@ -32,4 +32,5 @@ apply "011_oauth_session_binding.sql"
- apply "012_auth_concurrency_safety.sql"
- apply "013_preparation_projection.sql"
- apply "014_journal_d4_revisions.sql"
--echo "db:migrate OK (001→014)"
-+apply "015_trajectory_qualification.sql"
-+echo "db:migrate OK (001→015)"
+import { writeFileSync } from "fs";
+import { eq } from "drizzle-orm";
+import { db } from "../src/db/client.ts";
+import { pilots, preparations } from "../src/db/schema.ts";
+import { newId } from "../src/lib/ids.ts";
+import {
+  applyPreparationProjection,
+  openOrCreatePreparation,
+  updatePreview,
+} from "../src/domains/preparation/service.ts";
+import { draftProjectionFromQualification } from "../src/domains/preparation/projection.ts";
+import { createProjectCommand } from "../src/domains/preparation/create-project.ts";
+import {
+  ensureInitialQualification,
+  processInitialQualification,
+} from "../src/domains/pilotage/initial-qualification.ts";
+
+async function pilotA() {
+  const pilot =
+    (
+      await db
+        .select()
+        .from(pilots)
+        .where(eq(pilots.displayName, "Pilot A (DEV)"))
+        .limit(1)
+    )[0] ?? null;
+  if (!pilot) throw new Error("Pilot A (DEV) missing — run DEV login first");
+  return pilot;
+}
+
+async function createNamedProject(
+  pilotId: string,
+  name: string,
+  intention: string,
+  opts: { process: boolean; qualifyProjection: boolean },
+) {
+  const prep = await openOrCreatePreparation(pilotId);
+  await updatePreview(pilotId, prep.id, name, intention);
+  if (opts.qualifyProjection) {
+    const draft = draftProjectionFromQualification({
+      preparationId: prep.id,
+      turnKey: `t-shot-${name.slice(0, 12)}`,
+      qualificationStatus: "QUALIFIED",
+      goal: intention,
+      projectIntention: intention,
+      desiredOutcome: "Rendre les décisions actionnables",
+      proposedProjectName: name,
+      allowGoalIntentionBootstrap: true,
+    });
+    if (!draft) throw new Error("draft missing");
+    const refreshed = (
+      await db.select().from(preparations).where(eq(preparations.id, prep.id))
+    )[0]!;
+    await applyPreparationProjection({
+      pilotId,
+      preparationId: prep.id,
+      expectedCreationRevision: refreshed.creationRevision,
+      draft,
+    });
+  }
+  const after = (
+    await db.select().from(preparations).where(eq(preparations.id, prep.id))
+  )[0]!;
+  const created = await createProjectCommand({
+    pilotId,
+    preparationId: prep.id,
+    expectedCreationRevision: after.creationRevision,
+    projectName: name,
+    previewSummary: after.previewSummary ?? "",
+    idempotencyKey: newId("idem"),
+  });
+  if (created.status !== "CREATED" && created.status !== "ALREADY_CREATED") {
+    throw new Error(`create failed: ${JSON.stringify(created)}`);
+  }
+  await ensureInitialQualification({
+    projectId: created.projectId,
+    preparationId: prep.id,
+    pilotId,
+  });
+  let iq = null;
+  if (opts.process) {
+    // force bypasses STUDIO_DEV_HOLD_INITIAL_QUALIFICATION (DEV capture freeze)
+    iq = await processInitialQualification(created.projectId, { pilotId, force: true });
+  }
+  return {
+    projectId: created.projectId,
+    prepId: prep.id,
+    iqStatus: iq?.status ?? "PENDING",
+  };
+}
+
+async function main() {
+  const pilot = await pilotA();
+
+  const stamp = Date.now().toString(36);
+
+  const proposed = await createNamedProject(
+    pilot.id,
+    `Assistant de conduite ${stamp}`,
+    "Conduire les projets et clarifier les décisions avec un cadrage puis une conception fonctionnelle",
+    { process: true, qualifyProjection: true },
+  );
+
+  const analyzing = await createNamedProject(
+    pilot.id,
+    `Projet en qualification ${stamp}`,
+    "Intention claire pour analyse en cours sans terminal immédiat, cadrage utile",
+    { process: false, qualifyProjection: true },
+  );
+
+  const clarification = await createNamedProject(
+    pilot.id,
+    `Projet a preciser ${stamp}`,
+    "x",
+    { process: true, qualifyProjection: false },
+  );
+
+  const payload = {
+    pilotId: pilot.id,
+    proposed,
+    analyzing,
+    clarification,
+    urls: {
+      projet06: `http://127.0.0.1:3100/projects/${proposed.projectId}?surface=projet`,
+      travail: `http://127.0.0.1:3100/projects/${proposed.projectId}?surface=travail`,
+      traj11: `http://127.0.0.1:3100/projects/${proposed.projectId}?surface=pilotage`,
+      traj10: `http://127.0.0.1:3100/projects/${analyzing.projectId}?surface=pilotage`,
+      travailLock: `http://127.0.0.1:3100/projects/${analyzing.projectId}?surface=travail`,
+      traj07: `http://127.0.0.1:3100/projects/${clarification.projectId}?surface=pilotage`,
+      sasPrep: `http://127.0.0.1:3100/preparations/${analyzing.prepId}`,
+    },
+  };
+  writeFileSync("/tmp/sfia-e07-shot-urls.json", JSON.stringify(payload, null, 2));
+  console.log(JSON.stringify(payload, null, 2));
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
 
 ```
 
-### `projects/sfia-studio-next/web/src/db/schema.ts`
+### `projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts`
+
+```
+import { chromium } from "@playwright/test";
+import { readFileSync, mkdirSync, writeFileSync, readdirSync } from "fs";
+import { resolve } from "path";
+import { createHash } from "crypto";
+
+const urls = JSON.parse(readFileSync("/tmp/sfia-e07-shot-urls.json", "utf8")) as {
+  urls: Record<string, string>;
+  proposed: { projectId: string };
+  analyzing: { projectId: string };
+  clarification: { projectId: string };
+};
+
+const outDir = resolve(process.cwd(), "../../../.tmp-sfia-review/ensemble07-evidence/runtime");
+mkdirSync(outDir, { recursive: true });
+
+async function shot(page: import("@playwright/test").Page, name: string) {
+  const path = resolve(outDir, name);
+  await page.waitForTimeout(800);
+  await page.screenshot({ path, fullPage: false });
+  const buf = readFileSync(path);
+  console.log(
+    "wrote",
+    name,
+    buf.length,
+    createHash("sha256").update(buf).digest("hex").slice(0, 12),
+  );
+}
+
+async function main() {
+  const browser = await chromium.launch();
+  const context = await browser.newContext({
+    viewport: { width: 1680, height: 970 },
+  });
+  const page = await context.newPage();
+  await page.goto("http://127.0.0.1:3100/login", { waitUntil: "networkidle" });
+  await page.evaluate(async () => {
+    await fetch("/api/dev/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ pilot: "a" }),
+      credentials: "include",
+    });
+  });
+
+  await page.goto(urls.urls.projet06, { waitUntil: "networkidle" });
+  await page.waitForSelector('[data-testid="project-overview"]');
+  await shot(page, "09.06-projet-runtime.png");
+  await shot(page, "09.01-projet-approx-sans-cycle-runtime.png");
+
+  await page.goto(urls.urls.travail, { waitUntil: "networkidle" });
+  await page.waitForSelector('[data-testid="nora-composer"]');
+  await shot(page, "travail-apres-proposition-runtime.png");
+
+  await page.goto(urls.urls.traj11, { waitUntil: "networkidle" });
+  await page.waitForSelector('[data-testid="trajectory-proposal-sequential"]');
+  await shot(page, "09.11-trajectoire-runtime.png");
+
+  const futureBtn = page.locator('[data-testid="trajectory-forecast-step-2"]');
+  if (await futureBtn.count()) {
+    await futureBtn.click();
+    await page.waitForSelector('[data-testid="trajectory-etape-future"]');
+    await shot(page, "09.04-etape-future-runtime.png");
+    await page.getByRole("button", { name: /Retour à la trajectoire/i }).click();
+    await page.waitForSelector('[data-testid="trajectory-proposal-sequential"]');
+  }
+
+  await page.click('[data-testid="trajectory-open-cki"]');
+  await page.waitForSelector('[data-testid="trajectory-cki-methode"]');
+  await shot(page, "09.05-cki-methode-runtime.png");
+
+  await page.goto(urls.urls.travailLock, { waitUntil: "networkidle" });
+  await page.waitForSelector('[data-testid="nora-composer"]');
+  await shot(page, "05.17-travail-compositeur-verrouille-runtime.png");
+
+  await page.goto(urls.urls.traj10, { waitUntil: "networkidle" });
+  await page.waitForSelector('[data-testid="trajectory-qualification-progress"]', {
+    timeout: 15000,
+  });
+  await shot(page, "09.10-trajectoire-analyse-runtime.png");
+
+  await page.goto(urls.urls.traj07, { waitUntil: "networkidle" });
+  await page.waitForTimeout(1200);
+  await shot(page, "09.07-trajectoire-init-or-proposal-runtime.png");
+
+  await page.goto(urls.urls.sasPrep, { waitUntil: "networkidle" });
+  await page.waitForTimeout(1000);
+  await shot(page, "sas-06-prep-or-popup-runtime.png");
+
+  const files = readdirSync(outDir).filter((f) => f.endsWith(".png"));
+  const manifest = {
+    capturedAt: new Date().toISOString(),
+    viewport: { w: 1680, h: 970 },
+    holdEnv: "STUDIO_DEV_HOLD_INITIAL_QUALIFICATION=1",
+    projects: {
+      proposed: urls.proposed.projectId,
+      analyzing: urls.analyzing.projectId,
+      clarification: urls.clarification.projectId,
+    },
+    files,
+  };
+  writeFileSync(resolve(outDir, "capture-manifest.json"), JSON.stringify(manifest, null, 2));
+  await browser.close();
+  console.log("done", files.length, "png");
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
+
+```
+
+## Fichiers modifiés (diff utile)
+
+### `projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx`
 
 ```diff
-diff --git a/projects/sfia-studio-next/web/src/db/schema.ts b/projects/sfia-studio-next/web/src/db/schema.ts
-index cb71e766..e31c56a4 100644
---- a/projects/sfia-studio-next/web/src/db/schema.ts
-+++ b/projects/sfia-studio-next/web/src/db/schema.ts
-@@ -480,6 +480,8 @@ export const trajectoryRevisions = pgTable(
-     sourceKind: text("source_kind").notNull(),
-     sourceRef: text("source_ref").notNull().default(""),
-     decisionId: text("decision_id").references(() => humanDecisions.id),
-+    /** Structured sequential cycle forecast (Ensemble 07). */
-+    forecastJson: jsonb("forecast_json"),
-     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-   },
-   (t) => [
-@@ -488,6 +490,40 @@ export const trajectoryRevisions = pgTable(
-   ],
- );
+diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
+index d0f5912a..bf750981 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
+@@ -1,147 +1,186 @@
+ "use client";
 
-+/** D5/D3 — one durable initial trajectory qualification per project (Ensemble 07). */
-+export const trajectoryQualificationOperations = pgTable(
-+  "trajectory_qualification_operations",
-+  {
-+    id: text("id").primaryKey(),
-+    projectId: text("project_id")
-+      .notNull()
-+      .references(() => projects.id),
-+    preparationId: text("preparation_id")
-+      .notNull()
-+      .references(() => preparations.id),
-+    pilotId: text("pilot_id")
-+      .notNull()
-+      .references(() => pilots.id),
-+    status: text("status").notNull(),
-+    phase: text("phase").notNull(),
-+    version: integer("version").notNull().default(1),
-+    inputFingerprint: text("input_fingerprint").notNull().default(""),
-+    trajectoryRevisionId: text("trajectory_revision_id").references(() => trajectoryRevisions.id),
-+    assistantMessageId: text("assistant_message_id"),
-+    resultJson: jsonb("result_json"),
-+    errorCode: text("error_code"),
-+    ownerToken: text("owner_token"),
-+    claimedAt: timestamp("claimed_at", { withTimezone: true }),
-+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-+  },
-+  (t) => [
-+    uniqueIndex("trajectory_qualification_operations_project_uidx").on(t.projectId),
-+    index("trajectory_qualification_operations_preparation_idx").on(t.preparationId),
-+    index("trajectory_qualification_operations_status_idx").on(t.status),
-+  ],
-+);
+ import Link from "next/link";
++import type { PilotageProjection } from "@/domains/pilotage/types";
++import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
+
+-type Knowledge = {
+-  subjects: Array<{ id: string; title: string; status: string }>;
+-  acquis: Array<{ id: string; kind: string; statement: string; status: string }>;
+-  openPoints: Array<{ id: string; statement: string; status: string }>;
++type ActivityBundle = {
++  openSubjects: { count: number; examples: Array<{ id: string; title: string }> };
++  applicableDecisions: { count: number; examples: Array<{ id: string; statement: string }> };
++  documentsInProgress: { count: number; examples: Array<{ id: string; title: string }> };
++  openPointsCount: number;
+ };
+
++const CYCLE_LABELS: Record<string, string> = {
++  CADRAGE: "Cadrage",
++  CONCEPTION_FONCTIONNELLE: "Conception fonctionnelle",
++  UX_UI: "Conception UX",
++};
 +
- /** D5 — lockable project revision. Missing row means revision 0 (no cycle created with the project). */
- export const projectPilotageState = pgTable("project_pilotage_state", {
-   projectId: text("project_id")
++function cycleLabel(type: string): string {
++  return CYCLE_LABELS[type] ?? type.replace(/_/g, " ");
++}
++
+ export function ProjectOverview(props: {
+   projectId: string;
+   projectName: string;
+   preparationId: string | null;
+-  knowledge: Knowledge | null;
+-  documentCount: number;
+-  messageCount: number;
++  description?: string | null;
++  knowledge: {
++    subjects: Array<{ id: string; title: string; status: string }>;
++    openPoints: Array<{ id: string; statement: string; status: string }>;
++  } | null;
++  pilotage: PilotageProjection | null;
++  initialQualification: InitialQualificationProjection | null;
++  activity: ActivityBundle | null;
+   onOpenTravail: () => void;
++  onOpenTrajectoire: () => void;
+ }) {
+-  const openPoints =
+-    props.knowledge?.openPoints?.filter((o) => o.status === "OPEN") ?? [];
+-  const acquis =
+-    props.knowledge?.acquis?.filter((a) => a.status === "CURRENT") ?? [];
+-  const subjects = props.knowledge?.subjects ?? [];
++  const cycle = props.pilotage?.cycle;
++  const activity = props.activity;
++  // Prefer a durable project description; never invent illustrative copy.
++  // Proposed orientation is a trajectory artifact — only use as fallback when no description.
++  const description = props.description?.trim() || null;
+
+   return (
+-    <div className="project-overview space-y-4" data-testid="project-overview">
+-      <section className="fig-panel space-y-3" data-testid="project-overview-identity">
+-        <h2 className="fig-panel-title">Identité</h2>
+-        <p className="text-base font-medium" data-testid="project-overview-name">
++    <div className="project-overview space-y-5" data-testid="project-overview">
++      <header className="space-y-2" data-testid="project-overview-identity">
++        <p className="fig-kicker text-[#7477ed]">ESPACE PROJET / VUE D&apos;ENSEMBLE</p>
++        <h2 className="fig-hero-title" data-testid="project-overview-name">
+           {props.projectName}
+-        </p>
+-        <dl className="grid gap-2 text-sm muted sm:grid-cols-2">
+-          <div>
+-            <dt className="text-[10px] uppercase tracking-wide">Fil conversation</dt>
+-            <dd className="text-[var(--fg)]">{props.messageCount} message(s)</dd>
+-          </div>
+-          <div>
+-            <dt className="text-[10px] uppercase tracking-wide">Documents Nora</dt>
+-            <dd className="text-[var(--fg)]">{props.documentCount}</dd>
+-          </div>
+-          <div>
+-            <dt className="text-[10px] uppercase tracking-wide">Sujets capitalisés</dt>
+-            <dd className="text-[var(--fg)]">{subjects.length}</dd>
+-          </div>
+-          <div>
+-            <dt className="text-[10px] uppercase tracking-wide">Préparation liée</dt>
+-            <dd className="text-[var(--fg)]">
+-              {props.preparationId ? "Oui" : "Non renseignée"}
+-            </dd>
+-          </div>
+-        </dl>
+-      </section>
++        </h2>
++        {description ? <p className="fig-hero-sub max-w-5xl">{description}</p> : null}
++      </header>
+
+-      <div className="grid gap-4 lg:grid-cols-2">
+-        <section className="fig-panel space-y-2" data-testid="project-overview-context">
+-          <h2 className="fig-panel-title">Contexte</h2>
+-          {subjects.length === 0 && acquis.length === 0 ? (
+-            <p className="text-sm muted">
+-              Aucun sujet ni acquis capitalisé pour l’instant.
++      <section
++        className="fig-panel relative space-y-3"
++        data-testid="project-overview-cycle-card"
++        style={{ borderColor: "#2b3850" }}
++      >
++        {cycle ? (
++          <>
++            <div className="flex items-start justify-between gap-3">
++              <p className="fig-kicker text-[#7477ed]">CYCLE EN COURS</p>
++              <span
++                className="rounded-full px-3 py-1 text-xs font-semibold"
++                style={{ background: "#17382f", color: "#6cdbba" }}
++              >
++                ● Actif
++              </span>
++            </div>
++            <h3 className="text-[1.7rem] font-semibold text-[#f3f5ff] leading-tight">
++              {cycleLabel(cycle.cycleType)}
++            </h3>
++            <p className="text-sm text-[#a3b0c7]">{cycle.objective}</p>
++          </>
++        ) : (
++          <>
++            <div className="flex items-start justify-between gap-3">
++              <p className="fig-kicker text-[#7477ed]">ÉTAT DU PROJET</p>
++              <span className="text-xs font-semibold text-[#a3b0c7]">○ Sans cycle actif</span>
++            </div>
++            <h3
++              className="text-[1.7rem] font-semibold text-[#f3f5ff] leading-tight"
++              data-testid="project-overview-no-cycle"
++            >
++              Aucun cycle en cours
++            </h3>
++            <p className="text-sm text-[#a3b0c7]">
++              Le projet reste accessible : ses sujets, décisions et documents peuvent être consultés
++              et poursuivis sans cycle actif.
+             </p>
+-          ) : (
+-            <ul className="text-sm space-y-2">
+-              {subjects.slice(0, 5).map((s) => (
+-                <li key={s.id}>
+-                  <span className="font-medium">{s.title}</span>
+-                </li>
+-              ))}
+-              {acquis.slice(0, 5).map((a) => (
+-                <li key={a.id} className="text-sm">
+-                  {a.statement}
+-                </li>
+-              ))}
+-            </ul>
+-          )}
+-        </section>
+-
+-        <section className="fig-panel space-y-2" data-testid="project-overview-open">
+-          <h2 className="fig-panel-title">Points à préciser</h2>
+-          {openPoints.length === 0 ? (
+-            <p className="text-sm muted">Aucun point ouvert capitalisé.</p>
+-          ) : (
+-            openPoints.slice(0, 6).map((o) => (
+-              <p key={o.id} className="text-sm">
+-                {o.statement}
+-              </p>
+-            ))
+-          )}
+-        </section>
+-      </div>
++            <p className="text-sm text-[#a3b0c7]">
++              La trajectoire pourra être précisée avec Nora, sans ouverture automatique.
++            </p>
++          </>
++        )}
++        <div className="flex justify-end pt-1">
++          <button
++            type="button"
++            className="text-sm font-semibold text-[#7477ed] underline-offset-2 hover:underline"
++            onClick={props.onOpenTrajectoire}
++          >
++            Voir la trajectoire ↗
++          </button>
++        </div>
++      </section>
+
+-      <section className="fig-panel space-y-2" data-testid="project-overview-access">
+-        <h2 className="fig-panel-title">Repères et accès</h2>
+-        <ul className="text-sm space-y-1.5">
+-          <li>
+-            <Link
+-              className="text-[var(--fig-accent-soft)] underline-offset-2 hover:underline"
+-              href={`/projects/${props.projectId}?surface=travail`}
+-              onClick={(e) => {
+-                e.preventDefault();
+-                props.onOpenTravail();
+-              }}
+-            >
+-              Travail avec Nora
+-            </Link>
+-            <span className="muted"> — conversation du projet</span>
+-          </li>
+-          <li>
+-            <Link
+-              className="text-[var(--fig-accent-soft)] underline-offset-2 hover:underline"
+-              href={`/projects/${props.projectId}?surface=journal`}
+-            >
+-              Journal
+-            </Link>
+-            <span className="muted"> — sujets et acquis</span>
+-          </li>
+-          <li>
+-            <Link
+-              className="text-[var(--fig-accent-soft)] underline-offset-2 hover:underline"
+-              href={`/projects/${props.projectId}?surface=document`}
+-            >
+-              Documents Nora
+-            </Link>
+-            <span className="muted"> — bibliothèque</span>
+-          </li>
+-          <li>
+-            <Link
+-              className="text-[var(--fig-accent-soft)] underline-offset-2 hover:underline"
+-              href={`/projects/${props.projectId}?surface=pilotage`}
+-            >
+-              Trajectoire
+-            </Link>
+-            <span className="muted"> — pilotage existant</span>
+-          </li>
+-        </ul>
+-        <button
+-          type="button"
+-          className="btn mt-3"
+-          data-testid="project-overview-open-travail"
+-          onClick={props.onOpenTravail}
+-        >
+-          Ouvrir Travail avec Nora
+-        </button>
++      <section className="space-y-3" data-testid="project-overview-activity">
++        <div className="flex flex-wrap items-end justify-between gap-2">
++          <h3 className="text-[1.35rem] font-semibold text-[#f3f5ff]">Activité du projet</h3>
++          <p className="text-xs text-[#7787a4]">Vue synthétique des espaces du projet</p>
++        </div>
++        <div className="grid gap-4 lg:grid-cols-3">
++          <ActivityCard
++            testId="project-activity-subjects"
++            title="Sujets ouverts"
++            source="Journal"
++            count={activity?.openSubjects.count ?? 0}
++            empty="Aucun sujet actif capitalisé."
++            examples={activity?.openSubjects.examples.map((e) => e.title) ?? []}
++            href={`/projects/${props.projectId}?surface=journal`}
++          />
++          <ActivityCard
++            testId="project-activity-decisions"
++            title="Décisions applicables"
++            source="Gouvernance"
++            count={activity?.applicableDecisions.count ?? 0}
++            empty="Aucune décision applicable."
++            examples={activity?.applicableDecisions.examples.map((e) => e.statement) ?? []}
++            href={`/projects/${props.projectId}?surface=journal`}
++          />
++          <ActivityCard
++            testId="project-activity-documents"
++            title="Documents en cours"
++            source="Bibliothèque"
++            count={activity?.documentsInProgress.count ?? 0}
++            empty="Aucun document en cours de rédaction."
++            examples={activity?.documentsInProgress.examples.map((e) => e.title) ?? []}
++            href={`/projects/${props.projectId}?surface=document`}
++          />
++        </div>
+       </section>
+     </div>
+   );
+ }
++
++function ActivityCard(props: {
++  testId: string;
++  title: string;
++  source: string;
++  count: number;
++  empty: string;
++  examples: string[];
++  href: string;
++}) {
++  const shown = props.examples.slice(0, 2);
++  const extra = Math.max(0, props.count - shown.length);
++  return (
++    <section className="fig-panel space-y-3" data-testid={props.testId}>
++      <div className="flex items-start justify-between gap-2">
++        <div>
++          <p className="text-[2rem] font-semibold leading-none text-[#f3f5ff]">{props.count}</p>
++          <h4 className="mt-2 text-lg font-semibold text-[#f3f5ff]">{props.title}</h4>
++        </div>
++        <span className="text-xs text-[#a3b0c7]">{props.source}</span>
++      </div>
++      {props.count === 0 ? (
++        <p className="text-sm text-[#a3b0c7]">{props.empty}</p>
++      ) : (
++        <ul className="text-sm space-y-1.5 text-[#f3f5ff]">
++          {shown.map((ex, i) => (
++            <li key={`${props.testId}-${i}`} className="line-clamp-2 font-medium">
++              {ex}
++            </li>
++          ))}
++          {extra > 0 ? (
++            <li className="text-[#a3b0c7]">+ {extra} autre{extra > 1 ? "s" : ""}</li>
++          ) : null}
++        </ul>
++      )}
++      <Link href={props.href} className="inline-block text-sm font-semibold text-[#7477ed] hover:underline">
++        Consulter ↗
++      </Link>
++    </section>
++  );
++}
+
+```
+
+### `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
+index b164002c..2792d128 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
+@@ -17,14 +17,14 @@ const HERO: Record<
+     sub: "Le chat reste à gauche ; le document sélectionné s’ouvre dans la visionneuse à droite.",
+   },
+   projet: {
+-    kicker: "Espace projet  /  Projet",
+-    title: "Vue d'ensemble du projet",
+-    sub: "Identité, contexte et accès — consultation sans nouvelle autorité.",
++    kicker: "ESPACE PROJET / VUE D'ENSEMBLE",
++    title: "Vue d'ensemble",
++    sub: "Identité, cycle et activité du projet.",
+   },
+   pilotage: {
+-    kicker: "Espace projet  /  Trajectoire",
+-    title: "Pilotage · cycle et décisions",
+-    sub: "Cycle, méthode, CKI et décisions humaines — affichage D5/D6 existant.",
++    kicker: "ESPACE PROJET / TRAJECTOIRE",
++    title: "Trajectoire du projet",
++    sub: "Ce qui est terminé, ce qui est en cours et ce qui pourrait suivre.",
+   },
+   journal: {
+     kicker: "ESPACE PROJET  /  JOURNAL",
+@@ -76,7 +76,9 @@ export function ProjectChrome(props: {
+   const isTravail = props.surface === "travail";
+   /** Journal V4 — hero lives inside ProjectJournal (full vs compact 40/60). */
+   const isJournal = props.surface === "journal";
+-  const breadcrumbOnly = isTravail || isJournal;
++  /** Ensemble 07 — Projet / Trajectoire heroes live in ProjectOverview / TrajectoryBoard. */
++  const isProjetOrTrajectoire = props.surface === "projet" || props.surface === "pilotage";
++  const breadcrumbOnly = isTravail || isJournal || isProjetOrTrajectoire;
+
+   const continuityBadge =
+     isTravail && props.statusHint && !/^chargement/i.test(props.statusHint) ? (
+
+```
+
+### `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+index 18a635c1..1bc911d2 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+@@ -46,12 +46,17 @@ export function NoraConversation(props: {
+   focusMessageId?: string | null;
+   onFocusMessageHandled?: () => void;
+   focusStatus?: string | null;
++  /** Ensemble 07 — verrou qualification initiale (UI + accessibilité). */
++  composerLocked?: boolean;
++  composerLockReason?: string;
+ }) {
+   const n = props.messages.length;
+   const frame = n === 0 ? "161:216" : n <= 2 ? "161:288" : "94:214";
+   const variantLabel =
+     n === 0 ? "Première conversation" : n <= 2 ? "Reprise contextualisée" : "Fil long";
+   const embedded = Boolean(props.embeddedInStage);
++  const composerLocked = Boolean(props.composerLocked);
++  const sendDisabled = props.busy || !props.draft.trim() || composerLocked;
+   const lastMessageId = n > 0 ? props.messages[n - 1]!.id : null;
+   const { threadRef, onScroll, scrollToBottom, newBelow } = useNoraThreadScroll({
+     messageCount: n,
+@@ -369,8 +374,36 @@ export function NoraConversation(props: {
+         <div
+           className="fig-composer fig-travail-composer"
+           data-testid="nora-composer"
++          data-composer-locked={composerLocked ? "1" : "0"}
+           data-composer-expanded={props.draft.includes("\n") || props.draft.length > 80 ? "1" : "0"}
+         >
++          {composerLocked ? (
++            <div className="fig-travail-composer-lock flex items-start gap-2 text-xs text-[#a3b0c7] mb-2">
++              <button
++                type="button"
++                className="shrink-0 rounded border border-[#7477ed55] px-1.5 py-0.5 text-[#7477ed]"
++                title={
++                  props.composerLockReason ||
++                  "Compositeur temporairement indisponible pendant la qualification de trajectoire."
++                }
++                aria-label={
++                  props.composerLockReason ||
++                  "Compositeur temporairement indisponible pendant la qualification de trajectoire."
++                }
++                data-testid="composer-lock-info"
++              >
++                i
++              </button>
++              <div>
++                <p className="font-semibold text-[#f3f5ff]" data-testid="composer-lock-title">
++                  Compositeur temporairement indisponible
++                </p>
++                {props.composerLockReason ? (
++                  <p data-testid="composer-lock-reason">{props.composerLockReason}</p>
++                ) : null}
++              </div>
++            </div>
++          ) : null}
+           <div className="fig-travail-composer-row">
+             <span className="fig-travail-composer-plus" aria-hidden>
+               +
+@@ -384,9 +417,16 @@ export function NoraConversation(props: {
+               aria-label="Message à Nora"
+               data-testid="thread-draft"
+               rows={1}
++              readOnly={composerLocked}
++              disabled={composerLocked}
++              aria-disabled={composerLocked}
+               onCompositionStart={() => setImeComposing(true)}
+               onCompositionEnd={() => setImeComposing(false)}
+               onKeyDown={(e) => {
++                if (composerLocked) {
++                  e.preventDefault();
++                  return;
++                }
+                 if (imeComposing || e.nativeEvent.isComposing) return;
+                 // Mobile: Enter = newline; send via button only.
+                 if (isMobile) return;
+@@ -399,7 +439,7 @@ export function NoraConversation(props: {
+             <button
+               type="button"
+               className="fig-travail-composer-send"
+-              disabled={props.busy || !props.draft.trim()}
++              disabled={sendDisabled}
+               onClick={props.onSend}
+               data-testid="thread-send"
+               aria-label="Envoyer"
 
 ```
 
@@ -2048,32 +3318,6 @@ index 6d16b83e..5b2743cb 100644
 
 ```
 
-### `projects/sfia-studio-next/web/src/lib/http-errors.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/lib/http-errors.ts b/projects/sfia-studio-next/web/src/lib/http-errors.ts
-index 8fae28a2..481ea9f5 100644
---- a/projects/sfia-studio-next/web/src/lib/http-errors.ts
-+++ b/projects/sfia-studio-next/web/src/lib/http-errors.ts
-@@ -13,6 +13,7 @@ export type StudioErrorCode =
-   | "DEPENDENCY_UNAVAILABLE"
-   | "INTERNAL"
-   | "TURN_IN_PROGRESS"
-+  | "QUALIFICATION_IN_PROGRESS"
-   | "PAYLOAD_MISMATCH"
-   | "NOT_CONFIGURED"
-   | "REQUIRES_REQUALIFICATION"
-@@ -49,6 +50,7 @@ function defaultStatus(code: StudioErrorCode): number {
-       return 400;
-     case "CONFLICT":
-     case "TURN_IN_PROGRESS":
-+    case "QUALIFICATION_IN_PROGRESS":
-     case "PAYLOAD_MISMATCH":
-       return 409;
-     case "DEPENDENCY_UNAVAILABLE":
-
-```
-
 ### `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts`
 
 ```diff
@@ -2125,99 +3369,6 @@ index d21fb43c..0801a3d1 100644
        },
        { status },
      );
-
-```
-
-### `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
-index f22d02af..65a21943 100644
---- a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
-+++ b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
-@@ -19,6 +19,8 @@ export async function GET(_: Request, ctx: { params: Promise<{ projectId: string
-       documents: data.documents,
-       knowledge: data.knowledge,
-       pilotage: data.pilotage,
-+      initialQualification: data.initialQualification,
-+      activity: data.activity,
-     });
-   } catch (e) {
-     const code = (e as { code?: string }).code;
-
-```
-
-### `projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-index 8ca6ff6c..2419bb72 100644
---- a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-+++ b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-@@ -5,6 +5,8 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
- import { SafeMarkdown } from "@/components/SafeMarkdown";
- import { PreparationConversation } from "@/components/figma/PreparationConversation";
- import { PreparationProposal } from "@/components/figma/PreparationProposal";
-+import { SasCreateProgressPopup } from "@/components/figma/SasCreateProgressPopup";
-+import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
- import { ProjectJournal } from "@/components/figma/ProjectJournal";
- import {
-   DocumentHistory,
-@@ -96,6 +98,11 @@ export default function PreparationPage() {
-   const idempotencyKey = useMemo(() => `create-${preparationId}`, [preparationId]);
-   /** Structured awaiting mission key from server — never parsed from Nora prose. */
-   const [awaitingClientIntentKey, setAwaitingClientIntentKey] = useState<string | null>(null);
-+  const [createProgressVisible, setCreateProgressVisible] = useState(false);
-+  const [createProgressStep, setCreateProgressStep] = useState<1 | 2 | 3>(1);
-+  const [createProgressQualification, setCreateProgressQualification] =
-+    useState<InitialQualificationProjection | null>(null);
-+  const [pendingNavigateProjectId, setPendingNavigateProjectId] = useState<string | null>(null);
-
-   function rememberCreateIntent(next: CreateIntent | null) {
-     createDocIntentRef.current = next;
-@@ -556,6 +563,7 @@ export default function PreparationPage() {
-         projectId?: string;
-         reason?: string;
-         missionBindingError?: string;
-+        initialQualification?: InitialQualificationProjection;
-         missionContinue?: {
-           continued?: boolean;
-           documentSave?: { documentId?: string };
-@@ -593,7 +601,13 @@ export default function PreparationPage() {
-       if (j.projectId && !j.missionBindingError) {
-         setProjectId(j.projectId);
-         setAwaitingClientIntentKey(null);
--        router.push(`/projects/${j.projectId}`);
-+        setCreateProgressStep(1);
-+        setCreateProgressQualification(j.initialQualification ?? null);
-+        setCreateProgressVisible(true);
-+        setPendingNavigateProjectId(j.projectId);
-+        setCreateProgressStep(j.initialQualification ? 2 : 1);
-+        window.setTimeout(() => setCreateProgressStep(2), 400);
-+        window.setTimeout(() => setCreateProgressStep(3), 900);
-         return;
-       }
-
-@@ -927,6 +941,19 @@ export default function PreparationPage() {
-           }
-         />
-       ) : null}
-+      <SasCreateProgressPopup
-+        visible={createProgressVisible}
-+        projectName={previewName || "Projet"}
-+        step={createProgressStep}
-+        qualification={createProgressQualification}
-+        onDismiss={() => {
-+          setCreateProgressVisible(false);
-+          if (pendingNavigateProjectId) {
-+            router.push(`/projects/${pendingNavigateProjectId}`);
-+            setPendingNavigateProjectId(null);
-+          }
-+        }}
-+      />
-     </div>
-   );
- }
 
 ```
 
@@ -2370,405 +3521,199 @@ index 444c5234..fa486646 100644
 
 ```
 
-### `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx`
+### `projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx`
 
 ```diff
-diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-index 18a635c1..3f23f594 100644
---- a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-@@ -46,12 +46,17 @@ export function NoraConversation(props: {
-   focusMessageId?: string | null;
-   onFocusMessageHandled?: () => void;
-   focusStatus?: string | null;
-+  /** Ensemble 07 — verrou qualification initiale (UI + accessibilité). */
-+  composerLocked?: boolean;
-+  composerLockReason?: string;
- }) {
-   const n = props.messages.length;
-   const frame = n === 0 ? "161:216" : n <= 2 ? "161:288" : "94:214";
-   const variantLabel =
-     n === 0 ? "Première conversation" : n <= 2 ? "Reprise contextualisée" : "Fil long";
-   const embedded = Boolean(props.embeddedInStage);
-+  const composerLocked = Boolean(props.composerLocked);
-+  const sendDisabled = props.busy || !props.draft.trim() || composerLocked;
-   const lastMessageId = n > 0 ? props.messages[n - 1]!.id : null;
-   const { threadRef, onScroll, scrollToBottom, newBelow } = useNoraThreadScroll({
-     messageCount: n,
-@@ -369,8 +374,23 @@ export function NoraConversation(props: {
-         <div
-           className="fig-composer fig-travail-composer"
-           data-testid="nora-composer"
-+          data-composer-locked={composerLocked ? "1" : "0"}
-           data-composer-expanded={props.draft.includes("\n") || props.draft.length > 80 ? "1" : "0"}
-         >
-+          {composerLocked && props.composerLockReason ? (
-+            <div className="fig-travail-composer-lock flex items-start gap-2 text-xs text-[#a3b0c7] mb-2">
-+              <button
-+                type="button"
-+                className="shrink-0 rounded border border-[#7477ed55] px-1.5 py-0.5 text-[#7477ed]"
-+                title={props.composerLockReason}
-+                aria-label={props.composerLockReason}
-+                data-testid="composer-lock-info"
-+              >
-+                i
-+              </button>
-+              <p data-testid="composer-lock-reason">{props.composerLockReason}</p>
-+            </div>
-+          ) : null}
-           <div className="fig-travail-composer-row">
-             <span className="fig-travail-composer-plus" aria-hidden>
-               +
-@@ -384,9 +404,16 @@ export function NoraConversation(props: {
-               aria-label="Message à Nora"
-               data-testid="thread-draft"
-               rows={1}
-+              readOnly={composerLocked}
-+              disabled={composerLocked}
-+              aria-disabled={composerLocked}
-               onCompositionStart={() => setImeComposing(true)}
-               onCompositionEnd={() => setImeComposing(false)}
-               onKeyDown={(e) => {
-+                if (composerLocked) {
-+                  e.preventDefault();
-+                  return;
-+                }
-                 if (imeComposing || e.nativeEvent.isComposing) return;
-                 // Mobile: Enter = newline; send via button only.
-                 if (isMobile) return;
-@@ -399,7 +426,7 @@ export function NoraConversation(props: {
-             <button
-               type="button"
-               className="fig-travail-composer-send"
--              disabled={props.busy || !props.draft.trim()}
-+              disabled={sendDisabled}
-               onClick={props.onSend}
-               data-testid="thread-send"
-               aria-label="Envoyer"
-
-```
-
-### `projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
-index d0f5912a..bb86e7be 100644
---- a/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
-@@ -1,147 +1,188 @@
- "use client";
-
- import Link from "next/link";
-+import type { PilotageProjection } from "@/domains/pilotage/types";
+diff --git a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+index 8ca6ff6c..2419bb72 100644
+--- a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
++++ b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+@@ -5,6 +5,8 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
+ import { SafeMarkdown } from "@/components/SafeMarkdown";
+ import { PreparationConversation } from "@/components/figma/PreparationConversation";
+ import { PreparationProposal } from "@/components/figma/PreparationProposal";
++import { SasCreateProgressPopup } from "@/components/figma/SasCreateProgressPopup";
 +import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
+ import { ProjectJournal } from "@/components/figma/ProjectJournal";
+ import {
+   DocumentHistory,
+@@ -96,6 +98,11 @@ export default function PreparationPage() {
+   const idempotencyKey = useMemo(() => `create-${preparationId}`, [preparationId]);
+   /** Structured awaiting mission key from server — never parsed from Nora prose. */
+   const [awaitingClientIntentKey, setAwaitingClientIntentKey] = useState<string | null>(null);
++  const [createProgressVisible, setCreateProgressVisible] = useState(false);
++  const [createProgressStep, setCreateProgressStep] = useState<1 | 2 | 3>(1);
++  const [createProgressQualification, setCreateProgressQualification] =
++    useState<InitialQualificationProjection | null>(null);
++  const [pendingNavigateProjectId, setPendingNavigateProjectId] = useState<string | null>(null);
 
--type Knowledge = {
--  subjects: Array<{ id: string; title: string; status: string }>;
--  acquis: Array<{ id: string; kind: string; statement: string; status: string }>;
--  openPoints: Array<{ id: string; statement: string; status: string }>;
-+type ActivityBundle = {
-+  openSubjects: { count: number; examples: Array<{ id: string; title: string }> };
-+  applicableDecisions: { count: number; examples: Array<{ id: string; statement: string }> };
-+  documentsInProgress: { count: number; examples: Array<{ id: string; title: string }> };
-+  openPointsCount: number;
- };
+   function rememberCreateIntent(next: CreateIntent | null) {
+     createDocIntentRef.current = next;
+@@ -556,6 +563,7 @@ export default function PreparationPage() {
+         projectId?: string;
+         reason?: string;
+         missionBindingError?: string;
++        initialQualification?: InitialQualificationProjection;
+         missionContinue?: {
+           continued?: boolean;
+           documentSave?: { documentId?: string };
+@@ -593,7 +601,13 @@ export default function PreparationPage() {
+       if (j.projectId && !j.missionBindingError) {
+         setProjectId(j.projectId);
+         setAwaitingClientIntentKey(null);
+-        router.push(`/projects/${j.projectId}`);
++        setCreateProgressStep(1);
++        setCreateProgressQualification(j.initialQualification ?? null);
++        setCreateProgressVisible(true);
++        setPendingNavigateProjectId(j.projectId);
++        setCreateProgressStep(j.initialQualification ? 2 : 1);
++        window.setTimeout(() => setCreateProgressStep(2), 400);
++        window.setTimeout(() => setCreateProgressStep(3), 900);
+         return;
+       }
 
-+const CYCLE_LABELS: Record<string, string> = {
-+  CADRAGE: "Cadrage",
-+  CONCEPTION_FONCTIONNELLE: "Conception fonctionnelle",
-+  UX_UI: "Conception UX",
-+};
-+
-+function cycleLabel(type: string): string {
-+  return CYCLE_LABELS[type] ?? type.replace(/_/g, " ");
-+}
-+
- export function ProjectOverview(props: {
-   projectId: string;
-   projectName: string;
-   preparationId: string | null;
--  knowledge: Knowledge | null;
--  documentCount: number;
--  messageCount: number;
-+  description?: string | null;
-+  knowledge: {
-+    subjects: Array<{ id: string; title: string; status: string }>;
-+    openPoints: Array<{ id: string; statement: string; status: string }>;
-+  } | null;
-+  pilotage: PilotageProjection | null;
-+  initialQualification: InitialQualificationProjection | null;
-+  activity: ActivityBundle | null;
-   onOpenTravail: () => void;
-+  onOpenTrajectoire: () => void;
- }) {
--  const openPoints =
--    props.knowledge?.openPoints?.filter((o) => o.status === "OPEN") ?? [];
--  const acquis =
--    props.knowledge?.acquis?.filter((a) => a.status === "CURRENT") ?? [];
--  const subjects = props.knowledge?.subjects ?? [];
-+  const cycle = props.pilotage?.cycle;
-+  const activity = props.activity;
-+  const description =
-+    props.description?.trim() ||
-+    props.pilotage?.trajectory.proposed?.orientation ||
-+    props.pilotage?.trajectory.retained?.orientation ||
-+    null;
-
-   return (
--    <div className="project-overview space-y-4" data-testid="project-overview">
--      <section className="fig-panel space-y-3" data-testid="project-overview-identity">
--        <h2 className="fig-panel-title">Identité</h2>
--        <p className="text-base font-medium" data-testid="project-overview-name">
-+    <div className="project-overview space-y-5" data-testid="project-overview">
-+      <header className="space-y-2" data-testid="project-overview-identity">
-+        <p className="fig-kicker text-[#7477ed]">ESPACE PROJET / VUE D&apos;ENSEMBLE</p>
-+        <h2 className="fig-hero-title" data-testid="project-overview-name">
-           {props.projectName}
--        </p>
--        <dl className="grid gap-2 text-sm muted sm:grid-cols-2">
--          <div>
--            <dt className="text-[10px] uppercase tracking-wide">Fil conversation</dt>
--            <dd className="text-[var(--fg)]">{props.messageCount} message(s)</dd>
--          </div>
--          <div>
--            <dt className="text-[10px] uppercase tracking-wide">Documents Nora</dt>
--            <dd className="text-[var(--fg)]">{props.documentCount}</dd>
--          </div>
--          <div>
--            <dt className="text-[10px] uppercase tracking-wide">Sujets capitalisés</dt>
--            <dd className="text-[var(--fg)]">{subjects.length}</dd>
--          </div>
--          <div>
--            <dt className="text-[10px] uppercase tracking-wide">Préparation liée</dt>
--            <dd className="text-[var(--fg)]">
--              {props.preparationId ? "Oui" : "Non renseignée"}
--            </dd>
--          </div>
--        </dl>
--      </section>
-+        </h2>
-+        {description ? <p className="fig-hero-sub max-w-5xl">{description}</p> : null}
-+      </header>
-
--      <div className="grid gap-4 lg:grid-cols-2">
--        <section className="fig-panel space-y-2" data-testid="project-overview-context">
--          <h2 className="fig-panel-title">Contexte</h2>
--          {subjects.length === 0 && acquis.length === 0 ? (
--            <p className="text-sm muted">
--              Aucun sujet ni acquis capitalisé pour l’instant.
-+      <section
-+        className="fig-panel relative space-y-3"
-+        data-testid="project-overview-cycle-card"
-+        style={{ borderColor: "#2b3850" }}
-+      >
-+        {cycle ? (
-+          <>
-+            <div className="flex items-start justify-between gap-3">
-+              <p className="fig-kicker text-[#7477ed]">CYCLE EN COURS</p>
-+              <span
-+                className="rounded-full px-3 py-1 text-xs font-semibold"
-+                style={{ background: "#17382f", color: "#6cdbba" }}
-+              >
-+                ● Actif
-+              </span>
-+            </div>
-+            <h3 className="text-[1.7rem] font-semibold text-[#f3f5ff] leading-tight">
-+              {cycleLabel(cycle.cycleType)}
-+            </h3>
-+            <p className="text-sm text-[#a3b0c7]">{cycle.objective}</p>
-+          </>
-+        ) : (
-+          <>
-+            <div className="flex items-start justify-between gap-3">
-+              <p className="fig-kicker text-[#7477ed]">ÉTAT DU PROJET</p>
-+              <span className="text-xs font-semibold text-[#a3b0c7]">○ Sans cycle actif</span>
-+            </div>
-+            <h3
-+              className="text-[1.7rem] font-semibold text-[#f3f5ff] leading-tight"
-+              data-testid="project-overview-no-cycle"
-+            >
-+              Aucun cycle en cours
-+            </h3>
-+            <p className="text-sm text-[#a3b0c7]">
-+              Le projet reste accessible : ses sujets, décisions et documents peuvent être consultés
-+              et poursuivis sans cycle actif.
-             </p>
--          ) : (
--            <ul className="text-sm space-y-2">
--              {subjects.slice(0, 5).map((s) => (
--                <li key={s.id}>
--                  <span className="font-medium">{s.title}</span>
--                </li>
--              ))}
--              {acquis.slice(0, 5).map((a) => (
--                <li key={a.id} className="text-sm">
--                  {a.statement}
--                </li>
--              ))}
--            </ul>
--          )}
--        </section>
--
--        <section className="fig-panel space-y-2" data-testid="project-overview-open">
--          <h2 className="fig-panel-title">Points à préciser</h2>
--          {openPoints.length === 0 ? (
--            <p className="text-sm muted">Aucun point ouvert capitalisé.</p>
--          ) : (
--            openPoints.slice(0, 6).map((o) => (
--              <p key={o.id} className="text-sm">
--                {o.statement}
--              </p>
--            ))
--          )}
--        </section>
--      </div>
-+            <p className="text-sm text-[#a3b0c7]">
-+              La trajectoire pourra être précisée avec Nora, sans ouverture automatique.
-+            </p>
-+          </>
-+        )}
-+        <div className="flex justify-end pt-1">
-+          <button
-+            type="button"
-+            className="text-sm font-semibold text-[#7477ed] underline-offset-2 hover:underline"
-+            onClick={props.onOpenTrajectoire}
-+          >
-+            Voir la trajectoire ↗
-+          </button>
-+        </div>
-+      </section>
-
--      <section className="fig-panel space-y-2" data-testid="project-overview-access">
--        <h2 className="fig-panel-title">Repères et accès</h2>
--        <ul className="text-sm space-y-1.5">
--          <li>
--            <Link
--              className="text-[var(--fig-accent-soft)] underline-offset-2 hover:underline"
--              href={`/projects/${props.projectId}?surface=travail`}
--              onClick={(e) => {
--                e.preventDefault();
--                props.onOpenTravail();
--              }}
--            >
--              Travail avec Nora
--            </Link>
--            <span className="muted"> — conversation du projet</span>
--          </li>
--          <li>
--            <Link
--              className="text-[var(--fig-accent-soft)] underline-offset-2 hover:underline"
--              href={`/projects/${props.projectId}?surface=journal`}
--            >
--              Journal
--            </Link>
--            <span className="muted"> — sujets et acquis</span>
--          </li>
--          <li>
--            <Link
--              className="text-[var(--fig-accent-soft)] underline-offset-2 hover:underline"
--              href={`/projects/${props.projectId}?surface=document`}
--            >
--              Documents Nora
--            </Link>
--            <span className="muted"> — bibliothèque</span>
--          </li>
--          <li>
--            <Link
--              className="text-[var(--fig-accent-soft)] underline-offset-2 hover:underline"
--              href={`/projects/${props.projectId}?surface=pilotage`}
--            >
--              Trajectoire
--            </Link>
--            <span className="muted"> — pilotage existant</span>
--          </li>
--        </ul>
--        <button
--          type="button"
--          className="btn mt-3"
--          data-testid="project-overview-open-travail"
--          onClick={props.onOpenTravail}
--        >
--          Ouvrir Travail avec Nora
--        </button>
-+      <section className="space-y-3" data-testid="project-overview-activity">
-+        <div className="flex flex-wrap items-end justify-between gap-2">
-+          <h3 className="text-[1.35rem] font-semibold text-[#f3f5ff]">Activité du projet</h3>
-+          <p className="text-xs text-[#7787a4]">Vue synthétique des espaces du projet</p>
-+        </div>
-+        <div className="grid gap-4 lg:grid-cols-3">
-+          <ActivityCard
-+            testId="project-activity-subjects"
-+            title="Sujets ouverts"
-+            source="Journal"
-+            count={activity?.openSubjects.count ?? 0}
-+            empty="Aucun sujet actif capitalisé."
-+            examples={activity?.openSubjects.examples.map((e) => e.title) ?? []}
-+            href={`/projects/${props.projectId}?surface=journal`}
-+          />
-+          <ActivityCard
-+            testId="project-activity-decisions"
-+            title="Décisions applicables"
-+            source="Gouvernance"
-+            count={activity?.applicableDecisions.count ?? 0}
-+            empty="Aucune décision applicable."
-+            examples={activity?.applicableDecisions.examples.map((e) => e.statement) ?? []}
-+            href={`/projects/${props.projectId}?surface=journal`}
-+          />
-+          <ActivityCard
-+            testId="project-activity-documents"
-+            title="Documents en cours"
-+            source="Bibliothèque"
-+            count={activity?.documentsInProgress.count ?? 0}
-+            empty="Aucun document en cours de rédaction."
-+            examples={activity?.documentsInProgress.examples.map((e) => e.title) ?? []}
-+            href={`/projects/${props.projectId}?surface=document`}
-+          />
-+        </div>
-       </section>
+@@ -927,6 +941,19 @@ export default function PreparationPage() {
+           }
+         />
+       ) : null}
++      <SasCreateProgressPopup
++        visible={createProgressVisible}
++        projectName={previewName || "Projet"}
++        step={createProgressStep}
++        qualification={createProgressQualification}
++        onDismiss={() => {
++          setCreateProgressVisible(false);
++          if (pendingNavigateProjectId) {
++            router.push(`/projects/${pendingNavigateProjectId}`);
++            setPendingNavigateProjectId(null);
++          }
++        }}
++      />
      </div>
    );
  }
+
+```
+
+### `projects/sfia-studio-next/web/src/db/schema.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/db/schema.ts b/projects/sfia-studio-next/web/src/db/schema.ts
+index cb71e766..e31c56a4 100644
+--- a/projects/sfia-studio-next/web/src/db/schema.ts
++++ b/projects/sfia-studio-next/web/src/db/schema.ts
+@@ -480,6 +480,8 @@ export const trajectoryRevisions = pgTable(
+     sourceKind: text("source_kind").notNull(),
+     sourceRef: text("source_ref").notNull().default(""),
+     decisionId: text("decision_id").references(() => humanDecisions.id),
++    /** Structured sequential cycle forecast (Ensemble 07). */
++    forecastJson: jsonb("forecast_json"),
+     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+   },
+   (t) => [
+@@ -488,6 +490,40 @@ export const trajectoryRevisions = pgTable(
+   ],
+ );
+
++/** D5/D3 — one durable initial trajectory qualification per project (Ensemble 07). */
++export const trajectoryQualificationOperations = pgTable(
++  "trajectory_qualification_operations",
++  {
++    id: text("id").primaryKey(),
++    projectId: text("project_id")
++      .notNull()
++      .references(() => projects.id),
++    preparationId: text("preparation_id")
++      .notNull()
++      .references(() => preparations.id),
++    pilotId: text("pilot_id")
++      .notNull()
++      .references(() => pilots.id),
++    status: text("status").notNull(),
++    phase: text("phase").notNull(),
++    version: integer("version").notNull().default(1),
++    inputFingerprint: text("input_fingerprint").notNull().default(""),
++    trajectoryRevisionId: text("trajectory_revision_id").references(() => trajectoryRevisions.id),
++    assistantMessageId: text("assistant_message_id"),
++    resultJson: jsonb("result_json"),
++    errorCode: text("error_code"),
++    ownerToken: text("owner_token"),
++    claimedAt: timestamp("claimed_at", { withTimezone: true }),
++    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
++    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
++  },
++  (t) => [
++    uniqueIndex("trajectory_qualification_operations_project_uidx").on(t.projectId),
++    index("trajectory_qualification_operations_preparation_idx").on(t.preparationId),
++    index("trajectory_qualification_operations_status_idx").on(t.status),
++  ],
++);
 +
-+function ActivityCard(props: {
-+  testId: string;
-+  title: string;
-+  source: string;
-+  count: number;
-+  empty: string;
-+  examples: string[];
-+  href: string;
-+}) {
-+  const shown = props.examples.slice(0, 2);
-+  const extra = Math.max(0, props.count - shown.length);
-+  return (
-+    <section className="fig-panel space-y-3" data-testid={props.testId}>
-+      <div className="flex items-start justify-between gap-2">
-+        <div>
-+          <p className="text-[2rem] font-semibold leading-none text-[#f3f5ff]">{props.count}</p>
-+          <h4 className="mt-2 text-lg font-semibold text-[#f3f5ff]">{props.title}</h4>
-+        </div>
-+        <span className="text-xs text-[#a3b0c7]">{props.source}</span>
-+      </div>
-+      {props.count === 0 ? (
-+        <p className="text-sm text-[#a3b0c7]">{props.empty}</p>
-+      ) : (
-+        <ul className="text-sm space-y-1.5 text-[#f3f5ff]">
-+          {shown.map((ex, i) => (
-+            <li key={`${props.testId}-${i}`} className="line-clamp-2 font-medium">
-+              {ex}
-+            </li>
-+          ))}
-+          {extra > 0 ? (
-+            <li className="text-[#a3b0c7]">+ {extra} autre{extra > 1 ? "s" : ""}</li>
-+          ) : null}
-+        </ul>
-+      )}
-+      <Link href={props.href} className="inline-block text-sm font-semibold text-[#7477ed] hover:underline">
-+        Consulter ↗
-+      </Link>
-+    </section>
-+  );
-+}
+ /** D5 — lockable project revision. Missing row means revision 0 (no cycle created with the project). */
+ export const projectPilotageState = pgTable("project_pilotage_state", {
+   projectId: text("project_id")
+
+```
+
+### `projects/sfia-studio-next/web/scripts/db-migrate.sh`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/scripts/db-migrate.sh b/projects/sfia-studio-next/web/scripts/db-migrate.sh
+index cc81197d..9a298db6 100755
+--- a/projects/sfia-studio-next/web/scripts/db-migrate.sh
++++ b/projects/sfia-studio-next/web/scripts/db-migrate.sh
+@@ -32,4 +32,5 @@ apply "011_oauth_session_binding.sql"
+ apply "012_auth_concurrency_safety.sql"
+ apply "013_preparation_projection.sql"
+ apply "014_journal_d4_revisions.sql"
+-echo "db:migrate OK (001→014)"
++apply "015_trajectory_qualification.sql"
++echo "db:migrate OK (001→015)"
+
+```
+
+### `projects/sfia-studio-next/web/src/lib/http-errors.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/lib/http-errors.ts b/projects/sfia-studio-next/web/src/lib/http-errors.ts
+index 8fae28a2..481ea9f5 100644
+--- a/projects/sfia-studio-next/web/src/lib/http-errors.ts
++++ b/projects/sfia-studio-next/web/src/lib/http-errors.ts
+@@ -13,6 +13,7 @@ export type StudioErrorCode =
+   | "DEPENDENCY_UNAVAILABLE"
+   | "INTERNAL"
+   | "TURN_IN_PROGRESS"
++  | "QUALIFICATION_IN_PROGRESS"
+   | "PAYLOAD_MISMATCH"
+   | "NOT_CONFIGURED"
+   | "REQUIRES_REQUALIFICATION"
+@@ -49,6 +50,7 @@ function defaultStatus(code: StudioErrorCode): number {
+       return 400;
+     case "CONFLICT":
+     case "TURN_IN_PROGRESS":
++    case "QUALIFICATION_IN_PROGRESS":
+     case "PAYLOAD_MISMATCH":
+       return 409;
+     case "DEPENDENCY_UNAVAILABLE":
+
+```
+
+### `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
+index f22d02af..65a21943 100644
+--- a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
++++ b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
+@@ -19,6 +19,8 @@ export async function GET(_: Request, ctx: { params: Promise<{ projectId: string
+       documents: data.documents,
+       knowledge: data.knowledge,
+       pilotage: data.pilotage,
++      initialQualification: data.initialQualification,
++      activity: data.activity,
+     });
+   } catch (e) {
+     const code = (e as { code?: string }).code;
 
 ```
 
@@ -2776,10 +3721,10 @@ index d0f5912a..bb86e7be 100644
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index e273b49a..ffe3a307 100644
+index e273b49a..87157e77 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -3225,3 +3225,18 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
+@@ -3225,3 +3225,19 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
  | Lane | DEV `:5433` only ; RECETTE/STABLE non mutées |
  | Push Product | **AUCUN** |
  | Verdict candidat | `READY FOR MORRIS REVIEW WITH RESERVES — JOURNAL V4 CORE LOCAL / SCOPE PARTIAL ON J-C04/06/13/14/BROWSER` |
@@ -2791,12 +3736,13 @@ index e273b49a..ffe3a307 100644
 +| Source SHA base | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
 +| Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` |
 +| Statut | NO RELEASE — construction DEV |
-+| Capacités | Qualification initiale durable post-create ; message Nora proactif ; compositeur verrouillé (UI+API) ; ProjectOverview 09.01/09.06 ; TrajectoryBoard 09.10/09.11 ; forecast_json D5 |
-+| Tests | unit E07 forecast/lock/ensure ; PG `ensemble07-initial-qualification` (6) ; `npm run build` OK |
-+| Fake/Real | DETERMINISTIC/FAKE fixture Nora ; LIVE NOT PROVEN |
-+| Preuves Figma | 13/13 captures MCP locales ; runtime 3/13 (projet, travail, trajectoire) |
-+| Réserves | Fidélité visuelle 13 frames incomplète ; 09.03/04/05 partiels ; GO conversationnel e2e non clos ; PilotagePanel conservé en diagnostic |
++| Capacités | Qualification initiale durable post-create ; message Nora proactif ; compositeur verrouillé (UI+API) ; ProjectOverview 09.01/09.06 ; TrajectoryBoard 09.02–09.11 (parcours, bilan lacunes, étape future, CKI/méthode, analyse, proposition séquentielle) ; forecast_json D5 |
++| Tests | unit 686 PASS ; E07 forecast/lock/ensure ; PG `ensemble07-initial-qualification` ; `tsc` OK |
++| Fake/Real | DETERMINISTIC/FAKE fixture Nora ; LIVE NOT PROVEN ; hold DEV `STUDIO_DEV_HOLD_INITIAL_QUALIFICATION` pour captures 09.10/05.17 uniquement |
++| Preuves Figma | 13/13 exports MCP ; runtime comparables ~9/13 (09.04, 09.05, 09.06, 09.10, 09.11, 05.17 + approx 09.01/09.07/SAS) |
++| Réserves | Pas de runtime 09.02/09.03/09.08/09.09 (cycle ACTIVE/CLOSED non seedé GO) ; SAS popup non isolée ; PilotagePanel diagnostic encore visible ; e2e create→lock→unlock Playwright non clos |
 +| Verdict candidat | FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED |
++| Handoff tip (1er) | `10847446510d1dfdd2e415da32296a483f937cb7` — republication attendue après itération visuelle |
 +
 
 ```
@@ -2804,3 +3750,9 @@ index e273b49a..ffe3a307 100644
 ## Instruction ChatGPT obligatoire
 
 Avant de répondre à Morris, ChatGPT doit relire depuis Git la branche sfia/review-handoff, fichier sfia-review-handoff/latest-chatgpt-review.md, vérifier l'identité du cycle, le HEAD, les sources, le contenu modifié, les preuves et la publication distante avant de donner son propre verdict.
+
+## Verdict final pack
+
+**FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED**
+
+Gate C OPEN · NO RELEASE · No project push/PR/merge · Handoff L3 republished after visual iteration.
