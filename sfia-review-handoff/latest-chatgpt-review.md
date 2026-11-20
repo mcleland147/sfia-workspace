@@ -1,10 +1,12 @@
-# COURTILIEN-02B-SEC — Review pack Full
+# COURTILIEN-02B-SYNC-DIAG — Review pack Full
 
-**Cycle :** COURTILIEN-02B-SEC — Identité et accès (mapping + sécurisation bornée)
-**Type :** 8 — Delivery / implémentation · **Profil :** Standard · **Typologie :** EVOL
-**Date rapport :** 2026-11-20 10:59:00 CET (Europe/Paris)
+**Cycle :** COURTILIEN-02B-SYNC-DIAG — Diagnostic synchronisation filtrée Softr
+**Type :** 9 — QA / validation · **Profil :** Standard
+**CKC cycle 9 :** Complet / P0 (carte synthétique) — guidance candidate, non norme autonome
+**Date rapport :** 2026-11-20 11:12:00 CET (Europe/Paris)
 **Verdict review pack :** `READY WITH RESERVES`
-**Readiness accès client / BUILD UI :** **`NOT READY FOR CLIENT ACCESS`**
+**Verdict technique sync filtrée Free :** **`BLOCKED`**
+**Accès client :** **`NOT READY FOR CLIENT ACCESS`**
 
 ---
 
@@ -18,217 +20,204 @@
 | origin/main | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
 | Staged | vide |
 | status --short | untracked hors projet (`.cursor/…`, `.tmp-sfia-review/…`) |
-| Anomalie | aucune — autres travaux préservés |
+| Anomalie | aucune |
 
-Handoff 02A historique lu : `098f414d…` (`finalize COURTILIEN-02A identity relation`). Tip handoff en début de cycle = même commit.
-
-Sources lues via `origin/main:` (sans checkout) : template, routing, operating model, guardrails, checklist, CKC cycle 8.
+Handoff 02B-SEC lu au commit exact `41af8c20…`. Tip distant début cycle = même SHA.
 
 ---
 
-## 2. Pre-check Airtable — PASS
+## 2. Sources
+
+| Source | Statut |
+|--------|--------|
+| Template / routing / operating model / guardrails / checklist | LU (`origin/main:`) |
+| CKC `02-fifteen-cycles-synthetic-map.md` cycle 9 | LU — Complet / P0 |
+| Handoff `41af8c20:sfia-review-handoff/latest-chatgpt-review.md` | LU |
+| https://docs.softr.io/add-and-manage-users/syncing-users-with-a-data-source | LU |
+| https://docs.softr.io/add-and-manage-users/users-menu | LU |
+| https://www.softr.io/pricing | LU — preuve plan |
+| Browser Studio MCP `cursor-ide-browser` | **INDISPONIBLE** (server absent) |
+| Livrables Liora versionnés | absents hors périmètre — signalé |
+
+---
+
+## 3. Pre-check Softr MCP — PASS (avant)
 
 | Contrôle | Résultat |
 |----------|----------|
-| Base `appjebCNHtEaCAzxy` | PASS (`permissionLevel: create`) |
-| 11 tables / `personne_client` `fldQyeldPXKvOfVsg` | PASS |
-| Inverse `fldj3FI4pdErBEZhM` | PASS |
-| Client-A métier USR-004 | record `recKqV6VRULDdCUQI` · role=client · actif=true |
-| Fiche PER-004 | record `recFtQZ13T61lt89x` · type=client · statut=actif |
-| `personne_client` initial USR-004 | **vide** (sauvegarde rollback = `[]` / absent) |
-| Inverse client sur PER-004 | **vide** avant écriture |
-| Aucun autre USR → PER-004 via `personne_client` | PASS |
-| Lien incompatible USR-004 | absent |
-| Client-B USR-005 | HOLD — actif absent · aucune écriture |
-| PER-009 | HOLD — statut inactif · inverse client vide |
+| App `7242211b-…` non publiée | PASS (`published: null`) |
+| Inscription | PASS (`signUp.policy: DISABLED`) |
+| Login | EMAIL_CODE activé |
+| user connection | PASS (`source: null`) |
+| users | PASS (`total: 0`) |
+| data restrictions | PASS (`[]`) |
+| groupes | 3 PREDEFINED only |
+| datasources | PASS (7 Airtable, base `appjebCNHtEaCAzxy`) |
 
 ---
 
-## 3. Mapping appliqué — PASS
+## 4. Inspection Studio — BLOCKED / NOT TESTED
 
-**Mutation unique :**
-```
-table: UTILISATEUR (tblRL15tkEL98Mpev)
-recordId: recKqV6VRULDdCUQI  # USR-004
-fieldId: fldQyeldPXKvOfVsg   # personne_client
-value: ["recFtQZ13T61lt89x"] # PER-004
-```
-Aucune autre colonne transmise.
+**Navigateur agent :** MCP `cursor-ide-browser` **absent** de la session.
+**Règle appliquée :** ne pas inventer d'inspection visuelle.
 
-### Relecture après écriture
+### Écrans / captures à fournir par Morris (read-only, sans Save and sync)
 
-| Sens | Résultat |
-|------|----------|
-| USR-004 → personne_client | **PER-004** unique (`recFtQZ13T61lt89x`) |
-| PER-004 → inverse `UTILISATEUR` (`fldj3FI4pdErBEZhM`) | **USR-004** unique (`recKqV6VRULDdCUQI`) |
-| Autres comptes `personne_client` | **aucun** (USR-005 / courtiers / directeur vides) |
-| USR-005 / PER-009 | **inchangés** (HOLD) |
-| courtier_referent PER-004 | toujours USR-002 (courtier) — **≠** personne_client |
+1. Studio → [CourtiLien — Espace client](https://studio.softr.io/applications/7242211b-049d-4673-9262-19dd95ee9178)
+2. **Users** → **Sync with data source** (ouvrir le modal **sans** Save and sync)
+3. Capture de : Records All / Selected · Advanced · Pause auto-sync · mapping Email/Name · éventuel paywall Filtered user sync
+4. Si Selected accessible : opérateurs disponibles sur `role`, `actif`, `personne_client`, `id`
+5. Plan workspace visible (Free / Basic / Pro / Business)
 
-### Mapping anonymisé
-
-| Alias | Mapping métier | Record IDs | Statut |
-|-------|----------------|------------|--------|
-| Client-A | USR-004 → PER-004 | `recKqV6…` → `recFtQZ…` | **APPLIQUÉ** |
-| Client-B | USR-005 → PER-009 | — | **HOLD** (aucune écriture) |
-
-### Rollback documenté (non exécuté)
-`update_records_for_table` : `fldQyeldPXKvOfVsg` ← `[]` sur `recKqV6VRULDdCUQI`.
+**Actions non exécutées (volontairement) :** Save and sync · Connect · Import · Sync now · invitation · magic link · modification réglage persistante · create_user_connection MCP.
 
 ---
 
-## 4. Contrat d'identité Softr — état
+## 5. Preuves documentaires Softr (REAL BOUNDARY — docs + pricing)
 
-### Avant / après (inchangé côté Softr)
+### Capacités produit (docs sync)
 
-| Élément | Valeur |
-|---------|--------|
-| user connection | `source: null` |
-| users | `total: 0` |
-| data restrictions | `[]` |
-| groupes | All / Logged in / Non Logged in (PREDEFINED only) |
-| login | EMAIL_CODE · signUp DISABLED · published null |
-| datasources | **7** inchangées |
+- Records : **All** ou **Selected** (règles de filtre)
+- Advanced : création DS vs Softr-only ; si perte d'éligibilité → **Deactivate** / **Delete** / **Unsync**
+- Mapping : Email* · Name · Magic link · Avatar · Created · Last seen (Last seen = Pro+)
+- **Pause auto-sync** documenté
+- Sync **non continue** en Studio / apps **non publiées** ; temps réel après publish
+- Triggers Studio : login, publish, visite onglet Users
+- Bouton de commit : **Save and sync**
 
-### Contrat cible (documenté, non branché)
+### Plan Free vs Filtered user sync — PASS (pricing public)
 
-```
-Session Softr authentifiée
-→ UTILISATEUR correspondant
-→ role == client
-→ actif == true
-→ personne_client exactement 1 lien
-→ PERSONNE type=client, statut=actif
-→ objets métier liés uniquement à cette PERSONNE
-Sinon : REFUS PAR DÉFAUT
-```
+| Plan | Filtered user sync |
+|------|--------------------|
+| Free | **non listé** |
+| Basic | **non listé** |
+| Pro | **non listé** |
+| **Business** ($329/mo) | **« Filtered user sync »** explicitement |
+| Enterprise | custom |
 
----
+**Conclusion plan :** la synchronisation **Selected / filtrée** est une capacité **Business**, incompatible avec la contrainte CourtiLien **aucun abonnement payant** sans GO Morris distinct.
 
-## 5. User connection — STOP (fail-closed)
-
-### Qualification `application_create_user_connection`
-
-Documentation outil (extraits exploitables) :
-- « Connecting REQUESTS a user sync — turns the table's rows into application users »
-- « Apps have it [two-way user sync] on from creation »
-- `userSyncStarted: false` seulement si sync pausée côté app
-- `createUserInDatasource=false` concerne l'écriture signup → datasource, **pas** l'import des lignes existantes
-- Aucun outil MCP pour pauser la sync avant connexion
-- Interdit : `replaceExisting=true` · invitation · inscription publique
-
-### Effet attendu si exécuté maintenant
-
-Import probable des **5** lignes UTILISATEUR (directeur, 2 courtiers, Client-A, Client-B HOLD) en utilisateurs applicatifs — **hors GO** (pas d'import/sync non maîtrisée).
-
-### Décision cycle
-**STOP — user connection non exécutée.**
-Aucune synchronisation déclenchée. `users` reste 0.
-
-**GO Morris distinct requis** pour :
-- mécanisme d'identité sans import involontaire, **ou**
-- sync bornée (filtre / sync off prouvée / table miroir clients-only).
+**Global data restrictions** : également Business — cohérent avec le STOP 02B-SEC sur cloisonnement serveur Free.
 
 ---
 
-## 6. Groupes et restrictions — proposés, non configurés
+## 6. Qualification théorique des filtres (si Selected était disponible)
 
-### Pourquoi non installés
-Sans user connection opérationnelle :
-- groupes conditionnels sur `role`/`actif` **impossibles** (outil : condition-based groups bloqués si pas de users table) ;
-- restrictions liées à l'identité UTILISATEUR **non bindables** de façon vérifiable ;
-- installer ALLOW_ONLY/RESTRICT sur « Logged in users » sans chaîne d'identité = **faux sentiment de sécurité** ou risque d'élargissement.
+Population UTILISATEUR : 5 (2 clients, 2 courtiers, 1 directeur).
 
-### Matrice proposée (non configurée)
+| Stratégie | Règle cible | Résultat théorique | Preuve |
+|-----------|-------------|--------------------|--------|
+| A — métier dynamique | `role=client` AND `actif=true` AND `personne_client` NOT EMPTY | **USR-004 seul** | NOT PROVEN (UI + opérateurs linked record) |
+| B — sélection explicite | `id=USR-004` | **USR-004 seul** | NOT PROVEN (UI) |
 
-| Table | Objectif | Statut |
-|-------|----------|--------|
-| UTILISATEUR | Voir uniquement son propre enregistrement | proposée |
-| PERSONNE | Uniquement `personne_client` de la session | proposée |
-| CONTRAT / DOCUMENT / SINISTRE / RENDEZ_VOUS | Via PERSONNE de la session | proposée |
-| COMPAGNIE | Lecture minimale non sensible | proposée |
+Exclus théoriques : USR-005 (HOLD/inactif), USR-001, USR-002, USR-003.
 
-### Règles
-| Catégorie | Contenu |
-|-----------|---------|
-| Proposées | Matrice ci-dessus + fail-closed sur lien absent / multi / inactif / mauvais rôle |
-| Configurées | **aucune** |
-| Effectivement prouvées | **aucune** (cloisonnement runtime) |
+Prévisualisation count sans sync : **NOT TESTED** (pas d'UI).
 
-Réserve technique : comparaison sûre d'identité sur `multipleRecordLinks` Airtable via restrictions Softr **non démontrée** — ne pas installer sans preuve.
+**Important :** même si A/B étaient UI-prouvés, l'import réel reste hors scope et sous GO distinct.
 
 ---
 
-## 7. Tests de sécurité
+## 7. Choix dangereux (documentés — non activés)
 
-| Scénario | Résultat |
-|----------|----------|
-| Client-A → ses données uniquement | **NOT TESTED** (pas de session) |
-| Client-A → données Client-B refusées | **NOT TESTED** |
-| Client inactif | **NOT TESTED** |
-| Sans personne_client | **NOT TESTED** |
-| Plusieurs PERSONNE | **NOT TESTED** |
-| Rôle courtier espace client | **NOT TESTED** |
-| Anonyme | **NOT TESTED** |
-| Objet tiers / écriture non autorisée | **NOT TESTED** |
-| Mapping Airtable unicité Client-A | **PASS** (lecture) |
-| HOLD Client-B | **PASS** (aucune écriture) |
-
-Emails `@example.com` : connexion EMAIL_CODE réelle **non utilisable** → E2E auth **hors scope**.
+| Choix | Risque |
+|-------|--------|
+| Records = **All** | Import des 5 comptes (courtiers/directeur/HOLD) |
+| Delete on ineligibility | Suppression Airtable/Softr irréversible |
+| Sync All puis désactivation manuelle | Création temporaire de comptes non autorisés |
+| Publish avant règles | Sync continue temps réel |
+| 2-way createUserInDatasource | Écriture Airtable depuis Softr |
+| Abonnement Business sans GO | Contredit garde-fou « pas d'abonnement payant » |
 
 ---
 
-## 8. Validations finales
+## 8. Matrice de décision
 
-| Contrôle | Résultat |
-|----------|----------|
-| Une seule liaison Airtable appliquée | PASS |
-| USR-005 inchangé | PASS |
-| Schéma 11/16 inchangé | PASS |
-| 7 datasources | PASS |
-| Import Softr inattendu | PASS (aucun — connection non créée) |
-| App historique intacte | PASS |
-| App cible non publiée · signup DISABLED | PASS |
-| Secrets / emails nominatifs dans Git | PASS (anonymisé) |
-| git status / diff tracké | PASS |
-| Cloisonnement serveur | **FAIL / NOT PROVEN** |
-| Ready BUILD UI | **NOT READY** |
+### Option : Sync Selected sur UTILISATEUR
+
+| Critère | Évaluation |
+|---------|------------|
+| Capacité technique produit | Docs : oui (Selected + Advanced) |
+| Disponibilité Free | **NON** — feature Business |
+| Filtre exact A/B | Studio : NOT TESTED ; théorique A/B → USR-004 |
+| Utilisateurs sélectionnés | Théorique 1 ; réel NOT TESTED |
+| Import futur maîtrisé | Pause auto-sync docs oui ; Free Selected N/A |
+| Désactivation | Docs : Deactivate recommandé vs Delete |
+| Retour arrière | Remove connection / unsync — non exécuté |
+| Preuves complémentaires | Captures Studio Morris ; confirmation plan workspace |
+
+### Verdict technique
+**`BLOCKED`** — Filtered user sync **non disponible** sur offre Free (preuve pricing Softr).
+
+### Alternatives minimales (examinées, **non adoptées**)
+
+| Alternative | Pourquoi non adoptée ici |
+|-------------|--------------------------|
+| Upgrade Business | Abonnement payant — GO Morris distinct + hors garde-fou actuel |
+| Table miroir 1 ligne USR-004 | Nouvelle table / modèle — hors périmètre ; GO distinct |
+| Ajout manuel 1 user Softr | Invitation / compte — GO distinct ; `@example.com` EMAIL_CODE non prouvé |
+| Sync All | Import non autorisé — STOP |
+
+### Périmètre proposé pour un prochain GO (si Morris lève un frein)
+
+Sans lancer quoi que ce soit maintenant :
+
+1. Confirmer plan workspace + captures Selected paywall.
+2. Soit GO Business + Selected (A ou B) + Pause auto-sync + Deactivate on ineligibility + `createUserInDatasource=false` + **sans** Save tant que revue OK.
+3. Soit GO table miroir clients-only sur Free + sync All bornée à 1 enregistrement.
+4. Puis seulement : Save and sync sous GO explicite + relecture users=1 + USR-005 absent.
 
 ---
 
-## 9. Fake / Real Qualification
+## 9. Post-diagnostic Softr — PASS (après = avant)
+
+| Contrôle | Après |
+|----------|--------|
+| user connection | null |
+| users | 0 |
+| invitations | aucune |
+| restrictions | [] |
+| Airtable | non modifié ce cycle |
+| published | null |
+| signup | DISABLED |
+| git projet | inchangé |
+
+---
+
+## 10. Fake / Real Qualification
 
 | Élément | Valeur |
 |---------|--------|
 | Applicable | oui |
 | Mock | aucun |
-| Mapping Airtable | **REAL BOUNDARY PROVEN** |
-| User connection / sync | **NOT EXECUTED** (STOP) |
-| Restrictions / cloisonnement | **NOT PROVEN** |
-| Auth session | **NOT TESTED** (@example.com) |
-| Claims interdits | Sécurité complète · MVP · auth prouvée sans session |
+| MCP état app | **REAL BOUNDARY PROVEN** |
+| Pricing Filtered sync = Business | **REAL BOUNDARY PROVEN** (page pricing) |
+| Docs Selected / Advanced / Pause | **REAL BOUNDARY PROVEN** (docs) |
+| UI Studio opérateurs / Free paywall live | **NOT TESTED** (browser MCP absent) |
+| Sync / import / auth | **HORS SCOPE** / non exécuté |
+| Claims interdits | Sync opérationnelle · identité prête · accès sécurisé · MVP |
 
 ---
 
-## 10. Décisions Morris restantes
+## 11. Décisions Morris
 
 | # | Décision |
 |---|----------|
-| D1 | Autoriser sync/identité maîtrisée (pause sync prouvée, table miroir clients-only, ou autre mécanisme) |
-| D2 | Configurer groupes + restrictions serveur après D1 |
-| D3 | Tests négatifs avec comptes de test réels (GO distinct) |
-| D4 | Client-B HOLD → GO mapping ultérieur |
-| D5 | BUILD UI |
-| D6 | Publication |
+| D1 | Fournir captures Studio Users → Sync (sans Save) pour confirmer paywall |
+| D2 | Arbitrer : rester Free (miroir / manuel) **vs** GO Business (Filtered sync) |
+| D3 | GO sync / import uniquement après D2 |
+| D4 | Restrictions serveur (Business) / BUILD / publication — GO distincts |
 
 ---
 
-## 11. Verdict
+## 12. Verdict
 
-**`READY WITH RESERVES`** — mapping Client-A appliqué et prouvé ; Softr identité/accès **STOP fail-closed** correctement (pas d'import non maîtrisé).
+**`READY WITH RESERVES`** — diagnostic documentaire + MCP complet ; UI Studio non inspectable localement.
 
-**`NOT READY FOR CLIENT ACCESS`** — cloisonnement serveur non démontré.
+**`BLOCKED`** pour sync filtrée Selected sur plan Free.
 
-**`INCOMPLETE / TOOLING GAP`** (sous-composante) — pas de levier MCP pour connecter UTILISATEUR sans risque de sync des 5 comptes.
+**`NOT READY FOR CLIENT ACCESS`**.
 
-Handoff attendu : `docs(review-handoff): COURTILIEN-02B-SEC identity access`
+Aucune synchronisation, connexion, invitation ni publication exécutée.
+
+Handoff : `docs(review-handoff): COURTILIEN-02B sync diagnostic`
