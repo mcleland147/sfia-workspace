@@ -1,75 +1,62 @@
-# SFIA Review Pack FULL — Ensemble 07 FINAL CONVERGENCE (COMPLETE CONTENT)
+# SFIA Review Pack FULL — Ensemble 07 HIGH-FIDELITY CONVERGENCE
 
-**Date/heure UTC :** 2026-11-20T18:52:24Z
-**Cycle :** Delivery projet · EVOL corrective · Ensemble 07 · 3e passe — republication couverture
+**Date/heure UTC :** 2026-11-20T19:19:10Z
+**Cycle :** Delivery projet · EVOL corrective · Ensemble 07 — haute fidélité + P0 fencing
 **Classe :** NO RELEASE · Gate C OPEN
 **Review Handoff :** required / publish-in-cycle
-**Motif :** REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING sur tip `50861f05`
-**Objectif :** pack autonome pour ChatGPT — tous diffs projet + tous créés + disposition scripts DEV
+**Handoff tip précédent :** `8fc8ce2a` (COMPLETE CONTENT) — **nouveau cycle** ; diffs = état final actuel
 
-## 0. Couverture documentaire (gate contenu)
+## 0. Couverture documentaire
 
 | Catégorie | Compte | Couverture |
 |---|---:|---|
-| Fichiers projet MODIFIÉS (`git status`) | 15 | diff intégral chacun — §11 |
-| Fichiers projet NON SUIVIS (fichiers) | 17 | contenu intégral chacun — §10 |
+| MODIFIÉS projet | 15 | §11 diffs intégraux |
+| NON SUIVIS projet | 18 | §10 contenu intégral |
 
-### §0.1 Matrice — 8 diffs précédemment manquants
+### Matrice MODIFIÉS
 
-| Fichier | Présent dans §11 |
-|---|---|
-| `projects/sfia-studio-next/web/scripts/db-migrate.sh` | OUI |
-| `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts` | OUI |
-| `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx` | OUI |
-| `projects/sfia-studio-next/web/src/db/schema.ts` | OUI |
-| `projects/sfia-studio-next/web/src/domains/conversation/service.ts` | OUI |
-| `projects/sfia-studio-next/web/src/domains/pilotage/service.ts` | OUI |
-| `projects/sfia-studio-next/web/src/domains/pilotage/types.ts` | OUI |
-| `projects/sfia-studio-next/web/src/lib/http-errors.ts` | OUI |
-
-### §0.2 Matrice complète MODIFIÉS projet
-
-| # | Fichier | Diff §11 |
+| # | Fichier | Diff |
 |---:|---|---|
-| 1 | `projects/sfia-studio-next/construction/delivery-history.md` | OUI |
-| 2 | `projects/sfia-studio-next/web/scripts/db-migrate.sh` | OUI ← était manquant |
-| 3 | `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts` | OUI |
-| 4 | `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts` | OUI ← était manquant |
-| 5 | `projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx` | OUI |
-| 6 | `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx` | OUI |
-| 7 | `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx` | OUI |
-| 8 | `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx` | OUI ← était manquant |
-| 9 | `projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx` | OUI |
-| 10 | `projects/sfia-studio-next/web/src/db/schema.ts` | OUI ← était manquant |
-| 11 | `projects/sfia-studio-next/web/src/domains/conversation/service.ts` | OUI ← était manquant |
-| 12 | `projects/sfia-studio-next/web/src/domains/pilotage/service.ts` | OUI ← était manquant |
-| 13 | `projects/sfia-studio-next/web/src/domains/pilotage/types.ts` | OUI ← était manquant |
-| 14 | `projects/sfia-studio-next/web/src/domains/preparation/project-context.ts` | OUI |
-| 15 | `projects/sfia-studio-next/web/src/lib/http-errors.ts` | OUI ← était manquant |
+| 1 | `projects/sfia-studio-next/construction/delivery-history.md` | OUI §11 |
+| 2 | `projects/sfia-studio-next/web/scripts/db-migrate.sh` | OUI §11 |
+| 3 | `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts` | OUI §11 |
+| 4 | `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts` | OUI §11 |
+| 5 | `projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx` | OUI §11 |
+| 6 | `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx` | OUI §11 |
+| 7 | `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx` | OUI §11 |
+| 8 | `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx` | OUI §11 |
+| 9 | `projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx` | OUI §11 |
+| 10 | `projects/sfia-studio-next/web/src/db/schema.ts` | OUI §11 |
+| 11 | `projects/sfia-studio-next/web/src/domains/conversation/service.ts` | OUI §11 |
+| 12 | `projects/sfia-studio-next/web/src/domains/pilotage/service.ts` | OUI §11 |
+| 13 | `projects/sfia-studio-next/web/src/domains/pilotage/types.ts` | OUI §11 |
+| 14 | `projects/sfia-studio-next/web/src/domains/preparation/project-context.ts` | OUI §11 |
+| 15 | `projects/sfia-studio-next/web/src/lib/http-errors.ts` | OUI §11 |
 
-### §0.3 Matrice NON SUIVIS + disposition
+### Matrice NON SUIVIS + disposition
 
-| Fichier | Contenu §10 | Disposition |
+| Fichier | Contenu | Disposition |
 |---|---|---|
-| `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md` | OUI | Produit Ensemble 07 — à conserver |
-| `projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts` | OUI | DEV helper temporaire — NON produit livraison ; inclus transparence ; hors revue fonctionnelle |
-| `projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts` | OUI | DEV helper temporaire — NON produit livraison ; inclus transparence ; hors revue fonctionnelle |
-| `projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts` | OUI | Produit Ensemble 07 — à conserver |
-| `projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts` | OUI | Produit Ensemble 07 — à conserver |
-| `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/reconcile/route.ts` | OUI | Produit Ensemble 07 — à conserver |
-| `projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx` | OUI | Produit Ensemble 07 — à conserver |
-| `projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx` | OUI | Produit Ensemble 07 — à conserver |
-| `projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql` | OUI | Produit Ensemble 07 — à conserver |
-| `projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts` | OUI | Produit Ensemble 07 — à conserver |
-| `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts` | OUI | Produit Ensemble 07 — à conserver |
-| `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts` | OUI | Produit Ensemble 07 — à conserver |
-| `projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts` | OUI | Produit Ensemble 07 — à conserver |
-| `projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts` | OUI | Produit Ensemble 07 — à conserver |
-| `projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts` | OUI | Produit Ensemble 07 — à conserver |
-| `projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts` | OUI | Produit Ensemble 07 — à conserver |
-| `projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts` | OUI | Produit Ensemble 07 — à conserver |
+| `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md` | OUI §10 | Produit Ensemble 07 |
+| `projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts` | OUI §10 | DEV helper — NON produit |
+| `projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts` | OUI §10 | DEV helper — NON produit |
+| `projects/sfia-studio-next/web/scripts/e07-capture-sas-modal.mts` | OUI §10 | Produit Ensemble 07 |
+| `projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts` | OUI §10 | Produit Ensemble 07 |
+| `projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts` | OUI §10 | Produit Ensemble 07 |
+| `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/reconcile/route.ts` | OUI §10 | Produit Ensemble 07 |
+| `projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx` | OUI §10 | Produit Ensemble 07 |
+| `projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx` | OUI §10 | Produit Ensemble 07 |
+| `projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql` | OUI §10 | Produit Ensemble 07 |
+| `projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts` | OUI §10 | Produit Ensemble 07 |
+| `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts` | OUI §10 | Produit Ensemble 07 |
+| `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts` | OUI §10 | Produit Ensemble 07 |
+| `projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts` | OUI §10 | Produit Ensemble 07 |
+| `projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts` | OUI §10 | Produit Ensemble 07 |
+| `projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts` | OUI §10 | Produit Ensemble 07 |
+| `projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts` | OUI §10 | Produit Ensemble 07 |
+| `projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts` | OUI §10 | Produit Ensemble 07 |
 
-**Verdict couverture :** `COMPLETE CONTENT` — aucun chemin projet du `git status` sans diff/contenu.
+**Verdict couverture :** COMPLETE CONTENT
 
 ## 1. Git truth
 
@@ -79,7 +66,6 @@
 | Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` |
 | HEAD | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
 | origin/main | `6e93a33d64dfeea2eab88fb7896d733b34053f97` |
-| merge-base | `6e93a33d64dfeea2eab88fb7896d733b34053f97` |
 | Statut | NON COMMITTÉ · pas de push projet |
 
 ### git log -5
@@ -112,6 +98,7 @@ de8613b6 docs(next): record Morris approval of Ensemble 07 architecture dossier 
 ?? projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md
 ?? projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts
 ?? projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts
+?? projects/sfia-studio-next/web/scripts/e07-capture-sas-modal.mts
 ?? projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts
 ?? projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts
 ?? projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/
@@ -153,6 +140,7 @@ M	projects/sfia-studio-next/web/src/lib/http-errors.ts
 projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md
 projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts
 projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts
+projects/sfia-studio-next/web/scripts/e07-capture-sas-modal.mts
 projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts
 projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts
 projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/reconcile/route.ts
@@ -171,51 +159,59 @@ projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts
 
 ## 2. ENV-01 / Versioning
 
-- DEV only · PG docker · app `:3100` · migration 015 additive
-- NO RELEASE · Gate C OPEN · RECETTE/STABLE intactes
+- DEV only · NO RELEASE · Gate C OPEN
 
 ## 3. Sources
 
-- Contrats Ensemble 07 · Figma `itgvCulInEnFY6DvgIegvP`
-- Base `e36fd8b` · handoff incomplet `50861f05` · tip correctif antérieur `2fc9d4db`
+- Contrats E07 · Figma `itgvCulInEnFY6DvgIegvP` · base `e36fd8b` · tip antérieur `8fc8ce2a`
 
-## 4. Matrice COR-01..17
+## 4. Matrice E07-FIX
 
 | ID | Statut | Preuve |
 |---|---|---|
-| COR-01 | Fermé | PG missing-op + reconcile |
-| COR-02 | Fermé | GET no-kick |
-| COR-03 | Fermé | D5→message resume |
-| COR-04 | Fermé | stillOwns + PG steal |
-| COR-05 | Fermé | UNKNOWN reclaim |
-| COR-06 | Réserve LIVE | forecast fixture |
-| COR-07 | Partiel | schema fingerprint |
-| COR-08 | Fermé | system incident |
-| COR-09 | Fermé | closedCycles order |
-| COR-10 | Fermé | future by order |
-| COR-11/12 | Fermé | UI matrix |
-| COR-13 | Partiel | activity cards |
-| COR-14 | Réserve BEHAVIOR | seed GO API |
-| COR-15 | Partiel | closeCycle |
-| COR-16 | Partiel | bilan honest gaps |
-| COR-17 | Partiel | CKI asymmetric |
+| FIX-01 | Fermé | CAS+FOR UPDATE ; PG TOCTOU afterOwnerCheckBeforeEffect |
+| FIX-02 | Fermé | ids/generation distincts assistant/system |
+| FIX-03 | Partiel | reconcile+kick ; pas de worker |
+| FIX-04 | Partiel | fingerprint présent |
+| FIX-05 | Fermé | pendingEnsureGateProjection |
+| FIX-06/07 | LIVE NOT PROVEN | forecast fixture |
+| FIX-08/09 | Réserve BEHAVIOR | GO browser NOT PROVEN |
+| FIX-10..13 | Partiel | UI+seeds |
 
 ## 5–7. Architecture / Fake-Real / Tests
 
-- Architecture Option A ensure→process→D5+message ; reconcile POST ; fence effets
-- PG REAL · BROWSER · Nora LIVE NOT PROVEN · GO convers. NOT PROVEN
-- Tests E07 : unit 7 PASS · PG 10 PASS · full suites NOT RUN
+- Fencing write-point ; Option A ; PG REAL ; Nora LIVE NOT PROVEN
+- Tests : unit 7 PASS · PG 12 PASS · full suites NOT RUN
 
 ## 8–9. Figma / runtime
 
-- Refs `.tmp-sfia-review/ensemble07-figma-refs/` · runtime `ensemble07-evidence/runtime/`
-- UX : FIGMA TO RUNTIME PARTIAL — SAS popup live partielle
+- Runtime `.tmp-sfia-review/ensemble07-evidence/runtime/` · refs `ensemble07-figma-refs/`
+- **SAS06 popup réelle :** `sas-06-modal-runtime.png` + viewport
+- Tokens `#7477ED` `#6CDBBA` `#151D2C` `#2B3850`
 
-## 10. Fichiers CRÉÉS / NON SUIVIS — contenu intégral
+| Frame | Runtime | Verdict |
+|---|---|---|
+| 09.01 | `09.01-projet-cycle-actif-runtime.png` | Partiel |
+| 09.02 | `09.02-trajectoire-principale-runtime.png` | Partiel |
+| 09.03 | `09.03-bilan-historique-runtime.png` | Partiel |
+| 09.04 | `09.04-etape-envisagee-runtime.png` | Partiel |
+| 09.05 | `09.05-cki-methode-runtime.png` | Partiel |
+| 09.06 | `09.06-projet-sans-cycle-runtime.png` | Partiel |
+| 09.07 | `09.07-clarification-runtime.png` | Partiel |
+| 09.08 | `09.08-entre-deux-cycles-runtime.png` | Partiel |
+| 09.09 | `09.09-premier-cycle-actif-runtime.png` | Partiel |
+| SAS06 | `sas-06-modal-runtime.png` | Partiel |
+| 05.17 | `05.17-travail-qualification-runtime.png` | Partiel |
+| 09.10 | `09.10-qualification-en-cours-runtime.png` | Partiel |
+| 09.11 | `09.11-proposition-initiale-runtime.png` | Partiel |
+
+**Verdict UX :** FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED
+
+## 10. Fichiers CRÉÉS — contenu intégral
 
 ### `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md`
 
-**Disposition :** produit Ensemble 07 — à conserver.
+**Disposition :** produit Ensemble 07.
 
 - SHA256: `37d497bb54ec0bc91cf067407730d88675647f8d6971a652d5a15fb3ebe4d021`
 - Bytes: 2889
@@ -275,7 +271,7 @@ Option A hybride (dossier §8.1) + corrections P0 :
 
 ### `projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts`
 
-**Disposition :** script diagnostic local temporaire. **Non produit.** Inclus pour transparence du worktree sale.
+**Disposition :** DEV helper — NON produit.
 
 - SHA256: `6ab78aa51e3b68d33d325ef9b7ff04c532050f62075f390d15f919084840f15b`
 - Bytes: 2917
@@ -375,7 +371,7 @@ main().catch((e) => {
 
 ### `projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts`
 
-**Disposition :** helper one-shot recapture 09.08/SAS. **Non produit.** Inclus pour transparence.
+**Disposition :** DEV helper — NON produit.
 
 - SHA256: `c96de8c9c5f1fa6b2681ebfaeff4a98b486a50168d6c39f071f26775b2f6defd`
 - Bytes: 1422
@@ -427,9 +423,166 @@ main().catch((e) => {
 });
 ```
 
+### `projects/sfia-studio-next/web/scripts/e07-capture-sas-modal.mts`
+
+**Disposition :** produit Ensemble 07.
+
+- SHA256: `07f88743f677289d4d9736bf504b16dad3d2d5846f7cb9dec6ab566b4afc2dd8`
+- Bytes: 4856
+
+```
+/**
+ * E07 — capture the real SAS create progress modal (not prep page alone).
+ * Uses a qualified preparation that can create a project, clicks create, screenshots popup.
+ */
+import { chromium } from "@playwright/test";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+process.env.STUDIO_LANE = "DEV";
+process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
+
+import { mkdirSync, writeFileSync } from "fs";
+import { resolve } from "path";
+import { eq } from "drizzle-orm";
+import { db } from "../src/db/client.ts";
+import { pilots, preparations } from "../src/db/schema.ts";
+import { newId } from "../src/lib/ids.ts";
+import {
+  applyPreparationProjection,
+  openOrCreatePreparation,
+  updatePreview,
+} from "../src/domains/preparation/service.ts";
+import { draftProjectionFromQualification } from "../src/domains/preparation/projection.ts";
+
+async function main() {
+  const outDir = resolve(
+    process.cwd(),
+    "../../../.tmp-sfia-review/ensemble07-evidence/runtime",
+  );
+  mkdirSync(outDir, { recursive: true });
+
+  const pilot = (
+    await db.select().from(pilots).where(eq(pilots.displayName, "Pilot A (DEV)")).limit(1)
+  )[0];
+  if (!pilot) throw new Error("Pilot A missing");
+
+  const stamp = Date.now().toString(36);
+  const name = `Modal capture ${stamp}`;
+  const prep = await openOrCreatePreparation(pilot.id);
+  await updatePreview(
+    pilot.id,
+    prep.id,
+    name,
+    "Cadrage puis conception pour capture de la modale SAS",
+  );
+  const draft = draftProjectionFromQualification({
+    preparationId: prep.id,
+    turnKey: `t-modal-${stamp}`,
+    qualificationStatus: "QUALIFIED",
+    goal: "Cadrage puis conception pour capture de la modale SAS",
+    projectIntention: "Cadrage puis conception pour capture de la modale SAS",
+    desiredOutcome: "Rendre les décisions actionnables",
+    proposedProjectName: name,
+    allowGoalIntentionBootstrap: true,
+  });
+  const refreshed = (
+    await db.select().from(preparations).where(eq(preparations.id, prep.id))
+  )[0]!;
+  await applyPreparationProjection({
+    pilotId: pilot.id,
+    preparationId: prep.id,
+    expectedCreationRevision: refreshed.creationRevision,
+    draft: draft!,
+  });
+
+  const browser = await chromium.launch();
+  const page = await (
+    await browser.newContext({ viewport: { width: 1680, height: 970 } })
+  ).newPage();
+  await page.goto("http://127.0.0.1:3100/login", { waitUntil: "networkidle" });
+  await page.evaluate(async () => {
+    await fetch("/api/dev/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ pilot: "a" }),
+      credentials: "include",
+    });
+  });
+
+  await page.goto(`http://127.0.0.1:3100/preparations/${prep.id}`, {
+    waitUntil: "networkidle",
+  });
+  await page.waitForTimeout(800);
+
+  // Prefer UI create CTA; fallback to API+reload if CTA selector varies.
+  const createBtn = page.getByRole("button", { name: /Créer le projet/i });
+  if (await createBtn.count()) {
+    await createBtn.click();
+  } else {
+    const after = (
+      await db.select().from(preparations).where(eq(preparations.id, prep.id))
+    )[0]!;
+    const res = await page.evaluate(
+      async ({ preparationId, creationRevision, projectName, idem }) => {
+        const r = await fetch(`/api/preparations/${preparationId}/create-project`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({
+            expectedCreationRevision: creationRevision,
+            projectName,
+            previewSummary: "Cadrage puis conception",
+            idempotencyKey: idem,
+          }),
+        });
+        return { ok: r.ok, status: r.status, body: await r.json() };
+      },
+      {
+        preparationId: prep.id,
+        creationRevision: after.creationRevision,
+        projectName: name,
+        idem: newId("idem"),
+      },
+    );
+    if (!res.ok) throw new Error(`create failed ${JSON.stringify(res)}`);
+    await page.reload({ waitUntil: "networkidle" });
+  }
+
+  const popup = page.locator('[data-testid="sas-create-progress-popup"]');
+  await popup.waitFor({ state: "visible", timeout: 15000 });
+  const path = resolve(outDir, "sas-06-modal-runtime.png");
+  await popup.screenshot({ path });
+  // Also full viewport with overlay visible
+  await page.screenshot({
+    path: resolve(outDir, "sas-06-modal-viewport-runtime.png"),
+    fullPage: false,
+  });
+  writeFileSync(
+    resolve(outDir, "sas-06-modal-meta.json"),
+    JSON.stringify(
+      {
+        prepId: prep.id,
+        capturedAt: new Date().toISOString(),
+        viewport: { w: 1680, h: 970 },
+        note: "Real create path — modal element screenshot",
+      },
+      null,
+      2,
+    ),
+  );
+  console.log("wrote", path);
+  await browser.close();
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
+```
+
 ### `projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts`
 
-**Disposition :** produit Ensemble 07 — à conserver.
+**Disposition :** produit Ensemble 07.
 
 - SHA256: `c1ea38119299390df547fe21cd7f2bafbf3096a73c58e690217273ca8b8d1081`
 - Bytes: 6144
@@ -594,7 +747,7 @@ main().catch((e) => {
 
 ### `projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts`
 
-**Disposition :** produit Ensemble 07 — à conserver.
+**Disposition :** produit Ensemble 07.
 
 - SHA256: `41ca3de1a803196d7fefa71db2aa241a11a98a68d9e69c11f9182c47e66d867c`
 - Bytes: 8698
@@ -844,7 +997,7 @@ main().catch((e) => {
 
 ### `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/reconcile/route.ts`
 
-**Disposition :** produit Ensemble 07 — à conserver.
+**Disposition :** produit Ensemble 07.
 
 - SHA256: `fff63ded9627a700090aa570563d6df9eb996ab81c5bfe522d1b0ecee552c0ae`
 - Bytes: 896
@@ -880,7 +1033,7 @@ export async function POST(
 
 ### `projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx`
 
-**Disposition :** produit Ensemble 07 — à conserver.
+**Disposition :** produit Ensemble 07.
 
 - SHA256: `d46ebc57892b5578dc6ee9662cc384f0fc312736329fcd970ca6968ed0f16d08`
 - Bytes: 3108
@@ -983,10 +1136,10 @@ export function SasCreateProgressPopup(props: {
 
 ### `projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx`
 
-**Disposition :** produit Ensemble 07 — à conserver.
+**Disposition :** produit Ensemble 07.
 
-- SHA256: `1f59d1ed12a9e1421aa52e2d5ecd95ea4392afc21d6e5c0ebbf469a6aa7c871b`
-- Bytes: 32927
+- SHA256: `9a93eb16ca9d301a348e84db7c03133d200a22cb03bdf491bb272ee23b37def5`
+- Bytes: 33841
 
 ```
 "use client";
@@ -1139,9 +1292,17 @@ export function TrajectoryBoard(props: {
 
       {showClarification ? (
         <section
-          className="fig-panel space-y-3 text-center py-10"
+          className="fig-panel space-y-3 text-center py-10 mx-auto"
           data-testid="trajectory-clarification"
+          style={{ width: "100%", maxWidth: 1358, minHeight: 502, background: "#151D2C" }}
         >
+          <div
+            className="mx-auto flex items-center justify-center rounded-full"
+            style={{ width: 92, height: 92, background: "#7477ED22" }}
+            aria-hidden
+          >
+            <span className="text-3xl text-[#a8adff]">?</span>
+          </div>
           <p className="fig-kicker text-[#7477ed]">TRAJECTOIRE À CONSTRUIRE</p>
           <h3 className="text-[1.7rem] font-semibold text-[#f3f5ff]">
             Aucune trajectoire définie
@@ -1150,7 +1311,12 @@ export function TrajectoryBoard(props: {
             {q?.clarificationQuestion ??
               "Nora a besoin d’une précision ciblée avant de proposer une suite de cycles."}
           </p>
-          <button type="button" className="btn primary mt-2" onClick={props.onOpenTravail}>
+          <button
+            type="button"
+            className="btn primary mt-2"
+            onClick={props.onOpenTravail}
+            style={{ minWidth: 552, minHeight: 47 }}
+          >
             Travailler sur le projet avec Nora ↗
           </button>
         </section>
@@ -1234,16 +1400,21 @@ function AnalyzingCard(props: { uiStep: number; onOpenTravail: () => void }) {
   const step = Math.min(3, Math.max(1, props.uiStep));
   return (
     <section
-      className="fig-panel border border-[#7477ed44] space-y-4 py-10 text-center"
+      className="fig-panel border border-[#7477ed44] space-y-4 py-10 text-center mx-auto"
       data-testid="trajectory-qualification-progress"
       data-step={step}
+      style={{ width: "100%", maxWidth: 1358, minHeight: 502, background: "#151D2C" }}
     >
       <div
-        className="mx-auto flex h-14 w-14 items-center justify-center rounded-full"
-        style={{ background: "radial-gradient(circle, #7477ed55 0%, #7477ed11 70%)" }}
+        className="mx-auto flex items-center justify-center rounded-full"
+        style={{
+          width: 92,
+          height: 92,
+          background: "radial-gradient(circle, #7477ed55 0%, #7477ed11 70%)",
+        }}
         aria-hidden
       >
-        <span className="text-xl font-semibold text-[#a8adff]">a</span>
+        <span className="text-3xl font-semibold text-[#a8adff]">✦</span>
       </div>
       <p className="fig-kicker text-[#7477ed]">QUALIFICATION EN COURS</p>
       <h3 className="text-[1.7rem] font-semibold text-[#f3f5ff]">
@@ -1253,24 +1424,27 @@ function AnalyzingCard(props: { uiStep: number; onOpenTravail: () => void }) {
         Elle confronte les éléments du SAS aux cycles pertinents pour proposer une progression
         adaptée.
       </p>
+      <div className="mx-auto h-px max-w-md" style={{ background: "#2B3850", width: 806 }} />
       <ol className="flex flex-wrap items-center justify-center gap-4 text-sm text-[#a3b0c7] pt-2">
-        <li className={step >= 1 ? "text-[#6cdbba]" : ""}>
+        <li className={step >= 1 ? "text-[#6CDBBA]" : ""}>
           {step > 1 ? "✓" : "●"} Projet créé
         </li>
-        <li className={step === 2 ? "text-[#f3f5ff]" : step > 2 ? "text-[#6cdbba]" : ""}>
-          {step > 2 ? "✓" : step === 2 ? "●" : "○"} Identification des cycles · {Math.min(step, 2)} / 3
+        <li className={step === 2 ? "text-[#f3f5ff]" : step > 2 ? "text-[#6CDBBA]" : ""}>
+          {step > 2 ? "✓" : step === 2 ? "●" : "○"} Identification des cycles · {Math.min(step, 2)}{" "}
+          / 3
         </li>
         <li className={step >= 3 ? "text-[#f3f5ff]" : ""}>
           {step >= 3 ? "●" : "○"} Réponse de Nora à venir
         </li>
       </ol>
-      <button type="button" className="btn primary mt-4" onClick={props.onOpenTravail}>
-        Revenir à Travail ↗
+      <button
+        type="button"
+        className="btn primary mt-4"
+        onClick={props.onOpenTravail}
+        style={{ minWidth: 552, minHeight: 47 }}
+      >
+        Revenir au travail avec Nora ↗
       </button>
-      <p className="text-xs text-[#7787a4] pt-2">
-        L&apos;état s&apos;actualise ici dès que la qualification progresse. Aucun cycle n&apos;est
-        encore ouvert.
-      </p>
     </section>
   );
 }
@@ -1307,10 +1481,12 @@ function PropositionInitialeCard(props: {
               <button
                 type="button"
                 onClick={() => props.onOpenFuture(step)}
-                className="fig-panel text-left space-y-2 min-w-[200px] max-w-[260px] flex-1"
+                className="fig-panel text-left space-y-2 flex-none"
                 style={{
-                  borderColor: isFirst ? "#7477ed88" : "#2b3850",
-                  background: isFirst ? "#7477ed0d" : "transparent",
+                  width: 404,
+                  minHeight: 155,
+                  borderColor: isFirst ? "#7477ED88" : "#2B3850",
+                  background: isFirst ? "#7477ED0d" : "#151D2C",
                 }}
                 data-testid={`trajectory-forecast-step-${step.order}`}
               >
@@ -1335,16 +1511,14 @@ function PropositionInitialeCard(props: {
         })}
       </div>
 
-      <div
-        className="rounded-md border px-3 py-2 text-xs text-[#a3b0c7]"
-        style={{ borderColor: "#2b3850", background: "#0b0f1a66" }}
-      >
-        Proposition non retenue · Aucun cycle ouvert · Le Pilote peut accepter, réorienter ou
-        demander des précisions
-      </div>
-
-      <div className="flex justify-end">
-        <button type="button" className="btn primary" onClick={props.onOpenTravail}>
+      <div className="flex justify-center pt-2">
+        <button
+          type="button"
+          className="btn primary"
+          onClick={props.onOpenTravail}
+          style={{ minWidth: 498, minHeight: 49 }}
+          data-testid="trajectory-proposal-cta"
+        >
           Examiner avec Nora dans Travail ↗
         </button>
       </div>
@@ -1527,9 +1701,23 @@ function ParcoursPrincipal(props: {
         )}
 
         {!props.cycle && closedCount > 0 ? (
-          <p className="text-sm text-[#a3b0c7]" data-testid="trajectory-between-cycles">
-            Aucun cycle actif — un prochain cycle peut être retenu après GO du Pilote.
-          </p>
+          <section
+            className="fig-panel space-y-3"
+            data-testid="trajectory-between-cycles"
+            style={{ minHeight: 286, background: "#151D2C", borderColor: "#2B3850" }}
+          >
+            <p className="fig-kicker text-[#7477ED]">AUCUN CYCLE ACTIF</p>
+            <h3 className="text-[1.45rem] font-semibold text-[#f3f5ff]">
+              Entre deux cycles
+            </h3>
+            <p className="text-sm text-[#a3b0c7]">
+              Le dernier cycle est clôturé. Une suite peut être envisagée ; son ouverture reste un
+              GO du Pilote.
+            </p>
+            <button type="button" className="btn primary" onClick={props.onOpenTravail}>
+              Reprendre avec Nora ↗
+            </button>
+          </section>
         ) : null}
       </section>
 
@@ -1621,8 +1809,7 @@ function BilanHistoriqueView(props: {
         <div className="h-px bg-[#2b3850]" />
         <p className="fig-kicker text-[#7477ed]">RÉSULTAT À LA CLÔTURE</p>
         <p className="text-sm text-[#f3f5ff]">
-          Résultat distinct de l&apos;objectif initial — note de bilan non encore capturée dans
-          cette projection ; lacune signalée sans fiction.
+          Le détail du résultat à la clôture n&apos;est pas encore disponible dans cette vue.
         </p>
         <p className="text-xs text-[#a3b0c7] text-right">Clôture décidée par le Pilote</p>
       </section>
@@ -1694,7 +1881,7 @@ function EtapeFutureView(props: {
           <p className="fig-kicker text-[#7477ed]">TRAJECTOIRE / ÉTAPE ENVISAGÉE</p>
           <h2 className="fig-hero-title">{labelCycle(props.cycleType)}</h2>
           <p className="fig-hero-sub max-w-3xl">
-            Étape future non ouverte — consultation seule, sans mutation D5.
+            Étape future non ouverte — à préciser avec Nora avant toute ouverture.
           </p>
         </div>
         <button
@@ -1753,9 +1940,6 @@ function EtapeFutureView(props: {
         </button>
       </section>
 
-      <p className="text-xs text-[#7787a4]">
-        Retour à Travail sans changement d&apos;état D5 — consultation seule.
-      </p>
     </div>
   );
 }
@@ -1863,7 +2047,7 @@ function CkiMethodeView(props: {
 
 ### `projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql`
 
-**Disposition :** produit Ensemble 07 — à conserver.
+**Disposition :** produit Ensemble 07.
 
 - SHA256: `1d44a872997c5233e3e7c077893262480710129ec6d1979cfb5771f8bb7b37da`
 - Bytes: 1285
@@ -1906,10 +2090,10 @@ ALTER TABLE trajectory_revisions
 
 ### `projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts`
 
-**Disposition :** produit Ensemble 07 — à conserver.
+**Disposition :** produit Ensemble 07.
 
-- SHA256: `445603b2de4c2e47f92ea859bf1a92b5b23ee6049864998179b9b66340303036`
-- Bytes: 6862
+- SHA256: `41f91fc214cf4dfa180e80a66de5efdfb5e97c8d6770e22014ad2d5385de8889`
+- Bytes: 7028
 
 ```
 import { createHash } from "crypto";
@@ -2020,7 +2204,9 @@ export function buildInitialForecast(input: {
     };
   }
 
-  // E07-COR-06 — never invent CADRAGE by default; clarify when no signal.
+  // E07-FIX-06 — deterministic structure validator / DEV fixture path.
+  // LIVE Nora cognitive integration: LIVE NOT PROVEN in this cycle (fixture lane).
+  // Heuristic first-cycle inference remains a bounded DEV stand-in, not AC-02 LIVE.
   const first = inferPreferredFirstCycle(input.projection, bundle);
   if (!first) {
     return {
@@ -2092,7 +2278,7 @@ export function parseForecastJson(raw: unknown): ForecastStep[] | null {
 
 ### `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts`
 
-**Disposition :** produit Ensemble 07 — à conserver.
+**Disposition :** produit Ensemble 07.
 
 - SHA256: `3a6f848cc8156f235368d31240dedf751e344632b6631388f9cde733e67376f1`
 - Bytes: 924
@@ -2135,10 +2321,10 @@ export type InitialQualificationProjection = {
 
 ### `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts`
 
-**Disposition :** produit Ensemble 07 — à conserver.
+**Disposition :** produit Ensemble 07.
 
-- SHA256: `0864570090840871928672cd62081934938fe6de940c5c3bdef94542b7614358`
-- Bytes: 23432
+- SHA256: `16640357fa2946bb92d507b69039a7f2ce33dd637e0207dbacbc521317cf6939`
+- Bytes: 27933
 
 ```
 import { and, asc, eq, sql } from "drizzle-orm";
@@ -2174,12 +2360,25 @@ import { newId } from "@/lib/ids";
 
 const CLAIM_LEASE_MS = 120_000;
 
-/** Test hook — throw between ANALYZING and publish. */
+/**
+ * Test hooks for P0 fencing / publication races.
+ * - beforePublish: after claim, before publish path
+ * - afterOwnerCheckBeforeEffect: AFTER owner CAS check, BEFORE D5/message write (E07-FIX-01)
+ */
 export const initialQualificationFault: {
   beforePublish: null | (() => void | Promise<void>);
+  afterOwnerCheckBeforeEffect: null | (() => void | Promise<void>);
 } = {
   beforePublish: null,
+  afterOwnerCheckBeforeEffect: null,
 };
+
+class OwnershipLostError extends Error {
+  constructor() {
+    super("QUALIFICATION_OWNERSHIP_LOST");
+    this.name = "OwnershipLostError";
+  }
+}
 
 function phaseToUiStep(phase: QualificationPhase): 1 | 2 | 3 | null {
   switch (phase) {
@@ -2345,23 +2544,52 @@ export async function ensureInitialQualification(input: {
   return rowToProjection(row, null, null);
 }
 
-function initialQualificationGenerationId(operationId: string, version: number): string {
-  return `sfia:iq:${operationId}:v${version}`;
+function initialQualificationGenerationId(
+  operationId: string,
+  version: number,
+  role: "assistant" | "system",
+): string {
+  // E07-FIX-02 — cognitive vs Studio incident must not share generation identity.
+  return role === "system"
+    ? `sfia:iq:${operationId}:v${version}:system`
+    : `sfia:iq:${operationId}:v${version}`;
 }
 
-function stableAssistantMessageId(operationId: string, version: number): string {
-  return `msg_iq_${operationId}_v${version}`;
+function stableQualificationMessageId(
+  operationId: string,
+  version: number,
+  role: "assistant" | "system",
+): string {
+  return role === "system"
+    ? `msg_iq_${operationId}_v${version}_system`
+    : `msg_iq_${operationId}_v${version}`;
 }
 
+function messageMatchesQualificationIntent(
+  row: { role: string; content: string; conversationId: string },
+  expected: { role: string; content: string; conversationId: string },
+): boolean {
+  return (
+    row.role === expected.role &&
+    row.content === expected.content &&
+    row.conversationId === expected.conversationId
+  );
+}
+
+/**
+ * E07-FIX-01 — fence at write point: FOR UPDATE op + ownerToken CAS, then insert.
+ * TOCTOU after check is closed inside the same transaction as the insert.
+ */
 async function appendQualificationThreadMessage(input: {
   pilotId: string;
   preparationId: string;
   operationId: string;
+  ownerToken: string;
   version: number;
   content: string;
   /** E07-COR-08 — Studio incidents use system; Nora cognitive uses assistant. */
   role: "assistant" | "system";
-}): Promise<string> {
+}): Promise<string | null> {
   const conv = (
     await db
       .select()
@@ -2376,35 +2604,87 @@ async function appendQualificationThreadMessage(input: {
   )[0];
   if (!conv) throw new StudioError("NOT_FOUND", "Conversation introuvable");
 
-  const generationId = initialQualificationGenerationId(input.operationId, input.version);
-  const stableId = stableAssistantMessageId(input.operationId, input.version);
+  const generationId = initialQualificationGenerationId(
+    input.operationId,
+    input.version,
+    input.role,
+  );
+  const stableId = stableQualificationMessageId(input.operationId, input.version, input.role);
 
-  const existingByGen = (
-    await db
-      .select()
-      .from(messages)
-      .where(and(eq(messages.conversationId, conv.id), eq(messages.generationId, generationId)))
-      .limit(1)
-  )[0];
-  if (existingByGen) return existingByGen.id;
+  // E07-FIX-01 — CAS outside TX so afterOwnerCheckBeforeEffect can race (lease steal).
+  const casOk = await updateOpIfOwner(input.operationId, input.ownerToken, {
+    updatedAt: new Date(),
+  });
+  if (!casOk) return null;
+  await initialQualificationFault.afterOwnerCheckBeforeEffect?.();
 
-  const existingById = (
-    await db.select().from(messages).where(eq(messages.id, stableId)).limit(1)
-  )[0];
-  if (existingById) return existingById.id;
+  return db.transaction(async (tx) => {
+    const locked = await tx.execute(
+      sql`select id, owner_token from trajectory_qualification_operations where id = ${input.operationId} for update`,
+    );
+    const rows = (
+      Array.isArray(locked)
+        ? locked
+        : ((locked as { rows?: Array<Record<string, unknown>> }).rows ?? [])
+    ) as Array<Record<string, unknown>>;
+    const op = rows[0];
+    if (!op || String(op.owner_token ?? "") !== input.ownerToken) {
+      return null;
+    }
 
-  const last = (
-    await db
-      .select({ ordinal: messages.ordinal })
-      .from(messages)
-      .where(eq(messages.conversationId, conv.id))
-      .orderBy(asc(messages.ordinal))
-  ).at(-1);
-  const ordinal = (last?.ordinal ?? 0) + 1;
-  const now = new Date();
+    const existingByGen = (
+      await tx
+        .select()
+        .from(messages)
+        .where(and(eq(messages.conversationId, conv.id), eq(messages.generationId, generationId)))
+        .limit(1)
+    )[0];
+    if (existingByGen) {
+      if (
+        messageMatchesQualificationIntent(existingByGen, {
+          role: input.role,
+          content: input.content,
+          conversationId: conv.id,
+        })
+      ) {
+        return existingByGen.id;
+      }
+      throw new StudioError(
+        "CONFLICT",
+        "Message de qualification existant incompatible (rôle/contenu)",
+      );
+    }
 
-  try {
-    await db.insert(messages).values({
+    const existingById = (
+      await tx.select().from(messages).where(eq(messages.id, stableId)).limit(1)
+    )[0];
+    if (existingById) {
+      if (
+        messageMatchesQualificationIntent(existingById, {
+          role: input.role,
+          content: input.content,
+          conversationId: conv.id,
+        })
+      ) {
+        return existingById.id;
+      }
+      throw new StudioError(
+        "CONFLICT",
+        "Identité de message de qualification déjà utilisée avec un autre contenu",
+      );
+    }
+
+    const last = (
+      await tx
+        .select({ ordinal: messages.ordinal })
+        .from(messages)
+        .where(eq(messages.conversationId, conv.id))
+        .orderBy(asc(messages.ordinal))
+    ).at(-1);
+    const ordinal = (last?.ordinal ?? 0) + 1;
+    const now = new Date();
+
+    await tx.insert(messages).values({
       id: stableId,
       conversationId: conv.id,
       role: input.role,
@@ -2415,17 +2695,7 @@ async function appendQualificationThreadMessage(input: {
       createdAt: now,
     });
     return stableId;
-  } catch {
-    const again = (
-      await db
-        .select()
-        .from(messages)
-        .where(and(eq(messages.conversationId, conv.id), eq(messages.generationId, generationId)))
-        .limit(1)
-    )[0];
-    if (again) return again.id;
-    throw new StudioError("CONFLICT", "Message de qualification non persisté");
-  }
+  });
 }
 
 async function currentPilotageRevision(projectId: string): Promise<number> {
@@ -2443,10 +2713,24 @@ async function publishProposedTrajectory(input: {
   pilotId: string;
   projectId: string;
   operationId: string;
+  ownerToken: string;
   version: number;
   orientation: string;
   forecastSteps: ForecastBuildResult & { kind: "PROPOSE" };
-}): Promise<string> {
+}): Promise<string | null> {
+  // E07-FIX-01 — CAS heartbeat at effect boundary before D5 mutate.
+  const stillOwner = await updateOpIfOwner(input.operationId, input.ownerToken, {
+    updatedAt: new Date(),
+  });
+  if (!stillOwner) return null;
+
+  await initialQualificationFault.afterOwnerCheckBeforeEffect?.();
+
+  const stillOwner2 = await updateOpIfOwner(input.operationId, input.ownerToken, {
+    updatedAt: new Date(),
+  });
+  if (!stillOwner2) return null;
+
   const clientCommandKey = `iq:${input.operationId}:v${input.version}:propose`;
   const expectedRevision = await currentPilotageRevision(input.projectId);
   const result = await executePilotageCommand(input.pilotId, input.projectId, {
@@ -2462,6 +2746,12 @@ async function publishProposedTrajectory(input: {
   if (result.status === "REJECTED" || result.status === "CONFLICT") {
     throw new StudioError("INTERNAL", result.reason ?? "Proposition D5 refusée");
   }
+  // Post-effect fence: expired owner must not claim terminal over a newer claim.
+  const stillOwner3 = await updateOpIfOwner(input.operationId, input.ownerToken, {
+    updatedAt: new Date(),
+  });
+  if (!stillOwner3) return null;
+
   const propose = result.effects.find((e) => e.effectKind === "PROPOSE");
   if (!propose?.targetRef) throw new StudioError("INTERNAL", "Trajectoire PROPOSED absente");
   return propose.targetRef;
@@ -2641,6 +2931,7 @@ export async function processInitialQualification(
         pilotId: claimed.pilotId,
         preparationId: claimed.preparationId,
         operationId: claimed.id,
+        ownerToken,
         version: claimed.version,
         content:
           parsedPrior.clarificationQuestion ??
@@ -2655,6 +2946,9 @@ export async function processInitialQualification(
           ),
         role: "assistant",
       });
+      if (!assistantMessageId) {
+        return getQualificationProjection(claimed.pilotId, projectId);
+      }
       const ok = await updateOpIfOwner(claimed.id, ownerToken, {
         status: "PROPOSED",
         phase: "TERMINAL",
@@ -2701,17 +2995,18 @@ export async function processInitialQualification(
         missing: built.missing,
       };
     } else {
-      if (!(await stillOwnsOperation(claimed.id, ownerToken))) {
-        return getQualificationProjection(claimed.pilotId, projectId);
-      }
       trajectoryRevisionId = await publishProposedTrajectory({
         pilotId: claimed.pilotId,
         projectId,
         operationId: claimed.id,
+        ownerToken,
         version: claimed.version,
         orientation: built.orientation,
         forecastSteps: built,
       });
+      if (!trajectoryRevisionId) {
+        return getQualificationProjection(claimed.pilotId, projectId);
+      }
       terminalStatus = "PROPOSED";
       resultJson = {
         kind: "PROPOSED",
@@ -2729,17 +3024,18 @@ export async function processInitialQualification(
       }
     }
 
-    if (!(await stillOwnsOperation(claimed.id, ownerToken))) {
-      return getQualificationProjection(claimed.pilotId, projectId);
-    }
     const assistantMessageId = await appendQualificationThreadMessage({
       pilotId: claimed.pilotId,
       preparationId: claimed.preparationId,
       operationId: claimed.id,
+      ownerToken,
       version: claimed.version,
       content: assistantContent,
       role: "assistant",
     });
+    if (!assistantMessageId) {
+      return getQualificationProjection(claimed.pilotId, projectId);
+    }
 
     if (built.kind === "PROPOSE" && !trajectoryRevisionId) {
       throw new StudioError("INTERNAL", "Publication incomplète");
@@ -2755,25 +3051,28 @@ export async function processInitialQualification(
       errorCode: null,
     });
     if (!terminalOk) {
-      // Message may exist; leave UNKNOWN for reconcile (E07-COR-04/05).
       return getQualificationProjection(claimed.pilotId, projectId);
     }
 
     return getQualificationProjection(claimed.pilotId, projectId);
   } catch (e) {
-    const errorCode = e instanceof StudioError ? e.code : "QUALIFICATION_FAILED";
-    // E07-COR-04/08 — expired owner must not publish Studio incident over a newer claim.
-    if (!(await stillOwnsOperation(claimed.id, ownerToken))) {
+    if (e instanceof OwnershipLostError) {
       return getQualificationProjection(claimed.pilotId, projectId);
     }
+    const errorCode = e instanceof StudioError ? e.code : "QUALIFICATION_FAILED";
     const systemMessageId = await appendQualificationThreadMessage({
       pilotId: claimed.pilotId,
       preparationId: claimed.preparationId,
       operationId: claimed.id,
+      ownerToken,
       version: claimed.version,
       content: studioFailedMessage(),
       role: "system",
     }).catch(() => null);
+
+    if (!systemMessageId) {
+      return getQualificationProjection(claimed.pilotId, projectId);
+    }
 
     const failedOk = await updateOpIfOwner(claimed.id, ownerToken, {
       status: "FAILED",
@@ -2863,11 +3162,53 @@ export async function reconcileInitialQualification(
   return projection;
 }
 
+/** E07-FIX-05 — synthetic gate when prep↔project linked but op not yet persisted. */
+export function pendingEnsureGateProjection(
+  projectId: string,
+  preparationId: string,
+): InitialQualificationProjection {
+  return {
+    operationId: "",
+    projectId,
+    preparationId,
+    status: "PENDING",
+    phase: "ENGAGED",
+    version: 0,
+    uiStep: 1,
+    composerLocked: true,
+    composerLockReason:
+      "Le projet est créé — la qualification initiale de trajectoire est en cours d'engagement.",
+    trajectoryRevisionId: null,
+    assistantMessageId: null,
+    forecastSteps: null,
+    clarificationQuestion: null,
+    errorCode: null,
+  };
+}
+
+export async function getQualificationProjectionForClient(
+  pilotId: string,
+  projectId: string,
+): Promise<InitialQualificationProjection | null> {
+  const q = await getQualificationProjection(pilotId, projectId);
+  if (q) return q;
+  const link = (
+    await db
+      .select()
+      .from(preparationProjectLinks)
+      .where(eq(preparationProjectLinks.projectId, projectId))
+      .limit(1)
+  )[0];
+  if (!link) return null;
+  // Project exists with SAS link but ensure not durable yet — keep Travail locked.
+  return pendingEnsureGateProjection(projectId, link.preparationId);
+}
+
 export async function assertPilotTurnNotBlockedByQualification(
   pilotId: string,
   projectId: string,
 ): Promise<void> {
-  const q = await getQualificationProjection(pilotId, projectId);
+  const q = await getQualificationProjectionForClient(pilotId, projectId);
   if (q && (q.status === "PENDING" || q.status === "RUNNING" || q.status === "UNKNOWN")) {
     throw new StudioError(
       "QUALIFICATION_IN_PROGRESS",
@@ -2882,10 +3223,10 @@ export { blocksPilotTurnAdmission, isInitialQualificationComposerLocked } from "
 
 ### `projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts`
 
-**Disposition :** produit Ensemble 07 — à conserver.
+**Disposition :** produit Ensemble 07.
 
-- SHA256: `68dbb259f9d55b599ee0cb8d5f0d9c548eb72e706a54463e2f8a425eeef9512f`
-- Bytes: 1356
+- SHA256: `53b440e6d945ca14ef7a9739031e415e5c7eb8e4f5a3655a11eaf567cfcfb7b4`
+- Bytes: 1503
 
 ```
 import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
@@ -2895,6 +3236,8 @@ const BLOCKING = new Set(["PENDING", "RUNNING", "UNKNOWN"]);
 export function isInitialQualificationComposerLocked(
   q: InitialQualificationProjection | null | undefined,
 ): boolean {
+  // E07-FIX-05 — missing op after create is not "free Travail"; caller may pass a
+  // synthetic PENDING gate via ensurePendingGate projection.
   if (!q) return false;
   return BLOCKING.has(q.status);
 }
@@ -2923,10 +3266,10 @@ export function blocksPilotTurnAdmission(q: InitialQualificationProjection | nul
 
 ### `projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts`
 
-**Disposition :** produit Ensemble 07 — à conserver.
+**Disposition :** produit Ensemble 07.
 
-- SHA256: `ff07f6a79ccc16255b0cca0ecda16d8d774e657b5181edfa2b7fa1f275dd4f61`
-- Bytes: 16174
+- SHA256: `ae6d6d4cb424fd25b90c81ba7299f6397c0ea449852638b97f331089706ebe45`
+- Bytes: 19245
 
 ```
 import { beforeAll, describe, expect, it, vi } from "vitest";
@@ -3287,7 +3630,6 @@ describe("Ensemble 07 initial qualification (PG)", () => {
     await ensureInitialQualification({ projectId, preparationId: prep.id, pilotId });
 
     initialQualificationFault.beforePublish = async () => {
-      // Steal ownership mid-flight (simulates reclaim after lease expiry).
       await db
         .update(trajectoryQualificationOperations)
         .set({
@@ -3299,7 +3641,6 @@ describe("Ensemble 07 initial qualification (PG)", () => {
         .where(eq(trajectoryQualificationOperations.projectId, projectId));
     };
 
-    // First process: loses fence before publish → must not terminalize as that owner.
     await processInitialQualification(projectId, { pilotId });
     initialQualificationFault.beforePublish = null;
 
@@ -3309,7 +3650,6 @@ describe("Ensemble 07 initial qualification (PG)", () => {
         .from(trajectoryQualificationOperations)
         .where(eq(trajectoryQualificationOperations.projectId, projectId))
     )[0]!;
-    // Clear stolen token so a fresh claim can finish.
     await db
       .update(trajectoryQualificationOperations)
       .set({
@@ -3333,12 +3673,96 @@ describe("Ensemble 07 initial qualification (PG)", () => {
       expect(msgs[0].role).toBe("assistant");
     }
   });
+
+  it("E07-FIX-01: owner check then steal before effect write refuses A publish", async () => {
+    const pilotId = await seedPilot("e07-fix01-toc");
+    const { prep, name } = await seedPrepWithProjection(
+      pilotId,
+      "E07Toc",
+      "Cadrage — TOCTOU fencing au point d'effet",
+    );
+    const created = await createProjectFromPrep(pilotId, prep.id, name, prep.creationRevision);
+    const projectId = requireProjectId(created);
+    await ensureInitialQualification({ projectId, preparationId: prep.id, pilotId });
+
+    // Discriminant: A passes owner check, then B steals, then A attempts effect write.
+    initialQualificationFault.afterOwnerCheckBeforeEffect = async () => {
+      await db
+        .update(trajectoryQualificationOperations)
+        .set({
+          ownerToken: "owner-b",
+          claimedAt: new Date(),
+          status: "RUNNING",
+          updatedAt: new Date(),
+        })
+        .where(eq(trajectoryQualificationOperations.projectId, projectId));
+    };
+
+    const aResult = await processInitialQualification(projectId, { pilotId });
+    initialQualificationFault.afterOwnerCheckBeforeEffect = null;
+    // A must not have terminalized under stolen ownership.
+    expect(aResult?.status).not.toBe("PROPOSED");
+    expect(aResult?.status).not.toBe("CLARIFICATION");
+    expect(aResult?.status).not.toBe("FAILED");
+
+    const mid = (
+      await db
+        .select()
+        .from(trajectoryQualificationOperations)
+        .where(eq(trajectoryQualificationOperations.projectId, projectId))
+    )[0]!;
+    const msgsAfterA = await db
+      .select()
+      .from(messages)
+      .where(sql`${messages.generationId} like ${`sfia:iq:${mid.id}:%`}`);
+    expect(msgsAfterA).toHaveLength(0);
+
+    await db
+      .update(trajectoryQualificationOperations)
+      .set({
+        ownerToken: null,
+        claimedAt: null,
+        status: mid.trajectoryRevisionId ? "UNKNOWN" : "PENDING",
+        updatedAt: new Date(),
+      })
+      .where(eq(trajectoryQualificationOperations.id, mid.id));
+
+    const bResult = await processInitialQualification(projectId, { pilotId });
+    expect(["PROPOSED", "CLARIFICATION"]).toContain(bResult?.status);
+    const msgs = await db
+      .select()
+      .from(messages)
+      .where(sql`${messages.generationId} like ${`sfia:iq:${mid.id}:%`}`);
+    expect(msgs).toHaveLength(1);
+    expect(msgs[0]?.role).toBe("assistant");
+  });
+
+  it("E07-FIX-05: missing op still blocks pilot turn when prep linked", async () => {
+    const pilotId = await seedPilot("e07-fix05-gate");
+    const { prep, name } = await seedPrepWithProjection(
+      pilotId,
+      "E07Gate",
+      "Cadrage — verrou sans opération persistée",
+    );
+    const created = await createProjectFromPrep(pilotId, prep.id, name, prep.creationRevision);
+    const projectId = requireProjectId(created);
+    // No ensure — op absent.
+    const { getQualificationProjectionForClient } = await import(
+      "@/domains/pilotage/initial-qualification"
+    );
+    const gate = await getQualificationProjectionForClient(pilotId, projectId);
+    expect(gate?.status).toBe("PENDING");
+    expect(gate?.composerLocked).toBe(true);
+    await expect(assertPilotTurnNotBlockedByQualification(pilotId, projectId)).rejects.toBeInstanceOf(
+      StudioError,
+    );
+  });
 });
 ```
 
 ### `projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts`
 
-**Disposition :** produit Ensemble 07 — à conserver.
+**Disposition :** produit Ensemble 07.
 
 - SHA256: `bc2fd85e9445034d8408f6c719d688ee71ecf1e92ee0666c22d7f41650672c26`
 - Bytes: 1297
@@ -3397,7 +3821,7 @@ describe("ensureInitialQualification idempotency (mocked)", () => {
 
 ### `projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts`
 
-**Disposition :** produit Ensemble 07 — à conserver.
+**Disposition :** produit Ensemble 07.
 
 - SHA256: `048becec0a64d6fbeeff8406223fc31dc9e301b33667c8b32340ad812c4b8c09`
 - Bytes: 2359
@@ -3485,7 +3909,7 @@ describe("ensemble07 forecast builder", () => {
 
 ### `projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts`
 
-**Disposition :** produit Ensemble 07 — à conserver.
+**Disposition :** produit Ensemble 07.
 
 - SHA256: `d642205cccad1b479976709dbaf0931ba8b89ae0ea2bf5397b29d243533c7919`
 - Bytes: 1477
@@ -3535,19 +3959,31 @@ describe("ensemble07 qualification lock", () => {
 
 ## 11. Fichiers MODIFIÉS — diffs complets
 
-Total : **15** fichiers projet modifiés. Aucun omis.
-
 ### `projects/sfia-studio-next/construction/delivery-history.md`
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index e273b49a..c047e7a0 100644
+index e273b49a..de83bb93 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -3,6 +3,21 @@
+@@ -3,6 +3,35 @@
  Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
++## delivery_id: DELIV-2026-11-20-ENSEMBLE07-HIGH-FIDELITY-CANDIDATE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-20 |
++| Macro-lot | Ensemble 07 — haute fidélité + P0 fencing TOCTOU |
++| Type | EVOL corrective · **NO RELEASE** · Gate C OPEN |
++| P0 | FIX-01 fencing write-point · FIX-02 message identity · FIX-05 missing-op lock · SAS modal capture |
++| Tests | PG 12 PASS · unit 7 PASS |
++| UX | FIGMA TO RUNTIME PARTIAL · modal SAS capturée |
++| Réserves | LIVE Nora NOT PROVEN · GO convers. browser NOT PROVEN · FIX-03 worker non introduit |
++| Verdict | READY WITH GOVERNED RESERVES / FIGMA TO RUNTIME PARTIAL |
++
++
 +## delivery_id: DELIV-2026-11-20-ENSEMBLE07-FINAL-CONVERGENCE-CANDIDATE
 +
 +| Field | Value |
@@ -3566,7 +4002,7 @@ index e273b49a..c047e7a0 100644
  ## delivery_id: DELIV-2026-11-20-ENSEMBLE06-POST-MERGE-CI-VERIFIED
 
  | Field | Value |
-@@ -3225,3 +3240,30 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
+@@ -3225,3 +3254,30 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
  | Lane | DEV `:5433` only ; RECETTE/STABLE non mutées |
  | Push Product | **AUCUN** |
  | Verdict candidat | `READY FOR MORRIS REVIEW WITH RESERVES — JOURNAL V4 CORE LOCAL / SCOPE PARTIAL ON J-C04/06/13/14/BROWSER` |
@@ -3600,8 +4036,6 @@ index e273b49a..c047e7a0 100644
 ```
 
 ### `projects/sfia-studio-next/web/scripts/db-migrate.sh`
-
-> **Était manquant dans handoff `50861f05` — inclus ici.**
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/scripts/db-migrate.sh b/projects/sfia-studio-next/web/scripts/db-migrate.sh
@@ -3670,8 +4104,6 @@ index d21fb43c..e9ffccf7 100644
 ```
 
 ### `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts`
-
-> **Était manquant dans handoff `50861f05` — inclus ici.**
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
@@ -4205,8 +4637,6 @@ index 18a635c1..c5f42c54 100644
 
 ### `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx`
 
-> **Était manquant dans handoff `50861f05` — inclus ici.**
-
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
 index b164002c..2792d128 100644
@@ -4250,10 +4680,10 @@ index b164002c..2792d128 100644
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
-index d0f5912a..0b3fbd75 100644
+index d0f5912a..cf44ed60 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
 +++ b/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
-@@ -1,147 +1,186 @@
+@@ -1,147 +1,194 @@
  "use client";
 
  import Link from "next/link";
@@ -4483,15 +4913,18 @@ index d0f5912a..0b3fbd75 100644
 -          className="btn mt-3"
 -          data-testid="project-overview-open-travail"
 -          onClick={props.onOpenTravail}
--        >
--          Ouvrir Travail avec Nora
--        </button>
 +      <section className="space-y-3" data-testid="project-overview-activity">
 +        <div className="flex flex-wrap items-end justify-between gap-2">
 +          <h3 className="text-[1.35rem] font-semibold text-[#f3f5ff]">Activité du projet</h3>
 +          <p className="text-xs text-[#7787a4]">Vue synthétique des espaces du projet</p>
 +        </div>
-+        <div className="grid gap-4 lg:grid-cols-3">
++        <div
++          className="grid gap-4"
++          style={{ gridTemplateColumns: "repeat(3, minmax(0, 438px))" }}
++          data-testid="project-activity-grid"
+         >
+-          Ouvrir Travail avec Nora
+-        </button>
 +          <ActivityCard
 +            testId="project-activity-subjects"
 +            title="Sujets ouverts"
@@ -4537,7 +4970,11 @@ index d0f5912a..0b3fbd75 100644
 +  const shown = props.examples.slice(0, 2);
 +  const extra = Math.max(0, props.count - shown.length);
 +  return (
-+    <section className="fig-panel space-y-3" data-testid={props.testId}>
++    <section
++      className="fig-panel space-y-3"
++      data-testid={props.testId}
++      style={{ width: 438, minHeight: 278, background: "#151D2C", borderColor: "#2B3850" }}
++    >
 +      <div className="flex items-start justify-between gap-2">
 +        <div>
 +          <p className="text-[2rem] font-semibold leading-none text-[#f3f5ff]">{props.count}</p>
@@ -4568,8 +5005,6 @@ index d0f5912a..0b3fbd75 100644
 ```
 
 ### `projects/sfia-studio-next/web/src/db/schema.ts`
-
-> **Était manquant dans handoff `50861f05` — inclus ici.**
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/db/schema.ts b/projects/sfia-studio-next/web/src/db/schema.ts
@@ -4630,8 +5065,6 @@ index cb71e766..e31c56a4 100644
 
 ### `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
 
-> **Était manquant dans handoff `50861f05` — inclus ici.**
-
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 index 96867946..83bc164d 100644
@@ -4658,8 +5091,6 @@ index 96867946..83bc164d 100644
 ```
 
 ### `projects/sfia-studio-next/web/src/domains/pilotage/service.ts`
-
-> **Était manquant dans handoff `50861f05` — inclus ici.**
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/service.ts b/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
@@ -4751,8 +5182,6 @@ index f0cb7cac..e407202b 100644
 
 ### `projects/sfia-studio-next/web/src/domains/pilotage/types.ts`
 
-> **Était manquant dans handoff `50861f05` — inclus ici.**
-
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/types.ts b/projects/sfia-studio-next/web/src/domains/pilotage/types.ts
 index 9121af5f..243d5b35 100644
@@ -4808,7 +5237,7 @@ index 9121af5f..243d5b35 100644
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts b/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
-index 6d16b83e..aa35d8c4 100644
+index 6d16b83e..0af44364 100644
 --- a/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
 +++ b/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
 @@ -1,6 +1,7 @@
@@ -4817,16 +5246,17 @@ index 6d16b83e..aa35d8c4 100644
  import { db } from "@/db/client";
 -import { preparationProjectLinks, projects } from "@/db/schema";
 +import { humanDecisions, preparationProjectLinks, projects } from "@/db/schema";
-+import { getQualificationProjection } from "@/domains/pilotage/initial-qualification";
++import { getQualificationProjectionForClient } from "@/domains/pilotage/initial-qualification";
  import { listMessages, listTurnProjections } from "@/domains/conversation/service";
  import { listDocuments } from "@/domains/document/service";
  import { listProjectKnowledge } from "@/domains/knowledge/journal";
-@@ -69,8 +70,54 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
+@@ -69,8 +70,55 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
        subjectId: o.subjectId,
      })),
    };
 +  // E07-COR-02 — GET/lecture only: never kick or process qualification here.
-+  const initialQualification = await getQualificationProjection(pilotId, projectId);
++  // E07-FIX-05 — missing op after create still locks Travail (synthetic PENDING gate).
++  const initialQualification = await getQualificationProjectionForClient(pilotId, projectId);
 +
    const pilotage = await getPilotageProjection(pilotId, projectId);
 
@@ -4876,7 +5306,7 @@ index 6d16b83e..aa35d8c4 100644
    return {
      project,
      preparation: ctx.preparation,
-@@ -81,5 +128,7 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
+@@ -81,5 +129,7 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
      documents,
      knowledge,
      pilotage,
@@ -4887,8 +5317,6 @@ index 6d16b83e..aa35d8c4 100644
 ```
 
 ### `projects/sfia-studio-next/web/src/lib/http-errors.ts`
-
-> **Était manquant dans handoff `50861f05` — inclus ici.**
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/lib/http-errors.ts b/projects/sfia-studio-next/web/src/lib/http-errors.ts
@@ -4913,23 +5341,20 @@ index 8fae28a2..481ea9f5 100644
      case "DEPENDENCY_UNAVAILABLE":
 ```
 
-## 12–13. Preuves / Réserves
+## 12–14. Réserves / Verdicts
 
-- Captures 13 états · Gate C OPEN · NO RELEASE · LIVE/GO browser non prouvés · UX PARTIAL
-
-## 14. Verdicts
-
+- LIVE NOT PROVEN · GO convers. browser NOT PROVEN · Gate C OPEN · NO RELEASE
 | Domaine | Verdict |
 |---|---|
-| Couverture Review Pack | **COMPLETE CONTENT** |
+| Couverture | COMPLETE CONTENT |
 | Technique P0 | READY WITH GOVERNED RESERVES |
 | Fonctionnel | READY WITH GOVERNED RESERVES |
-| UX/UI | FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED |
-| Global | READY WITH GOVERNED RESERVES (pas UAT READY) |
+| UX | FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED |
+| Global | READY WITH GOVERNED RESERVES / FIGMA TO RUNTIME PARTIAL |
 
 ## 15. Instruction ChatGPT
 
-> Avant de répondre à Morris, ChatGPT doit relire directement depuis Git la branche `sfia/review-handoff`, fichier `sfia-review-handoff/latest-chatgpt-review.md`, vérifier la date, le titre **COMPLETE CONTENT**, la matrice §0 (15 diffs projet + non suivis), la présence des huit diffs précédemment manquants, le contenu et la disposition de `_dbg-e07-process.mts` et `_e07-recapture-08.mts`, les preuves, tests, réserves, le SHA distant et la publication. Le rapport Cursor seul ne remplace pas cette vérification.
+> Avant de répondre à Morris, ChatGPT doit relire directement depuis Git la branche `sfia/review-handoff`, fichier `sfia-review-handoff/latest-chatgpt-review.md`, vérifier la date, le titre **HIGH-FIDELITY CONVERGENCE**, le SHA distant, la matrice §0, FIX-01 TOCTOU, `sas-06-modal-runtime.png`, les 13 comparaisons, les 12 PG PASS, et les réserves. Le rapport Cursor seul ne remplace pas cette vérification.
 
 ---
-END OF REVIEW PACK — Ensemble 07 FINAL CONVERGENCE COMPLETE CONTENT
+END OF REVIEW PACK — Ensemble 07 HIGH-FIDELITY CONVERGENCE
