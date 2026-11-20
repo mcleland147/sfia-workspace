@@ -1,9 +1,75 @@
-# SFIA Review Pack FULL — Ensemble 07 FINAL CONVERGENCE
+# SFIA Review Pack FULL — Ensemble 07 FINAL CONVERGENCE (COMPLETE CONTENT)
 
-**Date/heure UTC :** 2026-11-20T18:34:37Z
-**Cycle :** Delivery projet · EVOL corrective · Ensemble 07 · 3e passe
+**Date/heure UTC :** 2026-11-20T18:52:24Z
+**Cycle :** Delivery projet · EVOL corrective · Ensemble 07 · 3e passe — republication couverture
 **Classe :** NO RELEASE · Gate C OPEN
 **Review Handoff :** required / publish-in-cycle
+**Motif :** REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING sur tip `50861f05`
+**Objectif :** pack autonome pour ChatGPT — tous diffs projet + tous créés + disposition scripts DEV
+
+## 0. Couverture documentaire (gate contenu)
+
+| Catégorie | Compte | Couverture |
+|---|---:|---|
+| Fichiers projet MODIFIÉS (`git status`) | 15 | diff intégral chacun — §11 |
+| Fichiers projet NON SUIVIS (fichiers) | 17 | contenu intégral chacun — §10 |
+
+### §0.1 Matrice — 8 diffs précédemment manquants
+
+| Fichier | Présent dans §11 |
+|---|---|
+| `projects/sfia-studio-next/web/scripts/db-migrate.sh` | OUI |
+| `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts` | OUI |
+| `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx` | OUI |
+| `projects/sfia-studio-next/web/src/db/schema.ts` | OUI |
+| `projects/sfia-studio-next/web/src/domains/conversation/service.ts` | OUI |
+| `projects/sfia-studio-next/web/src/domains/pilotage/service.ts` | OUI |
+| `projects/sfia-studio-next/web/src/domains/pilotage/types.ts` | OUI |
+| `projects/sfia-studio-next/web/src/lib/http-errors.ts` | OUI |
+
+### §0.2 Matrice complète MODIFIÉS projet
+
+| # | Fichier | Diff §11 |
+|---:|---|---|
+| 1 | `projects/sfia-studio-next/construction/delivery-history.md` | OUI |
+| 2 | `projects/sfia-studio-next/web/scripts/db-migrate.sh` | OUI ← était manquant |
+| 3 | `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts` | OUI |
+| 4 | `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts` | OUI ← était manquant |
+| 5 | `projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx` | OUI |
+| 6 | `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx` | OUI |
+| 7 | `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx` | OUI |
+| 8 | `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx` | OUI ← était manquant |
+| 9 | `projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx` | OUI |
+| 10 | `projects/sfia-studio-next/web/src/db/schema.ts` | OUI ← était manquant |
+| 11 | `projects/sfia-studio-next/web/src/domains/conversation/service.ts` | OUI ← était manquant |
+| 12 | `projects/sfia-studio-next/web/src/domains/pilotage/service.ts` | OUI ← était manquant |
+| 13 | `projects/sfia-studio-next/web/src/domains/pilotage/types.ts` | OUI ← était manquant |
+| 14 | `projects/sfia-studio-next/web/src/domains/preparation/project-context.ts` | OUI |
+| 15 | `projects/sfia-studio-next/web/src/lib/http-errors.ts` | OUI ← était manquant |
+
+### §0.3 Matrice NON SUIVIS + disposition
+
+| Fichier | Contenu §10 | Disposition |
+|---|---|---|
+| `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md` | OUI | Produit Ensemble 07 — à conserver |
+| `projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts` | OUI | DEV helper temporaire — NON produit livraison ; inclus transparence ; hors revue fonctionnelle |
+| `projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts` | OUI | DEV helper temporaire — NON produit livraison ; inclus transparence ; hors revue fonctionnelle |
+| `projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts` | OUI | Produit Ensemble 07 — à conserver |
+| `projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts` | OUI | Produit Ensemble 07 — à conserver |
+| `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/reconcile/route.ts` | OUI | Produit Ensemble 07 — à conserver |
+| `projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx` | OUI | Produit Ensemble 07 — à conserver |
+| `projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx` | OUI | Produit Ensemble 07 — à conserver |
+| `projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql` | OUI | Produit Ensemble 07 — à conserver |
+| `projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts` | OUI | Produit Ensemble 07 — à conserver |
+| `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts` | OUI | Produit Ensemble 07 — à conserver |
+| `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts` | OUI | Produit Ensemble 07 — à conserver |
+| `projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts` | OUI | Produit Ensemble 07 — à conserver |
+| `projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts` | OUI | Produit Ensemble 07 — à conserver |
+| `projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts` | OUI | Produit Ensemble 07 — à conserver |
+| `projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts` | OUI | Produit Ensemble 07 — à conserver |
+| `projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts` | OUI | Produit Ensemble 07 — à conserver |
+
+**Verdict couverture :** `COMPLETE CONTENT` — aucun chemin projet du `git status` sans diff/contenu.
 
 ## 1. Git truth
 
@@ -13,8 +79,8 @@
 | Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` |
 | HEAD | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
 | origin/main | `6e93a33d64dfeea2eab88fb7896d733b34053f97` |
-| merge-base HEAD origin/main | `6e93a33d64dfeea2eab88fb7896d733b34053f97` |
-| Worktree status | NON COMMITTÉ (attendu) |
+| merge-base | `6e93a33d64dfeea2eab88fb7896d733b34053f97` |
+| Statut | NON COMMITTÉ · pas de push projet |
 
 ### git log -5
 ```
@@ -62,96 +128,94 @@ de8613b6 docs(next): record Morris approval of Ensemble 07 architecture dossier 
 ?? projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts
 ```
 
+### git diff --name-status HEAD
+```
+M	.tmp-sfia-review/chatgpt-review.md
+M	projects/sfia-studio-next/construction/delivery-history.md
+M	projects/sfia-studio-next/web/scripts/db-migrate.sh
+M	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
+M	projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
+M	projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+M	projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+M	projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+M	projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
+M	projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
+M	projects/sfia-studio-next/web/src/db/schema.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/service.ts
+M	projects/sfia-studio-next/web/src/domains/pilotage/service.ts
+M	projects/sfia-studio-next/web/src/domains/pilotage/types.ts
+M	projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
+M	projects/sfia-studio-next/web/src/lib/http-errors.ts
+```
+
+### git ls-files --others --exclude-standard
+```
+projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md
+projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts
+projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts
+projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts
+projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts
+projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/reconcile/route.ts
+projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx
+projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx
+projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql
+projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts
+projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts
+projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts
+projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts
+projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts
+projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts
+projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts
+projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts
+```
+
 ## 2. ENV-01 / Versioning
 
-- **ENV-01 :** DEV only — PG docker `sfia-next-dev-pg`, app `127.0.0.1:3100`, lane `STUDIO_LANE=DEV`.
-- Migration 015 additive applied in DEV.
-- RECETTE/STABLE non touchées.
-- **Versioning :** NO RELEASE · STABLE NOT AVAILABLE · aucun tag.
-- Cookies : host dédié 127.0.0.1:3100 (même host ≠ isolation cookies vs autres ports — noté).
+- DEV only · PG docker · app `:3100` · migration 015 additive
+- NO RELEASE · Gate C OPEN · RECETTE/STABLE intactes
 
-## 3. Sources lues (contrat)
+## 3. Sources
 
-- Contrats Ensemble 07 (dossier architecture, contrat UX, contrat Cursor, as-built).
-- Figma `itgvCulInEnFY6DvgIegvP` — session MCP `01fd2eca-4728-43bf-808a-23e3f9731a96` — 13 frames metadata/screenshots.
-- Review handoff tip avant cycle : `2fc9d4db` / blob `891efd95…`.
-- Base HEAD historique : `e36fd8b0531c4f649830990a18f9cfdaecb3c03f`.
+- Contrats Ensemble 07 · Figma `itgvCulInEnFY6DvgIegvP`
+- Base `e36fd8b` · handoff incomplet `50861f05` · tip correctif antérieur `2fc9d4db`
 
 ## 4. Matrice COR-01..17
 
-| ID | Attendu | Observé | Écart | Correction | Preuve |
-|---|---|---|---|---|---|
-| COR-01 | Reprise si op absente après create | reconcile crée op + process ; poll borné si null | Fermé | `reconcileInitialQualification` + project page poll | PG test COR-01 |
-| COR-02 | GET ne kick pas | getOwnedProjectContext read-only | Fermé | project-context | PG GET PENDING |
-| COR-03 | D5 puis message puis terminal | ordre persisté ; resume priorTrajectoryId | Fermé | processInitialQualification | PG dup/msg tests |
-| COR-04 | Fence sur effets | `stillOwnsOperation` avant D5/message/incident | Fermé | stillOwns + updateOpIfOwner | PG COR-04 steal |
-| COR-05 | UNKNOWN récupérable | lease expire → UNKNOWN → reclaim | Fermé | claim path | reconcile tests |
-| COR-06 | Nora contextuelle | forecast + projection SAS ; LIVE NOT PROVEN | Réserve LIVE | fixture FAKE | unit forecast |
-| COR-07 | fingerprint/revision | version+fingerprint op | Partiel | fields présents | schema 015 |
-| COR-08 | incident ≠ Nora | role system [Studio] | Fermé | failed path | PG fail test |
-| COR-09 | closedCycles chrono | asc openedAt | Fermé (non-régression) | service | seed 09.02/03 |
-| COR-10 | futurs par ordre | filter by order not type-only | Fermé | TrajectoryBoard | code |
-| COR-11/12 | PROPOSED/RETAINED/ACTIVE exclusifs | UI matrix | Fermé | TrajectoryBoard | captures 09.11/09/08 |
-| COR-13 | Sujets/Décisions/Docs | activity projection | Partiel | ProjectOverview | 09.01/06 |
-| COR-14 | GO via Nora/D6/D5 | seed retain/open/close via service (DETERMINISTIC) | Réserve BEHAVIOR | seed script | LIVE GO NOT PROVEN |
-| COR-15 | maturité/clôture reco | closeCycle balanceNote | Partiel | service | 09.08 seed |
-| COR-16 | bilan historique | objectif ≠ résultat ; gaps honnêtes | Partiel | BilanHistoriqueView | 09.03 capture |
-| COR-17 | CKI éditorial asymétrique | 872/464 layout ; digest retiré du primary | Partiel | CkiMethodeView | 09.05 capture |
-
-## 5. Architecture retenue
-
-- Option A hybride : ensure → process → D5 PROPOSE + forecast_json + un message assistant.
-- Reconcile POST only ; fencing ownerToken aux points d'effet.
-- **Écarté :** nouveau moteur/queue/bus ; mutation D4/D6 hors mandat ; timers artificiels SAS.
-
-## 6. Fake / Real
-
-| Frontière | Qualification |
-|---|---|
-| PostgreSQL DEV | PG REAL (tests + seeds) |
-| Navigateur Playwright 1680×970 | BROWSER |
-| Nora LLM | DETERMINISTIC / FAKE (`STUDIO_FORCE_NORA_FIXTURE=1`) — **LIVE NOT PROVEN** |
-| GO conversationnel D6→D5 | DETERMINISTIC via `retainTrajectory`/`openCycle`/`closeCycle` — **BEHAVIOR CONVERSATIONNEL NOT PROVEN** |
-| Fixtures HOLD | `STUDIO_DEV_HOLD_INITIAL_QUALIFICATION=1` pour 09.10/05.17 |
-
-## 7. Tests
-
-| Suite | Résultat | Horodatage |
+| ID | Statut | Preuve |
 |---|---|---|
-| unit ensemble07* (7) | PASS | 2026-11-20T18:34:37Z |
-| integration ensemble07-initial-qualification.pg (10) | PASS | 2026-11-20T18:34:37Z |
-| tsc/build/full unit/e2e | NOT RUN this pass (scoped E07 P0) | — |
+| COR-01 | Fermé | PG missing-op + reconcile |
+| COR-02 | Fermé | GET no-kick |
+| COR-03 | Fermé | D5→message resume |
+| COR-04 | Fermé | stillOwns + PG steal |
+| COR-05 | Fermé | UNKNOWN reclaim |
+| COR-06 | Réserve LIVE | forecast fixture |
+| COR-07 | Partiel | schema fingerprint |
+| COR-08 | Fermé | system incident |
+| COR-09 | Fermé | closedCycles order |
+| COR-10 | Fermé | future by order |
+| COR-11/12 | Fermé | UI matrix |
+| COR-13 | Partiel | activity cards |
+| COR-14 | Réserve BEHAVIOR | seed GO API |
+| COR-15 | Partiel | closeCycle |
+| COR-16 | Partiel | bilan honest gaps |
+| COR-17 | Partiel | CKI asymmetric |
 
-P0 couverts : missing op, reconcile, fence steal, GET no-kick, failed system msg, clarification, idempotence.
+## 5–7. Architecture / Fake-Real / Tests
 
-## 8. Contrats visuels Figma 13/13
+- Architecture Option A ensure→process→D5+message ; reconcile POST ; fence effets
+- PG REAL · BROWSER · Nora LIVE NOT PROVEN · GO convers. NOT PROVEN
+- Tests E07 : unit 7 PASS · PG 10 PASS · full suites NOT RUN
 
-Répertoire : `.tmp-sfia-review/ensemble07-figma-refs/` + `ensemble07-figma-visual-contracts.json`
-FileKey `itgvCulInEnFY6DvgIegvP` · viewport 1680×970 · rail 246 · topbar 70.
+## 8–9. Figma / runtime
 
-## 9. Comparaisons Figma/runtime 13/13
+- Refs `.tmp-sfia-review/ensemble07-figma-refs/` · runtime `ensemble07-evidence/runtime/`
+- UX : FIGMA TO RUNTIME PARTIAL — SAS popup live partielle
 
-| Frame | Référence lue | État métier testé | Capture runtime | Écart | Correction | Verdict |
-|---|---|---|---|---|---|---|
-| 09.01 | 983:47 + PNG | ACTIVE + activité | `09.01-projet-cycle-actif-runtime.png` | densité/cartes activité encore approchantes | cycle card 222px | Partiellement conforme |
-| 09.02 | 983:90 + PNG | CLOSED+ACTIVE+future | `09.02-trajectoire-principale-runtime.png` | cartes 396×128 + liserés | roadmap styles | Partiellement conforme |
-| 09.03 | 983:133 + PNG | cycle clos seed | `09.03-bilan-historique-runtime.png` | bilan lacunes honnêtes vs maquette riche | objectif≠résultat | Partiellement conforme |
-| 09.04 | 983:176 + PNG | étape future | `09.04-etape-envisagee-runtime.png` | 2 zones distinctes | EtapeFutureView split | Conforme structure |
-| 09.05 | 983:219 + PNG | CKI asymétrique | `09.05-cki-methode-runtime.png` | contenu éditorial limité | grid 872/464 | Partiellement conforme |
-| 09.06 | 999:261 + PNG | sans ACTIVE | `09.06-projet-sans-cycle-runtime.png` | distinct de 09.01 | seed proposed | Conforme état |
-| 09.07 | 999:285 + PNG | CLARIFICATION | `09.07-clarification-runtime.png` | composition centrée | clarification card | Conforme état |
-| 09.08 | 999:335 + PNG | CLOSED only | `09.08-entre-deux-cycles-runtime.png` | roadmap between | retained≠between fix | Conforme état |
-| 09.09 | 1005:428 + PNG | 1er ACTIVE | `09.09-premier-cycle-actif-runtime.png` | focus premier cycle | seed open CADRAGE | Conforme état |
-| SAS06 | 1022:112 + PNG | prep (popup non live) | `sas-06-preparation-runtime.png` | **popup non capturée live** ; timers retirés | poll serveur | Partiel — popup live manquante |
-| 05.17 | 1036:114 + PNG | composer locked + HOLD | `05.17-travail-qualification-runtime.png` | bandeau + overlay | NoraConversation | Partiellement conforme |
-| 09.10 | 1034:480 + PNG | PENDING HOLD | `09.10-qualification-en-cours-runtime.png` | carte progression ; pas de diagnostic | AnalyzingCard | Conforme état |
-| 09.11 | 1034:505 + PNG | PROPOSED | `09.11-proposition-initiale-runtime.png` | séquence candidats | PropositionInitialeCard | Partiellement conforme |
-
-**Verdict UX global :** FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED (écarts de densité/pixel ; SAS popup live manquante).
-
-## 10. Fichiers créés (contenu intégral)
+## 10. Fichiers CRÉÉS / NON SUIVIS — contenu intégral
 
 ### `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md`
+
+**Disposition :** produit Ensemble 07 — à conserver.
 
 - SHA256: `37d497bb54ec0bc91cf067407730d88675647f8d6971a652d5a15fb3ebe4d021`
 - Bytes: 2889
@@ -209,1057 +273,717 @@ Option A hybride (dossier §8.1) + corrections P0 :
 - LIVE Nora fournisseur : NOT PROVEN (fixture DEV).
 ```
 
-### `projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql`
+### `projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts`
 
-- SHA256: `1d44a872997c5233e3e7c077893262480710129ec6d1979cfb5771f8bb7b37da`
-- Bytes: 1285
+**Disposition :** script diagnostic local temporaire. **Non produit.** Inclus pour transparence du worktree sale.
 
-```
--- Ensemble 07 — initial trajectory qualification operation (one per project).
--- Additive / re-runnable from 014_journal_d4_revisions.
-
-CREATE TABLE IF NOT EXISTS trajectory_qualification_operations (
-  id text PRIMARY KEY,
-  project_id text NOT NULL REFERENCES projects(id),
-  preparation_id text NOT NULL REFERENCES preparations(id),
-  pilot_id text NOT NULL REFERENCES pilots(id),
-  status text NOT NULL,
-  phase text NOT NULL,
-  version integer NOT NULL DEFAULT 1,
-  input_fingerprint text NOT NULL DEFAULT '',
-  trajectory_revision_id text REFERENCES trajectory_revisions(id),
-  assistant_message_id text,
-  result_json jsonb,
-  error_code text,
-  owner_token text,
-  claimed_at timestamptz,
-  created_at timestamptz NOT NULL DEFAULT now(),
-  updated_at timestamptz NOT NULL DEFAULT now()
-);
-
-CREATE UNIQUE INDEX IF NOT EXISTS trajectory_qualification_operations_project_uidx
-  ON trajectory_qualification_operations (project_id);
-
-CREATE INDEX IF NOT EXISTS trajectory_qualification_operations_preparation_idx
-  ON trajectory_qualification_operations (preparation_id);
-
-CREATE INDEX IF NOT EXISTS trajectory_qualification_operations_status_idx
-  ON trajectory_qualification_operations (status);
-
-ALTER TABLE trajectory_revisions
-  ADD COLUMN IF NOT EXISTS forecast_json jsonb;
-```
-
-### `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts`
-
-- SHA256: `0864570090840871928672cd62081934938fe6de940c5c3bdef94542b7614358`
-- Bytes: 23432
+- SHA256: `6ab78aa51e3b68d33d325ef9b7ff04c532050f62075f390d15f919084840f15b`
+- Bytes: 2917
 
 ```
-import { and, asc, eq, sql } from "drizzle-orm";
-import { db } from "@/db/client";
-import {
-  conversations,
-  messages,
-  preparationProjectLinks,
-  preparations,
-  projectPilotageState,
-  projects,
-  trajectoryQualificationOperations,
-} from "@/db/schema";
-import {
-  buildInitialForecast,
-  qualificationInputFingerprint,
-  parseForecastJson,
-  type ForecastBuildResult,
-} from "@/domains/pilotage/forecast-builder";
-import {
-  initialQualificationComposerReason,
-  isInitialQualificationComposerLocked,
-} from "@/domains/pilotage/qualification-lock";
-import type {
-  InitialQualificationProjection,
-  QualificationPhase,
-  QualificationStatus,
-} from "@/domains/pilotage/initial-qualification-types";
-import { executePilotageCommand } from "@/domains/pilotage/service";
-import { parseProjectionJson } from "@/domains/preparation/projection";
-import { StudioError } from "@/lib/http-errors";
-import { newId } from "@/lib/ids";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+process.env.STUDIO_LANE = "DEV";
+process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
+delete process.env.STUDIO_DEV_HOLD_INITIAL_QUALIFICATION;
+delete process.env.OPENAI_API_KEY;
 
-const CLAIM_LEASE_MS = 120_000;
+import { eq } from "drizzle-orm";
+import { db } from "../src/db/client.ts";
+import { pilots, preparations, trajectoryQualificationOperations } from "../src/db/schema.ts";
+import { newId } from "../src/lib/ids.ts";
+import {
+  openOrCreatePreparation,
+  updatePreview,
+  applyPreparationProjection,
+} from "../src/domains/preparation/service.ts";
+import { draftProjectionFromQualification } from "../src/domains/preparation/projection.ts";
+import { createProjectCommand } from "../src/domains/preparation/create-project.ts";
+import {
+  ensureInitialQualification,
+  processInitialQualification,
+} from "../src/domains/pilotage/initial-qualification.ts";
 
-/** Test hook — throw between ANALYZING and publish. */
-export const initialQualificationFault: {
-  beforePublish: null | (() => void | Promise<void>);
-} = {
-  beforePublish: null,
-};
-
-function phaseToUiStep(phase: QualificationPhase): 1 | 2 | 3 | null {
-  switch (phase) {
-    case "ENGAGED":
-      return 1;
-    case "ANALYZING":
-      return 2;
-    case "PUBLISHING":
-      return 3;
-    default:
-      return null;
+async function main() {
+  const pilotId = newId("pilot");
+  await db.insert(pilots).values({
+    id: pilotId,
+    displayName: "dbg-e07",
+    githubUserId: "gh-" + pilotId,
+  });
+  const prep = await openOrCreatePreparation(pilotId);
+  await updatePreview(pilotId, prep.id, "DbgE07", "Cadrage pour debug process");
+  const draft = draftProjectionFromQualification({
+    preparationId: prep.id,
+    turnKey: "t",
+    qualificationStatus: "QUALIFIED",
+    goal: "Cadrage pour debug process",
+    projectIntention: "Cadrage pour debug process",
+    desiredOutcome: "x",
+    proposedProjectName: "DbgE07",
+    allowGoalIntentionBootstrap: true,
+  });
+  const refreshed = (
+    await db.select().from(preparations).where(eq(preparations.id, prep.id))
+  )[0]!;
+  await applyPreparationProjection({
+    pilotId,
+    preparationId: prep.id,
+    expectedCreationRevision: refreshed.creationRevision,
+    draft: draft!,
+  });
+  const after = (
+    await db.select().from(preparations).where(eq(preparations.id, prep.id))
+  )[0]!;
+  const created = await createProjectCommand({
+    pilotId,
+    preparationId: prep.id,
+    expectedCreationRevision: after.creationRevision,
+    projectName: "DbgE07",
+    previewSummary: after.previewSummary ?? "",
+    idempotencyKey: newId("idem"),
+  });
+  console.log("created", created);
+  const projectId = created.projectId;
+  const stub = await ensureInitialQualification({
+    projectId,
+    preparationId: prep.id,
+    pilotId,
+  });
+  console.log("stub", stub.status, stub.operationId);
+  try {
+    const terminal = await processInitialQualification(projectId, {
+      pilotId,
+      force: true,
+    });
+    console.log("terminal", JSON.stringify(terminal, null, 2));
+  } catch (e) {
+    console.error("process threw", e);
   }
+  const opsAfter = await db
+    .select()
+    .from(trajectoryQualificationOperations)
+    .where(eq(trajectoryQualificationOperations.projectId, projectId));
+  console.log("ops after", opsAfter[0]);
 }
 
-function rowToProjection(
-  row: typeof trajectoryQualificationOperations.$inferSelect,
-  forecastSteps: InitialQualificationProjection["forecastSteps"],
-  clarificationQuestion: string | null,
-): InitialQualificationProjection {
-  const status = row.status as QualificationStatus;
-  const phase = row.phase as QualificationPhase;
-  const composerLocked = isInitialQualificationComposerLocked({
-    operationId: row.id,
-    projectId: row.projectId,
-    preparationId: row.preparationId,
-    status,
-    phase,
-    version: row.version,
-    uiStep: phaseToUiStep(phase),
-    composerLocked: false,
-    composerLockReason: "",
-    trajectoryRevisionId: row.trajectoryRevisionId,
-    assistantMessageId: row.assistantMessageId,
-    forecastSteps,
-    clarificationQuestion,
-    errorCode: row.errorCode,
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
+```
+
+### `projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts`
+
+**Disposition :** helper one-shot recapture 09.08/SAS. **Non produit.** Inclus pour transparence.
+
+- SHA256: `c96de8c9c5f1fa6b2681ebfaeff4a98b486a50168d6c39f071f26775b2f6defd`
+- Bytes: 1422
+
+```
+import { chromium } from "@playwright/test";
+import { readFileSync } from "fs";
+import { resolve } from "path";
+
+async function main() {
+  const urls = JSON.parse(readFileSync("/tmp/sfia-e07-shot-urls.json", "utf8")) as {
+    urls: Record<string, string>;
+  };
+  const out = resolve("../../../.tmp-sfia-review/ensemble07-evidence/runtime");
+  const browser = await chromium.launch();
+  const page = await (
+    await browser.newContext({ viewport: { width: 1680, height: 970 } })
+  ).newPage();
+  await page.goto("http://127.0.0.1:3100/login", { waitUntil: "networkidle" });
+  await page.evaluate(async () => {
+    await fetch("/api/dev/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ pilot: "a" }),
+      credentials: "include",
+    });
   });
+  await page.goto(urls.urls.traj08, { waitUntil: "networkidle" });
+  await page.waitForSelector("[data-testid=trajectory-between-cycles]", {
+    timeout: 25000,
+  });
+  await page.screenshot({
+    path: resolve(out, "09.08-entre-deux-cycles-runtime.png"),
+    fullPage: false,
+  });
+  await page.goto(urls.urls.sasPrep, { waitUntil: "networkidle" });
+  await page.waitForTimeout(800);
+  await page.screenshot({
+    path: resolve(out, "sas-06-preparation-runtime.png"),
+    fullPage: false,
+  });
+  console.log("ok");
+  await browser.close();
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
+```
+
+### `projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts`
+
+**Disposition :** produit Ensemble 07 — à conserver.
+
+- SHA256: `c1ea38119299390df547fe21cd7f2bafbf3096a73c58e690217273ca8b8d1081`
+- Bytes: 6144
+
+```
+import { chromium } from "@playwright/test";
+import { readFileSync, mkdirSync, writeFileSync, readdirSync } from "fs";
+import { resolve } from "path";
+import { createHash } from "crypto";
+
+const urls = JSON.parse(readFileSync("/tmp/sfia-e07-shot-urls.json", "utf8")) as {
+  urls: Record<string, string>;
+  proposed: { projectId: string };
+  analyzing: { projectId: string };
+  clarification: { projectId: string };
+  firstActive?: { projectId: string };
+  withHistory?: { projectId: string };
+  between?: { projectId: string };
+};
+
+const outDir = resolve(process.cwd(), "../../../.tmp-sfia-review/ensemble07-evidence/runtime");
+mkdirSync(outDir, { recursive: true });
+
+async function shot(page: import("@playwright/test").Page, name: string) {
+  const path = resolve(outDir, name);
+  await page.waitForTimeout(700);
+  await page.screenshot({ path, fullPage: false });
+  const buf = readFileSync(path);
+  console.log(
+    "wrote",
+    name,
+    buf.length,
+    createHash("sha256").update(buf).digest("hex").slice(0, 12),
+  );
+}
+
+async function main() {
+  const browser = await chromium.launch();
+  const context = await browser.newContext({
+    viewport: { width: 1680, height: 970 },
+  });
+  const page = await context.newPage();
+  await page.goto("http://127.0.0.1:3100/login", { waitUntil: "networkidle" });
+  await page.evaluate(async () => {
+    await fetch("/api/dev/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ pilot: "a" }),
+      credentials: "include",
+    });
+  });
+
+  // 09.06 — projet sans cycle (proposition only)
+  await page.goto(urls.urls.projet06, { waitUntil: "networkidle" });
+  await page.waitForSelector('[data-testid="project-overview-no-cycle"]');
+  await shot(page, "09.06-projet-sans-cycle-runtime.png");
+
+  // 09.01 — projet avec cycle actif
+  if (urls.urls.projet01) {
+    await page.goto(urls.urls.projet01, { waitUntil: "networkidle" });
+    await page.waitForSelector('[data-testid="project-overview-cycle-card"]');
+    await shot(page, "09.01-projet-cycle-actif-runtime.png");
+  }
+
+  await page.goto(urls.urls.travail, { waitUntil: "networkidle" });
+  await page.waitForSelector('[data-testid="nora-composer"]');
+  await shot(page, "travail-apres-proposition-runtime.png");
+
+  // 09.11 — proposition séquentielle
+  await page.goto(urls.urls.traj11, { waitUntil: "networkidle" });
+  await page.waitForSelector('[data-testid="trajectory-proposal-sequential"]');
+  await shot(page, "09.11-proposition-initiale-runtime.png");
+
+  const futureBtn = page.locator('[data-testid="trajectory-forecast-step-2"]');
+  if (await futureBtn.count()) {
+    await futureBtn.click();
+    await page.waitForSelector('[data-testid="trajectory-etape-future"]');
+    await shot(page, "09.04-etape-envisagee-runtime.png");
+    await page.getByRole("button", { name: /Retour à la trajectoire/i }).click();
+    await page.waitForSelector('[data-testid="trajectory-proposal-sequential"]');
+  }
+
+  await page.click('[data-testid="trajectory-open-cki"]');
+  await page.waitForSelector('[data-testid="trajectory-cki-methode"]');
+  await shot(page, "09.05-cki-methode-runtime.png");
+
+  // 05.17 + 09.10 — analyzing (HOLD expected on server)
+  await page.goto(urls.urls.travailLock, { waitUntil: "networkidle" });
+  await page.waitForSelector('[data-testid="nora-composer"]');
+  await shot(page, "05.17-travail-qualification-runtime.png");
+
+  await page.goto(urls.urls.traj10, { waitUntil: "networkidle" });
+  await page.waitForSelector('[data-testid="trajectory-qualification-progress"]', {
+    timeout: 15000,
+  });
+  await shot(page, "09.10-qualification-en-cours-runtime.png");
+
+  // 09.07 — clarification
+  await page.goto(urls.urls.traj07, { waitUntil: "networkidle" });
+  await page.waitForTimeout(1200);
+  await shot(page, "09.07-clarification-runtime.png");
+
+  // 09.09 — premier cycle actif
+  if (urls.urls.traj09) {
+    await page.goto(urls.urls.traj09, { waitUntil: "networkidle" });
+    await page.waitForSelector('[data-testid="trajectory-active-cycle"]');
+    await shot(page, "09.09-premier-cycle-actif-runtime.png");
+  }
+
+  // 09.02 — clos + actif + futur
+  if (urls.urls.traj02) {
+    await page.goto(urls.urls.traj02, { waitUntil: "networkidle" });
+    await page.waitForSelector('[data-testid="trajectory-roadmap"]');
+    await shot(page, "09.02-trajectoire-principale-runtime.png");
+    const bilan = page.locator('[data-testid="trajectory-closed-cycle"] button').first();
+    if (await bilan.count()) {
+      await bilan.click();
+      await page.waitForSelector('[data-testid="trajectory-bilan-historique"]');
+      await shot(page, "09.03-bilan-historique-runtime.png");
+      await page.getByRole("button", { name: /Retour à la trajectoire/i }).click();
+    }
+  }
+
+  // 09.08 — entre deux cycles
+  if (urls.urls.traj08) {
+    await page.goto(urls.urls.traj08, { waitUntil: "networkidle" });
+    await page.waitForSelector('[data-testid="trajectory-between-cycles"]');
+    await shot(page, "09.08-entre-deux-cycles-runtime.png");
+  }
+
+  // SAS 06 — preparation page (popup requires live create; capture prep + note)
+  await page.goto(urls.urls.sasPrep, { waitUntil: "networkidle" });
+  await page.waitForTimeout(1000);
+  await shot(page, "sas-06-preparation-runtime.png");
+
+  const files = readdirSync(outDir).filter((f) => f.endsWith(".png"));
+  const manifest = {
+    capturedAt: new Date().toString(),
+    viewport: { w: 1680, h: 970 },
+    browser: "chromium/playwright",
+    holdEnvNote: "09.10/05.17 require server STUDIO_DEV_HOLD_INITIAL_QUALIFICATION=1",
+    projects: {
+      proposed: urls.proposed.projectId,
+      analyzing: urls.analyzing.projectId,
+      clarification: urls.clarification.projectId,
+      firstActive: urls.firstActive?.projectId ?? null,
+      withHistory: urls.withHistory?.projectId ?? null,
+      between: urls.between?.projectId ?? null,
+    },
+    files,
+  };
+  writeFileSync(resolve(outDir, "capture-manifest.json"), JSON.stringify(manifest, null, 2));
+  await browser.close();
+  console.log("done", files.length, "png");
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
+```
+
+### `projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts`
+
+**Disposition :** produit Ensemble 07 — à conserver.
+
+- SHA256: `41ca3de1a803196d7fefa71db2aa241a11a98a68d9e69c11f9182c47e66d867c`
+- Bytes: 8698
+
+```
+import { config } from "dotenv";
+config({ path: ".env.local" });
+process.env.STUDIO_LANE = "DEV";
+process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
+delete process.env.STUDIO_DEV_HOLD_INITIAL_QUALIFICATION;
+
+import { writeFileSync } from "fs";
+import { eq } from "drizzle-orm";
+import { db } from "../src/db/client.ts";
+import { pilots, preparations } from "../src/db/schema.ts";
+import { newId } from "../src/lib/ids.ts";
+import {
+  applyPreparationProjection,
+  openOrCreatePreparation,
+  updatePreview,
+} from "../src/domains/preparation/service.ts";
+import { draftProjectionFromQualification } from "../src/domains/preparation/projection.ts";
+import { createProjectCommand } from "../src/domains/preparation/create-project.ts";
+import {
+  ensureInitialQualification,
+  processInitialQualification,
+} from "../src/domains/pilotage/initial-qualification.ts";
+import {
+  closeCycle,
+  getPilotageProjection,
+  openCycle,
+  retainTrajectory,
+} from "../src/domains/pilotage/service.ts";
+
+async function pilotA() {
+  const pilot =
+    (
+      await db
+        .select()
+        .from(pilots)
+        .where(eq(pilots.displayName, "Pilot A (DEV)"))
+        .limit(1)
+    )[0] ?? null;
+  if (!pilot) throw new Error("Pilot A (DEV) missing — run DEV login first");
+  return pilot;
+}
+
+async function createNamedProject(
+  pilotId: string,
+  name: string,
+  intention: string,
+  opts: { process: boolean; qualifyProjection: boolean },
+) {
+  const prep = await openOrCreatePreparation(pilotId);
+  await updatePreview(pilotId, prep.id, name, intention);
+  if (opts.qualifyProjection) {
+    const draft = draftProjectionFromQualification({
+      preparationId: prep.id,
+      turnKey: `t-shot-${name.slice(0, 12)}`,
+      qualificationStatus: "QUALIFIED",
+      goal: intention,
+      projectIntention: intention,
+      desiredOutcome: "Rendre les décisions actionnables",
+      proposedProjectName: name,
+      allowGoalIntentionBootstrap: true,
+    });
+    if (!draft) throw new Error("draft missing");
+    const refreshed = (
+      await db.select().from(preparations).where(eq(preparations.id, prep.id))
+    )[0]!;
+    await applyPreparationProjection({
+      pilotId,
+      preparationId: prep.id,
+      expectedCreationRevision: refreshed.creationRevision,
+      draft,
+    });
+  }
+  const after = (
+    await db.select().from(preparations).where(eq(preparations.id, prep.id))
+  )[0]!;
+  const created = await createProjectCommand({
+    pilotId,
+    preparationId: prep.id,
+    expectedCreationRevision: after.creationRevision,
+    projectName: name,
+    previewSummary: after.previewSummary ?? "",
+    idempotencyKey: newId("idem"),
+  });
+  if (created.status !== "CREATED" && created.status !== "ALREADY_CREATED") {
+    throw new Error(`create failed: ${JSON.stringify(created)}`);
+  }
+  await ensureInitialQualification({
+    projectId: created.projectId,
+    preparationId: prep.id,
+    pilotId,
+  });
+  let iq = null;
+  if (opts.process) {
+    iq = await processInitialQualification(created.projectId, { pilotId, force: true });
+  }
   return {
-    operationId: row.id,
-    projectId: row.projectId,
-    preparationId: row.preparationId,
-    status,
-    phase,
-    version: row.version,
-    uiStep: phaseToUiStep(phase),
-    composerLocked,
-    composerLockReason: initialQualificationComposerReason({
-      operationId: row.id,
-      projectId: row.projectId,
-      preparationId: row.preparationId,
-      status,
-      phase,
-      version: row.version,
-      uiStep: phaseToUiStep(phase),
-      composerLocked,
-      composerLockReason: "",
-      trajectoryRevisionId: row.trajectoryRevisionId,
-      assistantMessageId: row.assistantMessageId,
-      forecastSteps,
-      clarificationQuestion,
-      errorCode: row.errorCode,
-    }),
-    trajectoryRevisionId: row.trajectoryRevisionId,
-    assistantMessageId: row.assistantMessageId,
-    forecastSteps,
-    clarificationQuestion,
-    errorCode: row.errorCode,
+    projectId: created.projectId,
+    prepId: prep.id,
+    iqStatus: iq?.status ?? "PENDING",
   };
 }
 
-function parseResultJson(raw: unknown): {
-  clarificationQuestion: string | null;
-  forecastSteps: InitialQualificationProjection["forecastSteps"];
-} {
-  if (!raw || typeof raw !== "object") {
-    return { clarificationQuestion: null, forecastSteps: null };
+async function advanceToActiveFirstCycle(pilotId: string, projectId: string) {
+  const before = await getPilotageProjection(pilotId, projectId);
+  const proposedId = before.trajectory.proposed?.id;
+  if (!proposedId) throw new Error("no proposed trajectory");
+  const retained = await retainTrajectory(pilotId, projectId, {
+    clientCommandKey: newId("idem"),
+    expectedRevision: before.revision,
+    sourceRef: newId("src"),
+    trajectoryRevisionId: proposedId,
+  });
+  if (retained.status !== "APPLIED" && retained.status !== "ALREADY_APPLIED") {
+    throw new Error(`retain failed: ${JSON.stringify(retained)}`);
   }
-  const o = raw as Record<string, unknown>;
-  const clarificationQuestion =
-    typeof o.clarificationQuestion === "string" ? o.clarificationQuestion : null;
-  const forecastSteps = parseForecastJson(o.forecastSteps);
-  return { clarificationQuestion, forecastSteps };
+  const mid = await getPilotageProjection(pilotId, projectId);
+  const opened = await openCycle(pilotId, projectId, {
+    clientCommandKey: newId("idem"),
+    expectedRevision: mid.revision,
+    sourceRef: newId("src"),
+    cycleType: "CADRAGE",
+    objective: "Clarifier le besoin et le périmètre du premier cycle",
+  });
+  if (opened.status !== "APPLIED" && opened.status !== "ALREADY_APPLIED") {
+    throw new Error(`open failed: ${JSON.stringify(opened)}`);
+  }
+  return getPilotageProjection(pilotId, projectId);
 }
 
-export async function getQualificationProjection(
-  pilotId: string,
-  projectId: string,
-): Promise<InitialQualificationProjection | null> {
-  const row = (
-    await db
-      .select()
-      .from(trajectoryQualificationOperations)
-      .where(
-        and(
-          eq(trajectoryQualificationOperations.projectId, projectId),
-          eq(trajectoryQualificationOperations.pilotId, pilotId),
-        ),
-      )
-      .limit(1)
-  )[0];
-  if (!row) return null;
-  const parsed = parseResultJson(row.resultJson);
-  return rowToProjection(row, parsed.forecastSteps, parsed.clarificationQuestion);
+async function closeActiveAndLeaveBetween(pilotId: string, projectId: string) {
+  const view = await getPilotageProjection(pilotId, projectId);
+  if (!view.cycle) throw new Error("no active cycle to close");
+  const closed = await closeCycle(pilotId, projectId, {
+    clientCommandKey: newId("idem"),
+    expectedRevision: view.revision,
+    sourceRef: newId("src"),
+    cycleId: view.cycle.id,
+    balanceNote: "Cadrage clôturé avec acquis partiels — suite à qualifier.",
+  });
+  if (closed.status !== "APPLIED" && closed.status !== "ALREADY_APPLIED") {
+    throw new Error(`close failed: ${JSON.stringify(closed)}`);
+  }
+  return getPilotageProjection(pilotId, projectId);
 }
 
-export async function ensureInitialQualification(input: {
-  projectId: string;
-  preparationId: string;
-  pilotId: string;
-}): Promise<InitialQualificationProjection> {
-  const existing = await getQualificationProjection(input.pilotId, input.projectId);
-  if (existing) return existing;
+async function main() {
+  const pilot = await pilotA();
+  const stamp = Date.now().toString(36);
 
-  const prep = (
-    await db
-      .select()
-      .from(preparations)
-      .where(
-        and(eq(preparations.id, input.preparationId), eq(preparations.ownerPilotId, input.pilotId)),
-      )
-      .limit(1)
-  )[0];
-  if (!prep) throw new StudioError("NOT_FOUND", "Préparation introuvable");
-
-  const projection = parseProjectionJson(
-    prep.projectionJson,
-    prep.id,
-    prep.creationRevision,
+  const proposed = await createNamedProject(
+    pilot.id,
+    `Assistant de conduite ${stamp}`,
+    "Cadrage puis conception fonctionnelle pour conduire les projets et clarifier les décisions",
+    { process: true, qualifyProjection: true },
   );
-  const fingerprint = qualificationInputFingerprint({
-    preparationId: prep.id,
-    projection,
-    previewSummary: prep.previewSummary ?? "",
-    creationRevision: prep.creationRevision,
+
+  const analyzing = await createNamedProject(
+    pilot.id,
+    `Projet en qualification ${stamp}`,
+    "Intention claire pour analyse en cours sans terminal immédiat, cadrage utile",
+    { process: false, qualifyProjection: true },
+  );
+
+  const clarification = await createNamedProject(
+    pilot.id,
+    `Projet a preciser ${stamp}`,
+    "x",
+    { process: true, qualifyProjection: false },
+  );
+
+  // 09.09 — first ACTIVE, no CLOSED
+  const firstActive = await createNamedProject(
+    pilot.id,
+    `Premier cycle actif ${stamp}`,
+    "Cadrage d'une plateforme de suivi pour ouvrir le premier cycle",
+    { process: true, qualifyProjection: true },
+  );
+  await advanceToActiveFirstCycle(pilot.id, firstActive.projectId);
+
+  // 09.01 / 09.02 — CLOSED + ACTIVE + future
+  const withHistory = await createNamedProject(
+    pilot.id,
+    `Projet avec historique ${stamp}`,
+    "Cadrage puis conception fonctionnelle pour une trajectoire multi-cycles",
+    { process: true, qualifyProjection: true },
+  );
+  await advanceToActiveFirstCycle(pilot.id, withHistory.projectId);
+  await closeActiveAndLeaveBetween(pilot.id, withHistory.projectId);
+  const afterClose = await getPilotageProjection(pilot.id, withHistory.projectId);
+  const opened2 = await openCycle(pilot.id, withHistory.projectId, {
+    clientCommandKey: newId("idem"),
+    expectedRevision: afterClose.revision,
+    sourceRef: newId("src"),
+    cycleType: "CONCEPTION_FONCTIONNELLE",
+    objective: "Décrire les décisions et parcours métier",
   });
-
-  const id = newId("iqop");
-  const now = new Date();
-  try {
-    await db.insert(trajectoryQualificationOperations).values({
-      id,
-      projectId: input.projectId,
-      preparationId: input.preparationId,
-      pilotId: input.pilotId,
-      status: "PENDING",
-      phase: "ENGAGED",
-      version: 1,
-      inputFingerprint: fingerprint,
-      createdAt: now,
-      updatedAt: now,
-    });
-  } catch {
+  if (opened2.status !== "APPLIED" && opened2.status !== "ALREADY_APPLIED") {
+    throw new Error(`open2 failed: ${JSON.stringify(opened2)}`);
   }
 
-  const row = (
-    await db
-      .select()
-      .from(trajectoryQualificationOperations)
-      .where(eq(trajectoryQualificationOperations.projectId, input.projectId))
-      .limit(1)
-  )[0];
-  if (!row) throw new StudioError("INTERNAL", "Qualification initiale non créée");
-  return rowToProjection(row, null, null);
+  // 09.08 — CLOSED only (between cycles)
+  const between = await createNamedProject(
+    pilot.id,
+    `Entre deux cycles ${stamp}`,
+    "Cadrage pour clôturer puis laisser la suite envisagée",
+    { process: true, qualifyProjection: true },
+  );
+  await advanceToActiveFirstCycle(pilot.id, between.projectId);
+  await closeActiveAndLeaveBetween(pilot.id, between.projectId);
+
+  const payload = {
+    pilotId: pilot.id,
+    proposed,
+    analyzing,
+    clarification,
+    firstActive,
+    withHistory,
+    between,
+    urls: {
+      projet06: `http://127.0.0.1:3100/projects/${proposed.projectId}?surface=projet`,
+      projet01: `http://127.0.0.1:3100/projects/${withHistory.projectId}?surface=projet`,
+      travail: `http://127.0.0.1:3100/projects/${proposed.projectId}?surface=travail`,
+      traj11: `http://127.0.0.1:3100/projects/${proposed.projectId}?surface=pilotage`,
+      traj10: `http://127.0.0.1:3100/projects/${analyzing.projectId}?surface=pilotage`,
+      travailLock: `http://127.0.0.1:3100/projects/${analyzing.projectId}?surface=travail`,
+      traj07: `http://127.0.0.1:3100/projects/${clarification.projectId}?surface=pilotage`,
+      traj09: `http://127.0.0.1:3100/projects/${firstActive.projectId}?surface=pilotage`,
+      traj02: `http://127.0.0.1:3100/projects/${withHistory.projectId}?surface=pilotage`,
+      traj08: `http://127.0.0.1:3100/projects/${between.projectId}?surface=pilotage`,
+      sasPrep: `http://127.0.0.1:3100/preparations/${analyzing.prepId}`,
+    },
+  };
+  writeFileSync("/tmp/sfia-e07-shot-urls.json", JSON.stringify(payload, null, 2));
+  console.log(JSON.stringify(payload, null, 2));
 }
 
-function initialQualificationGenerationId(operationId: string, version: number): string {
-  return `sfia:iq:${operationId}:v${version}`;
-}
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
+```
 
-function stableAssistantMessageId(operationId: string, version: number): string {
-  return `msg_iq_${operationId}_v${version}`;
-}
+### `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/reconcile/route.ts`
 
-async function appendQualificationThreadMessage(input: {
-  pilotId: string;
-  preparationId: string;
-  operationId: string;
-  version: number;
-  content: string;
-  /** E07-COR-08 — Studio incidents use system; Nora cognitive uses assistant. */
-  role: "assistant" | "system";
-}): Promise<string> {
-  const conv = (
-    await db
-      .select()
-      .from(conversations)
-      .where(
-        and(
-          eq(conversations.preparationId, input.preparationId),
-          eq(conversations.ownerPilotId, input.pilotId),
-        ),
-      )
-      .limit(1)
-  )[0];
-  if (!conv) throw new StudioError("NOT_FOUND", "Conversation introuvable");
+**Disposition :** produit Ensemble 07 — à conserver.
 
-  const generationId = initialQualificationGenerationId(input.operationId, input.version);
-  const stableId = stableAssistantMessageId(input.operationId, input.version);
+- SHA256: `fff63ded9627a700090aa570563d6df9eb996ab81c5bfe522d1b0ecee552c0ae`
+- Bytes: 896
 
-  const existingByGen = (
-    await db
-      .select()
-      .from(messages)
-      .where(and(eq(messages.conversationId, conv.id), eq(messages.generationId, generationId)))
-      .limit(1)
-  )[0];
-  if (existingByGen) return existingByGen.id;
-
-  const existingById = (
-    await db.select().from(messages).where(eq(messages.id, stableId)).limit(1)
-  )[0];
-  if (existingById) return existingById.id;
-
-  const last = (
-    await db
-      .select({ ordinal: messages.ordinal })
-      .from(messages)
-      .where(eq(messages.conversationId, conv.id))
-      .orderBy(asc(messages.ordinal))
-  ).at(-1);
-  const ordinal = (last?.ordinal ?? 0) + 1;
-  const now = new Date();
-
-  try {
-    await db.insert(messages).values({
-      id: stableId,
-      conversationId: conv.id,
-      role: input.role,
-      content: input.content,
-      status: "COMPLETE",
-      ordinal,
-      generationId,
-      createdAt: now,
-    });
-    return stableId;
-  } catch {
-    const again = (
-      await db
-        .select()
-        .from(messages)
-        .where(and(eq(messages.conversationId, conv.id), eq(messages.generationId, generationId)))
-        .limit(1)
-    )[0];
-    if (again) return again.id;
-    throw new StudioError("CONFLICT", "Message de qualification non persisté");
-  }
-}
-
-async function currentPilotageRevision(projectId: string): Promise<number> {
-  const row = (
-    await db
-      .select({ revision: projectPilotageState.revision })
-      .from(projectPilotageState)
-      .where(eq(projectPilotageState.projectId, projectId))
-      .limit(1)
-  )[0];
-  return row?.revision ?? 0;
-}
-
-async function publishProposedTrajectory(input: {
-  pilotId: string;
-  projectId: string;
-  operationId: string;
-  version: number;
-  orientation: string;
-  forecastSteps: ForecastBuildResult & { kind: "PROPOSE" };
-}): Promise<string> {
-  const clientCommandKey = `iq:${input.operationId}:v${input.version}:propose`;
-  const expectedRevision = await currentPilotageRevision(input.projectId);
-  const result = await executePilotageCommand(input.pilotId, input.projectId, {
-    clientCommandKey,
-    expectedRevision,
-    operation: "PROPOSE_TRAJECTORY",
-    sourceKind: "COGNITIVE_PROPOSAL",
-    sourceRef: input.operationId,
-    orientation: input.orientation,
-    forecastJson: input.forecastSteps.steps,
-    actInstanceId: clientCommandKey,
-  });
-  if (result.status === "REJECTED" || result.status === "CONFLICT") {
-    throw new StudioError("INTERNAL", result.reason ?? "Proposition D5 refusée");
-  }
-  const propose = result.effects.find((e) => e.effectKind === "PROPOSE");
-  if (!propose?.targetRef) throw new StudioError("INTERNAL", "Trajectoire PROPOSED absente");
-  return propose.targetRef;
-}
-
-async function updateOpIfOwner(
-  opId: string,
-  ownerToken: string,
-  patch: Partial<typeof trajectoryQualificationOperations.$inferInsert>,
-): Promise<boolean> {
-  const updated = await db
-    .update(trajectoryQualificationOperations)
-    .set({ ...patch, updatedAt: new Date() })
-    .where(
-      and(
-        eq(trajectoryQualificationOperations.id, opId),
-        eq(trajectoryQualificationOperations.ownerToken, ownerToken),
-      ),
-    )
-    .returning({ id: trajectoryQualificationOperations.id });
-  return updated.length > 0;
-}
-
-/** E07-COR-04 — fence before side effects (D5 propose / thread message). */
-async function stillOwnsOperation(opId: string, ownerToken: string): Promise<boolean> {
-  const row = (
-    await db
-      .select({ id: trajectoryQualificationOperations.id })
-      .from(trajectoryQualificationOperations)
-      .where(
-        and(
-          eq(trajectoryQualificationOperations.id, opId),
-          eq(trajectoryQualificationOperations.ownerToken, ownerToken),
-        ),
-      )
-      .limit(1)
-  )[0];
-  return Boolean(row);
-}
-
-function buildAssistantContent(
-  built: ForecastBuildResult,
-  projectName: string,
-): string {
-  if (built.kind === "CLARIFICATION") {
-    return built.question;
-  }
-  return [
-    `Projet **${projectName}** — proposition de trajectoire initiale (non retenue).`,
-    "",
-    built.summary,
-    "",
-    "Vous pouvez accepter cette direction, la contester ou demander un autre premier cycle — chaque décision d'ouverture reste la vôtre.",
-  ].join("\n");
-}
-
-function studioFailedMessage(): string {
-  return [
-    "[Studio] La qualification initiale de trajectoire n'a pas abouti techniquement.",
-    "Le projet reste accessible. Vous pouvez continuer la conversation pour préciser votre intention ; la trajectoire pourra être qualifiée ultérieurement.",
-  ].join("\n");
-}
-
-const TERMINAL = new Set<QualificationStatus>(["PROPOSED", "CLARIFICATION", "FAILED"]);
-
-export async function processInitialQualification(
-  projectId: string,
-  opts?: { force?: boolean; pilotId?: string },
-): Promise<InitialQualificationProjection | null> {
-  const row = (
-    await db
-      .select()
-      .from(trajectoryQualificationOperations)
-      .where(eq(trajectoryQualificationOperations.projectId, projectId))
-      .limit(1)
-  )[0];
-  if (!row) return null;
-  if (opts?.pilotId && row.pilotId !== opts.pilotId) return null;
-
-  if (TERMINAL.has(row.status as QualificationStatus) && !opts?.force) {
-    const parsed = parseResultJson(row.resultJson);
-    return rowToProjection(row, parsed.forecastSteps, parsed.clarificationQuestion);
-  }
-
-  /** DEV visual capture only — freeze PENDING/RUNNING so 09.10 / 05.17 remain observable. */
-  if (
-    process.env.STUDIO_LANE === "DEV" &&
-    process.env.STUDIO_DEV_HOLD_INITIAL_QUALIFICATION === "1" &&
-    !opts?.force
-  ) {
-    const parsed = parseResultJson(row.resultJson);
-    return rowToProjection(row, parsed.forecastSteps, parsed.clarificationQuestion);
-  }
-
-  const ownerToken = newId("iqtk");
-  const now = new Date();
-
-  const claimed = await db.transaction(async (tx) => {
-    const execResult = await tx.execute(
-      sql`select * from trajectory_qualification_operations where project_id = ${projectId} for update`,
-    );
-    const locked = (
-      Array.isArray(execResult)
-        ? execResult
-        : ((execResult as { rows?: Array<Record<string, unknown>> }).rows ?? [])
-    ) as Array<Record<string, unknown>>;
-    const cur = locked[0];
-    if (!cur) return null;
-    const status = String(cur.status) as QualificationStatus;
-    if (TERMINAL.has(status) && !opts?.force) return { kind: "terminal" as const, id: String(cur.id) };
-
-    if (status === "RUNNING" && cur.owner_token && cur.claimed_at) {
-      const claimedAt = new Date(String(cur.claimed_at)).getTime();
-      if (Date.now() - claimedAt < CLAIM_LEASE_MS) {
-        return { kind: "busy" as const, id: String(cur.id) };
-      }
-      // Lease expired — mark UNKNOWN then reclaim (E07-COR-05).
-      await tx
-        .update(trajectoryQualificationOperations)
-        .set({ status: "UNKNOWN", updatedAt: now })
-        .where(eq(trajectoryQualificationOperations.id, String(cur.id)));
-    }
-
-    const priorTrajectoryId =
-      cur.trajectory_revision_id != null ? String(cur.trajectory_revision_id) : null;
-    const priorResult = cur.result_json ?? null;
-
-    await tx
-      .update(trajectoryQualificationOperations)
-      .set({
-        status: "RUNNING",
-        phase: priorTrajectoryId ? "PUBLISHING" : "ANALYZING",
-        ownerToken,
-        claimedAt: now,
-        updatedAt: now,
-      })
-      .where(eq(trajectoryQualificationOperations.id, String(cur.id)));
-
-    return {
-      kind: "claimed" as const,
-      id: String(cur.id),
-      pilotId: String(cur.pilot_id),
-      preparationId: String(cur.preparation_id),
-      version: Number(cur.version),
-      priorTrajectoryId,
-      priorResult,
-    };
-  });
-
-  if (!claimed || claimed.kind === "busy") {
-    return getQualificationProjection(row.pilotId, projectId);
-  }
-  if (claimed.kind === "terminal") {
-    return getQualificationProjection(row.pilotId, projectId);
-  }
-
-  try {
-    const prep = (
-      await db
-        .select()
-        .from(preparations)
-        .where(eq(preparations.id, claimed.preparationId))
-        .limit(1)
-    )[0];
-    const projection = prep
-      ? parseProjectionJson(prep.projectionJson, prep.id, prep.creationRevision)
-      : null;
-    const projectRow = (
-      await db.select({ name: projects.name }).from(projects).where(eq(projects.id, projectId)).limit(1)
-    )[0];
-    const name = projectRow?.name ?? "Projet";
-
-    // Resume path: D5 already published, message/terminal missing (E07-COR-03).
-    if (claimed.priorTrajectoryId) {
-      const parsedPrior = parseResultJson(claimed.priorResult);
-      const assistantMessageId = await appendQualificationThreadMessage({
-        pilotId: claimed.pilotId,
-        preparationId: claimed.preparationId,
-        operationId: claimed.id,
-        version: claimed.version,
-        content:
-          parsedPrior.clarificationQuestion ??
-          buildAssistantContent(
-            {
-              kind: "PROPOSE",
-              steps: parsedPrior.forecastSteps ?? [],
-              orientation: "Trajectoire proposée",
-              summary: "Proposition de trajectoire initiale reprise après interruption.",
-            },
-            name,
-          ),
-        role: "assistant",
-      });
-      const ok = await updateOpIfOwner(claimed.id, ownerToken, {
-        status: "PROPOSED",
-        phase: "TERMINAL",
-        trajectoryRevisionId: claimed.priorTrajectoryId,
-        assistantMessageId,
-        resultJson: (claimed.priorResult as Record<string, unknown>) ?? {
-          kind: "PROPOSED",
-          forecastSteps: parsedPrior.forecastSteps,
-        },
-        ownerToken: null,
-        errorCode: null,
-      });
-      if (!ok) {
-        await updateOpIfOwner(claimed.id, ownerToken, {
-          status: "UNKNOWN",
-          phase: "PUBLISHING",
-        });
-      }
-      return getQualificationProjection(claimed.pilotId, projectId);
-    }
-
-    await initialQualificationFault.beforePublish?.();
-
-    const phaseOk = await updateOpIfOwner(claimed.id, ownerToken, { phase: "PUBLISHING" });
-    if (!phaseOk) {
-      return getQualificationProjection(claimed.pilotId, projectId);
-    }
-
-    const built = buildInitialForecast({
-      projection,
-      previewSummary: prep?.previewSummary ?? "",
-    });
-
-    let trajectoryRevisionId: string | null = null;
-    let terminalStatus: QualificationStatus;
-    let resultJson: Record<string, unknown>;
-    const assistantContent = buildAssistantContent(built, name);
-
-    if (built.kind === "CLARIFICATION") {
-      terminalStatus = "CLARIFICATION";
-      resultJson = {
-        kind: "CLARIFICATION",
-        clarificationQuestion: built.question,
-        missing: built.missing,
-      };
-    } else {
-      if (!(await stillOwnsOperation(claimed.id, ownerToken))) {
-        return getQualificationProjection(claimed.pilotId, projectId);
-      }
-      trajectoryRevisionId = await publishProposedTrajectory({
-        pilotId: claimed.pilotId,
-        projectId,
-        operationId: claimed.id,
-        version: claimed.version,
-        orientation: built.orientation,
-        forecastSteps: built,
-      });
-      terminalStatus = "PROPOSED";
-      resultJson = {
-        kind: "PROPOSED",
-        forecastSteps: built.steps,
-        orientation: built.orientation,
-      };
-      // Persist D5 pointer before message so crash can resume (E07-COR-03).
-      const mid = await updateOpIfOwner(claimed.id, ownerToken, {
-        trajectoryRevisionId,
-        resultJson,
-        phase: "PUBLISHING",
-      });
-      if (!mid) {
-        return getQualificationProjection(claimed.pilotId, projectId);
-      }
-    }
-
-    if (!(await stillOwnsOperation(claimed.id, ownerToken))) {
-      return getQualificationProjection(claimed.pilotId, projectId);
-    }
-    const assistantMessageId = await appendQualificationThreadMessage({
-      pilotId: claimed.pilotId,
-      preparationId: claimed.preparationId,
-      operationId: claimed.id,
-      version: claimed.version,
-      content: assistantContent,
-      role: "assistant",
-    });
-
-    if (built.kind === "PROPOSE" && !trajectoryRevisionId) {
-      throw new StudioError("INTERNAL", "Publication incomplète");
-    }
-
-    const terminalOk = await updateOpIfOwner(claimed.id, ownerToken, {
-      status: terminalStatus,
-      phase: "TERMINAL",
-      trajectoryRevisionId,
-      assistantMessageId,
-      resultJson,
-      ownerToken: null,
-      errorCode: null,
-    });
-    if (!terminalOk) {
-      // Message may exist; leave UNKNOWN for reconcile (E07-COR-04/05).
-      return getQualificationProjection(claimed.pilotId, projectId);
-    }
-
-    return getQualificationProjection(claimed.pilotId, projectId);
-  } catch (e) {
-    const errorCode = e instanceof StudioError ? e.code : "QUALIFICATION_FAILED";
-    // E07-COR-04/08 — expired owner must not publish Studio incident over a newer claim.
-    if (!(await stillOwnsOperation(claimed.id, ownerToken))) {
-      return getQualificationProjection(claimed.pilotId, projectId);
-    }
-    const systemMessageId = await appendQualificationThreadMessage({
-      pilotId: claimed.pilotId,
-      preparationId: claimed.preparationId,
-      operationId: claimed.id,
-      version: claimed.version,
-      content: studioFailedMessage(),
-      role: "system",
-    }).catch(() => null);
-
-    const failedOk = await updateOpIfOwner(claimed.id, ownerToken, {
-      status: "FAILED",
-      phase: "TERMINAL",
-      assistantMessageId: systemMessageId,
-      errorCode,
-      ownerToken: null,
-      resultJson: { kind: "FAILED", errorCode },
-    });
-    if (!failedOk) {
-      return getQualificationProjection(claimed.pilotId, projectId);
-    }
-
-    return getQualificationProjection(claimed.pilotId, projectId);
-  }
-}
-
-export function kickInitialQualificationProcessing(projectId: string, pilotId: string): void {
-  void processInitialQualification(projectId, { pilotId }).catch(() => undefined);
-}
-
-/** E07-COR-01 — ensure durable op then kick; retry once on ensure failure. */
-export async function ensureAndKickInitialQualification(input: {
-  projectId: string;
-  preparationId: string;
-  pilotId: string;
-}): Promise<{
-  projection: InitialQualificationProjection | null;
-  ensureStatus: "OK" | "FAILED_RETRYABLE";
-}> {
-  try {
-    const projection = await ensureInitialQualification(input);
-    kickInitialQualificationProcessing(input.projectId, input.pilotId);
-    return { projection, ensureStatus: "OK" };
-  } catch {
-    try {
-      const projection = await ensureInitialQualification(input);
-      kickInitialQualificationProcessing(input.projectId, input.pilotId);
-      return { projection, ensureStatus: "OK" };
-    } catch {
-      return { projection: null, ensureStatus: "FAILED_RETRYABLE" };
-    }
-  }
-}
+```
+import { NextResponse } from "next/server";
+import { requireStudioSession } from "@/domains/identity/session";
+import { reconcileInitialQualification } from "@/domains/pilotage/initial-qualification";
+import { studioErrorResponse } from "@/lib/http-errors";
 
 /**
- * E07-COR-01/02/05 — explicit reconcile (POST), never from GET.
- * Creates missing op when project+prep linked; processes PENDING/RUNNING/UNKNOWN.
+ * E07 — explicit qualification reconcile (POST only).
+ * GET project context must not kick processing (E07-COR-02).
  */
-export async function reconcileInitialQualification(
-  projectId: string,
-  pilotId: string,
-): Promise<InitialQualificationProjection | null> {
-  const project = (
-    await db
-      .select({ id: projects.id })
-      .from(projects)
-      .where(and(eq(projects.id, projectId), eq(projects.ownerPilotId, pilotId)))
-      .limit(1)
-  )[0];
-  if (!project) throw new StudioError("NOT_FOUND", "Projet introuvable");
-
-  let projection = await getQualificationProjection(pilotId, projectId);
-  if (!projection) {
-    const link = (
-      await db
-        .select()
-        .from(preparationProjectLinks)
-        .where(eq(preparationProjectLinks.projectId, projectId))
-        .limit(1)
-    )[0];
-    if (!link) return null;
-    projection = await ensureInitialQualification({
+export async function POST(
+  _req: Request,
+  ctx: { params: Promise<{ projectId: string }> },
+) {
+  try {
+    const session = await requireStudioSession();
+    const { projectId } = await ctx.params;
+    const initialQualification = await reconcileInitialQualification(
       projectId,
-      preparationId: link.preparationId,
-      pilotId,
-    });
-  }
-
-  if (
-    projection.status === "PENDING" ||
-    projection.status === "RUNNING" ||
-    projection.status === "UNKNOWN"
-  ) {
-    return processInitialQualification(projectId, { pilotId });
-  }
-  return projection;
-}
-
-export async function assertPilotTurnNotBlockedByQualification(
-  pilotId: string,
-  projectId: string,
-): Promise<void> {
-  const q = await getQualificationProjection(pilotId, projectId);
-  if (q && (q.status === "PENDING" || q.status === "RUNNING" || q.status === "UNKNOWN")) {
-    throw new StudioError(
-      "QUALIFICATION_IN_PROGRESS",
-      "Qualification initiale de trajectoire en cours — envoyez un message après la proposition ou la clarification.",
-      { httpStatus: 409 },
+      session.pilotId,
     );
+    return NextResponse.json({ initialQualification });
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    return NextResponse.json(mapped.body, { status: mapped.status });
   }
-}
-
-export { blocksPilotTurnAdmission, isInitialQualificationComposerLocked } from "@/domains/pilotage/qualification-lock";
-```
-
-### `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts`
-
-- SHA256: `3a6f848cc8156f235368d31240dedf751e344632b6631388f9cde733e67376f1`
-- Bytes: 924
-
-```
-import type { ForecastStep } from "@/domains/pilotage/forecast-builder";
-
-export const QUALIFICATION_STATUSES = [
-  "PENDING",
-  "RUNNING",
-  "PROPOSED",
-  "CLARIFICATION",
-  "FAILED",
-  "UNKNOWN",
-] as const;
-
-export type QualificationStatus = (typeof QUALIFICATION_STATUSES)[number];
-
-export const QUALIFICATION_PHASES = ["ENGAGED", "ANALYZING", "PUBLISHING", "TERMINAL"] as const;
-
-export type QualificationPhase = (typeof QUALIFICATION_PHASES)[number];
-
-export type InitialQualificationProjection = {
-  operationId: string;
-  projectId: string;
-  preparationId: string;
-  status: QualificationStatus;
-  phase: QualificationPhase;
-  version: number;
-  uiStep: 1 | 2 | 3 | null;
-  composerLocked: boolean;
-  composerLockReason: string;
-  trajectoryRevisionId: string | null;
-  assistantMessageId: string | null;
-  forecastSteps: ForecastStep[] | null;
-  clarificationQuestion: string | null;
-  errorCode: string | null;
-};
-```
-
-### `projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts`
-
-- SHA256: `445603b2de4c2e47f92ea859bf1a92b5b23ee6049864998179b9b66340303036`
-- Bytes: 6862
-
-```
-import { createHash } from "crypto";
-import { CYCLE_TYPES, type CycleType, isCycleType } from "@/domains/pilotage/cki-resolve";
-import type { PreparationProjection } from "@/domains/preparation/projection";
-
-export type ForecastStep = {
-  order: number;
-  cycleType: CycleType;
-  rationale: string;
-  certainty: "QUALIFIED" | "ENVISIONED";
-};
-
-export type ForecastBuildResult =
-  | { kind: "PROPOSE"; steps: ForecastStep[]; orientation: string; summary: string }
-  | { kind: "CLARIFICATION"; question: string; missing: string[] };
-
-const CYCLE_LABELS: Record<CycleType, string> = {
-  CADRAGE: "cadrage",
-  CONCEPTION_FONCTIONNELLE: "conception fonctionnelle",
-  ARCHITECTURE_FONCTIONNELLE: "architecture fonctionnelle",
-  UX_UI: "conception UX",
-  BACKLOG: "backlog",
-  ARCHITECTURE_TECHNIQUE: "architecture technique",
-  INTEGRATION_DEVOPS: "intégration DevOps",
-  DELIVERY: "delivery",
-  QA_VALIDATION: "validation qualité",
-  SECURITE: "sécurité",
-  DEPLOIEMENT_RELEASE: "déploiement release",
-  OBSERVABILITE: "observabilité",
-  PR_READINESS: "préparation PR",
-  POST_MERGE: "post-merge",
-  CAPITALISATION: "capitalisation",
-};
-
-function projectionTextBundle(projection: PreparationProjection | null, previewSummary: string): string {
-  const parts: string[] = [];
-  if (projection?.intention?.value?.trim()) parts.push(projection.intention.value.trim());
-  if (projection?.desiredOutcome?.value?.trim()) parts.push(projection.desiredOutcome.value.trim());
-  if (projection?.initialScope?.value?.trim()) parts.push(projection.initialScope.value.trim());
-  if (previewSummary.trim()) parts.push(previewSummary.trim());
-  for (const q of projection?.openQuestions ?? []) {
-    if (q.value?.trim()) parts.push(q.value.trim());
-  }
-  return parts.join("\n");
-}
-
-function inferPreferredFirstCycle(
-  projection: PreparationProjection | null,
-  bundle: string,
-): CycleType | null {
-  const explicit = projection?.suggestion?.explanation?.trim() ?? "";
-  const haystack = `${explicit}\n${bundle}`.toLowerCase();
-  for (const type of CYCLE_TYPES) {
-    const label = CYCLE_LABELS[type];
-    const token = type.toLowerCase().replace(/_/g, " ");
-    if (haystack.includes(label) || haystack.includes(token)) {
-      return type;
-    }
-  }
-  if (/\bux\b|interface utilisateur|expérience utilisateur/i.test(haystack)) return "UX_UI";
-  if (/architecture technique|stack technique/i.test(haystack)) return "ARCHITECTURE_TECHNIQUE";
-  if (/backlog|user story|stories/i.test(haystack)) return "BACKLOG";
-  return null;
-}
-
-function followOnCycles(first: CycleType, bundle: string): CycleType[] {
-  const lower = bundle.toLowerCase();
-  const out: CycleType[] = [];
-  const push = (t: CycleType) => {
-    if (t !== first && !out.includes(t)) out.push(t);
-  };
-  if (first === "CADRAGE") {
-    push("CONCEPTION_FONCTIONNELLE");
-    if (/ux|interface|écran/i.test(lower)) push("UX_UI");
-  } else if (first === "CONCEPTION_FONCTIONNELLE") {
-    push("UX_UI");
-  } else if (first === "UX_UI") {
-    push("BACKLOG");
-  } else if (first === "ARCHITECTURE_TECHNIQUE") {
-    push("INTEGRATION_DEVOPS");
-  }
-  return out.slice(0, 2);
-}
-
-export function buildInitialForecast(input: {
-  projection: PreparationProjection | null;
-  previewSummary: string;
-}): ForecastBuildResult {
-  const bundle = projectionTextBundle(input.projection, input.previewSummary);
-  if (!bundle.trim()) {
-    return {
-      kind: "CLARIFICATION",
-      question:
-        "Pour proposer une trajectoire de cycles utile, précisez l'intention du projet et le résultat visé dans le fil de préparation.",
-      missing: ["intention", "résultat visé"],
-    };
-  }
-  const hasIntention =
-    Boolean(input.projection?.intention?.value?.trim()) ||
-    Boolean(input.projection?.desiredOutcome?.value?.trim());
-  if (!hasIntention && bundle.length < 24) {
-    return {
-      kind: "CLARIFICATION",
-      question:
-        "J'ai besoin de comprendre ce que vous voulez accomplir avec ce projet — pouvez-vous formuler l'intention et le premier résultat attendu ?",
-      missing: ["intention"],
-    };
-  }
-
-  // E07-COR-06 — never invent CADRAGE by default; clarify when no signal.
-  const first = inferPreferredFirstCycle(input.projection, bundle);
-  if (!first) {
-    return {
-      kind: "CLARIFICATION",
-      question:
-        "Pour proposer une première progression de cycles, précisez le premier résultat utile attendu et le type de cycle qui vous semble le plus pertinent (cadrage, conception fonctionnelle, UX, etc.).",
-      missing: ["premier cycle", "résultat utile"],
-    };
-  }
-  const follow = followOnCycles(first, bundle);
-  const steps: ForecastStep[] = [
-    {
-      order: 1,
-      cycleType: first,
-      rationale: "Premier cycle recommandé à partir de votre intention et du périmètre qualifié.",
-      certainty: "QUALIFIED",
-    },
-    ...follow.map((cycleType, i) => ({
-      order: i + 2,
-      cycleType,
-      rationale: "Suite envisagée si le premier cycle confirme la direction.",
-      certainty: "ENVISIONED" as const,
-    })),
-  ];
-
-  const labels = steps.map((s) => CYCLE_LABELS[s.cycleType]);
-  const orientation = `Trajectoire séquentielle proposée : ${labels.join(" → ")}.`;
-  const summary = `Je recommande d'ouvrir d'abord un cycle ${CYCLE_LABELS[first]}, puis d'envisager ${labels.slice(1).join(", ") || "la suite"} selon ce que nous qualifions ensemble.`;
-
-  return { kind: "PROPOSE", steps, orientation, summary };
-}
-
-export function qualificationInputFingerprint(input: {
-  preparationId: string;
-  projection: PreparationProjection | null;
-  previewSummary: string;
-  creationRevision: number;
-}): string {
-  const payload = {
-    preparationId: input.preparationId,
-    creationRevision: input.creationRevision,
-    previewSummary: input.previewSummary.trim(),
-    projectionRevision: input.projection?.revision ?? 0,
-    intention: input.projection?.intention?.value ?? "",
-    desiredOutcome: input.projection?.desiredOutcome?.value ?? "",
-    initialScope: input.projection?.initialScope?.value ?? "",
-  };
-  return createHash("sha256").update(JSON.stringify(payload)).digest("hex");
-}
-
-export function parseForecastJson(raw: unknown): ForecastStep[] | null {
-  if (!Array.isArray(raw)) return null;
-  const steps: ForecastStep[] = [];
-  for (const row of raw) {
-    if (!row || typeof row !== "object") return null;
-    const o = row as Record<string, unknown>;
-    const cycleType = typeof o.cycleType === "string" && isCycleType(o.cycleType) ? o.cycleType : null;
-    if (!cycleType) return null;
-    steps.push({
-      order: typeof o.order === "number" ? o.order : steps.length + 1,
-      cycleType,
-      rationale: typeof o.rationale === "string" ? o.rationale : "",
-      certainty: o.certainty === "ENVISIONED" ? "ENVISIONED" : "QUALIFIED",
-    });
-  }
-  return steps.length ? steps.sort((a, b) => a.order - b.order) : null;
 }
 ```
 
-### `projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts`
+### `projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx`
 
-- SHA256: `68dbb259f9d55b599ee0cb8d5f0d9c548eb72e706a54463e2f8a425eeef9512f`
-- Bytes: 1356
+**Disposition :** produit Ensemble 07 — à conserver.
+
+- SHA256: `d46ebc57892b5578dc6ee9662cc384f0fc312736329fcd970ca6968ed0f16d08`
+- Bytes: 3108
 
 ```
+"use client";
+
 import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
 
-const BLOCKING = new Set(["PENDING", "RUNNING", "UNKNOWN"]);
+export function SasCreateProgressPopup(props: {
+  visible: boolean;
+  projectName: string;
+  step: 1 | 2 | 3;
+  qualification: InitialQualificationProjection | null;
+  onDismiss: () => void;
+}) {
+  if (!props.visible) return null;
 
-export function isInitialQualificationComposerLocked(
-  q: InitialQualificationProjection | null | undefined,
-): boolean {
-  if (!q) return false;
-  return BLOCKING.has(q.status);
-}
+  const labels = [
+    {
+      title: "Projet créé",
+      detail: "Il reste accessible, même si vous quittez Studio.",
+    },
+    {
+      title: "Identification des cycles pertinents",
+      detail: "Analyse des cycles pertinents et des références CKI.",
+    },
+    {
+      title: "Proposition ou clarification",
+      detail: "Nora restituera la trajectoire dans le fil Travail.",
+    },
+  ] as const;
 
-export function initialQualificationComposerReason(
-  q: InitialQualificationProjection | null | undefined,
-): string {
-  if (!q || !isInitialQualificationComposerLocked(q)) return "";
-  if (q.status === "UNKNOWN") {
-    return "La qualification initiale de trajectoire est en cours de réconciliation — le compositeur est temporairement indisponible.";
-  }
-  if (q.phase === "PUBLISHING") {
-    return "Nora finalise la proposition de trajectoire (étape 3/3) — le compositeur est verrouillé jusqu'à la restitution.";
-  }
-  if (q.phase === "ANALYZING") {
-    return "Nora analyse votre intention pour proposer une trajectoire (étape 2/3) — le compositeur est verrouillé.";
-  }
-  return "Qualification initiale de trajectoire en cours (étape 1/3) — le compositeur est verrouillé jusqu'à la proposition ou une clarification.";
-}
-
-export function blocksPilotTurnAdmission(q: InitialQualificationProjection | null | undefined): boolean {
-  if (!q) return false;
-  return BLOCKING.has(q.status);
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="sas-create-progress-title"
+      data-testid="sas-create-progress-popup"
+    >
+      <div
+        className="w-full max-w-md rounded-xl border px-5 py-4 shadow-lg"
+        style={{ background: "#0f1118", borderColor: "#7477ed44", color: "#f3f5ff" }}
+      >
+        <p className="text-[10px] uppercase tracking-widest text-[#7477ed]">
+          PROJET CRÉÉ / TRAJECTOIRE EN PRÉPARATION
+        </p>
+        <h2 id="sas-create-progress-title" className="text-lg font-medium mt-1">
+          Projet créé. Nora prépare la suite.
+        </h2>
+        <ol className="mt-4 space-y-3">
+          {labels.map((item, idx) => {
+            const n = (idx + 1) as 1 | 2 | 3;
+            const done = props.step > n;
+            const current = props.step === n;
+            return (
+              <li
+                key={item.title}
+                className="flex gap-3 text-sm"
+                data-testid={`sas-create-step-${n}`}
+                data-current={current ? "1" : "0"}
+              >
+                <span
+                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold"
+                  style={{
+                    background: done || current ? "#7477ed" : "#a3b0c733",
+                    color: done || current ? "#f3f5ff" : "#a3b0c7",
+                  }}
+                  aria-hidden
+                >
+                  {done ? "OK" : n}
+                </span>
+                <div>
+                  <p className="font-medium">{item.title}</p>
+                  <p className="text-[#a3b0c7]">{item.detail}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+        {props.qualification?.composerLockReason ? (
+          <p className="mt-3 text-xs text-[#a3b0c7]">{props.qualification.composerLockReason}</p>
+        ) : null}
+        <div className="mt-5 flex justify-end gap-2">
+          <button
+            type="button"
+            className="btn secondary"
+            onClick={props.onDismiss}
+            data-testid="sas-create-progress-dismiss"
+          >
+            Accéder au projet
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
 ```
 
 ### `projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx`
+
+**Disposition :** produit Ensemble 07 — à conserver.
 
 - SHA256: `1f59d1ed12a9e1421aa52e2d5ecd95ea4392afc21d6e5c0ebbf469a6aa7c871b`
 - Bytes: 32927
@@ -2137,142 +1861,1069 @@ function CkiMethodeView(props: {
 }
 ```
 
-### `projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx`
+### `projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql`
 
-- SHA256: `d46ebc57892b5578dc6ee9662cc384f0fc312736329fcd970ca6968ed0f16d08`
-- Bytes: 3108
+**Disposition :** produit Ensemble 07 — à conserver.
+
+- SHA256: `1d44a872997c5233e3e7c077893262480710129ec6d1979cfb5771f8bb7b37da`
+- Bytes: 1285
 
 ```
-"use client";
+-- Ensemble 07 — initial trajectory qualification operation (one per project).
+-- Additive / re-runnable from 014_journal_d4_revisions.
 
-import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
+CREATE TABLE IF NOT EXISTS trajectory_qualification_operations (
+  id text PRIMARY KEY,
+  project_id text NOT NULL REFERENCES projects(id),
+  preparation_id text NOT NULL REFERENCES preparations(id),
+  pilot_id text NOT NULL REFERENCES pilots(id),
+  status text NOT NULL,
+  phase text NOT NULL,
+  version integer NOT NULL DEFAULT 1,
+  input_fingerprint text NOT NULL DEFAULT '',
+  trajectory_revision_id text REFERENCES trajectory_revisions(id),
+  assistant_message_id text,
+  result_json jsonb,
+  error_code text,
+  owner_token text,
+  claimed_at timestamptz,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
 
-export function SasCreateProgressPopup(props: {
-  visible: boolean;
-  projectName: string;
-  step: 1 | 2 | 3;
-  qualification: InitialQualificationProjection | null;
-  onDismiss: () => void;
-}) {
-  if (!props.visible) return null;
+CREATE UNIQUE INDEX IF NOT EXISTS trajectory_qualification_operations_project_uidx
+  ON trajectory_qualification_operations (project_id);
 
-  const labels = [
+CREATE INDEX IF NOT EXISTS trajectory_qualification_operations_preparation_idx
+  ON trajectory_qualification_operations (preparation_id);
+
+CREATE INDEX IF NOT EXISTS trajectory_qualification_operations_status_idx
+  ON trajectory_qualification_operations (status);
+
+ALTER TABLE trajectory_revisions
+  ADD COLUMN IF NOT EXISTS forecast_json jsonb;
+```
+
+### `projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts`
+
+**Disposition :** produit Ensemble 07 — à conserver.
+
+- SHA256: `445603b2de4c2e47f92ea859bf1a92b5b23ee6049864998179b9b66340303036`
+- Bytes: 6862
+
+```
+import { createHash } from "crypto";
+import { CYCLE_TYPES, type CycleType, isCycleType } from "@/domains/pilotage/cki-resolve";
+import type { PreparationProjection } from "@/domains/preparation/projection";
+
+export type ForecastStep = {
+  order: number;
+  cycleType: CycleType;
+  rationale: string;
+  certainty: "QUALIFIED" | "ENVISIONED";
+};
+
+export type ForecastBuildResult =
+  | { kind: "PROPOSE"; steps: ForecastStep[]; orientation: string; summary: string }
+  | { kind: "CLARIFICATION"; question: string; missing: string[] };
+
+const CYCLE_LABELS: Record<CycleType, string> = {
+  CADRAGE: "cadrage",
+  CONCEPTION_FONCTIONNELLE: "conception fonctionnelle",
+  ARCHITECTURE_FONCTIONNELLE: "architecture fonctionnelle",
+  UX_UI: "conception UX",
+  BACKLOG: "backlog",
+  ARCHITECTURE_TECHNIQUE: "architecture technique",
+  INTEGRATION_DEVOPS: "intégration DevOps",
+  DELIVERY: "delivery",
+  QA_VALIDATION: "validation qualité",
+  SECURITE: "sécurité",
+  DEPLOIEMENT_RELEASE: "déploiement release",
+  OBSERVABILITE: "observabilité",
+  PR_READINESS: "préparation PR",
+  POST_MERGE: "post-merge",
+  CAPITALISATION: "capitalisation",
+};
+
+function projectionTextBundle(projection: PreparationProjection | null, previewSummary: string): string {
+  const parts: string[] = [];
+  if (projection?.intention?.value?.trim()) parts.push(projection.intention.value.trim());
+  if (projection?.desiredOutcome?.value?.trim()) parts.push(projection.desiredOutcome.value.trim());
+  if (projection?.initialScope?.value?.trim()) parts.push(projection.initialScope.value.trim());
+  if (previewSummary.trim()) parts.push(previewSummary.trim());
+  for (const q of projection?.openQuestions ?? []) {
+    if (q.value?.trim()) parts.push(q.value.trim());
+  }
+  return parts.join("\n");
+}
+
+function inferPreferredFirstCycle(
+  projection: PreparationProjection | null,
+  bundle: string,
+): CycleType | null {
+  const explicit = projection?.suggestion?.explanation?.trim() ?? "";
+  const haystack = `${explicit}\n${bundle}`.toLowerCase();
+  for (const type of CYCLE_TYPES) {
+    const label = CYCLE_LABELS[type];
+    const token = type.toLowerCase().replace(/_/g, " ");
+    if (haystack.includes(label) || haystack.includes(token)) {
+      return type;
+    }
+  }
+  if (/\bux\b|interface utilisateur|expérience utilisateur/i.test(haystack)) return "UX_UI";
+  if (/architecture technique|stack technique/i.test(haystack)) return "ARCHITECTURE_TECHNIQUE";
+  if (/backlog|user story|stories/i.test(haystack)) return "BACKLOG";
+  return null;
+}
+
+function followOnCycles(first: CycleType, bundle: string): CycleType[] {
+  const lower = bundle.toLowerCase();
+  const out: CycleType[] = [];
+  const push = (t: CycleType) => {
+    if (t !== first && !out.includes(t)) out.push(t);
+  };
+  if (first === "CADRAGE") {
+    push("CONCEPTION_FONCTIONNELLE");
+    if (/ux|interface|écran/i.test(lower)) push("UX_UI");
+  } else if (first === "CONCEPTION_FONCTIONNELLE") {
+    push("UX_UI");
+  } else if (first === "UX_UI") {
+    push("BACKLOG");
+  } else if (first === "ARCHITECTURE_TECHNIQUE") {
+    push("INTEGRATION_DEVOPS");
+  }
+  return out.slice(0, 2);
+}
+
+export function buildInitialForecast(input: {
+  projection: PreparationProjection | null;
+  previewSummary: string;
+}): ForecastBuildResult {
+  const bundle = projectionTextBundle(input.projection, input.previewSummary);
+  if (!bundle.trim()) {
+    return {
+      kind: "CLARIFICATION",
+      question:
+        "Pour proposer une trajectoire de cycles utile, précisez l'intention du projet et le résultat visé dans le fil de préparation.",
+      missing: ["intention", "résultat visé"],
+    };
+  }
+  const hasIntention =
+    Boolean(input.projection?.intention?.value?.trim()) ||
+    Boolean(input.projection?.desiredOutcome?.value?.trim());
+  if (!hasIntention && bundle.length < 24) {
+    return {
+      kind: "CLARIFICATION",
+      question:
+        "J'ai besoin de comprendre ce que vous voulez accomplir avec ce projet — pouvez-vous formuler l'intention et le premier résultat attendu ?",
+      missing: ["intention"],
+    };
+  }
+
+  // E07-COR-06 — never invent CADRAGE by default; clarify when no signal.
+  const first = inferPreferredFirstCycle(input.projection, bundle);
+  if (!first) {
+    return {
+      kind: "CLARIFICATION",
+      question:
+        "Pour proposer une première progression de cycles, précisez le premier résultat utile attendu et le type de cycle qui vous semble le plus pertinent (cadrage, conception fonctionnelle, UX, etc.).",
+      missing: ["premier cycle", "résultat utile"],
+    };
+  }
+  const follow = followOnCycles(first, bundle);
+  const steps: ForecastStep[] = [
     {
-      title: "Projet créé",
-      detail: "Il reste accessible, même si vous quittez Studio.",
+      order: 1,
+      cycleType: first,
+      rationale: "Premier cycle recommandé à partir de votre intention et du périmètre qualifié.",
+      certainty: "QUALIFIED",
     },
-    {
-      title: "Identification des cycles pertinents",
-      detail: "Analyse des cycles pertinents et des références CKI.",
-    },
-    {
-      title: "Proposition ou clarification",
-      detail: "Nora restituera la trajectoire dans le fil Travail.",
-    },
-  ] as const;
+    ...follow.map((cycleType, i) => ({
+      order: i + 2,
+      cycleType,
+      rationale: "Suite envisagée si le premier cycle confirme la direction.",
+      certainty: "ENVISIONED" as const,
+    })),
+  ];
 
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="sas-create-progress-title"
-      data-testid="sas-create-progress-popup"
-    >
-      <div
-        className="w-full max-w-md rounded-xl border px-5 py-4 shadow-lg"
-        style={{ background: "#0f1118", borderColor: "#7477ed44", color: "#f3f5ff" }}
-      >
-        <p className="text-[10px] uppercase tracking-widest text-[#7477ed]">
-          PROJET CRÉÉ / TRAJECTOIRE EN PRÉPARATION
-        </p>
-        <h2 id="sas-create-progress-title" className="text-lg font-medium mt-1">
-          Projet créé. Nora prépare la suite.
-        </h2>
-        <ol className="mt-4 space-y-3">
-          {labels.map((item, idx) => {
-            const n = (idx + 1) as 1 | 2 | 3;
-            const done = props.step > n;
-            const current = props.step === n;
-            return (
-              <li
-                key={item.title}
-                className="flex gap-3 text-sm"
-                data-testid={`sas-create-step-${n}`}
-                data-current={current ? "1" : "0"}
-              >
-                <span
-                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold"
-                  style={{
-                    background: done || current ? "#7477ed" : "#a3b0c733",
-                    color: done || current ? "#f3f5ff" : "#a3b0c7",
-                  }}
-                  aria-hidden
-                >
-                  {done ? "OK" : n}
-                </span>
-                <div>
-                  <p className="font-medium">{item.title}</p>
-                  <p className="text-[#a3b0c7]">{item.detail}</p>
-                </div>
-              </li>
-            );
-          })}
-        </ol>
-        {props.qualification?.composerLockReason ? (
-          <p className="mt-3 text-xs text-[#a3b0c7]">{props.qualification.composerLockReason}</p>
-        ) : null}
-        <div className="mt-5 flex justify-end gap-2">
-          <button
-            type="button"
-            className="btn secondary"
-            onClick={props.onDismiss}
-            data-testid="sas-create-progress-dismiss"
-          >
-            Accéder au projet
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+  const labels = steps.map((s) => CYCLE_LABELS[s.cycleType]);
+  const orientation = `Trajectoire séquentielle proposée : ${labels.join(" → ")}.`;
+  const summary = `Je recommande d'ouvrir d'abord un cycle ${CYCLE_LABELS[first]}, puis d'envisager ${labels.slice(1).join(", ") || "la suite"} selon ce que nous qualifions ensemble.`;
+
+  return { kind: "PROPOSE", steps, orientation, summary };
+}
+
+export function qualificationInputFingerprint(input: {
+  preparationId: string;
+  projection: PreparationProjection | null;
+  previewSummary: string;
+  creationRevision: number;
+}): string {
+  const payload = {
+    preparationId: input.preparationId,
+    creationRevision: input.creationRevision,
+    previewSummary: input.previewSummary.trim(),
+    projectionRevision: input.projection?.revision ?? 0,
+    intention: input.projection?.intention?.value ?? "",
+    desiredOutcome: input.projection?.desiredOutcome?.value ?? "",
+    initialScope: input.projection?.initialScope?.value ?? "",
+  };
+  return createHash("sha256").update(JSON.stringify(payload)).digest("hex");
+}
+
+export function parseForecastJson(raw: unknown): ForecastStep[] | null {
+  if (!Array.isArray(raw)) return null;
+  const steps: ForecastStep[] = [];
+  for (const row of raw) {
+    if (!row || typeof row !== "object") return null;
+    const o = row as Record<string, unknown>;
+    const cycleType = typeof o.cycleType === "string" && isCycleType(o.cycleType) ? o.cycleType : null;
+    if (!cycleType) return null;
+    steps.push({
+      order: typeof o.order === "number" ? o.order : steps.length + 1,
+      cycleType,
+      rationale: typeof o.rationale === "string" ? o.rationale : "",
+      certainty: o.certainty === "ENVISIONED" ? "ENVISIONED" : "QUALIFIED",
+    });
+  }
+  return steps.length ? steps.sort((a, b) => a.order - b.order) : null;
 }
 ```
 
-### `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/reconcile/route.ts`
+### `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts`
 
-- SHA256: `fff63ded9627a700090aa570563d6df9eb996ab81c5bfe522d1b0ecee552c0ae`
-- Bytes: 896
+**Disposition :** produit Ensemble 07 — à conserver.
+
+- SHA256: `3a6f848cc8156f235368d31240dedf751e344632b6631388f9cde733e67376f1`
+- Bytes: 924
 
 ```
-import { NextResponse } from "next/server";
-import { requireStudioSession } from "@/domains/identity/session";
-import { reconcileInitialQualification } from "@/domains/pilotage/initial-qualification";
-import { studioErrorResponse } from "@/lib/http-errors";
+import type { ForecastStep } from "@/domains/pilotage/forecast-builder";
+
+export const QUALIFICATION_STATUSES = [
+  "PENDING",
+  "RUNNING",
+  "PROPOSED",
+  "CLARIFICATION",
+  "FAILED",
+  "UNKNOWN",
+] as const;
+
+export type QualificationStatus = (typeof QUALIFICATION_STATUSES)[number];
+
+export const QUALIFICATION_PHASES = ["ENGAGED", "ANALYZING", "PUBLISHING", "TERMINAL"] as const;
+
+export type QualificationPhase = (typeof QUALIFICATION_PHASES)[number];
+
+export type InitialQualificationProjection = {
+  operationId: string;
+  projectId: string;
+  preparationId: string;
+  status: QualificationStatus;
+  phase: QualificationPhase;
+  version: number;
+  uiStep: 1 | 2 | 3 | null;
+  composerLocked: boolean;
+  composerLockReason: string;
+  trajectoryRevisionId: string | null;
+  assistantMessageId: string | null;
+  forecastSteps: ForecastStep[] | null;
+  clarificationQuestion: string | null;
+  errorCode: string | null;
+};
+```
+
+### `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts`
+
+**Disposition :** produit Ensemble 07 — à conserver.
+
+- SHA256: `0864570090840871928672cd62081934938fe6de940c5c3bdef94542b7614358`
+- Bytes: 23432
+
+```
+import { and, asc, eq, sql } from "drizzle-orm";
+import { db } from "@/db/client";
+import {
+  conversations,
+  messages,
+  preparationProjectLinks,
+  preparations,
+  projectPilotageState,
+  projects,
+  trajectoryQualificationOperations,
+} from "@/db/schema";
+import {
+  buildInitialForecast,
+  qualificationInputFingerprint,
+  parseForecastJson,
+  type ForecastBuildResult,
+} from "@/domains/pilotage/forecast-builder";
+import {
+  initialQualificationComposerReason,
+  isInitialQualificationComposerLocked,
+} from "@/domains/pilotage/qualification-lock";
+import type {
+  InitialQualificationProjection,
+  QualificationPhase,
+  QualificationStatus,
+} from "@/domains/pilotage/initial-qualification-types";
+import { executePilotageCommand } from "@/domains/pilotage/service";
+import { parseProjectionJson } from "@/domains/preparation/projection";
+import { StudioError } from "@/lib/http-errors";
+import { newId } from "@/lib/ids";
+
+const CLAIM_LEASE_MS = 120_000;
+
+/** Test hook — throw between ANALYZING and publish. */
+export const initialQualificationFault: {
+  beforePublish: null | (() => void | Promise<void>);
+} = {
+  beforePublish: null,
+};
+
+function phaseToUiStep(phase: QualificationPhase): 1 | 2 | 3 | null {
+  switch (phase) {
+    case "ENGAGED":
+      return 1;
+    case "ANALYZING":
+      return 2;
+    case "PUBLISHING":
+      return 3;
+    default:
+      return null;
+  }
+}
+
+function rowToProjection(
+  row: typeof trajectoryQualificationOperations.$inferSelect,
+  forecastSteps: InitialQualificationProjection["forecastSteps"],
+  clarificationQuestion: string | null,
+): InitialQualificationProjection {
+  const status = row.status as QualificationStatus;
+  const phase = row.phase as QualificationPhase;
+  const composerLocked = isInitialQualificationComposerLocked({
+    operationId: row.id,
+    projectId: row.projectId,
+    preparationId: row.preparationId,
+    status,
+    phase,
+    version: row.version,
+    uiStep: phaseToUiStep(phase),
+    composerLocked: false,
+    composerLockReason: "",
+    trajectoryRevisionId: row.trajectoryRevisionId,
+    assistantMessageId: row.assistantMessageId,
+    forecastSteps,
+    clarificationQuestion,
+    errorCode: row.errorCode,
+  });
+  return {
+    operationId: row.id,
+    projectId: row.projectId,
+    preparationId: row.preparationId,
+    status,
+    phase,
+    version: row.version,
+    uiStep: phaseToUiStep(phase),
+    composerLocked,
+    composerLockReason: initialQualificationComposerReason({
+      operationId: row.id,
+      projectId: row.projectId,
+      preparationId: row.preparationId,
+      status,
+      phase,
+      version: row.version,
+      uiStep: phaseToUiStep(phase),
+      composerLocked,
+      composerLockReason: "",
+      trajectoryRevisionId: row.trajectoryRevisionId,
+      assistantMessageId: row.assistantMessageId,
+      forecastSteps,
+      clarificationQuestion,
+      errorCode: row.errorCode,
+    }),
+    trajectoryRevisionId: row.trajectoryRevisionId,
+    assistantMessageId: row.assistantMessageId,
+    forecastSteps,
+    clarificationQuestion,
+    errorCode: row.errorCode,
+  };
+}
+
+function parseResultJson(raw: unknown): {
+  clarificationQuestion: string | null;
+  forecastSteps: InitialQualificationProjection["forecastSteps"];
+} {
+  if (!raw || typeof raw !== "object") {
+    return { clarificationQuestion: null, forecastSteps: null };
+  }
+  const o = raw as Record<string, unknown>;
+  const clarificationQuestion =
+    typeof o.clarificationQuestion === "string" ? o.clarificationQuestion : null;
+  const forecastSteps = parseForecastJson(o.forecastSteps);
+  return { clarificationQuestion, forecastSteps };
+}
+
+export async function getQualificationProjection(
+  pilotId: string,
+  projectId: string,
+): Promise<InitialQualificationProjection | null> {
+  const row = (
+    await db
+      .select()
+      .from(trajectoryQualificationOperations)
+      .where(
+        and(
+          eq(trajectoryQualificationOperations.projectId, projectId),
+          eq(trajectoryQualificationOperations.pilotId, pilotId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!row) return null;
+  const parsed = parseResultJson(row.resultJson);
+  return rowToProjection(row, parsed.forecastSteps, parsed.clarificationQuestion);
+}
+
+export async function ensureInitialQualification(input: {
+  projectId: string;
+  preparationId: string;
+  pilotId: string;
+}): Promise<InitialQualificationProjection> {
+  const existing = await getQualificationProjection(input.pilotId, input.projectId);
+  if (existing) return existing;
+
+  const prep = (
+    await db
+      .select()
+      .from(preparations)
+      .where(
+        and(eq(preparations.id, input.preparationId), eq(preparations.ownerPilotId, input.pilotId)),
+      )
+      .limit(1)
+  )[0];
+  if (!prep) throw new StudioError("NOT_FOUND", "Préparation introuvable");
+
+  const projection = parseProjectionJson(
+    prep.projectionJson,
+    prep.id,
+    prep.creationRevision,
+  );
+  const fingerprint = qualificationInputFingerprint({
+    preparationId: prep.id,
+    projection,
+    previewSummary: prep.previewSummary ?? "",
+    creationRevision: prep.creationRevision,
+  });
+
+  const id = newId("iqop");
+  const now = new Date();
+  try {
+    await db.insert(trajectoryQualificationOperations).values({
+      id,
+      projectId: input.projectId,
+      preparationId: input.preparationId,
+      pilotId: input.pilotId,
+      status: "PENDING",
+      phase: "ENGAGED",
+      version: 1,
+      inputFingerprint: fingerprint,
+      createdAt: now,
+      updatedAt: now,
+    });
+  } catch {
+  }
+
+  const row = (
+    await db
+      .select()
+      .from(trajectoryQualificationOperations)
+      .where(eq(trajectoryQualificationOperations.projectId, input.projectId))
+      .limit(1)
+  )[0];
+  if (!row) throw new StudioError("INTERNAL", "Qualification initiale non créée");
+  return rowToProjection(row, null, null);
+}
+
+function initialQualificationGenerationId(operationId: string, version: number): string {
+  return `sfia:iq:${operationId}:v${version}`;
+}
+
+function stableAssistantMessageId(operationId: string, version: number): string {
+  return `msg_iq_${operationId}_v${version}`;
+}
+
+async function appendQualificationThreadMessage(input: {
+  pilotId: string;
+  preparationId: string;
+  operationId: string;
+  version: number;
+  content: string;
+  /** E07-COR-08 — Studio incidents use system; Nora cognitive uses assistant. */
+  role: "assistant" | "system";
+}): Promise<string> {
+  const conv = (
+    await db
+      .select()
+      .from(conversations)
+      .where(
+        and(
+          eq(conversations.preparationId, input.preparationId),
+          eq(conversations.ownerPilotId, input.pilotId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!conv) throw new StudioError("NOT_FOUND", "Conversation introuvable");
+
+  const generationId = initialQualificationGenerationId(input.operationId, input.version);
+  const stableId = stableAssistantMessageId(input.operationId, input.version);
+
+  const existingByGen = (
+    await db
+      .select()
+      .from(messages)
+      .where(and(eq(messages.conversationId, conv.id), eq(messages.generationId, generationId)))
+      .limit(1)
+  )[0];
+  if (existingByGen) return existingByGen.id;
+
+  const existingById = (
+    await db.select().from(messages).where(eq(messages.id, stableId)).limit(1)
+  )[0];
+  if (existingById) return existingById.id;
+
+  const last = (
+    await db
+      .select({ ordinal: messages.ordinal })
+      .from(messages)
+      .where(eq(messages.conversationId, conv.id))
+      .orderBy(asc(messages.ordinal))
+  ).at(-1);
+  const ordinal = (last?.ordinal ?? 0) + 1;
+  const now = new Date();
+
+  try {
+    await db.insert(messages).values({
+      id: stableId,
+      conversationId: conv.id,
+      role: input.role,
+      content: input.content,
+      status: "COMPLETE",
+      ordinal,
+      generationId,
+      createdAt: now,
+    });
+    return stableId;
+  } catch {
+    const again = (
+      await db
+        .select()
+        .from(messages)
+        .where(and(eq(messages.conversationId, conv.id), eq(messages.generationId, generationId)))
+        .limit(1)
+    )[0];
+    if (again) return again.id;
+    throw new StudioError("CONFLICT", "Message de qualification non persisté");
+  }
+}
+
+async function currentPilotageRevision(projectId: string): Promise<number> {
+  const row = (
+    await db
+      .select({ revision: projectPilotageState.revision })
+      .from(projectPilotageState)
+      .where(eq(projectPilotageState.projectId, projectId))
+      .limit(1)
+  )[0];
+  return row?.revision ?? 0;
+}
+
+async function publishProposedTrajectory(input: {
+  pilotId: string;
+  projectId: string;
+  operationId: string;
+  version: number;
+  orientation: string;
+  forecastSteps: ForecastBuildResult & { kind: "PROPOSE" };
+}): Promise<string> {
+  const clientCommandKey = `iq:${input.operationId}:v${input.version}:propose`;
+  const expectedRevision = await currentPilotageRevision(input.projectId);
+  const result = await executePilotageCommand(input.pilotId, input.projectId, {
+    clientCommandKey,
+    expectedRevision,
+    operation: "PROPOSE_TRAJECTORY",
+    sourceKind: "COGNITIVE_PROPOSAL",
+    sourceRef: input.operationId,
+    orientation: input.orientation,
+    forecastJson: input.forecastSteps.steps,
+    actInstanceId: clientCommandKey,
+  });
+  if (result.status === "REJECTED" || result.status === "CONFLICT") {
+    throw new StudioError("INTERNAL", result.reason ?? "Proposition D5 refusée");
+  }
+  const propose = result.effects.find((e) => e.effectKind === "PROPOSE");
+  if (!propose?.targetRef) throw new StudioError("INTERNAL", "Trajectoire PROPOSED absente");
+  return propose.targetRef;
+}
+
+async function updateOpIfOwner(
+  opId: string,
+  ownerToken: string,
+  patch: Partial<typeof trajectoryQualificationOperations.$inferInsert>,
+): Promise<boolean> {
+  const updated = await db
+    .update(trajectoryQualificationOperations)
+    .set({ ...patch, updatedAt: new Date() })
+    .where(
+      and(
+        eq(trajectoryQualificationOperations.id, opId),
+        eq(trajectoryQualificationOperations.ownerToken, ownerToken),
+      ),
+    )
+    .returning({ id: trajectoryQualificationOperations.id });
+  return updated.length > 0;
+}
+
+/** E07-COR-04 — fence before side effects (D5 propose / thread message). */
+async function stillOwnsOperation(opId: string, ownerToken: string): Promise<boolean> {
+  const row = (
+    await db
+      .select({ id: trajectoryQualificationOperations.id })
+      .from(trajectoryQualificationOperations)
+      .where(
+        and(
+          eq(trajectoryQualificationOperations.id, opId),
+          eq(trajectoryQualificationOperations.ownerToken, ownerToken),
+        ),
+      )
+      .limit(1)
+  )[0];
+  return Boolean(row);
+}
+
+function buildAssistantContent(
+  built: ForecastBuildResult,
+  projectName: string,
+): string {
+  if (built.kind === "CLARIFICATION") {
+    return built.question;
+  }
+  return [
+    `Projet **${projectName}** — proposition de trajectoire initiale (non retenue).`,
+    "",
+    built.summary,
+    "",
+    "Vous pouvez accepter cette direction, la contester ou demander un autre premier cycle — chaque décision d'ouverture reste la vôtre.",
+  ].join("\n");
+}
+
+function studioFailedMessage(): string {
+  return [
+    "[Studio] La qualification initiale de trajectoire n'a pas abouti techniquement.",
+    "Le projet reste accessible. Vous pouvez continuer la conversation pour préciser votre intention ; la trajectoire pourra être qualifiée ultérieurement.",
+  ].join("\n");
+}
+
+const TERMINAL = new Set<QualificationStatus>(["PROPOSED", "CLARIFICATION", "FAILED"]);
+
+export async function processInitialQualification(
+  projectId: string,
+  opts?: { force?: boolean; pilotId?: string },
+): Promise<InitialQualificationProjection | null> {
+  const row = (
+    await db
+      .select()
+      .from(trajectoryQualificationOperations)
+      .where(eq(trajectoryQualificationOperations.projectId, projectId))
+      .limit(1)
+  )[0];
+  if (!row) return null;
+  if (opts?.pilotId && row.pilotId !== opts.pilotId) return null;
+
+  if (TERMINAL.has(row.status as QualificationStatus) && !opts?.force) {
+    const parsed = parseResultJson(row.resultJson);
+    return rowToProjection(row, parsed.forecastSteps, parsed.clarificationQuestion);
+  }
+
+  /** DEV visual capture only — freeze PENDING/RUNNING so 09.10 / 05.17 remain observable. */
+  if (
+    process.env.STUDIO_LANE === "DEV" &&
+    process.env.STUDIO_DEV_HOLD_INITIAL_QUALIFICATION === "1" &&
+    !opts?.force
+  ) {
+    const parsed = parseResultJson(row.resultJson);
+    return rowToProjection(row, parsed.forecastSteps, parsed.clarificationQuestion);
+  }
+
+  const ownerToken = newId("iqtk");
+  const now = new Date();
+
+  const claimed = await db.transaction(async (tx) => {
+    const execResult = await tx.execute(
+      sql`select * from trajectory_qualification_operations where project_id = ${projectId} for update`,
+    );
+    const locked = (
+      Array.isArray(execResult)
+        ? execResult
+        : ((execResult as { rows?: Array<Record<string, unknown>> }).rows ?? [])
+    ) as Array<Record<string, unknown>>;
+    const cur = locked[0];
+    if (!cur) return null;
+    const status = String(cur.status) as QualificationStatus;
+    if (TERMINAL.has(status) && !opts?.force) return { kind: "terminal" as const, id: String(cur.id) };
+
+    if (status === "RUNNING" && cur.owner_token && cur.claimed_at) {
+      const claimedAt = new Date(String(cur.claimed_at)).getTime();
+      if (Date.now() - claimedAt < CLAIM_LEASE_MS) {
+        return { kind: "busy" as const, id: String(cur.id) };
+      }
+      // Lease expired — mark UNKNOWN then reclaim (E07-COR-05).
+      await tx
+        .update(trajectoryQualificationOperations)
+        .set({ status: "UNKNOWN", updatedAt: now })
+        .where(eq(trajectoryQualificationOperations.id, String(cur.id)));
+    }
+
+    const priorTrajectoryId =
+      cur.trajectory_revision_id != null ? String(cur.trajectory_revision_id) : null;
+    const priorResult = cur.result_json ?? null;
+
+    await tx
+      .update(trajectoryQualificationOperations)
+      .set({
+        status: "RUNNING",
+        phase: priorTrajectoryId ? "PUBLISHING" : "ANALYZING",
+        ownerToken,
+        claimedAt: now,
+        updatedAt: now,
+      })
+      .where(eq(trajectoryQualificationOperations.id, String(cur.id)));
+
+    return {
+      kind: "claimed" as const,
+      id: String(cur.id),
+      pilotId: String(cur.pilot_id),
+      preparationId: String(cur.preparation_id),
+      version: Number(cur.version),
+      priorTrajectoryId,
+      priorResult,
+    };
+  });
+
+  if (!claimed || claimed.kind === "busy") {
+    return getQualificationProjection(row.pilotId, projectId);
+  }
+  if (claimed.kind === "terminal") {
+    return getQualificationProjection(row.pilotId, projectId);
+  }
+
+  try {
+    const prep = (
+      await db
+        .select()
+        .from(preparations)
+        .where(eq(preparations.id, claimed.preparationId))
+        .limit(1)
+    )[0];
+    const projection = prep
+      ? parseProjectionJson(prep.projectionJson, prep.id, prep.creationRevision)
+      : null;
+    const projectRow = (
+      await db.select({ name: projects.name }).from(projects).where(eq(projects.id, projectId)).limit(1)
+    )[0];
+    const name = projectRow?.name ?? "Projet";
+
+    // Resume path: D5 already published, message/terminal missing (E07-COR-03).
+    if (claimed.priorTrajectoryId) {
+      const parsedPrior = parseResultJson(claimed.priorResult);
+      const assistantMessageId = await appendQualificationThreadMessage({
+        pilotId: claimed.pilotId,
+        preparationId: claimed.preparationId,
+        operationId: claimed.id,
+        version: claimed.version,
+        content:
+          parsedPrior.clarificationQuestion ??
+          buildAssistantContent(
+            {
+              kind: "PROPOSE",
+              steps: parsedPrior.forecastSteps ?? [],
+              orientation: "Trajectoire proposée",
+              summary: "Proposition de trajectoire initiale reprise après interruption.",
+            },
+            name,
+          ),
+        role: "assistant",
+      });
+      const ok = await updateOpIfOwner(claimed.id, ownerToken, {
+        status: "PROPOSED",
+        phase: "TERMINAL",
+        trajectoryRevisionId: claimed.priorTrajectoryId,
+        assistantMessageId,
+        resultJson: (claimed.priorResult as Record<string, unknown>) ?? {
+          kind: "PROPOSED",
+          forecastSteps: parsedPrior.forecastSteps,
+        },
+        ownerToken: null,
+        errorCode: null,
+      });
+      if (!ok) {
+        await updateOpIfOwner(claimed.id, ownerToken, {
+          status: "UNKNOWN",
+          phase: "PUBLISHING",
+        });
+      }
+      return getQualificationProjection(claimed.pilotId, projectId);
+    }
+
+    await initialQualificationFault.beforePublish?.();
+
+    const phaseOk = await updateOpIfOwner(claimed.id, ownerToken, { phase: "PUBLISHING" });
+    if (!phaseOk) {
+      return getQualificationProjection(claimed.pilotId, projectId);
+    }
+
+    const built = buildInitialForecast({
+      projection,
+      previewSummary: prep?.previewSummary ?? "",
+    });
+
+    let trajectoryRevisionId: string | null = null;
+    let terminalStatus: QualificationStatus;
+    let resultJson: Record<string, unknown>;
+    const assistantContent = buildAssistantContent(built, name);
+
+    if (built.kind === "CLARIFICATION") {
+      terminalStatus = "CLARIFICATION";
+      resultJson = {
+        kind: "CLARIFICATION",
+        clarificationQuestion: built.question,
+        missing: built.missing,
+      };
+    } else {
+      if (!(await stillOwnsOperation(claimed.id, ownerToken))) {
+        return getQualificationProjection(claimed.pilotId, projectId);
+      }
+      trajectoryRevisionId = await publishProposedTrajectory({
+        pilotId: claimed.pilotId,
+        projectId,
+        operationId: claimed.id,
+        version: claimed.version,
+        orientation: built.orientation,
+        forecastSteps: built,
+      });
+      terminalStatus = "PROPOSED";
+      resultJson = {
+        kind: "PROPOSED",
+        forecastSteps: built.steps,
+        orientation: built.orientation,
+      };
+      // Persist D5 pointer before message so crash can resume (E07-COR-03).
+      const mid = await updateOpIfOwner(claimed.id, ownerToken, {
+        trajectoryRevisionId,
+        resultJson,
+        phase: "PUBLISHING",
+      });
+      if (!mid) {
+        return getQualificationProjection(claimed.pilotId, projectId);
+      }
+    }
+
+    if (!(await stillOwnsOperation(claimed.id, ownerToken))) {
+      return getQualificationProjection(claimed.pilotId, projectId);
+    }
+    const assistantMessageId = await appendQualificationThreadMessage({
+      pilotId: claimed.pilotId,
+      preparationId: claimed.preparationId,
+      operationId: claimed.id,
+      version: claimed.version,
+      content: assistantContent,
+      role: "assistant",
+    });
+
+    if (built.kind === "PROPOSE" && !trajectoryRevisionId) {
+      throw new StudioError("INTERNAL", "Publication incomplète");
+    }
+
+    const terminalOk = await updateOpIfOwner(claimed.id, ownerToken, {
+      status: terminalStatus,
+      phase: "TERMINAL",
+      trajectoryRevisionId,
+      assistantMessageId,
+      resultJson,
+      ownerToken: null,
+      errorCode: null,
+    });
+    if (!terminalOk) {
+      // Message may exist; leave UNKNOWN for reconcile (E07-COR-04/05).
+      return getQualificationProjection(claimed.pilotId, projectId);
+    }
+
+    return getQualificationProjection(claimed.pilotId, projectId);
+  } catch (e) {
+    const errorCode = e instanceof StudioError ? e.code : "QUALIFICATION_FAILED";
+    // E07-COR-04/08 — expired owner must not publish Studio incident over a newer claim.
+    if (!(await stillOwnsOperation(claimed.id, ownerToken))) {
+      return getQualificationProjection(claimed.pilotId, projectId);
+    }
+    const systemMessageId = await appendQualificationThreadMessage({
+      pilotId: claimed.pilotId,
+      preparationId: claimed.preparationId,
+      operationId: claimed.id,
+      version: claimed.version,
+      content: studioFailedMessage(),
+      role: "system",
+    }).catch(() => null);
+
+    const failedOk = await updateOpIfOwner(claimed.id, ownerToken, {
+      status: "FAILED",
+      phase: "TERMINAL",
+      assistantMessageId: systemMessageId,
+      errorCode,
+      ownerToken: null,
+      resultJson: { kind: "FAILED", errorCode },
+    });
+    if (!failedOk) {
+      return getQualificationProjection(claimed.pilotId, projectId);
+    }
+
+    return getQualificationProjection(claimed.pilotId, projectId);
+  }
+}
+
+export function kickInitialQualificationProcessing(projectId: string, pilotId: string): void {
+  void processInitialQualification(projectId, { pilotId }).catch(() => undefined);
+}
+
+/** E07-COR-01 — ensure durable op then kick; retry once on ensure failure. */
+export async function ensureAndKickInitialQualification(input: {
+  projectId: string;
+  preparationId: string;
+  pilotId: string;
+}): Promise<{
+  projection: InitialQualificationProjection | null;
+  ensureStatus: "OK" | "FAILED_RETRYABLE";
+}> {
+  try {
+    const projection = await ensureInitialQualification(input);
+    kickInitialQualificationProcessing(input.projectId, input.pilotId);
+    return { projection, ensureStatus: "OK" };
+  } catch {
+    try {
+      const projection = await ensureInitialQualification(input);
+      kickInitialQualificationProcessing(input.projectId, input.pilotId);
+      return { projection, ensureStatus: "OK" };
+    } catch {
+      return { projection: null, ensureStatus: "FAILED_RETRYABLE" };
+    }
+  }
+}
 
 /**
- * E07 — explicit qualification reconcile (POST only).
- * GET project context must not kick processing (E07-COR-02).
+ * E07-COR-01/02/05 — explicit reconcile (POST), never from GET.
+ * Creates missing op when project+prep linked; processes PENDING/RUNNING/UNKNOWN.
  */
-export async function POST(
-  _req: Request,
-  ctx: { params: Promise<{ projectId: string }> },
-) {
-  try {
-    const session = await requireStudioSession();
-    const { projectId } = await ctx.params;
-    const initialQualification = await reconcileInitialQualification(
+export async function reconcileInitialQualification(
+  projectId: string,
+  pilotId: string,
+): Promise<InitialQualificationProjection | null> {
+  const project = (
+    await db
+      .select({ id: projects.id })
+      .from(projects)
+      .where(and(eq(projects.id, projectId), eq(projects.ownerPilotId, pilotId)))
+      .limit(1)
+  )[0];
+  if (!project) throw new StudioError("NOT_FOUND", "Projet introuvable");
+
+  let projection = await getQualificationProjection(pilotId, projectId);
+  if (!projection) {
+    const link = (
+      await db
+        .select()
+        .from(preparationProjectLinks)
+        .where(eq(preparationProjectLinks.projectId, projectId))
+        .limit(1)
+    )[0];
+    if (!link) return null;
+    projection = await ensureInitialQualification({
       projectId,
-      session.pilotId,
-    );
-    return NextResponse.json({ initialQualification });
-  } catch (e) {
-    const mapped = studioErrorResponse(e);
-    return NextResponse.json(mapped.body, { status: mapped.status });
+      preparationId: link.preparationId,
+      pilotId,
+    });
   }
+
+  if (
+    projection.status === "PENDING" ||
+    projection.status === "RUNNING" ||
+    projection.status === "UNKNOWN"
+  ) {
+    return processInitialQualification(projectId, { pilotId });
+  }
+  return projection;
+}
+
+export async function assertPilotTurnNotBlockedByQualification(
+  pilotId: string,
+  projectId: string,
+): Promise<void> {
+  const q = await getQualificationProjection(pilotId, projectId);
+  if (q && (q.status === "PENDING" || q.status === "RUNNING" || q.status === "UNKNOWN")) {
+    throw new StudioError(
+      "QUALIFICATION_IN_PROGRESS",
+      "Qualification initiale de trajectoire en cours — envoyez un message après la proposition ou la clarification.",
+      { httpStatus: 409 },
+    );
+  }
+}
+
+export { blocksPilotTurnAdmission, isInitialQualificationComposerLocked } from "@/domains/pilotage/qualification-lock";
+```
+
+### `projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts`
+
+**Disposition :** produit Ensemble 07 — à conserver.
+
+- SHA256: `68dbb259f9d55b599ee0cb8d5f0d9c548eb72e706a54463e2f8a425eeef9512f`
+- Bytes: 1356
+
+```
+import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
+
+const BLOCKING = new Set(["PENDING", "RUNNING", "UNKNOWN"]);
+
+export function isInitialQualificationComposerLocked(
+  q: InitialQualificationProjection | null | undefined,
+): boolean {
+  if (!q) return false;
+  return BLOCKING.has(q.status);
+}
+
+export function initialQualificationComposerReason(
+  q: InitialQualificationProjection | null | undefined,
+): string {
+  if (!q || !isInitialQualificationComposerLocked(q)) return "";
+  if (q.status === "UNKNOWN") {
+    return "La qualification initiale de trajectoire est en cours de réconciliation — le compositeur est temporairement indisponible.";
+  }
+  if (q.phase === "PUBLISHING") {
+    return "Nora finalise la proposition de trajectoire (étape 3/3) — le compositeur est verrouillé jusqu'à la restitution.";
+  }
+  if (q.phase === "ANALYZING") {
+    return "Nora analyse votre intention pour proposer une trajectoire (étape 2/3) — le compositeur est verrouillé.";
+  }
+  return "Qualification initiale de trajectoire en cours (étape 1/3) — le compositeur est verrouillé jusqu'à la proposition ou une clarification.";
+}
+
+export function blocksPilotTurnAdmission(q: InitialQualificationProjection | null | undefined): boolean {
+  if (!q) return false;
+  return BLOCKING.has(q.status);
 }
 ```
 
 ### `projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts`
+
+**Disposition :** produit Ensemble 07 — à conserver.
 
 - SHA256: `ff07f6a79ccc16255b0cca0ecda16d8d774e657b5181edfa2b7fa1f275dd4f61`
 - Bytes: 16174
@@ -2687,6 +3338,8 @@ describe("Ensemble 07 initial qualification (PG)", () => {
 
 ### `projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts`
 
+**Disposition :** produit Ensemble 07 — à conserver.
+
 - SHA256: `bc2fd85e9445034d8408f6c719d688ee71ecf1e92ee0666c22d7f41650672c26`
 - Bytes: 1297
 
@@ -2743,6 +3396,8 @@ describe("ensureInitialQualification idempotency (mocked)", () => {
 ```
 
 ### `projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts`
+
+**Disposition :** produit Ensemble 07 — à conserver.
 
 - SHA256: `048becec0a64d6fbeeff8406223fc31dc9e301b33667c8b32340ad812c4b8c09`
 - Bytes: 2359
@@ -2830,6 +3485,8 @@ describe("ensemble07 forecast builder", () => {
 
 ### `projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts`
 
+**Disposition :** produit Ensemble 07 — à conserver.
+
 - SHA256: `d642205cccad1b479976709dbaf0931ba8b89ae0ea2bf5397b29d243533c7919`
 - Bytes: 1477
 
@@ -2876,422 +3533,163 @@ describe("ensemble07 qualification lock", () => {
 });
 ```
 
-### `projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts`
+## 11. Fichiers MODIFIÉS — diffs complets
 
-- SHA256: `41ca3de1a803196d7fefa71db2aa241a11a98a68d9e69c11f9182c47e66d867c`
-- Bytes: 8698
+Total : **15** fichiers projet modifiés. Aucun omis.
 
-```
-import { config } from "dotenv";
-config({ path: ".env.local" });
-process.env.STUDIO_LANE = "DEV";
-process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
-delete process.env.STUDIO_DEV_HOLD_INITIAL_QUALIFICATION;
+### `projects/sfia-studio-next/construction/delivery-history.md`
 
-import { writeFileSync } from "fs";
-import { eq } from "drizzle-orm";
-import { db } from "../src/db/client.ts";
-import { pilots, preparations } from "../src/db/schema.ts";
-import { newId } from "../src/lib/ids.ts";
-import {
-  applyPreparationProjection,
-  openOrCreatePreparation,
-  updatePreview,
-} from "../src/domains/preparation/service.ts";
-import { draftProjectionFromQualification } from "../src/domains/preparation/projection.ts";
-import { createProjectCommand } from "../src/domains/preparation/create-project.ts";
-import {
-  ensureInitialQualification,
-  processInitialQualification,
-} from "../src/domains/pilotage/initial-qualification.ts";
-import {
-  closeCycle,
-  getPilotageProjection,
-  openCycle,
-  retainTrajectory,
-} from "../src/domains/pilotage/service.ts";
+```diff
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index e273b49a..c047e7a0 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -3,6 +3,21 @@
+ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
-async function pilotA() {
-  const pilot =
-    (
-      await db
-        .select()
-        .from(pilots)
-        .where(eq(pilots.displayName, "Pilot A (DEV)"))
-        .limit(1)
-    )[0] ?? null;
-  if (!pilot) throw new Error("Pilot A (DEV) missing — run DEV login first");
-  return pilot;
-}
++## delivery_id: DELIV-2026-11-20-ENSEMBLE07-FINAL-CONVERGENCE-CANDIDATE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-20 |
++| Macro-lot | Ensemble 07 — Projet/Trajectoire convergence finale (3e passe) |
++| Type | EVOL corrective · **NO RELEASE** · Gate C OPEN |
++| Worktree | `sfia-wt-ensemble07-projet-trajectoire-20261120` · branche `sfia/next-ensemble07-projet-trajectoire-delivery` @ `e36fd8b` (non poussée) |
++| P0 | COR-01 reopen/missing-op · COR-03 publish order · COR-04 effect fencing · SAS timers 400/900 retirés |
++| Preuves | Figma 13/13 refs MCP · runtime captures distinctes 13 états · PG 10 PASS · unit E07 7 PASS |
++| Réserves | LIVE Nora NOT PROVEN · GO conversationnel browser NOT PROVEN · UX PARTIAL · SAS popup live capture incomplete |
++| Verdict | **READY WITH GOVERNED RESERVES** / **FIGMA TO RUNTIME PARTIAL** |
++| Gates non acquis | Gate C, UAT Morris, STABLE, release, push projet |
++
++
+ ## delivery_id: DELIV-2026-11-20-ENSEMBLE06-POST-MERGE-CI-VERIFIED
 
-async function createNamedProject(
-  pilotId: string,
-  name: string,
-  intention: string,
-  opts: { process: boolean; qualifyProjection: boolean },
-) {
-  const prep = await openOrCreatePreparation(pilotId);
-  await updatePreview(pilotId, prep.id, name, intention);
-  if (opts.qualifyProjection) {
-    const draft = draftProjectionFromQualification({
-      preparationId: prep.id,
-      turnKey: `t-shot-${name.slice(0, 12)}`,
-      qualificationStatus: "QUALIFIED",
-      goal: intention,
-      projectIntention: intention,
-      desiredOutcome: "Rendre les décisions actionnables",
-      proposedProjectName: name,
-      allowGoalIntentionBootstrap: true,
-    });
-    if (!draft) throw new Error("draft missing");
-    const refreshed = (
-      await db.select().from(preparations).where(eq(preparations.id, prep.id))
-    )[0]!;
-    await applyPreparationProjection({
-      pilotId,
-      preparationId: prep.id,
-      expectedCreationRevision: refreshed.creationRevision,
-      draft,
-    });
-  }
-  const after = (
-    await db.select().from(preparations).where(eq(preparations.id, prep.id))
-  )[0]!;
-  const created = await createProjectCommand({
-    pilotId,
-    preparationId: prep.id,
-    expectedCreationRevision: after.creationRevision,
-    projectName: name,
-    previewSummary: after.previewSummary ?? "",
-    idempotencyKey: newId("idem"),
-  });
-  if (created.status !== "CREATED" && created.status !== "ALREADY_CREATED") {
-    throw new Error(`create failed: ${JSON.stringify(created)}`);
-  }
-  await ensureInitialQualification({
-    projectId: created.projectId,
-    preparationId: prep.id,
-    pilotId,
-  });
-  let iq = null;
-  if (opts.process) {
-    iq = await processInitialQualification(created.projectId, { pilotId, force: true });
-  }
-  return {
-    projectId: created.projectId,
-    prepId: prep.id,
-    iqStatus: iq?.status ?? "PENDING",
-  };
-}
-
-async function advanceToActiveFirstCycle(pilotId: string, projectId: string) {
-  const before = await getPilotageProjection(pilotId, projectId);
-  const proposedId = before.trajectory.proposed?.id;
-  if (!proposedId) throw new Error("no proposed trajectory");
-  const retained = await retainTrajectory(pilotId, projectId, {
-    clientCommandKey: newId("idem"),
-    expectedRevision: before.revision,
-    sourceRef: newId("src"),
-    trajectoryRevisionId: proposedId,
-  });
-  if (retained.status !== "APPLIED" && retained.status !== "ALREADY_APPLIED") {
-    throw new Error(`retain failed: ${JSON.stringify(retained)}`);
-  }
-  const mid = await getPilotageProjection(pilotId, projectId);
-  const opened = await openCycle(pilotId, projectId, {
-    clientCommandKey: newId("idem"),
-    expectedRevision: mid.revision,
-    sourceRef: newId("src"),
-    cycleType: "CADRAGE",
-    objective: "Clarifier le besoin et le périmètre du premier cycle",
-  });
-  if (opened.status !== "APPLIED" && opened.status !== "ALREADY_APPLIED") {
-    throw new Error(`open failed: ${JSON.stringify(opened)}`);
-  }
-  return getPilotageProjection(pilotId, projectId);
-}
-
-async function closeActiveAndLeaveBetween(pilotId: string, projectId: string) {
-  const view = await getPilotageProjection(pilotId, projectId);
-  if (!view.cycle) throw new Error("no active cycle to close");
-  const closed = await closeCycle(pilotId, projectId, {
-    clientCommandKey: newId("idem"),
-    expectedRevision: view.revision,
-    sourceRef: newId("src"),
-    cycleId: view.cycle.id,
-    balanceNote: "Cadrage clôturé avec acquis partiels — suite à qualifier.",
-  });
-  if (closed.status !== "APPLIED" && closed.status !== "ALREADY_APPLIED") {
-    throw new Error(`close failed: ${JSON.stringify(closed)}`);
-  }
-  return getPilotageProjection(pilotId, projectId);
-}
-
-async function main() {
-  const pilot = await pilotA();
-  const stamp = Date.now().toString(36);
-
-  const proposed = await createNamedProject(
-    pilot.id,
-    `Assistant de conduite ${stamp}`,
-    "Cadrage puis conception fonctionnelle pour conduire les projets et clarifier les décisions",
-    { process: true, qualifyProjection: true },
-  );
-
-  const analyzing = await createNamedProject(
-    pilot.id,
-    `Projet en qualification ${stamp}`,
-    "Intention claire pour analyse en cours sans terminal immédiat, cadrage utile",
-    { process: false, qualifyProjection: true },
-  );
-
-  const clarification = await createNamedProject(
-    pilot.id,
-    `Projet a preciser ${stamp}`,
-    "x",
-    { process: true, qualifyProjection: false },
-  );
-
-  // 09.09 — first ACTIVE, no CLOSED
-  const firstActive = await createNamedProject(
-    pilot.id,
-    `Premier cycle actif ${stamp}`,
-    "Cadrage d'une plateforme de suivi pour ouvrir le premier cycle",
-    { process: true, qualifyProjection: true },
-  );
-  await advanceToActiveFirstCycle(pilot.id, firstActive.projectId);
-
-  // 09.01 / 09.02 — CLOSED + ACTIVE + future
-  const withHistory = await createNamedProject(
-    pilot.id,
-    `Projet avec historique ${stamp}`,
-    "Cadrage puis conception fonctionnelle pour une trajectoire multi-cycles",
-    { process: true, qualifyProjection: true },
-  );
-  await advanceToActiveFirstCycle(pilot.id, withHistory.projectId);
-  await closeActiveAndLeaveBetween(pilot.id, withHistory.projectId);
-  const afterClose = await getPilotageProjection(pilot.id, withHistory.projectId);
-  const opened2 = await openCycle(pilot.id, withHistory.projectId, {
-    clientCommandKey: newId("idem"),
-    expectedRevision: afterClose.revision,
-    sourceRef: newId("src"),
-    cycleType: "CONCEPTION_FONCTIONNELLE",
-    objective: "Décrire les décisions et parcours métier",
-  });
-  if (opened2.status !== "APPLIED" && opened2.status !== "ALREADY_APPLIED") {
-    throw new Error(`open2 failed: ${JSON.stringify(opened2)}`);
-  }
-
-  // 09.08 — CLOSED only (between cycles)
-  const between = await createNamedProject(
-    pilot.id,
-    `Entre deux cycles ${stamp}`,
-    "Cadrage pour clôturer puis laisser la suite envisagée",
-    { process: true, qualifyProjection: true },
-  );
-  await advanceToActiveFirstCycle(pilot.id, between.projectId);
-  await closeActiveAndLeaveBetween(pilot.id, between.projectId);
-
-  const payload = {
-    pilotId: pilot.id,
-    proposed,
-    analyzing,
-    clarification,
-    firstActive,
-    withHistory,
-    between,
-    urls: {
-      projet06: `http://127.0.0.1:3100/projects/${proposed.projectId}?surface=projet`,
-      projet01: `http://127.0.0.1:3100/projects/${withHistory.projectId}?surface=projet`,
-      travail: `http://127.0.0.1:3100/projects/${proposed.projectId}?surface=travail`,
-      traj11: `http://127.0.0.1:3100/projects/${proposed.projectId}?surface=pilotage`,
-      traj10: `http://127.0.0.1:3100/projects/${analyzing.projectId}?surface=pilotage`,
-      travailLock: `http://127.0.0.1:3100/projects/${analyzing.projectId}?surface=travail`,
-      traj07: `http://127.0.0.1:3100/projects/${clarification.projectId}?surface=pilotage`,
-      traj09: `http://127.0.0.1:3100/projects/${firstActive.projectId}?surface=pilotage`,
-      traj02: `http://127.0.0.1:3100/projects/${withHistory.projectId}?surface=pilotage`,
-      traj08: `http://127.0.0.1:3100/projects/${between.projectId}?surface=pilotage`,
-      sasPrep: `http://127.0.0.1:3100/preparations/${analyzing.prepId}`,
-    },
-  };
-  writeFileSync("/tmp/sfia-e07-shot-urls.json", JSON.stringify(payload, null, 2));
-  console.log(JSON.stringify(payload, null, 2));
-}
-
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+ | Field | Value |
+@@ -3225,3 +3240,30 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
+ | Lane | DEV `:5433` only ; RECETTE/STABLE non mutées |
+ | Push Product | **AUCUN** |
+ | Verdict candidat | `READY FOR MORRIS REVIEW WITH RESERVES — JOURNAL V4 CORE LOCAL / SCOPE PARTIAL ON J-C04/06/13/14/BROWSER` |
++
++## 2026-11-20 — Ensemble 07 Projet/Trajectoire (DEV construction, NO RELEASE)
++
++| Champ | Valeur |
++|-------|--------|
++| Source SHA base | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
++| Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` |
++| Statut | NO RELEASE — construction DEV |
++| Capacités | Qualification initiale durable post-create ; message Nora proactif ; compositeur verrouillé (UI+API) ; ProjectOverview 09.01/09.06 ; TrajectoryBoard 09.02–09.11 ; forecast_json D5 |
++| Tests | unit / PG E07 (historique premier delivery) |
++| Verdict candidat (1er) | FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED |
++| Handoff tip (1er immuable) | `93ee58ee5208daa4abe6d657550b523fea244db2` blob `65dacb671da74b93974deb12af62fb5007f33264` |
++
++## 2026-11-20 — Ensemble 07 corrective (P0 cohérence + UI, NO RELEASE)
++
++| Champ | Valeur |
++|-------|--------|
++| Source SHA base | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
++| Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` (WT non commitée) |
++| Statut | NO RELEASE — Gate C OPEN |
++| Corrections P0 | COR-01 ensure+retry ; COR-02 GET sans kick ; COR-03/04 fence+reprise D5→message ; COR-05 UNKNOWN+reconcile POST ; COR-06 no default CADRAGE ; COR-08 system incident ; COR-09 closed asc(openedAt) ; COR-11/12 matrice exclusive |
++| Tests | unit 687 PASS ; integration 518 PASS (E07 PG 8/8) ; tsc OK |
++| Fake/Real | DETERMINISTIC/FAKE forecast ; LIVE Nora NOT PROVEN ; HOLD DEV captures only |
++| Visuel | 09.07 clarification runtime obtenue ; 09.10/09.11/09.06/05.17 recapturés ; 09.02/03/08/09 ACTIVE/CLOSED encore absents (GO conversationnel COR-14 non clos) |
++| Réserves | COR-14/15 GO naturel+maturité non prouvés e2e ; COR-16/17 bilan/CKI éditorial partiels ; 13/13 Figma non READY |
++| Verdict candidat | FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED / READY WITH GOVERNED RESERVES sur P0 |
++
 ```
 
-### `projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts`
+### `projects/sfia-studio-next/web/scripts/db-migrate.sh`
 
-- SHA256: `c1ea38119299390df547fe21cd7f2bafbf3096a73c58e690217273ca8b8d1081`
-- Bytes: 6144
+> **Était manquant dans handoff `50861f05` — inclus ici.**
 
-```
-import { chromium } from "@playwright/test";
-import { readFileSync, mkdirSync, writeFileSync, readdirSync } from "fs";
-import { resolve } from "path";
-import { createHash } from "crypto";
-
-const urls = JSON.parse(readFileSync("/tmp/sfia-e07-shot-urls.json", "utf8")) as {
-  urls: Record<string, string>;
-  proposed: { projectId: string };
-  analyzing: { projectId: string };
-  clarification: { projectId: string };
-  firstActive?: { projectId: string };
-  withHistory?: { projectId: string };
-  between?: { projectId: string };
-};
-
-const outDir = resolve(process.cwd(), "../../../.tmp-sfia-review/ensemble07-evidence/runtime");
-mkdirSync(outDir, { recursive: true });
-
-async function shot(page: import("@playwright/test").Page, name: string) {
-  const path = resolve(outDir, name);
-  await page.waitForTimeout(700);
-  await page.screenshot({ path, fullPage: false });
-  const buf = readFileSync(path);
-  console.log(
-    "wrote",
-    name,
-    buf.length,
-    createHash("sha256").update(buf).digest("hex").slice(0, 12),
-  );
-}
-
-async function main() {
-  const browser = await chromium.launch();
-  const context = await browser.newContext({
-    viewport: { width: 1680, height: 970 },
-  });
-  const page = await context.newPage();
-  await page.goto("http://127.0.0.1:3100/login", { waitUntil: "networkidle" });
-  await page.evaluate(async () => {
-    await fetch("/api/dev/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ pilot: "a" }),
-      credentials: "include",
-    });
-  });
-
-  // 09.06 — projet sans cycle (proposition only)
-  await page.goto(urls.urls.projet06, { waitUntil: "networkidle" });
-  await page.waitForSelector('[data-testid="project-overview-no-cycle"]');
-  await shot(page, "09.06-projet-sans-cycle-runtime.png");
-
-  // 09.01 — projet avec cycle actif
-  if (urls.urls.projet01) {
-    await page.goto(urls.urls.projet01, { waitUntil: "networkidle" });
-    await page.waitForSelector('[data-testid="project-overview-cycle-card"]');
-    await shot(page, "09.01-projet-cycle-actif-runtime.png");
-  }
-
-  await page.goto(urls.urls.travail, { waitUntil: "networkidle" });
-  await page.waitForSelector('[data-testid="nora-composer"]');
-  await shot(page, "travail-apres-proposition-runtime.png");
-
-  // 09.11 — proposition séquentielle
-  await page.goto(urls.urls.traj11, { waitUntil: "networkidle" });
-  await page.waitForSelector('[data-testid="trajectory-proposal-sequential"]');
-  await shot(page, "09.11-proposition-initiale-runtime.png");
-
-  const futureBtn = page.locator('[data-testid="trajectory-forecast-step-2"]');
-  if (await futureBtn.count()) {
-    await futureBtn.click();
-    await page.waitForSelector('[data-testid="trajectory-etape-future"]');
-    await shot(page, "09.04-etape-envisagee-runtime.png");
-    await page.getByRole("button", { name: /Retour à la trajectoire/i }).click();
-    await page.waitForSelector('[data-testid="trajectory-proposal-sequential"]');
-  }
-
-  await page.click('[data-testid="trajectory-open-cki"]');
-  await page.waitForSelector('[data-testid="trajectory-cki-methode"]');
-  await shot(page, "09.05-cki-methode-runtime.png");
-
-  // 05.17 + 09.10 — analyzing (HOLD expected on server)
-  await page.goto(urls.urls.travailLock, { waitUntil: "networkidle" });
-  await page.waitForSelector('[data-testid="nora-composer"]');
-  await shot(page, "05.17-travail-qualification-runtime.png");
-
-  await page.goto(urls.urls.traj10, { waitUntil: "networkidle" });
-  await page.waitForSelector('[data-testid="trajectory-qualification-progress"]', {
-    timeout: 15000,
-  });
-  await shot(page, "09.10-qualification-en-cours-runtime.png");
-
-  // 09.07 — clarification
-  await page.goto(urls.urls.traj07, { waitUntil: "networkidle" });
-  await page.waitForTimeout(1200);
-  await shot(page, "09.07-clarification-runtime.png");
-
-  // 09.09 — premier cycle actif
-  if (urls.urls.traj09) {
-    await page.goto(urls.urls.traj09, { waitUntil: "networkidle" });
-    await page.waitForSelector('[data-testid="trajectory-active-cycle"]');
-    await shot(page, "09.09-premier-cycle-actif-runtime.png");
-  }
-
-  // 09.02 — clos + actif + futur
-  if (urls.urls.traj02) {
-    await page.goto(urls.urls.traj02, { waitUntil: "networkidle" });
-    await page.waitForSelector('[data-testid="trajectory-roadmap"]');
-    await shot(page, "09.02-trajectoire-principale-runtime.png");
-    const bilan = page.locator('[data-testid="trajectory-closed-cycle"] button').first();
-    if (await bilan.count()) {
-      await bilan.click();
-      await page.waitForSelector('[data-testid="trajectory-bilan-historique"]');
-      await shot(page, "09.03-bilan-historique-runtime.png");
-      await page.getByRole("button", { name: /Retour à la trajectoire/i }).click();
-    }
-  }
-
-  // 09.08 — entre deux cycles
-  if (urls.urls.traj08) {
-    await page.goto(urls.urls.traj08, { waitUntil: "networkidle" });
-    await page.waitForSelector('[data-testid="trajectory-between-cycles"]');
-    await shot(page, "09.08-entre-deux-cycles-runtime.png");
-  }
-
-  // SAS 06 — preparation page (popup requires live create; capture prep + note)
-  await page.goto(urls.urls.sasPrep, { waitUntil: "networkidle" });
-  await page.waitForTimeout(1000);
-  await shot(page, "sas-06-preparation-runtime.png");
-
-  const files = readdirSync(outDir).filter((f) => f.endsWith(".png"));
-  const manifest = {
-    capturedAt: new Date().toString(),
-    viewport: { w: 1680, h: 970 },
-    browser: "chromium/playwright",
-    holdEnvNote: "09.10/05.17 require server STUDIO_DEV_HOLD_INITIAL_QUALIFICATION=1",
-    projects: {
-      proposed: urls.proposed.projectId,
-      analyzing: urls.analyzing.projectId,
-      clarification: urls.clarification.projectId,
-      firstActive: urls.firstActive?.projectId ?? null,
-      withHistory: urls.withHistory?.projectId ?? null,
-      between: urls.between?.projectId ?? null,
-    },
-    files,
-  };
-  writeFileSync(resolve(outDir, "capture-manifest.json"), JSON.stringify(manifest, null, 2));
-  await browser.close();
-  console.log("done", files.length, "png");
-}
-
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+```diff
+diff --git a/projects/sfia-studio-next/web/scripts/db-migrate.sh b/projects/sfia-studio-next/web/scripts/db-migrate.sh
+index cc81197d..9a298db6 100755
+--- a/projects/sfia-studio-next/web/scripts/db-migrate.sh
++++ b/projects/sfia-studio-next/web/scripts/db-migrate.sh
+@@ -32,4 +32,5 @@ apply "011_oauth_session_binding.sql"
+ apply "012_auth_concurrency_safety.sql"
+ apply "013_preparation_projection.sql"
+ apply "014_journal_d4_revisions.sql"
+-echo "db:migrate OK (001→014)"
++apply "015_trajectory_qualification.sql"
++echo "db:migrate OK (001→015)"
 ```
 
-## 11. Fichiers modifiés — diffs
+### `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
+index d21fb43c..e9ffccf7 100644
+--- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
++++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
+@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
+ import { eq } from "drizzle-orm";
+ import { requireStudioSession } from "@/domains/identity/session";
+ import { createProjectCommand } from "@/domains/preparation/create-project";
++import { ensureAndKickInitialQualification } from "@/domains/pilotage/initial-qualification";
+ import { probeCreateProjectSideEffects } from "@/domains/boundaries/non-effects";
+ import {
+   authorizeMissionBoundD2Create,
+@@ -81,6 +82,25 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
+     });
+     const sideEffects = probeCreateProjectSideEffects();
+
++    let initialQualification: Awaited<
++      ReturnType<typeof ensureAndKickInitialQualification>
++    >["projection"] = null;
++    let qualificationEnsureStatus: "OK" | "FAILED_RETRYABLE" | "SKIPPED" = "SKIPPED";
++    if (
++      (result.status === "CREATED" || result.status === "ALREADY_CREATED") &&
++      "projectId" in result &&
++      result.projectId
++    ) {
++      // E07-COR-01 — ensure durable op with retry; never silently drop without status.
++      const ensured = await ensureAndKickInitialQualification({
++        projectId: result.projectId,
++        preparationId,
++        pilotId: session.pilotId,
++      });
++      initialQualification = ensured.projection;
++      qualificationEnsureStatus = ensured.ensureStatus;
++    }
++
+     let missionContinue: Awaited<ReturnType<typeof continueAfterProjectCreated>> | null = null;
+     if (
+       auth.outcome !== "CLASSIC" &&
+@@ -123,6 +143,8 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
+         sideEffects,
+         missionContinue,
+         missionBinding: auth.outcome,
++        initialQualification,
++        qualificationEnsureStatus,
+       },
+       { status },
+     );
+```
+
+### `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts`
+
+> **Était manquant dans handoff `50861f05` — inclus ici.**
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
+index f22d02af..65a21943 100644
+--- a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
++++ b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
+@@ -19,6 +19,8 @@ export async function GET(_: Request, ctx: { params: Promise<{ projectId: string
+       documents: data.documents,
+       knowledge: data.knowledge,
+       pilotage: data.pilotage,
++      initialQualification: data.initialQualification,
++      activity: data.activity,
+     });
+   } catch (e) {
+     const code = (e as { code?: string }).code;
+```
 
 ### `projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx`
-
-Note: SAS06: removed 400/900ms timers; stepFromQualification + reconcile poll
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
@@ -3413,8 +3811,6 @@ index 8ca6ff6c..a10ce7fb 100644
 ```
 
 ### `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx`
-
-Note: COR-01 missing-op reconcile (bounded); qualification banner; removed Pilotage diagnostic
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
@@ -3654,11 +4050,10 @@ index 444c5234..5fada7f5 100644
 +          {/* E07 — no Pilotage (diagnostic) panel on Trajectoire Figma surfaces. */}
          </div>
        ) : null}
+
 ```
 
 ### `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx`
-
-Note: 05.17 banner + lock overlay + Voir trajectoire
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
@@ -3808,9 +4203,50 @@ index 18a635c1..c5f42c54 100644
                aria-label="Envoyer"
 ```
 
-### `projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx`
+### `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx`
 
-Note: cycle card minHeight 222; ACTIVE vs empty states
+> **Était manquant dans handoff `50861f05` — inclus ici.**
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
+index b164002c..2792d128 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
+@@ -17,14 +17,14 @@ const HERO: Record<
+     sub: "Le chat reste à gauche ; le document sélectionné s’ouvre dans la visionneuse à droite.",
+   },
+   projet: {
+-    kicker: "Espace projet  /  Projet",
+-    title: "Vue d'ensemble du projet",
+-    sub: "Identité, contexte et accès — consultation sans nouvelle autorité.",
++    kicker: "ESPACE PROJET / VUE D'ENSEMBLE",
++    title: "Vue d'ensemble",
++    sub: "Identité, cycle et activité du projet.",
+   },
+   pilotage: {
+-    kicker: "Espace projet  /  Trajectoire",
+-    title: "Pilotage · cycle et décisions",
+-    sub: "Cycle, méthode, CKI et décisions humaines — affichage D5/D6 existant.",
++    kicker: "ESPACE PROJET / TRAJECTOIRE",
++    title: "Trajectoire du projet",
++    sub: "Ce qui est terminé, ce qui est en cours et ce qui pourrait suivre.",
+   },
+   journal: {
+     kicker: "ESPACE PROJET  /  JOURNAL",
+@@ -76,7 +76,9 @@ export function ProjectChrome(props: {
+   const isTravail = props.surface === "travail";
+   /** Journal V4 — hero lives inside ProjectJournal (full vs compact 40/60). */
+   const isJournal = props.surface === "journal";
+-  const breadcrumbOnly = isTravail || isJournal;
++  /** Ensemble 07 — Projet / Trajectoire heroes live in ProjectOverview / TrajectoryBoard. */
++  const isProjetOrTrajectoire = props.surface === "projet" || props.surface === "pilotage";
++  const breadcrumbOnly = isTravail || isJournal || isProjetOrTrajectoire;
+
+   const continuityBadge =
+     isTravail && props.statusHint && !/^chargement/i.test(props.statusHint) ? (
+```
+
+### `projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
@@ -4131,9 +4567,244 @@ index d0f5912a..0b3fbd75 100644
 +}
 ```
 
-### `projects/sfia-studio-next/web/src/domains/preparation/project-context.ts`
+### `projects/sfia-studio-next/web/src/db/schema.ts`
 
-Note: GET read-only IQ (no kick)
+> **Était manquant dans handoff `50861f05` — inclus ici.**
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/db/schema.ts b/projects/sfia-studio-next/web/src/db/schema.ts
+index cb71e766..e31c56a4 100644
+--- a/projects/sfia-studio-next/web/src/db/schema.ts
++++ b/projects/sfia-studio-next/web/src/db/schema.ts
+@@ -480,6 +480,8 @@ export const trajectoryRevisions = pgTable(
+     sourceKind: text("source_kind").notNull(),
+     sourceRef: text("source_ref").notNull().default(""),
+     decisionId: text("decision_id").references(() => humanDecisions.id),
++    /** Structured sequential cycle forecast (Ensemble 07). */
++    forecastJson: jsonb("forecast_json"),
+     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+   },
+   (t) => [
+@@ -488,6 +490,40 @@ export const trajectoryRevisions = pgTable(
+   ],
+ );
+
++/** D5/D3 — one durable initial trajectory qualification per project (Ensemble 07). */
++export const trajectoryQualificationOperations = pgTable(
++  "trajectory_qualification_operations",
++  {
++    id: text("id").primaryKey(),
++    projectId: text("project_id")
++      .notNull()
++      .references(() => projects.id),
++    preparationId: text("preparation_id")
++      .notNull()
++      .references(() => preparations.id),
++    pilotId: text("pilot_id")
++      .notNull()
++      .references(() => pilots.id),
++    status: text("status").notNull(),
++    phase: text("phase").notNull(),
++    version: integer("version").notNull().default(1),
++    inputFingerprint: text("input_fingerprint").notNull().default(""),
++    trajectoryRevisionId: text("trajectory_revision_id").references(() => trajectoryRevisions.id),
++    assistantMessageId: text("assistant_message_id"),
++    resultJson: jsonb("result_json"),
++    errorCode: text("error_code"),
++    ownerToken: text("owner_token"),
++    claimedAt: timestamp("claimed_at", { withTimezone: true }),
++    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
++    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
++  },
++  (t) => [
++    uniqueIndex("trajectory_qualification_operations_project_uidx").on(t.projectId),
++    index("trajectory_qualification_operations_preparation_idx").on(t.preparationId),
++    index("trajectory_qualification_operations_status_idx").on(t.status),
++  ],
++);
++
+ /** D5 — lockable project revision. Missing row means revision 0 (no cycle created with the project). */
+ export const projectPilotageState = pgTable("project_pilotage_state", {
+   projectId: text("project_id")
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
+
+> **Était manquant dans handoff `50861f05` — inclus ici.**
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+index 96867946..83bc164d 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+@@ -71,6 +71,7 @@ import {
+   type ConversationalAuthorityOutcome,
+ } from "@/domains/pilotage/conversation-authority";
+ import { buildNoraPilotageContext } from "@/domains/pilotage/nora-context";
++import { assertPilotTurnNotBlockedByQualification } from "@/domains/pilotage/initial-qualification";
+ import {
+   appendDocumentEffectAck,
+   applyTargetedSectionRevision,
+@@ -826,6 +827,9 @@ export async function postUserMessageAndNora(
+   // P0-B: next turn recovers AUTHORIZED Nora missions after crash mid-authorize→dispatch.
+   // G2: also recover interrupted D2→D4 mission continuation when project already exists.
+   if (ctx.project?.id) {
++    // Ensemble 07 — RG-CONV-018: refuse pilot turns while initial trajectory qualification is open.
++    await assertPilotTurnNotBlockedByQualification(pilotId, ctx.project.id);
++
+     try {
+       await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
+     } catch {
+```
+
+### `projects/sfia-studio-next/web/src/domains/pilotage/service.ts`
+
+> **Était manquant dans handoff `50861f05` — inclus ici.**
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/service.ts b/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
+index f0cb7cac..e407202b 100644
+--- a/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
+@@ -22,6 +22,8 @@ import {
+   markDecisionState,
+ } from "@/domains/decisions/service";
+ import { isCycleType, resolveForOpen, resolvePinnedCki, type CycleType } from "@/domains/pilotage/cki-resolve";
++import { parseForecastJson } from "@/domains/pilotage/forecast-builder";
++import { getQualificationProjection } from "@/domains/pilotage/initial-qualification";
+ import {
+   buildSourceActionKey,
+   runBusinessCommand,
+@@ -134,6 +136,7 @@ function trajectoryView(row: {
+   status: string;
+   orientation: string;
+   decisionId: string | null;
++  forecastJson?: unknown;
+ } | undefined): TrajectoryView {
+   if (!row) return null;
+   return {
+@@ -142,6 +145,7 @@ function trajectoryView(row: {
+     status: row.status,
+     orientation: row.orientation,
+     decisionId: row.decisionId,
++    forecastSteps: parseForecastJson(row.forecastJson),
+   };
+ }
+
+@@ -191,6 +195,21 @@ export async function getPilotageProjection(pilotId: string, projectId: string):
+     ? methodUsageRestricted(restrictions, method.methodRef)
+     : false;
+
++  // E07-COR-09 — chronological progression (openedAt asc), not reverse close order.
++  const closedCycles = await db
++    .select({
++      id: projectCycles.id,
++      cycleType: projectCycles.cycleType,
++      objective: projectCycles.objective,
++      closedAt: projectCycles.closedAt,
++      openedAt: projectCycles.openedAt,
++    })
++    .from(projectCycles)
++    .where(and(eq(projectCycles.projectId, projectId), eq(projectCycles.status, "CLOSED")))
++    .orderBy(asc(projectCycles.openedAt));
++
++  const initialQualification = await getQualificationProjection(pilotId, projectId);
++
+   return {
+     projectId,
+     revision: state?.revision ?? 0,
+@@ -232,6 +251,14 @@ export async function getPilotageProjection(pilotId: string, projectId: string):
+       targetRef: r.targetRef,
+       status: r.status,
+     })),
++    closedCycles: closedCycles.map((c) => ({
++      id: c.id,
++      cycleType: c.cycleType,
++      objective: c.objective,
++      closedAt: c.closedAt ? c.closedAt.toISOString() : null,
++      openedAt: c.openedAt ? c.openedAt.toISOString() : null,
++    })),
++    initialQualification,
+   };
+ }
+
+@@ -743,6 +770,10 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
+
+   if (command.operation === "PROPOSE_TRAJECTORY") {
+     const id = newId("trj");
++    const forecastJson =
++      input.body.forecastJson && input.body.forecastJson.length > 0
++        ? input.body.forecastJson
++        : null;
+     await tx.insert(trajectoryRevisions).values({
+       id,
+       projectId,
+@@ -752,6 +783,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
+       sourceKind: command.sourceKind,
+       sourceRef: command.sourceRef,
+       decisionId: null,
++      forecastJson,
+       createdAt: now,
+     });
+     const revision = await bumpRevision(tx, projectId);
+```
+
+### `projects/sfia-studio-next/web/src/domains/pilotage/types.ts`
+
+> **Était manquant dans handoff `50861f05` — inclus ici.**
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/types.ts b/projects/sfia-studio-next/web/src/domains/pilotage/types.ts
+index 9121af5f..243d5b35 100644
+--- a/projects/sfia-studio-next/web/src/domains/pilotage/types.ts
++++ b/projects/sfia-studio-next/web/src/domains/pilotage/types.ts
+@@ -1,5 +1,7 @@
+ import type { CkiAvailability } from "@/domains/pilotage/cki-resolve";
+ import type { CycleType } from "@/domains/pilotage/cki-resolve";
++import type { ForecastStep } from "@/domains/pilotage/forecast-builder";
++import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
+
+ /** Internal command outcomes. PARTIAL is intentionally absent: CLOSE+OPEN share one commit. */
+ export const COMMAND_STATUSES = [
+@@ -80,6 +82,8 @@ export type PilotageRequestBody = {
+   /** Durable Nora intent id correlated to this USER_MESSAGE command (SEM). */
+   semanticIntentId?: string;
+   semanticSchemaVersion?: string;
++  /** Ensemble 07 — structured forecast persisted on trajectory revision. */
++  forecastJson?: ForecastStep[];
+ };
+
+ export type ClassifiedCommand = {
+@@ -111,8 +115,17 @@ export type TrajectoryView = {
+   status: string;
+   orientation: string;
+   decisionId: string | null;
++  forecastSteps: ForecastStep[] | null;
+ } | null;
+
++export type ClosedCycleView = {
++  id: string;
++  cycleType: string;
++  objective: string;
++  closedAt: string | null;
++  openedAt?: string | null;
++};
++
+ export type PilotageProjection = {
+   projectId: string;
+   revision: number;
+@@ -149,6 +162,8 @@ export type PilotageProjection = {
+         scope: string;
+       };
+   restrictions: Array<{ id: string; targetKind: string; targetRef: string; status: string }>;
++  closedCycles: ClosedCycleView[];
++  initialQualification: InitialQualificationProjection | null;
+ };
+
+ export function pilotageCommandHttpStatus(result: CommandResult): number {
+```
+
+### `projects/sfia-studio-next/web/src/domains/preparation/project-context.ts`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts b/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
@@ -4215,131 +4886,50 @@ index 6d16b83e..aa35d8c4 100644
  }
 ```
 
-### `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts`
+### `projects/sfia-studio-next/web/src/lib/http-errors.ts`
 
-Note: ensureAndKick
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
-index d21fb43c..e9ffccf7 100644
---- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
-+++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
-@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
- import { eq } from "drizzle-orm";
- import { requireStudioSession } from "@/domains/identity/session";
- import { createProjectCommand } from "@/domains/preparation/create-project";
-+import { ensureAndKickInitialQualification } from "@/domains/pilotage/initial-qualification";
- import { probeCreateProjectSideEffects } from "@/domains/boundaries/non-effects";
- import {
-   authorizeMissionBoundD2Create,
-@@ -81,6 +82,25 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
-     });
-     const sideEffects = probeCreateProjectSideEffects();
-
-+    let initialQualification: Awaited<
-+      ReturnType<typeof ensureAndKickInitialQualification>
-+    >["projection"] = null;
-+    let qualificationEnsureStatus: "OK" | "FAILED_RETRYABLE" | "SKIPPED" = "SKIPPED";
-+    if (
-+      (result.status === "CREATED" || result.status === "ALREADY_CREATED") &&
-+      "projectId" in result &&
-+      result.projectId
-+    ) {
-+      // E07-COR-01 — ensure durable op with retry; never silently drop without status.
-+      const ensured = await ensureAndKickInitialQualification({
-+        projectId: result.projectId,
-+        preparationId,
-+        pilotId: session.pilotId,
-+      });
-+      initialQualification = ensured.projection;
-+      qualificationEnsureStatus = ensured.ensureStatus;
-+    }
-+
-     let missionContinue: Awaited<ReturnType<typeof continueAfterProjectCreated>> | null = null;
-     if (
-       auth.outcome !== "CLASSIC" &&
-@@ -123,6 +143,8 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
-         sideEffects,
-         missionContinue,
-         missionBinding: auth.outcome,
-+        initialQualification,
-+        qualificationEnsureStatus,
-       },
-       { status },
-     );
-```
-
-### `projects/sfia-studio-next/construction/delivery-history.md`
-
-Note: E07 entries
+> **Était manquant dans handoff `50861f05` — inclus ici.**
 
 ```diff
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index e273b49a..6999a5ce 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -3225,3 +3225,30 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
- | Lane | DEV `:5433` only ; RECETTE/STABLE non mutées |
- | Push Product | **AUCUN** |
- | Verdict candidat | `READY FOR MORRIS REVIEW WITH RESERVES — JOURNAL V4 CORE LOCAL / SCOPE PARTIAL ON J-C04/06/13/14/BROWSER` |
-+
-+## 2026-11-20 — Ensemble 07 Projet/Trajectoire (DEV construction, NO RELEASE)
-+
-+| Champ | Valeur |
-+|-------|--------|
-+| Source SHA base | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
-+| Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` |
-+| Statut | NO RELEASE — construction DEV |
-+| Capacités | Qualification initiale durable post-create ; message Nora proactif ; compositeur verrouillé (UI+API) ; ProjectOverview 09.01/09.06 ; TrajectoryBoard 09.02–09.11 ; forecast_json D5 |
-+| Tests | unit / PG E07 (historique premier delivery) |
-+| Verdict candidat (1er) | FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED |
-+| Handoff tip (1er immuable) | `93ee58ee5208daa4abe6d657550b523fea244db2` blob `65dacb671da74b93974deb12af62fb5007f33264` |
-+
-+## 2026-11-20 — Ensemble 07 corrective (P0 cohérence + UI, NO RELEASE)
-+
-+| Champ | Valeur |
-+|-------|--------|
-+| Source SHA base | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
-+| Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` (WT non commitée) |
-+| Statut | NO RELEASE — Gate C OPEN |
-+| Corrections P0 | COR-01 ensure+retry ; COR-02 GET sans kick ; COR-03/04 fence+reprise D5→message ; COR-05 UNKNOWN+reconcile POST ; COR-06 no default CADRAGE ; COR-08 system incident ; COR-09 closed asc(openedAt) ; COR-11/12 matrice exclusive |
-+| Tests | unit 687 PASS ; integration 518 PASS (E07 PG 8/8) ; tsc OK |
-+| Fake/Real | DETERMINISTIC/FAKE forecast ; LIVE Nora NOT PROVEN ; HOLD DEV captures only |
-+| Visuel | 09.07 clarification runtime obtenue ; 09.10/09.11/09.06/05.17 recapturés ; 09.02/03/08/09 ACTIVE/CLOSED encore absents (GO conversationnel COR-14 non clos) |
-+| Réserves | COR-14/15 GO naturel+maturité non prouvés e2e ; COR-16/17 bilan/CKI éditorial partiels ; 13/13 Figma non READY |
-+| Verdict candidat | FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED / READY WITH GOVERNED RESERVES sur P0 |
-+
+diff --git a/projects/sfia-studio-next/web/src/lib/http-errors.ts b/projects/sfia-studio-next/web/src/lib/http-errors.ts
+index 8fae28a2..481ea9f5 100644
+--- a/projects/sfia-studio-next/web/src/lib/http-errors.ts
++++ b/projects/sfia-studio-next/web/src/lib/http-errors.ts
+@@ -13,6 +13,7 @@ export type StudioErrorCode =
+   | "DEPENDENCY_UNAVAILABLE"
+   | "INTERNAL"
+   | "TURN_IN_PROGRESS"
++  | "QUALIFICATION_IN_PROGRESS"
+   | "PAYLOAD_MISMATCH"
+   | "NOT_CONFIGURED"
+   | "REQUIRES_REQUALIFICATION"
+@@ -49,6 +50,7 @@ function defaultStatus(code: StudioErrorCode): number {
+       return 400;
+     case "CONFLICT":
+     case "TURN_IN_PROGRESS":
++    case "QUALIFICATION_IN_PROGRESS":
+     case "PAYLOAD_MISMATCH":
+       return 409;
+     case "DEPENDENCY_UNAVAILABLE":
 ```
 
-## 12. Preuves navigateur
+## 12–13. Preuves / Réserves
 
-- Viewport 1680×970 Chromium Playwright
-- Seeds DETERMINISTIC : `scripts/e07-seed-screenshot.mts`
-- Captures : `.tmp-sfia-review/ensemble07-evidence/runtime/`
-- Figma refs : `.tmp-sfia-review/ensemble07-figma-refs/` (13 PNG)
+- Captures 13 états · Gate C OPEN · NO RELEASE · LIVE/GO browser non prouvés · UX PARTIAL
 
-## 13. Réserves / Gates
-
-- Gate C OPEN · NO RELEASE
-- LIVE Nora NOT PROVEN
-- GO conversationnel browser NOT PROVEN (API/service DETERMINISTIC PROVEN)
-- SAS06 popup runtime live capture incomplete (code timers removed; prep page captured)
-- Pixel fidelity residual on several frames
-- Full regression suites NOT RUN this pass
-
-## 14. Verdicts séparés
+## 14. Verdicts
 
 | Domaine | Verdict |
 |---|---|
+| Couverture Review Pack | **COMPLETE CONTENT** |
 | Technique P0 | READY WITH GOVERNED RESERVES |
-| Fonctionnel | READY WITH GOVERNED RESERVES (GO convers. / LIVE) |
+| Fonctionnel | READY WITH GOVERNED RESERVES |
 | UX/UI | FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED |
-| Preuve | REVIEW PARTIAL — runtime screenshots present 13 états ; SAS popup live weak |
-| Global | **READY WITH GOVERNED RESERVES** — pas DELIVERY READY FOR MORRIS UAT (écarts UX + GO live) |
+| Global | READY WITH GOVERNED RESERVES (pas UAT READY) |
 
 ## 15. Instruction ChatGPT
 
-> Avant de répondre à Morris, ChatGPT doit relire directement depuis Git la branche `sfia/review-handoff`, fichier `sfia-review-handoff/latest-chatgpt-review.md`, vérifier la date, l'identité de cette itération de convergence Ensemble 07, les références Git, les fichiers créés/modifiés, les sections de code, les preuves et les comparaisons Figma/runtime, les tests, les réserves, le SHA distant et la publication. Le rapport Cursor seul ne remplace pas cette vérification.
+> Avant de répondre à Morris, ChatGPT doit relire directement depuis Git la branche `sfia/review-handoff`, fichier `sfia-review-handoff/latest-chatgpt-review.md`, vérifier la date, le titre **COMPLETE CONTENT**, la matrice §0 (15 diffs projet + non suivis), la présence des huit diffs précédemment manquants, le contenu et la disposition de `_dbg-e07-process.mts` et `_e07-recapture-08.mts`, les preuves, tests, réserves, le SHA distant et la publication. Le rapport Cursor seul ne remplace pas cette vérification.
 
 ---
-END OF REVIEW PACK — Ensemble 07 final convergence
+END OF REVIEW PACK — Ensemble 07 FINAL CONVERGENCE COMPLETE CONTENT
