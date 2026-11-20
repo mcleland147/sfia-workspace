@@ -5,7 +5,7 @@
 | --- | --- |
 | Objet | Dossier AS-IS / TO-BE et contrat de réalisation candidat de l'Ensemble 07 |
 | Jalon | R5 / ML4D — convergence UX/UI, avec impacts fonctionnels transverses à instruire |
-| Statut | **DOSSIER CANDIDAT À RELECTURE MORRIS — NON VALIDÉ / NON ADOPTÉ** |
+| Statut | **CONTENU DU DOSSIER VALIDÉ PAR MORRIS — 20/11/2026** ; options techniques candidates, non ADOPTED, contrats propriétaires R2 non amendés |
 | Date de cadrage | 20 novembre 2026 |
 | Git de référence du code | main@6e93a33d64dfeea2eab88fb7896d733b34053f97 |
 | Contrat UX étudié | [Ensemble 07 — conception fonctionnelle et contrat UX, branche candidate](ensemble-07-projet-trajectoire-conception-fonctionnelle-contrat-ux.md) |
@@ -15,7 +15,7 @@
 | Périmètre de contribution | **Document candidat exclusivement** ; aucune spécification propriétaire modifiée, aucun code, migration, PR, merge ou GO Cursor |
 | État local et runtime | **NON OBSERVÉS** ; lecture Git distante uniquement, aucune exécution de tests ou preuve navigateur dans ce travail |
 
-> **Précédence :** faits et preuves Git main constatés > décisions Morris applicables > sources propriétaires R1–R4 > contrat UX validé pour l'expérience cible > hypothèses/solutions proposées ici. Une conception nouvelle approuvée en conversation n'amende pas automatiquement les règles R2. Les options techniques de ce dossier **ne sont ni des ADR ni des décisions d'architecture adoptées**. Morris arbitrera après relecture ; Cursor précisera les moyens techniques sous contrat autorisé. Aucun état local staged/untracked ou comportement LIVE n'est inféré.
+> **Précédence :** faits et preuves Git main constatés > décisions Morris applicables > sources propriétaires R1–R4 > contrat UX validé pour l'expérience cible > hypothèses/solutions proposées ici. Une conception nouvelle approuvée en conversation n'amende pas automatiquement les règles R2. Les options techniques de ce dossier **ne sont ni des ADR ni des décisions d'architecture adoptées**. Morris a validé le contenu de ce dossier le 20/11/2026 ; les options techniques restent ouvertes jusqu'aux gates applicables, et Cursor précisera les moyens sous contrat autorisé. Aucun état local staged/untracked ou comportement LIVE n'est inféré.
 
 ## 0. Synthèse de décision à préparer
 
@@ -519,12 +519,12 @@ Une dette ne se justifie que par **un besoin démontré, un propriétaire, une c
 | --- | --- |
 | Références UX | **13 maquettes/variantes VALIDÉES PAR MORRIS** |
 | Vision cible | **DOCUMENTED** — accord en conversation, transcript fonctionnel/UX versionné |
-| Présent dossier | **CANDIDAT À RELECTURE ET ARBITRAGES** — aucune architecture adoptée |
+| Présent dossier | **CONTENU VALIDÉ PAR MORRIS (20/11/2026)** — options d'architecture toujours candidates, aucune architecture adoptée |
 | Spécifications D2/D3/D5 | **VALIDATED SPEC existantes**, écarts de réconciliation décrits, **non amendées ici** |
 | AS-IS | **OBSERVÉ SUR GIT DISTANT** à main@6e93a33d64dfeea2eab88fb7896d733b34053f97 |
 | Runtime, tests, migrations locales, navigateur, LIVE/REAL | **NON OBSERVÉS** |
 | GO Cursor, PR, merge, Gate C, ADOPTED | **NON ACQUIS** |
 
-**Prochaine décision Morris après relecture :** valider/ajuster ce dossier candidat et décider du mandat pour réconcilier les contrats propriétaires D2/D3/D5. Ce n'est qu'ensuite qu'un contrat d'exécution Cursor SFIA v2.6 pourra être instancié depuis Git, sur HEAD vérifié, avec périmètre, STOP, preuves et gates cohérents.
+**Décision acquise :** Morris a validé le contenu du dossier le 20/11/2026. **Prochain gate distinct :** instruire, approuver puis autoriser la publication des amendements normatifs propriétaires D2/D3/D5 et, ensuite seulement, préparer un contrat Cursor SFIA v2.6 depuis Git à HEAD vérifié, avec périmètre, STOP, preuves et gates. La validation de ce dossier n'est pas un GO Git sur les spécifications propriétaires ni un GO technique.
 
 **ARCHITECTURE PROPOSÉE ≠ SPEC VALIDÉE ≠ IMPLEMENTED ≠ BEHAVIOR PROVEN ≠ ADOPTED.**
