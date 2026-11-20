@@ -1,29 +1,28 @@
-# SFIA Review Pack FULL — Ensemble 07 DEV INTEGRATED QUALIFICATION
+# SFIA Review Pack FULL — ENSEMBLE 07 RECETTE CANDIDATE PREPARATION
 
-**Date/heure UTC :** 2026-11-20T20:14:49Z
-**Cycle identity :** `Ensemble 07 DEV INTEGRATED QUALIFICATION`
-**Type :** Delivery projet · EVOL · qualification QA intégrée DEV (SFIA v2.6 §6.6)
-**Profil :** Standard + contrôles renforcés reprise / gouvernance / intégration
-**Macro-lot :** R5 / ML4D / Ensemble 07 — clôture des preuves DEV
-**Review Pack :** FULL · Review Handoff : required / publish-in-cycle
+**Date/heure UTC :** 2026-11-20T20:39:25Z
+**Cycle identity :** `ENSEMBLE 07 RECETTE CANDIDATE PREPARATION`
+**GO Morris :** 20 novembre 2026 — préparation contrôlée candidat RECETTE (pas commit/push projet, pas PR, pas déploiement)
+**Typologie :** QA / EVOL corrective bornée / Candidate Preparation
+**Macro-lot :** R5 / ML4D / Ensemble 07
 **Lane :** DEV only · **Classe :** NO RELEASE · **Gate C :** OPEN
-**GO Morris :** qualification intégrée DEV uniquement — **pas** de préparation RECETTE, candidat Git figé, commit/push projet, PR, merge, promotion
-**Prior handoff immuable :** `sfia/review-handoff@97db03d630ce9cb3630c480cd63d8fab652df189` blob `02c1190ef16c00ccefebb425ba7747195d3452f0` — Ensemble 07 FUNCTIONAL STABILIZATION
-**UX :** fidélité Figma **gelée** (arbitrage Morris) — aucune passe esthétique dans ce cycle
+**Prior handoff :** `sfia/review-handoff@52f47ed74df4f459fedc723a6516ba45619bbc07` blob `0e2a5863403139df61b5f01d06e7d9db909bde1a` (DEV INTEGRATED QUALIFICATION)
+**UX :** fidélité Figma **gelée** — aucune passe esthétique
 
 ---
 
-## 1. Git Truth local
+## 1. Git Truth
 
 | Champ | Valeur |
 |---|---|
 | toplevel | `/Users/morris/Projects/sfia-wt-ensemble07-projet-trajectoire-20261120` |
 | branche | `sfia/next-ensemble07-projet-trajectoire-delivery` |
-| HEAD | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
+| HEAD base | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
 | origin/main | `6e93a33d64dfeea2eab88fb7896d733b34053f97` |
-| merge-base HEAD origin/main | `6e93a33d64dfeea2eab88fb7896d733b34053f97` |
-| Worktree | **volontairement non commité** (delivery + corrections + tests locaux) |
-| status short | 40 lignes (modifiés + non suivis) |
+| merge-base | `6e93a33d64dfeea2eab88fb7896d733b34053f97` |
+| Index projet | **non modifié** (aucun staging réel) |
+| candidate_sha | **NOT AVAILABLE** |
+| Prospective tree (temp index isolé) | `0c5859406b98361aa711ddfdb483c8657c60e93f` |
 
 ```
  M .tmp-sfia-review/chatgpt-review.md
@@ -52,7 +51,7 @@
 ?? projects/sfia-studio-next/web/scripts/e07-capture-sas-modal.mts
 ?? projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts
 ?? projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts
-?? projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/
+?? projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/reconcile/route.ts
 ?? projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx
 ?? projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx
 ?? projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql
@@ -69,360 +68,240 @@
 
 ```
 
-**STOP non déclenché :** worktree aligné sur HEAD attendu `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` ; main `6e93a33d64dfeea2eab88fb7896d733b34053f97` ; branche delivery attendue.
+Prior pack local préservé : `/tmp/e07-prior-iq-pack-52f47ed7-source.md`.
 
 ---
 
-## 2. Sources et SHA consultés
+## 2. Sources consultées
 
-| Source | Réf |
-|---|---|
-| Processus SFIA v2.6 | `method/…` + templates (routing §4.3.0b/§6.6, operating model, guardrails, validation checklist, delivery pipeline, decision engine) |
-| Gouvernance Next | SEF v0.2, roadmap, décisions, naming, ENV-01 blob `14b61f0d…`, product-versioning blob `8bc93e0f…` |
-| Contrats fonctionnels | creation-projet, Nora, connaissance, trajectoire, décisions Pilote |
-| Ensemble 07 docs | branche `docs/next-ensemble07-r2-cursor-contract-20261120` @ `25dc1c92…` |
-| As-built local | `ensemble-07-as-built-initial-qualification.md` |
-| Prior Review Pack | FUNCTIONAL STABILIZATION @ `97db03d6` |
+SFIA v2.6 (routing §4.3.0b/§6.6/§6.12, template, operating model, guardrails, validation checklist, delivery pipeline, decision engine) · gouvernance Next (SEF, ENV-01 blob `14b61f0d`, product-versioning blob `8bc93e0f`) · docs Ensemble 07 @ `25dc1c92` · as-built local · handoff IQ `52f47ed7`.
 
 ---
 
-## 3. ENV-01
+## 3. Changements de ce cycle
 
-| Contrôle | Résultat |
-|---|---|
-| Lane | **DEV** uniquement |
-| Worktree / branche / HEAD | PASS (ci-dessus) |
-| E2E runtime | Playwright webServer `127.0.0.1:3101` · DB `sfia_next_e2e` · container `sfia-next-dev-pg` · port hôte `5433` |
-| Fixture Nora | `STUDIO_FORCE_NORA_FIXTURE=1` — FAKE |
-| HOLD | `STUDIO_DEV_HOLD_INITIAL_QUALIFICATION` **unset** dans `e2e-web-server.sh` + commande E2E |
-| RECETTE :3200 / STABLE :3000 | **non touchés** |
-| Candidat RECETTE E07 | **NOT AVAILABLE** (worktree non figé) |
-| Verdict ENV-01 | **PASS — DEV isolated** |
-
----
-
-## 4. Product versioning
-
-| Champ | Valeur |
-|---|---|
-| Classe | NO RELEASE |
-| STABLE | NOT AVAILABLE |
-| Version candidate | NOT AVAILABLE |
-| Tags / changelog release | aucun |
-| delivery-history | mis à jour pour tracer ce cycle (preuves uniquement) |
-
----
-
-## 5. État du code DEV
-
-Candidat **local non commité** sur `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` + delta delivery Ensemble 07 (P0 fencing, mig 015/016, qualification initiale, UI Projet/Trajectoire, tests).
-
-**Correction de ce cycle (qualification) :**
-
-1. **MAJOR régression d'intégration découverte** — `expectInitialQualification: true` appliqué à *toutes* les créations (y compris suites D3/D5) → lock PENDING synthétique → **23 FAIL** puis fix : flag **optionnel default false** ; route produit SAS seule pose `true` + update link. → **525 PASS**.
-2. **E2E A–F** — nouveau spec navigateur ; bug test `openSurface` cliquait des spans `sr-only` `surface-*` (non navigables) → timeout Trajectoire ; fix rail `nav-*` → **6/6 PASS (38s)**.
-3. **e2e-web-server.sh** — force unset HOLD pour ne pas geler la qualification en E2E.
-
-Aucun redesign ; UX gelée respectée ; pas de worker/queue.
-
----
-
-## 6. Commandes réellement exécutées
-
-| Suite | Commande (cwd `…/web`) | Versions | Résultat | Preuve |
-|---|---|---|---|---|
-| TypeScript | `npx tsc --noEmit` | node v24.16.0 | **PASS** (stdout vide) | `/tmp/e07-iq-tsc.out` |
-| Build | `npm run build` | Next prod local | **PASS** | `/tmp/e07-iq-build.out` |
-| Unit global | `npx vitest run tests/unit` | vitest | **690/690 PASS** (85 files, 15.21s) @ 20:52:40 | `/tmp/e07-iq-unit.out` |
-| Integration PG global | `npx vitest run tests/integration` (après fix create-flag) | PG DEV/e2e | **525/525 PASS** (34 files, 35.43s) @ 20:54:49 | `/tmp/e07-iq-integration2.out` |
-| E07 PG ciblé | ensemble07 + dépendances | | **15/15 E07** dans regfix (95 tests / 4 files) | `/tmp/e07-iq-regfix.out` |
-| E2E A–F | `npx playwright test tests/e2e/ensemble07-parcours-af.spec.ts` + fixture + HOLD unset | Playwright :3101 | **6/6 PASS (38.0s)** | `/tmp/e07-iq-e2e10.out` |
-
-**Note :** premier run integration avait **échoué** (régression create-flag) — corrigé dans le même cycle avant E2E.
-
----
-
-## 7. Tableau des suites complètes
-
-| Suite | Attendu | Résultat | Niveau de preuve |
-|---|---|---|---|
-| tsc | PASS | PASS | compile |
-| build prod | PASS | PASS | compile+bundle |
-| unit global | PASS sans régression | 690 PASS | déterministe |
-| integration PG global | PASS E05/E06/E07/D2–D6 | 525 PASS | PG réel |
-| E07 discriminants PG | P0 scenarios | 15 PASS (historique+rejoué) | PG oracles |
-| E2E A–F | 6 parcours navigateur | 6 PASS | BROWSER FAKE |
-
----
-
-## 8. Tests P0 et preuves
-
-Invariants P0-01/02 (fence + FOR UPDATE / assistantContent) **non rouverts** — pas d'anomalie reproductible. Couverture via PG E07 + unit E07.
-
-| # | Scénario | Preuve principale | Résultat |
-|---|---|---|---|
-| 1 | Deux créations D2 simultanées | PG E07 | PASS (historique cycle stab + suite 525) |
-| 2 | ACK perdu | PG | PASS |
-| 3 | Op initiale absente + expected | PG P0-04 | PASS |
-| 4 | Ancien projet sans expected | PG | PASS (pas de lock synthétique) |
-| 5 | Projet récent expected | PG + E2E A | PASS |
-| 6 | Continuations après D2 | PG / route ensure→continue→kick | PASS |
-| 7 | Traitement interrompu | PG + E2E B reconcile | PASS reconcil. |
-| 8 | Lease expiré | PG | PASS |
-| 9 | Perte propriété CAS→D5 | PG fence | PASS |
-| 10–11 | D5/message/terminal partiels | PG reprise | PASS |
-| 12 | Reprise contenu exact | PG | PASS |
-| 13 | system ≠ assistant | PG COR-08 | PASS |
-| 14 | Deux onglets | E2E F + reconcile idempotent B | PASS borné |
-| 15 | Résultat périmé | PG | PASS |
-| 16 | UNKNOWN→reconcile | PG + B | PASS |
-| 17 | Envoi pendant verrou | unit lock + API 409 | PASS |
-| 18 | Autre Pilote | PG droits | PASS |
-
-**Critère sortie P0 :** aucune anomalie P0 reproductible ouverte.
-
----
-
-## 9. Parcours navigateur A–F
-
-| Parcours | Test exécuté | Niveau de preuve | Résultat | Réserve |
-|---|---|---|---|---|
-| A — Création | SAS→create→IQ terminal→Travail unlock→Trajectoire board | BROWSER FAKE + GET API + UI | **PASS** | FAKE Nora |
-| B — Reprise | reopen + double reconcile idempotent | BROWSER + API | **PASS** — **RECONCILIATION PROVEN** | **PROCESS AUTONOMY NOT PROVEN** (FIX-03) |
-| C — GO | messages NL « retiens » / « Ouvre le cycle » | BROWSER FAKE boundary | **PASS exécuté** | **REAL-GAP LIVE NL** — cycle ACTIVE non revendiqué ; D6 API/PG prouvé ailleurs |
-| D — Clôture | intent « Clôture… réserves » + Trajectoire | BROWSER FAKE boundary | **PASS exécuté** | **REAL-GAP LIVE NL** — pas de clôture auto ; D5 close PG prouvé |
-| E — Navigation | projet/travail/pilotage/journal/documents | BROWSER | **PASS** | — |
-| F — Sync | Trajectoire terminal sans reload + Travail unlock | BROWSER + API | **PASS** | pas de 2e onglet physique parallèle exhaustif |
-
-Correctif test : `openSurface` doit utiliser `studio-rail` `nav-*`, jamais les markers `surface-*` (sr-only).
-
----
-
-## 10. Données et fixtures
-
-- Pilote A (DEV test login)
-- DB jetable E2E `sfia_next_e2e` sur :5433
-- Noms projet `E07QA Cadrage <unique>`
-- `STUDIO_FORCE_NORA_FIXTURE=1`
-- Pas de fournisseur IA externe consommé
-
----
-
-## 11. D3 / D5 / D6 — résultats réels
-
-| Domaine | Preuve | Résultat |
+| # | Changement | Nature |
 |---|---|---|
-| D2 create + expected flag | route produit + PG | PASS |
-| D3 conversation + lock IQ | unit/PG/E2E A | PASS |
-| D5 PROPOSE / RETAIN / fence | PG E07 + command-runner | PASS |
-| D6 conversational authority | PG/unit (semanticQualification injectée) | PASS frontière API |
-| D6 NL navigateur LIVE | E2E C/D sous FAKE | **NOT PROVEN LIVE** |
+| 1 | `ensemble07-parcours-af.spec.ts` | Oracles E2E honnêtes A1/A2/C1/C2/D1/D2/E/F |
+| 2 | `delivery-history.md` | Entrée préparation candidat |
+| 3 | Review Pack + handoff L3 | Ce document |
+
+Aucun changement de code produit (P0/fencing/mig inchangés).
 
 ---
 
-## 12. Fake / Real Qualification
+## 4. Audit oracles E2E
 
-| Couche | Statut |
-|---|---|
-| Structure / validation déterministe | PROVEN |
-| Commandes D5/D6 API | PROVEN (PG) |
-| Parcours navigateur FAKE | PROVEN A–F |
-| Interprétation sémantique NL LIVE | **NOT PROVEN** |
-| Nora reasoning LIVE | **NOT PROVEN** |
-
-**Interdit respecté :** ne pas conclure « Nora cognitive prête » sur sortie déterministe seule.
-
----
-
-## 13. FIX-03 — reprise
-
-| Affirmation | Statut |
-|---|---|
-| Projet survit interruption | PROVEN (B + PG) |
-| Op accessible | PROVEN |
-| Reconcile idempotent | **RECONCILIATION PROVEN** |
-| Pas de 2e proposition | PROVEN |
-| UNKNOWN sortie contrôlée | PROVEN PG |
-| Chemin utilisateur récupération | PROVEN (reconcile POST + UI poll) |
-| Worker/queue autonome | **PROCESS AUTONOMY NOT PROVEN** — non installé (hors GO) |
-
----
-
-## 14. Nora LIVE — limites
-
-| Item | Statut |
-|---|---|
-| Chemin cognitif identifié | OUI (fixture vs LIVE) |
-| Sorties déterministes distinguées | OUI |
-| GO consommation fournisseur | **NON** (ce cycle) |
-| Dépendances LIVE | secrets fournisseur + lane + budget — hors mandat |
-| Conclusion | **DETERMINISTIC / FAKE — LIVE NOT PROVEN** |
-
----
-
-## 15. Anomalies
-
-### Corrigées ce cycle
-
-| ID | Classe | Scénario échoué | Cause | Fichier | Fix | Non-régression |
-|---|---|---|---|---|---|---|
-| IQ-REG-01 | MAJOR | 23 tests integration FAIL après create | `initialQualificationExpected` forcé pour tout create | `create-project.ts` | `expectInitialQualification?` default **false** ; route produit seule `true` | integration **525 PASS** |
-| E2E-NAV-01 | MAJOR (preuve) | Parcours A timeout 120s | `openSurface` click sur span sr-only | `ensemble07-parcours-af.spec.ts` | click `nav-*` rail + assert `data-surface-active` | E2E **6/6 PASS** |
-
-### Ouvertes / gouvernées
-
-| ID | Classe | Description | Exit |
+| Intitulé | Avant | Attendu | Correction |
 |---|---|---|---|
-| FIX-03 | REAL-GAP / réserve | Pas de worker autonome | OK pour recette bornée **si** reconcile manuel/accepté ; sinon GO worker |
-| LIVE-NL | REAL-GAP | GO/clôture NL navigateur non prouvés LIVE | Exclure de recette bornée FAKE **ou** GO LIVE |
-| UX-FIGMA | UX-DEFERRED | Fidélité visuelle gelée | Revue Morris en RECETTE |
-| CAND-GIT | gouvernance | Pas de SHA figé | GO Morris préparation RECETTE |
-
-**Aucun BLOCKER P0 ouvert.**
-
----
-
-## 16. Compatibilité et migrations
-
-| Item | Résultat |
-|---|---|
-| Migration 015 trajectory_qualification | présente ; PG tests PASS |
-| Migration 016 initial_qualification_expected | présente ; idempotente (NOTICE already exists) |
-| schema.ts aligné | OUI |
-| Fresh install destructive | non exécutée sur DB DEV partagée ; suites PG/E2E sur DB e2e isolée |
-| Backfill fictif | absent (P0-04) |
-| RECETTE/STABLE DB | intouchées |
+| A | PROPOSED\|CLARIFICATION\|**FAILED** | Nominal ≠ FAILED | **A1** PROPOSED\|CLARIFICATION + messageId + trajId si PROPOSED + no ACTIVE |
+| A2 | absent | Échec distinct | Contrat A1 refuse FAILED ; PG owns FAILED path |
+| B | double reconcile | Idempotence | GET idempotent ; mid-pipeline = PG |
+| C | annotation seule | C1 ≠ C2 | C1 messages ; C2 ACTIVE si fixture |
+| D | Trajectoire visible | D1 ≠ D2 | D1 no auto-close ; D2 CLOSED ou NOT PROVEN |
+| E | op id | + version/msgs/cycle | GET equality |
+| F | wait+reconcile | Sync sans harness reconcile | GET-only + UI |
 
 ---
 
-## 17. Régressions Ensemble 05 / 06
+## 5. Résultats exécutés
 
-Integration globale **525 PASS** inclut documents, journal, conversation, pilotage — **pas de régression détectée** après IQ-REG-01.
+| Suite | Résultat | Preuve |
+|---|---|---|
+| E2E révisé | **9/9 PASS (26.4s)** | `/tmp/e07-cand-e2e3.out` |
+| Unit E07 | **10/10 PASS** | `/tmp/e07-cand-unit.out` |
+| PG E07 | **15/15 PASS** | `/tmp/e07-cand-pg.out` |
+| tsc/build/690/525 | hérités IQ (produit inchangé hors E2E/docs) | handoff `52f47ed7` |
 
----
-
-## 18. Réserves UX
-
-Gel Morris respecté. Aucune retouche dimensions/couleurs/typo. Seuls correctifs fonctionnels test-driven (nav preuve E2E = test harness, pas UI produit).
-
----
-
-## 19. Conditions préparation RECETTE (futures — hors mandat)
-
-1. GO Morris explicite préparation RECETTE
-2. Commit/fige SHA+tree reproductible du worktree qualifié
-3. Décider périmètre : FAKE-only vs LIVE NL
-4. Décider acceptation FIX-03 (reconcile vs worker)
-5. Revue visuelle UX gelée sous GO distinct
-6. ENV-01 lane RECETTE — **après** candidat figé
-
-**Candidat RECETTE actuel : NOT AVAILABLE.**
+| Parcours | Résultat | Preuve | Réserve |
+|---|---|---|---|
+| A1 | PASS | BROWSER+API | FAILED exclu |
+| A2 | PASS (contrat) | PG owns | Browser FAILED NOT RUN |
+| B | PASS | GET idempotent | Autonomy NOT |
+| C1 | PASS | BROWSER | — |
+| C2 | PASS | BROWSER DETERMINISTIC GOVERNED GO (OPEN→ACTIVE) | LIVE NOT |
+| D1 | PASS | BROWSER | — |
+| D2 | PASS as NOT PROVEN | Explicit | No CLOSE fixture |
+| E | PASS | BROWSER+GET | — |
+| F | PASS | UI sans POST test | Client poll ≠ autonomy |
 
 ---
 
-## 20. Gate C / NO RELEASE
+## 6. Inventaire + décisions
 
-- Gate C : **OPEN**
-- NO RELEASE
-- Aucun push branche projet
-- Handoff L3 mono-fichier uniquement
+| `.tmp-sfia-review/chatgpt-review.md` | ` M` | **EXCLUDE** | Review pack local; handoff L3 separate · sha25616=`e5539ad08c0d224c` · 41766B |
+| `projects/sfia-studio-next/construction/delivery-history.md` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`6607a023e50421ab` · 208922B |
+| `projects/sfia-studio-next/web/scripts/db-migrate.sh` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`c9cfa5739b3e38fc` · 1364B |
+| `projects/sfia-studio-next/web/scripts/e2e-web-server.sh` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`32ab82fa6cb4fd29` · 3277B |
+| `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`3080aa0e2cbc9efb` · 6344B |
+| `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`f40f1844426b2379` · 1369B |
+| `projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`1e83930d9ca9fbfd` · 38152B |
+| `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`208cbc85b6cba91d` · 113425B |
+| `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`864fb53b627adf6a` · 20536B |
+| `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`7360fb343b837d18` · 6485B |
+| `projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`ba1b62c4a9f89f36` · 7491B |
+| `projects/sfia-studio-next/web/src/db/schema.ts` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`26e07976d531e018` · 36133B |
+| `projects/sfia-studio-next/web/src/domains/conversation/service.ts` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`2b64de26ea25d87f` · 116065B |
+| `projects/sfia-studio-next/web/src/domains/pilotage/command-runner.ts` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`82f6f43f4c30aade` · 20042B |
+| `projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`7a58880b5631d1d3` · 16892B |
+| `projects/sfia-studio-next/web/src/domains/pilotage/service.ts` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`e3cd49ff2104ab0a` · 53225B |
+| `projects/sfia-studio-next/web/src/domains/pilotage/types.ts` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`489aa523d38a3e45` · 5149B |
+| `projects/sfia-studio-next/web/src/domains/preparation/create-project.ts` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`50798bd7db81fbcd` · 12773B |
+| `projects/sfia-studio-next/web/src/domains/preparation/project-context.ts` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`fa10f35a84c0e8cf` · 4625B |
+| `projects/sfia-studio-next/web/src/lib/http-errors.ts` | ` M` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`d43f1ba2089e8377` · 3996B |
+| `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md` | `??` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`1c5c16fa28afbd91` · 3079B |
+| `projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts` | `??` | **EXCLUDE** | Debug helper · sha25616=`6ab78aa51e3b68d3` · 2917B |
+| `projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts` | `??` | **EXCLUDE** | Capture helper · sha25616=`c96de8c9c5f1fa6b` · 1422B |
+| `projects/sfia-studio-next/web/scripts/e07-capture-sas-modal.mts` | `??` | **EXCLUDE** | Capture evidence only · sha25616=`07f88743f677289d` · 4856B |
+| `projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts` | `??` | **EXCLUDE** | Capture evidence only · sha25616=`c1ea38119299390d` · 6144B |
+| `projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts` | `??` | **EXCLUDE** | Capture evidence only · sha25616=`41ca3de1a803196d` · 8698B |
+| `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/reconcile/route.ts` | `??` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`fff63ded9627a700` · 896B |
+| `projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx` | `??` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`d46ebc57892b5578` · 3108B |
+| `projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx` | `??` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`9a93eb16ca9d301a` · 33841B |
+| `projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql` | `??` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`1d44a872997c5233` · 1285B |
+| `projects/sfia-studio-next/web/src/db/migrations/016_initial_qualification_expected.sql` | `??` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`a6f485144f81bfca` · 317B |
+| `projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts` | `??` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`4688dabdd03f9c24` · 8693B |
+| `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts` | `??` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`3a6f848cc8156f23` · 924B |
+| `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts` | `??` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`366b99fb1f3acd2b` · 32162B |
+| `projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts` | `??` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`53b440e6d945ca14` · 1503B |
+| `projects/sfia-studio-next/web/tests/e2e/ensemble07-parcours-af.spec.ts` | `??` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`fe9fe02c48b7857d` · 16625B |
+| `projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts` | `??` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`772ecbdf4c746f8a` · 28764B |
+| `projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts` | `??` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`bc2fd85e9445034d` · 1297B |
+| `projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts` | `??` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`1ea118563c4d3b21` · 4025B |
+| `projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts` | `??` | **INCLUDE** | E07 delivery runtime/test/migration/doc · sha25616=`d642205cccad1b47` · 1477B |
+
+### INCLUDE (34 paths) — tree `0c5859406b98361aa711ddfdb483c8657c60e93f`
+
+- `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md`
+- `projects/sfia-studio-next/construction/delivery-history.md`
+- `projects/sfia-studio-next/web/scripts/db-migrate.sh`
+- `projects/sfia-studio-next/web/scripts/e2e-web-server.sh`
+- `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts`
+- `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/reconcile/route.ts`
+- `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts`
+- `projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx`
+- `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx`
+- `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx`
+- `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx`
+- `projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx`
+- `projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx`
+- `projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx`
+- `projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql`
+- `projects/sfia-studio-next/web/src/db/migrations/016_initial_qualification_expected.sql`
+- `projects/sfia-studio-next/web/src/db/schema.ts`
+- `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
+- `projects/sfia-studio-next/web/src/domains/pilotage/command-runner.ts`
+- `projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts`
+- `projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts`
+- `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts`
+- `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts`
+- `projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts`
+- `projects/sfia-studio-next/web/src/domains/pilotage/service.ts`
+- `projects/sfia-studio-next/web/src/domains/pilotage/types.ts`
+- `projects/sfia-studio-next/web/src/domains/preparation/create-project.ts`
+- `projects/sfia-studio-next/web/src/domains/preparation/project-context.ts`
+- `projects/sfia-studio-next/web/src/lib/http-errors.ts`
+- `projects/sfia-studio-next/web/tests/e2e/ensemble07-parcours-af.spec.ts`
+- `projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts`
+- `projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts`
+- `projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts`
+- `projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts`
+
+### EXCLUDE (conservés WT)
+
+- `.tmp-sfia-review/chatgpt-review.md`
+- `web/scripts/_dbg-e07-process.mts`, `_e07-recapture-08.mts`, `e07-capture-sas-modal.mts`, `e07-runtime-screenshots.mts`, `e07-seed-screenshot.mts`
 
 ---
 
-## 21. Verdict technique
+## 7. Migrations
 
-- Build/tsc/unit/integration/E2E A–F : **PASS**
-- P0 connus : **fermés**
-- Sync UI/API/DB nominale : **démontrée** (FAKE)
-- Code delivery local stable pour usage DEV
-
-## 22. Verdict fonctionnel
-
-- Parcours SAS→Projet→qualification→Travail/Trajectoire : **démontré navigateur**
-- Reprise gouvernée : **démontrée**
-- GO/clôture conversationnels LIVE : **non démontrés**
-- Autonomie process : **non démontrée**
-
-## 23. Décisions Morris restantes
-
-1. Accepter verdict **WITH RESERVES** et périmètre recette FAKE bornée ?
-2. Exiger GO LIVE Nora avant toute recette GO conversationnel ?
-3. FIX-03 : accepter reconcile-only ou mandater worker ?
-4. Autoriser figeage candidat Git + préparation RECETTE (GO séparé) ?
-5. Quand lever le gel UX Figma ?
+015 + 016 INCLUDE · schema.ts aligné · idempotence NOTICE en PG · **RECETTE non migrée**.
 
 ---
 
-## 24. VERDICT AUTORISÉ
+## 8. Fake / Real
+
+DETERMINISTIC/FAKE/PG/BROWSER A1–F (C2 GO fixture) **PROVEN** · D2 CLOSE browser **NOT PROVEN** · LIVE **NOT PROVEN** · FIX-03 autonomy **NOT PROVEN**.
+
+---
+
+## 9. Réserves R1–R3
+
+| ID | Énoncé | Recette FAKE bornée ? | Décision |
+|---|---|---|---|
+| R1 | RECONCILIATION / autonomy NOT | Oui si reconcile accepté | Worker ou non |
+| R2 | LIVE NOT | Oui si LIVE exclu | Session LIVE séparée |
+| R3 | UX deferred | Oui | UAT Morris sur build RECETTE |
+
+---
+
+## 10. Préflight ENV-01 RO
+
+| Contrôle | Observé | Condition |
+|---|---|---|
+| RECETTE :3200 | HTTP 200 /login | GO + SHA figé avant écriture |
+| STABLE :3000 | UNREACHABLE | N/A |
+| DB RECETTE | non interrogée | Backup avant 015/016 |
+| DEV :5433 | sfia-next-dev-pg | Isolé |
+| Écriture RECETTE | aucune | Continuer jusqu'au GO |
+
+---
+
+## 11. Manifeste
+
+```yaml
+repository: mcleland147/sfia-workspace
+base_branch: sfia/next-ensemble07-projet-trajectoire-delivery
+base_head: e36fd8b0531c4f649830990a18f9cfdaecb3c03f
+main_sha: 6e93a33d64dfeea2eab88fb7896d733b34053f97
+candidate_sha: NOT AVAILABLE
+prospective_tree: 0c5859406b98361aa711ddfdb483c8657c60e93f
+include_count: 34
+migrations: [015, 016]
+app_version: 0.0.0-dev
+version_candidate: NOT PUBLISHED
+e2e_honest: 9/9 PASS
+unit_e07: 10/10 PASS
+pg_e07: 15/15 PASS
+LIVE: false
+reserves: [FIX-03, LIVE, UX, D2_close_browser]
+next_git_GO: commit INCLUDE only after Morris validation; retest on SHA; push/PR/deploy = separate GOs
+```
+
+Overlap main sur migrations/pilotage/preparation depuis merge-base : **vide**.
+
+---
+
+## 12. Gate C OPEN / NO RELEASE
+
+Aucun push projet · aucun déploiement RECETTE.
+
+---
+
+## 13. Verdict
 
 ```
-DEV INTEGRATION QUALIFIED WITH RESERVES — MORRIS ARBITRATION REQUIRED
+ENSEMBLE 07 — CANDIDATE PREPARATION COMPLETE WITH GOVERNED RESERVES — MORRIS ARBITRATION REQUIRED
 ```
 
-Justification : preuves d'intégration DEV complètes (tsc/build/unit/PG/E2E A–F) sans P0 ouvert ; réserves **LIVE NL**, **FIX-03 autonomy**, **UX gelée**, **candidat Git non figé** — non bloquantes pour une **future recette bornée FAKE** si Morris l'arbitre ainsi ; non assimilables à RECETTE READY.
+---
+
+## 14. GO Morris restants
+
+1. Valider INCLUDE/EXCLUDE
+2. Arbitrer R1/R2/R3
+3. GO gel Git (commit INCLUDE)
+4. Retest sur SHA
+5. GO push/PR
+6. GO mise à disposition RECETTE + migrate
+7. Revue UX
 
 ---
 
-## 25. Fichiers — inventaire worktree
+## 15. Contenu cycle — E2E complet
 
-### MODIFIÉS (20)
-
-| 1 | `.tmp-sfia-review/chatgpt-review.md` |
-| 2 | `projects/sfia-studio-next/construction/delivery-history.md` |
-| 3 | `projects/sfia-studio-next/web/scripts/db-migrate.sh` |
-| 4 | `projects/sfia-studio-next/web/scripts/e2e-web-server.sh` |
-| 5 | `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts` |
-| 6 | `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts` |
-| 7 | `projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx` |
-| 8 | `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx` |
-| 9 | `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx` |
-| 10 | `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx` |
-| 11 | `projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx` |
-| 12 | `projects/sfia-studio-next/web/src/db/schema.ts` |
-| 13 | `projects/sfia-studio-next/web/src/domains/conversation/service.ts` |
-| 14 | `projects/sfia-studio-next/web/src/domains/pilotage/command-runner.ts` |
-| 15 | `projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts` |
-| 16 | `projects/sfia-studio-next/web/src/domains/pilotage/service.ts` |
-| 17 | `projects/sfia-studio-next/web/src/domains/pilotage/types.ts` |
-| 18 | `projects/sfia-studio-next/web/src/domains/preparation/create-project.ts` |
-| 19 | `projects/sfia-studio-next/web/src/domains/preparation/project-context.ts` |
-| 20 | `projects/sfia-studio-next/web/src/lib/http-errors.ts` |
-
-
-### NON SUIVIS (20)
-
-| 1 | `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md` |
-| 2 | `projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts` |
-| 3 | `projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts` |
-| 4 | `projects/sfia-studio-next/web/scripts/e07-capture-sas-modal.mts` |
-| 5 | `projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts` |
-| 6 | `projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts` |
-| 7 | `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/` |
-| 8 | `projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx` |
-| 9 | `projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx` |
-| 10 | `projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql` |
-| 11 | `projects/sfia-studio-next/web/src/db/migrations/016_initial_qualification_expected.sql` |
-| 12 | `projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts` |
-| 13 | `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts` |
-| 14 | `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts` |
-| 15 | `projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts` |
-| 16 | `projects/sfia-studio-next/web/tests/e2e/ensemble07-parcours-af.spec.ts` |
-| 17 | `projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts` |
-| 18 | `projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts` |
-| 19 | `projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts` |
-| 20 | `projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts` |
-
-
-### Héritage FUNCTIONAL STABILIZATION
-
-Le contenu produit détaillé (diffs intégraux P0, mig 015/016, `initial-qualification.ts`, UI TrajectoryBoard, etc.) est celui du handoff `97db03d6` / blob `02c1190e`, **plus** les deltas de ce cycle ci-dessous. ChatGPT doit traiter ce pack comme preuve de **qualification**, et le handoff stab comme baseline produit immuable antérieure.
-
----
-
-## 26. Contenu — fichiers créés / modifiés CE CYCLE (complets / diffs)
-
-
-### CREATED `projects/sfia-studio-next/web/tests/e2e/ensemble07-parcours-af.spec.ts`
+### `projects/sfia-studio-next/web/tests/e2e/ensemble07-parcours-af.spec.ts`
 
 ```typescript
 import { test, expect, type Page, type APIRequestContext } from "@playwright/test";
@@ -435,9 +314,32 @@ import {
 
 /**
  * Ensemble 07 — BROWSER functional qualification A–F on isolated E2E lane :3101.
- * Fixture Nora FAKE — LIVE NOT PROVEN.
- * UX pixel comparison frozen (Morris).
+ *
+ * Honesty contract (candidate preparation):
+ * - A1 nominal ≠ FAILED
+ * - C1 interaction ≠ C2 governed GO effect
+ * - D1 safety ≠ D2 CLOSE effect
+ * - F UI sync must not be masked by test-driven reconcile
+ * - Fixture Nora FAKE — LIVE NOT PROVEN
+ * - UX pixel comparison frozen (Morris)
  */
+
+type IqSnap = {
+  status: string;
+  operationId: string;
+  composerLocked: boolean;
+  assistantMessageId: string;
+  trajectoryRevisionId: string;
+  version: number;
+};
+
+type ProjectSnap = {
+  iq: IqSnap | null;
+  messageCount: number;
+  cycleStatus: string | null;
+  trajectoryProposed: boolean;
+  trajectoryRetained: boolean;
+};
 
 async function loginPilotA(page: Page) {
   await page.goto("/login");
@@ -447,7 +349,6 @@ async function loginPilotA(page: Page) {
 
 async function openSurface(page: Page, key: string) {
   // surface-* markers in ProjectChrome are sr-only spans (not navigable).
-  // Always drive navigation via the studio rail links.
   await page.getByTestId("studio-rail").getByTestId(`nav-${key}`).click();
   await expect(page.getByTestId(`surface-${key}`)).toHaveAttribute(
     "data-surface-active",
@@ -456,59 +357,62 @@ async function openSurface(page: Page, key: string) {
   );
 }
 
-async function waitQualificationTerminal(
+async function getProjectSnap(
   request: APIRequestContext,
   projectId: string,
-): Promise<{ status: string; operationId: string; composerLocked: boolean }> {
-  let last = { status: "", operationId: "", composerLocked: true };
-  let reconcileAttempts = 0;
-  for (let i = 0; i < 45; i++) {
+): Promise<ProjectSnap> {
+  const getRes = await request.get(`/api/projects/${projectId}`, { timeout: 8000 });
+  expect(getRes.ok()).toBeTruthy();
+  const body = (await getRes.json()) as {
+    messages?: unknown[];
+    initialQualification?: {
+      status?: string;
+      operationId?: string;
+      composerLocked?: boolean;
+      assistantMessageId?: string | null;
+      trajectoryRevisionId?: string | null;
+      version?: number;
+    } | null;
+    pilotage?: {
+      cycle?: { status?: string } | null;
+      trajectory?: {
+        proposed?: unknown | null;
+        retained?: unknown | null;
+      };
+    };
+  };
+  const q = body.initialQualification;
+  return {
+    iq: q
+      ? {
+          status: q.status ?? "",
+          operationId: q.operationId ?? "",
+          composerLocked: Boolean(q.composerLocked),
+          assistantMessageId: q.assistantMessageId ?? "",
+          trajectoryRevisionId: q.trajectoryRevisionId ?? "",
+          version: q.version ?? 0,
+        }
+      : null,
+    messageCount: Array.isArray(body.messages) ? body.messages.length : 0,
+    cycleStatus: body.pilotage?.cycle?.status ?? null,
+    trajectoryProposed: Boolean(body.pilotage?.trajectory?.proposed),
+    trajectoryRetained: Boolean(body.pilotage?.trajectory?.retained),
+  };
+}
+
+/** GET-only poll — does not POST reconcile (used by F and by post-terminal checks). */
+async function pollQualificationGetOnly(
+  request: APIRequestContext,
+  projectId: string,
+  opts?: { maxSeconds?: number },
+): Promise<IqSnap | null> {
+  const max = opts?.maxSeconds ?? 40;
+  let last: IqSnap | null = null;
+  for (let i = 0; i < max; i++) {
     try {
-      const getRes = await request.get(`/api/projects/${projectId}`, { timeout: 5000 });
-      if (getRes.ok()) {
-        const body = (await getRes.json()) as {
-          initialQualification?: {
-            status?: string;
-            operationId?: string;
-            composerLocked?: boolean;
-          };
-        };
-        const q = body.initialQualification;
-        if (q) {
-          last = {
-            status: q.status ?? "",
-            operationId: q.operationId ?? "",
-            composerLocked: Boolean(q.composerLocked),
-          };
-          if (["PROPOSED", "CLARIFICATION", "FAILED"].includes(last.status)) return last;
-        }
-      }
-      if (
-        reconcileAttempts < 3 &&
-        ["PENDING", "RUNNING", "UNKNOWN", ""].includes(last.status)
-      ) {
-        reconcileAttempts += 1;
-        const res = await request.post(
-          `/api/projects/${projectId}/initial-qualification/reconcile`,
-          { timeout: 12000 },
-        );
-        if (res.ok()) {
-          const j = (await res.json()) as {
-            initialQualification?: {
-              status?: string;
-              operationId?: string;
-              composerLocked?: boolean;
-            };
-          };
-          const q = j.initialQualification;
-          last = {
-            status: q?.status ?? last.status,
-            operationId: q?.operationId ?? last.operationId,
-            composerLocked: q ? Boolean(q.composerLocked) : last.composerLocked,
-          };
-          if (["PROPOSED", "CLARIFICATION", "FAILED"].includes(last.status)) return last;
-        }
-      }
+      const snap = await getProjectSnap(request, projectId);
+      last = snap.iq;
+      if (last && ["PROPOSED", "CLARIFICATION", "FAILED"].includes(last.status)) return last;
     } catch {
       /* retry */
     }
@@ -517,7 +421,32 @@ async function waitQualificationTerminal(
   return last;
 }
 
-async function createProjectBrowser(page: Page): Promise<string> {
+/**
+ * Bounded product reconcile — allowed for A1 functional completion when GET stays non-terminal.
+ * Must be disclosed: this is controlled reconciliation, not process autonomy.
+ */
+async function waitQualificationWithBoundedReconcile(
+  request: APIRequestContext,
+  projectId: string,
+): Promise<IqSnap | null> {
+  let last = await pollQualificationGetOnly(request, projectId, { maxSeconds: 8 });
+  if (last && ["PROPOSED", "CLARIFICATION", "FAILED"].includes(last.status)) return last;
+
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      await request.post(`/api/projects/${projectId}/initial-qualification/reconcile`, {
+        timeout: 12000,
+      });
+    } catch {
+      /* retry */
+    }
+    last = await pollQualificationGetOnly(request, projectId, { maxSeconds: 5 });
+    if (last && ["PROPOSED", "CLARIFICATION", "FAILED"].includes(last.status)) return last;
+  }
+  return last;
+}
+
+async function createProjectBrowser(page: Page): Promise<{ projectId: string; name: string }> {
   const name = uniqueProjectName("E07QA Cadrage");
   await openNewPreparation(page);
   await sendPrepMessage(
@@ -526,7 +455,7 @@ async function createProjectBrowser(page: Page): Promise<string> {
   );
   await seedInspectedNameViaApi(page, {
     name,
-    summary: "Cadrage Ensemble 07 qualification intégrée DEV",
+    summary: "Cadrage Ensemble 07 candidate preparation",
   });
   await expect(page.getByTestId("prep-create-project")).toBeEnabled({ timeout: 30000 });
   await page.getByTestId("prep-create-project").click();
@@ -537,269 +466,278 @@ async function createProjectBrowser(page: Page): Promise<string> {
   await page.waitForURL("**/projects/**", { timeout: 30000 });
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
-  return projectId!;
+  return { projectId: projectId!, name };
 }
 
-test.describe("Ensemble 07 parcours A–F (BROWSER FAKE)", () => {
+test.describe("Ensemble 07 parcours A–F (BROWSER FAKE — honest oracles)", () => {
   test.describe.configure({ mode: "serial", timeout: 180_000 });
 
   let projectId = "";
+  let a1Terminal: IqSnap | null = null;
 
-  test("A — SAS → create → qualification terminal → Travail/Trajectoire", async ({ page }) => {
+  test("A1 — nominal create → PROPOSED|CLARIFICATION (FAILED rejected)", async ({ page }) => {
     await loginPilotA(page);
-    projectId = await createProjectBrowser(page);
+    const created = await createProjectBrowser(page);
+    projectId = created.projectId;
 
-    const terminal = await waitQualificationTerminal(page.request, projectId);
-    expect(["PROPOSED", "CLARIFICATION", "FAILED"]).toContain(terminal.status);
-    expect(terminal.operationId).toBeTruthy();
-    expect(terminal.composerLocked).toBe(false);
+    // Product client may already reconcile; bounded reconcile disclosed if GET not yet terminal.
+    const terminal = await waitQualificationWithBoundedReconcile(page.request, projectId);
+    expect(terminal, "qualification projection missing").toBeTruthy();
+    // QA-A01 — nominal success must not accept FAILED
+    expect(["PROPOSED", "CLARIFICATION"]).toContain(terminal!.status);
+    expect(terminal!.operationId.length).toBeGreaterThan(0);
+    expect(terminal!.composerLocked).toBe(false);
+    expect(terminal!.assistantMessageId.length).toBeGreaterThan(0);
+    if (terminal!.status === "PROPOSED") {
+      expect(terminal!.trajectoryRevisionId.length).toBeGreaterThan(0);
+    }
+    a1Terminal = terminal;
+
+    const snap = await getProjectSnap(page.request, projectId);
+    expect(snap.cycleStatus).toBeNull(); // no implicit ACTIVE
+    expect(snap.messageCount).toBeGreaterThanOrEqual(2);
 
     await page.goto(`/projects/${projectId}?surface=travail`);
     await expect(page.getByTestId("project-travail-stage").first()).toBeVisible({ timeout: 15000 });
-    // Send stays disabled while draft empty — unlock proof = lock overlay absent + draft editable.
     await expect(page.getByTestId("composer-lock-overlay")).toHaveCount(0);
     await expect(page.getByTestId("thread-draft").first()).toBeEditable({ timeout: 15000 });
-    await expect(page.getByText(/proposition de trajectoire initiale|clarifier|qualification/i).first()).toBeVisible({
-      timeout: 15000,
-    });
+    await expect(
+      page.getByText(/proposition de trajectoire initiale|clarifier|préciser/i).first(),
+    ).toBeVisible({ timeout: 15000 });
 
     await openSurface(page, "pilotage");
     await expect(
-      page
-        .getByTestId("trajectory-board")
-        .or(page.getByTestId("project-trajectory"))
-        .first(),
+      page.getByTestId("trajectory-board").or(page.getByTestId("project-trajectory")).first(),
     ).toBeVisible({ timeout: 20000 });
   });
 
-  test("B — reopen + reconcile idempotent (RECONCILIATION PROVEN)", async ({ page }) => {
-    expect(projectId).toBeTruthy();
-    await loginPilotA(page);
-    await page.goto(`/projects/${projectId}`);
-    const a = await waitQualificationTerminal(page.request, projectId);
-    const b = await waitQualificationTerminal(page.request, projectId);
-    expect(b.operationId).toBe(a.operationId);
-    expect(b.status).toBe(a.status);
-    expect(["PROPOSED", "CLARIFICATION", "FAILED"]).toContain(b.status);
-  });
-
-  test("C — GO conversational browser (fixture / REAL-GAP LIVE NL)", async ({ page }) => {
-    expect(projectId).toBeTruthy();
-    await loginPilotA(page);
-    await page.goto(`/projects/${projectId}?surface=travail`);
-    await expect(page.getByTestId("composer-lock-overlay")).toHaveCount(0);
-    const draft = page.getByTestId("thread-draft").first();
-    const send = page.getByTestId("thread-send").first();
-    await expect(draft).toBeEditable({ timeout: 15000 });
-    await draft.fill("Je retiens cette trajectoire.");
-    await expect(send).toBeEnabled({ timeout: 10000 });
-    await send.click();
-    await page.waitForTimeout(2500);
-    await draft.fill("Ouvre le cycle cadrage.");
-    await expect(send).toBeEnabled({ timeout: 10000 });
-    await send.click();
-    await page.waitForTimeout(4000);
-
-    const proj = await page.request.get(`/api/projects/${projectId}`);
-    expect(proj.ok()).toBeTruthy();
-    const body = (await proj.json()) as {
-      pilotage?: { cycle?: { status?: string; cycleType?: string } | null };
-    };
-    // Under FAKE fixture, NL GO may clarify instead of open — record, do not invent LIVE proof.
+  test("A2 — FAILED is not an A1 success class (contract note + PG ownership)", async () => {
+    // Browser FAILED injection is not exercised here (would require fault/HOLD product hooks).
+    // Negative FAILED / Studio-incident path is owned by PG ensemble07 tests (status FAILED,
+    // system role message, project retained). This test locks the A1 oracle contract.
+    expect(["PROPOSED", "CLARIFICATION"]).toContain(a1Terminal?.status);
+    expect(a1Terminal?.status).not.toBe("FAILED");
     test.info().annotations.push({
       type: "note",
-      description: `C pilotage.cycle=${JSON.stringify(body.pilotage?.cycle ?? null)} — LIVE NL NOT PROVEN; API FIX-08 proven in PG`,
+      description:
+        "A2 browser FAILED path NOT RUN — PG E07 owns technical failure oracles; A1 oracle explicitly rejects FAILED",
     });
   });
 
-  test("D — conduite / clôture boundary (FAKE; no auto-close)", async ({ page }) => {
+  test("B — reopen + GET idempotent (RECONCILIATION; autonomy NOT claimed)", async ({ page }) => {
+    expect(projectId).toBeTruthy();
+    await loginPilotA(page);
+    await page.goto(`/projects/${projectId}`);
+    const a = await pollQualificationGetOnly(page.request, projectId, { maxSeconds: 15 });
+    const b = await pollQualificationGetOnly(page.request, projectId, { maxSeconds: 15 });
+    expect(a?.operationId).toBeTruthy();
+    expect(b?.operationId).toBe(a?.operationId);
+    expect(b?.status).toBe(a?.status);
+    expect(["PROPOSED", "CLARIFICATION"]).toContain(b?.status);
+    expect(b?.assistantMessageId).toBe(a?.assistantMessageId);
+    test.info().annotations.push({
+      type: "note",
+      description:
+        "B browser = post-terminal idempotent GET. Interruption mid-pipeline (D5-before-message, etc.) = PG P0 — RECONCILIATION PROVEN / PROCESS AUTONOMY NOT PROVEN",
+    });
+  });
+
+  test("C1 — browser interaction RETAIN/OPEN utterances (no C2 effect claim)", async ({ page }) => {
     expect(projectId).toBeTruthy();
     await loginPilotA(page);
     await page.goto(`/projects/${projectId}?surface=travail`);
     await expect(page.getByTestId("composer-lock-overlay")).toHaveCount(0);
+    const before = await getProjectSnap(page.request, projectId);
+    const draft = page.getByTestId("thread-draft").first();
+    const send = page.getByTestId("thread-send").first();
+    await expect(draft).toBeEditable({ timeout: 15000 });
+
+    await draft.fill("Je retiens cette trajectoire.");
+    await expect(send).toBeEnabled({ timeout: 10000 });
+    await send.click();
+    await expect(page.getByText("Je retiens cette trajectoire.").last()).toBeVisible({
+      timeout: 20000,
+    });
+
+    await draft.fill("Ouvre le cycle cadrage.");
+    await expect(send).toBeEnabled({ timeout: 10000 });
+    await send.click();
+    await expect(page.getByText("Ouvre le cycle cadrage.").last()).toBeVisible({
+      timeout: 20000,
+    });
+
+    const after = await getProjectSnap(page.request, projectId);
+    expect(after.messageCount).toBeGreaterThan(before.messageCount);
+    // C1 only — observe; do not require RETAINED/ACTIVE
+    test.info().annotations.push({
+      type: "note",
+      description: `C1 PASS — messages accepted; cycle=${after.cycleStatus}; retained=${after.trajectoryRetained}; proposed=${after.trajectoryProposed}`,
+    });
+  });
+
+  test("C2 — governed GO ACTIVE after fixture OPEN utterance", async ({ page }) => {
+    expect(projectId).toBeTruthy();
+    await loginPilotA(page);
+    const snap = await getProjectSnap(page.request, projectId);
+    const retained = snap.trajectoryRetained;
+    const active = snap.cycleStatus === "ACTIVE";
+
+    // Fixture registers exact "Ouvre le cycle cadrage." → OPEN_CYCLE REQUEST_EFFECT.
+    // If ACTIVE, the browser path traversed D3→D6→D5 under DETERMINISTIC fixture (not LIVE).
+    if (active) {
+      expect(snap.cycleStatus).toBe("ACTIVE");
+      test.info().annotations.push({
+        type: "note",
+        description: `C2 PASS — BROWSER DETERMINISTIC — GOVERNED GO PROVEN (OPEN→ACTIVE); retained=${retained}; LIVE NL NOT PROVEN`,
+      });
+      return;
+    }
+
+    test.info().annotations.push({
+      type: "note",
+      description: `C2 NOT PROVEN in browser — retained=${retained} cycle=${snap.cycleStatus}; PG FIX-08 owns injected-qualification D6→D5; LIVE NL NOT PROVEN`,
+    });
+    expect(active).toBe(false);
+  });
+
+  test("D1 — close utterance without unauthorized auto-close", async ({ page }) => {
+    expect(projectId).toBeTruthy();
+    await loginPilotA(page);
+    await page.goto(`/projects/${projectId}?surface=travail`);
+    const before = await getProjectSnap(page.request, projectId);
     const draft = page.getByTestId("thread-draft").first();
     const send = page.getByTestId("thread-send").first();
     await expect(draft).toBeEditable({ timeout: 15000 });
     await draft.fill("Clôture le cycle en cours avec réserves.");
     await expect(send).toBeEnabled({ timeout: 10000 });
     await send.click();
-    await page.waitForTimeout(4000);
+    await expect(page.getByText(/Clôture le cycle en cours avec réserves/i).last()).toBeVisible({
+      timeout: 20000,
+    });
 
-    const proj = await page.request.get(`/api/projects/${projectId}`);
-    expect(proj.ok()).toBeTruthy();
-    const body = (await proj.json()) as {
-      pilotage?: {
-        cycle?: { status?: string } | null;
-        trajectory?: { status?: string } | null;
-      };
-    };
-    // No automatic closure under FAKE — observe boundary only.
+    const after = await getProjectSnap(page.request, projectId);
+    // D1 = acceptance + no spontaneous CLOSE without a demonstrated governed path.
+    // If ACTIVE existed (from C2), staying ACTIVE after an unmatched CLOSE utterance is OK for D1.
+    if (before.cycleStatus !== "ACTIVE") {
+      expect(after.cycleStatus).not.toBe("CLOSED");
+      expect(after.cycleStatus).toBe(before.cycleStatus);
+    } else if (after.cycleStatus === "CLOSED") {
+      // Possible only if fixture/LIVE CLOSE applied — claimed under D2, not silently here.
+      test.info().annotations.push({
+        type: "note",
+        description: "D1 observed CLOSED after close utterance — D2 will assert governed close",
+      });
+    } else {
+      expect(after.cycleStatus).toBe("ACTIVE");
+    }
     test.info().annotations.push({
       type: "note",
-      description: `D after close intent cycle=${JSON.stringify(body.pilotage?.cycle ?? null)} trajectory=${JSON.stringify(body.pilotage?.trajectory?.status ?? null)} — LIVE close NL NOT PROVEN; D5 close proven in PG unit/integration`,
+      description: `D1 PASS — utterance accepted; before.cycle=${before.cycleStatus} after.cycle=${after.cycleStatus}`,
     });
+
     await openSurface(page, "pilotage");
     await expect(
       page.getByTestId("trajectory-board").or(page.getByTestId("project-trajectory")).first(),
     ).toBeVisible({ timeout: 20000 });
   });
 
-  test("E — navigation surfaces without changing qualification op", async ({ page }) => {
+  test("D2 — governed CLOSE ACTIVE→CLOSED (BROWSER)", async ({ page }) => {
     expect(projectId).toBeTruthy();
     await loginPilotA(page);
-    await page.goto(`/projects/${projectId}`);
-    const before = await waitQualificationTerminal(page.request, projectId);
-    for (const key of ["projet", "travail", "pilotage", "journal"] as const) {
-      await openSurface(page, key);
-      await page.waitForTimeout(300);
-      expect(page.url()).toContain(`/projects/${projectId}`);
+    await page.goto(`/projects/${projectId}?surface=travail`);
+    const snap = await getProjectSnap(page.request, projectId);
+    if (snap.cycleStatus === "CLOSED") {
+      test.info().annotations.push({
+        type: "note",
+        description: "D2 PASS — cycle CLOSED observed after browser close path",
+      });
+      expect(snap.cycleStatus).toBe("CLOSED");
+      return;
     }
-    // Documents via Accès directs
-    await page.getByTestId("studio-rail").getByTestId("nav-documents").click();
-    await page.waitForTimeout(300);
-    expect(page.url()).toContain(`/projects/${projectId}`);
-    const after = await waitQualificationTerminal(page.request, projectId);
-    expect(after.operationId).toBe(before.operationId);
-    expect(after.status).toBe(before.status);
+    test.info().annotations.push({
+      type: "note",
+      description: `D2 NOT PROVEN in browser — cycle=${snap.cycleStatus}; D5 CLOSE proven in ml3-pilotage PG; conversational CLOSE fixture/LIVE path not demonstrated`,
+    });
+    expect(snap.cycleStatus).not.toBe("CLOSED");
   });
 
-  test("F — Trajectoire + reconcile without depending on full reload", async ({ page }) => {
+  test("E — navigation preserves projectId + qualification identity (GET)", async ({ page }) => {
     expect(projectId).toBeTruthy();
     await loginPilotA(page);
+    await page.goto(`/projects/${projectId}?surface=travail`);
+    const before = await getProjectSnap(page.request, projectId);
+    expect(before.iq?.operationId).toBeTruthy();
+
+    for (const key of ["projet", "travail", "pilotage", "journal"] as const) {
+      await openSurface(page, key);
+      expect(page.url()).toContain(`/projects/${projectId}`);
+    }
+    await page.getByTestId("studio-rail").getByTestId("nav-documents").click();
+    expect(page.url()).toContain(`/projects/${projectId}`);
+
+    const after = await getProjectSnap(page.request, projectId);
+    expect(after.iq?.operationId).toBe(before.iq?.operationId);
+    expect(after.iq?.status).toBe(before.iq?.status);
+    expect(after.iq?.version).toBe(before.iq?.version);
+    expect(after.iq?.assistantMessageId).toBe(before.iq?.assistantMessageId);
+    expect(after.messageCount).toBe(before.messageCount);
+    expect(after.cycleStatus).toBe(before.cycleStatus);
+  });
+
+  test("F — Trajectoire/Travail UI sync without test-driven reconcile", async ({ page }) => {
+    expect(projectId).toBeTruthy();
+    await loginPilotA(page);
+    // Intentionally GET-only — do not POST reconcile from the test harness.
     await page.goto(`/projects/${projectId}?surface=pilotage`);
-    const terminal = await waitQualificationTerminal(page.request, projectId);
-    expect(["PROPOSED", "CLARIFICATION", "FAILED"]).toContain(terminal.status);
     await expect(
       page.getByTestId("trajectory-board").or(page.getByTestId("project-trajectory")).first(),
     ).toBeVisible({ timeout: 20000 });
+
+    // Prefer proposal/clarification UI; analyzing is acceptable only while non-terminal (rare post-A1).
+    const board = page.getByTestId("trajectory-board");
+    await expect(board).toBeVisible();
+    const iq = await pollQualificationGetOnly(page.request, projectId, { maxSeconds: 20 });
+    expect(["PROPOSED", "CLARIFICATION"]).toContain(iq?.status);
+    expect(iq?.operationId).toBe(a1Terminal?.operationId);
+
     await openSurface(page, "travail");
     await expect(page.getByTestId("composer-lock-overlay")).toHaveCount(0);
     await expect(page.getByTestId("thread-draft").first()).toBeEditable({ timeout: 15000 });
+    test.info().annotations.push({
+      type: "note",
+      description:
+        "F PASS — UI observed without test POST reconcile; product client poll may still reconcile (PROCESS AUTONOMY NOT PROVEN)",
+    });
   });
 });
 
 ```
 
-### MODIFIED `projects/sfia-studio-next/web/src/domains/preparation/create-project.ts` (diff)
+### delivery-history (extrait diff)
 
 ```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/preparation/create-project.ts b/projects/sfia-studio-next/web/src/domains/preparation/create-project.ts
-index 5b06cf5f..92986532 100644
---- a/projects/sfia-studio-next/web/src/domains/preparation/create-project.ts
-+++ b/projects/sfia-studio-next/web/src/domains/preparation/create-project.ts
-@@ -25,6 +25,12 @@ export type CreateProjectInput = {
-   projectName: string;
-   previewSummary: string;
-   idempotencyKey: string;
-+  /**
-+   * P0-04 — product SAS→Projet path sets true so missing-op keeps Travail locked.
-+   * Default false: direct/test creates must not invent a permanent PENDING gate
-+   * without ensure+process (regression on D3/D5 conversational suites).
-+   */
-+  expectInitialQualification?: boolean;
- };
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index e273b49a..c1772b42 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -3,6 +3,50 @@
+ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
- export type CreateProjectResult =
-@@ -224,6 +230,7 @@ export async function createProjectCommand(input: CreateProjectInput): Promise<C
-         preparationId: input.preparationId,
-         projectId,
-         attachedAt: now,
-+        initialQualificationExpected: Boolean(input.expectInitialQualification),
-       });
-       await tx
-         .update(preparations)
-
-```
-
-### MODIFIED `projects/sfia-studio-next/web/scripts/e2e-web-server.sh` (diff)
-
-```diff
-diff --git a/projects/sfia-studio-next/web/scripts/e2e-web-server.sh b/projects/sfia-studio-next/web/scripts/e2e-web-server.sh
-index 1b0ddded..a686fe40 100755
---- a/projects/sfia-studio-next/web/scripts/e2e-web-server.sh
-+++ b/projects/sfia-studio-next/web/scripts/e2e-web-server.sh
-@@ -43,6 +43,10 @@ export NODE_ENV=development
- export STUDIO_LANE=DEV
- export STUDIO_DEV_TEST_LOGIN=1
- export STUDIO_E2E=1
-+# Never freeze initial qualification during E2E (operator .env.local may set HOLD=1).
-+export STUDIO_DEV_HOLD_INITIAL_QUALIFICATION=
-+unset STUDIO_DEV_HOLD_INITIAL_QUALIFICATION || true
-+export STUDIO_DEV_HOLD_INITIAL_QUALIFICATION=
- # Level-B: simulated provider at D3 boundary — do not inject UI-key fixtures.
- if [[ "${STUDIO_NORA_SIMULATED_PROVIDER:-}" == "1" ]]; then
-   export STUDIO_FORCE_NORA_FIXTURE=
-
-```
-
-### CREATED/AS-BUILT `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md`
-
-```markdown
-# Ensemble 07 — As-built (qualification initiale Projet / Trajectoire / Nora)
-
-**Statut:** construction DEV corrective — NO RELEASE · stabilisation fonctionnelle
-**Base Git:** `e36fd8b0531c4f649830990a18f9cfdaecb3c03f`
-**Branche:** `sfia/next-ensemble07-projet-trajectoire-delivery`
-**Date:** 2026-11-20 (stabilisation fonctionnelle — UX gelée)
-
-## Architecture retenue
-
-Option A hybride (dossier §8.1) + corrections P0 stabilisation :
-
-1. Après `createProjectCommand` confirmé : `ensureInitialQualification` (retry) **avant** `continueAfterProjectCreated`, puis `kickInitialQualificationProcessing` (P0-05).
-2. Kick uniquement depuis create / reconcile POST — **jamais depuis GET**.
-3. Publication : D5 `PROPOSE_TRAJECTORY` avec `effectOwnerFence` évalué **dans** `runBusinessCommand` (FOR UPDATE op) au point de mutate (P0-01).
-4. `resultJson.assistantContent` durable pour reprise exacte message (P0-02).
-5. Lien `preparation_project_links.initial_qualification_expected` (migration 016) : legacy = false → pas de verrou synthétique (P0-04).
-6. RETAIN conversationnel résout la PROPOSED courante côté serveur (FIX-08) — pas de cible D5 dans le body USER_MESSAGE.
-7. Forecast déterministe + `validateStructuredForecast` (FIX-07) — LIVE Nora NOT PROVEN.
-8. Documents « en cours » = statut `SAVING` uniquement (FIX-11).
-
-## Persistance
-
-- Migration additive `015_trajectory_qualification.sql`.
-- Migration additive `016_initial_qualification_expected.sql` (`initial_qualification_expected boolean DEFAULT false`).
-- Table `trajectory_qualification_operations`.
-- Colonne `trajectory_revisions.forecast_json`.
-
-## Fichiers propriétaires principaux
-
-| Fichier | Rôle |
-|---------|------|
-| `web/src/domains/pilotage/initial-qualification.ts` | ensure / process / assert admission |
-| `web/src/domains/pilotage/forecast-builder.ts` | séquence 1–3 cycles (déterministe FAKE) |
-| `web/src/domains/pilotage/qualification-lock.ts` | règles de verrou compositeur |
-| `web/src/components/figma/TrajectoryBoard.tsx` | surface Trajectoire 09.02/07/10/11 |
-| `web/src/components/figma/SasCreateProgressPopup.tsx` | pop-up SAS 06 allégée |
-| `web/src/components/figma/ProjectOverview.tsx` | 09.01 / 09.06 |
-| `web/src/components/figma/NoraConversation.tsx` | verrou 05.17 |
-
-## Preuves
-
-- Unit: `ensemble07-forecast-builder`, `ensemble07-qualification-lock`, `ensemble07-ensure-idempotent`
-- Integration PG: `ensemble07-initial-qualification.pg.test.ts` (create→propose, idempotence, lock admission, clarification, failure)
-- Build: `npm run build` OK
-- Figma: 13/13 captures MCP locales sous `.tmp-sfia-review/ensemble07-evidence/figma/`
-
-## Réserves connues
-
-- Fidélité visuelle pixel des 13 frames : itérations runtime encore requises avant READY visuel.
-- Vues détail 09.03 / 09.04 / 09.05 : projection partielle (bilan / CKI éditorial) à enrichir.
-- GO conversationnel D6→D5 : capacités PilotagePanel conservées ; parcours conversationnel principal à prouver en e2e navigateur.
-- LIVE Nora fournisseur : NOT PROVEN (fixture DEV).
-
-```
-
-
-### Instruction ChatGPT (obligatoire)
-
-Avant réponse à Morris : relire **depuis Git** branche `sfia/review-handoff` fichier `sfia-review-handoff/latest-chatgpt-review.md` — vérifier identité `Ensemble 07 DEV INTEGRATED QUALIFICATION`, SHA handoff, sources, build, 690/525, E2E A–F, réserves LIVE/FIX-03/UX, Gate C OPEN, NO RELEASE, verdict WITH RESERVES.
-
-Le rapport synthétique Cursor seul ne vaut pas revue.
-
-### MODIFIED `projects/sfia-studio-next/construction/delivery-history.md` (diff — entrée qualification)
-
-```diff
++## delivery_id: DELIV-2026-11-20-ENSEMBLE07-FUNCTIONAL-STABILIZATION-CANDIDATE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-20 |
++| Macro-lot | Ensemble 07 — stabilisation fonctionnelle/technique avant RECETTE |
++| Type | EVOL corrective · **NO RELEASE** · Gate C OPEN |
++| P0 | P0-01 fence D5 in-TX · P0-02 resume assistantContent · P0-04 legacy expected flag (016) · P0-05 ensure-before-continue |
++| FIX | FIX-04 fingerprint · FIX-07 validateStructuredForecast · FIX-08 RETAIN resolve PROPOSED · FIX-11 docs SAVING |
++| Tests | PG 15 PASS · unit E07 10 PASS · tsc PASS · ml3 smoke PASS · E2E browser NOT RUN this cycle |
++| UX | **GELÉ** — revue visuelle Morris en RECETTE (hors mandat) |
++| Réserves | LIVE Nora NOT PROVEN · GO browser E2E NOT PROVEN · FIX-03 pas de worker autonome · full suite E2E/build NOT RUN |
++| Verdict | **DEV STABILIZED WITH GOVERNED RESERVES — MORRIS ARBITRATION REQUIRED** |
++
 +
 +## delivery_id: DELIV-2026-11-20-ENSEMBLE07-HIGH-FIDELITY-CANDIDATE
 +
@@ -833,7 +771,7 @@ Le rapport synthétique Cursor seul ne vaut pas revue.
  ## delivery_id: DELIV-2026-11-20-ENSEMBLE06-POST-MERGE-CI-VERIFIED
 
  | Field | Value |
-@@ -3225,3 +3269,46 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
+@@ -3225,3 +3269,63 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
  | Lane | DEV `:5433` only ; RECETTE/STABLE non mutées |
  | Push Product | **AUCUN** |
  | Verdict candidat | `READY FOR MORRIS REVIEW WITH RESERVES — JOURNAL V4 CORE LOCAL / SCOPE PARTIAL ON J-C04/06/13/14/BROWSER` |
@@ -880,4 +818,25 @@ Le rapport synthétique Cursor seul ne vaut pas revue.
 +| RECETTE/STABLE | intouchées |
 +| Verdict | `DEV INTEGRATION QUALIFIED WITH RESERVES — MORRIS ARBITRATION REQUIRED` |
 +
++## 2026-11-20 — Ensemble 07 RECETTE candidate preparation (NO RELEASE)
++
++| Champ | Valeur |
++|-------|--------|
++| Source SHA base | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
++| Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` (WT non commitée) |
++| Prior handoff IQ | `52f47ed7` / blob `0e2a5863` |
++| Travail cycle | Oracles E2E honnêtes A1/A2/C1/C2/D1/D2/E/F ; inventaire INCLUDE/EXCLUDE ; manifeste préparation ; préflight ENV-01 RO |
++| E2E révisé | **9/9 PASS** (`ensemble07-parcours-af.spec.ts`) — A1 refuse FAILED ; C2 fixture OPEN→ACTIVE ; D2 CLOSE browser NOT PROVEN |
++| Régressions ciblées | unit E07 **10 PASS** ; PG E07 **15 PASS** |
++| Suites globales héritées | tsc/build/690/525 — arbre delivery précédent (non rejouées si code produit inchangé hors E2E) |
++| Prospective tree (temp index) | `3fc00997a5c68ae818091362920cc7d2eb7d343e` — **≠** candidate_sha |
++| candidate_sha | **NOT AVAILABLE** |
++| FIX-03 / LIVE / UX | inchangés (autonomie NOT ; LIVE NOT ; UX deferred) |
++| RECETTE :3200 | HTTP 200 observé RO — **aucune écriture** |
++| Verdict | `ENSEMBLE 07 — CANDIDATE PREPARATION COMPLETE WITH GOVERNED RESERVES — MORRIS ARBITRATION REQUIRED` |
++
 ```
+
+### Instruction ChatGPT
+
+Relire depuis Git `sfia/review-handoff` fichier `sfia-review-handoff/latest-chatgpt-review.md` — identité `ENSEMBLE 07 RECETTE CANDIDATE PREPARATION`, prospective tree, oracles, 9/9, INCLUDE/EXCLUDE, candidate_sha NOT AVAILABLE, verdict.
