@@ -65,9 +65,8 @@ test.describe("ML4D Sas Nora — post-recette corrections", () => {
     expect(projectId).toBeTruthy();
     await page.reload();
     await expect(page).toHaveURL(new RegExp(`/projects/${projectId}`));
-    await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible({
-      timeout: 15000,
-    });
+    await expect(page.getByTestId("travail-intro")).toBeVisible({ timeout: 15000 });
+    await expect(page.getByTestId("project-surface-title")).toBeVisible();
     await expect(page.getByTestId("studio-rail")).toBeVisible();
   });
 
@@ -163,9 +162,8 @@ test.describe("ML4D Sas Nora — post-recette corrections", () => {
     // T7 — same thread after reload
     await page.reload();
     await expect(page).toHaveURL(new RegExp(`/projects/${projectId}`));
-    await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible({
-      timeout: 15000,
-    });
+    await expect(page.getByTestId("travail-intro")).toBeVisible({ timeout: 15000 });
+    await expect(page.getByTestId("project-surface-title")).toBeVisible();
     await expect(page.getByTestId("studio-rail")).toBeVisible();
   });
 });

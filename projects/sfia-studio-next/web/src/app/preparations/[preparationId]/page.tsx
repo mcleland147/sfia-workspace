@@ -32,7 +32,13 @@ type Doc = {
   } | null;
 };
 type Knowledge = {
-  subjects: Array<{ id: string; title: string; status: string; originatedFromSubjectId: string | null }>;
+  subjects: Array<{
+    id: string;
+    title: string;
+    status: string;
+    parentSubjectId?: string | null;
+    originatedFromSubjectId: string | null;
+  }>;
   acquis: Array<{ id: string; kind: string; statement: string; status: string; subjectId: string | null; provenanceJson: string }>;
   openPoints: Array<{ id: string; statement: string; status: string; subjectId: string | null }>;
 };
@@ -879,11 +885,17 @@ export default function PreparationPage() {
 
       {surface === "journal" ? (
         <ProjectJournal
-          subjects={knowledge?.subjects ?? []}
+          subjects={(knowledge?.subjects ?? []).map((s) => ({
+            id: s.id,
+            title: s.title,
+            status: s.status,
+            parentSubjectId: s.parentSubjectId ?? null,
+            originatedFromSubjectId: s.originatedFromSubjectId,
+          }))}
           acquis={knowledge?.acquis ?? []}
           openPoints={knowledge?.openPoints ?? []}
           onBackToThread={() => setSurface("travail")}
-          onRenameSubject={(id, title) => void renameSubject(id, title)}
+          onRenameSubject={(id: string, title: string) => void renameSubject(id, title)}
           splitSlot={
             splitSubjectId ? (
               <div className="fig-panel space-y-2" style={{ borderColor: "var(--accent)" }}>

@@ -4,6 +4,259 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-20-ENSEMBLE06-UAT-GIT-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-20 |
+| Macro-lot | Ensemble 06 — consolidation Git après UAT Morris |
+| Type | Cycle 13 Critical · Git Integration / Doc · **NO RELEASE** |
+| GO Morris | UAT ACCEPTED WITH GOVERNED RESERVES · commit/push branche · Draft PR · **MERGE INTERDIT** |
+| Code recetté | `7a13d7deec488bf62881eec11b5658c45c02c5b0` · tree `2bb984969be6597b76baddb7a3c724ef8dcf22fa` · web `e61a98f4…` |
+| Tip pré-docs | `aa568cfab37bec1922b2a6886c621dc7d9d37088` · BUILD `t4pjnrn3wGVHZEjhiw6yH` |
+| Base main | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
+| Docs | PV UAT blob `e08c7b6c…` · PV Journal `dbc1ba8e…` · contrats/matrices blobs exacts · tip Roadmap 20/11 · as-built combiné |
+| Tree web | **inchangé** vs code recetté (doc-only consolidation) |
+| RECETTE | `http://127.0.0.1:3200` préservée |
+| Réserves | DOC-TECH-15/16 · Journal R-01…R-11 · Sas KNOWN GAP · LIVE/REAL non globale |
+| Verdict | voir PR Draft + Review Pack Cycle 13 |
+
+## delivery_id: DELIV-2026-11-20-ENSEMBLE06-JOURNAL-DOCS-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-20 ~01:30 CET |
+| Macro-lot | Ensemble 06 — intégration Bibliothèque Documents dans RECETTE Journal V4 |
+| Type | Cycle 08 Delivery / Intégration / Mise en recette · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Continuité Ensemble 06 · même RECETTE `:3200` · Journal V4 accepté + Documents |
+| Base Journal | `5f6e2f3860993acd35d176f60e6a7f0ca69d3a3d` |
+| Source Documents | WT dirty sur `6516c7b56ec61bd72943ae0d26e625bf21139d4e` (+ P0/F1–F5) |
+| Candidate branch | `sfia/next-ensemble06-journal-docs-recette-20261120` (local only) |
+| HEAD | `7a13d7deec488bf62881eec11b5658c45c02c5b0` · tree `2bb984969be6597b76baddb7a3c724ef8dcf22fa` · BUILD `yZFSZj_l8dncTBQcWdP4c` |
+| Merge | 3-way Journal∩Documents · TAKE_DOCS hors conflit · TravailViewer/NoraConversation fixes intégration |
+| DB | `sfia_next_recette_ml4` @:5434 · **aucune migration structurante** · 014 déjà appliquée |
+| Backup | `.tmp-sfia-review/recette-backup-20261120T001915Z/` · rollback code → `5f6e2f38` |
+| Tests | tsc · unit docs+journal · PG docs+journal · e2e docs 08/nora/p0 · e2e journal-v4-parcours |
+| Verdict Cursor | voir manifeste + Review Pack |
+
+
+## delivery_id: DELIV-2026-11-19-LIVE-PROSE-SOFT-TARGET-2000
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~19:50 CET |
+| Macro-lot | Ensemble 05+06 — anti-UNKNOWN schéma LIVE prose |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Soft target (= anciens max) + hard max 2000 sur prose secondaire · cutover RECETTE `:3200` |
+| Fix | `LIVE_PROSE_HARD_MAX` · instructions Nora cibles · IDs/labels UI inchangés |
+| HEAD | `d3950948` · tree `926c3822` · BUILD `2HWeuv_daXJXjd5PstRO` |
+| Parent | notes-2000 `98225104` / BUILD `b48Kw86lEVMh4Ph_sVyZ` |
+| Counters | projects=24 · messages=610 · conversations=197 · knowledge_subjects=6 **COUNTERS_OK** |
+| Rollback | `ROLLBACK-TO-98225104.sh` + dump `ml4d-e06-journal-20261119-pre-d3950948` |
+| Verdict Cursor | cutover PASS |
+
+## delivery_id: DELIV-2026-11-19-NORA-NOTES-2000-UNKNOWN
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~19:35 CET |
+| Macro-lot | Ensemble 05+06 — correctif UNKNOWN schema (notes) |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Forensic DEV + fix + cutover RECETTE `:3200` |
+| Cause | LIVE Zod `intents.0.parameters.notes` Too big ≤400 sur formalisation décision CampusNova |
+| Fix | `notes` max 400→2000 · instruction Nora notes courtes · diag `cause_chain` |
+| HEAD | `98225104` · tree `00f6edb1` · BUILD `b48Kw86lEVMh4Ph_sVyZ` |
+| Parent | consolidation `02e24e42` / BUILD `7yhVJFP0_Bm4cYc62Bo7` |
+| Counters | projects=24 · messages=610 · conversations=197 · knowledge_subjects=6 **COUNTERS_OK** |
+| Rollback | `ROLLBACK-TO-02e24e42.sh` + dump `ml4d-e06-journal-20261119-pre-98225104` |
+| Verdict Cursor | cutover PASS · UAT Morris = retester prompt décision CampusNova |
+
+## delivery_id: DELIV-2026-11-19-JOURNAL-CONSOLIDATION-V4
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~19:15 CET |
+| Macro-lot | Ensemble 06 — Journal V4 dernier correctif consolidation |
+| Type | Cycle 8 Delivery Correctif · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Synthèse absente sur sujet existant · densité acquis/synthèse/ouverts · CTA agrandi · sources · focusLock |
+| Cause | `writeSubjectSummary` seulement sur intent SUBJECT — ACQUIS seuls n'ouvraient pas de révision |
+| Scope | composeSubjectSummaryFromCurrentKnowledge · journal-editorial (client-safe) · bullets + overflow · aside sources · focus suppress sticky · non-stream Nora (héritage) |
+| CampusNova | aucune mutation SQL / backfill — synthèse se met à jour à la prochaine capitalisation significative |
+| Docs | as-built E06 descriptif · matrice v0.7 lecture seule |
+| Verdict Cursor | voir cutover + Review Pack |
+
+## delivery_id: DELIV-2026-11-19-JOURNAL-LIVING-MEMORY-V4
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~18:00 CET |
+| Macro-lot | Ensemble 06 — Journal V4 mémoire vivante / provenance / nav / contradictions |
+| Type | Cycle 8 Delivery Correctif · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Correctif RECETTE CampusNova (synthèse, acquis, sources, ancrage, contradictions) |
+| Parent | `6457bc8e` pending TURN_IN_PROGRESS |
+| Scope | synthèse révisable sur sujet existant · supersession acquis · provenance Pilote+Nora · SourceChip Figma · deep-link Journal→Travail prioritaire · heuristique contradictions |
+| CampusNova | aucune mutation SQL / backfill / LIVE auto — correctif sur nouvelles contributions + projection |
+| Docs | as-built E06 descriptif · matrice v0.7 lecture seule |
+| Verdict Cursor | voir cutover + Review Pack |
+
+## delivery_id: DELIV-2026-11-19-PENDING-TURN-IN-PROGRESS
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~17:20 CET |
+| Macro-lot | Ensemble 05+06 — correctif reconcile pending |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** |
+| GO Morris | Ne plus mémoriser clé orpheline sur TURN_IN_PROGRESS ; recover depuis fil ; cutover RECETTE |
+| Parent | `758d2267` knowledgeStatement 5000 |
+| Verdict Cursor | voir cutover |
+
+## delivery_id: DELIV-2026-11-19-KNOWLEDGE-STATEMENT-5000
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~17:10 CET |
+| Macro-lot | Ensemble 05+06 — correctif UNKNOWN schema |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Plafond `knowledgeStatement` 500→5000 + cutover RECETTE `:3200` |
+| Cause | DEV LIVE: `intents.N.parameters.knowledgeStatement` Too big ≤500 |
+| Parent | `d3017338` gel E05 / Journal quality |
+| Verdict Cursor | voir cutover |
+
+## delivery_id: DELIV-2026-11-19-E05-FREEZE-JOURNAL-QUALITY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~16:40 CET |
+| Macro-lot | Ensemble 05+06 — gel grammaire visuelle + qualité Journal + UNKNOWN forensic |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Bypass E05 (code préservé) · restitution texte · synthèse/acquis/refs/hauteurs · cutover RECETTE `:3200` |
+| Parent | capitalisation `4c49f717` / tree `73efb65d` ; RECETTE BUILD `XOSTMrVvPzbd42ylsUL6Q` |
+| Scope | `E05_VISUAL_COMPOSITION_FROZEN` · omit LIVE visual schema · D4 summary wiring · editorial compact · provenance excerpts · focus retry · hierarchy CSS |
+| UNKNOWN | PROUVÉ schema/output invalid type stream_drain ; token overflow NON PROUVÉ |
+| Docs | as-built E05/E06 descriptifs · matrice v0.7 lecture seule |
+| Verdict Cursor | voir Review Pack |
+
+
+## delivery_id: DELIV-2026-11-19-JOURNAL-D3-D4-CAPITALISATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~14:45 CET |
+| Macro-lot | Ensemble 06 — restauration capitalisation Nora → D4 |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Correctif conduction D3 + tests fake + cutover RECETTE `:3200` |
+| Parent | gel UX `3fc8af5f` / HEAD docs `b9a0c9c3` ; diagnostic handoff `3fac39c1` |
+| Scope | QUALIFICATION_INSTRUCTIONS mémoire · REQUEST_EFFECT borné · OBS knowledge_proposals · tests unit/PG |
+| Docs | matrice v0.7 lecture seule · as-built mis à jour |
+| Verdict Cursor | voir Review Pack |
+
+
+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-FINAL-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~13:30 CET |
+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 final UX + RECETTE |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Correctif libellés/liserés/empty + cutover RECETTE `:3200` |
+| Parent | `6c658f91` pixel cycle ; RECETTE préflight à vérifier (dérive ML3 observée sur :3200) |
+| Scope | COPY Figma exact · C09 liserés · C10 empty · oracles · cutover même LaunchAgent |
+| Docs | matrice v0.7 §18 lecture seule |
+| Verdict Cursor | voir Review Pack |
+
+
+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-PIXEL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~13:00 CET |
+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 pixel-perfect corrective |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** · **NO RECETTE CUTOVER** |
+| GO Morris | 11 états NON RÉCEPTIONNÉS — finition géométrie/liserés/compositions |
+| Parent | local `0eb3157b` (RECETTE toujours `d5bf7eb7`) |
+| Scope | 40/60 height · liserés Figma · parent≠autonome · agrandi article+aside · search/open-points · D6 status |
+| Docs | matrice v0.7 §18 `f0d2d033` |
+| Verdict Cursor | voir Review Pack (comparaison 11 frames + réserves) |
+
+
+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-FIGMA-UX
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~12:15 CET |
+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 Figma UX corrective |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** · **NO RECETTE CUTOVER** |
+| GO Morris | NON CONFORME UX Figma → correctif obligatoire ; cutover RECETTE hors mandat |
+| Parent | local `d5bf7eb7` (build RECETTE toujours servi) |
+| Scope | ProjectJournal V4 shell · tokens · Chrome breadcrumb-only · deep-link race · 11 captures |
+| Figma | 11 frames `itgvCulInEnFY6DvgIegvP` page 828:2 lus via MCP |
+| Provenance CampusFlow | Classification A — titre D4 fragment conversationnel, pas de fuite |
+| Verdict Cursor | `FIGMA TO RUNTIME ALIGNED — READY FOR MORRIS VISUAL REVIEW` (réserves pixel / J-C14) |
+
+
+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~11:33 CET |
+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 qualification + RECETTE |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Qualification technique + mise à disposition sur RECETTE existante |
+| Candidate | `d5bf7eb762a21cc309744bb703926e2c0bc844ed` · tree `f5c05cb94f5137d06a26107b7003ab1bf073f923` · BUILD `PV12SV9VToVGK-ReSxTqk` |
+| Parent RECETTE | `5c94c867…` / `IEINNuPl0bHWJOWkh0ZhG` |
+| Scope | QA DEV · migration 014 additive RECETTE · cutover même `:3200` / LaunchAgent · smoke · manifeste |
+| DB | `sfia_next_recette_ml4` · 014 applied · counts 23/560 preserved |
+| Rollback | `ROLLBACK-TO-5c94c867.sh` + dump `ml4d-e06-journal-20261119-pre-d5bf7eb7` |
+| Manifeste | `construction/ensemble-06-journal-recette-manifest.md` |
+| Verdict Cursor | `RECETTE TECHNICALLY AVAILABLE — READY FOR MORRIS USER ACCEPTANCE` |
+
+
+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-LIVE-PARTIAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~11:05 CET |
+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 cycle 4 §5 + LIVE |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Complétude §5 + LIVE 20 tours CampusFlow (arrêt opérateur après E01) |
+| Parent | local `a122bf27` |
+| Scope | J-C08/11/13/14/07/05/16 oracles · viewerOpenRef J-C14 · LIVE E01 REAL BOUNDARY PARTIAL |
+| QA | tsc/lint/build PASS · UNIT+PG Journal PASS · Playwright seeded 2/2 · ML3 PG 49 PASS · LIVE 1/20 puis STOP |
+| Visual | **VISUAL REVIEW PENDING MORRIS — RECETTE** |
+| Verdict Cursor | `READY FOR MORRIS REVIEW WITH RESERVES — §5 DETERMINISTIC + LIVE E01 ONLY` |
+
+
+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-E06-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~10:10 CET |
+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 cycle 3 E06-01..06 |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Corrections ciblées + BROWSER données non vides DEV |
+| Parent | local `782c93ec` |
+| Scope | E06-05 scope · E06-03 UNVERIFIED Git · E06-04 chrono message · seed BROWSER · resolve source réelle · migrate 014 |
+| QA | tsc/lint/build PASS · unit+PG Journal PASS · Playwright seeded PASS · LIVE/REAL NOT RUN |
+| Visual | **VISUAL REVIEW PENDING MORRIS — RECETTE** |
+| Verdict Cursor | `READY FOR MORRIS REVIEW WITH RESERVES — E06 CORRECTIVES LOCAL` |
+
+
+## delivery_id: DELIV-2026-11-19-JOURNAL-V4-COMPLETION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-19 ~09:40 CET |
+| Macro-lot | R5 / ML4D / Ensemble 06 — Journal V4 completion |
+| Type | Cycle 8 Delivery · Critical · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Complétude J-C04/06/13/14 + PARTIAL + BROWSER DEV |
+| Candidate local | `sfia/next-journal-delivery-20261119` (post-78c3c3b0) |
+| Scope | Réactivation D3/D4 · sources/contradictions · message/doc deep-link · UI search reason · PG+BROWSER |
+| QA | tsc PASS · lint PASS · unit 4/4 · PG 10/10 · Playwright journal-v4 1/1 |
+| Lane | DEV/e2e `:5433` / `:3101` — RECETTE intacte (014 absente) |
+| Preuves | `.tmp-sfia-review/journal-v4-captures/` (local, non commit) |
+| Verdict Cursor | `READY FOR MORRIS REVIEW WITH RESERVES — JOURNAL V4 COMPLETION LOCAL` |
+
+
 ## delivery_id: DELIV-2026-11-18-UX01-07-RECETTE
 
 | Field | Value |
@@ -2935,3 +3188,21 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | Documentation | Branche `docs/next-ml4d-registre-revues-20261116` / PR [#680](https://github.com/mcleland147/sfia-workspace/pull/680) — réconciliation post-`main` en cours |
 | Réserves conservées | ACL historique non démontrée objet par objet ; responsive/a11y bornés ; PG historique non exhaustif ; 88 oracles ≠ 8 UAT ; Gate C OPEN ; NO STABLE/RELEASE/ADOPTED |
 | Verdict | `ML4D PRODUCT MERGED ON MAIN — CI FULL PASS — RECETTE UAT SHA IMMUTABLE — DOCS PR PENDING — GATE C OPEN` |
+
+---
+
+## delivery_id: DELIV-2026-11-19-ML4D-JOURNAL-V4-LOCAL
+
+| Champ | Valeur |
+|---|---|
+| Date (Europe/Paris) | 19 novembre 2026 |
+| Macro-capacité | Ensemble 06 — Journal cohérent V4 |
+| Type | CYCLE 8 DELIVERY / `NO RELEASE` / `0.0.0-dev` |
+| Parent tip docs | `6879d34eb38fbd1d8f899c6f8713ccc98f0ae178` |
+| Base main | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
+| Autorité | Morris GO Journal V4 delivery ; push projet/PR/merge **NON inclus** |
+| Changements | Migration 014 D4 revisions ; journal.ts ; ProjectJournal V4 ; API journal ; ensureSubject parent-aware ; subjectId préservé |
+| Validations | tsc PASS ; journal-d4-revisions.pg 6/6 PASS (`sfia_next_e2e`) ; BROWSER/Figma runtime NOT RUN ; LIVE Nora NOT RUN |
+| Lane | DEV `:5433` only ; RECETTE/STABLE non mutées |
+| Push Product | **AUCUN** |
+| Verdict candidat | `READY FOR MORRIS REVIEW WITH RESERVES — JOURNAL V4 CORE LOCAL / SCOPE PARTIAL ON J-C04/06/13/14/BROWSER` |

@@ -16,6 +16,16 @@
 
 - Grammaire visuelle native ; composition ordonnée ; P1-A fail-closed ; P1-B provenance canonique ; ancres ; T05 ; S1–S8 fixtures.
 
+## Gel présentation conversationnelle (19/11/2026 — décision Morris)
+
+| Champ | Valeur |
+|---|---|
+| Règle | `E05_VISUAL_COMPOSITION_FROZEN = true` |
+| Bypass | `stripVisualCompositionForFrozenReplies` + `outputType` LIVE = schéma sans `visualComposition` |
+| Conservé | schémas, `NoraComposition`, projections historiques, tests E05 |
+| Nouvelles réponses | `replyDraft` Markdown uniquement (titres, listes, tableaux) |
+| Réactivation produit | hors mandat — aucun toggle / feature flag utilisateur |
+
 ## Finitions UX (ce cycle)
 
 | ID | Défaut | Correctif |

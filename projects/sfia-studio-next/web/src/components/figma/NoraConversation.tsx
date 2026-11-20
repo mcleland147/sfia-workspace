@@ -42,6 +42,10 @@ export function NoraConversation(props: {
   choiceFrozen?: boolean;
   forceStickToken?: number;
   layoutMode?: "normal" | "split" | "enlarged";
+  /** J-C13 — scroll/highlight exact message without sending. */
+  focusMessageId?: string | null;
+  onFocusMessageHandled?: () => void;
+  focusStatus?: string | null;
 }) {
   const n = props.messages.length;
   const frame = n === 0 ? "161:216" : n <= 2 ? "161:288" : "94:214";
@@ -54,6 +58,7 @@ export function NoraConversation(props: {
     lastMessageId,
     activityPreparing: props.activity === "preparing",
     forceStickToken: props.forceStickToken ?? 0,
+    focusMessageId: props.focusMessageId,
   });
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -72,6 +77,49 @@ export function NoraConversation(props: {
     el.style.height = `${next}px`;
     el.style.overflowY = el.scrollHeight > max ? "auto" : "hidden";
   }, [props.draft]);
+
+  // Include message id order so Journal→Travail highlight rebinds after a same-length
+  // setMessages remount (length-only deps lost data-journal-focus on replaced nodes).
+  const messageIdsKey = props.messages.map((m) => m.id).join("\0");
+  useEffect(() => {
+    const targetId = props.focusMessageId?.trim();
+    if (!targetId) return;
+    let cancelled = false;
+    let highlightTimer: number | undefined;
+    let attempts = 0;
+    const tryFocus = () => {
+      if (cancelled) return;
+      const root = threadRef.current;
+      const node = root?.querySelector(
+        `[data-message-id="${CSS.escape(targetId)}"]`,
+      ) as HTMLElement | null;
+      if (!node) {
+        attempts += 1;
+        // Wait for async insert / paint — do not clear focus on first miss (avoids landing on last message).
+        if (attempts < 40) {
+          window.setTimeout(tryFocus, 50);
+          return;
+        }
+        props.onFocusMessageHandled?.();
+        return;
+      }
+      node.scrollIntoView({ block: "center", behavior: "smooth" });
+      node.setAttribute("data-journal-focus", "1");
+      node.classList.add("is-journal-focus");
+      // Keep focus marker long enough for Journal→Travail deep-link asserts / paint races.
+      highlightTimer = window.setTimeout(() => {
+        node.classList.remove("is-journal-focus");
+        node.removeAttribute("data-journal-focus");
+        props.onFocusMessageHandled?.();
+      }, 5200);
+    };
+    tryFocus();
+    return () => {
+      cancelled = true;
+      if (highlightTimer) window.clearTimeout(highlightTimer);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.focusMessageId, messageIdsKey]);
 
   const projectionByMessage = new Map(
     (props.projections ?? []).map((p) => [p.messageId ?? "", p]),
@@ -102,6 +150,11 @@ export function NoraConversation(props: {
           <span className="fig-tag fig-tag-muted">{variantLabel}</span>
           {props.unresolvedPending ? (
             <span className="fig-tag fig-tag-warn">Interruption / reprise</span>
+          ) : null}
+          {props.focusStatus ? (
+            <span className="fig-tag fig-tag-warn" data-testid="nora-focus-status">
+              {props.focusStatus}
+            </span>
           ) : null}
           {newBelow ? (
             <button

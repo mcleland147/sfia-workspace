@@ -156,6 +156,59 @@ export function shouldClearThreadPending(input: {
  * `nextIsIndependentDialogue` alone never establishes independence — when
  * `nextTurnKind` is omitted, content is re-qualified.
  */
+/**
+ * CampusNova / ACK-loss corrective (2026-11-19):
+ * A 409 TURN_IN_PROGRESS means this clientTurnKey was NOT reserved.
+ * Remembering it as pending creates an orphan key → reconcile lookup found:false
+ * and a silent 409 loop on « Vérifier et reprendre ».
+ */
+export function shouldRememberPendingOnSendHttpError(input: {
+  httpStatus: number;
+  errorCategory?: string | null;
+}): boolean {
+  const cat = (input.errorCategory ?? "").trim().toUpperCase();
+  if (input.httpStatus === 409 && cat === "TURN_IN_PROGRESS") return false;
+  return true;
+}
+
+export type ThreadMessageForRecovery = {
+  role: string;
+  content: string;
+  status: string;
+};
+
+/**
+ * When pending.clientTurnKey is orphaned, recover from the durable thread:
+ * last matching user message followed by a cognitive terminal assistant.
+ */
+export function recoverOrphanPendingFromMessages(input: {
+  pendingContent: string;
+  messages: ThreadMessageForRecovery[];
+}): { clear: true; noraStatus: string } | { clear: false } {
+  const target = input.pendingContent.trim();
+  if (!target || input.messages.length === 0) return { clear: false };
+
+  let lastUserIdx = -1;
+  for (let i = input.messages.length - 1; i >= 0; i--) {
+    const m = input.messages[i]!;
+    if (m.role === "user" && m.content.trim() === target) {
+      lastUserIdx = i;
+      break;
+    }
+  }
+  if (lastUserIdx < 0) return { clear: false };
+
+  for (let j = lastUserIdx + 1; j < input.messages.length; j++) {
+    const m = input.messages[j]!;
+    if (m.role !== "assistant") continue;
+    if (isDurableCognitiveNoraTerminal(m.status)) {
+      return { clear: true, noraStatus: m.status.trim().toUpperCase() };
+    }
+    break;
+  }
+  return { clear: false };
+}
+
 export function mayStartNewThreadAct(input: {
   unresolved: ThreadPendingTurn | null | undefined;
   nextContent: string;

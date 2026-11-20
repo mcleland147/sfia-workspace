@@ -60,22 +60,29 @@ test("G4 B1–B4: rail surfaces, resume without POST, deep-link, revise AVAILABL
   await rail.getByTestId("nav-documents").click();
   await expect(page).toHaveURL(new RegExp(`surface=document`));
   await expect(page.getByTestId("studio-rail")).toHaveAttribute("data-rail-variant", "inspection");
-  await expect(page.getByTestId("document-inspect")).toBeVisible({ timeout: 10000 });
+  await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 10000 });
 
-  // Open first document if listed
+  // Select (not open) then Ouvrir
   const firstDoc = page.locator('[data-testid^="doc-open-"]').first();
   await expect(firstDoc).toBeVisible({ timeout: 15000 });
   const docTestId = await firstDoc.getAttribute("data-testid");
   const documentId = docTestId?.replace("doc-open-", "");
   expect(documentId).toBeTruthy();
   await firstDoc.click();
+  await expect(page.getByTestId("document-selection-aside")).toBeVisible();
+  // Selection must not push documentId into the URL.
+  await expect(page).not.toHaveURL(new RegExp(`documentId=${documentId}`));
+  await page.getByTestId("doc-action-open").click();
   await expect(page).toHaveURL(new RegExp(`documentId=${documentId}`));
+  await expect(page.getByTestId("document-read")).toBeVisible();
 
   // B2 — reload keeps deep-link; no mutation claimed on open
   await page.reload();
   await expect(page).toHaveURL(new RegExp(`surface=document`));
   await expect(page).toHaveURL(new RegExp(`documentId=${documentId}`));
-  await expect(page.getByTestId("document-ui-state")).toContainText("READING");
+  await expect(page.getByTestId("document-read")).toBeVisible();
+  await expect(page.getByTestId("document-read-aside")).toContainText("DOCUMENT / ACTIONS");
+  await expect(page.getByTestId("document-revise-draft")).toHaveCount(0);
 
   // Back to travail then Forward
   await page.goBack();
@@ -86,15 +93,12 @@ test("G4 B1–B4: rail surfaces, resume without POST, deep-link, revise AVAILABL
   await page.goto(`/projects/${projectId}?surface=document&documentId=doc_foreign_denied`);
   await expect(page.getByTestId("document-missing")).toBeVisible();
 
-  // B3 — revise AVAILABLE only
+  // B3 — Ensemble 06: no Pilote textarea; Demander une révision → Travail / Nora
   await page.goto(`/projects/${projectId}?surface=document&documentId=${documentId}`);
-  await page.getByTestId("document-revise-start").click();
-  await page.getByTestId("document-revise-draft").fill("# Doc G4\nligne révisée");
-  await page.getByTestId("document-revise-save").click();
-  await expect(page.getByTestId("document-revise-message")).toContainText(/AVAILABLE/i, {
-    timeout: 15000,
-  });
-  await expect(page.getByTestId("document-ui-state")).toContainText("READING");
+  await expect(page.getByTestId("document-read")).toBeVisible({ timeout: 10000 });
+  await page.getByTestId("doc-action-request-revision").click();
+  await expect(page).toHaveURL(new RegExp(`surface=travail`));
+  await expect(page.getByTestId("document-revise-draft")).toHaveCount(0);
 
   // B4 — Reprendre = GET only (no POST to /api/preparations on resume)
   let prepPostCount = 0;

@@ -489,6 +489,13 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
               ? "1"
               : undefined
           }
+          data-journal-layout={
+            projectId &&
+            (parseStudioSurface(surface) ?? "travail") === "journal" &&
+            !projectSpaceBlocked
+              ? "1"
+              : undefined
+          }
         >
           {children}
         </main>

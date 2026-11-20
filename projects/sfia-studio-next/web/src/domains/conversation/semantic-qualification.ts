@@ -15,7 +15,10 @@ import {
   VISUAL_COMPOSITION_SCHEMA_PROJECTION,
   VisualCompositionAgentOutputSchema,
 } from "./visual-composition";
-import { deriveReplyDraftFromCanonicalSections } from "./conversational-composition/derive-text";
+import {
+  deriveReplyDraftFromCanonicalSections,
+  REPLY_DRAFT_MAX_CHARS,
+} from "./conversational-composition/derive-text";
 
 /**
  * READ/validate envelope — accepts historical e05 + projection-v1 + canonical-v1.
@@ -73,59 +76,82 @@ export const PilotageOperationSchema = z.enum(
   PILOTAGE_OPERATIONS as unknown as [PilotageOperation, ...PilotageOperation[]],
 );
 
+/**
+ * Hard ceiling for secondary LIVE prose fields (anti-UNKNOWN).
+ * Soft editorial targets stay in Nora instructions (former Zod maxes).
+ * Do NOT apply to IDs, enums, UI labels, projectName/subjectTitle, replyDraft, knowledgeStatement, document body.
+ */
+export const LIVE_PROSE_HARD_MAX = 2000;
+
 export const QualifiedIntentItemSchema = z.object({
   id: z.string().min(1).max(64),
   capabilityId: StudioCapabilityIdSchema,
   mode: IntentModeSchema,
-  summary: z.string().max(500).optional(),
+  /** Soft target ~500 ; hard max LIVE_PROSE_HARD_MAX. */
+  summary: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
   parameters: z
     .object({
       projectName: z.string().max(120).optional(),
-      documentHint: z.string().max(200).optional(),
-      sectionHint: z.string().max(80).optional(),
-      pathHint: z.string().max(240).optional(),
+      /** Soft target ~200. */
+      documentHint: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
+      /** Soft target ~80. */
+      sectionHint: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
+      /** Soft target ~240. */
+      pathHint: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
       cycleType: z.string().max(64).optional(),
       toCycleType: z.string().max(64).optional(),
       methodRef: z.string().max(120).optional(),
       methodVersion: z.string().max(64).optional(),
-      decisionHint: z.string().max(200).optional(),
+      /** Soft target ~200. */
+      decisionHint: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
       decisionId: z.string().max(120).optional(),
       objectRef: z.string().max(120).optional(),
-      statement: z.string().max(500).optional(),
-      publicationPath: z.string().max(240).optional(),
+      /** Soft target ~500. */
+      statement: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
+      /** Soft target ~240. */
+      publicationPath: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
       /** Typed D5/D6 operation — never use free-text notes as enum substitute. */
       pilotageOperation: PilotageOperationSchema.optional(),
       restrictionKindHint: z.string().max(64).optional(),
       restrictionTargetRefHint: z.string().max(120).optional(),
-      notes: z.string().max(400).optional(),
+      /** Soft target ~500 ; raised 400→2000 (2026-11-19) decision rationale UNKNOWN. */
+      notes: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
       /** Typed D4 continuity capitalisation (RG-KNOW-001) — owner still validates. */
       knowledgeKind: KnowledgeRecordKindSchema.optional(),
-      knowledgeStatement: z.string().max(500).optional(),
+      /** Raised 500→5000 (2026-11-19): SUBJECT synthesis / rich ACQUIS were failing LIVE schema validation (CampusNova UNKNOWN). */
+      knowledgeStatement: z.string().max(5000).optional(),
       epistemic: KnowledgeEpistemicSchema.optional(),
       subjectTitle: z.string().max(120).optional(),
       subjectId: z.string().max(120).optional(),
-      continuityReason: z.string().max(240).optional(),
+      /** Soft target ~240. */
+      continuityReason: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
       /** Prefer these existing resources when selecting D4 context (Nora-chosen). */
       relevantAcquisIds: z.array(z.string().max(120)).max(8).optional(),
       relevantOpenPointIds: z.array(z.string().max(120)).max(8).optional(),
       relevantSubjectIds: z.array(z.string().max(120)).max(8).optional(),
+      /** When correcting a CURRENT acquis, Nora may point the prior id for D4 supersession. */
+      supersedesAcquisId: z.string().max(120).optional(),
+      /** When an ACQUIS factually closes an open point, Nora may cite its id. */
+      resolvesOpenPointId: z.string().max(120).optional(),
     })
     .strict()
     .default({}),
-  constraints: z.array(z.string().max(240)).max(12).default([]),
+  /** Soft target ~240 per item. */
+  constraints: z.array(z.string().max(LIVE_PROSE_HARD_MAX)).max(12).default([]),
   dependsOn: z.array(z.string().min(1).max(64)).max(8).default([]),
-  sourceEvidence: z.array(z.string().max(240)).max(8).default([]),
+  /** Soft target ~240 per item. */
+  sourceEvidence: z.array(z.string().max(LIVE_PROSE_HARD_MAX)).max(8).default([]),
 });
 export type QualifiedIntentItem = z.infer<typeof QualifiedIntentItemSchema>;
 
 /** O-03 — typed document payload distinct from replyDraft (max D4 = 100_000). */
 export const DocumentProposalSchema = z
   .object({
-    title: z.string().min(1).max(400),
+    /** Soft target ~400. */
+    title: z.string().min(1).max(LIVE_PROSE_HARD_MAX),
     contentMarkdown: z.string().min(1).max(100_000),
   })
   .strict();
-
 /** C-03 — designate a prior assistant proposal by message id (content resolved server-side). */
 export const DocumentSourceSchema = z
   .object({
@@ -149,18 +175,20 @@ export const NoraTurnQualificationSchema = z.object({
   /**
    * Compréhension du tour courant (demande immédiate, reformulation locale).
    * Ne pas confondre avec l'intention métier durable du projet.
+   * Soft target ~800.
    */
-  goal: z.string().max(800).default(""),
+  goal: z.string().max(LIVE_PROSE_HARD_MAX).default(""),
   /**
    * Intention métier durable du projet — distincte de goal / proposedProjectName.
    * Chaîne vide = inchangée ce tour (D2 conserve la valeur antérieure).
    * Renseigner uniquement pour établir ou corriger explicitement l'objectif fondateur.
+   * Soft target ~800.
    */
-  projectIntention: z.string().max(800).default(""),
-  /** Résultat envisagé lorsque réellement exprimé — ne pas inventer. */
-  desiredOutcome: z.string().max(800).default(""),
-  /** Périmètre initial lorsque réellement exprimé — ne pas inventer. */
-  initialScope: z.string().max(800).default(""),
+  projectIntention: z.string().max(LIVE_PROSE_HARD_MAX).default(""),
+  /** Résultat envisagé lorsque réellement exprimé — ne pas inventer. Soft target ~800. */
+  desiredOutcome: z.string().max(LIVE_PROSE_HARD_MAX).default(""),
+  /** Périmètre initial lorsque réellement exprimé — ne pas inventer. Soft target ~800. */
+  initialScope: z.string().max(LIVE_PROSE_HARD_MAX).default(""),
   /**
    * Nom de travail proposé pour le sas — distinct d'un REQUEST_EFFECT D2.
    * Permet une correction de nom sans second acte d'effet concurrent (S05).
@@ -173,8 +201,9 @@ export const NoraTurnQualificationSchema = z.object({
    * - tableau explicitement vide = aucune question courante après réévaluation fiable ;
    * - champ ABSENT (undefined) = questions non réévaluées — D2 conserve le courant antérieur.
    * Ne pas confondre omission et []. Pas de .default([]) : Zod effacerait la distinction.
+   * Soft target ~400 per item.
    */
-  clarifications: z.array(z.string().max(400)).max(8).optional(),
+  clarifications: z.array(z.string().max(LIVE_PROSE_HARD_MAX)).max(8).optional(),
   /**
    * Ensemble 05 / P1-A — propositions de poursuite conversationnelles (≠ clarifications).
    * Additive / optional. Omission or [] = aucun bouton de poursuite.
@@ -184,9 +213,10 @@ export const NoraTurnQualificationSchema = z.object({
     .array(
       z.object({
         id: z.string().min(1).max(64),
+        /** UI chip — keep short (not LIVE_PROSE_HARD_MAX). */
         label: z.string().min(1).max(160),
-        /** Explicit pilot utterance transmitted on click — not a métier command. */
-        transmitText: z.string().min(1).max(800),
+        /** Explicit pilot utterance transmitted on click — not a métier command. Soft target ~800. */
+        transmitText: z.string().min(1).max(LIVE_PROSE_HARD_MAX),
       }),
     )
     .max(6)
@@ -198,22 +228,27 @@ export const NoraTurnQualificationSchema = z.object({
     .array(
       z.object({
         kind: z.enum(["document", "git", "external"]),
+        /** UI label — keep short. */
         label: z.string().min(1).max(200),
         resourceId: z.string().max(128).optional(),
         revisionId: z.string().max(128).optional(),
         repositoryId: z.string().max(128).optional(),
-        path: z.string().max(400).optional(),
+        /** Soft target ~400. */
+        path: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
         ref: z.string().max(120).optional(),
         commit: z.string().max(64).optional(),
-        href: z.string().max(800).optional(),
+        /** Soft target ~800. */
+        href: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
       }),
     )
     .max(8)
     .optional(),
-  replyDraft: z.string().max(12000).default(""),
+  /** Raised 12000→20000 (2026-11-19): rich consolidation replyDraft near/over prior ceiling → LIVE UNKNOWN. */
+  replyDraft: z.string().max(REPLY_DRAFT_MAX_CHARS).default(""),
   /** Appréciation qualitative de préparation (suggestion, jamais une autorité). */
   preparationAssessment: PreparationAssessmentSchema.optional(),
-  preparationAssessmentExplanation: z.string().max(800).optional(),
+  /** Soft target ~800. */
+  preparationAssessmentExplanation: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
   documentProposal: DocumentProposalSchema.optional(),
   documentSource: DocumentSourceSchema.optional(),
   /**
@@ -229,6 +264,15 @@ export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
 export const NoraTurnQualificationAgentSchema = NoraTurnQualificationSchema.extend({
   visualComposition: VisualCompositionAgentOutputSchema.optional(),
 });
+
+/**
+ * LIVE Agents SDK `outputType` (E05 freeze).
+ * Must remain a plain ZodObject — `z.preprocess` / ZodEffects break Agents SDK
+ * JSON Schema conversion (immediate UNKNOWN, fingerprint b7feb141, 0 tools, RECETTE 2026-11-19).
+ * Soft truncation cannot live here; raise plain maxes on the persist schema instead.
+ */
+export const NoraTurnQualificationLiveOutputSchema =
+  NoraTurnQualificationSchema.omit({ visualComposition: true });
 
 export type QualificationValidation =
   | { ok: true; value: NoraTurnQualification }
@@ -348,7 +392,7 @@ export function unavailableQualification(reason: string, replyDraft = ""): NoraT
     initialScope: "",
     proposedProjectName: "",
     intents: [],
-    clarifications: [reason.slice(0, 400)],
+    clarifications: [reason.slice(0, LIVE_PROSE_HARD_MAX)],
     replyDraft:
       replyDraft ||
       "Je ne peux pas qualifier cette intention de façon fiable pour le moment. Aucun effet n'a été engagé.",
@@ -601,9 +645,19 @@ export type KnowledgeCapitalisationProposal = {
   subjectTitle?: string;
   subjectId?: string;
   continuityReason?: string;
+  supersedesAcquisId?: string;
+  resolvesOpenPointId?: string;
+  relevantAcquisIds?: string[];
 };
 
-/** Typed D4 continuity proposals from Nora qualification — never HumanDecision. */
+/**
+ * Typed D4 continuity proposals from Nora qualification — never HumanDecision.
+ *
+ * Gate: only QUALIFIED + REQUEST_EFFECT + d4.record_knowledge.
+ * EXPLAIN/EXPLORE/PREPARE intents are conversational only (TEMP-05).
+ * Document/D6/Git REQUEST_EFFECT paths remain separate; this extractor never
+ * loosens those capabilities.
+ */
 export function extractKnowledgeProposals(
   q: NoraTurnQualification,
 ): KnowledgeCapitalisationProposal[] {
@@ -617,14 +671,44 @@ export function extractKnowledgeProposals(
     out.push({
       intentId: intent.id,
       kind,
-      statement: statement.slice(0, 500),
+      statement: statement.slice(0, 5000),
       epistemic: intent.parameters.epistemic ?? "hypothesized",
       subjectTitle: intent.parameters.subjectTitle?.trim() || undefined,
       subjectId: intent.parameters.subjectId?.trim() || undefined,
       continuityReason: intent.parameters.continuityReason?.trim() || undefined,
+      supersedesAcquisId: intent.parameters.supersedesAcquisId?.trim() || undefined,
+      resolvesOpenPointId: intent.parameters.resolvesOpenPointId?.trim() || undefined,
+      relevantAcquisIds: intent.parameters.relevantAcquisIds?.filter(Boolean),
     });
   }
   return out;
+}
+
+/** Counts for OBS — codes only, never statement bodies. */
+export function summarizeKnowledgeProposals(
+  proposals: KnowledgeCapitalisationProposal[],
+): {
+  proposal_present: boolean;
+  proposal_count: number;
+  subject_count: number;
+  acquis_count: number;
+  open_point_count: number;
+} {
+  let subject_count = 0;
+  let acquis_count = 0;
+  let open_point_count = 0;
+  for (const p of proposals) {
+    if (p.kind === "SUBJECT") subject_count += 1;
+    else if (p.kind === "ACQUIS") acquis_count += 1;
+    else if (p.kind === "OPEN_POINT") open_point_count += 1;
+  }
+  return {
+    proposal_present: proposals.length > 0,
+    proposal_count: proposals.length,
+    subject_count,
+    acquis_count,
+    open_point_count,
+  };
 }
 
 /** Nora-preferred resource ids for context selection (non-authoritative). */

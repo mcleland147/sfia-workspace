@@ -314,13 +314,161 @@ export type ResolvedReviseTarget =
     }
   | { ok: false; reason: "NOT_FOUND" | "AMBIGUOUS" | "NO_AVAILABLE_REVISION"; candidates?: string[] };
 
+/**
+ * Explicit historical-base confirmation bound to concrete identities.
+ * Lexical regex alone must never authorize a historical revise (R2).
+ */
+export type HistoricalSourceConfirmation = {
+  documentId: string;
+  sourceRevisionId: string;
+  observedHeadRevisionId: string;
+  choice: "USE_SOURCE" | "USE_HEAD" | "REFUSED";
+};
+
+/** Optional Documents→Travail focus: exact drafting source may be historical. */
+export type DocumentReviseFocus = {
+  documentId: string;
+  sourceRevisionId: string;
+  sourceRevisionNumber?: number;
+  /**
+   * Client-supplied body is NEVER authoritative (R1). Kept optional for transport
+   * compatibility only — resolveReviseTarget and the conversation owner path ignore it.
+   */
+  sourceContentMarkdown?: string;
+  observedHeadRevisionId: string;
+  observedHeadRevisionNumber?: number;
+  /** Legacy UX bool — accepted only when identities still match (see resolveHistoricalConfirmation). */
+  confirmedHistoricalSource?: boolean;
+  /** Preferred R2 confirmation: explicit choice bound to document/source/head IDs. */
+  historicalConfirmation?: HistoricalSourceConfirmation;
+  /**
+   * F2 — server-issued authorization id from an explicit Pilot choice turn.
+   * Client bool / fabricated historicalConfirmation alone is never sufficient.
+   */
+  historicalAuthorizationId?: string;
+  /**
+   * F1 — when Documents focus is active, D4 REVISE mutate requires explicit conserve
+   * bound to a pending candidate id + content hash.
+   */
+  conserveProposal?: boolean;
+  pendingCandidateId?: string;
+  pendingCandidateContentSha256?: string;
+};
+
+/**
+ * F2 — resolve whether a historical source is explicitly confirmed.
+ * Never uses free-text lexical matching.
+ * Prefer a server-loaded HistoricalSourceAuthorization (passed by caller).
+ * Client-only historicalConfirmation / confirmedHistoricalSource are NOT sufficient alone.
+ */
+export function resolveHistoricalConfirmation(input: {
+  focus: DocumentReviseFocus | null | undefined;
+  documentId: string;
+  sourceRevisionId: string;
+  /** Head claimed at confirmation / focus time. */
+  claimedObservedHeadRevisionId: string;
+  /** Actual AVAILABLE head from D4 at evaluation time. */
+  actualHeadRevisionId: string;
+  /**
+   * Server-loaded authorization for focus.historicalAuthorizationId.
+   * When provided, this is the only path that can confirm USE_SOURCE.
+   */
+  serverAuthorization?: {
+    id: string;
+    documentId: string;
+    sourceRevisionId: string;
+    observedHeadRevisionId: string;
+    choice: "USE_SOURCE" | "USE_HEAD";
+  } | null;
+}): {
+  confirmed: boolean;
+  reason:
+    | "NOT_HISTORICAL"
+    | "CONFIRMED_SERVER"
+    | "REFUSED"
+    | "USE_HEAD"
+    | "MISSING_CONFIRMATION"
+    | "IDENTITY_MISMATCH"
+    | "HEAD_MOVED"
+    | "CLIENT_CLAIM_INSUFFICIENT";
+} {
+  const sourceIsHistorical = input.sourceRevisionId !== input.actualHeadRevisionId;
+  if (!sourceIsHistorical) {
+    return { confirmed: false, reason: "NOT_HISTORICAL" };
+  }
+
+  const auth = input.serverAuthorization;
+  if (auth) {
+    if (
+      auth.documentId !== input.documentId ||
+      auth.sourceRevisionId !== input.sourceRevisionId ||
+      auth.observedHeadRevisionId !== input.claimedObservedHeadRevisionId
+    ) {
+      return { confirmed: false, reason: "IDENTITY_MISMATCH" };
+    }
+    if (auth.observedHeadRevisionId !== input.actualHeadRevisionId) {
+      return { confirmed: false, reason: "HEAD_MOVED" };
+    }
+    if (auth.choice === "USE_HEAD") {
+      return { confirmed: false, reason: "USE_HEAD" };
+    }
+    if (auth.choice === "USE_SOURCE") {
+      return { confirmed: true, reason: "CONFIRMED_SERVER" };
+    }
+    return { confirmed: false, reason: "MISSING_CONFIRMATION" };
+  }
+
+  // Client-supplied claims without a server authorization never confirm.
+  if (
+    input.focus?.historicalConfirmation ||
+    input.focus?.confirmedHistoricalSource === true
+  ) {
+    return { confirmed: false, reason: "CLIENT_CLAIM_INSUFFICIENT" };
+  }
+
+  return { confirmed: false, reason: "MISSING_CONFIRMATION" };
+}
+
 export function resolveReviseTarget(
   docs: DocumentListItem[],
   hint: string | null,
+  focus?: DocumentReviseFocus | null,
 ): ResolvedReviseTarget {
   const available = docs.filter((d) => d.latestRevision?.status === "AVAILABLE");
   if (available.length === 0) {
     return { ok: false, reason: "NO_AVAILABLE_REVISION" };
+  }
+
+  if (focus?.documentId && focus.sourceRevisionId && focus.observedHeadRevisionId) {
+    const d = available.find((x) => x.document.id === focus.documentId);
+    if (!d?.latestRevision) {
+      return { ok: false, reason: "NOT_FOUND" };
+    }
+    if (d.latestRevision.id !== focus.observedHeadRevisionId) {
+      // Head moved since focus was taken — caller must requalify; still resolve
+      // to current head as observed for CONFLICT at D4 commit.
+    }
+    // R1: never use client sourceContentMarkdown. Head body may come from the
+    // authorized list payload (D4-backed); any non-head source forces empty
+    // baseContent so the owner path reloads the exact revision via getDocumentRevision.
+    if (focus.sourceRevisionId === d.latestRevision.id) {
+      return {
+        ok: true,
+        documentId: d.document.id,
+        title: d.document.title,
+        baseRevisionId: focus.sourceRevisionId,
+        baseRevisionNumber: focus.sourceRevisionNumber ?? d.latestRevision.revisionNumber,
+        baseContent: d.latestRevision.contentMarkdown,
+      };
+    }
+    return {
+      ok: true,
+      documentId: d.document.id,
+      title: d.document.title,
+      baseRevisionId: focus.sourceRevisionId,
+      baseRevisionNumber: focus.sourceRevisionNumber ?? d.latestRevision.revisionNumber,
+      baseContent: "",
+    };
   }
 
   if (hint) {
@@ -1205,49 +1353,87 @@ export function formatDocumentEffectAck(effect: DocumentEffectSummary | null): s
   // Pre-effect: plausible documentary intent but no D4 transaction attempted.
   // Never fabricate a FAILED documentSave — this is NOT_EXECUTED, not a server refuse.
   if (effect.status === "NOT_EXECUTED" || effect.act === "NONE") {
+    // F5 — pilot-facing copy for pending proposal (no internal codes in product surface).
+    if (effect.reason === "PROPOSAL_PENDING_CONSERVATION") {
+      return [
+        "### Proposition non enregistrée",
+        "",
+        "La rédaction est prête à être examinée dans la visionneuse.",
+        "Aucune nouvelle version n'est créée tant que tu n'as pas demandé la conservation.",
+      ].join("\n");
+    }
     const lines = [
-      "### Résultat applicatif (pré-effet)",
+      "### Résultat applicatif",
       "",
-      "- Acte documentaire exécuté: aucun",
-      "- Statut: NOT_EXECUTED",
-      "- Transaction D4: non tentée",
+      "Aucun enregistrement documentaire n'a été effectué sur ce tour.",
     ];
-    if (effect.reason) lines.push(`- raison: ${effect.reason}`);
-    lines.push(
-      "",
-      "Aucun acte documentaire exécuté : la demande n'a pas été qualifiée pour une écriture.",
-      "La réponse Nora ci-dessus n'est pas un verdict D4.",
-    );
+    if (effect.reason === "HISTORICAL_CONFIRMATION_REQUIRED") {
+      lines.push(
+        "",
+        "Une confirmation de la base historique est requise avant toute révision.",
+      );
+    } else if (effect.reason === "HISTORICAL_CONFIRMATION_SERVER_REQUIRED") {
+      lines.push(
+        "",
+        "Choisis explicitement la base (historique ou courante) dans la conversation.",
+      );
+    } else if (effect.reason === "PENDING_CANDIDATE_REQUIRED") {
+      lines.push("", "Aucune proposition identifiable n'est prête à être conservée.");
+    } else if (
+      effect.reason === "CANDIDATE_SUPERSEDED" ||
+      effect.reason === "CANDIDATE_CONSUMED" ||
+      effect.reason === "CANDIDATE_NOT_FOUND"
+    ) {
+      lines.push(
+        "",
+        "La proposition précédente n'est plus valable — demande une nouvelle rédaction.",
+      );
+    } else if (effect.reason === "CANDIDATE_HEAD_MOVED" || effect.reason === "HISTORICAL_HEAD_MOVED") {
+      lines.push(
+        "",
+        "La version courante a changé — une nouvelle qualification est nécessaire.",
+      );
+    } else {
+      lines.push(
+        "",
+        "La demande n'a pas été qualifiée pour une écriture. La réponse Nora ci-dessus n'est pas un verdict d'enregistrement.",
+      );
+    }
     return lines.join("\n");
   }
 
   const lines = [
-    "### Résultat applicatif D4 (source de vérité)",
+    "### Résultat d'enregistrement",
     "",
-    `- Acte demandé: ${effect.act}`,
-    `- Statut observé: ${effect.status ?? "UNKNOWN"}`,
   ];
-  if (effect.documentId) lines.push(`- documentId: \`${effect.documentId}\``);
-  if (effect.revisionNumber != null) lines.push(`- révision: v${effect.revisionNumber}`);
-  if (effect.revisionId) lines.push(`- revisionId: \`${effect.revisionId}\``);
-  if (effect.baseRevisionId) lines.push(`- baseRevisionId: \`${effect.baseRevisionId}\``);
-  if (effect.idempotentReplay) lines.push("- rejeu idempotent: oui");
-  if (effect.reason) lines.push(`- raison: ${effect.reason}`);
   if (effect.status === "AVAILABLE") {
+    if (effect.revisionNumber != null) {
+      lines.push(`Nouvelle version disponible : v${effect.revisionNumber}.`);
+    } else {
+      lines.push("Nouvelle version documentaire enregistrée.");
+    }
+    if (effect.idempotentReplay) {
+      lines.push("Rejeu idempotent — aucune version supplémentaire créée.");
+    }
     lines.push(
       "",
-      "Ce statut est confirmé par la persistance Studio. Il est le seul verdict transactionnel de ce tour.",
+      "L'enregistrement est confirmé. Les versions antérieures restent inchangées.",
     );
   } else if (effect.status === "CONFLICT") {
-    lines.push("", "Conflit de base — aucune nouvelle révision écrite. Requalification requise.");
+    lines.push(
+      "Conflit de version — aucune nouvelle révision écrite.",
+      "Requalification requise avant une nouvelle conservation.",
+    );
   } else if (effect.status === "FAILED") {
     lines.push(
-      "",
-      "Studio a exécuté l'acte documentaire et a refusé l'écriture. Le motif ci-dessus est le verdict transactionnel.",
-      "Les outils Nora restent en lecture seule ; cela n'explique pas un refus applicatif déjà observé.",
+      "L'enregistrement a été refusé.",
+      "Aucune nouvelle version n'a été créée.",
     );
-  } else if (effect.status && effect.status !== "AVAILABLE") {
-    lines.push("", "Aucun succès d'écriture D4 ne doit être affirmé pour ce tour.");
+  } else {
+    lines.push(
+      "Résultat d'enregistrement encore incertain.",
+      "Aucun succès d'écriture ne doit être affirmé pour ce tour.",
+    );
   }
   return lines.join("\n");
 }

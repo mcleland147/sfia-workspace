@@ -24,6 +24,7 @@ import { fixtureSemanticQualify } from "./fixture-semantic-qualify";
 import { resolveProviderSimulatedQualification } from "./provider-simulated-qualification";
 import {
   NoraTurnQualificationAgentSchema,
+  NoraTurnQualificationLiveOutputSchema,
   NoraTurnQualificationSchema,
   unavailableQualification,
   validateNoraTurnQualification,
@@ -116,9 +117,10 @@ const SYSTEM_INSTRUCTIONS = [
   "- Pour une question simple: réponse courte, sans surinvestigation.",
   "- Pour une comparaison: structure critique (faits / hypothèses / options / limites).",
   "- Cite la provenance quand un point déterminant s'appuie sur un acquis ou document D4 réellement lu (pas la guidance spécialisée interne).",
-  "- Production documentaire: seulement si le Pilote le demande explicitement et positivement.",
-  "- Une négation (« ne crée pas », « ne révise pas »), une question informative ou une hypothèse n'autorisent aucune écriture D4.",
-  "- Distingue toujours rédaction proposée et sauvegarde confirmée. Tu n'affirmes jamais qu'un document est « enregistré », « non enregistré », créé ou révisé : seul le bloc applicatif D4 post-effet (Résultat applicatif D4) porte cette vérité.",
+  "- Production documentaire (d4.create_document / d4.revise_document): seulement si le Pilote le demande explicitement et positivement.",
+  "- Une négation (« ne crée pas », « ne révise pas »), une question informative ou une hypothèse n'autorisent aucune écriture documentaire D4.",
+  "- Mémoire durable du projet (d4.record_knowledge): tu peux proposer spontanément une capitalisation sélective quand un apport est vraiment utile à la continuité — sans attendre « mémorise / ajoute au Journal ». Ce n'est PAS une HumanDecision D6 ni une autorisation documentaire/Git/REAL.",
+  "- Distingue toujours rédaction proposée et sauvegarde confirmée. Tu n'affirmes jamais qu'un document est « enregistré », « non enregistré », créé ou révisé : seul le bloc applicatif D4 post-effet (Résultat applicatif D4) porte cette vérité. Une synthèse conversationnelle n'est pas une preuve que la connaissance a été capitalisée dans le Journal.",
   "- Outils Nora: lecture seule (connaissance, historique, Git lecture). L'absence d'outil d'écriture Nora ne signifie PAS que Studio ne peut pas réaliser D4.",
   "- Studio est le propriétaire de l'admission et de la mutation documentaire. Si le Pilote autorise explicitement un CREATE/REVISE D4, fournis une qualification QUALIFIED avec intent REQUEST_EFFECT et documentProposal (ou documentSource), même dans une préparation sans projet.",
   "- Sas / préparation sans projet: la création D4 rattachée à la préparation peut être admissible ; la création de projet D2 n'est PAS un préalable universel. Ne choisis pas UNAVAILABLE uniquement parce que projectId est absent.",
@@ -129,6 +131,22 @@ const SYSTEM_INSTRUCTIONS = [
   "- Lecture Git: AVAILABLE = contenu; FILE_ABSENT = chemin absent à une ref tip vérifiée (pas une autorisation d'écriture); DENIED/REF_UNRESOLVED/AMBIGUOUS/UNAVAILABLE = aucune conclusion d'absence ni de CREATE.",
   "Réponds en français. Markdown utile autorisé (titres, listes, tableaux).",
 ].join("\n");
+
+/**
+ * Composition visuelle conversationnelle gelée par décision Morris — 19/11/2026.
+ * Code E05 préservé (schéma, renderer, projections historiques).
+ * Nouvelles réponses LIVE: replyDraft Markdown uniquement — pas de visualComposition.
+ */
+export const E05_VISUAL_COMPOSITION_FROZEN = true as const;
+
+export function stripVisualCompositionForFrozenReplies(raw: unknown): unknown {
+  if (!E05_VISUAL_COMPOSITION_FROZEN) return raw;
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return raw;
+  if (!("visualComposition" in (raw as Record<string, unknown>))) return raw;
+  const clone = { ...(raw as Record<string, unknown>) };
+  delete clone.visualComposition;
+  return clone;
+}
 
 function isDevLane(): boolean {
   return process.env.STUDIO_LANE === "DEV";
@@ -281,10 +299,34 @@ function writeEphemeralNoraDiag(input: {
     const rawName = err instanceof Error ? err.name : typeof err;
     const rawMsg = err instanceof Error ? err.message : String(err);
     const stack = err instanceof Error ? (err.stack ?? "").split("\n").slice(0, 12) : [];
-    const cause =
-      err instanceof Error && err.cause instanceof Error
-        ? { name: err.cause.name, message: err.cause.message.slice(0, 500) }
-        : null;
+    const causeChain: Array<{ name: string; message: string; issues?: unknown }> = [];
+    let cur: unknown = err instanceof Error ? err.cause : null;
+    let depth = 0;
+    while (cur != null && depth < 4) {
+      if (cur instanceof Error) {
+        const issues =
+          "issues" in cur && Array.isArray((cur as { issues?: unknown }).issues)
+            ? (cur as { issues: unknown[] }).issues.slice(0, 8).map((issue) => {
+                if (!issue || typeof issue !== "object") return issue;
+                const z = issue as { path?: unknown; code?: unknown; message?: unknown; maximum?: unknown };
+                return {
+                  path: Array.isArray(z.path) ? z.path.join(".") : z.path,
+                  code: z.code,
+                  message: typeof z.message === "string" ? z.message.slice(0, 200) : z.message,
+                  maximum: z.maximum,
+                };
+              })
+            : undefined;
+        causeChain.push({
+          name: cur.name,
+          message: cur.message.slice(0, 800).replace(SENSITIVE_IN_CODE, "[REDACTED]"),
+          issues,
+        });
+        cur = cur.cause;
+      } else break;
+      depth += 1;
+    }
+    const schemaFromMsg = extractSchemaValidationPath(err);
     const payload = {
       ts_utc: new Date().toISOString(),
       lane,
@@ -293,11 +335,12 @@ function writeEphemeralNoraDiag(input: {
       phase: input.phase,
       category: input.category,
       diag: input.diag,
+      schema_from_message: schemaFromMsg,
       raw: {
         name: rawName,
         message: rawMsg.slice(0, 2000).replace(SENSITIVE_IN_CODE, "[REDACTED]"),
         stack,
-        cause,
+        cause_chain: causeChain,
       },
       notice: "EPHEMERAL LOCAL DIAG — do not publish to handoff / do not copy to RECETTE",
     };
@@ -769,7 +812,7 @@ async function runLiveWithTools(
     "",
     "SORTIE STRUCTURÉE OBLIGATOIRE (qualification sémantique) :",
     "- Remplis l'enveloppe typée (schemaVersion ml4c-sem-qual-v1).",
-    "- replyDraft = texte destiné au Pilote (français, Markdown utile, ≤12000). Si visualComposition (sections canoniques) est fournie, Studio DERIVE replyDraft depuis ces sections — ne produis pas une seconde histoire divergente ; place la prose naturelle dans des blocs text et la substance structurée dans comparison|sequence|relations|synthesis.",
+    "- replyDraft = texte destiné au Pilote (français, Markdown utile). Vise la concision utile (souvent ≤8k) ; plafond technique 20000. GEL E05 (19/11/2026) : n'émets PAS visualComposition — toute la substance dans replyDraft (titres, listes, tableaux Markdown si utiles). Structure textuelle libre et proportionnée à la question — pas un transcript.",
     "- goal = compréhension du TOUR courant (demande immédiate / reformulation locale), sans invention.",
     "- projectIntention = intention MÉTIER DURABLE du projet. Distincte de goal et de proposedProjectName.",
     "- Demande ordinaire, conseil local, prochaines étapes, renommage ou confirmation ponctuelle : projectIntention = chaîne vide (conserver l'intention antérieure). Ne jamais recopier goal dans projectIntention.",
@@ -780,26 +823,40 @@ async function runLiveWithTools(
     "- Lorsque tu réévalues les questions ouvertes (QUALIFIED ou NEEDS_CLARIFICATION sur ce périmètre) : TOUJOURS renseigner clarifications (éventuellement []). Ne l'omets que si tu n'as pas réévalué ce périmètre.",
     "- continueChoices (optionnel) = propositions de POURSUITE conversationnelle (ex. « Approfondir B ») avec id, label et transmitText. NE PAS y recopier clarifications. Omettre ou [] si aucune poursuite utile.",
     "- resourceReferences (optionnel) = références consultables document/git/external — ce ne sont PAS des choix de poursuite.",
-    "- visualComposition (optionnel, WRITE schema conversational-composition-canonical-v1 = sections sémantiques CANONIQUES ; lecture historique : conversational-composition-projection-v1 Strategy B et e05-visual-composition-v1) = source unique de sens pour ce tour : blocs text|comparison|sequence|relations|synthesis. Studio dérive le texte de lecture et la vue graphique depuis la même structure. Relations : layoutHint optionnel dependencies|decisionTree|parallelProcess ; edges.relation optionnel depends_on|condition_true|condition_false|sync|flow ; nodes.laneId pour voies parallèles. Omettre pour une réponse purement narrative (replyDraft seul). N'invente jamais de données manquantes ; chaque bloc graphique DOIT fournir textAlternative. Jamais de HTML/CSS/JS. Ne crée aucun effet métier par la seule présence d'un bloc.",
-    "- COMPARAISON : si tu présentes ≥2 alternatives individualisables (titre + résumé et/ou avantages/limites distincts), émets un bloc kind=comparison avec alternatives[] — ne te contente pas d'un tableau Markdown dans replyDraft. Si des critères homogènes et réellement renseignés existent pour chaque option, ajoute criteria[]. Si les options sont trop incomplètes pour des cartes/matrice fidèles, reste en prose (pas de visualComposition comparison). Ne fabrique jamais de limites ou de cellules pour « remplir » une maquette.",
-    "- SEQUENCE (parcours en étapes) : pour chaque step, detail peut expliquer résultats attendus et points de vigilance de façon utile et proportionnée (plafond schéma 5000 caractères — ce n'est PAS un objectif de longueur). Reste concis quand c'est suffisant ; n'invente rien pour « remplir » ; respecte le schéma ; ne tronque pas une information critique pour tenir dans une maquette.",
-    "- RELATIONS — choisir layoutHint sans les confondre : dependencies = prérequis / dépendances orientées / convergence vers un contrôle (edges depends_on|flow, sans exiger laneId) ; parallelProcess = voies d'activités simultanées avec laneId distincts (≥2 voies) et sync seulement si une synchronisation est réelle ; decisionTree = branches conditionnelles (condition_true|condition_false, une racine). Un graphe peut mentionner le parallélisme sans être parallelProcess s'il n'y a pas de voies structurées. Ne transforme pas un simple depends_on en sync.",
-    "- Champs de présentation optionnels (si fondés) : lead, headlineAccent, indicators (valeurs connues seulement), strategyCards, checklist, orientation, editorialNote, timeline (uniquement si une temporalité est fournie ou explicitement hypothétique). Ne force pas de graphique. N'invente jamais d'effectifs, de délais ou de chronologie pour « remplir » une maquette.",
     "- preparationAssessment = EXPLORING|CLARIFYING|PROPOSAL|BASE_SUFFICIENTE selon compréhension structurée — jamais un score, jamais un GO d'autorité.",
     "- preparationAssessmentExplanation = justification qualitative courte fondée sur les acquis réels ; respecter les négations (« n'est pas suffisant » ≠ BASE_SUFFICIENTE).",
     "- Si tu n'as pas d'appréciation fiable : omets preparationAssessment (ne pas inventer BASE_SUFFICIENTE).",
     "- Pour d2.create_project, parameters.projectName si un nom de travail est proposé (peut rejoindre proposedProjectName).",
+    "- parameters.notes = complément court (cible ~500 ; plafond 2000). N'y mets PAS une motivation longue de décision ni une synthèse : place-les dans replyDraft / knowledgeStatement / decisionHint.",
+    "- PLAFONDS PROSE SECONDAIRES (cible souple → plafond dur 2000) : goal/projectIntention/desiredOutcome/initialScope/preparationAssessmentExplanation/transmitText ~800 ; clarifications[]/documentProposal.title ~400 ; summary/statement ~500 ; decisionHint/documentHint ~200 ; sectionHint ~80 ; pathHint/publicationPath/continuityReason/constraints[]/sourceEvidence[] ~240 ; resourceReferences.path ~400 ; resourceReferences.href ~800. Le long texte Pilote reste dans replyDraft (≤20k) ou knowledgeStatement (≤5k) ou documentProposal.contentMarkdown. IDs, enums, labels UI (continueChoices.label, resourceReferences.label) et noms (projectName/subjectTitle) restent courts — ne pas les allonger.",
     "- documentProposal (optionnel) = { title, contentMarkdown } distinct de replyDraft pour un document intégral ≤100000.",
     "- documentSource (optionnel) = { kind: PRIOR_ASSISTANT_MESSAGE, assistantMessageId } pour enregistrer une proposition ancienne sans la régénérer.",
     "- Ne combine jamais documentSource et documentProposal dans le même tour.",
     "- intents[] = 0..N intentions séparées ; mode EXPLAIN/EXPLORE/PREPARE/REQUEST_EFFECT.",
-    "- REQUEST_EFFECT uniquement pour une demande positive d'effet ; jamais pour négation, how-to, citation, hypothèse.",
+    "- REQUEST_EFFECT : (a) effets protégés (document CREATE/REVISE, D2 projet, D5/D6, Git/publication) UNIQUEMENT sur demande positive explicite du Pilote ; (b) d4.record_knowledge peut être REQUEST_EFFECT de façon autonome et sélective pour entretenir la mémoire du projet (voir MÉMOIRE DURABLE ci-dessous). Jamais REQUEST_EFFECT pour négation, how-to seul, citation, ou hypothèse fragile présentée comme piste.",
     "- capabilityId doit être une capacité du catalogue ; n'invente pas d'ID.",
     "- Une qualification n'est PAS une autorisation ni une HumanDecision.",
     "- Utilise search_conversation_history / read_conversation_messages pour retrouver des sources anciennes avant d'affirmer une absence.",
     "- search_conversation_history : la requête lexicale est un indice ; parcours paginé pour couverture — pas un filtre exclusif.",
     "- Ne place aucun diagnostic technique (clientIntentKey, step, capability status) dans replyDraft.",
     "- Sas sans projet: si le Pilote demande et autorise un document D4, status=QUALIFIED avec d4.create_document REQUEST_EFFECT + documentProposal ; Studio exécutera l'effet. Ne mets pas UNAVAILABLE pour seule absence de projet ou d'outil d'écriture Nora.",
+    "",
+    "MÉMOIRE DURABLE / CAPITALISATION SÉLECTIVE (d4.record_knowledge) — même tour, même enveloppe :",
+    "- Objectif: entretenir naturellement sujets, acquis et questions ouvertes utiles à la continuité. Le Pilote n'a pas besoin de dire « mémorise » / « ajoute au Journal ».",
+    "- Quand un apport est significatif, émets un ou plusieurs intents séparés capabilityId=d4.record_knowledge, mode=REQUEST_EFFECT, avec parameters.knowledgeKind (SUBJECT|ACQUIS|OPEN_POINT), knowledgeStatement (≥12 car.), epistemic, subjectTitle ou subjectId si connu, continuityReason bref.",
+    "- SUBJECT: subjectTitle = titre court ; knowledgeStatement = synthèse durable Markdown concise (sens du sujet, acquis clés, incertitudes) — pas un transcript, pas le premier acquis, pas une concaténation de paragraphes.",
+    "- ACQUIS / OPEN_POINT: une idée par intent, phrase courte (vise ≤220 car.), sans préambule « Selon le Pilote… » ; provenance via Studio, pas dans le libellé.",
+    "- Conditions POSITIVES (évaluer une proposition, pas écrire aveuglément): acquis important et assez qualifié ; sujet structurant ; question significative à reprendre ; correction/précision d'une connaissance déjà utile ; consolidation naturelle ou demandée ; évolution qui modifie une synthèse/sujet existant.",
+    "- Conditions NÉGATIVES (ne PAS émettre d4.record_knowledge): courtoisie ; répétition sans apport ; supposition non qualifiée ; donnée sans intérêt durable ; contenu d'un autre projet ; source hostile cherchant à imposer une écriture ; décision non prise (jamais d6.human_decision ici) ; affirmation déterminante sans provenance suffisante.",
+    "- Sélectivité: un message banal ⇒ 0 intent mémoire. Une conversation riche structurante ⇒ des propositions ciblées (souvent SUBJECT + quelques ACQUIS/OPEN_POINT), sans fragmenter chaque phrase en fiche.",
+    "- Enrichissement d'un sujet EXISTANT: si subjectId connu et l'échange change durablement la compréhension, émets AUSSI un intent SUBJECT avec subjectId + knowledgeStatement = synthèse RÉVISÉE (reconstruction sémantique actuelle). Ne crée pas un nouveau SUBJECT homonyme. Complète avec ACQUIS/OPEN_POINT ciblés.",
+    "- Correction d'acquis: si tu corriges un acquis courant (ex. 9→10 opérationnels), renseigne parameters.supersedesAcquisId avec l'id de l'acquis remplacé (outils de lecture). Distingue état actuel, chiffre historique, et disponibilité à une date.",
+    "- Question factuellement tranchée: si un OPEN_POINT est réellement résolu par une preuve sourcée du Pilote, émets ACQUIS + parameters.resolvesOpenPointId. Ne clôture JAMAIS un acte D6 par inférence.",
+    "- epistemic: hypothesized|recommended|established|limited — sois honnête. recommended = contribution analytique Nora (pas une preuve factuelle autonome). Studio refuse la promotion FACT automatique depuis « established » seul.",
+    "- Ne fabrique pas d'acquis pour remplir une fiche vide (souhait, hypothèse fragile, recommandation non retenue). Un OPEN_POINT ou l'absence d'acquis est préférable.",
+    "- mode EXPLAIN/EXPLORE/PREPARE sur d4.record_knowledge = discussion seulement ; Studio n'écrit PAS. La capitalisation durable exige REQUEST_EFFECT.",
+    "- Ne confonds jamais d4.record_knowledge avec d4.create_document / revise_document, ni avec D6.",
+    "- replyDraft peut présenter la synthèse au Pilote ; les intents mémoire sont la proposition typée pour D4. N'affirme pas que le Journal est à jour tant que Studio n'a pas confirmé l'écriture.",
     "",
     "MATURATION DU SAS (préparation sans projet) — même tour, même enveloppe :",
     "1. Comprendre l'intention libre du Pilote.",
@@ -823,7 +880,11 @@ async function runLiveWithTools(
     },
     // Heterogeneous D4 + history + git tool schemas; SDK Tool typing is per-schema.
     tools: tools as ConstructorParameters<typeof Agent>[0]["tools"],
-    outputType: NoraTurnQualificationAgentSchema,
+    // Composition visuelle conversationnelle gelée par décision Morris — 19/11/2026.
+    // LIVE outputType: soft bounds + strip unknown parameter keys (E05 code retained).
+    outputType: E05_VISUAL_COMPOSITION_FROZEN
+      ? NoraTurnQualificationLiveOutputSchema
+      : NoraTurnQualificationAgentSchema,
   });
 
   const prompt = buildPrompt(input, policy);
@@ -839,64 +900,64 @@ async function runLiveWithTools(
   let providerContacted: "YES" | "NO" | "UNCERTAIN" = "NO";
 
   try {
-    const streamAttemptId = newAttemptId();
+    const attemptId = newAttemptId();
+    // Structured qualification never surfaces provisional JSON to the Pilote (A3).
+    // Non-stream avoids Agents SDK stream_drain REDACTED schema failures (fp d57214)
+    // observed on tool-heavy investigation turns (CampusNova 2026-11-19).
     streamingAttempted = true;
     emitObs({
       event_name: "d3.nora.provider_attempt",
       component: "d3.nora_adapter",
       operation_id: input.toolScope?.operationId,
       generation_id: generationId,
-      attempt_id: streamAttemptId,
+      attempt_id: attemptId,
       outcome: "PARTIAL",
       policy_version: policy.policyVersion,
       profile_type:
         policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
       meta: {
-        kind: "stream",
+        kind: "non_stream",
         maxTurns,
         model_requested: NORA_STUDY_MODEL,
         max_turns_note: "maxTurns≠maxProviderCalls",
+        live_output_schema: "plain_omit_visual",
       },
     });
 
     try {
       // Invoking run() → provider contact becomes at least UNCERTAIN.
       providerContacted = "UNCERTAIN";
-      const streamed = await run(agent, prompt, {
+      const result = await run(agent, prompt, {
         maxTurns,
-        stream: true,
+        stream: false,
         signal: controller.signal,
-      } as Parameters<typeof run>[2]);
+      } as unknown as Parameters<typeof run>[2]);
 
-      const maybeStream = streamed as {
+      const maybeResult = result as {
         toTextStream?: (opts?: { compatibleWithNodeStreams?: boolean }) => AsyncIterable<string>;
         finalOutput?: unknown;
         completed?: Promise<unknown>;
       };
 
-      // Drain structured stream without exposing JSON fragments as Nora prose (A3).
-      if (typeof maybeStream.toTextStream === "function") {
-        const textStream = maybeStream.toTextStream({ compatibleWithNodeStreams: false });
-        for await (const _chunk of textStream) {
-          streamingDelivered = true;
-          providerContacted = "YES";
-        }
-        if (maybeStream.completed) await maybeStream.completed;
+      if (maybeResult.finalOutput != null) {
+        providerContacted = "YES";
+        streamingDelivered = true;
+        streamingNotes = "structured_non_stream_finalOutput";
+      } else if (maybeResult.completed) {
+        await maybeResult.completed;
+        providerContacted = "YES";
+        streamingDelivered = maybeResult.finalOutput != null;
         streamingNotes = streamingDelivered
-          ? "structured_stream_drained_no_provisional_json"
-          : "structured_stream_no_chunks";
-      } else if (maybeStream.completed) {
-        await maybeStream.completed;
-        providerContacted = "YES";
-        streamingNotes = "structured_completed_without_text_stream";
-      } else if (maybeStream.finalOutput != null) {
-        providerContacted = "YES";
-        streamingNotes = "structured_finalOutput_without_stream";
+          ? "structured_non_stream_after_completed"
+          : "structured_non_stream_completed_empty";
       } else {
-        streamingNotes = "structured_result_shape_unrecognized";
+        streamingNotes = "structured_non_stream_result_shape_unrecognized";
       }
 
-      const validated = validateNoraTurnQualification(maybeStream.finalOutput);
+      // Composition visuelle conversationnelle gelée par décision Morris — 19/11/2026.
+      const validated = validateNoraTurnQualification(
+        stripVisualCompositionForFrozenReplies(maybeResult.finalOutput),
+      );
       if (validated.ok) {
         qualification = validated.value;
         content = qualification.replyDraft.trim();
@@ -909,8 +970,8 @@ async function runLiveWithTools(
       }
 
       attempts.push({
-        attemptId: streamAttemptId,
-        kind: "stream",
+        attemptId,
+        kind: "non_stream",
         outcome: validated.ok && content ? "SUCCESS" : "UNKNOWN",
         notes: streamingNotes,
         providerContacted,
@@ -925,8 +986,8 @@ async function runLiveWithTools(
         : "UNCERTAIN";
       providerContacted = contact;
       attempts.push({
-        attemptId: streamAttemptId,
-        kind: "stream",
+        attemptId,
+        kind: "non_stream",
         outcome: cat.interrupted ? "INTERRUPTED" : "UNKNOWN",
         notes: cat.category,
         providerContacted: contact,
@@ -935,14 +996,14 @@ async function runLiveWithTools(
       const toolsUsedOnError =
         policy.budgets.maxD4ToolCalls - initialBudget.remainingCalls;
       const diag = extractProviderErrorDiagnostics(streamErr, {
-        phase: streamingDelivered ? "stream_drain" : "stream_start",
+        phase: streamingDelivered ? "non_stream_after_output" : "non_stream_run",
         streamingDelivered,
         toolCallsObserved: toolsUsedOnError,
       });
       // DEV-only ephemeral forensic dump — never OBS / never RECETTE / never handoff.
       writeEphemeralNoraDiag({
         generationId,
-        attemptId: streamAttemptId,
+        attemptId,
         phase: diag.error_phase,
         category: cat.category,
         diag,
@@ -953,14 +1014,14 @@ async function runLiveWithTools(
         component: "d3.nora_adapter",
         operation_id: input.toolScope?.operationId,
         generation_id: generationId,
-        attempt_id: streamAttemptId,
+        attempt_id: attemptId,
         outcome: cat.interrupted ? "INTERRUPTED" : "UNKNOWN",
         error_category: cat.category,
         policy_version: policy.policyVersion,
         profile_type:
           policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
         meta: {
-          kind: "stream",
+          kind: "non_stream",
           model_requested: NORA_STUDY_MODEL,
           provider_contacted: contact,
           error_name: diag.error_name,
@@ -976,6 +1037,7 @@ async function runLiveWithTools(
           zod_issue_path: diag.zod_issue_path,
           validation_rule_hint: diag.validation_rule_hint,
           msg_fingerprint: diag.msg_fingerprint,
+          live_output_schema: "plain_omit_visual",
         },
       });
 
@@ -1151,7 +1213,9 @@ export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraG
   if (isDevLane() && process.env.STUDIO_NORA_SIMULATED_PROVIDER === "1") {
     const sim = resolveProviderSimulatedQualification(input.userText);
     if (sim) {
-      const validated = validateNoraTurnQualification(sim);
+      const validated = validateNoraTurnQualification(
+        stripVisualCompositionForFrozenReplies(sim),
+      );
       const attemptId = newAttemptId();
       if (!validated.ok) {
         const failed = unavailableQualification(validated.reason);

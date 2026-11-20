@@ -197,20 +197,20 @@ describe("A1 exact derive boundaries", () => {
     };
   }
 
-  it("A1 exact 11999 / 12000 / 12001", async () => {
+  it("A1 exact max-1 / max / max+1", async () => {
     const { deriveReplyDraftFromCanonicalSections } = await import(
       "@/domains/conversation/conversational-composition"
     );
-    const a = deriveReplyDraftFromCanonicalSections(textComp(11999));
-    const b = deriveReplyDraftFromCanonicalSections(textComp(12000));
-    const c = deriveReplyDraftFromCanonicalSections(textComp(12001));
+    const a = deriveReplyDraftFromCanonicalSections(textComp(REPLY_DRAFT_MAX_CHARS - 1));
+    const b = deriveReplyDraftFromCanonicalSections(textComp(REPLY_DRAFT_MAX_CHARS));
+    const c = deriveReplyDraftFromCanonicalSections(textComp(REPLY_DRAFT_MAX_CHARS + 1));
     expect(a.ok).toBe(true);
-    if (a.ok) expect(a.length).toBe(11999);
+    if (a.ok) expect(a.length).toBe(REPLY_DRAFT_MAX_CHARS - 1);
     expect(b.ok).toBe(true);
     if (b.ok) expect(b.length).toBe(REPLY_DRAFT_MAX_CHARS);
     expect(c.ok).toBe(false);
     if (!c.ok && c.reason === "CV_DERIVE_OVERFLOW") {
-      expect(c.length).toBe(12001);
+      expect(c.length).toBe(REPLY_DRAFT_MAX_CHARS + 1);
     }
   });
 });

@@ -1,4 +1,4 @@
-import { and, desc, eq, inArray, ne, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, isNull, ne, sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import {
   documentRevisions,
@@ -14,7 +14,6 @@ import {
   assertTurnFenceInTx,
   type TurnOwnershipFence,
 } from "@/domains/conversation/turn-command";
-
 export type Provenance = {
   sourceKind: "message" | "document" | "revision" | "pilot" | "nora";
   sourceId?: string;
@@ -23,9 +22,33 @@ export type Provenance = {
   note?: string;
   /** Epistemic confidence of the recorder — never upgrades authority. */
   epistemic?: "observed" | "hypothesized" | "recommended" | "limited" | "established";
+  /** Extra constitutive message ids (Pilot/Nora) — never invent ids. */
+  relatedMessageIds?: string[];
+  contributionKind?: "pilot_fact" | "nora_analysis" | "pilot_confirmation" | "mixed";
 };
 
 export type KnowledgeKind = "FACT" | "HYPOTHESIS" | "RECOMMENDATION" | "LIMIT";
+
+export {
+  KNOWLEDGE_STATEMENT_STORAGE_MAX,
+  KNOWLEDGE_STATEMENT_SOFT_MAX,
+  KNOWLEDGE_BULLET_DISPLAY_MAX,
+  SUBJECT_SUMMARY_TARGET_MIN,
+  SUBJECT_SUMMARY_TARGET_MAX,
+  JOURNAL_ACQUIS_DISPLAY_LIMIT,
+  JOURNAL_OPEN_POINT_DISPLAY_LIMIT,
+  editorialStripPreamble,
+  editorialCompactKnowledgeStatement,
+  editorialDisplayBullet,
+  prioritizeAcquisForJournalDisplay,
+  prioritizeOpenPointsForJournalDisplay,
+  composeSubjectSummaryFromCurrentKnowledge,
+} from "./journal-editorial";
+
+import {
+  editorialCompactKnowledgeStatement,
+  composeSubjectSummaryFromCurrentKnowledge,
+} from "./journal-editorial";
 
 function provenanceString(p: Provenance): string {
   return JSON.stringify({ ...p, notedAt: p.notedAt ?? new Date().toISOString() });
@@ -91,7 +114,7 @@ export async function capitalizeAcquis(
   },
 ) {
   const ctx = await assertPrep(pilotId, preparationId);
-  const statement = input.statement.trim();
+  const statement = editorialCompactKnowledgeStatement(input.statement);
   if (!statement || statement.length < 12) {
     return { status: "SKIPPED" as const, reason: "statement too thin for capitalisation" };
   }
@@ -207,8 +230,10 @@ export async function openPoint(
   },
 ) {
   const ctx = await assertPrep(pilotId, preparationId);
-  const statement = input.statement.trim();
-  if (!statement) return { status: "FAILED" as const, reason: "empty" };
+  const statement = editorialCompactKnowledgeStatement(input.statement, 280);
+  if (!statement || statement.length < 12) {
+    return { status: "FAILED" as const, reason: "empty" };
+  }
   if (input.subjectId) {
     const check = await assertSubjectRef(pilotId, preparationId, input.subjectId);
     if (check && "error" in check) return { status: "FAILED" as const, reason: check.error };
@@ -260,6 +285,7 @@ export async function ensureSubject(
     const parent = await assertSubjectRef(pilotId, preparationId, parentSubjectId);
     if (parent && "error" in parent) return { status: "FAILED" as const, reason: parent.error };
   }
+  const parentId = parentSubjectId ?? null;
   const existing = (
     await db
       .select()
@@ -270,6 +296,9 @@ export async function ensureSubject(
           eq(knowledgeSubjects.ownerPilotId, pilotId),
           eq(knowledgeSubjects.title, cleaned),
           eq(knowledgeSubjects.status, "ACTIVE"),
+          parentId === null
+            ? isNull(knowledgeSubjects.parentSubjectId)
+            : eq(knowledgeSubjects.parentSubjectId, parentId),
         ),
       )
       .limit(1)
@@ -665,12 +694,14 @@ export async function listKnowledge(pilotId: string, preparationId: string) {
 export async function selectRelevantKnowledgeContext(
   pilotId: string,
   preparationId: string,
-  _userText: string,
+  userText: string,
   opts?: {
     limit?: number;
     preferredAcquisIds?: string[];
     preferredOpenPointIds?: string[];
     preferredSubjectIds?: string[];
+    /** When set, also scan project-scoped OPEN points for J-C04 reactivation. */
+    projectId?: string | null;
   },
 ) {
   const { subjects, acquis, openPoints } = await listKnowledge(pilotId, preparationId);
@@ -694,6 +725,26 @@ export async function selectRelevantKnowledgeContext(
   const pickedSubjects = preferThenRest(activeSubjects, prefS, 5);
 
   const snippets: string[] = [];
+  const reactivatedOpenPointIds: string[] = [];
+
+  if (opts?.projectId) {
+    const { selectOpenPointsForReactivation } = await import(
+      "@/domains/knowledge/journal-cognition"
+    );
+    const reactivation = await selectOpenPointsForReactivation(
+      pilotId,
+      opts.projectId,
+      userText,
+      { limit: 2 },
+    );
+    for (const c of reactivation.candidates) {
+      reactivatedOpenPointIds.push(c.openPointId);
+      snippets.push(
+        `POINT_OUVERT_REACTIVATE[${c.openPointId}/${c.score.toFixed(2)}] subject=${c.subjectId ?? "∅"}: ${c.statement.slice(0, 240)} | reason=${c.reason}`,
+      );
+    }
+  }
+
   for (const a of pickedAcquis) {
     const mark = prefA.has(a.id) ? "PREFERRED" : "AVAILABLE";
     snippets.push(
@@ -701,6 +752,7 @@ export async function selectRelevantKnowledgeContext(
     );
   }
   for (const o of pickedOpen) {
+    if (reactivatedOpenPointIds.includes(o.id)) continue;
     const mark = prefO.has(o.id) ? "PREFERRED" : "AVAILABLE";
     snippets.push(
       `POINT_OUVERT[${o.id}/${mark}] subject=${o.subjectId ?? "∅"}: ${o.statement.slice(0, 240)} | provenance=${o.provenanceJson.slice(0, 120)}`,
@@ -717,15 +769,22 @@ export async function selectRelevantKnowledgeContext(
       subjects: subjects.length,
       acquisCurrent: acquis.filter((a) => a.status === "CURRENT").length,
       openPoints: openPoints.filter((o) => o.status === "OPEN").length,
+      reactivatedOpenPoints: reactivatedOpenPointIds.length,
     },
     selectedAcquisIds: pickedAcquis.map((a) => a.id),
-    selectedOpenPointIds: pickedOpen.map((o) => o.id),
+    selectedOpenPointIds: [
+      ...reactivatedOpenPointIds,
+      ...pickedOpen.map((a) => a.id).filter((id) => !reactivatedOpenPointIds.includes(id)),
+    ],
+    reactivatedOpenPointIds,
     selectionMethod:
-      prefA.size || prefO.size || prefS.size
-        ? ("semantic-preferred-then-bounded" as const)
-        : ("bounded-resource-listing" as const),
+      reactivatedOpenPointIds.length > 0
+        ? ("reactivation-then-preferred-bounded" as const)
+        : prefA.size || prefO.size || prefS.size
+          ? ("semantic-preferred-then-bounded" as const)
+          : ("bounded-resource-listing" as const),
     selectionLimit:
-      "RG-KNOW-011: ids préférés Nora d'abord, sinon listing borné droits/état — pas de scoring lexical métier.",
+      "RG-KNOW-011 + J-C04: réactivation contextuelle des points ouverts projet, puis ids préférés / listing borné — pas de clôture par silence.",
   };
 }
 
@@ -935,6 +994,84 @@ export async function reconstituteConfirmedD4Effects(
 }
 
 /**
+ * Select a CURRENT acquis on the same subject that this statement likely corrects.
+ * Prefer explicit supersedesAcquisId from Nora; this heuristic is a bounded fallback
+ * for numeric/entity corrections without inventing new authority.
+ */
+export async function findSupersedeCandidate(
+  pilotId: string,
+  preparationId: string,
+  subjectId: string | null | undefined,
+  statement: string,
+): Promise<string | undefined> {
+  if (!subjectId) return undefined;
+  const compact = editorialCompactKnowledgeStatement(statement);
+  const nums = (compact.match(/\d+/g) ?? []).map(Number);
+  if (nums.length === 0) return undefined;
+  const { tokenizeIntent } = await import("@/domains/knowledge/journal-cognition");
+  const tokens = new Set(tokenizeIntent(compact));
+  if (tokens.size < 2) return undefined;
+  const rows = await db
+    .select({
+      id: knowledgeAcquis.id,
+      statement: knowledgeAcquis.statement,
+    })
+    .from(knowledgeAcquis)
+    .where(
+      and(
+        eq(knowledgeAcquis.ownerPilotId, pilotId),
+        eq(knowledgeAcquis.preparationId, preparationId),
+        eq(knowledgeAcquis.subjectId, subjectId),
+        eq(knowledgeAcquis.status, "CURRENT"),
+      ),
+    );
+  let best: { id: string; score: number } | null = null;
+  for (const row of rows) {
+    if (row.statement === compact) continue;
+    const priorNums = (row.statement.match(/\d+/g) ?? []).map(Number);
+    if (priorNums.length === 0) continue;
+    const numsDiffer =
+      nums.some((n) => !priorNums.includes(n)) || priorNums.some((n) => !nums.includes(n));
+    if (!numsDiffer) continue;
+    const priorTokens = tokenizeIntent(row.statement);
+    const overlap = priorTokens.filter((t) => tokens.has(t)).length;
+    if (overlap < 2) continue;
+    const score = overlap;
+    if (!best || score > best.score) best = { id: row.id, score };
+  }
+  return best && best.score >= 2 ? best.id : undefined;
+}
+
+function buildExchangeProvenance(input: {
+  userMessageId: string;
+  assistantMessageId?: string | null;
+  generationId: string;
+  epistemic: Provenance["epistemic"];
+  note?: string;
+  contributionKind: NonNullable<Provenance["contributionKind"]>;
+  primary: "user" | "assistant";
+}): Provenance {
+  const primaryId =
+    input.primary === "assistant" && input.assistantMessageId
+      ? input.assistantMessageId
+      : input.userMessageId;
+  const related: string[] = [];
+  if (input.userMessageId && input.userMessageId !== primaryId) related.push(input.userMessageId);
+  if (input.assistantMessageId && input.assistantMessageId !== primaryId) {
+    related.push(input.assistantMessageId);
+  }
+  return {
+    sourceKind: "message",
+    sourceId: primaryId,
+    generationId: input.generationId,
+    note: input.note,
+    epistemic: input.epistemic,
+    relatedMessageIds: related.length > 0 ? related : undefined,
+    contributionKind: input.contributionKind,
+  };
+}
+
+/**
  * Selective D4 capitalisation from typed Nora proposals (RG-KNOW-001).
  * No lexical detection. Never creates HumanDecision. Owner validates each write.
  */
@@ -946,6 +1083,8 @@ export async function maybeCapitalizeFromExchange(
     assistantText: string;
     generationId: string;
     userMessageId: string;
+    /** Nora assistant message for this turn — constitutive provenance when analysis is retained. */
+    assistantMessageId?: string | null;
     turnFence?: TurnOwnershipFence;
     /** Typed proposals from durable qualification — required for any write. */
     proposals?: Array<{
@@ -956,6 +1095,8 @@ export async function maybeCapitalizeFromExchange(
       subjectTitle?: string;
       subjectId?: string;
       continuityReason?: string;
+      supersedesAcquisId?: string;
+      resolvesOpenPointId?: string;
     }>;
   },
 ) {
@@ -979,10 +1120,120 @@ export async function maybeCapitalizeFromExchange(
 
   const fence = input.turnFence;
   let subjectId: string | null = null;
+  const ctx = await assertPrep(pilotId, preparationId);
+  const projectId = ctx.project?.id ?? null;
+  /** Subjects that already received an explicit SUBJECT summary this turn. */
+  const subjectsWithExplicitSummary = new Set<string>();
+  /** Subjects that gained significant CURRENT acquis this turn (may need synthesis). */
+  const subjectsTouchedByAcquis = new Set<string>();
+
+  async function writeSubjectSummary(
+    targetSubjectId: string,
+    summaryMarkdown: string,
+    titleNorm: string,
+    p: {
+      continuityReason?: string;
+      epistemic: "hypothesized" | "recommended" | "established" | "limited";
+    },
+  ) {
+    if (!projectId) return;
+    if (summaryMarkdown.length < 12) return;
+    if (summaryMarkdown.toLowerCase() === titleNorm.toLowerCase()) return;
+    const { appendSubjectSummaryRevision } = await import("@/domains/knowledge/journal");
+    const syn = await appendSubjectSummaryRevision(pilotId, projectId, targetSubjectId, {
+      summaryMarkdown: summaryMarkdown.slice(0, 5000),
+      provenance: buildExchangeProvenance({
+        userMessageId: input.userMessageId,
+        assistantMessageId: input.assistantMessageId,
+        generationId: input.generationId,
+        epistemic:
+          p.epistemic === "established"
+            ? "observed"
+            : p.epistemic === "recommended"
+              ? "recommended"
+              : "hypothesized",
+        note: p.continuityReason ?? "semantic qualification d4.record_knowledge",
+        contributionKind: "mixed",
+        primary: "assistant",
+      }),
+      operationId: `${input.generationId}:${targetSubjectId}`,
+      idempotencyKey: `subj-summary:${targetSubjectId}:${input.generationId}`,
+    });
+    results.push({
+      kind: "subject_summary",
+      id: "revisionId" in syn ? syn.revisionId : undefined,
+      status: syn.status,
+      epistemicNote: p.continuityReason,
+      reason: "reason" in syn ? String(syn.reason) : undefined,
+    });
+  }
 
   for (const p of proposals) {
-    if (p.kind === "SUBJECT" || p.subjectTitle) {
+    if (p.kind === "SUBJECT") {
+      // Prefer explicit subjectId for synthesis revision on an existing subject.
+      if (p.subjectId) {
+        const check = await assertSubjectRef(pilotId, preparationId, p.subjectId);
+        if (check && "error" in check) {
+          results.push({
+            kind: "subject",
+            status: "FAILED",
+            reason: check.error,
+            epistemicNote: p.continuityReason,
+          });
+          continue;
+        }
+        if (check?.subject) {
+          subjectId = check.subject.id;
+          results.push({
+            kind: "subject",
+            id: subjectId,
+            status: "AVAILABLE",
+            epistemicNote: p.continuityReason,
+          });
+          await writeSubjectSummary(
+            subjectId,
+            p.statement.trim(),
+            check.subject.title.trim(),
+            p,
+          );
+          subjectsWithExplicitSummary.add(subjectId);
+          continue;
+        }
+      }
       const title = (p.subjectTitle ?? p.statement).trim().slice(0, 120);
+      if (title.length < 3) continue;
+      const s = await ensureSubject(pilotId, preparationId, title, undefined, fence);
+      if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
+        results.push({
+          kind: "subject",
+          status: "FAILED",
+          reason: "TURN_OWNERSHIP_LOST",
+          epistemicNote: p.continuityReason,
+        });
+        return {
+          capitalisations: results,
+          selectionMethod: "semantic-proposals" as const,
+          selectionLimit: "OWNERSHIP_LOST",
+          humanDecisionCreated: false as const,
+          ownershipLost: true as const,
+        };
+      }
+      if (s.status === "AVAILABLE" && s.subjectId) {
+        subjectId = s.subjectId;
+        results.push({
+          kind: "subject",
+          id: s.subjectId,
+          status: s.status,
+          epistemicNote: p.continuityReason,
+        });
+        await writeSubjectSummary(s.subjectId, p.statement.trim(), title.trim(), p);
+        subjectsWithExplicitSummary.add(s.subjectId);
+      }
+      continue;
+    }
+
+    if (p.subjectTitle) {
+      const title = p.subjectTitle.trim().slice(0, 120);
       if (title.length >= 3) {
         const s = await ensureSubject(pilotId, preparationId, title, undefined, fence);
         if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
@@ -1010,7 +1261,6 @@ export async function maybeCapitalizeFromExchange(
           });
         }
       }
-      if (p.kind === "SUBJECT") continue;
     }
 
     if (p.subjectId) subjectId = p.subjectId;
@@ -1020,13 +1270,15 @@ export async function maybeCapitalizeFromExchange(
         statement: p.statement,
         subjectId,
         turnFence: fence,
-        provenance: {
-          sourceKind: "message",
-          sourceId: input.userMessageId,
+        provenance: buildExchangeProvenance({
+          userMessageId: input.userMessageId,
+          assistantMessageId: input.assistantMessageId,
           generationId: input.generationId,
           epistemic: p.epistemic === "established" ? "limited" : p.epistemic,
           note: p.continuityReason ?? "semantic qualification d4.record_knowledge",
-        },
+          contributionKind: "mixed",
+          primary: "user",
+        }),
       });
       if (op.status === "FAILED" && "reason" in op && op.reason === "TURN_OWNERSHIP_LOST") {
         results.push({
@@ -1054,26 +1306,37 @@ export async function maybeCapitalizeFromExchange(
 
     if (p.kind === "ACQUIS") {
       // F4: Nora's epistemic="established" is NOT independent proof.
-      // Never promote to FACT from the model envelope alone — store as HYPOTHESIS /
-      // RECOMMENDATION until D4 has a verified independent source contract.
       const kind: KnowledgeKind =
         p.epistemic === "recommended" ? "RECOMMENDATION" : "HYPOTHESIS";
       const epistemicNote =
         p.epistemic === "established"
           ? `${p.continuityReason ?? "semantic"} — Nora marked established but D4 refused FACT without independent verified source`
           : p.continuityReason;
+      const noraAnalysisPrimary = p.epistemic === "recommended";
+      let supersedesAcquisId = p.supersedesAcquisId;
+      if (!supersedesAcquisId) {
+        supersedesAcquisId = await findSupersedeCandidate(
+          pilotId,
+          preparationId,
+          subjectId,
+          p.statement,
+        );
+      }
       const cap = await capitalizeAcquis(pilotId, preparationId, {
         statement: p.statement,
         kind,
         subjectId,
+        supersedesAcquisId,
         turnFence: fence,
-        provenance: {
-          sourceKind: "message",
-          sourceId: input.userMessageId,
+        provenance: buildExchangeProvenance({
+          userMessageId: input.userMessageId,
+          assistantMessageId: input.assistantMessageId,
           generationId: input.generationId,
           note: epistemicNote ?? "semantic qualification d4.record_knowledge",
-          epistemic: "hypothesized",
-        },
+          epistemic: noraAnalysisPrimary ? "recommended" : "hypothesized",
+          contributionKind: noraAnalysisPrimary ? "nora_analysis" : "pilot_fact",
+          primary: noraAnalysisPrimary ? "assistant" : "user",
+        }),
       });
       if (cap.status === "FAILED" && "reason" in cap && cap.reason === "TURN_OWNERSHIP_LOST") {
         results.push({
@@ -1098,7 +1361,86 @@ export async function maybeCapitalizeFromExchange(
         reason:
           p.epistemic === "established"
             ? "FACT_PROMOTION_REFUSED_NO_INDEPENDENT_SOURCE"
-            : undefined,
+            : supersedesAcquisId
+              ? `SUPERSEDES:${supersedesAcquisId}`
+              : undefined,
+      });
+      if (cap.status === "AVAILABLE" && subjectId) {
+        subjectsTouchedByAcquis.add(subjectId);
+      }
+
+      if (p.resolvesOpenPointId && projectId && cap.status === "AVAILABLE") {
+        const { resolveOpenPointFactually } = await import("@/domains/knowledge/journal");
+        const resolved = await resolveOpenPointFactually(
+          pilotId,
+          projectId,
+          p.resolvesOpenPointId,
+          {
+            reason: p.continuityReason ?? "résolution factuelle depuis capitalisation",
+            provenance: buildExchangeProvenance({
+              userMessageId: input.userMessageId,
+              assistantMessageId: input.assistantMessageId,
+              generationId: input.generationId,
+              epistemic: "observed",
+              note: "factual resolve via d4.record_knowledge",
+              contributionKind: "pilot_fact",
+              primary: "user",
+            }),
+            operationId: `${input.generationId}:resolve:${p.resolvesOpenPointId}`,
+            actorKind: "nora",
+          },
+        );
+        results.push({
+          kind: "open_point_resolve",
+          id: p.resolvesOpenPointId,
+          status: resolved.status,
+          reason: "reason" in resolved ? String(resolved.reason) : undefined,
+          epistemicNote: p.continuityReason,
+        });
+        if (subjectId) subjectsTouchedByAcquis.add(subjectId);
+      }
+    }
+  }
+
+  // Existing-subject enrichment often arrives as ACQUIS-only. Still re-evaluate synthesis
+  // when durable CURRENT knowledge changed and Nora did not emit an explicit SUBJECT revision.
+  if (projectId) {
+    for (const touchedId of subjectsTouchedByAcquis) {
+      if (subjectsWithExplicitSummary.has(touchedId)) continue;
+      const owned = await loadOwnedSubject(pilotId, preparationId, touchedId);
+      if (!owned || owned.status !== "ACTIVE") continue;
+      const acquisRows = await db
+        .select({
+          statement: knowledgeAcquis.statement,
+        })
+        .from(knowledgeAcquis)
+        .where(
+          and(
+            eq(knowledgeAcquis.ownerPilotId, pilotId),
+            eq(knowledgeAcquis.subjectId, touchedId),
+            eq(knowledgeAcquis.status, "CURRENT"),
+          ),
+        );
+      if (acquisRows.length === 0) continue;
+      const openRows = await db
+        .select({ statement: knowledgeOpenPoints.statement })
+        .from(knowledgeOpenPoints)
+        .where(
+          and(
+            eq(knowledgeOpenPoints.ownerPilotId, pilotId),
+            eq(knowledgeOpenPoints.subjectId, touchedId),
+            eq(knowledgeOpenPoints.status, "OPEN"),
+          ),
+        );
+      const composed = composeSubjectSummaryFromCurrentKnowledge({
+        subjectTitle: owned.title,
+        acquisStatements: acquisRows.map((r) => r.statement),
+        openPointStatements: openRows.map((r) => r.statement),
+      });
+      await writeSubjectSummary(touchedId, composed, owned.title, {
+        epistemic: "recommended",
+        continuityReason:
+          "réévaluation de synthèse après capitalisation d'acquis sur sujet existant",
       });
     }
   }

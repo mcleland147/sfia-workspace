@@ -12,9 +12,9 @@ const HERO: Record<
   { kicker: string; title: string; sub: string }
 > = {
   travail: {
-    kicker: "Espace projet  /  Travail",
-    title: "Reprendre le fil du projet",
-    sub: "La préparation et les échanges avec Nora restent dans le contexte de ce projet.",
+    kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
+    title: "Réviser un document avec Nora",
+    sub: "Le chat reste à gauche ; le document sélectionné s’ouvre dans la visionneuse à droite.",
   },
   projet: {
     kicker: "Espace projet  /  Projet",
@@ -27,14 +27,14 @@ const HERO: Record<
     sub: "Cycle, méthode, CKI et décisions humaines — affichage D5/D6 existant.",
   },
   journal: {
-    kicker: "Espace projet  /  Journal",
-    title: "Sujets et acquis",
-    sub: "Sujets, acquis et points ouverts — présentation sans nouvelle autorité.",
+    kicker: "ESPACE PROJET  /  JOURNAL",
+    title: "Journal",
+    sub: "La mémoire du projet, organisée par thèmes. Retrouvez l’essentiel sans remonter toute la conversation.",
   },
   document: {
-    kicker: "Espace projet  /  Documents Nora",
-    title: "Bibliothèque",
-    sub: "Bibliothèque, inspection et révision sous autorité D4.",
+    kicker: "ESPACE PROJET  /  DOCUMENTS",
+    title: "Bibliothèque du projet",
+    sub: "Retrouvez les documents durables du projet, leurs versions et les actions disponibles.",
   },
   git: {
     kicker: "Espace projet  /  Sources Git",
@@ -58,13 +58,25 @@ export function ProjectChrome(props: {
   loadState?: "loading" | "ready";
   /** Ensemble 05 — Travail layout: normal | split (viewer) | enlarged viewer. */
   travailLayout?: "normal" | "split" | "enlarged";
+  /** Documents sub-views (08.02–08.06) — overrides default Bibliothèque hero. */
+  documentHero?: { kicker: string; title: string; sub: string } | null;
+  /** Travail states 08.07 / 08.08 — overrides default Travail hero. */
+  travailHero?: { kicker: string; title: string; sub: string } | null;
   children: React.ReactNode;
 }) {
   const loadState = props.loadState ?? "ready";
-  const hero = HERO[props.surface];
+  const hero =
+    props.surface === "document" && props.documentHero
+      ? props.documentHero
+      : props.surface === "travail" && props.travailHero
+        ? props.travailHero
+        : HERO[props.surface];
   const surfaceLabel = PROJECT_SURFACE_LABELS[props.surface];
   const displayName = props.projectName?.trim() || "Projet";
   const isTravail = props.surface === "travail";
+  /** Journal V4 — hero lives inside ProjectJournal (full vs compact 40/60). */
+  const isJournal = props.surface === "journal";
+  const breadcrumbOnly = isTravail || isJournal;
 
   const continuityBadge =
     isTravail && props.statusHint && !/^chargement/i.test(props.statusHint) ? (
@@ -90,7 +102,7 @@ export function ProjectChrome(props: {
 
   return (
     <div
-      className={`fig-page project-space-page${isTravail ? " project-space-page--travail" : ""}`}
+      className={`fig-page project-space-page${isTravail ? " project-space-page--travail" : ""}${isJournal ? " project-space-page--journal" : ""}`}
       data-project-surface={props.surface}
       data-testid="project-load-state"
       data-project-load-state={loadState}
@@ -98,21 +110,20 @@ export function ProjectChrome(props: {
       data-project-name={props.projectName ?? ""}
     >
       <div
-        className={`project-space-header${isTravail ? " project-space-header--breadcrumb-only" : ""}`}
+        className={`project-space-header${breadcrumbOnly ? " project-space-header--breadcrumb-only" : ""}`}
         data-testid="project-space-header"
       >
         <div className="fig-breadcrumb project-space-breadcrumb">
           <span data-testid="project-breadcrumb">
-            SFIA Studio&nbsp;&nbsp;/&nbsp;&nbsp;Projet&nbsp;&nbsp;/&nbsp;&nbsp;
-            <span className="text-[var(--fg)]">{displayName}</span>
-            &nbsp;&nbsp;/&nbsp;&nbsp;{surfaceLabel}
+            SFIA Studio&nbsp;&nbsp;/&nbsp;&nbsp;{displayName}&nbsp;&nbsp;/&nbsp;&nbsp;
+            {surfaceLabel}
           </span>
           <span className="project-space-badge" data-testid="project-espace-badge">
             ESPACE PROJET
           </span>
         </div>
 
-        {!isTravail ? (
+        {!breadcrumbOnly ? (
           <header className="project-space-hero space-y-1">
             <p className="fig-kicker project-space-kicker">{hero.kicker}</p>
             <div className="project-space-hero-row">

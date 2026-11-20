@@ -64,6 +64,7 @@ import {
   registerExplicitFixture,
   type ExplicitFixtureSpec,
 } from "../helpers/semantic-fixture-envelopes";
+import { proposeThenConserveRevise } from "../helpers/document-conserve";
 
 async function noraTurn(
   pilotId: string,
@@ -248,11 +249,13 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     const docs = await listDocuments(pilotId, preparationId);
     expect(docs.some((d) => d.document.id === cont.documentSave?.documentId)).toBe(true);
 
-    // S03: persisted assistant must carry D4 applicative ACK and no competing claim.
+    // S03: soft ACK + structured AVAILABLE; no competing claim; PG row present.
     const msgs = await listMessages(pilotId, preparationId);
     const assistant = [...msgs].reverse().find((m) => m.role === "assistant");
-    expect(assistant?.content).toMatch(/Résultat applicatif D4/i);
-    expect(assistant?.content).toMatch(/AVAILABLE/i);
+    expect(assistant?.content).toMatch(/Résultat d'enregistrement|Nouvelle version disponible/i);
+    expect(cont.documentSave?.status).toBe("AVAILABLE");
+    expect(cont.documentSave?.documentId).toBeTruthy();
+    expect(cont.documentSave?.revisionId).toBeTruthy();
     expect(
       hasCompetingTransactionalClaim(assistant?.content ?? "", {
         act: "CREATE",
@@ -316,9 +319,14 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
 
     const msgs = await listMessages(pilotId, preparationId);
     const assistant = [...msgs].reverse().find((m) => m.role === "assistant");
-    expect(assistant?.content).toMatch(/Résultat applicatif D4/i);
-    expect(assistant?.content).toMatch(/\bUNKNOWN\b/);
+    // Soft ACK for uncertain truth — never collapse to FAILED success claim.
+    expect(assistant?.content).toMatch(
+      /Résultat d'enregistrement|encore incertain|Aucun succès d'écriture/i,
+    );
+    expect(cont.documentSave?.status).toBe("UNKNOWN");
+    expect(assistant?.content).not.toMatch(/Nouvelle version disponible/i);
     expect(assistant?.content).not.toMatch(/Statut observé:\s*FAILED/i);
+    expect(assistant?.content).not.toMatch(/L'enregistrement est confirmé/i);
   });
 
   it("S05: independent question while AWAITING_PILOT_ACT keeps mission and creates no project", async () => {
@@ -501,14 +509,20 @@ describe("Global Nora/Studio intent continuity (PG)", () => {
     if (lexicalRetired.kind === "NONE") {
       expect(lexicalRetired.reason).toBe("SEMANTIC_ROUTER_REQUIRED");
     }
-    const revised = await noraTurn(pilotId, preparationId, reviseAsk, {
-      clientTurnKey: newId("ctk"),
-      fixture: {
-        kind: "d4_revise",
-        documentHint: documentId,
-        sectionHint: "2",
+    const { conserved: revised } = await proposeThenConserveRevise(
+      noraTurn,
+      pilotId,
+      preparationId,
+      reviseAsk,
+      {
+        clientTurnKey: newId("ctk"),
+        fixture: {
+          kind: "d4_revise",
+          documentHint: documentId,
+          sectionHint: "2",
+        },
       },
-    });
+    );
     expect(revised.documentSave?.act).toBe("REVISE");
     expect(revised.documentSave?.status).toBe("AVAILABLE");
     expect(revised.documentSave?.documentId).toBe(documentId);

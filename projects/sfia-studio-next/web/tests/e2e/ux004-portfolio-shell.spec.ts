@@ -233,7 +233,11 @@ test.describe("UX-004 portfolio shell", () => {
       });
     });
     const btn = page.getByTestId("nav-new-prep");
-    await Promise.all([btn.click(), btn.click()]);
+    // Synchronous double-fire — second Playwright click would block on disabled button.
+    await btn.evaluate((el: HTMLButtonElement) => {
+      el.click();
+      el.click();
+    });
     await page.waitForURL("**/preparations/prep-dbl-guard");
     expect(posts).toBe(1);
     page.off("request", countPosts);

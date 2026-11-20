@@ -57,14 +57,18 @@ export async function POST(
     const body = (await req.json()) as {
       action?: "revise";
       baseRevisionId?: string;
+      sourceRevisionId?: string;
+      observedHeadRevisionId?: string;
+      confirmedHistoricalSource?: boolean;
       contentMarkdown?: string;
       correlationKey?: string;
       scope?: string;
       sectionHint?: string;
     };
+    const sourceRevisionId = body.sourceRevisionId ?? body.baseRevisionId;
     if (
       body.action !== "revise" ||
-      !body.baseRevisionId ||
+      !sourceRevisionId ||
       !body.contentMarkdown ||
       !body.correlationKey
     ) {
@@ -72,12 +76,25 @@ export async function POST(
     }
     const result = await reviseDocument(session.pilotId, preparationId, {
       documentId,
-      baseRevisionId: body.baseRevisionId,
+      baseRevisionId: sourceRevisionId,
+      sourceRevisionId: body.sourceRevisionId,
+      observedHeadRevisionId: body.observedHeadRevisionId,
+      confirmedHistoricalSource: body.confirmedHistoricalSource,
       contentMarkdown: body.contentMarkdown,
       correlationKey: body.correlationKey,
       scope: body.scope,
       sectionHint: body.sectionHint,
-      provenance: { sourceKind: "pilot", via: "api-revise" },
+      provenance: {
+        sourceKind: "pilot",
+        via: "api-revise",
+        ...(body.sourceRevisionId
+          ? {
+              sourceRevisionId: body.sourceRevisionId,
+              observedHeadRevisionId: body.observedHeadRevisionId ?? null,
+              confirmedHistoricalSource: body.confirmedHistoricalSource === true,
+            }
+          : {}),
+      },
     });
     const status =
       result.status === "CONFLICT" ? 409 : result.status === "FAILED" ? 400 : 200;

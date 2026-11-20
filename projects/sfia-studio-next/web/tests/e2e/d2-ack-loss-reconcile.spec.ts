@@ -81,9 +81,25 @@ test("S02 D2_ACK_OBS: lost ACK after commit → reconcile → real project, one 
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
 
-  const recon = await page.request.get(
-    `/api/preparations/${preparationId}/reconcile?idempotencyKey=${encodeURIComponent(keys[0]!)}`,
-  );
+  const reconUrl = `/api/preparations/${preparationId}/reconcile?idempotencyKey=${encodeURIComponent(keys[0]!)}`;
+  // CI: Next webServer can briefly reset under suite load — retry transient transport errors only.
+  let recon: Awaited<ReturnType<typeof page.request.get>> | undefined;
+  let lastErr: unknown;
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      recon = await page.request.get(reconUrl);
+      lastErr = undefined;
+      break;
+    } catch (err) {
+      lastErr = err;
+      const msg = err instanceof Error ? err.message : String(err);
+      if (!/ECONNRESET|ECONNREFUSED|socket hang up|Timeout/i.test(msg) || attempt === 3) {
+        throw err;
+      }
+      await page.waitForTimeout(750 * attempt);
+    }
+  }
+  if (!recon) throw lastErr ?? new Error("reconcile GET failed");
   const reconJson = (await recon.json()) as { status?: string; projectId?: string };
   expect(reconJson.status).toBe("ALREADY_CREATED");
   expect(reconJson.projectId).toBe(projectId);

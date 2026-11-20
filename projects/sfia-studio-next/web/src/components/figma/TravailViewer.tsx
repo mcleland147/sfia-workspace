@@ -30,6 +30,8 @@ export type TravailViewerResource =
 export function TravailViewer(props: {
   resource: TravailViewerResource;
   enlarged: boolean;
+  /** When Nora works from a non-current revision — informational only. */
+  documentFocusBanner?: "historical" | "proposal" | null;
   onEnlarge: () => void;
   onReduce: () => void;
   onClose: () => void;
@@ -40,8 +42,34 @@ export function TravailViewer(props: {
     resource.kind === "document" ? resource.title : resource.title || "Source Git";
   const kicker =
     resource.kind === "document"
-      ? "Visionneuse · lecture seule"
-      : "Visionneuse · source Git";
+      ? "VISIONNEUSE  /  LECTURE SEULE"
+      : "VISIONNEUSE  /  SOURCE GIT";
+  const currencyBadge =
+    resource.kind === "document"
+      ? props.documentFocusBanner === "proposal"
+        ? "PROPOSITION"
+        : resource.versionSource === "exact"
+          ? "HISTORIQUE"
+          : "COURANTE"
+      : null;
+  // Journal V4 accepted label ("Version N · révision citée") preserved;
+  // Documents adds proposal candidate wording + currency badge separately.
+  const versionLine =
+    resource.kind === "document" && resource.revisionNumber != null
+      ? props.documentFocusBanner === "proposal"
+        ? `Version ${resource.revisionNumber} · Candidate`
+        : [
+            `Version ${resource.revisionNumber}`,
+            resource.revisionId ? resource.revisionId.slice(0, 8) : null,
+            resource.versionSource === "current"
+              ? "version courante"
+              : resource.versionSource === "exact"
+                ? "révision citée"
+                : null,
+          ]
+            .filter(Boolean)
+            .join(" · ")
+      : null;
 
   return (
     <div
@@ -49,6 +77,7 @@ export function TravailViewer(props: {
       data-testid="travail-viewer"
       data-viewer-kind={resource.kind}
       data-viewer-enlarged={props.enlarged ? "1" : "0"}
+      data-focus-banner={props.documentFocusBanner ?? ""}
     >
       <header className="fig-travail-viewer-head">
         <div>
@@ -56,15 +85,23 @@ export function TravailViewer(props: {
           <h2 className="fig-inspector-title" data-testid="travail-viewer-title">
             {title}
           </h2>
-          {resource.kind === "document" && resource.revisionNumber != null ? (
+          {currencyBadge ? (
+            <span
+              className={
+                currencyBadge === "COURANTE"
+                  ? "doc-badge doc-badge-current"
+                  : currencyBadge === "PROPOSITION"
+                    ? "doc-badge doc-badge-proposal"
+                    : "doc-badge doc-badge-historical"
+              }
+              data-testid="travail-viewer-currency"
+            >
+              {currencyBadge}
+            </span>
+          ) : null}
+          {versionLine ? (
             <p className="fig-travail-viewer-meta" data-testid="travail-viewer-revision">
-              Version {resource.revisionNumber}
-              {resource.revisionId ? ` · ${resource.revisionId.slice(0, 8)}` : ""}
-              {resource.versionSource === "current"
-                ? " · version courante"
-                : resource.versionSource === "exact"
-                  ? " · révision citée"
-                  : ""}
+              {versionLine}
             </p>
           ) : null}
           {resource.kind === "git" ? (
@@ -118,6 +155,15 @@ export function TravailViewer(props: {
       </header>
 
       <div className="fig-travail-viewer-body" data-testid="travail-viewer-body">
+        {props.documentFocusBanner === "historical" ? (
+          <div className="fig-alert" data-testid="document-focus-banner" role="status">
+            VERSION PLUS RÉCENTE DISPONIBLE · Aucun changement enregistré
+          </div>
+        ) : props.documentFocusBanner === "proposal" ? (
+          <div className="fig-alert" data-testid="document-focus-banner" role="status">
+            PROPOSITION NON ENREGISTRÉE · Pas de publication Git automatique
+          </div>
+        ) : null}
         {!resource.available ? (
           <div className="fig-alert" role="alert" data-testid="travail-viewer-unavailable">
             {resource.unavailableReason ??

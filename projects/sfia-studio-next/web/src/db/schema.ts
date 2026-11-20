@@ -347,6 +347,64 @@ export const knowledgeSubjectEvents = pgTable(
   (t) => [index("knowledge_subject_events_subject_idx").on(t.subjectId)],
 );
 
+/** D4 — immutable subject synthesis revisions (Journal §16A). */
+export const knowledgeSubjectSummaryRevisions = pgTable(
+  "knowledge_subject_summary_revisions",
+  {
+    id: text("id").primaryKey(),
+    subjectId: text("subject_id")
+      .notNull()
+      .references(() => knowledgeSubjects.id),
+    preparationId: text("preparation_id")
+      .notNull()
+      .references(() => preparations.id),
+    projectId: text("project_id").references(() => projects.id),
+    ownerPilotId: text("owner_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    revisionNumber: integer("revision_number").notNull(),
+    summaryMarkdown: text("summary_markdown").notNull(),
+    provenanceJson: text("provenance_json").notNull().default("{}"),
+    operationId: text("operation_id"),
+    idempotencyKey: text("idempotency_key"),
+    expectedRevision: integer("expected_revision"),
+    sourceFingerprint: text("source_fingerprint"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("knowledge_subject_summary_revisions_subj_rev_uidx").on(
+      t.subjectId,
+      t.revisionNumber,
+    ),
+    index("knowledge_subject_summary_revisions_subj_idx").on(t.subjectId),
+  ],
+);
+
+/** D4 — open-point factual lifecycle events. */
+export const knowledgeOpenPointEvents = pgTable(
+  "knowledge_open_point_events",
+  {
+    id: text("id").primaryKey(),
+    openPointId: text("open_point_id")
+      .notNull()
+      .references(() => knowledgeOpenPoints.id),
+    preparationId: text("preparation_id")
+      .notNull()
+      .references(() => preparations.id),
+    projectId: text("project_id").references(() => projects.id),
+    ownerPilotId: text("owner_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    eventType: text("event_type").notNull(),
+    reason: text("reason").notNull().default(""),
+    actorKind: text("actor_kind").notNull().default("system"),
+    provenanceJson: text("provenance_json").notNull().default("{}"),
+    operationId: text("operation_id"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("knowledge_open_point_events_point_idx").on(t.openPointId)],
+);
+
 /** D6 — human decisions (authority). Revisions never delete the prior act. */
 export const humanDecisions = pgTable(
   "human_decisions",
@@ -373,6 +431,39 @@ export const humanDecisions = pgTable(
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [index("human_decisions_project_idx").on(t.projectId)],
+);
+
+/** D4 — immutable decision explanation revisions (narrative only; after human_decisions). */
+export const knowledgeDecisionExplanationRevisions = pgTable(
+  "knowledge_decision_explanation_revisions",
+  {
+    id: text("id").primaryKey(),
+    decisionId: text("decision_id")
+      .notNull()
+      .references(() => humanDecisions.id),
+    preparationId: text("preparation_id").references(() => preparations.id),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id),
+    ownerPilotId: text("owner_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    revisionNumber: integer("revision_number").notNull(),
+    officialDecisionFingerprint: text("official_decision_fingerprint").notNull(),
+    explanationMarkdown: text("explanation_markdown").notNull(),
+    provenanceJson: text("provenance_json").notNull().default("{}"),
+    operationId: text("operation_id"),
+    idempotencyKey: text("idempotency_key"),
+    expectedRevision: integer("expected_revision"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("knowledge_decision_explanation_revisions_dec_rev_uidx").on(
+      t.decisionId,
+      t.revisionNumber,
+    ),
+    index("knowledge_decision_explanation_revisions_dec_idx").on(t.decisionId),
+  ],
 );
 
 /** D5 — trajectory revisions. PROPOSED is not authority; RETAINED points at a D6 act. */

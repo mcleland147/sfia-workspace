@@ -23,8 +23,12 @@ describe("Nora LIVE instructions — sas maturation (structural)", () => {
     expect(src).toContain("jamais un GO de création");
     expect(src).toContain("omets preparationAssessment");
     expect(src).toContain("questions encore ouvertes");
-    // Single agent / single outputType — Agents SDK schema (no second LLM for aperçu).
-    expect(src).toContain("outputType: NoraTurnQualificationAgentSchema");
+    // Single agent / single outputType — no second LLM for aperçu.
+    // E05 freeze (Morris 19/11): LIVE uses NoraTurnQualificationLiveOutputSchema (no visualComposition).
+    expect(src).toContain("NoraTurnQualificationLiveOutputSchema");
+    expect(src).toMatch(
+      /outputType:\s*E05_VISUAL_COMPOSITION_FROZEN\s*\?\s*NoraTurnQualificationLiveOutputSchema\s*:\s*NoraTurnQualificationAgentSchema/,
+    );
     const maturationBlocks = src.split("MATURATION DU SAS").length - 1;
     expect(maturationBlocks).toBe(1);
   });
