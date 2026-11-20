@@ -22,6 +22,8 @@ import {
   markDecisionState,
 } from "@/domains/decisions/service";
 import { isCycleType, resolveForOpen, resolvePinnedCki, type CycleType } from "@/domains/pilotage/cki-resolve";
+import { parseForecastJson } from "@/domains/pilotage/forecast-builder";
+import { getQualificationProjection } from "@/domains/pilotage/initial-qualification";
 import {
   buildSourceActionKey,
   runBusinessCommand,
@@ -134,6 +136,7 @@ function trajectoryView(row: {
   status: string;
   orientation: string;
   decisionId: string | null;
+  forecastJson?: unknown;
 } | undefined): TrajectoryView {
   if (!row) return null;
   return {
@@ -142,6 +145,7 @@ function trajectoryView(row: {
     status: row.status,
     orientation: row.orientation,
     decisionId: row.decisionId,
+    forecastSteps: parseForecastJson(row.forecastJson),
   };
 }
 
@@ -191,6 +195,21 @@ export async function getPilotageProjection(pilotId: string, projectId: string):
     ? methodUsageRestricted(restrictions, method.methodRef)
     : false;
 
+  // E07-COR-09 — chronological progression (openedAt asc), not reverse close order.
+  const closedCycles = await db
+    .select({
+      id: projectCycles.id,
+      cycleType: projectCycles.cycleType,
+      objective: projectCycles.objective,
+      closedAt: projectCycles.closedAt,
+      openedAt: projectCycles.openedAt,
+    })
+    .from(projectCycles)
+    .where(and(eq(projectCycles.projectId, projectId), eq(projectCycles.status, "CLOSED")))
+    .orderBy(asc(projectCycles.openedAt));
+
+  const initialQualification = await getQualificationProjection(pilotId, projectId);
+
   return {
     projectId,
     revision: state?.revision ?? 0,
@@ -232,6 +251,14 @@ export async function getPilotageProjection(pilotId: string, projectId: string):
       targetRef: r.targetRef,
       status: r.status,
     })),
+    closedCycles: closedCycles.map((c) => ({
+      id: c.id,
+      cycleType: c.cycleType,
+      objective: c.objective,
+      closedAt: c.closedAt ? c.closedAt.toISOString() : null,
+      openedAt: c.openedAt ? c.openedAt.toISOString() : null,
+    })),
+    initialQualification,
   };
 }
 
@@ -743,6 +770,10 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
 
   if (command.operation === "PROPOSE_TRAJECTORY") {
     const id = newId("trj");
+    const forecastJson =
+      input.body.forecastJson && input.body.forecastJson.length > 0
+        ? input.body.forecastJson
+        : null;
     await tx.insert(trajectoryRevisions).values({
       id,
       projectId,
@@ -752,6 +783,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
       sourceKind: command.sourceKind,
       sourceRef: command.sourceRef,
       decisionId: null,
+      forecastJson,
       createdAt: now,
     });
     const revision = await bumpRevision(tx, projectId);
@@ -765,16 +797,36 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
 
   if (command.operation === "RETAIN_TRAJECTORY") {
     let orientation = command.orientation;
-    if (command.trajectoryRevisionId) {
+    let retainTargetId = command.trajectoryRevisionId;
+    if (retainTargetId) {
       const prior = (
         await tx
           .select()
           .from(trajectoryRevisions)
-          .where(and(eq(trajectoryRevisions.id, command.trajectoryRevisionId), eq(trajectoryRevisions.projectId, projectId)))
+          .where(and(eq(trajectoryRevisions.id, retainTargetId), eq(trajectoryRevisions.projectId, projectId)))
           .limit(1)
       )[0];
       if (!prior) return rejected("INVALID_TARGET", "Trajectoire introuvable dans ce projet");
       orientation = orientation || prior.orientation;
+    } else if (!orientation.trim()) {
+      // FIX-08 — conversational GO: resolve current PROPOSED when body has no target
+      // (USER_MESSAGE must not carry trajectoryRevisionId / orientation from client).
+      const proposed = (
+        await tx
+          .select()
+          .from(trajectoryRevisions)
+          .where(
+            and(
+              eq(trajectoryRevisions.projectId, projectId),
+              eq(trajectoryRevisions.status, "PROPOSED"),
+            ),
+          )
+          .orderBy(desc(trajectoryRevisions.revisionNumber))
+          .limit(1)
+      )[0];
+      if (!proposed) return rejected("INVALID_TARGET", "Aucune trajectoire PROPOSED à retenir");
+      retainTargetId = proposed.id;
+      orientation = proposed.orientation;
     }
     if (!orientation.trim()) return rejected("INVALID", "Orientation requise");
     const decisionId = await insertHumanDecision(tx, {
@@ -783,7 +835,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
       sourceKind: command.sourceKind,
       sourceRef: command.sourceRef,
       kind: "RETAIN_TRAJECTORY",
-      objectRef: command.trajectoryRevisionId ?? "",
+      objectRef: retainTargetId ?? "",
       statement: command.statement || orientation,
     });
     await tx

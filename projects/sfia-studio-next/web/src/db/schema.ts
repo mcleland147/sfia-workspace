@@ -123,6 +123,8 @@ export const preparationProjectLinks = pgTable(
       .notNull()
       .references(() => projects.id),
     attachedAt: timestamp("attached_at", { withTimezone: true }).notNull().defaultNow(),
+    /** P0-04 — true only for creates after Ensemble 07 qualification capability. Legacy = false. */
+    initialQualificationExpected: boolean("initial_qualification_expected").notNull().default(false),
   },
 );
 
@@ -480,11 +482,47 @@ export const trajectoryRevisions = pgTable(
     sourceKind: text("source_kind").notNull(),
     sourceRef: text("source_ref").notNull().default(""),
     decisionId: text("decision_id").references(() => humanDecisions.id),
+    /** Structured sequential cycle forecast (Ensemble 07). */
+    forecastJson: jsonb("forecast_json"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
     uniqueIndex("trajectory_revisions_project_rev_uidx").on(t.projectId, t.revisionNumber),
     index("trajectory_revisions_project_idx").on(t.projectId),
+  ],
+);
+
+/** D5/D3 — one durable initial trajectory qualification per project (Ensemble 07). */
+export const trajectoryQualificationOperations = pgTable(
+  "trajectory_qualification_operations",
+  {
+    id: text("id").primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id),
+    preparationId: text("preparation_id")
+      .notNull()
+      .references(() => preparations.id),
+    pilotId: text("pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    status: text("status").notNull(),
+    phase: text("phase").notNull(),
+    version: integer("version").notNull().default(1),
+    inputFingerprint: text("input_fingerprint").notNull().default(""),
+    trajectoryRevisionId: text("trajectory_revision_id").references(() => trajectoryRevisions.id),
+    assistantMessageId: text("assistant_message_id"),
+    resultJson: jsonb("result_json"),
+    errorCode: text("error_code"),
+    ownerToken: text("owner_token"),
+    claimedAt: timestamp("claimed_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("trajectory_qualification_operations_project_uidx").on(t.projectId),
+    index("trajectory_qualification_operations_preparation_idx").on(t.preparationId),
+    index("trajectory_qualification_operations_status_idx").on(t.status),
   ],
 );
 

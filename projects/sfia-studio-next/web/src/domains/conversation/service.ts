@@ -71,6 +71,7 @@ import {
   type ConversationalAuthorityOutcome,
 } from "@/domains/pilotage/conversation-authority";
 import { buildNoraPilotageContext } from "@/domains/pilotage/nora-context";
+import { assertPilotTurnNotBlockedByQualification } from "@/domains/pilotage/initial-qualification";
 import {
   appendDocumentEffectAck,
   applyTargetedSectionRevision,
@@ -826,6 +827,9 @@ export async function postUserMessageAndNora(
   // P0-B: next turn recovers AUTHORIZED Nora missions after crash mid-authorize→dispatch.
   // G2: also recover interrupted D2→D4 mission continuation when project already exists.
   if (ctx.project?.id) {
+    // Ensemble 07 — RG-CONV-018: refuse pilot turns while initial trajectory qualification is open.
+    await assertPilotTurnNotBlockedByQualification(pilotId, ctx.project.id);
+
     try {
       await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
     } catch {

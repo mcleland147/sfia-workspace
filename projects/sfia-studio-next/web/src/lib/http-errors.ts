@@ -13,6 +13,7 @@ export type StudioErrorCode =
   | "DEPENDENCY_UNAVAILABLE"
   | "INTERNAL"
   | "TURN_IN_PROGRESS"
+  | "QUALIFICATION_IN_PROGRESS"
   | "PAYLOAD_MISMATCH"
   | "NOT_CONFIGURED"
   | "REQUIRES_REQUALIFICATION"
@@ -49,6 +50,7 @@ function defaultStatus(code: StudioErrorCode): number {
       return 400;
     case "CONFLICT":
     case "TURN_IN_PROGRESS":
+    case "QUALIFICATION_IN_PROGRESS":
     case "PAYLOAD_MISMATCH":
       return 409;
     case "DEPENDENCY_UNAVAILABLE":

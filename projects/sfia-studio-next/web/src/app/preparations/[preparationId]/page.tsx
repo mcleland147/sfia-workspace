@@ -5,6 +5,8 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
 import { PreparationConversation } from "@/components/figma/PreparationConversation";
 import { PreparationProposal } from "@/components/figma/PreparationProposal";
+import { SasCreateProgressPopup } from "@/components/figma/SasCreateProgressPopup";
+import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
 import { ProjectJournal } from "@/components/figma/ProjectJournal";
 import {
   DocumentHistory,
@@ -96,6 +98,60 @@ export default function PreparationPage() {
   const idempotencyKey = useMemo(() => `create-${preparationId}`, [preparationId]);
   /** Structured awaiting mission key from server — never parsed from Nora prose. */
   const [awaitingClientIntentKey, setAwaitingClientIntentKey] = useState<string | null>(null);
+  const [createProgressVisible, setCreateProgressVisible] = useState(false);
+  const [createProgressStep, setCreateProgressStep] = useState<1 | 2 | 3>(1);
+  const [createProgressQualification, setCreateProgressQualification] =
+    useState<InitialQualificationProjection | null>(null);
+  const [pendingNavigateProjectId, setPendingNavigateProjectId] = useState<string | null>(null);
+
+  function stepFromQualification(iq: InitialQualificationProjection | null): 1 | 2 | 3 {
+    if (!iq) return 1;
+    if (
+      iq.status === "PROPOSED" ||
+      iq.status === "CLARIFICATION" ||
+      iq.status === "FAILED"
+    ) {
+      return 3;
+    }
+    if (
+      iq.status === "RUNNING" ||
+      iq.phase === "ANALYZING" ||
+      iq.phase === "PUBLISHING" ||
+      iq.status === "PENDING" ||
+      iq.status === "UNKNOWN"
+    ) {
+      return 2;
+    }
+    return 2;
+  }
+
+  // E07 SAS06 — drive popup steps from server qualification (no artificial timers).
+  useEffect(() => {
+    if (!createProgressVisible || !pendingNavigateProjectId) return;
+    let cancelled = false;
+    const tick = async () => {
+      const recon = await fetch(
+        `/api/projects/${pendingNavigateProjectId}/initial-qualification/reconcile`,
+        { method: "POST" },
+      );
+      if (cancelled) return;
+      if (recon.ok) {
+        const body = (await recon.json()) as {
+          initialQualification?: InitialQualificationProjection | null;
+        };
+        if (body.initialQualification) {
+          setCreateProgressQualification(body.initialQualification);
+          setCreateProgressStep(stepFromQualification(body.initialQualification));
+        }
+      }
+    };
+    const id = window.setInterval(() => void tick(), 1500);
+    void tick();
+    return () => {
+      cancelled = true;
+      window.clearInterval(id);
+    };
+  }, [createProgressVisible, pendingNavigateProjectId]);
 
   function rememberCreateIntent(next: CreateIntent | null) {
     createDocIntentRef.current = next;
@@ -556,6 +612,7 @@ export default function PreparationPage() {
         projectId?: string;
         reason?: string;
         missionBindingError?: string;
+        initialQualification?: InitialQualificationProjection;
         missionContinue?: {
           continued?: boolean;
           documentSave?: { documentId?: string };
@@ -593,7 +650,12 @@ export default function PreparationPage() {
       if (j.projectId && !j.missionBindingError) {
         setProjectId(j.projectId);
         setAwaitingClientIntentKey(null);
-        router.push(`/projects/${j.projectId}`);
+        // E07 SAS06 — steps from server facts only (no artificial 400/900ms timers).
+        const iq = j.initialQualification ?? null;
+        setCreateProgressQualification(iq);
+        setCreateProgressVisible(true);
+        setPendingNavigateProjectId(j.projectId);
+        setCreateProgressStep(stepFromQualification(iq));
         return;
       }
 
@@ -927,6 +989,19 @@ export default function PreparationPage() {
           }
         />
       ) : null}
+      <SasCreateProgressPopup
+        visible={createProgressVisible}
+        projectName={previewName || "Projet"}
+        step={createProgressStep}
+        qualification={createProgressQualification}
+        onDismiss={() => {
+          setCreateProgressVisible(false);
+          if (pendingNavigateProjectId) {
+            router.push(`/projects/${pendingNavigateProjectId}`);
+            setPendingNavigateProjectId(null);
+          }
+        }}
+      />
     </div>
   );
 }

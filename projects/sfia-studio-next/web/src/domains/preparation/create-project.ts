@@ -25,6 +25,12 @@ export type CreateProjectInput = {
   projectName: string;
   previewSummary: string;
   idempotencyKey: string;
+  /**
+   * P0-04 — product SAS→Projet path sets true so missing-op keeps Travail locked.
+   * Default false: direct/test creates must not invent a permanent PENDING gate
+   * without ensure+process (regression on D3/D5 conversational suites).
+   */
+  expectInitialQualification?: boolean;
 };
 
 export type CreateProjectResult =
@@ -224,6 +230,7 @@ export async function createProjectCommand(input: CreateProjectInput): Promise<C
         preparationId: input.preparationId,
         projectId,
         attachedAt: now,
+        initialQualificationExpected: Boolean(input.expectInitialQualification),
       });
       await tx
         .update(preparations)
