@@ -40,8 +40,10 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   const projectUrl = page.url();
   const projectId = projectUrl.split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
-  // Ensemble 04 chrome — continuity is "Reprendre le fil du projet" (not legacy « Même fil »).
-  await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible();
+  // Ensemble 05/06 Travail chrome — continuity via intro + thread (legacy « Reprendre le fil » removed).
+  await expect(page.getByTestId("travail-intro")).toBeVisible({ timeout: 15000 });
+  await expect(page.getByTestId("project-surface-title")).toBeVisible();
+  await expect(page.getByTestId("studio-rail")).toBeVisible();
   await expect(page.getByText("Bonjour Nora depuis Playwright", { exact: true })).toBeVisible();
 
   // Portfolio → open by projectId only (no preparationId query).
@@ -52,14 +54,16 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   await page.getByTestId(`open-project-${projectId}`).click();
   await page.waitForURL(`**/projects/${projectId}**`);
   expect(page.url()).not.toContain("preparationId=");
-  // Ensemble 04: continuity chrome (legacy « réouverture par projectId » removed from UI).
-  await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible();
-  await expect(page.getByTestId("project-status-hint")).toBeVisible();
+  // Ensemble 05/06: continuity chrome after portfolio reopen.
+  await expect(page.getByTestId("travail-intro")).toBeVisible({ timeout: 15000 });
+  await expect(page.getByTestId("studio-rail")).toBeVisible();
   await expect(page.getByText("Bonjour Nora depuis Playwright", { exact: true })).toBeVisible();
-  // Ensemble 04: documents live on the project rail, not sas secondary tools.
+  // Documents live on the project rail — sas-created doc persists into project Bibliothèque.
   await page.getByTestId("studio-rail").getByTestId("nav-documents").click();
   await expect(page).toHaveURL(/surface=document/);
-  await expect(page.getByText("Document Playwright", { exact: false })).toBeVisible();
+  await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 15000 });
+  await expect(page.locator('[data-testid^="doc-open-"]').first()).toBeVisible({ timeout: 15000 });
+  await expect(page.getByText(/1 DOCUMENT/i)).toBeVisible();
 
   // Continuity of the Nora thread is on Travail — return before asserting the message.
   await page.getByTestId("studio-rail").getByTestId("nav-travail").click();

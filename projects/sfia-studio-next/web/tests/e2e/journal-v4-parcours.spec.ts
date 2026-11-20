@@ -117,11 +117,12 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     await expect(sourceChip).toHaveAttribute("data-author", /.+/);
     await expect(sourceChip.locator(".journal-source-cta")).toContainText(/message exact/i);
     await sourceChip.click();
-    await expect(page.getByTestId("nora-workspace")).toBeVisible({ timeout: 15000 });
-    await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
+    // Focus marker (~5s) — assert immediately after deep-link before other waits consume the window.
     const focused = page.locator(`[data-message-id="${seed.earlyMessageId}"]`);
     await expect(focused).toBeVisible({ timeout: 15000 });
     await expect(focused).toHaveAttribute("data-journal-focus", "1", { timeout: 8000 });
+    await expect(page.getByTestId("nora-workspace")).toBeVisible({ timeout: 15000 });
+    await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
     // After highlight clears (~5.2s), suppress must hold — no jump to last message.
     // (assert attribute first while marker is still present)
     const ids = await page.locator("[data-message-id]").evaluateAll((els) =>

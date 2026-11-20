@@ -37,10 +37,10 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
     timeout: 30000,
   });
 
-  // Journal — sas secondary tool (not a permanent central tab).
+  // Journal V4 — sas secondary tool (tabs, not legacy Sujets/Acquis headings).
   await openSasSecondaryTool(page, "Journal");
-  await expect(page.getByRole("heading", { name: /Sujets/i }).first()).toBeVisible();
-  await expect(page.getByRole("heading", { name: /Acquis/i }).first()).toBeVisible();
+  await expect(page.getByTestId("journal-title")).toBeVisible();
+  await expect(page.getByTestId("journal-tab-subjects")).toBeVisible();
 
   // Secondary tools only exist on the conversation surface — return before Documents.
   await backToSasConversation(page);
@@ -55,20 +55,21 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
 
-  await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible();
+  await expect(page.getByTestId("travail-intro")).toBeVisible({ timeout: 15000 });
+  await expect(page.getByTestId("studio-rail")).toBeVisible();
   await expect(
     page.getByText("Compare les options A et B pour l'architecture, compromis et point ouvert budget", {
       exact: true,
     }),
   ).toBeVisible();
 
-  // Reopen continuity — Ensemble 04 Journal is a rail surface.
+  // Reopen continuity — Journal V4 is a rail surface with tabs.
   await page.goto(`/projects/${projectId}`);
-  await expect(page.getByRole("heading", { name: /Reprendre le fil du projet/i })).toBeVisible();
-  await expect(page.getByTestId("project-status-hint")).toBeVisible();
+  await expect(page.getByTestId("travail-intro")).toBeVisible({ timeout: 15000 });
   await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
   await expect(page).toHaveURL(/surface=journal/);
-  await expect(page.getByRole("heading", { name: /Sujets/i }).first()).toBeVisible();
+  await expect(page.getByTestId("journal-title")).toBeVisible();
+  await expect(page.getByTestId("journal-tab-subjects")).toBeVisible();
 
   // Isolation
   const bContext = await context.browser()!.newContext();
