@@ -1,17 +1,18 @@
-# SFIA Review Pack FULL — Ensemble 07 HIGH-FIDELITY CONVERGENCE
+# SFIA Review Pack FULL — Ensemble 07 FUNCTIONAL STABILIZATION
 
-**Date/heure UTC :** 2026-11-20T19:19:10Z
-**Cycle :** Delivery projet · EVOL corrective · Ensemble 07 — haute fidélité + P0 fencing
+**Date/heure UTC :** 2026-11-20T19:42:06Z
+**Cycle :** Delivery projet · EVOL corrective · Ensemble 07 — stabilisation fonctionnelle/technique avant RECETTE
 **Classe :** NO RELEASE · Gate C OPEN
 **Review Handoff :** required / publish-in-cycle
-**Handoff tip précédent :** `8fc8ce2a` (COMPLETE CONTENT) — **nouveau cycle** ; diffs = état final actuel
+**Handoff tip précédent :** `88ff1fd3` (HIGH-FIDELITY) — **nouveau cycle** ; diffs = état final actuel
+**Gel UX :** OUI — fidélité Figma suspendue (arbitrage Morris) ; revue visuelle en RECETTE sous GO distinct
 
 ## 0. Couverture documentaire
 
 | Catégorie | Compte | Couverture |
 |---|---:|---|
-| MODIFIÉS projet | 15 | §11 diffs intégraux |
-| NON SUIVIS projet | 18 | §10 contenu intégral |
+| MODIFIÉS projet | 18 | §11 diffs intégraux |
+| NON SUIVIS projet | 19 | §10 contenu intégral |
 
 ### Matrice MODIFIÉS
 
@@ -28,47 +29,52 @@
 | 9 | `projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx` | OUI §11 |
 | 10 | `projects/sfia-studio-next/web/src/db/schema.ts` | OUI §11 |
 | 11 | `projects/sfia-studio-next/web/src/domains/conversation/service.ts` | OUI §11 |
-| 12 | `projects/sfia-studio-next/web/src/domains/pilotage/service.ts` | OUI §11 |
-| 13 | `projects/sfia-studio-next/web/src/domains/pilotage/types.ts` | OUI §11 |
-| 14 | `projects/sfia-studio-next/web/src/domains/preparation/project-context.ts` | OUI §11 |
-| 15 | `projects/sfia-studio-next/web/src/lib/http-errors.ts` | OUI §11 |
+| 12 | `projects/sfia-studio-next/web/src/domains/pilotage/command-runner.ts` | OUI §11 |
+| 13 | `projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts` | OUI §11 |
+| 14 | `projects/sfia-studio-next/web/src/domains/pilotage/service.ts` | OUI §11 |
+| 15 | `projects/sfia-studio-next/web/src/domains/pilotage/types.ts` | OUI §11 |
+| 16 | `projects/sfia-studio-next/web/src/domains/preparation/create-project.ts` | OUI §11 |
+| 17 | `projects/sfia-studio-next/web/src/domains/preparation/project-context.ts` | OUI §11 |
+| 18 | `projects/sfia-studio-next/web/src/lib/http-errors.ts` | OUI §11 |
 
-### Matrice NON SUIVIS + disposition
+### Matrice NON SUIVIS
 
-| Fichier | Contenu | Disposition |
-|---|---|---|
-| `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md` | OUI §10 | Produit Ensemble 07 |
-| `projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts` | OUI §10 | DEV helper — NON produit |
-| `projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts` | OUI §10 | DEV helper — NON produit |
-| `projects/sfia-studio-next/web/scripts/e07-capture-sas-modal.mts` | OUI §10 | Produit Ensemble 07 |
-| `projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts` | OUI §10 | Produit Ensemble 07 |
-| `projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts` | OUI §10 | Produit Ensemble 07 |
-| `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/reconcile/route.ts` | OUI §10 | Produit Ensemble 07 |
-| `projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx` | OUI §10 | Produit Ensemble 07 |
-| `projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx` | OUI §10 | Produit Ensemble 07 |
-| `projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql` | OUI §10 | Produit Ensemble 07 |
-| `projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts` | OUI §10 | Produit Ensemble 07 |
-| `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts` | OUI §10 | Produit Ensemble 07 |
-| `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts` | OUI §10 | Produit Ensemble 07 |
-| `projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts` | OUI §10 | Produit Ensemble 07 |
-| `projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts` | OUI §10 | Produit Ensemble 07 |
-| `projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts` | OUI §10 | Produit Ensemble 07 |
-| `projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts` | OUI §10 | Produit Ensemble 07 |
-| `projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts` | OUI §10 | Produit Ensemble 07 |
+| # | Fichier | Contenu |
+|---:|---|---|
+| 1 | `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md` | OUI §10 |
+| 2 | `projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts` | OUI §10 |
+| 3 | `projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts` | OUI §10 |
+| 4 | `projects/sfia-studio-next/web/scripts/e07-capture-sas-modal.mts` | OUI §10 |
+| 5 | `projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts` | OUI §10 |
+| 6 | `projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts` | OUI §10 |
+| 7 | `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/reconcile/route.ts` | OUI §10 |
+| 8 | `projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx` | OUI §10 |
+| 9 | `projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx` | OUI §10 |
+| 10 | `projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql` | OUI §10 |
+| 11 | `projects/sfia-studio-next/web/src/db/migrations/016_initial_qualification_expected.sql` | OUI §10 |
+| 12 | `projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts` | OUI §10 |
+| 13 | `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts` | OUI §10 |
+| 14 | `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts` | OUI §10 |
+| 15 | `projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts` | OUI §10 |
+| 16 | `projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts` | OUI §10 |
+| 17 | `projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts` | OUI §10 |
+| 18 | `projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts` | OUI §10 |
+| 19 | `projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts` | OUI §10 |
 
 **Verdict couverture :** COMPLETE CONTENT
 
-## 1. Git truth
+## 1. Git Truth
 
-| Champ | Valeur |
+| Item | Valeur |
 |---|---|
-| Worktree | `/Users/morris/Projects/sfia-wt-ensemble07-projet-trajectoire-20261120` |
-| Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` |
+| toplevel | `/Users/morris/Projects/sfia-wt-ensemble07-projet-trajectoire-20261120` |
+| branch | `sfia/next-ensemble07-projet-trajectoire-delivery` |
 | HEAD | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
 | origin/main | `6e93a33d64dfeea2eab88fb7896d733b34053f97` |
-| Statut | NON COMMITTÉ · pas de push projet |
+| merge-base | `6e93a33d64dfeea2eab88fb7896d733b34053f97` |
+| push projet | **AUCUN** |
+| PR/merge/release | **AUCUN** |
 
-### git log -5
 ```
 e36fd8b0 docs(next): integrate Morris-approved D5 trajectory projection, synchronization and history rules
 29576429 docs(next): integrate Morris-approved D3 proactive trajectory and conversational guidance rules
@@ -77,168 +83,107 @@ de8613b6 docs(next): record Morris approval of Ensemble 07 architecture dossier 
 9075011e docs(next): propose Ensemble 07 functional and technical architecture dossier
 ```
 
-### git status --short
-```
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio-next/construction/delivery-history.md
- M projects/sfia-studio-next/web/scripts/db-migrate.sh
- M projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
- M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
- M projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
- M projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
- M projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
- M projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
- M projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
- M projects/sfia-studio-next/web/src/db/schema.ts
- M projects/sfia-studio-next/web/src/domains/conversation/service.ts
- M projects/sfia-studio-next/web/src/domains/pilotage/service.ts
- M projects/sfia-studio-next/web/src/domains/pilotage/types.ts
- M projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
- M projects/sfia-studio-next/web/src/lib/http-errors.ts
-?? projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md
-?? projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts
-?? projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts
-?? projects/sfia-studio-next/web/scripts/e07-capture-sas-modal.mts
-?? projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts
-?? projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts
-?? projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/
-?? projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx
-?? projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx
-?? projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql
-?? projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts
-?? projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts
-?? projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts
-?? projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts
-?? projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts
-?? projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts
-?? projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts
-?? projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts
-```
-
-### git diff --name-status HEAD
-```
-M	.tmp-sfia-review/chatgpt-review.md
-M	projects/sfia-studio-next/construction/delivery-history.md
-M	projects/sfia-studio-next/web/scripts/db-migrate.sh
-M	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
-M	projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
-M	projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-M	projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-M	projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-M	projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
-M	projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
-M	projects/sfia-studio-next/web/src/db/schema.ts
-M	projects/sfia-studio-next/web/src/domains/conversation/service.ts
-M	projects/sfia-studio-next/web/src/domains/pilotage/service.ts
-M	projects/sfia-studio-next/web/src/domains/pilotage/types.ts
-M	projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
-M	projects/sfia-studio-next/web/src/lib/http-errors.ts
-```
-
-### git ls-files --others --exclude-standard
-```
-projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md
-projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts
-projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts
-projects/sfia-studio-next/web/scripts/e07-capture-sas-modal.mts
-projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts
-projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts
-projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/reconcile/route.ts
-projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx
-projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx
-projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql
-projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts
-projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts
-projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts
-projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts
-projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts
-projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts
-projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts
-projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts
-```
-
 ## 2. ENV-01 / Versioning
 
-- DEV only · NO RELEASE · Gate C OPEN
+- Lane : DEV uniquement (`STUDIO_LANE=DEV`)
+- PG : container `sfia-next-dev-pg` / DB `sfia_next_dev` / migration **016** appliquée
+- Ports : 3100 (web)
+- RECETTE/STABLE : **non touchés**
+- Versioning : **NO RELEASE** · STABLE NOT AVAILABLE · Gate C OPEN
 
-## 3. Sources
+## 3. Périmètre IN / OUT
 
-- Contrats E07 · Figma `itgvCulInEnFY6DvgIegvP` · base `e36fd8b` · tip antérieur `8fc8ce2a`
+**IN :** P0-01..05, FIX-03/04/06/07/08/11 (métier), tests, as-built, delivery-history, migration 016 additive
+**OUT :** pixel-perfect Figma, extraction 13/13 MCP, campagne screenshots ressemblance, refonte shell/rail/couleurs
 
-## 4. Matrice E07-FIX
+## 4. Matrice anomalies
 
-| ID | Statut | Preuve |
-|---|---|---|
-| FIX-01 | Fermé | CAS+FOR UPDATE ; PG TOCTOU afterOwnerCheckBeforeEffect |
-| FIX-02 | Fermé | ids/generation distincts assistant/system |
-| FIX-03 | Partiel | reconcile+kick ; pas de worker |
-| FIX-04 | Partiel | fingerprint présent |
-| FIX-05 | Fermé | pendingEnsureGateProjection |
-| FIX-06/07 | LIVE NOT PROVEN | forecast fixture |
-| FIX-08/09 | Réserve BEHAVIOR | GO browser NOT PROVEN |
-| FIX-10..13 | Partiel | UI+seeds |
+| ID | Cause racine | Correction | Preuve | Statut |
+|---|---|---|---|---|
+| P0-01 | Fence avant mutate D5 hors TX | `effectOwnerFence` + FOR UPDATE dans `runBusinessCommand` avant mutate | PG P0-01 zero D5 rev après steal | Fermé |
+| P0-02 | Resume rebuild contenu divergent | `resultJson.assistantContent` + resume exact | PG P0-02 | Fermé |
+| P0-03 | Partiels D5/message/terminal | ordre + contenu stable | PG resume | Fermé |
+| P0-04 | PENDING synthétique legacy | `initial_qualification_expected` (016) | PG P0-04 | Fermé |
+| P0-05 | kick // mission continue | ensure → continue → kick | create-project route | Fermé |
+| FIX-03 | pas de worker | reconcile/ensure ; autonome NOT PROVEN | doc | Réserve |
+| FIX-04 | fingerprint incomplet | openQuestions + suggestion | unit | Fermé |
+| FIX-06/07 | heuristique ≠ LIVE | validator + LIVE NOT PROVEN | unit | Intégré / réserve LIVE |
+| FIX-08 | RETAIN sans cible USER_MESSAGE | resolve PROPOSED in mutate | PG FIX-08 | Fermé API |
+| FIX-11 | docs ≠ AVAILABLE | filtre SAVING | code | Fermé |
+| UX Figma | hors mandat | gel | — | Réserve RECETTE |
 
-## 5–7. Architecture / Fake-Real / Tests
+## 5. Invariants AC / I
 
-- Fencing write-point ; Option A ; PG REAL ; Nora LIVE NOT PROVEN
-- Tests : unit 7 PASS · PG 12 PASS · full suites NOT RUN
+- AC-01 D2 idempotente : conservé
+- AC-02 LIVE Nora : **NOT PROVEN**
+- AC-03 publication unique : P0-01/02
+- I ownership / message identity / no GET mutate : PG
 
-## 8–9. Figma / runtime
+## 6. Fake / Real
 
-- Runtime `.tmp-sfia-review/ensemble07-evidence/runtime/` · refs `ensemble07-figma-refs/`
-- **SAS06 popup réelle :** `sas-06-modal-runtime.png` + viewport
-- Tokens `#7477ED` `#6CDBBA` `#151D2C` `#2B3850`
+| Frontière | Qualification |
+|---|---|
+| Nora/LLM | DETERMINISTIC / FAKE · LIVE NOT PROVEN |
+| PostgreSQL | PG REAL |
+| D5/D6 | PG REAL |
+| Navigateur E2E A–F | NOT RUN this cycle |
+| Externes | non déclenchés |
 
-| Frame | Runtime | Verdict |
-|---|---|---|
-| 09.01 | `09.01-projet-cycle-actif-runtime.png` | Partiel |
-| 09.02 | `09.02-trajectoire-principale-runtime.png` | Partiel |
-| 09.03 | `09.03-bilan-historique-runtime.png` | Partiel |
-| 09.04 | `09.04-etape-envisagee-runtime.png` | Partiel |
-| 09.05 | `09.05-cki-methode-runtime.png` | Partiel |
-| 09.06 | `09.06-projet-sans-cycle-runtime.png` | Partiel |
-| 09.07 | `09.07-clarification-runtime.png` | Partiel |
-| 09.08 | `09.08-entre-deux-cycles-runtime.png` | Partiel |
-| 09.09 | `09.09-premier-cycle-actif-runtime.png` | Partiel |
-| SAS06 | `sas-06-modal-runtime.png` | Partiel |
-| 05.17 | `05.17-travail-qualification-runtime.png` | Partiel |
-| 09.10 | `09.10-qualification-en-cours-runtime.png` | Partiel |
-| 09.11 | `09.11-proposition-initiale-runtime.png` | Partiel |
+## 7. Tests exécutés
 
-**Verdict UX :** FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED
+| Suite | Résultat |
+|---|---|
+| Unit E07 | **10 PASS** |
+| PG E07 | **15 PASS** |
+| tsc | **PASS** |
+| ml3 smoke (3) | **PASS** |
+| build / full E2E / full integration | **NOT RUN** |
 
-## 10. Fichiers CRÉÉS — contenu intégral
+## 8. Parcours
+
+| Parcours | Statut |
+|---|---|
+| A création | PASS API |
+| B reprise | PASS API |
+| C GO convers. | PASS API · browser NOT PROVEN |
+| D/E/F | NOT RUN browser |
+
+## 9. Préconditions RECETTE (Morris GO)
+
+1. Accepter réserves LIVE / E2E / FIX-03
+2. GO distinct préparation RECETTE
+3. Revue visuelle Morris en RECETTE
+4. Suites E2E + build avant promotion
+
+## 10. Fichiers NON SUIVIS — contenu intégral
 
 ### `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md`
-
-**Disposition :** produit Ensemble 07.
-
-- SHA256: `37d497bb54ec0bc91cf067407730d88675647f8d6971a652d5a15fb3ebe4d021`
-- Bytes: 2889
 
 ```
 # Ensemble 07 — As-built (qualification initiale Projet / Trajectoire / Nora)
 
-**Statut:** construction DEV corrective — NO RELEASE
+**Statut:** construction DEV corrective — NO RELEASE · stabilisation fonctionnelle
 **Base Git:** `e36fd8b0531c4f649830990a18f9cfdaecb3c03f`
 **Branche:** `sfia/next-ensemble07-projet-trajectoire-delivery`
-**Date:** 2026-11-20 (itération corrective)
+**Date:** 2026-11-20 (stabilisation fonctionnelle — UX gelée)
 
 ## Architecture retenue
 
-Option A hybride (dossier §8.1) + corrections P0 :
+Option A hybride (dossier §8.1) + corrections P0 stabilisation :
 
-1. Après `createProjectCommand` confirmé, `ensureAndKickInitialQualification` (retry) consigne une opération durable `PENDING` (1 / projet).
-2. `kickInitialQualificationProcessing` uniquement depuis create / reconcile POST — **jamais depuis GET** (`project-context` lecture seule).
-3. Publication corrélée : D5 `PROPOSE_TRAJECTORY` (expectedRevision réel) → persistance `trajectoryRevisionId` → message unique → terminal sous fence `ownerToken`.
-4. Reprise : lease expiré → UNKNOWN ; reconcile POST complète message/terminal ; incident Studio en `role: system`.
-5. Surfaces SAS / Travail / Trajectoire lisent la même projection `initialQualification`.
-6. Admission serveur + compositeur UI verrouillés tant que status ∈ {PENDING, RUNNING, UNKNOWN}.
-7. Forecast déterministe : **pas de CADRAGE par défaut** — CLARIFICATION si aucun signal de cycle.
+1. Après `createProjectCommand` confirmé : `ensureInitialQualification` (retry) **avant** `continueAfterProjectCreated`, puis `kickInitialQualificationProcessing` (P0-05).
+2. Kick uniquement depuis create / reconcile POST — **jamais depuis GET**.
+3. Publication : D5 `PROPOSE_TRAJECTORY` avec `effectOwnerFence` évalué **dans** `runBusinessCommand` (FOR UPDATE op) au point de mutate (P0-01).
+4. `resultJson.assistantContent` durable pour reprise exacte message (P0-02).
+5. Lien `preparation_project_links.initial_qualification_expected` (migration 016) : legacy = false → pas de verrou synthétique (P0-04).
+6. RETAIN conversationnel résout la PROPOSED courante côté serveur (FIX-08) — pas de cible D5 dans le body USER_MESSAGE.
+7. Forecast déterministe + `validateStructuredForecast` (FIX-07) — LIVE Nora NOT PROVEN.
+8. Documents « en cours » = statut `SAVING` uniquement (FIX-11).
 
 ## Persistance
 
-- Migration additive `015_trajectory_qualification.sql` (DEV / e2e appliquée).
+- Migration additive `015_trajectory_qualification.sql`.
+- Migration additive `016_initial_qualification_expected.sql` (`initial_qualification_expected boolean DEFAULT false`).
 - Table `trajectory_qualification_operations`.
 - Colonne `trajectory_revisions.forecast_json`.
 
@@ -267,14 +212,10 @@ Option A hybride (dossier §8.1) + corrections P0 :
 - Vues détail 09.03 / 09.04 / 09.05 : projection partielle (bilan / CKI éditorial) à enrichir.
 - GO conversationnel D6→D5 : capacités PilotagePanel conservées ; parcours conversationnel principal à prouver en e2e navigateur.
 - LIVE Nora fournisseur : NOT PROVEN (fixture DEV).
+
 ```
 
 ### `projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts`
-
-**Disposition :** DEV helper — NON produit.
-
-- SHA256: `6ab78aa51e3b68d33d325ef9b7ff04c532050f62075f390d15f919084840f15b`
-- Bytes: 2917
 
 ```
 import { config } from "dotenv";
@@ -367,14 +308,10 @@ main().catch((e) => {
   console.error(e);
   process.exit(1);
 });
+
 ```
 
 ### `projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts`
-
-**Disposition :** DEV helper — NON produit.
-
-- SHA256: `c96de8c9c5f1fa6b2681ebfaeff4a98b486a50168d6c39f071f26775b2f6defd`
-- Bytes: 1422
 
 ```
 import { chromium } from "@playwright/test";
@@ -421,14 +358,10 @@ main().catch((e) => {
   console.error(e);
   process.exit(1);
 });
+
 ```
 
 ### `projects/sfia-studio-next/web/scripts/e07-capture-sas-modal.mts`
-
-**Disposition :** produit Ensemble 07.
-
-- SHA256: `07f88743f677289d4d9736bf504b16dad3d2d5846f7cb9dec6ab566b4afc2dd8`
-- Bytes: 4856
 
 ```
 /**
@@ -578,14 +511,10 @@ main().catch((e) => {
   console.error(e);
   process.exit(1);
 });
+
 ```
 
 ### `projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts`
-
-**Disposition :** produit Ensemble 07.
-
-- SHA256: `c1ea38119299390df547fe21cd7f2bafbf3096a73c58e690217273ca8b8d1081`
-- Bytes: 6144
 
 ```
 import { chromium } from "@playwright/test";
@@ -743,14 +672,10 @@ main().catch((e) => {
   console.error(e);
   process.exit(1);
 });
+
 ```
 
 ### `projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts`
-
-**Disposition :** produit Ensemble 07.
-
-- SHA256: `41ca3de1a803196d7fefa71db2aa241a11a98a68d9e69c11f9182c47e66d867c`
-- Bytes: 8698
 
 ```
 import { config } from "dotenv";
@@ -993,14 +918,10 @@ main().catch((e) => {
   console.error(e);
   process.exit(1);
 });
+
 ```
 
 ### `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/reconcile/route.ts`
-
-**Disposition :** produit Ensemble 07.
-
-- SHA256: `fff63ded9627a700090aa570563d6df9eb996ab81c5bfe522d1b0ecee552c0ae`
-- Bytes: 896
 
 ```
 import { NextResponse } from "next/server";
@@ -1029,14 +950,10 @@ export async function POST(
     return NextResponse.json(mapped.body, { status: mapped.status });
   }
 }
+
 ```
 
 ### `projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx`
-
-**Disposition :** produit Ensemble 07.
-
-- SHA256: `d46ebc57892b5578dc6ee9662cc384f0fc312736329fcd970ca6968ed0f16d08`
-- Bytes: 3108
 
 ```
 "use client";
@@ -1135,11 +1052,6 @@ export function SasCreateProgressPopup(props: {
 ```
 
 ### `projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx`
-
-**Disposition :** produit Ensemble 07.
-
-- SHA256: `9a93eb16ca9d301a348e84db7c03133d200a22cb03bdf491bb272ee23b37def5`
-- Bytes: 33841
 
 ```
 "use client";
@@ -2043,14 +1955,10 @@ function CkiMethodeView(props: {
     </div>
   );
 }
+
 ```
 
 ### `projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql`
-
-**Disposition :** produit Ensemble 07.
-
-- SHA256: `1d44a872997c5233e3e7c077893262480710129ec6d1979cfb5771f8bb7b37da`
-- Bytes: 1285
 
 ```
 -- Ensemble 07 — initial trajectory qualification operation (one per project).
@@ -2088,12 +1996,18 @@ ALTER TABLE trajectory_revisions
   ADD COLUMN IF NOT EXISTS forecast_json jsonb;
 ```
 
+### `projects/sfia-studio-next/web/src/db/migrations/016_initial_qualification_expected.sql`
+
+```
+-- Ensemble 07 P0-04 — distinguish new creates (qualification expected) from legacy links.
+-- Additive / re-runnable. Default false: pre-existing links are NOT auto-locked / backfilled.
+
+ALTER TABLE preparation_project_links
+  ADD COLUMN IF NOT EXISTS initial_qualification_expected boolean NOT NULL DEFAULT false;
+
+```
+
 ### `projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts`
-
-**Disposition :** produit Ensemble 07.
-
-- SHA256: `41f91fc214cf4dfa180e80a66de5efdfb5e97c8d6770e22014ad2d5385de8889`
-- Bytes: 7028
 
 ```
 import { createHash } from "crypto";
@@ -2245,6 +2159,10 @@ export function qualificationInputFingerprint(input: {
   previewSummary: string;
   creationRevision: number;
 }): string {
+  const openQuestions = (input.projection?.openQuestions ?? [])
+    .map((q) => (q.value ?? "").trim())
+    .filter(Boolean)
+    .sort();
   const payload = {
     preparationId: input.preparationId,
     creationRevision: input.creationRevision,
@@ -2253,8 +2171,45 @@ export function qualificationInputFingerprint(input: {
     intention: input.projection?.intention?.value ?? "",
     desiredOutcome: input.projection?.desiredOutcome?.value ?? "",
     initialScope: input.projection?.initialScope?.value ?? "",
+    // FIX-04 — inputs that actually influence recommendation / clarification.
+    openQuestions,
+    suggestionExplanation: input.projection?.suggestion?.explanation ?? "",
   };
   return createHash("sha256").update(JSON.stringify(payload)).digest("hex");
+}
+
+/**
+ * Deterministic validator for structured forecast before D5 persist (FIX-07).
+ * Does not invent cycles; rejects ambiguous / invalid shapes.
+ */
+export function validateStructuredForecast(
+  built: ForecastBuildResult,
+): { ok: true } | { ok: false; reason: string } {
+  if (built.kind === "CLARIFICATION") {
+    if (!built.question.trim()) return { ok: false, reason: "CLARIFICATION_EMPTY" };
+    return { ok: true };
+  }
+  if (!built.steps.length) return { ok: false, reason: "NO_STEPS" };
+  if (built.steps[0]?.certainty !== "QUALIFIED") {
+    return { ok: false, reason: "FIRST_CYCLE_NOT_QUALIFIED" };
+  }
+  const seen = new Set<number>();
+  const types = new Set<string>();
+  for (const step of built.steps) {
+    if (!isCycleType(step.cycleType)) return { ok: false, reason: "UNKNOWN_CYCLE_TYPE" };
+    if (seen.has(step.order)) return { ok: false, reason: "DUPLICATE_ORDER" };
+    seen.add(step.order);
+    types.add(step.cycleType);
+  }
+  const orders = [...seen].sort((a, b) => a - b);
+  for (let i = 0; i < orders.length; i++) {
+    if (orders[i] !== i + 1) return { ok: false, reason: "ORDER_NOT_STRICT" };
+  }
+  if (!built.orientation.trim() || !built.summary.trim()) {
+    return { ok: false, reason: "MISSING_JUSTIFICATION" };
+  }
+  if (built.steps.length > 3) return { ok: false, reason: "CARDINALITY" };
+  return { ok: true };
 }
 
 export function parseForecastJson(raw: unknown): ForecastStep[] | null {
@@ -2277,11 +2232,6 @@ export function parseForecastJson(raw: unknown): ForecastStep[] | null {
 ```
 
 ### `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts`
-
-**Disposition :** produit Ensemble 07.
-
-- SHA256: `3a6f848cc8156f235368d31240dedf751e344632b6631388f9cde733e67376f1`
-- Bytes: 924
 
 ```
 import type { ForecastStep } from "@/domains/pilotage/forecast-builder";
@@ -2321,11 +2271,6 @@ export type InitialQualificationProjection = {
 
 ### `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts`
 
-**Disposition :** produit Ensemble 07.
-
-- SHA256: `16640357fa2946bb92d507b69039a7f2ce33dd637e0207dbacbc521317cf6939`
-- Bytes: 27933
-
 ```
 import { and, asc, eq, sql } from "drizzle-orm";
 import { db } from "@/db/client";
@@ -2342,6 +2287,7 @@ import {
   buildInitialForecast,
   qualificationInputFingerprint,
   parseForecastJson,
+  validateStructuredForecast,
   type ForecastBuildResult,
 } from "@/domains/pilotage/forecast-builder";
 import {
@@ -2452,15 +2398,55 @@ function rowToProjection(
 function parseResultJson(raw: unknown): {
   clarificationQuestion: string | null;
   forecastSteps: InitialQualificationProjection["forecastSteps"];
+  assistantContent: string | null;
+  orientation: string | null;
 } {
   if (!raw || typeof raw !== "object") {
-    return { clarificationQuestion: null, forecastSteps: null };
+    return {
+      clarificationQuestion: null,
+      forecastSteps: null,
+      assistantContent: null,
+      orientation: null,
+    };
   }
   const o = raw as Record<string, unknown>;
   const clarificationQuestion =
     typeof o.clarificationQuestion === "string" ? o.clarificationQuestion : null;
   const forecastSteps = parseForecastJson(o.forecastSteps);
-  return { clarificationQuestion, forecastSteps };
+  const assistantContent = typeof o.assistantContent === "string" ? o.assistantContent : null;
+  const orientation = typeof o.orientation === "string" ? o.orientation : null;
+  return { clarificationQuestion, forecastSteps, assistantContent, orientation };
+}
+
+/** P0-02 — stable assistant body for resume; never rebuild a divergent summary. */
+function resumeAssistantContent(
+  parsed: ReturnType<typeof parseResultJson>,
+  projectName: string,
+): string {
+  if (parsed.assistantContent?.trim()) return parsed.assistantContent;
+  if (parsed.clarificationQuestion?.trim()) return parsed.clarificationQuestion;
+  if (parsed.forecastSteps?.length) {
+    return buildAssistantContent(
+      {
+        kind: "PROPOSE",
+        steps: parsed.forecastSteps,
+        orientation: parsed.orientation ?? "Trajectoire proposée",
+        summary:
+          parsed.orientation ??
+          "Proposition de trajectoire initiale (restitution durable reprise).",
+      },
+      projectName,
+    );
+  }
+  return buildAssistantContent(
+    {
+      kind: "PROPOSE",
+      steps: [],
+      orientation: "Trajectoire proposée",
+      summary: "Proposition de trajectoire initiale reprise après interruption.",
+    },
+    projectName,
+  );
 }
 
 export async function getQualificationProjection(
@@ -2718,18 +2704,14 @@ async function publishProposedTrajectory(input: {
   orientation: string;
   forecastSteps: ForecastBuildResult & { kind: "PROPOSE" };
 }): Promise<string | null> {
-  // E07-FIX-01 — CAS heartbeat at effect boundary before D5 mutate.
+  // P0-01 — last outer CAS; true fence is effectOwnerFence inside runBusinessCommand TX.
   const stillOwner = await updateOpIfOwner(input.operationId, input.ownerToken, {
     updatedAt: new Date(),
   });
   if (!stillOwner) return null;
 
+  // Discriminant race window: after last successful CAS, before D5 mutate TX.
   await initialQualificationFault.afterOwnerCheckBeforeEffect?.();
-
-  const stillOwner2 = await updateOpIfOwner(input.operationId, input.ownerToken, {
-    updatedAt: new Date(),
-  });
-  if (!stillOwner2) return null;
 
   const clientCommandKey = `iq:${input.operationId}:v${input.version}:propose`;
   const expectedRevision = await currentPilotageRevision(input.projectId);
@@ -2742,15 +2724,25 @@ async function publishProposedTrajectory(input: {
     orientation: input.orientation,
     forecastJson: input.forecastSteps.steps,
     actInstanceId: clientCommandKey,
+    effectOwnerFence: {
+      operationId: input.operationId,
+      ownerToken: input.ownerToken,
+    },
   });
-  if (result.status === "REJECTED" || result.status === "CONFLICT") {
+  if (result.status === "REJECTED") {
+    if (result.reasonCode === "QUALIFICATION_OWNERSHIP_LOST") {
+      return null;
+    }
     throw new StudioError("INTERNAL", result.reason ?? "Proposition D5 refusée");
   }
+  if (result.status === "CONFLICT") {
+    throw new StudioError("INTERNAL", result.reason ?? "Proposition D5 en conflit");
+  }
   // Post-effect fence: expired owner must not claim terminal over a newer claim.
-  const stillOwner3 = await updateOpIfOwner(input.operationId, input.ownerToken, {
+  const stillOwnerAfter = await updateOpIfOwner(input.operationId, input.ownerToken, {
     updatedAt: new Date(),
   });
-  if (!stillOwner3) return null;
+  if (!stillOwnerAfter) return null;
 
   const propose = result.effects.find((e) => e.effectKind === "PROPOSE");
   if (!propose?.targetRef) throw new StudioError("INTERNAL", "Trajectoire PROPOSED absente");
@@ -2924,40 +2916,36 @@ export async function processInitialQualification(
     )[0];
     const name = projectRow?.name ?? "Projet";
 
-    // Resume path: D5 already published, message/terminal missing (E07-COR-03).
+    // Resume path: D5 already published, message/terminal missing (P0-02 / E07-COR-03).
     if (claimed.priorTrajectoryId) {
       const parsedPrior = parseResultJson(claimed.priorResult);
+      const stableContent = resumeAssistantContent(parsedPrior, name);
       const assistantMessageId = await appendQualificationThreadMessage({
         pilotId: claimed.pilotId,
         preparationId: claimed.preparationId,
         operationId: claimed.id,
         ownerToken,
         version: claimed.version,
-        content:
-          parsedPrior.clarificationQuestion ??
-          buildAssistantContent(
-            {
-              kind: "PROPOSE",
-              steps: parsedPrior.forecastSteps ?? [],
-              orientation: "Trajectoire proposée",
-              summary: "Proposition de trajectoire initiale reprise après interruption.",
-            },
-            name,
-          ),
+        content: stableContent,
         role: "assistant",
       });
       if (!assistantMessageId) {
         return getQualificationProjection(claimed.pilotId, projectId);
       }
+      const priorJson =
+        claimed.priorResult && typeof claimed.priorResult === "object"
+          ? ({ ...(claimed.priorResult as Record<string, unknown>) } as Record<string, unknown>)
+          : ({
+              kind: "PROPOSED",
+              forecastSteps: parsedPrior.forecastSteps,
+            } as Record<string, unknown>);
+      if (!priorJson.assistantContent) priorJson.assistantContent = stableContent;
       const ok = await updateOpIfOwner(claimed.id, ownerToken, {
         status: "PROPOSED",
         phase: "TERMINAL",
         trajectoryRevisionId: claimed.priorTrajectoryId,
         assistantMessageId,
-        resultJson: (claimed.priorResult as Record<string, unknown>) ?? {
-          kind: "PROPOSED",
-          forecastSteps: parsedPrior.forecastSteps,
-        },
+        resultJson: priorJson,
         ownerToken: null,
         errorCode: null,
       });
@@ -2977,10 +2965,65 @@ export async function processInitialQualification(
       return getQualificationProjection(claimed.pilotId, projectId);
     }
 
-    const built = buildInitialForecast({
+    // FIX-04 — refuse stale publish when durable input fingerprint no longer matches.
+    if (prep) {
+      const currentFp = qualificationInputFingerprint({
+        preparationId: prep.id,
+        projection,
+        previewSummary: prep.previewSummary ?? "",
+        creationRevision: prep.creationRevision,
+      });
+      const opRow = (
+        await db
+          .select({ inputFingerprint: trajectoryQualificationOperations.inputFingerprint })
+          .from(trajectoryQualificationOperations)
+          .where(eq(trajectoryQualificationOperations.id, claimed.id))
+          .limit(1)
+      )[0];
+      if (opRow && opRow.inputFingerprint && opRow.inputFingerprint !== currentFp) {
+        const staleContent =
+          "Le contexte de préparation a évolué depuis l'engagement de la qualification. Une nouvelle analyse est nécessaire avant toute proposition de trajectoire.";
+        const mid = await appendQualificationThreadMessage({
+          pilotId: claimed.pilotId,
+          preparationId: claimed.preparationId,
+          operationId: claimed.id,
+          ownerToken,
+          version: claimed.version,
+          content: staleContent,
+          role: "assistant",
+        });
+        if (!mid) return getQualificationProjection(claimed.pilotId, projectId);
+        await updateOpIfOwner(claimed.id, ownerToken, {
+          status: "CLARIFICATION",
+          phase: "TERMINAL",
+          assistantMessageId: mid,
+          resultJson: {
+            kind: "CLARIFICATION",
+            clarificationQuestion: staleContent,
+            missing: ["fingerprint"],
+            assistantContent: staleContent,
+            staleFingerprint: true,
+          },
+          ownerToken: null,
+          errorCode: "STALE_INPUT_FINGERPRINT",
+        });
+        return getQualificationProjection(claimed.pilotId, projectId);
+      }
+    }
+
+    const builtRaw = buildInitialForecast({
       projection,
       previewSummary: prep?.previewSummary ?? "",
     });
+    const validated = validateStructuredForecast(builtRaw);
+    const built: ForecastBuildResult = validated.ok
+      ? builtRaw
+      : {
+          kind: "CLARIFICATION",
+          question:
+            "Je n'ai pas pu qualifier une trajectoire structurée fiable à partir des éléments disponibles. Précisez l'intention et le premier résultat utile attendu.",
+          missing: ["sortie structurée", validated.reason],
+        };
 
     let trajectoryRevisionId: string | null = null;
     let terminalStatus: QualificationStatus;
@@ -2993,6 +3036,7 @@ export async function processInitialQualification(
         kind: "CLARIFICATION",
         clarificationQuestion: built.question,
         missing: built.missing,
+        assistantContent,
       };
     } else {
       trajectoryRevisionId = await publishProposedTrajectory({
@@ -3012,8 +3056,9 @@ export async function processInitialQualification(
         kind: "PROPOSED",
         forecastSteps: built.steps,
         orientation: built.orientation,
+        assistantContent,
       };
-      // Persist D5 pointer before message so crash can resume (E07-COR-03).
+      // Persist D5 pointer + stable content before message so crash can resume (P0-02).
       const mid = await updateOpIfOwner(claimed.id, ownerToken, {
         trajectoryRevisionId,
         resultJson,
@@ -3144,7 +3189,8 @@ export async function reconcileInitialQualification(
         .where(eq(preparationProjectLinks.projectId, projectId))
         .limit(1)
     )[0];
-    if (!link) return null;
+    // P0-04 — never silently create qualification for legacy projects.
+    if (!link || !link.initialQualificationExpected) return null;
     projection = await ensureInitialQualification({
       projectId,
       preparationId: link.preparationId,
@@ -3200,7 +3246,9 @@ export async function getQualificationProjectionForClient(
       .limit(1)
   )[0];
   if (!link) return null;
-  // Project exists with SAS link but ensure not durable yet — keep Travail locked.
+  // P0-04 — legacy / pre-capability projects: no synthetic PENDING lock, no silent ensure.
+  if (!link.initialQualificationExpected) return null;
+  // New create: SAS link expects qualification but op not yet durable — keep Travail locked.
   return pendingEnsureGateProjection(projectId, link.preparationId);
 }
 
@@ -3222,11 +3270,6 @@ export { blocksPilotTurnAdmission, isInitialQualificationComposerLocked } from "
 ```
 
 ### `projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts`
-
-**Disposition :** produit Ensemble 07.
-
-- SHA256: `53b440e6d945ca14ef7a9739031e415e5c7eb8e4f5a3655a11eaf567cfcfb7b4`
-- Bytes: 1503
 
 ```
 import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
@@ -3266,11 +3309,6 @@ export function blocksPilotTurnAdmission(q: InitialQualificationProjection | nul
 
 ### `projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts`
 
-**Disposition :** produit Ensemble 07.
-
-- SHA256: `ae6d6d4cb424fd25b90c81ba7299f6397c0ea449852638b97f331089706ebe45`
-- Bytes: 19245
-
 ```
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { config } from "dotenv";
@@ -3287,9 +3325,13 @@ vi.hoisted(() => {
 import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import {
+  conversationTurnCommands,
+  conversations,
   messages,
   pilots,
+  preparationProjectLinks,
   preparations,
+  projectCycles,
   trajectoryQualificationOperations,
   trajectoryRevisions,
 } from "@/db/schema";
@@ -3310,6 +3352,7 @@ import { assertPilotTurnNotBlockedByQualification } from "@/domains/pilotage/ini
 import { postUserMessageAndNora } from "@/domains/conversation/service";
 import { StudioError } from "@/lib/http-errors";
 import { isInitialQualificationComposerLocked } from "@/domains/pilotage/qualification-lock";
+import { d5PilotageEnvelope } from "../helpers/semantic-fixture-envelopes";
 
 async function seedPilot(label: string) {
   const id = newId("pilot");
@@ -3392,6 +3435,10 @@ describe("Ensemble 07 initial qualification (PG)", () => {
       `);
       await db.execute(sql`
         ALTER TABLE trajectory_revisions ADD COLUMN IF NOT EXISTS forecast_json jsonb
+      `);
+      await db.execute(sql`
+        ALTER TABLE preparation_project_links
+          ADD COLUMN IF NOT EXISTS initial_qualification_expected boolean NOT NULL DEFAULT false
       `);
     } catch {
       /* migration may already be applied */
@@ -3674,18 +3721,18 @@ describe("Ensemble 07 initial qualification (PG)", () => {
     }
   });
 
-  it("E07-FIX-01: owner check then steal before effect write refuses A publish", async () => {
-    const pilotId = await seedPilot("e07-fix01-toc");
+  it("P0-01: last CAS then steal before D5 mutate refuses A and leaves zero D5 revision", async () => {
+    const pilotId = await seedPilot("e07-p001-toc");
     const { prep, name } = await seedPrepWithProjection(
       pilotId,
-      "E07Toc",
-      "Cadrage — TOCTOU fencing au point d'effet",
+      "E07P001",
+      "Cadrage — fencing au véritable point d'effet D5",
     );
     const created = await createProjectFromPrep(pilotId, prep.id, name, prep.creationRevision);
     const projectId = requireProjectId(created);
     await ensureInitialQualification({ projectId, preparationId: prep.id, pilotId });
 
-    // Discriminant: A passes owner check, then B steals, then A attempts effect write.
+    // Discriminant: A last CAS succeeds → B steals → A enters D5 TX and is refused.
     initialQualificationFault.afterOwnerCheckBeforeEffect = async () => {
       await db
         .update(trajectoryQualificationOperations)
@@ -3700,7 +3747,6 @@ describe("Ensemble 07 initial qualification (PG)", () => {
 
     const aResult = await processInitialQualification(projectId, { pilotId });
     initialQualificationFault.afterOwnerCheckBeforeEffect = null;
-    // A must not have terminalized under stolen ownership.
     expect(aResult?.status).not.toBe("PROPOSED");
     expect(aResult?.status).not.toBe("CLARIFICATION");
     expect(aResult?.status).not.toBe("FAILED");
@@ -3711,6 +3757,13 @@ describe("Ensemble 07 initial qualification (PG)", () => {
         .from(trajectoryQualificationOperations)
         .where(eq(trajectoryQualificationOperations.projectId, projectId))
     )[0]!;
+    const revsAfterA = await db
+      .select()
+      .from(trajectoryRevisions)
+      .where(eq(trajectoryRevisions.projectId, projectId));
+    expect(revsAfterA).toHaveLength(0);
+    expect(mid.trajectoryRevisionId).toBeNull();
+
     const msgsAfterA = await db
       .select()
       .from(messages)
@@ -3722,13 +3775,20 @@ describe("Ensemble 07 initial qualification (PG)", () => {
       .set({
         ownerToken: null,
         claimedAt: null,
-        status: mid.trajectoryRevisionId ? "UNKNOWN" : "PENDING",
+        status: "PENDING",
         updatedAt: new Date(),
       })
       .where(eq(trajectoryQualificationOperations.id, mid.id));
 
     const bResult = await processInitialQualification(projectId, { pilotId });
     expect(["PROPOSED", "CLARIFICATION"]).toContain(bResult?.status);
+    const revsAfterB = await db
+      .select()
+      .from(trajectoryRevisions)
+      .where(eq(trajectoryRevisions.projectId, projectId));
+    if (bResult?.status === "PROPOSED") {
+      expect(revsAfterB).toHaveLength(1);
+    }
     const msgs = await db
       .select()
       .from(messages)
@@ -3737,16 +3797,248 @@ describe("Ensemble 07 initial qualification (PG)", () => {
     expect(msgs[0]?.role).toBe("assistant");
   });
 
-  it("E07-FIX-05: missing op still blocks pilot turn when prep linked", async () => {
-    const pilotId = await seedPilot("e07-fix05-gate");
+  it("P0-02: resume after D5+resultJson reuses durable assistantContent exactly", async () => {
+    const pilotId = await seedPilot("e07-p002-resume");
     const { prep, name } = await seedPrepWithProjection(
       pilotId,
-      "E07Gate",
-      "Cadrage — verrou sans opération persistée",
+      "E07P002",
+      "Cadrage — reprise exacte du message après D5",
     );
     const created = await createProjectFromPrep(pilotId, prep.id, name, prep.creationRevision);
     const projectId = requireProjectId(created);
-    // No ensure — op absent.
+    await ensureInitialQualification({ projectId, preparationId: prep.id, pilotId });
+
+    const durableContent =
+      "Projet **E07P002** — proposition de trajectoire initiale (non retenue).\n\nCONTENU_DURABLE_P0_02\n\nVous pouvez accepter cette direction.";
+    // Simulate crash after D5 pointer + resultJson, before message insert.
+    const op = (
+      await db
+        .select()
+        .from(trajectoryQualificationOperations)
+        .where(eq(trajectoryQualificationOperations.projectId, projectId))
+    )[0]!;
+    const fakeRevId = newId("trj");
+    await db.insert(trajectoryRevisions).values({
+      id: fakeRevId,
+      projectId,
+      revisionNumber: 1,
+      status: "PROPOSED",
+      orientation: "Trajectoire séquentielle proposée : cadrage.",
+      sourceKind: "COGNITIVE_PROPOSAL",
+      sourceRef: op.id,
+      forecastJson: [
+        { order: 1, cycleType: "CADRAGE", rationale: "test", certainty: "QUALIFIED" },
+      ],
+    });
+    await db
+      .update(trajectoryQualificationOperations)
+      .set({
+        status: "UNKNOWN",
+        phase: "PUBLISHING",
+        trajectoryRevisionId: fakeRevId,
+        resultJson: {
+          kind: "PROPOSED",
+          forecastSteps: [
+            { order: 1, cycleType: "CADRAGE", rationale: "test", certainty: "QUALIFIED" },
+          ],
+          orientation: "Trajectoire séquentielle proposée : cadrage.",
+          assistantContent: durableContent,
+        },
+        ownerToken: null,
+        claimedAt: null,
+        updatedAt: new Date(),
+      })
+      .where(eq(trajectoryQualificationOperations.id, op.id));
+
+    const done = await processInitialQualification(projectId, { pilotId });
+    expect(done?.status).toBe("PROPOSED");
+    expect(done?.assistantMessageId).toBeTruthy();
+    const msg = (
+      await db.select().from(messages).where(eq(messages.id, done!.assistantMessageId!))
+    )[0]!;
+    expect(msg.content).toBe(durableContent);
+    expect(msg.role).toBe("assistant");
+
+    // Second resume must reconcile same message, not CONFLICT into FAILED.
+    const again = await processInitialQualification(projectId, { pilotId });
+    expect(again?.status).toBe("PROPOSED");
+    expect(again?.assistantMessageId).toBe(done?.assistantMessageId);
+  });
+
+  it("P0-04: legacy link without expected flag does not lock composer", async () => {
+    const pilotId = await seedPilot("e07-p004-legacy");
+    const { prep, name } = await seedPrepWithProjection(
+      pilotId,
+      "E07Legacy",
+      "Cadrage — projet antérieur sans qualification",
+    );
+    const created = await createProjectFromPrep(pilotId, prep.id, name, prep.creationRevision);
+    const projectId = requireProjectId(created);
+    // Simulate pre-capability link: expected=false, no op.
+    await db
+      .update(preparationProjectLinks)
+      .set({ initialQualificationExpected: false })
+      .where(eq(preparationProjectLinks.projectId, projectId));
+    await db
+      .delete(trajectoryQualificationOperations)
+      .where(eq(trajectoryQualificationOperations.projectId, projectId));
+
+    const { getQualificationProjectionForClient, reconcileInitialQualification } = await import(
+      "@/domains/pilotage/initial-qualification"
+    );
+    const gate = await getQualificationProjectionForClient(pilotId, projectId);
+    expect(gate).toBeNull();
+    await expect(assertPilotTurnNotBlockedByQualification(pilotId, projectId)).resolves.toBeUndefined();
+    const reconciled = await reconcileInitialQualification(projectId, pilotId);
+    expect(reconciled).toBeNull();
+    const ops = await db
+      .select()
+      .from(trajectoryQualificationOperations)
+      .where(eq(trajectoryQualificationOperations.projectId, projectId));
+    expect(ops).toHaveLength(0);
+  });
+
+  it("FIX-08: conversational GO RETAIN+OPEN after initial PROPOSED (D3→D6→D5)", async () => {
+    const pilotId = await seedPilot("e07-fix08-go");
+    const { prep, name } = await seedPrepWithProjection(
+      pilotId,
+      "E07GoConv",
+      "Cadrage — GO conversationnel après proposition",
+    );
+    const created = await createProjectFromPrep(pilotId, prep.id, name, prep.creationRevision);
+    const projectId = requireProjectId(created);
+    await ensureInitialQualification({ projectId, preparationId: prep.id, pilotId });
+    const terminal = await processInitialQualification(projectId, { pilotId });
+    expect(terminal?.status).toBe("PROPOSED");
+    expect(terminal?.trajectoryRevisionId).toBeTruthy();
+
+    const conv = (
+      await db
+        .select()
+        .from(conversations)
+        .where(eq(conversations.preparationId, prep.id))
+        .limit(1)
+    )[0]!;
+    const last = (
+      await db
+        .select({ ordinal: messages.ordinal })
+        .from(messages)
+        .where(eq(messages.conversationId, conv.id))
+        .orderBy(sql`${messages.ordinal} desc`)
+        .limit(1)
+    )[0];
+    let ordinal = (last?.ordinal ?? 0) + 1;
+
+    const { applyConversationalAuthority } = await import(
+      "@/domains/pilotage/conversation-authority"
+    );
+
+    async function seedUserTurn(content: string, qualification: ReturnType<typeof d5PilotageEnvelope>) {
+      const msgId = newId("msg");
+      await db.insert(messages).values({
+        id: msgId,
+        conversationId: conv.id,
+        role: "user",
+        content,
+        status: "COMPLETE",
+        ordinal: ordinal++,
+        generationId: newId("gen"),
+        createdAt: new Date(),
+      });
+      await db.insert(conversationTurnCommands).values({
+        id: newId("tcmd"),
+        conversationId: conv.id,
+        ownerPilotId: pilotId,
+        clientTurnKey: newId("ctk"),
+        requestFingerprint: newId("fp"),
+        operationId: newId("op"),
+        status: "COMPLETE",
+        userMessageId: msgId,
+        ownerToken: newId("tok"),
+        resultJson: JSON.stringify({
+          semanticQualification: qualification,
+          semanticQualificationStashedAt: new Date().toISOString(),
+        }),
+      });
+      return msgId;
+    }
+
+    const retainQual = d5PilotageEnvelope({
+      operation: "RETAIN_TRAJECTORY",
+      objective: "Retenir la trajectoire proposée",
+    });
+    const retainMsgId = await seedUserTurn("Je retiens cette trajectoire.", retainQual);
+    const retain = await applyConversationalAuthority({
+      pilotId,
+      projectId,
+      userMessageId: retainMsgId,
+      content: "Je retiens cette trajectoire.",
+      clientTurnKey: newId("ctk"),
+      preQualified: {
+        clarity: "CLEAR",
+        operation: "RETAIN_TRAJECTORY",
+        objective: "Retenir la trajectoire proposée",
+        semanticIntentId: retainQual.intents[0]?.id,
+        semanticSchemaVersion: retainQual.schemaVersion,
+      },
+    });
+    expect(retain.attempted).toBe(true);
+    expect(["APPLIED", "ALREADY_APPLIED"]).toContain(retain.command?.status);
+    expect(retain.humanDecisionCreated || retain.decisionId).toBeTruthy();
+
+    const openQual = d5PilotageEnvelope({
+      operation: "OPEN_CYCLE",
+      cycleType: "CADRAGE",
+      objective: "Clarifier le besoin",
+    });
+    const openMsgId = await seedUserTurn("Ouvre le cycle cadrage.", openQual);
+    const open = await applyConversationalAuthority({
+      pilotId,
+      projectId,
+      userMessageId: openMsgId,
+      content: "Ouvre le cycle cadrage.",
+      clientTurnKey: newId("ctk"),
+      preQualified: {
+        clarity: "CLEAR",
+        operation: "OPEN_CYCLE",
+        cycleType: "CADRAGE",
+        objective: "Clarifier le besoin",
+        semanticIntentId: openQual.intents[0]?.id,
+        semanticSchemaVersion: openQual.schemaVersion,
+      },
+    });
+    expect(open.attempted).toBe(true);
+    expect(["APPLIED", "ALREADY_APPLIED"]).toContain(open.command?.status);
+
+    const cycles = await db
+      .select()
+      .from(projectCycles)
+      .where(and(eq(projectCycles.projectId, projectId), eq(projectCycles.status, "ACTIVE")));
+    expect(cycles).toHaveLength(1);
+    expect(cycles[0]?.cycleType).toBe("CADRAGE");
+  });
+
+  it("P0-04/FIX-05: new create with expected flag + missing op locks composer", async () => {
+    const pilotId = await seedPilot("e07-p004-new");
+    const { prep, name } = await seedPrepWithProjection(
+      pilotId,
+      "E07NewGate",
+      "Cadrage — verrou sans opération persistée (nouveau)",
+    );
+    const created = await createProjectFromPrep(pilotId, prep.id, name, prep.creationRevision);
+    const projectId = requireProjectId(created);
+    expect(
+      (
+        await db
+          .select()
+          .from(preparationProjectLinks)
+          .where(eq(preparationProjectLinks.projectId, projectId))
+      )[0]?.initialQualificationExpected,
+    ).toBe(true);
+    await db
+      .delete(trajectoryQualificationOperations)
+      .where(eq(trajectoryQualificationOperations.projectId, projectId));
+
     const { getQualificationProjectionForClient } = await import(
       "@/domains/pilotage/initial-qualification"
     );
@@ -3761,11 +4053,6 @@ describe("Ensemble 07 initial qualification (PG)", () => {
 ```
 
 ### `projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts`
-
-**Disposition :** produit Ensemble 07.
-
-- SHA256: `bc2fd85e9445034d8408f6c719d688ee71ecf1e92ee0666c22d7f41650672c26`
-- Bytes: 1297
 
 ```
 import { describe, expect, it, vi } from "vitest";
@@ -3821,14 +4108,13 @@ describe("ensureInitialQualification idempotency (mocked)", () => {
 
 ### `projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts`
 
-**Disposition :** produit Ensemble 07.
-
-- SHA256: `048becec0a64d6fbeeff8406223fc31dc9e301b33667c8b32340ad812c4b8c09`
-- Bytes: 2359
-
 ```
 import { describe, expect, it } from "vitest";
-import { buildInitialForecast } from "@/domains/pilotage/forecast-builder";
+import {
+  buildInitialForecast,
+  qualificationInputFingerprint,
+  validateStructuredForecast,
+} from "@/domains/pilotage/forecast-builder";
 import type { PreparationProjection } from "@/domains/preparation/projection";
 
 function projection(partial: Partial<PreparationProjection>): PreparationProjection {
@@ -3904,15 +4190,67 @@ describe("ensemble07 forecast builder", () => {
       expect(r.steps[0]!.cycleType).toBe("UX_UI");
     }
   });
+
+  it("FIX-07: validateStructuredForecast accepts ordered propose", () => {
+    const r = buildInitialForecast({
+      projection: projection({
+        intention: {
+          value: "Besoin d'un cadrage pour clarifier le périmètre",
+          status: "PILOT_EXPRESSED",
+          source: { kind: "PILOT_TURN", ref: "t1" },
+          isCurrent: true,
+        },
+      }),
+      previewSummary: "",
+    });
+    expect(validateStructuredForecast(r).ok).toBe(true);
+  });
+
+  it("FIX-07: validateStructuredForecast rejects empty propose steps", () => {
+    const bad = validateStructuredForecast({
+      kind: "PROPOSE",
+      steps: [],
+      orientation: "x",
+      summary: "y",
+    });
+    expect(bad.ok).toBe(false);
+  });
+
+  it("FIX-04: fingerprint changes when openQuestions change", () => {
+    const base = {
+      preparationId: "prep_1",
+      previewSummary: "s",
+      creationRevision: 1,
+      projection: projection({
+        intention: {
+          value: "intention",
+          status: "PILOT_EXPRESSED",
+          source: { kind: "PILOT_TURN", ref: "t1" },
+          isCurrent: true,
+        },
+      }),
+    };
+    const a = qualificationInputFingerprint(base);
+    const b = qualificationInputFingerprint({
+      ...base,
+      projection: projection({
+        intention: base.projection.intention,
+        openQuestions: [
+          {
+            value: "Quelle contrainte budget ?",
+            status: "PILOT_EXPRESSED",
+            source: { kind: "PILOT_TURN", ref: "t2" },
+            isCurrent: true,
+          },
+        ],
+      }),
+    });
+    expect(a).not.toBe(b);
+  });
 });
 ```
 
 ### `projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts`
-
-**Disposition :** produit Ensemble 07.
-
-- SHA256: `d642205cccad1b479976709dbaf0931ba8b89ae0ea2bf5397b29d243533c7919`
-- Bytes: 1477
 
 ```
 import { describe, expect, it } from "vitest";
@@ -3957,19 +4295,34 @@ describe("ensemble07 qualification lock", () => {
 });
 ```
 
-## 11. Fichiers MODIFIÉS — diffs complets
+## 11. Fichiers MODIFIÉS — diffs intégraux
 
 ### `projects/sfia-studio-next/construction/delivery-history.md`
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index e273b49a..de83bb93 100644
+index e273b49a..7d44c2ed 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -3,6 +3,35 @@
+@@ -3,6 +3,50 @@
  Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
++## delivery_id: DELIV-2026-11-20-ENSEMBLE07-FUNCTIONAL-STABILIZATION-CANDIDATE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-20 |
++| Macro-lot | Ensemble 07 — stabilisation fonctionnelle/technique avant RECETTE |
++| Type | EVOL corrective · **NO RELEASE** · Gate C OPEN |
++| P0 | P0-01 fence D5 in-TX · P0-02 resume assistantContent · P0-04 legacy expected flag (016) · P0-05 ensure-before-continue |
++| FIX | FIX-04 fingerprint · FIX-07 validateStructuredForecast · FIX-08 RETAIN resolve PROPOSED · FIX-11 docs SAVING |
++| Tests | PG 15 PASS · unit E07 10 PASS · tsc PASS · ml3 smoke PASS · E2E browser NOT RUN this cycle |
++| UX | **GELÉ** — revue visuelle Morris en RECETTE (hors mandat) |
++| Réserves | LIVE Nora NOT PROVEN · GO browser E2E NOT PROVEN · FIX-03 pas de worker autonome · full suite E2E/build NOT RUN |
++| Verdict | **DEV STABILIZED WITH GOVERNED RESERVES — MORRIS ARBITRATION REQUIRED** |
++
++
 +## delivery_id: DELIV-2026-11-20-ENSEMBLE07-HIGH-FIDELITY-CANDIDATE
 +
 +| Field | Value |
@@ -4002,7 +4355,7 @@ index e273b49a..de83bb93 100644
  ## delivery_id: DELIV-2026-11-20-ENSEMBLE06-POST-MERGE-CI-VERIFIED
 
  | Field | Value |
-@@ -3225,3 +3254,30 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
+@@ -3225,3 +3269,30 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
  | Lane | DEV `:5433` only ; RECETTE/STABLE non mutées |
  | Push Product | **AUCUN** |
  | Verdict candidat | `READY FOR MORRIS REVIEW WITH RESERVES — JOURNAL V4 CORE LOCAL / SCOPE PARTIAL ON J-C04/06/13/14/BROWSER` |
@@ -4033,66 +4386,111 @@ index e273b49a..de83bb93 100644
 +| Réserves | COR-14/15 GO naturel+maturité non prouvés e2e ; COR-16/17 bilan/CKI éditorial partiels ; 13/13 Figma non READY |
 +| Verdict candidat | FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED / READY WITH GOVERNED RESERVES sur P0 |
 +
+
 ```
 
 ### `projects/sfia-studio-next/web/scripts/db-migrate.sh`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/scripts/db-migrate.sh b/projects/sfia-studio-next/web/scripts/db-migrate.sh
-index cc81197d..9a298db6 100755
+index cc81197d..59dcd5dd 100755
 --- a/projects/sfia-studio-next/web/scripts/db-migrate.sh
 +++ b/projects/sfia-studio-next/web/scripts/db-migrate.sh
-@@ -32,4 +32,5 @@ apply "011_oauth_session_binding.sql"
+@@ -32,4 +32,6 @@ apply "011_oauth_session_binding.sql"
  apply "012_auth_concurrency_safety.sql"
  apply "013_preparation_projection.sql"
  apply "014_journal_d4_revisions.sql"
 -echo "db:migrate OK (001→014)"
 +apply "015_trajectory_qualification.sql"
-+echo "db:migrate OK (001→015)"
++apply "016_initial_qualification_expected.sql"
++echo "db:migrate OK (001→016)"
+
 ```
 
 ### `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
-index d21fb43c..e9ffccf7 100644
+index d21fb43c..2ab2d1bb 100644
 --- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
 +++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
-@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
+@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
  import { eq } from "drizzle-orm";
  import { requireStudioSession } from "@/domains/identity/session";
  import { createProjectCommand } from "@/domains/preparation/create-project";
-+import { ensureAndKickInitialQualification } from "@/domains/pilotage/initial-qualification";
++import {
++  ensureInitialQualification,
++  kickInitialQualificationProcessing,
++} from "@/domains/pilotage/initial-qualification";
  import { probeCreateProjectSideEffects } from "@/domains/boundaries/non-effects";
  import {
    authorizeMissionBoundD2Create,
-@@ -81,6 +82,25 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
+@@ -81,18 +85,46 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
      });
      const sideEffects = probeCreateProjectSideEffects();
 
-+    let initialQualification: Awaited<
-+      ReturnType<typeof ensureAndKickInitialQualification>
-+    >["projection"] = null;
+-    let missionContinue: Awaited<ReturnType<typeof continueAfterProjectCreated>> | null = null;
+-    if (
+-      auth.outcome !== "CLASSIC" &&
++    let initialQualification: Awaited<ReturnType<typeof ensureInitialQualification>> | null =
++      null;
 +    let qualificationEnsureStatus: "OK" | "FAILED_RETRYABLE" | "SKIPPED" = "SKIPPED";
-+    if (
-+      (result.status === "CREATED" || result.status === "ALREADY_CREATED") &&
-+      "projectId" in result &&
-+      result.projectId
-+    ) {
-+      // E07-COR-01 — ensure durable op with retry; never silently drop without status.
-+      const ensured = await ensureAndKickInitialQualification({
-+        projectId: result.projectId,
-+        preparationId,
-+        pilotId: session.pilotId,
-+      });
-+      initialQualification = ensured.projection;
-+      qualificationEnsureStatus = ensured.ensureStatus;
++    const projectReady =
+       (result.status === "CREATED" || result.status === "ALREADY_CREATED") &&
+       "projectId" in result &&
+-      result.projectId
+-    ) {
++      Boolean(result.projectId);
++    const projectId = projectReady && "projectId" in result ? result.projectId : null;
++
++    // P0-05 — ensure durable op first (no kick yet) so mission continue and qualification
++    // do not race two incompatible first Nora interventions.
++    if (projectId) {
++      try {
++        initialQualification = await ensureInitialQualification({
++          projectId,
++          preparationId,
++          pilotId: session.pilotId,
++        });
++        qualificationEnsureStatus = "OK";
++      } catch {
++        try {
++          initialQualification = await ensureInitialQualification({
++            projectId,
++            preparationId,
++            pilotId: session.pilotId,
++          });
++          qualificationEnsureStatus = "OK";
++        } catch {
++          qualificationEnsureStatus = "FAILED_RETRYABLE";
++        }
++      }
 +    }
 +
-     let missionContinue: Awaited<ReturnType<typeof continueAfterProjectCreated>> | null = null;
-     if (
-       auth.outcome !== "CLASSIC" &&
-@@ -123,6 +143,8 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
++    let missionContinue: Awaited<ReturnType<typeof continueAfterProjectCreated>> | null = null;
++    if (auth.outcome !== "CLASSIC" && projectId) {
+       try {
+         missionContinue = await continueAfterProjectCreated({
+           pilotId: session.pilotId,
+           preparationId,
+-          projectId: result.projectId,
++          projectId,
+           projectName: body.projectName,
+           clientIntentKey: auth.mission.clientIntentKey,
+         });
+@@ -107,6 +139,11 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
+       }
+     }
+
++    // Kick qualification after mission continue settles (or immediately for classic create).
++    if (projectId && qualificationEnsureStatus === "OK") {
++      kickInitialQualificationProcessing(projectId, session.pilotId);
++    }
++
+     const status =
+       result.status === "CREATED"
+         ? 201
+@@ -123,6 +160,8 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
          sideEffects,
          missionContinue,
          missionBinding: auth.outcome,
@@ -4101,6 +4499,7 @@ index d21fb43c..e9ffccf7 100644
        },
        { status },
      );
+
 ```
 
 ### `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts`
@@ -4119,6 +4518,7 @@ index f22d02af..65a21943 100644
      });
    } catch (e) {
      const code = (e as { code?: string }).code;
+
 ```
 
 ### `projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx`
@@ -4240,6 +4640,7 @@ index 8ca6ff6c..a10ce7fb 100644
      </div>
    );
  }
+
 ```
 
 ### `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx`
@@ -4483,6 +4884,7 @@ index 444c5234..5fada7f5 100644
          </div>
        ) : null}
 
+
 ```
 
 ### `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx`
@@ -4633,6 +5035,7 @@ index 18a635c1..c5f42c54 100644
                onClick={props.onSend}
                data-testid="thread-send"
                aria-label="Envoyer"
+
 ```
 
 ### `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx`
@@ -4674,6 +5077,7 @@ index b164002c..2792d128 100644
 
    const continuityBadge =
      isTravail && props.statusHint && !/^chargement/i.test(props.statusHint) ? (
+
 ```
 
 ### `projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx`
@@ -5002,16 +5406,26 @@ index d0f5912a..cf44ed60 100644
 +    </section>
 +  );
 +}
+
 ```
 
 ### `projects/sfia-studio-next/web/src/db/schema.ts`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/db/schema.ts b/projects/sfia-studio-next/web/src/db/schema.ts
-index cb71e766..e31c56a4 100644
+index cb71e766..395bbcc1 100644
 --- a/projects/sfia-studio-next/web/src/db/schema.ts
 +++ b/projects/sfia-studio-next/web/src/db/schema.ts
-@@ -480,6 +480,8 @@ export const trajectoryRevisions = pgTable(
+@@ -123,6 +123,8 @@ export const preparationProjectLinks = pgTable(
+       .notNull()
+       .references(() => projects.id),
+     attachedAt: timestamp("attached_at", { withTimezone: true }).notNull().defaultNow(),
++    /** P0-04 — true only for creates after Ensemble 07 qualification capability. Legacy = false. */
++    initialQualificationExpected: boolean("initial_qualification_expected").notNull().default(false),
+   },
+ );
+
+@@ -480,6 +482,8 @@ export const trajectoryRevisions = pgTable(
      sourceKind: text("source_kind").notNull(),
      sourceRef: text("source_ref").notNull().default(""),
      decisionId: text("decision_id").references(() => humanDecisions.id),
@@ -5020,7 +5434,7 @@ index cb71e766..e31c56a4 100644
      createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
    },
    (t) => [
-@@ -488,6 +490,40 @@ export const trajectoryRevisions = pgTable(
+@@ -488,6 +492,40 @@ export const trajectoryRevisions = pgTable(
    ],
  );
 
@@ -5061,6 +5475,7 @@ index cb71e766..e31c56a4 100644
  /** D5 — lockable project revision. Missing row means revision 0 (no cycle created with the project). */
  export const projectPilotageState = pgTable("project_pilotage_state", {
    projectId: text("project_id")
+
 ```
 
 ### `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
@@ -5088,13 +5503,105 @@ index 96867946..83bc164d 100644
      try {
        await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
      } catch {
+
+```
+
+### `projects/sfia-studio-next/web/src/domains/pilotage/command-runner.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/command-runner.ts b/projects/sfia-studio-next/web/src/domains/pilotage/command-runner.ts
+index 8328d6a3..6465bc18 100644
+--- a/projects/sfia-studio-next/web/src/domains/pilotage/command-runner.ts
++++ b/projects/sfia-studio-next/web/src/domains/pilotage/command-runner.ts
+@@ -7,6 +7,7 @@ import {
+   governanceRestrictions,
+   projectCycles,
+   projectPilotageState,
++  trajectoryQualificationOperations,
+ } from "@/db/schema";
+ import { evaluateCurrentAuthority } from "@/domains/decisions/authority";
+ import type { ClassifiedCommand, CommandResult, PilotageRequestBody } from "@/domains/pilotage/types";
+@@ -498,6 +499,33 @@ export async function runBusinessCommand(
+         });
+       }
+
++      // P0-01 — fence at true D5 mutation point (same TX as project lock + mutate).
++      const fence = input.body.effectOwnerFence;
++      if (fence?.operationId && fence.ownerToken) {
++        const lockedOp = await tx.execute(
++          sql`select id, owner_token from trajectory_qualification_operations where id = ${fence.operationId} for update`,
++        );
++        const opRow = asRows<{ id: string; owner_token: string | null }>(lockedOp)[0];
++        if (!opRow || String(opRow.owner_token ?? "") !== fence.ownerToken) {
++          return bare(input, {
++            status: "REJECTED",
++            revision,
++            reason: "Propriétaire de qualification expiré au point d'effet D5",
++            reasonCode: "QUALIFICATION_OWNERSHIP_LOST",
++          });
++        }
++        // Touch updated_at under the same lock so concurrent CAS outside TX cannot claim success.
++        await tx
++          .update(trajectoryQualificationOperations)
++          .set({ updatedAt: new Date() })
++          .where(
++            and(
++              eq(trajectoryQualificationOperations.id, fence.operationId),
++              eq(trajectoryQualificationOperations.ownerToken, fence.ownerToken),
++            ),
++          );
++      }
++
+       const mutated = await handlers.mutate(tx, classified.command);
+       if (mutated.kind === "CONFLICT") {
+         return bare(input, {
+
+```
+
+### `projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts b/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
+index 037a068b..185c5540 100644
+--- a/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
++++ b/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
+@@ -441,6 +441,28 @@ export async function applyConversationalAuthority(input: {
+     return outcomeFromCommand(command, "LIFT_RESTRICTION", clientCommandKey);
+   }
+
++  // FIX-08 — RETAIN: do not send orientation/trajectoryRevisionId on USER_MESSAGE body
++  // (SEM rejects client-supplied D5 targets). mutateCommand resolves current PROPOSED.
++  if (qualified.operation === "RETAIN_TRAJECTORY") {
++    if (!projection.trajectory.proposed?.id) {
++      return {
++        ...empty,
++        attempted: false,
++        intentClarity: "AMBIGUOUS",
++        intentReason: "Aucune trajectoire PROPOSED à retenir",
++        clarification: "Aucune trajectoire proposée n'est disponible à retenir.",
++        source: "clarification_only",
++        operation: "RETAIN_TRAJECTORY",
++      };
++    }
++    const command = await executePilotageCommand(input.pilotId, input.projectId, {
++      ...base,
++      operation: "RETAIN_TRAJECTORY",
++      objective: qualified.objective,
++    });
++    return outcomeFromCommand(command, "RETAIN_TRAJECTORY", clientCommandKey);
++  }
++
+   const command = await executePilotageCommand(input.pilotId, input.projectId, {
+     ...base,
+     operation: qualified.operation,
+
 ```
 
 ### `projects/sfia-studio-next/web/src/domains/pilotage/service.ts`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/service.ts b/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
-index f0cb7cac..e407202b 100644
+index f0cb7cac..f094dfcb 100644
 --- a/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
 @@ -22,6 +22,8 @@ import {
@@ -5178,13 +5685,62 @@ index f0cb7cac..e407202b 100644
        createdAt: now,
      });
      const revision = await bumpRevision(tx, projectId);
+@@ -765,16 +797,36 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
+
+   if (command.operation === "RETAIN_TRAJECTORY") {
+     let orientation = command.orientation;
+-    if (command.trajectoryRevisionId) {
++    let retainTargetId = command.trajectoryRevisionId;
++    if (retainTargetId) {
+       const prior = (
+         await tx
+           .select()
+           .from(trajectoryRevisions)
+-          .where(and(eq(trajectoryRevisions.id, command.trajectoryRevisionId), eq(trajectoryRevisions.projectId, projectId)))
++          .where(and(eq(trajectoryRevisions.id, retainTargetId), eq(trajectoryRevisions.projectId, projectId)))
+           .limit(1)
+       )[0];
+       if (!prior) return rejected("INVALID_TARGET", "Trajectoire introuvable dans ce projet");
+       orientation = orientation || prior.orientation;
++    } else if (!orientation.trim()) {
++      // FIX-08 — conversational GO: resolve current PROPOSED when body has no target
++      // (USER_MESSAGE must not carry trajectoryRevisionId / orientation from client).
++      const proposed = (
++        await tx
++          .select()
++          .from(trajectoryRevisions)
++          .where(
++            and(
++              eq(trajectoryRevisions.projectId, projectId),
++              eq(trajectoryRevisions.status, "PROPOSED"),
++            ),
++          )
++          .orderBy(desc(trajectoryRevisions.revisionNumber))
++          .limit(1)
++      )[0];
++      if (!proposed) return rejected("INVALID_TARGET", "Aucune trajectoire PROPOSED à retenir");
++      retainTargetId = proposed.id;
++      orientation = proposed.orientation;
+     }
+     if (!orientation.trim()) return rejected("INVALID", "Orientation requise");
+     const decisionId = await insertHumanDecision(tx, {
+@@ -783,7 +835,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
+       sourceKind: command.sourceKind,
+       sourceRef: command.sourceRef,
+       kind: "RETAIN_TRAJECTORY",
+-      objectRef: command.trajectoryRevisionId ?? "",
++      objectRef: retainTargetId ?? "",
+       statement: command.statement || orientation,
+     });
+     await tx
+
 ```
 
 ### `projects/sfia-studio-next/web/src/domains/pilotage/types.ts`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/types.ts b/projects/sfia-studio-next/web/src/domains/pilotage/types.ts
-index 9121af5f..243d5b35 100644
+index 9121af5f..1fffd284 100644
 --- a/projects/sfia-studio-next/web/src/domains/pilotage/types.ts
 +++ b/projects/sfia-studio-next/web/src/domains/pilotage/types.ts
 @@ -1,5 +1,7 @@
@@ -5195,16 +5751,25 @@ index 9121af5f..243d5b35 100644
 
  /** Internal command outcomes. PARTIAL is intentionally absent: CLOSE+OPEN share one commit. */
  export const COMMAND_STATUSES = [
-@@ -80,6 +82,8 @@ export type PilotageRequestBody = {
+@@ -80,6 +82,17 @@ export type PilotageRequestBody = {
    /** Durable Nora intent id correlated to this USER_MESSAGE command (SEM). */
    semanticIntentId?: string;
    semanticSchemaVersion?: string;
 +  /** Ensemble 07 — structured forecast persisted on trajectory revision. */
 +  forecastJson?: ForecastStep[];
++  /**
++   * P0-01 — optional ownership fence evaluated inside runBusinessCommand TX
++   * immediately before mutate (FOR UPDATE on trajectory_qualification_operations).
++   * Does not replace D6 authority; only blocks stale qualification owners.
++   */
++  effectOwnerFence?: {
++    operationId: string;
++    ownerToken: string;
++  };
  };
 
  export type ClassifiedCommand = {
-@@ -111,8 +115,17 @@ export type TrajectoryView = {
+@@ -111,8 +124,17 @@ export type TrajectoryView = {
    status: string;
    orientation: string;
    decisionId: string | null;
@@ -5222,7 +5787,7 @@ index 9121af5f..243d5b35 100644
  export type PilotageProjection = {
    projectId: string;
    revision: number;
-@@ -149,6 +162,8 @@ export type PilotageProjection = {
+@@ -149,6 +171,8 @@ export type PilotageProjection = {
          scope: string;
        };
    restrictions: Array<{ id: string; targetKind: string; targetRef: string; status: string }>;
@@ -5231,13 +5796,33 @@ index 9121af5f..243d5b35 100644
  };
 
  export function pilotageCommandHttpStatus(result: CommandResult): number {
+
+```
+
+### `projects/sfia-studio-next/web/src/domains/preparation/create-project.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/preparation/create-project.ts b/projects/sfia-studio-next/web/src/domains/preparation/create-project.ts
+index 5b06cf5f..9306337e 100644
+--- a/projects/sfia-studio-next/web/src/domains/preparation/create-project.ts
++++ b/projects/sfia-studio-next/web/src/domains/preparation/create-project.ts
+@@ -224,6 +224,8 @@ export async function createProjectCommand(input: CreateProjectInput): Promise<C
+         preparationId: input.preparationId,
+         projectId,
+         attachedAt: now,
++        // P0-04 — new D2 creates expect initial trajectory qualification (legacy links stay false).
++        initialQualificationExpected: true,
+       });
+       await tx
+         .update(preparations)
+
 ```
 
 ### `projects/sfia-studio-next/web/src/domains/preparation/project-context.ts`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts b/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
-index 6d16b83e..0af44364 100644
+index 6d16b83e..a50bd368 100644
 --- a/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
 +++ b/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
 @@ -1,6 +1,7 @@
@@ -5250,7 +5835,7 @@ index 6d16b83e..0af44364 100644
  import { listMessages, listTurnProjections } from "@/domains/conversation/service";
  import { listDocuments } from "@/domains/document/service";
  import { listProjectKnowledge } from "@/domains/knowledge/journal";
-@@ -69,8 +70,55 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
+@@ -69,8 +70,54 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
        subjectId: o.subjectId,
      })),
    };
@@ -5280,9 +5865,8 @@ index 6d16b83e..0af44364 100644
 +
 +  const openSubjects = knowledge.subjects.filter((s) => s.status === "ACTIVE");
 +  const openPoints = knowledge.openPoints.filter((o) => o.status === "OPEN");
-+  const docsInProgress = documents.filter(
-+    (d) => d.latestRevision && d.latestRevision.status !== "AVAILABLE",
-+  );
++  // FIX-11 — "en cours" = actively writing (SAVING), not FAILED/UNKNOWN/AVAILABLE.
++  const docsInProgress = documents.filter((d) => d.latestRevision?.status === "SAVING");
 +
 +  const activity = {
 +    openSubjects: {
@@ -5306,7 +5890,7 @@ index 6d16b83e..0af44364 100644
    return {
      project,
      preparation: ctx.preparation,
-@@ -81,5 +129,7 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
+@@ -81,5 +128,7 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
      documents,
      knowledge,
      pilotage,
@@ -5314,6 +5898,7 @@ index 6d16b83e..0af44364 100644
 +    activity,
    };
  }
+
 ```
 
 ### `projects/sfia-studio-next/web/src/lib/http-errors.ts`
@@ -5339,22 +5924,20 @@ index 8fae28a2..481ea9f5 100644
      case "PAYLOAD_MISMATCH":
        return 409;
      case "DEPENDENCY_UNAVAILABLE":
+
 ```
 
-## 12–14. Réserves / Verdicts
+## 12. Verdicts
 
-- LIVE NOT PROVEN · GO convers. browser NOT PROVEN · Gate C OPEN · NO RELEASE
-| Domaine | Verdict |
+| Dimension | Verdict |
 |---|---|
-| Couverture | COMPLETE CONTENT |
-| Technique P0 | READY WITH GOVERNED RESERVES |
-| Fonctionnel | READY WITH GOVERNED RESERVES |
-| UX | FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED |
-| Global | READY WITH GOVERNED RESERVES / FIGMA TO RUNTIME PARTIAL |
+| Technique | P0 fermés · FIX-03 réserve non-autonome |
+| Fonctionnel | GO API PASS · LIVE / E2E browser NOT PROVEN |
+| UX | GELÉ |
+| Trace | FULL pack · handoff L3 |
 
-## 15. Instruction ChatGPT
+**Verdict final :** `DEV STABILIZED WITH GOVERNED RESERVES — MORRIS ARBITRATION REQUIRED`
 
-> Avant de répondre à Morris, ChatGPT doit relire directement depuis Git la branche `sfia/review-handoff`, fichier `sfia-review-handoff/latest-chatgpt-review.md`, vérifier la date, le titre **HIGH-FIDELITY CONVERGENCE**, le SHA distant, la matrice §0, FIX-01 TOCTOU, `sas-06-modal-runtime.png`, les 13 comparaisons, les 12 PG PASS, et les réserves. Le rapport Cursor seul ne remplace pas cette vérification.
+## 13. Instruction ChatGPT
 
----
-END OF REVIEW PACK — Ensemble 07 HIGH-FIDELITY CONVERGENCE
+Relire depuis Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`, vérifier titre FUNCTIONAL STABILIZATION, SHA distant, P0-01 in-TX, P0-02, migration 016, FIX-08, PG 15 PASS, gel UX, absence push projet.
