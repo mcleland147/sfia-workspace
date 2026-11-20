@@ -15,7 +15,7 @@ Append-only logical journal of Cursor product deliveries.
 | Base Journal | `5f6e2f3860993acd35d176f60e6a7f0ca69d3a3d` |
 | Source Documents | WT dirty sur `6516c7b56ec61bd72943ae0d26e625bf21139d4e` (+ P0/F1–F5) |
 | Candidate branch | `sfia/next-ensemble06-journal-docs-recette-20261120` (local only) |
-| HEAD | `SEE_GIT_HEAD` · tree `SEE_GIT_TREE` · BUILD `yZFSZj_l8dncTBQcWdP4c` |
+| HEAD |  · tree  · BUILD  |
 | Merge | 3-way Journal∩Documents · TAKE_DOCS hors conflit · TravailViewer/NoraConversation fixes intégration |
 | DB | `sfia_next_recette_ml4` @:5434 · **aucune migration structurante** · 014 déjà appliquée |
 | Backup | `.tmp-sfia-review/recette-backup-20261120T001915Z/` · rollback code → `5f6e2f38` |
