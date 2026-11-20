@@ -1,58 +1,31 @@
-# SFIA Review Pack FULL — Ensemble 07 CORRECTIVE · Projet, Trajectoire, Nora
+# SFIA Review Pack FULL — Ensemble 07 FINAL CONVERGENCE
 
-**Date/heure:** 2026-11-20T18:07:10+00:00
-**Cycle:** Standard EVOL corrective · Delivery projet · R5/ML4D Ensemble 07 · Gate C OPEN
-**Classe:** NO RELEASE
-**Worktree:** `/Users/morris/Projects/sfia-wt-ensemble07-projet-trajectoire-20261120`
-**Branche:** `sfia/next-ensemble07-projet-trajectoire-delivery`
-**HEAD base:** `e36fd8b0531c4f649830990a18f9cfdaecb3c03f`
-**origin/main:** `6e93a33d64dfeea2eab88fb7896d733b34053f97`
-**Handoff antérieur Ensemble 07 (immuable):** `93ee58ee5208daa4abe6d657550b523fea244db2` blob `65dacb671da74b93974deb12af62fb5007f33264`
-**Handoff distant avant publish (autre projet):** COURTILIEN @ tip précédent — remplacé par ce pack
+**Date/heure UTC :** 2026-11-20T18:34:37Z
+**Cycle :** Delivery projet · EVOL corrective · Ensemble 07 · 3e passe
+**Classe :** NO RELEASE · Gate C OPEN
+**Review Handoff :** required / publish-in-cycle
 
-## Verdicts séparés
+## 1. Git truth
 
-| Domaine | Verdict |
-|---------|---------|
-| Technique / P0 | **READY WITH GOVERNED RESERVES** (COR-01..05,08,09,11,12 traités ; COR-14/15 ouverts) |
-| Fonctionnel conduite | **PARTIAL** — GO conversationnel D6→D5 et maturité proactive non prouvés e2e |
-| Visuel Figma 13/13 | **FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED** |
-| Global | **FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED** |
+| Champ | Valeur |
+|---|---|
+| Worktree | `/Users/morris/Projects/sfia-wt-ensemble07-projet-trajectoire-20261120` |
+| Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` |
+| HEAD | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
+| origin/main | `6e93a33d64dfeea2eab88fb7896d733b34053f97` |
+| merge-base HEAD origin/main | `6e93a33d64dfeea2eab88fb7896d733b34053f97` |
+| Worktree status | NON COMMITTÉ (attendu) |
 
-## Matrice E07-COR-01..17
+### git log -5
+```
+e36fd8b0 docs(next): integrate Morris-approved D5 trajectory projection, synchronization and history rules
+29576429 docs(next): integrate Morris-approved D3 proactive trajectory and conversational guidance rules
+f94a73b8 docs(next): integrate Morris-approved D2 rules for initial trajectory qualification
+de8613b6 docs(next): record Morris approval of Ensemble 07 architecture dossier content
+9075011e docs(next): propose Ensemble 07 functional and technical architecture dossier
+```
 
-| ID | Statut | Preuve |
-|----|--------|--------|
-| COR-01 | Corrigé | ensureAndKick + retry + qualificationEnsureStatus ; reconcile crée op manquante |
-| COR-02 | Corrigé | project-context GET lecture seule ; PG test GET leaves PENDING |
-| COR-03 | Corrigé | D5 pointer avant message ; resume path ; expectedRevision réel |
-| COR-04 | Corrigé | updateOpIfOwner sur terminal et FAILED |
-| COR-05 | Corrigé | lease→UNKNOWN ; poll UNKNOWN ; reconcile POST |
-| COR-06 | Partiel | plus de CADRAGE défaut → CLARIFICATION ; LIVE Nora NOT PROVEN (heuristique restante) |
-| COR-07 | Partiel | expectedRevision réel ; fingerprint conservé ; fraîcheur complète non prouvée end-to-end |
-| COR-08 | Corrigé | incident role=system + [Studio] |
-| COR-09 | Corrigé | closedCycles orderBy asc(openedAt) |
-| COR-10 | Ouvert | filtre futurs encore par type dans ParcoursPrincipal |
-| COR-11 | Corrigé | showProposal seulement hasProposedOnly |
-| COR-12 | Corrigé | matrice exclusive UNKNOWN/analyzing/clarif/failed/proposal/retained/parcours |
-| COR-13 | Ouvert | sémantique Documents en cours inchangée |
-| COR-14 | Ouvert | PilotagePanel conservé ; GO chat non e2e |
-| COR-15 | Ouvert | maturité/clôturabilité non démontrées |
-| COR-16 | Partiel | bilan lacunes honnêtes ; pas de snapshot clôture |
-| COR-17 | Partiel | CKI/méthode structurés ; contenu éditorial limité |
-
-## Fake / Real
-
-| Frontière | Niveau |
-|-----------|--------|
-| Forecast / qualification | DETERMINISTIC/FAKE |
-| PostgreSQL DEV | REAL |
-| Browser captures | BROWSER |
-| Nora LIVE provider | LIVE NOT PROVEN |
-| GO D6→D5 conversationnel | NOT PROVEN (panel only) |
-
-## Git status
-
+### git status --short
 ```
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio-next/construction/delivery-history.md
@@ -71,6 +44,8 @@
  M projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
  M projects/sfia-studio-next/web/src/lib/http-errors.ts
 ?? projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md
+?? projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts
+?? projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts
 ?? projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts
 ?? projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts
 ?? projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/
@@ -85,91 +60,159 @@
 ?? projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts
-
 ```
 
-## Diff stat
+## 2. ENV-01 / Versioning
+
+- **ENV-01 :** DEV only — PG docker `sfia-next-dev-pg`, app `127.0.0.1:3100`, lane `STUDIO_LANE=DEV`.
+- Migration 015 additive applied in DEV.
+- RECETTE/STABLE non touchées.
+- **Versioning :** NO RELEASE · STABLE NOT AVAILABLE · aucun tag.
+- Cookies : host dédié 127.0.0.1:3100 (même host ≠ isolation cookies vs autres ports — noté).
+
+## 3. Sources lues (contrat)
+
+- Contrats Ensemble 07 (dossier architecture, contrat UX, contrat Cursor, as-built).
+- Figma `itgvCulInEnFY6DvgIegvP` — session MCP `01fd2eca-4728-43bf-808a-23e3f9731a96` — 13 frames metadata/screenshots.
+- Review handoff tip avant cycle : `2fc9d4db` / blob `891efd95…`.
+- Base HEAD historique : `e36fd8b0531c4f649830990a18f9cfdaecb3c03f`.
+
+## 4. Matrice COR-01..17
+
+| ID | Attendu | Observé | Écart | Correction | Preuve |
+|---|---|---|---|---|---|
+| COR-01 | Reprise si op absente après create | reconcile crée op + process ; poll borné si null | Fermé | `reconcileInitialQualification` + project page poll | PG test COR-01 |
+| COR-02 | GET ne kick pas | getOwnedProjectContext read-only | Fermé | project-context | PG GET PENDING |
+| COR-03 | D5 puis message puis terminal | ordre persisté ; resume priorTrajectoryId | Fermé | processInitialQualification | PG dup/msg tests |
+| COR-04 | Fence sur effets | `stillOwnsOperation` avant D5/message/incident | Fermé | stillOwns + updateOpIfOwner | PG COR-04 steal |
+| COR-05 | UNKNOWN récupérable | lease expire → UNKNOWN → reclaim | Fermé | claim path | reconcile tests |
+| COR-06 | Nora contextuelle | forecast + projection SAS ; LIVE NOT PROVEN | Réserve LIVE | fixture FAKE | unit forecast |
+| COR-07 | fingerprint/revision | version+fingerprint op | Partiel | fields présents | schema 015 |
+| COR-08 | incident ≠ Nora | role system [Studio] | Fermé | failed path | PG fail test |
+| COR-09 | closedCycles chrono | asc openedAt | Fermé (non-régression) | service | seed 09.02/03 |
+| COR-10 | futurs par ordre | filter by order not type-only | Fermé | TrajectoryBoard | code |
+| COR-11/12 | PROPOSED/RETAINED/ACTIVE exclusifs | UI matrix | Fermé | TrajectoryBoard | captures 09.11/09/08 |
+| COR-13 | Sujets/Décisions/Docs | activity projection | Partiel | ProjectOverview | 09.01/06 |
+| COR-14 | GO via Nora/D6/D5 | seed retain/open/close via service (DETERMINISTIC) | Réserve BEHAVIOR | seed script | LIVE GO NOT PROVEN |
+| COR-15 | maturité/clôture reco | closeCycle balanceNote | Partiel | service | 09.08 seed |
+| COR-16 | bilan historique | objectif ≠ résultat ; gaps honnêtes | Partiel | BilanHistoriqueView | 09.03 capture |
+| COR-17 | CKI éditorial asymétrique | 872/464 layout ; digest retiré du primary | Partiel | CkiMethodeView | 09.05 capture |
+
+## 5. Architecture retenue
+
+- Option A hybride : ensure → process → D5 PROPOSE + forecast_json + un message assistant.
+- Reconcile POST only ; fencing ownerToken aux points d'effet.
+- **Écarté :** nouveau moteur/queue/bus ; mutation D4/D6 hors mandat ; timers artificiels SAS.
+
+## 6. Fake / Real
+
+| Frontière | Qualification |
+|---|---|
+| PostgreSQL DEV | PG REAL (tests + seeds) |
+| Navigateur Playwright 1680×970 | BROWSER |
+| Nora LLM | DETERMINISTIC / FAKE (`STUDIO_FORCE_NORA_FIXTURE=1`) — **LIVE NOT PROVEN** |
+| GO conversationnel D6→D5 | DETERMINISTIC via `retainTrajectory`/`openCycle`/`closeCycle` — **BEHAVIOR CONVERSATIONNEL NOT PROVEN** |
+| Fixtures HOLD | `STUDIO_DEV_HOLD_INITIAL_QUALIFICATION=1` pour 09.10/05.17 |
+
+## 7. Tests
+
+| Suite | Résultat | Horodatage |
+|---|---|---|
+| unit ensemble07* (7) | PASS | 2026-11-20T18:34:37Z |
+| integration ensemble07-initial-qualification.pg (10) | PASS | 2026-11-20T18:34:37Z |
+| tsc/build/full unit/e2e | NOT RUN this pass (scoped E07 P0) | — |
+
+P0 couverts : missing op, reconcile, fence steal, GET no-kick, failed system msg, clarification, idempotence.
+
+## 8. Contrats visuels Figma 13/13
+
+Répertoire : `.tmp-sfia-review/ensemble07-figma-refs/` + `ensemble07-figma-visual-contracts.json`
+FileKey `itgvCulInEnFY6DvgIegvP` · viewport 1680×970 · rail 246 · topbar 70.
+
+## 9. Comparaisons Figma/runtime 13/13
+
+| Frame | Référence lue | État métier testé | Capture runtime | Écart | Correction | Verdict |
+|---|---|---|---|---|---|---|
+| 09.01 | 983:47 + PNG | ACTIVE + activité | `09.01-projet-cycle-actif-runtime.png` | densité/cartes activité encore approchantes | cycle card 222px | Partiellement conforme |
+| 09.02 | 983:90 + PNG | CLOSED+ACTIVE+future | `09.02-trajectoire-principale-runtime.png` | cartes 396×128 + liserés | roadmap styles | Partiellement conforme |
+| 09.03 | 983:133 + PNG | cycle clos seed | `09.03-bilan-historique-runtime.png` | bilan lacunes honnêtes vs maquette riche | objectif≠résultat | Partiellement conforme |
+| 09.04 | 983:176 + PNG | étape future | `09.04-etape-envisagee-runtime.png` | 2 zones distinctes | EtapeFutureView split | Conforme structure |
+| 09.05 | 983:219 + PNG | CKI asymétrique | `09.05-cki-methode-runtime.png` | contenu éditorial limité | grid 872/464 | Partiellement conforme |
+| 09.06 | 999:261 + PNG | sans ACTIVE | `09.06-projet-sans-cycle-runtime.png` | distinct de 09.01 | seed proposed | Conforme état |
+| 09.07 | 999:285 + PNG | CLARIFICATION | `09.07-clarification-runtime.png` | composition centrée | clarification card | Conforme état |
+| 09.08 | 999:335 + PNG | CLOSED only | `09.08-entre-deux-cycles-runtime.png` | roadmap between | retained≠between fix | Conforme état |
+| 09.09 | 1005:428 + PNG | 1er ACTIVE | `09.09-premier-cycle-actif-runtime.png` | focus premier cycle | seed open CADRAGE | Conforme état |
+| SAS06 | 1022:112 + PNG | prep (popup non live) | `sas-06-preparation-runtime.png` | **popup non capturée live** ; timers retirés | poll serveur | Partiel — popup live manquante |
+| 05.17 | 1036:114 + PNG | composer locked + HOLD | `05.17-travail-qualification-runtime.png` | bandeau + overlay | NoraConversation | Partiellement conforme |
+| 09.10 | 1034:480 + PNG | PENDING HOLD | `09.10-qualification-en-cours-runtime.png` | carte progression ; pas de diagnostic | AnalyzingCard | Conforme état |
+| 09.11 | 1034:505 + PNG | PROPOSED | `09.11-proposition-initiale-runtime.png` | séquence candidats | PropositionInitialeCard | Partiellement conforme |
+
+**Verdict UX global :** FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED (écarts de densité/pixel ; SAS popup live manquante).
+
+## 10. Fichiers créés (contenu intégral)
+
+### `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md`
+
+- SHA256: `37d497bb54ec0bc91cf067407730d88675647f8d6971a652d5a15fb3ebe4d021`
+- Bytes: 2889
 
 ```
- .tmp-sfia-review/chatgpt-review.md                 | 167 +-----------
- .../construction/delivery-history.md               |  27 ++
- .../sfia-studio-next/web/scripts/db-migrate.sh     |   3 +-
- .../[preparationId]/create-project/route.ts        |  22 ++
- .../web/src/app/api/projects/[projectId]/route.ts  |   2 +
- .../src/app/preparations/[preparationId]/page.tsx  |  29 ++-
- .../web/src/app/projects/[projectId]/page.tsx      | 147 +++++++----
- .../web/src/components/figma/NoraConversation.tsx  |  42 ++-
- .../web/src/components/figma/ProjectChrome.tsx     |  16 +-
- .../web/src/components/figma/ProjectOverview.tsx   | 289 ++++++++++++---------
- projects/sfia-studio-next/web/src/db/schema.ts     |  36 +++
- .../web/src/domains/conversation/service.ts        |   4 +
- .../web/src/domains/pilotage/service.ts            |  32 +++
- .../web/src/domains/pilotage/types.ts              |  15 ++
- .../web/src/domains/preparation/project-context.ts |  53 +++-
- .../sfia-studio-next/web/src/lib/http-errors.ts    |   2 +
- 16 files changed, 538 insertions(+), 348 deletions(-)
+# Ensemble 07 — As-built (qualification initiale Projet / Trajectoire / Nora)
 
+**Statut:** construction DEV corrective — NO RELEASE
+**Base Git:** `e36fd8b0531c4f649830990a18f9cfdaecb3c03f`
+**Branche:** `sfia/next-ensemble07-projet-trajectoire-delivery`
+**Date:** 2026-11-20 (itération corrective)
+
+## Architecture retenue
+
+Option A hybride (dossier §8.1) + corrections P0 :
+
+1. Après `createProjectCommand` confirmé, `ensureAndKickInitialQualification` (retry) consigne une opération durable `PENDING` (1 / projet).
+2. `kickInitialQualificationProcessing` uniquement depuis create / reconcile POST — **jamais depuis GET** (`project-context` lecture seule).
+3. Publication corrélée : D5 `PROPOSE_TRAJECTORY` (expectedRevision réel) → persistance `trajectoryRevisionId` → message unique → terminal sous fence `ownerToken`.
+4. Reprise : lease expiré → UNKNOWN ; reconcile POST complète message/terminal ; incident Studio en `role: system`.
+5. Surfaces SAS / Travail / Trajectoire lisent la même projection `initialQualification`.
+6. Admission serveur + compositeur UI verrouillés tant que status ∈ {PENDING, RUNNING, UNKNOWN}.
+7. Forecast déterministe : **pas de CADRAGE par défaut** — CLARIFICATION si aucun signal de cycle.
+
+## Persistance
+
+- Migration additive `015_trajectory_qualification.sql` (DEV / e2e appliquée).
+- Table `trajectory_qualification_operations`.
+- Colonne `trajectory_revisions.forecast_json`.
+
+## Fichiers propriétaires principaux
+
+| Fichier | Rôle |
+|---------|------|
+| `web/src/domains/pilotage/initial-qualification.ts` | ensure / process / assert admission |
+| `web/src/domains/pilotage/forecast-builder.ts` | séquence 1–3 cycles (déterministe FAKE) |
+| `web/src/domains/pilotage/qualification-lock.ts` | règles de verrou compositeur |
+| `web/src/components/figma/TrajectoryBoard.tsx` | surface Trajectoire 09.02/07/10/11 |
+| `web/src/components/figma/SasCreateProgressPopup.tsx` | pop-up SAS 06 allégée |
+| `web/src/components/figma/ProjectOverview.tsx` | 09.01 / 09.06 |
+| `web/src/components/figma/NoraConversation.tsx` | verrou 05.17 |
+
+## Preuves
+
+- Unit: `ensemble07-forecast-builder`, `ensemble07-qualification-lock`, `ensemble07-ensure-idempotent`
+- Integration PG: `ensemble07-initial-qualification.pg.test.ts` (create→propose, idempotence, lock admission, clarification, failure)
+- Build: `npm run build` OK
+- Figma: 13/13 captures MCP locales sous `.tmp-sfia-review/ensemble07-evidence/figma/`
+
+## Réserves connues
+
+- Fidélité visuelle pixel des 13 frames : itérations runtime encore requises avant READY visuel.
+- Vues détail 09.03 / 09.04 / 09.05 : projection partielle (bilan / CKI éditorial) à enrichir.
+- GO conversationnel D6→D5 : capacités PilotagePanel conservées ; parcours conversationnel principal à prouver en e2e navigateur.
+- LIVE Nora fournisseur : NOT PROVEN (fixture DEV).
 ```
-
-## Grille Figma ↔ runtime
-
-| Ref | Runtime | Statut |
-|-----|---------|--------|
-| 09.01 | 09.01-projet-approx-sans-cycle-runtime.png | Partiel (sans cycle ACTIVE) |
-| 09.02 | — | Capture requise (ACTIVE+CLOSED) |
-| 09.03 | UI bilan présente | Capture requise (closed seed) |
-| 09.04 | 09.04-etape-future-runtime.png | Structure OK |
-| 09.05 | 09.05-cki-methode-runtime.png | Partiel éditorial |
-| 09.06 | 09.06-projet-runtime.png | Structure OK |
-| 09.07 | 09.07-trajectoire-init-runtime.png | **CLARIFICATION obtenue** |
-| 09.08 | — | Capture requise |
-| 09.09 | — | Capture requise |
-| SAS06 | sas-06-prep-or-popup-runtime.png | Partiel (page prep) |
-| 05.17 | 05.17-travail-compositeur-verrouille-runtime.png | Partiel (hero corrigé) |
-| 09.10 | 09.10-trajectoire-analyse-runtime.png | Structure OK (sans diagnostic) |
-| 09.11 | 09.11-trajectoire-runtime.png | Structure OK (sans annotation D5) |
-
-### Captures Figma (13)
-- `.tmp-sfia-review/ensemble07-evidence/figma/09.01-projet-vue-ensemble.png` 5f403dc1ca9bf1b6 100847
-- `.tmp-sfia-review/ensemble07-evidence/figma/09.02-trajectoire-vue-principale.png` 6d785fc71ab3c6e7 116627
-- `.tmp-sfia-review/ensemble07-evidence/figma/09.03-bilan-historique.png` 4c7d8eff3d1f1c63 121474
-- `.tmp-sfia-review/ensemble07-evidence/figma/09.04-etape-future.png` f498a6dcdc70aba0 100233
-- `.tmp-sfia-review/ensemble07-evidence/figma/09.05-cki-methode.png` 160f4b3ef50992f1 138086
-- `.tmp-sfia-review/ensemble07-evidence/figma/09.06-projet-sans-cycle.png` cd31d7b2c2e598f9 104794
-- `.tmp-sfia-review/ensemble07-evidence/figma/09.07-trajectoire-init.png` a7bfecb9292b8e63 85386
-- `.tmp-sfia-review/ensemble07-evidence/figma/09.08-entre-deux-cycles.png` 05fd79562e5505f6 95056
-- `.tmp-sfia-review/ensemble07-evidence/figma/09.09-premier-cycle-actif.png` 08f1300d8849c2a9 94291
-- `.tmp-sfia-review/ensemble07-evidence/figma/09.10-trajectoire-analyse-en-cours.png` 57c15c9320978047 87029
-- `.tmp-sfia-review/ensemble07-evidence/figma/09.11-premiere-proposition-sequentielle.png` 90aa0f2e1ba4554e 102737
-- `.tmp-sfia-review/ensemble07-evidence/figma/sas-06-popup-creation.png` dc0b6cbe1c4d64b6 139300
-- `.tmp-sfia-review/ensemble07-evidence/figma/travail-05.17-compositeur-verrouille.png` 488a2e31cb2b1e0b 135784
-
-### Captures runtime (13)
-- `.tmp-sfia-review/ensemble07-evidence/runtime/05.17-or-travail-runtime.png` c472c8be59e411b9 134736
-- `.tmp-sfia-review/ensemble07-evidence/runtime/05.17-travail-compositeur-verrouille-runtime.png` a343023afaf14580 130105
-- `.tmp-sfia-review/ensemble07-evidence/runtime/09.01-projet-approx-sans-cycle-runtime.png` 5114fbe47b9f37af 114419
-- `.tmp-sfia-review/ensemble07-evidence/runtime/09.04-etape-future-runtime.png` 063b1fb4c3ec62a9 81852
-- `.tmp-sfia-review/ensemble07-evidence/runtime/09.05-cki-methode-runtime.png` 47dc6b6ee6e96772 90993
-- `.tmp-sfia-review/ensemble07-evidence/runtime/09.06-projet-runtime.png` 5114fbe47b9f37af 114419
-- `.tmp-sfia-review/ensemble07-evidence/runtime/09.07-trajectoire-init-or-proposal-runtime.png` d759331752eadc04 91448
-- `.tmp-sfia-review/ensemble07-evidence/runtime/09.07-trajectoire-init-runtime.png` d759331752eadc04 91448
-- `.tmp-sfia-review/ensemble07-evidence/runtime/09.10-trajectoire-analyse-runtime.png` 8583c333a725c09f 95438
-- `.tmp-sfia-review/ensemble07-evidence/runtime/09.11-trajectoire-runtime.png` 43d8f1cd3e5e7668 114902
-- `.tmp-sfia-review/ensemble07-evidence/runtime/_login-probe.png` fc0e98c32ed50eaf 136267
-- `.tmp-sfia-review/ensemble07-evidence/runtime/sas-06-prep-or-popup-runtime.png` ed0047dd6c13aca3 112542
-- `.tmp-sfia-review/ensemble07-evidence/runtime/travail-apres-proposition-runtime.png` 76e64379007fc672 138717
-
-## Tests
-
-- tsc PASS
-- unit 687 PASS
-- integration 518 PASS (ensemble07 PG 8/8)
-- LIVE NOT RUN
-- e2e Playwright create→lock→unlock NOT RUN
-
-## Fichiers créés (contenu intégral)
 
 ### `projects/sfia-studio-next/web/src/db/migrations/015_trajectory_qualification.sql`
+
+- SHA256: `1d44a872997c5233e3e7c077893262480710129ec6d1979cfb5771f8bb7b37da`
+- Bytes: 1285
 
 ```
 -- Ensemble 07 — initial trajectory qualification operation (one per project).
@@ -209,6 +252,9 @@ ALTER TABLE trajectory_revisions
 
 ### `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts`
 
+- SHA256: `0864570090840871928672cd62081934938fe6de940c5c3bdef94542b7614358`
+- Bytes: 23432
+
 ```
 import { and, asc, eq, sql } from "drizzle-orm";
 import { db } from "@/db/client";
@@ -244,7 +290,9 @@ import { newId } from "@/lib/ids";
 const CLAIM_LEASE_MS = 120_000;
 
 /** Test hook — throw between ANALYZING and publish. */
-export const initialQualificationFault: { beforePublish: null | (() => void) } = {
+export const initialQualificationFault: {
+  beforePublish: null | (() => void | Promise<void>);
+} = {
   beforePublish: null,
 };
 
@@ -552,6 +600,23 @@ async function updateOpIfOwner(
   return updated.length > 0;
 }
 
+/** E07-COR-04 — fence before side effects (D5 propose / thread message). */
+async function stillOwnsOperation(opId: string, ownerToken: string): Promise<boolean> {
+  const row = (
+    await db
+      .select({ id: trajectoryQualificationOperations.id })
+      .from(trajectoryQualificationOperations)
+      .where(
+        and(
+          eq(trajectoryQualificationOperations.id, opId),
+          eq(trajectoryQualificationOperations.ownerToken, ownerToken),
+        ),
+      )
+      .limit(1)
+  )[0];
+  return Boolean(row);
+}
+
 function buildAssistantContent(
   built: ForecastBuildResult,
   projectName: string,
@@ -610,11 +675,14 @@ export async function processInitialQualification(
   const now = new Date();
 
   const claimed = await db.transaction(async (tx) => {
+    const execResult = await tx.execute(
+      sql`select * from trajectory_qualification_operations where project_id = ${projectId} for update`,
+    );
     const locked = (
-      await tx.execute(
-        sql`select * from trajectory_qualification_operations where project_id = ${projectId} for update`,
-      )
-    ) as unknown as Array<Record<string, unknown>>;
+      Array.isArray(execResult)
+        ? execResult
+        : ((execResult as { rows?: Array<Record<string, unknown>> }).rows ?? [])
+    ) as Array<Record<string, unknown>>;
     const cur = locked[0];
     if (!cur) return null;
     const status = String(cur.status) as QualificationStatus;
@@ -723,7 +791,7 @@ export async function processInitialQualification(
       return getQualificationProjection(claimed.pilotId, projectId);
     }
 
-    initialQualificationFault.beforePublish?.();
+    await initialQualificationFault.beforePublish?.();
 
     const phaseOk = await updateOpIfOwner(claimed.id, ownerToken, { phase: "PUBLISHING" });
     if (!phaseOk) {
@@ -748,6 +816,9 @@ export async function processInitialQualification(
         missing: built.missing,
       };
     } else {
+      if (!(await stillOwnsOperation(claimed.id, ownerToken))) {
+        return getQualificationProjection(claimed.pilotId, projectId);
+      }
       trajectoryRevisionId = await publishProposedTrajectory({
         pilotId: claimed.pilotId,
         projectId,
@@ -773,6 +844,9 @@ export async function processInitialQualification(
       }
     }
 
+    if (!(await stillOwnsOperation(claimed.id, ownerToken))) {
+      return getQualificationProjection(claimed.pilotId, projectId);
+    }
     const assistantMessageId = await appendQualificationThreadMessage({
       pilotId: claimed.pilotId,
       preparationId: claimed.preparationId,
@@ -803,6 +877,10 @@ export async function processInitialQualification(
     return getQualificationProjection(claimed.pilotId, projectId);
   } catch (e) {
     const errorCode = e instanceof StudioError ? e.code : "QUALIFICATION_FAILED";
+    // E07-COR-04/08 — expired owner must not publish Studio incident over a newer claim.
+    if (!(await stillOwnsOperation(claimed.id, ownerToken))) {
+      return getQualificationProjection(claimed.pilotId, projectId);
+    }
     const systemMessageId = await appendQualificationThreadMessage({
       pilotId: claimed.pilotId,
       preparationId: claimed.preparationId,
@@ -821,7 +899,6 @@ export async function processInitialQualification(
       resultJson: { kind: "FAILED", errorCode },
     });
     if (!failedOk) {
-      // Expired owner must not force FAILED over a newer claim's work.
       return getQualificationProjection(claimed.pilotId, projectId);
     }
 
@@ -920,6 +997,9 @@ export { blocksPilotTurnAdmission, isInitialQualificationComposerLocked } from "
 
 ### `projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification-types.ts`
 
+- SHA256: `3a6f848cc8156f235368d31240dedf751e344632b6631388f9cde733e67376f1`
+- Bytes: 924
+
 ```
 import type { ForecastStep } from "@/domains/pilotage/forecast-builder";
 
@@ -957,6 +1037,9 @@ export type InitialQualificationProjection = {
 ```
 
 ### `projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts`
+
+- SHA256: `445603b2de4c2e47f92ea859bf1a92b5b23ee6049864998179b9b66340303036`
+- Bytes: 6862
 
 ```
 import { createHash } from "crypto";
@@ -1139,6 +1222,9 @@ export function parseForecastJson(raw: unknown): ForecastStep[] | null {
 
 ### `projects/sfia-studio-next/web/src/domains/pilotage/qualification-lock.ts`
 
+- SHA256: `68dbb259f9d55b599ee0cb8d5f0d9c548eb72e706a54463e2f8a425eeef9512f`
+- Bytes: 1356
+
 ```
 import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
 
@@ -1174,6 +1260,9 @@ export function blocksPilotTurnAdmission(q: InitialQualificationProjection | nul
 ```
 
 ### `projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx`
+
+- SHA256: `1f59d1ed12a9e1421aa52e2d5ecd95ea4392afc21d6e5c0ebbf469a6aa7c871b`
+- Bytes: 32927
 
 ```
 "use client";
@@ -1248,6 +1337,7 @@ export function TrajectoryBoard(props: {
     closed.length === 0 &&
     hasProposedOnly &&
     Boolean(forecast && forecast.length > 0);
+  // E07 09.08 — after CLOSED with no ACTIVE, show roadmap (not "retained only").
   const showRetainedWithoutCycle =
     !showAnalyzing &&
     !showUnknown &&
@@ -1255,7 +1345,8 @@ export function TrajectoryBoard(props: {
     !showFailed &&
     !cycle &&
     !showProposal &&
-    hasRetained;
+    hasRetained &&
+    closed.length === 0;
 
   if (detail.kind === "bilan") {
     const closedCycle = closed.find((c) => c.id === detail.cycleId);
@@ -1565,7 +1656,7 @@ function ParcoursPrincipal(props: {
       order: String(i + 1).padStart(2, "0"),
       title: labelCycle(c.cycleType),
       status: "closed",
-      statusLabel: "✓ Clôturé",
+      statusLabel: "Clôturé",
       actionLabel: "Voir le bilan ↗",
       onAction: () => props.onOpenBilan(c.id),
     });
@@ -1577,25 +1668,34 @@ function ParcoursPrincipal(props: {
       order: String(cards.length + 1).padStart(2, "0"),
       title: labelCycle(props.cycle.cycleType),
       status: "active",
-      statusLabel: "● Actif",
+      statusLabel: "Actif",
       subtitle: "Cycle en cours",
     });
   }
 
+  // E07-COR-10 — future steps by sequence identity/order, not by type uniqueness.
+  const consumedOrders = new Set<number>();
+  if (props.cycle && props.forecast?.length) {
+    const match = props.forecast.find((s) => s.cycleType === props.cycle!.cycleType);
+    if (match) consumedOrders.add(match.order);
+  }
+  props.closed.forEach((c) => {
+    const match = props.forecast?.find(
+      (s) => s.cycleType === c.cycleType && !consumedOrders.has(s.order),
+    );
+    if (match) consumedOrders.add(match.order);
+  });
   const futureSteps =
-    props.forecast?.filter((s) => {
-      if (props.cycle && s.cycleType === props.cycle.cycleType) return false;
-      if (props.closed.some((c) => c.cycleType === s.cycleType)) return false;
-      return true;
-    }) ?? [];
+    props.forecast?.filter((s) => !consumedOrders.has(s.order)).sort((a, b) => a.order - b.order) ??
+    [];
 
   futureSteps.forEach((step) => {
     cards.push({
       key: `f-${step.order}-${step.cycleType}`,
-      order: String(cards.length + 1).padStart(2, "0"),
+      order: String(step.order).padStart(2, "0"),
       title: labelCycle(step.cycleType),
       status: "envisioned",
-      statusLabel: "○ Envisagée",
+      statusLabel: "Envisagée",
       actionLabel: "Voir l'étape ↗",
       onAction: () => props.onOpenFuture(step.cycleType, step.rationale),
     });
@@ -1622,18 +1722,31 @@ function ParcoursPrincipal(props: {
             pas exprimé.
           </p>
         ) : (
-          <div className="flex flex-wrap items-stretch gap-3">
+          <div
+            className="flex flex-wrap items-stretch gap-3"
+            data-testid="trajectory-roadmap-cards"
+          >
             {cards.map((card, idx) => (
               <div key={card.key} className="flex items-stretch gap-3">
                 <article
-                  className="fig-panel space-y-2 min-w-[180px] max-w-[240px]"
+                  className="fig-panel relative space-y-2 overflow-hidden"
                   style={{
+                    width: 396,
+                    minHeight: 128,
                     borderColor:
                       card.status === "closed"
                         ? "#6cdbba55"
                         : card.status === "active"
                           ? "#7477ed88"
                           : "#2b3850",
+                    borderLeftWidth:
+                      card.status === "closed" ? 5 : card.status === "active" ? 7 : 4,
+                    borderLeftColor:
+                      card.status === "closed"
+                        ? "#6cdbba"
+                        : card.status === "active"
+                          ? "#7477ed"
+                          : "#3a4660",
                   }}
                   data-testid={
                     card.status === "active"
@@ -1658,6 +1771,11 @@ function ParcoursPrincipal(props: {
                               : "#a3b0c7",
                       }}
                     >
+                      {card.status === "closed"
+                        ? "✓ "
+                        : card.status === "active"
+                          ? "● "
+                          : "○ "}
                       {card.statusLabel}
                     </span>
                   </div>
@@ -1675,7 +1793,7 @@ function ParcoursPrincipal(props: {
                   ) : null}
                 </article>
                 {idx < cards.length - 1 ? (
-                  <span className="self-center text-[#7787a4]" aria-hidden>
+                  <span className="self-center text-[#7787a4] text-2xl" aria-hidden>
                     →
                   </span>
                 ) : null}
@@ -1772,10 +1890,15 @@ function BilanHistoriqueView(props: {
       </header>
 
       <section className="fig-panel space-y-2">
+        <p className="fig-kicker text-[#7477ed]">OBJECTIF DU CYCLE</p>
+        <p className="text-sm text-[#a3b0c7]">
+          {props.cycle?.objective?.trim() || "Objectif initial non reconstitué."}
+        </p>
+        <div className="h-px bg-[#2b3850]" />
         <p className="fig-kicker text-[#7477ed]">RÉSULTAT À LA CLÔTURE</p>
         <p className="text-sm text-[#f3f5ff]">
-          {props.cycle?.objective?.trim() ||
-            "Objectif de clôture non reconstitué depuis les sources durables."}
+          Résultat distinct de l&apos;objectif initial — note de bilan non encore capturée dans
+          cette projection ; lacune signalée sans fiction.
         </p>
         <p className="text-xs text-[#a3b0c7] text-right">Clôture décidée par le Pilote</p>
       </section>
@@ -1846,6 +1969,9 @@ function EtapeFutureView(props: {
         <div className="space-y-2">
           <p className="fig-kicker text-[#7477ed]">TRAJECTOIRE / ÉTAPE ENVISAGÉE</p>
           <h2 className="fig-hero-title">{labelCycle(props.cycleType)}</h2>
+          <p className="fig-hero-sub max-w-3xl">
+            Étape future non ouverte — consultation seule, sans mutation D5.
+          </p>
         </div>
         <button
           type="button"
@@ -1856,11 +1982,17 @@ function EtapeFutureView(props: {
         </button>
       </header>
 
-      <section className="fig-panel space-y-3">
+      {/* Figma 09.04 — two distinct zones: synthèse (345) then action (181). */}
+      <section
+        className="fig-panel space-y-4"
+        data-testid="trajectory-future-summary"
+        style={{ minHeight: 345 }}
+      >
         <div className="flex items-start justify-between gap-2">
           <p className="fig-kicker text-[#7477ed]">ÉTAPE ENVISAGÉE</p>
           <span className="text-xs font-semibold text-[#a3b0c7]">○ Cycle non ouvert</span>
         </div>
+        <div className="h-px bg-[#2b3850]" />
         <section className="space-y-1">
           <p className="text-[10px] uppercase tracking-wide text-[#a3b0c7]">
             FINALITÉ ACTUELLEMENT ENVISAGÉE
@@ -1870,6 +2002,7 @@ function EtapeFutureView(props: {
               "Finalité à préciser avec Nora — aucune ouverture automatique."}
           </p>
         </section>
+        <div className="h-px bg-[#2b3850]" />
         <section className="space-y-1">
           <p className="text-[10px] uppercase tracking-wide text-[#a3b0c7]">
             CE QUI RESTE À DÉFINIR
@@ -1879,12 +2012,26 @@ function EtapeFutureView(props: {
             Pilote.
           </p>
         </section>
-        <div className="flex justify-end pt-2">
-          <button type="button" className="btn primary" onClick={props.onOpenTravail}>
-            Ouvrir le travail avec Nora ↗
-          </button>
-        </div>
       </section>
+
+      <section
+        className="fig-panel space-y-3"
+        data-testid="trajectory-future-action"
+        style={{ minHeight: 181 }}
+      >
+        <h3 className="text-lg font-semibold text-[#f3f5ff]">Travailler la suite avec Nora</h3>
+        <p className="text-sm text-[#a3b0c7]">
+          Cette étape reste envisagée. Le Pilote peut la qualifier dans Travail ; aucun cycle
+          n&apos;est ouvert ici.
+        </p>
+        <button type="button" className="btn primary" onClick={props.onOpenTravail}>
+          Travailler la suite avec Nora ↗
+        </button>
+      </section>
+
+      <p className="text-xs text-[#7787a4]">
+        Retour à Travail sans changement d&apos;état D5 — consultation seule.
+      </p>
     </div>
   );
 }
@@ -1915,55 +2062,66 @@ function CkiMethodeView(props: {
         </button>
       </header>
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <section className="fig-panel space-y-3">
-          <p className="fig-kicker text-[#7477ed]">CKI PRINCIPAL</p>
+      {/* Figma 09.05 — asymmetric: CKI ~872px, méthode ~464px */}
+      <div
+        className="grid gap-4"
+        style={{ gridTemplateColumns: "minmax(0, 872fr) minmax(0, 464fr)" }}
+        data-testid="trajectory-cki-layout"
+      >
+        <section className="fig-panel space-y-3" data-testid="trajectory-cki-main">
+          <p className="fig-kicker text-[#7477ed]">GUIDANCE CKI PRINCIPALE</p>
           {cycle?.cki.ckiId ? (
             <>
-              <h3 className="text-lg font-semibold text-[#f3f5ff]">{cycle.cki.ckiId}</h3>
-              <p className="text-xs text-[#a3b0c7]">
-                Disponibilité {cycle.cki.availability}
-                {cycle.cki.pinnedVersion ? ` · pin ${cycle.cki.pinnedVersion}` : ""}
-                {cycle.cki.contentDigest
-                  ? ` · digest ${cycle.cki.contentDigest.slice(0, 12)}`
-                  : ""}
-              </p>
+              <h3 className="text-[1.45rem] font-semibold text-[#f3f5ff]">{cycle.cki.ckiId}</h3>
               <p className="text-sm text-[#a3b0c7]">
-                ASSOCIATED / RESOLVED / DELIVERED restent distincts — aucun claim DELIVERED sans
-                preuve d&apos;attachement.
+                Référence applicable au cycle {labelCycle(cycle.cycleType)}
+                {cycle.cki.pinnedVersion ? ` · version ${cycle.cki.pinnedVersion}` : ""}
+              </p>
+              <div className="h-px bg-[#2b3850]" />
+              <p className="text-[10px] uppercase tracking-wide text-[#a3b0c7]">Finalité</p>
+              <p className="text-sm text-[#f3f5ff]">{cycle.objective}</p>
+              <div className="h-px bg-[#2b3850]" />
+              <p className="text-[10px] uppercase tracking-wide text-[#a3b0c7]">Disponibilité</p>
+              <p className="text-sm text-[#a3b0c7]">
+                {cycle.cki.availability} — ASSOCIATED / RESOLVED / DELIVERED restent distincts ;
+                aucun claim DELIVERED sans preuve.
               </p>
             </>
           ) : (
             <>
               <h3 className="text-lg font-semibold text-[#f3f5ff]">Aucun CKI principal actif</h3>
               <p className="text-sm text-[#a3b0c7]">
-                Le catalogue peut être consulté ; un CKI principal n&apos;existe qu&apos;avec un
-                cycle réellement ouvert.
+                Un CKI principal n&apos;existe qu&apos;avec un cycle réellement ouvert. Aucune
+                génération automatique à l&apos;ouverture.
               </p>
             </>
           )}
         </section>
 
-        <section className="fig-panel space-y-3">
-          <p className="fig-kicker text-[#7477ed]">MÉTHODE DU PROJET</p>
+        <section className="fig-panel space-y-3" data-testid="trajectory-method-side">
+          <p className="fig-kicker text-[#7477ed]">MÉTHODE APPLICABLE AU PROJET</p>
           {method?.presence === "RETAINED" ? (
             <>
-              <h3 className="text-lg font-semibold text-[#f3f5ff]">
-                {method.methodRef} · {method.methodVersion}
-              </h3>
+              <h3 className="text-lg font-semibold text-[#f3f5ff]">{method.methodRef}</h3>
+              <p className="text-sm text-[#a3b0c7]">Version {method.methodVersion}</p>
+              <div className="h-px bg-[#2b3850]" />
+              <p className="text-[10px] uppercase tracking-wide text-[#a3b0c7]">Statut</p>
               <p className="text-sm text-[#a3b0c7]">
-                Méthode retenue par décision Pilote
+                Retenue par décision Pilote
                 {method.usageRestricted ? " — usage restreint" : ""}.
               </p>
               {method.usageNote ? (
-                <p className="text-sm text-[#a3b0c7]">{method.usageNote}</p>
+                <>
+                  <div className="h-px bg-[#2b3850]" />
+                  <p className="text-sm text-[#a3b0c7]">{method.usageNote}</p>
+                </>
               ) : null}
             </>
           ) : (
             <>
               <h3 className="text-lg font-semibold text-[#f3f5ff]">Aucune méthode retenue</h3>
               <p className="text-sm text-[#a3b0c7]">
-                La méthode applicable est distincte du CKI et n&apos;est imposée par Nora.
+                La méthode applicable est distincte du CKI et n&apos;est pas imposée par Nora.
               </p>
             </>
           )}
@@ -1977,10 +2135,12 @@ function CkiMethodeView(props: {
     </div>
   );
 }
-
 ```
 
 ### `projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx`
+
+- SHA256: `d46ebc57892b5578dc6ee9662cc384f0fc312736329fcd970ca6968ed0f16d08`
+- Bytes: 3108
 
 ```
 "use client";
@@ -2080,6 +2240,9 @@ export function SasCreateProgressPopup(props: {
 
 ### `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/initial-qualification/reconcile/route.ts`
 
+- SHA256: `fff63ded9627a700090aa570563d6df9eb996ab81c5bfe522d1b0ecee552c0ae`
+- Bytes: 896
+
 ```
 import { NextResponse } from "next/server";
 import { requireStudioSession } from "@/domains/identity/session";
@@ -2107,10 +2270,12 @@ export async function POST(
     return NextResponse.json(mapped.body, { status: mapped.status });
   }
 }
-
 ```
 
 ### `projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts`
+
+- SHA256: `ff07f6a79ccc16255b0cca0ecda16d8d774e657b5181edfa2b7fa1f275dd4f61`
+- Bytes: 16174
 
 ```
 import { beforeAll, describe, expect, it, vi } from "vitest";
@@ -2121,6 +2286,8 @@ vi.hoisted(() => {
   process.env.STUDIO_LANE = "DEV";
   process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
   delete process.env.OPENAI_API_KEY;
+  // Screenshot capture freezes must not block PG behavioral proofs.
+  delete process.env.STUDIO_DEV_HOLD_INITIAL_QUALIFICATION;
 });
 
 import { and, eq, sql } from "drizzle-orm";
@@ -2425,10 +2592,103 @@ describe("Ensemble 07 initial qualification (PG)", () => {
     const done = await reconcileInitialQualification(projectId, pilotId);
     expect(done?.status).toBe("PROPOSED");
   });
+
+  it("COR-01: reopen after missing op creates unique qualification then terminal", async () => {
+    const pilotId = await seedPilot("e07-cor01-miss");
+    const { prep, name } = await seedPrepWithProjection(
+      pilotId,
+      "E07MissOp",
+      "Cadrage — ensure échoué puis reprise sans opération",
+    );
+    const created = await createProjectFromPrep(pilotId, prep.id, name, prep.creationRevision);
+    const projectId = requireProjectId(created);
+    // Simulate ensureAndKick FAILED_RETRYABLE twice: project exists, no op persisted.
+    const before = await db
+      .select()
+      .from(trajectoryQualificationOperations)
+      .where(eq(trajectoryQualificationOperations.projectId, projectId));
+    expect(before).toHaveLength(0);
+
+    const { reconcileInitialQualification } = await import(
+      "@/domains/pilotage/initial-qualification"
+    );
+    const done = await reconcileInitialQualification(projectId, pilotId);
+    expect(["PROPOSED", "CLARIFICATION"]).toContain(done?.status);
+    const ops = await db
+      .select()
+      .from(trajectoryQualificationOperations)
+      .where(eq(trajectoryQualificationOperations.projectId, projectId));
+    expect(ops).toHaveLength(1);
+    const again = await reconcileInitialQualification(projectId, pilotId);
+    expect(again?.operationId).toBe(done?.operationId);
+    expect(again?.status).toBe(done?.status);
+  });
+
+  it("COR-04: expired owner cannot publish message after lease steal", async () => {
+    const pilotId = await seedPilot("e07-cor04-fence");
+    const { prep, name } = await seedPrepWithProjection(
+      pilotId,
+      "E07Fence",
+      "Cadrage — fencing des effets après perte de lease",
+    );
+    const created = await createProjectFromPrep(pilotId, prep.id, name, prep.creationRevision);
+    const projectId = requireProjectId(created);
+    await ensureInitialQualification({ projectId, preparationId: prep.id, pilotId });
+
+    initialQualificationFault.beforePublish = async () => {
+      // Steal ownership mid-flight (simulates reclaim after lease expiry).
+      await db
+        .update(trajectoryQualificationOperations)
+        .set({
+          ownerToken: "stolen-owner",
+          claimedAt: new Date(),
+          status: "RUNNING",
+          updatedAt: new Date(),
+        })
+        .where(eq(trajectoryQualificationOperations.projectId, projectId));
+    };
+
+    // First process: loses fence before publish → must not terminalize as that owner.
+    await processInitialQualification(projectId, { pilotId });
+    initialQualificationFault.beforePublish = null;
+
+    const mid = (
+      await db
+        .select()
+        .from(trajectoryQualificationOperations)
+        .where(eq(trajectoryQualificationOperations.projectId, projectId))
+    )[0]!;
+    // Clear stolen token so a fresh claim can finish.
+    await db
+      .update(trajectoryQualificationOperations)
+      .set({
+        ownerToken: null,
+        claimedAt: null,
+        status: mid.trajectoryRevisionId ? "UNKNOWN" : "PENDING",
+        updatedAt: new Date(),
+      })
+      .where(eq(trajectoryQualificationOperations.id, mid.id));
+
+    const done = await processInitialQualification(projectId, { pilotId });
+    expect(["PROPOSED", "CLARIFICATION"]).toContain(done?.status);
+
+    const genPrefix = `sfia:iq:${mid.id}:`;
+    const msgs = await db
+      .select()
+      .from(messages)
+      .where(sql`${messages.generationId} like ${genPrefix + "%"}`);
+    expect(msgs.length).toBeLessThanOrEqual(1);
+    if (msgs[0]) {
+      expect(msgs[0].role).toBe("assistant");
+    }
+  });
 });
 ```
 
 ### `projects/sfia-studio-next/web/tests/unit/ensemble07-ensure-idempotent.test.ts`
+
+- SHA256: `bc2fd85e9445034d8408f6c719d688ee71ecf1e92ee0666c22d7f41650672c26`
+- Bytes: 1297
 
 ```
 import { describe, expect, it, vi } from "vitest";
@@ -2483,6 +2743,9 @@ describe("ensureInitialQualification idempotency (mocked)", () => {
 ```
 
 ### `projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts`
+
+- SHA256: `048becec0a64d6fbeeff8406223fc31dc9e301b33667c8b32340ad812c4b8c09`
+- Bytes: 2359
 
 ```
 import { describe, expect, it } from "vitest";
@@ -2567,6 +2830,9 @@ describe("ensemble07 forecast builder", () => {
 
 ### `projects/sfia-studio-next/web/tests/unit/ensemble07-qualification-lock.test.ts`
 
+- SHA256: `d642205cccad1b479976709dbaf0931ba8b89ae0ea2bf5397b29d243533c7919`
+- Bytes: 1477
+
 ```
 import { describe, expect, it } from "vitest";
 import {
@@ -2610,69 +2876,17 @@ describe("ensemble07 qualification lock", () => {
 });
 ```
 
-### `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md`
-
-```
-# Ensemble 07 — As-built (qualification initiale Projet / Trajectoire / Nora)
-
-**Statut:** construction DEV corrective — NO RELEASE
-**Base Git:** `e36fd8b0531c4f649830990a18f9cfdaecb3c03f`
-**Branche:** `sfia/next-ensemble07-projet-trajectoire-delivery`
-**Date:** 2026-11-20 (itération corrective)
-
-## Architecture retenue
-
-Option A hybride (dossier §8.1) + corrections P0 :
-
-1. Après `createProjectCommand` confirmé, `ensureAndKickInitialQualification` (retry) consigne une opération durable `PENDING` (1 / projet).
-2. `kickInitialQualificationProcessing` uniquement depuis create / reconcile POST — **jamais depuis GET** (`project-context` lecture seule).
-3. Publication corrélée : D5 `PROPOSE_TRAJECTORY` (expectedRevision réel) → persistance `trajectoryRevisionId` → message unique → terminal sous fence `ownerToken`.
-4. Reprise : lease expiré → UNKNOWN ; reconcile POST complète message/terminal ; incident Studio en `role: system`.
-5. Surfaces SAS / Travail / Trajectoire lisent la même projection `initialQualification`.
-6. Admission serveur + compositeur UI verrouillés tant que status ∈ {PENDING, RUNNING, UNKNOWN}.
-7. Forecast déterministe : **pas de CADRAGE par défaut** — CLARIFICATION si aucun signal de cycle.
-
-## Persistance
-
-- Migration additive `015_trajectory_qualification.sql` (DEV / e2e appliquée).
-- Table `trajectory_qualification_operations`.
-- Colonne `trajectory_revisions.forecast_json`.
-
-## Fichiers propriétaires principaux
-
-| Fichier | Rôle |
-|---------|------|
-| `web/src/domains/pilotage/initial-qualification.ts` | ensure / process / assert admission |
-| `web/src/domains/pilotage/forecast-builder.ts` | séquence 1–3 cycles (déterministe FAKE) |
-| `web/src/domains/pilotage/qualification-lock.ts` | règles de verrou compositeur |
-| `web/src/components/figma/TrajectoryBoard.tsx` | surface Trajectoire 09.02/07/10/11 |
-| `web/src/components/figma/SasCreateProgressPopup.tsx` | pop-up SAS 06 allégée |
-| `web/src/components/figma/ProjectOverview.tsx` | 09.01 / 09.06 |
-| `web/src/components/figma/NoraConversation.tsx` | verrou 05.17 |
-
-## Preuves
-
-- Unit: `ensemble07-forecast-builder`, `ensemble07-qualification-lock`, `ensemble07-ensure-idempotent`
-- Integration PG: `ensemble07-initial-qualification.pg.test.ts` (create→propose, idempotence, lock admission, clarification, failure)
-- Build: `npm run build` OK
-- Figma: 13/13 captures MCP locales sous `.tmp-sfia-review/ensemble07-evidence/figma/`
-
-## Réserves connues
-
-- Fidélité visuelle pixel des 13 frames : itérations runtime encore requises avant READY visuel.
-- Vues détail 09.03 / 09.04 / 09.05 : projection partielle (bilan / CKI éditorial) à enrichir.
-- GO conversationnel D6→D5 : capacités PilotagePanel conservées ; parcours conversationnel principal à prouver en e2e navigateur.
-- LIVE Nora fournisseur : NOT PROVEN (fixture DEV).
-
-```
-
 ### `projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts`
+
+- SHA256: `41ca3de1a803196d7fefa71db2aa241a11a98a68d9e69c11f9182c47e66d867c`
+- Bytes: 8698
 
 ```
 import { config } from "dotenv";
 config({ path: ".env.local" });
 process.env.STUDIO_LANE = "DEV";
 process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
+delete process.env.STUDIO_DEV_HOLD_INITIAL_QUALIFICATION;
 
 import { writeFileSync } from "fs";
 import { eq } from "drizzle-orm";
@@ -2690,6 +2904,12 @@ import {
   ensureInitialQualification,
   processInitialQualification,
 } from "../src/domains/pilotage/initial-qualification.ts";
+import {
+  closeCycle,
+  getPilotageProjection,
+  openCycle,
+  retainTrajectory,
+} from "../src/domains/pilotage/service.ts";
 
 async function pilotA() {
   const pilot =
@@ -2755,7 +2975,6 @@ async function createNamedProject(
   });
   let iq = null;
   if (opts.process) {
-    // force bypasses STUDIO_DEV_HOLD_INITIAL_QUALIFICATION (DEV capture freeze)
     iq = await processInitialQualification(created.projectId, { pilotId, force: true });
   }
   return {
@@ -2765,9 +2984,51 @@ async function createNamedProject(
   };
 }
 
+async function advanceToActiveFirstCycle(pilotId: string, projectId: string) {
+  const before = await getPilotageProjection(pilotId, projectId);
+  const proposedId = before.trajectory.proposed?.id;
+  if (!proposedId) throw new Error("no proposed trajectory");
+  const retained = await retainTrajectory(pilotId, projectId, {
+    clientCommandKey: newId("idem"),
+    expectedRevision: before.revision,
+    sourceRef: newId("src"),
+    trajectoryRevisionId: proposedId,
+  });
+  if (retained.status !== "APPLIED" && retained.status !== "ALREADY_APPLIED") {
+    throw new Error(`retain failed: ${JSON.stringify(retained)}`);
+  }
+  const mid = await getPilotageProjection(pilotId, projectId);
+  const opened = await openCycle(pilotId, projectId, {
+    clientCommandKey: newId("idem"),
+    expectedRevision: mid.revision,
+    sourceRef: newId("src"),
+    cycleType: "CADRAGE",
+    objective: "Clarifier le besoin et le périmètre du premier cycle",
+  });
+  if (opened.status !== "APPLIED" && opened.status !== "ALREADY_APPLIED") {
+    throw new Error(`open failed: ${JSON.stringify(opened)}`);
+  }
+  return getPilotageProjection(pilotId, projectId);
+}
+
+async function closeActiveAndLeaveBetween(pilotId: string, projectId: string) {
+  const view = await getPilotageProjection(pilotId, projectId);
+  if (!view.cycle) throw new Error("no active cycle to close");
+  const closed = await closeCycle(pilotId, projectId, {
+    clientCommandKey: newId("idem"),
+    expectedRevision: view.revision,
+    sourceRef: newId("src"),
+    cycleId: view.cycle.id,
+    balanceNote: "Cadrage clôturé avec acquis partiels — suite à qualifier.",
+  });
+  if (closed.status !== "APPLIED" && closed.status !== "ALREADY_APPLIED") {
+    throw new Error(`close failed: ${JSON.stringify(closed)}`);
+  }
+  return getPilotageProjection(pilotId, projectId);
+}
+
 async function main() {
   const pilot = await pilotA();
-
   const stamp = Date.now().toString(36);
 
   const proposed = await createNamedProject(
@@ -2791,18 +3052,65 @@ async function main() {
     { process: true, qualifyProjection: false },
   );
 
+  // 09.09 — first ACTIVE, no CLOSED
+  const firstActive = await createNamedProject(
+    pilot.id,
+    `Premier cycle actif ${stamp}`,
+    "Cadrage d'une plateforme de suivi pour ouvrir le premier cycle",
+    { process: true, qualifyProjection: true },
+  );
+  await advanceToActiveFirstCycle(pilot.id, firstActive.projectId);
+
+  // 09.01 / 09.02 — CLOSED + ACTIVE + future
+  const withHistory = await createNamedProject(
+    pilot.id,
+    `Projet avec historique ${stamp}`,
+    "Cadrage puis conception fonctionnelle pour une trajectoire multi-cycles",
+    { process: true, qualifyProjection: true },
+  );
+  await advanceToActiveFirstCycle(pilot.id, withHistory.projectId);
+  await closeActiveAndLeaveBetween(pilot.id, withHistory.projectId);
+  const afterClose = await getPilotageProjection(pilot.id, withHistory.projectId);
+  const opened2 = await openCycle(pilot.id, withHistory.projectId, {
+    clientCommandKey: newId("idem"),
+    expectedRevision: afterClose.revision,
+    sourceRef: newId("src"),
+    cycleType: "CONCEPTION_FONCTIONNELLE",
+    objective: "Décrire les décisions et parcours métier",
+  });
+  if (opened2.status !== "APPLIED" && opened2.status !== "ALREADY_APPLIED") {
+    throw new Error(`open2 failed: ${JSON.stringify(opened2)}`);
+  }
+
+  // 09.08 — CLOSED only (between cycles)
+  const between = await createNamedProject(
+    pilot.id,
+    `Entre deux cycles ${stamp}`,
+    "Cadrage pour clôturer puis laisser la suite envisagée",
+    { process: true, qualifyProjection: true },
+  );
+  await advanceToActiveFirstCycle(pilot.id, between.projectId);
+  await closeActiveAndLeaveBetween(pilot.id, between.projectId);
+
   const payload = {
     pilotId: pilot.id,
     proposed,
     analyzing,
     clarification,
+    firstActive,
+    withHistory,
+    between,
     urls: {
       projet06: `http://127.0.0.1:3100/projects/${proposed.projectId}?surface=projet`,
+      projet01: `http://127.0.0.1:3100/projects/${withHistory.projectId}?surface=projet`,
       travail: `http://127.0.0.1:3100/projects/${proposed.projectId}?surface=travail`,
       traj11: `http://127.0.0.1:3100/projects/${proposed.projectId}?surface=pilotage`,
       traj10: `http://127.0.0.1:3100/projects/${analyzing.projectId}?surface=pilotage`,
       travailLock: `http://127.0.0.1:3100/projects/${analyzing.projectId}?surface=travail`,
       traj07: `http://127.0.0.1:3100/projects/${clarification.projectId}?surface=pilotage`,
+      traj09: `http://127.0.0.1:3100/projects/${firstActive.projectId}?surface=pilotage`,
+      traj02: `http://127.0.0.1:3100/projects/${withHistory.projectId}?surface=pilotage`,
+      traj08: `http://127.0.0.1:3100/projects/${between.projectId}?surface=pilotage`,
       sasPrep: `http://127.0.0.1:3100/preparations/${analyzing.prepId}`,
     },
   };
@@ -2814,10 +3122,12 @@ main().catch((e) => {
   console.error(e);
   process.exit(1);
 });
-
 ```
 
 ### `projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts`
+
+- SHA256: `c1ea38119299390df547fe21cd7f2bafbf3096a73c58e690217273ca8b8d1081`
+- Bytes: 6144
 
 ```
 import { chromium } from "@playwright/test";
@@ -2830,6 +3140,9 @@ const urls = JSON.parse(readFileSync("/tmp/sfia-e07-shot-urls.json", "utf8")) as
   proposed: { projectId: string };
   analyzing: { projectId: string };
   clarification: { projectId: string };
+  firstActive?: { projectId: string };
+  withHistory?: { projectId: string };
+  between?: { projectId: string };
 };
 
 const outDir = resolve(process.cwd(), "../../../.tmp-sfia-review/ensemble07-evidence/runtime");
@@ -2837,7 +3150,7 @@ mkdirSync(outDir, { recursive: true });
 
 async function shot(page: import("@playwright/test").Page, name: string) {
   const path = resolve(outDir, name);
-  await page.waitForTimeout(800);
+  await page.waitForTimeout(700);
   await page.screenshot({ path, fullPage: false });
   const buf = readFileSync(path);
   console.log(
@@ -2864,24 +3177,32 @@ async function main() {
     });
   });
 
+  // 09.06 — projet sans cycle (proposition only)
   await page.goto(urls.urls.projet06, { waitUntil: "networkidle" });
-  await page.waitForSelector('[data-testid="project-overview"]');
-  await shot(page, "09.06-projet-runtime.png");
-  await shot(page, "09.01-projet-approx-sans-cycle-runtime.png");
+  await page.waitForSelector('[data-testid="project-overview-no-cycle"]');
+  await shot(page, "09.06-projet-sans-cycle-runtime.png");
+
+  // 09.01 — projet avec cycle actif
+  if (urls.urls.projet01) {
+    await page.goto(urls.urls.projet01, { waitUntil: "networkidle" });
+    await page.waitForSelector('[data-testid="project-overview-cycle-card"]');
+    await shot(page, "09.01-projet-cycle-actif-runtime.png");
+  }
 
   await page.goto(urls.urls.travail, { waitUntil: "networkidle" });
   await page.waitForSelector('[data-testid="nora-composer"]');
   await shot(page, "travail-apres-proposition-runtime.png");
 
+  // 09.11 — proposition séquentielle
   await page.goto(urls.urls.traj11, { waitUntil: "networkidle" });
   await page.waitForSelector('[data-testid="trajectory-proposal-sequential"]');
-  await shot(page, "09.11-trajectoire-runtime.png");
+  await shot(page, "09.11-proposition-initiale-runtime.png");
 
   const futureBtn = page.locator('[data-testid="trajectory-forecast-step-2"]');
   if (await futureBtn.count()) {
     await futureBtn.click();
     await page.waitForSelector('[data-testid="trajectory-etape-future"]');
-    await shot(page, "09.04-etape-future-runtime.png");
+    await shot(page, "09.04-etape-envisagee-runtime.png");
     await page.getByRole("button", { name: /Retour à la trajectoire/i }).click();
     await page.waitForSelector('[data-testid="trajectory-proposal-sequential"]');
   }
@@ -2890,33 +3211,68 @@ async function main() {
   await page.waitForSelector('[data-testid="trajectory-cki-methode"]');
   await shot(page, "09.05-cki-methode-runtime.png");
 
+  // 05.17 + 09.10 — analyzing (HOLD expected on server)
   await page.goto(urls.urls.travailLock, { waitUntil: "networkidle" });
   await page.waitForSelector('[data-testid="nora-composer"]');
-  await shot(page, "05.17-travail-compositeur-verrouille-runtime.png");
+  await shot(page, "05.17-travail-qualification-runtime.png");
 
   await page.goto(urls.urls.traj10, { waitUntil: "networkidle" });
   await page.waitForSelector('[data-testid="trajectory-qualification-progress"]', {
     timeout: 15000,
   });
-  await shot(page, "09.10-trajectoire-analyse-runtime.png");
+  await shot(page, "09.10-qualification-en-cours-runtime.png");
 
+  // 09.07 — clarification
   await page.goto(urls.urls.traj07, { waitUntil: "networkidle" });
   await page.waitForTimeout(1200);
-  await shot(page, "09.07-trajectoire-init-or-proposal-runtime.png");
+  await shot(page, "09.07-clarification-runtime.png");
 
+  // 09.09 — premier cycle actif
+  if (urls.urls.traj09) {
+    await page.goto(urls.urls.traj09, { waitUntil: "networkidle" });
+    await page.waitForSelector('[data-testid="trajectory-active-cycle"]');
+    await shot(page, "09.09-premier-cycle-actif-runtime.png");
+  }
+
+  // 09.02 — clos + actif + futur
+  if (urls.urls.traj02) {
+    await page.goto(urls.urls.traj02, { waitUntil: "networkidle" });
+    await page.waitForSelector('[data-testid="trajectory-roadmap"]');
+    await shot(page, "09.02-trajectoire-principale-runtime.png");
+    const bilan = page.locator('[data-testid="trajectory-closed-cycle"] button').first();
+    if (await bilan.count()) {
+      await bilan.click();
+      await page.waitForSelector('[data-testid="trajectory-bilan-historique"]');
+      await shot(page, "09.03-bilan-historique-runtime.png");
+      await page.getByRole("button", { name: /Retour à la trajectoire/i }).click();
+    }
+  }
+
+  // 09.08 — entre deux cycles
+  if (urls.urls.traj08) {
+    await page.goto(urls.urls.traj08, { waitUntil: "networkidle" });
+    await page.waitForSelector('[data-testid="trajectory-between-cycles"]');
+    await shot(page, "09.08-entre-deux-cycles-runtime.png");
+  }
+
+  // SAS 06 — preparation page (popup requires live create; capture prep + note)
   await page.goto(urls.urls.sasPrep, { waitUntil: "networkidle" });
   await page.waitForTimeout(1000);
-  await shot(page, "sas-06-prep-or-popup-runtime.png");
+  await shot(page, "sas-06-preparation-runtime.png");
 
   const files = readdirSync(outDir).filter((f) => f.endsWith(".png"));
   const manifest = {
-    capturedAt: new Date().toISOString(),
+    capturedAt: new Date().toString(),
     viewport: { w: 1680, h: 970 },
-    holdEnv: "STUDIO_DEV_HOLD_INITIAL_QUALIFICATION=1",
+    browser: "chromium/playwright",
+    holdEnvNote: "09.10/05.17 require server STUDIO_DEV_HOLD_INITIAL_QUALIFICATION=1",
     projects: {
       proposed: urls.proposed.projectId,
       analyzing: urls.analyzing.projectId,
       clarification: urls.clarification.projectId,
+      firstActive: urls.firstActive?.projectId ?? null,
+      withHistory: urls.withHistory?.projectId ?? null,
+      between: urls.between?.projectId ?? null,
     },
     files,
   };
@@ -2929,16 +3285,536 @@ main().catch((e) => {
   console.error(e);
   process.exit(1);
 });
-
 ```
 
-## Fichiers modifiés (diff)
+## 11. Fichiers modifiés — diffs
+
+### `projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx`
+
+Note: SAS06: removed 400/900ms timers; stepFromQualification + reconcile poll
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+index 8ca6ff6c..a10ce7fb 100644
+--- a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
++++ b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+@@ -5,6 +5,8 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
+ import { SafeMarkdown } from "@/components/SafeMarkdown";
+ import { PreparationConversation } from "@/components/figma/PreparationConversation";
+ import { PreparationProposal } from "@/components/figma/PreparationProposal";
++import { SasCreateProgressPopup } from "@/components/figma/SasCreateProgressPopup";
++import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
+ import { ProjectJournal } from "@/components/figma/ProjectJournal";
+ import {
+   DocumentHistory,
+@@ -96,6 +98,60 @@ export default function PreparationPage() {
+   const idempotencyKey = useMemo(() => `create-${preparationId}`, [preparationId]);
+   /** Structured awaiting mission key from server — never parsed from Nora prose. */
+   const [awaitingClientIntentKey, setAwaitingClientIntentKey] = useState<string | null>(null);
++  const [createProgressVisible, setCreateProgressVisible] = useState(false);
++  const [createProgressStep, setCreateProgressStep] = useState<1 | 2 | 3>(1);
++  const [createProgressQualification, setCreateProgressQualification] =
++    useState<InitialQualificationProjection | null>(null);
++  const [pendingNavigateProjectId, setPendingNavigateProjectId] = useState<string | null>(null);
++
++  function stepFromQualification(iq: InitialQualificationProjection | null): 1 | 2 | 3 {
++    if (!iq) return 1;
++    if (
++      iq.status === "PROPOSED" ||
++      iq.status === "CLARIFICATION" ||
++      iq.status === "FAILED"
++    ) {
++      return 3;
++    }
++    if (
++      iq.status === "RUNNING" ||
++      iq.phase === "ANALYZING" ||
++      iq.phase === "PUBLISHING" ||
++      iq.status === "PENDING" ||
++      iq.status === "UNKNOWN"
++    ) {
++      return 2;
++    }
++    return 2;
++  }
++
++  // E07 SAS06 — drive popup steps from server qualification (no artificial timers).
++  useEffect(() => {
++    if (!createProgressVisible || !pendingNavigateProjectId) return;
++    let cancelled = false;
++    const tick = async () => {
++      const recon = await fetch(
++        `/api/projects/${pendingNavigateProjectId}/initial-qualification/reconcile`,
++        { method: "POST" },
++      );
++      if (cancelled) return;
++      if (recon.ok) {
++        const body = (await recon.json()) as {
++          initialQualification?: InitialQualificationProjection | null;
++        };
++        if (body.initialQualification) {
++          setCreateProgressQualification(body.initialQualification);
++          setCreateProgressStep(stepFromQualification(body.initialQualification));
++        }
++      }
++    };
++    const id = window.setInterval(() => void tick(), 1500);
++    void tick();
++    return () => {
++      cancelled = true;
++      window.clearInterval(id);
++    };
++  }, [createProgressVisible, pendingNavigateProjectId]);
+
+   function rememberCreateIntent(next: CreateIntent | null) {
+     createDocIntentRef.current = next;
+@@ -556,6 +612,7 @@ export default function PreparationPage() {
+         projectId?: string;
+         reason?: string;
+         missionBindingError?: string;
++        initialQualification?: InitialQualificationProjection;
+         missionContinue?: {
+           continued?: boolean;
+           documentSave?: { documentId?: string };
+@@ -593,7 +650,12 @@ export default function PreparationPage() {
+       if (j.projectId && !j.missionBindingError) {
+         setProjectId(j.projectId);
+         setAwaitingClientIntentKey(null);
+-        router.push(`/projects/${j.projectId}`);
++        // E07 SAS06 — steps from server facts only (no artificial 400/900ms timers).
++        const iq = j.initialQualification ?? null;
++        setCreateProgressQualification(iq);
++        setCreateProgressVisible(true);
++        setPendingNavigateProjectId(j.projectId);
++        setCreateProgressStep(stepFromQualification(iq));
+         return;
+       }
+
+@@ -927,6 +989,19 @@ export default function PreparationPage() {
+           }
+         />
+       ) : null}
++      <SasCreateProgressPopup
++        visible={createProgressVisible}
++        projectName={previewName || "Projet"}
++        step={createProgressStep}
++        qualification={createProgressQualification}
++        onDismiss={() => {
++          setCreateProgressVisible(false);
++          if (pendingNavigateProjectId) {
++            router.push(`/projects/${pendingNavigateProjectId}`);
++            setPendingNavigateProjectId(null);
++          }
++        }}
++      />
+     </div>
+   );
+ }
+```
+
+### `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx`
+
+Note: COR-01 missing-op reconcile (bounded); qualification banner; removed Pilotage diagnostic
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+index 444c5234..5fada7f5 100644
+--- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
++++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+@@ -2,7 +2,6 @@
+
+ import { useEffect, useRef, useState } from "react";
+ import { useParams, useRouter, useSearchParams } from "next/navigation";
+-import { PilotagePanel } from "@/components/PilotagePanel";
+ import { ProjectChrome } from "@/components/figma/ProjectChrome";
+ import { NoraConversation } from "@/components/figma/NoraConversation";
+ import { TravailViewer, type TravailViewerResource } from "@/components/figma/TravailViewer";
+@@ -15,6 +14,9 @@ import {
+   type JournalSourceLink,
+ } from "@/components/figma/ProjectJournal";
+ import { ProjectOverview } from "@/components/figma/ProjectOverview";
++import { TrajectoryBoard } from "@/components/figma/TrajectoryBoard";
++import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
++import type { PilotageProjection } from "@/domains/pilotage/types";
+ import {
+   ProjectUnavailable,
+   type ProjectUnavailableKind,
+@@ -288,6 +290,15 @@ export default function ProjectPage() {
+   const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
+   const [status, setStatus] = useState("");
+   const [pilotageStatus, setPilotageStatus] = useState("");
++  const [pilotageProjection, setPilotageProjection] = useState<PilotageProjection | null>(null);
++  const [initialQualification, setInitialQualification] =
++    useState<InitialQualificationProjection | null>(null);
++  const [projectActivity, setProjectActivity] = useState<{
++    openSubjects: { count: number; examples: Array<{ id: string; title: string }> };
++    applicableDecisions: { count: number; examples: Array<{ id: string; statement: string }> };
++    documentsInProgress: { count: number; examples: Array<{ id: string; title: string }> };
++    openPointsCount: number;
++  } | null>(null);
+   const [inspect, setInspect] = useState<Doc | null>(null);
+   const [docUi, setDocUi] = useState<DocUiState>("READING");
+   const [reviseDraft, setReviseDraft] = useState("");
+@@ -1600,6 +1611,9 @@ export default function ProjectPage() {
+         setChoiceFrozen(true);
+       }
+       setKnowledge(j.knowledge ?? null);
++      setPilotageProjection((j.pilotage as PilotageProjection) ?? null);
++      setInitialQualification((j.initialQualification as InitialQualificationProjection) ?? null);
++      setProjectActivity(j.activity ?? null);
+       const nextPrepId = j.preparation?.id ?? null;
+       setPreparationId(nextPrepId);
+       preparationIdRef.current = nextPrepId;
+@@ -1819,6 +1833,68 @@ export default function ProjectPage() {
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [params.projectId, router, loadEpoch]);
+
++  const missingQualificationAttemptsRef = useRef(0);
++  const initialQualificationRef = useRef(initialQualification);
++  initialQualificationRef.current = initialQualification;
++  useEffect(() => {
++    missingQualificationAttemptsRef.current = 0;
++  }, [params.projectId]);
++
++  useEffect(() => {
++    // E07-COR-01/02/05 — reconcile via POST; also when op missing after create (bounded).
++    const status = initialQualification?.status;
++    const needsReconcile =
++      !initialQualification ||
++      status === "PENDING" ||
++      status === "RUNNING" ||
++      status === "UNKNOWN";
++    if (!needsReconcile) return;
++    let cancelled = false;
++    let intervalId = 0;
++    const tick = async () => {
++      const current = initialQualificationRef.current;
++      if (
++        !current &&
++        missingQualificationAttemptsRef.current >= 8
++      ) {
++        window.clearInterval(intervalId);
++        return;
++      }
++      if (!current) {
++        missingQualificationAttemptsRef.current += 1;
++      }
++      const recon = await fetch(
++        `/api/projects/${params.projectId}/initial-qualification/reconcile`,
++        { method: "POST" },
++      );
++      if (cancelled) return;
++      if (recon.ok) {
++        const body = (await recon.json()) as {
++          initialQualification?: InitialQualificationProjection | null;
++        };
++        if (body.initialQualification) {
++          missingQualificationAttemptsRef.current = 0;
++          setInitialQualification(body.initialQualification);
++        }
++      }
++      const res = await fetch(`/api/projects/${params.projectId}`);
++      if (!res.ok || cancelled) return;
++      const j = await res.json();
++      setPilotageProjection((j.pilotage as PilotageProjection) ?? null);
++      if (j.initialQualification) {
++        missingQualificationAttemptsRef.current = 0;
++        setInitialQualification(j.initialQualification as InitialQualificationProjection);
++      }
++      setMessages((j.messages ?? []) as Msg[]);
++    };
++    intervalId = window.setInterval(() => void tick(), 2000);
++    void tick();
++    return () => {
++      cancelled = true;
++      window.clearInterval(intervalId);
++    };
++  }, [params.projectId, initialQualification?.status, initialQualification?.operationId]);
++
+   // B2 — keep surface/document in sync with URL on Back/Forward without one-shot lock.
+   useEffect(() => {
+     surfaceNavGenRef.current += 1;
+@@ -2433,23 +2509,38 @@ export default function ProjectPage() {
+       ? ("historical" as const)
+       : null;
+
++  const qualificationLockActive =
++    initialQualification?.status === "PENDING" ||
++    initialQualification?.status === "RUNNING" ||
++    initialQualification?.status === "UNKNOWN";
++
+   const travailHero =
+     surface !== "travail"
+       ? null
+-      : pendingDocumentProposal
++      : qualificationLockActive
+         ? {
+             kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
+-            title: "Examiner une proposition de Nora",
+-            sub: "Le Pilote peut préciser sa demande ou demander la conservation d’une nouvelle version documentaire.",
++            title: "Nora prépare votre trajectoire",
++            sub: "Le compositeur est temporairement indisponible pendant la qualification initiale.",
+           }
+-        : documentFocus &&
+-            documentFocus.sourceRevisionId !== documentFocus.observedHeadRevisionId
++        : pendingDocumentProposal
+           ? {
+               kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
+-              title: "Réviser une version historique avec Nora",
+-              sub: "Nora vérifie la version courante avant de proposer une révision fondée sur une ancienne version.",
++              title: "Examiner une proposition de Nora",
++              sub: "Le Pilote peut préciser sa demande ou demander la conservation d’une nouvelle version documentaire.",
+             }
+-          : null;
++          : documentFocus &&
++              documentFocus.sourceRevisionId !== documentFocus.observedHeadRevisionId
++            ? {
++                kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
++                title: "Réviser une version historique avec Nora",
++                sub: "Nora vérifie la version courante avant de proposer une révision fondée sur une ancienne version.",
++              }
++            : {
++                kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
++                title: "Conversation du projet",
++                sub: "Poursuivez le fil avec Nora — les décisions d’ouverture et de clôture restent les vôtres.",
++              };
+
+   return (
+     <ProjectChrome
+@@ -2468,9 +2559,11 @@ export default function ProjectPage() {
+           projectName={projectName ?? "Projet"}
+           preparationId={preparationId}
+           knowledge={knowledge}
+-          documentCount={documents.length}
+-          messageCount={messages.length}
++          pilotage={pilotageProjection}
++          initialQualification={initialQualification}
++          activity={projectActivity}
+           onOpenTravail={() => selectSurface("travail")}
++          onOpenTrajectoire={() => selectSurface("pilotage")}
+         />
+       ) : null}
+
+@@ -2481,6 +2574,10 @@ export default function ProjectPage() {
+           messages={messages}
+           draft={draft}
+           busy={busy || !preparationId}
++          composerLocked={Boolean(initialQualification?.composerLocked)}
++          composerLockReason={initialQualification?.composerLockReason}
++          qualificationBanner={qualificationLockActive}
++          onOpenTrajectoire={() => selectSurface("pilotage")}
+           unresolvedPending={Boolean(unresolvedPending)}
+           activity={noraActivity}
+           status={[status, pilotageStatus].filter(Boolean).join(" · ") || undefined}
+@@ -2618,41 +2715,13 @@ export default function ProjectPage() {
+
+       {surface === "pilotage" ? (
+         <div className="space-y-4" data-figma-frame="125:33" data-testid="project-trajectory">
+-          <div className="fig-section-head">
+-            <div>
+-              <p className="fig-kicker">Pilotage</p>
+-              <h2 className="fig-section-title">Trajectoire, cycle et décisions</h2>
+-              <p className="fig-hero-sub !mt-1">
+-                Affichage D5/D6 existant — sans cycle fictif, sans commande autoritaire depuis Nora.
+-              </p>
+-            </div>
+-          </div>
+-          <div className="fig-stat-grid">
+-            <div className="fig-stat">
+-              <div className="fig-stat-label">Cycle</div>
+-              <div className="fig-stat-value" style={{ fontSize: "1.15rem", marginTop: 14 }}>
+-                Sans / actif
+-              </div>
+-              <div className="fig-stat-hint">Projection service projet</div>
+-            </div>
+-            <div className="fig-stat">
+-              <div className="fig-stat-label">Décisions D6</div>
+-              <div className="fig-stat-value" style={{ fontSize: "1.15rem", marginTop: 14 }}>
+-                HumanDecision
+-              </div>
+-              <div className="fig-stat-hint">Pas de mutation à l&apos;affichage</div>
+-            </div>
+-            <div className="fig-stat">
+-              <div className="fig-stat-label">CKI / méthode</div>
+-              <div className="fig-stat-value" style={{ fontSize: "1.15rem", marginTop: 14 }}>
+-                Guidance
+-              </div>
+-              <div className="fig-stat-hint">Disponibilité réelle du service</div>
+-            </div>
+-          </div>
+-          <div className="fig-panel" data-figma-frame="127:106">
+-            <PilotagePanel projectId={params.projectId} />
+-          </div>
++          <TrajectoryBoard
++            projectId={params.projectId}
++            pilotage={pilotageProjection}
++            initialQualification={initialQualification}
++            onOpenTravail={() => selectSurface("travail")}
++          />
++          {/* E07 — no Pilotage (diagnostic) panel on Trajectoire Figma surfaces. */}
+         </div>
+       ) : null}
+```
+
+### `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx`
+
+Note: 05.17 banner + lock overlay + Voir trajectoire
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+index 18a635c1..c5f42c54 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+@@ -46,12 +46,20 @@ export function NoraConversation(props: {
+   focusMessageId?: string | null;
+   onFocusMessageHandled?: () => void;
+   focusStatus?: string | null;
++  /** Ensemble 07 — verrou qualification initiale (UI + accessibilité). */
++  composerLocked?: boolean;
++  composerLockReason?: string;
++  /** E07 05.17 — bandeau qualification + lien Trajectoire. */
++  qualificationBanner?: boolean;
++  onOpenTrajectoire?: () => void;
+ }) {
+   const n = props.messages.length;
+   const frame = n === 0 ? "161:216" : n <= 2 ? "161:288" : "94:214";
+   const variantLabel =
+     n === 0 ? "Première conversation" : n <= 2 ? "Reprise contextualisée" : "Fil long";
+   const embedded = Boolean(props.embeddedInStage);
++  const composerLocked = Boolean(props.composerLocked);
++  const sendDisabled = props.busy || !props.draft.trim() || composerLocked;
+   const lastMessageId = n > 0 ? props.messages[n - 1]!.id : null;
+   const { threadRef, onScroll, scrollToBottom, newBelow } = useNoraThreadScroll({
+     messageCount: n,
+@@ -315,7 +323,34 @@ export function NoraConversation(props: {
+               </article>
+             );
+           })}
+-          {props.activity === "preparing" ? (
++          {props.qualificationBanner ? (
++            <div
++              className="fig-panel space-y-3 my-3"
++              role="status"
++              aria-live="polite"
++              data-testid="qualification-activity-banner"
++              style={{ borderColor: "#7477ed55" }}
++            >
++              <p className="text-[10px] uppercase tracking-wide text-[#7477ed] font-semibold">
++                Nora prépare sa réponse
++              </p>
++              <div className="space-y-2 text-sm text-[#a3b0c7]">
++                <p>✓ Sources et intention du projet consultées</p>
++                <p>○ Préparation de la première orientation de trajectoire…</p>
++              </div>
++              {props.onOpenTrajectoire ? (
++                <button
++                  type="button"
++                  className="text-sm font-semibold text-[#7477ed] hover:underline"
++                  data-testid="qualification-voir-trajectoire"
++                  onClick={props.onOpenTrajectoire}
++                >
++                  Voir la trajectoire ↗
++                </button>
++              ) : null}
++            </div>
++          ) : null}
++          {props.activity === "preparing" && !props.qualificationBanner ? (
+             <div
+               className="fig-nora-activity"
+               role="status"
+@@ -367,10 +402,56 @@ export function NoraConversation(props: {
+           </div>
+         ) : null}
+         <div
+-          className="fig-composer fig-travail-composer"
++          className="fig-composer fig-travail-composer relative"
+           data-testid="nora-composer"
++          data-composer-locked={composerLocked ? "1" : "0"}
+           data-composer-expanded={props.draft.includes("\n") || props.draft.length > 80 ? "1" : "0"}
+         >
++          {composerLocked ? (
++            <div
++              className="fig-travail-composer-lock absolute inset-0 z-10 flex items-center gap-3 rounded-xl px-4"
++              style={{ background: "rgba(12, 16, 28, 0.72)" }}
++              data-testid="composer-lock-overlay"
++            >
++              <svg
++                className="shrink-0 text-[#7477ed]"
++                width="24"
++                height="24"
++                viewBox="0 0 24 24"
++                fill="none"
++                stroke="currentColor"
++                strokeWidth="1.75"
++                aria-hidden
++              >
++                <rect x="5" y="11" width="14" height="10" rx="2" />
++                <path d="M8 11V8a4 4 0 0 1 8 0v3" />
++              </svg>
++              <div className="min-w-0 flex-1 text-xs text-[#a3b0c7]">
++                <p className="font-semibold text-[#f3f5ff]" data-testid="composer-lock-title">
++                  Compositeur temporairement indisponible
++                </p>
++                <p data-testid="composer-lock-reason">
++                  {props.composerLockReason ||
++                    "Nora prépare la trajectoire — saisie et envoi désactivés jusqu'au résultat terminal."}
++                </p>
++              </div>
++              <button
++                type="button"
++                className="shrink-0 rounded border border-[#7477ed55] px-1.5 py-0.5 text-[#7477ed]"
++                title={
++                  props.composerLockReason ||
++                  "Compositeur temporairement indisponible pendant la qualification de trajectoire."
++                }
++                aria-label={
++                  props.composerLockReason ||
++                  "Compositeur temporairement indisponible pendant la qualification de trajectoire."
++                }
++                data-testid="composer-lock-info"
++              >
++                i
++              </button>
++            </div>
++          ) : null}
+           <div className="fig-travail-composer-row">
+             <span className="fig-travail-composer-plus" aria-hidden>
+               +
+@@ -384,9 +465,16 @@ export function NoraConversation(props: {
+               aria-label="Message à Nora"
+               data-testid="thread-draft"
+               rows={1}
++              readOnly={composerLocked}
++              disabled={composerLocked}
++              aria-disabled={composerLocked}
+               onCompositionStart={() => setImeComposing(true)}
+               onCompositionEnd={() => setImeComposing(false)}
+               onKeyDown={(e) => {
++                if (composerLocked) {
++                  e.preventDefault();
++                  return;
++                }
+                 if (imeComposing || e.nativeEvent.isComposing) return;
+                 // Mobile: Enter = newline; send via button only.
+                 if (isMobile) return;
+@@ -399,7 +487,7 @@ export function NoraConversation(props: {
+             <button
+               type="button"
+               className="fig-travail-composer-send"
+-              disabled={props.busy || !props.draft.trim()}
++              disabled={sendDisabled}
+               onClick={props.onSend}
+               data-testid="thread-send"
+               aria-label="Envoyer"
+```
 
 ### `projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx`
 
+Note: cycle card minHeight 222; ACTIVE vs empty states
+
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
-index d0f5912a..bf750981 100644
+index d0f5912a..0b3fbd75 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
 +++ b/projects/sfia-studio-next/web/src/components/figma/ProjectOverview.tsx
 @@ -1,147 +1,186 @@
@@ -3043,7 +3919,7 @@ index d0f5912a..bf750981 100644
 +      <section
 +        className="fig-panel relative space-y-3"
 +        data-testid="project-overview-cycle-card"
-+        style={{ borderColor: "#2b3850" }}
++        style={{ borderColor: "#2b3850", minHeight: 222 }}
 +      >
 +        {cycle ? (
 +          <>
@@ -3253,316 +4129,11 @@ index d0f5912a..bf750981 100644
 +    </section>
 +  );
 +}
-
-```
-
-### `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
-index b164002c..2792d128 100644
---- a/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
-@@ -17,14 +17,14 @@ const HERO: Record<
-     sub: "Le chat reste à gauche ; le document sélectionné s’ouvre dans la visionneuse à droite.",
-   },
-   projet: {
--    kicker: "Espace projet  /  Projet",
--    title: "Vue d'ensemble du projet",
--    sub: "Identité, contexte et accès — consultation sans nouvelle autorité.",
-+    kicker: "ESPACE PROJET / VUE D'ENSEMBLE",
-+    title: "Vue d'ensemble",
-+    sub: "Identité, cycle et activité du projet.",
-   },
-   pilotage: {
--    kicker: "Espace projet  /  Trajectoire",
--    title: "Pilotage · cycle et décisions",
--    sub: "Cycle, méthode, CKI et décisions humaines — affichage D5/D6 existant.",
-+    kicker: "ESPACE PROJET / TRAJECTOIRE",
-+    title: "Trajectoire du projet",
-+    sub: "Ce qui est terminé, ce qui est en cours et ce qui pourrait suivre.",
-   },
-   journal: {
-     kicker: "ESPACE PROJET  /  JOURNAL",
-@@ -76,7 +76,9 @@ export function ProjectChrome(props: {
-   const isTravail = props.surface === "travail";
-   /** Journal V4 — hero lives inside ProjectJournal (full vs compact 40/60). */
-   const isJournal = props.surface === "journal";
--  const breadcrumbOnly = isTravail || isJournal;
-+  /** Ensemble 07 — Projet / Trajectoire heroes live in ProjectOverview / TrajectoryBoard. */
-+  const isProjetOrTrajectoire = props.surface === "projet" || props.surface === "pilotage";
-+  const breadcrumbOnly = isTravail || isJournal || isProjetOrTrajectoire;
-
-   const continuityBadge =
-     isTravail && props.statusHint && !/^chargement/i.test(props.statusHint) ? (
-
-```
-
-### `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-index 18a635c1..1bc911d2 100644
---- a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
-@@ -46,12 +46,17 @@ export function NoraConversation(props: {
-   focusMessageId?: string | null;
-   onFocusMessageHandled?: () => void;
-   focusStatus?: string | null;
-+  /** Ensemble 07 — verrou qualification initiale (UI + accessibilité). */
-+  composerLocked?: boolean;
-+  composerLockReason?: string;
- }) {
-   const n = props.messages.length;
-   const frame = n === 0 ? "161:216" : n <= 2 ? "161:288" : "94:214";
-   const variantLabel =
-     n === 0 ? "Première conversation" : n <= 2 ? "Reprise contextualisée" : "Fil long";
-   const embedded = Boolean(props.embeddedInStage);
-+  const composerLocked = Boolean(props.composerLocked);
-+  const sendDisabled = props.busy || !props.draft.trim() || composerLocked;
-   const lastMessageId = n > 0 ? props.messages[n - 1]!.id : null;
-   const { threadRef, onScroll, scrollToBottom, newBelow } = useNoraThreadScroll({
-     messageCount: n,
-@@ -369,8 +374,36 @@ export function NoraConversation(props: {
-         <div
-           className="fig-composer fig-travail-composer"
-           data-testid="nora-composer"
-+          data-composer-locked={composerLocked ? "1" : "0"}
-           data-composer-expanded={props.draft.includes("\n") || props.draft.length > 80 ? "1" : "0"}
-         >
-+          {composerLocked ? (
-+            <div className="fig-travail-composer-lock flex items-start gap-2 text-xs text-[#a3b0c7] mb-2">
-+              <button
-+                type="button"
-+                className="shrink-0 rounded border border-[#7477ed55] px-1.5 py-0.5 text-[#7477ed]"
-+                title={
-+                  props.composerLockReason ||
-+                  "Compositeur temporairement indisponible pendant la qualification de trajectoire."
-+                }
-+                aria-label={
-+                  props.composerLockReason ||
-+                  "Compositeur temporairement indisponible pendant la qualification de trajectoire."
-+                }
-+                data-testid="composer-lock-info"
-+              >
-+                i
-+              </button>
-+              <div>
-+                <p className="font-semibold text-[#f3f5ff]" data-testid="composer-lock-title">
-+                  Compositeur temporairement indisponible
-+                </p>
-+                {props.composerLockReason ? (
-+                  <p data-testid="composer-lock-reason">{props.composerLockReason}</p>
-+                ) : null}
-+              </div>
-+            </div>
-+          ) : null}
-           <div className="fig-travail-composer-row">
-             <span className="fig-travail-composer-plus" aria-hidden>
-               +
-@@ -384,9 +417,16 @@ export function NoraConversation(props: {
-               aria-label="Message à Nora"
-               data-testid="thread-draft"
-               rows={1}
-+              readOnly={composerLocked}
-+              disabled={composerLocked}
-+              aria-disabled={composerLocked}
-               onCompositionStart={() => setImeComposing(true)}
-               onCompositionEnd={() => setImeComposing(false)}
-               onKeyDown={(e) => {
-+                if (composerLocked) {
-+                  e.preventDefault();
-+                  return;
-+                }
-                 if (imeComposing || e.nativeEvent.isComposing) return;
-                 // Mobile: Enter = newline; send via button only.
-                 if (isMobile) return;
-@@ -399,7 +439,7 @@ export function NoraConversation(props: {
-             <button
-               type="button"
-               className="fig-travail-composer-send"
--              disabled={props.busy || !props.draft.trim()}
-+              disabled={sendDisabled}
-               onClick={props.onSend}
-               data-testid="thread-send"
-               aria-label="Envoyer"
-
-```
-
-### `projects/sfia-studio-next/web/src/domains/pilotage/service.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/service.ts b/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
-index f0cb7cac..e407202b 100644
---- a/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
-@@ -22,6 +22,8 @@ import {
-   markDecisionState,
- } from "@/domains/decisions/service";
- import { isCycleType, resolveForOpen, resolvePinnedCki, type CycleType } from "@/domains/pilotage/cki-resolve";
-+import { parseForecastJson } from "@/domains/pilotage/forecast-builder";
-+import { getQualificationProjection } from "@/domains/pilotage/initial-qualification";
- import {
-   buildSourceActionKey,
-   runBusinessCommand,
-@@ -134,6 +136,7 @@ function trajectoryView(row: {
-   status: string;
-   orientation: string;
-   decisionId: string | null;
-+  forecastJson?: unknown;
- } | undefined): TrajectoryView {
-   if (!row) return null;
-   return {
-@@ -142,6 +145,7 @@ function trajectoryView(row: {
-     status: row.status,
-     orientation: row.orientation,
-     decisionId: row.decisionId,
-+    forecastSteps: parseForecastJson(row.forecastJson),
-   };
- }
-
-@@ -191,6 +195,21 @@ export async function getPilotageProjection(pilotId: string, projectId: string):
-     ? methodUsageRestricted(restrictions, method.methodRef)
-     : false;
-
-+  // E07-COR-09 — chronological progression (openedAt asc), not reverse close order.
-+  const closedCycles = await db
-+    .select({
-+      id: projectCycles.id,
-+      cycleType: projectCycles.cycleType,
-+      objective: projectCycles.objective,
-+      closedAt: projectCycles.closedAt,
-+      openedAt: projectCycles.openedAt,
-+    })
-+    .from(projectCycles)
-+    .where(and(eq(projectCycles.projectId, projectId), eq(projectCycles.status, "CLOSED")))
-+    .orderBy(asc(projectCycles.openedAt));
-+
-+  const initialQualification = await getQualificationProjection(pilotId, projectId);
-+
-   return {
-     projectId,
-     revision: state?.revision ?? 0,
-@@ -232,6 +251,14 @@ export async function getPilotageProjection(pilotId: string, projectId: string):
-       targetRef: r.targetRef,
-       status: r.status,
-     })),
-+    closedCycles: closedCycles.map((c) => ({
-+      id: c.id,
-+      cycleType: c.cycleType,
-+      objective: c.objective,
-+      closedAt: c.closedAt ? c.closedAt.toISOString() : null,
-+      openedAt: c.openedAt ? c.openedAt.toISOString() : null,
-+    })),
-+    initialQualification,
-   };
- }
-
-@@ -743,6 +770,10 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
-
-   if (command.operation === "PROPOSE_TRAJECTORY") {
-     const id = newId("trj");
-+    const forecastJson =
-+      input.body.forecastJson && input.body.forecastJson.length > 0
-+        ? input.body.forecastJson
-+        : null;
-     await tx.insert(trajectoryRevisions).values({
-       id,
-       projectId,
-@@ -752,6 +783,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
-       sourceKind: command.sourceKind,
-       sourceRef: command.sourceRef,
-       decisionId: null,
-+      forecastJson,
-       createdAt: now,
-     });
-     const revision = await bumpRevision(tx, projectId);
-
-```
-
-### `projects/sfia-studio-next/web/src/domains/pilotage/types.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/types.ts b/projects/sfia-studio-next/web/src/domains/pilotage/types.ts
-index 9121af5f..243d5b35 100644
---- a/projects/sfia-studio-next/web/src/domains/pilotage/types.ts
-+++ b/projects/sfia-studio-next/web/src/domains/pilotage/types.ts
-@@ -1,5 +1,7 @@
- import type { CkiAvailability } from "@/domains/pilotage/cki-resolve";
- import type { CycleType } from "@/domains/pilotage/cki-resolve";
-+import type { ForecastStep } from "@/domains/pilotage/forecast-builder";
-+import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
-
- /** Internal command outcomes. PARTIAL is intentionally absent: CLOSE+OPEN share one commit. */
- export const COMMAND_STATUSES = [
-@@ -80,6 +82,8 @@ export type PilotageRequestBody = {
-   /** Durable Nora intent id correlated to this USER_MESSAGE command (SEM). */
-   semanticIntentId?: string;
-   semanticSchemaVersion?: string;
-+  /** Ensemble 07 — structured forecast persisted on trajectory revision. */
-+  forecastJson?: ForecastStep[];
- };
-
- export type ClassifiedCommand = {
-@@ -111,8 +115,17 @@ export type TrajectoryView = {
-   status: string;
-   orientation: string;
-   decisionId: string | null;
-+  forecastSteps: ForecastStep[] | null;
- } | null;
-
-+export type ClosedCycleView = {
-+  id: string;
-+  cycleType: string;
-+  objective: string;
-+  closedAt: string | null;
-+  openedAt?: string | null;
-+};
-+
- export type PilotageProjection = {
-   projectId: string;
-   revision: number;
-@@ -149,6 +162,8 @@ export type PilotageProjection = {
-         scope: string;
-       };
-   restrictions: Array<{ id: string; targetKind: string; targetRef: string; status: string }>;
-+  closedCycles: ClosedCycleView[];
-+  initialQualification: InitialQualificationProjection | null;
- };
-
- export function pilotageCommandHttpStatus(result: CommandResult): number {
-
-```
-
-### `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index 96867946..83bc164d 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -71,6 +71,7 @@ import {
-   type ConversationalAuthorityOutcome,
- } from "@/domains/pilotage/conversation-authority";
- import { buildNoraPilotageContext } from "@/domains/pilotage/nora-context";
-+import { assertPilotTurnNotBlockedByQualification } from "@/domains/pilotage/initial-qualification";
- import {
-   appendDocumentEffectAck,
-   applyTargetedSectionRevision,
-@@ -826,6 +827,9 @@ export async function postUserMessageAndNora(
-   // P0-B: next turn recovers AUTHORIZED Nora missions after crash mid-authorize→dispatch.
-   // G2: also recover interrupted D2→D4 mission continuation when project already exists.
-   if (ctx.project?.id) {
-+    // Ensemble 07 — RG-CONV-018: refuse pilot turns while initial trajectory qualification is open.
-+    await assertPilotTurnNotBlockedByQualification(pilotId, ctx.project.id);
-+
-     try {
-       await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
-     } catch {
-
 ```
 
 ### `projects/sfia-studio-next/web/src/domains/preparation/project-context.ts`
+
+Note: GET read-only IQ (no kick)
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts b/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
@@ -3642,10 +4213,11 @@ index 6d16b83e..aa35d8c4 100644
 +    activity,
    };
  }
-
 ```
 
 ### `projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts`
+
+Note: ensureAndKick
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
@@ -3695,429 +4267,11 @@ index d21fb43c..e9ffccf7 100644
        },
        { status },
      );
-
-```
-
-### `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index 444c5234..a806c447 100644
---- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-+++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-@@ -15,6 +15,9 @@ import {
-   type JournalSourceLink,
- } from "@/components/figma/ProjectJournal";
- import { ProjectOverview } from "@/components/figma/ProjectOverview";
-+import { TrajectoryBoard } from "@/components/figma/TrajectoryBoard";
-+import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
-+import type { PilotageProjection } from "@/domains/pilotage/types";
- import {
-   ProjectUnavailable,
-   type ProjectUnavailableKind,
-@@ -288,6 +291,15 @@ export default function ProjectPage() {
-   const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
-   const [status, setStatus] = useState("");
-   const [pilotageStatus, setPilotageStatus] = useState("");
-+  const [pilotageProjection, setPilotageProjection] = useState<PilotageProjection | null>(null);
-+  const [initialQualification, setInitialQualification] =
-+    useState<InitialQualificationProjection | null>(null);
-+  const [projectActivity, setProjectActivity] = useState<{
-+    openSubjects: { count: number; examples: Array<{ id: string; title: string }> };
-+    applicableDecisions: { count: number; examples: Array<{ id: string; statement: string }> };
-+    documentsInProgress: { count: number; examples: Array<{ id: string; title: string }> };
-+    openPointsCount: number;
-+  } | null>(null);
-   const [inspect, setInspect] = useState<Doc | null>(null);
-   const [docUi, setDocUi] = useState<DocUiState>("READING");
-   const [reviseDraft, setReviseDraft] = useState("");
-@@ -1600,6 +1612,9 @@ export default function ProjectPage() {
-         setChoiceFrozen(true);
-       }
-       setKnowledge(j.knowledge ?? null);
-+      setPilotageProjection((j.pilotage as PilotageProjection) ?? null);
-+      setInitialQualification((j.initialQualification as InitialQualificationProjection) ?? null);
-+      setProjectActivity(j.activity ?? null);
-       const nextPrepId = j.preparation?.id ?? null;
-       setPreparationId(nextPrepId);
-       preparationIdRef.current = nextPrepId;
-@@ -1819,6 +1834,44 @@ export default function ProjectPage() {
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [params.projectId, router, loadEpoch]);
-
-+  useEffect(() => {
-+    // E07-COR-02/05 — reconcile via POST (not GET kick); include UNKNOWN.
-+    const status = initialQualification?.status;
-+    const needsReconcile =
-+      status === "PENDING" || status === "RUNNING" || status === "UNKNOWN";
-+    if (!needsReconcile) return;
-+    let cancelled = false;
-+    const tick = async () => {
-+      const recon = await fetch(
-+        `/api/projects/${params.projectId}/initial-qualification/reconcile`,
-+        { method: "POST" },
-+      );
-+      if (cancelled) return;
-+      if (recon.ok) {
-+        const body = (await recon.json()) as {
-+          initialQualification?: InitialQualificationProjection | null;
-+        };
-+        if (body.initialQualification) {
-+          setInitialQualification(body.initialQualification);
-+        }
-+      }
-+      const res = await fetch(`/api/projects/${params.projectId}`);
-+      if (!res.ok || cancelled) return;
-+      const j = await res.json();
-+      setPilotageProjection((j.pilotage as PilotageProjection) ?? null);
-+      if (j.initialQualification) {
-+        setInitialQualification(j.initialQualification as InitialQualificationProjection);
-+      }
-+      setMessages((j.messages ?? []) as Msg[]);
-+    };
-+    const id = window.setInterval(() => void tick(), 2000);
-+    void tick();
-+    return () => {
-+      cancelled = true;
-+      window.clearInterval(id);
-+    };
-+  }, [params.projectId, initialQualification?.status, initialQualification?.operationId]);
-+
-   // B2 — keep surface/document in sync with URL on Back/Forward without one-shot lock.
-   useEffect(() => {
-     surfaceNavGenRef.current += 1;
-@@ -2433,23 +2486,38 @@ export default function ProjectPage() {
-       ? ("historical" as const)
-       : null;
-
-+  const qualificationLockActive =
-+    initialQualification?.status === "PENDING" ||
-+    initialQualification?.status === "RUNNING" ||
-+    initialQualification?.status === "UNKNOWN";
-+
-   const travailHero =
-     surface !== "travail"
-       ? null
--      : pendingDocumentProposal
-+      : qualificationLockActive
-         ? {
-             kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
--            title: "Examiner une proposition de Nora",
--            sub: "Le Pilote peut préciser sa demande ou demander la conservation d’une nouvelle version documentaire.",
-+            title: "Nora prépare votre trajectoire",
-+            sub: "Le compositeur est temporairement indisponible pendant la qualification initiale.",
-           }
--        : documentFocus &&
--            documentFocus.sourceRevisionId !== documentFocus.observedHeadRevisionId
-+        : pendingDocumentProposal
-           ? {
-               kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
--              title: "Réviser une version historique avec Nora",
--              sub: "Nora vérifie la version courante avant de proposer une révision fondée sur une ancienne version.",
-+              title: "Examiner une proposition de Nora",
-+              sub: "Le Pilote peut préciser sa demande ou demander la conservation d’une nouvelle version documentaire.",
-             }
--          : null;
-+          : documentFocus &&
-+              documentFocus.sourceRevisionId !== documentFocus.observedHeadRevisionId
-+            ? {
-+                kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
-+                title: "Réviser une version historique avec Nora",
-+                sub: "Nora vérifie la version courante avant de proposer une révision fondée sur une ancienne version.",
-+              }
-+            : {
-+                kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
-+                title: "Conversation du projet",
-+                sub: "Poursuivez le fil avec Nora — les décisions d’ouverture et de clôture restent les vôtres.",
-+              };
-
-   return (
-     <ProjectChrome
-@@ -2468,9 +2536,11 @@ export default function ProjectPage() {
-           projectName={projectName ?? "Projet"}
-           preparationId={preparationId}
-           knowledge={knowledge}
--          documentCount={documents.length}
--          messageCount={messages.length}
-+          pilotage={pilotageProjection}
-+          initialQualification={initialQualification}
-+          activity={projectActivity}
-           onOpenTravail={() => selectSurface("travail")}
-+          onOpenTrajectoire={() => selectSurface("pilotage")}
-         />
-       ) : null}
-
-@@ -2481,6 +2551,8 @@ export default function ProjectPage() {
-           messages={messages}
-           draft={draft}
-           busy={busy || !preparationId}
-+          composerLocked={Boolean(initialQualification?.composerLocked)}
-+          composerLockReason={initialQualification?.composerLockReason}
-           unresolvedPending={Boolean(unresolvedPending)}
-           activity={noraActivity}
-           status={[status, pilotageStatus].filter(Boolean).join(" · ") || undefined}
-@@ -2618,41 +2690,26 @@ export default function ProjectPage() {
-
-       {surface === "pilotage" ? (
-         <div className="space-y-4" data-figma-frame="125:33" data-testid="project-trajectory">
--          <div className="fig-section-head">
--            <div>
--              <p className="fig-kicker">Pilotage</p>
--              <h2 className="fig-section-title">Trajectoire, cycle et décisions</h2>
--              <p className="fig-hero-sub !mt-1">
--                Affichage D5/D6 existant — sans cycle fictif, sans commande autoritaire depuis Nora.
--              </p>
--            </div>
--          </div>
--          <div className="fig-stat-grid">
--            <div className="fig-stat">
--              <div className="fig-stat-label">Cycle</div>
--              <div className="fig-stat-value" style={{ fontSize: "1.15rem", marginTop: 14 }}>
--                Sans / actif
--              </div>
--              <div className="fig-stat-hint">Projection service projet</div>
--            </div>
--            <div className="fig-stat">
--              <div className="fig-stat-label">Décisions D6</div>
--              <div className="fig-stat-value" style={{ fontSize: "1.15rem", marginTop: 14 }}>
--                HumanDecision
--              </div>
--              <div className="fig-stat-hint">Pas de mutation à l&apos;affichage</div>
--            </div>
--            <div className="fig-stat">
--              <div className="fig-stat-label">CKI / méthode</div>
--              <div className="fig-stat-value" style={{ fontSize: "1.15rem", marginTop: 14 }}>
--                Guidance
--              </div>
--              <div className="fig-stat-hint">Disponibilité réelle du service</div>
--            </div>
--          </div>
--          <div className="fig-panel" data-figma-frame="127:106">
--            <PilotagePanel projectId={params.projectId} />
--          </div>
-+          <TrajectoryBoard
-+            projectId={params.projectId}
-+            pilotage={pilotageProjection}
-+            initialQualification={initialQualification}
-+            onOpenTravail={() => selectSurface("travail")}
-+          />
-+          {/* Keep D5/D6 capabilities; hide under analyzing/proposal Figma states (09.10/09.11). */}
-+          {!(
-+            initialQualification?.status === "PENDING" ||
-+            initialQualification?.status === "RUNNING" ||
-+            initialQualification?.status === "UNKNOWN" ||
-+            (pilotageProjection?.trajectory.proposed &&
-+              !pilotageProjection?.trajectory.retained &&
-+              !pilotageProjection?.cycle)
-+          ) ? (
-+            <details className="fig-panel text-sm" data-testid="pilotage-diagnostic">
-+              <summary>Pilotage (diagnostic)</summary>
-+              <PilotagePanel projectId={params.projectId} />
-+            </details>
-+          ) : null}
-         </div>
-       ) : null}
-
-
-```
-
-### `projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-index 8ca6ff6c..2419bb72 100644
---- a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-+++ b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-@@ -5,6 +5,8 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
- import { SafeMarkdown } from "@/components/SafeMarkdown";
- import { PreparationConversation } from "@/components/figma/PreparationConversation";
- import { PreparationProposal } from "@/components/figma/PreparationProposal";
-+import { SasCreateProgressPopup } from "@/components/figma/SasCreateProgressPopup";
-+import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
- import { ProjectJournal } from "@/components/figma/ProjectJournal";
- import {
-   DocumentHistory,
-@@ -96,6 +98,11 @@ export default function PreparationPage() {
-   const idempotencyKey = useMemo(() => `create-${preparationId}`, [preparationId]);
-   /** Structured awaiting mission key from server — never parsed from Nora prose. */
-   const [awaitingClientIntentKey, setAwaitingClientIntentKey] = useState<string | null>(null);
-+  const [createProgressVisible, setCreateProgressVisible] = useState(false);
-+  const [createProgressStep, setCreateProgressStep] = useState<1 | 2 | 3>(1);
-+  const [createProgressQualification, setCreateProgressQualification] =
-+    useState<InitialQualificationProjection | null>(null);
-+  const [pendingNavigateProjectId, setPendingNavigateProjectId] = useState<string | null>(null);
-
-   function rememberCreateIntent(next: CreateIntent | null) {
-     createDocIntentRef.current = next;
-@@ -556,6 +563,7 @@ export default function PreparationPage() {
-         projectId?: string;
-         reason?: string;
-         missionBindingError?: string;
-+        initialQualification?: InitialQualificationProjection;
-         missionContinue?: {
-           continued?: boolean;
-           documentSave?: { documentId?: string };
-@@ -593,7 +601,13 @@ export default function PreparationPage() {
-       if (j.projectId && !j.missionBindingError) {
-         setProjectId(j.projectId);
-         setAwaitingClientIntentKey(null);
--        router.push(`/projects/${j.projectId}`);
-+        setCreateProgressStep(1);
-+        setCreateProgressQualification(j.initialQualification ?? null);
-+        setCreateProgressVisible(true);
-+        setPendingNavigateProjectId(j.projectId);
-+        setCreateProgressStep(j.initialQualification ? 2 : 1);
-+        window.setTimeout(() => setCreateProgressStep(2), 400);
-+        window.setTimeout(() => setCreateProgressStep(3), 900);
-         return;
-       }
-
-@@ -927,6 +941,19 @@ export default function PreparationPage() {
-           }
-         />
-       ) : null}
-+      <SasCreateProgressPopup
-+        visible={createProgressVisible}
-+        projectName={previewName || "Projet"}
-+        step={createProgressStep}
-+        qualification={createProgressQualification}
-+        onDismiss={() => {
-+          setCreateProgressVisible(false);
-+          if (pendingNavigateProjectId) {
-+            router.push(`/projects/${pendingNavigateProjectId}`);
-+            setPendingNavigateProjectId(null);
-+          }
-+        }}
-+      />
-     </div>
-   );
- }
-
-```
-
-### `projects/sfia-studio-next/web/src/db/schema.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/db/schema.ts b/projects/sfia-studio-next/web/src/db/schema.ts
-index cb71e766..e31c56a4 100644
---- a/projects/sfia-studio-next/web/src/db/schema.ts
-+++ b/projects/sfia-studio-next/web/src/db/schema.ts
-@@ -480,6 +480,8 @@ export const trajectoryRevisions = pgTable(
-     sourceKind: text("source_kind").notNull(),
-     sourceRef: text("source_ref").notNull().default(""),
-     decisionId: text("decision_id").references(() => humanDecisions.id),
-+    /** Structured sequential cycle forecast (Ensemble 07). */
-+    forecastJson: jsonb("forecast_json"),
-     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-   },
-   (t) => [
-@@ -488,6 +490,40 @@ export const trajectoryRevisions = pgTable(
-   ],
- );
-
-+/** D5/D3 — one durable initial trajectory qualification per project (Ensemble 07). */
-+export const trajectoryQualificationOperations = pgTable(
-+  "trajectory_qualification_operations",
-+  {
-+    id: text("id").primaryKey(),
-+    projectId: text("project_id")
-+      .notNull()
-+      .references(() => projects.id),
-+    preparationId: text("preparation_id")
-+      .notNull()
-+      .references(() => preparations.id),
-+    pilotId: text("pilot_id")
-+      .notNull()
-+      .references(() => pilots.id),
-+    status: text("status").notNull(),
-+    phase: text("phase").notNull(),
-+    version: integer("version").notNull().default(1),
-+    inputFingerprint: text("input_fingerprint").notNull().default(""),
-+    trajectoryRevisionId: text("trajectory_revision_id").references(() => trajectoryRevisions.id),
-+    assistantMessageId: text("assistant_message_id"),
-+    resultJson: jsonb("result_json"),
-+    errorCode: text("error_code"),
-+    ownerToken: text("owner_token"),
-+    claimedAt: timestamp("claimed_at", { withTimezone: true }),
-+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-+  },
-+  (t) => [
-+    uniqueIndex("trajectory_qualification_operations_project_uidx").on(t.projectId),
-+    index("trajectory_qualification_operations_preparation_idx").on(t.preparationId),
-+    index("trajectory_qualification_operations_status_idx").on(t.status),
-+  ],
-+);
-+
- /** D5 — lockable project revision. Missing row means revision 0 (no cycle created with the project). */
- export const projectPilotageState = pgTable("project_pilotage_state", {
-   projectId: text("project_id")
-
-```
-
-### `projects/sfia-studio-next/web/scripts/db-migrate.sh`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/scripts/db-migrate.sh b/projects/sfia-studio-next/web/scripts/db-migrate.sh
-index cc81197d..9a298db6 100755
---- a/projects/sfia-studio-next/web/scripts/db-migrate.sh
-+++ b/projects/sfia-studio-next/web/scripts/db-migrate.sh
-@@ -32,4 +32,5 @@ apply "011_oauth_session_binding.sql"
- apply "012_auth_concurrency_safety.sql"
- apply "013_preparation_projection.sql"
- apply "014_journal_d4_revisions.sql"
--echo "db:migrate OK (001→014)"
-+apply "015_trajectory_qualification.sql"
-+echo "db:migrate OK (001→015)"
-
-```
-
-### `projects/sfia-studio-next/web/src/lib/http-errors.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/lib/http-errors.ts b/projects/sfia-studio-next/web/src/lib/http-errors.ts
-index 8fae28a2..481ea9f5 100644
---- a/projects/sfia-studio-next/web/src/lib/http-errors.ts
-+++ b/projects/sfia-studio-next/web/src/lib/http-errors.ts
-@@ -13,6 +13,7 @@ export type StudioErrorCode =
-   | "DEPENDENCY_UNAVAILABLE"
-   | "INTERNAL"
-   | "TURN_IN_PROGRESS"
-+  | "QUALIFICATION_IN_PROGRESS"
-   | "PAYLOAD_MISMATCH"
-   | "NOT_CONFIGURED"
-   | "REQUIRES_REQUALIFICATION"
-@@ -49,6 +50,7 @@ function defaultStatus(code: StudioErrorCode): number {
-       return 400;
-     case "CONFLICT":
-     case "TURN_IN_PROGRESS":
-+    case "QUALIFICATION_IN_PROGRESS":
-     case "PAYLOAD_MISMATCH":
-       return 409;
-     case "DEPENDENCY_UNAVAILABLE":
-
-```
-
-### `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts`
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
-index f22d02af..65a21943 100644
---- a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
-+++ b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
-@@ -19,6 +19,8 @@ export async function GET(_: Request, ctx: { params: Promise<{ projectId: string
-       documents: data.documents,
-       knowledge: data.knowledge,
-       pilotage: data.pilotage,
-+      initialQualification: data.initialQualification,
-+      activity: data.activity,
-     });
-   } catch (e) {
-     const code = (e as { code?: string }).code;
-
 ```
 
 ### `projects/sfia-studio-next/construction/delivery-history.md`
+
+Note: E07 entries
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
@@ -4155,16 +4309,37 @@ index e273b49a..6999a5ce 100644
 +| Réserves | COR-14/15 GO naturel+maturité non prouvés e2e ; COR-16/17 bilan/CKI éditorial partiels ; 13/13 Figma non READY |
 +| Verdict candidat | FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED / READY WITH GOVERNED RESERVES sur P0 |
 +
-
 ```
 
-## Instruction ChatGPT obligatoire
+## 12. Preuves navigateur
 
-Avant de répondre à Morris, ChatGPT doit relire depuis Git la branche sfia/review-handoff, fichier sfia-review-handoff/latest-chatgpt-review.md, confirmer que le nouveau rapport correspond à l'itération **corrective** Ensemble 07 (pas COURTILIEN ni le pack 93ee58ee historique), contrôler les fichiers créés/modifiés, les preuves, le SHA, les tests et le verdict. Ne pas se baser sur un ancien rapport ou une synthèse seule.
+- Viewport 1680×970 Chromium Playwright
+- Seeds DETERMINISTIC : `scripts/e07-seed-screenshot.mts`
+- Captures : `.tmp-sfia-review/ensemble07-evidence/runtime/`
+- Figma refs : `.tmp-sfia-review/ensemble07-figma-refs/` (13 PNG)
 
-## Verdict final
+## 13. Réserves / Gates
 
-**FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED**
+- Gate C OPEN · NO RELEASE
+- LIVE Nora NOT PROVEN
+- GO conversationnel browser NOT PROVEN (API/service DETERMINISTIC PROVEN)
+- SAS06 popup runtime live capture incomplete (code timers removed; prep page captured)
+- Pixel fidelity residual on several frames
+- Full regression suites NOT RUN this pass
 
-P0 durabilité : READY WITH GOVERNED RESERVES.
-Gate C OPEN · NO RELEASE · No project push/PR/merge.
+## 14. Verdicts séparés
+
+| Domaine | Verdict |
+|---|---|
+| Technique P0 | READY WITH GOVERNED RESERVES |
+| Fonctionnel | READY WITH GOVERNED RESERVES (GO convers. / LIVE) |
+| UX/UI | FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED |
+| Preuve | REVIEW PARTIAL — runtime screenshots present 13 états ; SAS popup live weak |
+| Global | **READY WITH GOVERNED RESERVES** — pas DELIVERY READY FOR MORRIS UAT (écarts UX + GO live) |
+
+## 15. Instruction ChatGPT
+
+> Avant de répondre à Morris, ChatGPT doit relire directement depuis Git la branche `sfia/review-handoff`, fichier `sfia-review-handoff/latest-chatgpt-review.md`, vérifier la date, l'identité de cette itération de convergence Ensemble 07, les références Git, les fichiers créés/modifiés, les sections de code, les preuves et les comparaisons Figma/runtime, les tests, les réserves, le SHA distant et la publication. Le rapport Cursor seul ne remplace pas cette vérification.
+
+---
+END OF REVIEW PACK — Ensemble 07 final convergence
