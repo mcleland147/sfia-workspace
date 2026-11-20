@@ -5,6 +5,7 @@ import {
   sendPrepMessage,
   uniqueProjectName,
 } from "./helpers/g4-chat-first";
+import { goRailSurface } from "./helpers/rail-nav";
 
 async function seedJournalScenario(page: Page, projectId: string, longThreadCount = 40) {
   const res = await page.request.post("/api/dev/e2e/journal-fixture", {
@@ -59,8 +60,7 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     await page.getByTestId("thread-draft").fill(draftBefore);
     await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
 
-    await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
-    await expect(page).toHaveURL(/surface=journal/);
+    await goRailSurface(page, "journal");
     await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
 
     // A — arbre non vide (fail if empty)
@@ -141,13 +141,7 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     expect(idsAfter[idsAfter.length - 1]).not.toBe(seed.earlyMessageId);
 
     // J-C13 — return via rail (NOT page.goto) and assert nav restored
-    const journalNav = page.getByTestId("studio-rail").getByTestId("nav-journal");
-    await journalNav.click();
-    await expect(page).toHaveURL(/surface=journal/);
-    // Soft-nav URL can land before React surface commit; retry rail once if needed.
-    if (!(await page.getByTestId("project-journal").isVisible().catch(() => false))) {
-      await journalNav.click();
-    }
+    await goRailSurface(page, "journal");
     await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
     await expect(page.getByTestId("journal-search")).toHaveValue("traçabilité");
     await expect(page.getByTestId("journal-open-points-list")).toBeVisible();
@@ -194,7 +188,7 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
 
     // Return Journal via rail — selection of document subject should restore if nav preserved
-    await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
+    await goRailSurface(page, "journal");
     await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
     await expect(page.getByTestId(`journal-subject-${seed.otherParentId}`)).toBeVisible();
 

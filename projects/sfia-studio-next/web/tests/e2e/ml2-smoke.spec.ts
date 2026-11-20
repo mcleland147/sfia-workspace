@@ -8,6 +8,7 @@ import {
   openSasSecondaryTool,
   backToSasConversation,
 } from "./helpers/g4-chat-first";
+import { goRailSurface } from "./helpers/rail-nav";
 
 test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet", async ({
   page,
@@ -66,8 +67,7 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
   // Reopen continuity — Journal V4 is a rail surface with tabs.
   await page.goto(`/projects/${projectId}`);
   await expect(page.getByTestId("travail-intro")).toBeVisible({ timeout: 15000 });
-  await page.getByTestId("studio-rail").getByTestId("nav-journal").click();
-  await expect(page).toHaveURL(/surface=journal/);
+  await goRailSurface(page, "journal");
   await expect(page.getByTestId("journal-title")).toBeVisible();
   await expect(page.getByTestId("journal-tab-subjects")).toBeVisible();
 

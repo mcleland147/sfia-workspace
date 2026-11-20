@@ -1,4 +1,5 @@
 import { seedInspectedNameViaApi } from "./helpers/g4-chat-first";
+import { goRailSurface } from "./helpers/rail-nav";
 import { test, expect } from "@playwright/test";
 
 /**
@@ -44,31 +45,23 @@ test.describe("Ensemble 04 project space", () => {
     const rail = page.getByTestId("studio-rail");
 
     // T03 — Travail / Projet / Journal / Trajectoire
-    // CI: wait for URL after rail click (force) — soft click can miss under load.
-    const goSurface = async (navTestId: string, surface: string) => {
-      await rail.getByTestId(navTestId).click({ force: true });
-      await expect(page).toHaveURL(new RegExp(`surface=${surface}`), {
-        timeout: 15_000,
-      });
-    };
-
-    await goSurface("nav-projet", "projet");
+    await goRailSurface(page, "projet");
     await expect(page.getByTestId("project-overview")).toBeVisible();
     await expect(page.getByTestId("project-overview-name")).toHaveText(projectName);
 
-    await goSurface("nav-journal", "journal");
+    await goRailSurface(page, "journal");
     await expect(page.getByTestId("project-load-state")).toHaveAttribute(
       "data-project-surface",
       "journal",
     );
 
-    await goSurface("nav-pilotage", "pilotage");
+    await goRailSurface(page, "pilotage");
     await expect(page.getByTestId("project-load-state")).toHaveAttribute(
       "data-project-surface",
       "pilotage",
     );
 
-    await goSurface("nav-travail", "travail");
+    await goRailSurface(page, "travail");
 
     // T05 — Accès directs
     await expect(page.getByTestId("nav-documents")).toBeVisible();
@@ -240,16 +233,13 @@ test.describe("Ensemble 04 project space", () => {
     await expect(page.getByTestId("thread-pending-banner")).toBeVisible({ timeout: 20000 });
     await expect(page.getByTestId("nora-thread")).toBeVisible();
 
-    const rail = page.getByTestId("studio-rail");
-    await rail.getByTestId("nav-projet").click();
+    await goRailSurface(page, "projet");
     await expect(page.getByTestId("project-overview")).toBeVisible();
     await expect(page.getByTestId("thread-pending-banner")).toHaveCount(0);
 
-    await rail.getByTestId("nav-journal").click();
-    await expect(page).toHaveURL(/surface=journal/);
+    await goRailSurface(page, "journal");
 
-    await rail.getByTestId("nav-travail").click();
-    await expect(page).toHaveURL(/surface=travail/);
+    await goRailSurface(page, "travail");
     await expect(page.getByTestId("thread-pending-banner")).toBeVisible({ timeout: 20000 });
     await expect(page.getByTestId("thread-reconcile-pending")).toBeVisible();
     await expect(page.getByTestId("nora-thread")).toBeVisible();

@@ -8,6 +8,7 @@ import {
   openSasSecondaryTool,
   backToSasConversation,
 } from "./helpers/g4-chat-first";
+import { goRailSurface } from "./helpers/rail-nav";
 
 test("DEV fake login → sas → message Nora FAKE → document → create → portfolio reopen by projectId", async ({
   page,
@@ -66,8 +67,7 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   await expect(page.getByText(/1 DOCUMENT/i)).toBeVisible();
 
   // Continuity of the Nora thread is on Travail — return before asserting the message.
-  await page.getByTestId("studio-rail").getByTestId("nav-travail").click();
-  await expect(page).toHaveURL(/surface=travail/);
+  await goRailSurface(page, "travail");
   await page.reload();
   await expect(page.getByText("Bonjour Nora depuis Playwright", { exact: true })).toBeVisible();
 
