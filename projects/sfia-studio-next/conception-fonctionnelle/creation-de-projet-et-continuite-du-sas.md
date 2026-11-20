@@ -241,3 +241,33 @@ Les qualificatifs ci-dessus concernent **les textes examinés**, pas une compati
 - **RG-CRE-030 — Contexte de la lane.** Les anomalies de création et de reprise doivent pouvoir être rattachées au build/SHA et à l'environnement effectivement servis, sans mélange DEV/RECETTE/STABLE ni révélation interprojet.
 
 **Parcours candidats :** **PF-CRE-28** double clic/retry même intention → une création effective et plusieurs tentatives corrélées ; **PF-CRE-29** commit réussi mais réponse perdue → réconciliation de la commande existante sans doublon ; **PF-CRE-30** connexion DB indisponible et retour API → catégorie technique fidèle, échec/UNKNOWN sans session faussement invalidée. Tests DB/HTTP/BROWSER sur SHA et lane ; aucune nouvelle table de journal des commandes exigée par ce contrat.
+
+---
+
+## 9. Ensemble 07 — Création du projet et qualification initiale de trajectoire (validation Morris 20/11/2026)
+
+**Statut de contenu : VALIDATED BY MORRIS — 2026-11-20.** Complément normatif D2 à la spécification R2 existante, avec [contrat UX Projet & Trajectoire](../construction/convergence-ux-ui-globale/ensemble-07-projet-trajectoire-conception-fonctionnelle-contrat-ux.md) et [dossier d'architecture fonctionnelle et technique](../construction/convergence-ux-ui-globale/ensemble-07-dossier-architecture-fonctionnelle-technique-candidat.md). **Publication candidate sur branche Git : non mergée dans main ; réalisation, preuve et adoption non acquises.** Les anciennes règles D2 conservent leur portée ; aucune création implicite de projet, de cycle, de CKI, de méthode ou d'effet Git.
+
+### 9.1. Règles additionnelles D2 validées en contenu
+
+- **RG-CRE-031 — Qualification initiale après création vérifiée.** Après confirmation réelle de l'existence et de la propriété du projet par D2, Studio engage ou retrouve de manière idempotente **une opération de qualification initiale de trajectoire** rattachée au projet et à la préparation SAS d'origine. Cette opération est distincte de l'acte « Créer le projet ». Son résultat, sa durée ou son échec ne conditionnent pas la validité de la création ni n'autorisent l'ouverture d'un cycle. **Interfaces :** RG-CRE-004/005/008/010/011/014/016/019 ; D3 RG-CONV-016/017 ; D5 RG-TRJ-041/043 ; D6 RG-GOV-030.
+
+- **RG-CRE-032 — Création acquise et analyse récupérable.** Une fermeture de Studio, perte d'ACK, coupure réseau, erreur, interruption, doublon de requête ou état inconnu de l'analyse **n'annule pas un projet effectivement créé**. Au retour, Studio réconcilie d'abord l'état D2 puis retrouve/engage **une seule qualification initiale logique** et sa première restitution si elles existent déjà. Les tentatives, identifiants et issues sont traçables sans se substituer aux commandes de création ni générer de projet, trajectoire ou message en double. Une erreur technique d'analyse est distincte d'une insuffisance d'informations à qualifier. **Interfaces :** RG-CRE-010/011/013/017/019/024/025/028–030 ; D3 RG-CONV-016/018 ; D5 RG-TRJ-043 ; ENV-01.
+
+- **RG-CRE-033 — Accès au projet pendant la qualification.** Dès que la création est effectivement confirmée, le projet est consultable depuis son portefeuille, même si Nora prépare encore la trajectoire. Le passage SAS→Projet conserve son fil et son contexte réels. **Seul le compositeur conversationnel de Travail** est temporairement indisponible tant que l'opération de qualification initiale n'a pas atteint une issue terminale vérifiée ; la navigation dans Projet, Trajectoire, Journal et Documents reste possible sous droits, sans nouvelle analyse déclenchée par une simple lecture. L'indisponibilité, la reprise et le retour à la conversation relèvent de D3 et du contrat UX ; aucune permission métier n'est élargie. **Interfaces :** RG-CRE-017/018/020/021/025 ; D3 RG-CONV-018 ; D5 RG-TRJ-043.
+
+**Clarification de RG-CRE-005 et RG-CRE-021 :** « Nora peut proposer une trajectoire » et « aide sans cycle » continuent de permettre la qualification avant et après création. La **nouvelle obligation** est d'**engager systématiquement** une qualification initiale **après** création confirmée ; elle n'oblige ni à disposer déjà d'une trajectoire, ni à ouvrir un cycle, ni à bloquer toute exploration si la proposition demeure insuffisante. L'absence de trajectoire ne doit toutefois pas devenir un état de progression structurée implicitement accepté par défaut (D5).
+
+### 9.2. Scénarios et critères d'acceptation D2
+
+| ID | Situation | Résultat attendu |
+| --- | --- | --- |
+| **PF-CRE-31** | Projet confirmé, analyse initiale engagée | Projet durable, accessible ; une qualification liée au SAS/projet, aucun cycle ni CKI principal ouvert |
+| **PF-CRE-32** | Fermeture après commit projet, avant qualification | Au retour, projet unique retrouvé, opération initiale à lancer/reprendre une seule fois |
+| **PF-CRE-33** | Fermeture pendant qualification ou après résultat non accusé | Même projet/fil/opération ; état réel ou résultat déjà publié récupéré, sans nouvelle création |
+| **PF-CRE-34** | Analyse en échec ou insuffisance cognitive | Projet conservé ; statut technique ou manque cognitif distingués, reprise maîtrisée |
+| **PF-CRE-35** | Projet consulté alors que la qualification continue | Portefeuille/onglets accessibles ; Travail visuellement et réellement verrouillé par D3 ; absence de faux cycle |
+| **PF-CRE-36** | Double clic, deux onglets, ACK perdu | D2 réconcilie la même création et le déclencheur logique de qualification, sans doublons |
+| **PF-CRE-37** | Accès autre Pilote ou autre projet | Aucun état de qualification, conversation, cycle ou document d'autrui révélé |
+
+**Preuves à établir en R5/R6 :** DB/integration D2 avec commit/ACK perdu, concurrence et récupération ; navigateur sur sortie SAS, fermeture/reprise et portefeuille ; corrélation avec D3/D5 ; le code actuel n'est pas déclaré conforme par cette validation documentaire. **Conception validée ≠ IMPLEMENTED ≠ BEHAVIOR PROVEN ≠ ADOPTED.**
