@@ -84,13 +84,10 @@ describe("Level-B provider-simulated D3 boundary", () => {
     const result = await generateNoraReply({ userText: SIM_PROMPTS.S3, contextSnippets: [] });
     expect(result.mode).toBe("provider-simulated");
     expect(result.status).toBe("COMPLETE");
-    expect(result.qualification.visualComposition?.blocks?.[0]?.kind).toBe("comparison");
-    const alts =
-      result.qualification.visualComposition?.blocks?.[0] &&
-      result.qualification.visualComposition.blocks[0].kind === "comparison"
-        ? result.qualification.visualComposition.blocks[0].alternatives
-        : [];
-    expect(alts).toHaveLength(3);
+    // E05 freeze (Morris 19/11): generateNoraReply strips visualComposition; substance stays in replyDraft.
+    // Corpus S3 still carries comparison at resolveProviderSimulatedQualification (covered above).
+    expect(result.qualification.visualComposition).toBeUndefined();
+    expect(result.qualification.replyDraft.trim().length).toBeGreaterThan(40);
     // Must not look like UI-key fixture envelope.
     expect(result.qualification.intents.some((i) => i.constraints.includes("PROVIDER_SIMULATED"))).toBe(
       true,
