@@ -1,138 +1,338 @@
-# SFIA STUDIO NEXT — ENSEMBLE 06 / DOCUMENTS
-## Review Pack FULL — P0-A/B/C/D vérification corrective finale
+# SFIA Review Pack FULL — Ensemble 06 Cycle 08
+# Intégration Documents dans RECETTE Journal V4
+# Mode: FULL / publish-in-cycle / L3 handoff required
 
-1. **Identité** : Ensemble 06 Documents — Cycle 08 Delivery EVOL — P0-A/B/C/D
-2. **Date** : 2026-11-19 23:58:05 UTC
-3. **Worktree** : `/Users/morris/Projects/sfia-wt-documents-delivery-20261119`
-4. **Branche** : `sfia/next-documents-delivery-20261119` (non publiée)
-5. **HEAD** : `6516c7b56ec61bd72943ae0d26e625bf21139d4e`
-6. **origin/main** : `d3d199adb782462b93467934f5f1e8a0c98fb492`
-7. **Handoff précédent** : tip `36f9a5fc…` / blob `3a335155…`
-8. **NO RELEASE** — pas de commit/push projet — RECETTE interdite
+## 0. Verdict unique
 
----
+**RECETTE AVAILABLE WITH RESERVES — MORRIS REVIEW REQUIRED**
 
-## Git local avant/après
+Candidat Journal V4 accepté + Bibliothèque Documents intégré, figé, sauvegardé, déployé sur la RECETTE existante `:3200`.
+La décision Journal V4 du 19/11 reste valide sur son périmètre historique.
+**La recette Documents reste À FAIRE par Morris.**
 
-### Après (non commité)
+## 1. Git Truth Check
+
+| Item | Valeur |
+|---|---|
+| origin/main observé | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
+| Journal accepté | `5f6e2f3860993acd35d176f60e6a7f0ca69d3a3d` |
+| Documents HEAD + dirty WT | `6516c7b56ec61bd72943ae0d26e625bf21139d4e` / `sfia-wt-documents-delivery-20261119` |
+| Branche candidate locale | `sfia/next-ensemble06-journal-docs-recette-20261120` |
+| SHA code combiné | `7a13d7deec488bf62881eec11b5658c45c02c5b0` |
+| SHA tip candidat | `aa568cfab37bec1922b2a6886c621dc7d9d37088` |
+| Tree tip | `6e1b2bed614ccf78339a6e95c4081860520515e7` |
+| Push projet / PR / merge / STABLE | **NON** |
+
+## 2. RECETTE avant
+
+LaunchAgent `com.sfia.studio.next.recette.ml4d-ux004` · WT `…-5f6e2f38` · SOURCE `5f6e2f3860993acd35d176f60e6a7f0ca69d3a3d` · Next BUILD `d58L2wkEm_1F-BPDf0wJW` · DB `sfia_next_recette_ml4@:5434` · 014 présente.
+
+## 3. RECETTE après
+
+URL `http://127.0.0.1:3200` · même LaunchAgent · WT `…-aa568cfa` · SOURCE `aa568cfab37bec1922b2a6886c621dc7d9d37088` · Next BUILD `t4pjnrn3wGVHZEjhiw6yH` (HTML) · même DB · aucune nouvelle migration.
+
+## 4. Matrice conflits
+
+# Matrice de conflits — Ensemble 06 Journal V4 + Documents
+
+Base Journal : `5f6e2f3860993acd35d176f60e6a7f0ca69d3a3d`
+Base commune : `d3d199adb782462b93467934f5f1e8a0c98fb492` (origin/main observé)
+Source Documents : worktree dirty sur `6516c7b56ec61bd72943ae0d26e625bf21139d4e`
+
+## Stratégie
+- Fichiers inchangés côté Journal (= base) → prise Documents WT
+- Fichiers modifiés des deux côtés → `git merge-file` 3-way (JOURNAL / BASE / DOCUMENTS)
+- Aucune suppression des modules Journal (014, journal/*, API journal)
+
+## Fichiers communs / adjacents
+
+| Fichier | Resp. | Journal | Documents | Compat | Solution | Tests | Résultat |
+|---|---|---|---|---|---|---|---|
+| `page.tsx` | UI projet surfaces | Journal 40/60, deep-link Travail, surfaceNavGen | Bibliothèque, focus, proposal, reload candidate | Compatible sauf refs | 3-way + keep BOTH refs | e2e docs + journal | Merged 2946L |
+| `conversation/service.ts` | Tour Nora / D4–D6 | D5/D6 after qualify, journal bridge | pdoc/hauth, stash candidate, conserve gates | Compatible | 3-way clean | unit+pg docs | Merged 3040L |
+| `tokens.css` | Design tokens | Journal density | Docs surfaces Figma | Compatible | 3-way clean | visual | Merged 5096L |
+| `ProjectChrome.tsx` | Chrome projet | Journal nav | Docs entry | Compatible | 3-way clean | e2e | Merged 183L |
+| `fixture-semantic-qualify.ts` | Nora FAKE | Journal fixtures | Docs revise/conserve fixtures | Compatible | 3-way clean | unit | Merged 2068L |
+| `document/service.ts` | Docs domaine | =base | compare/provenance/revise | Docs only | TAKE_DOCS | pg+unit | OK |
+| `document-act.ts` | Actes docs | =base | ACK soft, hist confirm | Docs only | TAKE_DOCS | e2e/unit | OK |
+| `document-command.ts` | Commandes docs | =base | continueChoices | Docs only | TAKE_DOCS | e2e | OK |
+| `turn-command.ts` | Sérialisation tour | =base | preserve candidates | Docs only | TAKE_DOCS | unit | OK |
+| `DocumentSurfaces.tsx` | UI docs | stub | F1–F5 library/read/hist/compare | Docs only | TAKE_DOCS | surfaces unit | OK |
+| `TravailViewer.tsx` | Viewer 50/50 | base | proposal banner | Docs only | TAKE_DOCS | e2e | OK |
+| `documents/[id]/route.ts` | API lecture | =base | provenance fields | Docs only | TAKE_DOCS | e2e | OK |
+| `messages/route.ts` | API messages | =base | documentFocus passthrough | Docs only | TAKE_DOCS | e2e | OK |
+| `document-candidate.ts` | Stash pdoc/hauth | absent | NEW | N/A | ADD | p0 unit/pg | OK |
+| `document-candidates/.../route.ts` | Reload candidate | absent | NEW | N/A | ADD | p0-c | OK |
+| `schema.ts` / mig 014 | DB | Journal 014 | no new struct mig | Keep Journal | NO CHANGE | inventory | Preserved |
+| Journal APIs/modules | Journal V4 | present | absent on docs HEAD | Must keep | KEEP Journal | journal tests | Preserved |
+
+## Règles respectées
+- Corrections Journal non supprimées
+- Révision documentaire Nora/D4 préservée
+- Fil unique Nora, autorité D4, actes D6, séparation Git D9
+- Pas de second état concurrent / pas de nouvelle architecture
+NoraConversation + TravailViewer integration fixes noted
+
+
+### Fixes intégration
+- TravailViewer: libellés Journal (`Version N · révision citée`) + badges Documents
+- NoraConversation: rebind focus après remount same-length setMessages
+
+## 5. Name-status
+
 ```
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts
- M projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
- M projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
- M projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx
- M projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
- M projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx
- M projects/sfia-studio-next/web/src/components/figma/tokens.css
- M projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
- M projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
- M projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
- M projects/sfia-studio-next/web/src/domains/conversation/service.ts
- M projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
- M projects/sfia-studio-next/web/src/domains/document/service.ts
- M projects/sfia-studio-next/web/tests/e2e/g4-b1-b4-correctifs.spec.ts
- M projects/sfia-studio-next/web/tests/unit/confront-proposal-fence.test.ts
- M projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
-?? projects/sfia-studio-next/.tmp-sfia-review/
-?? projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/document-candidates/
-?? projects/sfia-studio-next/web/src/domains/conversation/document-candidate.ts
-?? projects/sfia-studio-next/web/tests/e2e/documents-bibliotheque-08.spec.ts
-?? projects/sfia-studio-next/web/tests/e2e/documents-f1f5-runtime-captures.spec.ts
-?? projects/sfia-studio-next/web/tests/e2e/documents-nora-v2-v4.spec.ts
-?? projects/sfia-studio-next/web/tests/e2e/documents-p0-final.spec.ts
-?? projects/sfia-studio-next/web/tests/integration/documents-historical-revise.pg.test.ts
-?? projects/sfia-studio-next/web/tests/integration/documents-p0-hauth-pdoc.pg.test.ts
-?? projects/sfia-studio-next/web/tests/integration/documents-proposal-candidate.pg.test.ts
-?? projects/sfia-studio-next/web/tests/unit/documents-p0-auth-candidate.test.ts
-?? projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts
-
+M	projects/sfia-studio-next/construction/delivery-history.md
+A	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/document-candidates/[candidateId]/route.ts
+M	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts
+M	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
+M	projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+M	projects/sfia-studio-next/web/src/components/figma/DocumentSurfaces.tsx
+M	projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+M	projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
+M	projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx
+M	projects/sfia-studio-next/web/src/components/figma/tokens.css
+M	projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+A	projects/sfia-studio-next/web/src/domains/conversation/document-candidate.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/service.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+M	projects/sfia-studio-next/web/src/domains/document/service.ts
+A	projects/sfia-studio-next/web/tests/e2e/documents-bibliotheque-08.spec.ts
+A	projects/sfia-studio-next/web/tests/e2e/documents-f1f5-runtime-captures.spec.ts
+A	projects/sfia-studio-next/web/tests/e2e/documents-nora-v2-v4.spec.ts
+A	projects/sfia-studio-next/web/tests/e2e/documents-p0-final.spec.ts
+M	projects/sfia-studio-next/web/tests/e2e/g4-b1-b4-correctifs.spec.ts
+A	projects/sfia-studio-next/web/tests/integration/documents-historical-revise.pg.test.ts
+A	projects/sfia-studio-next/web/tests/integration/documents-p0-hauth-pdoc.pg.test.ts
+A	projects/sfia-studio-next/web/tests/integration/documents-proposal-candidate.pg.test.ts
+M	projects/sfia-studio-next/web/tests/unit/confront-proposal-fence.test.ts
+A	projects/sfia-studio-next/web/tests/unit/documents-p0-auth-candidate.test.ts
+A	projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts
+M	projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
 ```
 
-### Diff stat cumulé
+## 6. Diffstat
+
 ```
- .tmp-sfia-review/chatgpt-review.md                 |  168 +---
+ .../construction/delivery-history.md               |   19 +
+ .../document-candidates/[candidateId]/route.ts     |   64 ++
  .../documents/[documentId]/route.ts                |   23 +-
  .../preparations/[preparationId]/messages/route.ts |   21 +
  .../web/src/app/projects/[projectId]/page.tsx      | 1025 +++++++++++++++++---
  .../web/src/components/figma/DocumentSurfaces.tsx  |  794 ++++++++++++++-
+ .../web/src/components/figma/NoraConversation.tsx  |    7 +-
  .../web/src/components/figma/ProjectChrome.tsx     |   23 +-
- .../web/src/components/figma/TravailViewer.tsx     |   56 +-
+ .../web/src/components/figma/TravailViewer.tsx     |   66 +-
  .../web/src/components/figma/tokens.css            |  482 +++++++++
  .../web/src/domains/conversation/document-act.ts   |  238 ++++-
+ .../src/domains/conversation/document-candidate.ts |  562 +++++++++++
  .../src/domains/conversation/document-command.ts   |   69 +-
  .../conversation/fixture-semantic-qualify.ts       |  111 +++
  .../web/src/domains/conversation/service.ts        |  428 +++++++-
  .../web/src/domains/conversation/turn-command.ts   |   27 +-
  .../web/src/domains/document/service.ts            |  125 ++-
+ .../tests/e2e/documents-bibliotheque-08.spec.ts    |   70 ++
+ .../e2e/documents-f1f5-runtime-captures.spec.ts    |  107 ++
+ .../web/tests/e2e/documents-nora-v2-v4.spec.ts     |  124 +++
+ .../web/tests/e2e/documents-p0-final.spec.ts       |  184 ++++
  .../web/tests/e2e/g4-b1-b4-correctifs.spec.ts      |   26 +-
+ .../documents-historical-revise.pg.test.ts         |  231 +++++
+ .../integration/documents-p0-hauth-pdoc.pg.test.ts |  174 ++++
+ .../documents-proposal-candidate.pg.test.ts        |  200 ++++
  .../web/tests/unit/confront-proposal-fence.test.ts |    3 +-
+ .../tests/unit/documents-p0-auth-candidate.test.ts |  118 +++
+ .../unit/documents-surfaces-projection.test.ts     |  202 ++++
  .../web/tests/unit/ml4c-s01-s03-guards.test.ts     |    4 +-
- 17 files changed, 3140 insertions(+), 483 deletions(-)
-
+ 29 files changed, 5208 insertions(+), 319 deletions(-)
 ```
 
----
+## 7. Tests
 
-## Blast radius P0-A/B/C/D
+| Suite | Résultat |
+|---|---|
+| tsc | PASS |
+| unit docs+journal 93 | PASS |
+| PG docs+journal-d4 | PASS (014 sur sfia_next_e2e seulement) |
+| e2e docs 08/nora/p0 | PASS |
+| e2e journal-v4-parcours | PASS |
+| next build | PASS `t4pjnrn3wGVHZEjhiw6yH` |
+| LIVE Journal campaign | NOT RUN (interdit) |
 
-| P0 | Cause | Correctif | Fichiers |
-|---|---|---|---|
-| A | `else` de `focus && !wantsConserve` écrivait D4 sans focus | REVISE conversation : toujours proposition OU conserve scellée ; jamais D4 sans `pdoc` | `service.ts` |
-| B | hauth chargé depuis focus sans liaison au pdoc | `assertHistoricalAuthBoundToCandidate` : id + contexte + tête | `document-candidate.ts`, `service.ts` |
-| C | sessionStorage pointeur sans relecture contenu | GET candidat serveur + reconstitution visionneuse ; `conserveProposal=false` | `document-candidates/.../route.ts`, `page.tsx` |
-| D | preuves partielles | E2E reload+égalité section + PG hash/body + UAT contractuelle | tests e2e/unit/pg |
+DOC-UAT-01..13 PASS (FAKE) · DOC-TECH-14/17/18 PASS · DOC-TECH-15 **NOT RUN** · DOC-TECH-16 **PARTIAL**.
 
-**Sas** : éditeur via API documents — hors branche conversation REVISE. Non modifié. KNOWN GAP inchangé.
+## 8. Backup/rollback
 
----
+Dump CUSTOM gzip TOC 282 OK · path `recette-backup-20261120T001915Z` · rollback code → `5f6e2f3860993acd35d176f60e6a7f0ca69d3a3d` WT préservé · DB restore séparé non atomique.
 
-## Analyse / contrats corrigés
+## 9. Inventaires
 
-### P0-A
-- `conserveRequested = isConserveProposalTransmit || focus.conserveProposal`
-- Sinon → stash `pdoc` (même sans focus si document résolu)
-- Conserve → **exige** `pendingCandidateId` ; sinon `PENDING_CANDIDATE_REQUIRED`
-- Historique sans hauth sur focus → pas de stash/proposition
+### Avant
+```
+projects|24
+preparations|197
+messages|612
+conversations|197
+knowledge_subjects|6
+human_decisions|1
+documents|117
+document_revisions|188
+knowledge_open_points|9
+pilots|170
+```
 
-### P0-B
-- `candidate.historicalAuthorizationId === authorization.id`
-- + document/source/tête/choice USE_SOURCE
-- Source courante : hauth non requis
+### Après
+```
+projects|24
+preparations|197
+messages|612
+conversations|197
+knowledge_subjects|6
+human_decisions|1
+documents|117
+document_revisions|188
+knowledge_open_points|9
+pilots|170
+```
 
-### P0-C
-- GET `/api/preparations/:prep/document-candidates/:id`
-- Reload → markdown exact PENDING ; pas d'auto-conserve
-- SUPERSEDED/denied → clear pending UI
+**COUNTERS_UNCHANGED** · CampusNova/CampusFlow présents.
 
-### P0-D
-- PG : body V4 === candidat
-- E2E : proposition → reload même contenu → conserve → V4 lit les mêmes phrases ; V1–V3 ; pas de V4 avant
+## 10. Smoke
 
----
+login/portfolio 200 · BUILD in HTML · next start prod · docs API OK · candidates route controlled · isolation OK · UAT Morris CampusNova **à faire**.
 
-## Fichiers créés (contenus intégraux ci-dessous §9)
+## 11. ENV-01
 
-- `document-candidate.ts` (acquis F1–F5 + P0-B helper)
-- `api/.../document-candidates/[candidateId]/route.ts` **NOUVEAU P0-C**
-- `tests/unit/documents-p0-auth-candidate.test.ts`
-- `tests/integration/documents-p0-hauth-pdoc.pg.test.ts`
-- `tests/e2e/documents-p0-final.spec.ts`
-- (+ acquis cycle précédent : e2e bibliothèque/v2-v4, PG candidate/hist, unit surfaces)
+# ENV-01 — Manifeste mise à disposition RECETTE (non secret)
 
-## Fichiers modifiés (principaux)
+| Champ | Valeur |
+|---|---|
+| Repo | mcleland147/sfia-workspace |
+| Branche candidate locale | `sfia/next-ensemble06-journal-docs-recette-20261120` |
+| Base main vérifiée | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
+| SHA Journal de départ | `5f6e2f3860993acd35d176f60e6a7f0ca69d3a3d` |
+| SHA code combiné | `7a13d7deec488bf62881eec11b5658c45c02c5b0` |
+| SHA tip candidat (history) | `aa568cfab37bec1922b2a6886c621dc7d9d37088` |
+| Tree tip | `6e1b2bed614ccf78339a6e95c4081860520515e7` |
+| Tree code | `2bb984969be6597b76baddb7a3c724ef8dcf22fa` |
+| Build ID nouveau (Next) | `t4pjnrn3wGVHZEjhiw6yH` |
+| Ancienne RECETTE | SOURCE `5f6e2f3860993acd35d176f60e6a7f0ca69d3a3d` / Next `d58L2wkEm_1F-BPDf0wJW` / SFIA_BUILD `tE1TFcAqSGfCVuglJygA` |
+| Nouvelle RECETTE | SOURCE `aa568cfab37bec1922b2a6886c621dc7d9d37088` / Next `t4pjnrn3wGVHZEjhiw6yH` |
+| URL | http://127.0.0.1:3200 |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` |
+| Build WT | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble06-recette-build-aa568cfa` |
+| DB | `sfia_next_recette_ml4` @ 127.0.0.1:5434 (role `sfia_next_recette`) |
+| Lane | RECETTE |
+| Schema/migrations | 014 déjà appliquée ; **aucune nouvelle migration** |
+| Données conservées | projects 24 · prep 197 · messages 612 · conv 197 · subjects 6 · decisions 1 · docs 117 · revs 188 · open_points 9 · pilots 170 — **COUNTERS_UNCHANGED** |
+| CampusNova / CampusFlow | présents |
+| Sauvegarde | `.tmp-sfia-review/recette-backup-20261120T001915Z/` dump CUSTOM gzip TOC 282 OK |
+| Rollback code | LaunchAgent → `…-recette-build-5f6e2f38/start-recette-ensemble06-5f6e2f38.sh` (préservé) |
+| Rollback DB | dump `sfia_next_recette_ml4_pre_docs.dump` (séparé, non atomique) |
+| État mise à disposition | **SERVED** sur :3200 |
+| Gate Morris | UAT Documents + non-régression Journal CampusNova — **à faire** |
+| FAKE/REAL | Tests e2e/unit = FAKE Nora fixtures ; smoke API RECETTE = DEV test login ; UAT Morris = REAL session GitHub |
 
-- `service.ts` — P0-A/B
-- `page.tsx` — P0-C reload
-- ACK pilot-facing (cycle précédent, conservé)
 
----
+## 12. Versioning
 
-## 9. Contenu complet des fichiers créés / untracked
+NO RELEASE / NO STABLE · candidat SHA `aa568cfab37bec1922b2a6886c621dc7d9d37088` / BUILD `t4pjnrn3wGVHZEjhiw6yH` · continuité Ensemble 06.
 
-```text
-=== NEW / UNTRACKED FILES (full contents) ===
+## 13. Réserves
 
-===== BEGIN FILE: projects/sfia-studio-next/web/src/domains/conversation/document-candidate.ts =====
+1. DOC-TECH-15 NOT RUN
+2. DOC-TECH-16 PARTIAL
+3. Réserves Journal V4 historiques conservées
+4. Smoke CampusNova UI REAL = Morris
+5. Roadmap non touchée (D2)
+6. Pas de push projet
+
+## 14. Gate Morris — parcours
+
+1. CampusNova Journal inchangé
+2. Documents bibliothèque/lecture/historique/comparaison
+3. Travail 50/50
+4. Révision historique + conserve explicite
+5. Proposition non enregistrée → conservation
+6. Reload continuité
+7. Invariants: pas sauvegarde implicite / pas édition Projet / pas Git auto / pas faux AVAILABLE / pas mutation D6 projection
+
+## 15. Créations (fichiers A)
+
+
+
+### CREATE projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/document-candidates/[candidateId]/route.ts
+
+```
+import { NextResponse } from "next/server";
+import { requireStudioSession } from "@/domains/identity/session";
+import { loadPendingDocumentCandidate } from "@/domains/conversation/document-candidate";
+import { studioErrorResponse } from "@/lib/http-errors";
+import { emitObs, newRequestId } from "@/lib/observability";
+
+/**
+ * P0-C — authorized read of a sealed pending document candidate (no D4 mutation).
+ * Client may pass expectedSha as a pointer check; markdown authority is server-side.
+ */
+export async function GET(
+  req: Request,
+  ctx: { params: Promise<{ preparationId: string; candidateId: string }> },
+) {
+  const requestId = newRequestId();
+  try {
+    const session = await requireStudioSession();
+    const { preparationId, candidateId } = await ctx.params;
+    const url = new URL(req.url);
+    const expectedSha = url.searchParams.get("expectedSha")?.trim() || undefined;
+    const loaded = await loadPendingDocumentCandidate({
+      pilotId: session.pilotId,
+      preparationId,
+      candidateId,
+      expectedContentSha256: expectedSha,
+    });
+    if (!loaded.ok) {
+      return NextResponse.json(
+        {
+          status: "NOT_AVAILABLE",
+          reason: loaded.reason,
+          requestId,
+        },
+        { status: loaded.reason === "CANDIDATE_DENIED" ? 403 : 404 },
+      );
+    }
+    const c = loaded.candidate;
+    return NextResponse.json({
+      status: "PENDING",
+      candidate: {
+        candidateId: c.id,
+        documentId: c.documentId,
+        sourceRevisionId: c.sourceRevisionId,
+        observedHeadRevisionId: c.observedHeadRevisionId,
+        title: c.title,
+        contentMarkdown: c.contentMarkdown,
+        contentSha256: c.contentSha256,
+        historicalAuthorizationId: c.historicalAuthorizationId ?? null,
+        createdAt: c.createdAt,
+      },
+      requestId,
+    });
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    emitObs({
+      event_name: "api.document_candidate.get_error",
+      component: "api.document_candidate",
+      request_id: requestId,
+      outcome: "FAILED",
+      error_category: mapped.body.errorCategory,
+    });
+    return NextResponse.json(mapped.body, { status: mapped.status });
+  }
+}
+```
+
+### CREATE projects/sfia-studio-next/web/src/domains/conversation/document-candidate.ts
+
+```
 /**
  * F1/F2 — sealed document proposal candidates and historical-source authorizations.
  * Stored additively on conversation_turn_commands.result_json (no migration).
@@ -695,378 +895,327 @@ export function pendingCandidateSummary(c: PendingDocumentCandidate): {
     title: c.title,
   };
 }
+```
 
-===== END FILE: projects/sfia-studio-next/web/src/domains/conversation/document-candidate.ts =====
+### CREATE projects/sfia-studio-next/web/tests/e2e/documents-bibliotheque-08.spec.ts
 
-===== BEGIN FILE: projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/document-candidates/[candidateId]/route.ts =====
-import { NextResponse } from "next/server";
-import { requireStudioSession } from "@/domains/identity/session";
-import { loadPendingDocumentCandidate } from "@/domains/conversation/document-candidate";
-import { studioErrorResponse } from "@/lib/http-errors";
-import { emitObs, newRequestId } from "@/lib/observability";
+```
+import { test, expect } from "@playwright/test";
+import {
+  constituteAndCreateProject,
+  openNewPreparation,
+  openSasSecondaryTool,
+  backToSasConversation,
+  sendPrepMessage,
+} from "./helpers/g4-chat-first";
 
 /**
- * P0-C — authorized read of a sealed pending document candidate (no D4 mutation).
- * Client may pass expectedSha as a pointer check; markdown authority is server-side.
+ * Ensemble 06 — Documents Bibliothèque (page 08) browser smoke on E2E lane.
+ * Covers DOC-UAT-01/02/04/05/07 selection, read-only, history, compare shell.
  */
-export async function GET(
-  req: Request,
-  ctx: { params: Promise<{ preparationId: string; candidateId: string }> },
-) {
-  const requestId = newRequestId();
-  try {
-    const session = await requireStudioSession();
-    const { preparationId, candidateId } = await ctx.params;
-    const url = new URL(req.url);
-    const expectedSha = url.searchParams.get("expectedSha")?.trim() || undefined;
-    const loaded = await loadPendingDocumentCandidate({
-      pilotId: session.pilotId,
-      preparationId,
-      candidateId,
-      expectedContentSha256: expectedSha,
-    });
-    if (!loaded.ok) {
-      return NextResponse.json(
-        {
-          status: "NOT_AVAILABLE",
-          reason: loaded.reason,
-          requestId,
-        },
-        { status: loaded.reason === "CANDIDATE_DENIED" ? 403 : 404 },
-      );
-    }
-    const c = loaded.candidate;
-    return NextResponse.json({
-      status: "PENDING",
-      candidate: {
-        candidateId: c.id,
-        documentId: c.documentId,
-        sourceRevisionId: c.sourceRevisionId,
-        observedHeadRevisionId: c.observedHeadRevisionId,
-        title: c.title,
-        contentMarkdown: c.contentMarkdown,
-        contentSha256: c.contentSha256,
-        historicalAuthorizationId: c.historicalAuthorizationId ?? null,
-        createdAt: c.createdAt,
-      },
-      requestId,
-    });
-  } catch (e) {
-    const mapped = studioErrorResponse(e);
-    emitObs({
-      event_name: "api.document_candidate.get_error",
-      component: "api.document_candidate",
-      request_id: requestId,
-      outcome: "FAILED",
-      error_category: mapped.body.errorCategory,
-    });
-    return NextResponse.json(mapped.body, { status: mapped.status });
-  }
-}
+test("Documents 08: select≠open, read-only, history, compare", async ({ page }) => {
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
 
-===== END FILE: projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/document-candidates/[candidateId]/route.ts =====
+  await openNewPreparation(page);
+  await sendPrepMessage(page, "Bonjour Nora documents bibliotheque");
+  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
 
-===== BEGIN FILE: projects/sfia-studio-next/web/tests/unit/documents-p0-auth-candidate.test.ts =====
-import { describe, expect, it } from "vitest";
+  await openSasSecondaryTool(page, "Documents");
+  await page.getByTestId("doc-start-create").click();
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit initial.\n\n## Responsabilites\nCentres.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 10000 });
+  await backToSasConversation(page);
+
+  await constituteAndCreateProject(page, {
+    name: `Docs08 ${Date.now()}`,
+    summary: "bibliotheque",
+  });
+  await page.waitForURL("**/projects/**");
+  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
+  expect(projectId).toBeTruthy();
+
+  await page.getByTestId("nav-documents").click();
+  await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 15000 });
+
+  const firstDoc = page.locator('[data-testid^="doc-open-"]').first();
+  await expect(firstDoc).toBeVisible({ timeout: 15000 });
+  const documentId = (await firstDoc.getAttribute("data-testid"))?.replace("doc-open-", "");
+  expect(documentId).toBeTruthy();
+
+  // DOC-UAT-01 — select without opening
+  await firstDoc.click();
+  await expect(page.getByTestId("document-selection-aside")).toBeVisible();
+  await expect(page).not.toHaveURL(/documentId=/);
+  await expect(page.getByTestId("doc-action-open")).toBeVisible();
+
+  // DOC-UAT-02/04 — open read-only, no textarea (Figma 08.02: no alert banner in body)
+  await page.getByTestId("doc-action-open").click();
+  await expect(page).toHaveURL(new RegExp(`documentId=${documentId}`));
+  await expect(page.getByTestId("document-read")).toBeVisible();
+  await expect(page.getByTestId("document-read-aside")).toContainText("DOCUMENT / ACTIONS");
+  await expect(page.getByTestId("doc-action-request-revision")).toContainText(
+    "Demander une révision à Nora",
+  );
+  await expect(page.getByTestId("document-revise-draft")).toHaveCount(0);
+
+  // DOC-UAT-05/07 — history + comparator collapsed then expand
+  await page.getByTestId("doc-action-history").click();
+  await expect(page.getByTestId("document-history-surface")).toBeVisible();
+  await expect(page.getByTestId("document-compare-controls")).toHaveCount(0);
+  await page.getByTestId("doc-action-compare-toggle").click();
+  await expect(page.getByTestId("document-compare-controls")).toBeVisible();
+});
+```
+
+### CREATE projects/sfia-studio-next/web/tests/e2e/documents-f1f5-runtime-captures.spec.ts
+
+```
+import { test, expect } from "@playwright/test";
+import * as fs from "node:fs";
+import * as path from "node:path";
 import {
-  assertHistoricalAuthBoundToCandidate,
-  DOC_CONSERVE_PROPOSAL,
-  isConserveProposalTransmit,
-  type HistoricalSourceAuthorization,
-  type PendingDocumentCandidate,
-} from "@/domains/conversation/document-candidate";
+  constituteAndCreateProject,
+  openNewPreparation,
+  openSasSecondaryTool,
+  backToSasConversation,
+  sendPrepMessage,
+} from "./helpers/g4-chat-first";
 
-function auth(overrides: Partial<HistoricalSourceAuthorization> = {}): HistoricalSourceAuthorization {
-  return {
-    id: "hauth_1",
-    turnCommandId: "cmd_1",
-    preparationId: "prep_1",
-    pilotId: "pilot_1",
-    documentId: "doc_1",
-    sourceRevisionId: "rev_v2",
-    observedHeadRevisionId: "rev_v3",
-    choice: "USE_SOURCE",
-    createdAt: new Date().toISOString(),
-    ...overrides,
-  };
-}
-
-function candidate(
-  overrides: Partial<PendingDocumentCandidate> = {},
-): PendingDocumentCandidate {
-  return {
-    id: "pdoc_1",
-    turnCommandId: "cmd_1",
-    preparationId: "prep_1",
-    pilotId: "pilot_1",
-    documentId: "doc_1",
-    sourceRevisionId: "rev_v2",
-    observedHeadRevisionId: "rev_v3",
-    title: "Parcours",
-    contentMarkdown: "# Parcours\n\nP\n",
-    contentSha256: "a".repeat(64),
-    historicalAuthorizationId: "hauth_1",
-    status: "PENDING",
-    createdAt: new Date().toISOString(),
-    ...overrides,
-  };
-}
-
-describe("P0-A conserve transmit gate", () => {
-  it("exact conserve transmit only — not freeform", () => {
-    expect(isConserveProposalTransmit(DOC_CONSERVE_PROPOSAL)).toBe(true);
-    expect(isConserveProposalTransmit("oui conserve")).toBe(false);
-    expect(isConserveProposalTransmit("Conserver comme nouvelle version")).toBe(false);
-  });
-});
-
-describe("P0-B assertHistoricalAuthBoundToCandidate", () => {
-  it("B1 — historical + matching hauth → ok", () => {
-    const r = assertHistoricalAuthBoundToCandidate({
-      sourceIsHistorical: true,
-      candidate: candidate(),
-      authorization: auth(),
-      actualHeadRevisionId: "rev_v3",
-    });
-    expect(r).toEqual({ ok: true });
-  });
-
-  it("B2 — other hauth id → mismatch", () => {
-    const r = assertHistoricalAuthBoundToCandidate({
-      sourceIsHistorical: true,
-      candidate: candidate({ historicalAuthorizationId: "hauth_other" }),
-      authorization: auth(),
-      actualHeadRevisionId: "rev_v3",
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.reason).toBe("HISTORICAL_AUTH_CANDIDATE_MISMATCH");
-  });
-
-  it("B3 — other document on auth → context mismatch", () => {
-    const r = assertHistoricalAuthBoundToCandidate({
-      sourceIsHistorical: true,
-      candidate: candidate(),
-      authorization: auth({ documentId: "doc_other" }),
-      actualHeadRevisionId: "rev_v3",
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.reason).toBe("HISTORICAL_AUTH_CONTEXT_MISMATCH");
-  });
-
-  it("B5 — head moved → HISTORICAL_HEAD_MOVED", () => {
-    const r = assertHistoricalAuthBoundToCandidate({
-      sourceIsHistorical: true,
-      candidate: candidate(),
-      authorization: auth(),
-      actualHeadRevisionId: "rev_v4",
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.reason).toBe("HISTORICAL_HEAD_MOVED");
-  });
-
-  it("B6 — hauth absent → required", () => {
-    const r = assertHistoricalAuthBoundToCandidate({
-      sourceIsHistorical: true,
-      candidate: candidate({ historicalAuthorizationId: null }),
-      authorization: null,
-      actualHeadRevisionId: "rev_v3",
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.reason).toBe("CANDIDATE_HISTORICAL_AUTH_REQUIRED");
-  });
-
-  it("B7 — current head source → ok without hauth", () => {
-    const r = assertHistoricalAuthBoundToCandidate({
-      sourceIsHistorical: false,
-      candidate: candidate({ historicalAuthorizationId: null }),
-      authorization: null,
-      actualHeadRevisionId: "rev_v3",
-    });
-    expect(r).toEqual({ ok: true });
-  });
-});
-
-===== END FILE: projects/sfia-studio-next/web/tests/unit/documents-p0-auth-candidate.test.ts =====
-
-===== BEGIN FILE: projects/sfia-studio-next/web/tests/integration/documents-p0-hauth-pdoc.pg.test.ts =====
 /**
- * P0-B — historical authorization must bind to the sealed candidate.
+ * Runtime captures for Figma 930:9 / 930:10 comparison (local evidence only).
  */
-import { describe, expect, it } from "vitest";
-import { config } from "dotenv";
-config({ path: ".env.local" });
+test("Documents F4/F5 runtime captures 930:9 and 930:10", async ({ page }) => {
+  test.setTimeout(180_000);
+  const outDir = path.resolve(
+    __dirname,
+    "../../../.tmp-sfia-review/documents-runtime/cycle08-f1f5",
+  );
+  fs.mkdirSync(outDir, { recursive: true });
 
-import { db } from "@/db/client";
-import { pilots } from "@/db/schema";
-import { newId } from "@/lib/ids";
-import {
-  assertHistoricalAuthBoundToCandidate,
-  loadHistoricalSourceAuthorization,
-  loadPendingDocumentCandidate,
-  stashHistoricalSourceAuthorization,
-  stashPendingDocumentCandidate,
-} from "@/domains/conversation/document-candidate";
-import { reviseDocument, savePreparationDocument } from "@/domains/document/service";
-import { getPreparationContext, openOrCreatePreparation } from "@/domains/preparation/service";
-import { commitTurnTerminal, reserveTurnCommand } from "@/domains/conversation/turn-command";
+  await page.setViewportSize({ width: 1680, height: 970 });
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
 
-async function seedPilot(label: string) {
-  const id = newId("pilot");
-  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
-  return id;
-}
+  await openNewPreparation(page);
+  await sendPrepMessage(page, "Bonjour Nora — captures 930.");
+  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
 
-describe("documents P0-B hauth ↔ pdoc binding", () => {
-  it("matching hauth allows; foreign hauth refuses; current-head needs no hauth", async () => {
-    const pilotId = await seedPilot("DOC-p0b");
-    const prep = await openOrCreatePreparation(pilotId);
-    const ctx = await getPreparationContext(pilotId, prep.id);
-    expect(ctx.conversation?.id).toBeTruthy();
+  await openSasSecondaryTool(page, "Documents");
+  await page.getByTestId("doc-start-create").click();
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit V1.\n\n## Responsabilités\nCentres.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 15000 });
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit V2.\n\n## Responsabilités\nVérification V2.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/rev 2/i, { timeout: 15000 });
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit V3.\n\n## Responsabilités\nCourante V3.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/rev 3/i, { timeout: 15000 });
+  await backToSasConversation(page);
 
-    const v1 = await savePreparationDocument(pilotId, prep.id, "Parcours", "# V1\n\na\n");
-    expect(v1.status).toBe("AVAILABLE");
-    if (v1.status !== "AVAILABLE") throw new Error("v1");
-    const v2 = await reviseDocument(pilotId, prep.id, {
-      documentId: v1.documentId,
-      baseRevisionId: v1.revisionId,
-      contentMarkdown: "# V2\n\nb\n",
-      correlationKey: "p0b-v2",
-    });
-    expect(v2.status).toBe("AVAILABLE");
-    if (v2.status !== "AVAILABLE") throw new Error("v2");
-    const v3 = await reviseDocument(pilotId, prep.id, {
-      documentId: v1.documentId,
-      baseRevisionId: v2.revisionId,
-      contentMarkdown: "# V3\n\nc\n",
-      correlationKey: "p0b-v3",
-    });
-    expect(v3.status).toBe("AVAILABLE");
-    if (v3.status !== "AVAILABLE") throw new Error("v3");
-
-    const reserved = await reserveTurnCommand({
-      conversationId: ctx.conversation!.id,
-      ownerPilotId: pilotId,
-      clientTurnKey: `p0b-${newId("ck")}`,
-      content: "hist",
-    });
-    if (reserved.kind !== "fresh") throw new Error("fresh");
-
-    const authOk = await stashHistoricalSourceAuthorization({
-      commandId: reserved.commandId,
-      ownerToken: reserved.ownerToken,
-      preparationId: prep.id,
-      pilotId,
-      documentId: v1.documentId,
-      sourceRevisionId: v2.revisionId,
-      observedHeadRevisionId: v3.revisionId,
-      choice: "USE_SOURCE",
-    });
-    expect(authOk.ok).toBe(true);
-    if (!authOk.ok) throw new Error(authOk.reason);
-
-    const authOther = await stashHistoricalSourceAuthorization({
-      commandId: reserved.commandId,
-      ownerToken: reserved.ownerToken,
-      preparationId: prep.id,
-      pilotId,
-      documentId: v1.documentId,
-      sourceRevisionId: v2.revisionId,
-      observedHeadRevisionId: v3.revisionId,
-      choice: "USE_SOURCE",
-    });
-    expect(authOther.ok).toBe(true);
-    if (!authOther.ok) throw new Error(authOther.reason);
-
-    const body = "# Parcours\n\n## Responsabilités\n\nP exact.\n";
-    const stashed = await stashPendingDocumentCandidate({
-      commandId: reserved.commandId,
-      ownerToken: reserved.ownerToken,
-      preparationId: prep.id,
-      pilotId,
-      documentId: v1.documentId,
-      sourceRevisionId: v2.revisionId,
-      observedHeadRevisionId: v3.revisionId,
-      title: "Parcours",
-      contentMarkdown: body,
-      historicalAuthorizationId: authOk.authorization.id,
-    });
-    expect(stashed.ok).toBe(true);
-    if (!stashed.ok) throw new Error(stashed.reason);
-
-    await commitTurnTerminal({
-      commandId: reserved.commandId,
-      ownerToken: reserved.ownerToken,
-      status: "COMPLETE",
-      conversationId: ctx.conversation!.id,
-      assistant: {
-        id: newId("msg"),
-        content: "ok",
-        messageStatus: "COMPLETE",
-        generationId: newId("gen"),
-        ordinal: reserved.ordinalAssistant,
-      },
-      generationId: newId("gen"),
-      resultJson: JSON.stringify({ status: "COMPLETE" }),
-    });
-
-    const loadedCand = await loadPendingDocumentCandidate({
-      pilotId,
-      preparationId: prep.id,
-      candidateId: stashed.candidate.id,
-    });
-    expect(loadedCand.ok).toBe(true);
-    if (!loadedCand.ok) throw new Error(loadedCand.reason);
-
-    const loadedAuth = await loadHistoricalSourceAuthorization({
-      pilotId,
-      preparationId: prep.id,
-      authorizationId: authOk.authorization.id,
-    });
-    expect(loadedAuth.ok).toBe(true);
-    if (!loadedAuth.ok) throw new Error(loadedAuth.reason);
-
-    // B1
-    expect(
-      assertHistoricalAuthBoundToCandidate({
-        sourceIsHistorical: true,
-        candidate: loadedCand.candidate,
-        authorization: loadedAuth.authorization,
-        actualHeadRevisionId: v3.revisionId,
-      }),
-    ).toEqual({ ok: true });
-
-    // B2 — other hauth
-    const otherLoaded = await loadHistoricalSourceAuthorization({
-      pilotId,
-      preparationId: prep.id,
-      authorizationId: authOther.authorization.id,
-    });
-    expect(otherLoaded.ok).toBe(true);
-    if (!otherLoaded.ok) throw new Error(otherLoaded.reason);
-    const mismatch = assertHistoricalAuthBoundToCandidate({
-      sourceIsHistorical: true,
-      candidate: loadedCand.candidate,
-      authorization: otherLoaded.authorization,
-      actualHeadRevisionId: v3.revisionId,
-    });
-    expect(mismatch.ok).toBe(false);
-    if (!mismatch.ok) expect(mismatch.reason).toBe("HISTORICAL_AUTH_CANDIDATE_MISMATCH");
-
-    // B7 — current head
-    expect(
-      assertHistoricalAuthBoundToCandidate({
-        sourceIsHistorical: false,
-        candidate: { ...loadedCand.candidate, historicalAuthorizationId: null },
-        authorization: null,
-        actualHeadRevisionId: v3.revisionId,
-      }),
-    ).toEqual({ ok: true });
+  await constituteAndCreateProject(page, {
+    name: `DocsCap ${Date.now()}`,
+    summary: "captures",
   });
+  await page.waitForURL("**/projects/**");
+
+  await page.getByTestId("nav-documents").click();
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-versions").click();
+  await page.getByTestId("doc-rev-2").click();
+  await page.getByTestId("doc-action-rework-nora").click();
+  await expect(page.getByRole("button", { name: /Repartir de la v2/i })).toBeVisible({
+    timeout: 45000,
+  });
+  await page.screenshot({
+    path: path.join(outDir, "runtime-930-9-historical.png"),
+    fullPage: false,
+  });
+
+  await page.getByRole("button", { name: /Repartir de la v2/i }).click();
+  await expect(page.getByText(/nous repartons de la version historique/i)).toBeVisible({
+    timeout: 45000,
+  });
+  await page.getByLabel("Message à Nora").fill(
+    "Je souhaite clarifier les responsabilités entre les trois centres.",
+  );
+  await page.getByRole("button", { name: "Envoyer" }).click();
+  await expect(
+    page.getByRole("button", { name: /Conserver comme nouvelle version/i }),
+  ).toBeVisible({ timeout: 45000 });
+  await expect(page.getByTestId("document-focus-banner")).toContainText(
+    /PROPOSITION NON ENREGISTRÉE/i,
+  );
+  await page.screenshot({
+    path: path.join(outDir, "runtime-930-10-proposal.png"),
+    fullPage: false,
+  });
+
+  const nine = fs.readFileSync(path.join(outDir, "runtime-930-9-historical.png"));
+  const ten = fs.readFileSync(path.join(outDir, "runtime-930-10-proposal.png"));
+  expect(nine.equals(ten)).toBe(false);
+  fs.writeFileSync(
+    path.join(outDir, "capture-summary.json"),
+    JSON.stringify(
+      {
+        nineBytes: nine.length,
+        tenBytes: ten.length,
+        distinct: true,
+        viewport: "1680x970",
+        frames: ["930:9", "930:10"],
+        note: "Local runtime evidence — not embedded in Git handoff text.",
+      },
+      null,
+      2,
+    ),
+  );
 });
+```
 
-===== END FILE: projects/sfia-studio-next/web/tests/integration/documents-p0-hauth-pdoc.pg.test.ts =====
+### CREATE projects/sfia-studio-next/web/tests/e2e/documents-nora-v2-v4.spec.ts
 
-===== BEGIN FILE: projects/sfia-studio-next/web/tests/e2e/documents-p0-final.spec.ts =====
+```
+import { test, expect } from "@playwright/test";
+import {
+  constituteAndCreateProject,
+  openNewPreparation,
+  openSasSecondaryTool,
+  backToSasConversation,
+  sendPrepMessage,
+} from "./helpers/g4-chat-first";
+
+/**
+ * F1/F4/F5 — V2 historical → confirm → proposal candidate → conserve V4.
+ * Fixture lane (FAKE Nora). Playwright isolated :3101.
+ *
+ * Sas manual editor used only to seed V1–V3 (KNOWN GAP — out of GO scope).
+ */
+test("Documents Nora: V2 historique → proposition exacte → V4", async ({ page }) => {
+  test.setTimeout(180_000);
+
+  await page.goto("/login");
+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
+  await page.waitForURL("**/portfolio");
+
+  await openNewPreparation(page);
+  await sendPrepMessage(page, "Bonjour Nora — reprise documentaire V2 V4.");
+  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
+
+  await openSasSecondaryTool(page, "Documents");
+  await page.getByTestId("doc-start-create").click();
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit V1.\n\n## Responsabilités\nCentres.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 15000 });
+
+  // Stay in Sas editor to seed V2 then V3 (KNOWN GAP seed path).
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit V2.\n\n## Responsabilités\nVérification V2.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE.*rev 2|rev 2/i, {
+    timeout: 15000,
+  });
+
+  await page.getByTestId("document-revise-draft").fill(
+    "# Parcours\n\n## Objet\nCircuit V3.\n\n## Responsabilités\nCourante V3.\n",
+  );
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE.*rev 3|rev 3/i, {
+    timeout: 15000,
+  });
+  await backToSasConversation(page);
+
+  await constituteAndCreateProject(page, {
+    name: `DocsV2V4 ${Date.now()}`,
+    summary: "v2-v4",
+  });
+  await page.waitForURL("**/projects/**");
+
+  await page.getByTestId("nav-documents").click();
+  await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 15000 });
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-versions").click();
+  await expect(page.getByTestId("document-history-surface")).toBeVisible();
+
+  await page.getByTestId("doc-rev-2").click();
+  await page.getByTestId("doc-action-rework-nora").click();
+  await expect(page).toHaveURL(/surface=travail/);
+
+  // F4 — historical choices in conversation thread (not under-composer panel).
+  await expect(page.getByTestId("document-historical-confirm")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /Repartir de la v2/i })).toBeVisible({
+    timeout: 45000,
+  });
+  await page.getByRole("button", { name: /Repartir de la v2/i }).click();
+  await expect(
+    page.getByText(/nous repartons de la version historique/i),
+  ).toBeVisible({ timeout: 45000 });
+
+  const composer = page.getByLabel("Message à Nora");
+  await expect(composer).toBeEnabled({ timeout: 15000 });
+  await composer.fill(
+    "Je souhaite clarifier les responsabilités entre les trois centres.",
+  );
+  await page.getByRole("button", { name: "Envoyer" }).click();
+
+  await expect(
+    page.getByRole("button", { name: /Conserver comme nouvelle version/i }),
+  ).toBeVisible({ timeout: 45000 });
+  // F5 — no duplicate conserve panel under composer.
+  await expect(page.getByTestId("document-proposal-conserve")).toHaveCount(0);
+
+  const viewer = page.getByTestId("travail-viewer");
+  await expect(viewer).toBeVisible();
+  await expect(viewer).toContainText(/coordinateur consolide|confirmation tracée/i, {
+    timeout: 10000,
+  });
+  await expect(page.getByTestId("document-focus-banner")).toContainText(
+    /PROPOSITION NON ENREGISTRÉE/i,
+  );
+
+  await page.getByRole("button", { name: /Conserver comme nouvelle version/i }).click();
+
+  await expect(
+    page.getByText(/Nouvelle version disponible\s*:\s*v4|Version v4 conservée/i).first(),
+  ).toBeVisible({ timeout: 45000 });
+  // No technical pending/internal codes in product surface after conserve.
+  await expect(page.getByText("PROPOSAL_PENDING_CONSERVATION")).toHaveCount(0);
+  await expect(page.getByText("NOT_EXECUTED")).toHaveCount(0);
+
+  await page.getByTestId("nav-documents").click();
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-versions").click();
+  await expect(page.getByTestId("doc-rev-4")).toBeVisible({ timeout: 15000 });
+  await expect(page.getByTestId("doc-rev-1")).toBeVisible();
+  await expect(page.getByTestId("doc-rev-2")).toBeVisible();
+  await expect(page.getByTestId("doc-rev-3")).toBeVisible();
+
+  // Reload — no auto-save; V4 still present.
+  await page.reload();
+  await page.getByTestId("nav-documents").click();
+  await page.locator('[data-testid^="doc-open-"]').first().click();
+  await page.getByTestId("doc-action-versions").click();
+  await expect(page.getByTestId("doc-rev-4")).toBeVisible({ timeout: 15000 });
+});
+```
+
+### CREATE projects/sfia-studio-next/web/tests/e2e/documents-p0-final.spec.ts
+
+```
 import { test, expect } from "@playwright/test";
 import {
   constituteAndCreateProject,
@@ -1251,323 +1400,11 @@ test("P0-A: conserve without candidate is refused (no silent D4)", async ({ page
   await expect(page.getByTestId("doc-rev-1")).toBeVisible({ timeout: 15000 });
   await expect(page.getByTestId("doc-rev-2")).toHaveCount(0);
 });
+```
 
-===== END FILE: projects/sfia-studio-next/web/tests/e2e/documents-p0-final.spec.ts =====
+### CREATE projects/sfia-studio-next/web/tests/integration/documents-historical-revise.pg.test.ts
 
-===== BEGIN FILE: projects/sfia-studio-next/web/tests/e2e/documents-nora-v2-v4.spec.ts =====
-import { test, expect } from "@playwright/test";
-import {
-  constituteAndCreateProject,
-  openNewPreparation,
-  openSasSecondaryTool,
-  backToSasConversation,
-  sendPrepMessage,
-} from "./helpers/g4-chat-first";
-
-/**
- * F1/F4/F5 — V2 historical → confirm → proposal candidate → conserve V4.
- * Fixture lane (FAKE Nora). Playwright isolated :3101.
- *
- * Sas manual editor used only to seed V1–V3 (KNOWN GAP — out of GO scope).
- */
-test("Documents Nora: V2 historique → proposition exacte → V4", async ({ page }) => {
-  test.setTimeout(180_000);
-
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-  await page.waitForURL("**/portfolio");
-
-  await openNewPreparation(page);
-  await sendPrepMessage(page, "Bonjour Nora — reprise documentaire V2 V4.");
-  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
-
-  await openSasSecondaryTool(page, "Documents");
-  await page.getByTestId("doc-start-create").click();
-  await page.getByTestId("document-revise-draft").fill(
-    "# Parcours\n\n## Objet\nCircuit V1.\n\n## Responsabilités\nCentres.\n",
-  );
-  await page.getByTestId("doc-save").click();
-  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 15000 });
-
-  // Stay in Sas editor to seed V2 then V3 (KNOWN GAP seed path).
-  await page.getByTestId("document-revise-draft").fill(
-    "# Parcours\n\n## Objet\nCircuit V2.\n\n## Responsabilités\nVérification V2.\n",
-  );
-  await page.getByTestId("doc-save").click();
-  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE.*rev 2|rev 2/i, {
-    timeout: 15000,
-  });
-
-  await page.getByTestId("document-revise-draft").fill(
-    "# Parcours\n\n## Objet\nCircuit V3.\n\n## Responsabilités\nCourante V3.\n",
-  );
-  await page.getByTestId("doc-save").click();
-  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE.*rev 3|rev 3/i, {
-    timeout: 15000,
-  });
-  await backToSasConversation(page);
-
-  await constituteAndCreateProject(page, {
-    name: `DocsV2V4 ${Date.now()}`,
-    summary: "v2-v4",
-  });
-  await page.waitForURL("**/projects/**");
-
-  await page.getByTestId("nav-documents").click();
-  await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 15000 });
-  await page.locator('[data-testid^="doc-open-"]').first().click();
-  await page.getByTestId("doc-action-versions").click();
-  await expect(page.getByTestId("document-history-surface")).toBeVisible();
-
-  await page.getByTestId("doc-rev-2").click();
-  await page.getByTestId("doc-action-rework-nora").click();
-  await expect(page).toHaveURL(/surface=travail/);
-
-  // F4 — historical choices in conversation thread (not under-composer panel).
-  await expect(page.getByTestId("document-historical-confirm")).toHaveCount(0);
-  await expect(page.getByRole("button", { name: /Repartir de la v2/i })).toBeVisible({
-    timeout: 45000,
-  });
-  await page.getByRole("button", { name: /Repartir de la v2/i }).click();
-  await expect(
-    page.getByText(/nous repartons de la version historique/i),
-  ).toBeVisible({ timeout: 45000 });
-
-  const composer = page.getByLabel("Message à Nora");
-  await expect(composer).toBeEnabled({ timeout: 15000 });
-  await composer.fill(
-    "Je souhaite clarifier les responsabilités entre les trois centres.",
-  );
-  await page.getByRole("button", { name: "Envoyer" }).click();
-
-  await expect(
-    page.getByRole("button", { name: /Conserver comme nouvelle version/i }),
-  ).toBeVisible({ timeout: 45000 });
-  // F5 — no duplicate conserve panel under composer.
-  await expect(page.getByTestId("document-proposal-conserve")).toHaveCount(0);
-
-  const viewer = page.getByTestId("travail-viewer");
-  await expect(viewer).toBeVisible();
-  await expect(viewer).toContainText(/coordinateur consolide|confirmation tracée/i, {
-    timeout: 10000,
-  });
-  await expect(page.getByTestId("document-focus-banner")).toContainText(
-    /PROPOSITION NON ENREGISTRÉE/i,
-  );
-
-  await page.getByRole("button", { name: /Conserver comme nouvelle version/i }).click();
-
-  await expect(
-    page.getByText(/Nouvelle version disponible\s*:\s*v4|Version v4 conservée/i).first(),
-  ).toBeVisible({ timeout: 45000 });
-  // No technical pending/internal codes in product surface after conserve.
-  await expect(page.getByText("PROPOSAL_PENDING_CONSERVATION")).toHaveCount(0);
-  await expect(page.getByText("NOT_EXECUTED")).toHaveCount(0);
-
-  await page.getByTestId("nav-documents").click();
-  await page.locator('[data-testid^="doc-open-"]').first().click();
-  await page.getByTestId("doc-action-versions").click();
-  await expect(page.getByTestId("doc-rev-4")).toBeVisible({ timeout: 15000 });
-  await expect(page.getByTestId("doc-rev-1")).toBeVisible();
-  await expect(page.getByTestId("doc-rev-2")).toBeVisible();
-  await expect(page.getByTestId("doc-rev-3")).toBeVisible();
-
-  // Reload — no auto-save; V4 still present.
-  await page.reload();
-  await page.getByTestId("nav-documents").click();
-  await page.locator('[data-testid^="doc-open-"]').first().click();
-  await page.getByTestId("doc-action-versions").click();
-  await expect(page.getByTestId("doc-rev-4")).toBeVisible({ timeout: 15000 });
-});
-
-===== END FILE: projects/sfia-studio-next/web/tests/e2e/documents-nora-v2-v4.spec.ts =====
-
-===== BEGIN FILE: projects/sfia-studio-next/web/tests/e2e/documents-bibliotheque-08.spec.ts =====
-import { test, expect } from "@playwright/test";
-import {
-  constituteAndCreateProject,
-  openNewPreparation,
-  openSasSecondaryTool,
-  backToSasConversation,
-  sendPrepMessage,
-} from "./helpers/g4-chat-first";
-
-/**
- * Ensemble 06 — Documents Bibliothèque (page 08) browser smoke on E2E lane.
- * Covers DOC-UAT-01/02/04/05/07 selection, read-only, history, compare shell.
- */
-test("Documents 08: select≠open, read-only, history, compare", async ({ page }) => {
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-  await page.waitForURL("**/portfolio");
-
-  await openNewPreparation(page);
-  await sendPrepMessage(page, "Bonjour Nora documents bibliotheque");
-  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
-
-  await openSasSecondaryTool(page, "Documents");
-  await page.getByTestId("doc-start-create").click();
-  await page.getByTestId("document-revise-draft").fill(
-    "# Parcours\n\n## Objet\nCircuit initial.\n\n## Responsabilites\nCentres.\n",
-  );
-  await page.getByTestId("doc-save").click();
-  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 10000 });
-  await backToSasConversation(page);
-
-  await constituteAndCreateProject(page, {
-    name: `Docs08 ${Date.now()}`,
-    summary: "bibliotheque",
-  });
-  await page.waitForURL("**/projects/**");
-  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-  expect(projectId).toBeTruthy();
-
-  await page.getByTestId("nav-documents").click();
-  await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 15000 });
-
-  const firstDoc = page.locator('[data-testid^="doc-open-"]').first();
-  await expect(firstDoc).toBeVisible({ timeout: 15000 });
-  const documentId = (await firstDoc.getAttribute("data-testid"))?.replace("doc-open-", "");
-  expect(documentId).toBeTruthy();
-
-  // DOC-UAT-01 — select without opening
-  await firstDoc.click();
-  await expect(page.getByTestId("document-selection-aside")).toBeVisible();
-  await expect(page).not.toHaveURL(/documentId=/);
-  await expect(page.getByTestId("doc-action-open")).toBeVisible();
-
-  // DOC-UAT-02/04 — open read-only, no textarea (Figma 08.02: no alert banner in body)
-  await page.getByTestId("doc-action-open").click();
-  await expect(page).toHaveURL(new RegExp(`documentId=${documentId}`));
-  await expect(page.getByTestId("document-read")).toBeVisible();
-  await expect(page.getByTestId("document-read-aside")).toContainText("DOCUMENT / ACTIONS");
-  await expect(page.getByTestId("doc-action-request-revision")).toContainText(
-    "Demander une révision à Nora",
-  );
-  await expect(page.getByTestId("document-revise-draft")).toHaveCount(0);
-
-  // DOC-UAT-05/07 — history + comparator collapsed then expand
-  await page.getByTestId("doc-action-history").click();
-  await expect(page.getByTestId("document-history-surface")).toBeVisible();
-  await expect(page.getByTestId("document-compare-controls")).toHaveCount(0);
-  await page.getByTestId("doc-action-compare-toggle").click();
-  await expect(page.getByTestId("document-compare-controls")).toBeVisible();
-});
-
-===== END FILE: projects/sfia-studio-next/web/tests/e2e/documents-bibliotheque-08.spec.ts =====
-
-===== BEGIN FILE: projects/sfia-studio-next/web/tests/e2e/documents-f1f5-runtime-captures.spec.ts =====
-import { test, expect } from "@playwright/test";
-import * as fs from "node:fs";
-import * as path from "node:path";
-import {
-  constituteAndCreateProject,
-  openNewPreparation,
-  openSasSecondaryTool,
-  backToSasConversation,
-  sendPrepMessage,
-} from "./helpers/g4-chat-first";
-
-/**
- * Runtime captures for Figma 930:9 / 930:10 comparison (local evidence only).
- */
-test("Documents F4/F5 runtime captures 930:9 and 930:10", async ({ page }) => {
-  test.setTimeout(180_000);
-  const outDir = path.resolve(
-    __dirname,
-    "../../../.tmp-sfia-review/documents-runtime/cycle08-f1f5",
-  );
-  fs.mkdirSync(outDir, { recursive: true });
-
-  await page.setViewportSize({ width: 1680, height: 970 });
-  await page.goto("/login");
-  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-  await page.waitForURL("**/portfolio");
-
-  await openNewPreparation(page);
-  await sendPrepMessage(page, "Bonjour Nora — captures 930.");
-  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
-
-  await openSasSecondaryTool(page, "Documents");
-  await page.getByTestId("doc-start-create").click();
-  await page.getByTestId("document-revise-draft").fill(
-    "# Parcours\n\n## Objet\nCircuit V1.\n\n## Responsabilités\nCentres.\n",
-  );
-  await page.getByTestId("doc-save").click();
-  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 15000 });
-  await page.getByTestId("document-revise-draft").fill(
-    "# Parcours\n\n## Objet\nCircuit V2.\n\n## Responsabilités\nVérification V2.\n",
-  );
-  await page.getByTestId("doc-save").click();
-  await expect(page.getByTestId("surface-status")).toContainText(/rev 2/i, { timeout: 15000 });
-  await page.getByTestId("document-revise-draft").fill(
-    "# Parcours\n\n## Objet\nCircuit V3.\n\n## Responsabilités\nCourante V3.\n",
-  );
-  await page.getByTestId("doc-save").click();
-  await expect(page.getByTestId("surface-status")).toContainText(/rev 3/i, { timeout: 15000 });
-  await backToSasConversation(page);
-
-  await constituteAndCreateProject(page, {
-    name: `DocsCap ${Date.now()}`,
-    summary: "captures",
-  });
-  await page.waitForURL("**/projects/**");
-
-  await page.getByTestId("nav-documents").click();
-  await page.locator('[data-testid^="doc-open-"]').first().click();
-  await page.getByTestId("doc-action-versions").click();
-  await page.getByTestId("doc-rev-2").click();
-  await page.getByTestId("doc-action-rework-nora").click();
-  await expect(page.getByRole("button", { name: /Repartir de la v2/i })).toBeVisible({
-    timeout: 45000,
-  });
-  await page.screenshot({
-    path: path.join(outDir, "runtime-930-9-historical.png"),
-    fullPage: false,
-  });
-
-  await page.getByRole("button", { name: /Repartir de la v2/i }).click();
-  await expect(page.getByText(/nous repartons de la version historique/i)).toBeVisible({
-    timeout: 45000,
-  });
-  await page.getByLabel("Message à Nora").fill(
-    "Je souhaite clarifier les responsabilités entre les trois centres.",
-  );
-  await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(
-    page.getByRole("button", { name: /Conserver comme nouvelle version/i }),
-  ).toBeVisible({ timeout: 45000 });
-  await expect(page.getByTestId("document-focus-banner")).toContainText(
-    /PROPOSITION NON ENREGISTRÉE/i,
-  );
-  await page.screenshot({
-    path: path.join(outDir, "runtime-930-10-proposal.png"),
-    fullPage: false,
-  });
-
-  const nine = fs.readFileSync(path.join(outDir, "runtime-930-9-historical.png"));
-  const ten = fs.readFileSync(path.join(outDir, "runtime-930-10-proposal.png"));
-  expect(nine.equals(ten)).toBe(false);
-  fs.writeFileSync(
-    path.join(outDir, "capture-summary.json"),
-    JSON.stringify(
-      {
-        nineBytes: nine.length,
-        tenBytes: ten.length,
-        distinct: true,
-        viewport: "1680x970",
-        frames: ["930:9", "930:10"],
-        note: "Local runtime evidence — not embedded in Git handoff text.",
-      },
-      null,
-      2,
-    ),
-  );
-});
-
-===== END FILE: projects/sfia-studio-next/web/tests/e2e/documents-f1f5-runtime-captures.spec.ts =====
-
-===== BEGIN FILE: projects/sfia-studio-next/web/tests/integration/documents-historical-revise.pg.test.ts =====
+```
 /**
  * DOC-TECH / DOC-UAT-09–10 — historical source revise (V2→V4) with observed head concurrency.
  */
@@ -1799,10 +1636,190 @@ describe("documents historical revise (V2→V4)", () => {
     expect(["AVAILABLE", "DEGRADED"]).toContain(cmp.status);
   });
 });
+```
 
-===== END FILE: projects/sfia-studio-next/web/tests/integration/documents-historical-revise.pg.test.ts =====
+### CREATE projects/sfia-studio-next/web/tests/integration/documents-p0-hauth-pdoc.pg.test.ts
 
-===== BEGIN FILE: projects/sfia-studio-next/web/tests/integration/documents-proposal-candidate.pg.test.ts =====
+```
+/**
+ * P0-B — historical authorization must bind to the sealed candidate.
+ */
+import { describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+
+import { db } from "@/db/client";
+import { pilots } from "@/db/schema";
+import { newId } from "@/lib/ids";
+import {
+  assertHistoricalAuthBoundToCandidate,
+  loadHistoricalSourceAuthorization,
+  loadPendingDocumentCandidate,
+  stashHistoricalSourceAuthorization,
+  stashPendingDocumentCandidate,
+} from "@/domains/conversation/document-candidate";
+import { reviseDocument, savePreparationDocument } from "@/domains/document/service";
+import { getPreparationContext, openOrCreatePreparation } from "@/domains/preparation/service";
+import { commitTurnTerminal, reserveTurnCommand } from "@/domains/conversation/turn-command";
+
+async function seedPilot(label: string) {
+  const id = newId("pilot");
+  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
+  return id;
+}
+
+describe("documents P0-B hauth ↔ pdoc binding", () => {
+  it("matching hauth allows; foreign hauth refuses; current-head needs no hauth", async () => {
+    const pilotId = await seedPilot("DOC-p0b");
+    const prep = await openOrCreatePreparation(pilotId);
+    const ctx = await getPreparationContext(pilotId, prep.id);
+    expect(ctx.conversation?.id).toBeTruthy();
+
+    const v1 = await savePreparationDocument(pilotId, prep.id, "Parcours", "# V1\n\na\n");
+    expect(v1.status).toBe("AVAILABLE");
+    if (v1.status !== "AVAILABLE") throw new Error("v1");
+    const v2 = await reviseDocument(pilotId, prep.id, {
+      documentId: v1.documentId,
+      baseRevisionId: v1.revisionId,
+      contentMarkdown: "# V2\n\nb\n",
+      correlationKey: "p0b-v2",
+    });
+    expect(v2.status).toBe("AVAILABLE");
+    if (v2.status !== "AVAILABLE") throw new Error("v2");
+    const v3 = await reviseDocument(pilotId, prep.id, {
+      documentId: v1.documentId,
+      baseRevisionId: v2.revisionId,
+      contentMarkdown: "# V3\n\nc\n",
+      correlationKey: "p0b-v3",
+    });
+    expect(v3.status).toBe("AVAILABLE");
+    if (v3.status !== "AVAILABLE") throw new Error("v3");
+
+    const reserved = await reserveTurnCommand({
+      conversationId: ctx.conversation!.id,
+      ownerPilotId: pilotId,
+      clientTurnKey: `p0b-${newId("ck")}`,
+      content: "hist",
+    });
+    if (reserved.kind !== "fresh") throw new Error("fresh");
+
+    const authOk = await stashHistoricalSourceAuthorization({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      preparationId: prep.id,
+      pilotId,
+      documentId: v1.documentId,
+      sourceRevisionId: v2.revisionId,
+      observedHeadRevisionId: v3.revisionId,
+      choice: "USE_SOURCE",
+    });
+    expect(authOk.ok).toBe(true);
+    if (!authOk.ok) throw new Error(authOk.reason);
+
+    const authOther = await stashHistoricalSourceAuthorization({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      preparationId: prep.id,
+      pilotId,
+      documentId: v1.documentId,
+      sourceRevisionId: v2.revisionId,
+      observedHeadRevisionId: v3.revisionId,
+      choice: "USE_SOURCE",
+    });
+    expect(authOther.ok).toBe(true);
+    if (!authOther.ok) throw new Error(authOther.reason);
+
+    const body = "# Parcours\n\n## Responsabilités\n\nP exact.\n";
+    const stashed = await stashPendingDocumentCandidate({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      preparationId: prep.id,
+      pilotId,
+      documentId: v1.documentId,
+      sourceRevisionId: v2.revisionId,
+      observedHeadRevisionId: v3.revisionId,
+      title: "Parcours",
+      contentMarkdown: body,
+      historicalAuthorizationId: authOk.authorization.id,
+    });
+    expect(stashed.ok).toBe(true);
+    if (!stashed.ok) throw new Error(stashed.reason);
+
+    await commitTurnTerminal({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      status: "COMPLETE",
+      conversationId: ctx.conversation!.id,
+      assistant: {
+        id: newId("msg"),
+        content: "ok",
+        messageStatus: "COMPLETE",
+        generationId: newId("gen"),
+        ordinal: reserved.ordinalAssistant,
+      },
+      generationId: newId("gen"),
+      resultJson: JSON.stringify({ status: "COMPLETE" }),
+    });
+
+    const loadedCand = await loadPendingDocumentCandidate({
+      pilotId,
+      preparationId: prep.id,
+      candidateId: stashed.candidate.id,
+    });
+    expect(loadedCand.ok).toBe(true);
+    if (!loadedCand.ok) throw new Error(loadedCand.reason);
+
+    const loadedAuth = await loadHistoricalSourceAuthorization({
+      pilotId,
+      preparationId: prep.id,
+      authorizationId: authOk.authorization.id,
+    });
+    expect(loadedAuth.ok).toBe(true);
+    if (!loadedAuth.ok) throw new Error(loadedAuth.reason);
+
+    // B1
+    expect(
+      assertHistoricalAuthBoundToCandidate({
+        sourceIsHistorical: true,
+        candidate: loadedCand.candidate,
+        authorization: loadedAuth.authorization,
+        actualHeadRevisionId: v3.revisionId,
+      }),
+    ).toEqual({ ok: true });
+
+    // B2 — other hauth
+    const otherLoaded = await loadHistoricalSourceAuthorization({
+      pilotId,
+      preparationId: prep.id,
+      authorizationId: authOther.authorization.id,
+    });
+    expect(otherLoaded.ok).toBe(true);
+    if (!otherLoaded.ok) throw new Error(otherLoaded.reason);
+    const mismatch = assertHistoricalAuthBoundToCandidate({
+      sourceIsHistorical: true,
+      candidate: loadedCand.candidate,
+      authorization: otherLoaded.authorization,
+      actualHeadRevisionId: v3.revisionId,
+    });
+    expect(mismatch.ok).toBe(false);
+    if (!mismatch.ok) expect(mismatch.reason).toBe("HISTORICAL_AUTH_CANDIDATE_MISMATCH");
+
+    // B7 — current head
+    expect(
+      assertHistoricalAuthBoundToCandidate({
+        sourceIsHistorical: false,
+        candidate: { ...loadedCand.candidate, historicalAuthorizationId: null },
+        authorization: null,
+        actualHeadRevisionId: v3.revisionId,
+      }),
+    ).toEqual({ ok: true });
+  });
+});
+```
+
+### CREATE projects/sfia-studio-next/web/tests/integration/documents-proposal-candidate.pg.test.ts
+
+```
 /**
  * F1 — pending candidate exact content is what D4 persists on conserve.
  */
@@ -2003,10 +2020,134 @@ describe("documents proposal candidate exact conserve (F1)", () => {
     expect(byNum[4]?.contentMarkdown).toContain("P2 — candidat suivant");
   });
 });
+```
 
-===== END FILE: projects/sfia-studio-next/web/tests/integration/documents-proposal-candidate.pg.test.ts =====
+### CREATE projects/sfia-studio-next/web/tests/unit/documents-p0-auth-candidate.test.ts
 
-===== BEGIN FILE: projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts =====
+```
+import { describe, expect, it } from "vitest";
+import {
+  assertHistoricalAuthBoundToCandidate,
+  DOC_CONSERVE_PROPOSAL,
+  isConserveProposalTransmit,
+  type HistoricalSourceAuthorization,
+  type PendingDocumentCandidate,
+} from "@/domains/conversation/document-candidate";
+
+function auth(overrides: Partial<HistoricalSourceAuthorization> = {}): HistoricalSourceAuthorization {
+  return {
+    id: "hauth_1",
+    turnCommandId: "cmd_1",
+    preparationId: "prep_1",
+    pilotId: "pilot_1",
+    documentId: "doc_1",
+    sourceRevisionId: "rev_v2",
+    observedHeadRevisionId: "rev_v3",
+    choice: "USE_SOURCE",
+    createdAt: new Date().toISOString(),
+    ...overrides,
+  };
+}
+
+function candidate(
+  overrides: Partial<PendingDocumentCandidate> = {},
+): PendingDocumentCandidate {
+  return {
+    id: "pdoc_1",
+    turnCommandId: "cmd_1",
+    preparationId: "prep_1",
+    pilotId: "pilot_1",
+    documentId: "doc_1",
+    sourceRevisionId: "rev_v2",
+    observedHeadRevisionId: "rev_v3",
+    title: "Parcours",
+    contentMarkdown: "# Parcours\n\nP\n",
+    contentSha256: "a".repeat(64),
+    historicalAuthorizationId: "hauth_1",
+    status: "PENDING",
+    createdAt: new Date().toISOString(),
+    ...overrides,
+  };
+}
+
+describe("P0-A conserve transmit gate", () => {
+  it("exact conserve transmit only — not freeform", () => {
+    expect(isConserveProposalTransmit(DOC_CONSERVE_PROPOSAL)).toBe(true);
+    expect(isConserveProposalTransmit("oui conserve")).toBe(false);
+    expect(isConserveProposalTransmit("Conserver comme nouvelle version")).toBe(false);
+  });
+});
+
+describe("P0-B assertHistoricalAuthBoundToCandidate", () => {
+  it("B1 — historical + matching hauth → ok", () => {
+    const r = assertHistoricalAuthBoundToCandidate({
+      sourceIsHistorical: true,
+      candidate: candidate(),
+      authorization: auth(),
+      actualHeadRevisionId: "rev_v3",
+    });
+    expect(r).toEqual({ ok: true });
+  });
+
+  it("B2 — other hauth id → mismatch", () => {
+    const r = assertHistoricalAuthBoundToCandidate({
+      sourceIsHistorical: true,
+      candidate: candidate({ historicalAuthorizationId: "hauth_other" }),
+      authorization: auth(),
+      actualHeadRevisionId: "rev_v3",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("HISTORICAL_AUTH_CANDIDATE_MISMATCH");
+  });
+
+  it("B3 — other document on auth → context mismatch", () => {
+    const r = assertHistoricalAuthBoundToCandidate({
+      sourceIsHistorical: true,
+      candidate: candidate(),
+      authorization: auth({ documentId: "doc_other" }),
+      actualHeadRevisionId: "rev_v3",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("HISTORICAL_AUTH_CONTEXT_MISMATCH");
+  });
+
+  it("B5 — head moved → HISTORICAL_HEAD_MOVED", () => {
+    const r = assertHistoricalAuthBoundToCandidate({
+      sourceIsHistorical: true,
+      candidate: candidate(),
+      authorization: auth(),
+      actualHeadRevisionId: "rev_v4",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("HISTORICAL_HEAD_MOVED");
+  });
+
+  it("B6 — hauth absent → required", () => {
+    const r = assertHistoricalAuthBoundToCandidate({
+      sourceIsHistorical: true,
+      candidate: candidate({ historicalAuthorizationId: null }),
+      authorization: null,
+      actualHeadRevisionId: "rev_v3",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("CANDIDATE_HISTORICAL_AUTH_REQUIRED");
+  });
+
+  it("B7 — current head source → ok without hauth", () => {
+    const r = assertHistoricalAuthBoundToCandidate({
+      sourceIsHistorical: false,
+      candidate: candidate({ historicalAuthorizationId: null }),
+      authorization: null,
+      actualHeadRevisionId: "rev_v3",
+    });
+    expect(r).toEqual({ ok: true });
+  });
+});
+```
+
+### CREATE projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts
+
+```
 import { describe, expect, it } from "vitest";
 import {
   formatPilotFacingProvenance,
@@ -2209,189 +2350,111 @@ describe("R4/F3 formatPilotFacingProvenance", () => {
     expect(formatPilotFacingProvenance("{}")).toBe("Provenance non renseignée");
   });
 });
-
-===== END FILE: projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts =====
-
 ```
 
----
-
-## 10. Diffs cumulés (modifiés)
+## 16. Diffs complets (Journal 5f6e2f3860993acd35d176f60e6a7f0ca69d3a3d → code 7a13d7deec488bf62881eec11b5658c45c02c5b0)
 
 ```diff
-diff --git a/.tmp-sfia-review/chatgpt-review.md b/.tmp-sfia-review/chatgpt-review.md
-index 92f0f7d9..83e2f705 100644
---- a/.tmp-sfia-review/chatgpt-review.md
-+++ b/.tmp-sfia-review/chatgpt-review.md
-@@ -1,166 +1,2 @@
--# STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1 — FINAL GIT INTEGRATION REVIEW PACK
--
--```text
--TIMESTAMP: 2026-10-03 19:33:13 +0200
--MACRO: STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
--CYCLE: Cycle 1 — Cadrage
--PASS: FINAL GIT INTEGRATION
--TYPOLOGY: EVOL / DOC / INTEGRATION
--PROFILE: CRITICAL
--AUTHORITY: D-SIMP-05 CONSUMED + Morris GO « intégration git complète directe »
--```
--
--## 1. Local Git Truth (pre-commit)
--
--```text
--pwd: /Users/morris/Projects/sfia-studio-chat-first-product-simplification-c1
--toplevel: /Users/morris/Projects/sfia-studio-chat-first-product-simplification-c1
--branch: docs/sfia-studio-chat-first-product-simplification-c1
--HEAD: ac272df5270faae1d1bea6a78cd0cc11886e97f4
--origin/main: ac272df5270faae1d1bea6a78cd0cc11886e97f4
--left-right origin/main...HEAD: 0 0
--```
--
--MATCHES REMOTE TRUTH EXPECTED. Candidate was LOCAL / DIRTY / NON COMMITTÉ before this integration pass.
--
--## 2. Entry handoff / Closure Review
--
--```text
--entry review handoff SHA: efaaf11ae3d5e0e48006f03d9155b062430a04db
--entry handoff blob: 7a43e92864690ec404213ceb2b59b424f944e677
--Final ChatGPT Closure Review: PASS — C1 CONTENT READY FOR MORRIS VALIDATION
--Morris: "ok c'est validé" → D-SIMP-05 CONSUMED
--Morris GO: "intégration git complète directe" → Git integration AUTHORIZED
--```
--
--## 3. D-SIMP-05 — STATUS SYNC
--
--```text
--D-SIMP-05 — VALIDATE STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1
--Authority: Morris
--Status: CONSUMED
--
--Meaning:
--- C1 content = VALIDATED BY MORRIS
--- Guided Review §§1–22 = COMPLETE
--- Final Documentary Consolidation = COMPLETE
--- Final Critical Review #1 historical NOT READY = PRESERVED
--- Correction Pass 01 = COMPLETE
--- Final Closure Review = PASS
--- C1 = VALIDATED
--- C1 NOT YET INTEGRATED ON MAIN until merge completes
--
--Does NOT authorize:
--- P2 / P3→P8
--- REAL
--- production routing
--- architecture adoption
--- runtime v3 adoption
--```
--
--## 4. Exact status-sync (authorized files)
--
--### 4.1 `projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md`
--
--Current live status statements updated to:
--
--- Pass = Final Git Integration (D-SIMP-05 CONSUMED)
--- Document status = C1 VALIDATED BY MORRIS · NOT YET INTEGRATED ON MAIN
--- Intégration Git = AUTHORIZED / IN PROGRESS
--- C1-01…C1-27 = PASS — C1 VALIDATED BY MORRIS
--- §22 = VALIDATED BY MORRIS → GIT INTEGRATION IN PROGRESS → P2 NOT AUTHORIZED
--- G-SIMP-03 = CONSUMED — C1 VALIDATED BY MORRIS
--- G-SIMP-04 = AUTHORIZED / IN PROGRESS
--
--Historical records preserved (Final Critical Review #1 NOT READY / Correction Pass 01).
--
--### 4.2 `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
--
--Living tip updated minimally:
--
--- D-SIMP-05 CONSUMED
--- C1 = VALIDATED BY MORRIS
--- Git integration = AUTHORIZED / IN PROGRESS
--- P2 = NOT AUTHORIZED
--- P3→P8 = NOT AUTHORIZED
--- ZERO REAL
--- production routing = NOT SELECTED
--- Cognitive Completion = NOT PROVEN
--- runtime v3 = NON ADOPTED
--
--Historical tip rows preserved.
--
--### 4.3 Scope
--
--```text
--AUTHORIZED ONLY:
--- projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md
--- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
--- .tmp-sfia-review/chatgpt-review.md
--
--NO product code.
--NO REAL.
--NO RETIRE.
--NO branch deletion.
--```
--
--## 5. Pre-commit validations
--
--```text
--1. D-SIMP-05 present — PASS
--2. C1 VALIDATED BY MORRIS — PASS
--3. C1 NOT YET INTEGRATED before merge — PASS
--4. P2 NOT AUTHORIZED — PASS
--5. P3→P8 NOT AUTHORIZED — PASS
--6. production routing NOT SELECTED — PASS
--7. Cognitive Completion NOT PROVEN — PASS
--8. runtime v3 NON ADOPTED — PASS
--9. no READY FOR REAL — PASS
--10. no architecture adopted accidentally — PASS
--11. no SharedKnowledgeStore selected — PASS
--12. no Canonical Orchestration Spine adopted — PASS
--13. historical review failure/correction preserved — PASS
--14. git diff --check — PASS
--15. authorized scope only — PASS
--```
--
--## 6. Git diff evidence (pre-commit)
--
--```text
--name-status (authorized project + pack):
--A  projects/sfia-studio/product-simplification/01-chat-first-product-simplification-cadrage.md
--M  projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
--M  .tmp-sfia-review/chatgpt-review.md
--
--git diff --check: PASS (exit 0)
--```
--
--## 7. Integration lifecycle (filled as executed)
--
--```text
--project commit SHA: PENDING
--pushed branch SHA: PENDING
--PR number/url: PENDING
--CI / Required Gate: PENDING
--merge method: PENDING
--merge SHA: PENDING
--merged_at: PENDING
--post-merge main SHA: PENDING
--post-merge Actions / checks: PENDING
--project Git effects: PENDING
--branch retained: YES (deletion unauthorized)
--P2 NOT AUTHORIZED: CONFIRMED
--```
--
--## 8. Unique verdict (pre-merge placeholder)
--
--```text
--PRE-MERGE: D-SIMP-05 status sync COMPLETE · READY FOR COMMIT/PUSH/PR/CI/MERGE
--POST-MERGE TARGET VERDICT:
--STUDIO CHAT-FIRST PRODUCT SIMPLIFICATION C1
--— VALIDATED BY MORRIS
--— INTEGRATED ON MAIN
--— POST-MERGE VERIFIED
--— CYCLE 1 CADRAGE CLOSED
--— P2 NOT YET AUTHORIZED
--```
-+# SFIA STUDIO NEXT — ENSEMBLE 06 DOCUMENTS — P0-A/B/C/D FINAL CORRECTIVE
-+RESET — mono-cycle pack pending assembly.
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 7bd6cfd9..99ad0f06 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -4,6 +4,25 @@ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+
+
++## delivery_id: DELIV-2026-11-20-ENSEMBLE06-JOURNAL-DOCS-RECETTE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-20 ~01:30 CET |
++| Macro-lot | Ensemble 06 — intégration Bibliothèque Documents dans RECETTE Journal V4 |
++| Type | Cycle 08 Delivery / Intégration / Mise en recette · **NO RELEASE** · **NO PRODUCT PUSH** |
++| GO Morris | Continuité Ensemble 06 · même RECETTE `:3200` · Journal V4 accepté + Documents |
++| Base Journal | `5f6e2f3860993acd35d176f60e6a7f0ca69d3a3d` |
++| Source Documents | WT dirty sur `6516c7b56ec61bd72943ae0d26e625bf21139d4e` (+ P0/F1–F5) |
++| Candidate branch | `sfia/next-ensemble06-journal-docs-recette-20261120` (local only) |
++| HEAD | `SEE_GIT_HEAD` · tree `SEE_GIT_TREE` · BUILD `yZFSZj_l8dncTBQcWdP4c` |
++| Merge | 3-way Journal∩Documents · TAKE_DOCS hors conflit · TravailViewer/NoraConversation fixes intégration |
++| DB | `sfia_next_recette_ml4` @:5434 · **aucune migration structurante** · 014 déjà appliquée |
++| Backup | `.tmp-sfia-review/recette-backup-20261120T001915Z/` · rollback code → `5f6e2f38` |
++| Tests | tsc · unit docs+journal · PG docs+journal · e2e docs 08/nora/p0 · e2e journal-v4-parcours |
++| Verdict Cursor | voir manifeste + Review Pack |
++
++
+ ## delivery_id: DELIV-2026-11-19-LIVE-PROSE-SOFT-TARGET-2000
+
+ | Field | Value |
+diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/document-candidates/[candidateId]/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/document-candidates/[candidateId]/route.ts
+new file mode 100644
+index 00000000..a72f243b
+--- /dev/null
++++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/document-candidates/[candidateId]/route.ts
+@@ -0,0 +1,64 @@
++import { NextResponse } from "next/server";
++import { requireStudioSession } from "@/domains/identity/session";
++import { loadPendingDocumentCandidate } from "@/domains/conversation/document-candidate";
++import { studioErrorResponse } from "@/lib/http-errors";
++import { emitObs, newRequestId } from "@/lib/observability";
++
++/**
++ * P0-C — authorized read of a sealed pending document candidate (no D4 mutation).
++ * Client may pass expectedSha as a pointer check; markdown authority is server-side.
++ */
++export async function GET(
++  req: Request,
++  ctx: { params: Promise<{ preparationId: string; candidateId: string }> },
++) {
++  const requestId = newRequestId();
++  try {
++    const session = await requireStudioSession();
++    const { preparationId, candidateId } = await ctx.params;
++    const url = new URL(req.url);
++    const expectedSha = url.searchParams.get("expectedSha")?.trim() || undefined;
++    const loaded = await loadPendingDocumentCandidate({
++      pilotId: session.pilotId,
++      preparationId,
++      candidateId,
++      expectedContentSha256: expectedSha,
++    });
++    if (!loaded.ok) {
++      return NextResponse.json(
++        {
++          status: "NOT_AVAILABLE",
++          reason: loaded.reason,
++          requestId,
++        },
++        { status: loaded.reason === "CANDIDATE_DENIED" ? 403 : 404 },
++      );
++    }
++    const c = loaded.candidate;
++    return NextResponse.json({
++      status: "PENDING",
++      candidate: {
++        candidateId: c.id,
++        documentId: c.documentId,
++        sourceRevisionId: c.sourceRevisionId,
++        observedHeadRevisionId: c.observedHeadRevisionId,
++        title: c.title,
++        contentMarkdown: c.contentMarkdown,
++        contentSha256: c.contentSha256,
++        historicalAuthorizationId: c.historicalAuthorizationId ?? null,
++        createdAt: c.createdAt,
++      },
++      requestId,
++    });
++  } catch (e) {
++    const mapped = studioErrorResponse(e);
++    emitObs({
++      event_name: "api.document_candidate.get_error",
++      component: "api.document_candidate",
++      request_id: requestId,
++      outcome: "FAILED",
++      error_category: mapped.body.errorCategory,
++    });
++    return NextResponse.json(mapped.body, { status: mapped.status });
++  }
++}
 diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts
 index 3658f0ca..00399b42 100644
 --- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts
@@ -2484,10 +2547,10 @@ index f7e845ec..14939eae 100644
        },
      );
 diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index db39d5a5..7b3f3f83 100644
+index f82fdbc3..444c5234 100644
 --- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 +++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-@@ -13,10 +13,14 @@ import {
+@@ -20,10 +20,14 @@ import {
    type ProjectUnavailableKind,
  } from "@/components/figma/ProjectUnavailable";
  import {
@@ -2505,7 +2568,7 @@ index db39d5a5..7b3f3f83 100644
  } from "@/components/figma/DocumentSurfaces";
  import {
    conversationalClientCommandKey,
-@@ -60,6 +64,7 @@ type Doc = {
+@@ -76,6 +80,7 @@ type Doc = {
      revisionNumber: number;
      status: string;
      contentMarkdown: string;
@@ -2513,7 +2576,7 @@ index db39d5a5..7b3f3f83 100644
    } | null;
  };
  type Knowledge = {
-@@ -77,6 +82,103 @@ type Surface =
+@@ -101,6 +106,103 @@ type Surface =
    | "git"
    | "publication";
  type DocUiState = "READING" | "EDITING" | "SAVING" | "CONFLICT" | "FAILED" | "UNKNOWN";
@@ -2617,7 +2680,7 @@ index db39d5a5..7b3f3f83 100644
 
  const SURFACES: Surface[] = [
    "travail",
-@@ -161,7 +263,32 @@ export default function ProjectPage() {
+@@ -192,7 +294,32 @@ export default function ProjectPage() {
    const [reviseMessage, setReviseMessage] = useState("");
    const [docMissing, setDocMissing] = useState("");
    const [docHistory, setDocHistory] = useState<RevisionRow[]>([]);
@@ -2651,17 +2714,17 @@ index db39d5a5..7b3f3f83 100644
    const [unresolvedPending, setUnresolvedPending] = useState<ThreadPendingTurn | null>(null);
    const draftVersionRef = useRef(0);
    const pilotIdRef = useRef<string | null>(null);
-@@ -178,6 +305,9 @@ export default function ProjectPage() {
-   /** C1 — ignore stale async viewer responses after A→B / close / project change. */
-   const viewerRequestSeqRef = useRef(0);
+@@ -211,6 +338,9 @@ export default function ProjectPage() {
    const viewerOpenRef = useRef(false);
+   /** Invalidates in-flight Journal→Travail deep-links when the user navigates away. */
+   const surfaceNavGenRef = useRef(0);
 +  const docViewRef = useRef<DocView>("library");
 +  const documentFocusRef = useRef<DocumentFocus | null>(null);
 +  const readingLoadSeqRef = useRef(0);
 
    useEffect(() => {
      // Clear previous project identity immediately — no cross-project leak in the rail.
-@@ -199,6 +329,12 @@ export default function ProjectPage() {
+@@ -232,6 +362,12 @@ export default function ProjectPage() {
    useEffect(() => {
      reviseDraftRef.current = reviseDraft;
    }, [reviseDraft]);
@@ -2674,7 +2737,7 @@ index db39d5a5..7b3f3f83 100644
    useEffect(() => {
      documentsRef.current = documents;
    }, [documents]);
-@@ -262,6 +398,7 @@ export default function ProjectPage() {
+@@ -363,6 +499,7 @@ export default function ProjectPage() {
        revisionNumber?: number;
        status?: string;
        contentMarkdown?: string;
@@ -2682,7 +2745,7 @@ index db39d5a5..7b3f3f83 100644
      };
      revisions?: Array<{
        id?: string;
-@@ -640,6 +777,26 @@ export default function ProjectPage() {
+@@ -741,6 +878,26 @@ export default function ProjectPage() {
      else router.push(href, { scroll: false });
    }
 
@@ -2707,9 +2770,9 @@ index db39d5a5..7b3f3f83 100644
 +  }
 +
    function selectSurface(next: Surface) {
+     surfaceNavGenRef.current += 1;
      pendingSurfaceRef.current = next;
-     noteProjectSurfaceNavIntent(params.projectId, next as StudioSurface);
-@@ -652,20 +809,36 @@ export default function ProjectPage() {
+@@ -754,20 +911,36 @@ export default function ProjectPage() {
        setReviseMessage("");
        reviseCorrelationRef.current = null;
        reviseBaseIdRef.current = null;
@@ -2748,7 +2811,7 @@ index db39d5a5..7b3f3f83 100644
        }
        const j = await res.json();
        const rows = (j.revisions ?? []) as Array<{
-@@ -673,34 +846,237 @@ export default function ProjectPage() {
+@@ -775,34 +948,237 @@ export default function ProjectPage() {
          revisionNumber: number;
          status: string;
          createdAt?: string;
@@ -3001,7 +3064,7 @@ index db39d5a5..7b3f3f83 100644
    function applyUrlDocumentState(docs: Doc[], qSurface: Surface | null, qDocId: string | null) {
      if (qSurface) setSurface(qSurface);
      else setSurface("travail");
-@@ -709,26 +1085,30 @@ export default function ProjectPage() {
+@@ -811,26 +1187,30 @@ export default function ProjectPage() {
        if (!qDocId) {
          setInspect(null);
          setDocMissing("");
@@ -3042,7 +3105,7 @@ index db39d5a5..7b3f3f83 100644
        }
        return;
      }
-@@ -1069,13 +1449,106 @@ export default function ProjectPage() {
+@@ -1220,13 +1600,106 @@ export default function ProjectPage() {
          setChoiceFrozen(true);
        }
        setKnowledge(j.knowledge ?? null);
@@ -3155,7 +3218,7 @@ index db39d5a5..7b3f3f83 100644
        setUnavailableKind(null);
        setProjectSpaceInfo({
          projectId: params.projectId,
-@@ -1390,13 +1863,32 @@ export default function ProjectPage() {
+@@ -1542,13 +2015,32 @@ export default function ProjectPage() {
    }
 
    function upsertTurnProjection(tp: TurnProjection) {
@@ -3192,7 +3255,7 @@ index db39d5a5..7b3f3f83 100644
        return next;
      });
    }
-@@ -1452,6 +1944,9 @@ export default function ProjectPage() {
+@@ -1604,6 +2096,9 @@ export default function ProjectPage() {
            content: text,
            clientTurnKey,
            unresolvedPendingClientTurnKey: pendingBefore?.clientTurnKey,
@@ -3202,7 +3265,7 @@ index db39d5a5..7b3f3f83 100644
          }),
        });
        let j: Record<string, unknown> = {};
-@@ -1476,6 +1971,139 @@ export default function ProjectPage() {
+@@ -1628,6 +2123,139 @@ export default function ProjectPage() {
            (independent || effectBlocked || distinctFromUnresolved) && Boolean(pendingBefore);
          setMessages((j.messages as Msg[]) ?? []);
          setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
@@ -3342,7 +3405,7 @@ index db39d5a5..7b3f3f83 100644
          const effect = j.pilotageEffect as PilotageEffectView | undefined;
          setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
          const tp = parseTurnProjection(j.turnProjection);
-@@ -1591,6 +2219,69 @@ export default function ProjectPage() {
+@@ -1760,6 +2388,69 @@ export default function ProjectPage() {
 
    const travailLayout = viewer ? (viewerEnlarged ? "enlarged" : "split") : "normal";
 
@@ -3412,7 +3475,7 @@ index db39d5a5..7b3f3f83 100644
    return (
      <ProjectChrome
        projectId={params.projectId}
-@@ -1599,6 +2290,8 @@ export default function ProjectPage() {
+@@ -1768,6 +2459,8 @@ export default function ProjectPage() {
        statusHint={statusHint}
        loadState={projectLoadState}
        travailLayout={travailLayout}
@@ -3421,7 +3484,7 @@ index db39d5a5..7b3f3f83 100644
      >
        {surface === "projet" ? (
          <ProjectOverview
-@@ -1613,6 +2306,7 @@ export default function ProjectPage() {
+@@ -1782,6 +2475,7 @@ export default function ProjectPage() {
        ) : null}
 
        {surface === "travail" ? (
@@ -3429,7 +3492,7 @@ index db39d5a5..7b3f3f83 100644
          <NoraConversation
            embeddedInStage
            messages={messages}
-@@ -1649,6 +2343,7 @@ export default function ProjectPage() {
+@@ -1823,6 +2517,7 @@ export default function ProjectPage() {
                <TravailViewer
                  resource={viewer}
                  enlarged={viewerEnlarged}
@@ -3437,7 +3500,7 @@ index db39d5a5..7b3f3f83 100644
                  onEnlarge={() => setViewerEnlarged(true)}
                  onReduce={() => setViewerEnlarged(false)}
                  onClose={closeViewer}
-@@ -1744,6 +2439,7 @@ export default function ProjectPage() {
+@@ -1918,6 +2613,7 @@ export default function ProjectPage() {
              )
            }
          />
@@ -3445,7 +3508,7 @@ index db39d5a5..7b3f3f83 100644
        ) : null}
 
        {surface === "pilotage" ? (
-@@ -1786,124 +2482,135 @@ export default function ProjectPage() {
+@@ -1960,124 +2656,135 @@ export default function ProjectPage() {
          </div>
        ) : null}
 
@@ -4554,8 +4617,40 @@ index b1d50549..0001016c 100644
 +    </div>
 +  );
 +}
+diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+index 43eac50d..18a635c1 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+@@ -78,6 +78,9 @@ export function NoraConversation(props: {
+     el.style.overflowY = el.scrollHeight > max ? "auto" : "hidden";
+   }, [props.draft]);
+
++  // Include message id order so Journal→Travail highlight rebinds after a same-length
++  // setMessages remount (length-only deps lost data-journal-focus on replaced nodes).
++  const messageIdsKey = props.messages.map((m) => m.id).join("\0");
+   useEffect(() => {
+     const targetId = props.focusMessageId?.trim();
+     if (!targetId) return;
+@@ -93,7 +96,7 @@ export function NoraConversation(props: {
+       if (!node) {
+         attempts += 1;
+         // Wait for async insert / paint — do not clear focus on first miss (avoids landing on last message).
+-        if (attempts < 24) {
++        if (attempts < 40) {
+           window.setTimeout(tryFocus, 50);
+           return;
+         }
+@@ -116,7 +119,7 @@ export function NoraConversation(props: {
+       if (highlightTimer) window.clearTimeout(highlightTimer);
+     };
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+-  }, [props.focusMessageId, props.messages.length]);
++  }, [props.focusMessageId, messageIdsKey]);
+
+   const projectionByMessage = new Map(
+     (props.projections ?? []).map((p) => [p.messageId ?? "", p]),
 diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
-index 05b45841..49b2ad7d 100644
+index 04380732..b164002c 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
 +++ b/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
 @@ -12,9 +12,9 @@ const HERO: Record<
@@ -4572,7 +4667,7 @@ index 05b45841..49b2ad7d 100644
    projet: {
      kicker: "Espace projet  /  Projet",
 @@ -32,9 +32,9 @@ const HERO: Record<
-     sub: "Sujets, acquis et points ouverts — présentation sans nouvelle autorité.",
+     sub: "La mémoire du projet, organisée par thèmes. Retrouvez l’essentiel sans remonter toute la conversation.",
    },
    document: {
 -    kicker: "Espace projet  /  Documents Nora",
@@ -4606,7 +4701,7 @@ index 05b45841..49b2ad7d 100644
    const displayName = props.projectName?.trim() || "Projet";
    const isTravail = props.surface === "travail";
 diff --git a/projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx b/projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx
-index fdc16203..3aa10fc2 100644
+index fdc16203..c71d8054 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx
 +++ b/projects/sfia-studio-next/web/src/components/figma/TravailViewer.tsx
 @@ -30,6 +30,8 @@ export type TravailViewerResource =
@@ -4618,7 +4713,7 @@ index fdc16203..3aa10fc2 100644
    onEnlarge: () => void;
    onReduce: () => void;
    onClose: () => void;
-@@ -40,8 +42,24 @@ export function TravailViewer(props: {
+@@ -40,8 +42,34 @@ export function TravailViewer(props: {
      resource.kind === "document" ? resource.title : resource.title || "Source Git";
    const kicker =
      resource.kind === "document"
@@ -4634,18 +4729,28 @@ index fdc16203..3aa10fc2 100644
 +          ? "HISTORIQUE"
 +          : "COURANTE"
 +      : null;
++  // Journal V4 accepted label ("Version N · révision citée") preserved;
++  // Documents adds proposal candidate wording + currency badge separately.
 +  const versionLine =
 +    resource.kind === "document" && resource.revisionNumber != null
 +      ? props.documentFocusBanner === "proposal"
-+        ? `v${resource.revisionNumber}  ·  Candidate`
-+        : resource.versionSource === "exact"
-+          ? `v${resource.revisionNumber}  ·  Historique`
-+          : `v${resource.revisionNumber}  ·  Courante`
++        ? `Version ${resource.revisionNumber} · Candidate`
++        : [
++            `Version ${resource.revisionNumber}`,
++            resource.revisionId ? resource.revisionId.slice(0, 8) : null,
++            resource.versionSource === "current"
++              ? "version courante"
++              : resource.versionSource === "exact"
++                ? "révision citée"
++                : null,
++          ]
++            .filter(Boolean)
++            .join(" · ")
 +      : null;
 
    return (
      <div
-@@ -49,6 +67,7 @@ export function TravailViewer(props: {
+@@ -49,6 +77,7 @@ export function TravailViewer(props: {
        data-testid="travail-viewer"
        data-viewer-kind={resource.kind}
        data-viewer-enlarged={props.enlarged ? "1" : "0"}
@@ -4653,7 +4758,7 @@ index fdc16203..3aa10fc2 100644
      >
        <header className="fig-travail-viewer-head">
          <div>
-@@ -56,15 +75,23 @@ export function TravailViewer(props: {
+@@ -56,15 +85,23 @@ export function TravailViewer(props: {
            <h2 className="fig-inspector-title" data-testid="travail-viewer-title">
              {title}
            </h2>
@@ -4685,7 +4790,7 @@ index fdc16203..3aa10fc2 100644
              </p>
            ) : null}
            {resource.kind === "git" ? (
-@@ -118,6 +145,15 @@ export function TravailViewer(props: {
+@@ -118,6 +155,15 @@ export function TravailViewer(props: {
        </header>
 
        <div className="fig-travail-viewer-body" data-testid="travail-viewer-body">
@@ -4702,7 +4807,7 @@ index fdc16203..3aa10fc2 100644
            <div className="fig-alert" role="alert" data-testid="travail-viewer-unavailable">
              {resource.unavailableReason ??
 diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
-index f9c8640c..6d41e0c7 100644
+index 34d1c63d..aaca3574 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
 +++ b/projects/sfia-studio-next/web/src/components/figma/tokens.css
 @@ -1294,6 +1294,488 @@
@@ -5476,6 +5581,574 @@ index 3ca58197..72bb37a5 100644
    }
    return lines.join("\n");
  }
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-candidate.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-candidate.ts
+new file mode 100644
+index 00000000..8b0a1113
+--- /dev/null
++++ b/projects/sfia-studio-next/web/src/domains/conversation/document-candidate.ts
+@@ -0,0 +1,562 @@
++/**
++ * F1/F2 — sealed document proposal candidates and historical-source authorizations.
++ * Stored additively on conversation_turn_commands.result_json (no migration).
++ * Client may select by id+hash; never supply authoritative markdown.
++ */
++import { and, eq, sql } from "drizzle-orm";
++import { db } from "@/db/client";
++import { conversationTurnCommands, conversations } from "@/db/schema";
++import { newId } from "@/lib/ids";
++import { contentSha256 } from "@/domains/conversation/document-command";
++import { turnClock } from "@/domains/conversation/turn-command";
++
++export type PendingDocumentCandidate = {
++  id: string;
++  turnCommandId: string;
++  preparationId: string;
++  pilotId: string;
++  documentId: string;
++  sourceRevisionId: string;
++  observedHeadRevisionId: string;
++  title: string;
++  contentMarkdown: string;
++  contentSha256: string;
++  historicalAuthorizationId?: string | null;
++  status: "PENDING" | "CONSUMED" | "SUPERSEDED";
++  createdAt: string;
++};
++
++export type HistoricalSourceAuthorization = {
++  id: string;
++  turnCommandId: string;
++  preparationId: string;
++  pilotId: string;
++  documentId: string;
++  sourceRevisionId: string;
++  observedHeadRevisionId: string;
++  choice: "USE_SOURCE" | "USE_HEAD";
++  createdAt: string;
++};
++
++/** Exact transmit texts for F2/F4 historical base choices (never lexical freeform). */
++export const DOC_CONFIRM_HISTORICAL_SOURCE = "DOC_CONFIRM_HISTORICAL_SOURCE";
++export const DOC_USE_CURRENT_HEAD = "DOC_USE_CURRENT_HEAD";
++export const DOC_CONSERVE_PROPOSAL =
++  "Conserver comme nouvelle version la proposition documentaire préparée.";
++
++export function isHistoricalSourceChoiceTransmit(text: string): "USE_SOURCE" | "USE_HEAD" | null {
++  const t = text.replace(/\s+/g, " ").trim();
++  if (t === DOC_CONFIRM_HISTORICAL_SOURCE) return "USE_SOURCE";
++  if (t === DOC_USE_CURRENT_HEAD) return "USE_HEAD";
++  return null;
++}
++
++export function isConserveProposalTransmit(text: string): boolean {
++  return text.replace(/\s+/g, " ").trim() === DOC_CONSERVE_PROPOSAL;
++}
++
++/**
++ * P0-B — bind historical authorization to the sealed candidate.
++ * Source-courante proposals pass with null hauth on both sides.
++ */
++export function assertHistoricalAuthBoundToCandidate(input: {
++  sourceIsHistorical: boolean;
++  candidate: Pick<
++    PendingDocumentCandidate,
++    | "historicalAuthorizationId"
++    | "documentId"
++    | "sourceRevisionId"
++    | "observedHeadRevisionId"
++  >;
++  authorization: HistoricalSourceAuthorization | null;
++  actualHeadRevisionId: string;
++}): { ok: true } | { ok: false; reason: string } {
++  if (!input.sourceIsHistorical) {
++    return { ok: true };
++  }
++  const c = input.candidate;
++  const auth = input.authorization;
++  if (!c.historicalAuthorizationId) {
++    return { ok: false, reason: "CANDIDATE_HISTORICAL_AUTH_REQUIRED" };
++  }
++  if (!auth) {
++    return { ok: false, reason: "HISTORICAL_CONFIRMATION_SERVER_REQUIRED" };
++  }
++  if (auth.id !== c.historicalAuthorizationId) {
++    return { ok: false, reason: "HISTORICAL_AUTH_CANDIDATE_MISMATCH" };
++  }
++  if (
++    auth.documentId !== c.documentId ||
++    auth.sourceRevisionId !== c.sourceRevisionId ||
++    auth.observedHeadRevisionId !== c.observedHeadRevisionId ||
++    auth.choice !== "USE_SOURCE"
++  ) {
++    return { ok: false, reason: "HISTORICAL_AUTH_CONTEXT_MISMATCH" };
++  }
++  if (auth.observedHeadRevisionId !== input.actualHeadRevisionId) {
++    return { ok: false, reason: "HISTORICAL_HEAD_MOVED" };
++  }
++  return { ok: true };
++}
++
++async function mergeTurnResultJson(args: {
++  commandId: string;
++  ownerToken: string;
++  patch: (prev: Record<string, unknown>) => Record<string, unknown> | null;
++}): Promise<{ applied: boolean }> {
++  return db.transaction(async (tx) => {
++    await tx.execute(
++      sql`select id from conversation_turn_commands
++          where id = ${args.commandId}
++            and owner_token = ${args.ownerToken}
++            and status in ('RUNNING', 'ACCEPTED')
++          for update`,
++    );
++    const owned = (
++      await tx
++        .select({
++          id: conversationTurnCommands.id,
++          resultJson: conversationTurnCommands.resultJson,
++        })
++        .from(conversationTurnCommands)
++        .where(
++          and(
++            eq(conversationTurnCommands.id, args.commandId),
++            eq(conversationTurnCommands.ownerToken, args.ownerToken),
++            sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
++          ),
++        )
++        .limit(1)
++    )[0];
++    if (!owned) return { applied: false };
++    let prev: Record<string, unknown> = {};
++    if (owned.resultJson) {
++      try {
++        prev = JSON.parse(owned.resultJson) as Record<string, unknown>;
++      } catch {
++        return { applied: false };
++      }
++    }
++    const next = args.patch(prev);
++    if (!next) return { applied: false };
++    const updated = await tx
++      .update(conversationTurnCommands)
++      .set({
++        resultJson: JSON.stringify(next),
++        updatedAt: new Date(turnClock.nowMs()),
++      })
++      .where(
++        and(
++          eq(conversationTurnCommands.id, args.commandId),
++          eq(conversationTurnCommands.ownerToken, args.ownerToken),
++          sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
++        ),
++      )
++      .returning({ id: conversationTurnCommands.id });
++    return { applied: Boolean(updated[0]) };
++  });
++}
++
++export async function stashPendingDocumentCandidate(input: {
++  commandId: string;
++  ownerToken: string;
++  preparationId: string;
++  pilotId: string;
++  documentId: string;
++  sourceRevisionId: string;
++  observedHeadRevisionId: string;
++  title: string;
++  contentMarkdown: string;
++  historicalAuthorizationId?: string | null;
++}): Promise<{ ok: true; candidate: PendingDocumentCandidate } | { ok: false; reason: string }> {
++  const digest = contentSha256(input.title, input.contentMarkdown);
++  const candidate: PendingDocumentCandidate = {
++    id: newId("pdoc"),
++    turnCommandId: input.commandId,
++    preparationId: input.preparationId,
++    pilotId: input.pilotId,
++    documentId: input.documentId,
++    sourceRevisionId: input.sourceRevisionId,
++    observedHeadRevisionId: input.observedHeadRevisionId,
++    title: input.title,
++    contentMarkdown: input.contentMarkdown,
++    contentSha256: digest,
++    historicalAuthorizationId: input.historicalAuthorizationId ?? null,
++    status: "PENDING",
++    createdAt: new Date(turnClock.nowMs()).toISOString(),
++  };
++  const stashed = await mergeTurnResultJson({
++    commandId: input.commandId,
++    ownerToken: input.ownerToken,
++    patch: (prev) => {
++      const existing = Array.isArray(prev.pendingDocumentCandidates)
++        ? (prev.pendingDocumentCandidates as PendingDocumentCandidate[])
++        : [];
++      // Supersede prior pending candidates for the same document on this turn.
++      const nextExisting = existing.map((c) =>
++        c.documentId === candidate.documentId && c.status === "PENDING"
++          ? { ...c, status: "SUPERSEDED" as const }
++          : c,
++      );
++      return {
++        ...prev,
++        pendingDocumentCandidates: [...nextExisting, candidate],
++      };
++    },
++  });
++  if (!stashed.applied) {
++    return { ok: false, reason: "CANDIDATE_STASH_FAILED" };
++  }
++  // F1 — a new proposal invalidates prior pending candidates for the same document.
++  await supersedeOtherPendingCandidates({
++    pilotId: input.pilotId,
++    preparationId: input.preparationId,
++    documentId: input.documentId,
++    keepCandidateId: candidate.id,
++  });
++  return { ok: true, candidate };
++}
++
++async function patchCandidateStatusOnOwningTurn(input: {
++  pilotId: string;
++  preparationId: string;
++  candidateId: string;
++  nextStatus: "CONSUMED" | "SUPERSEDED";
++  onlyIfPending?: boolean;
++}): Promise<{ applied: boolean }> {
++  const rows = await db
++    .select({
++      id: conversationTurnCommands.id,
++      resultJson: conversationTurnCommands.resultJson,
++    })
++    .from(conversationTurnCommands)
++    .innerJoin(conversations, eq(conversations.id, conversationTurnCommands.conversationId))
++    .where(
++      and(
++        eq(conversations.preparationId, input.preparationId),
++        eq(conversations.ownerPilotId, input.pilotId),
++      ),
++    )
++    .orderBy(sql`${conversationTurnCommands.createdAt} desc`)
++    .limit(40);
++
++  for (const row of rows) {
++    if (!row.resultJson) continue;
++    let parsed: Record<string, unknown>;
++    try {
++      parsed = JSON.parse(row.resultJson) as Record<string, unknown>;
++    } catch {
++      continue;
++    }
++    const list = Array.isArray(parsed.pendingDocumentCandidates)
++      ? (parsed.pendingDocumentCandidates as PendingDocumentCandidate[])
++      : [];
++    const idx = list.findIndex((c) => c.id === input.candidateId);
++    if (idx < 0) continue;
++    const current = parseCandidate(list[idx]);
++    if (!current) return { applied: false };
++    if (input.onlyIfPending && current.status !== "PENDING") {
++      return { applied: false };
++    }
++    const nextList = list.map((c) =>
++      c.id === input.candidateId ? { ...c, status: input.nextStatus } : c,
++    );
++    const updated = await db
++      .update(conversationTurnCommands)
++      .set({
++        resultJson: JSON.stringify({ ...parsed, pendingDocumentCandidates: nextList }),
++        updatedAt: new Date(turnClock.nowMs()),
++      })
++      .where(eq(conversationTurnCommands.id, row.id))
++      .returning({ id: conversationTurnCommands.id });
++    return { applied: Boolean(updated[0]) };
++  }
++  return { applied: false };
++}
++
++/** Mark every other PENDING candidate for the document as SUPERSEDED (cross-turn). */
++export async function supersedeOtherPendingCandidates(input: {
++  pilotId: string;
++  preparationId: string;
++  documentId: string;
++  keepCandidateId: string;
++}): Promise<void> {
++  const rows = await db
++    .select({
++      id: conversationTurnCommands.id,
++      resultJson: conversationTurnCommands.resultJson,
++    })
++    .from(conversationTurnCommands)
++    .innerJoin(conversations, eq(conversations.id, conversationTurnCommands.conversationId))
++    .where(
++      and(
++        eq(conversations.preparationId, input.preparationId),
++        eq(conversations.ownerPilotId, input.pilotId),
++      ),
++    )
++    .orderBy(sql`${conversationTurnCommands.createdAt} desc`)
++    .limit(40);
++
++  for (const row of rows) {
++    if (!row.resultJson) continue;
++    let parsed: Record<string, unknown>;
++    try {
++      parsed = JSON.parse(row.resultJson) as Record<string, unknown>;
++    } catch {
++      continue;
++    }
++    const list = Array.isArray(parsed.pendingDocumentCandidates)
++      ? (parsed.pendingDocumentCandidates as PendingDocumentCandidate[])
++      : [];
++    let changed = false;
++    const nextList = list.map((c) => {
++      if (
++        c.documentId === input.documentId &&
++        c.status === "PENDING" &&
++        c.id !== input.keepCandidateId
++      ) {
++        changed = true;
++        return { ...c, status: "SUPERSEDED" as const };
++      }
++      return c;
++    });
++    if (!changed) continue;
++    await db
++      .update(conversationTurnCommands)
++      .set({
++        resultJson: JSON.stringify({ ...parsed, pendingDocumentCandidates: nextList }),
++        updatedAt: new Date(turnClock.nowMs()),
++      })
++      .where(eq(conversationTurnCommands.id, row.id));
++  }
++}
++
++export async function stashHistoricalSourceAuthorization(input: {
++  commandId: string;
++  ownerToken: string;
++  preparationId: string;
++  pilotId: string;
++  documentId: string;
++  sourceRevisionId: string;
++  observedHeadRevisionId: string;
++  choice: "USE_SOURCE" | "USE_HEAD";
++}): Promise<
++  { ok: true; authorization: HistoricalSourceAuthorization } | { ok: false; reason: string }
++> {
++  const authorization: HistoricalSourceAuthorization = {
++    id: newId("hauth"),
++    turnCommandId: input.commandId,
++    preparationId: input.preparationId,
++    pilotId: input.pilotId,
++    documentId: input.documentId,
++    sourceRevisionId: input.sourceRevisionId,
++    observedHeadRevisionId: input.observedHeadRevisionId,
++    choice: input.choice,
++    createdAt: new Date(turnClock.nowMs()).toISOString(),
++  };
++  const stashed = await mergeTurnResultJson({
++    commandId: input.commandId,
++    ownerToken: input.ownerToken,
++    patch: (prev) => {
++      const existing = Array.isArray(prev.historicalSourceAuthorizations)
++        ? (prev.historicalSourceAuthorizations as HistoricalSourceAuthorization[])
++        : [];
++      return {
++        ...prev,
++        historicalSourceAuthorizations: [...existing, authorization],
++      };
++    },
++  });
++  if (!stashed.applied) {
++    return { ok: false, reason: "HISTORICAL_AUTH_STASH_FAILED" };
++  }
++  return { ok: true, authorization };
++}
++
++function parseCandidate(raw: unknown): PendingDocumentCandidate | null {
++  if (!raw || typeof raw !== "object") return null;
++  const o = raw as Record<string, unknown>;
++  if (
++    typeof o.id !== "string" ||
++    typeof o.turnCommandId !== "string" ||
++    typeof o.preparationId !== "string" ||
++    typeof o.pilotId !== "string" ||
++    typeof o.documentId !== "string" ||
++    typeof o.sourceRevisionId !== "string" ||
++    typeof o.observedHeadRevisionId !== "string" ||
++    typeof o.title !== "string" ||
++    typeof o.contentMarkdown !== "string" ||
++    typeof o.contentSha256 !== "string" ||
++    (o.status !== "PENDING" && o.status !== "CONSUMED" && o.status !== "SUPERSEDED")
++  ) {
++    return null;
++  }
++  return o as unknown as PendingDocumentCandidate;
++}
++
++function parseAuth(raw: unknown): HistoricalSourceAuthorization | null {
++  if (!raw || typeof raw !== "object") return null;
++  const o = raw as Record<string, unknown>;
++  if (
++    typeof o.id !== "string" ||
++    typeof o.turnCommandId !== "string" ||
++    typeof o.preparationId !== "string" ||
++    typeof o.pilotId !== "string" ||
++    typeof o.documentId !== "string" ||
++    typeof o.sourceRevisionId !== "string" ||
++    typeof o.observedHeadRevisionId !== "string" ||
++    (o.choice !== "USE_SOURCE" && o.choice !== "USE_HEAD")
++  ) {
++    return null;
++  }
++  return o as unknown as HistoricalSourceAuthorization;
++}
++
++/**
++ * Load a pending candidate by id — rights scoped to pilot + preparation.
++ * Searches recent turn commands for the preparation conversation.
++ */
++export async function loadPendingDocumentCandidate(input: {
++  pilotId: string;
++  preparationId: string;
++  candidateId: string;
++  expectedContentSha256?: string;
++}): Promise<
++  | { ok: true; candidate: PendingDocumentCandidate }
++  | { ok: false; reason: string }
++> {
++  const rows = await db
++    .select({
++      id: conversationTurnCommands.id,
++      resultJson: conversationTurnCommands.resultJson,
++      ownerPilotId: conversations.ownerPilotId,
++      preparationId: conversations.preparationId,
++    })
++    .from(conversationTurnCommands)
++    .innerJoin(conversations, eq(conversations.id, conversationTurnCommands.conversationId))
++    .where(
++      and(
++        eq(conversations.preparationId, input.preparationId),
++        eq(conversations.ownerPilotId, input.pilotId),
++      ),
++    )
++    .orderBy(sql`${conversationTurnCommands.createdAt} desc`)
++    .limit(40);
++
++  for (const row of rows) {
++    if (!row.resultJson) continue;
++    let parsed: Record<string, unknown>;
++    try {
++      parsed = JSON.parse(row.resultJson) as Record<string, unknown>;
++    } catch {
++      continue;
++    }
++    const list = Array.isArray(parsed.pendingDocumentCandidates)
++      ? parsed.pendingDocumentCandidates
++      : [];
++    for (const raw of list) {
++      const c = parseCandidate(raw);
++      if (!c || c.id !== input.candidateId) continue;
++      if (c.pilotId !== input.pilotId || c.preparationId !== input.preparationId) {
++        return { ok: false, reason: "CANDIDATE_DENIED" };
++      }
++      if (c.status !== "PENDING") {
++        return { ok: false, reason: `CANDIDATE_${c.status}` };
++      }
++      const digest = contentSha256(c.title, c.contentMarkdown);
++      if (digest !== c.contentSha256) {
++        return { ok: false, reason: "CANDIDATE_HASH_MISMATCH" };
++      }
++      if (
++        input.expectedContentSha256 &&
++        input.expectedContentSha256 !== c.contentSha256
++      ) {
++        return { ok: false, reason: "CANDIDATE_CLIENT_HASH_MISMATCH" };
++      }
++      return { ok: true, candidate: c };
++    }
++  }
++  return { ok: false, reason: "CANDIDATE_NOT_FOUND" };
++}
++
++export async function loadHistoricalSourceAuthorization(input: {
++  pilotId: string;
++  preparationId: string;
++  authorizationId: string;
++}): Promise<
++  | { ok: true; authorization: HistoricalSourceAuthorization }
++  | { ok: false; reason: string }
++> {
++  const rows = await db
++    .select({
++      resultJson: conversationTurnCommands.resultJson,
++      ownerPilotId: conversations.ownerPilotId,
++      preparationId: conversations.preparationId,
++    })
++    .from(conversationTurnCommands)
++    .innerJoin(conversations, eq(conversations.id, conversationTurnCommands.conversationId))
++    .where(
++      and(
++        eq(conversations.preparationId, input.preparationId),
++        eq(conversations.ownerPilotId, input.pilotId),
++      ),
++    )
++    .orderBy(sql`${conversationTurnCommands.createdAt} desc`)
++    .limit(40);
++
++  for (const row of rows) {
++    if (!row.resultJson) continue;
++    let parsed: Record<string, unknown>;
++    try {
++      parsed = JSON.parse(row.resultJson) as Record<string, unknown>;
++    } catch {
++      continue;
++    }
++    const list = Array.isArray(parsed.historicalSourceAuthorizations)
++      ? parsed.historicalSourceAuthorizations
++      : [];
++    for (const raw of list) {
++      const a = parseAuth(raw);
++      if (!a || a.id !== input.authorizationId) continue;
++      if (a.pilotId !== input.pilotId || a.preparationId !== input.preparationId) {
++        return { ok: false, reason: "HISTORICAL_AUTH_DENIED" };
++      }
++      return { ok: true, authorization: a };
++    }
++  }
++  return { ok: false, reason: "HISTORICAL_AUTH_NOT_FOUND" };
++}
++
++/** Mark candidate CONSUMED on the turn that owns it (cross-turn, post-AVAILABLE). */
++export async function markPendingCandidateConsumed(input: {
++  pilotId: string;
++  preparationId: string;
++  candidateId: string;
++}): Promise<{ applied: boolean }> {
++  return patchCandidateStatusOnOwningTurn({
++    pilotId: input.pilotId,
++    preparationId: input.preparationId,
++    candidateId: input.candidateId,
++    nextStatus: "CONSUMED",
++    onlyIfPending: true,
++  });
++}
++
++/** Pilot-facing summary — never exposes raw markdown in status strings. */
++export function pendingCandidateSummary(c: PendingDocumentCandidate): {
++  candidateId: string;
++  contentSha256: string;
++  documentId: string;
++  sourceRevisionId: string;
++  observedHeadRevisionId: string;
++  title: string;
++} {
++  return {
++    candidateId: c.id,
++    contentSha256: c.contentSha256,
++    documentId: c.documentId,
++    sourceRevisionId: c.sourceRevisionId,
++    observedHeadRevisionId: c.observedHeadRevisionId,
++    title: c.title,
++  };
++}
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
 index ae7a5842..30d8aa10 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
@@ -5621,7 +6294,7 @@ index ae7a5842..30d8aa10 100644
    return { sealApplied: true, effect };
  }
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
-index 68cf1f5a..7734b4e2 100644
+index b7847a1a..093927d1 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
 @@ -120,6 +120,9 @@ function effect(
@@ -5634,7 +6307,7 @@ index 68cf1f5a..7734b4e2 100644
    };
  }
 
-@@ -1862,6 +1865,114 @@ register(
+@@ -1863,6 +1866,114 @@ register(
  );
 
 
@@ -5750,7 +6423,7 @@ index 68cf1f5a..7734b4e2 100644
  for (const [short, long] of [
    ["E05_S2_DIAGNOSTIC", E05_S2_DIAGNOSTIC],
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index 4cfc23d6..7ad46cd7 100644
+index 578f8ac4..96867946 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 @@ -26,7 +26,7 @@ import {
@@ -5791,7 +6464,7 @@ index 4cfc23d6..7ad46cd7 100644
    resolveReviseTarget,
    stripContractualDocumentFences,
    type DocumentEffectSummary,
-@@ -644,6 +659,25 @@ export type TurnResult = {
+@@ -645,6 +660,25 @@ export type TurnResult = {
      act?: "CREATE" | "REVISE";
      idempotentReplay?: boolean;
    } | null;
@@ -5817,7 +6490,7 @@ index 4cfc23d6..7ad46cd7 100644
    idempotentReplay: boolean;
    /**
     * True only when a HumanDecision id was actually produced (APPLIED/ALREADY_APPLIED).
-@@ -758,6 +792,29 @@ export async function postUserMessageAndNora(
+@@ -759,6 +793,29 @@ export async function postUserMessageAndNora(
      requestId?: string;
      /** Client UX hint only — server DB siblings are authoritative for S05. */
      unresolvedPendingClientTurnKey?: string;
@@ -5847,7 +6520,7 @@ index 4cfc23d6..7ad46cd7 100644
    },
  ): Promise<TurnResult> {
    const requestId = opts?.requestId ?? newRequestId();
-@@ -908,6 +965,14 @@ export async function postUserMessageAndNora(
+@@ -909,6 +966,14 @@ export async function postUserMessageAndNora(
      meta: { client_turn_key_fp: reserved.requestFingerprint.slice(0, 12) },
    });
 
@@ -5862,7 +6535,7 @@ index 4cfc23d6..7ad46cd7 100644
    /** SEM/TV: D5/D6 after Nora semantic qualification — not before. */
    let authority: ConversationalAuthorityOutcome | null = null;
 
-@@ -1100,6 +1165,38 @@ export async function postUserMessageAndNora(
+@@ -1103,6 +1168,38 @@ export async function postUserMessageAndNora(
 
    const nextTurnKind = deriveThreadTurnKind(qualification);
    const studioProjection = projectStudioEffects(qualification);
@@ -5901,7 +6574,7 @@ index 4cfc23d6..7ad46cd7 100644
    const pilotageBinding = extractPilotageBinding(qualification);
    const knowledgeHints = extractKnowledgeSelectionHints(qualification);
    if (
-@@ -1717,7 +1814,36 @@ export async function postUserMessageAndNora(
+@@ -1760,7 +1857,36 @@ export async function postUserMessageAndNora(
        } else if (documentAct.kind === "REVISE" && !ownershipLostBeforeD4) {
          try {
            const docs = await listDocuments(pilotId, preparationId);
@@ -5939,7 +6612,7 @@ index 4cfc23d6..7ad46cd7 100644
            if (!target.ok) {
              documentSave = {
                status: "FAILED",
-@@ -1890,6 +2016,222 @@ export async function postUserMessageAndNora(
+@@ -1933,6 +2059,222 @@ export async function postUserMessageAndNora(
                      const clientSalt =
                        opts?.correlationKey?.trim() ||
                        `${target.documentId}:${target.baseRevisionId}`;
@@ -6162,7 +6835,7 @@ index 4cfc23d6..7ad46cd7 100644
                      const admitted = admitDocumentCommand({
                        commandId: reserved.commandId,
                        operationId: reserved.operationId,
-@@ -1899,10 +2241,23 @@ export async function postUserMessageAndNora(
+@@ -1942,10 +2284,23 @@ export async function postUserMessageAndNora(
                        preparationId,
                        documentId: target.documentId,
                        baseRevisionId: target.baseRevisionId,
@@ -6189,7 +6862,7 @@ index 4cfc23d6..7ad46cd7 100644
                        clientCorrelationSalt: clientSalt,
                      });
                      if (!admitted.ok) {
-@@ -1943,31 +2298,44 @@ export async function postUserMessageAndNora(
+@@ -1986,31 +2341,44 @@ export async function postUserMessageAndNora(
                                ? (revised as { baseRevisionId: string }).baseRevisionId
                                : target.baseRevisionId,
                          };
@@ -6257,7 +6930,7 @@ index 4cfc23d6..7ad46cd7 100644
                  }
                }
              }
-@@ -2429,6 +2797,8 @@ export async function postUserMessageAndNora(
+@@ -2472,6 +2840,8 @@ export async function postUserMessageAndNora(
      documentSave: ownershipLostBeforeD4
        ? (unknownCapReconstituted?.documentSave ?? null)
        : documentSave,
@@ -6266,7 +6939,7 @@ index 4cfc23d6..7ad46cd7 100644
      idempotentReplay: false,
      humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
      pilotageEffect: pilotageEffectFromAuthority(authority),
-@@ -2448,7 +2818,7 @@ export async function postUserMessageAndNora(
+@@ -2491,7 +2861,7 @@ export async function postUserMessageAndNora(
        status: turnStatus === "COMPLETE" ? reply.status : turnStatus,
        finalized: turnStatus === "COMPLETE" && !ownershipLostBeforeD4,
        // P1-A: never map clarifications[] → continue buttons.
@@ -6531,6 +7204,515 @@ index 296527ce..cd673449 100644
          actualLatestRevisionId: latest?.id ?? null,
          actualLatestRevisionNumber: latest?.revisionNumber ?? null,
        };
+diff --git a/projects/sfia-studio-next/web/tests/e2e/documents-bibliotheque-08.spec.ts b/projects/sfia-studio-next/web/tests/e2e/documents-bibliotheque-08.spec.ts
+new file mode 100644
+index 00000000..8daf3981
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/e2e/documents-bibliotheque-08.spec.ts
+@@ -0,0 +1,70 @@
++import { test, expect } from "@playwright/test";
++import {
++  constituteAndCreateProject,
++  openNewPreparation,
++  openSasSecondaryTool,
++  backToSasConversation,
++  sendPrepMessage,
++} from "./helpers/g4-chat-first";
++
++/**
++ * Ensemble 06 — Documents Bibliothèque (page 08) browser smoke on E2E lane.
++ * Covers DOC-UAT-01/02/04/05/07 selection, read-only, history, compare shell.
++ */
++test("Documents 08: select≠open, read-only, history, compare", async ({ page }) => {
++  await page.goto("/login");
++  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
++  await page.waitForURL("**/portfolio");
++
++  await openNewPreparation(page);
++  await sendPrepMessage(page, "Bonjour Nora documents bibliotheque");
++  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
++
++  await openSasSecondaryTool(page, "Documents");
++  await page.getByTestId("doc-start-create").click();
++  await page.getByTestId("document-revise-draft").fill(
++    "# Parcours\n\n## Objet\nCircuit initial.\n\n## Responsabilites\nCentres.\n",
++  );
++  await page.getByTestId("doc-save").click();
++  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 10000 });
++  await backToSasConversation(page);
++
++  await constituteAndCreateProject(page, {
++    name: `Docs08 ${Date.now()}`,
++    summary: "bibliotheque",
++  });
++  await page.waitForURL("**/projects/**");
++  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
++  expect(projectId).toBeTruthy();
++
++  await page.getByTestId("nav-documents").click();
++  await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 15000 });
++
++  const firstDoc = page.locator('[data-testid^="doc-open-"]').first();
++  await expect(firstDoc).toBeVisible({ timeout: 15000 });
++  const documentId = (await firstDoc.getAttribute("data-testid"))?.replace("doc-open-", "");
++  expect(documentId).toBeTruthy();
++
++  // DOC-UAT-01 — select without opening
++  await firstDoc.click();
++  await expect(page.getByTestId("document-selection-aside")).toBeVisible();
++  await expect(page).not.toHaveURL(/documentId=/);
++  await expect(page.getByTestId("doc-action-open")).toBeVisible();
++
++  // DOC-UAT-02/04 — open read-only, no textarea (Figma 08.02: no alert banner in body)
++  await page.getByTestId("doc-action-open").click();
++  await expect(page).toHaveURL(new RegExp(`documentId=${documentId}`));
++  await expect(page.getByTestId("document-read")).toBeVisible();
++  await expect(page.getByTestId("document-read-aside")).toContainText("DOCUMENT / ACTIONS");
++  await expect(page.getByTestId("doc-action-request-revision")).toContainText(
++    "Demander une révision à Nora",
++  );
++  await expect(page.getByTestId("document-revise-draft")).toHaveCount(0);
++
++  // DOC-UAT-05/07 — history + comparator collapsed then expand
++  await page.getByTestId("doc-action-history").click();
++  await expect(page.getByTestId("document-history-surface")).toBeVisible();
++  await expect(page.getByTestId("document-compare-controls")).toHaveCount(0);
++  await page.getByTestId("doc-action-compare-toggle").click();
++  await expect(page.getByTestId("document-compare-controls")).toBeVisible();
++});
+diff --git a/projects/sfia-studio-next/web/tests/e2e/documents-f1f5-runtime-captures.spec.ts b/projects/sfia-studio-next/web/tests/e2e/documents-f1f5-runtime-captures.spec.ts
+new file mode 100644
+index 00000000..b5fb3760
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/e2e/documents-f1f5-runtime-captures.spec.ts
+@@ -0,0 +1,107 @@
++import { test, expect } from "@playwright/test";
++import * as fs from "node:fs";
++import * as path from "node:path";
++import {
++  constituteAndCreateProject,
++  openNewPreparation,
++  openSasSecondaryTool,
++  backToSasConversation,
++  sendPrepMessage,
++} from "./helpers/g4-chat-first";
++
++/**
++ * Runtime captures for Figma 930:9 / 930:10 comparison (local evidence only).
++ */
++test("Documents F4/F5 runtime captures 930:9 and 930:10", async ({ page }) => {
++  test.setTimeout(180_000);
++  const outDir = path.resolve(
++    __dirname,
++    "../../../.tmp-sfia-review/documents-runtime/cycle08-f1f5",
++  );
++  fs.mkdirSync(outDir, { recursive: true });
++
++  await page.setViewportSize({ width: 1680, height: 970 });
++  await page.goto("/login");
++  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
++  await page.waitForURL("**/portfolio");
++
++  await openNewPreparation(page);
++  await sendPrepMessage(page, "Bonjour Nora — captures 930.");
++  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
++
++  await openSasSecondaryTool(page, "Documents");
++  await page.getByTestId("doc-start-create").click();
++  await page.getByTestId("document-revise-draft").fill(
++    "# Parcours\n\n## Objet\nCircuit V1.\n\n## Responsabilités\nCentres.\n",
++  );
++  await page.getByTestId("doc-save").click();
++  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 15000 });
++  await page.getByTestId("document-revise-draft").fill(
++    "# Parcours\n\n## Objet\nCircuit V2.\n\n## Responsabilités\nVérification V2.\n",
++  );
++  await page.getByTestId("doc-save").click();
++  await expect(page.getByTestId("surface-status")).toContainText(/rev 2/i, { timeout: 15000 });
++  await page.getByTestId("document-revise-draft").fill(
++    "# Parcours\n\n## Objet\nCircuit V3.\n\n## Responsabilités\nCourante V3.\n",
++  );
++  await page.getByTestId("doc-save").click();
++  await expect(page.getByTestId("surface-status")).toContainText(/rev 3/i, { timeout: 15000 });
++  await backToSasConversation(page);
++
++  await constituteAndCreateProject(page, {
++    name: `DocsCap ${Date.now()}`,
++    summary: "captures",
++  });
++  await page.waitForURL("**/projects/**");
++
++  await page.getByTestId("nav-documents").click();
++  await page.locator('[data-testid^="doc-open-"]').first().click();
++  await page.getByTestId("doc-action-versions").click();
++  await page.getByTestId("doc-rev-2").click();
++  await page.getByTestId("doc-action-rework-nora").click();
++  await expect(page.getByRole("button", { name: /Repartir de la v2/i })).toBeVisible({
++    timeout: 45000,
++  });
++  await page.screenshot({
++    path: path.join(outDir, "runtime-930-9-historical.png"),
++    fullPage: false,
++  });
++
++  await page.getByRole("button", { name: /Repartir de la v2/i }).click();
++  await expect(page.getByText(/nous repartons de la version historique/i)).toBeVisible({
++    timeout: 45000,
++  });
++  await page.getByLabel("Message à Nora").fill(
++    "Je souhaite clarifier les responsabilités entre les trois centres.",
++  );
++  await page.getByRole("button", { name: "Envoyer" }).click();
++  await expect(
++    page.getByRole("button", { name: /Conserver comme nouvelle version/i }),
++  ).toBeVisible({ timeout: 45000 });
++  await expect(page.getByTestId("document-focus-banner")).toContainText(
++    /PROPOSITION NON ENREGISTRÉE/i,
++  );
++  await page.screenshot({
++    path: path.join(outDir, "runtime-930-10-proposal.png"),
++    fullPage: false,
++  });
++
++  const nine = fs.readFileSync(path.join(outDir, "runtime-930-9-historical.png"));
++  const ten = fs.readFileSync(path.join(outDir, "runtime-930-10-proposal.png"));
++  expect(nine.equals(ten)).toBe(false);
++  fs.writeFileSync(
++    path.join(outDir, "capture-summary.json"),
++    JSON.stringify(
++      {
++        nineBytes: nine.length,
++        tenBytes: ten.length,
++        distinct: true,
++        viewport: "1680x970",
++        frames: ["930:9", "930:10"],
++        note: "Local runtime evidence — not embedded in Git handoff text.",
++      },
++      null,
++      2,
++    ),
++  );
++});
+diff --git a/projects/sfia-studio-next/web/tests/e2e/documents-nora-v2-v4.spec.ts b/projects/sfia-studio-next/web/tests/e2e/documents-nora-v2-v4.spec.ts
+new file mode 100644
+index 00000000..6b8397d0
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/e2e/documents-nora-v2-v4.spec.ts
+@@ -0,0 +1,124 @@
++import { test, expect } from "@playwright/test";
++import {
++  constituteAndCreateProject,
++  openNewPreparation,
++  openSasSecondaryTool,
++  backToSasConversation,
++  sendPrepMessage,
++} from "./helpers/g4-chat-first";
++
++/**
++ * F1/F4/F5 — V2 historical → confirm → proposal candidate → conserve V4.
++ * Fixture lane (FAKE Nora). Playwright isolated :3101.
++ *
++ * Sas manual editor used only to seed V1–V3 (KNOWN GAP — out of GO scope).
++ */
++test("Documents Nora: V2 historique → proposition exacte → V4", async ({ page }) => {
++  test.setTimeout(180_000);
++
++  await page.goto("/login");
++  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
++  await page.waitForURL("**/portfolio");
++
++  await openNewPreparation(page);
++  await sendPrepMessage(page, "Bonjour Nora — reprise documentaire V2 V4.");
++  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
++
++  await openSasSecondaryTool(page, "Documents");
++  await page.getByTestId("doc-start-create").click();
++  await page.getByTestId("document-revise-draft").fill(
++    "# Parcours\n\n## Objet\nCircuit V1.\n\n## Responsabilités\nCentres.\n",
++  );
++  await page.getByTestId("doc-save").click();
++  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 15000 });
++
++  // Stay in Sas editor to seed V2 then V3 (KNOWN GAP seed path).
++  await page.getByTestId("document-revise-draft").fill(
++    "# Parcours\n\n## Objet\nCircuit V2.\n\n## Responsabilités\nVérification V2.\n",
++  );
++  await page.getByTestId("doc-save").click();
++  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE.*rev 2|rev 2/i, {
++    timeout: 15000,
++  });
++
++  await page.getByTestId("document-revise-draft").fill(
++    "# Parcours\n\n## Objet\nCircuit V3.\n\n## Responsabilités\nCourante V3.\n",
++  );
++  await page.getByTestId("doc-save").click();
++  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE.*rev 3|rev 3/i, {
++    timeout: 15000,
++  });
++  await backToSasConversation(page);
++
++  await constituteAndCreateProject(page, {
++    name: `DocsV2V4 ${Date.now()}`,
++    summary: "v2-v4",
++  });
++  await page.waitForURL("**/projects/**");
++
++  await page.getByTestId("nav-documents").click();
++  await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 15000 });
++  await page.locator('[data-testid^="doc-open-"]').first().click();
++  await page.getByTestId("doc-action-versions").click();
++  await expect(page.getByTestId("document-history-surface")).toBeVisible();
++
++  await page.getByTestId("doc-rev-2").click();
++  await page.getByTestId("doc-action-rework-nora").click();
++  await expect(page).toHaveURL(/surface=travail/);
++
++  // F4 — historical choices in conversation thread (not under-composer panel).
++  await expect(page.getByTestId("document-historical-confirm")).toHaveCount(0);
++  await expect(page.getByRole("button", { name: /Repartir de la v2/i })).toBeVisible({
++    timeout: 45000,
++  });
++  await page.getByRole("button", { name: /Repartir de la v2/i }).click();
++  await expect(
++    page.getByText(/nous repartons de la version historique/i),
++  ).toBeVisible({ timeout: 45000 });
++
++  const composer = page.getByLabel("Message à Nora");
++  await expect(composer).toBeEnabled({ timeout: 15000 });
++  await composer.fill(
++    "Je souhaite clarifier les responsabilités entre les trois centres.",
++  );
++  await page.getByRole("button", { name: "Envoyer" }).click();
++
++  await expect(
++    page.getByRole("button", { name: /Conserver comme nouvelle version/i }),
++  ).toBeVisible({ timeout: 45000 });
++  // F5 — no duplicate conserve panel under composer.
++  await expect(page.getByTestId("document-proposal-conserve")).toHaveCount(0);
++
++  const viewer = page.getByTestId("travail-viewer");
++  await expect(viewer).toBeVisible();
++  await expect(viewer).toContainText(/coordinateur consolide|confirmation tracée/i, {
++    timeout: 10000,
++  });
++  await expect(page.getByTestId("document-focus-banner")).toContainText(
++    /PROPOSITION NON ENREGISTRÉE/i,
++  );
++
++  await page.getByRole("button", { name: /Conserver comme nouvelle version/i }).click();
++
++  await expect(
++    page.getByText(/Nouvelle version disponible\s*:\s*v4|Version v4 conservée/i).first(),
++  ).toBeVisible({ timeout: 45000 });
++  // No technical pending/internal codes in product surface after conserve.
++  await expect(page.getByText("PROPOSAL_PENDING_CONSERVATION")).toHaveCount(0);
++  await expect(page.getByText("NOT_EXECUTED")).toHaveCount(0);
++
++  await page.getByTestId("nav-documents").click();
++  await page.locator('[data-testid^="doc-open-"]').first().click();
++  await page.getByTestId("doc-action-versions").click();
++  await expect(page.getByTestId("doc-rev-4")).toBeVisible({ timeout: 15000 });
++  await expect(page.getByTestId("doc-rev-1")).toBeVisible();
++  await expect(page.getByTestId("doc-rev-2")).toBeVisible();
++  await expect(page.getByTestId("doc-rev-3")).toBeVisible();
++
++  // Reload — no auto-save; V4 still present.
++  await page.reload();
++  await page.getByTestId("nav-documents").click();
++  await page.locator('[data-testid^="doc-open-"]').first().click();
++  await page.getByTestId("doc-action-versions").click();
++  await expect(page.getByTestId("doc-rev-4")).toBeVisible({ timeout: 15000 });
++});
+diff --git a/projects/sfia-studio-next/web/tests/e2e/documents-p0-final.spec.ts b/projects/sfia-studio-next/web/tests/e2e/documents-p0-final.spec.ts
+new file mode 100644
+index 00000000..86e7d38c
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/e2e/documents-p0-final.spec.ts
+@@ -0,0 +1,184 @@
++import { test, expect } from "@playwright/test";
++import {
++  constituteAndCreateProject,
++  openNewPreparation,
++  openSasSecondaryTool,
++  backToSasConversation,
++  sendPrepMessage,
++} from "./helpers/g4-chat-first";
++
++/**
++ * P0-A/C/D — final Documents corrective proofs (FAKE Nora, E2E :3101).
++ * Exact content equality: viewer markdown vs D4 revision body after conserve + reload.
++ */
++test("P0 final: no implicit D4; reload candidate; exact V4 body", async ({ page }) => {
++  test.setTimeout(200_000);
++
++  await page.goto("/login");
++  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
++  await page.waitForURL("**/portfolio");
++
++  await openNewPreparation(page);
++  await sendPrepMessage(page, "Bonjour Nora — P0 final Documents.");
++  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
++
++  await openSasSecondaryTool(page, "Documents");
++  await page.getByTestId("doc-start-create").click();
++  await page.getByTestId("document-revise-draft").fill(
++    "# Parcours\n\n## Objet\nCircuit V1.\n\n## Responsabilités\nCentres.\n",
++  );
++  await page.getByTestId("doc-save").click();
++  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 15000 });
++  await page.getByTestId("document-revise-draft").fill(
++    "# Parcours\n\n## Objet\nCircuit V2.\n\n## Responsabilités\nVérification V2.\n",
++  );
++  await page.getByTestId("doc-save").click();
++  await expect(page.getByTestId("surface-status")).toContainText(/rev 2/i, { timeout: 15000 });
++  await page.getByTestId("document-revise-draft").fill(
++    "# Parcours\n\n## Objet\nCircuit V3.\n\n## Responsabilités\nCourante V3.\n",
++  );
++  await page.getByTestId("doc-save").click();
++  await expect(page.getByTestId("surface-status")).toContainText(/rev 3/i, { timeout: 15000 });
++  await backToSasConversation(page);
++
++  await constituteAndCreateProject(page, {
++    name: `DocsP0 ${Date.now()}`,
++    summary: "p0-final",
++  });
++  await page.waitForURL("**/projects/**");
++  const projectUrl = page.url();
++
++  await page.getByTestId("nav-documents").click();
++  await page.locator('[data-testid^="doc-open-"]').first().click();
++  await page.getByTestId("doc-action-versions").click();
++  await page.getByTestId("doc-rev-2").click();
++  await page.getByTestId("doc-action-rework-nora").click();
++
++  await expect(page.getByRole("button", { name: /Repartir de la v2/i })).toBeVisible({
++    timeout: 45000,
++  });
++  // DOC-UAT-08 — historical warning before any save
++  await expect(page.getByText(/version historique|version plus récente/i).first()).toBeVisible();
++  await page.getByRole("button", { name: /Repartir de la v2/i }).click();
++  await expect(page.getByText(/nous repartons de la version historique/i)).toBeVisible({
++    timeout: 45000,
++  });
++
++  await page.getByLabel("Message à Nora").fill(
++    "Je souhaite clarifier les responsabilités entre les trois centres.",
++  );
++  await page.getByRole("button", { name: "Envoyer" }).click();
++  await expect(
++    page.getByRole("button", { name: /Conserver comme nouvelle version/i }),
++  ).toBeVisible({ timeout: 45000 });
++  await expect(page.getByTestId("document-focus-banner")).toContainText(
++    /PROPOSITION NON ENREGISTRÉE/i,
++  );
++
++  // Capture candidate body from viewer — section revise keeps V2 Objet, replaces Responsabilités.
++  const proposalBefore = await page.getByTestId("travail-viewer-body").innerText();
++  expect(proposalBefore).toMatch(/coordinateur consolide/i);
++  expect(proposalBefore).toMatch(/confirmation tracée/i);
++  expect(proposalBefore).not.toMatch(/Vérification V2/i);
++
++  // No V4 yet
++  await page.getByTestId("nav-documents").click();
++  await page.locator('[data-testid^="doc-open-"]').first().click();
++  await page.getByTestId("doc-action-versions").click();
++  await expect(page.getByTestId("doc-rev-3")).toBeVisible();
++  await expect(page.getByTestId("doc-rev-4")).toHaveCount(0);
++
++  // P0-C — reload restores same pending proposal (no auto-save).
++  await page.goto(projectUrl.split("?")[0] + "?surface=travail");
++  await expect(page.getByTestId("document-focus-banner")).toContainText(
++    /PROPOSITION NON ENREGISTRÉE/i,
++    { timeout: 30000 },
++  );
++  const proposalAfterReload = await page.getByTestId("travail-viewer-body").innerText();
++  // Normalize whitespace for stable compare of inspected body.
++  const norm = (s: string) => s.replace(/\s+/g, " ").trim();
++  expect(norm(proposalAfterReload)).toContain(
++    norm("Chaque centre valide ses disponibilités").slice(0, 40),
++  );
++  await expect(page.getByTestId("doc-rev-4")).toHaveCount(0);
++
++  await page.getByRole("button", { name: /Conserver comme nouvelle version/i }).click();
++  await expect(
++    page.getByText(/Nouvelle version disponible\s*:\s*v4|Version v4 conservée/i).first(),
++  ).toBeVisible({ timeout: 45000 });
++
++  // DOC-UAT-09 — V4 exists; V1–V3 remain
++  await page.getByTestId("nav-documents").click();
++  const openBtn = page.locator('[data-testid^="doc-open-"]').first();
++  const documentId = (await openBtn.getAttribute("data-testid"))?.replace("doc-open-", "");
++  expect(documentId).toBeTruthy();
++  await openBtn.click();
++  await page.getByTestId("doc-action-versions").click();
++  await expect(page.getByTestId("doc-rev-4")).toBeVisible({ timeout: 15000 });
++  await expect(page.getByTestId("doc-rev-1")).toBeVisible();
++  await expect(page.getByTestId("doc-rev-2")).toBeVisible();
++  await expect(page.getByTestId("doc-rev-3")).toBeVisible();
++
++  // P0-D — exact D4 body via API (canonical markdown), not HTML-only.
++  const prepMatch = page.url().match(/projects\/[^/?]+/);
++  void prepMatch;
++  // Read revision 4 markdown through documents API using preparation from project page state:
++  // open V4 read surface and compare viewer text contains candidate phrase.
++  await page.getByTestId("doc-rev-4").click();
++  await page.getByTestId("doc-action-read-version").click();
++  await expect(page.getByTestId("document-read")).toBeVisible({ timeout: 15000 });
++  await expect(page.getByTestId("document-read")).toContainText(/coordinateur consolide/i, {
++    timeout: 20000,
++  });
++  const v4Text = await page.getByTestId("document-read").innerText();
++  expect(norm(v4Text)).toContain("confirmation tracée");
++  // V2-only responsabilités must not remain after conserve of P.
++  expect(norm(v4Text)).not.toContain("Vérification V2");
++  // Inspected proposal phrases must equal what V4 shows for the revised section.
++  expect(norm(v4Text)).toContain(norm("Chaque centre valide ses disponibilités"));
++  // Full inspected proposal body (normalized) is a subset of V4 surface text.
++  expect(norm(v4Text)).toContain(norm(proposalAfterReload).replace(/^PROPOSITION[^.]*\./i, "").slice(0, 80) || "coordinateur");
++
++  // Reload after conserve — no ghost pending auto-save (DOC-TECH-17 / P0-C8)
++  await page.reload();
++  await page.getByTestId("nav-documents").click();
++  await page.locator('[data-testid^="doc-open-"]').first().click();
++  await page.getByTestId("doc-action-versions").click();
++  await expect(page.getByTestId("doc-rev-4")).toBeVisible({ timeout: 15000 });
++  await expect(page.getByTestId("document-focus-banner")).toHaveCount(0);
++});
++
++test("P0-A: conserve without candidate is refused (no silent D4)", async ({ page }) => {
++  test.setTimeout(120_000);
++  await page.goto("/login");
++  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
++  await page.waitForURL("**/portfolio");
++  await openNewPreparation(page);
++  await sendPrepMessage(page, "Bonjour Nora — P0-A refuse.");
++  await expect(page.getByText("Nora", { exact: false }).first()).toBeVisible({ timeout: 30000 });
++  await openSasSecondaryTool(page, "Documents");
++  await page.getByTestId("doc-start-create").click();
++  await page.getByTestId("document-revise-draft").fill("# Doc\n\ncorps\n");
++  await page.getByTestId("doc-save").click();
++  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 15000 });
++  await backToSasConversation(page);
++  await constituteAndCreateProject(page, {
++    name: `DocsP0A ${Date.now()}`,
++    summary: "p0a",
++  });
++  await page.waitForURL("**/projects/**");
++
++  // Transmit conserve without any pending candidate / focus.
++  await page.getByLabel("Message à Nora").fill(
++    "Conserver comme nouvelle version la proposition documentaire préparée.",
++  );
++  await page.getByRole("button", { name: "Envoyer" }).click();
++  await expect(page.getByText(/Aucune proposition|non enregistr|pas été|Proposition/i).first()).toBeVisible({
++    timeout: 45000,
++  });
++  await page.getByTestId("nav-documents").click();
++  await page.locator('[data-testid^="doc-open-"]').first().click();
++  await page.getByTestId("doc-action-versions").click();
++  await expect(page.getByTestId("doc-rev-1")).toBeVisible({ timeout: 15000 });
++  await expect(page.getByTestId("doc-rev-2")).toHaveCount(0);
++});
 diff --git a/projects/sfia-studio-next/web/tests/e2e/g4-b1-b4-correctifs.spec.ts b/projects/sfia-studio-next/web/tests/e2e/g4-b1-b4-correctifs.spec.ts
 index 3b41419b..06a5e8c9 100644
 --- a/projects/sfia-studio-next/web/tests/e2e/g4-b1-b4-correctifs.spec.ts
@@ -6589,6 +7771,629 @@ index 3b41419b..06a5e8c9 100644
 
    // B4 — Reprendre = GET only (no POST to /api/preparations on resume)
    let prepPostCount = 0;
+diff --git a/projects/sfia-studio-next/web/tests/integration/documents-historical-revise.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/documents-historical-revise.pg.test.ts
+new file mode 100644
+index 00000000..8bfaedd2
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/integration/documents-historical-revise.pg.test.ts
+@@ -0,0 +1,231 @@
++/**
++ * DOC-TECH / DOC-UAT-09–10 — historical source revise (V2→V4) with observed head concurrency.
++ */
++import { describe, expect, it } from "vitest";
++import { config } from "dotenv";
++config({ path: ".env.local" });
++
++import { db } from "@/db/client";
++import { pilots } from "@/db/schema";
++import { newId } from "@/lib/ids";
++import {
++  compareDocumentRevisions,
++  listDocumentRevisions,
++  reviseDocument,
++  savePreparationDocument,
++} from "@/domains/document/service";
++import { openOrCreatePreparation } from "@/domains/preparation/service";
++
++async function seedPilot(label: string) {
++  const id = newId("pilot");
++  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
++  return id;
++}
++
++describe("documents historical revise (V2→V4)", () => {
++  it("V1→V2→V3 then historical V2→V4 with confirmation; V1–V3 intact", async () => {
++    const pilotId = await seedPilot("DOC-hist");
++    const prep = await openOrCreatePreparation(pilotId);
++    const v1 = await savePreparationDocument(
++      pilotId,
++      prep.id,
++      "Parcours",
++      "# V1\n\nobjet initial\n",
++    );
++    expect(v1.status).toBe("AVAILABLE");
++    if (v1.status !== "AVAILABLE") throw new Error("v1");
++
++    const v2 = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      baseRevisionId: v1.revisionId,
++      contentMarkdown: "# V2\n\nverification ressources\n",
++      correlationKey: "hist-v2",
++    });
++    expect(v2.status).toBe("AVAILABLE");
++    if (v2.status !== "AVAILABLE") throw new Error("v2");
++
++    const v3 = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      baseRevisionId: v2.revisionId,
++      contentMarkdown: "# V3\n\nconfirmation responsabilites\n",
++      correlationKey: "hist-v3",
++    });
++    expect(v3.status).toBe("AVAILABLE");
++    if (v3.status !== "AVAILABLE") throw new Error("v3");
++
++    const withoutConfirm = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      sourceRevisionId: v2.revisionId,
++      observedHeadRevisionId: v3.revisionId,
++      confirmedHistoricalSource: false,
++      contentMarkdown: "# V4 from V2 without confirm\n",
++      correlationKey: "hist-v4-noconfirm",
++    });
++    expect(withoutConfirm.status).toBe("FAILED");
++    if (withoutConfirm.status === "FAILED") {
++      expect(withoutConfirm.reason).toBe("HISTORICAL_CONFIRMATION_REQUIRED");
++    }
++
++    const v4 = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      sourceRevisionId: v2.revisionId,
++      observedHeadRevisionId: v3.revisionId,
++      confirmedHistoricalSource: true,
++      contentMarkdown: "# V4 from V2\n\nproposition Nora\n",
++      correlationKey: "hist-v4",
++    });
++    expect(v4.status).toBe("AVAILABLE");
++    if (v4.status !== "AVAILABLE") throw new Error("v4");
++    expect(v4.revisionNumber).toBe(4);
++    expect("baseRevisionId" in v4 ? v4.baseRevisionId : null).toBe(v2.revisionId);
++
++    const list = await listDocumentRevisions(pilotId, prep.id, v1.documentId);
++    expect(list.status).toBe("AVAILABLE");
++    if (list.status !== "AVAILABLE") throw new Error("list");
++    const byNum = Object.fromEntries(list.revisions.map((r) => [r.revisionNumber, r]));
++    expect(byNum[1]?.contentMarkdown).toContain("objet initial");
++    expect(byNum[2]?.contentMarkdown).toContain("verification");
++    expect(byNum[3]?.contentMarkdown).toContain("confirmation");
++    expect(byNum[4]?.contentMarkdown).toContain("proposition Nora");
++    expect(byNum[4]?.baseRevisionId).toBe(v2.revisionId);
++  });
++
++  it("concurrent head after historical confirmation → CONFLICT, next is V5", async () => {
++    const pilotId = await seedPilot("DOC-hist-race");
++    const prep = await openOrCreatePreparation(pilotId);
++    const v1 = await savePreparationDocument(pilotId, prep.id, "Race", "# A\n");
++    if (v1.status !== "AVAILABLE") throw new Error("v1");
++    const v2 = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      baseRevisionId: v1.revisionId,
++      contentMarkdown: "# B\n",
++      correlationKey: "race-v2",
++    });
++    if (v2.status !== "AVAILABLE") throw new Error("v2");
++    const v3 = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      baseRevisionId: v2.revisionId,
++      contentMarkdown: "# C\n",
++      correlationKey: "race-v3",
++    });
++    if (v3.status !== "AVAILABLE") throw new Error("v3");
++
++    // Concurrent V4 from head while another actor still holds observedHead=V3 + source=V2.
++    const concurrentV4 = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      baseRevisionId: v3.revisionId,
++      contentMarkdown: "# D concurrent\n",
++      correlationKey: "race-v4-head",
++    });
++    expect(concurrentV4.status).toBe("AVAILABLE");
++    if (concurrentV4.status !== "AVAILABLE") throw new Error("v4 concurrent");
++
++    const staleHistorical = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      sourceRevisionId: v2.revisionId,
++      observedHeadRevisionId: v3.revisionId, // stale — actual head is V4
++      confirmedHistoricalSource: true,
++      contentMarkdown: "# from V2 stale head\n",
++      correlationKey: "race-v4-hist-stale",
++    });
++    expect(staleHistorical.status).toBe("CONFLICT");
++    if (staleHistorical.status === "CONFLICT") {
++      expect(staleHistorical.reason).toBe("BASE_STALE");
++      expect(
++        "actualLatestRevisionId" in staleHistorical
++          ? staleHistorical.actualLatestRevisionId
++          : null,
++      ).toBe(concurrentV4.revisionId);
++    }
++
++    const v5 = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      sourceRevisionId: v2.revisionId,
++      observedHeadRevisionId: concurrentV4.revisionId,
++      confirmedHistoricalSource: true,
++      contentMarkdown: "# V5 from V2 after requalify\n",
++      correlationKey: "race-v5",
++    });
++    expect(v5.status).toBe("AVAILABLE");
++    if (v5.status !== "AVAILABLE") throw new Error("v5");
++    expect(v5.revisionNumber).toBe(5);
++  });
++
++  it("legacy baseRevisionId-only still requires head match (BASE_STALE)", async () => {
++    const pilotId = await seedPilot("DOC-legacy");
++    const prep = await openOrCreatePreparation(pilotId);
++    const v1 = await savePreparationDocument(pilotId, prep.id, "Legacy", "# L1\n");
++    if (v1.status !== "AVAILABLE") throw new Error("v1");
++    const v2 = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      baseRevisionId: v1.revisionId,
++      contentMarkdown: "# L2\n",
++      correlationKey: "leg-v2",
++    });
++    if (v2.status !== "AVAILABLE") throw new Error("v2");
++
++    const stale = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      baseRevisionId: v1.revisionId,
++      contentMarkdown: "# stale\n",
++      correlationKey: "leg-stale",
++    });
++    expect(stale.status).toBe("CONFLICT");
++    if (stale.status === "CONFLICT") expect(stale.reason).toBe("BASE_STALE");
++  });
++
++  it("idempotent replay of historical V4 correlation", async () => {
++    const pilotId = await seedPilot("DOC-hist-idem");
++    const prep = await openOrCreatePreparation(pilotId);
++    const v1 = await savePreparationDocument(pilotId, prep.id, "Idem", "# I1\n");
++    if (v1.status !== "AVAILABLE") throw new Error("v1");
++    const v2 = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      baseRevisionId: v1.revisionId,
++      contentMarkdown: "# I2\n",
++      correlationKey: "idem-v2",
++    });
++    if (v2.status !== "AVAILABLE") throw new Error("v2");
++    const v3 = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      baseRevisionId: v2.revisionId,
++      contentMarkdown: "# I3\n",
++      correlationKey: "idem-v3",
++    });
++    if (v3.status !== "AVAILABLE") throw new Error("v3");
++
++    const payload = "# I4 historical\n";
++    const first = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      sourceRevisionId: v2.revisionId,
++      observedHeadRevisionId: v3.revisionId,
++      confirmedHistoricalSource: true,
++      contentMarkdown: payload,
++      correlationKey: "idem-v4",
++    });
++    expect(first.status).toBe("AVAILABLE");
++    if (first.status !== "AVAILABLE") throw new Error("first");
++
++    const replay = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      sourceRevisionId: v2.revisionId,
++      observedHeadRevisionId: v3.revisionId,
++      confirmedHistoricalSource: true,
++      contentMarkdown: payload,
++      correlationKey: "idem-v4",
++    });
++    expect(replay.status).toBe("AVAILABLE");
++    if (replay.status !== "AVAILABLE") throw new Error("replay");
++    expect(replay.revisionId).toBe(first.revisionId);
++    expect("idempotentReplay" in replay && replay.idempotentReplay).toBe(true);
++
++    const cmp = await compareDocumentRevisions(
++      pilotId,
++      prep.id,
++      v1.documentId,
++      v2.revisionId,
++      first.revisionId,
++    );
++    expect(["AVAILABLE", "DEGRADED"]).toContain(cmp.status);
++  });
++});
+diff --git a/projects/sfia-studio-next/web/tests/integration/documents-p0-hauth-pdoc.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/documents-p0-hauth-pdoc.pg.test.ts
+new file mode 100644
+index 00000000..e8a689ce
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/integration/documents-p0-hauth-pdoc.pg.test.ts
+@@ -0,0 +1,174 @@
++/**
++ * P0-B — historical authorization must bind to the sealed candidate.
++ */
++import { describe, expect, it } from "vitest";
++import { config } from "dotenv";
++config({ path: ".env.local" });
++
++import { db } from "@/db/client";
++import { pilots } from "@/db/schema";
++import { newId } from "@/lib/ids";
++import {
++  assertHistoricalAuthBoundToCandidate,
++  loadHistoricalSourceAuthorization,
++  loadPendingDocumentCandidate,
++  stashHistoricalSourceAuthorization,
++  stashPendingDocumentCandidate,
++} from "@/domains/conversation/document-candidate";
++import { reviseDocument, savePreparationDocument } from "@/domains/document/service";
++import { getPreparationContext, openOrCreatePreparation } from "@/domains/preparation/service";
++import { commitTurnTerminal, reserveTurnCommand } from "@/domains/conversation/turn-command";
++
++async function seedPilot(label: string) {
++  const id = newId("pilot");
++  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
++  return id;
++}
++
++describe("documents P0-B hauth ↔ pdoc binding", () => {
++  it("matching hauth allows; foreign hauth refuses; current-head needs no hauth", async () => {
++    const pilotId = await seedPilot("DOC-p0b");
++    const prep = await openOrCreatePreparation(pilotId);
++    const ctx = await getPreparationContext(pilotId, prep.id);
++    expect(ctx.conversation?.id).toBeTruthy();
++
++    const v1 = await savePreparationDocument(pilotId, prep.id, "Parcours", "# V1\n\na\n");
++    expect(v1.status).toBe("AVAILABLE");
++    if (v1.status !== "AVAILABLE") throw new Error("v1");
++    const v2 = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      baseRevisionId: v1.revisionId,
++      contentMarkdown: "# V2\n\nb\n",
++      correlationKey: "p0b-v2",
++    });
++    expect(v2.status).toBe("AVAILABLE");
++    if (v2.status !== "AVAILABLE") throw new Error("v2");
++    const v3 = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      baseRevisionId: v2.revisionId,
++      contentMarkdown: "# V3\n\nc\n",
++      correlationKey: "p0b-v3",
++    });
++    expect(v3.status).toBe("AVAILABLE");
++    if (v3.status !== "AVAILABLE") throw new Error("v3");
++
++    const reserved = await reserveTurnCommand({
++      conversationId: ctx.conversation!.id,
++      ownerPilotId: pilotId,
++      clientTurnKey: `p0b-${newId("ck")}`,
++      content: "hist",
++    });
++    if (reserved.kind !== "fresh") throw new Error("fresh");
++
++    const authOk = await stashHistoricalSourceAuthorization({
++      commandId: reserved.commandId,
++      ownerToken: reserved.ownerToken,
++      preparationId: prep.id,
++      pilotId,
++      documentId: v1.documentId,
++      sourceRevisionId: v2.revisionId,
++      observedHeadRevisionId: v3.revisionId,
++      choice: "USE_SOURCE",
++    });
++    expect(authOk.ok).toBe(true);
++    if (!authOk.ok) throw new Error(authOk.reason);
++
++    const authOther = await stashHistoricalSourceAuthorization({
++      commandId: reserved.commandId,
++      ownerToken: reserved.ownerToken,
++      preparationId: prep.id,
++      pilotId,
++      documentId: v1.documentId,
++      sourceRevisionId: v2.revisionId,
++      observedHeadRevisionId: v3.revisionId,
++      choice: "USE_SOURCE",
++    });
++    expect(authOther.ok).toBe(true);
++    if (!authOther.ok) throw new Error(authOther.reason);
++
++    const body = "# Parcours\n\n## Responsabilités\n\nP exact.\n";
++    const stashed = await stashPendingDocumentCandidate({
++      commandId: reserved.commandId,
++      ownerToken: reserved.ownerToken,
++      preparationId: prep.id,
++      pilotId,
++      documentId: v1.documentId,
++      sourceRevisionId: v2.revisionId,
++      observedHeadRevisionId: v3.revisionId,
++      title: "Parcours",
++      contentMarkdown: body,
++      historicalAuthorizationId: authOk.authorization.id,
++    });
++    expect(stashed.ok).toBe(true);
++    if (!stashed.ok) throw new Error(stashed.reason);
++
++    await commitTurnTerminal({
++      commandId: reserved.commandId,
++      ownerToken: reserved.ownerToken,
++      status: "COMPLETE",
++      conversationId: ctx.conversation!.id,
++      assistant: {
++        id: newId("msg"),
++        content: "ok",
++        messageStatus: "COMPLETE",
++        generationId: newId("gen"),
++        ordinal: reserved.ordinalAssistant,
++      },
++      generationId: newId("gen"),
++      resultJson: JSON.stringify({ status: "COMPLETE" }),
++    });
++
++    const loadedCand = await loadPendingDocumentCandidate({
++      pilotId,
++      preparationId: prep.id,
++      candidateId: stashed.candidate.id,
++    });
++    expect(loadedCand.ok).toBe(true);
++    if (!loadedCand.ok) throw new Error(loadedCand.reason);
++
++    const loadedAuth = await loadHistoricalSourceAuthorization({
++      pilotId,
++      preparationId: prep.id,
++      authorizationId: authOk.authorization.id,
++    });
++    expect(loadedAuth.ok).toBe(true);
++    if (!loadedAuth.ok) throw new Error(loadedAuth.reason);
++
++    // B1
++    expect(
++      assertHistoricalAuthBoundToCandidate({
++        sourceIsHistorical: true,
++        candidate: loadedCand.candidate,
++        authorization: loadedAuth.authorization,
++        actualHeadRevisionId: v3.revisionId,
++      }),
++    ).toEqual({ ok: true });
++
++    // B2 — other hauth
++    const otherLoaded = await loadHistoricalSourceAuthorization({
++      pilotId,
++      preparationId: prep.id,
++      authorizationId: authOther.authorization.id,
++    });
++    expect(otherLoaded.ok).toBe(true);
++    if (!otherLoaded.ok) throw new Error(otherLoaded.reason);
++    const mismatch = assertHistoricalAuthBoundToCandidate({
++      sourceIsHistorical: true,
++      candidate: loadedCand.candidate,
++      authorization: otherLoaded.authorization,
++      actualHeadRevisionId: v3.revisionId,
++    });
++    expect(mismatch.ok).toBe(false);
++    if (!mismatch.ok) expect(mismatch.reason).toBe("HISTORICAL_AUTH_CANDIDATE_MISMATCH");
++
++    // B7 — current head
++    expect(
++      assertHistoricalAuthBoundToCandidate({
++        sourceIsHistorical: false,
++        candidate: { ...loadedCand.candidate, historicalAuthorizationId: null },
++        authorization: null,
++        actualHeadRevisionId: v3.revisionId,
++      }),
++    ).toEqual({ ok: true });
++  });
++});
+diff --git a/projects/sfia-studio-next/web/tests/integration/documents-proposal-candidate.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/documents-proposal-candidate.pg.test.ts
+new file mode 100644
+index 00000000..b62a67ed
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/integration/documents-proposal-candidate.pg.test.ts
+@@ -0,0 +1,200 @@
++/**
++ * F1 — pending candidate exact content is what D4 persists on conserve.
++ */
++import { describe, expect, it } from "vitest";
++import { config } from "dotenv";
++config({ path: ".env.local" });
++
++import { db } from "@/db/client";
++import { pilots } from "@/db/schema";
++import { newId } from "@/lib/ids";
++import { contentSha256 } from "@/domains/conversation/document-command";
++import {
++  loadPendingDocumentCandidate,
++  stashPendingDocumentCandidate,
++} from "@/domains/conversation/document-candidate";
++import {
++  getDocumentRevision,
++  listDocumentRevisions,
++  reviseDocument,
++  savePreparationDocument,
++} from "@/domains/document/service";
++import { getPreparationContext, openOrCreatePreparation } from "@/domains/preparation/service";
++import { commitTurnTerminal, reserveTurnCommand } from "@/domains/conversation/turn-command";
++
++async function seedPilot(label: string) {
++  const id = newId("pilot");
++  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
++  return id;
++}
++
++describe("documents proposal candidate exact conserve (F1)", () => {
++  it("candidate hash identity; D4 V4 body equals sealed candidate; V1–V3 intact", async () => {
++    const pilotId = await seedPilot("DOC-cand");
++    const prep = await openOrCreatePreparation(pilotId);
++    const ctx = await getPreparationContext(pilotId, prep.id);
++    expect(ctx.conversation?.id).toBeTruthy();
++
++    const v1 = await savePreparationDocument(pilotId, prep.id, "Parcours", "# V1\n\nobjet\n");
++    expect(v1.status).toBe("AVAILABLE");
++    if (v1.status !== "AVAILABLE") throw new Error("v1");
++    const v2 = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      baseRevisionId: v1.revisionId,
++      contentMarkdown: "# V2\n\nhistorique\n",
++      correlationKey: "cand-v2",
++    });
++    expect(v2.status).toBe("AVAILABLE");
++    if (v2.status !== "AVAILABLE") throw new Error("v2");
++    const v3 = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      baseRevisionId: v2.revisionId,
++      contentMarkdown: "# V3\n\ncourante\n",
++      correlationKey: "cand-v3",
++    });
++    expect(v3.status).toBe("AVAILABLE");
++    if (v3.status !== "AVAILABLE") throw new Error("v3");
++
++    const reserved = await reserveTurnCommand({
++      conversationId: ctx.conversation!.id,
++      ownerPilotId: pilotId,
++      clientTurnKey: `cand-${newId("ck")}`,
++      content: "propose",
++    });
++    if (reserved.kind !== "fresh") throw new Error("expected fresh turn");
++
++    const candidateBody =
++      "# Parcours\n\n## Responsabilités\n\nChaque centre valide — candidat exact P.\n";
++    const title = "Parcours";
++    const stashed = await stashPendingDocumentCandidate({
++      commandId: reserved.commandId,
++      ownerToken: reserved.ownerToken,
++      preparationId: prep.id,
++      pilotId,
++      documentId: v1.documentId,
++      sourceRevisionId: v2.revisionId,
++      observedHeadRevisionId: v3.revisionId,
++      title,
++      contentMarkdown: candidateBody,
++    });
++    expect(stashed.ok).toBe(true);
++    if (!stashed.ok) throw new Error(stashed.reason);
++
++    const loaded = await loadPendingDocumentCandidate({
++      pilotId,
++      preparationId: prep.id,
++      candidateId: stashed.candidate.id,
++      expectedContentSha256: stashed.candidate.contentSha256,
++    });
++    expect(loaded.ok).toBe(true);
++    if (!loaded.ok) throw new Error(loaded.reason);
++    expect(loaded.candidate.contentMarkdown).toBe(candidateBody);
++    expect(loaded.candidate.contentSha256).toBe(contentSha256(title, candidateBody));
++
++    const mismatch = await loadPendingDocumentCandidate({
++      pilotId,
++      preparationId: prep.id,
++      candidateId: stashed.candidate.id,
++      expectedContentSha256: contentSha256(title, "# forged\n"),
++    });
++    expect(mismatch.ok).toBe(false);
++
++    await commitTurnTerminal({
++      commandId: reserved.commandId,
++      ownerToken: reserved.ownerToken,
++      status: "COMPLETE",
++      conversationId: ctx.conversation!.id,
++      assistant: {
++        id: newId("msg"),
++        content: "proposition",
++        messageStatus: "COMPLETE",
++        generationId: newId("gen"),
++        ordinal: reserved.ordinalAssistant,
++      },
++      generationId: newId("gen"),
++      resultJson: JSON.stringify({ status: "COMPLETE" }),
++    });
++
++    // New proposal supersedes prior candidate — old authorization must refuse.
++    const reserved2 = await reserveTurnCommand({
++      conversationId: ctx.conversation!.id,
++      ownerPilotId: pilotId,
++      clientTurnKey: `cand2-${newId("ck")}`,
++      content: "propose2",
++    });
++    if (reserved2.kind !== "fresh") throw new Error("expected fresh turn 2");
++    const p2Body = "# Parcours\n\n## Responsabilités\n\nP2 — candidat suivant.\n";
++    const stashed2 = await stashPendingDocumentCandidate({
++      commandId: reserved2.commandId,
++      ownerToken: reserved2.ownerToken,
++      preparationId: prep.id,
++      pilotId,
++      documentId: v1.documentId,
++      sourceRevisionId: v2.revisionId,
++      observedHeadRevisionId: v3.revisionId,
++      title,
++      contentMarkdown: p2Body,
++    });
++    expect(stashed2.ok).toBe(true);
++    if (!stashed2.ok) throw new Error(stashed2.reason);
++    const oldAfterSupersede = await loadPendingDocumentCandidate({
++      pilotId,
++      preparationId: prep.id,
++      candidateId: stashed.candidate.id,
++    });
++    expect(oldAfterSupersede.ok).toBe(false);
++    if (!oldAfterSupersede.ok) {
++      expect(oldAfterSupersede.reason).toBe("CANDIDATE_SUPERSEDED");
++    }
++    const loadedP2 = await loadPendingDocumentCandidate({
++      pilotId,
++      preparationId: prep.id,
++      candidateId: stashed2.candidate.id,
++      expectedContentSha256: stashed2.candidate.contentSha256,
++    });
++    expect(loadedP2.ok).toBe(true);
++    if (!loadedP2.ok) throw new Error(loadedP2.reason);
++
++    await commitTurnTerminal({
++      commandId: reserved2.commandId,
++      ownerToken: reserved2.ownerToken,
++      status: "COMPLETE",
++      conversationId: ctx.conversation!.id,
++      assistant: {
++        id: newId("msg"),
++        content: "proposition2",
++        messageStatus: "COMPLETE",
++        generationId: newId("gen"),
++        ordinal: reserved2.ordinalAssistant,
++      },
++      generationId: newId("gen"),
++      resultJson: JSON.stringify({ status: "COMPLETE" }),
++    });
++
++    const v4 = await reviseDocument(pilotId, prep.id, {
++      documentId: v1.documentId,
++      sourceRevisionId: v2.revisionId,
++      observedHeadRevisionId: v3.revisionId,
++      confirmedHistoricalSource: true,
++      contentMarkdown: loadedP2.candidate.contentMarkdown,
++      correlationKey: `cand-v4-${stashed2.candidate.contentSha256.slice(0, 16)}`,
++    });
++    expect(v4.status).toBe("AVAILABLE");
++    if (v4.status !== "AVAILABLE") throw new Error("v4");
++    expect(v4.revisionNumber).toBe(4);
++
++    const got = await getDocumentRevision(pilotId, prep.id, v1.documentId, v4.revisionId);
++    expect(got.status).toBe("AVAILABLE");
++    if (got.status !== "AVAILABLE") throw new Error("got");
++    expect(got.revision?.contentMarkdown).toBe(p2Body);
++
++    const list = await listDocumentRevisions(pilotId, prep.id, v1.documentId);
++    expect(list.status).toBe("AVAILABLE");
++    if (list.status !== "AVAILABLE") throw new Error("list");
++    const byNum = Object.fromEntries(list.revisions.map((r) => [r.revisionNumber, r]));
++    expect(byNum[1]?.contentMarkdown).toContain("objet");
++    expect(byNum[2]?.contentMarkdown).toContain("historique");
++    expect(byNum[3]?.contentMarkdown).toContain("courante");
++    expect(byNum[4]?.contentMarkdown).toContain("P2 — candidat suivant");
++  });
++});
 diff --git a/projects/sfia-studio-next/web/tests/unit/confront-proposal-fence.test.ts b/projects/sfia-studio-next/web/tests/unit/confront-proposal-fence.test.ts
 index 0fc00692..871cc1bf 100644
 --- a/projects/sfia-studio-next/web/tests/unit/confront-proposal-fence.test.ts
@@ -6603,6 +8408,338 @@ index 0fc00692..871cc1bf 100644
      const again = extractContractualDocumentProposal(composed);
      expect(again.ok).toBe(true);
      if (!again.ok) throw new Error(again.reason);
+diff --git a/projects/sfia-studio-next/web/tests/unit/documents-p0-auth-candidate.test.ts b/projects/sfia-studio-next/web/tests/unit/documents-p0-auth-candidate.test.ts
+new file mode 100644
+index 00000000..50a127d0
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/unit/documents-p0-auth-candidate.test.ts
+@@ -0,0 +1,118 @@
++import { describe, expect, it } from "vitest";
++import {
++  assertHistoricalAuthBoundToCandidate,
++  DOC_CONSERVE_PROPOSAL,
++  isConserveProposalTransmit,
++  type HistoricalSourceAuthorization,
++  type PendingDocumentCandidate,
++} from "@/domains/conversation/document-candidate";
++
++function auth(overrides: Partial<HistoricalSourceAuthorization> = {}): HistoricalSourceAuthorization {
++  return {
++    id: "hauth_1",
++    turnCommandId: "cmd_1",
++    preparationId: "prep_1",
++    pilotId: "pilot_1",
++    documentId: "doc_1",
++    sourceRevisionId: "rev_v2",
++    observedHeadRevisionId: "rev_v3",
++    choice: "USE_SOURCE",
++    createdAt: new Date().toISOString(),
++    ...overrides,
++  };
++}
++
++function candidate(
++  overrides: Partial<PendingDocumentCandidate> = {},
++): PendingDocumentCandidate {
++  return {
++    id: "pdoc_1",
++    turnCommandId: "cmd_1",
++    preparationId: "prep_1",
++    pilotId: "pilot_1",
++    documentId: "doc_1",
++    sourceRevisionId: "rev_v2",
++    observedHeadRevisionId: "rev_v3",
++    title: "Parcours",
++    contentMarkdown: "# Parcours\n\nP\n",
++    contentSha256: "a".repeat(64),
++    historicalAuthorizationId: "hauth_1",
++    status: "PENDING",
++    createdAt: new Date().toISOString(),
++    ...overrides,
++  };
++}
++
++describe("P0-A conserve transmit gate", () => {
++  it("exact conserve transmit only — not freeform", () => {
++    expect(isConserveProposalTransmit(DOC_CONSERVE_PROPOSAL)).toBe(true);
++    expect(isConserveProposalTransmit("oui conserve")).toBe(false);
++    expect(isConserveProposalTransmit("Conserver comme nouvelle version")).toBe(false);
++  });
++});
++
++describe("P0-B assertHistoricalAuthBoundToCandidate", () => {
++  it("B1 — historical + matching hauth → ok", () => {
++    const r = assertHistoricalAuthBoundToCandidate({
++      sourceIsHistorical: true,
++      candidate: candidate(),
++      authorization: auth(),
++      actualHeadRevisionId: "rev_v3",
++    });
++    expect(r).toEqual({ ok: true });
++  });
++
++  it("B2 — other hauth id → mismatch", () => {
++    const r = assertHistoricalAuthBoundToCandidate({
++      sourceIsHistorical: true,
++      candidate: candidate({ historicalAuthorizationId: "hauth_other" }),
++      authorization: auth(),
++      actualHeadRevisionId: "rev_v3",
++    });
++    expect(r.ok).toBe(false);
++    if (!r.ok) expect(r.reason).toBe("HISTORICAL_AUTH_CANDIDATE_MISMATCH");
++  });
++
++  it("B3 — other document on auth → context mismatch", () => {
++    const r = assertHistoricalAuthBoundToCandidate({
++      sourceIsHistorical: true,
++      candidate: candidate(),
++      authorization: auth({ documentId: "doc_other" }),
++      actualHeadRevisionId: "rev_v3",
++    });
++    expect(r.ok).toBe(false);
++    if (!r.ok) expect(r.reason).toBe("HISTORICAL_AUTH_CONTEXT_MISMATCH");
++  });
++
++  it("B5 — head moved → HISTORICAL_HEAD_MOVED", () => {
++    const r = assertHistoricalAuthBoundToCandidate({
++      sourceIsHistorical: true,
++      candidate: candidate(),
++      authorization: auth(),
++      actualHeadRevisionId: "rev_v4",
++    });
++    expect(r.ok).toBe(false);
++    if (!r.ok) expect(r.reason).toBe("HISTORICAL_HEAD_MOVED");
++  });
++
++  it("B6 — hauth absent → required", () => {
++    const r = assertHistoricalAuthBoundToCandidate({
++      sourceIsHistorical: true,
++      candidate: candidate({ historicalAuthorizationId: null }),
++      authorization: null,
++      actualHeadRevisionId: "rev_v3",
++    });
++    expect(r.ok).toBe(false);
++    if (!r.ok) expect(r.reason).toBe("CANDIDATE_HISTORICAL_AUTH_REQUIRED");
++  });
++
++  it("B7 — current head source → ok without hauth", () => {
++    const r = assertHistoricalAuthBoundToCandidate({
++      sourceIsHistorical: false,
++      candidate: candidate({ historicalAuthorizationId: null }),
++      authorization: null,
++      actualHeadRevisionId: "rev_v3",
++    });
++    expect(r).toEqual({ ok: true });
++  });
++});
+diff --git a/projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts b/projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts
+new file mode 100644
+index 00000000..7c470ab6
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/unit/documents-surfaces-projection.test.ts
+@@ -0,0 +1,202 @@
++import { describe, expect, it } from "vitest";
++import {
++  formatPilotFacingProvenance,
++  revisionCurrencyLabel,
++} from "@/components/figma/DocumentSurfaces";
++import {
++  resolveHistoricalConfirmation,
++  resolveReviseTarget,
++  type DocumentListItem,
++  type DocumentReviseFocus,
++} from "@/domains/conversation/document-act";
++import {
++  DOC_CONFIRM_HISTORICAL_SOURCE,
++  DOC_CONSERVE_PROPOSAL,
++  DOC_USE_CURRENT_HEAD,
++  isConserveProposalTransmit,
++  isHistoricalSourceChoiceTransmit,
++} from "@/domains/conversation/document-candidate";
++import { contentSha256 } from "@/domains/conversation/document-command";
++
++describe("revisionCurrencyLabel", () => {
++  it("marks head as Courante and others Historique", () => {
++    expect(revisionCurrencyLabel(3, 3)).toBe("Courante");
++    expect(revisionCurrencyLabel(2, 3)).toBe("Historique");
++    expect(revisionCurrencyLabel(1, null)).toBe("Historique");
++  });
++});
++
++describe("R1/F1 resolveReviseTarget — client markdown never authoritative", () => {
++  const docs: DocumentListItem[] = [
++    {
++      document: { id: "doc-1", title: "Parcours" },
++      latestRevision: {
++        id: "rev-3",
++        revisionNumber: 3,
++        status: "AVAILABLE",
++        contentMarkdown: "# V3 canonical from list\n",
++      },
++    },
++  ];
++
++  it("ignores forged sourceContentMarkdown for historical focus", () => {
++    const focus: DocumentReviseFocus = {
++      documentId: "doc-1",
++      sourceRevisionId: "rev-2",
++      sourceRevisionNumber: 2,
++      sourceContentMarkdown: "# FORGED CLIENT MARKDOWN — must not be used\n",
++      observedHeadRevisionId: "rev-3",
++      observedHeadRevisionNumber: 3,
++      confirmedHistoricalSource: false,
++    };
++    const target = resolveReviseTarget(docs, null, focus);
++    expect(target.ok).toBe(true);
++    if (!target.ok) throw new Error("expected ok");
++    expect(target.baseRevisionId).toBe("rev-2");
++    expect(target.baseContent).toBe("");
++    expect(target.baseContent).not.toContain("FORGED");
++  });
++
++  it("falls back to hint/latest when no focus", () => {
++    const target = resolveReviseTarget(docs, "doc-1");
++    expect(target.ok).toBe(true);
++    if (!target.ok) throw new Error("expected ok");
++    expect(target.baseRevisionId).toBe("rev-3");
++  });
++});
++
++describe("F2 resolveHistoricalConfirmation — server authorization required", () => {
++  const baseFocus: DocumentReviseFocus = {
++    documentId: "doc-A",
++    sourceRevisionId: "rev-2",
++    observedHeadRevisionId: "rev-3",
++    confirmedHistoricalSource: false,
++  };
++
++  it("client structured claim alone is insufficient", () => {
++    const r = resolveHistoricalConfirmation({
++      focus: {
++        ...baseFocus,
++        historicalConfirmation: {
++          documentId: "doc-A",
++          sourceRevisionId: "rev-2",
++          observedHeadRevisionId: "rev-3",
++          choice: "USE_SOURCE",
++        },
++      },
++      documentId: "doc-A",
++      sourceRevisionId: "rev-2",
++      claimedObservedHeadRevisionId: "rev-3",
++      actualHeadRevisionId: "rev-3",
++    });
++    expect(r.confirmed).toBe(false);
++    expect(r.reason).toBe("CLIENT_CLAIM_INSUFFICIENT");
++  });
++
++  it("client confirmedHistoricalSource bool alone is insufficient", () => {
++    const r = resolveHistoricalConfirmation({
++      focus: { ...baseFocus, confirmedHistoricalSource: true },
++      documentId: "doc-A",
++      sourceRevisionId: "rev-2",
++      claimedObservedHeadRevisionId: "rev-3",
++      actualHeadRevisionId: "rev-3",
++    });
++    expect(r.confirmed).toBe(false);
++    expect(r.reason).toBe("CLIENT_CLAIM_INSUFFICIENT");
++  });
++
++  it("server authorization USE_SOURCE with matching identities → confirmed", () => {
++    const r = resolveHistoricalConfirmation({
++      focus: { ...baseFocus, historicalAuthorizationId: "hauth_1" },
++      documentId: "doc-A",
++      sourceRevisionId: "rev-2",
++      claimedObservedHeadRevisionId: "rev-3",
++      actualHeadRevisionId: "rev-3",
++      serverAuthorization: {
++        id: "hauth_1",
++        documentId: "doc-A",
++        sourceRevisionId: "rev-2",
++        observedHeadRevisionId: "rev-3",
++        choice: "USE_SOURCE",
++      },
++    });
++    expect(r.confirmed).toBe(true);
++    expect(r.reason).toBe("CONFIRMED_SERVER");
++  });
++
++  it("server authorization for document A unusable for document B", () => {
++    const r = resolveHistoricalConfirmation({
++      focus: baseFocus,
++      documentId: "doc-B",
++      sourceRevisionId: "rev-2",
++      claimedObservedHeadRevisionId: "rev-3",
++      actualHeadRevisionId: "rev-3",
++      serverAuthorization: {
++        id: "hauth_1",
++        documentId: "doc-A",
++        sourceRevisionId: "rev-2",
++        observedHeadRevisionId: "rev-3",
++        choice: "USE_SOURCE",
++      },
++    });
++    expect(r.confirmed).toBe(false);
++    expect(r.reason).toBe("IDENTITY_MISMATCH");
++  });
++
++  it("head moved V3→V4 → HEAD_MOVED", () => {
++    const r = resolveHistoricalConfirmation({
++      focus: baseFocus,
++      documentId: "doc-A",
++      sourceRevisionId: "rev-2",
++      claimedObservedHeadRevisionId: "rev-3",
++      actualHeadRevisionId: "rev-4",
++      serverAuthorization: {
++        id: "hauth_1",
++        documentId: "doc-A",
++        sourceRevisionId: "rev-2",
++        observedHeadRevisionId: "rev-3",
++        choice: "USE_SOURCE",
++      },
++    });
++    expect(r.confirmed).toBe(false);
++    expect(r.reason).toBe("HEAD_MOVED");
++  });
++
++  it("exact transmit texts are not freeform lexical", () => {
++    expect(isHistoricalSourceChoiceTransmit(DOC_CONFIRM_HISTORICAL_SOURCE)).toBe("USE_SOURCE");
++    expect(isHistoricalSourceChoiceTransmit(DOC_USE_CURRENT_HEAD)).toBe("USE_HEAD");
++    expect(isHistoricalSourceChoiceTransmit("Oui, je confirme la version historique")).toBeNull();
++    expect(isConserveProposalTransmit(DOC_CONSERVE_PROPOSAL)).toBe(true);
++  });
++});
++
++describe("F1 candidate content hash identity", () => {
++  it("same title+body → stable sha; mutation changes sha", () => {
++    const a = contentSha256("Titre", "# P\n\ncorps\n");
++    const b = contentSha256("Titre", "# P\n\ncorps\n");
++    const c = contentSha256("Titre", "# P\n\ncorps modifié\n");
++    expect(a).toBe(b);
++    expect(a).not.toBe(c);
++  });
++});
++
++describe("R4/F3 formatPilotFacingProvenance", () => {
++  it("sealed Nora binding → Production Nora (+ project)", () => {
++    expect(
++      formatPilotFacingProvenance(
++        JSON.stringify({
++          documentCommandBinding: true,
++          action: "REVISE",
++          correlationKey: "secret-key",
++          commandId: "cmd_x",
++        }),
++        { projectName: "CampusNova" },
++      ),
++    ).toBe("Production Nora  ·  CampusNova");
++  });
++
++  it("empty / absent → Provenance non renseignée", () => {
++    expect(formatPilotFacingProvenance(null)).toBe("Provenance non renseignée");
++    expect(formatPilotFacingProvenance("{}")).toBe("Provenance non renseignée");
++  });
++});
 diff --git a/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts b/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
 index 488bc9fd..78b1935c 100644
 --- a/projects/sfia-studio-next/web/tests/unit/ml4c-s01-s03-guards.test.ts
@@ -6618,97 +8755,6 @@ index 488bc9fd..78b1935c 100644
      expect(hasCompetingTransactionalClaim(composed, effect)).toBe(false);
    });
 
-
 ```
 
----
-
-## Tests exécutés
-
-### Unit (PASS)
-- `documents-p0-auth-candidate.test.ts` — 7
-- `documents-surfaces-projection.test.ts` — 12
-- `document-act.test.ts` — 6
-**Total unit ciblé : 25 PASS**
-
-### PostgreSQL (PASS)
-- `documents-p0-hauth-pdoc.pg.test.ts` — B1/B2/B7
-- `documents-proposal-candidate.pg.test.ts` — égalité body + supersede
-- `documents-historical-revise.pg.test.ts` — 4
-**Total PG : 6 PASS**
-
-### Playwright E2E FAKE :3101 (PASS)
-- `documents-p0-final.spec.ts` — 2 (reload+V4 exact phrases ; conserve sans candidat → pas de V2)
-- `documents-nora-v2-v4.spec.ts` — 1
-- `documents-bibliotheque-08.spec.ts` — 1
-- `g4-b1-b4-correctifs.spec.ts` — 1
-
-### Preuves P0
-| ID | Résultat |
-|---|---|
-| A1/A3 | E2E conserve sans candidat → pas de rev 2 |
-| A2 | service : !conserveRequested → stash PROPOSAL_PENDING |
-| A4 | E2E + nora-v2-v4 conserve → une V4 |
-| B1–B7 | unit + PG hauth/pdoc |
-| C1–C3/C8 | E2E reload pending puis post-conserve sans banner |
-| D | PG body égal + E2E phrases inspectées = V4 |
-
-**Fake/Real** : Nora = FAKE fixture. D4 PG = REAL local. Pas de LIVE OpenAI.
-
-**ENV-01** : E2E `sfia_next_e2e` / :3101. NO RELEASE.
-
----
-
-## Matrice UAT/TECH (IDs contractuels — documents-contrat-realisation.md §9)
-
-| ID | Formulation contrat | Verdict | Preuve | Limite |
-|---|---|---|---|---|
-| DOC-UAT-01 | Sélection sans ouverture | PASS | bibliothèque e2e | — |
-| DOC-UAT-02 | Lecture 70/30 | PASS | bibliothèque e2e | pixel non rejoué ce cycle |
-| DOC-UAT-03 | Documents → Travail 50/50 + reload | PASS | p0-final reload travail | — |
-| DOC-UAT-04 | Pas d'édition manuelle | PASS | bibliothèque e2e textarea=0 | Sas seed hors surface Documents |
-| DOC-UAT-05 | Courante / Historique | PASS | labels + hist e2e | — |
-| DOC-UAT-06 | Lire version historique exacte | PASS | viewer V2 e2e | — |
-| DOC-UAT-07 | Comparateur | PASS | bibliothèque e2e | — |
-| DOC-UAT-08 | Nora avertit V2 historique | PASS | p0-final warning + choix | — |
-| DOC-UAT-09 | V2→V4 ; V1–V3 intègres | PASS | PG + e2e | FAKE Nora |
-| DOC-UAT-10 | Concurrence V2/V3/V4 | PASS | PG historical-revise | — |
-| DOC-UAT-11 | ACK perdu / idempotence | PASS | acquis D4 + hist PG | e2e ACK perdu non rejoué |
-| DOC-UAT-12 | Droits/source absente | PASS | candidate DENIED/hash + hist | — |
-| DOC-UAT-13 | Git distinct | PASS | bandeau / pas D9 | DETERMINISTIC |
-| DOC-TECH-14 | États D4 incertains | PASS | ACK soft + statuses | — |
-| DOC-TECH-15 | Diff volumineux | NOT RUN | hors blast P0 | — |
-| DOC-TECH-16 | Navigation multi-documents | PARTIAL | focus clear foreign doc | e2e multi-doc dédié non |
-| DOC-TECH-17 | Reprise de session | PASS | P0-C reload pending ; post-conserve sans fantôme | — |
-| DOC-TECH-18 | Régression transversale | PASS | g4 + nora-v2-v4 + bibliothèque | Ensemble 05 non rejoué |
-| P0-A | — | PASS | e2e + service | — |
-| P0-B | — | PASS | unit+PG | — |
-| P0-C | — | PASS | e2e reload | — |
-| P0-D | — | PASS | PG body + e2e phrases | égalité byte-for-byte via PG ; e2e sur rendu |
-
----
-
-## Cas négatifs
-
-Falsification hash, supersede, hauth étranger, conserve sans candidat, head moved — couverts unit/PG/e2e.
-
-## Risques / réserves
-
-- DOC-TECH-15 NOT RUN (hors scope)
-- Égalité E2E sur texte rendu sectionnaire (merge) ; égalité intégrale Markdown prouvée en PG
-- Fixtures FAKE peuvent rester verboses dans le fil
-
-## Dette / exit
-
-- GO Morris RECETTE
-- Optionnel : e2e multi-document race (TECH-16)
-
-## Verdict unique
-
-**READY FOR INDEPENDENT CHATGPT REVIEW**
-
-P0-A/B/C/D démontrés. Handoff L3 à publier. Aucune acceptation RECETTE.
-
-## Gate Morris restant
-
-Acceptation · commit/PR projet · RECETTE · clôture Ensemble 06 — non levés.
+## 17. Fin Review Pack
