@@ -12,9 +12,9 @@ const HERO: Record<
   { kicker: string; title: string; sub: string }
 > = {
   travail: {
-    kicker: "Espace projet  /  Travail",
-    title: "Reprendre le fil du projet",
-    sub: "La préparation et les échanges avec Nora restent dans le contexte de ce projet.",
+    kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
+    title: "Réviser un document avec Nora",
+    sub: "Le chat reste à gauche ; le document sélectionné s’ouvre dans la visionneuse à droite.",
   },
   projet: {
     kicker: "Espace projet  /  Projet",
@@ -32,9 +32,9 @@ const HERO: Record<
     sub: "La mémoire du projet, organisée par thèmes. Retrouvez l’essentiel sans remonter toute la conversation.",
   },
   document: {
-    kicker: "Espace projet  /  Documents Nora",
-    title: "Bibliothèque",
-    sub: "Bibliothèque, inspection et révision sous autorité D4.",
+    kicker: "ESPACE PROJET  /  DOCUMENTS",
+    title: "Bibliothèque du projet",
+    sub: "Retrouvez les documents durables du projet, leurs versions et les actions disponibles.",
   },
   git: {
     kicker: "Espace projet  /  Sources Git",
@@ -58,10 +58,19 @@ export function ProjectChrome(props: {
   loadState?: "loading" | "ready";
   /** Ensemble 05 — Travail layout: normal | split (viewer) | enlarged viewer. */
   travailLayout?: "normal" | "split" | "enlarged";
+  /** Documents sub-views (08.02–08.06) — overrides default Bibliothèque hero. */
+  documentHero?: { kicker: string; title: string; sub: string } | null;
+  /** Travail states 08.07 / 08.08 — overrides default Travail hero. */
+  travailHero?: { kicker: string; title: string; sub: string } | null;
   children: React.ReactNode;
 }) {
   const loadState = props.loadState ?? "ready";
-  const hero = HERO[props.surface];
+  const hero =
+    props.surface === "document" && props.documentHero
+      ? props.documentHero
+      : props.surface === "travail" && props.travailHero
+        ? props.travailHero
+        : HERO[props.surface];
   const surfaceLabel = PROJECT_SURFACE_LABELS[props.surface];
   const displayName = props.projectName?.trim() || "Projet";
   const isTravail = props.surface === "travail";

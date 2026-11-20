@@ -4,6 +4,25 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-20-ENSEMBLE06-JOURNAL-DOCS-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-20 ~01:30 CET |
+| Macro-lot | Ensemble 06 — intégration Bibliothèque Documents dans RECETTE Journal V4 |
+| Type | Cycle 08 Delivery / Intégration / Mise en recette · **NO RELEASE** · **NO PRODUCT PUSH** |
+| GO Morris | Continuité Ensemble 06 · même RECETTE `:3200` · Journal V4 accepté + Documents |
+| Base Journal | `5f6e2f3860993acd35d176f60e6a7f0ca69d3a3d` |
+| Source Documents | WT dirty sur `6516c7b56ec61bd72943ae0d26e625bf21139d4e` (+ P0/F1–F5) |
+| Candidate branch | `sfia/next-ensemble06-journal-docs-recette-20261120` (local only) |
+| HEAD | `SEE_GIT_HEAD` · tree `SEE_GIT_TREE` · BUILD `yZFSZj_l8dncTBQcWdP4c` |
+| Merge | 3-way Journal∩Documents · TAKE_DOCS hors conflit · TravailViewer/NoraConversation fixes intégration |
+| DB | `sfia_next_recette_ml4` @:5434 · **aucune migration structurante** · 014 déjà appliquée |
+| Backup | `.tmp-sfia-review/recette-backup-20261120T001915Z/` · rollback code → `5f6e2f38` |
+| Tests | tsc · unit docs+journal · PG docs+journal · e2e docs 08/nora/p0 · e2e journal-v4-parcours |
+| Verdict Cursor | voir manifeste + Review Pack |
+
+
 ## delivery_id: DELIV-2026-11-19-LIVE-PROSE-SOFT-TARGET-2000
 
 | Field | Value |

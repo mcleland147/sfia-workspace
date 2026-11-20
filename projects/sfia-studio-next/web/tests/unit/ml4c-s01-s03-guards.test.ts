@@ -56,8 +56,8 @@ describe("ML4C S03 continueAfter composition — document ACK", () => {
       status: "COMPLETED",
       restitution: "DELIVERED",
     });
-    expect(composed).toMatch(/Résultat applicatif D4/i);
-    expect(composed).toMatch(/AVAILABLE/);
+    expect(composed).toMatch(/Résultat d'enregistrement/i);
+    expect(composed).toMatch(/Nouvelle version disponible\s*:\s*v1/i);
     expect(hasCompetingTransactionalClaim(composed, effect)).toBe(false);
   });
 

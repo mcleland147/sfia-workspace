@@ -44,7 +44,11 @@ export type DocumentCommandBinding = {
   source: DocumentCommandSource;
   preparationId: string;
   documentId: string | null;
+  /** Drafting source (legacy field; equals sourceRevisionId when historical protocol used). */
   baseRevisionId: string | null;
+  sourceRevisionId?: string | null;
+  observedHeadRevisionId?: string | null;
+  confirmedHistoricalSource?: boolean;
   title: string;
   contentMarkdown: string;
   contentSha256: string;
@@ -71,10 +75,17 @@ export function payloadSha256(parts: {
   preparationId: string;
   documentId: string | null;
   baseRevisionId: string | null;
+  sourceRevisionId?: string | null;
+  observedHeadRevisionId?: string | null;
+  confirmedHistoricalSource?: boolean;
   sectionHint?: string | null;
   title: string;
   contentSha256: string;
 }): string {
+  const historical =
+    parts.sourceRevisionId != null ||
+    parts.observedHeadRevisionId != null ||
+    parts.confirmedHistoricalSource === true;
   const canonical = JSON.stringify({
     schemaVersion: DOCUMENT_COMMAND_BINDING_SCHEMA_VERSION,
     action: parts.action,
@@ -82,6 +93,13 @@ export function payloadSha256(parts: {
     preparationId: parts.preparationId,
     documentId: parts.documentId,
     baseRevisionId: parts.baseRevisionId,
+    ...(historical
+      ? {
+          sourceRevisionId: parts.sourceRevisionId ?? parts.baseRevisionId,
+          observedHeadRevisionId: parts.observedHeadRevisionId ?? null,
+          confirmedHistoricalSource: parts.confirmedHistoricalSource === true,
+        }
+      : {}),
     sectionHint: parts.sectionHint ?? null,
     title: parts.title,
     contentSha256: parts.contentSha256,
@@ -503,6 +521,9 @@ export function admitDocumentCommand(input: {
   preparationId: string;
   documentId?: string | null;
   baseRevisionId?: string | null;
+  sourceRevisionId?: string | null;
+  observedHeadRevisionId?: string | null;
+  confirmedHistoricalSource?: boolean;
   sectionHint?: string | null;
   source: DocumentCommandSource;
   title: string;
@@ -520,16 +541,28 @@ export function admitDocumentCommand(input: {
   if (!input.userMessageId || !input.qualifiedIntentId) {
     return { ok: false, verdict: "NOT_EXECUTED", reason: "MISSING_IDENTITIES" };
   }
-  if (input.action === "REVISE" && (!input.documentId || !input.baseRevisionId)) {
+  const sourceRevisionId = input.sourceRevisionId ?? input.baseRevisionId ?? null;
+  if (input.action === "REVISE" && (!input.documentId || !sourceRevisionId)) {
     return { ok: false, verdict: "NOT_EXECUTED", reason: "REVISE_TARGET_INCOMPLETE" };
   }
   const { title, contentMarkdown, contentSha256: cSha } = canonical.proposal;
+  const useHistorical =
+    input.sourceRevisionId != null ||
+    input.observedHeadRevisionId != null ||
+    input.confirmedHistoricalSource === true;
   const pSha = payloadSha256({
     action: input.action,
     source: input.source,
     preparationId: input.preparationId,
     documentId: input.documentId ?? null,
-    baseRevisionId: input.baseRevisionId ?? null,
+    baseRevisionId: sourceRevisionId,
+    ...(useHistorical
+      ? {
+          sourceRevisionId,
+          observedHeadRevisionId: input.observedHeadRevisionId ?? null,
+          confirmedHistoricalSource: input.confirmedHistoricalSource === true,
+        }
+      : {}),
     sectionHint: input.sectionHint,
     title,
     contentSha256: cSha,
@@ -557,7 +590,14 @@ export function admitDocumentCommand(input: {
       source: input.source,
       preparationId: input.preparationId,
       documentId: input.documentId ?? null,
-      baseRevisionId: input.baseRevisionId ?? null,
+      baseRevisionId: sourceRevisionId,
+      ...(useHistorical
+        ? {
+            sourceRevisionId,
+            observedHeadRevisionId: input.observedHeadRevisionId ?? null,
+            confirmedHistoricalSource: input.confirmedHistoricalSource === true,
+          }
+        : {}),
       title,
       contentMarkdown,
       contentSha256: cSha,
@@ -607,9 +647,19 @@ export async function sealAndApplyDocumentCommand(input: {
     return { sealApplied: true, effect };
   }
 
+  const sourceRevisionId =
+    input.binding.sourceRevisionId ?? input.binding.baseRevisionId!;
+  const observedHeadRevisionId = input.binding.observedHeadRevisionId ?? undefined;
+  const historical =
+    Boolean(observedHeadRevisionId) &&
+    observedHeadRevisionId !== sourceRevisionId;
   const effect = await reviseDocument(input.pilotId, input.binding.preparationId, {
     documentId: input.binding.documentId!,
-    baseRevisionId: input.binding.baseRevisionId!,
+    baseRevisionId: sourceRevisionId,
+    sourceRevisionId,
+    observedHeadRevisionId,
+    confirmedHistoricalSource:
+      input.binding.confirmedHistoricalSource === true || undefined,
     contentMarkdown: input.binding.contentMarkdown,
     correlationKey: input.binding.correlationKey,
     scope: input.binding.sectionHint ? "section" : "document",
@@ -617,7 +667,16 @@ export async function sealAndApplyDocumentCommand(input: {
     turnFence: input.fence,
     expectedTitle: input.binding.title,
     expectedContentSha256: input.binding.contentSha256,
-    provenance: buildSealedProvenance(sealedIdentityFromBinding(input.binding)),
+    provenance: {
+      ...buildSealedProvenance(sealedIdentityFromBinding(input.binding)),
+      ...(historical
+        ? {
+            sourceRevisionId,
+            observedHeadRevisionId,
+            confirmedHistoricalSource: input.binding.confirmedHistoricalSource === true,
+          }
+        : {}),
+    },
   });
   return { sealApplied: true, effect };
 }

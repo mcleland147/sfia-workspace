@@ -78,6 +78,9 @@ export function NoraConversation(props: {
     el.style.overflowY = el.scrollHeight > max ? "auto" : "hidden";
   }, [props.draft]);
 
+  // Include message id order so Journal→Travail highlight rebinds after a same-length
+  // setMessages remount (length-only deps lost data-journal-focus on replaced nodes).
+  const messageIdsKey = props.messages.map((m) => m.id).join("\0");
   useEffect(() => {
     const targetId = props.focusMessageId?.trim();
     if (!targetId) return;
@@ -93,7 +96,7 @@ export function NoraConversation(props: {
       if (!node) {
         attempts += 1;
         // Wait for async insert / paint — do not clear focus on first miss (avoids landing on last message).
-        if (attempts < 24) {
+        if (attempts < 40) {
           window.setTimeout(tryFocus, 50);
           return;
         }
@@ -116,7 +119,7 @@ export function NoraConversation(props: {
       if (highlightTimer) window.clearTimeout(highlightTimer);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.focusMessageId, props.messages.length]);
+  }, [props.focusMessageId, messageIdsKey]);
 
   const projectionByMessage = new Map(
     (props.projections ?? []).map((p) => [p.messageId ?? "", p]),

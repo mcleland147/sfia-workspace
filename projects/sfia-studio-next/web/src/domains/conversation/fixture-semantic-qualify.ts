@@ -120,6 +120,9 @@ function effect(
     replyDraft: reply,
     preparationAssessment: extras?.preparationAssessment,
     preparationAssessmentExplanation: extras?.preparationAssessmentExplanation,
+    continueChoices: extras?.continueChoices,
+    resourceReferences: extras?.resourceReferences,
+    visualComposition: extras?.visualComposition,
   };
 }
 
@@ -1862,6 +1865,114 @@ register(
   ),
 );
 
+
+/** Ensemble 06 Documents — historical base warning (F4 / 930:9). */
+register(
+  "Je veux repartir de la version historique sélectionnée — confirme la base.",
+  dialogue(
+    "Confirmation de base historique",
+    "Attention : tu consultes une version historique. Une version plus récente existe déjà. Souhaites-tu repartir du contenu historique pour préparer une nouvelle version, ou utiliser la version courante comme base ?",
+    ["NO_EFFECT", "DOC_HISTORICAL_BASE"],
+    {
+      omitClarifications: true,
+      continueChoices: [
+        {
+          id: "hist-use-source",
+          label: "Repartir de la version historique",
+          transmitText: "DOC_CONFIRM_HISTORICAL_SOURCE",
+        },
+        {
+          id: "hist-use-head",
+          label: "Partir de la version courante",
+          transmitText: "DOC_USE_CURRENT_HEAD",
+        },
+      ],
+    },
+  ),
+);
+
+register(
+  "DOC_CONFIRM_HISTORICAL_SOURCE",
+  dialogue(
+    "Base historique confirmée",
+    "D’accord — nous repartons de la version historique sélectionnée. Aucune nouvelle version n’est enregistrée tant que tu n’as pas demandé la conservation d’une proposition.",
+    ["NO_EFFECT", "DOC_HISTORICAL_CONFIRMED"],
+    { omitClarifications: true, continueChoices: [] },
+  ),
+);
+
+register(
+  "DOC_USE_CURRENT_HEAD",
+  dialogue(
+    "Base courante choisie",
+    "D’accord — nous utilisons la version courante comme base. Aucune version historique n’est écrasée.",
+    ["NO_EFFECT", "DOC_HEAD_CHOSEN"],
+    { omitClarifications: true, continueChoices: [] },
+  ),
+);
+
+/** Ensemble 06 Documents — revise proposal then explicit conserve (FAKE fixture lane). */
+register(
+  "Je souhaite clarifier les responsabilités entre les trois centres.",
+  {
+    ...effect(
+      "Réviser document — proposition",
+      "Je propose cette formulation. Elle utilise la base choisie et ne remplace pas la version courante tant que tu n’as pas demandé la conservation.\n\n```sfia-document\n# Parcours de réservation et responsabilités\n\n## Responsabilités\n\nChaque centre valide ses disponibilités ; le coordinateur consolide les ressources communes ; le demandeur reçoit une confirmation tracée.\n```\n",
+      [
+        {
+          capabilityId: "d4.revise_document",
+          mode: "REQUEST_EFFECT",
+          summary: "Réviser les responsabilités",
+          parameters: { sectionHint: "Responsabilités" },
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+      {
+        continueChoices: [
+          {
+            id: "conserve",
+            label: "Conserver comme nouvelle version",
+            transmitText:
+              "Conserver comme nouvelle version la proposition documentaire préparée.",
+          },
+        ],
+      },
+    ),
+    documentProposal: {
+      title: "Parcours de réservation et responsabilités",
+      contentMarkdown:
+        "# Parcours de réservation et responsabilités\n\n## Responsabilités\n\nChaque centre valide ses disponibilités ; le coordinateur consolide les ressources communes ; le demandeur reçoit une confirmation tracée.\n",
+    },
+  },
+);
+
+register(
+  "Conserver comme nouvelle version la proposition documentaire préparée.",
+  {
+    ...effect(
+      "Conserver proposition documentaire",
+      "Proposition conservée comme nouvelle version documentaire — après contrôle D4 de la tête observée.",
+      [
+        {
+          capabilityId: "d4.revise_document",
+          mode: "REQUEST_EFFECT",
+          summary: "Conserver la proposition comme nouvelle version",
+          parameters: {},
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+    ),
+    documentProposal: {
+      title: "Parcours de réservation et responsabilités",
+      contentMarkdown:
+        "# Parcours de réservation et responsabilités\n\n## Responsabilités\n\nChaque centre valide ses disponibilités ; le coordinateur consolide les ressources communes ; le demandeur reçoit une confirmation tracée.\n",
+    },
+  },
+);
 
 /** Short TEST_BOUNDARY keys for e2e (exact match, same envelopes as the natural utterances). */
 for (const [short, long] of [

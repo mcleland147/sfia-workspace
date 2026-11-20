@@ -361,7 +361,8 @@ describe("P3 ACK + fence integrity", () => {
       reason: "PROPOSAL_SOURCE_CONFLICT",
     });
     expect(composed).not.toMatch(/Studio a exécuté l'acte documentaire/);
-    expect(composed).toMatch(/NOT_EXECUTED/);
+    expect(composed).toMatch(/Aucun enregistrement documentaire/i);
+    expect(composed).not.toMatch(/NOT_EXECUTED/);
     const again = extractContractualDocumentProposal(composed);
     expect(again.ok).toBe(true);
     if (!again.ok) throw new Error(again.reason);

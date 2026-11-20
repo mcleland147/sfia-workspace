@@ -34,6 +34,26 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
       correlationKey?: string;
       clientTurnKey?: string;
       unresolvedPendingClientTurnKey?: string;
+      documentFocus?: {
+        documentId: string;
+        sourceRevisionId: string;
+        sourceRevisionNumber?: number;
+        /** Client body ignored by server drafting authority (R1). */
+        sourceContentMarkdown?: string;
+        observedHeadRevisionId: string;
+        observedHeadRevisionNumber?: number;
+        confirmedHistoricalSource?: boolean;
+        historicalConfirmation?: {
+          documentId: string;
+          sourceRevisionId: string;
+          observedHeadRevisionId: string;
+          choice: "USE_SOURCE" | "USE_HEAD" | "REFUSED";
+        };
+        historicalAuthorizationId?: string;
+        conserveProposal?: boolean;
+        pendingCandidateId?: string;
+        pendingCandidateContentSha256?: string;
+      } | null;
     };
     if (!body.content?.trim()) {
       return NextResponse.json(
@@ -49,6 +69,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
         correlationKey: body.correlationKey,
         clientTurnKey: body.clientTurnKey ?? body.correlationKey,
         unresolvedPendingClientTurnKey: body.unresolvedPendingClientTurnKey,
+        documentFocus: body.documentFocus ?? null,
         requestId,
       },
     );

@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, sql } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import { documentRevisions, documents } from "@/db/schema";
 import { newId } from "@/lib/ids";
@@ -822,15 +822,28 @@ export async function savePreparationDocument(
 }
 
 /**
- * Targeted non-destructive revision with atomic base-revision control.
- * Document row FOR UPDATE serializes concurrent successors of the same base.
+ * Targeted non-destructive revision with atomic concurrency control.
+ * Document row FOR UPDATE serializes successors.
+ *
+ * Protocol:
+ * - Legacy (baseRevisionId only): source must equal current AVAILABLE head (BASE_STALE otherwise).
+ * - Historical-capable: sourceRevisionId (content lineage) + observedHeadRevisionId (concurrency)
+ *   + confirmedHistoricalSource when source ≠ head. New revision number is always monotone
+ *   above the max assigned AVAILABLE head — never renumbered from the source.
  */
 export async function reviseDocument(
   pilotId: string,
   preparationId: string,
   input: {
     documentId: string;
-    baseRevisionId: string;
+    /** Legacy alias: when alone, means both source and observed head. */
+    baseRevisionId?: string;
+    /** Exact revision chosen as drafting source (may be historical). */
+    sourceRevisionId?: string;
+    /** Head AVAILABLE revision observed at confirmation time. */
+    observedHeadRevisionId?: string;
+    /** Required when sourceRevisionId ≠ actual head at commit. */
+    confirmedHistoricalSource?: boolean;
     contentMarkdown: string;
     correlationKey: string;
     scope?: string;
@@ -846,6 +859,24 @@ export async function reviseDocument(
 ) {
   if (input.contentMarkdown.length > MAX_DOC_CHARS) {
     return { status: "FAILED" as const, reason: "content too large" };
+  }
+
+  const sourceRevisionId = input.sourceRevisionId ?? input.baseRevisionId;
+  if (!sourceRevisionId) {
+    return { status: "FAILED" as const, reason: "SOURCE_REVISION_REQUIRED" };
+  }
+
+  const historicalProtocol =
+    Boolean(input.sourceRevisionId) ||
+    Boolean(input.observedHeadRevisionId) ||
+    input.confirmedHistoricalSource === true;
+
+  const observedHeadRevisionId = historicalProtocol
+    ? input.observedHeadRevisionId ?? null
+    : sourceRevisionId;
+
+  if (historicalProtocol && !observedHeadRevisionId) {
+    return { status: "FAILED" as const, reason: "OBSERVED_HEAD_REQUIRED" };
   }
 
   // P0: sealed-invalid REVISE provenance refuses before mutation.
@@ -916,21 +947,49 @@ export async function reviseDocument(
         });
       }
 
-      const base = (
+      const source = (
         await tx
           .select()
           .from(documentRevisions)
           .where(
             and(
-              eq(documentRevisions.id, input.baseRevisionId),
+              eq(documentRevisions.id, sourceRevisionId),
               eq(documentRevisions.documentId, input.documentId),
             ),
           )
           .limit(1)
       )[0];
-      if (!base) return { status: "FAILED" as const, reason: "BASE_NOT_FOUND" };
-      if (base.status !== "AVAILABLE") {
-        return { status: "FAILED" as const, reason: "BASE_NOT_AVAILABLE", baseStatus: base.status };
+      if (!source) return { status: "FAILED" as const, reason: "BASE_NOT_FOUND" };
+      if (source.status !== "AVAILABLE") {
+        return {
+          status: "FAILED" as const,
+          reason: "BASE_NOT_AVAILABLE",
+          baseStatus: source.status,
+        };
+      }
+
+      // Refuse silent commit while a non-terminal revision exists.
+      const nonTerminal = (
+        await tx
+          .select()
+          .from(documentRevisions)
+          .where(
+            and(
+              eq(documentRevisions.documentId, input.documentId),
+              inArray(documentRevisions.status, ["SAVING", "UNKNOWN"]),
+            ),
+          )
+          .limit(1)
+      )[0];
+      if (nonTerminal) {
+        return {
+          status: "FAILED" as const,
+          reason: "HEAD_UNCERTAIN",
+          documentId: input.documentId,
+          actualLatestRevisionId: nonTerminal.id,
+          actualLatestRevisionNumber: nonTerminal.revisionNumber,
+          baseStatus: nonTerminal.status,
+        };
       }
 
       const latest = (
@@ -947,14 +1006,38 @@ export async function reviseDocument(
           .limit(1)
       )[0];
 
-      if (!latest || latest.id !== input.baseRevisionId) {
+      if (!latest) {
         return {
           status: "CONFLICT" as const,
           reason: "BASE_STALE",
           documentId: input.documentId,
-          expectedBaseRevisionId: input.baseRevisionId,
-          actualLatestRevisionId: latest?.id ?? null,
-          actualLatestRevisionNumber: latest?.revisionNumber ?? null,
+          expectedBaseRevisionId: observedHeadRevisionId ?? sourceRevisionId,
+          actualLatestRevisionId: null,
+          actualLatestRevisionNumber: null,
+        };
+      }
+
+      const expectedHeadId = observedHeadRevisionId ?? sourceRevisionId;
+      if (latest.id !== expectedHeadId) {
+        return {
+          status: "CONFLICT" as const,
+          reason: "BASE_STALE",
+          documentId: input.documentId,
+          expectedBaseRevisionId: expectedHeadId,
+          actualLatestRevisionId: latest.id,
+          actualLatestRevisionNumber: latest.revisionNumber,
+        };
+      }
+
+      const sourceIsHistorical = source.id !== latest.id;
+      if (sourceIsHistorical && input.confirmedHistoricalSource !== true) {
+        return {
+          status: "FAILED" as const,
+          reason: "HISTORICAL_CONFIRMATION_REQUIRED",
+          documentId: input.documentId,
+          expectedBaseRevisionId: source.id,
+          actualLatestRevisionId: latest.id,
+          actualLatestRevisionNumber: latest.revisionNumber,
         };
       }
 
@@ -970,12 +1053,17 @@ export async function reviseDocument(
         revisionNumber,
         contentMarkdown: input.contentMarkdown,
         status: "SAVING",
-        baseRevisionId: input.baseRevisionId,
+        baseRevisionId: source.id,
         correlationKey: input.correlationKey,
         provenanceJson: JSON.stringify({
           ...(input.provenance ?? {}),
           sectionHint: input.sectionHint ?? null,
           contentFingerprint: expectedFp,
+          sourceRevisionId: source.id,
+          observedHeadRevisionId: latest.id,
+          confirmedHistoricalSource: sourceIsHistorical
+            ? true
+            : input.confirmedHistoricalSource === true,
         }),
         scope: input.scope ?? "section",
       });
@@ -989,11 +1077,14 @@ export async function reviseDocument(
         documentId: input.documentId,
         revisionId,
         revisionNumber,
-        baseRevisionId: input.baseRevisionId,
+        baseRevisionId: source.id,
+        sourceRevisionId: source.id,
+        observedHeadRevisionId: latest.id,
+        confirmedHistoricalSource: sourceIsHistorical,
       };
     });
   } catch (e) {
-    // Unique (documentId, revisionNumber) race → treat as conflict if base became stale
+    // Unique (documentId, revisionNumber) race → treat as conflict if head moved
     const msg = e instanceof Error ? e.message : "persist failed";
     if (/unique|duplicate/i.test(msg)) {
       const latest = await latestRevisionFor(input.documentId);
@@ -1001,7 +1092,7 @@ export async function reviseDocument(
         status: "CONFLICT" as const,
         reason: "BASE_STALE",
         documentId: input.documentId,
-        expectedBaseRevisionId: input.baseRevisionId,
+        expectedBaseRevisionId: observedHeadRevisionId ?? sourceRevisionId,
         actualLatestRevisionId: latest?.id ?? null,
         actualLatestRevisionNumber: latest?.revisionNumber ?? null,
       };

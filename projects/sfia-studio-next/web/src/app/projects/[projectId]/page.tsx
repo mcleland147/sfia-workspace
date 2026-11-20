@@ -20,10 +20,14 @@ import {
   type ProjectUnavailableKind,
 } from "@/components/figma/ProjectUnavailable";
 import {
-  DocumentHistory,
-  DocumentInspector,
-  DocumentLibrary,
+  DocumentBibliothequeSurface,
+  DocumentCompareSurface,
+  DocumentHistorySurface,
+  DocumentReadSurface,
+  formatPilotFacingProvenance,
+  type DocumentComparePayload,
   type RevisionRow,
+  revisionCurrencyLabel,
 } from "@/components/figma/DocumentSurfaces";
 import {
   conversationalClientCommandKey,
@@ -76,6 +80,7 @@ type Doc = {
     revisionNumber: number;
     status: string;
     contentMarkdown: string;
+    provenanceJson?: string;
   } | null;
 };
 type Knowledge = {
@@ -101,6 +106,103 @@ type Surface =
   | "git"
   | "publication";
 type DocUiState = "READING" | "EDITING" | "SAVING" | "CONFLICT" | "FAILED" | "UNKNOWN";
+type DocView = "library" | "read" | "history" | "compare";
+type HistoricalSourceConfirmation = {
+  documentId: string;
+  sourceRevisionId: string;
+  observedHeadRevisionId: string;
+  choice: "USE_SOURCE" | "USE_HEAD" | "REFUSED";
+};
+
+type DocumentFocus = {
+  documentId: string;
+  sourceRevisionId: string;
+  sourceRevisionNumber?: number;
+  /** Display/cache only — server never trusts this as drafting authority (R1). */
+  sourceContentMarkdown?: string;
+  observedHeadRevisionId: string;
+  observedHeadRevisionNumber?: number;
+  confirmedHistoricalSource?: boolean;
+  historicalConfirmation?: HistoricalSourceConfirmation;
+  /** F2 — server-issued authorization id (not a client-fabricated claim). */
+  historicalAuthorizationId?: string;
+  /** F1 — set only when Pilot explicitly asks to conserve a sealed candidate. */
+  conserveProposal?: boolean;
+  pendingCandidateId?: string;
+  pendingCandidateContentSha256?: string;
+};
+
+const DOCUMENT_FOCUS_STORAGE_PREFIX = "sfia.docFocus.v1:";
+
+function documentFocusStorageKey(projectId: string, preparationId: string): string {
+  return `${DOCUMENT_FOCUS_STORAGE_PREFIX}${projectId}:${preparationId}`;
+}
+
+function persistDocumentFocus(
+  projectId: string,
+  preparationId: string | null,
+  focus: DocumentFocus | null,
+): void {
+  if (typeof window === "undefined" || !preparationId) return;
+  const key = documentFocusStorageKey(projectId, preparationId);
+  try {
+    if (!focus) {
+      sessionStorage.removeItem(key);
+      return;
+    }
+    // Durable minimal focus — never persist canonical document body as authority.
+    const durable: DocumentFocus = {
+      documentId: focus.documentId,
+      sourceRevisionId: focus.sourceRevisionId,
+      sourceRevisionNumber: focus.sourceRevisionNumber,
+      observedHeadRevisionId: focus.observedHeadRevisionId,
+      observedHeadRevisionNumber: focus.observedHeadRevisionNumber,
+      confirmedHistoricalSource: focus.confirmedHistoricalSource === true,
+      historicalConfirmation: focus.historicalConfirmation,
+      historicalAuthorizationId: focus.historicalAuthorizationId,
+      pendingCandidateId: focus.pendingCandidateId,
+      pendingCandidateContentSha256: focus.pendingCandidateContentSha256,
+      conserveProposal: false,
+    };
+    sessionStorage.setItem(key, JSON.stringify(durable));
+  } catch {
+    /* sessionStorage may be unavailable */
+  }
+}
+
+function readPersistedDocumentFocus(
+  projectId: string,
+  preparationId: string,
+): DocumentFocus | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = sessionStorage.getItem(documentFocusStorageKey(projectId, preparationId));
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as DocumentFocus;
+    if (
+      !parsed?.documentId ||
+      !parsed?.sourceRevisionId ||
+      !parsed?.observedHeadRevisionId
+    ) {
+      return null;
+    }
+    return {
+      documentId: parsed.documentId,
+      sourceRevisionId: parsed.sourceRevisionId,
+      sourceRevisionNumber: parsed.sourceRevisionNumber,
+      observedHeadRevisionId: parsed.observedHeadRevisionId,
+      observedHeadRevisionNumber: parsed.observedHeadRevisionNumber,
+      confirmedHistoricalSource: parsed.confirmedHistoricalSource === true,
+      historicalConfirmation: parsed.historicalConfirmation,
+      historicalAuthorizationId: parsed.historicalAuthorizationId,
+      pendingCandidateId: parsed.pendingCandidateId,
+      pendingCandidateContentSha256: parsed.pendingCandidateContentSha256,
+      conserveProposal: false, // never replay conserve across reload
+    };
+  } catch {
+    return null;
+  }
+}
 
 const SURFACES: Surface[] = [
   "travail",
@@ -192,7 +294,32 @@ export default function ProjectPage() {
   const [reviseMessage, setReviseMessage] = useState("");
   const [docMissing, setDocMissing] = useState("");
   const [docHistory, setDocHistory] = useState<RevisionRow[]>([]);
-  const [docDiffText, setDocDiffText] = useState("");
+  const [docHistoryLoading, setDocHistoryLoading] = useState(false);
+  const [docView, setDocView] = useState<DocView>("library");
+  const [selectedLibraryId, setSelectedLibraryId] = useState<string | null>(null);
+  const [readingRevisionId, setReadingRevisionId] = useState<string | null>(null);
+  const [readingRevisionNumber, setReadingRevisionNumber] = useState<number | null>(null);
+  const [readingMarkdown, setReadingMarkdown] = useState<string | null>(null);
+  const [readLoading, setReadLoading] = useState(false);
+  const [historySelectedRevisionId, setHistorySelectedRevisionId] = useState<string | null>(null);
+  const [comparatorExpanded, setComparatorExpanded] = useState(false);
+  const [compareLeftId, setCompareLeftId] = useState<string | null>(null);
+  const [compareRightId, setCompareRightId] = useState<string | null>(null);
+  const [comparePayload, setComparePayload] = useState<DocumentComparePayload | null>(null);
+  const [compareLeftMarkdown, setCompareLeftMarkdown] = useState<string | null>(null);
+  const [compareRightMarkdown, setCompareRightMarkdown] = useState<string | null>(null);
+  const [compareError, setCompareError] = useState<string | null>(null);
+  const [originOpen, setOriginOpen] = useState(false);
+  const [documentFocus, setDocumentFocus] = useState<DocumentFocus | null>(null);
+  /** R3 — proposal prepared under Documents focus, awaiting explicit conserve. */
+  const [pendingDocumentProposal, setPendingDocumentProposal] = useState(false);
+  const [readingProvenanceJson, setReadingProvenanceJson] = useState<string | null>(null);
+  const [proposalCandidateMarkdown, setProposalCandidateMarkdown] = useState<string | null>(
+    null,
+  );
+  const [proposalCandidateRevisionHint, setProposalCandidateRevisionHint] = useState<
+    number | null
+  >(null);
   const [unresolvedPending, setUnresolvedPending] = useState<ThreadPendingTurn | null>(null);
   const draftVersionRef = useRef(0);
   const pilotIdRef = useRef<string | null>(null);
@@ -211,6 +338,9 @@ export default function ProjectPage() {
   const viewerOpenRef = useRef(false);
   /** Invalidates in-flight Journal→Travail deep-links when the user navigates away. */
   const surfaceNavGenRef = useRef(0);
+  const docViewRef = useRef<DocView>("library");
+  const documentFocusRef = useRef<DocumentFocus | null>(null);
+  const readingLoadSeqRef = useRef(0);
 
   useEffect(() => {
     // Clear previous project identity immediately — no cross-project leak in the rail.
@@ -232,6 +362,12 @@ export default function ProjectPage() {
   useEffect(() => {
     reviseDraftRef.current = reviseDraft;
   }, [reviseDraft]);
+  useEffect(() => {
+    docViewRef.current = docView;
+  }, [docView]);
+  useEffect(() => {
+    documentFocusRef.current = documentFocus;
+  }, [documentFocus]);
   useEffect(() => {
     documentsRef.current = documents;
   }, [documents]);
@@ -363,6 +499,7 @@ export default function ProjectPage() {
       revisionNumber?: number;
       status?: string;
       contentMarkdown?: string;
+      provenanceJson?: string;
     };
     revisions?: Array<{
       id?: string;
@@ -741,6 +878,26 @@ export default function ProjectPage() {
     else router.push(href, { scroll: false });
   }
 
+  function resetDocumentBibliothequeState() {
+    setDocView("library");
+    setSelectedLibraryId(null);
+    setReadingRevisionId(null);
+    setReadingRevisionNumber(null);
+    setReadingMarkdown(null);
+    setReadLoading(false);
+    setHistorySelectedRevisionId(null);
+    setComparatorExpanded(false);
+    setCompareLeftId(null);
+    setCompareRightId(null);
+    setComparePayload(null);
+    setCompareLeftMarkdown(null);
+    setCompareRightMarkdown(null);
+    setCompareError(null);
+    setOriginOpen(false);
+    setDocHistory([]);
+    setDocHistoryLoading(false);
+  }
+
   function selectSurface(next: Surface) {
     surfaceNavGenRef.current += 1;
     pendingSurfaceRef.current = next;
@@ -754,20 +911,36 @@ export default function ProjectPage() {
       setReviseMessage("");
       reviseCorrelationRef.current = null;
       reviseBaseIdRef.current = null;
+      resetDocumentBibliothequeState();
       syncSurfaceUrl(next, null, "push");
     } else {
-      syncSurfaceUrl(next, inspect?.document.id ?? null, "push");
+      resetDocumentBibliothequeState();
+      syncSurfaceUrl(next, null, "push");
     }
   }
 
+  function headRevisionFromRows(rows: RevisionRow[]): RevisionRow | null {
+    const available = rows.filter((r) => r.status === "AVAILABLE");
+    if (available.length === 0) return null;
+    return available.reduce((best, r) =>
+      r.revisionNumber > best.revisionNumber ? r : best,
+    );
+  }
+
+  function headRevisionNumberFromRows(rows: RevisionRow[]): number | null {
+    const head = headRevisionFromRows(rows);
+    return head?.revisionNumber ?? null;
+  }
+
   async function loadDocHistory(preparationIdValue: string, documentId: string) {
+    setDocHistoryLoading(true);
     try {
       const res = await fetch(
         `/api/preparations/${preparationIdValue}/documents/${documentId}`,
       );
       if (!res.ok) {
         setDocHistory([]);
-        return;
+        return [];
       }
       const j = await res.json();
       const rows = (j.revisions ?? []) as Array<{
@@ -775,32 +948,235 @@ export default function ProjectPage() {
         revisionNumber: number;
         status: string;
         createdAt?: string;
+        contentMarkdown?: string;
       }>;
-      setDocHistory(
-        rows.map((r) => ({
-          id: r.id,
-          revisionNumber: r.revisionNumber,
-          status: r.status,
-          createdAt: r.createdAt,
-        })),
-      );
+      const mapped = rows.map((r) => ({
+        id: r.id,
+        revisionNumber: r.revisionNumber,
+        status: r.status,
+        createdAt: r.createdAt,
+        excerpt:
+          typeof r.contentMarkdown === "string"
+            ? r.contentMarkdown.trim().slice(0, 140)
+            : undefined,
+      }));
+      setDocHistory(mapped);
+      return mapped;
     } catch {
       setDocHistory([]);
+      return [];
+    } finally {
+      setDocHistoryLoading(false);
     }
   }
 
-  function openDocumentReadOnly(doc: Doc, mode: "push" | "replace" = "push") {
+  async function fetchRevisionMarkdown(
+    preparationIdValue: string,
+    documentId: string,
+    revisionId: string,
+  ): Promise<{
+    id: string;
+    revisionNumber: number;
+    contentMarkdown: string | null;
+    status: string;
+    provenanceJson: string | null;
+  } | null> {
+    try {
+      const res = await fetch(
+        `/api/preparations/${preparationIdValue}/documents/${documentId}?revisionId=${encodeURIComponent(revisionId)}`,
+      );
+      if (!res.ok) return null;
+      const j = (await res.json()) as D4RevisionPayload;
+      const rev = j.revision;
+      if (!rev?.id) return null;
+      const markdown =
+        j.status === "AVAILABLE" && typeof rev.contentMarkdown === "string"
+          ? rev.contentMarkdown
+          : null;
+      const provenanceJson =
+        typeof rev.provenanceJson === "string" ? rev.provenanceJson : null;
+      return {
+        id: rev.id,
+        revisionNumber: rev.revisionNumber ?? 0,
+        contentMarkdown: markdown,
+        status: String(rev.status ?? j.status ?? ""),
+        provenanceJson,
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  async function loadReadingRevision(
+    doc: Doc,
+    revisionId?: string | null,
+  ) {
+    const prepId = preparationIdRef.current;
+    const targetId = revisionId?.trim() || doc.latestRevision?.id || null;
+    if (!prepId || !targetId) {
+      setReadingMarkdown(null);
+      setReadingProvenanceJson(null);
+      setReadingRevisionId(targetId);
+      setReadingRevisionNumber(doc.latestRevision?.revisionNumber ?? null);
+      setReadLoading(false);
+      return;
+    }
+    const seq = ++readingLoadSeqRef.current;
+    setReadLoading(true);
+    setReadingRevisionId(targetId);
+    const fetched = await fetchRevisionMarkdown(prepId, doc.document.id, targetId);
+    if (seq !== readingLoadSeqRef.current) return;
+    if (fetched) {
+      setReadingRevisionId(fetched.id);
+      setReadingRevisionNumber(fetched.revisionNumber);
+      setReadingMarkdown(fetched.contentMarkdown);
+      setReadingProvenanceJson(fetched.provenanceJson);
+    } else {
+      setReadingMarkdown(null);
+      setReadingProvenanceJson(null);
+      setReadingRevisionNumber(doc.latestRevision?.revisionNumber ?? null);
+    }
+    setReadLoading(false);
+  }
+
+  function openDocumentReadView(
+    doc: Doc,
+    revisionId?: string | null,
+    mode: "push" | "replace" = "push",
+  ) {
     setInspect(doc);
     setDocMissing("");
-    setDocUi("READING");
-    setReviseDraft(doc.latestRevision?.contentMarkdown ?? "");
-    setReviseMessage("");
-    setDocDiffText("");
-    reviseCorrelationRef.current = null;
-    reviseBaseIdRef.current = doc.latestRevision?.id ?? null;
+    setSelectedLibraryId(doc.document.id);
+    setDocView("read");
+    setOriginOpen(false);
+    setComparatorExpanded(false);
+    setComparePayload(null);
+    setCompareError(null);
     setSurface("document");
     syncSurfaceUrl("document", doc.document.id, mode);
+    void loadReadingRevision(doc, revisionId);
     if (preparationId) void loadDocHistory(preparationId, doc.document.id);
+  }
+
+  function openDocumentReadOnly(doc: Doc, mode: "push" | "replace" = "push") {
+    openDocumentReadView(doc, doc.latestRevision?.id ?? null, mode);
+  }
+
+  function applyDocumentFocus(focus: DocumentFocus | null) {
+    setDocumentFocus(focus);
+    documentFocusRef.current = focus;
+    persistDocumentFocus(params.projectId, preparationIdRef.current, focus);
+  }
+
+  async function resolveObservedHead(
+    preparationIdValue: string,
+    documentId: string,
+  ): Promise<RevisionRow | null> {
+    const rows = await loadDocHistory(preparationIdValue, documentId);
+    return headRevisionFromRows(rows);
+  }
+
+  async function resumeNoraWithDocumentRevision(input: {
+    doc: Doc;
+    sourceRevisionId: string;
+    sourceRevisionNumber?: number | null;
+    sourceContentMarkdown?: string | null;
+    confirmedHistoricalSource?: boolean;
+  }) {
+    const prepId = preparationIdRef.current;
+    if (!prepId) return;
+    const head = await resolveObservedHead(prepId, input.doc.document.id);
+    if (!head) {
+      setStatusHint("Aucune révision courante AVAILABLE — reprise Nora impossible.");
+      return;
+    }
+    const historical = input.sourceRevisionId !== head.id;
+    setPendingDocumentProposal(false);
+    setProposalCandidateMarkdown(null);
+    setProposalCandidateRevisionHint(null);
+    applyDocumentFocus({
+      documentId: input.doc.document.id,
+      sourceRevisionId: input.sourceRevisionId,
+      sourceRevisionNumber: input.sourceRevisionNumber ?? undefined,
+      sourceContentMarkdown: undefined,
+      observedHeadRevisionId: head.id,
+      observedHeadRevisionNumber: head.revisionNumber,
+      // F2 — never treat client bool as server authorization.
+      confirmedHistoricalSource: false,
+      historicalConfirmation: undefined,
+      historicalAuthorizationId: undefined,
+      conserveProposal: false,
+      pendingCandidateId: undefined,
+      pendingCandidateContentSha256: undefined,
+    });
+    const projectIdAtStart = params.projectId;
+    const seq = ++viewerRequestSeqRef.current;
+    viewerOpenRef.current = true;
+    selectSurface("travail");
+    setViewer({
+      kind: "document",
+      documentId: input.doc.document.id,
+      title: input.doc.document.title,
+      revisionId: input.sourceRevisionId,
+      revisionNumber: input.sourceRevisionNumber ?? null,
+      versionSource: historical ? "exact" : "current",
+      markdown: null,
+      available: false,
+      unavailableReason: "Chargement de la version source…",
+    });
+    setViewerEnlarged(false);
+    setStatusHint(
+      historical
+        ? "Réviser une version historique avec Nora"
+        : "Réviser un document avec Nora",
+    );
+    void fetchDocumentViewerViaD4({
+      documentId: input.doc.document.id,
+      titleHint: input.doc.document.title,
+      revisionId: historical ? input.sourceRevisionId : null,
+      versionSource: historical ? "exact" : "current",
+      seq,
+      projectIdAtStart,
+    });
+    // F4 — ask Nora in the durable thread (choices appear as continueChoices, not under composer).
+    if (historical) {
+      void sendMessage(
+        "Je veux repartir de la version historique sélectionnée — confirme la base.",
+      );
+    }
+  }
+
+  async function loadDocumentComparison() {
+    if (!preparationId || !inspect || !compareLeftId || !compareRightId) return;
+    setCompareError(null);
+    setComparePayload(null);
+    setCompareLeftMarkdown(null);
+    setCompareRightMarkdown(null);
+    try {
+      const cmpRes = await fetch(
+        `/api/preparations/${preparationId}/documents/${inspect.document.id}?left=${encodeURIComponent(compareLeftId)}&right=${encodeURIComponent(compareRightId)}`,
+      );
+      const cmp = (await cmpRes.json()) as DocumentComparePayload & {
+        reason?: string;
+        status?: string;
+      };
+      if (!cmpRes.ok || cmp.status !== "AVAILABLE") {
+        setCompareError(
+          cmp.reason ?? `Comparaison indisponible (${String(cmp.status ?? cmpRes.status)})`,
+        );
+        return;
+      }
+      setComparePayload(cmp);
+      const [leftMd, rightMd] = await Promise.all([
+        fetchRevisionMarkdown(preparationId, inspect.document.id, compareLeftId),
+        fetchRevisionMarkdown(preparationId, inspect.document.id, compareRightId),
+      ]);
+      setCompareLeftMarkdown(leftMd?.contentMarkdown ?? null);
+      setCompareRightMarkdown(rightMd?.contentMarkdown ?? null);
+      setDocView("compare");
+    } catch {
+      setCompareError("Échec de chargement de la comparaison.");
+    }
   }
 
   function applyUrlDocumentState(docs: Doc[], qSurface: Surface | null, qDocId: string | null) {
@@ -811,26 +1187,30 @@ export default function ProjectPage() {
       if (!qDocId) {
         setInspect(null);
         setDocMissing("");
+        setDocView("library");
+        setSelectedLibraryId(null);
         return;
       }
       const match = docs.find((d) => d.document.id === qDocId);
       if (match) {
         setInspect(match);
         setDocMissing("");
-        const ui = docUiRef.current;
-        const preserveDraft =
-          Boolean(reviseCorrelationRef.current) ||
-          ui === "EDITING" ||
-          ui === "SAVING" ||
-          ui === "CONFLICT" ||
-          ui === "UNKNOWN";
-        if (!preserveDraft) {
-          setDocUi("READING");
-          setReviseDraft(match.latestRevision?.contentMarkdown ?? "");
+        setSelectedLibraryId(match.document.id);
+        const view = docViewRef.current;
+        if (view === "library") {
+          setDocView("read");
+          void loadReadingRevision(match, match.latestRevision?.id ?? null);
+          if (preparationId) void loadDocHistory(preparationId, match.document.id);
         }
       } else {
         setInspect(null);
         setDocMissing("Document introuvable ou non autorisé pour ce Pilote.");
+        // Stay on read surface so the controlled missing state is visible (DOC-UAT / G4 B2).
+        setDocView("read");
+        setSelectedLibraryId(null);
+        setReadingMarkdown(null);
+        setReadingRevisionId(null);
+        setReadingRevisionNumber(null);
       }
       return;
     }
@@ -1220,13 +1600,106 @@ export default function ProjectPage() {
         setChoiceFrozen(true);
       }
       setKnowledge(j.knowledge ?? null);
-      setPreparationId(j.preparation?.id ?? null);
+      const nextPrepId = j.preparation?.id ?? null;
+      setPreparationId(nextPrepId);
+      preparationIdRef.current = nextPrepId;
       setProjectName(name);
-      setStatusHint(
-        j.preparation?.id
-          ? "Fil durable · préparation liée · réouverture par projet"
-          : "Fil durable · réouverture par projet",
-      );
+      setStatusHint(name ? `Projet · ${name}` : "Projet");
+      // Restore Documents→Travail focus after reload (identities only; revalidate via D4 on use).
+      // P0-C — if a pending candidate pointer exists, reload exact markdown from server (no auto-conserve).
+      if (nextPrepId) {
+        const restored = readPersistedDocumentFocus(params.projectId, nextPrepId);
+        if (restored) {
+          const stillOwned = (docs as Doc[]).some(
+            (d) => d.document.id === restored.documentId,
+          );
+          if (stillOwned) {
+            setDocumentFocus(restored);
+            documentFocusRef.current = restored;
+            if (restored.pendingCandidateId) {
+              void (async () => {
+                try {
+                  const q = restored.pendingCandidateContentSha256
+                    ? `?expectedSha=${encodeURIComponent(restored.pendingCandidateContentSha256)}`
+                    : "";
+                  const cres = await fetch(
+                    `/api/preparations/${nextPrepId}/document-candidates/${encodeURIComponent(restored.pendingCandidateId!)}${q}`,
+                  );
+                  const cj = (await cres.json()) as {
+                    status?: string;
+                    reason?: string;
+                    candidate?: {
+                      contentMarkdown?: string;
+                      contentSha256?: string;
+                      title?: string;
+                      documentId?: string;
+                      sourceRevisionId?: string;
+                      observedHeadRevisionId?: string;
+                    };
+                  };
+                  if (!cres.ok || cj.status !== "PENDING" || !cj.candidate?.contentMarkdown) {
+                    // SUPERSEDED / denied / missing — clear pending UI, keep focus identities for requalify.
+                    setPendingDocumentProposal(false);
+                    setProposalCandidateMarkdown(null);
+                    setProposalCandidateRevisionHint(null);
+                    const curFocus = documentFocusRef.current;
+                    if (
+                      curFocus &&
+                      curFocus.pendingCandidateId === restored.pendingCandidateId
+                    ) {
+                      applyDocumentFocus({
+                        documentId: curFocus.documentId,
+                        sourceRevisionId: curFocus.sourceRevisionId,
+                        sourceRevisionNumber: curFocus.sourceRevisionNumber,
+                        observedHeadRevisionId: curFocus.observedHeadRevisionId,
+                        observedHeadRevisionNumber: curFocus.observedHeadRevisionNumber,
+                        confirmedHistoricalSource: curFocus.confirmedHistoricalSource,
+                        historicalConfirmation: curFocus.historicalConfirmation,
+                        historicalAuthorizationId: curFocus.historicalAuthorizationId,
+                        pendingCandidateId: undefined,
+                        pendingCandidateContentSha256: undefined,
+                        conserveProposal: false,
+                      });
+                    }
+                    if (cj.reason === "CANDIDATE_HEAD_MOVED" || cj.reason?.includes("HEAD")) {
+                      setStatusHint("La version courante a changé — requalification nécessaire.");
+                    }
+                    return;
+                  }
+                  const headNum = restored.observedHeadRevisionNumber ?? null;
+                  setPendingDocumentProposal(true);
+                  setProposalCandidateMarkdown(cj.candidate.contentMarkdown);
+                  setProposalCandidateRevisionHint(headNum != null ? headNum + 1 : null);
+                  setStatusHint("Examiner une proposition de Nora");
+                  setViewer({
+                    kind: "document",
+                    documentId: restored.documentId,
+                    title: cj.candidate.title ?? "Document",
+                    revisionId: restored.sourceRevisionId,
+                    revisionNumber: headNum != null ? headNum + 1 : null,
+                    versionSource: "exact",
+                    markdown: cj.candidate.contentMarkdown,
+                    available: true,
+                  });
+                  // Re-bind focus with server hash; never set conserveProposal.
+                  applyDocumentFocus({
+                    ...restored,
+                    pendingCandidateContentSha256: cj.candidate.contentSha256,
+                    conserveProposal: false,
+                  });
+                } catch {
+                  setPendingDocumentProposal(false);
+                  setProposalCandidateMarkdown(null);
+                }
+              })();
+            }
+          } else {
+            applyDocumentFocus(null);
+          }
+        }
+      } else {
+        applyDocumentFocus(null);
+      }
       setUnavailableKind(null);
       setProjectSpaceInfo({
         projectId: params.projectId,
@@ -1542,13 +2015,32 @@ export default function ProjectPage() {
   }
 
   function upsertTurnProjection(tp: TurnProjection) {
+    const focus = documentFocusRef.current;
+    const relabeled: TurnProjection = {
+      ...tp,
+      choices: (tp.choices ?? []).map((c) => {
+        if (c.transmitText === "DOC_CONFIRM_HISTORICAL_SOURCE" && focus?.sourceRevisionNumber != null) {
+          return { ...c, label: `Repartir de la v${focus.sourceRevisionNumber}` };
+        }
+        if (
+          c.transmitText === "DOC_USE_CURRENT_HEAD" &&
+          focus?.observedHeadRevisionNumber != null
+        ) {
+          return {
+            ...c,
+            label: `Partir de la v${focus.observedHeadRevisionNumber} courante`,
+          };
+        }
+        return c;
+      }),
+    };
     setTurnProjections((prev) => {
-      const id = tp.messageId;
-      if (!id) return [...prev, tp];
+      const id = relabeled.messageId;
+      if (!id) return [...prev, relabeled];
       const idx = prev.findIndex((p) => p.messageId === id);
-      if (idx < 0) return [...prev, tp];
+      if (idx < 0) return [...prev, relabeled];
       const next = [...prev];
-      next[idx] = tp;
+      next[idx] = relabeled;
       return next;
     });
   }
@@ -1604,6 +2096,9 @@ export default function ProjectPage() {
           content: text,
           clientTurnKey,
           unresolvedPendingClientTurnKey: pendingBefore?.clientTurnKey,
+          ...(documentFocusRef.current
+            ? { documentFocus: documentFocusRef.current }
+            : {}),
         }),
       });
       let j: Record<string, unknown> = {};
@@ -1628,6 +2123,139 @@ export default function ProjectPage() {
           (independent || effectBlocked || distinctFromUnresolved) && Boolean(pendingBefore);
         setMessages((j.messages as Msg[]) ?? []);
         setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
+        const save = j.documentSave as
+          | { status?: string; reason?: string; documentId?: string; revisionNumber?: number }
+          | null
+          | undefined;
+        const pendingCand = j.pendingDocumentCandidate as
+          | {
+              candidateId?: string;
+              contentSha256?: string;
+              contentMarkdown?: string;
+              title?: string;
+            }
+          | null
+          | undefined;
+        const histAuth = j.historicalAuthorization as
+          | {
+              authorizationId?: string;
+              choice?: "USE_SOURCE" | "USE_HEAD";
+              documentId?: string;
+              sourceRevisionId?: string;
+              observedHeadRevisionId?: string;
+            }
+          | null
+          | undefined;
+        if (histAuth?.authorizationId && documentFocusRef.current) {
+          if (histAuth.choice === "USE_SOURCE") {
+            applyDocumentFocus({
+              ...documentFocusRef.current,
+              confirmedHistoricalSource: true,
+              historicalAuthorizationId: histAuth.authorizationId,
+              historicalConfirmation: {
+                documentId: histAuth.documentId ?? documentFocusRef.current.documentId,
+                sourceRevisionId:
+                  histAuth.sourceRevisionId ?? documentFocusRef.current.sourceRevisionId,
+                observedHeadRevisionId:
+                  histAuth.observedHeadRevisionId ??
+                  documentFocusRef.current.observedHeadRevisionId,
+                choice: "USE_SOURCE",
+              },
+              conserveProposal: false,
+            });
+          } else if (histAuth.choice === "USE_HEAD") {
+            const match = documentsRef.current.find(
+              (d) => d.document.id === documentFocusRef.current?.documentId,
+            );
+            if (match?.latestRevision) {
+              void resumeNoraWithDocumentRevision({
+                doc: match,
+                sourceRevisionId: match.latestRevision.id,
+                sourceRevisionNumber: match.latestRevision.revisionNumber,
+                confirmedHistoricalSource: false,
+              });
+            }
+          }
+        }
+        if (save?.reason === "PROPOSAL_PENDING_CONSERVATION" && pendingCand?.candidateId) {
+          setPendingDocumentProposal(true);
+          setProposalCandidateMarkdown(pendingCand.contentMarkdown ?? null);
+          const headNum = documentFocusRef.current?.observedHeadRevisionNumber ?? null;
+          setProposalCandidateRevisionHint(headNum != null ? headNum + 1 : null);
+          if (documentFocusRef.current) {
+            applyDocumentFocus({
+              ...documentFocusRef.current,
+              conserveProposal: false,
+              pendingCandidateId: pendingCand.candidateId,
+              pendingCandidateContentSha256: pendingCand.contentSha256,
+            });
+          }
+          // F5 — visionneuse shows exact candidate, not historical V2 rebadged.
+          if (viewer?.kind === "document" || documentFocusRef.current) {
+            const focus = documentFocusRef.current;
+            setViewer((prev) => {
+              if (!prev || prev.kind !== "document" || !focus) return prev;
+              return {
+                ...prev,
+                markdown: pendingCand.contentMarkdown ?? prev.markdown,
+                available: Boolean(pendingCand.contentMarkdown),
+                unavailableReason: undefined,
+                revisionNumber: headNum != null ? headNum + 1 : prev.revisionNumber,
+                versionSource: "exact",
+              };
+            });
+          }
+          setStatusHint("Examiner une proposition de Nora");
+        } else if (save?.status === "AVAILABLE") {
+          setPendingDocumentProposal(false);
+          setProposalCandidateMarkdown(null);
+          setProposalCandidateRevisionHint(null);
+          if (documentFocusRef.current) {
+            applyDocumentFocus({
+              ...documentFocusRef.current,
+              conserveProposal: false,
+              pendingCandidateId: undefined,
+              pendingCandidateContentSha256: undefined,
+              confirmedHistoricalSource: false,
+              historicalConfirmation: undefined,
+              historicalAuthorizationId: undefined,
+            });
+          }
+          if (typeof save.revisionNumber === "number") {
+            setStatusHint(`Version v${save.revisionNumber} conservée.`);
+          }
+          // Refresh viewer to the newly conserved revision (no longer a pending proposal).
+          if (
+            viewer?.kind === "document" &&
+            typeof save.documentId === "string" &&
+            typeof (save as { revisionId?: string }).revisionId === "string"
+          ) {
+            const newRevId = (save as { revisionId: string }).revisionId;
+            const newRevNum =
+              typeof save.revisionNumber === "number" ? save.revisionNumber : null;
+            const seq = ++viewerRequestSeqRef.current;
+            const projectIdAtStart = params.projectId;
+            setViewer((prev) => {
+              if (!prev || prev.kind !== "document") return prev;
+              return {
+                ...prev,
+                revisionId: newRevId,
+                revisionNumber: newRevNum,
+                versionSource: "current",
+                available: false,
+                unavailableReason: "Chargement de la version enregistrée…",
+              };
+            });
+            void fetchDocumentViewerViaD4({
+              documentId: save.documentId,
+              titleHint: viewer.title,
+              revisionId: newRevId,
+              versionSource: "exact",
+              seq,
+              projectIdAtStart,
+            });
+          }
+        }
         const effect = j.pilotageEffect as PilotageEffectView | undefined;
         setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
         const tp = parseTurnProjection(j.turnProjection);
@@ -1760,6 +2388,69 @@ export default function ProjectPage() {
 
   const travailLayout = viewer ? (viewerEnlarged ? "enlarged" : "split") : "normal";
 
+  const docListItems = documents.map((d) => ({
+    document: { ...d.document, projectId: params.projectId },
+    latestRevision: d.latestRevision ?? null,
+    originLabel: formatPilotFacingProvenance(d.latestRevision?.provenanceJson, {
+      projectName,
+    }),
+  }));
+
+  const headRevisionNumber =
+    headRevisionNumberFromRows(docHistory) ?? inspect?.latestRevision?.revisionNumber ?? null;
+
+  const readCurrency =
+    readingRevisionNumber != null
+      ? revisionCurrencyLabel(readingRevisionNumber, headRevisionNumber)
+      : "Courante";
+
+  const documentHero =
+    surface !== "document"
+      ? null
+      : docView === "library"
+        ? null
+        : docView === "read"
+          ? {
+              kicker: "DOCUMENTS / INSPECTION",
+              title: "Lecture du document",
+              sub: "Le document complet occupe la zone centrale ; ses actions restent accessibles sur la droite.",
+            }
+          : docView === "history"
+            ? {
+                kicker: "DOCUMENTS / HISTORIQUE",
+                title: "Historique des versions",
+                sub: "Sélectionnez une version dans la liste, puis consultez les actions disponibles sur la droite.",
+              }
+            : {
+                kicker: "DOCUMENTS / HISTORIQUE / COMPARAISON",
+                title: "Comparer deux versions",
+                sub: "Deux documents côte à côte, avec un résumé des différences en lecture seule.",
+              };
+
+  const travailDocumentFocusBanner = pendingDocumentProposal
+    ? ("proposal" as const)
+    : viewer?.kind === "document" && viewer.versionSource === "exact"
+      ? ("historical" as const)
+      : null;
+
+  const travailHero =
+    surface !== "travail"
+      ? null
+      : pendingDocumentProposal
+        ? {
+            kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
+            title: "Examiner une proposition de Nora",
+            sub: "Le Pilote peut préciser sa demande ou demander la conservation d’une nouvelle version documentaire.",
+          }
+        : documentFocus &&
+            documentFocus.sourceRevisionId !== documentFocus.observedHeadRevisionId
+          ? {
+              kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
+              title: "Réviser une version historique avec Nora",
+              sub: "Nora vérifie la version courante avant de proposer une révision fondée sur une ancienne version.",
+            }
+          : null;
+
   return (
     <ProjectChrome
       projectId={params.projectId}
@@ -1768,6 +2459,8 @@ export default function ProjectPage() {
       statusHint={statusHint}
       loadState={projectLoadState}
       travailLayout={travailLayout}
+      documentHero={documentHero}
+      travailHero={travailHero}
     >
       {surface === "projet" ? (
         <ProjectOverview
@@ -1782,6 +2475,7 @@ export default function ProjectPage() {
       ) : null}
 
       {surface === "travail" ? (
+        <>
         <NoraConversation
           embeddedInStage
           messages={messages}
@@ -1823,6 +2517,7 @@ export default function ProjectPage() {
               <TravailViewer
                 resource={viewer}
                 enlarged={viewerEnlarged}
+                documentFocusBanner={travailDocumentFocusBanner}
                 onEnlarge={() => setViewerEnlarged(true)}
                 onReduce={() => setViewerEnlarged(false)}
                 onClose={closeViewer}
@@ -1918,6 +2613,7 @@ export default function ProjectPage() {
             )
           }
         />
+        </>
       ) : null}
 
       {surface === "pilotage" ? (
@@ -1960,124 +2656,135 @@ export default function ProjectPage() {
         </div>
       ) : null}
 
-      {surface === "document" ? (
-        <div className="fig-workspace-3" data-figma-frame="94:370">
-          <DocumentLibrary
-            documents={documents.map((d) => ({
-              document: { ...d.document, projectId: params.projectId },
-              latestRevision: d.latestRevision ?? null,
-            }))}
-            selectedId={inspect?.document.id ?? null}
-            onSelect={(d) => {
-              const match = documents.find((x) => x.document.id === d.document.id);
-              if (match) openDocumentReadOnly(match);
-            }}
-          />
-          <div className="space-y-3">
-            <DocumentInspector
-              frameId={docUi === "CONFLICT" ? "160:391" : "97:359"}
-              title={
-                docUi === "EDITING" ||
-                docUi === "SAVING" ||
-                docUi === "CONFLICT" ||
-                docUi === "UNKNOWN"
-                  ? "Révision"
-                  : "Inspection"
-              }
-              uiState={docUi}
-              missing={docMissing || null}
-              markdown={
-                docUi === "READING" || docUi === "FAILED"
-                  ? inspect?.latestRevision?.contentMarkdown ?? null
-                  : null
-              }
-              editing={
-                docUi === "EDITING" ||
-                docUi === "SAVING" ||
-                docUi === "CONFLICT" ||
-                docUi === "UNKNOWN" ||
-                docUi === "FAILED"
-              }
-              draft={reviseDraft}
-              onDraft={setReviseDraft}
-              busy={docUi === "SAVING"}
-              onStartRevise={
-                inspect?.latestRevision
-                  ? () => {
-                      setDocUi("EDITING");
-                      setReviseDraft(inspect.latestRevision?.contentMarkdown ?? "");
-                      reviseCorrelationRef.current = null;
-                      reviseBaseIdRef.current = inspect.latestRevision?.id ?? null;
-                    }
-                  : undefined
-              }
-              onSaveRevise={() => void saveRevision()}
-              onConflictRebase={docUi === "CONFLICT" ? acceptConflictRebase : undefined}
-              onCancel={() => {
-                setDocUi("READING");
-                setReviseDraft(inspect?.latestRevision?.contentMarkdown ?? "");
-                setReviseMessage("");
-                reviseCorrelationRef.current = null;
-                reviseBaseIdRef.current = inspect?.latestRevision?.id ?? null;
-              }}
-              reviseMessage={reviseMessage}
-            >
-              {inspect?.latestRevision && docUi === "READING" ? (
-                <button
-                  type="button"
-                  className="btn secondary"
-                  onClick={() => {
-                    setInspect(null);
-                    setDocUi("READING");
-                    selectSurface("travail");
-                  }}
-                >
-                  Retour au fil
-                </button>
-              ) : null}
-            </DocumentInspector>
-            <DocumentHistory
-              revisions={docHistory}
-              activeRevisionId={inspect?.latestRevision?.id}
-              onCompareLatest={
-                preparationId && inspect
-                  ? () => {
-                      void (async () => {
-                        const listRes = await fetch(
-                          `/api/preparations/${preparationId}/documents/${inspect.document.id}`,
-                        );
-                        const list = await listRes.json();
-                        const revs = (list.revisions ?? []).filter(
-                          (r: { status: string }) => r.status === "AVAILABLE",
-                        );
-                        if (revs.length < 2) {
-                          setDocDiffText("Comparaison: moins de deux versions AVAILABLE");
-                          return;
-                        }
-                        const left = revs[revs.length - 2];
-                        const right = revs[revs.length - 1];
-                        const cmpRes = await fetch(
-                          `/api/preparations/${preparationId}/documents/${inspect.document.id}?left=${left.id}&right=${right.id}`,
-                        );
-                        const cmp = await cmpRes.json();
-                        if (cmp.status === "AVAILABLE" && !cmp.diff?.degraded) {
-                          setDocDiffText(
-                            `v${cmp.left.revisionNumber} → v${cmp.right.revisionNumber}\n` +
-                              `+ ${cmp.diff.added.length} / - ${cmp.diff.removed.length}`,
-                          );
-                        } else {
-                          setDocDiffText(
-                            `Diff ${cmp.status}: ${cmp.reason ?? cmp.diff?.reason ?? ""}`,
-                          );
-                        }
-                      })();
-                    }
-                  : undefined
-              }
-              diffText={docDiffText}
-            />
-          </div>
-        </div>
+      {surface === "document" && docView === "library" ? (
+        <DocumentBibliothequeSurface
+          documents={docListItems}
+          selectedId={selectedLibraryId}
+          projectName={projectName}
+          onSelect={(d) => setSelectedLibraryId(d.document.id)}
+          onOpen={(d) => {
+            const match = documents.find((x) => x.document.id === d.document.id);
+            if (match) openDocumentReadView(match, match.latestRevision?.id ?? null);
+          }}
+          onResumeNora={(d) => {
+            const match = documents.find((x) => x.document.id === d.document.id);
+            if (!match?.latestRevision?.id) return;
+            void resumeNoraWithDocumentRevision({
+              doc: match,
+              sourceRevisionId: match.latestRevision.id,
+              sourceRevisionNumber: match.latestRevision.revisionNumber,
+              confirmedHistoricalSource: false,
+            });
+          }}
+          onVersions={(d) => {
+            const match = documents.find((x) => x.document.id === d.document.id);
+            if (!match || !preparationId) return;
+            setInspect(match);
+            setSelectedLibraryId(match.document.id);
+            setDocView("history");
+            setComparatorExpanded(false);
+            setOriginOpen(false);
+            syncSurfaceUrl("document", match.document.id, "push");
+            void (async () => {
+              const rows = await loadDocHistory(preparationId, match.document.id);
+              const head = headRevisionFromRows(rows);
+              setHistorySelectedRevisionId(head?.id ?? rows[0]?.id ?? null);
+            })();
+          }}
+        />
+      ) : null}
+
+      {surface === "document" && docView === "read" && docMissing && !inspect ? (
+        <p className="text-sm" data-testid="document-missing" role="status">
+          {docMissing}
+        </p>
+      ) : null}
+
+      {surface === "document" && docView === "read" && inspect ? (
+        <DocumentReadSurface
+          title={inspect.document.title}
+          markdown={readingMarkdown}
+          missing={null}
+          revisionLabel={
+            readingRevisionNumber != null ? `v${readingRevisionNumber}` : "Version"
+          }
+          currency={readCurrency}
+          loading={readLoading}
+          originOpen={originOpen}
+          originText={formatPilotFacingProvenance(readingProvenanceJson, {
+            projectName,
+          })}
+          onRequestRevision={() => {
+            const revId = readingRevisionId ?? inspect.latestRevision?.id;
+            if (!revId) return;
+            void resumeNoraWithDocumentRevision({
+              doc: inspect,
+              sourceRevisionId: revId,
+              sourceRevisionNumber: readingRevisionNumber ?? inspect.latestRevision?.revisionNumber,
+            });
+          }}
+          onHistory={() => {
+            if (!preparationId) return;
+            setDocView("history");
+            setComparatorExpanded(false);
+            void (async () => {
+              const rows = await loadDocHistory(preparationId, inspect.document.id);
+              const head = headRevisionFromRows(rows);
+              setHistorySelectedRevisionId(
+                readingRevisionId ?? head?.id ?? rows[0]?.id ?? null,
+              );
+            })();
+          }}
+          onOrigin={() => setOriginOpen((v) => !v)}
+        />
+      ) : null}
+
+      {surface === "document" && docView === "history" && inspect ? (
+        <DocumentHistorySurface
+          documentTitle={inspect.document.title}
+          revisions={docHistory}
+          headRevisionNumber={headRevisionNumber}
+          selectedRevisionId={historySelectedRevisionId}
+          loading={docHistoryLoading}
+          comparatorExpanded={comparatorExpanded}
+          compareLeftId={compareLeftId}
+          compareRightId={compareRightId}
+          onSelectRevision={setHistorySelectedRevisionId}
+          onToggleComparator={() => setComparatorExpanded((v) => !v)}
+          onCompareLeft={setCompareLeftId}
+          onCompareRight={setCompareRightId}
+          onShowComparison={() => void loadDocumentComparison()}
+          onRead={() => {
+            const revId = historySelectedRevisionId;
+            if (!revId) return;
+            openDocumentReadView(inspect, revId);
+          }}
+          onResumeNora={() => {
+            const row = docHistory.find((r) => r.id === historySelectedRevisionId);
+            if (!row) return;
+            void resumeNoraWithDocumentRevision({
+              doc: inspect,
+              sourceRevisionId: row.id,
+              sourceRevisionNumber: row.revisionNumber,
+            });
+          }}
+        />
+      ) : null}
+
+      {surface === "document" && docView === "compare" && inspect ? (
+        <DocumentCompareSurface
+          documentTitle={inspect.document.title}
+          headRevisionNumber={headRevisionNumber}
+          comparison={comparePayload}
+          leftMarkdown={compareLeftMarkdown}
+          rightMarkdown={compareRightMarkdown}
+          error={compareError}
+          onBack={() => {
+            setDocView("history");
+            setComparePayload(null);
+            setCompareError(null);
+          }}
+        />
       ) : null}
 
       {surface === "git" || surface === "publication" ? (

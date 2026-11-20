@@ -837,6 +837,19 @@ export async function commitTurnTerminal(args: {
             if (prev.turnProjection !== undefined && next.turnProjection === undefined) {
               next.turnProjection = prev.turnProjection;
             }
+            // F1/F2 — sealed proposal candidates + historical authorizations must survive terminal.
+            if (
+              prev.pendingDocumentCandidates !== undefined &&
+              next.pendingDocumentCandidates === undefined
+            ) {
+              next.pendingDocumentCandidates = prev.pendingDocumentCandidates;
+            }
+            if (
+              prev.historicalSourceAuthorizations !== undefined &&
+              next.historicalSourceAuthorizations === undefined
+            ) {
+              next.historicalSourceAuthorizations = prev.historicalSourceAuthorizations;
+            }
             terminalJson = JSON.stringify(next);
           } else {
             terminalJson = owned.resultJson;
@@ -1000,8 +1013,20 @@ export async function completeTurnCommand(args: {
           if (prev.semanticQualification !== undefined && next.semanticQualification === undefined) {
             next.semanticQualification = prev.semanticQualification;
             next.semanticQualificationStashedAt = prev.semanticQualificationStashedAt;
-            terminalJson = JSON.stringify(next);
           }
+          if (
+            prev.pendingDocumentCandidates !== undefined &&
+            next.pendingDocumentCandidates === undefined
+          ) {
+            next.pendingDocumentCandidates = prev.pendingDocumentCandidates;
+          }
+          if (
+            prev.historicalSourceAuthorizations !== undefined &&
+            next.historicalSourceAuthorizations === undefined
+          ) {
+            next.historicalSourceAuthorizations = prev.historicalSourceAuthorizations;
+          }
+          terminalJson = JSON.stringify(next);
         } else {
           // No new payload — keep prior resultJson (qualification must survive UNKNOWN).
           terminalJson = owned.resultJson;
