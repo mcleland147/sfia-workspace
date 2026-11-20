@@ -118,27 +118,34 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     await expect(sourceChip.locator(".journal-source-cta")).toContainText(/message exact/i);
     await sourceChip.click();
     await expect(page).toHaveURL(/surface=travail/, { timeout: 15000 });
+    // J-C13 proof — assert focus marker ASAP (product holds ~5.2s after node found;
+    // up to ~2s retry). Combined locator avoids eating the window with toBeVisible-only.
+    const focusedMsg = page.locator(
+      `[data-message-id="${seed.earlyMessageId}"][data-journal-focus="1"]`,
+    );
+    await expect(focusedMsg).toBeVisible({ timeout: 20000 });
+    await expect(focusedMsg).toHaveClass(/is-journal-focus/);
     await expect(page.getByTestId("nora-workspace")).toBeVisible({ timeout: 15000 });
     const targetMsg = page.locator(`[data-message-id="${seed.earlyMessageId}"]`);
-    // Durable deep-link oracle: exact message present, not end-scrolled to last.
-    // Ephemeral data-journal-focus (~2s product retry then ~5.2s paint) is best-effort on slow CI.
-    await expect(targetMsg).toBeVisible({ timeout: 30000 });
     await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
     const ids = await page.locator("[data-message-id]").evaluateAll((els) =>
       els.map((e) => e.getAttribute("data-message-id")),
     );
     expect(ids.includes(seed.earlyMessageId)).toBe(true);
     expect(ids[ids.length - 1]).not.toBe(seed.earlyMessageId);
-    // After highlight window: exact message still in thread + draft preserved.
-    // Scroll-into-view is product-timed (~2s retry); CI may miss the paint without a src change.
+    // Focused exact message must be in viewport (not displaced by stick-to-end).
+    await expect(targetMsg).toBeInViewport({ timeout: 5000 });
+    // After highlight clears (~5.2s): suppress holds — message + draft still present, not last.
     await page.waitForTimeout(5600);
     await expect(targetMsg).toBeVisible();
+    await expect(targetMsg).not.toHaveAttribute("data-journal-focus", "1");
     await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
     const idsAfter = await page.locator("[data-message-id]").evaluateAll((els) =>
       els.map((e) => e.getAttribute("data-message-id")),
     );
     expect(idsAfter.includes(seed.earlyMessageId)).toBe(true);
     expect(idsAfter[idsAfter.length - 1]).not.toBe(seed.earlyMessageId);
+    await expect(targetMsg).toBeInViewport({ timeout: 5000 });
 
     // J-C13 — return via rail (NOT page.goto) and assert nav restored
     await goRailSurface(page, "journal");
