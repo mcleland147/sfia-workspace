@@ -117,30 +117,29 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     await expect(sourceChip).toHaveAttribute("data-author", /.+/);
     await expect(sourceChip.locator(".journal-source-cta")).toContainText(/message exact/i);
     await sourceChip.click();
-    // Focus marker (~5s) — assert immediately after deep-link before other waits consume the window.
-    const focused = page.locator(`[data-message-id="${seed.earlyMessageId}"]`);
-    await expect(focused).toBeVisible({ timeout: 15000 });
-    await expect(focused).toHaveAttribute("data-journal-focus", "1", { timeout: 8000 });
+    await expect(page).toHaveURL(/surface=travail/, { timeout: 15000 });
+    const targetMsg = page.locator(`[data-message-id="${seed.earlyMessageId}"]`);
+    // Wait for highlight+message together (marker ~5.2s; avoid toBeVisible-only eating the window).
+    await expect(
+      page.locator(`[data-message-id="${seed.earlyMessageId}"][data-journal-focus="1"]`),
+    ).toBeVisible({ timeout: 15000 });
     await expect(page.getByTestId("nora-workspace")).toBeVisible({ timeout: 15000 });
     await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
-    // After highlight clears (~5.2s), suppress must hold — no jump to last message.
-    // (assert attribute first while marker is still present)
     const ids = await page.locator("[data-message-id]").evaluateAll((els) =>
       els.map((e) => e.getAttribute("data-message-id")),
     );
     expect(ids.includes(seed.earlyMessageId)).toBe(true);
     expect(ids[ids.length - 1]).not.toBe(seed.earlyMessageId);
-    // Focused message must not be displaced by last-message stick during init.
     const lastId = ids[ids.length - 1];
     if (lastId && lastId !== seed.earlyMessageId) {
       const lastBox = await page.locator(`[data-message-id="${lastId}"]`).boundingBox();
-      const focusBox = await focused.boundingBox();
+      const focusBox = await targetMsg.boundingBox();
       expect(focusBox).toBeTruthy();
       expect(lastBox).toBeTruthy();
     }
     // After highlight clears (~5.2s), suppress must hold — no jump to last message.
     await page.waitForTimeout(5600);
-    const focusBoxAfter = await focused.boundingBox();
+    const focusBoxAfter = await targetMsg.boundingBox();
     expect(focusBoxAfter).toBeTruthy();
     const viewport = page.viewportSize();
     expect(focusBoxAfter!.y).toBeLessThan((viewport?.height ?? 800) * 0.85);
