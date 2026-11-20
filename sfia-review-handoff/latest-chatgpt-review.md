@@ -1,9 +1,10 @@
-# COURTILIEN-02A — Review pack Full (reprise Creator)
+# COURTILIEN-02B-SEC — Review pack Full
 
-**Cycle :** COURTILIEN-02A — Evolution du modèle d'identité (16e relation)
+**Cycle :** COURTILIEN-02B-SEC — Identité et accès (mapping + sécurisation bornée)
 **Type :** 8 — Delivery / implémentation · **Profil :** Standard · **Typologie :** EVOL
-**Date rapport :** 2026-11-20 10:48:00 CET (Europe/Paris)
+**Date rapport :** 2026-11-20 10:59:00 CET (Europe/Paris)
 **Verdict review pack :** `READY WITH RESERVES`
+**Readiness accès client / BUILD UI :** **`NOT READY FOR CLIENT ACCESS`**
 
 ---
 
@@ -12,133 +13,186 @@
 | Contrôle | Valeur |
 |----------|--------|
 | Repository | `mcleland147/sfia-workspace` |
-| Branche projet | `project/sfia-task-manager-cycle-4-ux-ui` |
+| Branche | `project/sfia-task-manager-cycle-4-ux-ui` |
 | HEAD | `139f45fd019aa0561bfb5c6b7a7bd1c748f570b4` |
 | origin/main | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
 | Staged | vide |
-| git status --short | untracked uniquement (`.cursor/…`, `.tmp-sfia-review/…`) — **aucun fichier projet tracké modifié** |
-| Anomalie incompatible | **aucune** |
+| status --short | untracked hors projet (`.cursor/…`, `.tmp-sfia-review/…`) |
+| Anomalie | aucune — autres travaux préservés |
 
-Handoff historique 02A (blocage Editor) : commit `3c25aecb…` — lu explicitement.
-Tip distant `sfia/review-handoff` au début de cette reprise : `0df40c8d…` (autre chantier Ensemble 06) — **ne pas confondre** avec COURTILIEN ; overwrite mono-fichier attendu.
+Handoff 02A historique lu : `098f414d…` (`finalize COURTILIEN-02A identity relation`). Tip handoff en début de cycle = même commit.
 
----
-
-## 2. Sources consultées
-
-| Source | Statut |
-|--------|--------|
-| `prompts/templates/sfia-cycle-execution-template.md` | LU (§7.10, §8, §9) |
-| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | applicable |
-| `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md` | applicable |
-| `method/sfia-fast-track/core/sfia-rules-and-guardrails.md` | applicable |
-| CKC `02-fifteen-cycles-synthetic-map.md` cycle 8 | LU — Delivery / scope |
-| Handoff historique `3c25aecb:sfia-review-handoff/latest-chatgpt-review.md` | LU |
-| SFIA Studio / Next | N/A |
-| Livrables Liora versionnés | absents hors périmètre — signalé |
+Sources lues via `origin/main:` (sans checkout) : template, routing, operating model, guardrails, checklist, CKC cycle 8.
 
 ---
 
-## 3. État initial → final
+## 2. Pre-check Airtable — PASS
 
-### Permissions
-`list_bases` → base `appjebCNHtEaCAzxy` · `permissionLevel: create` (**Creator confirmé**).
-
-### Avant
-- 11 tables · 15 relations métier · `personne_client` **absent**
-- UTILISATEUR.PERSONNE (`fldrnt6mlP0Sd11pR`) = inverse de `courtier_referent` (**≠** identité client)
-
-### Après
-- 11 tables · **16 relations métier** · `personne_client` **présent** Airtable + Softr (artefacts SDK)
-- Aucun enregistrement métier modifié
-- 7 datasources Softr inchangées
-- App historique intacte · app cible `published: null`
-
----
-
-## 4. Champ créé — définition complète
-
-| Attribut | Valeur |
-|----------|--------|
-| Table | UTILISATEUR (`tblRL15tkEL98Mpev`) |
-| Nom | `personne_client` |
-| fieldId | **`fldQyeldPXKvOfVsg`** |
-| Type | `multipleRecordLinks` |
-| linkedTableId | `tblpbBJLOV4psEgnA` (PERSONNE) |
-| inverseLinkFieldId | **`fldj3FI4pdErBEZhM`** |
-| Nom inverse (auto Airtable) | **`UTILISATEUR`** (sur table PERSONNE) |
-| prefersSingleRecordLink | `false` |
-| isReversed | `false` |
-| actionId | `actzfpCUagsWrYhyn` |
-| Description | Rattachement explicite du compte client à sa fiche métier PERSONNE dans CourtiLien. Cardinalité métier cible 1:1 ; contrainte native non garantie — contrôle applicatif fail-closed requis. |
-
-**Cardinalité métier cible (non native) :** compte client ≤1 fiche ; fiche ≤1 compte ; compte client actif ⇒ fiche valide avant accès. Contrôle fail-closed **02B**.
+| Contrôle | Résultat |
+|----------|----------|
+| Base `appjebCNHtEaCAzxy` | PASS (`permissionLevel: create`) |
+| 11 tables / `personne_client` `fldQyeldPXKvOfVsg` | PASS |
+| Inverse `fldj3FI4pdErBEZhM` | PASS |
+| Client-A métier USR-004 | record `recKqV6VRULDdCUQI` · role=client · actif=true |
+| Fiche PER-004 | record `recFtQZ13T61lt89x` · type=client · statut=actif |
+| `personne_client` initial USR-004 | **vide** (sauvegarde rollback = `[]` / absent) |
+| Inverse client sur PER-004 | **vide** avant écriture |
+| Aucun autre USR → PER-004 via `personne_client` | PASS |
+| Lien incompatible USR-004 | absent |
+| Client-B USR-005 | HOLD — actif absent · aucune écriture |
+| PER-009 | HOLD — statut inactif · inverse client vide |
 
 ---
 
-## 5. Delta modèle
+## 3. Mapping appliqué — PASS
 
-| Métrique | Avant | Après |
-|----------|-------|-------|
-| Entités | 11 | **11** |
-| Relations métier | 15 | **16** |
-| `personne_client` | absent | **présent** |
-| Inverse auto | — | PERSONNE.`UTILISATEUR` (`fldj3FI4pdErBEZhM`) |
-| Données métier | — | **inchangées** |
-| Datasources Softr | 7 | **7** |
-
-Les 15 relations initiales préservées (dont `courtier_referent` ↔ UTILISATEUR.`PERSONNE` inchangé). Inverse non compté comme 17e relation.
-
----
-
-## 6. Vérifications Airtable — PASS
-
-- `personne_client` présent, destination PERSONNE correcte
-- Inverse `fldj3FI4pdErBEZhM` présent, pointe vers UTILISATEUR, `inverseLinkFieldId` = `fldQyeldPXKvOfVsg`
-- `courtier_referent` / UTILISATEUR.`PERSONNE` inchangés
-- Aucune seconde relation manuelle indésirable
-- 11 tables confirmées via `list_tables_for_base`
-
----
-
-## 7. Vérifications Softr — PASS (avec réserve cache listing)
-
-### Datasources (7 — inchangées)
-UTILISATEUR, PERSONNE, CONTRAT, COMPAGNIE, DOCUMENT, SINISTRE, RENDEZ_VOUS
-Intégration `6430d52c-…` · base `appjebCNHtEaCAzxy`
-
-### application_check
-`ok: true` · `dataModel.refreshed: true` · changed : `docs/datasources/README.md`, `src/softr-fields.ts` · `issues: []`
-
-### Contenu exploitable `src/softr-fields.ts` (hash `190fac85…`)
-
-UTILISATEUR (`ca4a934b-…`) :
+**Mutation unique :**
 ```
-"fldQyeldPXKvOfVsg": {"type":"LINKED_RECORD","options":{"linkedTableId":"PERSONNE",...},"allowMultipleEntries":true}
+table: UTILISATEUR (tblRL15tkEL98Mpev)
+recordId: recKqV6VRULDdCUQI  # USR-004
+fieldId: fldQyeldPXKvOfVsg   # personne_client
+value: ["recFtQZ13T61lt89x"] # PER-004
+```
+Aucune autre colonne transmise.
+
+### Relecture après écriture
+
+| Sens | Résultat |
+|------|----------|
+| USR-004 → personne_client | **PER-004** unique (`recFtQZ13T61lt89x`) |
+| PER-004 → inverse `UTILISATEUR` (`fldj3FI4pdErBEZhM`) | **USR-004** unique (`recKqV6VRULDdCUQI`) |
+| Autres comptes `personne_client` | **aucun** (USR-005 / courtiers / directeur vides) |
+| USR-005 / PER-009 | **inchangés** (HOLD) |
+| courtier_referent PER-004 | toujours USR-002 (courtier) — **≠** personne_client |
+
+### Mapping anonymisé
+
+| Alias | Mapping métier | Record IDs | Statut |
+|-------|----------------|------------|--------|
+| Client-A | USR-004 → PER-004 | `recKqV6…` → `recFtQZ…` | **APPLIQUÉ** |
+| Client-B | USR-005 → PER-009 | — | **HOLD** (aucune écriture) |
+
+### Rollback documenté (non exécuté)
+`update_records_for_table` : `fldQyeldPXKvOfVsg` ← `[]` sur `recKqV6VRULDdCUQI`.
+
+---
+
+## 4. Contrat d'identité Softr — état
+
+### Avant / après (inchangé côté Softr)
+
+| Élément | Valeur |
+|---------|--------|
+| user connection | `source: null` |
+| users | `total: 0` |
+| data restrictions | `[]` |
+| groupes | All / Logged in / Non Logged in (PREDEFINED only) |
+| login | EMAIL_CODE · signUp DISABLED · published null |
+| datasources | **7** inchangées |
+
+### Contrat cible (documenté, non branché)
+
+```
+Session Softr authentifiée
+→ UTILISATEUR correspondant
+→ role == client
+→ actif == true
+→ personne_client exactement 1 lien
+→ PERSONNE type=client, statut=actif
+→ objets métier liés uniquement à cette PERSONNE
+Sinon : REFUS PAR DÉFAUT
 ```
 
-PERSONNE (`82b33bf9-…`) :
-```
-"fldj3FI4pdErBEZhM": {"type":"LINKED_RECORD","options":{"linkedTableId":"UTILISATEUR",...},"allowMultipleEntries":true}
-```
+---
 
-### Réserve Softr listing
-`integration_list_table_fields` a renvoyé un schéma **sans** les nouveaux champs (cache probable). Preuve de propagation retenue via **artefacts régénérés** `softr-fields.ts` + `application_check` — **REAL BOUNDARY PROVEN** pour le schéma consultable depuis Softr. README datasources non lisible MCP (`src/**` only).
+## 5. User connection — STOP (fail-closed)
 
-### Apps
-- Historique `e8491c5f-…` : `updated` 2026-11-19T15:13:21Z · `published: null` — **intact**
-- Cible `7242211b-…` : `published: null` — **non publiée** · aucune user connection / data restriction modifiée
+### Qualification `application_create_user_connection`
+
+Documentation outil (extraits exploitables) :
+- « Connecting REQUESTS a user sync — turns the table's rows into application users »
+- « Apps have it [two-way user sync] on from creation »
+- `userSyncStarted: false` seulement si sync pausée côté app
+- `createUserInDatasource=false` concerne l'écriture signup → datasource, **pas** l'import des lignes existantes
+- Aucun outil MCP pour pauser la sync avant connexion
+- Interdit : `replaceExisting=true` · invitation · inscription publique
+
+### Effet attendu si exécuté maintenant
+
+Import probable des **5** lignes UTILISATEUR (directeur, 2 courtiers, Client-A, Client-B HOLD) en utilisateurs applicatifs — **hors GO** (pas d'import/sync non maîtrisée).
+
+### Décision cycle
+**STOP — user connection non exécutée.**
+Aucune synchronisation déclenchée. `users` reste 0.
+
+**GO Morris distinct requis** pour :
+- mécanisme d'identité sans import involontaire, **ou**
+- sync bornée (filtre / sync off prouvée / table miroir clients-only).
 
 ---
 
-## 8. Mappings candidats (non appliqués)
+## 6. Groupes et restrictions — proposés, non configurés
 
-| Alias | Mapping | Statut |
-|-------|---------|--------|
-| Client-A | USR-004 → PER-004 | candidat validation Morris |
-| Client-B | USR-005 → PER-009 | **HOLD** (compte + fiche inactifs) |
+### Pourquoi non installés
+Sans user connection opérationnelle :
+- groupes conditionnels sur `role`/`actif` **impossibles** (outil : condition-based groups bloqués si pas de users table) ;
+- restrictions liées à l'identité UTILISATEUR **non bindables** de façon vérifiable ;
+- installer ALLOW_ONLY/RESTRICT sur « Logged in users » sans chaîne d'identité = **faux sentiment de sécurité** ou risque d'élargissement.
 
-Conditions 02B : rôle=client · actif · lien unique · fiche valide · refus si multi-lien / ambiguïté / absente. **Aucun write** ce cycle.
+### Matrice proposée (non configurée)
+
+| Table | Objectif | Statut |
+|-------|----------|--------|
+| UTILISATEUR | Voir uniquement son propre enregistrement | proposée |
+| PERSONNE | Uniquement `personne_client` de la session | proposée |
+| CONTRAT / DOCUMENT / SINISTRE / RENDEZ_VOUS | Via PERSONNE de la session | proposée |
+| COMPAGNIE | Lecture minimale non sensible | proposée |
+
+### Règles
+| Catégorie | Contenu |
+|-----------|---------|
+| Proposées | Matrice ci-dessus + fail-closed sur lien absent / multi / inactif / mauvais rôle |
+| Configurées | **aucune** |
+| Effectivement prouvées | **aucune** (cloisonnement runtime) |
+
+Réserve technique : comparaison sûre d'identité sur `multipleRecordLinks` Airtable via restrictions Softr **non démontrée** — ne pas installer sans preuve.
+
+---
+
+## 7. Tests de sécurité
+
+| Scénario | Résultat |
+|----------|----------|
+| Client-A → ses données uniquement | **NOT TESTED** (pas de session) |
+| Client-A → données Client-B refusées | **NOT TESTED** |
+| Client inactif | **NOT TESTED** |
+| Sans personne_client | **NOT TESTED** |
+| Plusieurs PERSONNE | **NOT TESTED** |
+| Rôle courtier espace client | **NOT TESTED** |
+| Anonyme | **NOT TESTED** |
+| Objet tiers / écriture non autorisée | **NOT TESTED** |
+| Mapping Airtable unicité Client-A | **PASS** (lecture) |
+| HOLD Client-B | **PASS** (aucune écriture) |
+
+Emails `@example.com` : connexion EMAIL_CODE réelle **non utilisable** → E2E auth **hors scope**.
+
+---
+
+## 8. Validations finales
+
+| Contrôle | Résultat |
+|----------|----------|
+| Une seule liaison Airtable appliquée | PASS |
+| USR-005 inchangé | PASS |
+| Schéma 11/16 inchangé | PASS |
+| 7 datasources | PASS |
+| Import Softr inattendu | PASS (aucun — connection non créée) |
+| App historique intacte | PASS |
+| App cible non publiée · signup DISABLED | PASS |
+| Secrets / emails nominatifs dans Git | PASS (anonymisé) |
+| git status / diff tracké | PASS |
+| Cloisonnement serveur | **FAIL / NOT PROVEN** |
+| Ready BUILD UI | **NOT READY** |
 
 ---
 
@@ -148,67 +202,33 @@ Conditions 02B : rôle=client · actif · lien unique · fiche valide · refus s
 |---------|--------|
 | Applicable | oui |
 | Mock | aucun |
-| Frontière | Airtable / Softr / MCP |
-| Preuve | **REAL BOUNDARY PROVEN** — création champ + relecture Airtable + artefacts Softr |
-| Realism gaps | unicité 1:1 native absente ; auth / restrictions non implémentées ; nom inverse auto `UTILISATEUR` ambigu |
-| Hors scope | E2E parcours client · cloisonnement multi-utilisateur |
-| Claims interdits | Sécurité métier validée · MVP fonctionnel · 1:1 native garantie |
+| Mapping Airtable | **REAL BOUNDARY PROVEN** |
+| User connection / sync | **NOT EXECUTED** (STOP) |
+| Restrictions / cloisonnement | **NOT PROVEN** |
+| Auth session | **NOT TESTED** (@example.com) |
+| Claims interdits | Sécurité complète · MVP · auth prouvée sans session |
 
 ---
 
-## 10. Validations
+## 10. Décisions Morris restantes
 
-| Contrôle | Résultat |
-|----------|----------|
-| permission create | PASS |
-| 11 tables | PASS |
-| 16 relations métier | PASS |
-| 15 initiales préservées | PASS |
-| personne_client Airtable | PASS |
-| personne_client Softr (softr-fields) | PASS |
-| inverse Softr | PASS |
-| 7 datasources | PASS |
-| aucune modif données | PASS |
-| app historique intacte | PASS |
-| app cible non publiée | PASS |
-| code projet modifié | PASS (aucun) |
-| git status / diff tracké | PASS |
-| integration_list_table_fields à jour | **NOT TESTED / STALE** (cache) — compensé par softr-fields |
+| # | Décision |
+|---|----------|
+| D1 | Autoriser sync/identité maîtrisée (pause sync prouvée, table miroir clients-only, ou autre mécanisme) |
+| D2 | Configurer groupes + restrictions serveur après D1 |
+| D3 | Tests négatifs avec comptes de test réels (GO distinct) |
+| D4 | Client-B HOLD → GO mapping ultérieur |
+| D5 | BUILD UI |
+| D6 | Publication |
 
 ---
 
-## 11. Retour arrière (documenté, non exécuté)
+## 11. Verdict
 
-Suppression Creator/Owner du champ `personne_client` (`fldQyeldPXKvOfVsg`) → inverse auto `fldj3FI4pdErBEZhM` retiré. Aucune suppression automatique ce cycle.
+**`READY WITH RESERVES`** — mapping Client-A appliqué et prouvé ; Softr identité/accès **STOP fail-closed** correctement (pas d'import non maîtrisé).
 
----
+**`NOT READY FOR CLIENT ACCESS`** — cloisonnement serveur non démontré.
 
-## 12. Réserves
+**`INCOMPLETE / TOOLING GAP`** (sous-composante) — pas de levier MCP pour connecter UTILISATEUR sans risque de sync des 5 comptes.
 
-1. `prefersSingleRecordLink: false` — pas d'unicité native 1:1.
-2. Inverse auto nommé **`UTILISATEUR`** sur PERSONNE — risque de confusion avec table / champ courtier ; renommage hors périmètre 02A.
-3. `integration_list_table_fields` stale vs `softr-fields.ts` à jour.
-4. README Softr non extractible MCP.
-5. Relation ≠ sécurité multi-utilisateur.
-
----
-
-## 13. Décisions Morris restantes
-
-| # | Décision | Statut |
-|---|----------|--------|
-| D1 | Application mappings Client-A / HOLD Client-B | GO distinct |
-| D2 | Autorisations serveur (user connection + restrictions) | GO distinct |
-| D3 | BUILD fonctionnel 02B | GO distinct |
-| D4 | Publication | GO distinct |
-| D5 (optionnel) | Renommer inverse PERSONNE.`UTILISATEUR` | recommandation |
-
-GO création 16e relation : **exécuté**.
-
----
-
-## 14. Verdict
-
-**`READY WITH RESERVES`**
-
-Création effective + preuves Airtable et Softr (SDK) conformes. Réserves : unicité native, nom inverse, cache listing Softr. Aucun BUILD UI. Handoff : `docs(review-handoff): finalize COURTILIEN-02A identity relation`.
+Handoff attendu : `docs(review-handoff): COURTILIEN-02B-SEC identity access`
