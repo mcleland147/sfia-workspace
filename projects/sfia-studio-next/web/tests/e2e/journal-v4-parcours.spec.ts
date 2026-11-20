@@ -5,7 +5,7 @@ import {
   sendPrepMessage,
   uniqueProjectName,
 } from "./helpers/g4-chat-first";
-import { goRailSurface } from "./helpers/rail-nav";
+import { goJournalReady } from "./helpers/rail-nav";
 
 async function seedJournalScenario(page: Page, projectId: string, longThreadCount = 40) {
   const res = await page.request.post("/api/dev/e2e/journal-fixture", {
@@ -60,8 +60,7 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     await page.getByTestId("thread-draft").fill(draftBefore);
     await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
 
-    await goRailSurface(page, "journal");
-    await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
+    await goJournalReady(page);
 
     // A — arbre non vide (fail if empty)
     const leaf = page.getByTestId(`journal-subject-${seed.leafSubjectId}`);
@@ -130,8 +129,7 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     // J-C13: if first open exhausted product retry before DOM commit, re-open from Journal
     // now that the exact message is in client state (local hit → focus rebind, no web/src change).
     if (!(await focusedMsg.isVisible().catch(() => false))) {
-      await goRailSurface(page, "journal");
-      await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
+      await goJournalReady(page);
       await expect(page.getByTestId("journal-search")).toHaveValue("traçabilité");
       const chipWarm = page.locator("[data-testid^=journal-source-]").first();
       await expect(chipWarm).toBeVisible({ timeout: 10000 });
@@ -160,8 +158,7 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     await expect(targetMsg).toBeInViewport({ timeout: 5000 });
 
     // J-C13 — return via rail (NOT page.goto) and assert nav restored
-    await goRailSurface(page, "journal");
-    await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
+    await goJournalReady(page);
     await expect(page.getByTestId("journal-search")).toHaveValue("traçabilité");
     await expect(page.getByTestId("journal-open-points-list")).toBeVisible();
     await expect(page.getByTestId("journal-viewer-subject-title")).toBeVisible();
@@ -207,8 +204,7 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
 
     // Return Journal via rail — selection of document subject should restore if nav preserved
-    await goRailSurface(page, "journal");
-    await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
+    await goJournalReady(page);
     await expect(page.getByTestId(`journal-subject-${seed.otherParentId}`)).toBeVisible();
 
     // F — 1280 operational (rail nav, not goto as success proof of restore)
