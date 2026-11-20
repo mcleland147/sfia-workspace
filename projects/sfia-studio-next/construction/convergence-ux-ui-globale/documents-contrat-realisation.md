@@ -284,5 +284,5 @@ Les identifiants DOC-UAT reprennent le diagnostic approuvé. Les niveaux de preu
 4. **Gate Ensemble 06 :** Journal V4 accepté avec réserves **et** Documents acceptés ; réconciliation intégrée code/contrats/architecture/Roadmap/preuves, PR/merge sous GO ; aucune clôture isolée par défaut.
 5. **Gate promotions :** RECETTE, STABLE, RELEASE, ADOPTED non déduits de Figma, du commit de ce contrat ou d'un PASS de tests limité.
 
-**Verdict actuel :** `DOCUMENTED / CONTRACT CANDIDATE — READY FOR MORRIS REVIEW`.  
+**Verdict actuel :** `DOCUMENTED / CONTRACT CANDIDATE — READY FOR MORRIS REVIEW`.
 **Prochaine capacité :** si approuvé, préparation du macro-lot Documents exécutable par Cursor. Sinon, correction ciblée du même document. Aucune exécution technique ni intégration Git globale engagée.

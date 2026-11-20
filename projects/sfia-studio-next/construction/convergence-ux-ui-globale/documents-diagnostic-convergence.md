@@ -1,13 +1,13 @@
 # SFIA Studio Next — Ensemble 06
 ## Bibliothèque Documents — Diagnostic de convergence entre l'existant et la cible UX
 
-**Version :** 0.1 — 19 novembre 2026  
-**Statut :** DOCUMENTED — DIAGNOSTIC D0 VALIDÉ EN CONTENU PAR MORRIS, PUBLIÉ SUR BRANCHE DOCUMENTAIRE CANDIDATE  
-**Autorité produit et UX :** Morris  
-**Dépôt :** `mcleland147/sfia-workspace`  
-**Référence de code examinée :** `main@d3d199adb782462b93467934f5f1e8a0c98fb492`  
-**Référence UX :** [Figma — Page 08, Documents](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=930-2) — parcours et direction visuelle validés par Morris le 19 novembre 2026.  
-**Branche documentaire :** `sfia/next-documents-convergence-20261119` (sans PR ni merge).  
+**Version :** 0.1 — 19 novembre 2026
+**Statut :** DOCUMENTED — DIAGNOSTIC D0 VALIDÉ EN CONTENU PAR MORRIS, PUBLIÉ SUR BRANCHE DOCUMENTAIRE CANDIDATE
+**Autorité produit et UX :** Morris
+**Dépôt :** `mcleland147/sfia-workspace`
+**Référence de code examinée :** `main@d3d199adb782462b93467934f5f1e8a0c98fb492`
+**Référence UX :** [Figma — Page 08, Documents](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=930-2) — parcours et direction visuelle validés par Morris le 19 novembre 2026.
+**Branche documentaire :** `sfia/next-documents-convergence-20261119` (sans PR ni merge).
 **Périmètre du GO :** publication du présent diagnostic uniquement ; aucune autre modification normative, technique ou Git.
 
 **Limite d'observation :** analyse des fichiers Git distants et des maquettes Figma. Aucun environnement runtime, worktree Cursor ou test n'a été exécuté dans cette étape.
