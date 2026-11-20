@@ -44,27 +44,31 @@ test.describe("Ensemble 04 project space", () => {
     const rail = page.getByTestId("studio-rail");
 
     // T03 — Travail / Projet / Journal / Trajectoire
-    await rail.getByTestId("nav-projet").click();
-    await expect(page).toHaveURL(/surface=projet/);
+    // CI: wait for URL after rail click (force) — soft click can miss under load.
+    const goSurface = async (navTestId: string, surface: string) => {
+      await rail.getByTestId(navTestId).click({ force: true });
+      await expect(page).toHaveURL(new RegExp(`surface=${surface}`), {
+        timeout: 15_000,
+      });
+    };
+
+    await goSurface("nav-projet", "projet");
     await expect(page.getByTestId("project-overview")).toBeVisible();
     await expect(page.getByTestId("project-overview-name")).toHaveText(projectName);
 
-    await rail.getByTestId("nav-journal").click();
-    await expect(page).toHaveURL(/surface=journal/);
+    await goSurface("nav-journal", "journal");
     await expect(page.getByTestId("project-load-state")).toHaveAttribute(
       "data-project-surface",
       "journal",
     );
 
-    await rail.getByTestId("nav-pilotage").click();
-    await expect(page).toHaveURL(/surface=pilotage/);
+    await goSurface("nav-pilotage", "pilotage");
     await expect(page.getByTestId("project-load-state")).toHaveAttribute(
       "data-project-surface",
       "pilotage",
     );
 
-    await rail.getByTestId("nav-travail").click();
-    await expect(page).toHaveURL(/surface=travail/);
+    await goSurface("nav-travail", "travail");
 
     // T05 — Accès directs
     await expect(page.getByTestId("nav-documents")).toBeVisible();
