@@ -6,14 +6,14 @@
 | Produit | SFIA Studio Next |
 | Cadre | R5 / ML4D — convergence UX/UI globale |
 | Portée | Ensemble 07, surfaces Projet et Trajectoire, et conduite transverse **SAS → projet créé → qualification initiale → trajectoire et cycles** |
-| Statut de la cible UX | **Neuf écrans 09.01–09.09 VALIDÉS ET INCHANGÉS** ; quatre frames complémentaires **CANDIDATES** (SAS 06, Travail 05.17, Trajectoire 09.10 et 09.11) |
+| Statut de la cible UX | **13 maquettes et variantes VALIDÉES UX PAR MORRIS — 20/11/2026** : neuf références Ensemble 07 inchangées et quatre compléments SAS 06 / Travail 05.17 / Trajectoire 09.10–09.11. Validation de conception uniquement. |
 | Nature du présent document | **Contrat de conception fonctionnelle et UX** : neuf écrans validés et principes supplémentaires approuvés oralement le 20/11 ; **réconciliation des spécifications D2/D3/D5 requise** avant réalisation ; aucun GO technique |
 | Base documentaire vérifiée | main@6e93a33d64dfeea2eab88fb7896d733b34053f97 |
 | Référence Figma | [9 écrans validés](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=983-46) · [Pop-up SAS 06](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1022-112) · [Travail 05.17](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1036-114) · [Trajectoire 09.10](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1034-480) et [09.11](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1034-505) |
 | Niveau de preuve | UX VALIDATED ; couverture runtime / navigateur / REAL **À EXAMINER** |
 | Autorité des arbitrages | Morris ; ChatGPT formalise les choix validés ; Cursor exécute la technique sous SFIA v2.6 |
 
-> Les textes « Projet Horizon », dates, compteurs et données métier des maquettes sont **illustratifs**. Ils ne constituent pas des données réelles, des preuves de réalisation ni des valeurs par défaut. Les neuf écrans validés désignent cinq vues de référence et quatre variantes, pas neuf modules ni neuf obligations de navigation. Quatre frames complémentaires illustrent la pop-up SAS, l'état Travail et les variantes 09.10/09.11 de Trajectoire, **sans modifier ces neuf écrans validés**. Le présent contrat décrit la cible utilisateur approuvée ; il ne modifie pas les sources propriétaires D2/D3/D4/D5/D6, les décisions de gouvernance ni un schéma de persistance.
+> Les textes « Projet Horizon », dates, compteurs et données métier des maquettes sont **illustratifs**. Ils ne constituent pas des données réelles, des preuves de réalisation ni des valeurs par défaut. Les neuf écrans validés désignent cinq vues de référence et quatre variantes, pas neuf modules ni neuf obligations de navigation. Quatre frames complémentaires **validées UX par Morris le 20/11/2026** illustrent la pop-up SAS, l'état Travail et les variantes 09.10/09.11 de Trajectoire, **sans modifier les neuf écrans initialement validés**. Le présent contrat décrit la cible utilisateur approuvée ; il ne modifie pas les sources propriétaires D2/D3/D4/D5/D6, les décisions de gouvernance ni un schéma de persistance.
 
 ## 1. Résultat utilisateur et limites
 
@@ -136,7 +136,7 @@ Le temps d'analyse est variable : aucune durée fixe ni délai fictif ne sont co
 
 ### 4 bis.2. Pop-up de création et retour après interruption
 
-**Référence UX nouvelle :** [SAS Nora · 06 — Création projet et préparation de trajectoire](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1022-112). La maquette est **CANDIDATE**, les neuf frames de l'Ensemble 07 demeurent **validées et inchangées**.
+**Référence UX nouvelle :** [SAS Nora · 06 — Création projet et préparation de trajectoire](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1022-112). La maquette est **VALIDÉE UX par Morris le 20/11/2026**, les neuf frames initiales de l'Ensemble 07 demeurent **validées et inchangées**.
 
 La fenêtre présente **trois étapes**, avec leurs états vrais :
 - **Création du projet** : en cours puis confirmée ; le statut « créé » signifie que le projet existe réellement dans le portefeuille.
@@ -216,7 +216,7 @@ La solution technique (modèle de traitement durable, route/API, enregistrement 
 
 ### 4 bis.9. Synchronisation des états et publication cohérente — complément UX du 20/11/2026
 
-**Trois surfaces, une opération de qualification durable.** La pop-up de création, Travail et Trajectoire consomment un **même état de préparation initiale** lié au projet ; naviguer entre elles ne redémarre pas Nora et ne fabrique ni trajectoire ni message. Les neuf écrans 09.01–09.09 sont inchangés ; les frames complémentaires sont des **variantes candidates**.
+**Trois surfaces, une opération de qualification durable.** La pop-up de création, Travail et Trajectoire consomment un **même état de préparation initiale** lié au projet ; naviguer entre elles ne redémarre pas Nora et ne fabrique ni trajectoire ni message. Les neuf écrans 09.01–09.09 sont inchangés ; les quatre frames complémentaires sont des **variantes UX validées**.
 
 | État vérifié | Travail | Trajectoire | Compositeur |
 | --- | --- | --- | --- |
@@ -339,9 +339,9 @@ Sources propriétaires examinées sur la baseline indiquée :
 - [D6 — Décisions et gouvernance du Pilote](../../conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md) — autorité des décisions et transitions.
 - [UX espace projet Pilote–Nora](../../ux-ui/espace-projet-interaction-pilote-nora.md) et [contrat de transposition](../../ux-ui/contrat-transposition-figma-code.md).
 - [Figma, page 09 — neuf frames 09.01–09.09](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=983-46), **validées par Morris dans la conversation du 20 novembre 2026**.
-- [Figma, page 03 — pop-up SAS 06 allégée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1022-112), **candidate**.
-- [Figma, page 05 — Travail 05.17, qualification initiale](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1036-114), **candidate**.
-- [Figma, page 09 — Trajectoire 09.10, en cours](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1034-480) et [09.11, trajectoire proposée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1034-505), **candidates**, sans modification des neuf frames validées.
+- [Figma, page 03 — pop-up SAS 06 allégée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1022-112), **validée UX par Morris le 20/11/2026**.
+- [Figma, page 05 — Travail 05.17, qualification initiale](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1036-114), **validée UX par Morris le 20/11/2026**.
+- [Figma, page 09 — Trajectoire 09.10, en cours](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1034-480) et [09.11, trajectoire proposée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1034-505), **validées UX par Morris le 20/11/2026**, sans modification des neuf frames initiales.
 
 ### 10.1. Réconciliation normative requise avant GO de réalisation
 
@@ -359,9 +359,9 @@ Ce travail a un **blast radius D2/D3/D4/D5/D6** et dépasse une pure transpositi
 ### 10.2. Statuts et preuves
 
 - **Neuf écrans Projet & Trajectoire** : UX **VALIDÉE** par Morris, inchangée.
-- **Quatre maquettes complémentaires** : SAS 06, Travail 05.17, Trajectoire 09.10 et 09.11, **CANDIDATES**, réalisées et vérifiées visuellement, sans validation individuelle encore constatée.
+- **Quatre maquettes complémentaires** : SAS 06, Travail 05.17, Trajectoire 09.10 et 09.11, **VALIDÉES UX PAR MORRIS le 20/11/2026** ; validation de conception uniquement, aucune preuve navigateur/runtime déduite.
 - **Principes proactifs et reprise** : accord conversationnel Morris du 20/11/2026, **transcrit en conception**, sans publication de modification des règles R2.
 - **Runtime d'analyse initiale persistante et premier message proactif** : **NON DÉMONTRÉ sur la base inspectée** ; évaluation code, tests et preuves navigateur restent requises.
 - **Gate C / ML5 / R6 / ADOPTED** : non acquis. Pas de PR, merge, migration ni modification runtime par ce document.
 
-**Statut : DOCUMENTED — neuf écrans UX validés, nouvelle pop-up candidate et compléments fonctionnels approuvés oralement, avec réconciliation R2 à instruire.** Aucun texte de décision ou propriétaire métier n'est amendé par ce fichier. **CONCEPTION ≠ IMPLÉMENTATION ≠ PREUVE ≠ ADOPTION.**
+**Statut : DOCUMENTED — treize écrans/variantes UX validés par Morris, contrat de fonctionnement cible documenté et réconciliation R2 à instruire.** Aucun texte de décision ou propriétaire métier n'est amendé par ce fichier. **CONCEPTION ≠ IMPLÉMENTATION ≠ PREUVE ≠ ADOPTION.**
