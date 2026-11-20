@@ -1,5 +1,32 @@
 # SFIA Studio Next — Living Roadmap
 
+## ÉTAT COURANT — 20 NOVEMBRE 2026 : Ensemble 06 intégré sur main, CI post-merge vérifiée
+
+**Nature :** synchronisation **strictement factuelle** après le GO MERGE Morris et le succès de la CI post-merge. Ce bloc prime sur les instantanés historiques ci-dessous quant à l'état Git présent ; il ne réécrit pas leurs faits ni n'étend les décisions produit. Aucune décision nouvelle de Gate C, ML5, R6, STABLE, release ou ADOPTED.
+
+**Référence intégrée :** `mcleland147/sfia-workspace` · [PR #683](https://github.com/mcleland147/sfia-workspace/pull/683) **MERGED** · `main@f3ee3c5e6f1d1f480e8944567bde763c2ad79c0f`. Parents du merge : `d3d199adb782462b93467934f5f1e8a0c98fb492` (ancienne base main) et `121a2e38081b2ab2b8f42308d35d664dea4e495a` (HEAD candidat). Branche projet conservée.
+
+### Sortie Git de l'Ensemble 06
+
+| Objet | État vérifié / limite |
+| --- | --- |
+| **R5 / ML4D / Ensemble 06** | **MORRIS UAT ACCEPTED WITH GOVERNED RESERVES / MERGED / POST-MERGE CI VERIFIED** : Journal V4 Sujets-Décisions + Bibliothèque Documents |
+| Recette utilisateur | Journal accepté le 19/11 ; Documents et Ensemble 06 acceptés le 20/11 ; PV distincts conservés |
+| Revue et intégration | Review Pack FULL Cycle 14 publié sur SHA immuable ; PR #683 mergée sur GO Morris distinct |
+| Code recetté | `7a13d7deec488bf62881eec11b5658c45c02c5b0` ; tree `web/src = 4e5e87f5af6e16dbacc6f2218c811b6deabe411b` **identique dans le commit de merge** |
+| CI post-merge | [run #44727223721](https://github.com/mcleland147/sfia-workspace/actions/runs/44727223721) **SUCCESS** sur `f3ee3c5e…` ; Build/Validate et **Next Required Gate PASS** |
+| RECETTE | Candidat accepté `:3200`, BUILD `t4pjnrn3wGVHZEjhiw6yH` ; aucune nouvelle mise à disposition ni promotion par le merge |
+| Gate C / ML5 / R6 | **Gate C OPEN** ; ML5/R6 non démarrés au sens des gates globaux de cette Roadmap ; ne pas déduire une clôture globale de R5 |
+| Versioning | **NO RELEASE / STABLE NOT AVAILABLE / ADOPTED NOT ACQUIRED** |
+
+**Preuves :** [PV Ensemble 06](../validation-qualite/ensemble-06-recette-utilisateur-20261120.md), [PV Journal V4](../validation-qualite/journal-v4-recette-utilisateur-20261119.md), [as-built combiné](../construction/as-built-ensemble-06-journal-documents-20261120.md), [manifeste candidat](../construction/ensemble-06-recette-manifest-20261120.md), [Review Pack FULL Cycle 14 immuable](https://github.com/mcleland147/sfia-workspace/blob/a87e0efd918bb3aef0bd7b38dffc22f558982a6a/sfia-review-handoff/ensemble-06-cycle14-ci-pg-chatgpt-review-FULL.md). L'historique des livraisons documente cette intégration post-merge.
+
+**Réserves inchangées :** `DOC-TECH-15 NOT RUN`, `DOC-TECH-16 PARTIAL`, Journal `R-01…R-11`, J-C13 **Option B** (preuve CI durable sans marqueur de focus éphémère), édition manuelle du Sas **KNOWN GAP** hors surface Documents Projet, F2/responsive exhaustif non revendiqué, Nora LIVE/REAL global **NOT PROVEN**. Elles ne sont ni closes ni oubliées par la CI verte.
+
+**Suite :** maintenir les réserves et poursuivre la trajectoire conformément aux gates Morris déjà définis. La préparation de l'Ensemble 07 peut s'appuyer en lecture sur cette baseline intégrée ; elle ne constitue pas un GO de construction, une nouvelle trajectoire R5, ni une promotion.
+
+---
+
 ## ÉTAT COURANT — 20 NOVEMBRE 2026 : Ensemble 06 UAT accepté ; intégration Git en préparation
 
 **Nature :** synchronisation factuelle après acceptation utilisateur Morris de l'Ensemble 06 (Journal V4 + Bibliothèque Documents). Aucun nouvel arbitrage de doctrine, aucune promotion STABLE, aucun ADOPTED, aucun merge. Les blocs datés ci-dessous sont historiques et restent intacts.

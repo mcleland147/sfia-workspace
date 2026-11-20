@@ -3,6 +3,25 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-20-ENSEMBLE06-POST-MERGE-CI-VERIFIED
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-20 |
+| Macro-lot | Ensemble 06 — Journal V4 + Bibliothèque Documents ; clôture de l'intégration Git |
+| Type | Synchronisation documentaire factuelle post-merge · **NO RELEASE** |
+| Autorité | Morris : UAT Journal (19/11), UAT Documents et Ensemble 06 (20/11), GO MERGE PR #683, puis GO de synchronisation documentaire |
+| PR et merge | [#683](https://github.com/mcleland147/sfia-workspace/pull/683) **MERGED** par merge commit `f3ee3c5e6f1d1f480e8944567bde763c2ad79c0f` sur `main` |
+| Parents vérifiés | `d3d199adb782462b93467934f5f1e8a0c98fb492` + `121a2e38081b2ab2b8f42308d35d664dea4e495a` |
+| Code UAT et intégrité | `7a13d7deec488bf62881eec11b5658c45c02c5b0` ; `web/src` tree `4e5e87f5af6e16dbacc6f2218c811b6deabe411b` **préservé sur main** |
+| CI pré-merge | [Next CI #44722295427](https://github.com/mcleland147/sfia-workspace/actions/runs/44722295427) PASS sur `121a2e38…` : 680 unitaires, 510 PostgreSQL, 83 Playwright FAKE PASS / 3 SKIPPED |
+| CI post-merge | [Next CI #44727223721](https://github.com/mcleland147/sfia-workspace/actions/runs/44727223721) **SUCCESS** sur `f3ee3c5e…` (Build/Validate + Required Gate PASS) |
+| Review Pack | [Cycle 14 FULL immuable](https://github.com/mcleland147/sfia-workspace/blob/a87e0efd918bb3aef0bd7b38dffc22f558982a6a/sfia-review-handoff/ensemble-06-cycle14-ci-pg-chatgpt-review-FULL.md) ; historique L3 vérifié |
+| RECETTE | `http://127.0.0.1:3200` / BUILD `t4pjnrn3wGVHZEjhiw6yH` ; **non promue**, état runtime actuel non inspecté ici |
+| Réserves maintenues | DOC-TECH-15/16 ; Journal R-01…R-11 ; J-C13 Option B ; Sas KNOWN GAP ; F2 et Nora LIVE/REAL non exhaustifs |
+| Verdict | **GIT INTEGRATION COMPLETE / POST-MERGE CI VERIFIED / UAT MORRIS ACCEPTED WITH GOVERNED RESERVES** |
+| Gates non acquis | Gate C, R6, STABLE, release, ADOPTED ; aucun changement produit ou migration dans cette mise à jour documentaire |
+
 
 ## delivery_id: DELIV-2026-11-20-ENSEMBLE06-UAT-GIT-CONSOLIDATION
 
