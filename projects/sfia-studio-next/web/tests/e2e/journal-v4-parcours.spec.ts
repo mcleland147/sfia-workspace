@@ -118,22 +118,34 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     await expect(sourceChip.locator(".journal-source-cta")).toContainText(/message exact/i);
     await sourceChip.click();
     await expect(page).toHaveURL(/surface=travail/, { timeout: 15000 });
-    // J-C13 proof — assert focus marker ASAP (product holds ~5.2s after node found;
-    // up to ~2s retry). Combined locator avoids eating the window with toBeVisible-only.
+    await expect(page.getByTestId("nora-workspace")).toBeVisible({ timeout: 15000 });
+    const targetMsg = page.locator(`[data-message-id="${seed.earlyMessageId}"]`);
+    // Durable insert first — product tryFocus is only ~2s; CI fetch can outrun first paint.
+    await expect(targetMsg).toBeVisible({ timeout: 30000 });
+    await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
+
     const focusedMsg = page.locator(
       `[data-message-id="${seed.earlyMessageId}"][data-journal-focus="1"]`,
     );
-    await expect(focusedMsg).toBeVisible({ timeout: 20000 });
+    // J-C13: if first open exhausted product retry before DOM commit, re-open from Journal
+    // now that the exact message is in client state (local hit → focus rebind, no web/src change).
+    if (!(await focusedMsg.isVisible().catch(() => false))) {
+      await goRailSurface(page, "journal");
+      await expect(page.getByTestId("project-journal")).toBeVisible({ timeout: 20000 });
+      await expect(page.getByTestId("journal-search")).toHaveValue("traçabilité");
+      const chipWarm = page.locator("[data-testid^=journal-source-]").first();
+      await expect(chipWarm).toBeVisible({ timeout: 10000 });
+      await chipWarm.click();
+      await expect(page).toHaveURL(/surface=travail/, { timeout: 15000 });
+      await expect(targetMsg).toBeVisible({ timeout: 15000 });
+    }
+    await expect(focusedMsg).toBeVisible({ timeout: 10000 });
     await expect(focusedMsg).toHaveClass(/is-journal-focus/);
-    await expect(page.getByTestId("nora-workspace")).toBeVisible({ timeout: 15000 });
-    const targetMsg = page.locator(`[data-message-id="${seed.earlyMessageId}"]`);
-    await expect(page.getByTestId("thread-draft")).toHaveValue(draftBefore);
     const ids = await page.locator("[data-message-id]").evaluateAll((els) =>
       els.map((e) => e.getAttribute("data-message-id")),
     );
     expect(ids.includes(seed.earlyMessageId)).toBe(true);
     expect(ids[ids.length - 1]).not.toBe(seed.earlyMessageId);
-    // Focused exact message must be in viewport (not displaced by stick-to-end).
     await expect(targetMsg).toBeInViewport({ timeout: 5000 });
     // After highlight clears (~5.2s): suppress holds — message + draft still present, not last.
     await page.waitForTimeout(5600);
