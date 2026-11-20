@@ -1,8 +1,55 @@
 # SFIA Studio Next — Living Roadmap
 
+## ÉTAT COURANT — 20 NOVEMBRE 2026 : Ensemble 06 UAT accepté ; intégration Git en préparation
+
+**Nature :** synchronisation factuelle après acceptation utilisateur Morris de l'Ensemble 06 (Journal V4 + Bibliothèque Documents). Aucun nouvel arbitrage de doctrine, aucune promotion STABLE, aucun ADOPTED, aucun merge. Les blocs datés ci-dessous sont historiques et restent intacts.
+
+**Baseline Git au pré-check consolidation :** `mcleland147/sfia-workspace` · `origin/main@d3d199adb782462b93467934f5f1e8a0c98fb492`.
+**Candidat recetté :** branche locale `sfia/next-ensemble06-journal-docs-recette-20261120` · code `7a13d7de…` · tip `aa568cfa…` · BUILD RECETTE `t4pjnrn3wGVHZEjhiw6yH` · URL `http://127.0.0.1:3200`.
+**PV UAT :** `validation-qualite/ensemble-06-recette-utilisateur-20261120.md` (blob `e08c7b6c…`).
+
+### Situation actuelle et portée
+
+| Jalon | Statut actuel | Portée / réserve |
+| --- | --- | --- |
+| R0-A/R0-B | VALIDATED / CLOSED | SEF, bootstrap, sources et gouvernance intégrés |
+| R1 | CLOSED BY MORRIS WITH RESERVES | Vision Pilote–Nora, neuf domaines et sept E2E au niveau cadrage |
+| R2 | CLOSED WITH RESERVES | Contrats fonctionnels et CKI validés en contenu |
+| R3 | CLOSED IN DESIGN WITH RESERVES | UX/Figma conçus ; pas de preuve visuelle globale du produit |
+| R4 | CLOSED IN DESIGN WITH RESERVES | Architecture, DATA-01 et ENV-01 |
+| R5 / ML1 | CLOSED WITH RESERVES, PR #649 MERGED | Réserves historiques conservées |
+| R5 / ML2 | **RECETTE MORRIS ACCEPTED WITH RESERVES, PR #659 MERGED** | **Aucune décision séparée « ML2 CLOSED » établie** |
+| R5 / ML3 | CLOSED WITH RESERVES, PR #661 MERGED | Portée D5/D6 et CKI bornée |
+| R5 / ML4 | PR #672 MERGED | La seule intégration initiale n'emportait pas acceptation globale |
+| R5 / ML4B | CLOSED WITH RESERVES — Gate B ACCEPTED | Décision Morris 11/11 |
+| **R5 / ML4C** | **CLOSED WITH RESERVES — PRODUCT/DOC MERGED, POST-MERGE CI VERIFIED** | Décision Morris du 15/11, réserves maintenues |
+| **R5 / ML4D / Ensemble 06** | **UAT MORRIS ACCEPTED WITH GOVERNED RESERVES — GIT INTEGRATION IN PROGRESS** | Journal V4 (19/11) + Documents (20/11) ; candidat combiné en RECETTE ; **non mergé** |
+| Gate C | OPEN | Non acquis par l'UAT Ensemble 06 |
+| ML5 | NOT STARTED | Après Gate C et GO distinct |
+| R6 | NOT STARTED | Qualification globale et décision de bascule |
+| STABLE / release / ADOPTED | **NON ACQUIS** | Aucun PASS REAL/LIVE général inféré |
+
+### Faits Ensemble 06 (20/11) — sans annoncer MERGED
+
+- Journal V4 Sujets/Décisions **construit** et **accepté Morris le 19/11** avec réserves R-01…R-11 (PV Journal distinct conservé).
+- Bibliothèque Documents **construite** et **acceptée Morris le 20/11** avec réserves DOC-TECH-15 NOT RUN / DOC-TECH-16 PARTIAL.
+- Ensemble 06 **accepté utilisateur avec réserves gouvernées** ; RECETTE `:3200` sert le candidat combiné.
+- Intégration Git / Draft PR / CI / revue indépendante : **en cours sous GO consolidation** ; **merge sous GO Morris distinct** ; post-merge ensuite.
+- Sas édition documentaire manuelle : **KNOWN GAP hors scope** Projet Documents.
+- F2 pixel-perfect exhaustif et LIVE/REAL globale : **non revendiqués**.
+
+### Suite
+
+1. Publier la branche candidat et ouvrir une **Draft PR unique** vers `main`.
+2. Revue indépendante + CI sur le SHA exact publié.
+3. **GO Morris MERGE** (distinct) si ready — non acquis ici.
+4. Post-merge factuel ; Gate C / STABLE / ADOPTED restent séparés.
+
+---
+
 ## ÉTAT COURANT — 15 NOVEMBRE 2026 : ML4C clôturé, ML4D prochaine capacité
 
-**Nature :** synchronisation factuelle après les PR #676 et #678 ; aucun nouvel arbitrage métier, gate, release ou adoption. Les blocs datés ci-dessous sont historiques et restent intacts.
+**Nature :** synchronisation factuelle après les PR #676 et #678 ; aucun nouvel arbitrage métier, gate, release ou adoption. Les blocs datés ci-dessous sont historiques et restent intacts. **Snapshot historique — ne plus utiliser comme tip courant après le 20/11.**
 
 **Baseline vérifiée :** `mcleland147/sfia-workspace` · `main@2c2e88f12fad867d0b5d76233961bcb95280a2bf`. Git local et runtime RECETTE au présent : **NON OBSERVÉS**.
 

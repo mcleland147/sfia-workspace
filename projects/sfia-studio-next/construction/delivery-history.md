@@ -4,6 +4,23 @@ Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
 
+## delivery_id: DELIV-2026-11-20-ENSEMBLE06-UAT-GIT-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-20 |
+| Macro-lot | Ensemble 06 — consolidation Git après UAT Morris |
+| Type | Cycle 13 Critical · Git Integration / Doc · **NO RELEASE** |
+| GO Morris | UAT ACCEPTED WITH GOVERNED RESERVES · commit/push branche · Draft PR · **MERGE INTERDIT** |
+| Code recetté | `7a13d7deec488bf62881eec11b5658c45c02c5b0` · tree `2bb984969be6597b76baddb7a3c724ef8dcf22fa` · web `e61a98f4…` |
+| Tip pré-docs | `aa568cfab37bec1922b2a6886c621dc7d9d37088` · BUILD `t4pjnrn3wGVHZEjhiw6yH` |
+| Base main | `d3d199adb782462b93467934f5f1e8a0c98fb492` |
+| Docs | PV UAT blob `e08c7b6c…` · PV Journal `dbc1ba8e…` · contrats/matrices blobs exacts · tip Roadmap 20/11 · as-built combiné |
+| Tree web | **inchangé** vs code recetté (doc-only consolidation) |
+| RECETTE | `http://127.0.0.1:3200` préservée |
+| Réserves | DOC-TECH-15/16 · Journal R-01…R-11 · Sas KNOWN GAP · LIVE/REAL non globale |
+| Verdict | voir PR Draft + Review Pack Cycle 13 |
+
 ## delivery_id: DELIV-2026-11-20-ENSEMBLE06-JOURNAL-DOCS-RECETTE
 
 | Field | Value |
