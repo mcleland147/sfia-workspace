@@ -6,14 +6,14 @@
 | Produit | SFIA Studio Next |
 | Cadre | R5 / ML4D — convergence UX/UI globale |
 | Portée | Ensemble 07, surfaces Projet et Trajectoire, et conduite transverse **SAS → projet créé → qualification initiale → trajectoire et cycles** |
-| Statut de la cible UX | **VALIDÉE PAR MORRIS — 9 MAQUETTES FIGMA, 20/11/2026** ; pop-up SAS supplémentaire : **CANDIDATE À REVUE VISUELLE** |
+| Statut de la cible UX | **Neuf écrans 09.01–09.09 VALIDÉS ET INCHANGÉS** ; quatre frames complémentaires **CANDIDATES** (SAS 06, Travail 05.17, Trajectoire 09.10 et 09.11) |
 | Nature du présent document | **Contrat de conception fonctionnelle et UX** : neuf écrans validés et principes supplémentaires approuvés oralement le 20/11 ; **réconciliation des spécifications D2/D3/D5 requise** avant réalisation ; aucun GO technique |
 | Base documentaire vérifiée | main@6e93a33d64dfeea2eab88fb7896d733b34053f97 |
-| Référence Figma | [Neuf écrans Ensemble 07 validés](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=983-46) et [nouvelle pop-up SAS, candidate](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1022-112) |
+| Référence Figma | [9 écrans validés](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=983-46) · [Pop-up SAS 06](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1022-112) · [Travail 05.17](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1036-114) · [Trajectoire 09.10](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1034-480) et [09.11](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1034-505) |
 | Niveau de preuve | UX VALIDATED ; couverture runtime / navigateur / REAL **À EXAMINER** |
 | Autorité des arbitrages | Morris ; ChatGPT formalise les choix validés ; Cursor exécute la technique sous SFIA v2.6 |
 
-> Les textes « Projet Horizon », dates, compteurs et données métier des maquettes sont **illustratifs**. Ils ne constituent pas des données réelles, des preuves de réalisation ni des valeurs par défaut. Les neuf écrans validés désignent cinq vues de référence et quatre variantes, pas neuf modules ni neuf obligations de navigation. Une frame supplémentaire SAS illustre la pop-up candidate, **sans modifier ces neuf écrans**. Le présent contrat décrit la cible utilisateur approuvée ; il ne modifie pas les sources propriétaires D2/D3/D4/D5/D6, les décisions de gouvernance ni un schéma de persistance.
+> Les textes « Projet Horizon », dates, compteurs et données métier des maquettes sont **illustratifs**. Ils ne constituent pas des données réelles, des preuves de réalisation ni des valeurs par défaut. Les neuf écrans validés désignent cinq vues de référence et quatre variantes, pas neuf modules ni neuf obligations de navigation. Quatre frames complémentaires illustrent la pop-up SAS, l'état Travail et les variantes 09.10/09.11 de Trajectoire, **sans modifier ces neuf écrans validés**. Le présent contrat décrit la cible utilisateur approuvée ; il ne modifie pas les sources propriétaires D2/D3/D4/D5/D6, les décisions de gouvernance ni un schéma de persistance.
 
 ## 1. Résultat utilisateur et limites
 
@@ -119,7 +119,7 @@ Le contenu CKI peut être pertinent comme information même lorsqu'il est consul
 | [09.08 — Entre deux cycles](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=999-335) | Un cycle clôturé, aucun actif, suite éventuelle | Dernier cycle clos consultable via son bilan ; suite présentée comme envisagée, non ouverte ; sujets/documents persistants ; retour à Nora sans message. |
 | [09.09 — Premier cycle actif](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1005-428) | Un premier cycle actif, aucun clos | Mini-roadmap sans étape passée fictive ; focus sur le premier cycle (exemple « Cadrage »), acquis/points ouverts adaptés ; future étape seulement envisagée. |
 
-Ces quatre variantes sont des **états de la même expérience**, non des sous-produits ou des moteurs supplémentaires. L'absence d'un futur prévisible, d'acquis, d'une appréciation Nora, de méthode ou d'un contenu CKI utilisable doit être traitée sans inventer de valeurs. En **09.07**, la qualification est à poursuivre avec Nora, pas à ignorer ; en **09.08**, Nora propose la suite pertinente après la clôture, sans ouverture présumée.
+Ces quatre variantes sont des **états de la même expérience**, non des sous-produits ou des moteurs supplémentaires. L'absence d'un futur prévisible, d'acquis, d'une appréciation Nora, de méthode ou d'un contenu CKI utilisable doit être traitée sans inventer de valeurs. En **09.07**, l'absence de trajectoire reste un état légitime de non-qualification. **Pendant une analyse en cours**, la variante **09.10** affiche l'activité ; **après une proposition non retenue**, la variante **09.11** affiche la séquence envisagée. En **09.08**, Nora propose une suite après clôture sans ouverture présumée.
 
 ## 4 bis. Conduite continue de la trajectoire — contrat fonctionnel cible
 
@@ -143,7 +143,7 @@ La fenêtre présente **trois étapes**, avec leurs états vrais :
 - **Identification des cycles pertinents** : qualification en cours, en attente, à reprendre ou en échec, sans activation de CKI.
 - **Première réponse de Nora** : restitution d'une trajectoire proposée ou d'une clarification ciblée dans le fil du projet.
 
-La fenêtre initiale peut accompagner la création, sans imposer d'attendre indéfiniment. **Une fois le projet confirmé, il est accessible même si l'interface ferme.** À la reprise de Studio ou à l'ouverture du projet depuis le portefeuille, l'état doit être lu sur la source durable : **on ne rouvre pas systématiquement la pop-up**. Travail affiche la préparation en cours, la restitution disponible, la clarification requise ou l'incident technique ; aucun nouveau projet ni nouveau fil ne doit naître.
+La pop-up de création, **allégée sans ajout de densité**, présente ses trois étapes. Après création réellement confirmée, le bouton **« Accéder au projet »** est disponible même si l'analyse est encore en cours : les onglets sont consultables, le compositeur est temporairement verrouillé. À la reprise, Studio lit l'opération durable : **pas de réouverture automatique de la pop-up** ; Travail expose un indicateur compact et Trajectoire l'état détaillé de qualification. Aucun nouveau projet ni fil ne doit naître.
 
 **Trois frontières de rupture** sont distinguées : fermeture avant création vérifiée → **réconciliation D2** avant toute nouvelle tentative ; fermeture après création, avant résultat d'analyse → **projet conservé et analyse retrouvée/reprise** ; fermeture après restitution → **projet et premier message existants retrouvés sans régénération**. Un échec de l'analyse ne constitue pas un échec de création.
 
@@ -155,7 +155,7 @@ La fenêtre initiale peut accompagner la création, sans imposer d'attendre ind�
 | **Informations insuffisantes** | Nora expose les informations déterminantes manquantes et propose une clarification ciblée ; pas de carte de cycle fictive, ni de trajectoire retenue par défaut. |
 | **Erreur technique ou état inconnu** | Studio distingue la panne de l'insuffisance de contexte, expose l'état et la reprise contrôlée ; Nora ne prétend pas avoir conclu. Le projet créé demeure disponible. |
 
-**Un à trois cycles est un horizon indicatif, pas un quota.** Un seul premier cycle suffit si les suites ne sont pas encore qualifiables ; aucune étape future n'est obligatoire, aucune progression imposée dans le catalogue CKI. Le Pilote peut accepter, discuter ou refuser la proposition et choisir un autre cycle. Nora challenge une incohérence avec des raisons et risques concrets, sans se substituer à la décision humaine dans les limites des restrictions opposables.
+**La proposition de Nora est une trajectoire séquentielle** : Cycle 1 recommandé → Cycle 2 envisagé → éventuellement Cycle 3 envisagé, **et non trois options concurrentes pour choisir le premier cycle**. Un à trois cycles est un horizon indicatif ; un seul suffit si la suite n'est pas qualifiée. Aucun parcours standard ni étape future obligatoire. Le Pilote peut accepter, discuter ou refuser la proposition et choisir un autre cycle. Nora challenge une incohérence avec des raisons et risques concrets, sans se substituer à la décision humaine dans les limites des restrictions opposables.
 
 ### 4 bis.4. Premier message proactif de Nora dans le même fil
 
@@ -163,7 +163,8 @@ Quand l'analyse aboutit cognitivement, sa conclusion doit être visible sous la 
 
 - Le traitement initial et la restitution doivent être **durables et dédupliqués** : un double clic, timeout, nouveau chargement ou reprise ne créent pas deux analyses concurrentes irréconciliables ni deux premiers messages.
 - Le message est attribué à **Nora** et non à un message fictif du Pilote. Une erreur technique affiche une information Studio, **pas une réponse cognitive inventée**.
-- Si le Pilote écrit avant la fin de l'analyse, son tour est conservé ; le système **ordonne** les travaux et réévalue une proposition devenue périmée par un changement de contexte important. Pas de réponse concurrente qui ignore la dernière information.
+- Tant que la qualification initiale n'a pas atteint un état terminal vérifié, le **compositeur Travail est grisé et réellement désactivé** pour la saisie et l'envoi. Le Pilote peut consulter les onglets Projet, Trajectoire, Journal et Documents, mais **ne peut pas engager un tour Nora concurrent** ; aucune queue de messages n'est créée. Le motif doit être visible et explicable par une info-bulle accessible au survol et au focus clavier.
+- Le compositeur est **réactivé** après une réponse de Nora durable et cohérente avec la projection D5, ou après un échec technique **confirmé** assorti d'une reprise explicite. Une analyse UNKNOWN encore à réconcilier ne donne ni faux succès ni verrou permanent.
 - **La navigation** vers Travail, Projet, Journal ou Trajectoire ne déclenche pas d'envoi : le seul événement initiateur de la première intervention est la qualification effectivement engagée **après création**. Les liens « Travailler avec Nora » des maquettes restent de simples navigations.
 
 Le mécanisme de continuation de mission existant doit être étudié, sans présumer qu'il satisfait déjà la préparation durable de trajectoire et l'unicité du message.
@@ -213,11 +214,36 @@ Conserver des faits et justifications **interprétables**, non une chaîne de pe
 
 La solution technique (modèle de traitement durable, route/API, enregistrement d'opération, messages, transaction, réconciliation et migration éventuelle) n'est **pas décidée** ici. Le choix minimal doit être fondé sur le code existant, sans duplication des propriétaires.
 
+### 4 bis.9. Synchronisation des états et publication cohérente — complément UX du 20/11/2026
+
+**Trois surfaces, une opération de qualification durable.** La pop-up de création, Travail et Trajectoire consomment un **même état de préparation initiale** lié au projet ; naviguer entre elles ne redémarre pas Nora et ne fabrique ni trajectoire ni message. Les neuf écrans 09.01–09.09 sont inchangés ; les frames complémentaires sont des **variantes candidates**.
+
+| État vérifié | Travail | Trajectoire | Compositeur |
+| --- | --- | --- | --- |
+| Projet créé, analyse pending/running | Bandeau 05.17 « Nora prépare votre trajectoire » avec « Voir la trajectoire » | 09.10 : étape 2/3, puis 3/3 selon les faits | **Grisé, verrouillé** |
+| Analyse calculée, première restitution non encore durable | Préparation encore en cours ; aucune fausse réponse | État de restitution en cours, pas de projection présentée comme retenue | **Toujours verrouillé** |
+| Proposition D5 enregistrée **et** message Nora durable cohérent | Message initial unique disponible dans le même fil | 09.11 : **Cycle 1 recommandé → Cycle 2/3 envisagés** (si qualifiés), aucun actif | **Disponible** |
+| Insuffisance cognitive et question Nora durable | Première question ciblée dans le fil | 09.07 : absence de trajectoire et raisons exposées | **Disponible** |
+| Erreur technique confirmée | Message **Studio** d'incident, action de reprise ; pas de faux message Nora | État d'erreur réutilisant la structure 09.07, aucune trajectoire inventée | **Disponible**, sous contrôle de reprise |
+| UNKNOWN / récupération en cours | Vérification de l'opération durable | État de vérification, aucun faux résultat | **Temporairement verrouillé**, sans blocage éternel |
+
+**Publication cohérente.** L'analyse calculée ne constitue pas un résultat terminal affichable tant que la projection D5 et sa restitution dans le fil du projet ne sont pas **enregistrées et vérifiées avec une référence de version commune**. Le compositeur ne se réactive pas sur un simple timeout client ou sur une étape 3/3 non finalisée. Un incident technique **confirmé** débloque l'accès, sans prétendre que Nora a trouvé une trajectoire.
+
+**Actualisation automatique, sans rupture.** Si le Pilote attend sur **Trajectoire 09.10**, la fin de l'analyse met **cette vue à jour sur place** vers 09.11, vers 09.07 (clarification), ou vers l'état d'incident correspondant, **sans changement d'onglet ni rafraîchissement manuel**. Travail insère la restitution Nora et réactive le compositeur en cohérence avec ce même événement vérifié. En reprise ou après perte réseau, le client relit l'état durable. Un abonnement si déjà disponible, ou une lecture périodique contrôlée en repli, peut assurer la réactivité ; **aucune nouvelle architecture de bus ou de queue n'est imposée**.
+
+**Verrouillage explicite.** Le compositeur reste visible, mais son contraste atténué, le verrou et un libellé indiquent son indisponibilité. Une info-bulle accessible au **survol ET au focus clavier** explique : « Le compositeur est indisponible pendant la qualification initiale de la trajectoire ». La saisie, le focus dans le champ, les raccourcis d'envoi et le POST d'envoi concurrent sont effectivement refusés tant que le verrou est applicable. Un envoi qui semble possible mais ne produit rien est **non conforme**.
+
+**Progression réelle.** Les étapes 1/3, 2/3 et 3/3 reflètent l'opération observée ; elles ne constituent ni un pourcentage de calcul IA, ni un délai garanti. Les cartes 09.11 montrent des **cycles successifs d'une trajectoire candidate**, jamais des alternatives concurrentes de premier cycle. Une proposition de Nora ne vaut ni GO du Pilote ni ouverture effective.
+
 ## 5. Navigation et absence d'effets de bord
 
 | Origine | Action | Destination / effet autorisé |
 | --- | --- | --- |
 | Rail Projet | Consulter Projet ou Trajectoire | Changement de vue du même projet, sans changement du cycle |
+| Pop-up SAS après création confirmée | « Accéder au projet » | Travail consultable, compositeur verrouillé pendant l'analyse initiale |
+| Travail 05.17 | « Voir la trajectoire » | Trajectoire 09.10 et **même opération de qualification**, sans relance |
+| Trajectoire 09.10 | « Revenir à Travail » | Travail verrouillé tant que Nora prépare sa réponse |
+| Trajectoire 09.11 | « Examiner avec Nora dans Travail » | Conversation contenant la proposition proactive durable, sans GO automatique |
 | Projet, cycle actif | « Voir la trajectoire » | Trajectoire du projet |
 | Projet, carte Sujets | « Consulter » | Journal / Sujets, données autoritatives |
 | Projet, carte Décisions | « Consulter » | Journal / Décisions, état applicable |
@@ -251,7 +277,8 @@ Les **acquis identifiés** ne sont pas synonymes de décisions applicables ni de
 ## 7. Grammaire visuelle, robustesse et accessibilité
 
 - Reprendre le style existant des pages Figma 03, 04, 05, 07 et 08 : palette sombre, Inter, liserés fins, accent violet, cartes sobres ; rail projet 246 px et bandeau supérieur 70 px sur les références desktop **1680 × 970**.
-- La [pop-up candidate SAS 06](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1022-112) expose les trois étapes avec état vrai ; à la réouverture, la reprise est **contextuelle dans Travail** plutôt qu'une réouverture automatique de la fenêtre. Aucune durée garantie, attente indéfinie ni succès fictif.
+- La [pop-up candidate SAS 06](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1022-112) reste sobre avec trois étapes et des textes allégés ; la reprise est contextuelle dans Travail et Trajectoire, jamais une pop-up imposée au retour.
+- [Travail 05.17](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1036-114) présente la qualification et le compositeur grisé, avec explication accessible au clavier et survol ; [Trajectoire 09.10](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1034-480) montre l'analyse en cours et [09.11](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1034-505) la trajectoire séquentielle candidate.
 - Les états Clôturé / Actif / Envisagé se distinguent **par plusieurs signaux conjoints** (teinte, contraste, forme, bordure, symbole, libellé), pas par couleur seule ; focus actif prioritaire.
 - Une carte de roadmap ne doit pas devenir un formulaire de décision implicite. Les items longs, absences d'information, volumes élevés et variations de viewport n'entraînent ni troncature trompeuse ni perte de navigation.
 - Navigation clavier, focus visible, libellés compréhensibles, contraste, annonces d'état et retours cohérents ; responsive/reflow à confronter au contrat visuel et au runtime, pas à prétendre prouvé depuis les seules frames desktop.
@@ -272,11 +299,16 @@ Les **acquis identifiés** ne sont pas synonymes de décisions applicables ni de
 11. Première restitution **proactive et unique** dans le même fil, cohérente avec une proposition D5 versionnée ou une question ciblée ; trois issues réellement distinguées (proposable, informations insuffisantes, erreur/UNKNOWN).
 12. Trajectoire macro fondée sur les cycles disponibles, un premier cycle suffisant et deux suites seulement si utiles ; aucune étape fictive ni ordre standard imposé.
 13. Fermeture avant création confirmée → réconciliation D2 ; fermeture après création mais avant analyse → retrouver/reprendre ; fermeture après résultat → pas de deuxième analyse ni message.
-14. Nouveaux messages du Pilote pendant l'analyse → préservation, ordre, requalification d'une proposition périmée et absence de réponses concurrentes incohérentes.
+14. Projet consultable pendant l'analyse, mais compositeur **visible, grisé, non focusable et non saisissable** ; l'envoi est interdit côté client et serveur, avec explication accessible. Déverrouillage seulement après résultat terminal vérifié, sans file d'attente des messages.
 15. Refus, alternative ou désaccord avec le premier cycle proposé : Nora challenge utilement puis respecte le choix humain autorisé, sans second clic administratif.
 16. Maturité du cycle évaluée sur changements significatifs, recommandation de clôture/suite sans automatisme ; GO Pilote naturel contrôlé D6, effet D5 vérifié, trace complète et absence de double cycle actif.
 17. CKI : catalogue consulté avant cycle ≠ CKI épinglé pendant cycle ≠ guidance délivrée ; source/version et état de disponibilité vérifiables.
 18. Interface de Pilotage administrative retirée seulement après couverture conversationnelle démontrée de ses opérations D5/D6, sans perte de capacité ni de contrôle.
+19. Le Pilote reste sur Trajectoire 09.10 : le résultat terminal arrive **sur place**, sans navigation ni refresh manuel ; le message Nora correspondant apparaît une seule fois dans Travail.
+20. Travail et Trajectoire lisent le **même état/version**, y compris retour, reconnexion et réouverture du projet ; aucune nouvelle analyse par navigation.
+21. Déverrouillage du compositeur seulement après résultat D5 + message Nora vérifiés, ou erreur technique confirmée ; aucun déverrouillage anticipé en étape 3/3.
+22. Champ visuellement indisponible, réellement non focusable et non saisissable ; tooltip au clavier et survol ; aucun POST concurrent ni queue de messages.
+23. Trajectoire 09.11 : cycle 1 → cycle 2 → cycle 3 éventuel, **pas trois options de premier cycle**, aucun cycle effectivement ouvert.
 
 **Niveaux de preuve distincts :** conformité de maquette approuvée par Morris ; implémentation à constater au SHA de construction ; tests déterministes, navigateur RECETTE et éventuellement preuves LIVE/REAL **à établir séparément**. Une revue Figma ne vaut jamais BEHAVIOR PROVEN ni ADOPTED.
 
@@ -307,7 +339,9 @@ Sources propriétaires examinées sur la baseline indiquée :
 - [D6 — Décisions et gouvernance du Pilote](../../conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md) — autorité des décisions et transitions.
 - [UX espace projet Pilote–Nora](../../ux-ui/espace-projet-interaction-pilote-nora.md) et [contrat de transposition](../../ux-ui/contrat-transposition-figma-code.md).
 - [Figma, page 09 — neuf frames 09.01–09.09](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=983-46), **validées par Morris dans la conversation du 20 novembre 2026**.
-- [Figma, page 03 — nouvelle pop-up SAS 06](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1022-112), **candidate à revue**, sans modification des neuf frames.
+- [Figma, page 03 — pop-up SAS 06 allégée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1022-112), **candidate**.
+- [Figma, page 05 — Travail 05.17, qualification initiale](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1036-114), **candidate**.
+- [Figma, page 09 — Trajectoire 09.10, en cours](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1034-480) et [09.11, trajectoire proposée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1034-505), **candidates**, sans modification des neuf frames validées.
 
 ### 10.1. Réconciliation normative requise avant GO de réalisation
 
@@ -325,7 +359,7 @@ Ce travail a un **blast radius D2/D3/D4/D5/D6** et dépasse une pure transpositi
 ### 10.2. Statuts et preuves
 
 - **Neuf écrans Projet & Trajectoire** : UX **VALIDÉE** par Morris, inchangée.
-- **Nouvelle pop-up SAS 06** : maquette **CANDIDATE**, créée et vérifiée visuellement, **sans validation individuelle encore constatée**.
+- **Quatre maquettes complémentaires** : SAS 06, Travail 05.17, Trajectoire 09.10 et 09.11, **CANDIDATES**, réalisées et vérifiées visuellement, sans validation individuelle encore constatée.
 - **Principes proactifs et reprise** : accord conversationnel Morris du 20/11/2026, **transcrit en conception**, sans publication de modification des règles R2.
 - **Runtime d'analyse initiale persistante et premier message proactif** : **NON DÉMONTRÉ sur la base inspectée** ; évaluation code, tests et preuves navigateur restent requises.
 - **Gate C / ML5 / R6 / ADOPTED** : non acquis. Pas de PR, merge, migration ni modification runtime par ce document.
