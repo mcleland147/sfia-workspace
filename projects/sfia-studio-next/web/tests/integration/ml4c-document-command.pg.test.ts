@@ -197,6 +197,9 @@ describe("ML4C document command (PG)", () => {
       preparationId: prep.id,
       documentId,
       baseRevisionId,
+      // Production seal path always passes source+observed head (legacy base-alone is obsolete fixture).
+      sourceRevisionId: baseRevisionId,
+      observedHeadRevisionId: baseRevisionId,
       source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved2.commandId },
       title,
       contentMarkdown: revisedBody,
@@ -211,6 +214,9 @@ describe("ML4C document command (PG)", () => {
     });
     expect(sealedRev.sealApplied).toBe(true);
     expect(sealedRev.effect.status).toBe("AVAILABLE");
+    if (sealedRev.effect.status === "FAILED") {
+      throw new Error(`revise seal failed: ${sealedRev.effect.reason}`);
+    }
     const list = await listDocumentRevisions(pilotId, prep.id, documentId!);
     expect(list.revisions.length).toBeGreaterThanOrEqual(2);
   });

@@ -296,6 +296,8 @@ describe("ML4C document reconciliation C-01 (PG)", () => {
       preparationId: prep.id,
       documentId,
       baseRevisionId,
+      sourceRevisionId: baseRevisionId,
+      observedHeadRevisionId: baseRevisionId,
       source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
       title,
       contentMarkdown: revisedBody,

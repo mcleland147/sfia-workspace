@@ -579,16 +579,19 @@ describe("ML4C document identity F-01 (PG)", () => {
       preparationId: prep.id,
       documentId: created.effect.documentId,
       baseRevisionId: created.effect.revisionId,
+      sourceRevisionId: created.effect.revisionId,
+      observedHeadRevisionId: created.effect.revisionId,
       source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
       title: createAdmitted.binding.title,
       contentMarkdown: revisedBody,
     });
     if (!admittedRev.ok) throw new Error(admittedRev.reason);
-    await sealAndApplyDocumentCommand({
+    const sealedRev = await sealAndApplyDocumentCommand({
       pilotId,
       fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
       binding: admittedRev.binding,
     });
+    expect(sealedRev.effect.status).toBe("AVAILABLE");
 
     const wrongBase = newId("rev");
     const binding = {
@@ -663,16 +666,19 @@ describe("ML4C document identity F-01 (PG)", () => {
       preparationId: prep.id,
       documentId: created.effect.documentId,
       baseRevisionId: created.effect.revisionId,
+      sourceRevisionId: created.effect.revisionId,
+      observedHeadRevisionId: created.effect.revisionId,
       source: { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId },
       title: createAdmitted.binding.title,
       contentMarkdown: `${createAdmitted.binding.contentMarkdown}\n## F01-14\n`,
     });
     if (!admittedRev.ok) throw new Error(admittedRev.reason);
-    await sealAndApplyDocumentCommand({
+    const sealedRev = await sealAndApplyDocumentCommand({
       pilotId,
       fence: { commandId: reserved.commandId, ownerToken: reserved.ownerToken },
       binding: admittedRev.binding,
     });
+    expect(sealedRev.effect.status).toBe("AVAILABLE");
 
     const otherDocId = newId("doc");
     await db.insert(documents).values({
@@ -972,6 +978,8 @@ describe("ML4C document identity F-01 (PG)", () => {
         preparationId: prep.id,
         documentId: created.effect.documentId,
         baseRevisionId: created.effect.revisionId,
+        sourceRevisionId: created.effect.revisionId,
+        observedHeadRevisionId: created.effect.revisionId,
         source: { kind: "SAME_TURN_SNAPSHOT", commandId: reservedRev.commandId },
         title: admitted.binding.title,
         contentMarkdown: revisedBody,

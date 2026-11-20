@@ -57,6 +57,7 @@ import {
   type ExplicitFixtureSpec,
   sfiaDocumentFence,
 } from "../helpers/semantic-fixture-envelopes";
+import { proposeThenConserveRevise } from "../helpers/document-conserve";
 
 async function noraTurn(
   pilotId: string,
@@ -134,13 +135,17 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
 
     const msgs = await listMessages(pilotId, prep.id);
     const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
-    expect(assistant?.content).toMatch(/Résultat applicatif D4/);
-    expect(assistant?.content).toContain(chat.documentSave!.documentId!);
-    expect(assistant?.content).not.toMatch(/non enregistré/i);
+    // Soft ACK — no technical "D4" / status codes; structured + PG prove AVAILABLE.
+    expect(assistant?.content).toMatch(/Résultat d'enregistrement|Nouvelle version disponible/i);
+    expect(assistant?.content).not.toMatch(/Proposition non enregistrée/i);
+    expect(assistant?.content).not.toMatch(/Aucun succès d'écriture/i);
+    expect(chat.documentSave!.documentId).toBeTruthy();
+    expect(chat.documentSave!.revisionId).toBeTruthy();
 
     const docs = await listDocuments(pilotId, prep.id);
     expect(docs).toHaveLength(1);
     expect(docs[0]!.latestRevision?.revisionNumber).toBe(1);
+    expect(docs[0]!.document.id).toBe(chat.documentSave!.documentId);
   });
 
   it("A-R12: CREATE with Documents internes complements persists v1 (macro A+D+E)", async () => {
@@ -164,9 +169,10 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
     expect(chat.documentSave?.documentId).toBeTruthy();
     const msgs = await listMessages(pilotId, prep.id);
     const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
-    expect(assistant?.content).toMatch(/Résultat applicatif D4/);
-    expect(assistant?.content).toMatch(/AVAILABLE/);
-    expect(assistant?.content).not.toMatch(/NOT_EXECUTED/);
+    expect(assistant?.content).toMatch(/Résultat d'enregistrement|Nouvelle version disponible/i);
+    expect(assistant?.content).not.toMatch(/Proposition non enregistrée/i);
+    expect(assistant?.content).not.toMatch(/Aucun enregistrement documentaire/i);
+    expect(chat.documentSave?.status).toBe("AVAILABLE");
     expect(await listDocuments(pilotId, prep.id)).toHaveLength(1);
   });
 
@@ -296,11 +302,14 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
       const msgs = await listMessages(pilotId, prep.id);
       const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
       const body = assistant?.content ?? "";
-      expect(body).toMatch(/NOT_EXECUTED/);
-      expect(body).toMatch(/DOCUMENT_PROPOSAL_MISSING|pré-effet|Transaction D4: non tentée/i);
+      // Soft ACK — no technical NOT_EXECUTED / reason codes in Nora surface.
+      expect(body).toMatch(/Résultat applicatif|Aucun enregistrement documentaire/i);
+      expect(body).not.toMatch(/Nouvelle version disponible/i);
       expect(body).not.toMatch(/Statut observé: FAILED/);
       expect(body).not.toMatch(/Statut observé: AVAILABLE/);
       expect(body).not.toMatch(/enregistré avec succès/i);
+      expect(chat.documentSave?.status).toBe("NOT_EXECUTED");
+      expect(chat.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
     } finally {
       delete turnRaceHooks.replaceNoraAssistantText;
     }
@@ -348,7 +357,8 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
     const v1 = listed.revisions.find((r) => r.revisionNumber === 1);
     expect(v1?.status).toBe("AVAILABLE");
 
-    const revised = await noraTurn(
+    const { proposed, conserved: revised } = await proposeThenConserveRevise(
+      noraTurn,
       pilotId,
       prep.id,
       `Révise uniquement la section 2 du document ${documentId} et conserve le reste`,
@@ -360,6 +370,7 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
         },
       },
     );
+    expect(proposed.pendingDocumentCandidate?.documentId).toBe(documentId);
     expect(revised.documentSave?.status).toBe("AVAILABLE");
     expect(revised.documentSave?.act).toBe("REVISE");
     expect(revised.documentSave?.documentId).toBe(documentId);
@@ -395,9 +406,8 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
 
     const msgs = await listMessages(pilotId, prep.id);
     const last = msgs.filter((m) => m.role === "assistant").at(-1);
-    expect(last?.content).toMatch(/Résultat applicatif D4/);
-    expect(last?.content).toMatch(/REVISE/);
-    expect(last?.content).not.toMatch(/\bnon enregistré\b/i);
+    expect(last?.content).toMatch(/Résultat d'enregistrement|Nouvelle version disponible/i);
+    expect(last?.content).not.toMatch(/Proposition non enregistrée/i);
   });
 
   it("B2: exact whitespace outside revised section is preserved in DB", async () => {
@@ -755,7 +765,12 @@ Aucune écriture GitHub.
       expect(proj.documentAct.sectionHint).toBe("2");
     }
 
-    const result = await noraTurn(pilotId, prep.id, ask);
+    const { conserved: result } = await proposeThenConserveRevise(
+      noraTurn,
+      pilotId,
+      prep.id,
+      ask,
+    );
     expect(result.documentSave?.status).toBe("AVAILABLE");
     expect(result.documentSave?.act).toBe("REVISE");
     expect(result.documentSave?.documentId).toBe(seeded.documentId);
@@ -782,10 +797,9 @@ Aucune écriture GitHub.
 
     const msgs = await listMessages(pilotId, prep.id);
     const last = msgs.filter((m) => m.role === "assistant").at(-1)!;
-    expect(last.content).toMatch(/```sfia-document/);
-    expect(last.content).toMatch(/Résultat applicatif D4/);
-    expect(last.content).toContain(seeded.documentId);
-    expect(last.content).toMatch(/AVAILABLE|révision: v2/i);
+    expect(last.content).toMatch(/Résultat d'enregistrement|Nouvelle version disponible\s*:\s*v2/i);
+    expect(result.documentSave?.documentId).toBe(seeded.documentId);
+    expect(result.documentSave?.status).toBe("AVAILABLE");
     expect(
       hasCompetingTransactionalClaim(last.content, {
         act: "REVISE",
@@ -794,7 +808,7 @@ Aucune écriture GitHub.
         revisionNumber: 2,
       }),
     ).toBe(false);
-    expect(last.content).not.toMatch(/aucune révision créée/i);
+    expect(last.content).not.toMatch(/Proposition non enregistrée/i);
     expect(last.content).not.toMatch(/je ne peux donc pas appliquer/i);
 
     // Re-open v1 and v2
@@ -931,8 +945,10 @@ s
       expect(body).not.toMatch(/enregistré avec succès/i);
       expect(body).not.toMatch(/Statut observé: AVAILABLE/);
       expect(body).not.toMatch(/Statut observé: FAILED/);
-      expect(body).toMatch(/NOT_EXECUTED/);
-      expect(body).toMatch(/DOCUMENT_PROPOSAL_MISSING|pré-effet|Transaction D4: non tentée/i);
+      expect(body).toMatch(/Résultat applicatif|Aucun enregistrement documentaire/i);
+      expect(body).not.toMatch(/Nouvelle version disponible/i);
+      expect(chat.documentSave?.status).toBe("NOT_EXECUTED");
+      expect(chat.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
     } finally {
       delete turnRaceHooks.replaceNoraAssistantText;
     }
@@ -995,9 +1011,12 @@ s
       const msgs = await listMessages(pilotId, prep.id);
       const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
       const body = assistant?.content ?? "";
-      expect(body).toMatch(/NOT_EXECUTED/);
+      expect(body).toMatch(/Résultat applicatif|Aucun enregistrement documentaire/i);
+      expect(body).not.toMatch(/Nouvelle version disponible/i);
       expect(body).not.toMatch(/Statut observé: FAILED/);
       expect(body).not.toMatch(/Statut observé: AVAILABLE/);
+      expect(revised.documentSave?.status).toBe("NOT_EXECUTED");
+      expect(revised.documentSave?.reason).toBe("DOCUMENT_PROPOSAL_MISSING");
     } finally {
       delete turnRaceHooks.replaceNoraAssistantText;
     }

@@ -62,6 +62,7 @@ import {
   sfiaDocumentFence,
   type ExplicitFixtureSpec,
 } from "../helpers/semantic-fixture-envelopes";
+import { proposeThenConserveRevise } from "../helpers/document-conserve";
 
 async function seedPilot(label: string) {
   const id = newId("pilot");
@@ -114,12 +115,13 @@ async function noraTurn(
   pilotId: string,
   preparationId: string,
   text: string,
-  opts?: { fixture?: ExplicitFixtureSpec },
+  opts?: Parameters<typeof postUserMessageAndNora>[3] & { fixture?: ExplicitFixtureSpec },
 ) {
   if (opts?.fixture) {
     registerExplicitFixture(text, opts.fixture);
   }
-  return postUserMessageAndNora(pilotId, preparationId, text);
+  const { fixture: _f, ...turnOpts } = opts ?? {};
+  return postUserMessageAndNora(pilotId, preparationId, text, turnOpts);
 }
 
 async function seedFillerMessages(
@@ -592,10 +594,35 @@ describe("ML4C prior proposal C-02 / C-03 (PG)", () => {
       },
     });
 
-    const chat = await noraTurn(pilotId, prep.id, utterance);
+    // PRIOR_ASSISTANT_MESSAGE: no implicit write — proposal then explicit conserve.
+    const before = await countD4Rows(pilotId, prep.id);
+    const proposed = await noraTurn(pilotId, prep.id, utterance);
+    expect(proposed.documentSave?.status).toBe("NOT_EXECUTED");
+    expect(proposed.documentSave?.reason).toBe("PROPOSAL_PENDING_CONSERVATION");
+    expect(await countD4Rows(pilotId, prep.id)).toEqual(before);
+    const cand = proposed.pendingDocumentCandidate;
+    expect(cand?.candidateId).toBeTruthy();
+    if (!cand?.candidateId) throw new Error("expected pending candidate");
+    const { DOC_CONSERVE_PROPOSAL } = await import(
+      "@/domains/conversation/document-candidate"
+    );
+    const chat = await noraTurn(pilotId, prep.id, DOC_CONSERVE_PROPOSAL, {
+      documentFocus: {
+        documentId: cand.documentId,
+        sourceRevisionId: cand.sourceRevisionId,
+        observedHeadRevisionId: cand.observedHeadRevisionId,
+        conserveProposal: true,
+        pendingCandidateId: cand.candidateId,
+        pendingCandidateContentSha256: cand.contentSha256,
+      },
+    });
     expect(chat.documentSave?.status).toBe("AVAILABLE");
     expect(chat.documentSave?.act).toBe("REVISE");
+    expect(chat.documentSave?.documentId).toBe(created.documentId);
+    expect(chat.documentSave?.revisionNumber).toBe(2);
+    expect((await countD4Rows(pilotId, prep.id)).revisions).toBe(before.revisions + 1);
 
+    // Conserve seals the inspected candidate (SAME_TURN_SNAPSHOT of the proposal turn).
     const cmd = (
       await db
         .select({ resultJson: conversationTurnCommands.resultJson })
@@ -605,10 +632,11 @@ describe("ML4C prior proposal C-02 / C-03 (PG)", () => {
     )[0];
     expect(cmd?.resultJson).toBeTruthy();
     const parsed = JSON.parse(cmd!.resultJson!) as {
-      documentCommandBindings?: Array<{ source?: { kind?: string } }>;
+      documentCommandBindings?: Array<{ source?: { kind?: string; commandId?: string } }>;
     };
     const binding = parsed.documentCommandBindings?.[0];
-    expect(binding?.source?.kind).toBe("ASSISTANT_MESSAGE");
+    expect(binding?.source?.kind).toBe("SAME_TURN_SNAPSHOT");
+    expect(binding?.source?.commandId).toBeTruthy();
   });
 
   it("P1: three historical assistant fences — no source → zero D4; explicit id → exact create", async () => {
@@ -1567,8 +1595,29 @@ SOURCE-CANARI-BETA-73
     const legacyFence = "```sfia-document\n" + sectionBody + "\n```\n";
     turnRaceHooks.replaceNoraAssistantText = () =>
       `Voici la modification proposée pour **Option B**.\n\n${legacyFence}`;
+    let chat: Awaited<ReturnType<typeof noraTurn>>;
     try {
-      const chat = await noraTurn(pilotId, prep.id, utterance);
+      const proposed = await noraTurn(pilotId, prep.id, utterance);
+      expect(proposed.documentSave?.status).toBe("NOT_EXECUTED");
+      expect(proposed.documentSave?.reason).toBe("PROPOSAL_PENDING_CONSERVATION");
+      const cand = proposed.pendingDocumentCandidate;
+      expect(cand?.candidateId).toBeTruthy();
+      if (!cand?.candidateId) throw new Error("expected pending candidate");
+      // Hook must not contaminate the conserve turn (fixture DOC_CONSERVE owns that reply).
+      delete turnRaceHooks.replaceNoraAssistantText;
+      const { DOC_CONSERVE_PROPOSAL } = await import(
+        "@/domains/conversation/document-candidate"
+      );
+      chat = await noraTurn(pilotId, prep.id, DOC_CONSERVE_PROPOSAL, {
+        documentFocus: {
+          documentId: cand.documentId,
+          sourceRevisionId: cand.sourceRevisionId,
+          observedHeadRevisionId: cand.observedHeadRevisionId,
+          conserveProposal: true,
+          pendingCandidateId: cand.candidateId,
+          pendingCandidateContentSha256: cand.contentSha256,
+        },
+      });
       expect(chat.documentSave?.status).toBe("AVAILABLE");
       expect(chat.documentSave?.act).toBe("REVISE");
       expect(chat.documentSave?.documentId).toBe(documentId);
