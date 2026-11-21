@@ -55,18 +55,23 @@ export function SasCreateProgressPopup(props: {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center"
-      style={{ background: "rgba(6,9,17,0.78)", paddingTop: 124 }}
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto"
+      style={{
+        background: "rgba(6,9,17,0.78)",
+        // Figma desktop uses 124px; clamp so the CTA stays reachable on 720p CI/default PW.
+        padding: "min(124px, 8vh) 16px 24px",
+      }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="sas-create-progress-title"
       data-testid="sas-create-progress-popup"
     >
       <div
-        className="relative overflow-hidden"
+        className="relative overflow-y-auto"
         style={{
           width: 702,
-          minHeight: 726,
+          minHeight: "min(726px, calc(100vh - 48px))",
+          maxHeight: "calc(100vh - 48px)",
           maxWidth: "calc(100vw - 32px)",
           background: "#1b2639",
           border: "1px solid #2b3850",

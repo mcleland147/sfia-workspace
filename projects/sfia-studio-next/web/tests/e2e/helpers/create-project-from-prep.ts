@@ -18,7 +18,9 @@ export async function clickCreateProjectAndEnter(
   const popup = page.getByTestId("sas-create-progress-popup");
   const dismiss = page.getByTestId("sas-create-progress-dismiss");
   await expect(popup).toBeVisible({ timeout: createTimeout });
-  await expect(dismiss).toBeEnabled({ timeout: createTimeout });
+  await expect(dismiss).toBeVisible({ timeout: createTimeout });
+  // Popup is taller than default PW 1280×720; scroll CTA into the overlay then click.
+  await dismiss.scrollIntoViewIfNeeded();
   await dismiss.click();
 
   await page.waitForURL("**/projects/**", { timeout: navTimeout });

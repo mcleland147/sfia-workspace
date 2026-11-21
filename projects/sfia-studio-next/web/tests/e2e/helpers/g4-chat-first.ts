@@ -109,7 +109,9 @@ export async function constituteAndCreateProject(
     await expect(page.getByTestId("sas-create-progress-popup")).toBeVisible({
       timeout: 20000,
     });
-    await page.getByTestId("sas-create-progress-dismiss").click();
+    const dismiss = page.getByTestId("sas-create-progress-dismiss");
+    await dismiss.scrollIntoViewIfNeeded();
+    await dismiss.click();
     await page.waitForURL("**/projects/**", { timeout: 20000 });
   })();
   await Promise.race([enterViaPopup, nameConflict]);

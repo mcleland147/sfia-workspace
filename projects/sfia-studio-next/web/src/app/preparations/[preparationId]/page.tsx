@@ -126,9 +126,12 @@ export default function PreparationPage() {
   }
 
   // E07 SAS06 — drive popup steps from server qualification (no artificial timers).
+  // Stop polling once step 3 is reached; skip setState when unchanged so the
+  // dismiss CTA stays stable for pointer/Playwright (reconcile every 1.5s).
   useEffect(() => {
     if (!createProgressVisible || !pendingNavigateProjectId) return;
     let cancelled = false;
+    let intervalId = 0;
     const tick = async () => {
       const recon = await fetch(
         `/api/projects/${pendingNavigateProjectId}/initial-qualification/reconcile`,
@@ -139,17 +142,29 @@ export default function PreparationPage() {
         const body = (await recon.json()) as {
           initialQualification?: InitialQualificationProjection | null;
         };
-        if (body.initialQualification) {
-          setCreateProgressQualification(body.initialQualification);
-          setCreateProgressStep(stepFromQualification(body.initialQualification));
+        const iq = body.initialQualification;
+        if (iq) {
+          const nextStep = stepFromQualification(iq);
+          setCreateProgressQualification((prev) =>
+            prev?.status === iq.status &&
+            prev?.phase === iq.phase &&
+            prev?.composerLockReason === iq.composerLockReason
+              ? prev
+              : iq,
+          );
+          setCreateProgressStep((prev) => (prev === nextStep ? prev : nextStep));
+          if (nextStep === 3 && intervalId) {
+            window.clearInterval(intervalId);
+            intervalId = 0;
+          }
         }
       }
     };
-    const id = window.setInterval(() => void tick(), 1500);
+    intervalId = window.setInterval(() => void tick(), 1500);
     void tick();
     return () => {
       cancelled = true;
-      window.clearInterval(id);
+      if (intervalId) window.clearInterval(intervalId);
     };
   }, [createProgressVisible, pendingNavigateProjectId]);
 
