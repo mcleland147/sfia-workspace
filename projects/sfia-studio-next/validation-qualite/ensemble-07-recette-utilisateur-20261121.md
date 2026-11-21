@@ -294,8 +294,8 @@ Sources de gouvernance et conception :
 | Fichier propriétaire | `web/src/components/figma/TrajectoryBoard.tsx` |
 | Preuves F2 | `.tmp-sfia-review/ensemble07-acquis-panels-fix/` — 09.02 / 09.09 @ 1680×970 · Δ≤2 CSS px |
 | Mesures typiques | acquis **639** · clarifier **645** · gap **24** · h **157** |
-| Candidat code |  · tree  |
-| RECETTE | http://127.0.0.1:3200 · BUILD  · bascule LaunchAgent ml4d-ux004 |
+| Candidat code | `5ad8fa57e4d529726244ddfae394074f5ea65432` (runtime RECETTE / SFIA_SOURCE_SHA) |
+| RECETTE | http://127.0.0.1:3200 · BUILD `BtZP6qDx5oAw8jwPQSEhc` · SHA runtime `5ad8fa57` · LaunchAgent ml4d-ux004 |
 | Distinction | Acceptation utilisateur **déjà donnée** ; la présente ligne constate seulement la **levée technique** de la réserve UX |
 
 ### Réserves historiques hors correction (non rouvertes)
