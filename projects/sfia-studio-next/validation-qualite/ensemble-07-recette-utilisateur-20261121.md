@@ -7,7 +7,7 @@
 | Autorité de recette | **Morris — acceptation UAT du 21/11/2026 avec réserve UX unique** |
 | Périmètre | **R5 / ML4D / Ensemble 07** — SAS, création, Projet, Travail, Trajectoire, CKI, Nora |
 | Projet de recette | **Equip'Campus**, projet fictif |
-| Statut | **MORRIS UAT ACCEPTED — FINAL UX RESERVE TECHNICALLY CLEARED (pending SHA in §12)** |
+| Statut | **MORRIS UAT ACCEPTED — FINAL UX RESERVE TECHNICALLY CLEARED** |
 | Nature | PV évolutif, constats, réserves et demandes de diagnostic ; document **non normatif** |
 | Publication documentaire | Branche dédiée **docs/next-ensemble07-recette-20261121**, issue de **main@6e93a33d64dfeea2eab88fb7896d733b34053f97** |
 | Acceptation | **ACCEPTÉE** (périmètre présenté) avec réserve UX unique Acquis/À clarifier ; **pas** de PR/merge/STABLE/ADOPTED |
@@ -294,8 +294,8 @@ Sources de gouvernance et conception :
 | Fichier propriétaire | `web/src/components/figma/TrajectoryBoard.tsx` |
 | Preuves F2 | `.tmp-sfia-review/ensemble07-acquis-panels-fix/` — 09.02 / 09.09 @ 1680×970 · Δ≤2 CSS px |
 | Mesures typiques | acquis **639** · clarifier **645** · gap **24** · h **157** |
-| Candidat code | *(SHA delivery figé — reporté dans delivery-history / Review Pack)* |
-| RECETTE | http://127.0.0.1:3200 — bascule après PASS F2 |
+| Candidat code |  · tree  |
+| RECETTE | http://127.0.0.1:3200 · BUILD  · bascule LaunchAgent ml4d-ux004 |
 | Distinction | Acceptation utilisateur **déjà donnée** ; la présente ligne constate seulement la **levée technique** de la réserve UX |
 
 ### Réserves historiques hors correction (non rouvertes)
