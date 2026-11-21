@@ -1,10 +1,10 @@
 # SFIA Studio Next — Méthodologie · Contrat Figma ↔ Cursor
 
-**Version :** 1.1 — 21 novembre 2026 (expérimentation page 10, protocole renforcé)  
-**Nature :** guide opérationnel transversal de préparation Figma, extraction MCP, implémentation et preuve de fidélité.  
-**Périmètre :** SFIA Studio Next exclusivement, conception UX et delivery UI R3–R6.  
-**Statut :** GUIDE OPÉRATIONNEL MIS À JOUR — expérimentation Ensemble 07 **positive et vérifiée sur périmètre borné** (11 états Page 10 exercés, 40/40 assertions F2 critiques PASS selon Cursor, UAT Morris ACCEPTED le 21/11), **efficacité générale NON ADOPTED**. Cette validation n'emporte ni preuve pixel-perfect exhaustive de tous les composants ni adoption globale de la méthode. Aucun changement à SEF, F1/F2, SFIA v2.6 ou au template Cursor.  
-**Autorité :** Morris valide la cible UX et les exceptions ; Cursor réalise les opérations techniques sous contrat SFIA v2.6 ; ChatGPT prépare et revoit.  
+**Version :** 1.1 — 21 novembre 2026 (expérimentation page 10, protocole renforcé)
+**Nature :** guide opérationnel transversal de préparation Figma, extraction MCP, implémentation et preuve de fidélité.
+**Périmètre :** SFIA Studio Next exclusivement, conception UX et delivery UI R3–R6.
+**Statut :** GUIDE OPÉRATIONNEL MIS À JOUR — expérimentation Ensemble 07 **positive et vérifiée sur périmètre borné** (11 états Page 10 exercés, 40/40 assertions F2 critiques PASS selon Cursor, UAT Morris ACCEPTED le 21/11), **efficacité générale NON ADOPTED**. Cette validation n'emporte ni preuve pixel-perfect exhaustive de tous les composants ni adoption globale de la méthode. Aucun changement à SEF, F1/F2, SFIA v2.6 ou au template Cursor.
+**Autorité :** Morris valide la cible UX et les exceptions ; Cursor réalise les opérations techniques sous contrat SFIA v2.6 ; ChatGPT prépare et revoit.
 **Résultat attendu :** une maquette validée devient une **spécification exploitable et contrôlable**, pas une image dont Cursor interprète librement l'apparence.
 
 > **Principe : une interface ne peut être déclarée fidèle à Figma que si sa structure, ses éléments, ses états, ses mesures et son rendu ont été confrontés à la source réellement extraite.** L'accès au MCP ou une capture visuellement ressemblante ne constituent pas cette preuve à eux seuls.
