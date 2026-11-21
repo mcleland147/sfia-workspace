@@ -1,20 +1,19 @@
-# SFIA Review Pack FULL — Ensemble 07 · Qualification navigateur du correctif DEV
+# SFIA Review Pack FULL — Ensemble 07 · Consolidation QA finale avant gel Git
 
-> Cycle QA/Test incrément — complément du correctif continuité pilotage (même macro-lot).
-> Source corrective handoff préalable : `sfia/review-handoff@f346a531` blob `7c992361`.
+> Complément mono-cycle du correctif continuité + qualification navigateur.
+> Handoff navigateur préalable : `79c3a528` / blob `baf74005`.
 
-## 1. Identité / GO Morris
+## 1. GO et périmètre
 
-| Champ | Valeur |
+| | |
 |---|---|
 | Date | 2026-11-21 |
-| GO | qualification navigateur + stabilisation corrective (périmètre déjà autorisé) |
-| Typologie | INC / QA de correctif intégré |
-| Environnement | **DEV isolé uniquement** (`:3101` Playwright + `sfia_next_e2e`) |
-| LIVE | **NOT RUN — aucun appel fournisseur** |
-| Versioning | **NO RELEASE** |
-| Gate C | **OPEN** |
-| Review Handoff | required / publish-in-cycle |
+| GO Morris | consolidation technique ciblée QA-01/02/03 |
+| Environnement | DEV/test isolé `:3101` + `sfia_next_e2e@:5433` |
+| LIVE | NOT RUN |
+| RECETTE | non mutée |
+| Versioning | NO RELEASE |
+| Gate C | OPEN |
 
 ## 2. Git Truth avant / après
 
@@ -22,112 +21,53 @@
 
 | | |
 |---|---|
-| Worktree | `/Users/morris/Projects/sfia-wt-ensemble07-projet-trajectoire-20261120` |
+| Worktree | `sfia-wt-ensemble07-projet-trajectoire-20261120` |
 | Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` |
 | HEAD | `6ecdb987ee867a04ff816b699eb8870ac200db0a` |
 | Tree | `d0ad47ff515676f1c033a39030e886859f7272f7` |
-| Base main | `6e93a33d64dfeea2eab88fb7896d733b34053f97` |
+| Base construction | `6e93a33d64dfeea2eab88fb7896d733b34053f97` |
+| origin/main (fetch) | `542da1de917867b6bbda8b2b57d100552711c9aa` (doc indépendante — **pas** nouvelle base candidat) |
+| merge-base HEAD/main | `6e93a33d…` |
 
 ### Après
 
-| | |
+HEAD projet **inchangé** ; correctifs locaux non commités ; aucun push projet.
+
+## 3. ENV-01
+
+| Lane | Isolation |
 |---|---|
-| HEAD projet | **inchangé** `6ecdb987…` (aucun commit/push projet) |
-| Correctifs | locaux non commités (correctif + QA browser) |
-| RECETTE `:3200` | **non mutée** (BUILD `armX_D1HJzN6q-4MuDpYv`) |
-| STABLE | NOT AVAILABLE |
+| Playwright | `:3101` / `sfia_next_e2e` / fixture Nora |
+| RECETTE | `:3200` / `5434` — lecture seule |
+| Cookies | contextes séparés |
 
-## 3. Sources et refs
+## 4. Sources
 
-- Handoff correctif `f346a531` / blob `7c992361` — §§5–16
-- PV UAT `7c96bbed` — UAT-02/08/09/10/11/12
-- ENV-01 / product-versioning (main)
-- Code local Ensemble 07 + as-built
+- Handoff browser `79c3a528` blob `baf74005`
+- Correctif `f346a531` · Diagnostic `78824f10` · PV `7c96bbed`
 
-## 4. Identité DEV / séparation RECETTE
+## 5. Causes des réserves revue
 
-| Lane | Port app | DB | Nora |
-|---|---|---|---|
-| Playwright E2E DEV | `127.0.0.1:3101` | `sfia_next_e2e@:5433` (jetable) | fixture `STUDIO_FORCE_NORA_FIXTURE=1` |
-| Operator DEV | `:3100` (non requis pour cette campagne) | `sfia_next_dev` | — |
-| RECETTE | `:3200` **lecture seule** | `sfia_next_recette_ml4@:5434` | **non touchée** |
+1. **QA-01** — garde `surfaceNavGen` dans `.then()` **après** `setPilotageProjection`/`setMessages`.
+2. **QA-02** — assertions CKI `if (count)` → faux PASS ; + matrice Trajectoire montrait CLARIFICATION malgré cycle ACTIVE.
+3. **QA-03** — `lastPilotageEffect` pouvait être le premier OPEN.
 
-Cookies same-host : contextes séparés (Playwright isolé :3101).
+## 6. Correctifs propriétaires
 
-## 5. Scénarios BROWSER-01…06
-
-| ID | Résultat | Preuve |
-|---|---|---|
-| **BROWSER-01** | **PASS** | GO naturel + fixture `cycleType=cadrage` → ACTIVE `CADRAGE` + CKI + restitution métier + surfaces Projet/Trajectoire/Travail sans F5 |
-| **BROWSER-02** | **PASS** | OPEN type inconnu → REJECTED ; aucun ACTIVE ; message refus ; Projet « sans cycle » |
-| **BROWSER-03** | **PASS** | Hedge pré-effet stripé ; messages durables cohérents après reload ; CONFLICT/UNKNOWN composeur = unit DETERMINISTIC |
-| **BROWSER-04** | **PASS** | Navigation surfaces après OPEN sans F5 ; refresh volontaire = mêmes faits ; **situation-2 multi-onglet push NOT claimed** |
-| **BROWSER-05** | **PASS** | Création projet sans dump `### Suite de mission` / `projectId=` ; reload OK |
-| **BROWSER-06** | **PASS** | GO ambigu sans 2e ACTIVE ; GET idempotent ; repeat OPEN garde même cycleId ; isolation inter-projets |
-
-Régression `ensemble07-parcours-af` : **7 PASS / 2 SKIP** (A2/D2 intentional NOT RUN).
-
-## 6. Captures et preuves corrélées
-
-Captures locales (non Git) :
-
-`.tmp-sfia-review/ensemble07-browser-evidence/` — `b01-travail-after-go.png`, `b01-projet-after-open.png`, `b01-trajectoire-after-open.png`, `b01-cki-region.png`, `b02-rejected-no-cycle.png`, `b04-after-voluntary-refresh.png`, `b05-travail-after-create.png`, `b06-idempotence.png`
-
-Corrélation API : GET `/api/projects/:id` — `pilotage.cycle` ACTIVE/CADRAGE + messages assistant avec « Résultat Studio » + `turnProjections[].pilotageEffect` (après correctif QA).
-
-## 7. DETERMINISTIC vs LIVE
-
-| Niveau | Statut |
+| ID | Correctif |
 |---|---|
-| DETERMINISTIC unit/PG | **PROVEN** (702 / 525) |
-| DETERMINISTIC BROWSER | **PROVEN** (fixture `cadrage` + Playwright) |
-| LIVE/REAL Nora | **NOT RUN — GATE REQUIRED** |
+| QA-01 | `shouldApplyDurableRefresh` + contrôles **avant** setState dans `refreshDurablePilotage` |
+| QA-02 | `trajectory-cki-id` / `trajectory-cki-absent` ; ACTIVE occupe Trajectoire ; shortcut CKI si bandeaux sans parcours |
+| QA-03 | `effectForUserUtterance` (user → assistant → turnProjection.pilotageEffect) ; second OPEN attend `REJECTED|ALREADY_APPLIED` du **nouveau** tour |
+| CONFLICT/UNKNOWN | Niveau exact : UNIT DETERMINISTIC ; BROWSER **NOT RUN** |
 
-`DETERMINISTIC BROWSER PROVEN ≠ LIVE/REAL PROVEN`.
+## 7–8. Diffs modifiés + nouveaux fichiers
 
-## 8. Anomalies découvertes pendant la qualification
-
-1. **Fixture encore pré-canonisée** (`cycleType: CADRAGE`) — corrigé → `"cadrage"`.
-2. **`listTurnProjections` omettait `pilotageEffect`** — API ne permettait pas de corréler l'effet durable depuis turnProjections.
-3. **`refreshDurablePilotage` ne rechargeait que le libellé status**, pas `pilotageProjection` — cause racine sync sans F5 insuffisante.
-
-## 9. Correctifs QA supplémentaires (même cycle)
-
-- Fixture OPEN/GO/RETAIN/unknown + hedge pré-effet
-- `listTurnProjections` attache `pilotageEffect` depuis `resultJson`
-- `refreshDurablePilotage` → GET projet + `setPilotageProjection` (+ messages)
-- Spec `ensemble07-browser-continuity.spec.ts`
-- Assertion C2 parcours-af : `cycleType === "CADRAGE"`
-
-## 10. Fichiers créés / modifiés
-
-### Créés
-- `projects/sfia-studio-next/web/src/domains/pilotage/cycle-type-normalize.ts`
-- `projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts`
-- `projects/sfia-studio-next/web/tests/unit/ensemble07-cycle-type-normalize.test.ts`
-- `projects/sfia-studio-next/web/tests/unit/ensemble07-pilotage-effect-restitution.test.ts`
-- `projects/sfia-studio-next/web/tests/e2e/ensemble07-browser-continuity.spec.ts`
-
-### Modifiés (liste complète)
-- `web/src/domains/pilotage/service.ts`
-- `web/src/domains/pilotage/nora-context.ts`
-- `web/src/domains/pilotage/intent.ts`
-- `web/src/domains/conversation/service.ts`
-- `web/src/domains/conversation/intent-conduction.ts`
-- `web/src/domains/conversation/fixture-semantic-qualify.ts`
-- `web/src/app/projects/[projectId]/page.tsx`
-- `web/tests/integration/ensemble07-initial-qualification.pg.test.ts`
-- `web/tests/e2e/ensemble07-parcours-af.spec.ts`
-- `construction/.../ensemble-07-as-built-initial-qualification.md`
-- `construction/delivery-history.md`
-
-## 11. Diffs complets (modifiés) + nouveaux fichiers
-
-### Diff `git diff -- projects/sfia-studio-next` (arbre local vs HEAD `6ecdb987`)
+### Diff `git diff -- projects/sfia-studio-next`
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md b/projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md
-index 7c7ac2f0..6d21de34 100644
+index 7c7ac2f0..cf3f3bee 100644
 --- a/projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md
 +++ b/projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md
 @@ -1,13 +1,13 @@
@@ -149,7 +89,7 @@ index 7c7ac2f0..6d21de34 100644
 
  1. Après `createProjectCommand` confirmé : `ensureInitialQualification` (retry) **avant** `continueAfterProjectCreated`, puis `kickInitialQualificationProcessing` (P0-05).
  2. Kick uniquement depuis create / reconcile POST — **jamais depuis GET**.
-@@ -15,8 +15,15 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation :
+@@ -15,8 +15,18 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation :
  4. `resultJson.assistantContent` durable pour reprise exacte message (P0-02).
  5. Lien `preparation_project_links.initial_qualification_expected` (migration 016) : legacy = false → pas de verrou synthétique (P0-04).
  6. RETAIN conversationnel résout la PROPOSED courante côté serveur (FIX-08) — pas de cible D5 dans le body USER_MESSAGE.
@@ -163,10 +103,13 @@ index 7c7ac2f0..6d21de34 100644
 +13. **Sync surfaces** : `selectSurface` déclenche `refreshDurablePilotage` qui recharge la **projection pilotage complète** (+ messages) via GET projet — sans F5, sans mutation.
 +14. **Projections de tour** : `listTurnProjections` expose aussi `pilotageEffect` (sibling `resultJson`) pour corrélation API/UI.
 +15. **Fixture E2E** : OPEN émet `cycleType="cadrage"` (frontière LIVE) ; GO naturel + RETAIN + type inconnu enregistrés.
++16. **Stale GET guard** : `shouldApplyDurableRefresh` (génération + projectId) appliqué **avant** tout `setState` dans `refreshDurablePilotage`.
++17. **Trajectoire vs ACTIVE** : si cycle ACTIVE, les bandeaux qualification (CLARIFICATION/…) n'occultent plus parcours/CKI.
++18. **CKI UI** : `data-testid=trajectory-cki-id|trajectory-cki-absent` pour assertions navigateur strictes.
 
  ## Persistance
 
-@@ -32,6 +39,11 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation :
+@@ -32,6 +42,11 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation :
  | `web/src/domains/pilotage/initial-qualification.ts` | ensure / process / assert admission |
  | `web/src/domains/pilotage/forecast-builder.ts` | séquence 1–3 cycles (déterministe FAKE) |
  | `web/src/domains/pilotage/qualification-lock.ts` | règles de verrou compositeur |
@@ -178,7 +121,7 @@ index 7c7ac2f0..6d21de34 100644
  | `web/src/components/figma/TrajectoryBoard.tsx` | surface Trajectoire 09.02/07/10/11 |
  | `web/src/components/figma/SasCreateProgressPopup.tsx` | pop-up SAS 06 allégée |
  | `web/src/components/figma/ProjectOverview.tsx` | 09.01 / 09.06 |
-@@ -39,14 +51,13 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation :
+@@ -39,14 +54,13 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation :
 
  ## Preuves
 
@@ -201,13 +144,27 @@ index 7c7ac2f0..6d21de34 100644
 +- LIVE cognitive réelle sur projet synthétique DEV : gate Morris + autorisation fournisseur requises.
 +- E2E navigateur sync sans F5 : à rejouer sur runtime DEV après gel candidat (preuve unitaire/PG + hook `selectSurface` en place).
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 1031bd24..c19cc7dc 100644
+index 1031bd24..9f34c76d 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -3,6 +3,35 @@
+@@ -3,6 +3,49 @@
  Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
++## delivery_id: DELIV-2026-11-21-ENSEMBLE07-FINAL-QA-CONSOLIDATION
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-21 |
++| Macro-lot | Ensemble 07 — consolidation QA finale avant gel Git |
++| Type | INC / QA corrective · **NO RELEASE** · Gate C OPEN |
++| QA-01 | Guard `shouldApplyDurableRefresh` **avant** setState ; Playwright race stale GET |
++| QA-02 | CKI UI strict (`trajectory-cki-id` / absent) ; matrice Trajectoire n'occulte plus le parcours si ACTIVE |
++| QA-03 | Second OPEN corrélé au tour assistant (messageId ↔ turnProjection.pilotageEffect) |
++| CONFLICT/UNKNOWN | UNIT DETERMINISTIC ; BROWSER NOT RUN (déclaré) |
++| Tests | unit 706 PASS · PG 525 PASS · browser continuity 7 PASS · parcours-af 7/2 · build PASS |
++| Verdict | **ENSEMBLE 07 — DEV FINAL QA QUALIFIED WITH RESERVES — MORRIS ARBITRATION REQUIRED** |
++
 +## delivery_id: DELIV-2026-11-21-ENSEMBLE07-BROWSER-CONTINUITY-QUALIFICATION
 +
 +| Field | Value |
@@ -241,40 +198,61 @@ index 1031bd24..c19cc7dc 100644
 
  | Field | Value |
 diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index 5fada7f5..b4c557f7 100644
+index 5fada7f5..474d6261 100644
 --- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 +++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-@@ -911,6 +911,7 @@ export default function ProjectPage() {
+@@ -31,6 +31,7 @@ import {
+   type RevisionRow,
+   revisionCurrencyLabel,
+ } from "@/components/figma/DocumentSurfaces";
++import { shouldApplyDurableRefresh } from "@/lib/durable-refresh-guard";
+ import {
+   conversationalClientCommandKey,
+   mayClearComposerDraftOnReconcile,
+@@ -911,6 +912,8 @@ export default function ProjectPage() {
 
    function selectSurface(next: Surface) {
      surfaceNavGenRef.current += 1;
 +    const navGen = surfaceNavGenRef.current;
++    const projectIdAtNav = params.projectId;
      pendingSurfaceRef.current = next;
      noteProjectSurfaceNavIntent(params.projectId, next as StudioSurface);
      setSurface(next);
-@@ -928,6 +929,15 @@ export default function ProjectPage() {
+@@ -928,6 +931,11 @@ export default function ProjectPage() {
        resetDocumentBibliothequeState();
        syncSurfaceUrl(next, null, "push");
      }
 +    // E07 — revalidate durable pilotage on surface change (GET only, no métier mutation).
-+    // Fire-and-forget with generation guard: a newer nav supersedes an in-flight refresh.
-+    void refreshDurablePilotage()
-+      .then(() => {
-+        if (surfaceNavGenRef.current !== navGen) return;
-+      })
-+      .catch(() => {
-+        /* best-effort — navigation must stay non-blocking */
-+      });
++    // Stale-response guard lives inside refreshDurablePilotage (before setState).
++    void refreshDurablePilotage({ generation: navGen, projectId: projectIdAtNav }).catch(() => {
++      /* best-effort — navigation must stay non-blocking */
++    });
    }
 
    function headRevisionFromRows(rows: RevisionRow[]): RevisionRow | null {
-@@ -1253,10 +1263,36 @@ export default function ProjectPage() {
+@@ -1252,11 +1260,55 @@ export default function ProjectPage() {
+     }
    }
 
-   async function refreshDurablePilotage() {
+-  async function refreshDurablePilotage() {
 -    const projRes = await fetch(`/api/projects/${params.projectId}/pilotage`);
++  async function refreshDurablePilotage(opts?: { generation?: number; projectId?: string }) {
++    const request = {
++      generation: opts?.generation ?? surfaceNavGenRef.current,
++      projectId: opts?.projectId ?? params.projectId,
++    };
++    const stillApplicable = () =>
++      shouldApplyDurableRefresh({
++        request,
++        currentGeneration: surfaceNavGenRef.current,
++        currentProjectId: params.projectId,
++      });
++
 +    // Prefer full project GET so surfaces (Projet / Trajectoire / CKI) share one durable snapshot.
-+    const projRes = await fetch(`/api/projects/${params.projectId}`);
++    const projRes = await fetch(`/api/projects/${request.projectId}`);
++    // Guard BEFORE any React mutation — out-of-order GETs must not clobber newer state.
++    if (!stillApplicable()) return;
++
      if (projRes.ok) {
 -      const pj = await projRes.json();
 -      const cycle = pj.pilotage?.cycle ?? pj.cycle;
@@ -282,6 +260,7 @@ index 5fada7f5..b4c557f7 100644
 +        pilotage?: PilotageProjection | null;
 +        messages?: Msg[];
 +      };
++      if (!stillApplicable()) return;
 +      if (pj.pilotage) {
 +        setPilotageProjection(pj.pilotage);
 +      }
@@ -298,16 +277,104 @@ index 5fada7f5..b4c557f7 100644
 +      }
 +      return;
 +    }
-+    // Fallback: dedicated pilotage route
-+    const only = await fetch(`/api/projects/${params.projectId}/pilotage`);
++
++    // Fallback: dedicated pilotage route (same applicability gate)
++    const only = await fetch(`/api/projects/${request.projectId}/pilotage`);
++    if (!stillApplicable()) return;
 +    if (only.ok) {
 +      const pj = await only.json();
++      if (!stillApplicable()) return;
 +      const pilotage = (pj.pilotage ?? pj) as PilotageProjection;
 +      setPilotageProjection(pilotage);
 +      const cycle = pilotage?.cycle;
        if (cycle?.status === "ACTIVE") {
          setPilotageStatus((prev) =>
            prev.includes("OPEN_CYCLE") || prev.includes("ACTIVE")
+diff --git a/projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx b/projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx
+index 97196e5f..99d366df 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx
+@@ -52,12 +52,13 @@ export function TrajectoryBoard(props: {
+     proposed?.forecastSteps ?? retained?.forecastSteps ?? q?.forecastSteps ?? null;
+   const closed = props.pilotage?.closedCycles ?? [];
+   // E07-COR-12 — exclusive display matrix (no stacked contradiction).
+-  const showUnknown = q?.status === "UNKNOWN";
+-  const showAnalyzing = Boolean(
+-    q && (q.status === "PENDING" || q.status === "RUNNING"),
+-  );
+-  const showClarification = q?.status === "CLARIFICATION";
+-  const showFailed = q?.status === "FAILED";
++  // QA-FINAL — an ACTIVE cycle owns Trajectoire: qualification banners must not hide parcours/CKI.
++  const hasActiveCycle = Boolean(cycle && cycle.status === "ACTIVE");
++  const showUnknown = !hasActiveCycle && q?.status === "UNKNOWN";
++  const showAnalyzing =
++    !hasActiveCycle && Boolean(q && (q.status === "PENDING" || q.status === "RUNNING"));
++  const showClarification = !hasActiveCycle && q?.status === "CLARIFICATION";
++  const showFailed = !hasActiveCycle && q?.status === "FAILED";
+   const hasRetained = Boolean(retained);
+   const hasProposedOnly = Boolean(proposed) && !hasRetained;
+   // E07-COR-11 — proposition initiale only when PROPOSED (not already RETAINED).
+@@ -66,7 +67,7 @@ export function TrajectoryBoard(props: {
+     !showUnknown &&
+     !showClarification &&
+     !showFailed &&
+-    !cycle &&
++    !hasActiveCycle &&
+     closed.length === 0 &&
+     hasProposedOnly &&
+     Boolean(forecast && forecast.length > 0);
+@@ -248,6 +249,14 @@ export function TrajectoryBoard(props: {
+           onOpenTravail={props.onOpenTravail}
+         />
+       ) : null}
++
++      {/* Always offer CKI entry when parcours banner is absent (clarification / retained / etc.). */}
++      {(showClarification || showFailed || showRetainedWithoutCycle || showUnknown) &&
++      !showProposal ? (
++        <div className="flex justify-end pt-2">
++          <CkiShortcut onOpen={() => setDetail({ kind: "cki" })} />
++        </div>
++      ) : null}
+     </div>
+   );
+ }
+@@ -598,6 +607,7 @@ function ParcoursPrincipal(props: {
+             <button
+               type="button"
+               className="text-sm font-semibold text-[#7477ed] hover:underline"
++              data-testid="trajectory-open-cki"
+               onClick={props.onOpenCki}
+             >
+               Accès CKI et méthode
+@@ -836,7 +846,13 @@ function CkiMethodeView(props: {
+           <p className="fig-kicker text-[#7477ed]">GUIDANCE CKI PRINCIPALE</p>
+           {cycle?.cki.ckiId ? (
+             <>
+-              <h3 className="text-[1.45rem] font-semibold text-[#f3f5ff]">{cycle.cki.ckiId}</h3>
++              <h3
++                className="text-[1.45rem] font-semibold text-[#f3f5ff]"
++                data-testid="trajectory-cki-id"
++                data-cki-id={cycle.cki.ckiId}
++              >
++                {cycle.cki.ckiId}
++              </h3>
+               <p className="text-sm text-[#a3b0c7]">
+                 Référence applicable au cycle {labelCycle(cycle.cycleType)}
+                 {cycle.cki.pinnedVersion ? ` · version ${cycle.cki.pinnedVersion}` : ""}
+@@ -853,7 +869,12 @@ function CkiMethodeView(props: {
+             </>
+           ) : (
+             <>
+-              <h3 className="text-lg font-semibold text-[#f3f5ff]">Aucun CKI principal actif</h3>
++              <h3
++                className="text-lg font-semibold text-[#f3f5ff]"
++                data-testid="trajectory-cki-absent"
++              >
++                Aucun CKI principal actif
++              </h3>
+               <p className="text-sm text-[#a3b0c7]">
+                 Un CKI principal n&apos;existe qu&apos;avec un cycle réellement ouvert. Aucune
+                 génération automatique à l&apos;ouverture.
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
 index 093927d1..7deeff73 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
@@ -667,6 +734,87 @@ index 6a33a906..3fc4838b 100644
          objective: "Clarifier le besoin",
          semanticIntentId: openQual.intents[0]?.id,
          semanticSchemaVersion: openQual.schemaVersion,
+```
+
+### NEW FILE `projects/sfia-studio-next/web/src/lib/durable-refresh-guard.ts`
+
+```typescript
+/**
+ * Guard for applying durable GET revalidation results.
+ * Reject stale responses BEFORE any React state mutation.
+ *
+ * A response is applicable only when:
+ * - its generation token still matches the latest requester generation, AND
+ * - it targets the same project id currently mounted.
+ *
+ * Navigation generation ≠ métier revision: we discard out-of-order reads for the
+ * same surface refresh sequence / project identity, not because métier changed.
+ */
+
+export type DurableRefreshRequestIdentity = {
+  generation: number;
+  projectId: string;
+};
+
+export function shouldApplyDurableRefresh(input: {
+  request: DurableRefreshRequestIdentity;
+  currentGeneration: number;
+  currentProjectId: string;
+}): boolean {
+  if (!input.request.projectId || !input.currentProjectId) return false;
+  if (input.request.projectId !== input.currentProjectId) return false;
+  if (input.request.generation !== input.currentGeneration) return false;
+  return true;
+}
+```
+
+### NEW FILE `projects/sfia-studio-next/web/tests/unit/durable-refresh-guard.test.ts`
+
+```typescript
+import { describe, expect, it } from "vitest";
+import { shouldApplyDurableRefresh } from "@/lib/durable-refresh-guard";
+
+describe("durable-refresh-guard (QA-FINAL-01)", () => {
+  it("applies when generation and projectId still match", () => {
+    expect(
+      shouldApplyDurableRefresh({
+        request: { generation: 3, projectId: "proj_a" },
+        currentGeneration: 3,
+        currentProjectId: "proj_a",
+      }),
+    ).toBe(true);
+  });
+
+  it("rejects stale generation (request A after B advanced the counter)", () => {
+    expect(
+      shouldApplyDurableRefresh({
+        request: { generation: 1, projectId: "proj_a" },
+        currentGeneration: 2,
+        currentProjectId: "proj_a",
+      }),
+    ).toBe(false);
+  });
+
+  it("rejects response for a different mounted project", () => {
+    expect(
+      shouldApplyDurableRefresh({
+        request: { generation: 5, projectId: "proj_old" },
+        currentGeneration: 5,
+        currentProjectId: "proj_new",
+      }),
+    ).toBe(false);
+  });
+
+  it("rejects empty project identities", () => {
+    expect(
+      shouldApplyDurableRefresh({
+        request: { generation: 1, projectId: "" },
+        currentGeneration: 1,
+        currentProjectId: "proj_a",
+      }),
+    ).toBe(false);
+  });
+});
 ```
 
 ### NEW FILE `projects/sfia-studio-next/web/src/domains/pilotage/cycle-type-normalize.ts`
@@ -1142,21 +1290,35 @@ const EVIDENCE = path.resolve(
   "../../../../.tmp-sfia-review/ensemble07-browser-evidence",
 );
 
+type PilotageEffectSnap = {
+  operation?: string | null;
+  status?: string | null;
+  reason?: string | null;
+  reasonCode?: string | null;
+  attempted?: boolean;
+};
+
 type ProjectSnap = {
   messageCount: number;
-  messages: Array<{ role?: string; content?: string; generationId?: string | null }>;
+  messages: Array<{
+    id?: string;
+    role?: string;
+    content?: string;
+    generationId?: string | null;
+    ordinal?: number | null;
+  }>;
+  turnProjections: Array<{
+    messageId?: string | null;
+    turnCommandId?: string | null;
+    pilotageEffect?: PilotageEffectSnap | null;
+  }>;
   cycleStatus: string | null;
   cycleId: string | null;
   cycleType: string | null;
   ckiId: string | null;
   trajectoryRetained: boolean;
   trajectoryProposed: boolean;
-  lastPilotageEffect: {
-    operation?: string | null;
-    status?: string | null;
-    reason?: string | null;
-    attempted?: boolean;
-  } | null;
+  lastPilotageEffect: PilotageEffectSnap | null;
   iqStatus: string | null;
 };
 
@@ -1190,14 +1352,17 @@ async function getProjectSnap(
   const getRes = await request.get(`/api/projects/${projectId}`, { timeout: 10000 });
   expect(getRes.ok()).toBeTruthy();
   const body = (await getRes.json()) as {
-    messages?: Array<{ role?: string; content?: string; generationId?: string | null }>;
+    messages?: Array<{
+      id?: string;
+      role?: string;
+      content?: string;
+      generationId?: string | null;
+      ordinal?: number | null;
+    }>;
     turnProjections?: Array<{
-      pilotageEffect?: {
-        operation?: string | null;
-        status?: string | null;
-        reason?: string | null;
-        attempted?: boolean;
-      } | null;
+      messageId?: string | null;
+      turnCommandId?: string | null;
+      pilotageEffect?: PilotageEffectSnap | null;
     }>;
     initialQualification?: { status?: string } | null;
     pilotage?: {
@@ -1219,6 +1384,7 @@ async function getProjectSnap(
   return {
     messageCount: Array.isArray(body.messages) ? body.messages.length : 0,
     messages: Array.isArray(body.messages) ? body.messages : [],
+    turnProjections: turns,
     cycleStatus: body.pilotage?.cycle?.status ?? null,
     cycleId: body.pilotage?.cycle?.id ?? null,
     cycleType: body.pilotage?.cycle?.cycleType ?? null,
@@ -1227,6 +1393,38 @@ async function getProjectSnap(
     trajectoryProposed: Boolean(body.pilotage?.trajectory?.proposed),
     lastPilotageEffect: lastEffect,
     iqStatus: body.initialQualification?.status ?? null,
+  };
+}
+
+/** Correlate durable pilotageEffect to the assistant that answers a specific user utterance. */
+function effectForUserUtterance(
+  snap: ProjectSnap,
+  utterance: string,
+  opts?: { minUserIndex?: number },
+): { userId: string; assistantId: string; effect: PilotageEffectSnap } {
+  const needle = utterance.slice(0, Math.min(48, utterance.length));
+  const minIdx = opts?.minUserIndex ?? 0;
+  let userIdx = -1;
+  for (let i = snap.messages.length - 1; i >= minIdx; i--) {
+    const m = snap.messages[i]!;
+    if (m.role === "user" && (m.content ?? "").includes(needle)) {
+      userIdx = i;
+      break;
+    }
+  }
+  expect(userIdx, `user utterance not found: ${needle}`).toBeGreaterThanOrEqual(0);
+  const user = snap.messages[userIdx]!;
+  expect(user.id, "user message id required for correlation").toBeTruthy();
+  const assistant = snap.messages.slice(userIdx + 1).find((m) => m.role === "assistant");
+  expect(assistant?.id, "assistant reply after user turn required").toBeTruthy();
+  const turn = snap.turnProjections.find((t) => t.messageId === assistant!.id);
+  expect(turn?.pilotageEffect?.attempted, "turnProjection.pilotageEffect for this assistant").toBe(
+    true,
+  );
+  return {
+    userId: user.id!,
+    assistantId: assistant!.id!,
+    effect: turn!.pilotageEffect!,
   };
 }
 
@@ -1417,22 +1615,49 @@ test.describe("Ensemble 07 BROWSER continuity (01–06)", () => {
     await expect(
       page.getByTestId("trajectory-board").or(page.getByTestId("project-trajectory")).first(),
     ).toBeVisible({ timeout: 20000 });
-    await expect(page.getByText(/Cadrage|CADRAGE|CYCLE/i).first()).toBeVisible({ timeout: 20000 });
+    // Wait for durable ACTIVE panel (not merely forecast wording).
+    await expect(page.getByTestId("trajectory-cycle-actif-panel")).toBeVisible({ timeout: 20000 });
+    await expect(page.getByTestId("trajectory-cki-banner")).toBeVisible({ timeout: 15000 });
     await shot(page, "b01-trajectoire-after-open");
 
-    // CKI surface — via trajectory CKI panel when present
-    const ckiBanner = page.getByTestId("trajectory-cki-banner");
-    if (await ckiBanner.count()) {
-      await expect(ckiBanner).toBeVisible();
-    }
-    const ckiLayout = page.getByTestId("trajectory-cki-layout");
-    if (await ckiLayout.count()) {
-      await expect(ckiLayout).toBeVisible();
-    }
+    // QA-02 — open dedicated CKI surface; assert identity matches durable projection (no soft if).
+    await expect(page.getByTestId("trajectory-cki-banner")).toContainText(open.ckiId!, {
+      timeout: 15000,
+    });
+    await page.getByTestId("trajectory-cki-banner").click();
+    await expect(page.getByTestId("trajectory-cki-methode")).toBeVisible({ timeout: 15000 });
+    await expect(page.getByTestId("trajectory-cki-layout")).toBeVisible({ timeout: 15000 });
+    await expect(page.getByTestId("trajectory-cki-main")).toBeVisible();
+    await expect(page.getByTestId("trajectory-cki-absent")).toHaveCount(0);
+    const ckiNode = page.getByTestId("trajectory-cki-id");
+    await expect(ckiNode).toBeVisible({ timeout: 15000 });
+    await expect(ckiNode).toHaveAttribute("data-cki-id", open.ckiId!);
+    await expect(ckiNode).toHaveText(open.ckiId!);
     await shot(page, "b01-cki-region");
+
+    // Sans F5: leave CKI, return, same identity
+    await page.getByRole("button", { name: /Retour à la trajectoire/i }).click();
+    await expect(page.getByTestId("trajectory-cycle-actif-panel")).toBeVisible({ timeout: 10000 });
+    await expect(page.getByTestId("trajectory-cki-banner")).toContainText(open.ckiId!);
+    await page.getByTestId("trajectory-cki-banner").click();
+    await expect(page.getByTestId("trajectory-cki-id")).toHaveAttribute(
+      "data-cki-id",
+      open.ckiId!,
+    );
 
     await openSurface(page, "travail");
     await expect(page.getByText(/Résultat Studio/i).last()).toBeVisible({ timeout: 15000 });
+
+    // Refresh volontaire — CKI facts still match
+    await page.reload();
+    await openSurface(page, "pilotage");
+    await expect(page.getByTestId("trajectory-cycle-actif-panel")).toBeVisible({ timeout: 20000 });
+    await expect(page.getByTestId("trajectory-cki-banner")).toContainText(open.ckiId!);
+    await page.getByTestId("trajectory-cki-banner").click();
+    await expect(page.getByTestId("trajectory-cki-id")).toHaveAttribute(
+      "data-cki-id",
+      open.ckiId!,
+    );
 
     test.info().annotations.push({
       type: "note",
@@ -1501,21 +1726,40 @@ test.describe("Ensemble 07 BROWSER continuity (01–06)", () => {
     expect(lastAssistant?.content ?? "").not.toMatch(/a été \*\*appliquée\*\*|désormais actif/i);
     expect(lastAssistant?.content ?? "").not.toMatch(/reste à confirmer par Studio/i);
 
+    // Correlate REJECTED to this utterance's assistant turn (not a prior OPEN).
+    const rejectedCorr = effectForUserUtterance(
+      snap,
+      "Ouvre le cycle comparaison_de_solutions.",
+    );
+    expect(rejectedCorr.effect.operation).toBe("OPEN_CYCLE");
+    expect(rejectedCorr.effect.status).toBe("REJECTED");
+
     await expect(page.getByText(/refusée|refus/i).last()).toBeVisible({ timeout: 15000 });
     await openSurface(page, "projet");
     await expect(page.getByTestId("project-overview-no-cycle")).toBeVisible({ timeout: 15000 });
+
+    // QA-FINAL-04 — no active CKI when no cycle
+    await openSurface(page, "pilotage");
+    const openCkiAbsent = page
+      .getByTestId("trajectory-cki-banner")
+      .or(page.getByTestId("trajectory-open-cki"));
+    await expect(openCkiAbsent.first()).toBeVisible({ timeout: 15000 });
+    await openCkiAbsent.first().click();
+    await expect(page.getByTestId("trajectory-cki-absent")).toBeVisible({ timeout: 15000 });
+    await expect(page.getByTestId("trajectory-cki-id")).toHaveCount(0);
     await shot(page, "b02-rejected-no-cycle");
 
     test.info().annotations.push({
       type: "note",
-      description: `BROWSER-02 PASS — REJECTED unknown type; reason=${snap.lastPilotageEffect?.reason ?? "?"}; no ACTIVE`,
+      description: `BROWSER-02 PASS — REJECTED correlated assistant=${rejectedCorr.assistantId}; reason=${rejectedCorr.effect.reason ?? "?"}; no ACTIVE; CKI absent`,
     });
   });
 
-  test("BROWSER-03 — restitution coherente (hedge strip + no false success)", async ({ page }) => {
-    // Applied path already asserted in BROWSER-01; rejected path in BROWSER-02.
-    // Composer CONFLICT/UNKNOWN: covered by unit ensemble07-pilotage-effect-restitution;
-    // browser verifies durable messages remain coherent after reload.
+  test("BROWSER-03 — restitution coherente (hedge strip); CONFLICT/UNKNOWN levels declared", async ({
+    page,
+  }) => {
+    // APPLIED / REJECTED browser paths: BROWSER-01 / BROWSER-02.
+    // CONFLICT / UNKNOWN composer wording: unit ensemble07-pilotage-effect-restitution — NOT BROWSER.
     expect(projectId).toBeTruthy();
     await loginPilotA(page);
     await page.goto(`/projects/${projectId}?surface=travail`);
@@ -1523,7 +1767,6 @@ test.describe("Ensemble 07 BROWSER continuity (01–06)", () => {
     const snap = await getProjectSnap(page.request, projectId);
     const assistants = snap.messages.filter((m) => m.role === "assistant").map((m) => m.content ?? "");
     for (const c of assistants) {
-      // No contradictory pending-Studio hedge left when effect was final
       if (/Résultat Studio/i.test(c) && /appliquée|refusée|conflit|vérification/i.test(c)) {
         expect(c).not.toMatch(/reste à confirmer par Studio/i);
       }
@@ -1531,13 +1774,76 @@ test.describe("Ensemble 07 BROWSER continuity (01–06)", () => {
     test.info().annotations.push({
       type: "note",
       description:
-        "BROWSER-03 PASS — durable messages coherent after reload; CONFLICT/UNKNOWN composer = unit DETERMINISTIC; no 2nd orchestrator",
+        "BROWSER-03 PARTIAL — hedge/coherence BROWSER PROVEN; CONFLICT/UNKNOWN = UNIT DETERMINISTIC ONLY — BROWSER NOT RUN (no reliable non-fraudulent conflict injection in lane)",
     });
   });
 
-  test("BROWSER-06 — non-régression: ambiguous GO + GET sans mutation + idempotence OPEN", async ({
-    page,
-  }) => {
+  test("QA-FINAL-01 — stale GET must not overwrite newer projection", async ({ page }) => {
+    expect(projectId).toBeTruthy();
+    await loginPilotA(page);
+    await page.goto(`/projects/${projectId}?surface=projet`);
+    await expect(
+      page.getByTestId("project-overview-cycle-card").getByRole("heading", { name: /Cadrage/i }),
+    ).toBeVisible({ timeout: 20000 });
+
+    let projectGetCount = 0;
+    let releaseStale: (() => void) | null = null;
+    const staleGate = new Promise<void>((resolve) => {
+      releaseStale = resolve;
+    });
+
+    await page.route(`**/api/projects/${projectId}`, async (route) => {
+      if (route.request().method() !== "GET") {
+        await route.continue();
+        return;
+      }
+      projectGetCount += 1;
+      const n = projectGetCount;
+      if (n === 1) {
+        // Stale A: wait until B has been applied, then fulfill with a fake empty cycle.
+        await staleGate;
+        await route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify({
+            pilotage: {
+              projectId,
+              revision: 1,
+              cycle: null,
+              closedCycles: [],
+              trajectory: { proposed: null, retained: null },
+              method: { presence: "ABSENT" },
+              restrictions: [],
+            },
+            messages: [],
+          }),
+        });
+        return;
+      }
+      // Fresh B: real upstream, then release A.
+      await route.continue();
+      // Let continue flush, then release stale A.
+      setTimeout(() => releaseStale?.(), 50);
+    });
+
+    // Trigger two navigations → two refreshDurablePilotage generations (A then B).
+    await openSurface(page, "pilotage");
+    await openSurface(page, "projet");
+
+    // After both settle, ACTIVE Cadrage must remain (stale null-cycle must not win).
+    await expect(
+      page.getByTestId("project-overview-cycle-card").getByRole("heading", { name: /Cadrage/i }),
+    ).toBeVisible({ timeout: 20000 });
+    await expect(page.getByTestId("project-overview-no-cycle")).toHaveCount(0);
+
+    await page.unroute(`**/api/projects/${projectId}`);
+    test.info().annotations.push({
+      type: "note",
+      description: `QA-FINAL-01 PASS — projectGetCount=${projectGetCount}; stale null-cycle did not overwrite ACTIVE Cadrage`,
+    });
+  });
+
+  test("BROWSER-06 — correlated second OPEN + GET immutability", async ({ page }) => {
     expect(projectId).toBeTruthy();
     await loginPilotA(page);
     await page.goto(`/projects/${projectId}?surface=travail`);
@@ -1545,6 +1851,7 @@ test.describe("Ensemble 07 BROWSER continuity (01–06)", () => {
     const before = await getProjectSnap(page.request, projectId);
     expect(before.cycleStatus).toBe("ACTIVE");
     const beforeCycleId = before.cycleId;
+    const beforeMsgCount = before.messageCount;
 
     // Ambiguous / unmatched utterance → dialogue only, no second ACTIVE
     await sendTravail(page, "Ce serait intéressant de commencer.");
@@ -1559,20 +1866,43 @@ test.describe("Ensemble 07 BROWSER continuity (01–06)", () => {
     expect(b.cycleType).toBe(a.cycleType);
     expect(b.messageCount).toBe(a.messageCount);
 
-    // Repeat OPEN GO — must not create second ACTIVE (idempotent / ACTIVE_CYCLE reject)
-    await sendTravail(page, "Ouvre le cycle cadrage.");
+    // QA-03 — Repeat OPEN: correlate the NEW turn, not a historical OPEN effect.
+    const repeatGo = "Ouvre le cycle cadrage.";
+    const minUserIndex = afterAmb.messageCount;
+    await sendTravail(page, repeatGo);
+
     const afterRepeat = await pollUntil(
       page.request,
       projectId,
-      (s) =>
-        s.lastPilotageEffect?.operation === "OPEN_CYCLE" &&
-        ["ALREADY_APPLIED", "REJECTED", "APPLIED"].includes(s.lastPilotageEffect?.status ?? ""),
-      { maxMs: 20000 },
+      (s) => {
+        if (s.messageCount <= beforeMsgCount) return false;
+        try {
+          const corr = effectForUserUtterance(s, repeatGo, { minUserIndex });
+          return (
+            corr.effect.operation === "OPEN_CYCLE" &&
+            ["ALREADY_APPLIED", "REJECTED"].includes(corr.effect.status ?? "")
+          );
+        } catch {
+          return false;
+        }
+      },
+      { maxMs: 30000 },
     );
+
+    const corr = effectForUserUtterance(afterRepeat, repeatGo, { minUserIndex });
+    // With an ACTIVE cycle already present, D5 must refuse a second OPEN (not soft-pass on first APPLIED).
+    expect(["ALREADY_APPLIED", "REJECTED"]).toContain(corr.effect.status ?? "");
+    if (corr.effect.status === "REJECTED") {
+      expect(corr.effect.reasonCode ?? corr.effect.reason ?? "").toMatch(/ACTIVE|cycle/i);
+    }
     expect(afterRepeat.cycleId).toBe(beforeCycleId);
     expect(afterRepeat.cycleStatus).toBe("ACTIVE");
-    // At most one ACTIVE in projection
     expect(afterRepeat.cycleType).toBe("CADRAGE");
+
+    // Nora restitution for THIS assistant must not claim a fresh applied success as if first open.
+    const assistantMsg = afterRepeat.messages.find((m) => m.id === corr.assistantId);
+    expect(assistantMsg?.content ?? "").toMatch(/Résultat Studio/i);
+    expect(assistantMsg?.content ?? "").not.toMatch(/reste à confirmer par Studio/i);
 
     // Cross-project isolation: reject project still has no cycle
     if (rejectProjectId) {
@@ -1584,69 +1914,79 @@ test.describe("Ensemble 07 BROWSER continuity (01–06)", () => {
     await shot(page, "b06-idempotence");
     test.info().annotations.push({
       type: "note",
-      description: `BROWSER-06 PASS — same cycleId=${beforeCycleId}; ambiguous no-op; GET immutable; repeat OPEN no 2nd ACTIVE`,
+      description: `BROWSER-06 PASS — correlated assistant=${corr.assistantId} status=${corr.effect.status}; cycleId=${beforeCycleId}`,
     });
   });
 });
 ```
 
-## 12. Tests et résultats (cette exécution)
+## 9. Tests (cette exécution)
 
 | Suite | Résultat |
 |---|---|
-| `npx tsc --noEmit` | **PASS** |
-| `npx vitest run tests/unit` | **87 files / 702 PASS** |
-| `npx vitest run tests/integration` | **34 files / 525 PASS** |
-| `playwright ensemble07-browser-continuity` | **6 PASS** |
-| `playwright ensemble07-parcours-af` | **7 PASS / 2 SKIP** |
-| `next build` | **PASS** |
+| tsc | **PASS** |
+| unit | **88 files / 706 PASS** |
+| PG | **34 files / 525 PASS** |
+| browser continuity | **7 PASS** (incl. QA-FINAL-01 race) |
+| parcours-af | **7 PASS / 2 SKIP** |
+| next build | **PASS** |
 | LIVE | **NOT RUN** |
 
-## 13. Régression D5/D6
+## 10. Simulation réponses réseau désordonnées
 
-- OPEN `cadrage` → CADRAGE APPLIED (browser + PG)
-- Unknown type REJECTED sans ACTIVE
-- Repeat OPEN : même cycleId (pas de 2e ACTIVE)
-- Ambiguous utterance : pas d'effet
-- GET : pas de mutation
-- Isolation projet REJECT vs projet ACTIVE
+Playwright `page.route` : GET A retardé puis corps `cycle:null` ; GET B continue réel puis libère A.
+**Assertion :** Projet reste « Cadrage » ACTIVE — A n'écrase pas B. **QA-FINAL-01 PASS**.
 
-## 14. Reprise / idempotence
+## 11. CKI actif
 
-- Reload page : mêmes faits cycle + restitution
-- GET répétés : identité stable
-- Pas de nouveau cycle par navigation
+- API `ckiId` non nul
+- Banner contient `ckiId`
+- Surface CKI : `trajectory-cki-id` = projection ; `trajectory-cki-absent` count 0
+- Sans cycle : `trajectory-cki-absent` visible
+**QA-FINAL-03/04 PASS**
 
-## 15. Cohérence messages Nora
+## 12. Corrélation second OPEN
 
-- Hedge « reste à confirmer par Studio » **absent** après APPLIED/REJECTED
-- Bloc « Résultat Studio » métier visible
-- Pas de dump technique Suite de mission
+Nouveau user « Ouvre le cycle cadrage. » → assistant id → turnProjection.pilotageEffect.
+Statut terminal du **nouveau** tour : `REJECTED` (ACTIVE_CYCLE) — cycleId inchangé.
+**QA-FINAL-05 PASS**
 
-## 16. Synchronisation sans F5
+## 13. REJECTED / CONFLICT / UNKNOWN
 
-- Après OPEN : Projet montre « CYCLE EN COURS / Cadrage » via `refreshDurablePilotage` sur `selectSurface`
-- Trajectoire cohérente
-- Retour Travail : restitution conservée
-- Situation-2 (surface déjà ouverte, push multi-onglet) : **non revendiquée** (pas de bus temps réel)
+| Cas | Niveau |
+|---|---|
+| REJECTED unknown type | **BROWSER PROVEN** (tour corrélé) |
+| CONFLICT / UNKNOWN | **UNIT DETERMINISTIC** ; **BROWSER NOT RUN** |
 
-## 17. Réserves / exit
+## 14. NOT RUN
 
-- LIVE cognitive réelle : gate Morris + fournisseur
-- Situation-2 multi-tab realtime : hors contrat produit actuel
-- Arbre DEV non figé : pas de `candidate_sha`
-- Evidence PNG locales uniquement (pas dans Git handoff blob)
+- Nora LIVE
+- BROWSER CONFLICT/UNKNOWN (pas d'injection fiable sans trafiquer D5/D6)
+- Situation multi-onglet push temps réel
 
-## 18. Absence mutation RECETTE
+## 15. Reprise / GET
 
-Confirmé : aucune écriture/migration/restart RECETTE ; DB tests = `sfia_next_e2e@:5433`.
+Reload + GET répétés : identité stable ; GET sans mutation.
+
+## 16. Sans F5
+
+selectSurface → refreshDurablePilotage (guardé) ; ACTIVE panel + CKI cohérents.
+
+## 17. Réserves restantes
+
+1. LIVE NOT RUN
+2. CONFLICT/UNKNOWN browser NOT RUN
+3. Arbre non commité — pas de candidate_sha
+4. origin/main a avancé documentairement (`542da1de`) sans changer la base de construction du candidat
+
+## 18. RECETTE
+
+Non mutée.
 
 ## 19. Verdict
 
-`ENSEMBLE 07 — DEV BROWSER QUALIFIED WITH RESERVES — MORRIS ARBITRATION REQUIRED`
+`ENSEMBLE 07 — DEV FINAL QA QUALIFIED WITH RESERVES — MORRIS ARBITRATION REQUIRED`
 
 ## 20. Prochain gate Morris
 
-1. Lire ce handoff distant.
-2. Arbitrer gel Git de l'arbre DEV correctif+QA.
-3. Décider LIVE borné / re-mise RECETTE.
+Décision de **gel Git local** du candidat (commit) — pas de promotion automatique.
