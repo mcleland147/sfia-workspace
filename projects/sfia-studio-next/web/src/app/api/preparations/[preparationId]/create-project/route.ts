@@ -2,13 +2,17 @@ import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import { requireStudioSession } from "@/domains/identity/session";
 import { createProjectCommand } from "@/domains/preparation/create-project";
+import {
+  ensureInitialQualification,
+  kickInitialQualificationProcessing,
+} from "@/domains/pilotage/initial-qualification";
 import { probeCreateProjectSideEffects } from "@/domains/boundaries/non-effects";
 import {
   authorizeMissionBoundD2Create,
   continueAfterProjectCreated,
 } from "@/domains/conversation/intent-conduction";
 import { db } from "@/db/client";
-import { projects } from "@/db/schema";
+import { preparationProjectLinks, projects } from "@/db/schema";
 import { studioErrorResponse } from "@/lib/http-errors";
 
 /**
@@ -78,21 +82,59 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
       projectName: body.projectName,
       previewSummary: body.previewSummary ?? "",
       idempotencyKey,
+      // P0-04 — product create path only: qualification expected → missing-op lock.
+      expectInitialQualification: true,
     });
     const sideEffects = probeCreateProjectSideEffects();
 
-    let missionContinue: Awaited<ReturnType<typeof continueAfterProjectCreated>> | null = null;
-    if (
-      auth.outcome !== "CLASSIC" &&
+    let initialQualification: Awaited<ReturnType<typeof ensureInitialQualification>> | null =
+      null;
+    let qualificationEnsureStatus: "OK" | "FAILED_RETRYABLE" | "SKIPPED" = "SKIPPED";
+    const projectReady =
       (result.status === "CREATED" || result.status === "ALREADY_CREATED") &&
       "projectId" in result &&
-      result.projectId
-    ) {
+      Boolean(result.projectId);
+    const projectId = projectReady && "projectId" in result ? result.projectId : null;
+
+    // Product create always marks qualification expected (ALREADY_CREATED included).
+    if (projectId) {
+      await db
+        .update(preparationProjectLinks)
+        .set({ initialQualificationExpected: true })
+        .where(eq(preparationProjectLinks.projectId, projectId));
+    }
+
+    // P0-05 — ensure durable op first (no kick yet) so mission continue and qualification
+    // do not race two incompatible first Nora interventions.
+    if (projectId) {
+      try {
+        initialQualification = await ensureInitialQualification({
+          projectId,
+          preparationId,
+          pilotId: session.pilotId,
+        });
+        qualificationEnsureStatus = "OK";
+      } catch {
+        try {
+          initialQualification = await ensureInitialQualification({
+            projectId,
+            preparationId,
+            pilotId: session.pilotId,
+          });
+          qualificationEnsureStatus = "OK";
+        } catch {
+          qualificationEnsureStatus = "FAILED_RETRYABLE";
+        }
+      }
+    }
+
+    let missionContinue: Awaited<ReturnType<typeof continueAfterProjectCreated>> | null = null;
+    if (auth.outcome !== "CLASSIC" && projectId) {
       try {
         missionContinue = await continueAfterProjectCreated({
           pilotId: session.pilotId,
           preparationId,
-          projectId: result.projectId,
+          projectId,
           projectName: body.projectName,
           clientIntentKey: auth.mission.clientIntentKey,
         });
@@ -105,6 +147,11 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
           reason: "CONTINUE_FAILED",
         };
       }
+    }
+
+    // Kick qualification after mission continue settles (or immediately for classic create).
+    if (projectId && qualificationEnsureStatus === "OK") {
+      kickInitialQualificationProcessing(projectId, session.pilotId);
     }
 
     const status =
@@ -123,6 +170,8 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
         sideEffects,
         missionContinue,
         missionBinding: auth.outcome,
+        initialQualification,
+        qualificationEnsureStatus,
       },
       { status },
     );

@@ -1,6 +1,7 @@
 import { seedInspectedNameViaApi } from "./helpers/g4-chat-first";
 // seedInspectedNameViaApi replaces removed « Ajuster l'aperçu » UI
 import { test, expect } from "@playwright/test";
+import { clickCreateProjectAndEnter } from "./helpers/create-project-from-prep";
 
 /**
  * Discriminant: user rail navigation during in-flight project load must not
@@ -52,8 +53,7 @@ test("rail pilotage during delayed project load keeps surface=pilotage", async (
     await route.continue();
   });
 
-  await page.getByTestId("prep-create-project").click();
-  await page.waitForURL("**/projects/**", { timeout: 15000 });
+  await clickCreateProjectAndEnter(page, { createTimeoutMs: 30000, navTimeoutMs: 30000 });
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
 
@@ -95,8 +95,7 @@ test("rapid rail surface switches keep the last user intent", async ({ page }) =
   await seedInspectedNameViaApi(page, { name: `Projet NAV rapid ${Date.now()}`, summary: "résumé" });
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
   // already on conversation surface
-  await page.getByTestId("prep-create-project").click();
-  await page.waitForURL("**/projects/**", { timeout: 15000 });
+  await clickCreateProjectAndEnter(page, { createTimeoutMs: 30000, navTimeoutMs: 30000 });
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
   await expect(page.getByTestId("project-load-state")).toHaveAttribute(
@@ -135,8 +134,7 @@ test("project B load ignores stale pilotage intent from project A", async ({ pag
     await seedInspectedNameViaApi(page, { name: name, summary: `résumé ${name}` });
     await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
     // already on conversation surface
-    await page.getByTestId("prep-create-project").click();
-    await page.waitForURL("**/projects/**", { timeout: 15000 });
+    await clickCreateProjectAndEnter(page, { createTimeoutMs: 30000, navTimeoutMs: 30000 });
     const id = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
     expect(id).toBeTruthy();
     await expect(page.getByTestId("project-load-state")).toHaveAttribute(

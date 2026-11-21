@@ -3,6 +3,185 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-PR687-SAS06-RESPONSIVE-CI
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — remédiation CI PR #687 · SAS06 responsive |
+| Type | CORRECTIVE / QA / CI / GIT · **NO RELEASE** · Gate C OPEN |
+| Parent tip avant correctif | `8b256c72…` (run CI `44902434109` **CANCELLED** Morris — non FAIL fonctionnel) |
+| Cause | CTA « Accéder » hors viewport @1280×720 ; `min(124px,8vh)` dérivait aussi le padding desktop (−46px @970h) |
+| Correctif | `clamp(16px, calc(100vh − 726px − 24px), 124px)` + carte 702×726 avec `maxHeight` ; overlay/card scrollables |
+| Preuves locales | `sas06-responsive-viewports` 2 PASS · `g4-b1-b4` PASS · `ensemble04-cp01-cp02` PASS · tsc PASS |
+| F2 desktop | padTop 124 · card 702×726 · tol ≤2 @1680×970 |
+| Push | branche `sfia/next-ensemble07-git-integration` · PR #687 |
+| RECETTE / UX 11/11 | **non mutés** · UAT `5ad8fa57` reste ancêtre |
+| Follow-up | d2-ack sans popup ACK-lost · PilotagePanel E2E-only (`NEXT_PUBLIC_STUDIO_E2E`) · ml3/journal/CR-02 prouvés localement |
+| CI final | run `44908228223` · HEAD `957737c3` · Playwright + Required Gate **SUCCESS** |
+| Verdict | **ENSEMBLE 07 — PR #687 CI GREEN — SAS06 RESPONSIVE VERIFIED — DOCUMENTATION ALIGNED — READY FOR INDEPENDENT MERGE REVIEW** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-ACQUIS-PANELS-50-50
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — correctif final UX Acquis / À clarifier 50/50 + RECETTE |
+| Type | CORRECTIVE / UX / QA / RECETTE · **NO RELEASE** · Gate C OPEN |
+| Parent | `09a935bc…` / tree `5809a0bb…` |
+| Propriétaire | `TrajectoryBoard` row `trajectory-cycle-knowledge-row` — `minmax(0,640fr) minmax(0,646fr)` + gap 24 · `min-w-0` · wrap |
+| F2 | 09.02 / 09.09 · acquis≈639 / clarifier≈645 / gap 24 · tol≤2 · preuves `.tmp-sfia-review/ensemble07-acquis-panels-fix/` |
+| UAT Morris | Acceptation 21/11 avec réserve unique ; réserve **techniquement levée** après F2 + RECETTE |
+| Push projet | **NONE** |
+| Verdict | **ENSEMBLE 07 — MORRIS UAT ACCEPTED — FINAL UX RESERVE TECHNICALLY CLEARED — RECETTE UPDATED — READY FOR GIT INTEGRATION REVIEW** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-FIGMA-PAGE10-EXPERIMENT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — Page 10 Figma expérimentation → Runtime → RECETTE |
+| Type | EVOL / UX / QA / DEPLOY · **NO RELEASE** · Gate C OPEN |
+| Parent | `ce03f5a7…` / tree `bd9077d5…` |
+| Methodo | v1.1 `@ a4516496` blob `3efe8807` (docs branch, non mergée main) |
+| Figma | Page 10 `1069:100` · 11 frames · shell instance `1073:2` |
+| Preuves | `.tmp-sfia-review/ensemble07-page10-experiment/` |
+| F2 critiques | **40/40 PASS** (Δ0) · 09.10 analyzing **exercé** (HOLD DEV) |
+| UX | Acquis/À clarifier toujours présents · suite envisagée = forecast · markers SVG |
+| Tests | unit 34 PASS · PG E07 15 PASS · tsc PASS · build PASS |
+| RECETTE | bascule LaunchAgent `ml4d-ux004` (voir handoff) |
+| Push projet | **NONE** |
+| Verdict | **ENSEMBLE 07 — FIGMA PAGE 10 / RUNTIME ALIGNED — 11/11 VERIFIED — RECETTE DEPLOYED — MORRIS UAT REQUIRED** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-FIGMA-RUNTIME-UX-CYCLE8-FINAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — Cycle 8 final Figma→Runtime + deploy RECETTE |
+| Type | EVOL / UX / CORRECTIVE / DELIVERY / DEPLOY · **NO RELEASE** · Gate C OPEN |
+| Parent | `c500df9c…` / tree `3794e344…` |
+| Layout | shell `data-project-figma-layout` · header 70 · hero Figma native · y panels **287** |
+| CKI | editorial corpus + display objectif métier (pas instruction OPEN) |
+| SAS06 | modal 702×726 + SVG natifs `public/figma/sas06/` |
+| F2 | 13/13 examinés · panneaux critiques 09.01/05/06/11 w/h/y ≤2 px |
+| Tests | unit 31 PASS · PG E07 15 PASS · tsc PASS · build PASS |
+| RECETTE | bascule LaunchAgent `ml4d-ux004` vers candidat final (voir handoff) |
+| Push projet | **NONE** |
+| Verdict | **ENSEMBLE 07 — FIGMA/RUNTIME QUALIFIED — CORRECTED CANDIDATE DEPLOYED TO RECETTE — TECHNICAL SMOKE PASS — MORRIS FINAL UAT REQUIRED** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-FIGMA-RUNTIME-UX-CYCLE8
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — Cycle 8 convergence UX Figma → Runtime (intermédiaire) |
+| Type | EVOL / UX / CORRECTIVE · **NO RELEASE** · Gate C OPEN |
+| Parent gel | `c500df9c…` / tree `3794e344…` (arbre local modifié) |
+| Verdict | **FIGMA TO RUNTIME PARTIAL** — supersédé par FINAL |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-LOCAL-GIT-FREEZE-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — gel Git local du correctif continuité (post-QA concurrence) |
+| Type | INC / gel candidat DEV · **NO RELEASE** · Gate C OPEN |
+| Parent | `6ecdb987ee867a04ff816b699eb8870ac200db0a` (RECETTE figée immuable) |
+| Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` |
+| QA-FINAL-01 | Course GET A/B : barrières + marqueurs ; rail URL effect appelle `refreshDurablePilotage` |
+| Tests gel | tsc PASS · unit **706** · PG **525** · browser continuity **7** · parcours-af **7 PASS / 2 SKIP** · build PASS |
+| LIVE / RECETTE | NOT RUN / non mutée (`:3200` HTTP 200 RO) |
+| Push projet | **NONE** |
+| Verdict | **ENSEMBLE 07 — LOCAL GIT CANDIDATE FROZEN — MORRIS RECETTE GATE REQUIRED** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-FINAL-QA-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — consolidation QA finale avant gel Git |
+| Type | INC / QA corrective · **NO RELEASE** · Gate C OPEN |
+| QA-01 | Guard `shouldApplyDurableRefresh` **avant** setState ; Playwright race stale GET |
+| QA-02 | CKI UI strict (`trajectory-cki-id` / absent) ; matrice Trajectoire n'occulte plus le parcours si ACTIVE |
+| QA-03 | Second OPEN corrélé au tour assistant (messageId ↔ turnProjection.pilotageEffect) |
+| CONFLICT/UNKNOWN | UNIT DETERMINISTIC ; BROWSER NOT RUN (déclaré) |
+| Tests | unit 706 PASS · PG 525 PASS · browser continuity 7 PASS · parcours-af 7/2 · build PASS |
+| Verdict | **ENSEMBLE 07 — DEV FINAL QA QUALIFIED WITH RESERVES — MORRIS ARBITRATION REQUIRED** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-BROWSER-CONTINUITY-QUALIFICATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — qualification navigateur du correctif continuité pilotage |
+| Type | INC / QA incrément · **NO RELEASE** · Gate C OPEN |
+| Worktree | même arbre DEV local non commité · parent RECETTE `6ecdb987` |
+| Preuves | BROWSER-01…06 Playwright `:3101` / `sfia_next_e2e` · fixture `cycleType=cadrage` · captures `.tmp-sfia-review/ensemble07-browser-evidence/` |
+| Correctifs QA | `listTurnProjections` expose `pilotageEffect` · `refreshDurablePilotage` recharge projection complète |
+| Tests | unit 702 PASS · PG 525 PASS · tsc PASS · browser continuity 6 PASS · LIVE NOT RUN |
+| RECETTE | non mutée |
+| Verdict | **ENSEMBLE 07 — DEV BROWSER QUALIFIED WITH RESERVES — MORRIS ARBITRATION REQUIRED** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-GOVERNED-PILOTAGE-CONTINUITY-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — continuité du pilotage gouverné (correctif post-UAT Equip'Campus) |
+| Type | INC / correctif fonctionnel intégré · **NO RELEASE** · Gate C OPEN |
+| Worktree | `sfia-wt-ensemble07-projet-trajectoire-20261120` · branche `sfia/next-ensemble07-projet-trajectoire-delivery` · HEAD parent figé RECETTE `6ecdb987` (arbre DEV non commité) |
+| IN | UAT-10 normalize cycleType · UAT-11 restitution post-effet · UAT-08/09 catalogue Nora · UAT-02 filtre messages techniques · UAT-12 sync surfaces · UAT-06 taxonomie concernée |
+| OUT | Figma polish · mutation RECETTE · push projet · LIVE fournisseur · migration DB |
+| Tests | unit 702 PASS · PG 525 PASS · tsc PASS · OPEN `cadrage`→CADRAGE PG PROVEN · LIVE NOT RUN — GATE REQUIRED |
+| RECETTE | inchangée (`:3200` / BUILD `armX_D1HJzN6q-4MuDpYv` / SHA `6ecdb987`) |
+| Verdict | **ENSEMBLE 07 — DEV CORRECTIVE QUALIFIED WITH GOVERNED RESERVES — MORRIS ARBITRATION REQUIRED** |
+
+
+## delivery_id: DELIV-2026-11-20-ENSEMBLE07-FUNCTIONAL-STABILIZATION-CANDIDATE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-20 |
+| Macro-lot | Ensemble 07 — stabilisation fonctionnelle/technique avant RECETTE |
+| Type | EVOL corrective · **NO RELEASE** · Gate C OPEN |
+| P0 | P0-01 fence D5 in-TX · P0-02 resume assistantContent · P0-04 legacy expected flag (016) · P0-05 ensure-before-continue |
+| FIX | FIX-04 fingerprint · FIX-07 validateStructuredForecast · FIX-08 RETAIN resolve PROPOSED · FIX-11 docs SAVING |
+| Tests | PG 15 PASS · unit E07 10 PASS · tsc PASS · ml3 smoke PASS · E2E browser NOT RUN this cycle |
+| UX | **GELÉ** — revue visuelle Morris en RECETTE (hors mandat) |
+| Réserves | LIVE Nora NOT PROVEN · GO browser E2E NOT PROVEN · FIX-03 pas de worker autonome · full suite E2E/build NOT RUN |
+| Verdict | **DEV STABILIZED WITH GOVERNED RESERVES — MORRIS ARBITRATION REQUIRED** |
+
+
+## delivery_id: DELIV-2026-11-20-ENSEMBLE07-HIGH-FIDELITY-CANDIDATE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-20 |
+| Macro-lot | Ensemble 07 — haute fidélité + P0 fencing TOCTOU |
+| Type | EVOL corrective · **NO RELEASE** · Gate C OPEN |
+| P0 | FIX-01 fencing write-point · FIX-02 message identity · FIX-05 missing-op lock · SAS modal capture |
+| Tests | PG 12 PASS · unit 7 PASS |
+| UX | FIGMA TO RUNTIME PARTIAL · modal SAS capturée |
+| Réserves | LIVE Nora NOT PROVEN · GO convers. browser NOT PROVEN · FIX-03 worker non introduit |
+| Verdict | READY WITH GOVERNED RESERVES / FIGMA TO RUNTIME PARTIAL |
+
+
+## delivery_id: DELIV-2026-11-20-ENSEMBLE07-FINAL-CONVERGENCE-CANDIDATE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-20 |
+| Macro-lot | Ensemble 07 — Projet/Trajectoire convergence finale (3e passe) |
+| Type | EVOL corrective · **NO RELEASE** · Gate C OPEN |
+| Worktree | `sfia-wt-ensemble07-projet-trajectoire-20261120` · branche `sfia/next-ensemble07-projet-trajectoire-delivery` @ `e36fd8b` (non poussée) |
+| P0 | COR-01 reopen/missing-op · COR-03 publish order · COR-04 effect fencing · SAS timers 400/900 retirés |
+| Preuves | Figma 13/13 refs MCP · runtime captures distinctes 13 états · PG 10 PASS · unit E07 7 PASS |
+| Réserves | LIVE Nora NOT PROVEN · GO conversationnel browser NOT PROVEN · UX PARTIAL · SAS popup live capture incomplete |
+| Verdict | **READY WITH GOVERNED RESERVES** / **FIGMA TO RUNTIME PARTIAL** |
+| Gates non acquis | Gate C, UAT Morris, STABLE, release, push projet |
+
+
 ## delivery_id: DELIV-2026-11-20-ENSEMBLE06-POST-MERGE-CI-VERIFIED
 
 | Field | Value |
@@ -3225,3 +3404,77 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | Lane | DEV `:5433` only ; RECETTE/STABLE non mutées |
 | Push Product | **AUCUN** |
 | Verdict candidat | `READY FOR MORRIS REVIEW WITH RESERVES — JOURNAL V4 CORE LOCAL / SCOPE PARTIAL ON J-C04/06/13/14/BROWSER` |
+
+## 2026-11-20 — Ensemble 07 Projet/Trajectoire (DEV construction, NO RELEASE)
+
+| Champ | Valeur |
+|-------|--------|
+| Source SHA base | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
+| Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` |
+| Statut | NO RELEASE — construction DEV |
+| Capacités | Qualification initiale durable post-create ; message Nora proactif ; compositeur verrouillé (UI+API) ; ProjectOverview 09.01/09.06 ; TrajectoryBoard 09.02–09.11 ; forecast_json D5 |
+| Tests | unit / PG E07 (historique premier delivery) |
+| Verdict candidat (1er) | FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED |
+| Handoff tip (1er immuable) | `93ee58ee5208daa4abe6d657550b523fea244db2` blob `65dacb671da74b93974deb12af62fb5007f33264` |
+
+## 2026-11-20 — Ensemble 07 corrective (P0 cohérence + UI, NO RELEASE)
+
+| Champ | Valeur |
+|-------|--------|
+| Source SHA base | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
+| Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` (WT non commitée) |
+| Statut | NO RELEASE — Gate C OPEN |
+| Corrections P0 | COR-01 ensure+retry ; COR-02 GET sans kick ; COR-03/04 fence+reprise D5→message ; COR-05 UNKNOWN+reconcile POST ; COR-06 no default CADRAGE ; COR-08 system incident ; COR-09 closed asc(openedAt) ; COR-11/12 matrice exclusive |
+| Tests | unit 687 PASS ; integration 518 PASS (E07 PG 8/8) ; tsc OK |
+| Fake/Real | DETERMINISTIC/FAKE forecast ; LIVE Nora NOT PROVEN ; HOLD DEV captures only |
+| Visuel | 09.07 clarification runtime obtenue ; 09.10/09.11/09.06/05.17 recapturés ; 09.02/03/08/09 ACTIVE/CLOSED encore absents (GO conversationnel COR-14 non clos) |
+| Réserves | COR-14/15 GO naturel+maturité non prouvés e2e ; COR-16/17 bilan/CKI éditorial partiels ; 13/13 Figma non READY |
+| Verdict candidat | FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED / READY WITH GOVERNED RESERVES sur P0 |
+
+## 2026-11-20 — Ensemble 07 DEV integrated qualification (NO RELEASE)
+
+| Champ | Valeur |
+|-------|--------|
+| Source SHA base | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
+| Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` (WT non commitée) |
+| Statut | NO RELEASE — Gate C OPEN — **pas** de candidat RECETTE figé |
+| Prior handoff | FUNCTIONAL STABILIZATION `97db03d6` / blob `02c1190e` |
+| Correctifs cycle | IQ-REG-01 `expectInitialQualification` default false (route produit seule true) ; E2E A–F harness (`nav-*` vs sr-only) ; e2e-web-server HOLD unset |
+| Suites | tsc PASS ; build PASS ; unit **690 PASS** ; integration PG **525 PASS** ; E2E A–F **6/6 PASS (38s)** FAKE :3101 / `sfia_next_e2e` |
+| FIX-03 | RECONCILIATION PROVEN / PROCESS AUTONOMY NOT PROVEN |
+| Nora | DETERMINISTIC/FAKE — LIVE NOT PROVEN (GO NL C/D navigateur = REAL-GAP) |
+| UX | gel Figma respecté |
+| RECETTE/STABLE | intouchées |
+| Verdict | `DEV INTEGRATION QUALIFIED WITH RESERVES — MORRIS ARBITRATION REQUIRED` |
+
+## 2026-11-20 — Ensemble 07 RECETTE candidate preparation (NO RELEASE)
+
+| Champ | Valeur |
+|-------|--------|
+| Source SHA base | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
+| Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` (WT non commitée) |
+| Prior handoff IQ | `52f47ed7` / blob `0e2a5863` |
+| Travail cycle | Oracles E2E honnêtes A1/A2/C1/C2/D1/D2/E/F ; inventaire INCLUDE/EXCLUDE ; manifeste préparation ; préflight ENV-01 RO |
+| E2E révisé | A1 refuse FAILED ; C2 fixture OPEN ; D2 CLOSE browser NOT PROVEN (voir gel pour compteurs PASS/SKIP exacts) |
+| Régressions ciblées | unit E07 **10 PASS** ; PG E07 **15 PASS** |
+| Suites globales héritées | tsc/build/690/525 — arbre delivery précédent |
+| Trees prospectifs (temp index, **historiques**) | `3fc00997…` (avant entrée delivery-history) puis `0c585940…` (après) — **pas** des SHA candidats ; divergence = contenu `delivery-history` inclus dans le write-tree |
+| candidate_sha | **NOT AVAILABLE** (préparation) |
+| FIX-03 / LIVE / UX | inchangés |
+| RECETTE :3200 | HTTP 200 observé RO — **aucune écriture** |
+| Verdict | `ENSEMBLE 07 — CANDIDATE PREPARATION COMPLETE WITH GOVERNED RESERVES — MORRIS ARBITRATION REQUIRED` |
+
+## 2026-11-20 — Ensemble 07 LOCAL GIT FREEZE (NO RELEASE)
+
+| Champ | Valeur |
+|-------|--------|
+| Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` |
+| Parent HEAD | `e36fd8b0531c4f649830990a18f9cfdaecb3c03f` |
+| Périmètre | **34 chemins INCLUDE** exacts (handoff préparation) ; EXCLUDE conservés hors commit |
+| E2E freeze | A1 strict ; A2 **SKIPPED** browser failure ; C2 **ACTIVE strict** ; D2 **SKIPPED** conversational CLOSE |
+| Réserves | R1 FIX-03 autonomy NOT ; R2 LIVE NOT ; R3 UX deferred ; R4 browser CLOSE NOT PROVEN |
+| SHA / tree finaux | **Voir métadonnées Git du commit de gel et Review Pack** (pas d'empreinte autoréférentielle dans ce fichier) |
+| Push projet | **NONE** |
+| RECETTE / STABLE | intouchées |
+| Classe | NO RELEASE · Gate C OPEN |
+| Verdict cible | `LOCAL GIT CANDIDATE FROZEN` (± GOVERNED RESERVES) |

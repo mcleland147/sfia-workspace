@@ -17,14 +17,14 @@ const HERO: Record<
     sub: "Le chat reste à gauche ; le document sélectionné s’ouvre dans la visionneuse à droite.",
   },
   projet: {
-    kicker: "Espace projet  /  Projet",
-    title: "Vue d'ensemble du projet",
-    sub: "Identité, contexte et accès — consultation sans nouvelle autorité.",
+    kicker: "ESPACE PROJET / VUE D'ENSEMBLE",
+    title: "Vue d'ensemble",
+    sub: "Identité, cycle et activité du projet.",
   },
   pilotage: {
-    kicker: "Espace projet  /  Trajectoire",
-    title: "Pilotage · cycle et décisions",
-    sub: "Cycle, méthode, CKI et décisions humaines — affichage D5/D6 existant.",
+    kicker: "ESPACE PROJET / TRAJECTOIRE",
+    title: "Trajectoire du projet",
+    sub: "Ce qui est terminé, ce qui est en cours et ce qui pourrait suivre.",
   },
   journal: {
     kicker: "ESPACE PROJET  /  JOURNAL",
@@ -76,7 +76,9 @@ export function ProjectChrome(props: {
   const isTravail = props.surface === "travail";
   /** Journal V4 — hero lives inside ProjectJournal (full vs compact 40/60). */
   const isJournal = props.surface === "journal";
-  const breadcrumbOnly = isTravail || isJournal;
+  /** Ensemble 07 — Projet / Trajectoire heroes live in ProjectOverview / TrajectoryBoard. */
+  const isProjetOrTrajectoire = props.surface === "projet" || props.surface === "pilotage";
+  const breadcrumbOnly = isTravail || isJournal || isProjetOrTrajectoire;
 
   const continuityBadge =
     isTravail && props.statusHint && !/^chargement/i.test(props.statusHint) ? (

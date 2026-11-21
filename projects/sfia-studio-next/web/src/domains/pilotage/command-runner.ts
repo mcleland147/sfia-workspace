@@ -7,6 +7,7 @@ import {
   governanceRestrictions,
   projectCycles,
   projectPilotageState,
+  trajectoryQualificationOperations,
 } from "@/db/schema";
 import { evaluateCurrentAuthority } from "@/domains/decisions/authority";
 import type { ClassifiedCommand, CommandResult, PilotageRequestBody } from "@/domains/pilotage/types";
@@ -496,6 +497,33 @@ export async function runBusinessCommand(
           reasonCode: "RESTRICTION",
           effects: [],
         });
+      }
+
+      // P0-01 — fence at true D5 mutation point (same TX as project lock + mutate).
+      const fence = input.body.effectOwnerFence;
+      if (fence?.operationId && fence.ownerToken) {
+        const lockedOp = await tx.execute(
+          sql`select id, owner_token from trajectory_qualification_operations where id = ${fence.operationId} for update`,
+        );
+        const opRow = asRows<{ id: string; owner_token: string | null }>(lockedOp)[0];
+        if (!opRow || String(opRow.owner_token ?? "") !== fence.ownerToken) {
+          return bare(input, {
+            status: "REJECTED",
+            revision,
+            reason: "Propriétaire de qualification expiré au point d'effet D5",
+            reasonCode: "QUALIFICATION_OWNERSHIP_LOST",
+          });
+        }
+        // Touch updated_at under the same lock so concurrent CAS outside TX cannot claim success.
+        await tx
+          .update(trajectoryQualificationOperations)
+          .set({ updatedAt: new Date() })
+          .where(
+            and(
+              eq(trajectoryQualificationOperations.id, fence.operationId),
+              eq(trajectoryQualificationOperations.ownerToken, fence.ownerToken),
+            ),
+          );
       }
 
       const mutated = await handlers.mutate(tx, classified.command);

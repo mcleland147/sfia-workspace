@@ -67,6 +67,13 @@ test("Atlas: one intent → create → D4 document persisted, visible, reload-st
   expect(docId).toBeTruthy();
   expect(body.missionContinue?.documentSave?.status).toBe("AVAILABLE");
 
+  // E07 SAS06 — enter project via progress popup CTA
+  await expect(page.getByTestId("sas-create-progress-popup")).toBeVisible({ timeout: 20000 });
+  {
+    const dismiss = page.getByTestId("sas-create-progress-dismiss");
+    await dismiss.scrollIntoViewIfNeeded();
+    await dismiss.click();
+  }
   await page.waitForURL("**/projects/**", { timeout: 30000 });
   await expect(page.getByTestId("nora-workspace")).toBeVisible({ timeout: 15000 });
 

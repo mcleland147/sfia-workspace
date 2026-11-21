@@ -15,6 +15,7 @@ import {
   loadVerifiedCkiText,
   type CkiDelivery,
 } from "@/domains/pilotage/cki-resolve";
+import { formatRecognizedCycleCatalogueSnippet } from "@/domains/pilotage/cycle-type-normalize";
 import { getPilotageProjection } from "@/domains/pilotage/service";
 
 export type NoraPilotageContext = {
@@ -52,6 +53,8 @@ export async function buildNoraPilotageContext(
       snippets: [
         "### Pilotage D5/D6",
         "(préparation sans projet — pas de cycle/méthode/CKI ; Nora reste générale)",
+        "",
+        ...formatRecognizedCycleCatalogueSnippet(),
       ],
       ckiContentAttached: false,
       ckiDelivery: "NONE",
@@ -103,6 +106,7 @@ export async function buildNoraPilotageContext(
   snippets.push(
     "Rappel: le contenu CKI guide la spécialité cognitive en silence ; il n'autorise aucun GO, cycle, méthode ni effet.",
   );
+  snippets.push("", ...formatRecognizedCycleCatalogueSnippet());
 
   const decisionRows = await db
     .select({

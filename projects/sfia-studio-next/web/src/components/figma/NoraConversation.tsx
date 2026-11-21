@@ -46,12 +46,20 @@ export function NoraConversation(props: {
   focusMessageId?: string | null;
   onFocusMessageHandled?: () => void;
   focusStatus?: string | null;
+  /** Ensemble 07 — verrou qualification initiale (UI + accessibilité). */
+  composerLocked?: boolean;
+  composerLockReason?: string;
+  /** E07 05.17 — bandeau qualification + lien Trajectoire. */
+  qualificationBanner?: boolean;
+  onOpenTrajectoire?: () => void;
 }) {
   const n = props.messages.length;
   const frame = n === 0 ? "161:216" : n <= 2 ? "161:288" : "94:214";
   const variantLabel =
     n === 0 ? "Première conversation" : n <= 2 ? "Reprise contextualisée" : "Fil long";
   const embedded = Boolean(props.embeddedInStage);
+  const composerLocked = Boolean(props.composerLocked);
+  const sendDisabled = props.busy || !props.draft.trim() || composerLocked;
   const lastMessageId = n > 0 ? props.messages[n - 1]!.id : null;
   const { threadRef, onScroll, scrollToBottom, newBelow } = useNoraThreadScroll({
     messageCount: n,
@@ -315,7 +323,34 @@ export function NoraConversation(props: {
               </article>
             );
           })}
-          {props.activity === "preparing" ? (
+          {props.qualificationBanner ? (
+            <div
+              className="fig-panel space-y-3 my-3"
+              role="status"
+              aria-live="polite"
+              data-testid="qualification-activity-banner"
+              style={{ borderColor: "#7477ed55" }}
+            >
+              <p className="text-[10px] uppercase tracking-wide text-[#7477ed] font-semibold">
+                Nora prépare sa réponse
+              </p>
+              <div className="space-y-2 text-sm text-[#a3b0c7]">
+                <p>✓ Sources et intention du projet consultées</p>
+                <p>○ Préparation de la première orientation de trajectoire…</p>
+              </div>
+              {props.onOpenTrajectoire ? (
+                <button
+                  type="button"
+                  className="text-sm font-semibold text-[#7477ed] hover:underline"
+                  data-testid="qualification-voir-trajectoire"
+                  onClick={props.onOpenTrajectoire}
+                >
+                  Voir la trajectoire ↗
+                </button>
+              ) : null}
+            </div>
+          ) : null}
+          {props.activity === "preparing" && !props.qualificationBanner ? (
             <div
               className="fig-nora-activity"
               role="status"
@@ -367,10 +402,56 @@ export function NoraConversation(props: {
           </div>
         ) : null}
         <div
-          className="fig-composer fig-travail-composer"
+          className="fig-composer fig-travail-composer relative"
           data-testid="nora-composer"
+          data-composer-locked={composerLocked ? "1" : "0"}
           data-composer-expanded={props.draft.includes("\n") || props.draft.length > 80 ? "1" : "0"}
         >
+          {composerLocked ? (
+            <div
+              className="fig-travail-composer-lock absolute inset-0 z-10 flex items-center gap-3 rounded-xl px-4"
+              style={{ background: "rgba(12, 16, 28, 0.72)" }}
+              data-testid="composer-lock-overlay"
+            >
+              <svg
+                className="shrink-0 text-[#7477ed]"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                aria-hidden
+              >
+                <rect x="5" y="11" width="14" height="10" rx="2" />
+                <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+              </svg>
+              <div className="min-w-0 flex-1 text-xs text-[#a3b0c7]">
+                <p className="font-semibold text-[#f3f5ff]" data-testid="composer-lock-title">
+                  Compositeur temporairement indisponible
+                </p>
+                <p data-testid="composer-lock-reason">
+                  {props.composerLockReason ||
+                    "Nora prépare la trajectoire — saisie et envoi désactivés jusqu'au résultat terminal."}
+                </p>
+              </div>
+              <button
+                type="button"
+                className="shrink-0 rounded border border-[#7477ed55] px-1.5 py-0.5 text-[#7477ed]"
+                title={
+                  props.composerLockReason ||
+                  "Compositeur temporairement indisponible pendant la qualification de trajectoire."
+                }
+                aria-label={
+                  props.composerLockReason ||
+                  "Compositeur temporairement indisponible pendant la qualification de trajectoire."
+                }
+                data-testid="composer-lock-info"
+              >
+                i
+              </button>
+            </div>
+          ) : null}
           <div className="fig-travail-composer-row">
             <span className="fig-travail-composer-plus" aria-hidden>
               +
@@ -384,9 +465,16 @@ export function NoraConversation(props: {
               aria-label="Message à Nora"
               data-testid="thread-draft"
               rows={1}
+              readOnly={composerLocked}
+              disabled={composerLocked}
+              aria-disabled={composerLocked}
               onCompositionStart={() => setImeComposing(true)}
               onCompositionEnd={() => setImeComposing(false)}
               onKeyDown={(e) => {
+                if (composerLocked) {
+                  e.preventDefault();
+                  return;
+                }
                 if (imeComposing || e.nativeEvent.isComposing) return;
                 // Mobile: Enter = newline; send via button only.
                 if (isMobile) return;
@@ -399,7 +487,7 @@ export function NoraConversation(props: {
             <button
               type="button"
               className="fig-travail-composer-send"
-              disabled={props.busy || !props.draft.trim()}
+              disabled={sendDisabled}
               onClick={props.onSend}
               data-testid="thread-send"
               aria-label="Envoyer"

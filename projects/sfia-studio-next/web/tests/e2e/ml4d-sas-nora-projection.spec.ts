@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { clickCreateProjectAndEnter } from "./helpers/create-project-from-prep";
 import {
   constituteAndCreateProject,
   openNewPreparation,
@@ -59,8 +60,7 @@ test.describe("ML4D Sas Nora — post-recette corrections", () => {
     await expect(page.getByTestId("prep-field-name")).toContainText(unique);
     await expect(page.getByTestId("prep-create-project")).toBeEnabled();
     await expect(page.getByTestId("prep-constitute")).toHaveCount(0);
-    await page.getByTestId("prep-create-project").click();
-    await page.waitForURL("**/projects/**", { timeout: 30000 });
+    await clickCreateProjectAndEnter(page, { createTimeoutMs: 30000, navTimeoutMs: 30000 });
     const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
     expect(projectId).toBeTruthy();
     await page.reload();
@@ -154,8 +154,7 @@ test.describe("ML4D Sas Nora — post-recette corrections", () => {
     await expect(page.getByTestId("prep-constitute")).toHaveCount(0);
 
     // T6 — explicit create
-    await page.getByTestId("prep-create-project").click();
-    await page.waitForURL("**/projects/**", { timeout: 30000 });
+    await clickCreateProjectAndEnter(page, { createTimeoutMs: 30000, navTimeoutMs: 30000 });
     const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
     expect(projectId).toBeTruthy();
 

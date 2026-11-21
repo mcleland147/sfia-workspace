@@ -19,6 +19,8 @@ export async function GET(_: Request, ctx: { params: Promise<{ projectId: string
       documents: data.documents,
       knowledge: data.knowledge,
       pilotage: data.pilotage,
+      initialQualification: data.initialQualification,
+      activity: data.activity,
     });
   } catch (e) {
     const code = (e as { code?: string }).code;

@@ -32,12 +32,11 @@ async function openProjectCapturingPrep(
     summary: "S05 real api",
   });
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 15000 });
-  const createBtn = page.getByTestId("prep-create-project");
-  await expect(createBtn).toBeEnabled({ timeout: 20000 });
-  await createBtn.click();
-  await page.waitForURL(/\/projects\//, { timeout: 30000 });
-  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-  if (!projectId) throw new Error("projectId missing");
+  const { clickCreateProjectAndEnter } = await import("./helpers/create-project-from-prep");
+  const projectId = await clickCreateProjectAndEnter(page, {
+    createTimeoutMs: 20_000,
+    navTimeoutMs: 30_000,
+  });
   return { projectId, preparationId };
 }
 

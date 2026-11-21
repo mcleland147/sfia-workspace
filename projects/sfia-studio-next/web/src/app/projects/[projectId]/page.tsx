@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { PilotagePanel } from "@/components/PilotagePanel";
 import { ProjectChrome } from "@/components/figma/ProjectChrome";
 import { NoraConversation } from "@/components/figma/NoraConversation";
 import { TravailViewer, type TravailViewerResource } from "@/components/figma/TravailViewer";
@@ -15,6 +14,10 @@ import {
   type JournalSourceLink,
 } from "@/components/figma/ProjectJournal";
 import { ProjectOverview } from "@/components/figma/ProjectOverview";
+import { TrajectoryBoard } from "@/components/figma/TrajectoryBoard";
+import { PilotagePanel } from "@/components/PilotagePanel";
+import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
+import type { PilotageProjection } from "@/domains/pilotage/types";
 import {
   ProjectUnavailable,
   type ProjectUnavailableKind,
@@ -29,6 +32,7 @@ import {
   type RevisionRow,
   revisionCurrencyLabel,
 } from "@/components/figma/DocumentSurfaces";
+import { shouldApplyDurableRefresh } from "@/lib/durable-refresh-guard";
 import {
   conversationalClientCommandKey,
   mayClearComposerDraftOnReconcile,
@@ -288,6 +292,15 @@ export default function ProjectPage() {
   const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
   const [status, setStatus] = useState("");
   const [pilotageStatus, setPilotageStatus] = useState("");
+  const [pilotageProjection, setPilotageProjection] = useState<PilotageProjection | null>(null);
+  const [initialQualification, setInitialQualification] =
+    useState<InitialQualificationProjection | null>(null);
+  const [projectActivity, setProjectActivity] = useState<{
+    openSubjects: { count: number; examples: Array<{ id: string; title: string }> };
+    applicableDecisions: { count: number; examples: Array<{ id: string; statement: string }> };
+    documentsInProgress: { count: number; examples: Array<{ id: string; title: string }> };
+    openPointsCount: number;
+  } | null>(null);
   const [inspect, setInspect] = useState<Doc | null>(null);
   const [docUi, setDocUi] = useState<DocUiState>("READING");
   const [reviseDraft, setReviseDraft] = useState("");
@@ -900,6 +913,8 @@ export default function ProjectPage() {
 
   function selectSurface(next: Surface) {
     surfaceNavGenRef.current += 1;
+    const navGen = surfaceNavGenRef.current;
+    const projectIdAtNav = params.projectId;
     pendingSurfaceRef.current = next;
     noteProjectSurfaceNavIntent(params.projectId, next as StudioSurface);
     setSurface(next);
@@ -917,6 +932,11 @@ export default function ProjectPage() {
       resetDocumentBibliothequeState();
       syncSurfaceUrl(next, null, "push");
     }
+    // E07 — revalidate durable pilotage on surface change (GET only, no métier mutation).
+    // Stale-response guard lives inside refreshDurablePilotage (before setState).
+    void refreshDurablePilotage({ generation: navGen, projectId: projectIdAtNav }).catch(() => {
+      /* best-effort — navigation must stay non-blocking */
+    });
   }
 
   function headRevisionFromRows(rows: RevisionRow[]): RevisionRow | null {
@@ -1241,11 +1261,55 @@ export default function ProjectPage() {
     }
   }
 
-  async function refreshDurablePilotage() {
-    const projRes = await fetch(`/api/projects/${params.projectId}/pilotage`);
+  async function refreshDurablePilotage(opts?: { generation?: number; projectId?: string }) {
+    const request = {
+      generation: opts?.generation ?? surfaceNavGenRef.current,
+      projectId: opts?.projectId ?? params.projectId,
+    };
+    const stillApplicable = () =>
+      shouldApplyDurableRefresh({
+        request,
+        currentGeneration: surfaceNavGenRef.current,
+        currentProjectId: params.projectId,
+      });
+
+    // Prefer full project GET so surfaces (Projet / Trajectoire / CKI) share one durable snapshot.
+    const projRes = await fetch(`/api/projects/${request.projectId}`);
+    // Guard BEFORE any React mutation — out-of-order GETs must not clobber newer state.
+    if (!stillApplicable()) return;
+
     if (projRes.ok) {
-      const pj = await projRes.json();
-      const cycle = pj.pilotage?.cycle ?? pj.cycle;
+      const pj = (await projRes.json()) as {
+        pilotage?: PilotageProjection | null;
+        messages?: Msg[];
+      };
+      if (!stillApplicable()) return;
+      if (pj.pilotage) {
+        setPilotageProjection(pj.pilotage);
+      }
+      if (Array.isArray(pj.messages)) {
+        setMessages(pj.messages);
+      }
+      const cycle = pj.pilotage?.cycle;
+      if (cycle?.status === "ACTIVE") {
+        setPilotageStatus((prev) =>
+          prev.includes("OPEN_CYCLE") || prev.includes("ACTIVE")
+            ? prev
+            : `cycle ${cycle.cycleType} ACTIVE (relecture durable)`,
+        );
+      }
+      return;
+    }
+
+    // Fallback: dedicated pilotage route (same applicability gate)
+    const only = await fetch(`/api/projects/${request.projectId}/pilotage`);
+    if (!stillApplicable()) return;
+    if (only.ok) {
+      const pj = await only.json();
+      if (!stillApplicable()) return;
+      const pilotage = (pj.pilotage ?? pj) as PilotageProjection;
+      setPilotageProjection(pilotage);
+      const cycle = pilotage?.cycle;
       if (cycle?.status === "ACTIVE") {
         setPilotageStatus((prev) =>
           prev.includes("OPEN_CYCLE") || prev.includes("ACTIVE")
@@ -1600,6 +1664,9 @@ export default function ProjectPage() {
         setChoiceFrozen(true);
       }
       setKnowledge(j.knowledge ?? null);
+      setPilotageProjection((j.pilotage as PilotageProjection) ?? null);
+      setInitialQualification((j.initialQualification as InitialQualificationProjection) ?? null);
+      setProjectActivity(j.activity ?? null);
       const nextPrepId = j.preparation?.id ?? null;
       setPreparationId(nextPrepId);
       preparationIdRef.current = nextPrepId;
@@ -1819,9 +1886,75 @@ export default function ProjectPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.projectId, router, loadEpoch]);
 
+  const missingQualificationAttemptsRef = useRef(0);
+  const initialQualificationRef = useRef(initialQualification);
+  initialQualificationRef.current = initialQualification;
+  useEffect(() => {
+    missingQualificationAttemptsRef.current = 0;
+  }, [params.projectId]);
+
+  useEffect(() => {
+    // E07-COR-01/02/05 — reconcile via POST; also when op missing after create (bounded).
+    const status = initialQualification?.status;
+    const needsReconcile =
+      !initialQualification ||
+      status === "PENDING" ||
+      status === "RUNNING" ||
+      status === "UNKNOWN";
+    if (!needsReconcile) return;
+    let cancelled = false;
+    let intervalId = 0;
+    const tick = async () => {
+      const current = initialQualificationRef.current;
+      if (
+        !current &&
+        missingQualificationAttemptsRef.current >= 8
+      ) {
+        window.clearInterval(intervalId);
+        return;
+      }
+      if (!current) {
+        missingQualificationAttemptsRef.current += 1;
+      }
+      const recon = await fetch(
+        `/api/projects/${params.projectId}/initial-qualification/reconcile`,
+        { method: "POST" },
+      );
+      if (cancelled) return;
+      if (recon.ok) {
+        const body = (await recon.json()) as {
+          initialQualification?: InitialQualificationProjection | null;
+        };
+        if (body.initialQualification) {
+          missingQualificationAttemptsRef.current = 0;
+          setInitialQualification(body.initialQualification);
+        }
+      }
+      const res = await fetch(`/api/projects/${params.projectId}`);
+      if (!res.ok || cancelled) return;
+      const j = await res.json();
+      setPilotageProjection((j.pilotage as PilotageProjection) ?? null);
+      if (j.initialQualification) {
+        missingQualificationAttemptsRef.current = 0;
+        setInitialQualification(j.initialQualification as InitialQualificationProjection);
+      }
+      setMessages((j.messages ?? []) as Msg[]);
+    };
+    intervalId = window.setInterval(() => void tick(), 2000);
+    void tick();
+    return () => {
+      cancelled = true;
+      window.clearInterval(intervalId);
+    };
+  }, [params.projectId, initialQualification?.status, initialQualification?.operationId]);
+
   // B2 — keep surface/document in sync with URL on Back/Forward without one-shot lock.
+  // Rail <Link> navigation converges here (not selectSurface). Own durable GET revalidation
+  // + generation bump so concurrent/stale project GETs cannot clobber a newer surface.
   useEffect(() => {
     surfaceNavGenRef.current += 1;
+    const navGen = surfaceNavGenRef.current;
+    const projectIdAtNav = params.projectId;
     const qSurface = parseSurface(searchParams.get("surface"));
     const qDocId = searchParams.get("documentId");
     applyUrlDocumentState(documentsRef.current, qSurface, qDocId);
@@ -1831,6 +1964,9 @@ export default function ProjectPage() {
     if (qSurface && peekProjectSurfaceNavIntent(params.projectId) === qSurface) {
       clearProjectSurfaceNavIntent(params.projectId, qSurface);
     }
+    void refreshDurablePilotage({ generation: navGen, projectId: projectIdAtNav }).catch(() => {
+      /* best-effort — URL surface sync must stay non-blocking */
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
@@ -2433,23 +2569,38 @@ export default function ProjectPage() {
       ? ("historical" as const)
       : null;
 
+  const qualificationLockActive =
+    initialQualification?.status === "PENDING" ||
+    initialQualification?.status === "RUNNING" ||
+    initialQualification?.status === "UNKNOWN";
+
   const travailHero =
     surface !== "travail"
       ? null
-      : pendingDocumentProposal
+      : qualificationLockActive
         ? {
             kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
-            title: "Examiner une proposition de Nora",
-            sub: "Le Pilote peut préciser sa demande ou demander la conservation d’une nouvelle version documentaire.",
+            title: "Nora prépare votre trajectoire",
+            sub: "Le compositeur est temporairement indisponible pendant la qualification initiale.",
           }
-        : documentFocus &&
-            documentFocus.sourceRevisionId !== documentFocus.observedHeadRevisionId
+        : pendingDocumentProposal
           ? {
               kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
-              title: "Réviser une version historique avec Nora",
-              sub: "Nora vérifie la version courante avant de proposer une révision fondée sur une ancienne version.",
+              title: "Examiner une proposition de Nora",
+              sub: "Le Pilote peut préciser sa demande ou demander la conservation d’une nouvelle version documentaire.",
             }
-          : null;
+          : documentFocus &&
+              documentFocus.sourceRevisionId !== documentFocus.observedHeadRevisionId
+            ? {
+                kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
+                title: "Réviser une version historique avec Nora",
+                sub: "Nora vérifie la version courante avant de proposer une révision fondée sur une ancienne version.",
+              }
+            : {
+                kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
+                title: "Conversation du projet",
+                sub: "Poursuivez le fil avec Nora — les décisions d’ouverture et de clôture restent les vôtres.",
+              };
 
   return (
     <ProjectChrome
@@ -2468,9 +2619,11 @@ export default function ProjectPage() {
           projectName={projectName ?? "Projet"}
           preparationId={preparationId}
           knowledge={knowledge}
-          documentCount={documents.length}
-          messageCount={messages.length}
+          pilotage={pilotageProjection}
+          initialQualification={initialQualification}
+          activity={projectActivity}
           onOpenTravail={() => selectSurface("travail")}
+          onOpenTrajectoire={() => selectSurface("pilotage")}
         />
       ) : null}
 
@@ -2481,6 +2634,10 @@ export default function ProjectPage() {
           messages={messages}
           draft={draft}
           busy={busy || !preparationId}
+          composerLocked={Boolean(initialQualification?.composerLocked)}
+          composerLockReason={initialQualification?.composerLockReason}
+          qualificationBanner={qualificationLockActive}
+          onOpenTrajectoire={() => selectSurface("pilotage")}
           unresolvedPending={Boolean(unresolvedPending)}
           activity={noraActivity}
           status={[status, pilotageStatus].filter(Boolean).join(" · ") || undefined}
@@ -2618,41 +2775,26 @@ export default function ProjectPage() {
 
       {surface === "pilotage" ? (
         <div className="space-y-4" data-figma-frame="125:33" data-testid="project-trajectory">
-          <div className="fig-section-head">
-            <div>
-              <p className="fig-kicker">Pilotage</p>
-              <h2 className="fig-section-title">Trajectoire, cycle et décisions</h2>
-              <p className="fig-hero-sub !mt-1">
-                Affichage D5/D6 existant — sans cycle fictif, sans commande autoritaire depuis Nora.
-              </p>
-            </div>
-          </div>
-          <div className="fig-stat-grid">
-            <div className="fig-stat">
-              <div className="fig-stat-label">Cycle</div>
-              <div className="fig-stat-value" style={{ fontSize: "1.15rem", marginTop: 14 }}>
-                Sans / actif
-              </div>
-              <div className="fig-stat-hint">Projection service projet</div>
-            </div>
-            <div className="fig-stat">
-              <div className="fig-stat-label">Décisions D6</div>
-              <div className="fig-stat-value" style={{ fontSize: "1.15rem", marginTop: 14 }}>
-                HumanDecision
-              </div>
-              <div className="fig-stat-hint">Pas de mutation à l&apos;affichage</div>
-            </div>
-            <div className="fig-stat">
-              <div className="fig-stat-label">CKI / méthode</div>
-              <div className="fig-stat-value" style={{ fontSize: "1.15rem", marginTop: 14 }}>
-                Guidance
-              </div>
-              <div className="fig-stat-hint">Disponibilité réelle du service</div>
-            </div>
-          </div>
-          <div className="fig-panel" data-figma-frame="127:106">
+          <TrajectoryBoard
+            projectId={params.projectId}
+            pilotage={pilotageProjection}
+            initialQualification={initialQualification}
+            knowledge={
+              knowledge
+                ? { acquis: knowledge.acquis, openPoints: knowledge.openPoints }
+                : null
+            }
+            onOpenTravail={() => selectSurface("travail")}
+          />
+          {/*
+            E07 Figma Trajectoire = TrajectoryBoard only for operators/RECETTE.
+            NEXT_PUBLIC_STUDIO_E2E=1 (Playwright FAKE lane) re-mounts PilotagePanel
+            so ML3 diagnostic contracts (OPEN/CLOSE, B13, journal décisions) stay
+            exercisable without changing UAT/Figma geometry.
+          */}
+          {process.env.NEXT_PUBLIC_STUDIO_E2E === "1" ? (
             <PilotagePanel projectId={params.projectId} />
-          </div>
+          ) : null}
         </div>
       ) : null}
 

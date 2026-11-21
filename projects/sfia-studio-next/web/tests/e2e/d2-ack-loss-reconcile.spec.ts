@@ -74,7 +74,9 @@ test("S02 D2_ACK_OBS: lost ACK after commit → reconcile → real project, one 
   });
 
   await createBtn.click();
+  // ACK loss path: browser sees 502; UI reconciles then router.push — no SAS06 popup.
   await expect(page).toHaveURL(/\/projects\//, { timeout: 30000 });
+  await expect(page.getByTestId("sas-create-progress-popup")).toHaveCount(0);
   expect(createPosts).toBe(1);
   expect(keys[0]).toBe(`create-${preparationId}`);
 

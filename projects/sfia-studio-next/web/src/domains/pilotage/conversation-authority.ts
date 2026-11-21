@@ -441,6 +441,28 @@ export async function applyConversationalAuthority(input: {
     return outcomeFromCommand(command, "LIFT_RESTRICTION", clientCommandKey);
   }
 
+  // FIX-08 — RETAIN: do not send orientation/trajectoryRevisionId on USER_MESSAGE body
+  // (SEM rejects client-supplied D5 targets). mutateCommand resolves current PROPOSED.
+  if (qualified.operation === "RETAIN_TRAJECTORY") {
+    if (!projection.trajectory.proposed?.id) {
+      return {
+        ...empty,
+        attempted: false,
+        intentClarity: "AMBIGUOUS",
+        intentReason: "Aucune trajectoire PROPOSED à retenir",
+        clarification: "Aucune trajectoire proposée n'est disponible à retenir.",
+        source: "clarification_only",
+        operation: "RETAIN_TRAJECTORY",
+      };
+    }
+    const command = await executePilotageCommand(input.pilotId, input.projectId, {
+      ...base,
+      operation: "RETAIN_TRAJECTORY",
+      objective: qualified.objective,
+    });
+    return outcomeFromCommand(command, "RETAIN_TRAJECTORY", clientCommandKey);
+  }
+
   const command = await executePilotageCommand(input.pilotId, input.projectId, {
     ...base,
     operation: qualified.operation,

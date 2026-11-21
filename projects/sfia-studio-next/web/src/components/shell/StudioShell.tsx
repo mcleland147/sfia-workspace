@@ -496,6 +496,13 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
               ? "1"
               : undefined
           }
+          data-project-figma-layout={
+            projectId &&
+            !projectSpaceBlocked &&
+            ["projet", "pilotage"].includes(parseStudioSurface(surface) ?? "")
+              ? "1"
+              : undefined
+          }
         >
           {children}
         </main>

@@ -22,6 +22,11 @@ import {
   markDecisionState,
 } from "@/domains/decisions/service";
 import { isCycleType, resolveForOpen, resolvePinnedCki, type CycleType } from "@/domains/pilotage/cki-resolve";
+import { loadCkiEditorialForPin } from "@/domains/pilotage/cki-editorial";
+import { persistableCycleObjective } from "@/domains/pilotage/cycle-objective-display";
+import { tryCanonicalCycleType } from "@/domains/pilotage/cycle-type-normalize";
+import { parseForecastJson } from "@/domains/pilotage/forecast-builder";
+import { getQualificationProjection } from "@/domains/pilotage/initial-qualification";
 import {
   buildSourceActionKey,
   runBusinessCommand,
@@ -134,6 +139,7 @@ function trajectoryView(row: {
   status: string;
   orientation: string;
   decisionId: string | null;
+  forecastJson?: unknown;
 } | undefined): TrajectoryView {
   if (!row) return null;
   return {
@@ -142,6 +148,7 @@ function trajectoryView(row: {
     status: row.status,
     orientation: row.orientation,
     decisionId: row.decisionId,
+    forecastSteps: parseForecastJson(row.forecastJson),
   };
 }
 
@@ -191,6 +198,21 @@ export async function getPilotageProjection(pilotId: string, projectId: string):
     ? methodUsageRestricted(restrictions, method.methodRef)
     : false;
 
+  // E07-COR-09 — chronological progression (openedAt asc), not reverse close order.
+  const closedCycles = await db
+    .select({
+      id: projectCycles.id,
+      cycleType: projectCycles.cycleType,
+      objective: projectCycles.objective,
+      closedAt: projectCycles.closedAt,
+      openedAt: projectCycles.openedAt,
+    })
+    .from(projectCycles)
+    .where(and(eq(projectCycles.projectId, projectId), eq(projectCycles.status, "CLOSED")))
+    .orderBy(asc(projectCycles.openedAt));
+
+  const initialQualification = await getQualificationProjection(pilotId, projectId);
+
   return {
     projectId,
     revision: state?.revision ?? 0,
@@ -205,13 +227,33 @@ export async function getPilotageProjection(pilotId: string, projectId: string):
           status: cycle.status,
           objective: cycle.objective,
           revision: cycle.revision,
-          cki: resolvePinnedCki({
-            ckiId: cycle.ckiId,
-            contentDigest: cycle.ckiContentDigest,
-            pinnedVersion: cycle.ckiPinnedVersion,
-            manifestRef: cycle.ckiManifestRef,
-            pinOrigin: cycle.ckiPinOrigin,
-          }),
+          cki: (() => {
+            const pin = resolvePinnedCki({
+              ckiId: cycle.ckiId,
+              contentDigest: cycle.ckiContentDigest,
+              pinnedVersion: cycle.ckiPinnedVersion,
+              manifestRef: cycle.ckiManifestRef,
+              pinOrigin: cycle.ckiPinOrigin,
+            });
+            const editorialRaw = loadCkiEditorialForPin({
+              ckiId: pin.ckiId,
+              contentDigest: pin.contentDigest,
+              availability: pin.availability,
+            });
+            return {
+              ...pin,
+              editorial: editorialRaw
+                ? {
+                    ordinal: editorialRaw.ordinal,
+                    title: editorialRaw.title,
+                    corpusVersion: editorialRaw.corpusVersion,
+                    resultSought: editorialRaw.resultSought,
+                    relevance: editorialRaw.relevance,
+                    angles: editorialRaw.angles,
+                  }
+                : null,
+            };
+          })(),
         }
       : null,
     method: method
@@ -232,6 +274,14 @@ export async function getPilotageProjection(pilotId: string, projectId: string):
       targetRef: r.targetRef,
       status: r.status,
     })),
+    closedCycles: closedCycles.map((c) => ({
+      id: c.id,
+      cycleType: c.cycleType,
+      objective: c.objective,
+      closedAt: c.closedAt ? c.closedAt.toISOString() : null,
+      openedAt: c.openedAt ? c.openedAt.toISOString() : null,
+    })),
+    initialQualification,
   };
 }
 
@@ -348,9 +398,12 @@ function fromClearIntent(
   // carry server-authenticated envelope (keys, actInstanceId). Never fill gaps
   // from client-supplied cycleType/decisionId/objectRef/targetRef/"*".
   const fromDurable = sourceKind === "USER_MESSAGE";
-  const cycleType = fromDurable
-    ? qualified.cycleType ?? null
-    : qualified.cycleType ?? (body.cycleType && isCycleType(body.cycleType) ? body.cycleType : null);
+  // E07 — normalize at classify boundary (LIVE may emit "cadrage").
+  const cycleType =
+    tryCanonicalCycleType(qualified.cycleType) ??
+    (!fromDurable ? tryCanonicalCycleType(body.cycleType) : undefined) ??
+    null;
+  const toCycleType = tryCanonicalCycleType(qualified.toCycleType) ?? null;
   if (qualified.operation === "REVISE_DECISION" && !(qualified.decisionId ?? (!fromDurable ? body.decisionId : null))) {
     return {
       ok: false,
@@ -376,7 +429,7 @@ function fromClearIntent(
     ).trim() || (cycleType ? `Cycle ${cycleType}` : ""),
     cycleType,
     cycleId: fromDurable ? null : (body.cycleId ?? null),
-    toCycleType: qualified.toCycleType ?? null,
+    toCycleType,
     orientation: fromDurable ? "" : (body.orientation ?? "").trim(),
     trajectoryRevisionId: fromDurable ? null : (body.trajectoryRevisionId ?? null),
     methodRef: (qualified.methodRef ?? (!fromDurable ? body.methodRef : undefined) ?? "").trim(),
@@ -600,9 +653,8 @@ async function classifyCommand(tx: DbTx, input: ClientEnvelope): Promise<Classif
       restrictionTargetRefHint: matched.restrictionTargetRefHint,
       semanticIntentId: matched.intentId,
       semanticSchemaVersion: matched.schemaVersion,
-      cycleType: matched.cycleType && isCycleType(matched.cycleType) ? matched.cycleType : undefined,
-      toCycleType:
-        matched.toCycleType && isCycleType(matched.toCycleType) ? matched.toCycleType : undefined,
+      cycleType: tryCanonicalCycleType(matched.cycleType),
+      toCycleType: tryCanonicalCycleType(matched.toCycleType),
     };
     // Server-stable human-act identity: never accept client actInstanceId for USER_MESSAGE.
     // Same message + same intent ⇒ same act even if clientCommandKey / actInstanceId change.
@@ -653,11 +705,11 @@ async function classifyCommand(tx: DbTx, input: ClientEnvelope): Promise<Classif
   }
 
   const operation = body.operation as PilotageOperation;
-  const cycleType = body.cycleType ? (isCycleType(body.cycleType) ? body.cycleType : null) : null;
+  const cycleType = body.cycleType ? (tryCanonicalCycleType(body.cycleType) ?? null) : null;
   if (body.cycleType && !cycleType) {
     return { ok: false, reasonCode: "INVALID", reason: "Type de cycle inconnu", sourceActionKey: "REJECT|INVALID|cycle" };
   }
-  const toCycleType = body.toCycleType ? (isCycleType(body.toCycleType) ? body.toCycleType : null) : null;
+  const toCycleType = body.toCycleType ? (tryCanonicalCycleType(body.toCycleType) ?? null) : null;
   if (body.toCycleType && !toCycleType) {
     return { ok: false, reasonCode: "INVALID", reason: "Type de cycle cible inconnu", sourceActionKey: "REJECT|INVALID|target-cycle" };
   }
@@ -743,6 +795,10 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
 
   if (command.operation === "PROPOSE_TRAJECTORY") {
     const id = newId("trj");
+    const forecastJson =
+      input.body.forecastJson && input.body.forecastJson.length > 0
+        ? input.body.forecastJson
+        : null;
     await tx.insert(trajectoryRevisions).values({
       id,
       projectId,
@@ -752,6 +808,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
       sourceKind: command.sourceKind,
       sourceRef: command.sourceRef,
       decisionId: null,
+      forecastJson,
       createdAt: now,
     });
     const revision = await bumpRevision(tx, projectId);
@@ -765,16 +822,36 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
 
   if (command.operation === "RETAIN_TRAJECTORY") {
     let orientation = command.orientation;
-    if (command.trajectoryRevisionId) {
+    let retainTargetId = command.trajectoryRevisionId;
+    if (retainTargetId) {
       const prior = (
         await tx
           .select()
           .from(trajectoryRevisions)
-          .where(and(eq(trajectoryRevisions.id, command.trajectoryRevisionId), eq(trajectoryRevisions.projectId, projectId)))
+          .where(and(eq(trajectoryRevisions.id, retainTargetId), eq(trajectoryRevisions.projectId, projectId)))
           .limit(1)
       )[0];
       if (!prior) return rejected("INVALID_TARGET", "Trajectoire introuvable dans ce projet");
       orientation = orientation || prior.orientation;
+    } else if (!orientation.trim()) {
+      // FIX-08 — conversational GO: resolve current PROPOSED when body has no target
+      // (USER_MESSAGE must not carry trajectoryRevisionId / orientation from client).
+      const proposed = (
+        await tx
+          .select()
+          .from(trajectoryRevisions)
+          .where(
+            and(
+              eq(trajectoryRevisions.projectId, projectId),
+              eq(trajectoryRevisions.status, "PROPOSED"),
+            ),
+          )
+          .orderBy(desc(trajectoryRevisions.revisionNumber))
+          .limit(1)
+      )[0];
+      if (!proposed) return rejected("INVALID_TARGET", "Aucune trajectoire PROPOSED à retenir");
+      retainTargetId = proposed.id;
+      orientation = proposed.orientation;
     }
     if (!orientation.trim()) return rejected("INVALID", "Orientation requise");
     const decisionId = await insertHumanDecision(tx, {
@@ -783,7 +860,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
       sourceKind: command.sourceKind,
       sourceRef: command.sourceRef,
       kind: "RETAIN_TRAJECTORY",
-      objectRef: command.trajectoryRevisionId ?? "",
+      objectRef: retainTargetId ?? "",
       statement: command.statement || orientation,
     });
     await tx
@@ -831,7 +908,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
       id: cycleId,
       projectId,
       cycleType: command.cycleType,
-      objective: (command.objective || `Cycle ${command.cycleType}`).slice(0, 2000),
+      objective: persistableCycleObjective(command.objective, command.cycleType),
       status: "ACTIVE",
       revision: 1,
       openedAt: now,
@@ -922,7 +999,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
       id: openedId,
       projectId,
       cycleType: command.toCycleType,
-      objective: (command.objective || `Cycle ${command.toCycleType}`).slice(0, 2000),
+      objective: persistableCycleObjective(command.objective, command.toCycleType),
       status: "ACTIVE",
       revision: 1,
       openedAt: now,

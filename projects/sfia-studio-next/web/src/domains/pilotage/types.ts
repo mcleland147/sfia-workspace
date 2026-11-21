@@ -1,5 +1,7 @@
 import type { CkiAvailability } from "@/domains/pilotage/cki-resolve";
 import type { CycleType } from "@/domains/pilotage/cki-resolve";
+import type { ForecastStep } from "@/domains/pilotage/forecast-builder";
+import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
 
 /** Internal command outcomes. PARTIAL is intentionally absent: CLOSE+OPEN share one commit. */
 export const COMMAND_STATUSES = [
@@ -80,6 +82,17 @@ export type PilotageRequestBody = {
   /** Durable Nora intent id correlated to this USER_MESSAGE command (SEM). */
   semanticIntentId?: string;
   semanticSchemaVersion?: string;
+  /** Ensemble 07 — structured forecast persisted on trajectory revision. */
+  forecastJson?: ForecastStep[];
+  /**
+   * P0-01 — optional ownership fence evaluated inside runBusinessCommand TX
+   * immediately before mutate (FOR UPDATE on trajectory_qualification_operations).
+   * Does not replace D6 authority; only blocks stale qualification owners.
+   */
+  effectOwnerFence?: {
+    operationId: string;
+    ownerToken: string;
+  };
 };
 
 export type ClassifiedCommand = {
@@ -111,7 +124,16 @@ export type TrajectoryView = {
   status: string;
   orientation: string;
   decisionId: string | null;
+  forecastSteps: ForecastStep[] | null;
 } | null;
+
+export type ClosedCycleView = {
+  id: string;
+  cycleType: string;
+  objective: string;
+  closedAt: string | null;
+  openedAt?: string | null;
+};
 
 export type PilotageProjection = {
   projectId: string;
@@ -133,6 +155,15 @@ export type PilotageProjection = {
       manifestRef: string | null;
       pinOrigin: string | null;
       availability: CkiAvailability;
+      /** Editorial rubrics from verified CKI corpus bytes (09.05). Null if not RESOLVED. */
+      editorial: {
+        ordinal: string;
+        title: string;
+        corpusVersion: string;
+        resultSought: string | null;
+        relevance: string | null;
+        angles: Array<{ title: string; summary: string }>;
+      } | null;
     };
   } | null;
   method:
@@ -149,6 +180,8 @@ export type PilotageProjection = {
         scope: string;
       };
   restrictions: Array<{ id: string; targetKind: string; targetRef: string; status: string }>;
+  closedCycles: ClosedCycleView[];
+  initialQualification: InitialQualificationProjection | null;
 };
 
 export function pilotageCommandHttpStatus(result: CommandResult): number {

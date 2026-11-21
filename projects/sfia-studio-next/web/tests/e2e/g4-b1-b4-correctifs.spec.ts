@@ -4,6 +4,7 @@ import {
   seedInspectedNameViaApi,
 } from "./helpers/g4-chat-first";
 import { test, expect } from "@playwright/test";
+import { clickCreateProjectAndEnter } from "./helpers/create-project-from-prep";
 
 /**
  * B1–B4 targeted BROWSER checks on isolated E2E lane (Playwright config),
@@ -44,8 +45,7 @@ test("G4 B1–B4: rail surfaces, resume without POST, deep-link, revise AVAILABL
   await page.getByTestId("doc-save").click();
   await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 10000 });
   await backToSasConversation(page);
-  await page.getByTestId("prep-create-project").click();
-  await page.waitForURL("**/projects/**", { timeout: 15000 });
+  await clickCreateProjectAndEnter(page, { createTimeoutMs: 30000, navTimeoutMs: 30000 });
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
 
