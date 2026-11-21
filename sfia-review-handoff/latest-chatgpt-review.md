@@ -95,7 +95,10 @@ Nouveaux continues : texte métier sans `projectId=`. Historique : projection si
 ## 11. Fichiers créés / modifiés
 
 ### Créés
-- `projects/sfia-studio-next/web/src/domains/pilotage/cycle-type-normalize.ts`- `projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts`- `projects/sfia-studio-next/web/tests/unit/ensemble07-cycle-type-normalize.test.ts`- `projects/sfia-studio-next/web/tests/unit/ensemble07-pilotage-effect-restitution.test.ts`
+- `projects/sfia-studio-next/web/src/domains/pilotage/cycle-type-normalize.ts`
+- `projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts`
+- `projects/sfia-studio-next/web/tests/unit/ensemble07-cycle-type-normalize.test.ts`
+- `projects/sfia-studio-next/web/tests/unit/ensemble07-pilotage-effect-restitution.test.ts`
 ### Modifiés
 - `projects/sfia-studio-next/web/src/domains/pilotage/service.ts`
 - `projects/sfia-studio-next/web/src/domains/pilotage/nora-context.ts`
