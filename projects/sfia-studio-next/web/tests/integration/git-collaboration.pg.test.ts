@@ -3702,7 +3702,7 @@ describe("PostgreSQL ML4 publication integrity T01–T20 (SCRIPTED)", () => {
     expect(await pubRefs(prepared.attemptId)).toHaveLength(0);
   });
 
-  it("T20: merge REAL — toujours hard-blocked", async () => {
+  it("T20: merge REAL — refuses without usable REAL provider credentials/effects", async () => {
     const { pilotId, projectId, repoId, documentId, revisionId } = await seedPub("t20-merge");
     const prepared = await preparePublication({
       pilotId,

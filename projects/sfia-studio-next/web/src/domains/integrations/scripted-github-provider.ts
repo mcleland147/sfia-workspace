@@ -1,11 +1,16 @@
 import { createHash } from "crypto";
 import type {
+  DirectoryEntry,
   FileContentResult,
   GitHubProvider,
   InstallationRepo,
   PullRequestInfo,
   RefInfo,
 } from "./github-provider";
+import { GIT_REFS_UI_BOUND } from "./github-provider";
+import { StudioError } from "@/lib/http-errors";
+
+const MAX_DIRECTORY_ENTRIES = 200;
 
 export type ScriptedFaultKind =
   | "timeout"
@@ -182,6 +187,25 @@ function isShaLike(ref: string): boolean {
   return /^[0-9a-f]{7,40}$/i.test(ref);
 }
 
+/** Test helper — seed N sibling files at one commit tip (P1-03 overflow). */
+export function seedScriptedFlatDirectoryForTest(input: {
+  pilotId: string;
+  fullName: string;
+  dir: string;
+  count: number;
+}): string {
+  const s = repoStore(input.pilotId, input.fullName);
+  const commit = sha(`seed-flat:${input.fullName}:${input.dir}:${input.count}`);
+  s.branches.main = commit;
+  s.refs["refs/heads/main"] = commit;
+  const prefix = input.dir.replace(/^\/+|\/+$/g, "");
+  for (let i = 0; i < input.count; i++) {
+    const path = prefix ? `${prefix}/f${i}.md` : `f${i}.md`;
+    s.files[`${path}@${commit}`] = `content-${i}`;
+  }
+  return commit;
+}
+
 export function resetScriptedStore(pilotId?: string) {
   if (pilotId) catalogs().delete(pilotId);
   else catalogs().clear();
@@ -258,6 +282,76 @@ class ScriptedGitHubProvider implements GitHubProvider {
     throw Object.assign(new Error("REF_NOT_FOUND"), { code: "NOT_FOUND" });
   }
 
+  async listDirectory(
+    pilotId: string,
+    fullName: string,
+    path: string,
+    ref: string,
+  ): Promise<DirectoryEntry[]> {
+    if (ScriptedFaultRegistry.current(pilotId, fullName) === "read_unavailable") {
+      ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    }
+    ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    const s = repoStore(pilotId, fullName);
+    const head = isShaLike(ref) ? ref : await this.getRefSha(pilotId, fullName, ref);
+    const dirPath = path.replace(/^\/+|\/+$/g, "");
+    const exactKey = `${dirPath}@${head}`;
+    if (s.files[exactKey]) {
+      throw new StudioError(
+        "INVALID_REQUEST",
+        `NOT_A_DIRECTORY: path=${dirPath} est un fichier, pas un répertoire`,
+        { httpStatus: 400 },
+      );
+    }
+    const prefixWithSlash = dirPath ? `${dirPath}/` : "";
+    const children = new Map<string, DirectoryEntry>();
+    for (const key of Object.keys(s.files)) {
+      const at = key.lastIndexOf("@");
+      if (at < 0) continue;
+      const filePath = key.slice(0, at);
+      const commit = key.slice(at + 1);
+      if (commit !== head) continue;
+      if (dirPath) {
+        if (!filePath.startsWith(prefixWithSlash)) continue;
+      }
+      const rest = dirPath ? filePath.slice(prefixWithSlash.length) : filePath;
+      if (!rest) continue;
+      const slashIdx = rest.indexOf("/");
+      if (slashIdx === -1) {
+        const childPath = dirPath ? `${dirPath}/${rest}` : rest;
+        const content = s.files[key] ?? "";
+        const blobSha = sha(`blob ${Buffer.byteLength(content, "utf8")}\0${content}`);
+        children.set(rest, {
+          name: rest,
+          path: childPath,
+          type: "file",
+          sha: blobSha,
+          size: Buffer.byteLength(content, "utf8"),
+        });
+      } else {
+        const dirName = rest.slice(0, slashIdx);
+        const childPath = dirPath ? `${dirPath}/${dirName}` : dirName;
+        if (!children.has(dirName)) {
+          children.set(dirName, {
+            name: dirName,
+            path: childPath,
+            type: "dir",
+            sha: sha(`dir:${childPath}@${head}`),
+          });
+        }
+      }
+    }
+    const entries = [...children.values()].sort((a, b) => a.name.localeCompare(b.name));
+    if (entries.length > MAX_DIRECTORY_ENTRIES) {
+      throw new StudioError(
+        "AMBIGUOUS",
+        `Répertoire trop volumineux (${entries.length} entrées, max ${MAX_DIRECTORY_ENTRIES})`,
+        { httpStatus: 409 },
+      );
+    }
+    return entries;
+  }
+
   async getFileContent(
     pilotId: string,
     fullName: string,
@@ -275,20 +369,40 @@ class ScriptedGitHubProvider implements GitHubProvider {
       (!isShaLike(ref) ? s.files[`${path}@${s.branches.main}`] : undefined);
     if (!content) throw Object.assign(new Error("FILE_NOT_FOUND"), { code: "NOT_FOUND" });
     // Mimic GitHub Contents API: `sha` is the blob object id, never the commit.
+    if (content.startsWith("BINARY:")) {
+      const blobSha = sha(`blob binary\0${path}@${head}`);
+      return {
+        path,
+        ref,
+        sha: blobSha,
+        content: "",
+        encoding: "binary",
+        contentKind: "binary",
+      };
+    }
     const blobSha = sha(`blob ${Buffer.byteLength(content, "utf8")}\0${content}`);
-    return { path, ref, sha: blobSha, content, encoding: "utf-8" };
+    const contentKind = /\.md$/i.test(path) ? "markdown" : "text";
+    return { path, ref, sha: blobSha, content, encoding: "utf-8", contentKind };
   }
 
-  async listRefs(pilotId: string, fullName: string, refPrefix?: string): Promise<RefInfo[]> {
+  async listRefs(pilotId: string, fullName: string, refPrefix?: string) {
     ScriptedFaultRegistry.assertOk(pilotId, fullName);
     const s = repoStore(pilotId, fullName);
     const prefix = (refPrefix ?? "").replace(/^refs\/heads\//, "").toLowerCase();
-    const out: RefInfo[] = Object.entries(s.branches).map(([name, branchSha]) => ({
+    const all: RefInfo[] = Object.entries(s.branches).map(([name, branchSha]) => ({
       name,
       sha: branchSha,
     }));
-    if (!prefix) return out;
-    return out.filter((r) => r.name.toLowerCase().includes(prefix));
+    const matched = !prefix
+      ? all
+      : all.filter((r) => r.name.toLowerCase().includes(prefix));
+    const matchedCount = matched.length;
+    const incompleteCoverage = matchedCount > GIT_REFS_UI_BOUND;
+    return {
+      refs: matched.slice(0, GIT_REFS_UI_BOUND),
+      incompleteCoverage,
+      matchedCount,
+    };
   }
 
   async createBranch(

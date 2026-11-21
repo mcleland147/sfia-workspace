@@ -59,7 +59,7 @@ import {
   type TurnReference,
   parseTurnProjection,
 } from "@/domains/conversation/turn-projection";
-import { PublicationInspectionPanel } from "@/components/integrations/PublicationInspectionPanel";
+import { GitRepositoriesSurface } from "@/components/integrations/GitRepositoriesSurface";
 import { useProjectSpace } from "@/components/shell/ProjectSpaceContext";
 import {
   clearProjectSurfaceNavIntent,
@@ -2930,9 +2930,10 @@ export default function ProjectPage() {
       ) : null}
 
       {surface === "git" || surface === "publication" ? (
-        <div className="space-y-4" data-testid="git-surface">
-          <PublicationInspectionPanel projectId={params.projectId} />
-        </div>
+        <GitRepositoriesSurface
+          projectId={params.projectId}
+          projectName={projectName}
+        />
       ) : null}
 
       {surface === "journal" ? (

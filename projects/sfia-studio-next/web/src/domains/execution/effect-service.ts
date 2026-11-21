@@ -923,6 +923,9 @@ export async function authorizePublication(input: {
   attemptId: string;
   statement: string;
   inspectedFingerprint: string;
+  /** Optional durable USER message provenance (E08 conversational mandate). */
+  sourceMessageId?: string | null;
+  clientTurnKey?: string | null;
 }) {
   return db.transaction(async (tx) => {
     const row = (
@@ -979,6 +982,11 @@ export async function authorizePublication(input: {
       );
     }
 
+    const messageId = input.sourceMessageId?.trim() || null;
+    const turnKey = input.clientTurnKey?.trim() || null;
+    // Conversational path must carry a durable USER message id (P0-03).
+    // Panel authorize may omit it; when present, record provenance only — full
+    // persistence proof runs in admitConversationalPublicationMandate.
     const conditions = JSON.stringify({
       fingerprint: row.fingerprint,
       inspectionFingerprint: plan.inspection.inspectionFingerprint,
@@ -994,6 +1002,16 @@ export async function authorizePublication(input: {
         baseSha: plan.baseSha,
         steps: plan.steps,
       },
+      ...(messageId || turnKey
+        ? {
+            conversationalProvenance: {
+              ...(messageId ? { userMessageId: messageId } : {}),
+              ...(turnKey ? { clientTurnKey: turnKey } : {}),
+              sourceKind: "USER_MESSAGE",
+              roleRequired: "user",
+            },
+          }
+        : {}),
     });
 
     const decisionId = await insertHumanDecision(tx, {
@@ -1840,11 +1858,27 @@ export async function prepareMerge(input: {
   return { attemptId, status: "PREPARED" as const, plan, fingerprint };
 }
 
+export type ConversationalMergeProvenance = {
+  userMessageId: string;
+  conversationId: string;
+  clientTurnKey?: string | null;
+  contentFingerprint: string;
+  requestedPrNumber: number;
+  publicationAttemptId: string;
+  repositoryId: string;
+  expectedHeadSha: string;
+  expectedBaseSha: string | null;
+  planFingerprint: string;
+  resolutionSource: string;
+};
+
 export async function authorizeMerge(input: {
   pilotId: string;
   projectId: string;
   attemptId: string;
   statement: string;
+  /** P0-M03 — required for conversational path; panel authorize may omit. */
+  conversationalProvenance?: ConversationalMergeProvenance | null;
 }) {
   return db.transaction(async (tx) => {
     const row = (
@@ -1866,10 +1900,64 @@ export async function authorizeMerge(input: {
       return { attemptId: row.id, status: row.status, decisionId: row.decisionId, idempotent: true };
     }
     const plan = JSON.parse(row.planJson) as MergePlan;
+    const prov = input.conversationalProvenance ?? null;
+    if (prov) {
+      if (prov.planFingerprint !== row.fingerprint) {
+        throw new StudioError("CONFLICT", "Fingerprint plan merge divergent du mandat USER");
+      }
+      if (prov.requestedPrNumber !== plan.prNumber) {
+        throw new StudioError(
+          "CONFLICT",
+          `PR du mandat (#${prov.requestedPrNumber}) ≠ plan (#${plan.prNumber})`,
+        );
+      }
+      if (prov.publicationAttemptId !== plan.publicationAttemptId) {
+        throw new StudioError("CONFLICT", "Publication documentaire du mandat hors plan");
+      }
+      if (prov.repositoryId !== plan.repositoryId) {
+        throw new StudioError("CONFLICT", "Dépôt du mandat hors plan");
+      }
+      if (
+        prov.expectedHeadSha.toLowerCase() !== plan.expectedHeadSha.toLowerCase() ||
+        (prov.expectedBaseSha ?? "").toLowerCase() !== (plan.expectedBaseSha ?? "").toLowerCase()
+      ) {
+        throw new StudioError("REQUIRES_REQUALIFICATION", "SHA head/base divergents du mandat");
+      }
+    }
     const conditions = JSON.stringify({
       fingerprint: row.fingerprint,
       publicationAttemptId: plan.publicationAttemptId,
       prNumber: plan.prNumber,
+      repositoryId: plan.repositoryId,
+      expectedHeadSha: plan.expectedHeadSha,
+      expectedBaseSha: plan.expectedBaseSha,
+      envelope: {
+        documentId: plan.documentId,
+        revisionId: plan.revisionId,
+        publicationRefId: plan.publicationRefId,
+        expectedHeadRef: plan.expectedHeadRef,
+        expectedBaseRef: plan.expectedBaseRef,
+        publicationBranch: plan.publicationBranch,
+      },
+      ...(prov
+        ? {
+            conversationalProvenance: {
+              userMessageId: prov.userMessageId,
+              conversationId: prov.conversationId,
+              ...(prov.clientTurnKey ? { clientTurnKey: prov.clientTurnKey } : {}),
+              contentFingerprint: prov.contentFingerprint,
+              requestedPrNumber: prov.requestedPrNumber,
+              publicationAttemptId: prov.publicationAttemptId,
+              repositoryId: prov.repositoryId,
+              expectedHeadSha: prov.expectedHeadSha,
+              expectedBaseSha: prov.expectedBaseSha,
+              planFingerprint: prov.planFingerprint,
+              resolutionSource: prov.resolutionSource,
+              sourceKind: "USER_MESSAGE",
+              roleRequired: "user",
+            },
+          }
+        : {}),
     });
     const decisionId = await insertHumanDecision(tx, {
       projectId: input.projectId,

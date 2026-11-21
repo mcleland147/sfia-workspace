@@ -120,6 +120,60 @@ function basenameOf(norm: string): string {
 }
 
 /**
+ * Fail-closed normalization for Git *read* paths (tree / file).
+ * Empty path = repository root (allowed). Rejects traversal, absolute, encoded dots.
+ * Does NOT apply documentary write allowlists — read contract differs from publication.
+ */
+export function normalizeGitReadPath(
+  rawPath: string | null | undefined,
+): PathPolicyResult & { normalizedPath: string } {
+  if (rawPath == null || (typeof rawPath === "string" && rawPath.trim().length === 0)) {
+    return {
+      allowed: true,
+      reason: "ROOT",
+      classification: "UNKNOWN",
+      normalizedPath: "",
+    };
+  }
+  if (typeof rawPath !== "string") {
+    return { allowed: false, reason: "EMPTY_PATH", classification: "UNKNOWN", normalizedPath: "" };
+  }
+  // Reject absolute / drive / backslash before slash trimming (trimming would hide "/abs").
+  if (rawPath.includes("\\") || rawPath.startsWith("/") || /^[a-zA-Z]:/.test(rawPath)) {
+    return {
+      allowed: false,
+      reason: rawPath.includes("\\") ? "BACKSLASH_SEPARATOR" : "ABSOLUTE_PATH",
+      classification: "PROTECTED",
+      normalizedPath: "",
+    };
+  }
+  const trimmed = rawPath.replace(/^\/+|\/+$/g, "");
+  if (trimmed.length === 0) {
+    return {
+      allowed: true,
+      reason: "ROOT",
+      classification: "UNKNOWN",
+      normalizedPath: "",
+    };
+  }
+  const base = normalizePublicationPath(trimmed);
+  if (!base.allowed || base.normalizedPath == null) {
+    return {
+      allowed: false,
+      reason: base.reason,
+      classification: base.classification,
+      normalizedPath: "",
+    };
+  }
+  return {
+    allowed: true,
+    reason: "NORMALIZED",
+    classification: "UNKNOWN",
+    normalizedPath: base.normalizedPath,
+  };
+}
+
+/**
  * Classify whether a repository path may be targeted for documentary ML4 publication.
  * Markdown alone never grants allowance. Fail closed on any ambiguous path.
  */

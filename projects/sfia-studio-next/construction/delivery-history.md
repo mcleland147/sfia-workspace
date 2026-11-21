@@ -3,6 +3,130 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-21-ENSEMBLE08-CANDIDATE-FREEZE-RECETTE-PREP
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 (Europe/Paris) |
+| Macro-lot | Ensemble 08 — freeze candidat + préparation évolution RECETTE E07 |
+| Type | EVOL / CRITICAL · **NO RELEASE** |
+| Base | `origin/main` `a12f89a1` · branche `feat/next-ensemble08-git-publications-nora` |
+| Prior handoff | `19bd0099` |
+| RECETTE runtime observé | E07 `@5ad8fa57` · BUILD `BtZP6qDx5oAw8jwPQSEhc` · port 3200 · DB `sfia_next_recette_ml4` préservée |
+| Cutover | **NOT EXECUTED** — GO SHA-specific requis |
+| Matrice A/B/S | Totaux corrigés 12 / 17 / 10 / 2 (=41) |
+| Push projet | **NONE** |
+| Verdict attendu | **CANDIDATE FROZEN — RECETTE GO REQUIRED** (si freeze OK) |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE08-TECHNICAL-EXIT-RECETTE-PREFLIGHT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 (Europe/Paris) |
+| Macro-lot | Ensemble 08 — finalisation technique et préparation RECETTE |
+| Type | EVOL CORRECTIF / CRITICAL · **NO RELEASE** |
+| Base | `origin/main` `a12f89a1` · branche `feat/next-ensemble08-git-publications-nora` |
+| HEAD | `a12f89a1` (worktree dirty — candidate SHA **NOT AVAILABLE**) |
+| Prior handoff | `6492013e` |
+| E08-S03 | Fermé : `incompleteCoverage`/`matchedCount` au niveau fournisseur (REAL+SCRIPTED) ; plus de complete=true après troncature silencieuse |
+| Matrice A/B/S | 41/41 qualifiés (`matrice-couverture-acceptation-a-b-s.md`) |
+| ENV-01 | Préflight only (`env01-recette-preflight.md`) — pas de déploiement |
+| Tests | `git-refs-coverage-s03` 19 PASS · tsc PASS · suites E08 ciblées (voir pack) |
+| Nora LIVE | **NOT PROVEN** |
+| GitHub REAL WRITE/MERGE | **NOT PROVEN** / hors mandat |
+| G5 | **NOT PROVEN** — différé RECETTE Morris |
+| Revue / handoff | Review Pack FULL + L3 publish-in-cycle |
+| Push projet | **NONE** |
+| Verdict candidat | **DELIVERY READY WITH RESERVES** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE08-EXIT-QUALIFICATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 08 — sortie conformité résiduelle et preuves |
+| Type | EVOL CORRECTIF / CRITICAL · **NO RELEASE** |
+| Base | `origin/main` `a12f89a1` · branche `feat/next-ensemble08-git-publications-nora` |
+| Prior handoff | `08927c38` |
+| E08-S01 | conditions ouvertes → CONDITION_OPEN, zéro effet |
+| E08-S02 | routage via qual durable ; plus de gate verb-list obligatoire |
+| E08-S03 | recherche branche `refPrefix` + résolution exacte |
+| E08-S04 | `prStatusKind` / label historique honnête |
+| E08-S05 | Review Pack = contenu final exact (empreintes) |
+| G5 | à qualifier runtime / sinon NOT PROVEN |
+| Push projet | **NONE** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE08-FINAL-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 08 — convergence finale (Nora/merge, Git contracts, UX Figma, preuves) |
+| Type | EVOL / CRITICAL · **NO RELEASE** |
+| Base | `origin/main` `a12f89a1` · branche `feat/next-ensemble08-git-publications-nora` |
+| Prior handoff | `37c0dc81` |
+| A1–A3 | qualification merge durable `d7.merge_publication` · cible dépôt+PR · contradiction same-PR fail-closed |
+| B1–B5 | `normalizeGitReadPath` · refs `incompleteCoverage` · binaire non rendu · projection MERGE via tentative distincte |
+| C1–C3 | publications 30/70 · détails agrandis · confirmation déconnexion 11.07 |
+| Tests | unit merge/path/pubs PASS · PG merge-security **3/3 PASS** · tsc PASS |
+| G5 Figma runtime | **NOT PROVEN** (pas de captures navigateur F2 ce cycle) |
+| GitHub REAL mutation | **NOT PROVEN** / hors mandat |
+| Push projet | **NONE** |
+| Verdict candidat | **DELIVERY READY WITH RESERVES** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE08-MERGE-AUTHORITY-SECURITY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 08 — correctif CRITICAL sécurisation merge conversationnel |
+| Type | CORRECTIVE / CRITICAL · **NO RELEASE** |
+| Base | `origin/main` `a12f89a1` · branche `feat/next-ensemble08-git-publications-nora` |
+| Prior handoff | `eebaeeda` |
+| P0-M01 | négation/hypothèse → aucun prepare/authorize/dispatch |
+| P0-M02 | PR explicite liée à publication documentaire exacte (pas latest) |
+| P0-M03 | HumanDecision merge + conversationalProvenance liée au plan |
+| Tests | unit merge guards PASS · PG conversation-merge-security **3/3 PASS** |
+| REAL mutation | **NOT PROVEN** / hors mandat |
+| Push projet | **NONE** |
+| Verdict candidat | **DELIVERY READY WITH RESERVES** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE08-CORRECTIVE-P0P1-G5-REAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 08 — cycle correctif intégré (P0/P1, Nora merge, Figma L2, Playwright, REAL allowlist) |
+| Type | CORRECTIVE / CRITICAL · **NO RELEASE** · Gate C OPEN |
+| Base | `origin/main` `a12f89a1` · branche `feat/next-ensemble08-git-publications-nora` (local only) |
+| Prior handoff | `74528b81` (FULL §7.2) — pack mono-cycle réinitialisé puis republier |
+| P0 | branch hint « du/de » · merge SHA ≠ HEAD · provenance USER persistée |
+| P1 | stale async · attach explicite · truncation >200 AMBIGUOUS · pubs D8 non-live |
+| Nora | refuse → no PREPARED · `admitConversationalMergeMandate` |
+| REAL multi-repo | allowlist `GITHUB_APP_ALLOWED_REPOS` (owner-bound, no allow-all) |
+| Figma | L2 11.03 metadata · G5 runtime **NOT PROVEN** |
+| Tests | unit **743 PASS** · mission-continuity PG **10 PASS** · git-collaboration PG **93 PASS** · Playwright E08 surface **2 PASS SCRIPTED** · tsc/build PASS |
+| REAL mutation | **NOT PROVEN** (pas de GO sandbox) |
+| Push projet | **NONE** |
+| Verdict candidat | **DELIVERY READY WITH RESERVES** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE08-GIT-PUBLICATIONS-NORA
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 08 — Dépôts Git, publications, conduite Nora |
+| Type | EVOL / Delivery CRITICAL · **NO RELEASE** · Gate C OPEN |
+| Base | `origin/main` `a12f89a1` (annoncé `1dd1a8ec` +2 : Journal nav PR #689) |
+| Branche | `feat/next-ensemble08-git-publications-nora` (local only — **no project push**) |
+| Capacité A | tree API · publications projection · `GitRepositoriesSurface` · multi-liens |
+| Capacité B | mandat conversationnel D6 → `authorizePublication` · `list_git_directory` Nora |
+| Merge REAL | code path documentary + SHA (non exercé END-TO-END REAL ce cycle) |
+| Figma | L0/L1 + PNG SHA page 11 · G5 runtime **NOT PROVEN** |
+| Tests | unit 725 PASS · mission-continuity PG 10 PASS · git-collaboration filtré 24 PASS · build PASS |
+| Push projet | **NONE** |
+| Verdict candidat | **DELIVERY READY WITH RESERVES** — supersédé par cycle correctif ci-dessus |
+
 ## delivery_id: DELIV-2026-11-21-ENSEMBLE07-PR687-SAS06-RESPONSIVE-CI
 
 | Field | Value |

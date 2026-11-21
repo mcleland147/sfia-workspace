@@ -315,8 +315,20 @@ export async function fetchRefSha(
   return sha;
 }
 
+/** Studio UI bound — truncation happens here with an honest incompleteness flag (E08-S03). */
+export const FETCH_MATCHING_REFS_UI_BOUND = 40;
+
+export type FetchMatchingRefsResult = {
+  refs: Array<{ name: string; sha: string }>;
+  /** True when more matching refs were observed than returned after the UI bound. */
+  incompleteCoverage: boolean;
+  matchedCount: number;
+};
+
 /**
- * List matching git refs (branches by default). Bounded; never invents refs.
+ * List matching git refs (branches by default). Never invents refs.
+ * GitHub `GET .../git/matching-refs/{ref}` returns matching refs; Studio applies a UI bound
+ * and signals incompleteness when matchedCount exceeds that bound.
  * @see GET /repos/{owner}/{repo}/git/matching-refs/{ref}
  */
 export async function fetchMatchingRefs(
@@ -324,7 +336,7 @@ export async function fetchMatchingRefs(
   fullName: string,
   refPrefix: string | undefined,
   fetchImpl: GitHubFetch = fetch,
-): Promise<Array<{ name: string; sha: string }>> {
+): Promise<FetchMatchingRefsResult> {
   const { owner, name } = parseFullName(fullName);
   const rawPrefix = (refPrefix ?? "heads/").replace(/^refs\//, "");
   const prefix = rawPrefix.startsWith("heads/") || rawPrefix.startsWith("tags/")
@@ -341,14 +353,108 @@ export async function fetchMatchingRefs(
   if (!Array.isArray(raw)) {
     throw new StudioError("AMBIGUOUS", "Liste de refs GitHub illisible", { httpStatus: 409 });
   }
-  return raw
+  const mapped = raw
     .map((r) => {
       const refName = (r.ref ?? "").replace(/^refs\/heads\//, "").replace(/^refs\//, "");
       const sha = r.object?.sha ?? "";
       return { name: refName, sha };
     })
-    .filter((r) => r.name && /^[0-9a-f]{40}$/i.test(r.sha))
-    .slice(0, 40);
+    .filter((r) => r.name && /^[0-9a-f]{40}$/i.test(r.sha));
+  const matchedCount = mapped.length;
+  const incompleteCoverage = matchedCount > FETCH_MATCHING_REFS_UI_BOUND;
+  return {
+    refs: mapped.slice(0, FETCH_MATCHING_REFS_UI_BOUND),
+    incompleteCoverage,
+    matchedCount,
+  };
+}
+
+const MAX_DIRECTORY_ENTRIES = 200;
+
+export type GitHubDirectoryEntry = {
+  name: string;
+  path: string;
+  type: "file" | "dir";
+  sha: string;
+  size?: number;
+};
+
+type GitHubContentsItem = {
+  name?: string;
+  path?: string;
+  sha?: string;
+  size?: number;
+  type?: string;
+};
+
+function contentsApiPath(fullName: string, path: string): string {
+  const { owner, name } = parseFullName(fullName);
+  const trimmed = path.replace(/^\/+/, "").replace(/\/+$/, "");
+  const encoded = trimmed
+    ? trimmed.split("/").filter(Boolean).map((seg) => encodeURIComponent(seg)).join("/")
+    : "";
+  const segment = encoded ? `/${encoded}` : "";
+  return `/repos/${owner}/${name}/contents${segment}`;
+}
+
+/** List immediate children of a directory via GitHub Contents API (non-recursive). */
+export async function fetchDirectoryListing(
+  installationToken: string,
+  fullName: string,
+  path: string,
+  ref: string,
+  fetchImpl: GitHubFetch = fetch,
+): Promise<GitHubDirectoryEntry[]> {
+  const q = new URLSearchParams({ ref });
+  const raw = await ghJson<GitHubContentsItem | GitHubContentsItem[]>(
+    fetchImpl,
+    `${contentsApiPath(fullName, path)}?${q}`,
+    {
+      method: "GET",
+      headers: { Authorization: `Bearer ${installationToken}` },
+    },
+  );
+  if (Array.isArray(raw)) {
+    const entries: GitHubDirectoryEntry[] = [];
+    for (const item of raw) {
+      if (!item.name || !item.path || !item.sha) continue;
+      if (item.type === "file") {
+        entries.push({
+          name: item.name,
+          path: item.path,
+          type: "file",
+          sha: item.sha,
+          size: typeof item.size === "number" ? item.size : undefined,
+        });
+      } else if (item.type === "dir") {
+        entries.push({
+          name: item.name,
+          path: item.path,
+          type: "dir",
+          sha: item.sha,
+        });
+      }
+    }
+    entries.sort((a, b) => a.name.localeCompare(b.name));
+    if (entries.length > MAX_DIRECTORY_ENTRIES) {
+      throw new StudioError(
+        "AMBIGUOUS",
+        `Répertoire trop volumineux (${entries.length} entrées, max ${MAX_DIRECTORY_ENTRIES})`,
+        { httpStatus: 409 },
+      );
+    }
+    return entries;
+  }
+  if (raw.type === "file") {
+    throw new StudioError(
+      "INVALID_REQUEST",
+      `NOT_A_DIRECTORY: path=${raw.path ?? path} est un fichier, pas un répertoire`,
+      { httpStatus: 400 },
+    );
+  }
+  throw new StudioError("AMBIGUOUS", "Contenu GitHub non qualificable comme répertoire", {
+    httpStatus: 409,
+  });
 }
 
 export async function fetchFileContentUtf8(
@@ -357,7 +463,14 @@ export async function fetchFileContentUtf8(
   path: string,
   ref: string,
   fetchImpl: GitHubFetch = fetch,
-): Promise<{ path: string; ref: string; sha: string; content: string }> {
+): Promise<{
+  path: string;
+  ref: string;
+  sha: string;
+  content: string;
+  encoding: "utf-8" | "binary";
+  contentKind: "markdown" | "text" | "binary" | "too_large";
+}> {
   const { owner, name } = parseFullName(fullName);
   const q = new URLSearchParams({ ref });
   const raw = await ghJson<{
@@ -373,8 +486,47 @@ export async function fetchFileContentUtf8(
   if (raw.type !== "file" || raw.encoding !== "base64" || !raw.content || !raw.sha) {
     throw new StudioError("AMBIGUOUS", "Contenu fichier GitHub non qualificable", { httpStatus: 409 });
   }
-  const content = Buffer.from(raw.content.replace(/\n/g, ""), "base64").toString("utf8");
-  return { path: raw.path ?? path, ref, sha: raw.sha, content };
+  const buf = Buffer.from(raw.content.replace(/\n/g, ""), "base64");
+  const MAX_READ_BYTES = 512 * 1024;
+  if (buf.length > MAX_READ_BYTES) {
+    return {
+      path: raw.path ?? path,
+      ref,
+      sha: raw.sha,
+      content: "",
+      encoding: "binary" as const,
+      contentKind: "too_large" as const,
+    };
+  }
+  // NUL or high ratio of non-text bytes ⇒ binary — never decode as Markdown/UTF-8 prose.
+  if (buf.includes(0)) {
+    return {
+      path: raw.path ?? path,
+      ref,
+      sha: raw.sha,
+      content: "",
+      encoding: "binary" as const,
+      contentKind: "binary" as const,
+    };
+  }
+  const sample = buf.subarray(0, Math.min(buf.length, 8192));
+  let weird = 0;
+  for (const b of sample) {
+    if (b < 7 || (b > 13 && b < 32)) weird += 1;
+  }
+  if (sample.length > 0 && weird / sample.length > 0.3) {
+    return {
+      path: raw.path ?? path,
+      ref,
+      sha: raw.sha,
+      content: "",
+      encoding: "binary" as const,
+      contentKind: "binary" as const,
+    };
+  }
+  const content = buf.toString("utf8");
+  const contentKind = /\.md$/i.test(raw.path ?? path) ? ("markdown" as const) : ("text" as const);
+  return { path: raw.path ?? path, ref, sha: raw.sha, content, encoding: "utf-8" as const, contentKind };
 }
 
 /** Create a git ref (branch). Caller must ensure branch ≠ protected base. */
@@ -627,6 +779,8 @@ export async function fetchPullRequestRemote(input: {
   headRef: string;
   baseRef: string;
   merged: boolean;
+  /** Observed merge commit SHA when GitHub reports one — never invent from head. */
+  mergeCommitSha: string | null;
 }> {
   const fetchImpl = input.fetchImpl ?? fetch;
   const { owner, name } = parseFullName(input.fullName);
@@ -636,12 +790,17 @@ export async function fetchPullRequestRemote(input: {
     state: string;
     html_url: string;
     merged?: boolean;
+    merge_commit_sha?: string | null;
     head?: { sha?: string; ref?: string };
     base?: { sha?: string; ref?: string };
   }>(fetchImpl, `/repos/${owner}/${name}/pulls/${input.prNumber}`, {
     method: "GET",
     headers: { Authorization: `Bearer ${input.token}` },
   });
+  const mergeCommitSha =
+    typeof raw.merge_commit_sha === "string" && /^[0-9a-f]{40}$/i.test(raw.merge_commit_sha)
+      ? raw.merge_commit_sha
+      : null;
   return {
     number: raw.number,
     title: raw.title,
@@ -652,7 +811,91 @@ export async function fetchPullRequestRemote(input: {
     headRef: raw.head?.ref ?? "",
     baseRef: raw.base?.ref ?? "",
     merged: Boolean(raw.merged),
+    mergeCommitSha,
   };
+}
+
+/**
+ * Merge a pull request with GitHub SHA precondition.
+ * Caller must enforce D6/D7 mandate and documentary path policy separately.
+ * @see PUT /repos/{owner}/{repo}/pulls/{pull_number}/merge
+ */
+export async function mergePullRequestRemote(input: {
+  token: string;
+  fullName: string;
+  prNumber: number;
+  expectedHeadSha: string;
+  expectedBaseSha?: string | null;
+  commitTitle?: string;
+  mergeMethod?: "merge" | "squash" | "rebase";
+  fetchImpl?: GitHubFetch;
+}): Promise<{ merged: boolean; sha: string }> {
+  const fetchImpl = input.fetchImpl ?? fetch;
+  const { owner, name } = parseFullName(input.fullName);
+  if (!/^[0-9a-f]{40}$/i.test(input.expectedHeadSha)) {
+    throw new StudioError("INVALID_REQUEST", "expectedHeadSha invalide pour merge", {
+      httpStatus: 400,
+    });
+  }
+  // Re-read PR before merge — refuse drift / already merged / closed.
+  const current = await fetchPullRequestRemote({
+    token: input.token,
+    fullName: input.fullName,
+    prNumber: input.prNumber,
+    fetchImpl,
+  });
+  if (current.merged) {
+    // Idempotent already-merged path: never treat source HEAD as the merge commit SHA (P0-02).
+    if (current.headSha.toLowerCase() !== input.expectedHeadSha.toLowerCase()) {
+      throw new StudioError("CONFLICT", "PR déjà mergée avec HEAD divergent", { httpStatus: 409 });
+    }
+    if (current.mergeCommitSha) {
+      return { merged: true, sha: current.mergeCommitSha };
+    }
+    throw new StudioError(
+      "AMBIGUOUS",
+      "PR déjà mergée — commit de fusion non observé (merge_commit_sha absent)",
+      { httpStatus: 409 },
+    );
+  }
+  if (current.state !== "open") {
+    throw new StudioError("CONFLICT", `PR non ouverte (state=${current.state})`, { httpStatus: 409 });
+  }
+  if (current.headSha.toLowerCase() !== input.expectedHeadSha.toLowerCase()) {
+    throw new StudioError("CONFLICT", "HEAD de PR périmé avant merge", { httpStatus: 409 });
+  }
+  if (
+    input.expectedBaseSha &&
+    current.baseSha &&
+    current.baseSha.toLowerCase() !== input.expectedBaseSha.toLowerCase()
+  ) {
+    throw new StudioError("CONFLICT", "Base de PR périmée avant merge", { httpStatus: 409 });
+  }
+
+  const raw = await ghJson<{
+    merged?: boolean;
+    sha?: string;
+    message?: string;
+  }>(fetchImpl, `/repos/${owner}/${name}/pulls/${input.prNumber}/merge`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${input.token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      sha: input.expectedHeadSha,
+      merge_method: input.mergeMethod ?? "merge",
+      ...(input.commitTitle ? { commit_title: input.commitTitle } : {}),
+    }),
+  });
+  if (!raw.merged || !raw.sha || !/^[0-9a-f]{40}$/i.test(raw.sha)) {
+    throw new StudioError(
+      "AMBIGUOUS",
+      raw.message ?? "Réponse merge GitHub non qualificable",
+      { httpStatus: 409 },
+    );
+  }
+  return { merged: true, sha: raw.sha };
 }
 
 /** Orchestrate App JWT → identity → installation → restricted token (no mutations). */
@@ -701,14 +944,16 @@ export async function authenticateInstallationReadOnly(
   }
 
   const access = await createInstallationAccessToken(creds, jwt, fetchImpl);
-  const allowed = access.repositories.some(
-    (r) => r.fullName.toLowerCase() === creds.allowedFullName.toLowerCase(),
-  );
+  const allow = creds.allowedFullNames?.length
+    ? creds.allowedFullNames
+    : [creds.allowedFullName];
+  const allowSet = new Set(allow.map((n) => n.toLowerCase()));
+  const allowed = access.repositories.some((r) => allowSet.has(r.fullName.toLowerCase()));
   // GitHub may omit repositories array on some responses — verify via list endpoint next.
   if (access.repositories.length > 0 && !allowed) {
     throw new StudioError(
       "ACCESS_DENIED",
-      `Dépôt ${creds.allowedFullName} absent du jeton restreint`,
+      `Aucun dépôt allowlist (${allow.join(", ")}) absent du jeton restreint`,
       { httpStatus: 403 },
     );
   }

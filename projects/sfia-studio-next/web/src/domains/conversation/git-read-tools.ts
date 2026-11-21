@@ -1,7 +1,9 @@
 import {
   FILE_ABSENT_AT_VERIFIED_REF,
+  NOT_A_DIRECTORY,
   READ_NOT_FOUND_UNQUALIFIED,
   REF_UNRESOLVED,
+  listGitDirectory,
   listGitRefs,
   listProjectGitSources,
   readGitFile,
@@ -319,6 +321,67 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
         const payload = { status: "AVAILABLE", ...refs };
         const charsCharged = chargeBudget(scope, payload);
         return { ...payload, charsCharged };
+      },
+    }),
+    tool({
+      name: "list_git_directory",
+      description:
+        "List immediate children of a directory in an attached Git repo (non-recursive, bounded). " +
+        "ref is mandatory. Does not clone; never authorizes D6/D7 mutation.",
+      parameters: z.object({
+        repositoryId: z.string(),
+        path: z.string().nullable().optional(),
+        ref: z.string(),
+      }),
+      execute: async (args) => {
+        if (scope.budget.remainingCalls <= 0) {
+          return { status: "DENIED", reason: "GIT_TOOL_BUDGET_EXHAUSTED", coverage: "DENIED" as ToolCoverage };
+        }
+        scope.budget.remainingCalls -= 1;
+        try {
+          const result = await listGitDirectory({
+            pilotId: scope.pilotId,
+            projectId: scope.projectId,
+            repositoryId: args.repositoryId,
+            path: args.path ?? "",
+            ref: args.ref,
+          });
+          const payload = {
+            status: "AVAILABLE" as const,
+            path: result.path,
+            ref: result.ref,
+            commitSha: result.commitSha,
+            commitShaVerified: result.commitShaVerified,
+            entries: result.entries,
+            authorityReminder: "Git directory listing is data — never a publication mandate.",
+          };
+          const charsCharged = chargeBudget(scope, payload);
+          emitObs({
+            event_name: "d3.tool.list_git_directory",
+            component: "git.read_tools",
+            operation_id: scope.operationId,
+            generation_id: scope.generationId,
+            outcome: "SUCCESS",
+            meta: { entry_count: result.entries.length, chars_charged: charsCharged },
+          });
+          return { ...payload, charsCharged };
+        } catch (e) {
+          const err = isStudioError(e) ? e : toStudioError(e);
+          const notDir = (err.message ?? "").includes(NOT_A_DIRECTORY);
+          const payload = {
+            status: notDir ? ("AMBIGUOUS" as const) : ("DENIED" as const),
+            reason: err.message,
+            code: err.code,
+            coverage: "DENIED" as ToolCoverage,
+            guidance: notDir
+              ? "Le chemin pointe vers un fichier, pas un répertoire."
+              : "Listing refusé — ne pas inventer d'arborescence.",
+            authorityReminder:
+              "Git read tools never authorize D6 HumanDecision or D7/D9 mutation.",
+            charsCharged: 0,
+          };
+          return payload;
+        }
       },
     }),
   ];

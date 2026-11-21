@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { classifyPublicationPath, normalizePublicationPath } from "@/domains/integrations/path-policy";
+import {
+  classifyPublicationPath,
+  normalizeGitReadPath,
+  normalizePublicationPath,
+} from "@/domains/integrations/path-policy";
 
 describe("path-policy fail-closed (B5)", () => {
   it("allows documentary paths under docs/", () => {
@@ -41,5 +45,27 @@ describe("path-policy fail-closed (B5)", () => {
 
   it("does not allow markdown outside documentary zones", () => {
     expect(classifyPublicationPath("notes-at-root.md").allowed).toBe(false);
+  });
+});
+
+describe("normalizeGitReadPath — read contract (B1)", () => {
+  it("allows empty root", () => {
+    expect(normalizeGitReadPath("").allowed).toBe(true);
+    expect(normalizeGitReadPath("").normalizedPath).toBe("");
+    expect(normalizeGitReadPath(null).normalizedPath).toBe("");
+  });
+
+  it("rejects traversal and encoded segments without calling providers", () => {
+    expect(normalizeGitReadPath("../secret").allowed).toBe(false);
+    expect(normalizeGitReadPath("a/../../b").allowed).toBe(false);
+    expect(normalizeGitReadPath("%2e%2e/x").allowed).toBe(false);
+    expect(normalizeGitReadPath("docs\\x").allowed).toBe(false);
+    expect(normalizeGitReadPath("/abs/path").allowed).toBe(false);
+  });
+
+  it("normalizes relative documentary paths for read", () => {
+    const r = normalizeGitReadPath("docs/spec.md");
+    expect(r.allowed).toBe(true);
+    expect(r.normalizedPath).toBe("docs/spec.md");
   });
 });

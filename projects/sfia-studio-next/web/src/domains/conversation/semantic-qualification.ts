@@ -60,6 +60,8 @@ export const StudioCapabilityIdSchema = z.enum([
   "d6.human_decision",
   "d7.prepare_publication",
   "d7.dispatch_publication",
+  /** Documentary merge of an existing Studio publication PR — distinct from publication. */
+  "d7.merge_publication",
   "d9.git_integration",
 ]);
 export type StudioCapabilityId = z.infer<typeof StudioCapabilityIdSchema>;
@@ -110,6 +112,19 @@ export const QualifiedIntentItemSchema = z.object({
       statement: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
       /** Soft target ~240. */
       publicationPath: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
+      /** Explicit PR number for d7.merge_publication — never invent. */
+      prNumber: z.number().int().positive().max(999999).optional(),
+      /** owner/name for merge target when the Pilote named a repository. */
+      repositoryFullName: z.string().max(200).optional(),
+      /**
+       * Material condition on an effect (e.g. merge after validation).
+       * OPEN / UNVERIFIABLE never authorize immediate D7/D9.
+       * SATISFIED alone is never a proof — Studio must not invent satisfaction.
+       */
+      effectCondition: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
+      effectConditionStatus: z
+        .enum(["NONE", "OPEN", "SATISFIED", "UNVERIFIABLE"])
+        .optional(),
       /** Typed D5/D6 operation — never use free-text notes as enum substitute. */
       pilotageOperation: PilotageOperationSchema.optional(),
       restrictionKindHint: z.string().max(64).optional(),
@@ -287,6 +302,7 @@ const EFFECT_CAPABILITIES = new Set<StudioCapabilityId>([
   "d6.human_decision",
   "d7.prepare_publication",
   "d7.dispatch_publication",
+  "d7.merge_publication",
   "d9.git_integration",
 ]);
 
@@ -555,6 +571,15 @@ export type SemanticStudioProjection = {
     clarify: string | null;
     capabilityId: "d7.prepare_publication" | "d7.dispatch_publication" | "d9.git_integration" | null;
   };
+  merge: {
+    wantsMerge: boolean;
+    prNumber: number | null;
+    repositoryHint: string | null;
+    clarify: string | null;
+    capabilityId: "d7.merge_publication" | null;
+    conditionStatus: "NONE" | "OPEN" | "SATISFIED" | "UNVERIFIABLE";
+    conditionText: string | null;
+  };
   simpleDialogue: boolean;
 };
 
@@ -566,7 +591,9 @@ export function projectStudioEffects(q: NoraTurnQualification): SemanticStudioPr
   const preparePub = effects.find((i) => i.capabilityId === "d7.prepare_publication");
   const dispatchPub = effects.find((i) => i.capabilityId === "d7.dispatch_publication");
   const gitPub = effects.find((i) => i.capabilityId === "d9.git_integration");
+  const mergePub = effects.find((i) => i.capabilityId === "d7.merge_publication");
   // Prefer prepare over dispatch over generic git — not interchangeable.
+  // Merge is never implied by publication intents.
   const publish = preparePub ?? dispatchPub ?? gitPub ?? null;
   const publishCapability = publish
     ? (publish.capabilityId as SemanticStudioProjection["publication"]["capabilityId"])
@@ -618,10 +645,53 @@ export function projectStudioEffects(q: NoraTurnQualification): SemanticStudioPr
     capabilityId: publishCapability,
   };
 
+  const mergePrRaw = mergePub?.parameters.prNumber;
+  const mergePr =
+    typeof mergePrRaw === "number" && Number.isFinite(mergePrRaw) && mergePrRaw > 0
+      ? Math.trunc(mergePrRaw)
+      : null;
+  const mergeRepo = mergePub?.parameters.repositoryFullName?.trim() || null;
+  const conditionText = mergePub?.parameters.effectCondition?.trim() || null;
+  const conditionStatusRaw = mergePub?.parameters.effectConditionStatus;
+  const conditionStatus: SemanticStudioProjection["merge"]["conditionStatus"] =
+    conditionStatusRaw === "OPEN" ||
+    conditionStatusRaw === "SATISFIED" ||
+    conditionStatusRaw === "UNVERIFIABLE"
+      ? conditionStatusRaw
+      : conditionText
+        ? "OPEN"
+        : "NONE";
+  // Open condition ⇒ no immediate merge effect from projection.
+  const mergeWantsImmediate =
+    Boolean(mergePub) &&
+    conditionStatus !== "OPEN" &&
+    conditionStatus !== "UNVERIFIABLE" &&
+    conditionStatus !== "SATISFIED";
+  const mergeClarify =
+    mergePub && !mergePr
+      ? "Numéro de PR documentaire manquant pour le merge."
+      : mergePub && conditionStatus === "OPEN"
+        ? conditionText || "Condition de merge ouverte — précision ou preuve requise."
+        : mergePub && conditionStatus === "UNVERIFIABLE"
+          ? conditionText || "Condition de merge non vérifiable — aucun effet."
+          : mergePub && conditionStatus === "SATISFIED"
+            ? "Condition déclarée satisfaite sans preuve Studio — aucun effet inventé."
+            : null;
+  const merge = {
+    wantsMerge: mergeWantsImmediate,
+    prNumber: mergePr,
+    repositoryHint: mergeRepo,
+    clarify: mergeClarify,
+    capabilityId: mergePub ? ("d7.merge_publication" as const) : null,
+    conditionStatus,
+    conditionText,
+  };
+
   const simpleDialogue =
     !wantsProjectCreate &&
     documentAct.kind === "NONE" &&
     !publication.wantsPublish &&
+    !merge.wantsMerge &&
     !effects.some(
       (i) => PILOTAGE_CAPS.has(i.capabilityId) || i.capabilityId === "d4.record_knowledge",
     );
@@ -633,6 +703,7 @@ export function projectStudioEffects(q: NoraTurnQualification): SemanticStudioPr
     pendingDocumentBrief: pendingDocumentBrief?.slice(0, 400) ?? null,
     documentAct,
     publication,
+    merge,
     simpleDialogue,
   };
 }

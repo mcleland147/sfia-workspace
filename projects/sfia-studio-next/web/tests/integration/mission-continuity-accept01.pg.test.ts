@@ -254,7 +254,81 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
     expect(chat.missionProjection?.steps.find((s) => s.id === "d7_prepare")?.attemptId).toBeFalsy();
   });
 
-  it("ACCEPT-01 chat: CREATE + publish with path prepares and awaits auth without HD", async () => {
+  it("E08-B: clear USER publish admits D6 mandate on same turn (no second click)", async () => {
+    const { pilotId, projectId, preparationId } = await seedProjectWithGit("e08-b-mandate");
+    const ask =
+      "Crée un document intitulé E08 Mandate et publie-le dans mon dépôt GitHub chemin docs/studio-next/e08-mandate.md";
+    const chat = await noraTurn(pilotId, preparationId, ask, {
+      clientTurnKey: newId("ctk"),
+      fixture: {
+        kind: "d4_publish",
+        title: "E08 Mandate",
+        publicationPath: "docs/studio-next/e08-mandate.md",
+      },
+    });
+    expect(chat.documentSave?.status).toBe("AVAILABLE");
+    expect(chat.humanDecisionCreated).toBe(true);
+    expect(chat.missionProjection?.status).toBe("COMPLETED");
+    const prepStep = chat.missionProjection?.steps.find((s) => s.id === "d7_prepare");
+    expect(prepStep?.decisionId).toBeTruthy();
+
+    const attempt = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepStep!.attemptId!))
+    )[0];
+    expect(["COMPLETED", "DISPATCHED", "AMBIGUOUS"]).toContain(attempt?.status);
+    expect(attempt?.decisionId).toBe(prepStep?.decisionId);
+
+    const hd = (
+      await db
+        .select()
+        .from(humanDecisions)
+        .where(
+          and(eq(humanDecisions.projectId, projectId), eq(humanDecisions.id, attempt!.decisionId!)),
+        )
+    )[0];
+    expect(hd?.kind).toBe("GIT_PUBLICATION_MANDATE");
+    expect(hd?.state).toBe("APPLICABLE");
+    const conditions = JSON.parse(hd?.effectConditions ?? "{}") as {
+      conversationalProvenance?: { userMessageId?: string };
+    };
+    expect(conditions.conversationalProvenance?.userMessageId).toBe(chat.userMessageId);
+  });
+
+  it("E08-B negative phrase: no PREPARED publication / no HumanDecision", async () => {
+    const { pilotId, projectId, preparationId } = await seedProjectWithGit("e08-b-refuse");
+    const ask =
+      "Crée un document intitulé E08 Refuse et ne publie pas dans mon dépôt GitHub chemin docs/studio-next/e08-refuse.md";
+    registerCreateDocumentTitled(ask, {
+      title: "E08 Refuse",
+      publicationPath: "docs/studio-next/e08-refuse.md",
+      publish: true,
+    });
+    const chat = await noraTurn(pilotId, preparationId, ask, {
+      clientTurnKey: newId("ctk"),
+      fixture: {
+        kind: "d4_publish",
+        title: "E08 Refuse",
+        publicationPath: "docs/studio-next/e08-refuse.md",
+      },
+    });
+    expect(chat.humanDecisionCreated).toBe(false);
+    // Explicit refusal must not leave PREPARED / AWAITING_PILOT_AUTH.
+    expect(chat.missionProjection?.steps.some((s) => s.id === "d7_prepare")).not.toBe(true);
+    const pubs = await db
+      .select()
+      .from(effectAttempts)
+      .where(
+        and(eq(effectAttempts.projectId, projectId), eq(effectAttempts.kind, "GIT_PUBLICATION")),
+      );
+    expect(pubs).toHaveLength(0);
+    const decisions = await db
+      .select()
+      .from(humanDecisions)
+      .where(eq(humanDecisions.projectId, projectId));
+    expect(decisions.some((d) => d.kind === "GIT_PUBLICATION_MANDATE")).toBe(false);
+  });
+
+  it("ACCEPT-01 chat: CREATE + publish with path prepares and conversational authorize", async () => {
     const { pilotId, projectId, preparationId } = await seedProjectWithGit("accept01-chat");
     const ask =
       "Crée un document intitulé ACCEPT-01 Continuity et publie-le dans mon dépôt GitHub chemin docs/studio-next/accept01.md";
@@ -276,44 +350,54 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
       },
     });
     expect(chat.documentSave?.status).toBe("AVAILABLE");
-    expect(chat.missionProjection?.status).toBe("AWAITING_PILOT_AUTH");
+    expect(chat.humanDecisionCreated).toBe(true);
+    expect(chat.missionProjection?.status).toBe("COMPLETED");
     const prepStep = chat.missionProjection?.steps.find((s) => s.id === "d7_prepare");
     expect(prepStep?.attemptId).toBeTruthy();
-    expect(prepStep?.status).toBe("WAITING");
+    expect(prepStep?.decisionId).toBeTruthy();
 
     const attempt = (
       await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepStep!.attemptId!))
     )[0];
-    expect(attempt?.status).toBe("PREPARED");
-    expect(attempt?.decisionId).toBeNull();
+    expect(["COMPLETED", "DISPATCHED", "AMBIGUOUS"]).toContain(attempt?.status);
+    expect(attempt?.decisionId).toBeTruthy();
     expect(attemptIsNoraMission(attempt!)).toBe(true);
 
     const msgs = await listMessages(pilotId, preparationId);
     const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
     expect(assistant?.content).toMatch(/Résultat applicatif D4|Suite de mission|AVAILABLE/);
-    // SEM-02: mission auth state is on missionProjection; assistant may be D4-only.
-    expect(chat.missionProjection?.status).toBe("AWAITING_PILOT_AUTH");
     expect(projectId).toBeTruthy();
   });
 
   it("ACCEPT-01 + P0-B: authorize then recover/resume; restitution idempotent (P1-C)", async () => {
-    const { pilotId, projectId, preparationId } = await seedProjectWithGit("accept01-resume");
-    const ask =
-      "Crée un document intitulé ACCEPT-01 Resume et publie-le dans mon dépôt GitHub chemin docs/studio-next/accept01-resume.md";
+    const { pilotId, projectId, preparationId, repositoryId } = await seedProjectWithGit(
+      "accept01-resume",
+    );
+    // Create doc without publish; prepare Nora mission manually → AUTHORIZED crash window.
+    const ask = "Crée un document intitulé ACCEPT-01 Resume pour inspection.";
+    const clientTurnKey = newId("ctk");
     const chat = await noraTurn(pilotId, preparationId, ask, {
-      clientTurnKey: newId("ctk"),
-      fixture: {
-        kind: "d4_publish",
-        title: "ACCEPT-01 Resume",
-        publicationPath: "docs/studio-next/accept01-resume.md",
-      },
+      clientTurnKey,
+      fixture: { kind: "d4_create", title: "ACCEPT-01 Resume pour inspection" },
     });
-    const attemptId = chat.missionProjection?.steps.find((s) => s.id === "d7_prepare")?.attemptId;
-    expect(attemptId).toBeTruthy();
+    expect(chat.documentSave?.status).toBe("AVAILABLE");
+    const prepared = await preparePublication({
+      pilotId,
+      projectId,
+      documentId: chat.documentSave!.documentId!,
+      revisionId: chat.documentSave!.revisionId!,
+      repositoryId,
+      targetPath: "docs/studio-next/accept01-resume.md",
+      targetBranch: "main",
+      correlationKey: `pub:mission:${clientTurnKey}`,
+    });
+    expect(prepared.status).toBe("PREPARED");
+    const attemptId = prepared.attemptId;
 
     const row = (
-      await db.select().from(effectAttempts).where(eq(effectAttempts.id, attemptId!))
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, attemptId))
     )[0]!;
+    expect(row.status).toBe("PREPARED");
     const plan = JSON.parse(row.planJson) as {
       inspection: { kind: string; inspectionFingerprint: string };
     };
@@ -322,7 +406,7 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
     const auth = await authorizePublication({
       pilotId,
       projectId,
-      attemptId: attemptId!,
+      attemptId,
       statement: "GO publication ACCEPT-01",
       inspectedFingerprint: plan.inspection.inspectionFingerprint,
     });
@@ -382,7 +466,8 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
       fixture: replayFixture,
     });
     expect(first.documentSave?.status).toBe("AVAILABLE");
-    expect(first.missionProjection?.status).toBe("AWAITING_PILOT_AUTH");
+    expect(first.humanDecisionCreated).toBe(true);
+    expect(first.missionProjection?.status).toBe("COMPLETED");
     const firstDoc = first.documentSave!.documentId!;
     const firstAttempt = first.missionProjection!.steps.find((s) => s.id === "d7_prepare")!
       .attemptId!;
@@ -403,7 +488,7 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
       .from(effectAttempts)
       .where(and(eq(effectAttempts.projectId, projectId), eq(effectAttempts.id, firstAttempt)));
     expect(attempts).toHaveLength(1);
-    expect(attempts[0]?.status).toBe("PREPARED");
-    expect(attempts[0]?.decisionId).toBeNull();
+    expect(["COMPLETED", "DISPATCHED", "AMBIGUOUS", "AUTHORIZED"]).toContain(attempts[0]?.status);
+    expect(attempts[0]?.decisionId).toBeTruthy();
   });
 });

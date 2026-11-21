@@ -116,6 +116,16 @@ import {
   recoverAuthorizedNoraMissions,
   type MissionProjection,
 } from "./mission-continuity";
+import { admitConversationalPublicationMandate } from "./conversation-publication-authority";
+import {
+  admitConversationalMergeMandate,
+  extractPositivelyRequestedPrNumbers,
+  userStatementHasOpenMergeCondition,
+  userStatementHasUnresolvedSamePrMergeContradiction,
+  userStatementIsNonAuthorizingMergeTalk,
+  userStatementRefusesMerge,
+} from "./conversation-merge-authority";
+import { userStatementRefusesPublication } from "./conversation-publication-mandate-guards";
 import {
   advanceMissionAfterProjectCreated,
   buildD2AwaitingStep,
@@ -1539,6 +1549,8 @@ export async function postUserMessageAndNora(
   const clientIntentKey = clientTurnKey;
   const missionKeys = missionCorrelationKeys(clientIntentKey);
 
+  let publicationMandateDecisionId: string | null = null;
+
   let durableProposal: DocumentProposalExact | null = null;
   /** P1: set when concurrent fence diverges / is invalid — block silent strip+reinject. */
   let proposalAuthorityConflict: string | null = null;
@@ -2538,6 +2550,9 @@ export async function postUserMessageAndNora(
     }
   }
 
+  // Explicit refusal must not leave a publication PREPARED / AWAITING_PILOT_AUTH.
+  const userRefusesPublish = userStatementRefusesPublication(content);
+
   if (
     allowOwnerEffects &&
     !ownershipLostBeforeD4 &&
@@ -2545,6 +2560,7 @@ export async function postUserMessageAndNora(
     documentEffectForAck.documentId &&
     documentEffectForAck.revisionId &&
     missionIntent.wantsPublish &&
+    !userRefusesPublish &&
     ctx.project?.id
   ) {
     const steps: MissionProjection["steps"] = [
@@ -2585,7 +2601,7 @@ export async function postUserMessageAndNora(
         targetBranch: missionIntent.targetBranch,
       });
       if (prepared.ok) {
-        steps.push({
+        const prepStep: MissionProjection["steps"][number] = {
           id: "d7_prepare",
           capabilityId: "d7.prepare_publication",
           status: prepared.status === "PREPARED" ? "WAITING" : "DONE",
@@ -2593,26 +2609,86 @@ export async function postUserMessageAndNora(
           attemptId: prepared.attemptId,
           documentId: documentEffectForAck.documentId,
           revisionId: documentEffectForAck.revisionId,
+        };
+        steps.push(prepStep);
+
+        let missionStatus: MissionProjection["status"] = "AWAITING_PILOT_AUTH";
+        let goalSummary = "CREATE D4 + publication Git (attente autorisation Pilote)";
+        let authorizeCalled = false;
+
+        const mandateAdmission = await admitConversationalPublicationMandate({
+          pilotId,
+          projectId: ctx.project.id,
+          attemptId: prepared.attemptId,
+          userMessageId: reserved.userMessageId,
+          userStatement: content,
+          clientTurnKey: clientIntentKey,
+          qualifiedPath: missionIntent.targetPath,
+          qualifiedBranch: missionIntent.targetBranch,
+          wantsPublishFromQual: missionIntent.wantsPublish,
         });
+
+        if (mandateAdmission.authorized && mandateAdmission.decisionId) {
+          publicationMandateDecisionId = mandateAdmission.decisionId;
+          authorizeCalled = true;
+          prepStep.decisionId = mandateAdmission.decisionId;
+          const resumeStatus = mandateAdmission.missionResume?.status ?? "AUTHORIZED";
+          if (resumeStatus === "COMPLETED") {
+            prepStep.status = "DONE";
+            missionStatus = "COMPLETED";
+            goalSummary = "CREATE D4 + publication Git (mandat conversationnel + effet terminé)";
+          } else if (
+            resumeStatus === "DISPATCHED" ||
+            resumeStatus === "AMBIGUOUS" ||
+            mandateAdmission.missionResume?.dispatched
+          ) {
+            prepStep.status = "WAITING";
+            missionStatus = "ACTIVE";
+            goalSummary = "CREATE D4 + publication Git (mandat conversationnel — dispatch en cours)";
+          } else {
+            prepStep.status = "WAITING";
+            missionStatus = "AWAITING_PILOT_AUTH";
+            goalSummary =
+              "CREATE D4 + publication Git (mandat D6 enregistré — reprise dispatch en attente)";
+          }
+        } else if (
+          mandateAdmission.attempted &&
+          mandateAdmission.reasonCode &&
+          !["ALREADY_AUTHORIZED", "REFUSED", "MERGE_ONLY", "NO_PUBLISH_QUAL"].includes(
+            mandateAdmission.reasonCode,
+          ) &&
+          (mandateAdmission.reasonCode === "AMBIGUOUS_PATH" ||
+            mandateAdmission.reasonCode === "AMBIGUOUS_BRANCH" ||
+            mandateAdmission.reasonCode === "PLAN_DRIFT" ||
+            mandateAdmission.reasonCode === "AMBIGUOUS")
+        ) {
+          missionStatus = "AWAITING_CLARIFICATION";
+          goalSummary = "Publication préparée — mandat conversationnel ambigu (précision requise)";
+          prepStep.reason = mandateAdmission.reason ?? mandateAdmission.reasonCode;
+        }
+
         missionProjection = {
           clientIntentKey,
-          status: "AWAITING_PILOT_AUTH",
-          goalSummary: "CREATE D4 + publication Git (attente autorisation Pilote)",
+          status: missionStatus,
+          goalSummary,
           steps,
           restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
         };
         emitObs({
-          event_name: "d3.mission.prepared_awaiting_auth",
+          event_name: mandateAdmission.authorized
+            ? "d3.mission.prepared_conversational_authorize"
+            : "d3.mission.prepared_awaiting_auth",
           component: "d3.mission_continuity",
           request_id: requestId,
           operation_id: reserved.operationId,
           generation_id: reply.generationId,
-          outcome: "SUCCESS",
+          outcome: mandateAdmission.authorized ? "SUCCESS" : "PARTIAL",
           meta: {
             attempt_id: prepared.attemptId,
             document_id: documentEffectForAck.documentId,
-            // Never call authorize here — HD only on Pilot act.
-            authorize_called: false,
+            authorize_called: authorizeCalled,
+            mandate_reason: mandateAdmission.reasonCode ?? null,
+            decision_id: mandateAdmission.decisionId,
           },
         });
       } else {
@@ -2637,6 +2713,150 @@ export async function postUserMessageAndNora(
       missionProjection = {
         ...missionProjection,
         restitution: "PENDING",
+      };
+    }
+  }
+
+  // Documentary merge — distinct D6 mandate (publication ≠ merge).
+  // E08-S02: durable qualification owns métier routing — no closed verb-list gate.
+  // Fail-closed: refuse / contradiction / open condition / non-authorizing talk.
+  const mergeIntent = studioProjection.merge;
+  const mergePrHints = extractPositivelyRequestedPrNumbers(content);
+  const mergeRequestedPr =
+    mergeIntent.prNumber != null && mergeIntent.prNumber > 0
+      ? mergeIntent.prNumber
+      : mergePrHints.length === 1
+        ? mergePrHints[0]!
+        : null;
+  if (
+    allowOwnerEffects &&
+    !ownershipLostBeforeD4 &&
+    ctx.project?.id &&
+    mergeIntent.wantsMerge &&
+    mergeIntent.conditionStatus === "NONE" &&
+    !userStatementRefusesMerge(content) &&
+    !userStatementHasOpenMergeCondition(content) &&
+    !userStatementHasUnresolvedSamePrMergeContradiction(content) &&
+    !userStatementIsNonAuthorizingMergeTalk(content)
+  ) {
+    if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
+      const mergeAdmit = await admitConversationalMergeMandate({
+        pilotId,
+        projectId: ctx.project.id,
+        userMessageId: reserved.userMessageId,
+        userStatement: content,
+        clientTurnKey: clientIntentKey,
+        requestedPrNumber: mergeRequestedPr,
+        repositoryFullNameHint: mergeIntent.repositoryHint,
+        wantsMergeFromQual: mergeIntent.wantsMerge,
+        conditionStatus: mergeIntent.conditionStatus,
+        conditionText: mergeIntent.conditionText,
+      });
+      if (mergeAdmit.authorized && mergeAdmit.attemptId) {
+        const mergeStep = {
+          id: "d7_merge",
+          capabilityId: "d7.merge_publication",
+          status:
+            mergeAdmit.dispatchStatus === "COMPLETED"
+              ? ("DONE" as const)
+              : ("WAITING" as const),
+          correlationKey: `merge:mission:${clientIntentKey}`,
+          attemptId: mergeAdmit.attemptId,
+          decisionId: mergeAdmit.decisionId ?? undefined,
+          reason: mergeAdmit.reasonCode,
+        };
+        if (!missionProjection) {
+          missionProjection = {
+            clientIntentKey,
+            status: mergeAdmit.dispatchStatus === "COMPLETED" ? "COMPLETED" : "ACTIVE",
+            goalSummary:
+              mergeAdmit.dispatchStatus === "COMPLETED"
+                ? `Merge documentaire conversationnel terminé (PR #${mergeAdmit.resolvedPrNumber ?? "?"})`
+                : `Merge documentaire — mandat D6 (PR #${mergeAdmit.resolvedPrNumber ?? "?"})`,
+            steps: [mergeStep],
+            restitution: "CANONICAL",
+          };
+        } else {
+          missionProjection = {
+            ...missionProjection,
+            steps: [...missionProjection.steps, mergeStep],
+            status:
+              mergeAdmit.dispatchStatus === "COMPLETED"
+                ? "COMPLETED"
+                : missionProjection.status,
+            goalSummary:
+              mergeAdmit.dispatchStatus === "COMPLETED"
+                ? `${missionProjection.goalSummary} · merge terminé`
+                : `${missionProjection.goalSummary} · merge en cours`,
+          };
+        }
+      } else if (
+        mergeAdmit.attempted &&
+        [
+          "AMBIGUOUS_TARGET",
+          "AMBIGUOUS_PR",
+          "AMBIGUOUS",
+          "AMBIGUOUS_REPOSITORY",
+          "REPOSITORY_MISMATCH",
+          "TARGET_UNRESOLVED",
+          "PR_NOT_FOUND",
+          "PR_MISMATCH",
+          "NO_PUBLICATION",
+          "PUBLICATION_NOT_FOUND",
+          "PUBLICATION_NOT_COMPLETED",
+          "CONDITION_OPEN",
+          "CONDITION_UNPROVEN",
+        ].includes(mergeAdmit.reasonCode ?? "")
+      ) {
+        const clarifyStep = {
+          id: "d7_merge",
+          capabilityId: "d7.merge_publication",
+          status: "PENDING" as const,
+          correlationKey: `merge:mission:${clientIntentKey}`,
+          reason: mergeAdmit.reason ?? mergeAdmit.reasonCode,
+        };
+        if (!missionProjection) {
+          missionProjection = {
+            clientIntentKey,
+            status: "AWAITING_CLARIFICATION",
+            goalSummary:
+              mergeAdmit.reasonCode === "CONDITION_OPEN" ||
+              mergeAdmit.reasonCode === "CONDITION_UNPROVEN"
+                ? "Merge documentaire — condition non satisfaite / non prouvée"
+                : "Merge documentaire — précision requise",
+            steps: [clarifyStep],
+            restitution: "CANONICAL",
+          };
+        }
+      }
+      // REFUSED / NON_AUTHORIZING / NO_MERGE_QUAL: no prepare, no HD, no dispatch.
+    }
+  } else if (
+    allowOwnerEffects &&
+    !ownershipLostBeforeD4 &&
+    ctx.project?.id &&
+    mergeIntent.capabilityId === "d7.merge_publication" &&
+    (mergeIntent.conditionStatus === "OPEN" ||
+      mergeIntent.conditionStatus === "UNVERIFIABLE" ||
+      mergeIntent.conditionStatus === "SATISFIED" ||
+      userStatementHasOpenMergeCondition(content))
+  ) {
+    // E08-S01 — condition present ⇒ clarification / refuse, never silent drop.
+    if (!missionProjection) {
+      missionProjection = {
+        clientIntentKey,
+        status: "AWAITING_CLARIFICATION",
+        goalSummary: "Merge documentaire — condition ouverte ou non prouvée",
+        steps: [
+          {
+            id: "d7_merge",
+            capabilityId: "d7.merge_publication",
+            status: "PENDING",
+            correlationKey: `merge:mission:${clientIntentKey}`,
+            reason: mergeIntent.clarify ?? "CONDITION_OPEN",
+          },
+        ],
+        restitution: "CANONICAL",
       };
     }
   }
@@ -2881,7 +3101,8 @@ export async function postUserMessageAndNora(
     pendingDocumentCandidate: ownershipLostBeforeD4 ? null : pendingDocumentCandidateOut,
     historicalAuthorization: ownershipLostBeforeD4 ? null : historicalAuthorizationOut,
     idempotentReplay: false,
-    humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
+    humanDecisionCreated:
+      Boolean(authority?.humanDecisionCreated) || Boolean(publicationMandateDecisionId),
     pilotageEffect: pilotageEffectFromAuthority(authority),
     missionProjection,
     nextTurnKind,

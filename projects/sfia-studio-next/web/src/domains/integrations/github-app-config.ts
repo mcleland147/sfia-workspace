@@ -62,11 +62,59 @@ export type GitHubAppLoadedCredentials = {
   installationId: string;
   /** PKCS#8 / PEM private key material — never log. */
   privateKeyPem: string;
+  /** Primary sandbox repo (backward compatible). */
   allowedFullName: string;
+  /**
+   * Explicit multi-repo allowlist for the lane/sandbox.
+   * Always includes allowedFullName. Never "allow all".
+   * Extra names from GITHUB_APP_ALLOWED_REPOS (comma-separated), same owner only.
+   */
+  allowedFullNames: string[];
   expectedOwner: string;
   lane: StudioGithubAppLane;
   meta: GitHubAppCredentialMeta;
 };
+
+/** Resolve explicit allowlist — primary + optional env extras under expectedOwner. */
+export function resolveAllowedFullNames(input: {
+  allowedFullName: string;
+  expectedOwner: string;
+  envList?: string | null;
+}): string[] {
+  const owner = input.expectedOwner.toLowerCase();
+  const primary = input.allowedFullName.trim();
+  const extras = (input.envList ?? "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const name of [primary, ...extras]) {
+    const n = name.trim();
+    if (!n || !n.includes("/")) continue;
+    const [o] = n.split("/");
+    if ((o ?? "").toLowerCase() !== owner) {
+      throw new StudioError(
+        "INVALID_REQUEST",
+        `Dépôt allowlist hors owner attendu (${n})`,
+        { httpStatus: 400 },
+      );
+    }
+    const key = n.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(n);
+  }
+  if (out.length === 0) {
+    throw new StudioError("INVALID_REQUEST", "Allowlist REAL vide", { httpStatus: 400 });
+  }
+  return out;
+}
+
+export function isFullNameAllowed(allowedFullNames: string[], fullName: string): boolean {
+  const target = fullName.trim().toLowerCase();
+  return allowedFullNames.some((n) => n.toLowerCase() === target);
+}
 
 function requireEnv(name: string): string {
   const v = process.env[name]?.trim();
@@ -260,11 +308,18 @@ export function loadGitHubAppCredentialsFromEnv(): GitHubAppLoadedCredentials {
     );
   }
 
+  const allowedFullNames = resolveAllowedFullNames({
+    allowedFullName: meta.allowedFullName,
+    expectedOwner: meta.expectedOwner,
+    envList: process.env.GITHUB_APP_ALLOWED_REPOS,
+  });
+
   return {
     appId: meta.appId,
     installationId: meta.installationId,
     privateKeyPem,
     allowedFullName: meta.allowedFullName,
+    allowedFullNames,
     expectedOwner: meta.expectedOwner,
     lane: meta.lane,
     meta,

@@ -15,6 +15,22 @@ export type InstallationRepo = {
 
 export type RefInfo = { name: string; sha: string };
 
+/** UI / API bound for branch listing — never present a truncated list as exhaustive. */
+export const GIT_REFS_UI_BOUND = 40;
+
+/**
+ * Honest refs listing. When `incompleteCoverage` is true, more matching refs existed
+ * than were returned; callers must not claim completeness.
+ */
+export type ListRefsResult = {
+  refs: RefInfo[];
+  incompleteCoverage: boolean;
+  /** Matching refs observed before applying GIT_REFS_UI_BOUND (may exceed refs.length). */
+  matchedCount: number;
+};
+
+export type FileContentKind = "markdown" | "text" | "binary" | "too_large";
+
 export type FileContentResult = {
   path: string;
   ref: string;
@@ -22,8 +38,18 @@ export type FileContentResult = {
    * Blob object SHA (GitHub Contents API). Must not be treated as a commit SHA.
    */
   sha: string;
+  /** Empty when contentKind is binary or too_large — never invent fallback text. */
   content: string;
-  encoding: "utf-8";
+  encoding: "utf-8" | "binary";
+  contentKind: FileContentKind;
+};
+
+export type DirectoryEntry = {
+  name: string;
+  path: string;
+  type: "file" | "dir";
+  sha: string;
+  size?: number;
 };
 
 export type PullRequestInfo = {
@@ -47,12 +73,19 @@ export interface GitHubProvider {
     path: string,
     ref: string,
   ): Promise<FileContentResult>;
+  /** Non-recursive directory listing at ref (bounded). */
+  listDirectory(
+    pilotId: string,
+    fullName: string,
+    path: string,
+    ref: string,
+  ): Promise<DirectoryEntry[]>;
   /** Bounded list of refs (branches/tags) for an authorized repository. */
   listRefs(
     pilotId: string,
     fullName: string,
     refPrefix?: string,
-  ): Promise<RefInfo[]>;
+  ): Promise<ListRefsResult>;
   createBranch(
     pilotId: string,
     fullName: string,

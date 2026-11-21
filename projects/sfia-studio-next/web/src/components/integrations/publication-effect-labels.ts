@@ -56,7 +56,9 @@ export function dispatchButtonLabel(effectProviderMode: string | undefined | nul
 
 export function mergeDispatchButtonLabel(effectProviderMode: string | undefined | null): string {
   const provider = effectProviderLabel(effectProviderMode);
-  if (provider === "REAL") return "Déclencher merge (REAL — hard-blocked serveur)";
+  if (provider === "REAL") {
+    return "Déclencher merge (REAL — gate documentary + préconditions SHA)";
+  }
   if (provider === "SCRIPTED") return "Déclencher merge (SCRIPTED)";
   return "Déclencher merge";
 }

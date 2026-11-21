@@ -2038,6 +2038,39 @@ register(
   },
 );
 
+/** E08 — documentary merge fixtures (exact utterance → d7.merge_publication). */
+function mergePublicationQualification(
+  prNumber: number,
+  repositoryFullName?: string,
+): NoraTurnQualification {
+  return effect(
+    `Merge documentaire PR #${prNumber}`,
+    `Je prépare la fusion de la PR documentaire #${prNumber} sous votre mandat — Studio reste propriétaire de l'autorisation et de l'effet.`,
+    [
+      {
+        capabilityId: "d7.merge_publication",
+        mode: "REQUEST_EFFECT",
+        summary: `Fusionner la PR documentaire #${prNumber}`,
+        parameters: {
+          prNumber,
+          ...(repositoryFullName ? { repositoryFullName } : {}),
+        },
+        constraints: [],
+        dependsOn: [],
+        sourceEvidence: [],
+      },
+    ],
+  );
+}
+
+register("Merge la PR #42.", mergePublicationQualification(42));
+register("Fusionne la PR documentaire #42 du dépôt X.", mergePublicationQualification(42));
+register("Peux-tu merger la PR #7 ?", mergePublicationQualification(7));
+
+const MERGE_PR_FIXTURE_RE = /^Merge la PR #(\d{1,6})\.?$/i;
+const MERGE_PR_REPO_FIXTURE_RE =
+  /^Merge la PR #(\d{1,6}) du dépôt ([A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+)\.?$/i;
+
 /** Short TEST_BOUNDARY keys for e2e (exact match, same envelopes as the natural utterances). */
 for (const [short, long] of [
   ["E05_S2_DIAGNOSTIC", E05_S2_DIAGNOSTIC],
@@ -2122,6 +2155,15 @@ export function fixtureSemanticQualify(userText: string): NoraTurnQualification 
         ],
       },
     );
+  }
+  // E08 TEST_BOUNDARY — parameterized positive merge only (negations stay dialogue-default).
+  const mergeRepo = text.match(MERGE_PR_REPO_FIXTURE_RE);
+  if (mergeRepo?.[1] && mergeRepo[2]) {
+    return mergePublicationQualification(Number(mergeRepo[1]), mergeRepo[2]);
+  }
+  const mergePr = text.match(MERGE_PR_FIXTURE_RE);
+  if (mergePr?.[1]) {
+    return mergePublicationQualification(Number(mergePr[1]));
   }
   // Fail closed: unknown fixture text is dialogue-only, never a lexical invent of effects.
   return dialogue(

@@ -25,11 +25,13 @@ function testPem(): string {
 
 function creds(overrides?: Partial<GitHubAppLoadedCredentials>): GitHubAppLoadedCredentials {
   const pem = testPem();
+  const allowedFullName = overrides?.allowedFullName ?? GITHUB_APP_ALLOWED_FULL_NAME;
   return {
     appId: GITHUB_APP_EXPECTED_APP_ID,
     installationId: GITHUB_APP_EXPECTED_INSTALLATION_ID,
     privateKeyPem: pem,
-    allowedFullName: GITHUB_APP_ALLOWED_FULL_NAME,
+    allowedFullName,
+    allowedFullNames: overrides?.allowedFullNames ?? [allowedFullName],
     expectedOwner: GITHUB_APP_EXPECTED_OWNER,
     lane: "DEV",
     meta: {
@@ -40,7 +42,7 @@ function creds(overrides?: Partial<GitHubAppLoadedCredentials>): GitHubAppLoaded
       pathIsFile: true,
       pathMode: "0600",
       pathSizeBytes: 100,
-      allowedFullName: GITHUB_APP_ALLOWED_FULL_NAME,
+      allowedFullName,
       expectedOwner: GITHUB_APP_EXPECTED_OWNER,
       lane: "DEV",
     },

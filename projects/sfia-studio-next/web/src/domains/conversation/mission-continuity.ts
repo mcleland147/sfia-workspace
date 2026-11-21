@@ -17,6 +17,7 @@ import {
 import { listProjectGitLinks } from "@/domains/integrations/project-link-service";
 import { StudioError } from "@/lib/http-errors";
 import { emitObs } from "@/lib/observability";
+import { extractPublicationBranchHint as extractBranchHintStrict } from "./conversation-publication-mandate-guards";
 import { generateNoraReply } from "./nora-adapter";
 import type { DocumentEffectSummary } from "./document-act";
 
@@ -89,12 +90,9 @@ export type PublicationMissionIntent = {
 /** Server-side marker: only attempts prepared with this prefix are Nora missions. */
 export const NORA_MISSION_PUB_PREFIX = "pub:mission:";
 
-/** Technical path/branch capture — not a métier intent router. */
+/** Technical path capture — not a métier intent router. */
 const PATH_RE =
   /(?:(?:chemin|path|fichier)\s*[:=]?\s*|sous\s+)[`"]?([A-Za-z0-9_./\-]+\.(?:md|markdown|txt))[`"]?/i;
-
-const BRANCH_RE =
-  /(?:branche|branch)\s*[:=]?\s*[`"]?([A-Za-z0-9._/\-]+)[`"]?/i;
 
 export function isNoraMissionPublicationKey(correlationKey: string): boolean {
   return correlationKey.startsWith(NORA_MISSION_PUB_PREFIX);
@@ -125,8 +123,9 @@ export function extractPublicationPathHint(userText: string): string | null {
   return userText.match(PATH_RE)?.[1] ?? null;
 }
 
+/** Delegates to P0-01 strict extractor — never captures "du"/"de" as branch names. */
 export function extractPublicationBranchHint(userText: string): string | null {
-  return userText.match(BRANCH_RE)?.[1] ?? null;
+  return extractBranchHintStrict(userText);
 }
 
 export function missionCorrelationKeys(clientIntentKey: string): {
