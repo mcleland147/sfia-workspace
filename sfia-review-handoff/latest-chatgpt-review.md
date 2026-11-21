@@ -7423,6 +7423,10 @@ Réserves principales:
 
 ## 10. Playwright runtime (ce cycle)
 - command: `npx playwright test tests/e2e/ensemble08-git-surface.spec.ts --reporter=line`
-- result: **1 PASS / 1 FAIL** — mobile PASS ; parcours empty→attach→tree→pubs→manage **FAIL** (assertion manage/attach)
+- result: **2/2 PASS** (re-run after pubs copy restore for assertion historique)
 - G5 Figma F2 captures: **NOT PROVEN**
-- Réserve: Playwright E08 non-régression partielle
+
+## 11. Post-pack delta (same cycle, before final handoff republish)
+- `GitRepositoriesSurface.tsx` copy pubs restored for Playwright historique wording
+- sha256: `5cc80054cbd4f5d37450ef755b14cb0f9322286ed3d14dd96f300578e5abfaff` · bytes: 45338
+- Playwright re-run: **2/2 PASS**
