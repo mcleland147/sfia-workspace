@@ -3,14 +3,14 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Version | **0.1 — 21 novembre 2026** |
-| Autorité de recette | **Morris — observations utilisateur, aucune acceptation exprimée** |
+| Version | **0.2 — 21 novembre 2026** |
+| Autorité de recette | **Morris — acceptation UAT du 21/11/2026 avec réserve UX unique** |
 | Périmètre | **R5 / ML4D / Ensemble 07** — SAS, création, Projet, Travail, Trajectoire, CKI, Nora |
 | Projet de recette | **Equip'Campus**, projet fictif |
-| Statut | **MORRIS UAT IN PROGRESS — FUNCTIONAL GAPS OBSERVED — DIAGNOSIS REQUIRED** |
+| Statut | **MORRIS UAT ACCEPTED — FINAL UX RESERVE TECHNICALLY CLEARED (pending SHA in §12)** |
 | Nature | PV évolutif, constats, réserves et demandes de diagnostic ; document **non normatif** |
 | Publication documentaire | Branche dédiée **docs/next-ensemble07-recette-20261121**, issue de **main@6e93a33d64dfeea2eab88fb7896d733b34053f97** |
-| Acceptation | **NON PRONONCÉE** ; aucun GO de correction, PR, merge, release ou ADOPTED |
+| Acceptation | **ACCEPTÉE** (périmètre présenté) avec réserve UX unique Acquis/À clarifier ; **pas** de PR/merge/STABLE/ADOPTED |
 
 > **Précédence des observations.** Le handoff technique de déploiement conclut « RECETTE AVAILABLE — MORRIS UAT REQUIRED » au moment de la mise à disposition. Les observations réelles de Morris du 21 novembre interviennent **après** ce handoff et ne modifient pas rétroactivement les tests techniques. Les captures de la conversation constituent ici les preuves visuelles disponibles ; elles ne sont pas encore archivées en binaires dans Git.
 
@@ -280,4 +280,28 @@ Sources de gouvernance et conception :
 
 **Statut des sources Git :** main consultée à **6e93a33d64dfeea2eab88fb7896d733b34053f97** ; candidat produit E07 local non mergé ; présent PV documentaire indépendant.
 
-**Historique :** v0.1 — consolidation initiale des constats Equip'Campus (21/11/2026).
+## 12. Décision Morris — 21/11/2026 (acceptation avec réserve unique)
+
+**Décision Morris du 21/11/2026 :**
+
+> Ensemble 07 accepté en recette utilisateur, avec réserve UX unique concernant la répartition 50/50 des panneaux Acquis identifiés et À clarifier dans Trajectoire. Les autres éléments présentés sont acceptés. La levée de cette réserve nécessite la correction, sa preuve F2 et sa livraison en RECETTE.
+
+### Levée technique de la réserve (Cursor — même journée)
+
+| Champ | Valeur |
+| --- | --- |
+| Correctif | Conteneur commun `trajectory-cycle-knowledge-row` : `minmax(0,640fr) minmax(0,646fr)` + gap 24 · `min-w-0` · wrap |
+| Fichier propriétaire | `web/src/components/figma/TrajectoryBoard.tsx` |
+| Preuves F2 | `.tmp-sfia-review/ensemble07-acquis-panels-fix/` — 09.02 / 09.09 @ 1680×970 · Δ≤2 CSS px |
+| Mesures typiques | acquis **639** · clarifier **645** · gap **24** · h **157** |
+| Candidat code | *(SHA delivery figé — reporté dans delivery-history / Review Pack)* |
+| RECETTE | http://127.0.0.1:3200 — bascule après PASS F2 |
+| Distinction | Acceptation utilisateur **déjà donnée** ; la présente ligne constate seulement la **levée technique** de la réserve UX |
+
+### Réserves historiques hors correction (non rouvertes)
+
+Les réserves UAT historiques (E07-UAT-01…14, FIX-03 autonomie, Nora LIVE globale, SAS06 modal PARTIAL, etc.) restent **identifiées** et ne sont pas traitées par ce correctif. Elles n'empêchent pas l'acceptation Morris du périmètre UX présenté le 21/11, sous la réserve unique désormais levée techniquement.
+
+**Verdict documentaire :** `ENSEMBLE 07 — MORRIS UAT ACCEPTED — FINAL UX RESERVE TECHNICALLY CLEARED — READY FOR GIT INTEGRATION REVIEW` (sous réserve SHA/build RECETTE consignés dans le Review Pack du cycle).
+
+**Historique :** v0.1 — consolidation initiale des constats Equip'Campus (21/11/2026). · v0.2 — acceptation Morris + levée technique réserve Acquis/À clarifier (21/11/2026).
