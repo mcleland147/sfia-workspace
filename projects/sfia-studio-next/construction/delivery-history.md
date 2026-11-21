@@ -3,6 +3,22 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-PR687-SAS06-RESPONSIVE-CI
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — remédiation CI PR #687 · SAS06 responsive |
+| Type | CORRECTIVE / QA / CI / GIT · **NO RELEASE** · Gate C OPEN |
+| Parent tip avant correctif | `8b256c72…` (run CI `44902434109` **CANCELLED** Morris — non FAIL fonctionnel) |
+| Cause | CTA « Accéder » hors viewport @1280×720 ; `min(124px,8vh)` dérivait aussi le padding desktop (−46px @970h) |
+| Correctif | `clamp(16px, calc(100vh − 726px − 24px), 124px)` + carte 702×726 avec `maxHeight` ; overlay/card scrollables |
+| Preuves locales | `sas06-responsive-viewports` 2 PASS · `g4-b1-b4` PASS · `ensemble04-cp01-cp02` PASS · tsc PASS |
+| F2 desktop | padTop 124 · card 702×726 · tol ≤2 @1680×970 |
+| Push | branche `sfia/next-ensemble07-git-integration` · PR #687 |
+| RECETTE / UX 11/11 | **non mutés** · UAT `5ad8fa57` reste ancêtre |
+| Verdict | **ENSEMBLE 07 — SAS06 RESPONSIVE VERIFIED LOCALLY — CI CANDIDATE PENDING REQUIRED CHECKS** |
+
 ## delivery_id: DELIV-2026-11-21-ENSEMBLE07-ACQUIS-PANELS-50-50
 
 | Field | Value |

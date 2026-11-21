@@ -31,7 +31,7 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation + **correctif co
 20. **CKI éditorial 09.05** : `cki-editorial.ts` parse le corpus vérifié → projection `editorial` ; UI rubriques Figma.
 21. **Layout Figma desktop** : `data-project-figma-layout` (padding 0/38) · header projet 70 px · hero natif 37 px · séparateur · panneaux à y≈287.
 22. **Finalité cycle** : `cycle-objective-display.ts` — instructions OPEN non affichées / non persistées comme finalité métier.
-23. **SAS06** : modal 702×726 + SVG Figma sous `web/public/figma/sas06/`.
+23. **SAS06** : modal Figma `1022:164` carte **702×726** · padding-top desktop **124px** via `clamp(16px, calc(100vh − 726px − 24px), 124px)` (124 @1680×970 ; réduit @720p) · overlay/carte `overflow-y: auto` · CTA « Accéder au projet » atteignable · SVG sous `web/public/figma/sas06/`.
 24. **Preuves F2** : `.tmp-sfia-review/ensemble07-dip-cycle8-final/` (cycle 8) ; Page 10 `.tmp-sfia-review/ensemble07-page10-experiment/`.
 25. **Page 10** : shell instance partagé · Acquis/À clarifier toujours rendus · suite envisagée = forecast (pas copy Figma) · markers SVG actif/envisagé/clôturé · 09.10 via `STUDIO_DEV_HOLD_INITIAL_QUALIFICATION=1`.
 26. **Acquis / À clarifier 50/50** : conteneur commun `grid-cols-[minmax(0,640fr)_minmax(0,646fr)]` gap 24 · `min-w-0` · `break-words` (plus `truncate`) · F2 09.02/09.09 Δ≤2 · stack `grid-cols-1` sous `md`.
@@ -57,7 +57,7 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation + **correctif co
 | `web/src/app/projects/[projectId]/page.tsx` | refresh pilotage au changement de surface |
 | `web/src/domains/pilotage/cki-editorial.ts` | projection éditoriale lecture seule depuis octets CKI vérifiés |
 | `web/src/components/figma/TrajectoryBoard.tsx` | surface Trajectoire 09.02–09.11 + CKI/méthode 09.05 |
-| `web/src/components/figma/SasCreateProgressPopup.tsx` | pop-up SAS06 702×726 (assets SVG en réserve) |
+| `web/src/components/figma/SasCreateProgressPopup.tsx` | pop-up SAS06 702×726 · padding-top clamp Figma/responsive · scroll CTA |
 | `web/src/components/figma/ProjectOverview.tsx` | 09.01 / 09.06 |
 | `web/src/components/figma/NoraConversation.tsx` | verrou 05.17 |
 

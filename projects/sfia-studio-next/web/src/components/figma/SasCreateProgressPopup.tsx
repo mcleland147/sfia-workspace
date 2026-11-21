@@ -58,8 +58,11 @@ export function SasCreateProgressPopup(props: {
       className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto"
       style={{
         background: "rgba(6,9,17,0.78)",
-        // Figma desktop uses 124px; clamp so the CTA stays reachable on 720p CI/default PW.
-        padding: "min(124px, 8vh) 16px 24px",
+        // Figma desktop (1680×970): top = 124px when viewport fits card+chrome.
+        // Short viewports (e.g. PW 1280×720): shrink top padding (floor 16px) so the
+        // 702×726 card can scroll and "Accéder au projet" stays reachable.
+        // clamp(16px, 100vh − 726 − 24, 124px) → 124px @970h, 16px @720h.
+        padding: "clamp(16px, calc(100vh - 726px - 24px), 124px) 16px 24px",
       }}
       role="dialog"
       aria-modal="true"
@@ -70,14 +73,16 @@ export function SasCreateProgressPopup(props: {
         className="relative overflow-y-auto"
         style={{
           width: 702,
-          minHeight: "min(726px, calc(100vh - 48px))",
-          maxHeight: "calc(100vh - 48px)",
+          // Contractual Figma card 702×726; maxHeight only engages when viewport is short.
+          height: 726,
+          maxHeight: "calc(100vh - 40px)",
           maxWidth: "calc(100vw - 32px)",
           background: "#1b2639",
           border: "1px solid #2b3850",
           borderRadius: 18,
           color: "#f3f5ff",
         }}
+        data-testid="sas-create-progress-card"
       >
         <div
           aria-hidden
