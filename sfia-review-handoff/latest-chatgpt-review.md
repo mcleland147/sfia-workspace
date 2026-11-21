@@ -1,5 +1,10 @@
 # SFIA Review Pack FULL — Ensemble 07 · Correctif continuité pilotage gouverné
 
+> **Republish L3 (complétude)** — 2026-11-21 : correction `REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING`.
+> Les diffs des 3 fichiers précédemment annoncés sans contenu exploitable sont ajoutés en §12.B.
+> Aucun changement produit additionnel ; même arbre DEV local ; parent RECETTE `6ecdb987` inchangé.
+
+
 ## 1. Identité du cycle et GO Morris
 
 | Champ | Valeur |
@@ -104,7 +109,7 @@ Nouveaux continues : texte métier sans `projectId=`. Historique : projection si
 
 ## 12–13. Diff utile + nouveaux fichiers (intégral)
 
-### Diff fichiers modifiés (src)
+### Diff fichiers modifiés (src — 6 fichiers)
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 index 5fada7f5..790a5b84 100644
@@ -310,6 +315,147 @@ index f094dfcb..7cfafe04 100644
      return { ok: false, reasonCode: "INVALID", reason: "Type de cycle cible inconnu", sourceActionKey: "REJECT|INVALID|target-cycle" };
    }
 
+```
+
+### Diff fichiers modifiés (tests PG + documentation) — §12.B complétude
+
+Les trois fichiers ci-dessous étaient listés en §11 comme modifiés mais absents du diff §12 précédent.
+Contenu intégral du diff local non commité :
+
+```diff
+diff --git a/projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md b/projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md
+index 7c7ac2f0..9bf98d9b 100644
+--- a/projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md
++++ b/projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md
+@@ -1,13 +1,13 @@
+ # Ensemble 07 — As-built (qualification initiale Projet / Trajectoire / Nora)
+
+-**Statut:** construction DEV corrective — NO RELEASE · stabilisation fonctionnelle
+-**Base Git:** `e36fd8b0531c4f649830990a18f9cfdaecb3c03f`
+-**Branche:** `sfia/next-ensemble07-projet-trajectoire-delivery`
+-**Date:** 2026-11-20 (stabilisation fonctionnelle — UX gelée)
++**Statut:** construction DEV corrective — NO RELEASE · continuité pilotage gouverné (correctif post-RECETTE Equip'Campus)
++**Base Git figée RECETTE (immuable):** `6ecdb987ee867a04ff816b699eb8870ac200db0a` · tree `d0ad47ff515676f1c033a39030e886859f7272f7`
++**Worktree DEV (non commité):** correctifs locaux sur `sfia/next-ensemble07-projet-trajectoire-delivery`
++**Date:** 2026-11-21 (correctif intégré UAT-02/06/08/09/10/11/12)
+
+ ## Architecture retenue
+
+-Option A hybride (dossier §8.1) + corrections P0 stabilisation :
++Option A hybride (dossier §8.1) + corrections P0 stabilisation + **correctif continuité Pilot/Nora/Studio** :
+
+ 1. Après `createProjectCommand` confirmé : `ensureInitialQualification` (retry) **avant** `continueAfterProjectCreated`, puis `kickInitialQualificationProcessing` (P0-05).
+ 2. Kick uniquement depuis create / reconcile POST — **jamais depuis GET**.
+@@ -15,8 +15,13 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation :
+ 4. `resultJson.assistantContent` durable pour reprise exacte message (P0-02).
+ 5. Lien `preparation_project_links.initial_qualification_expected` (migration 016) : legacy = false → pas de verrou synthétique (P0-04).
+ 6. RETAIN conversationnel résout la PROPOSED courante côté serveur (FIX-08) — pas de cible D5 dans le body USER_MESSAGE.
+-7. Forecast déterministe + `validateStructuredForecast` (FIX-07) — LIVE Nora NOT PROVEN.
++7. Forecast déterministe + `validateStructuredForecast` (FIX-07) — LIVE Nora NOT PROVEN ce cycle.
+ 8. Documents « en cours » = statut `SAVING` uniquement (FIX-11).
++9. **Normalisation `cycleType`** à la frontière classify D5 (`cycle-type-normalize.ts`) — variants sûrs (`cadrage`→`CADRAGE`) ; inconnus refusés sans remap silencieux.
++10. **Catalogue cycles** injecté dans le contexte Nora (`nora-context.ts`) — identifiants + libellés seulement, pas les fiches CKI.
++11. **Restitution post-effet** déterministe (`composePilotageEffectRestitution`) avant persistance du message assistant — APPLIED / REJECTED / CONFLICT / UNKNOWN / ALREADY_APPLIED.
++12. **Projection fil Travail** : dumps techniques mission filtrés en lecture (`listMessages`) ; nouveaux continues métier sans `projectId=` brut.
++13. **Sync surfaces** : `selectSurface` déclenche `refreshDurablePilotage` (GET seul, sans mutation).
+
+ ## Persistance
+
+@@ -32,6 +37,11 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation :
+ | `web/src/domains/pilotage/initial-qualification.ts` | ensure / process / assert admission |
+ | `web/src/domains/pilotage/forecast-builder.ts` | séquence 1–3 cycles (déterministe FAKE) |
+ | `web/src/domains/pilotage/qualification-lock.ts` | règles de verrou compositeur |
++| `web/src/domains/pilotage/cycle-type-normalize.ts` | normalisation cycleType LIVE→D5 |
++| `web/src/domains/pilotage/nora-context.ts` | snippets pilotage + catalogue cycles |
++| `web/src/domains/conversation/pilotage-effect-restitution.ts` | restitution métier post-effet + filtre dumps |
++| `web/src/domains/conversation/service.ts` | compose restitution avant commit ; `listMessages` projection |
++| `web/src/app/projects/[projectId]/page.tsx` | refresh pilotage au changement de surface |
+ | `web/src/components/figma/TrajectoryBoard.tsx` | surface Trajectoire 09.02/07/10/11 |
+ | `web/src/components/figma/SasCreateProgressPopup.tsx` | pop-up SAS 06 allégée |
+ | `web/src/components/figma/ProjectOverview.tsx` | 09.01 / 09.06 |
+@@ -39,14 +49,13 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation :
+
+ ## Preuves
+
+-- Unit: `ensemble07-forecast-builder`, `ensemble07-qualification-lock`, `ensemble07-ensure-idempotent`
+-- Integration PG: `ensemble07-initial-qualification.pg.test.ts` (create→propose, idempotence, lock admission, clarification, failure)
+-- Build: `npm run build` OK
+-- Figma: 13/13 captures MCP locales sous `.tmp-sfia-review/ensemble07-evidence/figma/`
++- Unit: `ensemble07-forecast-builder`, `ensemble07-qualification-lock`, `ensemble07-ensure-idempotent`, `ensemble07-cycle-type-normalize` (`cadrage`→`CADRAGE`), `ensemble07-pilotage-effect-restitution`
++- Integration PG: `ensemble07-initial-qualification.pg.test.ts` (OPEN avec `cycleType=cadrage` → ACTIVE CADRAGE), `ml3-pilotage`, `intent-continuity-global`
++- LIVE Nora fournisseur : **NOT RUN — GATE REQUIRED** (pas de nouvel appel fournisseur ce cycle)
++- RECETTE `:3200` : **non mutée**
+
+ ## Réserves connues
+
+-- Fidélité visuelle pixel des 13 frames : itérations runtime encore requises avant READY visuel.
+-- Vues détail 09.03 / 09.04 / 09.05 : projection partielle (bilan / CKI éditorial) à enrichir.
+-- GO conversationnel D6→D5 : capacités PilotagePanel conservées ; parcours conversationnel principal à prouver en e2e navigateur.
+-- LIVE Nora fournisseur : NOT PROVEN (fixture DEV).
++- Fidélité visuelle pixel des 13 frames : hors mandat correctif (OUT Figma).
++- LIVE cognitive réelle sur projet synthétique DEV : gate Morris + autorisation fournisseur requises.
++- E2E navigateur sync sans F5 : à rejouer sur runtime DEV après gel candidat (preuve unitaire/PG + hook `selectSurface` en place).
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 1031bd24..04afe193 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -3,6 +3,21 @@
+ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+
++## delivery_id: DELIV-2026-11-21-ENSEMBLE07-GOVERNED-PILOTAGE-CONTINUITY-CORRECTIVE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-21 |
++| Macro-lot | Ensemble 07 — continuité du pilotage gouverné (correctif post-UAT Equip'Campus) |
++| Type | INC / correctif fonctionnel intégré · **NO RELEASE** · Gate C OPEN |
++| Worktree | `sfia-wt-ensemble07-projet-trajectoire-20261120` · branche `sfia/next-ensemble07-projet-trajectoire-delivery` · HEAD parent figé RECETTE `6ecdb987` (arbre DEV non commité) |
++| IN | UAT-10 normalize cycleType · UAT-11 restitution post-effet · UAT-08/09 catalogue Nora · UAT-02 filtre messages techniques · UAT-12 sync surfaces · UAT-06 taxonomie concernée |
++| OUT | Figma polish · mutation RECETTE · push projet · LIVE fournisseur · migration DB |
++| Tests | unit 702 PASS · PG 525 PASS · tsc PASS · OPEN `cadrage`→CADRAGE PG PROVEN · LIVE NOT RUN — GATE REQUIRED |
++| RECETTE | inchangée (`:3200` / BUILD `armX_D1HJzN6q-4MuDpYv` / SHA `6ecdb987`) |
++| Verdict | **ENSEMBLE 07 — DEV CORRECTIVE QUALIFIED WITH GOVERNED RESERVES — MORRIS ARBITRATION REQUIRED** |
++
++
+ ## delivery_id: DELIV-2026-11-20-ENSEMBLE07-FUNCTIONAL-STABILIZATION-CANDIDATE
+
+ | Field | Value |
+diff --git a/projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts
+index 6a33a906..3fc4838b 100644
+--- a/projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts
+@@ -675,22 +675,26 @@ describe("Ensemble 07 initial qualification (PG)", () => {
+     expect(["APPLIED", "ALREADY_APPLIED"]).toContain(retain.command?.status);
+     expect(retain.humanDecisionCreated || retain.decisionId).toBeTruthy();
+
++    // LIVE EquipCampus regression: semantic cycleType arrives as lowercase "cadrage".
+     const openQual = d5PilotageEnvelope({
+       operation: "OPEN_CYCLE",
+-      cycleType: "CADRAGE",
++      cycleType: "cadrage",
+       objective: "Clarifier le besoin",
+     });
+-    const openMsgId = await seedUserTurn("Ouvre le cycle cadrage.", openQual);
++    const openMsgId = await seedUserTurn(
++      "Je donne mon accord explicite pour ouvrir le premier cycle de cadrage.",
++      openQual,
++    );
+     const open = await applyConversationalAuthority({
+       pilotId,
+       projectId,
+       userMessageId: openMsgId,
+-      content: "Ouvre le cycle cadrage.",
++      content: "Je donne mon accord explicite pour ouvrir le premier cycle de cadrage.",
+       clientTurnKey: newId("ctk"),
+       preQualified: {
+         clarity: "CLEAR",
+         operation: "OPEN_CYCLE",
+-        cycleType: "CADRAGE",
++        cycleType: "cadrage",
+         objective: "Clarifier le besoin",
+         semanticIntentId: openQual.intents[0]?.id,
+         semanticSchemaVersion: openQual.schemaVersion,
 ```
 
 ### NEW FILE `projects/sfia-studio-next/web/src/domains/pilotage/cycle-type-normalize.ts`
