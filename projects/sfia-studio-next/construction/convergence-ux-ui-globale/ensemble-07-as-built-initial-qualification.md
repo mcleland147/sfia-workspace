@@ -1,9 +1,9 @@
 # Ensemble 07 — As-built (qualification initiale Projet / Trajectoire / Nora)
 
-**Statut:** construction DEV corrective — NO RELEASE · candidat Git local figé (post-RECETTE Equip'Campus)
-**Base Git figée RECETTE (immuable):** `6ecdb987ee867a04ff816b699eb8870ac200db0a` · tree `d0ad47ff515676f1c033a39030e886859f7272f7`
-**Branche DEV:** `sfia/next-ensemble07-projet-trajectoire-delivery` — gel local correctif (parent = base RECETTE)
-**Date:** 2026-11-21 (correctif intégré UAT-02/06/08/09/10/11/12 + QA concurrence GET)
+**Statut:** Cycle 8 final — Figma→Runtime qualifié · candidat local figé · déployé RECETTE · NO RELEASE
+**Base Git figée RECETTE antérieure:** `c500df9ce58575783bcb842bf83658e1837990a3` · tree `3794e3443906e144460e3f00ba1e82bb3504fdd3`
+**Branche DEV:** `sfia/next-ensemble07-projet-trajectoire-delivery`
+**Date:** 2026-11-21 (Cycle 8 final — layout F2 + CKI éditorial + finalité cycle + SAS06 assets)
 
 ## Architecture retenue
 
@@ -28,6 +28,11 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation + **correctif co
 17. **Trajectoire vs ACTIVE** : si cycle ACTIVE, les bandeaux qualification (CLARIFICATION/…) n'occultent plus parcours/CKI.
 18. **CKI UI** : `data-testid=trajectory-cki-id|trajectory-cki-absent` pour assertions navigateur strictes.
 19. **Course GET A/B** : QA-FINAL-01 Playwright prouve barrières A tenu → B appliqué+observable → A relâché sans écrasement (marqueurs objectifs).
+20. **CKI éditorial 09.05** : `cki-editorial.ts` parse le corpus vérifié → projection `editorial` ; UI rubriques Figma.
+21. **Layout Figma desktop** : `data-project-figma-layout` (padding 0/38) · header projet 70 px · hero natif 37 px · séparateur · panneaux à y≈287.
+22. **Finalité cycle** : `cycle-objective-display.ts` — instructions OPEN non affichées / non persistées comme finalité métier.
+23. **SAS06** : modal 702×726 + SVG Figma sous `web/public/figma/sas06/`.
+24. **Preuves F2** : `.tmp-sfia-review/ensemble07-dip-cycle8-final/`.
 
 ## Persistance
 
@@ -48,8 +53,9 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation + **correctif co
 | `web/src/domains/conversation/pilotage-effect-restitution.ts` | restitution métier post-effet + filtre dumps |
 | `web/src/domains/conversation/service.ts` | compose restitution avant commit ; `listMessages` projection |
 | `web/src/app/projects/[projectId]/page.tsx` | refresh pilotage au changement de surface |
-| `web/src/components/figma/TrajectoryBoard.tsx` | surface Trajectoire 09.02/07/10/11 |
-| `web/src/components/figma/SasCreateProgressPopup.tsx` | pop-up SAS 06 allégée |
+| `web/src/domains/pilotage/cki-editorial.ts` | projection éditoriale lecture seule depuis octets CKI vérifiés |
+| `web/src/components/figma/TrajectoryBoard.tsx` | surface Trajectoire 09.02–09.11 + CKI/méthode 09.05 |
+| `web/src/components/figma/SasCreateProgressPopup.tsx` | pop-up SAS06 702×726 (assets SVG en réserve) |
 | `web/src/components/figma/ProjectOverview.tsx` | 09.01 / 09.06 |
 | `web/src/components/figma/NoraConversation.tsx` | verrou 05.17 |
 
@@ -62,7 +68,7 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation + **correctif co
 
 ## Réserves connues
 
-- Fidélité visuelle pixel des 13 frames : hors mandat correctif (OUT Figma).
-- LIVE cognitive réelle sur projet synthétique DEV : gate Morris + autorisation fournisseur requises.
-- CONFLICT/UNKNOWN : UNIT DETERMINISTIC ; BROWSER NOT RUN ce cycle.
-- LIVE Nora fournisseur : NOT RUN.
+- SAS06 popup : seed prep n'ouvre pas toujours le modal — structure/assets prouvés en code + capture prep ; smoke RECETTE sans nouveau GO Nora.
+- 09.03/09.10/09.07 : mesurés en capture ; certains sélecteurs secondaires absents selon seed (états métier variables).
+- LIVE Nora fournisseur : NOT RUN ce cycle.
+- Acceptation finale Morris UAT : **REQUIRED**.

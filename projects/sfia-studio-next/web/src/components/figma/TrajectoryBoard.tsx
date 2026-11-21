@@ -5,6 +5,10 @@ import Link from "next/link";
 import type { ForecastStep } from "@/domains/pilotage/forecast-builder";
 import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
 import type { PilotageProjection } from "@/domains/pilotage/types";
+import {
+  CYCLE_OBJECTIVE_PENDING_LABEL,
+  displayableCycleObjective,
+} from "@/domains/pilotage/cycle-objective-display";
 
 const CYCLE_LABELS: Record<string, string> = {
   CADRAGE: "Cadrage",
@@ -114,11 +118,11 @@ export function TrajectoryBoard(props: {
   }
 
   return (
-    <div className="trajectory-board space-y-5" data-testid="trajectory-board">
-      <header className="space-y-2" data-testid="trajectory-hero">
+    <div className="trajectory-board" data-testid="trajectory-board">
+      <header className="e07-surface-hero" data-testid="trajectory-hero">
         <p className="fig-kicker text-[#7477ed]">ESPACE PROJET / TRAJECTOIRE</p>
-        <h2 className="fig-hero-title">Trajectoire du projet</h2>
-        <p className="fig-hero-sub max-w-3xl">
+        <h2 className="e07-surface-hero-title">Trajectoire du projet</h2>
+        <p className="e07-surface-hero-sub max-w-3xl">
           {showAnalyzing
             ? "Le projet est créé. Nora prépare actuellement une première orientation de cycles."
             : showProposal
@@ -128,6 +132,7 @@ export function TrajectoryBoard(props: {
                 : "Ce qui est terminé, ce qui est en cours et ce qui pourrait suivre."}
         </p>
       </header>
+      <div className="e07-section-rule" aria-hidden data-testid="trajectory-hero-sep" />
 
       {showUnknown ? (
         <section className="fig-panel space-y-2" data-testid="trajectory-unknown">
@@ -323,35 +328,50 @@ function PropositionInitialeCard(props: {
 }) {
   return (
     <section
-      className="fig-panel space-y-5"
+      className="fig-panel flex flex-col"
       data-testid="trajectory-proposal-sequential"
-      style={{ borderColor: "#2b3850" }}
+      style={{
+        borderColor: "#2b3850",
+        width: "100%",
+        maxWidth: 1358,
+        minHeight: 545,
+        padding: "32px 36px",
+      }}
     >
       <div>
         <p className="fig-kicker text-[#7477ed]">PROPOSITION INITIALE DE NORA</p>
-        <h3 className="text-[1.45rem] font-semibold text-[#f3f5ff] mt-1">
+        <h3 className="mt-2 text-[1.45rem] font-semibold text-[#f3f5ff]">
           Une progression possible pour ce projet
         </h3>
-        <p className="text-sm text-[#a3b0c7] mt-2 max-w-3xl">
+        <p className="mt-2 max-w-3xl text-sm text-[#a3b0c7]">
           Une suite séquentielle de cycles ; ce ne sont pas trois options concurrentes. Aucun cycle
           n&apos;est encore ouvert.
         </p>
       </div>
 
-      <div className="flex flex-wrap items-stretch gap-3" data-testid="trajectory-forecast-steps">
+      <div
+        className="mt-8 flex flex-nowrap items-stretch overflow-x-auto"
+        style={{ gap: 49 }}
+        data-testid="trajectory-forecast-steps"
+      >
         {props.forecast.map((step, idx) => {
           const isFirst = idx === 0;
           return (
-            <div key={`${step.order}-${step.cycleType}`} className="flex items-stretch gap-3 min-w-0">
+            <div
+              key={`${step.order}-${step.cycleType}`}
+              className="flex flex-none items-stretch"
+              style={{ gap: 16 }}
+            >
               <button
                 type="button"
                 onClick={() => props.onOpenFuture(step)}
-                className="fig-panel text-left space-y-2 flex-none"
+                className="fig-panel flex-none space-y-2 text-left"
                 style={{
                   width: 404,
                   minHeight: 155,
                   borderColor: isFirst ? "#7477ED88" : "#2B3850",
                   background: isFirst ? "#7477ED0d" : "#151D2C",
+                  padding: "20px 22px",
                 }}
                 data-testid={`trajectory-forecast-step-${step.order}`}
               >
@@ -363,7 +383,7 @@ function PropositionInitialeCard(props: {
                   {labelCycle(step.cycleType)}
                 </p>
                 {step.rationale ? (
-                  <p className="text-sm text-[#a3b0c7] line-clamp-3">{step.rationale}</p>
+                  <p className="line-clamp-3 text-sm text-[#a3b0c7]">{step.rationale}</p>
                 ) : null}
               </button>
               {idx < props.forecast.length - 1 ? (
@@ -376,7 +396,21 @@ function PropositionInitialeCard(props: {
         })}
       </div>
 
-      <div className="flex justify-center pt-2">
+      <div
+        className="mt-8 rounded-[10px] border border-[#2b3850] bg-[#121a28] px-5 py-4"
+        data-testid="trajectory-proposal-waiting"
+      >
+        <p className="text-sm text-[#a3b0c7]">
+          Proposition non retenue — en attente d&apos;une décision du Pilote. Aucun cycle n&apos;est
+          ouvert.
+        </p>
+      </div>
+
+      <div className="mt-auto flex flex-wrap items-end justify-between gap-4 pt-6">
+        <p className="max-w-xl text-sm text-[#7787a4]">
+          Les trois cycles visibles constituent une projection de trajectoire, pas trois cycles
+          ouverts.
+        </p>
         <button
           type="button"
           className="btn primary"
@@ -486,16 +520,18 @@ function ParcoursPrincipal(props: {
           </p>
         ) : (
           <div
-            className="flex flex-wrap items-stretch gap-3"
+            className="flex flex-nowrap items-stretch overflow-x-auto"
+            style={{ gap: 49 }}
             data-testid="trajectory-roadmap-cards"
           >
             {cards.map((card, idx) => (
-              <div key={card.key} className="flex items-stretch gap-3">
+              <div key={card.key} className="flex flex-none items-stretch" style={{ gap: 16 }}>
                 <article
                   className="fig-panel relative space-y-2 overflow-hidden"
                   style={{
                     width: 396,
                     minHeight: 128,
+                    padding: "16px 18px",
                     borderColor:
                       card.status === "closed"
                         ? "#6cdbba55"
@@ -596,7 +632,13 @@ function ParcoursPrincipal(props: {
           <h3 className="text-[1.45rem] font-semibold text-[#f3f5ff]">
             {labelCycle(props.cycle.cycleType)}
           </h3>
-          <p className="text-sm text-[#a3b0c7]">{props.cycle.objective}</p>
+          <p
+            className="text-sm text-[#a3b0c7]"
+            data-testid="trajectory-cycle-objective"
+          >
+            {displayableCycleObjective(props.cycle.objective) ??
+              CYCLE_OBJECTIVE_PENDING_LABEL}
+          </p>
           <div className="flex flex-wrap gap-4 pt-1">
             <Link
               href={`/projects/${props.projectId}?surface=journal`}
@@ -670,7 +712,8 @@ function BilanHistoriqueView(props: {
       <section className="fig-panel space-y-2">
         <p className="fig-kicker text-[#7477ed]">OBJECTIF DU CYCLE</p>
         <p className="text-sm text-[#a3b0c7]">
-          {props.cycle?.objective?.trim() || "Objectif initial non reconstitué."}
+          {displayableCycleObjective(props.cycle?.objective) ??
+            "Objectif métier non reconstitué pour ce cycle."}
         </p>
         <div className="h-px bg-[#2b3850]" />
         <p className="fig-kicker text-[#7477ed]">RÉSULTAT À LA CLÔTURE</p>
@@ -816,13 +859,17 @@ function CkiMethodeView(props: {
 }) {
   const cycle = props.pilotage?.cycle;
   const method = props.pilotage?.method;
+  const editorial = cycle?.cki.editorial ?? null;
+  const displayTitle = editorial?.title ?? null;
+  const ordinal = editorial?.ordinal ?? (cycle?.cki.ckiId?.match(/^(\d{2})/)?.[1] ?? null);
+
   return (
-    <div className="space-y-5" data-testid="trajectory-cki-methode">
-      <header className="flex flex-wrap items-start justify-between gap-3">
-        <div className="space-y-2">
+    <div className="trajectory-cki" data-testid="trajectory-cki-methode">
+      <header className="e07-surface-hero flex flex-wrap items-start justify-between gap-3">
+        <div>
           <p className="fig-kicker text-[#7477ed]">TRAJECTOIRE / RÉFÉRENCES DU CYCLE</p>
-          <h2 className="fig-hero-title">CKI et méthode</h2>
-          <p className="fig-hero-sub max-w-3xl">
+          <h2 className="e07-surface-hero-title">CKI et méthode</h2>
+          <p className="e07-surface-hero-sub max-w-3xl">
             Deux références distinctes : la spécialisation cognitive du cycle et la méthode
             applicable au projet.
           </p>
@@ -835,47 +882,122 @@ function CkiMethodeView(props: {
           ← Retour à la trajectoire
         </button>
       </header>
+      <div className="e07-section-rule" aria-hidden />
 
       {/* Figma 09.05 — asymmetric: CKI ~872px, méthode ~464px */}
       <div
-        className="grid gap-4"
-        style={{ gridTemplateColumns: "minmax(0, 872fr) minmax(0, 464fr)" }}
+        className="grid"
+        style={{ gridTemplateColumns: "minmax(0, 872fr) minmax(0, 464fr)", gap: 22 }}
         data-testid="trajectory-cki-layout"
       >
-        <section className="fig-panel space-y-3" data-testid="trajectory-cki-main">
-          <p className="fig-kicker text-[#7477ed]">GUIDANCE CKI PRINCIPALE</p>
+        <section
+          className="fig-panel flex flex-col gap-0"
+          data-testid="trajectory-cki-main"
+          style={{ padding: "22px 26px", minHeight: 586 }}
+        >
           {cycle?.cki.ckiId ? (
             <>
+              <p
+                className="text-[12px] font-semibold uppercase tracking-[0.06em] text-[#7477ed]"
+                data-testid="trajectory-cki-ordinal"
+              >
+                CKI PRINCIPAL{ordinal ? ` / ${ordinal}` : ""}
+              </p>
               <h3
-                className="text-[1.45rem] font-semibold text-[#f3f5ff]"
+                className="mt-3 text-[23px] font-semibold leading-tight text-[#f3f5ff]"
                 data-testid="trajectory-cki-id"
                 data-cki-id={cycle.cki.ckiId}
               >
-                {cycle.cki.ckiId}
+                {displayTitle ?? cycle.cki.ckiId}
               </h3>
-              <p className="text-sm text-[#a3b0c7]">
-                Référence applicable au cycle {labelCycle(cycle.cycleType)}
-                {cycle.cki.pinnedVersion ? ` · version ${cycle.cki.pinnedVersion}` : ""}
-              </p>
-              <div className="h-px bg-[#2b3850]" />
-              <p className="text-[10px] uppercase tracking-wide text-[#a3b0c7]">Finalité</p>
-              <p className="text-sm text-[#f3f5ff]">{cycle.objective}</p>
-              <div className="h-px bg-[#2b3850]" />
-              <p className="text-[10px] uppercase tracking-wide text-[#a3b0c7]">Disponibilité</p>
-              <p className="text-sm text-[#a3b0c7]">
-                {cycle.cki.availability} — ASSOCIATED / RESOLVED / DELIVERED restent distincts ;
-                aucun claim DELIVERED sans preuve.
-              </p>
+              {editorial?.corpusVersion ? (
+                <p className="mt-3 text-[12px] text-[#a3b0c7]" data-testid="trajectory-cki-version">
+                  Corpus Next {editorial.corpusVersion} · Contenu validé · Référence éditoriale
+                </p>
+              ) : cycle.cki.pinnedVersion ? (
+                <p className="mt-3 text-[12px] text-[#a3b0c7]">
+                  Version épinglée {cycle.cki.pinnedVersion}
+                </p>
+              ) : null}
+
+              {editorial?.resultSought ? (
+                <>
+                  <div className="my-5 h-px bg-[#2b3850]" />
+                  <p className="text-[10px] font-semibold uppercase tracking-wide text-[#a3b0c7]">
+                    Résultat recherché
+                  </p>
+                  <p
+                    className="mt-2 text-sm leading-relaxed text-[#f3f5ff]"
+                    data-testid="trajectory-cki-result"
+                  >
+                    {editorial.resultSought}
+                  </p>
+                </>
+              ) : null}
+
+              {editorial?.relevance ? (
+                <>
+                  <div className="my-5 h-px bg-[#2b3850]" />
+                  <p className="text-[10px] font-semibold uppercase tracking-wide text-[#a3b0c7]">
+                    Quand cette spécialité est pertinente
+                  </p>
+                  <p
+                    className="mt-2 text-sm leading-relaxed text-[#f3f5ff]"
+                    data-testid="trajectory-cki-relevance"
+                  >
+                    {editorial.relevance}
+                  </p>
+                </>
+              ) : null}
+
+              {editorial && editorial.angles.length > 0 ? (
+                <>
+                  <div className="my-5 h-px bg-[#2b3850]" />
+                  <p className="text-[10px] font-semibold uppercase tracking-wide text-[#a3b0c7]">
+                    Principaux angles d&apos;analyse
+                  </p>
+                  <div
+                    className="mt-4 grid gap-3"
+                    style={{ gridTemplateColumns: "repeat(3, minmax(0, 1fr))" }}
+                    data-testid="trajectory-cki-angles"
+                  >
+                    {editorial.angles.map((angle) => (
+                      <article
+                        key={angle.title}
+                        className="rounded-[10px] border border-[#2b3850] bg-[#121a28] p-4"
+                        data-testid="trajectory-cki-angle"
+                      >
+                        <h4 className="text-sm font-semibold text-[#f3f5ff]">{angle.title}</h4>
+                        <p className="mt-2 text-xs leading-relaxed text-[#a3b0c7]">
+                          {angle.summary}
+                        </p>
+                      </article>
+                    ))}
+                  </div>
+                </>
+              ) : null}
+
+              {!editorial ? (
+                <>
+                  <div className="my-5 h-px bg-[#2b3850]" />
+                  <p className="text-sm text-[#a3b0c7]" data-testid="trajectory-cki-editorial-pending">
+                    Contenu éditorial indisponible pour ce pin (
+                    {cycle.cki.availability}
+                    ). La fiche CKI n&apos;est affichée que lorsque les octets vérifiés sont
+                    résolus.
+                  </p>
+                </>
+              ) : null}
             </>
           ) : (
             <>
               <h3
-                className="text-lg font-semibold text-[#f3f5ff]"
+                className="mt-3 text-lg font-semibold text-[#f3f5ff]"
                 data-testid="trajectory-cki-absent"
               >
                 Aucun CKI principal actif
               </h3>
-              <p className="text-sm text-[#a3b0c7]">
+              <p className="mt-2 text-sm text-[#a3b0c7]">
                 Un CKI principal n&apos;existe qu&apos;avec un cycle réellement ouvert. Aucune
                 génération automatique à l&apos;ouverture.
               </p>
@@ -883,30 +1005,58 @@ function CkiMethodeView(props: {
           )}
         </section>
 
-        <section className="fig-panel space-y-3" data-testid="trajectory-method-side">
-          <p className="fig-kicker text-[#7477ed]">MÉTHODE APPLICABLE AU PROJET</p>
+        <section
+          className="fig-panel flex flex-col"
+          data-testid="trajectory-method-side"
+          style={{ padding: "22px 24px", minHeight: 586 }}
+        >
+          <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-[#7477ed]">
+            MÉTHODE DU PROJET
+          </p>
           {method?.presence === "RETAINED" ? (
             <>
-              <h3 className="text-lg font-semibold text-[#f3f5ff]">{method.methodRef}</h3>
-              <p className="text-sm text-[#a3b0c7]">Version {method.methodVersion}</p>
-              <div className="h-px bg-[#2b3850]" />
-              <p className="text-[10px] uppercase tracking-wide text-[#a3b0c7]">Statut</p>
-              <p className="text-sm text-[#a3b0c7]">
-                Retenue par décision Pilote
-                {method.usageRestricted ? " — usage restreint" : ""}.
+              <h3 className="mt-3 text-[23px] font-semibold leading-tight text-[#f3f5ff]">
+                {method.methodRef}
+              </h3>
+              <p className="mt-3 text-[12px] text-[#a3b0c7]">
+                Version {method.methodVersion} · méthode retenue par le Pilote
+                {method.usageRestricted ? " · usage restreint" : ""}
+              </p>
+              <div className="my-5 h-px bg-[#2b3850]" />
+              <p className="text-[12px] font-semibold uppercase tracking-wide text-[#a3b0c7]">
+                Référence applicable
+              </p>
+              <p className="mt-3 text-[15px] leading-relaxed text-[#f3f5ff]">
+                La méthode retenue est une donnée du projet. Son choix, sa portée et son évolution
+                relèvent des décisions du Pilote.
               </p>
               {method.usageNote ? (
-                <>
-                  <div className="h-px bg-[#2b3850]" />
-                  <p className="text-sm text-[#a3b0c7]">{method.usageNote}</p>
-                </>
+                <p className="mt-3 text-sm text-[#a3b0c7]">{method.usageNote}</p>
               ) : null}
+              <div className="my-5 h-px bg-[#2b3850]" />
+              <p className="text-[12px] font-semibold uppercase tracking-wide text-[#a3b0c7]">
+                Séparation des responsabilités
+              </p>
+              <p className="mt-3 text-[13px] leading-relaxed text-[#a3b0c7]">
+                La méthode n&apos;est pas le CKI. Le CKI apporte une guidance spécialisée, sans
+                imposer de processus ni autoriser une décision.
+              </p>
             </>
           ) : (
             <>
-              <h3 className="text-lg font-semibold text-[#f3f5ff]">Aucune méthode retenue</h3>
-              <p className="text-sm text-[#a3b0c7]">
+              <h3 className="mt-3 text-[23px] font-semibold leading-tight text-[#f3f5ff]">
+                Aucune méthode retenue
+              </h3>
+              <p className="mt-3 text-[12px] text-[#a3b0c7]">
+                Absence valide · distincte du CKI principal
+              </p>
+              <div className="my-5 h-px bg-[#2b3850]" />
+              <p className="text-[12px] font-semibold uppercase tracking-wide text-[#a3b0c7]">
+                Séparation des responsabilités
+              </p>
+              <p className="mt-3 text-[13px] leading-relaxed text-[#a3b0c7]">
                 La méthode applicable est distincte du CKI et n&apos;est pas imposée par Nora.
+                L&apos;absence de méthode retenue est un état valide.
               </p>
             </>
           )}

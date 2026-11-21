@@ -2066,13 +2066,80 @@
 }
 
 .project-space-header--breadcrumb-only {
-  min-height: 0;
+  min-height: 70px;
+  height: 70px;
   gap: 0;
-  padding-bottom: 4px;
+  padding: 0;
   flex-shrink: 0;
-  /* No differentiated navy panel behind intro — breadcrumb only. */
-  background: transparent;
-  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  background: #0a0e18;
+  border-bottom: 1px solid #273148;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+/* Figma 09.* surface heroes — fixed native sizes (no clamp drift). */
+.e07-surface-hero {
+  padding-top: 41px; /* header 70 → kicker y=111 */
+  margin: 0;
+}
+
+.e07-surface-hero .fig-kicker {
+  margin: 0;
+  font-size: 11px;
+  line-height: 20px;
+  height: 20px;
+}
+
+.e07-surface-hero-title {
+  margin: 14px 0 0;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 37px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--fig-ink, #f3f5ff);
+  min-height: 52px; /* Figma title box ~55px */
+}
+
+.e07-surface-hero-sub {
+  margin: 5px 0 0;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--fig-muted, #a3b0c7);
+  max-width: 52rem;
+  min-height: 51px; /* Figma description box */
+}
+
+.e07-section-rule {
+  margin-top: 13px; /* Figma: desc end ~256 → sep 269 */
+  margin-bottom: 20px; /* Figma: sep 269 → panel 289 */
+  height: 1px;
+  width: 100%;
+  max-width: 1358px;
+  background: #2b3850;
+}
+
+.project-overview,
+.trajectory-board,
+.trajectory-cki {
+  display: flex;
+  flex-direction: column;
+  max-width: 1358px;
+}
+
+/* Spacing between panels after the hero rule (not between hero parts). */
+.trajectory-board > .e07-section-rule ~ * + *,
+.trajectory-cki > .e07-section-rule ~ * + * {
+  margin-top: 20px;
+}
+
+/* Projet: only the first panel follows the rule; activity spacing is explicit. */
+.project-overview > .e07-section-rule + * {
+  margin-top: 0;
 }
 
 .project-space-breadcrumb {

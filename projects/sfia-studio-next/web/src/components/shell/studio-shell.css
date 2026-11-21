@@ -125,6 +125,25 @@ html.studio-shell-lock body {
   max-height: none;
 }
 
+/* Ensemble 07 — Projet / Trajectoire: Figma frame 1680×970, header 70, content x=284. */
+.studio-shell-main[data-project-figma-layout="1"] {
+  padding: 0 38px 24px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.studio-shell-main[data-project-figma-layout="1"] > .project-space-page {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  gap: 0;
+  max-width: none;
+  margin: 0;
+  width: 100%;
+}
+
 .studio-shell-main-mobile-pad {
   padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
 }

@@ -3,6 +3,33 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-FIGMA-RUNTIME-UX-CYCLE8-FINAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — Cycle 8 final Figma→Runtime + deploy RECETTE |
+| Type | EVOL / UX / CORRECTIVE / DELIVERY / DEPLOY · **NO RELEASE** · Gate C OPEN |
+| Parent | `c500df9c…` / tree `3794e344…` |
+| Layout | shell `data-project-figma-layout` · header 70 · hero Figma native · y panels **287** |
+| CKI | editorial corpus + display objectif métier (pas instruction OPEN) |
+| SAS06 | modal 702×726 + SVG natifs `public/figma/sas06/` |
+| F2 | 13/13 examinés · panneaux critiques 09.01/05/06/11 w/h/y ≤2 px |
+| Tests | unit 31 PASS · PG E07 15 PASS · tsc PASS · build PASS |
+| RECETTE | bascule LaunchAgent `ml4d-ux004` vers candidat final (voir handoff) |
+| Push projet | **NONE** |
+| Verdict | **ENSEMBLE 07 — FIGMA/RUNTIME QUALIFIED — CORRECTED CANDIDATE DEPLOYED TO RECETTE — TECHNICAL SMOKE PASS — MORRIS FINAL UAT REQUIRED** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-FIGMA-RUNTIME-UX-CYCLE8
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — Cycle 8 convergence UX Figma → Runtime (intermédiaire) |
+| Type | EVOL / UX / CORRECTIVE · **NO RELEASE** · Gate C OPEN |
+| Parent gel | `c500df9c…` / tree `3794e344…` (arbre local modifié) |
+| Verdict | **FIGMA TO RUNTIME PARTIAL** — supersédé par FINAL |
+
 ## delivery_id: DELIV-2026-11-21-ENSEMBLE07-LOCAL-GIT-FREEZE-CORRECTIVE
 
 | Field | Value |

@@ -22,6 +22,8 @@ import {
   markDecisionState,
 } from "@/domains/decisions/service";
 import { isCycleType, resolveForOpen, resolvePinnedCki, type CycleType } from "@/domains/pilotage/cki-resolve";
+import { loadCkiEditorialForPin } from "@/domains/pilotage/cki-editorial";
+import { persistableCycleObjective } from "@/domains/pilotage/cycle-objective-display";
 import { tryCanonicalCycleType } from "@/domains/pilotage/cycle-type-normalize";
 import { parseForecastJson } from "@/domains/pilotage/forecast-builder";
 import { getQualificationProjection } from "@/domains/pilotage/initial-qualification";
@@ -225,13 +227,33 @@ export async function getPilotageProjection(pilotId: string, projectId: string):
           status: cycle.status,
           objective: cycle.objective,
           revision: cycle.revision,
-          cki: resolvePinnedCki({
-            ckiId: cycle.ckiId,
-            contentDigest: cycle.ckiContentDigest,
-            pinnedVersion: cycle.ckiPinnedVersion,
-            manifestRef: cycle.ckiManifestRef,
-            pinOrigin: cycle.ckiPinOrigin,
-          }),
+          cki: (() => {
+            const pin = resolvePinnedCki({
+              ckiId: cycle.ckiId,
+              contentDigest: cycle.ckiContentDigest,
+              pinnedVersion: cycle.ckiPinnedVersion,
+              manifestRef: cycle.ckiManifestRef,
+              pinOrigin: cycle.ckiPinOrigin,
+            });
+            const editorialRaw = loadCkiEditorialForPin({
+              ckiId: pin.ckiId,
+              contentDigest: pin.contentDigest,
+              availability: pin.availability,
+            });
+            return {
+              ...pin,
+              editorial: editorialRaw
+                ? {
+                    ordinal: editorialRaw.ordinal,
+                    title: editorialRaw.title,
+                    corpusVersion: editorialRaw.corpusVersion,
+                    resultSought: editorialRaw.resultSought,
+                    relevance: editorialRaw.relevance,
+                    angles: editorialRaw.angles,
+                  }
+                : null,
+            };
+          })(),
         }
       : null,
     method: method
@@ -886,7 +908,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
       id: cycleId,
       projectId,
       cycleType: command.cycleType,
-      objective: (command.objective || `Cycle ${command.cycleType}`).slice(0, 2000),
+      objective: persistableCycleObjective(command.objective, command.cycleType),
       status: "ACTIVE",
       revision: 1,
       openedAt: now,
@@ -977,7 +999,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
       id: openedId,
       projectId,
       cycleType: command.toCycleType,
-      objective: (command.objective || `Cycle ${command.toCycleType}`).slice(0, 2000),
+      objective: persistableCycleObjective(command.objective, command.toCycleType),
       status: "ACTIVE",
       revision: 1,
       openedAt: now,

@@ -155,6 +155,15 @@ export type PilotageProjection = {
       manifestRef: string | null;
       pinOrigin: string | null;
       availability: CkiAvailability;
+      /** Editorial rubrics from verified CKI corpus bytes (09.05). Null if not RESOLVED. */
+      editorial: {
+        ordinal: string;
+        title: string;
+        corpusVersion: string;
+        resultSought: string | null;
+        relevance: string | null;
+        angles: Array<{ title: string; summary: string }>;
+      } | null;
     };
   } | null;
   method:

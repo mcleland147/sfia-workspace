@@ -361,7 +361,11 @@ test.describe("Ensemble 07 BROWSER continuity (01–06)", () => {
     const ckiNode = page.getByTestId("trajectory-cki-id");
     await expect(ckiNode).toBeVisible({ timeout: 15000 });
     await expect(ckiNode).toHaveAttribute("data-cki-id", open.ckiId!);
-    await expect(ckiNode).toHaveText(open.ckiId!);
+    // 09.05 — editorial title from corpus, not technical id (id remains in data-cki-id)
+    await expect(ckiNode).not.toHaveText(open.ckiId!);
+    await expect(page.getByTestId("trajectory-cki-result")).toBeVisible();
+    await expect(page.getByTestId("trajectory-cki-relevance")).toBeVisible();
+    await expect(page.getByTestId("trajectory-cki-angles")).toBeVisible();
     await shot(page, "b01-cki-region");
 
     // Sans F5: leave CKI, return, same identity
