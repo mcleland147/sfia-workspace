@@ -1,5 +1,6 @@
 import { seedInspectedNameViaApi } from "./helpers/g4-chat-first";
 import { test, expect } from "@playwright/test";
+import { clickCreateProjectAndEnter } from "./helpers/create-project-from-prep";
 import fs from "fs";
 import path from "path";
 
@@ -21,8 +22,7 @@ async function loginAndCreateProject(page: import("@playwright/test").Page, labe
   ).toBeVisible({ timeout: 30000 });
   await seedInspectedNameViaApi(page, { name: projectName, summary: label });
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
-  await page.getByTestId("prep-create-project").click();
-  await page.waitForURL("**/projects/**", { timeout: 15000 });
+  await clickCreateProjectAndEnter(page, { createTimeoutMs: 30000, navTimeoutMs: 30000 });
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
   await expect(page.getByTestId("project-load-state")).toHaveAttribute(

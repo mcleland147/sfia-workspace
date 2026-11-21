@@ -21,13 +21,11 @@ async function openProjectFromNewPrep(page: import("@playwright/test").Page): Pr
     summary: "S05 pending",
   });
   await expect(page.getByTestId("prep-proposal-ready")).toBeVisible({ timeout: 15000 });
-  const createBtn = page.getByTestId("prep-create-project");
-  await expect(createBtn).toBeEnabled({ timeout: 20000 });
-  await createBtn.click();
-  await page.waitForURL(/\/projects\//, { timeout: 30000 });
-  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-  if (!projectId) throw new Error("projectId missing");
-  return projectId;
+  const { clickCreateProjectAndEnter } = await import("./helpers/create-project-from-prep");
+  return clickCreateProjectAndEnter(page, {
+    createTimeoutMs: 20_000,
+    navTimeoutMs: 30_000,
+  });
 }
 
 test("S05: independent COMPLETE leaves pending A identity intact", async ({ page }) => {

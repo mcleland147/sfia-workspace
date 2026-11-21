@@ -1,5 +1,6 @@
 import { seedInspectedNameViaApi } from "./helpers/g4-chat-first";
 import { test, expect } from "@playwright/test";
+import { clickCreateProjectAndEnter } from "./helpers/create-project-from-prep";
 import path from "path";
 import fs from "fs";
 
@@ -385,8 +386,7 @@ test.describe("UX-004 portfolio shell", () => {
     const uniqueName = `Projet UX004 ${Date.now()}`;
     await seedInspectedNameViaApi(page, { name: uniqueName, summary: "résumé" });
     await expect(page.getByTestId("prep-proposal-ready")).toBeVisible();
-    await page.getByTestId("prep-create-project").click();
-    await page.waitForURL("**/projects/**", { timeout: 15000 });
+    await clickCreateProjectAndEnter(page, { createTimeoutMs: 30000, navTimeoutMs: 30000 });
     const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
 
     // Ensemble 04 — project desktop rail fixed at 246 px across surfaces (Figma 652:*).

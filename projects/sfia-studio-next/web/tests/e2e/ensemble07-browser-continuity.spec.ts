@@ -1,4 +1,5 @@
 import { test, expect, type Page, type APIRequestContext } from "@playwright/test";
+import { clickCreateProjectAndEnter } from "./helpers/create-project-from-prep";
 import fs from "node:fs";
 import path from "node:path";
 import {
@@ -212,14 +213,7 @@ async function createSyntheticProject(page: Page): Promise<{ projectId: string; 
     name,
     summary: "E07 browser continuity synthetic",
   });
-  await expect(page.getByTestId("prep-create-project")).toBeEnabled({ timeout: 30000 });
-  await page.getByTestId("prep-create-project").click();
-  const access = page.getByRole("button", { name: /Accéder au projet/i });
-  await expect(access).toBeEnabled({ timeout: 60000 });
-  await access.click();
-  await page.waitForURL("**/projects/**", { timeout: 30000 });
-  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-  expect(projectId).toBeTruthy();
+  const projectId = await clickCreateProjectAndEnter(page, { createTimeoutMs: 60000, navTimeoutMs: 30000 });
   return { projectId: projectId!, name };
 }
 

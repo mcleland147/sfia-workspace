@@ -1,5 +1,6 @@
 import { openSasSecondaryTool, backToSasConversation } from "./helpers/g4-chat-first";
 import { test, expect } from "@playwright/test";
+import { clickCreateProjectAndEnter } from "./helpers/create-project-from-prep";
 
 /**
  * G4 chat-first sas — BROWSER on isolated E2E lane (not operator DEV :3100).
@@ -43,7 +44,6 @@ test("G4 chat-first: discuss → living projection → create; journal empty str
   await expect(page.getByTestId("journal-empty-structure")).toBeVisible();
 
   await backToSasConversation(page);
-  await page.getByTestId("prep-create-project").click();
-  await page.waitForURL("**/projects/**", { timeout: 15000 });
+  await clickCreateProjectAndEnter(page, { createTimeoutMs: 30000, navTimeoutMs: 30000 });
   await expect(page.getByTestId("nora-workspace")).toBeVisible();
 });

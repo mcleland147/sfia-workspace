@@ -98,15 +98,21 @@ export async function constituteAndCreateProject(
   const name = opts.alreadyUnique ? opts.name : uniqueProjectName(opts.name);
   await seedInspectedNameViaApi(page, { name, summary: opts.summary });
   await page.getByTestId("prep-create-project").click();
-  // Fail fast on Morris same-pilot name uniqueness instead of opaque URL timeout.
-  const navigated = page.waitForURL("**/projects/**", { timeout: 20000 });
+  // E07 SAS06: progress popup gates navigation until "Accéder au projet".
   const nameConflict = page
     .getByText(/Ce nom est déjà utilisé/i)
     .waitFor({ state: "visible", timeout: 20000 })
     .then(() => {
       throw new Error(`create blocked: project name already used for this pilot (${name})`);
     });
-  await Promise.race([navigated, nameConflict]);
+  const enterViaPopup = (async () => {
+    await expect(page.getByTestId("sas-create-progress-popup")).toBeVisible({
+      timeout: 20000,
+    });
+    await page.getByTestId("sas-create-progress-dismiss").click();
+    await page.waitForURL("**/projects/**", { timeout: 20000 });
+  })();
+  await Promise.race([enterViaPopup, nameConflict]);
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
   return projectId!;
@@ -114,12 +120,11 @@ export async function constituteAndCreateProject(
 
 /** Primary path: living projection already has a name — create without adjust. */
 export async function createFromLivingProjection(page: Page): Promise<string> {
-  await expect(page.getByTestId("prep-create-project")).toBeEnabled({ timeout: 30000 });
-  await page.getByTestId("prep-create-project").click();
-  await page.waitForURL("**/projects/**", { timeout: 20000 });
-  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-  expect(projectId).toBeTruthy();
-  return projectId!;
+  const { clickCreateProjectAndEnter } = await import("./create-project-from-prep");
+  return clickCreateProjectAndEnter(page, {
+    createTimeoutMs: 30_000,
+    navTimeoutMs: 20_000,
+  });
 }
 
 /** Portfolio → prep → Nora seed → create project (common ML1/ML2/ML3 bootstrap). */

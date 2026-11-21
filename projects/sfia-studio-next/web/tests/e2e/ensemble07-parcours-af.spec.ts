@@ -1,4 +1,5 @@
 import { test, expect, type Page, type APIRequestContext } from "@playwright/test";
+import { clickCreateProjectAndEnter } from "./helpers/create-project-from-prep";
 import {
   openNewPreparation,
   seedInspectedNameViaApi,
@@ -171,15 +172,7 @@ async function createProjectBrowser(page: Page): Promise<{ projectId: string; na
     name,
     summary: "Cadrage Ensemble 07 candidate preparation",
   });
-  await expect(page.getByTestId("prep-create-project")).toBeEnabled({ timeout: 30000 });
-  await page.getByTestId("prep-create-project").click();
-
-  const access = page.getByRole("button", { name: /Accéder au projet/i });
-  await expect(access).toBeEnabled({ timeout: 60000 });
-  await access.click();
-  await page.waitForURL("**/projects/**", { timeout: 30000 });
-  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-  expect(projectId).toBeTruthy();
+  const projectId = await clickCreateProjectAndEnter(page, { createTimeoutMs: 60000, navTimeoutMs: 30000 });
   return { projectId: projectId!, name };
 }
 
