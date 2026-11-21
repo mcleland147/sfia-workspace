@@ -289,7 +289,7 @@ Verdicts de travail :
 **Décision Morris du 21/11/2026 :** la [page 10 — Projet & Trajectoire, expérimentation Auto Layout](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1069-100) est **validée visuellement pour servir de cible au test de transposition**. Elle conserve la direction artistique de la [page 09](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=983-46), avec quelques ajustements acceptés. **VALIDATED SPEC pour ce test ≠ pixel-perfect prouvé ≠ méthode adoptée globalement ≠ runtime validé.**
 
 - **Scope de référence : onze états 09.01–09.11 sur la page 10**, chacun 1680×970. Ce nombre n'inclut ni SAS06 ni Travail 05.17, qui restent des références séparées pour leurs parcours et tests de régression.
-- Les onze frames de la page 10 ont pour node-ids, dans l'ordre : \`1069:101\`, \`1069:122\`, \`1069:161\`, \`1069:212\`, \`1069:235\`, \`1069:296\`, \`1069:317\`, \`1069:335\`, \`1069:359\`, \`1069:391\`, \`1069:409\`.
+- Les onze frames de la page 10 ont pour node-ids, dans l'ordre : `1069:101`, `1069:122`, `1069:161`, `1069:212`, `1069:235`, `1069:296`, `1069:317`, `1069:335`, `1069:359`, `1069:391`, `1069:409`.
 - **Observations de préparation Figma :** 11 frames copiées ; quatre composants locaux dupliqués et reconnectés ; un composant partagé de shell projet (rail 246 px et bandeau haut 70 px) intégré comme instance dans chacune ; variables de couleurs/espacement expérimentales ; stacks de titres et rangées principales Auto Layout. Un contrôle natif a comparé **370/370 éléments de la page 09 à leurs équivalents page 10 sur x/y/w/h, delta 0 sur ces seuls éléments**. Il **n'établit pas** la conformité complète du nouveau shell, de toutes les propriétés textuelles, de tous les styles ni de l'image finale ; certaines couches restent en position absolue.
 - **Source mutable :** les pages Figma et leurs ids n'enferment pas un snapshot immuable ; Cursor doit capturer PNG natifs + digests et enregistrer le moment/version des acquisitions. Le document Git n'affirme aucune preuve de fiabilité d'extraction MCP ni de runtime.
 
@@ -301,7 +301,7 @@ Le test ne se contente pas de reproduire le même résultat visuel ; il doit exp
 
 Pour chaque élément test :
 
-1. **Acquisition native Figma L0/L1/L2 :** récupérer \`layoutMode\`, parent/ordre des descendants, positionnement intentionnel, min/max/FIXED/HUG/FILL, paddings, gaps, styles/variables, maîtres/instances/overrides, vrais SVG et PNG.
+1. **Acquisition native Figma L0/L1/L2 :** récupérer `layoutMode`, parent/ordre des descendants, positionnement intentionnel, min/max/FIXED/HUG/FILL, paddings, gaps, styles/variables, maîtres/instances/overrides, vrais SVG et PNG.
 2. **Comparaison de l'extractibilité :** noter les champs observés, manquants et les gains réellement obtenus page 10. Ne pas prétendre qu'Auto Layout corrige les icônes ou le métier sans oracle explicite.
 3. **Correspondance produit :** identifier la responsabilité React/CSS existante et la différence entre une **variante de présentation** et un **état métier**. Ne pas reproduire les valeurs fictives « Projet Horizon », les dates, chiffres et étapes des maquettes comme données Equip'Campus.
 4. **Fixture déterministe par état :** exposer la bonne variante dans un environnement DEV isolé, en lecture/rendu, sans muter Equip'Campus ni créer de moteur métier parallèle. Capturer le vrai écran, y compris 09.10 « analyse en cours », sans remplacer une modal ouverte par la page sous-jacente.
@@ -312,7 +312,7 @@ Pour chaque élément test :
 
 Produire **une ligne par élément/état critique**, et un bilan par chaque frame (11/11) :
 
-\`frame & variant / Figma node/parent / layout mode / token/asset / product owner / DOM locator / expected style & rect / actual style & rect / delta / PNG source+hash / PNG runtime+SHA / browser interaction / PASS-FAIL-NOT PROVEN / root cause / exit\`.
+`frame & variant / Figma node/parent / layout mode / token/asset / product owner / DOM locator / expected style & rect / actual style & rect / delta / PNG source+hash / PNG runtime+SHA / browser interaction / PASS-FAIL-NOT PROVEN / root cause / exit`.
 
 **Gates fermants :**
 
