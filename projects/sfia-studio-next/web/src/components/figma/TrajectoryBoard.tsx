@@ -52,12 +52,13 @@ export function TrajectoryBoard(props: {
     proposed?.forecastSteps ?? retained?.forecastSteps ?? q?.forecastSteps ?? null;
   const closed = props.pilotage?.closedCycles ?? [];
   // E07-COR-12 — exclusive display matrix (no stacked contradiction).
-  const showUnknown = q?.status === "UNKNOWN";
-  const showAnalyzing = Boolean(
-    q && (q.status === "PENDING" || q.status === "RUNNING"),
-  );
-  const showClarification = q?.status === "CLARIFICATION";
-  const showFailed = q?.status === "FAILED";
+  // QA-FINAL — an ACTIVE cycle owns Trajectoire: qualification banners must not hide parcours/CKI.
+  const hasActiveCycle = Boolean(cycle && cycle.status === "ACTIVE");
+  const showUnknown = !hasActiveCycle && q?.status === "UNKNOWN";
+  const showAnalyzing =
+    !hasActiveCycle && Boolean(q && (q.status === "PENDING" || q.status === "RUNNING"));
+  const showClarification = !hasActiveCycle && q?.status === "CLARIFICATION";
+  const showFailed = !hasActiveCycle && q?.status === "FAILED";
   const hasRetained = Boolean(retained);
   const hasProposedOnly = Boolean(proposed) && !hasRetained;
   // E07-COR-11 — proposition initiale only when PROPOSED (not already RETAINED).
@@ -66,7 +67,7 @@ export function TrajectoryBoard(props: {
     !showUnknown &&
     !showClarification &&
     !showFailed &&
-    !cycle &&
+    !hasActiveCycle &&
     closed.length === 0 &&
     hasProposedOnly &&
     Boolean(forecast && forecast.length > 0);
@@ -247,6 +248,14 @@ export function TrajectoryBoard(props: {
           onOpenCki={() => setDetail({ kind: "cki" })}
           onOpenTravail={props.onOpenTravail}
         />
+      ) : null}
+
+      {/* Always offer CKI entry when parcours banner is absent (clarification / retained / etc.). */}
+      {(showClarification || showFailed || showRetainedWithoutCycle || showUnknown) &&
+      !showProposal ? (
+        <div className="flex justify-end pt-2">
+          <CkiShortcut onOpen={() => setDetail({ kind: "cki" })} />
+        </div>
       ) : null}
     </div>
   );
@@ -598,6 +607,7 @@ function ParcoursPrincipal(props: {
             <button
               type="button"
               className="text-sm font-semibold text-[#7477ed] hover:underline"
+              data-testid="trajectory-open-cki"
               onClick={props.onOpenCki}
             >
               Accès CKI et méthode
@@ -836,7 +846,13 @@ function CkiMethodeView(props: {
           <p className="fig-kicker text-[#7477ed]">GUIDANCE CKI PRINCIPALE</p>
           {cycle?.cki.ckiId ? (
             <>
-              <h3 className="text-[1.45rem] font-semibold text-[#f3f5ff]">{cycle.cki.ckiId}</h3>
+              <h3
+                className="text-[1.45rem] font-semibold text-[#f3f5ff]"
+                data-testid="trajectory-cki-id"
+                data-cki-id={cycle.cki.ckiId}
+              >
+                {cycle.cki.ckiId}
+              </h3>
               <p className="text-sm text-[#a3b0c7]">
                 Référence applicable au cycle {labelCycle(cycle.cycleType)}
                 {cycle.cki.pinnedVersion ? ` · version ${cycle.cki.pinnedVersion}` : ""}
@@ -853,7 +869,12 @@ function CkiMethodeView(props: {
             </>
           ) : (
             <>
-              <h3 className="text-lg font-semibold text-[#f3f5ff]">Aucun CKI principal actif</h3>
+              <h3
+                className="text-lg font-semibold text-[#f3f5ff]"
+                data-testid="trajectory-cki-absent"
+              >
+                Aucun CKI principal actif
+              </h3>
               <p className="text-sm text-[#a3b0c7]">
                 Un CKI principal n&apos;existe qu&apos;avec un cycle réellement ouvert. Aucune
                 génération automatique à l&apos;ouverture.

@@ -73,6 +73,11 @@ import {
 import { buildNoraPilotageContext } from "@/domains/pilotage/nora-context";
 import { assertPilotTurnNotBlockedByQualification } from "@/domains/pilotage/initial-qualification";
 import {
+  composePilotageEffectRestitution,
+  isTechnicalMissionAssistantContent,
+  projectMetierMissionMessage,
+} from "@/domains/conversation/pilotage-effect-restitution";
+import {
   appendDocumentEffectAck,
   applyTargetedSectionRevision,
   assertSectionScope,
@@ -407,11 +412,21 @@ export async function listMessages(pilotId: string, preparationId: string) {
   // READ ≠ COMMAND: listing must not dispatch Git or mutate effects.
   const ctx = await getPreparationContext(pilotId, preparationId);
   if (!ctx.conversation) return [];
-  return db
+  const rows = await db
     .select()
     .from(messages)
     .where(eq(messages.conversationId, ctx.conversation.id))
     .orderBy(asc(messages.ordinal));
+  // E07 — project technical mission dumps as métier text (no DB rewrite).
+  return rows.map((m) => {
+    if (
+      m.role === "assistant" &&
+      isTechnicalMissionAssistantContent(m.content, m.generationId)
+    ) {
+      return { ...m, content: projectMetierMissionMessage(m.content) };
+    }
+    return m;
+  });
 }
 
 /**
@@ -534,12 +549,23 @@ export async function listTurnProjections(pilotId: string, preparationId: string
     if (!row.assistantMessageId || !row.resultJson) continue;
     const proj = extractTurnProjectionFromResultJson(row.resultJson);
     if (!proj) continue;
+    // E07 — surface durable Studio effect alongside turnProjection (sibling in resultJson).
+    let pilotageEffect: TurnResult["pilotageEffect"] = null;
+    try {
+      const parsed = JSON.parse(row.resultJson) as {
+        pilotageEffect?: TurnResult["pilotageEffect"];
+      };
+      pilotageEffect = parsed.pilotageEffect ?? null;
+    } catch {
+      pilotageEffect = null;
+    }
     out.push({
       ...proj,
       messageId: proj.messageId ?? row.assistantMessageId,
       turnCommandId: proj.turnCommandId ?? row.id,
       finalized: proj.finalized || row.status === "COMPLETE",
       status: proj.status || row.status,
+      pilotageEffect,
     });
   }
   return out;
@@ -2735,6 +2761,14 @@ export async function postUserMessageAndNora(
     const narrative = stripContractualDocumentFences(assistantBody);
     const fenced = serializeProposalFence(durableProposal);
     assistantBody = [narrative.trimEnd(), fenced].filter((s) => s.length > 0).join("\n\n");
+  }
+
+  // E07 — post-effect métier restitution: final assistant text must match Studio outcome.
+  if (!ownershipLostBeforeD4 && authority?.attempted) {
+    assistantBody = composePilotageEffectRestitution({
+      priorContent: assistantBody,
+      effect: pilotageEffectFromAuthority(authority) ?? null,
+    });
   }
 
   const assistantContentForCommit = ownershipLostBeforeD4

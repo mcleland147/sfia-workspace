@@ -527,19 +527,83 @@ for (const msg of [
   );
 }
 
+/**
+ * E07 corrective — LIVE EquipCampus emitted cycleType="cadrage" (lowercase).
+ * Fixture intentionally mirrors that semantic frontier; D5 classify must canonicalize.
+ * replyDraft includes the pre-effect hedge so post-effect restitution can be asserted.
+ */
+const OPEN_CADRAGE_REPLY =
+  "Je note votre accord pour ouvrir le cycle de cadrage. L'ouverture effective reste à confirmer par Studio.";
+
 register(
   "Ouvre le cycle cadrage.",
-  effect("Ouvrir cycle", "Intention d'ouverture de cycle — vérification propriétaire D5.", [
+  effect("Ouvrir cycle", OPEN_CADRAGE_REPLY, [
     {
       capabilityId: "d5.pilotage_command",
       mode: "REQUEST_EFFECT",
       summary: "OPEN_CYCLE CADRAGE",
-      parameters: { pilotageOperation: "OPEN_CYCLE", cycleType: "CADRAGE" },
+      parameters: { pilotageOperation: "OPEN_CYCLE", cycleType: "cadrage" },
       constraints: [],
       dependsOn: [],
       sourceEvidence: [],
     },
   ]),
+);
+
+register(
+  "Je donne mon accord explicite pour ouvrir le premier cycle de cadrage.",
+  effect("Ouvrir cycle GO naturel", OPEN_CADRAGE_REPLY, [
+    {
+      capabilityId: "d5.pilotage_command",
+      mode: "REQUEST_EFFECT",
+      summary: "OPEN_CYCLE CADRAGE (GO naturel)",
+      parameters: { pilotageOperation: "OPEN_CYCLE", cycleType: "cadrage" },
+      constraints: [],
+      dependsOn: [],
+      sourceEvidence: [],
+    },
+  ]),
+);
+
+register(
+  "Je retiens cette trajectoire.",
+  effect(
+    "Retenir trajectoire",
+    "Je note votre rétention de l'orientation. L'ouverture d'un cycle reste une décision distincte — confirmation Studio à suivre.",
+    [
+      {
+        capabilityId: "d5.pilotage_command",
+        mode: "REQUEST_EFFECT",
+        summary: "RETAIN_TRAJECTORY",
+        parameters: { pilotageOperation: "RETAIN_TRAJECTORY" },
+        constraints: [],
+        dependsOn: [],
+        sourceEvidence: [],
+      },
+    ],
+  ),
+);
+
+register(
+  "Ouvre le cycle comparaison_de_solutions.",
+  effect(
+    "Ouvrir type inconnu",
+    "Je vais demander l'ouverture du cycle comparaison_de_solutions. L'ouverture effective reste à confirmer par Studio.",
+    [
+      {
+        capabilityId: "d5.pilotage_command",
+        mode: "REQUEST_EFFECT",
+        summary: "OPEN_CYCLE type inconnu",
+        parameters: {
+          pilotageOperation: "OPEN_CYCLE",
+          cycleType: "comparaison_de_solutions",
+        },
+        constraints: [],
+        dependsOn: [],
+        sourceEvidence: [],
+      },
+    ],
+  ),
 );
 
 register(

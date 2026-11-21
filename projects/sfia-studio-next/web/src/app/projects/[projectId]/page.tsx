@@ -31,6 +31,7 @@ import {
   type RevisionRow,
   revisionCurrencyLabel,
 } from "@/components/figma/DocumentSurfaces";
+import { shouldApplyDurableRefresh } from "@/lib/durable-refresh-guard";
 import {
   conversationalClientCommandKey,
   mayClearComposerDraftOnReconcile,
@@ -911,6 +912,8 @@ export default function ProjectPage() {
 
   function selectSurface(next: Surface) {
     surfaceNavGenRef.current += 1;
+    const navGen = surfaceNavGenRef.current;
+    const projectIdAtNav = params.projectId;
     pendingSurfaceRef.current = next;
     noteProjectSurfaceNavIntent(params.projectId, next as StudioSurface);
     setSurface(next);
@@ -928,6 +931,11 @@ export default function ProjectPage() {
       resetDocumentBibliothequeState();
       syncSurfaceUrl(next, null, "push");
     }
+    // E07 — revalidate durable pilotage on surface change (GET only, no métier mutation).
+    // Stale-response guard lives inside refreshDurablePilotage (before setState).
+    void refreshDurablePilotage({ generation: navGen, projectId: projectIdAtNav }).catch(() => {
+      /* best-effort — navigation must stay non-blocking */
+    });
   }
 
   function headRevisionFromRows(rows: RevisionRow[]): RevisionRow | null {
@@ -1252,11 +1260,55 @@ export default function ProjectPage() {
     }
   }
 
-  async function refreshDurablePilotage() {
-    const projRes = await fetch(`/api/projects/${params.projectId}/pilotage`);
+  async function refreshDurablePilotage(opts?: { generation?: number; projectId?: string }) {
+    const request = {
+      generation: opts?.generation ?? surfaceNavGenRef.current,
+      projectId: opts?.projectId ?? params.projectId,
+    };
+    const stillApplicable = () =>
+      shouldApplyDurableRefresh({
+        request,
+        currentGeneration: surfaceNavGenRef.current,
+        currentProjectId: params.projectId,
+      });
+
+    // Prefer full project GET so surfaces (Projet / Trajectoire / CKI) share one durable snapshot.
+    const projRes = await fetch(`/api/projects/${request.projectId}`);
+    // Guard BEFORE any React mutation — out-of-order GETs must not clobber newer state.
+    if (!stillApplicable()) return;
+
     if (projRes.ok) {
-      const pj = await projRes.json();
-      const cycle = pj.pilotage?.cycle ?? pj.cycle;
+      const pj = (await projRes.json()) as {
+        pilotage?: PilotageProjection | null;
+        messages?: Msg[];
+      };
+      if (!stillApplicable()) return;
+      if (pj.pilotage) {
+        setPilotageProjection(pj.pilotage);
+      }
+      if (Array.isArray(pj.messages)) {
+        setMessages(pj.messages);
+      }
+      const cycle = pj.pilotage?.cycle;
+      if (cycle?.status === "ACTIVE") {
+        setPilotageStatus((prev) =>
+          prev.includes("OPEN_CYCLE") || prev.includes("ACTIVE")
+            ? prev
+            : `cycle ${cycle.cycleType} ACTIVE (relecture durable)`,
+        );
+      }
+      return;
+    }
+
+    // Fallback: dedicated pilotage route (same applicability gate)
+    const only = await fetch(`/api/projects/${request.projectId}/pilotage`);
+    if (!stillApplicable()) return;
+    if (only.ok) {
+      const pj = await only.json();
+      if (!stillApplicable()) return;
+      const pilotage = (pj.pilotage ?? pj) as PilotageProjection;
+      setPilotageProjection(pilotage);
+      const cycle = pilotage?.cycle;
       if (cycle?.status === "ACTIVE") {
         setPilotageStatus((prev) =>
           prev.includes("OPEN_CYCLE") || prev.includes("ACTIVE")
@@ -1896,8 +1948,12 @@ export default function ProjectPage() {
   }, [params.projectId, initialQualification?.status, initialQualification?.operationId]);
 
   // B2 — keep surface/document in sync with URL on Back/Forward without one-shot lock.
+  // Rail <Link> navigation converges here (not selectSurface). Own durable GET revalidation
+  // + generation bump so concurrent/stale project GETs cannot clobber a newer surface.
   useEffect(() => {
     surfaceNavGenRef.current += 1;
+    const navGen = surfaceNavGenRef.current;
+    const projectIdAtNav = params.projectId;
     const qSurface = parseSurface(searchParams.get("surface"));
     const qDocId = searchParams.get("documentId");
     applyUrlDocumentState(documentsRef.current, qSurface, qDocId);
@@ -1907,6 +1963,9 @@ export default function ProjectPage() {
     if (qSurface && peekProjectSurfaceNavIntent(params.projectId) === qSurface) {
       clearProjectSurfaceNavIntent(params.projectId, qSurface);
     }
+    void refreshDurablePilotage({ generation: navGen, projectId: projectIdAtNav }).catch(() => {
+      /* best-effort — URL surface sync must stay non-blocking */
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 

@@ -3,6 +3,64 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-LOCAL-GIT-FREEZE-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — gel Git local du correctif continuité (post-QA concurrence) |
+| Type | INC / gel candidat DEV · **NO RELEASE** · Gate C OPEN |
+| Parent | `6ecdb987ee867a04ff816b699eb8870ac200db0a` (RECETTE figée immuable) |
+| Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` |
+| QA-FINAL-01 | Course GET A/B : barrières + marqueurs ; rail URL effect appelle `refreshDurablePilotage` |
+| Tests gel | tsc PASS · unit **706** · PG **525** · browser continuity **7** · parcours-af **7 PASS / 2 SKIP** · build PASS |
+| LIVE / RECETTE | NOT RUN / non mutée (`:3200` HTTP 200 RO) |
+| Push projet | **NONE** |
+| Verdict | **ENSEMBLE 07 — LOCAL GIT CANDIDATE FROZEN — MORRIS RECETTE GATE REQUIRED** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-FINAL-QA-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — consolidation QA finale avant gel Git |
+| Type | INC / QA corrective · **NO RELEASE** · Gate C OPEN |
+| QA-01 | Guard `shouldApplyDurableRefresh` **avant** setState ; Playwright race stale GET |
+| QA-02 | CKI UI strict (`trajectory-cki-id` / absent) ; matrice Trajectoire n'occulte plus le parcours si ACTIVE |
+| QA-03 | Second OPEN corrélé au tour assistant (messageId ↔ turnProjection.pilotageEffect) |
+| CONFLICT/UNKNOWN | UNIT DETERMINISTIC ; BROWSER NOT RUN (déclaré) |
+| Tests | unit 706 PASS · PG 525 PASS · browser continuity 7 PASS · parcours-af 7/2 · build PASS |
+| Verdict | **ENSEMBLE 07 — DEV FINAL QA QUALIFIED WITH RESERVES — MORRIS ARBITRATION REQUIRED** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-BROWSER-CONTINUITY-QUALIFICATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — qualification navigateur du correctif continuité pilotage |
+| Type | INC / QA incrément · **NO RELEASE** · Gate C OPEN |
+| Worktree | même arbre DEV local non commité · parent RECETTE `6ecdb987` |
+| Preuves | BROWSER-01…06 Playwright `:3101` / `sfia_next_e2e` · fixture `cycleType=cadrage` · captures `.tmp-sfia-review/ensemble07-browser-evidence/` |
+| Correctifs QA | `listTurnProjections` expose `pilotageEffect` · `refreshDurablePilotage` recharge projection complète |
+| Tests | unit 702 PASS · PG 525 PASS · tsc PASS · browser continuity 6 PASS · LIVE NOT RUN |
+| RECETTE | non mutée |
+| Verdict | **ENSEMBLE 07 — DEV BROWSER QUALIFIED WITH RESERVES — MORRIS ARBITRATION REQUIRED** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-GOVERNED-PILOTAGE-CONTINUITY-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — continuité du pilotage gouverné (correctif post-UAT Equip'Campus) |
+| Type | INC / correctif fonctionnel intégré · **NO RELEASE** · Gate C OPEN |
+| Worktree | `sfia-wt-ensemble07-projet-trajectoire-20261120` · branche `sfia/next-ensemble07-projet-trajectoire-delivery` · HEAD parent figé RECETTE `6ecdb987` (arbre DEV non commité) |
+| IN | UAT-10 normalize cycleType · UAT-11 restitution post-effet · UAT-08/09 catalogue Nora · UAT-02 filtre messages techniques · UAT-12 sync surfaces · UAT-06 taxonomie concernée |
+| OUT | Figma polish · mutation RECETTE · push projet · LIVE fournisseur · migration DB |
+| Tests | unit 702 PASS · PG 525 PASS · tsc PASS · OPEN `cadrage`→CADRAGE PG PROVEN · LIVE NOT RUN — GATE REQUIRED |
+| RECETTE | inchangée (`:3200` / BUILD `armX_D1HJzN6q-4MuDpYv` / SHA `6ecdb987`) |
+| Verdict | **ENSEMBLE 07 — DEV CORRECTIVE QUALIFIED WITH GOVERNED RESERVES — MORRIS ARBITRATION REQUIRED** |
+
+
 ## delivery_id: DELIV-2026-11-20-ENSEMBLE07-FUNCTIONAL-STABILIZATION-CANDIDATE
 
 | Field | Value |

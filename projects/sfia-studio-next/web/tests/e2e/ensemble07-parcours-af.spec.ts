@@ -306,12 +306,13 @@ test.describe("Ensemble 07 parcours A–F (BROWSER FAKE — honest oracles)", ()
     expect(snap, "project snap missing").toBeTruthy();
     expect(snap!.cycleStatus, "C2 requires persisted ACTIVE cycle — no soft-pass").toBe("ACTIVE");
     expect(snap!.cycleId, "ACTIVE cycle must have durable id").toBeTruthy();
-    expect(snap!.cycleType).toBeTruthy();
+    // Fixture emits cycleType="cadrage"; classify must canonicalize to CADRAGE.
+    expect(snap!.cycleType).toBe("CADRAGE");
     // Projection exposes at most one ACTIVE (single object); closedCycles are separate.
     expect(snap!.closedCycleCount).toBeGreaterThanOrEqual(0);
     test.info().annotations.push({
       type: "note",
-      description: `C2 PASS — BROWSER DETERMINISTIC — GOVERNED OPEN PROVEN; cycleId=${snap!.cycleId}; type=${snap!.cycleType}; retained=${snap!.trajectoryRetained}; lastEffect=${snap!.lastPilotageEffect}; LIVE NL NOT PROVEN`,
+      description: `C2 PASS — BROWSER DETERMINISTIC — GOVERNED OPEN PROVEN (cadrage→CADRAGE); cycleId=${snap!.cycleId}; type=${snap!.cycleType}; retained=${snap!.trajectoryRetained}; lastEffect=${snap!.lastPilotageEffect}; LIVE NL NOT PROVEN`,
     });
   });
 

@@ -675,22 +675,26 @@ describe("Ensemble 07 initial qualification (PG)", () => {
     expect(["APPLIED", "ALREADY_APPLIED"]).toContain(retain.command?.status);
     expect(retain.humanDecisionCreated || retain.decisionId).toBeTruthy();
 
+    // LIVE EquipCampus regression: semantic cycleType arrives as lowercase "cadrage".
     const openQual = d5PilotageEnvelope({
       operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
+      cycleType: "cadrage",
       objective: "Clarifier le besoin",
     });
-    const openMsgId = await seedUserTurn("Ouvre le cycle cadrage.", openQual);
+    const openMsgId = await seedUserTurn(
+      "Je donne mon accord explicite pour ouvrir le premier cycle de cadrage.",
+      openQual,
+    );
     const open = await applyConversationalAuthority({
       pilotId,
       projectId,
       userMessageId: openMsgId,
-      content: "Ouvre le cycle cadrage.",
+      content: "Je donne mon accord explicite pour ouvrir le premier cycle de cadrage.",
       clientTurnKey: newId("ctk"),
       preQualified: {
         clarity: "CLEAR",
         operation: "OPEN_CYCLE",
-        cycleType: "CADRAGE",
+        cycleType: "cadrage",
         objective: "Clarifier le besoin",
         semanticIntentId: openQual.intents[0]?.id,
         semanticSchemaVersion: openQual.schemaVersion,

@@ -9,8 +9,9 @@ export type IntentQualification =
   | {
       clarity: "CLEAR";
       operation: PilotageOperation;
-      cycleType?: CycleType;
-      toCycleType?: CycleType;
+      /** Raw semantic / LIVE value — normalized at D5 classify boundary. */
+      cycleType?: CycleType | string;
+      toCycleType?: CycleType | string;
       methodRef?: string;
       methodVersion?: string;
       objective?: string;

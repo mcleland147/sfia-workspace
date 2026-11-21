@@ -22,6 +22,7 @@ import {
   markDecisionState,
 } from "@/domains/decisions/service";
 import { isCycleType, resolveForOpen, resolvePinnedCki, type CycleType } from "@/domains/pilotage/cki-resolve";
+import { tryCanonicalCycleType } from "@/domains/pilotage/cycle-type-normalize";
 import { parseForecastJson } from "@/domains/pilotage/forecast-builder";
 import { getQualificationProjection } from "@/domains/pilotage/initial-qualification";
 import {
@@ -375,9 +376,12 @@ function fromClearIntent(
   // carry server-authenticated envelope (keys, actInstanceId). Never fill gaps
   // from client-supplied cycleType/decisionId/objectRef/targetRef/"*".
   const fromDurable = sourceKind === "USER_MESSAGE";
-  const cycleType = fromDurable
-    ? qualified.cycleType ?? null
-    : qualified.cycleType ?? (body.cycleType && isCycleType(body.cycleType) ? body.cycleType : null);
+  // E07 — normalize at classify boundary (LIVE may emit "cadrage").
+  const cycleType =
+    tryCanonicalCycleType(qualified.cycleType) ??
+    (!fromDurable ? tryCanonicalCycleType(body.cycleType) : undefined) ??
+    null;
+  const toCycleType = tryCanonicalCycleType(qualified.toCycleType) ?? null;
   if (qualified.operation === "REVISE_DECISION" && !(qualified.decisionId ?? (!fromDurable ? body.decisionId : null))) {
     return {
       ok: false,
@@ -403,7 +407,7 @@ function fromClearIntent(
     ).trim() || (cycleType ? `Cycle ${cycleType}` : ""),
     cycleType,
     cycleId: fromDurable ? null : (body.cycleId ?? null),
-    toCycleType: qualified.toCycleType ?? null,
+    toCycleType,
     orientation: fromDurable ? "" : (body.orientation ?? "").trim(),
     trajectoryRevisionId: fromDurable ? null : (body.trajectoryRevisionId ?? null),
     methodRef: (qualified.methodRef ?? (!fromDurable ? body.methodRef : undefined) ?? "").trim(),
@@ -627,9 +631,8 @@ async function classifyCommand(tx: DbTx, input: ClientEnvelope): Promise<Classif
       restrictionTargetRefHint: matched.restrictionTargetRefHint,
       semanticIntentId: matched.intentId,
       semanticSchemaVersion: matched.schemaVersion,
-      cycleType: matched.cycleType && isCycleType(matched.cycleType) ? matched.cycleType : undefined,
-      toCycleType:
-        matched.toCycleType && isCycleType(matched.toCycleType) ? matched.toCycleType : undefined,
+      cycleType: tryCanonicalCycleType(matched.cycleType),
+      toCycleType: tryCanonicalCycleType(matched.toCycleType),
     };
     // Server-stable human-act identity: never accept client actInstanceId for USER_MESSAGE.
     // Same message + same intent ⇒ same act even if clientCommandKey / actInstanceId change.
@@ -680,11 +683,11 @@ async function classifyCommand(tx: DbTx, input: ClientEnvelope): Promise<Classif
   }
 
   const operation = body.operation as PilotageOperation;
-  const cycleType = body.cycleType ? (isCycleType(body.cycleType) ? body.cycleType : null) : null;
+  const cycleType = body.cycleType ? (tryCanonicalCycleType(body.cycleType) ?? null) : null;
   if (body.cycleType && !cycleType) {
     return { ok: false, reasonCode: "INVALID", reason: "Type de cycle inconnu", sourceActionKey: "REJECT|INVALID|cycle" };
   }
-  const toCycleType = body.toCycleType ? (isCycleType(body.toCycleType) ? body.toCycleType : null) : null;
+  const toCycleType = body.toCycleType ? (tryCanonicalCycleType(body.toCycleType) ?? null) : null;
   if (body.toCycleType && !toCycleType) {
     return { ok: false, reasonCode: "INVALID", reason: "Type de cycle cible inconnu", sourceActionKey: "REJECT|INVALID|target-cycle" };
   }

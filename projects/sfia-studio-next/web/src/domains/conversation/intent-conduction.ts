@@ -31,7 +31,6 @@ import { TURN_RUNNING_STALE_MS, turnClock } from "./turn-command";
 import {
   appendMissionAck,
   composeCanonicalMissionRestitution,
-  formatMissionAck,
   type MissionOwnerActBinding,
   type MissionProjection,
   type MissionStep,
@@ -997,10 +996,10 @@ export async function continueAfterProjectCreated(input: {
   if (!pendingDoc) {
     mission = { ...mission, status: "COMPLETED", restitution: "DELIVERED" };
     generationId = `mission-continue-d2:${mission.clientIntentKey}:${input.projectId}`;
+    // E07 — métier restitution only in the thread; keep structured missionProjection for audit.
     assistantContent =
-      `### Suite de mission\nProjet créé (projectId=${input.projectId}). ` +
-      `Aucune étape documentaire dépendante dans l'intention initiale.\n\n` +
-      formatMissionAck(mission);
+      "Le projet a bien été créé. Vous pouvez poursuivre dans Travail, consulter la Trajectoire " +
+      "et décider avec Nora de l'ouverture du premier cycle lorsque vous serez prêt.";
   } else {
     const original =
       mission.originalUserText ??
