@@ -3,13 +3,13 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Version | **0.2 — 21 novembre 2026** |
+| Version | **0.3 — 21 novembre 2026** |
 | Autorité de recette | **Morris — acceptation UAT du 21/11/2026 avec réserve UX unique** |
 | Périmètre | **R5 / ML4D / Ensemble 07** — SAS, création, Projet, Travail, Trajectoire, CKI, Nora |
 | Projet de recette | **Equip'Campus**, projet fictif |
-| Statut | **MORRIS UAT ACCEPTED — FINAL UX RESERVE TECHNICALLY CLEARED** |
+| Statut | **MORRIS UAT ACCEPTED — FINAL UX RESERVE TECHNICALLY CLEARED — GIT INTEGRATION PENDING** |
 | Nature | PV évolutif, constats, réserves et demandes de diagnostic ; document **non normatif** |
-| Publication documentaire | Branche dédiée **docs/next-ensemble07-recette-20261121**, issue de **main@6e93a33d64dfeea2eab88fb7896d733b34053f97** |
+| Publication documentaire | Version initiale sur `docs/next-ensemble07-recette-20261121` ; consolidation finale sur `docs/next-ensemble07-closeout-20261121` issue de `main@542da1de917867b6bbda8b2b57d100552711c9aa` ; **non mergée au moment de cette rédaction** |
 | Acceptation | **ACCEPTÉE** (périmètre présenté) avec réserve UX unique Acquis/À clarifier ; **pas** de PR/merge/STABLE/ADOPTED |
 
 > **Précédence des observations.** Le handoff technique de déploiement conclut « RECETTE AVAILABLE — MORRIS UAT REQUIRED » au moment de la mise à disposition. Les observations réelles de Morris du 21 novembre interviennent **après** ce handoff et ne modifient pas rétroactivement les tests techniques. Les captures de la conversation constituent ici les preuves visuelles disponibles ; elles ne sont pas encore archivées en binaires dans Git.
@@ -27,7 +27,7 @@ Le scénario vise à vérifier qu'une intention suffisamment détaillée peut co
 
 Les PASS métier et les échecs techniques ne sont pas inférés de la seule qualité linguistique de Nora. Une proposition ≠ un acte retenu ≠ un effet D5 vérifié.
 
-## 2. Candidat et environnement de RECETTE
+## 2. Candidat et environnement de RECETTE — instantané initial historique
 
 | Élément | Référence et niveau de preuve |
 | --- | --- |
@@ -260,11 +260,11 @@ Références de revue :
 - Données RECETTE : restauration du dump du 20 novembre, delta post-dump non garanti.
 - Absence de preuve directe des traces internes après GO : les causes sont à instruire avant correctifs.
 
-**Verdict de sortie provisoire :**
+**Verdict historique provisoire, antérieur à la décision Morris du 21/11 et à la levée de réserve (§12–13) :**
 
 **ENSEMBLE 07 — MORRIS UAT IN PROGRESS — FUNCTIONAL GAPS OBSERVED — DIAGNOSIS REQUIRED.**
 
-Morris n'a pas accepté l'Ensemble 07, n'a pas autorisé de correctifs et n'a pas décidé de PR, merge, Gate C, release, STABLE ou ADOPTED. La prochaine action prévue est un **diagnostic transversal Cursor en lecture seule**, puis arbitrage Morris sur le macro-lot correctif.
+**Au moment de cet instantané uniquement**, Morris n'avait pas encore accepté l'Ensemble 07 ni autorisé les correctifs. **Cet état est remplacé pour le périmètre de recette par la décision explicite du 21/11 (§12) et sa confirmation visuelle finale (§13)**. Gate C, release, STABLE et ADOPTED demeurent non acquis.
 
 ## 11. Références / traçabilité
 
@@ -304,4 +304,37 @@ Les réserves UAT historiques (E07-UAT-01…14, FIX-03 autonomie, Nora LIVE glob
 
 **Verdict documentaire :** `ENSEMBLE 07 — MORRIS UAT ACCEPTED — FINAL UX RESERVE TECHNICALLY CLEARED — READY FOR GIT INTEGRATION REVIEW` (sous réserve SHA/build RECETTE consignés dans le Review Pack du cycle).
 
-**Historique :** v0.1 — consolidation initiale des constats Equip'Campus (21/11/2026). · v0.2 — acceptation Morris + levée technique réserve Acquis/À clarifier (21/11/2026).
+**Historique :** v0.1 — consolidation initiale des constats Equip'Campus (21/11/2026). · v0.2 — acceptation Morris + levée technique réserve Acquis/À clarifier (21/11/2026). · v0.3 — confirmation visuelle finale, traçabilité de clôture et passage à la revue Git.
+
+
+## 13. Confirmation visuelle finale Morris et préparation de clôture — 21/11/2026
+
+**OBSERVÉ MORRIS — ACCEPTATION CONFIRMÉE.** Morris a fourni une nouvelle capture de Trajectoire après déploiement du correctif 50/50 et confirme explicitement : **« c'est ok »**. Il demande la finalisation de la recette, l'actualisation du registre central de revues, l'intégration Git de tous les travaux de l'Ensemble 07 et la préparation du passage à l'Ensemble 08.
+
+### 13.1. Réserve UX finale — sortie
+
+| Critère | Source et constat | Statut |
+| --- | --- | --- |
+| Répartition Acquis / À clarifier | Figma Page 10 : **640 / 646 px**, gap **24 px** ; mesures Playwright Cursor **639 / 645 / 24 px** sur variantes 09.02 / 09.09 | **TECHNICALLY CLEARED — F2 ≤2 px** |
+| Non-régression spécifique | TypeScript PASS, 8 unitaires PASS, browser F2 sur 09.02/09.09 PASS, build PASS, responsive et wrapping ciblés PASS, selon Cursor | **PASS sur tests ciblés** |
+| Revue visuelle Morris | Capture Trajectoire post-correctif fournie le 21/11 ; panneaux désormais équilibrés ; décision explicite d'acceptation | **USER ACCEPTED** |
+| Campagne intégrale | 11 états exercés et 40/40 assertions critiques F2 du cycle Page 10 ; campagne 11/11 **non rejouée** après ce correctif mono-composant | **PASS historique borné ; pas de nouveau claim global** |
+
+### 13.2. Identité technique et preuve
+
+- **Candidat code réellement servi, selon Cursor :** `5ad8fa57e4d529726244ddfae394074f5ea65432` ; tree `f62a77a1b89dbcbfc1d4009d24c9859017d69cc6`.
+- **BUILD RECETTE :** `BtZP6qDx5oAw8jwPQSEhc` sur `127.0.0.1:3200` ; `sfia_next_recette_ml4:5434` ; sauvegarde `ml4d-e07-20261121T103623Z-pre-5ad8fa57.sql.gz`, rollback `09a935bc`.
+- **Tip local après ajout du PV :** `e784dc93bc7816bc9724a95bc8abc2b3d633e140` ; ne pas confondre avec le SHA du code servi.
+- **Handoff L3 :** [Review Pack LIGHT final](https://github.com/mcleland147/sfia-workspace/blob/b89ba35f83950c35cb572d1b13a675e3cce6d031/sfia-review-handoff/latest-chatgpt-review.md), blob `84859d271b6181823430b12b756e5d0ae1dc353d` (consulté à distance).
+- **PV antérieur :** [commit documentaire `16e9107a`](https://github.com/mcleland147/sfia-workspace/commit/16e9107af6e733177dd8bfc534673918db13dd50).
+- **Capture utilisateur :** présente dans la conversation du 21/11, **non versée en binaire dans Git** ; sa portée est la validation visuelle des surfaces affichées, pas la preuve de tous les scénarios E2E.
+
+### 13.3. Clôture et frontières
+
+**Décision :** `ENSEMBLE 07 — MORRIS UAT ACCEPTED — FINAL UX RESERVE TECHNICALLY CLEARED`. Le périmètre présenté a été accepté ; ne pas répéter la recette générale du seul fait de la préparation Git.
+
+**Réserves héritées et hors champ du correctif :** celles des §9–12 demeurent consignées ; en particulier SAS06 modal PARTIAL, Nora LIVE globale non prouvée, certains parcours E2E non exercés, labels d'angles CKI, et distinction déterministe / LIVE. Ne pas les effacer ni en déduire Gate C.
+
+**Gate Git restant :** le tip local `e784dc93…` et son ancêtre runtime `5ad8fa57…` ne sont pas disponibles parmi les objets du dépôt Git distant lors de la revue ChatGPT du 21/11. La publication du candidat **doit précéder** toute PR produit, vérification CI et merge ; vérifier le SHA UAT et ses fichiers/diff sans requalifier une autre version par erreur. La méthode Figma v1.1 est sur `docs/next-figma-cursor-experiment-20261121` et doit être intégrée dans le même dispositif de clôture. L'état Git local est **NON OBSERVÉ** par ChatGPT.
+
+**Suite :** intégration projet par PR/merge sous GO Morris déjà formulé pour l'Ensemble 07 et gates CI appropriés ; publication du registre/présent PV/méthode dans un ensemble documentaire cohérent ; vérifier la CI après merge ; **préparer** la revue de l'Ensemble 08 « Git, publication et intégrations », sans engager automatiquement son implémentation. `NO RELEASE / STABLE NOT AVAILABLE / ADOPTED NOT ACQUIRED`.
