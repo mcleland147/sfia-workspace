@@ -1,5 +1,33 @@
 # SFIA Studio Next — Living Roadmap
 
+## ÉTAT COURANT — 21 NOVEMBRE 2026 : Ensemble 07 intégré sur main, CI post-merge vérifiée
+
+**Nature :** actualisation **strictement factuelle** sur GO Morris du 21/11/2026, après acceptation utilisateur et sortie Git de l'Ensemble 07. Ce bloc constitue le **dernier état vivant** et prime sur les instantanés historiques qui suivent ; ceux-ci sont conservés sans réécriture. **Aucun arbitrage nouveau de Gate C, ML5, R6, release, STABLE, ADOPTED ou architecture.**
+
+**Référence intégrée :** `mcleland147/sfia-workspace` · [PR produit #687](https://github.com/mcleland147/sfia-workspace/pull/687) **MERGED** (21/11) · [PR documentaire #686](https://github.com/mcleland147/sfia-workspace/pull/686) **MERGED** dans le **même** commit · `main@fd04888b8dbf8d9393098d82546076e85b812bb1`. HEAD candidat PR #687 : `6a368653832be64d1da24f4a39b46fb1fb75a2d7`.
+
+### Sortie Git de l'Ensemble 07
+
+| Objet | État vérifié / frontière |
+| --- | --- |
+| **R5 / ML4D / Ensemble 07 — Projet, Trajectoire et CKI** | **MORRIS UAT ACCEPTED / FINAL UX RESERVE CLEARED / MERGED / POST-MERGE CI VERIFIED**, au périmètre des surfaces reçues le 21/11 |
+| Recette utilisateur | Réception Morris confirmée après correction de la répartition « Acquis identifiés » / « À clarifier » ; cible Figma 640/646 + gap 24 px, mesures runtime 639/645 + gap 24 (F2 ≤2 px) |
+| Source UAT et livraison | Candidat réellement recetté selon Cursor `5ad8fa57e4d529726244ddfae394074f5ea65432` / build `BtZP6qDx5oAw8jwPQSEhc` / RECETTE locale `:3200` ; **SHA ancêtre** du HEAD mergé, mais build RECETTE non remplacé par ce merge |
+| Intégration Git | 92 fichiers (code, migrations 015/016, tests, documentation, registre des revues et méthodologie Figma v1.1) intégrés par #687 ; #686 documentaire reprend les trois fichiers dans le **même commit d'intégration** sans second diff produit |
+| Revue / méthode | [Review Pack FULL L3 régularisé](https://github.com/mcleland147/sfia-workspace/blob/52e0fc1c237ac366bb45777d7e0301a9cb2b6e0f/sfia-review-handoff/latest-chatgpt-review.md) : 46 créations avec contenus complets et 46 modifications avec diffs ; vérification indépendante ChatGPT PASS avant merge. Méthode Page 10 Figma v1.1 **expérimentation positive bornée, non ADOPTED globalement** |
+| CI de PR | [run #44910166518](https://github.com/mcleland147/sfia-workspace/actions/runs/44910166518) **SUCCESS** sur `6a368653…` ; Next Required Gate et Studio Required Gate PASS |
+| **CI post-merge** | [run #44912257289](https://github.com/mcleland147/sfia-workspace/actions/runs/44912257289) **SUCCESS** sur `main@fd04888b…` (push) ; **Build and validate SFIA Studio Next PASS / Next Required Gate PASS** |
+| Versioning / promotions | **NO RELEASE / STABLE NOT AVAILABLE / ADOPTED NOT ACQUIRED** ; merge et CI ne sont pas une bascule STABLE ni une qualification fournisseur Nora LIVE |
+| **Gate C / ML5 / R6** | **Gate C OPEN** ; ML5/R6 non démarrés par cette intégration, aucune réception globale ML4D implicite |
+
+**Réserves conservées :** FIX-03 autonomie processus non prouvée ; Nora LIVE globale NOT PROVEN ; SAS06 modal et ses variantes hors réception exhaustive malgré correction responsive CI ; libellés courts d'angles CKI ; historique cookies DEV/RECETTE ; campagnes navigateur non intégralement rejouées après le correctif final et réserves des ensembles précédents (notamment Travail/Nora). Une preuve déterministe ou la CI verte ne vaut pas preuve LIVE/REAL.
+
+**Sources canoniques :** [PV utilisateur E07](../validation-qualite/ensemble-07-recette-utilisateur-20261121.md), [registre central ML4D](../construction/convergence-ux-ui-globale/registre-central-revues.md), [as-built E07](../construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md), [méthode Figma ↔ Cursor v1.1](../ux-ui/methodologie-contrat-figma-cursor.md), [Git merge](https://github.com/mcleland147/sfia-workspace/commit/fd04888b8dbf8d9393098d82546076e85b812bb1).
+
+**Capacité suivante :** **Ensemble 08 — Git, publication et intégrations**. Conception fonctionnelle, parcours Pilote–Nora, wireframes et Figma peuvent être préparés dans un chat distinct ; **aucune implémentation ou publication E08 n'est déduite de cette clôture Git**, et aucun nouveau gate global n'est consommé.
+
+---
+
 ## ÉTAT COURANT — 20 NOVEMBRE 2026 : Ensemble 06 intégré sur main, CI post-merge vérifiée
 
 **Nature :** synchronisation **strictement factuelle** après le GO MERGE Morris et le succès de la CI post-merge. Ce bloc prime sur les instantanés historiques ci-dessous quant à l'état Git présent ; il ne réécrit pas leurs faits ni n'étend les décisions produit. Aucune décision nouvelle de Gate C, ML5, R6, STABLE, release ou ADOPTED.
