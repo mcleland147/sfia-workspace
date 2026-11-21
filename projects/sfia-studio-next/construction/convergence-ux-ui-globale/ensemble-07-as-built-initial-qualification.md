@@ -1,9 +1,9 @@
 # Ensemble 07 — As-built (qualification initiale Projet / Trajectoire / Nora)
 
-**Statut:** Page 10 experiment — 11/11 F2 critiques PASS · candidat local · RECETTE · NO RELEASE
-**Base Git figée RECETTE antérieure:** `ce03f5a7c6657f8bb924386b24355d37011833de` · tree `bd9077d5a1663ab9bdf0cbe326f8cbc210c1dabe`
+**Statut:** Morris UAT accepté (21/11) · réserve Acquis/À clarifier **techniquement levée** · RECETTE · NO RELEASE · prêt revue intégration Git
+**Base Git figée RECETTE antérieure:** `09a935bc71a3ab77eb063e9425b6f07ca1162417` · tree `5809a0bb707822eadde898b477e341125b746971`
 **Branche DEV:** `sfia/next-ensemble07-projet-trajectoire-delivery`
-**Date:** 2026-11-21 (Page 10 Figma `1069:100` · methodo v1.1 `a4516496`)
+**Date:** 2026-11-21 (correctif final panneaux knowledge · Page 10 `1069:100`)
 
 ## Architecture retenue
 
@@ -34,6 +34,7 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation + **correctif co
 23. **SAS06** : modal 702×726 + SVG Figma sous `web/public/figma/sas06/`.
 24. **Preuves F2** : `.tmp-sfia-review/ensemble07-dip-cycle8-final/` (cycle 8) ; Page 10 `.tmp-sfia-review/ensemble07-page10-experiment/`.
 25. **Page 10** : shell instance partagé · Acquis/À clarifier toujours rendus · suite envisagée = forecast (pas copy Figma) · markers SVG actif/envisagé/clôturé · 09.10 via `STUDIO_DEV_HOLD_INITIAL_QUALIFICATION=1`.
+26. **Acquis / À clarifier 50/50** : conteneur commun `grid-cols-[minmax(0,640fr)_minmax(0,646fr)]` gap 24 · `min-w-0` · `break-words` (plus `truncate`) · F2 09.02/09.09 Δ≤2 · stack `grid-cols-1` sous `md`.
 
 ## Persistance
 

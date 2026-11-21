@@ -132,10 +132,16 @@ async function main() {
   await visit("09.09", urls.urls.traj09, '[data-testid="trajectory-board"]', [
     '[data-testid="trajectory-active-cycle"]',
     '[data-testid="trajectory-cycle-actif-panel"]',
+    '[data-testid="trajectory-acquis"]',
+    '[data-testid="trajectory-a-clarifier"]',
+    '[data-testid="trajectory-cycle-knowledge-row"]',
   ]);
   await visit("09.02", urls.urls.traj02, '[data-testid="trajectory-board"]', [
     '[data-testid="trajectory-roadmap-cards"]',
     '[data-testid="trajectory-active-cycle"]',
+    '[data-testid="trajectory-acquis"]',
+    '[data-testid="trajectory-a-clarifier"]',
+    '[data-testid="trajectory-cycle-knowledge-row"]',
   ]);
   await visit("09.08", urls.urls.traj08, '[data-testid="trajectory-board"]', [
     '[data-testid="trajectory-between-cycles"]',

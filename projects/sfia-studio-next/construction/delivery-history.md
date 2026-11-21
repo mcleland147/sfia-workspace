@@ -3,6 +3,20 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-ACQUIS-PANELS-50-50
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — correctif final UX Acquis / À clarifier 50/50 + RECETTE |
+| Type | CORRECTIVE / UX / QA / RECETTE · **NO RELEASE** · Gate C OPEN |
+| Parent | `09a935bc…` / tree `5809a0bb…` |
+| Propriétaire | `TrajectoryBoard` row `trajectory-cycle-knowledge-row` — `minmax(0,640fr) minmax(0,646fr)` + gap 24 · `min-w-0` · wrap |
+| F2 | 09.02 / 09.09 · acquis≈639 / clarifier≈645 / gap 24 · tol≤2 · preuves `.tmp-sfia-review/ensemble07-acquis-panels-fix/` |
+| UAT Morris | Acceptation 21/11 avec réserve unique ; réserve **techniquement levée** après F2 + RECETTE |
+| Push projet | **NONE** |
+| Verdict | **ENSEMBLE 07 — MORRIS UAT ACCEPTED — FINAL UX RESERVE TECHNICALLY CLEARED — RECETTE UPDATED — READY FOR GIT INTEGRATION REVIEW** |
+
 ## delivery_id: DELIV-2026-11-21-ENSEMBLE07-FIGMA-PAGE10-EXPERIMENT
 
 | Field | Value |

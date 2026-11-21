@@ -738,14 +738,13 @@ function ParcoursPrincipal(props: {
               CYCLE_OBJECTIVE_PENDING_LABEL}
           </p>
 
-          {/* Page 10 — Acquis / À clarifier remain present even when empty (honest empty state). */}
+          {/* Page 10 — Acquis / À clarifier ~50/50 (640/646 + gap 24); minmax(0) avoids content min-size collapse. */}
           <div
-            className="mt-4 grid"
-            style={{ gridTemplateColumns: "640fr 646fr", gap: 24 }}
+            className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-[minmax(0,640fr)_minmax(0,646fr)]"
             data-testid="trajectory-cycle-knowledge-row"
           >
             <div
-              className="rounded-[10px] border border-[#2b3850] bg-[#1b2639] px-[19px] py-[15px]"
+              className="min-w-0 rounded-[10px] border border-[#2b3850] bg-[#1b2639] px-[19px] py-[15px]"
               style={{ minHeight: 157 }}
               data-testid="trajectory-acquis"
             >
@@ -757,7 +756,7 @@ function ParcoursPrincipal(props: {
               ) : (
                 <ul className="mt-3 space-y-[6px]">
                   {acquisItems.map((a) => (
-                    <li key={a.id} className="text-[13px] text-[#f3f5ff] truncate">
+                    <li key={a.id} className="text-[13px] leading-[1.35] text-[#f3f5ff] break-words">
                       {a.statement}
                     </li>
                   ))}
@@ -769,12 +768,13 @@ function ParcoursPrincipal(props: {
               <Link
                 href={`/projects/${props.projectId}?surface=journal`}
                 className="mt-3 inline-block text-[12px] font-semibold text-[#7477ed] hover:underline"
+                data-testid="trajectory-acquis-journal-link"
               >
                 Consulter le Journal ↗
               </Link>
             </div>
             <div
-              className="rounded-[10px] border border-[#2b3850] bg-[#1b2639] px-[19px] py-[15px]"
+              className="min-w-0 rounded-[10px] border border-[#2b3850] bg-[#1b2639] px-[19px] py-[15px]"
               style={{ minHeight: 157 }}
               data-testid="trajectory-a-clarifier"
             >
@@ -789,7 +789,7 @@ function ParcoursPrincipal(props: {
               ) : (
                 <ul className="mt-3 space-y-[6px]">
                   {clarifierItems.map((o) => (
-                    <li key={o.id} className="text-[13px] text-[#f3f5ff] truncate">
+                    <li key={o.id} className="text-[13px] leading-[1.35] text-[#f3f5ff] break-words">
                       {o.statement}
                     </li>
                   ))}
@@ -803,6 +803,7 @@ function ParcoursPrincipal(props: {
               <Link
                 href={`/projects/${props.projectId}?surface=journal`}
                 className="mt-3 inline-block text-[12px] font-semibold text-[#7477ed] hover:underline"
+                data-testid="trajectory-a-clarifier-journal-link"
               >
                 Consulter le Journal ↗
               </Link>
