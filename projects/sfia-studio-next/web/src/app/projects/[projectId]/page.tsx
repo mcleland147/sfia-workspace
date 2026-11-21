@@ -3052,7 +3052,10 @@ export default function ProjectPage() {
           }}
           onOpenDocument={(documentId, revisionId) => {
             // J-C14 — open exact D4 revision in Travail viewer (same continuity pattern as message).
+            // Navigate immediately so URL+surface stay aligned; a stale ?surface=journal with
+            // React surface=travail makes the Journal rail a same-URL no-op (CI retour-nav).
             // Preserve journalNav; do not invent content if D4 refuses.
+            selectSurface("travail");
             const titleHint =
               documents.find((d) => d.document.id === documentId)?.document.title ?? "Document";
             const seq = ++viewerRequestSeqRef.current;
@@ -3076,7 +3079,6 @@ export default function ProjectPage() {
               seq,
               projectIdAtStart: params.projectId,
             });
-            selectSurface("travail");
             const match = documents.find((d) => d.document.id === documentId);
             if (match) setInspect(match);
           }}
