@@ -25,6 +25,29 @@ function cycleLabel(type: string): string {
   return CYCLE_LABELS[type] ?? type.replace(/_/g, " ");
 }
 
+/** Next envisaged cycle label from retained/proposed forecast — never illustrative Figma copy. */
+function nextEnvisagedFromTrajectory(
+  pilotage: PilotageProjection | null,
+  iq: InitialQualificationProjection | null,
+): string | null {
+  const cycle = pilotage?.cycle;
+  if (!cycle) return null;
+  const forecast =
+    pilotage?.trajectory.retained?.forecastSteps ??
+    pilotage?.trajectory.proposed?.forecastSteps ??
+    iq?.forecastSteps ??
+    null;
+  if (!forecast?.length) return null;
+  const matchIdx = forecast.findIndex((s) => s.cycleType === cycle.cycleType);
+  const next =
+    matchIdx >= 0
+      ? forecast.slice(matchIdx + 1).find((s) => s.cycleType !== cycle.cycleType) ??
+        forecast[matchIdx + 1]
+      : forecast.find((s) => s.cycleType !== cycle.cycleType);
+  if (!next) return null;
+  return cycleLabel(next.cycleType);
+}
+
 export function ProjectOverview(props: {
   projectId: string;
   projectName: string;
@@ -46,6 +69,10 @@ export function ProjectOverview(props: {
   // Proposed orientation is a trajectory artifact — only use as fallback when no description.
   const description = props.description?.trim() || null;
   const cycleObjective = displayableCycleObjective(cycle?.objective);
+  const nextEnvisaged = nextEnvisagedFromTrajectory(
+    props.pilotage,
+    props.initialQualification,
+  );
 
   return (
     <div className="project-overview" data-testid="project-overview">
@@ -101,11 +128,20 @@ export function ProjectOverview(props: {
               {cycleObjective ?? CYCLE_OBJECTIVE_PENDING_LABEL}
             </p>
             <div className="my-5 h-px shrink-0 bg-[#2b3850]" data-testid="project-overview-state-sep" />
-            <div className="mt-auto flex justify-end">
+            <div className="mt-auto flex items-center justify-between gap-4">
+              <p
+                className="text-[13px] leading-relaxed text-[#a3b0c7]"
+                data-testid="project-overview-next-envisaged"
+              >
+                {nextEnvisaged
+                  ? `Suite envisagée : ${nextEnvisaged}`
+                  : "Suite envisagée : non encore formulée dans la trajectoire"}
+              </p>
               <button
                 type="button"
-                className="text-sm font-semibold text-[#7477ed] underline-offset-2 hover:underline"
+                className="shrink-0 text-sm font-semibold text-[#7477ed] underline-offset-2 hover:underline"
                 onClick={props.onOpenTrajectoire}
+                data-testid="project-overview-see-trajectory"
               >
                 Voir la trajectoire ↗
               </button>
@@ -149,8 +185,8 @@ export function ProjectOverview(props: {
         )}
       </section>
 
-      {/* Figma: cycle ends ~511 → activity title 532 (+21) → cards 581 (+49) */}
-      <section className="space-y-3" data-testid="project-overview-activity" style={{ marginTop: 21 }}>
+      {/* Page 10: cycle ends ~511 → activity title 532 (+21) → cards 581 (+49) */}
+      <section data-testid="project-overview-activity" style={{ marginTop: 21 }}>
         <div className="flex flex-wrap items-end justify-between gap-2" style={{ minHeight: 32 }}>
           <h3 className="text-[22px] font-semibold leading-8 text-[#f3f5ff]">Activité du projet</h3>
           <p className="text-xs text-[#7787a4]">Vue synthétique des espaces du projet</p>
@@ -160,6 +196,7 @@ export function ProjectOverview(props: {
           style={{
             gridTemplateColumns: "repeat(3, minmax(0, 438px))",
             gap: 22,
+            marginTop: 17 /* 532+32+17=581 */,
           }}
           data-testid="project-activity-grid"
         >

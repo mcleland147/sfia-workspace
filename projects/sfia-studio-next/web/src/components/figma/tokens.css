@@ -2102,7 +2102,10 @@
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--fig-ink, #f3f5ff);
-  min-height: 52px; /* Figma title box ~55px */
+  /* Page 10 hero title box — 55px native (was 52 → Δy panels) */
+  min-height: 55px;
+  height: 55px;
+  box-sizing: border-box;
 }
 
 .e07-surface-hero-sub {
@@ -2116,7 +2119,7 @@
 
 .e07-section-rule {
   margin-top: 13px; /* Figma: desc end ~256 → sep 269 */
-  margin-bottom: 20px; /* Figma: sep 269 → panel 289 */
+  margin-bottom: 19px; /* Page 10 Projet: sep 269 → panel 289 (Δ0) */
   height: 1px;
   width: 100%;
   max-width: 1358px;
@@ -2131,16 +2134,25 @@
   max-width: 1358px;
 }
 
+/* Trajectoire / CKI Page 10: first panel at y≈287 after sep 269. */
+.trajectory-board > .e07-section-rule,
+.trajectory-cki > .e07-section-rule {
+  margin-bottom: 17px; /* 269 + 1 + 17 = 287 */
+}
+
 /* Spacing between panels after the hero rule (not between hero parts). */
 .trajectory-board > .e07-section-rule ~ * + *,
 .trajectory-cki > .e07-section-rule ~ * + * {
-  margin-top: 20px;
+  margin-top: 7px; /* Page 10: parcours end → cycle actif y≈500 */
 }
 
 /* Projet: only the first panel follows the rule; activity spacing is explicit. */
 .project-overview > .e07-section-rule + * {
   margin-top: 0;
 }
+
+/* Keep shared hero box heights so Trajectoire/CKI first panel lands at y≈287
+   (Page 10). Shorter copy still occupies the contracted description box. */
 
 .project-space-breadcrumb {
   min-height: 28px;

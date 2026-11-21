@@ -8,7 +8,11 @@ import { createHash } from "crypto";
 import { spawnSync } from "child_process";
 
 const ROOT = resolve(process.cwd(), "../../..");
-const OUT = resolve(ROOT, ".tmp-sfia-review/ensemble07-dip-cycle8-final");
+const OUT = resolve(
+  ROOT,
+  process.env.E07_MEASURE_OUT?.replace(/^.*\.tmp-sfia-review\//, ".tmp-sfia-review/") ||
+    ".tmp-sfia-review/ensemble07-page10-experiment",
+);
 mkdirSync(resolve(OUT, "runtime"), { recursive: true });
 const urlsPath = "/tmp/sfia-e07-shot-urls.json";
 
@@ -118,6 +122,7 @@ async function main() {
     '[data-testid="trajectory-hero-sep"]',
   ]);
   await visit("09.10", urls.urls.traj10, '[data-testid="trajectory-board"]', [
+    '[data-testid="trajectory-qualification-progress"]',
     '[data-testid="trajectory-analyzing"]',
     '[data-testid="trajectory-hero"]',
   ]);

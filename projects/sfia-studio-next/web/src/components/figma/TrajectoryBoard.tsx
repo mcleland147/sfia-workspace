@@ -41,10 +41,72 @@ function CkiShortcut(props: { onOpen: () => void }) {
   );
 }
 
+type TrajectoryKnowledge = {
+  acquis: Array<{ id: string; kind: string; statement: string; status: string }>;
+  openPoints: Array<{ id: string; statement: string; status: string }>;
+};
+
+/** Page 10 — active cycle: concentric ring + focal point (not a bullet). */
+function CycleMarkerActive() {
+  return (
+    <span
+      className="absolute"
+      style={{ right: 14, top: 14, width: 33, height: 33 }}
+      aria-hidden
+      data-testid="trajectory-marker-active"
+    >
+      <svg width="33" height="33" viewBox="0 0 33 33" fill="none">
+        <circle cx="16.5" cy="16.5" r="15" stroke="#7477ed" strokeWidth="2" />
+        <circle cx="16.5" cy="16.5" r="5.5" fill="#7477ed" />
+      </svg>
+    </span>
+  );
+}
+
+/** Page 10 — envisaged step: empty ring. */
+function CycleMarkerEnvisaged() {
+  return (
+    <span
+      className="absolute"
+      style={{ right: 14, top: 14, width: 32, height: 32 }}
+      aria-hidden
+      data-testid="trajectory-marker-envisaged"
+    >
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="14.5" stroke="#7787a4" strokeWidth="1.5" />
+      </svg>
+    </span>
+  );
+}
+
+/** Page 10 — closed cycle: green emblem + check. */
+function CycleMarkerClosed() {
+  return (
+    <span
+      className="absolute"
+      style={{ right: 14, top: 14, width: 32, height: 32 }}
+      aria-hidden
+      data-testid="trajectory-marker-closed"
+    >
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="15" fill="#17382f" stroke="#6cdbba" strokeWidth="1.5" />
+        <path
+          d="M10 16.5L14 20.5L22 12"
+          stroke="#6cdbba"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
+  );
+}
+
 export function TrajectoryBoard(props: {
   projectId: string;
   pilotage: PilotageProjection | null;
   initialQualification: InitialQualificationProjection | null;
+  knowledge?: TrajectoryKnowledge | null;
   onOpenTravail: () => void;
 }) {
   const [detail, setDetail] = useState<DetailView>({ kind: "main" });
@@ -246,6 +308,7 @@ export function TrajectoryBoard(props: {
           cycle={cycle ?? null}
           forecast={forecast}
           method={props.pilotage?.method ?? null}
+          knowledge={props.knowledge ?? null}
           onOpenBilan={(cycleId) => setDetail({ kind: "bilan", cycleId })}
           onOpenFuture={(cycleType, rationale) =>
             setDetail({ kind: "future", cycleType, rationale })
@@ -270,21 +333,26 @@ function AnalyzingCard(props: { uiStep: number; onOpenTravail: () => void }) {
   const step = Math.min(3, Math.max(1, props.uiStep));
   return (
     <section
-      className="fig-panel border border-[#7477ed44] space-y-4 py-10 text-center mx-auto"
+      className="fig-panel space-y-3 py-10 text-center mx-auto"
       data-testid="trajectory-qualification-progress"
+      data-analyzing="1"
       data-step={step}
-      style={{ width: "100%", maxWidth: 1358, minHeight: 502, background: "#151D2C" }}
+      style={{
+        width: "100%",
+        maxWidth: 1358,
+        minHeight: 502,
+        background: "#151D2C",
+        borderColor: "#2B3850",
+      }}
     >
+      <span className="sr-only" data-testid="trajectory-analyzing" />
+      {/* Page 10 09.10 — same empty-panel shell as 09.07; copy = qualification en cours. */}
       <div
-        className="mx-auto flex items-center justify-center rounded-full"
-        style={{
-          width: 92,
-          height: 92,
-          background: "radial-gradient(circle, #7477ed55 0%, #7477ed11 70%)",
-        }}
+        className="mx-auto flex items-center justify-center rounded-full border border-[#2b3850]"
+        style={{ width: 92, height: 92, background: "#0c101a" }}
         aria-hidden
       >
-        <span className="text-3xl font-semibold text-[#a8adff]">✦</span>
+        <span className="text-3xl text-[#a3b0c7]">○</span>
       </div>
       <p className="fig-kicker text-[#7477ed]">QUALIFICATION EN COURS</p>
       <h3 className="text-[1.7rem] font-semibold text-[#f3f5ff]">
@@ -294,27 +362,32 @@ function AnalyzingCard(props: { uiStep: number; onOpenTravail: () => void }) {
         Elle confronte les éléments du SAS aux cycles pertinents pour proposer une progression
         adaptée.
       </p>
-      <div className="mx-auto h-px max-w-md" style={{ background: "#2B3850", width: 806 }} />
-      <ol className="flex flex-wrap items-center justify-center gap-4 text-sm text-[#a3b0c7] pt-2">
-        <li className={step >= 1 ? "text-[#6CDBBA]" : ""}>
+      <div className="mx-auto h-px" style={{ background: "#2B3850", width: 806 }} />
+      <p className="text-sm text-[#a3b0c7] pt-1" data-testid="trajectory-analyzing-status-line">
+        <span className={step >= 1 ? "text-[#6CDBBA]" : ""}>
           {step > 1 ? "✓" : "●"} Projet créé
-        </li>
-        <li className={step === 2 ? "text-[#f3f5ff]" : step > 2 ? "text-[#6CDBBA]" : ""}>
-          {step > 2 ? "✓" : step === 2 ? "●" : "○"} Identification des cycles · {Math.min(step, 2)}{" "}
-          / 3
-        </li>
-        <li className={step >= 3 ? "text-[#f3f5ff]" : ""}>
+        </span>
+        <span className="mx-3"> </span>
+        <span className={step === 2 ? "text-[#f3f5ff]" : step > 2 ? "text-[#6CDBBA]" : ""}>
+          {step > 2 ? "✓" : step === 2 ? "●" : "○"} Identification des cycles · {Math.min(step, 2)} / 3
+        </span>
+        <span className="mx-3"> </span>
+        <span className={step >= 3 ? "text-[#f3f5ff]" : ""}>
           {step >= 3 ? "●" : "○"} Réponse de Nora à venir
-        </li>
-      </ol>
+        </span>
+      </p>
       <button
         type="button"
         className="btn primary mt-4"
         onClick={props.onOpenTravail}
         style={{ minWidth: 552, minHeight: 47 }}
       >
-        Revenir au travail avec Nora ↗
+        Revenir à Travail ↗
       </button>
+      <p className="text-xs text-[#7787a4] max-w-2xl mx-auto pt-2">
+        L&apos;état s&apos;actualise ici dès que la qualification progresse. Aucun cycle n&apos;est
+        encore ouvert.
+      </p>
     </section>
   );
 }
@@ -431,6 +504,7 @@ function ParcoursPrincipal(props: {
   cycle: PilotageProjection["cycle"];
   forecast: ForecastStep[] | null;
   method: PilotageProjection["method"] | null;
+  knowledge?: TrajectoryKnowledge | null;
   onOpenBilan: (cycleId: string) => void;
   onOpenFuture: (cycleType: string, rationale?: string | null) => void;
   onOpenCki: () => void;
@@ -500,52 +574,78 @@ function ParcoursPrincipal(props: {
 
   const closedCount = props.closed.length;
   const activeCount = props.cycle ? 1 : 0;
+  const cycleCount = cards.length;
+  const acquisItems = (props.knowledge?.acquis ?? [])
+    .filter((a) => a.status === "ACTIVE" || a.status === "CONFIRMED" || !a.status)
+    .slice(0, 2);
+  const clarifierItems = (props.knowledge?.openPoints ?? [])
+    .filter((o) => o.status === "OPEN")
+    .slice(0, 2);
+  const acquisExtra = Math.max(
+    0,
+    (props.knowledge?.acquis ?? []).filter(
+      (a) => a.status === "ACTIVE" || a.status === "CONFIRMED" || !a.status,
+    ).length - acquisItems.length,
+  );
+  const clarifierExtra = Math.max(
+    0,
+    (props.knowledge?.openPoints ?? []).filter((o) => o.status === "OPEN").length -
+      clarifierItems.length,
+  );
 
   return (
-    <div className="space-y-5" data-testid="trajectory-roadmap">
-      <section className="space-y-3">
-        <div className="flex flex-wrap items-end justify-between gap-2">
-          <div>
-            <p className="fig-kicker">PARCOURS DU PROJET</p>
-            <p className="text-xs text-[#7787a4] mt-1">
-              {activeCount} CYCLE ACTIF · {closedCount} CLÔTURÉ{closedCount > 1 ? "S" : ""}
-            </p>
-          </div>
+    <div className="flex flex-col gap-[15px]" data-testid="trajectory-roadmap">
+      <section
+        className="fig-panel relative overflow-hidden"
+        data-testid="trajectory-parcours-panel"
+        style={{
+          width: "100%",
+          maxWidth: 1358,
+          minHeight: 198,
+          padding: "15px 24px 16px",
+          background: "#151D2C",
+          borderColor: "#2B3850",
+        }}
+      >
+        <div className="flex flex-wrap items-start justify-between gap-2">
+          <p className="text-[13px] font-semibold text-[#f3f5ff]">Parcours du projet</p>
+          <p className="text-[13px] text-[#7787a4]" data-testid="trajectory-cycle-indicator">
+            {cycleCount} CYCLE{cycleCount > 1 ? "S" : ""}
+            {activeCount ? ` · ${activeCount} ACTIF` : ""}
+            {closedCount ? ` · ${closedCount} CLÔTURÉ${closedCount > 1 ? "S" : ""}` : ""}
+          </p>
         </div>
 
         {cards.length === 0 ? (
-          <p className="text-sm text-[#a3b0c7]" data-testid="trajectory-no-active-cycle">
+          <p className="text-sm text-[#a3b0c7] mt-4" data-testid="trajectory-no-active-cycle">
             Aucun cycle actif — la trajectoire reste une proposition tant qu&apos;un GO n&apos;est
             pas exprimé.
           </p>
         ) : (
           <div
-            className="flex flex-nowrap items-stretch overflow-x-auto"
-            style={{ gap: 49 }}
+            className="relative mt-4 flex flex-nowrap items-stretch overflow-x-auto"
+            style={{ gap: 61 }}
             data-testid="trajectory-roadmap-cards"
           >
             {cards.map((card, idx) => (
-              <div key={card.key} className="flex flex-none items-stretch" style={{ gap: 16 }}>
+              <div key={card.key} className="relative flex flex-none items-stretch">
                 <article
-                  className="fig-panel relative space-y-2 overflow-hidden"
+                  className="fig-panel relative overflow-hidden"
                   style={{
                     width: 396,
+                    height: 128,
                     minHeight: 128,
-                    padding: "16px 18px",
-                    borderColor:
-                      card.status === "closed"
-                        ? "#6cdbba55"
-                        : card.status === "active"
-                          ? "#7477ed88"
-                          : "#2b3850",
+                    padding: "14px 18px 16px",
+                    background: "#1b2639",
+                    borderColor: "#2b3850",
                     borderLeftWidth:
-                      card.status === "closed" ? 5 : card.status === "active" ? 7 : 4,
+                      card.status === "closed" ? 5 : card.status === "active" ? 7 : 1,
                     borderLeftColor:
                       card.status === "closed"
                         ? "#6cdbba"
                         : card.status === "active"
                           ? "#7477ed"
-                          : "#3a4660",
+                          : "#2b3850",
                   }}
                   data-testid={
                     card.status === "active"
@@ -555,44 +655,39 @@ function ParcoursPrincipal(props: {
                         : "trajectory-future-cycle"
                   }
                 >
-                  <div className="flex items-start justify-between gap-2">
-                    <p className="text-[10px] uppercase tracking-wide text-[#a3b0c7]">
-                      {card.order} {card.title}
+                  {card.status === "active" ? <CycleMarkerActive /> : null}
+                  {card.status === "envisioned" ? <CycleMarkerEnvisaged /> : null}
+                  {card.status === "closed" ? <CycleMarkerClosed /> : null}
+                  <div className="flex flex-col gap-[5px] pr-10">
+                    <p
+                      className="text-[12px] font-semibold text-[#7477ed]"
+                      data-testid="trajectory-cycle-order"
+                    >
+                      {card.order}
                     </p>
-                    <span
-                      className="text-xs font-semibold whitespace-nowrap"
-                      style={{
-                        color:
-                          card.status === "closed"
-                            ? "#6cdbba"
-                            : card.status === "active"
-                              ? "#a8adff"
-                              : "#a3b0c7",
-                      }}
-                    >
-                      {card.status === "closed"
-                        ? "✓ "
-                        : card.status === "active"
-                          ? "● "
-                          : "○ "}
-                      {card.statusLabel}
-                    </span>
+                    <p className="text-[19px] font-semibold leading-tight text-[#f3f5ff]">
+                      {card.title}
+                    </p>
                   </div>
-                  {card.subtitle ? (
-                    <p className="text-sm text-[#f3f5ff]">{card.subtitle}</p>
-                  ) : null}
-                  {card.onAction && card.actionLabel ? (
-                    <button
-                      type="button"
-                      className="text-sm font-semibold text-[#7477ed] hover:underline"
-                      onClick={card.onAction}
-                    >
-                      {card.actionLabel}
-                    </button>
-                  ) : null}
+                  <div className="absolute bottom-4 left-[18px] right-[18px] flex items-end justify-between gap-2">
+                    <p className="text-[13px] text-[#a3b0c7]">{card.statusLabel}</p>
+                    {card.onAction && card.actionLabel ? (
+                      <button
+                        type="button"
+                        className="text-[13px] font-semibold text-[#7477ed] hover:underline whitespace-nowrap"
+                        onClick={card.onAction}
+                      >
+                        {card.actionLabel}
+                      </button>
+                    ) : null}
+                  </div>
                 </article>
                 {idx < cards.length - 1 ? (
-                  <span className="self-center text-[#7787a4] text-2xl" aria-hidden>
+                  <span
+                    className="pointer-events-none absolute text-[#7787a4] text-2xl"
+                    style={{ right: -38, top: 54 }}
+                    aria-hidden
+                  >
                     →
                   </span>
                 ) : null}
@@ -600,61 +695,128 @@ function ParcoursPrincipal(props: {
             ))}
           </div>
         )}
-
-        {!props.cycle && closedCount > 0 ? (
-          <section
-            className="fig-panel space-y-3"
-            data-testid="trajectory-between-cycles"
-            style={{ minHeight: 286, background: "#151D2C", borderColor: "#2B3850" }}
-          >
-            <p className="fig-kicker text-[#7477ED]">AUCUN CYCLE ACTIF</p>
-            <h3 className="text-[1.45rem] font-semibold text-[#f3f5ff]">
-              Entre deux cycles
-            </h3>
-            <p className="text-sm text-[#a3b0c7]">
-              Le dernier cycle est clôturé. Une suite peut être envisagée ; son ouverture reste un
-              GO du Pilote.
-            </p>
-            <button type="button" className="btn primary" onClick={props.onOpenTravail}>
-              Reprendre avec Nora ↗
-            </button>
-          </section>
-        ) : null}
       </section>
+
+      {!props.cycle && closedCount > 0 ? (
+        <section
+          className="fig-panel space-y-3"
+          data-testid="trajectory-between-cycles"
+          style={{ minHeight: 286, background: "#151D2C", borderColor: "#2B3850" }}
+        >
+          <p className="fig-kicker text-[#7477ED]">AUCUN CYCLE ACTIF</p>
+          <h3 className="text-[1.45rem] font-semibold text-[#f3f5ff]">Entre deux cycles</h3>
+          <p className="text-sm text-[#a3b0c7]">
+            Le dernier cycle est clôturé. Une suite peut être envisagée ; son ouverture reste un GO
+            du Pilote.
+          </p>
+          <button type="button" className="btn primary" onClick={props.onOpenTravail}>
+            Reprendre avec Nora ↗
+          </button>
+        </section>
+      ) : null}
 
       {props.cycle ? (
         <section
-          className="fig-panel space-y-3"
+          className="fig-panel"
           data-testid="trajectory-cycle-actif-panel"
-          style={{ borderColor: "#7477ed44" }}
+          style={{
+            borderColor: "#7477ed44",
+            minHeight: 365,
+            padding: "18px 24px 20px",
+            background: "#151D2C",
+          }}
         >
           <p className="fig-kicker text-[#7477ed]">CYCLE ACTIF</p>
-          <h3 className="text-[1.45rem] font-semibold text-[#f3f5ff]">
+          <h3 className="mt-1 text-[1.45rem] font-semibold text-[#f3f5ff]">
             {labelCycle(props.cycle.cycleType)}
           </h3>
           <p
-            className="text-sm text-[#a3b0c7]"
+            className="mt-2 text-sm text-[#a3b0c7]"
             data-testid="trajectory-cycle-objective"
           >
             {displayableCycleObjective(props.cycle.objective) ??
               CYCLE_OBJECTIVE_PENDING_LABEL}
           </p>
-          <div className="flex flex-wrap gap-4 pt-1">
-            <Link
-              href={`/projects/${props.projectId}?surface=journal`}
-              className="text-sm font-semibold text-[#7477ed] hover:underline"
+
+          {/* Page 10 — Acquis / À clarifier remain present even when empty (honest empty state). */}
+          <div
+            className="mt-4 grid"
+            style={{ gridTemplateColumns: "640fr 646fr", gap: 24 }}
+            data-testid="trajectory-cycle-knowledge-row"
+          >
+            <div
+              className="rounded-[10px] border border-[#2b3850] bg-[#1b2639] px-[19px] py-[15px]"
+              style={{ minHeight: 157 }}
+              data-testid="trajectory-acquis"
             >
-              Consulter le Journal ↗
-            </Link>
-            <button
-              type="button"
-              className="text-sm font-semibold text-[#7477ed] hover:underline"
-              data-testid="trajectory-open-cki"
-              onClick={props.onOpenCki}
+              <p className="text-[14px] font-semibold text-[#f3f5ff]">Acquis identifiés</p>
+              {acquisItems.length === 0 ? (
+                <p className="mt-3 text-[13px] text-[#a3b0c7]" data-testid="trajectory-acquis-empty">
+                  Aucun acquis capitalisé pour ce cycle pour le moment.
+                </p>
+              ) : (
+                <ul className="mt-3 space-y-[6px]">
+                  {acquisItems.map((a) => (
+                    <li key={a.id} className="text-[13px] text-[#f3f5ff] truncate">
+                      {a.statement}
+                    </li>
+                  ))}
+                  {acquisExtra > 0 ? (
+                    <li className="text-[12px] text-[#a3b0c7]">+ {acquisExtra} autre{acquisExtra > 1 ? "s" : ""}</li>
+                  ) : null}
+                </ul>
+              )}
+              <Link
+                href={`/projects/${props.projectId}?surface=journal`}
+                className="mt-3 inline-block text-[12px] font-semibold text-[#7477ed] hover:underline"
+              >
+                Consulter le Journal ↗
+              </Link>
+            </div>
+            <div
+              className="rounded-[10px] border border-[#2b3850] bg-[#1b2639] px-[19px] py-[15px]"
+              style={{ minHeight: 157 }}
+              data-testid="trajectory-a-clarifier"
             >
-              Accès CKI et méthode
-            </button>
+              <p className="text-[14px] font-semibold text-[#f3f5ff]">À clarifier</p>
+              {clarifierItems.length === 0 ? (
+                <p
+                  className="mt-3 text-[13px] text-[#a3b0c7]"
+                  data-testid="trajectory-a-clarifier-empty"
+                >
+                  Aucun point ouvert à clarifier pour le moment.
+                </p>
+              ) : (
+                <ul className="mt-3 space-y-[6px]">
+                  {clarifierItems.map((o) => (
+                    <li key={o.id} className="text-[13px] text-[#f3f5ff] truncate">
+                      {o.statement}
+                    </li>
+                  ))}
+                  {clarifierExtra > 0 ? (
+                    <li className="text-[12px] text-[#a3b0c7]">
+                      + {clarifierExtra} autre{clarifierExtra > 1 ? "s" : ""}
+                    </li>
+                  ) : null}
+                </ul>
+              )}
+              <Link
+                href={`/projects/${props.projectId}?surface=journal`}
+                className="mt-3 inline-block text-[12px] font-semibold text-[#7477ed] hover:underline"
+              >
+                Consulter le Journal ↗
+              </Link>
+            </div>
           </div>
+
+          <button
+            type="button"
+            className="mt-4 text-sm font-semibold text-[#7477ed] hover:underline"
+            data-testid="trajectory-open-cki"
+            onClick={props.onOpenCki}
+          >
+            Accès CKI et méthode
+          </button>
         </section>
       ) : null}
 

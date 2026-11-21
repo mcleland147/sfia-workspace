@@ -2778,6 +2778,11 @@ export default function ProjectPage() {
             projectId={params.projectId}
             pilotage={pilotageProjection}
             initialQualification={initialQualification}
+            knowledge={
+              knowledge
+                ? { acquis: knowledge.acquis, openPoints: knowledge.openPoints }
+                : null
+            }
             onOpenTravail={() => selectSurface("travail")}
           />
           {/* E07 — no Pilotage (diagnostic) panel on Trajectoire Figma surfaces. */}

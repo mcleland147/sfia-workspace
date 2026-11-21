@@ -3,6 +3,24 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-21-ENSEMBLE07-FIGMA-PAGE10-EXPERIMENT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 07 — Page 10 Figma expérimentation → Runtime → RECETTE |
+| Type | EVOL / UX / QA / DEPLOY · **NO RELEASE** · Gate C OPEN |
+| Parent | `ce03f5a7…` / tree `bd9077d5…` |
+| Methodo | v1.1 `@ a4516496` blob `3efe8807` (docs branch, non mergée main) |
+| Figma | Page 10 `1069:100` · 11 frames · shell instance `1073:2` |
+| Preuves | `.tmp-sfia-review/ensemble07-page10-experiment/` |
+| F2 critiques | **40/40 PASS** (Δ0) · 09.10 analyzing **exercé** (HOLD DEV) |
+| UX | Acquis/À clarifier toujours présents · suite envisagée = forecast · markers SVG |
+| Tests | unit 34 PASS · PG E07 15 PASS · tsc PASS · build PASS |
+| RECETTE | bascule LaunchAgent `ml4d-ux004` (voir handoff) |
+| Push projet | **NONE** |
+| Verdict | **ENSEMBLE 07 — FIGMA PAGE 10 / RUNTIME ALIGNED — 11/11 VERIFIED — RECETTE DEPLOYED — MORRIS UAT REQUIRED** |
+
 ## delivery_id: DELIV-2026-11-21-ENSEMBLE07-FIGMA-RUNTIME-UX-CYCLE8-FINAL
 
 | Field | Value |

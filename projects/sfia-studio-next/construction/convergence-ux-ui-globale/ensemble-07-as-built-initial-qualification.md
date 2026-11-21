@@ -1,9 +1,9 @@
 # Ensemble 07 — As-built (qualification initiale Projet / Trajectoire / Nora)
 
-**Statut:** Cycle 8 final — Figma→Runtime qualifié · candidat local figé · déployé RECETTE · NO RELEASE
-**Base Git figée RECETTE antérieure:** `c500df9ce58575783bcb842bf83658e1837990a3` · tree `3794e3443906e144460e3f00ba1e82bb3504fdd3`
+**Statut:** Page 10 experiment — 11/11 F2 critiques PASS · candidat local · RECETTE · NO RELEASE
+**Base Git figée RECETTE antérieure:** `ce03f5a7c6657f8bb924386b24355d37011833de` · tree `bd9077d5a1663ab9bdf0cbe326f8cbc210c1dabe`
 **Branche DEV:** `sfia/next-ensemble07-projet-trajectoire-delivery`
-**Date:** 2026-11-21 (Cycle 8 final — layout F2 + CKI éditorial + finalité cycle + SAS06 assets)
+**Date:** 2026-11-21 (Page 10 Figma `1069:100` · methodo v1.1 `a4516496`)
 
 ## Architecture retenue
 
@@ -32,7 +32,8 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation + **correctif co
 21. **Layout Figma desktop** : `data-project-figma-layout` (padding 0/38) · header projet 70 px · hero natif 37 px · séparateur · panneaux à y≈287.
 22. **Finalité cycle** : `cycle-objective-display.ts` — instructions OPEN non affichées / non persistées comme finalité métier.
 23. **SAS06** : modal 702×726 + SVG Figma sous `web/public/figma/sas06/`.
-24. **Preuves F2** : `.tmp-sfia-review/ensemble07-dip-cycle8-final/`.
+24. **Preuves F2** : `.tmp-sfia-review/ensemble07-dip-cycle8-final/` (cycle 8) ; Page 10 `.tmp-sfia-review/ensemble07-page10-experiment/`.
+25. **Page 10** : shell instance partagé · Acquis/À clarifier toujours rendus · suite envisagée = forecast (pas copy Figma) · markers SVG actif/envisagé/clôturé · 09.10 via `STUDIO_DEV_HOLD_INITIAL_QUALIFICATION=1`.
 
 ## Persistance
 
