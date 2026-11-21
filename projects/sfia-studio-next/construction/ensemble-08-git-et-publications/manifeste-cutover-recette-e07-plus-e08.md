@@ -41,11 +41,11 @@
 | --- | --- |
 | Branche source | `feat/next-ensemble08-git-publications-nora` |
 | Base main | `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
-| SHA candidat | *à compléter après commit freeze* |
-| TREE candidat | *à compléter* |
-| BUILD_ID candidat | *à compléter après build détaché* |
-| Worktree build | *à compléter* |
-| Script démarrage préparé | *à compléter* |
+| SHA candidat | `98185598de0d3f3b84af862aecea04b9099217ca` |
+| TREE candidat | `1c70839facb7fbc799980c585ce8bfba51cdb5d6` |
+| BUILD_ID candidat | `1xEbvCdTAX6ht262w4oKF` |
+| Worktree build | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-recette-build-98185598` |
+| Script démarrage préparé | `start-recette-ensemble08-98185598.sh` (non branché LaunchAgent) |
 
 ## Capacités réellement disponibles après cutover (prévision)
 
@@ -64,7 +64,7 @@
 | Ancien worktree E07 | Disponible `@5ad8fa57` |
 | Ancien BUILD_ID | `BtZP6qDx5oAw8jwPQSEhc` |
 | Script rollback | Relancer plist/script E07 `start-recette-ensemble07-5ad8fa57.sh` |
-| Backup PG frais | *à produire avant cutover* |
+| Backup PG frais | `ml4d-e07-pre-e08-cutover-20261121T193852Z-from-5ad8fa57.sql.gz` (691K, gzip OK) |
 | Rollback DB | Code rollback ≠ DB rollback ; pas de drop/truncate |
 
 ## Procédure cutover (exécutable seulement après GO)

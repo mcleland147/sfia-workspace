@@ -7,7 +7,7 @@
 | Base | `origin/main` @ `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
 | Profil | CRITICAL · Delivery finalisation · NO RELEASE |
 | CKC | FALLBACK (Delivery #8) |
-| Candidate SHA | NOT AVAILABLE (worktree non figé) |
+| Candidate SHA | `98185598de0d3f3b84af862aecea04b9099217ca` · TREE `1c70839facb7fbc799980c585ce8bfba51cdb5d6` · BUILD `1xEbvCdTAX6ht262w4oKF` |
 
 ## Livré (y compris finalisation technique)
 

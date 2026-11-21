@@ -19,8 +19,8 @@
 | Base `origin/main` | `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
 | HEAD actuel (local) | `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` (aligné main ; worktree dirty) |
 | État worktree | **DIRTY + untracked** (E08 complet non figé) |
-| Candidate SHA | *renseigné après freeze commit local* |
-| Build identifier | *renseigné après build détaché* |
+| Candidate SHA | `98185598de0d3f3b84af862aecea04b9099217ca` |
+| Build identifier | `1xEbvCdTAX6ht262w4oKF` (worktree build détaché) |
 | Lane cible | **RECETTE E07 existante** (réutilisation exclusive — pas de 2e lane) |
 | Runtime actuel | E07 `@5ad8fa57` / BUILD `BtZP6qDx5oAw8jwPQSEhc` encore servi sur :3200 |
 | Cutover | **STOP** sans GO Morris SHA-specific |

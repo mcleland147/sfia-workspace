@@ -12,11 +12,16 @@ Append-only logical journal of Cursor product deliveries.
 | Type | EVOL / CRITICAL · **NO RELEASE** |
 | Base | `origin/main` `a12f89a1` · branche `feat/next-ensemble08-git-publications-nora` |
 | Prior handoff | `19bd0099` |
+| Candidate SHA | `98185598de0d3f3b84af862aecea04b9099217ca` |
+| TREE | `1c70839facb7fbc799980c585ce8bfba51cdb5d6` |
+| BUILD_ID | `1xEbvCdTAX6ht262w4oKF` |
+| Build worktree | `sfia-workspace-next-ml4d-ensemble08-recette-build-98185598` |
 | RECETTE runtime observé | E07 `@5ad8fa57` · BUILD `BtZP6qDx5oAw8jwPQSEhc` · port 3200 · DB `sfia_next_recette_ml4` préservée |
+| Backup PG | `ml4d-e07-pre-e08-cutover-20261121T193852Z-from-5ad8fa57.sql.gz` |
 | Cutover | **NOT EXECUTED** — GO SHA-specific requis |
 | Matrice A/B/S | Totaux corrigés 12 / 17 / 10 / 2 (=41) |
 | Push projet | **NONE** |
-| Verdict attendu | **CANDIDATE FROZEN — RECETTE GO REQUIRED** (si freeze OK) |
+| Verdict | **CANDIDATE FROZEN — RECETTE GO REQUIRED** |
 
 ## delivery_id: DELIV-2026-11-21-ENSEMBLE08-TECHNICAL-EXIT-RECETTE-PREFLIGHT
 
