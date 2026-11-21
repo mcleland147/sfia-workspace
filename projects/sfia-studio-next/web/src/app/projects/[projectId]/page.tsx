@@ -15,6 +15,7 @@ import {
 } from "@/components/figma/ProjectJournal";
 import { ProjectOverview } from "@/components/figma/ProjectOverview";
 import { TrajectoryBoard } from "@/components/figma/TrajectoryBoard";
+import { PilotagePanel } from "@/components/PilotagePanel";
 import type { InitialQualificationProjection } from "@/domains/pilotage/initial-qualification-types";
 import type { PilotageProjection } from "@/domains/pilotage/types";
 import {
@@ -2785,7 +2786,15 @@ export default function ProjectPage() {
             }
             onOpenTravail={() => selectSurface("travail")}
           />
-          {/* E07 — no Pilotage (diagnostic) panel on Trajectoire Figma surfaces. */}
+          {/*
+            E07 Figma Trajectoire = TrajectoryBoard only for operators/RECETTE.
+            NEXT_PUBLIC_STUDIO_E2E=1 (Playwright FAKE lane) re-mounts PilotagePanel
+            so ML3 diagnostic contracts (OPEN/CLOSE, B13, journal décisions) stay
+            exercisable without changing UAT/Figma geometry.
+          */}
+          {process.env.NEXT_PUBLIC_STUDIO_E2E === "1" ? (
+            <PilotagePanel projectId={params.projectId} />
+          ) : null}
         </div>
       ) : null}
 

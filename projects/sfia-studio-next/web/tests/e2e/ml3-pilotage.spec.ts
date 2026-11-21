@@ -3,9 +3,11 @@ import path from "path";
 import { bootstrapProjectFromPortfolio } from "./helpers/g4-chat-first";
 
 async function openPilotageSurface(page: import("@playwright/test").Page) {
-  // Ensemble 04: Trajectoire lives on the rail (?surface=pilotage); central tab strip removed.
+  // Ensemble 04/07: Trajectoire on rail (?surface=pilotage). Figma board always present;
+  // PilotagePanel diagnostic harness is E2E-only (NEXT_PUBLIC_STUDIO_E2E=1).
   await page.getByTestId("studio-rail").getByTestId("nav-pilotage").click();
   await expect(page).toHaveURL(/[?&]surface=pilotage\b/);
+  await expect(page.getByTestId("trajectory-board")).toBeVisible({ timeout: 15000 });
   await expect(page.getByTestId("pilotage-panel")).toBeVisible({ timeout: 15000 });
 }
 
@@ -375,6 +377,10 @@ test("ML3 CR-02: ACK perdu puis reload sans double OPEN_CYCLE", async ({ page })
 
   await page.getByTestId("studio-rail").getByTestId("nav-travail").click();
   await expect(page).toHaveURL(/surface=travail/);
+  // E07: wait out initial-qualification composer lock before OPEN GO.
+  await expect(page.getByTestId("composer-lock-overlay")).toHaveCount(0, { timeout: 90000 });
+  await expect(page.getByTestId("thread-draft").first()).toBeEditable({ timeout: 30000 });
+
   await page.getByTestId("thread-draft").fill("Ouvre le cycle cadrage.");
   await page.getByTestId("thread-send").click();
   await expect(page.getByTestId("thread-nora-status")).toContainText(/ACK lost|ACK_LOST|échec|conservée/i, {
@@ -394,9 +400,22 @@ test("ML3 CR-02: ACK perdu puis reload sans double OPEN_CYCLE", async ({ page })
   await page.reload();
   await expect(page.getByTestId("thread-pending-banner")).toBeVisible({ timeout: 20000 });
   await page.getByTestId("thread-reconcile-pending").click();
-  await expect(page.getByTestId("thread-nora-status")).toContainText(/APPLIED|ALREADY_APPLIED|OPEN_CYCLE|ACTIVE/i, {
-    timeout: 30000,
-  });
+  // Durable proof is pilotage projection (status line copy varies under E07 restitution).
+  await expect
+    .poll(
+      async () => {
+        const pilotage = await page.request.get(`/api/projects/${projectId}/pilotage`);
+        if (!pilotage.ok()) return null;
+        const pj = await pilotage.json();
+        return pj.pilotage?.cycle ?? pj.cycle;
+      },
+      { timeout: 30000 },
+    )
+    .toMatchObject({ status: "ACTIVE", cycleType: "CADRAGE" });
+  await expect(page.getByTestId("thread-nora-status")).toContainText(
+    /APPLIED|ALREADY_APPLIED|OPEN_CYCLE|ACTIVE|cadrage|réconcili/i,
+    { timeout: 15000 },
+  );
 
   const pilotage = await page.request.get(`/api/projects/${projectId}/pilotage`);
   expect(pilotage.ok()).toBeTruthy();

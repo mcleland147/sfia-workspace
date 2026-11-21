@@ -180,6 +180,8 @@ test.describe("Journal V4 — données métier non vides (E06-01 + §5)", () => 
     await expect(docChip).toBeVisible({ timeout: 10000 });
     await docChip.click();
     await expect(page.getByTestId("travail-viewer")).toBeVisible({ timeout: 20000 });
+    // versionLine mounts after resource resolve — wait for the meta node itself first.
+    await expect(page.getByTestId("travail-viewer-revision")).toBeVisible({ timeout: 15000 });
     await expect(page.getByTestId("travail-viewer-revision")).toContainText(/révision citée|Version/i);
     await expect(page.getByTestId("travail-viewer")).toContainText(/version exacte pour J-C14/i);
     // Draft still preserved on thread

@@ -17,6 +17,7 @@ Append-only logical journal of Cursor product deliveries.
 | F2 desktop | padTop 124 · card 702×726 · tol ≤2 @1680×970 |
 | Push | branche `sfia/next-ensemble07-git-integration` · PR #687 |
 | RECETTE / UX 11/11 | **non mutés** · UAT `5ad8fa57` reste ancêtre |
+| Follow-up | d2-ack sans popup ACK-lost · PilotagePanel E2E-only (`NEXT_PUBLIC_STUDIO_E2E`) · ml3/journal/CR-02 prouvés localement |
 | Verdict | **ENSEMBLE 07 — SAS06 RESPONSIVE VERIFIED LOCALLY — CI CANDIDATE PENDING REQUIRED CHECKS** |
 
 ## delivery_id: DELIV-2026-11-21-ENSEMBLE07-ACQUIS-PANELS-50-50

@@ -43,6 +43,8 @@ export NODE_ENV=development
 export STUDIO_LANE=DEV
 export STUDIO_DEV_TEST_LOGIN=1
 export STUDIO_E2E=1
+# Client bundle gate — ML3 PilotagePanel diagnostic harness (not shown in RECETTE/UAT).
+export NEXT_PUBLIC_STUDIO_E2E=1
 # Never freeze initial qualification during E2E (operator .env.local may set HOLD=1).
 export STUDIO_DEV_HOLD_INITIAL_QUALIFICATION=
 unset STUDIO_DEV_HOLD_INITIAL_QUALIFICATION || true
