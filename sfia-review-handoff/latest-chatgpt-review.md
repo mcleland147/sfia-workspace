@@ -1,73 +1,237 @@
-# SFIA Review Pack FULL — Ensemble 07 · Consolidation QA finale avant gel Git
+# SFIA Review Pack FULL — Ensemble 07 · Gel Git local correctif + preuve concurrence GET A/B
 
-> Complément mono-cycle du correctif continuité + qualification navigateur.
-> Handoff navigateur préalable : `79c3a528` / blob `baf74005`.
+> Mono-cycle de finalisation. Handoffs antérieurs :
+> - Diagnostic Equip'Campus `78824f10`
+> - Correctif fonctionnel `f346a531`
+> - Qualification navigateur `79c3a528`
+> - Consolidation QA finale `83c364f6` / blob `a6740ae8`
+> - PV utilisateur `7c96bbed`
 
-## 1. GO et périmètre
+## 1. GO Morris et périmètre
 
 | | |
 |---|---|
 | Date | 2026-11-21 |
-| GO Morris | consolidation technique ciblée QA-01/02/03 |
-| Environnement | DEV/test isolé `:3101` + `sfia_next_e2e@:5433` |
-| LIVE | NOT RUN |
-| RECETTE | non mutée |
-| Versioning | NO RELEASE |
-| Gate C | OPEN |
+| GO Morris | finaliser preuve concurrence réseau + **commit local unique** de gel Ensemble 07 |
+| Environnement | DEV/test isolé Playwright `:3101` + `sfia_next_e2e@:5433` + fixture Nora |
+| Interdit | push projet · PR · merge · déploiement RECETTE · Nora LIVE · `git add -A` |
+| Versioning | NO RELEASE · classe PATCH envisagée sans numéro · Gate C OPEN |
+| Macro-lot | Ensemble 07 existant — pas de nouveau macro-lot |
 
 ## 2. Git Truth avant / après
 
-### Avant
+### Avant (préconditions vérifiées)
 
 | | |
 |---|---|
-| Worktree | `sfia-wt-ensemble07-projet-trajectoire-20261120` |
+| Worktree | `/Users/morris/Projects/sfia-wt-ensemble07-projet-trajectoire-20261120` |
+| Remote | `origin` → `https://github.com/mcleland147/sfia-workspace.git` |
 | Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` |
 | HEAD | `6ecdb987ee867a04ff816b699eb8870ac200db0a` |
 | Tree | `d0ad47ff515676f1c033a39030e886859f7272f7` |
 | Base construction | `6e93a33d64dfeea2eab88fb7896d733b34053f97` |
-| origin/main (fetch) | `542da1de917867b6bbda8b2b57d100552711c9aa` (doc indépendante — **pas** nouvelle base candidat) |
-| merge-base HEAD/main | `6e93a33d…` |
+| origin/main | `542da1de917867b6bbda8b2b57d100552711c9aa` |
+| merge-base HEAD/main | `6e93a33d…` (ascendance préservée — **pas** de rebase) |
 
-### Après
+### Après gel local
 
-HEAD projet **inchangé** ; correctifs locaux non commités ; aucun push projet.
-
-## 3. ENV-01
-
-| Lane | Isolation |
+| | |
 |---|---|
-| Playwright | `:3101` / `sfia_next_e2e` / fixture Nora |
-| RECETTE | `:3200` / `5434` — lecture seule |
-| Cookies | contextes séparés |
+| HEAD local | `c500df9ce58575783bcb842bf83658e1837990a3` |
+| Tree | `3794e3443906e144460e3f00ba1e82bb3504fdd3` |
+| Parent | `6ecdb987ee867a04ff816b699eb8870ac200db0a` (= HEAD historique attendu) |
+| origin/main | `542da1de917867b6bbda8b2b57d100552711c9aa` (inchangé pour ce cycle) |
+| merge-base | `6e93a33d64dfeea2eab88fb7896d733b34053f97` |
+| Push projet | **NONE** (branche sans upstream / non poussée) |
 
-## 4. Sources
+```
+HEAD=c500df9ce58575783bcb842bf83658e1837990a3
+TREE=3794e3443906e144460e3f00ba1e82bb3504fdd3
+PARENT=6ecdb987ee867a04ff816b699eb8870ac200db0a
+BRANCH=sfia/next-ensemble07-projet-trajectoire-delivery
+MAIN=542da1de917867b6bbda8b2b57d100552711c9aa
+MB=6e93a33d64dfeea2eab88fb7896d733b34053f97
+commit c500df9ce58575783bcb842bf83658e1837990a3
+Author:     Morris Cleland <morris@macbook-air.home>
+AuthorDate: Sat Nov 21 04:07:48 2026 +0100
+Commit:     Morris Cleland <morris@macbook-air.home>
+CommitDate: Sat Nov 21 04:07:48 2026 +0100
 
-- Handoff browser `79c3a528` blob `baf74005`
-- Correctif `f346a531` · Diagnostic `78824f10` · PV `7c96bbed`
+    fix(next): stabilize Ensemble 07 governed pilotage continuity
 
-## 5. Causes des réserves revue
+    Consolidate post-Equip'Campus continuity corrective with durable stale-GET
+    guard, rail URL revalidation, restitution/normalize owners, and browser A/B
+    race proof — local freeze only, no project push.
 
-1. **QA-01** — garde `surfaceNavGen` dans `.then()` **après** `setPilotageProjection`/`setMessages`.
-2. **QA-02** — assertions CKI `if (count)` → faux PASS ; + matrice Trajectoire montrait CLARIFICATION malgré cycle ACTIVE.
-3. **QA-03** — `lastPilotageEffect` pouvait être le premier OPEN.
+    Co-authored-by: Cursor <cursoragent@cursor.com>
 
-## 6. Correctifs propriétaires
+M	projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md
+M	projects/sfia-studio-next/construction/delivery-history.md
+M	projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+M	projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx
+M	projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
+A	projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/service.ts
+A	projects/sfia-studio-next/web/src/domains/pilotage/cycle-type-normalize.ts
+M	projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
+M	projects/sfia-studio-next/web/src/domains/pilotage/nora-context.ts
+M	projects/sfia-studio-next/web/src/domains/pilotage/service.ts
+A	projects/sfia-studio-next/web/src/lib/durable-refresh-guard.ts
+A	projects/sfia-studio-next/web/tests/e2e/ensemble07-browser-continuity.spec.ts
+M	projects/sfia-studio-next/web/tests/e2e/ensemble07-parcours-af.spec.ts
+M	projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts
+A	projects/sfia-studio-next/web/tests/unit/durable-refresh-guard.test.ts
+A	projects/sfia-studio-next/web/tests/unit/ensemble07-cycle-type-normalize.test.ts
+A	projects/sfia-studio-next/web/tests/unit/ensemble07-pilotage-effect-restitution.test.ts
 
-| ID | Correctif |
+```
+
+## 3. État DEV / RECETTE / LIVE
+
+| Lane | État |
 |---|---|
-| QA-01 | `shouldApplyDurableRefresh` + contrôles **avant** setState dans `refreshDurablePilotage` |
-| QA-02 | `trajectory-cki-id` / `trajectory-cki-absent` ; ACTIVE occupe Trajectoire ; shortcut CKI si bandeaux sans parcours |
-| QA-03 | `effectForUserUtterance` (user → assistant → turnProjection.pilotageEffect) ; second OPEN attend `REJECTED|ALREADY_APPLIED` du **nouveau** tour |
-| CONFLICT/UNKNOWN | Niveau exact : UNIT DETERMINISTIC ; BROWSER **NOT RUN** |
+| Playwright E2E | `:3101` / DB `sfia_next_e2e` / `STUDIO_FORCE_NORA_FIXTURE=1` — OK |
+| Operator PG | `:5433` container `sfia-next-dev-pg` — OK |
+| RECETTE | `:3200` HTTP **200** RO · BUILD `armX_D1HJzN6q-4MuDpYv` · SHA `6ecdb987…` · DB `:5434` — **non mutée** |
+| LIVE Nora | **NOT RUN** — aucun nouvel appel fournisseur |
+| STABLE | NOT AVAILABLE |
 
-## 7–8. Diffs modifiés + nouveaux fichiers
+## 4. Sources lues (SHA)
 
-### Diff `git diff -- projects/sfia-studio-next`
+- Handoff QA finale `83c364f6` / blob `a6740ae8` — `sfia-review-handoff/latest-chatgpt-review.md`
+- Contrat d'exécution Morris 2026-11-21 (ce cycle)
+- As-built + delivery-history locaux (mis à jour dans le commit)
+- Code propriétaire `page.tsx` / `durable-refresh-guard.ts` / Continuity spec
+
+## 5. Réserve concurrence (avant ce cycle)
+
+La revue ChatGPT sur `83c364f6` acceptait le garde unitaire mais jugeait le scénario Playwright insuffisamment discriminant : pas de preuve explicite que A et B ont été interceptés, que B a été appliquée avant libération de A, ni qu'une projection périmée n'écrase pas B. Un simple `setTimeout(50)` n'était pas une preuve d'ordonnancement.
+
+## 6. Modification exacte (preuve + correctif propriétaire)
+
+### 6.1 Test QA-FINAL-01 (renforcé)
+
+Fichier : `ensemble07-browser-continuity.spec.ts`
+
+- Phases explicites `await_a|hold_a|await_b|done`
+- Barrières/promesses : `aIntercepted`, `releaseA`, `bIntercepted`, `bFulfilled`, `aFulfilled` + timeouts diagnostiques
+- Marqueurs UI : `E07_FRESH_B_PROJECTION_MARKER` / `E07_STALE_A_PROJECTION_MARKER` (objective)
+- Ordre imposé : A intercepté+tenu → B fulfilled+visible → A relâché → assert pas d'écrasement
+- Assert GET métier post-course inchangé (cycleId/status/type)
+- Strict Mode : tous les GET de phase A restent stale+held
+
+### 6.2 Correctif produit révélé par le test
+
+Le rail Studio navigue via `<Link>` (URL), pas via `selectSurface`. L'effet `searchParams` incrémentait la génération **sans** appeler `refreshDurablePilotage` → aucun GET concurrent n'était produit sur le chemin réel.
+
+Correctif borné dans `page.tsx` (effet URL) : après `surfaceNavGenRef++`, appeler `refreshDurablePilotage({ generation, projectId })`. Propriétaire existant de la revalidation — pas de nouveau bus/cache.
+
+## 7–8. Git Review Index (commit local non poussé)
+
+**Commit :** `c500df9ce58575783bcb842bf83658e1837990a3`
+**Tree :** `3794e3443906e144460e3f00ba1e82bb3504fdd3`
+**Parent :** `6ecdb987ee867a04ff816b699eb8870ac200db0a`
+
+### Fichiers ajoutés (A) — contenu intégral § ci-dessous
+
+| Path | Blob HEAD |
+|---|---|
+| `projects/sfia-studio-next/web/src/lib/durable-refresh-guard.ts` | `f2d121f71e17813690703ade5fb2b730eeb9ab1b` |
+| `projects/sfia-studio-next/web/tests/unit/durable-refresh-guard.test.ts` | `0fc1004c0e18b421d8d8b43d40942fd087277727` |
+| `projects/sfia-studio-next/web/src/domains/pilotage/cycle-type-normalize.ts` | `f23edac86f7720a9e6f51a20844193bd00fc2bbc` |
+| `projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts` | `74998a428caa1619aad1883fc2514b98429a4371` |
+| `projects/sfia-studio-next/web/tests/unit/ensemble07-cycle-type-normalize.test.ts` | `75c77d97d5b6371d7e5ce755f32040b513be17c5` |
+| `projects/sfia-studio-next/web/tests/unit/ensemble07-pilotage-effect-restitution.test.ts` | `df2f12331e26be52ce6559a1d4513849aa337d9e` |
+| `projects/sfia-studio-next/web/tests/e2e/ensemble07-browser-continuity.spec.ts` | `dbd802d762f4d3254bd646a955877e9dfa862623` |
+
+### Fichiers modifiés (M)
+
+| Path | Statut |
+|---|---|
+| `projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md` | M |
+| `projects/sfia-studio-next/construction/delivery-history.md` | M |
+| `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx` | M |
+| `projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx` | M |
+| `projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts` | M |
+| `projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts` | M |
+| `projects/sfia-studio-next/web/src/domains/conversation/service.ts` | M |
+| `projects/sfia-studio-next/web/src/domains/pilotage/intent.ts` | M |
+| `projects/sfia-studio-next/web/src/domains/pilotage/nora-context.ts` | M |
+| `projects/sfia-studio-next/web/src/domains/pilotage/service.ts` | M |
+| `projects/sfia-studio-next/web/tests/e2e/ensemble07-parcours-af.spec.ts` | M |
+| `projects/sfia-studio-next/web/tests/integration/ensemble07-initial-qualification.pg.test.ts` | M |
+
+**19 chemins** au total (7 A + 12 M). Stage par chemins explicites — **pas** `git add -A`.
+
+## 9. Protocole scénario A/B
+
+1. Baseline ACTIVE Cadrage sans interception
+2. Installer route exacte `/api/projects/:id` (pas `/pilotage`)
+3. Phase A : openSurface(pilotage) → GET(s) tenus ; payload STALE_MARKER
+4. Phase B : openSurface(projet) → GET fresh FRESH_MARKER ; attendre visible
+5. Assert STALE absent
+6. releaseA ; await aFulfilled
+7. Assert FRESH toujours visible ; STALE toujours absent ; API durable inchangée
+
+## 10. Preuve ordonnancement
+
+Résultat suite continuity (après correctif URL) :
+
+```
+7 passed (30.2s)
+… QA-FINAL-01 — stale GET must not overwrite newer projection (1.4s) ✓
+… BROWSER-06 … ✓
+```
+
+Le test **échoue** si A/B non interceptés, B non traité avant A, A jamais revenu, projection fraîche absente, ou écrasement stale.
+
+## 11. Tests de régression (arbre final = tree du commit)
+
+| Contrôle | Résultat |
+|---|---|
+| TypeScript `tsc --noEmit` | PASS (exit 0) |
+| Unitaires globaux | **706 PASS** / 88 files |
+| PostgreSQL globaux | **525 PASS** / 34 files |
+| BROWSER Continuity | **7 PASS** |
+| QA-FINAL-01 concurrence | **PASS** (ordonnancement prouvé) |
+| Parcours A–F | **7 PASS / 2 SKIP** (A2, D2 justifiés) |
+| Build Next | PASS |
+| LIVE | NOT RUN |
+| RECETTE | non mutée (HTTP 200 RO) |
+
+## 12. Stage et exclusions
+
+### Inclus (commités)
+
+Voir Git Review Index §7–8.
+
+### Exclus et **préservés** (hors commit)
+
+- `.tmp-sfia-review/chatgpt-review.md` (pack local)
+- `projects/.tmp-sfia-review/ensemble07-browser-evidence/*.png`
+- scripts E07 non suivis (`e07-*.mts`, `_dbg-e07-process.mts`, `_e07-recapture-08.mts`)
+- `node_modules/`, `.env*`, builds, logs, caches
+
+Aucun secret stageé. Aucun changement étranger dans l'index.
+
+## 13. Commit local — identité
+
+| | |
+|---|---|
+| SHA | `{head}` |
+| Tree | `{tree}` |
+| Parent | `{parent}` |
+| Message | `fix(next): stabilize Ensemble 07 governed pilotage continuity` |
+| Fichiers | 19 (1584 insertions, 51 deletions) |
+
+## 14. Relecture du diff commité
+
+Diffs des fichiers **modifiés** (complets) :
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md b/projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md
-index 7c7ac2f0..cf3f3bee 100644
+index 7c7ac2f0..1915e58a 100644
 --- a/projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md
 +++ b/projects/sfia-studio-next/construction/convergence-ux-ui-globale/ensemble-07-as-built-initial-qualification.md
 @@ -1,13 +1,13 @@
@@ -77,10 +241,10 @@ index 7c7ac2f0..cf3f3bee 100644
 -**Base Git:** `e36fd8b0531c4f649830990a18f9cfdaecb3c03f`
 -**Branche:** `sfia/next-ensemble07-projet-trajectoire-delivery`
 -**Date:** 2026-11-20 (stabilisation fonctionnelle — UX gelée)
-+**Statut:** construction DEV corrective — NO RELEASE · continuité pilotage gouverné (correctif post-RECETTE Equip'Campus)
++**Statut:** construction DEV corrective — NO RELEASE · candidat Git local figé (post-RECETTE Equip'Campus)
 +**Base Git figée RECETTE (immuable):** `6ecdb987ee867a04ff816b699eb8870ac200db0a` · tree `d0ad47ff515676f1c033a39030e886859f7272f7`
-+**Worktree DEV (non commité):** correctifs locaux sur `sfia/next-ensemble07-projet-trajectoire-delivery`
-+**Date:** 2026-11-21 (correctif intégré UAT-02/06/08/09/10/11/12)
++**Branche DEV:** `sfia/next-ensemble07-projet-trajectoire-delivery` — gel local correctif (parent = base RECETTE)
++**Date:** 2026-11-21 (correctif intégré UAT-02/06/08/09/10/11/12 + QA concurrence GET)
 
  ## Architecture retenue
 
@@ -89,7 +253,7 @@ index 7c7ac2f0..cf3f3bee 100644
 
  1. Après `createProjectCommand` confirmé : `ensureInitialQualification` (retry) **avant** `continueAfterProjectCreated`, puis `kickInitialQualificationProcessing` (P0-05).
  2. Kick uniquement depuis create / reconcile POST — **jamais depuis GET**.
-@@ -15,8 +15,18 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation :
+@@ -15,8 +15,19 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation :
  4. `resultJson.assistantContent` durable pour reprise exacte message (P0-02).
  5. Lien `preparation_project_links.initial_qualification_expected` (migration 016) : legacy = false → pas de verrou synthétique (P0-04).
  6. RETAIN conversationnel résout la PROPOSED courante côté serveur (FIX-08) — pas de cible D5 dans le body USER_MESSAGE.
@@ -100,16 +264,17 @@ index 7c7ac2f0..cf3f3bee 100644
 +10. **Catalogue cycles** injecté dans le contexte Nora (`nora-context.ts`) — identifiants + libellés seulement, pas les fiches CKI.
 +11. **Restitution post-effet** déterministe (`composePilotageEffectRestitution`) avant persistance du message assistant — APPLIED / REJECTED / CONFLICT / UNKNOWN / ALREADY_APPLIED.
 +12. **Projection fil Travail** : dumps techniques mission filtrés en lecture (`listMessages`) ; nouveaux continues métier sans `projectId=` brut.
-+13. **Sync surfaces** : `selectSurface` déclenche `refreshDurablePilotage` qui recharge la **projection pilotage complète** (+ messages) via GET projet — sans F5, sans mutation.
++13. **Sync surfaces** : `selectSurface` et l'effet URL `searchParams` (rail `<Link>`) déclenchent `refreshDurablePilotage` — projection pilotage complète (+ messages) via GET projet, sans F5, sans mutation.
 +14. **Projections de tour** : `listTurnProjections` expose aussi `pilotageEffect` (sibling `resultJson`) pour corrélation API/UI.
 +15. **Fixture E2E** : OPEN émet `cycleType="cadrage"` (frontière LIVE) ; GO naturel + RETAIN + type inconnu enregistrés.
 +16. **Stale GET guard** : `shouldApplyDurableRefresh` (génération + projectId) appliqué **avant** tout `setState` dans `refreshDurablePilotage`.
 +17. **Trajectoire vs ACTIVE** : si cycle ACTIVE, les bandeaux qualification (CLARIFICATION/…) n'occultent plus parcours/CKI.
 +18. **CKI UI** : `data-testid=trajectory-cki-id|trajectory-cki-absent` pour assertions navigateur strictes.
++19. **Course GET A/B** : QA-FINAL-01 Playwright prouve barrières A tenu → B appliqué+observable → A relâché sans écrasement (marqueurs objectifs).
 
  ## Persistance
 
-@@ -32,6 +42,11 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation :
+@@ -32,6 +43,11 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation :
  | `web/src/domains/pilotage/initial-qualification.ts` | ensure / process / assert admission |
  | `web/src/domains/pilotage/forecast-builder.ts` | séquence 1–3 cycles (déterministe FAKE) |
  | `web/src/domains/pilotage/qualification-lock.ts` | règles de verrou compositeur |
@@ -121,7 +286,7 @@ index 7c7ac2f0..cf3f3bee 100644
  | `web/src/components/figma/TrajectoryBoard.tsx` | surface Trajectoire 09.02/07/10/11 |
  | `web/src/components/figma/SasCreateProgressPopup.tsx` | pop-up SAS 06 allégée |
  | `web/src/components/figma/ProjectOverview.tsx` | 09.01 / 09.06 |
-@@ -39,14 +54,13 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation :
+@@ -39,14 +55,14 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation :
 
  ## Preuves
 
@@ -142,15 +307,31 @@ index 7c7ac2f0..cf3f3bee 100644
 -- LIVE Nora fournisseur : NOT PROVEN (fixture DEV).
 +- Fidélité visuelle pixel des 13 frames : hors mandat correctif (OUT Figma).
 +- LIVE cognitive réelle sur projet synthétique DEV : gate Morris + autorisation fournisseur requises.
-+- E2E navigateur sync sans F5 : à rejouer sur runtime DEV après gel candidat (preuve unitaire/PG + hook `selectSurface` en place).
++- CONFLICT/UNKNOWN : UNIT DETERMINISTIC ; BROWSER NOT RUN ce cycle.
++- LIVE Nora fournisseur : NOT RUN.
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 1031bd24..9f34c76d 100644
+index 1031bd24..2e292dc4 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -3,6 +3,49 @@
+@@ -3,6 +3,64 @@
  Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
++## delivery_id: DELIV-2026-11-21-ENSEMBLE07-LOCAL-GIT-FREEZE-CORRECTIVE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-21 |
++| Macro-lot | Ensemble 07 — gel Git local du correctif continuité (post-QA concurrence) |
++| Type | INC / gel candidat DEV · **NO RELEASE** · Gate C OPEN |
++| Parent | `6ecdb987ee867a04ff816b699eb8870ac200db0a` (RECETTE figée immuable) |
++| Branche | `sfia/next-ensemble07-projet-trajectoire-delivery` |
++| QA-FINAL-01 | Course GET A/B : barrières + marqueurs ; rail URL effect appelle `refreshDurablePilotage` |
++| Tests gel | tsc PASS · unit **706** · PG **525** · browser continuity **7** · parcours-af **7 PASS / 2 SKIP** · build PASS |
++| LIVE / RECETTE | NOT RUN / non mutée (`:3200` HTTP 200 RO) |
++| Push projet | **NONE** |
++| Verdict | **ENSEMBLE 07 — LOCAL GIT CANDIDATE FROZEN — MORRIS RECETTE GATE REQUIRED** |
++
 +## delivery_id: DELIV-2026-11-21-ENSEMBLE07-FINAL-QA-CONSOLIDATION
 +
 +| Field | Value |
@@ -198,7 +379,7 @@ index 1031bd24..9f34c76d 100644
 
  | Field | Value |
 diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index 5fada7f5..474d6261 100644
+index 5fada7f5..4dd1389e 100644
 --- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 +++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 @@ -31,6 +31,7 @@ import {
@@ -290,6 +471,29 @@ index 5fada7f5..474d6261 100644
        if (cycle?.status === "ACTIVE") {
          setPilotageStatus((prev) =>
            prev.includes("OPEN_CYCLE") || prev.includes("ACTIVE")
+@@ -1896,8 +1948,12 @@ export default function ProjectPage() {
+   }, [params.projectId, initialQualification?.status, initialQualification?.operationId]);
+
+   // B2 — keep surface/document in sync with URL on Back/Forward without one-shot lock.
++  // Rail <Link> navigation converges here (not selectSurface). Own durable GET revalidation
++  // + generation bump so concurrent/stale project GETs cannot clobber a newer surface.
+   useEffect(() => {
+     surfaceNavGenRef.current += 1;
++    const navGen = surfaceNavGenRef.current;
++    const projectIdAtNav = params.projectId;
+     const qSurface = parseSurface(searchParams.get("surface"));
+     const qDocId = searchParams.get("documentId");
+     applyUrlDocumentState(documentsRef.current, qSurface, qDocId);
+@@ -1907,6 +1963,9 @@ export default function ProjectPage() {
+     if (qSurface && peekProjectSurfaceNavIntent(params.projectId) === qSurface) {
+       clearProjectSurfaceNavIntent(params.projectId, qSurface);
+     }
++    void refreshDurablePilotage({ generation: navGen, projectId: projectIdAtNav }).catch(() => {
++      /* best-effort — URL surface sync must stay non-blocking */
++    });
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [searchParams]);
+
 diff --git a/projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx b/projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx
 index 97196e5f..99d366df 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/TrajectoryBoard.tsx
@@ -734,11 +938,12 @@ index 6a33a906..3fc4838b 100644
          objective: "Clarifier le besoin",
          semanticIntentId: openQual.intents[0]?.id,
          semanticSchemaVersion: openQual.schemaVersion,
+
 ```
 
-### NEW FILE `projects/sfia-studio-next/web/src/lib/durable-refresh-guard.ts`
+## 15. Contenus complets des fichiers **créés**
 
-```typescript
+===== BEGIN FILE projects/sfia-studio-next/web/src/lib/durable-refresh-guard.ts =====
 /**
  * Guard for applying durable GET revalidation results.
  * Reject stale responses BEFORE any React state mutation.
@@ -766,11 +971,8 @@ export function shouldApplyDurableRefresh(input: {
   if (input.request.generation !== input.currentGeneration) return false;
   return true;
 }
-```
-
-### NEW FILE `projects/sfia-studio-next/web/tests/unit/durable-refresh-guard.test.ts`
-
-```typescript
+===== END FILE projects/sfia-studio-next/web/src/lib/durable-refresh-guard.ts =====
+===== BEGIN FILE projects/sfia-studio-next/web/tests/unit/durable-refresh-guard.test.ts =====
 import { describe, expect, it } from "vitest";
 import { shouldApplyDurableRefresh } from "@/lib/durable-refresh-guard";
 
@@ -815,11 +1017,8 @@ describe("durable-refresh-guard (QA-FINAL-01)", () => {
     ).toBe(false);
   });
 });
-```
-
-### NEW FILE `projects/sfia-studio-next/web/src/domains/pilotage/cycle-type-normalize.ts`
-
-```typescript
+===== END FILE projects/sfia-studio-next/web/tests/unit/durable-refresh-guard.test.ts =====
+===== BEGIN FILE projects/sfia-studio-next/web/src/domains/pilotage/cycle-type-normalize.ts =====
 /**
  * Deterministic cycle-type normalization at the semantic → D5 boundary.
  * Reuses CYCLE_TYPES / official labels — does not create a parallel catalogue.
@@ -927,11 +1126,8 @@ export function formatRecognizedCycleCatalogueSnippet(): string[] {
     ...CYCLE_TYPES.map((t) => `- ${t} (« ${CYCLE_TYPE_LABELS[t]} »)`),
   ];
 }
-```
-
-### NEW FILE `projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts`
-
-```typescript
+===== END FILE projects/sfia-studio-next/web/src/domains/pilotage/cycle-type-normalize.ts =====
+===== BEGIN FILE projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts =====
 /**
  * Deterministic métier restitution after a governed D5/D6 conversational effect.
  * Facts come from Studio (pilotageEffect); Nora prior prose may be adjusted, never invented as authority.
@@ -1097,11 +1293,8 @@ export function projectMetierMissionMessage(content: string): string {
   }
   return "Suite de mission enregistrée par Studio — détails techniques masqués dans le fil métier.";
 }
-```
-
-### NEW FILE `projects/sfia-studio-next/web/tests/unit/ensemble07-cycle-type-normalize.test.ts`
-
-```typescript
+===== END FILE projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts =====
+===== BEGIN FILE projects/sfia-studio-next/web/tests/unit/ensemble07-cycle-type-normalize.test.ts =====
 import { describe, expect, it } from "vitest";
 import { CYCLE_TYPES } from "@/domains/pilotage/cki-resolve";
 import {
@@ -1162,11 +1355,8 @@ describe("E07 cycle-type normalize (LIVE → D5)", () => {
     expect(CYCLE_TYPES).toHaveLength(15);
   });
 });
-```
-
-### NEW FILE `projects/sfia-studio-next/web/tests/unit/ensemble07-pilotage-effect-restitution.test.ts`
-
-```typescript
+===== END FILE projects/sfia-studio-next/web/tests/unit/ensemble07-cycle-type-normalize.test.ts =====
+===== BEGIN FILE projects/sfia-studio-next/web/tests/unit/ensemble07-pilotage-effect-restitution.test.ts =====
 import { describe, expect, it } from "vitest";
 import {
   composePilotageEffectRestitution,
@@ -1264,11 +1454,8 @@ describe("E07 technical mission message projection", () => {
     expect(projected).not.toMatch(/clientIntentKey=/);
   });
 });
-```
-
-### NEW FILE `projects/sfia-studio-next/web/tests/e2e/ensemble07-browser-continuity.spec.ts`
-
-```typescript
+===== END FILE projects/sfia-studio-next/web/tests/unit/ensemble07-pilotage-effect-restitution.test.ts =====
+===== BEGIN FILE projects/sfia-studio-next/web/tests/e2e/ensemble07-browser-continuity.spec.ts =====
 import { test, expect, type Page, type APIRequestContext } from "@playwright/test";
 import fs from "node:fs";
 import path from "node:path";
@@ -1781,65 +1968,185 @@ test.describe("Ensemble 07 BROWSER continuity (01–06)", () => {
   test("QA-FINAL-01 — stale GET must not overwrite newer projection", async ({ page }) => {
     expect(projectId).toBeTruthy();
     await loginPilotA(page);
+    // Baseline load WITHOUT race interception — prove ACTIVE first.
     await page.goto(`/projects/${projectId}?surface=projet`);
     await expect(
       page.getByTestId("project-overview-cycle-card").getByRole("heading", { name: /Cadrage/i }),
     ).toBeVisible({ timeout: 20000 });
+    const baselineCycleId = (await getProjectSnap(page.request, projectId)).cycleId;
+    expect(baselineCycleId).toBeTruthy();
 
-    let projectGetCount = 0;
-    let releaseStale: (() => void) | null = null;
-    const staleGate = new Promise<void>((resolve) => {
-      releaseStale = resolve;
+    const FRESH_MARKER = "E07_FRESH_B_PROJECTION_MARKER";
+    const STALE_MARKER = "E07_STALE_A_PROJECTION_MARKER";
+
+    type Gate = { promise: Promise<void>; resolve: () => void };
+    const makeGate = (): Gate => {
+      let resolve!: () => void;
+      const promise = new Promise<void>((r) => {
+        resolve = r;
+      });
+      return { promise, resolve };
+    };
+
+    let getA = 0;
+    let getB = 0;
+    let otherGets = 0;
+    let aFulfilledCount = 0;
+    let bSeenInUi = false;
+    /** Explicit phases — Strict Mode may double-invoke the URL effect; all A-phase GETs stay stale+held. */
+    let phase: "await_a" | "hold_a" | "await_b" | "done" = "await_a";
+
+    const awaitGate = async (gate: Gate, label: string, ms = 15000) => {
+      await Promise.race([
+        gate.promise,
+        new Promise<void>((_, reject) => {
+          setTimeout(() => {
+            reject(
+              new Error(
+                `QA-FINAL-01 timeout waiting for ${label} (phase=${phase}, getA=${getA}, getB=${getB}, otherGets=${otherGets}, bSeenInUi=${bSeenInUi})`,
+              ),
+            );
+          }, ms);
+        }),
+      ]);
+    };
+
+    const releaseA = makeGate();
+    const aIntercepted = makeGate();
+    const bIntercepted = makeGate();
+    const bFulfilled = makeGate();
+    const aFulfilled = makeGate();
+
+    const staleBody = JSON.stringify({
+      pilotage: {
+        projectId,
+        revision: 1,
+        cycle: {
+          id: baselineCycleId,
+          status: "ACTIVE",
+          cycleType: "CADRAGE",
+          objective: STALE_MARKER,
+          cki: { ckiId: "stale-cki-should-not-win", availability: "ASSOCIATED" },
+        },
+        closedCycles: [],
+        trajectory: { proposed: null, retained: null },
+        method: { presence: "ABSENT" },
+        restrictions: [],
+      },
+      messages: [],
+    });
+    const freshBody = JSON.stringify({
+      pilotage: {
+        projectId,
+        revision: 99,
+        cycle: {
+          id: baselineCycleId,
+          status: "ACTIVE",
+          cycleType: "CADRAGE",
+          objective: FRESH_MARKER,
+          cki: { ckiId: "fresh-cki-b", availability: "ASSOCIATED" },
+        },
+        closedCycles: [],
+        trajectory: { proposed: null, retained: { id: "traj_fresh" } },
+        method: { presence: "ABSENT" },
+        restrictions: [],
+      },
+      messages: [],
     });
 
-    await page.route(`**/api/projects/${projectId}`, async (route) => {
+    const matchProjectGet = (url: URL) =>
+      url.pathname === `/api/projects/${projectId}` ||
+      url.pathname === `/api/projects/${projectId}/`;
+
+    // Exact project resource only — do not swallow /pilotage sub-routes.
+    await page.route(matchProjectGet, async (route) => {
       if (route.request().method() !== "GET") {
         await route.continue();
         return;
       }
-      projectGetCount += 1;
-      const n = projectGetCount;
-      if (n === 1) {
-        // Stale A: wait until B has been applied, then fulfill with a fake empty cycle.
-        await staleGate;
+      if (phase === "await_a" || phase === "hold_a") {
+        getA += 1;
+        if (phase === "await_a") {
+          phase = "hold_a";
+          aIntercepted.resolve();
+        }
+        await releaseA.promise;
         await route.fulfill({
           status: 200,
           contentType: "application/json",
-          body: JSON.stringify({
-            pilotage: {
-              projectId,
-              revision: 1,
-              cycle: null,
-              closedCycles: [],
-              trajectory: { proposed: null, retained: null },
-              method: { presence: "ABSENT" },
-              restrictions: [],
-            },
-            messages: [],
-          }),
+          body: staleBody,
         });
+        aFulfilledCount += 1;
+        if (aFulfilledCount === 1) aFulfilled.resolve();
         return;
       }
-      // Fresh B: real upstream, then release A.
+      if (phase === "await_b") {
+        getB += 1;
+        if (getB === 1) bIntercepted.resolve();
+        await route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: freshBody,
+        });
+        if (getB === 1) {
+          phase = "done";
+          bFulfilled.resolve();
+        }
+        return;
+      }
+      otherGets += 1;
       await route.continue();
-      // Let continue flush, then release stale A.
-      setTimeout(() => releaseStale?.(), 50);
     });
 
-    // Trigger two navigations → two refreshDurablePilotage generations (A then B).
-    await openSurface(page, "pilotage");
-    await openSurface(page, "projet");
+    // A then B: two rail surface changes → two URL-effect refreshDurablePilotage generations.
+    const navA = openSurface(page, "pilotage");
+    await awaitGate(aIntercepted, "GET A intercept");
+    expect(getA, "GET A must be intercepted at least once").toBeGreaterThanOrEqual(1);
+    expect(getB, "GET B must not start before phase flip").toBe(0);
+    await navA; // surface flip; A-phase GETs remain held
 
-    // After both settle, ACTIVE Cadrage must remain (stale null-cycle must not win).
+    phase = "await_b";
+    const navB = openSurface(page, "projet");
+    await awaitGate(bIntercepted, "GET B intercept");
+    expect(getB, "GET B must be intercepted").toBeGreaterThanOrEqual(1);
+
+    // B must complete and be observable BEFORE A is released.
+    await awaitGate(bFulfilled, "GET B fulfill");
+    await expect(page.getByText(FRESH_MARKER, { exact: false })).toBeVisible({ timeout: 20000 });
+    bSeenInUi = true;
+    await expect(page.getByText(STALE_MARKER, { exact: false })).toHaveCount(0);
+    await navB;
+
+    // Now release stale A-phase GETs and wait until at least one fulfill finishes.
+    releaseA.resolve();
+    await awaitGate(aFulfilled, "GET A fulfill after release");
+    // Allow React to process any late setState from stale A.
+    await page.waitForTimeout(250);
+
+    // A must NOT overwrite B's identifiable fresh projection.
+    await expect(page.getByText(FRESH_MARKER, { exact: false })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText(STALE_MARKER, { exact: false })).toHaveCount(0);
     await expect(
       page.getByTestId("project-overview-cycle-card").getByRole("heading", { name: /Cadrage/i }),
-    ).toBeVisible({ timeout: 20000 });
+    ).toBeVisible();
     await expect(page.getByTestId("project-overview-no-cycle")).toHaveCount(0);
 
-    await page.unroute(`**/api/projects/${projectId}`);
+    await page.unroute(matchProjectGet);
+
+    // Durable API still ACTIVE — GET race must not mutate métier.
+    const after = await getProjectSnap(page.request, projectId);
+    expect(after.cycleId).toBe(baselineCycleId);
+    expect(after.cycleStatus).toBe("ACTIVE");
+    expect(after.cycleType).toBe("CADRAGE");
+
+    expect(getA, "GET A must have run").toBeGreaterThanOrEqual(1);
+    expect(getB, "GET B must have run").toBeGreaterThanOrEqual(1);
+    expect(aFulfilledCount, "GET A must have completed after release").toBeGreaterThanOrEqual(1);
+    expect(bSeenInUi, "fresh B projection must have been observable before A release").toBe(true);
+
     test.info().annotations.push({
       type: "note",
-      description: `QA-FINAL-01 PASS — projectGetCount=${projectGetCount}; stale null-cycle did not overwrite ACTIVE Cadrage`,
+      description: `QA-FINAL-01 PASS — A held (getA=${getA}), B fulfilled+visible (${FRESH_MARKER}) before A release (aFulfilled=${aFulfilledCount}), no stale overwrite; otherGets=${otherGets}`,
     });
   });
 
@@ -1918,75 +2225,58 @@ test.describe("Ensemble 07 BROWSER continuity (01–06)", () => {
     });
   });
 });
+===== END FILE projects/sfia-studio-next/web/tests/e2e/ensemble07-browser-continuity.spec.ts =====
+
+
+## 16. État tracked / untracked après commit
+
+```
+ M .tmp-sfia-review/chatgpt-review.md
+?? projects/.tmp-sfia-review/ensemble07-browser-evidence/b01-cki-region.png
+?? projects/.tmp-sfia-review/ensemble07-browser-evidence/b01-projet-after-open.png
+?? projects/.tmp-sfia-review/ensemble07-browser-evidence/b01-trajectoire-after-open.png
+?? projects/.tmp-sfia-review/ensemble07-browser-evidence/b01-travail-after-go.png
+?? projects/.tmp-sfia-review/ensemble07-browser-evidence/b02-rejected-no-cycle.png
+?? projects/.tmp-sfia-review/ensemble07-browser-evidence/b04-after-voluntary-refresh.png
+?? projects/.tmp-sfia-review/ensemble07-browser-evidence/b05-travail-after-create.png
+?? projects/.tmp-sfia-review/ensemble07-browser-evidence/b06-idempotence.png
+?? projects/sfia-studio-next/web/scripts/_dbg-e07-process.mts
+?? projects/sfia-studio-next/web/scripts/_e07-recapture-08.mts
+?? projects/sfia-studio-next/web/scripts/e07-capture-sas-modal.mts
+?? projects/sfia-studio-next/web/scripts/e07-runtime-screenshots.mts
+?? projects/sfia-studio-next/web/scripts/e07-seed-screenshot.mts
+
 ```
 
-## 9. Tests (cette exécution)
+Modifications produit tracked absentes hors `.tmp-sfia-review/chatgpt-review.md` (pack). Untracked préexistants conservés.
 
-| Suite | Résultat |
-|---|---|
-| tsc | **PASS** |
-| unit | **88 files / 706 PASS** |
-| PG | **34 files / 525 PASS** |
-| browser continuity | **7 PASS** (incl. QA-FINAL-01 race) |
-| parcours-af | **7 PASS / 2 SKIP** |
-| next build | **PASS** |
-| LIVE | **NOT RUN** |
+## 17. Absence de push projet / mutation RECETTE
 
-## 10. Simulation réponses réseau désordonnées
+- `git status -sb` : branche locale sans tracking distant de publication ce cycle
+- Aucun `git push` de la branche produit
+- RECETTE `:3200` toujours HTTP 200 ; SHA runtime historique `6ecdb987` non remplacé
+- main inchangée (`542da1de917867b6bbda8b2b57d100552711c9aa`)
 
-Playwright `page.route` : GET A retardé puis corps `cycle:null` ; GET B continue réel puis libère A.
-**Assertion :** Projet reste « Cadrage » ACTIVE — A n'écrase pas B. **QA-FINAL-01 PASS**.
+## 18. Niveau exact de preuve LIVE
 
-## 11. CKI actif
+**NOT RUN** — fixture déterministe uniquement. Ne constitue **pas** une certification fournisseur réel.
 
-- API `ckiId` non nul
-- Banner contient `ckiId`
-- Surface CKI : `trajectory-cki-id` = projection ; `trajectory-cki-absent` count 0
-- Sans cycle : `trajectory-cki-absent` visible
-**QA-FINAL-03/04 PASS**
+CONFLICT/UNKNOWN : UNIT DETERMINISTIC ; BROWSER NOT RUN (inchangé).
 
-## 12. Corrélation second OPEN
+## 19. Réserves restant ouvertes
 
-Nouveau user « Ouvre le cycle cadrage. » → assistant id → turnProjection.pilotageEffect.
-Statut terminal du **nouveau** tour : `REJECTED` (ACTIVE_CYCLE) — cycleId inchangé.
-**QA-FINAL-05 PASS**
+1. LIVE Nora fournisseur — gate Morris distinct
+2. CONFLICT/UNKNOWN browser — NOT RUN
+3. A2 / D2 parcours — SKIP justifiés (failure path / conversational CLOSE)
+4. Candidat **local** — non publié ; décision RECETTE Morris distincte
+5. Fidélité visuelle Figma 13 frames — hors mandat correctif
 
-## 13. REJECTED / CONFLICT / UNKNOWN
+## 20. Verdict
 
-| Cas | Niveau |
-|---|---|
-| REJECTED unknown type | **BROWSER PROVEN** (tour corrélé) |
-| CONFLICT / UNKNOWN | **UNIT DETERMINISTIC** ; **BROWSER NOT RUN** |
+**ENSEMBLE 07 — LOCAL GIT CANDIDATE FROZEN — MORRIS RECETTE GATE REQUIRED**
 
-## 14. NOT RUN
+## 21. Gate Morris suivant
 
-- Nora LIVE
-- BROWSER CONFLICT/UNKNOWN (pas d'injection fiable sans trafiquer D5/D6)
-- Situation multi-onglet push temps réel
+Décision distincte de mise à disposition RECETTE (build/deploy) — **non autorisée** par ce GO. Aucun push projet, PR, merge, déploiement ni appel Nora LIVE effectué.
 
-## 15. Reprise / GET
-
-Reload + GET répétés : identité stable ; GET sans mutation.
-
-## 16. Sans F5
-
-selectSurface → refreshDurablePilotage (guardé) ; ACTIVE panel + CKI cohérents.
-
-## 17. Réserves restantes
-
-1. LIVE NOT RUN
-2. CONFLICT/UNKNOWN browser NOT RUN
-3. Arbre non commité — pas de candidate_sha
-4. origin/main a avancé documentairement (`542da1de`) sans changer la base de construction du candidat
-
-## 18. RECETTE
-
-Non mutée.
-
-## 19. Verdict
-
-`ENSEMBLE 07 — DEV FINAL QA QUALIFIED WITH RESERVES — MORRIS ARBITRATION REQUIRED`
-
-## 20. Prochain gate Morris
-
-Décision de **gel Git local** du candidat (commit) — pas de promotion automatique.
+Le candidat Ensemble 07 est figé localement. Aucun push projet, PR, merge, déploiement RECETTE ni appel Nora LIVE n'a été effectué.
