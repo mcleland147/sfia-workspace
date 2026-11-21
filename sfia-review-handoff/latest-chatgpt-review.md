@@ -1463,9 +1463,9 @@ Classe versioning : **NO RELEASE** (candidat technique RECETTE uniquement).
 | Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
 | Publisher | `scripts/sfia/publish-review-handoff.sh` |
 | Worktree | `/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023` |
-| Parent distant | `ac21bebe95f2138534addb23378c9b04ff239fb8` |
-| SHA L3 | `995e506f221e69cfbfe6d0ad11936b84f8f2236b` (vérifié remote ; republish met à jour si besoin) |
-| Blob | `973a725f167818b48398218531392ce5bc27ea95` |
+| Parent cycle précédent | `ac21bebe95f2138534addb23378c9b04ff239fb8` |
+| Commit L3 (contenu pack) | renseigné au bas après vérification remote |
+| Vérification | `HANDOFF UPDATED — REMOTE VERIFIED` ; mono-fichier ; relecture distant OK |
 
 ## 14. Verdict
 
