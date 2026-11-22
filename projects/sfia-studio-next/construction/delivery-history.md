@@ -3,6 +3,24 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-UAT-GIT-PUB-01-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 07:11 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — UAT-GIT-PUB-01 cutover RECETTE |
+| Type | EVOL / MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
+| SOURCE_SHA | `0b5d6c74b65171efa3ccda55d8478030afac6d9b` |
+| TREE | `bf3a60b3b928803292120364fcbdda5833c9e667` |
+| BUILD_ID | `RSccgxDslwxMhjjTtFo4Z` |
+| Avant | `@f1907aad` / `zKGLfPHM1TMilec4qglJv` |
+| Après | servi HTTP `<!--RSccgxDslwxMhjjTtFo4Z-->` · service `ml4d-ux004` |
+| DB | préservée · `projects=26 messages=649 documents=117` |
+| Backup | `ml4d-e08-pre-pub01-cutover-20261122T061040Z-from-f1907aad.sql.gz` + restore proof PASS |
+| WRITE REAL | ON documentary · allowlist `mcleland147/chantiers360` · **E2E REAL NOT PROVEN** |
+| Push projet | **NONE** |
+| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** (PUB-01..05) |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-UAT-GIT-PUB-01
 
 | Field | Value |
@@ -12,10 +30,12 @@ Append-only logical journal of Cursor product deliveries.
 | Type | INC / EVOL · CRITICAL · **NO RELEASE** |
 | Cause | `MISSION_NOT_RESUMED` / S05 self-block sur clarification → `NOT_ATTEMPTED` (zéro `effect_attempts`) ; root `.md` → `MARKDOWN_OUTSIDE_DOCUMENTARY_ZONE` |
 | Fix | `isPublicationPathClarificationResume` + skip S05 self-block · `DOCUMENTARY_ROOT` · D6 `missionClientIntentKey` ≠ turn key |
-| Diagnostic | DISPATCH_NOT_TRIGGERED (conséquence) ; cause racine continuité S05 + path policy |
-| Preuves | unit clarification+path-policy · PG accept01 (11) dont UAT-GIT-PUB-01 SCRIPTED COMPLETED |
-| SOURCE_SHA / TREE / BUILD | renseignés au freeze/cutover ci-dessous |
-| REAL E2E | **NOT PROVEN** — UAT Morris requis après cutover |
+| Diagnostic | cause racine continuité S05 + path policy ; `DISPATCH_NOT_TRIGGERED` = conséquence |
+| Preuves | unit clarification+path-policy · PG accept01 (11) SCRIPTED COMPLETED · PW E08 Nora 2/2 |
+| SOURCE_SHA | `0b5d6c74b65171efa3ccda55d8478030afac6d9b` (fix `e78dae5e` + tests) |
+| TREE | `bf3a60b3b928803292120364fcbdda5833c9e667` |
+| BUILD_ID | `RSccgxDslwxMhjjTtFo4Z` |
+| REAL E2E | **NOT PROVEN** — UAT Morris sur RECETTE |
 | Push projet | **NONE** |
 
 
