@@ -1,83 +1,166 @@
-# Manifeste ENV-01 — Cutover RECETTE E07 + E08 (préparé, non exécuté)
+# Manifeste ENV-01 — Cutover RECETTE E07 → E08 (exécuté)
 
 | Champ | Valeur |
 | --- | --- |
-| Date préparation | 2026-11-21 (Europe/Paris) |
+| Date/heure cutover | 2026-11-21 ≈ 21:02 CET (UTC 20:02) |
 | Classe | **NO RELEASE** |
-| Lane cible | **RECETTE existante E07** (`STUDIO_LANE=RECETTE`, port **3200**) |
-| Cutover | **NOT EXECUTED** — GO Morris SHA-specific requis |
+| Lane | **RECETTE existante** (`STUDIO_LANE=RECETTE`, port **3200**) |
+| Cutover | **EXECUTED** — GO Morris SHA-specific honoré |
 | STABLE | NOT AVAILABLE / non modifié |
+| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
 
-## Runtime actuellement servi (avant cutover) — observé
+## GO Morris (borné)
 
-| Champ | Valeur observée |
+| Champ | Valeur |
 | --- | --- |
-| URL | http://127.0.0.1:3200 |
-| Service LaunchAgent | `com.sfia.studio.next.recette.ml4d-ux004` |
-| PID node | 75565 (`next-server` v15.5.29) |
-| Script | `…/sfia-workspace-next-ml4d-ensemble07-recette-build-5ad8fa57/start-recette-ensemble07-5ad8fa57.sh` |
-| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble07-recette-build-5ad8fa57` |
+| SHA autorisé | `98185598de0d3f3b84af862aecea04b9099217ca` |
+| TREE | `1c70839facb7fbc799980c585ce8bfba51cdb5d6` |
+| BUILD_ID | `1xEbvCdTAX6ht262w4oKF` |
+| Push/PR/merge projet | **NONE** |
+| GitHub REAL WRITE/MERGE | **OFF** |
+
+## Runtime AVANT (E07)
+
+| Champ | Valeur |
+| --- | --- |
 | SOURCE_SHA | `5ad8fa57e4d529726244ddfae394074f5ea65432` |
 | TREE | `f62a77a1b89dbcbfc1d4009d24c9859017d69cc6` |
-| BUILD_ID | `BtZP6qDx5oAw8jwPQSEhc` (HTTP `<!--BtZP6qDx5oAw8jwPQSEhc-->` + fichier `.next/BUILD_ID`) |
-| Mode | `npx next start -H 127.0.0.1 -p 3200` · `NODE_ENV=production` · pas de hot reload |
-| GitHub mutations | `STUDIO_GITHUB_ALLOW_MUTATIONS` unset/vide |
-| Nora fixture force | unset (LIVE possible selon secrets lane — non requalifié ici) |
+| BUILD_ID | `BtZP6qDx5oAw8jwPQSEhc` |
+| Script | `start-recette-ensemble07-5ad8fa57.sh` |
+| Worktree | `…/sfia-workspace-next-ml4d-ensemble07-recette-build-5ad8fa57` |
+| PID node | 75565 |
 
-## PostgreSQL RECETTE (observé, non muté)
-
-| Champ | Valeur |
-| --- | --- |
-| Container | `sfia-next-recette-pg` Up · `127.0.0.1:5434→5432` |
-| DB / rôle | `sfia_next_recette_ml4` |
-| Isolation | DEV PG distinct `sfia-next-dev-pg` :5433 |
-| Inventaire non sensible | projects=26 · documents=117 · document_revisions=188 · conversations=203 · messages=629 · human_decisions=3 · effect_attempts=4 · business_command_effects=4 · project_git_links=15 · observed_git_facts=0 · users=4 · sessions=118 · accounts=2 |
-| Schéma drizzle migrations table | **non observée** dans cette DB (pas de `drizzle.__drizzle_migrations`) |
-| Restauration auto | **INTERDITE** — ne pas recréer DB vide ni restaurer dump en écrasement |
-
-## Candidat E08 (à renseigner après freeze + build)
+## Runtime APRÈS (E08) — observé
 
 | Champ | Valeur |
 | --- | --- |
-| Branche source | `feat/next-ensemble08-git-publications-nora` |
-| Base main | `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
-| SHA candidat | `98185598de0d3f3b84af862aecea04b9099217ca` |
-| TREE candidat | `1c70839facb7fbc799980c585ce8bfba51cdb5d6` |
-| BUILD_ID candidat | `1xEbvCdTAX6ht262w4oKF` |
-| Worktree build | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-recette-build-98185598` |
-| Script démarrage préparé | `start-recette-ensemble08-98185598.sh` (non branché LaunchAgent) |
+| URL | http://127.0.0.1:3200 |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` (même label) |
+| Script | `…/ensemble08-recette-build-98185598/start-recette-ensemble08-98185598.sh` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-recette-build-98185598` |
+| WorkingDirectory | `…/web` |
+| PID launchd / node | 52210 / 52237 (`next-server` v15.5.29) |
+| SOURCE_SHA (script) | `98185598de0d3f3b84af862aecea04b9099217ca` |
+| BUILD_ID fichier + HTTP | `1xEbvCdTAX6ht262w4oKF` (`<!--1xEbvCdTAX6ht262w4oKF-->`) |
+| Mode | `npx next start -H 127.0.0.1 -p 3200` · production · pas de hot reload |
+| Login HTTP | 200 |
 
-## Capacités réellement disponibles après cutover (prévision)
+## Actions cutover (exactes)
 
-| Capacité | Mode attendu |
+1. Plist backup : `com.sfia.studio.next.recette.ml4d-ux004.plist.5ad8fa57.pre-e08-cutover-20261121T200200Z.bak`
+2. `launchctl bootout` du service
+3. ProgramArguments → `start-recette-ensemble08-98185598.sh` ; WorkingDirectory → E08 `web/`
+4. `launchctl bootstrap` même label
+5. Vérification HTTP BUILD_ID + CWD processus
+
+## PostgreSQL / données
+
+| Champ | Valeur |
 | --- | --- |
-| E01–E07 | Conservées (même DB + nouveau code) |
-| Consultation Git multi-dépôts | Code E08 ; provider selon config RECETTE |
-| Nora conduite documentaire | Selon secrets lane ; SCRIPTED ≠ LIVE |
-| GitHub REAL WRITE/MERGE | **OFF** sauf GO sandbox explicite |
-| G5 visuelle | **NOT PROVEN** — Morris UAT |
+| DB | `sfia_next_recette_ml4` @ `127.0.0.1:5434` (`sfia-next-recette-pg`) |
+| Isolation DEV | `sfia-next-dev-pg` :5433 distincte |
+| Migrations E08 | **aucune** appliquée (invariant confirmé) |
+| Inventaire AVANT | projects=26 · documents=117 · document_revisions=188 · conversations=203 · messages=629 · human_decisions=3 · effect_attempts=4 · business_command_effects=4 · project_git_links=15 · observed_git_facts=0 · users=4 · sessions=118 · accounts=2 |
+| Inventaire APRÈS smoke | projects=**26** · messages=**633** (+4 essais Playwright Nora) · sessions=**123** (logins test) · Equip'Campus `proj_a9ce5f43…` présent · conversations=1 · messages=14 |
+| Perte anormale | **NON** |
 
-## Backup / rollback (préparation)
+## Backup / restauration / rollback
 
 | Élément | Statut |
 | --- | --- |
-| Ancien worktree E07 | Disponible `@5ad8fa57` |
-| Ancien BUILD_ID | `BtZP6qDx5oAw8jwPQSEhc` |
-| Script rollback | Relancer plist/script E07 `start-recette-ensemble07-5ad8fa57.sh` |
-| Backup PG frais | `ml4d-e07-pre-e08-cutover-20261121T193852Z-from-5ad8fa57.sql.gz` (691K, gzip OK) |
-| Rollback DB | Code rollback ≠ DB rollback ; pas de drop/truncate |
+| Backup historique | `ml4d-e07-pre-e08-cutover-20261121T193852Z-from-5ad8fa57.sql.gz` — gzip OK |
+| Backup immédiat pré-cutover | `ml4d-e07-pre-e08-cutover-immediate-20261121T200119Z-from-5ad8fa57.sql.gz` — gzip OK |
+| Preuve restore isolée | CREATE `sfia_next_recette_restore_proof_e08` → restore → projects=26/messages=629 → DROP — RECETTE intacte |
+| Rollback E07 code | Worktree + BUILD `BtZP6qDx5oAw8jwPQSEhc` + plist `.bak` conservés — **non exercé** (cutover OK) |
 
-## Procédure cutover (exécutable seulement après GO)
+## Capacités observées
 
-1. Confirmer SHA/BUILD_ID cibles = GO Morris.
-2. Confirmer backup PG lisible.
-3. Arrêter `com.sfia.studio.next.recette.ml4d-ux004`.
-4. Appliquer migrations **seulement si nécessaires et non destructives**.
-5. Pointer LaunchAgent vers worktree/build E08 figé (même label/port/DB).
-6. Relancer service ; vérifier health + identité HTTP BUILD_ID.
-7. Vérifier inventaire données ≈ avant.
-8. Smoke E07 + E08 ; consigner manifeste final.
+| Capacité | Observation | Niveau |
+| --- | --- | --- |
+| E07 surfaces (Pilot A test login) | `/projects/…` travail/projet/trajectoire/documents/git → HTTP 200 | Browser/API smoke |
+| Equip'Campus (Morris) | Présent en DB (identité OAuth Morris non exercée ce cycle) | DB continuity |
+| Intégrations | `providerMode=REAL`, `status=DISCONNECTED` pour Pilot A | REAL config, non connecté |
+| Git sources/pubs API | 200, listes vides sans dépôt rattaché | DETERMINISTIC path |
+| GitHub REAL WRITE | Mutations OFF (`STUDIO_GITHUB_ALLOW_MUTATIONS` vide) | NOT PROVEN / OFF |
+| Nora | Clé OPENAI présente en RECETTE → LIVE possible | LIVE config ; E2E conduit NOT PROVEN |
+| Playwright E08 SCRIPTED | **3/3 FAIL** sur RECETTE — attendu (fixture≠LIVE ; connect SCRIPTED≠OAuth REAL) | N/A as REAL proof |
+| G5 | **NOT PROVEN** — Morris UAT | Différé |
 
-## Gate
+## Fake / Real
 
-**GO SHA-SPECIFIC REQUIRED.** Sans GO : **STOP BEFORE MUTATION RECETTE.**
+| Frontière | Niveau |
+| --- | --- |
+| Runtime build servi | REAL BOUNDARY (artefact figé servi) |
+| PostgreSQL RECETTE | REAL BOUNDARY (même DB) |
+| GitHub provider mode | REAL configuré ; WRITE OFF ; connexion Pilot A absente |
+| Nora | LIVE credentials présents ; parcours conduit NOT PROVEN |
+| Playwright SCRIPTED | NOT applicable as RECETTE proof |
+
+## Réserves / gates Morris
+
+1. UAT visuelle page 11 (G5)
+2. Parcours Git avec compte Morris + App autorisée
+3. Nora conduite documentaire LIVE bornée (sans WRITE si non autorisé)
+4. GO éventuel sandbox WRITE/MERGE
+5. Push/PR projet hors cycle
+
+## Verdict manifeste (cutover historique)
+
+**RECETTE AVAILABLE — MORRIS UAT REQUIRED**
+(runtime actuellement servi : SHA `98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **inchangé** par le freeze POST-UAT 01)
+
+---
+
+# B. Candidat E08 POST-UAT 01 — freeze local (préparé)
+
+| Champ | Valeur |
+| --- | --- |
+| Date/heure freeze local | 2026-11-22 (Europe/Paris) |
+| GO Morris | Freeze local + build détaché **autorisés** ; cutover RECETTE **non** autorisé |
+| Classe | **NO RELEASE** · CANDIDAT |
+| Branche | `feat/next-ensemble08-git-publications-nora` |
+| Base / parent | `origin/main` `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
+| SOURCE_SHA (à renseigner après commit) | _PENDING_COMMIT_ |
+| TREE (à renseigner après commit) | _PENDING_TREE_ |
+| BUILD_ID (à renseigner après build détaché) | _PENDING_BUILD_ |
+| Artefact | worktree détaché hors DEV mutable / hors :3200 |
+| Cutover | **NOT EXECUTED** |
+| RECETTE actuelle | **préservée** `@98185598` / `1xEbvCdTAX6ht262w4oKF` |
+
+## Contenu candidat
+
+- Ensemble 08 initial + correctifs UX POST-UAT 01
+- Publication document existant + réconciliation `objectRef`/`documentHint`
+- Contrôle D4 document/révision ; D6/D7/D8/D9 ; restitution Nora
+- Reprise/idempotence ; filtre branche S03 (fix useEffect)
+- Preuves : unit + PG WRITE OFF / SCRIPTED contenu D4↔Git + terminalité COMPLETED + Playwright Nora/Git
+
+## Fake / Real (candidat)
+
+| Frontière | Niveau |
+| --- | --- |
+| Unit / PG / SCRIPTED | DETERMINISTIC PROVEN |
+| Playwright DEV SCRIPTED | BROWSER + Git simulé |
+| Nora LIVE | NOT PROVEN |
+| GitHub REAL WRITE/MERGE | NOT PROVEN |
+| G5 pixel / UAT Morris | NOT PROVEN |
+
+## Migrations
+
+Aucune migration DB additionnelle requise pour ce candidat (vérifiée — schéma RECETTE `sfia_next_recette_ml4` compatible).
+
+## Mise à disposition future (NON EXÉCUTÉE)
+
+1. GO Morris SHA-specific + BUILD_ID
+2. Worktree/build détaché déjà produit
+3. Remplacer le ProgramArguments LaunchAgent **sans** toucher la DB
+4. Smoke HTTP BUILD_ID sur :3200
+5. Conserver artefacts E07 + E08 `@98185598` pour rollback
+
+## C. Cutover futur
+
+**NOT EXECUTED** — gate Morris distinct rattaché au nouveau SHA/BUILD.
+
+## Verdict section B
+
+**CANDIDATE PREPARED — RECETTE GO REQUIRED** (à confirmer après SHA/TREE/BUILD renseignés)

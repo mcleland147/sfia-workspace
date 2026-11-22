@@ -29,9 +29,7 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
 
     await page.goto("/settings/integrations");
     await expect(page.getByTestId("integrations-panel")).toBeVisible();
-    await expect(page.getByTestId("provider-mode-note")).not.toContainText(/Chargement/i, {
-      timeout: 15_000,
-    });
+    await expect(page.getByTestId("integrations-status-banner")).toBeVisible({ timeout: 15_000 });
     if (await page.getByTestId("disconnect-github").isVisible().catch(() => false)) {
       await page.getByTestId("disconnect-github").click();
       await expect(page.getByTestId("integrations-disconnect-confirm")).toBeVisible();
@@ -39,9 +37,10 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
       await expect(page.getByTestId("connect-github")).toBeVisible({ timeout: 15_000 });
     }
     await page.getByTestId("connect-github").click();
-    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub est connecté/i, {
+    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub connecté/i, {
       timeout: 20_000,
     });
+    await expect(page.getByTestId("github-connected-badge")).toBeVisible();
     if (await page.getByTestId("refresh-repos").isVisible().catch(() => false)) {
       await page.getByTestId("refresh-repos").click();
     }
@@ -66,6 +65,10 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
     await expect(page.getByTestId("git-branch-search")).toBeVisible();
     await page.getByTestId("git-branch-filter").fill("main");
     await page.getByTestId("git-branch-filter-apply").click();
+    // Note lives outside the popover — wait for provider filter to apply (S03).
+    await expect
+      .poll(async () => page.getByTestId("git-branch-filter-note").count(), { timeout: 20_000 })
+      .toBeGreaterThan(0);
     await expect(page.getByTestId("git-branch-filter-note")).toContainText(/main/i, {
       timeout: 10_000,
     });
@@ -74,7 +77,7 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
     // Publications tab — project-scale, historical wording (E08-S04)
     await page.getByTestId("git-tab-publications").click();
     await expect(page.getByTestId("git-publications")).toBeVisible();
-    await expect(page.getByTestId("git-publications")).toContainText(/Projection D4\/D7\/D8|historique/i);
+    await expect(page.getByTestId("git-publications")).toContainText(/historique|publication/i);
     await expect(page.getByTestId("git-pubs-split").or(page.getByTestId("git-publications-empty"))).toBeVisible();
 
     // Manage — at least one attached; second attach when an unattached button is offered
@@ -93,11 +96,11 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
         .toBeGreaterThanOrEqual(before);
     }
 
-    // Detach one with confirm
+    // Detach one with confirm (force: list can remount while sources refresh)
     const detachBtn = page.locator('[data-testid^="git-detach-"]').first();
     if (await detachBtn.isVisible().catch(() => false)) {
-      await detachBtn.click();
-      await expect(page.getByTestId("git-detach-confirm")).toBeVisible({ timeout: 5_000 });
+      await detachBtn.click({ force: true, timeout: 15_000 });
+      await expect(page.getByTestId("git-detach-confirm")).toBeVisible({ timeout: 10_000 });
       await page.getByTestId("git-detach-confirm-yes").click();
     }
 

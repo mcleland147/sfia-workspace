@@ -369,6 +369,8 @@ export async function admitConversationalPublicationMandate(input: {
         projectId: input.projectId,
         attemptId: input.attemptId,
         decisionId: auth.decisionId,
+        // Same-turn: Nora turn commits restitution — do not insert a rival assistant row.
+        persistAssistantMessage: false,
       });
     }
 

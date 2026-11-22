@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
+import { GitFileInfoPopover } from "@/components/integrations/GitFileInfoPopover";
 
 type GitSource = {
   linkId: string;
@@ -91,6 +92,8 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
   const [file, setFile] = useState<FileView | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
   const [infoOpen, setInfoOpen] = useState(false);
+  const infoBtnRef = useRef<HTMLButtonElement | null>(null);
+  const infoPanelId = "git-file-info-panel";
   const [enlarged, setEnlarged] = useState(false);
   const [publications, setPublications] = useState<PublicationRow[]>([]);
   const [selectedPublicationId, setSelectedPublicationId] = useState<string | null>(null);
@@ -293,17 +296,21 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
     void loadSources();
   }, [loadSources]);
 
+  // Reset provider filter when the active repository changes — not on every
+  // loadRefs identity refresh (that wiped branchFilterApplied after Filtrer).
   useEffect(() => {
     setBranchFilter("");
     setBranchFilterApplied("");
     void loadRefs();
-  }, [loadRefs]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentional: repositoryId only
+  }, [repositoryId]);
 
   useEffect(() => {
     if (tab === "files" && repositoryId && branch) {
       setExpandedDirs({});
       setFile(null);
       setFileError(null);
+      setInfoOpen(false);
       void loadTree("");
     }
   }, [tab, repositoryId, branch, loadTree]);
@@ -654,12 +661,16 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
           ESPACE PROJET / DÉPÔTS GIT
         </p>
         <h1 className="e07-surface-hero-title" data-testid="git-hero-title">
-          {tab === "manage" ? "Gérer les dépôts du projet" : "Dépôts Git"}
+          {tab === "manage"
+            ? "Gérer les dépôts du projet"
+            : "Dépôts Git"}
         </h1>
         <p className="e07-surface-hero-sub" data-testid="git-hero-sub">
           {tab === "manage"
             ? "Chaque projet choisit ses dépôts ; plusieurs rattachements sont possibles."
-            : "Parcourir un dépôt autorisé puis lire le fichier directement dans l’espace projet."}
+            : sources.length === 0
+              ? "Consultez les fichiers de vos dépôts autorisés."
+              : "Parcourir un dépôt autorisé puis lire le fichier directement dans l’espace projet."}
         </p>
       </header>
 
@@ -686,9 +697,9 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
         <section className="git-empty-layout" data-testid="git-empty">
           <div className="git-empty-main">
             <h2>Aucun dépôt associé à ce projet</h2>
-            <p>Git est facultatif. Tu peux continuer à travailler avec Nora sans dépôt.</p>
+            <p>Git est facultatif. Vous pouvez continuer à travailler avec Nora sans dépôt.</p>
             <p className="git-muted">
-              Choisis explicitement un dépôt autorisé — aucun rattachement silencieux.
+              Choisissez un dépôt autorisé par GitHub pour l’explorer — aucun rattachement silencieux.
             </p>
             {unattached.length === 0 ? (
               <button
@@ -761,6 +772,8 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                         data-testid="git-branch-search"
                         onSubmit={(e) => {
                           e.preventDefault();
+                          const next = branchFilter.trim();
+                          setBranchFilterApplied(next);
                           void loadRefs(branchFilter);
                         }}
                       >
@@ -943,14 +956,39 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                         <p className="git-preview-path">{file.path}</p>
                       </div>
                       <div className="git-preview-actions" data-testid="git-preview-actions">
-                        <button
-                          type="button"
-                          className="git-btn-secondary"
-                          data-testid="git-action-infos"
-                          onClick={() => setInfoOpen((v) => !v)}
-                        >
-                          Infos
-                        </button>
+                        <div className="git-info-anchor">
+                          <button
+                            type="button"
+                            className="git-btn-secondary"
+                            data-testid="git-action-infos"
+                            aria-expanded={infoOpen}
+                            aria-controls={infoPanelId}
+                            ref={infoBtnRef}
+                            onClick={() => setInfoOpen((v) => !v)}
+                          >
+                            Infos
+                          </button>
+                          <GitFileInfoPopover
+                            open={infoOpen}
+                            onClose={() => setInfoOpen(false)}
+                            anchorRef={infoBtnRef}
+                            panelId={infoPanelId}
+                            fields={{
+                              name: basename(file.path),
+                              type: /\.md$/i.test(file.path) ? "Markdown" : "Texte",
+                              repository: active?.fullName ?? "—",
+                              ref: file.ref || branch || "—",
+                              path: file.path,
+                              commitSha: file.commitSha,
+                              commitShaVerified: file.commitShaVerified,
+                              blobSha: file.blobSha || null,
+                              sizeLabel: file.content
+                                ? `${new TextEncoder().encode(file.content).length} octets`
+                                : null,
+                              origin: "Git (lecture seule)",
+                            }}
+                          />
+                        </div>
                         {file.permalink ? (
                           <a
                             className="git-btn-secondary"
@@ -975,20 +1013,6 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                         </button>
                       </div>
                     </header>
-                    {infoOpen ? (
-                      <dl className="git-details-inline" data-testid="git-file-infos">
-                        <div>
-                          <dt>Commit</dt>
-                          <dd className="git-mono">
-                            {file.commitShaVerified ? file.commitSha : "non vérifié"}
-                          </dd>
-                        </div>
-                        <div>
-                          <dt>Blob</dt>
-                          <dd className="git-mono">{file.blobSha}</dd>
-                        </div>
-                      </dl>
-                    ) : null}
                     <p className="git-preview-kicker">
                       DOCUMENT À RÉFÉRENCE IDENTIFIÉE · LECTURE SEULE
                     </p>
@@ -1010,9 +1034,8 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
           {tab === "publications" ? (
             <section className="git-pubs" data-testid="git-publications">
               <p className="git-muted" style={{ marginBottom: 12 }}>
-                Projection D4/D7/D8 du projet — historique Studio, pas un état live GitHub. Liste des
-                publications du projet (pas l’index du dépôt) ; lecture sous la référence propre de
-                chaque publication. Une PR créée n’est pas un merge.
+                Historique Studio des publications du projet — distinct de l’index du dépôt. Une
+                demande de branche ou de commit n’implique pas une fusion.
               </p>
               {publications.length === 0 ? (
                 <p data-testid="git-publications-empty">Aucune publication Studio pour ce projet.</p>
@@ -1026,13 +1049,13 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                         const statusLabel =
                           p.prStatusLabel ??
                           (p.mergeObserved
-                            ? "Fusion vérifiée (fait D8)"
+                            ? "Fusion vérifiée"
                             : p.openPullRequest
                               ? "PR enregistrée ouverte (historique — non actualisée)"
                               : p.pullRequestCreatedObserved
                                 ? "PR créée (historique)"
                                 : p.commitObserved
-                                  ? "Commit observé (fait D8)"
+                                  ? "Commit observé"
                                   : p.publicationStatus);
                         return (
                           <li key={p.publicationRefId}>
@@ -1067,14 +1090,38 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                             <p className="git-preview-path">{pubFile.path}</p>
                           </div>
                           <div className="git-preview-actions" data-testid="git-preview-actions">
-                            <button
-                              type="button"
-                              className="git-btn-secondary"
-                              data-testid="git-action-infos"
-                              onClick={() => setInfoOpen((v) => !v)}
-                            >
-                              Infos
-                            </button>
+                            <div className="git-info-anchor">
+                              <button
+                                type="button"
+                                className="git-btn-secondary"
+                                data-testid="git-action-infos"
+                                aria-expanded={infoOpen}
+                                aria-controls={infoPanelId}
+                                ref={infoBtnRef}
+                                onClick={() => setInfoOpen((v) => !v)}
+                              >
+                                Infos
+                              </button>
+                              <GitFileInfoPopover
+                                open={infoOpen}
+                                onClose={() => setInfoOpen(false)}
+                                anchorRef={infoBtnRef}
+                                panelId={infoPanelId}
+                                fields={{
+                                  name: basename(pubFile.path),
+                                  type: /\.md$/i.test(pubFile.path) ? "Markdown" : "Texte",
+                                  repository: selectedPublication.repositoryFullName,
+                                  ref:
+                                    selectedPublication.publicationBranch ??
+                                    selectedPublication.targetBranch,
+                                  path: pubFile.path,
+                                  commitSha: pubFile.commitSha,
+                                  commitShaVerified: pubFile.commitShaVerified,
+                                  blobSha: pubFile.blobSha || null,
+                                  origin: "Publication Studio",
+                                }}
+                              />
+                            </div>
                             {pubFile.permalink ? (
                               <a
                                 className="git-btn-secondary"
@@ -1102,23 +1149,6 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                         <p className="git-preview-kicker">
                           DOCUMENT À RÉFÉRENCE IDENTIFIÉE · LECTURE SEULE
                         </p>
-                        {infoOpen ? (
-                          <p className="git-muted" data-testid="git-pub-info">
-                            {selectedPublication.repositoryFullName} ·{" "}
-                            {selectedPublication.publicationBranch ??
-                              selectedPublication.targetBranch}
-                            {selectedPublication.headSha
-                              ? ` · ${selectedPublication.headSha.slice(0, 8)}`
-                              : ""}
-                            {selectedPublication.prStatusLabel
-                              ? ` · ${selectedPublication.prStatusLabel}`
-                              : selectedPublication.mergeObserved
-                                ? " · merge observé (D8)"
-                                : selectedPublication.openPullRequest
-                                  ? " · PR enregistrée ouverte (historique — non actualisée)"
-                                  : ""}
-                          </p>
-                        ) : null}
                         <div className="git-preview-body" data-testid="git-preview-body">
                           {/\.md$/i.test(pubFile.path) ? (
                             <SafeMarkdown content={pubFile.content} />

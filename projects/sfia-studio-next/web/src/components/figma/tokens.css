@@ -5244,6 +5244,36 @@
   font-weight: 600;
   width: fit-content;
 }
+.git-info-anchor {
+  position: relative;
+  display: inline-flex;
+}
+.git-info-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 40;
+  width: min(360px, calc(100vw - 32px));
+  max-height: min(70vh, 420px);
+  overflow: auto;
+  background: var(--fig-panel);
+  border: 1px solid var(--fig-line);
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-shadow: 0 12px 32px color-mix(in srgb, #000 35%, transparent);
+}
+.git-info-popover-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.git-info-popover-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
 .git-empty-layout,
 .git-manage,
 .git-enlarge-layout {

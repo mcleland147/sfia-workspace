@@ -20,6 +20,8 @@ import { emitObs } from "@/lib/observability";
 import { extractPublicationBranchHint as extractBranchHintStrict } from "./conversation-publication-mandate-guards";
 import { generateNoraReply } from "./nora-adapter";
 import type { DocumentEffectSummary } from "./document-act";
+import { composePublicationEffectRestitution } from "./publication-effect-restitution";
+import { getDocumentRevision } from "@/domains/document/service";
 
 export type MissionStatus =
   | "ACTIVE"
@@ -353,6 +355,13 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
   projectId: string;
   attemptId: string;
   decisionId?: string | null;
+  /**
+   * When false, dispatch/reconcile still run but no competing assistant row is
+   * inserted — same-turn conversational authorize lets the Nora turn commit
+   * métier restitution (avoids ASSISTANT_IDENTITY_CONFLICT).
+   * Recovery / post-authorize paths keep the default (true).
+   */
+  persistAssistantMessage?: boolean;
 }): Promise<{
   dispatched: boolean;
   reconciled: boolean;
@@ -462,6 +471,11 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
     preparationId?: string;
     documentId?: string;
     revisionId?: string;
+    documentTitle?: string;
+    revisionNumber?: number;
+    repositoryFullName?: string;
+    publicationBranch?: string;
+    targetPath?: string;
   };
 
   const finalRow = (
@@ -474,6 +488,8 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
         commitSha?: string | null;
         sha?: string | null;
         missionResumeMessageId?: string | null;
+        repositoryFullName?: string | null;
+        publicationBranch?: string | null;
       };
     } catch {
       return {} as {
@@ -481,66 +497,131 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
         commitSha?: string | null;
         sha?: string | null;
         missionResumeMessageId?: string | null;
+        repositoryFullName?: string | null;
+        publicationBranch?: string | null;
       };
     }
   })();
   const prNumber = resultPayload.prNumber ?? null;
   const commitSha = resultPayload.commitSha ?? resultPayload.sha ?? null;
 
-  const canonical = composeCanonicalMissionRestitution({
-    documentEffect: plan.documentId
-      ? {
-          act: "CREATE",
-          status: "AVAILABLE",
-          documentId: plan.documentId,
-          revisionId: plan.revisionId,
-        }
-      : null,
-    prepareStatus: "PREPARED",
-    attemptId: input.attemptId,
-    decisionId: input.decisionId ?? row.decisionId,
-    dispatchStatus: status,
-    dispatchDetail: detail,
-    restitutionNote:
-      status === "COMPLETED"
-        ? "Publication reprise automatiquement après autorisation Pilote."
-        : "Reprise post-autorisation exécutée — voir statut publication.",
-  });
-
-  const factsBlock = [
-    `Publication attemptId=${input.attemptId} status=${status}`,
-    input.decisionId || row.decisionId
-      ? `decisionId=${input.decisionId ?? row.decisionId}`
-      : null,
-    plan.documentId ? `documentId=${plan.documentId}` : null,
-    plan.revisionId ? `revisionId=${plan.revisionId}` : null,
-    prNumber != null ? `prNumber=${prNumber}` : null,
-    commitSha ? `commitSha=${commitSha}` : null,
-    detail ? `detail=${detail}` : null,
-  ]
-    .filter(Boolean)
-    .join("\n");
-
-  let restitution = canonical;
-  let cognitiveContinue: "DELIVERED" | "CANONICAL" | "SKIPPED" = "CANONICAL";
-  try {
-    // No turn operationId here — facts-only continue without tool scope (still generateNoraReply).
-    const continued = await cognitiveContinueFromFacts({
-      userText:
-        "L'autorisation Pilote a été accordée et l'effet de publication a été traité. Restitue le résultat.",
-      factsBlock,
-      contextSnippets: [],
-    });
-    if (continued.status === "COMPLETE" && continued.content.trim()) {
-      restitution = `${continued.content.trim()}\n\n---\n${canonical}`;
-      cognitiveContinue = "DELIVERED";
+  // Enrich document identity for métier restitution (D4) when possible.
+  let documentTitle = plan.documentTitle?.trim() || null;
+  let revisionNumber = plan.revisionNumber ?? null;
+  if (plan.preparationId && plan.documentId && plan.revisionId) {
+    try {
+      const loaded = await getDocumentRevision(
+        input.pilotId,
+        plan.preparationId,
+        plan.documentId,
+        plan.revisionId,
+      );
+      if (loaded.status === "AVAILABLE" && "revision" in loaded && loaded.revision) {
+        documentTitle = loaded.document?.title?.trim() || documentTitle;
+        revisionNumber = loaded.revision.revisionNumber ?? revisionNumber;
+      }
+    } catch {
+      /* keep plan hints */
     }
-  } catch {
-    cognitiveContinue = "CANONICAL";
+  }
+
+  const repoName =
+    resultPayload.repositoryFullName?.trim() ||
+    plan.repositoryFullName?.trim() ||
+    null;
+  const branchName =
+    resultPayload.publicationBranch?.trim() ||
+    plan.publicationBranch?.trim() ||
+    null;
+
+  // E08 — Nora métier restitution from owner facts (never technical dump as pilot voice).
+  let restitution: string;
+  let cognitiveContinue: "DELIVERED" | "CANONICAL" | "SKIPPED" = "CANONICAL";
+  if (status === "COMPLETED") {
+    restitution = composePublicationEffectRestitution({
+      priorContent: "",
+      effect: {
+        attempted: true,
+        outcome: "COMPLETED",
+        documentTitle,
+        revisionNumber,
+        repositoryFullName: repoName,
+        publicationBranch: branchName,
+        attemptId: input.attemptId,
+        decisionId: input.decisionId ?? row.decisionId,
+      },
+    });
+  } else if (status === "DISPATCHED" || status === "AMBIGUOUS") {
+    restitution = composePublicationEffectRestitution({
+      priorContent: "",
+      effect: {
+        attempted: true,
+        outcome: "UNKNOWN",
+        reason: detail ?? "Dispatch en cours — résultat Studio non encore consolidé.",
+        documentTitle,
+        revisionNumber,
+        attemptId: input.attemptId,
+      },
+    });
+  } else {
+    const canonical = composeCanonicalMissionRestitution({
+      documentEffect: plan.documentId
+        ? {
+            act: "CREATE",
+            status: "AVAILABLE",
+            documentId: plan.documentId,
+            revisionId: plan.revisionId,
+          }
+        : null,
+      prepareStatus: "PREPARED",
+      attemptId: input.attemptId,
+      decisionId: input.decisionId ?? row.decisionId,
+      dispatchStatus: status,
+      dispatchDetail: detail,
+      restitutionNote: "Reprise post-autorisation exécutée — voir statut publication.",
+    });
+    const factsBlock = [
+      `Publication attemptId=${input.attemptId} status=${status}`,
+      input.decisionId || row.decisionId
+        ? `decisionId=${input.decisionId ?? row.decisionId}`
+        : null,
+      plan.documentId ? `documentId=${plan.documentId}` : null,
+      plan.revisionId ? `revisionId=${plan.revisionId}` : null,
+      prNumber != null ? `prNumber=${prNumber}` : null,
+      commitSha ? `commitSha=${commitSha}` : null,
+      detail ? `detail=${detail}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    restitution = canonical;
+    try {
+      const continued = await cognitiveContinueFromFacts({
+        userText:
+          "L'autorisation Pilote a été accordée et l'effet de publication a été traité. Restitue le résultat.",
+        factsBlock,
+        contextSnippets: [],
+      });
+      if (continued.status === "COMPLETE" && continued.content.trim()) {
+        restitution = composePublicationEffectRestitution({
+          priorContent: continued.content.trim(),
+          effect: {
+            attempted: true,
+            outcome: "UNKNOWN",
+            reason: detail ?? status,
+            documentTitle,
+            revisionNumber,
+          },
+        });
+        cognitiveContinue = "DELIVERED";
+      }
+    } catch {
+      cognitiveContinue = "CANONICAL";
+    }
   }
 
   let conversationMessageId: string | null = resultPayload.missionResumeMessageId ?? null;
-  if (plan.preparationId) {
+  if (plan.preparationId && input.persistAssistantMessage !== false) {
     try {
       conversationMessageId = await appendAssistantMissionMessage({
         pilotId: input.pilotId,

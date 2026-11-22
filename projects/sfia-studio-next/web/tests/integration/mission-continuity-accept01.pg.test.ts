@@ -365,7 +365,11 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
 
     const msgs = await listMessages(pilotId, preparationId);
     const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
-    expect(assistant?.content).toMatch(/Résultat applicatif D4|Suite de mission|AVAILABLE/);
+    // E08 clôture — Nora métier restitution after COMPLETED (not technical dump).
+    expect(assistant?.content).toMatch(
+      /a été publié|Résultat applicatif D4|Suite de mission|AVAILABLE/,
+    );
+    expect(assistant?.content).not.toMatch(/Je publie/i);
     expect(projectId).toBeTruthy();
   });
 

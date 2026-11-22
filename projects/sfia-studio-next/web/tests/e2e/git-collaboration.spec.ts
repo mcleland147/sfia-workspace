@@ -37,15 +37,13 @@ test.describe("ML4 git collaboration corrective (SCRIPTED)", () => {
     await page.goto("/settings/integrations");
     await expect(page.getByTestId("integrations-panel")).toBeVisible();
     // Wait for status hydration (avoid race: default DISCONNECTED before fetch).
-    await expect(page.getByTestId("provider-mode-note")).not.toContainText(/Chargement/i, {
-      timeout: 15_000,
-    });
+    await expect(page.getByTestId("integrations-status-banner")).toBeVisible({ timeout: 15_000 });
     if (await page.getByTestId("disconnect-github").isVisible().catch(() => false)) {
       await page.getByTestId("disconnect-github").click();
       await expect(page.getByTestId("connect-github")).toBeVisible({ timeout: 15_000 });
     }
     await page.getByTestId("connect-github").click();
-    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub est connecté/i, {
+    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub connecté/i, {
       timeout: 20_000,
     });
     // Refresh repos so SCRIPTED permission snapshot is current (write for documentary publish).

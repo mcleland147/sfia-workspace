@@ -37,14 +37,14 @@ const HERO: Record<
     sub: "Retrouvez les documents durables du projet, leurs versions et les actions disponibles.",
   },
   git: {
-    kicker: "Espace projet  /  Sources Git",
-    title: "Intégration Git",
-    sub: "Sources et liens Git du projet — capacités réellement disponibles.",
+    kicker: "ESPACE PROJET / DÉPÔTS GIT",
+    title: "Dépôts Git",
+    sub: "Parcourir un dépôt autorisé puis lire le fichier directement dans l’espace projet.",
   },
   publication: {
-    kicker: "Espace projet  /  Résultats et preuves",
-    title: "Publication Git",
-    sub: "Publication et preuves Git — capacités réellement disponibles.",
+    kicker: "ESPACE PROJET / DÉPÔTS GIT",
+    title: "Dépôts Git",
+    sub: "Parcourir un dépôt autorisé puis lire le fichier directement dans l’espace projet.",
   },
 };
 
@@ -78,7 +78,9 @@ export function ProjectChrome(props: {
   const isJournal = props.surface === "journal";
   /** Ensemble 07 — Projet / Trajectoire heroes live in ProjectOverview / TrajectoryBoard. */
   const isProjetOrTrajectoire = props.surface === "projet" || props.surface === "pilotage";
-  const breadcrumbOnly = isTravail || isJournal || isProjetOrTrajectoire;
+  /** Ensemble 08 — Dépôts Git / Publications heroes live in GitRepositoriesSurface. */
+  const isGitSurface = props.surface === "git" || props.surface === "publication";
+  const breadcrumbOnly = isTravail || isJournal || isProjetOrTrajectoire || isGitSurface;
 
   const continuityBadge =
     isTravail && props.statusHint && !/^chargement/i.test(props.statusHint) ? (

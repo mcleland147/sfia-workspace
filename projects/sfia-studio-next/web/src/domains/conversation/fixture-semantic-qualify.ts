@@ -2038,6 +2038,104 @@ register(
   },
 );
 
+/** E08 — create + publish (SCRIPTED browser / fixture FAKE). */
+function createAndPublishQualification(
+  title: string,
+  publicationPath: string,
+): NoraTurnQualification {
+  return effect(
+    `Document + publication ${title}`,
+    `Je prépare « ${title} » puis la publication gouvernée — Studio confirme l'effet.\n\n\`\`\`sfia-document\n# ${title}\n\nContenu E08 publication Nora.\n\`\`\`\n`,
+    [
+      {
+        id: "i1",
+        capabilityId: "d4.create_document",
+        mode: "REQUEST_EFFECT",
+        summary: title,
+        parameters: { notes: title, documentHint: title },
+        constraints: [],
+        dependsOn: [],
+        sourceEvidence: [],
+      },
+      {
+        id: "i2",
+        capabilityId: "d7.prepare_publication",
+        mode: "REQUEST_EFFECT",
+        summary: "Préparer publication",
+        parameters: { publicationPath, documentHint: title },
+        constraints: [],
+        dependsOn: ["i1"],
+        sourceEvidence: [],
+      },
+    ],
+  );
+}
+
+/** E08 — publish existing document (explicit title / revision hint). */
+function publishExistingQualification(
+  documentHint: string,
+  publicationPath: string,
+): NoraTurnQualification {
+  return effect(
+    `Publication ${documentHint}`,
+    `Je prépare la publication de « ${documentHint} » — Studio reste propriétaire de l'effet.`,
+    [
+      {
+        capabilityId: "d7.prepare_publication",
+        mode: "REQUEST_EFFECT",
+        summary: "Préparer publication",
+        parameters: { documentHint, publicationPath },
+        constraints: [],
+        dependsOn: [],
+        sourceEvidence: [],
+      },
+    ],
+  );
+}
+
+register(
+  "E08_PUBLISH_CREATE_SCRIPTED",
+  createAndPublishQualification(
+    "E08 Nora Publish Scripted",
+    "docs/studio-next/e08-nora-publish.md",
+  ),
+);
+register(
+  "Crée un document intitulé E08 Nora Publish Scripted et publie-le dans mon dépôt GitHub chemin docs/studio-next/e08-nora-publish.md",
+  createAndPublishQualification(
+    "E08 Nora Publish Scripted",
+    "docs/studio-next/e08-nora-publish.md",
+  ),
+);
+register(
+  "E08_PUBLISH_EXISTING_CLARIFY",
+  publishExistingQualification(
+    "Document fantôme E08 introuvable XYZ",
+    "docs/studio-next/e08-clarify.md",
+  ),
+);
+register(
+  "Publie le document Document fantôme E08 introuvable XYZ dans mon dépôt GitHub chemin docs/studio-next/e08-clarify.md",
+  publishExistingQualification(
+    "Document fantôme E08 introuvable XYZ",
+    "docs/studio-next/e08-clarify.md",
+  ),
+);
+register(
+  "E08_PUBLISH_EXISTING_CORRECT",
+  publishExistingQualification(
+    "Note E08 cible corrigée",
+    "docs/studio-next/e08-corrected.md",
+  ),
+);
+register(
+  "Publie le document Note E08 cible corrigée dans mon dépôt GitHub chemin docs/studio-next/e08-corrected.md",
+  publishExistingQualification(
+    "Note E08 cible corrigée",
+    "docs/studio-next/e08-corrected.md",
+  ),
+);
+
 /** E08 — documentary merge fixtures (exact utterance → d7.merge_publication). */
 function mergePublicationQualification(
   prNumber: number,
@@ -2070,6 +2168,11 @@ register("Peux-tu merger la PR #7 ?", mergePublicationQualification(7));
 const MERGE_PR_FIXTURE_RE = /^Merge la PR #(\d{1,6})\.?$/i;
 const MERGE_PR_REPO_FIXTURE_RE =
   /^Merge la PR #(\d{1,6}) du dépôt ([A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+)\.?$/i;
+
+const E08_CREATE_PUBLISH_RE =
+  /^Crée un document intitulé (.+?) et publie-le dans mon dépôt GitHub chemin (docs\/studio-next\/[A-Za-z0-9_.\/-]+)$/i;
+const E08_PUBLISH_EXISTING_RE =
+  /^Publie le document (.+?) dans mon dépôt GitHub chemin (docs\/studio-next\/[A-Za-z0-9_.\/-]+)$/i;
 
 /** Short TEST_BOUNDARY keys for e2e (exact match, same envelopes as the natural utterances). */
 for (const [short, long] of [
@@ -2155,6 +2258,15 @@ export function fixtureSemanticQualify(userText: string): NoraTurnQualification 
         ],
       },
     );
+  }
+  // E08 TEST_BOUNDARY — create+publish / publish-existing (SCRIPTED; WRITE OFF = PG only).
+  const createPub = text.match(E08_CREATE_PUBLISH_RE);
+  if (createPub?.[1] && createPub[2]) {
+    return createAndPublishQualification(createPub[1].trim(), createPub[2].trim());
+  }
+  const pubExisting = text.match(E08_PUBLISH_EXISTING_RE);
+  if (pubExisting?.[1] && pubExisting[2]) {
+    return publishExistingQualification(pubExisting[1].trim(), pubExisting[2].trim());
   }
   // E08 TEST_BOUNDARY — parameterized positive merge only (negations stay dialogue-default).
   const mergeRepo = text.match(MERGE_PR_REPO_FIXTURE_RE);

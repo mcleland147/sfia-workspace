@@ -19,7 +19,7 @@ function statusBanner(status: string): { tone: string; text: string } {
     case "CONNECTED":
       return {
         tone: "text-emerald-300",
-        text: "GitHub est connecté. Les dépôts ci-dessous sont ceux réellement autorisés côté serveur.",
+        text: "GitHub connecté — accès fournisseur vérifié. Aucun mandat de publication n’est accordé par cette seule connexion.",
       };
     case "PENDING_APPROVAL":
       return {
@@ -30,8 +30,7 @@ function statusBanner(status: string): { tone: string; text: string } {
     case "REVOKED":
       return {
         tone: "text-amber-300",
-        text:
-          "Accès Studio local retiré. Ce n’est pas automatiquement une révocation complète de l’installation GitHub. Les acquis D4 et faits historiques restent conservés.",
+        text: "Accès Studio local retiré. Ce n’est pas automatiquement une révocation complète de l’installation GitHub. Les documents et faits historiques restent conservés.",
       };
     default:
       return {
@@ -71,7 +70,6 @@ export function IntegrationsPanel() {
         return;
       }
       // SCRIPTED complete only when server chose flow=scripted.
-      // Do NOT use providerMode (Git provider SCRIPTED/REAL) — that is orthogonal to D9 OAuth flow.
       if (j.flow === "scripted") {
         const done = await fetch("/api/integrations/github/authorize/complete", {
           method: "POST",
@@ -123,7 +121,7 @@ export function IntegrationsPanel() {
       <div className="space-y-5" data-testid="integrations-disconnect-confirm">
         <header className="space-y-2">
           <p className="text-[12px] font-semibold uppercase tracking-wide text-[var(--fig-accent)]">
-            Paramètres / Sécurité
+            PARAMÈTRES / SERVICES EXTERNES
           </p>
           <h1 className="text-[32px] leading-tight font-semibold text-[var(--ink)]">
             Déconnecter GitHub
@@ -208,22 +206,11 @@ export function IntegrationsPanel() {
     <div className="space-y-5" data-testid="integrations-panel">
       <header className="space-y-2">
         <p className="text-[12px] font-semibold uppercase tracking-wide text-[var(--fig-accent)]">
-          Paramètres · Services externes
+          PARAMÈTRES / SERVICES EXTERNES
         </p>
-        <div className="flex items-center gap-3 flex-wrap">
-          <h1 className="text-[32px] leading-tight font-semibold text-[var(--ink)]">Intégrations</h1>
-          {view?.providerMode === "SCRIPTED" ? (
-            <span
-              className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded border border-[var(--line)] text-[var(--muted)]"
-              data-testid="badge-scripted"
-            >
-              SCRIPTED
-            </span>
-          ) : null}
-        </div>
+        <h1 className="text-[32px] leading-tight font-semibold text-[var(--ink)]">Intégrations</h1>
         <p className="text-base text-[var(--muted)] max-w-3xl">
-          Connectez les services utiles à votre travail. Vous gardez la maîtrise des dépôts et des
-          permissions.
+          Gérer la connexion personnelle GitHub et consulter les dépôts réellement autorisés.
         </p>
       </header>
 
@@ -234,58 +221,47 @@ export function IntegrationsPanel() {
         {banner.text}
       </div>
 
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+      <div
+        className="grid gap-5 lg:grid-cols-[minmax(0,858fr)_minmax(0,482fr)]"
+        data-testid="integrations-layout-1106"
+      >
         <section className="studio-card p-5 space-y-4" data-testid="github-integration-card">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-[var(--fig-accent)]">
-              GitHub · Intégration disponible
-            </p>
-            <h2 className="text-[22px] font-semibold mt-1">GitHub</h2>
-            <p className="text-sm text-[var(--muted)] mt-1">
-              Consulter vos dépôts autorisés, travailler avec Nora et publier des documents sous votre
-              contrôle.
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
-              <p className="text-sm font-semibold">Connexion Studio</p>
-              <p className="text-xs text-[var(--muted)] mt-1">
-                Vous êtes authentifié dans Studio : cela ne donne aucun droit sur les dépôts.
-              </p>
-            </div>
-            <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
-              <p className="text-sm font-semibold">Accès aux dépôts</p>
-              <p className="text-xs text-[var(--muted)] mt-1">
-                {status === "CONNECTED"
-                  ? "Installation et autorisation utilisateur GitHub App vérifiées côté serveur."
-                  : "Aucune installation GitHub App ni autorisation utilisateur n'est présumée."}
-              </p>
-            </div>
-            <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
-              <p className="text-sm font-semibold">Publication documentaire</p>
-              <p className="text-xs text-[var(--muted)] mt-1">
-                Les branches, commits, PR et merges nécessitent un mandat distinct.
-              </p>
-            </div>
+          <div className="flex items-center gap-3 flex-wrap">
+            <h2 className="text-[22px] font-semibold m-0">GitHub</h2>
+            {status === "CONNECTED" ? (
+              <span className="git-badge-ok" data-testid="github-connected-badge">
+                ● Connecté
+              </span>
+            ) : null}
           </div>
 
           {status === "CONNECTED" ? (
-            <ul className="text-sm space-y-1" data-testid="repo-list">
-              {view?.repositories.map((r) => (
-                <li key={r.id} className="mono muted">
-                  {r.fullName}
-                  {r.defaultBranch ? ` · ${r.defaultBranch}` : ""}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-sm muted">Aucun dépôt autorisé.</p>
-          )}
-
-          <div className="flex flex-wrap gap-3 pt-1">
-            {status === "CONNECTED" ? (
-              <>
+            <>
+              <p className="text-sm text-[var(--muted)] m-0">
+                Dépôts autorisés par la GitHub App — affichés côté serveur.
+              </p>
+              {(view?.repositories?.length ?? 0) === 0 ? (
+                <p className="text-sm muted" data-testid="repo-list-empty">
+                  Aucun dépôt autorisé.
+                </p>
+              ) : (
+                <ul className="space-y-2 m-0 p-0 list-none" data-testid="repo-list">
+                  {view!.repositories.map((r) => (
+                    <li
+                      key={r.id}
+                      className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-4 py-3"
+                      data-testid={`integration-repo-${r.id}`}
+                    >
+                      <p className="text-sm font-semibold m-0 mono">{r.fullName}</p>
+                      <p className="text-xs text-[var(--muted)] mt-1 mb-0">
+                        Accessible au compte Pilote
+                        {r.defaultBranch ? ` · branche par défaut ${r.defaultBranch}` : ""}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <div className="flex flex-wrap gap-3 pt-1">
                 <button
                   type="button"
                   className="studio-btn"
@@ -293,7 +269,7 @@ export function IntegrationsPanel() {
                   onClick={() => void refreshRepos()}
                   data-testid="refresh-repos"
                 >
-                  Actualiser les dépôts
+                  Actualiser
                 </button>
                 <button
                   type="button"
@@ -303,11 +279,18 @@ export function IntegrationsPanel() {
                   data-testid="disconnect-github"
                   title="Ouvre la confirmation — aucun appel de déconnexion avant confirmation"
                 >
-                  Déconnecter (Studio)
+                  Déconnecter
                 </button>
-              </>
-            ) : (
-              <>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="text-sm text-[var(--muted)]">
+                Consulter vos dépôts autorisés, travailler avec Nora et publier des documents sous
+                votre contrôle.
+              </p>
+              <p className="text-sm muted">Aucun dépôt autorisé.</p>
+              <div className="flex flex-wrap gap-3 pt-1">
                 <button
                   type="button"
                   className="studio-btn"
@@ -317,23 +300,34 @@ export function IntegrationsPanel() {
                 >
                   Configurer GitHub
                 </button>
-                <button type="button" className="studio-btn-secondary" disabled={busy} onClick={() => void refresh()}>
+                <button
+                  type="button"
+                  className="studio-btn-secondary"
+                  disabled={busy}
+                  onClick={() => void refresh()}
+                >
                   Plus tard
                 </button>
-              </>
-            )}
-          </div>
+              </div>
+            </>
+          )}
         </section>
 
-        <aside className="studio-card p-5 space-y-3">
+        <aside className="studio-card p-5 space-y-3" data-testid="integrations-explain-column">
           <h2 className="text-[20px] font-semibold">Une connexion à la carte</h2>
-          <p className="text-sm text-[var(--muted)]">
-            Connectez GitHub maintenant, ou seulement lorsqu&apos;un projet en aura besoin.
-          </p>
           {[
-            ["1 · Choisir le compte", "Sur GitHub, choisissez un compte ou une organisation."],
-            ["2 · Sélectionner les dépôts", "Limitez l'installation aux dépôts nécessaires."],
-            ["3 · Conserver le contrôle", "Vous pourrez ajouter ou retirer des dépôts plus tard."],
+            [
+              "Connexion personnelle",
+              "Autorisation GitHub propre au Pilote, distincte des projets.",
+            ],
+            [
+              "Rattachements projet",
+              "Chaque projet choisit les dépôts utiles, un ou plusieurs.",
+            ],
+            [
+              "Publication documentaire",
+              "Nora propose, le Pilote inspecte et autorise un mandat distinct.",
+            ],
           ].map(([title, body]) => (
             <div
               key={title}
@@ -347,13 +341,6 @@ export function IntegrationsPanel() {
       </div>
 
       {message ? <p className="text-sm text-amber-400">{message}</p> : null}
-      <p className="text-xs text-[var(--muted)]" data-testid="provider-mode-note">
-        {!view
-          ? "Chargement du statut d'intégration…"
-          : view.providerMode === "SCRIPTED"
-            ? "Fournisseur d'effet Git SCRIPTED (fixtures). Orthogonal au flux OAuth user-to-server."
-            : "Fournisseur d'effet Git REAL. Orthogonal au statut OAuth CONNECTED — mutations bornées documentary + mandat D6."}
-      </p>
     </div>
   );
 }

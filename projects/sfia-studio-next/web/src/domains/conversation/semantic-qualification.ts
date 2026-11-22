@@ -568,6 +568,9 @@ export type SemanticStudioProjection = {
     path: string | null;
     targetPath: string | null;
     targetBranch: string | null;
+    documentHint: string | null;
+    objectRef: string | null;
+    repositoryHint: string | null;
     clarify: string | null;
     capabilityId: "d7.prepare_publication" | "d7.dispatch_publication" | "d9.git_integration" | null;
   };
@@ -641,6 +644,12 @@ export function projectStudioEffects(q: NoraTurnQualification): SemanticStudioPr
     path,
     targetPath: path,
     targetBranch: null as string | null,
+    documentHint:
+      publish?.parameters.documentHint?.trim() ||
+      reviseDoc?.parameters.documentHint?.trim() ||
+      null,
+    objectRef: publish?.parameters.objectRef?.trim() || null,
+    repositoryHint: publish?.parameters.repositoryFullName?.trim() || null,
     clarify: publish && !path ? "Chemin de publication Git manquant." : null,
     capabilityId: publishCapability,
   };
