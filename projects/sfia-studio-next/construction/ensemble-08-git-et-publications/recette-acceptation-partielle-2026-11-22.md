@@ -7,17 +7,19 @@
 | Produit | SFIA Studio Next — Ensemble 08 / collaboration Git |
 | Nature | **PV de recette utilisateur et plan de scénarios**, document factuel non normatif |
 | Autorité UAT | Morris — observations et acceptations exprimées dans la conversation |
-| Statut global | **RECETTE PARTIELLEMENT ACCEPTÉE — PUBLICATION CONVERSATIONNELLE BLOQUANTE** |
+| Statut global courant (après cutover) | **RECETTE DISPONIBLE — CAMPAGNE UAT À REPRENDRE — E08 NON ADOPTÉ** ; ancien verdict de publication conservé comme historique §§1–7 |
 | Lane | RECETTE locale `http://127.0.0.1:3200` |
-| SOURCE_SHA servi, selon compte rendu Cursor | `f1907aad98f75c7d39e4c21ccbd8043ab048ce09` |
-| TREE, selon compte rendu Cursor | `1e93363b50f07e95dcd3a9cccb01c7ca4ad96729` |
-| BUILD_ID servi, selon compte rendu Cursor | `zKGLfPHM1TMilec4qglJv` |
+| SOURCE_SHA actuellement servi (rapport Cursor L3) | `79188f6cf334be5c81f485b8cb1c4f1ae95644dc` |
+| TREE actuellement servi (rapport Cursor L3) | `a550283d37ff461323ea02757350de24b772133e` |
+| BUILD_ID actuellement servi (rapport Cursor L3) | `hLsmHa3uFYP0PgRtj49Bh` |
 | Base Git distante lors de la rédaction | `origin/main@a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
 | Branche d'édition du PV | `docs/next-git-recette-20261122` — documentaire, hors runtime et hors `main` |
-| Portée | Enregistrer le verdict utilisateur, qualifier les scénarios à prouver et transmettre le défaut à Cursor |
+| Portée | PV historique, scénarios de recette, état actuel du cutover, preuves et passation pour nouveau chat |
 | Ne vaut pas | MERGED, STABLE, RELEASE, ADOPTED, preuve GitHub REAL d'écriture |
 
 > **Règle de lecture.** « Accepté Morris » signifie que Morris a confirmé l'usage ou la conformité dans cette UAT. Ce statut n'invente pas un test automatisé, une preuve d'effet GitHub distant ni un niveau `BEHAVIOR PROVEN` non fourni. Les points non mentionnés comme testés restent non vérifiés.
+
+> **Lecture chronologique.** Les §§1–7 décrivent le premier incident (publication bloquée), aujourd'hui corrigé ; les §§8–10 décrivent la campagne et les défauts observés avant le dernier cutover. **Les §§11–14 constituent le point de reprise courant après mise à disposition du build 79188f6c.** Ne pas interpréter les anciens échecs comme des résultats de la nouvelle RECETTE.
 
 ## 1. Résumé d'acceptation
 
@@ -307,3 +309,123 @@ La seconde capture de Morris présente sous la réponse Nora le bandeau :
 - Édition documentaire D1 bornée sur `docs/next-git-recette-20261122`, aucun code produit modifié, pas de PR/merge.
 - Addendum de campagne `GIT-UAT-01..08` avec **prompts exacts**, attentes, niveau de risque et état UAT ; analyse de deux captures et fait GitHub PR #19 indépendant.
 - Le PV initial demeure historique ; **la présente section et les sections 8–9 prévalent pour l'état actuel de l'UAT E08**.
+
+## 11. Point de reprise E08 — campagne UAT Git après cutover du 22/11/2026
+
+**Statut courant : RECETTE AVAILABLE — MORRIS UAT REQUIRED.** Cette section constitue une passation factuelle D1, pas un verdict d'acceptation produit. La sélection réelle des nouveaux outils par Nora LIVE et les scénarios GIT-UAT-01 à 07 restent à prouver sur le build actuel.
+
+### 11.1 Git Truth et build servi
+
+| Objet | Référence | Provenance |
+| --- | --- | --- |
+| Dépôt source | mcleland147/sfia-workspace | Vérifié GitHub |
+| origin/main | a12f89a15c454319c06f49fcc5e8effa9f3f1a75 | Vérifié GitHub au 22/11 |
+| Branche de code E08 | feat/next-ensemble08-git-publications-nora | **Locale Cursor, non poussée** (ahead 13 selon rapport d'audit). État local actuel NON OBSERVÉ par ChatGPT |
+| SOURCE_SHA RECETTE | 79188f6cf334be5c81f485b8cb1c4f1ae95644dc | Review Pack Cursor cutover |
+| TREE | a550283d37ff461323ea02757350de24b772133e | Review Pack Cursor cutover |
+| BUILD_ID | hLsmHa3uFYP0PgRtj49Bh | Review Pack Cursor, marqueur HTTP déclaré |
+| Accès | http://127.0.0.1:3200 | Adresse locale Mac de Morris ; non accessible directement par ChatGPT |
+| LaunchAgent | com.sfia.studio.next.recette.ml4d-ux004 | Identique avant/après selon Cursor |
+| Base | sfia_next_recette_ml4, PostgreSQL port 5434 | Identique avant/après selon Cursor |
+| Ancien runtime | c67a6ba8bde5c4d818a23fe96d2822a22c050121 / tEiDqhhGWNipSWO_86ZoG | Conservé pour rollback selon Cursor |
+| Handoff distant actuel | [7a22aabd80015093f1975d978b6378b30f65de05](https://github.com/mcleland147/sfia-workspace/blob/7a22aabd80015093f1975d978b6378b30f65de05/sfia-review-handoff/latest-chatgpt-review.md) ; blob 8ce1f6553025ba0b3e06635abe276ba119a852ab | Vérifié GitHub |
+
+**Cutover exécuté selon Cursor :** sauvegarde PostgreSQL ml4d-e08-pre-gitaudit-cutover-20261122T073809Z-from-c67a6ba8.sql.gz ; SHA256 7aceda094b5ba195e531a3c5c3c17f6581bec24e8eb94bfaa3df3a8c9f0d98e1 ; restore proof sur base temporaire isolée PASS ; rollback préparé, **non exercé**. Smokes login/portfolio/Intégrations HTTP 200 ; un seul listener sur :3200 ; absence de mutation GitHub pendant le cutover.
+
+**DB préservée (métriques avant=après rapportées) :** projects=26, documents=117, document_revisions=188, messages=657, conversations=205, effect_attempts=5, document_publication_refs=1, project_git_links=15, authorized_repositories=27, sessions=125, human_decisions=4. Ces preuves locales proviennent du Review Pack Cursor ; ChatGPT ne prétend pas avoir observé directement le Mac ou PostgreSQL.
+
+### 11.2 Configuration GitHub REAL permanente en RECETTE
+
+- STUDIO_GITHUB_PROVIDER=real.
+- STUDIO_GITHUB_ALLOW_MUTATIONS=documentary.
+- GITHUB_APP_WRITE_ALLOWED_REPOS=mcleland147/chantiers360.
+- Provider simulé / fixtures OFF sur RECETTE selon Cursor ; identités GitHub App, OAuth Pilote, session Studio et provider D9 **distinctes**.
+- Conserver cette configuration à chaque nouvelle livraison RECETTE ; ne pas désactiver GitHub REAL ni WRITE documentaire pour tester une demande en lecture seule.
+- Configuration WRITE active **ne vaut pas mandat de mutation**. D6 HumanDecision, droits/allowlists et contrôles au point d'effet demeurent obligatoires. Ne jamais confondre READ et WRITE.
+- Lanes DEV, RECETTE et STABLE isolées (worktree, DB, volumes, ports, sessions et secrets) selon ENV-01. Ne jamais utiliser la DB DEV pendant la recette.
+- GIT-UAT-01 à 07 : scénarios **strictement READ**, aucune création de branche/commit/PR, aucun merge, aucune suppression. GIT-UAT-08 : **hors GO, ne pas exécuter**.
+
+### 11.3 Oracle Git réel existant, non mutatif
+
+| Élément | Valeur |
+| --- | --- |
+| Projet Studio | CampusFlow |
+| Dépôt GitHub | mcleland147/chantiers360 |
+| Document D4 | Références externes — Enseignements de Chantiers360 ; révision 2 |
+| Fichier racine | references-externes-enseignements-chantiers360.md |
+| Branche publication | sfia/pub-3ab1e0c2eb6b7499 |
+| Commit | 16f9961ef2ee6d13235e56059313f691521947fd |
+| Blob distinct | 7518405f3b8f868ab88d3e257d2489a50e4b338b |
+| PR | [#19](https://github.com/mcleland147/chantiers360/pull/19) ; base main / head sfia/pub-3ab1e0c2eb6b7499 |
+| Dernier état GitHub vérifié | OPEN, non merged. **Relire le LIVE au moment du test** |
+| Fichier sur main au précédent contrôle | Absent au chemin vérifié (404) ; ne suffit pas à inférer le statut PR |
+| D7 | attempt efx_cf6763da-383f-4abd-be6d-ac9ba29b752f COMPLETED (selon PG) |
+| Mission | pub:mission:turn-67d643cc-1015-4b68-aedf-f3bd53649a00 |
+| D8 | dpr_7f10c5e4… ; PR_OPEN ; mergeObserved=false |
+
+**Ne pas republier** le document pour tester les outils READ. La publication via GitHub Contents API crée un commit distant sans git push local ; ouverture de PR et fusion sont deux effets distincts, toujours gouvernés.
+
+## 12. Historique des travaux et handoffs à relire dans le nouveau chat
+
+Les Review Packs FULL sont publiés successivement sur sfia/review-handoff, dans sfia-review-handoff/latest-chatgpt-review.md. **Chaque cycle remplace le contenu du fichier sur la branche : lire les versions historiques aux commits épinglés**, sans supposer que le HEAD expose tous les travaux antérieurs.
+
+| Ordre | Handoff distant | Évolution |
+| --- | --- | --- |
+| 1 | [8014e031](https://github.com/mcleland147/sfia-workspace/blob/8014e031d311ebac5b3dff6829b9be6c2a67a8d4/sfia-review-handoff/latest-chatgpt-review.md) | Correctifs initiaux du blocage Nora sur la publication documentaire, continuité de mission et chemin racine |
+| 2 | [87ca92cf](https://github.com/mcleland147/sfia-workspace/blob/87ca92cf9405c2ca77e5413ef4358dda30bd2f80/sfia-review-handoff/latest-chatgpt-review.md) | Réconciliation D7/D8, hydratation des résultats branche/commit/PR/liens, snippets Nora, cutover précédent c67a6ba8 |
+| 3 | [189f769e](https://github.com/mcleland147/sfia-workspace/blob/189f769e2839db10f1bbc04a0311e36d0f975080/sfia-review-handoff/latest-chatgpt-review.md) | Incident PR READ : TOOL_NOT_EXPOSED ; ajout read_git_pull_request ; bandeau UNKNOWN plus précis ; candidat 2a607fb0 |
+| 4 | [01ec2e01](https://github.com/mcleland147/sfia-workspace/blob/01ec2e0116aad211b0c02af6b2eb555177d15d08/sfia-review-handoff/latest-chatgpt-review.md) | Audit transversal : list_git_pull_requests, list_git_pull_request_files, permissions sanitizées, fallback READ App→OAuth, tests 820/820 unit et 17/17 PG PASS selon Cursor ; candidat 79188f6c |
+| 5, **dernier** | [7a22aabd](https://github.com/mcleland147/sfia-workspace/blob/7a22aabd80015093f1975d978b6378b30f65de05/sfia-review-handoff/latest-chatgpt-review.md) | **Cutover RECETTE** sur 79188f6c / hLsmHa3uFYP0PgRtj49Bh, sauvegarde et smokes, Nora LIVE encore non éprouvée |
+
+**Chaîne de responsabilités cible :** D3 (Nora : intention/contexte/outils READ/restitution), D4 (documents/révisions), D6 (HumanDecision Pilote), D7 (plan, effets et idempotence), D8 (faits/provenance/reprise), D9 (provider GitHub et permissions). Les outils Nora READ exposés sont : list_project_git_sources, read_git_file, list_git_refs, list_git_directory, read_git_pull_request, list_git_pull_requests, list_git_pull_request_files. Aucune écriture Git n'est un outil LLM direct : elle passe par une mission gouvernée D6→D7→D9→D8.
+
+**Réserves connues :** historique commits générique / diff hunks arbitraires OUT/PARTIAL contrat E08 ; checks/protections en consultation Nora PARTIAL ; merge réel NON PROUVÉ ; sélection d'outils en Nora LIVE sur le nouveau build NON PROUVÉE. Aucun claim de BEHAVIOR PROVEN global pour E08.
+
+## 13. Plan de campagne et verdicts à reprendre
+
+**Avant GIT-UAT-01 :** faire vérifier par Morris que la RECETTE :3200 affiche bien hLsmHa3uFYP0PgRtj49Bh et reprendre la **conversation CampusFlow existante** pour conserver les références de la publication. Ne pas inventer une nouvelle mission ou une nouvelle publication. Les prompts EXACTS à soumettre à Nora sont au **§8** de ce PV, GIT-UAT-01 à 08.
+
+| Test | Attendu prioritaire | Statut sur le build 79188f6c |
+| --- | --- | --- |
+| GIT-UAT-01 | PR #19 : état actuel, base/head/SHA, fusion depuis GitHub LIVE, via read_git_pull_request | **À REJOUER** ; ancien PARTIAL/FAIL concernait un build antérieur |
+| GIT-UAT-02 | PR #19 : fichiers, compteur de commits, comparaison ; list_git_pull_request_files ; ne pas inventer diff hunks non accessibles | NON TESTÉ |
+| GIT-UAT-03 | Mergeability, checks/protections/permissions, refus des conclusions non prouvées, zéro merge | NON TESTÉ ; checks/protections PARTIAL |
+| GIT-UAT-04 | Historique et comparaison commit/blob/main ; expliciter le périmètre OUT de list_commits générique | NON TESTÉ |
+| GIT-UAT-05 | Permissions réellement rapportées et distinction App/OAuth/D6 | NON TESTÉ |
+| GIT-UAT-06 | Retrouver D7/D8/PR#19 sans doublon ni nouvelle écriture | NON TESTÉ |
+| GIT-UAT-07 | Continuité après rechargement ; statut historique vs live ; bandeau UNKNOWN si pertinent | NON TESTÉ |
+| GIT-UAT-08 | Fusion réelle gouvernée D6/D7/D9/D8 | **HORS MANDAT, NE PAS EXÉCUTER** |
+
+**Protocole de recueil :** un scénario à la fois ; enregistrer prompt exact, réponse Nora/capture, identité build, horodatage, appels d'outils si observables, faits Git indépendants, comportement UI, absence d'effet mutatif et verdict PASS / PARTIAL / FAIL / NOT TESTED. Un PARTIAL n'est pas automatiquement un défaut d'implémentation (certaines fonctions sont OUT), mais ne doit jamais être reclassé PASS sans la preuve attendue. Capitaliser les observations dans le même PV sur branche documentaire D1 si Morris l'autorise.
+
+**Défaut nouveau avéré :** examiner le contrat et le code, regrouper les causes en un macro-lot correctif cohérent, ne pas multiplier les micro-cycles. Les parcours UX Intégrations 11.06, rattachement, exploration de dépôt/fichier et suppression de branche ont déjà été acceptés Morris : ne les rouvrir qu'en cas de régression.
+
+### 13.1 Mécanique technique, livraison et gates à maintenir
+
+1. Sources Git vivantes avant revue/prompt Cursor : SEF v0.2, Roadmap Next, décisions (dont sémantique Nora 12/11), ENV-01, versioning, routage/template SFIA v2.6, contrats E08 fonctionnel/architecture et preuves. Différencier main, branche documentaire, code local non poussé et handoff L3.
+2. Cursor fait le Git Truth Check LOCAL (branche/HEAD/base/staged/untracked/worktrees), code+tests+as-built+delivery-history dans un macro-lot, commit candidat LOCAL ; aucun push code, PR/merge sans GO distinct.
+3. Chaque rapport Cursor = Review Pack FULL ou Light mono-cycle, handoff L3 required/publish-in-cycle sur **sfia/review-handoff et son seul fichier canonique**, push FF, SHA et relecture distante puis retour branche initiale.
+4. Nouveau cutover RECETTE : **GO Morris spécifique au triplet SHA/TREE/BUILD**, contrôle ENV-01, build figé, sauvegarde PostgreSQL + restore proof isolé + rollback prêt, mise à jour contrôlée du même LaunchAgent :3200, DB et sessions préservées, config GitHub REAL documentary conservée, smokes post-cutover et relecture du handoff.
+5. Ne pas désactiver GitHub REAL pour faciliter les tests ; aucune mutation GitHub réelle sans mandat D6 adapté. READ seulement pour GIT-UAT-01 à 07 ; GIT-UAT-08 sur GO de merge séparé.
+6. Distinguer DETERMINISTIC / BROWSER / LIVE Nora / REAL READ / REAL EFFECT, ne pas anticiper E08 ADOPTED, main MERGED, STABLE, release ou Gate C.
+7. Le PV n'autorise ni nouvelle mise à disposition, ni action Git extérieure, ni changement normatif. Prochain résultat utilisateur : campagne UAT cohérente sur le build servi, avant éventuel arbitrage d'intégration.
+
+## 14. Sources et décisions à relire au démarrage du nouveau chat
+
+**Sur main** (GitHub live ; SHAs des blobs contrôlés le 22/11) :
+- projects/sfia-studio-next/governance/SEF.md (ef85ba1e…)
+- projects/sfia-studio-next/governance/roadmap.md (61994a78… ; dernier état de main : Ensemble 07 intégré)
+- projects/sfia-studio-next/governance/environnements-recette-et-promotions.md (14b61f0d…)
+- projects/sfia-studio-next/governance/product-versioning.md (8bc93e0f… ; NO RELEASE, STABLE NOT AVAILABLE)
+- projects/sfia-studio-next/governance/decisions/2026-11-12-qualification-semantique-nora-mobilisation-capacites.md (ebaa5665…)
+- method/sfia-fast-track/core/sfia-cycle-routing-guide.md (3315bbae…)
+- prompts/templates/sfia-cycle-execution-template.md (f4fdb488…)
+
+**Candidats non mergés :**
+- Contrat fonctionnel E08 : projects/sfia-studio-next/conception-fonctionnelle/contrat-fonctionnel-depots-git-et-conduite-nora-candidat.md ; branche docs/next-ensemble08-contrat-fonctionnel-20261121, blob f60e86fe…
+- Contrat architecture E08 : projects/sfia-studio-next/construction/ensemble-08-git-et-publications/contrat-architecture-et-acceptation-candidat.md ; même branche, blob 9fe9a6ce…
+- Code/as-built/matrice E08 sur branche locale feat/next-ensemble08-git-publications-nora ; **non accessibles directement sur GitHub sans push** ; lire les diffs complets du handoff épinglé et demander Cursor local seulement si besoin.
+- Le présent PV sur **docs/next-git-recette-20261122**, non sur main ; contient les scénarios exacts et le point de reprise. La publication D1 de ce PV ne vaut ni validation normative ni push code produit.
+
+**Dernier état : E08 NON ADOPTÉ, NON STABLE, code E08 NON MERGÉ, GIT-UAT-01 à 07 à rejouer, GIT-UAT-08 hors mandat.**
+
