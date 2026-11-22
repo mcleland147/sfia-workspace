@@ -3,6 +3,21 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-CHAIN-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 07:45 CET (Europe/Paris) |
+| SOURCE_SHA | `c67a6ba8bde5c4d818a23fe96d2822a22c050121` |
+| TREE | `f54c0aff60af9e47f2f4a181a9d1dcfa75519a95` |
+| BUILD_ID | `tEiDqhhGWNipSWO_86ZoG` |
+| Avant | `@0b5d6c74` / `RSccgxDslwxMhjjTtFo4Z` |
+| Après | HTTP `<!--tEiDqhhGWNipSWO_86ZoG-->` · ml4d-ux004 |
+| DB | préservée · attempt PR#19 intact |
+| Backup | `ml4d-e08-pre-chain-cutover-20261122T064246Z-from-0b5d6c74.sql.gz` + restore PASS |
+| Push projet | **NONE** |
+| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-CHAIN-FIABILISATION
 
 | Field | Value |
