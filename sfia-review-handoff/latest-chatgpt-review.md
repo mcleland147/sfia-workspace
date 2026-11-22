@@ -1,122 +1,266 @@
 # SFIA Review Pack — FULL · CRITICAL
-## Ensemble 08 — POST-UAT 01 CLÔTURE PUBLICATION NORA
+## Ensemble 08 — POST-UAT 01 FREEZE LOCAL CANDIDAT
 
-- date_utc: 2026-11-22T03:16:09Z
-- timezone_local: CET +0100 (Europe/Paris)
-- repo: mcleland147/sfia-workspace
-- branch: feat/next-ensemble08-git-publications-nora
-- HEAD: 29066442a7fa51b106d9fe45b5c1b05da7f13004
-- origin/main: a12f89a15c454319c06f49fcc5e8effa9f3f1a75
-- prior_handoff: ab062977c34e9fdd25480da668347cf9bb0228d4
-- prior_handoff_blob: ac5c4b616e2457cafdc5379526a9202c33468c92
-- classe: NO RELEASE
-- RECETTE: 98185598 / BUILD 1xEbvCdTAX6ht262w4oKF — PRESERVED (no mutation)
-- project_commit: NONE
-- project_push: NONE
-- PR/merge: NONE
-
-## 1. Git Truth
-```
-origin	https://github.com/mcleland147/sfia-workspace.git (fetch)
-origin	https://github.com/mcleland147/sfia-workspace.git (push)
-branch=feat/next-ensemble08-git-publications-nora
-HEAD=29066442a7fa51b106d9fe45b5c1b05da7f13004
-origin/main=a12f89a15c454319c06f49fcc5e8effa9f3f1a75
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio-next/construction/delivery-history.md
- M projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
- M projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md
- M projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
- M projects/sfia-studio-next/web/src/components/figma/tokens.css
- M projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx
- M projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx
- M projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts
- M projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
- M projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
- M projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
- M projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
- M projects/sfia-studio-next/web/src/domains/conversation/service.ts
- M projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts
- M projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts
- M projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
-?? projects/sfia-studio-next/construction/ensemble-08-git-et-publications/figma-evidence/post-uat-01-l0-l2.md
-?? projects/sfia-studio-next/web/src/components/integrations/GitFileInfoPopover.tsx
-?? projects/sfia-studio-next/web/src/domains/conversation/publication-document-target.ts
-?? projects/sfia-studio-next/web/src/domains/conversation/publication-effect-restitution.ts
-?? projects/sfia-studio-next/web/tests/e2e/ensemble08-nora-publication.spec.ts
-?? projects/sfia-studio-next/web/tests/integration/publication-nora-cloture.pg.test.ts
-?? projects/sfia-studio-next/web/tests/integration/publication-target-post-uat.pg.test.ts
-?? projects/sfia-studio-next/web/tests/unit/publication-effect-restitution.test.ts
-```
-
-## 2. Causes confirmées (revue ChatGPT → clôture)
-1. P0: `parseDocumentId(objectRef)||parseDocumentId(documentHint)` sélectionnait A quand hint=B.
-2. P1: `composePublicationEffectRestitution(effect:null)` ne retirait pas les affirmations de succès; intention sans effet pouvait laisser « Je publie ».
-3. Latent: resume post-authorize écrivait un message assistant concurrent → ASSISTANT_IDENTITY_CONFLICT (restitution technique masquée).
-
-## 3. Corrections exactes
-- `publication-document-target.ts`: réconciliation indépendante objectRef/documentHint; conflits → AMBIGUOUS/REVISION_MISMATCH.
-- `publication-effect-restitution.ts`: strip premature claims si effect null; NOT_ATTEMPTED facts.
-- `service.ts`: wantsPublish sans attempt → outcome NOT_ATTEMPTED.
-- `mission-continuity.ts`: COMPLETED → composePublicationEffectRestitution métier.
-- `conversation-publication-authority.ts`: `persistAssistantMessage:false` same-turn.
-- `pilotage-effect-restitution.ts`: ne pas masquer une restitution publication métier.
-- Fixtures E08 publish + tests PG/Playwright.
-
-## 4. Propriétaires D3–D9
-| Domaine | Rôle clôture |
-|---|---|
-| D3 | qualification + restitution Nora |
-| D4 | confirmPublicationDocumentWithD4 |
-| D6 | mandat conversationnel |
-| D7 | prepare (bloqué si conflit/WRITE OFF) |
-| D8 | faits via attempt COMPLETED |
-| D9 | SCRIPTED substitution; REAL WRITE OFF gate |
-
-## 5. Résultats tests
-| Suite | Résultat |
-|---|---|
-| unit publication-effect-restitution (+target) | PASS 21 |
-| unit mission-continuity + publication-authority | PASS |
-| PG publication-nora-cloture (WRITE OFF + conflict + SCRIPTED) | PASS 3 |
-| PG publication-target-post-uat | PASS 3 |
-| PG mission-continuity-accept01 | PASS 10 |
-| Playwright ensemble08-nora-publication | PASS 2 |
-| Playwright ensemble08-git-surface | PASS 3 |
-| tsc --noEmit | PASS |
-| git diff --check | PASS |
-| Nora LIVE | NOT PROVEN |
-| GitHub REAL WRITE | NOT PROVEN |
-| WRITE OFF browser | NOT RUN (provider separation; proven PG REAL gate) |
-
-## 6. Fake/Real Qualification
-- DETERMINISTIC: résolution refs, restitution, PG WRITE OFF zéro mutation, PG SCRIPTED E2E, Playwright Nora SCRIPTED.
-- NOT PROVEN: Nora LIVE, GitHub REAL WRITE, G5 Figma UAT Morris.
-- DETERMINISTIC PROVEN ≠ REAL WRITE PROVEN.
-
-## 7. ENV-01
-- DEV/E2E: :3101 + sfia_next_e2e (vitest-pg-target / e2e-web-server).
-- RECETTE :3200 @98185598 BUILD 1xEbvCdTAX6ht262w4oKF — aucune mutation ce cycle.
-- STABLE: NOT AVAILABLE · NO RELEASE.
-
-## 8. Gates ouverts
-- Revue indépendante ChatGPT
-- GO freeze candidat
-- GO cutover RECETTE
-- UAT Morris / G5
-- GO REAL sandbox WRITE
-- PR/merge projet
-
-## 9. Verdict
-**DELIVERY READY WITH RESERVES**
-
-C1–C7,C9–C11: PASS. C8 Playwright Nora: PASS (SCRIPTED). C5 WRITE OFF: PASS PG. LIVE/REAL: NOT PROVEN.
+- date_utc: 2026-11-22T03:35:39Z
+- timezone_local: Europe/Paris (2026-11-22T04:35:39+0100)
+- cycle: CYCLE 8 — DELIVERY PROJET
+- typologie: EVOL / QA / FREEZE CANDIDAT
+- profil: CRITICAL
+- product_versioning: NO RELEASE
+- review_handoff: REQUIRED / PUBLISH-IN-CYCLE
+- env_01: REQUIRED (RECETTE inchangée)
 
 ---
-## ANNEXE A — Fichiers créés (intégral)
 
-### FILE: projects/sfia-studio-next/web/src/domains/conversation/publication-document-target.ts
-```typescript
+## 1. GO Morris
+
+GO explicite honoré pour :
+- preuves d'acceptation restantes (réserves A/B/C) ;
+- corrections bloquantes de qualification (filtre branche / detach UX) ;
+- tests unit/PG/Playwright/tsc ;
+- intégration E08 POST-UAT ;
+- **commit LOCAL projet** ;
+- identification SHA/TREE immuables ;
+- build détaché reproductible ;
+- manifeste candidat ;
+- Review Handoff L3.
+
+NON exécuté / NON autorisé :
+- push branche projet ; PR ; merge ; origin/main ;
+- mutation RECETTE (:3200) ; cutover ; STABLE ; release ; ADOPTED ;
+- GitHub REAL WRITE ; migration destructive.
+
+---
+
+## 2. Git Truth — initial
+
+| Champ | Valeur |
+| --- | --- |
+| Repo | mcleland147/sfia-workspace (origin https://github.com/mcleland147/sfia-workspace.git) |
+| Root produit | projects/sfia-studio-next/ |
+| Branche | feat/next-ensemble08-git-publications-nora |
+| HEAD observé avant freeze | 29066442a7fa51b106d9fe45b5c1b05da7f13004 |
+| origin/main | a12f89a15c454319c06f49fcc5e8effa9f3f1a75 |
+| Dernier handoff L3 | 3af35bc3e630e06e3c3b193d9b54e0d685f7cbc4 |
+| Blob handoff précédent | d2bdbf39f0bb9841d0ab28aca2daa14cd95eb9af |
+| État dirty avant commit | 24 chemins E08 + .tmp-sfia-review (exclu) |
+
+Provenance : branche attendue ; base origin/main inchangée ; parent = HEAD clôture 29066442. **Pas de divergence STOP.**
+
+---
+
+## 3. Git Truth — final
+
+| Champ | Valeur |
+| --- | --- |
+| Branche | feat/next-ensemble08-git-publications-nora |
+| SOURCE_SHA candidat (runtime) | 9f34639110ce2315a2bf8dc0786197bb8f5ea3b1 |
+| TREE candidat | 364c907342772f5430cf855d269cecc458f0546c |
+| Parent | 29066442a7fa51b106d9fe45b5c1b05da7f13004 |
+| Base origin/main | a12f89a15c454319c06f49fcc5e8effa9f3f1a75 |
+| Commit message | feat(next): finalize E08 git publications and Nora post-UAT |
+| Commit docs identités | 35906960e39eb617d39c76bf991f802ece4865ff — docs(next): record E08 POST-UAT freeze SHA TREE BUILD_ID |
+| HEAD tip local | 35906960e39eb617d39c76bf991f802ece4865ff |
+| Untracked/dirty hors pack | .tmp-sfia-review/chatgpt-review.md seulement (hors candidat) |
+| Push projet | **NONE** |
+
+Association build :
+| BUILD_ID | SOURCE_SHA | TREE | Artefact |
+| F85QQBTLa8nq5zKYxMKKZ | 9f34639110ce2315a2bf8dc0786197bb8f5ea3b1 | 364c907342772f5430cf855d269cecc458f0546c | /Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-postuat-build-9f346391/projects/sfia-studio-next/web/.next |
+
+---
+
+## 4. Inventaire commit candidat (9f34639110ce2315a2bf8dc0786197bb8f5ea3b1)
+
+M	projects/sfia-studio-next/construction/delivery-history.md
+M	projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
+A	projects/sfia-studio-next/construction/ensemble-08-git-et-publications/figma-evidence/post-uat-01-l0-l2.md
+M	projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md
+M	projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
+M	projects/sfia-studio-next/web/src/components/figma/tokens.css
+A	projects/sfia-studio-next/web/src/components/integrations/GitFileInfoPopover.tsx
+M	projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx
+M	projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx
+M	projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
+A	projects/sfia-studio-next/web/src/domains/conversation/publication-document-target.ts
+A	projects/sfia-studio-next/web/src/domains/conversation/publication-effect-restitution.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/service.ts
+M	projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts
+A	projects/sfia-studio-next/web/tests/e2e/ensemble08-nora-publication.spec.ts
+M	projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts
+M	projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
+A	projects/sfia-studio-next/web/tests/integration/publication-nora-cloture.pg.test.ts
+A	projects/sfia-studio-next/web/tests/integration/publication-target-post-uat.pg.test.ts
+A	projects/sfia-studio-next/web/tests/unit/publication-effect-restitution.test.ts
+
+### Statistiques
+24 files changed, 3167 insertions(+), 301 deletions(-)
+
+Créations :
+- construction/.../figma-evidence/post-uat-01-l0-l2.md
+- web/src/components/integrations/GitFileInfoPopover.tsx
+- web/src/domains/conversation/publication-document-target.ts
+- web/src/domains/conversation/publication-effect-restitution.ts
+- web/tests/e2e/ensemble08-nora-publication.spec.ts
+- web/tests/integration/publication-nora-cloture.pg.test.ts
+- web/tests/integration/publication-target-post-uat.pg.test.ts
+- web/tests/unit/publication-effect-restitution.test.ts
+
+Modifications majeures :
+- service.ts (publication path, NOT_ATTEMPTED, D4 confirm)
+- mission-continuity.ts (restitution métier resume COMPLETED)
+- conversation-publication-authority.ts (persistAssistantMessage:false)
+- pilotage-effect-restitution.ts
+- GitRepositoriesSurface.tsx (filtre branche repositoryId-only + detach UX)
+- IntegrationsPanel / ProjectChrome / tokens.css
+- as-built.md, delivery-history.md, manifeste section B
+- ensemble08-git-surface.spec.ts, mission-continuity-accept01.pg.test.ts
+- fixture-semantic-qualify.ts, semantic-qualification.ts
+
+---
+
+## 5. Réserve A — contenu D4 révision 2 ↔ Git SCRIPTED
+
+Scénario C6 (publication-nora-cloture.pg.test.ts) :
+- document existant ; rev2 contenu exact `# clôture v2 exact content` ;
+- rev3 tête/focus concurrent `# clôture v3 head — must not publish` ;
+- publication ciblée révision 2 (revisionHint v2 / plan.revisionId = rev2).
+
+Assertions exécutées (PASS) :
+1. getDocumentRevision(rev2) → contentMarkdown exact.
+2. provider.getFileContent(repo, path, branch) encoding utf-8.
+3. published.content === sourceContent (égalité string).
+4. Buffer utf-8 equals byte-exact (pas de normalisation silencieuse).
+5. published ≠ contenu rev3 ; pas de « must not publish ».
+6. listProjectPublications : matching docId+rev2 ; aucune pub rev3.
+7. mergeObserved=false ; mut.mergePR=0 ; pas de MERGE facts.
+8. Nora restitution : « a été publié » + « révision 2 » + « Aucune fusion ».
+9. Aucune mutation documentaire implicite D4 (rev2/rev3 inchangés hors publication).
+
+Log : `/tmp/e08-c6-reserve.log` — `✓ C6 SCRIPTED: explicit revision over focus — D6/D7/D8 + Nora COMPLETED`
+
+---
+
+## 6. Réserve B — terminalité D7 / projection D8
+
+Exigences :
+- succès publication ⇒ status terminal **COMPLETED** (DISPATCHED seul refusé) ;
+- reconcile gouverné si non terminal ;
+- D8 observedGitFacts présents ;
+- projection listProjectPublications COMPLETED ;
+- bon document + bonne révision ;
+- restitution Nora après preuve ;
+- idempotence : pas de double tentative / second commit sur rejeu ;
+- pas de merge implicite.
+
+Preuves C6 PASS :
+- missionProjection.status === COMPLETED
+- reconcile → COMPLETED
+- attempt.status === COMPLETED
+- facts.length > 0 ; pas de MERGE/PR_MERGED
+- pubs matching effectStatus COMPLETED ; mergeObserved false
+- afterAttempts = before + 1 (pas de double)
+- rejeu / refresh : assertions idempotence dans la suite (counts stables)
+
+Log suite freeze : Test Files 6 passed · Tests 54 passed (`/tmp/e08-freeze-tests.log`)
+
+---
+
+## 7. Réserve C — build détaché
+
+Commande :
+```
+git worktree add --detach …/sfia-workspace-next-ml4d-ensemble08-postuat-build-9f346391 9f346391…
+cd …/projects/sfia-studio-next/web && npm ci --ignore-scripts && npx next build
+```
+
+| Champ | Valeur |
+| --- | --- |
+| WT_HEAD | 9f34639110ce2315a2bf8dc0786197bb8f5ea3b1 |
+| WT_TREE | 364c907342772f5430cf855d269cecc458f0546c |
+| lockfile | package-lock respecté (npm ci) |
+| DB compile | 127.0.0.1:5433 /sfia_next_dev (pas RECETTE) |
+| OPENAI | neutralisé pour build |
+| BUILD_ID | F85QQBTLa8nq5zKYxMKKZ (≠ 1xEbvCdTAX6ht262w4oKF) |
+| Artefact | …/postuat-build-9f346391/…/web/.next |
+| Sidecars | SOURCE_SHA.txt / SOURCE_TREE.txt |
+| next build | PASS (exit 0) |
+| Port 3200 | **non utilisé** |
+
+---
+
+## 8. Tests
+
+| Suite | Commande / cible | Résultat |
+| --- | --- | --- |
+| TypeScript | tsc --noEmit | PASS (`/tmp/e08-freeze-tsc.log` vide = OK) |
+| Unit + PG ciblés | vitest publication-* + mission-continuity + authority | **54 PASS / 6 files** |
+| PG C6 réserves | publication-nora-cloture C6 | PASS |
+| PG post-uat target | publication-target-post-uat | PASS (3) |
+| Playwright | ensemble08-git-surface + ensemble08-nora-publication | **5 PASS** (`/tmp/e08-pw-freeze3.log`, 40.2s) |
+| git diff --check | staged freeze | PASS (WS manifeste corrigé avant commit) |
+
+Fake/Real :
+- Unit/PG/SCRIPTED : DETERMINISTIC PROVEN
+- Playwright DEV SCRIPTED : navigateur réel / frontière Git simulée
+- Nora LIVE / GitHub REAL WRITE/MERGE / G5 : **NOT PROVEN**
+
+---
+
+## 9. ENV-01
+
+| Champ | Valeur |
+| --- | --- |
+| RECETTE URL | http://127.0.0.1:3200 |
+| SOURCE servie | 98185598de0d3f3b84af862aecea04b9099217ca |
+| TREE | 1c70839facb7fbc799980c585ce8bfba51cdb5d6 |
+| BUILD_ID HTTP | <!--1xEbvCdTAX6ht262w4oKF--> (observé curl login 200) |
+| Service | com.sfia.studio.next.recette.ml4d-ux004 running |
+| Program | …/ensemble08-recette-build-98185598/start-recette-ensemble08-98185598.sh |
+| DB | sfia_next_recette_ml4 |
+| Mutation ce cycle | **AUCUNE** |
+| Candidat branché sur 3200 | **NON** |
+| STABLE | NOT AVAILABLE |
+| Product version | NO RELEASE |
+
+---
+
+## 10. Manifeste candidat
+
+Fichier : construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md
+
+- **A** Cutover E07→E08 historique : inchangé (RECETTE AVAILABLE historique @98185598)
+- **B** Candidat POST-UAT 01 : SOURCE_SHA/TREE/BUILD_ID renseignés ; Cutover **NOT EXECUTED** ; verdict **CANDIDATE FROZEN — RECETTE GO REQUIRED**
+- **C** Cutover futur : NOT EXECUTED — gate Morris SHA+BUILD
+
+Migrations additionnelles : aucune. Compatibilité schéma RECETTE conservée. Rollback : artefacts E07 + E08@98185598 préservés.
+
+---
+
+## 11. Fake / Real Qualification
+
+APPLICABLE : OUI.
+
+| Frontière | Niveau |
+| --- | --- |
+| Unitaires | DETERMINISTIC |
+| PostgreSQL intégré | DETERMINISTIC |
+| Provider Git SCRIPTED | DETERMINISTIC |
+| Playwright DEV SCRIPTED | BROWSER + Git simulé |
+| Nora LIVE | HORS PREUVE |
+| GitHub REAL WRITE/MERGE | HORS PREUVE |
+| E2E REAL / G5 | HORS PREUVE |
+
+SCRIPTED ≠ REAL. Freeze ne lève aucune permission externe.
+
+---
+
+## 12. Créations intégrales — publication-document-target.ts
+
 /**
  * Resolve an existing Studio document/revision for a publication mission.
  *
@@ -640,10 +784,11 @@ export async function confirmPublicationDocumentWithD4(input: {
     detail: "MISSING_REVISION_IDENTITY",
   };
 }
-```
 
-### FILE: projects/sfia-studio-next/web/src/domains/conversation/publication-effect-restitution.ts
-```typescript
+---
+
+## 13. Créations intégrales — publication-effect-restitution.ts
+
 /**
  * Terminal métier restitution after a governed publication attempt.
  *
@@ -832,10 +977,144 @@ export function publicationWriteGate():
       "STUDIO_GITHUB_ALLOW_MUTATIONS≠documentary — écritures GitHub REAL désactivées",
   };
 }
-```
 
-### FILE: projects/sfia-studio-next/web/tests/unit/publication-effect-restitution.test.ts
-```typescript
+---
+
+## 14. Créations — GitFileInfoPopover.tsx
+
+"use client";
+
+import { useEffect, useId, useRef, type RefObject } from "react";
+
+export type GitFileInfoFields = {
+  name: string;
+  type: string;
+  repository: string;
+  ref: string;
+  path: string;
+  commitSha: string | null;
+  commitShaVerified: boolean;
+  blobSha: string | null;
+  sizeLabel?: string | null;
+  origin?: string | null;
+};
+
+/**
+ * Contextual info panel anchored to the Infos control (UAT-04 / convergence).
+ * Non-modal popover — Escape / outside click / Fermer; focus returns to trigger.
+ */
+export function GitFileInfoPopover(props: {
+  open: boolean;
+  onClose: () => void;
+  fields: GitFileInfoFields;
+  anchorRef?: RefObject<HTMLElement | null>;
+  /** Stable id for aria-controls on the trigger (must match). */
+  panelId?: string;
+}) {
+  const autoId = useId();
+  const panelId = props.panelId ?? autoId;
+  const panelRef = useRef<HTMLDivElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!props.open) return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        props.onClose();
+        props.anchorRef?.current?.focus();
+      }
+    }
+    function onPointer(e: MouseEvent) {
+      const t = e.target as Node | null;
+      if (!t) return;
+      if (panelRef.current?.contains(t)) return;
+      if (props.anchorRef?.current?.contains(t)) return;
+      props.onClose();
+      // Do not steal focus on outside click — leave where the user clicked.
+    }
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onPointer);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onPointer);
+    };
+  }, [props.open, props.onClose, props.anchorRef]);
+
+  useEffect(() => {
+    if (!props.open) return;
+    closeBtnRef.current?.focus();
+  }, [props.open]);
+
+  if (!props.open) return null;
+
+  const rows: Array<[string, string]> = [
+    ["Nom", props.fields.name],
+    ["Type", props.fields.type],
+    ["Dépôt", props.fields.repository || "—"],
+    ["Branche / ref", props.fields.ref || "—"],
+    ["Chemin", props.fields.path || "—"],
+    [
+      "Commit",
+      props.fields.commitShaVerified && props.fields.commitSha
+        ? props.fields.commitSha
+        : props.fields.commitSha
+          ? "non vérifié"
+          : "—",
+    ],
+    ["Blob", props.fields.blobSha?.trim() ? props.fields.blobSha : "—"],
+  ];
+  if (props.fields.sizeLabel) rows.push(["Taille", props.fields.sizeLabel]);
+  if (props.fields.origin) rows.push(["Origine", props.fields.origin]);
+
+  function closeAndRestoreFocus() {
+    props.onClose();
+    // Defer focus until after unmount of panel.
+    requestAnimationFrame(() => props.anchorRef?.current?.focus());
+  }
+
+  return (
+    <div
+      ref={panelRef}
+      id={panelId}
+      className="git-info-popover"
+      role="dialog"
+      aria-modal="false"
+      aria-label="Informations sur la source"
+      data-testid="git-file-infos"
+    >
+      <div className="git-info-popover-head">
+        <h3 className="git-info-popover-title" id={`${panelId}-title`}>
+          Source
+        </h3>
+        <button
+          type="button"
+          ref={closeBtnRef}
+          className="git-btn-icon"
+          aria-label="Fermer les informations"
+          data-testid="git-info-close"
+          onClick={closeAndRestoreFocus}
+        >
+          ×
+        </button>
+      </div>
+      <dl className="git-details-list" aria-labelledby={`${panelId}-title`}>
+        {rows.map(([label, value]) => (
+          <div key={label}>
+            <dt>{label}</dt>
+            <dd className={/Commit|Blob|Chemin/.test(label) ? "git-mono" : undefined}>{value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+---
+
+## 15. Créations — tests (intégral)
+
+### publication-effect-restitution.test.ts
 import { describe, expect, it, afterEach } from "vitest";
 import {
   composePublicationEffectRestitution,
@@ -1238,10 +1517,8 @@ describe("resolvePublicationDocumentTarget — explicit precedence", () => {
     }
   });
 });
-```
 
-### FILE: projects/sfia-studio-next/web/tests/integration/publication-nora-cloture.pg.test.ts
-```typescript
+### publication-nora-cloture.pg.test.ts
 /**
  * E08 POST-UAT clôture — PG service chains (sfia_next_e2e only).
  * C5: WRITE OFF full chain, zero mutation.
@@ -1258,6 +1535,7 @@ import {
   documentRevisions,
   effectAttempts,
   humanDecisions,
+  observedGitFacts,
   pilots,
   preparations,
 } from "@/db/schema";
@@ -1275,8 +1553,10 @@ import {
   resetScriptedMutationCounts,
   resetScriptedStore,
 } from "@/domains/integrations/scripted-github-provider";
+import { listProjectPublications } from "@/domains/integrations/publication-projection-service";
+import { reconcileAttempt } from "@/domains/execution/effect-service";
 import { postUserMessageAndNora, listMessages } from "@/domains/conversation/service";
-import { listDocuments } from "@/domains/document/service";
+import { getDocumentRevision, listDocuments } from "@/domains/document/service";
 import {
   resolvePublicationDocumentTarget,
 } from "@/domains/conversation/publication-document-target";
@@ -1592,12 +1872,85 @@ describe("E08 clôture — WRITE OFF + SCRIPTED PG chains", () => {
     expect(prepStep?.attemptId).toBeTruthy();
     expect(prepStep?.revisionId).toBe(rev2);
 
-    const attempt = (
+    let attempt = (
       await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepStep!.attemptId!))
     )[0];
     expect(attempt?.kind).toBe("GIT_PUBLICATION");
-    expect(["COMPLETED", "DISPATCHED"]).toContain(attempt?.status);
     expect(attempt?.decisionId).toBe(prepStep?.decisionId);
+
+    // Reserve B — DISPATCHED alone is not success; reconcile to terminal COMPLETED.
+    if (attempt?.status === "DISPATCHED" || attempt?.status === "AMBIGUOUS") {
+      const rec = await reconcileAttempt(pilotId, projectId, attempt.id);
+      expect(rec.status).toBe("COMPLETED");
+      attempt = (
+        await db.select().from(effectAttempts).where(eq(effectAttempts.id, attempt.id))
+      )[0];
+    }
+    expect(attempt?.status).toBe("COMPLETED");
+
+    const plan = JSON.parse(attempt!.planJson || "{}") as {
+      repositoryFullName?: string;
+      publicationBranch?: string;
+      targetPath?: string;
+      documentId?: string;
+      revisionId?: string;
+      proposedContent?: string;
+    };
+    expect(plan.documentId).toBe(docId);
+    expect(plan.revisionId).toBe(rev2);
+    expect(plan.targetPath).toBe("docs/studio-next/cloture-v2.md");
+    expect(plan.repositoryFullName).toBeTruthy();
+    expect(plan.publicationBranch).toBeTruthy();
+
+    // Reserve A — D4 rev2 content vs SCRIPTED published file (no silent normalize).
+    const d4 = await getDocumentRevision(pilotId, preparationId, docId, rev2);
+    expect(d4.status).toBe("AVAILABLE");
+    if (d4.status !== "AVAILABLE" || !("revision" in d4) || !d4.revision) {
+      throw new Error("D4 rev2 unavailable");
+    }
+    const sourceContent = d4.revision.contentMarkdown;
+    expect(sourceContent).toBe("# clôture v2 exact content");
+    expect(sourceContent).not.toContain("must not publish");
+    if (plan.proposedContent != null) {
+      expect(plan.proposedContent).toBe(sourceContent);
+    }
+
+    const provider = getScriptedGitHubProvider();
+    const published = await provider.getFileContent(
+      pilotId,
+      plan.repositoryFullName!,
+      plan.targetPath!,
+      plan.publicationBranch!,
+    );
+    expect(published.encoding).toBe("utf-8");
+    expect(published.content).toBe(sourceContent);
+    expect(Buffer.from(published.content, "utf8").equals(Buffer.from(sourceContent, "utf8"))).toBe(
+      true,
+    );
+    expect(published.content).not.toContain("must not publish");
+    expect(published.content).not.toBe("# clôture v3 head — must not publish");
+
+    // D8 facts + project publications projection
+    const facts = await db
+      .select()
+      .from(observedGitFacts)
+      .where(eq(observedGitFacts.attemptId, attempt!.id));
+    expect(facts.length).toBeGreaterThan(0);
+    expect(facts.some((f) => f.factKind === "COMMIT" || f.factKind === "PR_OPENED" || f.factKind === "BRANCH")).toBe(
+      true,
+    );
+    expect(facts.some((f) => f.factKind === "MERGE" || f.factKind === "PR_MERGED")).toBe(false);
+
+    const pubs = await listProjectPublications(pilotId, projectId);
+    const matching = pubs.publications.filter(
+      (p) => p.documentId === docId && p.revisionId === rev2,
+    );
+    expect(matching.length).toBeGreaterThanOrEqual(1);
+    expect(pubs.publications.some((p) => p.revisionId === rev3)).toBe(false);
+    expect(matching[0]!.targetPath).toBe(plan.targetPath);
+    expect(matching[0]!.repositoryFullName).toBe(plan.repositoryFullName);
+    expect(matching[0]!.effectStatus).toBe("COMPLETED");
+    expect(matching[0]!.mergeObserved).toBe(false);
 
     const hd = (
       await db
@@ -1617,12 +1970,14 @@ describe("E08 clôture — WRITE OFF + SCRIPTED PG chains", () => {
     expect(mut.createBranch + mut.putFileContents).toBeGreaterThan(0);
     expect(mut.mergePR).toBe(0);
 
+    // Nora restitution only after terminal proof
     const thread = await listMessages(pilotId, preparationId);
     const lastAssistant = [...thread].reverse().find((m) => m.role === "assistant");
     expect(lastAssistant?.content ?? "").toMatch(/a été publié/i);
     expect(lastAssistant?.content ?? "").toMatch(/révision 2/i);
     expect(lastAssistant?.content ?? "").toMatch(/Aucune fusion/i);
     expect(lastAssistant?.content ?? "").not.toMatch(/reste à confirmer/i);
+    expect(lastAssistant?.content ?? "").not.toMatch(/encore en vérification/i);
 
     // Idempotent re-submit same clientTurnKey must not double-mutate
     const replayKey = newId("ctk");
@@ -1666,10 +2021,8 @@ describe("E08 clôture — WRITE OFF + SCRIPTED PG chains", () => {
     }
   });
 });
-```
 
-### FILE: projects/sfia-studio-next/web/tests/integration/publication-target-post-uat.pg.test.ts
-```typescript
+### publication-target-post-uat.pg.test.ts
 /**
  * POST-UAT convergence — publication document/revision target + WRITE-off restitution.
  * Mutative PG → sfia_next_e2e only (vitest-pg-target). SCRIPTED provider. No GitHub REAL WRITE.
@@ -1903,10 +2256,8 @@ describe("POST-UAT publication target + WRITE-off (PG / SCRIPTED)", () => {
     expect(Array.isArray(attempts)).toBe(true);
   });
 });
-```
 
-### FILE: projects/sfia-studio-next/web/tests/e2e/ensemble08-nora-publication.spec.ts
-```typescript
+### ensemble08-nora-publication.spec.ts
 /**
  * E08 POST-UAT — Playwright Nora publication discriminant (DEV :3101 / sfia_next_e2e).
  * SCRIPTED provider only — WRITE OFF full refuse is proven in PG (REAL gate).
@@ -2057,22 +2408,497 @@ test.describe("E08 Nora publication discriminant (SCRIPTED DEV)", () => {
     expect(pubsAfter.length).toBeGreaterThan(10);
   });
 });
-```
 
-## ANNEXE B — Diffs -U8 (fichiers modifiés clôture)
+---
 
-### DIFF: projects/sfia-studio-next/web/src/domains/conversation/service.ts
-```diff
+## 16. Diffs modifications (parent → candidat)
+
+### Core conversation + Git surface (extrait borné)
+
+diff --git a/projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx b/projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx
+index 8f06836d..33af5167 100644
+--- a/projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx
++++ b/projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx
+@@ -2,6 +2,7 @@
+
+ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+ import { SafeMarkdown } from "@/components/SafeMarkdown";
++import { GitFileInfoPopover } from "@/components/integrations/GitFileInfoPopover";
+
+ type GitSource = {
+   linkId: string;
+@@ -91,6 +92,8 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+   const [file, setFile] = useState<FileView | null>(null);
+   const [fileError, setFileError] = useState<string | null>(null);
+   const [infoOpen, setInfoOpen] = useState(false);
++  const infoBtnRef = useRef<HTMLButtonElement | null>(null);
++  const infoPanelId = "git-file-info-panel";
+   const [enlarged, setEnlarged] = useState(false);
+   const [publications, setPublications] = useState<PublicationRow[]>([]);
+   const [selectedPublicationId, setSelectedPublicationId] = useState<string | null>(null);
+@@ -293,17 +296,21 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+     void loadSources();
+   }, [loadSources]);
+
++  // Reset provider filter when the active repository changes — not on every
++  // loadRefs identity refresh (that wiped branchFilterApplied after Filtrer).
+   useEffect(() => {
+     setBranchFilter("");
+     setBranchFilterApplied("");
+     void loadRefs();
+-  }, [loadRefs]);
++    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentional: repositoryId only
++  }, [repositoryId]);
+
+   useEffect(() => {
+     if (tab === "files" && repositoryId && branch) {
+       setExpandedDirs({});
+       setFile(null);
+       setFileError(null);
++      setInfoOpen(false);
+       void loadTree("");
+     }
+   }, [tab, repositoryId, branch, loadTree]);
+@@ -654,12 +661,16 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+           ESPACE PROJET / DÉPÔTS GIT
+         </p>
+         <h1 className="e07-surface-hero-title" data-testid="git-hero-title">
+-          {tab === "manage" ? "Gérer les dépôts du projet" : "Dépôts Git"}
++          {tab === "manage"
++            ? "Gérer les dépôts du projet"
++            : "Dépôts Git"}
+         </h1>
+         <p className="e07-surface-hero-sub" data-testid="git-hero-sub">
+           {tab === "manage"
+             ? "Chaque projet choisit ses dépôts ; plusieurs rattachements sont possibles."
+-            : "Parcourir un dépôt autorisé puis lire le fichier directement dans l’espace projet."}
++            : sources.length === 0
++              ? "Consultez les fichiers de vos dépôts autorisés."
++              : "Parcourir un dépôt autorisé puis lire le fichier directement dans l’espace projet."}
+         </p>
+       </header>
+
+@@ -686,9 +697,9 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+         <section className="git-empty-layout" data-testid="git-empty">
+           <div className="git-empty-main">
+             <h2>Aucun dépôt associé à ce projet</h2>
+-            <p>Git est facultatif. Tu peux continuer à travailler avec Nora sans dépôt.</p>
++            <p>Git est facultatif. Vous pouvez continuer à travailler avec Nora sans dépôt.</p>
+             <p className="git-muted">
+-              Choisis explicitement un dépôt autorisé — aucun rattachement silencieux.
++              Choisissez un dépôt autorisé par GitHub pour l’explorer — aucun rattachement silencieux.
+             </p>
+             {unattached.length === 0 ? (
+               <button
+@@ -761,6 +772,8 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+                         data-testid="git-branch-search"
+                         onSubmit={(e) => {
+                           e.preventDefault();
++                          const next = branchFilter.trim();
++                          setBranchFilterApplied(next);
+                           void loadRefs(branchFilter);
+                         }}
+                       >
+@@ -943,14 +956,39 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+                         <p className="git-preview-path">{file.path}</p>
+                       </div>
+                       <div className="git-preview-actions" data-testid="git-preview-actions">
+-                        <button
+-                          type="button"
+-                          className="git-btn-secondary"
+-                          data-testid="git-action-infos"
+-                          onClick={() => setInfoOpen((v) => !v)}
+-                        >
+-                          Infos
+-                        </button>
++                        <div className="git-info-anchor">
++                          <button
++                            type="button"
++                            className="git-btn-secondary"
++                            data-testid="git-action-infos"
++                            aria-expanded={infoOpen}
++                            aria-controls={infoPanelId}
++                            ref={infoBtnRef}
++                            onClick={() => setInfoOpen((v) => !v)}
++                          >
++                            Infos
++                          </button>
++                          <GitFileInfoPopover
++                            open={infoOpen}
++                            onClose={() => setInfoOpen(false)}
++                            anchorRef={infoBtnRef}
++                            panelId={infoPanelId}
++                            fields={{
++                              name: basename(file.path),
++                              type: /\.md$/i.test(file.path) ? "Markdown" : "Texte",
++                              repository: active?.fullName ?? "—",
++                              ref: file.ref || branch || "—",
++                              path: file.path,
++                              commitSha: file.commitSha,
++                              commitShaVerified: file.commitShaVerified,
++                              blobSha: file.blobSha || null,
++                              sizeLabel: file.content
++                                ? `${new TextEncoder().encode(file.content).length} octets`
++                                : null,
++                              origin: "Git (lecture seule)",
++                            }}
++                          />
++                        </div>
+                         {file.permalink ? (
+                           <a
+                             className="git-btn-secondary"
+@@ -975,20 +1013,6 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+                         </button>
+                       </div>
+                     </header>
+-                    {infoOpen ? (
+-                      <dl className="git-details-inline" data-testid="git-file-infos">
+-                        <div>
+-                          <dt>Commit</dt>
+-                          <dd className="git-mono">
+-                            {file.commitShaVerified ? file.commitSha : "non vérifié"}
+-                          </dd>
+-                        </div>
+-                        <div>
+-                          <dt>Blob</dt>
+-                          <dd className="git-mono">{file.blobSha}</dd>
+-                        </div>
+-                      </dl>
+-                    ) : null}
+                     <p className="git-preview-kicker">
+                       DOCUMENT À RÉFÉRENCE IDENTIFIÉE · LECTURE SEULE
+                     </p>
+@@ -1010,9 +1034,8 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+           {tab === "publications" ? (
+             <section className="git-pubs" data-testid="git-publications">
+               <p className="git-muted" style={{ marginBottom: 12 }}>
+-                Projection D4/D7/D8 du projet — historique Studio, pas un état live GitHub. Liste des
+-                publications du projet (pas l’index du dépôt) ; lecture sous la référence propre de
+-                chaque publication. Une PR créée n’est pas un merge.
++                Historique Studio des publications du projet — distinct de l’index du dépôt. Une
++                demande de branche ou de commit n’implique pas une fusion.
+               </p>
+               {publications.length === 0 ? (
+                 <p data-testid="git-publications-empty">Aucune publication Studio pour ce projet.</p>
+@@ -1026,13 +1049,13 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+                         const statusLabel =
+                           p.prStatusLabel ??
+                           (p.mergeObserved
+-                            ? "Fusion vérifiée (fait D8)"
++                            ? "Fusion vérifiée"
+                             : p.openPullRequest
+                               ? "PR enregistrée ouverte (historique — non actualisée)"
+                               : p.pullRequestCreatedObserved
+                                 ? "PR créée (historique)"
+                                 : p.commitObserved
+-                                  ? "Commit observé (fait D8)"
++                                  ? "Commit observé"
+                                   : p.publicationStatus);
+                         return (
+                           <li key={p.publicationRefId}>
+@@ -1067,14 +1090,38 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+                             <p className="git-preview-path">{pubFile.path}</p>
+                           </div>
+                           <div className="git-preview-actions" data-testid="git-preview-actions">
+-                            <button
+-                              type="button"
+-                              className="git-btn-secondary"
+-                              data-testid="git-action-infos"
+-                              onClick={() => setInfoOpen((v) => !v)}
+-                            >
+-                              Infos
+-                            </button>
++                            <div className="git-info-anchor">
++                              <button
++                                type="button"
++                                className="git-btn-secondary"
++                                data-testid="git-action-infos"
++                                aria-expanded={infoOpen}
++                                aria-controls={infoPanelId}
++                                ref={infoBtnRef}
++                                onClick={() => setInfoOpen((v) => !v)}
++                              >
++                                Infos
++                              </button>
++                              <GitFileInfoPopover
++                                open={infoOpen}
++                                onClose={() => setInfoOpen(false)}
++                                anchorRef={infoBtnRef}
++                                panelId={infoPanelId}
++                                fields={{
++                                  name: basename(pubFile.path),
++                                  type: /\.md$/i.test(pubFile.path) ? "Markdown" : "Texte",
++                                  repository: selectedPublication.repositoryFullName,
++                                  ref:
++                                    selectedPublication.publicationBranch ??
++                                    selectedPublication.targetBranch,
++                                  path: pubFile.path,
++                                  commitSha: pubFile.commitSha,
++                                  commitShaVerified: pubFile.commitShaVerified,
++                                  blobSha: pubFile.blobSha || null,
++                                  origin: "Publication Studio",
++                                }}
++                              />
++                            </div>
+                             {pubFile.permalink ? (
+                               <a
+                                 className="git-btn-secondary"
+@@ -1102,23 +1149,6 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+                         <p className="git-preview-kicker">
+                           DOCUMENT À RÉFÉRENCE IDENTIFIÉE · LECTURE SEULE
+                         </p>
+-                        {infoOpen ? (
+-                          <p className="git-muted" data-testid="git-pub-info">
+-                            {selectedPublication.repositoryFullName} ·{" "}
+-                            {selectedPublication.publicationBranch ??
+-                              selectedPublication.targetBranch}
+-                            {selectedPublication.headSha
+-                              ? ` · ${selectedPublication.headSha.slice(0, 8)}`
+-                              : ""}
+-                            {selectedPublication.prStatusLabel
+-                              ? ` · ${selectedPublication.prStatusLabel}`
+-                              : selectedPublication.mergeObserved
+-                                ? " · merge observé (D8)"
+-                                : selectedPublication.openPullRequest
+-                                  ? " · PR enregistrée ouverte (historique — non actualisée)"
+-                                  : ""}
+-                          </p>
+-                        ) : null}
+                         <div className="git-preview-body" data-testid="git-preview-body">
+                           {/\.md$/i.test(pubFile.path) ? (
+                             <SafeMarkdown content={pubFile.content} />
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts b/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
+index 729fa1e2..c6f33500 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
+@@ -20,6 +20,8 @@ import { emitObs } from "@/lib/observability";
+ import { extractPublicationBranchHint as extractBranchHintStrict } from "./conversation-publication-mandate-guards";
+ import { generateNoraReply } from "./nora-adapter";
+ import type { DocumentEffectSummary } from "./document-act";
++import { composePublicationEffectRestitution } from "./publication-effect-restitution";
++import { getDocumentRevision } from "@/domains/document/service";
+
+ export type MissionStatus =
+   | "ACTIVE"
+@@ -353,6 +355,13 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
+   projectId: string;
+   attemptId: string;
+   decisionId?: string | null;
++  /**
++   * When false, dispatch/reconcile still run but no competing assistant row is
++   * inserted — same-turn conversational authorize lets the Nora turn commit
++   * métier restitution (avoids ASSISTANT_IDENTITY_CONFLICT).
++   * Recovery / post-authorize paths keep the default (true).
++   */
++  persistAssistantMessage?: boolean;
+ }): Promise<{
+   dispatched: boolean;
+   reconciled: boolean;
+@@ -462,6 +471,11 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
+     preparationId?: string;
+     documentId?: string;
+     revisionId?: string;
++    documentTitle?: string;
++    revisionNumber?: number;
++    repositoryFullName?: string;
++    publicationBranch?: string;
++    targetPath?: string;
+   };
+
+   const finalRow = (
+@@ -474,6 +488,8 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
+         commitSha?: string | null;
+         sha?: string | null;
+         missionResumeMessageId?: string | null;
++        repositoryFullName?: string | null;
++        publicationBranch?: string | null;
+       };
+     } catch {
+       return {} as {
+@@ -481,66 +497,131 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
+         commitSha?: string | null;
+         sha?: string | null;
+         missionResumeMessageId?: string | null;
++        repositoryFullName?: string | null;
++        publicationBranch?: string | null;
+       };
+     }
+   })();
+   const prNumber = resultPayload.prNumber ?? null;
+   const commitSha = resultPayload.commitSha ?? resultPayload.sha ?? null;
+
+-  const canonical = composeCanonicalMissionRestitution({
+-    documentEffect: plan.documentId
+-      ? {
+-          act: "CREATE",
+-          status: "AVAILABLE",
+-          documentId: plan.documentId,
+-          revisionId: plan.revisionId,
+-        }
+-      : null,
+-    prepareStatus: "PREPARED",
+-    attemptId: input.attemptId,
+-    decisionId: input.decisionId ?? row.decisionId,
+-    dispatchStatus: status,
+-    dispatchDetail: detail,
+-    restitutionNote:
+-      status === "COMPLETED"
+-        ? "Publication reprise automatiquement après autorisation Pilote."
+-        : "Reprise post-autorisation exécutée — voir statut publication.",
+-  });
++  // Enrich document identity for métier restitution (D4) when possible.
++  let documentTitle = plan.documentTitle?.trim() || null;
++  let revisionNumber = plan.revisionNumber ?? null;
++  if (plan.preparationId && plan.documentId && plan.revisionId) {
++    try {
++      const loaded = await getDocumentRevision(
++        input.pilotId,
++        plan.preparationId,
++        plan.documentId,
++        plan.revisionId,
++      );
++      if (loaded.status === "AVAILABLE" && "revision" in loaded && loaded.revision) {
++        documentTitle = loaded.document?.title?.trim() || documentTitle;
++        revisionNumber = loaded.revision.revisionNumber ?? revisionNumber;
++      }
++    } catch {
++      /* keep plan hints */
++    }
++  }
+
+-  const factsBlock = [
+-    `Publication attemptId=${input.attemptId} status=${status}`,
+-    input.decisionId || row.decisionId
+-      ? `decisionId=${input.decisionId ?? row.decisionId}`
+-      : null,
+-    plan.documentId ? `documentId=${plan.documentId}` : null,
+-    plan.revisionId ? `revisionId=${plan.revisionId}` : null,
+-    prNumber != null ? `prNumber=${prNumber}` : null,
+-    commitSha ? `commitSha=${commitSha}` : null,
+-    detail ? `detail=${detail}` : null,
+-  ]
+-    .filter(Boolean)
+-    .join("\n");
+-
+-  let restitution = canonical;
++  const repoName =
++    resultPayload.repositoryFullName?.trim() ||
++    plan.repositoryFullName?.trim() ||
++    null;
++  const branchName =
++    resultPayload.publicationBranch?.trim() ||
++    plan.publicationBranch?.trim() ||
++    null;
++
++  // E08 — Nora métier restitution from owner facts (never technical dump as pilot voice).
++  let restitution: string;
+   let cognitiveContinue: "DELIVERED" | "CANONICAL" | "SKIPPED" = "CANONICAL";
+-  try {
+-    // No turn operationId here — facts-only continue without tool scope (still generateNoraReply).
+-    const continued = await cognitiveContinueFromFacts({
+-      userText:
+-        "L'autorisation Pilote a été accordée et l'effet de publication a été traité. Restitue le résultat.",
+-      factsBlock,
+-      contextSnippets: [],
++  if (status === "COMPLETED") {
++    restitution = composePublicationEffectRestitution({
++      priorContent: "",
++      effect: {
++        attempted: true,
++        outcome: "COMPLETED",
++        documentTitle,
++        revisionNumber,
++        repositoryFullName: repoName,
++        publicationBranch: branchName,
++        attemptId: input.attemptId,
++        decisionId: input.decisionId ?? row.decisionId,
++      },
+     });
+-    if (continued.status === "COMPLETE" && continued.content.trim()) {
+-      restitution = `${continued.content.trim()}\n\n---\n${canonical}`;
+-      cognitiveContinue = "DELIVERED";
++  } else if (status === "DISPATCHED" || status === "AMBIGUOUS") {
++    restitution = composePublicationEffectRestitution({
++      priorContent: "",
++      effect: {
++        attempted: true,
++        outcome: "UNKNOWN",
++        reason: detail ?? "Dispatch en cours — résultat Studio non encore consolidé.",
++        documentTitle,
++        revisionNumber,
++        attemptId: input.attemptId,
++      },
++    });
++  } else {
++    const canonical = composeCanonicalMissionRestitution({
++      documentEffect: plan.documentId
++        ? {
++            act: "CREATE",
++            status: "AVAILABLE",
++            documentId: plan.documentId,
++            revisionId: plan.revisionId,
++          }
++        : null,
++      prepareStatus: "PREPARED",
++      attemptId: input.attemptId,
++      decisionId: input.decisionId ?? row.decisionId,
++      dispatchStatus: status,
++      dispatchDetail: detail,
++      restitutionNote: "Reprise post-autorisation exécutée — voir statut publication.",
++    });
++    const factsBlock = [
++      `Publication attemptId=${input.attemptId} status=${status}`,
++      input.decisionId || row.decisionId
++        ? `decisionId=${input.decisionId ?? row.decisionId}`
++        : null,
++      plan.documentId ? `documentId=${plan.documentId}` : null,
++      plan.revisionId ? `revisionId=${plan.revisionId}` : null,
++      prNumber != null ? `prNumber=${prNumber}` : null,
++      commitSha ? `commitSha=${commitSha}` : null,
++      detail ? `detail=${detail}` : null,
++    ]
++      .filter(Boolean)
++      .join("\n");
++
++    restitution = canonical;
++    try {
++      const continued = await cognitiveContinueFromFacts({
++        userText:
++          "L'autorisation Pilote a été accordée et l'effet de publication a été traité. Restitue le résultat.",
++        factsBlock,
++        contextSnippets: [],
++      });
++      if (continued.status === "COMPLETE" && continued.content.trim()) {
++        restitution = composePublicationEffectRestitution({
++          priorContent: continued.content.trim(),
++          effect: {
++            attempted: true,
++            outcome: "UNKNOWN",
++            reason: detail ?? status,
++            documentTitle,
++            revisionNumber,
++          },
++        });
++        cognitiveContinue = "DELIVERED";
++      }
++    } catch {
++      cognitiveContinue = "CANONICAL";
+     }
+-  } catch {
+-    cognitiveContinue = "CANONICAL";
+   }
+
+   let conversationMessageId: string | null = resultPayload.missionResumeMessageId ?? null;
+-  if (plan.preparationId) {
++  if (plan.preparationId && input.persistAssistantMessage !== false) {
+     try {
+       conversationMessageId = await appendAssistantMissionMessage({
+         pilotId: input.pilotId,
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 index 52b72c5d..6e6b19cf 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -121,16 +121,25 @@ import {
-   admitConversationalMergeMandate,
-   extractPositivelyRequestedPrNumbers,
-   userStatementHasOpenMergeCondition,
-   userStatementHasUnresolvedSamePrMergeContradiction,
-   userStatementIsNonAuthorizingMergeTalk,
+@@ -126,6 +126,15 @@ import {
    userStatementRefusesMerge,
  } from "./conversation-merge-authority";
  import { userStatementRefusesPublication } from "./conversation-publication-mandate-guards";
@@ -2088,17 +2914,7 @@ index 52b72c5d..6e6b19cf 100644
  import {
    advanceMissionAfterProjectCreated,
    buildD2AwaitingStep,
-   buildD2OwnerActBinding,
-   buildPendingDocumentStep,
-   emptyMission,
-   loadPriorMissionProjection,
-   mergeMissionSteps,
-@@ -2548,77 +2557,233 @@ export async function postUserMessageAndNora(
-         });
-       }
-     }
-   }
-
+@@ -2553,49 +2562,205 @@ export async function postUserMessageAndNora(
    // Explicit refusal must not leave a publication PREPARED / AWAITING_PILOT_AUTH.
    const userRefusesPublish = userStatementRefusesPublication(content);
 
@@ -2318,11 +3134,7 @@ index 52b72c5d..6e6b19cf 100644
          clientIntentKey,
          targetPath: missionIntent.targetPath,
          targetBranch: missionIntent.targetBranch,
-       });
-       if (prepared.ok) {
-         const prepStep: MissionProjection["steps"][number] = {
-           id: "d7_prepare",
-           capabilityId: "d7.prepare_publication",
+@@ -2607,13 +2772,13 @@ export async function postUserMessageAndNora(
            status: prepared.status === "PREPARED" ? "WAITING" : "DONE",
            correlationKey: missionKeys.publication,
            attemptId: prepared.attemptId,
@@ -2339,17 +3151,7 @@ index 52b72c5d..6e6b19cf 100644
          let authorizeCalled = false;
 
          const mandateAdmission = await admitConversationalPublicationMandate({
-           pilotId,
-           projectId: ctx.project.id,
-           attemptId: prepared.attemptId,
-           userMessageId: reserved.userMessageId,
-           userStatement: content,
-@@ -2631,45 +2796,105 @@ export async function postUserMessageAndNora(
-         if (mandateAdmission.authorized && mandateAdmission.decisionId) {
-           publicationMandateDecisionId = mandateAdmission.decisionId;
-           authorizeCalled = true;
-           prepStep.decisionId = mandateAdmission.decisionId;
-           const resumeStatus = mandateAdmission.missionResume?.status ?? "AUTHORIZED";
+@@ -2636,7 +2801,16 @@ export async function postUserMessageAndNora(
            if (resumeStatus === "COMPLETED") {
              prepStep.status = "DONE";
              missionStatus = "COMPLETED";
@@ -2367,7 +3169,7 @@ index 52b72c5d..6e6b19cf 100644
            } else if (
              resumeStatus === "DISPATCHED" ||
              resumeStatus === "AMBIGUOUS" ||
-             mandateAdmission.missionResume?.dispatched
+@@ -2644,12 +2818,30 @@ export async function postUserMessageAndNora(
            ) {
              prepStep.status = "WAITING";
              missionStatus = "ACTIVE";
@@ -2400,15 +3202,7 @@ index 52b72c5d..6e6b19cf 100644
            }
          } else if (
            mandateAdmission.attempted &&
-           mandateAdmission.reasonCode &&
-           !["ALREADY_AUTHORIZED", "REFUSED", "MERGE_ONLY", "NO_PUBLISH_QUAL"].includes(
-             mandateAdmission.reasonCode,
-           ) &&
-           (mandateAdmission.reasonCode === "AMBIGUOUS_PATH" ||
-             mandateAdmission.reasonCode === "AMBIGUOUS_BRANCH" ||
-             mandateAdmission.reasonCode === "PLAN_DRIFT" ||
-             mandateAdmission.reasonCode === "AMBIGUOUS")
-         ) {
+@@ -2665,6 +2857,39 @@ export async function postUserMessageAndNora(
            missionStatus = "AWAITING_CLARIFICATION";
            goalSummary = "Publication préparée — mandat conversationnel ambigu (précision requise)";
            prepStep.reason = mandateAdmission.reason ?? mandateAdmission.reasonCode;
@@ -2448,17 +3242,7 @@ index 52b72c5d..6e6b19cf 100644
          }
 
          missionProjection = {
-           clientIntentKey,
-           status: missionStatus,
-           goalSummary,
-           steps,
-           restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
-@@ -2680,37 +2905,52 @@ export async function postUserMessageAndNora(
-             : "d3.mission.prepared_awaiting_auth",
-           component: "d3.mission_continuity",
-           request_id: requestId,
-           operation_id: reserved.operationId,
-           generation_id: reply.generationId,
+@@ -2685,27 +2910,42 @@ export async function postUserMessageAndNora(
            outcome: mandateAdmission.authorized ? "SUCCESS" : "PARTIAL",
            meta: {
              attempt_id: prepared.attemptId,
@@ -2503,17 +3287,7 @@ index 52b72c5d..6e6b19cf 100644
        }
      }
 
-     if (continueFailedAfterEffect && missionProjection) {
-       missionProjection = {
-         ...missionProjection,
-         restitution: "PENDING",
-       };
-@@ -2986,16 +3226,35 @@ export async function postUserMessageAndNora(
-   // E07 — post-effect métier restitution: final assistant text must match Studio outcome.
-   if (!ownershipLostBeforeD4 && authority?.attempted) {
-     assistantBody = composePilotageEffectRestitution({
-       priorContent: assistantBody,
-       effect: pilotageEffectFromAuthority(authority) ?? null,
+@@ -2991,6 +3231,25 @@ export async function postUserMessageAndNora(
      });
    }
 
@@ -2539,714 +3313,85 @@ index 52b72c5d..6e6b19cf 100644
    const assistantContentForCommit = ownershipLostBeforeD4
      ? reply.content
      : appendMissionAck(
-         appendDocumentEffectAck(assistantBody, documentEffectForAck),
-         missionProjection,
-       );
 
-   const confirmedCapitalisations = capitalisation.capitalisations.filter(
-```
+---
 
-### DIFF: projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts b/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
-index 729fa1e2..c6f33500 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
-@@ -15,16 +15,18 @@ import {
-   reconcileAttempt,
- } from "@/domains/execution/effect-service";
- import { listProjectGitLinks } from "@/domains/integrations/project-link-service";
- import { StudioError } from "@/lib/http-errors";
- import { emitObs } from "@/lib/observability";
- import { extractPublicationBranchHint as extractBranchHintStrict } from "./conversation-publication-mandate-guards";
- import { generateNoraReply } from "./nora-adapter";
- import type { DocumentEffectSummary } from "./document-act";
-+import { composePublicationEffectRestitution } from "./publication-effect-restitution";
-+import { getDocumentRevision } from "@/domains/document/service";
+## 17. Commit show (métadonnées)
 
- export type MissionStatus =
-   | "ACTIVE"
-   | "AWAITING_PILOT_ACT"
-   | "AWAITING_PILOT_AUTH"
-   | "AWAITING_CLARIFICATION"
-   | "RESTITUTION_PENDING"
-   | "PARTIAL_FAILED_STEP"
-@@ -348,16 +350,23 @@ function missionResumeGenerationId(attemptId: string): string {
-  * Restitution message is unique per attempt (P1-C).
-  * Cognitive continue after observed result (P1-D), canonical fallback.
-  */
- export async function resumeMissionAfterPublicationAuthorize(input: {
-   pilotId: string;
-   projectId: string;
-   attemptId: string;
-   decisionId?: string | null;
-+  /**
-+   * When false, dispatch/reconcile still run but no competing assistant row is
-+   * inserted — same-turn conversational authorize lets the Nora turn commit
-+   * métier restitution (avoids ASSISTANT_IDENTITY_CONFLICT).
-+   * Recovery / post-authorize paths keep the default (true).
-+   */
-+  persistAssistantMessage?: boolean;
- }): Promise<{
-   dispatched: boolean;
-   reconciled: boolean;
-   status: string;
-   restitution: string;
-   conversationMessageId: string | null;
-   prNumber?: number | null;
-   commitSha?: string | null;
-@@ -457,95 +466,167 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
-     }
-     detail = msg;
-   }
+commit 9f34639110ce2315a2bf8dc0786197bb8f5ea3b1
+Author:     Morris Cleland <morris@macbook-air.home>
+AuthorDate: Sun Nov 22 04:31:50 2026 +0100
+Commit:     Morris Cleland <morris@macbook-air.home>
+CommitDate: Sun Nov 22 04:31:50 2026 +0100
 
-   const plan = JSON.parse(row.planJson || "{}") as {
-     preparationId?: string;
-     documentId?: string;
-     revisionId?: string;
-+    documentTitle?: string;
-+    revisionNumber?: number;
-+    repositoryFullName?: string;
-+    publicationBranch?: string;
-+    targetPath?: string;
-   };
+    feat(next): finalize E08 git publications and Nora post-UAT
 
-   const finalRow = (
-     await db.select().from(effectAttempts).where(eq(effectAttempts.id, input.attemptId)).limit(1)
-   )[0];
-   const resultPayload = (() => {
-     try {
-       return JSON.parse(finalRow?.resultJson || "{}") as {
-         prNumber?: number | null;
-         commitSha?: string | null;
-         sha?: string | null;
-         missionResumeMessageId?: string | null;
-+        repositoryFullName?: string | null;
-+        publicationBranch?: string | null;
-       };
-     } catch {
-       return {} as {
-         prNumber?: number | null;
-         commitSha?: string | null;
-         sha?: string | null;
-         missionResumeMessageId?: string | null;
-+        repositoryFullName?: string | null;
-+        publicationBranch?: string | null;
-       };
-     }
-   })();
-   const prNumber = resultPayload.prNumber ?? null;
-   const commitSha = resultPayload.commitSha ?? resultPayload.sha ?? null;
+    Freeze the Ensemble 08 POST-UAT 01 candidate: governed publication targeting,
+    Nora restitution without false success, SCRIPTED/WRITE-OFF proofs, and UX fixes.
 
--  const canonical = composeCanonicalMissionRestitution({
--    documentEffect: plan.documentId
--      ? {
--          act: "CREATE",
--          status: "AVAILABLE",
--          documentId: plan.documentId,
--          revisionId: plan.revisionId,
--        }
--      : null,
--    prepareStatus: "PREPARED",
--    attemptId: input.attemptId,
--    decisionId: input.decisionId ?? row.decisionId,
--    dispatchStatus: status,
--    dispatchDetail: detail,
--    restitutionNote:
--      status === "COMPLETED"
--        ? "Publication reprise automatiquement après autorisation Pilote."
--        : "Reprise post-autorisation exécutée — voir statut publication.",
--  });
-+  // Enrich document identity for métier restitution (D4) when possible.
-+  let documentTitle = plan.documentTitle?.trim() || null;
-+  let revisionNumber = plan.revisionNumber ?? null;
-+  if (plan.preparationId && plan.documentId && plan.revisionId) {
-+    try {
-+      const loaded = await getDocumentRevision(
-+        input.pilotId,
-+        plan.preparationId,
-+        plan.documentId,
-+        plan.revisionId,
-+      );
-+      if (loaded.status === "AVAILABLE" && "revision" in loaded && loaded.revision) {
-+        documentTitle = loaded.document?.title?.trim() || documentTitle;
-+        revisionNumber = loaded.revision.revisionNumber ?? revisionNumber;
-+      }
-+    } catch {
-+      /* keep plan hints */
-+    }
-+  }
+    Co-authored-by: Cursor <cursoragent@cursor.com>
 
--  const factsBlock = [
--    `Publication attemptId=${input.attemptId} status=${status}`,
--    input.decisionId || row.decisionId
--      ? `decisionId=${input.decisionId ?? row.decisionId}`
--      : null,
--    plan.documentId ? `documentId=${plan.documentId}` : null,
--    plan.revisionId ? `revisionId=${plan.revisionId}` : null,
--    prNumber != null ? `prNumber=${prNumber}` : null,
--    commitSha ? `commitSha=${commitSha}` : null,
--    detail ? `detail=${detail}` : null,
--  ]
--    .filter(Boolean)
--    .join("\n");
--
--  let restitution = canonical;
-+  const repoName =
-+    resultPayload.repositoryFullName?.trim() ||
-+    plan.repositoryFullName?.trim() ||
-+    null;
-+  const branchName =
-+    resultPayload.publicationBranch?.trim() ||
-+    plan.publicationBranch?.trim() ||
-+    null;
-+
-+  // E08 — Nora métier restitution from owner facts (never technical dump as pilot voice).
-+  let restitution: string;
-   let cognitiveContinue: "DELIVERED" | "CANONICAL" | "SKIPPED" = "CANONICAL";
--  try {
--    // No turn operationId here — facts-only continue without tool scope (still generateNoraReply).
--    const continued = await cognitiveContinueFromFacts({
--      userText:
--        "L'autorisation Pilote a été accordée et l'effet de publication a été traité. Restitue le résultat.",
--      factsBlock,
--      contextSnippets: [],
-+  if (status === "COMPLETED") {
-+    restitution = composePublicationEffectRestitution({
-+      priorContent: "",
-+      effect: {
-+        attempted: true,
-+        outcome: "COMPLETED",
-+        documentTitle,
-+        revisionNumber,
-+        repositoryFullName: repoName,
-+        publicationBranch: branchName,
-+        attemptId: input.attemptId,
-+        decisionId: input.decisionId ?? row.decisionId,
-+      },
-     });
--    if (continued.status === "COMPLETE" && continued.content.trim()) {
--      restitution = `${continued.content.trim()}\n\n---\n${canonical}`;
--      cognitiveContinue = "DELIVERED";
-+  } else if (status === "DISPATCHED" || status === "AMBIGUOUS") {
-+    restitution = composePublicationEffectRestitution({
-+      priorContent: "",
-+      effect: {
-+        attempted: true,
-+        outcome: "UNKNOWN",
-+        reason: detail ?? "Dispatch en cours — résultat Studio non encore consolidé.",
-+        documentTitle,
-+        revisionNumber,
-+        attemptId: input.attemptId,
-+      },
-+    });
-+  } else {
-+    const canonical = composeCanonicalMissionRestitution({
-+      documentEffect: plan.documentId
-+        ? {
-+            act: "CREATE",
-+            status: "AVAILABLE",
-+            documentId: plan.documentId,
-+            revisionId: plan.revisionId,
-+          }
-+        : null,
-+      prepareStatus: "PREPARED",
-+      attemptId: input.attemptId,
-+      decisionId: input.decisionId ?? row.decisionId,
-+      dispatchStatus: status,
-+      dispatchDetail: detail,
-+      restitutionNote: "Reprise post-autorisation exécutée — voir statut publication.",
-+    });
-+    const factsBlock = [
-+      `Publication attemptId=${input.attemptId} status=${status}`,
-+      input.decisionId || row.decisionId
-+        ? `decisionId=${input.decisionId ?? row.decisionId}`
-+        : null,
-+      plan.documentId ? `documentId=${plan.documentId}` : null,
-+      plan.revisionId ? `revisionId=${plan.revisionId}` : null,
-+      prNumber != null ? `prNumber=${prNumber}` : null,
-+      commitSha ? `commitSha=${commitSha}` : null,
-+      detail ? `detail=${detail}` : null,
-+    ]
-+      .filter(Boolean)
-+      .join("\n");
-+
-+    restitution = canonical;
-+    try {
-+      const continued = await cognitiveContinueFromFacts({
-+        userText:
-+          "L'autorisation Pilote a été accordée et l'effet de publication a été traité. Restitue le résultat.",
-+        factsBlock,
-+        contextSnippets: [],
-+      });
-+      if (continued.status === "COMPLETE" && continued.content.trim()) {
-+        restitution = composePublicationEffectRestitution({
-+          priorContent: continued.content.trim(),
-+          effect: {
-+            attempted: true,
-+            outcome: "UNKNOWN",
-+            reason: detail ?? status,
-+            documentTitle,
-+            revisionNumber,
-+          },
-+        });
-+        cognitiveContinue = "DELIVERED";
-+      }
-+    } catch {
-+      cognitiveContinue = "CANONICAL";
-     }
--  } catch {
--    cognitiveContinue = "CANONICAL";
-   }
+ .../construction/delivery-history.md               |  85 ++++
+ .../ensemble-08-git-et-publications/as-built.md    |  27 +-
+ .../figma-evidence/post-uat-01-l0-l2.md            |  33 ++
+ .../manifeste-cutover-recette-e07-plus-e08.md      | 201 +++++---
+ .../web/src/components/figma/ProjectChrome.tsx     |  16 +-
+ .../web/src/components/figma/tokens.css            |  30 ++
+ .../components/integrations/GitFileInfoPopover.tsx | 127 +++++
+ .../integrations/GitRepositoriesSurface.tsx        | 144 +++---
+ .../components/integrations/IntegrationsPanel.tsx  | 167 +++----
+ .../conversation-publication-authority.ts          |   2 +
+ .../conversation/fixture-semantic-qualify.ts       | 112 +++++
+ .../src/domains/conversation/mission-continuity.ts | 175 +++++--
+ .../conversation/pilotage-effect-restitution.ts    |   8 +-
+ .../conversation/publication-document-target.ts    | 523 +++++++++++++++++++++
+ .../conversation/publication-effect-restitution.ts | 188 ++++++++
+ .../domains/conversation/semantic-qualification.ts |   9 +
+ .../web/src/domains/conversation/service.ts        | 303 +++++++++++-
+ .../web/tests/e2e/ensemble08-git-surface.spec.ts   |  19 +-
+ .../tests/e2e/ensemble08-nora-publication.spec.ts  | 150 ++++++
+ .../web/tests/e2e/git-collaboration.spec.ts        |   6 +-
+ .../mission-continuity-accept01.pg.test.ts         |   6 +-
+ .../publication-nora-cloture.pg.test.ts            | 502 ++++++++++++++++++++
+ .../publication-target-post-uat.pg.test.ts         | 233 +++++++++
+ .../unit/publication-effect-restitution.test.ts    | 402 ++++++++++++++++
+ 24 files changed, 3167 insertions(+), 301 deletions(-)
 
-   let conversationMessageId: string | null = resultPayload.missionResumeMessageId ?? null;
--  if (plan.preparationId) {
-+  if (plan.preparationId && input.persistAssistantMessage !== false) {
-     try {
-       conversationMessageId = await appendAssistantMissionMessage({
-         pilotId: input.pilotId,
-         preparationId: plan.preparationId,
-         attemptId: input.attemptId,
-         content: restitution,
-       });
-       // Persist message id on attempt for crash/retry idempotence
-```
+---
 
-### DIFF: projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts b/projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts
-index 4cac2789..5b8e9725 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts
-@@ -364,16 +364,18 @@ export async function admitConversationalPublicationMandate(input: {
-     let missionResume: Awaited<ReturnType<typeof resumeMissionAfterPublicationAuthorize>> | null =
-       null;
-     if (input.autoResumeMission !== false && auth.status === "AUTHORIZED") {
-       missionResume = await resumeMissionAfterPublicationAuthorize({
-         pilotId: input.pilotId,
-         projectId: input.projectId,
-         attemptId: input.attemptId,
-         decisionId: auth.decisionId,
-+        // Same-turn: Nora turn commits restitution — do not insert a rival assistant row.
-+        persistAssistantMessage: false,
-       });
-     }
+## 18. Réserves restantes / gates Morris
 
-     const created =
-       Boolean(auth.decisionId) &&
-       !("idempotent" in auth && auth.idempotent && row.decisionId === auth.decisionId);
+Réserves A/B/C freeze : **FERMÉES** (preuves ci-dessus).
 
-     return {
-```
+Gates restants (hors freeze) :
+1. GO Morris SHA-specific + BUILD_ID pour mise à disposition RECETTE
+2. Cutover sur même lane :3200 (non exécuté)
+3. UAT visuelle G5 Morris
+4. Nora LIVE bornée
+5. GitHub REAL WRITE sandbox + GO distinct
+6. Push/PR/merge projet
 
-### DIFF: projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts b/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
-index 74998a42..fbee47d8 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
-@@ -118,17 +118,23 @@ export function composePilotageEffectRestitution(input: {
-   const block = ["", "---", "", ...facts].join("\n");
-   if (!prior.trim()) return facts.join("\n");
-   return `${prior.trimEnd()}\n${block}`;
- }
+---
 
- /** True when a persisted assistant message is a raw technical mission dump (not métier Nora). */
- export function isTechnicalMissionAssistantContent(content: string, generationId?: string | null): boolean {
-   // Provenance hint alone is insufficient — a mission-continue may already carry métier D4 ACK.
--  if (/Résultat d'enregistrement|Nouvelle version disponible|encore incertain/i.test(content)) {
-+  // E08 — publication effect restitution is Nora métier voice; do not mask it as technical dump.
-+  if (
-+    /Résultat d'enregistrement|Nouvelle version disponible|encore incertain/i.test(content) ||
-+    /a été publié|n'a pas été effectuée|Aucune publication n'a (été|été)|écritures GitHub ne sont pas disponibles|encore en vérification/i.test(
-+      content,
-+    )
-+  ) {
-     return false;
-   }
-   if (/^### Suite de mission/m.test(content) && /projectId=|clientIntentKey=|status=COMPLETED/.test(content)) {
-     return true;
-   }
-   if (/^### Suite de mission \(projection D3/m.test(content)) return true;
-   if (/^### Restitution de mission \(faits propriétaires\)/m.test(content)) return true;
-   const gen = (generationId ?? "").trim();
-```
+## 19. Verdict Cursor
 
-### DIFF: projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
-index 34a568a9..be9ff5f6 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
-@@ -2033,16 +2033,114 @@ register(
-     documentProposal: {
-       title: "Parcours de réservation et responsabilités",
-       contentMarkdown:
-         "# Parcours de réservation et responsabilités\n\n## Responsabilités\n\nChaque centre valide ses disponibilités ; le coordinateur consolide les ressources communes ; le demandeur reçoit une confirmation tracée.\n",
-     },
-   },
- );
+**CANDIDATE FROZEN — RECETTE GO REQUIRED**
 
-+/** E08 — create + publish (SCRIPTED browser / fixture FAKE). */
-+function createAndPublishQualification(
-+  title: string,
-+  publicationPath: string,
-+): NoraTurnQualification {
-+  return effect(
-+    `Document + publication ${title}`,
-+    `Je prépare « ${title} » puis la publication gouvernée — Studio confirme l'effet.\n\n\`\`\`sfia-document\n# ${title}\n\nContenu E08 publication Nora.\n\`\`\`\n`,
-+    [
-+      {
-+        id: "i1",
-+        capabilityId: "d4.create_document",
-+        mode: "REQUEST_EFFECT",
-+        summary: title,
-+        parameters: { notes: title, documentHint: title },
-+        constraints: [],
-+        dependsOn: [],
-+        sourceEvidence: [],
-+      },
-+      {
-+        id: "i2",
-+        capabilityId: "d7.prepare_publication",
-+        mode: "REQUEST_EFFECT",
-+        summary: "Préparer publication",
-+        parameters: { publicationPath, documentHint: title },
-+        constraints: [],
-+        dependsOn: ["i1"],
-+        sourceEvidence: [],
-+      },
-+    ],
-+  );
-+}
-+
-+/** E08 — publish existing document (explicit title / revision hint). */
-+function publishExistingQualification(
-+  documentHint: string,
-+  publicationPath: string,
-+): NoraTurnQualification {
-+  return effect(
-+    `Publication ${documentHint}`,
-+    `Je prépare la publication de « ${documentHint} » — Studio reste propriétaire de l'effet.`,
-+    [
-+      {
-+        capabilityId: "d7.prepare_publication",
-+        mode: "REQUEST_EFFECT",
-+        summary: "Préparer publication",
-+        parameters: { documentHint, publicationPath },
-+        constraints: [],
-+        dependsOn: [],
-+        sourceEvidence: [],
-+      },
-+    ],
-+  );
-+}
-+
-+register(
-+  "E08_PUBLISH_CREATE_SCRIPTED",
-+  createAndPublishQualification(
-+    "E08 Nora Publish Scripted",
-+    "docs/studio-next/e08-nora-publish.md",
-+  ),
-+);
-+register(
-+  "Crée un document intitulé E08 Nora Publish Scripted et publie-le dans mon dépôt GitHub chemin docs/studio-next/e08-nora-publish.md",
-+  createAndPublishQualification(
-+    "E08 Nora Publish Scripted",
-+    "docs/studio-next/e08-nora-publish.md",
-+  ),
-+);
-+register(
-+  "E08_PUBLISH_EXISTING_CLARIFY",
-+  publishExistingQualification(
-+    "Document fantôme E08 introuvable XYZ",
-+    "docs/studio-next/e08-clarify.md",
-+  ),
-+);
-+register(
-+  "Publie le document Document fantôme E08 introuvable XYZ dans mon dépôt GitHub chemin docs/studio-next/e08-clarify.md",
-+  publishExistingQualification(
-+    "Document fantôme E08 introuvable XYZ",
-+    "docs/studio-next/e08-clarify.md",
-+  ),
-+);
-+register(
-+  "E08_PUBLISH_EXISTING_CORRECT",
-+  publishExistingQualification(
-+    "Note E08 cible corrigée",
-+    "docs/studio-next/e08-corrected.md",
-+  ),
-+);
-+register(
-+  "Publie le document Note E08 cible corrigée dans mon dépôt GitHub chemin docs/studio-next/e08-corrected.md",
-+  publishExistingQualification(
-+    "Note E08 cible corrigée",
-+    "docs/studio-next/e08-corrected.md",
-+  ),
-+);
-+
- /** E08 — documentary merge fixtures (exact utterance → d7.merge_publication). */
- function mergePublicationQualification(
-   prNumber: number,
-   repositoryFullName?: string,
- ): NoraTurnQualification {
-   return effect(
-     `Merge documentaire PR #${prNumber}`,
-     `Je prépare la fusion de la PR documentaire #${prNumber} sous votre mandat — Studio reste propriétaire de l'autorisation et de l'effet.`,
-@@ -2066,16 +2164,21 @@ function mergePublicationQualification(
- register("Merge la PR #42.", mergePublicationQualification(42));
- register("Fusionne la PR documentaire #42 du dépôt X.", mergePublicationQualification(42));
- register("Peux-tu merger la PR #7 ?", mergePublicationQualification(7));
+Conditions :
+- commit local candidat vérifié (9f34639110ce2315a2bf8dc0786197bb8f5ea3b1)
+- TREE 364c907342772f5430cf855d269cecc458f0546c
+- tests bloquants PASS
+- build détaché PASS BUILD_ID=F85QQBTLa8nq5zKYxMKKZ
+- identités SHA↔TREE↔BUILD cohérentes
+- manifeste section B disponible
+- aucune mutation RECETTE
 
- const MERGE_PR_FIXTURE_RE = /^Merge la PR #(\d{1,6})\.?$/i;
- const MERGE_PR_REPO_FIXTURE_RE =
-   /^Merge la PR #(\d{1,6}) du dépôt ([A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+)\.?$/i;
+READY FOR RECETTE ≠ cutover exécuté.
 
-+const E08_CREATE_PUBLISH_RE =
-+  /^Crée un document intitulé (.+?) et publie-le dans mon dépôt GitHub chemin (docs\/studio-next\/[A-Za-z0-9_.\/-]+)$/i;
-+const E08_PUBLISH_EXISTING_RE =
-+  /^Publie le document (.+?) dans mon dépôt GitHub chemin (docs\/studio-next\/[A-Za-z0-9_.\/-]+)$/i;
-+
- /** Short TEST_BOUNDARY keys for e2e (exact match, same envelopes as the natural utterances). */
- for (const [short, long] of [
-   ["E05_S2_DIAGNOSTIC", E05_S2_DIAGNOSTIC],
-   ["E05_S3_COMPARISON", E05_S3_COMPARISON],
-   ["E05_S4_TRAJECTORY", E05_S4_TRAJECTORY],
-   ["E05_S5_COMPOSITE", E05_S5_COMPOSITE],
-   ["E05_S7_INSUFFICIENT", E05_S7_INSUFFICIENT],
-   ["E05_F5_DECISION_TREE", E05_F5_DECISION_TREE],
-@@ -2151,16 +2254,25 @@ export function fixtureSemanticQualify(userText: string): NoraTurnQualification
-             label: "Révision citée E05",
-             resourceId: cite[1],
-             revisionId: cite[2],
-           },
-         ],
-       },
-     );
-   }
-+  // E08 TEST_BOUNDARY — create+publish / publish-existing (SCRIPTED; WRITE OFF = PG only).
-+  const createPub = text.match(E08_CREATE_PUBLISH_RE);
-+  if (createPub?.[1] && createPub[2]) {
-+    return createAndPublishQualification(createPub[1].trim(), createPub[2].trim());
-+  }
-+  const pubExisting = text.match(E08_PUBLISH_EXISTING_RE);
-+  if (pubExisting?.[1] && pubExisting[2]) {
-+    return publishExistingQualification(pubExisting[1].trim(), pubExisting[2].trim());
-+  }
-   // E08 TEST_BOUNDARY — parameterized positive merge only (negations stay dialogue-default).
-   const mergeRepo = text.match(MERGE_PR_REPO_FIXTURE_RE);
-   if (mergeRepo?.[1] && mergeRepo[2]) {
-     return mergePublicationQualification(Number(mergeRepo[1]), mergeRepo[2]);
-   }
-   const mergePr = text.match(MERGE_PR_FIXTURE_RE);
-   if (mergePr?.[1]) {
-     return mergePublicationQualification(Number(mergePr[1]));
-```
+---
 
-### DIFF: projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
-```diff
-diff --git a/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
-index 96526533..ffeff38d 100644
---- a/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
-@@ -360,17 +360,21 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
-       await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepStep!.attemptId!))
-     )[0];
-     expect(["COMPLETED", "DISPATCHED", "AMBIGUOUS"]).toContain(attempt?.status);
-     expect(attempt?.decisionId).toBeTruthy();
-     expect(attemptIsNoraMission(attempt!)).toBe(true);
+## 20. Instruction ChatGPT
 
-     const msgs = await listMessages(pilotId, preparationId);
-     const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
--    expect(assistant?.content).toMatch(/Résultat applicatif D4|Suite de mission|AVAILABLE/);
-+    // E08 clôture — Nora métier restitution after COMPLETED (not technical dump).
-+    expect(assistant?.content).toMatch(
-+      /a été publié|Résultat applicatif D4|Suite de mission|AVAILABLE/,
-+    );
-+    expect(assistant?.content).not.toMatch(/Je publie/i);
-     expect(projectId).toBeTruthy();
-   });
+Lire ce handoff distant. Vérifier commit/TREE/BUILD, assertions D4/D7/D8, contenu SCRIPTED, tests, manifeste, ENV-01, RECETTE intacte. Rendre verdict indépendant. Si accepté : préparer mandat cutover rattaché à SOURCE_SHA=9f34639110ce2315a2bf8dc0786197bb8f5ea3b1 et BUILD_ID=F85QQBTLa8nq5zKYxMKKZ.
 
-   it("ACCEPT-01 + P0-B: authorize then recover/resume; restitution idempotent (P1-C)", async () => {
-     const { pilotId, projectId, preparationId, repositoryId } = await seedProjectWithGit(
-       "accept01-resume",
-     );
-     // Create doc without publish; prepare Nora mission manually → AUTHORIZED crash window.
-```
-
-### DIFF: projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
-```diff
-diff --git a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
-index 2f40c865..72570bbe 100644
---- a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
-+++ b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
-@@ -1,18 +1,20 @@
- # Ensemble 08 — As-built (consultation Git + conduite Nora)
-
- | Champ | Valeur |
- |---|---|
--| Date | 2026-11-21 (finalisation technique / préflight RECETTE) |
-+| Date | 2026-11-22 (POST-UAT 01 clôture publication Nora — as-built mis à jour) |
- | Branche | `feat/next-ensemble08-git-publications-nora` |
- | Base | `origin/main` @ `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
--| Profil | CRITICAL · Delivery finalisation · NO RELEASE |
-+| Profil | CRITICAL · Delivery correctif post-UAT · NO RELEASE |
- | CKC | FALLBACK (Delivery #8) |
--| Candidate SHA | `98185598de0d3f3b84af862aecea04b9099217ca` · TREE `1c70839facb7fbc799980c585ce8bfba51cdb5d6` · BUILD `1xEbvCdTAX6ht262w4oKF` |
-+| Freeze RECETTE (inchangé) | `98185598de0d3f3b84af862aecea04b9099217ca` · TREE `1c70839f` · BUILD `1xEbvCdTAX6ht262w4oKF` |
-+| Candidat DEV post-UAT | **worktree dirty** — nouveau SHA après commit Morris (pas encore figé) |
-+| RECETTE | **FROZEN / AVAILABLE** — aucune mutation ce mandat |
-
- ## Livré (y compris finalisation technique)
-
- ### Capacité A — Consultation Git
- - Listing répertoire D9 : `listDirectory` / `listGitDirectory` / `GET .../git/tree`
- - `normalizeGitReadPath` : rejet `..`, absolu, encodé, backslash ; racine vide autorisée
- - Dépassement >200 entrées → `AMBIGUOUS` — pas de truncation silencieuse
- - **E08-S03 (fermé ce cycle)** : `ListRefsResult` / `FetchMatchingRefsResult` avec `incompleteCoverage` + `matchedCount` **avant** troncature UI (bound 40) — REAL et SCRIPTED alignés ; `listGitRefs` ne déduit plus `complete` d’une liste déjà tronquée ; résolution exacte `getRefSha` conservée
-@@ -21,16 +23,31 @@
- - Surface UI : publications 30/70 (11.04), détails agrandis (11.05), confirmation déconnexion (11.07) ; indicateur couverture refs incomplète
-
- ### Capacité B — Nora
- - Qualification durable `d7.merge_publication` (schema + projection `merge.wantsMerge`)
- - `wantsMergeFromQual` **jamais** forcé à `true` depuis le seul mot « merge »
- - Cible exacte dépôt + PR ; contradiction same-PR → zéro effet
- - `admitConversationalMergeMandate` + provenance USER D6
- - Merge SHA : `merge_commit_sha` observé uniquement
-+- **POST-UAT 01** : publication d’un document **existant** (sans D4 AVAILABLE same-turn) via `resolvePublicationDocumentTarget`
-+- **Convergence** : référence **explicite** (hint/`doc_*`/rév.) **prévaut** sur focus UI et same-turn contradictoires ; `confirmPublicationDocumentWithD4` avant tout prepare D7
-+- **Clôture** : `objectRef` et `documentHint` **réconciliés** (pas de `\|\|` silencieux) — conflit → AMBIGUOUS / REVISION_MISMATCH, zéro D7
-+- Gate WRITE REAL avant préparation : `publicationWriteGate` → refus explicite si `STUDIO_GITHUB_ALLOW_MUTATIONS≠documentary`
-+- Restitution Nora post-Studio : `composePublicationEffectRestitution` — **un** état métier cohérent ; intention sans effet → `NOT_ATTEMPTED` (jamais « Je publie » / succès inventé)
-+- Reprise mission post-authorize COMPLETED : restitution métier (pas de dump technique masqué)
-+- Champs qual `publication.documentHint` / `objectRef` / `repositoryHint`
-+- Preuves PG : WRITE OFF zéro mutation ; SCRIPTED D6/D7/D8 + Nora ; Playwright Nora discriminant (DEV :3101)
-+
-+### Capacité UX (POST-UAT 01 + convergence)
-+- Double en-tête « Intégration Git » : `ProjectChrome` breadcrumb-only pour surfaces `git`/`publication`
-+- Microcopy Pilote : jargon D4/D7/D8 / « projection » retiré des surfaces Dépôts Git / Intégrations
-+- Infos : popover ancré `GitFileInfoPopover` — `aria-controls` = `panelId` ; Escape / Fermer restaurent le focus ; fermeture sur changement fichier/ref
-+- Intégrations 11.06 : panneau GitHub + repos autorisés + Actualiser/Déconnecter ; colonne « Une connexion à la carte » ; pas de cartes pédagogiques héritées à gauche ; confirmation 11.07 inchangée fonctionnellement
-+- G5 pixel Figma : **NOT PROVEN** (Morris UAT)
-
- ### REAL multi-dépôts
- - Allowlist explicite `allowedFullNames` + env `GITHUB_APP_ALLOWED_REPOS` (même owner)
-
- ### Preuves / docs construction
- - Matrice A/B/S 41/41 : `matrice-couverture-acceptation-a-b-s.md`
- - Préflight ENV-01 : `env01-recette-preflight.md`
- - Tests S03 : `web/tests/unit/git-refs-coverage-s03.test.ts` (REAL-shaped + SCRIPTED)
-@@ -42,18 +59,18 @@
- - E08-S04 prStatusKind / label historique
- - Playwright E08 surface historique ; G5 F2 : **NOT PROVEN** (différé Morris UAT)
-
- ## Non livré / réserves
- - Figma G5 runtime : **NOT PROVEN** — **VISUAL ACCEPTANCE DEFERRED TO MORRIS UAT**
- - END-TO-END REAL mutation GitHub : **NOT PROVEN** (WRITE/MERGE hors mandat)
- - GitHub REAL READ : **NOT PROVEN** ce cycle
- - Nora LIVE E2E : **NOT PROVEN**
--- Candidate Git figée / build RECETTE : **NOT AVAILABLE**
--- RECETTE déploiement : hors cycle (préflight only)
-+- Candidate Git figée / build RECETTE : **SERVI** `@98185598` / `1xEbvCdTAX6ht262w4oKF` sur lane E07
-+- G5 visuelle : **NOT PROVEN** — UAT Morris
-
- ## Preuves exécutées (finalisation)
- - `tsc --noEmit` PASS
- - `git-refs-coverage-s03` **19/19** PASS
- - unit ciblés E08 (refs/provenance/…) — voir Review Pack
- - Matrice 41 scénarios qualifiée (statuts honnêtes)
- - G5 **NOT PROVEN** (non relancé — différé)
-
-```
-
-### DIFF: projects/sfia-studio-next/construction/delivery-history.md
-```diff
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 397824a8..110674c0 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -1,13 +1,83 @@
- # SFIA Studio Next — Delivery history
-
- Append-only logical journal of Cursor product deliveries.
- **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
-
-+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-CLOTURE
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-22 (Europe/Paris) |
-+| Macro-lot | Ensemble 08 — POST-UAT 01 clôture écarts publication Nora |
-+| Type | INC / EVOL · CRITICAL · **NO RELEASE** |
-+| Branche | `feat/next-ensemble08-git-publications-nora` |
-+| Base | `origin/main` `a12f89a1` · HEAD `29066442` + worktree dirty |
-+| RECETTE | **FROZEN** `@98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **aucune mutation** |
-+| P0 | réconciliation `objectRef`/`documentHint` (conflit → AMBIGUOUS, zéro effet) |
-+| P1 | `NOT_ATTEMPTED` si intention sans effet ; reprise COMPLETED = restitution métier |
-+| Preuves | PG WRITE OFF zéro mutation · PG SCRIPTED E2E · Playwright Nora DEV (voir pack) |
-+| Push projet | **NONE** |
-+| Cutover | **NOT EXECUTED** |
-+| Verdict | (voir Review Pack final) |
-+
-+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-CONVERGENCE
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-22 (Europe/Paris) |
-+| Macro-lot | Ensemble 08 — POST-UAT 01 convergence finale (doc/rév · Nora · UX) |
-+| Type | INC / EVOL · CRITICAL · **NO RELEASE** |
-+| Branche | `feat/next-ensemble08-git-publications-nora` |
-+| Base | `origin/main` `a12f89a1` · HEAD `29066442` + worktree dirty |
-+| RECETTE | **FROZEN** `@98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **aucune mutation** |
-+| P0 | explicite > focus/same-turn ; `confirmPublicationDocumentWithD4` avant D7 |
-+| P1 | restitution Nora mono-état (pas de narratif contradictoire) |
-+| P2 | Infos a11y/focus ; Intégrations 11.06 structure |
-+| Tests | unit PASS · PG `publication-target-post-uat` + accept01 PASS · Playwright DEV (voir pack) |
-+| Push projet | **NONE** |
-+| Cutover | **NOT EXECUTED** |
-+| Verdict | (voir Review Pack final) |
-+
-+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-22 (Europe/Paris) |
-+| Macro-lot | Ensemble 08 — correctif post-UAT 01 (publication Nora + UX) |
-+| Type | INC / EVOL · CRITICAL · **NO RELEASE** |
-+| Branche | `feat/next-ensemble08-git-publications-nora` |
-+| Base | `origin/main` `a12f89a1` |
-+| RECETTE | **FROZEN** `@98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **aucune mutation** |
-+| Diagnostic UAT | Classe **A/B** (+ **C** si path exécuté) : intention reconnue, hedge LLM, **zéro** `effect_attempt` 2026-11-22 ; gate historique `documentEffectForAck.status===AVAILABLE` bloquait publish-existing |
-+| Correctifs | publish-existing + WRITE-off restitution Nora ; chrome hero unique ; microcopy ; Infos popover ; Intégrations 11.06 structure |
-+| Tests | unit restitution/target + tsc PASS ; PG/Playwright LIVE **non** déclarés équivalents SCRIPTED |
-+| Push projet | **NONE** |
-+| Cutover RECETTE | **NOT EXECUTED** — GO Morris SHA-specific requis |
-+| Verdict | **DELIVERY READY WITH RESERVES** (G5 Figma runtime + WRITE sandbox hors mandat) |
-+
-+## delivery_id: DELIV-2026-11-21-ENSEMBLE08-RECETTE-CUTOVER
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-21 ≈ 21:02 CET |
-+| Macro-lot | Ensemble 08 — cutover RECETTE existante E07 |
-+| Type | EVOL / MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
-+| GO Morris | SHA `98185598` · BUILD `1xEbvCdTAX6ht262w4oKF` |
-+| Avant | E07 `@5ad8fa57` / `BtZP6qDx5oAw8jwPQSEhc` |
-+| Après | E08 servi HTTP `<!--1xEbvCdTAX6ht262w4oKF-->` · service `ml4d-ux004` |
-+| DB | `sfia_next_recette_ml4` préservée · projects 26 inchangé · +sessions/messages smoke |
-+| Backup | immédiat + restore proof isolée PASS |
-+| Playwright SCRIPTED on RECETTE | 3 FAIL (attendu LIVE/REAL) |
-+| Smoke API/surfaces | PASS (Pilot A test login) |
-+| G5 | NOT PROVEN — Morris UAT |
-+| Push projet | **NONE** |
-+| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
-+
- ## delivery_id: DELIV-2026-11-21-ENSEMBLE08-CANDIDATE-FREEZE-RECETTE-PREP
-
- | Field | Value |
- | --- | --- |
- | Date | 2026-11-21 (Europe/Paris) |
- | Macro-lot | Ensemble 08 — freeze candidat + préparation évolution RECETTE E07 |
- | Type | EVOL / CRITICAL · **NO RELEASE** |
- | Base | `origin/main` `a12f89a1` · branche `feat/next-ensemble08-git-publications-nora` |
-```
+FIN PACK — Ensemble 08 POST-UAT 01 FREEZE LOCAL
