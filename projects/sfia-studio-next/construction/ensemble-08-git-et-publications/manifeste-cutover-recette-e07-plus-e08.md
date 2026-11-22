@@ -1,4 +1,71 @@
-# Manifeste ENV-01 — Cutover RECETTE E07 → E08 (exécuté)
+# Manifeste ENV-01 — Cutover RECETTE (journal)
+
+## Cutover courant — GLOBAL GITHUB CAPABILITY AUDIT (2026-11-22)
+
+| Champ | Valeur |
+| --- | --- |
+| Date/heure cutover | 2026-11-22 ≈ 08:38 CET (UTC 07:38) |
+| Classe | **NO RELEASE** |
+| Lane | **RECETTE existante** (`STUDIO_LANE=RECETTE`, port **3200**) |
+| Cutover | **EXECUTED** — GO Morris triplet exact honoré |
+| STABLE | NOT AVAILABLE / non modifié |
+| E08 ADOPTED | **NON** |
+| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
+
+### GO Morris (borné)
+
+| Champ | Valeur |
+| --- | --- |
+| SOURCE_SHA | `79188f6cf334be5c81f485b8cb1c4f1ae95644dc` |
+| TREE | `a550283d37ff461323ea02757350de24b772133e` |
+| BUILD_ID | `hLsmHa3uFYP0PgRtj49Bh` |
+| Push/PR/merge projet | **NONE** |
+| Mutation GitHub / merge PR#19 | **NONE** |
+
+### Runtime AVANT
+
+| Champ | Valeur |
+| --- | --- |
+| SOURCE_SHA | `c67a6ba8bde5c4d818a23fe96d2822a22c050121` |
+| BUILD_ID | `tEiDqhhGWNipSWO_86ZoG` |
+| Script | `…/ensemble08-chain-build-c67a6ba8/start-recette-ensemble08-chain-c67a6ba8.sh` |
+| PID launchd | 30393 |
+
+### Runtime APRÈS — observé
+
+| Champ | Valeur |
+| --- | --- |
+| URL | http://127.0.0.1:3200 |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` (même label) |
+| Script | `…/ensemble08-gitaudit-build-79188f6c/start-recette-ensemble08-gitaudit-79188f6c.sh` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-gitaudit-build-79188f6c` |
+| PID launchd / node | 61202 / 61228 |
+| HTTP BUILD | `<!--hLsmHa3uFYP0PgRtj49Bh-->` |
+| Boot | `PROVIDER=real` · `ALLOW_MUTATIONS=documentary` · `WRITE_ALLOWLIST=mcleland147/chantiers360` |
+
+### Backup / restore proof / rollback
+
+| Élément | Valeur |
+| --- | --- |
+| Backup | `…/gitaudit-build-79188f6c/.sfia-recette/backups/ml4d-e08-pre-gitaudit-cutover-20261122T073809Z-from-c67a6ba8.sql.gz` |
+| SHA256 | `7aceda094b5ba195e531a3c5c3c17f6581bec24e8eb94bfaa3df3a8c9f0d98e1` |
+| Restore proof | DB temp `sfia_next_recette_restore_proof_gitaudit` → metrics match → DROP |
+| Plist bak | `com.sfia.studio.next.recette.ml4d-ux004.plist.20261122T073809Z.pre-gitaudit-cutover-c67a6ba8.bak` |
+| Rollback script | `…/gitaudit-build-79188f6c/ROLLBACK-TO-E08-c67a6ba8.sh` (non exercé) |
+| Ancien build | worktree `chain-build-c67a6ba8` / BUILD `tEiDqhhGWNipSWO_86ZoG` disponible |
+
+### Métriques DB (avant = après)
+
+projects=26 · documents=117 · document_revisions=188 · messages=657 · conversations=205 · effect_attempts=5 · document_publication_refs=1 · project_git_links=15 · authorized_repositories=27 · sessions=125 · human_decisions=4  
+Oracle D8 : `efx_cf6763da…` COMPLETED · `dpr_7f10c5e4…` PR#19 PR_OPEN.
+
+### Smokes
+
+login/portfolio/integrations HTTP 200 · outils Nora présents dans `.next` · REAL READ gh PR#19 OPEN · aucune mutation.
+
+---
+
+# Historique — Cutover RECETTE E07 → E08 (exécuté 2026-11-21)
 
 | Champ | Valeur |
 | --- | --- |

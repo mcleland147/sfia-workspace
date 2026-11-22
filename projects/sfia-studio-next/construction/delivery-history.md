@@ -3,6 +3,23 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-AUDIT-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 08:38 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — cutover RECETTE audit capacités GitHub |
+| Type | MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
+| SOURCE_SHA | `79188f6cf334be5c81f485b8cb1c4f1ae95644dc` |
+| TREE | `a550283d37ff461323ea02757350de24b772133e` |
+| BUILD_ID | `hLsmHa3uFYP0PgRtj49Bh` |
+| Avant | `@c67a6ba8` / `tEiDqhhGWNipSWO_86ZoG` |
+| Après | HTTP `<!--hLsmHa3uFYP0PgRtj49Bh-->` · ml4d-ux004 |
+| Backup | `ml4d-e08-pre-gitaudit-cutover-20261122T073809Z-from-c67a6ba8.sql.gz` + restore PASS |
+| DB | préservée · métriques stables · PR#19 intact |
+| Push projet | **NONE** |
+| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-CAPABILITY-AUDIT
 
 | Field | Value |
@@ -14,7 +31,7 @@ Append-only logical journal of Cursor product deliveries.
 | Fix | `list_git_pull_requests` · `list_git_pull_request_files` · permissions · `withReadToken` |
 | Preuves | unit policy/tools/scripted · gh REAL READ PR#19 · matrice A–G |
 | REAL WRITE / merge | **NOT** (gates ouverts) |
-| Cutover | **NOT EXECUTED** — CANDIDATE FROZEN · RECETTE GO REQUIRED |
+| Cutover | **EXECUTED** — voir DELIV-…-GIT-AUDIT-CUTOVER |
 | Push projet | **NONE** |
 
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-UAT-PR-READ

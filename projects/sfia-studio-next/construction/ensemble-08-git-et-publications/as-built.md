@@ -98,6 +98,14 @@
 - **Oracle RR** : PR #19 toujours OPEN / non merged / HEAD `16f9961e…` / 1 fichier (gh api) — corrélation D8 RECETTE inchangée ; aucune nouvelle mutation Cursor.
 - **Cutover** : freeze candidat ce lot ; GO Morris sur nouveau triplet requis avant :3200.
 
+### Cutover RECETTE — audit capacités Git (2026-11-22 ≈ 08:38 CET)
+- **GO Morris** honoré : SOURCE `79188f6c…` · TREE `a550283d…` · BUILD `hLsmHa3uFYP0PgRtj49Bh`.
+- **AVANT** : `c67a6ba8…` / `tEiDqhhGWNipSWO_86ZoG` · service `ml4d-ux004`.
+- **APRÈS** : même service/port/DB · worktree `…/gitaudit-build-79188f6c` · HTTP `<!--hLsmHa3uFYP0PgRtj49Bh-->`.
+- Backup + restore proof PASS · métriques DB stables · PR#19 D8 intact · REAL+documentary conservés · **zéro** mutation GitHub.
+- Manifeste : `manifeste-cutover-recette-e07-plus-e08.md` (section courante).
+- **UAT Morris** : GIT-UAT-01..07 · GIT-UAT-08 hors mandat · Nora LIVE E2E **NOT PROVEN** par smoke.
+
 ## Non livré / réserves
 - Figma G5 géométrie 11.06 (F2) : **PROVEN** en DEV SCRIPTED — acceptation visuelle Morris UAT distincte
 - END-TO-END REAL mutation GitHub : **NOT PROVEN** (sandbox/GO WRITE non nommé ce lot)
