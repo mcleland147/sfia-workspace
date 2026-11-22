@@ -36,7 +36,7 @@
 | HEAD inchangé | `29066442` (pas de commit projet) |
 | Worktree | correctifs locaux + Review Pack + as-built |
 | Push projet | **NONE** |
-| Push handoff L3 | (exécuté après écriture pack — SHA à relire) |
+| Push handoff L3 | `f5c6d45205572536a2050a4f69015ba29b41e2f4` = `origin/sfia/review-handoff` (mono-fichier FF) |
 | RECETTE | **préservée** HTTP `:3200` → 307 (alive) · BUILD freeze non remplacé |
 
 ### Sources canoniques relues
