@@ -144,6 +144,14 @@
 - Manifeste : `manifeste-cutover-recette-e07-plus-e08.md` (section courante).
 - **UAT Morris** : GIT-WRITE-UAT-04 (nouveau doc/rév. + branche explicite) · PR#20 non corrigée rétroactivement · Nora LIVE E2E **NOT PROVEN** par smoke.
 
+### Visionneuse Git — aperçu indisponible universel (Figma 11.17) (2026-11-22)
+- **Inventaire AS-IS** : Markdown (`.md` + SafeMarkdown) ; texte UTF-8 (`.txt`/`.yml`/code) en `<pre>` ; binaires / >512 KiB refusés (415/413) **sans** carte UI ni provenance.
+- **Contrat** : aucun rendu sûr disponible → état Figma 11.17 ; erreurs Git (DENIED / REF_UNRESOLVED / FILE_ABSENT / AMBIGUOUS) **distinctes**.
+- **Impl.** : `git-preview.ts` (motifs dynamiques) ; `readGitFile` retourne `preview` + `openUrl` (permalink ou browse ref honnête) ; `GitPreviewUnavailable` ; Nora `UNPREVIEWABLE`.
+- **Preuves** : unit `git-preview` · e2e `ensemble08-git-preview-unavailable` · captures `proofs/runtime-dev-preview-*.png` · contrat visuel extrait avant code.
+- **RECETTE** runtime **INCHANGÉ** (`24a8fa9e` / `qCQGWLYYGb0ZCA4BLfzBi`) — cutover **NONE**.
+- OUT : pas de visionneuse PDF native / conversion Office / mutation GitHub.
+
 ## Non livré / réserves
 - Figma G5 géométrie 11.06 (F2) : **PROVEN** en DEV SCRIPTED — acceptation visuelle Morris UAT distincte
 - END-TO-END REAL mutation GitHub : **NOT PROVEN** (sandbox/GO WRITE non nommé ce lot)

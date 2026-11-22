@@ -3,6 +3,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
 import { GitFileInfoPopover } from "@/components/integrations/GitFileInfoPopover";
+import { GitPreviewUnavailable } from "@/components/integrations/GitPreviewUnavailable";
+import type {
+  GitFileOpenUrl,
+  GitPreviewState,
+} from "@/domains/integrations/git-preview";
+import { resolveGitFileOpenUrl } from "@/domains/integrations/git-preview";
 
 type GitSource = {
   linkId: string;
@@ -34,7 +40,121 @@ type FileView = {
   blobSha: string;
   content: string;
   permalink: string | null;
+  fullName?: string;
+  preview: GitPreviewState;
+  openUrl: GitFileOpenUrl;
 };
+
+function parseFileResponse(
+  j: Record<string, unknown>,
+  fallbackPath: string,
+  fallbackRef: string,
+): FileView {
+  const provenance = (j.provenance ?? {}) as {
+    path?: string;
+    requestedRef?: string;
+    commitSha?: string | null;
+    commitShaVerified?: boolean;
+    blobSha?: string;
+    permalink?: string | null;
+    fullName?: string;
+  };
+  const path = provenance.path ?? fallbackPath;
+  const ref = provenance.requestedRef ?? fallbackRef;
+  const blobSha = provenance.blobSha ?? "";
+  const permalink = provenance.permalink ?? null;
+  const fullName = provenance.fullName;
+  const contentKind =
+    typeof j.contentKind === "string" ? j.contentKind : undefined;
+  let preview = j.preview as GitPreviewState | undefined;
+  if (!preview || typeof preview.available !== "boolean") {
+    if (contentKind === "binary" || contentKind === "too_large") {
+      preview = {
+        available: false,
+        reason:
+          contentKind === "too_large" ? "FILE_TOO_LARGE" : "BINARY_CONTENT",
+        title: "Aperçu indisponible",
+        message:
+          "Ce format de fichier ne peut pas être affiché directement dans SFIA Studio.",
+        hint: "Consulte le document sur GitHub pour le visualiser ou le télécharger.",
+        formatLabel: "FICHIER",
+        motifLabel:
+          contentKind === "too_large"
+            ? "FICHIER TROP VOLUMINEUX"
+            : "FICHIER BINAIRE",
+      };
+    } else {
+      preview = {
+        available: true,
+        renderer: /\.md$/i.test(path) ? "markdown" : "text",
+      };
+    }
+  }
+  let openUrl = j.openUrl as GitFileOpenUrl | undefined;
+  if (!openUrl || typeof openUrl.kind !== "string") {
+    openUrl = resolveGitFileOpenUrl({
+      fullName,
+      path,
+      requestedRef: ref,
+      permalink,
+      blobSha,
+    });
+  }
+  return {
+    path,
+    ref,
+    commitSha: provenance.commitSha ?? null,
+    commitShaVerified: Boolean(provenance.commitShaVerified),
+    blobSha,
+    content: typeof j.content === "string" ? j.content : "",
+    permalink,
+    fullName,
+    preview,
+    openUrl,
+  };
+}
+
+function githubAction(file: FileView) {
+  const href = file.openUrl.href;
+  if (href) {
+    return (
+      <a
+        className="git-btn-secondary"
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        data-testid="git-action-github"
+      >
+        Ouvrir sur GitHub
+      </a>
+    );
+  }
+  return (
+    <span className="git-btn-secondary is-disabled" data-testid="git-action-github-disabled">
+      Ouvrir sur GitHub
+    </span>
+  );
+}
+
+function previewBody(file: FileView) {
+  if (!file.preview.available) {
+    return <GitPreviewUnavailable preview={file.preview} openUrl={file.openUrl} />;
+  }
+  if (file.preview.renderer === "markdown" || /\.md$/i.test(file.path)) {
+    return <SafeMarkdown content={file.content} />;
+  }
+  return <pre className="git-preview-pre">{file.content}</pre>;
+}
+
+function previewKicker(file: FileView): string {
+  if (!file.preview.available) {
+    return `${file.preview.formatLabel} · LECTURE SEULE`;
+  }
+  if (file.preview.renderer === "markdown" || /\.md$/i.test(file.path)) {
+    return "DOCUMENT MARKDOWN · LECTURE SEULE";
+  }
+  return "DOCUMENT À RÉFÉRENCE IDENTIFIÉE · LECTURE SEULE";
+}
 
 type PublicationRow = {
   publicationRefId: string;
@@ -254,30 +374,16 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
           ref,
         });
         const res = await fetch(`/api/projects/${projectId}/git/file?${q}`);
-        const j = await res.json().catch(() => ({}));
+        const j = (await res.json().catch(() => ({}))) as Record<string, unknown>;
         if (gen !== pubGenRef.current) return;
         if (!res.ok) {
-          setPubFileError(j.message ?? j.error ?? "Document de publication inaccessible");
+          setPubFile(null);
+          setPubFileError(
+            String(j.message ?? j.error ?? "Document de publication inaccessible"),
+          );
           return;
         }
-        const provenance = (j.provenance ?? {}) as {
-          path?: string;
-          requestedRef?: string;
-          commitSha?: string | null;
-          commitShaVerified?: boolean;
-          blobSha?: string;
-          permalink?: string | null;
-          fullName?: string;
-        };
-        setPubFile({
-          path: provenance.path ?? pub.targetPath,
-          ref: provenance.requestedRef ?? ref,
-          commitSha: provenance.commitSha ?? pub.headSha,
-          commitShaVerified: Boolean(provenance.commitShaVerified),
-          blobSha: provenance.blobSha ?? "",
-          content: typeof j.content === "string" ? j.content : "",
-          permalink: provenance.permalink ?? null,
-        });
+        setPubFile(parseFileResponse(j, pub.targetPath, ref));
       } finally {
         if (gen === pubGenRef.current) setBusy(false);
       }
@@ -330,7 +436,7 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
     try {
       const q = new URLSearchParams({ repositoryId, path, ref: branch });
       const res = await fetch(`/api/projects/${projectId}/git/file?${q}`);
-      const j = await res.json().catch(() => ({}));
+      const j = (await res.json().catch(() => ({}))) as Record<string, unknown>;
       if (
         gen !== contextGenRef.current ||
         repoAtStart !== repositoryId ||
@@ -340,26 +446,11 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
       }
       if (!res.ok) {
         setFile(null);
-        setFileError(j.message ?? j.error ?? "Lecture refusée");
+        setFileError(String(j.message ?? j.error ?? "Lecture refusée"));
         return;
       }
-      const provenance = (j.provenance ?? {}) as {
-        path?: string;
-        requestedRef?: string;
-        commitSha?: string | null;
-        commitShaVerified?: boolean;
-        blobSha?: string;
-        permalink?: string | null;
-      };
-      setFile({
-        path: provenance.path ?? path,
-        ref: provenance.requestedRef ?? branch,
-        commitSha: provenance.commitSha ?? null,
-        commitShaVerified: Boolean(provenance.commitShaVerified),
-        blobSha: provenance.blobSha ?? "",
-        content: typeof j.content === "string" ? j.content : "",
-        permalink: provenance.permalink ?? null,
-      });
+      setFileError(null);
+      setFile(parseFileResponse(j, path, branch));
     } finally {
       if (gen === contextGenRef.current) setBusy(false);
     }
@@ -487,19 +578,7 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                 >
                   Infos
                 </button>
-                {file.permalink ? (
-                  <a
-                    className="git-btn-secondary"
-                    href={file.permalink}
-                    target="_blank"
-                    rel="noreferrer"
-                    data-testid="git-action-github"
-                  >
-                    Ouvrir sur GitHub
-                  </a>
-                ) : (
-                  <span className="git-btn-secondary is-disabled">Ouvrir sur GitHub</span>
-                )}
+                {githubAction(file)}
                 <button
                   type="button"
                   className="git-btn-icon"
@@ -511,13 +590,9 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                 </button>
               </div>
             </header>
-            <p className="git-preview-kicker">DOCUMENT À RÉFÉRENCE IDENTIFIÉE · LECTURE SEULE</p>
+            <p className="git-preview-kicker">{previewKicker(file)}</p>
             <div className="git-preview-body" data-testid="git-preview-body">
-              {/\.md$/i.test(file.path) ? (
-                <SafeMarkdown content={file.content} />
-              ) : (
-                <pre className="git-preview-pre">{file.content}</pre>
-              )}
+              {previewBody(file)}
             </div>
           </section>
           <aside className="git-enlarge-details" data-testid="git-file-details">
@@ -529,7 +604,13 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
               </div>
               <div>
                 <dt>Type</dt>
-                <dd>{/\.md$/i.test(file.path) ? "Markdown" : "Texte"}</dd>
+                <dd>
+                  {!file.preview.available
+                    ? file.preview.motifLabel
+                    : /\.md$/i.test(file.path)
+                      ? "Markdown"
+                      : "Texte"}
+                </dd>
               </div>
               <div>
                 <dt>Dépôt</dt>
@@ -595,14 +676,8 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                 </button>
               </div>
             </header>
-            <p className="git-preview-kicker">PUBLICATION STUDIO · LECTURE SEULE · RÉFÉRENCE PROPRE</p>
-            <div className="git-preview-body">
-              {/\.md$/i.test(pubFile.path) ? (
-                <SafeMarkdown content={pubFile.content} />
-              ) : (
-                <pre className="git-preview-pre">{pubFile.content}</pre>
-              )}
-            </div>
+            <p className="git-preview-kicker">{previewKicker(pubFile)}</p>
+            <div className="git-preview-body">{previewBody(pubFile)}</div>
           </section>
           <aside className="git-enlarge-details" data-testid="git-pub-file-details">
             <h3>Détails</h3>
@@ -613,7 +688,13 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
               </div>
               <div>
                 <dt>Type</dt>
-                <dd>{/\.md$/i.test(pubFile.path) ? "Markdown" : "Texte"}</dd>
+                <dd>
+                  {!pubFile.preview.available
+                    ? pubFile.preview.motifLabel
+                    : /\.md$/i.test(pubFile.path)
+                      ? "Markdown"
+                      : "Texte"}
+                </dd>
               </div>
               <div>
                 <dt>Dépôt</dt>
@@ -975,33 +1056,26 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                             panelId={infoPanelId}
                             fields={{
                               name: basename(file.path),
-                              type: /\.md$/i.test(file.path) ? "Markdown" : "Texte",
-                              repository: active?.fullName ?? "—",
+                              type: !file.preview.available
+                                ? file.preview.motifLabel
+                                : /\.md$/i.test(file.path)
+                                  ? "Markdown"
+                                  : "Texte",
+                              repository: active?.fullName ?? file.fullName ?? "—",
                               ref: file.ref || branch || "—",
                               path: file.path,
                               commitSha: file.commitSha,
                               commitShaVerified: file.commitShaVerified,
                               blobSha: file.blobSha || null,
-                              sizeLabel: file.content
-                                ? `${new TextEncoder().encode(file.content).length} octets`
-                                : null,
+                              sizeLabel:
+                                file.preview.available && file.content
+                                  ? `${new TextEncoder().encode(file.content).length} octets`
+                                  : null,
                               origin: "Git (lecture seule)",
                             }}
                           />
                         </div>
-                        {file.permalink ? (
-                          <a
-                            className="git-btn-secondary"
-                            href={file.permalink}
-                            target="_blank"
-                            rel="noreferrer"
-                            data-testid="git-action-github"
-                          >
-                            Ouvrir sur GitHub
-                          </a>
-                        ) : (
-                          <span className="git-btn-secondary is-disabled">Ouvrir sur GitHub</span>
-                        )}
+                        {githubAction(file)}
                         <button
                           type="button"
                           className="git-btn-icon"
@@ -1013,15 +1087,9 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                         </button>
                       </div>
                     </header>
-                    <p className="git-preview-kicker">
-                      DOCUMENT À RÉFÉRENCE IDENTIFIÉE · LECTURE SEULE
-                    </p>
+                    <p className="git-preview-kicker">{previewKicker(file)}</p>
                     <div className="git-preview-body" data-testid="git-preview-body">
-                      {/\.md$/i.test(file.path) ? (
-                        <SafeMarkdown content={file.content} />
-                      ) : (
-                        <pre className="git-preview-pre">{file.content}</pre>
-                      )}
+                      {previewBody(file)}
                     </div>
                   </>
                 ) : (
@@ -1109,7 +1177,11 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                                 panelId={infoPanelId}
                                 fields={{
                                   name: basename(pubFile.path),
-                                  type: /\.md$/i.test(pubFile.path) ? "Markdown" : "Texte",
+                                  type: !pubFile.preview.available
+                                    ? pubFile.preview.motifLabel
+                                    : /\.md$/i.test(pubFile.path)
+                                      ? "Markdown"
+                                      : "Texte",
                                   repository: selectedPublication.repositoryFullName,
                                   ref:
                                     selectedPublication.publicationBranch ??
@@ -1122,19 +1194,7 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                                 }}
                               />
                             </div>
-                            {pubFile.permalink ? (
-                              <a
-                                className="git-btn-secondary"
-                                href={pubFile.permalink}
-                                target="_blank"
-                                rel="noreferrer"
-                                data-testid="git-action-github"
-                              >
-                                Ouvrir sur GitHub
-                              </a>
-                            ) : (
-                              <span className="git-btn-secondary is-disabled">Ouvrir sur GitHub</span>
-                            )}
+                            {githubAction(pubFile)}
                             <button
                               type="button"
                               className="git-btn-icon"
@@ -1146,15 +1206,9 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                             </button>
                           </div>
                         </header>
-                        <p className="git-preview-kicker">
-                          DOCUMENT À RÉFÉRENCE IDENTIFIÉE · LECTURE SEULE
-                        </p>
+                        <p className="git-preview-kicker">{previewKicker(pubFile)}</p>
                         <div className="git-preview-body" data-testid="git-preview-body">
-                          {/\.md$/i.test(pubFile.path) ? (
-                            <SafeMarkdown content={pubFile.content} />
-                          ) : (
-                            <pre className="git-preview-pre">{pubFile.content}</pre>
-                          )}
+                          {previewBody(pubFile)}
                         </div>
                       </>
                     ) : (

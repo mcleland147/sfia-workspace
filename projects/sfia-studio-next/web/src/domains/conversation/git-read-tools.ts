@@ -249,8 +249,10 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
       name: "read_git_file",
       description:
         "Read a bounded file from an attached Git repo. ref is mandatory — never assume main. " +
-        "Statuses: AVAILABLE (content+provenance), FILE_ABSENT (path missing at verified ref tip — not a write grant), " +
+        "Statuses: AVAILABLE (content+provenance), UNPREVIEWABLE (file exists but Studio cannot render — use openUrl), " +
+        "FILE_ABSENT (path missing at verified ref tip — not a write grant), " +
         "DENIED, REF_UNRESOLVED, AMBIGUOUS, UNAVAILABLE. " +
+        "UNPREVIEWABLE is not DENIED and not FILE_ABSENT. " +
         "Provenance: blobSha is content id; commitSha is revision; never build /blob/{blobSha}/path URLs.",
       parameters: z.object({
         repositoryId: z.string(),
@@ -270,9 +272,58 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
             path: args.path,
             ref: args.ref,
           });
+          const prov = result.provenance;
+          const openUrl = result.openUrl;
+          // File exists but Studio cannot render it — distinct from DENIED / NOT_FOUND.
+          if (!result.preview.available) {
+            const payload = {
+              status: "UNPREVIEWABLE" as const,
+              reason: result.preview.reason,
+              message: result.preview.message,
+              motifLabel: result.preview.motifLabel,
+              openUrl,
+              provenance: {
+                owner: prov.owner,
+                fullName: prov.fullName,
+                path: prov.path,
+                requestedRef: prov.requestedRef,
+                blobSha: prov.blobSha,
+                commitSha: prov.commitSha,
+                commitShaVerified: prov.commitShaVerified,
+                permalink: prov.permalink,
+                identities: {
+                  blobSha: { value: prov.blobSha, kind: "blob_content" as const },
+                  commitSha: {
+                    value: prov.commitSha,
+                    kind: "commit_revision" as const,
+                    verified: prov.commitShaVerified,
+                  },
+                },
+                warning:
+                  "blobSha is a content object id — never use it in /blob/{sha}/path as if it were a commit.",
+              },
+              guidance:
+                "Le fichier est accessible mais non prévisualisable dans Studio — orienter vers openUrl/permalink GitHub. Ce n'est pas un refus d'accès ni une absence.",
+              authorityReminder: result.authorityReminder,
+              coverage: "PARTIAL" as ToolCoverage,
+              charsCharged: 0,
+            };
+            emitObs({
+              event_name: "d3.tool.read_git_file",
+              component: "git.read_tools",
+              operation_id: scope.operationId,
+              generation_id: scope.generationId,
+              outcome: "SUCCESS",
+              meta: {
+                status: "UNPREVIEWABLE",
+                reason: result.preview.reason,
+                commit_sha_verified: prov.commitShaVerified,
+              },
+            });
+            return payload;
+          }
           const max = Math.min(8000, scope.budget.remainingChars);
           const excerpt = result.content.slice(0, max);
-          const prov = result.provenance;
           const payload = {
             status: "AVAILABLE" as const,
             excerpt,

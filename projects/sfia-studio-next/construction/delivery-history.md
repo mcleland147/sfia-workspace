@@ -3,6 +3,22 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-UNIVERSAL-PREVIEW-FALLBACK
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 12:16 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — visionneuse Git : aperçu indisponible universel (Figma 11.17) |
+| Type | EVOL · STANDARD · **NO RELEASE** |
+| Principe | Rendu selon capacité effective — **pas** liste fermée de suffixes |
+| AS-IS | binary/too_large → throw 415/413 sans provenance UI |
+| Fix | `readGitFile` retourne `preview` + `openUrl` ; UI `GitPreviewUnavailable` ; erreurs Git distinctes |
+| Preuves | unit git-preview **7** + suites git ciblées PASS · tsc PASS · e2e PREVIEW UI PASS · captures DEV |
+| RECETTE | **INCHANGÉE** `24a8fa9e` / `qCQGWLYYGb0ZCA4BLfzBi` |
+| Cutover | **NONE** — GO Morris distinct |
+| Push projet / mutation GitHub | **NONE** |
+| Verdict | **READY FOR CHATGPT REVIEW — E08 GIT UNIVERSAL PREVIEW FALLBACK** |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-WRITE-MANDATE-CUTOVER
 
 | Field | Value |

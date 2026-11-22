@@ -798,10 +798,14 @@ export default function ProjectPage() {
         const j = (await res.json().catch(() => ({}))) as {
           content?: string;
           provenance?: { commitSha?: string | null; permalink?: string | null };
+          preview?: { available?: boolean; message?: string; title?: string };
+          openUrl?: { href?: string | null };
           error?: string;
           errorCategory?: string;
+          message?: string;
         };
         const prov = j.provenance;
+        const openHref = j.openUrl?.href ?? prov?.permalink ?? ref.href ?? null;
         if (!res.ok) {
           applyViewerIfCurrent(
             seq,
@@ -814,9 +818,27 @@ export default function ProjectPage() {
               content: null,
               available: false,
               unavailableReason: String(
-                j.error ?? j.errorCategory ?? "Source Git indisponible ou droits insuffisants",
+                j.message ?? j.error ?? j.errorCategory ?? "Source Git indisponible ou droits insuffisants",
               ),
-              href: prov?.permalink ?? ref.href ?? null,
+              href: openHref,
+            },
+            projectIdAtStart,
+          );
+        } else if (j.preview && j.preview.available === false) {
+          applyViewerIfCurrent(
+            seq,
+            {
+              kind: "git",
+              title: ref.label,
+              path: ref.path,
+              ref: ref.ref,
+              commit: prov?.commitSha ?? ref.commit ?? null,
+              content: null,
+              available: false,
+              unavailableReason: String(
+                j.preview.message ?? j.preview.title ?? "Aperçu indisponible",
+              ),
+              href: openHref,
             },
             projectIdAtStart,
           );
@@ -835,7 +857,7 @@ export default function ProjectPage() {
               unavailableReason: content
                 ? undefined
                 : "Aperçu Git vide — aucun contenu inventé.",
-              href: prov?.permalink ?? ref.href ?? null,
+              href: openHref,
             },
             projectIdAtStart,
           );
