@@ -113,6 +113,13 @@
 - RECETTE servi **inchangé** (`79188f6c` / `hLsmHa3uFYP0PgRtj49Bh`) — aucun cutover ce cycle.
 - Preuves : unit 824 PASS · PG mission-continuity 11 PASS · Nora LIVE / REAL WRITE **NOT PROVEN**.
 
+### Correctif revue ChatGPT — Git READ hardening (2026-11-22)
+- **Écart A (budget)** : le lot précédent passait trois objets budget clonés → D4/history/Git ne partageaient plus mutations. **Fix** : `createSharedToolBudget()` + **une** référence mutable dans `runLiveWithTools` (D4+history = `remainingCalls` ; Git = `remainingGitCalls` ; chars = `remainingChars` partagés).
+- **Écart B (compare)** : `commits[]` vide (`identical` / behind-only) → `headSha=""`. **Fix** : résolution READ via `fetchCommitRemote` si SHA tip absent ; refuse AMBIGUOUS si non vérifiable.
+- **Écart C (checks)** : catch soft des 403 empêchait `withReadToken` (install→user). **Fix** : throw `ACCESS_DENIED` si **les deux** endpoints refusent ; soft PARTIAL/DENIED si un seul accessible ; statuses tronqués → `incompleteCoverage` + PARTIAL.
+- RECETTE **INCHANGÉE** (`79188f6c` / `hLsmHa3uFYP0PgRtj49Bh`) — pas de cutover.
+- Preuves : unit corrective + suite unit **833** PASS · PG accept01 **11** PASS · tsc PASS · REAL WRITE / Nora LIVE **NOT PROVEN**.
+
 ## Non livré / réserves
 - Figma G5 géométrie 11.06 (F2) : **PROVEN** en DEV SCRIPTED — acceptation visuelle Morris UAT distincte
 - END-TO-END REAL mutation GitHub : **NOT PROVEN** (sandbox/GO WRITE non nommé ce lot)

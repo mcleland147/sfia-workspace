@@ -3,6 +3,22 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-READ-HARDENING-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 09:50 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — correctif revue ChatGPT (handoff `84b524de`) |
+| Type | INC / QA · CRITICAL · **NO RELEASE** |
+| Écart A | Budget partagé : un objet `createSharedToolBudget` (D4+history calls · Git calls · chars) |
+| Écart B | `compareCommitsRemote` : SHA head vérifié si `commits[]` vide |
+| Écart C | `fetchCommitStatusRemote` : dual 403 → ACCESS_DENIED pour `withReadToken` |
+| Preuves | unit **833/833** · corrective **16/16** · PG accept01 **11/11** · tsc PASS |
+| RECETTE | **INCHANGÉE** `79188f6c` / `hLsmHa3uFYP0PgRtj49Bh` |
+| Cutover | **NONE** — candidat local à figer ; GO cutover Morris distinct |
+| Push projet | **NONE** |
+| STABLE | NOT AVAILABLE |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-READ-HARDENING
 
 | Field | Value |

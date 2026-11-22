@@ -1001,10 +1001,42 @@ export async function compareCommitsRemote(input: {
   const filesRaw = Array.isArray(raw.files) ? raw.files : [];
   const matchedFileCount = filesRaw.length;
   const commits = Array.isArray(raw.commits) ? raw.commits : [];
-  const tip = commits.length > 0 ? commits[commits.length - 1]?.sha ?? "" : "";
+  // When identical / behind-only, GitHub may return commits=[] — tip from commits is unreliable.
+  const tipFromCommits =
+    commits.length > 0 ? (commits[commits.length - 1]?.sha ?? "").toLowerCase() : "";
+  let baseSha = (raw.base_commit?.sha ?? raw.merge_base_commit?.sha ?? "").toLowerCase();
+  let headSha = tipFromCommits;
+  // Resolve missing SHAs via verified commit READ (accepts SHA or branch/ref) — never invent.
+  if (!/^[0-9a-f]{40}$/i.test(baseSha)) {
+    const baseCommit = await fetchCommitRemote({
+      token: input.token,
+      fullName: input.fullName,
+      ref: input.base.replace(/^refs\/heads\//, ""),
+      fileBound: 1,
+      fetchImpl,
+    });
+    baseSha = baseCommit.sha.toLowerCase();
+  }
+  if (!/^[0-9a-f]{40}$/i.test(headSha)) {
+    const headCommit = await fetchCommitRemote({
+      token: input.token,
+      fullName: input.fullName,
+      ref: input.head.replace(/^refs\/heads\//, ""),
+      fileBound: 1,
+      fetchImpl,
+    });
+    headSha = headCommit.sha.toLowerCase();
+  }
+  if (!/^[0-9a-f]{40}$/i.test(baseSha) || !/^[0-9a-f]{40}$/i.test(headSha)) {
+    throw new StudioError(
+      "AMBIGUOUS",
+      "Comparaison GitHub sans SHA base/head vérifiables",
+      { httpStatus: 409 },
+    );
+  }
   return {
-    baseSha: (raw.base_commit?.sha ?? raw.merge_base_commit?.sha ?? "").toLowerCase(),
-    headSha: tip.toLowerCase(),
+    baseSha,
+    headSha,
     status: raw.status ?? "unknown",
     aheadBy: typeof raw.ahead_by === "number" ? raw.ahead_by : 0,
     behindBy: typeof raw.behind_by === "number" ? raw.behind_by : 0,
@@ -1054,24 +1086,38 @@ export async function fetchCommitStatusRemote(input: {
   let combinedStatuses: Array<{ context: string; state: string; description: string | null }> = [];
   let statusCoverage: "COMPLETE" | "PARTIAL" | "DENIED" | "UNAVAILABLE" = "COMPLETE";
   let statusNote = "Combined status + check-runs observés (bornés).";
+  let statusAccessDenied = false;
+  let checksAccessDenied = false;
+  let statusesMatched = 0;
+  let statusesIncomplete = false;
 
   try {
     const status = await ghJson<{
       state?: string;
       statuses?: Array<{ context?: string; state?: string; description?: string | null }>;
+      total_count?: number;
     }>(fetchImpl, `/repos/${owner}/${name}/commits/${ref}/status`, {
       method: "GET",
       headers: { Authorization: `Bearer ${input.token}` },
     });
     combinedState = status.state ?? null;
-    combinedStatuses = (status.statuses ?? []).slice(0, bound).map((s) => ({
+    const allStatuses = status.statuses ?? [];
+    statusesMatched =
+      typeof status.total_count === "number" ? status.total_count : allStatuses.length;
+    statusesIncomplete = statusesMatched > bound || allStatuses.length > bound;
+    combinedStatuses = allStatuses.slice(0, bound).map((s) => ({
       context: s.context ?? "",
       state: s.state ?? "unknown",
       description: s.description ?? null,
     }));
+    if (statusesIncomplete) {
+      statusCoverage = "PARTIAL";
+      statusNote = "Combined statuses tronqués (bornés) — ne pas conclure « tous verts ».";
+    }
   } catch (e) {
     const err = e instanceof StudioError ? e : null;
     if (err?.code === "ACCESS_DENIED") {
+      statusAccessDenied = true;
       statusCoverage = "DENIED";
       statusNote = "Combined status inaccessible (permission) — ne pas inventer success.";
     } else if (err?.code === "NOT_FOUND") {
@@ -1090,7 +1136,7 @@ export async function fetchCommitStatusRemote(input: {
     htmlUrl: string | null;
   }> = [];
   let matchedCheckCount = 0;
-  let incompleteCoverage = false;
+  let incompleteCoverage = statusesIncomplete;
 
   try {
     const checks = await ghJson<{
@@ -1116,11 +1162,13 @@ export async function fetchCommitStatusRemote(input: {
       conclusion: c.conclusion ?? null,
       htmlUrl: c.html_url ?? null,
     }));
-    incompleteCoverage = matchedCheckCount > bound;
-    if (statusCoverage === "COMPLETE" && incompleteCoverage) statusCoverage = "PARTIAL";
+    const checksIncomplete = matchedCheckCount > bound;
+    incompleteCoverage = incompleteCoverage || checksIncomplete;
+    if (statusCoverage === "COMPLETE" && checksIncomplete) statusCoverage = "PARTIAL";
   } catch (e) {
     const err = e instanceof StudioError ? e : null;
     if (err?.code === "ACCESS_DENIED") {
+      checksAccessDenied = true;
       if (statusCoverage === "COMPLETE") statusCoverage = "PARTIAL";
       statusNote =
         (statusNote ? statusNote + " " : "") +
@@ -1130,6 +1178,22 @@ export async function fetchCommitStatusRemote(input: {
       statusNote =
         (statusNote ? statusNote + " " : "") + "Check-runs non disponibles pour cette ref.";
     }
+  }
+
+  // Both endpoints ACCESS_DENIED → throw so REAL provider withReadToken can try user OAuth.
+  // Soft PARTIAL/DENIED results are only returned when at least one endpoint is readable
+  // with the current token (or non-auth failures).
+  if (statusAccessDenied && checksAccessDenied) {
+    throw new StudioError(
+      "ACCESS_DENIED",
+      "GitHub status et check-runs inaccessibles avec le jeton courant",
+      { httpStatus: 403 },
+    );
+  }
+
+  if (statusAccessDenied && checkRuns.length === 0 && !checksAccessDenied) {
+    // status denied but checks somehow empty without denial — keep PARTIAL/DENIED note
+    statusCoverage = statusCoverage === "DENIED" ? "DENIED" : "PARTIAL";
   }
 
   return {

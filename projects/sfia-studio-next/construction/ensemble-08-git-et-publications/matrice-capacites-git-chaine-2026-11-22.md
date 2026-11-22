@@ -109,16 +109,19 @@ Légende preuve : DET = deterministic · PG · BR = browser · RR = REAL READ ·
 | `compare_git_refs` | **FIX** | Git calls | non |
 | `read_git_commit_status` | **FIX** | Git calls | non |
 
-Budget : `maxGitToolCalls` **séparé** de `maxD4ToolCalls` (R-READ-03). Chars partagés.  
+Budget : `maxGitToolCalls` **séparé** de `maxD4ToolCalls` (R-READ-03). Chars partagés **sur un seul objet mutable** (`createSharedToolBudget`) — D4+history partagent `remainingCalls` ; Git utilise `remainingGitCalls` ; les trois partagent `remainingChars` (correctif revue 2026-11-22).
 Écritures : **aucune** via outil LLM direct — uniquement qualification → D6 → D7 → D9 → D8 → restitution D3.
+
+Compare : `baseSha`/`headSha` toujours issus de faits vérifiés (tip `commits[]` ou `fetchCommitRemote`) — y compris `status=identical` avec `commits=[]`.
+Checks : dual 403 → `ACCESS_DENIED` (retry `withReadToken`) ; un seul endpoint OK → PARTIAL/DENIED ; pas de « checks verts » sur couverture incomplète.
 
 ### Réserves UAT post-campagne (fiabilisation 2026-11-22)
 
 | Réserve | Cause | Correction | Preuve | Limite restante |
 |---|---|---|---|---|
-| R-READ-03 | TEST_BOUNDARY RECETTE + compteur D4+Git partagé (4) | `maxGitToolCalls` + `remainingGitCalls` | DET | OPERATIONAL_VALIDATED toujours non adopté |
-| R-READ-02 | Pas d’outil date/compare | `read_git_commit` + `compare_git_refs` | DET | pas de list_commits / hunks (OUT) |
-| R-READ-01 | Checks/protections absents Nora | `read_git_commit_status` | DET | rulesets/protections **DENIED** — gate avant GIT-UAT-08 |
+| R-READ-03 | TEST_BOUNDARY RECETTE + compteur D4+Git partagé (4) | `maxGitToolCalls` + `remainingGitCalls` + **objet budget unique** | DET | OPERATIONAL_VALIDATED toujours non adopté |
+| R-READ-02 | Pas d’outil date/compare | `read_git_commit` + `compare_git_refs` (+ SHA tip vérifié) | DET | pas de list_commits / hunks (OUT) |
+| R-READ-01 | Checks/protections absents Nora | `read_git_commit_status` (+ fallback token) | DET | rulesets/protections **DENIED** — gate avant GIT-UAT-08 |
 
 ## Chemins mission D6/D7 (écritures)
 

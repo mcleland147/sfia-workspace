@@ -8,6 +8,7 @@ import {
 } from "@/domains/decisions/divergence-assist";
 import {
   buildCognitivePolicy,
+  createSharedToolBudget,
   maxTurnsForPolicy,
   type CognitivePolicy,
   NORA_STUDY_MODEL,
@@ -768,14 +769,18 @@ async function runLiveWithTools(
   const { Agent, run } = await import("@openai/agents");
 
   const attempts: NoraAttemptRecord[] = [];
-  const initialBudget = {
-    remainingCalls: policy.budgets.maxD4ToolCalls,
-    remainingChars: policy.budgets.maxD4CharsReturned,
-    remainingGitCalls: policy.budgets.maxGitToolCalls,
-  };
+  /**
+   * Single mutable budget object shared by D4, history, and Git tools.
+   * - remainingCalls: D4 + history only (shared)
+   * - remainingGitCalls: Git READ only (independent)
+   * - remainingChars: all three families (shared)
+   * Do NOT clone into separate objects — mutations must be visible across families.
+   */
+  const sharedToolBudget = createSharedToolBudget(policy.budgets);
+  // Alias kept for existing charsConsumed accounting below.
+  const initialBudget = sharedToolBudget;
 
   // Union of D4 / history / git tools — Agent accepts heterogeneous FunctionTool[].
-  // D4/history consume remainingCalls; Git READ consumes remainingGitCalls (shared chars).
   let tools: unknown[] = [];
   if (policy.toolAllowlist.length > 0 && input.toolScope) {
     const scope: D4ToolScope = {
@@ -783,10 +788,7 @@ async function runLiveWithTools(
       preparationId: input.toolScope.preparationId,
       operationId: input.toolScope.operationId,
       generationId,
-      budget: {
-        remainingCalls: initialBudget.remainingCalls,
-        remainingChars: initialBudget.remainingChars,
-      },
+      budget: sharedToolBudget,
     };
     tools = await buildNoraD4Tools(scope);
     if (
@@ -797,10 +799,7 @@ async function runLiveWithTools(
       const historyTools = await buildNoraHistoryTools({
         pilotId: input.toolScope.pilotId,
         preparationId: input.toolScope.preparationId,
-        budget: {
-          remainingCalls: initialBudget.remainingCalls,
-          remainingChars: initialBudget.remainingChars,
-        },
+        budget: sharedToolBudget,
       });
       tools = [...tools, ...historyTools];
     }
@@ -810,10 +809,7 @@ async function runLiveWithTools(
         projectId: input.toolScope.projectId,
         operationId: input.toolScope.operationId,
         generationId,
-        budget: {
-          remainingChars: initialBudget.remainingChars,
-          remainingGitCalls: initialBudget.remainingGitCalls,
-        },
+        budget: sharedToolBudget,
       });
       tools = [...tools, ...gitTools];
     }

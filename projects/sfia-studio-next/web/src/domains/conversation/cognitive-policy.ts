@@ -219,6 +219,23 @@ export function qualifyCognitiveProfile(userText: string): {
   };
 }
 
+/**
+ * Single mutable budget bag for one Nora generation.
+ * D4+history share remainingCalls; Git uses remainingGitCalls; all share remainingChars.
+ * Pass the SAME object reference to every tool family — never clone numeric snapshots.
+ */
+export function createSharedToolBudget(budgets: BudgetLimits): {
+  remainingCalls: number;
+  remainingChars: number;
+  remainingGitCalls: number;
+} {
+  return {
+    remainingCalls: budgets.maxD4ToolCalls,
+    remainingChars: budgets.maxD4CharsReturned,
+    remainingGitCalls: budgets.maxGitToolCalls,
+  };
+}
+
 export function buildCognitivePolicy(
   userText: string,
   overrideType?: PolicyProfileType,
