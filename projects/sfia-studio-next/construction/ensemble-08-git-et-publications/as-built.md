@@ -9,7 +9,8 @@
 | CKC | FALLBACK (Delivery #8) |
 | Runtime RECETTE (pré-cutover ce lot) | `9f34639110ce2315a2bf8dc0786197bb8f5ea3b1` · BUILD `F85QQBTLa8nq5zKYxMKKZ` |
 | Runtime précédent (rollback immédiat) | `9f346391…` / `F85QQBTLa8nq5zKYxMKKZ` (conservé) |
-| RECETTE | voir manifeste cutover section D (ce lot) |
+| Runtime RECETTE servi | `f1907aad98f75c7d39e4c21ccbd8043ab048ce09` · TREE `1e93363b…` · BUILD `zKGLfPHM1TMilec4qglJv` |
+| RECETTE | **AVAILABLE** — cutover FINALISATION exécuté · DB préservée · UAT Morris requis |
 
 ## Livré (y compris finalisation technique)
 

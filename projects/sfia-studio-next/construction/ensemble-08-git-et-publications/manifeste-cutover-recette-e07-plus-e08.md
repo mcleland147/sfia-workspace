@@ -235,3 +235,70 @@ projects=26 · documents=117 · document_revisions=188 · conversations=205 · m
 ## Verdict section C
 
 **RECETTE AVAILABLE — MORRIS UAT REQUIRED**
+
+---
+
+# D. FINALISATION UX + REAL WRITE policy — cutover exécuté
+
+| Champ | Valeur |
+| --- | --- |
+| Date/heure cutover | 2026-11-22 ≈ 06:12 CET (UTC 05:12) |
+| GO Morris | Macro-lot FINALISATION intégré · ENV-01 sur lane existante |
+| Classe | **NO RELEASE** |
+| Lane | RECETTE existante `:3200` · `STUDIO_LANE=RECETTE` |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` (même label) |
+| SOURCE_SHA servi | `f1907aad98f75c7d39e4c21ccbd8043ab048ce09` |
+| TREE | `1e93363b50f07e95dcd3a9cccb01c7ca4ad96729` |
+| BUILD_ID HTTP | `<!--zKGLfPHM1TMilec4qglJv-->` |
+| Script | `…/ensemble08-final-build-f1907aad/start-recette-ensemble08-final-f1907aad.sh` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-final-build-f1907aad` |
+| Mode | `npx next start -H 127.0.0.1 -p 3200` · production |
+| DB | `sfia_next_recette_ml4` @ `127.0.0.1:5434` — **aucune migration** |
+| GitHub READ | REAL configuré (App RECETTE) |
+| GitHub WRITE | **OFF** — `STUDIO_GITHUB_ALLOW_MUTATIONS=` · `GITHUB_APP_WRITE_ALLOWED_REPOS=` |
+| REAL WRITE mutation | **NOT PROVEN** — sandbox/GO non nommé |
+| Nora | LIVE credentials conservés · fixtures OFF · conduit NOT PROVEN |
+| Push projet | **NONE** |
+| STABLE | NOT AVAILABLE |
+
+## Runtime AVANT → APRÈS
+
+| | AVANT | APRÈS |
+| --- | --- | --- |
+| SOURCE_SHA | `9f34639110ce2315a2bf8dc0786197bb8f5ea3b1` | `f1907aad98f75c7d39e4c21ccbd8043ab048ce09` |
+| BUILD_ID | `F85QQBTLa8nq5zKYxMKKZ` | `zKGLfPHM1TMilec4qglJv` |
+| Script | `start-recette-ensemble08-postuat-9f346391.sh` | `start-recette-ensemble08-final-f1907aad.sh` |
+
+## Backup / restore proof
+
+| Élément | Valeur |
+| --- | --- |
+| Backup | `ml4d-e08-pre-final-cutover-20261122T051131Z-from-9f346391.sql.gz` |
+| Emplacement | `…/ensemble08-postuat-build-9f346391/.sfia-recette/backups/` |
+| Bytes / SHA256 | 717905 / `ac2bb78fd59081e2a9677b0bd33c4cc0236109080ee1f74e623b3311acc34f58` |
+| Restore proof | DB temp `sfia_next_recette_restore_proof_e08_final` → projects=26 messages=641 → DROP |
+| RECETTE active | intacte pendant/après proof |
+
+## Inventaire données (pré/post cutover)
+
+projects=26 · documents=117 · document_revisions=188 · conversations=205 · messages=641 · sessions=125 · users=4 · accounts=2 · project_git_links=15 · effect_attempts=4 · human_decisions=3 · observed_git_facts=0 · Equip'Campus `proj_a9ce5f43…` présent
+
+## Rollback préparé (non exercé)
+
+- Plist bak : `com.sfia.studio.next.recette.ml4d-ux004.plist.9f346391.pre-final-cutover-20261122T051200Z.bak`
+- Artefact `@9f346391` / BUILD `F85QQBTLa8nq5zKYxMKKZ` conservé
+- Script `ROLLBACK-TO-E08-9f346391.sh` dans worktree final
+
+## Smokes
+
+| Contrôle | Résultat |
+| --- | --- |
+| HTTP login/portfolio/integrations | 200 + BUILD `zKGLfPHM1TMilec4qglJv` |
+| Process/CWD | next-server · worktree `…final-build-f1907aad…/web` · 1 listener `:3200` |
+| WRITE REAL | OFF — aucune mutation distante |
+| Nora LIVE E2E | NOT PROVEN |
+| G5 11.06 F2 | PROVEN en DEV ; UAT Morris distinct |
+
+## Verdict section D
+
+**RECETTE AVAILABLE — MORRIS UAT REQUIRED**

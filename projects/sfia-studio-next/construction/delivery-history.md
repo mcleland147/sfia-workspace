@@ -3,6 +3,24 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-FINALISATION-RECETTE-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 06:12 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — FINALISATION cutover RECETTE |
+| Type | EVOL / MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
+| SOURCE_SHA | `f1907aad98f75c7d39e4c21ccbd8043ab048ce09` |
+| TREE | `1e93363b50f07e95dcd3a9cccb01c7ca4ad96729` |
+| BUILD_ID | `zKGLfPHM1TMilec4qglJv` |
+| Avant | `@9f346391` / `F85QQBTLa8nq5zKYxMKKZ` |
+| Après | servi HTTP `<!--zKGLfPHM1TMilec4qglJv-->` · service `ml4d-ux004` |
+| DB | préservée · inventaire projects=26 messages=641 · Equip'Campus présent |
+| Backup | `ml4d-e08-pre-final-cutover-20261122T051131Z-from-9f346391.sql.gz` + restore proof PASS |
+| WRITE REAL | OFF · NOT PROVEN |
+| Push projet | **NONE** |
+| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-FINALISATION-UX-REAL-RECETTE
 
 | Field | Value |
