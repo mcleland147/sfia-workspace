@@ -7,7 +7,7 @@
 | Produit | SFIA Studio Next — Ensemble 08 / collaboration Git |
 | Nature | **PV de recette utilisateur et plan de scénarios**, document factuel non normatif |
 | Autorité UAT | Morris — observations et acceptations exprimées dans la conversation |
-| Statut global courant (après cutover) | **RECETTE DISPONIBLE — CAMPAGNE UAT À REPRENDRE — E08 NON ADOPTÉ** ; ancien verdict de publication conservé comme historique §§1–7 |
+| Statut global courant (après cutover) | **RECETTE DISPONIBLE — CAMPAGNE READ 01–07 EXÉCUTÉE : 5 PASS, 2 PARTIAL — E08 NON ADOPTÉ** ; ancien verdict de publication conservé comme historique §§1–7 ; dernier bilan au §15 |
 | Lane | RECETTE locale `http://127.0.0.1:3200` |
 | SOURCE_SHA actuellement servi (rapport Cursor L3) | `79188f6cf334be5c81f485b8cb1c4f1ae95644dc` |
 | TREE actuellement servi (rapport Cursor L3) | `a550283d37ff461323ea02757350de24b772133e` |
@@ -19,7 +19,7 @@
 
 > **Règle de lecture.** « Accepté Morris » signifie que Morris a confirmé l'usage ou la conformité dans cette UAT. Ce statut n'invente pas un test automatisé, une preuve d'effet GitHub distant ni un niveau `BEHAVIOR PROVEN` non fourni. Les points non mentionnés comme testés restent non vérifiés.
 
-> **Lecture chronologique.** Les §§1–7 décrivent le premier incident (publication bloquée), aujourd'hui corrigé ; les §§8–10 décrivent la campagne et les défauts observés avant le dernier cutover. **Les §§11–14 constituent le point de reprise courant après mise à disposition du build 79188f6c.** Ne pas interpréter les anciens échecs comme des résultats de la nouvelle RECETTE.
+> **Lecture chronologique.** Les §§1–7 décrivent le premier incident (publication bloquée), aujourd'hui corrigé ; les §§8–10 décrivent la campagne et les défauts observés avant le dernier cutover. **Les §§11–14 constituent le point de reprise après mise à disposition du build 79188f6c ; le §15 consigne ensuite la campagne UAT READ réalisée sur ce candidat.** Ne pas interpréter les anciens échecs comme des résultats de la nouvelle RECETTE.
 
 ## 1. Résumé d'acceptation
 
@@ -429,3 +429,54 @@ Les Review Packs FULL sont publiés successivement sur sfia/review-handoff, dans
 
 **Dernier état : E08 NON ADOPTÉ, NON STABLE, code E08 NON MERGÉ, GIT-UAT-01 à 07 à rejouer, GIT-UAT-08 hors mandat.**
 
+
+---
+
+## 15. Résultats de la campagne UAT READ — 22 novembre 2026, après cutover
+
+**Statut de ce bloc : résultat utilisateur le plus récent.** Il complète chronologiquement les ``1–14 sans modifier les incidents, scénarios ni verdicts historiques. Les états « NON TESTÉ » ou « À REJOUER » conservés aux ``8 et 13 décrivent la situation **avant** cette exécution : le présent `15 leur succède sur le candidat courant.
+
+| Champ | Constat / frontière |
+| --- | --- |
+| Périmètre | SFIA Studio Next / Ensemble 08, projet CampusFlow, dépôt GitHub `mcleland147/chantiers360`, PR [#19](https://github.com/mcleland147/chantiers360/pull/19) |
+| Candidat RECETTE | SOURCE `79188f6cf334be5c81f485b8cb1c4f1ae95644dc` · TREE `a550283d37ff461323ea02757350de24b772133e` · BUILD `hLsmHa3uFYP0PgRtj49Bh` — identité selon handoff Cursor, **non recontrôlée localement par ChatGPT** |
+| Exécution | Morris a soumis successivement les prompts exacts du `8 dans la conversation CampusFlow de Nora ; captures et réponses transmises ; rechargement de l'application avant GIT-UAT-07 |
+| Nature des preuves | Réponses Nora en RECETTE + contrôles GitHub indépendants en READ lorsque pertinents ; **preuve UAT fonctionnelle bornée**, sans instrumentation exhaustive des appels internes Nora |
+| Verdict global READ | **5 PASS / 2 PARTIAL / 0 FAIL** sur GIT-UAT-01 à 07 |
+| GIT-UAT-08 | **HORS MANDAT — NON EXÉCUTÉ**, aucun GO de fusion |
+| Effet Git pendant cette campagne | Aucune nouvelle branche, publication, PR ou fusion demandée ou observée ; réponses Nora déclarant zéro mutation ; pas de test d'écriture ni de rejeu mutatif |
+| Limite d'acceptation | Campagne READ fonctionnellement satisfaisante **avec réserves** ; ni E08 ADOPTED, ni code E08 intégré à `main`, ni STABLE, ni RELEASE, ni validation REAL WRITE globale |
+
+### 15.1 Matrice UAT sur le candidat RECETTE courant
+
+| Scénario | Observation utilisateur / contrôle du résultat | Verdict |
+| --- | --- | --- |
+| **GIT-UAT-01 — PR LIVE** | Nora restitue PR #19 `OPEN`, non fusionnée, source `sfia/pub-3ab1e0c2eb6b7499`, cible `main`, HEAD `16f9961ef2ee6d13235e56059313f691521947fd`. Concordance GitHub indépendante. La vue « Activité » n'est pas une trace exhaustive du tool call ; ce niveau de détail n'est pas exigé pour la recette fonctionnelle. | **PASS fonctionnel** |
+| **GIT-UAT-02 — Changements PR** | **1 commit, 1 fichier ajouté, +132/−0 lignes** : `references-externes-enseignements-chantiers360.md`. Résumé cohérent avec le document GitHub ; données contrôlées indépendamment. Nora indique que la lecture du contenu était partielle et ne revendique pas une couverture intégrale. | **PASS fonctionnel** |
+| **GIT-UAT-03 — Conditions de fusion** | `mergeable=true` et `mergeableState=unstable` correctement distingués ; absence de conflit ≠ droit de fusion confirmé. Nora ne peut détailler checks obligatoires, protections/rulesets ni certifier que GitHub autoriserait le merge. Aucune fusion. | **PARTIAL — couverture checks/protections insuffisante** |
+| **GIT-UAT-04 — Historique et comparaison** | Nora retrouve le SHA publié, la branche, le fichier et `main@8c398c494dd918272aab5b2653777c6c21d2e76e`, mais pas la date du commit ni une comparaison détaillée, et signale le budget de lecture épuisé. Contrôle GitHub indépendant : date auteur/committer **2026-11-22 06:22:13 UTC**, publication **1 commit devant / 0 derrière** `main`, fichier ajouté. Ces compléments **ne prouvent pas une capacité Nora**. | **PARTIAL — historique/diff/date incomplets** |
+| **GIT-UAT-05 — Permissions** | Nora rapporte via Studio `contents=admin`, `pull_requests=write`, provenance `user_token_observed`. Elle distingue READ direct, WRITE gouverné D6/D7/D9, droits GitHub, protections et autorité du Pilote. Ce sont des permissions rapportées par Studio, pas une garantie de réussite d'écriture. | **PASS fonctionnel** |
+| **GIT-UAT-06 — Réconciliation sans doublon** | Nora retrouve le document D4 révision 2, le dépôt, la branche, le commit, PR #19 et l'effet `efx_cf6763da-383f-4abd-be6d-ac9ba29b752f`, `COMPLETED` avec projection `PR_OPEN`. Elle reconnaît la publication existante et ne relance rien ; relecture Git actuelle limitée par budget. **Cette reconnaissance READ ne démontre pas l'idempotence d'un retry WRITE réel.** | **PASS fonctionnel, déduplication WRITE non prouvée** |
+| **GIT-UAT-07 — Continuité après rechargement** | Après rechargement navigateur, Nora retrouve sans ressaisie document, révision, publication, effet, branche et PR. Relecture GitHub actuelle réussie : `OPEN`, `merged=false`, HEAD inchangé, `main@8c398c49…`, `mergeable=true` / `unstable`. Pas de nouvelle écriture. **Aucun redémarrage serveur testé.** | **PASS fonctionnel** |
+
+**Oracle vérifié indépendamment :** la [PR #19](https://github.com/mcleland147/chantiers360/pull/19) est restée ouverte et non fusionnée durant les contrôles ; HEAD `16f9961ef2ee6d13235e56059313f691521947fd`, base `main@8c398c494dd918272aab5b2653777c6c21d2e76e`, **1 commit et 1 fichier**. Les faits Studio historiques ne remplacent pas un READ GitHub actuel lorsque le scénario l'exige.
+
+### 15.2 Réserves de couverture — à arbitrer avant la suite WRITE
+
+| ID | Réserve observée | Impact et suite proposée (**non décidée**) |
+| --- | --- | --- |
+| **E08-R-READ-01** | GIT-UAT-03 : Nora ne voit pas finement les checks, protections/rulesets et conditions obligatoires de merge. | Risque de diagnostic de fusion incomplet. Examiner la lecture des checks/rulesets et la distinction permissions/autorisation ; preuve indispensable avant recette **merge**, sans bloquer artificiellement une publication documentaire qui n'en dépend pas. |
+| **E08-R-READ-02** | GIT-UAT-04 : historique générique, date et comparaison/diff de commits incomplets. | Qualité de traçabilité limitée ; étudier une extension READ bornée via D9 ou réutilisation des capacités existantes, sans moteur Git parallèle ni chantier inutile. |
+| **E08-R-READ-03** | Budget de consultation Git épuisé signalé en GIT-UAT-04 et 06, et pour le détail des fichiers en GIT-UAT-07. | Peut gêner la provenance et la réconciliation. **Défaut structurel non démontré** : qualifier budget, stratégie de sélection et refus avant correction, surtout si le parcours WRITE dépend d'une lecture préalable. |
+
+**Plafonds de preuve :** PASS fonctionnel ≠ preuve exhaustive de l'instrumentation Nora ; PARTIAL ≠ nouveau défaut runtime démontré ; GIT-UAT-06 ≠ test d'idempotence sur une répétition mutative ; UAT-07 ≠ preuve de persistance après restart serveur. Les limites de couverture restent tracées et ne sont pas reclassées PASS global.
+
+### 15.3 Trajectoire candidate, gates maintenus
+
+1. **Arbitrage Morris des réserves** : choisir ce qui doit être traité avant la recette **publication/PR WRITE**, ce qui relève de la future recette **merge**, et ce qui peut rester une limite documentée avec condition de sortie. La présente mise à jour n'est **pas un GO Cursor**.
+2. Si une correction est justifiée, préparer un **macro-lot Cursor intégré**, après Next Pre-check Git et inspection locale du code candidat, regroupant diagnostic, correctifs minimaux, tests, documentation as-built et preuves. Aucun moteur d'autorité parallèle ni micro-cycles successifs. Toute mise à jour RECETTE exige un SHA/TREE/BUILD et un **GO de cutover Morris distinct**.
+3. **Avant WRITE** : définir la cible exacte, le mandat D6, l'oracle externe, l'effet D7/D8/D9, le contrôle d'idempotence et le rollback/reprise pertinent. Ne pas republier implicitement la PR #19. **Aucune nouvelle mutation GitHub n'est autorisée par ce PV**.
+4. **GIT-UAT-08 / merge** : toujours **HORS MANDAT** ; mandat distinct, checks/protections et preuve d'effet nécessaires. Pas de fusion implicite.
+5. **Git Product, STABLE, ADOPTED** : gates toujours ouverts ; cette contribution Git documentaire ne modifie ni la baseline `main` ni le runtime RECETTE.
+
+**Conclusion du 22/11/2026 : `E08 — UAT READ 5 PASS / 2 PARTIAL / 0 FAIL — COMPLETED WITH GOVERNED RESERVES`.** Résultat utilisable pour l'arbitrage suivant, sans présumer de l'acceptation globale d'E08 ni d'un GO WRITE.
