@@ -201,7 +201,9 @@ export async function buildPublicationEffectViewFromAttempt(input: {
     }
   }
 
-  const mergeFact = (
+  // MERGE facts live on the GIT_MERGE attempt — correlate via publicationAttemptId.
+  let mergeObserved = false;
+  const directMergeFact = (
     await db
       .select({ id: observedGitFacts.id })
       .from(observedGitFacts)
@@ -213,6 +215,47 @@ export async function buildPublicationEffectViewFromAttempt(input: {
       )
       .limit(1)
   )[0];
+  if (directMergeFact) {
+    mergeObserved = true;
+  } else {
+    const mergeAttempts = await db
+      .select({ id: effectAttempts.id, planJson: effectAttempts.planJson })
+      .from(effectAttempts)
+      .where(
+        and(
+          eq(effectAttempts.projectId, row.projectId),
+          eq(effectAttempts.pilotId, row.pilotId),
+          eq(effectAttempts.kind, "GIT_MERGE"),
+        ),
+      );
+    const correlatedIds = mergeAttempts
+      .filter((m) => {
+        try {
+          const p = JSON.parse(m.planJson || "{}") as { publicationAttemptId?: string };
+          return p.publicationAttemptId === input.attemptId;
+        } catch {
+          return false;
+        }
+      })
+      .map((m) => m.id);
+    if (correlatedIds.length > 0) {
+      for (const mid of correlatedIds) {
+        const mf = (
+          await db
+            .select({ id: observedGitFacts.id })
+            .from(observedGitFacts)
+            .where(
+              and(eq(observedGitFacts.attemptId, mid), eq(observedGitFacts.factKind, "MERGE")),
+            )
+            .limit(1)
+        )[0];
+        if (mf) {
+          mergeObserved = true;
+          break;
+        }
+      }
+    }
+  }
 
   return buildPublicationEffectViewFromOwnerPayload({
     outcome: input.outcome,
@@ -224,7 +267,7 @@ export async function buildPublicationEffectViewFromAttempt(input: {
     plan,
     result,
     prHtmlUrl,
-    mergeObserved: Boolean(mergeFact),
+    mergeObserved,
   });
 }
 

@@ -245,7 +245,8 @@ function realAppReadConfigured(): boolean {
  * Default SCRIPTED.
  * REAL only when STUDIO_GITHUB_PROVIDER=real AND App read credentials are present.
  * Product user paths must not set STUDIO_GITHUB_PROVIDER=real before D1/user-auth gates.
- * REAL mutations require STUDIO_GITHUB_ALLOW_MUTATIONS=documentary exactly (merge always blocked).
+ * REAL mutations (branch/file/PR/merge) require STUDIO_GITHUB_ALLOW_MUTATIONS=documentary exactly.
+ * Merge uses the same documentary gate + WRITE allowlist + D6/D7 SHA gates — not a separate hard-block.
  * The flag is an operator env gate only — never a substitute for D6/D7 authority.
  */
 /**

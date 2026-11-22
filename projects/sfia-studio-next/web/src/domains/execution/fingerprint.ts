@@ -98,29 +98,31 @@ export function publicationEffectFingerprint(plan: PublicationPlan): string {
 }
 
 export function mergeEffectFingerprint(plan: MergePlan): string {
-  return createHash("sha256")
-    .update(
-      canonical({
-        kind: "GIT_MERGE",
-        repositoryId: plan.repositoryId,
-        repositoryFullName: plan.repositoryFullName,
-        authorizationId: plan.authorizationId,
-        installationId: plan.installationId,
-        actorLogin: plan.actorLogin,
-        publicationAttemptId: plan.publicationAttemptId,
-        publicationRefId: plan.publicationRefId,
-        documentId: plan.documentId,
-        revisionId: plan.revisionId,
-        targetPath: plan.targetPath,
-        prNumber: plan.prNumber,
-        expectedHeadSha: plan.expectedHeadSha,
-        expectedBaseSha: plan.expectedBaseSha,
-        expectedHeadRef: plan.expectedHeadRef,
-        expectedBaseRef: plan.expectedBaseRef,
-        publicationBranch: plan.publicationBranch,
-      }),
-    )
-    .digest("hex");
+  const payload: Record<string, unknown> = {
+    kind: "GIT_MERGE",
+    repositoryId: plan.repositoryId,
+    repositoryFullName: plan.repositoryFullName,
+    authorizationId: plan.authorizationId,
+    installationId: plan.installationId,
+    actorLogin: plan.actorLogin,
+    publicationAttemptId: plan.publicationAttemptId,
+    publicationRefId: plan.publicationRefId,
+    documentId: plan.documentId,
+    revisionId: plan.revisionId,
+    targetPath: plan.targetPath,
+    prNumber: plan.prNumber,
+    expectedHeadSha: plan.expectedHeadSha,
+    expectedBaseSha: plan.expectedBaseSha,
+    expectedHeadRef: plan.expectedHeadRef,
+    expectedBaseRef: plan.expectedBaseRef,
+    publicationBranch: plan.publicationBranch,
+  };
+  // Historical merge plans omit effectProviderMode — keep payload identical so D6
+  // fingerprints remain stable until a new prepare freezes the mode.
+  if (plan.effectProviderMode === "REAL" || plan.effectProviderMode === "SCRIPTED") {
+    payload.effectProviderMode = plan.effectProviderMode;
+  }
+  return createHash("sha256").update(canonical(payload)).digest("hex");
 }
 
 /** Simple unified diff for documentary inspection (not a Git patch applicator). */

@@ -497,6 +497,9 @@ class ScriptedGitHubProvider implements GitHubProvider {
       headRef: input.head,
       baseRef: input.base,
       htmlUrl: `https://github.scripted/${input.fullName}/pull/${s.nextPr - 1}`,
+      mergeable: true,
+      mergeableState: "clean",
+      mergeCommitSha: null,
       publicationMarker: marker,
       body,
     };
@@ -553,10 +556,20 @@ class ScriptedGitHubProvider implements GitHubProvider {
     if (input.expectedBaseSha != null && pr.baseSha !== input.expectedBaseSha) {
       throw Object.assign(new Error("PR_BASE_STALE"), { code: "CONFLICT" });
     }
-    s.branches[pr.baseRef] = pr.headSha;
-    s.branches.main = pr.headSha;
+    if (pr.mergeable === false || pr.mergeableState === "dirty" || pr.mergeableState === "blocked") {
+      throw Object.assign(new Error("PR_NOT_MERGEABLE"), { code: "ACCESS_DENIED" });
+    }
+    // Synthetic merge commit — never reuse source HEAD as merge SHA (P0-02 fidelity).
+    const mergeSha = createHash("sha1")
+      .update(`scripted-merge:${input.fullName}:${input.prNumber}:${pr.headSha}:${pr.baseSha}`)
+      .digest("hex");
+    s.branches[pr.baseRef] = mergeSha;
+    if (pr.baseRef !== "main") s.branches.main = mergeSha;
     pr.state = "merged";
-    const result = { merged: true, sha: pr.headSha };
+    pr.mergeCommitSha = mergeSha;
+    pr.mergeable = null;
+    pr.mergeableState = null;
+    const result = { merged: true, sha: mergeSha };
     if (ScriptedFaultRegistry.current(input.pilotId, input.fullName) === "timeout_after_merge") {
       const err = new Error("SCRIPTED_TIMEOUT_AFTER_MERGE") as Error & {
         code: string;

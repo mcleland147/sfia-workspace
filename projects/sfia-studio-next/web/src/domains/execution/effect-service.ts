@@ -1825,6 +1825,7 @@ export async function prepareMerge(input: {
     throw new StudioError("REQUIRES_REQUALIFICATION", "baseRef PR inattendue");
   }
 
+  const effectProviderMode = resolveConfiguredEffectProviderMode();
   const plan: MergePlan = {
     repositoryId: pubRef.repositoryId,
     repositoryFullName: repo.fullName,
@@ -1842,6 +1843,7 @@ export async function prepareMerge(input: {
     expectedHeadRef: pr.headRef,
     expectedBaseRef: pr.baseRef,
     publicationBranch: pubPlan.publicationBranch,
+    effectProviderMode,
   };
   const fingerprint = mergeEffectFingerprint(plan);
 
@@ -2083,6 +2085,22 @@ export async function dispatchMerge(input: {
   }
   if (pubRef.prNumber !== plan.prNumber || pubRef.effectAttemptId !== plan.publicationAttemptId) {
     throw new StudioError("REQUIRES_REQUALIFICATION", "Provenance publication incohérente");
+  }
+
+  const liveEffectMode = resolveConfiguredEffectProviderMode();
+  if (plan.effectProviderMode && plan.effectProviderMode !== liveEffectMode) {
+    const released = releaseClaim(readClaim(resultJson));
+    await casOwnedTransition({
+      attemptId: row.id,
+      claimToken,
+      fromStatus: "DISPATCHED",
+      toStatus: "REQUIRES_REQUALIFICATION",
+      resultJson: writeClaimInto(resultJson, released),
+    });
+    throw new StudioError(
+      "REQUIRES_REQUALIFICATION",
+      `Mode fournisseur d'effet divergé (plan=${plan.effectProviderMode}, live=${liveEffectMode})`,
+    );
   }
 
   const provider = resolveGitHubProvider();
@@ -2742,10 +2760,63 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
         note: "READ-ONLY: claim merge actif",
       };
     }
+
+    // ML4-REC-01 parity — never attribute a merge COMPLETED from the wrong provider mode.
+    const historicalMode = qualifyPlanEffectProviderMode(plan);
+    const liveMode = resolveConfiguredEffectProviderMode();
+    const providerMismatch =
+      (historicalMode === "REAL" || historicalMode === "SCRIPTED") &&
+      historicalMode !== liveMode;
+    const provenanceUnknown = historicalMode === "UNKNOWN";
+    if (providerMismatch || provenanceUnknown) {
+      const note = providerMismatch
+        ? `ML4-REC-01: mode fournisseur divergé (plan=${historicalMode}, live=${liveMode}) — observation merge refusée`
+        : "ML4-REC-01: provenance fournisseur UNKNOWN — aucune attribution D7/D8 merge depuis le provider live";
+      if (row.status === "COMPLETED") {
+        return {
+          attemptId,
+          status: "COMPLETED" as const,
+          facts,
+          note: `${note} — COMPLETED historique préservé`,
+        };
+      }
+      if (providerMismatch && (row.status === "AMBIGUOUS" || row.status === "DISPATCHED")) {
+        const released = releaseClaim(claim);
+        const cas = await casLiberateInactiveDispatch({
+          attemptId: row.id,
+          fromStatus: row.status,
+          toStatus: "REQUIRES_REQUALIFICATION",
+          resultJson: writeClaimInto(row.resultJson, released),
+        });
+        return {
+          attemptId,
+          status: cas ? ("REQUIRES_REQUALIFICATION" as const) : row.status,
+          facts,
+          note,
+        };
+      }
+      return { attemptId, status: row.status, facts, note };
+    }
+
     const provider = resolveGitHubProvider();
     try {
       const pr = await provider.getPullRequest(pilotId, plan.repositoryFullName, plan.prNumber);
       if (pr.state === "merged" && (row.status === "AMBIGUOUS" || row.status === "DISPATCHED")) {
+        // P0-02 — never present source HEAD as the merge commit SHA.
+        const mergeSha =
+          typeof pr.mergeCommitSha === "string" && /^[0-9a-f]{40}$/i.test(pr.mergeCommitSha)
+            ? pr.mergeCommitSha
+            : null;
+        if (!mergeSha) {
+          return {
+            attemptId,
+            status: row.status,
+            prState: pr.state,
+            prCurrentState: mapPrState(pr.state),
+            facts,
+            note: "PR mergée — merge_commit_sha absent ; COMPLETED non inventé",
+          };
+        }
         const released = releaseClaim(claim);
         const cas = await casLiberateInactiveDispatch({
           attemptId: row.id,
@@ -2753,7 +2824,7 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
           toStatus: "COMPLETED",
           resultJson: JSON.stringify({
             merged: true,
-            sha: pr.headSha,
+            sha: mergeSha,
             reconciled: true,
             claim: released,
           }),
@@ -2761,14 +2832,29 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
         if (cas) {
           await db
             .update(documentPublicationRefs)
-            .set({ status: "MERGED", headSha: pr.headSha, updatedAt: new Date() })
+            .set({ status: "MERGED", headSha: mergeSha, updatedAt: new Date() })
             .where(eq(documentPublicationRefs.id, plan.publicationRefId));
+          const hasMergeFact = facts.some((f) => f.factKind === "MERGE");
+          if (!hasMergeFact) {
+            await recordFact({
+              attemptId: row.id,
+              pilotId,
+              projectId,
+              factKind: "MERGE",
+              repositoryFullName: plan.repositoryFullName,
+              refName: plan.expectedBaseRef,
+              sha: mergeSha,
+              prNumber: plan.prNumber,
+              detail: { merged: true, reconciled: true, publicationRefId: plan.publicationRefId },
+            });
+          }
         }
         return {
           attemptId,
           status: cas ? "COMPLETED" : row.status,
           prState: pr.state,
           facts,
+          mergeSha,
         };
       }
       return {

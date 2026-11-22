@@ -113,6 +113,8 @@ describe("P0-02 mergePullRequestRemote SHA proof", () => {
           state: "open",
           html_url: "https://github.com/o/r/pull/10",
           merged: false,
+          mergeable: true,
+          mergeable_state: "clean",
           head: { sha: HEAD, ref: "studio/pub" },
           base: { sha: OTHER, ref: "main" },
         });
@@ -134,6 +136,86 @@ describe("P0-02 mergePullRequestRemote SHA proof", () => {
     expect(result.sha).toBe(MERGE);
   });
 
+  it("ACCESS_DENIED when mergeable=false (eligibility not demonstrated)", async () => {
+    const fetchImpl = vi.fn(async () =>
+      jsonResponse(200, {
+        number: 13,
+        title: "doc",
+        state: "open",
+        html_url: "https://github.com/o/r/pull/13",
+        merged: false,
+        mergeable: false,
+        mergeable_state: "dirty",
+        head: { sha: HEAD, ref: "studio/pub" },
+        base: { sha: OTHER, ref: "main" },
+      }),
+    );
+
+    await expect(
+      mergePullRequestRemote({
+        token: "t",
+        fullName: "o/r",
+        prNumber: 13,
+        expectedHeadSha: HEAD,
+        fetchImpl: fetchImpl as unknown as typeof fetch,
+      }),
+    ).rejects.toSatisfy(
+      (e: unknown) => isStudioError(e) && e.code === "ACCESS_DENIED" && /éligibilité/i.test(e.message),
+    );
+  });
+
+  it("ACCESS_DENIED when mergeable_state=blocked", async () => {
+    const fetchImpl = vi.fn(async () =>
+      jsonResponse(200, {
+        number: 14,
+        title: "doc",
+        state: "open",
+        html_url: "https://github.com/o/r/pull/14",
+        merged: false,
+        mergeable: true,
+        mergeable_state: "blocked",
+        head: { sha: HEAD, ref: "studio/pub" },
+        base: { sha: OTHER, ref: "main" },
+      }),
+    );
+
+    await expect(
+      mergePullRequestRemote({
+        token: "t",
+        fullName: "o/r",
+        prNumber: 14,
+        expectedHeadSha: HEAD,
+        fetchImpl: fetchImpl as unknown as typeof fetch,
+      }),
+    ).rejects.toSatisfy((e: unknown) => isStudioError(e) && e.code === "ACCESS_DENIED");
+  });
+
+  it("ACCESS_DENIED when eligibility not yet demonstrated (mergeable null)", async () => {
+    const fetchImpl = vi.fn(async () =>
+      jsonResponse(200, {
+        number: 15,
+        title: "doc",
+        state: "open",
+        html_url: "https://github.com/o/r/pull/15",
+        merged: false,
+        mergeable: null,
+        mergeable_state: null,
+        head: { sha: HEAD, ref: "studio/pub" },
+        base: { sha: OTHER, ref: "main" },
+      }),
+    );
+
+    await expect(
+      mergePullRequestRemote({
+        token: "t",
+        fullName: "o/r",
+        prNumber: 15,
+        expectedHeadSha: HEAD,
+        fetchImpl: fetchImpl as unknown as typeof fetch,
+      }),
+    ).rejects.toSatisfy((e: unknown) => isStudioError(e) && e.code === "ACCESS_DENIED");
+  });
+
   it("CONFLICT on HEAD drift before merge", async () => {
     const fetchImpl = vi.fn(async () =>
       jsonResponse(200, {
@@ -142,6 +224,8 @@ describe("P0-02 mergePullRequestRemote SHA proof", () => {
         state: "open",
         html_url: "https://github.com/o/r/pull/11",
         merged: false,
+        mergeable: true,
+        mergeable_state: "clean",
         head: { sha: OTHER, ref: "studio/pub" },
         base: { sha: HEAD, ref: "main" },
       }),

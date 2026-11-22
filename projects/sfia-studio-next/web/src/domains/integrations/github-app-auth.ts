@@ -1264,6 +1264,31 @@ export async function mergePullRequestRemote(input: {
     throw new StudioError("CONFLICT", "Base de PR périmée avant merge", { httpStatus: 409 });
   }
 
+  // Eligibility is observational — mergeable=true is never a D6/D7 mandate.
+  // Refuse when GitHub reports blocked/dirty/false, or when eligibility is not yet demonstrated.
+  const mergeableState = (current.mergeableState ?? "").toLowerCase();
+  if (current.mergeable === false || mergeableState === "dirty" || mergeableState === "blocked") {
+    throw new StudioError(
+      "ACCESS_DENIED",
+      `Fusion refusée — éligibilité GitHub insuffisante (mergeable=${String(current.mergeable)}, state=${current.mergeableState ?? "null"})`,
+      { httpStatus: 403 },
+    );
+  }
+  if (current.mergeable !== true || mergeableState === "unstable" || mergeableState === "unknown" || !mergeableState) {
+    throw new StudioError(
+      "ACCESS_DENIED",
+      `Fusion refusée — éligibilité GitHub non démontrée (mergeable=${String(current.mergeable)}, state=${current.mergeableState ?? "null"}) ; mergeable=true ≠ autorisation`,
+      { httpStatus: 403 },
+    );
+  }
+  if (mergeableState !== "clean") {
+    throw new StudioError(
+      "ACCESS_DENIED",
+      `Fusion refusée — mergeable_state=${mergeableState} (attendu clean)`,
+      { httpStatus: 403 },
+    );
+  }
+
   const raw = await ghJson<{
     merged?: boolean;
     sha?: string;
