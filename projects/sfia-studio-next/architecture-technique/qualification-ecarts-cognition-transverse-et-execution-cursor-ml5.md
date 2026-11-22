@@ -5,13 +5,13 @@
 | Champ | Valeur |
 | --- | --- |
 | Nature | **Document d'analyse exploratoire D0**, enregistré sur branche candidate ; non normatif, non décisionnel |
-| Version | v0.1 — 22 novembre 2026 |
-| Statut | **DOCUMENTED / INITIAL GAP ANALYSIS — NOT QUALIFIED FOR BUILD** |
+| Version | **v0.2 — 22 novembre 2026** ; consolidation du diagnostic technique et des arbitrages à instruire |
+| Statut | **DOCUMENTED / DEEPENED GAP ANALYSIS — NOT QUALIFIED FOR BUILD** ; options et questions non arbitrées |
 | Autorité de décision | Morris ; aucune adoption d'architecture inférée |
 | Source fonctionnelle candidate | [Contrat fonctionnel Nora transverse et Cursor](../conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md) — v0.3 validée en contenu par Morris, branche candidate |
 | Base Git du diagnostic | **main@997897fd7cf914771e7d08e8030dc7123fab7d25** ; branche candidate initiale **39c00f72c10e69f7981dd2490a0b68fc5e4b8d78** |
 | Worktree et index locaux | **NON OBSERVÉS** |
-| État de gouvernance | Ensemble 08 intégré sur main avec réserves ; **Gate C OPEN** ; aucun GO Cursor ML5, ni PR, merge, release ou ADOPTED déduit |
+| État de gouvernance | Ensemble 08 intégré sur main avec réserves ; **Gate C OPEN** ; aucun GO Cursor ML5, ni PR, merge, release ou ADOPTED déduit ; validation visuelle Morris de la page 12 Figma ne vaut pas gate technique |
 | Portée | Pré-qualification en lecture seule du code et de la documentation Next ; analyse à approfondir, **pas un contrat technique d'exécution** |
 
 > Ce document fixe les **premiers écarts observés** entre la vision fonctionnelle validée et la réalité du dépôt, afin de reprendre la qualification d'architecture ultérieurement. Il ne modifie ni SEF, ni Roadmap, ni ADR, ni spécifications R2 propriétaires ; il ne remplace pas une revue exhaustive des flux, invariants, tests et preuves LIVE/REAL.
@@ -84,7 +84,7 @@ La présence d'une classe ou d'un domaine n'est pas une preuve qu'un chemin util
 | # | Capacité visée | Fondations et indices vérifiés sur main | Écart candidat à instruire | Gravité initiale |
 | --- | --- | --- | --- | --- |
 | **E1** | Investigation cognitive transverse approfondie | Agents SDK, agent Nora, D4, historique, Git, profils et budgets existent | Pas de parcours de préparation longue, avec consolidation fiable inter-étapes et calibration opérationnelle **démontré** ; complexité de qualification à revoir | **Critique** |
-| **E2** | Recherche et lecture web transverse | Assemblage d'outils D4/historique/Git présent dans nora-adapter.ts | **Aucun outil web dans la liste et l'assemblage consultés** ; recherche, ouverture de page, provenance, sécurité et coûts à intégrer | Haute |
+| **E2** | Recherche et lecture web transverse | Assemblage d'outils D4/historique/Git présent dans nora-adapter.ts | **Aucun outil web dans la liste et l'assemblage consultés** ; recherche, ouverture de page, provenance, sécurité, SSRF/injection et coûts à intégrer | **Haute / frontière de confiance structurante** |
 | **E3** | Activité fonctionnelle Nora en continu | Indication « prépare une réponse », projection après tour, socle de télémétrie D3 | Pas de fil détaillé d'étapes et consultations en cours de réponse **démontré** ; lien événements/UX/continuité à établir | Haute |
 | **E4** | Contrat et instruction technique Cursor | D7 pour Git, D6 HumanDecision et contrôle d'effets, inspection Git | D7 courant traite publication/merge Git ; **voie Cursor non implémentée** ; identité/version et mandat technique à relier | **Critique** |
 | **E5** | Tentative Cursor et suivi durable | Effect attempts, lease/claim, gestion d'ambiguïté Git | Adaptation générique à Cursor, ACK/STOP/reprise et états observables sans deuxième orchestration | **Critique** |
@@ -258,7 +258,7 @@ Principaux risques : surcharge de contexte, budgets sous-calibrés, recherche we
 
 # 6. Préparation de la conception Figma — étape UX priorisée
 
-Le Pilote a souhaité **concevoir les écrans Figma avant de poursuivre l'étude d'architecture détaillée**. Cette séquence est compatible avec la nature exploratoire du présent diagnostic, à condition de garder visibles les limites de preuve.
+Le Pilote a souhaité **concevoir les écrans Figma avant de poursuivre l'étude d'architecture détaillée**. Les dix scènes candidates ont ensuite été construites sur [la page 12 Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1209-2), harmonisées avec les pages 10/11, puis **validées visuellement par Morris le 22/11/2026** ; cette validation porte sur la maquette et ne prouve pas les flux runtime. Cette séquence est compatible avec la nature exploratoire du présent diagnostic, à condition de garder visibles les limites de preuve.
 
 ## 6.1. Orientation
 
@@ -313,13 +313,143 @@ La qualification d'architecture devra trancher les dépendances réelles, propos
 
 # 8. Conditions de suite et verdict
 
-**Verdict de la présente analyse : INITIAL GAP ANALYSIS — DOCUMENTED / NON EXHAUSTIVE.**
+**Verdict de la présente analyse : DEEPENED GAP ANALYSIS — DOCUMENTED / NON EXHAUSTIVE.**
 
 - **Qualification fonctionnelle** : document v0.3 validé en contenu par Morris, prêt à servir de référence candidate pour UX et analyse technique.
 - **Architecture courante** : fondations partielles observées ; six écarts structurants à instruire.
-- **Priorité de travail retenue** : compléter et revoir les écrans **Figma Next** à partir du parcours UX v0.4, avant de reprendre le diagnostic architectural détaillé.
+- **UX candidat** : page 12 Figma créée et validée visuellement par Morris (22/11) ; consolidation technique et preuves d'intégration restent ouvertes.
 - **Construction** : aucune capacité ML5 Cursor prouvée ni autorisée ; **Gate C OPEN**.
 - **Publication** : contribution documentaire sur la **branche candidate existante uniquement**, sans PR ni merge. Aucune mutation du runtime ou des documents normatifs.
 - **Retour après Figma** : réviser la matrice d'écarts à partir des contrats visuels et approfondir les flux D3/D4/D6/D7/D8/D9, les preuves, le coût, les dépendances et les gates.
 
 **Documenté ≠ validé en architecture ≠ implémenté ≠ prouvé ≠ ADOPTED.**
+
+# 9. Deuxième passe de lecture Git — écarts techniques précisés
+
+## 9.1. D3 : frontière cognitive, profilage et réponse structurée
+
+Sources vérifiées sur `main@997897fd7cf914771e7d08e8030dc7123fab7d25` :
+- `web/src/domains/conversation/cognitive-policy.ts` : `qualifyCognitiveProfile()` choisit actuellement **investigation si message >600 caractères**, sinon **analyse**, sans classification sémantique de la complexité. Une très courte demande complexe conserve les outils de lecture mais ne reçoit pas nécessairement le bon effort ni les bons budgets.
+- `TEST_BOUNDARY` : profils contraints **4/8/12 maxProviderCalls**, **2/4/8 lectures D4+histoire**, **6/12/16 lectures Git**, **16k/32k/64k caractères**, **60/120/180 s**. Destinés au stress et non à un régime opérationnel. `OPERATIONAL_PROVISIONAL` n'est autorisé explicitement qu'en DEV ; `OPERATIONAL_VALIDATED` refuse actuellement de s'activer. Les plafonds provisoires ne sont ni validés ni preuve LIVE.
+- Un budget mutable partagé existe déjà : D4 et historique consomment `remainingCalls`, Git READ utilise `remainingGitCalls`, **tous** consomment `remainingChars`. `maxTurnsForPolicy()` passe un nombre de tours au Runner, et le code avertit que **maxTurns SDK ≠ nombre d'appels HTTP fournisseur**.
+- `web/src/domains/conversation/nora-adapter.ts` : un agent `@openai/agents`, outils D4/historique/Git et une **qualification structurée Zod dans le même tour logique**. Le code appelle `run(agent, prompt, { stream: false })` : choix correctif lié à des échecs de schema/streaming sur des investigations avec outils en novembre. **Ne pas réactiver un flux de JSON provisoire comme rendu utilisateur.**
+- `web/src/domains/conversation/semantic-qualification.ts` : `replyDraft` limité à **20 000 caractères**, proposition documentaire `documentProposal.contentMarkdown` limitée à **100 000 caractères**. Ces champs ne constituent pas un contrat canonique Cursor apte à garantir une instruction très longue et intègre. Les autres plafonds de champs et la limite d'intentions ne doivent pas être confondus avec une limite métier de profondeur d'investigation.
+- `web/src/domains/conversation/service.ts` : contexte courant injecté composé notamment des **6 derniers messages COMPLETE hors message en cours, chacun tronqué à 200 caractères**, d'une sélection D4, et de cinq titres de documents récents ; Nora dispose ensuite de lectures paginées/outillées. **Les titres ne valent pas lecture intégrale**.
+- `web/src/domains/conversation/mission-continuity.ts` et la continuité « facts-first » post-effet D4 existent, mais elles visent les **missions / effets gouvernés**, pas encore un dossier d'investigation cognitive multi-étapes généraliste. Ne pas assimiler une projection de mission à un orchestrateur de raisonnement durable.
+
+**Écart de capacité** : la fenêtre de contexte, la taille des sorties, les budgets, la couverture des sources et la reprise d'étapes doivent être coordonnés sur des cas complexes. Un budget plus grand ne résout pas seul la qualité de sélection, la conservation des restrictions ou les interruptions.
+
+## 9.2. Vérité des sources et qualité de lecture
+
+- `d4-read-tools.ts` explicite `COMPLETE | PARTIAL | EMPTY | DENIED | NOT_FOUND | STALE`, pagination et limites de taille ; c'est une base utile pour le diagnostic de **couverture effective**, pas une preuve de complétude d'un contrat.
+- `history-tools-sdk.ts` permet recherche paginée et relecture de messages précis, mais le budget partagé peut interrompre le parcours.
+- `git-read-tools.ts` dispose de protections `NOT_FOUND` qualifié versus lecture ambiguë et rapporte la couverture des extraits ; Nora Git est liée au **projectId** (Git absent du sas sans projet, sans qu'une source Git soit automatiquement créée).
+- Sources découvertes, lues, relues, complètes, partielles, interdites et périmées doivent être distinguées dans la synthèse de travail et dans les assertions de Nora.
+
+**Conséquence** : le contrat peut devenir « prêt » seulement si les dépendances *déterminantes* ont été effectivement examinées et que les incertitudes résiduelles sont admissibles ; la navigation d'outil et la taille brute ne suffisent pas.
+
+## 9.3. Continuité durable et résultat terminal
+
+- `conversation_turn_commands` existe avec `conversationId`, `clientTurnKey`, fingerprint, `operationId`, statuts, `generationId`, `resultJson`, `ownerToken` et timestamps ; unicité du tour et de l'opération.
+- `turn-command.ts` assure réservation, heartbeat/lease, fencing d'écriture, réconciliation prudente `RUNNING/ACCEPTED → UNKNOWN` et stockage intermédiaire de qualification avec CAS. C'est une **frontière de reprise et d'autorité existante**, pas la preuve qu'un long travail cognitif reprend effectivement au bon sous-stade après coupure.
+- `turn-projection.ts` produit après le terminal une activité résumée (« sources consultées » ou échec/incertitude), sans séquence d'étapes détaillée, ni agrégation fiable de chaque outil Git/web dans l'interface.
+- Route `web/src/app/api/preparations/[preparationId]/messages/route.ts` : POST attend `postUserMessageAndNora` et renvoie JSON final ; aucun transport de progression SSE/WebSocket n'a été observé sur ce chemin.
+- `NoraConversation.tsx` et `PreparationConversation.tsx` montrent des statuts de préparation/erreur ; pas encore le parcours fonctionnel live de la page 12 démontré.
+
+**Conséquence** : l'observabilité et la conservation des acquis utiles doivent être dessinées séparément de la restitution finale, mais **sans créer un second registre canonique de conversation, de mission ou de décisions**. Un événement « consultation réussie » doit être fondé sur l'outil réellement observé ; une intention d'étape est un simple commentaire fonctionnel.
+
+## 9.4. D6/D7/D8 : réutilisation prudente, pas généralisation automatique
+
+- `domains/execution/types.ts` : `EffectKind = GIT_PUBLICATION | GIT_MERGE` ; les plans sont GitHub-spécifiques.
+- `domains/execution/effect-service.ts`, `effect-authority.ts`, `claim-lease.ts` : empreinte de mandat, `HumanDecision`, droits au point d'effet, claim/lease et états incertains déjà développés pour Git. `effect_attempts` est une table D7 de tentatives Git dont les conditions et le `planJson/resultJson` sont persistés.
+- `domains/proofs/qualify.ts` : qualification de faits Git, avec `testsPass=false`, `conformityProven=false`, `morrisAcceptance=false`, `adopted=false` par défaut. Cette prudence doit être conservée pour Cursor ; **l'outil Git D8 ne qualifie pas encore des preuves Cursor**.
+- L'extension Cursor doit **isoler la logique du fournisseur** et reprendre les invariants D6/D7 existants ; aucune abstraction générique totale ni nouvelle table/migration n'est décidée à ce stade.
+
+## 9.5. Scènes Figma vérifiées en conception
+
+La [page 12 « ML5 — Exécution & Résultats »](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1209-2) contient les dix scènes candidate 12.01–12.10 : activité Nora, contrat 50/50, confirmation, historique, fiche, suivi en attente, état incertain, bilan consultatif, reprise de bilan dans le fil, sas.
+
+Morris a validé **le contenu et l'harmonisation visuelle** au 22/11/2026. Ce verdict n'accepte ni les API, ni la persistance, ni l'exécution Cursor, ni les résultats LIVE/REAL.
+
+# 10. La recherche web : quatrième décision technique structurante
+
+## 10.1. Niveau de risque et nature de la décision
+
+La recherche web peut exploiter des interfaces fournisseurs standard, mais **l'intégration cognitive dans Next ne se limite pas à brancher un endpoint**. Elle ouvre une **frontière de confiance externe** et une nouvelle famille d'outils, susceptible d'influencer tous les travaux de Nora. Il faut donc la qualifier **explicitement** avant construction, au même niveau d'attention que l'activité et la continuité cognitive. Aucun nouveau macro-lot isolé n'est créé par principe.
+
+Le risque principal n'est pas l'invocation de recherche : c'est **l'utilisation d'une information externe comme base d'un contrat technique ou d'une recommandation**, avec une consultation incomplète, trompeuse ou hostile.
+
+## 10.2. Contrat cible à instruire
+
+| Dimension | Exigence d'étude / preuve |
+| --- | --- |
+| **Découverte** | Requête utile ; source retenue, résultat et page ouverts distincts |
+| **Lecture réelle** | Accès au contenu pertinent, pagination/troncature, HTML/PDF, refus, indisponibilité et dates |
+| **Traçabilité** | URL, publication/version quand disponible, date de consultation, extrait utile, couverture COMPLETE/PARTIAL/STALE/UNKNOWN |
+| **Confrontation** | Documentation officielle privilégiée mais non présumée applicable ; contradiction et versionnement conservés |
+| **Sécurité** | Sources non fiables ; prompt injection, fuite de secrets, exfiltration, SSRF, redirections, URL privées et accès non autorisé |
+| **Effets** | Lecture seule par défaut ; aucune écriture ou action web induite par la page |
+| **Coût/charge** | Appels, profondeur, taille des extraits, tokens, taux d'échec, latence et limites fournisseur |
+| **Transversalité** | Sas, conversation, documentation, revue et préparation Cursor via la même capacité cognitive D3 |
+
+Il faudra comparer **au moins le moyen de recherche et le moyen de lecture de pages**, qui ne sont pas forcément identiques. La possibilité native d'un fournisseur n'est pas une preuve de disponibilité opérationnelle dans Next ; toute nouvelle surface devra être testée sur la version effectivement retenue et les droits disponibles.
+
+**Statut : FOURTH TECHNICAL DECISION TO QUALIFY / NOT APPROVED.** Aucun fournisseur, API, hébergement, service de lecture ou coût n'est choisi ici.
+
+# 11. Les quatre axes de décision à instruire avant la construction
+
+| Axe | Question | Orientation candidate et limite | Dépendance / gate |
+| --- | --- | --- | --- |
+| **A — Continuité cognitive** | Comment Nora prépare-t-elle une réponse/contrat complexe en plusieurs étapes sans perdre les sources et restrictions ? | Prolonger D3+D4+journal de tour ; sélectionner/approfondir/consolider avec provenance, sans second moteur ni limite arbitraire de longueur | En priorité ; arbitrage Morris sur nouveau moteur/persistance si nécessaire |
+| **B — Recherche web** | Comment Nora consulte-t-elle des pages publiques utiles et non fiables, dans tous ses travaux ? | Extension lecture seule et sourcée de la famille d'outils D3, sécurité centrale, couverture et budgets ; ne pas déduire d'actions | Étudier en interface avec A ; gate sécurité/provider si changement structurant |
+| **C — Activité fonctionnelle** | Comment rendre visibles les actions pertinentes pendant le travail sans exposer le raisonnement privé ? | Événements réels + phases annoncées distinguées ; projection UI transverse sans flux de JSON Zod provisoire | Dépend de A/B et de l'observabilité existante ; preuve SDK/UX |
+| **D — Réalisation Cursor gouvernée** | Comment raccorder un exécuteur technique, ses tentatives et ses résultats sans doubler D7 ? | Comparer CLI/API Cloud/SDK sur documentation et tests actuels ; contrat versionné, D6, D7, D8 et identité séparés | Arbitrage fournisseur et permissions ; migration éventuelle = gate Morris |
+
+**Priorisation :** A en premier pour stabiliser les contrats cognitifs ; B et C sont des interfaces à concevoir conjointement à A ; D dépend de la fiabilité d'A et de l'autorité D6/D7, mais peut être étudié sans activer de construction.
+
+# 12. Début de qualification de l'axe A — continuité cognitive
+
+## 12.1. Objectif utilisateur et frontière
+
+Nora doit pouvoir traiter **une demande complexe même très courte**, identifier les ressources pertinentes, consulter les sources réelles en plusieurs étapes, suivre les liens, consolider les informations utiles et produire un résultat complet **sur les points déterminants**. Elle doit dire explicitement quand une source indispensable reste inaccessible. Les demandes simples ne doivent pas payer systématiquement le coût d'une enquête longue.
+
+Le résultat final peut être une réponse, une proposition, une documentation D4 ou un contrat Cursor canonique. **La conduite cognitive n'est ni l'exécution d'un effet, ni une HumanDecision, ni une certification de conformité.**
+
+## 12.2. Trois stratégies techniques à comparer — aucune adoptée
+
+**Option A1 — Boucle agent/outils existante enrichie.** Garder un seul tour logique et les outils existants avec un profilage sémantique/calibré, recherche progressive, contrôle de couverture et sorties cohérentes. **Avantages** : peu de nouvelles surfaces et continuité des fences actuelles. **Limites** : durée/fenêtre/contexte et échec tardif ; capacité de reprise granulaire non démontrée.
+
+**Option A2 — Investigation séquencée dans la conduite D3 existante.** Plusieurs étapes internes liées à la même intention, avec synthèses sourcées, étapes restantes et points de contrôle ; restitution finale contractuelle séparée. **Avantages** : traite les investigations longues, bornées, progressives. **Risques** : consolidation inexacte, coût, concurrence et persistance des étapes ; doit préserver les propriétés du journal courant, l'ownership et les restrictions. **Aucun moteur parallèle** ne doit être déduit de l'option.
+
+**Option A3 — Travail durable autonome de longue durée.** Conduite reprenable après panne/fermeture, avec progression, ownership et état d'investigation résiduel. **Avantages** : résilience accrue pour les très longues tâches. **Risques** : infrastructure et persistance additionnelles, dette/complexité, surfaces d'autorité concurrentes. **À retenir uniquement si A1/A2 ne satisfont pas les scénarios probants.**
+
+### Hypothèse de préférence pour la discussion
+
+**A2 est une hypothèse de travail, non un arbitrage** : séquençage proportionné sur les interfaces D3/D4/journal existantes, sans nouveau moteur d'orchestration global. Une enquête ne serait divisée en plusieurs étapes que si le besoin, le coût ou le volume des sources le justifie, et non pour imposer artificiellement plusieurs tours à chaque message.
+
+Le détail des objets de consolidation, du contrôle de couverture, des événements, de la conservation/reprise et des limites techniques reste **à concevoir et à tester** avant tout GO Cursor.
+
+## 12.3. Cas discriminants à prouver
+
+| Cas | Attente |
+| --- | --- |
+| Demande de cinq mots à fort enjeu | Profilage non basé sur la seule longueur, investigation adaptée |
+| Documents dépendants (A renvoie à B) | Chaîne de références suivie jusqu'à couverture utile |
+| Source obligatoire interdite ou tronquée | Résultat concerné non déclaré prêt ; limite intelligible |
+| Deux versions/branches contradictoires | Confrontation par ref/date/autorité, sans synthèse qui efface le désaccord |
+| Plusieurs centaines de pages utiles | Contexte préservé progressivement, sans chargement brut simultané |
+| Requête simple | Réponse rapide sans sur-orchestration |
+| Limite outil/context/source en cours | État PARTIAL/UNKNOWN conservé, pas de contrat final fictivement complet |
+| Timeout et réponse réseau incertaine | Même intention identifiée, aucun effet doublonné ni reprise inventée |
+| Nouvelle information après consolidation | Réouverture ciblée de la partie affectée, pas d'effacement global des acquis |
+| Préparation d'instruction très longue | Aucune troncature silencieuse ; contenu inspecté = contenu candidat à transmettre |
+
+## 12.4. Frontières de responsabilité et reste à qualifier
+
+- **D3** conduit l'étude, choisit les lectures utiles et consolide ; interprétation sémantique de Nora, pas de routeur lexical concurrent.
+- **D4/historique/D9/Web** délivrent données, références, droits, versions, couverture et événements de consultation ; aucune autorité métier depuis une source.
+- **Journal de tour** conserve l'intention et la vérité transactionnelle existante ; toute persistance intermédiaire additionnelle nécessite une étude du blast radius et, si structurante, un gate Morris.
+- **D6/D7/D8** demeurent propriétaires de l'autorisation, de la tentative et du verdict probatoire ; une étape cognitive n'accomplit aucun de leurs effets.
+- **Observabilité/UI** projettent des événements attestés et des phases déclarées distinctes ; pas de chaîne de pensée ou logs secrets.
+
+**Question structurante pour la suite de la revue :** faut-il garantir dès ML5 la **reprise automatique après interruption d'une investigation longue**, ou la capacité attendue est-elle d'abord une **investigation séquencée fiable pendant une session**, avec restitution explicite d'état partiel/UNKNOWN en cas de coupure ? Ce choix change sensiblement le coût, les objets persistés et les preuves ; il ne doit pas être déduit de l'approbation du contrat fonctionnel.
