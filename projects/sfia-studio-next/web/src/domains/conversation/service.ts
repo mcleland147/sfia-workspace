@@ -135,6 +135,12 @@ import {
   type PublicationEffectView,
 } from "./publication-effect-restitution";
 import {
+  buildPublicationEffectViewFromAttempt,
+  formatPublicationOwnerFactsSnippets,
+  loadLatestCompletedPublicationSnippet,
+} from "./publication-effect-view";
+import { listProjectPublications } from "@/domains/integrations/publication-projection-service";
+import {
   confirmPublicationDocumentWithD4,
   resolvePublicationDocumentTarget,
 } from "./publication-document-target";
@@ -1053,6 +1059,27 @@ export async function postUserMessageAndNora(
   // Prior-turn D5/D6 facts still arrive via buildNoraPilotageContext projection only.
   const pilotageCtx = await buildNoraPilotageContext(pilotId, preparationId, content);
 
+  // E08 — owner publication facts for follow-up verification (branch/path/SHA/PR).
+  // Read-only D8 projection; never invents merge. Bounded to avoid context bloat.
+  const publicationOwnerSnippets: string[] = [];
+  if (ctx.project?.id) {
+    try {
+      const listed = await listProjectPublications(pilotId, ctx.project.id);
+      publicationOwnerSnippets.push(
+        ...formatPublicationOwnerFactsSnippets(listed.publications, 3),
+      );
+      if (publicationOwnerSnippets.length === 0) {
+        const latest = await loadLatestCompletedPublicationSnippet({
+          pilotId,
+          projectId: ctx.project.id,
+        });
+        if (latest) publicationOwnerSnippets.push(latest);
+      }
+    } catch {
+      /* projection unavailable — Nora still has git READ tools when projectId set */
+    }
+  }
+
   let reply;
   try {
     // Heartbeat during long provider work so stale lease does not falsely orphan an active run.
@@ -1063,7 +1090,11 @@ export async function postUserMessageAndNora(
       reply = await generateNoraReply({
         userText: content,
         contextSnippets,
-        knowledgeSnippets: [...knowledgeForNora.snippets, ...docSnippets],
+        knowledgeSnippets: [
+          ...knowledgeForNora.snippets,
+          ...docSnippets,
+          ...publicationOwnerSnippets,
+        ],
         pilotageSnippets: pilotageCtx.snippets,
         // C01: same structured Level A contract for fixture and LIVE — never authority.
         levelASignals: pilotageCtx.levelASignals,
@@ -2859,15 +2890,26 @@ export async function postUserMessageAndNora(
             prepStep.status = "DONE";
             missionStatus = "COMPLETED";
             goalSummary = "Publication Git (mandat conversationnel + effet terminé)";
-            publicationEffectView = {
-              attempted: true,
-              outcome: "COMPLETED",
-              documentTitle: pubTarget.title,
-              revisionNumber: pubTarget.revisionNumber,
-              attemptId: prepared.attemptId,
-              decisionId: mandateAdmission.decisionId,
-              repositoryFullName: missionIntent.repositoryHint,
-            };
+            publicationEffectView =
+              (await buildPublicationEffectViewFromAttempt({
+                pilotId,
+                projectId: ctx.project.id,
+                attemptId: prepared.attemptId,
+                outcome: "COMPLETED",
+                documentTitle: pubTarget.title,
+                revisionNumber: pubTarget.revisionNumber,
+                decisionId: mandateAdmission.decisionId,
+              })) ?? {
+                attempted: true,
+                outcome: "COMPLETED",
+                documentTitle: pubTarget.title,
+                revisionNumber: pubTarget.revisionNumber,
+                attemptId: prepared.attemptId,
+                decisionId: mandateAdmission.decisionId,
+                repositoryFullName: missionIntent.repositoryHint,
+                commitSha: mandateAdmission.missionResume?.commitSha ?? null,
+                prNumber: mandateAdmission.missionResume?.prNumber ?? null,
+              };
           } else if (
             resumeStatus === "DISPATCHED" ||
             resumeStatus === "AMBIGUOUS" ||

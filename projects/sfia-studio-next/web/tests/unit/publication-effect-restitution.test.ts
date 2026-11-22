@@ -81,6 +81,36 @@ describe("publication-effect-restitution", () => {
     expect(out).not.toMatch(/reste à confirmer/i);
   });
 
+  it("COMPLETED restitution includes path, commit, PR and file link (PR#19 shape)", () => {
+    const out = composePublicationEffectRestitution({
+      priorContent: "",
+      effect: {
+        attempted: true,
+        outcome: "COMPLETED",
+        documentTitle: "Références externes — Enseignements de Chantiers360",
+        revisionNumber: 2,
+        repositoryFullName: "mcleland147/chantiers360",
+        publicationBranch: "sfia/pub-3ab1e0c2eb6b7499",
+        targetPath: "references-externes-enseignements-chantiers360.md",
+        baseBranch: "main",
+        commitSha: "16f9961ef2ee6d13235e56059313f691521947fd",
+        prNumber: 19,
+        prUrl: "https://github.com/mcleland147/chantiers360/pull/19",
+        fileUrl:
+          "https://github.com/mcleland147/chantiers360/blob/16f9961ef2ee6d13235e56059313f691521947fd/references-externes-enseignements-chantiers360.md",
+        mergeObserved: false,
+      },
+    });
+    expect(out).toMatch(/a été publié/i);
+    expect(out).toMatch(/sfia\/pub-3ab1e0c2eb6b7499/);
+    expect(out).toMatch(/references-externes-enseignements-chantiers360\.md/);
+    expect(out).toMatch(/16f9961ef2ee6d13235e56059313f691521947fd/);
+    expect(out).toMatch(/PR #19/);
+    expect(out).toMatch(/github\.com\/mcleland147\/chantiers360\/pull\/19/);
+    expect(out).toMatch(/Aucune fusion vers `main`/i);
+    expect(out).not.toMatch(/fusionnée/i);
+  });
+
   it("UNKNOWN does not announce success or definitive refusal", () => {
     const out = composePublicationEffectRestitution({
       priorContent: "Je publie le document sur GitHub.",

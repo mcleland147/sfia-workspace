@@ -335,6 +335,26 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
     expect(["COMPLETED", "DISPATCHED", "AMBIGUOUS"]).toContain(attempt?.status);
     expect(attempt?.decisionId).toBe(prepStep?.decisionId);
 
+    // P0 restitution: COMPLETED assistant must carry owner branch/path/commit (not sparse).
+    if (attempt?.status === "COMPLETED") {
+      const msgs = await listMessages(pilotId, preparationId);
+      const last = msgs[msgs.length - 1];
+      expect(last?.role).toBe("assistant");
+      expect(last?.content ?? "").toMatch(/a été publié/i);
+      expect(last?.content ?? "").toMatch(/docs\/studio-next\/e08-mandate\.md/);
+      expect(last?.content ?? "").toMatch(/Aucune fusion/i);
+      const result = JSON.parse(attempt.resultJson || "{}") as {
+        commitSha?: string;
+        prNumber?: number;
+      };
+      if (result.commitSha) {
+        expect(last?.content ?? "").toContain(result.commitSha);
+      }
+      if (result.prNumber != null) {
+        expect(last?.content ?? "").toMatch(new RegExp(`PR #${result.prNumber}`));
+      }
+    }
+
     const hd = (
       await db
         .select()

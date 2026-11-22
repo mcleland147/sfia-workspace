@@ -24,6 +24,16 @@ export type PublicationEffectView = {
   revisionNumber?: number | null;
   repositoryFullName?: string | null;
   publicationBranch?: string | null;
+  /** Documentary path on the remote (owner plan / D8). */
+  targetPath?: string | null;
+  /** Base branch of the publication plan (usually main) — not the publication branch. */
+  baseBranch?: string | null;
+  commitSha?: string | null;
+  prNumber?: number | null;
+  prUrl?: string | null;
+  fileUrl?: string | null;
+  /** True only when a MERGE D8 fact exists — never inferred from PR_OPEN. */
+  mergeObserved?: boolean;
   attemptId?: string | null;
   decisionId?: string | null;
 } | null;
@@ -115,13 +125,49 @@ function terminalFacts(effect: NonNullable<PublicationEffectView>): string[] {
 
   switch (effect.outcome) {
     case "COMPLETED": {
+      const path = effect.targetPath?.trim();
+      const sha = effect.commitSha?.trim();
+      const prNumber = effect.prNumber;
+      const prUrl = effect.prUrl?.trim();
+      const fileUrl = effect.fileUrl?.trim();
+      const base = effect.baseBranch?.trim();
       const lines = [
         `Le document ${doc} a été publié` +
           (repo ? ` dans le dépôt \`${repo}\`` : "") +
           (branch ? `, sur la branche \`${branch}\`` : "") +
+          (path ? `, chemin \`${path}\`` : "") +
           ".",
-        "Aucune fusion n'a été effectuée.",
       ];
+      if (sha) {
+        lines.push(`Commit : \`${sha}\`.`);
+      }
+      if (fileUrl) {
+        lines.push(`Fichier : ${fileUrl}`);
+      } else if (repo && branch && path) {
+        lines.push(
+          `Fichier (branche) : https://github.com/${repo}/blob/${branch}/${path}`,
+        );
+      }
+      if (prNumber != null) {
+        lines.push(
+          prUrl
+            ? `Demande de fusion : PR #${prNumber} — ${prUrl}`
+            : `Demande de fusion : PR #${prNumber}.`,
+        );
+      }
+      if (effect.mergeObserved === true) {
+        lines.push(
+          base
+            ? `Une fusion vers \`${base}\` a été observée (fait Studio).`
+            : "Une fusion a été observée (fait Studio).",
+        );
+      } else {
+        lines.push(
+          base
+            ? `Aucune fusion vers \`${base}\` n'a été effectuée.`
+            : "Aucune fusion n'a été effectuée.",
+        );
+      }
       return lines;
     }
     case "REFUSED_WRITE_DISABLED":

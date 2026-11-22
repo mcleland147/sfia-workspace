@@ -73,6 +73,13 @@
 - **Correction** : reprise clarification publication (pas de S05 self-block) + chemin racine documentaire (`DOCUMENTARY_ROOT`) + mandat D6 avec `missionClientIntentKey` distinct du turn key.
 - Preuve PG : `mission-continuity-accept01` UAT-GIT-PUB-01 PASS (SCRIPTED). REAL E2E : à revalider UAT Morris.
 
+### Chaîne Git restitution / vérif (2026-11-22)
+- **Oracle REAL READ** : PR #19 `mcleland147/chantiers360` · mission `pub:mission:turn-67d643cc-…` · attempt `efx_cf6763da-…` COMPLETED · D8 `dpr_7f10c5e4-…` PR_OPEN · commit `16f9961e…` · blob `7518405f…` · fichier **présent** sur branche pub · **404** sur `main` · PR OPEN non merged.
+- **Cause restitution sparse** : `publicationEffectView` same-turn non hydraté depuis `planJson`/`resultJson`/D8 ; `terminalFacts` COMPLETED sans path/SHA/PR/liens ; follow-up sans snippets owner.
+- **Correction** : `publication-effect-view.ts` (`buildPublicationEffectViewFromAttempt`) · restitution COMPLETED enrichie · snippets `listProjectPublications` avant Nora · `toolScope` sur `cognitiveContinueFromFacts` resume.
+- Matrice : `matrice-capacites-git-chaine-2026-11-22.md`
+- PUBLISH ≠ MERGE conservé (`mergeObserved` uniquement sur fait MERGE).
+
 ## Non livré / réserves
 - Figma G5 géométrie 11.06 (F2) : **PROVEN** en DEV SCRIPTED — acceptation visuelle Morris UAT distincte
 - END-TO-END REAL mutation GitHub : **NOT PROVEN** (sandbox/GO WRITE non nommé ce lot)

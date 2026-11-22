@@ -21,6 +21,7 @@ import { extractPublicationBranchHint as extractBranchHintStrict } from "./conve
 import { generateNoraReply } from "./nora-adapter";
 import type { DocumentEffectSummary } from "./document-act";
 import { composePublicationEffectRestitution } from "./publication-effect-restitution";
+import { buildPublicationEffectViewFromAttempt } from "./publication-effect-view";
 import { getDocumentRevision } from "@/domains/document/service";
 
 export type MissionStatus =
@@ -616,18 +617,31 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
   let restitution: string;
   let cognitiveContinue: "DELIVERED" | "CANONICAL" | "SKIPPED" = "CANONICAL";
   if (status === "COMPLETED") {
-    restitution = composePublicationEffectRestitution({
-      priorContent: "",
-      effect: {
-        attempted: true,
+    const hydrated =
+      (await buildPublicationEffectViewFromAttempt({
+        pilotId: input.pilotId,
+        projectId: input.projectId,
+        attemptId: input.attemptId,
         outcome: "COMPLETED",
+        documentTitle,
+        revisionNumber,
+        decisionId: input.decisionId ?? row.decisionId,
+      })) ?? {
+        attempted: true as const,
+        outcome: "COMPLETED" as const,
         documentTitle,
         revisionNumber,
         repositoryFullName: repoName,
         publicationBranch: branchName,
+        targetPath: plan.targetPath?.trim() || null,
+        commitSha,
+        prNumber,
         attemptId: input.attemptId,
         decisionId: input.decisionId ?? row.decisionId,
-      },
+      };
+    restitution = composePublicationEffectRestitution({
+      priorContent: "",
+      effect: hydrated,
     });
   } else if (status === "DISPATCHED" || status === "AMBIGUOUS") {
     restitution = composePublicationEffectRestitution({
@@ -679,6 +693,14 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
           "L'autorisation Pilote a été accordée et l'effet de publication a été traité. Restitue le résultat.",
         factsBlock,
         contextSnippets: [],
+        toolScope: plan.preparationId
+          ? {
+              pilotId: input.pilotId,
+              preparationId: plan.preparationId,
+              projectId: input.projectId,
+              operationId: `mission-resume:${input.attemptId}`,
+            }
+          : undefined,
       });
       if (continued.status === "COMPLETE" && continued.content.trim()) {
         restitution = composePublicationEffectRestitution({

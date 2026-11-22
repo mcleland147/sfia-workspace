@@ -3,6 +3,20 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-CHAIN-FIABILISATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 07:45 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — fiabilisation chaîne Git Nora↔Studio↔GitHub |
+| Type | INC / EVOL / QA · CRITICAL · **NO RELEASE** |
+| Oracle | PR #19 chantiers360 · attempt `efx_cf6763da…` · mission `turn-67d643cc…` |
+| Cause | restitution COMPLETED sparse ; follow-up sans faits D8 ; READ main mal contextualisé |
+| Fix | hydrate view depuis D7/D8 · terminalFacts path/SHA/PR/liens · snippets owner · toolScope resume |
+| Preuves | unit restitution+view · PG accept01 enrichi · REAL READ PR#19/blob/main-404 |
+| REAL E2E mutation | **NOT** (aucune nouvelle mutation Cursor) |
+| Push projet | **NONE** |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-UAT-GIT-PUB-01-CUTOVER
 
 | Field | Value |
