@@ -3,6 +3,27 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-POSTMERGE-CI
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 (Europe/Paris) |
+| Macro-lot | E08 — intégration Git vérifiée |
+| Type | Sortie post-merge factuelle · **NO RELEASE** |
+| GO | Morris : merge autorisé distinctement, HEAD `f11de65f98c3a0429e45c9f2c3935633840aec12` avec réserves et correctif runtime post-RECETTE |
+| PR | [#690](https://github.com/mcleland147/sfia-workspace/pull/690) MERGED |
+| Main avant | `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
+| Main après / merge | `8620b08bfe86fdf92af0c02756ee980f60964490` (parents : `a12f89a15…` et `f11de65f…`) |
+| Tree intégré | `8786e7d39d2653fdad78d65e41c062b4b09b6e2e` |
+| CI PR | [#45036729361](https://github.com/mcleland147/sfia-workspace/actions/runs/45036729361) **SUCCESS** |
+| CI post-merge | [#45039130531](https://github.com/mcleland147/sfia-workspace/actions/runs/45039130531) **SUCCESS** sur SHA de merge exact |
+| Revue | `sfia/review-handoff@84309eb719280d1551e84f1f531ccc442b2c4c88` · blob `53fa6bf2c7621dbba00bcb021eecfc6dc2e6ca5b` |
+| RECETTE | SOURCE `10128bdb6bb1020a0fd8d4976b91879bff26c3b3` / BUILD `2uHrYBsQUvf6aii40hMpj` **inchangés** |
+| Runtime post-RECETTE | Correctif deep-link `documentId` dans `page.tsx` intégré après UAT ; CI PASS, nouveau build RECETTE non accepté |
+| Réserves | MERGE REAL / Nora LIVE merge NOT PROVEN, WRITE-07, PREVIEW PARTIAL, audit D6/D7/D8 REAL partiel, règles GitHub incomplètement observées, R6 non effectué |
+| Gates | Gate C OPEN ; NO RELEASE ; STABLE NOT AVAILABLE ; E08 NOT ADOPTED |
+| Verdict | **E08 MERGED — POST-MERGE CI VERIFIED — WITH DOCUMENTED RESERVES** |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-CI-STABILIZATION-PR690
 
 | Field | Value |
