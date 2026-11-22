@@ -133,8 +133,16 @@
 - **Cause prouvée** : (1) `preparePublication` forçait toujours `publicationBranchFromCorrelationKey` — **premier point de divergence** au prepare D7 ; (2) extraction « Branche à créer : \`…\` » manquante → garde D6 `assertPublicationMandateCoversPlan` ne déclenchait pas `PLAN_DRIFT`.
 - **Correction** : `resolvePublicationBranchName` (explicite > hash) ; `preparePublication({ publicationBranch })` ; wiring mission/service ; regex labeled ; `extractExplicitPublicationBranch`.
 - Auto-génération **conservée** si aucune tête explicite.
-- RECETTE runtime **INCHANGÉ** (`7115e932` / `OwQrOGhC9rwk_Dtj31OcM`) — pas de cutover ce cycle ; PR#19/#20 **non mutées**.
 - Preuves : unit **848** PASS · PG accept01 **11** PASS · tsc PASS · GitHub REAL mutation **NONE**.
+
+### Cutover RECETTE — mandat WRITE branche (2026-11-22 ≈ 11:32 CET)
+- **GO Morris** honoré : SOURCE `24a8fa9e…` · TREE `ece43cdb…` · BUILD `qCQGWLYYGb0ZCA4BLfzBi` (sans rebuild).
+- **AVANT** : `7115e932…` / `OwQrOGhC9rwk_Dtj31OcM` · service `ml4d-ux004`.
+- **APRÈS** : même service/port/DB · worktree `…/mandate-build-24a8fa9e` · HTTP `<!--qCQGWLYYGb0ZCA4BLfzBi-->`.
+- Backup + restore proof PASS · métriques DB stables · PR#19/#20 D8 intactes · REAL+documentary conservés · **zéro** mutation GitHub.
+- Rollback prêt vers `7115e932` / `OwQrOGhC9rwk_Dtj31OcM` (non exercé).
+- Manifeste : `manifeste-cutover-recette-e07-plus-e08.md` (section courante).
+- **UAT Morris** : GIT-WRITE-UAT-04 (nouveau doc/rév. + branche explicite) · PR#20 non corrigée rétroactivement · Nora LIVE E2E **NOT PROVEN** par smoke.
 
 ## Non livré / réserves
 - Figma G5 géométrie 11.06 (F2) : **PROVEN** en DEV SCRIPTED — acceptation visuelle Morris UAT distincte

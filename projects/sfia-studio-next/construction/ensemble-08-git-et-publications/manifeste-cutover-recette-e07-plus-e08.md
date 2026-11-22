@@ -1,13 +1,87 @@
 # Manifeste ENV-01 — Cutover RECETTE (journal)
 
-## Cutover courant — E08 CORRECTIVE HARDENING (2026-11-22)
+## Cutover courant — E08 WRITE MANDATE BRANCH CORRECTIVE (2026-11-22)
+
+| Champ | Valeur |
+| --- | --- |
+| Date/heure cutover | 2026-11-22 ≈ 11:32 CET (UTC 10:32) |
+| Classe | **NO RELEASE** |
+| Lane | **RECETTE existante** (`STUDIO_LANE=RECETTE`, port **3200**) |
+| Cutover | **EXECUTED** — GO Morris triplet exact honoré |
+| STABLE | NOT AVAILABLE / non modifié |
+| E08 ADOPTED | **NON** |
+| Verdict | **RECETTE AVAILABLE — E08 WRITE MANDATE CORRECTIVE SERVED — MORRIS UAT REQUIRED** |
+
+### GO Morris (borné)
+
+| Champ | Valeur |
+| --- | --- |
+| SOURCE_SHA | `24a8fa9e7ad6cc2fa961496a915f13cea542d4a8` |
+| TREE | `ece43cdb8c008b855c381d50f112f8b86e5a2207` |
+| BUILD_ID | `qCQGWLYYGb0ZCA4BLfzBi` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-mandate-build-24a8fa9e` |
+| Rebuild | **NONE** — artefact figé réutilisé (mtime BUILD_ID 2026-11-22 11:26:32) |
+| Push/PR/merge projet | **NONE** |
+| Mutation GitHub / merge PR#19/#20 | **NONE** |
+
+### Runtime AVANT
+
+| Champ | Valeur |
+| --- | --- |
+| SOURCE_SHA | `7115e932dad8628af13cd5dcbf1fefc3a227c81e` |
+| TREE | `bdfd5648f9dbc2ba49dda2863e6957c606d4cec6` |
+| BUILD_ID | `OwQrOGhC9rwk_Dtj31OcM` |
+| Script | `…/ensemble08-corrective-build-7115e932/start-recette-ensemble08-corrective-7115e932.sh` |
+| PID launchd / node | 4957 / 4982 |
+
+### Runtime APRÈS — observé
+
+| Champ | Valeur |
+| --- | --- |
+| URL | http://127.0.0.1:3200 |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` (même label) |
+| Script | `…/ensemble08-mandate-build-24a8fa9e/start-recette-ensemble08-mandate-24a8fa9e.sh` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-mandate-build-24a8fa9e` |
+| PID launchd / node | 44626 / 44643 |
+| HTTP BUILD | `<!--qCQGWLYYGb0ZCA4BLfzBi-->` |
+| Boot | `PROVIDER=real` · `ALLOW_MUTATIONS=documentary` · `WRITE_ALLOWLIST=mcleland147/chantiers360` |
+| Listener :3200 | **1** |
+
+### Backup / restore proof / rollback
+
+| Élément | Valeur |
+| --- | --- |
+| Backup | `…/mandate-build-24a8fa9e/.sfia-recette/backups/ml4d-e08-pre-mandate-cutover-20261122T103212Z-from-7115e932.sql.gz` (765K) |
+| SHA256 | `277ccba0991b43416736fedd038980d451cab9693fd509658dc122eeafba7837` |
+| Restore proof | DB temp `sfia_next_recette_restore_proof_mandate` → metrics match → DROP |
+| Plist bak | `com.sfia.studio.next.recette.ml4d-ux004.plist.20261122T103212Z.pre-mandate-cutover-7115e932.bak` |
+| Rollback script | `…/mandate-build-24a8fa9e/ROLLBACK-TO-E08-7115e932.sh` (**prêt**, non exercé ; cible `7115e932` / `OwQrOGhC9rwk_Dtj31OcM`) |
+| Ancien build | worktree `corrective-build-7115e932` / BUILD `OwQrOGhC9rwk_Dtj31OcM` disponible |
+
+### Métriques DB (avant = après)
+
+projects=26 · documents=117 · document_revisions=188 · messages=691 · conversations=205 · effect_attempts=6 · document_publication_refs=2 · project_git_links=15 · authorized_repositories=27 · sessions=125 · human_decisions=5
+
+Oracle D8 : `dpr_7f10c5e4…` PR#19 PR_OPEN · `dpr_1069f349…` PR#20 PR_OPEN.
+
+### Smokes
+
+login/portfolio/integrations HTTP 200 + BUILD `qCQGWLYYGb0ZCA4BLfzBi` · REAL READ gh PR#19/#20 OPEN non fusionnées · aucune mutation · Nora LIVE **NOT PROVEN**.
+
+### Prochaine UAT
+
+GIT-WRITE-UAT-04 sur nouveau document/révision + branche explicitement nommée · conformité USER → D6 → D7 → GitHub → D8 · PR#20 **non** corrigée rétroactivement.
+
+---
+
+## Historique — E08 CORRECTIVE HARDENING (2026-11-22 ≈ 10:06 CET)
 
 | Champ | Valeur |
 | --- | --- |
 | Date/heure cutover | 2026-11-22 ≈ 10:06 CET (UTC 09:06) |
 | Classe | **NO RELEASE** |
 | Lane | **RECETTE existante** (`STUDIO_LANE=RECETTE`, port **3200**) |
-| Cutover | **EXECUTED** — GO Morris triplet exact honoré |
+| Cutover | **EXECUTED** — remplacé ensuite par cutover mandat WRITE ci-dessus |
 | STABLE | NOT AVAILABLE / non modifié |
 | E08 ADOPTED | **NON** |
 | Verdict | **RECETTE AVAILABLE — E08 CORRECTIVE BUILD SERVED — MORRIS UAT REQUIRED** |

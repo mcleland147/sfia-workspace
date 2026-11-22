@@ -3,6 +3,25 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-WRITE-MANDATE-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 11:32 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — cutover RECETTE correctif mandat WRITE (branche explicite) |
+| Type | MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
+| SOURCE_SHA | `24a8fa9e7ad6cc2fa961496a915f13cea542d4a8` |
+| TREE | `ece43cdb8c008b855c381d50f112f8b86e5a2207` |
+| BUILD_ID | `qCQGWLYYGb0ZCA4BLfzBi` |
+| Avant | `@7115e932` / `OwQrOGhC9rwk_Dtj31OcM` |
+| Après | HTTP `<!--qCQGWLYYGb0ZCA4BLfzBi-->` · ml4d-ux004 |
+| Backup | `ml4d-e08-pre-mandate-cutover-20261122T103212Z-from-7115e932.sql.gz` + restore PASS |
+| Rollback | prêt vers `7115e932` / `OwQrOGhC9rwk_Dtj31OcM` (non exercé) |
+| DB | préservée · métriques stables · PR#19/#20 intactes |
+| Rebuild | **NONE** |
+| Push projet | **NONE** |
+| Verdict | **RECETTE AVAILABLE — E08 WRITE MANDATE CORRECTIVE SERVED — MORRIS UAT REQUIRED** |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-WRITE-MANDATE-BRANCH
 
 | Field | Value |
@@ -14,8 +33,8 @@ Append-only logical journal of Cursor product deliveries.
 | Fix | `resolvePublicationBranchName` + wiring mission/D6 guards |
 | Incident | CampusFlow R12 · `efx_d8f8e550…` · PR#20 (historique inchangé) |
 | Preuves | unit **848/848** · PG accept01 **11/11** · tsc PASS |
-| RECETTE | **INCHANGÉE** `7115e932` / `OwQrOGhC9rwk_Dtj31OcM` |
-| Cutover | **NONE** — GO cutover Morris distinct requis |
+| RECETTE | cutover **EXECUTED** — voir DELIV-…-WRITE-MANDATE-CUTOVER |
+| Cutover | **EXECUTED** |
 | Push projet / mutation GitHub | **NONE** |
 | STABLE | NOT AVAILABLE |
 
