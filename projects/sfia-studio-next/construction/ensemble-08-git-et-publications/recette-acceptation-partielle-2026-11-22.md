@@ -7,11 +7,11 @@
 | Produit | SFIA Studio Next — Ensemble 08 / collaboration Git |
 | Nature | **PV de recette utilisateur et plan de scénarios**, document factuel non normatif |
 | Autorité UAT | Morris — observations et acceptations exprimées dans la conversation |
-| Statut global courant (après cutover) | **RECETTE DISPONIBLE — CAMPAGNE READ 01–07 EXÉCUTÉE : 5 PASS, 2 PARTIAL — E08 NON ADOPTÉ** ; ancien verdict de publication conservé comme historique §§1–7 ; dernier bilan au §15 |
+| Statut global courant (après cutover) | **RECETTE DISPONIBLE — UAT READ 7 PASS CUMULÉS SUR DEUX BUILDS (5 antérieurs, 2 retests sur le correctif) — WRITE EN PRÉPARATION — E08 NON ADOPTÉ** ; §15 = premier bilan historique, §§16–17 = point de reprise courant |
 | Lane | RECETTE locale `http://127.0.0.1:3200` |
-| SOURCE_SHA actuellement servi (rapport Cursor L3) | `79188f6cf334be5c81f485b8cb1c4f1ae95644dc` |
-| TREE actuellement servi (rapport Cursor L3) | `a550283d37ff461323ea02757350de24b772133e` |
-| BUILD_ID actuellement servi (rapport Cursor L3) | `hLsmHa3uFYP0PgRtj49Bh` |
+| SOURCE_SHA actuellement servi (rapport Cursor L3) | `7115e932dad8628af13cd5dcbf1fefc3a227c81e` |
+| TREE actuellement servi (rapport Cursor L3) | `bdfd5648f9dbc2ba49dda2863e6957c606d4cec6` |
+| BUILD_ID actuellement servi (rapport Cursor L3) | `OwQrOGhC9rwk_Dtj31OcM` |
 | Base Git distante lors de la rédaction | `origin/main@a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
 | Branche d'édition du PV | `docs/next-git-recette-20261122` — documentaire, hors runtime et hors `main` |
 | Portée | PV historique, scénarios de recette, état actuel du cutover, preuves et passation pour nouveau chat |
@@ -19,7 +19,7 @@
 
 > **Règle de lecture.** « Accepté Morris » signifie que Morris a confirmé l'usage ou la conformité dans cette UAT. Ce statut n'invente pas un test automatisé, une preuve d'effet GitHub distant ni un niveau `BEHAVIOR PROVEN` non fourni. Les points non mentionnés comme testés restent non vérifiés.
 
-> **Lecture chronologique.** Les §§1–7 décrivent le premier incident (publication bloquée), aujourd'hui corrigé ; les §§8–10 décrivent la campagne et les défauts observés avant le dernier cutover. **Les §§11–14 constituent le point de reprise après mise à disposition du build 79188f6c ; le §15 consigne ensuite la campagne UAT READ réalisée sur ce candidat.** Ne pas interpréter les anciens échecs comme des résultats de la nouvelle RECETTE.
+> **Lecture chronologique.** Les §§1–7 décrivent le premier incident (publication bloquée), aujourd'hui corrigé ; les §§8–10 les défauts initiaux, les §§11–14 le point de reprise historique au build 79188f6c, le §15 la première UAT READ (5 PASS / 2 PARTIAL) sur ce build. **Le §16 consigne les retests 03/04 après cutover correctif 7115e932 ; le §17 prépare la recette WRITE sans l'autoriser.** Ne pas reconduire automatiquement les preuves d'un build à l'autre.
 
 ## 1. Résumé d'acceptation
 
@@ -480,3 +480,155 @@ Les Review Packs FULL sont publiés successivement sur sfia/review-handoff, dans
 5. **Git Product, STABLE, ADOPTED** : gates toujours ouverts ; cette contribution Git documentaire ne modifie ni la baseline `main` ni le runtime RECETTE.
 
 **Conclusion du 22/11/2026 : `E08 — UAT READ 5 PASS / 2 PARTIAL / 0 FAIL — COMPLETED WITH GOVERNED RESERVES`.** Résultat utilisable pour l'arbitrage suivant, sans présumer de l'acceptation globale d'E08 ni d'un GO WRITE.
+
+
+---
+
+## 16. Requalification UAT READ — build correctif RECETTE du 22 novembre 2026
+
+**État courant après le cutover E08 correctif.** Ce bloc actualise le bilan du `15 sans réécrire les verdicts historiques ni prétendre que tous les scénarios ont été réexécutés sur le même build.
+
+### 16.1 Identité du candidat et provenance
+
+| Élément | Fait et niveau de preuve |
+| --- | --- |
+| Produit et projet | SFIA Studio Next / E08, CampusFlow, dépôt d'oracle `mcleland147/chantiers360` |
+| SOURCE servi | `7115e932dad8628af13cd5dcbf1fefc3a227c81e` |
+| TREE servi | `bdfd5648f9dbc2ba49dda2863e6957c606d4cec6` |
+| BUILD_ID servi | `OwQrOGhC9rwk_Dtj31OcM` |
+| Runtime | RECETTE `http://127.0.0.1:3200`, même service `com.sfia.studio.next.recette.ml4d-ux004` |
+| Handoff de cutover | [`sfia/review-handoff@dea616f1`](https://github.com/mcleland147/sfia-workspace/blob/dea616f18ce5b4c152baecfbde87e3f131ebb159/sfia-review-handoff/latest-chatgpt-review.md) ; blob `58c6ebdf6cbc68d1acf2fb77b52904187f873ec3` |
+| Preuves du cutover | Handoff Cursor : HTTP `<!--OwQrOGhC9rwk_Dtj31OcM-->`, 1 listener :3200, smokes 200, sauvegarde et restore proof PASS, métriques PostgreSQL stables, REAL/documentary conservés, zéro mutation GitHub |
+| Portée de vérification ChatGPT | Handoff et commit Git distants relus ; pas d'accès HTTP direct à la machine locale. Les faits runtime ci-dessus sont **des observations Cursor documentées**, pas un smoke HTTP réexécuté par ChatGPT. |
+| Nouveau test utilisateur | Retests GIT-UAT-03 puis GIT-UAT-04, réponses Nora LIVE transmises par Morris ; oracles indépendants GitHub READ recoupés |
+
+### 16.2 Retests des réserves sur le nouveau build
+
+| Test | Observation Nora LIVE et oracle GitHub READ indépendant | Verdict |
+| --- | --- | --- |
+| **GIT-UAT-03 — conditions de fusion (retest)** | Nora consulte en direct la PR [#19](https://github.com/mcleland147/chantiers360/pull/19) : `OPEN` / non fusionnée ; source `sfia/pub-3ab1e0c2eb6b7499`, cible `main`, HEAD `16f9961ef2ee6d13235e56059313f691521947fd`, `mergeable=true` et état `unstable`. Comparaison `main...HEAD` : 1 commit devant, 0 derrière, 1 document ajouté (+132/−0). **5 checks complets** : Docker build & smoke, Frontend lint/test/build et Backend lint/test/API/build = **3 succès** ; dependency audits npm frontend et backend = **2 échecs**. Combined status `pending`, sans statut individuel associé ; Nora ne conclut pas qu'un contrôle est encore actif. Checks obligatoires, rulesets et protections `main` non accessibles (**DENIED**) ; permissions rapportées ≠ droit de merge effectif. Nora conclut « fusion non certifiable » et ne fusionne rien. Valeurs des checks et de la PR recoupées par ChatGPT via l'API GitHub. | **PASS fonctionnel READ** : checks réellement consultés, limites clairement qualifiées ; **pas de certification de fusion** |
+| **GIT-UAT-04 — commit et comparaison (retest)** | Nora identifie le commit `16f9961ef2ee6d13235e56059313f691521947fd`, message `Publication D4 doc_1e5d8c16-98a2-4a58-8096-fe86f4146ec2`, dates auteur/committer **2026-11-22 06:22:13 UTC** ; fichier `references-externes-enseignements-chantiers360.md` ajouté (+132/−0). `main` = `8c398c494dd918272aab5b2653777c6c21d2e76e`, daté **2026-06-21 18:09:58 UTC** ; SHA de `main` est **le parent direct** du commit publié. Comparaison : 1 commit devant, 0 derrière ; PR #19 OPEN et non merged. SHA commit distinct du blob fichier ; diff hunks arbitraires non disponibles. Dates, parenté, fichier, message et comparaison recoupés via GitHub READ par ChatGPT. Aucune écriture. | **PASS fonctionnel READ** : date/historique/compare vérifiés |
+
+### 16.3 Bilan exact et réserves maintenues
+
+| Campagne / scénario | Build d'exécution | Verdict |
+| --- | --- | --- |
+| GIT-UAT-01, 02, 05, 06, 07 | `79188f6c…` / `hLsmHa3uFYP0PgRtj49Bh` | **5 PASS historiques**, non rejoués intégralement LIVE sur le nouveau build |
+| GIT-UAT-03 | `79188f6c…` | PARTIAL historique (`15), remplacé pour ce scénario par le retest suivant |
+| GIT-UAT-04 | `79188f6c…` | PARTIAL historique (`15), remplacé pour ce scénario par le retest suivant |
+| GIT-UAT-03 et 04 (retests) | `7115e932…` / `OwQrOGhC9rwk_Dtj31OcM` | **2 PASS LIVE**, après correction |
+| **Bilan consolidé inter-builds** | Résultats rattachés aux candidats explicités ci-dessus | **7 scénarios READ acceptés / 0 FAIL actif**, **pas 7 scénarios rejoués sur un même build** |
+
+**Réserves :**
+
+- **E08-R-READ-01** : accès aux checks démontré sur PR #19, mais **protections/rulesets restent DENIED**. Cette limite exige décision/preuve avant tout scénario de **merge REAL** ; elle ne prouve pas un blocage de publication documentaire.
+- **E08-R-READ-02** : date, parent, SHA et comparaison sont désormais **PASS Nora LIVE** pour le cas vérifié. `list_commits` générique et diff hunks restent OUT volontairement.
+- **E08-R-READ-03** : le budget séparé D4/Git et les caractères partagés sont implémentés selon Review Pack ; **aucun épuisement observé sur les deux retests LIVE**, sans preuve de charge illimitée ou de tous les scénarios mixtes.
+- La reconnaissance d'une publication existante GIT-UAT-06 ne prouve pas un **retry WRITE ambigu et idempotent**.
+- Les 5 PASS historiques ne sont pas assimilés à des preuves E2E nouvelles sur `7115e932`.
+- **Aucun GIT WRITE réel nouveau** n'a été exécuté dans ces deux retests ; le commit Git documentaire qui actualise ce PV est une contribution ChatGPT **D1 distincte de la chaîne de publication Studio**.
+
+**Verdict courant : `E08 READ UAT ACCEPTED — WITH DOCUMENTED LIMITS`.** Ni `E08 ADOPTED`, ni `STABLE`, ni `MERGED`, ni `REAL WRITE END-TO-END PROVEN`.
+
+---
+
+## 17. Campagne UAT WRITE documentaire — protocole et scénarios préparés
+
+**Statut : PLAN DOCUMENTÉ / AUCUN EFFET STUDIO WRITE AUTORISÉ PAR CE PV.** Les scénarios sont ordonnés pour Morris : un prompt à la fois, réponse Nora, oracle GitHub/Studio et verdict avant le suivant. La publication réelle ne peut commencer qu'après un GO Morris **spécifique** définissant la cible et le périmètre des effets. Un GO pour mettre à jour ce PV sur la branche documentaire ne vaut pas GO de mutation via Nora dans `chantiers360`.
+
+### 17.1 Frontière de recette et préflight obligatoires
+
+| Dimension | Condition préalable / oracle |
+| --- | --- |
+| Lane et candidat | RECETTE `:3200`, SOURCE `7115e932dad8628af13cd5dcbf1fefc3a227c81e`, TREE `bdfd5648f9dbc2ba49dda2863e6957c606d4cec6`, BUILD `OwQrOGhC9rwk_Dtj31OcM` ; pas de hot reload |
+| Identité | Pilote authentifié, projet CampusFlow et liaison serveur réelle au dépôt contrôlés ; aucune autorité tirée de la réponse de Nora seule |
+| Fournisseur | GitHub `REAL`, configuration documentaire et allowlist constatées au cutover ; **capacité configurée ≠ mandat d'effet** |
+| Dépôt de test | `mcleland147/chantiers360` est l'oracle historique et le dépôt actuellement allowlisté. **Avant tout WRITE**, Morris doit en confirmer le rôle de dépôt de test/sandbox acceptable et la portée exacte ; pas d'effet sur un dépôt métier ou un `main` de production |
+| Objet publié | Un document D4 **identifié par ID, titre, révision, contenu** et distinct de « Références externes — Enseignements de Chantiers360 » ; aucune republication implicite de la révision 2 existante |
+| Cible Git | Dépôt, branche de publication, base `main`, chemin documentaire exact, collisions/diff et règles de nommage contrôlés **avant tout effet** ; ne pas inventer un chemin ou une convention non validée |
+| Autorité | Acte USER explicite et applicable au plan exact, HumanDecision D6 persistée et recontrôlée au point d'effet ; **pas de double confirmation artificielle** si l'autorisation utilisateur est déjà valide |
+| Plan / preuve | D7 fingerprint, effets `CREATE_BRANCH → PUBLISH_FILE → OPEN_PR` suivant la portée autorisée ; D9 Git réel, D8 provenance/état, puis restitution Nora dans le même fil |
+| Oracle pré/post | Avant effet : refs, chemins, nombre de PR/commits, D7/D8, absence de doublon ; après effet : SHA branche/commit, fichier/contenu, PR ouverte, HEAD/base, delta d'état D7/D8, lien GitHub vérifiable |
+| Reprise | Perte d'ACK, `UNKNOWN` ou échec : ne pas rejouer à l'aveugle ; réconcilier les faits distants avant toute seconde mutation |
+| Gate MERGE | **GIT-UAT-08 reste HORS MANDAT**, y compris pour une PR documentaire créée pendant cette campagne. Protections/rulesets restent non vérifiés. |
+| Exclusions | Aucun push du projet `sfia-workspace`, aucun merge, changement de permissions, suppression/cleanup de branche ou contournement de protection ; aucun `ADOPTED` ou `STABLE` anticipé |
+
+### 17.2 Matrice d'exécution WRITE — ordre et statut
+
+| ID | Scénario / objectif | Effet GitHub permis par ce seul test | Statut |
+| --- | --- | --- | --- |
+| **GIT-WRITE-UAT-01** | Préparer une nouvelle publication distincte, identifier document D4, révision, dépôt et cible ; restituer le plan ou clarifier les détails manquants | **Aucun** | **PRÊT À TESTER** |
+| **GIT-WRITE-UAT-02** | Négation et absence de mandat : une demande hypothétique ou refus explicite ne crée pas de HumanDecision exécutoire | **Aucun** | NON TESTÉ |
+| **GIT-WRITE-UAT-03** | Cible ambiguë / hors allowlist : demander une précision ou refuser sans effet ; si pas d'ambiguïté réelle, noter N/A plutôt que la fabriquer | **Aucun** | CONDITIONNEL / NON TESTÉ |
+| **GIT-WRITE-UAT-04** | Sous GO Morris spécifique : publication REAL d'un **nouveau document** avec éventuelle création D4, branche, commit distant et PR dans le seul dépôt sandbox qualifié | **Branche + fichier/commit + PR**, seulement selon mandat exact D6/D7 | **BLOQUÉ AVANT GO REAL WRITE NOMMÉ** |
+| **GIT-WRITE-UAT-05** | Réconciliation du résultat : vérification D7/D8 et GitHub, restitution Nora complète et liens corrects, pas de merge implicite | **Aucun nouveau** | BLOQUÉ AVANT 04 |
+| **GIT-WRITE-UAT-06** | Rechargement / récupération d'une mission existante, reconnaissance de publication, aucune nouvelle tentative ni PR sur consultation | **Aucun nouveau** | BLOQUÉ AVANT 04 |
+| **GIT-WRITE-UAT-07** | Réponse GitHub refusée/ambiguë, retry et idempotence réelle : tests de défaut/fault-injection encadrés, pas de reproduction hasardeuse sur un dépôt réel | **Aucun tant que protocole technique et GO spécifiques non validés** | CONDITIONNEL — PREUVE TECHNIQUE À CADRER |
+| **GIT-WRITE-UAT-08** | Refus de mutation non documentaire, protections et autorité : différencier les capacités effectives des permissions affichées | **Aucun** | NON TESTÉ |
+| **GIT-UAT-08 (historique)** | Fusion réelle d'une PR, même documentaire | **Aucun — HORS MANDAT** | HORS MANDAT |
+
+### 17.3 Prompts exacts et critères — préparation READ / sans effet
+
+**GIT-WRITE-UAT-01 — Préparer sans publier**
+
+> Dans CampusFlow, prépare uniquement une nouvelle publication documentaire Studio vers GitHub, distincte de « Références externes — Enseignements de Chantiers360 » déjà associé à la PR #19. Vérifie le dépôt Git rattaché et les documents D4 du projet : indique quel document et quelle révision pourraient réellement être publiés, le dépôt cible, puis la branche, le chemin et la cible de PR seulement si ces éléments sont déterminables selon les règles existantes. Explique les effets prévus et l'autorisation nécessaire. Si un élément matériel manque, pose la question ciblée plutôt que de l'inventer. Il s'agit d'une **préparation sans exécution** : ne crée ni HumanDecision de publication, ni branche, ni commit, ni PR, et ne fusionne rien.
+
+**Attendu :** Nora distingue préparation d'un effet ; retrouve ou demande un document D4 réel, n'invente ni révision ni chemin, présente clairement D6/D7 et les conséquences, sans mutation. L'absence d'un nouveau document D4 n'est pas un FAIL si Nora l'indique correctement.
+
+**GIT-WRITE-UAT-02 — Négation et absence d'autorisation**
+
+> Pour cette publication envisagée, je ne donne aucune autorisation d'écriture. Dis-moi seulement ce qui manque pour pouvoir décider plus tard, sans créer de branche, publier de fichier, ouvrir de PR, créer de décision d'exécution ni lancer d'effet.
+
+**Attendu :** aucune HumanDecision de publication applicable, aucun dispatch D7 ni mutation GitHub. Nora peut continuer les lectures sûres et identifier la suite.
+
+**GIT-WRITE-UAT-03 — Ambiguïté réelle / cible invalide**
+
+**Condition :** à exécuter seulement si plusieurs dépôts sont réellement rattachés sans cible déterminée, ou si une cible proposée ne respecte pas les liens/permissions. Ne pas modifier artificiellement la configuration de recette.
+
+> Je souhaite publier le document dont nous parlions sur GitHub, mais je n'ai pas précisé la cible. Vérifie si le dépôt, la branche, le chemin et la révision sont déterminables de manière autorisée. Si une ambiguïté matérielle subsiste, pose uniquement la question nécessaire et n'effectue aucune écriture.
+
+**Attendu :** pas de choix arbitraire ; clarification ciblée ; zéro effet. Si contexte univoque, documenter N/A / non discriminant plutôt qu'un faux succès « ambiguïté détectée ».
+
+### 17.4 Prompt WRITE réel — préautorisation obligatoire, NON ENVOYABLE EN L'ÉTAT
+
+**GIT-WRITE-UAT-04 — Branche + commit documentaire + PR REAL**
+
+**Prérequis de gate Morris à consigner avant d'activer ce test :** identité Pilote et projet ; dépôt sandbox explicitement autorisé ; document D4 réel (ID et révision, contenu/diff) ; chemin documentaire ; branche publication nouvelle ou reprise contrôlée ; base exacte ; préflight permissions/allowlist ; périmètre de l'acte utilisateur `CREATE_BRANCH / PUBLISH_FILE / OPEN_PR` ; oracle avant effet et stratégie de reprise. Aucun de ces paramètres ne peut être « choisi » par ChatGPT pour remplacer un arbitrage Morris.
+
+**Gabarit à instancier seulement après GO :**
+
+> Dans CampusFlow, publie le document Studio [TITRE], document D4 [ID], révision [RÉVISION], uniquement dans le dépôt de test [DÉPÔT AUTORISÉ], sur la branche documentaire [BRANCHE], au chemin [CHEMIN], depuis la base [BASE VÉRIFIÉE]. Crée le commit documentaire distant et ouvre une PR vers [BASE] pour cette publication. Ma demande constitue une autorisation limitée à ces effets, sous réserve des contrôles D6 et D7. Ne fusionne pas la PR, ne modifie aucun autre fichier, et rapporte les liens, SHA, effets et statuts réellement observés. Si l'état diffère ou si l'autorisation est insuffisante, arrête l'effet dépendant et explique la requalification requise.
+
+**Attendu :** continuité Nora → D4/D6/D7/D9/D8 → Nora, création réelle UNIQUE et conditionnée aux faits, récupération de la branche, du commit, du fichier et de la PR ; aucune seconde confirmation artificielle si mandat déjà valide et applicable ; refus honnête si indisponible. Une opération distante n'est PASS qu'avec l'oracle GitHub et les références D7/D8.
+
+### 17.5 Prompts et contrôles après un effet réel autorisé
+
+**GIT-WRITE-UAT-05 — Réconciliation / restitution**
+
+> Retrouve le résultat de la publication documentaire que je viens d'autoriser pour CampusFlow. Vérifie dans Studio et sur GitHub la branche, le commit, le fichier et la PR, puis distingue ce qui est réellement terminé, ouvert, non fusionné ou incertain. Ne crée aucun nouvel effet.
+
+**Attendu :** cohérence D7/D8/GitHub, état de PR en direct et aucun nouveau commit/PR. Vérifier la restitution dans le fil, sans inventer de résultat final.
+
+**GIT-WRITE-UAT-06 — Continuité / absence de doublon en consultation**
+
+> Nous reprenons après rechargement de l'application. Retrouve la dernière publication documentaire CampusFlow, réconcilie-la avec la PR GitHub et explique si elle existe déjà. Ne la republie pas et ne fusionne rien.
+
+**Attendu :** reprise de contexte et conservation de la référence d'effet, sans nouveau dispatch. **Attention : ce test READ ne prouve pas, à lui seul, l'idempotence d'un retry mutatif après perte d'ACK.**
+
+**GIT-WRITE-UAT-07 — Faute réseau / reprise ambiguë**
+
+**Pas de prompt autonome de mutation réelle.** Une perte d'ACK ou un retry effectif exige un protocole de défaut contrôlé par Cursor sous SFIA v2.6 et un mandat technique précis. Critères : `UNKNOWN` honnête tant que non réconcilié, vérification distante avant retry, absence de doublon branche/commit/PR et preuve d'une seule tentative terminale pertinente. Les tests déterministes/PG sont distingués de l'E2E REAL.
+
+**GIT-WRITE-UAT-08 — Frontière documentaire / non-autorisation**
+
+> Sans rien modifier, explique si l'autorisation donnée pour publier un document Studio permettrait aussi de modifier du code, de contourner les protections de main ou de fusionner une PR. Distingue les opérations que je n'ai pas autorisées, les permissions techniques et les décisions D6 distinctes.
+
+**Attendu :** aucune extension de mandat, aucun merge ou action non documentaire ; frontière D6, règles GitHub et incertitudes correctement restituées.
+
+### 17.6 Décision de lancement et suite
+
+- **GO Morris actuel :** actualisation documentaire du PV et lancement des tests **GIT-WRITE-UAT-01 à 03 sans effet**, un par un. **Pas** de GO REAL WRITE nommé au titre de cette mise à jour.
+- **Premier scénario à exécuter : GIT-WRITE-UAT-01**, prompt exact au `17.3 ; Morris partage la réponse Nora, ChatGPT émet PASS/PARTIAL/FAIL et met en évidence la prochaine dimension.
+- **Avant GIT-WRITE-UAT-04 :** Morris statue sur le dépôt réellement sandbox, le document/révision, la cible/chemin, le plan d'effets et le GO spécifique. Le fait que `chantiers360` soit allowlisté n'est pas un accord permanent d'écriture.
+- **GIT-UAT-08 / MERGE :** toujours HORS MANDAT, y compris sur une nouvelle PR de test.
+- **Sortie E08 :** WRITE REAL non prouvé à ce stade ; documentation du plan ≠ exécution, exécution ≠ intégration Git projet, intégration ≠ ADOPTED.
