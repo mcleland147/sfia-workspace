@@ -37,7 +37,7 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
       await expect(page.getByTestId("connect-github")).toBeVisible({ timeout: 15_000 });
     }
     await page.getByTestId("connect-github").click();
-    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub connecté/i, {
+    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub est connecté/i, {
       timeout: 20_000,
     });
     await expect(page.getByTestId("github-connected-badge")).toBeVisible();
