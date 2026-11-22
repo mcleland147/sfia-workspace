@@ -74,6 +74,20 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
     });
     await page.getByTestId("git-branch-select").click(); // close if still open
 
+    // Preview enlarge while a repo is still attached — after detach the tree/context
+    // can remount and a stale file click yields error (no git-preview-actions).
+    await page.getByTestId("git-tab-files").click();
+    await expect(page.getByTestId("git-tree")).toBeVisible({ timeout: 20_000 });
+    const fileBtn = page.locator('[data-testid^="git-tree-file-"]').first();
+    await expect(fileBtn).toBeVisible({ timeout: 20_000 });
+    await fileBtn.click();
+    await expect(page.getByTestId("git-preview-actions")).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByTestId("git-action-enlarge")).toHaveAttribute(
+      "aria-label",
+      /Agrandir/i,
+    );
+    await expect(page.getByTestId("git-action-enlarge")).not.toContainText(/Agrandir/i);
+
     // Publications tab — project-scale, historical wording (E08-S04)
     await page.getByTestId("git-tab-publications").click();
     await expect(page.getByTestId("git-publications")).toBeVisible();
@@ -102,19 +116,6 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
       await detachBtn.click({ force: true, timeout: 15_000 });
       await expect(page.getByTestId("git-detach-confirm")).toBeVisible({ timeout: 10_000 });
       await page.getByTestId("git-detach-confirm-yes").click();
-    }
-
-    // Enlarge control is icon-only with aria-label when a file is open — skip if empty tree
-    await page.getByTestId("git-tab-files").click();
-    const fileBtn = page.locator('[data-testid^="git-tree-file-"]').first();
-    if (await fileBtn.isVisible().catch(() => false)) {
-      await fileBtn.click();
-      await expect(page.getByTestId("git-preview-actions")).toBeVisible();
-      await expect(page.getByTestId("git-action-enlarge")).toHaveAttribute(
-        "aria-label",
-        /Agrandir/i,
-      );
-      await expect(page.getByTestId("git-action-enlarge")).not.toContainText(/Agrandir/i);
     }
   });
 

@@ -73,8 +73,9 @@ test("G4 B1–B4: rail surfaces, resume without POST, deep-link, revise AVAILABL
   // Selection must not push documentId into the URL.
   await expect(page).not.toHaveURL(new RegExp(`documentId=${documentId}`));
   await page.getByTestId("doc-action-open").click();
-  await expect(page).toHaveURL(new RegExp(`documentId=${documentId}`));
-  await expect(page.getByTestId("document-read")).toBeVisible();
+  // Deep-link is contractual — wait for URL + read surface (guards load()/URL race).
+  await expect(page).toHaveURL(new RegExp(`documentId=${documentId}`), { timeout: 20_000 });
+  await expect(page.getByTestId("document-read")).toBeVisible({ timeout: 15_000 });
 
   // B2 — reload keeps deep-link; no mutation claimed on open
   await page.reload();

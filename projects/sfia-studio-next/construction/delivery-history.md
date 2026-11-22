@@ -3,6 +3,21 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-CI-STABILIZATION-PR690
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 (Europe/Paris) |
+| Macro-lot | Ensemble 08 — stabilisation CI PR #690 |
+| Type | CORRECTIF · STANDARD · **NO RELEASE** |
+| Fixes | (A) E2E git-surface preview avant detach · (B) race deep-link `documentId` vs `load()` URL normalize |
+| Runtime | `page.tsx` — `pendingDocumentOpenIdRef` + préservation documentId à la normalisation |
+| Tests | ensemble08-git-surface · g4-b1-b4-correctifs |
+| Preuves locales | Playwright **109 PASS / 5 SKIPPED** · RECETTE inchangée |
+| RECETTE | **INCHANGÉE** `10128bdb` / `2uHrYBsQ` — runtime correctif **postérieur** au build accepté |
+| Push | PR #690 only |
+| Merge | **NONE** |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-DOC-ALIGN-D2-PR-PUBLICATION
 
 | Field | Value |
