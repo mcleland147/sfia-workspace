@@ -117,8 +117,16 @@
 - **Écart A (budget)** : le lot précédent passait trois objets budget clonés → D4/history/Git ne partageaient plus mutations. **Fix** : `createSharedToolBudget()` + **une** référence mutable dans `runLiveWithTools` (D4+history = `remainingCalls` ; Git = `remainingGitCalls` ; chars = `remainingChars` partagés).
 - **Écart B (compare)** : `commits[]` vide (`identical` / behind-only) → `headSha=""`. **Fix** : résolution READ via `fetchCommitRemote` si SHA tip absent ; refuse AMBIGUOUS si non vérifiable.
 - **Écart C (checks)** : catch soft des 403 empêchait `withReadToken` (install→user). **Fix** : throw `ACCESS_DENIED` si **les deux** endpoints refusent ; soft PARTIAL/DENIED si un seul accessible ; statuses tronqués → `incompleteCoverage` + PARTIAL.
-- RECETTE **INCHANGÉE** (`79188f6c` / `hLsmHa3uFYP0PgRtj49Bh`) — pas de cutover.
-- Preuves : unit corrective + suite unit **833** PASS · PG accept01 **11** PASS · tsc PASS · REAL WRITE / Nora LIVE **NOT PROVEN**.
+- Preuves : unit corrective + suite unit **840** PASS · PG accept01 **11** PASS · tsc PASS · REAL WRITE / Nora LIVE **NOT PROVEN**.
+
+### Cutover RECETTE — build correctif (2026-11-22 ≈ 10:06 CET)
+- **GO Morris** honoré : SOURCE `7115e932…` · TREE `bdfd5648…` · BUILD `OwQrOGhC9rwk_Dtj31OcM` (sans rebuild).
+- **AVANT** : `79188f6c…` / `hLsmHa3uFYP0PgRtj49Bh` · service `ml4d-ux004`.
+- **APRÈS** : même service/port/DB · worktree `…/corrective-build-7115e932` · HTTP `<!--OwQrOGhC9rwk_Dtj31OcM-->`.
+- Backup + restore proof PASS · métriques DB stables · PR#19 D8 intact · REAL+documentary conservés · **zéro** mutation GitHub.
+- Rollback prêt vers `hLsmHa3uFYP0PgRtj49Bh` (non exercé).
+- Manifeste : `manifeste-cutover-recette-e07-plus-e08.md` (section courante).
+- **UAT Morris** : reprise ciblée GIT-UAT-03 / GIT-UAT-04 · GIT-UAT-08 hors mandat · Nora LIVE E2E **NOT PROVEN** par smoke.
 
 ## Non livré / réserves
 - Figma G5 géométrie 11.06 (F2) : **PROVEN** en DEV SCRIPTED — acceptation visuelle Morris UAT distincte

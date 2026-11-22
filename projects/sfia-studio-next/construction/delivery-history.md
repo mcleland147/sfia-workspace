@@ -3,6 +3,24 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-CORRECTIVE-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 10:06 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — cutover RECETTE build correctif Git READ |
+| Type | MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
+| SOURCE_SHA | `7115e932dad8628af13cd5dcbf1fefc3a227c81e` |
+| TREE | `bdfd5648f9dbc2ba49dda2863e6957c606d4cec6` |
+| BUILD_ID | `OwQrOGhC9rwk_Dtj31OcM` |
+| Avant | `@79188f6c` / `hLsmHa3uFYP0PgRtj49Bh` |
+| Après | HTTP `<!--OwQrOGhC9rwk_Dtj31OcM-->` · ml4d-ux004 |
+| Backup | `ml4d-e08-pre-corrective-cutover-20261122T090524Z-from-79188f6c.sql.gz` + restore PASS |
+| DB | préservée · métriques stables · PR#19 intact |
+| Rebuild | **NONE** |
+| Push projet | **NONE** |
+| Verdict | **RECETTE AVAILABLE — E08 CORRECTIVE BUILD SERVED — MORRIS UAT REQUIRED** |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-READ-HARDENING-CORRECTIVE
 
 | Field | Value |
@@ -13,9 +31,9 @@ Append-only logical journal of Cursor product deliveries.
 | Écart A | Budget partagé : un objet `createSharedToolBudget` (D4+history calls · Git calls · chars) |
 | Écart B | `compareCommitsRemote` : SHA head vérifié si `commits[]` vide |
 | Écart C | `fetchCommitStatusRemote` : dual 403 → ACCESS_DENIED pour `withReadToken` |
-| Preuves | unit **833/833** · corrective **16/16** · PG accept01 **11/11** · tsc PASS |
-| RECETTE | **INCHANGÉE** `79188f6c` / `hLsmHa3uFYP0PgRtj49Bh` |
-| Cutover | **NONE** — candidat local à figer ; GO cutover Morris distinct |
+| Preuves | unit **840/840** · corrective **16/16** · PG accept01 **11/11** · tsc PASS |
+| RECETTE | cutover **EXECUTED** — voir DELIV-…-CORRECTIVE-CUTOVER |
+| Cutover | **EXECUTED** |
 | Push projet | **NONE** |
 | STABLE | NOT AVAILABLE |
 

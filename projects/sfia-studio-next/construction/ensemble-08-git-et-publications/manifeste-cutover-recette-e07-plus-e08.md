@@ -1,16 +1,85 @@
 # Manifeste ENV-01 — Cutover RECETTE (journal)
 
-## Cutover courant — GLOBAL GITHUB CAPABILITY AUDIT (2026-11-22)
+## Cutover courant — E08 CORRECTIVE HARDENING (2026-11-22)
+
+| Champ | Valeur |
+| --- | --- |
+| Date/heure cutover | 2026-11-22 ≈ 10:06 CET (UTC 09:06) |
+| Classe | **NO RELEASE** |
+| Lane | **RECETTE existante** (`STUDIO_LANE=RECETTE`, port **3200**) |
+| Cutover | **EXECUTED** — GO Morris triplet exact honoré |
+| STABLE | NOT AVAILABLE / non modifié |
+| E08 ADOPTED | **NON** |
+| Verdict | **RECETTE AVAILABLE — E08 CORRECTIVE BUILD SERVED — MORRIS UAT REQUIRED** |
+
+### GO Morris (borné)
+
+| Champ | Valeur |
+| --- | --- |
+| SOURCE_SHA | `7115e932dad8628af13cd5dcbf1fefc3a227c81e` |
+| TREE | `bdfd5648f9dbc2ba49dda2863e6957c606d4cec6` |
+| BUILD_ID | `OwQrOGhC9rwk_Dtj31OcM` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-corrective-build-7115e932` |
+| Rebuild | **NONE** — artefact figé réutilisé |
+| Push/PR/merge projet | **NONE** |
+| Mutation GitHub / merge PR#19 | **NONE** |
+
+### Runtime AVANT
+
+| Champ | Valeur |
+| --- | --- |
+| SOURCE_SHA | `79188f6cf334be5c81f485b8cb1c4f1ae95644dc` |
+| TREE | `a550283d37ff461323ea02757350de24b772133e` |
+| BUILD_ID | `hLsmHa3uFYP0PgRtj49Bh` |
+| Script | `…/ensemble08-gitaudit-build-79188f6c/start-recette-ensemble08-gitaudit-79188f6c.sh` |
+| PID launchd / node | 61202 / 61228 |
+
+### Runtime APRÈS — observé
+
+| Champ | Valeur |
+| --- | --- |
+| URL | http://127.0.0.1:3200 |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` (même label) |
+| Script | `…/ensemble08-corrective-build-7115e932/start-recette-ensemble08-corrective-7115e932.sh` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-corrective-build-7115e932` |
+| PID launchd / node | 4957 / 4982 |
+| HTTP BUILD | `<!--OwQrOGhC9rwk_Dtj31OcM-->` |
+| Boot | `PROVIDER=real` · `ALLOW_MUTATIONS=documentary` · `WRITE_ALLOWLIST=mcleland147/chantiers360` |
+| Listener :3200 | **1** |
+
+### Backup / restore proof / rollback
+
+| Élément | Valeur |
+| --- | --- |
+| Backup | `…/corrective-build-7115e932/.sfia-recette/backups/ml4d-e08-pre-corrective-cutover-20261122T090524Z-from-79188f6c.sql.gz` (733K) |
+| SHA256 | `a765928e95fd8cce52f0a655eee9ea6de96504f224cf2360556c9f276abffa0d` |
+| Restore proof | DB temp `sfia_next_recette_restore_proof_corrective` → metrics match → DROP |
+| Plist bak | `com.sfia.studio.next.recette.ml4d-ux004.plist.20261122T090524Z.pre-corrective-cutover-79188f6c.bak` |
+| Rollback script | `…/corrective-build-7115e932/ROLLBACK-TO-E08-79188f6c.sh` (**prêt**, non exercé) |
+| Ancien build | worktree `gitaudit-build-79188f6c` / BUILD `hLsmHa3uFYP0PgRtj49Bh` disponible |
+
+### Métriques DB (avant = après)
+
+projects=26 · documents=117 · document_revisions=188 · messages=673 · conversations=205 · effect_attempts=5 · document_publication_refs=1 · project_git_links=15 · authorized_repositories=27 · sessions=125 · human_decisions=4
+Oracle D8 : `efx_cf6763da…` COMPLETED · `dpr_7f10c5e4…` PR#19 PR_OPEN.
+
+### Smokes
+
+login/portfolio/integrations HTTP 200 + BUILD `OwQrOGhC9rwk_Dtj31OcM` · outils `read_git_commit` / `compare_git_refs` / `read_git_commit_status` présents dans `.next` · REAL READ gh PR#19 OPEN · aucune mutation · Nora LIVE **NOT PROVEN**.
+
+---
+
+## Historique — GLOBAL GITHUB CAPABILITY AUDIT (2026-11-22 ≈ 08:38 CET)
 
 | Champ | Valeur |
 | --- | --- |
 | Date/heure cutover | 2026-11-22 ≈ 08:38 CET (UTC 07:38) |
 | Classe | **NO RELEASE** |
 | Lane | **RECETTE existante** (`STUDIO_LANE=RECETTE`, port **3200**) |
-| Cutover | **EXECUTED** — GO Morris triplet exact honoré |
+| Cutover | **EXECUTED** — remplacé ensuite par cutover correctif ci-dessus |
 | STABLE | NOT AVAILABLE / non modifié |
 | E08 ADOPTED | **NON** |
-| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
+| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** (historique) |
 
 ### GO Morris (borné)
 
@@ -56,7 +125,7 @@
 
 ### Métriques DB (avant = après)
 
-projects=26 · documents=117 · document_revisions=188 · messages=657 · conversations=205 · effect_attempts=5 · document_publication_refs=1 · project_git_links=15 · authorized_repositories=27 · sessions=125 · human_decisions=4  
+projects=26 · documents=117 · document_revisions=188 · messages=657 · conversations=205 · effect_attempts=5 · document_publication_refs=1 · project_git_links=15 · authorized_repositories=27 · sessions=125 · human_decisions=4
 Oracle D8 : `efx_cf6763da…` COMPLETED · `dpr_7f10c5e4…` PR#19 PR_OPEN.
 
 ### Smokes
