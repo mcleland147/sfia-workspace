@@ -1,5 +1,33 @@
 # SFIA Studio Next — Living Roadmap
 
+## ÉTAT COURANT — 22 NOVEMBRE 2026 : Ensemble 08 intégré sur main, CI post-merge vérifiée
+
+**Nature :** mise à jour strictement factuelle validée par Morris, prioritaire sur les instantanés historiques ci-dessous, conservés intacts. Aucun nouveau Gate C, GO ML5, R6 global, adoption, choix d'architecture ni promotion.
+
+**Intégration Git :** [PR #690](https://github.com/mcleland147/sfia-workspace/pull/690) **MERGED** le 22/11/2026 sur GO Morris distinct ; HEAD candidat `f11de65f98c3a0429e45c9f2c3935633840aec12` ; `main@8620b08bfe86fdf92af0c02756ee980f60964490` ; tree `8786e7d39d2653fdad78d65e41c062b4b09b6e2e`. Diff : 135 fichiers exclusivement sous `projects/sfia-studio-next/`, sans migration de base de données.
+
+### Sortie Git Ensemble 08
+
+| Contrôle | État vérifié / limite |
+| --- | --- |
+| **R5 / ML4D / E08** | **UAT PARTIELLE ACCEPTÉE AVEC RÉSERVES / MERGED / POST-MERGE CI VERIFIED** |
+| Résultat | Consultation Git et publications documentaires gouvernées par Nora ; chemin de fusion GitHub REAL implémenté/testé SCRIPTED, **MERGE REAL NOT PROVEN** |
+| Revue L3 | [Review Pack FULL](https://github.com/mcleland147/sfia-workspace/blob/84309eb719280d1551e84f1f531ccc442b2c4c88/sfia-review-handoff/latest-chatgpt-review.md), blob `53fa6bf2c7621dbba00bcb021eecfc6dc2e6ca5b` |
+| CI PR | [run #45036729361](https://github.com/mcleland147/sfia-workspace/actions/runs/45036729361) **SUCCESS** sur `f11de65f…` ; TypeScript, ESLint, build Next, Vitest, PostgreSQL, Playwright BROWSER FAKE, scan de secrets, whitespace et gates PASS |
+| **CI post-merge** | [run #45039130531](https://github.com/mcleland147/sfia-workspace/actions/runs/45039130531) **SUCCESS** sur `main@8620b08b…` ; Build Next / Next Required Gate PASS |
+| RECETTE acceptée | SOURCE `10128bdb6bb1020a0fd8d4976b91879bff26c3b3`, BUILD `2uHrYBsQUvf6aii40hMpj` ; aucun nouveau cutover |
+| Correction post-RECETTE | `web/src/app/projects/[projectId]/page.tsx` : course du deep-link documentaire `documentId` corrigée et prouvée par CI ; **pas dans le build RECETTE accepté** ; GO merge Morris couvre cette correction, sans nouvelle UAT automatique |
+| Versioning | **NO RELEASE / STABLE NOT AVAILABLE / E08 NOT ADOPTED** |
+| Gates suivants | **Gate C OPEN** ; ML5 non autorisé en construction par cette fusion ; R6 global non effectué |
+
+**Réserves préservées :** MERGE REAL / Nora LIVE merge NOT PROVEN ; WRITE-07 ACK-loss/retry REAL non exercé ; PREVIEW PARTIAL ; audit D6/D7/D8 REAL partiel ; protections GitHub pas totalement observables ; R6 en attente. CI SCRIPTED/FAKE ≠ preuve LIVE/REAL.
+
+**Sources :** [PV E08](../construction/ensemble-08-git-et-publications/recette-acceptation-partielle-2026-11-22.md), [as-built](../construction/ensemble-08-git-et-publications/as-built.md), [provenance](../construction/ensemble-08-git-et-publications/PROVENANCE-contrats-e08.md), [delivery history](../construction/delivery-history.md), [commit de merge](https://github.com/mcleland147/sfia-workspace/commit/8620b08bfe86fdf92af0c02756ee980f60964490).
+
+**Suite :** qualification de Gate C et arbitrage Morris de la capacité suivante, sans lancement automatique d'un nouveau macro-lot.
+
+---
+
 ## ÉTAT COURANT — 21 NOVEMBRE 2026 : Ensemble 07 intégré sur main, CI post-merge vérifiée
 
 **Nature :** actualisation **strictement factuelle** sur GO Morris du 21/11/2026, après acceptation utilisateur et sortie Git de l'Ensemble 07. Ce bloc constitue le **dernier état vivant** et prime sur les instantanés historiques qui suivent ; ceux-ci sont conservés sans réécriture. **Aucun arbitrage nouveau de Gate C, ML5, R6, release, STABLE, ADOPTED ou architecture.**
