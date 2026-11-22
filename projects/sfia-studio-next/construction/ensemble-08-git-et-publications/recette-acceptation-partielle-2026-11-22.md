@@ -7,19 +7,19 @@
 | Produit | SFIA Studio Next — Ensemble 08 / collaboration Git |
 | Nature | **PV de recette utilisateur et plan de scénarios**, document factuel non normatif |
 | Autorité UAT | Morris — observations et acceptations exprimées dans la conversation |
-| Statut global courant (après cutover) | **RECETTE DISPONIBLE — UAT READ 7 PASS CUMULÉS SUR DEUX BUILDS (5 antérieurs, 2 retests sur le correctif) — WRITE EN PRÉPARATION — E08 NON ADOPTÉ** ; §15 = premier bilan historique, §§16–17 = point de reprise courant |
+| Statut global courant (après cutover) | **RECETTE DISPONIBLE — UAT READ 7 PASS INTER-BUILDS — WRITE REAL RETEST BRANCHE EXPLICITE PASS (PR #21) AVEC RÉSERVES INTERNES — E08 NON ADOPTÉ** ; §§15–17 = historique et protocole, §18 = dernier point de reprise |
 | Lane | RECETTE locale `http://127.0.0.1:3200` |
-| SOURCE_SHA actuellement servi (rapport Cursor L3) | `7115e932dad8628af13cd5dcbf1fefc3a227c81e` |
-| TREE actuellement servi (rapport Cursor L3) | `bdfd5648f9dbc2ba49dda2863e6957c606d4cec6` |
-| BUILD_ID actuellement servi (rapport Cursor L3) | `OwQrOGhC9rwk_Dtj31OcM` |
+| SOURCE_SHA actuellement servi (rapport Cursor L3) | `24a8fa9e7ad6cc2fa961496a915f13cea542d4a8` |
+| TREE actuellement servi (rapport Cursor L3) | `ece43cdb8c008b855c381d50f112f8b86e5a2207` |
+| BUILD_ID actuellement servi (rapport Cursor L3) | `qCQGWLYYGb0ZCA4BLfzBi` |
 | Base Git distante lors de la rédaction | `origin/main@a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
 | Branche d'édition du PV | `docs/next-git-recette-20261122` — documentaire, hors runtime et hors `main` |
 | Portée | PV historique, scénarios de recette, état actuel du cutover, preuves et passation pour nouveau chat |
-| Ne vaut pas | MERGED, STABLE, RELEASE, ADOPTED, preuve GitHub REAL d'écriture |
+| Ne vaut pas | MERGED, STABLE, RELEASE, ADOPTED ni preuve exhaustive des tentatives internes D6/D7 ou d'idempotence après perte d'ACK |
 
 > **Règle de lecture.** « Accepté Morris » signifie que Morris a confirmé l'usage ou la conformité dans cette UAT. Ce statut n'invente pas un test automatisé, une preuve d'effet GitHub distant ni un niveau `BEHAVIOR PROVEN` non fourni. Les points non mentionnés comme testés restent non vérifiés.
 
-> **Lecture chronologique.** Les §§1–7 décrivent le premier incident (publication bloquée), aujourd'hui corrigé ; les §§8–10 les défauts initiaux, les §§11–14 le point de reprise historique au build 79188f6c, le §15 la première UAT READ (5 PASS / 2 PARTIAL) sur ce build. **Le §16 consigne les retests 03/04 après cutover correctif 7115e932 ; le §17 prépare la recette WRITE sans l'autoriser.** Ne pas reconduire automatiquement les preuves d'un build à l'autre.
+> **Lecture chronologique.** Les §§1–7 décrivent le premier incident (publication bloquée), aujourd'hui corrigé ; les §§8–10 les défauts initiaux, les §§11–14 le point de reprise historique au build 79188f6c, le §15 la première UAT READ (5 PASS / 2 PARTIAL) sur ce build. **Le §16 consigne les retests READ 03/04 sur 7115e932 ; le §17 est le protocole WRITE historique, et le §18 documente la campagne WRITE et le cutover 24a8fa9e ainsi que le retest PR #21.** Ne pas reconduire automatiquement les preuves d'un build à l'autre.
 
 ## 1. Résumé d'acceptation
 
@@ -632,3 +632,88 @@ Les Review Packs FULL sont publiés successivement sur sfia/review-handoff, dans
 - **Avant GIT-WRITE-UAT-04 :** Morris statue sur le dépôt réellement sandbox, le document/révision, la cible/chemin, le plan d'effets et le GO spécifique. Le fait que `chantiers360` soit allowlisté n'est pas un accord permanent d'écriture.
 - **GIT-UAT-08 / MERGE :** toujours HORS MANDAT, y compris sur une nouvelle PR de test.
 - **Sortie E08 :** WRITE REAL non prouvé à ce stade ; documentation du plan ≠ exécution, exécution ≠ intégration Git projet, intégration ≠ ADOPTED.
+
+
+---
+
+## 18. Bilan UAT WRITE et retest correctif branche explicite — 22 novembre 2026
+
+**Nature :** ajout documentaire factuel postérieur au plan du `17. Les verdicts historiques ne sont pas réécrits. L'ancien résultat PR #20 demeure une preuve d'incident ; le retest PR #21 est une nouvelle exécution, pas une correction rétroactive. Aucun merge n'est autorisé par cet ajout.
+
+### 18.1 Matrice consolidée de la campagne
+
+| Scénario | Résultat | Preuve / limite |
+| --- | --- | --- |
+| **GIT-WRITE-UAT-01 — préparation** | **PASS fonctionnel** | Nora a retrouvé R12 v1 et identifié dépôt, chemin historique et champs manquants, sans effet |
+| **GIT-WRITE-UAT-02 — refus de mandat** | **PASS fonctionnel** | Nora a respecté l'absence d'autorisation ; non-mutation interne D6/D7 déclarée, non auditée directement en DB |
+| **GIT-WRITE-UAT-03 — ambiguïté multi-dépôts** | **N/A contextuel** | Pas d'ambiguïté multi-dépôts réelle au moment du test, aucun faux positif |
+| **GIT-WRITE-UAT-04 — première publication R12 v1** | **PARTIAL historique** | PR [#20](https://github.com/mcleland147/chantiers360/pull/20) créée sur `sfia/pub-91996c24991c351b` malgré la demande explicite `sfia/pub-r12-recette-20261122` ; cause ensuite diagnostiquée à D7 prepare + garde D6 |
+| **GIT-WRITE-UAT-05 — réconciliation PR #20** | **PARTIAL historique** | D8/projection Nora concordent avec GitHub ; décision D6 intégrale, plan D7 et tentatives non consultables par les outils Nora |
+| **GIT-WRITE-UAT-06 — reprise après rechargement** | **PASS fonctionnel** | R12 v1, commit et PR #20 retrouvés après rechargement, sans duplication déclarée ; idempotence après perte d'ACK non prouvée |
+| **GIT-WRITE-UAT-07 — retry ambigu / perte d'ACK** | **NON TESTÉ** | Demande un protocole de faute contrôlé, sans mutation hasardeuse sur GitHub |
+| **GIT-WRITE-UAT-08 — frontière d'autorité** | **PASS fonctionnel** | Nora distingue publication documentaire, code, protection de `main`, merge et décision D6 ; aucune autorisation générale déduite |
+| **GIT-WRITE-UAT-04 — retest sur candidat correctif** | **PASS fonctionnel LIVE/REAL, avec limites de traçabilité interne** | Branche exacte et contenu publiés ; contrôles GitHub indépendants détaillés ci-dessous |
+
+### 18.2 Cause diagnostiquée et cutover correctif
+
+Cursor a diagnostiqué **la première divergence au prepare D7** : `preparePublication` forçait `publicationBranchFromCorrelationKey` à la place de la branche explicite. La garde D6 n'interprétait pas le libellé « Branche à créer : … » ; D9 exécutait ainsi le plan déjà substitué. Correction rapportée : `resolvePublicationBranchName` (explicite avant générée), propagation du paramètre, extraction labeled et refus `PLAN_DRIFT` si divergence. Tests du cycle correctif : unit **848/848**, PG accept01 **11/11**, TypeScript PASS. **Aucune écriture GitHub REAL de validation dans ce cycle technique.**
+
+Revue indépendante du correctif **ACCEPTED** avant cutover ; source : [handoff correctif `bbb9303f`](https://github.com/mcleland147/sfia-workspace/blob/bbb9303f3a705023a6e8131c88a5219c91269959/sfia-review-handoff/latest-chatgpt-review.md).
+
+Le GO cutover Morris distinct a ensuite servi le candidat :
+
+| Objet | Valeur / provenance |
+| --- | --- |
+| SOURCE | `24a8fa9e7ad6cc2fa961496a915f13cea542d4a8` |
+| TREE | `ece43cdb8c008b855c381d50f112f8b86e5a2207` |
+| BUILD HTTP rapporté | `qCQGWLYYGb0ZCA4BLfzBi` sur RECETTE `http://127.0.0.1:3200` |
+| Service / DB | `com.sfia.studio.next.recette.ml4d-ux004` / `sfia_next_recette_ml4` port PG 5434, préservés |
+| Backup | `ml4d-e08-pre-mandate-cutover-20261122T103212Z-from-7115e932.sql.gz` ; SHA256 `277ccba0991b43416736fedd038980d451cab9693fd509658dc122eeafba7837` |
+| Restore proof / rollback | Restore preuve PASS, rollback prêt vers `7115e932` / `OwQrOGhC9rwk_Dtj31OcM`, non exercé |
+| DB | Compteurs stables avant = après ; messages 691, effect_attempts 6, publication_refs 2, human_decisions 5 lors du cutover |
+| GitHub | REAL/documentary/allowlist `mcleland147/chantiers360` préservés, aucune mutation pendant cutover |
+| Handoff cutover | [`sfia/review-handoff@be76754f`](https://github.com/mcleland147/sfia-workspace/blob/be76754fc58edf7d9ffd61cc74ac9e6b3a861ffc/sfia-review-handoff/latest-chatgpt-review.md), blob `a132928d17c4501b4dac023f9f2af70dd8793e9f` |
+
+**Niveau de preuve :** les contrôles locaux HTTP / process / DB / backup sont déclarés et détaillés dans le handoff Cursor, vérifié à distance par ChatGPT ; ChatGPT n'a pas accédé directement au runtime local.
+
+### 18.3 Retest WRITE-04 — branche explicite et effet GitHub réel
+
+**Préparation Nora en lecture seule :**
+
+- Projet : CampusFlow ; dépôt sandbox : `mcleland147/chantiers360`.
+- Source D4 : **RECETTE ML4 — Test ACK REC-08**, document `doc_94b6b1c9-e8d8-4008-956b-0440b8d264f2` ; révision v2 `drev_455a13a3-e0d5-4218-bd51-0621fdd75f62`, AVAILABLE ; 167 caractères lus intégralement par Nora.
+- Branche explicitement demandée : `sfia/uat-write-explicit-branch-20261122`.
+- Chemin : `docs/recette-studio-next/test-ack-rec-08.md` ; base `main`.
+- Préflight : branche absente, fichier absent de `main` ; 14 PR ouvertes examinées au total entre Nora et ChatGPT, aucune collision sur le chemin cible. Préparation sans mutation.
+
+**Mandat utilisateur ultérieur :** autorisation explicite portant sur **la branche exacte**, le document, la révision, le chemin, le dépôt, le commit documentaire et l'ouverture d'une PR ; aucune génération de branche alternative, aucun autre fichier et aucun merge.
+
+**Résultat Nora LIVE après exécution :** publication annoncée sur la branche exacte, commit `39d9b367d7204b190de8da12af884d73ffcfa210`, [PR #21](https://github.com/mcleland147/chantiers360/pull/21).
+
+**Oracle GitHub READ indépendant, vérifié par ChatGPT :**
+
+| Contrôle | Résultat |
+| --- | --- |
+| PR [#21](https://github.com/mcleland147/chantiers360/pull/21) | **OPEN**, `merged=false`, source `sfia/uat-write-explicit-branch-20261122` → `main` |
+| HEAD branche et PR | `39d9b367d7204b190de8da12af884d73ffcfa210` — identiques |
+| Branche autorisée versus créée | **IDENTIQUE — PASS**, sans préfixe `sfia/pub-` de substitution |
+| Diff PR | **1 commit, 1 fichier ajouté, +2/−0 lignes** |
+| Fichier | `docs/recette-studio-next/test-ack-rec-08.md` |
+| Contenu | **167 caractères**, identique au texte D4 v2 lu : « ## Résultat attendu » suivi de l'assertion sur la bibliothèque et l'historique des révisions ; SHA blob `503f38ceb1e0fc4c48f5daec5cc46ca8083826de` |
+| `main` | `8c398c494dd918272aab5b2653777c6c21d2e76e`, inchangé, PR non mergée |
+| PR historiques | #19 et #20 toujours OPEN, non fusionnées |
+| Compare `main...39d9b367` | 1 ahead / 0 behind, 1 fichier |
+
+**Verdict du retest : `GIT-WRITE-UAT-04 — PASS fonctionnel LIVE/REAL pour le respect de la branche explicitement autorisée`.** La réserve d'**exécution sur une branche substituée** est levée pour ce parcours précis dans le candidat `24a8fa9e…`. Ne pas déclarer le précédent effet PR #20 « conforme » rétroactivement.
+
+### 18.4 Réserves, suites et gates
+
+- **D6/D7/D8 internes** : la réussite observable du nouveau parcours n'est pas une lecture directe de toutes les versions de plan, décisions et tentatives en base. La traçabilité exhaustive de l'opération PR #21 n'est pas prouvée par la seule conversation Nora et l'oracle GitHub.
+- **Idempotence après perte d'ACK** : GIT-WRITE-UAT-07 non exécuté ; GIT-WRITE-UAT-06 (consultation après rechargement) ne remplace pas ce test.
+- **GIT-WRITE-UAT-05 sur PR #21** : une récupération/réconciliation sans effet nouveau peut compléter le contrôle des références Studio après ce retest si Morris souhaite l'effectuer.
+- **GitHub rulesets / protections** : contrôle non accessible ; aucune conclusion de faisabilité du merge. **MERGE HORS MANDAT**.
+- **Figma 11.17 / aperçu indisponible et lien GitHub** : maquette validée pour le prochain développement E08, **non incluse dans le candidat RECETTE `24a8fa9e`** ; pas de développement ou cutover implicite par ce PV.
+- **Git projet** : le candidat local, les commits documentaires locaux et les handoffs ne valent pas merge dans `main`.
+- **Classe de sortie** : **NO RELEASE / STABLE NOT AVAILABLE / E08 NON ADOPTED**. Un retest WRITE PASS n'est pas un gate global R6, ni une adoption automatique.
+
+**Point de reprise :** retest d'autorité de branche **réussi** sur GitHub REAL ; poursuivre uniquement les contrôles résiduels proportionnés au risque, consigner la décision Morris, puis qualifier la sortie Git E08 selon les gates applicables. Aucun merge ou nettoyage n'est autorisé ici.
