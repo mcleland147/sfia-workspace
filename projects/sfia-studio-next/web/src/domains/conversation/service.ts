@@ -121,6 +121,10 @@ import {
 } from "./mission-continuity";
 import { admitConversationalPublicationMandate } from "./conversation-publication-authority";
 import {
+  extractAllPublicationBranchHints,
+  extractExplicitPublicationBranch,
+} from "./conversation-publication-mandate-guards";
+import {
   admitConversationalMergeMandate,
   extractPositivelyRequestedPrNumbers,
   userStatementHasOpenMergeCondition,
@@ -2842,6 +2846,38 @@ export async function postUserMessageAndNora(
         revisionNumber: pubTarget.revisionNumber,
       };
     } else if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
+      const baseBranch = (missionIntent.targetBranch ?? "main").trim() || "main";
+      const branchHints = extractAllPublicationBranchHints(content);
+      const nonBaseBranchHints = [...new Set(branchHints.filter((b) => b !== baseBranch))];
+      if (nonBaseBranchHints.length > 1) {
+        steps.push({
+          id: "d7_prepare",
+          capabilityId: "d7.prepare_publication",
+          status: "PENDING",
+          correlationKey: missionKeys.publication,
+          documentId: pubTarget.documentId,
+          revisionId: pubTarget.revisionId,
+          reason: "AMBIGUOUS_BRANCH",
+        });
+        missionProjection = {
+          clientIntentKey,
+          status: "AWAITING_CLARIFICATION",
+          goalSummary: "Publication Git — branches contradictoires à clarifier",
+          steps,
+          restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
+        };
+        publicationEffectView = {
+          attempted: true,
+          outcome: "AWAITING_CLARIFICATION",
+          reason: "Plusieurs branches de publication distinctes de la base — précision requise.",
+          documentTitle: pubTarget.title,
+          revisionNumber: pubTarget.revisionNumber,
+        };
+      } else {
+      const explicitPublicationBranch = extractExplicitPublicationBranch({
+        userText: content,
+        baseBranch,
+      });
       const prepared = await preparePublicationForMission({
         pilotId,
         projectId: ctx.project.id,
@@ -2849,7 +2885,8 @@ export async function postUserMessageAndNora(
         revisionId: pubTarget.revisionId,
         clientIntentKey,
         targetPath: effectiveTargetPath,
-        targetBranch: missionIntent.targetBranch,
+        targetBranch: baseBranch,
+        publicationBranch: explicitPublicationBranch,
       });
       if (prepared.ok) {
         const prepStep: MissionProjection["steps"][number] = {
@@ -2877,7 +2914,8 @@ export async function postUserMessageAndNora(
           clientTurnKey,
           missionClientIntentKey: clientIntentKey,
           qualifiedPath: effectiveTargetPath,
-          qualifiedBranch: missionIntent.targetBranch,
+          // Bind the publication head the Pilote named (not the base branch).
+          qualifiedBranch: explicitPublicationBranch,
           wantsPublishFromQual: missionIntent.wantsPublish,
         });
 
@@ -3046,6 +3084,7 @@ export async function postUserMessageAndNora(
           revisionNumber: pubTarget.revisionNumber,
         };
       }
+      } // end unambiguous-branch prepare path
     }
 
     if (continueFailedAfterEffect && missionProjection) {

@@ -60,9 +60,11 @@ describe("E08 corrective — shared tool budget object", () => {
 
   it("D4→history and history→D4 share remainingCalls; Git≠D4; chars global", () => {
     const bag = createSharedToolBudget({
+      maxProviderCalls: 6,
       maxD4ToolCalls: 3,
       maxD4CharsReturned: 500,
       maxGitToolCalls: 2,
+      wallClockMs: 60_000,
     });
     // D4 → history
     bag.remainingCalls -= 1;
@@ -85,9 +87,11 @@ describe("E08 corrective — shared tool budget object", () => {
 
   it("Git call exhaustion refuses Git without unlocking D4/chars quotas", () => {
     const bag = createSharedToolBudget({
+      maxProviderCalls: 4,
       maxD4ToolCalls: 2,
       maxD4CharsReturned: 800,
       maxGitToolCalls: 1,
+      wallClockMs: 60_000,
     });
     bag.remainingGitCalls -= 1;
     expect(bag.remainingGitCalls).toBe(0);
@@ -101,9 +105,11 @@ describe("E08 corrective — shared tool budget object", () => {
 
   it("char exhaustion is a shared stop for D4/history/Git", () => {
     const bag = createSharedToolBudget({
+      maxProviderCalls: 8,
       maxD4ToolCalls: 4,
       maxD4CharsReturned: 100,
       maxGitToolCalls: 12,
+      wallClockMs: 60_000,
     });
     bag.remainingChars = 0;
     expect(bag.remainingCalls).toBe(4);

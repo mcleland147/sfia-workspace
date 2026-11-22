@@ -18,6 +18,32 @@ export function publicationBranchFromCorrelationKey(correlationKey: string): str
   return `sfia/pub-${slug}`;
 }
 
+/**
+ * Resolve publication head for preparePublication.
+ * Explicit Pilote name wins; otherwise deterministic correlation derivation.
+ * Never silently replaces an explicit name with a hash-derived branch.
+ */
+export function resolvePublicationBranchName(input: {
+  correlationKey: string;
+  targetBranch: string;
+  publicationBranch?: string | null;
+}): { ok: true; publicationBranch: string } | { ok: false; reason: "INVALID_BRANCH" | "SAME_AS_BASE" } {
+  const explicit = input.publicationBranch?.trim() || null;
+  if (explicit) {
+    if (!/^[A-Za-z0-9][A-Za-z0-9._/\-]{0,199}$/.test(explicit)) {
+      return { ok: false, reason: "INVALID_BRANCH" };
+    }
+    if (explicit === input.targetBranch.trim()) {
+      return { ok: false, reason: "SAME_AS_BASE" };
+    }
+    return { ok: true, publicationBranch: explicit };
+  }
+  return {
+    ok: true,
+    publicationBranch: publicationBranchFromCorrelationKey(input.correlationKey),
+  };
+}
+
 export function inspectionFingerprint(input: {
   revisionId: string;
   revisionFingerprint: string;

@@ -75,9 +75,17 @@ const NEW_BRANCH_INTENT_RE =
 /**
  * Capture after branche|branch only for validation of an explicit technical name.
  * Never used as a métier router.
+ *
+ * Form A — immediate: "branche feat/x", "branch main"
+ * Form B — labeled create/base: "Branche à créer : `sfia/pub-…`", "branch to create: name"
+ *   (allows a few non-ref words between branche|branch and `:`/`=` before the technical name)
  */
 const EXPLICIT_BRANCH_CAPTURE_RE =
   /(?:branche|branch)\s*[:=]?\s*[`"']?([A-Za-z0-9][A-Za-z0-9._/\-]*)[`"']?/gi;
+
+/** Labeled form — requires `:` or `=` so "branche de mon dépôt" does not capture. */
+const EXPLICIT_BRANCH_LABELED_CAPTURE_RE =
+  /(?:branche|branch)(?:\s+[^\s:;`'"=]{1,24}){0,5}\s*[:=]\s*[`"']?([A-Za-z0-9][A-Za-z0-9._/\-]*)[`"']?/gi;
 
 function extractPublicationPathHint(userText: string): string | null {
   return userText.match(PATH_RE)?.[1] ?? null;
@@ -100,11 +108,31 @@ export function looksLikeTechnicalBranchName(token: string): boolean {
 export function extractAllPublicationBranchHints(userText: string): string[] {
   const text = userText.normalize("NFKC");
   const candidates: string[] = [];
-  for (const m of text.matchAll(EXPLICIT_BRANCH_CAPTURE_RE)) {
-    const raw = m[1];
-    if (raw && looksLikeTechnicalBranchName(raw)) candidates.push(raw);
+  for (const re of [EXPLICIT_BRANCH_CAPTURE_RE, EXPLICIT_BRANCH_LABELED_CAPTURE_RE]) {
+    re.lastIndex = 0;
+    for (const m of text.matchAll(re)) {
+      const raw = m[1];
+      if (raw && looksLikeTechnicalBranchName(raw)) candidates.push(raw);
+    }
   }
   return [...new Set(candidates)];
+}
+
+/**
+ * Publication head branch explicitly named by the Pilote, when distinct from the base.
+ * Returns null when only the base is named or when no technical name is present
+ * (auto-generation of publicationBranch remains legitimate).
+ */
+export function extractExplicitPublicationBranch(input: {
+  userText: string;
+  baseBranch?: string | null;
+}): string | null {
+  const base = (input.baseBranch ?? "main").trim() || "main";
+  const hints = extractAllPublicationBranchHints(input.userText);
+  const nonBase = hints.filter((h) => h !== base);
+  if (nonBase.length === 1) return nonBase[0] ?? null;
+  if (nonBase.length > 1) return null; // ambiguous — caller must refuse, not invent
+  return null;
 }
 
 /**

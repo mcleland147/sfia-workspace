@@ -40,7 +40,7 @@ import {
   buildUnifiedDiff,
   inspectionFingerprint,
   mergeEffectFingerprint,
-  publicationBranchFromCorrelationKey,
+  resolvePublicationBranchName,
   publicationEffectFingerprint,
   revisionContentFingerprint,
 } from "./fingerprint";
@@ -792,6 +792,12 @@ export async function preparePublication(input: {
   repositoryId: string;
   targetPath: string;
   targetBranch: string;
+  /**
+   * Optional explicit publication head branch mandated by the Pilote.
+   * When set, must be used as-is (no silent substitution).
+   * When omitted, a deterministic branch is derived from correlationKey.
+   */
+  publicationBranch?: string | null;
   correlationKey: string;
   steps?: PublicationStep[] | null;
 }) {
@@ -857,7 +863,21 @@ export async function preparePublication(input: {
     proposedContent: rev.contentMarkdown,
   });
 
-  const publicationBranch = publicationBranchFromCorrelationKey(input.correlationKey);
+  const resolvedBranch = resolvePublicationBranchName({
+    correlationKey: input.correlationKey,
+    targetBranch: input.targetBranch,
+    publicationBranch: input.publicationBranch,
+  });
+  if (!resolvedBranch.ok) {
+    throw new StudioError(
+      "INVALID_REQUEST",
+      resolvedBranch.reason === "SAME_AS_BASE"
+        ? "Branche de publication identique à la base — préciser une branche distincte ou omettre le nom"
+        : "Nom de branche de publication invalide",
+      { exposeMessage: true },
+    );
+  }
+  const publicationBranch = resolvedBranch.publicationBranch;
   const effectProviderMode = resolveConfiguredEffectProviderMode();
   const plan: PublicationPlan = {
     documentId: input.documentId,

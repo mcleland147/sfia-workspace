@@ -131,6 +131,8 @@ Checks : dual 403 → `ACCESS_DENIED` (retry `withReadToken`) ; un seul endpoint
 | Merge | `d7.merge_publication` | mandat **distinct** | DET ; REAL **BLOQUÉ** |
 | Create branch / commit / PR | steps plan | sous publication | DET/PG |
 
+**Invariant branche (correctif 2026-11-22)** : si le Pilote nomme explicitement une branche de publication (`Branche à créer : …`), `preparePublication` doit l’utiliser telle quelle ; sinon dérivation `correlationKey`. Une divergence plan↔mandat → `PLAN_DRIFT` avant effet. Auto-génération conservée si aucune tête explicite. Incident PR#20 = preuve historique (non réécrit).
+
 ## Faits D8 oracle PR#19 (RECETTE DB — non mutés)
 
 | Champ | Valeur |

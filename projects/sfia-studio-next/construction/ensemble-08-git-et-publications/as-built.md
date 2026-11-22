@@ -128,6 +128,14 @@
 - Manifeste : `manifeste-cutover-recette-e07-plus-e08.md` (section courante).
 - **UAT Morris** : reprise ciblée GIT-UAT-03 / GIT-UAT-04 · GIT-UAT-08 hors mandat · Nora LIVE E2E **NOT PROVEN** par smoke.
 
+### Correctif mandat WRITE — branche explicite (2026-11-22)
+- **Incident RECETTE** : USER `msg_e2cd5e69…` autorisait `sfia/pub-r12-recette-20261122` ; plan/effet `efx_d8f8e550…` / PR#20 ont exécuté `sfia/pub-91996c24991c351b` (hash `correlationKey`).
+- **Cause prouvée** : (1) `preparePublication` forçait toujours `publicationBranchFromCorrelationKey` — **premier point de divergence** au prepare D7 ; (2) extraction « Branche à créer : \`…\` » manquante → garde D6 `assertPublicationMandateCoversPlan` ne déclenchait pas `PLAN_DRIFT`.
+- **Correction** : `resolvePublicationBranchName` (explicite > hash) ; `preparePublication({ publicationBranch })` ; wiring mission/service ; regex labeled ; `extractExplicitPublicationBranch`.
+- Auto-génération **conservée** si aucune tête explicite.
+- RECETTE runtime **INCHANGÉ** (`7115e932` / `OwQrOGhC9rwk_Dtj31OcM`) — pas de cutover ce cycle ; PR#19/#20 **non mutées**.
+- Preuves : unit **848** PASS · PG accept01 **11** PASS · tsc PASS · GitHub REAL mutation **NONE**.
+
 ## Non livré / réserves
 - Figma G5 géométrie 11.06 (F2) : **PROVEN** en DEV SCRIPTED — acceptation visuelle Morris UAT distincte
 - END-TO-END REAL mutation GitHub : **NOT PROVEN** (sandbox/GO WRITE non nommé ce lot)

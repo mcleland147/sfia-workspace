@@ -1,12 +1,15 @@
 import { describe, expect, it } from "vitest";
 import {
   assertPublicationMandateCoversPlan,
+  extractAllPublicationBranchHints,
+  extractExplicitPublicationBranch,
   extractPublicationBranchHint,
   looksLikeTechnicalBranchName,
   userStatementRefusesPublication,
   userStatementRequestsMergeOnly,
   userStatementRequestsUnnamedNewBranch,
 } from "@/domains/conversation/conversation-publication-mandate-guards";
+import { publicationBranchFromCorrelationKey } from "@/domains/execution/fingerprint";
 import type { PublicationPlan } from "@/domains/execution/types";
 
 function plan(overrides: Partial<PublicationPlan> = {}): PublicationPlan {
@@ -171,5 +174,68 @@ describe("P0-01 branch hint extraction", () => {
       plan: plan(),
     });
     expect(covered.ok).toBe(true);
+  });
+});
+
+describe("E08 WRITE mandate — explicit publication branch (R12 incident)", () => {
+  const r12User = `Dans le projet CampusFlow, je t'autorise à effectuer une nouvelle publication documentaire réelle sur GitHub pour notre recette.
+
+Publie le document Studio « RECETTE ML4 — Publication documentaire R12 ».
+
+Destination :
+- Dépôt : \`mcleland147/chantiers360\`
+- Branche à créer : \`sfia/pub-r12-recette-20261122\`
+- Chemin : \`docs/recette-studio-next/publication-documentaire.md\`
+- Base : \`main\`
+
+Cette autorisation est limitée à ces opérations et à cette cible. Ne fusionne aucune PR.`;
+
+  it("extracts Branche à créer labeled form (incident reproduction)", () => {
+    expect(extractAllPublicationBranchHints(r12User)).toContain("sfia/pub-r12-recette-20261122");
+    expect(extractPublicationBranchHint(r12User)).toBe("sfia/pub-r12-recette-20261122");
+    expect(
+      extractExplicitPublicationBranch({ userText: r12User, baseBranch: "main" }),
+    ).toBe("sfia/pub-r12-recette-20261122");
+  });
+
+  it("PLAN_DRIFT when plan used correlation-derived branch instead of mandated name", () => {
+    const corr = "pub:mission:turn-8ca19672-e702-489c-b6b8-dd03ed3a5049";
+    const derived = publicationBranchFromCorrelationKey(corr);
+    expect(derived).toBe("sfia/pub-91996c24991c351b");
+    const drift = assertPublicationMandateCoversPlan({
+      userStatement: r12User,
+      qualifiedPath: "docs/recette-studio-next/publication-documentaire.md",
+      qualifiedBranch: "sfia/pub-r12-recette-20261122",
+      plan: plan({
+        targetPath: "docs/recette-studio-next/publication-documentaire.md",
+        targetBranch: "main",
+        publicationBranch: derived,
+      }),
+    });
+    expect(drift.ok).toBe(false);
+    if (!drift.ok) expect(drift.reasonCode).toBe("PLAN_DRIFT");
+  });
+
+  it("covers plan when publicationBranch matches the mandated name", () => {
+    const covered = assertPublicationMandateCoversPlan({
+      userStatement: r12User,
+      qualifiedPath: "docs/recette-studio-next/publication-documentaire.md",
+      qualifiedBranch: "sfia/pub-r12-recette-20261122",
+      plan: plan({
+        targetPath: "docs/recette-studio-next/publication-documentaire.md",
+        targetBranch: "main",
+        publicationBranch: "sfia/pub-r12-recette-20261122",
+      }),
+    });
+    expect(covered.ok).toBe(true);
+  });
+
+  it("keeps auto-generation legitimate when no publication head is named", () => {
+    expect(
+      extractExplicitPublicationBranch({
+        userText: "Publie ce document sur une nouvelle branche du repo chemin docs/a.md",
+        baseBranch: "main",
+      }),
+    ).toBeNull();
   });
 });

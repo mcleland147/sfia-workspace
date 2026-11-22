@@ -348,6 +348,8 @@ export async function preparePublicationForMission(input: {
   clientIntentKey: string;
   targetPath: string | null;
   targetBranch: string | null;
+  /** Explicit publication head when the Pilote named one (never silently replaced). */
+  publicationBranch?: string | null;
 }): Promise<
   | {
       ok: true;
@@ -357,6 +359,7 @@ export async function preparePublicationForMission(input: {
       idempotent?: boolean;
       repositoryId: string;
       targetPath: string;
+      publicationBranch: string;
     }
   | { ok: false; code: string; message: string }
 > {
@@ -396,6 +399,7 @@ export async function preparePublicationForMission(input: {
       repositoryId,
       targetPath,
       targetBranch,
+      publicationBranch: input.publicationBranch ?? null,
       correlationKey: keys.publication,
     });
     return {
@@ -406,6 +410,7 @@ export async function preparePublicationForMission(input: {
       idempotent: "idempotent" in prepared ? Boolean(prepared.idempotent) : false,
       repositoryId,
       targetPath,
+      publicationBranch: prepared.plan.publicationBranch,
     };
   } catch (e) {
     if (e instanceof StudioError) {

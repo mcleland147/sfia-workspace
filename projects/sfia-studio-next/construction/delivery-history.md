@@ -3,6 +3,22 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-WRITE-MANDATE-BRANCH
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 11:30 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — correctif mandat publication : branche explicite |
+| Type | INC / QA · CRITICAL · **NO RELEASE** |
+| Cause | `preparePublication` substituait toujours un hash correlation ; regex « Branche à créer » incomplète |
+| Fix | `resolvePublicationBranchName` + wiring mission/D6 guards |
+| Incident | CampusFlow R12 · `efx_d8f8e550…` · PR#20 (historique inchangé) |
+| Preuves | unit **848/848** · PG accept01 **11/11** · tsc PASS |
+| RECETTE | **INCHANGÉE** `7115e932` / `OwQrOGhC9rwk_Dtj31OcM` |
+| Cutover | **NONE** — GO cutover Morris distinct requis |
+| Push projet / mutation GitHub | **NONE** |
+| STABLE | NOT AVAILABLE |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-CORRECTIVE-CUTOVER
 
 | Field | Value |

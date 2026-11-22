@@ -13,6 +13,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ projectId: str
       repositoryId?: string;
       targetPath?: string;
       targetBranch?: string;
+      publicationBranch?: string | null;
       correlationKey?: string;
       steps?: Array<"CREATE_BRANCH" | "PUBLISH_FILE" | "OPEN_PR"> | null;
     };
@@ -34,6 +35,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ projectId: str
       repositoryId: body.repositoryId,
       targetPath: body.targetPath,
       targetBranch: body.targetBranch,
+      publicationBranch: body.publicationBranch ?? null,
       correlationKey: body.correlationKey,
       steps: body.steps,
     });
