@@ -81,14 +81,26 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
     expect(p.toolAllowlist).toContain("read_conversation_messages");
   });
 
+  it("toolAllowlist includes live PR read tool", () => {
+    const p = buildCognitivePolicy("Consulte le statut de la PR #19", "TEST_BOUNDARY");
+    expect(p.toolAllowlist).toContain("read_git_pull_request");
+  });
+
   it("maxTurns follows policy budget without silent hard cap of 12", () => {
-    const p = buildCognitivePolicy("x".repeat(601), "OPERATIONAL_PROVISIONAL");
-    expect(maxTurnsForPolicy(p)).toBe(p.budgets.maxProviderCalls);
-    expect(maxTurnsForPolicy(p)).toBeGreaterThan(12);
-    // Lot D5: short messages keep analyse tools — never tool-less maxTurns=1.
-    const s = buildCognitivePolicy("Merci", "TEST_BOUNDARY");
-    expect(s.profile).toBe("analyse");
-    expect(s.toolAllowlist.length).toBeGreaterThan(0);
-    expect(maxTurnsForPolicy(s)).toBeGreaterThanOrEqual(2);
+    const prevLane = process.env.STUDIO_LANE;
+    process.env.STUDIO_LANE = "DEV";
+    try {
+      const p = buildCognitivePolicy("x".repeat(601), "OPERATIONAL_PROVISIONAL");
+      expect(maxTurnsForPolicy(p)).toBe(p.budgets.maxProviderCalls);
+      expect(maxTurnsForPolicy(p)).toBeGreaterThan(12);
+      // Lot D5: short messages keep analyse tools — never tool-less maxTurns=1.
+      const s = buildCognitivePolicy("Merci", "TEST_BOUNDARY");
+      expect(s.profile).toBe("analyse");
+      expect(s.toolAllowlist.length).toBeGreaterThan(0);
+      expect(maxTurnsForPolicy(s)).toBeGreaterThanOrEqual(2);
+    } finally {
+      if (prevLane === undefined) delete process.env.STUDIO_LANE;
+      else process.env.STUDIO_LANE = prevLane;
+    }
   });
 });

@@ -7,6 +7,7 @@ import {
   listGitRefs,
   listProjectGitSources,
   readGitFile,
+  readGitPullRequest,
 } from "@/domains/integrations/resource-service";
 import { StudioError, isStudioError, toStudioError } from "@/lib/http-errors";
 import { emitObs } from "@/lib/observability";
@@ -380,6 +381,81 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
               "Git read tools never authorize D6 HumanDecision or D7/D9 mutation.",
             charsCharged: 0,
           };
+          return payload;
+        }
+      },
+    }),
+    tool({
+      name: "read_git_pull_request",
+      description:
+        "Read live pull-request metadata from an attached GitHub repository (READ only). " +
+        "Returns current state (open/closed/merged), head/base refs and SHAs, htmlUrl, " +
+        "mergeability when provided by GitHub, commit/file counts when available. " +
+        "Never merges. Never substitutes historical Studio D8 facts for this live observation. " +
+        "Use after list_project_git_sources to obtain repositoryId.",
+      parameters: z.object({
+        repositoryId: z.string(),
+        prNumber: z.number().int().positive(),
+      }),
+      execute: async (args) => {
+        if (scope.budget.remainingCalls <= 0) {
+          return { status: "DENIED", reason: "GIT_TOOL_BUDGET_EXHAUSTED", coverage: "DENIED" as ToolCoverage };
+        }
+        scope.budget.remainingCalls -= 1;
+        try {
+          const result = await readGitPullRequest({
+            pilotId: scope.pilotId,
+            projectId: scope.projectId,
+            repositoryId: args.repositoryId,
+            prNumber: args.prNumber,
+          });
+          const payload = { ...result, coverage: "COMPLETE" as ToolCoverage };
+          const charsCharged = chargeBudget(scope, payload);
+          emitObs({
+            event_name: "d3.tool.read_git_pull_request",
+            component: "git.read_tools",
+            operation_id: scope.operationId,
+            generation_id: scope.generationId,
+            outcome: "SUCCESS",
+            meta: {
+              pr_number: result.prNumber,
+              state: result.state,
+              merged: result.merged,
+              chars_charged: charsCharged,
+            },
+          });
+          return { ...payload, charsCharged };
+        } catch (e) {
+          const err = isStudioError(e) ? e : toStudioError(e);
+          const status =
+            err.code === "NOT_FOUND"
+              ? ("AMBIGUOUS" as const)
+              : err.code === "INVALID_REQUEST"
+                ? ("INVALID_REQUEST" as const)
+                : err.code === "DEPENDENCY_UNAVAILABLE"
+                  ? ("UNAVAILABLE" as const)
+                  : ("DENIED" as const);
+          const payload = {
+            status,
+            reason: err.message,
+            code: err.code,
+            coverage: "DENIED" as ToolCoverage,
+            guidance:
+              err.code === "NOT_FOUND"
+                ? "PR introuvable ou inaccessible — ne pas inventer open/merged."
+                : "Lecture PR refusée — ne pas substituer un historique Studio au statut live.",
+            authorityReminder:
+              "Git PR read never authorizes D6 HumanDecision or merge. Historical D8 ≠ live PR state.",
+            charsCharged: 0,
+          };
+          emitObs({
+            event_name: "d3.tool.read_git_pull_request",
+            component: "git.read_tools",
+            operation_id: scope.operationId,
+            generation_id: scope.generationId,
+            outcome: "DENIED",
+            meta: { status, code: err.code },
+          });
           return payload;
         }
       },

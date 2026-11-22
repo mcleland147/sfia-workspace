@@ -465,6 +465,11 @@ export class RealGitHubReadProvider implements GitHubProvider {
       headRef: pr.headRef,
       baseRef: pr.baseRef,
       htmlUrl: pr.htmlUrl,
+      mergeable: pr.mergeable,
+      mergeableState: pr.mergeableState,
+      commits: pr.commits,
+      changedFiles: pr.changedFiles,
+      mergeCommitSha: pr.mergeCommitSha,
     };
   }
 

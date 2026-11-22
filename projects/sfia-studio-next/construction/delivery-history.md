@@ -3,6 +3,20 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-UAT-PR-READ
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 08:15 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — GIT-UAT-01 PR READ + bandeau tour |
+| Type | INC / QA · CRITICAL · **NO RELEASE** |
+| Cause A | `TOOL_NOT_EXPOSED` — D9 `getPullRequest` non outillé Nora |
+| Cause B | UI `activity=error` sur turn `UNKNOWN` (qual UNAVAILABLE) avec copy « tentative/réconciliez » |
+| Fix | `read_git_pull_request` + allowlist + banner copy |
+| Preuves | unit policy/tools/banner/scripted PR read · tsc · REAL READ oracle PR#19 (gh) |
+| Cutover | **NOT EXECUTED** — CANDIDATE FROZEN · RECETTE GO REQUIRED |
+| Push projet | **NONE** |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-CHAIN-CUTOVER
 
 | Field | Value |

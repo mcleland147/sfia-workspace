@@ -441,3 +441,57 @@ export async function listGitRefs(input: {
           : "Liste bornée aux refs réellement retournées par le fournisseur — aucune ref inventée",
   };
 }
+
+
+/**
+ * Live PR consultation (READ). Uses D9 getPullRequest after project/repo gates.
+ * Never authorizes merge or mutation. Historical D8 must not be substituted for this result.
+ */
+export async function readGitPullRequest(input: {
+  pilotId: string;
+  projectId: string;
+  repositoryId: string;
+  prNumber: number;
+}) {
+  if (!Number.isInteger(input.prNumber) || input.prNumber <= 0) {
+    throw new StudioError("INVALID_REQUEST", "Numéro de PR invalide", { httpStatus: 400 });
+  }
+  const repo = await gateRead(input.pilotId, input.projectId, input.repositoryId);
+  const provider = resolveGitHubProvider();
+  try {
+    const pr = await provider.getPullRequest(input.pilotId, repo.fullName, input.prNumber);
+    const merged = pr.state === "merged";
+    const observedAt = new Date().toISOString();
+    return {
+      status: "AVAILABLE" as const,
+      repositoryFullName: repo.fullName,
+      prNumber: pr.number,
+      title: pr.title,
+      state: pr.state,
+      merged,
+      headRef: pr.headRef,
+      baseRef: pr.baseRef,
+      headSha: pr.headSha,
+      baseSha: pr.baseSha,
+      htmlUrl: pr.htmlUrl,
+      mergeable: pr.mergeable ?? null,
+      mergeableState: pr.mergeableState ?? null,
+      commits: pr.commits ?? null,
+      changedFiles: pr.changedFiles ?? null,
+      mergeCommitSha: pr.mergeCommitSha ?? null,
+      observedAt,
+      authorityReminder:
+        "Lecture PR live — jamais un mandat D6 ni une autorisation de merge. Ne pas substituer un fait D8 historique à cette observation.",
+    };
+  } catch (e) {
+    const err = toStudioError(e);
+    if (err.code === "NOT_FOUND") {
+      throw new StudioError(
+        "NOT_FOUND",
+        `PR introuvable ou inaccessible: #${input.prNumber} sur ${repo.fullName}`,
+        { httpStatus: 404, cause: e },
+      );
+    }
+    throw isRethrowableStudio(e) ? e : err;
+  }
+}

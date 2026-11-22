@@ -80,6 +80,13 @@
 - Matrice : `matrice-capacites-git-chaine-2026-11-22.md`
 - PUBLISH ≠ MERGE conservé (`mergeObserved` uniquement sur fait MERGE).
 
+### GIT-UAT-01 PR READ + bandeau tour (2026-11-22)
+- **Incident A** : `getPullRequest` existait en D9 (REAL+SCRIPTED) mais **non exposé** à Nora (`TOOL_NOT_EXPOSED`). Tour LIVE `tcmd_be190f5c…` : 2 toolCalls (branches) ; qualification `UNAVAILABLE` → status `UNKNOWN` ; Nora affirme à tort l’absence d’outil PR.
+- **Correction A** : `readGitPullRequest` (resource-service) + outil `read_git_pull_request` + allowlist cognitive + consigne adapter ; enrichissement live mergeable/commits/changedFiles.
+- **Incident B** : bandeau `nora-activity-error` dès `j.status === UNKNOWN` — copy « dernière tentative / réconciliez » inadaptée à un tour READ informationnel (assistant livré, zéro effet).
+- **Correction B** : copy UI distinguant consolidation cognitive vs mutation ; conserve l’alerte sans masquer l’anomalie.
+- **Cutover** : **NON** ce contrat — candidat local figé ; GO Morris requis pour RECETTE.
+
 ## Non livré / réserves
 - Figma G5 géométrie 11.06 (F2) : **PROVEN** en DEV SCRIPTED — acceptation visuelle Morris UAT distincte
 - END-TO-END REAL mutation GitHub : **NOT PROVEN** (sandbox/GO WRITE non nommé ce lot)

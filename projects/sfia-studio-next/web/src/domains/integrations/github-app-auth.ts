@@ -781,6 +781,10 @@ export async function fetchPullRequestRemote(input: {
   merged: boolean;
   /** Observed merge commit SHA when GitHub reports one — never invent from head. */
   mergeCommitSha: string | null;
+  mergeable: boolean | null;
+  mergeableState: string | null;
+  commits: number | null;
+  changedFiles: number | null;
 }> {
   const fetchImpl = input.fetchImpl ?? fetch;
   const { owner, name } = parseFullName(input.fullName);
@@ -790,6 +794,10 @@ export async function fetchPullRequestRemote(input: {
     state: string;
     html_url: string;
     merged?: boolean;
+    mergeable?: boolean | null;
+    mergeable_state?: string | null;
+    commits?: number;
+    changed_files?: number;
     merge_commit_sha?: string | null;
     head?: { sha?: string; ref?: string };
     base?: { sha?: string; ref?: string };
@@ -812,6 +820,54 @@ export async function fetchPullRequestRemote(input: {
     baseRef: raw.base?.ref ?? "",
     merged: Boolean(raw.merged),
     mergeCommitSha,
+    mergeable: typeof raw.mergeable === "boolean" ? raw.mergeable : null,
+    mergeableState:
+      typeof raw.mergeable_state === "string" && raw.mergeable_state.trim()
+        ? raw.mergeable_state.trim()
+        : null,
+    commits: typeof raw.commits === "number" ? raw.commits : null,
+    changedFiles: typeof raw.changed_files === "number" ? raw.changed_files : null,
+  };
+}
+
+/** Bounded PR changed-files listing (READ). Never authorizes merge. */
+export async function listPullRequestFilesRemote(input: {
+  token: string;
+  fullName: string;
+  prNumber: number;
+  /** Hard cap — incompleteCoverage when truncated. */
+  bound?: number;
+  fetchImpl?: GitHubFetch;
+}): Promise<{
+  files: Array<{ filename: string; status: string; additions: number; deletions: number }>;
+  incompleteCoverage: boolean;
+  matchedCount: number;
+}> {
+  const fetchImpl = input.fetchImpl ?? fetch;
+  const bound = Math.max(1, Math.min(input.bound ?? 40, 100));
+  const { owner, name } = parseFullName(input.fullName);
+  const raw = await ghJson<
+    Array<{
+      filename?: string;
+      status?: string;
+      additions?: number;
+      deletions?: number;
+    }>
+  >(fetchImpl, `/repos/${owner}/${name}/pulls/${input.prNumber}/files?per_page=${bound + 1}`, {
+    method: "GET",
+    headers: { Authorization: `Bearer ${input.token}` },
+  });
+  const matchedCount = Array.isArray(raw) ? raw.length : 0;
+  const slice = (Array.isArray(raw) ? raw : []).slice(0, bound);
+  return {
+    files: slice.map((f) => ({
+      filename: f.filename ?? "",
+      status: f.status ?? "unknown",
+      additions: typeof f.additions === "number" ? f.additions : 0,
+      deletions: typeof f.deletions === "number" ? f.deletions : 0,
+    })),
+    incompleteCoverage: matchedCount > bound,
+    matchedCount,
   };
 }
 

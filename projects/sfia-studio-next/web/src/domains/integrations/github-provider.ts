@@ -55,12 +55,22 @@ export type DirectoryEntry = {
 export type PullRequestInfo = {
   number: number;
   title: string;
+  /**
+   * Normalized: `open` | `closed` | `merged` (merged wins over closed when GitHub reports merged).
+   */
   state: string;
   headSha: string;
   baseSha: string;
   headRef: string;
   baseRef: string;
   htmlUrl: string;
+  /** Live mergeability from GitHub when provided; null/undefined = not observed. */
+  mergeable?: boolean | null;
+  mergeableState?: string | null;
+  commits?: number | null;
+  changedFiles?: number | null;
+  /** Observed merge commit SHA when GitHub reports one — never invent from head. */
+  mergeCommitSha?: string | null;
 };
 
 export interface GitHubProvider {

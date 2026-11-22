@@ -91,6 +91,7 @@ export type CognitivePolicy = {
     | "read_git_file"
     | "list_git_refs"
     | "list_git_directory"
+    | "read_git_pull_request"
   >;
   budgets: BudgetLimits;
   reasonCodes: string[];
@@ -217,6 +218,7 @@ export function buildCognitivePolicy(
     "read_git_file",
     "list_git_refs",
     "list_git_directory",
+    "read_git_pull_request",
   ];
 
   return {
