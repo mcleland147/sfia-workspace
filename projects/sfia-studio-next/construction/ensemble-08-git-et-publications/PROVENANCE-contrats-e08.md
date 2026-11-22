@@ -56,4 +56,3 @@
 - Le HEAD intégré n'est **pas uniquement documentaire** : correction runtime de deep-link `documentId` dans `web/src/app/projects/[projectId]/page.tsx` ajoutée et validée en CI après le build RECETTE. Elle **ne requalifie pas** le candidat utilisateur recetté.
 - RECETTE inchangée : SOURCE `10128bdb6bb1020a0fd8d4976b91879bff26c3b3` / BUILD `2uHrYBsQUvf6aii40hMpj`. Pas de cutover, release, STABLE ou ADOPTED.
 - Réserves MERGE REAL / Nora LIVE, WRITE-07, PREVIEW, D6/D7/D8 REAL et R6 toujours ouvertes.
-
