@@ -1,233 +1,126 @@
-# SFIA Review Pack FULL — E08 Documentary GitHub REAL Merge (DEV)
+# SFIA Review Pack FULL — E08 Documentary REAL Merge CORRECTED
 
 ## 1. Date / heure
 
 | Champ | Valeur |
 | --- | --- |
-| Europe/Paris | 2026-11-22 12:55:07 UTC+01:00 |
-| UTC | 2026-11-22 11:55:07 UTC |
-| Mandat | GO Morris — fusion documentaire REAL gouvernée via Nora (DEV) |
-| Classe | **NO RELEASE** · STABLE **NOT AVAILABLE** · E08 **NON ADOPTED** |
+| Europe/Paris | 2026-11-22 13:03:44 UTC+01:00 |
+| UTC | 2026-11-22 12:03:44 UTC |
+| Mandat | Correction revue ChatGPT — merge documentaire REAL |
+| Classe | **NO RELEASE** · STABLE **NOT AVAILABLE** |
 
 ## 2. Git Truth initial / final
 
 | Champ | Initial | Final |
 | --- | --- | --- |
 | Branche | feat/next-ensemble08-git-publications-nora | idem |
-| HEAD | 98118de073e9df5f2446592a281060ddb64369fe | a087051a569a0bd6eaab935d674ac567ecfa6400 |
-| TREE | 51694a4dbe160e1caedab53c809e27d67d1cd150 | 7274dcc085d59e7332e9947c4931a95a0de5439a |
+| HEAD | a087051a569a0bd6eaab935d674ac567ecfa6400 | 10128bdb6bb1020a0fd8d4976b91879bff26c3b3 |
+| TREE | 7274dcc085d59e7332e9947c4931a95a0de5439a | be778f1bf461f15acf94bfed6879d43fa6256a0d |
 | origin/main | a12f89a15c454319c06f49fcc5e8effa9f3f1a75 | inchangé |
 | Push projet | — | **NONE** |
 
-Worktree: /Users/morris/Projects/sfia-workspace-feat-next-ensemble08-git-publications-nora
-RECETTE figée preview-build-98118de0 **non mutée**.
+RECETTE protégée inchangée : 98118de0 / _U3Z92BCd0K_-hiMvgTP9 / :3200 / ml4d-ux004.
+Handoff précédent relu : 430a1698ae7e992cdf16423937663452c8bb430d.
 
-## 3. Sources Git consultées
+## 3. Diagnostic des écarts
 
-- Gouvernance Next / SEF / ENV-01 / versioning (refs main)
-- Handoff cutover preview a0bacdcf
-- Code AS-IS: effect-service, real-github-provider, conversation-merge-authority, github-app-auth
-
-## 4. Diagnostic AS-IS / TO-BE
-
-| Zone | AS-IS (98118de0) | TO-BE livré |
+| Correction | Écart | Remède |
 | --- | --- | --- |
-| D9 mergePullRequest | Gate documentary + mergePullRequestRemote | + éligibilité clean/blocked/dirty/null refusée |
-| D7 MergePlan | Sans effectProviderMode | Mode figé REAL/SCRIPTED + fingerprint |
-| D7 reconcile GIT_MERGE | Écrivait pr.headSha | mergeCommitSha only + ML4-REC-01 |
-| SCRIPTED merge | Retournait HEAD | SHA fusion synthétique + mergeCommitSha |
-| publication-effect-view | MERGE sur attempt pub seul | Corrélation via publicationAttemptId |
-| Nora→D6→D7 | Présent | Conservé — aucune fusion REAL exécutée |
+| C1 | dispatchMerge n'exigeait pas un mode historique prouvé | Fail-closed UNKNOWN/mismatch avant autorité/provider |
+| C2 | reconcile sans provenance complète ; headSha écrasé par merge SHA | Gates dépôt/PR/refs/source HEAD/mergeCommitSha/publication ; headSha source préservé ; mergeCommitSha en detailJson |
+| C3 | SCRIPTED avançait main même si base=release | Avance uniquement baseRef |
 
-## 5. Chaîne Nora → D6 → D7 → D9 → D8
-
-Pilote USER → d7.merge_publication → admitConversationalMergeMandate → prepareMerge → authorizeMerge (GIT_MERGE_MANDATE) → dispatchMerge → provider.mergePullRequest → fait MERGE + D8 MERGED → restitution Nora.
-Publication simple n'autorise jamais le merge.
-
-## 6. Fichiers créés / modifiés
+## 4. Fichiers
 
 ```
 M	projects/sfia-studio-next/construction/delivery-history.md
 M	projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
-M	projects/sfia-studio-next/web/src/domains/conversation/publication-effect-view.ts
 M	projects/sfia-studio-next/web/src/domains/execution/effect-service.ts
-M	projects/sfia-studio-next/web/src/domains/execution/fingerprint.ts
-M	projects/sfia-studio-next/web/src/domains/execution/types.ts
-M	projects/sfia-studio-next/web/src/domains/integrations/github-app-auth.ts
-M	projects/sfia-studio-next/web/src/domains/integrations/github-provider.ts
 M	projects/sfia-studio-next/web/src/domains/integrations/scripted-github-provider.ts
-A	projects/sfia-studio-next/web/tests/unit/documentary-merge-contract.test.ts
-M	projects/sfia-studio-next/web/tests/unit/merge-pull-request-sha.test.ts
+A	projects/sfia-studio-next/web/tests/integration/documentary-merge-corrections.pg.test.ts
+M	projects/sfia-studio-next/web/tests/unit/documentary-merge-contract.test.ts
 ```
 
-## 7. Diff commit complet (a087051a569a)
+## 5. Diff commit (10128bdb6bb1)
 
 ```diff
-commit a087051a569a0bd6eaab935d674ac567ecfa6400
+commit 10128bdb6bb1020a0fd8d4976b91879bff26c3b3
 Author: Morris Cleland <morris@macbook-air.home>
-Date:   Sun Nov 22 12:53:53 2026 +0100
+Date:   Sun Nov 22 13:03:02 2026 +0100
 
-    feat(e08): govern documentary GitHub REAL merge via Nora
+    fix(e08): harden documentary merge mode and reconcile provenance
     
-    Close merge reconcile/SHA and eligibility gaps so D9 can execute a
-    documentary merge under D6/D7 without inventing proof from mocks.
+    Fail-closed on unknown provider mode, require plan/remote provenance
+    before attributing merges, and advance only the scripted target branch.
 ---
- .../construction/delivery-history.md               |  15 ++
- .../ensemble-08-git-et-publications/as-built.md    |  11 +
- .../conversation/publication-effect-view.ts        |  47 +++-
- .../web/src/domains/execution/effect-service.ts    |  90 +++++++-
- .../web/src/domains/execution/fingerprint.ts       |  48 ++--
- .../web/src/domains/execution/types.ts             |   5 +
- .../src/domains/integrations/github-app-auth.ts    |  25 +++
- .../src/domains/integrations/github-provider.ts    |   3 +-
- .../integrations/scripted-github-provider.ts       |  19 +-
- .../tests/unit/documentary-merge-contract.test.ts  | 243 +++++++++++++++++++++
- .../web/tests/unit/merge-pull-request-sha.test.ts  |  84 +++++++
- 11 files changed, 559 insertions(+), 31 deletions(-)
+ .../construction/delivery-history.md               |  15 +
+ .../ensemble-08-git-et-publications/as-built.md    |   9 +
+ .../web/src/domains/execution/effect-service.ts    | 144 ++++++--
+ .../integrations/scripted-github-provider.ts       |   2 +-
+ .../documentary-merge-corrections.pg.test.ts       | 397 +++++++++++++++++++++
+ .../tests/unit/documentary-merge-contract.test.ts  |  76 ++++
+ 6 files changed, 620 insertions(+), 23 deletions(-)
 
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index d176cadb..8db81465 100644
+index 8db81465..9bb696a6 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
 @@ -3,6 +3,21 @@
  Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
  
-+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-DOCUMENTARY-REAL-MERGE
++## delivery_id: DELIV-2026-11-22-ENSEMBLE08-DOCUMENTARY-REAL-MERGE-CORRECTED
 +
 +| Field | Value |
 +| --- | --- |
-+| Date | 2026-11-22 ≈ 12:53 CET (Europe/Paris) |
-+| Macro-lot | Ensemble 08 — fusion documentaire GitHub REAL gouvernée via Nora (DEV) |
++| Date | 2026-11-22 ≈ 13:02 CET (Europe/Paris) |
++| Macro-lot | Ensemble 08 — correction revue merge documentaire REAL (DEV) |
 +| Type | EVOL · CRITICAL · **NO RELEASE** |
-+| AS-IS | Chaîne Nora→D6→D7→D9 merge déjà présente ; gaps reconcile `headSha`, pas de `effectProviderMode` merge, éligibilité GitHub insuffisante, SCRIPTED réutilisait HEAD |
-+| Fix | `MergePlan.effectProviderMode` · reconcile merge_commit_sha + ML4-REC-01 · eligibility clean · SCRIPTED merge SHA distinct · vue MERGE corrélée |
-+| Preuves | unit documentary-merge-contract + merge-sha + authority · PG conversation-merge-security · git-collaboration B3/T20 slice · tsc PASS |
-+| RECETTE | **INCHANGÉE** `98118de0` / `_U3Z92BCd0K_-hiMvgTP9` · ml4d-ux004 |
-+| Mutation GitHub REAL | **NONE** — merge REAL **NOT PROVEN** |
++| Base candidat | `a087051a` / `7274dcc0` |
++| Fix | fail-closed mode UNKNOWN · reconcile provenance · D8 headSha source préservé · SCRIPTED cible seule |
++| Preuves | PG documentary-merge-corrections **8/8** · conversation-merge-security **5/5** · unit contract/sha/authority/preview · tsc PASS |
++| RECETTE | **INCHANGÉE** `98118de0` / `_U3Z92BCd0K_-hiMvgTP9` |
++| Mutation GitHub REAL | **NONE** — **NOT PROVEN** |
 +| Push projet | **NONE** |
-+| Verdict | **DEVELOPMENT COMPLETE WITH RESERVES — REAL MERGE NOT YET PROVEN** |
++| Verdict | **READY FOR CHATGPT REVIEW — E08 DOCUMENTARY REAL MERGE CORRECTED** |
 +
- ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-UNIVERSAL-PREVIEW-FALLBACK
+ ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-DOCUMENTARY-REAL-MERGE
  
  | Field | Value |
 diff --git a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
-index cc0e00d2..4e38df20 100644
+index 4e38df20..815d1a6e 100644
 --- a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
 +++ b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
-@@ -180,3 +180,14 @@
- | GitHub REAL READ (RECETTE) | BOUNDARY — smoke post-cutover |
- | GitHub REAL WRITE / MERGE | NOT PROVEN |
- | Nora LIVE E2E | NOT PROVEN |
+@@ -191,3 +191,12 @@
+ - **Preuves** : unit MERGE contract + merge SHA + merge authority ; PG `conversation-merge-security` ; slice `git-collaboration` B3/T20 ; `tsc` PASS.
+ - **Hors cycle** : aucune fusion GitHub REAL exécutée ; RECETTE `98118de0` / `_U3Z92BCd0K_-hiMvgTP9` **inchangée**.
+ - **Niveau** : chemin REAL **implémenté / testé (SCRIPTED + interface mockée)** — **MERGE REAL NOT PROVEN**.
 +
-+### Documentary GitHub REAL merge path (DEV — 2026-11-22)
++### Correction revue — merge documentaire (DEV — 2026-11-22)
 +
-+- **Chaîne** Nora `d7.merge_publication` → `admitConversationalMergeMandate` → D6 `GIT_MERGE_MANDATE` → D7 `prepareMerge` / `authorizeMerge` / `dispatchMerge` → D9 `mergePullRequest` → D8 `MERGED` + fait `MERGE`.
-+- **D9 REAL** : `mergePullRequest` sous gate `STUDIO_GITHUB_ALLOW_MUTATIONS=documentary` + WRITE allowlist + user OAuth ; `mergePullRequestRemote` avec précondition `sha`, refus dirty/blocked/non-démontré, idempotence via `merge_commit_sha` (jamais HEAD source).
-+- **D7** : `MergePlan.effectProviderMode` figé au prepare ; dispatch refuse divergence de mode ; `reconcileAttempt(GIT_MERGE)` ML4-REC-01 + SHA = `mergeCommitSha` uniquement.
-+- **SCRIPTED** : commit de fusion synthétique distinct du HEAD source ; `mergeCommitSha` exposé.
-+- **Restitution** : `publication-effect-view` corrèle les faits MERGE via `publicationAttemptId`.
-+- **Preuves** : unit MERGE contract + merge SHA + merge authority ; PG `conversation-merge-security` ; slice `git-collaboration` B3/T20 ; `tsc` PASS.
-+- **Hors cycle** : aucune fusion GitHub REAL exécutée ; RECETTE `98118de0` / `_U3Z92BCd0K_-hiMvgTP9` **inchangée**.
-+- **Niveau** : chemin REAL **implémenté / testé (SCRIPTED + interface mockée)** — **MERGE REAL NOT PROVEN**.
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/publication-effect-view.ts b/projects/sfia-studio-next/web/src/domains/conversation/publication-effect-view.ts
-index e2caa664..5d28cf16 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/publication-effect-view.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/publication-effect-view.ts
-@@ -201,7 +201,9 @@ export async function buildPublicationEffectViewFromAttempt(input: {
-     }
-   }
- 
--  const mergeFact = (
-+  // MERGE facts live on the GIT_MERGE attempt — correlate via publicationAttemptId.
-+  let mergeObserved = false;
-+  const directMergeFact = (
-     await db
-       .select({ id: observedGitFacts.id })
-       .from(observedGitFacts)
-@@ -213,6 +215,47 @@ export async function buildPublicationEffectViewFromAttempt(input: {
-       )
-       .limit(1)
-   )[0];
-+  if (directMergeFact) {
-+    mergeObserved = true;
-+  } else {
-+    const mergeAttempts = await db
-+      .select({ id: effectAttempts.id, planJson: effectAttempts.planJson })
-+      .from(effectAttempts)
-+      .where(
-+        and(
-+          eq(effectAttempts.projectId, row.projectId),
-+          eq(effectAttempts.pilotId, row.pilotId),
-+          eq(effectAttempts.kind, "GIT_MERGE"),
-+        ),
-+      );
-+    const correlatedIds = mergeAttempts
-+      .filter((m) => {
-+        try {
-+          const p = JSON.parse(m.planJson || "{}") as { publicationAttemptId?: string };
-+          return p.publicationAttemptId === input.attemptId;
-+        } catch {
-+          return false;
-+        }
-+      })
-+      .map((m) => m.id);
-+    if (correlatedIds.length > 0) {
-+      for (const mid of correlatedIds) {
-+        const mf = (
-+          await db
-+            .select({ id: observedGitFacts.id })
-+            .from(observedGitFacts)
-+            .where(
-+              and(eq(observedGitFacts.attemptId, mid), eq(observedGitFacts.factKind, "MERGE")),
-+            )
-+            .limit(1)
-+        )[0];
-+        if (mf) {
-+          mergeObserved = true;
-+          break;
-+        }
-+      }
-+    }
-+  }
- 
-   return buildPublicationEffectViewFromOwnerPayload({
-     outcome: input.outcome,
-@@ -224,7 +267,7 @@ export async function buildPublicationEffectViewFromAttempt(input: {
-     plan,
-     result,
-     prHtmlUrl,
--    mergeObserved: Boolean(mergeFact),
-+    mergeObserved,
-   });
- }
- 
++1. **Fail-closed mode** : `dispatchMerge` exige un `effectProviderMode` historique explicite (REAL|SCRIPTED) égal au live **avant** toute autorité/provider ; UNKNOWN/absent → `REQUIRES_REQUALIFICATION` (zéro mutation).
++2. **Reconcile provenance** : attribution COMPLETED seulement si dépôt/PR/headRef/baseRef/source HEAD/`mergeCommitSha` + publication associée concordent ; base SHA cible non exigée post-fusion ; pas de succès inventé.
++3. **D8 headSha** : conserve le HEAD source de publication ; `mergeCommitSha` dans `detailJson` + fait MERGE (pas de substitution silencieuse).
++4. **SCRIPTED** : avance uniquement la branche cible (`baseRef`) — merge vers `release` ne touche pas `main`.
++5. **Preuves** : PG `documentary-merge-corrections` 8/8 · unit contract C3 · suites merge/preview ciblées · `tsc` PASS · RECETTE inchangée.
++6. **MERGE REAL** : toujours **NOT PROVEN**.
 diff --git a/projects/sfia-studio-next/web/src/domains/execution/effect-service.ts b/projects/sfia-studio-next/web/src/domains/execution/effect-service.ts
-index 2977338f..01fc8973 100644
+index 01fc8973..ec704d23 100644
 --- a/projects/sfia-studio-next/web/src/domains/execution/effect-service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/execution/effect-service.ts
-@@ -1825,6 +1825,7 @@ export async function prepareMerge(input: {
-     throw new StudioError("REQUIRES_REQUALIFICATION", "baseRef PR inattendue");
-   }
+@@ -2042,6 +2042,31 @@ export async function dispatchMerge(input: {
+   const claimToken = claimed.claim.claimToken;
+   const plan = JSON.parse(row.planJson) as MergePlan;
  
-+  const effectProviderMode = resolveConfiguredEffectProviderMode();
-   const plan: MergePlan = {
-     repositoryId: pubRef.repositoryId,
-     repositoryFullName: repo.fullName,
-@@ -1842,6 +1843,7 @@ export async function prepareMerge(input: {
-     expectedHeadRef: pr.headRef,
-     expectedBaseRef: pr.baseRef,
-     publicationBranch: pubPlan.publicationBranch,
-+    effectProviderMode,
-   };
-   const fingerprint = mergeEffectFingerprint(plan);
- 
-@@ -2085,6 +2087,22 @@ export async function dispatchMerge(input: {
-     throw new StudioError("REQUIRES_REQUALIFICATION", "Provenance publication incohérente");
-   }
- 
++  // Fail-closed BEFORE authority / provider calls: historical mode must be explicit + match live.
++  // UNKNOWN / absent → REQUIRES_REQUALIFICATION with zero mutative GitHub calls.
 +  const liveEffectMode = resolveConfiguredEffectProviderMode();
-+  if (plan.effectProviderMode && plan.effectProviderMode !== liveEffectMode) {
++  const historicalMode = qualifyPlanEffectProviderMode(plan);
++  if (
++    historicalMode === "UNKNOWN" ||
++    (historicalMode !== "REAL" && historicalMode !== "SCRIPTED") ||
++    historicalMode !== liveEffectMode
++  ) {
 +    const released = releaseClaim(readClaim(resultJson));
 +    await casOwnedTransition({
 +      attemptId: row.id,
@@ -238,465 +131,654 @@ index 2977338f..01fc8973 100644
 +    });
 +    throw new StudioError(
 +      "REQUIRES_REQUALIFICATION",
-+      `Mode fournisseur d'effet divergé (plan=${plan.effectProviderMode}, live=${liveEffectMode})`,
++      historicalMode === "UNKNOWN"
++        ? "Mode fournisseur historique UNKNOWN — requalification obligatoire avant merge"
++        : `Mode fournisseur d'effet divergé (plan=${historicalMode}, live=${liveEffectMode})`,
 +    );
 +  }
 +
+   const mergeAuthCtx: AuthorityCtx = {
+     pilotId: input.pilotId,
+     projectId: input.projectId,
+@@ -2087,22 +2112,6 @@ export async function dispatchMerge(input: {
+     throw new StudioError("REQUIRES_REQUALIFICATION", "Provenance publication incohérente");
+   }
+ 
+-  const liveEffectMode = resolveConfiguredEffectProviderMode();
+-  if (plan.effectProviderMode && plan.effectProviderMode !== liveEffectMode) {
+-    const released = releaseClaim(readClaim(resultJson));
+-    await casOwnedTransition({
+-      attemptId: row.id,
+-      claimToken,
+-      fromStatus: "DISPATCHED",
+-      toStatus: "REQUIRES_REQUALIFICATION",
+-      resultJson: writeClaimInto(resultJson, released),
+-    });
+-    throw new StudioError(
+-      "REQUIRES_REQUALIFICATION",
+-      `Mode fournisseur d'effet divergé (plan=${plan.effectProviderMode}, live=${liveEffectMode})`,
+-    );
+-  }
+-
    const provider = resolveGitHubProvider();
    try {
      await ExecutionBarrierRegistry.before("before:MERGE");
-@@ -2742,10 +2760,63 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
-         note: "READ-ONLY: claim merge actif",
-       };
-     }
-+
-+    // ML4-REC-01 parity — never attribute a merge COMPLETED from the wrong provider mode.
-+    const historicalMode = qualifyPlanEffectProviderMode(plan);
-+    const liveMode = resolveConfiguredEffectProviderMode();
-+    const providerMismatch =
-+      (historicalMode === "REAL" || historicalMode === "SCRIPTED") &&
-+      historicalMode !== liveMode;
-+    const provenanceUnknown = historicalMode === "UNKNOWN";
-+    if (providerMismatch || provenanceUnknown) {
-+      const note = providerMismatch
-+        ? `ML4-REC-01: mode fournisseur divergé (plan=${historicalMode}, live=${liveMode}) — observation merge refusée`
-+        : "ML4-REC-01: provenance fournisseur UNKNOWN — aucune attribution D7/D8 merge depuis le provider live";
-+      if (row.status === "COMPLETED") {
-+        return {
-+          attemptId,
-+          status: "COMPLETED" as const,
-+          facts,
-+          note: `${note} — COMPLETED historique préservé`,
-+        };
-+      }
-+      if (providerMismatch && (row.status === "AMBIGUOUS" || row.status === "DISPATCHED")) {
-+        const released = releaseClaim(claim);
-+        const cas = await casLiberateInactiveDispatch({
-+          attemptId: row.id,
-+          fromStatus: row.status,
-+          toStatus: "REQUIRES_REQUALIFICATION",
-+          resultJson: writeClaimInto(row.resultJson, released),
-+        });
-+        return {
-+          attemptId,
-+          status: cas ? ("REQUIRES_REQUALIFICATION" as const) : row.status,
-+          facts,
-+          note,
-+        };
-+      }
-+      return { attemptId, status: row.status, facts, note };
+@@ -2171,11 +2180,31 @@ export async function dispatchMerge(input: {
+       refName: pr.baseRef,
+       sha: merged.sha,
+       prNumber: plan.prNumber,
+-      detail: { merged: merged.merged, publicationRefId: plan.publicationRefId },
++      detail: {
++        merged: merged.merged,
++        publicationRefId: plan.publicationRefId,
++        sourceHeadSha: plan.expectedHeadSha,
++        mergeCommitSha: merged.sha,
++      },
+     });
++    // D8: keep headSha as the publication source HEAD; merge commit lives in detail + MERGE fact.
++    let nextDetail: Record<string, unknown> = {};
++    try {
++      nextDetail = JSON.parse(pubRef.detailJson || "{}") as Record<string, unknown>;
++    } catch {
++      nextDetail = {};
 +    }
-+
-     const provider = resolveGitHubProvider();
++    nextDetail.prCurrentState = "MERGED";
++    nextDetail.mergeCommitSha = merged.sha;
++    nextDetail.sourceHeadSha = pubRef.headSha ?? plan.expectedHeadSha;
+     await db
+       .update(documentPublicationRefs)
+-      .set({ status: "MERGED", headSha: merged.sha, updatedAt: new Date() })
++      .set({
++        status: "MERGED",
++        headSha: pubRef.headSha ?? plan.expectedHeadSha,
++        detailJson: JSON.stringify(nextDetail),
++        updatedAt: new Date(),
++      })
+       .where(eq(documentPublicationRefs.id, plan.publicationRefId));
+     const released = releaseClaim(readClaim(resultJson));
+     const ok = await casOwnedTransition({
+@@ -2183,7 +2212,12 @@ export async function dispatchMerge(input: {
+       claimToken,
+       fromStatus: "DISPATCHED",
+       toStatus: "COMPLETED",
+-      resultJson: JSON.stringify({ merged: true, sha: merged.sha, claim: released }),
++      resultJson: JSON.stringify({
++        merged: true,
++        sha: merged.sha,
++        sourceHeadSha: plan.expectedHeadSha,
++        claim: released,
++      }),
+     });
+     if (!ok) {
+       throw new StudioError("CONFLICT", "Complétion merge refusée — fencing SQL");
+@@ -2802,11 +2836,19 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
      try {
        const pr = await provider.getPullRequest(pilotId, plan.repositoryFullName, plan.prNumber);
        if (pr.state === "merged" && (row.status === "AMBIGUOUS" || row.status === "DISPATCHED")) {
-+        // P0-02 — never present source HEAD as the merge commit SHA.
-+        const mergeSha =
-+          typeof pr.mergeCommitSha === "string" && /^[0-9a-f]{40}$/i.test(pr.mergeCommitSha)
-+            ? pr.mergeCommitSha
-+            : null;
-+        if (!mergeSha) {
+-        // P0-02 — never present source HEAD as the merge commit SHA.
++        // Provenance gate — attribute only when remote PR matches the frozen merge plan.
++        // Target base SHA may advance after merge; do not require expectedBaseSha equality.
+         const mergeSha =
+           typeof pr.mergeCommitSha === "string" && /^[0-9a-f]{40}$/i.test(pr.mergeCommitSha)
+             ? pr.mergeCommitSha
+             : null;
++        const provenanceOk =
++          pr.number === plan.prNumber &&
++          pr.headRef === plan.expectedHeadRef &&
++          pr.baseRef === plan.expectedBaseRef &&
++          pr.headSha.toLowerCase() === plan.expectedHeadSha.toLowerCase() &&
++          Boolean(mergeSha) &&
++          mergeSha!.toLowerCase() !== plan.expectedHeadSha.toLowerCase();
+         if (!mergeSha) {
+           return {
+             attemptId,
+@@ -2817,6 +2859,41 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
+             note: "PR mergée — merge_commit_sha absent ; COMPLETED non inventé",
+           };
+         }
++        if (!provenanceOk) {
 +          return {
 +            attemptId,
 +            status: row.status,
 +            prState: pr.state,
 +            prCurrentState: mapPrState(pr.state),
 +            facts,
-+            note: "PR mergée — merge_commit_sha absent ; COMPLETED non inventé",
++            note: "PR mergée — provenance plan/distante insuffisante ou contradictoire ; succès non attribué",
 +          };
 +        }
++
++        const pubRef = (
++          await db
++            .select()
++            .from(documentPublicationRefs)
++            .where(eq(documentPublicationRefs.id, plan.publicationRefId))
++            .limit(1)
++        )[0];
++        if (
++          !pubRef ||
++          pubRef.projectId !== projectId ||
++          pubRef.pilotId !== pilotId ||
++          pubRef.prNumber !== plan.prNumber ||
++          pubRef.effectAttemptId !== plan.publicationAttemptId
++        ) {
++          return {
++            attemptId,
++            status: row.status,
++            prState: pr.state,
++            prCurrentState: mapPrState(pr.state),
++            facts,
++            note: "PR mergée — publication documentaire associée incohérente ; succès non attribué",
++          };
++        }
++
          const released = releaseClaim(claim);
          const cas = await casLiberateInactiveDispatch({
            attemptId: row.id,
-@@ -2753,7 +2824,7 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
-           toStatus: "COMPLETED",
+@@ -2825,14 +2902,30 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
            resultJson: JSON.stringify({
              merged: true,
--            sha: pr.headSha,
-+            sha: mergeSha,
+             sha: mergeSha,
++            sourceHeadSha: plan.expectedHeadSha,
              reconciled: true,
              claim: released,
            }),
-@@ -2761,14 +2832,29 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
+         });
          if (cas) {
++          let nextDetail: Record<string, unknown> = {};
++          try {
++            nextDetail = JSON.parse(pubRef.detailJson || "{}") as Record<string, unknown>;
++          } catch {
++            nextDetail = {};
++          }
++          nextDetail.prCurrentState = "MERGED";
++          nextDetail.mergeCommitSha = mergeSha;
++          nextDetail.sourceHeadSha = pubRef.headSha ?? plan.expectedHeadSha;
            await db
              .update(documentPublicationRefs)
--            .set({ status: "MERGED", headSha: pr.headSha, updatedAt: new Date() })
-+            .set({ status: "MERGED", headSha: mergeSha, updatedAt: new Date() })
+-            .set({ status: "MERGED", headSha: mergeSha, updatedAt: new Date() })
++            .set({
++              status: "MERGED",
++              // Preserve publication source HEAD — merge commit is in detail + MERGE fact.
++              headSha: pubRef.headSha ?? plan.expectedHeadSha,
++              detailJson: JSON.stringify(nextDetail),
++              updatedAt: new Date(),
++            })
              .where(eq(documentPublicationRefs.id, plan.publicationRefId));
-+          const hasMergeFact = facts.some((f) => f.factKind === "MERGE");
-+          if (!hasMergeFact) {
-+            await recordFact({
-+              attemptId: row.id,
-+              pilotId,
-+              projectId,
-+              factKind: "MERGE",
-+              repositoryFullName: plan.repositoryFullName,
-+              refName: plan.expectedBaseRef,
-+              sha: mergeSha,
-+              prNumber: plan.prNumber,
-+              detail: { merged: true, reconciled: true, publicationRefId: plan.publicationRefId },
-+            });
-+          }
+           const hasMergeFact = facts.some((f) => f.factKind === "MERGE");
+           if (!hasMergeFact) {
+@@ -2845,7 +2938,13 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
+               refName: plan.expectedBaseRef,
+               sha: mergeSha,
+               prNumber: plan.prNumber,
+-              detail: { merged: true, reconciled: true, publicationRefId: plan.publicationRefId },
++              detail: {
++                merged: true,
++                reconciled: true,
++                publicationRefId: plan.publicationRefId,
++                sourceHeadSha: plan.expectedHeadSha,
++                mergeCommitSha: mergeSha,
++              },
+             });
+           }
          }
-         return {
-           attemptId,
-           status: cas ? "COMPLETED" : row.status,
+@@ -2855,6 +2954,7 @@ export async function reconcileAttempt(pilotId: string, projectId: string, attem
            prState: pr.state,
            facts,
-+          mergeSha,
+           mergeSha,
++          sourceHeadSha: plan.expectedHeadSha,
          };
        }
        return {
-diff --git a/projects/sfia-studio-next/web/src/domains/execution/fingerprint.ts b/projects/sfia-studio-next/web/src/domains/execution/fingerprint.ts
-index c793edc3..ccf3bdab 100644
---- a/projects/sfia-studio-next/web/src/domains/execution/fingerprint.ts
-+++ b/projects/sfia-studio-next/web/src/domains/execution/fingerprint.ts
-@@ -98,29 +98,31 @@ export function publicationEffectFingerprint(plan: PublicationPlan): string {
- }
- 
- export function mergeEffectFingerprint(plan: MergePlan): string {
--  return createHash("sha256")
--    .update(
--      canonical({
--        kind: "GIT_MERGE",
--        repositoryId: plan.repositoryId,
--        repositoryFullName: plan.repositoryFullName,
--        authorizationId: plan.authorizationId,
--        installationId: plan.installationId,
--        actorLogin: plan.actorLogin,
--        publicationAttemptId: plan.publicationAttemptId,
--        publicationRefId: plan.publicationRefId,
--        documentId: plan.documentId,
--        revisionId: plan.revisionId,
--        targetPath: plan.targetPath,
--        prNumber: plan.prNumber,
--        expectedHeadSha: plan.expectedHeadSha,
--        expectedBaseSha: plan.expectedBaseSha,
--        expectedHeadRef: plan.expectedHeadRef,
--        expectedBaseRef: plan.expectedBaseRef,
--        publicationBranch: plan.publicationBranch,
--      }),
--    )
--    .digest("hex");
-+  const payload: Record<string, unknown> = {
-+    kind: "GIT_MERGE",
-+    repositoryId: plan.repositoryId,
-+    repositoryFullName: plan.repositoryFullName,
-+    authorizationId: plan.authorizationId,
-+    installationId: plan.installationId,
-+    actorLogin: plan.actorLogin,
-+    publicationAttemptId: plan.publicationAttemptId,
-+    publicationRefId: plan.publicationRefId,
-+    documentId: plan.documentId,
-+    revisionId: plan.revisionId,
-+    targetPath: plan.targetPath,
-+    prNumber: plan.prNumber,
-+    expectedHeadSha: plan.expectedHeadSha,
-+    expectedBaseSha: plan.expectedBaseSha,
-+    expectedHeadRef: plan.expectedHeadRef,
-+    expectedBaseRef: plan.expectedBaseRef,
-+    publicationBranch: plan.publicationBranch,
-+  };
-+  // Historical merge plans omit effectProviderMode — keep payload identical so D6
-+  // fingerprints remain stable until a new prepare freezes the mode.
-+  if (plan.effectProviderMode === "REAL" || plan.effectProviderMode === "SCRIPTED") {
-+    payload.effectProviderMode = plan.effectProviderMode;
-+  }
-+  return createHash("sha256").update(canonical(payload)).digest("hex");
- }
- 
- /** Simple unified diff for documentary inspection (not a Git patch applicator). */
-diff --git a/projects/sfia-studio-next/web/src/domains/execution/types.ts b/projects/sfia-studio-next/web/src/domains/execution/types.ts
-index 686470f7..cd7ab77a 100644
---- a/projects/sfia-studio-next/web/src/domains/execution/types.ts
-+++ b/projects/sfia-studio-next/web/src/domains/execution/types.ts
-@@ -102,4 +102,9 @@ export type MergePlan = {
-   expectedHeadRef: string;
-   expectedBaseRef: string;
-   publicationBranch: string;
-+  /**
-+   * Effect provider mode frozen at prepare (REAL|SCRIPTED).
-+   * Historical plans may omit → UNKNOWN provenance on reconcile (ML4-REC-01 parity).
-+   */
-+  effectProviderMode?: "REAL" | "SCRIPTED";
- };
-diff --git a/projects/sfia-studio-next/web/src/domains/integrations/github-app-auth.ts b/projects/sfia-studio-next/web/src/domains/integrations/github-app-auth.ts
-index 67607b5e..0dd27d22 100644
---- a/projects/sfia-studio-next/web/src/domains/integrations/github-app-auth.ts
-+++ b/projects/sfia-studio-next/web/src/domains/integrations/github-app-auth.ts
-@@ -1264,6 +1264,31 @@ export async function mergePullRequestRemote(input: {
-     throw new StudioError("CONFLICT", "Base de PR périmée avant merge", { httpStatus: 409 });
-   }
- 
-+  // Eligibility is observational — mergeable=true is never a D6/D7 mandate.
-+  // Refuse when GitHub reports blocked/dirty/false, or when eligibility is not yet demonstrated.
-+  const mergeableState = (current.mergeableState ?? "").toLowerCase();
-+  if (current.mergeable === false || mergeableState === "dirty" || mergeableState === "blocked") {
-+    throw new StudioError(
-+      "ACCESS_DENIED",
-+      `Fusion refusée — éligibilité GitHub insuffisante (mergeable=${String(current.mergeable)}, state=${current.mergeableState ?? "null"})`,
-+      { httpStatus: 403 },
-+    );
-+  }
-+  if (current.mergeable !== true || mergeableState === "unstable" || mergeableState === "unknown" || !mergeableState) {
-+    throw new StudioError(
-+      "ACCESS_DENIED",
-+      `Fusion refusée — éligibilité GitHub non démontrée (mergeable=${String(current.mergeable)}, state=${current.mergeableState ?? "null"}) ; mergeable=true ≠ autorisation`,
-+      { httpStatus: 403 },
-+    );
-+  }
-+  if (mergeableState !== "clean") {
-+    throw new StudioError(
-+      "ACCESS_DENIED",
-+      `Fusion refusée — mergeable_state=${mergeableState} (attendu clean)`,
-+      { httpStatus: 403 },
-+    );
-+  }
-+
-   const raw = await ghJson<{
-     merged?: boolean;
-     sha?: string;
-diff --git a/projects/sfia-studio-next/web/src/domains/integrations/github-provider.ts b/projects/sfia-studio-next/web/src/domains/integrations/github-provider.ts
-index 7c2ff16a..bf292bc9 100644
---- a/projects/sfia-studio-next/web/src/domains/integrations/github-provider.ts
-+++ b/projects/sfia-studio-next/web/src/domains/integrations/github-provider.ts
-@@ -245,7 +245,8 @@ function realAppReadConfigured(): boolean {
-  * Default SCRIPTED.
-  * REAL only when STUDIO_GITHUB_PROVIDER=real AND App read credentials are present.
-  * Product user paths must not set STUDIO_GITHUB_PROVIDER=real before D1/user-auth gates.
-- * REAL mutations require STUDIO_GITHUB_ALLOW_MUTATIONS=documentary exactly (merge always blocked).
-+ * REAL mutations (branch/file/PR/merge) require STUDIO_GITHUB_ALLOW_MUTATIONS=documentary exactly.
-+ * Merge uses the same documentary gate + WRITE allowlist + D6/D7 SHA gates — not a separate hard-block.
-  * The flag is an operator env gate only — never a substitute for D6/D7 authority.
-  */
- /**
 diff --git a/projects/sfia-studio-next/web/src/domains/integrations/scripted-github-provider.ts b/projects/sfia-studio-next/web/src/domains/integrations/scripted-github-provider.ts
-index 0e9d84ea..c78ce0d2 100644
+index c78ce0d2..a9f81bc4 100644
 --- a/projects/sfia-studio-next/web/src/domains/integrations/scripted-github-provider.ts
 +++ b/projects/sfia-studio-next/web/src/domains/integrations/scripted-github-provider.ts
-@@ -497,6 +497,9 @@ class ScriptedGitHubProvider implements GitHubProvider {
-       headRef: input.head,
-       baseRef: input.base,
-       htmlUrl: `https://github.scripted/${input.fullName}/pull/${s.nextPr - 1}`,
-+      mergeable: true,
-+      mergeableState: "clean",
-+      mergeCommitSha: null,
-       publicationMarker: marker,
-       body,
-     };
-@@ -553,10 +556,20 @@ class ScriptedGitHubProvider implements GitHubProvider {
-     if (input.expectedBaseSha != null && pr.baseSha !== input.expectedBaseSha) {
-       throw Object.assign(new Error("PR_BASE_STALE"), { code: "CONFLICT" });
-     }
--    s.branches[pr.baseRef] = pr.headSha;
--    s.branches.main = pr.headSha;
-+    if (pr.mergeable === false || pr.mergeableState === "dirty" || pr.mergeableState === "blocked") {
-+      throw Object.assign(new Error("PR_NOT_MERGEABLE"), { code: "ACCESS_DENIED" });
-+    }
-+    // Synthetic merge commit — never reuse source HEAD as merge SHA (P0-02 fidelity).
-+    const mergeSha = createHash("sha1")
-+      .update(`scripted-merge:${input.fullName}:${input.prNumber}:${pr.headSha}:${pr.baseSha}`)
-+      .digest("hex");
-+    s.branches[pr.baseRef] = mergeSha;
-+    if (pr.baseRef !== "main") s.branches.main = mergeSha;
+@@ -563,8 +563,8 @@ class ScriptedGitHubProvider implements GitHubProvider {
+     const mergeSha = createHash("sha1")
+       .update(`scripted-merge:${input.fullName}:${input.prNumber}:${pr.headSha}:${pr.baseSha}`)
+       .digest("hex");
++    // Advance only the PR target branch — never an unrelated default branch.
+     s.branches[pr.baseRef] = mergeSha;
+-    if (pr.baseRef !== "main") s.branches.main = mergeSha;
      pr.state = "merged";
--    const result = { merged: true, sha: pr.headSha };
-+    pr.mergeCommitSha = mergeSha;
-+    pr.mergeable = null;
-+    pr.mergeableState = null;
-+    const result = { merged: true, sha: mergeSha };
-     if (ScriptedFaultRegistry.current(input.pilotId, input.fullName) === "timeout_after_merge") {
-       const err = new Error("SCRIPTED_TIMEOUT_AFTER_MERGE") as Error & {
-         code: string;
-diff --git a/projects/sfia-studio-next/web/tests/unit/documentary-merge-contract.test.ts b/projects/sfia-studio-next/web/tests/unit/documentary-merge-contract.test.ts
+     pr.mergeCommitSha = mergeSha;
+     pr.mergeable = null;
+diff --git a/projects/sfia-studio-next/web/tests/integration/documentary-merge-corrections.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/documentary-merge-corrections.pg.test.ts
 new file mode 100644
-index 00000000..2acc6a11
+index 00000000..042e160e
 --- /dev/null
-+++ b/projects/sfia-studio-next/web/tests/unit/documentary-merge-contract.test.ts
-@@ -0,0 +1,243 @@
++++ b/projects/sfia-studio-next/web/tests/integration/documentary-merge-corrections.pg.test.ts
+@@ -0,0 +1,397 @@
 +/**
-+ * MERGE-01..12 — deterministic documentary merge contract (no GitHub REAL mutation).
-+ * Complements PG integration suites; focuses on fingerprint/mode/SHA/eligibility gates.
++ * Review corrections — documentary merge fail-closed mode + reconcile provenance.
++ * SCRIPTED only. Zero GitHub REAL mutations. Mutative PG → sfia_next_e2e only.
 + */
-+import { afterEach, describe, expect, it } from "vitest";
-+import { mergeEffectFingerprint } from "@/domains/execution/fingerprint";
-+import type { MergePlan } from "@/domains/execution/types";
-+import { qualifyPlanEffectProviderMode } from "@/domains/execution/publication-steps";
-+import { mergePullRequestRemote } from "@/domains/integrations/github-app-auth";
++import { afterEach, beforeAll, describe, expect, it } from "vitest";
++import { config } from "dotenv";
++config({ path: ".env.local" });
++
++import { and, eq } from "drizzle-orm";
++import { db } from "@/db/client";
++import {
++  documentPublicationRefs,
++  documentRevisions,
++  effectAttempts,
++  observedGitFacts,
++  pilots,
++  preparations,
++} from "@/db/schema";
++import { newId } from "@/lib/ids";
++import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
++import { createProjectCommand } from "@/domains/preparation/create-project";
++import {
++  completeGitHubAuthorization,
++  startGitHubAuthorization,
++} from "@/domains/integrations/authorization-service";
++import { attachRepositoryToProject } from "@/domains/integrations/project-link-service";
 +import {
 +  getScriptedGitHubProvider,
++  getScriptedMutationCounts,
++  resetScriptedMutationCounts,
 +  resetScriptedStore,
 +} from "@/domains/integrations/scripted-github-provider";
++import {
++  authorizeMerge,
++  authorizePublication,
++  dispatchMerge,
++  dispatchPublication,
++  prepareMerge,
++  preparePublication,
++  reconcileAttempt,
++} from "@/domains/execution/effect-service";
++import type { MergePlan, PublicationPlan } from "@/domains/execution/types";
++import { savePreparationDocument } from "@/domains/document/service";
 +import { isStudioError } from "@/lib/http-errors";
-+import {
-+  userStatementRequestsMergeOnly,
-+} from "@/domains/conversation/conversation-publication-mandate-guards";
-+import {
-+  userStatementHasOpenMergeCondition,
-+  userStatementRefusesMerge,
-+  userStatementRequestsPositiveMerge,
-+} from "@/domains/conversation/conversation-merge-authority";
 +
-+const HEAD = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-+const BASE = "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
-+const MERGE = "cccccccccccccccccccccccccccccccccccccccc";
-+
-+function sampleMergePlan(over: Partial<MergePlan> = {}): MergePlan {
++async function seedProject(label: string) {
++  resetScriptedStore();
++  process.env.STUDIO_GITHUB_PROVIDER = "scripted";
++  process.env.STUDIO_ALLOW_SCRIPTED_GITHUB = "1";
++  delete process.env.STUDIO_GITHUB_ALLOW_MUTATIONS;
++  const pilotId = newId("pilot");
++  await db.insert(pilots).values({ id: pilotId, displayName: label, githubUserId: `gh-${pilotId}` });
++  const prep = await openOrCreatePreparation(pilotId);
++  await updatePreview(pilotId, prep.id, label, "s");
++  const refreshed = (await db.select().from(preparations).where(eq(preparations.id, prep.id)))[0];
++  const created = await createProjectCommand({
++    pilotId,
++    preparationId: prep.id,
++    expectedCreationRevision: refreshed!.creationRevision,
++    projectName: label,
++    previewSummary: "s",
++    idempotencyKey: newId("idem"),
++  });
++  if (created.status !== "CREATED" || !created.projectId) {
++    throw new Error(`seed failed: ${created.status}`);
++  }
++  const sessionId = newId("sid");
++  const { state } = await startGitHubAuthorization(pilotId, "/settings/integrations", sessionId);
++  const status = await completeGitHubAuthorization({
++    pilotId,
++    state,
++    studioSessionId: sessionId,
++  });
++  const repositoryId = status.repositories[0]!.id;
++  await attachRepositoryToProject(pilotId, created.projectId, repositoryId);
++  getScriptedGitHubProvider();
 +  return {
-+    repositoryId: "r1",
-+    repositoryFullName: "acme/docs",
-+    authorizationId: "a1",
-+    installationId: "i1",
-+    actorLogin: "pilot",
-+    publicationAttemptId: "efx_pub",
-+    publicationRefId: "dpr1",
-+    documentId: "doc1",
-+    revisionId: "rev1",
-+    targetPath: "docs/a.md",
-+    prNumber: 21,
-+    expectedHeadSha: HEAD,
-+    expectedBaseSha: BASE,
-+    expectedHeadRef: "studio/pub-21",
-+    expectedBaseRef: "main",
-+    publicationBranch: "studio/pub-21",
-+    effectProviderMode: "SCRIPTED",
-+    ...over,
++    pilotId,
++    projectId: created.projectId,
++    preparationId: prep.id,
++    repositoryId,
 +  };
 +}
 +
-+function jsonResponse(status: number, body: unknown) {
-+  return new Response(JSON.stringify(body), {
-+    status,
-+    headers: { "Content-Type": "application/json" },
++async function availableDoc(pilotId: string, preparationId: string, title: string) {
++  const saved = await savePreparationDocument(pilotId, preparationId, title, `# ${title}\n`, undefined, {
++    correlationKey: newId("ck"),
 +  });
++  expect(saved.status).toBe("AVAILABLE");
++  if (!("documentId" in saved) || !saved.documentId) throw new Error("documentId missing");
++  const rev = (
++    await db
++      .select()
++      .from(documentRevisions)
++      .where(
++        and(eq(documentRevisions.documentId, saved.documentId), eq(documentRevisions.status, "AVAILABLE")),
++      )
++      .limit(1)
++  )[0];
++  if (!rev) throw new Error("AVAILABLE revision missing");
++  return { documentId: saved.documentId, revisionId: rev.id };
 +}
 +
-+describe("MERGE documentary contract (unit)", () => {
++async function publishThenPrepareMerge(label: string) {
++  const ctx = await seedProject(label);
++  const doc = await availableDoc(ctx.pilotId, ctx.preparationId, label);
++  const prepared = await preparePublication({
++    pilotId: ctx.pilotId,
++    projectId: ctx.projectId,
++    documentId: doc.documentId,
++    revisionId: doc.revisionId,
++    repositoryId: ctx.repositoryId,
++    targetPath: `docs/${label}.md`,
++    targetBranch: "main",
++    correlationKey: newId("pub"),
++  });
++  const plan =
++    prepared.plan ??
++    (JSON.parse(
++      (
++        await db.select().from(effectAttempts).where(eq(effectAttempts.id, prepared.attemptId)).limit(1)
++      )[0]!.planJson,
++    ) as PublicationPlan);
++  await authorizePublication({
++    pilotId: ctx.pilotId,
++    projectId: ctx.projectId,
++    attemptId: prepared.attemptId,
++    statement: "GO pub",
++    inspectedFingerprint: plan.inspection.inspectionFingerprint,
++  });
++  const dispatched = await dispatchPublication({
++    pilotId: ctx.pilotId,
++    projectId: ctx.projectId,
++    attemptId: prepared.attemptId,
++  });
++  expect(dispatched.status).toBe("COMPLETED");
++  const mergePrep = await prepareMerge({
++    pilotId: ctx.pilotId,
++    projectId: ctx.projectId,
++    publicationAttemptId: prepared.attemptId,
++    correlationKey: newId("merge"),
++  });
++  expect(mergePrep.plan?.effectProviderMode).toBe("SCRIPTED");
++  await authorizeMerge({
++    pilotId: ctx.pilotId,
++    projectId: ctx.projectId,
++    attemptId: mergePrep.attemptId,
++    statement: "Je mandate la fusion documentaire",
++  });
++  return { ...ctx, pubAttemptId: prepared.attemptId, mergeAttemptId: mergePrep.attemptId, mergePlan: mergePrep.plan! };
++}
++
++async function forceMergePlanMode(attemptId: string, mode: "REAL" | "SCRIPTED" | null) {
++  const row = (
++    await db.select().from(effectAttempts).where(eq(effectAttempts.id, attemptId)).limit(1)
++  )[0]!;
++  const plan = JSON.parse(row.planJson) as MergePlan;
++  if (mode === null) delete plan.effectProviderMode;
++  else plan.effectProviderMode = mode;
++  await db
++    .update(effectAttempts)
++    .set({ planJson: JSON.stringify(plan), updatedAt: new Date() })
++    .where(eq(effectAttempts.id, attemptId));
++  return plan;
++}
++
++describe("documentary merge corrections (PG)", () => {
++  beforeAll(() => {
++    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
++    expect(process.env.DATABASE_URL).toMatch(/\/sfia_next_e2e(?:\?|$)/);
++    process.env.STUDIO_LANE = "DEV";
++    process.env.STUDIO_E2E = "1";
++    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
++    process.env.STUDIO_ALLOW_SCRIPTED_GITHUB = "1";
++  });
++
 +  afterEach(() => {
-+    resetScriptedStore();
++    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
++    delete process.env.STUDIO_GITHUB_ALLOW_MUTATIONS;
 +  });
 +
-+  it("MERGE-01 fingerprint binds publication provenance + PR", () => {
-+    const fp = mergeEffectFingerprint(sampleMergePlan());
-+    expect(fp).toHaveLength(64);
-+    expect(mergeEffectFingerprint(sampleMergePlan({ publicationAttemptId: "other" }))).not.toBe(fp);
-+    expect(mergeEffectFingerprint(sampleMergePlan({ prNumber: 99 }))).not.toBe(fp);
-+  });
-+
-+  it("MERGE-02 mandate fingerprint includes frozen provider mode when set", () => {
-+    const without = sampleMergePlan();
-+    delete without.effectProviderMode;
-+    const withMode = sampleMergePlan({ effectProviderMode: "SCRIPTED" });
-+    expect(mergeEffectFingerprint(without)).not.toBe(mergeEffectFingerprint(withMode));
-+    expect(qualifyPlanEffectProviderMode(without)).toBe("UNKNOWN");
-+    expect(qualifyPlanEffectProviderMode(withMode)).toBe("SCRIPTED");
-+  });
-+
-+  it("MERGE-03/11 publish≠merge lexical guards", () => {
-+    expect(userStatementRequestsMergeOnly("Fusionne la PR #21")).toBe(true);
-+    expect(userStatementRequestsPositiveMerge("Fusionne la PR documentaire #21")).toBe(true);
-+    expect(userStatementRequestsMergeOnly("Publie ce document sur GitHub")).toBe(false);
-+    expect(userStatementRefusesMerge("Ne fusionne pas")).toBe(true);
-+    expect(userStatementHasOpenMergeCondition("Fusionne uniquement après validation")).toBe(true);
-+  });
-+
-+  it("MERGE-05 HEAD drift refuses before PUT", async () => {
-+    const fetchImpl = async () =>
-+      jsonResponse(200, {
-+        number: 21,
-+        title: "doc",
-+        state: "open",
-+        html_url: "https://github.com/o/r/pull/21",
-+        merged: false,
-+        mergeable: true,
-+        mergeable_state: "clean",
-+        head: { sha: MERGE, ref: "studio/pub-21" },
-+        base: { sha: BASE, ref: "main" },
-+      });
++  it("C1: mode absent/UNKNOWN → REQUIRES_REQUALIFICATION, zero merge mutation", async () => {
++    const ctx = await publishThenPrepareMerge("c1-unknown");
++    await forceMergePlanMode(ctx.mergeAttemptId, null);
++    resetScriptedMutationCounts(ctx.pilotId);
 +    await expect(
-+      mergePullRequestRemote({
-+        token: "t",
-+        fullName: "o/r",
-+        prNumber: 21,
-+        expectedHeadSha: HEAD,
-+        fetchImpl: fetchImpl as unknown as typeof fetch,
++      dispatchMerge({
++        pilotId: ctx.pilotId,
++        projectId: ctx.projectId,
++        attemptId: ctx.mergeAttemptId,
 +      }),
-+    ).rejects.toSatisfy((e: unknown) => isStudioError(e) && e.code === "CONFLICT");
++    ).rejects.toSatisfy(
++      (e: unknown) =>
++        isStudioError(e) &&
++        e.code === "REQUIRES_REQUALIFICATION" &&
++        /UNKNOWN|requalification/i.test(e.message),
++    );
++    expect(getScriptedMutationCounts(ctx.pilotId).mergePR).toBe(0);
++    const row = (
++      await db.select().from(effectAttempts).where(eq(effectAttempts.id, ctx.mergeAttemptId)).limit(1)
++    )[0]!;
++    expect(row.status).toBe("REQUIRES_REQUALIFICATION");
 +  });
 +
-+  it("MERGE-06 BASE drift refuses before PUT", async () => {
-+    const fetchImpl = async () =>
-+      jsonResponse(200, {
-+        number: 21,
-+        title: "doc",
-+        state: "open",
-+        html_url: "https://github.com/o/r/pull/21",
-+        merged: false,
-+        mergeable: true,
-+        mergeable_state: "clean",
-+        head: { sha: HEAD, ref: "studio/pub-21" },
-+        base: { sha: MERGE, ref: "main" },
-+      });
++  it("C1: plan SCRIPTED under live REAL → REQUIRES_REQUALIFICATION, zero merge", async () => {
++    const ctx = await publishThenPrepareMerge("c1-scripted-vs-real");
++    await forceMergePlanMode(ctx.mergeAttemptId, "SCRIPTED");
++    process.env.STUDIO_GITHUB_PROVIDER = "real";
++    resetScriptedMutationCounts(ctx.pilotId);
 +    await expect(
-+      mergePullRequestRemote({
-+        token: "t",
-+        fullName: "o/r",
-+        prNumber: 21,
-+        expectedHeadSha: HEAD,
-+        expectedBaseSha: BASE,
-+        fetchImpl: fetchImpl as unknown as typeof fetch,
++      dispatchMerge({
++        pilotId: ctx.pilotId,
++        projectId: ctx.projectId,
++        attemptId: ctx.mergeAttemptId,
 +      }),
-+    ).rejects.toSatisfy((e: unknown) => isStudioError(e) && e.code === "CONFLICT");
++    ).rejects.toSatisfy(
++      (e: unknown) => isStudioError(e) && e.code === "REQUIRES_REQUALIFICATION",
++    );
++    expect(getScriptedMutationCounts(ctx.pilotId).mergePR).toBe(0);
 +  });
 +
-+  it("MERGE-07 permissions/rules refuse when not clean", async () => {
-+    const fetchImpl = async () =>
-+      jsonResponse(200, {
-+        number: 21,
-+        title: "doc",
-+        state: "open",
-+        html_url: "https://github.com/o/r/pull/21",
-+        merged: false,
-+        mergeable: true,
-+        mergeable_state: "blocked",
-+        head: { sha: HEAD, ref: "studio/pub-21" },
-+        base: { sha: BASE, ref: "main" },
-+      });
++  it("C1: plan REAL under live SCRIPTED → REQUIRES_REQUALIFICATION, zero merge", async () => {
++    const ctx = await publishThenPrepareMerge("c1-real-vs-scripted");
++    await forceMergePlanMode(ctx.mergeAttemptId, "REAL");
++    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
++    resetScriptedMutationCounts(ctx.pilotId);
 +    await expect(
-+      mergePullRequestRemote({
-+        token: "t",
-+        fullName: "o/r",
-+        prNumber: 21,
-+        expectedHeadSha: HEAD,
-+        fetchImpl: fetchImpl as unknown as typeof fetch,
++      dispatchMerge({
++        pilotId: ctx.pilotId,
++        projectId: ctx.projectId,
++        attemptId: ctx.mergeAttemptId,
 +      }),
-+    ).rejects.toSatisfy((e: unknown) => isStudioError(e) && e.code === "ACCESS_DENIED");
++    ).rejects.toSatisfy(
++      (e: unknown) => isStudioError(e) && e.code === "REQUIRES_REQUALIFICATION",
++    );
++    expect(getScriptedMutationCounts(ctx.pilotId).mergePR).toBe(0);
 +  });
 +
-+  it("MERGE-08 scripted success returns distinct merge commit SHA", async () => {
++  it("C1: plan SCRIPTED under SCRIPTED → dispatch COMPLETED; headSha stays source", async () => {
++    const ctx = await publishThenPrepareMerge("c1-scripted-ok");
++    const beforeRef = (
++      await db
++        .select()
++        .from(documentPublicationRefs)
++        .where(eq(documentPublicationRefs.effectAttemptId, ctx.pubAttemptId))
++        .limit(1)
++    )[0]!;
++    const sourceHead = beforeRef.headSha;
++    expect(sourceHead).toBeTruthy();
++    const merged = await dispatchMerge({
++      pilotId: ctx.pilotId,
++      projectId: ctx.projectId,
++      attemptId: ctx.mergeAttemptId,
++    });
++    expect(merged.status).toBe("COMPLETED");
++    expect(merged.sha).toMatch(/^[0-9a-f]{40}$/i);
++    expect(merged.sha).not.toBe(sourceHead);
++    const afterRef = (
++      await db
++        .select()
++        .from(documentPublicationRefs)
++        .where(eq(documentPublicationRefs.id, beforeRef.id))
++        .limit(1)
++    )[0]!;
++    expect(afterRef.status).toBe("MERGED");
++    expect(afterRef.headSha).toBe(sourceHead);
++    const detail = JSON.parse(afterRef.detailJson || "{}") as {
++      mergeCommitSha?: string;
++      sourceHeadSha?: string;
++    };
++    expect(detail.mergeCommitSha).toBe(merged.sha);
++    expect(detail.sourceHeadSha).toBe(sourceHead);
++    const facts = await db
++      .select()
++      .from(observedGitFacts)
++      .where(
++        and(eq(observedGitFacts.attemptId, ctx.mergeAttemptId), eq(observedGitFacts.factKind, "MERGE")),
++      );
++    expect(facts).toHaveLength(1);
++    expect(facts[0]!.sha).toBe(merged.sha);
++  });
++
++  it("C1: plan REAL under REAL reaches provider gate without scripted merge mutation", async () => {
++    const ctx = await publishThenPrepareMerge("c1-real-under-real");
++    await forceMergePlanMode(ctx.mergeAttemptId, "REAL");
++    process.env.STUDIO_GITHUB_PROVIDER = "real";
++    process.env.STUDIO_GITHUB_ALLOW_MUTATIONS = "documentary";
++    resetScriptedMutationCounts(ctx.pilotId);
++    await expect(
++      dispatchMerge({
++        pilotId: ctx.pilotId,
++        projectId: ctx.projectId,
++        attemptId: ctx.mergeAttemptId,
++      }),
++    ).rejects.toBeTruthy();
++    expect(getScriptedMutationCounts(ctx.pilotId).mergePR).toBe(0);
++  });
++
++  it("C2: reconcile positive with matching provenance + mergeCommitSha", async () => {
++    const ctx = await publishThenPrepareMerge("c2-reconcile-ok");
++    const plan = ctx.mergePlan;
++    // Simulate AMBIGUOUS after a lost ACK: PR already merged remotely with matching provenance.
 +    const provider = getScriptedGitHubProvider();
-+    const pilotId = "pilot-merge-08";
++    const merged = await provider.mergePullRequest({
++      pilotId: ctx.pilotId,
++      fullName: plan.repositoryFullName,
++      prNumber: plan.prNumber,
++      expectedHeadSha: plan.expectedHeadSha,
++      expectedBaseSha: plan.expectedBaseSha,
++    });
++    await db
++      .update(effectAttempts)
++      .set({
++        status: "AMBIGUOUS",
++        // claim key absent ⇒ sqlClaimInactive (JSON null claim is NOT SQL NULL).
++        resultJson: "{}",
++        updatedAt: new Date(),
++      })
++      .where(eq(effectAttempts.id, ctx.mergeAttemptId));
++    const out = await reconcileAttempt(ctx.pilotId, ctx.projectId, ctx.mergeAttemptId);
++    expect(out.status).toBe("COMPLETED");
++    expect((out as { mergeSha?: string }).mergeSha).toBe(merged.sha);
++    const ref = (
++      await db
++        .select()
++        .from(documentPublicationRefs)
++        .where(eq(documentPublicationRefs.id, plan.publicationRefId))
++        .limit(1)
++    )[0]!;
++    expect(ref.status).toBe("MERGED");
++    expect(ref.headSha).toBe(plan.expectedHeadSha);
++    const detail = JSON.parse(ref.detailJson || "{}") as { mergeCommitSha?: string };
++    expect(detail.mergeCommitSha).toBe(merged.sha);
++  });
++
++  it("C2: divergent source HEAD → no invented COMPLETED", async () => {
++    const ctx = await publishThenPrepareMerge("c2-head-diverge");
++    const plan = ctx.mergePlan;
++    const provider = getScriptedGitHubProvider();
++    await provider.mergePullRequest({
++      pilotId: ctx.pilotId,
++      fullName: plan.repositoryFullName,
++      prNumber: plan.prNumber,
++      expectedHeadSha: plan.expectedHeadSha,
++      expectedBaseSha: plan.expectedBaseSha,
++    });
++    // Tamper frozen plan HEAD so provenance fails.
++    const row = (
++      await db.select().from(effectAttempts).where(eq(effectAttempts.id, ctx.mergeAttemptId)).limit(1)
++    )[0]!;
++    const tampered = JSON.parse(row.planJson) as MergePlan;
++    tampered.expectedHeadSha = "ffffffffffffffffffffffffffffffffffffffff";
++    await db
++      .update(effectAttempts)
++      .set({
++        planJson: JSON.stringify(tampered),
++        status: "AMBIGUOUS",
++        resultJson: "{}",
++        updatedAt: new Date(),
++      })
++      .where(eq(effectAttempts.id, ctx.mergeAttemptId));
++    const out = await reconcileAttempt(ctx.pilotId, ctx.projectId, ctx.mergeAttemptId);
++    expect(out.status).toBe("AMBIGUOUS");
++    expect(String((out as { note?: string }).note ?? "")).toMatch(/provenance|contradictoire/i);
++    const attempt = (
++      await db.select().from(effectAttempts).where(eq(effectAttempts.id, ctx.mergeAttemptId)).limit(1)
++    )[0]!;
++    expect(attempt.status).toBe("AMBIGUOUS");
++  });
++
++  it("C2: merged PR without mergeCommitSha → no invented COMPLETED", async () => {
++    const ctx = await publishThenPrepareMerge("c2-no-merge-sha");
++    const plan = ctx.mergePlan;
++    const provider = getScriptedGitHubProvider();
++    await provider.mergePullRequest({
++      pilotId: ctx.pilotId,
++      fullName: plan.repositoryFullName,
++      prNumber: plan.prNumber,
++      expectedHeadSha: plan.expectedHeadSha,
++      expectedBaseSha: plan.expectedBaseSha,
++    });
++    // Strip mergeCommitSha from scripted PR object.
++    const pr = await provider.getPullRequest(ctx.pilotId, plan.repositoryFullName, plan.prNumber);
++    (pr as { mergeCommitSha?: string | null }).mergeCommitSha = null;
++    await db
++      .update(effectAttempts)
++      .set({
++        status: "AMBIGUOUS",
++        resultJson: "{}",
++        updatedAt: new Date(),
++      })
++      .where(eq(effectAttempts.id, ctx.mergeAttemptId));
++    const out = await reconcileAttempt(ctx.pilotId, ctx.projectId, ctx.mergeAttemptId);
++    expect(out.status).toBe("AMBIGUOUS");
++    expect(String((out as { note?: string }).note ?? "")).toMatch(/merge_commit_sha absent/i);
++  });
++});
+diff --git a/projects/sfia-studio-next/web/tests/unit/documentary-merge-contract.test.ts b/projects/sfia-studio-next/web/tests/unit/documentary-merge-contract.test.ts
+index 2acc6a11..9cd7072d 100644
+--- a/projects/sfia-studio-next/web/tests/unit/documentary-merge-contract.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/documentary-merge-contract.test.ts
+@@ -240,4 +240,80 @@ describe("MERGE documentary contract (unit)", () => {
+       "REAL",
+     );
+   });
++
++  it("C3: merge into release advances release only — main unchanged", async () => {
++    const provider = getScriptedGitHubProvider();
++    const pilotId = "pilot-c3-release";
 +    const fullName = "acme/docs";
-+    const mainSha = await provider.getRefSha(pilotId, fullName, "main");
-+    await provider.createBranch(pilotId, fullName, "studio/pub-21", mainSha);
++    const mainBefore = await provider.getRefSha(pilotId, fullName, "main");
++    await provider.createBranch(pilotId, fullName, "release", mainBefore);
++    await provider.createBranch(pilotId, fullName, "studio/pub-rel", mainBefore);
 +    await provider.putFileContents({
 +      pilotId,
 +      fullName,
-+      path: "docs/a.md",
-+      branch: "studio/pub-21",
++      path: "docs/rel.md",
++      branch: "studio/pub-rel",
 +      message: "doc",
-+      content: "# a\n",
++      content: "# rel\n",
 +    });
 +    const pr = await provider.createPullRequest({
 +      pilotId,
 +      fullName,
-+      title: "doc",
-+      head: "studio/pub-21",
-+      base: "main",
-+      publicationMarker: "mk-21",
++      title: "doc-rel",
++      head: "studio/pub-rel",
++      base: "release",
++      publicationMarker: "mk-rel",
 +    });
++    const releaseBefore = await provider.getRefSha(pilotId, fullName, "release");
 +    const merged = await provider.mergePullRequest({
 +      pilotId,
 +      fullName,
@@ -704,236 +786,100 @@ index 00000000..2acc6a11
 +      expectedHeadSha: pr.headSha,
 +      expectedBaseSha: pr.baseSha,
 +    });
-+    expect(merged.merged).toBe(true);
-+    expect(merged.sha).toMatch(/^[0-9a-f]{40}$/);
-+    expect(merged.sha).not.toBe(pr.headSha);
-+    const after = await provider.getPullRequest(pilotId, fullName, pr.number);
-+    expect(after.state).toBe("merged");
-+    expect(after.mergeCommitSha).toBe(merged.sha);
++    const mainAfter = await provider.getRefSha(pilotId, fullName, "main");
++    const releaseAfter = await provider.getRefSha(pilotId, fullName, "release");
++    expect(mainAfter).toBe(mainBefore);
++    expect(releaseAfter).toBe(merged.sha);
++    expect(releaseAfter).not.toBe(releaseBefore);
 +  });
 +
-+  it("MERGE-09/10 already-merged returns merge_commit_sha without second PUT", async () => {
-+    let puts = 0;
-+    const fetchImpl = async (_input: RequestInfo | URL, init?: RequestInit) => {
-+      const method = (init?.method ?? "GET").toUpperCase();
-+      if (method === "PUT") {
-+        puts += 1;
-+        return jsonResponse(500, { message: "no second merge" });
-+      }
-+      return jsonResponse(200, {
-+        number: 21,
-+        title: "doc",
-+        state: "closed",
-+        html_url: "https://github.com/o/r/pull/21",
-+        merged: true,
-+        merge_commit_sha: MERGE,
-+        head: { sha: HEAD, ref: "studio/pub-21" },
-+        base: { sha: BASE, ref: "main" },
-+      });
-+    };
-+    const first = await mergePullRequestRemote({
-+      token: "t",
-+      fullName: "o/r",
-+      prNumber: 21,
-+      expectedHeadSha: HEAD,
-+      fetchImpl: fetchImpl as unknown as typeof fetch,
++  it("C3: merge into main advances main only", async () => {
++    const provider = getScriptedGitHubProvider();
++    const pilotId = "pilot-c3-main";
++    const fullName = "acme/docs";
++    const mainBefore = await provider.getRefSha(pilotId, fullName, "main");
++    await provider.createBranch(pilotId, fullName, "release", mainBefore);
++    await provider.createBranch(pilotId, fullName, "studio/pub-main", mainBefore);
++    await provider.putFileContents({
++      pilotId,
++      fullName,
++      path: "docs/main.md",
++      branch: "studio/pub-main",
++      message: "doc",
++      content: "# main\n",
 +    });
-+    const second = await mergePullRequestRemote({
-+      token: "t",
-+      fullName: "o/r",
-+      prNumber: 21,
-+      expectedHeadSha: HEAD,
-+      fetchImpl: fetchImpl as unknown as typeof fetch,
++    const pr = await provider.createPullRequest({
++      pilotId,
++      fullName,
++      title: "doc-main",
++      head: "studio/pub-main",
++      base: "main",
++      publicationMarker: "mk-main",
 +    });
-+    expect(first.sha).toBe(MERGE);
-+    expect(second.sha).toBe(MERGE);
-+    expect(puts).toBe(0);
++    const releaseBefore = await provider.getRefSha(pilotId, fullName, "release");
++    const merged = await provider.mergePullRequest({
++      pilotId,
++      fullName,
++      prNumber: pr.number,
++      expectedHeadSha: pr.headSha,
++      expectedBaseSha: pr.baseSha,
++    });
++    const mainAfter = await provider.getRefSha(pilotId, fullName, "main");
++    const releaseAfter = await provider.getRefSha(pilotId, fullName, "release");
++    expect(mainAfter).toBe(merged.sha);
++    expect(mainAfter).not.toBe(mainBefore);
++    expect(releaseAfter).toBe(releaseBefore);
 +  });
-+
-+  it("MERGE-12 fingerprint stability without inventing REAL mode", () => {
-+    const historical = sampleMergePlan();
-+    delete historical.effectProviderMode;
-+    expect(qualifyPlanEffectProviderMode(historical)).toBe("UNKNOWN");
-+    expect(qualifyPlanEffectProviderMode(sampleMergePlan({ effectProviderMode: "REAL" }))).toBe(
-+      "REAL",
-+    );
-+  });
-+});
-diff --git a/projects/sfia-studio-next/web/tests/unit/merge-pull-request-sha.test.ts b/projects/sfia-studio-next/web/tests/unit/merge-pull-request-sha.test.ts
-index 61ee17c6..15954b69 100644
---- a/projects/sfia-studio-next/web/tests/unit/merge-pull-request-sha.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/merge-pull-request-sha.test.ts
-@@ -113,6 +113,8 @@ describe("P0-02 mergePullRequestRemote SHA proof", () => {
-           state: "open",
-           html_url: "https://github.com/o/r/pull/10",
-           merged: false,
-+          mergeable: true,
-+          mergeable_state: "clean",
-           head: { sha: HEAD, ref: "studio/pub" },
-           base: { sha: OTHER, ref: "main" },
-         });
-@@ -134,6 +136,86 @@ describe("P0-02 mergePullRequestRemote SHA proof", () => {
-     expect(result.sha).toBe(MERGE);
-   });
- 
-+  it("ACCESS_DENIED when mergeable=false (eligibility not demonstrated)", async () => {
-+    const fetchImpl = vi.fn(async () =>
-+      jsonResponse(200, {
-+        number: 13,
-+        title: "doc",
-+        state: "open",
-+        html_url: "https://github.com/o/r/pull/13",
-+        merged: false,
-+        mergeable: false,
-+        mergeable_state: "dirty",
-+        head: { sha: HEAD, ref: "studio/pub" },
-+        base: { sha: OTHER, ref: "main" },
-+      }),
-+    );
-+
-+    await expect(
-+      mergePullRequestRemote({
-+        token: "t",
-+        fullName: "o/r",
-+        prNumber: 13,
-+        expectedHeadSha: HEAD,
-+        fetchImpl: fetchImpl as unknown as typeof fetch,
-+      }),
-+    ).rejects.toSatisfy(
-+      (e: unknown) => isStudioError(e) && e.code === "ACCESS_DENIED" && /éligibilité/i.test(e.message),
-+    );
-+  });
-+
-+  it("ACCESS_DENIED when mergeable_state=blocked", async () => {
-+    const fetchImpl = vi.fn(async () =>
-+      jsonResponse(200, {
-+        number: 14,
-+        title: "doc",
-+        state: "open",
-+        html_url: "https://github.com/o/r/pull/14",
-+        merged: false,
-+        mergeable: true,
-+        mergeable_state: "blocked",
-+        head: { sha: HEAD, ref: "studio/pub" },
-+        base: { sha: OTHER, ref: "main" },
-+      }),
-+    );
-+
-+    await expect(
-+      mergePullRequestRemote({
-+        token: "t",
-+        fullName: "o/r",
-+        prNumber: 14,
-+        expectedHeadSha: HEAD,
-+        fetchImpl: fetchImpl as unknown as typeof fetch,
-+      }),
-+    ).rejects.toSatisfy((e: unknown) => isStudioError(e) && e.code === "ACCESS_DENIED");
-+  });
-+
-+  it("ACCESS_DENIED when eligibility not yet demonstrated (mergeable null)", async () => {
-+    const fetchImpl = vi.fn(async () =>
-+      jsonResponse(200, {
-+        number: 15,
-+        title: "doc",
-+        state: "open",
-+        html_url: "https://github.com/o/r/pull/15",
-+        merged: false,
-+        mergeable: null,
-+        mergeable_state: null,
-+        head: { sha: HEAD, ref: "studio/pub" },
-+        base: { sha: OTHER, ref: "main" },
-+      }),
-+    );
-+
-+    await expect(
-+      mergePullRequestRemote({
-+        token: "t",
-+        fullName: "o/r",
-+        prNumber: 15,
-+        expectedHeadSha: HEAD,
-+        fetchImpl: fetchImpl as unknown as typeof fetch,
-+      }),
-+    ).rejects.toSatisfy((e: unknown) => isStudioError(e) && e.code === "ACCESS_DENIED");
-+  });
-+
-   it("CONFLICT on HEAD drift before merge", async () => {
-     const fetchImpl = vi.fn(async () =>
-       jsonResponse(200, {
-@@ -142,6 +224,8 @@ describe("P0-02 mergePullRequestRemote SHA proof", () => {
-         state: "open",
-         html_url: "https://github.com/o/r/pull/11",
-         merged: false,
-+        mergeable: true,
-+        mergeable_state: "clean",
-         head: { sha: OTHER, ref: "studio/pub" },
-         base: { sha: HEAD, ref: "main" },
-       }),
+ });
+
 ```
 
-## 8. Tests
+## 6. Tests exécutés (pas d'extrapolation globale)
 
-Env: STUDIO_GITHUB_PROVIDER=scripted, STUDIO_ALLOW_SCRIPTED_GITHUB=1, DB e2e :5433 (jamais RECETTE :5434).
+Env: STUDIO_GITHUB_PROVIDER=scripted, STUDIO_ALLOW_SCRIPTED_GITHUB=1, DB e2e :5433.
 
 | Suite | Résultat |
 | --- | --- |
-| documentary-merge-contract | 9 PASS |
-| merge-pull-request-sha | 9 PASS |
-| conversation-merge-authority | 12 PASS |
-| unit merge-related bundle (8 files) | 53 PASS |
-| conversation-merge-security.pg | 5 PASS |
-| git-collaboration B3/T20/AT-14 slice | 21 PASS |
-| tsc --noEmit | PASS |
+| documentary-merge-corrections.pg | **8/8 PASS** |
+| conversation-merge-security.pg | **5/5 PASS** |
+| documentary-merge-contract (unit) | **11/11 PASS** |
+| merge-pull-request-sha | **9/9 PASS** |
+| conversation-merge-authority | **12/12 PASS** |
+| git-preview | **7/7 PASS** |
+| git-collaboration B3/T20/AT-14/REC-01 slice | **31 PASS** (62 skipped) |
+| tsc --noEmit | **PASS** |
 
-## 9. Non-régression
+## 7. Preuves de non-mutation
 
-- git-preview 7 PASS · scripted-repo-isolation 3 PASS
-- Publication ≠ merge conservé
-- RECETTE HTTP <!--_U3Z92BCd0K__hiMvgTP9--> inchangé
+- C1 UNKNOWN / SCRIPTED-vs-REAL / REAL-vs-SCRIPTED : mergePR compteur = 0
+- C1 REAL-under-REAL : zéro mutation scripted ; refus provider REAL attendu
+- Aucune mutation GitHub distante ; aucun cutover RECETTE
+- HTTP RECETTE post-cycle : <!--_U3Z92BCd0K__hiMvgTP9-->
 
-## 10. Sécurité / autorité
-
-- D6 GIT_MERGE_MANDATE distinct
-- User OAuth pour merge REAL (pas installation admin)
-- Pas de force-merge / bypass
-- mergeable=true ≠ autorisation (state clean requis)
-- Déjà mergé: merge_commit_sha, zéro second PUT
-
-## 11. SCRIPTED vs REAL
+## 8. SCRIPTED vs REAL
 
 | Niveau | Statut |
 | --- | --- |
-| SCRIPTED / mock API | PROVEN |
-| Interface REAL mergePullRequestRemote | PROVEN (fetch mock) |
+| SCRIPTED corrections | PROVEN |
+| Interface REAL path (mode gate) | PROVEN (refuse mismatch / UNKNOWN) |
 | Mutation GitHub REAL | **NOT EXERCISED / NOT PROVEN** |
-| RECETTE cutover | **NONE** |
 
-## 12. RECETTE
+## 9. SOURCE / TREE final
 
-| Champ | Valeur |
-| --- | --- |
-| URL | http://127.0.0.1:3200 |
-| SOURCE servi | 98118de073e9df5f2446592a281060ddb64369fe |
-| BUILD | _U3Z92BCd0K_-hiMvgTP9 |
-| Service | com.sfia.studio.next.recette.ml4d-ux004 |
-| Modification | **NONE** |
+- SOURCE_SHA : 10128bdb6bb1020a0fd8d4976b91879bff26c3b3
+- TREE : be778f1bf461f15acf94bfed6879d43fa6256a0d
 
-## 13. Réserves
+## 10. Réserves
 
-1. Aucune fusion REAL sandbox exécutée — gate Morris distinct après cutover.
-2. Protections/rulesets non exposées — refus si éligibilité non démontrée.
-3. Panel merge UI hors A8 Nora-only — non retiré ce lot.
-4. Nouveau candidat local a087051a569a0bd6eaab935d674ac567ecfa6400 — ne remplace pas automatiquement RECETTE.
+1. MERGE REAL sandbox toujours NOT PROVEN.
+2. Panel merge UI A8 hors périmètre de cette correction.
+3. Nouveau candidat local — ne remplace pas RECETTE sans GO Morris distinct.
 
-## 14. SOURCE_SHA / TREE candidat
+## 11. Verdict
 
-- SOURCE_SHA : a087051a569a0bd6eaab935d674ac567ecfa6400
-- TREE : 7274dcc085d59e7332e9947c4931a95a0de5439a
+**READY FOR CHATGPT REVIEW — E08 DOCUMENTARY REAL MERGE CORRECTED**
 
-## 15. Verdict
+## 12. Décision Morris suivante
 
-**DEVELOPMENT COMPLETE WITH RESERVES — REAL MERGE NOT YET PROVEN**
-
-## 16. Décision Morris suivante
-
-Après validation ChatGPT : GO cutover RECETTE du nouveau candidat, puis autorisation explicite d'une fusion documentaire sandbox (PR précisément identifiée). Ne pas déclarer E08 reçu / STABLE / RELEASE / ADOPTED.
+Revue ChatGPT, puis éventuel GO cutover RECETTE distinct. Ne pas déclarer E08 reçu / STABLE / RELEASE / ADOPTED.
 
