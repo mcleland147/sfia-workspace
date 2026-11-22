@@ -710,10 +710,43 @@ Le GO cutover Morris distinct a ensuite servi le candidat :
 
 - **D6/D7/D8 internes** : la réussite observable du nouveau parcours n'est pas une lecture directe de toutes les versions de plan, décisions et tentatives en base. La traçabilité exhaustive de l'opération PR #21 n'est pas prouvée par la seule conversation Nora et l'oracle GitHub.
 - **Idempotence après perte d'ACK** : GIT-WRITE-UAT-07 non exécuté ; GIT-WRITE-UAT-06 (consultation après rechargement) ne remplace pas ce test.
-- **GIT-WRITE-UAT-05 sur PR #21** : une récupération/réconciliation sans effet nouveau peut compléter le contrôle des références Studio après ce retest si Morris souhaite l'effectuer.
+- **GIT-WRITE-UAT-05 sur PR #21** : **PASS fonctionnel READ** sur les références Studio visibles et GitHub ; les enregistrements internes détaillés D6/D7/D8 restent NON VÉRIFIÉS ; voir §18.5.
 - **GitHub rulesets / protections** : contrôle non accessible ; aucune conclusion de faisabilité du merge. **MERGE HORS MANDAT**.
 - **Figma 11.17 / aperçu indisponible et lien GitHub** : maquette validée pour le prochain développement E08, **non incluse dans le candidat RECETTE `24a8fa9e`** ; pas de développement ou cutover implicite par ce PV.
 - **Git projet** : le candidat local, les commits documentaires locaux et les handoffs ne valent pas merge dans `main`.
 - **Classe de sortie** : **NO RELEASE / STABLE NOT AVAILABLE / E08 NON ADOPTED**. Un retest WRITE PASS n'est pas un gate global R6, ni une adoption automatique.
 
-**Point de reprise :** retest d'autorité de branche **réussi** sur GitHub REAL ; poursuivre uniquement les contrôles résiduels proportionnés au risque, consigner la décision Morris, puis qualifier la sortie Git E08 selon les gates applicables. Aucun merge ou nettoyage n'est autorisé ici.
+**Point de reprise :** retest d'autorité de branche **réussi** sur GitHub REAL et **réconciliation READ PR #21 PASS fonctionnel** ; demeurent l'audit interne exhaustif D6/D7/D8, la reprise mutative sous faute (WRITE-07) et les gates d'intégration. Aucun merge ou nettoyage n'est autorisé ici.
+
+
+### 18.5 Réconciliation READ de la PR #21 — contrôlée le 22 novembre 2026
+
+**Retour Nora LIVE en lecture seule :** la publication documentaire « RECETTE ML4 — Test ACK REC-08 » v2 a été retrouvée dans Studio après le retest WRITE-04 ; aucun nouvel effet déclaré dans ce tour.
+
+| Élément | Référence retrouvée |
+| --- | --- |
+| Message d'autorisation initiale | 22/11/2026 **10:52:21 UTC**, branche exacte imposée |
+| Compte rendu initial de publication | 22/11/2026 **10:53:47 UTC** |
+| Document / révision D4 | `doc_94b6b1c9-e8d8-4008-956b-0440b8d264f2` / `drev_455a13a3-e0d5-4218-bd51-0621fdd75f62` |
+| Dépôt / branche | `mcleland147/chantiers360` / `sfia/uat-write-explicit-branch-20261122` |
+| Fichier | `docs/recette-studio-next/test-ack-rec-08.md` |
+| Commit | `39d9b367d7204b190de8da12af884d73ffcfa210`, daté 22/11/2026 **10:53:44 UTC**, parent unique `8c398c494dd918272aab5b2653777c6c21d2e76e` |
+| Blob fichier | `503f38ceb1e0fc4c48f5daec5cc46ca8083826de`, 167 caractères, 2 lignes |
+| PR | [#21](https://github.com/mcleland147/chantiers360/pull/21) **OPEN**, non fusionnée, 1 commit et 1 fichier ajouté |
+| Résultat Studio visible | `effect=COMPLETED` / `status=PR_OPEN` |
+| D6 affichée par projection | `dec_483f9215-00f9-40b1-a5c5-e94562bfcb2b`, `GIT_PUBLICATION_MANDATE`, `APPLICABLE` |
+| Effet lié affiché par projection | `efx_3bd06794-d85f-4915-9fcf-5acfca563429` |
+
+**Oracle GitHub indépendant vérifié par ChatGPT après la réponse Nora :** PR #21 ouverte/non fusionnée ; source `sfia/uat-write-explicit-branch-20261122`, HEAD `39d9b367d7204b190de8da12af884d73ffcfa210`, base `main` ; fichier et blob identiques au retest `18.3. Le retour de Nora est donc cohérent avec l'état distant sur les références observables.
+
+**Checks de la PR #21 :** au contrôle Nora vers 10:57 UTC, le check Docker était encore en cours. Au contrôle indépendant ultérieur, les **5 check runs étaient terminés** : Backend lint/test/API/build, Frontend lint/test/build et Docker build & smoke = **3 SUCCESS** ; dependency audit npm frontend et backend = **2 FAILURE**. Docker terminé à **2026-11-22 10:57:43 UTC**. Combined status GitHub `pending` et `statuses=[]` ne prouvent pas un check en cours ; protections et rulesets non accessibles. Aucune autorisation de fusion n'en découle.
+
+**Frontières de preuve de la réconciliation :**
+
+- **D6** : identifiant, type, état et extrait du mandat visibles dans la projection Nora ; enregistrement complet et contraintes réellement persistées non lus directement.
+- **D7** : projection de résultat `COMPLETED` et cohérence GitHub prouvées ; **version du plan**, paramètres détaillés et **nombre de tentatives** non accessibles à Nora et non audités dans ce contrôle.
+- **D8** : références de publication visibles concordantes ; journal brut, chronologie d'événements et liens internes non contrôlés directement.
+- **Aucun effet nouveau déclaré** par Nora dans le tour READ ; ce seul élément ne constitue pas un audit PG du nombre de tentatives.
+- **Idempotence après perte d'ACK** reste **NON TESTÉE** (WRITE-07).
+
+**Verdict : `GIT-WRITE-UAT-05 — PASS fonctionnel READ / réconciliation des références visibles, WITH DOCUMENTED LIMITS`.** Le correctif d'autorité sur branche explicite reste **PASS LIVE/REAL** sur l'unique retest PR #21 ; la conformité interne exhaustive et la reprise mutative restent distinctes. `NO RELEASE`, `STABLE NOT AVAILABLE`, `E08 NON ADOPTED`.
