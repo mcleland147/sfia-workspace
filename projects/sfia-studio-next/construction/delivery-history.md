@@ -7,16 +7,21 @@ Append-only logical journal of Cursor product deliveries.
 
 | Field | Value |
 | --- | --- |
-| Date | 2026-11-22 (Europe/Paris) |
+| Date | 2026-11-22 ≈ 04:33 CET (Europe/Paris) |
 | Macro-lot | Ensemble 08 — POST-UAT 01 freeze local candidat |
 | Type | EVOL / QA / FREEZE CANDIDAT · CRITICAL · **NO RELEASE** |
 | Branche | `feat/next-ensemble08-git-publications-nora` |
-| Base | `origin/main` `a12f89a1` |
+| Base | `origin/main` `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
+| Parent | `29066442a7fa51b106d9fe45b5c1b05da7f13004` |
+| SOURCE_SHA | `9f34639110ce2315a2bf8dc0786197bb8f5ea3b1` |
+| TREE | `364c907342772f5430cf855d269cecc458f0546c` |
+| BUILD_ID | `F85QQBTLa8nq5zKYxMKKZ` |
+| Artefact | `…/sfia-workspace-next-ml4d-ensemble08-postuat-build-9f346391/…/web/.next` |
 | GO Morris | Commit local + build détaché autorisés ; push/PR/cutover **NON** |
 | Réserves fermées | A contenu D4↔SCRIPTED · B D7 COMPLETED + D8 · C build détaché |
 | Push projet | **NONE** |
-| Cutover | **NOT EXECUTED** — RECETTE `@98185598` intacte |
-| Verdict | (voir Review Pack / manifeste section B) |
+| Cutover | **NOT EXECUTED** — RECETTE `@98185598` / `1xEbvCdTAX6ht262w4oKF` intacte |
+| Verdict | **CANDIDATE FROZEN — RECETTE GO REQUIRED** |
 
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-CLOTURE
 

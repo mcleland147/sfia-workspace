@@ -115,17 +115,20 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date/heure freeze local | 2026-11-22 (Europe/Paris) |
+| Date/heure freeze local | 2026-11-22 ≈ 04:33 CET (Europe/Paris) |
 | GO Morris | Freeze local + build détaché **autorisés** ; cutover RECETTE **non** autorisé |
 | Classe | **NO RELEASE** · CANDIDAT |
+| Repo | `mcleland147/sfia-workspace` |
 | Branche | `feat/next-ensemble08-git-publications-nora` |
-| Base / parent | `origin/main` `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
-| SOURCE_SHA (à renseigner après commit) | _PENDING_COMMIT_ |
-| TREE (à renseigner après commit) | _PENDING_TREE_ |
-| BUILD_ID (à renseigner après build détaché) | _PENDING_BUILD_ |
-| Artefact | worktree détaché hors DEV mutable / hors :3200 |
+| Base `origin/main` | `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
+| Parent commit | `29066442a7fa51b106d9fe45b5c1b05da7f13004` |
+| SOURCE_SHA (candidat runtime) | `9f34639110ce2315a2bf8dc0786197bb8f5ea3b1` |
+| TREE | `364c907342772f5430cf855d269cecc458f0546c` |
+| BUILD_ID | `F85QQBTLa8nq5zKYxMKKZ` |
+| Artefact | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-postuat-build-9f346391/projects/sfia-studio-next/web/.next` |
+| Worktree build | détaché @ `9f346391` — hors DEV mutable / hors :3200 |
 | Cutover | **NOT EXECUTED** |
-| RECETTE actuelle | **préservée** `@98185598` / `1xEbvCdTAX6ht262w4oKF` |
+| RECETTE actuelle | **préservée** `@98185598` / `1xEbvCdTAX6ht262w4oKF` — **non** branchée sur ce candidat |
 
 ## Contenu candidat
 
@@ -161,6 +164,17 @@ Aucune migration DB additionnelle requise pour ce candidat (vérifiée — sché
 
 **NOT EXECUTED** — gate Morris distinct rattaché au nouveau SHA/BUILD.
 
+## Identités figées (cohérence)
+
+| Identité | Valeur |
+| --- | --- |
+| SOURCE_SHA | `9f34639110ce2315a2bf8dc0786197bb8f5ea3b1` |
+| TREE | `364c907342772f5430cf855d269cecc458f0546c` |
+| BUILD_ID | `F85QQBTLa8nq5zKYxMKKZ` |
+| Association | BUILD produit depuis worktree détaché au SOURCE_SHA (pas depuis worktree DEV dirty) |
+
+Un commit documentaire ultérieur peut enregistrer ces valeurs sans changer le SOURCE_SHA de cutover : le GO RECETTE futur doit cibler **exactement** ce SHA + BUILD_ID.
+
 ## Verdict section B
 
-**CANDIDATE PREPARED — RECETTE GO REQUIRED** (à confirmer après SHA/TREE/BUILD renseignés)
+**CANDIDATE FROZEN — RECETTE GO REQUIRED**
