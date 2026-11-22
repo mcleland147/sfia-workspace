@@ -70,6 +70,13 @@ export type GitHubAppLoadedCredentials = {
    * Extra names from GITHUB_APP_ALLOWED_REPOS (comma-separated), same owner only.
    */
   allowedFullNames: string[];
+  /**
+   * WRITE allowlist — never inferred from READ.
+   * From GITHUB_APP_WRITE_ALLOWED_REPOS (comma-separated), same owner only.
+   * Empty = no REAL mutations even when STUDIO_GITHUB_ALLOW_MUTATIONS=documentary.
+   * Every write name must also appear in allowedFullNames (READ).
+   */
+  allowedWriteFullNames: string[];
   expectedOwner: string;
   lane: StudioGithubAppLane;
   meta: GitHubAppCredentialMeta;
@@ -111,9 +118,66 @@ export function resolveAllowedFullNames(input: {
   return out;
 }
 
+/**
+ * Resolve WRITE allowlist from env only — never copies READ.
+ * Empty list is valid (mutations remain blocked).
+ * Each entry must be under expectedOwner and ⊂ readAllowlist.
+ */
+export function resolveWriteAllowedFullNames(input: {
+  expectedOwner: string;
+  readAllowlist: string[];
+  envList?: string | null;
+}): string[] {
+  const owner = input.expectedOwner.toLowerCase();
+  const read = new Set(input.readAllowlist.map((n) => n.toLowerCase()));
+  const raw = (input.envList ?? "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const name of raw) {
+    if (!name.includes("/")) {
+      throw new StudioError(
+        "INVALID_REQUEST",
+        `WRITE allowlist invalide (${name})`,
+        { httpStatus: 400 },
+      );
+    }
+    const [o] = name.split("/");
+    if ((o ?? "").toLowerCase() !== owner) {
+      throw new StudioError(
+        "INVALID_REQUEST",
+        `Dépôt WRITE hors owner attendu (${name})`,
+        { httpStatus: 400 },
+      );
+    }
+    const key = name.toLowerCase();
+    if (!read.has(key)) {
+      throw new StudioError(
+        "INVALID_REQUEST",
+        `Dépôt WRITE hors allowlist READ (${name})`,
+        { httpStatus: 400 },
+      );
+    }
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(name);
+  }
+  return out;
+}
+
 export function isFullNameAllowed(allowedFullNames: string[], fullName: string): boolean {
   const target = fullName.trim().toLowerCase();
   return allowedFullNames.some((n) => n.toLowerCase() === target);
+}
+
+/** True when REAL documentary mutations may target this repo (WRITE allowlist). */
+export function isWriteFullNameAllowed(
+  allowedWriteFullNames: string[],
+  fullName: string,
+): boolean {
+  return isFullNameAllowed(allowedWriteFullNames, fullName);
 }
 
 function requireEnv(name: string): string {
@@ -313,6 +377,11 @@ export function loadGitHubAppCredentialsFromEnv(): GitHubAppLoadedCredentials {
     expectedOwner: meta.expectedOwner,
     envList: process.env.GITHUB_APP_ALLOWED_REPOS,
   });
+  const allowedWriteFullNames = resolveWriteAllowedFullNames({
+    expectedOwner: meta.expectedOwner,
+    readAllowlist: allowedFullNames,
+    envList: process.env.GITHUB_APP_WRITE_ALLOWED_REPOS,
+  });
 
   return {
     appId: meta.appId,
@@ -320,6 +389,7 @@ export function loadGitHubAppCredentialsFromEnv(): GitHubAppLoadedCredentials {
     privateKeyPem,
     allowedFullName: meta.allowedFullName,
     allowedFullNames,
+    allowedWriteFullNames,
     expectedOwner: meta.expectedOwner,
     lane: meta.lane,
     meta,

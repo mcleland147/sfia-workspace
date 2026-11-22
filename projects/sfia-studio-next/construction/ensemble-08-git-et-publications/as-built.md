@@ -2,14 +2,14 @@
 
 | Champ | Valeur |
 |---|---|
-| Date | 2026-11-22 (POST-UAT 01 clôture publication Nora — as-built mis à jour) |
+| Date | 2026-11-22 (FINALISATION UX 11.06 + GitHub REAL WRITE policy + cutover) |
 | Branche | `feat/next-ensemble08-git-publications-nora` |
 | Base | `origin/main` @ `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
-| Profil | CRITICAL · Delivery correctif post-UAT · NO RELEASE |
+| Profil | CRITICAL · Delivery cutover finalisation · NO RELEASE |
 | CKC | FALLBACK (Delivery #8) |
-| Freeze RECETTE (inchangé) | `98185598de0d3f3b84af862aecea04b9099217ca` · TREE `1c70839f` · BUILD `1xEbvCdTAX6ht262w4oKF` |
-| Candidat DEV post-UAT | **worktree dirty** — nouveau SHA après commit Morris (pas encore figé) |
-| RECETTE | **FROZEN / AVAILABLE** — aucune mutation ce mandat |
+| Runtime RECETTE (pré-cutover ce lot) | `9f34639110ce2315a2bf8dc0786197bb8f5ea3b1` · BUILD `F85QQBTLa8nq5zKYxMKKZ` |
+| Runtime précédent (rollback immédiat) | `9f346391…` / `F85QQBTLa8nq5zKYxMKKZ` (conservé) |
+| RECETTE | voir manifeste cutover section D (ce lot) |
 
 ## Livré (y compris finalisation technique)
 
@@ -31,21 +31,27 @@
 - **POST-UAT 01** : publication d’un document **existant** (sans D4 AVAILABLE same-turn) via `resolvePublicationDocumentTarget`
 - **Convergence** : référence **explicite** (hint/`doc_*`/rév.) **prévaut** sur focus UI et same-turn contradictoires ; `confirmPublicationDocumentWithD4` avant tout prepare D7
 - **Clôture** : `objectRef` et `documentHint` **réconciliés** (pas de `\|\|` silencieux) — conflit → AMBIGUOUS / REVISION_MISMATCH, zéro D7
-- Gate WRITE REAL avant préparation : `publicationWriteGate` → refus explicite si `STUDIO_GITHUB_ALLOW_MUTATIONS≠documentary`
+- Gate WRITE REAL avant préparation : `publicationWriteGate` → exige `STUDIO_GITHUB_ALLOW_MUTATIONS=documentary` **et** `GITHUB_APP_WRITE_ALLOWED_REPOS` non vide (READ ≠ WRITE)
 - Restitution Nora post-Studio : `composePublicationEffectRestitution` — **un** état métier cohérent ; intention sans effet → `NOT_ATTEMPTED` (jamais « Je publie » / succès inventé)
 - Reprise mission post-authorize COMPLETED : restitution métier (pas de dump technique masqué)
 - Champs qual `publication.documentHint` / `objectRef` / `repositoryHint`
 - Preuves PG : WRITE OFF zéro mutation ; SCRIPTED D6/D7/D8 + Nora ; Playwright Nora discriminant (DEV :3101)
 
-### Capacité UX (POST-UAT 01 + convergence)
+### Capacité UX (POST-UAT 01 + convergence + POST-UAT 02)
 - Double en-tête « Intégration Git » : `ProjectChrome` breadcrumb-only pour surfaces `git`/`publication`
 - Microcopy Pilote : jargon D4/D7/D8 / « projection » retiré des surfaces Dépôts Git / Intégrations
 - Infos : popover ancré `GitFileInfoPopover` — `aria-controls` = `panelId` ; Escape / Fermer restaurent le focus ; fermeture sur changement fichier/ref
-- Intégrations 11.06 : panneau GitHub + repos autorisés + Actualiser/Déconnecter ; colonne « Une connexion à la carte » ; pas de cartes pédagogiques héritées à gauche ; confirmation 11.07 inchangée fonctionnellement
-- G5 pixel Figma : **NOT PROVEN** (Morris UAT)
+- **POST-UAT 02 / Figma 11.06** : composition 858/482, bandeau `--fig-ok-bg`, boutons secondaires « Actualiser les accès » / « Déconnecter GitHub », microcopy Figma (connexion / projets / Publier avec Nora), nav rail `is-active`, dépôts = provider réel (pas d’invention)
+- **FINALISATION G5** : panneaux `min-height: 610px`, banner h=44, header gap→y≈293 ; F2 ≤2 — `figma-evidence/finalisation-11.06-g5-matrix.md`
+- Confirmation déconnexion 11.07 : comportement inchangé (cancel sans effet)
+- G5 11.06 rectangles stables 1680×970 : **PROVEN** (F2 ≤2 CSS px)
 
-### REAL multi-dépôts
-- Allowlist explicite `allowedFullNames` + env `GITHUB_APP_ALLOWED_REPOS` (même owner)
+### REAL multi-dépôts / WRITE gouverné
+- Allowlist READ : `allowedFullNames` + env `GITHUB_APP_ALLOWED_REPOS` (même owner)
+- Allowlist WRITE distincte : `allowedWriteFullNames` + env `GITHUB_APP_WRITE_ALLOWED_REPOS` (⊂ READ, jamais inférée)
+- Mutations provider : `assertWritableRepo` après gate `documentary`
+- RECETTE : WRITE OFF tant que WRITE allowlist vide / flag ≠ documentary — sandbox GO Morris requis pour mutation externe
+- REAL WRITE / MERGE mutations : **NOT PROVEN** ce lot (pas de GO sandbox nommé)
 
 ### Preuves / docs construction
 - Matrice A/B/S 41/41 : `matrice-couverture-acceptation-a-b-s.md`
@@ -60,19 +66,20 @@
 - Playwright E08 surface historique ; G5 F2 : **NOT PROVEN** (différé Morris UAT)
 
 ## Non livré / réserves
-- Figma G5 runtime : **NOT PROVEN** — **VISUAL ACCEPTANCE DEFERRED TO MORRIS UAT**
-- END-TO-END REAL mutation GitHub : **NOT PROVEN** (WRITE/MERGE hors mandat)
-- GitHub REAL READ : **NOT PROVEN** ce cycle
+- Figma G5 géométrie 11.06 (F2) : **PROVEN** en DEV SCRIPTED — acceptation visuelle Morris UAT distincte
+- END-TO-END REAL mutation GitHub : **NOT PROVEN** (sandbox/GO WRITE non nommé ce lot)
+- Policy WRITE gouvernée (séparation READ/WRITE) : **DETERMINISTIC PROVEN** ; activation RECETTE WRITE : **OFF**
+- GitHub REAL READ : à requalifier en RECETTE post-cutover (smoke non mutatif)
 - Nora LIVE E2E : **NOT PROVEN**
-- Candidate Git figée / build RECETTE : **SERVI** `@98185598` / `1xEbvCdTAX6ht262w4oKF` sur lane E07
-- G5 visuelle : **NOT PROVEN** — UAT Morris
+- Candidate finalisation : SHA/TREE/BUILD — manifeste section D
+- Rollback immédiat post-cutover : artefact `@9f346391` / `F85QQBTLa8nq5zKYxMKKZ`
 
 ## Preuves exécutées (finalisation)
-- `tsc --noEmit` PASS
-- `git-refs-coverage-s03` **19/19** PASS
-- unit ciblés E08 (refs/provenance/…) — voir Review Pack
-- Matrice 41 scénarios qualifiée (statuts honnêtes)
-- G5 **NOT PROVEN** (non relancé — différé)
+- `tsc --noEmit` PASS · lint warnings préexistants uniquement
+- unit `tests/unit` **806/806** PASS
+- PG `tests/integration` **538/538** PASS
+- Playwright 11.06 **3/3** PASS (G5 h=610 · y Δ0.22)
+- REAL WRITE mutation externe : **NOT PROVEN** (STOP frontière sandbox)
 
 ## Fake/Real
 | Capacité | Niveau |
@@ -80,7 +87,9 @@
 | Refs bound / incompleteCoverage (S03) | DETERMINISTIC PROVEN (mock REAL-shaped + SCRIPTED) |
 | Listing / paths / pubs projection | DETERMINISTIC PROVEN |
 | Mandat merge sémantique + contradiction | DETERMINISTIC PROVEN (unit/PG hist.) |
-| UX 11.04/11.05/11.07 code | DETERMINISTIC PROVEN (code + L2 Figma hist.) |
-| GitHub REAL READ/WRITE | NOT PROVEN |
+| UX 11.04/11.05/11.07 code | DETERMINISTIC PROVEN |
+| UX 11.06 G5 F2 | DETERMINISTIC PROVEN (runtime measures) |
+| WRITE allowlist ≠ READ | DETERMINISTIC PROVEN |
+| GitHub REAL READ (RECETTE) | BOUNDARY — smoke post-cutover |
+| GitHub REAL WRITE / MERGE | NOT PROVEN |
 | Nora LIVE E2E | NOT PROVEN |
-| Figma G5 | NOT PROVEN |

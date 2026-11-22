@@ -3,6 +3,50 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-FINALISATION-UX-REAL-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 06:10 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — FINALISATION 11.06 G5 + GitHub REAL WRITE policy + RECETTE |
+| Type | EVOL / QA / RECETTE · CRITICAL · **NO RELEASE** |
+| UX | panneaux 610px · y≈293 · banner 44 · F2 ≤2 — `finalisation-11.06-g5-matrix.md` |
+| REAL | `GITHUB_APP_WRITE_ALLOWED_REPOS` ⊂ READ ; gate documentary+WRITE ; mutations OFF RECETTE |
+| REAL WRITE mutation | **NOT PROVEN** — STOP sandbox/GO |
+| Preuves | unit 806 · PG 538 · PW 11.06 3/3 · tsc PASS |
+| Push projet | **NONE** |
+| Verdict | voir manifeste section D + Review Pack (cutover si gates OK) |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-02-INTEGRATIONS-UX
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 05:50 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — POST-UAT 02 Intégrations UX 11.06 |
+| Type | EVOL / UI CONFORMANCE · STANDARD · **NO RELEASE** |
+| Figma | `itgvCulInEnFY6DvgIegvP` node `1095:339` · PNG SHA256 `d50412ed…` |
+| Blast | IntegrationsPanel · tokens 11.06 · StudioShell nav active · tests · evidence |
+| D6–D9 / OAuth / WRITE | **NO CHANGE** |
+| RECETTE | **préservée** `@9f346391` / `F85QQBTLa8nq5zKYxMKKZ` — aucun cutover |
+| Preuves | unit 4 PASS · Playwright 3 PASS · F2 rail/contenu/panneaux/boutons ≤2px · styles bandeau |
+| Push projet | **NONE** |
+| Verdict | **DELIVERY READY — G5 PROVEN** (11.06 rectangles stables ; UAT Morris distinct) |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-RECETTE-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 04:50 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — POST-UAT 01 cutover RECETTE |
+| Type | EVOL / MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
+| GO Morris | SHA `9f346391…` · TREE `364c9073…` · BUILD `F85QQBTLa8nq5zKYxMKKZ` |
+| Avant | `@98185598` / `1xEbvCdTAX6ht262w4oKF` |
+| Après | servi HTTP `<!--F85QQBTLa8nq5zKYxMKKZ-->` · service `ml4d-ux004` |
+| DB | `sfia_next_recette_ml4` préservée · inventaire identique · Equip'Campus présent |
+| Backup | `ml4d-e08-pre-postuat-cutover-20261122T035016Z-from-98185598.sql.gz` + restore proof PASS |
+| Push projet | **NONE** |
+| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-FREEZE-LOCAL
 
 | Field | Value |
@@ -17,11 +61,11 @@ Append-only logical journal of Cursor product deliveries.
 | TREE | `364c907342772f5430cf855d269cecc458f0546c` |
 | BUILD_ID | `F85QQBTLa8nq5zKYxMKKZ` |
 | Artefact | `…/sfia-workspace-next-ml4d-ensemble08-postuat-build-9f346391/…/web/.next` |
-| GO Morris | Commit local + build détaché autorisés ; push/PR/cutover **NON** |
+| GO Morris | Commit local + build détaché autorisés ; push/PR/cutover **NON** (à ce stade) |
 | Réserves fermées | A contenu D4↔SCRIPTED · B D7 COMPLETED + D8 · C build détaché |
 | Push projet | **NONE** |
-| Cutover | **NOT EXECUTED** — RECETTE `@98185598` / `1xEbvCdTAX6ht262w4oKF` intacte |
-| Verdict | **CANDIDATE FROZEN — RECETTE GO REQUIRED** |
+| Cutover | traité ensuite — voir `…-RECETTE-CUTOVER` |
+| Verdict | **CANDIDATE FROZEN — RECETTE GO REQUIRED** (historique freeze) |
 
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-CLOTURE
 

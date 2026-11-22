@@ -5682,3 +5682,221 @@
   .git-repo-card-row { gap: 10px; }
   .git-preview-head { flex-direction: column; }
 }
+
+/* Ensemble 08 — Figma 11.06 Intégrations (node 1095:339) */
+.integrations-1106-page {
+  /* Shell already provides ~38px inset (Figma content x=284 after rail 246). */
+  width: 100%;
+  max-width: 1358px;
+  margin: 0;
+  padding: 16px 0 32px;
+  box-sizing: border-box;
+}
+
+.integrations-1106 {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.integrations-1106-header {
+  display: flex;
+  flex-direction: column;
+  /* Figma 11.06 header frame h=91 → panels absolute y≈293 with gap 24 + banner 44. */
+  gap: 8px;
+}
+
+.integrations-1106-eyebrow {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--fig-accent, var(--accent));
+}
+
+.integrations-1106-title {
+  margin: 0;
+  font-size: 34px;
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--fig-ink, var(--ink));
+}
+
+.integrations-1106-lead {
+  margin: 0;
+  max-width: 1310px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--fig-muted, var(--muted));
+}
+
+.integrations-1106-banner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 14px 17px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+.integrations-1106-banner.is-ok {
+  background: var(--fig-ok-bg);
+  color: var(--fig-ok, var(--ok));
+}
+
+.integrations-1106-banner.is-warn {
+  background: var(--fig-warn-bg);
+  color: var(--fig-warn, var(--warn));
+}
+
+.integrations-1106-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 858fr) minmax(0, 482fr);
+  gap: 18px;
+  align-items: stretch;
+  width: 100%;
+}
+
+.integrations-1106-card {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  /* Figma 11.06 panels: 610 px at viewport 1680×970; may grow with dynamic repos. */
+  min-height: 610px;
+  box-sizing: border-box;
+  padding: 20px 21px;
+  border-radius: 10px;
+  border: 1px solid var(--fig-line, var(--line));
+  background: var(--fig-panel, var(--panel));
+}
+
+@media (max-width: 1279px) {
+  .integrations-1106-card {
+    min-height: 0;
+  }
+}
+
+.integrations-1106-provider {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.integrations-1106-card-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--fig-ink, var(--ink));
+}
+
+.integrations-1106-aside-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--fig-ink, var(--ink));
+}
+
+.integrations-1106-connected {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fig-ok, var(--ok));
+  white-space: nowrap;
+}
+
+.integrations-1106-muted {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--fig-muted, var(--muted));
+}
+
+.integrations-1106-repo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.integrations-1106-repo {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  box-sizing: border-box;
+  padding: 13px 15px;
+  border-radius: 8px;
+  border: 1px solid var(--fig-line, var(--line));
+  background: var(--fig-panel-hi, #1b2639);
+}
+
+.integrations-1106-repo-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--fig-ink, var(--ink));
+  word-break: break-word;
+}
+
+.integrations-1106-repo-meta {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--fig-muted, var(--muted));
+}
+
+.integrations-1106-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding-top: 2px;
+}
+
+.integrations-1106-actions .git-btn-secondary,
+.integrations-1106-actions .git-btn-primary {
+  min-width: 205px;
+  min-height: 42px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.integrations-1106-write-note {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--fig-quiet, var(--fig-muted, var(--muted)));
+}
+
+.integrations-1106-message {
+  margin: 0;
+  font-size: 13px;
+  color: var(--fig-warn, var(--warn));
+}
+
+@media (max-width: 1280px) {
+  .integrations-1106-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .integrations-1106-page {
+    padding: 12px 0 24px;
+  }
+  .integrations-1106-title {
+    font-size: 28px;
+  }
+  .integrations-1106-actions .git-btn-secondary,
+  .integrations-1106-actions .git-btn-primary {
+    min-width: 0;
+    width: 100%;
+  }
+}

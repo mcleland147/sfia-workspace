@@ -179,10 +179,24 @@ export function publicationWriteGate():
   const mode = (process.env.STUDIO_GITHUB_PROVIDER ?? "scripted").toLowerCase();
   if (mode !== "real") return { allowed: true };
   const flag = (process.env.STUDIO_GITHUB_ALLOW_MUTATIONS ?? "").toLowerCase().trim();
-  if (flag === "documentary") return { allowed: true };
-  return {
-    allowed: false,
-    reason:
-      "STUDIO_GITHUB_ALLOW_MUTATIONS≠documentary — écritures GitHub REAL désactivées",
-  };
+  if (flag !== "documentary") {
+    return {
+      allowed: false,
+      reason:
+        "STUDIO_GITHUB_ALLOW_MUTATIONS≠documentary — écritures GitHub REAL désactivées",
+    };
+  }
+  // READ allowlist never implies WRITE — empty WRITE list keeps mutations OFF.
+  const writeList = (process.env.GITHUB_APP_WRITE_ALLOWED_REPOS ?? "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (writeList.length === 0) {
+    return {
+      allowed: false,
+      reason:
+        "GITHUB_APP_WRITE_ALLOWED_REPOS vide — aucune cible WRITE REAL éligible",
+    };
+  }
+  return { allowed: true };
 }

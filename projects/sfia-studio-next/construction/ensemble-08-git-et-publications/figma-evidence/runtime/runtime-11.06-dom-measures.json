@@ -1,0 +1,74 @@
+{
+  "figmaFrame": {
+    "w": 1680,
+    "h": 970,
+    "nodeId": "1095:339"
+  },
+  "figmaPngSha256": "d50412edb6951be57feeef38d7a483aab945fef502a04b026fe8104513ba6335",
+  "capturedAt": "2026-11-22T05:07:36.432Z",
+  "regions": {
+    "1680x970": {
+      "rail": {
+        "x": 0,
+        "y": 0,
+        "width": 246,
+        "height": 970
+      },
+      "navIntegrations": {
+        "x": 19,
+        "y": 260.15625,
+        "width": 207,
+        "height": 42
+      },
+      "panel": {
+        "x": 284.390625,
+        "y": 109.59375,
+        "width": 1357.21875,
+        "height": 793.1875
+      },
+      "layout": {
+        "x": 284.390625,
+        "y": 292.78125,
+        "width": 1357.21875,
+        "height": 610
+      },
+      "banner": {
+        "x": 284.390625,
+        "y": 224.78125,
+        "width": 1357.21875,
+        "height": 44
+      },
+      "githubCard": {
+        "x": 284.390625,
+        "y": 292.78125,
+        "width": 857.484375,
+        "height": 610
+      },
+      "explainColumn": {
+        "x": 1159.875,
+        "y": 292.78125,
+        "width": 481.734375,
+        "height": 610
+      },
+      "refreshBtn": {
+        "x": 306.390625,
+        "y": 570.5625,
+        "width": 205,
+        "height": 42
+      },
+      "disconnectBtn": {
+        "x": 523.390625,
+        "y": 570.5625,
+        "width": 205,
+        "height": 42
+      }
+    },
+    "1680x970-banner-computed": {
+      "backgroundColor": "rgb(23, 56, 47)",
+      "color": "rgb(108, 219, 186)",
+      "borderRadius": "8px",
+      "fontSize": "13px",
+      "fontWeight": "600"
+    }
+  }
+}

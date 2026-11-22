@@ -39,3 +39,29 @@ describe("REAL bounded mutation gate", () => {
     expect(classifyPublicationPath("scripts/publish.sh").allowed).toBe(false);
   });
 });
+
+describe("REAL WRITE allowlist separation", () => {
+  it("documentary flag alone does not open publicationWriteGate without WRITE list", async () => {
+    const { publicationWriteGate } = await import(
+      "@/domains/conversation/publication-effect-restitution"
+    );
+    const prevP = process.env.STUDIO_GITHUB_PROVIDER;
+    const prevM = process.env.STUDIO_GITHUB_ALLOW_MUTATIONS;
+    const prevW = process.env.GITHUB_APP_WRITE_ALLOWED_REPOS;
+    try {
+      process.env.STUDIO_GITHUB_PROVIDER = "real";
+      process.env.STUDIO_GITHUB_ALLOW_MUTATIONS = "documentary";
+      delete process.env.GITHUB_APP_WRITE_ALLOWED_REPOS;
+      expect(publicationWriteGate().allowed).toBe(false);
+      process.env.GITHUB_APP_WRITE_ALLOWED_REPOS = "mcleland147/chantiers360";
+      expect(publicationWriteGate().allowed).toBe(true);
+    } finally {
+      if (prevP === undefined) delete process.env.STUDIO_GITHUB_PROVIDER;
+      else process.env.STUDIO_GITHUB_PROVIDER = prevP;
+      if (prevM === undefined) delete process.env.STUDIO_GITHUB_ALLOW_MUTATIONS;
+      else process.env.STUDIO_GITHUB_ALLOW_MUTATIONS = prevM;
+      if (prevW === undefined) delete process.env.GITHUB_APP_WRITE_ALLOWED_REPOS;
+      else process.env.GITHUB_APP_WRITE_ALLOWED_REPOS = prevW;
+    }
+  });
+});

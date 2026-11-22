@@ -116,16 +116,21 @@ describe("publication-effect-restitution", () => {
     expect(out).not.toMatch(/a été publié/i);
   });
 
-  it("publicationWriteGate refuses REAL without documentary", () => {
+  it("publicationWriteGate refuses REAL without documentary + WRITE allowlist", () => {
     process.env.STUDIO_GITHUB_PROVIDER = "real";
     delete process.env.STUDIO_GITHUB_ALLOW_MUTATIONS;
+    delete process.env.GITHUB_APP_WRITE_ALLOWED_REPOS;
     expect(publicationWriteGate().allowed).toBe(false);
 
     process.env.STUDIO_GITHUB_ALLOW_MUTATIONS = "documentary";
+    expect(publicationWriteGate().allowed).toBe(false);
+
+    process.env.GITHUB_APP_WRITE_ALLOWED_REPOS = "mcleland147/chantiers360";
     expect(publicationWriteGate().allowed).toBe(true);
 
     process.env.STUDIO_GITHUB_PROVIDER = "scripted";
     delete process.env.STUDIO_GITHUB_ALLOW_MUTATIONS;
+    delete process.env.GITHUB_APP_WRITE_ALLOWED_REPOS;
     expect(publicationWriteGate().allowed).toBe(true);
   });
 });

@@ -26,12 +26,14 @@ function testPem(): string {
 function creds(overrides?: Partial<GitHubAppLoadedCredentials>): GitHubAppLoadedCredentials {
   const pem = testPem();
   const allowedFullName = overrides?.allowedFullName ?? GITHUB_APP_ALLOWED_FULL_NAME;
-  return {
+  const base: GitHubAppLoadedCredentials = {
     appId: GITHUB_APP_EXPECTED_APP_ID,
     installationId: GITHUB_APP_EXPECTED_INSTALLATION_ID,
     privateKeyPem: pem,
     allowedFullName,
-    allowedFullNames: overrides?.allowedFullNames ?? [allowedFullName],
+    allowedFullNames: [allowedFullName],
+    // Default empty WRITE — READ never implies WRITE.
+    allowedWriteFullNames: [],
     expectedOwner: GITHUB_APP_EXPECTED_OWNER,
     lane: "DEV",
     meta: {
@@ -46,8 +48,8 @@ function creds(overrides?: Partial<GitHubAppLoadedCredentials>): GitHubAppLoaded
       expectedOwner: GITHUB_APP_EXPECTED_OWNER,
       lane: "DEV",
     },
-    ...overrides,
   };
+  return { ...base, ...overrides, privateKeyPem: overrides?.privateKeyPem ?? pem };
 }
 
 function jsonResponse(status: number, body: unknown): Response {

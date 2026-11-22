@@ -20,6 +20,7 @@ import {
   type InstallationAccessToken,
 } from "./github-app-auth";
 import {
+  isWriteFullNameAllowed,
   loadGitHubAppCredentialsFromEnv,
   type GitHubAppLoadedCredentials,
   parseFullName,
@@ -38,6 +39,7 @@ import type {
  * Bounded REAL documentary mutations (create branch / new file / open PR / merge PR).
  * Requires explicit operator flag — never inferred from OAuth CONNECTED alone.
  * Merge uses the same documentary gate plus SHA preconditions at the provider.
+ * WRITE allowlist emptiness is enforced per-repo via {@link assertWritableRepo}.
  */
 export function isBoundedRealMutationAllowed(): boolean {
   const v = (process.env.STUDIO_GITHUB_ALLOW_MUTATIONS ?? "").toLowerCase().trim();
@@ -80,6 +82,19 @@ function assertAllowedRepo(creds: GitHubAppLoadedCredentials, fullName: string) 
     throw new StudioError(
       "ACCESS_DENIED",
       `Dépôt hors périmètre REAL READ (${fullName})`,
+      { httpStatus: 403 },
+    );
+  }
+}
+
+/** READ allowlist ≠ WRITE — mutations require explicit write membership. */
+function assertWritableRepo(creds: GitHubAppLoadedCredentials, fullName: string) {
+  assertAllowedRepo(creds, fullName);
+  const write = creds.allowedWriteFullNames ?? [];
+  if (!isWriteFullNameAllowed(write, fullName)) {
+    throw new StudioError(
+      "ACCESS_DENIED",
+      `Dépôt hors périmètre REAL WRITE (${fullName})`,
       { httpStatus: 403 },
     );
   }
@@ -259,7 +274,7 @@ export class RealGitHubReadProvider implements GitHubProvider {
   ): Promise<{ ref: string; sha: string }> {
     this.mutationAttempts.createBranch += 1;
     if (!isBoundedRealMutationAllowed()) return mutationBlocked("createBranch");
-    assertAllowedRepo(this.creds, fullName);
+    assertWritableRepo(this.creds, fullName);
     assertMutableBranch(branch, "createBranch");
     const token = await this.userAccessToken(pilotId);
     return createGitRef({
@@ -282,7 +297,7 @@ export class RealGitHubReadProvider implements GitHubProvider {
   }): Promise<{ commitSha: string; headSha: string }> {
     this.mutationAttempts.putFileContents += 1;
     if (!isBoundedRealMutationAllowed()) return mutationBlocked("putFileContents");
-    assertAllowedRepo(this.creds, input.fullName);
+    assertWritableRepo(this.creds, input.fullName);
     assertMutableBranch(input.branch, "putFileContents");
     const policy = classifyPublicationPath(input.path);
     if (!policy.allowed || !policy.normalizedPath) {
@@ -328,7 +343,7 @@ export class RealGitHubReadProvider implements GitHubProvider {
   }): Promise<PullRequestInfo> {
     this.mutationAttempts.createPR += 1;
     if (!isBoundedRealMutationAllowed()) return mutationBlocked("createPullRequest");
-    assertAllowedRepo(this.creds, input.fullName);
+    assertWritableRepo(this.creds, input.fullName);
     assertMutableBranch(input.head, "createPullRequest.head");
     const token = await this.userAccessToken(input.pilotId);
     const marker = input.publicationMarker;
@@ -416,7 +431,7 @@ export class RealGitHubReadProvider implements GitHubProvider {
   }): Promise<{ merged: boolean; sha: string }> {
     this.mutationAttempts.mergePR += 1;
     if (!isBoundedRealMutationAllowed()) return mutationBlocked("mergePullRequest");
-    assertAllowedRepo(this.creds, input.fullName);
+    assertWritableRepo(this.creds, input.fullName);
     const token = await this.userAccessToken(input.pilotId);
     return mergePullRequestRemote({
       token,

@@ -106,8 +106,8 @@
 
 ## Verdict manifeste (cutover historique)
 
-**RECETTE AVAILABLE — MORRIS UAT REQUIRED**
-(runtime actuellement servi : SHA `98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **inchangé** par le freeze POST-UAT 01)
+**RECETTE AVAILABLE — MORRIS UAT REQUIRED** (cutover E07→E08 historique)
+(runtime post-cutover E08 initial : SHA `98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — remplacé ensuite par section C POST-UAT 01)
 
 ---
 
@@ -127,8 +127,8 @@
 | BUILD_ID | `F85QQBTLa8nq5zKYxMKKZ` |
 | Artefact | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-postuat-build-9f346391/projects/sfia-studio-next/web/.next` |
 | Worktree build | détaché @ `9f346391` — hors DEV mutable / hors :3200 |
-| Cutover | **NOT EXECUTED** |
-| RECETTE actuelle | **préservée** `@98185598` / `1xEbvCdTAX6ht262w4oKF` — **non** branchée sur ce candidat |
+| Cutover (freeze) | préparé puis **exécuté** — voir section C |
+| Artefact runtime | inchangé `@9f346391` / `F85QQBTLa8nq5zKYxMKKZ` |
 
 ## Contenu candidat
 
@@ -152,18 +152,6 @@
 
 Aucune migration DB additionnelle requise pour ce candidat (vérifiée — schéma RECETTE `sfia_next_recette_ml4` compatible).
 
-## Mise à disposition future (NON EXÉCUTÉE)
-
-1. GO Morris SHA-specific + BUILD_ID
-2. Worktree/build détaché déjà produit
-3. Remplacer le ProgramArguments LaunchAgent **sans** toucher la DB
-4. Smoke HTTP BUILD_ID sur :3200
-5. Conserver artefacts E07 + E08 `@98185598` pour rollback
-
-## C. Cutover futur
-
-**NOT EXECUTED** — gate Morris distinct rattaché au nouveau SHA/BUILD.
-
 ## Identités figées (cohérence)
 
 | Identité | Valeur |
@@ -173,8 +161,77 @@ Aucune migration DB additionnelle requise pour ce candidat (vérifiée — sché
 | BUILD_ID | `F85QQBTLa8nq5zKYxMKKZ` |
 | Association | BUILD produit depuis worktree détaché au SOURCE_SHA (pas depuis worktree DEV dirty) |
 
-Un commit documentaire ultérieur peut enregistrer ces valeurs sans changer le SOURCE_SHA de cutover : le GO RECETTE futur doit cibler **exactement** ce SHA + BUILD_ID.
+HEAD documentaire `35906960…` **n’est pas** la source runtime.
 
-## Verdict section B
+## Verdict section B (freeze)
 
-**CANDIDATE FROZEN — RECETTE GO REQUIRED**
+**CANDIDATE FROZEN** — cutover traité en section C.
+
+---
+
+# C. Mise à disposition RECETTE — POST-UAT 01 (exécutée)
+
+| Champ | Valeur |
+| --- | --- |
+| Date/heure cutover | 2026-11-22 ≈ 04:50 CET (UTC 03:50) |
+| GO Morris | SHA/TREE/BUILD indivisibles honorés |
+| Classe | **NO RELEASE** |
+| Lane | RECETTE existante `:3200` · `STUDIO_LANE=RECETTE` |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` (même label) |
+| SOURCE_SHA servi | `9f34639110ce2315a2bf8dc0786197bb8f5ea3b1` |
+| TREE | `364c907342772f5430cf855d269cecc458f0546c` |
+| BUILD_ID HTTP | `<!--F85QQBTLa8nq5zKYxMKKZ-->` |
+| Script | `…/ensemble08-postuat-build-9f346391/start-recette-ensemble08-postuat-9f346391.sh` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-postuat-build-9f346391` |
+| Mode | `npx next start -H 127.0.0.1 -p 3200` · production |
+| DB | `sfia_next_recette_ml4` @ `127.0.0.1:5434` — **aucune migration** |
+| GitHub | `providerMode=REAL` · `STUDIO_GITHUB_ALLOW_MUTATIONS` vide (WRITE OFF) |
+| Nora | LIVE credentials conservés · fixtures OFF · conduit NOT PROVEN |
+| Push projet | **NONE** |
+| STABLE | NOT AVAILABLE |
+
+## Runtime AVANT → APRÈS
+
+| | AVANT | APRÈS |
+| --- | --- | --- |
+| SOURCE_SHA | `98185598de0d3f3b84af862aecea04b9099217ca` | `9f34639110ce2315a2bf8dc0786197bb8f5ea3b1` |
+| BUILD_ID | `1xEbvCdTAX6ht262w4oKF` | `F85QQBTLa8nq5zKYxMKKZ` |
+| Script | `start-recette-ensemble08-98185598.sh` | `start-recette-ensemble08-postuat-9f346391.sh` |
+
+## Backup / restore proof
+
+| Élément | Valeur |
+| --- | --- |
+| Backup | `ml4d-e08-pre-postuat-cutover-20261122T035016Z-from-98185598.sql.gz` |
+| Emplacement | `…/ensemble08-recette-build-98185598/.sfia-recette/backups/` |
+| Bytes / SHA256 | 716129 / `80c5e8aef39197261aa086fb762e105656b5c6cbfa61bb9face811fc139b49b5` |
+| Restore proof | DB temp `sfia_next_recette_restore_proof_e08_postuat` → projects=26 messages=639 → DROP |
+| RECETTE active | intacte pendant/après proof |
+
+## Inventaire données (identique avant/après cutover)
+
+projects=26 · documents=117 · document_revisions=188 · conversations=205 · messages=639 · sessions=124 · users=4 · accounts=2 · project_git_links=15 · effect_attempts=4 · human_decisions=3 · observed_git_facts=0 · Equip'Campus `proj_a9ce5f43…` présent
+
+## Rollback préparé (non exercé)
+
+- Plist bak : `com.sfia.studio.next.recette.ml4d-ux004.plist.98185598.pre-postuat-cutover-20261122T035032Z.bak`
+- Artefact E08 `@98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` conservé
+- Script `ROLLBACK-TO-E08-98185598.sh` dans worktree postuat
+- Artefact E07 `BtZP6qDx5oAw8jwPQSEhc` en réserve
+
+## Smokes
+
+| Contrôle | Résultat |
+| --- | --- |
+| HTTP login/portfolio/integrations | 200 + BUILD `F85QQBTLa8nq5zKYxMKKZ` |
+| Process/CWD | next-server · worktree `…postuat-build-9f346391…/web` · TCP → `:5434` |
+| Surfaces projet Pilot A | travail/projet/trajectoire/documents/git/publications HTTP 200 |
+| Integrations API | `REAL` / `DISCONNECTED` (Pilot A) · repos=0 |
+| Git sources/pubs Pilot A | 200 listes vides (pas d’OAuth Pilot A ; compte Morris non perturbé) |
+| WRITE REAL | OFF — aucune mutation distante |
+| Nora LIVE E2E | NOT PROVEN |
+| G5 | NOT PROVEN |
+
+## Verdict section C
+
+**RECETTE AVAILABLE — MORRIS UAT REQUIRED**
