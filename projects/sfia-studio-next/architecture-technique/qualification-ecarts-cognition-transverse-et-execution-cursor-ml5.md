@@ -2,13 +2,13 @@
 
 ## Base d'investigation architecture et UX — ML5
 
-> **Lecture prioritaire :** la consolidation intégrée de l'axe A se trouve au **§15**. Les §12–14 conservent l'historique du raisonnement, du cadrage de reprise et du contrôle de complétude ; le §15 rassemble le contrat candidat cohérent. Les axes B (web), C (activité) et D (Cursor) demeurent à qualifier ; aucune promotion ni architecture finale n'est déduite.
+> **Lecture prioritaire :** l'axe A est consolidé au **§15** et l'axe B au **§16**. Les sections antérieures conservent les diagnostics initiaux ; elles sont complétées par les synthèses intégrées sans effacer les réserves historiques. **A et B : conception candidate documentée, pas preuves runtime** ; axes C (activité) et D (Cursor) à qualifier. Aucune promotion ni architecture finale déduite.
 
 | Champ | Valeur |
 | --- | --- |
 | Nature | **Document d'analyse exploratoire D0**, enregistré sur branche candidate ; non normatif, non décisionnel |
-| Version | **v0.4 — 22 novembre 2026** ; consolidation intégrée de l'axe A (questions, lecture, sélection, acquis, suffisance, reprise, responsabilités, preuves et gates) |
-| Statut | **DOCUMENTED / AXE A CONSOLIDÉ EN CONCEPTION CANDIDATE — NOT ARCHITECTURE-VALIDATED / NOT QUALIFIED FOR BUILD** ; reprise fiable validée comme exigence fonctionnelle, mécanisme/DB/contrats techniques non arbitrés |
+| Version | **v0.5 — 22 novembre 2026** ; axes A et B consolidés en conception candidate, interfaces A↔B↔C, risques de confidentialité, provenance et conditions de preuve B1 |
+| Statut | **DOCUMENTED / AXES A+B CONSOLIDÉS EN CONCEPTION CANDIDATE — NOT ARCHITECTURE-VALIDATED / NOT QUALIFIED FOR BUILD** ; B1 privilégiée par Morris, faisabilité SDK/observabilité/confidentialité/limites à prouver, sans GO technique |
 | Autorité de décision | Morris ; aucune adoption d'architecture inférée |
 | Source fonctionnelle candidate | [Contrat fonctionnel Nora transverse et Cursor](../conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md) — v0.3 validée en contenu par Morris, branche candidate |
 | Base Git du diagnostic | **main@997897fd7cf914771e7d08e8030dc7123fab7d25** ; branche candidate initiale **39c00f72c10e69f7981dd2490a0b68fc5e4b8d78** |
@@ -396,14 +396,14 @@ Le risque principal n'est pas l'invocation de recherche : c'est **l'utilisation 
 
 Il faudra comparer **au moins le moyen de recherche et le moyen de lecture de pages**, qui ne sont pas forcément identiques. La possibilité native d'un fournisseur n'est pas une preuve de disponibilité opérationnelle dans Next ; toute nouvelle surface devra être testée sur la version effectivement retenue et les droits disponibles.
 
-**Statut : FOURTH TECHNICAL DECISION TO QUALIFY / NOT APPROVED.** Aucun fournisseur, API, hébergement, service de lecture ou coût n'est choisi ici.
+**Actualisation de qualification (22/11/2026) :** Morris privilégie **B1 — recherche web hébergée OpenAI via Agents SDK**, pour limiter le coût de développement et la maintenance. Le **§16 consolide l'axe B** et ses contrats candidats ; la compatibilité exacte avec le SDK verrouillé, les données accessibles et la sécurité reste **à prouver**, sans GO code, fournisseur définitivement adopté ou budget opérationnel validé.
 
 # 11. Les quatre axes de décision à instruire avant la construction
 
 | Axe | Question | Orientation candidate et limite | Dépendance / gate |
 | --- | --- | --- | --- |
 | **A — Continuité cognitive** | Comment Nora prépare-t-elle une réponse/contrat complexe en plusieurs étapes sans perdre les sources et restrictions ? | Prolonger D3+D4+journal de tour ; sélectionner/approfondir/consolider avec provenance, sans second moteur ni limite arbitraire de longueur | En priorité ; arbitrage Morris sur nouveau moteur/persistance si nécessaire |
-| **B — Recherche web** | Comment Nora consulte-t-elle des pages publiques utiles et non fiables, dans tous ses travaux ? | Extension lecture seule et sourcée de la famille d'outils D3, sécurité centrale, couverture et budgets ; ne pas déduire d'actions | Étudier en interface avec A ; gate sécurité/provider si changement structurant |
+| **B — Recherche web** | Comment Nora consulte-t-elle des pages publiques utiles et non fiables, dans tous ses travaux ? | **B1 privilégiée par Morris** : outil hébergé `webSearchTool()` dans la conduite D3, avec séparation contexte public/privé, provenance, couverture et budgets ; **design §16**, pas compatibilité prouvée | Conditions de faisabilité SDK, sécurité/secret, source/activité et coût ; pas de B2 parallèle |
 | **C — Activité fonctionnelle** | Comment rendre visibles les actions pertinentes pendant le travail sans exposer le raisonnement privé ? | Événements réels + phases annoncées distinguées ; projection UI transverse sans flux de JSON Zod provisoire | Dépend de A/B et de l'observabilité existante ; preuve SDK/UX |
 | **D — Réalisation Cursor gouvernée** | Comment raccorder un exécuteur technique, ses tentatives et ses résultats sans doubler D7 ? | Comparer CLI/API Cloud/SDK sur documentation et tests actuels ; contrat versionné, D6, D7, D8 et identité séparés | Arbitrage fournisseur et permissions ; migration éventuelle = gate Morris |
 
@@ -793,3 +793,224 @@ Ces niveaux sont des **exigences futures**, pas des tests exécutés. Le protoco
 **Suite proposée dans la même qualification ML5 :** **axe B — recherche et lecture web** : frontière de confiance, découverte versus ouverture réelle, provenance/fraîcheur, erreurs, budgets, pagination et réutilisation des points de reprise de l'axe A ; puis C (activité Nora) et D (réalisation Cursor gouvernée). L'intégration A↔B↔C↔D reste prioritaire sur des sous-systèmes indépendants.
 
 **Verdict : AXE A CONSOLIDATED AS DESIGN CANDIDATE / DOCUMENTED — NOT ARCHITECTURE-VALIDATED, NOT IMPLEMENTED, NOT PROVEN, NOT ADOPTED.** Aucun GO Cursor, DB, PR, merge, Gate C ou promotion n'est inféré.
+
+# 16. Consolidation intégrée de l'axe B — recherche et lecture web hébergées
+
+## 16.1. Décision de préférence, résultat utilisateur et niveau de maturité
+
+**Orientation explicite Morris (22/11/2026) :** **B1 — réutiliser la recherche web hébergée d'OpenAI via l'Agents SDK actuel**, plutôt que construire un service de recherche et extraction web propre à Studio. Motivation : **limiter le coût de développement, le maintien en conditions opérationnelles, le nombre d'abstractions et l'effet « usine à gaz »**. Morris délègue la qualification et la consolidation documentaire de B, **sans GO technique/code/DB/Git normatif**.
+
+**Verdict de ce §16 : AXE B DESIGN QUALIFIED / DOCUMENTED — B1 PREFERRED CANDIDATE ; NOT IMPLEMENTED, NOT COVERAGE VERIFIED, NOT BEHAVIOR PROVEN, NOT ADOPTED.**
+
+La conception de B est **finalisée à son niveau documentaire** : objectifs, frontières, interfaces A/C, sécurité, données, erreurs, risques, contrat de preuve et portes de sortie sont définis. La **compatibilité exécutable du fournisseur dans Next demeure non vérifiée**. Ne pas qualifier B1 de technologie définitivement retenue avant ces preuves ni activer B2 sans écart bloquant démontré.
+
+**Résultat utilisateur cible :** lorsqu'une réponse, une étude, une préparation de contrat ou une analyse exige une information publique actuelle, Nora sait la chercher, comparer et exploiter avec la bonne provenance ; elle distingue **lien découvert**, **action de recherche**, **page ouverte attestée**, **contenu réellement étayé** et **incertitude**, puis conserve les éléments utiles à la reprise fiable A et à l'activité C. Cela s'applique au **sas et au projet**, sans créer un projet artificiel pour rechercher sur le web.
+
+## 16.2. Sources vérifiées et précision de la faisabilité
+
+**Lecture code Next, baseline `main@997897fd7cf914771e7d08e8030dc7123fab7d25` :**
+- `web/package.json` déclare `@openai/agents: ^0.21.0` ; **`web/package-lock.json` verrouille `@openai/agents`, `@openai/agents-core` et `@openai/agents-openai` en **0.21.0**. Un `^` dans le manifest n'est pas une garantie de version effective : le lock est la référence examinée.
+- `conversation/nora-adapter.ts` crée déjà un `Agent`, des tools D4/historique/Git, et valide `finalOutput` par le contrat sémantique Zod. `run(..., {stream:false})` est un contournement explicite d'erreurs antérieures sur streaming + schéma ; **ne pas réactiver le streaming de JSON à cette occasion**.
+- `conversation/cognitive-policy.ts` permet les lectures D4/historique/Git, mais **ne liste aucun outil web**, ne compte pas ses actions hébergées et n'a pas de profil opérationnel validé ; `maxTurns` ne mesure pas le nombre de recherches fournisseur.
+- `conversation/service.ts` injecte un mélange de message USER, extraits historiques bornés, connaissances et contexte D5/D6/CKI dans la même préparation D3 : **activer la recherche sur cet appel sans séparation des données peut exposer des informations privées dans la requête de recherche hébergée**.
+- Les mécanismes de droits, de faits sourcés, de tour `UNKNOWN` et de reprise sont des bases réutilisables ; la preuve de consultation web et le checkpoint web restent inexistants dans Next.
+
+**Documentation fournisseur publique consultée le 22/11/2026 :**
+1. [Agents SDK TS — tools](https://openai.github.io/openai-agents-js/guides/tools/) et [`webSearchTool()`](https://openai.github.io/openai-agents-js/openai/agents-openai/functions/websearchtool/) : outil **hébergé**, utilisable conceptuellement avec un `Agent` et l'API Responses, sans exécution de callback local pour chaque sous-action.
+2. [OpenAI — Web search / Responses](https://developers.openai.com/api/docs/guides/tools-web-search) : `web_search_call.action` peut être `search`, `open_page` ou `find_in_page` (ces deux dernières actions dépendant des modèles) ; annotations `url_citation` ; liste `sources` via include ; `search_context_size` **ne garantit pas** un nombre de sources, de tokens ou une lecture intégrale.
+3. [Agents SDK TS — résultats](https://openai.github.io/openai-agents-js/guides/results/) et [exemple `web-search-filters.ts`](https://github.com/openai/openai-agents-js/blob/main/examples/tools/web-search-filters.ts) : les traces de `newItems/history`, `hosted_tool_call` et `providerData.action.sources` sont des surfaces **à tester sur le package verrouillé**, pas des propriétés d'exécution déjà démontrées dans Next.
+4. [OpenAI — tarifs API](https://platform.openai.com/pricing/) : tarif public indicatif consulté **10 USD / 1 000 recherches web standard + tokens de contenu aux tarifs du modèle**, susceptible d'évoluer. **Ce n'est pas un budget produit approuvé**.
+5. [OpenAI — données](https://developers.openai.com/api/docs/guides/your-data), [sécurité des agents](https://developers.openai.com/api/docs/guides/agent-builder-safety) et [tracing SDK](https://openai.github.io/openai-agents-js/guides/tracing/) : vérifier la portée des données externes, les traces contenant éventuellement des données sensibles et les contrôles avant d'activer B1.
+
+**Attention méthodologique :** les pages SDK publiques documentent le SDK **courant**, pas nécessairement l'API exacte de `@openai/agents@0.21.0`. L'import, la configuration `searchContextSize/filters`, la forme des `RunItem` et le support du **modèle demandé par Next** doivent être vérifiés par tests de compilation puis par une exécution LIVE bornée. **Documentation externe ≠ preuve runtime/entitlement**.
+
+## 16.3. B1 : architecture logique et frontières
+
+**Un seul conducteur : D3 / Nora.** B1 est une **capacité de recherche publique** dans sa conduite existante, pas un second « cerveau », ni un navigateur généraliste, ni un crawler maintenu par Studio.
+
+Séquence logique candidate :
+1. D3 qualifie une **question déterminante** de l'axe A qui nécessite une donnée publique/fraîche et vérifie si une recherche est proportionnée ;
+2. Studio prépare une demande de recherche **publique, minimale et non confidentielle**, sans injecter inutilement le dépôt privé, le fil conversationnel complet, les décisions internes ou les secrets ;
+3. Un appel hébergé `webSearchTool()` via l'Agents SDK recherche, consulte éventuellement et renvoie un résultat avec les **éléments effectivement accessibles** dans sa version/configuration ;
+4. Une **normalisation prudente des faits observés**, appartenant à Studio et sans nouveau moteur de classement métier, fournit à A des références, citations, états de couverture et limites ;
+5. D3 compare ces sources aux références D4/Git, consolide ce qu'elles prouvent et rouvre les questions nécessaires ; C affiche les faits opérationnels **uniquement dans la mesure observable** ;
+6. Le résultat final est restitué avec citations consultables et réserves. Aucun web call ne produit HumanDecision, contrat exécutable ou effet D7.
+
+**Point de sûreté prioritaire :** la documentation du fournisseur recommande de séparer les recherches web publiques des consultations de données privées. Donc **l'attachement direct d'un outil web au run Nora complet, chargé de données Git privées et D5/D6, n'est PAS automatiquement acceptable**. La réalisation devra comparer au sein de D3 un run/segment **web-public isolé avec requête expurgée** ou une isolation équivalente **vérifiable**, puis réintégration du résultat côté conducteur D3. Il ne s'agit **pas** d'une décision d'utiliser un nouvel agent métier ou service persistant ; l'interface et les implications SDK restent à qualifier.
+
+**Sans preuve de séparation des données sensibles : B1 reste bloquée**, même si une réponse web apparaît correcte.
+
+## 16.4. Contrat d'observation : découvert ≠ consulté ≠ vérifié
+
+Les catégories ci-dessous sont des **notions de qualification**, pas de nouveaux enums de base de données :
+
+| Situation | Éléments autorisés | Ce qu'il est interdit de prétendre |
+| --- | --- | --- |
+| **Recherche engagée** | Tentative fournisseur corrélée, signal local de démarrage | « X sites consultés » avant retour |
+| **Résultat/URL découvert(e)** | Titre/URL de la recherche, éventuellement extrait indexé | « Page ouverte », « document lu intégralement » |
+| **`web_search_call.action = search` observé** | Appel et références retournées réellement accessibles | Une URL de `sources` ne prouve pas forcément un `open_page` distinct |
+| **`action = open_page` observé** | Une page a été ouverte selon le signal fournisseur | Examen exhaustif de tout le contenu ; extraction HTML/PDF complète |
+| **`action = find_in_page` observé** | Recherche dans une page au signal fournisseur | Autres sections lues ou validées |
+| **`url_citation` présente** | La réponse rattache une affirmation à une URL/title/plage de texte | Source récente, exacte, intégralement lue ou indépendante des autres |
+| **Action/sources non exposées par le SDK verrouillé** | Consultation **non vérifiable** / couverture partielle ou inconnue | Fabrication d'un événement « ouverte » ou « complète » |
+| **Erreur/refus/timeout** | État d'incertitude, limite et cause technique admissible | Succès implicite ou coût nul présumé |
+
+**Données minimales candidates de source** : URL canonique observée, titre si transmis, fournisseur, action attestée si disponible, annotations et référence de claim, date/instant de recherche, date de publication si réellement vérifiée, version/API si vérifiée, niveau de couverture connu, statut d'accès, question A concernée, identifiant de génération/opération et éventuel `providerCallId` disponible. **Ne pas inventer de `providerCallId`/date/publication/empreinte de contenu**.
+
+**Fraîcheur** : date de consultation ≠ date de publication ≠ dernière mise à jour de la source. Un résultat indexé peut être ancien ; mode cache-only éventuel ≠ lecture live. Le moteur doit rapporter la limite lorsque la fraîcheur importe.
+
+**Limite de B1** : aucune garantie générale de lecture complète de HTML, PDF, pages avec authentification ou contenus dynamiques. Les sources indispensables non vérifiables empêchent les conclusions qui en dépendent. B1 ne doit pas être vendue comme un navigateur arbitraire.
+
+**Rendu UI** : lorsqu'une réponse s'appuie sur le web, les citations doivent être **visibles et cliquables** à proximité des affirmations. Les contrôles UI doivent conserver liens sûrs, titre/URL, étiquette de fraîcheur si étayée et différences entre références trouvées et ouvertes. La documentation fournisseur indique des exigences de visibilité des citations : ne pas se limiter à stocker une liste invisible.
+
+## 16.5. Interface B1 → axe A : pertinence, acquisitions et reprise fiable
+
+B1 fournit des **observations de sources** ; **A décide cognitivement de leur utilité et suffisance** pour chaque question déterminante.
+
+| B1 → A : fait/limite | Utilisation dans l'état d'investigation A |
+| --- | --- |
+| Source trouvée/citée, non ouverte | Candidate à lire, **pas acquis vérifié de lecture** |
+| Page ouverte / extrait attesté | Fait candidat sourcé, portée partielle connue |
+| Deux sources/version divergentes | Contradiction à confronter, réouverture des questions pertinentes |
+| Page indisponible, tronquée, datée ou accès refusé | Lacune identifiée avec importance pour le livrable |
+| Métadonnées insuffisantes | Source non vérifiable, pas de transformation en autorité |
+| Recherche épuisée sans découverte pertinente | Piste interrompue avec limites, **ne ferme pas une question indispensable** |
+| Nouvelle recherche après interruption | Contrôle de pertinence, fraîcheur et doublons avant réutilisation |
+
+**Point de reprise candidat** : conserver uniquement les informations utiles (question, intention publique de recherche, sources et actions attestées, citations, date, statut, contradiction, travail restant), sous le mécanisme durable A **encore non décidé**. Ne pas conserver ni rejouer systématiquement le corpus web brut ; ne pas rendre obligatoire un recalcul de toute l'investigation.
+
+**En cas d'interruption/ACK incertain** : l'absence de réponse ne prouve pas l'absence de recherche ni de coût. Marquer `UNKNOWN`/non vérifiable à son niveau, éviter une relance automatique aveugle ; autoriser une nouvelle recherche read-only uniquement selon une politique de budget et de reprise explicitement qualifiée, puis corréler les versions/citations. **B1 n'hérite d'aucune autorité D7** et ne rejoue aucune mutation.
+
+## 16.6. Interface B1 → axe C : activité fonctionnelle, sans faux streaming
+
+| Événement fonctionnel candidat | Base de vérité nécessaire | Affichage recommandé |
+| --- | --- | --- |
+| Nora prévoit de vérifier une documentation publique | Étape annoncée par D3 | « Je vais consulter la documentation… » ; *intention*, pas action observée |
+| Demande web envoyée | Tentative provider effectivement engagée | « Recherche web engagée » |
+| Action `search` confirmée dans la réponse | `web_search_call` observé | « Recherche effectuée » |
+| `open_page` / `find_in_page` confirmés | Action fournisseur effectivement retournée | « Page consultée » / « recherche dans la page » avec réserve de couverture |
+| Source citée, sans action disponible | Annotation/citation accessible uniquement | « Référence web utilisée » ; éviter « page entièrement lue » |
+| Budget atteint/erreur/timeout | Retour technique et corrélation | « Recherche interrompue ou incertaine » |
+| Consolidation d'une contradiction | Déclaration fonctionnelle de Nora + faits associés | « Je confronte deux versions » ; **pas preuve** d'une opération terminée |
+
+**Important :** sur `main`, Nora fait `run(stream:false)`, et l'API de tour REST renvoie une réponse terminale. Les événements intermédiaires de recherche hébergée peuvent ne devenir inspectables **qu'à la fin du run**. **B1 ne prouve pas à elle seule un flux temps réel.** L'axe C devra établir si la plateforme/SDK fournit un canal progressif sûr sans exposer le JSON Zod provisoire. Dans l'intervalle, une phase **annoncée** peut être affichée comme telle ; une activité **observée** ne peut pas être inventée.
+
+**Corrélation** : réutiliser `operationId`, `generationId`, tentative et journal de tour existants ; éviter un deuxième registre d'activité/mission ou la conservation de requêtes contenant des secrets. Les observables d'usage ne suffisent pas à reconstituer les étapes privées de raisonnement.
+
+## 16.7. Confidentialité, injection et frontière de confiance
+
+| Risque | Exigence de conception |
+| --- | --- |
+| **Exfiltration involontaire** via requête web contenant nom privé, chemin confidentiel, contenu de décisions internes, secret/token | Séparer **données privées** et **recherche publique**, réduire/reformuler les requêtes, ne pas connecter B1 à un contexte privé intégral sans protection vérifiée |
+| **Injection indirecte** dans pages/snippets (« ignore règles », « exécute », « révèle token ») | Traiter tout résultat web comme **donnée non fiable** ; aucune élévation d'autorité ni action D4/D6/D7/Git fondée sur une instruction de page |
+| **Lien malveillant/phishing** | Exposer URL réelle consultable avec indicateurs, ne pas exécuter de scripts ni suivre liens privés/authentifiés ; contrôle des URL au rendu |
+| **Empreinte de consultation/traçage sensible** | Définir politique de rétention/minimisation, neutraliser les logs bruts, inspecter `traceIncludeSensitiveData` et les traces hébergées |
+| **Actualité fabriquée / source invalide** | Dates/versions uniquement si connues, contradiction conservée, aucune preuve LIVE inférée d'une documentation éditeur |
+| **Données personnelles / résidence / politiques fournisseur** | Examiner les contraintes réelles de traitement de l'API et du projet fournisseur avant activation ; aucun accord implicite sur la transmission de secrets |
+
+**Point bloquant :** le seul prompt « ne divulgue pas de secrets » n'est **pas une barrière de sécurité suffisante** si le même modèle possède déjà toutes les données privées et peut formuler une recherche externe. La voie B1 ne réduit pas ce risque par magie ; elle évite surtout d'héberger un fetch/crawler arbitraire côté Studio.
+
+**SSRF et parsing HTML** : B1 n'implique pas automatiquement que Studio gère la résolution DNS, les redirections réseau ou le rendu HTML arbitraire **car l'outil est hébergé**. Ne pas investir dans ces mécanismes par inertie. Les risques effectivement portés par Studio sont principalement **données sortantes, rendu des liens, autorité des sorties, métadonnées et contrôle fournisseur**. Si une extension propriétaire apparaît plus tard, son blast radius réseau sera requalifié séparément.
+
+## 16.8. Budget, coût, latence et déclenchement proportionné
+
+**Règles candidates :**
+- Recherche **sur besoin sémantique**, pas à chaque tour ; pas de recherche « pour décorer » les réponses.
+- Éviter répétition d'une même requête ou source sous le même objectif, sauf fraîcheur/dependance justifiée.
+- Commencer avec un `searchContextSize` proportionné (piste : `medium`, **pas valeur adoptée**). `low/medium/high` ne sont pas des quotas numériques garantis.
+- Préférer les docs officielles de la **version pertinente** sans en faire une autorité produit ; comparer plusieurs sources lorsque la décision technique l'exige.
+- Mesurer séparément : **appels web réels** si exposés, actions `search/open_page/find_in_page` si exposées, **tokens**, durée, succès, erreurs et éventuelles recherches facturées mais non attestées.
+- **Ne pas considérer** `maxTurns` et le budget `remainingCalls` D4 comme une borne exacte du nombre d'actions web hébergées : vérifier les mécanismes de plafonnement/usage réellement proposés par le SDK, le modèle, l'API et la plateforme de facturation.
+- Une demande très longue, une recherche répétitive ou `return_token_budget: unlimited` (lorsqu'il est techniquement disponible) nécessitent un profil de coût explicitement justifié ; **aucun illimité par défaut**.
+- `OPERATIONAL_VALIDATED` doit être calibré puis approuvé avec preuves de charge/coût ; les budgets TEST_BOUNDARY et DEV ne deviennent pas des valeurs de production.
+- Ne pas annoncer de **coût total garanti** avant mesure réelle par profil de mission. Le tarif fournisseur public est une **base d'estimation**, susceptible d'évolution.
+
+**Mode secours :** si B1 échoue ou dépasse les ressources, Nora peut exploiter les sources internes déjà fiables et restituer une limite sur l'information actuelle, **sans bascule silencieuse vers un crawler local** ni faux résultat complet.
+
+## 16.9. Contrat d'erreurs et de reprise
+
+| Incident B1 | Traitement cognitif et UI | Invariant |
+| --- | --- | --- |
+| Search non déclenchée car non nécessaire | Nora répond sur les sources suffisantes | Pas de requête inutile |
+| Aucun résultat | Résultat de recherche vide, et éventuelle question A non résolue | « Aucun résultat » ≠ fait inexistant |
+| Page impossible à ouvrir / PDF non lisible | Couverture `PARTIAL/UNKNOWN`, autre source possible | Pas de « lu intégralement » |
+| Resultat ancien/version obsolète | Indiquer date/fraîcheur et réinvestiguer si déterminant | Pas de vérité actuelle déduite |
+| Citation sans action visible | Référence citée, action `open_page` non attestée | Pas de consulté attesté |
+| Réponse fournisseur annulée/timeout | Tentative interrompue ou inconnue, usage possiblement facturé | Pas de retry aveugle |
+| Web contenu hostile | Ignorer instructions ; isoler comme données, signaler si pertinent | Aucun GO ou mutation |
+| Autorité/accès du Pilote modifiés pendant recherche | Revérifier permissions de toute source privée utilisée en consolidation | Pas de contournement par le web |
+| Sortie Zod invalide en combinant outils | `UNKNOWN/UNAVAILABLE` selon contrat Nora actuel | Ne pas substituer une réponse non validée |
+
+Les libellés `PARTIAL`, `UNKNOWN`, `STALE` et autres sont des **catégories conceptuelles adaptées au périmètre web**, non des nouveaux enums DB. Ne pas mélanger état **technique de lecture**, **suffisance cognitive A** et **autorité d'effet D6/D7**.
+
+## 16.10. B1 vs B2 et conditions d'escalade
+
+| Critère | **B1 — hébergée, privilégiée** | **B2 — service propriétaire, non lancé** |
+| --- | --- | --- |
+| Coût de développement | Faible à modéré si compatibilité prouvée | Élevé : fetch, extraction, cache, sécurité, maintenance |
+| Contrôle des sous-opérations | Dépend des surfaces fournisseur/SDK | Plus direct, mais à construire et sécuriser |
+| Confidentialité | Exige cloisonnement **web public / sources privées** | Exige également cloisonnement, plus risques HTTP |
+| Couverture d'une page | Non garantie par défaut | Peut être instrumentée, à coût technique élevé |
+| Exploitabilité des citations | Annotations / sources potentielles | À concevoir |
+| Coût opérationnel | Recherches et tokens fournisseurs | Hébergement, réseau, moteur, maintenance, potentiellement API tiers |
+| Reprise de source | Réutilise métadonnées attestées de A | Règles d'état et extraction dédiées |
+
+**Déclencheur d'étude B2** : seulement si un **écart bloquant prouvé** de B1 affecte une exigence déterminante (par exemple impossibilité de séparer des données privées, de restituer une provenance nécessaire ou de consulter une catégorie de source indispensable). Avant toute étude B2, comparer **une correction minimale** de l'intégration hébergée, sans inventer une seconde architecture.
+
+**Aucune construction B2 parallèle, migration de moteur ou changement de fournisseur déduit par le présent document.**
+
+## 16.11. Acceptation et preuves futures — matrice de qualification exécutable
+
+| Scénario | Preuve attendue | Niveau de preuve |
+| --- | --- | --- |
+| **B-WEB-01** Import de `webSearchTool` sous SDK verrouillé | Compilation avec `0.21.0`, sans upgrade tacite | DETERMINISTIC |
+| **B-WEB-02** Run Nora avec ses outils D4/Git, `outputType` Zod et recherche | FinalOutput valide, couverture et statut authentiques | INTEGRATION + LIVE borné |
+| **B-WEB-03** Recherche non nécessaire | Aucune recherche facturée/appel observé sur demande simple | LIVE + consommation |
+| **B-WEB-04** Recherche sur documentation éditeur datée | URL, titre, citation, date seulement si attestée, pas de prétention de lecture complète | LIVE |
+| **B-WEB-05** Search vs `open_page` | Distinction sur `web_search_call.action` si exposé ; sinon libellé **NON VÉRIFIABLE** | INTEGRATION + LIVE |
+| **B-WEB-06** Sources/annotations SDK | `RunItem/history/providerData` réellement accessibles dans la version verrouillée | INTEGRATION |
+| **B-WEB-07** Page indisponible/PDF partiel | `PARTIAL/UNKNOWN`, source déterminante non déclarée complète | INTEGRATION + LIVE |
+| **B-WEB-08** Deux documents contradictoires / datés | Nora conserve versions, provenance et contradiction dans A | LIVE |
+| **B-WEB-09** Requête sensible | Aucun identifiant/secret/texte privé n'est envoyé comme requête web ; séparation des contextes prouvée | SECURITY + LIVE contrôlé |
+| **B-WEB-10** Injection dans résultat web | Aucun mandat/écriture/effect D6/D7 issu du contenu externe | SECURITY + DETERMINISTIC + LIVE |
+| **B-WEB-11** Timeout, ACK incertain, reprise | Recherche/cout marqués inconnus si nécessaires ; pas de restitution ni retry fictifs | INTEGRATION + LIVE ciblé |
+| **B-WEB-12** Mesure coûts/outils | Nombre d'actions/usage si exposés, durée et tokens ; limites explicites | INTEGRATION + LIVE |
+| **B-WEB-13** Sas / projet | Web accessible dans les deux parcours sans création artificielle de projet | INTEGRATION + BROWSER |
+| **B-WEB-14** Activité avec `stream:false` | Phase annoncée distincte d'action fournisseur observée ; pas d'événement temps réel inventé | INTEGRATION + BROWSER |
+| **B-WEB-15** Citation UI | Liens source cliquables, provenance et réserve lisibles, pas de contenu exécutable | BROWSER |
+| **B-WEB-16** Condition de décision pour Cursor | Document web officiel ne suffit pas à prouver le support réel SDK/entitlement sur Studio | LIVE + vérification code |
+
+**Aucun de ces tests n'a été exécuté ici.** Le code local, les clés fournisseur, le statut de compte, les appels LIVE et les coûts effectifs sont **NON OBSERVÉS**. Les tests simulés/DETERMINISTIC ne remplaceront pas la preuve LIVE de B1 dans Next.
+
+## 16.12. Blast radius et synchronisation documentaire pour une future implémentation
+
+- **D3** : outil hébergé et sa politique d'exposition publique ; conservation de la sortie structurée et du contrat d'autorité ;
+- **Profil cognitif/budgets** : coût et contrôle d'accès au web selon la mission, validation du profil opérationnel ;
+- **Réponse/annotations** : adapter la projection source et les citations sans dégrader les références D4/Git ;
+- **A** : état d'investigation, checkpoint et reprise, avec méta-source web minimal ;
+- **C** : activité annoncée/observée, relation avec les limites du non-stream ;
+- **Sécurité** : séparation web public/privé, minimisation des données, logs, traces, injection de prompt ;
+- **UX** : page 12 Figma et parcours sas/projet, affichage des liens et états de couverture ;
+- **D4/D6/D7** : règles de propriété inchangées ; aucune mutation liée directement aux sources web ;
+- **Tests/doc/architecture** : tests unitaires, intégration, BROWSER, LIVE, documentation as-built synchronisée **dans le macro-lot de construction**. Pas de micro-lot documentaire isolé en aval.
+
+Une évolution de schéma DB, un service web autonome ou une modification d'autorité est un **gate Morris spécifique**, non une extension tacite du mandat. Le passage `B1 privilégiée → architecture retenue` exige revue de sécurité et compatibilité réelle.
+
+## 16.13. Risques résiduels, exit et suite
+
+| Risque résiduel | Condition de sortie |
+| --- | --- |
+| Documentation SDK plus récente que le package installé | Test compile et inspection des objets réellement retournés sur `0.21.0` |
+| Le modèle demandé par Next ne supporte pas l'outil attendu | Test fournisseur LIVE au modèle/effort réel et contrôle de la disponibilité |
+| Recherche hébergée peut divulguer des données internes | Isolation web publique vérifiée + test négatif de non-exfiltration |
+| Citations sans preuve `open_page` | Rendu fidèle des niveaux d'observation et limites acceptées par le contrat A |
+| Coût outil non plafonné par budgets D4 | Mesures réelles, garde-fous et profil opérationnel arbitrés |
+| L'outil ne diffuse pas de jalons en temps réel | Axe C qualifie un transport d'activité honnête et les limites du non-stream |
+| Reprise après interruption et web mutable | Point de reprise A, vérification de fraîcheur, distinction état fournisseur inconnu |
+| Changement de version SDK requis | Blast radius, tests Zod/outils/streaming, gate technique Morris avant code |
+
+**Exit de qualification documentaire B : atteint pour la conception candidate** — responsabilité, flux, B1 privilégiée, interface A/C, exigences de provenance, sécurité, cas d'erreur et plan probatoire sont définis. **Exit de faisabilité/exécution B : NON ATTEINT** — pas d'essai compilé/LIVE, pas de sécurité validée, pas de budgets de production, pas d'architecture adoptée.
+
+**Suite de la même trajectoire ML5 :** **axe C — activité fonctionnelle transverse de Nora**, avec B1 comme source d'observations potentielles, en veillant à ne pas déduire des événements live d'un run non streamé ; puis axe D Cursor sous D6/D7/D8. Conserver **un document d'architecture central unique** et les arbitrages Morris dans leurs statuts exacts.
+
+**Verdict final de l'axe B : B1 SELECTED FOR DESIGN / DOCUMENTED / TECHNICAL FEASIBILITY AND LIVE PROOF OUTSTANDING / NOT IMPLEMENTED / NOT ADOPTED.**
