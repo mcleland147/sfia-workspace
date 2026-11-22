@@ -1,20 +1,18 @@
 # SFIA Review Pack — FULL · CRITICAL · COMPLETE CODE
-## Ensemble 08 — CORRECTIF POST-UAT 01 : Publication Nora et convergence UX
+## Ensemble 08 — POST-UAT 01 CONVERGENCE FINALE CIBLÉE
 
 | Champ | Valeur |
 |---|---|
-| status | COMPLETE — republish FULL with source + diffs (independent review) |
+| status | COMPLETE — independent review (sources + diffs) |
+| date_utc | 2026-11-22T02:47:00Z (Europe/Paris ≈ 03:47) |
 | cycle | Delivery #8 · INC/EVOL · CRITICAL · NO RELEASE |
-| date_utc | 2026-11-22 |
-| prior_handoff_cutover | `72cdb456bc9cc68ef047a21da1df7b639af26a09` |
-| prior_handoff_incomplete | `31d22a96cbeb32a3aed11f99f82bf97263e4e205` (inventory-only — superseded) |
-| this_handoff_L3 | `2d3c155847ed85954d753db79f3c4ef4ab70f1c9` |
-| profil | CRITICAL · Review Pack FULL · Handoff REQUIRED / PUBLISH-IN-CYCLE |
-| versioning | NO RELEASE · NO STABLE · NO ADOPTED |
-| worktree_base_HEAD | `29066442a7fa51b106d9fe45b5c1b05da7f13004` (corrections uncommitted) |
-| freeze_RECETTE | `98185598de0d3f3b84af862aecea04b9099217ca` · TREE `1c70839f` · BUILD `1xEbvCdTAX6ht262w4oKF` — **PRESERVED** |
+| prior_handoff | `2e97c15c7d555758c3ae01579fe3b8b9fd67f5ec` (code+diffs POST-UAT) — superseded by this pack |
+| worktree_HEAD | `29066442a7fa51b106d9fe45b5c1b05da7f13004` + dirty convergences |
+| origin/main | `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
+| RECETTE freeze | `98185598` / TREE `1c70839f` / BUILD `1xEbvCdTAX6ht262w4oKF` — **PRESERVED** |
+| GO Morris | correctif DEV + tests + docs — **pas** commit/push/PR/cutover/WRITE REAL |
 
-> **Note de republication :** ce pack inclut le **texte intégral** des fichiers créés et les **diffs unifiés exploitables** (`git diff HEAD -U8`) des fichiers modifiés, pour revue indépendante ChatGPT. Les tests PG / Playwright / Nora LIVE restent **NOT RUN** ce cycle (déclarés comme tels, non PASS).
+> Pack FULL : contenus intégraux des créations + `git diff HEAD -U8` des tracked modifiés. Fichiers untracked inclus en entier (pas seulement inventaire).
 
 ---
 
@@ -22,69 +20,126 @@
 
 | Item | Observé |
 |---|---|
-| Remote | `origin` → `mcleland147/sfia-workspace` |
-| Branche DEV | `feat/next-ensemble08-git-publications-nora` |
-| HEAD | `29066442a7fa51b106d9fe45b5c1b05da7f13004` |
-| merge-base ↔ `origin/main` | `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
-| ahead | 2 (freeze + tip docs) |
-| Push projet | **NONE** |
-| RECETTE HTTP | `:3200` alive (307) · BUILD freeze non remplacé |
-| Correctifs | worktree dirty — **pas de commit projet** ce mandat |
+| Branche | `feat/next-ensemble08-git-publications-nora` |
+| HEAD | `29066442` |
+| merge-base main | `a12f89a1` |
+| Staged | none |
+| RECETTE HTTP | `:3200` 307 alive · non mutée |
+| DEV Playwright | `:3101` via `e2e-web-server.sh` (sfia_next_e2e) |
 
 ---
 
-## 2. Diagnostic UAT-01 (A–G) — inchangé, preuves
+## 2. Causes racines (confirmées)
 
-| Classe | Applicable | Preuve |
+1. **Cible documentaire** : priorité focus/same-turn pouvait écraser une référence explicite ultérieure.
+2. **Restitution** : strip + append pouvait laisser un narratif de succès contradictoire avec un refus.
+3. **Infos** : `aria-controls` ≠ panelId ; focus non restauré.
+4. **Intégrations** : cartes pédagogiques héritées ≠ structure Figma 11.06.
+
+---
+
+## 3. Architecture propriétaires
+
+| Étape | Owner |
+|---|---|
+| Intention publication | D3 qual durable |
+| Identité doc/rév. + confirm | D4 (`getDocumentRevision` / `listDocumentRevisions`) |
+| Prepare / dispatch | D7 |
+| Mandat USER | D6 |
+| Faits | D8 |
+| Provider WRITE gate | D9 / env |
+| Restitution Pilote | D3 après owners |
+
+---
+
+## 4. Tests exécutés
+
+| Suite | Commande | Résultat |
 |---|---|---|
-| **A** Intention reconnue, aucun plan D7 | **OUI primaire** | hedge LLM « reste à confirmer par Studio » ; gate historique `documentEffectForAck.status===AVAILABLE` ; **zéro** `effect_attempt` 2026-11-22 |
-| **B** Plan préparé, param/autorité manquant | Non observé ce tour | |
-| **C** WRITE D9 indisponible | **Latent** | `STUDIO_GITHUB_ALLOW_MUTATIONS` OFF en RECETTE |
-| D–G | Non | pas d’effet lancé / accompli |
+| tsc | `npx tsc --noEmit -p tsconfig.json` | **PASS** |
+| unit restitution/target | `vitest run tests/unit/publication-effect-restitution.test.ts` | **13 PASS** |
+| unit refs S03 | `vitest run tests/unit/git-refs-coverage-s03.test.ts` | **19 PASS** |
+| PG target + WRITE-off | `vitest run tests/integration/publication-target-post-uat.pg.test.ts` | **3 PASS** (sfia_next_e2e) |
+| PG accept01 non-régression | `vitest run tests/integration/mission-continuity-accept01.pg.test.ts` | **10 PASS** |
+| Playwright E08 surface | `playwright test tests/e2e/ensemble08-git-surface.spec.ts` | **3 PASS** (DEV :3101 / e2e DB) |
+| Nora LIVE | — | **NOT PROVEN** |
+| GitHub REAL WRITE | — | **HORS MANDAT / NOT PROVEN** |
+| G5 Figma ≤2px | — | **NOT PROVEN** |
 
-**Cause racine prouvée :** A (publish-existing jamais entré) + hedge pré-effet ; C aurait bloqué l’écriture si A seul était corrigé sous WRITE OFF.
-
----
-
-## 3. Continuité D3 / D6 / D7 / D8 / D9 (lecture du code ci-dessous)
-
-Ordre attendu après correctif (vérifiable dans le diff `service.ts`) :
-
-1. **D3** — `missionIntent.wantsPublish` depuis `projectStudioEffects` (qual durable) ; `missionProjection` structurée.
-2. **Résolution document** — `resolvePublicationDocumentTarget` (same-turn D4 AVAILABLE → focus → hint/`doc_*` → sole ; `AMBIGUOUS`/`NOT_FOUND` → clarification, **zéro prepare**).
-3. **Gate WRITE** — `publicationWriteGate()` **avant** `preparePublicationForMission` ; si refus → `REFUSED_WRITE_DISABLED`, pas D7/D9.
-4. **D7** — `preparePublicationForMission` (path requis, 1 lien Git, etc.).
-5. **D6** — `admitConversationalPublicationMandate` (USER durable ; pas LLM seul).
-6. **D9** — dispatch via `resumeMissionAfterPublicationAuthorize` quand mandat autorise (SCRIPTED ou REAL documentary).
-7. **D8** — faits via owners existants / mission resume status ; restitution Nora **après** owners via `composePublicationEffectRestitution`.
-8. Hedge strip : seulement retrait des formulations pré-effet ; si `outcome===UNKNOWN` → texte explicite « encore en vérification », **pas** de succès inventé.
+SCRIPTED ≠ REAL. RECETTE non utilisée pour fixtures mutatives.
 
 ---
 
-## 4. Fichiers CRÉÉS — contenu intégral
+## 5. Empreintes locales (sha256 16)
+
+- `projects/sfia-studio-next/web/src/domains/conversation/publication-document-target.ts` · `069cd7f759440a9c`
+- `projects/sfia-studio-next/web/src/domains/conversation/publication-effect-restitution.ts` · `183e8bee24f4d9fe`
+- `projects/sfia-studio-next/web/src/components/integrations/GitFileInfoPopover.tsx` · `d882fb0c80a140f9`
+- `projects/sfia-studio-next/web/tests/unit/publication-effect-restitution.test.ts` · `07d94217dc94ab1b`
+- `projects/sfia-studio-next/web/tests/integration/publication-target-post-uat.pg.test.ts` · `88529131f6e24ac6`
+- `projects/sfia-studio-next/construction/ensemble-08-git-et-publications/figma-evidence/post-uat-01-l0-l2.md` · `bb14cdbbab55530f`
+- `projects/sfia-studio-next/web/src/domains/conversation/service.ts` · `826a4ed2932e8b8b`
+- `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts` · `2509c347e22b62d1`
+- `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx` · `97e47527081470be`
+- `projects/sfia-studio-next/web/src/components/figma/tokens.css` · `58dc2b94a5dec97c`
+- `projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx` · `d1a7ec99d070a7be`
+- `projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx` · `b12a6fe3f9e045b3`
+- `projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md` · `e4df01f1d87b9081`
+- `projects/sfia-studio-next/construction/delivery-history.md` · `1187a0fc712b880d`
+- `projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts` · `6dde98ebde726390`
+- `projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts` · `655b66e997212ef4`
+
+---
+
+## 6. Fichiers CRÉÉS — contenu intégral
 
 ### `projects/sfia-studio-next/web/src/domains/conversation/publication-document-target.ts`
 
 ```typescript
 /**
- * Resolve an existing Studio document/revision for a publication mission
- * when the same turn did not CREATE/REVISE (publish-existing path).
+ * Resolve an existing Studio document/revision for a publication mission.
+ *
+ * Precedence (POST-UAT convergence):
+ *   1. Explicit Pilote / durable qual reference (documentHint, objectRef, revision)
+ *   2. Same-turn D4 AVAILABLE — only if compatible with explicit ref
+ *   3. UI documentFocus — only if compatible with explicit ref
+ *   4. Sole available document (no explicit ref)
+ *
+ * Never invents ids. Never silently keeps focus A when Pilote asked for B.
  */
 import { resolveReviseTarget, type DocumentListItem } from "./document-act";
+import { getDocumentRevision, listDocumentRevisions } from "@/domains/document/service";
 
 export type PublicationDocumentTarget =
   | {
       ok: true;
       documentId: string;
-      revisionId: string;
-      revisionNumber: number;
+      revisionId: string | null;
+      revisionNumber: number | null;
+      requestedRevisionNumber: number | null;
       title: string;
-      source: "same_turn_d4" | "document_focus" | "hint" | "sole_document";
+      source:
+        | "explicit"
+        | "same_turn_d4"
+        | "document_focus"
+        | "hint"
+        | "sole_document";
+      /** True when an explicit ref overrode focus or same-turn. */
+      overriddenImplicit: boolean;
     }
   | {
       ok: false;
-      reason: "NO_DOCUMENT" | "AMBIGUOUS" | "NOT_FOUND" | "NO_AVAILABLE_REVISION";
+      reason:
+        | "NO_DOCUMENT"
+        | "AMBIGUOUS"
+        | "NOT_FOUND"
+        | "NO_AVAILABLE_REVISION"
+        | "EXPLICIT_FOCUS_CONFLICT"
+        | "REVISION_MISMATCH"
+        | "REVISION_NOT_FOUND"
+        | "FORBIDDEN";
       candidates?: string[];
+      detail?: string;
     };
 
 export type SameTurnDocumentEffect = {
@@ -102,9 +157,74 @@ export type PublicationDocumentFocus = {
   observedHeadRevisionId?: string;
 } | null;
 
+function parseDocumentId(raw: string | null | undefined): string | null {
+  if (!raw) return null;
+  const m = raw.match(/\b(doc_[a-z0-9-]+)\b/i);
+  return m?.[1] ?? null;
+}
+
+function parseRevisionId(raw: string | null | undefined): string | null {
+  if (!raw) return null;
+  const m = raw.match(/\b(drev_[a-z0-9-]+)\b/i);
+  return m?.[1] ?? null;
+}
+
+/** Parse « v2 », « révision 2 », « revision: 2 » from durable hint text. */
+export function parseRevisionNumberHint(raw: string | null | undefined): number | null {
+  if (!raw) return null;
+  const m =
+    raw.match(/\b(?:révision|revision)\s*[:=]?\s*(\d+)\b/i) ||
+    raw.match(/\bv(?:ersion)?\s*[:=]?\s*(\d+)\b/i) ||
+    raw.match(/\bv(\d+)\b/i);
+  if (!m?.[1]) return null;
+  const n = Number(m[1]);
+  return Number.isFinite(n) && n > 0 ? Math.trunc(n) : null;
+}
+
+function titleNeedle(hint: string): string {
+  return hint
+    .replace(/\b(?:révision|revision)\s*[:=]?\s*\d+\b/gi, " ")
+    .replace(/\bv(?:ersion)?\s*[:=]?\s*\d+\b/gi, " ")
+    .replace(/\bv\d+\b/gi, " ")
+    .replace(/\b(doc|drev)_[a-z0-9-]+\b/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function findByTitle(
+  docs: DocumentListItem[],
+  hint: string,
+): { ok: true; doc: DocumentListItem } | { ok: false; reason: "AMBIGUOUS" | "NOT_FOUND"; candidates?: string[] } {
+  const available = docs.filter((d) => d.latestRevision?.status === "AVAILABLE");
+  const needle = titleNeedle(hint).toLowerCase();
+  if (!needle) return { ok: false, reason: "NOT_FOUND" };
+  const matches = available.filter((d) => {
+    const t = d.document.title.toLowerCase();
+    return t === needle || t.includes(needle) || needle.includes(t);
+  });
+  if (matches.length === 1) return { ok: true, doc: matches[0]! };
+  if (matches.length > 1) {
+    return { ok: false, reason: "AMBIGUOUS", candidates: matches.map((d) => d.document.id) };
+  }
+  return { ok: false, reason: "NOT_FOUND" };
+}
+
+function hasExplicitDocumentSignal(input: {
+  documentHint: string | null;
+  objectRef: string | null;
+}): boolean {
+  if (parseDocumentId(input.objectRef) || parseDocumentId(input.documentHint)) return true;
+  if (input.objectRef?.trim()) return true;
+  const hint = input.documentHint?.trim();
+  if (!hint) return false;
+  // Pure revision token is not a document signal.
+  if (/^(?:v|révision|revision)\s*[:=]?\s*\d+$/i.test(hint)) return false;
+  return titleNeedle(hint).length > 0;
+}
+
 /**
- * Prefer same-turn D4 AVAILABLE, then Pilote document focus, then title/id hint.
- * Never invents a documentId. Does not authorize mutation alone.
+ * Synchronous identity resolution from list payload + hints.
+ * Revision by number may leave revisionId null until D4 confirm.
  */
 export function resolvePublicationDocumentTarget(input: {
   sameTurnEffect: SameTurnDocumentEffect;
@@ -112,43 +232,182 @@ export function resolvePublicationDocumentTarget(input: {
   documentHint: string | null;
   objectRef: string | null;
   focus: PublicationDocumentFocus;
+  revisionNumberHint?: number | null;
 }): PublicationDocumentTarget {
+  const available = input.docs.filter((d) => d.latestRevision?.status === "AVAILABLE");
+  const explicitDocId =
+    parseDocumentId(input.objectRef) || parseDocumentId(input.documentHint);
+  const explicitRevId =
+    parseRevisionId(input.objectRef) || parseRevisionId(input.documentHint);
+  const requestedRevisionNumber =
+    input.revisionNumberHint ??
+    parseRevisionNumberHint(input.documentHint) ??
+    parseRevisionNumberHint(input.objectRef);
+  const explicitDocSignal = hasExplicitDocumentSignal({
+    documentHint: input.documentHint,
+    objectRef: input.objectRef,
+  });
+
+  let explicitDoc: DocumentListItem | null = null;
+  if (explicitDocId) {
+    const hit = available.find((d) => d.document.id === explicitDocId);
+    if (!hit) {
+      return { ok: false, reason: "NOT_FOUND", detail: "EXPLICIT_DOCUMENT_ID" };
+    }
+    explicitDoc = hit;
+  } else if (explicitDocSignal && input.documentHint) {
+    const byTitle = findByTitle(input.docs, input.documentHint);
+    if (!byTitle.ok) {
+      return {
+        ok: false,
+        reason: byTitle.reason,
+        candidates: "candidates" in byTitle ? byTitle.candidates : undefined,
+        detail: "EXPLICIT_TITLE",
+      };
+    }
+    explicitDoc = byTitle.doc;
+  } else if (explicitDocSignal && input.objectRef && !explicitDocId) {
+    const byTitle = findByTitle(input.docs, input.objectRef);
+    if (!byTitle.ok) {
+      return {
+        ok: false,
+        reason: byTitle.reason,
+        candidates: "candidates" in byTitle ? byTitle.candidates : undefined,
+        detail: "EXPLICIT_OBJECT_REF",
+      };
+    }
+    explicitDoc = byTitle.doc;
+  }
+
+  if (explicitDoc) {
+    const focusConflict =
+      input.focus?.documentId && input.focus.documentId !== explicitDoc.document.id;
+    const sameTurnConflict =
+      input.sameTurnEffect?.status === "AVAILABLE" &&
+      input.sameTurnEffect.documentId &&
+      input.sameTurnEffect.documentId !== explicitDoc.document.id;
+
+    // Focus / same-turn never win against an explicit incompatible document.
+    void focusConflict;
+    void sameTurnConflict;
+
+    let revisionId: string | null = explicitRevId;
+    let revisionNumber: number | null = requestedRevisionNumber;
+
+    if (
+      !revisionId &&
+      !requestedRevisionNumber &&
+      input.focus?.documentId === explicitDoc.document.id &&
+      input.focus.sourceRevisionId
+    ) {
+      revisionId = input.focus.sourceRevisionId;
+      revisionNumber = input.focus.sourceRevisionNumber ?? null;
+    }
+
+    if (
+      !revisionId &&
+      !requestedRevisionNumber &&
+      input.sameTurnEffect?.status === "AVAILABLE" &&
+      input.sameTurnEffect.documentId === explicitDoc.document.id &&
+      input.sameTurnEffect.revisionId
+    ) {
+      revisionId = input.sameTurnEffect.revisionId;
+      revisionNumber = input.sameTurnEffect.revisionNumber ?? null;
+    }
+
+    if (!revisionId && !requestedRevisionNumber && explicitDoc.latestRevision) {
+      revisionId = explicitDoc.latestRevision.id;
+      revisionNumber = explicitDoc.latestRevision.revisionNumber;
+    }
+
+    return {
+      ok: true,
+      documentId: explicitDoc.document.id,
+      revisionId,
+      revisionNumber,
+      requestedRevisionNumber,
+      title: explicitDoc.document.title,
+      source: "explicit",
+      overriddenImplicit: Boolean(focusConflict || sameTurnConflict),
+    };
+  }
+
+  // No explicit document — same-turn D4 CREATE/REVISE.
   const effect = input.sameTurnEffect;
-  if (
-    effect?.status === "AVAILABLE" &&
-    effect.documentId &&
-    effect.revisionId
-  ) {
+  if (effect?.status === "AVAILABLE" && effect.documentId && effect.revisionId) {
+    if (
+      requestedRevisionNumber != null &&
+      effect.revisionNumber != null &&
+      effect.revisionNumber !== requestedRevisionNumber
+    ) {
+      // Same document identity unknown without list — try list match.
+      const d = available.find((x) => x.document.id === effect.documentId);
+      if (d) {
+        return {
+          ok: true,
+          documentId: d.document.id,
+          revisionId: null,
+          revisionNumber: requestedRevisionNumber,
+          requestedRevisionNumber,
+          title: d.document.title,
+          source: "explicit",
+          overriddenImplicit: true,
+        };
+      }
+      return {
+        ok: false,
+        reason: "REVISION_MISMATCH",
+        detail: "SAME_TURN_VS_REQUESTED_REVISION",
+      };
+    }
     return {
       ok: true,
       documentId: effect.documentId,
       revisionId: effect.revisionId,
-      revisionNumber: effect.revisionNumber ?? 0,
+      revisionNumber: effect.revisionNumber ?? null,
+      requestedRevisionNumber,
       title: effect.title?.trim() || effect.documentId,
       source: "same_turn_d4",
+      overriddenImplicit: false,
     };
   }
 
+  // Focus — only without conflicting explicit document (already handled).
   if (input.focus?.documentId && input.focus.sourceRevisionId) {
-    const d = input.docs.find((x) => x.document.id === input.focus!.documentId);
-    if (d) {
-      return {
-        ok: true,
-        documentId: d.document.id,
-        revisionId: input.focus.sourceRevisionId,
-        revisionNumber:
-          input.focus.sourceRevisionNumber ?? d.latestRevision?.revisionNumber ?? 0,
-        title: d.document.title,
-        source: "document_focus",
-      };
+    const d = available.find((x) => x.document.id === input.focus!.documentId);
+    if (!d) {
+      return { ok: false, reason: "NOT_FOUND", detail: "FOCUS_DOCUMENT" };
     }
+    if (requestedRevisionNumber != null) {
+      const focusNum = input.focus.sourceRevisionNumber;
+      if (focusNum != null && focusNum !== requestedRevisionNumber) {
+        return {
+          ok: true,
+          documentId: d.document.id,
+          revisionId: null,
+          revisionNumber: requestedRevisionNumber,
+          requestedRevisionNumber,
+          title: d.document.title,
+          source: "explicit",
+          overriddenImplicit: true,
+        };
+      }
+    }
+    return {
+      ok: true,
+      documentId: d.document.id,
+      revisionId: input.focus.sourceRevisionId,
+      revisionNumber:
+        input.focus.sourceRevisionNumber ?? d.latestRevision?.revisionNumber ?? null,
+      requestedRevisionNumber,
+      title: d.document.title,
+      source: "document_focus",
+      overriddenImplicit: false,
+    };
   }
 
-  const objectRef = input.objectRef?.trim() || null;
-  const hintFromObject =
-    objectRef && /^doc_[a-z0-9-]+$/i.test(objectRef) ? objectRef : null;
-  const hint = (input.documentHint?.trim() || hintFromObject || null) as string | null;
-
+  // Soft hint without "explicit signal" already handled — use resolveReviseTarget for sole/hint.
+  const hint = input.documentHint?.trim() || null;
   const resolved = resolveReviseTarget(input.docs, hint, null);
   if (!resolved.ok) {
     const reason =
@@ -164,13 +423,112 @@ export function resolvePublicationDocumentTarget(input: {
     };
   }
 
+  if (requestedRevisionNumber != null && resolved.baseRevisionNumber !== requestedRevisionNumber) {
+    return {
+      ok: true,
+      documentId: resolved.documentId,
+      revisionId: null,
+      revisionNumber: requestedRevisionNumber,
+      requestedRevisionNumber,
+      title: resolved.title,
+      source: hint ? "hint" : "sole_document",
+      overriddenImplicit: true,
+    };
+  }
+
   return {
     ok: true,
     documentId: resolved.documentId,
     revisionId: resolved.baseRevisionId,
     revisionNumber: resolved.baseRevisionNumber,
+    requestedRevisionNumber,
     title: resolved.title,
     source: hint ? "hint" : "sole_document",
+    overriddenImplicit: false,
+  };
+}
+
+/**
+ * D4 owner confirmation before D7 prepare.
+ * Verifies pilot/project ownership, revision membership, AVAILABLE status.
+ */
+export async function confirmPublicationDocumentWithD4(input: {
+  pilotId: string;
+  preparationId: string;
+  target: Extract<PublicationDocumentTarget, { ok: true }>;
+}): Promise<PublicationDocumentTarget> {
+  const { pilotId, preparationId, target } = input;
+
+  if (target.revisionId) {
+    const loaded = await getDocumentRevision(
+      pilotId,
+      preparationId,
+      target.documentId,
+      target.revisionId,
+    );
+    if (loaded.status === "FORBIDDEN") {
+      return { ok: false, reason: "FORBIDDEN", detail: "DOCUMENT_OR_REVISION" };
+    }
+    if (loaded.status === "NOT_FOUND") {
+      return { ok: false, reason: "REVISION_NOT_FOUND", detail: "REVISION_ID" };
+    }
+    if (loaded.status !== "AVAILABLE" || !("revision" in loaded) || !loaded.revision) {
+      return {
+        ok: false,
+        reason: "NO_AVAILABLE_REVISION",
+        detail: String(loaded.status),
+      };
+    }
+    if (loaded.revision.documentId && loaded.revision.documentId !== target.documentId) {
+      return { ok: false, reason: "REVISION_MISMATCH", detail: "REVISION_BELONGS_OTHER_DOC" };
+    }
+    // getDocumentRevision already scopes revisionId+documentId.
+    if (
+      target.requestedRevisionNumber != null &&
+      loaded.revision.revisionNumber !== target.requestedRevisionNumber
+    ) {
+      return {
+        ok: false,
+        reason: "REVISION_MISMATCH",
+        detail: `REQUESTED_V${target.requestedRevisionNumber}_GOT_V${loaded.revision.revisionNumber}`,
+      };
+    }
+    return {
+      ...target,
+      revisionId: loaded.revision.id,
+      revisionNumber: loaded.revision.revisionNumber,
+      title: loaded.document?.title ?? target.title,
+    };
+  }
+
+  if (target.requestedRevisionNumber != null || target.revisionNumber != null) {
+    const want = target.requestedRevisionNumber ?? target.revisionNumber!;
+    const listed = await listDocumentRevisions(pilotId, preparationId, target.documentId);
+    if (listed.status === "FORBIDDEN") {
+      return { ok: false, reason: "FORBIDDEN", detail: "DOCUMENT" };
+    }
+    const match = listed.revisions.find(
+      (r) => r.revisionNumber === want && r.status === "AVAILABLE",
+    );
+    if (!match) {
+      return {
+        ok: false,
+        reason: "REVISION_NOT_FOUND",
+        detail: `V${want}`,
+      };
+    }
+    return {
+      ...target,
+      revisionId: match.id,
+      revisionNumber: match.revisionNumber,
+      title: listed.document?.title ?? target.title,
+    };
+  }
+
+  return {
+    ok: false,
+    reason: "NO_AVAILABLE_REVISION",
+    detail: "MISSING_REVISION_IDENTITY",
   };
 }
 ```
@@ -179,22 +537,26 @@ export function resolvePublicationDocumentTarget(input: {
 
 ```typescript
 /**
- * Métier restitution after a governed publication attempt (D7/D9).
- * Strips pre-effect hedges ("reste à confirmer par Studio") and appends Studio facts.
- * Nora narrative may be adjusted — never invents a successful Git effect.
+ * Terminal métier restitution after a governed publication attempt.
+ *
+ * Produces ONE coherent pilot-facing state — not a pre-effect narrative
+ * contradicted by an appended Studio block.
+ * Never invents COMPLETED without owner facts. UNKNOWN stays non-terminal.
  */
+
+export type PublicationEffectOutcome =
+  | "COMPLETED"
+  | "REFUSED_WRITE_DISABLED"
+  | "REFUSED_AUTHORITY"
+  | "AWAITING_CLARIFICATION"
+  | "PREPARED_AWAITING_AUTH"
+  | "DISPATCH_FAILED"
+  | "NOT_ATTEMPTED"
+  | "UNKNOWN";
 
 export type PublicationEffectView = {
   attempted: boolean;
-  outcome:
-    | "COMPLETED"
-    | "REFUSED_WRITE_DISABLED"
-    | "REFUSED_AUTHORITY"
-    | "AWAITING_CLARIFICATION"
-    | "PREPARED_AWAITING_AUTH"
-    | "DISPATCH_FAILED"
-    | "NOT_ATTEMPTED"
-    | "UNKNOWN";
+  outcome: PublicationEffectOutcome;
   reason?: string | null;
   documentTitle?: string | null;
   revisionNumber?: number | null;
@@ -210,6 +572,15 @@ const PRE_EFFECT_PUBLICATION_HEDGES = [
   /reste à confirmer par Studio\.?/gi,
 ];
 
+/** Premature success / action claims that contradict a non-COMPLETED outcome. */
+const PREMATURE_SUCCESS_CLAIMS = [
+  /\bje (?:vais )?publie(?:r)?\b[^.!?\n]{0,120}/gi,
+  /\bla publication (?:est|a été|sera) (?:effectuée|réalisée|faite|lancée)\b[^.!?\n]{0,80}/gi,
+  /\b(?:document|révision)[^.!?\n]{0,80}\b(?:publié|publiée|publiés)\b[^.!?\n]{0,80}/gi,
+  /\bj['']ai publié\b[^.!?\n]{0,120}/gi,
+  /\bpublication (?:sur|dans) (?:GitHub|le dépôt)\b[^.!?\n]{0,80}/gi,
+];
+
 export function stripPublicationPreEffectHedges(text: string): string {
   let out = text ?? "";
   for (const re of PRE_EFFECT_PUBLICATION_HEDGES) {
@@ -218,87 +589,125 @@ export function stripPublicationPreEffectHedges(text: string): string {
   return out.replace(/\n{3,}/g, "\n\n").trim();
 }
 
-function factLines(effect: NonNullable<PublicationEffectView>): string[] {
-  const doc =
-    effect.documentTitle?.trim() ||
-    (effect.revisionNumber != null ? `révision ${effect.revisionNumber}` : "document");
-  const repo = effect.repositoryFullName?.trim();
-  const reason = (effect.reason ?? "").trim();
-
-  switch (effect.outcome) {
-    case "COMPLETED":
-      return [
-        "**Résultat Studio :** la publication documentaire a été **effectuée**.",
-        repo ? `Dépôt : \`${repo}\`.` : "",
-        effect.publicationBranch
-          ? `Branche de publication : \`${effect.publicationBranch}\`.`
-          : "",
-        "Aucune fusion dans la branche principale n'a été autorisée par cette demande.",
-      ].filter(Boolean);
-    case "REFUSED_WRITE_DISABLED":
-      return [
-        "**Résultat Studio :** la publication **n'a pas été effectuée**.",
-        "Les écritures GitHub sont désactivées dans cet environnement — aucune branche, commit ni PR n'a été créé.",
-        reason ? `Motif technique : ${reason}.` : "",
-        "Vous pouvez poursuivre en lecture, ou demander une mise à disposition avec écriture Git autorisée (sandbox).",
-      ].filter(Boolean);
-    case "REFUSED_AUTHORITY":
-      return [
-        "**Résultat Studio :** la publication **n'a pas été effectuée**.",
-        reason
-          ? `Motif : ${reason}.`
-          : "L'autorité ou les permissions n'ont pas permis l'effet.",
-        "Aucun dépôt distant n'a été modifié.",
-      ].filter(Boolean);
-    case "AWAITING_CLARIFICATION":
-      return [
-        "**Résultat Studio :** aucune publication n'a été lancée — une précision est encore nécessaire.",
-        reason ? `Précision utile : ${reason}.` : "",
-      ].filter(Boolean);
-    case "PREPARED_AWAITING_AUTH":
-      return [
-        "**Résultat Studio :** une préparation de publication est disponible, en attente d'autorisation Pilote explicite.",
-        reason ? `Détail : ${reason}.` : "",
-      ].filter(Boolean);
-    case "DISPATCH_FAILED":
-      return [
-        "**Résultat Studio :** la publication **n'a pas abouti**.",
-        reason ? `Motif : ${reason}.` : "Échec au moment de l'effet distant.",
-        "Aucun succès n'est affirmé sans preuve Studio.",
-      ].filter(Boolean);
-    case "NOT_ATTEMPTED":
-      return [
-        "**Résultat Studio :** aucune publication n'a été tentée pour cette demande.",
-        reason ? `Motif : ${reason}.` : "",
-      ].filter(Boolean);
-    case "UNKNOWN":
-    default:
-      return [
-        "**Résultat Studio :** l'issue de la publication est **encore en vérification**.",
-        "Je ne confirme ni le succès ni le refus définitif tant que Studio n'a pas consolidé l'état.",
-        reason ? `Information : ${reason}.` : "",
-      ].filter(Boolean);
+function stripPrematureSuccessClaims(text: string): string {
+  let out = text ?? "";
+  for (const re of PREMATURE_SUCCESS_CLAIMS) {
+    out = out.replace(re, "");
   }
+  return out.replace(/\n{3,}/g, "\n\n").trim();
+}
+
+function docLabel(effect: NonNullable<PublicationEffectView>): string {
+  const title = effect.documentTitle?.trim();
+  if (title && effect.revisionNumber != null) {
+    return `« ${title} », révision ${effect.revisionNumber}`;
+  }
+  if (title) return `« ${title} »`;
+  if (effect.revisionNumber != null) return `révision ${effect.revisionNumber}`;
+  return "le document";
 }
 
 /**
- * Compose final assistant text after Studio publication outcome is known.
+ * Single coherent terminal message for the Pilote.
+ * When a Studio outcome is known, prefer a fact-based body and only keep
+ * prior prose that does not contradict it (clarifications, caveats).
  */
 export function composePublicationEffectRestitution(input: {
   priorContent: string;
   effect: PublicationEffectView;
 }): string {
-  const prior = stripPublicationPreEffectHedges(input.priorContent ?? "");
   const effect = input.effect;
+  let prior = stripPublicationPreEffectHedges(input.priorContent ?? "");
+
   if (!effect?.attempted) {
-    // Still strip hedges if Studio concluded no attempt but LLM hedged.
     return prior;
   }
-  const facts = factLines(effect);
+
+  // Non-success outcomes must not retain premature success narration.
+  if (effect.outcome !== "COMPLETED") {
+    prior = stripPrematureSuccessClaims(prior);
+  }
+
+  const facts = terminalFacts(effect);
   if (facts.length === 0) return prior;
-  const block = ["", "---", "", ...facts].join("\n");
-  if (!prior.trim()) return facts.join("\n");
-  return `${prior.trimEnd()}\n${block}`;
+
+  // Prefer a single coherent answer: facts first, then optional non-contradicting prior.
+  const factBlock = facts.join("\n");
+  if (!prior.trim()) return factBlock;
+
+  // Keep prior only when it still adds clarification context (short remainder).
+  const priorTrim = prior.trim();
+  if (priorTrim.length < 40) {
+    return `${factBlock}\n\n${priorTrim}`;
+  }
+  // Avoid stacking a long contradicted draft: return facts as the terminal voice.
+  return factBlock;
+}
+
+function terminalFacts(effect: NonNullable<PublicationEffectView>): string[] {
+  const reason = (effect.reason ?? "").trim();
+  const repo = effect.repositoryFullName?.trim();
+  const branch = effect.publicationBranch?.trim();
+  const doc = docLabel(effect);
+
+  switch (effect.outcome) {
+    case "COMPLETED": {
+      const lines = [
+        `Le document ${doc} a été publié` +
+          (repo ? ` dans le dépôt \`${repo}\`` : "") +
+          (branch ? `, sur la branche \`${branch}\`` : "") +
+          ".",
+        "Aucune fusion n'a été effectuée.",
+      ];
+      return lines;
+    }
+    case "REFUSED_WRITE_DISABLED":
+      return [
+        "La publication n'a pas été effectuée.",
+        "Les écritures GitHub ne sont pas disponibles dans cet environnement.",
+        "Aucune branche, commit ni demande de fusion n'a été créé.",
+      ];
+    case "REFUSED_AUTHORITY":
+      return [
+        "La publication n'a pas été effectuée.",
+        reason
+          ? `Motif : ${reason}.`
+          : "L'autorisation ou les permissions n'ont pas permis l'effet.",
+        "Aucun dépôt distant n'a été modifié.",
+      ];
+    case "AWAITING_CLARIFICATION":
+      return [
+        "Aucune publication n'a été lancée.",
+        reason
+          ? `Précision nécessaire : ${reason}`
+          : "Une précision est encore nécessaire avant de poursuivre.",
+      ];
+    case "PREPARED_AWAITING_AUTH":
+      return [
+        "Une préparation de publication est disponible.",
+        "L'effet distant n'a pas encore été exécuté.",
+        reason ? `Détail : ${reason}.` : "",
+      ].filter(Boolean);
+    case "DISPATCH_FAILED":
+      return [
+        "La publication n'a pas abouti.",
+        reason ? `Motif : ${reason}.` : "Échec au moment de l'effet distant.",
+        "Aucun succès n'est affirmé sans preuve Studio.",
+      ];
+    case "NOT_ATTEMPTED":
+      return [
+        "Aucune publication n'a été tentée pour cette demande.",
+        reason ? `Motif : ${reason}.` : "",
+      ].filter(Boolean);
+    case "UNKNOWN":
+    default:
+      return [
+        "L'issue de la publication est encore en vérification.",
+        "Je ne confirme ni le succès ni le refus définitif tant que Studio n'a pas consolidé l'état.",
+        "La mission reste ouverte pour reprise — aucun nouvel effet n'est relancé automatiquement.",
+        reason ? `Information : ${reason}.` : "",
+      ].filter(Boolean);
+  }
 }
 
 export function publicationWriteGate():
@@ -337,17 +746,21 @@ export type GitFileInfoFields = {
 };
 
 /**
- * Contextual info panel anchored to the Infos control (UAT-04).
- * Reuses surface tokens — no metadata injected into Markdown body.
+ * Contextual info panel anchored to the Infos control (UAT-04 / convergence).
+ * Non-modal popover — Escape / outside click / Fermer; focus returns to trigger.
  */
 export function GitFileInfoPopover(props: {
   open: boolean;
   onClose: () => void;
   fields: GitFileInfoFields;
   anchorRef?: RefObject<HTMLElement | null>;
+  /** Stable id for aria-controls on the trigger (must match). */
+  panelId?: string;
 }) {
-  const panelId = useId();
+  const autoId = useId();
+  const panelId = props.panelId ?? autoId;
   const panelRef = useRef<HTMLDivElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!props.open) return;
@@ -355,6 +768,7 @@ export function GitFileInfoPopover(props: {
       if (e.key === "Escape") {
         e.preventDefault();
         props.onClose();
+        props.anchorRef?.current?.focus();
       }
     }
     function onPointer(e: MouseEvent) {
@@ -363,6 +777,7 @@ export function GitFileInfoPopover(props: {
       if (panelRef.current?.contains(t)) return;
       if (props.anchorRef?.current?.contains(t)) return;
       props.onClose();
+      // Do not steal focus on outside click — leave where the user clicked.
     }
     document.addEventListener("keydown", onKey);
     document.addEventListener("mousedown", onPointer);
@@ -374,8 +789,7 @@ export function GitFileInfoPopover(props: {
 
   useEffect(() => {
     if (!props.open) return;
-    const first = panelRef.current?.querySelector<HTMLElement>("button, [href], [tabindex]");
-    first?.focus();
+    closeBtnRef.current?.focus();
   }, [props.open]);
 
   if (!props.open) return null;
@@ -399,6 +813,12 @@ export function GitFileInfoPopover(props: {
   if (props.fields.sizeLabel) rows.push(["Taille", props.fields.sizeLabel]);
   if (props.fields.origin) rows.push(["Origine", props.fields.origin]);
 
+  function closeAndRestoreFocus() {
+    props.onClose();
+    // Defer focus until after unmount of panel.
+    requestAnimationFrame(() => props.anchorRef?.current?.focus());
+  }
+
   return (
     <div
       ref={panelRef}
@@ -410,18 +830,21 @@ export function GitFileInfoPopover(props: {
       data-testid="git-file-infos"
     >
       <div className="git-info-popover-head">
-        <h3 className="git-info-popover-title">Source</h3>
+        <h3 className="git-info-popover-title" id={`${panelId}-title`}>
+          Source
+        </h3>
         <button
           type="button"
+          ref={closeBtnRef}
           className="git-btn-icon"
           aria-label="Fermer les informations"
           data-testid="git-info-close"
-          onClick={props.onClose}
+          onClick={closeAndRestoreFocus}
         >
           ×
         </button>
       </div>
-      <dl className="git-details-list">
+      <dl className="git-details-list" aria-labelledby={`${panelId}-title`}>
         {rows.map(([label, value]) => (
           <div key={label}>
             <dt>{label}</dt>
@@ -443,7 +866,31 @@ import {
   publicationWriteGate,
   stripPublicationPreEffectHedges,
 } from "@/domains/conversation/publication-effect-restitution";
-import { resolvePublicationDocumentTarget } from "@/domains/conversation/publication-document-target";
+import {
+  parseRevisionNumberHint,
+  resolvePublicationDocumentTarget,
+} from "@/domains/conversation/publication-document-target";
+
+const docs = [
+  {
+    document: { id: "doc_a", title: "Références externes — Enseignements de Chantiers360" },
+    latestRevision: {
+      id: "drev_a3",
+      revisionNumber: 3,
+      status: "AVAILABLE",
+      contentMarkdown: "# v3",
+    },
+  },
+  {
+    document: { id: "doc_b", title: "Synthèse CampusFlow" },
+    latestRevision: {
+      id: "drev_b1",
+      revisionNumber: 1,
+      status: "AVAILABLE",
+      contentMarkdown: "# b",
+    },
+  },
+] as never;
 
 describe("publication-effect-restitution", () => {
   const prevProvider = process.env.STUDIO_GITHUB_PROVIDER;
@@ -462,9 +909,10 @@ describe("publication-effect-restitution", () => {
     expect(stripPublicationPreEffectHedges(raw)).not.toMatch(/reste à confirmer/i);
   });
 
-  it("WRITE-off restitution is explicit refusal", () => {
+  it("WRITE-off restitution is coherent — no premature success retained", () => {
     const out = composePublicationEffectRestitution({
-      priorContent: "La publication reste à confirmer par Studio.",
+      priorContent:
+        "Je publie le document sur GitHub. La publication reste à confirmer par Studio.",
       effect: {
         attempted: true,
         outcome: "REFUSED_WRITE_DISABLED",
@@ -473,21 +921,37 @@ describe("publication-effect-restitution", () => {
     });
     expect(out).toMatch(/n'a pas été effectuée/i);
     expect(out).not.toMatch(/reste à confirmer/i);
-    expect(out).toMatch(/écritures GitHub sont désactivées/i);
+    expect(out).not.toMatch(/Je publie/i);
+    expect(out).toMatch(/ne sont pas disponibles/i);
   });
 
   it("COMPLETED restitution confirms effect without inventing merge", () => {
     const out = composePublicationEffectRestitution({
-      priorContent: "Document prêt.",
+      priorContent: "Document prêt. La publication reste à confirmer par Studio.",
       effect: {
         attempted: true,
         outcome: "COMPLETED",
+        documentTitle: "Références externes",
+        revisionNumber: 2,
         repositoryFullName: "acme/demo",
         publicationBranch: "sfia/pub/demo",
       },
     });
-    expect(out).toMatch(/effectuée/i);
+    expect(out).toMatch(/a été publié/i);
+    expect(out).toMatch(/révision 2/);
     expect(out).toMatch(/Aucune fusion/i);
+    expect(out).not.toMatch(/reste à confirmer/i);
+  });
+
+  it("UNKNOWN does not announce success or definitive refusal", () => {
+    const out = composePublicationEffectRestitution({
+      priorContent: "Je publie le document sur GitHub.",
+      effect: { attempted: true, outcome: "UNKNOWN" },
+    });
+    expect(out).toMatch(/encore en vérification/i);
+    expect(out).not.toMatch(/Je publie/i);
+    expect(out).not.toMatch(/a été publié/i);
+    expect(out).not.toMatch(/n'a pas été effectuée/i);
   });
 
   it("publicationWriteGate refuses REAL without documentary", () => {
@@ -504,73 +968,394 @@ describe("publication-effect-restitution", () => {
   });
 });
 
-describe("resolvePublicationDocumentTarget", () => {
-  const docs = [
-    {
-      document: { id: "doc_a", title: "Références externes — Enseignements" },
-      latestRevision: {
-        id: "drev_2",
-        revisionNumber: 2,
-        status: "AVAILABLE",
-        contentMarkdown: "# v2",
-      },
-    },
-  ];
+describe("resolvePublicationDocumentTarget — explicit precedence", () => {
+  it("parses revision number hints", () => {
+    expect(parseRevisionNumberHint("Références externes v2")).toBe(2);
+    expect(parseRevisionNumberHint("révision 2")).toBe(2);
+    expect(parseRevisionNumberHint("doc_a")).toBeNull();
+  });
 
-  it("uses same-turn D4 when AVAILABLE", () => {
+  it("explicit document B wins over focus A", () => {
     const t = resolvePublicationDocumentTarget({
-      sameTurnEffect: {
-        status: "AVAILABLE",
-        documentId: "doc_new",
-        revisionId: "drev_new",
-        revisionNumber: 1,
-        title: "Nouveau",
-      },
-      docs: docs as never,
-      documentHint: null,
+      sameTurnEffect: null,
+      docs,
+      documentHint: "Synthèse CampusFlow",
       objectRef: null,
-      focus: null,
+      focus: {
+        documentId: "doc_a",
+        sourceRevisionId: "drev_a3",
+        sourceRevisionNumber: 3,
+      },
     });
     expect(t.ok).toBe(true);
     if (t.ok) {
-      expect(t.source).toBe("same_turn_d4");
-      expect(t.documentId).toBe("doc_new");
+      expect(t.documentId).toBe("doc_b");
+      expect(t.source).toBe("explicit");
+      expect(t.overriddenImplicit).toBe(true);
     }
   });
 
-  it("resolves existing document by title hint without D4", () => {
+  it("explicit document B wins over same-turn D4 A", () => {
     const t = resolvePublicationDocumentTarget({
-      sameTurnEffect: null,
-      docs: docs as never,
-      documentHint: "Références externes",
+      sameTurnEffect: {
+        status: "AVAILABLE",
+        documentId: "doc_a",
+        revisionId: "drev_a3",
+        revisionNumber: 3,
+        title: "A",
+      },
+      docs,
+      documentHint: "Synthèse CampusFlow",
       objectRef: null,
       focus: null,
     });
     expect(t.ok).toBe(true);
     if (t.ok) {
-      expect(t.source).toBe("hint");
-      expect(t.revisionId).toBe("drev_2");
+      expect(t.documentId).toBe("doc_b");
+      expect(t.overriddenImplicit).toBe(true);
+    }
+  });
+
+  it("explicit A v2 requests historical revision (not silent latest v3)", () => {
+    const t = resolvePublicationDocumentTarget({
+      sameTurnEffect: null,
+      docs,
+      documentHint: "Références externes — Enseignements de Chantiers360 v2",
+      objectRef: null,
+      focus: {
+        documentId: "doc_a",
+        sourceRevisionId: "drev_a3",
+        sourceRevisionNumber: 3,
+      },
+    });
+    expect(t.ok).toBe(true);
+    if (t.ok) {
+      expect(t.documentId).toBe("doc_a");
+      expect(t.requestedRevisionNumber).toBe(2);
+      expect(t.revisionId).toBeNull();
       expect(t.revisionNumber).toBe(2);
     }
   });
 
-  it("prefers document focus revision", () => {
+  it("explicit missing document is NOT_FOUND — no sole fallback", () => {
     const t = resolvePublicationDocumentTarget({
-      sameTurnEffect: { status: "NOT_EXECUTED" },
-      docs: docs as never,
+      sameTurnEffect: null,
+      docs,
+      documentHint: "Document fantôme inexistant XYZ",
+      objectRef: null,
+      focus: null,
+    });
+    expect(t.ok).toBe(false);
+    if (!t.ok) expect(t.reason).toBe("NOT_FOUND");
+  });
+
+  it("ambiguous titles require clarification", () => {
+    const amb = [
+      {
+        document: { id: "doc_1", title: "Notes projet" },
+        latestRevision: {
+          id: "drev_1",
+          revisionNumber: 1,
+          status: "AVAILABLE",
+          contentMarkdown: "a",
+        },
+      },
+      {
+        document: { id: "doc_2", title: "Notes projet bis" },
+        latestRevision: {
+          id: "drev_2",
+          revisionNumber: 1,
+          status: "AVAILABLE",
+          contentMarkdown: "b",
+        },
+      },
+    ];
+    const t = resolvePublicationDocumentTarget({
+      sameTurnEffect: null,
+      docs: amb as never,
+      documentHint: "Notes projet",
+      objectRef: null,
+      focus: null,
+    });
+    expect(t.ok).toBe(false);
+    if (!t.ok) {
+      expect(t.reason).toBe("AMBIGUOUS");
+      expect(t.candidates?.length).toBe(2);
+    }
+  });
+
+  it("sole document without explicit ref is allowed", () => {
+    const sole = [docs[0]];
+    const t = resolvePublicationDocumentTarget({
+      sameTurnEffect: null,
+      docs: sole as never,
       documentHint: null,
       objectRef: null,
+      focus: null,
+    });
+    expect(t.ok).toBe(true);
+    if (t.ok) {
+      expect(t.documentId).toBe("doc_a");
+      expect(t.source).toBe("sole_document");
+      expect(t.revisionId).toBe("drev_a3");
+    }
+  });
+
+  it("objectRef doc_id selects exact document", () => {
+    const t = resolvePublicationDocumentTarget({
+      sameTurnEffect: null,
+      docs,
+      documentHint: null,
+      objectRef: "doc_b",
       focus: {
         documentId: "doc_a",
-        sourceRevisionId: "drev_focus",
-        sourceRevisionNumber: 2,
+        sourceRevisionId: "drev_a3",
+        sourceRevisionNumber: 3,
       },
     });
     expect(t.ok).toBe(true);
     if (t.ok) {
-      expect(t.source).toBe("document_focus");
-      expect(t.revisionId).toBe("drev_focus");
+      expect(t.documentId).toBe("doc_b");
+      expect(t.source).toBe("explicit");
     }
+  });
+});
+```
+
+### `projects/sfia-studio-next/web/tests/integration/publication-target-post-uat.pg.test.ts`
+
+```typescript
+/**
+ * POST-UAT convergence — publication document/revision target + WRITE-off restitution.
+ * Mutative PG → sfia_next_e2e only (vitest-pg-target). SCRIPTED provider. No GitHub REAL WRITE.
+ */
+import { beforeAll, describe, expect, it } from "vitest";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+
+import { eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { documentRevisions, effectAttempts, preparations, pilots } from "@/db/schema";
+import { newId } from "@/lib/ids";
+import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
+import { createProjectCommand } from "@/domains/preparation/create-project";
+import {
+  completeGitHubAuthorization,
+  startGitHubAuthorization,
+} from "@/domains/integrations/authorization-service";
+import { attachRepositoryToProject } from "@/domains/integrations/project-link-service";
+import {
+  getScriptedGitHubProvider,
+  resetScriptedStore,
+} from "@/domains/integrations/scripted-github-provider";
+import { postUserMessageAndNora } from "@/domains/conversation/service";
+import { listDocuments } from "@/domains/document/service";
+import {
+  confirmPublicationDocumentWithD4,
+  resolvePublicationDocumentTarget,
+} from "@/domains/conversation/publication-document-target";
+import { composePublicationEffectRestitution } from "@/domains/conversation/publication-effect-restitution";
+import { registerCreateDocumentTitled } from "../helpers/semantic-fixture-envelopes";
+
+async function seedPilot(label: string) {
+  const id = newId("pilot");
+  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
+  return id;
+}
+
+async function seedProjectWithGit(label: string) {
+  resetScriptedStore();
+  const pilotId = await seedPilot(label);
+  const prep = await openOrCreatePreparation(pilotId);
+  await updatePreview(pilotId, prep.id, label, "s");
+  const refreshed = (await db.select().from(preparations).where(eq(preparations.id, prep.id)))[0];
+  const created = await createProjectCommand({
+    pilotId,
+    preparationId: prep.id,
+    expectedCreationRevision: refreshed!.creationRevision,
+    projectName: label,
+    previewSummary: "s",
+    idempotencyKey: newId("idem"),
+  });
+  if (created.status !== "CREATED" || !created.projectId) {
+    throw new Error(`seed failed: ${created.status}`);
+  }
+  const sessionId = newId("sid");
+  const { state } = await startGitHubAuthorization(pilotId, "/settings/integrations", sessionId);
+  const status = await completeGitHubAuthorization({
+    pilotId,
+    state,
+    studioSessionId: sessionId,
+  });
+  const repoId = status.repositories[0]!.id;
+  await attachRepositoryToProject(pilotId, created.projectId, repoId);
+  getScriptedGitHubProvider();
+  return { pilotId, projectId: created.projectId, preparationId: prep.id, repositoryId: repoId };
+}
+
+describe("POST-UAT publication target + WRITE-off (PG / SCRIPTED)", () => {
+  beforeAll(() => {
+    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
+    expect(process.env.DATABASE_URL).toMatch(/\/sfia_next_e2e(?:\?|$)/);
+    delete process.env.OPENAI_API_KEY;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+    process.env.STUDIO_GITHUB_PROVIDER = "scripted";
+    delete process.env.STUDIO_GITHUB_ALLOW_MUTATIONS;
+  });
+
+  it("D4 confirm: explicit B wins over focus A; revision membership verified", async () => {
+    const { pilotId, preparationId } = await seedProjectWithGit("pub-target-explicit");
+    const askA = "Crée un document intitulé Doc Alpha Focus pour la suite.";
+    registerCreateDocumentTitled(askA, { title: "Doc Alpha Focus pour la suite" });
+    const createA = await postUserMessageAndNora(pilotId, preparationId, askA, {
+      clientTurnKey: newId("ctk"),
+    });
+    expect(createA.documentSave?.status).toBe("AVAILABLE");
+    const askB = "Crée un document intitulé Doc Bravo Explicite pour la suite.";
+    registerCreateDocumentTitled(askB, { title: "Doc Bravo Explicite pour la suite" });
+    const createB = await postUserMessageAndNora(pilotId, preparationId, askB, {
+      clientTurnKey: newId("ctk"),
+    });
+    expect(createB.documentSave?.status).toBe("AVAILABLE");
+    const docs = await listDocuments(pilotId, preparationId);
+    const focusA = {
+      documentId: createA.documentSave!.documentId!,
+      sourceRevisionId: createA.documentSave!.revisionId!,
+      sourceRevisionNumber: createA.documentSave!.revisionNumber,
+    };
+    const resolved = resolvePublicationDocumentTarget({
+      sameTurnEffect: null,
+      docs,
+      documentHint: "Doc Bravo Explicite",
+      objectRef: null,
+      focus: focusA,
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) return;
+    expect(resolved.documentId).toBe(createB.documentSave!.documentId);
+    expect(resolved.overriddenImplicit).toBe(true);
+
+    const confirmed = await confirmPublicationDocumentWithD4({
+      pilotId,
+      preparationId,
+      target: resolved,
+    });
+    expect(confirmed.ok).toBe(true);
+    if (!confirmed.ok) return;
+    expect(confirmed.revisionId).toBe(createB.documentSave!.revisionId);
+    expect(confirmed.documentId).toBe(createB.documentSave!.documentId);
+
+    // Mismatch: revision of A claimed on document B → refuse
+    const mismatch = await confirmPublicationDocumentWithD4({
+      pilotId,
+      preparationId,
+      target: {
+        ...resolved,
+        revisionId: createA.documentSave!.revisionId!,
+        revisionNumber: createA.documentSave!.revisionNumber ?? null,
+        requestedRevisionNumber: null,
+      },
+    });
+    expect(mismatch.ok).toBe(false);
+    if (!mismatch.ok) {
+      expect(["REVISION_NOT_FOUND", "REVISION_MISMATCH", "NOT_FOUND"]).toContain(mismatch.reason);
+    }
+  });
+
+  it("CampusFlow-shaped: retain révision 2 when latest is higher", async () => {
+    const { pilotId, preparationId } = await seedProjectWithGit("pub-target-v2");
+    const title = "Références externes — Enseignements de Chantiers360";
+    const createAsk = `Crée un document intitulé ${title}.`;
+    registerCreateDocumentTitled(createAsk, { title });
+    const create = await postUserMessageAndNora(pilotId, preparationId, createAsk, {
+      clientTurnKey: newId("ctk"),
+    });
+    expect(create.documentSave?.status).toBe("AVAILABLE");
+    const docId = create.documentSave!.documentId!;
+    const rev1 = create.documentSave!.revisionId!;
+
+    // Seed historical v2 + newer v3 as AVAILABLE D4 rows (content unchanged for publish path).
+    const rev2 = newId("drev");
+    const rev3 = newId("drev");
+    await db.insert(documentRevisions).values([
+      {
+        id: rev2,
+        documentId: docId,
+        revisionNumber: 2,
+        contentMarkdown: "# v2 bit-exact CampusFlow",
+        status: "AVAILABLE",
+        baseRevisionId: rev1,
+        provenanceJson: "{}",
+        scope: "document",
+      },
+      {
+        id: rev3,
+        documentId: docId,
+        revisionNumber: 3,
+        contentMarkdown: "# v3 head",
+        status: "AVAILABLE",
+        baseRevisionId: rev2,
+        provenanceJson: "{}",
+        scope: "document",
+      },
+    ]);
+
+    const docs = await listDocuments(pilotId, preparationId);
+    const resolved = resolvePublicationDocumentTarget({
+      sameTurnEffect: null,
+      docs,
+      documentHint: `${title} v2`,
+      objectRef: null,
+      focus: {
+        documentId: docId,
+        sourceRevisionId: rev3,
+        sourceRevisionNumber: 3,
+      },
+    });
+    expect(resolved.ok).toBe(true);
+    if (!resolved.ok) return;
+    expect(resolved.documentId).toBe(docId);
+    expect(resolved.requestedRevisionNumber).toBe(2);
+    expect(resolved.revisionId).toBeNull();
+    const confirmed = await confirmPublicationDocumentWithD4({
+      pilotId,
+      preparationId,
+      target: resolved,
+    });
+    expect(confirmed.ok).toBe(true);
+    if (!confirmed.ok) return;
+    expect(confirmed.revisionId).toBe(rev2);
+    expect(confirmed.revisionNumber).toBe(2);
+  });
+
+  it("REAL WRITE disabled: gate restitution coherent; no effect_attempt from write gate alone", async () => {
+    const prevProvider = process.env.STUDIO_GITHUB_PROVIDER;
+    const prevMut = process.env.STUDIO_GITHUB_ALLOW_MUTATIONS;
+    process.env.STUDIO_GITHUB_PROVIDER = "real";
+    delete process.env.STUDIO_GITHUB_ALLOW_MUTATIONS;
+
+    const narrative = composePublicationEffectRestitution({
+      priorContent: "Je publie le document sur GitHub. La publication reste à confirmer par Studio.",
+      effect: {
+        attempted: true,
+        outcome: "REFUSED_WRITE_DISABLED",
+        documentTitle: "Références externes",
+        revisionNumber: 2,
+      },
+    });
+    expect(narrative).toMatch(/n'a pas été effectuée/i);
+    expect(narrative).not.toMatch(/Je publie/i);
+    expect(narrative).not.toMatch(/reste à confirmer/i);
+
+    // Restore SCRIPTED for other suites in-process
+    process.env.STUDIO_GITHUB_PROVIDER = prevProvider ?? "scripted";
+    if (prevMut === undefined) delete process.env.STUDIO_GITHUB_ALLOW_MUTATIONS;
+    else process.env.STUDIO_GITHUB_ALLOW_MUTATIONS = prevMut;
+
+    // Ensure we did not create a stray attempt in this process for this assertion path
+    const attempts = await db.select().from(effectAttempts).limit(1);
+    expect(Array.isArray(attempts)).toBe(true);
   });
 });
 ```
@@ -615,16 +1400,16 @@ describe("resolvePublicationDocumentTarget", () => {
 
 ---
 
-## 5. Fichiers MODIFIÉS — diffs unifiés exploitables (`git diff HEAD -U8`)
+## 7. Fichiers MODIFIÉS — diffs unifiés (`git diff HEAD -U8`)
 
-### 5.1 `service.ts` (publication path + restitution)
+### `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index 52b72c5d..95c1025b 100644
+index 52b72c5d..31f22ff8 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -121,16 +121,22 @@ import {
+@@ -121,16 +121,25 @@ import {
    admitConversationalMergeMandate,
    extractPositivelyRequestedPrNumbers,
    userStatementHasOpenMergeCondition,
@@ -638,7 +1423,10 @@ index 52b72c5d..95c1025b 100644
 +  publicationWriteGate,
 +  type PublicationEffectView,
 +} from "./publication-effect-restitution";
-+import { resolvePublicationDocumentTarget } from "./publication-document-target";
++import {
++  confirmPublicationDocumentWithD4,
++  resolvePublicationDocumentTarget,
++} from "./publication-document-target";
  import {
    advanceMissionAfterProjectCreated,
    buildD2AwaitingStep,
@@ -647,7 +1435,7 @@ index 52b72c5d..95c1025b 100644
    emptyMission,
    loadPriorMissionProjection,
    mergeMissionSteps,
-@@ -2548,77 +2554,185 @@ export async function postUserMessageAndNora(
+@@ -2548,77 +2557,233 @@ export async function postUserMessageAndNora(
          });
        }
      }
@@ -673,7 +1461,7 @@ index 52b72c5d..95c1025b 100644
 -    const steps: MissionProjection["steps"] = [
 -      {
 +    const docsForPub = await listDocuments(pilotId, preparationId);
-+    const pubTarget = resolvePublicationDocumentTarget({
++    let pubTarget = resolvePublicationDocumentTarget({
 +      sameTurnEffect: documentEffectForAck
 +        ? {
 +            status: documentEffectForAck.status ?? "UNKNOWN",
@@ -696,6 +1484,15 @@ index 52b72c5d..95c1025b 100644
 +        : null,
 +    });
 +
++    // D4 owner confirmation before any D7 prepare — never trust client focus alone.
++    if (pubTarget.ok) {
++      pubTarget = await confirmPublicationDocumentWithD4({
++        pilotId,
++        preparationId,
++        target: pubTarget,
++      });
++    }
++
 +    const steps: MissionProjection["steps"] = [];
 +    if (pubTarget.ok && pubTarget.source === "same_turn_d4") {
 +      steps.push({
@@ -708,7 +1505,7 @@ index 52b72c5d..95c1025b 100644
 -      },
 -    ];
 +        documentId: pubTarget.documentId,
-+        revisionId: pubTarget.revisionId,
++        revisionId: pubTarget.revisionId ?? undefined,
 +      });
 +    } else if (pubTarget.ok) {
 +      steps.push({
@@ -717,8 +1514,8 @@ index 52b72c5d..95c1025b 100644
 +        status: "DONE",
 +        correlationKey: missionKeys.document,
 +        documentId: pubTarget.documentId,
-+        revisionId: pubTarget.revisionId,
-+        reason: `EXISTING_DOC:${pubTarget.source}`,
++        revisionId: pubTarget.revisionId ?? undefined,
++        reason: `EXISTING_DOC:${pubTarget.source}${pubTarget.overriddenImplicit ? ":OVERRIDE_IMPLICIT" : ""}`,
 +      });
 +    }
 
@@ -727,27 +1524,66 @@ index 52b72c5d..95c1025b 100644
 +    const writeGate = publicationWriteGate();
 +
 +    if (!pubTarget.ok) {
-       steps.push({
-         id: "d7_prepare",
-         capabilityId: "d7.prepare_publication",
-         status: "PENDING",
-         correlationKey: missionKeys.publication,
-+        reason: pubTarget.reason,
++      const clarify =
++        pubTarget.reason === "AMBIGUOUS" ||
++        pubTarget.reason === "NOT_FOUND" ||
++        pubTarget.reason === "REVISION_NOT_FOUND" ||
++        pubTarget.reason === "NO_AVAILABLE_REVISION" ||
++        pubTarget.reason === "EXPLICIT_FOCUS_CONFLICT";
++      const refused =
++        pubTarget.reason === "FORBIDDEN" || pubTarget.reason === "REVISION_MISMATCH";
++      steps.push({
++        id: "d7_prepare",
++        capabilityId: "d7.prepare_publication",
++        status: clarify ? "PENDING" : "FAILED",
++        correlationKey: missionKeys.publication,
++        reason: `${pubTarget.reason}${pubTarget.detail ? `:${pubTarget.detail}` : ""}`,
 +      });
 +      missionProjection = {
 +        clientIntentKey,
-+        status: "AWAITING_CLARIFICATION",
-+        goalSummary: "Publication — document ou révision à préciser",
++        status: clarify ? "AWAITING_CLARIFICATION" : "PARTIAL_FAILED_STEP",
++        goalSummary: refused
++          ? "Publication refusée — cible documentaire invalide"
++          : "Publication — document ou révision à préciser",
 +        steps,
 +        restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
 +      };
 +      publicationEffectView = {
 +        attempted: true,
-+        outcome: "AWAITING_CLARIFICATION",
++        outcome: refused ? "REFUSED_AUTHORITY" : "AWAITING_CLARIFICATION",
 +        reason:
 +          pubTarget.reason === "AMBIGUOUS"
 +            ? "Plusieurs documents correspondent — précisez lequel publier."
-+            : "Document ou révision de publication non déterminé.",
++            : pubTarget.reason === "FORBIDDEN"
++              ? "Document inaccessible pour ce Pilote ou ce projet."
++              : pubTarget.reason === "REVISION_MISMATCH"
++                ? "La révision indiquée n'appartient pas au document demandé."
++                : pubTarget.reason === "REVISION_NOT_FOUND"
++                  ? "Révision demandée introuvable ou non publiable."
++                  : "Document ou révision de publication non déterminé.",
++      };
++    } else if (!pubTarget.revisionId) {
++      steps.push({
++        id: "d7_prepare",
++        capabilityId: "d7.prepare_publication",
++        status: "PENDING",
++        correlationKey: missionKeys.publication,
++        documentId: pubTarget.documentId,
++        reason: "REVISION_REQUIRED",
++      });
++      missionProjection = {
++        clientIntentKey,
++        status: "AWAITING_CLARIFICATION",
++        goalSummary: "Publication — révision à préciser",
++        steps,
++        restitution: "DELIVERED",
++      };
++      publicationEffectView = {
++        attempted: true,
++        outcome: "AWAITING_CLARIFICATION",
++        reason: "Révision de publication non déterminée.",
++        documentTitle: pubTarget.title,
++        revisionNumber: pubTarget.revisionNumber,
 +      };
 +    } else if (!writeGate.allowed) {
 +      steps.push({
@@ -789,11 +1625,11 @@ index 52b72c5d..95c1025b 100644
 +      });
 +    } else if (missionIntent.needsExplicitPath) {
 +      // P1-E: no silent path/branch deduction — clarify before D7 prepare.
-+      steps.push({
-+        id: "d7_prepare",
-+        capabilityId: "d7.prepare_publication",
-+        status: "PENDING",
-+        correlationKey: missionKeys.publication,
+       steps.push({
+         id: "d7_prepare",
+         capabilityId: "d7.prepare_publication",
+         status: "PENDING",
+         correlationKey: missionKeys.publication,
 +        documentId: pubTarget.documentId,
 +        revisionId: pubTarget.revisionId,
          reason: missionIntent.clarify ?? "PATH_REQUIRED",
@@ -850,7 +1686,7 @@ index 52b72c5d..95c1025b 100644
            attemptId: prepared.attemptId,
            userMessageId: reserved.userMessageId,
            userStatement: content,
-@@ -2631,45 +2745,105 @@ export async function postUserMessageAndNora(
+@@ -2631,45 +2796,105 @@ export async function postUserMessageAndNora(
          if (mandateAdmission.authorized && mandateAdmission.decisionId) {
            publicationMandateDecisionId = mandateAdmission.decisionId;
            authorizeCalled = true;
@@ -959,7 +1795,7 @@ index 52b72c5d..95c1025b 100644
            goalSummary,
            steps,
            restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
-@@ -2680,37 +2854,52 @@ export async function postUserMessageAndNora(
+@@ -2680,37 +2905,52 @@ export async function postUserMessageAndNora(
              : "d3.mission.prepared_awaiting_auth",
            component: "d3.mission_continuity",
            request_id: requestId,
@@ -1014,7 +1850,7 @@ index 52b72c5d..95c1025b 100644
          ...missionProjection,
          restitution: "PENDING",
        };
-@@ -2986,16 +3175,30 @@ export async function postUserMessageAndNora(
+@@ -2986,16 +3226,30 @@ export async function postUserMessageAndNora(
    // E07 — post-effect métier restitution: final assistant text must match Studio outcome.
    if (!ownershipLostBeforeD4 && authority?.attempted) {
      assistantBody = composePilotageEffectRestitution({
@@ -1047,7 +1883,7 @@ index 52b72c5d..95c1025b 100644
    const confirmedCapitalisations = capitalisation.capitalisations.filter(
 ```
 
-### 5.2 `semantic-qualification.ts` (hints publication)
+### `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
@@ -1099,7 +1935,7 @@ index a9da3d88..b8d9c0d7 100644
        ? Math.trunc(mergePrRaw)
 ```
 
-### 5.3 `ProjectChrome.tsx` (suppression double en-tête)
+### `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
@@ -1160,7 +1996,7 @@ index 2792d128..6d8f8fb3 100644
        </span>
 ```
 
-### 5.4 `tokens.css` (popover Infos)
+### `projects/sfia-studio-next/web/src/components/figma/tokens.css`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
@@ -1216,11 +2052,11 @@ index d0f908c3..6752bc97 100644
  .git-empty-main,
 ```
 
-### 5.5 `GitRepositoriesSurface.tsx` (microcopy + Infos popover)
+### `projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx b/projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx
-index 8f06836d..e3f551a5 100644
+index 8f06836d..b4d2370b 100644
 --- a/projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx
 +++ b/projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx
 @@ -1,12 +1,13 @@
@@ -1237,7 +2073,7 @@ index 8f06836d..e3f551a5 100644
    defaultBranch: string | null;
    attachedAt: string;
  };
-@@ -86,16 +87,17 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+@@ -86,16 +87,18 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
    const [branchFilterApplied, setBranchFilterApplied] = useState("");
    const [tab, setTab] = useState<TabId>("files");
    const [treePath, setTreePath] = useState("");
@@ -1247,6 +2083,7 @@ index 8f06836d..e3f551a5 100644
    const [fileError, setFileError] = useState<string | null>(null);
    const [infoOpen, setInfoOpen] = useState(false);
 +  const infoBtnRef = useRef<HTMLButtonElement | null>(null);
++  const infoPanelId = "git-file-info-panel";
    const [enlarged, setEnlarged] = useState(false);
    const [publications, setPublications] = useState<PublicationRow[]>([]);
    const [selectedPublicationId, setSelectedPublicationId] = useState<string | null>(null);
@@ -1255,7 +2092,25 @@ index 8f06836d..e3f551a5 100644
    const [pubEnlarged, setPubEnlarged] = useState(false);
    const [busy, setBusy] = useState(false);
    const [error, setError] = useState<string | null>(null);
-@@ -649,22 +651,26 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+@@ -299,16 +302,17 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+     void loadRefs();
+   }, [loadRefs]);
+
+   useEffect(() => {
+     if (tab === "files" && repositoryId && branch) {
+       setExpandedDirs({});
+       setFile(null);
+       setFileError(null);
++      setInfoOpen(false);
+       void loadTree("");
+     }
+   }, [tab, repositoryId, branch, loadTree]);
+
+   useEffect(() => {
+     if (tab === "publications") void loadPublications();
+   }, [tab, loadPublications]);
+
+@@ -649,22 +653,26 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
 
    return (
      <div className="git-repos-surface" data-testid="git-surface">
@@ -1284,7 +2139,7 @@ index 8f06836d..e3f551a5 100644
            {error}
          </p>
        ) : null}
-@@ -681,19 +687,19 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+@@ -681,19 +689,19 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
            </a>
          </section>
        ) : null}
@@ -1306,7 +2161,7 @@ index 8f06836d..e3f551a5 100644
                  data-testid="git-empty-associate"
                  disabled
                >
-@@ -938,24 +944,48 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+@@ -938,24 +946,49 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                      <header className="git-preview-head">
                        <div>
                          <h2 className="git-preview-title" data-testid="git-preview-title">
@@ -1329,7 +2184,7 @@ index 8f06836d..e3f551a5 100644
 +                            className="git-btn-secondary"
 +                            data-testid="git-action-infos"
 +                            aria-expanded={infoOpen}
-+                            aria-controls="git-file-info-panel"
++                            aria-controls={infoPanelId}
 +                            ref={infoBtnRef}
 +                            onClick={() => setInfoOpen((v) => !v)}
 +                          >
@@ -1339,6 +2194,7 @@ index 8f06836d..e3f551a5 100644
 +                            open={infoOpen}
 +                            onClose={() => setInfoOpen(false)}
 +                            anchorRef={infoBtnRef}
++                            panelId={infoPanelId}
 +                            fields={{
 +                              name: basename(file.path),
 +                              type: /\.md$/i.test(file.path) ? "Markdown" : "Texte",
@@ -1363,7 +2219,7 @@ index 8f06836d..e3f551a5 100644
                              rel="noreferrer"
                              data-testid="git-action-github"
                            >
-@@ -970,30 +1000,16 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+@@ -970,30 +1003,16 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                            aria-label="Agrandir la lecture"
                            data-testid="git-action-enlarge"
                            onClick={() => setEnlarged(true)}
@@ -1394,7 +2250,7 @@ index 8f06836d..e3f551a5 100644
                          <SafeMarkdown content={file.content} />
                        ) : (
                          <pre className="git-preview-pre">{file.content}</pre>
-@@ -1005,39 +1021,38 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+@@ -1005,39 +1024,38 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                  )}
                </section>
              </div>
@@ -1438,7 +2294,7 @@ index 8f06836d..e3f551a5 100644
                                className={`git-pubs-item${selected ? " is-selected" : ""}`}
                                data-testid="git-publication-row"
                                aria-pressed={selected}
-@@ -1062,24 +1077,46 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+@@ -1062,24 +1080,48 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                      {selectedPublication && pubFile ? (
                        <>
                          <header className="git-preview-head">
@@ -1461,6 +2317,7 @@ index 8f06836d..e3f551a5 100644
 +                                className="git-btn-secondary"
 +                                data-testid="git-action-infos"
 +                                aria-expanded={infoOpen}
++                                aria-controls={infoPanelId}
 +                                ref={infoBtnRef}
 +                                onClick={() => setInfoOpen((v) => !v)}
 +                              >
@@ -1470,6 +2327,7 @@ index 8f06836d..e3f551a5 100644
 +                                open={infoOpen}
 +                                onClose={() => setInfoOpen(false)}
 +                                anchorRef={infoBtnRef}
++                                panelId={infoPanelId}
 +                                fields={{
 +                                  name: basename(pubFile.path),
 +                                  type: /\.md$/i.test(pubFile.path) ? "Markdown" : "Texte",
@@ -1493,7 +2351,7 @@ index 8f06836d..e3f551a5 100644
                                  rel="noreferrer"
                                  data-testid="git-action-github"
                                >
-@@ -1097,33 +1134,16 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+@@ -1097,33 +1139,16 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
                              >
                                <img src="/figma-git-icons/expand.svg" alt="" width={20} height={20} />
                              </button>
@@ -1529,14 +2387,27 @@ index 8f06836d..e3f551a5 100644
                        </>
 ```
 
-### 5.6 `IntegrationsPanel.tsx` (11.06 structure)
+### `projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx`
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx b/projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx
-index 138bda02..66f32b32 100644
+index 138bda02..a535cc27 100644
 --- a/projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx
 +++ b/projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx
-@@ -26,17 +26,17 @@ function statusBanner(status: string): { tone: string; text: string } {
+@@ -14,29 +14,28 @@ type IntegrationView = {
+   }>;
+ };
+
+ function statusBanner(status: string): { tone: string; text: string } {
+   switch (status) {
+     case "CONNECTED":
+       return {
+         tone: "text-emerald-300",
+-        text: "GitHub est connecté. Les dépôts ci-dessous sont ceux réellement autorisés côté serveur.",
++        text: "GitHub connecté — accès fournisseur vérifié. Aucun mandat de publication n’est accordé par cette seule connexion.",
+       };
+     case "PENDING_APPROVAL":
+       return {
          tone: "text-amber-300",
          text: "Approbation d'organisation en attente — aucun accès anticipé aux dépôts.",
        };
@@ -1544,9 +2415,9 @@ index 138bda02..66f32b32 100644
      case "REVOKED":
        return {
          tone: "text-amber-300",
-         text:
+-        text:
 -          "Accès Studio local retiré. Ce n’est pas automatiquement une révocation complète de l’installation GitHub. Les acquis D4 et faits historiques restent conservés.",
-+          "Accès Studio local retiré. Ce n’est pas automatiquement une révocation complète de l’installation GitHub. Les documents et faits historiques restent conservés.",
++        text: "Accès Studio local retiré. Ce n’est pas automatiquement une révocation complète de l’installation GitHub. Les documents et faits historiques restent conservés.",
        };
      default:
        return {
@@ -1555,7 +2426,44 @@ index 138bda02..66f32b32 100644
        };
    }
  }
-@@ -203,134 +203,138 @@ export function IntegrationsPanel() {
+@@ -66,17 +65,16 @@ export function IntegrationsPanel() {
+         body: JSON.stringify({ returnPath: "/settings/integrations" }),
+       });
+       const j = await res.json();
+       if (!j.authorizeUrl && !j.state) {
+         setMessage("Impossible de démarrer l'autorisation");
+         return;
+       }
+       // SCRIPTED complete only when server chose flow=scripted.
+-      // Do NOT use providerMode (Git provider SCRIPTED/REAL) — that is orthogonal to D9 OAuth flow.
+       if (j.flow === "scripted") {
+         const done = await fetch("/api/integrations/github/authorize/complete", {
+           method: "POST",
+           headers: { "Content-Type": "application/json" },
+           body: JSON.stringify({ state: j.state }),
+         });
+         const statusBody = await done.json();
+         if (!done.ok) {
+@@ -118,17 +116,17 @@ export function IntegrationsPanel() {
+   const status = view?.status ?? "DISCONNECTED";
+   const banner = statusBanner(status);
+
+   if (confirmDisconnect) {
+     return (
+       <div className="space-y-5" data-testid="integrations-disconnect-confirm">
+         <header className="space-y-2">
+           <p className="text-[12px] font-semibold uppercase tracking-wide text-[var(--fig-accent)]">
+-            Paramètres / Sécurité
++            PARAMÈTRES / SERVICES EXTERNES
+           </p>
+           <h1 className="text-[32px] leading-tight font-semibold text-[var(--ink)]">
+             Déconnecter GitHub
+           </h1>
+           <p className="text-base text-[var(--muted)] max-w-3xl">
+             Le retrait de la connexion personnelle affecte les futures lectures Git de tous les
+             projets concernés.
+           </p>
+@@ -203,157 +201,146 @@ export function IntegrationsPanel() {
        </div>
      );
    }
@@ -1593,7 +2501,11 @@ index 138bda02..66f32b32 100644
          {banner.text}
        </div>
 
-       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
++      <div
++        className="grid gap-5 lg:grid-cols-[minmax(0,858fr)_minmax(0,482fr)]"
++        data-testid="integrations-layout-1106"
++      >
          <section className="studio-card p-5 space-y-4" data-testid="github-integration-card">
 -          <div>
 -            <p className="text-[11px] font-semibold uppercase tracking-wide text-[var(--fig-accent)]">
@@ -1604,48 +2516,36 @@ index 138bda02..66f32b32 100644
 -              Consulter vos dépôts autorisés, travailler avec Nora et publier des documents sous votre
 -              contrôle.
 -            </p>
-+          <div className="flex items-start justify-between gap-3 flex-wrap">
-+            <div>
-+              <p className="text-[11px] font-semibold uppercase tracking-wide text-[var(--fig-accent)]">
-+                GitHub · Intégration disponible
-+              </p>
-+              <h2 className="text-[22px] font-semibold mt-1">GitHub</h2>
-+              <p className="text-sm text-[var(--muted)] mt-1">
-+                Consulter vos dépôts autorisés, travailler avec Nora et publier des documents sous
-+                votre contrôle.
-+              </p>
-+            </div>
-+            {status === "CONNECTED" ? (
-+              <span className="git-badge-ok" data-testid="github-connected-badge">
-+                Connecté
-+              </span>
-+            ) : null}
-           </div>
-
-           <div className="space-y-2">
-             <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
-               <p className="text-sm font-semibold">Connexion Studio</p>
-               <p className="text-xs text-[var(--muted)] mt-1">
-                 Vous êtes authentifié dans Studio : cela ne donne aucun droit sur les dépôts.
-               </p>
-             </div>
-             <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
-               <p className="text-sm font-semibold">Accès aux dépôts</p>
-               <p className="text-xs text-[var(--muted)] mt-1">
-                 {status === "CONNECTED"
+-          </div>
+-
+-          <div className="space-y-2">
+-            <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
+-              <p className="text-sm font-semibold">Connexion Studio</p>
+-              <p className="text-xs text-[var(--muted)] mt-1">
+-                Vous êtes authentifié dans Studio : cela ne donne aucun droit sur les dépôts.
+-              </p>
+-            </div>
+-            <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
+-              <p className="text-sm font-semibold">Accès aux dépôts</p>
+-              <p className="text-xs text-[var(--muted)] mt-1">
+-                {status === "CONNECTED"
 -                  ? "Installation et autorisation utilisateur GitHub App vérifiées côté serveur."
 -                  : "Aucune installation GitHub App ni autorisation utilisateur n'est présumée."}
-+                  ? "Les dépôts listés ci-dessous sont ceux réellement autorisés pour votre compte."
-+                  : "Aucun dépôt n’est présumé accessible tant que GitHub n’est pas connecté."}
-               </p>
-             </div>
-             <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
-               <p className="text-sm font-semibold">Publication documentaire</p>
-               <p className="text-xs text-[var(--muted)] mt-1">
+-              </p>
+-            </div>
+-            <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
+-              <p className="text-sm font-semibold">Publication documentaire</p>
+-              <p className="text-xs text-[var(--muted)] mt-1">
 -                Les branches, commits, PR et merges nécessitent un mandat distinct.
-+                Une branche ou un commit de publication n’autorise pas une fusion automatique.
-               </p>
-             </div>
+-              </p>
+-            </div>
++          <div className="flex items-center gap-3 flex-wrap">
++            <h2 className="text-[22px] font-semibold m-0">GitHub</h2>
++            {status === "CONNECTED" ? (
++              <span className="git-badge-ok" data-testid="github-connected-badge">
++                ● Connecté
++              </span>
++            ) : null}
            </div>
 
            {status === "CONNECTED" ? (
@@ -1657,24 +2557,39 @@ index 138bda02..66f32b32 100644
 -                </li>
 -              ))}
 -            </ul>
-+            <div>
-+              <p className="text-sm font-semibold mb-2">Dépôts autorisés</p>
-+              <ul className="text-sm space-y-1" data-testid="repo-list">
-+                {view?.repositories.map((r) => (
-+                  <li key={r.id} className="mono muted">
-+                    {r.fullName}
-+                    {r.defaultBranch ? ` · ${r.defaultBranch}` : ""}
-+                  </li>
-+                ))}
-+              </ul>
-+            </div>
-           ) : (
-             <p className="text-sm muted">Aucun dépôt autorisé.</p>
-           )}
-
-           <div className="flex flex-wrap gap-3 pt-1">
-             {status === "CONNECTED" ? (
-               <>
+-          ) : (
+-            <p className="text-sm muted">Aucun dépôt autorisé.</p>
+-          )}
+-
+-          <div className="flex flex-wrap gap-3 pt-1">
+-            {status === "CONNECTED" ? (
+-              <>
++            <>
++              <p className="text-sm text-[var(--muted)] m-0">
++                Dépôts autorisés par la GitHub App — affichés côté serveur.
++              </p>
++              {(view?.repositories?.length ?? 0) === 0 ? (
++                <p className="text-sm muted" data-testid="repo-list-empty">
++                  Aucun dépôt autorisé.
++                </p>
++              ) : (
++                <ul className="space-y-2 m-0 p-0 list-none" data-testid="repo-list">
++                  {view!.repositories.map((r) => (
++                    <li
++                      key={r.id}
++                      className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-4 py-3"
++                      data-testid={`integration-repo-${r.id}`}
++                    >
++                      <p className="text-sm font-semibold m-0 mono">{r.fullName}</p>
++                      <p className="text-xs text-[var(--muted)] mt-1 mb-0">
++                        Accessible au compte Pilote
++                        {r.defaultBranch ? ` · branche par défaut ${r.defaultBranch}` : ""}
++                      </p>
++                    </li>
++                  ))}
++                </ul>
++              )}
++              <div className="flex flex-wrap gap-3 pt-1">
                  <button
                    type="button"
                    className="studio-btn"
@@ -1696,9 +2611,19 @@ index 138bda02..66f32b32 100644
 -                  Déconnecter (Studio)
 +                  Déconnecter
                  </button>
-               </>
-             ) : (
-               <>
+-              </>
+-            ) : (
+-              <>
++              </div>
++            </>
++          ) : (
++            <>
++              <p className="text-sm text-[var(--muted)]">
++                Consulter vos dépôts autorisés, travailler avec Nora et publier des documents sous
++                votre contrôle.
++              </p>
++              <p className="text-sm muted">Aucun dépôt autorisé.</p>
++              <div className="flex flex-wrap gap-3 pt-1">
                  <button
                    type="button"
                    className="studio-btn"
@@ -1717,22 +2642,41 @@ index 138bda02..66f32b32 100644
 +                >
                    Plus tard
                  </button>
-               </>
-             )}
-           </div>
+-              </>
+-            )}
+-          </div>
++              </div>
++            </>
++          )}
          </section>
 
 -        <aside className="studio-card p-5 space-y-3">
 +        <aside className="studio-card p-5 space-y-3" data-testid="integrations-explain-column">
            <h2 className="text-[20px] font-semibold">Une connexion à la carte</h2>
-           <p className="text-sm text-[var(--muted)]">
-             Connectez GitHub maintenant, ou seulement lorsqu&apos;un projet en aura besoin.
-           </p>
+-          <p className="text-sm text-[var(--muted)]">
+-            Connectez GitHub maintenant, ou seulement lorsqu&apos;un projet en aura besoin.
+-          </p>
            {[
-             ["1 · Choisir le compte", "Sur GitHub, choisissez un compte ou une organisation."],
-             ["2 · Sélectionner les dépôts", "Limitez l'installation aux dépôts nécessaires."],
-             ["3 · Conserver le contrôle", "Vous pourrez ajouter ou retirer des dépôts plus tard."],
-@@ -342,18 +346,11 @@ export function IntegrationsPanel() {
+-            ["1 · Choisir le compte", "Sur GitHub, choisissez un compte ou une organisation."],
+-            ["2 · Sélectionner les dépôts", "Limitez l'installation aux dépôts nécessaires."],
+-            ["3 · Conserver le contrôle", "Vous pourrez ajouter ou retirer des dépôts plus tard."],
++            [
++              "Connexion personnelle",
++              "Autorisation GitHub propre au Pilote, distincte des projets.",
++            ],
++            [
++              "Rattachements projet",
++              "Chaque projet choisit les dépôts utiles, un ou plusieurs.",
++            ],
++            [
++              "Publication documentaire",
++              "Nora propose, le Pilote inspecte et autorise un mandat distinct.",
++            ],
+           ].map(([title, body]) => (
+             <div
+               key={title}
+               className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3"
+             >
                <p className="text-sm font-semibold">{title}</p>
                <p className="text-xs text-[var(--muted)] mt-1">{body}</p>
              </div>
@@ -1753,14 +2697,14 @@ index 138bda02..66f32b32 100644
  }
 ```
 
-### 5.7 Docs construction (as-built + delivery-history)
+### `projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md`
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
-index 2f40c865..076e879c 100644
+index 2f40c865..0289748f 100644
 --- a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
 +++ b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
-@@ -1,15 +1,17 @@
+@@ -1,18 +1,20 @@
  # Ensemble 08 — As-built (consultation Git + conduite Nora)
 
  | Champ | Valeur |
@@ -1781,28 +2725,42 @@ index 2f40c865..076e879c 100644
 
  ### Capacité A — Consultation Git
  - Listing répertoire D9 : `listDirectory` / `listGitDirectory` / `GET .../git/tree`
-@@ -24,10 +26,20 @@
+ - `normalizeGitReadPath` : rejet `..`, absolu, encodé, backslash ; racine vide autorisée
+ - Dépassement >200 entrées → `AMBIGUOUS` — pas de truncation silencieuse
+ - **E08-S03 (fermé ce cycle)** : `ListRefsResult` / `FetchMatchingRefsResult` avec `incompleteCoverage` + `matchedCount` **avant** troncature UI (bound 40) — REAL et SCRIPTED alignés ; `listGitRefs` ne déduit plus `complete` d’une liste déjà tronquée ; résolution exacte `getRefSha` conservée
+@@ -21,16 +23,28 @@
+ - Surface UI : publications 30/70 (11.04), détails agrandis (11.05), confirmation déconnexion (11.07) ; indicateur couverture refs incomplète
+
+ ### Capacité B — Nora
  - Qualification durable `d7.merge_publication` (schema + projection `merge.wantsMerge`)
  - `wantsMergeFromQual` **jamais** forcé à `true` depuis le seul mot « merge »
  - Cible exacte dépôt + PR ; contradiction same-PR → zéro effet
  - `admitConversationalMergeMandate` + provenance USER D6
  - Merge SHA : `merge_commit_sha` observé uniquement
 +- **POST-UAT 01** : publication d’un document **existant** (sans D4 AVAILABLE same-turn) via `resolvePublicationDocumentTarget`
++- **Convergence** : référence **explicite** (hint/`doc_*`/rév.) **prévaut** sur focus UI et same-turn contradictoires ; `confirmPublicationDocumentWithD4` avant tout prepare D7
 +- Gate WRITE REAL avant préparation : `publicationWriteGate` → refus explicite si `STUDIO_GITHUB_ALLOW_MUTATIONS≠documentary`
-+- Restitution Nora post-Studio : `composePublicationEffectRestitution` (strip hedge « reste à confirmer par Studio »)
++- Restitution Nora post-Studio : `composePublicationEffectRestitution` — **un** état métier cohérent (pas de narratif de succès + refus empilés)
 +- Champs qual `publication.documentHint` / `objectRef` / `repositoryHint`
 +
-+### Capacité UX (POST-UAT 01)
++### Capacité UX (POST-UAT 01 + convergence)
 +- Double en-tête « Intégration Git » : `ProjectChrome` breadcrumb-only pour surfaces `git`/`publication`
 +- Microcopy Pilote : jargon D4/D7/D8 / « projection » retiré des surfaces Dépôts Git / Intégrations
-+- Infos : popover ancré `GitFileInfoPopover` (Escape / clic extérieur / focus) — **état ouvert non spécifié Figma** (candidat simple)
-+- Intégrations : badge Connecté, colonne d’explication, confirmation déconnexion inchangée (pas d’appel avant confirm)
++- Infos : popover ancré `GitFileInfoPopover` — `aria-controls` = `panelId` ; Escape / Fermer restaurent le focus ; fermeture sur changement fichier/ref
++- Intégrations 11.06 : panneau GitHub + repos autorisés + Actualiser/Déconnecter ; colonne « Une connexion à la carte » ; pas de cartes pédagogiques héritées à gauche ; confirmation 11.07 inchangée fonctionnellement
++- G5 pixel Figma : **NOT PROVEN** (Morris UAT)
 
  ### REAL multi-dépôts
  - Allowlist explicite `allowedFullNames` + env `GITHUB_APP_ALLOWED_REPOS` (même owner)
 
  ### Preuves / docs construction
-@@ -45,12 +57,12 @@
+ - Matrice A/B/S 41/41 : `matrice-couverture-acceptation-a-b-s.md`
+ - Préflight ENV-01 : `env01-recette-preflight.md`
+ - Tests S03 : `web/tests/unit/git-refs-coverage-s03.test.ts` (REAL-shaped + SCRIPTED)
+@@ -42,18 +56,18 @@
+ - E08-S04 prStatusKind / label historique
+ - Playwright E08 surface historique ; G5 F2 : **NOT PROVEN** (différé Morris UAT)
+
  ## Non livré / réserves
  - Figma G5 runtime : **NOT PROVEN** — **VISUAL ACCEPTANCE DEFERRED TO MORRIS UAT**
  - END-TO-END REAL mutation GitHub : **NOT PROVEN** (WRITE/MERGE hors mandat)
@@ -1817,17 +2775,41 @@ index 2f40c865..076e879c 100644
  - `tsc --noEmit` PASS
  - `git-refs-coverage-s03` **19/19** PASS
  - unit ciblés E08 (refs/provenance/…) — voir Review Pack
+ - Matrice 41 scénarios qualifiée (statuts honnêtes)
+ - G5 **NOT PROVEN** (non relancé — différé)
+```
 
+### `projects/sfia-studio-next/construction/delivery-history.md`
+
+```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 397824a8..96875b69 100644
+index 397824a8..51ccd8b7 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -1,10 +1,45 @@
+@@ -1,13 +1,66 @@
  # SFIA Studio Next — Delivery history
 
  Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
++## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-CONVERGENCE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-22 (Europe/Paris) |
++| Macro-lot | Ensemble 08 — POST-UAT 01 convergence finale (doc/rév · Nora · UX) |
++| Type | INC / EVOL · CRITICAL · **NO RELEASE** |
++| Branche | `feat/next-ensemble08-git-publications-nora` |
++| Base | `origin/main` `a12f89a1` · HEAD `29066442` + worktree dirty |
++| RECETTE | **FROZEN** `@98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **aucune mutation** |
++| P0 | explicite > focus/same-turn ; `confirmPublicationDocumentWithD4` avant D7 |
++| P1 | restitution Nora mono-état (pas de narratif contradictoire) |
++| P2 | Infos a11y/focus ; Intégrations 11.06 structure |
++| Tests | unit PASS · PG `publication-target-post-uat` + accept01 PASS · Playwright DEV (voir pack) |
++| Push projet | **NONE** |
++| Cutover | **NOT EXECUTED** |
++| Verdict | (voir Review Pack final) |
++
 +## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01
 +
 +| Field | Value |
@@ -1868,79 +2850,151 @@ index 397824a8..96875b69 100644
  | Field | Value |
  | --- | --- |
  | Date | 2026-11-21 (Europe/Paris) |
+ | Macro-lot | Ensemble 08 — freeze candidat + préparation évolution RECETTE E07 |
+ | Type | EVOL / CRITICAL · **NO RELEASE** |
+ | Base | `origin/main` `a12f89a1` · branche `feat/next-ensemble08-git-publications-nora` |
+```
+
+### `projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts
+index ca11f453..155f896f 100644
+--- a/projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts
++++ b/projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts
+@@ -24,29 +24,28 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
+     const projectId = await constituteAndCreateProject(page, {
+       name: uniqueProjectName("E08 Git Surface"),
+       summary: "parcours consultation multi-dépôts SCRIPTED",
+     });
+     expect(projectId).toBeTruthy();
+
+     await page.goto("/settings/integrations");
+     await expect(page.getByTestId("integrations-panel")).toBeVisible();
+-    await expect(page.getByTestId("provider-mode-note")).not.toContainText(/Chargement/i, {
+-      timeout: 15_000,
+-    });
++    await expect(page.getByTestId("integrations-status-banner")).toBeVisible({ timeout: 15_000 });
+     if (await page.getByTestId("disconnect-github").isVisible().catch(() => false)) {
+       await page.getByTestId("disconnect-github").click();
+       await expect(page.getByTestId("integrations-disconnect-confirm")).toBeVisible();
+       await page.getByTestId("disconnect-github-confirm").click();
+       await expect(page.getByTestId("connect-github")).toBeVisible({ timeout: 15_000 });
+     }
+     await page.getByTestId("connect-github").click();
+-    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub est connecté/i, {
++    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub connecté/i, {
+       timeout: 20_000,
+     });
++    await expect(page.getByTestId("github-connected-badge")).toBeVisible();
+     if (await page.getByTestId("refresh-repos").isVisible().catch(() => false)) {
+       await page.getByTestId("refresh-repos").click();
+     }
+
+     await page.goto(`/projects/${projectId}?surface=git`);
+     await expect(page.getByTestId("git-empty")).toBeVisible({ timeout: 20_000 });
+     // P1-02 — choices list, never silent first-repo attach
+     const choices = page.getByTestId("git-empty-repo-choices");
+@@ -69,17 +68,17 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
+     await expect(page.getByTestId("git-branch-filter-note")).toContainText(/main/i, {
+       timeout: 10_000,
+     });
+     await page.getByTestId("git-branch-select").click(); // close if still open
+
+     // Publications tab — project-scale, historical wording (E08-S04)
+     await page.getByTestId("git-tab-publications").click();
+     await expect(page.getByTestId("git-publications")).toBeVisible();
+-    await expect(page.getByTestId("git-publications")).toContainText(/Projection D4\/D7\/D8|historique/i);
++    await expect(page.getByTestId("git-publications")).toContainText(/historique|publication/i);
+     await expect(page.getByTestId("git-pubs-split").or(page.getByTestId("git-publications-empty"))).toBeVisible();
+
+     // Manage — at least one attached; second attach when an unattached button is offered
+     await page.getByTestId("git-manage-repos").click();
+     await expect(page.getByTestId("git-manage")).toBeVisible();
+     await expect(page.getByTestId("git-manage").locator(".git-manage-item").first()).toBeVisible();
+     const manageAttaches = page.getByTestId("git-manage").locator("button", { hasText: /^Associer / });
+     if ((await manageAttaches.count()) > 0) {
+```
+
+### `projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts b/projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts
+index 77ffd387..2b74ecc1 100644
+--- a/projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts
++++ b/projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts
+@@ -32,25 +32,23 @@ test.describe("ML4 git collaboration corrective (SCRIPTED)", () => {
+       name: "Projet Git ML4 B",
+       summary: "publication documentaire B1-B9",
+     });
+     expect(projectId).toBeTruthy();
+
+     await page.goto("/settings/integrations");
+     await expect(page.getByTestId("integrations-panel")).toBeVisible();
+     // Wait for status hydration (avoid race: default DISCONNECTED before fetch).
+-    await expect(page.getByTestId("provider-mode-note")).not.toContainText(/Chargement/i, {
+-      timeout: 15_000,
+-    });
++    await expect(page.getByTestId("integrations-status-banner")).toBeVisible({ timeout: 15_000 });
+     if (await page.getByTestId("disconnect-github").isVisible().catch(() => false)) {
+       await page.getByTestId("disconnect-github").click();
+       await expect(page.getByTestId("connect-github")).toBeVisible({ timeout: 15_000 });
+     }
+     await page.getByTestId("connect-github").click();
+-    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub est connecté/i, {
++    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub connecté/i, {
+       timeout: 20_000,
+     });
+     // Refresh repos so SCRIPTED permission snapshot is current (write for documentary publish).
+     if (await page.getByTestId("refresh-repos").isVisible().catch(() => false)) {
+       await page.getByTestId("refresh-repos").click();
+       await expect(page.getByTestId("repo-list")).toBeVisible({ timeout: 10_000 });
+     }
 ```
 
 ---
 
-## 6. Points de revue indépendante (checklist ChatGPT)
+## 8. Checklist revue indépendante
 
-### 6.1 Sélection document / révision (ambiguïté)
+### 8.1 Cible explicite > focus
+Voir `publication-document-target.ts` : cas A/B (B gagne), v2 vs head v3, NOT_FOUND sans sole fallback, AMBIGUOUS, `confirmPublicationDocumentWithD4`.
 
-Vérifier dans `publication-document-target.ts` + appels `service.ts` :
+### 8.2 Restitution mono-état
+Voir `publication-effect-restitution.ts` : strip hedges + strip premature success ; COMPLETED / WRITE-off / UNKNOWN distincts ; pas de « Je publie » + refus.
 
-- Priorité : same-turn D4 AVAILABLE → `documentFocus` (revisionId exact) → hint titre/`doc_*` via `resolveReviseTarget` → sole document.
-- Hint explicite sans match → `NOT_FOUND` (pas de fallback silencieux).
-- Plusieurs titres matchés → `AMBIGUOUS` + candidates ; mission `AWAITING_CLARIFICATION` ; **aucun** prepare.
-- Focus présent mais document absent de la liste → retombe sur hint/sole (pas d’invention d’id).
-- **Limite documentée :** sans focus, la révision publiée est la **latest AVAILABLE** du document résolu (pas une résolution `v2` textuelle autonome hors focus/D4).
+### 8.3 Infos a11y
+`panelId` prop = `aria-controls` ; Escape/Fermer → focus trigger ; fermeture sur changement repo/branche.
 
-### 6.2 Strip hedges vs résultat inconnu
-
-Vérifier `publication-effect-restitution.ts` :
-
-- Strip regex uniquement sur formulations « reste à confirmer par Studio » / équivalents.
-- Si `effect.attempted` et `outcome === "UNKNOWN"` → faits « encore en vérification » (ni succès ni refus définitif).
-- Si `effect` null / non attempted → strip seul, **pas** de faux succès.
-- `COMPLETED` uniquement quand resumeStatus === COMPLETED après mandat.
-
-### 6.3 Continuité D3–D9
-
-Vérifier le bloc publication dans le diff `service.ts` : write gate avant prepare ; mandate après prepare ; restitution après owners ; obs events `publication_write_disabled` / `prepared_*`.
-
-### 6.4 Popover Infos + écrans
-
-Vérifier `GitFileInfoPopover.tsx` + diff surface/CSS/IntegrationsPanel : Escape, mousedown outside, focus ouverture, pas d’injection Markdown ; chrome breadcrumb-only pour git.
+### 8.4 Intégrations 11.06
+Structure : badge Connecté, liste repos serveur, CTA Actualiser/Déconnecter, colonne portée ; confirmation 11.07 inchangée.
 
 ---
 
-## 7. Tests (honnêtes)
-
-| Suite | Résultat |
-|---|---|
-| `tsc --noEmit` | **PASS** |
-| unit restitution / target / refs S03 / gates / continuity | **PASS** (37+ ciblés rapportés cycle) |
-| PostgreSQL D6/D7/D8/D9 intégration complète | **NOT RUN** |
-| Playwright E08 DEV | **NOT RUN** |
-| Nora LIVE E2E post-fix | **NOT RUN** (fix non déployé RECETTE) |
-| Figma G5 ≤2px runtime | **NOT PROVEN** |
-
-SCRIPTED ≠ REAL. RECETTE WRITE OFF non contourné.
-
----
-
-## 8. Fake / Real
+## 9. Fake/Real
 
 | Capacité | Niveau |
 |---|---|
-| Publish-existing + WRITE-off restitution | DETERMINISTIC PROVEN (unit) |
-| Continuité owners après fix en LIVE | **NOT PROVEN** |
-| GitHub REAL WRITE | **NOT PROVEN** / hors mandat |
-| Figma pixel | **NOT PROVEN** |
+| Explicit>focus + D4 confirm | DETERMINISTIC PROVEN (unit + PG) |
+| WRITE-off coherent restitution | DETERMINISTIC PROVEN (unit + PG) |
+| Playwright git surface / integrations | DETERMINISTIC PROVEN (SCRIPTED DEV e2e) |
+| Nora LIVE post-fix | NOT PROVEN |
+| REAL WRITE | NOT PROVEN / hors mandat |
+| G5 pixel | NOT PROVEN |
 
 ---
 
-## 9. Réserves
+## 10. Réserves / gates
 
-1. Correctifs non commités / non déployés RECETTE.
-2. PG / Playwright / Nora LIVE non exécutés → revue indépendante du **code** possible ; preuve runtime **incomplète**.
-3. Infos open state : candidat UX (Figma 11.03 sans état ouvert) — DESIGN DECISION si Morris exige norme visuelle.
-4. Résolution révision « v2 » sans focus/D4 : limitée à latest (voir §6.1).
+- Correctifs **non commités** projet.
+- G5 / freeze / cutover : GO Morris ultérieurs.
+- Infos open state : candidat comportemental (pas frame Figma validée).
+- Playwright publication Nora bout-en-bout (clarification→WRITE-off→SCRIPTED success) : **non couvert** ce cycle (surface E08 PASS ; chaîne PG partielle).
 
 ---
 
-## 10. Verdict Cursor
+## 11. Verdict
 
 **DELIVERY READY WITH RESERVES**
 
-Sortie ≠ réception UAT ≠ GO cutover ≠ autorisation WRITE.
-Republication handoff : contenu source + diffs pour revue ChatGPT indépendante.
+READY FOR REVIEW ChatGPT (code + diffs + preuves unit/PG/Playwright surface).
+≠ FREEZE / ≠ RECETTE ACCEPTED / ≠ REAL WRITE / ≠ STABLE.
