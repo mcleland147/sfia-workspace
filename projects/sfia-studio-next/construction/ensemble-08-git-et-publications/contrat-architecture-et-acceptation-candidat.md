@@ -726,3 +726,27 @@ L'approbation de vision et du présent contrat ne dispense pas des gates de code
 **Méthode de delivery** : SEF v0.2, ENV-01, méthode Figma ↔ Cursor v1.1 sur `main`, SFIA v2.6 externe : `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` et `prompts/templates/sfia-cycle-execution-template.md` **à relire obligatoirement avant prompt**, non utilisés pour générer un prompt dans ce dossier.
 
 *Fin — Contrat d'architecture et d'acceptation candidat E08 v0.1.*
+
+---
+
+## 17. Section d'exécution datée — consolidation PR readiness (2026-11-22 13:34 Europe/Paris)
+
+| Champ | Valeur |
+| --- | --- |
+| Nature | Constat d'exécution factuel — **ne remplace pas** le contrat d'architecture candidat §§1–16 |
+| Candidat utilisateur recetté | SOURCE `10128bdb…` / TREE `be778f1b…` / BUILD `2uHrYBsQUvf6aii40hMpj` |
+| Blob architecture sur branche docs | `9fe9a6ce773c0796836be3e51b12d268bbcd8100` — **identique** au blob produit |
+
+### Mise à jour factuelle vs AS-IS initial du contrat
+
+| Capacité | Statut contrat initial | Statut d'exécution (2026-11-22) |
+| --- | --- | --- |
+| Merge REAL provider | NON IMPLÉMENTÉ / hard-blocked | **Implémenté** sous gate `documentary` + D6/D7 ; **NOT PROVEN** par effet GitHub réel |
+| Mode fournisseur figé | Non traité | **C1** fail-closed UNKNOWN/mismatch |
+| Réconciliation merge | Non traitée | **C2** provenance + séparation SOURCE HEAD / mergeCommitSha |
+| SCRIPTED cible | Non traité | **C3** avance uniquement `baseRef` |
+| Construction / acceptation E08 | NOT STARTED | Candidat construit, cutover RECETTE exécuté, UAT Morris partielle |
+
+Addenda ChatGPT 22/11/2026 : **AWAITING Morris D2** — non publiés comme normatifs ici.
+
+*Fin section d'exécution §17 — contrat architecture.*

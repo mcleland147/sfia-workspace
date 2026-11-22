@@ -198,5 +198,26 @@
 2. **Reconcile provenance** : attribution COMPLETED seulement si dépôt/PR/headRef/baseRef/source HEAD/`mergeCommitSha` + publication associée concordent ; base SHA cible non exigée post-fusion ; pas de succès inventé.
 3. **D8 headSha** : conserve le HEAD source de publication ; `mergeCommitSha` dans `detailJson` + fait MERGE (pas de substitution silencieuse).
 4. **SCRIPTED** : avance uniquement la branche cible (`baseRef`) — merge vers `release` ne touche pas `main`.
-5. **Preuves** : PG `documentary-merge-corrections` 8/8 · unit contract C3 · suites merge/preview ciblées · `tsc` PASS · RECETTE inchangée.
+5. **Preuves** : PG `documentary-merge-corrections` 8/8 · unit contract C3 · suites merge/preview ciblées · `tsc` PASS · RECETTE inchangée (au moment de la correction DEV).
 6. **MERGE REAL** : toujours **NOT PROVEN**.
+
+### Cutover RECETTE — candidat merge documentaire (2026-11-22)
+
+| Champ | Valeur |
+| --- | --- |
+| SOURCE utilisateur | `10128bdb6bb1020a0fd8d4976b91879bff26c3b3` |
+| TREE | `be778f1bf461f15acf94bfed6879d43fa6256a0d` |
+| BUILD | `2uHrYBsQUvf6aii40hMpj` |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` · `http://127.0.0.1:3200` |
+| DB | `sfia_next_recette_ml4:5434` |
+| Handoff | `sfia/review-handoff@f30451d2dac193d6fc610194594f80e8616754c2` |
+| Verdict cutover | `RECETTE AVAILABLE — E08 DOCUMENTARY REAL MERGE BUILD SERVED — MORRIS UAT REQUIRED` |
+| MERGE REAL | **NOT PROVEN** (aucune fusion sandbox) |
+
+### Consolidation documentaire PR readiness (2026-11-22)
+
+- PV `recette-acceptation-partielle-2026-11-22.md` intégré depuis `docs/next-git-recette-20261122` (blob source `e767edc6…`) + §20 exécution datée.
+- Contrats fonctionnel / architecture : sections d'exécution §17 datées ; historique §§1–16 **non réécrit**.
+- Addenda ChatGPT structurants 22/11 : **AWAITING Morris D2** — non publiés comme normatifs.
+- Arbre `projects/sfia-studio-next/web` après consolidation documentaire : **identique** à `10128bdb` (`77c89ed84546b3bfb0356164416c04eac26ed229`).
+- Un HEAD produit ultérieur **uniquement documentaire** ne remplace **pas** rétroactivement le SOURCE/BUILD RECETTE ci-dessus.

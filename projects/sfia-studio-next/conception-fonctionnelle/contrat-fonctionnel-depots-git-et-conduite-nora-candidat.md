@@ -429,3 +429,27 @@ Principaux chemins examinés sous `web/src/` :
 **Provenance de l'AS-IS :** `main@fd04888b8dbf8d9393098d82546076e85b812bb1`, non-équivalent à une inspection du runtime local. **Vérité de la cible UX :** Figma page 11 approuvée dans l'échange, à figer par extraction MCP au gate technique.
 
 *Fin — Contrat fonctionnel candidat v0.2.*
+
+---
+
+## 17. Section d'exécution datée — consolidation PR readiness (2026-11-22 13:34 Europe/Paris)
+
+| Champ | Valeur |
+| --- | --- |
+| Nature | Constat d'exécution factuel — **ne remplace pas** le contrat candidat historique §§1–16 |
+| Candidat utilisateur recetté | SOURCE `10128bdb6bb1020a0fd8d4976b91879bff26c3b3` · TREE `be778f1bf461f15acf94bfed6879d43fa6256a0d` · BUILD `2uHrYBsQUvf6aii40hMpj` |
+| RECETTE | `http://127.0.0.1:3200` · service `com.sfia.studio.next.recette.ml4d-ux004` · DB `sfia_next_recette_ml4:5434` |
+| Blob contrat sur branche docs | `f60e86fe997ebc47f2b1b385c956a621c6057fe3` — **identique** au blob produit |
+
+### Constats d'exécution (non normatifs au-delà du code livré)
+
+1. Publication documentaire GitHub REAL : prouvée en UAT Morris (PR #21) avec réserves internes D6/D7/D8 et WRITE-07.
+2. Aperçu Git universel (Figma 11.17) : servi en RECETTE ; scénarios PREVIEW PARTIAL non convertis en PASS.
+3. Fusion documentaire GitHub REAL via Nora : **chemin implémenté et corrigé (C1/C2/C3)** ; tests SCRIPTED/mock PASS ; **MERGE REAL NOT PROVEN** (aucune fusion sandbox exercée).
+4. Addenda structurants ChatGPT (22/11/2026) : **non observés comme validés Morris D2** dans ce cycle — **non intégrés comme texte normatif**. Toute adoption exige GO D2 explicite.
+
+### Réserves à préserver à la sortie Git
+
+PREVIEW partiel · WRITE-07 ACK/retry · traçabilité D6/D7/D8 partielle · MERGE REAL NOT PROVEN · PR #21 unstable (audits) · protections GitHub non entièrement observables · STABLE/RELEASE/ADOPTED **NOT AVAILABLE**.
+
+*Fin section d'exécution §17 — contrat fonctionnel.*

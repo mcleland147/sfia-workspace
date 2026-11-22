@@ -3,6 +3,36 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-PR-READINESS-DOC-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 13:34 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — consolidation documentaire + PR readiness (cycle 13) |
+| Type | EVOL · CRITICAL · **NO RELEASE** |
+| Base code recettée | SOURCE `10128bdb` · TREE `be778f1b` · BUILD `2uHrYBsQUvf6aii40hMpj` |
+| Travail | Intégration PV exact depuis `docs/next-git-recette-20261122` · sections d'exécution datées sur contrats · sync as-built / provenance · **aucun changement `web/`** |
+| Addenda ChatGPT | **AWAITING Morris D2** — non intégrés comme normatifs |
+| RECETTE | **INCHANGÉE** `10128bdb` / `2uHrYBsQUvf6aii40hMpj` · ml4d-ux004 |
+| Push projet / PR / merge | **NONE** |
+| Verdict cible | `READY FOR PR WITH RESERVES — MORRIS GATE REQUIRED` (D2 addenda + GO push/PR) |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-DOCUMENTARY-REAL-MERGE-RECETTE-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 (Europe/Paris) |
+| Macro-lot | Ensemble 08 — cutover RECETTE candidat merge documentaire corrigé |
+| Type | EVOL · CRITICAL · **NO RELEASE** |
+| SOURCE | `10128bdb6bb1020a0fd8d4976b91879bff26c3b3` |
+| TREE | `be778f1bf461f15acf94bfed6879d43fa6256a0d` |
+| BUILD | `2uHrYBsQUvf6aii40hMpj` |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` · `http://127.0.0.1:3200` |
+| Prior preview | `98118de0` / `_U3Z92BCd0K_-hiMvgTP9` (préservé hors service) |
+| Handoff | `sfia/review-handoff@f30451d2dac193d6fc610194594f80e8616754c2` |
+| MERGE REAL | **NOT PROVEN** |
+| Verdict | `RECETTE AVAILABLE — E08 DOCUMENTARY REAL MERGE BUILD SERVED — MORRIS UAT REQUIRED` |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-DOCUMENTARY-REAL-MERGE-CORRECTED
 
 | Field | Value |
