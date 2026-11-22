@@ -8,6 +8,7 @@
 | date_utc | 2026-11-22 |
 | prior_handoff_cutover | `72cdb456bc9cc68ef047a21da1df7b639af26a09` |
 | prior_handoff_incomplete | `31d22a96cbeb32a3aed11f99f82bf97263e4e205` (inventory-only — superseded) |
+| this_handoff_L3 | `2d3c155847ed85954d753db79f3c4ef4ab70f1c9` |
 | profil | CRITICAL · Review Pack FULL · Handoff REQUIRED / PUBLISH-IN-CYCLE |
 | versioning | NO RELEASE · NO STABLE · NO ADOPTED |
 | worktree_base_HEAD | `29066442a7fa51b106d9fe45b5c1b05da7f13004` (corrections uncommitted) |
