@@ -3,6 +3,21 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-DOCUMENTARY-REAL-MERGE-CORRECTED
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 13:02 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — correction revue merge documentaire REAL (DEV) |
+| Type | EVOL · CRITICAL · **NO RELEASE** |
+| Base candidat | `a087051a` / `7274dcc0` |
+| Fix | fail-closed mode UNKNOWN · reconcile provenance · D8 headSha source préservé · SCRIPTED cible seule |
+| Preuves | PG documentary-merge-corrections **8/8** · conversation-merge-security **5/5** · unit contract/sha/authority/preview · tsc PASS |
+| RECETTE | **INCHANGÉE** `98118de0` / `_U3Z92BCd0K_-hiMvgTP9` |
+| Mutation GitHub REAL | **NONE** — **NOT PROVEN** |
+| Push projet | **NONE** |
+| Verdict | **READY FOR CHATGPT REVIEW — E08 DOCUMENTARY REAL MERGE CORRECTED** |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-DOCUMENTARY-REAL-MERGE
 
 | Field | Value |

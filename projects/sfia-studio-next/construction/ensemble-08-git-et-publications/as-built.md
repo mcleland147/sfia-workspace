@@ -191,3 +191,12 @@
 - **Preuves** : unit MERGE contract + merge SHA + merge authority ; PG `conversation-merge-security` ; slice `git-collaboration` B3/T20 ; `tsc` PASS.
 - **Hors cycle** : aucune fusion GitHub REAL exécutée ; RECETTE `98118de0` / `_U3Z92BCd0K_-hiMvgTP9` **inchangée**.
 - **Niveau** : chemin REAL **implémenté / testé (SCRIPTED + interface mockée)** — **MERGE REAL NOT PROVEN**.
+
+### Correction revue — merge documentaire (DEV — 2026-11-22)
+
+1. **Fail-closed mode** : `dispatchMerge` exige un `effectProviderMode` historique explicite (REAL|SCRIPTED) égal au live **avant** toute autorité/provider ; UNKNOWN/absent → `REQUIRES_REQUALIFICATION` (zéro mutation).
+2. **Reconcile provenance** : attribution COMPLETED seulement si dépôt/PR/headRef/baseRef/source HEAD/`mergeCommitSha` + publication associée concordent ; base SHA cible non exigée post-fusion ; pas de succès inventé.
+3. **D8 headSha** : conserve le HEAD source de publication ; `mergeCommitSha` dans `detailJson` + fait MERGE (pas de substitution silencieuse).
+4. **SCRIPTED** : avance uniquement la branche cible (`baseRef`) — merge vers `release` ne touche pas `main`.
+5. **Preuves** : PG `documentary-merge-corrections` 8/8 · unit contract C3 · suites merge/preview ciblées · `tsc` PASS · RECETTE inchangée.
+6. **MERGE REAL** : toujours **NOT PROVEN**.

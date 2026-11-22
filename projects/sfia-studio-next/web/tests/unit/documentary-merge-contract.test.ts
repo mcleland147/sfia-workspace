@@ -240,4 +240,80 @@ describe("MERGE documentary contract (unit)", () => {
       "REAL",
     );
   });
+
+  it("C3: merge into release advances release only — main unchanged", async () => {
+    const provider = getScriptedGitHubProvider();
+    const pilotId = "pilot-c3-release";
+    const fullName = "acme/docs";
+    const mainBefore = await provider.getRefSha(pilotId, fullName, "main");
+    await provider.createBranch(pilotId, fullName, "release", mainBefore);
+    await provider.createBranch(pilotId, fullName, "studio/pub-rel", mainBefore);
+    await provider.putFileContents({
+      pilotId,
+      fullName,
+      path: "docs/rel.md",
+      branch: "studio/pub-rel",
+      message: "doc",
+      content: "# rel\n",
+    });
+    const pr = await provider.createPullRequest({
+      pilotId,
+      fullName,
+      title: "doc-rel",
+      head: "studio/pub-rel",
+      base: "release",
+      publicationMarker: "mk-rel",
+    });
+    const releaseBefore = await provider.getRefSha(pilotId, fullName, "release");
+    const merged = await provider.mergePullRequest({
+      pilotId,
+      fullName,
+      prNumber: pr.number,
+      expectedHeadSha: pr.headSha,
+      expectedBaseSha: pr.baseSha,
+    });
+    const mainAfter = await provider.getRefSha(pilotId, fullName, "main");
+    const releaseAfter = await provider.getRefSha(pilotId, fullName, "release");
+    expect(mainAfter).toBe(mainBefore);
+    expect(releaseAfter).toBe(merged.sha);
+    expect(releaseAfter).not.toBe(releaseBefore);
+  });
+
+  it("C3: merge into main advances main only", async () => {
+    const provider = getScriptedGitHubProvider();
+    const pilotId = "pilot-c3-main";
+    const fullName = "acme/docs";
+    const mainBefore = await provider.getRefSha(pilotId, fullName, "main");
+    await provider.createBranch(pilotId, fullName, "release", mainBefore);
+    await provider.createBranch(pilotId, fullName, "studio/pub-main", mainBefore);
+    await provider.putFileContents({
+      pilotId,
+      fullName,
+      path: "docs/main.md",
+      branch: "studio/pub-main",
+      message: "doc",
+      content: "# main\n",
+    });
+    const pr = await provider.createPullRequest({
+      pilotId,
+      fullName,
+      title: "doc-main",
+      head: "studio/pub-main",
+      base: "main",
+      publicationMarker: "mk-main",
+    });
+    const releaseBefore = await provider.getRefSha(pilotId, fullName, "release");
+    const merged = await provider.mergePullRequest({
+      pilotId,
+      fullName,
+      prNumber: pr.number,
+      expectedHeadSha: pr.headSha,
+      expectedBaseSha: pr.baseSha,
+    });
+    const mainAfter = await provider.getRefSha(pilotId, fullName, "main");
+    const releaseAfter = await provider.getRefSha(pilotId, fullName, "release");
+    expect(mainAfter).toBe(merged.sha);
+    expect(mainAfter).not.toBe(mainBefore);
+    expect(releaseAfter).toBe(releaseBefore);
+  });
 });

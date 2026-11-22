@@ -563,8 +563,8 @@ class ScriptedGitHubProvider implements GitHubProvider {
     const mergeSha = createHash("sha1")
       .update(`scripted-merge:${input.fullName}:${input.prNumber}:${pr.headSha}:${pr.baseSha}`)
       .digest("hex");
+    // Advance only the PR target branch — never an unrelated default branch.
     s.branches[pr.baseRef] = mergeSha;
-    if (pr.baseRef !== "main") s.branches.main = mergeSha;
     pr.state = "merged";
     pr.mergeCommitSha = mergeSha;
     pr.mergeable = null;
