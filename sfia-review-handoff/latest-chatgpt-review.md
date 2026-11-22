@@ -1,679 +1,400 @@
-# SFIA Review Pack FULL — E08 WRITE MANDATE BRANCH CORRECTIVE
+# SFIA Review Pack FULL — Ensemble 08 CUTOVER RECETTE WRITE MANDATE CORRECTIVE
+
+## 1. Date, fuseau et mandat Morris
 
 | Champ | Valeur |
 | --- | --- |
-| Date / fuseau | 2026-11-22 ≈ 11:30 CET (Europe/Paris) |
-| Profil | CRITICAL · Delivery / INC correctif + QA |
-| Mandat | GO Morris diagnostic + correction substitution branche publication |
-| Versioning | **NO RELEASE** · STABLE NOT AVAILABLE |
+| Date/heure | 2026-11-22 ≈ 11:32–11:35 CET (Europe/Paris) / UTC 10:32–10:35 |
+| Mandat | GO Morris — cutover ENV-01 RECETTE existante du candidat WRITE mandat branche |
+| Triplet autorisé | SOURCE `24a8fa9e7ad6cc2fa961496a915f13cea542d4a8` · TREE `ece43cdb8c008b855c381d50f112f8b86e5a2207` · BUILD `qCQGWLYYGb0ZCA4BLfzBi` |
+| Classe | **NO RELEASE** · STABLE **NOT AVAILABLE** · E08 **NON ADOPTED** |
+| Profil | CRITICAL |
+| Cycle | 11 — Déploiement / release (mise à disposition RECETTE uniquement) |
+| Rebuild | **NONE** |
 | Push projet / PR / merge | **NONE** |
-| Cutover RECETTE | **NONE** |
-| Mutation GitHub | **NONE** (PR#19/#20 inchangées) |
+| Mutation GitHub | **NONE** |
+| Review Handoff | required / publish-in-cycle (L3) |
 
-## 1. Git Truth
+## 2. Git Truth initial / final
 
-### Initial
-| | |
+### Initial (préflight)
+
+| Champ | Observé |
 | --- | --- |
-| Branche | `feat/next-ensemble08-git-publications-nora` |
-| HEAD | `5d4b5c49aa5fd86f226600e0edc3ee7a2021325a` |
-| TREE | `de1ce5c7283d5d1cc23e3949615f13f5ceb041d5` |
-| origin/main | `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
-| Dirty | `.tmp-sfia-review/` only |
-| RECETTE servi | SOURCE `7115e932…` · BUILD `OwQrOGhC9rwk_Dtj31OcM` |
-| Worktree DEV | feat branch (modifiable) |
-| Worktree RECETTE | `…/corrective-build-7115e932` (non modifié) |
-
-### Final
-| | |
-| --- | --- |
+| Dépôt | `mcleland147/sfia-workspace` |
+| Branche active | `feat/next-ensemble08-git-publications-nora` |
 | HEAD | `24a8fa9e7ad6cc2fa961496a915f13cea542d4a8` |
 | TREE | `ece43cdb8c008b855c381d50f112f8b86e5a2207` |
-| BUILD candidat (non servi) | `qCQGWLYYGb0ZCA4BLfzBi` |
-| Worktree freeze | `…/mandate-build-24a8fa9e` |
-| RECETTE HTTP | toujours `<!--OwQrOGhC9rwk_Dtj31OcM-->` |
+| `origin/main` (après fetch) | `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
+| Worktree candidat | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-mandate-build-24a8fa9e` |
+| BUILD_ID fichier | `qCQGWLYYGb0ZCA4BLfzBi` (mtime 2026-11-22 11:26:32) |
+| Worktree ancien | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-corrective-build-7115e932` |
+| Staged/untracked runtime | aucun sur artefact figé |
 
-## 2. Chronologie incident (lecture seule RECETTE)
+### Final (post-docs locaux)
 
-`USER msg_e2cd5e69… (10:01:46Z)`
-→ branche demandée **`sfia/pub-r12-recette-20261122`** (statement décision)
-→ `preparePublication` / plan `efx_d8f8e550…`
-→ **`publicationBranch=sfia/pub-91996c24991c351b`** (= `sha256(pub:mission:turn-8ca19672…)[:16]`)
-→ D6 `dec_39c4807f…` APPLICABLE — envelope porte la branche **générée** (statement USER a la bonne)
-→ D9 CREATE_BRANCH / commit / OPEN_PR sur la branche générée
-→ D8 `dpr_1069f349…` PR#20 OPEN · commit `5d6f0b7b…`
-→ restitution Nora aligne les faits exécutés
-
-| Frontière | Branche présente | Contrôle |
-| --- | --- | --- |
-| USER | `sfia/pub-r12-recette-20261122` | explicite |
-| Nora D3 / missionIntent.targetBranch | base `main` (typ.) — tête publi. non câblée | NON PROUVÉ champs qual complets |
-| prepare D7 | **`sfia/pub-91996c24991c351b`** | **PREMIER ÉCART PROUVÉ** |
-| D6 envelope | générée | extraction échoue → pas de PLAN_DRIFT |
-| D9 | générée | exécute le plan |
-| D8 / GitHub | générée | cohérent techniquement |
-
-## 3. Cause prouvée
-
-1. **Owner D7** — `preparePublication` assignait toujours `publicationBranchFromCorrelationKey(correlationKey)` sans paramètre explicite.
-2. **Garde D6** — `EXPLICIT_BRANCH_CAPTURE_RE` ne capturait pas « Branche à créer : \`name\` » (mots intercalés) → `assertPublicationMandateCoversPlan` ne voyait aucune branche explicite.
-
-D9 n’a pas « inventé » hors plan : il a exécuté le plan déjà substitué.
-
-## 4. Correction
-
-| Responsabilité | Changement |
+| Champ | Observé |
 | --- | --- |
-| `fingerprint.resolvePublicationBranchName` | explicite > hash ; refuse SAME_AS_BASE / INVALID |
-| `preparePublication` | accepte `publicationBranch?` |
-| `preparePublicationForMission` + API prepare | propage le champ |
-| `service.ts` | extrait tête explicite ≠ base ; ambiguïté → clarification ; `qualifiedBranch` = tête publi. |
-| `conversation-publication-mandate-guards` | regex labeled + `extractExplicitPublicationBranch` |
+| Branche | `feat/next-ensemble08-git-publications-nora` |
+| HEAD docs | `a7e67b97693a8f5b02cdeb77d6d73ba35666b63c` |
+| Runtime servi | toujours artefact figé `24a8fa9e…` / `qCQGWLYYGb0ZCA4BLfzBi` (commit docs n’altère pas le worktree servi) |
+| Push projet | **NONE** |
+| `origin/main` | `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` (inchangé) |
 
-Auto-génération **conservée** si aucune tête explicite.
+## 3. Sources Git et versions
 
-## 5. Fichiers impactés
+Relues / applicables :
 
-12 fichiers (voir stat). Création : `tests/unit/publication-branch-mandate.test.ts`.
+- Gouvernance Next : SEF, roadmap, environnements-recette-et-promotions, product-versioning, décisions qualification, product-naming-conventions
+- SFIA v2.6 : `sfia-cycle-routing-guide.md`, `sfia-cycle-execution-template.md`
+- Conception E08 : contrats fonctionnel + architecture (branche `docs/next-ensemble08-contrat-fonctionnel-20261121`)
+- Handoff correctif validé : `sfia/review-handoff@bbb9303f3a705023a6e8131c88a5219c91269959`
+- Procédure cutover réemployée : handoffs `dea616f1…` / `7a22aabd…` + manifeste / delivery-history / as-built
 
-## 6. Diffs code
-```diff
-commit 24a8fa9e7ad6cc2fa961496a915f13cea542d4a8
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Sun Nov 22 11:26:02 2026 +0100
+## 4. Identité du candidat figé
 
-    fix(next): honor explicit publication branch in D7 prepare
+| Champ | Valeur |
+| --- | --- |
+| SOURCE | `24a8fa9e7ad6cc2fa961496a915f13cea542d4a8` |
+| TREE | `ece43cdb8c008b855c381d50f112f8b86e5a2207` |
+| BUILD_ID | `qCQGWLYYGb0ZCA4BLfzBi` |
+| Artefact | `…/mandate-build-24a8fa9e/projects/sfia-studio-next/web/.next/BUILD_ID` |
+| Conformité triplet | **PASS** — exact match GO Morris |
+| Post-build alteration | **NONE** observée (mtime BUILD_ID antérieur au cutover)
 
-    Stop silent correlation-hash substitution when the pilot names a publication head; keep auto-generation only when no explicit branch is mandated, and refuse plan drift before effect.
+## 5. Préflight RECETTE
 
-diff --git a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/git/publications/prepare/route.ts b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/git/publications/prepare/route.ts
-index 273e7d93..c1bd5c02 100644
---- a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/git/publications/prepare/route.ts
-+++ b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/git/publications/prepare/route.ts
-@@ -13,6 +13,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ projectId: str
-       repositoryId?: string;
-       targetPath?: string;
-       targetBranch?: string;
-+      publicationBranch?: string | null;
-       correlationKey?: string;
-       steps?: Array<"CREATE_BRANCH" | "PUBLISH_FILE" | "OPEN_PR"> | null;
-     };
-@@ -34,6 +35,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ projectId: str
-       repositoryId: body.repositoryId,
-       targetPath: body.targetPath,
-       targetBranch: body.targetBranch,
-+      publicationBranch: body.publicationBranch ?? null,
-       correlationKey: body.correlationKey,
-       steps: body.steps,
-     });
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-mandate-guards.ts b/projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-mandate-guards.ts
-index 6c5882ce..5a331907 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-mandate-guards.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-mandate-guards.ts
-@@ -75,10 +75,18 @@ const NEW_BRANCH_INTENT_RE =
- /**
-  * Capture after branche|branch only for validation of an explicit technical name.
-  * Never used as a métier router.
-+ *
-+ * Form A — immediate: "branche feat/x", "branch main"
-+ * Form B — labeled create/base: "Branche à créer : `sfia/pub-…`", "branch to create: name"
-+ *   (allows a few non-ref words between branche|branch and `:`/`=` before the technical name)
-  */
- const EXPLICIT_BRANCH_CAPTURE_RE =
-   /(?:branche|branch)\s*[:=]?\s*[`"']?([A-Za-z0-9][A-Za-z0-9._/\-]*)[`"']?/gi;
+| Contrôle | Résultat |
+| --- | --- |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` running |
+| HTTP BUILD servi | `<!--OwQrOGhC9rwk_Dtj31OcM-->` sur `/login` `/portfolio` `/settings/integrations` (HTTP 200) |
+| Listener :3200 | **1** (node PID 4982 pré-swap) |
+| PostgreSQL | `sfia_next_recette_ml4` @ docker `sfia-next-recette-pg` port **5434** |
+| GitHub config | `PROVIDER=real` · `ALLOW_MUTATIONS=documentary` · `WRITE_ALLOWED_REPOS=mcleland147/chantiers360` |
+| D8 Studio PR#19/#20 | présentes `PR_OPEN` (`dpr_7f10c5e4…` / `dpr_1069f349…`) |
+| Candidat figé dispo | **PASS** |
+| Isolation | même service/port/DB ; pas de nouveau service/DB |
 
-+/** Labeled form — requires `:` or `=` so "branche de mon dépôt" does not capture. */
-+const EXPLICIT_BRANCH_LABELED_CAPTURE_RE =
-+  /(?:branche|branch)(?:\s+[^\s:;`'"=]{1,24}){0,5}\s*[:=]\s*[`"']?([A-Za-z0-9][A-Za-z0-9._/\-]*)[`"']?/gi;
-+
- function extractPublicationPathHint(userText: string): string | null {
-   return userText.match(PATH_RE)?.[1] ?? null;
- }
-@@ -100,13 +108,33 @@ export function looksLikeTechnicalBranchName(token: string): boolean {
- export function extractAllPublicationBranchHints(userText: string): string[] {
-   const text = userText.normalize("NFKC");
-   const candidates: string[] = [];
--  for (const m of text.matchAll(EXPLICIT_BRANCH_CAPTURE_RE)) {
--    const raw = m[1];
--    if (raw && looksLikeTechnicalBranchName(raw)) candidates.push(raw);
-+  for (const re of [EXPLICIT_BRANCH_CAPTURE_RE, EXPLICIT_BRANCH_LABELED_CAPTURE_RE]) {
-+    re.lastIndex = 0;
-+    for (const m of text.matchAll(re)) {
-+      const raw = m[1];
-+      if (raw && looksLikeTechnicalBranchName(raw)) candidates.push(raw);
-+    }
-   }
-   return [...new Set(candidates)];
- }
+## 6. Avant / après runtime
 
-+/**
-+ * Publication head branch explicitly named by the Pilote, when distinct from the base.
-+ * Returns null when only the base is named or when no technical name is present
-+ * (auto-generation of publicationBranch remains legitimate).
-+ */
-+export function extractExplicitPublicationBranch(input: {
-+  userText: string;
-+  baseBranch?: string | null;
-+}): string | null {
-+  const base = (input.baseBranch ?? "main").trim() || "main";
-+  const hints = extractAllPublicationBranchHints(input.userText);
-+  const nonBase = hints.filter((h) => h !== base);
-+  if (nonBase.length === 1) return nonBase[0] ?? null;
-+  if (nonBase.length > 1) return null; // ambiguous — caller must refuse, not invent
-+  return null;
-+}
-+
- /**
-  * Extract a single explicit technical branch name from USER text.
-  * Returns null for new-branch intent without a name, natural-language
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts b/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
-index 50b5a4ad..2a95ddba 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
-@@ -348,6 +348,8 @@ export async function preparePublicationForMission(input: {
-   clientIntentKey: string;
-   targetPath: string | null;
-   targetBranch: string | null;
-+  /** Explicit publication head when the Pilote named one (never silently replaced). */
-+  publicationBranch?: string | null;
- }): Promise<
-   | {
-       ok: true;
-@@ -357,6 +359,7 @@ export async function preparePublicationForMission(input: {
-       idempotent?: boolean;
-       repositoryId: string;
-       targetPath: string;
-+      publicationBranch: string;
-     }
-   | { ok: false; code: string; message: string }
- > {
-@@ -396,6 +399,7 @@ export async function preparePublicationForMission(input: {
-       repositoryId,
-       targetPath,
-       targetBranch,
-+      publicationBranch: input.publicationBranch ?? null,
-       correlationKey: keys.publication,
-     });
-     return {
-@@ -406,6 +410,7 @@ export async function preparePublicationForMission(input: {
-       idempotent: "idempotent" in prepared ? Boolean(prepared.idempotent) : false,
-       repositoryId,
-       targetPath,
-+      publicationBranch: prepared.plan.publicationBranch,
-     };
-   } catch (e) {
-     if (e instanceof StudioError) {
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index a735a127..38fb10c6 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -120,6 +120,10 @@ import {
-   type MissionProjection,
- } from "./mission-continuity";
- import { admitConversationalPublicationMandate } from "./conversation-publication-authority";
-+import {
-+  extractAllPublicationBranchHints,
-+  extractExplicitPublicationBranch,
-+} from "./conversation-publication-mandate-guards";
- import {
-   admitConversationalMergeMandate,
-   extractPositivelyRequestedPrNumbers,
-@@ -2842,6 +2846,38 @@ export async function postUserMessageAndNora(
-         revisionNumber: pubTarget.revisionNumber,
-       };
-     } else if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
-+      const baseBranch = (missionIntent.targetBranch ?? "main").trim() || "main";
-+      const branchHints = extractAllPublicationBranchHints(content);
-+      const nonBaseBranchHints = [...new Set(branchHints.filter((b) => b !== baseBranch))];
-+      if (nonBaseBranchHints.length > 1) {
-+        steps.push({
-+          id: "d7_prepare",
-+          capabilityId: "d7.prepare_publication",
-+          status: "PENDING",
-+          correlationKey: missionKeys.publication,
-+          documentId: pubTarget.documentId,
-+          revisionId: pubTarget.revisionId,
-+          reason: "AMBIGUOUS_BRANCH",
-+        });
-+        missionProjection = {
-+          clientIntentKey,
-+          status: "AWAITING_CLARIFICATION",
-+          goalSummary: "Publication Git — branches contradictoires à clarifier",
-+          steps,
-+          restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
-+        };
-+        publicationEffectView = {
-+          attempted: true,
-+          outcome: "AWAITING_CLARIFICATION",
-+          reason: "Plusieurs branches de publication distinctes de la base — précision requise.",
-+          documentTitle: pubTarget.title,
-+          revisionNumber: pubTarget.revisionNumber,
-+        };
-+      } else {
-+      const explicitPublicationBranch = extractExplicitPublicationBranch({
-+        userText: content,
-+        baseBranch,
-+      });
-       const prepared = await preparePublicationForMission({
-         pilotId,
-         projectId: ctx.project.id,
-@@ -2849,7 +2885,8 @@ export async function postUserMessageAndNora(
-         revisionId: pubTarget.revisionId,
-         clientIntentKey,
-         targetPath: effectiveTargetPath,
--        targetBranch: missionIntent.targetBranch,
-+        targetBranch: baseBranch,
-+        publicationBranch: explicitPublicationBranch,
-       });
-       if (prepared.ok) {
-         const prepStep: MissionProjection["steps"][number] = {
-@@ -2877,7 +2914,8 @@ export async function postUserMessageAndNora(
-           clientTurnKey,
-           missionClientIntentKey: clientIntentKey,
-           qualifiedPath: effectiveTargetPath,
--          qualifiedBranch: missionIntent.targetBranch,
-+          // Bind the publication head the Pilote named (not the base branch).
-+          qualifiedBranch: explicitPublicationBranch,
-           wantsPublishFromQual: missionIntent.wantsPublish,
-         });
+| | AVANT | APRÈS |
+| --- | --- | --- |
+| SOURCE | `7115e932dad8628af13cd5dcbf1fefc3a227c81e` | `24a8fa9e7ad6cc2fa961496a915f13cea542d4a8` |
+| TREE | `bdfd5648f9dbc2ba49dda2863e6957c606d4cec6` | `ece43cdb8c008b855c381d50f112f8b86e5a2207` |
+| BUILD | `OwQrOGhC9rwk_Dtj31OcM` | `qCQGWLYYGb0ZCA4BLfzBi` |
+| Worktree | `…/corrective-build-7115e932` | `…/mandate-build-24a8fa9e` |
+| Script | `start-recette-ensemble08-corrective-7115e932.sh` | `start-recette-ensemble08-mandate-24a8fa9e.sh` |
+| PID launchd / node | 4957 / 4982 | 44626 / 44643 |
+| Port | 3200 | 3200 (inchangé) |
+| DB | `sfia_next_recette_ml4` :5434 | même |
+| Boot log | — | `2026-11-22T10:32:48Z SHA=24a8fa9e… BUILD=qCQGWLYYGb0ZCA4BLfzBi LANE=RECETTE PROVIDER=real ALLOW_MUTATIONS=documentary WRITE_ALLOWLIST=mcleland147/chantiers360` |
 
-@@ -3046,6 +3084,7 @@ export async function postUserMessageAndNora(
-           revisionNumber: pubTarget.revisionNumber,
-         };
-       }
-+      } // end unambiguous-branch prepare path
-     }
+## 7. Backup et SHA-256
 
-     if (continueFailedAfterEffect && missionProjection) {
-diff --git a/projects/sfia-studio-next/web/src/domains/execution/effect-service.ts b/projects/sfia-studio-next/web/src/domains/execution/effect-service.ts
-index ec7e4237..2977338f 100644
---- a/projects/sfia-studio-next/web/src/domains/execution/effect-service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/execution/effect-service.ts
-@@ -40,7 +40,7 @@ import {
-   buildUnifiedDiff,
-   inspectionFingerprint,
-   mergeEffectFingerprint,
--  publicationBranchFromCorrelationKey,
-+  resolvePublicationBranchName,
-   publicationEffectFingerprint,
-   revisionContentFingerprint,
- } from "./fingerprint";
-@@ -792,6 +792,12 @@ export async function preparePublication(input: {
-   repositoryId: string;
-   targetPath: string;
-   targetBranch: string;
-+  /**
-+   * Optional explicit publication head branch mandated by the Pilote.
-+   * When set, must be used as-is (no silent substitution).
-+   * When omitted, a deterministic branch is derived from correlationKey.
-+   */
-+  publicationBranch?: string | null;
-   correlationKey: string;
-   steps?: PublicationStep[] | null;
- }) {
-@@ -857,7 +863,21 @@ export async function preparePublication(input: {
-     proposedContent: rev.contentMarkdown,
-   });
+| Champ | Valeur |
+| --- | --- |
+| Fichier | `…/mandate-build-24a8fa9e/.sfia-recette/backups/ml4d-e08-pre-mandate-cutover-20261122T103212Z-from-7115e932.sql.gz` |
+| Taille | 765K |
+| SHA-256 | `277ccba0991b43416736fedd038980d451cab9693fd509658dc122eeafba7837` |
+| Intégrité | `gzip -t` PASS |
 
--  const publicationBranch = publicationBranchFromCorrelationKey(input.correlationKey);
-+  const resolvedBranch = resolvePublicationBranchName({
-+    correlationKey: input.correlationKey,
-+    targetBranch: input.targetBranch,
-+    publicationBranch: input.publicationBranch,
-+  });
-+  if (!resolvedBranch.ok) {
-+    throw new StudioError(
-+      "INVALID_REQUEST",
-+      resolvedBranch.reason === "SAME_AS_BASE"
-+        ? "Branche de publication identique à la base — préciser une branche distincte ou omettre le nom"
-+        : "Nom de branche de publication invalide",
-+      { exposeMessage: true },
-+    );
-+  }
-+  const publicationBranch = resolvedBranch.publicationBranch;
-   const effectProviderMode = resolveConfiguredEffectProviderMode();
-   const plan: PublicationPlan = {
-     documentId: input.documentId,
-diff --git a/projects/sfia-studio-next/web/src/domains/execution/fingerprint.ts b/projects/sfia-studio-next/web/src/domains/execution/fingerprint.ts
-index d3c1ebd1..c793edc3 100644
---- a/projects/sfia-studio-next/web/src/domains/execution/fingerprint.ts
-+++ b/projects/sfia-studio-next/web/src/domains/execution/fingerprint.ts
-@@ -18,6 +18,32 @@ export function publicationBranchFromCorrelationKey(correlationKey: string): str
-   return `sfia/pub-${slug}`;
- }
+## 8. Restauration de preuve
 
-+/**
-+ * Resolve publication head for preparePublication.
-+ * Explicit Pilote name wins; otherwise deterministic correlation derivation.
-+ * Never silently replaces an explicit name with a hash-derived branch.
-+ */
-+export function resolvePublicationBranchName(input: {
-+  correlationKey: string;
-+  targetBranch: string;
-+  publicationBranch?: string | null;
-+}): { ok: true; publicationBranch: string } | { ok: false; reason: "INVALID_BRANCH" | "SAME_AS_BASE" } {
-+  const explicit = input.publicationBranch?.trim() || null;
-+  if (explicit) {
-+    if (!/^[A-Za-z0-9][A-Za-z0-9._/\-]{0,199}$/.test(explicit)) {
-+      return { ok: false, reason: "INVALID_BRANCH" };
-+    }
-+    if (explicit === input.targetBranch.trim()) {
-+      return { ok: false, reason: "SAME_AS_BASE" };
-+    }
-+    return { ok: true, publicationBranch: explicit };
-+  }
-+  return {
-+    ok: true,
-+    publicationBranch: publicationBranchFromCorrelationKey(input.correlationKey),
-+  };
-+}
-+
- export function inspectionFingerprint(input: {
-   revisionId: string;
-   revisionFingerprint: string;
+| Champ | Valeur |
+| --- | --- |
+| DB temp | `sfia_next_recette_restore_proof_mandate` |
+| Résultat | metrics **MATCH** vs source → DROP |
+| Verdict | **RESTORE_PROOF_PASS** |
+
+## 9. Rollback prêt
+
+| Champ | Valeur |
+| --- | --- |
+| Script | `…/mandate-build-24a8fa9e/ROLLBACK-TO-E08-7115e932.sh` |
+| Cible | `7115e932` / `OwQrOGhC9rwk_Dtj31OcM` (**pas** `79188f6c`) |
+| Plist bak | `~/Library/LaunchAgents/com.sfia.studio.next.recette.ml4d-ux004.plist.20261122T103212Z.pre-mandate-cutover-7115e932.bak` |
+| Ancien worktree | conservé + BUILD_ID `OwQrOGhC9rwk_Dtj31OcM` vérifié |
+| Exercice sur RECETTE saine | **NON** (prêt uniquement) |
+
+## 10. Métriques PostgreSQL avant / après
+
+```
+projects=26
+documents=117
+document_revisions=188
+messages=691
+conversations=205
+effect_attempts=6
+document_publication_refs=2
+project_git_links=15
+authorized_repositories=27
+sessions=125
+human_decisions=5
 ```
 
-## 7. Tests (création / extension)
-```diff
-commit 24a8fa9e7ad6cc2fa961496a915f13cea542d4a8
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Sun Nov 22 11:26:02 2026 +0100
+**METRICS_STABLE** (avant = après). Compteurs WRITE-campagne (messages/effect_attempts/refs/human_decisions) distincts des métriques historiques pré-campagne — stabilité post-cutover confirmée sans exiger retour aux anciens compteurs.
 
-    fix(next): honor explicit publication branch in D7 prepare
+Oracle D8 préservé : PR#19 + PR#20 `PR_OPEN`.
 
-    Stop silent correlation-hash substitution when the pilot names a publication head; keep auto-generation only when no explicit branch is mandated, and refuse plan drift before effect.
+## 11. Configuration GitHub (sans secrets)
 
-diff --git a/projects/sfia-studio-next/web/tests/unit/conversation-publication-authority.test.ts b/projects/sfia-studio-next/web/tests/unit/conversation-publication-authority.test.ts
-index b7dfc5ed..3692a4fe 100644
---- a/projects/sfia-studio-next/web/tests/unit/conversation-publication-authority.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/conversation-publication-authority.test.ts
-@@ -1,12 +1,15 @@
- import { describe, expect, it } from "vitest";
- import {
-   assertPublicationMandateCoversPlan,
-+  extractAllPublicationBranchHints,
-+  extractExplicitPublicationBranch,
-   extractPublicationBranchHint,
-   looksLikeTechnicalBranchName,
-   userStatementRefusesPublication,
-   userStatementRequestsMergeOnly,
-   userStatementRequestsUnnamedNewBranch,
- } from "@/domains/conversation/conversation-publication-mandate-guards";
-+import { publicationBranchFromCorrelationKey } from "@/domains/execution/fingerprint";
- import type { PublicationPlan } from "@/domains/execution/types";
+| Variable | Valeur |
+| --- | --- |
+| `STUDIO_GITHUB_PROVIDER` | `real` |
+| `STUDIO_GITHUB_ALLOW_MUTATIONS` | `documentary` |
+| `GITHUB_APP_WRITE_ALLOWED_REPOS` | `mcleland147/chantiers360` |
 
- function plan(overrides: Partial<PublicationPlan> = {}): PublicationPlan {
-@@ -173,3 +176,66 @@ describe("P0-01 branch hint extraction", () => {
-     expect(covered.ok).toBe(true);
-   });
- });
-+
-+describe("E08 WRITE mandate — explicit publication branch (R12 incident)", () => {
-+  const r12User = `Dans le projet CampusFlow, je t'autorise à effectuer une nouvelle publication documentaire réelle sur GitHub pour notre recette.
-+
-+Publie le document Studio « RECETTE ML4 — Publication documentaire R12 ».
-+
-+Destination :
-+- Dépôt : \`mcleland147/chantiers360\`
-+- Branche à créer : \`sfia/pub-r12-recette-20261122\`
-+- Chemin : \`docs/recette-studio-next/publication-documentaire.md\`
-+- Base : \`main\`
-+
-+Cette autorisation est limitée à ces opérations et à cette cible. Ne fusionne aucune PR.`;
-+
-+  it("extracts Branche à créer labeled form (incident reproduction)", () => {
-+    expect(extractAllPublicationBranchHints(r12User)).toContain("sfia/pub-r12-recette-20261122");
-+    expect(extractPublicationBranchHint(r12User)).toBe("sfia/pub-r12-recette-20261122");
-+    expect(
-+      extractExplicitPublicationBranch({ userText: r12User, baseBranch: "main" }),
-+    ).toBe("sfia/pub-r12-recette-20261122");
-+  });
-+
-+  it("PLAN_DRIFT when plan used correlation-derived branch instead of mandated name", () => {
-+    const corr = "pub:mission:turn-8ca19672-e702-489c-b6b8-dd03ed3a5049";
-+    const derived = publicationBranchFromCorrelationKey(corr);
-+    expect(derived).toBe("sfia/pub-91996c24991c351b");
-+    const drift = assertPublicationMandateCoversPlan({
-+      userStatement: r12User,
-+      qualifiedPath: "docs/recette-studio-next/publication-documentaire.md",
-+      qualifiedBranch: "sfia/pub-r12-recette-20261122",
-+      plan: plan({
-+        targetPath: "docs/recette-studio-next/publication-documentaire.md",
-+        targetBranch: "main",
-+        publicationBranch: derived,
-+      }),
-+    });
-+    expect(drift.ok).toBe(false);
-+    if (!drift.ok) expect(drift.reasonCode).toBe("PLAN_DRIFT");
-+  });
-+
-+  it("covers plan when publicationBranch matches the mandated name", () => {
-+    const covered = assertPublicationMandateCoversPlan({
-+      userStatement: r12User,
-+      qualifiedPath: "docs/recette-studio-next/publication-documentaire.md",
-+      qualifiedBranch: "sfia/pub-r12-recette-20261122",
-+      plan: plan({
-+        targetPath: "docs/recette-studio-next/publication-documentaire.md",
-+        targetBranch: "main",
-+        publicationBranch: "sfia/pub-r12-recette-20261122",
-+      }),
-+    });
-+    expect(covered.ok).toBe(true);
-+  });
-+
-+  it("keeps auto-generation legitimate when no publication head is named", () => {
-+    expect(
-+      extractExplicitPublicationBranch({
-+        userText: "Publie ce document sur une nouvelle branche du repo chemin docs/a.md",
-+        baseBranch: "main",
-+      }),
-+    ).toBeNull();
-+  });
-+});
-diff --git a/projects/sfia-studio-next/web/tests/unit/publication-branch-mandate.test.ts b/projects/sfia-studio-next/web/tests/unit/publication-branch-mandate.test.ts
-new file mode 100644
-index 00000000..b86e384f
---- /dev/null
-+++ b/projects/sfia-studio-next/web/tests/unit/publication-branch-mandate.test.ts
-@@ -0,0 +1,61 @@
-+import { describe, expect, it } from "vitest";
-+import {
-+  publicationBranchFromCorrelationKey,
-+  resolvePublicationBranchName,
-+} from "@/domains/execution/fingerprint";
-+import { extractExplicitPublicationBranch } from "@/domains/conversation/conversation-publication-mandate-guards";
-+
-+describe("preparePublication branch selection contract", () => {
-+  it("uses explicit Pilote branch without correlation substitution", () => {
-+    const corr = "pub:mission:turn-8ca19672-e702-489c-b6b8-dd03ed3a5049";
-+    const mandated = "sfia/pub-r12-recette-20261122";
-+    const out = resolvePublicationBranchName({
-+      correlationKey: corr,
-+      targetBranch: "main",
-+      publicationBranch: mandated,
-+    });
-+    expect(out.ok).toBe(true);
-+    if (out.ok) {
-+      expect(out.publicationBranch).toBe(mandated);
-+      expect(out.publicationBranch).not.toBe(publicationBranchFromCorrelationKey(corr));
-+    }
-+  });
-+
-+  it("auto-generates from correlationKey when no explicit head is named", () => {
-+    const corr = "pub:mission:turn-demo";
-+    const out = resolvePublicationBranchName({
-+      correlationKey: corr,
-+      targetBranch: "main",
-+      publicationBranch: null,
-+    });
-+    expect(out.ok).toBe(true);
-+    if (out.ok) {
-+      expect(out.publicationBranch).toBe(publicationBranchFromCorrelationKey(corr));
-+      expect(out.publicationBranch.startsWith("sfia/pub-")).toBe(true);
-+    }
-+  });
-+
-+  it("refuses explicit branch identical to base", () => {
-+    const out = resolvePublicationBranchName({
-+      correlationKey: "pub:mission:x",
-+      targetBranch: "main",
-+      publicationBranch: "main",
-+    });
-+    expect(out.ok).toBe(false);
-+    if (!out.ok) expect(out.reason).toBe("SAME_AS_BASE");
-+  });
-+
-+  it("end-to-end: USER labeled branch → prepare input → not correlation hash", () => {
-+    const user = `- Branche à créer : \`sfia/pub-r12-recette-20261122\`\n- Base : \`main\``;
-+    const explicit = extractExplicitPublicationBranch({ userText: user, baseBranch: "main" });
-+    expect(explicit).toBe("sfia/pub-r12-recette-20261122");
-+    const corr = "pub:mission:turn-8ca19672-e702-489c-b6b8-dd03ed3a5049";
-+    const out = resolvePublicationBranchName({
-+      correlationKey: corr,
-+      targetBranch: "main",
-+      publicationBranch: explicit,
-+    });
-+    expect(out).toEqual({ ok: true, publicationBranch: "sfia/pub-r12-recette-20261122" });
-+    expect(publicationBranchFromCorrelationKey(corr)).toBe("sfia/pub-91996c24991c351b");
-+  });
-+});
+Boot post-cutover confirme les mêmes valeurs. REAL **non** désactivé.
+
+## 12. Smokes HTTP et service
+
+| Path | HTTP | BUILD |
+| --- | --- | --- |
+| `/login` | 200 | `<!--qCQGWLYYGb0ZCA4BLfzBi-->` |
+| `/portfolio` | 200 | `<!--qCQGWLYYGb0ZCA4BLfzBi-->` |
+| `/settings/integrations` | 200 | `<!--qCQGWLYYGb0ZCA4BLfzBi-->` |
+
+| Contrôle | Résultat |
+| --- | --- |
+| Listeners :3200 | **1** |
+| Process | `next-server (v15.5.29)` PID 44643 |
+| Launchd | running · program = start-recette-ensemble08-mandate-24a8fa9e.sh |
+| PostgreSQL | opérationnel · métriques stables |
+| Secrets dans logs/rapport | **NONE** exposés |
+
+## 13. Résultats GitHub READ (non mutatif)
+
+| Élément | État observé |
+| --- | --- |
+| PR#19 | OPEN · non draft · mergedAt=null · head `sfia/pub-3ab1e0c2eb6b7499` · https://github.com/mcleland147/chantiers360/pull/19 |
+| PR#20 | OPEN · non draft · mergedAt=null · head `sfia/pub-91996c24991c351b` · https://github.com/mcleland147/chantiers360/pull/20 |
+| Top PRs récentes | #20 (10:03Z) · #19 (06:22Z) · #18 (nov 8) — **aucune** PR créée par ce cutover |
+| Branches/commits créés par cutover | **NONE** |
+
+## 14. Fichiers documentaires modifiés et diffs
+
+Commit local (sans push) : `a7e67b97693a8f5b02cdeb77d6d73ba35666b63c`
+
+Fichiers :
+
+1. `projects/sfia-studio-next/construction/delivery-history.md`
+2. `projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md`
+3. `projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md`
+
+Diff résumé (3 files, +106/-5). Entrées clés : delivery WRITE-MANDATE-CUTOVER ; as-built section cutover 11:32 CET ; manifeste section courante remplacée + historique corrective.
+
+PV `docs/next-git-recette-20261122` : **NON modifié**.
+
+Diff delivery-history + as-built (extrait observé) :
+
+```
++## delivery_id: DELIV-2026-11-22-ENSEMBLE08-WRITE-MANDATE-CUTOVER
++ SOURCE_SHA 24a8fa9e… / TREE ece43cdb… / BUILD qCQGWLYYGb0ZCA4BLfzBi
++ Avant @7115e932 / OwQrOGhC9rwk_Dtj31OcM
++ Verdict RECETTE AVAILABLE — E08 WRITE MANDATE CORRECTIVE SERVED — MORRIS UAT REQUIRED
++### Cutover RECETTE — mandat WRITE branche (2026-11-22 ≈ 11:32 CET)
 ```
 
-## 8. Documentation
+Diff manifeste : section courante WRITE MANDATE + backup SHA `277ccba0…` + rollback `ROLLBACK-TO-E08-7115e932.sh` — commit `a7e67b97` mono-lot docs.
+
+## 15. Distinction DETERMINISTIC / BROWSER / LIVE / REAL
+
+| Classe | Statut ce cycle |
+| --- | --- |
+| DETERMINISTIC | N/A (pas de rebuild/tests unit ce cycle cutover) |
+| BROWSER / HTTP smoke | **PROVEN** — login/portfolio/integrations 200 + BUILD marker |
+| LIVE Nora conversationnel | **NOT PROVEN** |
+| REAL GitHub READ | **PROVEN** — PR#19/#20 OPEN |
+| REAL GitHub WRITE / mutation | **NONE** déclenchée |
+| SCRIPTED | N/A |
+
+## 16. Réserves et gates restants
+
+1. **GIT-WRITE-UAT-04** requis (Morris) — nouveau document/révision + branche explicitement nommée.
+2. Conformité USER → D6 → D7 → GitHub → D8 à retester ; PR#20 **non** corrigée rétroactivement.
+3. Nora LIVE E2E **NOT PROVEN** par smokes HTTP.
+4. STABLE / release / ADOPTED : **NOT AVAILABLE** / **NON**.
+5. Commit docs locaux `a7e67b97` non poussé (interdit).
+6. Rollback prêt non exercé sur RECETTE saine.
+
+## 17. Verdict final
+
+**RECETTE AVAILABLE — E08 WRITE MANDATE CORRECTIVE SERVED — MORRIS UAT REQUIRED**
+
+| Élément | Valeur |
+| --- | --- |
+| SOURCE | `24a8fa9e7ad6cc2fa961496a915f13cea542d4a8` |
+| TREE | `ece43cdb8c008b855c381d50f112f8b86e5a2207` |
+| BUILD | `qCQGWLYYGb0ZCA4BLfzBi` (HTTP `<!--qCQGWLYYGb0ZCA4BLfzBi-->`) |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` · running · :3200 |
+| Backup | `ml4d-e08-pre-mandate-cutover-20261122T103212Z-from-7115e932.sql.gz` · SHA-256 `277ccba0991b43416736fedd038980d451cab9693fd509658dc122eeafba7837` |
+| Restore proof | PASS |
+| PostgreSQL | métriques stables (voir §10) |
+| GitHub | real / documentary / allowlist chantiers360 · PR#19/#20 OPEN |
+| Projet Git | branche feat · docs commit local `a7e67b97` · **no push** |
+| Handoff | voir publication L3 |
+
+### Diff complet commit a7e67b97
+
 ```diff
-commit 24a8fa9e7ad6cc2fa961496a915f13cea542d4a8
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Sun Nov 22 11:26:02 2026 +0100
-
-    fix(next): honor explicit publication branch in D7 prepare
-
-    Stop silent correlation-hash substitution when the pilot names a publication head; keep auto-generation only when no explicit branch is mandated, and refuse plan drift before effect.
-
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index a042b97f..4a9e4d5c 100644
+index 4a9e4d5c..dee36e98 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -3,6 +3,22 @@
+@@ -3,6 +3,25 @@
  Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
-
-+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-WRITE-MANDATE-BRANCH
+ 
++## delivery_id: DELIV-2026-11-22-ENSEMBLE08-WRITE-MANDATE-CUTOVER
 +
 +| Field | Value |
 +| --- | --- |
-+| Date | 2026-11-22 ≈ 11:30 CET (Europe/Paris) |
-+| Macro-lot | Ensemble 08 — correctif mandat publication : branche explicite |
-+| Type | INC / QA · CRITICAL · **NO RELEASE** |
-+| Cause | `preparePublication` substituait toujours un hash correlation ; regex « Branche à créer » incomplète |
-+| Fix | `resolvePublicationBranchName` + wiring mission/D6 guards |
-+| Incident | CampusFlow R12 · `efx_d8f8e550…` · PR#20 (historique inchangé) |
-+| Preuves | unit **848/848** · PG accept01 **11/11** · tsc PASS |
-+| RECETTE | **INCHANGÉE** `7115e932` / `OwQrOGhC9rwk_Dtj31OcM` |
-+| Cutover | **NONE** — GO cutover Morris distinct requis |
-+| Push projet / mutation GitHub | **NONE** |
-+| STABLE | NOT AVAILABLE |
++| Date | 2026-11-22 ≈ 11:32 CET (Europe/Paris) |
++| Macro-lot | Ensemble 08 — cutover RECETTE correctif mandat WRITE (branche explicite) |
++| Type | MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
++| SOURCE_SHA | `24a8fa9e7ad6cc2fa961496a915f13cea542d4a8` |
++| TREE | `ece43cdb8c008b855c381d50f112f8b86e5a2207` |
++| BUILD_ID | `qCQGWLYYGb0ZCA4BLfzBi` |
++| Avant | `@7115e932` / `OwQrOGhC9rwk_Dtj31OcM` |
++| Après | HTTP `<!--qCQGWLYYGb0ZCA4BLfzBi-->` · ml4d-ux004 |
++| Backup | `ml4d-e08-pre-mandate-cutover-20261122T103212Z-from-7115e932.sql.gz` + restore PASS |
++| Rollback | prêt vers `7115e932` / `OwQrOGhC9rwk_Dtj31OcM` (non exercé) |
++| DB | préservée · métriques stables · PR#19/#20 intactes |
++| Rebuild | **NONE** |
++| Push projet | **NONE** |
++| Verdict | **RECETTE AVAILABLE — E08 WRITE MANDATE CORRECTIVE SERVED — MORRIS UAT REQUIRED** |
 +
- ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-CORRECTIVE-CUTOVER
-
+ ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-WRITE-MANDATE-BRANCH
+ 
  | Field | Value |
+@@ -14,8 +33,8 @@ Append-only logical journal of Cursor product deliveries.
+ | Fix | `resolvePublicationBranchName` + wiring mission/D6 guards |
+ | Incident | CampusFlow R12 · `efx_d8f8e550…` · PR#20 (historique inchangé) |
+ | Preuves | unit **848/848** · PG accept01 **11/11** · tsc PASS |
+-| RECETTE | **INCHANGÉE** `7115e932` / `OwQrOGhC9rwk_Dtj31OcM` |
+-| Cutover | **NONE** — GO cutover Morris distinct requis |
++| RECETTE | cutover **EXECUTED** — voir DELIV-…-WRITE-MANDATE-CUTOVER |
++| Cutover | **EXECUTED** |
+ | Push projet / mutation GitHub | **NONE** |
+ | STABLE | NOT AVAILABLE |
+ 
 diff --git a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
-index 3e93cbab..c73a1903 100644
+index c73a1903..5341346a 100644
 --- a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
 +++ b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
-@@ -128,6 +128,14 @@
- - Manifeste : `manifeste-cutover-recette-e07-plus-e08.md` (section courante).
- - **UAT Morris** : reprise ciblée GIT-UAT-03 / GIT-UAT-04 · GIT-UAT-08 hors mandat · Nora LIVE E2E **NOT PROVEN** par smoke.
-
-+### Correctif mandat WRITE — branche explicite (2026-11-22)
-+- **Incident RECETTE** : USER `msg_e2cd5e69…` autorisait `sfia/pub-r12-recette-20261122` ; plan/effet `efx_d8f8e550…` / PR#20 ont exécuté `sfia/pub-91996c24991c351b` (hash `correlationKey`).
-+- **Cause prouvée** : (1) `preparePublication` forçait toujours `publicationBranchFromCorrelationKey` — **premier point de divergence** au prepare D7 ; (2) extraction « Branche à créer : \`…\` » manquante → garde D6 `assertPublicationMandateCoversPlan` ne déclenchait pas `PLAN_DRIFT`.
-+- **Correction** : `resolvePublicationBranchName` (explicite > hash) ; `preparePublication({ publicationBranch })` ; wiring mission/service ; regex labeled ; `extractExplicitPublicationBranch`.
-+- Auto-génération **conservée** si aucune tête explicite.
-+- RECETTE runtime **INCHANGÉ** (`7115e932` / `OwQrOGhC9rwk_Dtj31OcM`) — pas de cutover ce cycle ; PR#19/#20 **non mutées**.
-+- Preuves : unit **848** PASS · PG accept01 **11** PASS · tsc PASS · GitHub REAL mutation **NONE**.
+@@ -133,9 +133,17 @@
+ - **Cause prouvée** : (1) `preparePublication` forçait toujours `publicationBranchFromCorrelationKey` — **premier point de divergence** au prepare D7 ; (2) extraction « Branche à créer : \`…\` » manquante → garde D6 `assertPublicationMandateCoversPlan` ne déclenchait pas `PLAN_DRIFT`.
+ - **Correction** : `resolvePublicationBranchName` (explicite > hash) ; `preparePublication({ publicationBranch })` ; wiring mission/service ; regex labeled ; `extractExplicitPublicationBranch`.
+ - Auto-génération **conservée** si aucune tête explicite.
+-- RECETTE runtime **INCHANGÉ** (`7115e932` / `OwQrOGhC9rwk_Dtj31OcM`) — pas de cutover ce cycle ; PR#19/#20 **non mutées**.
+ - Preuves : unit **848** PASS · PG accept01 **11** PASS · tsc PASS · GitHub REAL mutation **NONE**.
+ 
++### Cutover RECETTE — mandat WRITE branche (2026-11-22 ≈ 11:32 CET)
++- **GO Morris** honoré : SOURCE `24a8fa9e…` · TREE `ece43cdb…` · BUILD `qCQGWLYYGb0ZCA4BLfzBi` (sans rebuild).
++- **AVANT** : `7115e932…` / `OwQrOGhC9rwk_Dtj31OcM` · service `ml4d-ux004`.
++- **APRÈS** : même service/port/DB · worktree `…/mandate-build-24a8fa9e` · HTTP `<!--qCQGWLYYGb0ZCA4BLfzBi-->`.
++- Backup + restore proof PASS · métriques DB stables · PR#19/#20 D8 intactes · REAL+documentary conservés · **zéro** mutation GitHub.
++- Rollback prêt vers `7115e932` / `OwQrOGhC9rwk_Dtj31OcM` (non exercé).
++- Manifeste : `manifeste-cutover-recette-e07-plus-e08.md` (section courante).
++- **UAT Morris** : GIT-WRITE-UAT-04 (nouveau doc/rév. + branche explicite) · PR#20 non corrigée rétroactivement · Nora LIVE E2E **NOT PROVEN** par smoke.
 +
  ## Non livré / réserves
  - Figma G5 géométrie 11.06 (F2) : **PROVEN** en DEV SCRIPTED — acceptation visuelle Morris UAT distincte
  - END-TO-END REAL mutation GitHub : **NOT PROVEN** (sandbox/GO WRITE non nommé ce lot)
-diff --git a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/matrice-capacites-git-chaine-2026-11-22.md b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/matrice-capacites-git-chaine-2026-11-22.md
-index 87a8ff66..8dabfbb5 100644
---- a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/matrice-capacites-git-chaine-2026-11-22.md
-+++ b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/matrice-capacites-git-chaine-2026-11-22.md
-@@ -131,6 +131,8 @@ Checks : dual 403 → `ACCESS_DENIED` (retry `withReadToken`) ; un seul endpoint
- | Merge | `d7.merge_publication` | mandat **distinct** | DET ; REAL **BLOQUÉ** |
- | Create branch / commit / PR | steps plan | sous publication | DET/PG |
-
-+**Invariant branche (correctif 2026-11-22)** : si le Pilote nomme explicitement une branche de publication (`Branche à créer : …`), `preparePublication` doit l’utiliser telle quelle ; sinon dérivation `correlationKey`. Une divergence plan↔mandat → `PLAN_DRIFT` avant effet. Auto-génération conservée si aucune tête explicite. Incident PR#20 = preuve historique (non réécrit).
-+
- ## Faits D8 oracle PR#19 (RECETTE DB — non mutés)
-
+diff --git a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md
+index efca7277..73e310cd 100644
+--- a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md
++++ b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md
+@@ -1,15 +1,89 @@
+ # Manifeste ENV-01 — Cutover RECETTE (journal)
+ 
+-## Cutover courant — E08 CORRECTIVE HARDENING (2026-11-22)
++## Cutover courant — E08 WRITE MANDATE BRANCH CORRECTIVE (2026-11-22)
+ 
  | Champ | Valeur |
+ | --- | --- |
+-| Date/heure cutover | 2026-11-22 ≈ 10:06 CET (UTC 09:06) |
++| Date/heure cutover | 2026-11-22 ≈ 11:32 CET (UTC 10:32) |
+ | Classe | **NO RELEASE** |
+ | Lane | **RECETTE existante** (`STUDIO_LANE=RECETTE`, port **3200**) |
+ | Cutover | **EXECUTED** — GO Morris triplet exact honoré |
+ | STABLE | NOT AVAILABLE / non modifié |
+ | E08 ADOPTED | **NON** |
++| Verdict | **RECETTE AVAILABLE — E08 WRITE MANDATE CORRECTIVE SERVED — MORRIS UAT REQUIRED** |
++
++### GO Morris (borné)
++
++| Champ | Valeur |
++| --- | --- |
++| SOURCE_SHA | `24a8fa9e7ad6cc2fa961496a915f13cea542d4a8` |
++| TREE | `ece43cdb8c008b855c381d50f112f8b86e5a2207` |
++| BUILD_ID | `qCQGWLYYGb0ZCA4BLfzBi` |
++| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-mandate-build-24a8fa9e` |
++| Rebuild | **NONE** — artefact figé réutilisé (mtime BUILD_ID 2026-11-22 11:26:32) |
++| Push/PR/merge projet | **NONE** |
++| Mutation GitHub / merge PR#19/#20 | **NONE** |
++
++### Runtime AVANT
++
++| Champ | Valeur |
++| --- | --- |
++| SOURCE_SHA | `7115e932dad8628af13cd5dcbf1fefc3a227c81e` |
++| TREE | `bdfd5648f9dbc2ba49dda2863e6957c606d4cec6` |
++| BUILD_ID | `OwQrOGhC9rwk_Dtj31OcM` |
++| Script | `…/ensemble08-corrective-build-7115e932/start-recette-ensemble08-corrective-7115e932.sh` |
++| PID launchd / node | 4957 / 4982 |
++
++### Runtime APRÈS — observé
++
++| Champ | Valeur |
++| --- | --- |
++| URL | http://127.0.0.1:3200 |
++| Service | `com.sfia.studio.next.recette.ml4d-ux004` (même label) |
++| Script | `…/ensemble08-mandate-build-24a8fa9e/start-recette-ensemble08-mandate-24a8fa9e.sh` |
++| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-mandate-build-24a8fa9e` |
++| PID launchd / node | 44626 / 44643 |
++| HTTP BUILD | `<!--qCQGWLYYGb0ZCA4BLfzBi-->` |
++| Boot | `PROVIDER=real` · `ALLOW_MUTATIONS=documentary` · `WRITE_ALLOWLIST=mcleland147/chantiers360` |
++| Listener :3200 | **1** |
++
++### Backup / restore proof / rollback
++
++| Élément | Valeur |
++| --- | --- |
++| Backup | `…/mandate-build-24a8fa9e/.sfia-recette/backups/ml4d-e08-pre-mandate-cutover-20261122T103212Z-from-7115e932.sql.gz` (765K) |
++| SHA256 | `277ccba0991b43416736fedd038980d451cab9693fd509658dc122eeafba7837` |
++| Restore proof | DB temp `sfia_next_recette_restore_proof_mandate` → metrics match → DROP |
++| Plist bak | `com.sfia.studio.next.recette.ml4d-ux004.plist.20261122T103212Z.pre-mandate-cutover-7115e932.bak` |
++| Rollback script | `…/mandate-build-24a8fa9e/ROLLBACK-TO-E08-7115e932.sh` (**prêt**, non exercé ; cible `7115e932` / `OwQrOGhC9rwk_Dtj31OcM`) |
++| Ancien build | worktree `corrective-build-7115e932` / BUILD `OwQrOGhC9rwk_Dtj31OcM` disponible |
++
++### Métriques DB (avant = après)
++
++projects=26 · documents=117 · document_revisions=188 · messages=691 · conversations=205 · effect_attempts=6 · document_publication_refs=2 · project_git_links=15 · authorized_repositories=27 · sessions=125 · human_decisions=5
++
++Oracle D8 : `dpr_7f10c5e4…` PR#19 PR_OPEN · `dpr_1069f349…` PR#20 PR_OPEN.
++
++### Smokes
++
++login/portfolio/integrations HTTP 200 + BUILD `qCQGWLYYGb0ZCA4BLfzBi` · REAL READ gh PR#19/#20 OPEN non fusionnées · aucune mutation · Nora LIVE **NOT PROVEN**.
++
++### Prochaine UAT
++
++GIT-WRITE-UAT-04 sur nouveau document/révision + branche explicitement nommée · conformité USER → D6 → D7 → GitHub → D8 · PR#20 **non** corrigée rétroactivement.
++
++---
++
++## Historique — E08 CORRECTIVE HARDENING (2026-11-22 ≈ 10:06 CET)
++
++| Champ | Valeur |
++| --- | --- |
++| Date/heure cutover | 2026-11-22 ≈ 10:06 CET (UTC 09:06) |
++| Classe | **NO RELEASE** |
++| Lane | **RECETTE existante** (`STUDIO_LANE=RECETTE`, port **3200**) |
++| Cutover | **EXECUTED** — remplacé ensuite par cutover mandat WRITE ci-dessus |
++| STABLE | NOT AVAILABLE / non modifié |
++| E08 ADOPTED | **NON** |
+ | Verdict | **RECETTE AVAILABLE — E08 CORRECTIVE BUILD SERVED — MORRIS UAT REQUIRED** |
+ 
+ ### GO Morris (borné)
 ```
-
-## 9. Stat commit
-```
-commit 24a8fa9e7ad6cc2fa961496a915f13cea542d4a8
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Sun Nov 22 11:26:02 2026 +0100
-
-    fix(next): honor explicit publication branch in D7 prepare
-
-    Stop silent correlation-hash substitution when the pilot names a publication head; keep auto-generation only when no explicit branch is mandated, and refuse plan drift before effect.
-
- .../construction/delivery-history.md               | 16 ++++++
- .../ensemble-08-git-et-publications/as-built.md    |  8 +++
- .../matrice-capacites-git-chaine-2026-11-22.md     |  2 +
- .../[projectId]/git/publications/prepare/route.ts  |  2 +
- .../conversation-publication-mandate-guards.ts     | 34 ++++++++++-
- .../src/domains/conversation/mission-continuity.ts |  5 ++
- .../web/src/domains/conversation/service.ts        | 43 +++++++++++++-
- .../web/src/domains/execution/effect-service.ts    | 24 +++++++-
- .../web/src/domains/execution/fingerprint.ts       | 26 +++++++++
- .../conversation-publication-authority.test.ts     | 66 ++++++++++++++++++++++
- .../unit/git-read-hardening-corrective.test.ts     |  6 ++
- .../tests/unit/publication-branch-mandate.test.ts  | 61 ++++++++++++++++++++
- 12 files changed, 286 insertions(+), 7 deletions(-)
-```
-
-## 10. Tests exécutés
-
-| Suite | Résultat | Preuve |
-| --- | --- | --- |
-| tsc --noEmit | PASS | DET |
-| vitest unit | **848/848** | DET |
-| conversation-publication-authority + publication-branch-mandate | 20 PASS | DET |
-| mission-continuity-accept01.pg | **11/11** (DEV :5433) | DET/PG |
-| Nora LIVE / GitHub REAL WRITE | **NOT PROVEN** / **NONE** | — |
-
-## 11. Fake / Real
-
-| Capacité | Niveau |
-| --- | --- |
-| Cause + chronologie DB RECETTE | REAL BOUNDARY PROVEN (lecture) |
-| Correctif branche explicite | DETERMINISTIC PROVEN |
-| Non-régression accept01 | DETERMINISTIC PROVEN |
-| Retest WRITE REAL post-cutover | **NOT PROVEN** — prochain GO Morris |
-
-## 12. Proposition mise à jour PV (branche docs — non poussée ici)
-
-- WRITE-01 PASS
-- WRITE-02 PASS
-- WRITE-03 N/A contextuel
-- WRITE-04 PARTIAL : publication REAL prouvée, écart de branche (cause corrigée en candidat local)
-- WRITE-05 PARTIAL : réconciliation externe OK, conformité interne non prouvée à l’époque
-- WRITE-06 PASS fonctionnel (reprise)
-- WRITE-07 non testé
-- WRITE-08 PASS fonctionnel
-
-## 13. Retests Morris proposés (après cutover distinct)
-
-1. Nouvelle publication sandbox avec « Branche à créer : `sfia/pub-…-explicit` » → branche GitHub **identique**.
-2. Sans nom de branche → auto `sfia/pub-<hash16>` conservé.
-3. Branche contradictoire / collision → refus avant effet.
-4. PR#20 historique **non réécrite**.
-
-## 14. Verdict
-
-**READY FOR CHATGPT REVIEW — E08 WRITE MANDATE CORRECTIVE**
-
-Instruction ChatGPT : relire depuis Git `sfia-review-handoff/latest-chatgpt-review.md`, vérifier chronologie D6/D7/D9 et diffs, puis préparer un **GO cutover distinct** sur `24a8fa9e` / `ece43cdb` / `qCQGWLYYGb0ZCA4BLfzBi` si la revue est favorable.
