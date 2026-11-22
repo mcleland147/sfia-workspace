@@ -1,6 +1,8 @@
 # SFIA Studio Next — Ensemble 08
 ## Contrat d'architecture et d'acceptation — Dépôts Git, publications et conduite de Nora
 
+> **État d'exécution actualisé le 22/11/2026 :** les statuts et écarts AS-IS de ce dossier restent historiques. Lire l'**addendum §17** pour l'architecture candidate réalisée, les preuves, les réserves et les gates actuels.
+
 | Champ | Qualification |
 | --- | --- |
 | Version | **v0.1 — 21 novembre 2026** |
@@ -729,24 +731,67 @@ L'approbation de vision et du présent contrat ne dispense pas des gates de code
 
 ---
 
-## 17. Section d'exécution datée — consolidation PR readiness (2026-11-22 13:34 Europe/Paris)
+## 17. Addendum architecture AS-BUILT E08 — 22 novembre 2026
 
-| Champ | Valeur |
-| --- | --- |
-| Nature | Constat d'exécution factuel — **ne remplace pas** le contrat d'architecture candidat §§1–16 |
-| Candidat utilisateur recetté | SOURCE `10128bdb…` / TREE `be778f1b…` / BUILD `2uHrYBsQUvf6aii40hMpj` |
-| Blob architecture sur branche docs | `9fe9a6ce773c0796836be3e51b12d268bbcd8100` — **identique** au blob produit |
+**Nature : consolidation du contrat d'architecture candidat après construction et revue technique.** Contenu approuvé par Morris pour publication documentaire le 22/11/2026 ; aucune modification normative de SEF, des décisions, de R2, d'ENV-01 ni d'ADR. Les sections 0–16 constituent l'historique de conception à la date de leur rédaction ; leurs mentions « non implémenté » ou « NOT STARTED » ne décrivent plus le candidat E08 postérieur. L'addendum ne prétend pas promouvoir le dossier entier en VALIDATED SPEC ou le produit en ADOPTED.
 
-### Mise à jour factuelle vs AS-IS initial du contrat
+### 17.1 État réalisé et frontières propriétaires
 
-| Capacité | Statut contrat initial | Statut d'exécution (2026-11-22) |
+| Domaine | Réalisation dans le candidat E08 | Limite |
 | --- | --- | --- |
-| Merge REAL provider | NON IMPLÉMENTÉ / hard-blocked | **Implémenté** sous gate `documentary` + D6/D7 ; **NOT PROVEN** par effet GitHub réel |
-| Mode fournisseur figé | Non traité | **C1** fail-closed UNKNOWN/mismatch |
-| Réconciliation merge | Non traitée | **C2** provenance + séparation SOURCE HEAD / mergeCommitSha |
-| SCRIPTED cible | Non traité | **C3** avance uniquement `baseRef` |
-| Construction / acceptation E08 | NOT STARTED | Candidat construit, cutover RECETTE exécuté, UAT Morris partielle |
+| D3 — Nora | Qualification et conduite des intentions Git, restitution dans la conversation | E2E LIVE merge non exercé |
+| D4 — Documents | Révisions source et références de publication | Audit exhaustif des données LIVE non réalisé |
+| D6 — Décisions | Mandats distincts de publication documentaire et de fusion, liés à la demande utilisateur | Autorité toujours requise au point d'effet |
+| D7 — Exécution | Préparation, dispatch, fingerprint, mode fournisseur figé, requalification et réconciliation | WRITE-07 en REAL non testé |
+| D8 — Résultats et preuves | Références de publication, fait MERGE corrélé et SHA de fusion distinct de la source | Succès merge REAL non prouvé |
+| D9 — GitHub | Lecture et publication documentaire REAL éprouvée ; chemin merge REAL implémenté avec éligibilité restrictive | Aucun appel de fusion GitHub REAL exécuté |
+| UX | Dépôts, branches, arborescence, preview, publications et fallback « Aperçu indisponible » Figma 11.17 | Couverture visuelle exhaustive non démontrée |
 
-Addenda ChatGPT 22/11/2026 : **AWAITING Morris D2** — non publiés comme normatifs ici.
+**Aucun nouveau moteur d'effets ni nouvelle autorité métier** n'a été introduit par le macro-lot selon les diffs et rapports examinés.
 
-*Fin section d'exécution §17 — contrat architecture.*
+### 17.2 Invariants techniques retenus
+
+- Une publication ne vaut jamais autorisation implicite de merge.
+- Un plan de fusion sans **effectProviderMode REAL ou SCRIPTED prouvé** est refusé avant toute mutation ; toute divergence impose requalification.
+- D6 exige un mandat de fusion distinct et lié au plan exact. Les permissions GitHub ne sont pas inférées d'un texte produit par Nora.
+- D7 contrôle dépôt, PR, HEAD/ref source et cible avant l'effet ; la réconciliation interdit une attribution de succès sans provenance suffisante.
+- **SHA du commit source documentaire et SHA du commit de fusion distincts** : le premier demeure la référence source de publication, le second est conservé dans le détail et le fait MERGE.
+- Le fournisseur SCRIPTED avance uniquement la branche cible.
+- L'API GitHub de fusion n'est accessible que dans le périmètre documentaire autorisé, sans force merge ni bypass des règles de sécurité.
+- L'état **mergeable=true** ne vaut pas éligibilité à lui seul : le contrat implémenté exige **mergeable_state=clean**. Les états unstable, blocked, dirty ou inconnus sont refusés.
+
+Ces invariants ont été inspectés dans les diffs et éprouvés par tests ciblés SCRIPTED/mock, **pas** par une mutation GitHub de fusion réelle.
+
+### 17.3 Traçabilité des builds et preuves
+
+| Élément | Source / statut |
+| --- | --- |
+| Dernier SOURCE candidat | 10128bdb6bb1020a0fd8d4976b91879bff26c3b3, **local non poussé** |
+| TREE candidat | be778f1bf461f15acf94bfed6879d43fa6256a0d |
+| BUILD RECETTE | 2uHrYBsQUvf6aii40hMpj |
+| URL | http://127.0.0.1:3200 |
+| [Handoff développement merge](https://github.com/mcleland147/sfia-workspace/blob/430a1698ae7e992cdf16423937663452c8bb430d/sfia-review-handoff/latest-chatgpt-review.md) | Première livraison ; tests ciblés, diffs complets et réserves |
+| [Handoff correction C1/C2/C3](https://github.com/mcleland147/sfia-workspace/blob/3b11edd0b95ce90070f52ca75907f00e49a83610/sfia-review-handoff/latest-chatgpt-review.md) | Correction de sûreté et preuves PostgreSQL 8/8, sécurité 5/5, tests unitaires et TypeScript PASS selon Cursor |
+| [Handoff cutover RECETTE](https://github.com/mcleland147/sfia-workspace/blob/f30451d2dac193d6fc610194594f80e8616754c2/sfia-review-handoff/latest-chatgpt-review.md) | Compilation, BUILD_ID servi, backup SHA-256, restore proof et rollback rapportés PASS ; rapport vérifié sur GitHub |
+| Rollback immédiat préparé | SOURCE 98118de073e9df5f2446592a281060ddb64369fe ; BUILD _U3Z92BCd0K_-hiMvgTP9 |
+| GitHub sandbox | mcleland147/chantiers360, PR #21 OPEN, fusion non exécutée |
+
+ChatGPT n'a pas accès au worktree ou au serveur local et ne transforme pas les contrôles de Cursor en mesures locales indépendantes. La RECETTE sert ce candidat **selon le handoff cutover**.
+
+### 17.4 UX et acceptation
+
+- Source UX : Figma page 11, notamment 11.17, et visionneuse Travail réutilisée ; aucun contrat UX concurrent créé.
+- Morris a accepté visuellement le cas **DOCX « Aperçu indisponible »** sur capture RECETTE. La destination effective du clic GitHub et la fidélité pixel-perfect générale ne sont pas prouvées par cette capture.
+- Cas READ : sept PASS cumulés inter-builds ; PREVIEW-02/03/05/06/07/11 gardent leurs réserves techniques.
+- WRITE-04 : publication sur branche exacte avec PR #21 vérifiée LIVE/REAL ; WRITE-05 : réconciliation READ avec limites D6/D7/D8.
+- WRITE-07 et merge LIVE/REAL : **NON TESTÉS**.
+
+### 17.5 Dette acceptée, STOP et suite
+
+Le préflight GitHub de la PR #21 indique **mergeable=true / mergeable_state=unstable** : trois checks SUCCESS (Docker, backend, frontend), deux audits npm FAILURE. Les protections de branche ne sont pas consultables avec les droits actuels ; aucune exemption n'est inférée.
+
+**Arbitrage Morris :** arrêter l'essai de fusion plutôt que modifier les dépendances sandbox, contourner clean ou multiplier les PR de test. La dette de preuve est explicitement reportée vers R6 ; elle ne devient pas un PASS.
+
+**Sortie architecture du macro-lot :** code et documentation E08 candidats cohérents au niveau des changements examinés, **READY FOR GIT INTEGRATION REVIEW WITH DOCUMENTED RESERVES**. L'intégration projet, la CI de PR, le post-merge et la clôture restent soumis à gates distincts. **NO RELEASE / STABLE NOT AVAILABLE / E08 NON ADOPTED.**
+
+*Fin de l'addendum architecture E08 du 22 novembre 2026.*

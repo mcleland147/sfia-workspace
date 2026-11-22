@@ -216,8 +216,19 @@
 
 ### Consolidation documentaire PR readiness (2026-11-22)
 
-- PV `recette-acceptation-partielle-2026-11-22.md` intégré depuis `docs/next-git-recette-20261122` (blob source `e767edc6…`) + §20 exécution datée.
-- Contrats fonctionnel / architecture : sections d'exécution §17 datées ; historique §§1–16 **non réécrit**.
-- Addenda ChatGPT structurants 22/11 : **AWAITING Morris D2** — non publiés comme normatifs.
+- PV `recette-acceptation-partielle-2026-11-22.md` intégré depuis `docs/next-git-recette-20261122` (blob source `e767edc6…`) + section d'exécution datée.
+- Contrats fonctionnel / architecture : sections d'exécution datées ; historique initial **non réécrit**.
+- Statut addenda **à cette date (historique)** : AWAITING Morris D2 — non publiés comme normatifs.
 - Arbre `projects/sfia-studio-next/web` après consolidation documentaire : **identique** à `10128bdb` (`77c89ed84546b3bfb0356164416c04eac26ed229`).
 - Un HEAD produit ultérieur **uniquement documentaire** ne remplace **pas** rétroactivement le SOURCE/BUILD RECETTE ci-dessus.
+
+### Alignement documentaire final D2 (2026-11-22) — correction de statut
+
+- **Correction :** Morris a validé D2 les trois addenda ; ChatGPT les a publiés sur `docs/next-ensemble08-consolidation-20261122` @ `1479b3d31354f495398bca008a2b511131eb9662`.
+- Blobs intégrés sur la branche produit (remplacent les résumés alternatifs de consolidation) :
+  - fonctionnel `5d52aa625e73e2753253bea5cb448f8026403c17`
+  - architecture `32e3de32c68f72d5ed6cdde8e960405ef6b52617`
+  - PV `bd06957b3e2b0fe1cdbf76446ba37557632ed872`
+- Statut courant addenda : **D2 APPROVED / PUBLISHED ON CANDIDATE** — pas VALIDATED SPEC global, pas ADOPTED.
+- `web/` tree : toujours `77c89ed84546b3bfb0356164416c04eac26ed229` (= SOURCE `10128bdb`).
+- RECETTE runtime : **INCHANGÉE** (`10128bdb` / `2uHrYBsQUvf6aii40hMpj`).

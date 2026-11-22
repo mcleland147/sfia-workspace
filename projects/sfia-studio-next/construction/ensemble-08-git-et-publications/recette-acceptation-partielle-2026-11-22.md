@@ -1,6 +1,8 @@
 # SFIA Studio Next — PV de recette utilisateur
 ## Intégrations Git et publication documentaire pilotée par Nora
 
+> **Mise à jour du 22/11/2026 :** ce PV est historique et cumulatif ; la **section 20** précise le dernier build RECETTE, la réception partielle et les réserves à la sortie E08. Les mentions d'un ancien build dans les sections précédentes ne sont pas l'état actuel.
+
 | Champ | Valeur |
 | --- | --- |
 | Date du constat | 22 novembre 2026 (Europe/Paris) |
@@ -813,35 +815,81 @@ Le GO cutover Morris distinct a ensuite servi le candidat :
 
 ---
 
-## 20. Section d'exécution datée — consolidation PR readiness (2026-11-22 13:34 Europe/Paris)
+## 20. Consolidation de sortie E08 et dernier cutover RECETTE — 22 novembre 2026
 
-| Champ | Valeur |
+**Statut : revue d'intégration Git prête à être engagée avec réserves documentées ; aucune promotion automatique.**
+
+La section 19 ci-dessus constitue la **décision UX et le plan de test à sa date**. Son état « non implémenté » décrivait le build alors servi. Les développements et les cutovers ultérieurs sont qualifiés ci-dessous sans modifier rétroactivement les résultats historiques.
+
+### 20.1 Dernier état de RECETTE observé par Cursor
+
+| Champ | Référence |
 | --- | --- |
-| Nature | Addendum factuel au PV — **ne réécrit pas** §§1–19 |
-| Provenance blob | `origin/docs/next-git-recette-20261122` @ `dea4f260ec96272971200e8b7cb0e44be08bc63e` · blob `e767edc63c74b547c2f57c832e035794ad576945` |
-| Intégration | Copie exacte sur branche produit E08 sans merge d'historique documentaire |
-
-### État RECETTE au moment de la consolidation
-
-| Champ | Valeur |
-| --- | --- |
-| SOURCE servi | `10128bdb6bb1020a0fd8d4976b91879bff26c3b3` |
-| TREE | `be778f1bf461f15acf94bfed6879d43fa6256a0d` |
-| BUILD | `2uHrYBsQUvf6aii40hMpj` |
+| SOURCE servi | 10128bdb6bb1020a0fd8d4976b91879bff26c3b3 |
+| TREE | be778f1bf461f15acf94bfed6879d43fa6256a0d |
+| BUILD_ID | 2uHrYBsQUvf6aii40hMpj |
+| HTTP build marker | <!--2uHrYBsQUvf6aii40hMpj--> |
 | URL | http://127.0.0.1:3200 |
-| Handoff cutover | `sfia/review-handoff@f30451d2dac193d6fc610194594f80e8616754c2` |
+| Service LaunchAgent | com.sfia.studio.next.recette.ml4d-ux004 |
+| Base PostgreSQL | sfia_next_recette_ml4 sur sfia-next-recette-pg, port 5434 |
+| Sandbox GitHub | REAL / documentary / mcleland147/chantiers360 |
+| Backup SHA-256 | 9e3db71a939b2c8fab4b1fa89a5b3d9a6d6f0b48ce6962b0b606519573fb7b6a |
+| Restore proof | PASS rapporté sur base temporaire isolée |
+| Rollback préparé | 98118de073e9df5f2446592a281060ddb64369fe / BUILD _U3Z92BCd0K_-hiMvgTP9 |
+| Smokes | /login, /portfolio, /settings/integrations : HTTP 200 + BUILD, selon Cursor |
+| [Handoff de déploiement](https://github.com/mcleland147/sfia-workspace/blob/f30451d2dac193d6fc610194594f80e8616754c2/sfia-review-handoff/latest-chatgpt-review.md) | Commit, blob et rapport technique vérifiés à distance par ChatGPT |
 
-### Réserves toujours ouvertes (non transformées en PASS)
+Les métriques et références Studio ont été rapportées stables avant/après cutover. **ChatGPT n'a pas lui-même interrogé le serveur local ou PostgreSQL** : les faits d'exploitation restent prouvés par le rapport Cursor, et non par une observation directe indépendante.
 
-- PREVIEW-02/03/05/06/07/11 : PARTIAL
-- WRITE-07 : perte d'ACK / retry ambigu — non prouvé
-- Traçabilité exhaustive D6/D7/D8 publication REAL : partielle
-- Merge GitHub REAL : **NOT PROVEN**
-- GitHub PR #21 : unstable / audits en échec
-- Protections GitHub : non intégralement observables
+### 20.2 Résultats fonctionnels et UX conservés
 
-### Addenda ChatGPT structurants
+| Famille | Position de sortie et limite |
+| --- | --- |
+| Consultation Git READ | **7 PASS cumulés inter-builds**, non 7 PASS sur un build unique |
+| Publication WRITE-04 | **PASS LIVE/REAL** sur branche explicitement demandée et [PR #21](https://github.com/mcleland147/chantiers360/pull/21) |
+| Réconciliation WRITE-05 | **PASS fonctionnel READ avec limites** : références Studio/GitHub visibles concordantes ; D6/D7/D8 internes non audités exhaustivement |
+| WRITE-06 | Consultation après rechargement observée ; pas une simulation de perte d'ACK |
+| WRITE-07 | **NON TESTÉ** : retry ambigu / perte d'ACK en REAL |
+| PREVIEW-01 / 04 / 08 / 09 / 10 | PASS techniques rapportés dans le Review Pack de l'évolution universal preview |
+| PREVIEW-02/03/05/06/07/11 | **PARTIAL** pour la couverture technique ou la fidélité exhaustive |
+| Figma 11.17 — cas DOCX | **ACCEPTÉ VISUELLEMENT PAR MORRIS sur capture RECETTE** : état « Aperçu indisponible », explication et liens présents ; clic réel et autres formats non prouvés par la capture |
+| Merge documentaire | D6/D7/D9 et correctifs C1/C2/C3 **implémentés et testés SCRIPTED/mock**, aucun merge GitHub REAL exercé |
 
-Statut dans ce cycle : **NON VALIDÉS D2 Morris observés** → non appliqués comme clauses normatives. Gate Morris D2 requis avant publication normative.
+**Précision :** le cas DOCX accepté par Morris qualifie l'observation visuelle ciblée PREVIEW-05 et ne requalifie pas toute la couverture PREVIEW-05 de PARTIAL en PASS.
 
-*Fin section d'exécution §20 — PV.*
+### 20.3 Réserve de fusion GitHub REAL — préflight final sans mutation
+
+Contrôle GitHub indépendant en lecture seule le 22/11/2026 sur les PR documentaires du sandbox : **#18, #19, #20 et #21 sont OPEN et en état mergeable_state=unstable**. Pour la PR #21 :
+
+- mergeable=true, mais **mergeable_state=unstable** ;
+- Docker, backend et frontend : **3 SUCCESS** ;
+- audits dépendances npm backend et frontend : **2 FAILURE** ;
+- protections de branche non accessibles via l'intégration (403), aucune règle ni exemption supposée ;
+- l'implémentation E08 exige mergeable_state=clean avant la fusion, donc cette PR est refusée sans mutation.
+
+**Décision Morris :** arrêter la tentative plutôt que corriger les dépendances de sandbox, contourner le contrôle clean ou multiplier les PR. **MERGE REAL NOT PROVEN** reste une réserve explicitement acceptée pour la préparation de clôture E08, à retrouver en R6 si elle devient pertinente.
+
+### 20.4 Registre de réserves à préserver
+
+1. **WRITE-07** : retry après perte d'ACK et reprise sous faute en REAL non prouvés.
+2. **PREVIEW** : couverture des formats et fidélité visuelle exhaustive partielle, notamment PREVIEW-02/03/05/06/07/11.
+3. **D6/D7/D8** : audit complet de l'autorité et des faits persistés de la publication PR #21 non effectué.
+4. **GitHub REAL merge** : implémenté et testé par simulation, **NOT EXERCISED / NOT PROVEN**.
+5. **GitHub protections** : permissions de lecture insuffisantes pour un verdict sur toutes les protections et règles.
+6. **R6** : qualification globale de résilience, reprise, concurrence et scénarios non couverts, non réalisée dans ce PV.
+
+Les réserves ne sont ni effacées ni converties en PASS ; leurs impacts et conditions de reprise restent explicitement rattachés à R6 et aux gates concernés.
+
+### 20.5 Statut de sortie et intégration
+
+**Position de réception E08 au périmètre exercé : UAT PARTIELLE ACCEPTÉE AVEC RÉSERVES DOCUMENTÉES.**
+
+**Prochaine étape autorisée à préparation : READY FOR GIT INTEGRATION REVIEW — WITH DOCUMENTED RESERVES.** Cette position signifie que les travaux peuvent être soumis au contrôle de diff, cohérence documentaire, tests, CI et PR readiness, **pas** qu'ils sont déjà intégrés ou adoptés.
+
+- SOURCE E08 local non poussé ; la mise à disposition RECETTE n'est pas la baseline Git du projet.
+- Aucune PR projet E08 créée ou mergée par le présent PV.
+- L'intégration documentaire des contrats et de ce PV est préparée sur une branche Git dédiée, à reprendre dans la branche produit avec contrôle des provenances.
+- Push projet, PR projet, merge, contrôle post-merge et déclaration de clôture exigent leurs gates Morris propres.
+- **NO RELEASE / STABLE NOT AVAILABLE / E08 NON ADOPTED** ; aucune adoption produit ou R6 global anticipé.
+
+*Fin de la consolidation de sortie E08 du 22 novembre 2026.*

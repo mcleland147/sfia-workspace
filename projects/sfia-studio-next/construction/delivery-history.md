@@ -3,6 +3,21 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-DOC-ALIGN-D2-PR-PUBLICATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 (Europe/Paris) |
+| Macro-lot | Ensemble 08 — alignement documentaire D2 + push + création PR (cycle 7) |
+| Type | EVOL · CRITICAL · **NO RELEASE** |
+| GO Morris | Alignement des 3 docs approuvés · sync refs · commit · push branche · PR unique vers `main` · L3 ; **pas** merge / post-merge / STABLE / release |
+| Source docs | `docs/next-ensemble08-consolidation-20261122` @ `1479b3d31354f495398bca008a2b511131eb9662` |
+| Blobs | A `5d52aa62…` · B `32e3de32…` · C `bd06957b…` |
+| Code | **INCHANGÉ** — `web/` `77c89ed84546b3bfb0356164416c04eac26ed229` = SOURCE `10128bdb` |
+| RECETTE | **INCHANGÉE** `10128bdb` / `2uHrYBsQUvf6aii40hMpj` · ml4d-ux004 |
+| Merge PR | **NONE** ce cycle |
+| Verdict cible | `E08 PR OPEN — READY FOR CI AND CHATGPT REVIEW — WITH DOCUMENTED RESERVES` |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-PR-READINESS-DOC-CONSOLIDATION
 
 | Field | Value |
@@ -12,9 +27,10 @@ Append-only logical journal of Cursor product deliveries.
 | Type | EVOL · CRITICAL · **NO RELEASE** |
 | Base code recettée | SOURCE `10128bdb` · TREE `be778f1b` · BUILD `2uHrYBsQUvf6aii40hMpj` |
 | Travail | Intégration PV exact depuis `docs/next-git-recette-20261122` · sections d'exécution datées sur contrats · sync as-built / provenance · **aucun changement `web/`** |
-| Addenda ChatGPT | **AWAITING Morris D2** — non intégrés comme normatifs |
+| Addenda ChatGPT (statut **à cette date**) | AWAITING Morris D2 — non intégrés comme normatifs |
+| Correction ultérieure | Voir `DELIV-2026-11-22-ENSEMBLE08-DOC-ALIGN-D2-PR-PUBLICATION` — D2 obtenu ; blobs canoniques `1479b3d…` |
 | RECETTE | **INCHANGÉE** `10128bdb` / `2uHrYBsQUvf6aii40hMpj` · ml4d-ux004 |
-| Push projet / PR / merge | **NONE** |
+| Push projet / PR / merge | **NONE** (à cette date) |
 | Verdict cible | `READY FOR PR WITH RESERVES — MORRIS GATE REQUIRED` (D2 addenda + GO push/PR) |
 
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-DOCUMENTARY-REAL-MERGE-RECETTE-CUTOVER
