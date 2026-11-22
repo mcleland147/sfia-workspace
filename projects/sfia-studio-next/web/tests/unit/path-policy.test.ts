@@ -43,8 +43,18 @@ describe("path-policy fail-closed (B5)", () => {
     expect(classifyPublicationPath(".github/workflows/ci.yml").allowed).toBe(false);
   });
 
-  it("does not allow markdown outside documentary zones", () => {
-    expect(classifyPublicationPath("notes-at-root.md").allowed).toBe(false);
+  it("allows repo-root documentary markdown (DOCUMENTARY_ROOT)", () => {
+    const r = classifyPublicationPath("notes-at-root.md");
+    expect(r.allowed).toBe(true);
+    expect(r.reason).toBe("DOCUMENTARY_ROOT");
+    expect(r.classification).toBe("DOCUMENTARY");
+  });
+
+  it("still denies markdown under non-documentary nested zones", () => {
+    expect(classifyPublicationPath("random/notes.md").allowed).toBe(false);
+    expect(classifyPublicationPath("random/notes.md").reason).toBe(
+      "MARKDOWN_OUTSIDE_DOCUMENTARY_ZONE",
+    );
   });
 });
 

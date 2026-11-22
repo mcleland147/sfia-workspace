@@ -21,9 +21,12 @@ async function connectGithubAndAttach(page: Page, projectId: string) {
     await expect(page.getByTestId("connect-github")).toBeVisible({ timeout: 15_000 });
   }
   await page.getByTestId("connect-github").click();
-  await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub connecté/i, {
-    timeout: 20_000,
-  });
+  await expect(page.getByTestId("integrations-status-banner")).toContainText(
+    /GitHub (est )?connecté/i,
+    {
+      timeout: 20_000,
+    },
+  );
 
   await page.goto(`/projects/${projectId}?surface=git`);
   await expect(page.getByTestId("git-empty").or(page.getByTestId("git-repo-card"))).toBeVisible({

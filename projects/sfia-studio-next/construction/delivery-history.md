@@ -7,13 +7,15 @@ Append-only logical journal of Cursor product deliveries.
 
 | Field | Value |
 | --- | --- |
-| Date | 2026-11-22 ≈ 07:05 CET (Europe/Paris) |
+| Date | 2026-11-22 ≈ 07:10 CET (Europe/Paris) |
 | Macro-lot | Ensemble 08 — UAT-GIT-PUB-01 publication conversationnelle |
 | Type | INC / EVOL · CRITICAL · **NO RELEASE** |
-| Cause | S05 bloque clarification path → NOT_ATTEMPTED ; path root hors zone documentaire |
-| Fix | clarification resume + DOCUMENTARY_ROOT + D6 missionClientIntentKey |
-| Preuves | unit clarification · PG accept01 UAT-GIT-PUB-01 · SCRIPTED COMPLETED |
-| REAL E2E | NOT PROVEN ce lot (cutover + UAT Morris) |
+| Cause | `MISSION_NOT_RESUMED` / S05 self-block sur clarification → `NOT_ATTEMPTED` (zéro `effect_attempts`) ; root `.md` → `MARKDOWN_OUTSIDE_DOCUMENTARY_ZONE` |
+| Fix | `isPublicationPathClarificationResume` + skip S05 self-block · `DOCUMENTARY_ROOT` · D6 `missionClientIntentKey` ≠ turn key |
+| Diagnostic | DISPATCH_NOT_TRIGGERED (conséquence) ; cause racine continuité S05 + path policy |
+| Preuves | unit clarification+path-policy · PG accept01 (11) dont UAT-GIT-PUB-01 SCRIPTED COMPLETED |
+| SOURCE_SHA / TREE / BUILD | renseignés au freeze/cutover ci-dessous |
+| REAL E2E | **NOT PROVEN** — UAT Morris requis après cutover |
 | Push projet | **NONE** |
 
 
