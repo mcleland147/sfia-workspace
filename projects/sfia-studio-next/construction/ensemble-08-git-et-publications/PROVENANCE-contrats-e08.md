@@ -48,3 +48,11 @@
 - `git diff --check` vs `main` échouait sur espaces fin de ligne Markdown (PV, asis-capacite-b, g5-exit-matrix).
 - Correction cosmétique sans changement sémantique. PV blob après normalisation : `2517c69ac1b214010a7153d7d9f1d96034acb68a`.
 - Contenu D2 inchangé sur le fond ; empreinte blob mise à jour.
+
+## Intégration effective sur main — 22 novembre 2026 (état courant)
+
+- [PR #690](https://github.com/mcleland147/sfia-workspace/pull/690) MERGED sur GO Morris ; HEAD candidat `f11de65f98c3a0429e45c9f2c3935633840aec12`, `main@8620b08bfe86fdf92af0c02756ee980f60964490`, [CI post-merge #45039130531](https://github.com/mcleland147/sfia-workspace/actions/runs/45039130531) SUCCESS.
+- Contrats D2 A/B : blobs **inchangés** `5d52aa625e73e2753253bea5cb448f8026403c17` / `32e3de32c68f72d5ed6cdde8e960405ef6b52617`. PV D2 C : empreinte initiale validée `bd06957b3e2b0fe1cdbf76446ba37557632ed872` ; empreinte **intégrée** `2517c69ac1b214010a7153d7d9f1d96034acb68a` après simple normalisation whitespace (sans changement sémantique).
+- Le HEAD intégré n'est **pas uniquement documentaire** : correction runtime de deep-link `documentId` dans `web/src/app/projects/[projectId]/page.tsx` ajoutée et validée en CI après le build RECETTE. Elle **ne requalifie pas** le candidat utilisateur recetté.
+- RECETTE inchangée : SOURCE `10128bdb6bb1020a0fd8d4976b91879bff26c3b3` / BUILD `2uHrYBsQUvf6aii40hMpj`. Pas de cutover, release, STABLE ou ADOPTED.
+- Réserves MERGE REAL / Nora LIVE, WRITE-07, PREVIEW, D6/D7/D8 REAL et R6 toujours ouvertes.
