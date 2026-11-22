@@ -111,9 +111,12 @@ import {
   appendMissionAck,
   cognitiveContinueFromFacts,
   composeCanonicalMissionRestitution,
+  isPublicationPathClarificationResume,
   missionCorrelationKeys,
   preparePublicationForMission,
+  publicationRefsFromClarifyingMission,
   recoverAuthorizedNoraMissions,
+  resolvePublicationPathAfterClarification,
   type MissionProjection,
 } from "./mission-continuity";
 import { admitConversationalPublicationMandate } from "./conversation-publication-authority";
@@ -1284,12 +1287,25 @@ export async function postUserMessageAndNora(
         : true,
     ) ?? null;
 
+  // UAT-GIT-PUB-01 — clarifying replies (path / go) must resume the open publication
+  // AWAITING_CLARIFICATION mission instead of being S05-blocked against it.
+  const publicationClarificationResume = isPublicationPathClarificationResume({
+    blockingMission,
+    wantsPublish: studioProjection.publication.wantsPublish,
+  });
+  const clarifyingPublicationMission = publicationClarificationResume
+    ? blockingMission
+    : null;
+
   const applyPendingGate =
     nextTurnKind === "INTENTION_EFFET" || nextTurnKind === "INCERTAIN";
   // R-02 — durable comparable identities only (never USER text / title / lexical).
-  const currentMissionKeys = missionCorrelationKeys(
-    carriedMission?.clientIntentKey?.trim() || clientTurnKey,
-  );
+  // Clarification resume reuses the awaiting mission key (same publication intention).
+  const publicationMissionIntentKey =
+    clarifyingPublicationMission?.clientIntentKey?.trim() ||
+    carriedMission?.clientIntentKey?.trim() ||
+    clientTurnKey;
+  const currentMissionKeys = missionCorrelationKeys(publicationMissionIntentKey);
   const currentCorrelationKeys = buildTurnCorrelationKeys({
     commandId: reserved.commandId,
     operationId: reserved.operationId,
@@ -1362,7 +1378,8 @@ export async function postUserMessageAndNora(
       pendingEffectBlocked = true;
       pendingBlockReason = siblingPolicy.pendingBlockReason;
     }
-    if (blockingMission) {
+    // Do not S05-block a clarifying USER turn against its own path-awaiting publication mission.
+    if (blockingMission && !publicationClarificationResume) {
       allowOwnerEffects = false;
       pendingEffectBlocked = true;
       if (!pendingBlockReason) {
@@ -1371,6 +1388,19 @@ export async function postUserMessageAndNora(
             ? `S05_MISSION_BLOCKS_EFFECT:${blockingMission.clientIntentKey ?? "mission"}`
             : `S05_MISSION_BLOCKS_AMBIGUOUS:${blockingMission.clientIntentKey ?? "mission"}`;
       }
+    } else if (publicationClarificationResume && clarifyingPublicationMission) {
+      emitObs({
+        event_name: "d3.mission.publication_clarification_resume",
+        component: "d3.mission_continuity",
+        request_id: requestId,
+        operation_id: reserved.operationId,
+        outcome: "PARTIAL",
+        meta: {
+          resumed_mission_key: clarifyingPublicationMission.clientIntentKey,
+          current_turn_key: clientTurnKey,
+          has_path: Boolean(studioProjection.publication.targetPath),
+        },
+      });
     }
   }
 
@@ -1555,7 +1585,9 @@ export async function postUserMessageAndNora(
   const documentaryIntentSignal = documentAct.kind !== "NONE";
   const missionIntent = studioProjection.publication;
   const studioIntent = studioProjection;
-  const clientIntentKey = clientTurnKey;
+  // Clarification resume reuses awaiting mission key for D7 correlation only.
+  const clientIntentKey =
+    clarifyingPublicationMission?.clientIntentKey?.trim() || clientTurnKey;
   const missionKeys = missionCorrelationKeys(clientIntentKey);
 
   let publicationMandateDecisionId: string | null = null;
@@ -2566,6 +2598,11 @@ export async function postUserMessageAndNora(
   // Restitution belongs to Nora after Studio outcome — never a fixed pre-effect hedge.
   let publicationEffectView: PublicationEffectView = null;
 
+  // Effective path: qualification path, or root clarification → derived filename.
+  const clarifyingRefs = clarifyingPublicationMission
+    ? publicationRefsFromClarifyingMission(clarifyingPublicationMission)
+    : { documentId: null, revisionId: null };
+
   if (
     allowOwnerEffects &&
     !ownershipLostBeforeD4 &&
@@ -2586,7 +2623,8 @@ export async function postUserMessageAndNora(
         : null,
       docs: docsForPub,
       documentHint: missionIntent.documentHint ?? null,
-      objectRef: missionIntent.objectRef ?? null,
+      objectRef:
+        missionIntent.objectRef ?? clarifyingRefs.documentId ?? null,
       focus: opts?.documentFocus
         ? {
             documentId: opts.documentFocus.documentId,
@@ -2594,7 +2632,13 @@ export async function postUserMessageAndNora(
             sourceRevisionNumber: opts.documentFocus.sourceRevisionNumber,
             observedHeadRevisionId: opts.documentFocus.observedHeadRevisionId,
           }
-        : null,
+        : clarifyingRefs.documentId && clarifyingRefs.revisionId
+          ? {
+              documentId: clarifyingRefs.documentId,
+              sourceRevisionId: clarifyingRefs.revisionId,
+              observedHeadRevisionId: clarifyingRefs.revisionId,
+            }
+          : null,
     });
 
     // D4 owner confirmation before any D7 prepare — never trust client focus alone.
@@ -2629,6 +2673,17 @@ export async function postUserMessageAndNora(
     }
 
     const writeGate = publicationWriteGate();
+
+    const resolvedPath = resolvePublicationPathAfterClarification({
+      userText: content,
+      qualifiedPath: missionIntent.targetPath,
+      documentTitle: pubTarget.ok
+        ? pubTarget.title
+        : missionIntent.documentHint,
+    });
+    const effectiveNeedsExplicitPath =
+      Boolean(missionIntent.wantsPublish) && !resolvedPath;
+    const effectiveTargetPath = resolvedPath;
 
     if (!pubTarget.ok) {
       const clarify =
@@ -2730,7 +2785,7 @@ export async function postUserMessageAndNora(
           reason: writeGate.reason,
         },
       });
-    } else if (missionIntent.needsExplicitPath) {
+    } else if (effectiveNeedsExplicitPath) {
       // P1-E: no silent path/branch deduction — clarify before D7 prepare.
       steps.push({
         id: "d7_prepare",
@@ -2762,7 +2817,7 @@ export async function postUserMessageAndNora(
         documentId: pubTarget.documentId,
         revisionId: pubTarget.revisionId,
         clientIntentKey,
-        targetPath: missionIntent.targetPath,
+        targetPath: effectiveTargetPath,
         targetBranch: missionIntent.targetBranch,
       });
       if (prepared.ok) {
@@ -2787,8 +2842,10 @@ export async function postUserMessageAndNora(
           attemptId: prepared.attemptId,
           userMessageId: reserved.userMessageId,
           userStatement: content,
-          clientTurnKey: clientIntentKey,
-          qualifiedPath: missionIntent.targetPath,
+          // Provenance: reserved turn key. Correlation: mission key (may equal turn key).
+          clientTurnKey,
+          missionClientIntentKey: clientIntentKey,
+          qualifiedPath: effectiveTargetPath,
           qualifiedBranch: missionIntent.targetBranch,
           wantsPublishFromQual: missionIntent.wantsPublish,
         });

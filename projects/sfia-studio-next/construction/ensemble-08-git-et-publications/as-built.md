@@ -66,6 +66,13 @@
 - E08-S04 prStatusKind / label historique
 - Playwright E08 surface historique ; G5 F2 : **NOT PROVEN** (différé Morris UAT)
 
+
+
+### UAT-GIT-PUB-01 (2026-11-22)
+- **Cause prouvée (DB RECETTE)** : tour clarifiant (`à la racine` / `ok go`) bloqué par S05 contre la mission `AWAITING_CLARIFICATION` (chemin) → `pendingEffectBlocked` → restitution `NOT_ATTEMPTED` ; **zéro** `effect_attempts`.
+- **Correction** : reprise clarification publication (pas de S05 self-block) + chemin racine documentaire (`DOCUMENTARY_ROOT`) + mandat D6 avec `missionClientIntentKey` distinct du turn key.
+- Preuve PG : `mission-continuity-accept01` UAT-GIT-PUB-01 PASS (SCRIPTED). REAL E2E : à revalider UAT Morris.
+
 ## Non livré / réserves
 - Figma G5 géométrie 11.06 (F2) : **PROVEN** en DEV SCRIPTED — acceptation visuelle Morris UAT distincte
 - END-TO-END REAL mutation GitHub : **NOT PROVEN** (sandbox/GO WRITE non nommé ce lot)

@@ -193,7 +193,13 @@ export async function admitConversationalPublicationMandate(input: {
   attemptId: string;
   userMessageId: string;
   userStatement: string;
+  /** Reserved conversation turn key — provenance against conversation_turn_commands. */
   clientTurnKey?: string | null;
+  /**
+   * Mission correlation key when it differs from the turn key
+   * (publication path clarification resume). Defaults to clientTurnKey.
+   */
+  missionClientIntentKey?: string | null;
   qualifiedPath?: string | null;
   qualifiedBranch?: string | null;
   wantsPublishFromQual: boolean;
@@ -235,10 +241,12 @@ export async function admitConversationalPublicationMandate(input: {
     return emptyOutcome({ reasonCode: "WRONG_KIND", reason: "Tentative non publication" });
   }
 
+  const missionKey =
+    input.missionClientIntentKey?.trim() || input.clientTurnKey?.trim() || null;
   const conversationalMission =
     attemptIsNoraMission(row) ||
-    (input.clientTurnKey?.trim()
-      ? row.correlationKey === missionCorrelationKeys(input.clientTurnKey.trim()).publication
+    (missionKey
+      ? row.correlationKey === missionCorrelationKeys(missionKey).publication
       : false);
   if (!conversationalMission) {
     return emptyOutcome({
@@ -247,10 +255,7 @@ export async function admitConversationalPublicationMandate(input: {
     });
   }
 
-  if (
-    input.clientTurnKey?.trim() &&
-    row.correlationKey !== `${NORA_MISSION_PUB_PREFIX}${input.clientTurnKey.trim()}`
-  ) {
+  if (missionKey && row.correlationKey !== `${NORA_MISSION_PUB_PREFIX}${missionKey}`) {
     return emptyOutcome({
       reasonCode: "CORRELATION_MISMATCH",
       reason: "Clé de corrélation mission non alignée au tour USER",

@@ -33,6 +33,7 @@ import { listDocuments } from "@/domains/document/service";
 import { fixtureSemanticQualify } from "@/domains/conversation/fixture-semantic-qualify";
 import { projectStudioEffects } from "@/domains/conversation/semantic-qualification";
 import {
+  asNoraQualification,
   d4CreateAndPublishEnvelope,
   d4ReviseDocumentEnvelope,
   registerCreateDocumentTitled,
@@ -252,6 +253,62 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
     expect(chat.documentSave?.status).toBe("AVAILABLE");
     expect(chat.missionProjection?.status).toBe("AWAITING_CLARIFICATION");
     expect(chat.missionProjection?.steps.find((s) => s.id === "d7_prepare")?.attemptId).toBeFalsy();
+  });
+
+  it("UAT-GIT-PUB-01: path clarification resume is not S05-blocked and prepares D7", async () => {
+    const { pilotId, preparationId } = await seedProjectWithGit("uat-pub01-clarif");
+    const ask =
+      "Crée un document intitulé UAT Pub Clarif et publie-le dans mon dépôt GitHub";
+    const key1 = newId("ctk");
+    const t1 = await noraTurn(pilotId, preparationId, ask, {
+      clientTurnKey: key1,
+      fixture: {
+        kind: "d4_publish",
+        title: "UAT Pub Clarif",
+        publicationPath: null,
+      },
+    });
+    expect(t1.missionProjection?.status).toBe("AWAITING_CLARIFICATION");
+    expect(t1.pendingEffectBlocked).not.toBe(true);
+
+    const clarify = "tu peux le mettre à la racine du dépôt";
+    registerTypedScenario(
+      clarify,
+      asNoraQualification({
+        status: "QUALIFIED",
+        goal: "Préciser le chemin de publication à la racine",
+        replyDraft: "Chemin racine reçu — préparation de la publication.",
+        intents: [
+          {
+            id: "i1",
+            capabilityId: "d7.prepare_publication",
+            mode: "REQUEST_EFFECT",
+            summary: "Publier à la racine",
+            parameters: {
+              documentHint: "UAT Pub Clarif",
+              publicationPath: "uat-pub-clarif.md",
+            },
+            constraints: [],
+            dependsOn: [],
+            sourceEvidence: [],
+          },
+        ],
+      }),
+    );
+    const t2 = await noraTurn(pilotId, preparationId, clarify, {
+      clientTurnKey: newId("ctk"),
+    });
+    expect(t2.pendingEffectBlocked).not.toBe(true);
+    expect(String(t2.pendingBlockReason ?? "")).not.toMatch(/S05_MISSION_BLOCKS/i);
+    expect(t2.missionProjection).toBeTruthy();
+    const prep = t2.missionProjection?.steps.find((s) => s.id === "d7_prepare");
+    expect(prep?.attemptId).toBeTruthy();
+    expect(["WAITING", "DONE"]).toContain(prep?.status);
+    // Must not collapse to NOT_ATTEMPTED-only restitution.
+    const msgs = await listMessages(pilotId, preparationId);
+    const last = msgs[msgs.length - 1];
+    expect(last?.role).toBe("assistant");
+    expect(last?.content ?? "").not.toMatch(/aucun effet Studio n'a été lancé/i);
   });
 
   it("E08-B: clear USER publish admits D6 mandate on same turn (no second click)", async () => {

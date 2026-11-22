@@ -3,6 +3,20 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-UAT-GIT-PUB-01
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 07:05 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — UAT-GIT-PUB-01 publication conversationnelle |
+| Type | INC / EVOL · CRITICAL · **NO RELEASE** |
+| Cause | S05 bloque clarification path → NOT_ATTEMPTED ; path root hors zone documentaire |
+| Fix | clarification resume + DOCUMENTARY_ROOT + D6 missionClientIntentKey |
+| Preuves | unit clarification · PG accept01 UAT-GIT-PUB-01 · SCRIPTED COMPLETED |
+| REAL E2E | NOT PROVEN ce lot (cutover + UAT Morris) |
+| Push projet | **NONE** |
+
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-FINALISATION-RECETTE-CUTOVER
 
 | Field | Value |

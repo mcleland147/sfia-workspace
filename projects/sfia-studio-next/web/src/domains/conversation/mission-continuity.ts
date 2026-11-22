@@ -105,6 +105,84 @@ export function attemptIsNoraMission(row: { correlationKey: string }): boolean {
 }
 
 /**
+ * True when an open AWAITING_CLARIFICATION mission is waiting on a publication path
+ * and the current turn continues that same publication (not a competing effect).
+ * Used to resume clarification without S05 blocking the clarifying USER act.
+ */
+export function isPublicationPathClarificationResume(input: {
+  blockingMission: MissionProjection | null;
+  wantsPublish: boolean;
+}): boolean {
+  const m = input.blockingMission;
+  if (!m || m.status !== "AWAITING_CLARIFICATION") return false;
+  if (!input.wantsPublish) return false;
+  const prep = m.steps.find(
+    (s) =>
+      s.id === "d7_prepare" ||
+      s.capabilityId === "d7.prepare_publication" ||
+      s.capabilityId === "d7.dispatch_publication",
+  );
+  if (!prep || (prep.status !== "PENDING" && prep.status !== "WAITING")) return false;
+  const reason = (prep.reason ?? "").toLowerCase();
+  return /path|chemin|path_required/.test(reason);
+}
+
+/** Document/revision refs already bound on a clarifying publication mission. */
+export function publicationRefsFromClarifyingMission(
+  mission: MissionProjection,
+): { documentId: string | null; revisionId: string | null } {
+  const step =
+    mission.steps.find((s) => s.id === "d7_prepare") ??
+    mission.steps.find((s) => s.id === "d4_source" || s.id === "d4_create") ??
+    null;
+  return {
+    documentId: step?.documentId ?? null,
+    revisionId: step?.revisionId ?? null,
+  };
+}
+
+const ROOT_PATH_SIGNAL_RE =
+  /\b(?:à|a)\s+la\s+racine\b|\bracine\s+du\s+d[ée]p[oô]t\b|\bat\s+the\s+root\b|\bin\s+the\s+repo\s+root\b/i;
+
+/** True when USER places the file at repository root without giving a full path. */
+export function userSignalsRepositoryRootPath(userText: string): boolean {
+  return ROOT_PATH_SIGNAL_RE.test(userText.normalize("NFKC"));
+}
+
+/** Slugify a document title into a root-level markdown filename (deterministic). */
+export function documentaryRootFilenameFromTitle(title: string): string | null {
+  const raw = title.normalize("NFKC").trim().toLowerCase();
+  if (!raw) return null;
+  const slug = raw
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+  if (!slug) return null;
+  return `${slug}.md`;
+}
+
+/**
+ * Resolve a concrete publication path when USER places the file at repo root.
+ * Prefers an already-qualified path; otherwise derives from document title.
+ * Never invents a path without a root signal or an explicit qualified path.
+ */
+export function resolvePublicationPathAfterClarification(input: {
+  userText: string;
+  qualifiedPath?: string | null;
+  documentTitle?: string | null;
+}): string | null {
+  const explicit = input.qualifiedPath?.trim() || null;
+  if (explicit) return explicit.replace(/^\/+/, "");
+  if (!userSignalsRepositoryRootPath(input.userText)) return null;
+  const fromTitle = input.documentTitle
+    ? documentaryRootFilenameFromTitle(input.documentTitle)
+    : null;
+  return fromTitle;
+}
+
+/**
  * SEM-02 — retired as production métier router.
  * Publication intent comes from Nora semantic qualification (capability d7.*).
  * Technical path/branch helpers remain available for already-qualified missions.

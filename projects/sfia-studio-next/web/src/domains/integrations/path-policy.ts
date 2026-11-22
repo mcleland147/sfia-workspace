@@ -277,6 +277,16 @@ export function classifyPublicationPath(rawPath: string): PathPolicyResult {
     };
   }
 
+  // Repo-root documentary file (single segment) — UAT "à la racine" without README/deny.
+  if (docExt && !norm.includes("/")) {
+    return {
+      allowed: true,
+      reason: "DOCUMENTARY_ROOT",
+      classification: "DOCUMENTARY",
+      normalizedPath: norm,
+    };
+  }
+
   if (docExt) {
     return {
       allowed: false,
