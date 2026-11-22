@@ -1,5 +1,24 @@
 # Ensemble 08 — As-built (consultation Git + conduite Nora)
 
+## État courant post-merge (22 novembre 2026) — prioritaire sur les états historiques ci-dessous
+
+**Verdict : E08 MERGED / POST-MERGE CI VERIFIED / WITH DOCUMENTED RESERVES.** Les tableaux et mentions de candidats/branches précédents restent des jalons historiques, pas la situation courante.
+
+| Objet | État |
+| --- | --- |
+| PR produit | [#690](https://github.com/mcleland147/sfia-workspace/pull/690) MERGED sur GO Morris |
+| Candidat HEAD | `f11de65f98c3a0429e45c9f2c3935633840aec12` |
+| Commit main / merge | `8620b08bfe86fdf92af0c02756ee980f60964490` |
+| Tree intégré | `8786e7d39d2653fdad78d65e41c062b4b09b6e2e` |
+| CI PR | [#45036729361](https://github.com/mcleland147/sfia-workspace/actions/runs/45036729361) SUCCESS |
+| CI post-merge | [#45039130531](https://github.com/mcleland147/sfia-workspace/actions/runs/45039130531) SUCCESS |
+| Handoff | `sfia/review-handoff@84309eb719280d1551e84f1f531ccc442b2c4c88` (Review Pack FULL) |
+| RECETTE SOURCE/BUILD | `10128bdb6bb1020a0fd8d4976b91879bff26c3b3` / `2uHrYBsQUvf6aii40hMpj`, aucun nouveau cutover |
+| Écart de runtime | Correction de course `documentId` dans `web/src/app/projects/[projectId]/page.tsx`, postérieure à la RECETTE acceptée ; validée en CI, non contenue dans son BUILD |
+| Versioning | **NO RELEASE / STABLE NOT AVAILABLE / E08 NOT ADOPTED** |
+
+**Frontière de preuve :** tests Playwright BROWSER FAKE et unitaires/PG PASS ; MERGE REAL et Nora LIVE merge **NOT PROVEN**. Réserves WRITE-07, PREVIEW PARTIAL, audit D6/D7/D8 REAL, protections GitHub non exhaustives et R6 conservées. Gate C reste OPEN ; aucun GO ML5 ne résulte du merge.
+
 | Champ | Valeur |
 |---|---|
 | Date | 2026-11-22 (FINALISATION UX 11.06 + GitHub REAL WRITE policy + cutover) |
