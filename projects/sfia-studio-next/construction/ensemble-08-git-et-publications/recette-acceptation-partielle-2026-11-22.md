@@ -142,3 +142,168 @@ Sources à relire à leur ref applicable lors du cycle technique :
 **Verdict PV du 22/11/2026 : ACCEPTATION PARTIELLE — publication Git conversationnelle BLOQUANTE.**
 
 Ce PV enregistre des constats de recette et un plan de tests ; il ne publie aucun code ni aucune décision normative.
+
+## 8. Campagne UAT Git restante — prompts prêts à utiliser (addendum du 22/11/2026)
+
+> **Chronologie :** les sections 1–7 ci-dessus sont le PV de l'UAT initiale, conservé sans réécrire son verdict historique. Depuis, une publication Git REAL a été observée, suivie de correctifs Nora. **État courant : UX/gestion des dépôts acceptées ; publication Git réelle constatée ; vérifications conversationnelles des PR incomplètes ; acceptation E08 globale toujours ouverte.** Le build de RECETTE rapporté au moment de cette campagne est `c67a6ba8bde5c4d818a23fe96d2822a22c050121` / TREE `f54c0aff60af9e47f2f4a181a9d1dcfa75519a95` / BUILD `tEiDqhhGWNipSWO_86ZoG`, sans relecture indépendante du runtime Mac par ChatGPT. L'activation WRITE ne vaut pas mandat de mutation pour les tests de lecture.
+
+Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif**. Les formulations ci-dessous reproduisent **intégralement les prompts proposés dans la conversation UAT**, afin que Morris ou Cursor puissent les reprendre sans réinventer de scripts.
+
+### GIT-UAT-01 — Consulter une PR en temps réel
+
+**Nature :** Lecture seule  
+**État :** **PARTIAL / FAIL UAT** — branches et SHA lus ; statut actuel et fusion non consultables via les capacités Nora exposées.
+
+**Prompt exact proposé à Morris :**
+
+> Consulte directement sur GitHub la PR #19 du dépôt mcleland147/chantiers360. Donne-moi son statut actuel, sa branche source, sa branche cible, son SHA HEAD et précise si elle est fusionnée. Ne fais aucune modification.
+
+**Critères attendus :** Nora obtient l'état GitHub actualisé, et non seulement la dernière trace D8. Lors du dernier contrôle externe, la PR était ouverte et non fusionnée.
+
+### GIT-UAT-02 — Examiner les changements de la PR
+
+**Nature :** Lecture seule  
+**État :** NON TESTÉ
+
+**Prompt exact proposé à Morris :**
+
+> Analyse la PR #19. Combien contient-elle de commits et de fichiers modifiés ? Quels fichiers sont concernés ? Résume les changements par rapport à main, en lecture seule.
+
+**Critères attendus :** Identification du fichier documentaire, du commit et du diff réel, fondés sur une consultation GitHub.
+
+### GIT-UAT-03 — Vérifier la possibilité de fusionner
+
+**Nature :** Lecture seule  
+**État :** NON TESTÉ
+
+**Prompt exact proposé à Morris :**
+
+> Vérifie si la PR #19 peut actuellement être fusionnée vers main. Contrôle les conflits, les protections de branche, les checks disponibles et les permissions nécessaires. Explique les éventuels blocages. Ne fusionne rien.
+
+**Critères attendus :** Nora distingue mergeable, checks, protections et autorité Pilote ; elle indique précisément les contrôles non accessibles, sans conclure par approximation.
+
+### GIT-UAT-04 — Consulter et comparer les commits
+
+**Nature :** Lecture seule  
+**État :** NON TESTÉ
+
+**Prompt exact proposé à Morris :**
+
+> Retrouve le commit qui a publié le document Références externes — Enseignements de Chantiers360. Donne-moi sa date, son SHA, les fichiers concernés et compare-le au HEAD actuel de main. N'effectue aucune écriture.
+
+**Critères attendus :** Historique et références vérifiés ; distinction entre SHA commit, SHA blob, HEAD de la branche et HEAD de main.
+
+### GIT-UAT-05 — Identifier les droits Git effectifs
+
+**Nature :** Lecture seule  
+**État :** NON TESTÉ
+
+**Prompt exact proposé à Morris :**
+
+> Pour le dépôt chantiers360 rattaché à CampusFlow, vérifie les capacités Git réellement disponibles dans Studio : lecture, création de branche, publication de fichier, création de PR et merge. Distingue les permissions GitHub des autorisations que je dois donner pour agir. Ne déclenche aucune opération.
+
+**Critères attendus :** Capacités étayées par les permissions et guards réellement consultables, sans auto-attribution d'un mandat permanent.
+
+### GIT-UAT-06 — Retrouver une publication sans la dupliquer
+
+**Nature :** Lecture seule  
+**État :** NON TESTÉ
+
+**Prompt exact proposé à Morris :**
+
+> Retrouve dans Studio la dernière publication du document Références externes — Enseignements de Chantiers360. Vérifie sa tentative, sa branche, son commit et sa PR associée. Existe-t-il déjà une publication équivalente ? Ne crée aucun doublon ni nouvelle branche.
+
+**Critères attendus :** Réconciliation D7/D8 avec GitHub, liens vérifiables, aucune nouvelle mutation ni duplication.
+
+### GIT-UAT-07 — Vérifier la continuité après rechargement
+
+**Nature :** Lecture seule  
+**État :** NON TESTÉ
+
+**Prompt exact proposé à Morris :**
+
+> Nous reprenons notre conversation après rechargement de l'application. Retrouve le dernier résultat de publication GitHub du projet CampusFlow et indique ce qui est terminé, encore ouvert et non fusionné. Vérifie les informations qui ont pu évoluer, sans effectuer d'écriture.
+
+**Critères attendus :** Reprise contextuelle sans ressaisie du dépôt ou du document ; informations fraîches distinguées des faits historiques.
+
+### GIT-UAT-08 — Fusion gouvernée par Nora — optionnel
+
+**Nature :** MUTATION RÉELLE — NE PAS EXÉCUTER SANS GO EXPLICITE  
+**État :** NON TESTÉ — GO de fusion non accordé
+
+**Prompt exact proposé à Morris :**
+
+> Je t'autorise à fusionner uniquement la PR #19 du dépôt mcleland147/chantiers360 vers main, si elle est toujours ouverte, si son HEAD correspond au commit attendu et si les protections GitHub le permettent. Vérifie toutes les préconditions avant l'opération. Si elles ne sont pas satisfaites, n'effectue aucune fusion et explique pourquoi. Après l'opération, vérifie le résultat réel sur GitHub et communique-moi le commit de fusion et le lien vers le document sur main.
+
+**Critères attendus :** Mandat D6 distinct, HEAD/base/protections vérifiés, merge D7/D9 seulement si expressément autorisé, confirmation distante et fait D8 ; aucun merge implicite.
+
+## 9. Résultat UAT actuel et diagnostic préliminaire — PR #19 / état de tour
+
+### 9.1 GIT-UAT-01 — résultat observé sur captures Morris
+
+La réponse de Nora commence par :
+
+> « Vérification partielle uniquement : je peux consulter les branches Git, mais les outils disponibles ne donnent pas accès aux métadonnées actuelles de la PR #19. Je ne peux donc pas confirmer son statut ni sa fusion directement sur GitHub. »
+
+Elle fournit correctement :
+- dépôt `mcleland147/chantiers360` ;
+- branche source `sfia/pub-3ab1e0c2eb6b7499`, existence confirmée par lecture de ref ;
+- SHA HEAD `16f9961ef2ee6d13235e56059313f691521947fd` ;
+- `main` comme branche cible **selon l'historique Studio**, non la PR live ;
+- absence de modification effectuée annoncée.
+
+Elle ne vérifie **pas** le statut courant de la PR #19, ni son état de fusion, ni la cible courante de la PR depuis l'API PR. **Verdict : PARTIAL / FAIL pour le scénario GIT-UAT-01**, et non PASS global de la consultation PR. Cette prudence de langage est correcte face à un outil manquant ; l'absence de capacité reste un écart produit.
+
+### 9.2 Faits externes GitHub indépendants (READ uniquement)
+
+Consultation directe GitHub réalisée par ChatGPT pour comparaison, à date du 22/11/2026 :
+
+| Fait externe | État vérifié |
+| --- | --- |
+| Dépôt | `mcleland147/chantiers360` |
+| PR | [#19](https://github.com/mcleland147/chantiers360/pull/19) **OPEN, non fusionnée** |
+| Base | `main` |
+| Head | `sfia/pub-3ab1e0c2eb6b7499` |
+| HEAD commit | `16f9961ef2ee6d13235e56059313f691521947fd` |
+| Fichier sur head | `references-externes-enseignements-chantiers360.md` présent, blob `7518405f3b8f868ab88d3e257d2489a50e4b338b` |
+| Fichier sur main | Absent à ce chemin lors de la consultation (404) |
+
+La connexion **GitHub utilisée par ChatGPT pour le contrôle indépendant n'est pas la preuve que Nora dispose du même outil, du même scope ni des mêmes permissions dans Studio**.
+
+### 9.3 Anomalie distincte — bandeau de statut de tentative
+
+La seconde capture de Morris présente sous la réponse Nora le bandeau :
+
+> « La dernière tentative n'a pas abouti clairement. Le texte saisi est conservé ; réessayez ou réconciliez si une intention reste ouverte. »
+
+**Contexte visible :** demande en lecture seule, réponse partielle comportant « Aucune modification effectuée ». Le bandeau paraît discordant avec la nature informationnelle de ce tour. **Son origine et sa corrélation exacte au tour ne sont pas observées** : il peut provenir du lifecycle de la commande courante, d'une tentative antérieure encore ouverte, d'un timeout, d'une erreur d'outil ou d'une projection UI. Ne pas l'assimiler automatiquement à un échec GitHub ni à une mutation.
+
+**Risque UX :** message inquiétant laissant croire à un effet à réconcilier, alors que l'utilisateur demandait seulement de lire le statut d'une PR. Risque technique potentiel : propagation d'états `UNKNOWN`/`NOT_ATTEMPTED` ou bannière de retry entre opérations informationnelles et effectives.
+
+### 9.4 Hypothèses de diagnostic — non prouvées
+
+| Hypothèse | Observation qui la motive | Comment la qualifier |
+| --- | --- | --- |
+| Outil PR READ non exposé à Nora | Nora affirme ne pas pouvoir consulter les métadonnées PR ; matrice précédente s'appuyait en partie sur snippets D8 | Inventorier tools disponibles dans la session, métadonnées/contrats/schemas, sélection Nora et adapter D9 |
+| PR READ existant mais hors `toolScope` ou interdit | Outils de branches accessibles, PR non accessible | Tracer `toolScope`, identité, projet, dépôt, permissions `pull_requests:read`, erreurs 403/404 |
+| Historique D8 présenté comme actuel | Nora distingue explicitement historique Studio et absence d'état PR live | Comparer faits D8, rafraîchissement D9 et temps de dernière vérification |
+| Bandeau de dernière tentative mal corrélé | Bannière retry/réconciliation après réponse read-only | Lire `conversation_turn_commands`, mission/operationId/turnId, transitions terminales, statut front, chronologie et logs expurgés |
+| Erreur de lecture traitée comme effet incertain | Message « n'a pas abouti clairement » malgré réponse informationnelle | Vérifier mapping erreurs/outcomes, états `READ_FAILED` vs `EFFECT_UNKNOWN` ; ne pas créer nouveau modèle par défaut |
+
+**Diagnostic ChatGPT :** écart **de couverture/mobilisation des capacités READ PR** très probable et **anomalie de restitution du statut d'une tentative** visible ; **aucune cause racine technique certaine** sans code/traces/runtime. Ne pas attribuer ce défaut au seul LLM, aux scopes GitHub ou à D7 sans preuve.
+
+### 9.5 Décision et suite de recette
+
+- **GIT-UAT-01 : PARTIAL / FAIL**, données branches correctes, état PR actuel non consulté par Nora.
+- **GIT-UAT-02 à 07 : NON TESTÉS** sur ces captures ; ne pas inventer de verdict.
+- **GIT-UAT-08 : NON TESTÉ**, scénario mutatif suspendu jusqu'à un GO de merge spécifique ; texte stocké à des fins de recette uniquement, **ce PV n'autorise aucun merge**.
+- **Publication Git REAL :** la publication déjà réalisée est observée sur une branche, avec commit et PR ; la preuve historique ne remplace pas l'UAT de lecture dynamique actuelle.
+- **UX Intégrations 11.06, rattachement, lecture fichiers et suppression de branche : acceptés Morris**, non rouverts.
+- **Ensemble 08 : ACCEPTATION PARTIELLE, PAS ADOPTÉ**.
+- Cursor doit auditer **dans le même macro-lot** l'exposition de la consultation PR et le cycle de vie/feedback des tours READ-only, corriger les défauts confirmés, tester et synchroniser l'as-built, sans mutation GitHub externe, sans re-déployer RECETTE sans gate ENV-01.
+
+## 10. Trace des changements du PV
+
+- Édition documentaire D1 bornée sur `docs/next-git-recette-20261122`, aucun code produit modifié, pas de PR/merge.
+- Addendum de campagne `GIT-UAT-01..08` avec **prompts exacts**, attentes, niveau de risque et état UAT ; analyse de deux captures et fait GitHub PR #19 indépendant.
+- Le PV initial demeure historique ; **la présente section et les sections 8–9 prévalent pour l'état actuel de l'UAT E08**.
