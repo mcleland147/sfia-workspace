@@ -750,3 +750,63 @@ Le GO cutover Morris distinct a ensuite servi le candidat :
 - **Idempotence après perte d'ACK** reste **NON TESTÉE** (WRITE-07).
 
 **Verdict : `GIT-WRITE-UAT-05 — PASS fonctionnel READ / réconciliation des références visibles, WITH DOCUMENTED LIMITS`.** Le correctif d'autorité sur branche explicite reste **PASS LIVE/REAL** sur l'unique retest PR #21 ; la conformité interne exhaustive et la reprise mutative restent distinctes. `NO RELEASE`, `STABLE NOT AVAILABLE`, `E08 NON ADOPTED`.
+
+
+---
+
+## 19. Extension UX validée — états de consultation pour tout fichier non prévisualisable
+
+**Date :** 22 novembre 2026 (Europe/Paris). **Nature :** retour utilisateur / arbitrage UX ciblé et préparation de la prochaine évolution E08 ; aucun code modifié, aucun cutover demandé par cette section. Le contrôle est **universel sur la capacité de rendu**, et non restreint aux extensions PDF ou Office.
+
+### 19.1 Bilan des résultats conservés, sans effacement des réserves
+
+- **READ** : 7 PASS cumulés sur deux builds, et **non** 7 exécutions sur le même build.
+- **WRITE-04 correctif** : PASS fonctionnel LIVE/REAL de publication sur branche explicitement demandée, PR [#21](https://github.com/mcleland147/chantiers360/pull/21), 1 commit, 1 fichier D4 v2 conforme, aucune fusion.
+- **WRITE-05 PR #21** : PASS fonctionnel de réconciliation en lecture seule, objet et références Studio concordants avec GitHub (`18.5) ; **ne constitue pas une inspection exhaustive** des décisions D6, des plans/tentatives D7 et du journal brut D8.
+- **WRITE-07** : épreuve de perte d'ACK/retry ambigu **NON TESTÉE**. La consultation après rechargement WRITE-06 ne la remplace pas.
+- **PR #19, #20, #21** : historiques distincts ; PR #20 reste la preuve de la substitution ancienne, non corrigée rétroactivement. **Aucun merge autorisé.**
+- **PR #21 checks** : 3 SUCCESS (Backend, Frontend, Docker) / 2 FAILURE (audits dépendances), état de fusion non déclaré prêt ; protections/rulesets Git non démontrés.
+- **RECETTE servie** : SOURCE `24a8fa9e7ad6cc2fa961496a915f13cea542d4a8` / TREE `ece43cdb8c008b855c381d50f112f8b86e5a2207` / BUILD `qCQGWLYYGb0ZCA4BLfzBi` selon handoff Cursor vérifié à distance ; **cette nouvelle UX n'y est pas implémentée**.
+
+### 19.2 Défaut de consultation et décision UX Morris
+
+**Observation utilisateur :** la visionneuse des fichiers Git sait actuellement afficher au moins des fichiers `.md`, `.txt` et `.yml`, mais un PDF tel que `Diagramme BPMN_BatiNova.pdf` déclenche un état technique `BINARY_CONTENT` et une présentation qui peut laisser croire à une erreur ou à l'absence de sélection. La **liste exhaustive des formats réellement pris en charge n'a pas été auditée dans le code candidat** : ne pas l'inventer sur la base des seules extensions citées.
+
+**Décision UX exprimée et confirmée par Morris :**
+
+1. **Préserver l'aperçu existant pour tout contenu effectivement compatible** avec les moteurs de rendu actuels (Markdown sûr ou texte brut sûr, selon implémentation et limites de taille/encodage vérifiées).
+2. **Pour tout fichier qui ne peut pas être affiché par cette visionneuse**, quelle que soit son extension ou sa nature (PDF, DOC/DOCX, PPT/PPTX, XLS/XLSX, archives, formats inconnus, binaire, encodage non compatible ou fichier dépassant la limite d'aperçu), afficher un état dédié **« Aperçu indisponible »** avec motif exact lorsque connu et **« Ouvrir sur GitHub »**. Ne pas traiter ce cas par une liste fermée de quelques extensions bureautiques.
+3. **Ne jamais déguiser un véritable défaut Git en incompatibilité** : accès refusé, dépôt déconnecté, ref introuvable/non résolue, fichier réellement absent, réseau/timeout et état incertain gardent leurs états de refus/erreur/indétermination adaptés.
+4. **Lien GitHub fiable :** reprendre le dépôt/ref/path réellement sélectionnés et le `permalinkOrNull` issu d'un commit vérifié quand disponible ; ne jamais composer un « permalien » à partir d'un blob SHA ou d'une provenance inventée. Si l'URL exacte n'est pas connue, ne pas afficher de lien trompeur ; exposer honnêtement la limite.
+5. Aucun rendu HTML distant brut, aucune conversion Office côté serveur, aucun téléchargement obligatoire dans Studio, aucune lecture/édition/commit supplémentaire et aucune exposition de secret/token pour ouvrir GitHub.
+6. Conserver la navigation et la sélection courante ; changer de dépôt/branche/fichier annule les résultats de lecture tardifs.
+
+**Référence UX validée pour développement :** Figma page 11 — frame [11.17 · Dépôts Git — Aperçu indisponible · GitHub](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1152-490) (fileKey `itgvCulInEnFY6DvgIegvP`, node `1152:490`, 1680 × 970), extension de la vue 11.03 / explorateur 30–70. Elle illustre un **PDF particulier**, mais **le patron d'état est à paramétrer pour tous les formats non prévisualisables** : nom, format, raison, URL. Ne pas coder en dur `PDF` ni le fichier d'exemple. Le bouton de la maquette est une interaction de prototype ; sa destination statique de démonstration n'est **pas** une règle d'URL runtime.
+
+**Statut de la source UX :** VALIDATED UX FOR DELIVERY par Morris dans la conversation ; **non IMPLEMENTED**, **non COVERAGE VERIFIED** et **non BEHAVIOR PROVEN** dans l'application.
+
+### 19.3 Contrat de recette de l'évolution — scénarios à exécuter après développement
+
+| Scénario | Attendu |
+| --- | --- |
+| **PREVIEW-01** · `.md` | Rendu Markdown sûr existant maintenu, aucune régression de style/contenu |
+| **PREVIEW-02** · `.txt` et `.yml` | Rendu texte sûr maintenu ; arborescence, retours à la ligne et sélection préservés |
+| **PREVIEW-03** · autres fichiers texte supportés | Inventaire réel du code (p. ex. JSON, XML, code si supportés) puis preuve de non-régression, **sans supposer une liste exhaustive a priori** |
+| **PREVIEW-04** · PDF | « Aperçu indisponible » conforme 11.17 ; bouton GitHub vers le fichier et la ref corrects |
+| **PREVIEW-05** · Office | DOC/DOCX, PPT/PPTX, XLS/XLSX non rendus dans Studio → même état et lien lorsque la consultation GitHub est autorisée |
+| **PREVIEW-06** · autres binaires / archives / extensions inconnues | Même chemin fonctionnel si le rendu est réellement impossible, sans exception codée à une liste de suffixes |
+| **PREVIEW-07** · limite taille / encodage | Motif adapté, aucune tentative de rendu dangereux ni lecture excessive |
+| **PREVIEW-08** · erreur/ref/permission | **Pas** de faux « format non prévisualisable » pour DENIED, NOT_FOUND qualifié, REF_UNRESOLVED, AMBIGUOUS ou erreur de transport |
+| **PREVIEW-09** · contexte et lien | Dépôt/ref/path cohérents ; permalien vérifié si possible ; aucune fuite token ni URL arbitraire, clic nouvel onglet |
+| **PREVIEW-10** · interaction/concurrence | A→B, branche X→Y, chargement tardif, responsive et mode agrandi ; aucun contenu/état obsolète |
+| **PREVIEW-11** · fidélité Figma | Extraction MCP de 11.17 et source 11.03, contrat visuel avant code, capture navigateur DEV et comparaison après code |
+
+**Gate technique :** Cursor inspecte d'abord les renderers, l'identification texte/binaire/encodage et les statuts issus de `readGitFile` ; il localise la responsabilité existante avant d'implémenter. Le verdict d'inventaire devient une preuve de ce cycle, pas une hypothèse imposée.
+
+### 19.4 Périmètre et suite
+
+- **IN :** comportement universel de non-prévisualisation, UI Figma 11.17 adaptable, URL Git fiable, erreurs distinctes, tests + documentation synchronisés dans **un macro-lot cohérent**.
+- **OUT :** lecteurs PDF/Word/PowerPoint intégrés, conversion Office/PDF, nouveau moteur documentaire, nouveau provider Git, modifications GitHub WRITE, opérations D6/D7/D8, changement de schéma sans besoin démontré.
+- **Delivery :** développement Cursor sous SFIA v2.6 sur la branche E08 candidate après Git Truth local et inspection code, en **DEV** ; **aucun cutover RECETTE tacite**.
+- **Gates :** revue ChatGPT du Review Pack complet ; **GO Morris distinct** pour cutover du prochain candidat, push projet, PR, merge, STABLE/release. La maquette validée et le PV ne valent pas preuve runtime ni ADOPTED.
+- **Dette / exit :** formats réellement lisibles à inventorier, format/taille/erreurs à couvrir par tests, limite d'URL/ref documentée si non résoluble. Les réserves D6/D7/D8/WRITE-07 restent maintenues indépendamment de cette UX.
