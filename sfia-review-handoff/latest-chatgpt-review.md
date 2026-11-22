@@ -1,8 +1,10 @@
 # SFIA Review Pack — FULL · CRITICAL
 ## Ensemble 08 — POST-UAT 01 FREEZE LOCAL CANDIDAT
 
-- date_utc: 2026-11-22T03:35:39Z
-- timezone_local: Europe/Paris (2026-11-22T04:35:39+0100)
+> REPUBLICATION L3 — complément §7.2.1 : diffs intégraux des **16** fichiers modifiés (écart « Diffs modifications » incomplet corrigé). SHA candidat inchangé `9f34639110ce2315a2bf8dc0786197bb8f5ea3b1`.
+
+- date_utc: 2026-11-22T03:40:44Z
+- timezone_local: Europe/Paris (2026-11-22T04:40:44+0100)
 - cycle: CYCLE 8 — DELIVERY PROJET
 - typologie: EVOL / QA / FREEZE CANDIDAT
 - profil: CRITICAL
@@ -2411,10 +2413,491 @@ test.describe("E08 Nora publication discriminant (SCRIPTED DEV)", () => {
 
 ---
 
-## 16. Diffs modifications (parent → candidat)
+## 16. Diffs modifications (parent → candidat) — COMPLET §7.2.1
 
-### Core conversation + Git surface (extrait borné)
+Comparaison : `29066442a7fa51b106d9fe45b5c1b05da7f13004` → `9f34639110ce2315a2bf8dc0786197bb8f5ea3b1`
+Fichiers modifiés : **16 / 16** — diffs **intégraux** (pas d'extrait borné).
+Aucun fichier M omis. Les créations (A) restent dans les sections 12–15.
 
+Inventaire M :
+- `projects/sfia-studio-next/construction/delivery-history.md`
+- `projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md`
+- `projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md`
+- `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx`
+- `projects/sfia-studio-next/web/src/components/figma/tokens.css`
+- `projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx`
+- `projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx`
+- `projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts`
+- `projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts`
+- `projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts`
+- `projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts`
+- `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts`
+- `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
+- `projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts`
+- `projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts`
+- `projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts`
+
+### Diff unifié — 16 fichiers modifiés
+
+```diff
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 397824a8..95da8639 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -3,6 +3,91 @@
+ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+
++## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-FREEZE-LOCAL
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-22 (Europe/Paris) |
++| Macro-lot | Ensemble 08 — POST-UAT 01 freeze local candidat |
++| Type | EVOL / QA / FREEZE CANDIDAT · CRITICAL · **NO RELEASE** |
++| Branche | `feat/next-ensemble08-git-publications-nora` |
++| Base | `origin/main` `a12f89a1` |
++| GO Morris | Commit local + build détaché autorisés ; push/PR/cutover **NON** |
++| Réserves fermées | A contenu D4↔SCRIPTED · B D7 COMPLETED + D8 · C build détaché |
++| Push projet | **NONE** |
++| Cutover | **NOT EXECUTED** — RECETTE `@98185598` intacte |
++| Verdict | (voir Review Pack / manifeste section B) |
++
++## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-CLOTURE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-22 (Europe/Paris) |
++| Macro-lot | Ensemble 08 — POST-UAT 01 clôture écarts publication Nora |
++| Type | INC / EVOL · CRITICAL · **NO RELEASE** |
++| Branche | `feat/next-ensemble08-git-publications-nora` |
++| Base | `origin/main` `a12f89a1` · HEAD `29066442` + worktree dirty |
++| RECETTE | **FROZEN** `@98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **aucune mutation** |
++| P0 | réconciliation `objectRef`/`documentHint` (conflit → AMBIGUOUS, zéro effet) |
++| P1 | `NOT_ATTEMPTED` si intention sans effet ; reprise COMPLETED = restitution métier |
++| Preuves | PG WRITE OFF zéro mutation · PG SCRIPTED E2E · Playwright Nora DEV (voir pack) |
++| Push projet | **NONE** |
++| Cutover | **NOT EXECUTED** |
++| Verdict | DELIVERY READY WITH RESERVES (A/B/C traitées au freeze) |
++
++## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-CONVERGENCE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-22 (Europe/Paris) |
++| Macro-lot | Ensemble 08 — POST-UAT 01 convergence finale (doc/rév · Nora · UX) |
++| Type | INC / EVOL · CRITICAL · **NO RELEASE** |
++| Branche | `feat/next-ensemble08-git-publications-nora` |
++| Base | `origin/main` `a12f89a1` · HEAD `29066442` + worktree dirty |
++| RECETTE | **FROZEN** `@98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **aucune mutation** |
++| P0 | explicite > focus/same-turn ; `confirmPublicationDocumentWithD4` avant D7 |
++| P1 | restitution Nora mono-état (pas de narratif contradictoire) |
++| P2 | Infos a11y/focus ; Intégrations 11.06 structure |
++| Tests | unit PASS · PG `publication-target-post-uat` + accept01 PASS · Playwright DEV (voir pack) |
++| Push projet | **NONE** |
++| Cutover | **NOT EXECUTED** |
++| Verdict | (voir Review Pack final) |
++
++## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-22 (Europe/Paris) |
++| Macro-lot | Ensemble 08 — correctif post-UAT 01 (publication Nora + UX) |
++| Type | INC / EVOL · CRITICAL · **NO RELEASE** |
++| Branche | `feat/next-ensemble08-git-publications-nora` |
++| Base | `origin/main` `a12f89a1` |
++| RECETTE | **FROZEN** `@98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **aucune mutation** |
++| Diagnostic UAT | Classe **A/B** (+ **C** si path exécuté) : intention reconnue, hedge LLM, **zéro** `effect_attempt` 2026-11-22 ; gate historique `documentEffectForAck.status===AVAILABLE` bloquait publish-existing |
++| Correctifs | publish-existing + WRITE-off restitution Nora ; chrome hero unique ; microcopy ; Infos popover ; Intégrations 11.06 structure |
++| Tests | unit restitution/target + tsc PASS ; PG/Playwright LIVE **non** déclarés équivalents SCRIPTED |
++| Push projet | **NONE** |
++| Cutover RECETTE | **NOT EXECUTED** — GO Morris SHA-specific requis |
++| Verdict | **DELIVERY READY WITH RESERVES** (G5 Figma runtime + WRITE sandbox hors mandat) |
++
++## delivery_id: DELIV-2026-11-21-ENSEMBLE08-RECETTE-CUTOVER
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-21 ≈ 21:02 CET |
++| Macro-lot | Ensemble 08 — cutover RECETTE existante E07 |
++| Type | EVOL / MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
++| GO Morris | SHA `98185598` · BUILD `1xEbvCdTAX6ht262w4oKF` |
++| Avant | E07 `@5ad8fa57` / `BtZP6qDx5oAw8jwPQSEhc` |
++| Après | E08 servi HTTP `<!--1xEbvCdTAX6ht262w4oKF-->` · service `ml4d-ux004` |
++| DB | `sfia_next_recette_ml4` préservée · projects 26 inchangé · +sessions/messages smoke |
++| Backup | immédiat + restore proof isolée PASS |
++| Playwright SCRIPTED on RECETTE | 3 FAIL (attendu LIVE/REAL) |
++| Smoke API/surfaces | PASS (Pilot A test login) |
++| G5 | NOT PROVEN — Morris UAT |
++| Push projet | **NONE** |
++| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
++
+ ## delivery_id: DELIV-2026-11-21-ENSEMBLE08-CANDIDATE-FREEZE-RECETTE-PREP
+
+ | Field | Value |
+diff --git a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
+index 2f40c865..72570bbe 100644
+--- a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
++++ b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
+@@ -2,12 +2,14 @@
+
+ | Champ | Valeur |
+ |---|---|
+-| Date | 2026-11-21 (finalisation technique / préflight RECETTE) |
++| Date | 2026-11-22 (POST-UAT 01 clôture publication Nora — as-built mis à jour) |
+ | Branche | `feat/next-ensemble08-git-publications-nora` |
+ | Base | `origin/main` @ `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
+-| Profil | CRITICAL · Delivery finalisation · NO RELEASE |
++| Profil | CRITICAL · Delivery correctif post-UAT · NO RELEASE |
+ | CKC | FALLBACK (Delivery #8) |
+-| Candidate SHA | `98185598de0d3f3b84af862aecea04b9099217ca` · TREE `1c70839facb7fbc799980c585ce8bfba51cdb5d6` · BUILD `1xEbvCdTAX6ht262w4oKF` |
++| Freeze RECETTE (inchangé) | `98185598de0d3f3b84af862aecea04b9099217ca` · TREE `1c70839f` · BUILD `1xEbvCdTAX6ht262w4oKF` |
++| Candidat DEV post-UAT | **worktree dirty** — nouveau SHA après commit Morris (pas encore figé) |
++| RECETTE | **FROZEN / AVAILABLE** — aucune mutation ce mandat |
+
+ ## Livré (y compris finalisation technique)
+
+@@ -26,6 +28,21 @@
+ - Cible exacte dépôt + PR ; contradiction same-PR → zéro effet
+ - `admitConversationalMergeMandate` + provenance USER D6
+ - Merge SHA : `merge_commit_sha` observé uniquement
++- **POST-UAT 01** : publication d’un document **existant** (sans D4 AVAILABLE same-turn) via `resolvePublicationDocumentTarget`
++- **Convergence** : référence **explicite** (hint/`doc_*`/rév.) **prévaut** sur focus UI et same-turn contradictoires ; `confirmPublicationDocumentWithD4` avant tout prepare D7
++- **Clôture** : `objectRef` et `documentHint` **réconciliés** (pas de `\|\|` silencieux) — conflit → AMBIGUOUS / REVISION_MISMATCH, zéro D7
++- Gate WRITE REAL avant préparation : `publicationWriteGate` → refus explicite si `STUDIO_GITHUB_ALLOW_MUTATIONS≠documentary`
++- Restitution Nora post-Studio : `composePublicationEffectRestitution` — **un** état métier cohérent ; intention sans effet → `NOT_ATTEMPTED` (jamais « Je publie » / succès inventé)
++- Reprise mission post-authorize COMPLETED : restitution métier (pas de dump technique masqué)
++- Champs qual `publication.documentHint` / `objectRef` / `repositoryHint`
++- Preuves PG : WRITE OFF zéro mutation ; SCRIPTED D6/D7/D8 + Nora ; Playwright Nora discriminant (DEV :3101)
++
++### Capacité UX (POST-UAT 01 + convergence)
++- Double en-tête « Intégration Git » : `ProjectChrome` breadcrumb-only pour surfaces `git`/`publication`
++- Microcopy Pilote : jargon D4/D7/D8 / « projection » retiré des surfaces Dépôts Git / Intégrations
++- Infos : popover ancré `GitFileInfoPopover` — `aria-controls` = `panelId` ; Escape / Fermer restaurent le focus ; fermeture sur changement fichier/ref
++- Intégrations 11.06 : panneau GitHub + repos autorisés + Actualiser/Déconnecter ; colonne « Une connexion à la carte » ; pas de cartes pédagogiques héritées à gauche ; confirmation 11.07 inchangée fonctionnellement
++- G5 pixel Figma : **NOT PROVEN** (Morris UAT)
+
+ ### REAL multi-dépôts
+ - Allowlist explicite `allowedFullNames` + env `GITHUB_APP_ALLOWED_REPOS` (même owner)
+@@ -47,8 +64,8 @@
+ - END-TO-END REAL mutation GitHub : **NOT PROVEN** (WRITE/MERGE hors mandat)
+ - GitHub REAL READ : **NOT PROVEN** ce cycle
+ - Nora LIVE E2E : **NOT PROVEN**
+-- Candidate Git figée / build RECETTE : **NOT AVAILABLE**
+-- RECETTE déploiement : hors cycle (préflight only)
++- Candidate Git figée / build RECETTE : **SERVI** `@98185598` / `1xEbvCdTAX6ht262w4oKF` sur lane E07
++- G5 visuelle : **NOT PROVEN** — UAT Morris
+
+ ## Preuves exécutées (finalisation)
+ - `tsc --noEmit` PASS
+diff --git a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md
+index 4203f49f..c5ecfab8 100644
+--- a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md
++++ b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md
+@@ -1,83 +1,166 @@
+-# Manifeste ENV-01 — Cutover RECETTE E07 + E08 (préparé, non exécuté)
++# Manifeste ENV-01 — Cutover RECETTE E07 → E08 (exécuté)
+
+ | Champ | Valeur |
+ | --- | --- |
+-| Date préparation | 2026-11-21 (Europe/Paris) |
++| Date/heure cutover | 2026-11-21 ≈ 21:02 CET (UTC 20:02) |
+ | Classe | **NO RELEASE** |
+-| Lane cible | **RECETTE existante E07** (`STUDIO_LANE=RECETTE`, port **3200**) |
+-| Cutover | **NOT EXECUTED** — GO Morris SHA-specific requis |
++| Lane | **RECETTE existante** (`STUDIO_LANE=RECETTE`, port **3200**) |
++| Cutover | **EXECUTED** — GO Morris SHA-specific honoré |
+ | STABLE | NOT AVAILABLE / non modifié |
++| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
+
+-## Runtime actuellement servi (avant cutover) — observé
++## GO Morris (borné)
+
+-| Champ | Valeur observée |
++| Champ | Valeur |
++| --- | --- |
++| SHA autorisé | `98185598de0d3f3b84af862aecea04b9099217ca` |
++| TREE | `1c70839facb7fbc799980c585ce8bfba51cdb5d6` |
++| BUILD_ID | `1xEbvCdTAX6ht262w4oKF` |
++| Push/PR/merge projet | **NONE** |
++| GitHub REAL WRITE/MERGE | **OFF** |
++
++## Runtime AVANT (E07)
++
++| Champ | Valeur |
+ | --- | --- |
+-| URL | http://127.0.0.1:3200 |
+-| Service LaunchAgent | `com.sfia.studio.next.recette.ml4d-ux004` |
+-| PID node | 75565 (`next-server` v15.5.29) |
+-| Script | `…/sfia-workspace-next-ml4d-ensemble07-recette-build-5ad8fa57/start-recette-ensemble07-5ad8fa57.sh` |
+-| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble07-recette-build-5ad8fa57` |
+ | SOURCE_SHA | `5ad8fa57e4d529726244ddfae394074f5ea65432` |
+ | TREE | `f62a77a1b89dbcbfc1d4009d24c9859017d69cc6` |
+-| BUILD_ID | `BtZP6qDx5oAw8jwPQSEhc` (HTTP `<!--BtZP6qDx5oAw8jwPQSEhc-->` + fichier `.next/BUILD_ID`) |
+-| Mode | `npx next start -H 127.0.0.1 -p 3200` · `NODE_ENV=production` · pas de hot reload |
+-| GitHub mutations | `STUDIO_GITHUB_ALLOW_MUTATIONS` unset/vide |
+-| Nora fixture force | unset (LIVE possible selon secrets lane — non requalifié ici) |
++| BUILD_ID | `BtZP6qDx5oAw8jwPQSEhc` |
++| Script | `start-recette-ensemble07-5ad8fa57.sh` |
++| Worktree | `…/sfia-workspace-next-ml4d-ensemble07-recette-build-5ad8fa57` |
++| PID node | 75565 |
+
+-## PostgreSQL RECETTE (observé, non muté)
++## Runtime APRÈS (E08) — observé
+
+ | Champ | Valeur |
+ | --- | --- |
+-| Container | `sfia-next-recette-pg` Up · `127.0.0.1:5434→5432` |
+-| DB / rôle | `sfia_next_recette_ml4` |
+-| Isolation | DEV PG distinct `sfia-next-dev-pg` :5433 |
+-| Inventaire non sensible | projects=26 · documents=117 · document_revisions=188 · conversations=203 · messages=629 · human_decisions=3 · effect_attempts=4 · business_command_effects=4 · project_git_links=15 · observed_git_facts=0 · users=4 · sessions=118 · accounts=2 |
+-| Schéma drizzle migrations table | **non observée** dans cette DB (pas de `drizzle.__drizzle_migrations`) |
+-| Restauration auto | **INTERDITE** — ne pas recréer DB vide ni restaurer dump en écrasement |
++| URL | http://127.0.0.1:3200 |
++| Service | `com.sfia.studio.next.recette.ml4d-ux004` (même label) |
++| Script | `…/ensemble08-recette-build-98185598/start-recette-ensemble08-98185598.sh` |
++| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-recette-build-98185598` |
++| WorkingDirectory | `…/web` |
++| PID launchd / node | 52210 / 52237 (`next-server` v15.5.29) |
++| SOURCE_SHA (script) | `98185598de0d3f3b84af862aecea04b9099217ca` |
++| BUILD_ID fichier + HTTP | `1xEbvCdTAX6ht262w4oKF` (`<!--1xEbvCdTAX6ht262w4oKF-->`) |
++| Mode | `npx next start -H 127.0.0.1 -p 3200` · production · pas de hot reload |
++| Login HTTP | 200 |
++
++## Actions cutover (exactes)
++
++1. Plist backup : `com.sfia.studio.next.recette.ml4d-ux004.plist.5ad8fa57.pre-e08-cutover-20261121T200200Z.bak`
++2. `launchctl bootout` du service
++3. ProgramArguments → `start-recette-ensemble08-98185598.sh` ; WorkingDirectory → E08 `web/`
++4. `launchctl bootstrap` même label
++5. Vérification HTTP BUILD_ID + CWD processus
+
+-## Candidat E08 (à renseigner après freeze + build)
++## PostgreSQL / données
+
+ | Champ | Valeur |
+ | --- | --- |
+-| Branche source | `feat/next-ensemble08-git-publications-nora` |
+-| Base main | `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
+-| SHA candidat | `98185598de0d3f3b84af862aecea04b9099217ca` |
+-| TREE candidat | `1c70839facb7fbc799980c585ce8bfba51cdb5d6` |
+-| BUILD_ID candidat | `1xEbvCdTAX6ht262w4oKF` |
+-| Worktree build | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-recette-build-98185598` |
+-| Script démarrage préparé | `start-recette-ensemble08-98185598.sh` (non branché LaunchAgent) |
++| DB | `sfia_next_recette_ml4` @ `127.0.0.1:5434` (`sfia-next-recette-pg`) |
++| Isolation DEV | `sfia-next-dev-pg` :5433 distincte |
++| Migrations E08 | **aucune** appliquée (invariant confirmé) |
++| Inventaire AVANT | projects=26 · documents=117 · document_revisions=188 · conversations=203 · messages=629 · human_decisions=3 · effect_attempts=4 · business_command_effects=4 · project_git_links=15 · observed_git_facts=0 · users=4 · sessions=118 · accounts=2 |
++| Inventaire APRÈS smoke | projects=**26** · messages=**633** (+4 essais Playwright Nora) · sessions=**123** (logins test) · Equip'Campus `proj_a9ce5f43…` présent · conversations=1 · messages=14 |
++| Perte anormale | **NON** |
+
+-## Capacités réellement disponibles après cutover (prévision)
++## Backup / restauration / rollback
+
+-| Capacité | Mode attendu |
++| Élément | Statut |
+ | --- | --- |
+-| E01–E07 | Conservées (même DB + nouveau code) |
+-| Consultation Git multi-dépôts | Code E08 ; provider selon config RECETTE |
+-| Nora conduite documentaire | Selon secrets lane ; SCRIPTED ≠ LIVE |
+-| GitHub REAL WRITE/MERGE | **OFF** sauf GO sandbox explicite |
+-| G5 visuelle | **NOT PROVEN** — Morris UAT |
++| Backup historique | `ml4d-e07-pre-e08-cutover-20261121T193852Z-from-5ad8fa57.sql.gz` — gzip OK |
++| Backup immédiat pré-cutover | `ml4d-e07-pre-e08-cutover-immediate-20261121T200119Z-from-5ad8fa57.sql.gz` — gzip OK |
++| Preuve restore isolée | CREATE `sfia_next_recette_restore_proof_e08` → restore → projects=26/messages=629 → DROP — RECETTE intacte |
++| Rollback E07 code | Worktree + BUILD `BtZP6qDx5oAw8jwPQSEhc` + plist `.bak` conservés — **non exercé** (cutover OK) |
+
+-## Backup / rollback (préparation)
++## Capacités observées
+
+-| Élément | Statut |
++| Capacité | Observation | Niveau |
++| --- | --- | --- |
++| E07 surfaces (Pilot A test login) | `/projects/…` travail/projet/trajectoire/documents/git → HTTP 200 | Browser/API smoke |
++| Equip'Campus (Morris) | Présent en DB (identité OAuth Morris non exercée ce cycle) | DB continuity |
++| Intégrations | `providerMode=REAL`, `status=DISCONNECTED` pour Pilot A | REAL config, non connecté |
++| Git sources/pubs API | 200, listes vides sans dépôt rattaché | DETERMINISTIC path |
++| GitHub REAL WRITE | Mutations OFF (`STUDIO_GITHUB_ALLOW_MUTATIONS` vide) | NOT PROVEN / OFF |
++| Nora | Clé OPENAI présente en RECETTE → LIVE possible | LIVE config ; E2E conduit NOT PROVEN |
++| Playwright E08 SCRIPTED | **3/3 FAIL** sur RECETTE — attendu (fixture≠LIVE ; connect SCRIPTED≠OAuth REAL) | N/A as REAL proof |
++| G5 | **NOT PROVEN** — Morris UAT | Différé |
++
++## Fake / Real
++
++| Frontière | Niveau |
+ | --- | --- |
+-| Ancien worktree E07 | Disponible `@5ad8fa57` |
+-| Ancien BUILD_ID | `BtZP6qDx5oAw8jwPQSEhc` |
+-| Script rollback | Relancer plist/script E07 `start-recette-ensemble07-5ad8fa57.sh` |
+-| Backup PG frais | `ml4d-e07-pre-e08-cutover-20261121T193852Z-from-5ad8fa57.sql.gz` (691K, gzip OK) |
+-| Rollback DB | Code rollback ≠ DB rollback ; pas de drop/truncate |
+-
+-## Procédure cutover (exécutable seulement après GO)
+-
+-1. Confirmer SHA/BUILD_ID cibles = GO Morris.
+-2. Confirmer backup PG lisible.
+-3. Arrêter `com.sfia.studio.next.recette.ml4d-ux004`.
+-4. Appliquer migrations **seulement si nécessaires et non destructives**.
+-5. Pointer LaunchAgent vers worktree/build E08 figé (même label/port/DB).
+-6. Relancer service ; vérifier health + identité HTTP BUILD_ID.
+-7. Vérifier inventaire données ≈ avant.
+-8. Smoke E07 + E08 ; consigner manifeste final.
+-
+-## Gate
+-
+-**GO SHA-SPECIFIC REQUIRED.** Sans GO : **STOP BEFORE MUTATION RECETTE.**
++| Runtime build servi | REAL BOUNDARY (artefact figé servi) |
++| PostgreSQL RECETTE | REAL BOUNDARY (même DB) |
++| GitHub provider mode | REAL configuré ; WRITE OFF ; connexion Pilot A absente |
++| Nora | LIVE credentials présents ; parcours conduit NOT PROVEN |
++| Playwright SCRIPTED | NOT applicable as RECETTE proof |
++
++## Réserves / gates Morris
++
++1. UAT visuelle page 11 (G5)
++2. Parcours Git avec compte Morris + App autorisée
++3. Nora conduite documentaire LIVE bornée (sans WRITE si non autorisé)
++4. GO éventuel sandbox WRITE/MERGE
++5. Push/PR projet hors cycle
++
++## Verdict manifeste (cutover historique)
++
++**RECETTE AVAILABLE — MORRIS UAT REQUIRED**
++(runtime actuellement servi : SHA `98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **inchangé** par le freeze POST-UAT 01)
++
++---
++
++# B. Candidat E08 POST-UAT 01 — freeze local (préparé)
++
++| Champ | Valeur |
++| --- | --- |
++| Date/heure freeze local | 2026-11-22 (Europe/Paris) |
++| GO Morris | Freeze local + build détaché **autorisés** ; cutover RECETTE **non** autorisé |
++| Classe | **NO RELEASE** · CANDIDAT |
++| Branche | `feat/next-ensemble08-git-publications-nora` |
++| Base / parent | `origin/main` `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
++| SOURCE_SHA (à renseigner après commit) | _PENDING_COMMIT_ |
++| TREE (à renseigner après commit) | _PENDING_TREE_ |
++| BUILD_ID (à renseigner après build détaché) | _PENDING_BUILD_ |
++| Artefact | worktree détaché hors DEV mutable / hors :3200 |
++| Cutover | **NOT EXECUTED** |
++| RECETTE actuelle | **préservée** `@98185598` / `1xEbvCdTAX6ht262w4oKF` |
++
++## Contenu candidat
++
++- Ensemble 08 initial + correctifs UX POST-UAT 01
++- Publication document existant + réconciliation `objectRef`/`documentHint`
++- Contrôle D4 document/révision ; D6/D7/D8/D9 ; restitution Nora
++- Reprise/idempotence ; filtre branche S03 (fix useEffect)
++- Preuves : unit + PG WRITE OFF / SCRIPTED contenu D4↔Git + terminalité COMPLETED + Playwright Nora/Git
++
++## Fake / Real (candidat)
++
++| Frontière | Niveau |
++| --- | --- |
++| Unit / PG / SCRIPTED | DETERMINISTIC PROVEN |
++| Playwright DEV SCRIPTED | BROWSER + Git simulé |
++| Nora LIVE | NOT PROVEN |
++| GitHub REAL WRITE/MERGE | NOT PROVEN |
++| G5 pixel / UAT Morris | NOT PROVEN |
++
++## Migrations
++
++Aucune migration DB additionnelle requise pour ce candidat (vérifiée — schéma RECETTE `sfia_next_recette_ml4` compatible).
++
++## Mise à disposition future (NON EXÉCUTÉE)
++
++1. GO Morris SHA-specific + BUILD_ID
++2. Worktree/build détaché déjà produit
++3. Remplacer le ProgramArguments LaunchAgent **sans** toucher la DB
++4. Smoke HTTP BUILD_ID sur :3200
++5. Conserver artefacts E07 + E08 `@98185598` pour rollback
++
++## C. Cutover futur
++
++**NOT EXECUTED** — gate Morris distinct rattaché au nouveau SHA/BUILD.
++
++## Verdict section B
++
++**CANDIDATE PREPARED — RECETTE GO REQUIRED** (à confirmer après SHA/TREE/BUILD renseignés)
+diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
+index 2792d128..6d8f8fb3 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
+@@ -37,14 +37,14 @@ const HERO: Record<
+     sub: "Retrouvez les documents durables du projet, leurs versions et les actions disponibles.",
+   },
+   git: {
+-    kicker: "Espace projet  /  Sources Git",
+-    title: "Intégration Git",
+-    sub: "Sources et liens Git du projet — capacités réellement disponibles.",
++    kicker: "ESPACE PROJET / DÉPÔTS GIT",
++    title: "Dépôts Git",
++    sub: "Parcourir un dépôt autorisé puis lire le fichier directement dans l’espace projet.",
+   },
+   publication: {
+-    kicker: "Espace projet  /  Résultats et preuves",
+-    title: "Publication Git",
+-    sub: "Publication et preuves Git — capacités réellement disponibles.",
++    kicker: "ESPACE PROJET / DÉPÔTS GIT",
++    title: "Dépôts Git",
++    sub: "Parcourir un dépôt autorisé puis lire le fichier directement dans l’espace projet.",
+   },
+ };
+
+@@ -78,7 +78,9 @@ export function ProjectChrome(props: {
+   const isJournal = props.surface === "journal";
+   /** Ensemble 07 — Projet / Trajectoire heroes live in ProjectOverview / TrajectoryBoard. */
+   const isProjetOrTrajectoire = props.surface === "projet" || props.surface === "pilotage";
+-  const breadcrumbOnly = isTravail || isJournal || isProjetOrTrajectoire;
++  /** Ensemble 08 — Dépôts Git / Publications heroes live in GitRepositoriesSurface. */
++  const isGitSurface = props.surface === "git" || props.surface === "publication";
++  const breadcrumbOnly = isTravail || isJournal || isProjetOrTrajectoire || isGitSurface;
+
+   const continuityBadge =
+     isTravail && props.statusHint && !/^chargement/i.test(props.statusHint) ? (
+diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
+index d0f908c3..6752bc97 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
++++ b/projects/sfia-studio-next/web/src/components/figma/tokens.css
+@@ -5244,6 +5244,36 @@
+   font-weight: 600;
+   width: fit-content;
+ }
++.git-info-anchor {
++  position: relative;
++  display: inline-flex;
++}
++.git-info-popover {
++  position: absolute;
++  top: calc(100% + 8px);
++  right: 0;
++  z-index: 40;
++  width: min(360px, calc(100vw - 32px));
++  max-height: min(70vh, 420px);
++  overflow: auto;
++  background: var(--fig-panel);
++  border: 1px solid var(--fig-line);
++  border-radius: 10px;
++  padding: 14px 16px;
++  box-shadow: 0 12px 32px color-mix(in srgb, #000 35%, transparent);
++}
++.git-info-popover-head {
++  display: flex;
++  align-items: center;
++  justify-content: space-between;
++  gap: 8px;
++  margin-bottom: 8px;
++}
++.git-info-popover-title {
++  margin: 0;
++  font-size: 14px;
++  font-weight: 600;
++}
+ .git-empty-layout,
+ .git-manage,
+ .git-enlarge-layout {
 diff --git a/projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx b/projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx
 index 8f06836d..33af5167 100644
 --- a/projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx
@@ -2667,6 +3150,410 @@ index 8f06836d..33af5167 100644
                          <div className="git-preview-body" data-testid="git-preview-body">
                            {/\.md$/i.test(pubFile.path) ? (
                              <SafeMarkdown content={pubFile.content} />
+diff --git a/projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx b/projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx
+index 138bda02..a535cc27 100644
+--- a/projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx
++++ b/projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx
+@@ -19,7 +19,7 @@ function statusBanner(status: string): { tone: string; text: string } {
+     case "CONNECTED":
+       return {
+         tone: "text-emerald-300",
+-        text: "GitHub est connecté. Les dépôts ci-dessous sont ceux réellement autorisés côté serveur.",
++        text: "GitHub connecté — accès fournisseur vérifié. Aucun mandat de publication n’est accordé par cette seule connexion.",
+       };
+     case "PENDING_APPROVAL":
+       return {
+@@ -30,8 +30,7 @@ function statusBanner(status: string): { tone: string; text: string } {
+     case "REVOKED":
+       return {
+         tone: "text-amber-300",
+-        text:
+-          "Accès Studio local retiré. Ce n’est pas automatiquement une révocation complète de l’installation GitHub. Les acquis D4 et faits historiques restent conservés.",
++        text: "Accès Studio local retiré. Ce n’est pas automatiquement une révocation complète de l’installation GitHub. Les documents et faits historiques restent conservés.",
+       };
+     default:
+       return {
+@@ -71,7 +70,6 @@ export function IntegrationsPanel() {
+         return;
+       }
+       // SCRIPTED complete only when server chose flow=scripted.
+-      // Do NOT use providerMode (Git provider SCRIPTED/REAL) — that is orthogonal to D9 OAuth flow.
+       if (j.flow === "scripted") {
+         const done = await fetch("/api/integrations/github/authorize/complete", {
+           method: "POST",
+@@ -123,7 +121,7 @@ export function IntegrationsPanel() {
+       <div className="space-y-5" data-testid="integrations-disconnect-confirm">
+         <header className="space-y-2">
+           <p className="text-[12px] font-semibold uppercase tracking-wide text-[var(--fig-accent)]">
+-            Paramètres / Sécurité
++            PARAMÈTRES / SERVICES EXTERNES
+           </p>
+           <h1 className="text-[32px] leading-tight font-semibold text-[var(--ink)]">
+             Déconnecter GitHub
+@@ -208,22 +206,11 @@ export function IntegrationsPanel() {
+     <div className="space-y-5" data-testid="integrations-panel">
+       <header className="space-y-2">
+         <p className="text-[12px] font-semibold uppercase tracking-wide text-[var(--fig-accent)]">
+-          Paramètres · Services externes
++          PARAMÈTRES / SERVICES EXTERNES
+         </p>
+-        <div className="flex items-center gap-3 flex-wrap">
+-          <h1 className="text-[32px] leading-tight font-semibold text-[var(--ink)]">Intégrations</h1>
+-          {view?.providerMode === "SCRIPTED" ? (
+-            <span
+-              className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded border border-[var(--line)] text-[var(--muted)]"
+-              data-testid="badge-scripted"
+-            >
+-              SCRIPTED
+-            </span>
+-          ) : null}
+-        </div>
++        <h1 className="text-[32px] leading-tight font-semibold text-[var(--ink)]">Intégrations</h1>
+         <p className="text-base text-[var(--muted)] max-w-3xl">
+-          Connectez les services utiles à votre travail. Vous gardez la maîtrise des dépôts et des
+-          permissions.
++          Gérer la connexion personnelle GitHub et consulter les dépôts réellement autorisés.
+         </p>
+       </header>
+
+@@ -234,58 +221,47 @@ export function IntegrationsPanel() {
+         {banner.text}
+       </div>
+
+-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
++      <div
++        className="grid gap-5 lg:grid-cols-[minmax(0,858fr)_minmax(0,482fr)]"
++        data-testid="integrations-layout-1106"
++      >
+         <section className="studio-card p-5 space-y-4" data-testid="github-integration-card">
+-          <div>
+-            <p className="text-[11px] font-semibold uppercase tracking-wide text-[var(--fig-accent)]">
+-              GitHub · Intégration disponible
+-            </p>
+-            <h2 className="text-[22px] font-semibold mt-1">GitHub</h2>
+-            <p className="text-sm text-[var(--muted)] mt-1">
+-              Consulter vos dépôts autorisés, travailler avec Nora et publier des documents sous votre
+-              contrôle.
+-            </p>
+-          </div>
+-
+-          <div className="space-y-2">
+-            <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
+-              <p className="text-sm font-semibold">Connexion Studio</p>
+-              <p className="text-xs text-[var(--muted)] mt-1">
+-                Vous êtes authentifié dans Studio : cela ne donne aucun droit sur les dépôts.
+-              </p>
+-            </div>
+-            <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
+-              <p className="text-sm font-semibold">Accès aux dépôts</p>
+-              <p className="text-xs text-[var(--muted)] mt-1">
+-                {status === "CONNECTED"
+-                  ? "Installation et autorisation utilisateur GitHub App vérifiées côté serveur."
+-                  : "Aucune installation GitHub App ni autorisation utilisateur n'est présumée."}
+-              </p>
+-            </div>
+-            <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
+-              <p className="text-sm font-semibold">Publication documentaire</p>
+-              <p className="text-xs text-[var(--muted)] mt-1">
+-                Les branches, commits, PR et merges nécessitent un mandat distinct.
+-              </p>
+-            </div>
++          <div className="flex items-center gap-3 flex-wrap">
++            <h2 className="text-[22px] font-semibold m-0">GitHub</h2>
++            {status === "CONNECTED" ? (
++              <span className="git-badge-ok" data-testid="github-connected-badge">
++                ● Connecté
++              </span>
++            ) : null}
+           </div>
+
+           {status === "CONNECTED" ? (
+-            <ul className="text-sm space-y-1" data-testid="repo-list">
+-              {view?.repositories.map((r) => (
+-                <li key={r.id} className="mono muted">
+-                  {r.fullName}
+-                  {r.defaultBranch ? ` · ${r.defaultBranch}` : ""}
+-                </li>
+-              ))}
+-            </ul>
+-          ) : (
+-            <p className="text-sm muted">Aucun dépôt autorisé.</p>
+-          )}
+-
+-          <div className="flex flex-wrap gap-3 pt-1">
+-            {status === "CONNECTED" ? (
+-              <>
++            <>
++              <p className="text-sm text-[var(--muted)] m-0">
++                Dépôts autorisés par la GitHub App — affichés côté serveur.
++              </p>
++              {(view?.repositories?.length ?? 0) === 0 ? (
++                <p className="text-sm muted" data-testid="repo-list-empty">
++                  Aucun dépôt autorisé.
++                </p>
++              ) : (
++                <ul className="space-y-2 m-0 p-0 list-none" data-testid="repo-list">
++                  {view!.repositories.map((r) => (
++                    <li
++                      key={r.id}
++                      className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-4 py-3"
++                      data-testid={`integration-repo-${r.id}`}
++                    >
++                      <p className="text-sm font-semibold m-0 mono">{r.fullName}</p>
++                      <p className="text-xs text-[var(--muted)] mt-1 mb-0">
++                        Accessible au compte Pilote
++                        {r.defaultBranch ? ` · branche par défaut ${r.defaultBranch}` : ""}
++                      </p>
++                    </li>
++                  ))}
++                </ul>
++              )}
++              <div className="flex flex-wrap gap-3 pt-1">
+                 <button
+                   type="button"
+                   className="studio-btn"
+@@ -293,7 +269,7 @@ export function IntegrationsPanel() {
+                   onClick={() => void refreshRepos()}
+                   data-testid="refresh-repos"
+                 >
+-                  Actualiser les dépôts
++                  Actualiser
+                 </button>
+                 <button
+                   type="button"
+@@ -303,11 +279,18 @@ export function IntegrationsPanel() {
+                   data-testid="disconnect-github"
+                   title="Ouvre la confirmation — aucun appel de déconnexion avant confirmation"
+                 >
+-                  Déconnecter (Studio)
++                  Déconnecter
+                 </button>
+-              </>
+-            ) : (
+-              <>
++              </div>
++            </>
++          ) : (
++            <>
++              <p className="text-sm text-[var(--muted)]">
++                Consulter vos dépôts autorisés, travailler avec Nora et publier des documents sous
++                votre contrôle.
++              </p>
++              <p className="text-sm muted">Aucun dépôt autorisé.</p>
++              <div className="flex flex-wrap gap-3 pt-1">
+                 <button
+                   type="button"
+                   className="studio-btn"
+@@ -317,23 +300,34 @@ export function IntegrationsPanel() {
+                 >
+                   Configurer GitHub
+                 </button>
+-                <button type="button" className="studio-btn-secondary" disabled={busy} onClick={() => void refresh()}>
++                <button
++                  type="button"
++                  className="studio-btn-secondary"
++                  disabled={busy}
++                  onClick={() => void refresh()}
++                >
+                   Plus tard
+                 </button>
+-              </>
+-            )}
+-          </div>
++              </div>
++            </>
++          )}
+         </section>
+
+-        <aside className="studio-card p-5 space-y-3">
++        <aside className="studio-card p-5 space-y-3" data-testid="integrations-explain-column">
+           <h2 className="text-[20px] font-semibold">Une connexion à la carte</h2>
+-          <p className="text-sm text-[var(--muted)]">
+-            Connectez GitHub maintenant, ou seulement lorsqu&apos;un projet en aura besoin.
+-          </p>
+           {[
+-            ["1 · Choisir le compte", "Sur GitHub, choisissez un compte ou une organisation."],
+-            ["2 · Sélectionner les dépôts", "Limitez l'installation aux dépôts nécessaires."],
+-            ["3 · Conserver le contrôle", "Vous pourrez ajouter ou retirer des dépôts plus tard."],
++            [
++              "Connexion personnelle",
++              "Autorisation GitHub propre au Pilote, distincte des projets.",
++            ],
++            [
++              "Rattachements projet",
++              "Chaque projet choisit les dépôts utiles, un ou plusieurs.",
++            ],
++            [
++              "Publication documentaire",
++              "Nora propose, le Pilote inspecte et autorise un mandat distinct.",
++            ],
+           ].map(([title, body]) => (
+             <div
+               key={title}
+@@ -347,13 +341,6 @@ export function IntegrationsPanel() {
+       </div>
+
+       {message ? <p className="text-sm text-amber-400">{message}</p> : null}
+-      <p className="text-xs text-[var(--muted)]" data-testid="provider-mode-note">
+-        {!view
+-          ? "Chargement du statut d'intégration…"
+-          : view.providerMode === "SCRIPTED"
+-            ? "Fournisseur d'effet Git SCRIPTED (fixtures). Orthogonal au flux OAuth user-to-server."
+-            : "Fournisseur d'effet Git REAL. Orthogonal au statut OAuth CONNECTED — mutations bornées documentary + mandat D6."}
+-      </p>
+     </div>
+   );
+ }
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts b/projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts
+index 4cac2789..5b8e9725 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts
+@@ -369,6 +369,8 @@ export async function admitConversationalPublicationMandate(input: {
+         projectId: input.projectId,
+         attemptId: input.attemptId,
+         decisionId: auth.decisionId,
++        // Same-turn: Nora turn commits restitution — do not insert a rival assistant row.
++        persistAssistantMessage: false,
+       });
+     }
+
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+index 34a568a9..be9ff5f6 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+@@ -2038,6 +2038,104 @@ register(
+   },
+ );
+
++/** E08 — create + publish (SCRIPTED browser / fixture FAKE). */
++function createAndPublishQualification(
++  title: string,
++  publicationPath: string,
++): NoraTurnQualification {
++  return effect(
++    `Document + publication ${title}`,
++    `Je prépare « ${title} » puis la publication gouvernée — Studio confirme l'effet.\n\n\`\`\`sfia-document\n# ${title}\n\nContenu E08 publication Nora.\n\`\`\`\n`,
++    [
++      {
++        id: "i1",
++        capabilityId: "d4.create_document",
++        mode: "REQUEST_EFFECT",
++        summary: title,
++        parameters: { notes: title, documentHint: title },
++        constraints: [],
++        dependsOn: [],
++        sourceEvidence: [],
++      },
++      {
++        id: "i2",
++        capabilityId: "d7.prepare_publication",
++        mode: "REQUEST_EFFECT",
++        summary: "Préparer publication",
++        parameters: { publicationPath, documentHint: title },
++        constraints: [],
++        dependsOn: ["i1"],
++        sourceEvidence: [],
++      },
++    ],
++  );
++}
++
++/** E08 — publish existing document (explicit title / revision hint). */
++function publishExistingQualification(
++  documentHint: string,
++  publicationPath: string,
++): NoraTurnQualification {
++  return effect(
++    `Publication ${documentHint}`,
++    `Je prépare la publication de « ${documentHint} » — Studio reste propriétaire de l'effet.`,
++    [
++      {
++        capabilityId: "d7.prepare_publication",
++        mode: "REQUEST_EFFECT",
++        summary: "Préparer publication",
++        parameters: { documentHint, publicationPath },
++        constraints: [],
++        dependsOn: [],
++        sourceEvidence: [],
++      },
++    ],
++  );
++}
++
++register(
++  "E08_PUBLISH_CREATE_SCRIPTED",
++  createAndPublishQualification(
++    "E08 Nora Publish Scripted",
++    "docs/studio-next/e08-nora-publish.md",
++  ),
++);
++register(
++  "Crée un document intitulé E08 Nora Publish Scripted et publie-le dans mon dépôt GitHub chemin docs/studio-next/e08-nora-publish.md",
++  createAndPublishQualification(
++    "E08 Nora Publish Scripted",
++    "docs/studio-next/e08-nora-publish.md",
++  ),
++);
++register(
++  "E08_PUBLISH_EXISTING_CLARIFY",
++  publishExistingQualification(
++    "Document fantôme E08 introuvable XYZ",
++    "docs/studio-next/e08-clarify.md",
++  ),
++);
++register(
++  "Publie le document Document fantôme E08 introuvable XYZ dans mon dépôt GitHub chemin docs/studio-next/e08-clarify.md",
++  publishExistingQualification(
++    "Document fantôme E08 introuvable XYZ",
++    "docs/studio-next/e08-clarify.md",
++  ),
++);
++register(
++  "E08_PUBLISH_EXISTING_CORRECT",
++  publishExistingQualification(
++    "Note E08 cible corrigée",
++    "docs/studio-next/e08-corrected.md",
++  ),
++);
++register(
++  "Publie le document Note E08 cible corrigée dans mon dépôt GitHub chemin docs/studio-next/e08-corrected.md",
++  publishExistingQualification(
++    "Note E08 cible corrigée",
++    "docs/studio-next/e08-corrected.md",
++  ),
++);
++
+ /** E08 — documentary merge fixtures (exact utterance → d7.merge_publication). */
+ function mergePublicationQualification(
+   prNumber: number,
+@@ -2071,6 +2169,11 @@ const MERGE_PR_FIXTURE_RE = /^Merge la PR #(\d{1,6})\.?$/i;
+ const MERGE_PR_REPO_FIXTURE_RE =
+   /^Merge la PR #(\d{1,6}) du dépôt ([A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+)\.?$/i;
+
++const E08_CREATE_PUBLISH_RE =
++  /^Crée un document intitulé (.+?) et publie-le dans mon dépôt GitHub chemin (docs\/studio-next\/[A-Za-z0-9_.\/-]+)$/i;
++const E08_PUBLISH_EXISTING_RE =
++  /^Publie le document (.+?) dans mon dépôt GitHub chemin (docs\/studio-next\/[A-Za-z0-9_.\/-]+)$/i;
++
+ /** Short TEST_BOUNDARY keys for e2e (exact match, same envelopes as the natural utterances). */
+ for (const [short, long] of [
+   ["E05_S2_DIAGNOSTIC", E05_S2_DIAGNOSTIC],
+@@ -2156,6 +2259,15 @@ export function fixtureSemanticQualify(userText: string): NoraTurnQualification
+       },
+     );
+   }
++  // E08 TEST_BOUNDARY — create+publish / publish-existing (SCRIPTED; WRITE OFF = PG only).
++  const createPub = text.match(E08_CREATE_PUBLISH_RE);
++  if (createPub?.[1] && createPub[2]) {
++    return createAndPublishQualification(createPub[1].trim(), createPub[2].trim());
++  }
++  const pubExisting = text.match(E08_PUBLISH_EXISTING_RE);
++  if (pubExisting?.[1] && pubExisting[2]) {
++    return publishExistingQualification(pubExisting[1].trim(), pubExisting[2].trim());
++  }
+   // E08 TEST_BOUNDARY — parameterized positive merge only (negations stay dialogue-default).
+   const mergeRepo = text.match(MERGE_PR_REPO_FIXTURE_RE);
+   if (mergeRepo?.[1] && mergeRepo[2]) {
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts b/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
 index 729fa1e2..c6f33500 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
@@ -2894,6 +3781,52 @@ index 729fa1e2..c6f33500 100644
      try {
        conversationMessageId = await appendAssistantMissionMessage({
          pilotId: input.pilotId,
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts b/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
+index 74998a42..fbee47d8 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
+@@ -123,7 +123,13 @@ export function composePilotageEffectRestitution(input: {
+ /** True when a persisted assistant message is a raw technical mission dump (not métier Nora). */
+ export function isTechnicalMissionAssistantContent(content: string, generationId?: string | null): boolean {
+   // Provenance hint alone is insufficient — a mission-continue may already carry métier D4 ACK.
+-  if (/Résultat d'enregistrement|Nouvelle version disponible|encore incertain/i.test(content)) {
++  // E08 — publication effect restitution is Nora métier voice; do not mask it as technical dump.
++  if (
++    /Résultat d'enregistrement|Nouvelle version disponible|encore incertain/i.test(content) ||
++    /a été publié|n'a pas été effectuée|Aucune publication n'a (été|été)|écritures GitHub ne sont pas disponibles|encore en vérification/i.test(
++      content,
++    )
++  ) {
+     return false;
+   }
+   if (/^### Suite de mission/m.test(content) && /projectId=|clientIntentKey=|status=COMPLETED/.test(content)) {
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+index a9da3d88..b8d9c0d7 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+@@ -568,6 +568,9 @@ export type SemanticStudioProjection = {
+     path: string | null;
+     targetPath: string | null;
+     targetBranch: string | null;
++    documentHint: string | null;
++    objectRef: string | null;
++    repositoryHint: string | null;
+     clarify: string | null;
+     capabilityId: "d7.prepare_publication" | "d7.dispatch_publication" | "d9.git_integration" | null;
+   };
+@@ -641,6 +644,12 @@ export function projectStudioEffects(q: NoraTurnQualification): SemanticStudioPr
+     path,
+     targetPath: path,
+     targetBranch: null as string | null,
++    documentHint:
++      publish?.parameters.documentHint?.trim() ||
++      reviseDoc?.parameters.documentHint?.trim() ||
++      null,
++    objectRef: publish?.parameters.objectRef?.trim() || null,
++    repositoryHint: publish?.parameters.repositoryFullName?.trim() || null,
+     clarify: publish && !path ? "Chemin de publication Git manquant." : null,
+     capabilityId: publishCapability,
+   };
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 index 52b72c5d..6e6b19cf 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
@@ -3313,8 +4246,2097 @@ index 52b72c5d..6e6b19cf 100644
    const assistantContentForCommit = ownershipLostBeforeD4
      ? reply.content
      : appendMissionAck(
+diff --git a/projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts
+index ca11f453..a82cac55 100644
+--- a/projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts
++++ b/projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts
+@@ -29,9 +29,7 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
 
----
+     await page.goto("/settings/integrations");
+     await expect(page.getByTestId("integrations-panel")).toBeVisible();
+-    await expect(page.getByTestId("provider-mode-note")).not.toContainText(/Chargement/i, {
+-      timeout: 15_000,
+-    });
++    await expect(page.getByTestId("integrations-status-banner")).toBeVisible({ timeout: 15_000 });
+     if (await page.getByTestId("disconnect-github").isVisible().catch(() => false)) {
+       await page.getByTestId("disconnect-github").click();
+       await expect(page.getByTestId("integrations-disconnect-confirm")).toBeVisible();
+@@ -39,9 +37,10 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
+       await expect(page.getByTestId("connect-github")).toBeVisible({ timeout: 15_000 });
+     }
+     await page.getByTestId("connect-github").click();
+-    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub est connecté/i, {
++    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub connecté/i, {
+       timeout: 20_000,
+     });
++    await expect(page.getByTestId("github-connected-badge")).toBeVisible();
+     if (await page.getByTestId("refresh-repos").isVisible().catch(() => false)) {
+       await page.getByTestId("refresh-repos").click();
+     }
+@@ -66,6 +65,10 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
+     await expect(page.getByTestId("git-branch-search")).toBeVisible();
+     await page.getByTestId("git-branch-filter").fill("main");
+     await page.getByTestId("git-branch-filter-apply").click();
++    // Note lives outside the popover — wait for provider filter to apply (S03).
++    await expect
++      .poll(async () => page.getByTestId("git-branch-filter-note").count(), { timeout: 20_000 })
++      .toBeGreaterThan(0);
+     await expect(page.getByTestId("git-branch-filter-note")).toContainText(/main/i, {
+       timeout: 10_000,
+     });
+@@ -74,7 +77,7 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
+     // Publications tab — project-scale, historical wording (E08-S04)
+     await page.getByTestId("git-tab-publications").click();
+     await expect(page.getByTestId("git-publications")).toBeVisible();
+-    await expect(page.getByTestId("git-publications")).toContainText(/Projection D4\/D7\/D8|historique/i);
++    await expect(page.getByTestId("git-publications")).toContainText(/historique|publication/i);
+     await expect(page.getByTestId("git-pubs-split").or(page.getByTestId("git-publications-empty"))).toBeVisible();
+
+     // Manage — at least one attached; second attach when an unattached button is offered
+@@ -93,11 +96,11 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
+         .toBeGreaterThanOrEqual(before);
+     }
+
+-    // Detach one with confirm
++    // Detach one with confirm (force: list can remount while sources refresh)
+     const detachBtn = page.locator('[data-testid^="git-detach-"]').first();
+     if (await detachBtn.isVisible().catch(() => false)) {
+-      await detachBtn.click();
+-      await expect(page.getByTestId("git-detach-confirm")).toBeVisible({ timeout: 5_000 });
++      await detachBtn.click({ force: true, timeout: 15_000 });
++      await expect(page.getByTestId("git-detach-confirm")).toBeVisible({ timeout: 10_000 });
+       await page.getByTestId("git-detach-confirm-yes").click();
+     }
+
+diff --git a/projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts b/projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts
+index 77ffd387..2b74ecc1 100644
+--- a/projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts
++++ b/projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts
+@@ -37,15 +37,13 @@ test.describe("ML4 git collaboration corrective (SCRIPTED)", () => {
+     await page.goto("/settings/integrations");
+     await expect(page.getByTestId("integrations-panel")).toBeVisible();
+     // Wait for status hydration (avoid race: default DISCONNECTED before fetch).
+-    await expect(page.getByTestId("provider-mode-note")).not.toContainText(/Chargement/i, {
+-      timeout: 15_000,
+-    });
++    await expect(page.getByTestId("integrations-status-banner")).toBeVisible({ timeout: 15_000 });
+     if (await page.getByTestId("disconnect-github").isVisible().catch(() => false)) {
+       await page.getByTestId("disconnect-github").click();
+       await expect(page.getByTestId("connect-github")).toBeVisible({ timeout: 15_000 });
+     }
+     await page.getByTestId("connect-github").click();
+-    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub est connecté/i, {
++    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub connecté/i, {
+       timeout: 20_000,
+     });
+     // Refresh repos so SCRIPTED permission snapshot is current (write for documentary publish).
+diff --git a/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
+index 96526533..ffeff38d 100644
+--- a/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
+@@ -365,7 +365,11 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
+
+     const msgs = await listMessages(pilotId, preparationId);
+     const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
+-    expect(assistant?.content).toMatch(/Résultat applicatif D4|Suite de mission|AVAILABLE/);
++    // E08 clôture — Nora métier restitution after COMPLETED (not technical dump).
++    expect(assistant?.content).toMatch(
++      /a été publié|Résultat applicatif D4|Suite de mission|AVAILABLE/,
++    );
++    expect(assistant?.content).not.toMatch(/Je publie/i);
+     expect(projectId).toBeTruthy();
+   });
+
+```
+
+### Diffs par fichier (intégral, 16/16)
+
+#### `projects/sfia-studio-next/construction/delivery-history.md`
+
+```diff
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 397824a8..95da8639 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -3,6 +3,91 @@
+ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+
++## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-FREEZE-LOCAL
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-22 (Europe/Paris) |
++| Macro-lot | Ensemble 08 — POST-UAT 01 freeze local candidat |
++| Type | EVOL / QA / FREEZE CANDIDAT · CRITICAL · **NO RELEASE** |
++| Branche | `feat/next-ensemble08-git-publications-nora` |
++| Base | `origin/main` `a12f89a1` |
++| GO Morris | Commit local + build détaché autorisés ; push/PR/cutover **NON** |
++| Réserves fermées | A contenu D4↔SCRIPTED · B D7 COMPLETED + D8 · C build détaché |
++| Push projet | **NONE** |
++| Cutover | **NOT EXECUTED** — RECETTE `@98185598` intacte |
++| Verdict | (voir Review Pack / manifeste section B) |
++
++## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-CLOTURE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-22 (Europe/Paris) |
++| Macro-lot | Ensemble 08 — POST-UAT 01 clôture écarts publication Nora |
++| Type | INC / EVOL · CRITICAL · **NO RELEASE** |
++| Branche | `feat/next-ensemble08-git-publications-nora` |
++| Base | `origin/main` `a12f89a1` · HEAD `29066442` + worktree dirty |
++| RECETTE | **FROZEN** `@98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **aucune mutation** |
++| P0 | réconciliation `objectRef`/`documentHint` (conflit → AMBIGUOUS, zéro effet) |
++| P1 | `NOT_ATTEMPTED` si intention sans effet ; reprise COMPLETED = restitution métier |
++| Preuves | PG WRITE OFF zéro mutation · PG SCRIPTED E2E · Playwright Nora DEV (voir pack) |
++| Push projet | **NONE** |
++| Cutover | **NOT EXECUTED** |
++| Verdict | DELIVERY READY WITH RESERVES (A/B/C traitées au freeze) |
++
++## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-CONVERGENCE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-22 (Europe/Paris) |
++| Macro-lot | Ensemble 08 — POST-UAT 01 convergence finale (doc/rév · Nora · UX) |
++| Type | INC / EVOL · CRITICAL · **NO RELEASE** |
++| Branche | `feat/next-ensemble08-git-publications-nora` |
++| Base | `origin/main` `a12f89a1` · HEAD `29066442` + worktree dirty |
++| RECETTE | **FROZEN** `@98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **aucune mutation** |
++| P0 | explicite > focus/same-turn ; `confirmPublicationDocumentWithD4` avant D7 |
++| P1 | restitution Nora mono-état (pas de narratif contradictoire) |
++| P2 | Infos a11y/focus ; Intégrations 11.06 structure |
++| Tests | unit PASS · PG `publication-target-post-uat` + accept01 PASS · Playwright DEV (voir pack) |
++| Push projet | **NONE** |
++| Cutover | **NOT EXECUTED** |
++| Verdict | (voir Review Pack final) |
++
++## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-22 (Europe/Paris) |
++| Macro-lot | Ensemble 08 — correctif post-UAT 01 (publication Nora + UX) |
++| Type | INC / EVOL · CRITICAL · **NO RELEASE** |
++| Branche | `feat/next-ensemble08-git-publications-nora` |
++| Base | `origin/main` `a12f89a1` |
++| RECETTE | **FROZEN** `@98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **aucune mutation** |
++| Diagnostic UAT | Classe **A/B** (+ **C** si path exécuté) : intention reconnue, hedge LLM, **zéro** `effect_attempt` 2026-11-22 ; gate historique `documentEffectForAck.status===AVAILABLE` bloquait publish-existing |
++| Correctifs | publish-existing + WRITE-off restitution Nora ; chrome hero unique ; microcopy ; Infos popover ; Intégrations 11.06 structure |
++| Tests | unit restitution/target + tsc PASS ; PG/Playwright LIVE **non** déclarés équivalents SCRIPTED |
++| Push projet | **NONE** |
++| Cutover RECETTE | **NOT EXECUTED** — GO Morris SHA-specific requis |
++| Verdict | **DELIVERY READY WITH RESERVES** (G5 Figma runtime + WRITE sandbox hors mandat) |
++
++## delivery_id: DELIV-2026-11-21-ENSEMBLE08-RECETTE-CUTOVER
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-21 ≈ 21:02 CET |
++| Macro-lot | Ensemble 08 — cutover RECETTE existante E07 |
++| Type | EVOL / MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
++| GO Morris | SHA `98185598` · BUILD `1xEbvCdTAX6ht262w4oKF` |
++| Avant | E07 `@5ad8fa57` / `BtZP6qDx5oAw8jwPQSEhc` |
++| Après | E08 servi HTTP `<!--1xEbvCdTAX6ht262w4oKF-->` · service `ml4d-ux004` |
++| DB | `sfia_next_recette_ml4` préservée · projects 26 inchangé · +sessions/messages smoke |
++| Backup | immédiat + restore proof isolée PASS |
++| Playwright SCRIPTED on RECETTE | 3 FAIL (attendu LIVE/REAL) |
++| Smoke API/surfaces | PASS (Pilot A test login) |
++| G5 | NOT PROVEN — Morris UAT |
++| Push projet | **NONE** |
++| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
++
+ ## delivery_id: DELIV-2026-11-21-ENSEMBLE08-CANDIDATE-FREEZE-RECETTE-PREP
+
+ | Field | Value |
+```
+
+#### `projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md`
+
+```diff
+diff --git a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
+index 2f40c865..72570bbe 100644
+--- a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
++++ b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/as-built.md
+@@ -2,12 +2,14 @@
+
+ | Champ | Valeur |
+ |---|---|
+-| Date | 2026-11-21 (finalisation technique / préflight RECETTE) |
++| Date | 2026-11-22 (POST-UAT 01 clôture publication Nora — as-built mis à jour) |
+ | Branche | `feat/next-ensemble08-git-publications-nora` |
+ | Base | `origin/main` @ `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
+-| Profil | CRITICAL · Delivery finalisation · NO RELEASE |
++| Profil | CRITICAL · Delivery correctif post-UAT · NO RELEASE |
+ | CKC | FALLBACK (Delivery #8) |
+-| Candidate SHA | `98185598de0d3f3b84af862aecea04b9099217ca` · TREE `1c70839facb7fbc799980c585ce8bfba51cdb5d6` · BUILD `1xEbvCdTAX6ht262w4oKF` |
++| Freeze RECETTE (inchangé) | `98185598de0d3f3b84af862aecea04b9099217ca` · TREE `1c70839f` · BUILD `1xEbvCdTAX6ht262w4oKF` |
++| Candidat DEV post-UAT | **worktree dirty** — nouveau SHA après commit Morris (pas encore figé) |
++| RECETTE | **FROZEN / AVAILABLE** — aucune mutation ce mandat |
+
+ ## Livré (y compris finalisation technique)
+
+@@ -26,6 +28,21 @@
+ - Cible exacte dépôt + PR ; contradiction same-PR → zéro effet
+ - `admitConversationalMergeMandate` + provenance USER D6
+ - Merge SHA : `merge_commit_sha` observé uniquement
++- **POST-UAT 01** : publication d’un document **existant** (sans D4 AVAILABLE same-turn) via `resolvePublicationDocumentTarget`
++- **Convergence** : référence **explicite** (hint/`doc_*`/rév.) **prévaut** sur focus UI et same-turn contradictoires ; `confirmPublicationDocumentWithD4` avant tout prepare D7
++- **Clôture** : `objectRef` et `documentHint` **réconciliés** (pas de `\|\|` silencieux) — conflit → AMBIGUOUS / REVISION_MISMATCH, zéro D7
++- Gate WRITE REAL avant préparation : `publicationWriteGate` → refus explicite si `STUDIO_GITHUB_ALLOW_MUTATIONS≠documentary`
++- Restitution Nora post-Studio : `composePublicationEffectRestitution` — **un** état métier cohérent ; intention sans effet → `NOT_ATTEMPTED` (jamais « Je publie » / succès inventé)
++- Reprise mission post-authorize COMPLETED : restitution métier (pas de dump technique masqué)
++- Champs qual `publication.documentHint` / `objectRef` / `repositoryHint`
++- Preuves PG : WRITE OFF zéro mutation ; SCRIPTED D6/D7/D8 + Nora ; Playwright Nora discriminant (DEV :3101)
++
++### Capacité UX (POST-UAT 01 + convergence)
++- Double en-tête « Intégration Git » : `ProjectChrome` breadcrumb-only pour surfaces `git`/`publication`
++- Microcopy Pilote : jargon D4/D7/D8 / « projection » retiré des surfaces Dépôts Git / Intégrations
++- Infos : popover ancré `GitFileInfoPopover` — `aria-controls` = `panelId` ; Escape / Fermer restaurent le focus ; fermeture sur changement fichier/ref
++- Intégrations 11.06 : panneau GitHub + repos autorisés + Actualiser/Déconnecter ; colonne « Une connexion à la carte » ; pas de cartes pédagogiques héritées à gauche ; confirmation 11.07 inchangée fonctionnellement
++- G5 pixel Figma : **NOT PROVEN** (Morris UAT)
+
+ ### REAL multi-dépôts
+ - Allowlist explicite `allowedFullNames` + env `GITHUB_APP_ALLOWED_REPOS` (même owner)
+@@ -47,8 +64,8 @@
+ - END-TO-END REAL mutation GitHub : **NOT PROVEN** (WRITE/MERGE hors mandat)
+ - GitHub REAL READ : **NOT PROVEN** ce cycle
+ - Nora LIVE E2E : **NOT PROVEN**
+-- Candidate Git figée / build RECETTE : **NOT AVAILABLE**
+-- RECETTE déploiement : hors cycle (préflight only)
++- Candidate Git figée / build RECETTE : **SERVI** `@98185598` / `1xEbvCdTAX6ht262w4oKF` sur lane E07
++- G5 visuelle : **NOT PROVEN** — UAT Morris
+
+ ## Preuves exécutées (finalisation)
+ - `tsc --noEmit` PASS
+```
+
+#### `projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md`
+
+```diff
+diff --git a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md
+index 4203f49f..c5ecfab8 100644
+--- a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md
++++ b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/manifeste-cutover-recette-e07-plus-e08.md
+@@ -1,83 +1,166 @@
+-# Manifeste ENV-01 — Cutover RECETTE E07 + E08 (préparé, non exécuté)
++# Manifeste ENV-01 — Cutover RECETTE E07 → E08 (exécuté)
+
+ | Champ | Valeur |
+ | --- | --- |
+-| Date préparation | 2026-11-21 (Europe/Paris) |
++| Date/heure cutover | 2026-11-21 ≈ 21:02 CET (UTC 20:02) |
+ | Classe | **NO RELEASE** |
+-| Lane cible | **RECETTE existante E07** (`STUDIO_LANE=RECETTE`, port **3200**) |
+-| Cutover | **NOT EXECUTED** — GO Morris SHA-specific requis |
++| Lane | **RECETTE existante** (`STUDIO_LANE=RECETTE`, port **3200**) |
++| Cutover | **EXECUTED** — GO Morris SHA-specific honoré |
+ | STABLE | NOT AVAILABLE / non modifié |
++| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
+
+-## Runtime actuellement servi (avant cutover) — observé
++## GO Morris (borné)
+
+-| Champ | Valeur observée |
++| Champ | Valeur |
++| --- | --- |
++| SHA autorisé | `98185598de0d3f3b84af862aecea04b9099217ca` |
++| TREE | `1c70839facb7fbc799980c585ce8bfba51cdb5d6` |
++| BUILD_ID | `1xEbvCdTAX6ht262w4oKF` |
++| Push/PR/merge projet | **NONE** |
++| GitHub REAL WRITE/MERGE | **OFF** |
++
++## Runtime AVANT (E07)
++
++| Champ | Valeur |
+ | --- | --- |
+-| URL | http://127.0.0.1:3200 |
+-| Service LaunchAgent | `com.sfia.studio.next.recette.ml4d-ux004` |
+-| PID node | 75565 (`next-server` v15.5.29) |
+-| Script | `…/sfia-workspace-next-ml4d-ensemble07-recette-build-5ad8fa57/start-recette-ensemble07-5ad8fa57.sh` |
+-| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble07-recette-build-5ad8fa57` |
+ | SOURCE_SHA | `5ad8fa57e4d529726244ddfae394074f5ea65432` |
+ | TREE | `f62a77a1b89dbcbfc1d4009d24c9859017d69cc6` |
+-| BUILD_ID | `BtZP6qDx5oAw8jwPQSEhc` (HTTP `<!--BtZP6qDx5oAw8jwPQSEhc-->` + fichier `.next/BUILD_ID`) |
+-| Mode | `npx next start -H 127.0.0.1 -p 3200` · `NODE_ENV=production` · pas de hot reload |
+-| GitHub mutations | `STUDIO_GITHUB_ALLOW_MUTATIONS` unset/vide |
+-| Nora fixture force | unset (LIVE possible selon secrets lane — non requalifié ici) |
++| BUILD_ID | `BtZP6qDx5oAw8jwPQSEhc` |
++| Script | `start-recette-ensemble07-5ad8fa57.sh` |
++| Worktree | `…/sfia-workspace-next-ml4d-ensemble07-recette-build-5ad8fa57` |
++| PID node | 75565 |
+
+-## PostgreSQL RECETTE (observé, non muté)
++## Runtime APRÈS (E08) — observé
+
+ | Champ | Valeur |
+ | --- | --- |
+-| Container | `sfia-next-recette-pg` Up · `127.0.0.1:5434→5432` |
+-| DB / rôle | `sfia_next_recette_ml4` |
+-| Isolation | DEV PG distinct `sfia-next-dev-pg` :5433 |
+-| Inventaire non sensible | projects=26 · documents=117 · document_revisions=188 · conversations=203 · messages=629 · human_decisions=3 · effect_attempts=4 · business_command_effects=4 · project_git_links=15 · observed_git_facts=0 · users=4 · sessions=118 · accounts=2 |
+-| Schéma drizzle migrations table | **non observée** dans cette DB (pas de `drizzle.__drizzle_migrations`) |
+-| Restauration auto | **INTERDITE** — ne pas recréer DB vide ni restaurer dump en écrasement |
++| URL | http://127.0.0.1:3200 |
++| Service | `com.sfia.studio.next.recette.ml4d-ux004` (même label) |
++| Script | `…/ensemble08-recette-build-98185598/start-recette-ensemble08-98185598.sh` |
++| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-recette-build-98185598` |
++| WorkingDirectory | `…/web` |
++| PID launchd / node | 52210 / 52237 (`next-server` v15.5.29) |
++| SOURCE_SHA (script) | `98185598de0d3f3b84af862aecea04b9099217ca` |
++| BUILD_ID fichier + HTTP | `1xEbvCdTAX6ht262w4oKF` (`<!--1xEbvCdTAX6ht262w4oKF-->`) |
++| Mode | `npx next start -H 127.0.0.1 -p 3200` · production · pas de hot reload |
++| Login HTTP | 200 |
++
++## Actions cutover (exactes)
++
++1. Plist backup : `com.sfia.studio.next.recette.ml4d-ux004.plist.5ad8fa57.pre-e08-cutover-20261121T200200Z.bak`
++2. `launchctl bootout` du service
++3. ProgramArguments → `start-recette-ensemble08-98185598.sh` ; WorkingDirectory → E08 `web/`
++4. `launchctl bootstrap` même label
++5. Vérification HTTP BUILD_ID + CWD processus
+
+-## Candidat E08 (à renseigner après freeze + build)
++## PostgreSQL / données
+
+ | Champ | Valeur |
+ | --- | --- |
+-| Branche source | `feat/next-ensemble08-git-publications-nora` |
+-| Base main | `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
+-| SHA candidat | `98185598de0d3f3b84af862aecea04b9099217ca` |
+-| TREE candidat | `1c70839facb7fbc799980c585ce8bfba51cdb5d6` |
+-| BUILD_ID candidat | `1xEbvCdTAX6ht262w4oKF` |
+-| Worktree build | `/Users/morris/Projects/sfia-workspace-next-ml4d-ensemble08-recette-build-98185598` |
+-| Script démarrage préparé | `start-recette-ensemble08-98185598.sh` (non branché LaunchAgent) |
++| DB | `sfia_next_recette_ml4` @ `127.0.0.1:5434` (`sfia-next-recette-pg`) |
++| Isolation DEV | `sfia-next-dev-pg` :5433 distincte |
++| Migrations E08 | **aucune** appliquée (invariant confirmé) |
++| Inventaire AVANT | projects=26 · documents=117 · document_revisions=188 · conversations=203 · messages=629 · human_decisions=3 · effect_attempts=4 · business_command_effects=4 · project_git_links=15 · observed_git_facts=0 · users=4 · sessions=118 · accounts=2 |
++| Inventaire APRÈS smoke | projects=**26** · messages=**633** (+4 essais Playwright Nora) · sessions=**123** (logins test) · Equip'Campus `proj_a9ce5f43…` présent · conversations=1 · messages=14 |
++| Perte anormale | **NON** |
+
+-## Capacités réellement disponibles après cutover (prévision)
++## Backup / restauration / rollback
+
+-| Capacité | Mode attendu |
++| Élément | Statut |
+ | --- | --- |
+-| E01–E07 | Conservées (même DB + nouveau code) |
+-| Consultation Git multi-dépôts | Code E08 ; provider selon config RECETTE |
+-| Nora conduite documentaire | Selon secrets lane ; SCRIPTED ≠ LIVE |
+-| GitHub REAL WRITE/MERGE | **OFF** sauf GO sandbox explicite |
+-| G5 visuelle | **NOT PROVEN** — Morris UAT |
++| Backup historique | `ml4d-e07-pre-e08-cutover-20261121T193852Z-from-5ad8fa57.sql.gz` — gzip OK |
++| Backup immédiat pré-cutover | `ml4d-e07-pre-e08-cutover-immediate-20261121T200119Z-from-5ad8fa57.sql.gz` — gzip OK |
++| Preuve restore isolée | CREATE `sfia_next_recette_restore_proof_e08` → restore → projects=26/messages=629 → DROP — RECETTE intacte |
++| Rollback E07 code | Worktree + BUILD `BtZP6qDx5oAw8jwPQSEhc` + plist `.bak` conservés — **non exercé** (cutover OK) |
+
+-## Backup / rollback (préparation)
++## Capacités observées
+
+-| Élément | Statut |
++| Capacité | Observation | Niveau |
++| --- | --- | --- |
++| E07 surfaces (Pilot A test login) | `/projects/…` travail/projet/trajectoire/documents/git → HTTP 200 | Browser/API smoke |
++| Equip'Campus (Morris) | Présent en DB (identité OAuth Morris non exercée ce cycle) | DB continuity |
++| Intégrations | `providerMode=REAL`, `status=DISCONNECTED` pour Pilot A | REAL config, non connecté |
++| Git sources/pubs API | 200, listes vides sans dépôt rattaché | DETERMINISTIC path |
++| GitHub REAL WRITE | Mutations OFF (`STUDIO_GITHUB_ALLOW_MUTATIONS` vide) | NOT PROVEN / OFF |
++| Nora | Clé OPENAI présente en RECETTE → LIVE possible | LIVE config ; E2E conduit NOT PROVEN |
++| Playwright E08 SCRIPTED | **3/3 FAIL** sur RECETTE — attendu (fixture≠LIVE ; connect SCRIPTED≠OAuth REAL) | N/A as REAL proof |
++| G5 | **NOT PROVEN** — Morris UAT | Différé |
++
++## Fake / Real
++
++| Frontière | Niveau |
+ | --- | --- |
+-| Ancien worktree E07 | Disponible `@5ad8fa57` |
+-| Ancien BUILD_ID | `BtZP6qDx5oAw8jwPQSEhc` |
+-| Script rollback | Relancer plist/script E07 `start-recette-ensemble07-5ad8fa57.sh` |
+-| Backup PG frais | `ml4d-e07-pre-e08-cutover-20261121T193852Z-from-5ad8fa57.sql.gz` (691K, gzip OK) |
+-| Rollback DB | Code rollback ≠ DB rollback ; pas de drop/truncate |
+-
+-## Procédure cutover (exécutable seulement après GO)
+-
+-1. Confirmer SHA/BUILD_ID cibles = GO Morris.
+-2. Confirmer backup PG lisible.
+-3. Arrêter `com.sfia.studio.next.recette.ml4d-ux004`.
+-4. Appliquer migrations **seulement si nécessaires et non destructives**.
+-5. Pointer LaunchAgent vers worktree/build E08 figé (même label/port/DB).
+-6. Relancer service ; vérifier health + identité HTTP BUILD_ID.
+-7. Vérifier inventaire données ≈ avant.
+-8. Smoke E07 + E08 ; consigner manifeste final.
+-
+-## Gate
+-
+-**GO SHA-SPECIFIC REQUIRED.** Sans GO : **STOP BEFORE MUTATION RECETTE.**
++| Runtime build servi | REAL BOUNDARY (artefact figé servi) |
++| PostgreSQL RECETTE | REAL BOUNDARY (même DB) |
++| GitHub provider mode | REAL configuré ; WRITE OFF ; connexion Pilot A absente |
++| Nora | LIVE credentials présents ; parcours conduit NOT PROVEN |
++| Playwright SCRIPTED | NOT applicable as RECETTE proof |
++
++## Réserves / gates Morris
++
++1. UAT visuelle page 11 (G5)
++2. Parcours Git avec compte Morris + App autorisée
++3. Nora conduite documentaire LIVE bornée (sans WRITE si non autorisé)
++4. GO éventuel sandbox WRITE/MERGE
++5. Push/PR projet hors cycle
++
++## Verdict manifeste (cutover historique)
++
++**RECETTE AVAILABLE — MORRIS UAT REQUIRED**
++(runtime actuellement servi : SHA `98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **inchangé** par le freeze POST-UAT 01)
++
++---
++
++# B. Candidat E08 POST-UAT 01 — freeze local (préparé)
++
++| Champ | Valeur |
++| --- | --- |
++| Date/heure freeze local | 2026-11-22 (Europe/Paris) |
++| GO Morris | Freeze local + build détaché **autorisés** ; cutover RECETTE **non** autorisé |
++| Classe | **NO RELEASE** · CANDIDAT |
++| Branche | `feat/next-ensemble08-git-publications-nora` |
++| Base / parent | `origin/main` `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
++| SOURCE_SHA (à renseigner après commit) | _PENDING_COMMIT_ |
++| TREE (à renseigner après commit) | _PENDING_TREE_ |
++| BUILD_ID (à renseigner après build détaché) | _PENDING_BUILD_ |
++| Artefact | worktree détaché hors DEV mutable / hors :3200 |
++| Cutover | **NOT EXECUTED** |
++| RECETTE actuelle | **préservée** `@98185598` / `1xEbvCdTAX6ht262w4oKF` |
++
++## Contenu candidat
++
++- Ensemble 08 initial + correctifs UX POST-UAT 01
++- Publication document existant + réconciliation `objectRef`/`documentHint`
++- Contrôle D4 document/révision ; D6/D7/D8/D9 ; restitution Nora
++- Reprise/idempotence ; filtre branche S03 (fix useEffect)
++- Preuves : unit + PG WRITE OFF / SCRIPTED contenu D4↔Git + terminalité COMPLETED + Playwright Nora/Git
++
++## Fake / Real (candidat)
++
++| Frontière | Niveau |
++| --- | --- |
++| Unit / PG / SCRIPTED | DETERMINISTIC PROVEN |
++| Playwright DEV SCRIPTED | BROWSER + Git simulé |
++| Nora LIVE | NOT PROVEN |
++| GitHub REAL WRITE/MERGE | NOT PROVEN |
++| G5 pixel / UAT Morris | NOT PROVEN |
++
++## Migrations
++
++Aucune migration DB additionnelle requise pour ce candidat (vérifiée — schéma RECETTE `sfia_next_recette_ml4` compatible).
++
++## Mise à disposition future (NON EXÉCUTÉE)
++
++1. GO Morris SHA-specific + BUILD_ID
++2. Worktree/build détaché déjà produit
++3. Remplacer le ProgramArguments LaunchAgent **sans** toucher la DB
++4. Smoke HTTP BUILD_ID sur :3200
++5. Conserver artefacts E07 + E08 `@98185598` pour rollback
++
++## C. Cutover futur
++
++**NOT EXECUTED** — gate Morris distinct rattaché au nouveau SHA/BUILD.
++
++## Verdict section B
++
++**CANDIDATE PREPARED — RECETTE GO REQUIRED** (à confirmer après SHA/TREE/BUILD renseignés)
+```
+
+#### `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
+index 2792d128..6d8f8fb3 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
+@@ -37,14 +37,14 @@ const HERO: Record<
+     sub: "Retrouvez les documents durables du projet, leurs versions et les actions disponibles.",
+   },
+   git: {
+-    kicker: "Espace projet  /  Sources Git",
+-    title: "Intégration Git",
+-    sub: "Sources et liens Git du projet — capacités réellement disponibles.",
++    kicker: "ESPACE PROJET / DÉPÔTS GIT",
++    title: "Dépôts Git",
++    sub: "Parcourir un dépôt autorisé puis lire le fichier directement dans l’espace projet.",
+   },
+   publication: {
+-    kicker: "Espace projet  /  Résultats et preuves",
+-    title: "Publication Git",
+-    sub: "Publication et preuves Git — capacités réellement disponibles.",
++    kicker: "ESPACE PROJET / DÉPÔTS GIT",
++    title: "Dépôts Git",
++    sub: "Parcourir un dépôt autorisé puis lire le fichier directement dans l’espace projet.",
+   },
+ };
+
+@@ -78,7 +78,9 @@ export function ProjectChrome(props: {
+   const isJournal = props.surface === "journal";
+   /** Ensemble 07 — Projet / Trajectoire heroes live in ProjectOverview / TrajectoryBoard. */
+   const isProjetOrTrajectoire = props.surface === "projet" || props.surface === "pilotage";
+-  const breadcrumbOnly = isTravail || isJournal || isProjetOrTrajectoire;
++  /** Ensemble 08 — Dépôts Git / Publications heroes live in GitRepositoriesSurface. */
++  const isGitSurface = props.surface === "git" || props.surface === "publication";
++  const breadcrumbOnly = isTravail || isJournal || isProjetOrTrajectoire || isGitSurface;
+
+   const continuityBadge =
+     isTravail && props.statusHint && !/^chargement/i.test(props.statusHint) ? (
+```
+
+#### `projects/sfia-studio-next/web/src/components/figma/tokens.css`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
+index d0f908c3..6752bc97 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
++++ b/projects/sfia-studio-next/web/src/components/figma/tokens.css
+@@ -5244,6 +5244,36 @@
+   font-weight: 600;
+   width: fit-content;
+ }
++.git-info-anchor {
++  position: relative;
++  display: inline-flex;
++}
++.git-info-popover {
++  position: absolute;
++  top: calc(100% + 8px);
++  right: 0;
++  z-index: 40;
++  width: min(360px, calc(100vw - 32px));
++  max-height: min(70vh, 420px);
++  overflow: auto;
++  background: var(--fig-panel);
++  border: 1px solid var(--fig-line);
++  border-radius: 10px;
++  padding: 14px 16px;
++  box-shadow: 0 12px 32px color-mix(in srgb, #000 35%, transparent);
++}
++.git-info-popover-head {
++  display: flex;
++  align-items: center;
++  justify-content: space-between;
++  gap: 8px;
++  margin-bottom: 8px;
++}
++.git-info-popover-title {
++  margin: 0;
++  font-size: 14px;
++  font-weight: 600;
++}
+ .git-empty-layout,
+ .git-manage,
+ .git-enlarge-layout {
+```
+
+#### `projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx b/projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx
+index 8f06836d..33af5167 100644
+--- a/projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx
++++ b/projects/sfia-studio-next/web/src/components/integrations/GitRepositoriesSurface.tsx
+@@ -2,6 +2,7 @@
+
+ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+ import { SafeMarkdown } from "@/components/SafeMarkdown";
++import { GitFileInfoPopover } from "@/components/integrations/GitFileInfoPopover";
+
+ type GitSource = {
+   linkId: string;
+@@ -91,6 +92,8 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+   const [file, setFile] = useState<FileView | null>(null);
+   const [fileError, setFileError] = useState<string | null>(null);
+   const [infoOpen, setInfoOpen] = useState(false);
++  const infoBtnRef = useRef<HTMLButtonElement | null>(null);
++  const infoPanelId = "git-file-info-panel";
+   const [enlarged, setEnlarged] = useState(false);
+   const [publications, setPublications] = useState<PublicationRow[]>([]);
+   const [selectedPublicationId, setSelectedPublicationId] = useState<string | null>(null);
+@@ -293,17 +296,21 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+     void loadSources();
+   }, [loadSources]);
+
++  // Reset provider filter when the active repository changes — not on every
++  // loadRefs identity refresh (that wiped branchFilterApplied after Filtrer).
+   useEffect(() => {
+     setBranchFilter("");
+     setBranchFilterApplied("");
+     void loadRefs();
+-  }, [loadRefs]);
++    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentional: repositoryId only
++  }, [repositoryId]);
+
+   useEffect(() => {
+     if (tab === "files" && repositoryId && branch) {
+       setExpandedDirs({});
+       setFile(null);
+       setFileError(null);
++      setInfoOpen(false);
+       void loadTree("");
+     }
+   }, [tab, repositoryId, branch, loadTree]);
+@@ -654,12 +661,16 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+           ESPACE PROJET / DÉPÔTS GIT
+         </p>
+         <h1 className="e07-surface-hero-title" data-testid="git-hero-title">
+-          {tab === "manage" ? "Gérer les dépôts du projet" : "Dépôts Git"}
++          {tab === "manage"
++            ? "Gérer les dépôts du projet"
++            : "Dépôts Git"}
+         </h1>
+         <p className="e07-surface-hero-sub" data-testid="git-hero-sub">
+           {tab === "manage"
+             ? "Chaque projet choisit ses dépôts ; plusieurs rattachements sont possibles."
+-            : "Parcourir un dépôt autorisé puis lire le fichier directement dans l’espace projet."}
++            : sources.length === 0
++              ? "Consultez les fichiers de vos dépôts autorisés."
++              : "Parcourir un dépôt autorisé puis lire le fichier directement dans l’espace projet."}
+         </p>
+       </header>
+
+@@ -686,9 +697,9 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+         <section className="git-empty-layout" data-testid="git-empty">
+           <div className="git-empty-main">
+             <h2>Aucun dépôt associé à ce projet</h2>
+-            <p>Git est facultatif. Tu peux continuer à travailler avec Nora sans dépôt.</p>
++            <p>Git est facultatif. Vous pouvez continuer à travailler avec Nora sans dépôt.</p>
+             <p className="git-muted">
+-              Choisis explicitement un dépôt autorisé — aucun rattachement silencieux.
++              Choisissez un dépôt autorisé par GitHub pour l’explorer — aucun rattachement silencieux.
+             </p>
+             {unattached.length === 0 ? (
+               <button
+@@ -761,6 +772,8 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+                         data-testid="git-branch-search"
+                         onSubmit={(e) => {
+                           e.preventDefault();
++                          const next = branchFilter.trim();
++                          setBranchFilterApplied(next);
+                           void loadRefs(branchFilter);
+                         }}
+                       >
+@@ -943,14 +956,39 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+                         <p className="git-preview-path">{file.path}</p>
+                       </div>
+                       <div className="git-preview-actions" data-testid="git-preview-actions">
+-                        <button
+-                          type="button"
+-                          className="git-btn-secondary"
+-                          data-testid="git-action-infos"
+-                          onClick={() => setInfoOpen((v) => !v)}
+-                        >
+-                          Infos
+-                        </button>
++                        <div className="git-info-anchor">
++                          <button
++                            type="button"
++                            className="git-btn-secondary"
++                            data-testid="git-action-infos"
++                            aria-expanded={infoOpen}
++                            aria-controls={infoPanelId}
++                            ref={infoBtnRef}
++                            onClick={() => setInfoOpen((v) => !v)}
++                          >
++                            Infos
++                          </button>
++                          <GitFileInfoPopover
++                            open={infoOpen}
++                            onClose={() => setInfoOpen(false)}
++                            anchorRef={infoBtnRef}
++                            panelId={infoPanelId}
++                            fields={{
++                              name: basename(file.path),
++                              type: /\.md$/i.test(file.path) ? "Markdown" : "Texte",
++                              repository: active?.fullName ?? "—",
++                              ref: file.ref || branch || "—",
++                              path: file.path,
++                              commitSha: file.commitSha,
++                              commitShaVerified: file.commitShaVerified,
++                              blobSha: file.blobSha || null,
++                              sizeLabel: file.content
++                                ? `${new TextEncoder().encode(file.content).length} octets`
++                                : null,
++                              origin: "Git (lecture seule)",
++                            }}
++                          />
++                        </div>
+                         {file.permalink ? (
+                           <a
+                             className="git-btn-secondary"
+@@ -975,20 +1013,6 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+                         </button>
+                       </div>
+                     </header>
+-                    {infoOpen ? (
+-                      <dl className="git-details-inline" data-testid="git-file-infos">
+-                        <div>
+-                          <dt>Commit</dt>
+-                          <dd className="git-mono">
+-                            {file.commitShaVerified ? file.commitSha : "non vérifié"}
+-                          </dd>
+-                        </div>
+-                        <div>
+-                          <dt>Blob</dt>
+-                          <dd className="git-mono">{file.blobSha}</dd>
+-                        </div>
+-                      </dl>
+-                    ) : null}
+                     <p className="git-preview-kicker">
+                       DOCUMENT À RÉFÉRENCE IDENTIFIÉE · LECTURE SEULE
+                     </p>
+@@ -1010,9 +1034,8 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+           {tab === "publications" ? (
+             <section className="git-pubs" data-testid="git-publications">
+               <p className="git-muted" style={{ marginBottom: 12 }}>
+-                Projection D4/D7/D8 du projet — historique Studio, pas un état live GitHub. Liste des
+-                publications du projet (pas l’index du dépôt) ; lecture sous la référence propre de
+-                chaque publication. Une PR créée n’est pas un merge.
++                Historique Studio des publications du projet — distinct de l’index du dépôt. Une
++                demande de branche ou de commit n’implique pas une fusion.
+               </p>
+               {publications.length === 0 ? (
+                 <p data-testid="git-publications-empty">Aucune publication Studio pour ce projet.</p>
+@@ -1026,13 +1049,13 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+                         const statusLabel =
+                           p.prStatusLabel ??
+                           (p.mergeObserved
+-                            ? "Fusion vérifiée (fait D8)"
++                            ? "Fusion vérifiée"
+                             : p.openPullRequest
+                               ? "PR enregistrée ouverte (historique — non actualisée)"
+                               : p.pullRequestCreatedObserved
+                                 ? "PR créée (historique)"
+                                 : p.commitObserved
+-                                  ? "Commit observé (fait D8)"
++                                  ? "Commit observé"
+                                   : p.publicationStatus);
+                         return (
+                           <li key={p.publicationRefId}>
+@@ -1067,14 +1090,38 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+                             <p className="git-preview-path">{pubFile.path}</p>
+                           </div>
+                           <div className="git-preview-actions" data-testid="git-preview-actions">
+-                            <button
+-                              type="button"
+-                              className="git-btn-secondary"
+-                              data-testid="git-action-infos"
+-                              onClick={() => setInfoOpen((v) => !v)}
+-                            >
+-                              Infos
+-                            </button>
++                            <div className="git-info-anchor">
++                              <button
++                                type="button"
++                                className="git-btn-secondary"
++                                data-testid="git-action-infos"
++                                aria-expanded={infoOpen}
++                                aria-controls={infoPanelId}
++                                ref={infoBtnRef}
++                                onClick={() => setInfoOpen((v) => !v)}
++                              >
++                                Infos
++                              </button>
++                              <GitFileInfoPopover
++                                open={infoOpen}
++                                onClose={() => setInfoOpen(false)}
++                                anchorRef={infoBtnRef}
++                                panelId={infoPanelId}
++                                fields={{
++                                  name: basename(pubFile.path),
++                                  type: /\.md$/i.test(pubFile.path) ? "Markdown" : "Texte",
++                                  repository: selectedPublication.repositoryFullName,
++                                  ref:
++                                    selectedPublication.publicationBranch ??
++                                    selectedPublication.targetBranch,
++                                  path: pubFile.path,
++                                  commitSha: pubFile.commitSha,
++                                  commitShaVerified: pubFile.commitShaVerified,
++                                  blobSha: pubFile.blobSha || null,
++                                  origin: "Publication Studio",
++                                }}
++                              />
++                            </div>
+                             {pubFile.permalink ? (
+                               <a
+                                 className="git-btn-secondary"
+@@ -1102,23 +1149,6 @@ export function GitRepositoriesSurface({ projectId, projectName }: Props) {
+                         <p className="git-preview-kicker">
+                           DOCUMENT À RÉFÉRENCE IDENTIFIÉE · LECTURE SEULE
+                         </p>
+-                        {infoOpen ? (
+-                          <p className="git-muted" data-testid="git-pub-info">
+-                            {selectedPublication.repositoryFullName} ·{" "}
+-                            {selectedPublication.publicationBranch ??
+-                              selectedPublication.targetBranch}
+-                            {selectedPublication.headSha
+-                              ? ` · ${selectedPublication.headSha.slice(0, 8)}`
+-                              : ""}
+-                            {selectedPublication.prStatusLabel
+-                              ? ` · ${selectedPublication.prStatusLabel}`
+-                              : selectedPublication.mergeObserved
+-                                ? " · merge observé (D8)"
+-                                : selectedPublication.openPullRequest
+-                                  ? " · PR enregistrée ouverte (historique — non actualisée)"
+-                                  : ""}
+-                          </p>
+-                        ) : null}
+                         <div className="git-preview-body" data-testid="git-preview-body">
+                           {/\.md$/i.test(pubFile.path) ? (
+                             <SafeMarkdown content={pubFile.content} />
+```
+
+#### `projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx b/projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx
+index 138bda02..a535cc27 100644
+--- a/projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx
++++ b/projects/sfia-studio-next/web/src/components/integrations/IntegrationsPanel.tsx
+@@ -19,7 +19,7 @@ function statusBanner(status: string): { tone: string; text: string } {
+     case "CONNECTED":
+       return {
+         tone: "text-emerald-300",
+-        text: "GitHub est connecté. Les dépôts ci-dessous sont ceux réellement autorisés côté serveur.",
++        text: "GitHub connecté — accès fournisseur vérifié. Aucun mandat de publication n’est accordé par cette seule connexion.",
+       };
+     case "PENDING_APPROVAL":
+       return {
+@@ -30,8 +30,7 @@ function statusBanner(status: string): { tone: string; text: string } {
+     case "REVOKED":
+       return {
+         tone: "text-amber-300",
+-        text:
+-          "Accès Studio local retiré. Ce n’est pas automatiquement une révocation complète de l’installation GitHub. Les acquis D4 et faits historiques restent conservés.",
++        text: "Accès Studio local retiré. Ce n’est pas automatiquement une révocation complète de l’installation GitHub. Les documents et faits historiques restent conservés.",
+       };
+     default:
+       return {
+@@ -71,7 +70,6 @@ export function IntegrationsPanel() {
+         return;
+       }
+       // SCRIPTED complete only when server chose flow=scripted.
+-      // Do NOT use providerMode (Git provider SCRIPTED/REAL) — that is orthogonal to D9 OAuth flow.
+       if (j.flow === "scripted") {
+         const done = await fetch("/api/integrations/github/authorize/complete", {
+           method: "POST",
+@@ -123,7 +121,7 @@ export function IntegrationsPanel() {
+       <div className="space-y-5" data-testid="integrations-disconnect-confirm">
+         <header className="space-y-2">
+           <p className="text-[12px] font-semibold uppercase tracking-wide text-[var(--fig-accent)]">
+-            Paramètres / Sécurité
++            PARAMÈTRES / SERVICES EXTERNES
+           </p>
+           <h1 className="text-[32px] leading-tight font-semibold text-[var(--ink)]">
+             Déconnecter GitHub
+@@ -208,22 +206,11 @@ export function IntegrationsPanel() {
+     <div className="space-y-5" data-testid="integrations-panel">
+       <header className="space-y-2">
+         <p className="text-[12px] font-semibold uppercase tracking-wide text-[var(--fig-accent)]">
+-          Paramètres · Services externes
++          PARAMÈTRES / SERVICES EXTERNES
+         </p>
+-        <div className="flex items-center gap-3 flex-wrap">
+-          <h1 className="text-[32px] leading-tight font-semibold text-[var(--ink)]">Intégrations</h1>
+-          {view?.providerMode === "SCRIPTED" ? (
+-            <span
+-              className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded border border-[var(--line)] text-[var(--muted)]"
+-              data-testid="badge-scripted"
+-            >
+-              SCRIPTED
+-            </span>
+-          ) : null}
+-        </div>
++        <h1 className="text-[32px] leading-tight font-semibold text-[var(--ink)]">Intégrations</h1>
+         <p className="text-base text-[var(--muted)] max-w-3xl">
+-          Connectez les services utiles à votre travail. Vous gardez la maîtrise des dépôts et des
+-          permissions.
++          Gérer la connexion personnelle GitHub et consulter les dépôts réellement autorisés.
+         </p>
+       </header>
+
+@@ -234,58 +221,47 @@ export function IntegrationsPanel() {
+         {banner.text}
+       </div>
+
+-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
++      <div
++        className="grid gap-5 lg:grid-cols-[minmax(0,858fr)_minmax(0,482fr)]"
++        data-testid="integrations-layout-1106"
++      >
+         <section className="studio-card p-5 space-y-4" data-testid="github-integration-card">
+-          <div>
+-            <p className="text-[11px] font-semibold uppercase tracking-wide text-[var(--fig-accent)]">
+-              GitHub · Intégration disponible
+-            </p>
+-            <h2 className="text-[22px] font-semibold mt-1">GitHub</h2>
+-            <p className="text-sm text-[var(--muted)] mt-1">
+-              Consulter vos dépôts autorisés, travailler avec Nora et publier des documents sous votre
+-              contrôle.
+-            </p>
+-          </div>
+-
+-          <div className="space-y-2">
+-            <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
+-              <p className="text-sm font-semibold">Connexion Studio</p>
+-              <p className="text-xs text-[var(--muted)] mt-1">
+-                Vous êtes authentifié dans Studio : cela ne donne aucun droit sur les dépôts.
+-              </p>
+-            </div>
+-            <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
+-              <p className="text-sm font-semibold">Accès aux dépôts</p>
+-              <p className="text-xs text-[var(--muted)] mt-1">
+-                {status === "CONNECTED"
+-                  ? "Installation et autorisation utilisateur GitHub App vérifiées côté serveur."
+-                  : "Aucune installation GitHub App ni autorisation utilisateur n'est présumée."}
+-              </p>
+-            </div>
+-            <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
+-              <p className="text-sm font-semibold">Publication documentaire</p>
+-              <p className="text-xs text-[var(--muted)] mt-1">
+-                Les branches, commits, PR et merges nécessitent un mandat distinct.
+-              </p>
+-            </div>
++          <div className="flex items-center gap-3 flex-wrap">
++            <h2 className="text-[22px] font-semibold m-0">GitHub</h2>
++            {status === "CONNECTED" ? (
++              <span className="git-badge-ok" data-testid="github-connected-badge">
++                ● Connecté
++              </span>
++            ) : null}
+           </div>
+
+           {status === "CONNECTED" ? (
+-            <ul className="text-sm space-y-1" data-testid="repo-list">
+-              {view?.repositories.map((r) => (
+-                <li key={r.id} className="mono muted">
+-                  {r.fullName}
+-                  {r.defaultBranch ? ` · ${r.defaultBranch}` : ""}
+-                </li>
+-              ))}
+-            </ul>
+-          ) : (
+-            <p className="text-sm muted">Aucun dépôt autorisé.</p>
+-          )}
+-
+-          <div className="flex flex-wrap gap-3 pt-1">
+-            {status === "CONNECTED" ? (
+-              <>
++            <>
++              <p className="text-sm text-[var(--muted)] m-0">
++                Dépôts autorisés par la GitHub App — affichés côté serveur.
++              </p>
++              {(view?.repositories?.length ?? 0) === 0 ? (
++                <p className="text-sm muted" data-testid="repo-list-empty">
++                  Aucun dépôt autorisé.
++                </p>
++              ) : (
++                <ul className="space-y-2 m-0 p-0 list-none" data-testid="repo-list">
++                  {view!.repositories.map((r) => (
++                    <li
++                      key={r.id}
++                      className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-4 py-3"
++                      data-testid={`integration-repo-${r.id}`}
++                    >
++                      <p className="text-sm font-semibold m-0 mono">{r.fullName}</p>
++                      <p className="text-xs text-[var(--muted)] mt-1 mb-0">
++                        Accessible au compte Pilote
++                        {r.defaultBranch ? ` · branche par défaut ${r.defaultBranch}` : ""}
++                      </p>
++                    </li>
++                  ))}
++                </ul>
++              )}
++              <div className="flex flex-wrap gap-3 pt-1">
+                 <button
+                   type="button"
+                   className="studio-btn"
+@@ -293,7 +269,7 @@ export function IntegrationsPanel() {
+                   onClick={() => void refreshRepos()}
+                   data-testid="refresh-repos"
+                 >
+-                  Actualiser les dépôts
++                  Actualiser
+                 </button>
+                 <button
+                   type="button"
+@@ -303,11 +279,18 @@ export function IntegrationsPanel() {
+                   data-testid="disconnect-github"
+                   title="Ouvre la confirmation — aucun appel de déconnexion avant confirmation"
+                 >
+-                  Déconnecter (Studio)
++                  Déconnecter
+                 </button>
+-              </>
+-            ) : (
+-              <>
++              </div>
++            </>
++          ) : (
++            <>
++              <p className="text-sm text-[var(--muted)]">
++                Consulter vos dépôts autorisés, travailler avec Nora et publier des documents sous
++                votre contrôle.
++              </p>
++              <p className="text-sm muted">Aucun dépôt autorisé.</p>
++              <div className="flex flex-wrap gap-3 pt-1">
+                 <button
+                   type="button"
+                   className="studio-btn"
+@@ -317,23 +300,34 @@ export function IntegrationsPanel() {
+                 >
+                   Configurer GitHub
+                 </button>
+-                <button type="button" className="studio-btn-secondary" disabled={busy} onClick={() => void refresh()}>
++                <button
++                  type="button"
++                  className="studio-btn-secondary"
++                  disabled={busy}
++                  onClick={() => void refresh()}
++                >
+                   Plus tard
+                 </button>
+-              </>
+-            )}
+-          </div>
++              </div>
++            </>
++          )}
+         </section>
+
+-        <aside className="studio-card p-5 space-y-3">
++        <aside className="studio-card p-5 space-y-3" data-testid="integrations-explain-column">
+           <h2 className="text-[20px] font-semibold">Une connexion à la carte</h2>
+-          <p className="text-sm text-[var(--muted)]">
+-            Connectez GitHub maintenant, ou seulement lorsqu&apos;un projet en aura besoin.
+-          </p>
+           {[
+-            ["1 · Choisir le compte", "Sur GitHub, choisissez un compte ou une organisation."],
+-            ["2 · Sélectionner les dépôts", "Limitez l'installation aux dépôts nécessaires."],
+-            ["3 · Conserver le contrôle", "Vous pourrez ajouter ou retirer des dépôts plus tard."],
++            [
++              "Connexion personnelle",
++              "Autorisation GitHub propre au Pilote, distincte des projets.",
++            ],
++            [
++              "Rattachements projet",
++              "Chaque projet choisit les dépôts utiles, un ou plusieurs.",
++            ],
++            [
++              "Publication documentaire",
++              "Nora propose, le Pilote inspecte et autorise un mandat distinct.",
++            ],
+           ].map(([title, body]) => (
+             <div
+               key={title}
+@@ -347,13 +341,6 @@ export function IntegrationsPanel() {
+       </div>
+
+       {message ? <p className="text-sm text-amber-400">{message}</p> : null}
+-      <p className="text-xs text-[var(--muted)]" data-testid="provider-mode-note">
+-        {!view
+-          ? "Chargement du statut d'intégration…"
+-          : view.providerMode === "SCRIPTED"
+-            ? "Fournisseur d'effet Git SCRIPTED (fixtures). Orthogonal au flux OAuth user-to-server."
+-            : "Fournisseur d'effet Git REAL. Orthogonal au statut OAuth CONNECTED — mutations bornées documentary + mandat D6."}
+-      </p>
+     </div>
+   );
+ }
+```
+
+#### `projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts b/projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts
+index 4cac2789..5b8e9725 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/conversation-publication-authority.ts
+@@ -369,6 +369,8 @@ export async function admitConversationalPublicationMandate(input: {
+         projectId: input.projectId,
+         attemptId: input.attemptId,
+         decisionId: auth.decisionId,
++        // Same-turn: Nora turn commits restitution — do not insert a rival assistant row.
++        persistAssistantMessage: false,
+       });
+     }
+
+```
+
+#### `projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+index 34a568a9..be9ff5f6 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/fixture-semantic-qualify.ts
+@@ -2038,6 +2038,104 @@ register(
+   },
+ );
+
++/** E08 — create + publish (SCRIPTED browser / fixture FAKE). */
++function createAndPublishQualification(
++  title: string,
++  publicationPath: string,
++): NoraTurnQualification {
++  return effect(
++    `Document + publication ${title}`,
++    `Je prépare « ${title} » puis la publication gouvernée — Studio confirme l'effet.\n\n\`\`\`sfia-document\n# ${title}\n\nContenu E08 publication Nora.\n\`\`\`\n`,
++    [
++      {
++        id: "i1",
++        capabilityId: "d4.create_document",
++        mode: "REQUEST_EFFECT",
++        summary: title,
++        parameters: { notes: title, documentHint: title },
++        constraints: [],
++        dependsOn: [],
++        sourceEvidence: [],
++      },
++      {
++        id: "i2",
++        capabilityId: "d7.prepare_publication",
++        mode: "REQUEST_EFFECT",
++        summary: "Préparer publication",
++        parameters: { publicationPath, documentHint: title },
++        constraints: [],
++        dependsOn: ["i1"],
++        sourceEvidence: [],
++      },
++    ],
++  );
++}
++
++/** E08 — publish existing document (explicit title / revision hint). */
++function publishExistingQualification(
++  documentHint: string,
++  publicationPath: string,
++): NoraTurnQualification {
++  return effect(
++    `Publication ${documentHint}`,
++    `Je prépare la publication de « ${documentHint} » — Studio reste propriétaire de l'effet.`,
++    [
++      {
++        capabilityId: "d7.prepare_publication",
++        mode: "REQUEST_EFFECT",
++        summary: "Préparer publication",
++        parameters: { documentHint, publicationPath },
++        constraints: [],
++        dependsOn: [],
++        sourceEvidence: [],
++      },
++    ],
++  );
++}
++
++register(
++  "E08_PUBLISH_CREATE_SCRIPTED",
++  createAndPublishQualification(
++    "E08 Nora Publish Scripted",
++    "docs/studio-next/e08-nora-publish.md",
++  ),
++);
++register(
++  "Crée un document intitulé E08 Nora Publish Scripted et publie-le dans mon dépôt GitHub chemin docs/studio-next/e08-nora-publish.md",
++  createAndPublishQualification(
++    "E08 Nora Publish Scripted",
++    "docs/studio-next/e08-nora-publish.md",
++  ),
++);
++register(
++  "E08_PUBLISH_EXISTING_CLARIFY",
++  publishExistingQualification(
++    "Document fantôme E08 introuvable XYZ",
++    "docs/studio-next/e08-clarify.md",
++  ),
++);
++register(
++  "Publie le document Document fantôme E08 introuvable XYZ dans mon dépôt GitHub chemin docs/studio-next/e08-clarify.md",
++  publishExistingQualification(
++    "Document fantôme E08 introuvable XYZ",
++    "docs/studio-next/e08-clarify.md",
++  ),
++);
++register(
++  "E08_PUBLISH_EXISTING_CORRECT",
++  publishExistingQualification(
++    "Note E08 cible corrigée",
++    "docs/studio-next/e08-corrected.md",
++  ),
++);
++register(
++  "Publie le document Note E08 cible corrigée dans mon dépôt GitHub chemin docs/studio-next/e08-corrected.md",
++  publishExistingQualification(
++    "Note E08 cible corrigée",
++    "docs/studio-next/e08-corrected.md",
++  ),
++);
++
+ /** E08 — documentary merge fixtures (exact utterance → d7.merge_publication). */
+ function mergePublicationQualification(
+   prNumber: number,
+@@ -2071,6 +2169,11 @@ const MERGE_PR_FIXTURE_RE = /^Merge la PR #(\d{1,6})\.?$/i;
+ const MERGE_PR_REPO_FIXTURE_RE =
+   /^Merge la PR #(\d{1,6}) du dépôt ([A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+)\.?$/i;
+
++const E08_CREATE_PUBLISH_RE =
++  /^Crée un document intitulé (.+?) et publie-le dans mon dépôt GitHub chemin (docs\/studio-next\/[A-Za-z0-9_.\/-]+)$/i;
++const E08_PUBLISH_EXISTING_RE =
++  /^Publie le document (.+?) dans mon dépôt GitHub chemin (docs\/studio-next\/[A-Za-z0-9_.\/-]+)$/i;
++
+ /** Short TEST_BOUNDARY keys for e2e (exact match, same envelopes as the natural utterances). */
+ for (const [short, long] of [
+   ["E05_S2_DIAGNOSTIC", E05_S2_DIAGNOSTIC],
+@@ -2156,6 +2259,15 @@ export function fixtureSemanticQualify(userText: string): NoraTurnQualification
+       },
+     );
+   }
++  // E08 TEST_BOUNDARY — create+publish / publish-existing (SCRIPTED; WRITE OFF = PG only).
++  const createPub = text.match(E08_CREATE_PUBLISH_RE);
++  if (createPub?.[1] && createPub[2]) {
++    return createAndPublishQualification(createPub[1].trim(), createPub[2].trim());
++  }
++  const pubExisting = text.match(E08_PUBLISH_EXISTING_RE);
++  if (pubExisting?.[1] && pubExisting[2]) {
++    return publishExistingQualification(pubExisting[1].trim(), pubExisting[2].trim());
++  }
+   // E08 TEST_BOUNDARY — parameterized positive merge only (negations stay dialogue-default).
+   const mergeRepo = text.match(MERGE_PR_REPO_FIXTURE_RE);
+   if (mergeRepo?.[1] && mergeRepo[2]) {
+```
+
+#### `projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts b/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
+index 729fa1e2..c6f33500 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/mission-continuity.ts
+@@ -20,6 +20,8 @@ import { emitObs } from "@/lib/observability";
+ import { extractPublicationBranchHint as extractBranchHintStrict } from "./conversation-publication-mandate-guards";
+ import { generateNoraReply } from "./nora-adapter";
+ import type { DocumentEffectSummary } from "./document-act";
++import { composePublicationEffectRestitution } from "./publication-effect-restitution";
++import { getDocumentRevision } from "@/domains/document/service";
+
+ export type MissionStatus =
+   | "ACTIVE"
+@@ -353,6 +355,13 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
+   projectId: string;
+   attemptId: string;
+   decisionId?: string | null;
++  /**
++   * When false, dispatch/reconcile still run but no competing assistant row is
++   * inserted — same-turn conversational authorize lets the Nora turn commit
++   * métier restitution (avoids ASSISTANT_IDENTITY_CONFLICT).
++   * Recovery / post-authorize paths keep the default (true).
++   */
++  persistAssistantMessage?: boolean;
+ }): Promise<{
+   dispatched: boolean;
+   reconciled: boolean;
+@@ -462,6 +471,11 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
+     preparationId?: string;
+     documentId?: string;
+     revisionId?: string;
++    documentTitle?: string;
++    revisionNumber?: number;
++    repositoryFullName?: string;
++    publicationBranch?: string;
++    targetPath?: string;
+   };
+
+   const finalRow = (
+@@ -474,6 +488,8 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
+         commitSha?: string | null;
+         sha?: string | null;
+         missionResumeMessageId?: string | null;
++        repositoryFullName?: string | null;
++        publicationBranch?: string | null;
+       };
+     } catch {
+       return {} as {
+@@ -481,66 +497,131 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
+         commitSha?: string | null;
+         sha?: string | null;
+         missionResumeMessageId?: string | null;
++        repositoryFullName?: string | null;
++        publicationBranch?: string | null;
+       };
+     }
+   })();
+   const prNumber = resultPayload.prNumber ?? null;
+   const commitSha = resultPayload.commitSha ?? resultPayload.sha ?? null;
+
+-  const canonical = composeCanonicalMissionRestitution({
+-    documentEffect: plan.documentId
+-      ? {
+-          act: "CREATE",
+-          status: "AVAILABLE",
+-          documentId: plan.documentId,
+-          revisionId: plan.revisionId,
+-        }
+-      : null,
+-    prepareStatus: "PREPARED",
+-    attemptId: input.attemptId,
+-    decisionId: input.decisionId ?? row.decisionId,
+-    dispatchStatus: status,
+-    dispatchDetail: detail,
+-    restitutionNote:
+-      status === "COMPLETED"
+-        ? "Publication reprise automatiquement après autorisation Pilote."
+-        : "Reprise post-autorisation exécutée — voir statut publication.",
+-  });
++  // Enrich document identity for métier restitution (D4) when possible.
++  let documentTitle = plan.documentTitle?.trim() || null;
++  let revisionNumber = plan.revisionNumber ?? null;
++  if (plan.preparationId && plan.documentId && plan.revisionId) {
++    try {
++      const loaded = await getDocumentRevision(
++        input.pilotId,
++        plan.preparationId,
++        plan.documentId,
++        plan.revisionId,
++      );
++      if (loaded.status === "AVAILABLE" && "revision" in loaded && loaded.revision) {
++        documentTitle = loaded.document?.title?.trim() || documentTitle;
++        revisionNumber = loaded.revision.revisionNumber ?? revisionNumber;
++      }
++    } catch {
++      /* keep plan hints */
++    }
++  }
+
+-  const factsBlock = [
+-    `Publication attemptId=${input.attemptId} status=${status}`,
+-    input.decisionId || row.decisionId
+-      ? `decisionId=${input.decisionId ?? row.decisionId}`
+-      : null,
+-    plan.documentId ? `documentId=${plan.documentId}` : null,
+-    plan.revisionId ? `revisionId=${plan.revisionId}` : null,
+-    prNumber != null ? `prNumber=${prNumber}` : null,
+-    commitSha ? `commitSha=${commitSha}` : null,
+-    detail ? `detail=${detail}` : null,
+-  ]
+-    .filter(Boolean)
+-    .join("\n");
+-
+-  let restitution = canonical;
++  const repoName =
++    resultPayload.repositoryFullName?.trim() ||
++    plan.repositoryFullName?.trim() ||
++    null;
++  const branchName =
++    resultPayload.publicationBranch?.trim() ||
++    plan.publicationBranch?.trim() ||
++    null;
++
++  // E08 — Nora métier restitution from owner facts (never technical dump as pilot voice).
++  let restitution: string;
+   let cognitiveContinue: "DELIVERED" | "CANONICAL" | "SKIPPED" = "CANONICAL";
+-  try {
+-    // No turn operationId here — facts-only continue without tool scope (still generateNoraReply).
+-    const continued = await cognitiveContinueFromFacts({
+-      userText:
+-        "L'autorisation Pilote a été accordée et l'effet de publication a été traité. Restitue le résultat.",
+-      factsBlock,
+-      contextSnippets: [],
++  if (status === "COMPLETED") {
++    restitution = composePublicationEffectRestitution({
++      priorContent: "",
++      effect: {
++        attempted: true,
++        outcome: "COMPLETED",
++        documentTitle,
++        revisionNumber,
++        repositoryFullName: repoName,
++        publicationBranch: branchName,
++        attemptId: input.attemptId,
++        decisionId: input.decisionId ?? row.decisionId,
++      },
+     });
+-    if (continued.status === "COMPLETE" && continued.content.trim()) {
+-      restitution = `${continued.content.trim()}\n\n---\n${canonical}`;
+-      cognitiveContinue = "DELIVERED";
++  } else if (status === "DISPATCHED" || status === "AMBIGUOUS") {
++    restitution = composePublicationEffectRestitution({
++      priorContent: "",
++      effect: {
++        attempted: true,
++        outcome: "UNKNOWN",
++        reason: detail ?? "Dispatch en cours — résultat Studio non encore consolidé.",
++        documentTitle,
++        revisionNumber,
++        attemptId: input.attemptId,
++      },
++    });
++  } else {
++    const canonical = composeCanonicalMissionRestitution({
++      documentEffect: plan.documentId
++        ? {
++            act: "CREATE",
++            status: "AVAILABLE",
++            documentId: plan.documentId,
++            revisionId: plan.revisionId,
++          }
++        : null,
++      prepareStatus: "PREPARED",
++      attemptId: input.attemptId,
++      decisionId: input.decisionId ?? row.decisionId,
++      dispatchStatus: status,
++      dispatchDetail: detail,
++      restitutionNote: "Reprise post-autorisation exécutée — voir statut publication.",
++    });
++    const factsBlock = [
++      `Publication attemptId=${input.attemptId} status=${status}`,
++      input.decisionId || row.decisionId
++        ? `decisionId=${input.decisionId ?? row.decisionId}`
++        : null,
++      plan.documentId ? `documentId=${plan.documentId}` : null,
++      plan.revisionId ? `revisionId=${plan.revisionId}` : null,
++      prNumber != null ? `prNumber=${prNumber}` : null,
++      commitSha ? `commitSha=${commitSha}` : null,
++      detail ? `detail=${detail}` : null,
++    ]
++      .filter(Boolean)
++      .join("\n");
++
++    restitution = canonical;
++    try {
++      const continued = await cognitiveContinueFromFacts({
++        userText:
++          "L'autorisation Pilote a été accordée et l'effet de publication a été traité. Restitue le résultat.",
++        factsBlock,
++        contextSnippets: [],
++      });
++      if (continued.status === "COMPLETE" && continued.content.trim()) {
++        restitution = composePublicationEffectRestitution({
++          priorContent: continued.content.trim(),
++          effect: {
++            attempted: true,
++            outcome: "UNKNOWN",
++            reason: detail ?? status,
++            documentTitle,
++            revisionNumber,
++          },
++        });
++        cognitiveContinue = "DELIVERED";
++      }
++    } catch {
++      cognitiveContinue = "CANONICAL";
+     }
+-  } catch {
+-    cognitiveContinue = "CANONICAL";
+   }
+
+   let conversationMessageId: string | null = resultPayload.missionResumeMessageId ?? null;
+-  if (plan.preparationId) {
++  if (plan.preparationId && input.persistAssistantMessage !== false) {
+     try {
+       conversationMessageId = await appendAssistantMissionMessage({
+         pilotId: input.pilotId,
+```
+
+#### `projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts b/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
+index 74998a42..fbee47d8 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
+@@ -123,7 +123,13 @@ export function composePilotageEffectRestitution(input: {
+ /** True when a persisted assistant message is a raw technical mission dump (not métier Nora). */
+ export function isTechnicalMissionAssistantContent(content: string, generationId?: string | null): boolean {
+   // Provenance hint alone is insufficient — a mission-continue may already carry métier D4 ACK.
+-  if (/Résultat d'enregistrement|Nouvelle version disponible|encore incertain/i.test(content)) {
++  // E08 — publication effect restitution is Nora métier voice; do not mask it as technical dump.
++  if (
++    /Résultat d'enregistrement|Nouvelle version disponible|encore incertain/i.test(content) ||
++    /a été publié|n'a pas été effectuée|Aucune publication n'a (été|été)|écritures GitHub ne sont pas disponibles|encore en vérification/i.test(
++      content,
++    )
++  ) {
+     return false;
+   }
+   if (/^### Suite de mission/m.test(content) && /projectId=|clientIntentKey=|status=COMPLETED/.test(content)) {
+```
+
+#### `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+index a9da3d88..b8d9c0d7 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+@@ -568,6 +568,9 @@ export type SemanticStudioProjection = {
+     path: string | null;
+     targetPath: string | null;
+     targetBranch: string | null;
++    documentHint: string | null;
++    objectRef: string | null;
++    repositoryHint: string | null;
+     clarify: string | null;
+     capabilityId: "d7.prepare_publication" | "d7.dispatch_publication" | "d9.git_integration" | null;
+   };
+@@ -641,6 +644,12 @@ export function projectStudioEffects(q: NoraTurnQualification): SemanticStudioPr
+     path,
+     targetPath: path,
+     targetBranch: null as string | null,
++    documentHint:
++      publish?.parameters.documentHint?.trim() ||
++      reviseDoc?.parameters.documentHint?.trim() ||
++      null,
++    objectRef: publish?.parameters.objectRef?.trim() || null,
++    repositoryHint: publish?.parameters.repositoryFullName?.trim() || null,
+     clarify: publish && !path ? "Chemin de publication Git manquant." : null,
+     capabilityId: publishCapability,
+   };
+```
+
+#### `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+index 52b72c5d..6e6b19cf 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+@@ -126,6 +126,15 @@ import {
+   userStatementRefusesMerge,
+ } from "./conversation-merge-authority";
+ import { userStatementRefusesPublication } from "./conversation-publication-mandate-guards";
++import {
++  composePublicationEffectRestitution,
++  publicationWriteGate,
++  type PublicationEffectView,
++} from "./publication-effect-restitution";
++import {
++  confirmPublicationDocumentWithD4,
++  resolvePublicationDocumentTarget,
++} from "./publication-document-target";
+ import {
+   advanceMissionAfterProjectCreated,
+   buildD2AwaitingStep,
+@@ -2553,49 +2562,205 @@ export async function postUserMessageAndNora(
+   // Explicit refusal must not leave a publication PREPARED / AWAITING_PILOT_AUTH.
+   const userRefusesPublish = userStatementRefusesPublication(content);
+
++  // Publication mission: same-turn D4 CREATE/REVISE OR publish-existing (no D4 AVAILABLE gate).
++  // Restitution belongs to Nora after Studio outcome — never a fixed pre-effect hedge.
++  let publicationEffectView: PublicationEffectView = null;
++
+   if (
+     allowOwnerEffects &&
+     !ownershipLostBeforeD4 &&
+-    documentEffectForAck?.status === "AVAILABLE" &&
+-    documentEffectForAck.documentId &&
+-    documentEffectForAck.revisionId &&
+     missionIntent.wantsPublish &&
+     !userRefusesPublish &&
+     ctx.project?.id
+   ) {
+-    const steps: MissionProjection["steps"] = [
+-      {
++    const docsForPub = await listDocuments(pilotId, preparationId);
++    let pubTarget = resolvePublicationDocumentTarget({
++      sameTurnEffect: documentEffectForAck
++        ? {
++            status: documentEffectForAck.status ?? "UNKNOWN",
++            documentId: documentEffectForAck.documentId ?? null,
++            revisionId: documentEffectForAck.revisionId ?? null,
++            revisionNumber: documentEffectForAck.revisionNumber ?? null,
++            title: null,
++          }
++        : null,
++      docs: docsForPub,
++      documentHint: missionIntent.documentHint ?? null,
++      objectRef: missionIntent.objectRef ?? null,
++      focus: opts?.documentFocus
++        ? {
++            documentId: opts.documentFocus.documentId,
++            sourceRevisionId: opts.documentFocus.sourceRevisionId,
++            sourceRevisionNumber: opts.documentFocus.sourceRevisionNumber,
++            observedHeadRevisionId: opts.documentFocus.observedHeadRevisionId,
++          }
++        : null,
++    });
++
++    // D4 owner confirmation before any D7 prepare — never trust client focus alone.
++    if (pubTarget.ok) {
++      pubTarget = await confirmPublicationDocumentWithD4({
++        pilotId,
++        preparationId,
++        target: pubTarget,
++      });
++    }
++
++    const steps: MissionProjection["steps"] = [];
++    if (pubTarget.ok && pubTarget.source === "same_turn_d4") {
++      steps.push({
+         id: "d4_create",
+         capabilityId: "d4.create_document",
+         status: "DONE",
+         correlationKey: missionKeys.document,
+-        documentId: documentEffectForAck.documentId,
+-        revisionId: documentEffectForAck.revisionId,
+-      },
+-    ];
++        documentId: pubTarget.documentId,
++        revisionId: pubTarget.revisionId ?? undefined,
++      });
++    } else if (pubTarget.ok) {
++      steps.push({
++        id: "d4_source",
++        capabilityId: "d4.create_document",
++        status: "DONE",
++        correlationKey: missionKeys.document,
++        documentId: pubTarget.documentId,
++        revisionId: pubTarget.revisionId ?? undefined,
++        reason: `EXISTING_DOC:${pubTarget.source}${pubTarget.overriddenImplicit ? ":OVERRIDE_IMPLICIT" : ""}`,
++      });
++    }
+
+-    // P1-E: no silent path/branch deduction — clarify before D7 prepare.
+-    if (missionIntent.needsExplicitPath) {
++    const writeGate = publicationWriteGate();
++
++    if (!pubTarget.ok) {
++      const clarify =
++        pubTarget.reason === "AMBIGUOUS" ||
++        pubTarget.reason === "NOT_FOUND" ||
++        pubTarget.reason === "REVISION_NOT_FOUND" ||
++        pubTarget.reason === "NO_AVAILABLE_REVISION" ||
++        pubTarget.reason === "EXPLICIT_FOCUS_CONFLICT";
++      const refused =
++        pubTarget.reason === "FORBIDDEN" || pubTarget.reason === "REVISION_MISMATCH";
++      steps.push({
++        id: "d7_prepare",
++        capabilityId: "d7.prepare_publication",
++        status: clarify ? "PENDING" : "FAILED",
++        correlationKey: missionKeys.publication,
++        reason: `${pubTarget.reason}${pubTarget.detail ? `:${pubTarget.detail}` : ""}`,
++      });
++      missionProjection = {
++        clientIntentKey,
++        status: clarify ? "AWAITING_CLARIFICATION" : "PARTIAL_FAILED_STEP",
++        goalSummary: refused
++          ? "Publication refusée — cible documentaire invalide"
++          : "Publication — document ou révision à préciser",
++        steps,
++        restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
++      };
++      publicationEffectView = {
++        attempted: true,
++        outcome: refused ? "REFUSED_AUTHORITY" : "AWAITING_CLARIFICATION",
++        reason:
++          pubTarget.reason === "AMBIGUOUS"
++            ? "Plusieurs documents correspondent — précisez lequel publier."
++            : pubTarget.reason === "FORBIDDEN"
++              ? "Document inaccessible pour ce Pilote ou ce projet."
++              : pubTarget.reason === "REVISION_MISMATCH"
++                ? "La révision indiquée n'appartient pas au document demandé."
++                : pubTarget.reason === "REVISION_NOT_FOUND"
++                  ? "Révision demandée introuvable ou non publiable."
++                  : "Document ou révision de publication non déterminé.",
++      };
++    } else if (!pubTarget.revisionId) {
+       steps.push({
+         id: "d7_prepare",
+         capabilityId: "d7.prepare_publication",
+         status: "PENDING",
+         correlationKey: missionKeys.publication,
++        documentId: pubTarget.documentId,
++        reason: "REVISION_REQUIRED",
++      });
++      missionProjection = {
++        clientIntentKey,
++        status: "AWAITING_CLARIFICATION",
++        goalSummary: "Publication — révision à préciser",
++        steps,
++        restitution: "DELIVERED",
++      };
++      publicationEffectView = {
++        attempted: true,
++        outcome: "AWAITING_CLARIFICATION",
++        reason: "Révision de publication non déterminée.",
++        documentTitle: pubTarget.title,
++        revisionNumber: pubTarget.revisionNumber,
++      };
++    } else if (!writeGate.allowed) {
++      steps.push({
++        id: "d7_prepare",
++        capabilityId: "d7.prepare_publication",
++        status: "FAILED",
++        correlationKey: missionKeys.publication,
++        documentId: pubTarget.documentId,
++        revisionId: pubTarget.revisionId,
++        reason: "WRITE_DISABLED",
++      });
++      missionProjection = {
++        clientIntentKey,
++        status: "PARTIAL_FAILED_STEP",
++        goalSummary: "Publication refusée — écritures GitHub désactivées",
++        steps,
++        restitution: "DELIVERED",
++      };
++      publicationEffectView = {
++        attempted: true,
++        outcome: "REFUSED_WRITE_DISABLED",
++        reason: writeGate.reason,
++        documentTitle: pubTarget.title,
++        revisionNumber: pubTarget.revisionNumber,
++        repositoryFullName: missionIntent.repositoryHint,
++      };
++      emitObs({
++        event_name: "d3.mission.publication_write_disabled",
++        component: "d3.mission_continuity",
++        request_id: requestId,
++        operation_id: reserved.operationId,
++        generation_id: reply.generationId,
++        outcome: "DENIED",
++        meta: {
++          document_id: pubTarget.documentId,
++          revision_id: pubTarget.revisionId,
++          reason: writeGate.reason,
++        },
++      });
++    } else if (missionIntent.needsExplicitPath) {
++      // P1-E: no silent path/branch deduction — clarify before D7 prepare.
++      steps.push({
++        id: "d7_prepare",
++        capabilityId: "d7.prepare_publication",
++        status: "PENDING",
++        correlationKey: missionKeys.publication,
++        documentId: pubTarget.documentId,
++        revisionId: pubTarget.revisionId,
+         reason: missionIntent.clarify ?? "PATH_REQUIRED",
+       });
+       missionProjection = {
+         clientIntentKey,
+         status: "AWAITING_CLARIFICATION",
+-        goalSummary: "CREATE D4 confirmé — chemin Git requis avant préparation",
++        goalSummary: "Document identifié — chemin Git requis avant préparation",
+         steps,
+         restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
+       };
++      publicationEffectView = {
++        attempted: true,
++        outcome: "AWAITING_CLARIFICATION",
++        reason: missionIntent.clarify ?? "Chemin de publication Git manquant.",
++        documentTitle: pubTarget.title,
++        revisionNumber: pubTarget.revisionNumber,
++      };
+     } else if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
+       const prepared = await preparePublicationForMission({
+         pilotId,
+         projectId: ctx.project.id,
+-        documentId: documentEffectForAck.documentId,
+-        revisionId: documentEffectForAck.revisionId,
++        documentId: pubTarget.documentId,
++        revisionId: pubTarget.revisionId,
+         clientIntentKey,
+         targetPath: missionIntent.targetPath,
+         targetBranch: missionIntent.targetBranch,
+@@ -2607,13 +2772,13 @@ export async function postUserMessageAndNora(
+           status: prepared.status === "PREPARED" ? "WAITING" : "DONE",
+           correlationKey: missionKeys.publication,
+           attemptId: prepared.attemptId,
+-          documentId: documentEffectForAck.documentId,
+-          revisionId: documentEffectForAck.revisionId,
++          documentId: pubTarget.documentId,
++          revisionId: pubTarget.revisionId,
+         };
+         steps.push(prepStep);
+
+         let missionStatus: MissionProjection["status"] = "AWAITING_PILOT_AUTH";
+-        let goalSummary = "CREATE D4 + publication Git (attente autorisation Pilote)";
++        let goalSummary = "Publication Git (attente autorisation Pilote)";
+         let authorizeCalled = false;
+
+         const mandateAdmission = await admitConversationalPublicationMandate({
+@@ -2636,7 +2801,16 @@ export async function postUserMessageAndNora(
+           if (resumeStatus === "COMPLETED") {
+             prepStep.status = "DONE";
+             missionStatus = "COMPLETED";
+-            goalSummary = "CREATE D4 + publication Git (mandat conversationnel + effet terminé)";
++            goalSummary = "Publication Git (mandat conversationnel + effet terminé)";
++            publicationEffectView = {
++              attempted: true,
++              outcome: "COMPLETED",
++              documentTitle: pubTarget.title,
++              revisionNumber: pubTarget.revisionNumber,
++              attemptId: prepared.attemptId,
++              decisionId: mandateAdmission.decisionId,
++              repositoryFullName: missionIntent.repositoryHint,
++            };
+           } else if (
+             resumeStatus === "DISPATCHED" ||
+             resumeStatus === "AMBIGUOUS" ||
+@@ -2644,12 +2818,30 @@ export async function postUserMessageAndNora(
+           ) {
+             prepStep.status = "WAITING";
+             missionStatus = "ACTIVE";
+-            goalSummary = "CREATE D4 + publication Git (mandat conversationnel — dispatch en cours)";
++            goalSummary = "Publication Git (mandat conversationnel — dispatch en cours)";
++            publicationEffectView = {
++              attempted: true,
++              outcome: "UNKNOWN",
++              reason: "Dispatch en cours — résultat Studio non encore consolidé.",
++              documentTitle: pubTarget.title,
++              revisionNumber: pubTarget.revisionNumber,
++              attemptId: prepared.attemptId,
++              decisionId: mandateAdmission.decisionId,
++            };
+           } else {
+             prepStep.status = "WAITING";
+             missionStatus = "AWAITING_PILOT_AUTH";
+             goalSummary =
+-              "CREATE D4 + publication Git (mandat D6 enregistré — reprise dispatch en attente)";
++              "Publication Git (mandat enregistré — reprise dispatch en attente)";
++            publicationEffectView = {
++              attempted: true,
++              outcome: "PREPARED_AWAITING_AUTH",
++              reason: "Autorisation enregistrée — effet non encore observé.",
++              documentTitle: pubTarget.title,
++              revisionNumber: pubTarget.revisionNumber,
++              attemptId: prepared.attemptId,
++              decisionId: mandateAdmission.decisionId,
++            };
+           }
+         } else if (
+           mandateAdmission.attempted &&
+@@ -2665,6 +2857,39 @@ export async function postUserMessageAndNora(
+           missionStatus = "AWAITING_CLARIFICATION";
+           goalSummary = "Publication préparée — mandat conversationnel ambigu (précision requise)";
+           prepStep.reason = mandateAdmission.reason ?? mandateAdmission.reasonCode;
++          publicationEffectView = {
++            attempted: true,
++            outcome: "AWAITING_CLARIFICATION",
++            reason: mandateAdmission.reason ?? mandateAdmission.reasonCode,
++            documentTitle: pubTarget.title,
++            revisionNumber: pubTarget.revisionNumber,
++            attemptId: prepared.attemptId,
++          };
++        } else if (
++          mandateAdmission.attempted &&
++          (mandateAdmission.reasonCode === "REFUSED" ||
++            mandateAdmission.reasonCode === "INSUFFICIENT_PERMISSION")
++        ) {
++          prepStep.status = "FAILED";
++          missionStatus = "PARTIAL_FAILED_STEP";
++          goalSummary = "Publication refusée — autorité insuffisante";
++          publicationEffectView = {
++            attempted: true,
++            outcome: "REFUSED_AUTHORITY",
++            reason: mandateAdmission.reason ?? mandateAdmission.reasonCode,
++            documentTitle: pubTarget.title,
++            revisionNumber: pubTarget.revisionNumber,
++            attemptId: prepared.attemptId,
++          };
++        } else {
++          publicationEffectView = {
++            attempted: true,
++            outcome: "PREPARED_AWAITING_AUTH",
++            reason: mandateAdmission.reason ?? "Préparation disponible — autorisation Pilote requise.",
++            documentTitle: pubTarget.title,
++            revisionNumber: pubTarget.revisionNumber,
++            attemptId: prepared.attemptId,
++          };
+         }
+
+         missionProjection = {
+@@ -2685,27 +2910,42 @@ export async function postUserMessageAndNora(
+           outcome: mandateAdmission.authorized ? "SUCCESS" : "PARTIAL",
+           meta: {
+             attempt_id: prepared.attemptId,
+-            document_id: documentEffectForAck.documentId,
++            document_id: pubTarget.documentId,
+             authorize_called: authorizeCalled,
+             mandate_reason: mandateAdmission.reasonCode ?? null,
+             decision_id: mandateAdmission.decisionId,
++            publish_source: pubTarget.source,
+           },
+         });
+       } else {
++        const refusedWrite =
++          prepared.code === "WRITE_DISABLED" ||
++          /ALLOW_MUTATIONS|écritures GitHub|WRITE/i.test(prepared.message);
+         steps.push({
+           id: "d7_prepare",
+           capabilityId: "d7.prepare_publication",
+           status: "FAILED",
+           correlationKey: missionKeys.publication,
++          documentId: pubTarget.documentId,
++          revisionId: pubTarget.revisionId,
+           reason: `${prepared.code}:${prepared.message}`,
+         });
+         missionProjection = {
+           clientIntentKey,
+           status: "PARTIAL_FAILED_STEP",
+-          goalSummary: "CREATE D4 confirmé — préparation Git non réalisée",
++          goalSummary: refusedWrite
++            ? "Publication refusée — écritures GitHub désactivées"
++            : "Document identifié — préparation Git non réalisée",
+           steps,
+           restitution: continueFailedAfterEffect ? "PENDING" : "CANONICAL",
+         };
++        publicationEffectView = {
++          attempted: true,
++          outcome: refusedWrite ? "REFUSED_WRITE_DISABLED" : "DISPATCH_FAILED",
++          reason: prepared.message,
++          documentTitle: pubTarget.title,
++          revisionNumber: pubTarget.revisionNumber,
++        };
+       }
+     }
+
+@@ -2991,6 +3231,25 @@ export async function postUserMessageAndNora(
+     });
+   }
+
++  // E08 POST-UAT — publication outcome after Studio owners; strip pre-effect hedges.
++  if (!ownershipLostBeforeD4 && publicationEffectView?.attempted) {
++    assistantBody = composePublicationEffectRestitution({
++      priorContent: assistantBody,
++      effect: publicationEffectView,
++    });
++  } else if (!ownershipLostBeforeD4 && missionIntent.wantsPublish) {
++    // Intention recognized, no Studio publication attempt — NOT_ATTEMPTED (never success).
++    assistantBody = composePublicationEffectRestitution({
++      priorContent: assistantBody,
++      effect: {
++        attempted: true,
++        outcome: "NOT_ATTEMPTED",
++        reason:
++          "Intention de publication reconnue — aucun effet Studio n'a été lancé",
++      },
++    });
++  }
++
+   const assistantContentForCommit = ownershipLostBeforeD4
+     ? reply.content
+     : appendMissionAck(
+```
+
+#### `projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts
+index ca11f453..a82cac55 100644
+--- a/projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts
++++ b/projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts
+@@ -29,9 +29,7 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
+
+     await page.goto("/settings/integrations");
+     await expect(page.getByTestId("integrations-panel")).toBeVisible();
+-    await expect(page.getByTestId("provider-mode-note")).not.toContainText(/Chargement/i, {
+-      timeout: 15_000,
+-    });
++    await expect(page.getByTestId("integrations-status-banner")).toBeVisible({ timeout: 15_000 });
+     if (await page.getByTestId("disconnect-github").isVisible().catch(() => false)) {
+       await page.getByTestId("disconnect-github").click();
+       await expect(page.getByTestId("integrations-disconnect-confirm")).toBeVisible();
+@@ -39,9 +37,10 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
+       await expect(page.getByTestId("connect-github")).toBeVisible({ timeout: 15_000 });
+     }
+     await page.getByTestId("connect-github").click();
+-    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub est connecté/i, {
++    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub connecté/i, {
+       timeout: 20_000,
+     });
++    await expect(page.getByTestId("github-connected-badge")).toBeVisible();
+     if (await page.getByTestId("refresh-repos").isVisible().catch(() => false)) {
+       await page.getByTestId("refresh-repos").click();
+     }
+@@ -66,6 +65,10 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
+     await expect(page.getByTestId("git-branch-search")).toBeVisible();
+     await page.getByTestId("git-branch-filter").fill("main");
+     await page.getByTestId("git-branch-filter-apply").click();
++    // Note lives outside the popover — wait for provider filter to apply (S03).
++    await expect
++      .poll(async () => page.getByTestId("git-branch-filter-note").count(), { timeout: 20_000 })
++      .toBeGreaterThan(0);
+     await expect(page.getByTestId("git-branch-filter-note")).toContainText(/main/i, {
+       timeout: 10_000,
+     });
+@@ -74,7 +77,7 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
+     // Publications tab — project-scale, historical wording (E08-S04)
+     await page.getByTestId("git-tab-publications").click();
+     await expect(page.getByTestId("git-publications")).toBeVisible();
+-    await expect(page.getByTestId("git-publications")).toContainText(/Projection D4\/D7\/D8|historique/i);
++    await expect(page.getByTestId("git-publications")).toContainText(/historique|publication/i);
+     await expect(page.getByTestId("git-pubs-split").or(page.getByTestId("git-publications-empty"))).toBeVisible();
+
+     // Manage — at least one attached; second attach when an unattached button is offered
+@@ -93,11 +96,11 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
+         .toBeGreaterThanOrEqual(before);
+     }
+
+-    // Detach one with confirm
++    // Detach one with confirm (force: list can remount while sources refresh)
+     const detachBtn = page.locator('[data-testid^="git-detach-"]').first();
+     if (await detachBtn.isVisible().catch(() => false)) {
+-      await detachBtn.click();
+-      await expect(page.getByTestId("git-detach-confirm")).toBeVisible({ timeout: 5_000 });
++      await detachBtn.click({ force: true, timeout: 15_000 });
++      await expect(page.getByTestId("git-detach-confirm")).toBeVisible({ timeout: 10_000 });
+       await page.getByTestId("git-detach-confirm-yes").click();
+     }
+
+```
+
+#### `projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts b/projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts
+index 77ffd387..2b74ecc1 100644
+--- a/projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts
++++ b/projects/sfia-studio-next/web/tests/e2e/git-collaboration.spec.ts
+@@ -37,15 +37,13 @@ test.describe("ML4 git collaboration corrective (SCRIPTED)", () => {
+     await page.goto("/settings/integrations");
+     await expect(page.getByTestId("integrations-panel")).toBeVisible();
+     // Wait for status hydration (avoid race: default DISCONNECTED before fetch).
+-    await expect(page.getByTestId("provider-mode-note")).not.toContainText(/Chargement/i, {
+-      timeout: 15_000,
+-    });
++    await expect(page.getByTestId("integrations-status-banner")).toBeVisible({ timeout: 15_000 });
+     if (await page.getByTestId("disconnect-github").isVisible().catch(() => false)) {
+       await page.getByTestId("disconnect-github").click();
+       await expect(page.getByTestId("connect-github")).toBeVisible({ timeout: 15_000 });
+     }
+     await page.getByTestId("connect-github").click();
+-    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub est connecté/i, {
++    await expect(page.getByTestId("integrations-status-banner")).toContainText(/GitHub connecté/i, {
+       timeout: 20_000,
+     });
+     // Refresh repos so SCRIPTED permission snapshot is current (write for documentary publish).
+```
+
+#### `projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
+index 96526533..ffeff38d 100644
+--- a/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/mission-continuity-accept01.pg.test.ts
+@@ -365,7 +365,11 @@ describe("ACCEPT-01 mission continuity (PG / SCRIPTED)", () => {
+
+     const msgs = await listMessages(pilotId, preparationId);
+     const assistant = msgs.filter((m) => m.role === "assistant").at(-1);
+-    expect(assistant?.content).toMatch(/Résultat applicatif D4|Suite de mission|AVAILABLE/);
++    // E08 clôture — Nora métier restitution after COMPLETED (not technical dump).
++    expect(assistant?.content).toMatch(
++      /a été publié|Résultat applicatif D4|Suite de mission|AVAILABLE/,
++    );
++    expect(assistant?.content).not.toMatch(/Je publie/i);
+     expect(projectId).toBeTruthy();
+   });
+
+```
 
 ## 17. Commit show (métadonnées)
 
