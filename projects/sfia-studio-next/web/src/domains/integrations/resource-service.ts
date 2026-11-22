@@ -602,3 +602,134 @@ export async function listGitPullRequestFiles(input: {
     throw isRethrowableStudio(e) ? e : err;
   }
 }
+
+/** READ: single commit metadata (dates, parents, bounded files). Not list_commits. */
+export async function readGitCommit(input: {
+  pilotId: string;
+  projectId: string;
+  repositoryId: string;
+  ref: string;
+}) {
+  const ref = input.ref?.trim();
+  if (!ref) {
+    throw new StudioError("INVALID_REQUEST", "ref/commit SHA requis", { httpStatus: 400 });
+  }
+  const repo = await gateRead(input.pilotId, input.projectId, input.repositoryId);
+  const provider = resolveGitHubProvider();
+  try {
+    const c = await provider.getCommit(input.pilotId, repo.fullName, ref);
+    return {
+      status: "AVAILABLE" as const,
+      repositoryFullName: repo.fullName,
+      requestedRef: ref,
+      sha: c.sha,
+      message: c.message,
+      authorName: c.authorName,
+      authorEmail: c.authorEmail,
+      authorDate: c.authorDate,
+      committerName: c.committerName,
+      committerEmail: c.committerEmail,
+      committerDate: c.committerDate,
+      parents: c.parents,
+      htmlUrl: c.htmlUrl,
+      files: c.files,
+      incompleteCoverage: c.incompleteCoverage,
+      matchedFileCount: c.matchedFileCount,
+      observedAt: new Date().toISOString(),
+      identityReminder:
+        "sha est un commit (révision). Ne pas confondre avec blobSha de contenu fichier.",
+      authorityReminder: "Lecture commit — jamais un mandat D6 ni une autorisation de merge.",
+    };
+  } catch (e) {
+    const err = toStudioError(e);
+    throw isRethrowableStudio(e) ? e : err;
+  }
+}
+
+/** READ: bounded compare base...head (ahead/behind + file statuses, no hunks). */
+export async function compareGitRefs(input: {
+  pilotId: string;
+  projectId: string;
+  repositoryId: string;
+  base: string;
+  head: string;
+}) {
+  const base = input.base?.trim();
+  const head = input.head?.trim();
+  if (!base || !head) {
+    throw new StudioError("INVALID_REQUEST", "base et head requis pour compare", {
+      httpStatus: 400,
+    });
+  }
+  const repo = await gateRead(input.pilotId, input.projectId, input.repositoryId);
+  const provider = resolveGitHubProvider();
+  try {
+    const c = await provider.compareRefs(input.pilotId, repo.fullName, base, head);
+    return {
+      status: "AVAILABLE" as const,
+      repositoryFullName: repo.fullName,
+      base,
+      head,
+      baseSha: c.baseSha,
+      headSha: c.headSha,
+      compareStatus: c.status,
+      aheadBy: c.aheadBy,
+      behindBy: c.behindBy,
+      totalCommits: c.totalCommits,
+      files: c.files,
+      incompleteCoverage: c.incompleteCoverage,
+      matchedFileCount: c.matchedFileCount,
+      htmlUrl: c.htmlUrl,
+      observedAt: new Date().toISOString(),
+      coverageNote:
+        "Comparaison bornée (fichiers/statuts) — pas de diff hunks arbitraires ni historique générique.",
+      authorityReminder: "Compare READ — jamais une autorisation de merge ou de publication.",
+    };
+  } catch (e) {
+    const err = toStudioError(e);
+    throw isRethrowableStudio(e) ? e : err;
+  }
+}
+
+/**
+ * READ: combined status + check-runs for a commit/ref.
+ * Does not fetch branch protection/rulesets (often admin-only) — reports permission limits honestly.
+ */
+export async function readGitCommitStatus(input: {
+  pilotId: string;
+  projectId: string;
+  repositoryId: string;
+  ref: string;
+}) {
+  const ref = input.ref?.trim();
+  if (!ref) {
+    throw new StudioError("INVALID_REQUEST", "ref/commit SHA requis", { httpStatus: 400 });
+  }
+  const repo = await gateRead(input.pilotId, input.projectId, input.repositoryId);
+  const provider = resolveGitHubProvider();
+  try {
+    const s = await provider.getCommitStatus(input.pilotId, repo.fullName, ref);
+    return {
+      status: "AVAILABLE" as const,
+      repositoryFullName: repo.fullName,
+      requestedRef: ref,
+      combinedState: s.combinedState,
+      combinedStatuses: s.combinedStatuses,
+      checkRuns: s.checkRuns,
+      incompleteCoverage: s.incompleteCoverage,
+      matchedCheckCount: s.matchedCheckCount,
+      statusCoverage: s.statusCoverage,
+      statusNote: s.statusNote,
+      protectionCoverage: "DENIED" as const,
+      protectionNote:
+        "Protections/rulesets de branche non exposées via cet outil (souvent admin). " +
+        "mergeable/mergeableState (read_git_pull_request) ≠ autorisation de fusion.",
+      observedAt: new Date().toISOString(),
+      authorityReminder:
+        "Checks/status READ — jamais un mandat D6. Absence de conflit ≠ merge autorisé.",
+    };
+  } catch (e) {
+    const err = toStudioError(e);
+    throw isRethrowableStudio(e) ? e : err;
+  }
+}

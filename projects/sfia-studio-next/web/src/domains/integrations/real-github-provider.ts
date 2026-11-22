@@ -14,6 +14,9 @@ import {
   fetchRefSha,
   fetchRepositoryMetadata,
   listInstallationRepositories,
+  compareCommitsRemote,
+  fetchCommitRemote,
+  fetchCommitStatusRemote,
   listPullRequestFilesRemote,
   listPullRequestsRemote,
   mergePullRequestRemote,
@@ -564,6 +567,46 @@ export class RealGitHubReadProvider implements GitHubProvider {
       changedFiles: pr.changedFiles,
       mergeCommitSha: pr.mergeCommitSha,
     };
+  }
+
+  async getCommit(pilotId: string, fullName: string, ref: string) {
+    assertAllowedRepo(this.creds, fullName);
+    return this.withReadToken(pilotId, (token) =>
+      fetchCommitRemote({
+        token,
+        fullName,
+        ref,
+        fileBound: 40,
+        fetchImpl: this.fetchImpl,
+      }),
+    );
+  }
+
+  async compareRefs(pilotId: string, fullName: string, base: string, head: string) {
+    assertAllowedRepo(this.creds, fullName);
+    return this.withReadToken(pilotId, (token) =>
+      compareCommitsRemote({
+        token,
+        fullName,
+        base,
+        head,
+        fileBound: 40,
+        fetchImpl: this.fetchImpl,
+      }),
+    );
+  }
+
+  async getCommitStatus(pilotId: string, fullName: string, ref: string) {
+    assertAllowedRepo(this.creds, fullName);
+    return this.withReadToken(pilotId, (token) =>
+      fetchCommitStatusRemote({
+        token,
+        fullName,
+        ref,
+        checkBound: 30,
+        fetchImpl: this.fetchImpl,
+      }),
+    );
   }
 
   /** Qualification helper: repo metadata + default branch HEAD (no secrets). */

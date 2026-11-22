@@ -98,15 +98,27 @@ Légende preuve : DET = deterministic · PG · BR = browser · RR = REAL READ ·
 
 | Outil | Allowlist | Budget | Mutation |
 |---|---|---|---|
-| `list_project_git_sources` | oui | D4 chars/calls | non |
-| `read_git_file` | oui | oui | non |
-| `list_git_refs` | oui | oui | non |
-| `list_git_directory` | oui | oui | non |
-| `read_git_pull_request` | oui | oui | non |
-| `list_git_pull_requests` | **FIX oui** | oui | non |
-| `list_git_pull_request_files` | **FIX oui** | oui | non |
+| `list_project_git_sources` | oui | **Git calls** + chars | non |
+| `read_git_file` | oui | Git calls + chars | non |
+| `list_git_refs` | oui | Git calls | non |
+| `list_git_directory` | oui | Git calls | non |
+| `read_git_pull_request` | oui | Git calls | non |
+| `list_git_pull_requests` | oui | Git calls | non |
+| `list_git_pull_request_files` | oui | Git calls | non |
+| `read_git_commit` | **FIX** | Git calls | non |
+| `compare_git_refs` | **FIX** | Git calls | non |
+| `read_git_commit_status` | **FIX** | Git calls | non |
 
+Budget : `maxGitToolCalls` **séparé** de `maxD4ToolCalls` (R-READ-03). Chars partagés.  
 Écritures : **aucune** via outil LLM direct — uniquement qualification → D6 → D7 → D9 → D8 → restitution D3.
+
+### Réserves UAT post-campagne (fiabilisation 2026-11-22)
+
+| Réserve | Cause | Correction | Preuve | Limite restante |
+|---|---|---|---|---|
+| R-READ-03 | TEST_BOUNDARY RECETTE + compteur D4+Git partagé (4) | `maxGitToolCalls` + `remainingGitCalls` | DET | OPERATIONAL_VALIDATED toujours non adopté |
+| R-READ-02 | Pas d’outil date/compare | `read_git_commit` + `compare_git_refs` | DET | pas de list_commits / hunks (OUT) |
+| R-READ-01 | Checks/protections absents Nora | `read_git_commit_status` | DET | rulesets/protections **DENIED** — gate avant GIT-UAT-08 |
 
 ## Chemins mission D6/D7 (écritures)
 

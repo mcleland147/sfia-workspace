@@ -3,6 +3,22 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-READ-HARDENING
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 09:35 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — fiabilisation Git READ (réserves UAT) |
+| Type | INC / EVOL / QA · CRITICAL · **NO RELEASE** |
+| R-READ-03 | Budget Git séparé (`maxGitToolCalls`) — cause TEST_BOUNDARY partagé |
+| R-READ-02 | `read_git_commit` + `compare_git_refs` |
+| R-READ-01 | `read_git_commit_status` ; protections/rulesets **DENIED** explicite |
+| Preuves | unit **824/824** · PG accept01 **11/11** · tsc PASS |
+| RECETTE | **INCHANGÉE** `79188f6c` / `hLsmHa3uFYP0PgRtj49Bh` |
+| Cutover | **NONE** — candidat local à figer ; GO cutover ultérieur |
+| Push projet | **NONE** |
+| STABLE | NOT AVAILABLE |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-AUDIT-CUTOVER
 
 | Field | Value |

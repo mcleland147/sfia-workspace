@@ -644,6 +644,100 @@ class ScriptedGitHubProvider implements GitHubProvider {
       matchedCount: files.length,
     };
   }
+
+  async getCommit(pilotId: string, fullName: string, ref: string) {
+    if (ScriptedFaultRegistry.current(pilotId, fullName) === "read_unavailable") {
+      ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    }
+    ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    const s = repoStore(pilotId, fullName);
+    const sha = /^[0-9a-f]{40}$/i.test(ref)
+      ? ref.toLowerCase()
+      : (s.branches[ref.replace(/^refs\/heads\//, "")] ?? s.branches.main ?? "a".repeat(40));
+    const paths = Object.keys(s.files);
+    const files = paths.slice(0, 40).map((filename) => ({
+      filename,
+      status: "modified" as const,
+      additions: 1,
+      deletions: 0,
+    }));
+    return {
+      sha,
+      message: "scripted commit",
+      authorName: "Scripted Author",
+      authorEmail: "scripted@example.test",
+      authorDate: "2026-11-22T06:22:13Z",
+      committerName: "Scripted Committer",
+      committerEmail: "scripted@example.test",
+      committerDate: "2026-11-22T06:22:13Z",
+      parents: [s.branches.main ?? "b".repeat(40)],
+      htmlUrl: `https://github.scripted/${fullName}/commit/${sha}`,
+      files,
+      incompleteCoverage: paths.length > 40,
+      matchedFileCount: paths.length,
+    };
+  }
+
+  async compareRefs(pilotId: string, fullName: string, base: string, head: string) {
+    if (ScriptedFaultRegistry.current(pilotId, fullName) === "read_unavailable") {
+      ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    }
+    ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    const s = repoStore(pilotId, fullName);
+    const baseShort = base.replace(/^refs\/heads\//, "");
+    const headShort = head.replace(/^refs\/heads\//, "");
+    const baseSha =
+      (/^[0-9a-f]{40}$/i.test(baseShort) ? baseShort : s.branches[baseShort] ?? s.branches.main) ??
+      "b".repeat(40);
+    const headSha =
+      (/^[0-9a-f]{40}$/i.test(headShort) ? headShort : s.branches[headShort] ?? s.branches.main) ??
+      "a".repeat(40);
+    const paths = Object.keys(s.files);
+    const files = paths.slice(0, 40).map((filename) => ({
+      filename,
+      status: "added" as const,
+      additions: 1,
+      deletions: 0,
+    }));
+    const aheadBy = baseSha === headSha ? 0 : 1;
+    return {
+      baseSha: baseSha.toLowerCase(),
+      headSha: headSha.toLowerCase(),
+      status: aheadBy === 0 ? "identical" : "ahead",
+      aheadBy,
+      behindBy: 0,
+      totalCommits: aheadBy,
+      files,
+      incompleteCoverage: paths.length > 40,
+      matchedFileCount: paths.length,
+      htmlUrl: `https://github.scripted/${fullName}/compare/${baseShort}...${headShort}`,
+    };
+  }
+
+  async getCommitStatus(pilotId: string, fullName: string, ref: string) {
+    if (ScriptedFaultRegistry.current(pilotId, fullName) === "read_unavailable") {
+      ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    }
+    ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    void ref;
+    return {
+      combinedState: "success",
+      combinedStatuses: [{ context: "scripted/ci", state: "success", description: "ok" }],
+      checkRuns: [
+        {
+          name: "scripted-check",
+          status: "completed",
+          conclusion: "success",
+          htmlUrl: `https://github.scripted/${fullName}/runs/1`,
+        },
+      ],
+      incompleteCoverage: false,
+      matchedCheckCount: 1,
+      statusCoverage: "COMPLETE" as const,
+      statusNote:
+        "SCRIPTED status — mergeability ≠ autorisation D6. Protections/rulesets non simulées ici.",
+    };
+  }
 }
 
 export function getScriptedGitHubProvider(): GitHubProvider {

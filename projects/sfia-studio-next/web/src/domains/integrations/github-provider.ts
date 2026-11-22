@@ -162,6 +162,63 @@ export interface GitHubProvider {
     incompleteCoverage: boolean;
     matchedCount: number;
   }>;
+  /** Single-commit metadata + bounded files (READ). */
+  getCommit(
+    pilotId: string,
+    fullName: string,
+    ref: string,
+  ): Promise<{
+    sha: string;
+    message: string;
+    authorName: string | null;
+    authorEmail: string | null;
+    authorDate: string | null;
+    committerName: string | null;
+    committerEmail: string | null;
+    committerDate: string | null;
+    parents: string[];
+    htmlUrl: string;
+    files: Array<{ filename: string; status: string; additions: number; deletions: number }>;
+    incompleteCoverage: boolean;
+    matchedFileCount: number;
+  }>;
+  /** Bounded compare base...head (READ). No patch hunks. */
+  compareRefs(
+    pilotId: string,
+    fullName: string,
+    base: string,
+    head: string,
+  ): Promise<{
+    baseSha: string;
+    headSha: string;
+    status: string;
+    aheadBy: number;
+    behindBy: number;
+    totalCommits: number;
+    files: Array<{ filename: string; status: string; additions: number; deletions: number }>;
+    incompleteCoverage: boolean;
+    matchedFileCount: number;
+    htmlUrl: string;
+  }>;
+  /** Combined status + check-runs for a commit/ref (READ). Never authorizes merge. */
+  getCommitStatus(
+    pilotId: string,
+    fullName: string,
+    ref: string,
+  ): Promise<{
+    combinedState: string | null;
+    combinedStatuses: Array<{ context: string; state: string; description: string | null }>;
+    checkRuns: Array<{
+      name: string;
+      status: string;
+      conclusion: string | null;
+      htmlUrl: string | null;
+    }>;
+    incompleteCoverage: boolean;
+    matchedCheckCount: number;
+    statusCoverage: "COMPLETE" | "PARTIAL" | "DENIED" | "UNAVAILABLE";
+    statusNote: string;
+  }>;
   /** Deterministic mutation counters for SCRIPTED concurrency proofs (optionally per repo). */
   getMutationCounts?(
     pilotId?: string,

@@ -106,6 +106,13 @@
 - Manifeste : `manifeste-cutover-recette-e07-plus-e08.md` (section courante).
 - **UAT Morris** : GIT-UAT-01..07 · GIT-UAT-08 hors mandat · Nora LIVE E2E **NOT PROVEN** par smoke.
 
+### Fiabilisation Git READ — réserves UAT (2026-11-22)
+- **R-READ-03 (budget)** : cause prouvée — RECETTE force `TEST_BOUNDARY` ; budget d’appels **partagé** D4+Git (analyse=4) insuffisant pour un parcours PR+commit+compare. **Correction** : `maxGitToolCalls` séparé ; Git consomme `remainingGitCalls` ; D4/history gardent `maxD4ToolCalls` (stress). TEST_BOUNDARY analyse : Git=12 / D4=4.
+- **R-READ-02 (historique/date/compare)** : **Correction** outils `read_git_commit` + `compare_git_refs` (ahead/behind + fichiers bornés, **pas** list_commits ni hunks).
+- **R-READ-01 (checks)** : **Correction partielle** `read_git_commit_status` (combined status + check-runs). Protections/rulesets : **DENIED** explicite (souvent admin) — marge avant GIT-UAT-08.
+- RECETTE servi **inchangé** (`79188f6c` / `hLsmHa3uFYP0PgRtj49Bh`) — aucun cutover ce cycle.
+- Preuves : unit 824 PASS · PG mission-continuity 11 PASS · Nora LIVE / REAL WRITE **NOT PROVEN**.
+
 ## Non livré / réserves
 - Figma G5 géométrie 11.06 (F2) : **PROVEN** en DEV SCRIPTED — acceptation visuelle Morris UAT distincte
 - END-TO-END REAL mutation GitHub : **NOT PROVEN** (sandbox/GO WRITE non nommé ce lot)

@@ -880,6 +880,269 @@ export async function listPullRequestFilesRemote(input: {
   };
 }
 
+/** READ: single commit metadata + bounded file list. No list_commits crawl. */
+export async function fetchCommitRemote(input: {
+  token: string;
+  fullName: string;
+  /** Commit SHA (preferred) or resolvable ref. */
+  ref: string;
+  fileBound?: number;
+  fetchImpl?: GitHubFetch;
+}): Promise<{
+  sha: string;
+  message: string;
+  authorName: string | null;
+  authorEmail: string | null;
+  authorDate: string | null;
+  committerName: string | null;
+  committerEmail: string | null;
+  committerDate: string | null;
+  parents: string[];
+  htmlUrl: string;
+  files: Array<{ filename: string; status: string; additions: number; deletions: number }>;
+  incompleteCoverage: boolean;
+  matchedFileCount: number;
+}> {
+  const fetchImpl = input.fetchImpl ?? fetch;
+  const bound = Math.max(1, Math.min(input.fileBound ?? 40, 100));
+  const { owner, name } = parseFullName(input.fullName);
+  const ref = encodeURIComponent(input.ref.replace(/^refs\/heads\//, ""));
+  const raw = await ghJson<{
+    sha?: string;
+    html_url?: string;
+    commit?: {
+      message?: string;
+      author?: { name?: string; email?: string; date?: string };
+      committer?: { name?: string; email?: string; date?: string };
+    };
+    parents?: Array<{ sha?: string }>;
+    files?: Array<{
+      filename?: string;
+      status?: string;
+      additions?: number;
+      deletions?: number;
+    }>;
+  }>(fetchImpl, `/repos/${owner}/${name}/commits/${ref}`, {
+    method: "GET",
+    headers: { Authorization: `Bearer ${input.token}` },
+  });
+  const filesRaw = Array.isArray(raw.files) ? raw.files : [];
+  const matchedFileCount = filesRaw.length;
+  const files = filesRaw.slice(0, bound).map((f) => ({
+    filename: f.filename ?? "",
+    status: f.status ?? "unknown",
+    additions: typeof f.additions === "number" ? f.additions : 0,
+    deletions: typeof f.deletions === "number" ? f.deletions : 0,
+  }));
+  return {
+    sha: (raw.sha ?? "").toLowerCase(),
+    message: raw.commit?.message ?? "",
+    authorName: raw.commit?.author?.name ?? null,
+    authorEmail: raw.commit?.author?.email ?? null,
+    authorDate: raw.commit?.author?.date ?? null,
+    committerName: raw.commit?.committer?.name ?? null,
+    committerEmail: raw.commit?.committer?.email ?? null,
+    committerDate: raw.commit?.committer?.date ?? null,
+    parents: (raw.parents ?? []).map((p) => (p.sha ?? "").toLowerCase()).filter(Boolean),
+    htmlUrl: raw.html_url ?? "",
+    files,
+    incompleteCoverage: matchedFileCount > bound,
+    matchedFileCount,
+  };
+}
+
+/**
+ * READ: bounded compare base...head (ahead/behind + file statuses).
+ * No patch hunks — filenames/status only. Not a generic list_commits crawl.
+ */
+export async function compareCommitsRemote(input: {
+  token: string;
+  fullName: string;
+  base: string;
+  head: string;
+  fileBound?: number;
+  fetchImpl?: GitHubFetch;
+}): Promise<{
+  baseSha: string;
+  headSha: string;
+  status: string;
+  aheadBy: number;
+  behindBy: number;
+  totalCommits: number;
+  files: Array<{ filename: string; status: string; additions: number; deletions: number }>;
+  incompleteCoverage: boolean;
+  matchedFileCount: number;
+  htmlUrl: string;
+}> {
+  const fetchImpl = input.fetchImpl ?? fetch;
+  const bound = Math.max(1, Math.min(input.fileBound ?? 40, 100));
+  const { owner, name } = parseFullName(input.fullName);
+  const base = encodeURIComponent(input.base.replace(/^refs\/heads\//, ""));
+  const head = encodeURIComponent(input.head.replace(/^refs\/heads\//, ""));
+  const raw = await ghJson<{
+    status?: string;
+    ahead_by?: number;
+    behind_by?: number;
+    total_commits?: number;
+    html_url?: string;
+    base_commit?: { sha?: string };
+    merge_base_commit?: { sha?: string };
+    commits?: Array<{ sha?: string }>;
+    files?: Array<{
+      filename?: string;
+      status?: string;
+      additions?: number;
+      deletions?: number;
+    }>;
+  }>(fetchImpl, `/repos/${owner}/${name}/compare/${base}...${head}`, {
+    method: "GET",
+    headers: { Authorization: `Bearer ${input.token}` },
+  });
+  const filesRaw = Array.isArray(raw.files) ? raw.files : [];
+  const matchedFileCount = filesRaw.length;
+  const commits = Array.isArray(raw.commits) ? raw.commits : [];
+  const tip = commits.length > 0 ? commits[commits.length - 1]?.sha ?? "" : "";
+  return {
+    baseSha: (raw.base_commit?.sha ?? raw.merge_base_commit?.sha ?? "").toLowerCase(),
+    headSha: tip.toLowerCase(),
+    status: raw.status ?? "unknown",
+    aheadBy: typeof raw.ahead_by === "number" ? raw.ahead_by : 0,
+    behindBy: typeof raw.behind_by === "number" ? raw.behind_by : 0,
+    totalCommits: typeof raw.total_commits === "number" ? raw.total_commits : 0,
+    files: filesRaw.slice(0, bound).map((f) => ({
+      filename: f.filename ?? "",
+      status: f.status ?? "unknown",
+      additions: typeof f.additions === "number" ? f.additions : 0,
+      deletions: typeof f.deletions === "number" ? f.deletions : 0,
+    })),
+    incompleteCoverage: matchedFileCount > bound,
+    matchedFileCount,
+    htmlUrl: raw.html_url ?? "",
+  };
+}
+
+/**
+ * READ: combined commit status + bounded check-runs summary.
+ * Never authorizes merge. Protection/ruleset details may be DENIED by permission.
+ */
+export async function fetchCommitStatusRemote(input: {
+  token: string;
+  fullName: string;
+  ref: string;
+  checkBound?: number;
+  fetchImpl?: GitHubFetch;
+}): Promise<{
+  combinedState: string | null;
+  combinedStatuses: Array<{ context: string; state: string; description: string | null }>;
+  checkRuns: Array<{
+    name: string;
+    status: string;
+    conclusion: string | null;
+    htmlUrl: string | null;
+  }>;
+  incompleteCoverage: boolean;
+  matchedCheckCount: number;
+  statusCoverage: "COMPLETE" | "PARTIAL" | "DENIED" | "UNAVAILABLE";
+  statusNote: string;
+}> {
+  const fetchImpl = input.fetchImpl ?? fetch;
+  const bound = Math.max(1, Math.min(input.checkBound ?? 30, 60));
+  const { owner, name } = parseFullName(input.fullName);
+  const ref = encodeURIComponent(input.ref.replace(/^refs\/heads\//, ""));
+
+  let combinedState: string | null = null;
+  let combinedStatuses: Array<{ context: string; state: string; description: string | null }> = [];
+  let statusCoverage: "COMPLETE" | "PARTIAL" | "DENIED" | "UNAVAILABLE" = "COMPLETE";
+  let statusNote = "Combined status + check-runs observés (bornés).";
+
+  try {
+    const status = await ghJson<{
+      state?: string;
+      statuses?: Array<{ context?: string; state?: string; description?: string | null }>;
+    }>(fetchImpl, `/repos/${owner}/${name}/commits/${ref}/status`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${input.token}` },
+    });
+    combinedState = status.state ?? null;
+    combinedStatuses = (status.statuses ?? []).slice(0, bound).map((s) => ({
+      context: s.context ?? "",
+      state: s.state ?? "unknown",
+      description: s.description ?? null,
+    }));
+  } catch (e) {
+    const err = e instanceof StudioError ? e : null;
+    if (err?.code === "ACCESS_DENIED") {
+      statusCoverage = "DENIED";
+      statusNote = "Combined status inaccessible (permission) — ne pas inventer success.";
+    } else if (err?.code === "NOT_FOUND") {
+      statusCoverage = "PARTIAL";
+      statusNote = "Combined status introuvable pour cette ref.";
+    } else {
+      statusCoverage = "UNAVAILABLE";
+      statusNote = "Combined status temporairement indisponible.";
+    }
+  }
+
+  let checkRuns: Array<{
+    name: string;
+    status: string;
+    conclusion: string | null;
+    htmlUrl: string | null;
+  }> = [];
+  let matchedCheckCount = 0;
+  let incompleteCoverage = false;
+
+  try {
+    const checks = await ghJson<{
+      total_count?: number;
+      check_runs?: Array<{
+        name?: string;
+        status?: string;
+        conclusion?: string | null;
+        html_url?: string | null;
+      }>;
+    }>(fetchImpl, `/repos/${owner}/${name}/commits/${ref}/check-runs?per_page=${bound}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${input.token}`,
+        Accept: "application/vnd.github+json",
+      },
+    });
+    matchedCheckCount =
+      typeof checks.total_count === "number" ? checks.total_count : (checks.check_runs ?? []).length;
+    checkRuns = (checks.check_runs ?? []).slice(0, bound).map((c) => ({
+      name: c.name ?? "",
+      status: c.status ?? "unknown",
+      conclusion: c.conclusion ?? null,
+      htmlUrl: c.html_url ?? null,
+    }));
+    incompleteCoverage = matchedCheckCount > bound;
+    if (statusCoverage === "COMPLETE" && incompleteCoverage) statusCoverage = "PARTIAL";
+  } catch (e) {
+    const err = e instanceof StudioError ? e : null;
+    if (err?.code === "ACCESS_DENIED") {
+      if (statusCoverage === "COMPLETE") statusCoverage = "PARTIAL";
+      statusNote =
+        (statusNote ? statusNote + " " : "") +
+        "Check-runs inaccessibles (permission) — mergeability ≠ checks verts.";
+    } else if (statusCoverage === "COMPLETE") {
+      statusCoverage = "PARTIAL";
+      statusNote =
+        (statusNote ? statusNote + " " : "") + "Check-runs non disponibles pour cette ref.";
+    }
+  }
+
+  return {
+    combinedState,
+    combinedStatuses,
+    checkRuns,
+    incompleteCoverage,
+    matchedCheckCount,
+    statusCoverage,
+    statusNote,
+  };
+}
+
 /**
  * Merge a pull request with GitHub SHA precondition.
  * Caller must enforce D6/D7 mandate and documentary path policy separately.
