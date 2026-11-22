@@ -2,13 +2,13 @@
 
 ## Base d'investigation architecture et UX — ML5
 
-> **Lecture prioritaire :** l'axe A est consolidé au **§15** et l'axe B au **§16**. Les sections antérieures conservent les diagnostics initiaux ; elles sont complétées par les synthèses intégrées sans effacer les réserves historiques. **A et B : conception candidate documentée, pas preuves runtime** ; axes C (activité) et D (Cursor) à qualifier. Aucune promotion ni architecture finale déduite.
+> **Lecture prioritaire :** les axes A, B et C sont consolidés respectivement aux **§15, §16 et §17**. Les sections initiales sont conservées comme historique et diagnostic, sans effacer les réserves. **A/B/C : conception candidate documentée, non implémentée et non prouvée en runtime** ; axe D (Cursor) à instruire. Aucune promotion ni architecture finale déduite.
 
 | Champ | Valeur |
 | --- | --- |
 | Nature | **Document d'analyse exploratoire D0**, enregistré sur branche candidate ; non normatif, non décisionnel |
-| Version | **v0.5 — 22 novembre 2026** ; axes A et B consolidés en conception candidate, interfaces A↔B↔C, risques de confidentialité, provenance et conditions de preuve B1 |
-| Statut | **DOCUMENTED / AXES A+B CONSOLIDÉS EN CONCEPTION CANDIDATE — NOT ARCHITECTURE-VALIDATED / NOT QUALIFIED FOR BUILD** ; B1 privilégiée par Morris, faisabilité SDK/observabilité/confidentialité/limites à prouver, sans GO technique |
+| Version | **v0.6 — 22 novembre 2026** ; consolidation intégrée de l'axe C (événements, projection, transport, reprise, UX, sécurité, tests et interfaces A/B/D) |
+| Statut | **DOCUMENTED / AXES A+B+C CONSOLIDÉS EN CONCEPTION CANDIDATE — NOT ARCHITECTURE-VALIDATED / NOT QUALIFIED FOR BUILD** ; A reprise fiable validée au plan fonctionnel, B1 privilégiée, **C1 recommandée mais non arbitrée**, persistance/transport à prouver, aucun GO code |
 | Autorité de décision | Morris ; aucune adoption d'architecture inférée |
 | Source fonctionnelle candidate | [Contrat fonctionnel Nora transverse et Cursor](../conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md) — v0.3 validée en contenu par Morris, branche candidate |
 | Base Git du diagnostic | **main@997897fd7cf914771e7d08e8030dc7123fab7d25** ; branche candidate initiale **39c00f72c10e69f7981dd2490a0b68fc5e4b8d78** |
@@ -1014,3 +1014,183 @@ Une évolution de schéma DB, un service web autonome ou une modification d'auto
 **Suite de la même trajectoire ML5 :** **axe C — activité fonctionnelle transverse de Nora**, avec B1 comme source d'observations potentielles, en veillant à ne pas déduire des événements live d'un run non streamé ; puis axe D Cursor sous D6/D7/D8. Conserver **un document d'architecture central unique** et les arbitrages Morris dans leurs statuts exacts.
 
 **Verdict final de l'axe B : B1 SELECTED FOR DESIGN / DOCUMENTED / TECHNICAL FEASIBILITY AND LIVE PROOF OUTSTANDING / NOT IMPLEMENTED / NOT ADOPTED.**
+
+# 17. Consolidation intégrée de l'axe C — activité fonctionnelle transverse de Nora
+
+## 17.1. Résultat utilisateur, périmètre et statut des choix
+
+**Résultat visé :** lorsqu'une investigation Nora dure, le Pilote voit dans le **fil concerné** une information intelligible sur le travail engagé, les sources réellement consultées, les difficultés et la suite, sans attendre uniquement la réponse finale. Après coupure/reprise, les faits utiles restent consultables et ne sont pas reconstruits artificiellement.
+
+Le contrat fonctionnel ML5 v0.3 (section 6) prévoit déjà : **activité transverse sas/projet ; transparence uniquement**, résumé compact et détail repliable ; distinction entre **étape annoncée**, **événement réellement observé**, **étape terminée** et **état incertain** ; aucun affichage de chaîne de pensée, aucun micro-pilotage supplémentaire demandé. La **page 12 Figma (12.01 à 12.10)** est validée en contenu/visuel par Morris, **pas prouvée en runtime**.
+
+**État des choix** :
+- **VALIDATED SPEC (fonctionnel)** : rendre le travail de Nora visible pendant les investigations, sans prétendre consulter ou terminer ce qui n'est pas attesté ; aucune commande d'interruption/micro-pilotage propre au widget d'activité.
+- **CANDIDATE RECOMMENDED (architecture, non arbitré)** : **C1 — projection d'activité corrélée et consultable périodiquement** ; réutiliser les identités de tour et les protections D3/A avant de créer de nouveaux propriétaires. Un état d'activité fonctionnel doit pouvoir être reconstitué à partir de faits durables.
+- **À COMPARER SI BESOIN DÉMONTRÉ** : **C2 — SSE** comme transport complémentaire d'une **même** projection, seulement si le rafraîchissement mesuré ne satisfait pas l'UX.
+- **NON RETENU COMME PISTE ACTIVE** : **C3 — WebSocket**, aucune interaction bidirectionnelle requise par la transparence cible.
+- **NON DÉCIDÉS** : format exact du stockage, granularité des événements, endpoint et schéma de lecture, TTL/rétention métier, fréquence de polling, SSE futur, règles de checkpoint A, éventuelle migration. Aucun GO technique ni nouveau moteur d'activité.
+
+**Verdict : AXE C DESIGN QUALIFIED / DOCUMENTED — C1 PREFERRED CANDIDATE ; NOT ARCHITECTURE-VALIDATED, NOT IMPLEMENTED, NOT PROVEN, NOT ADOPTED.**
+
+## 17.2. Constat vérifié dans le code Next sur main
+
+| Composant actuellement observé | Contrat présent et limite exacte pour C |
+| --- | --- |
+| `web/src/lib/observability.ts` | `emitObs`, version d'événement, codes/outcomes, `request_id/operation_id/generation_id/attempt_id`, filtrage des métadonnées, redaction, sink local avec **`OBS_RETENTION_DAYS=14`** ; journal diagnostique, **jamais autorité d'état D3/D4** |
+| `web/src/domains/conversation/turn-command.ts` | `conversationTurnCommands`, `clientTurnKey`, opération, génération, `ownerToken`, lease/heartbeat, ownership fencing et réconciliation prudente `RUNNING/ACCEPTED → UNKNOWN` ; aucune chronologie fonctionnelle complète implémentée |
+| `web/src/db/schema.ts` | `conversation_turn_commands.result_json` durable ; persistance des faits de tour et de qualification, **pas** un plan de migration approuvé pour les événements C |
+| `web/src/domains/conversation/turn-projection.ts` | `TurnActivitySummary` seulement `wait/sources_consulted/interrupted/failed/uncertain`, surtout projetée à partir d'un terminal ; `turnProjection` peut être présente en `resultJson` ; ne représente pas une suite d'étapes en cours |
+| `web/src/app/api/preparations/[preparationId]/messages/route.ts` | `POST` attend `postUserMessageAndNora` et renvoie `NextResponse.json` terminal ; pas de SSE/progression dans cette route ; `GET` liste les messages |
+| `web/src/app/api/preparations/[preparationId]/turns/by-key/[clientTurnKey]/route.ts` | `GET` authentifié, lecture de l'état durable du tour par clé **sans appel Nora ni mutation** ; utile pour corrélation et reprise, **ne retourne pas encore une chronologie C** |
+| `web/src/app/projects/[projectId]/page.tsx` | Identité d'intention, reprise idempotente après erreur et lookup de tour ; polling **2 s sur la qualification initiale**, autre périmètre ; ne prouve pas polling de l'activité Nora |
+| `web/src/app/preparations/[preparationId]/page.tsx` | `noraActivity: idle/preparing/error`, POST terminal ; polling **1,5 s sur la qualification initiale**, autre périmètre ; ne prouve pas flux d'activité Nora |
+| `web/src/components/figma/NoraConversation.tsx` / `PreparationConversation.tsx` | Composants de fil avec attente générique/erreur et projection terminale ; pas de suivi fonctionnel progressif complet |
+| `web/src/domains/conversation/nora-adapter.ts` | `@openai/agents@0.21.0`, `run(..., {stream:false})`, finalOutput Zod, erreurs et effet incertain `UNKNOWN`; choix de non-stream suite à anomalies de schéma lors d'enquêtes riches en outils |
+
+**Point technique important :** le `GET turns/by-key` de récupération et le polling déjà utilisé ailleurs offrent des **principes réutilisables**. Il n'existe pas de preuve qu'ils suffisent **tels quels** à lire un état intermédiaire C, à travers plusieurs instances serveur, pendant l'exécution du `POST`. Le choix de stockage est donc laissé ouvert.
+
+## 17.3. Architecture fonctionnelle candidate — un état, plusieurs projections
+
+**Chaîne logique candidate** :
+
+`Intention Pilote → Tour D3 reconnu → Investigation A (outils D4/histoire/Git/B1) → Faits et phases d'activité C corrélés → État d'activité consultable sous droits → Projection UX fil Nora → Réponse finale structurée distincte`.
+
+Le conducteur cognitif **reste Nora D3**. Les événements **observés** proviennent des propriétaires d'outils et de la vérité transactionnelle disponible ; les **étapes annoncées** relèvent d'une formulation fonctionnelle de Nora, correctement étiquetée. A possède le **contexte de reprise**, C en fournit une **vue explicative** ; `emitObs` demeure un **journal technique** à rétention limitée, et D6/D7/D8 restent propriétaires des autorisations, tentatives et preuves d'effet.
+
+**Deux sorties complémentaires, sans concurrence** :
+1. **Activité fonctionnelle** : événements/projection consultables pendant le travail (éventuellement avec délai de rafraîchissement), sans être le contrat final.
+2. **Qualification finale structurée** : `outputType`/Zod, validation avant tout effet selon la doctrine SEM ; **ne pas envoyer des fragments JSON provisoires comme réponse finale**.
+
+**Règle de conception :** une projection C est dérivée/corrélée à des états et observations vérifiables ; elle ne peut devenir un **second registre de mission ou d'autorité**. Ne pas persister arbitrairement la chaîne de pensée ni copier intégralement le journal technique.
+
+## 17.4. Contrat conceptuel des événements et distinction des niveaux de vérité
+
+Les propriétés suivantes sont une **interface de conception**, pas un nouveau schéma DB adopté :
+
+| Propriété | Finalité et règle de vérité |
+| --- | --- |
+| **Travail et portée** | Pilote, préparation/projet existant, `clientTurnKey`, `commandId/operationId` et `generationId` si connue ; pas de projet fabriqué dans le sas |
+| **Identité d'événement** | Identifiant stable et ordre monotone **à prouver** pour reconstruire une séquence sans doublons après polling/reconnexion |
+| **Phase fonctionnelle** | Investigation, vérification documentaire, lecture Git, consultation web, consolidation, préparation ou contrôle final, selon observation/annonce réelle ; pas de workflow fixe |
+| **Nature probatoire** | **ANNONCÉE** (intention), **OBSERVÉE** (appel/retour vérifié), **TERMINÉE CONFIRMÉE**, ou **INCERTAINE/PARTIELLE** ; termes candidats, pas enums |
+| **Situation** | En cours/terminée/échouée/limitée/inconnue ; conforme à l'outcome réel de la source |
+| **Source utile** | Référence D4, chemin Git/ref/version, URL publique et niveau de consultation B1 **seulement s'ils sont réellement accessibles, autorisés et sûrs à montrer** |
+| **Horodatage** | Temps serveur fiable si disponible, pas de « temps écoulé » inventé |
+| **Restitution** | Message fonctionnel court, éventuellement détail repliable et statut ; ni prompt brut, ni paramètres secrets, ni trace privée |
+| **Origine et observation** | Propriétaire de l'événement, identifiant de tentative, statut de couverture, limite si donnée ; pas de preuve d'outil depuis le seul texte Nora |
+
+**Exemples de vérité C :**
+- `Recherche web engagée` à l'envoi attesté ≠ `page ouverte` ; la phase peut être annoncée et rester incertaine à la fin d'un timeout B1.
+- `Fichier Git consulté` suppose un retour de lecture vérifié sur **la bonne ref** ; `UNPREVIEWABLE` n'est ni lecture du corps ni absence de fichier.
+- `Document D4 v3 consulté` implique la révision lue et sa couverture réelle ; une liste de titres ne donne pas cette preuve.
+- `Consolidation en cours` est une phase de travail déclarée, **pas** la preuve de conformité du résultat.
+- `Je vais vérifier la décision` est un engagement de démarche, non une décision consultée ou un mandat obtenu.
+
+Un événement terminal `COMPLETE` ne prouve ni la complétude de la mission A, ni une autorisation D6, ni un succès Cursor D7, ni une adoption par Morris.
+
+## 17.5. Transport — comparaison et orientation privilégiée C1
+
+| Option | Apport | Risque/dette | Verdict de conception |
+| --- | --- | --- | --- |
+| **C1 — GET d'une projection d'activité + polling borné** | Supporte la reconnexion et la reprise via identité du tour, sans connexion persistante au provider ; mécanisme familier de Next | Accès réel à un état intermédiaire durable, fréquence/latence, plusieurs instances, charge et écriture concurrente à qualifier | **Privilégié pour étude**, pas ratifié |
+| **C2 — SSE de la même projection** | Diffusion serveur → client plus rapide ; reconnectabilité selon ids | Reconnexion/replay, proxies, streaming HTTP, gestion d'une deuxième voie de livraison, risque de faux « live » | Option uniquement si C1 ne satisfait pas la recette UX, **sans autre état canonique** |
+| **C3 — WebSocket** | Bidirectionnel | Complexité réseau/sessions non justifiée par la transparence seule | Pas de travaux actifs |
+
+**C1 — comportement cible** : l'interface connaît le `clientTurnKey` dès l'envoi ; elle peut demander **sous session authentifiée** les événements/projection disponibles du tour, via une interface **de lecture**. Le serveur vérifie les droits Pilote/préparation/projet. La réponse sépare statut `RUNNING/UNKNOWN/terminal`, événements réellement connus, séquence/curseur et statut de fraîcheur. La fréquence de polling est **bornée et calibrée**, ralentie/arrêtée une fois le tour terminal, si vue hors écran ou erreur prolongée. **Pas de fréquence de 1,5–2 s copiée mécaniquement** : les intervalles cités ailleurs servent la qualification initiale et non l'activité Nora.
+
+**Concurrence et reprise** : lectures idempotentes ; maintien de l'ordre, déduplication par clé stable, pas de création d'événement par une opération GET ; protection contre réponses désordonnées et cursors périmés ; statut `UNKNOWN` conservé. Éviter qu'un ancien tour B remplace l'activité du tour A encore non résolu ; le widget est **lié au travail identifié**, non au dernier texte ressemblant.
+
+**Point de faisabilité à prouver** : les écritures d'événements **pendant** `POST`/provider, durablement visibles par les GET sur d'autres workers, doivent respecter l'ownership et les transactions courtes existantes. Choix entre projection compacte dans l'état de travail A ou stockage spécialisé proportionné à étudier **avant** création de table. Le sink `.obs` local, limité à 14 jours, n'est **pas** un support durable adéquat multi-instance.
+
+**C2** éventuel : pousser les **mêmes événements validés** via SSE, sans remplacer C1 comme moyen de reprise ni rouvrir le streaming de `finalOutput` ; un canal de progression peut exister sans exposer une qualification Nora incomplète.
+
+## 17.6. Contrats d'interface entre A, B, C et D
+
+| Relation | Propriétaire et donnée échangée | Garde-fou |
+| --- | --- | --- |
+| **A → C** | Travail D3, questions/étapes publiques, acquis confirmés, point de reprise, état de suspension | Ne montrer qu'un résumé proportionné et non sensible ; C n'invente pas une connaissance A |
+| **D4/histoire/Git → C** | Tentatives et retours d'outils, couverture `COMPLETE/PARTIAL/STALE/DENIED`, ref/version si communicables | Recherche/titre ≠ lecture ; droit d'accès à chaque lecture et restitution |
+| **B1 → C** | Tentative web et `search/open_page/find_in_page` **si exposés/observés** ; liens/citations limités au nécessaire | Ne pas attribuer de sous-action non visible, ni promettre du temps réel avec `stream:false` |
+| **C → UX** | Identités/ordre, phases, observations et incertitudes, source affichable ; statut final par le propriétaire | Aucun % d'avancement synthétique non justifié, aucun prompt/secret |
+| **C → A (aucune autorité)** | Les faits d'activité peuvent aider au diagnostic/rejeu des lectures, **pas** créer un acquis confirmé sans source propriétaire | A garde son point de reprise vérifiable, C n'en est pas l'autorité |
+| **D7/D8 → C (futur axe D)** | États d'exécution Cursor et résultats observés dans leur domaine propriétaire | C n'émet pas de succès de tentative, de tests PASS, de D6 ni d'ADOPTED en autonomie |
+
+## 17.7. UX cible et portée des écrans validés
+
+**Fil Nora, sas et projet** :
+- Avant la réponse, montrer **une activité compacte rattachée au bon tour** et des messages de phases seulement si le travail engagé le justifie. Une simple question peut rester sans chronologie détaillée.
+- Pendant une investigation longue, montrer une étape importante et son **niveau de véracité** (« recherche engagée », « lecture confirmée », « source partielle », « contrôle à effectuer »), puis permettre un détail **repliable**.
+- Après finalisation, conserver un **résumé proportionné** utile à la compréhension, sans produire une console technique complète dans toutes les surfaces.
+- Sur interruption, indiquer l'état `UNKNOWN/PARTIEL` réellement connu et les informations de reprise existantes ; ne pas afficher une progression fictive ni un bouton d'exécution supplémentaire.
+- Les références et citations s'affichent seulement sous un lien autorisé, sûr et réellement connu ; éviter les secrets, noms privés non nécessaires, traces de chaînes de pensée et métadonnées sensibles.
+- Intégration visuelle cohérente avec la **page 12 Figma validée** ; une capture navigateur runtime reste nécessaire pour un verdict UX fort. Maquette validée ≠ comportement testé.
+
+**Limite de la cible C :** le widget reste **transparence, pas micro-commandes**. Ne pas généraliser des pourcentages d'avancement ni un suivi détaillé sur les demandes simples.
+
+## 17.8. Conservation, sécurité et erreurs
+
+**Conservation** :
+- Les événements à retenir doivent expliquer la progression et les limites **nécessaires à la reprise A** et aux affirmations visibles. Ne pas retenir automatiquement tous les détails techniques.
+- Définir à la construction **propriétaire, cycle de vie et durée de conservation** de l'activité fonctionnelle distincte des logs diagnostiques 14 jours ; ne pas choisir de table ou migration par inertie.
+- Les écritures intermédiaires doivent être **fencées** à un propriétaire valide ; aucune transaction longue autour de l'appel fournisseur.
+- `GET` authentifié : autorisation par préparation/projet/Pilote, filtrage de références, pagination, charge bornée et aucune mutation cachée.
+
+**Erreurs et limites** :
+- **Timeout du POST mais tour RUNNING** : le widget garde le bon tour et rapporte l'état durable observé, sans lancer un second tour.
+- **Perte d'ownership/fence** : refuser les événements tardifs prétendument définitifs ; réconciliation prudente, statut incertain.
+- **Source D4/Git/B1 PARTIAL/UNKNOWN** : statut explicite, aucune lecture intégrale fabriquée.
+- **Panne de projection/OBS** : si l'activité n'est plus consultable, afficher « activité indisponible » sans prétendre que l'investigation s'est arrêtée ; l'observabilité secondaire ne doit pas créer d'effet.
+- **Source privée et logs** : filtrage strict à la production et au rendu, pas de transmission de prompts/secrets/query sensibles via activité.
+- **Relecture après reconnexion** : déduplication, absence d'événements inventés, conservation de l'incertitude et statut terminal cohérent avec le tour.
+
+## 17.9. Matrice de preuves pour la future implémentation
+
+| ID | Scénario | Résultat attendu | Niveau futur |
+| --- | --- | --- | --- |
+| **C-ACT-01** | Conversation simple | Pas de surinstrumentation ni de latence artificielle | DETERMINISTIC + LIVE |
+| **C-ACT-02** | Investigation D4/Git longue | Étapes significatives **observées** consultables pendant RUNNING | INTEGRATION + BROWSER |
+| **C-ACT-03** | Étape annoncée mais outil jamais déclenché | Aucune confirmation « consulté » | DETERMINISTIC |
+| **C-ACT-04** | D4 `PARTIAL/STALE/DENIED`, Git `UNPREVIEWABLE` | Libellés exacts, aucune preuve de lecture complète | INTEGRATION |
+| **C-ACT-05** | B1 retourne URL/citation sans `open_page` | Aucun « page ouverte » sans signal provider | BROWSER + LIVE B1 |
+| **C-ACT-06** | B1 `stream:false` | Pas de sous-action observée affichée avant disponibilité ; distinction annoncé/observé | INTEGRATION + LIVE |
+| **C-ACT-07** | Client déconnecté puis reconnecté | Même tour, même séquence, curseur/déduplication et lecture d'état | INTEGRATION + BROWSER |
+| **C-ACT-08** | Réponses de polling désordonnées | Pas de régression ou disparition d'étapes confirmées | DETERMINISTIC + BROWSER |
+| **C-ACT-09** | Timeout/ACK perdu avec tour encore RUNNING | Relecture sans second `POST` Nora ; état et activité fidèles | INTEGRATION |
+| **C-ACT-10** | Perte du `ownerToken` puis écriture tardive | Fencing, aucun faux terminal ni doublon d'événement | INTEGRATION DB |
+| **C-ACT-11** | Reconcilé en `UNKNOWN` | Aucune transformation en SUCCESS par le widget | INTEGRATION + BROWSER |
+| **C-ACT-12** | Sources secrètes / injection | Aucune fuite par activité, lien ou métadonnée | SECURITY |
+| **C-ACT-13** | Réponse finale Zod avec activité intermédiaire | Qualification finale intacte, non-stream maintenu par défaut | INTEGRATION + LIVE |
+| **C-ACT-14** | Même travail depuis sas et projet | Droits, identité et projection corrects, aucun projet fictif | INTEGRATION + BROWSER |
+| **C-ACT-15** | Deux tours A/B ou clients concurrents | Activité isolée et identifiée, aucun remplacement croisé | INTEGRATION + BROWSER |
+| **C-ACT-16** | Charge et rétention | Fréquence/volume contrôlés ; pas de saturation ni conservation excessive | PERF + SECURITY |
+| **C-ACT-17** | UX Figma → capture runtime | Résumé/détail/état incertain lisibles sur vraies données | BROWSER |
+| **C-ACT-18** | Résultat Cursor D7 futur | Succès/erreur uniquement depuis la tentative propriétaire et preuve D8 | INTEGRATION (avec axe D) |
+
+**Aucun de ces tests n'est exécuté dans cette consolidation.** Les preuves doivent garder leur niveau réel : SCRIPTED/DETERMINISTIC ≠ BROWSER ≠ LIVE ≠ REAL, et une maquette n'est pas une capture runtime.
+
+## 17.10. Impacts, dette et gates avant une implémentation
+
+**Blast radius :** `nora-adapter` et outils D3, service conversation et commandes de tour, `turnProjection` et éventuel checkpoint A, API de lecture authentifiée, UI Sas/Projet, B1 web, `observability.ts`, tests de concurrence/reprise, éventuellement DB et performance. Tout changement structurel touche l'autorité de tour et doit être qualifié au point d'écriture.
+
+**Risques à éviter** : 
+- Dupliquer le journal `conversation_turn_commands` en second journal de mission/activité ;
+- Utiliser `.obs` local comme vérité métier durable ;
+- Rendre `outputType` / la validation Zod dépendants d'un canal de tokens provisoires ;
+- Réinventer un moteur de progression/score ou exporter les sous-étapes du raisonnement privé ;
+- Ajouter WebSocket/SSE par mode sans nécessité UX démontrée ;
+- Décider une migration DB avant étude d'un état compact lié à A, avec contrôle de concurrence ;
+- Afficher une information observée à partir de texte libre de Nora ou d'une absence d'erreur.
+
+**Gates à instruire avant GO code :**
+1. **Contrat d'information C** harmonisé avec le checkpoint A (pas de double autorité ni double rétention) ;
+2. **Choix/atomicité de persistance** et portée des écritures intermédiaires : migration éventuelle soumise à Morris ;
+3. **Transport C1** : visibilité durant le travail, charge/rétention, auth et reconnexion démontrables ; C2 seulement après preuve de nécessité ;
+4. **Compatibilité SDK/provider B1** : limites de jalons réellement observables, sans faux flux live ;
+5. **Revue UX** du rendu des étapes et états incertains, puis preuves BROWSER en construction ;
+6. **Matrice d'acceptation commune A/B/C/D** au niveau macro-lot, sans découper code/tests/docs en micro-lots.
+
+**Conclusion de qualification de l'axe C :** une **projection d'activité fonctionnelle consultable périodiquement, rattachée au travail et aux faits propriétaires**, offre une voie simple et cohérente avec la reprise fiable, **sans nouveau moteur**. **C1 est recommandée, pas adoptée** ; C2 est une option de transport conditionnelle, C3 n'est pas active.
+
+**Exit documentaire C : ATTEINT POUR CONCEPTION CANDIDATE. Exit d'architecture validée / persistance / runtime C : NON ATTEINT.**
+
+**Suite** : passer à **l'axe D — contrat Cursor, D6 autorisation, D7 tentative, D8 preuves et reprise** ; confronter les capacités fournisseurs aux limites réelles de Next avant toute architecture arrêtée ou prompt d'exécution. Conserver le **document central unique** et le Gate C ouvert.
