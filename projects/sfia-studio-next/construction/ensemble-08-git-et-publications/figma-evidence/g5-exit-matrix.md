@@ -23,4 +23,3 @@ Viewport primary: 1680×970
 
 ## Verdict G5
 **NOT PROVEN (PARTIAL evidence)** — runtime captures + oracles present; full geometric F2 matrix across 11.01–11.16 / multi-viewport / ≤2px not completed this cycle.
-

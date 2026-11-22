@@ -155,7 +155,7 @@ Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif
 
 ### GIT-UAT-01 — Consulter une PR en temps réel
 
-**Nature :** Lecture seule  
+**Nature :** Lecture seule
 **État :** **PARTIAL / FAIL UAT** — branches et SHA lus ; statut actuel et fusion non consultables via les capacités Nora exposées.
 
 **Prompt exact proposé à Morris :**
@@ -166,7 +166,7 @@ Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif
 
 ### GIT-UAT-02 — Examiner les changements de la PR
 
-**Nature :** Lecture seule  
+**Nature :** Lecture seule
 **État :** NON TESTÉ
 
 **Prompt exact proposé à Morris :**
@@ -177,7 +177,7 @@ Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif
 
 ### GIT-UAT-03 — Vérifier la possibilité de fusionner
 
-**Nature :** Lecture seule  
+**Nature :** Lecture seule
 **État :** NON TESTÉ
 
 **Prompt exact proposé à Morris :**
@@ -188,7 +188,7 @@ Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif
 
 ### GIT-UAT-04 — Consulter et comparer les commits
 
-**Nature :** Lecture seule  
+**Nature :** Lecture seule
 **État :** NON TESTÉ
 
 **Prompt exact proposé à Morris :**
@@ -199,7 +199,7 @@ Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif
 
 ### GIT-UAT-05 — Identifier les droits Git effectifs
 
-**Nature :** Lecture seule  
+**Nature :** Lecture seule
 **État :** NON TESTÉ
 
 **Prompt exact proposé à Morris :**
@@ -210,7 +210,7 @@ Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif
 
 ### GIT-UAT-06 — Retrouver une publication sans la dupliquer
 
-**Nature :** Lecture seule  
+**Nature :** Lecture seule
 **État :** NON TESTÉ
 
 **Prompt exact proposé à Morris :**
@@ -221,7 +221,7 @@ Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif
 
 ### GIT-UAT-07 — Vérifier la continuité après rechargement
 
-**Nature :** Lecture seule  
+**Nature :** Lecture seule
 **État :** NON TESTÉ
 
 **Prompt exact proposé à Morris :**
@@ -232,7 +232,7 @@ Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif
 
 ### GIT-UAT-08 — Fusion gouvernée par Nora — optionnel
 
-**Nature :** MUTATION RÉELLE — NE PAS EXÉCUTER SANS GO EXPLICITE  
+**Nature :** MUTATION RÉELLE — NE PAS EXÉCUTER SANS GO EXPLICITE
 **État :** NON TESTÉ — GO de fusion non accordé
 
 **Prompt exact proposé à Morris :**

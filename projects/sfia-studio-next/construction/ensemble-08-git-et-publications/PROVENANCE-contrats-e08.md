@@ -42,3 +42,9 @@
 
 - Candidat utilisateur recetté (runtime): SOURCE `10128bdb6bb1020a0fd8d4976b91879bff26c3b3` / TREE `be778f1bf461f15acf94bfed6879d43fa6256a0d` / BUILD `2uHrYBsQUvf6aii40hMpj`
 - Un HEAD produit ultérieur **uniquement documentaire** ne remplace pas rétroactivement ce SOURCE pour le build RECETTE servi.
+
+## Normalisation whitespace CI (2026-11-22)
+
+- `git diff --check` vs `main` échouait sur espaces fin de ligne Markdown (PV, asis-capacite-b, g5-exit-matrix).
+- Correction cosmétique sans changement sémantique. PV blob après normalisation : `2517c69ac1b214010a7153d7d9f1d96034acb68a`.
+- Contenu D2 inchangé sur le fond ; empreinte blob mise à jour.

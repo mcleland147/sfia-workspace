@@ -2,7 +2,7 @@
 
 ### 1. Current flow: USER → semantic qual → plan → HumanDecision → authorizePublication → D7 → D9
 
-**Turn entry (`postUserMessageAndNora`)**  
+**Turn entry (`postUserMessageAndNora`)**
 `/Users/morris/Projects/sfia-workspace-feat-next-ensemble08-git-publications-nora/projects/sfia-studio-next/web/src/domains/conversation/service.ts`
 
 1. **Recovery hooks** (project linked): `recoverAuthorizedNoraMissions`, `recoverPendingMissionContinuation`.
@@ -18,11 +18,11 @@
 - `insertHumanDecision` with `kind: GIT_PUBLICATION_MANDATE`, `sourceKind: GIT_EFFECT`, `sourceRef` / `objectRef` = `attemptId`, `effectConditions` JSON (publication + inspection fingerprints + envelope).
 - Then `AUTHORIZED` on `effect_attempts`.
 
-**Dispatch / D9**  
+**Dispatch / D9**
 - Classic: `POST .../dispatch` → `dispatchPublication` → `assertCurrentGitAuthority` at each mutation step.
 - Nora mission: `authorize` route may call `resumeMissionAfterPublicationAuthorize` when `attemptIsNoraMission` (`correlationKey` prefix `pub:mission:`) → auto `dispatchPublication` + reconcile + thread restitution.
 
-**D8 / proofs**  
+**D8 / proofs**
 `assertPublicationEffectProof` (`publication-steps.ts`) before `COMPLETED`; `qualifyObservedFacts` (`proofs/qualify.ts`) does not infer acceptance from Git alone.
 
 ```920:1021:projects/sfia-studio-next/web/src/domains/execution/effect-service.ts
