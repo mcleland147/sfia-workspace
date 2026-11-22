@@ -2,67 +2,155 @@
 
 | Champ | Valeur |
 |---|---|
-| Date | 2026-11-22 ≈ 07:45 CET |
-| Macro-lot | Fiabilisation transverse chaîne Git |
+| Date | 2026-11-22 ≈ 08:30 CET |
+| Macro-lot | Audit exhaustif + fiabilisation capacités GitHub bout-en-bout |
 | Profil | CRITICAL · NO RELEASE |
-| Oracle REAL READ | `mcleland147/chantiers360` PR #19 · branche `sfia/pub-3ab1e0c2eb6b7499` · commit `16f9961e…` · blob `7518405f…` |
+| Oracle REAL READ | `mcleland147/chantiers360` PR #19 · branche `sfia/pub-3ab1e0c2eb6b7499` · HEAD `16f9961e…` · fichier `references-externes-enseignements-chantiers360.md` |
+| Oracle live (ce lot) | OPEN · merged=false · base=main · 1 commit · 1 fichier (`gh api`) |
 
-Légende preuve : DET = deterministic · PG · BR = browser · RR = REAL READ · RE = REAL effect · GAP = écart ouvert · FIX = corrigé ce lot
+Légende preuve : DET = deterministic · PG · BR = browser · RR = REAL READ · RE = REAL effect · OUT = hors contrat E08 · FIX = corrigé ce lot · BLOQUÉ = gate ouvert
 
-## Lecture
+## A. Dépôts et identités
 
-| Capacité | Owner | Service | Outil Nora | Perm GH | Runtime obs. | D6 | D7 | D9 | D8 | Retour Nora | Test | Preuve | Gap / correction |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Dépôts autorisés | D9/Int | `listProjectGitSources` | `list_project_git_sources` | metadata | CONNECTED+ATTACHED | n/a | n/a | provider | — | tool | unit/PG/e2e | DET/BR | OK UAT |
-| Permissions dépôt | D9 | App install + allowlist | via sources | metadata | App + OAuth distincts | n/a | n/a | gate | — | status | unit | DET | OK |
-| Branches / HEAD | D9 | `listGitRefs` / `getRefSha` | `list_git_refs` | contents:read | REAL | n/a | n/a | yes | — | tool | S03 unit | DET/RR | OK |
-| Arbre fichiers | D9 | `listDirectory` | `list_git_directory` | contents:read | REAL | n/a | n/a | yes | — | tool | e2e | DET/BR | OK |
-| Lecture fichier/ref | D9 | `readGitFile` | `read_git_file` | contents:read | REAL ; ref **explicite** | n/a | n/a | yes | — | tool | unit | DET/RR | OK — main 404 ≠ absence sur branche pub |
-| Recherche présence | D9 | read + list | tools | contents:read | REAL | n/a | n/a | yes | — | tool+contexte | RR PR#19 | RR | OK |
-| Historique commits | D9 | provider | (si exposé) | contents:read | PARTIAL | n/a | n/a | yes | facts | — | — | PARTIAL | hors P0 si non exposé outil |
-| PR base/head/status | D9/D8 | provider + `document_publication_refs` | tools + snippets | pull_requests:read | REAL | n/a | n/a | yes | PR_OPEN | snippets+restitution | RR+DET | RR | **FIX** snippets owner |
-| Checks/protections | D9 | provider | — | checks | PARTIAL | n/a | gate merge | yes | — | refus merge | unit merge | DET | merge path only |
-| Fichier sur main | D9 | `read_git_file` ref=main | tool | contents:read | REAL 404 PR#19 | n/a | n/a | yes | mergeObserved=false | faits owner + tool | RR | RR | **FIX** contexte + restitution « aucune fusion vers main » |
+| Capacité | Owner | Service | Accès | Nora / mission | Exposition | Schema | Sélection NL | Identité | Perm GH | Runtime | D6 | D7 | D9 | D8 | Reprise | Restitution | Tests | Preuve | Statut |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Lister dépôts autorisés | D9 | `listProjectGitSources` | REAL/SCRIPTED | `list_project_git_sources` | oui | `{}` | oui | pilot+project | metadata | CONNECTED+ATTACHED | n/a | n/a | gate | — | n/a | tool | unit/PG/e2e | DET/BR | **IN OK** |
+| Permissions dépôt | D9 | permissionsJson → sources | REAL | via `list_project_git_sources` | **FIX** champ `permissions` | Record | oui | pilot+project | snapshot Studio | CONNECTED | n/a | n/a | yes | — | n/a | tool | unit | DET | **FIX** |
+| Connexion / install App | Int | auth + App | REAL | UI + status | UI 11.06 | — | partiel | OAuth≠App | install | RECETTE | n/a | n/a | yes | — | n/a | UI | e2e 11.06 | BR | OK UAT |
+| Rattachement projet | Int | project_git_links | REAL | UI | UI | — | UI | project | — | ATTACHED | n/a | n/a | yes | — | n/a | UI | e2e | BR | OK UAT |
+| Branche défaut | D9 | defaultBranch sources | REAL | tool | oui | — | oui | — | metadata | yes | n/a | n/a | yes | — | n/a | tool | DET | DET | OK |
+| READ/WRITE séparés | D9 | allowlists | REAL | gate write | config | — | — | App | contents R/W | documentary | mandate | yes | assertWritable | — | — | refus | unit | DET | OK |
+| Refus / révocation | Int/D9 | fail-closed | REAL | tools → DENIED | oui | — | — | — | 401/403 | yes | n/a | n/a | yes | — | — | DENIED | unit | DET | OK |
 
-## Écriture
+## B. Branches et références
 
-| Capacité | Owner | Service | Outil Nora | Perm GH | Runtime | D6 | D7 | D9 | D8 | Retour Nora | Test | Preuve | Gap / correction |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Création branche | D7/D9 | `dispatchPublication` | via mission | contents:write | documentary+allowlist | mandate | guards | CREATE_BRANCH | BRANCH | restitution | PG SCRIPTED | DET/PG | OK |
-| Publication fichier | D7/D9 | PUT contents | mission | contents:write | REAL RECETTE | mandate | guards | COMMIT | COMMIT | **complet** | PG+unit | DET/PG | **FIX** path/SHA/PR/liens |
-| Création PR | D7/D9 | open PR | mission | pull_requests:write | REAL | mandate envelope | yes | OPEN_PR | PR_OPEN | PR # + URL | RR+PG | RR | PR#19 corrélée mission ; **FIX** restitution |
-| Merge documentaire | D6/D7/D9 | merge mandate | mission | contents+PR | REAL | **séparé** | guards | MERGE | MERGE | mergeObserved | unit/PG | DET | PUBLISH≠MERGE |
-| Post-effet verify | D8/D3 | reconcile + facts | snippets+tools | read | REAL | n/a | reconcile | read | facts | fidèle | unit | DET | **FIX** |
-| Idempotence | D7 | correlation_key | — | — | — | — | yes | — | — | — | PG | DET | OK |
+| Capacité | Owner | Service | Nora | D6 | Preuve | Statut |
+|---|---|---|---|---|---|---|
+| Lister branches | D9 | `listGitRefs` | `list_git_refs` | n/a | DET/RR | **IN OK** |
+| HEAD / existence ref | D9 | `getRefSha` + exact resolve | `list_git_refs` | n/a | DET/RR | **IN OK** |
+| Comparer refs | D9 | SHAs distincts via tools | tools | n/a | DET | PARTIAL (pas de diff tool dédié) |
+| Créer branche | D7/D9 | dispatch publication | mission D6/D7 | mandate | DET/PG | **IN OK** (mission) |
+| Supprimer branche | D7/D9 | accepted UAT | mission | mandate | BR hist. | OK UAT — non rejouée |
 
-## Gestion
+## C. Fichiers et documents
 
-| Capacité | Owner | Statut |
+| Capacité | Owner | Service | Nora | Preuve | Statut |
+|---|---|---|---|---|---|
+| Arborescence | D9 | `listGitDirectory` | `list_git_directory` | DET/BR | **IN OK** |
+| Lire fichier @ ref | D9 | `readGitFile` | `read_git_file` | DET/RR | **IN OK** |
+| Présence / absence | D9 | FILE_ABSENT qualifié | tool statuses | DET/RR | **IN OK** |
+| Blob vs commit | D9 | permalink rules | tool provenance | DET | **IN OK** |
+| Comparer versions | D3/D9 | deux reads | tools | DET | PARTIAL (pas de diff hunk tool) |
+| Préparer / publier fichier | D4/D7/D9 | mission publication | mission | DET/PG/RR | **IN OK** (mission) |
+| Vérifier contenu publié | D9/D8 | read + D8 | tools+faits | RR PR#19 | **IN OK** |
+
+## D. Commits et publications
+
+| Capacité | Owner | Nora / mission | Preuve | Statut |
+|---|---|---|---|---|
+| Historique commits | D9 | **OUT/PARTIAL** — pas d’outil `list_commits` E08 | — | **OUT** (pas d’ajout gratuit) |
+| Commit précis / diff | D9 | PARTIAL via read+PR files | RR | PARTIAL |
+| Créer commit documentaire | D7/D9 | mission | DET/PG/RR | **IN OK** |
+| Retrouver SHA / branche | D8/D3 | restitution+tools | DET/RR | **IN OK** (**FIX** restitution antérieure) |
+| Publication D7/D8 | D7/D8 | snippets+view | DET/PG | **IN OK** |
+| Anti-doublon | D7 | correlation_key | DET/PG | **IN OK** |
+| API distant ≠ push local | D9 | GitHub API only | DET | **IN OK** |
+
+## E. Pull requests
+
+| Capacité | AVANT | APRÈS (ce lot) | Owner | Nora | Preuve | Statut |
+|---|---|---|---|---|---|---|
+| Lire PR par numéro | D9 only → `read_git_pull_request` (lot précédent) | inchangé + token parity install→user | D9 | `read_git_pull_request` | DET/RR | **IN OK** |
+| Lister / trouver PR | **GAP** — `findPullRequest` D9 non exposé Nora | **FIX** `list_git_pull_requests` + `listGitPullRequests` | D9 | `list_git_pull_requests` | DET | **FIX** |
+| Fichiers modifiés PR | **GAP** — `listPullRequestFilesRemote` non raccordé provider/Nora | **FIX** provider + `list_git_pull_request_files` | D9 | `list_git_pull_request_files` | DET/RR (gh) | **FIX** |
+| État / head / base / SHA | oui via read | oui | D9 | tool | RR #19 | **IN OK** |
+| Mergeability / compteurs | oui (enrichi) | oui | D9 | tool | DET/RR | **IN OK** |
+| Checks/protections | merge path only | inchangé | D9 | mission merge | DET | PARTIAL |
+| Ouvrir PR | mission D6/D7 | inchangé | D7/D9 | mission | RR hist. | **IN OK** (mission) |
+| Restituer n°/URL | **FIX** restitution antérieure | conservé | D3/D8 | restitution | DET/PG | **IN OK** |
+
+## F. Merge
+
+| Capacité | Statut | Gate |
 |---|---|---|
-| Rattachement / détachement | Int/D9 | UAT accepté — non rejoué |
-| OAuth / App / révocation | Int | UAT accepté — non requalifié sans régression |
-| Suppression branche | D7/D9 | UAT accepté — **non rejouée** |
+| Identifier PR / cible / HEAD | IN via read tools | — |
+| Checks / droits | PARTIAL | provider |
+| Mandat D6 **distinct** | IN | PUBLISH ≠ MERGE |
+| Exécuter merge | IN code path | **GIT-UAT-08 / REAL effect — BLOQUÉ** ce cycle (pas de GO merge) |
+| Constater / restituer | IN sur fait MERGE | — |
 
-## Identités (constat)
+## G. Erreurs et reprise
 
-| Id | Rôle | Constat |
+| Cas | Traitement | Preuve |
 |---|---|---|
-| A Pilote Studio | session RECETTE | actif |
-| B OAuth Pilote | user connection | distinct App |
-| C GitHub App | installation | REAL |
-| D Provider D9 | App credentials lane | REAL |
-| E–F Dépôts / perms | allowlist READ + WRITE ⊂ READ | `chantiers360` WRITE |
-| G Rattachement | CampusFlow ↔ chantiers360 | présent |
-| H–I Allowlists | READ vs WRITE | séparées |
-| J Lane RECETTE | documentary WRITE ON | boot log |
-| K–L D6/D7 | mandate `dec_aa4db4e0…` / attempt `efx_cf6763da…` | COMPLETED |
-| M Protections | PR open non merged | RR |
-| N Révocation | fail-closed | DET préexistant |
+| 403 / 404 | DENIED / AMBIGUOUS / NOT_FOUND classifiés | DET |
+| Dépôt non autorisé | ACCESS_DENIED allowlist | DET |
+| Ref introuvable | REF_UNRESOLVED | DET |
+| Branche protégée | refuse mutation main/master | DET |
+| Conflit / stale HEAD | CONFLICT path | DET/PG |
+| Token / provider | fail-closed + retry install→user READ | DET (code) |
+| Timeout / ACK perdu / UNKNOWN | SCRIPTED faults + UI banner clarifié | DET |
+| Double demande / idempotence | correlation_key | DET/PG |
+| Reprise conversation | mission continuity + toolScope | DET/PG |
+| Résultat obsolète | live re-read ≠ D8 historique | DET/RR |
 
-## Incident restitution — chaîne causale
+## Outils Nora exposés (READ) — inventaire runtime
 
-1. Effet REAL COMPLETED avec D8 complet (branche, path, SHA, PR #19).
-2. Same-turn `publicationEffectView` hydraté uniquement avec title/revision/hint → **sparse**.
-3. `terminalFacts` COMPLETED n’émettait path/SHA/PR/liens.
-4. Follow-up Nora sans snippets D8 → pas d’ancrage pour READ `main` vs branche pub.
-5. **Correction** : `buildPublicationEffectViewFromAttempt` + restitution enrichie + snippets owner + toolScope resume.
+| Outil | Allowlist | Budget | Mutation |
+|---|---|---|---|
+| `list_project_git_sources` | oui | D4 chars/calls | non |
+| `read_git_file` | oui | oui | non |
+| `list_git_refs` | oui | oui | non |
+| `list_git_directory` | oui | oui | non |
+| `read_git_pull_request` | oui | oui | non |
+| `list_git_pull_requests` | **FIX oui** | oui | non |
+| `list_git_pull_request_files` | **FIX oui** | oui | non |
+
+Écritures : **aucune** via outil LLM direct — uniquement qualification → D6 → D7 → D9 → D8 → restitution D3.
+
+## Chemins mission D6/D7 (écritures)
+
+| Effet | Capability | Mandat | Preuve |
+|---|---|---|---|
+| Publication documentaire | `d7.publish_*` / publication plan | HumanDecision USER | DET/PG / RR hist. PR#19 |
+| Merge | `d7.merge_publication` | mandat **distinct** | DET ; REAL **BLOQUÉ** |
+| Create branch / commit / PR | steps plan | sous publication | DET/PG |
+
+## Faits D8 oracle PR#19 (RECETTE DB — non mutés)
+
+| Champ | Valeur |
+|---|---|
+| Attempt | `efx_cf6763da…` COMPLETED |
+| Publication ref | `dpr_7f10c5e4…` PR_OPEN |
+| Repo | `mcleland147/chantiers360` |
+| PR | #19 |
+| HEAD | `16f9961ef2ee6d13235e56059313f691521947fd` |
+| Path | `references-externes-enseignements-chantiers360.md` |
+| mergeObserved | false |
+
+## Capacités OUT (contrat E08 — non ajoutées)
+
+- Historique commits générique (`list_commits`)
+- Diff hunks arbitraires
+- Gestion labels/reviewers/assignees PR
+- Force-push / protection bypass
+- Merge REAL sans GO GIT-UAT-08
+
+## Corrections ce macro-lot
+
+1. `list_git_pull_requests` + resource `listGitPullRequests` + provider `listPullRequests` (head/base optionnels).
+2. `list_git_pull_request_files` + resource + provider (raccord `listPullRequestFilesRemote`).
+3. `listProjectGitSources.permissions` sanitizé depuis `permissions_json`.
+4. REAL PR READ token : installation d’abord, fallback user OAuth sur 401/403 (`withReadToken`).
+5. Allowlist cognitive + consigne Nora adapter mises à jour.
+6. Tests unit exposition + scripted list/files read-only.
+
+## Gates ouverts
+
+| Gate | Cause | Owner |
+|---|---|---|
+| REAL WRITE / nouvelle mutation | Mandat : pas de mutation test sans acte | Morris |
+| GIT-UAT-08 merge réel | Hors autorisation cycle | Morris |
+| Nora LIVE E2E sélection outil | Browser/LIVE post-cutover | Morris UAT |
+| Cutover RECETTE nouveau triplet | ENV-01 + GO sur SHA/TREE/BUILD | Morris |
+| Product versioning | NO RELEASE / STABLE NOT AVAILABLE | — |

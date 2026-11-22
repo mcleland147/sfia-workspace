@@ -3,6 +3,20 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-CAPABILITY-AUDIT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 08:30 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — audit exhaustif + fiabilisation capacités GitHub |
+| Type | INC / EVOL / QA · CRITICAL · **NO RELEASE** |
+| Gaps P0 | list/find PR ; fichiers PR ; permissions sources ; token parity READ PR |
+| Fix | `list_git_pull_requests` · `list_git_pull_request_files` · permissions · `withReadToken` |
+| Preuves | unit policy/tools/scripted · gh REAL READ PR#19 · matrice A–G |
+| REAL WRITE / merge | **NOT** (gates ouverts) |
+| Cutover | **NOT EXECUTED** — CANDIDATE FROZEN · RECETTE GO REQUIRED |
+| Push projet | **NONE** |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-UAT-PR-READ
 
 | Field | Value |

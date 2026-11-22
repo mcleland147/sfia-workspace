@@ -99,6 +99,7 @@ export async function listProjectGitSources(
       attachedAt: projectGitLinks.attachedAt,
       repoStatus: authorizedRepositories.status,
       authStatus: integrationAuthorizations.status,
+      permissionsJson: authorizedRepositories.permissionsJson,
     })
     .from(projectGitLinks)
     .innerJoin(authorizedRepositories, eq(projectGitLinks.repositoryId, authorizedRepositories.id))
@@ -110,13 +111,25 @@ export async function listProjectGitSources(
 
   return rows
     .filter((r) => r.repoStatus === "ACTIVE" && r.authStatus === "CONNECTED")
-    .map((r) => ({
-      linkId: r.linkId,
-      repositoryId: r.repositoryId,
-      fullName: r.fullName,
-      defaultBranch: r.defaultBranch,
-      attachedAt: r.attachedAt.toISOString(),
-    }));
+    .map((r) => {
+      let permissions: Record<string, string> = {};
+      try {
+        const raw = JSON.parse(r.permissionsJson || "{}") as Record<string, unknown>;
+        for (const [k, v] of Object.entries(raw)) {
+          if (typeof v === "string" && v.trim()) permissions[k] = v.trim();
+        }
+      } catch {
+        permissions = {};
+      }
+      return {
+        linkId: r.linkId,
+        repositoryId: r.repositoryId,
+        fullName: r.fullName,
+        defaultBranch: r.defaultBranch,
+        attachedAt: r.attachedAt.toISOString(),
+        permissions,
+      };
+    });
 }
 
 /**
@@ -482,6 +495,100 @@ export async function readGitPullRequest(input: {
       observedAt,
       authorityReminder:
         "Lecture PR live — jamais un mandat D6 ni une autorisation de merge. Ne pas substituer un fait D8 historique à cette observation.",
+    };
+  } catch (e) {
+    const err = toStudioError(e);
+    if (err.code === "NOT_FOUND") {
+      throw new StudioError(
+        "NOT_FOUND",
+        `PR introuvable ou inaccessible: #${input.prNumber} sur ${repo.fullName}`,
+        { httpStatus: 404, cause: e },
+      );
+    }
+    throw isRethrowableStudio(e) ? e : err;
+  }
+}
+
+/**
+ * Bounded live PR listing / find (READ). head/base optional.
+ * Never authorizes merge. Does not invent PRs beyond provider results.
+ */
+export async function listGitPullRequests(input: {
+  pilotId: string;
+  projectId: string;
+  repositoryId: string;
+  head?: string;
+  base?: string;
+  state?: "open" | "closed" | "all";
+}) {
+  const repo = await gateRead(input.pilotId, input.projectId, input.repositoryId);
+  const provider = resolveGitHubProvider();
+  try {
+    const listed = await provider.listPullRequests({
+      pilotId: input.pilotId,
+      fullName: repo.fullName,
+      head: input.head?.trim() || undefined,
+      base: input.base?.trim() || undefined,
+      state: input.state ?? "open",
+    });
+    const observedAt = new Date().toISOString();
+    return {
+      status: "AVAILABLE" as const,
+      repositoryFullName: repo.fullName,
+      pulls: listed.matches.map((p) => ({
+        prNumber: p.number,
+        title: p.title,
+        state: p.state,
+        merged: p.state === "merged",
+        headRef: p.headRef,
+        baseRef: p.baseRef,
+        headSha: p.headSha,
+        baseSha: p.baseSha,
+        htmlUrl: p.htmlUrl,
+      })),
+      incompleteCoverage: listed.incompleteCoverage,
+      matchedCount: listed.matchedCount,
+      observedAt,
+      authorityReminder:
+        "Liste PR live bornée — jamais un mandat de merge. Corréler ensuite avec read_git_pull_request si un numéro précis est requis.",
+    };
+  } catch (e) {
+    const err = toStudioError(e);
+    throw isRethrowableStudio(e) ? e : err;
+  }
+}
+
+/**
+ * Bounded PR changed-files listing (READ). Never authorizes mutation.
+ */
+export async function listGitPullRequestFiles(input: {
+  pilotId: string;
+  projectId: string;
+  repositoryId: string;
+  prNumber: number;
+}) {
+  if (!Number.isInteger(input.prNumber) || input.prNumber <= 0) {
+    throw new StudioError("INVALID_REQUEST", "Numéro de PR invalide", { httpStatus: 400 });
+  }
+  const repo = await gateRead(input.pilotId, input.projectId, input.repositoryId);
+  const provider = resolveGitHubProvider();
+  try {
+    const listed = await provider.listPullRequestFiles(
+      input.pilotId,
+      repo.fullName,
+      input.prNumber,
+    );
+    const observedAt = new Date().toISOString();
+    return {
+      status: "AVAILABLE" as const,
+      repositoryFullName: repo.fullName,
+      prNumber: input.prNumber,
+      files: listed.files,
+      incompleteCoverage: listed.incompleteCoverage,
+      matchedCount: listed.matchedCount,
+      observedAt,
+      authorityReminder:
+        "Fichiers PR live — lecture seule. Ne pas traiter comme preuve de merge ni mandat D6.",
     };
   } catch (e) {
     const err = toStudioError(e);

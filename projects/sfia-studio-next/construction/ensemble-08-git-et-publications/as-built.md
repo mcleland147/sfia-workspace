@@ -87,6 +87,17 @@
 - **Correction B** : copy UI distinguant consolidation cognitive vs mutation ; conserve l’alerte sans masquer l’anomalie.
 - **Cutover** : **NON** ce contrat — candidat local figé ; GO Morris requis pour RECETTE.
 
+### Audit exhaustif capacités Git + fiabilisation (2026-11-22)
+- **Périmètre** : matrice A–G complète (`matrice-capacites-git-chaine-2026-11-22.md`) ; frontières D3–D9 conservées ; pas de nouveau moteur.
+- **Gaps P0 corrigés** :
+  1. `list_git_pull_requests` / `listGitPullRequests` / provider `listPullRequests` (filtres head/base optionnels ; `listPullRequestsRemote` assoupli).
+  2. `list_git_pull_request_files` / `listGitPullRequestFiles` / provider `listPullRequestFiles` (raccord `listPullRequestFilesRemote`).
+  3. `listProjectGitSources` expose `permissions` sanitizées (pas de secrets).
+  4. REAL READ PR : `withReadToken` — installation d’abord, fallback user OAuth sur 401/403 (mutations restent user-only).
+- **OUT** : historique commits générique, diff hunks, merge REAL (GIT-UAT-08).
+- **Oracle RR** : PR #19 toujours OPEN / non merged / HEAD `16f9961e…` / 1 fichier (gh api) — corrélation D8 RECETTE inchangée ; aucune nouvelle mutation Cursor.
+- **Cutover** : freeze candidat ce lot ; GO Morris sur nouveau triplet requis avant :3200.
+
 ## Non livré / réserves
 - Figma G5 géométrie 11.06 (F2) : **PROVEN** en DEV SCRIPTED — acceptation visuelle Morris UAT distincte
 - END-TO-END REAL mutation GitHub : **NOT PROVEN** (sandbox/GO WRITE non nommé ce lot)

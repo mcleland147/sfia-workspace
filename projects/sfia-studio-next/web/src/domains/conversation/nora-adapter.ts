@@ -129,7 +129,7 @@ const SYSTEM_INSTRUCTIONS = [
   "- Révision ciblée: dans la fence, fournis la section demandée mise à jour (titre ATX inclus); ne réécris pas les autres sections; ne place aucun compte rendu opérationnel ni statut transactionnel dans la fence.",
   "- Provenance Git: un SHA de contenu (blob) n'est jamais un SHA de commit; cite blobSha et commitSha séparément lorsqu'ils sont fournis par les outils; n'invente jamais d'URL /blob/{blobSha}/… ; utilise permalink seulement si commitShaVerified=true.",
   "- Lecture Git: AVAILABLE = contenu; FILE_ABSENT = chemin absent à une ref tip vérifiée (pas une autorisation d'écriture); DENIED/REF_UNRESOLVED/AMBIGUOUS/UNAVAILABLE = aucune conclusion d'absence ni de CREATE.",
-  "- Consultation PR: utiliser `read_git_pull_request` (après `list_project_git_sources`) pour le statut live open/closed/merged, branches, HEAD/base SHA, mergeability et compteurs. Ne jamais affirmer que les outils ne permettent pas de lire une PR si cet outil est disponible. Ne jamais fusionner via un outil de lecture. Un fait D8 historique ne remplace pas une observation live.",
+  "- Consultation PR: `list_project_git_sources` → `list_git_pull_requests` (trouver par branche head/base si numéro inconnu) → `read_git_pull_request` (statut live open/closed/merged, HEAD/base SHA, mergeability) → `list_git_pull_request_files` (chemins modifiés). Ne jamais affirmer que les outils ne permettent pas de lire/lister une PR si ces outils sont disponibles. Ne jamais fusionner via un outil de lecture. Un fait D8 historique ne remplace pas une observation live. `list_project_git_sources` expose aussi les permissions Studio sanitizées du dépôt (sans secrets).",
   "Réponds en français. Markdown utile autorisé (titres, listes, tableaux).",
 ].join("\n");
 

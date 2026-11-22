@@ -137,6 +137,31 @@ export interface GitHubProvider {
     expectedBaseSha?: string | null;
   }): Promise<{ merged: boolean; sha: string }>;
   getPullRequest(pilotId: string, fullName: string, prNumber: number): Promise<PullRequestInfo>;
+  /**
+   * Bounded list of PRs for a repository (READ). head/base optional filters.
+   * Never authorizes merge.
+   */
+  listPullRequests(input: {
+    pilotId: string;
+    fullName: string;
+    head?: string;
+    base?: string;
+    state?: "open" | "closed" | "all";
+  }): Promise<{
+    matches: PullRequestInfo[];
+    incompleteCoverage: boolean;
+    matchedCount: number;
+  }>;
+  /** Bounded PR changed-files listing (READ). */
+  listPullRequestFiles(
+    pilotId: string,
+    fullName: string,
+    prNumber: number,
+  ): Promise<{
+    files: Array<{ filename: string; status: string; additions: number; deletions: number }>;
+    incompleteCoverage: boolean;
+    matchedCount: number;
+  }>;
   /** Deterministic mutation counters for SCRIPTED concurrency proofs (optionally per repo). */
   getMutationCounts?(
     pilotId?: string,

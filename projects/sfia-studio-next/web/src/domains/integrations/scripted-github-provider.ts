@@ -578,6 +578,72 @@ class ScriptedGitHubProvider implements GitHubProvider {
     if (!pr) throw Object.assign(new Error("PR_NOT_FOUND"), { code: "NOT_FOUND" });
     return pr;
   }
+
+  async listPullRequests(input: {
+    pilotId: string;
+    fullName: string;
+    head?: string;
+    base?: string;
+    state?: "open" | "closed" | "all";
+  }): Promise<{
+    matches: PullRequestInfo[];
+    incompleteCoverage: boolean;
+    matchedCount: number;
+  }> {
+    if (ScriptedFaultRegistry.current(input.pilotId, input.fullName) === "read_unavailable") {
+      ScriptedFaultRegistry.assertOk(input.pilotId, input.fullName);
+    }
+    ScriptedFaultRegistry.assertOk(input.pilotId, input.fullName);
+    const s = repoStore(input.pilotId, input.fullName);
+    const state = input.state ?? "open";
+    let matches = s.prs.filter((p) => {
+      if (state !== "all" && p.state !== state && !(state === "closed" && p.state === "merged")) {
+        if (state === "open" && p.state !== "open") return false;
+        if (state === "closed" && p.state === "open") return false;
+      }
+      if (input.head && p.headRef !== input.head.replace(/^refs\/heads\//, "")) return false;
+      if (input.base && p.baseRef !== input.base.replace(/^refs\/heads\//, "")) return false;
+      return true;
+    });
+    const bound = 20;
+    const matchedCount = matches.length;
+    matches = matches.slice(0, bound);
+    return {
+      matches,
+      incompleteCoverage: matchedCount > bound,
+      matchedCount,
+    };
+  }
+
+  async listPullRequestFiles(
+    pilotId: string,
+    fullName: string,
+    prNumber: number,
+  ): Promise<{
+    files: Array<{ filename: string; status: string; additions: number; deletions: number }>;
+    incompleteCoverage: boolean;
+    matchedCount: number;
+  }> {
+    if (ScriptedFaultRegistry.current(pilotId, fullName) === "read_unavailable") {
+      ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    }
+    ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    const s = repoStore(pilotId, fullName);
+    const pr = s.prs.find((p) => p.number === prNumber);
+    if (!pr) throw Object.assign(new Error("PR_NOT_FOUND"), { code: "NOT_FOUND" });
+    const paths = Object.keys(s.files).filter((p) => p.startsWith("docs/") || p.endsWith(".md"));
+    const files = (paths.length > 0 ? paths : ["docs/publication.md"]).slice(0, 40).map((filename) => ({
+      filename,
+      status: "added" as const,
+      additions: 1,
+      deletions: 0,
+    }));
+    return {
+      files,
+      incompleteCoverage: false,
+      matchedCount: files.length,
+    };
+  }
 }
 
 export function getScriptedGitHubProvider(): GitHubProvider {

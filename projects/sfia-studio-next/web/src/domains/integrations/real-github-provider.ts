@@ -14,6 +14,7 @@ import {
   fetchRefSha,
   fetchRepositoryMetadata,
   listInstallationRepositories,
+  listPullRequestFilesRemote,
   listPullRequestsRemote,
   mergePullRequestRemote,
   type GitHubFetch,
@@ -178,6 +179,33 @@ export class RealGitHubReadProvider implements GitHubProvider {
     const { access } = await authenticateInstallationReadOnly(this.creds, this.fetchImpl);
     this.tokenCache = { access, fetchedAtMs: now };
     return access.token;
+  }
+
+  /**
+   * READ token strategy: prefer installation-to-server (same as blob/ref reads),
+   * fall back to user OAuth when installation lacks PR pull permission (403/401).
+   * Mutations must keep using userAccessToken exclusively.
+   */
+  private async withReadToken<T>(
+    pilotId: string,
+    run: (token: string) => Promise<T>,
+  ): Promise<T> {
+    try {
+      const install = await this.installationToken();
+      return await run(install);
+    } catch (e) {
+      const err = e instanceof StudioError ? e : null;
+      const status = err?.httpStatus;
+      const code = err?.code;
+      const retryable =
+        code === "ACCESS_DENIED" ||
+        status === 401 ||
+        status === 403 ||
+        (typeof err?.message === "string" && /FORBIDDEN|UNAUTHORIZED|403|401/i.test(err.message));
+      if (!retryable) throw e;
+      const user = await this.userAccessToken(pilotId);
+      return await run(user);
+    }
   }
 
   async listInstallationRepos(
@@ -382,15 +410,16 @@ export class RealGitHubReadProvider implements GitHubProvider {
     expectedHeadSha?: string;
   }): Promise<{ matches: PullRequestInfo[]; ambiguous: boolean }> {
     assertAllowedRepo(this.creds, input.fullName);
-    const token = await this.userAccessToken(input.pilotId);
-    const listed = await listPullRequestsRemote({
-      token,
-      fullName: input.fullName,
-      head: input.head,
-      base: input.base,
-      state: "open",
-      fetchImpl: this.fetchImpl,
-    });
+    const listed = await this.withReadToken(input.pilotId, (token) =>
+      listPullRequestsRemote({
+        token,
+        fullName: input.fullName,
+        head: input.head,
+        base: input.base,
+        state: "open",
+        fetchImpl: this.fetchImpl,
+      }),
+    );
     let matches = listed.map((p) => ({
       number: p.number,
       title: p.title,
@@ -422,6 +451,69 @@ export class RealGitHubReadProvider implements GitHubProvider {
     return { matches, ambiguous: matches.length > 1 };
   }
 
+  async listPullRequests(input: {
+    pilotId: string;
+    fullName: string;
+    head?: string;
+    base?: string;
+    state?: "open" | "closed" | "all";
+  }): Promise<{
+    matches: PullRequestInfo[];
+    incompleteCoverage: boolean;
+    matchedCount: number;
+  }> {
+    assertAllowedRepo(this.creds, input.fullName);
+    const bound = 20;
+    const listed = await this.withReadToken(input.pilotId, (token) =>
+      listPullRequestsRemote({
+        token,
+        fullName: input.fullName,
+        head: input.head,
+        base: input.base,
+        state: input.state ?? "open",
+        perPage: bound + 1,
+        fetchImpl: this.fetchImpl,
+      }),
+    );
+    const matchedCount = listed.length;
+    const slice = listed.slice(0, bound);
+    return {
+      matches: slice.map((p) => ({
+        number: p.number,
+        title: p.title,
+        state: p.state,
+        headSha: p.headSha,
+        baseSha: p.baseSha,
+        headRef: p.headRef,
+        baseRef: p.baseRef,
+        htmlUrl: p.htmlUrl,
+      })),
+      incompleteCoverage: matchedCount > bound,
+      matchedCount,
+    };
+  }
+
+  async listPullRequestFiles(
+    pilotId: string,
+    fullName: string,
+    prNumber: number,
+  ): Promise<{
+    files: Array<{ filename: string; status: string; additions: number; deletions: number }>;
+    incompleteCoverage: boolean;
+    matchedCount: number;
+  }> {
+    assertAllowedRepo(this.creds, fullName);
+    return this.withReadToken(pilotId, (token) =>
+      listPullRequestFilesRemote({
+        token,
+        fullName,
+        prNumber,
+        bound: 40,
+        fetchImpl: this.fetchImpl,
+      }),
+    );
+  }
+
   async mergePullRequest(input: {
     pilotId: string;
     fullName: string;
@@ -449,13 +541,14 @@ export class RealGitHubReadProvider implements GitHubProvider {
     prNumber: number,
   ): Promise<PullRequestInfo> {
     assertAllowedRepo(this.creds, fullName);
-    const token = await this.userAccessToken(pilotId);
-    const pr = await fetchPullRequestRemote({
-      token,
-      fullName,
-      prNumber,
-      fetchImpl: this.fetchImpl,
-    });
+    const pr = await this.withReadToken(pilotId, (token) =>
+      fetchPullRequestRemote({
+        token,
+        fullName,
+        prNumber,
+        fetchImpl: this.fetchImpl,
+      }),
+    );
     return {
       number: pr.number,
       title: pr.title,

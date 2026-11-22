@@ -18,13 +18,15 @@ describe("read_git_pull_request exposure", () => {
     else process.env.SFIA_COG_PROFILE_TYPE = prevProfile;
   });
 
-  it("cognitive policy allowlists read_git_pull_request", () => {
+  it("cognitive policy allowlists PR read/list tools", () => {
     const p = buildCognitivePolicy("Consulte la PR #19 en lecture seule", "TEST_BOUNDARY");
     expect(p.toolAllowlist).toContain("read_git_pull_request");
+    expect(p.toolAllowlist).toContain("list_git_pull_requests");
+    expect(p.toolAllowlist).toContain("list_git_pull_request_files");
     expect(p.toolAllowlist).toContain("list_project_git_sources");
   });
 
-  it("buildNoraGitReadTools exposes read_git_pull_request tool name", async () => {
+  it("buildNoraGitReadTools exposes PR read/list tool names", async () => {
     const tools = await buildNoraGitReadTools({
       pilotId: "pilot_test",
       projectId: "proj_test",
@@ -34,11 +36,13 @@ describe("read_git_pull_request exposure", () => {
     });
     const names = tools.map((t) => (t as { name?: string }).name);
     expect(names).toContain("read_git_pull_request");
+    expect(names).toContain("list_git_pull_requests");
+    expect(names).toContain("list_git_pull_request_files");
     expect(names).toContain("list_git_refs");
     expect(names).not.toContain("merge_pull_request");
   });
 
-  it("scripted getPullRequest is read-only (no merge counter bump)", async () => {
+  it("scripted getPullRequest / listPullRequests / listPullRequestFiles are read-only", async () => {
     const provider = getScriptedGitHubProvider();
     const pilotId = `pilot_pr_read_${Date.now()}`;
     const fullName = "acme/docs-projet";
@@ -56,9 +60,19 @@ describe("read_git_pull_request exposure", () => {
     });
     const before = provider.getMutationCounts?.(pilotId, fullName);
     const pr = await provider.getPullRequest(pilotId, fullName, created.number);
+    const listed = await provider.listPullRequests({
+      pilotId,
+      fullName,
+      head: "sfia/pub-pr-read",
+      base: "main",
+      state: "open",
+    });
+    const files = await provider.listPullRequestFiles(pilotId, fullName, created.number);
     const after = provider.getMutationCounts?.(pilotId, fullName);
     expect(pr.number).toBe(created.number);
     expect(pr.htmlUrl).toBeTruthy();
+    expect(listed.matches.some((m) => m.number === created.number)).toBe(true);
+    expect(files.files.length).toBeGreaterThan(0);
     expect(after?.mergePR ?? 0).toBe(before?.mergePR ?? 0);
   });
 });

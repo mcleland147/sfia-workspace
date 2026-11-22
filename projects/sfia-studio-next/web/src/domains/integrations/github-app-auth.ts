@@ -709,9 +709,11 @@ export async function createPullRequestRemote(input: {
 export async function listPullRequestsRemote(input: {
   token: string;
   fullName: string;
-  head: string;
-  base: string;
+  /** Optional — when omitted, lists repo PRs by state only (bounded). */
+  head?: string;
+  base?: string;
   state?: "open" | "closed" | "all";
+  perPage?: number;
   fetchImpl?: GitHubFetch;
 }): Promise<
   Array<{
@@ -728,15 +730,20 @@ export async function listPullRequestsRemote(input: {
 > {
   const fetchImpl = input.fetchImpl ?? fetch;
   const { owner, name } = parseFullName(input.fullName);
-  const headShort = input.head.replace(/^refs\/heads\//, "");
-  const baseShort = input.base.replace(/^refs\/heads\//, "");
-  // GitHub expects head as owner:branch for cross-fork; same-repo uses owner:branch too.
+  const perPage = Math.max(1, Math.min(input.perPage ?? 10, 30));
   const q = new URLSearchParams({
     state: input.state ?? "open",
-    head: `${owner}:${headShort}`,
-    base: baseShort,
-    per_page: "10",
+    per_page: String(perPage),
   });
+  // GitHub expects head as owner:branch for cross-fork; same-repo uses owner:branch too.
+  if (input.head?.trim()) {
+    const headShort = input.head.replace(/^refs\/heads\//, "");
+    q.set("head", `${owner}:${headShort}`);
+  }
+  if (input.base?.trim()) {
+    const baseShort = input.base.replace(/^refs\/heads\//, "");
+    q.set("base", baseShort);
+  }
   const raw = await ghJson<
     Array<{
       number: number;
@@ -751,6 +758,8 @@ export async function listPullRequestsRemote(input: {
     method: "GET",
     headers: { Authorization: `Bearer ${input.token}` },
   });
+  const headFallback = input.head?.replace(/^refs\/heads\//, "") ?? "";
+  const baseFallback = input.base?.replace(/^refs\/heads\//, "") ?? "";
   return (raw ?? []).map((p) => ({
     number: p.number,
     title: p.title,
@@ -758,8 +767,8 @@ export async function listPullRequestsRemote(input: {
     htmlUrl: p.html_url,
     headSha: p.head?.sha ?? "",
     baseSha: p.base?.sha ?? "",
-    headRef: p.head?.ref ?? headShort,
-    baseRef: p.base?.ref ?? baseShort,
+    headRef: p.head?.ref ?? headFallback,
+    baseRef: p.base?.ref ?? baseFallback,
     body: p.body ?? "",
   }));
 }

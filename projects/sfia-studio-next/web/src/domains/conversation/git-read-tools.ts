@@ -4,6 +4,8 @@ import {
   READ_NOT_FOUND_UNQUALIFIED,
   REF_UNRESOLVED,
   listGitDirectory,
+  listGitPullRequestFiles,
+  listGitPullRequests,
   listGitRefs,
   listProjectGitSources,
   readGitFile,
@@ -456,6 +458,127 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
             outcome: "DENIED",
             meta: { status, code: err.code },
           });
+          return payload;
+        }
+      },
+    }),
+    tool({
+      name: "list_git_pull_requests",
+      description:
+        "List or find live pull requests on an attached GitHub repository (READ only, bounded). " +
+        "Optional head/base filters (branch names). Default state=open. " +
+        "Use when the PR number is unknown (e.g. find PR for a publication branch). " +
+        "Then call read_git_pull_request for full metadata on a specific number. Never merges.",
+      parameters: z.object({
+        repositoryId: z.string(),
+        head: z.string().nullable().optional(),
+        base: z.string().nullable().optional(),
+        state: z.enum(["open", "closed", "all"]).nullable().optional(),
+      }),
+      execute: async (args) => {
+        if (scope.budget.remainingCalls <= 0) {
+          return { status: "DENIED", reason: "GIT_TOOL_BUDGET_EXHAUSTED", coverage: "DENIED" as ToolCoverage };
+        }
+        scope.budget.remainingCalls -= 1;
+        try {
+          const result = await listGitPullRequests({
+            pilotId: scope.pilotId,
+            projectId: scope.projectId,
+            repositoryId: args.repositoryId,
+            head: args.head ?? undefined,
+            base: args.base ?? undefined,
+            state: args.state ?? "open",
+          });
+          const payload = {
+            ...result,
+            coverage: (result.incompleteCoverage ? "PARTIAL" : "COMPLETE") as ToolCoverage,
+          };
+          const charsCharged = chargeBudget(scope, payload);
+          emitObs({
+            event_name: "d3.tool.list_git_pull_requests",
+            component: "git.read_tools",
+            operation_id: scope.operationId,
+            generation_id: scope.generationId,
+            outcome: "SUCCESS",
+            meta: {
+              matched_count: result.matchedCount,
+              incomplete: result.incompleteCoverage,
+              chars_charged: charsCharged,
+            },
+          });
+          return { ...payload, charsCharged };
+        } catch (e) {
+          const err = isStudioError(e) ? e : toStudioError(e);
+          const payload = {
+            status: "DENIED" as const,
+            reason: err.message,
+            code: err.code,
+            coverage: "DENIED" as ToolCoverage,
+            guidance: "Liste PR refusée — ne pas inventer de numéros de PR.",
+            authorityReminder: "list_git_pull_requests never authorizes merge.",
+            charsCharged: 0,
+          };
+          return payload;
+        }
+      },
+    }),
+    tool({
+      name: "list_git_pull_request_files",
+      description:
+        "List changed files for a live pull request (READ only, bounded). " +
+        "Returns filename/status/additions/deletions. Never merges. " +
+        "Use after read_git_pull_request or list_git_pull_requests when file paths are required.",
+      parameters: z.object({
+        repositoryId: z.string(),
+        prNumber: z.number().int().positive(),
+      }),
+      execute: async (args) => {
+        if (scope.budget.remainingCalls <= 0) {
+          return { status: "DENIED", reason: "GIT_TOOL_BUDGET_EXHAUSTED", coverage: "DENIED" as ToolCoverage };
+        }
+        scope.budget.remainingCalls -= 1;
+        try {
+          const result = await listGitPullRequestFiles({
+            pilotId: scope.pilotId,
+            projectId: scope.projectId,
+            repositoryId: args.repositoryId,
+            prNumber: args.prNumber,
+          });
+          const payload = {
+            ...result,
+            coverage: (result.incompleteCoverage ? "PARTIAL" : "COMPLETE") as ToolCoverage,
+          };
+          const charsCharged = chargeBudget(scope, payload);
+          emitObs({
+            event_name: "d3.tool.list_git_pull_request_files",
+            component: "git.read_tools",
+            operation_id: scope.operationId,
+            generation_id: scope.generationId,
+            outcome: "SUCCESS",
+            meta: {
+              pr_number: result.prNumber,
+              file_count: result.files.length,
+              chars_charged: charsCharged,
+            },
+          });
+          return { ...payload, charsCharged };
+        } catch (e) {
+          const err = isStudioError(e) ? e : toStudioError(e);
+          const status =
+            err.code === "NOT_FOUND"
+              ? ("AMBIGUOUS" as const)
+              : err.code === "INVALID_REQUEST"
+                ? ("INVALID_REQUEST" as const)
+                : ("DENIED" as const);
+          const payload = {
+            status,
+            reason: err.message,
+            code: err.code,
+            coverage: "DENIED" as ToolCoverage,
+            guidance: "Fichiers PR inaccessibles — ne pas inventer de chemins.",
+            authorityReminder: "list_git_pull_request_files never authorizes merge.",
+            charsCharged: 0,
+          };
           return payload;
         }
       },
