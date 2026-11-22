@@ -102,4 +102,9 @@ export type MergePlan = {
   expectedHeadRef: string;
   expectedBaseRef: string;
   publicationBranch: string;
+  /**
+   * Effect provider mode frozen at prepare (REAL|SCRIPTED).
+   * Historical plans may omit → UNKNOWN provenance on reconcile (ML4-REC-01 parity).
+   */
+  effectProviderMode?: "REAL" | "SCRIPTED";
 };

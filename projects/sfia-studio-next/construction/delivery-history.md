@@ -3,6 +3,589 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-CI-STABILIZATION-PR690
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 (Europe/Paris) |
+| Macro-lot | Ensemble 08 — stabilisation CI PR #690 |
+| Type | CORRECTIF · STANDARD · **NO RELEASE** |
+| Fixes | (A) E2E git-surface preview avant detach · (B) race deep-link `documentId` vs `load()` URL normalize |
+| Runtime | `page.tsx` — `pendingDocumentOpenIdRef` + préservation documentId à la normalisation |
+| Tests | ensemble08-git-surface · g4-b1-b4-correctifs |
+| Preuves locales | Playwright **109 PASS / 5 SKIPPED** · RECETTE inchangée |
+| RECETTE | **INCHANGÉE** `10128bdb` / `2uHrYBsQ` — runtime correctif **postérieur** au build accepté |
+| Push | PR #690 only |
+| Merge | **NONE** |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-DOC-ALIGN-D2-PR-PUBLICATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 (Europe/Paris) |
+| Macro-lot | Ensemble 08 — alignement documentaire D2 + push + création PR (cycle 7) |
+| Type | EVOL · CRITICAL · **NO RELEASE** |
+| GO Morris | Alignement des 3 docs approuvés · sync refs · commit · push branche · PR unique vers `main` · L3 ; **pas** merge / post-merge / STABLE / release |
+| Source docs | `docs/next-ensemble08-consolidation-20261122` @ `1479b3d31354f495398bca008a2b511131eb9662` |
+| Blobs | A `5d52aa62…` · B `32e3de32…` · C `bd06957b…` |
+| Code | **INCHANGÉ** — `web/` `77c89ed84546b3bfb0356164416c04eac26ed229` = SOURCE `10128bdb` |
+| RECETTE | **INCHANGÉE** `10128bdb` / `2uHrYBsQUvf6aii40hMpj` · ml4d-ux004 |
+| Merge PR | **NONE** ce cycle |
+| Verdict cible | `E08 PR OPEN — READY FOR CI AND CHATGPT REVIEW — WITH DOCUMENTED RESERVES` |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-PR-READINESS-DOC-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 13:34 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — consolidation documentaire + PR readiness (cycle 13) |
+| Type | EVOL · CRITICAL · **NO RELEASE** |
+| Base code recettée | SOURCE `10128bdb` · TREE `be778f1b` · BUILD `2uHrYBsQUvf6aii40hMpj` |
+| Travail | Intégration PV exact depuis `docs/next-git-recette-20261122` · sections d'exécution datées sur contrats · sync as-built / provenance · **aucun changement `web/`** |
+| Addenda ChatGPT (statut **à cette date**) | AWAITING Morris D2 — non intégrés comme normatifs |
+| Correction ultérieure | Voir `DELIV-2026-11-22-ENSEMBLE08-DOC-ALIGN-D2-PR-PUBLICATION` — D2 obtenu ; blobs canoniques `1479b3d…` |
+| RECETTE | **INCHANGÉE** `10128bdb` / `2uHrYBsQUvf6aii40hMpj` · ml4d-ux004 |
+| Push projet / PR / merge | **NONE** (à cette date) |
+| Verdict cible | `READY FOR PR WITH RESERVES — MORRIS GATE REQUIRED` (D2 addenda + GO push/PR) |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-DOCUMENTARY-REAL-MERGE-RECETTE-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 (Europe/Paris) |
+| Macro-lot | Ensemble 08 — cutover RECETTE candidat merge documentaire corrigé |
+| Type | EVOL · CRITICAL · **NO RELEASE** |
+| SOURCE | `10128bdb6bb1020a0fd8d4976b91879bff26c3b3` |
+| TREE | `be778f1bf461f15acf94bfed6879d43fa6256a0d` |
+| BUILD | `2uHrYBsQUvf6aii40hMpj` |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` · `http://127.0.0.1:3200` |
+| Prior preview | `98118de0` / `_U3Z92BCd0K_-hiMvgTP9` (préservé hors service) |
+| Handoff | `sfia/review-handoff@f30451d2dac193d6fc610194594f80e8616754c2` |
+| MERGE REAL | **NOT PROVEN** |
+| Verdict | `RECETTE AVAILABLE — E08 DOCUMENTARY REAL MERGE BUILD SERVED — MORRIS UAT REQUIRED` |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-DOCUMENTARY-REAL-MERGE-CORRECTED
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 13:02 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — correction revue merge documentaire REAL (DEV) |
+| Type | EVOL · CRITICAL · **NO RELEASE** |
+| Base candidat | `a087051a` / `7274dcc0` |
+| Fix | fail-closed mode UNKNOWN · reconcile provenance · D8 headSha source préservé · SCRIPTED cible seule |
+| Preuves | PG documentary-merge-corrections **8/8** · conversation-merge-security **5/5** · unit contract/sha/authority/preview · tsc PASS |
+| RECETTE | **INCHANGÉE** `98118de0` / `_U3Z92BCd0K_-hiMvgTP9` |
+| Mutation GitHub REAL | **NONE** — **NOT PROVEN** |
+| Push projet | **NONE** |
+| Verdict | **READY FOR CHATGPT REVIEW — E08 DOCUMENTARY REAL MERGE CORRECTED** |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-DOCUMENTARY-REAL-MERGE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 12:53 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — fusion documentaire GitHub REAL gouvernée via Nora (DEV) |
+| Type | EVOL · CRITICAL · **NO RELEASE** |
+| AS-IS | Chaîne Nora→D6→D7→D9 merge déjà présente ; gaps reconcile `headSha`, pas de `effectProviderMode` merge, éligibilité GitHub insuffisante, SCRIPTED réutilisait HEAD |
+| Fix | `MergePlan.effectProviderMode` · reconcile merge_commit_sha + ML4-REC-01 · eligibility clean · SCRIPTED merge SHA distinct · vue MERGE corrélée |
+| Preuves | unit documentary-merge-contract + merge-sha + authority · PG conversation-merge-security · git-collaboration B3/T20 slice · tsc PASS |
+| RECETTE | **INCHANGÉE** `98118de0` / `_U3Z92BCd0K_-hiMvgTP9` · ml4d-ux004 |
+| Mutation GitHub REAL | **NONE** — merge REAL **NOT PROVEN** |
+| Push projet | **NONE** |
+| Verdict | **DEVELOPMENT COMPLETE WITH RESERVES — REAL MERGE NOT YET PROVEN** |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-UNIVERSAL-PREVIEW-FALLBACK
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 12:16 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — visionneuse Git : aperçu indisponible universel (Figma 11.17) |
+| Type | EVOL · STANDARD · **NO RELEASE** |
+| Principe | Rendu selon capacité effective — **pas** liste fermée de suffixes |
+| AS-IS | binary/too_large → throw 415/413 sans provenance UI |
+| Fix | `readGitFile` retourne `preview` + `openUrl` ; UI `GitPreviewUnavailable` ; erreurs Git distinctes |
+| Preuves | unit git-preview **7** + suites git ciblées PASS · tsc PASS · e2e PREVIEW UI PASS · captures DEV |
+| RECETTE | **INCHANGÉE** `24a8fa9e` / `qCQGWLYYGb0ZCA4BLfzBi` |
+| Cutover | **NONE** — GO Morris distinct |
+| Push projet / mutation GitHub | **NONE** |
+| Verdict | **READY FOR CHATGPT REVIEW — E08 GIT UNIVERSAL PREVIEW FALLBACK** |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-WRITE-MANDATE-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 11:32 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — cutover RECETTE correctif mandat WRITE (branche explicite) |
+| Type | MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
+| SOURCE_SHA | `24a8fa9e7ad6cc2fa961496a915f13cea542d4a8` |
+| TREE | `ece43cdb8c008b855c381d50f112f8b86e5a2207` |
+| BUILD_ID | `qCQGWLYYGb0ZCA4BLfzBi` |
+| Avant | `@7115e932` / `OwQrOGhC9rwk_Dtj31OcM` |
+| Après | HTTP `<!--qCQGWLYYGb0ZCA4BLfzBi-->` · ml4d-ux004 |
+| Backup | `ml4d-e08-pre-mandate-cutover-20261122T103212Z-from-7115e932.sql.gz` + restore PASS |
+| Rollback | prêt vers `7115e932` / `OwQrOGhC9rwk_Dtj31OcM` (non exercé) |
+| DB | préservée · métriques stables · PR#19/#20 intactes |
+| Rebuild | **NONE** |
+| Push projet | **NONE** |
+| Verdict | **RECETTE AVAILABLE — E08 WRITE MANDATE CORRECTIVE SERVED — MORRIS UAT REQUIRED** |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-WRITE-MANDATE-BRANCH
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 11:30 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — correctif mandat publication : branche explicite |
+| Type | INC / QA · CRITICAL · **NO RELEASE** |
+| Cause | `preparePublication` substituait toujours un hash correlation ; regex « Branche à créer » incomplète |
+| Fix | `resolvePublicationBranchName` + wiring mission/D6 guards |
+| Incident | CampusFlow R12 · `efx_d8f8e550…` · PR#20 (historique inchangé) |
+| Preuves | unit **848/848** · PG accept01 **11/11** · tsc PASS |
+| RECETTE | cutover **EXECUTED** — voir DELIV-…-WRITE-MANDATE-CUTOVER |
+| Cutover | **EXECUTED** |
+| Push projet / mutation GitHub | **NONE** |
+| STABLE | NOT AVAILABLE |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-CORRECTIVE-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 10:06 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — cutover RECETTE build correctif Git READ |
+| Type | MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
+| SOURCE_SHA | `7115e932dad8628af13cd5dcbf1fefc3a227c81e` |
+| TREE | `bdfd5648f9dbc2ba49dda2863e6957c606d4cec6` |
+| BUILD_ID | `OwQrOGhC9rwk_Dtj31OcM` |
+| Avant | `@79188f6c` / `hLsmHa3uFYP0PgRtj49Bh` |
+| Après | HTTP `<!--OwQrOGhC9rwk_Dtj31OcM-->` · ml4d-ux004 |
+| Backup | `ml4d-e08-pre-corrective-cutover-20261122T090524Z-from-79188f6c.sql.gz` + restore PASS |
+| DB | préservée · métriques stables · PR#19 intact |
+| Rebuild | **NONE** |
+| Push projet | **NONE** |
+| Verdict | **RECETTE AVAILABLE — E08 CORRECTIVE BUILD SERVED — MORRIS UAT REQUIRED** |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-READ-HARDENING-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 09:50 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — correctif revue ChatGPT (handoff `84b524de`) |
+| Type | INC / QA · CRITICAL · **NO RELEASE** |
+| Écart A | Budget partagé : un objet `createSharedToolBudget` (D4+history calls · Git calls · chars) |
+| Écart B | `compareCommitsRemote` : SHA head vérifié si `commits[]` vide |
+| Écart C | `fetchCommitStatusRemote` : dual 403 → ACCESS_DENIED pour `withReadToken` |
+| Preuves | unit **840/840** · corrective **16/16** · PG accept01 **11/11** · tsc PASS |
+| RECETTE | cutover **EXECUTED** — voir DELIV-…-CORRECTIVE-CUTOVER |
+| Cutover | **EXECUTED** |
+| Push projet | **NONE** |
+| STABLE | NOT AVAILABLE |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-READ-HARDENING
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 09:35 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — fiabilisation Git READ (réserves UAT) |
+| Type | INC / EVOL / QA · CRITICAL · **NO RELEASE** |
+| R-READ-03 | Budget Git séparé (`maxGitToolCalls`) — cause TEST_BOUNDARY partagé |
+| R-READ-02 | `read_git_commit` + `compare_git_refs` |
+| R-READ-01 | `read_git_commit_status` ; protections/rulesets **DENIED** explicite |
+| Preuves | unit **824/824** · PG accept01 **11/11** · tsc PASS |
+| RECETTE | **INCHANGÉE** `79188f6c` / `hLsmHa3uFYP0PgRtj49Bh` |
+| Cutover | **NONE** — candidat local à figer ; GO cutover ultérieur |
+| Push projet | **NONE** |
+| STABLE | NOT AVAILABLE |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-AUDIT-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 08:38 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — cutover RECETTE audit capacités GitHub |
+| Type | MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
+| SOURCE_SHA | `79188f6cf334be5c81f485b8cb1c4f1ae95644dc` |
+| TREE | `a550283d37ff461323ea02757350de24b772133e` |
+| BUILD_ID | `hLsmHa3uFYP0PgRtj49Bh` |
+| Avant | `@c67a6ba8` / `tEiDqhhGWNipSWO_86ZoG` |
+| Après | HTTP `<!--hLsmHa3uFYP0PgRtj49Bh-->` · ml4d-ux004 |
+| Backup | `ml4d-e08-pre-gitaudit-cutover-20261122T073809Z-from-c67a6ba8.sql.gz` + restore PASS |
+| DB | préservée · métriques stables · PR#19 intact |
+| Push projet | **NONE** |
+| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-CAPABILITY-AUDIT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 08:30 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — audit exhaustif + fiabilisation capacités GitHub |
+| Type | INC / EVOL / QA · CRITICAL · **NO RELEASE** |
+| Gaps P0 | list/find PR ; fichiers PR ; permissions sources ; token parity READ PR |
+| Fix | `list_git_pull_requests` · `list_git_pull_request_files` · permissions · `withReadToken` |
+| Preuves | unit policy/tools/scripted · gh REAL READ PR#19 · matrice A–G |
+| REAL WRITE / merge | **NOT** (gates ouverts) |
+| Cutover | **EXECUTED** — voir DELIV-…-GIT-AUDIT-CUTOVER |
+| Push projet | **NONE** |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-UAT-PR-READ
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 08:15 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — GIT-UAT-01 PR READ + bandeau tour |
+| Type | INC / QA · CRITICAL · **NO RELEASE** |
+| Cause A | `TOOL_NOT_EXPOSED` — D9 `getPullRequest` non outillé Nora |
+| Cause B | UI `activity=error` sur turn `UNKNOWN` (qual UNAVAILABLE) avec copy « tentative/réconciliez » |
+| Fix | `read_git_pull_request` + allowlist + banner copy |
+| Preuves | unit policy/tools/banner/scripted PR read · tsc · REAL READ oracle PR#19 (gh) |
+| Cutover | **NOT EXECUTED** — CANDIDATE FROZEN · RECETTE GO REQUIRED |
+| Push projet | **NONE** |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-CHAIN-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 07:45 CET (Europe/Paris) |
+| SOURCE_SHA | `c67a6ba8bde5c4d818a23fe96d2822a22c050121` |
+| TREE | `f54c0aff60af9e47f2f4a181a9d1dcfa75519a95` |
+| BUILD_ID | `tEiDqhhGWNipSWO_86ZoG` |
+| Avant | `@0b5d6c74` / `RSccgxDslwxMhjjTtFo4Z` |
+| Après | HTTP `<!--tEiDqhhGWNipSWO_86ZoG-->` · ml4d-ux004 |
+| DB | préservée · attempt PR#19 intact |
+| Backup | `ml4d-e08-pre-chain-cutover-20261122T064246Z-from-0b5d6c74.sql.gz` + restore PASS |
+| Push projet | **NONE** |
+| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-CHAIN-FIABILISATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 07:45 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — fiabilisation chaîne Git Nora↔Studio↔GitHub |
+| Type | INC / EVOL / QA · CRITICAL · **NO RELEASE** |
+| Oracle | PR #19 chantiers360 · attempt `efx_cf6763da…` · mission `turn-67d643cc…` |
+| Cause | restitution COMPLETED sparse ; follow-up sans faits D8 ; READ main mal contextualisé |
+| Fix | hydrate view depuis D7/D8 · terminalFacts path/SHA/PR/liens · snippets owner · toolScope resume |
+| Preuves | unit restitution+view · PG accept01 enrichi · REAL READ PR#19/blob/main-404 |
+| REAL E2E mutation | **NOT** (aucune nouvelle mutation Cursor) |
+| Push projet | **NONE** |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-UAT-GIT-PUB-01-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 07:11 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — UAT-GIT-PUB-01 cutover RECETTE |
+| Type | EVOL / MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
+| SOURCE_SHA | `0b5d6c74b65171efa3ccda55d8478030afac6d9b` |
+| TREE | `bf3a60b3b928803292120364fcbdda5833c9e667` |
+| BUILD_ID | `RSccgxDslwxMhjjTtFo4Z` |
+| Avant | `@f1907aad` / `zKGLfPHM1TMilec4qglJv` |
+| Après | servi HTTP `<!--RSccgxDslwxMhjjTtFo4Z-->` · service `ml4d-ux004` |
+| DB | préservée · `projects=26 messages=649 documents=117` |
+| Backup | `ml4d-e08-pre-pub01-cutover-20261122T061040Z-from-f1907aad.sql.gz` + restore proof PASS |
+| WRITE REAL | ON documentary · allowlist `mcleland147/chantiers360` · **E2E REAL NOT PROVEN** |
+| Push projet | **NONE** |
+| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** (PUB-01..05) |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-UAT-GIT-PUB-01
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 07:10 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — UAT-GIT-PUB-01 publication conversationnelle |
+| Type | INC / EVOL · CRITICAL · **NO RELEASE** |
+| Cause | `MISSION_NOT_RESUMED` / S05 self-block sur clarification → `NOT_ATTEMPTED` (zéro `effect_attempts`) ; root `.md` → `MARKDOWN_OUTSIDE_DOCUMENTARY_ZONE` |
+| Fix | `isPublicationPathClarificationResume` + skip S05 self-block · `DOCUMENTARY_ROOT` · D6 `missionClientIntentKey` ≠ turn key |
+| Diagnostic | cause racine continuité S05 + path policy ; `DISPATCH_NOT_TRIGGERED` = conséquence |
+| Preuves | unit clarification+path-policy · PG accept01 (11) SCRIPTED COMPLETED · PW E08 Nora 2/2 |
+| SOURCE_SHA | `0b5d6c74b65171efa3ccda55d8478030afac6d9b` (fix `e78dae5e` + tests) |
+| TREE | `bf3a60b3b928803292120364fcbdda5833c9e667` |
+| BUILD_ID | `RSccgxDslwxMhjjTtFo4Z` |
+| REAL E2E | **NOT PROVEN** — UAT Morris sur RECETTE |
+| Push projet | **NONE** |
+
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-FINALISATION-RECETTE-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 06:12 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — FINALISATION cutover RECETTE |
+| Type | EVOL / MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
+| SOURCE_SHA | `f1907aad98f75c7d39e4c21ccbd8043ab048ce09` |
+| TREE | `1e93363b50f07e95dcd3a9cccb01c7ca4ad96729` |
+| BUILD_ID | `zKGLfPHM1TMilec4qglJv` |
+| Avant | `@9f346391` / `F85QQBTLa8nq5zKYxMKKZ` |
+| Après | servi HTTP `<!--zKGLfPHM1TMilec4qglJv-->` · service `ml4d-ux004` |
+| DB | préservée · inventaire projects=26 messages=641 · Equip'Campus présent |
+| Backup | `ml4d-e08-pre-final-cutover-20261122T051131Z-from-9f346391.sql.gz` + restore proof PASS |
+| WRITE REAL | OFF · NOT PROVEN |
+| Push projet | **NONE** |
+| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-FINALISATION-UX-REAL-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 06:10 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — FINALISATION 11.06 G5 + GitHub REAL WRITE policy + RECETTE |
+| Type | EVOL / QA / RECETTE · CRITICAL · **NO RELEASE** |
+| UX | panneaux 610px · y≈293 · banner 44 · F2 ≤2 — `finalisation-11.06-g5-matrix.md` |
+| REAL | `GITHUB_APP_WRITE_ALLOWED_REPOS` ⊂ READ ; gate documentary+WRITE ; mutations OFF RECETTE |
+| REAL WRITE mutation | **NOT PROVEN** — STOP sandbox/GO |
+| Preuves | unit 806 · PG 538 · PW 11.06 3/3 · tsc PASS |
+| Push projet | **NONE** |
+| Verdict | voir manifeste section D + Review Pack (cutover si gates OK) |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-02-INTEGRATIONS-UX
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 05:50 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — POST-UAT 02 Intégrations UX 11.06 |
+| Type | EVOL / UI CONFORMANCE · STANDARD · **NO RELEASE** |
+| Figma | `itgvCulInEnFY6DvgIegvP` node `1095:339` · PNG SHA256 `d50412ed…` |
+| Blast | IntegrationsPanel · tokens 11.06 · StudioShell nav active · tests · evidence |
+| D6–D9 / OAuth / WRITE | **NO CHANGE** |
+| RECETTE | **préservée** `@9f346391` / `F85QQBTLa8nq5zKYxMKKZ` — aucun cutover |
+| Preuves | unit 4 PASS · Playwright 3 PASS · F2 rail/contenu/panneaux/boutons ≤2px · styles bandeau |
+| Push projet | **NONE** |
+| Verdict | **DELIVERY READY — G5 PROVEN** (11.06 rectangles stables ; UAT Morris distinct) |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-RECETTE-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 04:50 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — POST-UAT 01 cutover RECETTE |
+| Type | EVOL / MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
+| GO Morris | SHA `9f346391…` · TREE `364c9073…` · BUILD `F85QQBTLa8nq5zKYxMKKZ` |
+| Avant | `@98185598` / `1xEbvCdTAX6ht262w4oKF` |
+| Après | servi HTTP `<!--F85QQBTLa8nq5zKYxMKKZ-->` · service `ml4d-ux004` |
+| DB | `sfia_next_recette_ml4` préservée · inventaire identique · Equip'Campus présent |
+| Backup | `ml4d-e08-pre-postuat-cutover-20261122T035016Z-from-98185598.sql.gz` + restore proof PASS |
+| Push projet | **NONE** |
+| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-FREEZE-LOCAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 ≈ 04:33 CET (Europe/Paris) |
+| Macro-lot | Ensemble 08 — POST-UAT 01 freeze local candidat |
+| Type | EVOL / QA / FREEZE CANDIDAT · CRITICAL · **NO RELEASE** |
+| Branche | `feat/next-ensemble08-git-publications-nora` |
+| Base | `origin/main` `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
+| Parent | `29066442a7fa51b106d9fe45b5c1b05da7f13004` |
+| SOURCE_SHA | `9f34639110ce2315a2bf8dc0786197bb8f5ea3b1` |
+| TREE | `364c907342772f5430cf855d269cecc458f0546c` |
+| BUILD_ID | `F85QQBTLa8nq5zKYxMKKZ` |
+| Artefact | `…/sfia-workspace-next-ml4d-ensemble08-postuat-build-9f346391/…/web/.next` |
+| GO Morris | Commit local + build détaché autorisés ; push/PR/cutover **NON** (à ce stade) |
+| Réserves fermées | A contenu D4↔SCRIPTED · B D7 COMPLETED + D8 · C build détaché |
+| Push projet | **NONE** |
+| Cutover | traité ensuite — voir `…-RECETTE-CUTOVER` |
+| Verdict | **CANDIDATE FROZEN — RECETTE GO REQUIRED** (historique freeze) |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-CLOTURE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 (Europe/Paris) |
+| Macro-lot | Ensemble 08 — POST-UAT 01 clôture écarts publication Nora |
+| Type | INC / EVOL · CRITICAL · **NO RELEASE** |
+| Branche | `feat/next-ensemble08-git-publications-nora` |
+| Base | `origin/main` `a12f89a1` · HEAD `29066442` + worktree dirty |
+| RECETTE | **FROZEN** `@98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **aucune mutation** |
+| P0 | réconciliation `objectRef`/`documentHint` (conflit → AMBIGUOUS, zéro effet) |
+| P1 | `NOT_ATTEMPTED` si intention sans effet ; reprise COMPLETED = restitution métier |
+| Preuves | PG WRITE OFF zéro mutation · PG SCRIPTED E2E · Playwright Nora DEV (voir pack) |
+| Push projet | **NONE** |
+| Cutover | **NOT EXECUTED** |
+| Verdict | DELIVERY READY WITH RESERVES (A/B/C traitées au freeze) |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 (Europe/Paris) |
+| Macro-lot | Ensemble 08 — POST-UAT 01 convergence finale (doc/rév · Nora · UX) |
+| Type | INC / EVOL · CRITICAL · **NO RELEASE** |
+| Branche | `feat/next-ensemble08-git-publications-nora` |
+| Base | `origin/main` `a12f89a1` · HEAD `29066442` + worktree dirty |
+| RECETTE | **FROZEN** `@98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **aucune mutation** |
+| P0 | explicite > focus/same-turn ; `confirmPublicationDocumentWithD4` avant D7 |
+| P1 | restitution Nora mono-état (pas de narratif contradictoire) |
+| P2 | Infos a11y/focus ; Intégrations 11.06 structure |
+| Tests | unit PASS · PG `publication-target-post-uat` + accept01 PASS · Playwright DEV (voir pack) |
+| Push projet | **NONE** |
+| Cutover | **NOT EXECUTED** |
+| Verdict | (voir Review Pack final) |
+
+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-POST-UAT-01
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-22 (Europe/Paris) |
+| Macro-lot | Ensemble 08 — correctif post-UAT 01 (publication Nora + UX) |
+| Type | INC / EVOL · CRITICAL · **NO RELEASE** |
+| Branche | `feat/next-ensemble08-git-publications-nora` |
+| Base | `origin/main` `a12f89a1` |
+| RECETTE | **FROZEN** `@98185598` / BUILD `1xEbvCdTAX6ht262w4oKF` — **aucune mutation** |
+| Diagnostic UAT | Classe **A/B** (+ **C** si path exécuté) : intention reconnue, hedge LLM, **zéro** `effect_attempt` 2026-11-22 ; gate historique `documentEffectForAck.status===AVAILABLE` bloquait publish-existing |
+| Correctifs | publish-existing + WRITE-off restitution Nora ; chrome hero unique ; microcopy ; Infos popover ; Intégrations 11.06 structure |
+| Tests | unit restitution/target + tsc PASS ; PG/Playwright LIVE **non** déclarés équivalents SCRIPTED |
+| Push projet | **NONE** |
+| Cutover RECETTE | **NOT EXECUTED** — GO Morris SHA-specific requis |
+| Verdict | **DELIVERY READY WITH RESERVES** (G5 Figma runtime + WRITE sandbox hors mandat) |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE08-RECETTE-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 ≈ 21:02 CET |
+| Macro-lot | Ensemble 08 — cutover RECETTE existante E07 |
+| Type | EVOL / MISE À DISPOSITION · CRITICAL · **NO RELEASE** |
+| GO Morris | SHA `98185598` · BUILD `1xEbvCdTAX6ht262w4oKF` |
+| Avant | E07 `@5ad8fa57` / `BtZP6qDx5oAw8jwPQSEhc` |
+| Après | E08 servi HTTP `<!--1xEbvCdTAX6ht262w4oKF-->` · service `ml4d-ux004` |
+| DB | `sfia_next_recette_ml4` préservée · projects 26 inchangé · +sessions/messages smoke |
+| Backup | immédiat + restore proof isolée PASS |
+| Playwright SCRIPTED on RECETTE | 3 FAIL (attendu LIVE/REAL) |
+| Smoke API/surfaces | PASS (Pilot A test login) |
+| G5 | NOT PROVEN — Morris UAT |
+| Push projet | **NONE** |
+| Verdict | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE08-CANDIDATE-FREEZE-RECETTE-PREP
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 (Europe/Paris) |
+| Macro-lot | Ensemble 08 — freeze candidat + préparation évolution RECETTE E07 |
+| Type | EVOL / CRITICAL · **NO RELEASE** |
+| Base | `origin/main` `a12f89a1` · branche `feat/next-ensemble08-git-publications-nora` |
+| Prior handoff | `19bd0099` |
+| Candidate SHA | `98185598de0d3f3b84af862aecea04b9099217ca` |
+| TREE | `1c70839facb7fbc799980c585ce8bfba51cdb5d6` |
+| BUILD_ID | `1xEbvCdTAX6ht262w4oKF` |
+| Build worktree | `sfia-workspace-next-ml4d-ensemble08-recette-build-98185598` |
+| RECETTE runtime observé | E07 `@5ad8fa57` · BUILD `BtZP6qDx5oAw8jwPQSEhc` · port 3200 · DB `sfia_next_recette_ml4` préservée |
+| Backup PG | `ml4d-e07-pre-e08-cutover-20261121T193852Z-from-5ad8fa57.sql.gz` |
+| Cutover | **NOT EXECUTED** — GO SHA-specific requis |
+| Matrice A/B/S | Totaux corrigés 12 / 17 / 10 / 2 (=41) |
+| Push projet | **NONE** |
+| Verdict | **CANDIDATE FROZEN — RECETTE GO REQUIRED** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE08-TECHNICAL-EXIT-RECETTE-PREFLIGHT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 (Europe/Paris) |
+| Macro-lot | Ensemble 08 — finalisation technique et préparation RECETTE |
+| Type | EVOL CORRECTIF / CRITICAL · **NO RELEASE** |
+| Base | `origin/main` `a12f89a1` · branche `feat/next-ensemble08-git-publications-nora` |
+| HEAD | `a12f89a1` (worktree dirty — candidate SHA **NOT AVAILABLE**) |
+| Prior handoff | `6492013e` |
+| E08-S03 | Fermé : `incompleteCoverage`/`matchedCount` au niveau fournisseur (REAL+SCRIPTED) ; plus de complete=true après troncature silencieuse |
+| Matrice A/B/S | 41/41 qualifiés (`matrice-couverture-acceptation-a-b-s.md`) |
+| ENV-01 | Préflight only (`env01-recette-preflight.md`) — pas de déploiement |
+| Tests | `git-refs-coverage-s03` 19 PASS · tsc PASS · suites E08 ciblées (voir pack) |
+| Nora LIVE | **NOT PROVEN** |
+| GitHub REAL WRITE/MERGE | **NOT PROVEN** / hors mandat |
+| G5 | **NOT PROVEN** — différé RECETTE Morris |
+| Revue / handoff | Review Pack FULL + L3 publish-in-cycle |
+| Push projet | **NONE** |
+| Verdict candidat | **DELIVERY READY WITH RESERVES** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE08-EXIT-QUALIFICATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 08 — sortie conformité résiduelle et preuves |
+| Type | EVOL CORRECTIF / CRITICAL · **NO RELEASE** |
+| Base | `origin/main` `a12f89a1` · branche `feat/next-ensemble08-git-publications-nora` |
+| Prior handoff | `08927c38` |
+| E08-S01 | conditions ouvertes → CONDITION_OPEN, zéro effet |
+| E08-S02 | routage via qual durable ; plus de gate verb-list obligatoire |
+| E08-S03 | recherche branche `refPrefix` + résolution exacte |
+| E08-S04 | `prStatusKind` / label historique honnête |
+| E08-S05 | Review Pack = contenu final exact (empreintes) |
+| G5 | à qualifier runtime / sinon NOT PROVEN |
+| Push projet | **NONE** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE08-FINAL-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 08 — convergence finale (Nora/merge, Git contracts, UX Figma, preuves) |
+| Type | EVOL / CRITICAL · **NO RELEASE** |
+| Base | `origin/main` `a12f89a1` · branche `feat/next-ensemble08-git-publications-nora` |
+| Prior handoff | `37c0dc81` |
+| A1–A3 | qualification merge durable `d7.merge_publication` · cible dépôt+PR · contradiction same-PR fail-closed |
+| B1–B5 | `normalizeGitReadPath` · refs `incompleteCoverage` · binaire non rendu · projection MERGE via tentative distincte |
+| C1–C3 | publications 30/70 · détails agrandis · confirmation déconnexion 11.07 |
+| Tests | unit merge/path/pubs PASS · PG merge-security **3/3 PASS** · tsc PASS |
+| G5 Figma runtime | **NOT PROVEN** (pas de captures navigateur F2 ce cycle) |
+| GitHub REAL mutation | **NOT PROVEN** / hors mandat |
+| Push projet | **NONE** |
+| Verdict candidat | **DELIVERY READY WITH RESERVES** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE08-MERGE-AUTHORITY-SECURITY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 08 — correctif CRITICAL sécurisation merge conversationnel |
+| Type | CORRECTIVE / CRITICAL · **NO RELEASE** |
+| Base | `origin/main` `a12f89a1` · branche `feat/next-ensemble08-git-publications-nora` |
+| Prior handoff | `eebaeeda` |
+| P0-M01 | négation/hypothèse → aucun prepare/authorize/dispatch |
+| P0-M02 | PR explicite liée à publication documentaire exacte (pas latest) |
+| P0-M03 | HumanDecision merge + conversationalProvenance liée au plan |
+| Tests | unit merge guards PASS · PG conversation-merge-security **3/3 PASS** |
+| REAL mutation | **NOT PROVEN** / hors mandat |
+| Push projet | **NONE** |
+| Verdict candidat | **DELIVERY READY WITH RESERVES** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE08-CORRECTIVE-P0P1-G5-REAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 08 — cycle correctif intégré (P0/P1, Nora merge, Figma L2, Playwright, REAL allowlist) |
+| Type | CORRECTIVE / CRITICAL · **NO RELEASE** · Gate C OPEN |
+| Base | `origin/main` `a12f89a1` · branche `feat/next-ensemble08-git-publications-nora` (local only) |
+| Prior handoff | `74528b81` (FULL §7.2) — pack mono-cycle réinitialisé puis republier |
+| P0 | branch hint « du/de » · merge SHA ≠ HEAD · provenance USER persistée |
+| P1 | stale async · attach explicite · truncation >200 AMBIGUOUS · pubs D8 non-live |
+| Nora | refuse → no PREPARED · `admitConversationalMergeMandate` |
+| REAL multi-repo | allowlist `GITHUB_APP_ALLOWED_REPOS` (owner-bound, no allow-all) |
+| Figma | L2 11.03 metadata · G5 runtime **NOT PROVEN** |
+| Tests | unit **743 PASS** · mission-continuity PG **10 PASS** · git-collaboration PG **93 PASS** · Playwright E08 surface **2 PASS SCRIPTED** · tsc/build PASS |
+| REAL mutation | **NOT PROVEN** (pas de GO sandbox) |
+| Push projet | **NONE** |
+| Verdict candidat | **DELIVERY READY WITH RESERVES** |
+
+## delivery_id: DELIV-2026-11-21-ENSEMBLE08-GIT-PUBLICATIONS-NORA
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-21 |
+| Macro-lot | Ensemble 08 — Dépôts Git, publications, conduite Nora |
+| Type | EVOL / Delivery CRITICAL · **NO RELEASE** · Gate C OPEN |
+| Base | `origin/main` `a12f89a1` (annoncé `1dd1a8ec` +2 : Journal nav PR #689) |
+| Branche | `feat/next-ensemble08-git-publications-nora` (local only — **no project push**) |
+| Capacité A | tree API · publications projection · `GitRepositoriesSurface` · multi-liens |
+| Capacité B | mandat conversationnel D6 → `authorizePublication` · `list_git_directory` Nora |
+| Merge REAL | code path documentary + SHA (non exercé END-TO-END REAL ce cycle) |
+| Figma | L0/L1 + PNG SHA page 11 · G5 runtime **NOT PROVEN** |
+| Tests | unit 725 PASS · mission-continuity PG 10 PASS · git-collaboration filtré 24 PASS · build PASS |
+| Push projet | **NONE** |
+| Verdict candidat | **DELIVERY READY WITH RESERVES** — supersédé par cycle correctif ci-dessus |
+
 ## delivery_id: DELIV-2026-11-21-ENSEMBLE07-PR687-SAS06-RESPONSIVE-CI
 
 | Field | Value |

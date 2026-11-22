@@ -310,10 +310,13 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
                 <div className="studio-rail-section mb-1">Accès</div>
                 <Link
                   href={ACCOUNT_HREF}
-                  className="text-sm muted block px-2 py-1"
+                  className={`studio-rail-nav-item ${
+                    pathname.startsWith("/settings/integrations") ? "is-active" : ""
+                  }`}
+                  aria-current={pathname.startsWith("/settings/integrations") ? "page" : undefined}
                   data-testid="nav-integrations"
                 >
-                  Intégrations
+                  <span>Intégrations</span>
                 </Link>
               </div>
             ) : null}

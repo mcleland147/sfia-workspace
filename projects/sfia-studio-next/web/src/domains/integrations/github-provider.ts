@@ -15,6 +15,22 @@ export type InstallationRepo = {
 
 export type RefInfo = { name: string; sha: string };
 
+/** UI / API bound for branch listing — never present a truncated list as exhaustive. */
+export const GIT_REFS_UI_BOUND = 40;
+
+/**
+ * Honest refs listing. When `incompleteCoverage` is true, more matching refs existed
+ * than were returned; callers must not claim completeness.
+ */
+export type ListRefsResult = {
+  refs: RefInfo[];
+  incompleteCoverage: boolean;
+  /** Matching refs observed before applying GIT_REFS_UI_BOUND (may exceed refs.length). */
+  matchedCount: number;
+};
+
+export type FileContentKind = "markdown" | "text" | "binary" | "too_large";
+
 export type FileContentResult = {
   path: string;
   ref: string;
@@ -22,19 +38,39 @@ export type FileContentResult = {
    * Blob object SHA (GitHub Contents API). Must not be treated as a commit SHA.
    */
   sha: string;
+  /** Empty when contentKind is binary or too_large — never invent fallback text. */
   content: string;
-  encoding: "utf-8";
+  encoding: "utf-8" | "binary";
+  contentKind: FileContentKind;
+};
+
+export type DirectoryEntry = {
+  name: string;
+  path: string;
+  type: "file" | "dir";
+  sha: string;
+  size?: number;
 };
 
 export type PullRequestInfo = {
   number: number;
   title: string;
+  /**
+   * Normalized: `open` | `closed` | `merged` (merged wins over closed when GitHub reports merged).
+   */
   state: string;
   headSha: string;
   baseSha: string;
   headRef: string;
   baseRef: string;
   htmlUrl: string;
+  /** Live mergeability from GitHub when provided; null/undefined = not observed. */
+  mergeable?: boolean | null;
+  mergeableState?: string | null;
+  commits?: number | null;
+  changedFiles?: number | null;
+  /** Observed merge commit SHA when GitHub reports one — never invent from head. */
+  mergeCommitSha?: string | null;
 };
 
 export interface GitHubProvider {
@@ -47,12 +83,19 @@ export interface GitHubProvider {
     path: string,
     ref: string,
   ): Promise<FileContentResult>;
+  /** Non-recursive directory listing at ref (bounded). */
+  listDirectory(
+    pilotId: string,
+    fullName: string,
+    path: string,
+    ref: string,
+  ): Promise<DirectoryEntry[]>;
   /** Bounded list of refs (branches/tags) for an authorized repository. */
   listRefs(
     pilotId: string,
     fullName: string,
     refPrefix?: string,
-  ): Promise<RefInfo[]>;
+  ): Promise<ListRefsResult>;
   createBranch(
     pilotId: string,
     fullName: string,
@@ -94,6 +137,88 @@ export interface GitHubProvider {
     expectedBaseSha?: string | null;
   }): Promise<{ merged: boolean; sha: string }>;
   getPullRequest(pilotId: string, fullName: string, prNumber: number): Promise<PullRequestInfo>;
+  /**
+   * Bounded list of PRs for a repository (READ). head/base optional filters.
+   * Never authorizes merge.
+   */
+  listPullRequests(input: {
+    pilotId: string;
+    fullName: string;
+    head?: string;
+    base?: string;
+    state?: "open" | "closed" | "all";
+  }): Promise<{
+    matches: PullRequestInfo[];
+    incompleteCoverage: boolean;
+    matchedCount: number;
+  }>;
+  /** Bounded PR changed-files listing (READ). */
+  listPullRequestFiles(
+    pilotId: string,
+    fullName: string,
+    prNumber: number,
+  ): Promise<{
+    files: Array<{ filename: string; status: string; additions: number; deletions: number }>;
+    incompleteCoverage: boolean;
+    matchedCount: number;
+  }>;
+  /** Single-commit metadata + bounded files (READ). */
+  getCommit(
+    pilotId: string,
+    fullName: string,
+    ref: string,
+  ): Promise<{
+    sha: string;
+    message: string;
+    authorName: string | null;
+    authorEmail: string | null;
+    authorDate: string | null;
+    committerName: string | null;
+    committerEmail: string | null;
+    committerDate: string | null;
+    parents: string[];
+    htmlUrl: string;
+    files: Array<{ filename: string; status: string; additions: number; deletions: number }>;
+    incompleteCoverage: boolean;
+    matchedFileCount: number;
+  }>;
+  /** Bounded compare base...head (READ). No patch hunks. */
+  compareRefs(
+    pilotId: string,
+    fullName: string,
+    base: string,
+    head: string,
+  ): Promise<{
+    baseSha: string;
+    headSha: string;
+    status: string;
+    aheadBy: number;
+    behindBy: number;
+    totalCommits: number;
+    files: Array<{ filename: string; status: string; additions: number; deletions: number }>;
+    incompleteCoverage: boolean;
+    matchedFileCount: number;
+    htmlUrl: string;
+  }>;
+  /** Combined status + check-runs for a commit/ref (READ). Never authorizes merge. */
+  getCommitStatus(
+    pilotId: string,
+    fullName: string,
+    ref: string,
+  ): Promise<{
+    combinedState: string | null;
+    combinedStatuses: Array<{ context: string; state: string; description: string | null }>;
+    checkRuns: Array<{
+      name: string;
+      status: string;
+      conclusion: string | null;
+      htmlUrl: string | null;
+    }>;
+    incompleteCoverage: boolean;
+    matchedCheckCount: number;
+    statusCoverage: "COMPLETE" | "PARTIAL" | "DENIED" | "UNAVAILABLE";
+    statusNote: string;
+  }>;
   /** Deterministic mutation counters for SCRIPTED concurrency proofs (optionally per repo). */
   getMutationCounts?(
     pilotId?: string,
@@ -120,7 +245,8 @@ function realAppReadConfigured(): boolean {
  * Default SCRIPTED.
  * REAL only when STUDIO_GITHUB_PROVIDER=real AND App read credentials are present.
  * Product user paths must not set STUDIO_GITHUB_PROVIDER=real before D1/user-auth gates.
- * REAL mutations require STUDIO_GITHUB_ALLOW_MUTATIONS=documentary exactly (merge always blocked).
+ * REAL mutations (branch/file/PR/merge) require STUDIO_GITHUB_ALLOW_MUTATIONS=documentary exactly.
+ * Merge uses the same documentary gate + WRITE allowlist + D6/D7 SHA gates — not a separate hard-block.
  * The flag is an operator env gate only — never a substitute for D6/D7 authority.
  */
 /**

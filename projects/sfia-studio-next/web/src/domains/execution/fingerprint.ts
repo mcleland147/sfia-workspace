@@ -18,6 +18,32 @@ export function publicationBranchFromCorrelationKey(correlationKey: string): str
   return `sfia/pub-${slug}`;
 }
 
+/**
+ * Resolve publication head for preparePublication.
+ * Explicit Pilote name wins; otherwise deterministic correlation derivation.
+ * Never silently replaces an explicit name with a hash-derived branch.
+ */
+export function resolvePublicationBranchName(input: {
+  correlationKey: string;
+  targetBranch: string;
+  publicationBranch?: string | null;
+}): { ok: true; publicationBranch: string } | { ok: false; reason: "INVALID_BRANCH" | "SAME_AS_BASE" } {
+  const explicit = input.publicationBranch?.trim() || null;
+  if (explicit) {
+    if (!/^[A-Za-z0-9][A-Za-z0-9._/\-]{0,199}$/.test(explicit)) {
+      return { ok: false, reason: "INVALID_BRANCH" };
+    }
+    if (explicit === input.targetBranch.trim()) {
+      return { ok: false, reason: "SAME_AS_BASE" };
+    }
+    return { ok: true, publicationBranch: explicit };
+  }
+  return {
+    ok: true,
+    publicationBranch: publicationBranchFromCorrelationKey(input.correlationKey),
+  };
+}
+
 export function inspectionFingerprint(input: {
   revisionId: string;
   revisionFingerprint: string;
@@ -72,29 +98,31 @@ export function publicationEffectFingerprint(plan: PublicationPlan): string {
 }
 
 export function mergeEffectFingerprint(plan: MergePlan): string {
-  return createHash("sha256")
-    .update(
-      canonical({
-        kind: "GIT_MERGE",
-        repositoryId: plan.repositoryId,
-        repositoryFullName: plan.repositoryFullName,
-        authorizationId: plan.authorizationId,
-        installationId: plan.installationId,
-        actorLogin: plan.actorLogin,
-        publicationAttemptId: plan.publicationAttemptId,
-        publicationRefId: plan.publicationRefId,
-        documentId: plan.documentId,
-        revisionId: plan.revisionId,
-        targetPath: plan.targetPath,
-        prNumber: plan.prNumber,
-        expectedHeadSha: plan.expectedHeadSha,
-        expectedBaseSha: plan.expectedBaseSha,
-        expectedHeadRef: plan.expectedHeadRef,
-        expectedBaseRef: plan.expectedBaseRef,
-        publicationBranch: plan.publicationBranch,
-      }),
-    )
-    .digest("hex");
+  const payload: Record<string, unknown> = {
+    kind: "GIT_MERGE",
+    repositoryId: plan.repositoryId,
+    repositoryFullName: plan.repositoryFullName,
+    authorizationId: plan.authorizationId,
+    installationId: plan.installationId,
+    actorLogin: plan.actorLogin,
+    publicationAttemptId: plan.publicationAttemptId,
+    publicationRefId: plan.publicationRefId,
+    documentId: plan.documentId,
+    revisionId: plan.revisionId,
+    targetPath: plan.targetPath,
+    prNumber: plan.prNumber,
+    expectedHeadSha: plan.expectedHeadSha,
+    expectedBaseSha: plan.expectedBaseSha,
+    expectedHeadRef: plan.expectedHeadRef,
+    expectedBaseRef: plan.expectedBaseRef,
+    publicationBranch: plan.publicationBranch,
+  };
+  // Historical merge plans omit effectProviderMode — keep payload identical so D6
+  // fingerprints remain stable until a new prepare freezes the mode.
+  if (plan.effectProviderMode === "REAL" || plan.effectProviderMode === "SCRIPTED") {
+    payload.effectProviderMode = plan.effectProviderMode;
+  }
+  return createHash("sha256").update(canonical(payload)).digest("hex");
 }
 
 /** Simple unified diff for documentary inspection (not a Git patch applicator). */

@@ -17,8 +17,12 @@ import {
 import { listProjectGitLinks } from "@/domains/integrations/project-link-service";
 import { StudioError } from "@/lib/http-errors";
 import { emitObs } from "@/lib/observability";
+import { extractPublicationBranchHint as extractBranchHintStrict } from "./conversation-publication-mandate-guards";
 import { generateNoraReply } from "./nora-adapter";
 import type { DocumentEffectSummary } from "./document-act";
+import { composePublicationEffectRestitution } from "./publication-effect-restitution";
+import { buildPublicationEffectViewFromAttempt } from "./publication-effect-view";
+import { getDocumentRevision } from "@/domains/document/service";
 
 export type MissionStatus =
   | "ACTIVE"
@@ -89,12 +93,9 @@ export type PublicationMissionIntent = {
 /** Server-side marker: only attempts prepared with this prefix are Nora missions. */
 export const NORA_MISSION_PUB_PREFIX = "pub:mission:";
 
-/** Technical path/branch capture — not a métier intent router. */
+/** Technical path capture — not a métier intent router. */
 const PATH_RE =
   /(?:(?:chemin|path|fichier)\s*[:=]?\s*|sous\s+)[`"]?([A-Za-z0-9_./\-]+\.(?:md|markdown|txt))[`"]?/i;
-
-const BRANCH_RE =
-  /(?:branche|branch)\s*[:=]?\s*[`"]?([A-Za-z0-9._/\-]+)[`"]?/i;
 
 export function isNoraMissionPublicationKey(correlationKey: string): boolean {
   return correlationKey.startsWith(NORA_MISSION_PUB_PREFIX);
@@ -102,6 +103,84 @@ export function isNoraMissionPublicationKey(correlationKey: string): boolean {
 
 export function attemptIsNoraMission(row: { correlationKey: string }): boolean {
   return isNoraMissionPublicationKey(row.correlationKey);
+}
+
+/**
+ * True when an open AWAITING_CLARIFICATION mission is waiting on a publication path
+ * and the current turn continues that same publication (not a competing effect).
+ * Used to resume clarification without S05 blocking the clarifying USER act.
+ */
+export function isPublicationPathClarificationResume(input: {
+  blockingMission: MissionProjection | null;
+  wantsPublish: boolean;
+}): boolean {
+  const m = input.blockingMission;
+  if (!m || m.status !== "AWAITING_CLARIFICATION") return false;
+  if (!input.wantsPublish) return false;
+  const prep = m.steps.find(
+    (s) =>
+      s.id === "d7_prepare" ||
+      s.capabilityId === "d7.prepare_publication" ||
+      s.capabilityId === "d7.dispatch_publication",
+  );
+  if (!prep || (prep.status !== "PENDING" && prep.status !== "WAITING")) return false;
+  const reason = (prep.reason ?? "").toLowerCase();
+  return /path|chemin|path_required/.test(reason);
+}
+
+/** Document/revision refs already bound on a clarifying publication mission. */
+export function publicationRefsFromClarifyingMission(
+  mission: MissionProjection,
+): { documentId: string | null; revisionId: string | null } {
+  const step =
+    mission.steps.find((s) => s.id === "d7_prepare") ??
+    mission.steps.find((s) => s.id === "d4_source" || s.id === "d4_create") ??
+    null;
+  return {
+    documentId: step?.documentId ?? null,
+    revisionId: step?.revisionId ?? null,
+  };
+}
+
+const ROOT_PATH_SIGNAL_RE =
+  /\b(?:à|a)\s+la\s+racine\b|\bracine\s+du\s+d[ée]p[oô]t\b|\bat\s+the\s+root\b|\bin\s+the\s+repo\s+root\b/i;
+
+/** True when USER places the file at repository root without giving a full path. */
+export function userSignalsRepositoryRootPath(userText: string): boolean {
+  return ROOT_PATH_SIGNAL_RE.test(userText.normalize("NFKC"));
+}
+
+/** Slugify a document title into a root-level markdown filename (deterministic). */
+export function documentaryRootFilenameFromTitle(title: string): string | null {
+  const raw = title.normalize("NFKC").trim().toLowerCase();
+  if (!raw) return null;
+  const slug = raw
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+  if (!slug) return null;
+  return `${slug}.md`;
+}
+
+/**
+ * Resolve a concrete publication path when USER places the file at repo root.
+ * Prefers an already-qualified path; otherwise derives from document title.
+ * Never invents a path without a root signal or an explicit qualified path.
+ */
+export function resolvePublicationPathAfterClarification(input: {
+  userText: string;
+  qualifiedPath?: string | null;
+  documentTitle?: string | null;
+}): string | null {
+  const explicit = input.qualifiedPath?.trim() || null;
+  if (explicit) return explicit.replace(/^\/+/, "");
+  if (!userSignalsRepositoryRootPath(input.userText)) return null;
+  const fromTitle = input.documentTitle
+    ? documentaryRootFilenameFromTitle(input.documentTitle)
+    : null;
+  return fromTitle;
 }
 
 /**
@@ -125,8 +204,9 @@ export function extractPublicationPathHint(userText: string): string | null {
   return userText.match(PATH_RE)?.[1] ?? null;
 }
 
+/** Delegates to P0-01 strict extractor — never captures "du"/"de" as branch names. */
 export function extractPublicationBranchHint(userText: string): string | null {
-  return userText.match(BRANCH_RE)?.[1] ?? null;
+  return extractBranchHintStrict(userText);
 }
 
 export function missionCorrelationKeys(clientIntentKey: string): {
@@ -268,6 +348,8 @@ export async function preparePublicationForMission(input: {
   clientIntentKey: string;
   targetPath: string | null;
   targetBranch: string | null;
+  /** Explicit publication head when the Pilote named one (never silently replaced). */
+  publicationBranch?: string | null;
 }): Promise<
   | {
       ok: true;
@@ -277,6 +359,7 @@ export async function preparePublicationForMission(input: {
       idempotent?: boolean;
       repositoryId: string;
       targetPath: string;
+      publicationBranch: string;
     }
   | { ok: false; code: string; message: string }
 > {
@@ -316,6 +399,7 @@ export async function preparePublicationForMission(input: {
       repositoryId,
       targetPath,
       targetBranch,
+      publicationBranch: input.publicationBranch ?? null,
       correlationKey: keys.publication,
     });
     return {
@@ -326,6 +410,7 @@ export async function preparePublicationForMission(input: {
       idempotent: "idempotent" in prepared ? Boolean(prepared.idempotent) : false,
       repositoryId,
       targetPath,
+      publicationBranch: prepared.plan.publicationBranch,
     };
   } catch (e) {
     if (e instanceof StudioError) {
@@ -354,6 +439,13 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
   projectId: string;
   attemptId: string;
   decisionId?: string | null;
+  /**
+   * When false, dispatch/reconcile still run but no competing assistant row is
+   * inserted — same-turn conversational authorize lets the Nora turn commit
+   * métier restitution (avoids ASSISTANT_IDENTITY_CONFLICT).
+   * Recovery / post-authorize paths keep the default (true).
+   */
+  persistAssistantMessage?: boolean;
 }): Promise<{
   dispatched: boolean;
   reconciled: boolean;
@@ -463,6 +555,11 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
     preparationId?: string;
     documentId?: string;
     revisionId?: string;
+    documentTitle?: string;
+    revisionNumber?: number;
+    repositoryFullName?: string;
+    publicationBranch?: string;
+    targetPath?: string;
   };
 
   const finalRow = (
@@ -475,6 +572,8 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
         commitSha?: string | null;
         sha?: string | null;
         missionResumeMessageId?: string | null;
+        repositoryFullName?: string | null;
+        publicationBranch?: string | null;
       };
     } catch {
       return {} as {
@@ -482,66 +581,152 @@ export async function resumeMissionAfterPublicationAuthorize(input: {
         commitSha?: string | null;
         sha?: string | null;
         missionResumeMessageId?: string | null;
+        repositoryFullName?: string | null;
+        publicationBranch?: string | null;
       };
     }
   })();
   const prNumber = resultPayload.prNumber ?? null;
   const commitSha = resultPayload.commitSha ?? resultPayload.sha ?? null;
 
-  const canonical = composeCanonicalMissionRestitution({
-    documentEffect: plan.documentId
-      ? {
-          act: "CREATE",
-          status: "AVAILABLE",
-          documentId: plan.documentId,
-          revisionId: plan.revisionId,
-        }
-      : null,
-    prepareStatus: "PREPARED",
-    attemptId: input.attemptId,
-    decisionId: input.decisionId ?? row.decisionId,
-    dispatchStatus: status,
-    dispatchDetail: detail,
-    restitutionNote:
-      status === "COMPLETED"
-        ? "Publication reprise automatiquement après autorisation Pilote."
-        : "Reprise post-autorisation exécutée — voir statut publication.",
-  });
-
-  const factsBlock = [
-    `Publication attemptId=${input.attemptId} status=${status}`,
-    input.decisionId || row.decisionId
-      ? `decisionId=${input.decisionId ?? row.decisionId}`
-      : null,
-    plan.documentId ? `documentId=${plan.documentId}` : null,
-    plan.revisionId ? `revisionId=${plan.revisionId}` : null,
-    prNumber != null ? `prNumber=${prNumber}` : null,
-    commitSha ? `commitSha=${commitSha}` : null,
-    detail ? `detail=${detail}` : null,
-  ]
-    .filter(Boolean)
-    .join("\n");
-
-  let restitution = canonical;
-  let cognitiveContinue: "DELIVERED" | "CANONICAL" | "SKIPPED" = "CANONICAL";
-  try {
-    // No turn operationId here — facts-only continue without tool scope (still generateNoraReply).
-    const continued = await cognitiveContinueFromFacts({
-      userText:
-        "L'autorisation Pilote a été accordée et l'effet de publication a été traité. Restitue le résultat.",
-      factsBlock,
-      contextSnippets: [],
-    });
-    if (continued.status === "COMPLETE" && continued.content.trim()) {
-      restitution = `${continued.content.trim()}\n\n---\n${canonical}`;
-      cognitiveContinue = "DELIVERED";
+  // Enrich document identity for métier restitution (D4) when possible.
+  let documentTitle = plan.documentTitle?.trim() || null;
+  let revisionNumber = plan.revisionNumber ?? null;
+  if (plan.preparationId && plan.documentId && plan.revisionId) {
+    try {
+      const loaded = await getDocumentRevision(
+        input.pilotId,
+        plan.preparationId,
+        plan.documentId,
+        plan.revisionId,
+      );
+      if (loaded.status === "AVAILABLE" && "revision" in loaded && loaded.revision) {
+        documentTitle = loaded.document?.title?.trim() || documentTitle;
+        revisionNumber = loaded.revision.revisionNumber ?? revisionNumber;
+      }
+    } catch {
+      /* keep plan hints */
     }
-  } catch {
-    cognitiveContinue = "CANONICAL";
+  }
+
+  const repoName =
+    resultPayload.repositoryFullName?.trim() ||
+    plan.repositoryFullName?.trim() ||
+    null;
+  const branchName =
+    resultPayload.publicationBranch?.trim() ||
+    plan.publicationBranch?.trim() ||
+    null;
+
+  // E08 — Nora métier restitution from owner facts (never technical dump as pilot voice).
+  let restitution: string;
+  let cognitiveContinue: "DELIVERED" | "CANONICAL" | "SKIPPED" = "CANONICAL";
+  if (status === "COMPLETED") {
+    const hydrated =
+      (await buildPublicationEffectViewFromAttempt({
+        pilotId: input.pilotId,
+        projectId: input.projectId,
+        attemptId: input.attemptId,
+        outcome: "COMPLETED",
+        documentTitle,
+        revisionNumber,
+        decisionId: input.decisionId ?? row.decisionId,
+      })) ?? {
+        attempted: true as const,
+        outcome: "COMPLETED" as const,
+        documentTitle,
+        revisionNumber,
+        repositoryFullName: repoName,
+        publicationBranch: branchName,
+        targetPath: plan.targetPath?.trim() || null,
+        commitSha,
+        prNumber,
+        attemptId: input.attemptId,
+        decisionId: input.decisionId ?? row.decisionId,
+      };
+    restitution = composePublicationEffectRestitution({
+      priorContent: "",
+      effect: hydrated,
+    });
+  } else if (status === "DISPATCHED" || status === "AMBIGUOUS") {
+    restitution = composePublicationEffectRestitution({
+      priorContent: "",
+      effect: {
+        attempted: true,
+        outcome: "UNKNOWN",
+        reason: detail ?? "Dispatch en cours — résultat Studio non encore consolidé.",
+        documentTitle,
+        revisionNumber,
+        attemptId: input.attemptId,
+      },
+    });
+  } else {
+    const canonical = composeCanonicalMissionRestitution({
+      documentEffect: plan.documentId
+        ? {
+            act: "CREATE",
+            status: "AVAILABLE",
+            documentId: plan.documentId,
+            revisionId: plan.revisionId,
+          }
+        : null,
+      prepareStatus: "PREPARED",
+      attemptId: input.attemptId,
+      decisionId: input.decisionId ?? row.decisionId,
+      dispatchStatus: status,
+      dispatchDetail: detail,
+      restitutionNote: "Reprise post-autorisation exécutée — voir statut publication.",
+    });
+    const factsBlock = [
+      `Publication attemptId=${input.attemptId} status=${status}`,
+      input.decisionId || row.decisionId
+        ? `decisionId=${input.decisionId ?? row.decisionId}`
+        : null,
+      plan.documentId ? `documentId=${plan.documentId}` : null,
+      plan.revisionId ? `revisionId=${plan.revisionId}` : null,
+      prNumber != null ? `prNumber=${prNumber}` : null,
+      commitSha ? `commitSha=${commitSha}` : null,
+      detail ? `detail=${detail}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    restitution = canonical;
+    try {
+      const continued = await cognitiveContinueFromFacts({
+        userText:
+          "L'autorisation Pilote a été accordée et l'effet de publication a été traité. Restitue le résultat.",
+        factsBlock,
+        contextSnippets: [],
+        toolScope: plan.preparationId
+          ? {
+              pilotId: input.pilotId,
+              preparationId: plan.preparationId,
+              projectId: input.projectId,
+              operationId: `mission-resume:${input.attemptId}`,
+            }
+          : undefined,
+      });
+      if (continued.status === "COMPLETE" && continued.content.trim()) {
+        restitution = composePublicationEffectRestitution({
+          priorContent: continued.content.trim(),
+          effect: {
+            attempted: true,
+            outcome: "UNKNOWN",
+            reason: detail ?? status,
+            documentTitle,
+            revisionNumber,
+          },
+        });
+        cognitiveContinue = "DELIVERED";
+      }
+    } catch {
+      cognitiveContinue = "CANONICAL";
+    }
   }
 
   let conversationMessageId: string | null = resultPayload.missionResumeMessageId ?? null;
-  if (plan.preparationId) {
+  if (plan.preparationId && input.persistAssistantMessage !== false) {
     try {
       conversationMessageId = await appendAssistantMissionMessage({
         pilotId: input.pilotId,

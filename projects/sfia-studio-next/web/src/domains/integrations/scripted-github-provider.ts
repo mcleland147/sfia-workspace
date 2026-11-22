@@ -1,11 +1,16 @@
 import { createHash } from "crypto";
 import type {
+  DirectoryEntry,
   FileContentResult,
   GitHubProvider,
   InstallationRepo,
   PullRequestInfo,
   RefInfo,
 } from "./github-provider";
+import { GIT_REFS_UI_BOUND } from "./github-provider";
+import { StudioError } from "@/lib/http-errors";
+
+const MAX_DIRECTORY_ENTRIES = 200;
 
 export type ScriptedFaultKind =
   | "timeout"
@@ -182,6 +187,25 @@ function isShaLike(ref: string): boolean {
   return /^[0-9a-f]{7,40}$/i.test(ref);
 }
 
+/** Test helper — seed N sibling files at one commit tip (P1-03 overflow). */
+export function seedScriptedFlatDirectoryForTest(input: {
+  pilotId: string;
+  fullName: string;
+  dir: string;
+  count: number;
+}): string {
+  const s = repoStore(input.pilotId, input.fullName);
+  const commit = sha(`seed-flat:${input.fullName}:${input.dir}:${input.count}`);
+  s.branches.main = commit;
+  s.refs["refs/heads/main"] = commit;
+  const prefix = input.dir.replace(/^\/+|\/+$/g, "");
+  for (let i = 0; i < input.count; i++) {
+    const path = prefix ? `${prefix}/f${i}.md` : `f${i}.md`;
+    s.files[`${path}@${commit}`] = `content-${i}`;
+  }
+  return commit;
+}
+
 export function resetScriptedStore(pilotId?: string) {
   if (pilotId) catalogs().delete(pilotId);
   else catalogs().clear();
@@ -258,6 +282,76 @@ class ScriptedGitHubProvider implements GitHubProvider {
     throw Object.assign(new Error("REF_NOT_FOUND"), { code: "NOT_FOUND" });
   }
 
+  async listDirectory(
+    pilotId: string,
+    fullName: string,
+    path: string,
+    ref: string,
+  ): Promise<DirectoryEntry[]> {
+    if (ScriptedFaultRegistry.current(pilotId, fullName) === "read_unavailable") {
+      ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    }
+    ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    const s = repoStore(pilotId, fullName);
+    const head = isShaLike(ref) ? ref : await this.getRefSha(pilotId, fullName, ref);
+    const dirPath = path.replace(/^\/+|\/+$/g, "");
+    const exactKey = `${dirPath}@${head}`;
+    if (s.files[exactKey]) {
+      throw new StudioError(
+        "INVALID_REQUEST",
+        `NOT_A_DIRECTORY: path=${dirPath} est un fichier, pas un répertoire`,
+        { httpStatus: 400 },
+      );
+    }
+    const prefixWithSlash = dirPath ? `${dirPath}/` : "";
+    const children = new Map<string, DirectoryEntry>();
+    for (const key of Object.keys(s.files)) {
+      const at = key.lastIndexOf("@");
+      if (at < 0) continue;
+      const filePath = key.slice(0, at);
+      const commit = key.slice(at + 1);
+      if (commit !== head) continue;
+      if (dirPath) {
+        if (!filePath.startsWith(prefixWithSlash)) continue;
+      }
+      const rest = dirPath ? filePath.slice(prefixWithSlash.length) : filePath;
+      if (!rest) continue;
+      const slashIdx = rest.indexOf("/");
+      if (slashIdx === -1) {
+        const childPath = dirPath ? `${dirPath}/${rest}` : rest;
+        const content = s.files[key] ?? "";
+        const blobSha = sha(`blob ${Buffer.byteLength(content, "utf8")}\0${content}`);
+        children.set(rest, {
+          name: rest,
+          path: childPath,
+          type: "file",
+          sha: blobSha,
+          size: Buffer.byteLength(content, "utf8"),
+        });
+      } else {
+        const dirName = rest.slice(0, slashIdx);
+        const childPath = dirPath ? `${dirPath}/${dirName}` : dirName;
+        if (!children.has(dirName)) {
+          children.set(dirName, {
+            name: dirName,
+            path: childPath,
+            type: "dir",
+            sha: sha(`dir:${childPath}@${head}`),
+          });
+        }
+      }
+    }
+    const entries = [...children.values()].sort((a, b) => a.name.localeCompare(b.name));
+    if (entries.length > MAX_DIRECTORY_ENTRIES) {
+      throw new StudioError(
+        "AMBIGUOUS",
+        `Répertoire trop volumineux (${entries.length} entrées, max ${MAX_DIRECTORY_ENTRIES})`,
+        { httpStatus: 409 },
+      );
+    }
+    return entries;
+  }
+
   async getFileContent(
     pilotId: string,
     fullName: string,
@@ -275,20 +369,40 @@ class ScriptedGitHubProvider implements GitHubProvider {
       (!isShaLike(ref) ? s.files[`${path}@${s.branches.main}`] : undefined);
     if (!content) throw Object.assign(new Error("FILE_NOT_FOUND"), { code: "NOT_FOUND" });
     // Mimic GitHub Contents API: `sha` is the blob object id, never the commit.
+    if (content.startsWith("BINARY:")) {
+      const blobSha = sha(`blob binary\0${path}@${head}`);
+      return {
+        path,
+        ref,
+        sha: blobSha,
+        content: "",
+        encoding: "binary",
+        contentKind: "binary",
+      };
+    }
     const blobSha = sha(`blob ${Buffer.byteLength(content, "utf8")}\0${content}`);
-    return { path, ref, sha: blobSha, content, encoding: "utf-8" };
+    const contentKind = /\.md$/i.test(path) ? "markdown" : "text";
+    return { path, ref, sha: blobSha, content, encoding: "utf-8", contentKind };
   }
 
-  async listRefs(pilotId: string, fullName: string, refPrefix?: string): Promise<RefInfo[]> {
+  async listRefs(pilotId: string, fullName: string, refPrefix?: string) {
     ScriptedFaultRegistry.assertOk(pilotId, fullName);
     const s = repoStore(pilotId, fullName);
     const prefix = (refPrefix ?? "").replace(/^refs\/heads\//, "").toLowerCase();
-    const out: RefInfo[] = Object.entries(s.branches).map(([name, branchSha]) => ({
+    const all: RefInfo[] = Object.entries(s.branches).map(([name, branchSha]) => ({
       name,
       sha: branchSha,
     }));
-    if (!prefix) return out;
-    return out.filter((r) => r.name.toLowerCase().includes(prefix));
+    const matched = !prefix
+      ? all
+      : all.filter((r) => r.name.toLowerCase().includes(prefix));
+    const matchedCount = matched.length;
+    const incompleteCoverage = matchedCount > GIT_REFS_UI_BOUND;
+    return {
+      refs: matched.slice(0, GIT_REFS_UI_BOUND),
+      incompleteCoverage,
+      matchedCount,
+    };
   }
 
   async createBranch(
@@ -383,6 +497,9 @@ class ScriptedGitHubProvider implements GitHubProvider {
       headRef: input.head,
       baseRef: input.base,
       htmlUrl: `https://github.scripted/${input.fullName}/pull/${s.nextPr - 1}`,
+      mergeable: true,
+      mergeableState: "clean",
+      mergeCommitSha: null,
       publicationMarker: marker,
       body,
     };
@@ -439,10 +556,20 @@ class ScriptedGitHubProvider implements GitHubProvider {
     if (input.expectedBaseSha != null && pr.baseSha !== input.expectedBaseSha) {
       throw Object.assign(new Error("PR_BASE_STALE"), { code: "CONFLICT" });
     }
-    s.branches[pr.baseRef] = pr.headSha;
-    s.branches.main = pr.headSha;
+    if (pr.mergeable === false || pr.mergeableState === "dirty" || pr.mergeableState === "blocked") {
+      throw Object.assign(new Error("PR_NOT_MERGEABLE"), { code: "ACCESS_DENIED" });
+    }
+    // Synthetic merge commit — never reuse source HEAD as merge SHA (P0-02 fidelity).
+    const mergeSha = createHash("sha1")
+      .update(`scripted-merge:${input.fullName}:${input.prNumber}:${pr.headSha}:${pr.baseSha}`)
+      .digest("hex");
+    // Advance only the PR target branch — never an unrelated default branch.
+    s.branches[pr.baseRef] = mergeSha;
     pr.state = "merged";
-    const result = { merged: true, sha: pr.headSha };
+    pr.mergeCommitSha = mergeSha;
+    pr.mergeable = null;
+    pr.mergeableState = null;
+    const result = { merged: true, sha: mergeSha };
     if (ScriptedFaultRegistry.current(input.pilotId, input.fullName) === "timeout_after_merge") {
       const err = new Error("SCRIPTED_TIMEOUT_AFTER_MERGE") as Error & {
         code: string;
@@ -463,6 +590,166 @@ class ScriptedGitHubProvider implements GitHubProvider {
     const pr = repoStore(pilotId, fullName).prs.find((p) => p.number === prNumber);
     if (!pr) throw Object.assign(new Error("PR_NOT_FOUND"), { code: "NOT_FOUND" });
     return pr;
+  }
+
+  async listPullRequests(input: {
+    pilotId: string;
+    fullName: string;
+    head?: string;
+    base?: string;
+    state?: "open" | "closed" | "all";
+  }): Promise<{
+    matches: PullRequestInfo[];
+    incompleteCoverage: boolean;
+    matchedCount: number;
+  }> {
+    if (ScriptedFaultRegistry.current(input.pilotId, input.fullName) === "read_unavailable") {
+      ScriptedFaultRegistry.assertOk(input.pilotId, input.fullName);
+    }
+    ScriptedFaultRegistry.assertOk(input.pilotId, input.fullName);
+    const s = repoStore(input.pilotId, input.fullName);
+    const state = input.state ?? "open";
+    let matches = s.prs.filter((p) => {
+      if (state !== "all" && p.state !== state && !(state === "closed" && p.state === "merged")) {
+        if (state === "open" && p.state !== "open") return false;
+        if (state === "closed" && p.state === "open") return false;
+      }
+      if (input.head && p.headRef !== input.head.replace(/^refs\/heads\//, "")) return false;
+      if (input.base && p.baseRef !== input.base.replace(/^refs\/heads\//, "")) return false;
+      return true;
+    });
+    const bound = 20;
+    const matchedCount = matches.length;
+    matches = matches.slice(0, bound);
+    return {
+      matches,
+      incompleteCoverage: matchedCount > bound,
+      matchedCount,
+    };
+  }
+
+  async listPullRequestFiles(
+    pilotId: string,
+    fullName: string,
+    prNumber: number,
+  ): Promise<{
+    files: Array<{ filename: string; status: string; additions: number; deletions: number }>;
+    incompleteCoverage: boolean;
+    matchedCount: number;
+  }> {
+    if (ScriptedFaultRegistry.current(pilotId, fullName) === "read_unavailable") {
+      ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    }
+    ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    const s = repoStore(pilotId, fullName);
+    const pr = s.prs.find((p) => p.number === prNumber);
+    if (!pr) throw Object.assign(new Error("PR_NOT_FOUND"), { code: "NOT_FOUND" });
+    const paths = Object.keys(s.files).filter((p) => p.startsWith("docs/") || p.endsWith(".md"));
+    const files = (paths.length > 0 ? paths : ["docs/publication.md"]).slice(0, 40).map((filename) => ({
+      filename,
+      status: "added" as const,
+      additions: 1,
+      deletions: 0,
+    }));
+    return {
+      files,
+      incompleteCoverage: false,
+      matchedCount: files.length,
+    };
+  }
+
+  async getCommit(pilotId: string, fullName: string, ref: string) {
+    if (ScriptedFaultRegistry.current(pilotId, fullName) === "read_unavailable") {
+      ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    }
+    ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    const s = repoStore(pilotId, fullName);
+    const sha = /^[0-9a-f]{40}$/i.test(ref)
+      ? ref.toLowerCase()
+      : (s.branches[ref.replace(/^refs\/heads\//, "")] ?? s.branches.main ?? "a".repeat(40));
+    const paths = Object.keys(s.files);
+    const files = paths.slice(0, 40).map((filename) => ({
+      filename,
+      status: "modified" as const,
+      additions: 1,
+      deletions: 0,
+    }));
+    return {
+      sha,
+      message: "scripted commit",
+      authorName: "Scripted Author",
+      authorEmail: "scripted@example.test",
+      authorDate: "2026-11-22T06:22:13Z",
+      committerName: "Scripted Committer",
+      committerEmail: "scripted@example.test",
+      committerDate: "2026-11-22T06:22:13Z",
+      parents: [s.branches.main ?? "b".repeat(40)],
+      htmlUrl: `https://github.scripted/${fullName}/commit/${sha}`,
+      files,
+      incompleteCoverage: paths.length > 40,
+      matchedFileCount: paths.length,
+    };
+  }
+
+  async compareRefs(pilotId: string, fullName: string, base: string, head: string) {
+    if (ScriptedFaultRegistry.current(pilotId, fullName) === "read_unavailable") {
+      ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    }
+    ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    const s = repoStore(pilotId, fullName);
+    const baseShort = base.replace(/^refs\/heads\//, "");
+    const headShort = head.replace(/^refs\/heads\//, "");
+    const baseSha =
+      (/^[0-9a-f]{40}$/i.test(baseShort) ? baseShort : s.branches[baseShort] ?? s.branches.main) ??
+      "b".repeat(40);
+    const headSha =
+      (/^[0-9a-f]{40}$/i.test(headShort) ? headShort : s.branches[headShort] ?? s.branches.main) ??
+      "a".repeat(40);
+    const paths = Object.keys(s.files);
+    const files = paths.slice(0, 40).map((filename) => ({
+      filename,
+      status: "added" as const,
+      additions: 1,
+      deletions: 0,
+    }));
+    const aheadBy = baseSha === headSha ? 0 : 1;
+    return {
+      baseSha: baseSha.toLowerCase(),
+      headSha: headSha.toLowerCase(),
+      status: aheadBy === 0 ? "identical" : "ahead",
+      aheadBy,
+      behindBy: 0,
+      totalCommits: aheadBy,
+      files,
+      incompleteCoverage: paths.length > 40,
+      matchedFileCount: paths.length,
+      htmlUrl: `https://github.scripted/${fullName}/compare/${baseShort}...${headShort}`,
+    };
+  }
+
+  async getCommitStatus(pilotId: string, fullName: string, ref: string) {
+    if (ScriptedFaultRegistry.current(pilotId, fullName) === "read_unavailable") {
+      ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    }
+    ScriptedFaultRegistry.assertOk(pilotId, fullName);
+    void ref;
+    return {
+      combinedState: "success",
+      combinedStatuses: [{ context: "scripted/ci", state: "success", description: "ok" }],
+      checkRuns: [
+        {
+          name: "scripted-check",
+          status: "completed",
+          conclusion: "success",
+          htmlUrl: `https://github.scripted/${fullName}/runs/1`,
+        },
+      ],
+      incompleteCoverage: false,
+      matchedCheckCount: 1,
+      statusCoverage: "COMPLETE" as const,
+      statusNote:
+        "SCRIPTED status — mergeability ≠ autorisation D6. Protections/rulesets non simulées ici.",
+    };
   }
 }
 

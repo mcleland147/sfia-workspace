@@ -77,6 +77,7 @@ export type StudioCapabilityId =
   | "d6.human_decision"
   | "d7.prepare_publication"
   | "d7.dispatch_publication"
+  | "d7.merge_publication"
   | "d9.git_integration";
 
 export type QualifiedIntent = {

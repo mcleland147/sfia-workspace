@@ -366,8 +366,9 @@ export function NoraConversation(props: {
           ) : null}
           {props.activity === "error" ? (
             <div className="fig-alert" role="alert" data-testid="nora-activity-error">
-              La dernière tentative n&apos;a pas abouti clairement. Le texte saisi est conservé ;
-              réessayez ou réconciliez si une intention reste ouverte.
+              La dernière réponse n&apos;a pas pu être consolidée entièrement. Le texte saisi est
+              conservé. Aucune mutation n&apos;est relancée automatiquement — reformulez, ou
+              réconciliez seulement si une intention d&apos;effet reste ouverte.
             </div>
           ) : null}
         </div>

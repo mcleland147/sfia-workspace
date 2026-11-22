@@ -11,6 +11,7 @@ import {
   loadGitHubAppCredentialsFromEnv,
   readGitHubAppCredentialMetaFromEnv,
   resolveStudioGithubAppLane,
+  resolveWriteAllowedFullNames,
 } from "@/domains/integrations/github-app-config";
 import { isStudioError } from "@/lib/http-errors";
 
@@ -183,5 +184,48 @@ describe("github-app-config", () => {
         allowedFullName: "other/repo",
       }),
     ).toThrow(/GITHUB_APP_ALLOWED_REPO inattendu/);
+  });
+
+  it("WRITE allowlist stays empty when env absent (READ never implies WRITE)", () => {
+    const { dir, pemPath } = writeTempPem();
+    chmodSync(pemPath, 0o600);
+    try {
+      process.env.STUDIO_LANE = "DEV";
+      process.env.GITHUB_APP_ID = GITHUB_APP_EXPECTED_APP_ID;
+      process.env.GITHUB_APP_INSTALLATION_ID = GITHUB_APP_EXPECTED_INSTALLATION_ID;
+      process.env.GITHUB_APP_PRIVATE_KEY_PATH = pemPath;
+      delete process.env.GITHUB_APP_WRITE_ALLOWED_REPOS;
+      const loaded = loadGitHubAppCredentialsFromEnv();
+      expect(loaded.allowedFullNames.length).toBeGreaterThan(0);
+      expect(loaded.allowedWriteFullNames).toEqual([]);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it("WRITE allowlist requires subset of READ and same owner", () => {
+    expect(
+      resolveWriteAllowedFullNames({
+        expectedOwner: "mcleland147",
+        readAllowlist: ["mcleland147/chantiers360"],
+        envList: "mcleland147/chantiers360",
+      }),
+    ).toEqual(["mcleland147/chantiers360"]);
+
+    expect(() =>
+      resolveWriteAllowedFullNames({
+        expectedOwner: "mcleland147",
+        readAllowlist: ["mcleland147/chantiers360"],
+        envList: "mcleland147/sfia-workspace",
+      }),
+    ).toThrow(/hors allowlist READ/);
+
+    expect(() =>
+      resolveWriteAllowedFullNames({
+        expectedOwner: "mcleland147",
+        readAllowlist: ["mcleland147/chantiers360"],
+        envList: "other/repo",
+      }),
+    ).toThrow(/hors owner/);
   });
 });

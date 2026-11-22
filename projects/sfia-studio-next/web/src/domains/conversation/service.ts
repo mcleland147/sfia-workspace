@@ -111,11 +111,43 @@ import {
   appendMissionAck,
   cognitiveContinueFromFacts,
   composeCanonicalMissionRestitution,
+  isPublicationPathClarificationResume,
   missionCorrelationKeys,
   preparePublicationForMission,
+  publicationRefsFromClarifyingMission,
   recoverAuthorizedNoraMissions,
+  resolvePublicationPathAfterClarification,
   type MissionProjection,
 } from "./mission-continuity";
+import { admitConversationalPublicationMandate } from "./conversation-publication-authority";
+import {
+  extractAllPublicationBranchHints,
+  extractExplicitPublicationBranch,
+} from "./conversation-publication-mandate-guards";
+import {
+  admitConversationalMergeMandate,
+  extractPositivelyRequestedPrNumbers,
+  userStatementHasOpenMergeCondition,
+  userStatementHasUnresolvedSamePrMergeContradiction,
+  userStatementIsNonAuthorizingMergeTalk,
+  userStatementRefusesMerge,
+} from "./conversation-merge-authority";
+import { userStatementRefusesPublication } from "./conversation-publication-mandate-guards";
+import {
+  composePublicationEffectRestitution,
+  publicationWriteGate,
+  type PublicationEffectView,
+} from "./publication-effect-restitution";
+import {
+  buildPublicationEffectViewFromAttempt,
+  formatPublicationOwnerFactsSnippets,
+  loadLatestCompletedPublicationSnippet,
+} from "./publication-effect-view";
+import { listProjectPublications } from "@/domains/integrations/publication-projection-service";
+import {
+  confirmPublicationDocumentWithD4,
+  resolvePublicationDocumentTarget,
+} from "./publication-document-target";
 import {
   advanceMissionAfterProjectCreated,
   buildD2AwaitingStep,
@@ -1031,6 +1063,27 @@ export async function postUserMessageAndNora(
   // Prior-turn D5/D6 facts still arrive via buildNoraPilotageContext projection only.
   const pilotageCtx = await buildNoraPilotageContext(pilotId, preparationId, content);
 
+  // E08 — owner publication facts for follow-up verification (branch/path/SHA/PR).
+  // Read-only D8 projection; never invents merge. Bounded to avoid context bloat.
+  const publicationOwnerSnippets: string[] = [];
+  if (ctx.project?.id) {
+    try {
+      const listed = await listProjectPublications(pilotId, ctx.project.id);
+      publicationOwnerSnippets.push(
+        ...formatPublicationOwnerFactsSnippets(listed.publications, 3),
+      );
+      if (publicationOwnerSnippets.length === 0) {
+        const latest = await loadLatestCompletedPublicationSnippet({
+          pilotId,
+          projectId: ctx.project.id,
+        });
+        if (latest) publicationOwnerSnippets.push(latest);
+      }
+    } catch {
+      /* projection unavailable — Nora still has git READ tools when projectId set */
+    }
+  }
+
   let reply;
   try {
     // Heartbeat during long provider work so stale lease does not falsely orphan an active run.
@@ -1041,7 +1094,11 @@ export async function postUserMessageAndNora(
       reply = await generateNoraReply({
         userText: content,
         contextSnippets,
-        knowledgeSnippets: [...knowledgeForNora.snippets, ...docSnippets],
+        knowledgeSnippets: [
+          ...knowledgeForNora.snippets,
+          ...docSnippets,
+          ...publicationOwnerSnippets,
+        ],
         pilotageSnippets: pilotageCtx.snippets,
         // C01: same structured Level A contract for fixture and LIVE — never authority.
         levelASignals: pilotageCtx.levelASignals,
@@ -1265,12 +1322,25 @@ export async function postUserMessageAndNora(
         : true,
     ) ?? null;
 
+  // UAT-GIT-PUB-01 — clarifying replies (path / go) must resume the open publication
+  // AWAITING_CLARIFICATION mission instead of being S05-blocked against it.
+  const publicationClarificationResume = isPublicationPathClarificationResume({
+    blockingMission,
+    wantsPublish: studioProjection.publication.wantsPublish,
+  });
+  const clarifyingPublicationMission = publicationClarificationResume
+    ? blockingMission
+    : null;
+
   const applyPendingGate =
     nextTurnKind === "INTENTION_EFFET" || nextTurnKind === "INCERTAIN";
   // R-02 — durable comparable identities only (never USER text / title / lexical).
-  const currentMissionKeys = missionCorrelationKeys(
-    carriedMission?.clientIntentKey?.trim() || clientTurnKey,
-  );
+  // Clarification resume reuses the awaiting mission key (same publication intention).
+  const publicationMissionIntentKey =
+    clarifyingPublicationMission?.clientIntentKey?.trim() ||
+    carriedMission?.clientIntentKey?.trim() ||
+    clientTurnKey;
+  const currentMissionKeys = missionCorrelationKeys(publicationMissionIntentKey);
   const currentCorrelationKeys = buildTurnCorrelationKeys({
     commandId: reserved.commandId,
     operationId: reserved.operationId,
@@ -1343,7 +1413,8 @@ export async function postUserMessageAndNora(
       pendingEffectBlocked = true;
       pendingBlockReason = siblingPolicy.pendingBlockReason;
     }
-    if (blockingMission) {
+    // Do not S05-block a clarifying USER turn against its own path-awaiting publication mission.
+    if (blockingMission && !publicationClarificationResume) {
       allowOwnerEffects = false;
       pendingEffectBlocked = true;
       if (!pendingBlockReason) {
@@ -1352,6 +1423,19 @@ export async function postUserMessageAndNora(
             ? `S05_MISSION_BLOCKS_EFFECT:${blockingMission.clientIntentKey ?? "mission"}`
             : `S05_MISSION_BLOCKS_AMBIGUOUS:${blockingMission.clientIntentKey ?? "mission"}`;
       }
+    } else if (publicationClarificationResume && clarifyingPublicationMission) {
+      emitObs({
+        event_name: "d3.mission.publication_clarification_resume",
+        component: "d3.mission_continuity",
+        request_id: requestId,
+        operation_id: reserved.operationId,
+        outcome: "PARTIAL",
+        meta: {
+          resumed_mission_key: clarifyingPublicationMission.clientIntentKey,
+          current_turn_key: clientTurnKey,
+          has_path: Boolean(studioProjection.publication.targetPath),
+        },
+      });
     }
   }
 
@@ -1536,8 +1620,12 @@ export async function postUserMessageAndNora(
   const documentaryIntentSignal = documentAct.kind !== "NONE";
   const missionIntent = studioProjection.publication;
   const studioIntent = studioProjection;
-  const clientIntentKey = clientTurnKey;
+  // Clarification resume reuses awaiting mission key for D7 correlation only.
+  const clientIntentKey =
+    clarifyingPublicationMission?.clientIntentKey?.trim() || clientTurnKey;
   const missionKeys = missionCorrelationKeys(clientIntentKey);
+
+  let publicationMandateDecisionId: string | null = null;
 
   let durableProposal: DocumentProposalExact | null = null;
   /** P1: set when concurrent fence diverges / is invalid — block silent strip+reinject. */
@@ -2538,105 +2626,615 @@ export async function postUserMessageAndNora(
     }
   }
 
+  // Explicit refusal must not leave a publication PREPARED / AWAITING_PILOT_AUTH.
+  const userRefusesPublish = userStatementRefusesPublication(content);
+
+  // Publication mission: same-turn D4 CREATE/REVISE OR publish-existing (no D4 AVAILABLE gate).
+  // Restitution belongs to Nora after Studio outcome — never a fixed pre-effect hedge.
+  let publicationEffectView: PublicationEffectView = null;
+
+  // Effective path: qualification path, or root clarification → derived filename.
+  const clarifyingRefs = clarifyingPublicationMission
+    ? publicationRefsFromClarifyingMission(clarifyingPublicationMission)
+    : { documentId: null, revisionId: null };
+
   if (
     allowOwnerEffects &&
     !ownershipLostBeforeD4 &&
-    documentEffectForAck?.status === "AVAILABLE" &&
-    documentEffectForAck.documentId &&
-    documentEffectForAck.revisionId &&
     missionIntent.wantsPublish &&
+    !userRefusesPublish &&
     ctx.project?.id
   ) {
-    const steps: MissionProjection["steps"] = [
-      {
+    const docsForPub = await listDocuments(pilotId, preparationId);
+    let pubTarget = resolvePublicationDocumentTarget({
+      sameTurnEffect: documentEffectForAck
+        ? {
+            status: documentEffectForAck.status ?? "UNKNOWN",
+            documentId: documentEffectForAck.documentId ?? null,
+            revisionId: documentEffectForAck.revisionId ?? null,
+            revisionNumber: documentEffectForAck.revisionNumber ?? null,
+            title: null,
+          }
+        : null,
+      docs: docsForPub,
+      documentHint: missionIntent.documentHint ?? null,
+      objectRef:
+        missionIntent.objectRef ?? clarifyingRefs.documentId ?? null,
+      focus: opts?.documentFocus
+        ? {
+            documentId: opts.documentFocus.documentId,
+            sourceRevisionId: opts.documentFocus.sourceRevisionId,
+            sourceRevisionNumber: opts.documentFocus.sourceRevisionNumber,
+            observedHeadRevisionId: opts.documentFocus.observedHeadRevisionId,
+          }
+        : clarifyingRefs.documentId && clarifyingRefs.revisionId
+          ? {
+              documentId: clarifyingRefs.documentId,
+              sourceRevisionId: clarifyingRefs.revisionId,
+              observedHeadRevisionId: clarifyingRefs.revisionId,
+            }
+          : null,
+    });
+
+    // D4 owner confirmation before any D7 prepare — never trust client focus alone.
+    if (pubTarget.ok) {
+      pubTarget = await confirmPublicationDocumentWithD4({
+        pilotId,
+        preparationId,
+        target: pubTarget,
+      });
+    }
+
+    const steps: MissionProjection["steps"] = [];
+    if (pubTarget.ok && pubTarget.source === "same_turn_d4") {
+      steps.push({
         id: "d4_create",
         capabilityId: "d4.create_document",
         status: "DONE",
         correlationKey: missionKeys.document,
-        documentId: documentEffectForAck.documentId,
-        revisionId: documentEffectForAck.revisionId,
-      },
-    ];
+        documentId: pubTarget.documentId,
+        revisionId: pubTarget.revisionId ?? undefined,
+      });
+    } else if (pubTarget.ok) {
+      steps.push({
+        id: "d4_source",
+        capabilityId: "d4.create_document",
+        status: "DONE",
+        correlationKey: missionKeys.document,
+        documentId: pubTarget.documentId,
+        revisionId: pubTarget.revisionId ?? undefined,
+        reason: `EXISTING_DOC:${pubTarget.source}${pubTarget.overriddenImplicit ? ":OVERRIDE_IMPLICIT" : ""}`,
+      });
+    }
 
-    // P1-E: no silent path/branch deduction — clarify before D7 prepare.
-    if (missionIntent.needsExplicitPath) {
+    const writeGate = publicationWriteGate();
+
+    const resolvedPath = resolvePublicationPathAfterClarification({
+      userText: content,
+      qualifiedPath: missionIntent.targetPath,
+      documentTitle: pubTarget.ok
+        ? pubTarget.title
+        : missionIntent.documentHint,
+    });
+    const effectiveNeedsExplicitPath =
+      Boolean(missionIntent.wantsPublish) && !resolvedPath;
+    const effectiveTargetPath = resolvedPath;
+
+    if (!pubTarget.ok) {
+      const clarify =
+        pubTarget.reason === "AMBIGUOUS" ||
+        pubTarget.reason === "NOT_FOUND" ||
+        pubTarget.reason === "REVISION_NOT_FOUND" ||
+        pubTarget.reason === "NO_AVAILABLE_REVISION" ||
+        pubTarget.reason === "EXPLICIT_FOCUS_CONFLICT";
+      const refused =
+        pubTarget.reason === "FORBIDDEN" || pubTarget.reason === "REVISION_MISMATCH";
+      steps.push({
+        id: "d7_prepare",
+        capabilityId: "d7.prepare_publication",
+        status: clarify ? "PENDING" : "FAILED",
+        correlationKey: missionKeys.publication,
+        reason: `${pubTarget.reason}${pubTarget.detail ? `:${pubTarget.detail}` : ""}`,
+      });
+      missionProjection = {
+        clientIntentKey,
+        status: clarify ? "AWAITING_CLARIFICATION" : "PARTIAL_FAILED_STEP",
+        goalSummary: refused
+          ? "Publication refusée — cible documentaire invalide"
+          : "Publication — document ou révision à préciser",
+        steps,
+        restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
+      };
+      publicationEffectView = {
+        attempted: true,
+        outcome: refused ? "REFUSED_AUTHORITY" : "AWAITING_CLARIFICATION",
+        reason:
+          pubTarget.reason === "AMBIGUOUS"
+            ? "Plusieurs documents correspondent — précisez lequel publier."
+            : pubTarget.reason === "FORBIDDEN"
+              ? "Document inaccessible pour ce Pilote ou ce projet."
+              : pubTarget.reason === "REVISION_MISMATCH"
+                ? "La révision indiquée n'appartient pas au document demandé."
+                : pubTarget.reason === "REVISION_NOT_FOUND"
+                  ? "Révision demandée introuvable ou non publiable."
+                  : "Document ou révision de publication non déterminé.",
+      };
+    } else if (!pubTarget.revisionId) {
       steps.push({
         id: "d7_prepare",
         capabilityId: "d7.prepare_publication",
         status: "PENDING",
         correlationKey: missionKeys.publication,
+        documentId: pubTarget.documentId,
+        reason: "REVISION_REQUIRED",
+      });
+      missionProjection = {
+        clientIntentKey,
+        status: "AWAITING_CLARIFICATION",
+        goalSummary: "Publication — révision à préciser",
+        steps,
+        restitution: "DELIVERED",
+      };
+      publicationEffectView = {
+        attempted: true,
+        outcome: "AWAITING_CLARIFICATION",
+        reason: "Révision de publication non déterminée.",
+        documentTitle: pubTarget.title,
+        revisionNumber: pubTarget.revisionNumber,
+      };
+    } else if (!writeGate.allowed) {
+      steps.push({
+        id: "d7_prepare",
+        capabilityId: "d7.prepare_publication",
+        status: "FAILED",
+        correlationKey: missionKeys.publication,
+        documentId: pubTarget.documentId,
+        revisionId: pubTarget.revisionId,
+        reason: "WRITE_DISABLED",
+      });
+      missionProjection = {
+        clientIntentKey,
+        status: "PARTIAL_FAILED_STEP",
+        goalSummary: "Publication refusée — écritures GitHub désactivées",
+        steps,
+        restitution: "DELIVERED",
+      };
+      publicationEffectView = {
+        attempted: true,
+        outcome: "REFUSED_WRITE_DISABLED",
+        reason: writeGate.reason,
+        documentTitle: pubTarget.title,
+        revisionNumber: pubTarget.revisionNumber,
+        repositoryFullName: missionIntent.repositoryHint,
+      };
+      emitObs({
+        event_name: "d3.mission.publication_write_disabled",
+        component: "d3.mission_continuity",
+        request_id: requestId,
+        operation_id: reserved.operationId,
+        generation_id: reply.generationId,
+        outcome: "DENIED",
+        meta: {
+          document_id: pubTarget.documentId,
+          revision_id: pubTarget.revisionId,
+          reason: writeGate.reason,
+        },
+      });
+    } else if (effectiveNeedsExplicitPath) {
+      // P1-E: no silent path/branch deduction — clarify before D7 prepare.
+      steps.push({
+        id: "d7_prepare",
+        capabilityId: "d7.prepare_publication",
+        status: "PENDING",
+        correlationKey: missionKeys.publication,
+        documentId: pubTarget.documentId,
+        revisionId: pubTarget.revisionId,
         reason: missionIntent.clarify ?? "PATH_REQUIRED",
       });
       missionProjection = {
         clientIntentKey,
         status: "AWAITING_CLARIFICATION",
-        goalSummary: "CREATE D4 confirmé — chemin Git requis avant préparation",
+        goalSummary: "Document identifié — chemin Git requis avant préparation",
         steps,
         restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
       };
+      publicationEffectView = {
+        attempted: true,
+        outcome: "AWAITING_CLARIFICATION",
+        reason: missionIntent.clarify ?? "Chemin de publication Git manquant.",
+        documentTitle: pubTarget.title,
+        revisionNumber: pubTarget.revisionNumber,
+      };
     } else if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
+      const baseBranch = (missionIntent.targetBranch ?? "main").trim() || "main";
+      const branchHints = extractAllPublicationBranchHints(content);
+      const nonBaseBranchHints = [...new Set(branchHints.filter((b) => b !== baseBranch))];
+      if (nonBaseBranchHints.length > 1) {
+        steps.push({
+          id: "d7_prepare",
+          capabilityId: "d7.prepare_publication",
+          status: "PENDING",
+          correlationKey: missionKeys.publication,
+          documentId: pubTarget.documentId,
+          revisionId: pubTarget.revisionId,
+          reason: "AMBIGUOUS_BRANCH",
+        });
+        missionProjection = {
+          clientIntentKey,
+          status: "AWAITING_CLARIFICATION",
+          goalSummary: "Publication Git — branches contradictoires à clarifier",
+          steps,
+          restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
+        };
+        publicationEffectView = {
+          attempted: true,
+          outcome: "AWAITING_CLARIFICATION",
+          reason: "Plusieurs branches de publication distinctes de la base — précision requise.",
+          documentTitle: pubTarget.title,
+          revisionNumber: pubTarget.revisionNumber,
+        };
+      } else {
+      const explicitPublicationBranch = extractExplicitPublicationBranch({
+        userText: content,
+        baseBranch,
+      });
       const prepared = await preparePublicationForMission({
         pilotId,
         projectId: ctx.project.id,
-        documentId: documentEffectForAck.documentId,
-        revisionId: documentEffectForAck.revisionId,
+        documentId: pubTarget.documentId,
+        revisionId: pubTarget.revisionId,
         clientIntentKey,
-        targetPath: missionIntent.targetPath,
-        targetBranch: missionIntent.targetBranch,
+        targetPath: effectiveTargetPath,
+        targetBranch: baseBranch,
+        publicationBranch: explicitPublicationBranch,
       });
       if (prepared.ok) {
-        steps.push({
+        const prepStep: MissionProjection["steps"][number] = {
           id: "d7_prepare",
           capabilityId: "d7.prepare_publication",
           status: prepared.status === "PREPARED" ? "WAITING" : "DONE",
           correlationKey: missionKeys.publication,
           attemptId: prepared.attemptId,
-          documentId: documentEffectForAck.documentId,
-          revisionId: documentEffectForAck.revisionId,
+          documentId: pubTarget.documentId,
+          revisionId: pubTarget.revisionId,
+        };
+        steps.push(prepStep);
+
+        let missionStatus: MissionProjection["status"] = "AWAITING_PILOT_AUTH";
+        let goalSummary = "Publication Git (attente autorisation Pilote)";
+        let authorizeCalled = false;
+
+        const mandateAdmission = await admitConversationalPublicationMandate({
+          pilotId,
+          projectId: ctx.project.id,
+          attemptId: prepared.attemptId,
+          userMessageId: reserved.userMessageId,
+          userStatement: content,
+          // Provenance: reserved turn key. Correlation: mission key (may equal turn key).
+          clientTurnKey,
+          missionClientIntentKey: clientIntentKey,
+          qualifiedPath: effectiveTargetPath,
+          // Bind the publication head the Pilote named (not the base branch).
+          qualifiedBranch: explicitPublicationBranch,
+          wantsPublishFromQual: missionIntent.wantsPublish,
         });
+
+        if (mandateAdmission.authorized && mandateAdmission.decisionId) {
+          publicationMandateDecisionId = mandateAdmission.decisionId;
+          authorizeCalled = true;
+          prepStep.decisionId = mandateAdmission.decisionId;
+          const resumeStatus = mandateAdmission.missionResume?.status ?? "AUTHORIZED";
+          if (resumeStatus === "COMPLETED") {
+            prepStep.status = "DONE";
+            missionStatus = "COMPLETED";
+            goalSummary = "Publication Git (mandat conversationnel + effet terminé)";
+            publicationEffectView =
+              (await buildPublicationEffectViewFromAttempt({
+                pilotId,
+                projectId: ctx.project.id,
+                attemptId: prepared.attemptId,
+                outcome: "COMPLETED",
+                documentTitle: pubTarget.title,
+                revisionNumber: pubTarget.revisionNumber,
+                decisionId: mandateAdmission.decisionId,
+              })) ?? {
+                attempted: true,
+                outcome: "COMPLETED",
+                documentTitle: pubTarget.title,
+                revisionNumber: pubTarget.revisionNumber,
+                attemptId: prepared.attemptId,
+                decisionId: mandateAdmission.decisionId,
+                repositoryFullName: missionIntent.repositoryHint,
+                commitSha: mandateAdmission.missionResume?.commitSha ?? null,
+                prNumber: mandateAdmission.missionResume?.prNumber ?? null,
+              };
+          } else if (
+            resumeStatus === "DISPATCHED" ||
+            resumeStatus === "AMBIGUOUS" ||
+            mandateAdmission.missionResume?.dispatched
+          ) {
+            prepStep.status = "WAITING";
+            missionStatus = "ACTIVE";
+            goalSummary = "Publication Git (mandat conversationnel — dispatch en cours)";
+            publicationEffectView = {
+              attempted: true,
+              outcome: "UNKNOWN",
+              reason: "Dispatch en cours — résultat Studio non encore consolidé.",
+              documentTitle: pubTarget.title,
+              revisionNumber: pubTarget.revisionNumber,
+              attemptId: prepared.attemptId,
+              decisionId: mandateAdmission.decisionId,
+            };
+          } else {
+            prepStep.status = "WAITING";
+            missionStatus = "AWAITING_PILOT_AUTH";
+            goalSummary =
+              "Publication Git (mandat enregistré — reprise dispatch en attente)";
+            publicationEffectView = {
+              attempted: true,
+              outcome: "PREPARED_AWAITING_AUTH",
+              reason: "Autorisation enregistrée — effet non encore observé.",
+              documentTitle: pubTarget.title,
+              revisionNumber: pubTarget.revisionNumber,
+              attemptId: prepared.attemptId,
+              decisionId: mandateAdmission.decisionId,
+            };
+          }
+        } else if (
+          mandateAdmission.attempted &&
+          mandateAdmission.reasonCode &&
+          !["ALREADY_AUTHORIZED", "REFUSED", "MERGE_ONLY", "NO_PUBLISH_QUAL"].includes(
+            mandateAdmission.reasonCode,
+          ) &&
+          (mandateAdmission.reasonCode === "AMBIGUOUS_PATH" ||
+            mandateAdmission.reasonCode === "AMBIGUOUS_BRANCH" ||
+            mandateAdmission.reasonCode === "PLAN_DRIFT" ||
+            mandateAdmission.reasonCode === "AMBIGUOUS")
+        ) {
+          missionStatus = "AWAITING_CLARIFICATION";
+          goalSummary = "Publication préparée — mandat conversationnel ambigu (précision requise)";
+          prepStep.reason = mandateAdmission.reason ?? mandateAdmission.reasonCode;
+          publicationEffectView = {
+            attempted: true,
+            outcome: "AWAITING_CLARIFICATION",
+            reason: mandateAdmission.reason ?? mandateAdmission.reasonCode,
+            documentTitle: pubTarget.title,
+            revisionNumber: pubTarget.revisionNumber,
+            attemptId: prepared.attemptId,
+          };
+        } else if (
+          mandateAdmission.attempted &&
+          (mandateAdmission.reasonCode === "REFUSED" ||
+            mandateAdmission.reasonCode === "INSUFFICIENT_PERMISSION")
+        ) {
+          prepStep.status = "FAILED";
+          missionStatus = "PARTIAL_FAILED_STEP";
+          goalSummary = "Publication refusée — autorité insuffisante";
+          publicationEffectView = {
+            attempted: true,
+            outcome: "REFUSED_AUTHORITY",
+            reason: mandateAdmission.reason ?? mandateAdmission.reasonCode,
+            documentTitle: pubTarget.title,
+            revisionNumber: pubTarget.revisionNumber,
+            attemptId: prepared.attemptId,
+          };
+        } else {
+          publicationEffectView = {
+            attempted: true,
+            outcome: "PREPARED_AWAITING_AUTH",
+            reason: mandateAdmission.reason ?? "Préparation disponible — autorisation Pilote requise.",
+            documentTitle: pubTarget.title,
+            revisionNumber: pubTarget.revisionNumber,
+            attemptId: prepared.attemptId,
+          };
+        }
+
         missionProjection = {
           clientIntentKey,
-          status: "AWAITING_PILOT_AUTH",
-          goalSummary: "CREATE D4 + publication Git (attente autorisation Pilote)",
+          status: missionStatus,
+          goalSummary,
           steps,
           restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
         };
         emitObs({
-          event_name: "d3.mission.prepared_awaiting_auth",
+          event_name: mandateAdmission.authorized
+            ? "d3.mission.prepared_conversational_authorize"
+            : "d3.mission.prepared_awaiting_auth",
           component: "d3.mission_continuity",
           request_id: requestId,
           operation_id: reserved.operationId,
           generation_id: reply.generationId,
-          outcome: "SUCCESS",
+          outcome: mandateAdmission.authorized ? "SUCCESS" : "PARTIAL",
           meta: {
             attempt_id: prepared.attemptId,
-            document_id: documentEffectForAck.documentId,
-            // Never call authorize here — HD only on Pilot act.
-            authorize_called: false,
+            document_id: pubTarget.documentId,
+            authorize_called: authorizeCalled,
+            mandate_reason: mandateAdmission.reasonCode ?? null,
+            decision_id: mandateAdmission.decisionId,
+            publish_source: pubTarget.source,
           },
         });
       } else {
+        const refusedWrite =
+          prepared.code === "WRITE_DISABLED" ||
+          /ALLOW_MUTATIONS|écritures GitHub|WRITE/i.test(prepared.message);
         steps.push({
           id: "d7_prepare",
           capabilityId: "d7.prepare_publication",
           status: "FAILED",
           correlationKey: missionKeys.publication,
+          documentId: pubTarget.documentId,
+          revisionId: pubTarget.revisionId,
           reason: `${prepared.code}:${prepared.message}`,
         });
         missionProjection = {
           clientIntentKey,
           status: "PARTIAL_FAILED_STEP",
-          goalSummary: "CREATE D4 confirmé — préparation Git non réalisée",
+          goalSummary: refusedWrite
+            ? "Publication refusée — écritures GitHub désactivées"
+            : "Document identifié — préparation Git non réalisée",
           steps,
           restitution: continueFailedAfterEffect ? "PENDING" : "CANONICAL",
         };
+        publicationEffectView = {
+          attempted: true,
+          outcome: refusedWrite ? "REFUSED_WRITE_DISABLED" : "DISPATCH_FAILED",
+          reason: prepared.message,
+          documentTitle: pubTarget.title,
+          revisionNumber: pubTarget.revisionNumber,
+        };
       }
+      } // end unambiguous-branch prepare path
     }
 
     if (continueFailedAfterEffect && missionProjection) {
       missionProjection = {
         ...missionProjection,
         restitution: "PENDING",
+      };
+    }
+  }
+
+  // Documentary merge — distinct D6 mandate (publication ≠ merge).
+  // E08-S02: durable qualification owns métier routing — no closed verb-list gate.
+  // Fail-closed: refuse / contradiction / open condition / non-authorizing talk.
+  const mergeIntent = studioProjection.merge;
+  const mergePrHints = extractPositivelyRequestedPrNumbers(content);
+  const mergeRequestedPr =
+    mergeIntent.prNumber != null && mergeIntent.prNumber > 0
+      ? mergeIntent.prNumber
+      : mergePrHints.length === 1
+        ? mergePrHints[0]!
+        : null;
+  if (
+    allowOwnerEffects &&
+    !ownershipLostBeforeD4 &&
+    ctx.project?.id &&
+    mergeIntent.wantsMerge &&
+    mergeIntent.conditionStatus === "NONE" &&
+    !userStatementRefusesMerge(content) &&
+    !userStatementHasOpenMergeCondition(content) &&
+    !userStatementHasUnresolvedSamePrMergeContradiction(content) &&
+    !userStatementIsNonAuthorizingMergeTalk(content)
+  ) {
+    if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
+      const mergeAdmit = await admitConversationalMergeMandate({
+        pilotId,
+        projectId: ctx.project.id,
+        userMessageId: reserved.userMessageId,
+        userStatement: content,
+        clientTurnKey: clientIntentKey,
+        requestedPrNumber: mergeRequestedPr,
+        repositoryFullNameHint: mergeIntent.repositoryHint,
+        wantsMergeFromQual: mergeIntent.wantsMerge,
+        conditionStatus: mergeIntent.conditionStatus,
+        conditionText: mergeIntent.conditionText,
+      });
+      if (mergeAdmit.authorized && mergeAdmit.attemptId) {
+        const mergeStep = {
+          id: "d7_merge",
+          capabilityId: "d7.merge_publication",
+          status:
+            mergeAdmit.dispatchStatus === "COMPLETED"
+              ? ("DONE" as const)
+              : ("WAITING" as const),
+          correlationKey: `merge:mission:${clientIntentKey}`,
+          attemptId: mergeAdmit.attemptId,
+          decisionId: mergeAdmit.decisionId ?? undefined,
+          reason: mergeAdmit.reasonCode,
+        };
+        if (!missionProjection) {
+          missionProjection = {
+            clientIntentKey,
+            status: mergeAdmit.dispatchStatus === "COMPLETED" ? "COMPLETED" : "ACTIVE",
+            goalSummary:
+              mergeAdmit.dispatchStatus === "COMPLETED"
+                ? `Merge documentaire conversationnel terminé (PR #${mergeAdmit.resolvedPrNumber ?? "?"})`
+                : `Merge documentaire — mandat D6 (PR #${mergeAdmit.resolvedPrNumber ?? "?"})`,
+            steps: [mergeStep],
+            restitution: "CANONICAL",
+          };
+        } else {
+          missionProjection = {
+            ...missionProjection,
+            steps: [...missionProjection.steps, mergeStep],
+            status:
+              mergeAdmit.dispatchStatus === "COMPLETED"
+                ? "COMPLETED"
+                : missionProjection.status,
+            goalSummary:
+              mergeAdmit.dispatchStatus === "COMPLETED"
+                ? `${missionProjection.goalSummary} · merge terminé`
+                : `${missionProjection.goalSummary} · merge en cours`,
+          };
+        }
+      } else if (
+        mergeAdmit.attempted &&
+        [
+          "AMBIGUOUS_TARGET",
+          "AMBIGUOUS_PR",
+          "AMBIGUOUS",
+          "AMBIGUOUS_REPOSITORY",
+          "REPOSITORY_MISMATCH",
+          "TARGET_UNRESOLVED",
+          "PR_NOT_FOUND",
+          "PR_MISMATCH",
+          "NO_PUBLICATION",
+          "PUBLICATION_NOT_FOUND",
+          "PUBLICATION_NOT_COMPLETED",
+          "CONDITION_OPEN",
+          "CONDITION_UNPROVEN",
+        ].includes(mergeAdmit.reasonCode ?? "")
+      ) {
+        const clarifyStep = {
+          id: "d7_merge",
+          capabilityId: "d7.merge_publication",
+          status: "PENDING" as const,
+          correlationKey: `merge:mission:${clientIntentKey}`,
+          reason: mergeAdmit.reason ?? mergeAdmit.reasonCode,
+        };
+        if (!missionProjection) {
+          missionProjection = {
+            clientIntentKey,
+            status: "AWAITING_CLARIFICATION",
+            goalSummary:
+              mergeAdmit.reasonCode === "CONDITION_OPEN" ||
+              mergeAdmit.reasonCode === "CONDITION_UNPROVEN"
+                ? "Merge documentaire — condition non satisfaite / non prouvée"
+                : "Merge documentaire — précision requise",
+            steps: [clarifyStep],
+            restitution: "CANONICAL",
+          };
+        }
+      }
+      // REFUSED / NON_AUTHORIZING / NO_MERGE_QUAL: no prepare, no HD, no dispatch.
+    }
+  } else if (
+    allowOwnerEffects &&
+    !ownershipLostBeforeD4 &&
+    ctx.project?.id &&
+    mergeIntent.capabilityId === "d7.merge_publication" &&
+    (mergeIntent.conditionStatus === "OPEN" ||
+      mergeIntent.conditionStatus === "UNVERIFIABLE" ||
+      mergeIntent.conditionStatus === "SATISFIED" ||
+      userStatementHasOpenMergeCondition(content))
+  ) {
+    // E08-S01 — condition present ⇒ clarification / refuse, never silent drop.
+    if (!missionProjection) {
+      missionProjection = {
+        clientIntentKey,
+        status: "AWAITING_CLARIFICATION",
+        goalSummary: "Merge documentaire — condition ouverte ou non prouvée",
+        steps: [
+          {
+            id: "d7_merge",
+            capabilityId: "d7.merge_publication",
+            status: "PENDING",
+            correlationKey: `merge:mission:${clientIntentKey}`,
+            reason: mergeIntent.clarify ?? "CONDITION_OPEN",
+          },
+        ],
+        restitution: "CANONICAL",
       };
     }
   }
@@ -2771,6 +3369,25 @@ export async function postUserMessageAndNora(
     });
   }
 
+  // E08 POST-UAT — publication outcome after Studio owners; strip pre-effect hedges.
+  if (!ownershipLostBeforeD4 && publicationEffectView?.attempted) {
+    assistantBody = composePublicationEffectRestitution({
+      priorContent: assistantBody,
+      effect: publicationEffectView,
+    });
+  } else if (!ownershipLostBeforeD4 && missionIntent.wantsPublish) {
+    // Intention recognized, no Studio publication attempt — NOT_ATTEMPTED (never success).
+    assistantBody = composePublicationEffectRestitution({
+      priorContent: assistantBody,
+      effect: {
+        attempted: true,
+        outcome: "NOT_ATTEMPTED",
+        reason:
+          "Intention de publication reconnue — aucun effet Studio n'a été lancé",
+      },
+    });
+  }
+
   const assistantContentForCommit = ownershipLostBeforeD4
     ? reply.content
     : appendMissionAck(
@@ -2881,7 +3498,8 @@ export async function postUserMessageAndNora(
     pendingDocumentCandidate: ownershipLostBeforeD4 ? null : pendingDocumentCandidateOut,
     historicalAuthorization: ownershipLostBeforeD4 ? null : historicalAuthorizationOut,
     idempotentReplay: false,
-    humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
+    humanDecisionCreated:
+      Boolean(authority?.humanDecisionCreated) || Boolean(publicationMandateDecisionId),
     pilotageEffect: pilotageEffectFromAuthority(authority),
     missionProjection,
     nextTurnKind,

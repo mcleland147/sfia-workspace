@@ -49,6 +49,14 @@ test("G4 B1–B4: rail surfaces, resume without POST, deep-link, revise AVAILABL
   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
 
+  // Settle project load before rail surface switches (avoids lost Link navigations
+  // while load()/URL normalize is still racing — same contract as nav-intent specs).
+  await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+    "data-project-load-state",
+    "ready",
+    { timeout: 30_000 },
+  );
+
   // B1 — real rail links with surface query
   const rail = page.getByTestId("studio-rail");
   await expect(rail.getByTestId("nav-travail")).toHaveAttribute(
@@ -57,8 +65,16 @@ test("G4 B1–B4: rail surfaces, resume without POST, deep-link, revise AVAILABL
   );
   await rail.getByTestId("nav-pilotage").click();
   await expect(page).toHaveURL(new RegExp(`/projects/${projectId}\\?surface=pilotage`));
+  await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+    "data-project-surface",
+    "pilotage",
+  );
   await rail.getByTestId("nav-documents").click();
-  await expect(page).toHaveURL(new RegExp(`surface=document`));
+  await expect(page).toHaveURL(new RegExp(`/projects/${projectId}\\?surface=document`));
+  await expect(page.getByTestId("project-load-state")).toHaveAttribute(
+    "data-project-surface",
+    "document",
+  );
   await expect(page.getByTestId("studio-rail")).toHaveAttribute("data-rail-variant", "inspection");
   await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 10000 });
 
@@ -73,8 +89,9 @@ test("G4 B1–B4: rail surfaces, resume without POST, deep-link, revise AVAILABL
   // Selection must not push documentId into the URL.
   await expect(page).not.toHaveURL(new RegExp(`documentId=${documentId}`));
   await page.getByTestId("doc-action-open").click();
-  await expect(page).toHaveURL(new RegExp(`documentId=${documentId}`));
-  await expect(page.getByTestId("document-read")).toBeVisible();
+  // Deep-link is contractual — wait for URL + read surface (guards load()/URL race).
+  await expect(page).toHaveURL(new RegExp(`documentId=${documentId}`), { timeout: 20_000 });
+  await expect(page.getByTestId("document-read")).toBeVisible({ timeout: 15_000 });
 
   // B2 — reload keeps deep-link; no mutation claimed on open
   await page.reload();

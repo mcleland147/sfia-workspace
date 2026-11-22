@@ -14,36 +14,52 @@ type IntegrationView = {
   }>;
 };
 
-function statusBanner(status: string): { tone: string; text: string } {
+function statusBanner(status: string): { tone: "ok" | "warn"; text: string } {
   switch (status) {
     case "CONNECTED":
       return {
-        tone: "text-emerald-300",
-        text: "GitHub est connecté. Les dépôts ci-dessous sont ceux réellement autorisés côté serveur.",
+        tone: "ok",
+        text: "Votre compte GitHub est connecté. Vos dépôts autorisés sont accessibles.",
       };
     case "PENDING_APPROVAL":
       return {
-        tone: "text-amber-300",
+        tone: "warn",
         text: "Approbation d'organisation en attente — aucun accès anticipé aux dépôts.",
       };
     case "ACCESS_REMOVED":
     case "REVOKED":
       return {
-        tone: "text-amber-300",
-        text: "Accès GitHub retiré ou révoqué. Les acquis D4 et faits historiques restent conservés.",
+        tone: "warn",
+        text: "Accès Studio local retiré. Ce n’est pas automatiquement une révocation complète de l’installation GitHub. Les documents et faits historiques restent conservés.",
       };
     default:
       return {
-        tone: "text-amber-300",
+        tone: "warn",
         text: "GitHub n'est pas connecté. Studio et Nora restent entièrement utilisables.",
       };
   }
 }
 
+const SCOPE_CARDS: Array<{ title: string; body: string }> = [
+  {
+    title: "Votre compte GitHub",
+    body: "Votre connexion est personnelle et distincte de vos projets.",
+  },
+  {
+    title: "Dépôts de vos projets",
+    body: "Chaque projet peut associer un ou plusieurs dépôts.",
+  },
+  {
+    title: "Publier avec Nora",
+    body: "Demandez à Nora de publier vos documents depuis Travail.",
+  },
+];
+
 export function IntegrationsPanel() {
   const [view, setView] = useState<IntegrationView | null>(null);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [confirmDisconnect, setConfirmDisconnect] = useState(false);
 
   const refresh = useCallback(async () => {
     const res = await fetch("/api/integrations/status");
@@ -69,7 +85,6 @@ export function IntegrationsPanel() {
         return;
       }
       // SCRIPTED complete only when server chose flow=scripted.
-      // Do NOT use providerMode (Git provider SCRIPTED/REAL) — that is orthogonal to D9 OAuth flow.
       if (j.flow === "scripted") {
         const done = await fetch("/api/integrations/github/authorize/complete", {
           method: "POST",
@@ -95,11 +110,15 @@ export function IntegrationsPanel() {
     }
   }
 
-  async function disconnect() {
+  async function disconnectConfirmed() {
     setBusy(true);
-    await fetch("/api/integrations/github/disconnect", { method: "POST" });
-    await refresh();
-    setBusy(false);
+    try {
+      await fetch("/api/integrations/github/disconnect", { method: "POST" });
+      await refresh();
+      setConfirmDisconnect(false);
+    } finally {
+      setBusy(false);
+    }
   }
 
   async function refreshRepos() {
@@ -111,156 +130,214 @@ export function IntegrationsPanel() {
 
   const status = view?.status ?? "DISCONNECTED";
   const banner = statusBanner(status);
+  const repos = view?.repositories ?? [];
+
+  if (confirmDisconnect) {
+    return (
+      <div className="integrations-1106" data-testid="integrations-disconnect-confirm">
+        <header className="integrations-1106-header">
+          <p className="integrations-1106-eyebrow">PARAMÈTRES / SERVICES EXTERNES</p>
+          <h1 className="integrations-1106-title">Déconnecter GitHub</h1>
+          <p className="integrations-1106-lead">
+            Le retrait de la connexion personnelle affecte les futures lectures Git de tous les
+            projets concernés.
+          </p>
+        </header>
+        <div
+          className="integrations-1106-banner is-warn"
+          data-testid="disconnect-consequence-banner"
+        >
+          Aucune suppression de dépôt GitHub ni de document Studio ne résulte de cette action.
+        </div>
+        <div className="integrations-1106-grid">
+          <section className="integrations-1106-card" data-testid="disconnect-confirm-card">
+            <h2 className="integrations-1106-card-title">Déconnecter le compte GitHub ?</h2>
+            <p className="integrations-1106-muted">
+              Les accès Git dépendants de cette connexion seront suspendus dans les projets du
+              Pilote. Ceci coupe l’accès Studio local — ce n’est pas automatiquement une révocation
+              complète de l’installation GitHub.
+            </p>
+            <div className="integrations-1106-repo">
+              <p className="integrations-1106-repo-name">Dépôts associés aux projets</p>
+              <p className="integrations-1106-repo-meta">
+                Les associations historiques ne sont pas effacées.
+              </p>
+            </div>
+            <div className="integrations-1106-repo">
+              <p className="integrations-1106-repo-name">Publications antérieures</p>
+              <p className="integrations-1106-repo-meta">
+                Les références, commits et PR observés restent dans les preuves du projet.
+              </p>
+            </div>
+            <div className="integrations-1106-actions">
+              <button
+                type="button"
+                className="git-btn-primary"
+                disabled={busy}
+                onClick={() => void disconnectConfirmed()}
+                data-testid="disconnect-github-confirm"
+              >
+                Confirmer la déconnexion
+              </button>
+              <button
+                type="button"
+                className="git-btn-secondary"
+                disabled={busy}
+                onClick={() => setConfirmDisconnect(false)}
+                data-testid="disconnect-github-cancel"
+              >
+                Annuler
+              </button>
+            </div>
+          </section>
+          <aside className="integrations-1106-card" data-testid="integrations-explain-column">
+            <h2 className="integrations-1106-aside-title">États des projets</h2>
+            {[
+              ["Documents Studio", "Toujours disponibles sans Git."],
+              ["Nouvelles lectures", "Refusées jusqu’au rétablissement des accès."],
+              ["Publications", "Aucune nouvelle publication autorisée sans capacités effectives."],
+            ].map(([title, body]) => (
+              <div key={title} className="integrations-1106-repo">
+                <p className="integrations-1106-repo-name">{title}</p>
+                <p className="integrations-1106-repo-meta">{body}</p>
+              </div>
+            ))}
+          </aside>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-5" data-testid="integrations-panel">
-      <header className="space-y-2">
-        <p className="text-[12px] font-semibold uppercase tracking-wide text-[var(--fig-accent)]">
-          Paramètres · Services externes
-        </p>
-        <div className="flex items-center gap-3 flex-wrap">
-          <h1 className="text-[32px] leading-tight font-semibold text-[var(--ink)]">Intégrations</h1>
-          {view?.providerMode === "SCRIPTED" ? (
-            <span
-              className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded border border-[var(--line)] text-[var(--muted)]"
-              data-testid="badge-scripted"
-            >
-              SCRIPTED
-            </span>
-          ) : null}
-        </div>
-        <p className="text-base text-[var(--muted)] max-w-3xl">
-          Connectez les services utiles à votre travail. Vous gardez la maîtrise des dépôts et des
-          permissions.
+    <div className="integrations-1106" data-testid="integrations-panel">
+      <header className="integrations-1106-header">
+        <p className="integrations-1106-eyebrow">PARAMÈTRES / SERVICES EXTERNES</p>
+        <h1 className="integrations-1106-title">Intégrations</h1>
+        <p className="integrations-1106-lead">
+          Gérez votre connexion GitHub et consultez les dépôts accessibles.
         </p>
       </header>
 
       <div
-        className={`rounded-xl border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_80%,transparent)] p-4 text-sm font-medium ${banner.tone}`}
+        className={`integrations-1106-banner ${banner.tone === "ok" ? "is-ok" : "is-warn"}`}
         data-testid="integrations-status-banner"
+        role="status"
       >
         {banner.text}
       </div>
 
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
-        <section className="studio-card p-5 space-y-4" data-testid="github-integration-card">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-[var(--fig-accent)]">
-              GitHub · Intégration disponible
-            </p>
-            <h2 className="text-[22px] font-semibold mt-1">GitHub</h2>
-            <p className="text-sm text-[var(--muted)] mt-1">
-              Consulter vos dépôts autorisés, travailler avec Nora et publier des documents sous votre
-              contrôle.
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
-              <p className="text-sm font-semibold">Connexion Studio</p>
-              <p className="text-xs text-[var(--muted)] mt-1">
-                Vous êtes authentifié dans Studio : cela ne donne aucun droit sur les dépôts.
-              </p>
-            </div>
-            <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
-              <p className="text-sm font-semibold">Accès aux dépôts</p>
-              <p className="text-xs text-[var(--muted)] mt-1">
-                {status === "CONNECTED"
-                  ? "Installation et autorisation utilisateur GitHub App vérifiées côté serveur."
-                  : "Aucune installation GitHub App ni autorisation utilisateur n'est présumée."}
-              </p>
-            </div>
-            <div className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3">
-              <p className="text-sm font-semibold">Publication documentaire</p>
-              <p className="text-xs text-[var(--muted)] mt-1">
-                Les branches, commits, PR et merges nécessitent un mandat distinct.
-              </p>
-            </div>
+      <div className="integrations-1106-grid" data-testid="integrations-layout-1106">
+        <section className="integrations-1106-card" data-testid="github-integration-card">
+          <div className="integrations-1106-provider">
+            <h2 className="integrations-1106-card-title">GitHub</h2>
+            {status === "CONNECTED" ? (
+              <span className="integrations-1106-connected" data-testid="github-connected-badge">
+                ● Connecté
+              </span>
+            ) : null}
           </div>
 
           {status === "CONNECTED" ? (
-            <ul className="text-sm space-y-1" data-testid="repo-list">
-              {view?.repositories.map((r) => (
-                <li key={r.id} className="mono muted">
-                  {r.fullName}
-                  {r.defaultBranch ? ` · ${r.defaultBranch}` : ""}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-sm muted">Aucun dépôt autorisé.</p>
-          )}
-
-          <div className="flex flex-wrap gap-3 pt-1">
-            {status === "CONNECTED" ? (
-              <>
+            <>
+              <p className="integrations-1106-muted">
+                Dépôts accessibles depuis votre compte GitHub.
+              </p>
+              {repos.length === 0 ? (
+                <p className="integrations-1106-muted" data-testid="repo-list-empty">
+                  Aucun dépôt autorisé.
+                </p>
+              ) : (
+                <ul className="integrations-1106-repo-list" data-testid="repo-list">
+                  {repos.map((r) => (
+                    <li
+                      key={r.id}
+                      className="integrations-1106-repo"
+                      data-testid={`integration-repo-${r.id}`}
+                    >
+                      <p className="integrations-1106-repo-name">{r.fullName}</p>
+                      <p className="integrations-1106-repo-meta">
+                        Accessible au compte Pilote
+                        {r.defaultBranch ? ` · branche par défaut ${r.defaultBranch}` : ""}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <div className="integrations-1106-actions">
                 <button
                   type="button"
-                  className="studio-btn"
+                  className="git-btn-secondary"
                   disabled={busy}
                   onClick={() => void refreshRepos()}
                   data-testid="refresh-repos"
                 >
-                  Actualiser les dépôts
+                  Actualiser les accès
                 </button>
                 <button
                   type="button"
-                  className="studio-btn-secondary"
+                  className="git-btn-secondary"
                   disabled={busy}
-                  onClick={() => void disconnect()}
+                  onClick={() => setConfirmDisconnect(true)}
                   data-testid="disconnect-github"
+                  title="Ouvre la confirmation — aucun appel de déconnexion avant confirmation"
                 >
-                  Déconnecter
+                  Déconnecter GitHub
                 </button>
-              </>
-            ) : (
-              <>
+              </div>
+              <p className="integrations-1106-write-note" data-testid="integrations-write-boundary">
+                Les publications vers GitHub restent soumises à une autorisation distincte. Si les
+                écritures ne sont pas activées pour cet environnement, aucune publication distante
+                n’est effectuée depuis cette page.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="integrations-1106-muted">
+                Consultez vos dépôts autorisés, travaillez avec Nora et publiez des documents sous
+                votre contrôle.
+              </p>
+              <p className="integrations-1106-muted" data-testid="repo-list-empty">
+                Aucun dépôt autorisé.
+              </p>
+              <div className="integrations-1106-actions">
                 <button
                   type="button"
-                  className="studio-btn"
+                  className="git-btn-primary"
                   disabled={busy}
                   onClick={() => void connect()}
                   data-testid="connect-github"
                 >
                   Configurer GitHub
                 </button>
-                <button type="button" className="studio-btn-secondary" disabled={busy} onClick={() => void refresh()}>
+                <button
+                  type="button"
+                  className="git-btn-secondary"
+                  disabled={busy}
+                  onClick={() => void refresh()}
+                >
                   Plus tard
                 </button>
-              </>
-            )}
-          </div>
+              </div>
+            </>
+          )}
         </section>
 
-        <aside className="studio-card p-5 space-y-3">
-          <h2 className="text-[20px] font-semibold">Une connexion à la carte</h2>
-          <p className="text-sm text-[var(--muted)]">
-            Connectez GitHub maintenant, ou seulement lorsqu&apos;un projet en aura besoin.
-          </p>
-          {[
-            ["1 · Choisir le compte", "Sur GitHub, choisissez un compte ou une organisation."],
-            ["2 · Sélectionner les dépôts", "Limitez l'installation aux dépôts nécessaires."],
-            ["3 · Conserver le contrôle", "Vous pourrez ajouter ou retirer des dépôts plus tard."],
-          ].map(([title, body]) => (
-            <div
-              key={title}
-              className="rounded-lg border border-[var(--line)] bg-[color-mix(in_srgb,var(--panel)_60%,transparent)] px-3.5 py-3"
-            >
-              <p className="text-sm font-semibold">{title}</p>
-              <p className="text-xs text-[var(--muted)] mt-1">{body}</p>
+        <aside className="integrations-1106-card" data-testid="integrations-explain-column">
+          <h2 className="integrations-1106-aside-title">À propos de votre connexion</h2>
+          {SCOPE_CARDS.map((card) => (
+            <div key={card.title} className="integrations-1106-repo">
+              <p className="integrations-1106-repo-name">{card.title}</p>
+              <p className="integrations-1106-repo-meta">{card.body}</p>
             </div>
           ))}
         </aside>
       </div>
 
-      {message ? <p className="text-sm text-amber-400">{message}</p> : null}
-      <p className="text-xs text-[var(--muted)]" data-testid="provider-mode-note">
-        {!view
-          ? "Chargement du statut d'intégration…"
-          : view.providerMode === "SCRIPTED"
-            ? "Fournisseur d'effet Git SCRIPTED (fixtures). Orthogonal au flux OAuth user-to-server."
-            : "Fournisseur d'effet Git REAL. Orthogonal au statut OAuth CONNECTED — mutations bornées documentary + mandat D6."}
-      </p>
+      {message ? (
+        <p className="integrations-1106-message" role="alert">
+          {message}
+        </p>
+      ) : null}
     </div>
   );
 }

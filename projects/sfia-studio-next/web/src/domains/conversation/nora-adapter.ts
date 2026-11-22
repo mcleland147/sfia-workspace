@@ -8,6 +8,7 @@ import {
 } from "@/domains/decisions/divergence-assist";
 import {
   buildCognitivePolicy,
+  createSharedToolBudget,
   maxTurnsForPolicy,
   type CognitivePolicy,
   NORA_STUDY_MODEL,
@@ -129,6 +130,7 @@ const SYSTEM_INSTRUCTIONS = [
   "- Révision ciblée: dans la fence, fournis la section demandée mise à jour (titre ATX inclus); ne réécris pas les autres sections; ne place aucun compte rendu opérationnel ni statut transactionnel dans la fence.",
   "- Provenance Git: un SHA de contenu (blob) n'est jamais un SHA de commit; cite blobSha et commitSha séparément lorsqu'ils sont fournis par les outils; n'invente jamais d'URL /blob/{blobSha}/… ; utilise permalink seulement si commitShaVerified=true.",
   "- Lecture Git: AVAILABLE = contenu; FILE_ABSENT = chemin absent à une ref tip vérifiée (pas une autorisation d'écriture); DENIED/REF_UNRESOLVED/AMBIGUOUS/UNAVAILABLE = aucune conclusion d'absence ni de CREATE.",
+  "- Consultation Git READ: `list_project_git_sources` → `list_git_pull_requests` / `read_git_pull_request` → `list_git_pull_request_files` → `read_git_commit` (dates auteur/committer, parents) → `compare_git_refs` (ahead/behind + fichiers, sans hunks) → `read_git_commit_status` (combined status + check-runs bornés). Protections/rulesets de branche : non exposées — le dire explicitement. `mergeable=true` ≠ autorisation de fusion. Budget Git (appels) est séparé du budget D4/documents. Ne jamais fusionner via un outil de lecture. Un fait D8 historique ne remplace pas une observation live.",
   "Réponds en français. Markdown utile autorisé (titres, listes, tableaux).",
 ].join("\n");
 
@@ -767,10 +769,16 @@ async function runLiveWithTools(
   const { Agent, run } = await import("@openai/agents");
 
   const attempts: NoraAttemptRecord[] = [];
-  const initialBudget = {
-    remainingCalls: policy.budgets.maxD4ToolCalls,
-    remainingChars: policy.budgets.maxD4CharsReturned,
-  };
+  /**
+   * Single mutable budget object shared by D4, history, and Git tools.
+   * - remainingCalls: D4 + history only (shared)
+   * - remainingGitCalls: Git READ only (independent)
+   * - remainingChars: all three families (shared)
+   * Do NOT clone into separate objects — mutations must be visible across families.
+   */
+  const sharedToolBudget = createSharedToolBudget(policy.budgets);
+  // Alias kept for existing charsConsumed accounting below.
+  const initialBudget = sharedToolBudget;
 
   // Union of D4 / history / git tools — Agent accepts heterogeneous FunctionTool[].
   let tools: unknown[] = [];
@@ -780,7 +788,7 @@ async function runLiveWithTools(
       preparationId: input.toolScope.preparationId,
       operationId: input.toolScope.operationId,
       generationId,
-      budget: initialBudget,
+      budget: sharedToolBudget,
     };
     tools = await buildNoraD4Tools(scope);
     if (
@@ -791,7 +799,7 @@ async function runLiveWithTools(
       const historyTools = await buildNoraHistoryTools({
         pilotId: input.toolScope.pilotId,
         preparationId: input.toolScope.preparationId,
-        budget: initialBudget,
+        budget: sharedToolBudget,
       });
       tools = [...tools, ...historyTools];
     }
@@ -801,7 +809,7 @@ async function runLiveWithTools(
         projectId: input.toolScope.projectId,
         operationId: input.toolScope.operationId,
         generationId,
-        budget: initialBudget,
+        budget: sharedToolBudget,
       });
       tools = [...tools, ...gitTools];
     }
@@ -833,8 +841,11 @@ async function runLiveWithTools(
     "- documentSource (optionnel) = { kind: PRIOR_ASSISTANT_MESSAGE, assistantMessageId } pour enregistrer une proposition ancienne sans la régénérer.",
     "- Ne combine jamais documentSource et documentProposal dans le même tour.",
     "- intents[] = 0..N intentions séparées ; mode EXPLAIN/EXPLORE/PREPARE/REQUEST_EFFECT.",
-    "- REQUEST_EFFECT : (a) effets protégés (document CREATE/REVISE, D2 projet, D5/D6, Git/publication) UNIQUEMENT sur demande positive explicite du Pilote ; (b) d4.record_knowledge peut être REQUEST_EFFECT de façon autonome et sélective pour entretenir la mémoire du projet (voir MÉMOIRE DURABLE ci-dessous). Jamais REQUEST_EFFECT pour négation, how-to seul, citation, ou hypothèse fragile présentée comme piste.",
+    "- REQUEST_EFFECT : (a) effets protégés (document CREATE/REVISE, D2 projet, D5/D6, Git/publication/merge) UNIQUEMENT sur demande positive explicite du Pilote ; (b) d4.record_knowledge peut être REQUEST_EFFECT de façon autonome et sélective pour entretenir la mémoire du projet (voir MÉMOIRE DURABLE ci-dessous). Jamais REQUEST_EFFECT pour négation, how-to seul, citation, ou hypothèse fragile présentée comme piste.",
     "- capabilityId doit être une capacité du catalogue ; n'invente pas d'ID.",
+    "- Merge documentaire : capabilityId=d7.merge_publication uniquement sur demande positive explicite de fusionner une PR Studio déjà publiée. Renseigner parameters.prNumber ; parameters.repositoryFullName si le Pilote nomme un dépôt. Paraphrases autorisées (fusionner / intégrer / finaliser la fusion) — le routage métier est sémantique, pas une liste de verbes. Jamais d7.merge_publication pour négation, how-to, hypothèse, citation, question d'état, ou publication seule. Publication ≠ merge.",
+    "- Conditions de merge : si le Pilote pose une condition (« uniquement après validation », « si les tests sont verts », « après mon prochain GO »), NE PAS émettre REQUEST_EFFECT immédiat. Utiliser mode=PREPARE ou EXPLAIN, parameters.effectCondition = texte de la condition, effectConditionStatus=OPEN (ou UNVERIFIABLE si non contrôlable). Ne jamais inventer effectConditionStatus=SATISFIED.",
+    "- Contradiction sur la même PR (« ne merge pas #42 » + « merge #42 ») : pas de REQUEST_EFFECT merge ; clarifier.",
     "- Une qualification n'est PAS une autorisation ni une HumanDecision.",
     "- Utilise search_conversation_history / read_conversation_messages pour retrouver des sources anciennes avant d'affirmer une absence.",
     "- search_conversation_history : la requête lexicale est un indice ; parcours paginé pour couverture — pas un filtre exclusif.",
@@ -1135,6 +1146,7 @@ function minimalBoundaryPolicy(reasonCode: string): CognitivePolicy {
     budgets: {
       maxProviderCalls: 0,
       maxD4ToolCalls: 0,
+      maxGitToolCalls: 0,
       wallClockMs: 1_000,
       maxD4CharsReturned: 0,
     },

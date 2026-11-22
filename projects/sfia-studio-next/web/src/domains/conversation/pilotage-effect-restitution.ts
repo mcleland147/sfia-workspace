@@ -123,7 +123,13 @@ export function composePilotageEffectRestitution(input: {
 /** True when a persisted assistant message is a raw technical mission dump (not métier Nora). */
 export function isTechnicalMissionAssistantContent(content: string, generationId?: string | null): boolean {
   // Provenance hint alone is insufficient — a mission-continue may already carry métier D4 ACK.
-  if (/Résultat d'enregistrement|Nouvelle version disponible|encore incertain/i.test(content)) {
+  // E08 — publication effect restitution is Nora métier voice; do not mask it as technical dump.
+  if (
+    /Résultat d'enregistrement|Nouvelle version disponible|encore incertain/i.test(content) ||
+    /a été publié|n'a pas été effectuée|Aucune publication n'a (été|été)|écritures GitHub ne sont pas disponibles|encore en vérification/i.test(
+      content,
+    )
+  ) {
     return false;
   }
   if (/^### Suite de mission/m.test(content) && /projectId=|clientIntentKey=|status=COMPLETED/.test(content)) {

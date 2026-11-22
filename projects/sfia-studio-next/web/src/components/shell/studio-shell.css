@@ -318,9 +318,9 @@ html.studio-shell-lock body {
 }
 
 .studio-rail-nav-item.is-active {
-  background: #292d58;
-  border-color: transparent;
-  color: #f4f6fc;
+  background: var(--fig-accent-bg, #242c4b);
+  border-color: var(--fig-line, transparent);
+  color: var(--fig-ink, #f3f5ff);
   font-weight: 600;
 }
 

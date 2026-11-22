@@ -20,6 +20,13 @@ export const NORA_STUDY_MODEL = "gpt-6.1-sol" as const;
 export type BudgetLimits = {
   maxProviderCalls: number;
   maxD4ToolCalls: number;
+  /**
+   * Separate Git READ call budget (D9 tools).
+   * Must not share the D4/history call counter — otherwise a nominal PR consult
+   * (sources + PR + files + commit + compare) exhausts TEST_BOUNDARY analyse (4)
+   * before reconciliation completes. Chars remain shared via maxD4CharsReturned.
+   */
+  maxGitToolCalls: number;
   wallClockMs: number;
   maxD4CharsReturned: number;
 };
@@ -27,24 +34,32 @@ export type BudgetLimits = {
 /**
  * Artificial stress ceilings for qualification only.
  * MUST NOT become implicit operational defaults.
+ *
+ * RECETTE currently runs SFIA_COG_PROFILE_TYPE=TEST_BOUNDARY (OPERATIONAL_*
+ * forbidden on protected lanes until OPERATIONAL_VALIDATED). Git call ceilings
+ * below are sized for a nominal multi-tool Git READ (UAT-01..07), not for
+ * unbounded exploration — D4 call stress ceilings stay tighter.
  */
 export const TEST_BOUNDARY_BUDGETS: Record<CognitiveProfile, BudgetLimits> = {
   // Lot E/D5: short messages must still be able to call authorized read tools.
   simple: {
     maxProviderCalls: 4,
     maxD4ToolCalls: 2,
+    maxGitToolCalls: 6,
     wallClockMs: 60_000,
     maxD4CharsReturned: 16_000,
   },
   analyse: {
-    maxProviderCalls: 6,
+    maxProviderCalls: 8,
     maxD4ToolCalls: 4,
+    maxGitToolCalls: 12,
     wallClockMs: 120_000,
     maxD4CharsReturned: 32_000,
   },
   investigation: {
-    maxProviderCalls: 10,
+    maxProviderCalls: 12,
     maxD4ToolCalls: 8,
+    maxGitToolCalls: 16,
     wallClockMs: 180_000,
     maxD4CharsReturned: 64_000,
   },
@@ -59,18 +74,21 @@ export const OPERATIONAL_BUDGETS_PROVISIONAL: Record<CognitiveProfile, BudgetLim
   simple: {
     maxProviderCalls: 2,
     maxD4ToolCalls: 2,
+    maxGitToolCalls: 6,
     wallClockMs: 600_000,
     maxD4CharsReturned: 100_000,
   },
   analyse: {
     maxProviderCalls: 20,
     maxD4ToolCalls: 20,
+    maxGitToolCalls: 24,
     wallClockMs: 600_000,
     maxD4CharsReturned: 500_000,
   },
   investigation: {
     maxProviderCalls: 40,
     maxD4ToolCalls: 40,
+    maxGitToolCalls: 40,
     wallClockMs: 900_000,
     maxD4CharsReturned: 2_000_000,
   },
@@ -90,6 +108,13 @@ export type CognitivePolicy = {
     | "list_project_git_sources"
     | "read_git_file"
     | "list_git_refs"
+    | "list_git_directory"
+    | "read_git_pull_request"
+    | "list_git_pull_requests"
+    | "list_git_pull_request_files"
+    | "read_git_commit"
+    | "compare_git_refs"
+    | "read_git_commit_status"
   >;
   budgets: BudgetLimits;
   reasonCodes: string[];
@@ -194,6 +219,23 @@ export function qualifyCognitiveProfile(userText: string): {
   };
 }
 
+/**
+ * Single mutable budget bag for one Nora generation.
+ * D4+history share remainingCalls; Git uses remainingGitCalls; all share remainingChars.
+ * Pass the SAME object reference to every tool family — never clone numeric snapshots.
+ */
+export function createSharedToolBudget(budgets: BudgetLimits): {
+  remainingCalls: number;
+  remainingChars: number;
+  remainingGitCalls: number;
+} {
+  return {
+    remainingCalls: budgets.maxD4ToolCalls,
+    remainingChars: budgets.maxD4CharsReturned,
+    remainingGitCalls: budgets.maxGitToolCalls,
+  };
+}
+
 export function buildCognitivePolicy(
   userText: string,
   overrideType?: PolicyProfileType,
@@ -215,6 +257,13 @@ export function buildCognitivePolicy(
     "list_project_git_sources",
     "read_git_file",
     "list_git_refs",
+    "list_git_directory",
+    "read_git_pull_request",
+    "list_git_pull_requests",
+    "list_git_pull_request_files",
+    "read_git_commit",
+    "compare_git_refs",
+    "read_git_commit_status",
   ];
 
   return {

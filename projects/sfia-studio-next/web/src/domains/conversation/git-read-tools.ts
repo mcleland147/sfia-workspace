@@ -1,10 +1,18 @@
 import {
   FILE_ABSENT_AT_VERIFIED_REF,
+  NOT_A_DIRECTORY,
   READ_NOT_FOUND_UNQUALIFIED,
   REF_UNRESOLVED,
+  compareGitRefs,
+  listGitDirectory,
+  listGitPullRequestFiles,
+  listGitPullRequests,
   listGitRefs,
   listProjectGitSources,
+  readGitCommit,
+  readGitCommitStatus,
   readGitFile,
+  readGitPullRequest,
 } from "@/domains/integrations/resource-service";
 import { StudioError, isStudioError, toStudioError } from "@/lib/http-errors";
 import { emitObs } from "@/lib/observability";
@@ -15,8 +23,46 @@ export type GitToolScope = {
   projectId: string;
   operationId: string;
   generationId: string;
-  budget: { remainingCalls: number; remainingChars: number };
+  budget: {
+    /** Shared char budget with D4 (file excerpts dominate). */
+    remainingChars: number;
+    /**
+     * Git-only call budget (separate from D4/history remainingCalls).
+     * Prefer remainingGitCalls; fall back to remainingCalls for older callers.
+     */
+    remainingGitCalls?: number;
+    remainingCalls?: number;
+  };
 };
+
+function gitCallsRemaining(scope: GitToolScope): number {
+  if (typeof scope.budget.remainingGitCalls === "number") {
+    return scope.budget.remainingGitCalls;
+  }
+  return scope.budget.remainingCalls ?? 0;
+}
+
+function consumeGitCall(scope: GitToolScope): void {
+  if (typeof scope.budget.remainingGitCalls === "number") {
+    scope.budget.remainingGitCalls = Math.max(0, scope.budget.remainingGitCalls - 1);
+    return;
+  }
+  if (typeof scope.budget.remainingCalls === "number") {
+    scope.budget.remainingCalls = Math.max(0, scope.budget.remainingCalls - 1);
+  }
+}
+
+function budgetExhaustedPayload() {
+  return {
+    status: "DENIED" as const,
+    reason: "GIT_TOOL_BUDGET_EXHAUSTED",
+    coverage: "DENIED" as ToolCoverage,
+    guidance:
+      "Budget d'appels Git READ épuisé pour ce tour — ne pas inventer de métadonnées Git. " +
+      "Prioriser les outils restants au prochain tour ou demander une question plus ciblée.",
+    authorityReminder: "Budget exhaustion is not a publication or merge grant.",
+  };
+}
 
 /**
  * Structured read outcomes for Nora — never authority for D6/D7 publication.
@@ -177,10 +223,10 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
         "List Git repositories attached to the current project (read-only). Requires explicit project binding.",
       parameters: z.object({}),
       execute: async () => {
-        if (scope.budget.remainingCalls <= 0) {
-          return { status: "DENIED", reason: "GIT_TOOL_BUDGET_EXHAUSTED", coverage: "DENIED" as ToolCoverage };
+        if (gitCallsRemaining(scope) <= 0) {
+          return budgetExhaustedPayload();
         }
-        scope.budget.remainingCalls -= 1;
+        consumeGitCall(scope);
         const sources = await listProjectGitSources(scope.pilotId, scope.projectId);
         const payload = {
           status: "AVAILABLE",
@@ -203,8 +249,10 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
       name: "read_git_file",
       description:
         "Read a bounded file from an attached Git repo. ref is mandatory — never assume main. " +
-        "Statuses: AVAILABLE (content+provenance), FILE_ABSENT (path missing at verified ref tip — not a write grant), " +
+        "Statuses: AVAILABLE (content+provenance), UNPREVIEWABLE (file exists but Studio cannot render — use openUrl), " +
+        "FILE_ABSENT (path missing at verified ref tip — not a write grant), " +
         "DENIED, REF_UNRESOLVED, AMBIGUOUS, UNAVAILABLE. " +
+        "UNPREVIEWABLE is not DENIED and not FILE_ABSENT. " +
         "Provenance: blobSha is content id; commitSha is revision; never build /blob/{blobSha}/path URLs.",
       parameters: z.object({
         repositoryId: z.string(),
@@ -212,10 +260,10 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
         ref: z.string(),
       }),
       execute: async (args) => {
-        if (scope.budget.remainingCalls <= 0) {
-          return { status: "DENIED", reason: "GIT_TOOL_BUDGET_EXHAUSTED", coverage: "DENIED" as ToolCoverage };
+        if (gitCallsRemaining(scope) <= 0) {
+          return budgetExhaustedPayload();
         }
-        scope.budget.remainingCalls -= 1;
+        consumeGitCall(scope);
         try {
           const result = await readGitFile({
             pilotId: scope.pilotId,
@@ -224,9 +272,58 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
             path: args.path,
             ref: args.ref,
           });
+          const prov = result.provenance;
+          const openUrl = result.openUrl;
+          // File exists but Studio cannot render it — distinct from DENIED / NOT_FOUND.
+          if (!result.preview.available) {
+            const payload = {
+              status: "UNPREVIEWABLE" as const,
+              reason: result.preview.reason,
+              message: result.preview.message,
+              motifLabel: result.preview.motifLabel,
+              openUrl,
+              provenance: {
+                owner: prov.owner,
+                fullName: prov.fullName,
+                path: prov.path,
+                requestedRef: prov.requestedRef,
+                blobSha: prov.blobSha,
+                commitSha: prov.commitSha,
+                commitShaVerified: prov.commitShaVerified,
+                permalink: prov.permalink,
+                identities: {
+                  blobSha: { value: prov.blobSha, kind: "blob_content" as const },
+                  commitSha: {
+                    value: prov.commitSha,
+                    kind: "commit_revision" as const,
+                    verified: prov.commitShaVerified,
+                  },
+                },
+                warning:
+                  "blobSha is a content object id — never use it in /blob/{sha}/path as if it were a commit.",
+              },
+              guidance:
+                "Le fichier est accessible mais non prévisualisable dans Studio — orienter vers openUrl/permalink GitHub. Ce n'est pas un refus d'accès ni une absence.",
+              authorityReminder: result.authorityReminder,
+              coverage: "PARTIAL" as ToolCoverage,
+              charsCharged: 0,
+            };
+            emitObs({
+              event_name: "d3.tool.read_git_file",
+              component: "git.read_tools",
+              operation_id: scope.operationId,
+              generation_id: scope.generationId,
+              outcome: "SUCCESS",
+              meta: {
+                status: "UNPREVIEWABLE",
+                reason: result.preview.reason,
+                commit_sha_verified: prov.commitShaVerified,
+              },
+            });
+            return payload;
+          }
           const max = Math.min(8000, scope.budget.remainingChars);
           const excerpt = result.content.slice(0, max);
-          const prov = result.provenance;
           const payload = {
             status: "AVAILABLE" as const,
             excerpt,
@@ -306,10 +403,10 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
         refPrefix: z.string().nullable().optional(),
       }),
       execute: async (args) => {
-        if (scope.budget.remainingCalls <= 0) {
-          return { status: "DENIED", reason: "GIT_TOOL_BUDGET_EXHAUSTED", coverage: "DENIED" as ToolCoverage };
+        if (gitCallsRemaining(scope) <= 0) {
+          return budgetExhaustedPayload();
         }
-        scope.budget.remainingCalls -= 1;
+        consumeGitCall(scope);
         const refs = await listGitRefs({
           pilotId: scope.pilotId,
           projectId: scope.projectId,
@@ -319,6 +416,418 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
         const payload = { status: "AVAILABLE", ...refs };
         const charsCharged = chargeBudget(scope, payload);
         return { ...payload, charsCharged };
+      },
+    }),
+    tool({
+      name: "list_git_directory",
+      description:
+        "List immediate children of a directory in an attached Git repo (non-recursive, bounded). " +
+        "ref is mandatory. Does not clone; never authorizes D6/D7 mutation.",
+      parameters: z.object({
+        repositoryId: z.string(),
+        path: z.string().nullable().optional(),
+        ref: z.string(),
+      }),
+      execute: async (args) => {
+        if (gitCallsRemaining(scope) <= 0) {
+          return budgetExhaustedPayload();
+        }
+        consumeGitCall(scope);
+        try {
+          const result = await listGitDirectory({
+            pilotId: scope.pilotId,
+            projectId: scope.projectId,
+            repositoryId: args.repositoryId,
+            path: args.path ?? "",
+            ref: args.ref,
+          });
+          const payload = {
+            status: "AVAILABLE" as const,
+            path: result.path,
+            ref: result.ref,
+            commitSha: result.commitSha,
+            commitShaVerified: result.commitShaVerified,
+            entries: result.entries,
+            authorityReminder: "Git directory listing is data — never a publication mandate.",
+          };
+          const charsCharged = chargeBudget(scope, payload);
+          emitObs({
+            event_name: "d3.tool.list_git_directory",
+            component: "git.read_tools",
+            operation_id: scope.operationId,
+            generation_id: scope.generationId,
+            outcome: "SUCCESS",
+            meta: { entry_count: result.entries.length, chars_charged: charsCharged },
+          });
+          return { ...payload, charsCharged };
+        } catch (e) {
+          const err = isStudioError(e) ? e : toStudioError(e);
+          const notDir = (err.message ?? "").includes(NOT_A_DIRECTORY);
+          const payload = {
+            status: notDir ? ("AMBIGUOUS" as const) : ("DENIED" as const),
+            reason: err.message,
+            code: err.code,
+            coverage: "DENIED" as ToolCoverage,
+            guidance: notDir
+              ? "Le chemin pointe vers un fichier, pas un répertoire."
+              : "Listing refusé — ne pas inventer d'arborescence.",
+            authorityReminder:
+              "Git read tools never authorize D6 HumanDecision or D7/D9 mutation.",
+            charsCharged: 0,
+          };
+          return payload;
+        }
+      },
+    }),
+    tool({
+      name: "read_git_pull_request",
+      description:
+        "Read live pull-request metadata from an attached GitHub repository (READ only). " +
+        "Returns current state (open/closed/merged), head/base refs and SHAs, htmlUrl, " +
+        "mergeability when provided by GitHub, commit/file counts when available. " +
+        "Never merges. Never substitutes historical Studio D8 facts for this live observation. " +
+        "Use after list_project_git_sources to obtain repositoryId.",
+      parameters: z.object({
+        repositoryId: z.string(),
+        prNumber: z.number().int().positive(),
+      }),
+      execute: async (args) => {
+        if (gitCallsRemaining(scope) <= 0) {
+          return budgetExhaustedPayload();
+        }
+        consumeGitCall(scope);
+        try {
+          const result = await readGitPullRequest({
+            pilotId: scope.pilotId,
+            projectId: scope.projectId,
+            repositoryId: args.repositoryId,
+            prNumber: args.prNumber,
+          });
+          const payload = { ...result, coverage: "COMPLETE" as ToolCoverage };
+          const charsCharged = chargeBudget(scope, payload);
+          emitObs({
+            event_name: "d3.tool.read_git_pull_request",
+            component: "git.read_tools",
+            operation_id: scope.operationId,
+            generation_id: scope.generationId,
+            outcome: "SUCCESS",
+            meta: {
+              pr_number: result.prNumber,
+              state: result.state,
+              merged: result.merged,
+              chars_charged: charsCharged,
+            },
+          });
+          return { ...payload, charsCharged };
+        } catch (e) {
+          const err = isStudioError(e) ? e : toStudioError(e);
+          const status =
+            err.code === "NOT_FOUND"
+              ? ("AMBIGUOUS" as const)
+              : err.code === "INVALID_REQUEST"
+                ? ("INVALID_REQUEST" as const)
+                : err.code === "DEPENDENCY_UNAVAILABLE"
+                  ? ("UNAVAILABLE" as const)
+                  : ("DENIED" as const);
+          const payload = {
+            status,
+            reason: err.message,
+            code: err.code,
+            coverage: "DENIED" as ToolCoverage,
+            guidance:
+              err.code === "NOT_FOUND"
+                ? "PR introuvable ou inaccessible — ne pas inventer open/merged."
+                : "Lecture PR refusée — ne pas substituer un historique Studio au statut live.",
+            authorityReminder:
+              "Git PR read never authorizes D6 HumanDecision or merge. Historical D8 ≠ live PR state.",
+            charsCharged: 0,
+          };
+          emitObs({
+            event_name: "d3.tool.read_git_pull_request",
+            component: "git.read_tools",
+            operation_id: scope.operationId,
+            generation_id: scope.generationId,
+            outcome: "DENIED",
+            meta: { status, code: err.code },
+          });
+          return payload;
+        }
+      },
+    }),
+    tool({
+      name: "list_git_pull_requests",
+      description:
+        "List or find live pull requests on an attached GitHub repository (READ only, bounded). " +
+        "Optional head/base filters (branch names). Default state=open. " +
+        "Use when the PR number is unknown (e.g. find PR for a publication branch). " +
+        "Then call read_git_pull_request for full metadata on a specific number. Never merges.",
+      parameters: z.object({
+        repositoryId: z.string(),
+        head: z.string().nullable().optional(),
+        base: z.string().nullable().optional(),
+        state: z.enum(["open", "closed", "all"]).nullable().optional(),
+      }),
+      execute: async (args) => {
+        if (gitCallsRemaining(scope) <= 0) {
+          return budgetExhaustedPayload();
+        }
+        consumeGitCall(scope);
+        try {
+          const result = await listGitPullRequests({
+            pilotId: scope.pilotId,
+            projectId: scope.projectId,
+            repositoryId: args.repositoryId,
+            head: args.head ?? undefined,
+            base: args.base ?? undefined,
+            state: args.state ?? "open",
+          });
+          const payload = {
+            ...result,
+            coverage: (result.incompleteCoverage ? "PARTIAL" : "COMPLETE") as ToolCoverage,
+          };
+          const charsCharged = chargeBudget(scope, payload);
+          emitObs({
+            event_name: "d3.tool.list_git_pull_requests",
+            component: "git.read_tools",
+            operation_id: scope.operationId,
+            generation_id: scope.generationId,
+            outcome: "SUCCESS",
+            meta: {
+              matched_count: result.matchedCount,
+              incomplete: result.incompleteCoverage,
+              chars_charged: charsCharged,
+            },
+          });
+          return { ...payload, charsCharged };
+        } catch (e) {
+          const err = isStudioError(e) ? e : toStudioError(e);
+          const payload = {
+            status: "DENIED" as const,
+            reason: err.message,
+            code: err.code,
+            coverage: "DENIED" as ToolCoverage,
+            guidance: "Liste PR refusée — ne pas inventer de numéros de PR.",
+            authorityReminder: "list_git_pull_requests never authorizes merge.",
+            charsCharged: 0,
+          };
+          return payload;
+        }
+      },
+    }),
+    tool({
+      name: "list_git_pull_request_files",
+      description:
+        "List changed files for a live pull request (READ only, bounded). " +
+        "Returns filename/status/additions/deletions. Never merges. " +
+        "Use after read_git_pull_request or list_git_pull_requests when file paths are required.",
+      parameters: z.object({
+        repositoryId: z.string(),
+        prNumber: z.number().int().positive(),
+      }),
+      execute: async (args) => {
+        if (gitCallsRemaining(scope) <= 0) {
+          return budgetExhaustedPayload();
+        }
+        consumeGitCall(scope);
+        try {
+          const result = await listGitPullRequestFiles({
+            pilotId: scope.pilotId,
+            projectId: scope.projectId,
+            repositoryId: args.repositoryId,
+            prNumber: args.prNumber,
+          });
+          const payload = {
+            ...result,
+            coverage: (result.incompleteCoverage ? "PARTIAL" : "COMPLETE") as ToolCoverage,
+          };
+          const charsCharged = chargeBudget(scope, payload);
+          emitObs({
+            event_name: "d3.tool.list_git_pull_request_files",
+            component: "git.read_tools",
+            operation_id: scope.operationId,
+            generation_id: scope.generationId,
+            outcome: "SUCCESS",
+            meta: {
+              pr_number: result.prNumber,
+              file_count: result.files.length,
+              chars_charged: charsCharged,
+            },
+          });
+          return { ...payload, charsCharged };
+        } catch (e) {
+          const err = isStudioError(e) ? e : toStudioError(e);
+          const status =
+            err.code === "NOT_FOUND"
+              ? ("AMBIGUOUS" as const)
+              : err.code === "INVALID_REQUEST"
+                ? ("INVALID_REQUEST" as const)
+                : ("DENIED" as const);
+          const payload = {
+            status,
+            reason: err.message,
+            code: err.code,
+            coverage: "DENIED" as ToolCoverage,
+            guidance: "Fichiers PR inaccessibles — ne pas inventer de chemins.",
+            authorityReminder: "list_git_pull_request_files never authorizes merge.",
+            charsCharged: 0,
+          };
+          return payload;
+        }
+      },
+    }),
+    tool({
+      name: "read_git_commit",
+      description:
+        "Read metadata for one commit (SHA or resolvable ref): author/committer dates, message, parents, " +
+        "bounded changed-file list. Prefer an exact commit SHA from a publication or PR head. " +
+        "Not a generic commit-history crawl. Never merges.",
+      parameters: z.object({
+        repositoryId: z.string(),
+        ref: z.string(),
+      }),
+      execute: async (args) => {
+        if (gitCallsRemaining(scope) <= 0) return budgetExhaustedPayload();
+        consumeGitCall(scope);
+        try {
+          const result = await readGitCommit({
+            pilotId: scope.pilotId,
+            projectId: scope.projectId,
+            repositoryId: args.repositoryId,
+            ref: args.ref,
+          });
+          const payload = {
+            ...result,
+            coverage: (result.incompleteCoverage ? "PARTIAL" : "COMPLETE") as ToolCoverage,
+          };
+          const charsCharged = chargeBudget(scope, payload);
+          emitObs({
+            event_name: "d3.tool.read_git_commit",
+            component: "git.read_tools",
+            operation_id: scope.operationId,
+            generation_id: scope.generationId,
+            outcome: "SUCCESS",
+            meta: { sha: result.sha, chars_charged: charsCharged },
+          });
+          return { ...payload, charsCharged };
+        } catch (e) {
+          const err = isStudioError(e) ? e : toStudioError(e);
+          return {
+            status: err.code === "NOT_FOUND" ? ("AMBIGUOUS" as const) : ("DENIED" as const),
+            reason: err.message,
+            code: err.code,
+            coverage: "DENIED" as ToolCoverage,
+            guidance: "Commit inaccessible — ne pas inventer de date ni de parents.",
+            authorityReminder: "read_git_commit never authorizes merge.",
+            charsCharged: 0,
+          };
+        }
+      },
+    }),
+    tool({
+      name: "compare_git_refs",
+      description:
+        "Compare two refs/commits (base...head): ahead/behind counts, compare status, bounded file list " +
+        "with status/additions/deletions. No patch hunks. Use to compare a published commit to main. Never merges.",
+      parameters: z.object({
+        repositoryId: z.string(),
+        base: z.string(),
+        head: z.string(),
+      }),
+      execute: async (args) => {
+        if (gitCallsRemaining(scope) <= 0) return budgetExhaustedPayload();
+        consumeGitCall(scope);
+        try {
+          const result = await compareGitRefs({
+            pilotId: scope.pilotId,
+            projectId: scope.projectId,
+            repositoryId: args.repositoryId,
+            base: args.base,
+            head: args.head,
+          });
+          const payload = {
+            ...result,
+            coverage: (result.incompleteCoverage ? "PARTIAL" : "COMPLETE") as ToolCoverage,
+          };
+          const charsCharged = chargeBudget(scope, payload);
+          emitObs({
+            event_name: "d3.tool.compare_git_refs",
+            component: "git.read_tools",
+            operation_id: scope.operationId,
+            generation_id: scope.generationId,
+            outcome: "SUCCESS",
+            meta: {
+              ahead: result.aheadBy,
+              behind: result.behindBy,
+              chars_charged: charsCharged,
+            },
+          });
+          return { ...payload, charsCharged };
+        } catch (e) {
+          const err = isStudioError(e) ? e : toStudioError(e);
+          return {
+            status: "DENIED" as const,
+            reason: err.message,
+            code: err.code,
+            coverage: "DENIED" as ToolCoverage,
+            guidance: "Comparaison inaccessible — ne pas inventer ahead/behind.",
+            authorityReminder: "compare_git_refs never authorizes merge.",
+            charsCharged: 0,
+          };
+        }
+      },
+    }),
+    tool({
+      name: "read_git_commit_status",
+      description:
+        "Read combined commit status and bounded check-runs for a commit/ref (READ). " +
+        "Use after read_git_pull_request when explaining merge conditions. " +
+        "Branch protection/rulesets are NOT returned here — report that limit honestly. " +
+        "mergeable=true does not authorize merge. Never merges.",
+      parameters: z.object({
+        repositoryId: z.string(),
+        ref: z.string(),
+      }),
+      execute: async (args) => {
+        if (gitCallsRemaining(scope) <= 0) return budgetExhaustedPayload();
+        consumeGitCall(scope);
+        try {
+          const result = await readGitCommitStatus({
+            pilotId: scope.pilotId,
+            projectId: scope.projectId,
+            repositoryId: args.repositoryId,
+            ref: args.ref,
+          });
+          const payload = {
+            ...result,
+            coverage: result.statusCoverage as ToolCoverage,
+          };
+          const charsCharged = chargeBudget(scope, payload);
+          emitObs({
+            event_name: "d3.tool.read_git_commit_status",
+            component: "git.read_tools",
+            operation_id: scope.operationId,
+            generation_id: scope.generationId,
+            outcome: "SUCCESS",
+            meta: {
+              combined: result.combinedState,
+              checks: result.matchedCheckCount,
+              chars_charged: charsCharged,
+            },
+          });
+          return { ...payload, charsCharged };
+        } catch (e) {
+          const err = isStudioError(e) ? e : toStudioError(e);
+          return {
+            status: "DENIED" as const,
+            reason: err.message,
+            code: err.code,
+            coverage: "DENIED" as ToolCoverage,
+            guidance:
+              "Status/checks inaccessibles — ne pas certifier que GitHub autoriserait le merge.",
+            authorityReminder: "read_git_commit_status never authorizes merge.",
+            charsCharged: 0,
+          };
+        }
       },
     }),
   ];

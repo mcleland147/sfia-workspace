@@ -1,0 +1,13 @@
+{
+  "viewport": {
+    "w": 1680,
+    "h": 970
+  },
+  "disconnectBanner": {
+    "x": 419,
+    "y": 243.59375,
+    "width": 1088,
+    "height": 54
+  },
+  "note": "F2 regional measure — compare to Figma 11.07 amber banner after parent-chain resolve"
+}

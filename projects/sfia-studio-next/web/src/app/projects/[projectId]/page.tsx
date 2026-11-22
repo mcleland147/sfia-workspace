@@ -59,7 +59,7 @@ import {
   type TurnReference,
   parseTurnProjection,
 } from "@/domains/conversation/turn-projection";
-import { PublicationInspectionPanel } from "@/components/integrations/PublicationInspectionPanel";
+import { GitRepositoriesSurface } from "@/components/integrations/GitRepositoriesSurface";
 import { useProjectSpace } from "@/components/shell/ProjectSpaceContext";
 import {
   clearProjectSurfaceNavIntent,
@@ -346,6 +346,11 @@ export default function ProjectPage() {
   const reviseDraftRef = useRef("");
   /** Surface chosen by chrome/rail while project load() is still in flight — must not be clobbered. */
   const pendingSurfaceRef = useRef<Surface | null>(null);
+  /**
+   * Document open in flight — load()/URL normalize must not replace away `documentId`
+   * before router.push from openDocumentReadView is visible on window.location.
+   */
+  const pendingDocumentOpenIdRef = useRef<string | null>(null);
   /** C1 — ignore stale async viewer responses after A→B / close / project change. */
   const viewerRequestSeqRef = useRef(0);
   const viewerOpenRef = useRef(false);
@@ -798,10 +803,14 @@ export default function ProjectPage() {
         const j = (await res.json().catch(() => ({}))) as {
           content?: string;
           provenance?: { commitSha?: string | null; permalink?: string | null };
+          preview?: { available?: boolean; message?: string; title?: string };
+          openUrl?: { href?: string | null };
           error?: string;
           errorCategory?: string;
+          message?: string;
         };
         const prov = j.provenance;
+        const openHref = j.openUrl?.href ?? prov?.permalink ?? ref.href ?? null;
         if (!res.ok) {
           applyViewerIfCurrent(
             seq,
@@ -814,9 +823,27 @@ export default function ProjectPage() {
               content: null,
               available: false,
               unavailableReason: String(
-                j.error ?? j.errorCategory ?? "Source Git indisponible ou droits insuffisants",
+                j.message ?? j.error ?? j.errorCategory ?? "Source Git indisponible ou droits insuffisants",
               ),
-              href: prov?.permalink ?? ref.href ?? null,
+              href: openHref,
+            },
+            projectIdAtStart,
+          );
+        } else if (j.preview && j.preview.available === false) {
+          applyViewerIfCurrent(
+            seq,
+            {
+              kind: "git",
+              title: ref.label,
+              path: ref.path,
+              ref: ref.ref,
+              commit: prov?.commitSha ?? ref.commit ?? null,
+              content: null,
+              available: false,
+              unavailableReason: String(
+                j.preview.message ?? j.preview.title ?? "Aperçu indisponible",
+              ),
+              href: openHref,
             },
             projectIdAtStart,
           );
@@ -835,7 +862,7 @@ export default function ProjectPage() {
               unavailableReason: content
                 ? undefined
                 : "Aperçu Git vide — aucun contenu inventé.",
-              href: prov?.permalink ?? ref.href ?? null,
+              href: openHref,
             },
             projectIdAtStart,
           );
@@ -920,6 +947,7 @@ export default function ProjectPage() {
     setSurface(next);
     setDocMissing("");
     if (next !== "document") {
+      pendingDocumentOpenIdRef.current = null;
       setInspect(null);
       setDocUi("READING");
       setReviseDraft("");
@@ -929,6 +957,7 @@ export default function ProjectPage() {
       resetDocumentBibliothequeState();
       syncSurfaceUrl(next, null, "push");
     } else {
+      pendingDocumentOpenIdRef.current = null;
       resetDocumentBibliothequeState();
       syncSurfaceUrl(next, null, "push");
     }
@@ -1064,6 +1093,7 @@ export default function ProjectPage() {
     revisionId?: string | null,
     mode: "push" | "replace" = "push",
   ) {
+    pendingDocumentOpenIdRef.current = doc.document.id;
     setInspect(doc);
     setDocMissing("");
     setSelectedLibraryId(doc.document.id);
@@ -1205,11 +1235,16 @@ export default function ProjectPage() {
 
     if (qSurface === "document") {
       if (!qDocId) {
+        // In-flight Ouvrir: do not clobber read state / pending deep-link before URL catches up.
+        if (pendingDocumentOpenIdRef.current) return;
         setInspect(null);
         setDocMissing("");
         setDocView("library");
         setSelectedLibraryId(null);
         return;
+      }
+      if (pendingDocumentOpenIdRef.current === qDocId) {
+        pendingDocumentOpenIdRef.current = null;
       }
       const match = docs.find((d) => d.document.id === qDocId);
       if (match) {
@@ -1234,6 +1269,7 @@ export default function ProjectPage() {
       }
       return;
     }
+    pendingDocumentOpenIdRef.current = null;
     setInspect(null);
     setDocMissing("");
   }
@@ -1795,7 +1831,16 @@ export default function ProjectPage() {
       applyUrlDocumentState(docs, decision.effectiveSurface as Surface, qDocId);
       if (decision.shouldNormalizeUrl) {
         const target = decision.effectiveSurface as Surface;
-        syncSurfaceUrl(target, target === "document" ? qDocId : null, "replace");
+        // Prefer live window URL + pending open so concurrent load() cannot strip documentId.
+        const liveDocId =
+          typeof window !== "undefined"
+            ? new URL(window.location.href).searchParams.get("documentId")
+            : qDocId;
+        const docIdForUrl =
+          target === "document"
+            ? liveDocId ?? qDocId ?? pendingDocumentOpenIdRef.current
+            : null;
+        syncSurfaceUrl(target, docIdForUrl, "replace");
       }
       if (qSurface && pendingSurface && qSurface === pendingSurface) {
         pendingSurfaceRef.current = null;
@@ -2805,7 +2850,9 @@ export default function ProjectPage() {
           projectName={projectName}
           onSelect={(d) => setSelectedLibraryId(d.document.id)}
           onOpen={(d) => {
-            const match = documents.find((x) => x.document.id === d.document.id);
+            const match =
+              documents.find((x) => x.document.id === d.document.id) ??
+              documentsRef.current.find((x) => x.document.id === d.document.id);
             if (match) openDocumentReadView(match, match.latestRevision?.id ?? null);
           }}
           onResumeNora={(d) => {
@@ -2930,9 +2977,10 @@ export default function ProjectPage() {
       ) : null}
 
       {surface === "git" || surface === "publication" ? (
-        <div className="space-y-4" data-testid="git-surface">
-          <PublicationInspectionPanel projectId={params.projectId} />
-        </div>
+        <GitRepositoriesSurface
+          projectId={params.projectId}
+          projectName={projectName}
+        />
       ) : null}
 
       {surface === "journal" ? (

@@ -7,23 +7,31 @@ import {
   createFileContents,
   createGitRef,
   createPullRequestRemote,
+  fetchDirectoryListing,
   fetchFileContentUtf8,
   fetchMatchingRefs,
   fetchPullRequestRemote,
   fetchRefSha,
   fetchRepositoryMetadata,
   listInstallationRepositories,
+  compareCommitsRemote,
+  fetchCommitRemote,
+  fetchCommitStatusRemote,
+  listPullRequestFilesRemote,
   listPullRequestsRemote,
+  mergePullRequestRemote,
   type GitHubFetch,
   type InstallationAccessToken,
 } from "./github-app-auth";
 import {
+  isWriteFullNameAllowed,
   loadGitHubAppCredentialsFromEnv,
   type GitHubAppLoadedCredentials,
   parseFullName,
 } from "./github-app-config";
 import { classifyPublicationPath } from "./path-policy";
 import type {
+  DirectoryEntry,
   FileContentResult,
   GitHubProvider,
   InstallationRepo,
@@ -32,9 +40,10 @@ import type {
 } from "./github-provider";
 
 /**
- * Bounded REAL documentary mutations (create branch / new file / open PR).
+ * Bounded REAL documentary mutations (create branch / new file / open PR / merge PR).
  * Requires explicit operator flag — never inferred from OAuth CONNECTED alone.
- * Merge remains hard-blocked.
+ * Merge uses the same documentary gate plus SHA preconditions at the provider.
+ * WRITE allowlist emptiness is enforced per-repo via {@link assertWritableRepo}.
  */
 export function isBoundedRealMutationAllowed(): boolean {
   const v = (process.env.STUDIO_GITHUB_ALLOW_MUTATIONS ?? "").toLowerCase().trim();
@@ -69,10 +78,27 @@ function assertMutableBranch(branch: string, op: string) {
 }
 
 function assertAllowedRepo(creds: GitHubAppLoadedCredentials, fullName: string) {
-  if (fullName.toLowerCase() !== creds.allowedFullName.toLowerCase()) {
+  const allow = creds.allowedFullNames?.length
+    ? creds.allowedFullNames
+    : [creds.allowedFullName];
+  const ok = allow.some((n) => n.toLowerCase() === fullName.toLowerCase());
+  if (!ok) {
     throw new StudioError(
       "ACCESS_DENIED",
       `Dépôt hors périmètre REAL READ (${fullName})`,
+      { httpStatus: 403 },
+    );
+  }
+}
+
+/** READ allowlist ≠ WRITE — mutations require explicit write membership. */
+function assertWritableRepo(creds: GitHubAppLoadedCredentials, fullName: string) {
+  assertAllowedRepo(creds, fullName);
+  const write = creds.allowedWriteFullNames ?? [];
+  if (!isWriteFullNameAllowed(write, fullName)) {
+    throw new StudioError(
+      "ACCESS_DENIED",
+      `Dépôt hors périmètre REAL WRITE (${fullName})`,
       { httpStatus: 403 },
     );
   }
@@ -87,7 +113,7 @@ type TokenCache = {
  * D9 GitHub provider — REAL.
  * Reads: installation-to-server (restricted) when no user context required.
  * Mutations (bounded documentary): user-to-server token only — never installation fallback.
- * Merge: always hard-blocked.
+ * Merge: same documentary gate; SHA head/base preconditions; no force / protection bypass.
  */
 export class RealGitHubReadProvider implements GitHubProvider {
   readonly mode = "REAL" as const;
@@ -158,6 +184,33 @@ export class RealGitHubReadProvider implements GitHubProvider {
     return access.token;
   }
 
+  /**
+   * READ token strategy: prefer installation-to-server (same as blob/ref reads),
+   * fall back to user OAuth when installation lacks PR pull permission (403/401).
+   * Mutations must keep using userAccessToken exclusively.
+   */
+  private async withReadToken<T>(
+    pilotId: string,
+    run: (token: string) => Promise<T>,
+  ): Promise<T> {
+    try {
+      const install = await this.installationToken();
+      return await run(install);
+    } catch (e) {
+      const err = e instanceof StudioError ? e : null;
+      const status = err?.httpStatus;
+      const code = err?.code;
+      const retryable =
+        code === "ACCESS_DENIED" ||
+        status === 401 ||
+        status === 403 ||
+        (typeof err?.message === "string" && /FORBIDDEN|UNAUTHORIZED|403|401/i.test(err.message));
+      if (!retryable) throw e;
+      const user = await this.userAccessToken(pilotId);
+      return await run(user);
+    }
+  }
+
   async listInstallationRepos(
     _pilotId: string,
     installationId: string,
@@ -169,13 +222,15 @@ export class RealGitHubReadProvider implements GitHubProvider {
     }
     const token = await this.installationToken();
     const repos = await listInstallationRepositories(token, this.fetchImpl);
-    const allowed = repos.filter(
-      (r) => r.fullName.toLowerCase() === this.creds.allowedFullName.toLowerCase(),
-    );
+    const allow = this.creds.allowedFullNames?.length
+      ? this.creds.allowedFullNames
+      : [this.creds.allowedFullName];
+    const allowSet = new Set(allow.map((n) => n.toLowerCase()));
+    const allowed = repos.filter((r) => allowSet.has(r.fullName.toLowerCase()));
     if (allowed.length === 0) {
       throw new StudioError(
         "ACCESS_DENIED",
-        `Dépôt ${this.creds.allowedFullName} non inclus dans l'installation`,
+        `Aucun dépôt allowlist (${allow.join(", ")}) inclus dans l'installation`,
         { httpStatus: 403 },
       );
     }
@@ -213,15 +268,33 @@ export class RealGitHubReadProvider implements GitHubProvider {
       ref: file.ref,
       sha: file.sha,
       content: file.content,
-      encoding: "utf-8",
+      encoding: file.encoding,
+      contentKind: file.contentKind,
     };
   }
 
-  async listRefs(pilotId: string, fullName: string, refPrefix?: string): Promise<RefInfo[]> {
+  async listDirectory(
+    pilotId: string,
+    fullName: string,
+    path: string,
+    ref: string,
+  ): Promise<DirectoryEntry[]> {
     void pilotId;
     assertAllowedRepo(this.creds, fullName);
     const token = await this.installationToken();
-    return fetchMatchingRefs(token, fullName, refPrefix, this.fetchImpl);
+    return fetchDirectoryListing(token, fullName, path, ref, this.fetchImpl);
+  }
+
+  async listRefs(pilotId: string, fullName: string, refPrefix?: string) {
+    void pilotId;
+    assertAllowedRepo(this.creds, fullName);
+    const token = await this.installationToken();
+    const listed = await fetchMatchingRefs(token, fullName, refPrefix, this.fetchImpl);
+    return {
+      refs: listed.refs,
+      incompleteCoverage: listed.incompleteCoverage,
+      matchedCount: listed.matchedCount,
+    };
   }
 
   async createBranch(
@@ -232,7 +305,7 @@ export class RealGitHubReadProvider implements GitHubProvider {
   ): Promise<{ ref: string; sha: string }> {
     this.mutationAttempts.createBranch += 1;
     if (!isBoundedRealMutationAllowed()) return mutationBlocked("createBranch");
-    assertAllowedRepo(this.creds, fullName);
+    assertWritableRepo(this.creds, fullName);
     assertMutableBranch(branch, "createBranch");
     const token = await this.userAccessToken(pilotId);
     return createGitRef({
@@ -255,7 +328,7 @@ export class RealGitHubReadProvider implements GitHubProvider {
   }): Promise<{ commitSha: string; headSha: string }> {
     this.mutationAttempts.putFileContents += 1;
     if (!isBoundedRealMutationAllowed()) return mutationBlocked("putFileContents");
-    assertAllowedRepo(this.creds, input.fullName);
+    assertWritableRepo(this.creds, input.fullName);
     assertMutableBranch(input.branch, "putFileContents");
     const policy = classifyPublicationPath(input.path);
     if (!policy.allowed || !policy.normalizedPath) {
@@ -301,7 +374,7 @@ export class RealGitHubReadProvider implements GitHubProvider {
   }): Promise<PullRequestInfo> {
     this.mutationAttempts.createPR += 1;
     if (!isBoundedRealMutationAllowed()) return mutationBlocked("createPullRequest");
-    assertAllowedRepo(this.creds, input.fullName);
+    assertWritableRepo(this.creds, input.fullName);
     assertMutableBranch(input.head, "createPullRequest.head");
     const token = await this.userAccessToken(input.pilotId);
     const marker = input.publicationMarker;
@@ -340,15 +413,16 @@ export class RealGitHubReadProvider implements GitHubProvider {
     expectedHeadSha?: string;
   }): Promise<{ matches: PullRequestInfo[]; ambiguous: boolean }> {
     assertAllowedRepo(this.creds, input.fullName);
-    const token = await this.userAccessToken(input.pilotId);
-    const listed = await listPullRequestsRemote({
-      token,
-      fullName: input.fullName,
-      head: input.head,
-      base: input.base,
-      state: "open",
-      fetchImpl: this.fetchImpl,
-    });
+    const listed = await this.withReadToken(input.pilotId, (token) =>
+      listPullRequestsRemote({
+        token,
+        fullName: input.fullName,
+        head: input.head,
+        base: input.base,
+        state: "open",
+        fetchImpl: this.fetchImpl,
+      }),
+    );
     let matches = listed.map((p) => ({
       number: p.number,
       title: p.title,
@@ -380,7 +454,70 @@ export class RealGitHubReadProvider implements GitHubProvider {
     return { matches, ambiguous: matches.length > 1 };
   }
 
-  async mergePullRequest(_input: {
+  async listPullRequests(input: {
+    pilotId: string;
+    fullName: string;
+    head?: string;
+    base?: string;
+    state?: "open" | "closed" | "all";
+  }): Promise<{
+    matches: PullRequestInfo[];
+    incompleteCoverage: boolean;
+    matchedCount: number;
+  }> {
+    assertAllowedRepo(this.creds, input.fullName);
+    const bound = 20;
+    const listed = await this.withReadToken(input.pilotId, (token) =>
+      listPullRequestsRemote({
+        token,
+        fullName: input.fullName,
+        head: input.head,
+        base: input.base,
+        state: input.state ?? "open",
+        perPage: bound + 1,
+        fetchImpl: this.fetchImpl,
+      }),
+    );
+    const matchedCount = listed.length;
+    const slice = listed.slice(0, bound);
+    return {
+      matches: slice.map((p) => ({
+        number: p.number,
+        title: p.title,
+        state: p.state,
+        headSha: p.headSha,
+        baseSha: p.baseSha,
+        headRef: p.headRef,
+        baseRef: p.baseRef,
+        htmlUrl: p.htmlUrl,
+      })),
+      incompleteCoverage: matchedCount > bound,
+      matchedCount,
+    };
+  }
+
+  async listPullRequestFiles(
+    pilotId: string,
+    fullName: string,
+    prNumber: number,
+  ): Promise<{
+    files: Array<{ filename: string; status: string; additions: number; deletions: number }>;
+    incompleteCoverage: boolean;
+    matchedCount: number;
+  }> {
+    assertAllowedRepo(this.creds, fullName);
+    return this.withReadToken(pilotId, (token) =>
+      listPullRequestFilesRemote({
+        token,
+        fullName,
+        prNumber,
+        bound: 40,
+        fetchImpl: this.fetchImpl,
+      }),
+    );
+  }
+
+  async mergePullRequest(input: {
     pilotId: string;
     fullName: string;
     prNumber: number;
@@ -388,7 +525,17 @@ export class RealGitHubReadProvider implements GitHubProvider {
     expectedBaseSha?: string | null;
   }): Promise<{ merged: boolean; sha: string }> {
     this.mutationAttempts.mergePR += 1;
-    return mutationBlocked("mergePullRequest");
+    if (!isBoundedRealMutationAllowed()) return mutationBlocked("mergePullRequest");
+    assertWritableRepo(this.creds, input.fullName);
+    const token = await this.userAccessToken(input.pilotId);
+    return mergePullRequestRemote({
+      token,
+      fullName: input.fullName,
+      prNumber: input.prNumber,
+      expectedHeadSha: input.expectedHeadSha,
+      expectedBaseSha: input.expectedBaseSha,
+      fetchImpl: this.fetchImpl,
+    });
   }
 
   async getPullRequest(
@@ -397,13 +544,14 @@ export class RealGitHubReadProvider implements GitHubProvider {
     prNumber: number,
   ): Promise<PullRequestInfo> {
     assertAllowedRepo(this.creds, fullName);
-    const token = await this.userAccessToken(pilotId);
-    const pr = await fetchPullRequestRemote({
-      token,
-      fullName,
-      prNumber,
-      fetchImpl: this.fetchImpl,
-    });
+    const pr = await this.withReadToken(pilotId, (token) =>
+      fetchPullRequestRemote({
+        token,
+        fullName,
+        prNumber,
+        fetchImpl: this.fetchImpl,
+      }),
+    );
     return {
       number: pr.number,
       title: pr.title,
@@ -413,7 +561,52 @@ export class RealGitHubReadProvider implements GitHubProvider {
       headRef: pr.headRef,
       baseRef: pr.baseRef,
       htmlUrl: pr.htmlUrl,
+      mergeable: pr.mergeable,
+      mergeableState: pr.mergeableState,
+      commits: pr.commits,
+      changedFiles: pr.changedFiles,
+      mergeCommitSha: pr.mergeCommitSha,
     };
+  }
+
+  async getCommit(pilotId: string, fullName: string, ref: string) {
+    assertAllowedRepo(this.creds, fullName);
+    return this.withReadToken(pilotId, (token) =>
+      fetchCommitRemote({
+        token,
+        fullName,
+        ref,
+        fileBound: 40,
+        fetchImpl: this.fetchImpl,
+      }),
+    );
+  }
+
+  async compareRefs(pilotId: string, fullName: string, base: string, head: string) {
+    assertAllowedRepo(this.creds, fullName);
+    return this.withReadToken(pilotId, (token) =>
+      compareCommitsRemote({
+        token,
+        fullName,
+        base,
+        head,
+        fileBound: 40,
+        fetchImpl: this.fetchImpl,
+      }),
+    );
+  }
+
+  async getCommitStatus(pilotId: string, fullName: string, ref: string) {
+    assertAllowedRepo(this.creds, fullName);
+    return this.withReadToken(pilotId, (token) =>
+      fetchCommitStatusRemote({
+        token,
+        fullName,
+        ref,
+        checkBound: 30,
+        fetchImpl: this.fetchImpl,
+      }),
+    );
   }
 
   /** Qualification helper: repo metadata + default branch HEAD (no secrets). */
@@ -431,21 +624,24 @@ export class RealGitHubReadProvider implements GitHubProvider {
     this.tokenCache = { access, fetchedAtMs: Date.now() };
     const listed = await listInstallationRepositories(access.token, this.fetchImpl);
     const names = listed.map((r) => r.fullName);
-    if (!names.some((n) => n.toLowerCase() === this.creds.allowedFullName.toLowerCase())) {
+    const allow = this.creds.allowedFullNames?.length
+      ? this.creds.allowedFullNames
+      : [this.creds.allowedFullName];
+    const allowSet = new Set(allow.map((n) => n.toLowerCase()));
+    if (!names.some((n) => allowSet.has(n.toLowerCase()))) {
       throw new StudioError(
         "ACCESS_DENIED",
-        `Dépôt ${this.creds.allowedFullName} absent de l'installation`,
+        `Aucun dépôt allowlist (${allow.join(", ")}) inclus dans l'installation`,
         { httpStatus: 403 },
       );
     }
-    const meta = await fetchRepositoryMetadata(
-      access.token,
-      this.creds.allowedFullName,
-      this.fetchImpl,
-    );
+    const primary =
+      names.find((n) => n.toLowerCase() === this.creds.allowedFullName.toLowerCase()) ??
+      names.find((n) => allowSet.has(n.toLowerCase()))!;
+    const meta = await fetchRepositoryMetadata(access.token, primary, this.fetchImpl);
     const headSha = await fetchRefSha(
       access.token,
-      this.creds.allowedFullName,
+      primary,
       meta.defaultBranch,
       this.fetchImpl,
     );

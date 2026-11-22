@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { classifyPublicationPath, normalizePublicationPath } from "@/domains/integrations/path-policy";
+import {
+  classifyPublicationPath,
+  normalizeGitReadPath,
+  normalizePublicationPath,
+} from "@/domains/integrations/path-policy";
 
 describe("path-policy fail-closed (B5)", () => {
   it("allows documentary paths under docs/", () => {
@@ -39,7 +43,39 @@ describe("path-policy fail-closed (B5)", () => {
     expect(classifyPublicationPath(".github/workflows/ci.yml").allowed).toBe(false);
   });
 
-  it("does not allow markdown outside documentary zones", () => {
-    expect(classifyPublicationPath("notes-at-root.md").allowed).toBe(false);
+  it("allows repo-root documentary markdown (DOCUMENTARY_ROOT)", () => {
+    const r = classifyPublicationPath("notes-at-root.md");
+    expect(r.allowed).toBe(true);
+    expect(r.reason).toBe("DOCUMENTARY_ROOT");
+    expect(r.classification).toBe("DOCUMENTARY");
+  });
+
+  it("still denies markdown under non-documentary nested zones", () => {
+    expect(classifyPublicationPath("random/notes.md").allowed).toBe(false);
+    expect(classifyPublicationPath("random/notes.md").reason).toBe(
+      "MARKDOWN_OUTSIDE_DOCUMENTARY_ZONE",
+    );
+  });
+});
+
+describe("normalizeGitReadPath — read contract (B1)", () => {
+  it("allows empty root", () => {
+    expect(normalizeGitReadPath("").allowed).toBe(true);
+    expect(normalizeGitReadPath("").normalizedPath).toBe("");
+    expect(normalizeGitReadPath(null).normalizedPath).toBe("");
+  });
+
+  it("rejects traversal and encoded segments without calling providers", () => {
+    expect(normalizeGitReadPath("../secret").allowed).toBe(false);
+    expect(normalizeGitReadPath("a/../../b").allowed).toBe(false);
+    expect(normalizeGitReadPath("%2e%2e/x").allowed).toBe(false);
+    expect(normalizeGitReadPath("docs\\x").allowed).toBe(false);
+    expect(normalizeGitReadPath("/abs/path").allowed).toBe(false);
+  });
+
+  it("normalizes relative documentary paths for read", () => {
+    const r = normalizeGitReadPath("docs/spec.md");
+    expect(r.allowed).toBe(true);
+    expect(r.normalizedPath).toBe("docs/spec.md");
   });
 });

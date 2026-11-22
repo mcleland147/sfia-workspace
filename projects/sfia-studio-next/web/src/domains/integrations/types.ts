@@ -54,4 +54,9 @@ export type GitSourceSummary = {
   fullName: string;
   defaultBranch: string | null;
   attachedAt: string;
+  /**
+   * Sanitized GitHub permission snapshot from Studio persistence (e.g. contents/pull_requests).
+   * Never includes tokens/secrets. Empty when unknown.
+   */
+  permissions?: Record<string, string>;
 };

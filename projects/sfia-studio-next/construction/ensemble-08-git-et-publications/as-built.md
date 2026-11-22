@@ -1,0 +1,234 @@
+# Ensemble 08 — As-built (consultation Git + conduite Nora)
+
+| Champ | Valeur |
+|---|---|
+| Date | 2026-11-22 (FINALISATION UX 11.06 + GitHub REAL WRITE policy + cutover) |
+| Branche | `feat/next-ensemble08-git-publications-nora` |
+| Base | `origin/main` @ `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
+| Profil | CRITICAL · Delivery cutover finalisation · NO RELEASE |
+| CKC | FALLBACK (Delivery #8) |
+| Runtime RECETTE (pré-cutover ce lot) | `9f34639110ce2315a2bf8dc0786197bb8f5ea3b1` · BUILD `F85QQBTLa8nq5zKYxMKKZ` |
+| Runtime précédent (rollback immédiat) | `9f346391…` / `F85QQBTLa8nq5zKYxMKKZ` (conservé) |
+| Runtime RECETTE servi | `f1907aad98f75c7d39e4c21ccbd8043ab048ce09` · TREE `1e93363b…` · BUILD `zKGLfPHM1TMilec4qglJv` |
+| RECETTE | **AVAILABLE** — cutover FINALISATION exécuté · DB préservée · UAT Morris requis |
+
+## Livré (y compris finalisation technique)
+
+### Capacité A — Consultation Git
+- Listing répertoire D9 : `listDirectory` / `listGitDirectory` / `GET .../git/tree`
+- `normalizeGitReadPath` : rejet `..`, absolu, encodé, backslash ; racine vide autorisée
+- Dépassement >200 entrées → `AMBIGUOUS` — pas de truncation silencieuse
+- **E08-S03 (fermé ce cycle)** : `ListRefsResult` / `FetchMatchingRefsResult` avec `incompleteCoverage` + `matchedCount` **avant** troncature UI (bound 40) — REAL et SCRIPTED alignés ; `listGitRefs` ne déduit plus `complete` d’une liste déjà tronquée ; résolution exacte `getRefSha` conservée
+- Fichiers binaires / trop volumineux : non rendus comme Markdown
+- Projection publications : faits MERGE corrélés via `publicationAttemptId` de la tentative GIT_MERGE
+- Surface UI : publications 30/70 (11.04), détails agrandis (11.05), confirmation déconnexion (11.07) ; indicateur couverture refs incomplète
+
+### Capacité B — Nora
+- Qualification durable `d7.merge_publication` (schema + projection `merge.wantsMerge`)
+- `wantsMergeFromQual` **jamais** forcé à `true` depuis le seul mot « merge »
+- Cible exacte dépôt + PR ; contradiction same-PR → zéro effet
+- `admitConversationalMergeMandate` + provenance USER D6
+- Merge SHA : `merge_commit_sha` observé uniquement
+- **POST-UAT 01** : publication d’un document **existant** (sans D4 AVAILABLE same-turn) via `resolvePublicationDocumentTarget`
+- **Convergence** : référence **explicite** (hint/`doc_*`/rév.) **prévaut** sur focus UI et same-turn contradictoires ; `confirmPublicationDocumentWithD4` avant tout prepare D7
+- **Clôture** : `objectRef` et `documentHint` **réconciliés** (pas de `\|\|` silencieux) — conflit → AMBIGUOUS / REVISION_MISMATCH, zéro D7
+- Gate WRITE REAL avant préparation : `publicationWriteGate` → exige `STUDIO_GITHUB_ALLOW_MUTATIONS=documentary` **et** `GITHUB_APP_WRITE_ALLOWED_REPOS` non vide (READ ≠ WRITE)
+- Restitution Nora post-Studio : `composePublicationEffectRestitution` — **un** état métier cohérent ; intention sans effet → `NOT_ATTEMPTED` (jamais « Je publie » / succès inventé)
+- Reprise mission post-authorize COMPLETED : restitution métier (pas de dump technique masqué)
+- Champs qual `publication.documentHint` / `objectRef` / `repositoryHint`
+- Preuves PG : WRITE OFF zéro mutation ; SCRIPTED D6/D7/D8 + Nora ; Playwright Nora discriminant (DEV :3101)
+
+### Capacité UX (POST-UAT 01 + convergence + POST-UAT 02)
+- Double en-tête « Intégration Git » : `ProjectChrome` breadcrumb-only pour surfaces `git`/`publication`
+- Microcopy Pilote : jargon D4/D7/D8 / « projection » retiré des surfaces Dépôts Git / Intégrations
+- Infos : popover ancré `GitFileInfoPopover` — `aria-controls` = `panelId` ; Escape / Fermer restaurent le focus ; fermeture sur changement fichier/ref
+- **POST-UAT 02 / Figma 11.06** : composition 858/482, bandeau `--fig-ok-bg`, boutons secondaires « Actualiser les accès » / « Déconnecter GitHub », microcopy Figma (connexion / projets / Publier avec Nora), nav rail `is-active`, dépôts = provider réel (pas d’invention)
+- **FINALISATION G5** : panneaux `min-height: 610px`, banner h=44, header gap→y≈293 ; F2 ≤2 — `figma-evidence/finalisation-11.06-g5-matrix.md`
+- Confirmation déconnexion 11.07 : comportement inchangé (cancel sans effet)
+- G5 11.06 rectangles stables 1680×970 : **PROVEN** (F2 ≤2 CSS px)
+
+### REAL multi-dépôts / WRITE gouverné
+- Allowlist READ : `allowedFullNames` + env `GITHUB_APP_ALLOWED_REPOS` (même owner)
+- Allowlist WRITE distincte : `allowedWriteFullNames` + env `GITHUB_APP_WRITE_ALLOWED_REPOS` (⊂ READ, jamais inférée)
+- Mutations provider : `assertWritableRepo` après gate `documentary`
+- RECETTE : WRITE OFF tant que WRITE allowlist vide / flag ≠ documentary — sandbox GO Morris requis pour mutation externe
+- REAL WRITE / MERGE mutations : **NOT PROVEN** ce lot (pas de GO sandbox nommé)
+
+### Preuves / docs construction
+- Matrice A/B/S 41/41 : `matrice-couverture-acceptation-a-b-s.md`
+- Préflight ENV-01 : `env01-recette-preflight.md`
+- Tests S03 : `web/tests/unit/git-refs-coverage-s03.test.ts` (REAL-shaped + SCRIPTED)
+
+## Exit qualification antérieure (conservée)
+- E08-S01 conditions ouvertes → CONDITION_OPEN
+- E08-S02 qual durable sans gate verb-list
+- E08-S03 (préalable) recherche branche refPrefix + exact resolve — **complété** par honnêteté couverture fournisseur
+- E08-S04 prStatusKind / label historique
+- Playwright E08 surface historique ; G5 F2 : **NOT PROVEN** (différé Morris UAT)
+
+
+
+### UAT-GIT-PUB-01 (2026-11-22)
+- **Cause prouvée (DB RECETTE)** : tour clarifiant (`à la racine` / `ok go`) bloqué par S05 contre la mission `AWAITING_CLARIFICATION` (chemin) → `pendingEffectBlocked` → restitution `NOT_ATTEMPTED` ; **zéro** `effect_attempts`.
+- **Correction** : reprise clarification publication (pas de S05 self-block) + chemin racine documentaire (`DOCUMENTARY_ROOT`) + mandat D6 avec `missionClientIntentKey` distinct du turn key.
+- Preuve PG : `mission-continuity-accept01` UAT-GIT-PUB-01 PASS (SCRIPTED). REAL E2E : à revalider UAT Morris.
+
+### Chaîne Git restitution / vérif (2026-11-22)
+- **Oracle REAL READ** : PR #19 `mcleland147/chantiers360` · mission `pub:mission:turn-67d643cc-…` · attempt `efx_cf6763da-…` COMPLETED · D8 `dpr_7f10c5e4-…` PR_OPEN · commit `16f9961e…` · blob `7518405f…` · fichier **présent** sur branche pub · **404** sur `main` · PR OPEN non merged.
+- **Cause restitution sparse** : `publicationEffectView` same-turn non hydraté depuis `planJson`/`resultJson`/D8 ; `terminalFacts` COMPLETED sans path/SHA/PR/liens ; follow-up sans snippets owner.
+- **Correction** : `publication-effect-view.ts` (`buildPublicationEffectViewFromAttempt`) · restitution COMPLETED enrichie · snippets `listProjectPublications` avant Nora · `toolScope` sur `cognitiveContinueFromFacts` resume.
+- Matrice : `matrice-capacites-git-chaine-2026-11-22.md`
+- PUBLISH ≠ MERGE conservé (`mergeObserved` uniquement sur fait MERGE).
+
+### GIT-UAT-01 PR READ + bandeau tour (2026-11-22)
+- **Incident A** : `getPullRequest` existait en D9 (REAL+SCRIPTED) mais **non exposé** à Nora (`TOOL_NOT_EXPOSED`). Tour LIVE `tcmd_be190f5c…` : 2 toolCalls (branches) ; qualification `UNAVAILABLE` → status `UNKNOWN` ; Nora affirme à tort l’absence d’outil PR.
+- **Correction A** : `readGitPullRequest` (resource-service) + outil `read_git_pull_request` + allowlist cognitive + consigne adapter ; enrichissement live mergeable/commits/changedFiles.
+- **Incident B** : bandeau `nora-activity-error` dès `j.status === UNKNOWN` — copy « dernière tentative / réconciliez » inadaptée à un tour READ informationnel (assistant livré, zéro effet).
+- **Correction B** : copy UI distinguant consolidation cognitive vs mutation ; conserve l’alerte sans masquer l’anomalie.
+- **Cutover** : **NON** ce contrat — candidat local figé ; GO Morris requis pour RECETTE.
+
+### Audit exhaustif capacités Git + fiabilisation (2026-11-22)
+- **Périmètre** : matrice A–G complète (`matrice-capacites-git-chaine-2026-11-22.md`) ; frontières D3–D9 conservées ; pas de nouveau moteur.
+- **Gaps P0 corrigés** :
+  1. `list_git_pull_requests` / `listGitPullRequests` / provider `listPullRequests` (filtres head/base optionnels ; `listPullRequestsRemote` assoupli).
+  2. `list_git_pull_request_files` / `listGitPullRequestFiles` / provider `listPullRequestFiles` (raccord `listPullRequestFilesRemote`).
+  3. `listProjectGitSources` expose `permissions` sanitizées (pas de secrets).
+  4. REAL READ PR : `withReadToken` — installation d’abord, fallback user OAuth sur 401/403 (mutations restent user-only).
+- **OUT** : historique commits générique, diff hunks, merge REAL (GIT-UAT-08).
+- **Oracle RR** : PR #19 toujours OPEN / non merged / HEAD `16f9961e…` / 1 fichier (gh api) — corrélation D8 RECETTE inchangée ; aucune nouvelle mutation Cursor.
+- **Cutover** : freeze candidat ce lot ; GO Morris sur nouveau triplet requis avant :3200.
+
+### Cutover RECETTE — audit capacités Git (2026-11-22 ≈ 08:38 CET)
+- **GO Morris** honoré : SOURCE `79188f6c…` · TREE `a550283d…` · BUILD `hLsmHa3uFYP0PgRtj49Bh`.
+- **AVANT** : `c67a6ba8…` / `tEiDqhhGWNipSWO_86ZoG` · service `ml4d-ux004`.
+- **APRÈS** : même service/port/DB · worktree `…/gitaudit-build-79188f6c` · HTTP `<!--hLsmHa3uFYP0PgRtj49Bh-->`.
+- Backup + restore proof PASS · métriques DB stables · PR#19 D8 intact · REAL+documentary conservés · **zéro** mutation GitHub.
+- Manifeste : `manifeste-cutover-recette-e07-plus-e08.md` (section courante).
+- **UAT Morris** : GIT-UAT-01..07 · GIT-UAT-08 hors mandat · Nora LIVE E2E **NOT PROVEN** par smoke.
+
+### Fiabilisation Git READ — réserves UAT (2026-11-22)
+- **R-READ-03 (budget)** : cause prouvée — RECETTE force `TEST_BOUNDARY` ; budget d’appels **partagé** D4+Git (analyse=4) insuffisant pour un parcours PR+commit+compare. **Correction** : `maxGitToolCalls` séparé ; Git consomme `remainingGitCalls` ; D4/history gardent `maxD4ToolCalls` (stress). TEST_BOUNDARY analyse : Git=12 / D4=4.
+- **R-READ-02 (historique/date/compare)** : **Correction** outils `read_git_commit` + `compare_git_refs` (ahead/behind + fichiers bornés, **pas** list_commits ni hunks).
+- **R-READ-01 (checks)** : **Correction partielle** `read_git_commit_status` (combined status + check-runs). Protections/rulesets : **DENIED** explicite (souvent admin) — marge avant GIT-UAT-08.
+- RECETTE servi **inchangé** (`79188f6c` / `hLsmHa3uFYP0PgRtj49Bh`) — aucun cutover ce cycle.
+- Preuves : unit 824 PASS · PG mission-continuity 11 PASS · Nora LIVE / REAL WRITE **NOT PROVEN**.
+
+### Correctif revue ChatGPT — Git READ hardening (2026-11-22)
+- **Écart A (budget)** : le lot précédent passait trois objets budget clonés → D4/history/Git ne partageaient plus mutations. **Fix** : `createSharedToolBudget()` + **une** référence mutable dans `runLiveWithTools` (D4+history = `remainingCalls` ; Git = `remainingGitCalls` ; chars = `remainingChars` partagés).
+- **Écart B (compare)** : `commits[]` vide (`identical` / behind-only) → `headSha=""`. **Fix** : résolution READ via `fetchCommitRemote` si SHA tip absent ; refuse AMBIGUOUS si non vérifiable.
+- **Écart C (checks)** : catch soft des 403 empêchait `withReadToken` (install→user). **Fix** : throw `ACCESS_DENIED` si **les deux** endpoints refusent ; soft PARTIAL/DENIED si un seul accessible ; statuses tronqués → `incompleteCoverage` + PARTIAL.
+- Preuves : unit corrective + suite unit **840** PASS · PG accept01 **11** PASS · tsc PASS · REAL WRITE / Nora LIVE **NOT PROVEN**.
+
+### Cutover RECETTE — build correctif (2026-11-22 ≈ 10:06 CET)
+- **GO Morris** honoré : SOURCE `7115e932…` · TREE `bdfd5648…` · BUILD `OwQrOGhC9rwk_Dtj31OcM` (sans rebuild).
+- **AVANT** : `79188f6c…` / `hLsmHa3uFYP0PgRtj49Bh` · service `ml4d-ux004`.
+- **APRÈS** : même service/port/DB · worktree `…/corrective-build-7115e932` · HTTP `<!--OwQrOGhC9rwk_Dtj31OcM-->`.
+- Backup + restore proof PASS · métriques DB stables · PR#19 D8 intact · REAL+documentary conservés · **zéro** mutation GitHub.
+- Rollback prêt vers `hLsmHa3uFYP0PgRtj49Bh` (non exercé).
+- Manifeste : `manifeste-cutover-recette-e07-plus-e08.md` (section courante).
+- **UAT Morris** : reprise ciblée GIT-UAT-03 / GIT-UAT-04 · GIT-UAT-08 hors mandat · Nora LIVE E2E **NOT PROVEN** par smoke.
+
+### Correctif mandat WRITE — branche explicite (2026-11-22)
+- **Incident RECETTE** : USER `msg_e2cd5e69…` autorisait `sfia/pub-r12-recette-20261122` ; plan/effet `efx_d8f8e550…` / PR#20 ont exécuté `sfia/pub-91996c24991c351b` (hash `correlationKey`).
+- **Cause prouvée** : (1) `preparePublication` forçait toujours `publicationBranchFromCorrelationKey` — **premier point de divergence** au prepare D7 ; (2) extraction « Branche à créer : \`…\` » manquante → garde D6 `assertPublicationMandateCoversPlan` ne déclenchait pas `PLAN_DRIFT`.
+- **Correction** : `resolvePublicationBranchName` (explicite > hash) ; `preparePublication({ publicationBranch })` ; wiring mission/service ; regex labeled ; `extractExplicitPublicationBranch`.
+- Auto-génération **conservée** si aucune tête explicite.
+- Preuves : unit **848** PASS · PG accept01 **11** PASS · tsc PASS · GitHub REAL mutation **NONE**.
+
+### Cutover RECETTE — mandat WRITE branche (2026-11-22 ≈ 11:32 CET)
+- **GO Morris** honoré : SOURCE `24a8fa9e…` · TREE `ece43cdb…` · BUILD `qCQGWLYYGb0ZCA4BLfzBi` (sans rebuild).
+- **AVANT** : `7115e932…` / `OwQrOGhC9rwk_Dtj31OcM` · service `ml4d-ux004`.
+- **APRÈS** : même service/port/DB · worktree `…/mandate-build-24a8fa9e` · HTTP `<!--qCQGWLYYGb0ZCA4BLfzBi-->`.
+- Backup + restore proof PASS · métriques DB stables · PR#19/#20 D8 intactes · REAL+documentary conservés · **zéro** mutation GitHub.
+- Rollback prêt vers `7115e932` / `OwQrOGhC9rwk_Dtj31OcM` (non exercé).
+- Manifeste : `manifeste-cutover-recette-e07-plus-e08.md` (section courante).
+- **UAT Morris** : GIT-WRITE-UAT-04 (nouveau doc/rév. + branche explicite) · PR#20 non corrigée rétroactivement · Nora LIVE E2E **NOT PROVEN** par smoke.
+
+### Visionneuse Git — aperçu indisponible universel (Figma 11.17) (2026-11-22)
+- **Inventaire AS-IS** : Markdown (`.md` + SafeMarkdown) ; texte UTF-8 (`.txt`/`.yml`/code) en `<pre>` ; binaires / >512 KiB refusés (415/413) **sans** carte UI ni provenance.
+- **Contrat** : aucun rendu sûr disponible → état Figma 11.17 ; erreurs Git (DENIED / REF_UNRESOLVED / FILE_ABSENT / AMBIGUOUS) **distinctes**.
+- **Impl.** : `git-preview.ts` (motifs dynamiques) ; `readGitFile` retourne `preview` + `openUrl` (permalink ou browse ref honnête) ; `GitPreviewUnavailable` ; Nora `UNPREVIEWABLE`.
+- **Preuves** : unit `git-preview` · e2e `ensemble08-git-preview-unavailable` · captures `proofs/runtime-dev-preview-*.png` · contrat visuel extrait avant code.
+- **RECETTE** runtime **INCHANGÉ** (`24a8fa9e` / `qCQGWLYYGb0ZCA4BLfzBi`) — cutover **NONE**.
+- OUT : pas de visionneuse PDF native / conversion Office / mutation GitHub.
+
+## Non livré / réserves
+- Figma G5 géométrie 11.06 (F2) : **PROVEN** en DEV SCRIPTED — acceptation visuelle Morris UAT distincte
+- END-TO-END REAL mutation GitHub : **NOT PROVEN** (sandbox/GO WRITE non nommé ce lot)
+- Policy WRITE gouvernée (séparation READ/WRITE) : **DETERMINISTIC PROVEN** ; activation RECETTE WRITE : **OFF**
+- GitHub REAL READ : à requalifier en RECETTE post-cutover (smoke non mutatif)
+- Nora LIVE E2E : **NOT PROVEN**
+- Candidate finalisation : SHA/TREE/BUILD — manifeste section D
+- Rollback immédiat post-cutover : artefact `@9f346391` / `F85QQBTLa8nq5zKYxMKKZ`
+
+## Preuves exécutées (finalisation)
+- `tsc --noEmit` PASS · lint warnings préexistants uniquement
+- unit `tests/unit` **806/806** PASS
+- PG `tests/integration` **538/538** PASS
+- Playwright 11.06 **3/3** PASS (G5 h=610 · y Δ0.22)
+- REAL WRITE mutation externe : **NOT PROVEN** (STOP frontière sandbox)
+
+## Fake/Real
+| Capacité | Niveau |
+|---|---|
+| Refs bound / incompleteCoverage (S03) | DETERMINISTIC PROVEN (mock REAL-shaped + SCRIPTED) |
+| Listing / paths / pubs projection | DETERMINISTIC PROVEN |
+| Mandat merge sémantique + contradiction | DETERMINISTIC PROVEN (unit/PG hist.) |
+| UX 11.04/11.05/11.07 code | DETERMINISTIC PROVEN |
+| UX 11.06 G5 F2 | DETERMINISTIC PROVEN (runtime measures) |
+| WRITE allowlist ≠ READ | DETERMINISTIC PROVEN |
+| GitHub REAL READ (RECETTE) | BOUNDARY — smoke post-cutover |
+| GitHub REAL WRITE / MERGE | NOT PROVEN |
+| Nora LIVE E2E | NOT PROVEN |
+
+### Documentary GitHub REAL merge path (DEV — 2026-11-22)
+
+- **Chaîne** Nora `d7.merge_publication` → `admitConversationalMergeMandate` → D6 `GIT_MERGE_MANDATE` → D7 `prepareMerge` / `authorizeMerge` / `dispatchMerge` → D9 `mergePullRequest` → D8 `MERGED` + fait `MERGE`.
+- **D9 REAL** : `mergePullRequest` sous gate `STUDIO_GITHUB_ALLOW_MUTATIONS=documentary` + WRITE allowlist + user OAuth ; `mergePullRequestRemote` avec précondition `sha`, refus dirty/blocked/non-démontré, idempotence via `merge_commit_sha` (jamais HEAD source).
+- **D7** : `MergePlan.effectProviderMode` figé au prepare ; dispatch refuse divergence de mode ; `reconcileAttempt(GIT_MERGE)` ML4-REC-01 + SHA = `mergeCommitSha` uniquement.
+- **SCRIPTED** : commit de fusion synthétique distinct du HEAD source ; `mergeCommitSha` exposé.
+- **Restitution** : `publication-effect-view` corrèle les faits MERGE via `publicationAttemptId`.
+- **Preuves** : unit MERGE contract + merge SHA + merge authority ; PG `conversation-merge-security` ; slice `git-collaboration` B3/T20 ; `tsc` PASS.
+- **Hors cycle** : aucune fusion GitHub REAL exécutée ; RECETTE `98118de0` / `_U3Z92BCd0K_-hiMvgTP9` **inchangée**.
+- **Niveau** : chemin REAL **implémenté / testé (SCRIPTED + interface mockée)** — **MERGE REAL NOT PROVEN**.
+
+### Correction revue — merge documentaire (DEV — 2026-11-22)
+
+1. **Fail-closed mode** : `dispatchMerge` exige un `effectProviderMode` historique explicite (REAL|SCRIPTED) égal au live **avant** toute autorité/provider ; UNKNOWN/absent → `REQUIRES_REQUALIFICATION` (zéro mutation).
+2. **Reconcile provenance** : attribution COMPLETED seulement si dépôt/PR/headRef/baseRef/source HEAD/`mergeCommitSha` + publication associée concordent ; base SHA cible non exigée post-fusion ; pas de succès inventé.
+3. **D8 headSha** : conserve le HEAD source de publication ; `mergeCommitSha` dans `detailJson` + fait MERGE (pas de substitution silencieuse).
+4. **SCRIPTED** : avance uniquement la branche cible (`baseRef`) — merge vers `release` ne touche pas `main`.
+5. **Preuves** : PG `documentary-merge-corrections` 8/8 · unit contract C3 · suites merge/preview ciblées · `tsc` PASS · RECETTE inchangée (au moment de la correction DEV).
+6. **MERGE REAL** : toujours **NOT PROVEN**.
+
+### Cutover RECETTE — candidat merge documentaire (2026-11-22)
+
+| Champ | Valeur |
+| --- | --- |
+| SOURCE utilisateur | `10128bdb6bb1020a0fd8d4976b91879bff26c3b3` |
+| TREE | `be778f1bf461f15acf94bfed6879d43fa6256a0d` |
+| BUILD | `2uHrYBsQUvf6aii40hMpj` |
+| Service | `com.sfia.studio.next.recette.ml4d-ux004` · `http://127.0.0.1:3200` |
+| DB | `sfia_next_recette_ml4:5434` |
+| Handoff | `sfia/review-handoff@f30451d2dac193d6fc610194594f80e8616754c2` |
+| Verdict cutover | `RECETTE AVAILABLE — E08 DOCUMENTARY REAL MERGE BUILD SERVED — MORRIS UAT REQUIRED` |
+| MERGE REAL | **NOT PROVEN** (aucune fusion sandbox) |
+
+### Consolidation documentaire PR readiness (2026-11-22)
+
+- PV `recette-acceptation-partielle-2026-11-22.md` intégré depuis `docs/next-git-recette-20261122` (blob source `e767edc6…`) + section d'exécution datée.
+- Contrats fonctionnel / architecture : sections d'exécution datées ; historique initial **non réécrit**.
+- Statut addenda **à cette date (historique)** : AWAITING Morris D2 — non publiés comme normatifs.
+- Arbre `projects/sfia-studio-next/web` après consolidation documentaire : **identique** à `10128bdb` (`77c89ed84546b3bfb0356164416c04eac26ed229`).
+- Un HEAD produit ultérieur **uniquement documentaire** ne remplace **pas** rétroactivement le SOURCE/BUILD RECETTE ci-dessus.
+
+### Alignement documentaire final D2 (2026-11-22) — correction de statut
+
+- **Correction :** Morris a validé D2 les trois addenda ; ChatGPT les a publiés sur `docs/next-ensemble08-consolidation-20261122` @ `1479b3d31354f495398bca008a2b511131eb9662`.
+- Blobs intégrés sur la branche produit (remplacent les résumés alternatifs de consolidation) :
+  - fonctionnel `5d52aa625e73e2753253bea5cb448f8026403c17`
+  - architecture `32e3de32c68f72d5ed6cdde8e960405ef6b52617`
+  - PV `bd06957b3e2b0fe1cdbf76446ba37557632ed872`
+- Statut courant addenda : **D2 APPROVED / PUBLISHED ON CANDIDATE** — pas VALIDATED SPEC global, pas ADOPTED.
+- `web/` tree : toujours `77c89ed84546b3bfb0356164416c04eac26ed229` (= SOURCE `10128bdb`).
+- RECETTE runtime : **INCHANGÉE** (`10128bdb` / `2uHrYBsQUvf6aii40hMpj`).
