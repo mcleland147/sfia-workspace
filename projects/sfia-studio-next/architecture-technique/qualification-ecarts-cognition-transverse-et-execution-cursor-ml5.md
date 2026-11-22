@@ -2,11 +2,13 @@
 
 ## Base d'investigation architecture et UX — ML5
 
+> **Lecture prioritaire :** la consolidation intégrée de l'axe A se trouve au **§15**. Les §12–14 conservent l'historique du raisonnement, du cadrage de reprise et du contrôle de complétude ; le §15 rassemble le contrat candidat cohérent. Les axes B (web), C (activité) et D (Cursor) demeurent à qualifier ; aucune promotion ni architecture finale n'est déduite.
+
 | Champ | Valeur |
 | --- | --- |
 | Nature | **Document d'analyse exploratoire D0**, enregistré sur branche candidate ; non normatif, non décisionnel |
-| Version | **v0.3 — 22 novembre 2026** ; décision fonctionnelle de reprise fiable consignée, qualification des critères de complétude engagée |
-| Statut | **DOCUMENTED / DEEPENED GAP ANALYSIS — NOT QUALIFIED FOR BUILD** ; reprise fiable validée comme exigence fonctionnelle par Morris ; architecture, persistance et contrôle de complétude candidats non arbitrés |
+| Version | **v0.4 — 22 novembre 2026** ; consolidation intégrée de l'axe A (questions, lecture, sélection, acquis, suffisance, reprise, responsabilités, preuves et gates) |
+| Statut | **DOCUMENTED / AXE A CONSOLIDÉ EN CONCEPTION CANDIDATE — NOT ARCHITECTURE-VALIDATED / NOT QUALIFIED FOR BUILD** ; reprise fiable validée comme exigence fonctionnelle, mécanisme/DB/contrats techniques non arbitrés |
 | Autorité de décision | Morris ; aucune adoption d'architecture inférée |
 | Source fonctionnelle candidate | [Contrat fonctionnel Nora transverse et Cursor](../conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md) — v0.3 validée en contenu par Morris, branche candidate |
 | Base Git du diagnostic | **main@997897fd7cf914771e7d08e8030dc7123fab7d25** ; branche candidate initiale **39c00f72c10e69f7981dd2490a0b68fc5e4b8d78** |
@@ -460,7 +462,7 @@ Le détail des objets de consolidation, du contrôle de couverture, des événem
 
 **Choix documentaire confirmé par Morris (22/11/2026) :** conserver **un seul document central vivant** pour la qualification ML5, couvrant les axes A (continuité cognitive), B (recherche web), C (activité fonctionnelle) et D (Cursor), leurs interfaces et les risques communs.
 
-Le contrat fonctionnel v0.3 conserve sa propre responsabilité ; la page 12 Figma reste la référence UX candidate validée visuellement. Une décision d'architecture réellement structurante pourra justifier une trace D2 dans \`governance/decisions/\`, sous GO spécifique. Ne pas créer un fichier par question, micro-choix ou simple phase d'investigation.
+Le contrat fonctionnel v0.3 conserve sa propre responsabilité ; la page 12 Figma reste la référence UX candidate validée visuellement. Une décision d'architecture réellement structurante pourra justifier une trace D2 dans `governance/decisions/`, sous GO spécifique. Ne pas créer un fichier par question, micro-choix ou simple phase d'investigation.
 
 ## 13.2. Exigence fonctionnelle validée : séquencement ET reprise fiable
 
@@ -492,7 +494,7 @@ Un point de reprise fiable doit rendre reconstructibles, au niveau utile, les in
 
 **Reprise sémantique** : Nora reprend à partir de la photographie des acquis et des sources identifiées, réévalue les éléments devenus obsolètes et approfondit si nécessaire. Elle ne prétend pas reconstituer le raisonnement interne précédent ni une lecture non attestée.
 
-**Limite d'observation actuelle** : \`conversation_turn_commands\`, \`resultJson\`, \`ownerToken\`, heartbeat, fencing, \`UNKNOWN\` et continuité de mission D3 existent, mais une reprise multi-étapes générale **n'est pas démontrée**. Les mécanismes de stockage et d'ordonnancement restent **NON DÉCIDÉS**.
+**Limite d'observation actuelle** : `conversation_turn_commands`, `resultJson`, `ownerToken`, heartbeat, fencing, `UNKNOWN` et continuité de mission D3 existent, mais une reprise multi-étapes générale **n'est pas démontrée**. Les mécanismes de stockage et d'ordonnancement restent **NON DÉCIDÉS**.
 
 # 14. Qualification suivante — décider quand l'investigation est suffisante
 
@@ -522,7 +524,7 @@ Conduite D3 proposée à instruire :
 4. Elle vérifie si les **questions nécessaires** sont suffisamment étayées pour le livrable visé et si les inconnues restantes sont **non bloquantes** ; sinon elle approfondit ou déclare la limite.
 5. Elle produit le résultat avec les réserves nécessaires **ou** indique clairement l'insuffisance. La qualification cognitive n'accorde jamais le droit d'effet.
 
-Les contrats de lecture déterministes D4/Git/Web doivent déclarer \`COMPLETE/PARTIAL/STALE/DENIED/UNKNOWN\` selon ce qui est réellement connu. **Ils vérifient des faits techniques ; ils ne classent pas l'intention métier ni ne décident seuls que le contrat est suffisamment fiable.** Le critère qualitatif appartient à Nora, avec validation des limites d'effet par les propriétaires Studio.
+Les contrats de lecture déterministes D4/Git/Web doivent déclarer `COMPLETE/PARTIAL/STALE/DENIED/UNKNOWN` selon ce qui est réellement connu. **Ils vérifient des faits techniques ; ils ne classent pas l'intention métier ni ne décident seuls que le contrat est suffisamment fiable.** Le critère qualitatif appartient à Nora, avec validation des limites d'effet par les propriétaires Studio.
 
 ## 14.4. Conditions candidates de clôture
 
@@ -534,7 +536,7 @@ Les contrats de lecture déterministes D4/Git/Web doivent déclarer \`COMPLETE/P
 | Budget, temps ou contexte épuisé avant couverture suffisante | **SUSPENDU / PARTIEL** | Point de reprise fidèle ; pas de conversion automatique d'une limite technique en résultat complet |
 | Source externe malveillante ou droits perdus | **BLOQUÉ SUR LA PARTIE CONCERNÉE** | Refus de l'étape non autorisée ; poursuite des parties indépendantes possible |
 
-Ces expressions sont des **catégories métier candidates**, pas des enums adoptées ni des états DB. Les statuts \`COMPLETE/PARTIAL/EMPTY/DENIED/NOT_FOUND/STALE\` déjà présents dans les outils décrivent **la couverture d'une lecture**, non la complétude sémantique d'une mission.
+Ces expressions sont des **catégories métier candidates**, pas des enums adoptées ni des états DB. Les statuts `COMPLETE/PARTIAL/EMPTY/DENIED/NOT_FOUND/STALE` déjà présents dans les outils décrivent **la couverture d'une lecture**, non la complétude sémantique d'une mission.
 
 ## 14.5. Exemple discriminant : contrat Cursor
 
@@ -542,7 +544,7 @@ Demande : « Prépare le contrat du prochain chantier ».
 
 Nora découvre successivement (i) le cadrage, (ii) la décision de portée, (iii) une branche candidate non mergée, (iv) une restriction d'effet, (v) des preuves d'un précédent échec et (vi) une documentation web actuelle.
 
-**Suffisance attendue** : l'identité dépôt/ref/branche, les décisions/mandats, la cible, le périmètre IN/OUT, les dépendances et STOP, les critères de test, la provenance et les risques sont qualifiés **lorsqu'ils sont déterminants pour le contrat**. Une branche candidate n'est pas élevée en baseline \`main\`. Une documentation web n'invente pas la capacité opérationnelle. La restriction d'effet persiste à travers toutes les consolidations.
+**Suffisance attendue** : l'identité dépôt/ref/branche, les décisions/mandats, la cible, le périmètre IN/OUT, les dépendances et STOP, les critères de test, la provenance et les risques sont qualifiés **lorsqu'ils sont déterminants pour le contrat**. Une branche candidate n'est pas élevée en baseline `main`. Une documentation web n'invente pas la capacité opérationnelle. La restriction d'effet persiste à travers toutes les consolidations.
 
 Si un fichier indispensable n'est pas accessible, ou si une ambiguïté matérielle reste ouverte, Nora peut produire une **analyse/brouillon explicitement non prêt**, mais jamais un contrat présenté comme exécutable sur cette base.
 
@@ -554,12 +556,12 @@ Si un fichier indispensable n'est pas accessible, ou si une ambiguïté matérie
 | Référence A → B → C | Nora suit seulement les dépendances pertinentes, documente la couverture et sait s'arrêter |
 | Douze consultations sans couvrir la décision essentielle | Pas de clôture « suffisant » fictive |
 | Une source secondaire indisponible | Réponse utile et bornée, sans blocage global |
-| Source obligatoire \`DENIED\` ou \`PARTIAL\` | Pas de contrat « prêt » si cette source est déterminante |
-| Contradiction \`main\` vs branche candidate | Différence de statut et de preuve conservée |
+| Source obligatoire `DENIED` ou `PARTIAL` | Pas de contrat « prêt » si cette source est déterminante |
+| Contradiction `main` vs branche candidate | Différence de statut et de preuve conservée |
 | Documentation web périmée et résultat non ouvert | Pas de claim de consultation ni de fraîcheur vérifiée |
 | Aucun nouveau fait utile dans plusieurs recherches | Nora peut arrêter l'exploration non pertinente, avec réserve si nécessaire |
 | Redémarrage au milieu des consultations | Reprise au point fiable, contrôles de fraîcheur/droits et absence d'étape inventée |
-| Budget épuisé et preuve manquante | \`PARTIEL\` ou \`À APPROFONDIR\`, pas \`COMPLETE\` forcé |
+| Budget épuisé et preuve manquante | `PARTIEL` ou `À APPROFONDIR`, pas `COMPLETE` forcé |
 | Produit un contrat technique long | Contrôle des sources et intégrité de la version avant inspection/mandat |
 | Retour à une question simple | Pas de séquencement long ou de contrôle lourd systématique |
 
@@ -567,11 +569,227 @@ Si un fichier indispensable n'est pas accessible, ou si une ambiguïté matérie
 
 - **Propriétaire et représentation** des « questions déterminantes », du statut de couverture sémantique et de leurs preuves, sans dupliquer D4 ni le journal de tour.
 - **Choix de granularité** des points de consolidation et de reprise, avec stratégie de vérification des sources après interruption.
-- **Conditions observables de fin** dans l'agent SDK actuel (\`maxTurns\`, limites de contexte, génération structurée) sans faux verdict de complétude.
-- **Budget adaptatif** par besoin et risque, son coût et la politique de continuation ; calibrage \`OPERATIONAL_VALIDATED\` toujours absent.
+- **Conditions observables de fin** dans l'agent SDK actuel (`maxTurns`, limites de contexte, génération structurée) sans faux verdict de complétude.
+- **Budget adaptatif** par besoin et risque, son coût et la politique de continuation ; calibrage `OPERATIONAL_VALIDATED` toujours absent.
 - **Frontière entre arrêt cognitif et autorisation métier** : D3 peut juger une étude suffisante mais D6/D7 restent obligatoires pour exécuter.
 - **Mesure de qualité** sur corpus réel : pertinence des sources, contradictions retrouvées, absence d'omissions critiques, arrêt proportionné et reprise; DETERMINISTIC/BROWSER/LIVE/REAL à distinguer.
 
 **Verdict de conception :** proposer un **contrôle qualitatif et traçable de couverture déterminante**, associé à l'état d'investigation reprenable, plutôt qu'un score ou un quota de lectures. **CANDIDATE — NOT ARCHITECTURE-VALIDATED ; NEEDS MORRIS REVIEW**.
 
-Le prochain échange doit challenger ce modèle d'arrêt, notamment la frontière « brouillon utile » versus « contrat prêt » et l'effet du niveau de risque sur la profondeur exigée ; aucune écriture normatrice ni GO de construction n'en résulte.
+**Étape suivante effectivement instruite :** sélection progressive et priorisation des sources, suivies de la consolidation intégrée au §15. Les familles de questions, la stratégie de découverte/lecture et les règles d'arrêt restent candidates ; aucun mécanisme de persistance ni GO de construction n'est décidé.
+
+# 15. Consolidation intégrée de l'axe A — conduite cognitive, couverture et reprise fiable
+
+## 15.1. Objet, statuts et limites de cette consolidation
+
+**Résultat utilisateur visé :** Nora conduit une investigation proportionnée à la demande, y compris lorsqu'une formulation très courte implique un contrat complexe ; elle découvre et réévalue les questions importantes, sélectionne et lit les sources adéquates, confronte les faits, conserve les restrictions, produit un résultat correctement borné et **reprend de façon fiable après interruption**, sans inventer le travail non observé.
+
+**Arbitrages déjà exprimés par Morris :**
+- **VALIDATED IN CONTENT / fonctionnel :** investigation séquencée avec reprise fiable après interruption ; production fondée sur les sources réellement utiles ; séparation Nora / autorités Studio ; document de qualification d'architecture **unique** ; page 12 Figma validée sur contenu et cohérence visuelle.
+- **CANDIDATE / en revue :** A2 (investigation séquencée dans la conduite D3 existante), les « questions déterminantes » évolutives, la sélection par valeur informative, le contrôle qualitatif de suffisance, le contrat conceptuel de point de reprise décrit ci-dessous.
+- **NON DÉCIDÉ :** modèle et support de persistance, schéma DB, granularité des checkpoints, stratégie de replanification et de reprise, fournisseur et mode d'hébergement, orchestration hors session, enum technique, coûts et budgets opérationnels, API publique du travail cognitif.
+- **NON IMPLÉMENTÉ / NON PROUVÉ pour ML5 :** reprise multi-étapes générique, activité fonctionnelle live, consultation web, couverture cognitive automatique et intégration Cursor. Le worktree Cursor et les staged/untracked sont **NON OBSERVÉS**.
+
+**Sources :** contrat fonctionnel candidat ML5 v0.3, décision de qualification sémantique du 12/11, SEF v0.2, roadmap Next, Figma page 12, code relevé sur `main@997897fd7cf914771e7d08e8030dc7123fab7d25`. Ce §15 n'est ni un ADR validé, ni une spécification R4 définitive, ni un contrat d'exécution SFIA v2.6.
+
+## 15.2. Périmètre et frontières de capacité
+
+| IN — axe A | OUT à ce stade |
+| --- | --- |
+| Demande simple ou investigation complexe, en sas comme en projet | Parcours rigide de neuf étapes pour tout message |
+| Qualification sémantique des besoins, **questions déterminantes révisables** | Nouveau routeur lexical métier ou score automatique d'intention |
+| Découverte, priorisation et lecture d'éléments D4, historique, Git, puis web selon sa future disponibilité | Recherche web considérée déjà LIVE, fournisseur choisi d'avance |
+| Acquis sourcés, restrictions, contradictions et vérification de suffisance | Copie exhaustive de l'historique, du dépôt ou de pages web |
+| Suspension honnête, point de reprise fiable, contrôle des droits/versions au redémarrage | Stockage de chaîne de pensée privée ; moteur permanent de tâches choisi sans preuve |
+| Réponse, document ou **brouillon de contrat clairement qualifié** | Autorisation D6, effet D7, preuve D8, GO Cursor ou ADOPTED par inférence |
+
+**Capacité suivante débloquée par la qualification de A :** contrats d'interface pour B (web) et C (activité), puis étude de l'exécuteur Cursor D, sans prétendre que l'un est mis en production.
+
+## 15.3. Vue logique de bout en bout — un seul conducteur cognitif D3
+
+La conduite cible est **adaptative** et ne constitue pas un workflow fixe, ni un nouveau service d'orchestration déjà décidé :
+
+1. **Comprendre** l'intention authentifiée du Pilote, le résultat souhaité, l'espace (sas/projet), les contraintes, les interdictions, et qualifier les risques sans les déduire de la seule longueur de la demande.
+2. **Former des questions déterminantes initiales**, au niveau nécessaire pour décider quoi vérifier ; ne pas imposer d'avance une liste universelle de sources ou de contrôles.
+3. **Découvrir les sources candidates** par D4, historique, Git et, après construction, web. La découverte inclut éventuellement liens et métadonnées, **pas la présomption de lecture intégrale**.
+4. **Prioriser et consulter progressivement** les sources utiles ; pour chacune distinguer version, autorité, statut réel, contenu effectivement lu, pagination, fraîcheur, et éventuelles zones non couvertes.
+5. **Consolider** faits déterminants, décisions applicables, hypothèses, exclusions, contradictions, dépendances nouvelles et questions restantes. Revoir les priorités après une découverte matérielle.
+6. **Contrôler la suffisance** du résultat visé. Une lacune bloquante implique approfondissement ou résultat non prêt ; un élément secondaire manquant peut aboutir à une réponse avec réserve ; une recherche improductive peut s'arrêter sans masquer les manques.
+7. **Construire et contrôler le livrable** : fidélité à l'intention, contraintes retrouvées, traçabilité, intégrité de la production (notamment instruction Cursor longue), statut non ambigu : résultat informatif, brouillon, proposition ou contrat inspectable.
+8. **Restituer**, ou **suspendre de façon honnête** et préserver un point de reprise vérifiable si la couverture, le temps, le budget, le contexte ou un fournisseur ne permettent pas de terminer.
+
+Pour une question simple, Nora peut traverser ce raisonnement de façon compacte sans créer de « dossier » lourd. Les lectures et étapes intermédiaires ne sont mobilisées que lorsqu'elles contribuent matériellement au résultat.
+
+## 15.4. Questions déterminantes — contrat conceptuel évolutif
+
+Trois **familles de raisonnement** sont utiles sans devenir des classes obligatoires dans le code :
+
+| Famille cognitive | Utilité | Exemple Cursor |
+| --- | --- | --- |
+| **Résultat** | Ce que la mission doit réellement produire | Quel comportement/test/document faut-il livrer ? |
+| **Validité** | Pourquoi la conclusion est applicable et sourcée | Quelle décision/ref/branche fait autorité ? |
+| **Faisabilité et risque** | Ce qui pourrait invalider ou limiter la mission | Restriction d'architecture, dépendance, droit, STOP ou dette critique ? |
+
+Une question déterminante peut être représentée **conceptuellement** par :
+- **Question / raison d'être** : ce qui doit être établi et la conséquence si la réponse manque ;
+- **Caractère pour ce livrable** : indispensable, conditionnel ou secondaire, révisable à partir des nouveaux faits ;
+- **Relations** : autres questions, contraintes et sources candidates ; provenance des liens ;
+- **Éléments disponibles** : références consultées, fragments vérifiés, versions, couverture réelle, faits, contradictions et inconnues ;
+- **Situation qualitative** : non étudiée, en cours, suffisamment étayée, limitée ou bloquée, **expressions non normatives** ;
+- **Suite** : action cognitive envisagée, motif d'arrêt ou de réouverture, et vérifications nécessaires après reprise.
+
+Les questions sont **créées, reformulées, fusionnées, dépriorisées, rouvertes ou closes** par Nora selon l'enjeu sémantique. Une restriction découverte tardivement peut rendre bloquante une question jusque-là secondaire et obliger à revoir la conclusion.
+
+**Ne pas réutiliser comme substitut** `semantic-qualification.ts::clarifications` : ce champ correspond aux **questions ouvertes adressables au Pilote après un tour**, et distingue champ absent de liste `[]` réévaluée. Il ne couvre pas le travail interne nécessaire pour lire et résoudre des dépendances entre sources.
+
+## 15.5. Sélection et priorisation des sources — valeur de l'information
+
+**Principe :** Nora cherche en premier les sources qui ont le plus de chance de **répondre à une question déterminante, révéler une restriction ou modifier matériellement une conclusion**. Un ordre fixe Git > D4 > Web ou une recherche exhaustive du dépôt n'est **pas** la règle.
+
+Quatre dimensions de jugement, **sans score global obligatoire** :
+
+| Dimension | Question pratique | Vigilance |
+| --- | --- | --- |
+| **Pertinence** | Quel point essentiel cette source permet-elle d'établir ? | Similarité lexicale ≠ importance métier |
+| **Autorité** | Quelle valeur cette source a-t-elle pour cette décision, version, cible et branche ? | Récence ≠ décision ; branche candidate ≠ baseline main |
+| **Risque** | Pourrait-elle révéler un blocage, un échec passé, une contradiction ou un problème de sécurité ? | Une source de risque rare peut être indispensable |
+| **Actualité / portée** | L'information est-elle encore valable pour la version/API/code applicable ? | Web officiel ≠ capacité déployée ; discussion ancienne ≠ observation actuelle |
+
+**Pertinence → choix de consultation. Autorité → portée de ce que la source peut établir.** Une conversation antérieure peut aider à découvrir une décision, sans la remplacer. Une documentation éditeur peut décrire une API, sans attester de son usage par Studio Next.
+
+**Exemple de priorités conditionnelles pour un contrat Cursor :** décisions Morris et restrictions, cadrage/roadmap, code Git à la ref effective, précédents rapports/échecs, historique nécessaire, documentation fournisseur pertinente ; cet ordre **change selon la mission**. Pour une question sur la compatibilité SDK, le code installé et la documentation versionnée deviennent prioritaires.
+
+**Règles de découverte / lecture / suivi :**
+- Une recherche peut proposer un titre ou une métadonnée ; l'agent doit **ouvrir/lire** la source déterminante, et identifier l'extrait réellement examiné.
+- D4 fournit des révisions et extraits `COMPLETE/PARTIAL/STALE/DENIED` ; Git exige la **ref explicite**, distingue commit et blob, et peut être `UNPREVIEWABLE`. Les recherches d'historique lexical sont des **indices** et non des filtres d'exclusion prouvant l'absence.
+- Une piste `A → B → C` est suivie **seulement** si le lien apporte une réponse, une contradiction ou une dépendance pertinente. Un fichier trouvé n'autorise pas la lecture d'un chemin privé ni le suivi de liens non sûrs.
+- Nora doit éviter les consultations identiques et les longues boucles sans progrès, sans sacrifier une question indispensable.
+- Les pistes écartées doivent conserver **une justification courte** si cette exclusion peut affecter la reprise ou l'audit de la complétude.
+
+**Cas discriminant :** Nora découvre une restriction d'architecture dans une référence Git initialement hors sélection. Elle doit faire passer cette restriction au premier plan, relire sa portée et **réouvrir** les questions IN/OUT ou STOP ; il serait incorrect de conclure à partir des quatre autres questions déjà étayées.
+
+## 15.6. Acquis intermédiaires, provenance et contrôle de contradiction
+
+Une consolidation utile n'est ni une concaténation de documents ni un résumé libre sans preuve. Elle préserve :
+- **Constats étayés** avec source/revision/ref/date/extrait et étendue de lecture connue ;
+- **Décisions applicables et restrictions** distinctes des opinions, hypothèses, recommandations et descriptions historiques ;
+- **Contradictions actives** avec versions, périmètre, tentative de résolution et conséquence sur les questions ;
+- **Ce qui manque** : lecture interrompue, extrait partiel, source introuvable, accès refusé, fait non confirmé ;
+- **Travail restant et livrable provisoire**, sans assimiler une phrase générée à une preuve ni à une décision métier.
+
+Conserver des éléments significatifs ne signifie pas enregistrer automatiquement tous les acquis temporaires dans D4 : **D4 reste la mémoire/connaissance durable du projet**, tandis que l'état d'investigation est un contexte de travail limité à cette investigation, à corréler au journal existant.
+
+Une contradiction entre `main` et une branche candidate doit être **signalée**, non résolue par une synthèse qui mélange les deux. Une version modifiée après consultation déclenche une **revérification ciblée des conclusions dépendantes**, pas un effacement global.
+
+## 15.7. Contrôle de suffisance et conditions d'arrêt
+
+Le critère est **qualitatif, traçable et relatif au résultat demandé**. Il ne dépend ni d'un quota de pages, ni d'un pourcentage d'éléments couverts, ni d'une auto-déclaration non confrontée aux lectures effectives.
+
+Conditions à examiner **ensemble** :
+1. Les questions **indispensables** au livrable sont suffisamment couvertes par des sources applicables, effectivement consultées, avec limites connues ;
+2. Aucune restriction, contradiction, permission absente ou dépendance **matérielle** n'est passée sous silence ;
+3. Les recherches supplémentaires envisageables ont une **faible valeur informative marginale** pour les questions restantes, ou leur poursuite n'est plus possible ; ceci **ne compense jamais une lacune indispensable** ;
+4. La **nature du livrable** justifie le niveau d'exigence : conversation informative, analyse documentée, brouillon de réalisation et **contrat inspectable destiné à D6/D7** ne sont pas interchangeables.
+
+| Évaluation cognitive candidate | Production permise | Exigence de vérité |
+| --- | --- | --- |
+| Essentiel suffisamment étayé | Résultat adapté à la mission | Nora cite ses limites sans prétendre à une preuve d'effet |
+| Inconnue non bloquante explicite | Résultat borné **avec réserves** | La réserve n'est pas cachée dans une conformité globale |
+| Source/restriction indispensable absente ou ambiguë | Analyse/brouillon **non prêt**, approfondissement ou clarification | Aucun contrat déclaré prêt sur cette dépendance |
+| Budget/timeout/contexte/fournisseur interrompu | Travail **partiel/suspendu** et point de reprise honnête | La limite de ressource n'est pas une preuve de complétude |
+| Source hostile / droits supprimés | Refus de la partie concernée ; suite indépendante possible | Aucun contournement de restriction |
+
+**Exemple :** quatre questions sur cinq sont étayées, mais la cinquième concerne une interdiction potentiellement applicable. La préparation d'un contrat exécutable reste **bloquée**, même si la recherche supplémentaire semble peu productive. Une analyse non prête peut toujours être remise au Pilote.
+
+**Séparation de statuts :** `COMPLETE` dans un outil de lecture signifie une **couverture d'extrait ou de pagination** selon son contrat, **jamais** « le résultat métier est complet » ; `COMPLETE` d'un tour/effet n'est pas non plus une réception humaine.
+
+## 15.8. Point de reprise fiable — contrat et scénarios
+
+L'état conceptuel présenté au §13.3 demeure valable : identité/portée, questions, sources et versions, faits/restrictions/contradictions, couverture, travail restant, brouillons et état d'incertitude.
+
+**Protocole conceptuel de reprise à étudier :**
+1. Identifier **le même travail** (Pilote, préparation/projet, tour/opération, permissions et dernier point consolidé connu) ;
+2. Constater l'état réellement durable du tour et de toute opération propriétaire associée (notamment `UNKNOWN`), sans conclure par absence d'ACK ;
+3. Réautoriser seulement les **lectures** valides au regard des droits courants, des refs/versions et des budgets ; revérifier les sources mutables ;
+4. Restaurer questions, sources, acquis et restrictions déjà consolidés, sans fabriquer les lectures non attestées ;
+5. Réouvrir sélectivement les questions dont les sources ont changé, puis réévaluer les priorités ;
+6. Continuer jusqu'à suffisance ou restituer explicitement `PARTIEL/INCONNU/BLOQUÉ` selon la vérité disponible, sans assimiler ces libellés à des enums déjà décidées.
+
+**Garanties :** fermeture navigateur, perte réseau, interruption fournisseur, timeout et redémarrage sont des scénarios à tester. Un mécanisme de persistance/checkpoint reste **à concevoir et arbitrer**, et une reprise automatique n'est pas un mandat d'exécuter des mutations.
+
+Les lectures réitérées sont admissibles seulement avec contrôle des droits et de la version ; **aucune publication D4/Git ou nouvelle tentative Cursor n'est relancée par le conducteur D3** sous prétexte de continuité. La réconciliation d'effets appartient au propriétaire D6/D7/D9.
+
+## 15.9. Interfaces propriétaires et réutilisation du code constaté sur main
+
+| Surface source | Réutilisation potentielle | Écart/condition de revue |
+| --- | --- | --- |
+| `conversation/nora-adapter.ts`, `semantic-qualification.ts` | Agent D3 existant, outil SDK, qualification structurée, intention sémantique | `stream:false` ; compatibilité du SDK et éventuel séquencement A2 à prouver ; `replyDraft` ≤20k ; `documentProposal.contentMarkdown` ≤100k, non utilisables sans étude comme stockage de contrat Cursor canonique |
+| `conversation/cognitive-policy.ts` | Profils/budgets contrôlés ; ensemble de lectures autorisées | Profil encore corrélé à longueur ; `OPERATIONAL_VALIDATED` non calibré ; durée/coût/reprise à qualifier |
+| `conversation/service.ts` | Journal, projection des décisions et contexte D3 | Injection initiale **6 messages de 200 caractères**, sélection D4 et cinq titres de documents ; titres non équivalents à lecture de contenu |
+| `conversation/turn-command.ts`, `db/schema.ts` | `clientTurnKey`, `operationId`, `generationId`, `ownerToken`, leases, fencing et `resultJson` | Reprise d'investigation multi-étapes **non démontrée**, schéma/persistance non arbitrés |
+| `knowledge/service.ts` | `selectRelevantKnowledgeContext`, IDs préférés, acquis/sujets/points ouverts | Choix borné, initialement préférence puis ordre existant ; **pas** un moteur de sélection sémantique complet |
+| `knowledge/journal-cognition.ts` | Réactivation des points ouverts, historique de réactivation | `scoreLexicalOverlap` (tokens, seuil) utile comme **indice de découverte**, non comme moteur d'intention ou preuve d'absence ; tester paraphrases/négations |
+| `conversation/d4-read-tools.ts` | Recherche paginée et lecture des révisions exactes | `ILIKE`, pagination par catégorie, extraits et couverture ; une absence de match textuel n'établit pas l'absence d'un fait |
+| `conversation/history-tools-sdk.ts` | Historique autorisé paginé et relecture par `messageId` | Requête lexicale non exclusive ; pagination, droits et budget à vérifier |
+| `conversation/git-read-tools.ts` | Ref obligatoire, provenance commit/blob, statut réel, couverture | `UNPREVIEWABLE` ≠ `FILE_ABSENT` ; Git lié au projet ; contrôle de ref/permissions à la reprise |
+| `conversation/turn-projection.ts`, UI Travail/Sas | Activité de tour durable et références | Aujourd'hui surtout activité terminale ; flux fonctionnel progressif à qualifier dans l'axe C |
+| Futurs outils web | Recherche et ouverture de sources publiques, dates et couverture | **NON IMPLÉMENTÉ** sur main ; sécurité d'entrée et compatibilité dans l'axe B |
+| D6/D7/D8 propriétaires | Mandats, effets Git et preuves | Aucun objet d'investigation D3 n'est un GO, une tentative Cursor ou une preuve d'acceptation |
+
+**Blast radius prévisible** : conduite D3, budget/SDK, outils D4/historique/Git/web, journal transactionnel et éventuelle DB, sélection D4, projection UX page 12, droits/sécurité et tests. Les API réelles, dépendances, migrations et performance nécessitent une vérification sur le HEAD effectif avant code. **Aucune création de table, changement de contrat ou moteur concurrent n'est autorisée par ce document.**
+
+## 15.10. Scénarios discriminants et niveau de preuve attendu
+
+| Cas | Observation minimale attendue | Niveau de preuve futur |
+| --- | --- | --- |
+| Demande courte, mission complexe | Nora reconnaît le risque/profondeur, consulte les sources essentielles | Tests déterministes + LIVE agent |
+| Réponse simple | Pas d'investigation lourde par défaut | DETERMINISTIC + LIVE |
+| Source déterminante aux termes différents | Source retrouvée malgré la faible proximité lexicale | LIVE + données maîtrisées |
+| Décision ancienne mais applicable | Autorité correcte malgré récence faible | DETERMINISTIC + LIVE |
+| Source récente contradictoire mais non normative | Contradiction signalée, décision antérieure non effacée | DETERMINISTIC + LIVE |
+| Renvoi `A → B → C` | Chaîne suivie uniquement si matériellement utile | DETERMINISTIC + LIVE |
+| Découverte tardive d'une restriction | Question réouverte, contrat non déclaré prêt | DETERMINISTIC + LIVE |
+| Multiples recherches improductives | Arrêt de la piste, maintien des lacunes critiques | LIVE + limite observable |
+| D4 `PARTIAL/STALE/DENIED` ou Git `UNPREVIEWABLE` | Aucune lecture complète ni conclusion inventées | DETERMINISTIC intégration |
+| Web trouvé non ouvert / source hostile | Aucune consultation prétendue ; injection sans autorité | Sécurité B + LIVE |
+| Perte de droits / changement de branche ou révision | Revérification et relecture ciblée | Intégration + LIVE ciblé |
+| Coupure avant checkpoint | État incertain conservé ; pas de « DONE » fabriqué | Intégration DB/reprise |
+| Coupure après checkpoint | Reprise des acquis attestés sans doublonner de mutation | Intégration DB/reprise |
+| Contrat très long | Instruction intègre, version inspectée exacte ; pas de troncature silencieuse | Intégration + comparaison d'empreinte |
+| Contrat avec restriction déterminante non résolue | Brouillon explicite **non prêt**, aucun D7 | Intégration négative + LIVE |
+| Visualisation des phases et consultations | Événements attestés ≠ intentions annoncées | BROWSER + intégration C |
+
+Ces niveaux sont des **exigences futures**, pas des tests exécutés. Le protocole devra déclarer quelle preuve est DETERMINISTIC, BROWSER, LIVE ou REAL, sans transformer un test simulé en démonstration de fonctionnement réel.
+
+## 15.11. Risques, dettes et conditions de sortie
+
+| Risque | Garde-fou candidat | Condition de sortie à démontrer |
+| --- | --- | --- |
+| Sous-investigation par heuristique de longueur | Qualification sémantique de la complexité et du besoin | Cas courts/longs et multi-intentions |
+| Filtrage lexical masquant une source indispensable | Recherche progressive multi-stratégie, pagination, vérification ciblée | Cas d'absence lexicale mais pertinence élevée |
+| Consolidation qui efface interdiction ou contradiction | Provenance explicite, contrainte inchangée tant que non levée | Scénario découverte tardive puis reprise |
+| Boucle de lectures et coûts excessifs | Budgets techniques proportionnés, utilité marginale et suspension honnête | Mesure de latence/coût sans quota arbitraire métier |
+| Perte du travail après timeout | Point de reprise attesté et contrôle d'ownership | Scénarios crash avant/après point fiable |
+| Réexécution d'effet incertain | Séparation D3 / D6-D7 et fencing propriétaire | Cas ACK perdu / `UNKNOWN`, zéro duplication |
+| Fuite par source externe ou permissions | Source comme donnée, contrôles propriétaire, interdiction d'exfiltration | Tests sécurité de l'axe B |
+| Divergence UX entre activité affichée et outil réel | Corrélation événements et provenance de consultation | BROWSER + test intégration fonctionnelle |
+
+**Dettes à éviter :** index vectoriel par inertie ; second moteur de ranking métier ; stockage systématique des raisonnements bruts ; copie des mêmes acquis dans D4 et un journal concurrent ; orchestration autonome globale ; seuils de « confiance » non calibrés ; séparation du code/tests/doc en micro-lots.
+
+**Sortie de qualification A proposée :** (i) Morris revoit les invariants cognitifs intégrés ; (ii) les contrats d'information, de checkpoint et de sûreté de reprise sont définis, (iii) une preuve de faisabilité sur SDK/état actuel est spécifiée, (iv) le blast radius et tout besoin DB sont arbitrés avant code, (v) la trajectoire B/C/D et le contrat d'acceptation commun sont cohérents. **Aucune promotion ni gate technique aujourd'hui.**
+
+## 15.12. Synthèse d'architecture candidate et prochaine décision
+
+**Proposition de conception à soumettre à Morris :** maintenir **D3/Nora comme unique conducteur** d'investigation, organiser une liste **évolutive et non normative** de questions déterminantes, consulter les sources selon valeur informative/autorité/risque/fraîcheur, consolider des acquis sourcés, juger qualitativement la suffisance pour le livrable, et garantir une reprise fiable à partir de faits durablement vérifiables. Réutiliser les protections de tour et propriétaires existantes avant toute nouvelle persistance. **A2 privilégiée comme étude, pas comme architecture arrêtée.**
+
+**Réserves d'architecture qui requièrent encore qualification / gate Morris si structurantes :**
+1. Mécanisme de séquençage et checkpoints, avec preuve de reprise réelle sur `@openai/agents` verrouillé ;
+2. Support/atomicité des acquis intermédiaires et éventuelle migration DB ;
+3. Sémantique et preuve de l'arrêt « suffisamment investigué » sur des scénarios contradictoires ;
+4. Calibrage opérationnel des budgets, politique de continuation et coûts ;
+5. Interfaces B/C pour web, activités temps réel et états de consultation ;
+6. Passage du brouillon cognitif à un **contrat versionné inspectable** sous D6/D7, sans aucune autorisation implicite.
+
+**Suite proposée dans la même qualification ML5 :** **axe B — recherche et lecture web** : frontière de confiance, découverte versus ouverture réelle, provenance/fraîcheur, erreurs, budgets, pagination et réutilisation des points de reprise de l'axe A ; puis C (activité Nora) et D (réalisation Cursor gouvernée). L'intégration A↔B↔C↔D reste prioritaire sur des sous-systèmes indépendants.
+
+**Verdict : AXE A CONSOLIDATED AS DESIGN CANDIDATE / DOCUMENTED — NOT ARCHITECTURE-VALIDATED, NOT IMPLEMENTED, NOT PROVEN, NOT ADOPTED.** Aucun GO Cursor, DB, PR, merge, Gate C ou promotion n'est inféré.
