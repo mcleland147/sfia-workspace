@@ -760,3 +760,15 @@ Cette clarification fixe la frontière fonctionnelle. Elle ne constitue ni un co
 La préparation fonctionnelle est suffisamment cadrée pour une revue de clôture avec réserves. Les choix d'implémentation et preuves de comportement appartiennent au futur macro-lot de construction, sous les gates Morris applicables.
 
 **Statut : DOCUMENTED CANDIDATE — NOT IMPLEMENTED / NOT BEHAVIOR PROVEN / NOT ADOPTED.**
+
+## 19.8. Alignement UX final — instruction intégrale et couverture D8
+
+**Revue de cohérence du 23 novembre 2026, candidate sur la branche de conception et validée en contenu par Morris.** Les numéros de frames Figma restent des repères UX, pas des noms de composants de code.
+
+- **Contrat D7** : 12.02 et 12.05 permettent d'inspecter le contrat puis d'ouvrir **12.14 — instruction technique intégrale en lecture défilante**, rattachée à la même version/empreinte. Les courtes descriptions restent de simples aperçus : au runtime, l'intégralité de l'instruction réellement transmise doit pouvoir être inspectée avant l'autorisation, sans troncature ni copier-coller. La frame 12.14 utilise un exemple fictif et ne prouve aucune transmission SDK.
+- **Bilan D8** : quatre onglets cohérents, **12.08 Synthèse**, **12.11 Livrables et tests**, **12.12 Git et pièces**, **12.13 Écarts**. Ensemble, ces vues doivent rendre accessibles les **neuf rubriques D8 §8.2** : résumé ; prévu ; réalisé ; évaluation ; écarts ; impact sur le projet ; verdict D8 ; recommandation/suite ; éléments vérifiés et sources. Le verdict D8, l'avis de Nora et une réception D6 restent distincts. Aucun cinquième onglet n'est créé.
+- **Cohérence illustratrice** : l'exemple fictif RES-007/EX-007 montre deux fichiers modifiés, deux créés, deux tests déclarés PASS sans preuves suffisantes et un essai navigateur non effectué. Les références et comptes entre vues ne doivent pas diverger. Ces faits **illustratifs** n'attestent aucune réalisation.
+- **Git et MCP proportionnés** : branche, base SHA et droits Git seulement si la mission vise un dépôt ; accès MCP seulement si l'outil est indispensable à la mission. La configuration/administration Cursor par Morris reste possible hors Studio.
+- **Transposition UX** : source Figma validée ≠ implémentation. Extraction L0/L1/L2, composants, assets, états, scroll, navigation et capture-source hashée avant le code concerné ; comparaison BROWSER/runtime et preuves après construction sous gate distinct.
+
+**Verdict de conception : ALIGNEMENT DOCUMENTÉ — NOT IMPLEMENTED / NOT BEHAVIOR PROVEN / GATE C OPEN.**
