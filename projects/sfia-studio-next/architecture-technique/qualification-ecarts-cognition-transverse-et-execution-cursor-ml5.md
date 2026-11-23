@@ -2,13 +2,13 @@
 
 ## Base d'investigation architecture et UX — ML5
 
-> **Lecture prioritaire :** axes A, B et C consolidés aux **§15–17** ; **§18 : axe D, orientation Cursor SDK local approuvée en contenu par Morris et contrat candidat de rapport d'exécution → D8 → Nora**. Les sections historiques restent consultables. **Conception candidate uniquement : aucune implémentation ni preuve runtime/REAL, aucun GO de construction, PR, merge ou ADOPTED.**
+> **Lecture prioritaire :** axes A, B et C consolidés aux **§15–17** ; **§18 axe D** : Cursor SDK local, états LIVE sobres, branche Git de travail, handoff de fin de tentative et revue globale Nora. **§18.12 précise la convergence du 23/11 et prime sur toute suggestion historique de revue intermédiaire.** Aucune implémentation ni preuve runtime/REAL, aucun GO construction, PR, merge ou ADOPTED.
 
 | Champ | Valeur |
 | --- | --- |
 | Nature | **Document d'analyse exploratoire D0**, enregistré sur branche candidate ; non normatif, non décisionnel |
-| Version | **v0.7 — 23 novembre 2026** ; axe D : orientation Cursor SDK local, environnement DEV/production, rapport d'exécution par tentative, handoff interne Studio, revue D8/Nora, sécurité et preuves candidates |
-| Statut | **DOCUMENTED / AXES A+B+C CONSOLIDÉS ; AXE D ORIENTATION ET REPORTING DOCUMENTÉS — NOT ARCHITECTURE-VALIDATED / NOT QUALIFIED FOR BUILD** ; A reprise fiable exigée, B1 privilégiée, C1 candidate, **Cursor SDK local privilégié par Morris**, rapport exploitable par tentative requis ; intégration, persistance, sécurité et preuve D8 non arbitrées |
+| Version | **v0.8 — 23 novembre 2026** ; axe D complété : LIVE informatif sans analyse intermédiaire, publication Git progressive, handoff complet final/partiel, références et artefacts, contrôles D8 et reprise |
+| Statut | **DOCUMENTED / A+B+C CONSOLIDÉS ; D ORIENTATION ET PARCOURS AFFINÉS SUR DEMANDE MORRIS — NOT ARCHITECTURE-VALIDATED / NOT QUALIFIED FOR BUILD** ; SDK local privilégié ; **LIVE sobre pendant, revue Nora finale uniquement**, Git et handoff traçables ; transport, contrôle runtime et sûreté à qualifier |
 | Autorité de décision | Morris ; aucune adoption d'architecture inférée |
 | Source fonctionnelle candidate | [Contrat fonctionnel Nora transverse et Cursor](../conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md) — v0.3 validée en contenu par Morris, branche candidate |
 | Base Git du diagnostic | **main@997897fd7cf914771e7d08e8030dc7123fab7d25** ; branche candidate initiale **39c00f72c10e69f7981dd2490a0b68fc5e4b8d78** |
@@ -1270,7 +1270,7 @@ Le concept est **un artefact immuable, versionné par tentative et retrouvable**
 - Réserves, suites recommandées, besoin d'un nouvel arbitrage Morris et tout dépassement de mandat.
 - Couverture/provenance du rapport : source d'observation, fragments manquants/tronqués, empreinte calculée à la réception, date, statut d'intégrité et niveau de preuve.
 
-**Proportionnalité :** rapport compact pour un travail simple, détaillé pour un macro-lot à fort impact ; jamais de « rapport complet » sur un seul paragraphe de synthèse sans contenu contrôlable. Réutiliser les exigences de **Light/Full** comme **référence de qualité**, sans imposer automatiquement les noms de fichiers, le fichier temporaire ou la publication handoff externe dans le produit.
+**Proportionnalité :** rapport compact pour un travail simple, détaillé pour un macro-lot à fort impact ; jamais de « rapport complet » sur un seul paragraphe de synthèse sans contenu contrôlable. Réutiliser les exigences de **Light/Full** comme **référence de qualité**, sans imposer automatiquement les noms de fichiers, le fichier temporaire ou la publication handoff externe dans le produit. **Le rapport de fin est adaptatif, l'inventaire de couverture est systématique ; les publications intermédiaires ne déclenchent aucune revue Nora.**
 
 **Différence essentielle** : `Run.status=completed` ou `run.wait().result` **n'équivaut pas** à « rapport conforme reçu et contrôlé ». Inversement, une interruption n'efface ni les fichiers ni les faits déjà observés.
 
@@ -1286,7 +1286,7 @@ Le concept est **un artefact immuable, versionné par tentative et retrouvable**
 6. **Studio recoupe** les modifications par Git local/remote et autres preuves accessibles ; D8 conserve ses propres états et verdicts. Les divergences, preuves non lisibles, champs manquants et pertes d'ACK sont explicites.
 7. **Nora reçoit par les droits du projet** le rapport, son statut de complétude, le contrat original, les faits D8 et les sources pertinentes. Elle produit une analyse bornée, puis le Pilote choisit la suite.
 
-**Pas de push Git ajouté pour transférer le rapport.** Le handoff interne Studio **ne doit pas** demander à Cursor de pousser la branche `sfia/review-handoff`, ni de modifier `sfia-review-handoff/latest-chatgpt-review.md` : cette voie sert **le processus externe SFIA v2.6**, non l'historique multi-tentatives du produit. Les mécanismes peuvent coexister pendant notre transition sans être confondus ni publiés l'un dans l'autre.
+**Transport du handoff à requalifier : Git est désormais la voie nominale privilégiée**, lorsque le rapport et ses pièces peuvent être publiés sans secret ni volume inadapté, **sur la branche de travail distante de l'intervention** sous mandat explicite. Un stockage d'artefacts Studio à références vérifiables complète Git pour les fichiers non adaptés. **Ne pas réutiliser** la branche `sfia/review-handoff` ni le fichier partagé `sfia-review-handoff/latest-chatgpt-review.md` : ils appartiennent **au processus externe SFIA v2.6**, non à l'historique multi-tentatives du produit. Cette évolution candidate du transport ne dispense pas de l'ingestion/qualification D7/D8 ni des vérifications de HEAD/SHA.
 
 **Blocage d'ingestion** : rapport absent, émis pour un autre `attemptId`, source inaccessible, contenu tronqué sans réserve, sections/diffs manquants, secret non traité ou empreinte incohérente → **REPORT MISSING / INCOMPLETE / UNVERIFIED / REJECTED**, catégories conceptuelles **non normatives**. D7 conserve la tentative et son état réel ; D8 ne reçoit aucun « conforme » induit ; Nora explique les limites. **Aucun retry d'exécution Cursor pour fabriquer le rapport**.
 
@@ -1303,7 +1303,8 @@ Le concept est **un artefact immuable, versionné par tentative et retrouvable**
 ## 18.8. Présentation Exécution / Résultats / dialogue Nora
 
 **Exécution** (propriétaire D7) :
-- Fiche par intervention et tentative ; contrat/version/empreinte, statut de lancement, agent/run quand connus, environnement, événements fonctionnels et état du rapport : **attendu, reçu, incomplet, indisponible, vérification en cours**.
+- Fiche par intervention et tentative ; contrat/version/empreinte, statut de lancement, agent/run quand connus, environnement, **états LIVE sobres** et état du rapport : **attendu, reçu, incomplet, indisponible, vérification en cours**.
+- Pendant le run : uniquement statut et dernière activité fonctionnelle observable, erreur/attente et publication confirmée si utile ; **pas de revue Nora ni bilan D8 répété à chaque événement/commit**.
 - Distinguer `STOP demandé` de `arrêt confirmé`, `lancement demandé` de `prise en charge observée`, `rapport reçu` de `bilan qualifié`.
 
 **Résultats & preuves** (D8) :
@@ -1366,3 +1367,51 @@ Le concept est **un artefact immuable, versionné par tentative et retrouvable**
 **Verdict : DIRECTION SDK LOCAL + CURSOR REPORT HANDOFF TO STUDIO DOCUMENTED / MORRIS CONTENT ORIENTATION RECORDED / TECHNICAL CONTRACT CANDIDATE — NOT IMPLEMENTED, NOT PROVEN, NOT ADOPTED.**
 
 **Suite proposée** : qualifier le **dispatch D7**, le **contrat physique de rapport et d'ingestion**, puis la **réconciliation D8** en une architecture intégrée. La présente section formalise les exigences et les tests ; elle ne constitue **ni** un prompt Cursor **ni** un GO de construction **ni** un nouveau template SFIA v2.6.
+
+## 18.12. Convergence du 23/11 — deux temps, partage Git et revue finale unique
+
+> **Précision produit exprimée par Morris, inscrite en conception candidate sur sa demande.** **Deux temps seulement** : (1) **états LIVE de Cursor sobres et factuels** pendant l'exécution ; (2) **restitution complète, contrôle des références puis une analyse globale Nora** à la clôture ou après interruption. Les publications intermédiaires préservent la continuité et l'accessibilité, elles ne déclenchent **ni analyse cognitive coûteuse ni gate métier additionnel**. Cette précision prime sur les exemples exploratoires antérieurs évoquant une revue Nora au milieu d'une tentative.
+
+### 18.12.1. Deux circuits techniques, une tentative D7
+
+**Circuit A — état LIVE, fréquence proportionnée :** `@cursor/sdk` fournit des statuts/événements de run et des événements d'outil **à qualifier sur version réelle**. D7 conserve seulement les informations fonctionnelles utiles : tentative, date, séquence, provenance, type, statut observé/déclaré, dernière activité, erreur/attente/STOP, dernière publication Git confirmée. Le Pilote voit la situation en cours dans **Exécution**, pas un terminal intégral. Le streaming du fournisseur, son ordre, sa reconnexion et l'accès après crash sont à démontrer. **Perte de signal ≠ réussite, absence d'événement ≠ absence de travail, phase annoncée ≠ opération achevée.** Ne jamais exposer secrets, instructions internes ou chaîne de pensée.
+
+**Circuit B — réalisations publiées, pas revues pendant le run :** avant le premier effet de code, D7 établit/vérifie une **branche distante d'intervention** et une base immuable, reliées au contrat et au mandat. Cursor travaille dans un workspace local Git isolé de cette branche, effectue des commits/pushes **à des points significatifs autorisés**, avec refs/SHA vérifiés. **Aucun commit par action, aucune analyse Nora automatique**, aucune PR/fusion implicite. D7/D9 enregistrent les publications comme faits et peuvent en contrôler les invariants techniques ; la revue qualitative est **différée au bilan final**.
+
+**Enchaînement nominal :** préparation → inspection/GO D6 → vérification branche et préconditions → tentative SDK sous D7 → suivi d'états LIVE + publications Git bornées → fin/interruption → handoff de tentative + artefacts accessibles → vérifications D8/D9 → **une synthèse critique Nora** → éventuelle nouvelle décision Morris. **Nora travaille bien dans Studio pendant ce temps sur d'autres intentions**, sans mobiliser un évaluateur sur les événements Cursor.
+
+### 18.12.2. Environnements et accessibilité du travail
+
+**Développement** : Studio, exécuteur local SDK et dépôt sur le poste Morris. **Production visée** : Studio sur serveur secondaire accessible en HTTPS depuis le PC utilisateur ; SDK local et espaces Git sur le serveur, comptes et secrets isolés. Le contrat, le modèle de tentative, les références distantes et le handoff sont **identiques en sens métier** ; leur implantation évolue, pas la gouvernance.
+
+**Git privilégié pour le partage** : code, documents, scripts, tests, manifestes, captures raisonnables et handoff sont consultables sur la **branche distante de travail**, idéalement par URL/référence fixée sur un commit plutôt qu'un nom mobile. La création/présence d'une branche seule ne publie **pas** le contenu local : D9 doit observer la synchronisation. Les fichiers binaires, volumineux ou sensibles peuvent nécessiter un **stockage d'artefacts séparé sous contrôle Studio**, pas un faux lien Git. En cas de crash entre modification et push, la fenêtre non publiée est **explicitement visible**, avec procédure de récupération isolée, sans inventer un état distant.
+
+**Respect des gates Git** : autorisation bornée de création/actualisation de branche et de commits/pushes de travail **distincte d'une PR, fusion, publication de version ou adoption**. Pas d'accès Git déduit de la session Cursor ou de l'installation GitHub App Studio. Refus ou révocation du droit → STOP, réconciliation et conservation des faits, sans retry aveugle.
+
+### 18.12.3. Handoff final : contenu libre par métier, couverture obligatoire
+
+Un **rapport Markdown adapté à la mission** explique l'exécution ; un **manifeste conceptuel** rattaché à l'`attemptId` permet à Studio de vérifier automatiquement ce qui est mentionné et ce qui manque. Le format de fichier, le schéma et le stockage final **restent candidats**.
+
+**Champs logiques minimaux :** contrat/empreinte et tentative, auteur/exécuteur et environnement, état final connu, Git dépôt/ref/base/tip et publications, objectifs réalisés/non réalisés, problèmes/STOP, sources principales lues et leur rôle, **fichiers créés/modifiés/déplacés/supprimés**, documentation et code, commandes et tests effectués/non effectués, résultats déclarés et preuves disponibles, captures et autres pièces pertinentes, écarts au contrat, réserves et suite requérant Morris. **Références vérifiables** : commit SHA, chemin, type, empreinte/taille si utile, capacité de lecture du contenu par D8/Nora.
+
+**Politique de contenu :** pour les fichiers texte publiés, fournir des refs Git **effectivement consultables** et les diffs/sections significatives ; pour fichiers non accessibles au Git autorisé, inclure le texte utile dans le handoff si sûr ou constater l'indisponibilité ; pour captures de recette/maquette Figma, conserver la capture runtime **originale**, la frame/version de référence et le contexte de viewport. **Une synthèse de trois lignes ou une liste de chemins sans accès réel est incomplète.**
+
+**Remise candidate privilégiée :** rapport et manifeste **à emplacement propre à l'intervention/tentative sur sa branche distante**, avec SHA immuable ; pas de `latest` global. Studio récupère via D9 après push et relecture distante (ou via canal direct fiable si plus adapté) puis consolide les preuves. Le SDK peut transmettre son résultat texte et événements ; **il n'est pas supposé transférer automatiquement un Review Pack, des PNG ni d'autres pièces**. Le mécanisme SFIA v2.6 externe de publication `sfia/review-handoff` reste intact, distinct de ce circuit produit.
+
+### 18.12.4. Contrôle final déterministe, une seule revue Nora
+
+**Au moment de la clôture ou interruption**, D7 fige les dernières références et la provenance du rapport disponible ; D9 vérifie **HEAD distant / commit / arbres / chemins / statuts**, et D8 contrôle **couverture des créations, modifications et suppressions par rapport aux effets Git observés**, accès aux contenus et captures attendus, résultats de tests capturés, incohérences d'autorité et insuffisances documentées. Un contrôle automatique d'intégrité/références **n'est pas une revue sémantique répétée**.
+
+Quand ce dossier final est constitué, **Nora réalise une analyse globale unique et sourcée**, avec avis *favorable / réservé / défavorable / indéterminé* et zones non démontrées ; le Pilote décide de toute suite relevant de D6. En cas de **crash, fin ambiguë ou handoff absent**, Studio conserve les derniers faits LIVE/Git, fournit un constat partiel correctement étiqueté et sollicite une revue bornée quand l'état le permet ; **jamais de faux succès, ni relance Cursor automatique pour générer le rapport**.
+
+**La vérité des traces est bornée par leur collecte.** Studio ne peut pas prouver exhaustivement chaque lecture ou effet privé de l'agent si le SDK ne l'expose pas ; le handoff dresse l'inventaire déclaré et D8 contrôle ce qui est observable. Une prétention à « tout a été vérifié » exige une couverture effectivement démontrée, pas une supposition.
+
+### 18.12.5. Interfaces, arbitrages restants et exit
+
+**Propriétés maintenues** : D3 Nora analyse ; D6 Morris mandate et valide ; **D7 seul orchestrateur** de la tentative et du journal ; D9 vérifie Git ; D8 qualifie les preuves ; axe C fournit une **projection fonctionnelle** et n'ajoute aucun moteur d'exécution Cursor.
+
+**Questions techniques ouvertes, à traiter dans l'axe D sans multiplier les sous-chantiers :** matrice exacte des événements/erreurs `@cursor/sdk`, fréquence/transport de l'activité, supervision process/reprise, isolation Git et permissions techniques, stockage et autorité du manifeste, poids/sûreté des captures, lecture multimodale Nora, critères de clôture quand état inconnu, et supervision d'un serveur de recette (localhost DEV vs URL HTTPS protégée en production). **Pas de dashboard FinOps Cursor dans Studio** : Morris supervise l'abonnement et l'usage via son compte Cursor ; seules les erreurs de quota affectant un run appartiennent au diagnostic.
+
+**Preuves de sortie à obtenir après GO technique distinct** : un run SDK LIVE réussi, un run en échec, une interruption/crash, une reconnexion, une publication Git REAL bornée, une preuve UX avec capture vérifiable, un handoff incomplet, un contrôle de couverture D8, une revue finale Nora réellement fondée sur les artefacts et deux contrats successifs sur un même projet. DETERMINISTIC, BROWSER, LIVE et REAL **ne se remplacent pas**.
+
+**Statut : orientation de parcours documentée à la demande Morris ; détails de mécanisme CANDIDATE, NON IMPLÉMENTÉS / NON PROUVÉS / NON ADOPTED, Gate C OPEN.**
