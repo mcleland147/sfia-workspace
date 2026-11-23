@@ -2,13 +2,13 @@
 
 ## Base d'investigation architecture et UX — ML5
 
-> **Lecture prioritaire :** les axes A, B et C sont consolidés respectivement aux **§15, §16 et §17**. Les sections initiales sont conservées comme historique et diagnostic, sans effacer les réserves. **A/B/C : conception candidate documentée, non implémentée et non prouvée en runtime** ; axe D (Cursor) à instruire. Aucune promotion ni architecture finale déduite.
+> **Lecture prioritaire :** axes A, B et C consolidés aux **§15–17** ; **§18 : axe D, orientation Cursor SDK local approuvée en contenu par Morris et contrat candidat de rapport d'exécution → D8 → Nora**. Les sections historiques restent consultables. **Conception candidate uniquement : aucune implémentation ni preuve runtime/REAL, aucun GO de construction, PR, merge ou ADOPTED.**
 
 | Champ | Valeur |
 | --- | --- |
 | Nature | **Document d'analyse exploratoire D0**, enregistré sur branche candidate ; non normatif, non décisionnel |
-| Version | **v0.6 — 22 novembre 2026** ; consolidation intégrée de l'axe C (événements, projection, transport, reprise, UX, sécurité, tests et interfaces A/B/D) |
-| Statut | **DOCUMENTED / AXES A+B+C CONSOLIDÉS EN CONCEPTION CANDIDATE — NOT ARCHITECTURE-VALIDATED / NOT QUALIFIED FOR BUILD** ; A reprise fiable validée au plan fonctionnel, B1 privilégiée, **C1 recommandée mais non arbitrée**, persistance/transport à prouver, aucun GO code |
+| Version | **v0.7 — 23 novembre 2026** ; axe D : orientation Cursor SDK local, environnement DEV/production, rapport d'exécution par tentative, handoff interne Studio, revue D8/Nora, sécurité et preuves candidates |
+| Statut | **DOCUMENTED / AXES A+B+C CONSOLIDÉS ; AXE D ORIENTATION ET REPORTING DOCUMENTÉS — NOT ARCHITECTURE-VALIDATED / NOT QUALIFIED FOR BUILD** ; A reprise fiable exigée, B1 privilégiée, C1 candidate, **Cursor SDK local privilégié par Morris**, rapport exploitable par tentative requis ; intégration, persistance, sécurité et preuve D8 non arbitrées |
 | Autorité de décision | Morris ; aucune adoption d'architecture inférée |
 | Source fonctionnelle candidate | [Contrat fonctionnel Nora transverse et Cursor](../conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md) — v0.3 validée en contenu par Morris, branche candidate |
 | Base Git du diagnostic | **main@997897fd7cf914771e7d08e8030dc7123fab7d25** ; branche candidate initiale **39c00f72c10e69f7981dd2490a0b68fc5e4b8d78** |
@@ -405,7 +405,7 @@ Il faudra comparer **au moins le moyen de recherche et le moyen de lecture de pa
 | **A — Continuité cognitive** | Comment Nora prépare-t-elle une réponse/contrat complexe en plusieurs étapes sans perdre les sources et restrictions ? | Prolonger D3+D4+journal de tour ; sélectionner/approfondir/consolider avec provenance, sans second moteur ni limite arbitraire de longueur | En priorité ; arbitrage Morris sur nouveau moteur/persistance si nécessaire |
 | **B — Recherche web** | Comment Nora consulte-t-elle des pages publiques utiles et non fiables, dans tous ses travaux ? | **B1 privilégiée par Morris** : outil hébergé `webSearchTool()` dans la conduite D3, avec séparation contexte public/privé, provenance, couverture et budgets ; **design §16**, pas compatibilité prouvée | Conditions de faisabilité SDK, sécurité/secret, source/activité et coût ; pas de B2 parallèle |
 | **C — Activité fonctionnelle** | Comment rendre visibles les actions pertinentes pendant le travail sans exposer le raisonnement privé ? | Événements réels + phases annoncées distinguées ; projection UI transverse sans flux de JSON Zod provisoire | Dépend de A/B et de l'observabilité existante ; preuve SDK/UX |
-| **D — Réalisation Cursor gouvernée** | Comment raccorder un exécuteur technique, ses tentatives et ses résultats sans doubler D7 ? | Comparer CLI/API Cloud/SDK sur documentation et tests actuels ; contrat versionné, D6, D7, D8 et identité séparés | Arbitrage fournisseur et permissions ; migration éventuelle = gate Morris |
+| **D — Réalisation Cursor gouvernée** | Comment raccorder un exécuteur technique, ses tentatives et un rapport exploitable par Nora sans doubler D7 ? | **Cursor SDK local privilégié par Morris** ; PC actuel puis serveur secondaire, contrat versionné, D6, D7, **rapport durable par tentative**, D8 et identité séparés ; détails §18 | Faisabilité SDK, isolation, ingestions/preuves, reprise et permissions à démontrer avant GO code ; Cloud/CLI alternatives conditionnelles |
 
 **Priorisation :** A en premier pour stabiliser les contrats cognitifs ; B et C sont des interfaces à concevoir conjointement à A ; D dépend de la fiabilité d'A et de l'autorité D6/D7, mais peut être étudié sans activer de construction.
 
@@ -1194,3 +1194,175 @@ Un événement terminal `COMPLETE` ne prouve ni la complétude de la mission A, 
 **Exit documentaire C : ATTEINT POUR CONCEPTION CANDIDATE. Exit d'architecture validée / persistance / runtime C : NON ATTEINT.**
 
 **Suite** : passer à **l'axe D — contrat Cursor, D6 autorisation, D7 tentative, D8 preuves et reprise** ; confronter les capacités fournisseurs aux limites réelles de Next avant toute architecture arrêtée ou prompt d'exécution. Conserver le **document central unique** et le Gate C ouvert.
+
+# 18. Axe D — orientation d'exécution Cursor SDK local et rapport de réalisation exploitable par Nora
+
+## 18.1. Arbitrage de contenu du 23/11/2026 et limites
+
+**Arbitrage Morris exprimé et mandat documentaire borné :** Morris confirme **Cursor SDK TypeScript en mode local comme voie privilégiée pour Next**, demande son inscription dans ce document Git et ajoute une exigence déterminante : **Cursor doit remettre à Studio un rapport de réalisation à l'issue de chaque tentative**, dans l'esprit du Review Pack/Review Handoff SFIA v2.6, afin que Nora puisse examiner le travail et produire une synthèse critique. Cet accord est une **orientation approuvée en contenu**, **pas** une validation de toutes les interfaces techniques ci-dessous.
+
+**Hébergement explicite** : **aujourd'hui**, Studio Next, Cursor et les dépôts de développement sont sur le **poste personnel** de Morris ; **cible de production**, Studio Next sur un **serveur secondaire** accessible depuis le PC du Pilote par DNS + HTTPS/TLS, avec exécution Cursor sur ce serveur. Le PC du Pilote devient un **poste client navigateur**, pas l'exécuteur. Le serveur Cursor doit être isolé du processus et des secrets de l'application Studio, même lorsque les deux cohabitent physiquement.
+
+**Décision de trajectoire / non-décisions :**
+- **VALIDATED IN CONTENT — orientation** : **`@cursor/sdk` local en priorité**, contrat D7 commun DEV/production, rapport par tentative transmissible et exploitable par D8/Nora, **aucun second moteur d'effet**.
+- **CANDIDATE — conception à éprouver** : adaptateur D7 borné, worker/processus supervisé, format conceptuel du rapport, ingestion durable, recoupement D8, intégration C et stratégie de reprise.
+- **NON ARBITRÉS** : version SDK, modalités d'installation/identité et facturation, packaging/worker de production, permissions et sandbox, modèle de persistance des rapports, chemin d'échange, topologie runtime, schémas DB, cadence de consultation, limites de volume, contrats de statut et coûts. Aucun GO Git technique/DB/code n'est donné.
+- **ALTERNATIVES EN RÉSERVE** : CLI headless ou Cloud Agents + My Machines uniquement en présence d'un écart technique bloquant établi, **pas deux implémentations parallèles**.
+
+**Statut : D / PREFERRED SDK LOCAL DESIGN + REPORTING REQUIREMENT DOCUMENTED — NOT ARCHITECTURE-VALIDATED, NOT IMPLEMENTED, NOT BEHAVIOR PROVEN, NOT ADOPTED.**
+
+## 18.2. Sources de référence et état actuel vérifié
+
+**Git Next vérifié** : `main@997897fd7cf914771e7d08e8030dc7123fab7d25`, décision Morris du 07/11 sur ML4 Git natif et ML5 Cursor, SEF v0.2, contrat fonctionnel ML5 v0.3 et présent document candidate. Sur main :
+- `web/src/domains/execution/types.ts` limite `EffectKind` à `GIT_PUBLICATION | GIT_MERGE` ; **pas d'effet `CURSOR_EXECUTION` implémenté** ;
+- `web/src/db/schema.ts` expose `effect_attempts` (attempt, `correlationKey`, `fingerprint`, D6, plan/result JSON) et `observed_git_facts` avec `attemptId` ; **aucun support de rapport Cursor par tentative prouvé** ;
+- `web/src/domains/execution/effect-authority.ts` revalide les mandats D6 Git et droits au point d'effet ; pas de mandat Cursor applicable déjà implémenté ;
+- `web/src/domains/proofs/qualify.ts` refuse de déduire tests PASS, conformité, acceptation ou ADOPTED d'un commit/PR/merge : comportement à maintenir dans D8 ;
+- D7 Git et ses claims/leases sont une **base de gouvernance**, non une implémentation réutilisable sans étude de reprise pour un agent local de longue durée.
+
+**SFIA v2.6, processus externe** — `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` §2.1 et `prompts/templates/sfia-cycle-execution-template.md` §§7.0–7.11 : **tout cycle Cursor avec rapport** exige un Review Pack **Light ou Full**, puis un **handoff `publish-in-cycle`** mono-cycle via la branche `sfia/review-handoff`, au chemin `sfia-review-handoff/latest-chatgpt-review.md`, avec commit mono-fichier, push FF et relecture distante. L'exception `local-only` est technique et explicite ; **synthèse seule = incomplet**. Ce mécanisme externe reste applicable à nos cycles ChatGPT↔Cursor actuels **tant qu'il n'est pas officiellement remplacé**.
+
+**Documentation officielle Cursor consultée (23/11/2026)** :
+- [Cursor TypeScript SDK](https://cursor.com/docs/sdk/typescript) et [annonce SDK, 29/04/2026](https://cursor.com/changelog/sdk-release) : `@cursor/sdk`, `Agent.create({local:{cwd}})`, `agent.send()`, `run.stream()`, `run.wait()`, `Agent.resume()`, runs/événements et store local.
+- Le runtime local exige Node **22.13+** selon la documentation consultée ; le SDK peut conserver checkpoints et événements dans un store local, **distinct** de l'état D7 de Studio.
+- En mode local headless, les outils shell/edit/write sont **autorisés automatiquement par défaut** ; les hooks pré-action et la sandbox sont des voies techniques à éprouver. **Le prompt n'est pas à lui seul une barrière de sécurité.**
+- Le SDK donne des **événements et résultats d'agent**, **pas la preuve qu'un Review Pack métier complet est généré et transmis automatiquement à Studio**. Le contrat et l'ingestion ci-dessous sont donc **à construire et prouver**.
+- Ces capacités documentées ne prouvent pas l'installation effective du SDK, son entitlement, son comportement avec Next, sa facturation ou les garanties runtime de reprise. **Git local/worktree/staged = NON OBSERVÉ**.
+
+## 18.3. Trajectoire cohérente DEV → production — même contrat, lieu différent
+
+| Dimension | Aujourd'hui — DEV | Cible production — serveur secondaire |
+| --- | --- | --- |
+| Pilote | Poste Morris et navigateur Studio local | Poste personnel avec URL Studio DNS/HTTPS |
+| Studio / D6-D7-D8 | Application locale | Application serveur authentifiée, non exposer D7/CLI directement sur Internet |
+| Cursor SDK agent | Runtime local travaillant dans un dépôt de DEV **autorisé** | Runtime local travaillant dans un espace de travail isolé sur le serveur |
+| Git | Dépôt local / GitHub selon mandat | Dépôt de travail isolé / GitHub selon mandat et acteur technique |
+| Rapport | Remis au D7 du Studio local, lecture protégée | Remis au D7 du Studio serveur, même modèle d'artefact et contrôles |
+| Accès et stockage | Secrets, state SDK et rapports séparés du dépôt projet | Séparation des comptes système, volumes, secrets et permissions, sauvegarde/rétention |
+| Validation | Tests déterministes puis LIVE borné | Tests serveur, BROWSER/REAL et sécurité avant exposition |
+
+**Principe :** ne pas confondre une instance de Cursor Desktop graphique et un SDK headless. Le SDK n'exige pas une fenêtre Desktop ouverte, et une session SDK ne doit pas être présumée identique au chat Desktop historique de Morris. Les modèles sont servis par Cursor, même si la boucle d'agent et les outils tournent localement.
+
+**Architecture candidate :** un **adaptateur Cursor du propriétaire D7**, avec un exécuteur local supervisé **dont le processus et l'espace Git sont bornés**. La topologie concrète (worker indépendant vs intégration contrôlée à Next) reste ouverte ; le besoin d'exécutions longues, de redémarrage, d'isolation et de reprise devra orienter la décision, sans construire un orchestrateur global concurrent.
+
+## 18.4. Chaîne d'information complète, du contrat à l'avis Nora
+
+`Intention Pilote → investigation Nora A/B → contrat canonique D7 versionné/inspecté → D6 HumanDecision et clic Exécuter → recontrôle D7 → tentative Cursor SDK locale → observations C et résultats de travail → **rapport Cursor rattaché à la tentative** → ingestion/validation D7 → faits et vérifications D8/D9 → dossier de résultats → **synthèse/avis Nora sourcé** → discussion et éventuelle nouvelle décision du Pilote`.
+
+**Invariants d'autorité :**
+- Nora **prépare, éclaire, synthétise et recommande** ; son analyse et les phrases Cursor ne sont pas des droits de mutation ou une décision Morris.
+- D6 possède **l'autorisation de la version inspectée**, sa portée, ses restrictions, sa validité, sa révocation. Les accès système/Git/Cursor sont des **permissions techniques distinctes**, qui ne créent pas une autorisation métier.
+- D7 possède **une tentative et son état** : dispatch, identifiants SDK, contrôle de concurrence, STOP, réconciliation, réception du rapport. D7 **n'émet pas** seul un verdict de conformité D8.
+- D8 qualifie les **écarts contrat ↔ rapport ↔ preuves indépendantes** ; une réussite déclarée par Cursor n'est ni un test réalisé vérifié, ni une acceptation par Morris.
+- D9 donne l'état Git effectivement observé, y compris fichiers non commités, commits, branche, ref et PR selon permissions disponibles. **Push, PR et merge ne sont pas autorisés par l'existence du SDK ni du rapport.**
+
+## 18.5. Rapport d'exécution : artefact de première classe, un par tentative
+
+**Exigence validée fonctionnellement par Morris :** une tentative Cursor destinée à un travail technique doit prévoir la **production et la transmission du rapport à Studio dans le même contrat d'intervention**. Le rapport est l'entrée principale de revue de Nora, mais **jamais son unique preuve**.
+
+Le concept est **un artefact immuable, versionné par tentative et retrouvable**, **pas** un chemin partagé `latest` écrasé à chaque nouvelle intervention :
+- Identité : `projectId`, contrat ID + révision/empreinte **des octets exacts inspectés**, mandat D6, `attemptId`, `agentId/runId` si renvoyés, environnement, identité Cursor et date UTC effective.
+- Cible Git : dépôt, branche/ref et SHA de départ ; HEAD et statut au terme de la tentative, avec statut **observé vs déclaré** et identification des changements non commités.
+- Synthèse factuelle des tâches réalisées et **liste des tâches non effectuées**, des modifications hors périmètre constatées, des STOP, blocages, dérives et dettes introduites ou maintenues.
+- **Git Review Index / contenu exploitable** : chemins créés/modifiés/supprimés, diff name-status/stat ; contenu complet d'un fichier texte créé ou référence **immuable et effectivement accessible à D8/Nora** ; sections modifiées complètes ou diff utile complet ; pour gros/binaire, taille/empreinte/extrait ou preuve de consultation adaptée. **Liste ou résumé seuls insuffisants**.
+- Tests/contrôles : commandes autorisées réellement lancées, versions/environnement, heure, exit code, résultats, logs pertinents bornés, tests non exécutés et motif ; **aucun PASS inventé**. Les logs déclaratifs restent distingués des sorties capturées par le propriétaire.
+- Écart au contrat : exigences satisfaites, partielles, non démontrées, refusées ou abandonnées ; restrictions et résultats sous conditions ; traces de relecture réelle des références Git lorsque demandées.
+- Réserves, suites recommandées, besoin d'un nouvel arbitrage Morris et tout dépassement de mandat.
+- Couverture/provenance du rapport : source d'observation, fragments manquants/tronqués, empreinte calculée à la réception, date, statut d'intégrité et niveau de preuve.
+
+**Proportionnalité :** rapport compact pour un travail simple, détaillé pour un macro-lot à fort impact ; jamais de « rapport complet » sur un seul paragraphe de synthèse sans contenu contrôlable. Réutiliser les exigences de **Light/Full** comme **référence de qualité**, sans imposer automatiquement les noms de fichiers, le fichier temporaire ou la publication handoff externe dans le produit.
+
+**Différence essentielle** : `Run.status=completed` ou `run.wait().result` **n'équivaut pas** à « rapport conforme reçu et contrôlé ». Inversement, une interruption n'efface ni les fichiers ni les faits déjà observés.
+
+## 18.6. Handoff Cursor → Studio : canal et intégrité (candidat)
+
+**Séquence logique proposée, sans choix de stockage prématuré** :
+
+1. **D7 prépare et fige** l'instruction exacte, sa révision et son empreinte, la cible Git, le mandat D6, les permissions et une identité de tentative persistée **avant** tout `Agent.send()`. Pas de nouvel ID après simple ACK perdu.
+2. **D7 déclenche** la tentative Cursor locale sous environnement/branche de travail isolés et contrôles d'ownership ; conserve `agentId`, `runId` et états disponibles quand le fournisseur les expose.
+3. **Cursor produit** un rapport exploitable comme **livrable explicite du contrat** (contexte, travaux, diffs, tests, réserves), y compris **sur STOP/échec si matériellement possible** ; les événements SDK alimentent l'observation, pas automatiquement la qualité du rapport.
+4. **Canal de remise à qualifier** : résultat SDK structuré ou fichier/artefact borné dans une zone d'échange **appartenant à Studio**, hors dépôt de travail partagé, ou interface de remise explicitement autorisée. **Aucun chemin de disque, endpoint, bucket, table ou mode Git obligatoire n'est décidé.**
+5. **D7 ingère et contrôle** l'identité de tentative/contrat, la taille, le schéma de présentation, les chemins, la complétude, les secrets/injections, l'empreinte de contenu, les références et les droits. Les contenus Cursor sont **non fiables** et n'autorisent aucune action. Le rapport reçu est lié **une seule fois à la bonne tentative** ; toute nouvelle version doit rester traçable, pas écraser silencieusement un rapport déjà reçu.
+6. **Studio recoupe** les modifications par Git local/remote et autres preuves accessibles ; D8 conserve ses propres états et verdicts. Les divergences, preuves non lisibles, champs manquants et pertes d'ACK sont explicites.
+7. **Nora reçoit par les droits du projet** le rapport, son statut de complétude, le contrat original, les faits D8 et les sources pertinentes. Elle produit une analyse bornée, puis le Pilote choisit la suite.
+
+**Pas de push Git ajouté pour transférer le rapport.** Le handoff interne Studio **ne doit pas** demander à Cursor de pousser la branche `sfia/review-handoff`, ni de modifier `sfia-review-handoff/latest-chatgpt-review.md` : cette voie sert **le processus externe SFIA v2.6**, non l'historique multi-tentatives du produit. Les mécanismes peuvent coexister pendant notre transition sans être confondus ni publiés l'un dans l'autre.
+
+**Blocage d'ingestion** : rapport absent, émis pour un autre `attemptId`, source inaccessible, contenu tronqué sans réserve, sections/diffs manquants, secret non traité ou empreinte incohérente → **REPORT MISSING / INCOMPLETE / UNVERIFIED / REJECTED**, catégories conceptuelles **non normatives**. D7 conserve la tentative et son état réel ; D8 ne reçoit aucun « conforme » induit ; Nora explique les limites. **Aucun retry d'exécution Cursor pour fabriquer le rapport**.
+
+## 18.7. Trois niveaux distincts : rapport, observation et verdict
+
+| Niveau | Propriétaire / provenance | Ce qu'il permet de dire |
+| --- | --- | --- |
+| **1 — Rapport Cursor reçu** | Cursor, capturé et lié à la tentative par D7 | « Cursor déclare avoir modifié X, lancé Y, rencontré Z » ; avec contenu exploitable si disponible |
+| **2 — Observations vérifiables de Studio** | Journal D7, lectures Git D9, sorties de tests capturées, références/sha et droits | « Ce commit/ces fichiers/ces commandes ont été observés sur ce périmètre » |
+| **3 — Qualification D8 et synthèse Nora** | D8 juge la qualité de preuves ; Nora confronte besoins, mandat, rapport et faits | « Conforme/partiel/non démontré sur ce périmètre », avis argumenté, réserves, suite proposée |
+
+**Aucun raccourci** : `rapport Cursor complet` ≠ `tests PASS indépendamment prouvés` ≠ `conformité D8` ≠ `acceptation Pilote` ≠ `ADOPTED`. L'absence de rapport ne signifie pas absence d'exécution : un bilan **partiel et explicite** peut être produit à partir des faits indépendants, mais **aucune synthèse favorable exhaustive** n'est autorisée sans couverture suffisante.
+
+## 18.8. Présentation Exécution / Résultats / dialogue Nora
+
+**Exécution** (propriétaire D7) :
+- Fiche par intervention et tentative ; contrat/version/empreinte, statut de lancement, agent/run quand connus, environnement, événements fonctionnels et état du rapport : **attendu, reçu, incomplet, indisponible, vérification en cours**.
+- Distinguer `STOP demandé` de `arrêt confirmé`, `lancement demandé` de `prise en charge observée`, `rapport reçu` de `bilan qualifié`.
+
+**Résultats & preuves** (D8) :
+- Lecture du rapport et de ses sections/modifications accessibles, puis des faits vérifiés, anomalies et verdicts de couverture ; liens vers contrat exact, intervention, Git et preuves. Présentation conforme au parcours fonctionnel prévu **sans transformer le rapport en espace d'autorité**.
+
+**Nora** (D3) :
+- Peut consulter le dossier D8 et le rapport autorisés, puis produire une synthèse **favorable/réservée/défavorable/indéterminée** avec justification, sans convertir son propre avis en décision. Le bouton **« En discuter avec Nora »** conserve la référence du bilan et n'envoie aucun message automatiquement (contrat fonctionnel ML5).
+- Une correction proposée après rapport non conforme reste une **nouvelle proposition/brouillon** ; toute nouvelle tentative Cursor exige **nouveau contrat applicable et acte Exécuter explicite** hors corrections internes autorisées dans la même tentative.
+
+## 18.9. Reprise, erreurs, doublons et effets partiels
+
+- **ACK perdu pendant dispatch** : chercher et réconcilier la tentative / l'agent / le run existants ; ne pas envoyer de nouveau prompt arbitrairement.
+- **Redémarrage du processus Cursor local** : `Agent.resume()` et store local sont **des moyens possibles de rattachement**, mais **pas** une preuve que la commande précédente n'a pas modifié Git. Revalider les effets et le mandat, gérer les sessions concurrentes, puis seulement reprendre si les garanties existent.
+- **SDK auto-retry** : `enableAgentRetries` est documenté ; son comportement exact et les garanties de non-duplication d'effets doivent être étudiés, pas présumés sûrs.
+- **STOP/annulation** : ordre d'arrêt ≠ arrêt constaté, kill ≠ rollback, fichiers non committés et push éventuel restent à inspecter.
+- **Crash avant rapport** : état/report **MISSING ou UNKNOWN** et conservation de toute observation indépendante ; ne pas produire un faux rapport final depuis une réponse modèle libre.
+- **Rapport incomplet** : signaler contenu manquant, rattacher les références accessibles, permettre une revue limitée ; aucun état READY fictif.
+- **Deux tentatives d'une même intervention** : rapports **distincts et immuables**, références au contrat et à la tentative d'origine ; ne jamais écraser le rapport précédent avec un `latest`.
+- **Secrets et contenu hostile** : limiter et analyser ce qui est transmis, scoper les URLs/paths, ne jamais exécuter des instructions issues du rapport. Sauvegarde/rétention des artefacts et identité du lecteur à arbitrer.
+
+## 18.10. Contrat de preuves futur — SDK, rapport et revue
+
+| ID | Scénario | Preuve de sortie demandée |
+| --- | --- | --- |
+| **D-CUR-01** | Node/SDK/entitlement réel sur le poste local | Import `@cursor/sdk` et run LIVE à périmètre borné ; version/coût relevés |
+| **D-CUR-02** | Agent local vs serveur secondaire | Même contrat D7/rapport, différence d'implantation seulement ; isolation démontrée |
+| **D-CUR-03** | Contrat versionné, double clic Exécuter | Une seule tentative sous mandat D6 applicable ; empreinte comparée |
+| **D-CUR-04** | Ref/base Git ou droits modifiés avant exécution | STOP/requalification, pas d'effet |
+| **D-CUR-05** | Tentative avec fichiers créés/modifiés | Rapport complet avec **contenu créé, sections modifiées/diff exploitable**, faits Git et références |
+| **D-CUR-06** | Test annoncé non exécuté | D8 refuse de le déclarer PASS ; Nora conserve la réserve |
+| **D-CUR-07** | Retour Cursor résumé-only | `REPORT INCOMPLETE`, aucune revue favorable exhaustive |
+| **D-CUR-08** | Rapport reçu avec mauvais contrat/attempt | Rejet ou quarantaine ; aucune contamination du bilan d'une autre tentative |
+| **D-CUR-09** | Rapport correct en contenu mais empreinte/secret non conforme | Intégrité non vérifiée ou rejet, aucune promotion |
+| **D-CUR-10** | Crash ou timeout avant rapport | Tentative/effets éventuellement partiels, rapport absent explicite ; pas d'invention |
+| **D-CUR-11** | Rapport et Git contradictoires | Écart D8 documenté ; Nora ne choisit pas automatiquement la version flatteuse |
+| **D-CUR-12** | ACK perdu après lancement | Relecture agent/run/état Git sans second dispatch aveugle |
+| **D-CUR-13** | STOP demandé et effet Git déjà produit | Arrêt/non-arrêt et effets Git distingués, sans rollback fictif |
+| **D-CUR-14** | Deux interventions/tentatives simultanées | Identités, workspaces, permissions et rapports isolés |
+| **D-CUR-15** | Rapport consultable après reconnexion | Même artefact immuable, par tentative, sous droits du Pilote |
+| **D-CUR-16** | « En discuter avec Nora » depuis le bilan | Référence visible, pas de message envoyé au clic, analyse sourcée à l'envoi |
+| **D-CUR-17** | Vérification locale / distant d'un commit/PR | SHA/état revalidés par D9, pas seulement revendiqués dans le rapport |
+| **D-CUR-18** | Contrat SFIA v2.6 externe exécuté manuellement | Review Pack + handoff Git v2.6 inchangés ; pas de confusion avec le rapport Studio |
+| **D-CUR-19** | SDK headless sans hook/sandbox | Refus de considérer le mode non borné comme sécurisé |
+| **D-CUR-20** | Absence de rapport mais faits indépendants disponibles | D8 bilan limité avec lacunes, Nora avis indéterminé/réservé selon faits |
+
+**Niveaux attendus à réaliser ultérieurement** : DETERMINISTIC pour identité, taille, empreinte et états ; INTEGRATION pour ingestion, droits, CAS, reprise et Git ; BROWSER pour affichage/retour Nora ; **LIVE SDK** pour le run réel, les hooks, le rapport et les événements ; **REAL borné** pour Git/push/PR selon GO distinct. Aucune de ces preuves n'a été produite ici.
+
+## 18.11. Blast radius, dépendances et suite d'architecture D
+
+**Blast radius prévisible** : D7 effects/types/claims, D6 décisions et contrôle au point d'effet, D9 connectivité et vérité Git locale/distance, D8 résultats/provenance/qualification, D3 outils de lecture des rapports, axe C affichage d'activité, Figma page 12 / Exécution / Résultats, authentification/permissions, process worker, SDK store, stockage d'artefacts, sécurité/logs, tests et documents as-built. **Le schéma de persistance peut nécessiter une extension structurante : aucune migration autorisée par cette contribution.**
+
+**Dépendances/réserves avant GO technique** :
+1. Choisir le mécanisme D7 de dispatch et d'ownership local avec arrêt contrôlé ; vérifier le comportement réel du SDK et les auto-retries ;
+2. Définir le support fiable des rapports par tentative (taille, version, immutabilité, transport, rétention et reprise), en réutilisant D7/D8 autant que possible ;
+3. Spécifier et tester les contrôles OS/Git/SDK (autorisation, sandbox, permissions et séparation DEV/production), sans permissions déduites du prompt ;
+4. Arbitrer si le SDK et les garanties de disponibilité justifient un worker supervisé distinct de l'API Next ;
+5. Unifier le parcours **rapport Cursor → vérification D8 → avis Nora** avec les checkpoints A, activités C et UX, sous une matrice d'acceptation **commune ML5** ;
+6. Si le SDK échoue à un critère bloquant, examiner une alternative CLI/Cloud ciblée, sans implémenter plusieurs backends d'exécution en parallèle.
+
+**Verdict : DIRECTION SDK LOCAL + CURSOR REPORT HANDOFF TO STUDIO DOCUMENTED / MORRIS CONTENT ORIENTATION RECORDED / TECHNICAL CONTRACT CANDIDATE — NOT IMPLEMENTED, NOT PROVEN, NOT ADOPTED.**
+
+**Suite proposée** : qualifier le **dispatch D7**, le **contrat physique de rapport et d'ingestion**, puis la **réconciliation D8** en une architecture intégrée. La présente section formalise les exigences et les tests ; elle ne constitue **ni** un prompt Cursor **ni** un GO de construction **ni** un nouveau template SFIA v2.6.
