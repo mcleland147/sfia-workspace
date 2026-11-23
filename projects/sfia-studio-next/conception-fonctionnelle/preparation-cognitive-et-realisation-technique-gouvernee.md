@@ -5,9 +5,9 @@
 | Champ | Valeur |
 | --- | --- |
 | Document | Contrat fonctionnel consolidé : investigation cognitive transverse, activité Nora, contrats et réalisation Cursor |
-| Version | **v0.4 — complément de conception du 23 novembre 2026** : suivi LIVE sobre, Git de travail et revue finale Cursor → Studio |
+| Version | **v0.5 — qualification complémentaire du 23 novembre 2026** : LIVE, Git, handoff, vérification finale et outillage MCP Cursor |
 | Autorité du contenu | Morris — **v0.3 validée en contenu le 22/11/2026** ; **compléments v0.4 exprimés le 23/11 et intégrés à sa demande**, détails de réalisation encore candidats |
-| Statut | **D2 — BASE v0.3 VALIDATED IN CONTENT ; v0.4 COMPLÉTÉE SUR DEMANDE MORRIS / GIT CANDIDATE — NOT MERGED** ; interfaces physiques, preuves et admission de construction non validées ; ne remplace pas les spécifications R2 propriétaires |
+| Statut | **D2 — BASE v0.3 VALIDATED IN CONTENT ; v0.4 PARCOURS CONFIRMÉ ; v0.5 INTERFACES CANDIDATES — NOT MERGED** ; détails techniques et preuves non validés ; ne remplace pas les R2 propriétaires |
 | Dépôt et référence de vérification | mcleland147/sfia-workspace ; main@997897fd7cf914771e7d08e8030dc7123fab7d25 |
 | Branche de contribution | sfia/next-nora-cognition-cursor-contract-candidate |
 | Périmètre de conception | SFIA Studio Next ; ML5 comme macro-lot intégrateur, **capacités cognitives communes à toutes les situations où Nora travaille** |
@@ -620,3 +620,54 @@ Nora reçoit ensuite le contrat exact, le handoff, les ressources réellement ac
 **À qualifier avant construction :** états/erreurs et streaming réellement disponibles dans `@cursor/sdk`, cohérence d'un run long après perte de connexion, modèle de conservation/transport du handoff et des captures, Git branche/fingerprint/permissions, isolation des workspaces, compatibilité future avec serveur secondaire, sécurité des artefacts, test d'accès réel par Nora. Décliner les preuves DETERMINISTIC/BROWSER/LIVE/REAL dans le macro-lot intégrateur, sans en déduire un GO ML5.
 
 **Autorité :** principes de parcours exprimés par Morris le 23/11 et transcrits à sa demande ; détails de mise en œuvre candidats, non normatifs et non éprouvés. **Aucune construction ni adoption déduite.**
+
+# 18. Contrats fonctionnels candidats — suivi Cursor, remise finale et capacités MCP
+
+> **Complément du 23/11/2026 à la demande Morris.** Conserve la trajectoire **deux temps** du §17 : **états LIVE sobres pendant la tentative ; une analyse globale Nora après clôture ou interruption**. Les objets et valeurs ci-dessous ne sont pas des API, tables ou enums implémentés.
+
+## 18.1. Suivi LIVE et résilience sans micro-revues
+
+- **Exécution** : Studio affiche le dernier état réellement connu (préparée/autorisée, lancement demandé, run identifié, activité observée, erreur, arrêt demandé ou confirmé, terminé, état inconnu), la dernière activité fonctionnelle et la dernière publication Git distante confirmée. Les détails d'outil restent consultables de manière proportionnée, jamais comme une chaîne de pensée, un pourcentage arbitraire ou une console brute.
+- **Vérité** : `send()` demandé ≠ run observé ; outil commencé ≠ outil terminé ; `finished` ≠ rapport reçu ; silence/timeout ≠ absence d'effet ; STOP demandé ≠ STOP confirmé. D7 rattache les observations à la tentative et les conserve après reconnexion.
+- **Incidents** : une fermeture de navigateur ne doit pas terminer le run ; processus muet/crash et perte d'ACK → état incertain et réconciliation avant toute relance. Aucun autre contrat ni second lancement n'est déduit du seul défaut de réponse.
+- **Consommation** : pas d'activation automatique de Nora ni d'analyse du code après chaque événement ou commit. D7 observe, D8/Nora évaluent **une fois à la fin**.
+
+## 18.2. Publication Git comme continuité et preuve accessible
+
+- **Avant mutations** : dépôt, branche distante de travail et base SHA vérifiés, rattachement au contrat/mandat, espace de travail local isolé. La branche distante seule ne publie pas des fichiers locaux.
+- **Pendant** : Cursor produit fichiers, tests, captures, commits ; des **pushes significatifs, bornés par D6**, rendent les résultats lisibles par Studio. Pas de commit par action, pas de revue Nora intermédiaire, pas de PR ou merge implicites.
+- **Contrôle des droits** : l'exécuteur peut préparer des commits, mais le mécanisme de push (direct sous restrictions ou publication gouvernée D7/D9) est un **arbitrage technique ouvert**. D6 autorise les effets ; D9 constate refs, droits et SHA ; aucun modèle parallèle d'effets.
+- **Après interruption** : les derniers commits effectivement publiés restent consultables, tout changement local non poussé est déclaré **non disponible sur GitHub**. La suite d'un projet reprend une référence Git vérifiée plutôt qu'une mémoire de session SDK.
+
+## 18.3. Revue finale : dossier adaptable, inventaire systématique
+
+Le **Review Handoff de chaque tentative** comprend un rapport Markdown adapté au travail et un inventaire exploitable : contrat exact, tentative, auteur/exécuteur, état final connu, branche/base/SHAs, **fichiers créés/modifiés/déplacés/supprimés**, code et documents, sources déterminantes consultées et rôle, commandes/actions Git, tests réalisés/non réalisés, erreurs, réserves, tâches inachevées, références UX/Figma, captures et autres pièces utiles. La restitution doit permettre **la consultation réelle des contenus**, et pas seulement de leurs noms.
+
+**Canal nominal candidat** : handoff et pièces de taille/risque adaptés sur **la branche distante de l'intervention**, avec références figées sur SHA ; autre stockage sous droits Studio pour artefacts volumineux/sensibles/inadaptés à Git. Texte non accessible ailleurs → fournir le contenu dans le rapport si sûr/autorisé, sinon signaler le manque. Les archives de tentatives ne sont pas écrasées par un `latest` global.
+
+**Contrôle final** : D7 reçoit et rattache, D9 vérifie commits/paths/accès, D8 recoupe diff réel, manifeste, captures, sorties de tests **effectivement capturées** et restrictions. Déclaration Cursor ≠ observation ≠ conformité ≠ décision Pilote. Nora formule ensuite **une seule analyse globale**, sourcée et bornée ; un run terminé sans rapport ou un crash peut donner un dossier **partiel** sans succès fictif ni relance technique automatique.
+
+## 18.4. MCP Figma, Canva et autres — disponibilité et permissions
+
+Le SDK local peut utiliser les serveurs MCP pertinents pour le contrat, **mais un MCP configuré dans Figma/Canva ou dans Cursor Desktop n'est pas automatiquement une capacité accessible sur tous les runtimes**. L'exécuteur doit charger la bonne configuration et posséder une authentification valide. Le préflight vérifie disponibilité réelle, capacité et droits ; si une source obligatoire manque, STOP ou requalification.
+
+**DEV aujourd'hui** : Mac Morris, Cursor Desktop + SDK sur le même hôte/profil, éventuelle réutilisation des configurations MCP utilisateur/projet et de sessions OAuth déjà établies. **PROD visée** : serveur secondaire, configuration et authentification propres ; ne pas supposer le partage des fichiers ou sessions OAuth du Mac. Les outils MCP autorisés sont **limités au besoin du contrat** : lecture Figma ne donne pas droit à mutation Figma ; ne pas hériter silencieusement de tous les MCP personnels. Toute mutation MCP externe reste soumise à D6 et à une barrière technique effective.
+
+Studio n'a pas besoin d'un deuxième gestionnaire MCP généraliste dès ML5 ; il doit seulement rendre explicites **les outils nécessaires/autorises, leur disponibilité, et les limites observées**. Les sources consultées par MCP et les modifications pertinentes doivent être référencées dans le handoff.
+
+## 18.5. Critères de vérification futurs
+
+| Situation | Attendu |
+| --- | --- |
+| Run normal | Dernière activité fonctionnelle fiable, sans bilan Nora pendant le run |
+| Erreur/crash/annulation | Statut correct, effets partiels, état inconnu et reprise sûrs |
+| Branche + commits | SHA distant vérifié ; aucune PR/fusion induite |
+| Handoff complet | Inventaire couvrant les changements et références lisibles |
+| Handoff manquant | Dossier partiel, lacunes déclarées, revue Nora bornée |
+| UX/Figma | Captures originales accessibles et référence exacte des maquettes |
+| MCP local | Configuration chargée et OAuth opérationnel prouvés dans un run SDK |
+| MCP sur serveur | Mise en place autonome et droits validés sans héritage tacite du Mac |
+| MCP lecture seule | Outil de mutation indisponible/techniquement refusé hors mandat |
+| Contrats successifs | Même historique projet, continuité par versions Git et tentatives |
+
+**Statut** : exigences de parcours portées par Morris ; interfaces, permissions et modes de transport **CANDIDATS, NON IMPLÉMENTÉS, NON PROUVÉS**. Aucun GO code/DB/PR/merge/adoption.
