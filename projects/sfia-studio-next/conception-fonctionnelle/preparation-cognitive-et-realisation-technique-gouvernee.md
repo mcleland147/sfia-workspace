@@ -5,9 +5,9 @@
 | Champ | Valeur |
 | --- | --- |
 | Document | Contrat fonctionnel consolidé : investigation cognitive transverse, activité Nora, contrats et réalisation Cursor |
-| Version | v0.3 — consolidation du 22 novembre 2026 |
-| Autorité du contenu | Morris — validation explicite du fond et du caractère transverse dans la conversation du 22/11/2026 |
-| Statut | **D2 VALIDATED IN CONTENT BY MORRIS / GIT CANDIDATE — NOT MERGED** ; ne remplace pas les spécifications R2 propriétaires |
+| Version | **v0.4 — complément de conception du 23 novembre 2026** : suivi LIVE sobre, Git de travail et revue finale Cursor → Studio |
+| Autorité du contenu | Morris — **v0.3 validée en contenu le 22/11/2026** ; **compléments v0.4 exprimés le 23/11 et intégrés à sa demande**, détails de réalisation encore candidats |
+| Statut | **D2 — BASE v0.3 VALIDATED IN CONTENT ; v0.4 COMPLÉTÉE SUR DEMANDE MORRIS / GIT CANDIDATE — NOT MERGED** ; interfaces physiques, preuves et admission de construction non validées ; ne remplace pas les spécifications R2 propriétaires |
 | Dépôt et référence de vérification | mcleland147/sfia-workspace ; main@997897fd7cf914771e7d08e8030dc7123fab7d25 |
 | Branche de contribution | sfia/next-nora-cognition-cursor-contract-candidate |
 | Périmètre de conception | SFIA Studio Next ; ML5 comme macro-lot intégrateur, **capacités cognitives communes à toutes les situations où Nora travaille** |
@@ -15,7 +15,7 @@
 | État du programme | Roadmap Git : Ensemble 08 intégré, Gate C OPEN ; aucun GO R5 ML5, aucune promotion, release, adoption ou décision d'architecture issue de ce document |
 | Git local | **NON OBSERVÉ** — aucun constat sur worktree, fichiers staged ou non suivis |
 
-> **Portée de la validation.** Morris valide le contenu fonctionnel et autorise la contribution de **ce seul document sur une nouvelle branche Git**. Ce GO documentaire D2 ne vaut ni révision des normes R2 existantes, ni PR, merge, lancement Cursor, modification du code, changement de données, adoption, ni autorisation de construction ML5. Les détails techniques et les preuves restent à qualifier.
+> **Portée des validations.** La v0.3 conserve son état de validation en contenu. La v0.4 documente la précision fonctionnelle demandée le 23/11 : **activité LIVE informative pendant le run ; analyse globale Nora uniquement après clôture ou interruption**, sur rapport et éléments vérifiables. L'écriture Git est autorisée pour ces deux documents candidats et **ne vaut** ni modification de doctrine/R2 propriétaires, ni PR/merge, ni exécution Cursor, ni adoption ni GO construction. Les détails techniques restent à qualifier.
 
 ---
 
@@ -27,7 +27,7 @@ Le Pilote doit pouvoir exprimer naturellement une intention, être accompagné p
 
 Chaîne cible :
 
-**Intention du Pilote → qualification par Nora → investigation multi-sources → contrat versionné → inspection 50/50 → Exécuter / confirmation Oui-Non → tentative Cursor → suivi observable → bilan D8 → avis Nora → échange et décision éventuelle du Pilote → continuité.**
+**Intention du Pilote → investigation Nora → contrat versionné et inspection 50/50 → HumanDecision / Exécuter → Cursor sous D7 avec états LIVE informatifs et travail Git référencé → fin ou interruption de la tentative → dossier de réalisation Cursor (complet ou partiel) → vérification D8/D9 → une analyse globale Nora → décision éventuelle du Pilote → continuité.**
 
 La qualité du contrat est une condition majeure de fiabilité de la chaîne, **pas une certification automatique de l'exécution ou de sa conformité**.
 
@@ -344,11 +344,13 @@ Les états fonctionnels distincts incluent : prêt, autorisé, lancement demand�
 
 Ce ne sont pas des états automatiquement attestés ni une machine à états physique déjà adoptée.
 
+**Niveau d'information pendant le run :** affichage **sobre**, orienté Pilote : état courant, dernière activité réellement observée, étape fonctionnelle, erreur ou attente éventuelle, dernière publication Git confirmée si utile. Pas de console technique exhaustive, de pourcentage déduit, de chaîne de pensée ni de génération d'un bilan critique à chaque événement. Un événement Cursor annoncé n'est pas automatiquement une action terminée ou vérifiée.
+
 ## 9.4. Résilience
 
 La fiche demeure accessible après fermeture du chat, changement d'onglet ou reconnexion. Une demande d'arrêt n'est pas un arrêt observé. Une réponse réseau perdue ne prouve ni que Cursor a travaillé, ni qu'il n'a pas travaillé. Toute reprise/réconciliation interdit la duplication aveugle d'effets.
 
-La télémétrie de Cursor et sa capacité d'interruption doivent être **réellement établies** pour la voie d'intégration choisie.
+La télémétrie de Cursor et sa capacité d'interruption doivent être **réellement établies** pour la voie d'intégration choisie. Les publications intermédiaires servent à **préserver l'accès aux réalisations** et à la reprise, **sans déclencher une analyse Nora en cours d'exécution**. Un état SDK terminal, une absence de réponse, un rapport absent et une fin de travail vérifiée restent des faits distincts.
 
 # 10. Résultats & preuves : consultation et avis de Nora
 
@@ -365,7 +367,7 @@ Le Pilote peut y comprendre les travaux réalisés, les preuves et le degré de 
 3. Qualification D8 : conforme sur un périmètre vérifié, non conforme, partiel, non démontré ou incertain selon les cas.
 4. Décision métier du Pilote lorsqu'elle existe, relevant exclusivement de D6.
 
-Une tentative terminée, un commit ou un test « vert » déclaré ne certifie pas tout le contrat.
+Une tentative terminée, un commit ou un test « vert » déclaré ne certifie pas tout le contrat. **La revue approfondie de Nora intervient une fois à la fin de la tentative (succès, échec ou arrêt) sur les éléments disponibles**, pas après chaque publication Git ni pendant le flux d'événements.
 
 ## 10.3. Analyse de Nora
 
@@ -381,7 +383,7 @@ La validation métier, lorsqu'elle est utile, reste exprimable naturellement dan
 
 Depuis Exécution, accès au bilan de la tentative lorsqu'un bilan existe. Depuis Résultats, accès à l'intervention, au contrat et à la tentative d'origine.
 
-L'absence de rapport ne donne pas lieu à un faux bilan de succès. Un rapport partiel ou un arrêt peut produire un bilan limité si des éléments authentiques existent.
+L'absence de rapport ne donne pas lieu à un faux bilan de succès. Un rapport partiel ou un arrêt peut produire un bilan limité si des éléments authentiques existent. **Aucune nouvelle exécution Cursor ne doit être lancée automatiquement pour compléter un handoff défaillant** ; toute suite relevant de la réalisation technique respecte à nouveau le mandat applicable.
 
 # 11. « En discuter avec Nora » : reprise contextualisée
 
@@ -408,6 +410,10 @@ Aucun mot-clé manuel n'est demandé. Cette référence légère exploite les ob
 - **Contrat :** contenu inspectable complet ; changements matériels → nouvelle version/inspection.
 - **Lancement :** GO humain spécifique ; contrôles actuels ; pas de duplications au double clic.
 - **Tentative :** STOP demandé ≠ STOP effectif ; effets partiels et inconnus conservés.
+- **Supervision Cursor :** LIVE limité à l'état et aux faits de travail utiles ; aucune revue continue Nora, aucun affichage inventé en cas de perte du flux.
+- **Publication :** branche Git de travail distante vérifiée avant les changements techniques ; commits/pushes intermédiaires seulement aux jalons autorisés ; aucun PR/merge induit.
+- **Remise :** handoff final adaptable + inventaire complet du périmètre réalisé + références accessibles à leurs versions exactes ; absence de contenu ou capture non lisible signalée.
+- **Preuves :** D8 vérifie les références et la couverture en fin de tentative ; ne pas faire passer l'auto-description Cursor pour une preuve.
 - **Résultat :** rapport Cursor ≠ preuve indépendante ≠ conformité ≠ acceptation D6.
 - **Continuité :** la navigation, le changement de cycle ou de session ne fabrique ni mandat, ni nouvel état, ni nouvelle tentative.
 - **Nora ordinaire :** les tâches simples restent légères ; le nouveau socle ne force ni recherche web, ni préparation de contrat, ni plusieurs passes inutiles.
@@ -458,6 +464,14 @@ Les identifiants ci-dessous sont **provisoires et locaux au document**, destiné
 | Q-38 — Réception en conversation | D6 décide, D8 ne requalifie pas artificiellement la preuve |
 | Q-39 — Reconnexion / reprise | Contrat, tentative, résultats et activité disponible selon sa portée |
 | Q-40 — STOP demandé | Aucun arrêt ou rollback prétendu sans observation |
+| Q-41 — LIVE sobre | Statut, dernières actions observées et erreurs utiles seulement ; pas de synthèse cognitive intermédiaire |
+| Q-42 — Branche de travail | Ref distante vérifiée avant réalisation, publications intermédiaires bornées, sans PR/merge implicite |
+| Q-43 — Handoff adaptatif | Rapport contextualisé + inventaire exhaustif des créations/modifications/suppressions/lectures/actions, références immuables |
+| Q-44 — Captures et pièces | Accès réel aux captures UX, références Figma et autres artefacts nécessaires, ou limite explicite |
+| Q-45 — Fin interrompue | Événements/Git encore consultables ; rapport complet, partiel ou absent correctement qualifié |
+| Q-46 — D8 couverture finale | Vérification indépendante des changements, références et résultats de tests ; écarts remontés |
+| Q-47 — Revue finale seule | Aucune analyse Nora automatique par événement/commit ; bilan global sur tentative finie ou interrompue |
+| Q-48 — Réutilisation sur contrats successifs | Historique des tentatives et SHA conservés ; nouveau contrat part d'une référence vérifiée |
 
 La qualification doit confronter les résultats à des scénarios cognitifs réellement complexes et représentatifs, avec une référence initiale de comportement lorsque disponible, et distinguer **DETERMINISTIC / BROWSER / LIVE / REAL**. Une suite de tests scriptés ou la seule présence d'une interface ne prouvent pas le comportement réel de Nora.
 
@@ -472,7 +486,7 @@ La qualification doit confronter les résultats à des scénarios cognitifs rée
 - **D8 :** rapports, observations, preuves, avis et décisions distinctes.
 - **D9 :** accès Git, refs/version et permissions ; même qualité de consultation pour le socle d'investigation.
 - **Données / APIs :** capacités de conservation, identifiants stables, événements de progression, pagination et erreurs.
-- **Sécurité et coûts :** budgets de contexte/outils, isolation de projet, fuite de secrets, contenu web non fiable et consommation de crédits.
+- **Sécurité et ressources :** budgets de contexte/outils de Nora, isolation de projet, fuite de secrets, contenu web non fiable ; **aucun tableau de bord FinOps Cursor autonome demandé dans Next** (usage suivi dans le compte Cursor).
 - **Tests et documentation :** scénarios d'investigation complexes, navigation, reprise, négatifs et preuves réelles.
 
 ## 14.2. Risques structurants
@@ -515,7 +529,7 @@ Aucun GO de préparation documentaire ne remplace un GO de construction.
 6. Fournisseur et outils de recherche/lecture web, traitement des PDF/pages non lisibles et versions.
 7. Sécurité des contenus web, limites de coût, de fréquence et de ressources.
 8. Production, stockage et transmission intègres d'instructions très volumineuses.
-9. Choix entre Cursor CLI / API / agents cloud selon accès et capacités réellement démontrés.
+9. **Cursor SDK local privilégié en contenu par Morris**, sous qualification du comportement réel (DEV sur son poste, production sur serveur secondaire) ; CLI/Cloud seulement si obstacle démontré. Le coût d'utilisation est piloté par le compte Cursor, sans outil FinOps Next dédié.
 10. Identité d'exécuteur, permissions, attestation de la tentative et réconciliation de perte de réponse.
 11. Choix d'intégration avec la navigation et les composants UX Next, accessibilité et continuité.
 12. Preuves LIVE/REAL appropriées avant toute affirmation forte de capacité.
@@ -553,6 +567,56 @@ Les réponses relèvent d'une qualification R4/R5 bornée, puis de preuves R6 se
 
 Le Pilote a approuvé la trajectoire fonctionnelle UX v0.4, le rôle consultatif de Nora, l'absence d'autorité dans la page Résultats, la confirmation générique et les liens de reprise. Il a ensuite validé les principes d'investigation séquencée, de recherche web, de transparence fonctionnelle et **leur applicabilité transverse à l'ensemble des activités cognitives de Nora**.
 
-Ce document consigne **ces orientations validées en contenu** et les exigences qui en découlent, en laissant explicitement ouvertes les architectures, coûts, contrats techniques et preuves. Il est publié uniquement sur la branche candidate autorisée.
+Ce document consigne **la base v0.3 validée en contenu** ainsi que les exigences complémentaires exprimées par Morris le 23/11 : Cursor comme service transparent ; **LIVE informatif pendant, restitution complète et analyse Nora après** ; publication et traçabilité du travail sur une branche distante sous mandat. Les modalités de transport, les permissions techniques exactes et les preuves LIVE restent candidates. Publication documentaire **sur branche candidate uniquement**, sans promotion.
 
 **Conception ≠ implémentation ≠ preuve ≠ ADOPTED.**
+
+# 17. Complément fonctionnel du 23/11 — Supervision proportionnée et revue globale finale de Cursor
+
+> **Lecture prioritaire pour la réalisation Cursor :** le présent complément précise les §§7, 9 et 10. Il ne change ni la cognition transverse de Nora (§§3–6), ni les choix UX déjà validés. **Deux temps uniquement : suivi LIVE factuel pendant le run ; examen global à la fin.** Les publications Git intermédiaires sont un moyen de conservation et d'accès, **pas** un troisième moment de revue.
+
+## 17.1. Expérience Pilote et autonomie technique de Cursor
+
+Le Pilote utilise **Studio**, pas l'interface Cursor : il dialogue principalement avec Nora, inspecte le contrat et autorise explicitement l'intervention. Cursor intervient **comme un outil de réalisation** soumis à un périmètre et à des conditions d'arrêt. Cursor peut prendre les décisions techniques ordinaires nécessaires **dans ce mandat**, mais ne décide ni d'une évolution majeure du contrat, ni d'une promotion, ni de la conformité ou de l'acceptation.
+
+Pendant l'exécution, la page **Exécution** présente des états lisibles : en attente, lancé, action observée, test en cours/terminé si connu, publication Git constatée, erreur, absence de signal, STOP demandé/constaté, fin de run. **Aucune analyse automatique Nora** ni relecture critique du code ou des captures à chaque étape ; aucune obligation d'ouvrir Cursor. Le Pilote peut consulter un détail raisonnable des derniers faits observés, mais ne reçoit pas le flux brut des arguments d'outils, des secrets ou du raisonnement privé.
+
+**À la fin seulement**, après réussite, échec ou interruption réconciliée, Studio rassemble ce qui peut être retrouvé ; Nora effectue **une synthèse globale** des réalisations, écarts, preuves et suites possibles. Une fin non constatée reste un état inconnu, pas une fin fictive autorisant une conclusion définitive.
+
+## 17.2. Continuité Git à travers plusieurs contrats
+
+Toute réalisation technique qui modifie un dépôt Git commence **sur une branche de travail identifiée, distante et vérifiée** avant les changements. La copie locale reste nécessaire au travail de Cursor ; elle n'est pas l'unique source consultable par Studio. Les étapes significatives donnent lieu à des commits/pushes **bornés par le mandat D6**, afin que les productions puissent être récupérées en cas d'arrêt. Il ne s'agit ni d'un commit par commande, ni d'une validation intermédiaire, ni d'un droit automatique au PR/merge.
+
+Chaque intervention et chaque tentative conservent le dépôt, la branche, la base SHA, les publications confirmées et leur lien avec le contrat original. Un contrat ultérieur réutilise une **référence vérifiée et autorisée** : ne pas dépendre uniquement de la mémoire conversationnelle SDK ou d'un fichier local non publié. Les contenus non committés ou le travail impossible à publier sont signalés comme tels et peuvent faire l'objet d'une récupération contrôlée, **jamais d'une accessibilité Git inventée**.
+
+## 17.3. Handoff final complet, adaptable et retrouvable
+
+À la clôture normale, le contrat demande à Cursor un **Review Handoff propre à la tentative**, qui permet à Nora de comprendre ce qui a été réellement entrepris. **Socle obligatoire**, présentation adaptée au métier :
+
+- **Identités et état** : projet, contrat/révision, mandat, tentative, environnement, branche, base et dernier SHA connus ; exécution réussie/partielle/échouée ou interrompue, réserves et raisons.
+- **Travail effectué ou non** : objectifs, opérations, changements de configuration, commandes significatives, actions Git, décisions purement techniques prises dans le contrat, tests effectués/non effectués et résultats **déclarés vs attestés**.
+- **Sources consultées** : documents et fichiers déterminants lus, rôle dans la mission, versions/chemins si connus ; pas de copie intégrale exigée pour une simple lecture.
+- **Productions** : **inventaire couvrant les fichiers créés, modifiés, déplacés et supprimés**, y compris code, documentation, scripts, tests, données non sensibles et artefacts. Les références doivent permettre la lecture exacte de la version produite : repo/branche/commit/chemin/empreinte selon le cas.
+- **Contenus non accessibles par référence** : contenu texte exploitable dans le handoff lorsque possible et sûr, sinon réserve explicite. **Une liste de noms ou un simple résumé ne suffit pas.**
+- **Preuves spécialisées** : captures UX et application exécutée, référence Figma/version/frame, logs de tests pertinents, sorties de build, traces et pièces utiles, avec fichiers réellement consultables ; ne pas supposer que le SDK local télécharge automatiquement ces artefacts.
+- **Écarts et suite** : tâches inachevées, incidents, limites de vérification, dettes, besoin d'arbitrage Morris et proposition de prochaine étape.
+
+Le **canal de remise reste à qualifier** : handoff et pièces référencés dans la **branche Git de l'intervention**, ou autre stockage durable contrôlé par Studio si le contenu ne convient pas à Git. Un mécanisme mixte est admissible. Le texte de réponse finale SDK **n'est pas supposé constituer à lui seul le handoff**. Rapport/manifestes de plusieurs tentatives doivent rester distincts, non écrasés par un unique `latest`.
+
+## 17.4. Contrôle automatique final et analyse de Nora
+
+À réception ou reconstitution après fin/interruption, **D7** rattache le rapport et les références à la tentative. **D9** relit les versions Git effectives ; **D8** vérifie au minimum l'accès aux références, la correspondance avec les fichiers et modifications effectivement constatés, la présence des preuves attendues et les écarts entre déclarations et faits. Cela peut être déterministe ; ce n'est **pas une revue Nora répétée pendant l'exécution**.
+
+Nora reçoit ensuite le contrat exact, le handoff, les ressources réellement accessibles, les événements de diagnostic pertinents et la qualification D8 pour une **évaluation unique et approfondie de fin de tentative**, proportionnée au travail. Son avis reste **consultatif** ; une suite technique nécessite un nouveau mandat/contrat si le périmètre change. Un rapport incomplet, une capture manquante ou des fichiers non accessibles produisent une revue bornée avec réserves.
+
+**Distinction impérative :** un état LIVE, un commit, une capture ou une déclaration Cursor ne vaut ni conformité D8 ni GO Morris. L'absence de handoff final ne doit pas effacer les traces indépendantes disponibles.
+
+## 17.5. Conditions de qualification et exclusions
+
+**IN :** UX sobre Exécution, états factuels, historique durable, branche Git de travail vérifiée, publications intermédiaires sous autorisation, handoff adaptatif, pièces accessibles, contrôle de couverture final, avis Nora final.
+
+**OUT du parcours courant :** analyse Nora automatique sur chaque événement/commit, micro-gates au fil du développement, recopie systématique de tous les fichiers consultés, streaming de raisonnement privé, dashboard de facturation Cursor dans Studio, PR ou merge implicite, acceptation automatique.
+
+**À qualifier avant construction :** états/erreurs et streaming réellement disponibles dans `@cursor/sdk`, cohérence d'un run long après perte de connexion, modèle de conservation/transport du handoff et des captures, Git branche/fingerprint/permissions, isolation des workspaces, compatibilité future avec serveur secondaire, sécurité des artefacts, test d'accès réel par Nora. Décliner les preuves DETERMINISTIC/BROWSER/LIVE/REAL dans le macro-lot intégrateur, sans en déduire un GO ML5.
+
+**Autorité :** principes de parcours exprimés par Morris le 23/11 et transcrits à sa demande ; détails de mise en œuvre candidats, non normatifs et non éprouvés. **Aucune construction ni adoption déduite.**
