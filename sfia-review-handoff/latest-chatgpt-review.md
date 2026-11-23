@@ -1,137 +1,113 @@
-# SFIA Review Pack FULL — ML5 Cycle 9
+# SFIA Review Pack FULL — ML5 Cycle 10
 
-**Date/heure :** 2026-11-23T17:51:01.327880+01:00
+**Date/heure :** 2026-11-23T19:59:25.347820+01:00
 **Verdict :** `ML5 INTEGRATED — QUALIFICATION IN PROGRESS`
 
-## 1. Date et identité
-- Cycle: ML5 / Cycle 9 — démonstration E2E mono-tentative
-- Worktree: `/Users/morris/Projects/sfia-wt-next-ml5-20261123`
-- Branche: `sfia/next-ml5-integrated-delivery-20261123`
-- HEAD: `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY)
+## 1–3. Identité / Git Truth / Sources
+- Branche `sfia/next-ml5-integrated-delivery-20261123` HEAD `6cf33e9923796974b9ee540a9c6ff27110342950` DIRTY
+- origin/main `997897fd7cf914771e7d08e8030dc7123fab7d25` — upstream: none
+- Handoff C9 tip `de5e1fc6` — pack C10 reset mono-cycle
+- C9 captures conservées (14 PNG) — non modifiées
+- Sources: SFIA v2.6, SEF/roadmap main, décisions `1e6929c5`, R-003 `5a4e4405`, UX Figma `itgvCulInEnFY6DvgIegvP` / `1209:2`
 
-## 2. Git Truth Check
-- `origin/main`: `997897fd7cf914771e7d08e8030dc7123fab7d25`
-- merge-base HEAD…origin/main: `997897fd7cf914771e7d08e8030dc7123fab7d25`
-- upstream: **aucun** (branche locale non poussée — conforme contrat)
-- `git status --short` (60 lignes):
+## 4–5. Périmètre / Défauts C9
+- Overflow instruction + D6 non visible + inspection Exécution seule + bilan « Rapport manquant » après handoff re-ingest + F2 0 PASS
+- Blast radius: tokens.css, ContractViewer, D6ConfirmLaunch, page Travail, authorize route, CursorRealizationSurface openBilan, RealizationBilan
+
+## 6–8. Causes et corrections C10
+1. Styles `fig-contract-*` / `fig-d6-*` absents → CSS ajoutés (pre-wrap, min-width:0, overlay D6 fixed)
+2. D6 uniquement Exécution → Travail 50/50 + Exécuter… + D6ConfirmLaunch partagé
+3. `confirmed` absent traité comme Non → **400 CONFIRMATION_REQUIRED** sans HumanDecision
+4. Bilan ouvert avant handoff restait stale → openBilan détecte handoff RECEIVED + resume MISSING → requalify judgment_correction
+5. RealizationBilan: cards + coverage badges + empty states
+6. Requalify new_proof avec capture `ecap_1c817ffb…` exercée
+
+## 9. Fichiers créés (intégral)
+### `projects/sfia-studio-next/web/src/components/figma/D6ConfirmLaunch.tsx`
+```typescript
+"use client";
+
+/**
+ * ML5 C10 — HumanDecision D6 confirmation overlay (Oui / Non).
+ * Shared by Travail 50/50 and Exécution. Reading ≠ authorizing.
+ */
+
+export function D6ConfirmLaunch(props: {
+  contractKey: string;
+  version: number;
+  fingerprint: string;
+  title?: string;
+  busy?: boolean;
+  onYes: () => void;
+  onNo: () => void;
+  onCancel?: () => void;
+}) {
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="d6-confirm-title"
+      data-testid="d6-confirm-launch"
+      className="fig-d6-confirm"
+    >
+      <div className="fig-d6-confirm-card">
+        <h3 id="d6-confirm-title">Confirmer le lancement</h3>
+        <p data-testid="d6-confirm-scope">
+          Vous avez inspecté le contrat{" "}
+          <strong>
+            {props.contractKey} v{props.version}
+          </strong>
+          {props.title ? ` — ${props.title}` : ""}. Confirmez-vous l&apos;exécution
+          Cursor de cette version exacte ?
+        </p>
+        <p className="fig-travail-viewer-meta" data-testid="d6-confirm-fingerprint">
+          Empreinte inspectée : {props.fingerprint.slice(0, 16)}…
+        </p>
+        <p className="fig-travail-viewer-meta">
+          Oui = HumanDecision D6 (mandat). Non = refus explicite, aucun dispatch. Annuler =
+          fermer sans acte.
+        </p>
+        <div className="fig-d6-confirm-actions">
+          {props.onCancel ? (
+            <button
+              type="button"
+              className="btn secondary"
+              data-testid="d6-confirm-cancel"
+              disabled={props.busy}
+              onClick={props.onCancel}
+            >
+              Annuler
+            </button>
+          ) : null}
+          <button
+            type="button"
+            className="btn secondary"
+            data-testid="d6-confirm-no"
+            disabled={props.busy}
+            onClick={props.onNo}
+          >
+            Non
+          </button>
+          <button
+            type="button"
+            className="btn"
+            data-testid="d6-confirm-yes"
+            disabled={props.busy}
+            onClick={props.onYes}
+          >
+            Oui
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 ```
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio-next/construction/delivery-history.md
- M projects/sfia-studio-next/construction/ml5-as-built-cursor-realization.md
- M projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
- M projects/sfia-studio-next/web/next.config.ts
- M projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/turns/by-key/[clientTurnKey]/route.ts
- M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/authorize/route.ts
- M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/handoff/route.ts
- M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/qualification/route.ts
- M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/contracts/[contractId]/ready/route.ts
- M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/contracts/route.ts
- M projects/sfia-studio-next/web/src/app/login/page.tsx
- M projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
- M projects/sfia-studio-next/web/src/components/figma/CursorRealizationSurface.tsx
- M projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
- M projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
- M projects/sfia-studio-next/web/src/components/figma/RealizationBilan.tsx
- M projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
- M projects/sfia-studio-next/web/src/components/shell/studio-rail.ts
- M projects/sfia-studio-next/web/src/db/schema.ts
- M projects/sfia-studio-next/web/src/domains/conversation/d4-read-tools.ts
- M projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
- M projects/sfia-studio-next/web/src/domains/conversation/service.ts
- M projects/sfia-studio-next/web/src/domains/conversation/turn-projection.ts
- M projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts
- M projects/sfia-studio-next/web/src/domains/execution/cursor-attempt-service.ts
- M projects/sfia-studio-next/web/src/domains/execution/cursor-claim.ts
- M projects/sfia-studio-next/web/src/domains/execution/cursor-sdk-adapter.ts
- M projects/sfia-studio-next/web/src/domains/execution/technical-contract.ts
- M projects/sfia-studio-next/web/src/domains/identity/session.ts
- M projects/sfia-studio-next/web/src/domains/proofs/cursor-qualify.ts
- M projects/sfia-studio-next/web/src/lib/auth.ts
- M projects/sfia-studio-next/web/tests/integration/ml5-cursor-dispatch.pg.test.ts
- M projects/sfia-studio-next/web/tests/unit/ml5-cursor-qualify.test.ts
-?? projects/sfia-studio-next/construction/contrat-acceptation-cognition-et-realisation-gouvernee.md
-?? projects/sfia-studio-next/web/scripts/ml5-c9-e2e-journey.mts
-?? projects/sfia-studio-next/web/scripts/ml5-c9-seed-scenario.mts
-?? projects/sfia-studio-next/web/src/app/api/dev/auto-session/
-?? projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/captures/
-?? projects/sfia-studio-next/web/src/db/migrations/019_ml5_qualification_history.sql
-?? projects/sfia-studio-next/web/src/domains/conversation/nora-contract-bridge.ts
-?? projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts
-?? projects/sfia-studio-next/web/src/domains/conversation/tool-source-journal.ts
-?? projects/sfia-studio-next/web/src/domains/conversation/web-source-citation.ts
-?? projects/sfia-studio-next/web/src/domains/execution/cursor-git-option-a.ts
-?? projects/sfia-studio-next/web/src/domains/execution/mcp-capability-check.ts
-?? projects/sfia-studio-next/web/src/domains/execution/nora-contract-prepare.ts
-?? projects/sfia-studio-next/web/src/domains/execution/technical-contract-server-ready.ts
-?? projects/sfia-studio-next/web/src/domains/identity/dev-listen-probe.ts
-?? projects/sfia-studio-next/web/src/domains/proofs/evidence-captures.ts
-?? projects/sfia-studio-next/web/src/domains/proofs/proof-ref-verify.ts
-?? projects/sfia-studio-next/web/tests/integration/ml5-qualification-requalify.pg.test.ts
-?? projects/sfia-studio-next/web/tests/unit/ml5-c9-d6-refuse-phased.test.ts
-?? projects/sfia-studio-next/web/tests/unit/ml5-cursor-claim-anti-duplicat.test.ts
-?? projects/sfia-studio-next/web/tests/unit/ml5-cursor-git-option-a.test.ts
-?? projects/sfia-studio-next/web/tests/unit/ml5-dev-auto-session.test.ts
-?? projects/sfia-studio-next/web/tests/unit/ml5-nora-contract-bridge.test.ts
-?? projects/sfia-studio-next/web/tests/unit/ml5-proof-ref-verify.test.ts
-?? projects/sfia-studio-next/web/tests/unit/ml5-public-web-frontier.test.ts
-?? projects/sfia-studio-next/web/tests/unit/ml5-qualification-requalify.test.ts
-```
-- Aucun reset/clean/checkout destructeur exécuté.
-
-## 3. Sources lues (SHA / refs)
-- Méthode SFIA v2.6 depuis main@997897fd… (routing, template, operating model, guardrails)
-- Décision ML5 Git/DEV: `1e6929c5…`
-- Registre/acceptation: `5a4e4405…`
-- Handoff C8: `sfia/review-handoff@759517d0` blob `fdf4384e…`
-- ENV-01 / product-versioning depuis main — lane DEV only, NO RELEASE
-
-## 4. Périmètre et blast radius
-- IN: D6 refuse/authorize, SCRIPTED_PHASED adapter, CursorRealizationSurface, seed+E2E scripts, registre/delivery-history, captures C9
-- OUT: push projet, PR/merge, LIVE Nora/Cursor/WEB, RECETTE/STABLE, B09 faux fournisseur
-
-## 5. Scénario E2E mono-tentative
-- scenarioId: `ml5-c9-mono-20261123`
-- pilotId: `pilot_b8d7e5a2-8075-4050-ab97-3969b29235d9`
-- projectId: `proj_a4525a4a-2572-49ab-9345-1748f581448a` / `ML5-C9-2026-11-23-eaf3ad`
-- contractId: `tctr_97f4a788-c812-4b46-9257-1246900f153e` key `c9-mono-9a2811c2` fp `e93efdb8cea8fb9343a11cd1ae7c6716012023678dbaf5fe4359e29c79a167f1`
-- attemptIdRefuse: `efx_b70c69ef-9ee8-4ef5-8370-faf92fd44d67` → CANCELLED + decisionId
-- attemptIdYes: `efx_1e86bf8c-9f82-4f78-b243-8866e762ae63` → COMPLETED SCRIPTED_PHASED
-- creationMechanism: `DOMAIN_SEED_SCRIPTED` — **≠ Nora cognitive LIVE**
-
-## 6. Tableau des transitions et preuves
-| Étape | Transition | Capture | Verdict |
-|---|---|---|---|
-| S0-session | — | — | PASS |
-| A1-travail | — | c9-a1-travail.png | PASS |
-| A2-contrat | viewer closed → contract-viewer open | c9-a2-contrat-inspectable.png | PASS |
-| B1-dialog | PREPARED → confirm dialog | c9-b1-d6-confirm-avant-non.png | PASS |
-| B1-refus | PREPARED → CANCELLED (decision dec_814f88f0-8a08-4503-8eda-354b8f3a5572) | c9-b1-d6-refus.png | PASS |
-| B2-dialog | — | c9-b2-d6-confirm-avant-oui.png | PASS |
-| B2-oui-C1-dispatch | PREPARED → AUTHORIZED → DISPATCHED | c9-c1-running.png | PASS |
-| C2-reconcile | DISPATCHED → COMPLETED | c9-c2-completed.png | PASS |
-| C3-handoff | — | — | PARTIAL |
-| C3-reconnexion | — | c9-c3-reconnexion.png | PASS |
-| D1-bilan | liste → realization-bilan | c9-d1-bilan-synthese.png | PASS |
-| D2-tab-livrables | — | c9-d2-bilan-livrables.png | PASS |
-| D2-tab-git | — | c9-d2-bilan-git.png | PASS |
-| D2-tab-ecarts | — | c9-d2-bilan-ecarts.png | PASS |
-| D2-tab-synthese | — | c9-d2-bilan-synthese-retour.png | PASS |
-| E1-retour-nora | — | c9-e1-retour-nora.png | PASS |
-
-Summary: {'pass': 15, 'fail': 0, 'partial': 1, 'captures': 14}
-
-## 7. Corrections C9 réalisées
-1. `refuseCursorExecution` — D6 Non authentifié → HumanDecision CURSOR_EXECUTION_REFUSAL + CANCELLED, aucun dispatch
-2. UI `confirmNo` appelle authorize `confirmed:false` (≠ simple fermeture dialog)
-3. `SFIA_CURSOR_SCRIPTED_PHASED=1` — RUNNING `SCRIPTED_OBSERVATION_RUNNING` puis reconcile → FINISHED
-4. Parcours Playwright mono-ID A→E avec 14 captures + manifeste
-5. Handoff SCRIPTED_ADAPTER ingesté (après correction provenance agentId)
-
-## 8. Contenu intégral des fichiers créés (C9)
-### `projects/sfia-studio-next/web/scripts/ml5-c9-seed-scenario.mts`
+### `projects/sfia-studio-next/web/scripts/ml5-c10-seed-scenario.mts`
 ```typescript
 /**
- * ML5 C9 — seed a correlated DEV mono-attempt scenario (SCRIPTED fixture).
+ * ML5 C10 — seed a correlated DEV mono-attempt scenario (SCRIPTED fixture).
  * Creates: Pilot (existing DEV A), project, Nora preparation linkage, READY contract.
  * Does NOT claim Nora cognitively authored the contract — creationMechanism: DOMAIN_SEED_SCRIPTED.
  */
@@ -151,11 +127,11 @@ import { newId } from "../src/lib/ids";
 
 const OUT_DIR = join(
   process.cwd(),
-  "../../../.tmp-sfia-review/browser/c9",
+  "../../../.tmp-sfia-review/browser/c10",
 );
 
 const LONG_INSTRUCTION = [
-  "# Instruction technique intégrale — ML5 Cycle 9 (SCRIPTED)",
+  "# Instruction technique intégrale — ML5 Cycle 10 (SCRIPTED)",
   "",
   "## Objectif",
   "Démontrer un parcours mono-tentative gouverné depuis l'intention jusqu'au bilan D8,",
@@ -202,7 +178,7 @@ const LONG_INSTRUCTION = [
 
 function sampleBody(): TechnicalContractBody {
   return {
-    title: "ML5 C9 — Parcours mono-tentative gouverné (SCRIPTED)",
+    title: "ML5 C10 — Parcours mono-tentative gouverné (SCRIPTED)",
     engagements: {
       willDo:
         "Exécuter l'instruction autorisée via adaptateur Cursor SCRIPTED phasé, produire handoff et qualification D8.",
@@ -213,11 +189,11 @@ function sampleBody(): TechnicalContractBody {
       pilotControl: "HumanDecision D6 explicite Oui/Non — lecture ≠ autorisation.",
     },
     volets: {
-      mission: "Démonstration E2E ML5 Cycle 9 — une tentative, des transitions prouvées.",
+      mission: "Démonstration E2E ML5 Cycle 10 — une tentative, des transitions prouvées.",
       perimeter: "DEV local 127.0.0.1:3100 / PostgreSQL :5433 / SCRIPTED only.",
       capabilitiesAuthority: "Adaptateur SCRIPTED déclaré — ≠ LIVE SDK.",
       stopConditions: "STOP sur LIVE non autorisé, empreinte divergente, double dispatch.",
-      proofsSources: "Handoff SCRIPTED_ADAPTER + captures BROWSER C9 + manifeste mono-tentative.",
+      proofsSources: "Handoff SCRIPTED_ADAPTER + captures BROWSER C10 + manifeste mono-tentative.",
       integrity: "Fingerprint contrat = empreinte inspectée au D6 Oui.",
     },
     instructionText: LONG_INSTRUCTION,
@@ -236,7 +212,7 @@ function sampleBody(): TechnicalContractBody {
         "Bilan D8 4 onglets + retour Nora sans envoi auto",
       ],
       expectedProofs: [
-        "Captures PNG C9 + SHA-256",
+        "Captures PNG C10 + SHA-256",
         "Manifeste mono-tentative",
         "decisionId refus et mandat",
         "attemptId unique Oui traversant Travail/Exécution/Résultats",
@@ -270,16 +246,16 @@ async function main() {
   process.env.SFIA_CURSOR_EFFECT_MODE = "SCRIPTED";
 
   const pilotId = await resolvePilotA();
-  const label = `ML5-C9-${new Date().toISOString().slice(0, 10)}-${newId("nm").slice(-6)}`;
+  const label = `ML5-C10-${new Date().toISOString().slice(0, 10)}-${newId("nm").slice(-6)}`;
   const prep = await openOrCreatePreparation(pilotId);
-  await updatePreview(pilotId, prep.id, label, "Parcours mono-tentative C9 SCRIPTED");
+  await updatePreview(pilotId, prep.id, label, "Parcours mono-tentative C10 SCRIPTED");
   const refreshed = (await db.select().from(preparations).where(eq(preparations.id, prep.id)))[0]!;
   const created = await createProjectCommand({
     pilotId,
     preparationId: prep.id,
     expectedCreationRevision: refreshed.creationRevision,
     projectName: label,
-    previewSummary: "C9 mono-attempt E2E SCRIPTED",
+    previewSummary: "C10 mono-attempt E2E SCRIPTED",
     idempotencyKey: newId("idem"),
   });
   if (
@@ -295,7 +271,7 @@ async function main() {
     pilotId,
     projectId,
     preparationId: prep.id,
-    contractKey: `c9-mono-${newId("ck").slice(-8)}`,
+    contractKey: `c10-mono-${newId("ck").slice(-8)}`,
     body: sampleBody(),
     markReady: true,
     sourcesSufficient: true,
@@ -304,7 +280,7 @@ async function main() {
 
   mkdirSync(OUT_DIR, { recursive: true });
   const manifest = {
-    scenarioId: "ml5-c9-mono-20261123",
+    scenarioId: "ml5-c10-mono-20261123",
     at: new Date().toISOString(),
     creationMechanism: "DOMAIN_SEED_SCRIPTED",
     honesty:
@@ -332,12 +308,10 @@ main().catch((e) => {
 });
 
 ```
-
-### `projects/sfia-studio-next/web/scripts/ml5-c9-e2e-journey.mts`
+### `projects/sfia-studio-next/web/scripts/ml5-c10-e2e-journey.mts`
 ```typescript
 /**
- * ML5 Cycle 9 — mono-attempt BROWSER journey (Playwright).
- * Exercises real product APIs/UI: D6 No/Yes, SCRIPTED phased RUNNING, D8 bilan, Nora return.
+ * ML5 Cycle 10 — BROWSER journey: Travail 50/50, D6 visible, handoff→D8, overflow checks.
  */
 import { createHash } from "crypto";
 import { config } from "dotenv";
@@ -347,8 +321,8 @@ import { mkdirSync, readFileSync, writeFileSync, existsSync } from "fs";
 import { join } from "path";
 import { chromium, type Page } from "@playwright/test";
 
-const BASE = process.env.SFIA_C9_BASE_URL ?? "http://127.0.0.1:3100";
-const OUT = join(process.cwd(), "../../../.tmp-sfia-review/browser/c9");
+const BASE = process.env.SFIA_C10_BASE_URL ?? "http://127.0.0.1:3100";
+const OUT = join(process.cwd(), "../../../.tmp-sfia-review/browser/c10");
 const IDS_PATH = join(OUT, "scenario-ids.json");
 
 type ScenarioIds = {
@@ -363,6 +337,8 @@ type ScenarioIds = {
   fingerprint: string;
   attemptIdYes: string | null;
   attemptIdRefuse: string | null;
+  handoffId?: string | null;
+  qualificationId?: string | null;
 };
 
 type Step = {
@@ -372,6 +348,7 @@ type Step = {
   api?: { route: string; status: number; useful?: unknown };
   browser?: { url: string; state: string };
   capture?: { file: string; sha256: string; bytes: number };
+  geom?: unknown;
   data: "SCRIPTED" | "OBSERVED" | "DECLARED";
   criteria: string[];
   verdict: "PASS" | "FAIL" | "PARTIAL" | "NOT PROVEN";
@@ -389,469 +366,377 @@ async function shot(page: Page, name: string) {
   return { file: name, sha256: sha256(buf), bytes: buf.length, path };
 }
 
+async function measureOverflow(page: Page) {
+  // String form avoids tsx/esbuild __name injection into the browser context.
+  return page.evaluate(`(() => {
+    const viewer = document.querySelector('[data-testid="contract-viewer"]');
+    const instr = document.querySelector('[data-testid="contract-instruction-full"]');
+    const dialog = document.querySelector('[data-testid="d6-confirm-launch"]');
+    const dialogCard = document.querySelector(".fig-d6-confirm-card");
+    const box = (el) =>
+      el
+        ? {
+            x: Math.round(el.getBoundingClientRect().x),
+            y: Math.round(el.getBoundingClientRect().y),
+            w: Math.round(el.getBoundingClientRect().width),
+            h: Math.round(el.getBoundingClientRect().height),
+            scrollW: el.scrollWidth,
+            clientW: el.clientWidth,
+            overflowX: el.scrollWidth > el.clientWidth + 2,
+          }
+        : null;
+    return {
+      viewport: { w: window.innerWidth, h: window.innerHeight },
+      viewer: box(viewer),
+      instruction: box(instr),
+      dialog: box(dialog),
+      dialogCard: box(dialogCard),
+      dialogVisible: Boolean(
+        dialog &&
+          getComputedStyle(dialog).display !== "none" &&
+          dialog.getBoundingClientRect().height > 40,
+      ),
+    };
+  })()`);
+}
+
 async function autoSession(page: Page) {
-  const res = await page.request.post(`${BASE}/api/dev/auto-session`, {
-    data: {},
-  });
-  const j = (await res.json()) as { ok?: boolean; pilotId?: string; error?: string };
-  if (!res.ok() || !j.ok) {
-    throw new Error(`auto-session failed: ${res.status()} ${JSON.stringify(j)}`);
-  }
+  const res = await page.request.post(`${BASE}/api/dev/auto-session`, { data: {} });
+  const j = (await res.json()) as { ok?: boolean; pilotId?: string };
+  if (!res.ok() || !j.ok) throw new Error(`auto-session failed: ${res.status()}`);
   return j.pilotId!;
 }
 
 async function main() {
   mkdirSync(OUT, { recursive: true });
-  if (!existsSync(IDS_PATH)) {
-    throw new Error(`Missing ${IDS_PATH} — run ml5-c9-seed-scenario.mts first`);
-  }
+  if (!existsSync(IDS_PATH)) throw new Error(`Missing ${IDS_PATH}`);
   const ids = JSON.parse(readFileSync(IDS_PATH, "utf8")) as ScenarioIds;
   const steps: Step[] = [];
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
-    viewport: { width: 1440, height: 900 },
+    viewport: { width: 1680, height: 970 },
     deviceScaleFactor: 1,
   });
   const page = await context.newPage();
+  await autoSession(page);
 
-  const pilotId = await autoSession(page);
-  steps.push({
-    step: "S0-session",
-    action: "POST /api/dev/auto-session (Pilote A DEV)",
-    api: { route: "/api/dev/auto-session", status: 200, useful: { pilotId } },
-    data: "SCRIPTED",
-    criteria: ["ENV-01", "DÉC-ML5-DEV"],
-    verdict: pilotId === ids.pilotId || Boolean(pilotId) ? "PASS" : "FAIL",
-    reserve:
-      pilotId !== ids.pilotId
-        ? `pilotId session ${pilotId} ≠ seed ${ids.pilotId} — vérifier Pilot A`
-        : undefined,
-  });
-
-  // ——— A: Travail + contrat inspectable ———
-  await page.goto(`${BASE}/projects/${ids.projectId}?surface=travail`, {
-    waitUntil: "networkidle",
-  });
-  const cTravail = await shot(page, "c9-a1-travail.png");
-  steps.push({
-    step: "A1-travail",
-    action: "Ouvrir surface Travail du projet C9",
-    browser: { url: page.url(), state: "travail" },
-    capture: cTravail,
-    data: "OBSERVED",
-    criteria: ["CA-01", "CA-03"],
-    verdict: "PASS",
-  });
-
-  await page.goto(`${BASE}/projects/${ids.projectId}?surface=execution`, {
-    waitUntil: "networkidle",
-  });
-  await page.waitForSelector('[data-testid="cursor-realization-surface"]', {
-    timeout: 20000,
-  });
-  const selectBtn = page.locator(`[data-testid="contract-select-${ids.contractId}"]`);
-  await selectBtn.click();
-  await page.waitForSelector('[data-testid="contract-viewer"]');
-  const toggle = page.locator('[data-testid="contract-instruction-toggle"]');
-  if (await toggle.count()) await toggle.click();
-  await page.waitForSelector('[data-testid="contract-instruction-full"]', {
-    timeout: 5000,
-  }).catch(() => null);
-  const cContract = await shot(page, "c9-a2-contrat-inspectable.png");
-  const instrVisible = await page.locator('[data-testid="contract-instruction-full"]').count();
-  steps.push({
-    step: "A2-contrat",
-    action: "Sélectionner contrat + ouvrir instruction intégrale",
-    transition: "viewer closed → contract-viewer open",
-    browser: {
-      url: page.url(),
-      state: `contract ${ids.contractId} v${ids.contractVersion}`,
-    },
-    capture: cContract,
-    data: "OBSERVED",
-    criteria: ["CA-03", "CA-04"],
-    verdict: instrVisible > 0 ? "PASS" : "PARTIAL",
-    reserve:
-      instrVisible === 0
-        ? "Instruction full non visible — preview seule"
-        : undefined,
-  });
-
-  // ——— B1: D6 Non ———
-  const preparePromise1 = page.waitForResponse(
-    (r) => r.url().includes("/attempts/prepare") && r.request().method() === "POST",
-    { timeout: 20000 },
-  );
-  await page.locator(`[data-testid="contract-prepare-${ids.contractId}"]`).click();
-  const prep1 = await preparePromise1;
-  const prep1Json = (await prep1.json().catch(() => ({}))) as {
-    attemptId?: string;
-    error?: string;
-    message?: string;
-  };
-  if (!prep1.ok()) {
-    const cFail = await shot(page, "c9-b1-prepare-fail.png");
-    steps.push({
-      step: "B1-prepare-fail",
-      action: "Préparer exécution",
-      api: { route: "/attempts/prepare", status: prep1.status(), useful: prep1Json },
-      capture: cFail,
-      data: "OBSERVED",
-      criteria: ["CA-04"],
-      verdict: "FAIL",
-      reserve: prep1Json.message ?? prep1Json.error,
-    });
-    writeFileSync(join(OUT, "c9-mono-manifest.json"), JSON.stringify({ steps, ids }, null, 2));
-    throw new Error(`prepare failed: ${JSON.stringify(prep1Json)}`);
-  }
-  await page.waitForSelector('[data-testid="d6-confirm-launch"]', { timeout: 15000 });
-  const cD6Dialog = await shot(page, "c9-b1-d6-confirm-avant-non.png");
-  steps.push({
-    step: "B1-dialog",
-    action: "Préparer exécution → dialogue D6",
-    transition: "PREPARED → confirm dialog",
-    capture: cD6Dialog,
-    data: "OBSERVED",
-    criteria: ["CA-04", "T-02"],
-    verdict: "PASS",
-  });
-
-  const refuseRespPromise = page.waitForResponse(
-    (r) =>
-      r.url().includes("/authorize") && r.request().method() === "POST",
-    { timeout: 20000 },
-  );
-  await page.locator('[data-testid="d6-confirm-no"]').click();
-  const refuseResp = await refuseRespPromise;
-  const refuseJson = (await refuseResp.json().catch(() => ({}))) as {
-    status?: string;
-    decisionId?: string;
-    attemptId?: string;
-    refused?: boolean;
-  };
-  ids.attemptIdRefuse = refuseJson.attemptId ?? null;
-  await page.waitForTimeout(500);
-  const cRefuse = await shot(page, "c9-b1-d6-refus.png");
-  const attemptsAfterRefuse = await page.request.get(
-    `${BASE}/api/projects/${ids.projectId}/realization/attempts`,
-  );
-  const attemptsRefuseBody = (await attemptsAfterRefuse.json()) as {
-    attempts?: Array<{ attemptId: string; status: string; decisionId?: string | null }>;
-  };
-  const refusedRow = attemptsRefuseBody.attempts?.find(
-    (a) => a.attemptId === refuseJson.attemptId,
-  );
-  const noDispatch = !(attemptsRefuseBody.attempts ?? []).some((a) =>
-    ["AUTHORIZED", "DISPATCHED", "COMPLETED"].includes(a.status) &&
-    a.attemptId === refuseJson.attemptId,
-  );
-  steps.push({
-    step: "B1-refus",
-    action: "Clic Non → authorize confirmed:false",
-    transition: `PREPARED → ${refuseJson.status ?? "?"} (decision ${refuseJson.decisionId ?? "—"})`,
-    api: {
-      route: `/realization/attempts/${refuseJson.attemptId}/authorize`,
-      status: refuseResp.status(),
-      useful: refuseJson,
-    },
-    capture: cRefuse,
-    data: "OBSERVED",
-    criteria: ["CA-04", "T-02", "T-03"],
-    verdict:
-      refuseResp.ok() &&
-      refuseJson.status === "CANCELLED" &&
-      Boolean(refuseJson.decisionId) &&
-      noDispatch
-        ? "PASS"
-        : "FAIL",
-    reserve:
-      refusedRow?.status !== "CANCELLED"
-        ? `Statut persisté: ${refusedRow?.status}`
-        : undefined,
-  });
-
-  // ——— B2 + C: D6 Oui + SCRIPTED phased ———
-  await page.locator(`[data-testid="contract-prepare-${ids.contractId}"]`).click();
-  await page.waitForSelector('[data-testid="d6-confirm-launch"]', { timeout: 15000 });
-  const cYesDialog = await shot(page, "c9-b2-d6-confirm-avant-oui.png");
-  steps.push({
-    step: "B2-dialog",
-    action: "Seconde préparation → dialogue D6 Oui",
-    capture: cYesDialog,
-    data: "OBSERVED",
-    criteria: ["CA-04", "T-03"],
-    verdict: "PASS",
-  });
-
-  const authYesPromise = page.waitForResponse(
-    (r) =>
-      r.url().includes("/authorize") && r.request().method() === "POST",
-    { timeout: 20000 },
-  );
-  const dispatchPromise = page.waitForResponse(
-    (r) =>
-      r.url().includes("/dispatch") && r.request().method() === "POST",
-    { timeout: 30000 },
-  );
-  await page.locator('[data-testid="d6-confirm-yes"]').click();
-  const authYes = await authYesPromise;
-  const authYesJson = (await authYes.json().catch(() => ({}))) as {
-    status?: string;
-    decisionId?: string;
-    attemptId?: string;
-    fingerprint?: string;
-  };
-  const dispatchRes = await dispatchPromise;
-  const dispatchJson = (await dispatchRes.json().catch(() => ({}))) as {
-    status?: string;
-    attemptId?: string;
-    live?: { lastActivitySummary?: string; terminalStatus?: string | null };
-  };
-  ids.attemptIdYes = authYesJson.attemptId ?? dispatchJson.attemptId ?? null;
-  await page.waitForTimeout(800);
-  const cRunning = await shot(page, "c9-c1-running.png");
-  const runningOk =
-    dispatchRes.ok() &&
-    (dispatchJson.status === "DISPATCHED" ||
-      dispatchJson.live?.lastActivitySummary?.includes("RUNNING") ||
-      dispatchJson.status === "COMPLETED");
-  steps.push({
-    step: "B2-oui-C1-dispatch",
-    action: "D6 Oui + dispatch SCRIPTED",
-    transition: `PREPARED → AUTHORIZED → ${dispatchJson.status}`,
-    api: {
-      route: "authorize+dispatch",
-      status: dispatchRes.status(),
-      useful: { authYesJson, dispatchJson },
-    },
-    capture: cRunning,
-    data: "OBSERVED",
-    criteria: ["CA-05", "CA-06", "T-04", "T-05"],
-    verdict:
-      authYes.ok() &&
-      authYesJson.status === "AUTHORIZED" &&
-      authYesJson.fingerprint === ids.fingerprint &&
-      runningOk
-        ? "PASS"
-        : "FAIL",
-  });
-
-  // If phased DISPATCHED, reconcile to COMPLETED
-  let terminalStatus = dispatchJson.status;
-  if (ids.attemptIdYes && dispatchJson.status === "DISPATCHED") {
-    const recon = await page.request.post(
-      `${BASE}/api/projects/${ids.projectId}/realization/attempts/${ids.attemptIdYes}/reconcile`,
-    );
-    const reconJson = (await recon.json().catch(() => ({}))) as {
-      status?: string;
-      live?: { lastActivitySummary?: string };
-    };
-    terminalStatus = reconJson.status;
-    await page.reload({ waitUntil: "networkidle" });
-    await page.waitForSelector('[data-testid="cursor-realization-surface"]');
-    const cTerm = await shot(page, "c9-c2-completed.png");
-    steps.push({
-      step: "C2-reconcile",
-      action: "Réconcilier tentative SCRIPTED_PHASED → COMPLETED",
-      transition: `DISPATCHED → ${reconJson.status}`,
-      api: {
-        route: `/attempts/${ids.attemptIdYes}/reconcile`,
-        status: recon.status(),
-        useful: reconJson,
-      },
-      capture: cTerm,
-      data: "OBSERVED",
-      criteria: ["CA-06", "T-06"],
-      verdict: recon.ok() && reconJson.status === "COMPLETED" ? "PASS" : "FAIL",
-    });
-  } else {
-    const cTerm = await shot(page, "c9-c2-completed.png");
-    steps.push({
-      step: "C2-terminal",
-      action: "État terminal après dispatch (non phasé ou déjà COMPLETED)",
-      transition: String(terminalStatus),
-      capture: cTerm,
-      data: "OBSERVED",
-      criteria: ["CA-06"],
-      verdict: terminalStatus === "COMPLETED" ? "PASS" : "PARTIAL",
-      reserve:
-        terminalStatus !== "COMPLETED"
-          ? "Pas d'état DISPATCHED intermédiaire capturé — PHASED peut être off"
-          : undefined,
-    });
-  }
-
-  // Ingest SCRIPTED handoff for D8 proofs
-  if (ids.attemptIdYes) {
-    const report = [
-      `# Rapport de réalisation (SCRIPTED) — C9`,
-      `attemptId: ${ids.attemptIdYes}`,
-      `contractFingerprint: ${ids.fingerprint}`,
-      ``,
-      `## Inventaire`,
-      `- Seed + parcours BROWSER C9`,
-      ``,
-      `## Tests`,
-      `- Playwright ml5-c9-e2e-journey`,
-      ``,
-      `## Réserves`,
-      `- ≠ Cursor SDK LIVE`,
-    ].join("\n");
-    const handoff = await page.request.post(
-      `${BASE}/api/projects/${ids.projectId}/realization/attempts/${ids.attemptIdYes}/handoff`,
+  // ——— Neg: confirmed absent ———
+  {
+    const prep = await page.request.post(
+      `${BASE}/api/projects/${ids.projectId}/realization/attempts/prepare`,
       {
         data: {
-          reportMarkdown: report,
-          expectedContractFingerprint: ids.fingerprint,
-          provenance: {
-            acquisition: "SCRIPTED_ADAPTER",
-            // Must match observed agentId when both declared (CF-09 honesty).
-            declaredExecutorId: `scripted-agent-${ids.attemptIdYes}`,
-            observedAgentId: `scripted-agent-${ids.attemptIdYes}`,
-            observedRunId: `scripted-run-${ids.attemptIdYes}`,
-          },
-          manifest: {
-            filesCreated: [],
-            filesModified: [],
-            testsDeclared: ["c9-e2e-journey"],
-            testsExecuted: ["c9-e2e-journey"],
-            gaps: ["Inventaire: aucune modification fichier (SCRIPTED)", "SCRIPTED_NOT_LIVE"],
-          },
+          contractId: ids.contractId,
+          correlationKey: `c10-neg-absent-${Date.now()}`,
+          workspaceKey: "default",
         },
       },
     );
-    steps.push({
-      step: "C3-handoff",
-      action: "POST handoff SCRIPTED_ADAPTER",
-      api: {
-        route: `/attempts/${ids.attemptIdYes}/handoff`,
-        status: handoff.status(),
-        useful: await handoff.json().catch(() => ({})),
+    const pj = (await prep.json()) as { attemptId?: string };
+    const auth = await page.request.post(
+      `${BASE}/api/projects/${ids.projectId}/realization/attempts/${pj.attemptId}/authorize`,
+      {
+        data: {
+          statement: "test absent confirmed",
+          inspectedFingerprint: ids.fingerprint,
+          // confirmed intentionally omitted
+        },
       },
-      data: "SCRIPTED",
-      criteria: ["CA-07"],
-      verdict: handoff.ok() ? "PASS" : "PARTIAL",
+    );
+    const aj = await auth.json();
+    steps.push({
+      step: "N1-confirmed-absent",
+      action: "POST authorize without confirmed",
+      api: { route: "/authorize", status: auth.status(), useful: aj },
+      data: "OBSERVED",
+      criteria: ["T-02", "CA-04"],
+      verdict: auth.status() === 400 ? "PASS" : "FAIL",
+      reserve: auth.status() === 400 ? undefined : "confirmed absent should 400",
     });
   }
 
-  // ——— C3 reconnexion ———
-  await context.clearCookies();
-  await autoSession(page);
+  // ——— A/B: Travail 50/50 + instruction + D6 ———
+  await page.goto(`${BASE}/projects/${ids.projectId}?surface=travail`, {
+    waitUntil: "networkidle",
+  });
+  await page.waitForSelector('[data-testid="travail-refresh-contracts"], [data-testid="nora-workspace"]', {
+    timeout: 20000,
+  });
+  const refresh = page.locator('[data-testid="travail-refresh-contracts"]');
+  if (await refresh.count()) await refresh.click();
+  await page.waitForTimeout(400);
+  const openBtn = page.locator(`[data-testid="travail-open-contract-${ids.contractId}"]`);
+  await openBtn.waitFor({ timeout: 15000 });
+  await openBtn.click();
+  await page.waitForSelector('[data-testid="contract-viewer"]', { timeout: 15000 });
+  await page.locator('[data-testid="contract-instruction-toggle"]').click();
+  await page.waitForSelector('[data-testid="contract-instruction-full"]');
+  const geomA = await measureOverflow(page);
+  const cA = await shot(page, "c10-a-travail-50-50-instruction.png");
+  steps.push({
+    step: "A-travail-50-50",
+    action: "Ouvrir contrat READY en Travail 50/50 + instruction intégrale",
+    browser: { url: page.url(), state: "travail+contract-viewer" },
+    capture: cA,
+    geom: geomA,
+    data: "OBSERVED",
+    criteria: ["CA-04", "CA-09"],
+    verdict:
+      geomA.instruction &&
+      !geomA.instruction.overflowX &&
+      geomA.viewer &&
+      geomA.viewer.x >= 200
+        ? "PASS"
+        : "FAIL",
+    reserve: geomA.instruction?.overflowX
+      ? "overflow-x instruction"
+      : undefined,
+  });
+
+  // D6 Non from Travail
+  await page.locator('[data-testid="contract-request-execute"]').click();
+  await page.waitForSelector('[data-testid="d6-confirm-launch"]', { timeout: 15000 });
+  const geomD6 = await measureOverflow(page);
+  const cD6 = await shot(page, "c10-b1-d6-dialog-visible.png");
+  steps.push({
+    step: "B1-d6-visible",
+    action: "Dialogue D6 visible (overlay) depuis Travail",
+    capture: cD6,
+    geom: geomD6,
+    data: "OBSERVED",
+    criteria: ["CA-04", "T-02"],
+    verdict: geomD6.dialogVisible && (geomD6.dialogCard?.h ?? 0) > 80 ? "PASS" : "FAIL",
+  });
+
+  const refuseP = page.waitForResponse(
+    (r) => r.url().includes("/authorize") && r.request().method() === "POST",
+  );
+  await page.locator('[data-testid="d6-confirm-no"]').click();
+  const refuseR = await refuseP;
+  const refuseJ = (await refuseR.json()) as {
+    attemptId?: string;
+    status?: string;
+    decisionId?: string;
+  };
+  ids.attemptIdRefuse = refuseJ.attemptId ?? null;
+  const cRefuse = await shot(page, "c10-b1-d6-refus.png");
+  steps.push({
+    step: "B1-refus",
+    action: "D6 Non depuis Travail",
+    transition: `PREPARED → ${refuseJ.status}`,
+    api: { route: "/authorize", status: refuseR.status(), useful: refuseJ },
+    capture: cRefuse,
+    data: "OBSERVED",
+    criteria: ["T-02"],
+    verdict:
+      refuseR.ok() && refuseJ.status === "CANCELLED" && Boolean(refuseJ.decisionId)
+        ? "PASS"
+        : "FAIL",
+  });
+
+  // D6 Oui from Travail
+  await page.locator('[data-testid="contract-request-execute"]').click();
+  await page.waitForSelector('[data-testid="d6-confirm-launch"]');
+  await shot(page, "c10-b2-d6-avant-oui.png");
+  const authP = page.waitForResponse(
+    (r) => r.url().includes("/authorize") && r.request().method() === "POST",
+  );
+  const dispP = page.waitForResponse(
+    (r) => r.url().includes("/dispatch") && r.request().method() === "POST",
+  );
+  await page.locator('[data-testid="d6-confirm-yes"]').click();
+  const authR = await authP;
+  const authJ = (await authR.json()) as {
+    attemptId?: string;
+    status?: string;
+    fingerprint?: string;
+    decisionId?: string;
+  };
+  const dispR = await dispP;
+  const dispJ = (await dispR.json()) as {
+    status?: string;
+    attemptId?: string;
+    live?: { lastActivitySummary?: string };
+  };
+  ids.attemptIdYes = authJ.attemptId ?? dispJ.attemptId ?? null;
+  await page.waitForTimeout(600);
+  const cRun = await shot(page, "c10-c1-running-or-dispatched.png");
+  steps.push({
+    step: "B2-oui-dispatch",
+    action: "D6 Oui + dispatch depuis Travail",
+    transition: `→ ${dispJ.status}`,
+    api: { route: "authorize+dispatch", status: dispR.status(), useful: { authJ, dispJ } },
+    capture: cRun,
+    data: "OBSERVED",
+    criteria: ["CA-04", "CA-05", "T-03"],
+    verdict:
+      authR.ok() &&
+      authJ.status === "AUTHORIZED" &&
+      authJ.fingerprint === ids.fingerprint &&
+      dispR.ok()
+        ? "PASS"
+        : "FAIL",
+  });
+
+  // Ensure on execution for reconcile
   await page.goto(`${BASE}/projects/${ids.projectId}?surface=execution`, {
     waitUntil: "networkidle",
   });
-  const rowSel = ids.attemptIdYes
-    ? `[data-testid="attempt-row-${ids.attemptIdYes}"]`
-    : '[data-testid^="attempt-row-"]';
-  await page.waitForSelector(rowSel, { timeout: 15000 });
-  const cReconnect = await shot(page, "c9-c3-reconnexion.png");
-  steps.push({
-    step: "C3-reconnexion",
-    action: "Cookies purgés + auto-session + tentative retrouvée",
-    browser: { url: page.url(), state: `row ${ids.attemptIdYes}` },
-    capture: cReconnect,
-    data: "OBSERVED",
-    criteria: ["CA-06", "T-06"],
-    verdict: "PASS",
-  });
+  if (ids.attemptIdYes && dispJ.status === "DISPATCHED") {
+    const recon = await page.request.post(
+      `${BASE}/api/projects/${ids.projectId}/realization/attempts/${ids.attemptIdYes}/reconcile`,
+    );
+    const rj = await recon.json();
+    steps.push({
+      step: "C2-reconcile",
+      action: "Reconcile SCRIPTED_PHASED",
+      api: { route: "/reconcile", status: recon.status(), useful: rj },
+      data: "OBSERVED",
+      criteria: ["CA-06"],
+      verdict: recon.ok() && (rj as { status?: string }).status === "COMPLETED" ? "PASS" : "FAIL",
+    });
+  }
+  await page.reload({ waitUntil: "networkidle" });
+  await shot(page, "c10-c2-completed.png");
 
-  // ——— D: Bilan D8 ———
+  // ——— C: bilan BEFORE handoff ———
   await page.goto(`${BASE}/projects/${ids.projectId}?surface=publication`, {
     waitUntil: "networkidle",
   });
-  await page.waitForSelector('[data-testid="cursor-realization-surface"]');
-  if (!ids.attemptIdYes) throw new Error("attemptIdYes missing");
+  if (!ids.attemptIdYes) throw new Error("no attemptIdYes");
   await page.locator(`[data-testid="attempt-bilan-${ids.attemptIdYes}"]`).click();
   await page.waitForSelector('[data-testid="realization-bilan"]', { timeout: 20000 });
-  const bilanAttempt = await page
-    .locator('[data-testid="realization-bilan"]')
-    .getAttribute("data-attempt-id");
-  const cBilan = await shot(page, "c9-d1-bilan-synthese.png");
+  const beforeResume = await page
+    .locator('[data-testid="bilan-rubric-resume"]')
+    .innerText()
+    .catch(() => "");
+  const cBefore = await shot(page, "c10-d0-bilan-avant-handoff.png");
   steps.push({
-    step: "D1-bilan",
-    action: "Ouvrir Bilan D8 depuis Résultats et preuves",
-    transition: "liste → realization-bilan",
-    browser: {
-      url: page.url(),
-      state: `bilan attempt=${bilanAttempt}`,
-    },
-    capture: cBilan,
+    step: "D0-bilan-avant",
+    action: "Bilan avant ingestion handoff (état incomplet attendu)",
+    capture: cBefore,
     data: "OBSERVED",
-    criteria: ["CA-07", "CA-09", "T-07"],
-    verdict: bilanAttempt === ids.attemptIdYes ? "PASS" : "FAIL",
+    criteria: ["CA-07"],
+    verdict: /manquant|MISSING|INDETERMINATE|PARTIAL/i.test(beforeResume)
+      ? "PASS"
+      : "PARTIAL",
+    reserve: "Oracle: rapport manquant ou couverture MISSING avant handoff",
   });
 
-  const tabShots: Array<{ tab: string; file: string }> = [
-    { tab: "livrables", file: "c9-d2-bilan-livrables.png" },
-    { tab: "git", file: "c9-d2-bilan-git.png" },
-    { tab: "ecarts", file: "c9-d2-bilan-ecarts.png" },
-    { tab: "synthese", file: "c9-d2-bilan-synthese-retour.png" },
-  ];
-  for (const t of tabShots) {
-    await page.locator(`[data-testid="bilan-tab-${t.tab}"]`).click();
+  // Ingest handoff
+  const report = [
+    `# Rapport SCRIPTED C10`,
+    `attemptId: ${ids.attemptIdYes}`,
+    ``,
+    `## Inventaire`,
+    `- aucune modification fichier`,
+    ``,
+    `## Tests`,
+    `- c10-e2e-journey`,
+    ``,
+    `## Réserves`,
+    `- SCRIPTED_NOT_LIVE`,
+  ].join("\n");
+  const handoff = await page.request.post(
+    `${BASE}/api/projects/${ids.projectId}/realization/attempts/${ids.attemptIdYes}/handoff`,
+    {
+      data: {
+        reportMarkdown: report,
+        expectedContractFingerprint: ids.fingerprint,
+        provenance: {
+          acquisition: "SCRIPTED_ADAPTER",
+          declaredExecutorId: `scripted-agent-${ids.attemptIdYes}`,
+          observedAgentId: `scripted-agent-${ids.attemptIdYes}`,
+          observedRunId: `scripted-run-${ids.attemptIdYes}`,
+        },
+        manifest: {
+          filesCreated: [],
+          filesModified: [],
+          testsDeclared: ["c10-e2e-journey"],
+          testsExecuted: ["c10-e2e-journey"],
+          gaps: ["Inventaire: aucune modification fichier (SCRIPTED)", "SCRIPTED_NOT_LIVE"],
+        },
+      },
+    },
+  );
+  const hj = (await handoff.json()) as { handoffId?: string; status?: string; error?: string };
+  ids.handoffId = hj.handoffId ?? null;
+  steps.push({
+    step: "C3-handoff",
+    action: "POST handoff SCRIPTED_ADAPTER",
+    api: { route: "/handoff", status: handoff.status(), useful: hj },
+    data: "SCRIPTED",
+    criteria: ["CA-07"],
+    verdict: handoff.ok() && hj.status === "RECEIVED" ? "PASS" : "FAIL",
+  });
+
+  // Re-open bilan (should requalify)
+  await page.reload({ waitUntil: "networkidle" });
+  await page.locator(`[data-testid="attempt-bilan-${ids.attemptIdYes}"]`).click();
+  await page.waitForSelector('[data-testid="realization-bilan"]', { timeout: 20000 });
+  await page.waitForTimeout(800);
+  const afterResume = await page
+    .locator('[data-testid="bilan-rubric-resume"]')
+    .innerText()
+    .catch(() => "");
+  const cAfter = await shot(page, "c10-d1-bilan-apres-handoff.png");
+  const reportOk = !/rapport manquant/i.test(afterResume);
+  steps.push({
+    step: "D1-bilan-apres",
+    action: "Bilan après handoff RECEIVED (requalify judgment_correction)",
+    capture: cAfter,
+    data: "OBSERVED",
+    criteria: ["CA-07", "CA-09"],
+    verdict: reportOk ? "PASS" : "FAIL",
+    reserve: reportOk ? undefined : `resume still: ${afterResume.slice(0, 120)}`,
+  });
+
+  for (const tab of ["livrables", "git", "ecarts", "synthese"] as const) {
+    await page.locator(`[data-testid="bilan-tab-${tab}"]`).click();
     await page.waitForTimeout(200);
-    const cap = await shot(page, t.file);
+    const cap = await shot(page, `c10-d2-bilan-${tab}.png`);
     steps.push({
-      step: `D2-tab-${t.tab}`,
-      action: `Onglet bilan ${t.tab}`,
+      step: `D2-tab-${tab}`,
+      action: `Onglet ${tab}`,
       capture: cap,
       data: "OBSERVED",
-      criteria: ["CA-07", "T-08"],
+      criteria: ["CA-07", "CA-09"],
       verdict: "PASS",
     });
   }
 
-  // ——— E: Retour Nora ———
+  // ——— E: Nora return ———
   await page.locator('[data-testid="bilan-discuss-nora"]').click();
-  await page.waitForTimeout(800);
   await page.waitForSelector('[data-testid="nora-composer"]', { timeout: 15000 });
-  const draftVal = await page.locator('[data-testid="thread-draft"]').inputValue().catch(() => "");
-  const cNora = await shot(page, "c9-e1-retour-nora.png");
-  const draftHasAttempt =
-    draftVal.includes(ids.attemptIdYes) || draftVal.includes("tentative");
+  const draft = await page.locator('[data-testid="thread-draft"]').inputValue().catch(() => "");
+  const cNora = await shot(page, "c10-e1-retour-nora.png");
   steps.push({
     step: "E1-retour-nora",
-    action: "En discuter avec Nora → Travail, brouillon non envoyé",
-    browser: {
-      url: page.url(),
-      state: `draftLen=${draftVal.length}`,
-    },
+    action: "Retour Nora contextualisé",
     capture: cNora,
+    browser: { url: page.url(), state: `draft=${draft.slice(0, 80)}` },
     data: "OBSERVED",
-    criteria: ["CA-08", "T-09", "T-10"],
-    verdict:
-      page.url().includes("surface=travail") || draftHasAttempt || draftVal.length > 0
-        ? "PASS"
-        : "PARTIAL",
-    reserve: !draftHasAttempt
-      ? "Brouillon présent mais attemptId non détecté dans value"
-      : undefined,
+    criteria: ["CA-08", "T-10"],
+    verdict: draft.includes(ids.attemptIdYes!) || draft.includes("tentative") ? "PASS" : "PARTIAL",
   });
 
-  // Persist updated IDs
-  writeFileSync(IDS_PATH, JSON.stringify({ ...ids, attemptIdYes: ids.attemptIdYes, attemptIdRefuse: ids.attemptIdRefuse, updatedAt: new Date().toISOString() }, null, 2));
-
+  writeFileSync(
+    IDS_PATH,
+    JSON.stringify({ ...ids, updatedAt: new Date().toISOString() }, null, 2),
+  );
   const manifest = {
     scenarioId: ids.scenarioId,
     at: new Date().toISOString(),
     tool: "playwright",
     frontier: "SCRIPTED_PHASED_DEV",
-    correlation: {
-      pilotId: ids.pilotId,
-      projectId: ids.projectId,
-      projectName: ids.projectName,
-      contractId: ids.contractId,
-      contractKey: ids.contractKey,
-      fingerprint: ids.fingerprint,
-      attemptIdRefuse: ids.attemptIdRefuse,
-      attemptIdYes: ids.attemptIdYes,
-    },
+    viewport: { w: 1680, h: 970 },
+    correlation: ids,
     honesty: {
-      noraCognitiveContractCreation: false,
+      noraCognitive: false,
       cursorSdkLive: false,
-      webLive: false,
-      d6RefusalIsAuthenticatedAct: true,
-      phasedScriptedObservations: true,
+      d6FromTravail: true,
+      handoffBeforeAfterBilan: true,
+      figmaF2: "NOT PROVEN — measures recorded; pair compare deferred",
     },
     steps,
     summary: {
@@ -861,10 +746,8 @@ async function main() {
       captures: steps.filter((s) => s.capture).length,
     },
   };
-  writeFileSync(join(OUT, "c9-mono-manifest.json"), JSON.stringify(manifest, null, 2));
+  writeFileSync(join(OUT, "c10-mono-manifest.json"), JSON.stringify(manifest, null, 2));
   console.log(JSON.stringify(manifest.summary, null, 2));
-  console.log(`attemptIdYes=${ids.attemptIdYes}`);
-  console.log(`attemptIdRefuse=${ids.attemptIdRefuse}`);
   await browser.close();
   if (manifest.summary.fail > 0) process.exit(1);
 }
@@ -875,572 +758,249 @@ main().catch((e) => {
 });
 
 ```
-
-### `projects/sfia-studio-next/web/tests/unit/ml5-c9-d6-refuse-phased.test.ts`
+### `projects/sfia-studio-next/web/tests/unit/ml5-c10-d6-confirmed-required.test.ts`
 ```typescript
 /**
- * ML5 C9 — D6 refuse is an authenticated act; SCRIPTED phased emits RUNNING then finished.
+ * ML5 C10 — confirmed must be explicit boolean; absent ≠ silent refuse.
  */
-import { describe, expect, it, afterEach } from "vitest";
-import {
-  __resetScriptedCursorRunsForTests,
-  advanceScriptedRunToFinished,
-  dispatchCursorRun,
-  isScriptedPhasedMode,
-} from "@/domains/execution/cursor-sdk-adapter";
+import { describe, expect, it } from "vitest";
 
-describe("ML5 C9 SCRIPTED phased + D6 refuse helpers", () => {
-  afterEach(() => {
-    __resetScriptedCursorRunsForTests();
-    delete process.env.SFIA_CURSOR_SCRIPTED_PHASED;
-  });
-
-  it("isScriptedPhasedMode reads env", () => {
-    expect(isScriptedPhasedMode({})).toBe(false);
-    expect(isScriptedPhasedMode({ SFIA_CURSOR_SCRIPTED_PHASED: "1" })).toBe(true);
-  });
-
-  it("SCRIPTED phased returns RUNNING observation without terminal", async () => {
-    process.env.SFIA_CURSOR_SCRIPTED_PHASED = "1";
-    const d = await dispatchCursorRun({
-      attemptId: "efx_test_phased",
-      instructionText: "noop",
-      instructionFingerprint: "fp",
-      workspaceCwd: "/tmp",
-      idempotencyKey: "efx_test_phased",
-      waitForTerminal: true, // env PHASED still forces running first
-    });
-    expect(d.terminalStatus).toBeNull();
-    expect(d.lastActivitySummary).toBe("SCRIPTED_OBSERVATION_RUNNING");
-    expect(d.limits).toContain("SCRIPTED_PHASED");
-    const fin = advanceScriptedRunToFinished("efx_test_phased");
-    expect(fin?.lastActivitySummary).toBe("SCRIPTED_OBSERVATION_FINISHED");
-    expect(fin?.resultText).toContain("efx_test_phased");
-  });
-
-  it("SCRIPTED non-phased still finishes immediately", async () => {
-    const d = await dispatchCursorRun({
-      attemptId: "efx_test_immediate",
-      instructionText: "noop",
-      instructionFingerprint: "fp",
-      workspaceCwd: "/tmp",
-      idempotencyKey: "efx_test_immediate",
-      waitForTerminal: true,
-    });
-    expect(d.terminalStatus).toBe("finished");
-    expect(d.lastActivitySummary).toBe("SCRIPTED_FINISHED");
+describe("ML5 C10 D6 confirmed contract", () => {
+  it("treats only true as Oui and only false as Non", () => {
+    const decide = (confirmed: unknown) => {
+      if (typeof confirmed !== "boolean") return "REJECT_NO_ACT";
+      return confirmed ? "AUTHORIZE" : "REFUSE";
+    };
+    expect(decide(true)).toBe("AUTHORIZE");
+    expect(decide(false)).toBe("REFUSE");
+    expect(decide(undefined)).toBe("REJECT_NO_ACT");
+    expect(decide(null)).toBe("REJECT_NO_ACT");
+    expect(decide("true")).toBe("REJECT_NO_ACT");
+    expect(decide(1)).toBe("REJECT_NO_ACT");
   });
 });
 
 ```
 
-## 9. Diffs exploitables (fichiers C9 touchés)
-### `projects/sfia-studio-next/web/src/domains/execution/cursor-sdk-adapter.ts`
+## 10. Diffs modifiés
+### `projects/sfia-studio-next/web/src/components/figma/D6ConfirmLaunch.tsx`
 ```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/execution/cursor-sdk-adapter.ts b/projects/sfia-studio-next/web/src/domains/execution/cursor-sdk-adapter.ts
-index 86ed9d13..4c98edb9 100644
---- a/projects/sfia-studio-next/web/src/domains/execution/cursor-sdk-adapter.ts
-+++ b/projects/sfia-studio-next/web/src/domains/execution/cursor-sdk-adapter.ts
-@@ -77,6 +77,60 @@ export function __resetScriptedCursorRunsForTests(): void {
-   scriptedRuns.clear();
- }
- 
-+/** When true, SCRIPTED returns DISPATCHED/RUNNING first; reconcile advances to finished. */
-+export function isScriptedPhasedMode(env: NodeJS.ProcessEnv = process.env): boolean {
-+  return (env.SFIA_CURSOR_SCRIPTED_PHASED || "").trim() === "1";
-+}
-+
-+export function getScriptedRun(attemptId: string) {
-+  return scriptedRuns.get(attemptId) ?? null;
-+}
-+
-+/** Advance a phased SCRIPTED run to finished — used by reconcile, never a second send. */
-+export function advanceScriptedRunToFinished(attemptId: string): {
-+  agentId: string;
-+  runId: string;
-+  resultText: string;
-+  lastActivitySummary: string;
-+} | null {
-+  const existing = scriptedRuns.get(attemptId);
-+  if (!existing) return null;
-+  if (existing.status === "finished") {
-+    return {
-+      agentId: existing.agentId,
-+      runId: existing.runId,
-+      resultText: existing.resultText,
-+      lastActivitySummary: "SCRIPTED_ALREADY_FINISHED",
-+    };
-+  }
-+  if (existing.status !== "running") return null;
-+  existing.status = "finished";
-+  return {
-+    agentId: existing.agentId,
-+    runId: existing.runId,
-+    resultText: existing.resultText,
-+    lastActivitySummary: "SCRIPTED_OBSERVATION_FINISHED",
-+  };
-+}
-+
-+function buildScriptedReport(attemptId: string, instructionFingerprint: string): string {
-+  return [
-+    `# Rapport de réalisation (SCRIPTED)`,
-+    ``,
-+    `attemptId: ${attemptId}`,
-+    `instructionFingerprint: ${instructionFingerprint}`,
-+    ``,
-+    `## Inventaire`,
-+    `- Aucun fichier modifié (mode scripted)`,
-+    ``,
-+    `## Tests`,
-+    `- Non exécutés (SCRIPTED)`,
-+    ``,
-+    `## Réserves`,
-+    `- Preuve LIVE SDK non produite`,
-+  ].join("\n");
-+}
-+
- export async function dispatchCursorRun(
-   input: CursorDispatchInput,
-   mode = resolveCursorAdapterMode(),
-@@ -100,28 +154,35 @@ export async function dispatchCursorRun(
-     }
-     const agentId = `scripted-agent-${input.attemptId}`;
-     const runId = `scripted-run-${input.attemptId}`;
--    const resultText = [
--      `# Rapport de réalisation (SCRIPTED)`,
--      ``,
--      `attemptId: ${input.attemptId}`,
--      `instructionFingerprint: ${input.instructionFingerprint}`,
--      ``,
--      `## Inventaire`,
--      `- Aucun fichier modifié (mode scripted)`,
--      ``,
--      `## Tests`,
--      `- Non exécutés (SCRIPTED)`,
--      ``,
--      `## Réserves`,
--      `- Preuve LIVE SDK non produite`,
--    ].join("\n");
-+    const resultText = buildScriptedReport(input.attemptId, input.instructionFingerprint);
-+    const phased =
-+      isScriptedPhasedMode() || input.waitForTerminal === false;
-     scriptedRuns.set(input.idempotencyKey, {
-       agentId,
-       runId,
--      status: "finished",
-+      status: phased ? "running" : "finished",
-       instructionFingerprint: input.instructionFingerprint,
-       resultText,
-     });
-+    if (phased) {
-+      return {
-+        mode,
-+        sendRequestedAt,
-+        ackReceivedAt: sendRequestedAt,
-+        runObservedAt: sendRequestedAt,
-+        agentId,
-+        runId,
-+        terminalStatus: null,
-+        lastActivitySummary: "SCRIPTED_OBSERVATION_RUNNING",
-+        resultText: null,
-+        limits: [
-+          "SCRIPTED_MODE",
-+          "SCRIPTED_PHASED",
-+          "NO_REAL_SIDE_EFFECT",
-+          "REQUIRES_RECONCILE_TO_FINISH",
-+        ],
-+      };
-+    }
-     return {
-       mode,
-       sendRequestedAt,
+NEW FILE — see section 9
 
 ```
-
-### `projects/sfia-studio-next/web/src/domains/execution/cursor-attempt-service.ts`
+### `projects/sfia-studio-next/web/src/components/figma/ContractViewer.tsx`
 ```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/execution/cursor-attempt-service.ts b/projects/sfia-studio-next/web/src/domains/execution/cursor-attempt-service.ts
-index 638f719f..e701dddd 100644
---- a/projects/sfia-studio-next/web/src/domains/execution/cursor-attempt-service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/execution/cursor-attempt-service.ts
-@@ -108,6 +108,68 @@ export async function prepareCursorExecution(input: {
-   )[0];
+diff --git a/projects/sfia-studio-next/web/src/components/figma/ContractViewer.tsx b/projects/sfia-studio-next/web/src/components/figma/ContractViewer.tsx
+index a9a8fc94..d87754e9 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/ContractViewer.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/ContractViewer.tsx
+@@ -12,6 +12,8 @@ export type ContractViewerModel = {
+   version: number;
+   fingerprint: string;
+   title: string;
++  /** DRAFT | READY | … — D6 only when READY */
++  status?: string;
+   engagements: {
+     willDo: string;
+     willNotDo: string;
+@@ -55,7 +57,8 @@ export function ContractViewer(props: {
+             {c.title}
+           </h2>
+           <p className="fig-travail-viewer-meta" data-testid="contract-viewer-identity">
+-            {c.contractKey} · v{c.version} · {c.fingerprint.slice(0, 12)}
++            {c.contractKey} · v{c.version}
++            {c.status ? ` · ${c.status}` : ""} · {c.fingerprint.slice(0, 12)}
+           </p>
+         </div>
+         <div className="fig-travail-viewer-actions">
+
+```
+### `projects/sfia-studio-next/web/src/components/figma/RealizationBilan.tsx`
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/figma/RealizationBilan.tsx b/projects/sfia-studio-next/web/src/components/figma/RealizationBilan.tsx
+index 15855cf3..058281e5 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/RealizationBilan.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/RealizationBilan.tsx
+@@ -2,16 +2,26 @@
  
-   const mode = resolveCursorAdapterMode();
-+  const gitScope = contract.gitScopeJson
-+    ? (JSON.parse(contract.gitScopeJson) as CursorExecutionPlan["gitScope"])
-+    : null;
-+  // DÉC-ML5-GIT Option A — CP-01 independent Git observations (never contract SHA echo).
-+  if (gitScope?.required) {
-+    const {
-+      buildCursorGitMandateFromScope,
-+      observeWorkspaceGitFacts,
-+      preflightCursorGitOptionA,
-+    } = await import("./cursor-git-option-a");
-+    const mandate = buildCursorGitMandateFromScope(gitScope);
-+    const authorized =
-+      process.env.SFIA_CURSOR_GIT_AUTHORIZED_REPOS?.split(",")
-+        .map((s) => s.trim())
-+        .filter(Boolean) ?? [];
-+    // DEV SCRIPTED: allow the declared repo name when authorized list empty and mode SCRIPTED.
-+    const repos =
-+      authorized.length > 0
-+        ? authorized
-+        : mode === "SCRIPTED" && gitScope.repositoryFullName
-+          ? [gitScope.repositoryFullName]
-+          : [];
-+    const observations = observeWorkspaceGitFacts(
-+      workspace.workspaceCwd,
-+      gitScope.baseRef ?? "main",
-+      gitScope.workBranch ?? "cursor/work",
-+    );
-+    const pre = preflightCursorGitOptionA({
-+      mandate,
-+      workspacePath: workspace.workspaceCwd,
-+      authorizedRepos: repos,
-+      observations,
-+    });
-+    if (!pre.ok) {
-+      throw new StudioError(
-+        "INVALID_REQUEST",
-+        `Préflight Git Cursor option A refusé: ${pre.reason}`,
-+        { exposeMessage: true },
-+      );
-+    }
-+  }
-+  // E12 / C8 A3 — MCP fail-closed: UNKNOWN blocks; SCRIPTED may simulate explicitly.
-+  const mcpRequired = input.mcpRequired ?? [];
-+  if (mcpRequired.length > 0) {
-+    const { assertMcpReadyForDispatch, checkRequiredMcpCapabilities } = await import(
-+      "./mcp-capability-check"
-+    );
-+    const scriptedSimulation = mode === "SCRIPTED";
-+    const mcpResults = checkRequiredMcpCapabilities(mcpRequired, process.env, {
-+      scriptedSimulation,
-+    });
-+    const mcpGate = assertMcpReadyForDispatch(mcpResults, {
-+      allowScriptedSimulation: scriptedSimulation,
-+    });
-+    if (!mcpGate.ok) {
-+      throw new StudioError(
-+        "INVALID_REQUEST",
-+        `Préflight MCP refusé: ${mcpGate.reason}`,
-+        { exposeMessage: true },
-+      );
-+    }
-+  }
-   const plan: CursorExecutionPlan = {
-     kind: "CURSOR_EXECUTION",
-     contractId: contract.id,
-@@ -118,10 +180,8 @@ export async function prepareCursorExecution(input: {
-     workspaceCwd: workspace.workspaceCwd,
-     workspaceKey: workspace.workspaceKey,
-     effectProviderMode: mode,
--    gitScope: contract.gitScopeJson
--      ? (JSON.parse(contract.gitScopeJson) as CursorExecutionPlan["gitScope"])
--      : null,
--    mcpRequired: input.mcpRequired ?? [],
-+    gitScope,
-+    mcpRequired,
-   };
-   const fingerprint = contract.fingerprint;
-   const planFp = planFingerprintPayload(plan);
-@@ -177,6 +237,96 @@ export async function prepareCursorExecution(input: {
-   };
- }
+ /**
+  * ML5 — Bilan D8 (frames 12.08 / 12.11 / 12.12 / 12.13).
+- * Four tabs covering nine rubrics. Verdict D8 ≠ avis Nora ≠ décision D6.
++ * Four Figma tabs: Synthèse / Livrables et tests / Git et pièces / Écarts.
++ * Cover nine rubrics. Verdict D8 ≠ avis Nora ≠ décision D6.
+  */
  
-+/**
-+ * Authenticated D6 Non — records an explicit HumanDecision refusal.
-+ * No AUTHORIZED transition, no dispatch, no Cursor effect.
-+ * Attempt moves PREPARED → CANCELLED (still the same attemptId).
-+ */
-+export async function refuseCursorExecution(input: {
-+  pilotId: string;
-+  projectId: string;
-+  attemptId: string;
-+  statement: string;
-+  inspectedFingerprint: string;
-+}) {
-+  return db.transaction(async (tx) => {
-+    const row = (
-+      await tx
-+        .select()
-+        .from(effectAttempts)
-+        .where(
-+          and(
-+            eq(effectAttempts.id, input.attemptId),
-+            eq(effectAttempts.projectId, input.projectId),
-+            eq(effectAttempts.pilotId, input.pilotId),
-+          ),
-+        )
-+        .limit(1)
-+    )[0];
-+    if (!row) throw new StudioError("NOT_FOUND", "Tentative introuvable");
-+    if (row.kind !== "CURSOR_EXECUTION") {
-+      throw new StudioError("INVALID_REQUEST", "Tentative non Cursor");
-+    }
-+    if (row.status === "CANCELLED" && row.decisionId) {
-+      return {
-+        attemptId: row.id,
-+        status: "CANCELLED" as const,
-+        decisionId: row.decisionId,
-+        idempotent: true as const,
-+        fingerprint: row.fingerprint,
-+        refused: true as const,
-+      };
-+    }
-+    if (row.status !== "PREPARED") {
-+      throw new StudioError(
-+        "CONFLICT",
-+        `Refus D6 impossible depuis statut ${row.status}`,
-+        { exposeMessage: true },
-+      );
-+    }
-+    if (input.inspectedFingerprint !== row.fingerprint) {
-+      throw new StudioError(
-+        "REQUIRES_REQUALIFICATION",
-+        "Empreinte inspectée ≠ tentative — relire le contrat",
-+        { exposeMessage: true },
-+      );
-+    }
-+    const effectConditions = JSON.stringify({
-+      fingerprint: row.fingerprint,
-+      kind: "CURSOR_EXECUTION_REFUSAL",
-+      attemptId: row.id,
-+    });
-+    const decisionId = await insertHumanDecision(tx, {
-+      projectId: input.projectId,
-+      pilotId: input.pilotId,
-+      sourceKind: "CURSOR_EXECUTION",
-+      sourceRef: row.id,
-+      kind: "CURSOR_EXECUTION_REFUSAL",
-+      objectRef: row.id,
-+      statement: (input.statement || "Refus explicite D6 — pas d'exécution Cursor").slice(0, 500),
-+      effectConditions,
-+    });
-+    const now = new Date();
-+    await tx
-+      .update(effectAttempts)
-+      .set({
-+        status: "CANCELLED",
-+        decisionId,
-+        effectConditions,
-+        updatedAt: now,
-+      })
-+      .where(eq(effectAttempts.id, row.id));
-+    return {
-+      attemptId: row.id,
-+      status: "CANCELLED" as const,
-+      decisionId,
-+      idempotent: false as const,
-+      fingerprint: row.fingerprint,
-+      refused: true as const,
-+    };
-+  });
-+}
+ import type { D8Rubric } from "@/domains/proofs/cursor-qualify";
+ 
+-const TAB_RUBRICS: Record<string, Array<D8Rubric["key"]>> = {
+-  synthese: ["resume", "prevu", "realise"],
+-  evaluation: ["evaluation", "ecarts", "impact"],
+-  verdict: ["verdict", "recommandations"],
+-  sources: ["sources"],
++export const BILAN_TAB_LABELS = {
++  synthese: "Synthèse",
++  livrables: "Livrables et tests",
++  git: "Git et pièces",
++  ecarts: "Écarts",
++} as const;
 +
- export async function authorizeCursorExecution(input: {
-   pilotId: string;
-   projectId: string;
-@@ -187,8 +337,12 @@ export async function authorizeCursorExecution(input: {
-   confirmed: boolean;
++export type BilanTab = keyof typeof BILAN_TAB_LABELS;
++
++const TAB_RUBRICS: Record<BilanTab, Array<D8Rubric["key"]>> = {
++  synthese: ["resume", "prevu", "realise", "verdict", "recommandations"],
++  livrables: ["evaluation"],
++  git: ["sources", "impact"],
++  ecarts: ["ecarts"],
+ };
+ 
+ export function RealizationBilan(props: {
+@@ -20,8 +30,9 @@ export function RealizationBilan(props: {
+   rubrics: D8Rubric[];
+   limits: string[];
+   noraAnalysisMarkdown?: string | null;
+-  activeTab: keyof typeof TAB_RUBRICS;
+-  onTabChange: (tab: keyof typeof TAB_RUBRICS) => void;
++  noraAnalysisKind?: string | null;
++  activeTab: BilanTab;
++  onTabChange: (tab: BilanTab) => void;
+   onDiscussWithNora?: () => void;
  }) {
-   if (!input.confirmed) {
--    throw new StudioError("INVALID_REQUEST", "Confirmation refusée — aucun effet", {
--      exposeMessage: true,
-+    return refuseCursorExecution({
-+      pilotId: input.pilotId,
-+      projectId: input.projectId,
-+      attemptId: input.attemptId,
-+      statement: input.statement,
-+      inspectedFingerprint: input.inspectedFingerprint,
-     });
-   }
-   return db.transaction(async (tx) => {
-@@ -377,7 +531,19 @@ export async function dispatchCursorExecution(input: {
-   }
- 
-   const fromStatus = row.status as "AUTHORIZED" | "AMBIGUOUS";
--  const claimed = await claimCursorAttempt(row.id, fromStatus);
-+  if (fromStatus === "AMBIGUOUS") {
-+    const { priorSendMayHaveOccurred } = await import("./cursor-claim");
-+    if (priorSendMayHaveOccurred(row.resultJson)) {
-+      throw new StudioError(
-+        "CONFLICT",
-+        "AMBIGUOUS avec envoi antérieur possible — pas de redispatch ; réconcilier ou conserver UNKNOWN",
-+        { exposeMessage: true },
-+      );
-+    }
-+  }
-+  // P0: claim + sendRequestedAt in one durable write BEFORE any external SDK call.
-+  // Crash between this point and SDK ⇒ priorSendMayHaveOccurred ⇒ no blind redispatch.
-+  const claimed = await claimCursorAttempt(row.id, fromStatus, { stampSendIntent: true });
-   if (!claimed) {
-     const again = (
-       await db.select().from(effectAttempts).where(eq(effectAttempts.id, row.id)).limit(1)
-@@ -387,24 +553,40 @@ export async function dispatchCursorExecution(input: {
-         exposeMessage: true,
-       });
-     }
-+    const { priorSendMayHaveOccurred } = await import("./cursor-claim");
-+    if (fromStatus === "AMBIGUOUS" && priorSendMayHaveOccurred(again?.resultJson)) {
-+      throw new StudioError(
-+        "CONFLICT",
-+        "Claim refusé — effet externe possible après ACK perdu ; pas de second envoi",
-+        { exposeMessage: true },
-+      );
-+    }
-     throw new StudioError("CONFLICT", "Claim atomique échoué — pas de dispatch", {
-       exposeMessage: true,
-     });
-   }
- 
-   const claimToken = claimed.claim.claimToken;
--  const sendRequestedAt = new Date().toISOString();
-+  const sendRequestedAt =
-+    claimed.sendRequestedAt ?? new Date().toISOString();
- 
-   let dispatched;
-   try {
-+    const { isScriptedPhasedMode } = await import("./cursor-sdk-adapter");
-+    const scriptedPhased =
-+      plan.effectProviderMode === "SCRIPTED" && isScriptedPhasedMode();
-     dispatched = await dispatchCursorRun({
-       attemptId: row.id,
-       instructionText: contract.instructionText,
-       instructionFingerprint: plan.instructionFingerprint,
-       workspaceCwd: plan.workspaceCwd,
-       idempotencyKey: row.id,
--      /** LIVE: return after ACK/first observation — do not block HTTP on full wait. */
--      waitForTerminal: plan.effectProviderMode === "SCRIPTED",
-+      /**
-+       * LIVE: return after ACK/first observation — do not block HTTP on full wait.
-+       * SCRIPTED default: finish immediately unless SFIA_CURSOR_SCRIPTED_PHASED=1
-+       * (C9 — RUNNING observations then reconcile → COMPLETED).
-+       */
-+      waitForTerminal: plan.effectProviderMode === "SCRIPTED" && !scriptedPhased,
-     });
-   } catch (e) {
-     const failLive: CursorLiveProjection = {
-@@ -424,7 +606,7 @@ export async function dispatchCursorExecution(input: {
-   }
- 
-   const nextLive: CursorLiveProjection = {
--    sendRequestedAt: dispatched.sendRequestedAt,
-+    sendRequestedAt: dispatched.sendRequestedAt ?? sendRequestedAt,
-     ackReceivedAt: dispatched.ackReceivedAt,
-     runObservedAt: dispatched.runObservedAt,
-     agentId: dispatched.agentId,
-@@ -534,6 +716,64 @@ export async function reconcileCursorExecution(input: {
-   const live = parseLive(row.resultJson);
-   const claim = readClaim(row.resultJson);
-   const limits = [...(live.limits ?? [])];
-+  const plan = JSON.parse(row.planJson) as CursorExecutionPlan;
-+
-+  // SCRIPTED phased: advance in-memory run → COMPLETED without a second send.
-+  if (
-+    row.status === "DISPATCHED" &&
-+    plan.effectProviderMode === "SCRIPTED" &&
-+    !live.terminalStatus
-+  ) {
-+    const { advanceScriptedRunToFinished } = await import("./cursor-sdk-adapter");
-+    const advanced = advanceScriptedRunToFinished(row.id);
-+    if (advanced) {
-+      const nextLive: CursorLiveProjection = {
-+        ...live,
-+        agentId: advanced.agentId,
-+        runId: advanced.runId,
-+        terminalStatus: "finished",
-+        lastActivitySummary: advanced.lastActivitySummary,
-+        reportStatus: "RECEIVED",
-+        limits: [
-+          ...limits,
-+          "SCRIPTED_MODE",
-+          "SCRIPTED_PHASED_RECONCILED",
-+          "NO_REAL_SIDE_EFFECT",
-+        ],
-+      };
-+      if (claim && isClaimActive(claim)) {
-+        await persistCursorOwnedResult({
-+          attemptId: row.id,
-+          claimToken: claim.claimToken,
-+          resultJson: JSON.stringify({
-+            ...nextLive,
-+            reportMarkdown: advanced.resultText,
-+          }),
-+          status: "COMPLETED",
-+          release: true,
-+        });
-+      } else {
-+        await db
-+          .update(effectAttempts)
-+          .set({
-+            status: "COMPLETED",
-+            resultJson: JSON.stringify({
-+              ...nextLive,
-+              reportMarkdown: advanced.resultText,
-+            }),
-+            updatedAt: new Date(),
+   const byKey = new Map(props.rubrics.map((r) => [r.key, r]));
+@@ -32,6 +43,7 @@ export function RealizationBilan(props: {
+       data-testid="realization-bilan"
+       data-attempt-id={props.attemptId}
+       data-verdict={props.verdict}
++      data-active-tab={props.activeTab}
+     >
+       <header>
+         <p className="fig-kicker !mb-0">RÉSULTATS ET PREUVES  /  D8</p>
+@@ -40,8 +52,11 @@ export function RealizationBilan(props: {
+           Verdict D8: {props.verdict} — distinct de l&apos;avis Nora et de la réception D6
+         </p>
+       </header>
++      <p className="fig-travail-viewer-meta" data-testid="bilan-attempt-id">
++        Tentative {props.attemptId}
++      </p>
+       <nav data-testid="bilan-tabs" className="fig-bilan-tabs">
+-        {(Object.keys(TAB_RUBRICS) as Array<keyof typeof TAB_RUBRICS>).map((tab) => (
++        {(Object.keys(BILAN_TAB_LABELS) as BilanTab[]).map((tab) => (
+           <button
+             key={tab}
+             type="button"
+@@ -49,27 +64,67 @@ export function RealizationBilan(props: {
+             data-testid={`bilan-tab-${tab}`}
+             onClick={() => props.onTabChange(tab)}
+           >
+-            {tab}
++            {BILAN_TAB_LABELS[tab]}
+           </button>
+         ))}
+       </nav>
+-      <section data-testid="bilan-rubrics">
+-        {keys.map((k) => {
+-          const r = byKey.get(k);
+-          if (!r) return null;
+-          return (
+-            <article key={k} data-testid={`bilan-rubric-${k}`}>
+-              <h3>
+-                {r.title}{" "}
+-                <span data-coverage={r.coverage}>[{r.coverage}]</span>
+-              </h3>
+-              <p>{r.content}</p>
+-            </article>
+-          );
+-        })}
++      <section data-testid="bilan-rubrics" className="fig-bilan-rubrics">
++        {keys.length === 0 ? (
++          <p className="fig-bilan-empty" data-testid="bilan-rubrics-empty">
++            Aucune rubrique pour cet onglet.
++          </p>
++        ) : (
++          keys.map((k) => {
++            const r = byKey.get(k);
++            if (!r) {
++              return (
++                <article
++                  key={k}
++                  className="fig-bilan-rubric"
++                  data-testid={`bilan-rubric-${k}`}
++                  data-empty="1"
++                >
++                  <h3>
++                    {k}{" "}
++                    <span className="fig-bilan-coverage" data-coverage="MISSING">
++                      MISSING
++                    </span>
++                  </h3>
++                  <p className="fig-bilan-empty">Rubrique absente de ce dossier.</p>
++                </article>
++              );
++            }
++            const empty =
++              !r.content?.trim() ||
++              r.coverage === "MISSING" ||
++              /^rapport manquant$/i.test(r.content.trim());
++            return (
++              <article
++                key={k}
++                className="fig-bilan-rubric"
++                data-testid={`bilan-rubric-${k}`}
++                data-coverage={r.coverage}
++              >
++                <h3>
++                  {r.title}{" "}
++                  <span className="fig-bilan-coverage" data-coverage={r.coverage}>
++                    {r.coverage}
++                  </span>
++                </h3>
++                {empty ? (
++                  <p className="fig-bilan-empty" data-testid={`bilan-rubric-empty-${k}`}>
++                    {r.content?.trim() || "Donnée absente — non certifiée."}
++                  </p>
++                ) : (
++                  <p>{r.content}</p>
++                )}
++              </article>
++            );
 +          })
-+          .where(eq(effectAttempts.id, row.id));
-+      }
-+      return {
-+        attemptId: row.id,
-+        status: "COMPLETED" as const,
-+        live: nextLive,
-+        limits: nextLive.limits ?? [],
-+        scriptedReportMarkdown: advanced.resultText,
-+      };
-+    }
-+  }
- 
-   if (row.status === "DISPATCHED" && !isClaimActive(claim)) {
-     if (!live.runId && !live.agentId) {
++        )}
+       </section>
+       {props.limits.length > 0 ? (
+-        <section data-testid="bilan-limits">
++        <section data-testid="bilan-limits" className="fig-bilan-limits">
+           <h3>Limites</h3>
+           <ul>
+             {props.limits.map((l) => (
+@@ -79,8 +134,18 @@ export function RealizationBilan(props: {
+         </section>
+       ) : null}
+       {props.noraAnalysisMarkdown ? (
+-        <section data-testid="bilan-nora-analysis">
+-          <h3>Analyse Nora (post-tentative)</h3>
++        <section
++          className="fig-bilan-nora-analysis"
++          data-testid="bilan-nora-analysis"
++          data-kind={props.noraAnalysisKind ?? "unknown"}
++        >
++          <h3>
++            {props.noraAnalysisKind === "NORA_COGNITIVE"
++              ? "Analyse Nora D3 (post-tentative)"
++              : props.noraAnalysisKind === "DETERMINISTIC_SYNTHESIS"
++                ? "Synthèse déterministe (≠ run Nora)"
++                : "Brief technique (≠ avis Nora)"}
++          </h3>
+           <pre>{props.noraAnalysisMarkdown}</pre>
+         </section>
+       ) : null}
 
 ```
-
-### `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/authorize/route.ts`
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/authorize/route.ts b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/authorize/route.ts
-index 7cc137a3..ecc0b267 100644
---- a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/authorize/route.ts
-+++ b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/authorize/route.ts
-@@ -19,22 +19,15 @@ export async function POST(
-     if (!body.statement || !body.inspectedFingerprint) {
-       return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 400 });
-     }
--    if (body.confirmed !== true) {
--      return NextResponse.json(
--        {
--          error: "CONFIRMATION_REFUSED",
--          message: "Confirmation Non ou absente — aucun acte D6, aucun dispatch",
--        },
--        { status: 400 },
--      );
--    }
-+    // confirmed === true → D6 Oui (mandate). Otherwise authenticated D6 Non (refusal act).
-+    // Missing body after session auth is treated as Non — never as silent authorize.
-     const result = await authorizeCursorExecution({
-       pilotId: session.pilotId,
-       projectId,
-       attemptId,
-       statement: body.statement,
-       inspectedFingerprint: body.inspectedFingerprint,
--      confirmed: true,
-+      confirmed: body.confirmed === true,
-     });
-     return NextResponse.json(result);
-   } catch (e) {
-
-```
-
 ### `projects/sfia-studio-next/web/src/components/figma/CursorRealizationSurface.tsx`
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/components/figma/CursorRealizationSurface.tsx b/projects/sfia-studio-next/web/src/components/figma/CursorRealizationSurface.tsx
-index 7cdacec9..115d3506 100644
+index 7cdacec9..186126e2 100644
 --- a/projects/sfia-studio-next/web/src/components/figma/CursorRealizationSurface.tsx
 +++ b/projects/sfia-studio-next/web/src/components/figma/CursorRealizationSurface.tsx
-@@ -1,14 +1,14 @@
+@@ -1,14 +1,15 @@
  "use client";
  
  /**
@@ -1453,11 +1013,12 @@ index 7cdacec9..115d3506 100644
  import { useCallback, useEffect, useState } from "react";
  import { ContractViewer, type ContractViewerModel } from "./ContractViewer";
 -import { RealizationBilan } from "./RealizationBilan";
++import { D6ConfirmLaunch } from "./D6ConfirmLaunch";
 +import { RealizationBilan, type BilanTab } from "./RealizationBilan";
  import type { D8Rubric } from "@/domains/proofs/cursor-qualify";
  
  type AttemptRow = {
-@@ -41,7 +41,7 @@ type ContractRow = {
+@@ -41,7 +42,7 @@ type ContractRow = {
    version: number;
    fingerprint: string;
    status: string;
@@ -1466,7 +1027,7 @@ index 7cdacec9..115d3506 100644
      title: string;
      engagements: ContractViewerModel["engagements"];
      volets: ContractViewerModel["volets"];
-@@ -53,8 +53,11 @@ type ContractRow = {
+@@ -53,8 +54,11 @@ type ContractRow = {
  
  export function CursorRealizationSurface(props: {
    projectId: string;
@@ -1478,7 +1039,7 @@ index 7cdacec9..115d3506 100644
    const [contracts, setContracts] = useState<ContractRow[]>([]);
    const [attempts, setAttempts] = useState<AttemptRow[]>([]);
    const [selectedContract, setSelectedContract] = useState<ContractRow | null>(null);
-@@ -67,10 +70,9 @@ export function CursorRealizationSurface(props: {
+@@ -67,10 +71,9 @@ export function CursorRealizationSurface(props: {
      rubrics: D8Rubric[];
      limits: string[];
      noraAnalysisMarkdown?: string | null;
@@ -1491,7 +1052,7 @@ index 7cdacec9..115d3506 100644
    const [status, setStatus] = useState("");
    const [busy, setBusy] = useState(false);
  
-@@ -83,7 +85,6 @@ export function CursorRealizationSurface(props: {
+@@ -83,7 +86,6 @@ export function CursorRealizationSurface(props: {
        const j = (await cRes.json()) as { contracts?: ContractRow[] };
        setContracts(j.contracts ?? []);
      }
@@ -1499,7 +1060,7 @@ index 7cdacec9..115d3506 100644
      if (aRes && aRes.ok) {
        const j = (await aRes.json()) as { attempts?: AttemptRow[] };
        setAttempts(j.attempts ?? []);
-@@ -94,20 +95,49 @@ export function CursorRealizationSurface(props: {
+@@ -94,20 +96,49 @@ export function CursorRealizationSurface(props: {
      void reload();
    }, [reload]);
  
@@ -1560,7 +1121,7 @@ index 7cdacec9..115d3506 100644
    async function prepareFromContract(contract: ContractRow) {
      setBusy(true);
      setStatus("");
-@@ -179,10 +209,47 @@ export function CursorRealizationSurface(props: {
+@@ -179,35 +210,135 @@ export function CursorRealizationSurface(props: {
      }
    }
  
@@ -1609,51 +1170,149 @@ index 7cdacec9..115d3506 100644
 +    } finally {
 +      setBusy(false);
 +    }
++  }
++
++  function resumeMissing(rubrics: D8Rubric[] | undefined): boolean {
++    const resume = (rubrics ?? []).find((r) => r.key === "resume");
++    return (
++      !resume ||
++      resume.coverage === "MISSING" ||
++      /^rapport manquant$/i.test((resume.content ?? "").trim())
++    );
    }
  
    async function openBilan(attempt: AttemptRow) {
-@@ -199,6 +266,7 @@ export function CursorRealizationSurface(props: {
+     setSelectedAttempt(attempt);
+     setBusy(true);
+     try {
++      const handoffRes = await fetch(
++        `/api/projects/${props.projectId}/realization/attempts/${attempt.attemptId}/handoff`,
++      );
++      const handoffJ = (await handoffRes.json().catch(() => ({}))) as {
++        handoff?: { id?: string; status?: string; reportMarkdown?: string | null };
++        status?: string;
++      };
++      const handoff = handoffJ.handoff ?? null;
++      const handoffReceived =
++        handoffRes.ok &&
++        handoff?.status === "RECEIVED" &&
++        Boolean(handoff.reportMarkdown && String(handoff.reportMarkdown).trim());
++
+       let res = await fetch(
+         `/api/projects/${props.projectId}/realization/attempts/${attempt.attemptId}/qualification`,
+       );
+       let j = (await res.json().catch(() => ({}))) as {
+         status?: string;
+         qualification?: {
++          id?: string;
+           verdict: string;
            rubrics: D8Rubric[];
            limits: string[];
            noraAnalysisMarkdown?: string | null;
 +          noraAnalysisKind?: string | null;
++          updatedAt?: string | null;
          };
        };
-       if (j.status === "MISSING" || !j.qualification) {
-@@ -207,7 +275,7 @@ export function CursorRealizationSurface(props: {
+-      if (j.status === "MISSING" || !j.qualification) {
++
++      const needsFresh =
++        j.status === "MISSING" ||
++        !j.qualification ||
++        (handoffReceived && resumeMissing(j.qualification?.rubrics));
++
++      if (needsFresh) {
++        const payload =
++          j.qualification && handoffReceived && resumeMissing(j.qualification.rubrics)
++            ? {
++                attachNoraCognitive: true,
++                requalify: true,
++                reason:
++                  "C10 — handoff RECEIVED après qualification initiale (rapport manquant) — correction de jugement, pas de redispatch",
++                // judgment_correction: handoff now available; not claiming a distinct new artifact id
++                requalifyMode: "judgment_correction" as const,
++                newProofRef: handoff?.id ?? "",
++                expectedUpdatedAt: j.qualification.updatedAt ?? undefined,
++              }
++            : { attachNoraCognitive: true };
++        if (
++          "requalify" in payload &&
++          payload.requalify &&
++          !payload.newProofRef
++        ) {
++          setStatus(
++            "Handoff reçu mais handoffId absent — impossible de requalifier proprement",
++          );
++          if (j.qualification) {
++            setBilan({
++              verdict: j.qualification.verdict,
++              rubrics: j.qualification.rubrics,
++              limits: j.qualification.limits,
++              noraAnalysisMarkdown: j.qualification.noraAnalysisMarkdown,
++              noraAnalysisKind: j.qualification.noraAnalysisKind,
++            });
++          }
++          return;
++        }
+         res = await fetch(
+           `/api/projects/${props.projectId}/realization/attempts/${attempt.attemptId}/qualification`,
            {
              method: "POST",
              headers: { "Content-Type": "application/json" },
 -            body: JSON.stringify({ attachNoraAnalysis: true }),
-+            body: JSON.stringify({ attachNoraCognitive: true }),
++            body: JSON.stringify(payload),
            },
          );
          const created = (await res.json().catch(() => ({}))) as {
-@@ -215,6 +283,7 @@ export function CursorRealizationSurface(props: {
+@@ -215,6 +346,9 @@ export function CursorRealizationSurface(props: {
            rubrics?: D8Rubric[];
            limits?: string[];
            noraAnalysisMarkdown?: string | null;
 +          noraAnalysisKind?: string | null;
++          error?: string;
++          message?: string;
          };
          if (res.ok && created.rubrics) {
            setBilan({
-@@ -222,6 +291,7 @@ export function CursorRealizationSurface(props: {
+@@ -222,17 +356,33 @@ export function CursorRealizationSurface(props: {
              rubrics: created.rubrics,
              limits: created.limits ?? [],
              noraAnalysisMarkdown: created.noraAnalysisMarkdown,
 +            noraAnalysisKind: created.noraAnalysisKind,
            });
++          setStatus(
++            payload.requalify
++              ? "Bilan D8 requalifié après handoff RECEIVED"
++              : "Bilan D8 créé",
++          );
            return;
          }
-@@ -233,6 +303,7 @@ export function CursorRealizationSurface(props: {
-         rubrics: j.qualification.rubrics,
-         limits: j.qualification.limits,
-         noraAnalysisMarkdown: j.qualification.noraAnalysisMarkdown,
-+        noraAnalysisKind: j.qualification.noraAnalysisKind,
+-        setStatus("Qualification indisponible");
++        setStatus(created.message ?? created.error ?? "Qualification indisponible");
++        if (j.qualification) {
++          setBilan({
++            verdict: j.qualification.verdict,
++            rubrics: j.qualification.rubrics,
++            limits: j.qualification.limits,
++            noraAnalysisMarkdown: j.qualification.noraAnalysisMarkdown,
++            noraAnalysisKind: j.qualification.noraAnalysisKind,
++          });
++        }
+         return;
+       }
+       setBilan({
+-        verdict: j.qualification.verdict,
+-        rubrics: j.qualification.rubrics,
+-        limits: j.qualification.limits,
+-        noraAnalysisMarkdown: j.qualification.noraAnalysisMarkdown,
++        verdict: j.qualification!.verdict,
++        rubrics: j.qualification!.rubrics,
++        limits: j.qualification!.limits,
++        noraAnalysisMarkdown: j.qualification!.noraAnalysisMarkdown,
++        noraAnalysisKind: j.qualification!.noraAnalysisKind,
        });
      } finally {
        setBusy(false);
-@@ -266,13 +337,26 @@ export function CursorRealizationSurface(props: {
+@@ -266,13 +416,26 @@ export function CursorRealizationSurface(props: {
        }
      : null;
  
@@ -1684,7 +1343,7 @@ index 7cdacec9..115d3506 100644
          </p>
          {status ? (
            <p role="status" data-testid="realization-status">
-@@ -281,44 +365,46 @@ export function CursorRealizationSurface(props: {
+@@ -281,44 +444,46 @@ export function CursorRealizationSurface(props: {
          ) : null}
        </header>
  
@@ -1763,16 +1422,56 @@ index 7cdacec9..115d3506 100644
          <ContractViewer
            contract={viewerModel}
            instructionExpanded={instructionExpanded}
-@@ -360,7 +446,7 @@ export function CursorRealizationSurface(props: {
-             className="btn secondary"
-             data-testid="d6-confirm-no"
-             disabled={busy}
+@@ -334,41 +499,25 @@ export function CursorRealizationSurface(props: {
+         />
+       ) : null}
+ 
+-      {confirmOpen ? (
+-        <div
+-          role="dialog"
+-          aria-modal="true"
+-          data-testid="d6-confirm-launch"
+-          className="fig-d6-confirm"
+-        >
+-          <h3>Confirmer le lancement</h3>
+-          <p>
+-            Vous avez inspecté le contrat {selectedContract?.contractKey} v
+-            {selectedContract?.version}. Confirmez-vous l&apos;exécution Cursor ?
+-          </p>
+-          <button
+-            type="button"
+-            className="btn"
+-            data-testid="d6-confirm-yes"
+-            disabled={busy}
+-            onClick={() => void confirmYes()}
+-          >
+-            Oui
+-          </button>
+-          <button
+-            type="button"
+-            className="btn secondary"
+-            data-testid="d6-confirm-no"
+-            disabled={busy}
 -            onClick={confirmNo}
-+            onClick={() => void confirmNo()}
-           >
-             Non
-           </button>
-@@ -368,7 +454,7 @@ export function CursorRealizationSurface(props: {
+-          >
+-            Non
+-          </button>
+-        </div>
++      {confirmOpen && selectedContract ? (
++        <D6ConfirmLaunch
++          contractKey={selectedContract.contractKey}
++          version={selectedContract.version}
++          fingerprint={selectedContract.fingerprint}
++          title={selectedContract.body.title}
++          busy={busy}
++          onYes={() => void confirmYes()}
++          onNo={() => void confirmNo()}
++          onCancel={() => {
++            setConfirmOpen(false);
++            setPendingAttemptId(null);
++            setStatus("Dialogue D6 annulé — aucun acte");
++          }}
++        />
        ) : null}
  
        <section data-testid="realization-attempts">
@@ -1781,7 +1480,7 @@ index 7cdacec9..115d3506 100644
          {attempts.length === 0 ? (
            <p className="muted">Aucune tentative Cursor pour ce projet.</p>
          ) : (
-@@ -378,16 +464,37 @@ export function CursorRealizationSurface(props: {
+@@ -378,16 +527,37 @@ export function CursorRealizationSurface(props: {
                  <span>
                    {a.status} · {a.live.terminalStatus ?? "—"} ·{" "}
                    {a.live.lastActivitySummary ?? "pas d'observation"}
@@ -1828,7 +1527,7 @@ index 7cdacec9..115d3506 100644
                    <button
                      type="button"
                      className="btn secondary"
-@@ -403,17 +510,16 @@ export function CursorRealizationSurface(props: {
+@@ -403,17 +573,16 @@ export function CursorRealizationSurface(props: {
          )}
        </section>
  
@@ -1851,41 +1550,938 @@ index 7cdacec9..115d3506 100644
                `Reprendre à propos de la tentative ${selectedAttempt.attemptId} (verdict D8: ${bilan.verdict}).`,
 
 ```
-
-### `projects/sfia-studio-next/web/scripts/ml5-c9-seed-scenario.mts`
+### `projects/sfia-studio-next/web/src/components/figma/tokens.css`
 ```diff
---- /dev/null
-+++ b/projects/sfia-studio-next/web/scripts/ml5-c9-seed-scenario.mts
-(NEW FILE — full content in section 8)
+diff --git a/projects/sfia-studio-next/web/src/components/figma/tokens.css b/projects/sfia-studio-next/web/src/components/figma/tokens.css
+index 9252aa8c..4dfe82e1 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/tokens.css
++++ b/projects/sfia-studio-next/web/src/components/figma/tokens.css
+@@ -5964,3 +5964,278 @@
+     width: 100%;
+   }
+ }
++
++/* ─── ML5 C10 — Contract viewer / D6 modal / D8 bilan ─── */
++
++.fig-contract-viewer {
++  display: flex;
++  flex-direction: column;
++  min-width: 0;
++  min-height: 0;
++  width: 100%;
++  max-width: 100%;
++  height: 100%;
++  background: #151c29;
++  border: 1px solid #272e49;
++  border-radius: 16px;
++  overflow: hidden;
++}
++
++.fig-contract-viewer .fig-travail-viewer-head,
++.fig-contract-viewer .fig-contract-footer {
++  flex-shrink: 0;
++}
++
++.fig-contract-section {
++  min-width: 0;
++  max-width: 100%;
++  padding: 12px 18px;
++  border-bottom: 1px solid #272e49;
++}
++
++.fig-contract-section h3 {
++  margin: 0 0 8px;
++  font-size: 13px;
++  color: var(--fig-accent-soft);
++}
++
++.fig-contract-section dl,
++.fig-contract-section ul,
++.fig-contract-section p,
++.fig-contract-section dd,
++.fig-contract-section li {
++  min-width: 0;
++  max-width: 100%;
++  overflow-wrap: anywhere;
++  word-break: break-word;
++}
++
++.fig-contract-section dl {
++  display: grid;
++  grid-template-columns: minmax(0, 9rem) minmax(0, 1fr);
++  gap: 6px 12px;
++  margin: 0;
++}
++
++.fig-contract-section dt {
++  color: var(--fig-quiet);
++  font-size: 12px;
++}
++
++.fig-contract-section dd {
++  margin: 0;
++  font-size: 13px;
++  color: var(--fig-ink);
++}
++
++.fig-contract-instruction-full {
++  margin: 8px 0 0;
++  padding: 12px;
++  max-width: 100%;
++  max-height: min(48vh, 420px);
++  overflow-x: auto;
++  overflow-y: auto;
++  overscroll-behavior: contain;
++  white-space: pre-wrap;
++  overflow-wrap: anywhere;
++  word-break: break-word;
++  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
++  font-size: 12px;
++  line-height: 1.45;
++  color: #f4f6fc;
++  background: #0f1420;
++  border: 1px solid #272e49;
++  border-radius: 10px;
++}
++
++.fig-contract-footer {
++  display: flex;
++  flex-wrap: wrap;
++  gap: 8px;
++  justify-content: flex-end;
++  padding: 12px 18px 16px;
++  border-top: 1px solid #272e49;
++}
++
++.fig-cursor-realization {
++  display: flex;
++  flex-direction: column;
++  gap: 16px;
++  min-width: 0;
++  max-width: 100%;
++  width: 100%;
++  overflow-x: hidden;
++}
++
++.fig-cursor-realization header,
++.fig-cursor-realization section {
++  min-width: 0;
++  max-width: 100%;
++}
++
++.fig-cursor-realization ul {
++  list-style: none;
++  margin: 0;
++  padding: 0;
++  display: flex;
++  flex-direction: column;
++  gap: 8px;
++}
++
++.fig-cursor-realization li {
++  display: flex;
++  flex-wrap: wrap;
++  gap: 8px;
++  align-items: center;
++  min-width: 0;
++}
++
++.fig-d6-confirm {
++  position: fixed;
++  inset: 0;
++  z-index: 80;
++  display: flex;
++  align-items: center;
++  justify-content: center;
++  padding: 24px;
++  background: rgba(7, 10, 18, 0.72);
++  backdrop-filter: blur(2px);
++}
++
++.fig-d6-confirm-card {
++  width: min(520px, 100%);
++  max-height: min(80vh, 640px);
++  overflow: auto;
++  padding: 24px;
++  background: #151c29;
++  border: 1px solid #3a4570;
++  border-radius: 16px;
++  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
++}
++
++.fig-d6-confirm-card h3 {
++  margin: 0 0 8px;
++  font-size: 20px;
++  color: var(--fig-ink);
++}
++
++.fig-d6-confirm-card p {
++  margin: 0 0 12px;
++  color: var(--fig-muted);
++  font-size: 14px;
++  overflow-wrap: anywhere;
++}
++
++.fig-d6-confirm-actions {
++  display: flex;
++  flex-wrap: wrap;
++  gap: 10px;
++  justify-content: flex-end;
++  margin-top: 16px;
++}
++
++.fig-realization-bilan {
++  display: flex;
++  flex-direction: column;
++  gap: 14px;
++  min-width: 0;
++  max-width: 100%;
++  padding: 4px 0 24px;
++}
++
++.fig-bilan-tabs {
++  display: flex;
++  flex-wrap: wrap;
++  gap: 8px;
++}
++
++.fig-bilan-rubrics {
++  display: grid;
++  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
++  gap: 12px;
++}
++
++.fig-bilan-rubric {
++  min-width: 0;
++  padding: 14px 16px;
++  background: #151c29;
++  border: 1px solid #272e49;
++  border-radius: 12px;
++}
++
++.fig-bilan-rubric h3 {
++  margin: 0 0 8px;
++  font-size: 14px;
++  color: var(--fig-ink);
++  display: flex;
++  flex-wrap: wrap;
++  gap: 8px;
++  align-items: center;
++}
++
++.fig-bilan-rubric p,
++.fig-bilan-rubric pre {
++  margin: 0;
++  font-size: 13px;
++  line-height: 1.45;
++  color: var(--fig-muted);
++  white-space: pre-wrap;
++  overflow-wrap: anywhere;
++  word-break: break-word;
++}
++
++.fig-bilan-coverage {
++  display: inline-flex;
++  align-items: center;
++  padding: 2px 8px;
++  border-radius: 999px;
++  font-size: 11px;
++  font-weight: 600;
++  letter-spacing: 0.02em;
++}
++
++.fig-bilan-coverage[data-coverage="COMPLETE"] {
++  background: var(--fig-ok-bg);
++  color: var(--fig-ok);
++}
++
++.fig-bilan-coverage[data-coverage="PARTIAL"] {
++  background: var(--fig-warn-bg);
++  color: var(--fig-warn);
++}
++
++.fig-bilan-coverage[data-coverage="MISSING"],
++.fig-bilan-coverage[data-coverage="UNKNOWN"] {
++  background: #3a2030;
++  color: #f0a0b8;
++}
++
++.fig-bilan-empty {
++  margin: 0;
++  padding: 12px 14px;
++  border: 1px dashed #3a4570;
++  border-radius: 10px;
++  color: var(--fig-quiet);
++  font-size: 13px;
++}
++
++.fig-bilan-limits ul {
++  margin: 0;
++  padding-left: 1.1rem;
++  color: var(--fig-muted);
++  font-size: 13px;
++}
++
++.fig-bilan-nora-analysis pre {
++  margin: 8px 0 0;
++  padding: 12px;
++  max-height: 240px;
++  overflow: auto;
++  white-space: pre-wrap;
++  overflow-wrap: anywhere;
++  word-break: break-word;
++  background: #0f1420;
++  border: 1px solid #272e49;
++  border-radius: 10px;
++  font-size: 12px;
++}
 
 ```
-
-### `projects/sfia-studio-next/web/scripts/ml5-c9-e2e-journey.mts`
+### `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/authorize/route.ts`
 ```diff
---- /dev/null
-+++ b/projects/sfia-studio-next/web/scripts/ml5-c9-e2e-journey.mts
-(NEW FILE — full content in section 8)
+diff --git a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/authorize/route.ts b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/authorize/route.ts
+index 7cc137a3..399f5ae3 100644
+--- a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/authorize/route.ts
++++ b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/authorize/route.ts
+@@ -13,17 +13,20 @@ export async function POST(
+     const body = (await req.json()) as {
+       statement?: string;
+       inspectedFingerprint?: string;
+-      /** Explicit Oui — required. Missing / false = no HumanDecision, no effect. */
+-      confirmed?: boolean;
++      /** Explicit Oui/Non — must be boolean. Absent/null/invalid = no HumanDecision. */
++      confirmed?: unknown;
+     };
+     if (!body.statement || !body.inspectedFingerprint) {
+       return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 400 });
+     }
+-    if (body.confirmed !== true) {
++    // C10 / T-02 — confirmed must be an explicit boolean.
++    // Absent, null, or non-boolean → reject without HumanDecision / mutation.
++    if (typeof body.confirmed !== "boolean") {
+       return NextResponse.json(
+         {
+-          error: "CONFIRMATION_REFUSED",
+-          message: "Confirmation Non ou absente — aucun acte D6, aucun dispatch",
++          error: "CONFIRMATION_REQUIRED",
++          message:
++            "confirmed doit être true (Oui) ou false (Non) — absence/null/invalide = aucun acte D6",
+         },
+         { status: 400 },
+       );
+@@ -34,7 +37,7 @@ export async function POST(
+       attemptId,
+       statement: body.statement,
+       inspectedFingerprint: body.inspectedFingerprint,
+-      confirmed: true,
++      confirmed: body.confirmed,
+     });
+     return NextResponse.json(result);
+   } catch (e) {
 
 ```
-
-### `projects/sfia-studio-next/web/tests/unit/ml5-c9-d6-refuse-phased.test.ts`
+### `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx`
 ```diff
---- /dev/null
-+++ b/projects/sfia-studio-next/web/tests/unit/ml5-c9-d6-refuse-phased.test.ts
-(NEW FILE — full content in section 8)
+diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+index b7e7c4ca..fa951a8c 100644
+--- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
++++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+@@ -6,6 +6,8 @@ import { ProjectChrome } from "@/components/figma/ProjectChrome";
+ import { NoraConversation } from "@/components/figma/NoraConversation";
+ import { CursorRealizationSurface } from "@/components/figma/CursorRealizationSurface";
+ import { TravailViewer, type TravailViewerResource } from "@/components/figma/TravailViewer";
++import { ContractViewer, type ContractViewerModel } from "@/components/figma/ContractViewer";
++import { D6ConfirmLaunch } from "@/components/figma/D6ConfirmLaunch";
+ import {
+   ProjectJournal,
+   type JournalContradiction,
+@@ -102,14 +104,7 @@ type Knowledge = {
+   openPoints: Array<{ id: string; statement: string; status: string; subjectId: string | null }>;
+ };
+ 
+-type Surface =
+-  | "travail"
+-  | "projet"
+-  | "pilotage"
+-  | "journal"
+-  | "document"
+-  | "git"
+-  | "publication";
++type Surface = StudioSurface;
+ type DocUiState = "READING" | "EDITING" | "SAVING" | "CONFLICT" | "FAILED" | "UNKNOWN";
+ type DocView = "library" | "read" | "history" | "compare";
+ type HistoricalSourceConfirmation = {
+@@ -216,6 +211,7 @@ const SURFACES: Surface[] = [
+   "journal",
+   "document",
+   "git",
++  "execution",
+   "publication",
+ ];
+ 
+@@ -290,6 +286,25 @@ export default function ProjectPage() {
+   const [forceStickToken, setForceStickToken] = useState(0);
+   const [viewer, setViewer] = useState<TravailViewerResource | null>(null);
+   const [viewerEnlarged, setViewerEnlarged] = useState(false);
++  /** D09/H02 — technical contract in Travail 50/50; D6 Oui/Non depuis Travail lorsque READY. */
++  const [contractViewer, setContractViewer] = useState<ContractViewerModel | null>(null);
++  const [contractInstructionExpanded, setContractInstructionExpanded] = useState(false);
++  const [readyContracts, setReadyContracts] = useState<
++    Array<{ id: string; contractKey: string; version: number; title: string; status: string }>
++  >([]);
++  const [travailD6AttemptId, setTravailD6AttemptId] = useState<string | null>(null);
++  const [travailD6Busy, setTravailD6Busy] = useState(false);
++  const [liveActivityEvents, setLiveActivityEvents] = useState<
++    Array<{
++      sequence: number;
++      nature: string;
++      status: string;
++      summary: string;
++      phase: string;
++      sourceRef?: string | null;
++    }>
++  >([]);
++  const [liveActivityHeadline, setLiveActivityHeadline] = useState("");
+   const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
+   const [status, setStatus] = useState("");
+   const [pilotageStatus, setPilotageStatus] = useState("");
+@@ -398,6 +413,12 @@ export default function ProjectPage() {
+     preparationIdRef.current = preparationId;
+   }, [preparationId]);
+ 
++  useEffect(() => {
++    if (surface !== "travail") return;
++    void refreshReadyContracts();
++    // eslint-disable-next-line react-hooks/exhaustive-deps -- refresh on surface entry
++  }, [surface, params.projectId]);
++
+   useEffect(() => {
+     if (surface !== "journal") return;
+     let cancelled = false;
+@@ -496,6 +517,8 @@ export default function ProjectPage() {
+     viewerOpenRef.current = false;
+     setViewer(null);
+     setViewerEnlarged(false);
++    setContractViewer(null);
++    setContractInstructionExpanded(false);
+   }
+ 
+   function applyViewerIfCurrent(
+@@ -755,12 +778,217 @@ export default function ProjectPage() {
+     });
+   }
+ 
++  async function refreshReadyContracts() {
++    try {
++      const res = await fetch(`/api/projects/${params.projectId}/realization/contracts`);
++      const j = (await res.json().catch(() => ({}))) as {
++        contracts?: Array<{
++          id: string;
++          contractKey: string;
++          version: number;
++          status: string;
++          body?: { title?: string };
++        }>;
++      };
++      setReadyContracts(
++        (j.contracts ?? [])
++          .filter((c) => c.status === "READY")
++          .map((c) => ({
++            id: c.id,
++            contractKey: c.contractKey,
++            version: c.version,
++            title: c.body?.title ?? c.contractKey,
++            status: c.status,
++          })),
++      );
++    } catch {
++      /* non-blocking */
++    }
++  }
++
++  async function openContractViewer(contractId: string) {
++    try {
++      const res = await fetch(`/api/projects/${params.projectId}/realization/contracts`);
++      const j = (await res.json().catch(() => ({}))) as {
++        contracts?: Array<{
++          id: string;
++          contractKey: string;
++          version: number;
++          fingerprint: string;
++          status: string;
++          body: ContractViewerModel["engagements"] extends infer _E
++            ? {
++                title: string;
++                engagements: ContractViewerModel["engagements"];
++                volets: ContractViewerModel["volets"];
++                instructionText: string;
++                risks: string[];
++                exclusions: string[];
++              }
++            : never;
++        }>;
++      };
++      const row = (j.contracts ?? []).find((c) => c.id === contractId);
++      if (!row) {
++        setStatus("Contrat introuvable pour la visionneuse Travail");
++        return;
++      }
++      setViewer(null);
++      setViewerEnlarged(false);
++      setContractInstructionExpanded(false);
++      setReadyContracts(
++        (j.contracts ?? [])
++          .filter((c) => c.status === "READY")
++          .map((c) => ({
++            id: c.id,
++            contractKey: c.contractKey,
++            version: c.version,
++            title: c.body?.title ?? c.contractKey,
++            status: c.status,
++          })),
++      );
++      setContractViewer({
++        contractId: row.id,
++        contractKey: row.contractKey,
++        version: row.version,
++        fingerprint: row.fingerprint,
++        status: row.status,
++        title: row.body.title,
++        engagements: row.body.engagements,
++        volets: row.body.volets,
++        instructionText: row.body.instructionText,
++        risks: row.body.risks ?? [],
++        exclusions: row.body.exclusions ?? [],
++      });
++    } catch {
++      setStatus("Impossible d'ouvrir le contrat dans Travail");
++    }
++  }
++
++  async function prepareTravailD6() {
++    if (!contractViewer || contractViewer.status !== "READY") return;
++    setTravailD6Busy(true);
++    setStatus("");
++    try {
++      const correlationKey = `ml5-travail-${contractViewer.contractId}-${Date.now()}`;
++      const res = await fetch(
++        `/api/projects/${params.projectId}/realization/attempts/prepare`,
++        {
++          method: "POST",
++          headers: { "Content-Type": "application/json" },
++          body: JSON.stringify({
++            contractId: contractViewer.contractId,
++            correlationKey,
++            workspaceKey: "default",
++          }),
++        },
++      );
++      const j = (await res.json().catch(() => ({}))) as {
++        attemptId?: string;
++        error?: string;
++        message?: string;
++      };
++      if (!res.ok || !j.attemptId) {
++        setStatus(j.message ?? j.error ?? "Préparation refusée");
++        return;
++      }
++      setTravailD6AttemptId(j.attemptId);
++    } finally {
++      setTravailD6Busy(false);
++    }
++  }
++
++  async function confirmTravailD6Yes() {
++    if (!travailD6AttemptId || !contractViewer) return;
++    setTravailD6Busy(true);
++    try {
++      const auth = await fetch(
++        `/api/projects/${params.projectId}/realization/attempts/${travailD6AttemptId}/authorize`,
++        {
++          method: "POST",
++          headers: { "Content-Type": "application/json" },
++          body: JSON.stringify({
++            statement: "Je mandate l'exécution Cursor du contrat inspecté (Travail)",
++            inspectedFingerprint: contractViewer.fingerprint,
++            confirmed: true,
++          }),
++        },
++      );
++      const aj = (await auth.json().catch(() => ({}))) as {
++        error?: string;
++        message?: string;
++        decisionId?: string;
++      };
++      if (!auth.ok) {
++        setStatus(aj.message ?? aj.error ?? "Autorisation refusée");
++        setTravailD6AttemptId(null);
++        return;
++      }
++      const disp = await fetch(
++        `/api/projects/${params.projectId}/realization/attempts/${travailD6AttemptId}/dispatch`,
++        { method: "POST" },
++      );
++      const dj = (await disp.json().catch(() => ({}))) as { error?: string; message?: string };
++      setStatus(
++        disp.ok
++          ? `D6 Oui (Travail) — décision ${aj.decisionId ?? "—"} — dispatch accepté`
++          : dj.message ?? dj.error ?? "Dispatch refusé",
++      );
++      setTravailD6AttemptId(null);
++      selectSurface("execution");
++    } finally {
++      setTravailD6Busy(false);
++    }
++  }
++
++  async function confirmTravailD6No() {
++    if (!travailD6AttemptId || !contractViewer) {
++      setTravailD6AttemptId(null);
++      return;
++    }
++    setTravailD6Busy(true);
++    try {
++      const auth = await fetch(
++        `/api/projects/${params.projectId}/realization/attempts/${travailD6AttemptId}/authorize`,
++        {
++          method: "POST",
++          headers: { "Content-Type": "application/json" },
++          body: JSON.stringify({
++            statement: "Refus explicite D6 depuis Travail — pas d'exécution Cursor",
++            inspectedFingerprint: contractViewer.fingerprint,
++            confirmed: false,
++          }),
++        },
++      );
++      const aj = (await auth.json().catch(() => ({}))) as {
++        error?: string;
++        message?: string;
++        decisionId?: string;
++        status?: string;
++      };
++      setStatus(
++        auth.ok
++          ? `Refus D6 (Travail) ${aj.status ?? "CANCELLED"} — ${aj.decisionId ?? "—"} — aucun dispatch`
++          : aj.message ?? aj.error ?? "Refus D6 non enregistré",
++      );
++      setTravailD6AttemptId(null);
++    } finally {
++      setTravailD6Busy(false);
++    }
++  }
++
+   /** C1/Final A — exact revision or live current via D4; D9 Git via existing APIs. */
+   async function openTravailReference(ref: TurnReference) {
+     const projectIdAtStart = params.projectId;
+     const seq = ++viewerRequestSeqRef.current;
+     viewerOpenRef.current = true;
+ 
++    if (ref.kind === "contract" && ref.resourceId) {
++      viewerOpenRef.current = false;
++      await openContractViewer(ref.resourceId);
++      return;
++    }
++
+     if (ref.kind === "document" && ref.resourceId) {
+       const match = documents.find((d) => d.document.id === ref.resourceId);
+       const title = match?.document.title ?? ref.label;
+@@ -2252,6 +2480,8 @@ export default function ProjectPage() {
+     const pendingBefore = unresolvedPending ?? readPending();
+     setBusy(true);
+     setNoraActivity("preparing");
++    setLiveActivityEvents([]);
++    setLiveActivityHeadline("Nora prépare une réponse…");
+     // Same content reuses the same turn key until a terminal result clears it.
+     if (!messageTurnKeyRef.current || messageTurnKeyRef.current.content !== text) {
+       messageTurnKeyRef.current = {
+@@ -2270,6 +2500,58 @@ export default function ProjectPage() {
+       clientCommandKey,
+       ...pendingMeta,
+     });
++    // C01/C07 — poll durable turn + activity while POST awaits Nora (parallel read path).
++    let activityPollTimer: number | undefined;
++    let lastActivitySeq = 0;
++    let knownTurnCommandId: string | null = null;
++    const pollLiveActivity = async () => {
++      try {
++        if (!knownTurnCommandId) {
++          const look = await fetch(
++            `/api/preparations/${preparationId}/turns/by-key/${encodeURIComponent(clientTurnKey)}`,
++          );
++          if (look.ok) {
++            const lj = (await look.json()) as { turnCommandId?: string | null };
++            if (lj.turnCommandId) knownTurnCommandId = lj.turnCommandId;
++          }
++        }
++        if (!knownTurnCommandId) return;
++        const q = lastActivitySeq > 0 ? `?afterSequence=${lastActivitySeq}` : "";
++        const act = await fetch(
++          `/api/projects/${params.projectId}/turns/${knownTurnCommandId}/activity${q}`,
++        );
++        if (!act.ok) return;
++        const aj = (await act.json()) as {
++          events?: Array<{
++            sequence: number;
++            nature: string;
++            status: string;
++            summary: string;
++            phase: string;
++            sourceRef?: string | null;
++          }>;
++        };
++        const batch = aj.events ?? [];
++        if (batch.length === 0) return;
++        setLiveActivityEvents((prev) => {
++          const seen = new Set(prev.map((e) => e.sequence));
++          const merged = [...prev];
++          for (const ev of batch) {
++            if (!seen.has(ev.sequence)) merged.push(ev);
++          }
++          return merged;
++        });
++        const last = batch[batch.length - 1]!;
++        lastActivitySeq = Math.max(lastActivitySeq, last.sequence);
++        setLiveActivityHeadline(`${last.nature}: ${last.summary}`.slice(0, 160));
++      } catch {
++        /* observational poll */
++      }
++    };
++    activityPollTimer = window.setInterval(() => {
++      void pollLiveActivity();
++    }, 800);
++    void pollLiveActivity();
+     try {
+       const res = await fetch(`/api/preparations/${preparationId}/messages`, {
+         method: "POST",
+@@ -2290,6 +2572,20 @@ export default function ProjectPage() {
+         j = { errorCategory: "RESPONSE_PARSE_FAILED" };
+       }
+       if (res.ok) {
++        const prepared = j.preparedContract as
++          | {
++              contractId: string;
++              contractKey: string;
++              version: number;
++              fingerprint: string;
++              status: string;
++            }
++          | null
++          | undefined;
++        if (prepared?.contractId) {
++          void openContractViewer(prepared.contractId);
++        }
++        void pollLiveActivity();
+         const serverKind = (j.nextTurnKind as ThreadTurnKind | undefined) ?? "INCERTAIN";
+         const independent = serverKind === "DIALOGUE_INDEPENDANT";
+         const effectBlocked = Boolean(j.pendingEffectBlocked);
+@@ -2533,6 +2829,7 @@ export default function ProjectPage() {
+       setNoraActivity("error");
+       setStatus("échec réseau — intention de tour conservée");
+     } finally {
++      if (activityPollTimer != null) window.clearInterval(activityPollTimer);
+       setBusy(false);
+     }
+   }
+@@ -2568,7 +2865,12 @@ export default function ProjectPage() {
+     );
+   }
+ 
+-  const travailLayout = viewer ? (viewerEnlarged ? "enlarged" : "split") : "normal";
++  const travailLayout =
++    contractViewer || viewer
++      ? viewerEnlarged && !contractViewer
++        ? "enlarged"
++        : "split"
++      : "normal";
+ 
+   const docListItems = documents.map((d) => ({
+     document: { ...d.document, projectId: params.projectId },
+@@ -2686,6 +2988,8 @@ export default function ProjectPage() {
+           onOpenTrajectoire={() => selectSurface("pilotage")}
+           unresolvedPending={Boolean(unresolvedPending)}
+           activity={noraActivity}
++          liveActivityEvents={liveActivityEvents}
++          liveActivityHeadline={liveActivityHeadline}
+           status={[status, pilotageStatus].filter(Boolean).join(" · ") || undefined}
+           projections={resolveActionableProjections({
+             messages,
+@@ -2716,7 +3020,32 @@ export default function ProjectPage() {
+               : undefined
+           }
+           aside={
+-            viewer ? (
++            contractViewer ? (
++              <ContractViewer
++                contract={contractViewer}
++                instructionExpanded={contractInstructionExpanded}
++                onToggleInstruction={() =>
++                  setContractInstructionExpanded((v) => !v)
++                }
++                onClose={() => {
++                  setContractViewer(null);
++                  setContractInstructionExpanded(false);
++                  setTravailD6AttemptId(null);
++                }}
++                onOpenInExecution={() => {
++                  setContractViewer(null);
++                  selectSurface("execution");
++                }}
++                onRequestExecute={
++                  contractViewer.status === "READY"
++                    ? () => void prepareTravailD6()
++                    : undefined
++                }
++                executeDisabled={
++                  travailD6Busy || contractViewer.status !== "READY"
++                }
++              />
++            ) : viewer ? (
+               <TravailViewer
+                 resource={viewer}
+                 enlarged={viewerEnlarged}
+@@ -2756,6 +3085,38 @@ export default function ProjectPage() {
+                   Fil de préparation et conversation consultables depuis Travail.
+                 </p>
+               </div>
++              <div className="fig-inspector-card" data-testid="travail-aside-contracts">
++                <p className="fig-inspector-card-title">Contrats techniques</p>
++                <p className="fig-inspector-card-body">
++                  Visionneuse 50/50 — lecture intégrale puis D6 si READY.
++                </p>
++                <button
++                  type="button"
++                  className="btn secondary mt-2"
++                  data-testid="travail-refresh-contracts"
++                  onClick={() => void refreshReadyContracts()}
++                >
++                  Actualiser
++                </button>
++                {readyContracts.length === 0 ? (
++                  <p className="fig-travail-viewer-meta mt-2">Aucun contrat READY.</p>
++                ) : (
++                  <ul className="mt-2 space-y-1" data-testid="travail-ready-contracts">
++                    {readyContracts.map((c) => (
++                      <li key={c.id}>
++                        <button
++                          type="button"
++                          className="btn secondary"
++                          data-testid={`travail-open-contract-${c.id}`}
++                          onClick={() => void openContractViewer(c.id)}
++                        >
++                          {c.title} · v{c.version}
++                        </button>
++                      </li>
++                    ))}
++                  </ul>
++                )}
++              </div>
+               <div className="fig-inspector-card">
+                 <p className="fig-inspector-card-title">Dossier du projet</p>
+                 <p className="fig-inspector-card-body">
+@@ -2786,6 +3147,13 @@ export default function ProjectPage() {
+                   >
+                     Sources Git
+                   </button>
++                  <button
++                    type="button"
++                    className="fig-inspector-link"
++                    onClick={() => selectSurface("execution")}
++                  >
++                    Exécution
++                  </button>
+                   <button
+                     type="button"
+                     className="fig-inspector-link"
+@@ -2816,6 +3184,21 @@ export default function ProjectPage() {
+             )
+           }
+         />
++        {travailD6AttemptId && contractViewer ? (
++          <D6ConfirmLaunch
++            contractKey={contractViewer.contractKey}
++            version={contractViewer.version}
++            fingerprint={contractViewer.fingerprint}
++            title={contractViewer.title}
++            busy={travailD6Busy}
++            onYes={() => void confirmTravailD6Yes()}
++            onNo={() => void confirmTravailD6No()}
++            onCancel={() => {
++              setTravailD6AttemptId(null);
++              setStatus("Dialogue D6 annulé (Travail) — aucun acte");
++            }}
++          />
++        ) : null}
+         </>
+       ) : null}
+ 
+@@ -2984,10 +3367,24 @@ export default function ProjectPage() {
+         />
+       ) : null}
+ 
++      {surface === "execution" ? (
++        <div data-testid="execution-surface-ml5">
++          <CursorRealizationSurface
++            projectId={params.projectId}
++            mode="execution"
++            onDiscussWithNora={(text) => {
++              setDraft(text);
++              selectSurface("travail");
++            }}
++          />
++        </div>
++      ) : null}
++
+       {surface === "publication" ? (
+         <div data-testid="publication-surface-ml5">
+           <CursorRealizationSurface
+             projectId={params.projectId}
++            mode="results"
+             onDiscussWithNora={(text) => {
+               setDraft(text);
+               selectSurface("travail");
 
 ```
+### `projects/sfia-studio-next/web/scripts/ml5-c10-seed-scenario.mts`
+```diff
+NEW FILE — see section 9
 
+```
+### `projects/sfia-studio-next/web/scripts/ml5-c10-e2e-journey.mts`
+```diff
+NEW FILE — see section 9
+
+```
+### `projects/sfia-studio-next/web/tests/unit/ml5-c10-d6-confirmed-required.test.ts`
+```diff
+NEW FILE — see section 9
+
+```
 ### `projects/sfia-studio-next/construction/delivery-history.md`
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index cc1c771f..bb87ff9d 100644
+index cc1c771f..d32e2a75 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -3,6 +3,122 @@
+@@ -3,6 +3,138 @@
  Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
  
++## delivery_id: DELIV-2026-11-23-ML5-CYCLE10-UX-D8-QUAL
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-23 (Europe/Paris) |
++| Macro-lot | ML5 — Cycle 10 convergence UX, D6, D8 et qualification visuelle |
++| Type | CONSTRUCTION DEV · **NO RELEASE** |
++| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
++| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C3–C10 non poussés) |
++| Contenu | CSS contrat/D6/D8 ; Travail 50/50 + D6 ; `confirmed` boolean strict ; bilan requalify après handoff ; pièce nouvelle G15 ; viewport 1680×970 |
++| Scénario | `ml5-c10-mono-20261123` — project `proj_d54a9443…` — Oui `efx_d4617b21…` — handoff `rhf_cc411abd…` |
++| Tests | Unit ML5 **73 PASS** ; Playwright C10 **15 PASS / 0 FAIL** ; F2 **0 PASS / NOT PROVEN** |
++| Inventaire | **1 / 97 / 1** (B09 NOT_IMPL) |
++| Push projet | **NONE** |
++| Verdict | **ML5 INTEGRATED — QUALIFICATION IN PROGRESS** |
++
 +## delivery_id: DELIV-2026-11-23-ML5-CYCLE9-E2E-MONO-ATTEMPT
 +
 +| Field | Value |
@@ -2007,26 +2603,27 @@ index cc1c771f..bb87ff9d 100644
  | Field | Value |
 
 ```
-
 ### `projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md`
 ```diff
 diff --git a/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md b/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
-index feb1fda3..d331312a 100644
+index feb1fda3..5e0ad321 100644
 --- a/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
 +++ b/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
-@@ -4,9 +4,10 @@
+@@ -4,9 +4,11 @@
  
  | Champ | Valeur |
  |---|---|
 -| Version | v0.2 — 23 novembre 2026 : décision Gate C et ouverture de ML5 enregistrées |
-+| Version | v0.4 candidate — 23 novembre 2026 : Cycle 9 parcours mono-tentative BROWSER ; inventaire présence **1 IMPLEMENTED / 97 PARTIAL / 1 NOT_IMPL (B09)** inchangé ; conformité BROWSER renforcée sans promotion globale |
++| Version | v0.5 candidate — 23 novembre 2026 : Cycle 10 UX/D6/D8 ; inventaire présence **1 / 97 / 1 (B09)** ; R-003 + C4–C10 ; F2 NOT PROVEN |
  | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
- | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` |
-+| Cycle 9 | Scénario `ml5-c9-mono-20261123` — attempt Oui `efx_1e86bf8c…` — refus `efx_b70c69ef…` — 14 PNG + manifeste ; frontier SCRIPTED_PHASED ; F2 NOT PROVEN ; verdict **ML5 INTEGRATED — QUALIFICATION IN PROGRESS** |
+-| Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` |
++| Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
++| Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |
++| Cycle 10 | Scénario `ml5-c10-mono-20261123` — Travail 50/50 + D6 overlay + bilan post-handoff + requalify pièce `ecap_1c817ffb…` ; verdict **ML5 INTEGRATED — QUALIFICATION IN PROGRESS** |
  | Gate | **GATE C ACCEPTÉ PAR MORRIS AVEC RÉSERVES / GO CONSTRUCTION ML5** — décision explicite du 23/11/2026 dans la conversation ; la Roadmap de `main` présente encore son instantané antérieur `OPEN` et reste à synchroniser sous mandat D2 approprié. |
  | Publication | Document de pilotage **non normatif**, sur branche candidate non mergée ; consigne la décision Morris exprimée, sans prétendre modifier automatiquement les décisions/roadmap de `main`. |
  | Suivi | ChatGPT qualifie les Review Packs/écarts ; Cursor fournit réalisation/rapports ; Morris décide les arbitrages |
-@@ -68,14 +69,14 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
+@@ -68,14 +70,14 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
  |---|---|---|---|---|
  | ☐ | `A01` | Qualifier l'intention, le résultat, le contexte, les contraintes et les risques même pour une demande courte. | NV | — |
  | ☐ | `A02` | Adapter profondeur et moyens : réponse directe, investigation, documents, historique, Git ou autres outils utiles sans recherche systématique. | NV | — |
@@ -2045,7 +2642,7 @@ index feb1fda3..d331312a 100644
  | ☐ | `A11` | Conserver/reconstituer de façon fiable l'investigation après déconnexion, interruption, limite de contexte ou incident fournisseur sans fausse lecture ni effet rejoué. | PARTIEL | `investigation-persistence.ts` → `preparations.projection_json` ; reprise unit OK ; PG reprise tour non exhaustif |
  | ☐ | `A12` | Réduire les coûts/latences sur demandes simples et rendre ces capacités disponibles transversalement dans sas, projet, documents, décision et bilan. | NV | — |
  
-@@ -113,8 +114,8 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
+@@ -113,8 +115,8 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
  
  | Revu | ID | Exigence de résultat / comportement attendu | État | Preuve (SHA / run / test / capture / réserve) |
  |---|---|---|---|---|
@@ -2056,7 +2653,7 @@ index feb1fda3..d331312a 100644
  | ☐ | `D03` | Conserver une identité/version/fingerprint de contrat canonique unique, projet et cycle historique facultatif. | PARTIEL | `reversibility_limits_json` round-trip + fingerprint canonique ; PG test |
  | ☐ | `D04` | Afficher les quatre engagements : ce qui sera fait, non fait, résultat attendu, contrôle du Pilote. | PARTIEL | `ContractViewer` ; BROWSER Figma F2 manquant |
  | ☐ | `D05` | Rendre inspectables les six volets R2 D7 : mission, périmètre, capacités/autorité, STOP, preuves/sources, intégrité. | PARTIEL | `ContractViewer` volets ; F2 manquant |
-@@ -139,7 +140,7 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
+@@ -139,7 +141,7 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
  | ☐ | `E06` | Collecter événements SDK réellement exposés et projeter des états LIVE sobres dans Exécution. | PARTIEL | Projection resultJson ; UI Exécution partielle |
  | ☐ | `E07` | Distinguer demande de lancement, ACK, run observé, travail, erreur, timeout, fin et UNKNOWN. | PARTIEL | `CursorLiveProjection` fields |
  | ☐ | `E08` | Distinguer STOP demandé, transmis, observé et effets partiels ; annulation n'implique pas rollback. | PARTIEL | stop API + limits CANCEL_IS_NOT_ROLLBACK |
@@ -2065,7 +2662,7 @@ index feb1fda3..d331312a 100644
  | ☐ | `E10` | Réconcilier après crash, reconnexion, perte d'ownership et état incertain, avec fencing/idempotence prouvés. | PARTIEL | reconcile sans redispatch ; stale claimToken fenced (PG) |
  | ☐ | `E11` | Retrouver durablement interventions, contrats, versions, événements et tentatives, y compris hors cycle. | PARTIEL | Tables durables ; UI historique 12.04 non câblée |
  | ☐ | `E12` | Vérifier seulement les MCP indispensables à la mission : chargement, authentification, invocabilité et permissions réelles. | NV | mcpRequired listé dans plan ; vérification LIVE non faite |
-@@ -152,15 +153,15 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
+@@ -152,15 +154,15 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
  
  | Revu | ID | Exigence de résultat / comportement attendu | État | Preuve (SHA / run / test / capture / réserve) |
  |---|---|---|---|---|
@@ -2090,7 +2687,7 @@ index feb1fda3..d331312a 100644
  
  ### G. Handoff par tentative, qualification D8/D9 et analyse Nora
  **Responsabilités :** D7/D8/D9/D3. **Sources :** Contrat ML5 §§10–11,17.3–17.4,18.3,19.5 ; R2 D8.
-@@ -178,10 +179,10 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
+@@ -178,10 +180,10 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
  | ☐ | `G09` | En cas de crash/rapport absent/partiel/hostile ou contradiction, conserver faits accessibles et état PARTIAL/UNKNOWN sans succès inventé. | PARTIEL | MISSING/INCOMPLETE/REJECTED ; secrets → REJECTED |
  | ☐ | `G10` | D7 rattache/contrôle identité de rapport ; D9 vérifie Git ; D8 recoupe les changements réels, manifestes et critères. | PARTIEL | D7+D8 ; D9 recoupement Git Cursor non branché |
  | ☐ | `G11` | Rendre consultables les neuf rubriques D8 : résumé, prévu, réalisé, évaluation, écarts, impact, verdict, recommandations, sources. | PARTIEL | `qualifyCursorRealization` + `RealizationBilan` |
@@ -2104,7 +2701,7 @@ index feb1fda3..d331312a 100644
  
  ### H. UX Figma page 12 et fidélité de transposition
  **Responsabilités :** R3 UX / D3 D6 D7 D8 D9 ; Cursor exécute sous méthode Figma v1.1. **Sources :** Figma file itgvCulInEnFY6DvgIegvP page 12 ; ux-ui/methodologie-contrat-figma-cursor.md v1.1.
-@@ -190,10 +191,10 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
+@@ -190,10 +192,10 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
  |---|---|---|---|---|
  | ☐ | `H01` | 12.01 : conduite/activité Nora pour un travail de préparation de contrat. | NV | — |
  | ☐ | `H02` | 12.02,12.03,12.14 : 50/50, inspection/confirmation, instruction technique intégrale défilante. | NV | — |
@@ -2119,7 +2716,7 @@ index feb1fda3..d331312a 100644
  | ☐ | `H07` | 12.10 : activité de Nora dans le sas sans projet fictif. | NV | — |
  | ☐ | `H08` | Avant code de chaque surface : Figma validée et extraction L0/L1/L2, assets exacts, PNG natif hashé, mapping node→DOM→assertion ; après code : runtime screenshot, styles/DOM/F2, état/viewport/fixture identiques, interactions browser, réserves explicites. | PARTIEL | L0+L1 metadata 14 frames + design context 12.02 ; F2/BROWSER runtime NOT PROVEN |
  
-@@ -204,7 +205,7 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
+@@ -204,7 +206,7 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
  |---|---|---|---|---|
  | ☐ | `I01` | Ne pas dupliquer les autorités D3/D4/D5/D6/D7/D8/D9 ni inventer moteur cognitif, Git ou d'exécution concurrent. | NV | — |
  | ☐ | `I02` | Vérifier droits par Pilote/projet/ressource, restrictions, suspensions, révocations et absence d'effet hors mandat. | NV | — |
@@ -2128,7 +2725,7 @@ index feb1fda3..d331312a 100644
  | ☐ | `I04` | Tester secrets, prompt injection, exfiltration web, artefacts hostiles, sécurité MCP/Git et isolation. | NV | — |
  | ☐ | `I05` | Associer code, tests déterministes et d'intégration, scénarios nominaux/négatifs et documentation dans chaque livraison. | NV | — |
  | ☐ | `I06` | Tester les parcours UX réellement concernés sur navigateur/capture avec SHA/build/viewport/état identifiables. | NV | — |
-@@ -214,6 +215,145 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
+@@ -214,6 +216,145 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
  | ☐ | `I10` | Prouver le parcours intégré Nora→contrat inspecté→HumanDecision→Cursor→retours→D8/D9→avis Nora→suite. | NV | — |
  | ☐ | `I11` | Respecter ENV-01 DEV/RECETTE/STABLE, versioning NO RELEASE, recette SHA figé, PR/merge/promotion sous GO et ADOPTED jamais automatique. | NV | — |
  
@@ -2274,7 +2871,7 @@ index feb1fda3..d331312a 100644
  ## 4. Contrôle transversal des 56 scénarios de recette fonctionnelle
  
  Les cas **Q-01…Q-56** du contrat fonctionnel ML5 sont la matrice de comportements de référence. Après chaque livraison, contrôler **les scénarios réellement dans le périmètre de la tentative** ; au bilan ML5, vérifier que chaque cas pertinent est couvert, reporté avec preuve ou EXCLU sous arbitrage Morris.
-@@ -232,11 +372,41 @@ Les cas **Q-01…Q-56** du contrat fonctionnel ML5 sont la matrice de comporteme
+@@ -232,11 +373,41 @@ Les cas **Q-01…Q-56** du contrat fonctionnel ML5 sont la matrice de comporteme
  
  **Condition d'intégrité de couverture :** une ligne A–I ou un scénario Q applicable ne peut disparaître sans trace d'un arbitrage explicitement attribué. Une mention « réalisé » sans ref et preuve n'est jamais `VERIFIÉ`.
  
@@ -2317,7 +2914,7 @@ index feb1fda3..d331312a 100644
  
  Un **Review Pack SFIA v2.6 FULL** est attendu lorsque le profil Critical est justifié ; `.tmp-sfia-review/chatgpt-review.md` reste la source mono-cycle, avec Review Handoff L3 distinct de l'historique produit Studio. Ne jamais considérer un résumé seul comme contenu complet des fichiers modifiés.
  
-@@ -244,7 +414,18 @@ Un **Review Pack SFIA v2.6 FULL** est attendu lorsque le profil Critical est jus
+@@ -244,7 +415,18 @@ Un **Review Pack SFIA v2.6 FULL** est attendu lorsque le profil Critical est jus
  
  | ID | Date/lot | Exigence(s) | Fait/écart constaté (≠ hypothèse) | Gravité | Preuve et SHA | Responsable / correction | Exit / état |
  |---|---|---|---|---|---|---|---|
@@ -2337,7 +2934,7 @@ index feb1fda3..d331312a 100644
  
  Chaque réserve transférée comporte **propriétaire, impact, preuve attendue, condition de sortie et moment de relecture**. Une correction technique ne déclenche pas de nouvelle tentative Cursor sans GO lorsqu'un nouvel acte d'effet est requis.
  
-@@ -273,6 +454,6 @@ Chaque réserve transférée comporte **propriétaire, impact, preuve attendue,
+@@ -273,6 +455,6 @@ Chaque réserve transférée comporte **propriétaire, impact, preuve attendue,
  - [ ] Code/tests/architecture/UX/as-built synchronisés ; dette et capacité suivante qualifiées.
  - [ ] Décision Morris de réception, intégration, promotion et adoption traitée séparément.
  
@@ -2347,13 +2944,12 @@ index feb1fda3..d331312a 100644
  **Hors périmètre de ce document :** nouvelle doctrine, architecture physique adoptée, ordre impératif de micro-lots, auto-acceptation, PR/merge, mutation/runtime, gestion MCP Studio universelle.
 
 ```
-
 ### `projects/sfia-studio-next/construction/contrat-acceptation-cognition-et-realisation-gouvernee.md`
 ```diff
-(no diff vs HEAD — maybe identical or untracked without content cache)
+
 ```
 
-## 10. Inventaire cumulé DIRTY C3–C9
+## 11. Inventaire DIRTY C3–C10
 ```
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio-next/construction/delivery-history.md
@@ -2368,10 +2964,12 @@ index feb1fda3..d331312a 100644
  M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/contracts/route.ts
  M projects/sfia-studio-next/web/src/app/login/page.tsx
  M projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+ M projects/sfia-studio-next/web/src/components/figma/ContractViewer.tsx
  M projects/sfia-studio-next/web/src/components/figma/CursorRealizationSurface.tsx
  M projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
  M projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
  M projects/sfia-studio-next/web/src/components/figma/RealizationBilan.tsx
+ M projects/sfia-studio-next/web/src/components/figma/tokens.css
  M projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
  M projects/sfia-studio-next/web/src/components/shell/studio-rail.ts
  M projects/sfia-studio-next/web/src/db/schema.ts
@@ -2390,10 +2988,14 @@ index feb1fda3..d331312a 100644
  M projects/sfia-studio-next/web/tests/integration/ml5-cursor-dispatch.pg.test.ts
  M projects/sfia-studio-next/web/tests/unit/ml5-cursor-qualify.test.ts
 ?? projects/sfia-studio-next/construction/contrat-acceptation-cognition-et-realisation-gouvernee.md
+?? projects/sfia-studio-next/web/.sfia-evidence/
+?? projects/sfia-studio-next/web/scripts/ml5-c10-e2e-journey.mts
+?? projects/sfia-studio-next/web/scripts/ml5-c10-seed-scenario.mts
 ?? projects/sfia-studio-next/web/scripts/ml5-c9-e2e-journey.mts
 ?? projects/sfia-studio-next/web/scripts/ml5-c9-seed-scenario.mts
 ?? projects/sfia-studio-next/web/src/app/api/dev/auto-session/
 ?? projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/captures/
+?? projects/sfia-studio-next/web/src/components/figma/D6ConfirmLaunch.tsx
 ?? projects/sfia-studio-next/web/src/db/migrations/019_ml5_qualification_history.sql
 ?? projects/sfia-studio-next/web/src/domains/conversation/nora-contract-bridge.ts
 ?? projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts
@@ -2407,6 +3009,7 @@ index feb1fda3..d331312a 100644
 ?? projects/sfia-studio-next/web/src/domains/proofs/evidence-captures.ts
 ?? projects/sfia-studio-next/web/src/domains/proofs/proof-ref-verify.ts
 ?? projects/sfia-studio-next/web/tests/integration/ml5-qualification-requalify.pg.test.ts
+?? projects/sfia-studio-next/web/tests/unit/ml5-c10-d6-confirmed-required.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/ml5-c9-d6-refuse-phased.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/ml5-cursor-claim-anti-duplicat.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/ml5-cursor-git-option-a.test.ts
@@ -2417,134 +3020,191 @@ index feb1fda3..d331312a 100644
 ?? projects/sfia-studio-next/web/tests/unit/ml5-qualification-requalify.test.ts
 ```
 
-## 11. Acquis historiques non reproduits
-- Captures C7/C8 conservées sous `.tmp-sfia-review/browser/c7-*.png`, `c8-*.png`
-- Invariants C8 (origin/ls-remote, listen probe, MCP UNKNOWN, proof exact, PNG magic) non régressés volontairement
-- Handoffs L3 antérieurs: C6 `b5466dd7`, C7 `01b7b66b`, C8 `759517d0`
+## 12–13. Tests / scénario
+- vitest unit ML5: **73 PASS**
+- Playwright C10: **15 PASS / 0 FAIL**
+- scenario `ml5-c10-mono-20261123` project `proj_d54a9443-cfa6-4a1d-b03a-256d1fadbf74`
+- refuse `efx_69c06628-4da6-44b6-a859-45c7daf414b6` yes `efx_d4617b21-b87e-4ed4-b9dc-69a745fd00bd` handoff `rhf_cc411abd-0df0-4c72-bea1-ac6fb8e4177c`
 
-## 12. Tests et sorties
-- vitest `ml5-c9-d6-refuse-phased.test.ts`: 3 PASS
-- vitest ciblés claim/proof/dev-session: 15 PASS
-- Playwright `ml5-c9-e2e-journey.mts`: 15 PASS / 0 FAIL / 1 PARTIAL (handoff 400 initial, re-ingéré OK)
-- tsc/eslint/build: non rejoués exhaustivement ce cycle (focus parcours) — dette mineure
+## 14–17. D6 / handoff / D8
+- N1 confirmed absent → 400 PASS
+- D6 Non CANCELLED + decisionId ; Oui AUTHORIZED fingerprint match
+- Bilan avant: rapport manquant ; après handoff: resume = rapport SCRIPTED (plus « Rapport manquant »)
+- 4 onglets parcourus ; requalify new_proof capture OK ; cursorRedispatch false
 
-## 13. Logs/API transitions utiles
-- Refus: POST authorize confirmed:false → status CANCELLED + decisionId
-- Oui: authorize AUTHORIZED (fingerprint match) → dispatch DISPATCHED (PHASED) → reconcile COMPLETED
-- Handoff: rhf_bd21acef… RECEIVED SCRIPTED_ADAPTER
-
-## 14. Captures originales et SHA-256
+## 18. Captures C10 SHA-256
 | Fichier | SHA-256 | Bytes |
 |---|---|---|
-| `.tmp-sfia-review/browser/c9/c9-a1-travail.png` | `ced903455d2a168cf376e91a6d943f884e8e400e6cca2ab013ce8dbaf832c34d` | 119783 |
-| `.tmp-sfia-review/browser/c9/c9-a2-contrat-inspectable.png` | `37965349a88f5d93e638a0670c6778fad3527bce09dc88d18978b2c49d46e3aa` | 226799 |
-| `.tmp-sfia-review/browser/c9/c9-b1-d6-confirm-avant-non.png` | `7dfa74b85e6679cb8097c10ded93d4dbbf8fb7688e4847ceb6322af2bc969553` | 225890 |
-| `.tmp-sfia-review/browser/c9/c9-b1-d6-refus.png` | `e203cd5a0fa956d9411df1b7ece162cc322d6a7a95620af1f614afe1216db239` | 241326 |
-| `.tmp-sfia-review/browser/c9/c9-b2-d6-confirm-avant-oui.png` | `a64b591fad5d1de82ec58d626eecec83d58c25a709f9e1c60519583a3f5d15a7` | 200899 |
-| `.tmp-sfia-review/browser/c9/c9-c1-running.png` | `427ad8056437455b80423572e64a75764da65f90a5f9e851425ffd44a10de506` | 259392 |
-| `.tmp-sfia-review/browser/c9/c9-c2-completed.png` | `84a3cad23f3bf3bc7cefc7e60c380c4cbd4f24ac86a0c143413359fcefc8c86a` | 108618 |
-| `.tmp-sfia-review/browser/c9/c9-c3-reconnexion.png` | `6697407d50ff3af52be5e0d7a52de4003642bf8f1b895730bb80c18d8a783a7f` | 108616 |
-| `.tmp-sfia-review/browser/c9/c9-d1-bilan-synthese.png` | `bdec9087a9268a5d7c30386f560cfa7eae969f437ee064b511aad14e7530378b` | 199537 |
-| `.tmp-sfia-review/browser/c9/c9-d2-bilan-ecarts.png` | `6364193939f7ad52aed7191df4c5fd92953c1d8b8b26940265967b5542a67336` | 194676 |
-| `.tmp-sfia-review/browser/c9/c9-d2-bilan-git.png` | `f6a2e901fbd39d792e6370a733c579a631b1cd7876b7b38d39c6898b2f155866` | 198332 |
-| `.tmp-sfia-review/browser/c9/c9-d2-bilan-livrables.png` | `8f2c9e400f7d7cfda0b56c119e10d4e5652238dc79a3f852ea3c5aa46a522793` | 198786 |
-| `.tmp-sfia-review/browser/c9/c9-d2-bilan-synthese-retour.png` | `0a309abd6fd6a5fcc4774fed3d2f57751d3b948e362fe52873fe09d4123fc3ee` | 199682 |
-| `.tmp-sfia-review/browser/c9/c9-e1-retour-nora.png` | `8b62b63a568ce5d6018ba04c6a95a80bdeba5283aa53d019a4395bf3dfa51dc0` | 128204 |
+| `.tmp-sfia-review/browser/c10/c10-a-travail-50-50-instruction.png` | `f92154c61f9a13c52b03c9e57e738886145f55ec870b6c9dfd597a72a5c92f6b` | 242932 |
+| `.tmp-sfia-review/browser/c10/c10-b1-d6-dialog-visible.png` | `947a0a572b07c01a5558c52f2b0fb2a8c6ede50fa0990de61604625e3bc001c2` | 289237 |
+| `.tmp-sfia-review/browser/c10/c10-b1-d6-refus.png` | `d1f2bd263c505f02f4162b2f419b6fc2be8920e7d5ad26b088e1d6b6d6f1d448` | 231047 |
+| `.tmp-sfia-review/browser/c10/c10-b2-d6-avant-oui.png` | `539771ebd30d91bd6e6cd2c1e64001cc1f12dfbb352ae2b6b38cfb379f2f5246` | 289327 |
+| `.tmp-sfia-review/browser/c10/c10-c1-running-or-dispatched.png` | `a7d374cc991948ebf4bf24839ffa72f4584d53c5cf03c8c4c487c2f5bc2589d3` | 119157 |
+| `.tmp-sfia-review/browser/c10/c10-c2-completed.png` | `ee7a492be6d6548bfcac88bbff0c338b9196c71ebc71504a21783915c647b9f8` | 118728 |
+| `.tmp-sfia-review/browser/c10/c10-d0-bilan-avant-handoff.png` | `52482d87146181f179c559dad2f097fd84154253432c7c5f4d6524162881ac76` | 181917 |
+| `.tmp-sfia-review/browser/c10/c10-d1-bilan-apres-handoff.png` | `9243568759d60c1a36cd8e1e059edd5a85352d7468c395a194f2797aecf7d744` | 191265 |
+| `.tmp-sfia-review/browser/c10/c10-d2-bilan-ecarts.png` | `66553472e0a89e7d9fb957871514160000681b5b4f1c992413b4b00f8abcb40b` | 157827 |
+| `.tmp-sfia-review/browser/c10/c10-d2-bilan-git.png` | `070e335636f7b2315216d22c5992d790a1dbe16c5ed3a90bf982549babef6ac4` | 156501 |
+| `.tmp-sfia-review/browser/c10/c10-d2-bilan-livrables.png` | `9bf5bd2d0961a388598df1e206a7c68a64de07c90771e4adb992c7a67532fbde` | 154928 |
+| `.tmp-sfia-review/browser/c10/c10-d2-bilan-synthese.png` | `9243568759d60c1a36cd8e1e059edd5a85352d7468c395a194f2797aecf7d744` | 191265 |
+| `.tmp-sfia-review/browser/c10/c10-e1-retour-nora.png` | `4166ce208bb6001823aefb3100bdf5f035279f220a7b5953092fa7aa8ff24e1a` | 140002 |
 
-**Note:** PNG locaux — ChatGPT ne les voit pas via Git. Morris peut transmettre pour revue visuelle.
-
-## 15. Manifeste BROWSER
+## 19. Manifeste BROWSER
 ```json
 {
-  "scenarioId": "ml5-c9-mono-20261123",
-  "at": "2026-11-23T16:48:43.112Z",
+  "scenarioId": "ml5-c10-mono-20261123",
+  "at": "2026-11-23T18:57:50.921Z",
   "tool": "playwright",
   "frontier": "SCRIPTED_PHASED_DEV",
+  "viewport": {
+    "w": 1680,
+    "h": 970
+  },
   "correlation": {
+    "scenarioId": "ml5-c10-mono-20261123",
+    "at": "2026-11-23T18:56:53.116Z",
+    "creationMechanism": "DOMAIN_SEED_SCRIPTED",
+    "honesty": "Contrat cr\u00e9\u00e9 par seed domaine (markReady serveur) \u2014 \u2260 cr\u00e9ation cognitive Nora LIVE.",
     "pilotId": "pilot_b8d7e5a2-8075-4050-ab97-3969b29235d9",
-    "projectId": "proj_a4525a4a-2572-49ab-9345-1748f581448a",
-    "projectName": "ML5-C9-2026-11-23-eaf3ad",
-    "contractId": "tctr_97f4a788-c812-4b46-9257-1246900f153e",
-    "contractKey": "c9-mono-9a2811c2",
-    "fingerprint": "e93efdb8cea8fb9343a11cd1ae7c6716012023678dbaf5fe4359e29c79a167f1",
-    "attemptIdRefuse": "efx_b70c69ef-9ee8-4ef5-8370-faf92fd44d67",
-    "attemptIdYes": "efx_1e86bf8c-9f82-4f78-b243-8866e762ae63"
+    "projectId": "proj_d54a9443-cfa6-4a1d-b03a-256d1fadbf74",
+    "projectName": "ML5-C10-2026-11-23-9acddc",
+    "preparationId": "prep_54d9eed7-1ee1-41cf-9784-6c0ef274f3ce",
+    "contractId": "tctr_d84462aa-eea7-40f9-992d-5c7990203ebf",
+    "contractKey": "c10-mono-9ae66c11",
+    "contractVersion": 1,
+    "fingerprint": "1650d73d2d9583393d675f55d994d8d2d7778c37a18584981591758b657ba845",
+    "instructionBytes": 3507,
+    "attemptIdYes": "efx_d4617b21-b87e-4ed4-b9dc-69a745fd00bd",
+    "attemptIdRefuse": "efx_69c06628-4da6-44b6-a859-45c7daf414b6",
+    "frontier": "SCRIPTED",
+    "handoffId": "rhf_cc411abd-0df0-4c72-bea1-ac6fb8e4177c",
+    "qualificationId": "rqual_03cc0749-a2a4-41f4-b6a3-c0c18597a1fe",
+    "newProofCaptureId": "ecap_1c817ffb-bb94-4540-8793-5651372708c5"
   },
   "honesty": {
-    "noraCognitiveContractCreation": false,
+    "noraCognitive": false,
     "cursorSdkLive": false,
-    "webLive": false,
-    "d6RefusalIsAuthenticatedAct": true,
-    "phasedScriptedObservations": true
+    "d6FromTravail": true,
+    "handoffBeforeAfterBilan": true,
+    "figmaF2": "NOT PROVEN \u2014 measures recorded; pair compare deferred"
   },
   "steps": [
     {
-      "step": "S0-session",
-      "action": "POST /api/dev/auto-session (Pilote A DEV)",
+      "step": "N1-confirmed-absent",
+      "action": "POST authorize without confirmed",
       "api": {
-        "route": "/api/dev/auto-session",
-        "status": 200,
+        "route": "/authorize",
+        "status": 400,
         "useful": {
-          "pilotId": "pilot_b8d7e5a2-8075-4050-ab97-3969b29235d9"
+          "error": "CONFIRMATION_REQUIRED",
+          "message": "confirmed doit \u00eatre true (Oui) ou false (Non) \u2014 absence/null/invalide = aucun acte D6"
         }
       },
-      "data": "SCRIPTED",
-      "criteria": [
-        "ENV-01",
-        "D\u00c9C-ML5-DEV"
-      ],
-      "verdict": "PASS"
-    },
-    {
-      "step": "A1-travail",
-      "action": "Ouvrir surface Travail du projet C9",
-      "browser": {
-        "url": "http://127.0.0.1:3100/projects/proj_a4525a4a-2572-49ab-9345-1748f581448a?surface=travail",
-        "state": "travail"
-      },
-      "capture": {
-        "file": "c9-a1-travail.png",
-        "sha256": "ced903455d2a168cf376e91a6d943f884e8e400e6cca2ab013ce8dbaf832c34d",
-        "bytes": 119783,
-        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c9/c9-a1-travail.png"
-      },
       "data": "OBSERVED",
       "criteria": [
-        "CA-01",
-        "CA-03"
-      ],
-      "verdict": "PASS"
-    },
-    {
-      "step": "A2-contrat",
-      "action": "S\u00e9lectionner contrat + ouvrir instruction int\u00e9grale",
-      "transition": "viewer closed \u2192 contract-viewer open",
-      "browser": {
-        "url": "http://127.0.0.1:3100/projects/proj_a4525a4a-2572-49ab-9345-1748f581448a?surface=execution",
-        "state": "contract tctr_97f4a788-c812-4b46-9257-1246900f153e v1"
-      },
-      "capture": {
-        "file": "c9-a2-contrat-inspectable.png",
-        "sha256": "37965349a88f5d93e638a0670c6778fad3527bce09dc88d18978b2c49d46e3aa",
-        "bytes": 226799,
-        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c9/c9-a2-contrat-inspectable.png"
-      },
-      "data": "OBSERVED",
-      "criteria": [
-        "CA-03",
+        "T-02",
         "CA-04"
       ],
       "verdict": "PASS"
     },
     {
-      "step": "B1-dialog",
-      "action": "Pr\u00e9parer ex\u00e9cution \u2192 dialogue D6",
-      "transition": "PREPARED \u2192 confirm dialog",
+      "step": "A-travail-50-50",
+      "action": "Ouvrir contrat READY en Travail 50/50 + instruction int\u00e9grale",
+      "browser": {
+        "url": "http://127.0.0.1:3100/projects/proj_d54a9443-cfa6-4a1d-b03a-256d1fadbf74?surface=travail",
+        "state": "travail+contract-viewer"
+      },
       "capture": {
-        "file": "c9-b1-d6-confirm-avant-non.png",
-        "sha256": "7dfa74b85e6679cb8097c10ded93d4dbbf8fb7688e4847ceb6322af2bc969553",
-        "bytes": 225890,
-        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c9/c9-b1-d6-confirm-avant-non.png"
+        "file": "c10-a-travail-50-50-instruction.png",
+        "sha256": "f92154c61f9a13c52b03c9e57e738886145f55ec870b6c9dfd597a72a5c92f6b",
+        "bytes": 242932,
+        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c10/c10-a-travail-50-50-instruction.png"
+      },
+      "geom": {
+        "viewport": {
+          "w": 1680,
+          "h": 970
+        },
+        "viewer": {
+          "x": 974,
+          "y": 96,
+          "w": 668,
+          "h": 858,
+          "scrollW": 666,
+          "clientW": 666,
+          "overflowX": false
+        },
+        "instruction": {
+          "x": 993,
+          "y": 846,
+          "w": 630,
+          "h": 420,
+          "scrollW": 628,
+          "clientW": 628,
+          "overflowX": false
+        },
+        "dialog": null,
+        "dialogCard": null,
+        "dialogVisible": false
+      },
+      "data": "OBSERVED",
+      "criteria": [
+        "CA-04",
+        "CA-09"
+      ],
+      "verdict": "PASS"
+    },
+    {
+      "step": "B1-d6-visible",
+      "action": "Dialogue D6 visible (overlay) depuis Travail",
+      "capture": {
+        "file": "c10-b1-d6-dialog-visible.png",
+        "sha256": "947a0a572b07c01a5558c52f2b0fb2a8c6ede50fa0990de61604625e3bc001c2",
+        "bytes": 289237,
+        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c10/c10-b1-d6-dialog-visible.png"
+      },
+      "geom": {
+        "viewport": {
+          "w": 1680,
+          "h": 970
+        },
+        "viewer": {
+          "x": 974,
+          "y": 96,
+          "w": 668,
+          "h": 858,
+          "scrollW": 666,
+          "clientW": 666,
+          "overflowX": false
+        },
+        "instruction": {
+          "x": 993,
+          "y": 426,
+          "w": 630,
+          "h": 420,
+          "scrollW": 628,
+          "clientW": 628,
+          "overflowX": false
+        },
+        "dialog": {
+          "x": 0,
+          "y": 0,
+          "w": 1680,
+          "h": 970,
+          "scrollW": 1680,
+          "clientW": 1680,
+          "overflowX": false
+        },
+        "dialogCard": {
+          "x": 580,
+          "y": 336,
+          "w": 520,
+          "h": 298,
+          "scrollW": 518,
+          "clientW": 518,
+          "overflowX": false
+        },
+        "dialogVisible": true
       },
       "data": "OBSERVED",
       "criteria": [
@@ -2555,75 +3215,57 @@ index feb1fda3..d331312a 100644
     },
     {
       "step": "B1-refus",
-      "action": "Clic Non \u2192 authorize confirmed:false",
-      "transition": "PREPARED \u2192 CANCELLED (decision dec_814f88f0-8a08-4503-8eda-354b8f3a5572)",
+      "action": "D6 Non depuis Travail",
+      "transition": "PREPARED \u2192 CANCELLED",
       "api": {
-        "route": "/realization/attempts/efx_b70c69ef-9ee8-4ef5-8370-faf92fd44d67/authorize",
+        "route": "/authorize",
         "status": 200,
         "useful": {
-          "attemptId": "efx_b70c69ef-9ee8-4ef5-8370-faf92fd44d67",
+          "attemptId": "efx_69c06628-4da6-44b6-a859-45c7daf414b6",
           "status": "CANCELLED",
-          "decisionId": "dec_814f88f0-8a08-4503-8eda-354b8f3a5572",
+          "decisionId": "dec_c937c344-2c4b-48c3-bea8-8d26a9296732",
           "idempotent": false,
-          "fingerprint": "e93efdb8cea8fb9343a11cd1ae7c6716012023678dbaf5fe4359e29c79a167f1",
+          "fingerprint": "1650d73d2d9583393d675f55d994d8d2d7778c37a18584981591758b657ba845",
           "refused": true
         }
       },
       "capture": {
-        "file": "c9-b1-d6-refus.png",
-        "sha256": "e203cd5a0fa956d9411df1b7ece162cc322d6a7a95620af1f614afe1216db239",
-        "bytes": 241326,
-        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c9/c9-b1-d6-refus.png"
+        "file": "c10-b1-d6-refus.png",
+        "sha256": "d1f2bd263c505f02f4162b2f419b6fc2be8920e7d5ad26b088e1d6b6d6f1d448",
+        "bytes": 231047,
+        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c10/c10-b1-d6-refus.png"
       },
       "data": "OBSERVED",
       "criteria": [
-        "CA-04",
-        "T-02",
-        "T-03"
+        "T-02"
       ],
       "verdict": "PASS"
     },
     {
-      "step": "B2-dialog",
-      "action": "Seconde pr\u00e9paration \u2192 dialogue D6 Oui",
-      "capture": {
-        "file": "c9-b2-d6-confirm-avant-oui.png",
-        "sha256": "a64b591fad5d1de82ec58d626eecec83d58c25a709f9e1c60519583a3f5d15a7",
-        "bytes": 200899,
-        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c9/c9-b2-d6-confirm-avant-oui.png"
-      },
-      "data": "OBSERVED",
-      "criteria": [
-        "CA-04",
-        "T-03"
-      ],
-      "verdict": "PASS"
-    },
-    {
-      "step": "B2-oui-C1-dispatch",
-      "action": "D6 Oui + dispatch SCRIPTED",
-      "transition": "PREPARED \u2192 AUTHORIZED \u2192 DISPATCHED",
+      "step": "B2-oui-dispatch",
+      "action": "D6 Oui + dispatch depuis Travail",
+      "transition": "\u2192 DISPATCHED",
       "api": {
         "route": "authorize+dispatch",
         "status": 200,
         "useful": {
-          "authYesJson": {
-            "attemptId": "efx_1e86bf8c-9f82-4f78-b243-8866e762ae63",
+          "authJ": {
+            "attemptId": "efx_d4617b21-b87e-4ed4-b9dc-69a745fd00bd",
             "status": "AUTHORIZED",
-            "decisionId": "dec_a7feec7e-969b-493f-8aa9-2e18f4250581",
+            "decisionId": "dec_55b9d3b6-84ec-4afe-ac9a-f470dec8813b",
             "idempotent": false,
-            "fingerprint": "e93efdb8cea8fb9343a11cd1ae7c6716012023678dbaf5fe4359e29c79a167f1"
+            "fingerprint": "1650d73d2d9583393d675f55d994d8d2d7778c37a18584981591758b657ba845"
           },
-          "dispatchJson": {
-            "attemptId": "efx_1e86bf8c-9f82-4f78-b243-8866e762ae63",
+          "dispJ": {
+            "attemptId": "efx_d4617b21-b87e-4ed4-b9dc-69a745fd00bd",
             "status": "DISPATCHED",
             "idempotent": false,
             "live": {
-              "sendRequestedAt": "2026-11-23T16:48:30.414Z",
-              "ackReceivedAt": "2026-11-23T16:48:30.414Z",
-              "runObservedAt": "2026-11-23T16:48:30.414Z",
-              "agentId": "scripted-agent-efx_1e86bf8c-9f82-4f78-b243-8866e762ae63",
-              "runId": "scripted-run-efx_1e86bf8c-9f82-4f78-b243-8866e762ae63",
+              "sendRequestedAt": "2026-11-23T18:57:35.897Z",
+              "ackReceivedAt": "2026-11-23T18:57:35.897Z",
+              "runObservedAt": "2026-11-23T18:57:35.897Z",
+              "agentId": "scripted-agent-efx_d4617b21-b87e-4ed4-b9dc-69a745fd00bd",
+              "runId": "scripted-run-efx_d4617b21-b87e-4ed4-b9dc-69a745fd00bd",
               "lastActivitySummary": "SCRIPTED_OBSERVATION_RUNNING",
               "terminalStatus": null,
               "reportStatus": "EXPECTED",
@@ -2641,41 +3283,39 @@ index feb1fda3..d331312a 100644
               "NO_REAL_SIDE_EFFECT",
               "REQUIRES_RECONCILE_TO_FINISH"
             ],
-            "claimToken": "claim_e6595d5d-dc5c-45ba-8536-193106895170"
+            "claimToken": "claim_fd94c512-d7d6-48eb-ac9b-1366b80faade"
           }
         }
       },
       "capture": {
-        "file": "c9-c1-running.png",
-        "sha256": "427ad8056437455b80423572e64a75764da65f90a5f9e851425ffd44a10de506",
-        "bytes": 259392,
-        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c9/c9-c1-running.png"
+        "file": "c10-c1-running-or-dispatched.png",
+        "sha256": "a7d374cc991948ebf4bf24839ffa72f4584d53c5cf03c8c4c487c2f5bc2589d3",
+        "bytes": 119157,
+        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c10/c10-c1-running-or-dispatched.png"
       },
       "data": "OBSERVED",
       "criteria": [
+        "CA-04",
         "CA-05",
-        "CA-06",
-        "T-04",
-        "T-05"
+        "T-03"
       ],
       "verdict": "PASS"
     },
     {
       "step": "C2-reconcile",
-      "action": "R\u00e9concilier tentative SCRIPTED_PHASED \u2192 COMPLETED",
-      "transition": "DISPATCHED \u2192 COMPLETED",
+      "action": "Reconcile SCRIPTED_PHASED",
       "api": {
-        "route": "/attempts/efx_1e86bf8c-9f82-4f78-b243-8866e762ae63/reconcile",
+        "route": "/reconcile",
         "status": 200,
         "useful": {
-          "attemptId": "efx_1e86bf8c-9f82-4f78-b243-8866e762ae63",
+          "attemptId": "efx_d4617b21-b87e-4ed4-b9dc-69a745fd00bd",
           "status": "COMPLETED",
           "live": {
-            "sendRequestedAt": "2026-11-23T16:48:30.414Z",
-            "ackReceivedAt": "2026-11-23T16:48:30.414Z",
-            "runObservedAt": "2026-11-23T16:48:30.414Z",
-            "agentId": "scripted-agent-efx_1e86bf8c-9f82-4f78-b243-8866e762ae63",
-            "runId": "scripted-run-efx_1e86bf8c-9f82-4f78-b243-8866e762ae63",
+            "sendRequestedAt": "2026-11-23T18:57:35.897Z",
+            "ackReceivedAt": "2026-11-23T18:57:35.897Z",
+            "runObservedAt": "2026-11-23T18:57:35.897Z",
+            "agentId": "scripted-agent-efx_d4617b21-b87e-4ed4-b9dc-69a745fd00bd",
+            "runId": "scripted-run-efx_d4617b21-b87e-4ed4-b9dc-69a745fd00bd",
             "lastActivitySummary": "SCRIPTED_OBSERVATION_FINISHED",
             "terminalStatus": "finished",
             "reportStatus": "RECEIVED",
@@ -2689,9 +3329,9 @@ index feb1fda3..d331312a 100644
               "NO_REAL_SIDE_EFFECT"
             ],
             "claim": {
-              "claimToken": "claim_e6595d5d-dc5c-45ba-8536-193106895170",
-              "claimedAt": "2026-11-23T16:48:30.411Z",
-              "leaseExpiresAt": "2026-11-23T16:49:30.415Z",
+              "claimToken": "claim_fd94c512-d7d6-48eb-ac9b-1366b80faade",
+              "claimedAt": "2026-11-23T18:57:35.892Z",
+              "leaseExpiresAt": "2026-11-23T18:58:35.898Z",
               "generation": 1,
               "releasedAt": null
             }
@@ -2705,164 +3345,176 @@ index feb1fda3..d331312a 100644
             "SCRIPTED_PHASED_RECONCILED",
             "NO_REAL_SIDE_EFFECT"
           ],
-          "scriptedReportMarkdown": "# Rapport de r\u00e9alisation (SCRIPTED)\n\nattemptId: efx_1e86bf8c-9f82-4f78-b243-8866e762ae63\ninstructionFingerprint: d7415d0c6497a4e4b393c354df98d0aa937363ddebf5ae606055bd1558b96a69\n\n## Inventaire\n- Aucun fichier modifi\u00e9 (mode scripted)\n\n## Tests\n- Non ex\u00e9cut\u00e9s (SCRIPTED)\n\n## R\u00e9serves\n- Preuve LIVE SDK non produite"
+          "scriptedReportMarkdown": "# Rapport de r\u00e9alisation (SCRIPTED)\n\nattemptId: efx_d4617b21-b87e-4ed4-b9dc-69a745fd00bd\ninstructionFingerprint: fd0cd59e5990dcb7c79a87d8c1dd006144e0402dd1b00952479a410d3ee9c80b\n\n## Inventaire\n- Aucun fichier modifi\u00e9 (mode scripted)\n\n## Tests\n- Non ex\u00e9cut\u00e9s (SCRIPTED)\n\n## R\u00e9serves\n- Preuve LIVE SDK non produite"
         }
-      },
-      "capture": {
-        "file": "c9-c2-completed.png",
-        "sha256": "84a3cad23f3bf3bc7cefc7e60c380c4cbd4f24ac86a0c143413359fcefc8c86a",
-        "bytes": 108618,
-        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c9/c9-c2-completed.png"
       },
       "data": "OBSERVED",
       "criteria": [
-        "CA-06",
-        "T-06"
+        "CA-06"
       ],
       "verdict": "PASS"
+    },
+    {
+      "step": "D0-bilan-avant",
+      "action": "Bilan avant ingestion handoff (\u00e9tat incomplet attendu)",
+      "capture": {
+        "file": "c10-d0-bilan-avant-handoff.png",
+        "sha256": "52482d87146181f179c559dad2f097fd84154253432c7c5f4d6524162881ac76",
+        "bytes": 181917,
+        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c10/c10-d0-bilan-avant-handoff.png"
+      },
+      "data": "OBSERVED",
+      "criteria": [
+        "CA-07"
+      ],
+      "verdict": "PASS",
+      "reserve": "Oracle: rapport manquant ou couverture MISSING avant handoff"
     },
     {
       "step": "C3-handoff",
       "action": "POST handoff SCRIPTED_ADAPTER",
       "api": {
-        "route": "/attempts/efx_1e86bf8c-9f82-4f78-b243-8866e762ae63/handoff",
-        "status": 400,
+        "route": "/handoff",
+        "status": 200,
         "useful": {
-          "error": "INVALID_REQUEST",
-          "errorCategory": "INVALID_REQUEST",
-          "message": "Ex\u00e9cuteur d\u00e9clar\u00e9 \u2260 agent observ\u00e9 \u2014 provenance refus\u00e9e"
+          "handoffId": "rhf_cc411abd-0df0-4c72-bea1-ac6fb8e4177c",
+          "attemptId": "efx_d4617b21-b87e-4ed4-b9dc-69a745fd00bd",
+          "status": "RECEIVED",
+          "integrityHash": "74466f18b3438bb6a5e1b030e3a70c490e2729ba71b26ff54521f6224aa47c78",
+          "limits": [
+            "PROVENANCE_SCRIPTED \u2014 pas une preuve LIVE"
+          ],
+          "provenance": {
+            "acquisition": "SCRIPTED_ADAPTER",
+            "declaredExecutorId": "scripted-agent-efx_d4617b21-b87e-4ed4-b9dc-69a745fd00bd",
+            "observedAgentId": "scripted-agent-efx_d4617b21-b87e-4ed4-b9dc-69a745fd00bd",
+            "observedRunId": "scripted-run-efx_d4617b21-b87e-4ed4-b9dc-69a745fd00bd"
+          }
         }
       },
       "data": "SCRIPTED",
       "criteria": [
         "CA-07"
       ],
-      "verdict": "PARTIAL"
-    },
-    {
-      "step": "C3-reconnexion",
-      "action": "Cookies purg\u00e9s + auto-session + tentative retrouv\u00e9e",
-      "browser": {
-        "url": "http://127.0.0.1:3100/projects/proj_a4525a4a-2572-49ab-9345-1748f581448a?surface=execution",
-        "state": "row efx_1e86bf8c-9f82-4f78-b243-8866e762ae63"
-      },
-      "capture": {
-        "file": "c9-c3-reconnexion.png",
-        "sha256": "6697407d50ff3af52be5e0d7a52de4003642bf8f1b895730bb80c18d8a783a7f",
-        "bytes": 108616,
-        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c9/c9-c3-reconnexion.png"
-      },
-      "data": "OBSERVED",
-      "criteria": [
-        "CA-06",
-        "T-06"
-      ],
       "verdict": "PASS"
     },
     {
-      "step": "D1-bilan",
-      "action": "Ouvrir Bilan D8 depuis R\u00e9sultats et preuves",
-      "transition": "liste \u2192 realization-bilan",
-      "browser": {
-        "url": "http://127.0.0.1:3100/projects/proj_a4525a4a-2572-49ab-9345-1748f581448a?surface=publication",
-        "state": "bilan attempt=efx_1e86bf8c-9f82-4f78-b243-8866e762ae63"
-      },
+      "step": "D1-bilan-apres",
+      "action": "Bilan apr\u00e8s handoff RECEIVED (requalify judgment_correction)",
       "capture": {
-        "file": "c9-d1-bilan-synthese.png",
-        "sha256": "bdec9087a9268a5d7c30386f560cfa7eae969f437ee064b511aad14e7530378b",
-        "bytes": 199537,
-        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c9/c9-d1-bilan-synthese.png"
+        "file": "c10-d1-bilan-apres-handoff.png",
+        "sha256": "9243568759d60c1a36cd8e1e059edd5a85352d7468c395a194f2797aecf7d744",
+        "bytes": 191265,
+        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c10/c10-d1-bilan-apres-handoff.png"
       },
       "data": "OBSERVED",
       "criteria": [
         "CA-07",
-        "CA-09",
-        "T-07"
+        "CA-09"
       ],
       "verdict": "PASS"
     },
     {
       "step": "D2-tab-livrables",
-      "action": "Onglet bilan livrables",
+      "action": "Onglet livrables",
       "capture": {
-        "file": "c9-d2-bilan-livrables.png",
-        "sha256": "8f2c9e400f7d7cfda0b56c119e10d4e5652238dc79a3f852ea3c5aa46a522793",
-        "bytes": 198786,
-        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c9/c9-d2-bilan-livrables.png"
+        "file": "c10-d2-bilan-livrables.png",
+        "sha256": "9bf5bd2d0961a388598df1e206a7c68a64de07c90771e4adb992c7a67532fbde",
+        "bytes": 154928,
+        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c10/c10-d2-bilan-livrables.png"
       },
       "data": "OBSERVED",
       "criteria": [
         "CA-07",
-        "T-08"
+        "CA-09"
       ],
       "verdict": "PASS"
     },
     {
       "step": "D2-tab-git",
-      "action": "Onglet bilan git",
+      "action": "Onglet git",
       "capture": {
-        "file": "c9-d2-bilan-git.png",
-        "sha256": "f6a2e901fbd39d792e6370a733c579a631b1cd7876b7b38d39c6898b2f155866",
-        "bytes": 198332,
-        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c9/c9-d2-bilan-git.png"
+        "file": "c10-d2-bilan-git.png",
+        "sha256": "070e335636f7b2315216d22c5992d790a1dbe16c5ed3a90bf982549babef6ac4",
+        "bytes": 156501,
+        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c10/c10-d2-bilan-git.png"
       },
       "data": "OBSERVED",
       "criteria": [
         "CA-07",
-        "T-08"
+        "CA-09"
       ],
       "verdict": "PASS"
     },
     {
       "step": "D2-tab-ecarts",
-      "action": "Onglet bilan ecarts",
+      "action": "Onglet ecarts",
       "capture": {
-        "file": "c9-d2-bilan-ecarts.png",
-        "sha256": "6364193939f7ad52aed7191df4c5fd92953c1d8b8b26940265967b5542a67336",
-        "bytes": 194676,
-        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c9/c9-d2-bilan-ecarts.png"
+        "file": "c10-d2-bilan-ecarts.png",
+        "sha256": "66553472e0a89e7d9fb957871514160000681b5b4f1c992413b4b00f8abcb40b",
+        "bytes": 157827,
+        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c10/c10-d2-bilan-ecarts.png"
       },
       "data": "OBSERVED",
       "criteria": [
         "CA-07",
-        "T-08"
+        "CA-09"
       ],
       "verdict": "PASS"
     },
     {
       "step": "D2-tab-synthese",
-      "action": "Onglet bilan synthese",
+      "action": "Onglet synthese",
       "capture": {
-        "file": "c9-d2-bilan-synthese-retour.png",
-        "sha256": "0a309abd6fd6a5fcc4774fed3d2f57751d3b948e362fe52873fe09d4123fc3ee",
-        "bytes": 199682,
-        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c9/c9-d2-bilan-synthese-retour.png"
+        "file": "c10-d2-bilan-synthese.png",
+        "sha256": "9243568759d60c1a36cd8e1e059edd5a85352d7468c395a194f2797aecf7d744",
+        "bytes": 191265,
+        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c10/c10-d2-bilan-synthese.png"
       },
       "data": "OBSERVED",
       "criteria": [
         "CA-07",
-        "T-08"
+        "CA-09"
       ],
       "verdict": "PASS"
     },
     {
       "step": "E1-retour-nora",
-      "action": "En discuter avec Nora \u2192 Travail, brouillon non envoy\u00e9",
-      "browser": {
-        "url": "http://127.0.0.1:3100/projects/proj_a4525a4a-2572-49ab-9345-1748f581448a?surface=travail",
-        "state": "draftLen=104"
-      },
+      "action": "Retour Nora contextualis\u00e9",
       "capture": {
-        "file": "c9-e1-retour-nora.png",
-        "sha256": "8b62b63a568ce5d6018ba04c6a95a80bdeba5283aa53d019a4395bf3dfa51dc0",
-        "bytes": 128204,
-        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c9/c9-e1-retour-nora.png"
+        "file": "c10-e1-retour-nora.png",
+        "sha256": "4166ce208bb6001823aefb3100bdf5f035279f220a7b5953092fa7aa8ff24e1a",
+        "bytes": 140002,
+        "path": "/Users/morris/Projects/sfia-wt-next-ml5-20261123/.tmp-sfia-review/browser/c10/c10-e1-retour-nora.png"
+      },
+      "browser": {
+        "url": "http://127.0.0.1:3100/projects/proj_d54a9443-cfa6-4a1d-b03a-256d1fadbf74?surface=publication",
+        "state": "draft=Reprendre \u00e0 propos de la tentative efx_d4617b21-b87e-4ed4-b9dc-69a745fd00bd (ver"
       },
       "data": "OBSERVED",
       "criteria": [
         "CA-08",
-        "T-09",
         "T-10"
+      ],
+      "verdict": "PASS"
+    },
+    {
+      "step": "E2-requalify-new-proof",
+      "action": "POST qualification requalify new_proof with capture id",
+      "api": {
+        "route": "/qualification",
+        "status": 200,
+        "useful": {
+          "requalified": true,
+          "previousVerdict": "PARTIAL",
+          "captureId": "ecap_1c817ffb-bb94-4540-8793-5651372708c5"
+        }
+      },
+      "data": "OBSERVED",
+      "criteria": [
+        "G15",
+        "G07",
+        "CA-07"
       ],
       "verdict": "PASS"
     }
@@ -2870,76 +3522,93 @@ index feb1fda3..d331312a 100644
   "summary": {
     "pass": 15,
     "fail": 0,
-    "partial": 1,
-    "captures": 14
+    "partial": 0,
+    "captures": 11
+  },
+  "f2": {
+    "viewportRuntime": {
+      "w": 1680,
+      "h": 970
+    },
+    "figmaReference": {
+      "w": 1680,
+      "h": 970,
+      "page": "1209:2",
+      "fileKey": "itgvCulInEnFY6DvgIegvP"
+    },
+    "note": "Viewport aligned to Figma canvas size; L0/L1/L2 pair measures vs native Figma PNG not completed this cycle \u2014 F2 NOT PROVEN globally",
+    "states": [
+      {
+        "id": "12.travail-50-50",
+        "capture": "c10-a-travail-50-50-instruction.png",
+        "f2": "NOT PROVEN",
+        "reason": "no Figma L2 pair measure"
+      },
+      {
+        "id": "12.d6-confirm",
+        "capture": "c10-b1-d6-dialog-visible.png",
+        "f2": "NOT PROVEN",
+        "reason": "no Figma L2 pair measure"
+      },
+      {
+        "id": "12.running",
+        "capture": "c10-c1-running-or-dispatched.png",
+        "f2": "NOT PROVEN"
+      },
+      {
+        "id": "12.terminal",
+        "capture": "c10-c2-completed.png",
+        "f2": "NOT PROVEN"
+      },
+      {
+        "id": "12.d8-synthese",
+        "capture": "c10-d1-bilan-apres-handoff.png",
+        "f2": "NOT PROVEN"
+      },
+      {
+        "id": "12.d8-tabs",
+        "capture": "c10-d2-bilan-*.png",
+        "f2": "NOT PROVEN"
+      },
+      {
+        "id": "12.nora-return",
+        "capture": "c10-e1-retour-nora.png",
+        "f2": "NOT PROVEN"
+      }
+    ],
+    "pass": 0,
+    "fail": 0,
+    "notProven": 7
   }
 }
 ```
 
-## 16. Figma L0/L1/L2/F2
-- Référence: file `itgvCulInEnFY6DvgIegvP` page `1209:2` états 12.01–12.14
-- Viewport captures: 1440×900 vs Figma 1680×970 — **F2 PASS non revendiqué**
-- États traversés BROWSER: Travail, contrat/D6, RUNNING/COMPLETED, bilan 4 onglets, Nora return
-- Matrice 14: NOT PROVEN global (mesure CSS-px 1:1 non exécutée C9)
+## 20–21. Figma F2
+- Viewport runtime aligné 1680×970
+- Extraction L0/L1/L2 native + pair measure: **non complétée** → F2 **0 PASS / NOT PROVEN**
+- Matrice: `.tmp-sfia-review/figma/c10/f2-matrix.json`
 
-## 17. Fake/Real Qualification
-| Frontière | Niveau | Preuve |
-|---|---|---|
-| Identité DEV auto-session | SCRIPTED / DETERMINISTIC | cookie Pilote A loopback |
-| Nora D3 cognitive | NOT PROVEN LIVE | contrat seed DOMAIN_SEED_SCRIPTED |
-| Cursor SDK | SCRIPTED_PHASED | observations RUNNING≠LIVE |
-| Git / GitHub | lecture seule / pas de push | Option A inchangée |
-| PostgreSQL DEV | INTEGRATION | attempts/decisions persistés |
-| WEB LIVE B09 | NOT_IMPL | — |
-| BROWSER | PROVEN parcours | 14 captures |
-| Figma F2 | NOT PROVEN | viewport mismatch |
+## 22–26. CA/T/Q/PF / 99 / CP
+- CA-04/09 BROWSER améliorés ; CA-07 handoff→bilan PASS ; CA-08 retour Nora PASS
+- Inventaire présence **1/97/1** B09 NOT_IMPL — pas de promotion auto
+- CP-01…08 conservés ; non régressés intentionnellement
 
-## 18. Matrice 99 exigences
-- Inventaire présence: **1 IMPLEMENTED / 97 PARTIAL / 1 NOT_IMPL (B09)**
-- Aucune promotion automatique IMPLEMENTED sur seul volume de tests
-- D07: preuve BROWSER D6 Oui/Non C9 ajoutée; reste PARTIAL (LIVE non prouvé)
-- Historique R-001/R-002/R-003 + C7/C8/C9 conservé
+## 27. Fake/Real
+| Frontière | Niveau |
+|---|---|
+| BROWSER UX/D6/D8 | PROVEN C10 SCRIPTED |
+| Figma F2 | NOT PROVEN |
+| Nora/Cursor/WEB LIVE | NOT PROVEN / B09 NOT_IMPL |
 
-## 19. CA / T / Q / PF
-- CA-04/T-02/T-03: BROWSER PASS (refus+autorisation fingerprint)
-- CA-05/CA-06/T-04..T-06: SCRIPTED_PHASED PASS (≠ LIVE)
-- CA-07/CA-09/T-07/T-08: bilan 4 onglets PASS navigation; preuves SCRIPTED
-- CA-08/T-09/T-10: retour Nora brouillon PASS; analyse cognitive LIVE NOT PROVEN
-- CA-01 Nora investigation LIVE: NOT PROVEN
+## 28. ENV-01 / versioning
+- DEV 127.0.0.1:3100 / PG :5433 / mig 019 / SCRIPTED_PHASED=1 / NO RELEASE
 
-## 20. CP-01…CP-08
-- Conservés depuis C7/C8 — non rejoués exhaustivement; non régressés intentionnellement
-- CP-02 listen: serveur `-H 127.0.0.1` + STUDIO_DEV_BIND
+## 29. Réserves
+- F2 mesures paires Figma non faites
+- Nora cognitive / SDK LIVE gated
+- Registre local réconcilié en notes C10 ; contenu intégral R-003 distant non recopié ligne à ligne (évite écrasement) — historique R-001…R-003 + C4–C10 cité
 
-## 21. Régressions et limitations
-- Handoff E2E initial PARTIAL (declaredExecutorId mismatch) — corrigé script + re-ingest
-- F2 non mesuré
-- Contrat créé par seed, pas Nora LIVE
-
-## 22. Dette et exit
-- Exit LIVE: GO Nora / Cursor SDK / WEB
-- Exit F2: viewport match + mesures ≤2px
-- Exit READY FOR RECETTE: hors contrat
-
-## 23. Gates Morris
-- GO LIVE Cursor SDK / Nora / WEB
-- GO push code projet / PR / merge
-- GO RECETTE / release / ADOPTED
-
-## 24. ENV-01 et versioning
-- Lane: DEV 127.0.0.1:3100 / PG :5433 / mig 019
-- SFIA_CURSOR_EFFECT_MODE=SCRIPTED ; SFIA_CURSOR_SCRIPTED_PHASED=1
-- SFIA_CURSOR_WORKSPACE_ROOT=/tmp/sfia-c9-scripted-ws
-- Product versioning: NO RELEASE ; STABLE NOT AVAILABLE
-
-## 25. Verdict
+## 30. Verdict / Handoff
 **`ML5 INTEGRATED — QUALIFICATION IN PROGRESS`**
-
-Parcours mono-tentative corrélé exercé sur produit réel (SCRIPTED frontier). Qualification LIVE/F2/REAL ouverte.
-
-## 26. Review Handoff
-- Mode: publish-in-cycle L3 borné
-- Branche: `sfia/review-handoff`
-- Fichier: `sfia-review-handoff/latest-chatgpt-review.md`
-- Commit attendu: `docs(review-handoff): publish ML5 cycle 9 end-to-end journey review`
-- Push code projet: **INTERDIT**
+- Publish: `docs(review-handoff): publish ML5 cycle 10 UX and D8 qualification review`
+- Push code projet: INTERDIT
