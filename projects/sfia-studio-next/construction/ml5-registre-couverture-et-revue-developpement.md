@@ -1,15 +1,32 @@
 # SFIA Studio Next — ML5 · Registre de couverture et de revue du développement
 
-> **D0 / contribution documentaire D1 — candidat à revue Morris ; aucun GO de construction, PR, merge, release, adoption ou promotion.**
+> **Registre de revue ML5 — contenu validé comme support de suivi par Morris ; Gate C accepté avec réserves et GO de construction ML5 exprimés le 23/11/2026.** Aucun GO implicite de push projet, PR, merge, recette/cutover, release, adoption ou promotion.
 
 | Champ | Valeur |
 |---|---|
-| Version | v0.1 — 23 novembre 2026 |
+| Version | v0.2 — 23 novembre 2026 : décision Gate C et ouverture de ML5 enregistrées |
 | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
 | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` |
-| Gate | `Gate C OPEN`, ML5 non autorisé en construction d'après la Roadmap au 23/11/2026 |
-| Publication | Document de pilotage **non normatif** ; la mise en Git ne vaut ni preuve d'implémentation ni nouvelle décision |
+| Gate | **GATE C ACCEPTÉ PAR MORRIS AVEC RÉSERVES / GO CONSTRUCTION ML5** — décision explicite du 23/11/2026 dans la conversation ; la Roadmap de `main` présente encore son instantané antérieur `OPEN` et reste à synchroniser sous mandat D2 approprié. |
+| Publication | Document de pilotage **non normatif**, sur branche candidate non mergée ; consigne la décision Morris exprimée, sans prétendre modifier automatiquement les décisions/roadmap de `main`. |
 | Suivi | ChatGPT qualifie les Review Packs/écarts ; Cursor fournit réalisation/rapports ; Morris décide les arbitrages |
+
+## Décision Morris — clôture ML4 avec réserves et ouverture ML5 (23/11/2026)
+
+**Acte exprimé dans la conversation :** Morris valide la clôture du périmètre ML4 avec réserves, le passage de Gate C, l'ouverture de ML5 et le **GO pour engager sa construction**. Ce GO porte sur la réalisation de ML5 sous SFIA v2.6 et le respect du présent registre ; il ne valide pas d'avance les choix d'architecture encore candidats, le résultat technique, la qualification R6 ou une opération Git de livraison.
+
+**Réserves ML4 conservées sans requalification fictive :**
+
+1. `WRITE-07` — perte d'ACK/retry REAL non testés ; directement pertinent pour l'unicité des dispatchs Cursor ML5.
+2. `PREVIEW-02/03/05/06/07/11` — couverture et fidélité partielles, exit selon les surfaces affectées et R6.
+3. `D6/D7/D8` — audit REAL partiel des autorités et faits persistés.
+4. Merge GitHub REAL — non exécuté et non prouvé ; aucun contournement des protections du sandbox autorisé.
+5. Protections GitHub — visibilité partielle des règles/rôles et droits.
+6. R6 global — résilience, concurrence, reprises et scénarios de conformité encore à qualifier.
+
+**Mandat applicable au chantier ML5 :** construction sous contrat Cursor SFIA v2.6, revue de chaque livraison et mise à jour de la couverture. Les intégrations d'exécution doivent respecter les propriétaires existants. Les décisions majeures de persistance, d'architecture, d'autorité, de permissions ou de trajectoire restent réservées à Morris. **Pas de push branche produit, PR, merge, suppression, migration de lane protégée, cutover RECETTE, STABLE, release ou ADOPTED sans GO propre.** Le Review Handoff L3 mono-fichier autorisé par SFIA v2.6 est distinct.
+
+**Statut Git :** la présente décision est consignée sur la **branche candidate**, non intégrée à `main`. La Roadmap `main` restera historiquement `Gate C OPEN` tant qu'une synchronisation D2 et une intégration gouvernée ne sont pas intervenues ; **ne pas interpréter cet instantané antérieur comme une révocation de la décision explicite Morris du 23/11/2026**. La décision ne vaut pas merge.
 
 ## 1. Mode d'emploi et règle de vérité
 
@@ -256,6 +273,6 @@ Chaque réserve transférée comporte **propriétaire, impact, preuve attendue, 
 - [ ] Code/tests/architecture/UX/as-built synchronisés ; dette et capacité suivante qualifiées.
 - [ ] Décision Morris de réception, intégration, promotion et adoption traitée séparément.
 
-**État initial :** `DRAFT REVIEW REGISTRY / ALL ITEMS NV / GATE C OPEN / NO BUILD GO / NO RELEASE / NOT ADOPTED`.
+**État initial révisé :** `REVIEW REGISTRY VALIDATED FOR USE / ALL 99 ITEMS NV / GATE C ACCEPTED WITH RESERVES BY MORRIS 2026-11-23 / ML5 BUILD GO GRANTED / NO PR-MERGE-CUTOVER-RELEASE / NOT ADOPTED`.
 
 **Hors périmètre de ce document :** nouvelle doctrine, architecture physique adoptée, ordre impératif de micro-lots, auto-acceptation, PR/merge, mutation/runtime, gestion MCP Studio universelle.
