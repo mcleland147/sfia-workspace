@@ -2443,11 +2443,13 @@ Implémentation élargie mais conservatrice après réconciliation : **1 IMPLEME
 |---|---|
 | Mode | `publish-in-cycle` L3 borné |
 | Branche | `sfia/review-handoff` |
-| Tip distant | `0425a68485a341a6bd0e9a9af701a8cecf0ed79f` |
+| Chaîne distante | `4b11ce93` (FULL) → `ce671862` (inventaire 1/74/24) → `0425a684` (attest) → tip après ce push |
 | Amend inventaire | `ce6718628e21d501820d23b5d9667b31b750cdaa` |
-| Pack FULL initial cycle 4 | `4b11ce93b72e1eb8910df615dfa05055cbb43ae1` |
-| Messages | `docs(review-handoff): reconcile ML5 A01-I11 inventory (explore)` puis `docs(review-handoff): attest ML5 inventory reconciliation SHA` |
+| Attestation | `0425a68485a341a6bd0e9a9af701a8cecf0ed79f` |
+| Finalize précédent | `5b3fe370` |
 | Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
 | Inventaire figé | **IMPLEMENTED=1 · PARTIAL=74 · NOT_IMPL=24** (explore + cycle 4) |
 | Push projet | **NONE** |
 | Worktree ML5 | branche `sfia/next-ml5-integrated-delivery-20261123` / HEAD `6cf33e99…` inchangé |
+
+Verdict handoff: contenu inventaire et `HANDOFF UPDATED — REMOTE VERIFIED` lus sur `origin/sfia/review-handoff` après chaque push L3. Le tip exact est le commit de publication de ce fichier.
