@@ -2443,7 +2443,7 @@ Implémentation élargie mais conservatrice après réconciliation : **1 IMPLEME
 |---|---|
 | Mode | `publish-in-cycle` L3 borné |
 | Branche | `sfia/review-handoff` |
-| Chaîne distante | `4b11ce93` (FULL) → `ce671862` (inventaire 1/74/24) → `0425a684` (attest) → tip après ce push |
+| Chaîne distante | `4b11ce93` (FULL) → `ce671862` (inventaire) → `0425a684` → `5b3fe370` → tip `74422df377e78944bb3e0c55463f6fff8f0f16a2` |
 | Amend inventaire | `ce6718628e21d501820d23b5d9667b31b750cdaa` |
 | Attestation | `0425a68485a341a6bd0e9a9af701a8cecf0ed79f` |
 | Finalize précédent | `5b3fe370` |
