@@ -6,7 +6,7 @@
 **Date/heure:** 2026-11-23T09:22:16Z (UTC)
 **Branche:** `sfia/next-ml5-integrated-delivery-20261123`
 **HEAD entrée:** `69aeb329ee387a7cf8331fc6173fcf0f09bd92b8`
-**HEAD courant (pré-commit):** `69aeb329ee387a7cf8331fc6173fcf0f09bd92b8`
+**HEAD courant (post-commit):** `6b7dac122216e5493e460353f36f8eb50ef33e42`
 **Base:** `0f1d37c3b055371c84c1f30e9bebe3d0efee41b2`
 **Worktree:** `/Users/morris/Projects/sfia-wt-next-ml5-20261123`
 **Review Handoff:** REQUIRED — `publish-in-cycle` (section publication en fin de pack)
@@ -165,9 +165,24 @@ BROWSER / Playwright parcours : **NOT RUN**.
 
 Pas READY FOR RECETTE. P0 adressés en DEV ; parcours raccordé partiel ; F2/LIVE/B1 isolation ouverts.
 
-## 12. Review Handoff publication
+## 12. Review Handoff publication — PREUVES POST-PUSH
 
-*(rempli après push L3)*
+| Champ | Valeur observée |
+|---|---|
+| Mode | `publish-in-cycle` L3 borné |
+| Branche | `sfia/review-handoff` |
+| Fichier | `sfia-review-handoff/latest-chatgpt-review.md` uniquement |
+| Commit handoff | `3e245a0c905ebfcdf7f2853f4dda4df97346e40f` |
+| Message | `docs(review-handoff): publish ML5 integration consolidation review` |
+| Push | fast-forward `d731c1d7..3e245a0c` → `origin/sfia/review-handoff` |
+| SHA distant contenu | `3e245a0c905ebfcdf7f2853f4dda4df97346e40f` |
+| SHA distant tip (preuves) | `2b2d27f6e8b2495adcccd4677078a8b77670b4b5` |
+| Relecture distante | OUI — en-tête ML5 Consolidation + verdict `ML5 PARTIAL — GOVERNED GAPS` + HEAD `6b7dac12` présents |
+| Push projet ML5 | **NONE** |
+| Worktree ML5 après opération | inchangé (branche `sfia/next-ml5-integrated-delivery-20261123@6b7dac12`) |
+
+**Statut:** `REVIEW HANDOFF PUBLISHED — CANONICAL REMOTE UPDATED`
+
 
 ## 13. Contenu intégral — fichiers créés
 
@@ -1558,7 +1573,7 @@ index 4718c866..cc1c771f 100644
 @@ -3,6 +3,24 @@
  Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
- 
+
 +## delivery_id: DELIV-2026-11-23-ML5-INTEGRATION-CONSOLIDATION
 +
 +| Field | Value |
@@ -1578,7 +1593,7 @@ index 4718c866..cc1c771f 100644
 +| Verdict | **ML5 PARTIAL — GOVERNED GAPS** (parcours raccordé DEV ; P0 adressés ; F2/LIVE ouverts) |
 +
  ## delivery_id: DELIV-2026-11-23-ML5-INTEGRATED-DELIVERY-SLICE
- 
+
  | Field | Value |
 diff --git a/projects/sfia-studio-next/construction/ml5-as-built-cursor-realization.md b/projects/sfia-studio-next/construction/ml5-as-built-cursor-realization.md
 index caabadca..b9c6a24d 100644
@@ -1587,7 +1602,7 @@ index caabadca..b9c6a24d 100644
 @@ -1,40 +1,74 @@
 -# ML5 as-built — Cursor realization socle (2026-11-23)
 +# ML5 as-built — Cursor realization consolidation (2026-11-23)
- 
+
  | Champ | Valeur |
  |---|---|
  | Branche | `sfia/next-ml5-integrated-delivery-20261123` |
@@ -1680,9 +1695,9 @@ index caabadca..b9c6a24d 100644
 +- Option Git B ADOPTED.
 +- Worker production long-run.
 +- Push projet / PR / merge / RECETTE / STABLE.
- 
+
  ## Invariants respectés
- 
+
 -- Pas de second moteur D6/D7/D8/Git/cognitif.
 -- Pas d'admin MCP/Cursor Desktop dans Studio.
 +- Pas de second moteur D6/D7/D8/D9/MCP.
@@ -1704,7 +1719,7 @@ index eb646f7c..67d9b2f8 100644
  | 12.06 | `1212:383` | Réalisation en cours · LIVE Cursor SDK | 1680×970 @ (3820,1370) | LIVE observé |
 @@ -42,5 +42,8 @@
  ## Statut L1/L2
- 
+
  - L0 : **FAIT** (node-ids natifs).
 -- L1/L2 (Auto Layout, tokens, assets, PNG hash) : **EN COURS** — requis avant verdict H08/F2.
 -- Captures PNG natives : à exporter par frame avant code fidélité.
@@ -1724,7 +1739,7 @@ index 96231869..feb1fda3 100644
 -| ☐ | `A11` | Conserver/reconstituer de façon fiable l'investigation après déconnexion, interruption, limite de contexte ou incident fournisseur sans fausse lecture ni effet rejoué. | PARTIEL | `resumeInvestigation` refuse lectures inventées ; persistance A ouverte |
 +| ☐ | `A11` | Conserver/reconstituer de façon fiable l'investigation après déconnexion, interruption, limite de contexte ou incident fournisseur sans fausse lecture ni effet rejoué. | PARTIEL | `investigation-persistence.ts` → `preparations.projection_json` ; reprise unit OK ; PG reprise tour non exhaustif |
  | ☐ | `A12` | Réduire les coûts/latences sur demandes simples et rendre ces capacités disponibles transversalement dans sas, projet, documents, décision et bilan. | NV | — |
- 
+
  ### B. Recherche et lecture web publique
 @@ -90,7 +90,7 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
  | ☐ | `B04` | Afficher des citations/liens sources utilisables et les métadonnées de fraîcheur réellement établies. | NV | — |
@@ -1734,9 +1749,9 @@ index 96231869..feb1fda3 100644
 +| ☐ | `B07` | Empêcher l'exfiltration de secrets et données privées via requêtes web, résultats, traces ou liens affichés. | PARTIEL | P0-03 : outil détaché tant que `SFIA_WEB_SEARCH_ISOLATION_PROVEN≠1` ; sanitize DETERMINISTIC ; LIVE non-exfil NOT PROVEN |
  | ☐ | `B08` | Traiter timeout, pages/PDF indisponibles, budget/coût/latence, échec et reprise avec limite honnête et sans crawler parallèle par défaut. | NV | — |
  | ☐ | `B09` | Prouver la compatibilité du fournisseur/outillage web avec le runtime D3 et la réponse structurée, sur modèle/version réels. | NV | — |
- 
+
 @@ -99,8 +99,8 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
- 
+
  | Revu | ID | Exigence de résultat / comportement attendu | État | Preuve (SHA / run / test / capture / réserve) |
  |---|---|---|---|---|
 -| ☐ | `C01` | Afficher les phases significatives de travail long dans le fil concerné, pendant l'investigation, sans activité artificielle pour chaque message. | NV | — |
@@ -1764,7 +1779,7 @@ index 96231869..feb1fda3 100644
 +| ☐ | `D10` | Exécuter uniquement après acte explicite Exécuter et confirmation générique Oui/Non ; Non sans effet. | PARTIEL | `confirmed:true` requis API + dialog `d6-confirm-launch` dans `CursorRealizationSurface` ; BROWSER F2 non prouvé |
  | ☐ | `D11` | Recontrôler D6/D7/D9 et capacités/permissions réelles au point d'effet ; interdictions et suspensions opposables. | PARTIEL | `assertCurrentCursorAuthority` au dispatch ; MCP réel non vérifié |
  | ☐ | `D12` | Conserver lien au bon projet, Pilote, contrat et cycle d'origine le cas échéant, sans imposer de cycle. | PARTIEL | attempt/contract/pilot/project liés |
- 
+
 @@ -135,17 +135,17 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
  | ☐ | `E02` | Exécuter dans l'environnement Cursor effectif ; Cursor Desktop demeure disponible pour administration, comptes, MCP et authentifications. | PARTIEL | Pas d'admin Desktop dans Studio ; LIVE cwd à qualifier |
  | ☐ | `E03` | Créer/récupérer une tentative unique avec projet, Pilote, contrat/version/empreinte et mandat. | PARTIEL | `prepareCursorExecution` + correlationKey |
@@ -1784,7 +1799,7 @@ index 96231869..feb1fda3 100644
  | ☐ | `E14` | Ne pas forcer Git/MCP sur une mission qui n'en a pas besoin ; production et DEV utilisent le même sens du contrat avec environnements distincts. | PARTIEL | gitScope/mcp optionnels sur plan |
 -| ☐ | `E15` | Isoler concurrents, projets, workspaces, identités SDK, secrets et rapports ; aucun croisement de tentative. | PARTIEL | scoping pilot/project/attempt ; isolation workspace LIVE non prouvée |
 +| ☐ | `E15` | Isoler concurrents, projets, workspaces, identités SDK, secrets et rapports ; aucun croisement de tentative. | PARTIEL | P0-02 `resolveCursorWorkspace` sous `SFIA_CURSOR_WORKSPACE_ROOT` ; client cwd refusé ; LIVE isolation OS NOT PROVEN |
- 
+
  ### F. Git de travail et continuité des réalisations
  **Responsabilités :** D7/D9/D6 — conditionnel aux missions Git. **Sources :** Contrat ML5 §§17.2,18.2,19.5 ; R2 D9 et architecture §18.
 @@ -178,9 +178,9 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
@@ -1798,7 +1813,7 @@ index 96231869..feb1fda3 100644
 +| ☐ | `G13` | Distinguer déclaration Cursor, observation, verdict D8, avis Nora et décision HumanDecision D6. | PARTIEL | Labels + `CursorRealizationSurface` sur `?surface=publication` |
 +| ☐ | `G14` | Permettre En discuter avec Nora : référence de bilan jointe au brouillon, retirable, aucun envoi automatique. | PARTIEL | `onDiscussWithNora` → `setDraft` + Travail ; envoi non automatique |
  | ☐ | `G15` | Conserver historique/version et réserves ; requalification datée si preuve tardive, sans rejouer la mission. | NV | — |
- 
+
  ### H. UX Figma page 12 et fidélité de transposition
 @@ -195,7 +195,7 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
  | ☐ | `H05` | 12.08,12.11,12.12,12.13 : quatre onglets de bilan couvrant neuf rubriques D8, valeurs et réserves cohérentes. | NV | — |
@@ -1806,7 +1821,7 @@ index 96231869..feb1fda3 100644
  | ☐ | `H07` | 12.10 : activité de Nora dans le sas sans projet fictif. | NV | — |
 -| ☐ | `H08` | Avant code de chaque surface : Figma validée et extraction L0/L1/L2, assets exacts, PNG natif hashé, mapping node→DOM→assertion ; après code : runtime screenshot, styles/DOM/F2, état/viewport/fixture identiques, interactions browser, réserves explicites. | NV | — |
 +| ☐ | `H08` | Avant code de chaque surface : Figma validée et extraction L0/L1/L2, assets exacts, PNG natif hashé, mapping node→DOM→assertion ; après code : runtime screenshot, styles/DOM/F2, état/viewport/fixture identiques, interactions browser, réserves explicites. | PARTIEL | L0+L1 metadata 14 frames + design context 12.02 ; F2/BROWSER runtime NOT PROVEN |
- 
+
  ### I. Non-régression, qualité, preuve et gouvernance
  **Responsabilités :** Transverse D1–D9 / SEF / ENV-01. **Sources :** SEF v0.2, ENV-01, product-versioning, SFIA v2.6 ; ML5 architecture A–D.
 diff --git a/projects/sfia-studio-next/web/scripts/db-migrate.sh b/projects/sfia-studio-next/web/scripts/db-migrate.sh
@@ -2006,7 +2021,7 @@ index 65fa2643..b7e7c4ca 100644
 @@ -2976,13 +2977,29 @@ export default function ProjectPage() {
          />
        ) : null}
- 
+
 -      {surface === "git" || surface === "publication" ? (
 +      {surface === "git" ? (
          <GitRepositoriesSurface
@@ -2014,7 +2029,7 @@ index 65fa2643..b7e7c4ca 100644
            projectName={projectName}
          />
        ) : null}
- 
+
 +      {surface === "publication" ? (
 +        <div data-testid="publication-surface-ml5">
 +          <CursorRealizationSurface
@@ -2053,7 +2068,7 @@ index f62503be..ac87e8a3 100644
 @@ -1047,4 +1049,4 @@ export const noraActivityEvents = pgTable(
    ],
  );
- 
+
 -export const schemaRevision = "017_ml5_cursor_realization";
 +export const schemaRevision = "018_ml5_contract_reversibility";
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/activity-projection.ts b/projects/sfia-studio-next/web/src/domains/conversation/activity-projection.ts
@@ -2113,7 +2128,7 @@ index c4b55a49..892d5136 100644
 +    if (input.ownerToken != null && turn.ownerToken && input.ownerToken !== turn.ownerToken) {
 +      throw new StudioError("ACCESS_DENIED", "OwnerToken invalide — fencing activité");
 +    }
- 
+
 -  const last = (
 -    await db
 -      .select({ sequence: noraActivityEvents.sequence })
@@ -2169,14 +2184,14 @@ index c4b55a49..892d5136 100644
    });
 -  return { id, sequence };
  }
- 
+
  export async function listActivityEvents(input: {
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 index 38fb10c6..e2ada8bb 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 @@ -1086,6 +1086,23 @@ export async function postUserMessageAndNora(
- 
+
    let reply;
    try {
 +    // C1 — announce Nora work (ANNOUNCED ≠ OBSERVED). Best-effort; never blocks the turn.
@@ -2241,12 +2256,12 @@ index e87fca49..b6912245 100644
 + * Gate: SFIA_WEB_SEARCH_ENABLED=1 AND SFIA_WEB_SEARCH_ISOLATION_PROVEN=1.
 + * No LIVE trial with private data before the applicable security gate.
   */
- 
+
  import { webSearchTool } from "@openai/agents";
 @@ -12,19 +18,33 @@ export function isWebSearchEnvEnabled(env: NodeJS.ProcessEnv = process.env): boo
    return (env.SFIA_WEB_SEARCH_ENABLED || "").trim() === "1";
  }
- 
+
 -export function canAttachWebSearchTool(policy: CognitivePolicy): boolean {
 -  if (!isWebSearchEnvEnabled()) return false;
 -  // Simple profile: no systematic web. Investigation/analyse only when gated.
@@ -2269,7 +2284,7 @@ index e87fca49..b6912245 100644
    }
    return true;
  }
- 
+
 -export function buildPublicWebSearchTool(): ReturnType<typeof webSearchTool> | null {
 -  if (!isWebSearchEnvEnabled()) return null;
 -  // Hosted tool — Studio does not fetch HTML itself.
@@ -2322,12 +2337,12 @@ index 47c43a2f..638f719f 100644
  import { instructionFingerprint } from "./technical-contract-fingerprint";
 +import { resolveCursorWorkspace } from "./workspace-resolver";
  import type { CursorExecutionPlan, CursorLiveProjection } from "./types";
- 
+
  async function assertProject(pilotId: string, projectId: string) {
 @@ -40,12 +35,30 @@ function parseLive(resultJson: string | null | undefined): CursorLiveProjection
    }
  }
- 
+
 +function planFingerprintPayload(plan: CursorExecutionPlan): string {
 +  return JSON.stringify({
 +    kind: plan.kind,
@@ -2369,7 +2384,7 @@ index 47c43a2f..638f719f 100644
 +      { exposeMessage: true },
 +    );
    }
- 
+
 +  const workspace = resolveCursorWorkspace({
 +    pilotId: input.pilotId,
 +    projectId: input.projectId,
@@ -2396,7 +2411,7 @@ index 47c43a2f..638f719f 100644
    };
    const fingerprint = contract.fingerprint;
 +  const planFp = planFingerprintPayload(plan);
- 
+
    if (prior) {
      if (prior.kind !== "CURSOR_EXECUTION") {
 @@ -108,12 +135,20 @@ export async function prepareCursorExecution(input: {
@@ -2420,7 +2435,7 @@ index 47c43a2f..638f719f 100644
 +      plan: priorPlan,
      };
    }
- 
+
 @@ -148,7 +183,14 @@ export async function authorizeCursorExecution(input: {
    attemptId: string;
    statement: string;
@@ -2439,7 +2454,7 @@ index 47c43a2f..638f719f 100644
 @@ -178,6 +220,20 @@ export async function authorizeCursorExecution(input: {
        );
      }
- 
+
 +    const contract = (
 +      await tx
 +        .select()
@@ -2459,7 +2474,7 @@ index 47c43a2f..638f719f 100644
          attemptId: row.id,
 @@ -249,21 +305,26 @@ export async function dispatchCursorExecution(input: {
    }
- 
+
    const live = parseLive(row.resultJson);
 -  const existingClaim = readClaim(row.resultJson);
 -  if (row.status === "DISPATCHED" || row.status === "COMPLETED") {
@@ -2473,7 +2488,7 @@ index 47c43a2f..638f719f 100644
 -      };
 -    }
 -  }
- 
+
 -  if (isClaimActive(existingClaim)) {
 -    throw new StudioError("CONFLICT", "Claim actif — pas de second dispatch", {
 +  // Terminal / in-flight: never blind redispatches.
@@ -2506,11 +2521,11 @@ index 47c43a2f..638f719f 100644
 +      ? (JSON.parse(row.effectConditions) as { fingerprint?: string }).fingerprint ?? null
        : null,
    });
- 
+
 @@ -284,6 +345,21 @@ export async function dispatchCursorExecution(input: {
      throw new StudioError("REQUIRES_REQUALIFICATION", "Plan ≠ fingerprint tentative");
    }
- 
+
 +  // Re-resolve workspace — refuse if confinement broken since prepare.
 +  const workspace = resolveCursorWorkspace({
 +    pilotId: input.pilotId,
@@ -2542,7 +2557,7 @@ index 47c43a2f..638f719f 100644
        { exposeMessage: true },
      );
    }
- 
+
 -  const claim = mintClaim(existingClaim);
 -  const preLive: CursorLiveProjection = {
 -    ...live,
@@ -2574,7 +2589,7 @@ index 47c43a2f..638f719f 100644
 +      exposeMessage: true,
 +    });
 +  }
- 
+
 -  const dispatched = await dispatchCursorRun({
 -    attemptId: row.id,
 -    instructionText: contract.instructionText,
@@ -2612,7 +2627,7 @@ index 47c43a2f..638f719f 100644
 +    });
 +    throw e;
 +  }
- 
+
 -  const nextClaim = extendClaim(claim);
    const nextLive: CursorLiveProjection = {
      sendRequestedAt: dispatched.sendRequestedAt,
@@ -2626,12 +2641,12 @@ index 47c43a2f..638f719f 100644
      limits: dispatched.limits,
 -    claim: nextClaim,
    };
- 
+
    const terminal =
 @@ -344,17 +440,13 @@ export async function dispatchCursorExecution(input: {
      dispatched.terminalStatus === "error" ||
      dispatched.terminalStatus === "cancelled";
- 
+
 -  await db
 -    .update(effectAttempts)
 -    .set({
@@ -2650,7 +2665,7 @@ index 47c43a2f..638f719f 100644
 +    status: terminal ? "COMPLETED" : "DISPATCHED",
 +    release: terminal,
 +  });
- 
+
    return {
      attemptId: row.id,
 @@ -363,6 +455,7 @@ export async function dispatchCursorExecution(input: {
@@ -2660,7 +2675,7 @@ index 47c43a2f..638f719f 100644
 +    claimToken,
    };
  }
- 
+
 @@ -398,18 +491,25 @@ export async function requestStopCursorExecution(input: {
      ...live,
      stopRequestedAt: stop.stopRequestedAt,
@@ -2689,12 +2704,12 @@ index 47c43a2f..638f719f 100644
 -  return { attemptId: row.id, live: nextLive, limits: stop.limits };
 +  return { attemptId: row.id, live: nextLive, limits: nextLive.limits ?? [] };
  }
- 
+
  export async function reconcileCursorExecution(input: {
 @@ -435,22 +535,26 @@ export async function reconcileCursorExecution(input: {
    const claim = readClaim(row.resultJson);
    const limits = [...(live.limits ?? [])];
- 
+
 -  if (row.status === "DISPATCHED" && !isClaimActive(claim) && !live.runId && !live.agentId) {
 -    limits.push("ACK_OR_OWNERSHIP_LOST — état UNKNOWN, pas de redispatch aveugle");
 -    const nextLive: CursorLiveProjection = {
@@ -2732,7 +2747,7 @@ index 47c43a2f..638f719f 100644
 +    limits.push("LEASE_INACTIVE_WITH_RUN_IDS — conserver DISPATCHED/UNKNOWN, pas de second send");
 +    return { attemptId: row.id, status: row.status, live, limits };
    }
- 
+
    return { attemptId: row.id, status: row.status, live, limits };
 @@ -488,3 +592,31 @@ export async function getCursorAttempt(input: {
      updatedAt: row.updatedAt.toISOString(),
@@ -2773,7 +2788,7 @@ index 983aa1ad..dd80b13d 100644
 @@ -13,6 +13,18 @@ import type { CursorExecutionPlan, CursorLiveProjection } from "./types";
  export type { HandoffManifest } from "./handoff-integrity";
  export { handoffIntegrityHash } from "./handoff-integrity";
- 
+
 +export type HandoffProvenance = {
 +  /** How Studio obtained the report — never inferred from hash alone. */
 +  acquisition: "CLIENT_DECLARED" | "SCRIPTED_ADAPTER" | "RUNTIME_COLLECTED" | "UNKNOWN";
@@ -2800,7 +2815,7 @@ index 983aa1ad..dd80b13d 100644
 @@ -39,6 +52,16 @@ export async function ingestRealizationHandoff(input: {
      throw new StudioError("INVALID_REQUEST", "Handoff réservé aux tentatives Cursor");
    }
- 
+
 +  // Restrict ingestion by attempt state — refuse PREPARED / AUTHORIZED without dispatch evidence.
 +  const allowedStatuses = new Set(["DISPATCHED", "COMPLETED", "AMBIGUOUS", "FAILED"]);
 +  if (!allowedStatuses.has(row.status)) {
@@ -2817,7 +2832,7 @@ index 983aa1ad..dd80b13d 100644
 @@ -51,6 +74,43 @@ export async function ingestRealizationHandoff(input: {
      });
    }
- 
+
 +  let live: CursorLiveProjection = {};
 +  try {
 +    live = JSON.parse(row.resultJson || "{}") as CursorLiveProjection;
@@ -2860,7 +2875,7 @@ index 983aa1ad..dd80b13d 100644
        .select()
 @@ -65,20 +125,27 @@ export async function ingestRealizationHandoff(input: {
    }
- 
+
    const report = input.reportMarkdown ?? "";
 -  const limits: string[] = [];
    let status: "RECEIVED" | "INCOMPLETE" | "REJECTED" = "RECEIVED";
@@ -2886,11 +2901,11 @@ index 983aa1ad..dd80b13d 100644
 +  if (/ignore\s+previous\s+instructions/i.test(report) || /<\/?system>/i.test(report)) {
 +    limits.push("HOSTILE_CONTENT_MARKERS — rapport traité comme données non instructions");
 +  }
- 
+
    const integrityHash = handoffIntegrityHash({
      attemptId: row.id,
 @@ -89,6 +156,13 @@ export async function ingestRealizationHandoff(input: {
- 
+
    const id = newId("rhf");
    const now = new Date();
 +  const enrichedManifest = {
@@ -2916,7 +2931,7 @@ index 983aa1ad..dd80b13d 100644
      createdAt: now,
      updatedAt: now,
    });
- 
+
 -  let live: CursorLiveProjection = {};
 -  try {
 -    live = JSON.parse(row.resultJson || "{}") as CursorLiveProjection;
@@ -2933,7 +2948,7 @@ index 983aa1ad..dd80b13d 100644
 +    provenance,
    };
  }
- 
+
 diff --git a/projects/sfia-studio-next/web/src/domains/execution/cursor-sdk-adapter.ts b/projects/sfia-studio-next/web/src/domains/execution/cursor-sdk-adapter.ts
 index 704c6bc9..86ed9d13 100644
 --- a/projects/sfia-studio-next/web/src/domains/execution/cursor-sdk-adapter.ts
@@ -2948,7 +2963,7 @@ index 704c6bc9..86ed9d13 100644
 +   */
 +  waitForTerminal?: boolean;
  };
- 
+
  export type CursorDispatchResult = {
 @@ -150,6 +155,28 @@ export async function dispatchCursorRun(
    });
@@ -2987,7 +3002,7 @@ index 704c6bc9..86ed9d13 100644
 +    limits: ["LIVE_SDK", "REPORT_MUST_BE_INGESTED_SEPARATELY", "WAIT_COMPLETED_IN_ADAPTER"],
    };
  }
- 
+
 diff --git a/projects/sfia-studio-next/web/src/domains/execution/technical-contract.ts b/projects/sfia-studio-next/web/src/domains/execution/technical-contract.ts
 index be5ab447..e78e569e 100644
 --- a/projects/sfia-studio-next/web/src/domains/execution/technical-contract.ts
@@ -2995,7 +3010,7 @@ index be5ab447..e78e569e 100644
 @@ -15,6 +15,14 @@ export {
    technicalContractFingerprint,
  } from "./technical-contract-fingerprint";
- 
+
 +export type ContractReadiness = {
 +  documentComplete: boolean;
 +  sourcesSufficient: boolean;
@@ -3053,7 +3068,7 @@ index be5ab447..e78e569e 100644
 +    ready: blockedReasons.length === 0,
 +  };
  }
- 
+
  async function assertProject(pilotId: string, projectId: string) {
 @@ -59,9 +103,29 @@ export async function createTechnicalContract(input: {
    body: TechnicalContractBody;
@@ -3084,7 +3099,7 @@ index be5ab447..e78e569e 100644
 +
    const fingerprint = technicalContractFingerprint(input.body);
    const instructionFp = instructionFingerprint(input.body.instructionText);
- 
+
 @@ -89,7 +153,7 @@ export async function createTechnicalContract(input: {
      contractKey: input.contractKey,
      version,
@@ -3113,7 +3128,7 @@ index be5ab447..e78e569e 100644
 +    readiness,
    };
  }
- 
+
 +/** Promote DRAFT → READY after D3/D6 sufficiency re-check. */
 +export async function markTechnicalContractReady(input: {
 +  pilotId: string;
@@ -3216,7 +3231,7 @@ index 2ac4dd60..8354e8b2 100644
 @@ -172,16 +172,30 @@ export function qualifyCursorRealization(
    };
  }
- 
+
 -/** Build a single global Nora analysis prompt payload — not an authority act. */
 +/**
 + * Deterministic technical brief for the dossier — NOT Nora's cognitive analysis.
@@ -3252,12 +3267,12 @@ index 62d75b58..28896a81 100644
 +++ b/projects/sfia-studio-next/web/tests/integration/git-collaboration.pg.test.ts
 @@ -150,7 +150,7 @@ describe("PostgreSQL ML4 git collaboration corrective B1–B8 (SCRIPTED)", () =>
    });
- 
+
    it("schema revision 008", () => {
 -    expect(schemaRevision).toBe("017_ml5_cursor_realization");
 +    expect(schemaRevision).toBe("018_ml5_contract_reversibility");
    });
- 
+
    it("AT-01: project works without Git connection", async () => {
 diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-cursor-qualify.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-cursor-qualify.test.ts
 index a6288ead..b0a03ed3 100644
