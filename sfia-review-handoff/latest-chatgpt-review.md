@@ -1,525 +1,497 @@
-# SFIA Review Pack FULL — E08 PR #690 CI Stabilization (SUCCESS)
+# SFIA Review Pack FULL — ML5 C9 Qualification SDK / LIVE / Git / MCP
 
 ## 1. Date / mandat / cycle
 
 | Champ | Valeur |
 | --- | --- |
-| Europe/Paris | 2026-11-22 16:29:04 UTC+01:00 |
-| UTC | 2026-11-22 15:29:04 UTC |
-| Mandat | GO Morris autonomie correction/validation PR #690 |
-| Cycle | 8 — Delivery / correctif · contrôles 9 QA |
-| Profil | Standard · CORRECTIF · NO RELEASE |
-| Handoff | required / publish-in-cycle |
+| Europe/Paris | 2026-11-23 06:15:34 UTC+01:00 |
+| UTC | 2026-11-23 05:15:34 UTC |
+| Mandat | GO essais intégrés 4 capacités — aucun GO construction Product / push projet / PR / merge / promotion |
+| Macro-lot | ML5 — Réalisation technique gouvernée avec Cursor |
+| Cycle | 9 — QA / validation technique intégrée |
+| Profil | Critical · CAPA / QA / intégration technique |
+| Version produit | NO RELEASE |
+| Handoff | REQUIRED / publish-in-cycle |
 
-## 2. Verdict
+## 2. Verdict unique
 
-**E08 PR #690 — CI PASS — READY FOR CHATGPT MERGE REVIEW**
+**PASS WITH RESERVES**
 
-- PR #690 OPEN · mergeable · HEAD distant = local.
-- Contrôles requis Next + gates : **PASS**.
-- Studio Build : **SKIPPED** (conception workflow — Next in scope).
-- Merge / STABLE / release / cutover RECETTE : **NONE**.
+- AC-01…AC-08 : PASS au périmètre sandbox isolé.
+- Réserves non dissimulées : GitHub REAL non prouvé ; Figma/Canva complémentaire non prouvé ; MCP inline sous sandbox headless soumis à borne d'approbation.
+- Plafonds : PASS sandbox ≠ GitHub REAL ≠ intégration Studio Next ≠ adoption architecture ≠ autorisation construction ML5.
+- Aucune modification Product, aucun PR, aucun merge.
 
-## 3. Git Truth initial / final
+## 3. Git Truth Check
 
-| Champ | Début cycle stabilisation | Final |
+| Ref | Attendu (entrée) | Observé |
 | --- | --- | --- |
-| Branche | `feat/next-ensemble08-git-publications-nora` | idem |
-| HEAD | `f3b68855b50e8158ea700144c36c5a354f01ae41` | `f11de65f98c3a0429e45c9f2c3935633840aec12` |
-| TREE | (pré-stabilisation) | `8786e7d39d2653fdad78d65e41c062b4b09b6e2e` |
-| Remote product | `f3b68855…` | `f11de65f98c3a0429e45c9f2c3935633840aec12` |
-| origin/main | `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` | `a12f89a15c454319c06f49fcc5e8effa9f3f1a75` |
-| PR | https://github.com/mcleland147/sfia-workspace/pull/690 | OPEN |
+| origin/main | `997897fd7cf914771e7d08e8030dc7123fab7d25` | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
+| candidate cognition | `14777105c909b149279da421420f2253f82bd024` | `14777105c909b149279da421420f2253f82bd024` |
+| sfia/review-handoff (avant publish) | `84309eb719280d1551e84f1f531ccc442b2c4c88` | `84309eb719280d1551e84f1f531ccc442b2c4c88` |
+| Branche locale agent | (préservée) | `feat/next-ensemble08-git-publications-nora` @ `f11de65f98c3a0429e45c9f2c3935633840aec12` |
 
 ```
 ## feat/next-ensemble08-git-publications-nora...origin/feat/next-ensemble08-git-publications-nora
  M .tmp-sfia-review/chatgpt-review.md
 ```
 
+Workspace de qualification isolé : `/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123` (hors worktrees Product/DEV/RECETTE/STABLE).
+
 ## 4. Sources consultées
 
-- SEF, roadmap, decisions, ENV-01, versioning, naming
-- Méthode SFIA v2.6 routing + cycle template
-- Contrats E08 D2 / architecture §8.3 / as-built / PV
-- Specs e2e + page.tsx routing documents / GitRepositoriesSurface
-- CI runs `45027000918` (échec initial) · `45031336684` · `45033933398` · **`45036729361` (PASS)**
-- Handoff précédent `4c797066` / STOP pack `43c5c739`
+- SFIA v2.6 : cycle routing, template d'exécution, guidance QA candidate 04-qa-validation
+- Studio Next governance SEF/roadmap/environnements/versioning + décision ML4/ML5 2026-11-07
+- Conception : réalisation opérationnelle, résultats/preuves, intégration Git, préparation cognitive (candidate)
+- Architecture candidate : `qualification-ecarts-…-ml5.md` §§18.12 et 18.13
+- Fournisseur : Cursor TypeScript SDK docs (`@cursor/sdk` 1.4.2) + skill SDK local
+- Code D6/D7/D8/D9 : lecture seule sur `main` (pas de modification)
 
-## 5. Inventaire des échecs rencontrés (chronologie)
+## 5. Environnement d'essai
 
-| Run | HEAD | Échec | Qualification |
-| --- | --- | --- | --- |
-| `45027000918` | `f3b68855` | Playwright : `git-preview-actions` + `documentId` deep-link | A (ordre test après detach) + B (race load/URL) |
-| `45031336684` | `09b1b34e` | Playwright **109 PASS** puis `git diff --check` trailing whitespace docs | C / qualité CI (whitespace Markdown) |
-| `45033933398` | `883c1578` | Playwright 1 FAIL : rail `nav-documents` reste sur `pilotage` | D (course load vs Link rail) |
-| **`45036729361`** | **`f11de65f`** | — | **SUCCESS** |
+- Node `v24.16.0` · `@cursor/sdk` `1.4.2` · `darwin/arm64`
+- Auth SDK : `Cursor.auth.login()` → status `logged-in` domain `live.fr` (clé non exposée)
+- Store isolé JsonlLocalAgentStore sous `store/`
+- Modèle : `composer-2.5`
+- Cible exclusive `@cursor/sdk` (pas `@grok/agent-sdk`)
 
-## 6. Corrections réalisées
+## 6. Scénario A — SDK LIVE / événements / reprise
 
-### Round 1 — `09b1b34e` `fix(e08): stabilize PR #690 git preview and document deep-link`
+- **A1** create+send+stream+wait : status `finished` · agent `agent-e22f1236-784c-43a4-9295-8d16a48a34d7` · run `run-55bb1829-983a-4a90-944f-17a494bec493` · witness OK `True`
+- Événements A1 : count=22 types={"status": 2, "thinking": 10, "tool_call": 3, "assistant": 6, "usage": 1}
+- Projection fonctionnelle : traces tool/status/assistant ; thinking omis dans la projection
+- **A2** resume nouveau processus : sameIdentity `True` · distinctRun `True` · witnessStillOk `True` · rewritten `False`
+- **A3** interrupt cancel : `INTERRUPT_OBSERVED` terminal `cancelled`
 
-- **Cas A (test)** : `ensemble08-git-surface.spec.ts` — preview fichier **avant** detach/manage.
-- **Cas B (runtime localisé)** : `page.tsx` — `pendingDocumentOpenIdRef` pour ne pas laisser `load()`/URL normalize stripper `documentId` pendant un Ouvrir en vol ; lookup `documentsRef` sur `onOpen`.
-- Blast radius : navigation URL document uniquement ; pas D6/D7/D8/D9 métier ; RECETTE non re-cutover.
-- Qualifié **postérieur au build RECETTE accepté** (`10128bdb` / `2uHrYBsQ`).
+### Preuves A (JSON)
 
-### Round 2 — `883c1578` `chore(e08): strip trailing whitespace blocking CI diff --check`
-
-- Cosmétique docs E08 (`asis-capacite-b`, `g5-exit-matrix`, PV) + note PROVENANCE.
-- Aucun changement sémantique de contrat ; empreinte PV mise à jour après normalisation.
-
-### Round 3 — `f11de65f` `test(e08): settle project load before G4 rail surface switches`
-
-- **Cas D (test)** : attendre `project-load-state=ready` + `data-project-surface` avant enchaînement rail Pilotage→Documents.
-- Aligné sur le contrat déjà prouvé par `project-surface-nav-intent.spec.ts`.
-
-## 7. Diffs du cycle de stabilisation (`f3b68855..HEAD`)
-
-### Commits
-
-```
-f11de65f98c3a0429e45c9f2c3935633840aec12 test(e08): settle project load before G4 rail surface switches
-883c1578c38a7241e063b1c1da6a29c72a795a38 chore(e08): strip trailing whitespace blocking CI diff --check
-09b1b34edb34e8f4b7299bfd2636e019db35fac3 fix(e08): stabilize PR #690 git preview and document deep-link
-
-```
-
-### Stat
-
-```
- .../construction/delivery-history.md               | 15 +++++++++++
- .../PROVENANCE-contrats-e08.md                     |  6 +++++
- .../asis-capacite-b-nora-d6.md                     |  8 +++---
- .../figma-evidence/g5-exit-matrix.md               |  1 -
- .../recette-acceptation-partielle-2026-11-22.md    | 16 ++++++------
- .../web/src/app/projects/[projectId]/page.tsx      | 29 ++++++++++++++++++++--
- .../web/tests/e2e/ensemble08-git-surface.spec.ts   | 27 ++++++++++----------
- .../web/tests/e2e/g4-b1-b4-correctifs.spec.ts      | 23 ++++++++++++++---
- 8 files changed, 94 insertions(+), 31 deletions(-)
-
-```
-
-### Diff complet
-
-```diff
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 26ee4d6f..ab2038b5 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -3,6 +3,21 @@
- Append-only logical journal of Cursor product deliveries.
- **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
-
-+## delivery_id: DELIV-2026-11-22-ENSEMBLE08-CI-STABILIZATION-PR690
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-22 (Europe/Paris) |
-+| Macro-lot | Ensemble 08 — stabilisation CI PR #690 |
-+| Type | CORRECTIF · STANDARD · **NO RELEASE** |
-+| Fixes | (A) E2E git-surface preview avant detach · (B) race deep-link `documentId` vs `load()` URL normalize |
-+| Runtime | `page.tsx` — `pendingDocumentOpenIdRef` + préservation documentId à la normalisation |
-+| Tests | ensemble08-git-surface · g4-b1-b4-correctifs |
-+| Preuves locales | Playwright **109 PASS / 5 SKIPPED** · RECETTE inchangée |
-+| RECETTE | **INCHANGÉE** `10128bdb` / `2uHrYBsQ` — runtime correctif **postérieur** au build accepté |
-+| Push | PR #690 only |
-+| Merge | **NONE** |
-+
- ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-DOC-ALIGN-D2-PR-PUBLICATION
-
- | Field | Value |
-diff --git a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/PROVENANCE-contrats-e08.md b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/PROVENANCE-contrats-e08.md
-index 3015e7d1..e8bdd3b6 100644
---- a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/PROVENANCE-contrats-e08.md
-+++ b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/PROVENANCE-contrats-e08.md
-@@ -42,3 +42,9 @@
-
- - Candidat utilisateur recetté (runtime): SOURCE `10128bdb6bb1020a0fd8d4976b91879bff26c3b3` / TREE `be778f1bf461f15acf94bfed6879d43fa6256a0d` / BUILD `2uHrYBsQUvf6aii40hMpj`
- - Un HEAD produit ultérieur **uniquement documentaire** ne remplace pas rétroactivement ce SOURCE pour le build RECETTE servi.
-+
-+## Normalisation whitespace CI (2026-11-22)
-+
-+- `git diff --check` vs `main` échouait sur espaces fin de ligne Markdown (PV, asis-capacite-b, g5-exit-matrix).
-+- Correction cosmétique sans changement sémantique. PV blob après normalisation : `2517c69ac1b214010a7153d7d9f1d96034acb68a`.
-+- Contenu D2 inchangé sur le fond ; empreinte blob mise à jour.
-diff --git a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/asis-capacite-b-nora-d6.md b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/asis-capacite-b-nora-d6.md
-index 50687508..65583777 100644
---- a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/asis-capacite-b-nora-d6.md
-+++ b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/asis-capacite-b-nora-d6.md
-@@ -2,7 +2,7 @@
-
- ### 1. Current flow: USER → semantic qual → plan → HumanDecision → authorizePublication → D7 → D9
-
--**Turn entry (`postUserMessageAndNora`)**
-+**Turn entry (`postUserMessageAndNora`)**
- `/Users/morris/Projects/sfia-workspace-feat-next-ensemble08-git-publications-nora/projects/sfia-studio-next/web/src/domains/conversation/service.ts`
-
- 1. **Recovery hooks** (project linked): `recoverAuthorizedNoraMissions`, `recoverPendingMissionContinuation`.
-@@ -18,11 +18,11 @@
- - `insertHumanDecision` with `kind: GIT_PUBLICATION_MANDATE`, `sourceKind: GIT_EFFECT`, `sourceRef` / `objectRef` = `attemptId`, `effectConditions` JSON (publication + inspection fingerprints + envelope).
- - Then `AUTHORIZED` on `effect_attempts`.
-
--**Dispatch / D9**
-+**Dispatch / D9**
- - Classic: `POST .../dispatch` → `dispatchPublication` → `assertCurrentGitAuthority` at each mutation step.
- - Nora mission: `authorize` route may call `resumeMissionAfterPublicationAuthorize` when `attemptIsNoraMission` (`correlationKey` prefix `pub:mission:`) → auto `dispatchPublication` + reconcile + thread restitution.
-
--**D8 / proofs**
-+**D8 / proofs**
- `assertPublicationEffectProof` (`publication-steps.ts`) before `COMPLETED`; `qualifyObservedFacts` (`proofs/qualify.ts`) does not infer acceptance from Git alone.
-
- ```920:1021:projects/sfia-studio-next/web/src/domains/execution/effect-service.ts
-@@ -200,4 +200,4 @@ Without conversational mandate admission:
-
- ---
-
--**Bottom line for Ensemble 08 B:** Infrastructure for Nora-conducted **prepare → await authorize → resume dispatch** is in place and tested; the **E08 differentiator** — treating an explicit USER chat message as sufficient D6 mandate on the exact plan without redundant confirmation — is **not implemented**. The smallest addition is a **USER-message-correlated caller of `authorizePublication`** plus a **mandate⊆plan** check, reusing `resumeMissionAfterPublicationAuthorize` and all fingerprint/D6/D7 gates—not Nora qual as `HumanDecision` and not a new bypass around `authorizePublication`.
-\ No newline at end of file
-+**Bottom line for Ensemble 08 B:** Infrastructure for Nora-conducted **prepare → await authorize → resume dispatch** is in place and tested; the **E08 differentiator** — treating an explicit USER chat message as sufficient D6 mandate on the exact plan without redundant confirmation — is **not implemented**. The smallest addition is a **USER-message-correlated caller of `authorizePublication`** plus a **mandate⊆plan** check, reusing `resumeMissionAfterPublicationAuthorize` and all fingerprint/D6/D7 gates—not Nora qual as `HumanDecision` and not a new bypass around `authorizePublication`.
-diff --git a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/figma-evidence/g5-exit-matrix.md b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/figma-evidence/g5-exit-matrix.md
-index b149544a..4fa9b26d 100644
---- a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/figma-evidence/g5-exit-matrix.md
-+++ b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/figma-evidence/g5-exit-matrix.md
-@@ -23,4 +23,3 @@ Viewport primary: 1680×970
-
- ## Verdict G5
- **NOT PROVEN (PARTIAL evidence)** — runtime captures + oracles present; full geometric F2 matrix across 11.01–11.16 / multi-viewport / ≤2px not completed this cycle.
--
-diff --git a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/recette-acceptation-partielle-2026-11-22.md b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/recette-acceptation-partielle-2026-11-22.md
-index bd06957b..2517c69a 100644
---- a/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/recette-acceptation-partielle-2026-11-22.md
-+++ b/projects/sfia-studio-next/construction/ensemble-08-git-et-publications/recette-acceptation-partielle-2026-11-22.md
-@@ -155,7 +155,7 @@ Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif
-
- ### GIT-UAT-01 — Consulter une PR en temps réel
-
--**Nature :** Lecture seule
-+**Nature :** Lecture seule
- **État :** **PARTIAL / FAIL UAT** — branches et SHA lus ; statut actuel et fusion non consultables via les capacités Nora exposées.
-
- **Prompt exact proposé à Morris :**
-@@ -166,7 +166,7 @@ Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif
-
- ### GIT-UAT-02 — Examiner les changements de la PR
-
--**Nature :** Lecture seule
-+**Nature :** Lecture seule
- **État :** NON TESTÉ
-
- **Prompt exact proposé à Morris :**
-@@ -177,7 +177,7 @@ Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif
-
- ### GIT-UAT-03 — Vérifier la possibilité de fusionner
-
--**Nature :** Lecture seule
-+**Nature :** Lecture seule
- **État :** NON TESTÉ
-
- **Prompt exact proposé à Morris :**
-@@ -188,7 +188,7 @@ Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif
-
- ### GIT-UAT-04 — Consulter et comparer les commits
-
--**Nature :** Lecture seule
-+**Nature :** Lecture seule
- **État :** NON TESTÉ
-
- **Prompt exact proposé à Morris :**
-@@ -199,7 +199,7 @@ Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif
-
- ### GIT-UAT-05 — Identifier les droits Git effectifs
-
--**Nature :** Lecture seule
-+**Nature :** Lecture seule
- **État :** NON TESTÉ
-
- **Prompt exact proposé à Morris :**
-@@ -210,7 +210,7 @@ Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif
-
- ### GIT-UAT-06 — Retrouver une publication sans la dupliquer
-
--**Nature :** Lecture seule
-+**Nature :** Lecture seule
- **État :** NON TESTÉ
-
- **Prompt exact proposé à Morris :**
-@@ -221,7 +221,7 @@ Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif
-
- ### GIT-UAT-07 — Vérifier la continuité après rechargement
-
--**Nature :** Lecture seule
-+**Nature :** Lecture seule
- **État :** NON TESTÉ
-
- **Prompt exact proposé à Morris :**
-@@ -232,7 +232,7 @@ Sept scénarios en **lecture seule** et un huitième à **effet réel facultatif
-
- ### GIT-UAT-08 — Fusion gouvernée par Nora — optionnel
-
--**Nature :** MUTATION RÉELLE — NE PAS EXÉCUTER SANS GO EXPLICITE
-+**Nature :** MUTATION RÉELLE — NE PAS EXÉCUTER SANS GO EXPLICITE
- **État :** NON TESTÉ — GO de fusion non accordé
-
- **Prompt exact proposé à Morris :**
-diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index a894e245..65fa2643 100644
---- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-+++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-@@ -346,6 +346,11 @@ export default function ProjectPage() {
-   const reviseDraftRef = useRef("");
-   /** Surface chosen by chrome/rail while project load() is still in flight — must not be clobbered. */
-   const pendingSurfaceRef = useRef<Surface | null>(null);
-+  /**
-+   * Document open in flight — load()/URL normalize must not replace away `documentId`
-+   * before router.push from openDocumentReadView is visible on window.location.
-+   */
-+  const pendingDocumentOpenIdRef = useRef<string | null>(null);
-   /** C1 — ignore stale async viewer responses after A→B / close / project change. */
-   const viewerRequestSeqRef = useRef(0);
-   const viewerOpenRef = useRef(false);
-@@ -942,6 +947,7 @@ export default function ProjectPage() {
-     setSurface(next);
-     setDocMissing("");
-     if (next !== "document") {
-+      pendingDocumentOpenIdRef.current = null;
-       setInspect(null);
-       setDocUi("READING");
-       setReviseDraft("");
-@@ -951,6 +957,7 @@ export default function ProjectPage() {
-       resetDocumentBibliothequeState();
-       syncSurfaceUrl(next, null, "push");
-     } else {
-+      pendingDocumentOpenIdRef.current = null;
-       resetDocumentBibliothequeState();
-       syncSurfaceUrl(next, null, "push");
-     }
-@@ -1086,6 +1093,7 @@ export default function ProjectPage() {
-     revisionId?: string | null,
-     mode: "push" | "replace" = "push",
-   ) {
-+    pendingDocumentOpenIdRef.current = doc.document.id;
-     setInspect(doc);
-     setDocMissing("");
-     setSelectedLibraryId(doc.document.id);
-@@ -1227,12 +1235,17 @@ export default function ProjectPage() {
-
-     if (qSurface === "document") {
-       if (!qDocId) {
-+        // In-flight Ouvrir: do not clobber read state / pending deep-link before URL catches up.
-+        if (pendingDocumentOpenIdRef.current) return;
-         setInspect(null);
-         setDocMissing("");
-         setDocView("library");
-         setSelectedLibraryId(null);
-         return;
-       }
-+      if (pendingDocumentOpenIdRef.current === qDocId) {
-+        pendingDocumentOpenIdRef.current = null;
-+      }
-       const match = docs.find((d) => d.document.id === qDocId);
-       if (match) {
-         setInspect(match);
-@@ -1256,6 +1269,7 @@ export default function ProjectPage() {
-       }
-       return;
-     }
-+    pendingDocumentOpenIdRef.current = null;
-     setInspect(null);
-     setDocMissing("");
-   }
-@@ -1817,7 +1831,16 @@ export default function ProjectPage() {
-       applyUrlDocumentState(docs, decision.effectiveSurface as Surface, qDocId);
-       if (decision.shouldNormalizeUrl) {
-         const target = decision.effectiveSurface as Surface;
--        syncSurfaceUrl(target, target === "document" ? qDocId : null, "replace");
-+        // Prefer live window URL + pending open so concurrent load() cannot strip documentId.
-+        const liveDocId =
-+          typeof window !== "undefined"
-+            ? new URL(window.location.href).searchParams.get("documentId")
-+            : qDocId;
-+        const docIdForUrl =
-+          target === "document"
-+            ? liveDocId ?? qDocId ?? pendingDocumentOpenIdRef.current
-+            : null;
-+        syncSurfaceUrl(target, docIdForUrl, "replace");
-       }
-       if (qSurface && pendingSurface && qSurface === pendingSurface) {
-         pendingSurfaceRef.current = null;
-@@ -2827,7 +2850,9 @@ export default function ProjectPage() {
-           projectName={projectName}
-           onSelect={(d) => setSelectedLibraryId(d.document.id)}
-           onOpen={(d) => {
--            const match = documents.find((x) => x.document.id === d.document.id);
-+            const match =
-+              documents.find((x) => x.document.id === d.document.id) ??
-+              documentsRef.current.find((x) => x.document.id === d.document.id);
-             if (match) openDocumentReadView(match, match.latestRevision?.id ?? null);
-           }}
-           onResumeNora={(d) => {
-diff --git a/projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts
-index 50d36b40..cc63574d 100644
---- a/projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts
-+++ b/projects/sfia-studio-next/web/tests/e2e/ensemble08-git-surface.spec.ts
-@@ -74,6 +74,20 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
-     });
-     await page.getByTestId("git-branch-select").click(); // close if still open
-
-+    // Preview enlarge while a repo is still attached — after detach the tree/context
-+    // can remount and a stale file click yields error (no git-preview-actions).
-+    await page.getByTestId("git-tab-files").click();
-+    await expect(page.getByTestId("git-tree")).toBeVisible({ timeout: 20_000 });
-+    const fileBtn = page.locator('[data-testid^="git-tree-file-"]').first();
-+    await expect(fileBtn).toBeVisible({ timeout: 20_000 });
-+    await fileBtn.click();
-+    await expect(page.getByTestId("git-preview-actions")).toBeVisible({ timeout: 20_000 });
-+    await expect(page.getByTestId("git-action-enlarge")).toHaveAttribute(
-+      "aria-label",
-+      /Agrandir/i,
-+    );
-+    await expect(page.getByTestId("git-action-enlarge")).not.toContainText(/Agrandir/i);
-+
-     // Publications tab — project-scale, historical wording (E08-S04)
-     await page.getByTestId("git-tab-publications").click();
-     await expect(page.getByTestId("git-publications")).toBeVisible();
-@@ -103,19 +117,6 @@ test.describe("E08 GitRepositoriesSurface (SCRIPTED)", () => {
-       await expect(page.getByTestId("git-detach-confirm")).toBeVisible({ timeout: 10_000 });
-       await page.getByTestId("git-detach-confirm-yes").click();
-     }
--
--    // Enlarge control is icon-only with aria-label when a file is open — skip if empty tree
--    await page.getByTestId("git-tab-files").click();
--    const fileBtn = page.locator('[data-testid^="git-tree-file-"]').first();
--    if (await fileBtn.isVisible().catch(() => false)) {
--      await fileBtn.click();
--      await expect(page.getByTestId("git-preview-actions")).toBeVisible();
--      await expect(page.getByTestId("git-action-enlarge")).toHaveAttribute(
--        "aria-label",
--        /Agrandir/i,
--      );
--      await expect(page.getByTestId("git-action-enlarge")).not.toContainText(/Agrandir/i);
--    }
-   });
-
-   test("mobile viewport keeps git empty / manage usable", async ({ page }) => {
-diff --git a/projects/sfia-studio-next/web/tests/e2e/g4-b1-b4-correctifs.spec.ts b/projects/sfia-studio-next/web/tests/e2e/g4-b1-b4-correctifs.spec.ts
-index 58a0f51c..2f8ae780 100644
---- a/projects/sfia-studio-next/web/tests/e2e/g4-b1-b4-correctifs.spec.ts
-+++ b/projects/sfia-studio-next/web/tests/e2e/g4-b1-b4-correctifs.spec.ts
-@@ -49,6 +49,14 @@ test("G4 B1–B4: rail surfaces, resume without POST, deep-link, revise AVAILABL
-   const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
-   expect(projectId).toBeTruthy();
-
-+  // Settle project load before rail surface switches (avoids lost Link navigations
-+  // while load()/URL normalize is still racing — same contract as nav-intent specs).
-+  await expect(page.getByTestId("project-load-state")).toHaveAttribute(
-+    "data-project-load-state",
-+    "ready",
-+    { timeout: 30_000 },
-+  );
-+
-   // B1 — real rail links with surface query
-   const rail = page.getByTestId("studio-rail");
-   await expect(rail.getByTestId("nav-travail")).toHaveAttribute(
-@@ -57,8 +65,16 @@ test("G4 B1–B4: rail surfaces, resume without POST, deep-link, revise AVAILABL
-   );
-   await rail.getByTestId("nav-pilotage").click();
-   await expect(page).toHaveURL(new RegExp(`/projects/${projectId}\\?surface=pilotage`));
-+  await expect(page.getByTestId("project-load-state")).toHaveAttribute(
-+    "data-project-surface",
-+    "pilotage",
-+  );
-   await rail.getByTestId("nav-documents").click();
--  await expect(page).toHaveURL(new RegExp(`surface=document`));
-+  await expect(page).toHaveURL(new RegExp(`/projects/${projectId}\\?surface=document`));
-+  await expect(page.getByTestId("project-load-state")).toHaveAttribute(
-+    "data-project-surface",
-+    "document",
-+  );
-   await expect(page.getByTestId("studio-rail")).toHaveAttribute("data-rail-variant", "inspection");
-   await expect(page.getByTestId("document-bibliotheque")).toBeVisible({ timeout: 10000 });
-
-@@ -73,8 +89,9 @@ test("G4 B1–B4: rail surfaces, resume without POST, deep-link, revise AVAILABL
-   // Selection must not push documentId into the URL.
-   await expect(page).not.toHaveURL(new RegExp(`documentId=${documentId}`));
-   await page.getByTestId("doc-action-open").click();
--  await expect(page).toHaveURL(new RegExp(`documentId=${documentId}`));
--  await expect(page.getByTestId("document-read")).toBeVisible();
-+  // Deep-link is contractual — wait for URL + read surface (guards load()/URL race).
-+  await expect(page).toHaveURL(new RegExp(`documentId=${documentId}`), { timeout: 20_000 });
-+  await expect(page.getByTestId("document-read")).toBeVisible({ timeout: 15_000 });
-
-   // B2 — reload keeps deep-link; no mutation claimed on open
-   await page.reload();
-
+```json
+{
+  "a1": {
+    "scenario": "A1",
+    "agentId": "agent-e22f1236-784c-43a4-9295-8d16a48a34d7",
+    "runId": "run-55bb1829-983a-4a90-944f-17a494bec493",
+    "terminalStatus": "finished",
+    "resultText": "WITNESS_WRITTEN",
+    "streamInfo": {
+      "eventCount": 22,
+      "rawTypes": {
+        "status": 2,
+        "thinking": 10,
+        "tool_call": 3,
+        "assistant": 6,
+        "usage": 1
+      },
+      "projectedCount": 22
+    },
+    "witness": {
+      "path": "/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/workspace/WITNESS-ML5-C9.txt",
+      "exists": true,
+      "ok": true,
+      "sha256": "2bc528c91f1e03903ddc88660a0fa3643aadd986cacd1624133b6c21759744c2",
+      "contentPreview": "SFIA-ML5-C9-WITNESS-OK"
+    },
+    "storeFiles": [
+      "agents.ndjson",
+      "checkpoints.ndjson",
+      "run_events.ndjson",
+      "runs.ndjson"
+    ]
+  },
+  "a2": {
+    "scenario": "A2",
+    "agentId": "agent-e22f1236-784c-43a4-9295-8d16a48a34d7",
+    "sameIdentity": true,
+    "priorRunId": "run-55bb1829-983a-4a90-944f-17a494bec493",
+    "newRunId": "run-8bac8626-fe26-44b7-8bf7-64db7a90fce6",
+    "distinctRun": true,
+    "terminalStatus": "finished",
+    "resultText": "RESUME_OK",
+    "witnessStillOk": true,
+    "witnessRewritten": false,
+    "streamInfo": {
+      "eventCount": 19,
+      "rawTypes": {
+        "status": 2,
+        "thinking": 11,
+        "tool_call": 2,
+        "assistant": 3,
+        "usage": 1
+      }
+    },
+    "runsInfoKeys": [
+      "items",
+      "nextCursor"
+    ],
+    "runsInfo": {
+      "itemCount": 2,
+      "ids": [
+        "run-55bb1829-983a-4a90-944f-17a494bec493",
+        "run-8bac8626-fe26-44b7-8bf7-64db7a90fce6"
+      ]
+    }
+  },
+  "a3": {
+    "scenario": "A3",
+    "agentId": "agent-fcdafecd-746c-4485-974b-e77064977cef",
+    "runId": "run-89e25a7f-f0a8-46af-81b3-44601845dd10",
+    "terminalStatus": "cancelled",
+    "cancelledFlag": true,
+    "eventCount": 3,
+    "eventTypes": {
+      "status": 2,
+      "thinking": 1
+    },
+    "supportsCancel": true,
+    "classification": "INTERRUPT_OBSERVED"
+  }
+}
 ```
 
-## 8. Tests locaux exécutés
+## 7. Scénario B — Git sandbox
 
-| Suite | Résultat |
+- Branche `qual/ml5-c9-work` · J1 `381eff5db999938dde1b27f36d1bbdef9dc900c6` · J2 `4b1273ddf742075969c1289d1b4edf4973007753` · tip `35494bda301a4e35e6c3e06670af7e10ece67c5b` · remote tip `35494bda301a4e35e6c3e06670af7e10ece67c5b`
+- Push refuse divergence : `True` (sans force-push)
+- GitHub REAL : **NOT PROVEN**
+- Recommandation : **modality B** (production Cursor → publication contrôlée D7/D9)
+
+### Log sandbox
+
+```
+35494bd qual(ml5-c9): advance tip for non-ff
+4b1273d qual(ml5-c9): milestone J2 controlled append
+381eff5 qual(ml5-c9): milestone J1 report+manifest
+44f7547 qual(ml5-c9): milestone J2 controlled append
+7113e34 qual(ml5-c9): milestone J1 report+manifest
+44d0034 chore: sandbox init
+```
+
+### Comparaison modalités
+
+```json
+{
+  "modalityA": {
+    "description": "Git commands from Cursor agent environment",
+    "observed": "finished",
+    "risk": "Agent holds shell rights; harder to enforce D7/D9 publish gates; push surface larger",
+    "resultPreview": "```\n## qual/ml5-c9-work...origin/qual/ml5-c9-work\n35494bda301a4e35e6c3e06670af7e10ece67c5b\n```"
+  },
+  "modalityB": {
+    "description": "Cursor produces files; controlled process commits/pushes",
+    "observed": "finished",
+    "control": "Commit/push policy outside agent; D7 can own publish; D9 re-reads immutable SHA",
+    "filesOk": true
+  },
+  "recommendation": "Prefer modality B for Studio D7/D9: agent produces workspace changes; governed publisher validates, commits, pushes, and returns immutable refs. Modality A remains useful for read-only git inspection inside the attempt."
+}
+```
+
+## 8. Scénario C — MCP
+
+- **C1** premier essai : MCP stdio inline + sandbox → refus d'approbation interactive headless (réserve fournisseur/outil).
+- **C1 retry** customTools OK `True` · stdio sans sandbox OK `True` · token `SFIA-ML5-C9-MCP-CONTROL-OK`
+- **C2** Penpot user MCP : classification `ATTEMPTED_FINISHED` — découverte readonly d'outils (execute_code/export non utilisés)
+- **C2 Figma/Canva** : plugin Figma présent sur disque ; niveau complémentaire **NOT PROVEN** (pas d'OAuth initié)
+- **C3** refus outil absent : ok `True`
+
+```json
+{
+  "c": {
+    "scenario": "C",
+    "inventory": {
+      "inline": [
+        "qual-control (stdio mcp-control/server.mjs)"
+      ],
+      "userMcpJsonPresent": true,
+      "userServers": [
+        {
+          "name": "penpot",
+          "transport": "url",
+          "keys": [
+            "url"
+          ]
+        }
+      ],
+      "plugins": [
+        "657",
+        "figma",
+        "finance"
+      ],
+      "figmaPluginPresent": true,
+      "canvaPluginPresent": false,
+      "penpotUserPresent": true
+    },
+    "c1": {
+      "ok": true,
+      "status": "finished",
+      "runId": "run-ebb43d55-5115-4601-9f53-a132a88bfe98",
+      "paths": {
+        "scenario": "C1-retry",
+        "customToolsPath": {
+          "ok": true,
+          "status": "finished",
+          "runId": "run-ebb43d55-5115-4601-9f53-a132a88bfe98",
+          "agentId": "agent-b37d715f-3b91-4837-b979-9d2c1ed05df4",
+          "resultPreview": "**`qual_ping_readonly`** (`nonce`: `C1-CUSTOM`)\n\n**Token returned:** `SFIA-ML5-C9-MCP-CONTROL-OK`",
+          "streamTypes": {
+            "status": 2,
+            "thinking": 10,
+            "assistant": 53,
+            "tool_call": 2,
+            "usage": 1
+          }
+        },
+        "inlineStdioNoSandbox": {
+          "ok": true,
+          "status": "finished",
+          "runId": "run-6acdd6d1-0476-4b12-ac53-a3a8e0b1d31f",
+          "agentId": "agent-5842b80a-26dc-4395-8fcb-25b15b111b41",
+          "resultPreview": "**Returned token (exact):** `SFIA-ML5-C9-MCP-CONTROL-OK`",
+          "streamTypes": {
+            "status": 2,
+            "thinking": 11,
+            "assistant": 44,
+            "tool_call": 2,
+            "usage": 1
+          }
+        },
+        "priorFailureCause": "Inline MCP under sandboxOptions.enabled=true requested interactive approval unavailable in headless SDK",
+        "ac06SatisfiedBy": "customTools",
+        "alsoProvenByC2Penpot": true
+      },
+      "note": "First attempt blocked by sandbox MCP approval; retry proved via customTools and/or stdio without sandbox"
+    },
+    "c2": {
+      "attempted": true,
+      "target": "penpot (user mcp.json)",
+      "agentId": "agent-6d5f1c35-8b26-4c7e-a44c-ca50216d49ed",
+      "runId": "run-6100cb17-d925-41ad-a9ce-1df3591d7ab1",
+      "status": "finished",
+      "resultPreview": "**Penpot MCP — minimal readonly discovery**\n\n**Status:** `penpot` namespace is **ready** (not in `needsAuth`).\n\n**Tools (5):**\n\n| Tool | Purpose (readonly-relevant) |\n|------|-----------------------------|\n| `high_level_overview` | Static usage / API guidance (no args) |\n| `penpot_api_info` | API docs by type (`type` required, optional `member`) |\n| `execute_code` | Run JS in plugin context (mutating — not used) |\n| `export_shape` | Export PNG/SVG (not used per bounds) |\n| `mcp_auth` | Authentic",
+      "streamTypes": {
+        "status": 2,
+        "thinking": 38,
+        "assistant": 234,
+        "tool_call": 2,
+        "usage": 1
+      },
+      "classification": "ATTEMPTED_FINISHED"
+    },
+    "c3": {
+      "ok": true,
+      "status": "finished",
+      "runId": "run-5f372922-24f0-4222-8896-fabc12ee06c4"
+    },
+    "envComparison": {
+      "macDev": "MCP config files, OS identity, OAuth sessions, local plugin cache, SDK settingSources",
+      "secondaryServer": "Same contract; separate OS identity/secrets; no shared desktop OAuth; must provision MCP/auth explicitly"
+    },
+    "figmaCanvaProven": false,
+    "note": "AC-06 minimum = C1 real readonly MCP call. Figma/Canva complementary only if exercised.",
+    "penpotReadonlyProven": true
+  },
+  "c1_retry": {
+    "scenario": "C1-retry",
+    "customToolsPath": {
+      "ok": true,
+      "status": "finished",
+      "runId": "run-ebb43d55-5115-4601-9f53-a132a88bfe98",
+      "agentId": "agent-b37d715f-3b91-4837-b979-9d2c1ed05df4",
+      "resultPreview": "**`qual_ping_readonly`** (`nonce`: `C1-CUSTOM`)\n\n**Token returned:** `SFIA-ML5-C9-MCP-CONTROL-OK`",
+      "streamTypes": {
+        "status": 2,
+        "thinking": 10,
+        "assistant": 53,
+        "tool_call": 2,
+        "usage": 1
+      }
+    },
+    "inlineStdioNoSandbox": {
+      "ok": true,
+      "status": "finished",
+      "runId": "run-6acdd6d1-0476-4b12-ac53-a3a8e0b1d31f",
+      "agentId": "agent-5842b80a-26dc-4395-8fcb-25b15b111b41",
+      "resultPreview": "**Returned token (exact):** `SFIA-ML5-C9-MCP-CONTROL-OK`",
+      "streamTypes": {
+        "status": 2,
+        "thinking": 11,
+        "assistant": 44,
+        "tool_call": 2,
+        "usage": 1
+      }
+    },
+    "priorFailureCause": "Inline MCP under sandboxOptions.enabled=true requested interactive approval unavailable in headless SDK",
+    "ac06SatisfiedBy": "customTools",
+    "alsoProvenByC2Penpot": true
+  }
+}
+```
+
+## 9. Scénario D — dossier consolidé
+
+- Manifeste + rapport sous `dossier/` · couverture omit intentionnel détecté `True` · pass `True`
+- Distinction DETERMINISTIC / INTEGRATION / SDK LIVE / GitHub REAL documentée dans le rapport
+- Ce dossier expérimental ≠ Review Handoff produit Studio futur
+
+### Rapport dossier (extrait intégral)
+
+# SFIA ML5 C9 — Dossier de qualification SDK / LIVE / Git / MCP
+
+**Date :** 2026-11-23T05:14:46.334Z
+**Macro-lot :** ML5 · Cycle 9 · Critical · CAPA/QA
+**Workspace :** `/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123`
+**Verdict unique :** **PASS WITH RESERVES**
+
+## Environnement
+
+| Champ | Valeur |
 | --- | --- |
-| Playwright ciblé (git-surface, g4, nora-pub, git-collab) | PASS |
-| Playwright **full** local | **109 PASS / 5 SKIPPED** |
-| g4 rejoué 3× après fix nav settle | 3/3 PASS |
-| Vitest unit/PG | non rejoués ce cycle final (PASS CI) |
+| Node | v24.16.0 |
+| @cursor/sdk | 1.4.2 |
+| Platform | darwin/arm64 |
+| Auth | logged-in (domain live.fr) |
+| Store | `store/` JsonlLocalAgentStore isolé |
+| Git remote | bare local `git-bare/sandbox.git` |
 
-## 9. Runtime / RECETTE
+## Résultats AC-01 … AC-08
 
-| Champ | Statut |
+| ID | Statut | Preuve |
+| --- | --- | --- |
+| AC-01 | PASS | sdk=1.4.2 run=run-55bb1829-983a-4a90-944f-17a494bec493 witness=true |
+| AC-02 | PASS | a1Events=22 types={"status":2,"thinking":10,"tool_call":3,"assistant":6,"usage":1} a3=INTERRUPT_OBSERVED |
+| AC-03 | PASS | resume agent=agent-e22f1236-784c-43a4-9295-8d16a48a34d7 newRun=run-8bac8626-fe26-44b7-8bf7-64db7a90fce6 rewritten=false |
+| AC-04 | PASS | branch=qual/ml5-c9-work j1=381eff5db999938dde1b27f36d1bbdef9dc900c6 j2=4b1273ddf742075969c1289d1b4edf4973007753 tip=35494bda301a4e35e6c3e06670af7e10ece67c5b refuse=true |
+| AC-05 | PASS | coveragePass=true omitDetected=true |
+| AC-06 | PASS | c1=true c2=ATTEMPTED_FINISHED c3=true figmaCanvaProven=false |
+| AC-07 | PASS | Isolated qual root; sandboxOptions enabled on agents; no product push; secrets redacted in proofs; GitHub REAL not attempted |
+| AC-08 | PASS | Single dossier covering A/B/C/D with reserves documented |
+
+## A — SDK LIVE et reprise
+
+- A1 create/send/stream/wait : status=`finished` run=`run-55bb1829-983a-4a90-944f-17a494bec493` witness=`true`
+- Événements : count=22 types={"status":2,"thinking":10,"tool_call":3,"assistant":6,"usage":1}
+- A2 resume process-restart : status=`finished` same store, distinct run=`true`
+- A3 interrupt : `INTERRUPT_OBSERVED` terminal=`cancelled`
+
+## B — Git sandbox
+
+- Branche `qual/ml5-c9-work` · J1 `381eff5db999938dde1b27f36d1bbdef9dc900c6` · J2 `4b1273ddf742075969c1289d1b4edf4973007753` · tip `35494bda301a4e35e6c3e06670af7e10ece67c5b` · remote tip `35494bda301a4e35e6c3e06670af7e10ece67c5b`
+- Refus push divergente : `true`
+- GitHub REAL : **NOT PROVEN** (bare local only)
+- Recommandation D7/Git : **modality B** (production Cursor → publication contrôlée)
+
+## C — MCP
+
+- C1 control readonly : ok=`true` run=`run-ebb43d55-5115-4601-9f53-a132a88bfe98`
+- C2 existing : `ATTEMPTED_FINISHED` target=`penpot (user mcp.json)`
+- C3 refuse : ok=`true`
+- Figma/Canva : **not proven** as complementary level
+
+## D — Handoff expérimental
+
+- Manifeste : `dossier/manifest.json`
+- Couverture : omit intentionnel détecté=`true` pass=`true`
+- Ce dossier **n'est pas** le Review Handoff produit Studio futur.
+
+## Distinction des niveaux de preuve
+
+| Niveau | Statut campagne |
 | --- | --- |
-| Correction runtime | Oui — race deep-link document (page projet) |
-| RECETTE SOURCE/BUILD | **INCHANGÉS** `10128bdb` / `2uHrYBsQUvf6aii40hMpj` |
-| Cutover / migration / secrets | **NONE** |
-| Acceptation Morris du nouveau runtime | **NON** — postérieur au build RECETTE ; GO merge distinct |
+| DETERMINISTIC | Empreintes fichiers, SHA Git sandbox, couverture manifeste |
+| INTEGRATION | Scripts qual ↔ store SDK ↔ bare Git ↔ MCP control |
+| SDK LIVE | Runs A/B/C réels sur compte Cursor |
+| GitHub REAL | **NON DÉMONTRÉ** |
 
-## 10. Commits / pushes PR #690
+## Réserves
 
-- Fast-forward successive jusqu'à `f11de65f98c3a0429e45c9f2c3935633840aec12`
-- Force-push : **NONE**
-- Nouvelle PR : **NONE**
+- Figma/Canva MCP complementary level NOT PROVEN
+- NOT_PROVEN — local bare remote only; no push to sfia-workspace/chantiers360
 
-## 11. CI finale (HEAD exact)
+## Plafonds
 
-- Run Next : https://github.com/mcleland147/sfia-workspace/actions/runs/45036729361
-- headSha : `f11de65f98c3a0429e45c9f2c3935633840aec12`
-- conclusion : **success**
+PASS sandbox ≠ GitHub REAL ≠ intégration Studio Next ≠ adoption architecture ≠ autorisation construction ML5.
 
-### Jobs
+## Capacité suivante cohérente (ML5)
 
-- Detect SFIA Studio Next changes: completed/success url=https://github.com/mcleland147/sfia-workspace/actions/runs/45036729361/job/137252033079
-- Build and validate SFIA Studio Next: completed/success url=https://github.com/mcleland147/sfia-workspace/actions/runs/45036729361/job/137252094334
-- SFIA Studio Next Required Gate: completed/success url=https://github.com/mcleland147/sfia-workspace/actions/runs/45036729361/job/137256921296
+Après revue Morris du handoff : arbitrer le mécanisme D7 de publication Git (modality B) et spécifier le contrat d'ingestion D8 du handoff de tentative — sans construire l'exécuteur définitif dans ce cycle.
 
-### `gh pr checks`
+
+## 10. Contrat d'acceptation AC-01…AC-08
+
+| ID | Statut | Preuve |
+| --- | --- | --- |
+| AC-01 | PASS | sdk=1.4.2 run=run-55bb1829-983a-4a90-944f-17a494bec493 witness=true |
+| AC-02 | PASS | a1Events=22 types={"status":2,"thinking":10,"tool_call":3,"assistant":6,"usage":1} a3=INTERRUPT_OBSERVED |
+| AC-03 | PASS | resume agent=agent-e22f1236-784c-43a4-9295-8d16a48a34d7 newRun=run-8bac8626-fe26-44b7-8bf7-64db7a90fce6 rewritten=false |
+| AC-04 | PASS | branch=qual/ml5-c9-work j1=381eff5db999938dde1b27f36d1bbdef9dc900c6 j2=4b1273ddf742075969c1289d1b4edf4973007753 tip=35494bda301a4e35e6c3e06670af7e10ece67c5b refuse=true |
+| AC-05 | PASS | coveragePass=true omitDetected=true rapport=true |
+| AC-06 | PASS | c1=true c2=ATTEMPTED_FINISHED c3=true figmaCanvaProven=false |
+| AC-07 | PASS | Isolated qual root; sandboxOptions enabled on agents; no product push; secrets redacted in proofs; GitHub REAL not attempted |
+| AC-08 | PASS | Single dossier covering A/B/C/D with reserves documented |
+
+## 11. Restitution A–F (STOP / prochaine décision)
+
+### A. Résultats consolidés
+Verdict **PASS WITH RESERVES** — huit AC PASS ; réserves GitHub REAL et Figma/Canva.
+
+### B. Capacités SDK réellement démontrées
+- Agent.create / send / stream / wait / dispose
+- Agent.resume après redémarrage de processus + list/listRuns/getRun
+- Cancel → terminal `cancelled`
+- Store Jsonl local persistant
+- MCP : customTools + stdio inline (hors sandbox) + user Penpot readonly
+- Auth login mintée SDK (sans exposition de clé dans les preuves)
+
+### C. Limites MCP et GitHub REAL
+- MCP stdio sous `sandboxOptions.enabled=true` peut exiger une approbation interactive indisponible en headless → obligation Studio : politique sandbox/auto-review explicite pour outils MCP autorisés
+- Figma/Canva non exercés (OAuth non initié)
+- Remote Git = bare local uniquement ; frontière GitHub REAL non prouvée
+
+### D. Choix recommandé mécanisme D7/Git
+**Modality B** : l'agent produit les fichiers ; un publisher contrôlé (D7) valide, commit, push, et expose des SHA immuables relus par D9. Modality A utile en lecture seule (`git status`/`rev-parse`) pendant la tentative.
+
+### E. Écarts nécessitant décision Morris
+1. Accepter modality B comme cible d'architecture D7 (vs Git direct depuis l'agent).
+2. Politique MCP headless : allowlist + désactivation borne d'approbation pour outils déclarés, ou customTools gouvernés.
+3. Périmètre et GO distinct pour une preuve GitHub REAL sandbox (repo/branche nommés).
+4. Qualifier Figma (plugin) / Canva si requis pour le parcours ML5 design — GO OAuth distinct.
+5. Persistance store SDK vs journal d'autorité D7 : rester distincts (confirmé §18.13).
+
+### F. Prochaine capacité cohérente ML5
+Spécifier le contrat D7 de dispatch/ownership + publisher Git modality B + ingestion D8 du handoff de tentative (sans construire l'exécuteur définitif ni un second moteur D7).
+
+## 12. Inventaire workspace qualification
 
 ```
-Build and validate SFIA Studio Next	pass	16m43s	https://github.com/mcleland147/sfia-workspace/actions/runs/45036729361/job/137252094334
-SFIA Studio Next Required Gate	pass	2s	https://github.com/mcleland147/sfia-workspace/actions/runs/45036729361/job/137256921296
-SFIA Studio Required Gate	pass	4s	https://github.com/mcleland147/sfia-workspace/actions/runs/45036729287/job/137252091698
-Build and validate SFIA Studio	skipping	0	https://github.com/mcleland147/sfia-workspace/actions/runs/45036729287/job/137252093000
-Detect SFIA Studio Next changes	pass	11s	https://github.com/mcleland147/sfia-workspace/actions/runs/45036729361/job/137252033079
-Detect SFIA Studio changes	pass	11s	https://github.com/mcleland147/sfia-workspace/actions/runs/45036729287/job/137252033036
-
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/dossier/coverage-check.json
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/dossier/env.json
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/dossier/manifest.json
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/dossier/rapport.md
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/dossier/summary.json
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/git-sandbox-diverge/README.md
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/git-sandbox/README.md
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/mcp-control/server.mjs
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/package-lock.json
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/package.json
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/proofs/auth-login-status.json
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/scripts/lib.mjs
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/scripts/scenario-a-create.mjs
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/scripts/scenario-a-interrupt.mjs
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/scripts/scenario-a-resume.mjs
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/scripts/scenario-b-git.mjs
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/scripts/scenario-c-mcp.mjs
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/scripts/scenario-c1-retry.mjs
+/Users/morris/Projects/sfia-ml5-c9-sdk-qual-20261123/scripts/scenario-d-dossier.mjs
 ```
 
-| Contrôle | Statut |
-| --- | --- |
-| Detect Next | PASS |
-| TypeScript / ESLint / Build / Vitest unit / Vitest PG | PASS (dans job validate) |
-| Playwright BROWSER FAKE | PASS |
-| Secret scan / whitespace | PASS |
-| SFIA Studio Next Required Gate | **PASS** |
-| SFIA Studio Required Gate | PASS |
-| Build SFIA Studio | SKIPPED (hors scope Next) |
+## 13. Sécurité / isolement
 
-## 12. Réserves E08 inchangées
+- Aucun push vers `sfia-workspace` / `chantiers360`
+- Product HEAD inchangé pour ce cycle de qualification
+- Secrets / tokens redactés dans preuves ; `~/.cursor/sdk/auth.json` non recopié
+- Processus d'essai seulement pour interrupt ; Cursor Desktop non ciblé
 
-MERGE REAL NOT PROVEN · Nora LIVE merge non exercé · WRITE-07 · PREVIEW PARTIAL · audits REAL partiels · protections GitHub non totalement observables · R6 non effectué · NO RELEASE · STABLE NOT AVAILABLE · E08 NOT ADOPTED.
+## 14. Non-revendications
 
-## 13. Gate Morris suivant
-
-1. ChatGPT relit ce handoff + PR #690 @ `f11de65f…` + checks GitHub.
-2. Morris prononce séparément le **GO merge**.
-3. Après merge seulement : post-merge, sync roadmap, clôture documentaire.
-
-**Aucun merge automatique.**
+NOT IMPLEMENTED as Studio executor · NOT ADOPTED · NO RELEASE · NO PR · NO MERGE · GitHub REAL NOT PROVEN · Figma/Canva complementary NOT PROVEN
 
