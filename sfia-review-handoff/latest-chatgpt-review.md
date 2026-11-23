@@ -2439,19 +2439,15 @@ Implémentation élargie mais conservatrice après réconciliation : **1 IMPLEME
 
 **`HANDOFF UPDATED — REMOTE VERIFIED`**
 
-Amendement d'inventaire (réconciliation explore + cycle 4) publié après le pack FULL initial `4b11ce93`.
-
 | Champ | Valeur |
 |---|---|
 | Mode | `publish-in-cycle` L3 borné |
 | Branche | `sfia/review-handoff` |
-| Commit distant | `ce6718628e21d501820d23b5d9667b31b750cdaa` |
-| Parent | `4b11ce93b72e1eb8910df615dfa05055cbb43ae1` |
-| Message | `docs(review-handoff): reconcile ML5 A01-I11 inventory (explore)` |
+| Tip distant | `0425a68485a341a6bd0e9a9af701a8cecf0ed79f` |
+| Amend inventaire | `ce6718628e21d501820d23b5d9667b31b750cdaa` |
+| Pack FULL initial cycle 4 | `4b11ce93b72e1eb8910df615dfa05055cbb43ae1` |
+| Messages | `docs(review-handoff): reconcile ML5 A01-I11 inventory (explore)` puis `docs(review-handoff): attest ML5 inventory reconciliation SHA` |
 | Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Blob git (avant attestation §18) | `553b3c6a807bcd22de411e05628c68e9384a089d` |
-| Inventaire figé | **IMPLEMENTED=1 · PARTIAL=74 · NOT_IMPL=24** |
+| Inventaire figé | **IMPLEMENTED=1 · PARTIAL=74 · NOT_IMPL=24** (explore + cycle 4) |
 | Push projet | **NONE** |
 | Worktree ML5 | branche `sfia/next-ml5-integrated-delivery-20261123` / HEAD `6cf33e99…` inchangé |
-
-Note: un push L3 d'attestation suit pour figer ce §18 sur le remote (même inventaire).
