@@ -6,13 +6,13 @@
 |---|---|
 | Objet | ML5 : investigation Nora, contrat exact, HumanDecision, exécution Cursor, Git conditionnel, preuves et analyse finale |
 | Baseline code | `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; branche locale ML5 non publiée |
-| Source fonctionnelle ML5 | `conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md` v0.5, branche candidate `0f1d37c3…` |
+| Source fonctionnelle ML5 | `conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md` v0.5, **§20 validé Morris** ; branche candidate `1e6929c543a88606488094be2f5dfe7fc34a0cb9` |
 | Source architecture | `architecture-technique/qualification-ecarts-cognition-transverse-et-execution-cursor-ml5.md` v0.9 candidate |
 | Sources propriétaires | R1 vision ; R2 D3/D4/D5/D6/D7/D8/D9 ; R4 architecture ; SEF v0.2 |
 | Source UX | Figma file `itgvCulInEnFY6DvgIegvP`, page `1209:2`, frames 12.01–12.14 ; méthode `ux-ui/methodologie-contrat-figma-cursor.md` v1.1 |
 | Source suivi | [Registre de couverture ML5](./ml5-registre-couverture-et-revue-developpement.md) ; 99 exigences A01–I11 ; 56 scénarios Q |
-| Review Packs | [Socle @ d731c1d7](https://github.com/mcleland147/sfia-workspace/blob/d731c1d77016b4585dda1b96051f949478f67b8e/sfia-review-handoff/latest-chatgpt-review.md) ; [Consolidation @ 2b2d27f6](https://github.com/mcleland147/sfia-workspace/blob/2b2d27f6e8b2495adcccd4677078a8b77670b4b5/sfia-review-handoff/latest-chatgpt-review.md) |
-| Verdict actuel | `ML5 PARTIAL — GOVERNED GAPS`, 44 PARTIEL / 1 EC / 54 NV reconstitués, **aucun vérifié au niveau global** |
+| Review Packs | [Socle @ d731c1d7](https://github.com/mcleland147/sfia-workspace/blob/d731c1d77016b4585dda1b96051f949478f67b8e/sfia-review-handoff/latest-chatgpt-review.md) ; [Consolidation @ 2b2d27f6](https://github.com/mcleland147/sfia-workspace/blob/2b2d27f6e8b2495adcccd4677078a8b77670b4b5/sfia-review-handoff/latest-chatgpt-review.md) ; [Cycle 6 @ b5466dd7](https://github.com/mcleland147/sfia-workspace/blob/b5466dd7739436dc1ce58ce18888165b682f87e8/sfia-review-handoff/latest-chatgpt-review.md) (histoire cycles 3–5 consignée dans les revues précédentes) |
+| Verdict de suivi | **`ML5 PARTIAL — GOVERNED GAPS`** ; R-003 registre : **présence C6 déclarée 1 IMPLEMENTED / 92 PARTIAL / 6 NOT_IMPL** ; 44 PARTIEL / 1 EC / 54 NV = **ancienne conformité R-002 non réconciliée** ; aucune réception globale |
 
 ## 1. Résultat Pilote — contrat commun
 
@@ -82,7 +82,7 @@ Tentative enregistrée avant contact SDK, unique commande autorisée, acquisitio
 
 Pas de Git obligatoire hors mission Git. Pour missions Git : dépôt/ref/base SHA/permission vérifiés ; versions réellement publiées distinguées du local ; relecture distante ; aucun push, PR, merge ou privilège induit par un mandat cognitif. Continuité entre contrats fondée sur sources Git vérifiables.
 
-**Options en arbitrage Morris :** A = Cursor publie directement sous permissions effectives ; **B = publication gouvernée D7/D9, recommandée mais non ADOPTED**. Évaluer réutilisation du mécanisme ML4 avant nouvelle abstraction. Tests REAL mutatifs sous GO spécifique.
+**Décision Morris du 23/11/2026 — [Git Cursor option A validée en contenu](https://github.com/mcleland147/sfia-workspace/blob/1e6929c543a88606488094be2f5dfe7fc34a0cb9/projects/sfia-studio-next/governance/decisions/2026-11-23-ml5-cursor-git-direct-et-session-dev-automatique.md) :** Cursor crée ou utilise la branche dédiée, effectue directement ses commits/pushes **dans le mandat Git D6 et les permissions techniques effectives**. **Studio ne publie pas le code de Cursor** ; D7 garde contrat/tentative et D9 **lit et vérifie de manière indépendante** dépôt, branche, base, droits, SHA et réalisations distantes. Studio conserve la publication **documentaire ML4**, sans code publisher concurrent. PR/merge/force-push/release ne découlent d'aucun mandat de développement : actes séparés. Tests GitHub REAL mutatifs sous GO spécifique ; F01–F09 restent **PARTIAL DETERMINISTIC** au C6, pas REAL/ADOPTED.
 
 ### CA-07 — Handoff et preuves vérifiables
 
@@ -160,9 +160,12 @@ Pas de double moteur d'autorité, effets ou Git ; pas de régression ML1–ML4 ;
 - **R — Réel** : SDK/web/Git/MCP prouvés pour chaque capacité réellement revendiquée, sous GO d'effet spécifique.
 - **M — Morris** : réception/acceptation et réserves ; PR, merge, RECETTE, release, R6 et ADOPTED **séparés**.
 
-Aucun critère bloquant de sécurité n'est levé par une simple acceptation documentaire. Les options Git A/B, topologie de supervision et méthode de publication restent des **arbitrages structurants**, jamais adoptés par la rédaction de ce dossier.
+Aucun critère bloquant de sécurité n'est levé par une simple acceptation documentaire. **Le choix A/B est arbitré : option A validée en contenu par Morris et publiée sur branche candidate** ; son préflight technique, les permissions effectives et les publications réelles **ne sont pas prouvés**. La topologie de supervision, les frontières WEB/SDK LIVE, le stockage des captures et les moyens de vérification restent à qualifier selon le risque et les gates. Cette mise à jour documentaire n'adopte aucun mécanisme non démontré.
 
 ## 6. Mode de mise à jour et verdict
+
+**Checkpoint R-003 du 23/11/2026 :** [registre vivant](./ml5-registre-couverture-et-revue-developpement.md#4-ter-r-003--checkpoint-intégré-r1--r2--r3--r4--ml5-23112026) ; deux axes présence/conformité distincts, et huit écarts intégrateurs CP-01…CP-08. **Décision auto-session DEV** validée Morris côté D1 : session Pilote de test côté serveur réservée à DEV local réellement isolé ; login normal conservé ailleurs, droits D6 non contournés ; BROWSER C6 partiel sur surfaces vides, F2 **NOT PROVEN**. Le contrat CA-01…CA-10 et les scénarios T/Q/PF ne sont ni supprimés ni automatiquement acceptés.
+
 
 Pour chaque exigence : **source R1/R2/ML5 → test Q/PF/ T-xx → composant/flux → preuve SHA/build/date/environnement → niveau → défaut/dette → exit → statut**. Mettre à jour le registre vivant lors d'un delivery cohérent, pas créer un autre registre de vérité.
 
