@@ -18,6 +18,8 @@
 
 > Ce document fixe les **premiers écarts observés** entre la vision fonctionnelle validée et la réalité du dépôt, afin de reprendre la qualification d'architecture ultérieurement. Il ne modifie ni SEF, ni Roadmap, ni ADR, ni spécifications R2 propriétaires ; il ne remplace pas une revue exhaustive des flux, invariants, tests et preuves LIVE/REAL.
 
+> **Décisions Morris du 23/11/2026 — lecture prioritaire :** voir **§19** et la [décision Git direct Cursor + auto-session DEV](../governance/decisions/2026-11-23-ml5-cursor-git-direct-et-session-dev-automatique.md). **Option A validée** : Cursor commit/push directement sous mandat ; D9 lit/vérifie ; Studio ne publie pas le code. Les recommandations historiques pour B sont supplantées. DEV auto-session local autorisé en conception avec garde-fous ; aucune preuve runtime ni GO d'effets externes implicites.
+
 ---
 
 # 1. Résultat recherché et trajectoire
@@ -1608,3 +1610,36 @@ La page 12 Figma de Studio Next (`itgvCulInEnFY6DvgIegvP`) constitue une **sourc
 - **Gates de transposition** : extraction source Figma L0/L1/L2, oracle PNG natif/empreinte, navigation et défilement contractuels, puis assertions de conformité et captures BROWSER sur le produit effectivement construit.
 
 **État : DOCUMENTED CANDIDATE / PREPARATION UX VALIDATED IN CONTENT / NO PRODUCT CODE / NO ADOPTED / GATE C OPEN.**
+
+# 19. Arbitrages Morris validés le 23/11/2026 — Git direct Cursor et DEV BROWSER
+
+**Statut : D2 VALIDATED IN CONTENT / GIT CANDIDATE / NOT MERGED / IMPLEMENTATION NOT PROVEN.** La décision [Git direct Cursor et auto-session DEV](../governance/decisions/2026-11-23-ml5-cursor-git-direct-et-session-dev-automatique.md) prime sur le choix A/B encore candidat aux §§18.13.4/18.14.5. Elle ne remplace pas le contrat de réalisation, les gates SFIA ou une preuve LIVE/REAL.
+
+## 19.1. Option A — responsabilités et topologie cible
+
+- **D3 Nora** prépare les sources et le contrat ; **D6** valide la portée, les opérations Git permises et les exceptions ; **D7** conserve la tentative, le dispatch et les états ; **Cursor SDK local** réalise les modifications, commits et pushes de branche autorisés ; **D9 Studio** lit et vérifie les refs distantes ; **D8** qualifie les pièces ; Nora analyse une fois à la fin.
+- **Git direct dans Cursor**, authentifications/droits matériels administrés par Morris et distincts des permissions GitHub de Studio. Workspace isolé, branche distante dédiée, base SHA figée, préflight D7/D9 et vérification des droits effectifs avant mutation. Une instruction de prompt ne remplace jamais une barrière technique de permissions.
+- **Contrôle avant et après publication :** mandat D6/version contractuelle, repo/branche/base SHA/protections, allowlist de chemins et effets si applicable, commit/push bornés ; relecture D9 de SHA/refs et inventaire distant après chaque publication significative. Ne pas certifier une publication à partir du seul stdout Cursor.
+- **Continuité et reprise :** distinguer `workSha` local, commit(s) poussés et `remoteTipSha` re-lu ; un état local non publié reste marqué inaccessible à Studio ; ne pas repusher automatiquement après ACK perdu, révocation, crash ou ref divergente. Entre contrats, utiliser un SHA distant effectivement autorisé.
+- **ML4 inchangé :** Studio conserve sa voie de publication documentaire gouvernée. L'implémentation ML5 n'étend pas ce publisher au code Cursor et n'introduit pas de second moteur D7/D9.
+- **PR/merge et opérations à risque** sont techniquement réalisables par Cursor **seulement dans des contrats et décisions spécifiques** : aucun merge, force-push, release ou mutation par effet de bord d'un push de travail.
+
+**Blast radius :** D7 contrat/attempt et préflight, D9 lecture/contrôle ref, Git workspace et permissions Cursor, D8 dossier de preuve, Exécution/Résultats et tests F01–F09. Toute évolution de schéma nécessaire doit rester proportionnée, documentée et soumise aux gates applicables. Aucun publisher Git code Studio.
+
+## 19.2. Auto-session DEV — limite technique nécessaire
+
+**But :** débloquer BROWSER/Figma F2 des frames 12.01–12.14 après un blocage sur `/login`, sans modifier l'authentification cible ni le contrôle HumanDecision.
+
+- **Entrée DEV explicite et fail-closed** : mode de test configuré serveur, lane DEV vérifiée, base/sessions/secrets propres, **écoute loopback** ou exposition protégée équivalente démontrée. Ne se fier ni au paramètre navigateur ni au `Host`/à l'`Origin` déclarés par le client pour autoriser le bypass.
+- **Pilote test stable et serveur-owned** : établir une session normale pour D1/D6/D7 ; pas de désactivation globale des contrôles ni d'usurpation par sélection de `pilotId` côté client. Tests multi-Pilotes avec deux identités fictives autorisées et contextes séparés.
+- **RECETTE/STABLE non impactées** : login obligatoire, aucune configuration auto-session héritée, tests négatifs de fail-closed, absence de secrets dans Git, UI et handoff. Conserver une campagne login réel indépendante.
+- **Limites d'effets** : session DEV ≠ autorisation SDK LIVE, WEB LIVE, MCP mutatif, GitHub REAL, push projet, PR/merge. Les portes D6/D7 et ENV-01 restent obligatoires.
+- **Preuve attendue :** Playwright/BROWSER authentifié automatiquement sur DEV avec interactions fonctionnelles, captures runtime originales, comparaison L0/L1/L2 et F2, erreurs, reconnexion, auth négative et T-12 ; le test sur `/login` seul ne vaut pas preuve de parcours.
+
+## 19.3. Impacts ML5 et conditions de sortie
+
+Les exigences **F01–F09** doivent désormais être développées selon **l'option A**, tandis que Travail/activité Nora, B1 sécurisé, supervision D7, D8 G15, analyse cognitive finale et UX sont fermés progressivement dans le **même macro-lot**. Ne pas ouvrir de moteur ou de registre concurrent.
+
+**GO présent : documentation D2 publiée sur branche candidate uniquement.** Pas de mutation du worktree de développement, activation LIVE/REAL, push code, PR, merge, changement RECETTE/STABLE, release ni ADOPTED.
+
+**Verdict : ARCHITECTURAL ORIENTATION VALIDATED BY MORRIS IN CONTENT / CANDIDATE GIT / BEHAVIOR NOT PROVEN.**

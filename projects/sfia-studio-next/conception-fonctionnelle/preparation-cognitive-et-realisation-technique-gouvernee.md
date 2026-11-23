@@ -17,6 +17,8 @@
 
 > **Portée des validations.** La v0.3 conserve son état de validation en contenu. La v0.4 documente la précision fonctionnelle demandée le 23/11 : **activité LIVE informative pendant le run ; analyse globale Nora uniquement après clôture ou interruption**, sur rapport et éléments vérifiables. L'écriture Git est autorisée pour ces deux documents candidats et **ne vaut** ni modification de doctrine/R2 propriétaires, ni PR/merge, ni exécution Cursor, ni adoption ni GO construction. Les détails techniques restent à qualifier.
 
+> **Arbitrages Morris ultérieurs du 23/11/2026 — priorité de lecture :** la décision [Git direct Cursor / auto-session DEV](../governance/decisions/2026-11-23-ml5-cursor-git-direct-et-session-dev-automatique.md) et le **§20** ci-dessous valident **l'option A** (Cursor publie directement le code autorisé ; Studio lit et vérifie Git) et l'auto-session Pilote de test sur DEV local. Les passages antérieurs présentant B comme option recommandée sont désormais historiques. Cette décision **n'autorise aucun push de code, PR, merge, WEB LIVE ou SDK LIVE**.
+
 ---
 
 # 1. Finalité, résultat Pilote et logique de macro-lot
@@ -772,3 +774,32 @@ La préparation fonctionnelle est suffisamment cadrée pour une revue de clôtur
 - **Transposition UX** : source Figma validée ≠ implémentation. Extraction L0/L1/L2, composants, assets, états, scroll, navigation et capture-source hashée avant le code concerné ; comparaison BROWSER/runtime et preuves après construction sous gate distinct.
 
 **Verdict de conception : ALIGNEMENT DOCUMENTÉ — NOT IMPLEMENTED / NOT BEHAVIOR PROVEN / GATE C OPEN.**
+
+# 20. Décisions Morris du 23/11/2026 — Git Cursor direct et session de test DEV
+
+**Statut : D2 VALIDATED IN CONTENT / GIT CANDIDATE / NOT MERGED.** Ce complément exprime deux arbitrages Morris qui **priment sur les options A/B non tranchées** des §§17–19. Référence de décision : [Git direct Cursor / auto-session DEV](../governance/decisions/2026-11-23-ml5-cursor-git-direct-et-session-dev-automatique.md).
+
+## 20.1. Git Cursor : option A retenue, Studio en lecture des réalisations techniques
+
+- **Morris administrateur Cursor** fournit les permissions Git et gère Cursor Desktop/SDK et ses outils, sans confondre disponibilité des credentials et autorisation métier.
+- **Pilote D6** inspecte le contrat et autorise distinctement la tentative et les opérations Git permises sur un dépôt et une branche déterminés.
+- **Cursor** développe sur un workspace Git isolé et une branche dédiée ; il exécute ses tests, commits et **pushes directs** aux jalons significatifs autorisés. Il peut techniquement créer une PR ou réaliser un merge **uniquement sous mandat séparé** ; aucun droit de merge/force-push/promotion ne découle du mandat de développement.
+- **Studio Next D7** conserve contrat, droits vérifiables, tentative, état, STOP et références de travail ; **D9 lit le dépôt et la branche distants**, vérifie les permissions et les SHA effectivement publiés ; D8 vérifie les preuves et Nora réalise une analyse finale unique.
+- **Studio Next ne publie pas le code de Cursor dans ML5** et conserve son circuit ML4 de publication documentaire. Il n'y a ni publisher code Studio, ni second moteur Git D7.
+- Un commit local non poussé n'est **pas consultable depuis GitHub**. Crash, divergence, perte d'ACK et révocation imposent réconciliation, pas push/redispatch aveugle.
+
+**Critères de sortie F01–F09 :** préflight dépôt/branch/base/droits, workspace isolé, commits/pushes sous mandat, publication distante réelle vérifiée par ref/SHA, lecture des contenus, distinction local/distant, continuité entre deux contrats et absence de PR/merge implicite. Les essais mutatifs GitHub REAL restent sous un GO spécifique.
+
+## 20.2. BROWSER : auto-session Pilote de test exclusivement dans DEV local
+
+En DEV, le testeur Cursor peut accéder directement aux surfaces de Studio **sans franchir la mire `/login`**, au moyen d'une identité Pilote de test **établie côté serveur**, tout en conservant la session et les contrôles d'autorité D1/D6.
+
+Le mode doit être explicitement activé, réservé à une lane DEV isolée, limitée à loopback ou à une restriction équivalente vérifiée. RECETTE/STABLE et tout runtime exposé conservent le login habituel. La sélection arbitraire d'un Pilote réel, l'utilisation de secrets hors DEV et l'ouverture d'effets externes sont interdites. Les scénarios T-12 utilisent des identités de test séparées et autorisées.
+
+**Exit :** tests positifs de navigation DEV, tests négatifs hors DEV et de droits, login normal non régressé, Figma L0/L1/L2 et BROWSER/F2 12.01–12.14 avec captures runtime originales. Aucune preuve BROWSER ne vaut preuve Nora/WEB/Cursor LIVE.
+
+## 20.3. Dépendances et autorisations non incluses
+
+Le développement technique se poursuit dans **le même ML5**, sous Cursor et SFIA v2.6. Le présent GO concerne uniquement l'intégration documentaire des décisions ; les effets code/Git distants, PR, merge, migration RECETTE/STABLE, activations WEB LIVE/SDK LIVE, promotion et adoption restent distincts.
+
+**Verdict : FONCTIONNEL VALIDATED IN CONTENT / IMPLEMENTATION AND BROWSER NOT YET PROVEN / NOT ADOPTED.**
