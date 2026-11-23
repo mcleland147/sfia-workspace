@@ -1596,3 +1596,15 @@ Réserves à transférer au futur delivery : disponibilité, reprise et atomicit
 Aucun sujet ne devient automatiquement un macro-lot préparatoire séparé. Décisions structurantes ou évolutions de persistance : gate Morris propre.
 
 **Verdict : PREPARATION TECHNIQUE DOCUMENTED WITH GOVERNED GAPS — CANDIDATE / NOT IMPLEMENTED / NOT BEHAVIOR PROVEN / GATE C OPEN.**
+
+## 18.14.9. Réconciliation UX de fin de préparation — contrat intégral et bilan D8
+
+La page 12 Figma de Studio Next (`itgvCulInEnFY6DvgIegvP`) constitue une **source de conception UX**, pas une preuve runtime. La livraison future devra intégrer, dans les propriétaires existants :
+
+- **D7** : six volets et version inspectable (12.02/12.05), ouverture de **12.14** pour lire la totalité de l'instruction technique fictive de référence, et correspondance réelle au dispatch. La lecture n'autorise pas de tentative et ne copie pas l'instruction dans Cursor.
+- **D7 / activité** : 12.06 représente un run observé ; 12.07 un état incertain à réconcilier, sans nouveau dispatch automatique.
+- **D8/D9** : 12.08 Synthèse, 12.11 Livrables et tests, 12.12 Git et pièces et 12.13 Écarts couvrent ensemble les **neuf rubriques D8 §8.2**, dont comparaison prévu/réalisé, impact projet, verdict borné, recommandation et sources. Les illustrations partagent une seule tentative fictive ; aucune réception D6 ou adoption n'en découle.
+- **Dépendances conditionnelles** : Git/GitHub REAL pour les opérations sur dépôt, MCP pour les seules capacités requises, et captures/essais UX pour les missions concernées. N'ajouter ni publisher Git parallèle ni gestionnaire global MCP.
+- **Gates de transposition** : extraction source Figma L0/L1/L2, oracle PNG natif/empreinte, navigation et défilement contractuels, puis assertions de conformité et captures BROWSER sur le produit effectivement construit.
+
+**État : DOCUMENTED CANDIDATE / PREPARATION UX VALIDATED IN CONTENT / NO PRODUCT CODE / NO ADOPTED / GATE C OPEN.**
