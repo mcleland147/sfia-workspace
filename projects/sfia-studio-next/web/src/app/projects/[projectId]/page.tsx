@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { ProjectChrome } from "@/components/figma/ProjectChrome";
 import { NoraConversation } from "@/components/figma/NoraConversation";
+import { CursorRealizationSurface } from "@/components/figma/CursorRealizationSurface";
 import { TravailViewer, type TravailViewerResource } from "@/components/figma/TravailViewer";
 import {
   ProjectJournal,
@@ -2976,11 +2977,27 @@ export default function ProjectPage() {
         />
       ) : null}
 
-      {surface === "git" || surface === "publication" ? (
+      {surface === "git" ? (
         <GitRepositoriesSurface
           projectId={params.projectId}
           projectName={projectName}
         />
+      ) : null}
+
+      {surface === "publication" ? (
+        <div data-testid="publication-surface-ml5">
+          <CursorRealizationSurface
+            projectId={params.projectId}
+            onDiscussWithNora={(text) => {
+              setDraft(text);
+              selectSurface("travail");
+            }}
+          />
+          <GitRepositoriesSurface
+            projectId={params.projectId}
+            projectName={projectName}
+          />
+        </div>
       ) : null}
 
       {surface === "journal" ? (

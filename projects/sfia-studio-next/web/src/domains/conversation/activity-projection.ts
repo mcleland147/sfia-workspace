@@ -1,4 +1,4 @@
-import { and, asc, eq, gt } from "drizzle-orm";
+import { and, asc, eq, gt, sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import { conversationTurnCommands, noraActivityEvents } from "@/db/schema";
 import { StudioError } from "@/lib/http-errors";
@@ -25,51 +25,63 @@ export type ActivityEventInput = {
 /**
  * Append a functional activity event. Never invents percentages or private chain-of-thought.
  * GET-side consumers must treat ANNOUNCED ≠ OBSERVED.
+ * Sequence is allocated under turn lock to survive concurrent writers (unique turn+seq).
  */
 export async function appendActivityEvent(input: ActivityEventInput) {
-  const turn = (
-    await db
-      .select()
-      .from(conversationTurnCommands)
-      .where(eq(conversationTurnCommands.id, input.turnCommandId))
-      .limit(1)
-  )[0];
-  if (!turn) throw new StudioError("NOT_FOUND", "Tour introuvable");
-  if (turn.conversationId !== input.conversationId) {
-    throw new StudioError("ACCESS_DENIED", "Tour/conversation incohérents");
-  }
-  if (turn.ownerPilotId !== input.ownerPilotId) {
-    throw new StudioError("ACCESS_DENIED", "Tour d'un autre Pilote");
-  }
-  if (input.ownerToken != null && turn.ownerToken && input.ownerToken !== turn.ownerToken) {
-    throw new StudioError("ACCESS_DENIED", "OwnerToken invalide — fencing activité");
-  }
+  return db.transaction(async (tx) => {
+    await tx.execute(
+      sql`select id from conversation_turn_commands
+          where id = ${input.turnCommandId}
+          for update`,
+    );
+    const turn = (
+      await tx
+        .select()
+        .from(conversationTurnCommands)
+        .where(eq(conversationTurnCommands.id, input.turnCommandId))
+        .limit(1)
+    )[0];
+    if (!turn) throw new StudioError("NOT_FOUND", "Tour introuvable");
+    if (turn.conversationId !== input.conversationId) {
+      throw new StudioError("ACCESS_DENIED", "Tour/conversation incohérents");
+    }
+    if (turn.ownerPilotId !== input.ownerPilotId) {
+      throw new StudioError("ACCESS_DENIED", "Tour d'un autre Pilote");
+    }
+    if (input.ownerToken != null && turn.ownerToken && input.ownerToken !== turn.ownerToken) {
+      throw new StudioError("ACCESS_DENIED", "OwnerToken invalide — fencing activité");
+    }
 
-  const last = (
-    await db
-      .select({ sequence: noraActivityEvents.sequence })
-      .from(noraActivityEvents)
-      .where(eq(noraActivityEvents.turnCommandId, input.turnCommandId))
-      .orderBy(asc(noraActivityEvents.sequence))
-  ).at(-1);
-  const sequence = (last?.sequence ?? 0) + 1;
-  const id = newId("nact");
-  await db.insert(noraActivityEvents).values({
-    id,
-    conversationId: input.conversationId,
-    turnCommandId: input.turnCommandId,
-    ownerPilotId: input.ownerPilotId,
-    generationId: input.generationId ?? turn.generationId ?? null,
-    sequence,
-    phase: input.phase.slice(0, 80),
-    nature: input.nature,
-    status: input.status,
-    summary: input.summary.slice(0, 500),
-    detailJson: JSON.stringify(input.detail ?? {}),
-    sourceRef: input.sourceRef ?? null,
-    createdAt: new Date(),
+    const last = (
+      await tx
+        .select({ sequence: noraActivityEvents.sequence })
+        .from(noraActivityEvents)
+        .where(eq(noraActivityEvents.turnCommandId, input.turnCommandId))
+        .orderBy(asc(noraActivityEvents.sequence))
+    ).at(-1);
+    const sequence = (last?.sequence ?? 0) + 1;
+    const id = newId("nact");
+    // Strip obvious secrets from summary/detail before persistence.
+    const safeSummary = input.summary
+      .replace(/\bsk-[A-Za-z0-9]{20,}\b/g, "[REDACTED]")
+      .slice(0, 500);
+    await tx.insert(noraActivityEvents).values({
+      id,
+      conversationId: input.conversationId,
+      turnCommandId: input.turnCommandId,
+      ownerPilotId: input.ownerPilotId,
+      generationId: input.generationId ?? turn.generationId ?? null,
+      sequence,
+      phase: input.phase.slice(0, 80),
+      nature: input.nature,
+      status: input.status,
+      summary: safeSummary,
+      detailJson: JSON.stringify(input.detail ?? {}),
+      sourceRef: input.sourceRef ?? null,
+      createdAt: new Date(),
+    });
+    return { id, sequence };
   });
-  return { id, sequence };
 }
 
 export async function listActivityEvents(input: {

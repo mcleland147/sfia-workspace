@@ -37,7 +37,7 @@ describe("ML5 G — D8 cursor qualification", () => {
     });
     expect(q.verdict).toBe("INDETERMINATE");
     const brief = buildNoraFinalAnalysisBrief(q);
-    expect(brief).toMatch(/Analyse globale unique/);
+    expect(brief).toMatch(/BRIEF TECHNIQUE DÉTERMINISTE/);
     expect(brief).toMatch(/pas une HumanDecision/);
   });
 });

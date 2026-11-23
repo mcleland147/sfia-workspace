@@ -37,6 +37,12 @@ export async function POST(
       reportMarkdown?: string;
       manifest?: HandoffManifest;
       expectedContractFingerprint?: string;
+      provenance?: {
+        acquisition?: "CLIENT_DECLARED" | "SCRIPTED_ADAPTER" | "RUNTIME_COLLECTED" | "UNKNOWN";
+        declaredExecutorId?: string | null;
+        observedAgentId?: string | null;
+        observedRunId?: string | null;
+      };
     };
     if (
       typeof body.reportMarkdown !== "string" ||
@@ -52,6 +58,14 @@ export async function POST(
       reportMarkdown: body.reportMarkdown,
       manifest: body.manifest,
       expectedContractFingerprint: body.expectedContractFingerprint,
+      provenance: body.provenance
+        ? {
+            acquisition: body.provenance.acquisition ?? "CLIENT_DECLARED",
+            declaredExecutorId: body.provenance.declaredExecutorId,
+            observedAgentId: body.provenance.observedAgentId,
+            observedRunId: body.provenance.observedRunId,
+          }
+        : { acquisition: "CLIENT_DECLARED" },
     });
     return NextResponse.json(result);
   } catch (e) {

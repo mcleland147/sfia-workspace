@@ -63,7 +63,10 @@ export type CursorExecutionPlan = {
   contractVersion: number;
   contractFingerprint: string;
   instructionFingerprint: string;
+  /** Server-resolved realpath under SFIA_CURSOR_WORKSPACE_ROOT — never client-chosen. */
   workspaceCwd: string;
+  /** Short key used to resolve workspaceCwd; browser may only send this. */
+  workspaceKey?: string;
   effectProviderMode: "SCRIPTED" | "LIVE";
   gitScope?: TechnicalContractBody["gitScope"];
   mcpRequired: string[];

@@ -3,6 +3,24 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-23-ML5-INTEGRATION-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-23 (Europe/Paris) |
+| Macro-lot | ML5 — Sécurisation et convergence du parcours gouverné |
+| Type | CONSTRUCTION DEV · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD entrée | `69aeb329ee387a7cf8331fc6173fcf0f09bd92b8` |
+| Base | `0f1d37c3b055371c84c1f30e9bebe3d0efee41b2` |
+| Worktree | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
+| Lane | DEV — migrations `017`+`018` sur `sfia_next_dev` et `sfia_next_e2e` ; RECETTE inchangée |
+| Contenu | P0-01 CAS dispatch ; P0-02 workspace confinement ; P0-03 B1 detached until isolation proven ; P1 reversibility/READY/handoff provenance ; parcours `CursorRealizationSurface` ; activité C1 producer ; Figma L1 metadata |
+| Tests | Unit ML5 **29 PASS** ; PG dispatch **7 PASS** ; tsc PASS ; BROWSER/F2/LIVE **NOT PROVEN** |
+| Push projet / PR / merge | **NONE** |
+| STABLE | NOT AVAILABLE |
+| Verdict | **ML5 PARTIAL — GOVERNED GAPS** (parcours raccordé DEV ; P0 adressés ; F2/LIVE ouverts) |
+
 ## delivery_id: DELIV-2026-11-23-ML5-INTEGRATED-DELIVERY-SLICE
 
 | Field | Value |

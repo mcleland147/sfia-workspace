@@ -13,9 +13,20 @@ export async function POST(
     const body = (await req.json()) as {
       statement?: string;
       inspectedFingerprint?: string;
+      /** Explicit Oui — required. Missing / false = no HumanDecision, no effect. */
+      confirmed?: boolean;
     };
     if (!body.statement || !body.inspectedFingerprint) {
       return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 400 });
+    }
+    if (body.confirmed !== true) {
+      return NextResponse.json(
+        {
+          error: "CONFIRMATION_REFUSED",
+          message: "Confirmation Non ou absente — aucun acte D6, aucun dispatch",
+        },
+        { status: 400 },
+      );
     }
     const result = await authorizeCursorExecution({
       pilotId: session.pilotId,
@@ -23,6 +34,7 @@ export async function POST(
       attemptId,
       statement: body.statement,
       inspectedFingerprint: body.inspectedFingerprint,
+      confirmed: true,
     });
     return NextResponse.json(result);
   } catch (e) {

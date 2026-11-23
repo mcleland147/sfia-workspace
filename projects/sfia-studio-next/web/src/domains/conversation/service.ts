@@ -1086,6 +1086,23 @@ export async function postUserMessageAndNora(
 
   let reply;
   try {
+    // C1 — announce Nora work (ANNOUNCED ≠ OBSERVED). Best-effort; never blocks the turn.
+    try {
+      const { appendActivityEvent } = await import("./activity-projection");
+      await appendActivityEvent({
+        conversationId: reserved.conversationId,
+        turnCommandId: reserved.commandId,
+        ownerPilotId: pilotId,
+        generationId: null,
+        phase: "nora.generate",
+        nature: "ANNOUNCED",
+        status: "RUNNING",
+        summary: "Nora prépare une réponse",
+        ownerToken: reserved.ownerToken,
+      });
+    } catch {
+      /* activity is observational — turn continues */
+    }
     // Heartbeat during long provider work so stale lease does not falsely orphan an active run.
     const leasePulse = setInterval(() => {
       void touchTurnLease(reserved.commandId, reserved.ownerToken);
@@ -1111,6 +1128,22 @@ export async function postUserMessageAndNora(
           projectId: ctx.project?.id,
         },
       });
+      try {
+        const { appendActivityEvent } = await import("./activity-projection");
+        await appendActivityEvent({
+          conversationId: reserved.conversationId,
+          turnCommandId: reserved.commandId,
+          ownerPilotId: pilotId,
+          generationId: reply.generationId ?? null,
+          phase: "nora.generate",
+          nature: "COMPLETED",
+          status: "COMPLETED",
+          summary: "Réponse Nora disponible",
+          ownerToken: reserved.ownerToken,
+        });
+      } catch {
+        /* activity observational */
+      }
     } finally {
       clearInterval(leasePulse);
     }

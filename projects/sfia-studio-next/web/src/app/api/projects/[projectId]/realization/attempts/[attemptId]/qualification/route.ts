@@ -6,6 +6,7 @@ import { getCursorAttempt } from "@/domains/execution/cursor-attempt-service";
 import type { HandoffManifest } from "@/domains/execution/handoff-integrity";
 import {
   buildNoraFinalAnalysisBrief,
+  classifyAttachedNoraPayload,
   qualifyCursorRealization,
 } from "@/domains/proofs/cursor-qualify";
 import { requireStudioSession } from "@/domains/identity/session";
@@ -87,7 +88,15 @@ export async function POST(
       manifest,
       terminalStatus: attempt.live.terminalStatus ?? null,
     });
-    const noraBrief = body.attachNoraAnalysis ? buildNoraFinalAnalysisBrief(q) : null;
+    // attachNoraAnalysis stores a deterministic technical brief only — not a Nora run.
+    const technicalBrief = body.attachNoraAnalysis ? buildNoraFinalAnalysisBrief(q) : null;
+    const noraKind = classifyAttachedNoraPayload(technicalBrief);
+    const limits = [
+      ...q.limits,
+      ...(noraKind === "TECHNICAL_BRIEF"
+        ? ["NORA_ATTACHMENT_IS_TECHNICAL_BRIEF — avis cognitif Nora non exécuté"]
+        : []),
+    ];
     const existing = (
       await db
         .select()
@@ -117,9 +126,9 @@ export async function POST(
       status: "RECORDED",
       rubricsJson: JSON.stringify(q.rubrics),
       verdict: q.verdict,
-      noraAnalysisMarkdown: noraBrief,
-      noraAnalysisAt: noraBrief ? now : null,
-      limitsJson: JSON.stringify(q.limits),
+      noraAnalysisMarkdown: technicalBrief,
+      noraAnalysisAt: technicalBrief ? now : null,
+      limitsJson: JSON.stringify(limits),
       createdAt: now,
       updatedAt: now,
     });
@@ -127,8 +136,9 @@ export async function POST(
       qualificationId: id,
       verdict: q.verdict,
       rubrics: q.rubrics,
-      limits: q.limits,
-      noraAnalysisMarkdown: noraBrief,
+      limits,
+      noraAnalysisMarkdown: technicalBrief,
+      noraAnalysisKind: noraKind,
       testsPass: q.testsPass,
       conformityProven: q.conformityProven,
       morrisAcceptance: q.morrisAcceptance,

@@ -15,6 +15,14 @@ export {
   technicalContractFingerprint,
 } from "./technical-contract-fingerprint";
 
+export type ContractReadiness = {
+  documentComplete: boolean;
+  sourcesSufficient: boolean;
+  unknownRestrictions: string[];
+  blockedReasons: string[];
+  ready: boolean;
+};
+
 export function assertContractBodyComplete(body: TechnicalContractBody): void {
   const e = body.engagements;
   if (!e?.willDo?.trim() || !e.willNotDo?.trim() || !e.expectedResult?.trim() || !e.pilotControl?.trim()) {
@@ -34,10 +42,46 @@ export function assertContractBodyComplete(body: TechnicalContractBody): void {
   if (!body.instructionText || body.instructionText.length === 0) {
     throw new StudioError("INVALID_REQUEST", "Instruction technique vide", { exposeMessage: true });
   }
-  // Refuse silent truncation markers in storage path.
   if (body.instructionText.includes("\u0000")) {
     throw new StudioError("INVALID_REQUEST", "Instruction technique invalide", { exposeMessage: true });
   }
+  if (!Array.isArray(body.reversibilityLimits)) {
+    throw new StudioError("INVALID_REQUEST", "reversibilityLimits requis", { exposeMessage: true });
+  }
+}
+
+/**
+ * Document completeness ≠ authorization readiness.
+ * READY requires no unknown determinant restrictions and an explicit readiness gate.
+ */
+export function evaluateContractReadiness(input: {
+  body: TechnicalContractBody;
+  unknownRestrictions?: string[];
+  sourcesSufficient?: boolean;
+}): ContractReadiness {
+  const unknownRestrictions = (input.unknownRestrictions ?? []).filter((r) => r.trim());
+  const documentComplete = (() => {
+    try {
+      assertContractBodyComplete(input.body);
+      return true;
+    } catch {
+      return false;
+    }
+  })();
+  const sourcesSufficient = input.sourcesSufficient !== false;
+  const blockedReasons: string[] = [];
+  if (!documentComplete) blockedReasons.push("DOCUMENT_INCOMPLETE");
+  if (!sourcesSufficient) blockedReasons.push("SOURCES_INSUFFICIENT");
+  if (unknownRestrictions.length > 0) {
+    blockedReasons.push(`UNKNOWN_RESTRICTIONS:${unknownRestrictions.join(",")}`);
+  }
+  return {
+    documentComplete,
+    sourcesSufficient,
+    unknownRestrictions,
+    blockedReasons,
+    ready: blockedReasons.length === 0,
+  };
 }
 
 async function assertProject(pilotId: string, projectId: string) {
@@ -59,9 +103,29 @@ export async function createTechnicalContract(input: {
   body: TechnicalContractBody;
   sourceTurnCommandId?: string | null;
   supersedesContractId?: string | null;
+  /** When false or omitted with unknowns → DRAFT even if document is complete. */
+  markReady?: boolean;
+  unknownRestrictions?: string[];
+  sourcesSufficient?: boolean;
 }) {
   await assertProject(input.pilotId, input.projectId);
   assertContractBodyComplete(input.body);
+  const readiness = evaluateContractReadiness({
+    body: input.body,
+    unknownRestrictions: input.unknownRestrictions,
+    sourcesSufficient: input.sourcesSufficient,
+  });
+  // Explicit markReady required for READY — syntax alone never promotes.
+  const status =
+    input.markReady === true && readiness.ready ? "READY" : "DRAFT";
+  if (input.markReady === true && !readiness.ready) {
+    throw new StudioError(
+      "REQUIRES_REQUALIFICATION",
+      `Contrat non prêt: ${readiness.blockedReasons.join("; ")}`,
+      { exposeMessage: true },
+    );
+  }
+
   const fingerprint = technicalContractFingerprint(input.body);
   const instructionFp = instructionFingerprint(input.body.instructionText);
 
@@ -89,7 +153,7 @@ export async function createTechnicalContract(input: {
     contractKey: input.contractKey,
     version,
     fingerprint,
-    status: "READY",
+    status,
     title: input.body.title,
     engagementsJson: JSON.stringify(input.body.engagements),
     voletsJson: JSON.stringify(input.body.volets),
@@ -99,7 +163,9 @@ export async function createTechnicalContract(input: {
     acceptanceJson: JSON.stringify(input.body.acceptance),
     executorJson: JSON.stringify(input.body.executor),
     stopConditionsJson: JSON.stringify(input.body.stopConditions),
+    reversibilityLimitsJson: JSON.stringify(input.body.reversibilityLimits ?? []),
     gitScopeJson: input.body.gitScope ? JSON.stringify(input.body.gitScope) : null,
+    readinessJson: JSON.stringify(readiness),
     sourceTurnCommandId: input.sourceTurnCommandId ?? null,
     supersedesContractId: input.supersedesContractId ?? null,
     createdAt: now,
@@ -112,8 +178,57 @@ export async function createTechnicalContract(input: {
     version,
     fingerprint,
     instructionFingerprint: instructionFp,
-    status: "READY" as const,
+    status: status as "READY" | "DRAFT",
+    readiness,
   };
+}
+
+/** Promote DRAFT → READY after D3/D6 sufficiency re-check. */
+export async function markTechnicalContractReady(input: {
+  pilotId: string;
+  projectId: string;
+  contractId: string;
+  unknownRestrictions?: string[];
+  sourcesSufficient?: boolean;
+}) {
+  const row = await getTechnicalContract(input);
+  const readiness = evaluateContractReadiness({
+    body: row.body,
+    unknownRestrictions: input.unknownRestrictions,
+    sourcesSufficient: input.sourcesSufficient,
+  });
+  if (!readiness.ready) {
+    throw new StudioError(
+      "REQUIRES_REQUALIFICATION",
+      `Promotion READY refusée: ${readiness.blockedReasons.join("; ")}`,
+      { exposeMessage: true },
+    );
+  }
+  // Recompute fingerprint from persisted body — refuse if storage drifted.
+  const recomputed = technicalContractFingerprint(row.body);
+  if (recomputed !== row.fingerprint) {
+    throw new StudioError(
+      "REQUIRES_REQUALIFICATION",
+      "Empreinte ≠ représentation persistée — nouvelle version requise",
+      { exposeMessage: true },
+    );
+  }
+  await db
+    .update(technicalContracts)
+    .set({
+      status: "READY",
+      readinessJson: JSON.stringify(readiness),
+      updatedAt: new Date(),
+    })
+    .where(
+      and(
+        eq(technicalContracts.id, input.contractId),
+        eq(technicalContracts.projectId, input.projectId),
+        eq(technicalContracts.pilotId, input.pilotId),
+        eq(technicalContracts.status, "DRAFT"),
+      ),
+    );
+  return { contractId: input.contractId, status: "READY" as const, readiness, fingerprint: row.fingerprint };
 }
 
 export async function getTechnicalContract(input: {
@@ -172,11 +287,19 @@ function rowToContract(row: typeof technicalContracts.$inferSelect) {
     acceptance: JSON.parse(row.acceptanceJson || "{}") as TechnicalContractBody["acceptance"],
     executor: JSON.parse(row.executorJson || "{}") as TechnicalContractBody["executor"],
     stopConditions: JSON.parse(row.stopConditionsJson || "[]") as string[],
-    reversibilityLimits: [],
+    reversibilityLimits: JSON.parse(row.reversibilityLimitsJson || "[]") as string[],
     gitScope: row.gitScopeJson
       ? (JSON.parse(row.gitScopeJson) as TechnicalContractBody["gitScope"])
       : null,
   };
+  let readiness: ContractReadiness | null = null;
+  if (row.readinessJson) {
+    try {
+      readiness = JSON.parse(row.readinessJson) as ContractReadiness;
+    } catch {
+      readiness = null;
+    }
+  }
   return {
     id: row.id,
     contractKey: row.contractKey,
@@ -185,6 +308,7 @@ function rowToContract(row: typeof technicalContracts.$inferSelect) {
     instructionFingerprint: instructionFingerprint(row.instructionText),
     status: row.status,
     body,
+    readiness,
     createdAt: row.createdAt.toISOString(),
     updatedAt: row.updatedAt.toISOString(),
   };

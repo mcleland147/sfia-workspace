@@ -35,6 +35,10 @@ export async function POST(req: Request, ctx: { params: Promise<{ projectId: str
       body?: TechnicalContractBody;
       sourceTurnCommandId?: string | null;
       supersedesContractId?: string | null;
+      /** Explicit promotion — syntax-complete alone never yields READY. */
+      markReady?: boolean;
+      unknownRestrictions?: string[];
+      sourcesSufficient?: boolean;
     };
     if (!body.contractKey || !body.body) {
       return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 400 });
@@ -47,6 +51,9 @@ export async function POST(req: Request, ctx: { params: Promise<{ projectId: str
       body: body.body,
       sourceTurnCommandId: body.sourceTurnCommandId,
       supersedesContractId: body.supersedesContractId,
+      markReady: body.markReady === true,
+      unknownRestrictions: body.unknownRestrictions,
+      sourcesSufficient: body.sourcesSufficient,
     });
     return NextResponse.json(result);
   } catch (e) {

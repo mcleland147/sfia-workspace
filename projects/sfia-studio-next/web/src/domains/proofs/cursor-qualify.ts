@@ -172,16 +172,30 @@ export function qualifyCursorRealization(
   };
 }
 
-/** Build a single global Nora analysis prompt payload — not an authority act. */
+/**
+ * Deterministic technical brief for the dossier — NOT Nora's cognitive analysis.
+ * Distinct from D8 qualification, Nora opinion, and D6 decision.
+ */
 export function buildNoraFinalAnalysisBrief(q: CursorQualificationResult): string {
   const lines = [
-    "Analyse globale unique de tentative (après fin ou interruption réconciliée).",
+    "[BRIEF TECHNIQUE DÉTERMINISTE — pas un avis Nora cognitif]",
+    "Dossier de tentative (après fin ou interruption réconciliée).",
     `Verdict D8: ${q.verdict}`,
     "Rubriques:",
     ...q.rubrics.map((r) => `- ${r.title} [${r.coverage}]: ${r.content.slice(0, 200)}`),
     "Limites:",
     ...q.limits.map((l) => `- ${l}`),
+    "Distinctions: brief technique ≠ qualification D8 ≠ avis Nora ≠ décision D6.",
     "Ceci n'est pas une HumanDecision ni une acceptation Morris.",
+    "Un avis Nora cognitif requiert un run Nora sur ce dossier (sources attachées).",
   ];
   return lines.join("\n");
+}
+
+export type NoraAnalysisKind = "TECHNICAL_BRIEF" | "NORA_COGNITIVE" | "UNAVAILABLE";
+
+export function classifyAttachedNoraPayload(markdown: string | null | undefined): NoraAnalysisKind {
+  if (!markdown?.trim()) return "UNAVAILABLE";
+  if (markdown.includes("BRIEF TECHNIQUE DÉTERMINISTE")) return "TECHNICAL_BRIEF";
+  return "NORA_COGNITIVE";
 }

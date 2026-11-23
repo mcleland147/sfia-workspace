@@ -26,6 +26,11 @@ export type CursorDispatchInput = {
   /** SDK idempotency — must equal attemptId to prevent blind retry. */
   idempotencyKey: string;
   modelId?: string;
+  /**
+   * When false (LIVE default for HTTP), return after ACK / first observation.
+   * SCRIPTED still completes immediately. Full wait remains available for workers.
+   */
+  waitForTerminal?: boolean;
 };
 
 export type CursorDispatchResult = {
@@ -150,6 +155,28 @@ export async function dispatchCursorRun(
   });
   ackReceivedAt = new Date().toISOString();
   if (!runObservedAt) runObservedAt = ackReceivedAt;
+
+  const waitForTerminal = input.waitForTerminal === true;
+  if (!waitForTerminal) {
+    return {
+      mode,
+      sendRequestedAt,
+      ackReceivedAt,
+      runObservedAt,
+      agentId: agent.agentId,
+      runId: run.id ?? null,
+      terminalStatus: null,
+      lastActivitySummary: lastActivitySummary ?? "SDK_ACK_ACCEPTED_NOT_TERMINAL",
+      resultText: null,
+      limits: [
+        "LIVE_SDK",
+        "DISPATCH_ACCEPTED_WITHOUT_WAIT",
+        "REPORT_MUST_BE_INGESTED_SEPARATELY",
+        "SUPERVISION_REQUIRES_RECONCILE_OR_WORKER",
+      ],
+    };
+  }
+
   const waited = await run.wait();
   const terminal =
     waited.status === "finished" ||
@@ -167,7 +194,7 @@ export async function dispatchCursorRun(
     terminalStatus: terminal,
     lastActivitySummary: lastActivitySummary ?? `SDK_${String(waited.status).toUpperCase()}`,
     resultText: typeof waited.result === "string" ? waited.result : null,
-    limits: ["LIVE_SDK", "REPORT_MUST_BE_INGESTED_SEPARATELY"],
+    limits: ["LIVE_SDK", "REPORT_MUST_BE_INGESTED_SEPARATELY", "WAIT_COMPLETED_IN_ADAPTER"],
   };
 }
 

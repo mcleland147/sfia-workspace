@@ -15,7 +15,7 @@
 |---|---|---|---|---|
 | 12.01 | `1210:233` | Nora prépare une intervention | 1680×970 @ (100,190) | Fil Nora + activité préparation contrat |
 | 12.02 | `1211:117` | Inspecter le contrat Cursor | 1680×970 @ (1960,190) | Visionneuse 50/50 contrat |
-| 12.03 | `1211:676` | Confirmation du lancement · contrat de fond | 1680×970 @ (3820,190) | Overlay Oui/Non confirmation |
+| 12.03 | `1211:676` | Confirmation du lancement · contrat de fond | 1680×970 @ (3820,190) | **Seul overlay** de la page (`Modal / Confirmer le lancement` Oui/Non) |
 | 12.04 | `1211:277` | Exécution · Historique des interventions | 1680×970 @ (100,1370) | Liste interventions / tentatives |
 | 12.05 | `1211:424` | Contrat d’exécution · Instruction et autorité | 1680×970 @ (1960,1370) | Fiche contrat + autorité |
 | 12.06 | `1212:383` | Réalisation en cours · LIVE Cursor SDK | 1680×970 @ (3820,1370) | LIVE observé |
@@ -42,5 +42,8 @@
 ## Statut L1/L2
 
 - L0 : **FAIT** (node-ids natifs).
-- L1/L2 (Auto Layout, tokens, assets, PNG hash) : **EN COURS** — requis avant verdict H08/F2.
-- Captures PNG natives : à exporter par frame avant code fidélité.
+- L1 metadata : **FAIT** — `get_metadata` page `1209:2` (session `c2ce3ba7-75cb-4509-a7d0-2699722fabdb`) ; 14 frames 1680×970 confirmées.
+- L1 design context : **PARTIEL** — `get_design_context` frame **12.02** (`1211:117`) acquis (rail 246px, tokens `--bg/#0b101b`, `--accent/#7477ed`, panneaux 50/50, engagements 4, volets 6).
+- L2 tokens/assets PNG hashés pour les 14 états : **INCOMPLET**.
+- F2 runtime vs native : **NOT PROVEN** (pas de capture BROWSER servie ce cycle).
+- Note structure : Figma page 12 expose **Exécution** et **Résultats & preuves** dans Accès directs — runtime actuel mappe le parcours Cursor sur `?surface=publication` (libellé Résultats) sans nouveau shell ; écart rail « Exécution » documenté.

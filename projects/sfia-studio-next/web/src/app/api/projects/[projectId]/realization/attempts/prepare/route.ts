@@ -10,10 +10,13 @@ export async function POST(req: Request, ctx: { params: Promise<{ projectId: str
     const body = (await req.json()) as {
       contractId?: string;
       correlationKey?: string;
+      /** Server-side key only. Absolute client paths are rejected. */
+      workspaceKey?: string;
+      /** Legacy — rejected when absolute / escaping. */
       workspaceCwd?: string;
       mcpRequired?: string[];
     };
-    if (!body.contractId || !body.correlationKey || !body.workspaceCwd) {
+    if (!body.contractId || !body.correlationKey) {
       return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 400 });
     }
     const result = await prepareCursorExecution({
@@ -21,6 +24,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ projectId: str
       projectId,
       contractId: body.contractId,
       correlationKey: body.correlationKey,
+      workspaceKey: body.workspaceKey ?? "default",
       workspaceCwd: body.workspaceCwd,
       mcpRequired: body.mcpRequired,
     });

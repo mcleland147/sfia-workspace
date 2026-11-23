@@ -934,9 +934,11 @@ export const technicalContracts = pgTable(
     acceptanceJson: text("acceptance_json").notNull().default("{}"),
     executorJson: text("executor_json").notNull().default("{}"),
     stopConditionsJson: text("stop_conditions_json").notNull().default("[]"),
+    reversibilityLimitsJson: text("reversibility_limits_json").notNull().default("[]"),
     gitScopeJson: text("git_scope_json"),
     sourceTurnCommandId: text("source_turn_command_id"),
     supersedesContractId: text("supersedes_contract_id"),
+    readinessJson: text("readiness_json"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
@@ -1047,4 +1049,4 @@ export const noraActivityEvents = pgTable(
   ],
 );
 
-export const schemaRevision = "017_ml5_cursor_realization";
+export const schemaRevision = "018_ml5_contract_reversibility";
