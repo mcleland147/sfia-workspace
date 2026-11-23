@@ -4052,16 +4052,21 @@ Implémentation élargie mais conservatrice après réconciliation : **1 IMPLEME
 
 ## 18. État publication Review Handoff
 
-**Régularisation en cours** — pack FULL avec diffs exhaustifs ; tip distant précédent `f6ec6f7dd505fa02f0be63169edf3605f8eea256`. Ce §18 sera mis à jour après push L3 de régularisation.
+**`HANDOFF UPDATED — REMOTE VERIFIED`**
+
+Régularisation diffs exhaustifs publiée. Parent `f6ec6f7d` → contenu complet `1f7f09ff`.
 
 | Champ | Valeur |
 |---|---|
 | Mode | `publish-in-cycle` L3 borné |
 | Branche | `sfia/review-handoff` |
-| Parent attendu | `f6ec6f7dd505fa02f0be63169edf3605f8eea256` |
+| Commit distant (diffs complets) | `1f7f09ff70ea1ebf1141eed6c36397433cc07b78` |
+| Parent | `f6ec6f7dd505fa02f0be63169edf3605f8eea256` |
 | Message | `docs(review-handoff): complete ML5 pack diffs for static review` |
 | Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Inventaire figé | **IMPLEMENTED=1 · PARTIAL=74 · NOT_IMPL=24** |
-| Diffs pack | 9 créations complètes + 22 diffs modifiés complets |
+| Contenu | 9 créations intégrales + **22** diffs `diff --git` complets · inventaire 1/74/24 |
+| Tip précédent erroné corrigé | `74422df3…` n'est plus annoncé comme tip |
 | Push projet | **NONE** |
 | Worktree ML5 | branche `sfia/next-ml5-integrated-delivery-20261123` / HEAD `6cf33e99…` inchangé |
+
+Note: un push L3 d'attestation de ce §18 suit immédiatement ; le tip exact est le commit de publication de ce fichier.
