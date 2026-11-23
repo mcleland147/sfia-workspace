@@ -165,9 +165,22 @@ BROWSER / Playwright parcours : **NOT RUN**.
 
 Pas READY FOR RECETTE. P0 adressés en DEV ; parcours raccordé partiel ; F2/LIVE/B1 isolation ouverts.
 
-## 12. Review Handoff publication
+## 12. Review Handoff publication — PREUVES POST-PUSH
 
-Statut: **EN COURS DE PUBLICATION L3** — preuves post-push ci-dessous après push.
+| Champ | Valeur observée |
+|---|---|
+| Mode | `publish-in-cycle` L3 borné |
+| Branche | `sfia/review-handoff` |
+| Fichier | `sfia-review-handoff/latest-chatgpt-review.md` uniquement |
+| Commit handoff | `3e245a0c905ebfcdf7f2853f4dda4df97346e40f` |
+| Message | `docs(review-handoff): publish ML5 integration consolidation review` |
+| Push | fast-forward `d731c1d7..3e245a0c` → `origin/sfia/review-handoff` |
+| SHA distant vérifié | `3e245a0c905ebfcdf7f2853f4dda4df97346e40f` = LOCAL |
+| Relecture distante | OUI — en-tête ML5 Consolidation + verdict `ML5 PARTIAL — GOVERNED GAPS` + HEAD `6b7dac12` présents |
+| Push projet ML5 | **NONE** |
+| Worktree ML5 après opération | inchangé (branche `sfia/next-ml5-integrated-delivery-20261123@6b7dac12`) |
+
+**Statut:** `REVIEW HANDOFF PUBLISHED — CANONICAL REMOTE UPDATED`
 
 
 ## 13. Contenu intégral — fichiers créés
