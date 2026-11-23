@@ -859,7 +859,7 @@ export const effectAttempts = pgTable(
     projectId: text("project_id")
       .notNull()
       .references(() => projects.id),
-    kind: text("kind").notNull(), // GIT_PUBLICATION | GIT_MERGE
+    kind: text("kind").notNull(), // GIT_PUBLICATION | GIT_MERGE | CURSOR_EXECUTION
     status: text("status").notNull(),
     correlationKey: text("correlation_key").notNull(),
     fingerprint: text("fingerprint").notNull(),
@@ -909,4 +909,142 @@ export const observedGitFacts = pgTable(
   ],
 );
 
-export const schemaRevision = "012_auth_concurrency_safety";
+/** D7 — canonical technical contract versions (ML5). Distinct from Nora replyDraft. */
+export const technicalContracts = pgTable(
+  "technical_contracts",
+  {
+    id: text("id").primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id),
+    pilotId: text("pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    preparationId: text("preparation_id").references(() => preparations.id),
+    contractKey: text("contract_key").notNull(),
+    version: integer("version").notNull(),
+    fingerprint: text("fingerprint").notNull(),
+    status: text("status").notNull(),
+    title: text("title").notNull().default(""),
+    engagementsJson: text("engagements_json").notNull().default("{}"),
+    voletsJson: text("volets_json").notNull().default("{}"),
+    instructionText: text("instruction_text").notNull(),
+    risksJson: text("risks_json").notNull().default("[]"),
+    exclusionsJson: text("exclusions_json").notNull().default("[]"),
+    acceptanceJson: text("acceptance_json").notNull().default("{}"),
+    executorJson: text("executor_json").notNull().default("{}"),
+    stopConditionsJson: text("stop_conditions_json").notNull().default("[]"),
+    gitScopeJson: text("git_scope_json"),
+    sourceTurnCommandId: text("source_turn_command_id"),
+    supersedesContractId: text("supersedes_contract_id"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("technical_contracts_key_version_uidx").on(
+      t.projectId,
+      t.contractKey,
+      t.version,
+    ),
+    index("technical_contracts_project_idx").on(t.projectId),
+    index("technical_contracts_fingerprint_idx").on(t.fingerprint),
+  ],
+);
+
+/** D7 — realization handoff per Cursor attempt (immutable binding). */
+export const realizationHandoffs = pgTable(
+  "realization_handoffs",
+  {
+    id: text("id").primaryKey(),
+    attemptId: text("attempt_id")
+      .notNull()
+      .references(() => effectAttempts.id),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id),
+    pilotId: text("pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    contractId: text("contract_id")
+      .notNull()
+      .references(() => technicalContracts.id),
+    contractVersion: integer("contract_version").notNull(),
+    contractFingerprint: text("contract_fingerprint").notNull(),
+    status: text("status").notNull(),
+    reportMarkdown: text("report_markdown"),
+    manifestJson: text("manifest_json").notNull().default("{}"),
+    integrityHash: text("integrity_hash"),
+    sourceKind: text("source_kind").notNull().default("CURSOR"),
+    limitsJson: text("limits_json").notNull().default("[]"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("realization_handoffs_attempt_uidx").on(t.attemptId),
+    index("realization_handoffs_project_idx").on(t.projectId),
+    index("realization_handoffs_contract_idx").on(t.contractId),
+  ],
+);
+
+/** D8 — nine-rubric qualification snapshot per attempt. */
+export const realizationQualifications = pgTable(
+  "realization_qualifications",
+  {
+    id: text("id").primaryKey(),
+    attemptId: text("attempt_id")
+      .notNull()
+      .references(() => effectAttempts.id),
+    handoffId: text("handoff_id").references(() => realizationHandoffs.id),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id),
+    pilotId: text("pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    status: text("status").notNull(),
+    rubricsJson: text("rubrics_json").notNull().default("{}"),
+    verdict: text("verdict").notNull().default("INDETERMINATE"),
+    noraAnalysisMarkdown: text("nora_analysis_markdown"),
+    noraAnalysisAt: timestamp("nora_analysis_at", { withTimezone: true }),
+    limitsJson: text("limits_json").notNull().default("[]"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("realization_qualifications_attempt_uidx").on(t.attemptId),
+    index("realization_qualifications_project_idx").on(t.projectId),
+  ],
+);
+
+/** C1 — functional Nora activity events correlated to a turn (not authority). */
+export const noraActivityEvents = pgTable(
+  "nora_activity_events",
+  {
+    id: text("id").primaryKey(),
+    conversationId: text("conversation_id")
+      .notNull()
+      .references(() => conversations.id),
+    turnCommandId: text("turn_command_id")
+      .notNull()
+      .references(() => conversationTurnCommands.id),
+    ownerPilotId: text("owner_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    generationId: text("generation_id"),
+    sequence: integer("sequence").notNull(),
+    phase: text("phase").notNull(),
+    nature: text("nature").notNull(),
+    status: text("status").notNull(),
+    summary: text("summary").notNull().default(""),
+    detailJson: text("detail_json").notNull().default("{}"),
+    sourceRef: text("source_ref"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("nora_activity_events_turn_seq_uidx").on(t.turnCommandId, t.sequence),
+    index("nora_activity_events_turn_idx").on(t.turnCommandId),
+    index("nora_activity_events_conv_idx").on(t.conversationId),
+  ],
+);
+
+export const schemaRevision = "017_ml5_cursor_realization";

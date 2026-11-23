@@ -150,7 +150,7 @@ describe("PostgreSQL ML4 git collaboration corrective B1–B8 (SCRIPTED)", () =>
   });
 
   it("schema revision 008", () => {
-    expect(schemaRevision).toBe("012_auth_concurrency_safety");
+    expect(schemaRevision).toBe("017_ml5_cursor_realization");
   });
 
   it("AT-01: project works without Git connection", async () => {

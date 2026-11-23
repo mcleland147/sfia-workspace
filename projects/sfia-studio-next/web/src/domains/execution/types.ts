@@ -1,4 +1,4 @@
-export type EffectKind = "GIT_PUBLICATION" | "GIT_MERGE";
+export type EffectKind = "GIT_PUBLICATION" | "GIT_MERGE" | "CURSOR_EXECUTION";
 
 export type EffectAttemptStatus =
   | "PREPARED"
@@ -9,6 +9,92 @@ export type EffectAttemptStatus =
   | "CONFLICT"
   | "REQUIRES_REQUALIFICATION"
   | "FAILED";
+
+/** Four engagements immediately readable by the Pilote (D01/D04). */
+export type ContractEngagements = {
+  willDo: string;
+  willNotDo: string;
+  expectedResult: string;
+  pilotControl: string;
+};
+
+/** Six R2 D7 volets (D05). */
+export type ContractVolets = {
+  mission: string;
+  perimeter: string;
+  capabilitiesAuthority: string;
+  stopConditions: string;
+  proofsSources: string;
+  integrity: string;
+};
+
+export type TechnicalContractBody = {
+  title: string;
+  engagements: ContractEngagements;
+  volets: ContractVolets;
+  /** Full technical instruction — never truncated for storage. */
+  instructionText: string;
+  risks: string[];
+  exclusions: string[];
+  acceptance: {
+    criteria: string[];
+    expectedProofs: string[];
+  };
+  executor: {
+    kind: "CURSOR_SDK_LOCAL";
+    capabilities: string[];
+    permissionsNeeded: string[];
+  };
+  stopConditions: string[];
+  reversibilityLimits: string[];
+  gitScope?: {
+    required: boolean;
+    repositoryFullName?: string | null;
+    baseRef?: string | null;
+    workBranch?: string | null;
+    baseSha?: string | null;
+  } | null;
+};
+
+export type CursorExecutionPlan = {
+  kind: "CURSOR_EXECUTION";
+  contractId: string;
+  contractKey: string;
+  contractVersion: number;
+  contractFingerprint: string;
+  instructionFingerprint: string;
+  workspaceCwd: string;
+  effectProviderMode: "SCRIPTED" | "LIVE";
+  gitScope?: TechnicalContractBody["gitScope"];
+  mcpRequired: string[];
+};
+
+/**
+ * LIVE projection fields stored in effect_attempts.resultJson (not a second engine).
+ * Invariants: sendRequested ≠ runObserved; ack ≠ done; timeout ≠ no effect;
+ * stopRequested ≠ stopped; cancel ≠ rollback; finished ≠ conforming.
+ */
+export type CursorLiveProjection = {
+  sendRequestedAt?: string | null;
+  ackReceivedAt?: string | null;
+  runObservedAt?: string | null;
+  agentId?: string | null;
+  runId?: string | null;
+  lastActivitySummary?: string | null;
+  stopRequestedAt?: string | null;
+  stopObservedAt?: string | null;
+  terminalStatus?: "finished" | "error" | "cancelled" | "unknown" | null;
+  reportStatus?:
+    | "EXPECTED"
+    | "RECEIVED"
+    | "INCOMPLETE"
+    | "MISSING"
+    | "REJECTED"
+    | "UNVERIFIED"
+    | null;
+  limits?: string[];
+  claim?: unknown;
+};
 
 export type PublicationStep = "CREATE_BRANCH" | "PUBLISH_FILE" | "OPEN_PR";
 

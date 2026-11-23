@@ -3,6 +3,24 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-23-ML5-INTEGRATED-DELIVERY-SLICE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-23 (Europe/Paris) |
+| Macro-lot | ML5 — Cognition transverse + réalisation Cursor |
+| Type | CONSTRUCTION DEV · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| Base | `0f1d37c3b055371c84c1f30e9bebe3d0efee41b2` |
+| Worktree | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
+| Lane | DEV only — migration `017` sur `sfia_next_dev` ; RECETTE non touchée |
+| Contenu | Contrats techniques, tentatives `CURSOR_EXECUTION`, SDK SCRIPTED/LIVE adapter, handoff D8, activité C1, web sanitize/B1 gated, UI ContractViewer/Bilan, L0 Figma page 12 |
+| Tests | Vitest unit ML5 **17 PASS** (DETERMINISTIC) |
+| Preuves manquantes | LIVE SDK, LIVE web non-exfil, BROWSER F2 page 12, REAL GitHub, parcours UI câblé projet |
+| Push projet / PR / merge | **NONE** (mandat) |
+| STABLE | NOT AVAILABLE |
+| Verdict | **ML5 PARTIAL — GOVERNED GAPS** |
+
 ## delivery_id: DELIV-2026-11-22-ENSEMBLE08-GIT-POSTMERGE-CI
 
 | Field | Value |

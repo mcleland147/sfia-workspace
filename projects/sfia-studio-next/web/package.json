@@ -15,6 +15,7 @@
     "obs:query": "tsx scripts/obs-query.ts"
   },
   "dependencies": {
+    "@cursor/sdk": "^1.4.2",
     "@openai/agents": "^0.21.0",
     "better-auth": "^1.7.16",
     "drizzle-orm": "^0.45.4",
