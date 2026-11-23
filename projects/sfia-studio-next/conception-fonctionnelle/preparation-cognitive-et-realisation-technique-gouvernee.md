@@ -671,3 +671,92 @@ Studio n'a pas besoin d'un deuxième gestionnaire MCP généraliste dès ML5 ; i
 | Contrats successifs | Même historique projet, continuité par versions Git et tentatives |
 
 **Statut** : exigences de parcours portées par Morris ; interfaces, permissions et modes de transport **CANDIDATS, NON IMPLÉMENTÉS, NON PROUVÉS**. Aucun GO code/DB/PR/merge/adoption.
+
+# 19. Recentrage du périmètre ML5 — transmission des contrats et administration Cursor
+
+**Date :** 23 novembre 2026  
+**Statut :** complément fonctionnel candidat, validé en contenu par Morris et intégré sur branche de conception ; NOT MERGED  
+**Portée :** clarification des §§7–10, 17 et 18 ; aucune modification des propriétaires D3/D6/D7/D8/D9.
+
+## 19.1. Résultat utilisateur prioritaire
+
+L'objectif central de l'intégration Cursor dans SFIA Studio Next est de **supprimer le transfert manuel des prompts entre Studio et Cursor**.
+
+Le Pilote dialogue avec Nora, examine le contrat technique et autorise son exécution. Studio transmet automatiquement à Cursor SDK **l'instruction exacte, complète et versionnée** correspondant au contrat autorisé.
+
+La réalisation demeure confiée à Cursor. Studio conserve les informations nécessaires pour suivre l'exécution, récupérer les résultats, en vérifier les références et permettre une analyse globale de Nora.
+
+Le parcours nominal ne doit exiger aucun copier-coller, aucune ressaisie du prompt ni aucune ouverture manuelle d'une conversation Cursor pour chaque mission.
+
+## 19.2. Cursor reste un environnement administrable
+
+ML5 ne vise pas à supprimer Cursor Desktop ni à rendre son administration inaccessible ou entièrement automatique.
+
+Le Pilote ou l'administrateur peut, hors du parcours nominal :
+
+- installer et maintenir Cursor Desktop et Cursor SDK ;
+- laisser Cursor Desktop ouvert sur le Mac ou le serveur ;
+- configurer les comptes, modèles, MCP et intégrations ;
+- établir les authentifications et autorisations requises ;
+- effectuer une opération de maintenance ou résoudre un blocage exceptionnel.
+
+L'absence d'intervention humaine **pendant le parcours nominal de transmission** est un objectif d'usage ; elle ne constitue pas une interdiction générale d'intervenir dans Cursor.
+
+Une instance Cursor Desktop ouverte ne représente toutefois pas, en elle-même, une preuve que les approbations interactives du SDK seront disponibles.
+
+## 19.3. Frontière minimale de Studio
+
+Studio doit assurer :
+
+1. La préparation et l'inspection du contrat et de son instruction exacte.
+2. La vérification du mandat D6 et de ses conditions au point d'exécution.
+3. La transmission à Cursor SDK, avec identité de tentative et protection contre les doublons.
+4. La présentation d'états LIVE sobres et fidèles.
+5. La récupération des résultats, fichiers, références Git et preuves accessibles.
+6. Le contrôle final D8/D9, puis une seule analyse globale de Nora.
+7. La continuité du projet et des tentatives successives.
+
+Studio ne doit pas construire par défaut un gestionnaire généraliste de Cursor Desktop, des MCP, des connexions OAuth ou des demandes d'approbation d'outils.
+
+La configuration et l'administration de l'environnement Cursor restent des responsabilités d'exploitation, potentiellement exercées manuellement par Morris.
+
+## 19.4. MCP et permissions
+
+Les outils MCP nécessaires à une mission peuvent être installés, configurés et authentifiés au préalable dans l'environnement Cursor.
+
+Au lancement, Studio doit seulement établir que les capacités indispensables à la mission sont disponibles dans l'environnement réellement utilisé par le SDK et que les droits applicables ne sont pas dépassés.
+
+Un MCP indisponible ou bloqué par une approbation non satisfaite produit une indisponibilité ou un STOP explicite. Studio ne doit ni fabriquer une autorisation ni désactiver silencieusement les protections du SDK.
+
+Les essais Figma, Canva et autres MCP spécialisés sont **conditionnels aux missions qui les nécessitent**. Ils ne sont pas des conditions de fonctionnement universelles de ML5.
+
+## 19.5. Git, rapport et revue finale
+
+Le mécanisme Git doit réutiliser les responsabilités D7/D9. Le choix entre publication directe techniquement bornée et publication contrôlée reste à qualifier selon les effets réellement nécessaires.
+
+La modalité B, où Cursor réalise les changements et où leur publication est vérifiée par un mécanisme gouverné, constitue une orientation candidate. Elle ne justifie pas à elle seule la création d'un nouveau moteur Git.
+
+Pour les travaux sur dépôt, les versions effectivement publiées assurent une continuité vérifiable entre missions. Les éléments locaux non publiés restent explicitement distingués des éléments accessibles sur Git.
+
+Pendant l'exécution, aucune revue cognitive intermédiaire obligatoire. Après fin ou interruption réconciliée, D8/D9 confrontent les preuves disponibles et Nora produit une analyse globale unique.
+
+## 19.6. Scénarios d'acceptation complémentaires
+
+| Scénario | Résultat observable attendu |
+| --- | --- |
+| **Q-49 — Transmission sans copier-coller** | Un contrat autorisé dans Studio produit un run Cursor SDK sans intervention manuelle de transfert d'instruction. |
+| **Q-50 — Fidélité du contrat** | L'instruction reçue correspond exactement à la version inspectée et autorisée ; aucune troncature ou substitution silencieuse. |
+| **Q-51 — Administration externe** | L'administrateur peut configurer Cursor Desktop, les comptes et MCP sans gestionnaire équivalent requis dans Studio. |
+| **Q-52 — Dépendance MCP** | Une mission disposant de ses capacités requises peut s'exécuter ; une capacité obligatoire indisponible entraîne une erreur ou une requalification explicite. |
+| **Q-53 — Reconnexion** | La fermeture de Studio ne provoque pas de nouvelle tentative Cursor et ne fait pas perdre les faits durables observés. |
+| **Q-54 — Remise finale** | Studio retrouve des résultats et références vérifiables, ou expose les manques ; la réponse finale SDK ne suffit pas à prouver l'exhaustivité. |
+| **Q-55 — Revue unique** | Nora analyse le dossier après fin ou interruption réconciliée, sans réévaluer chaque événement ni chaque commit. |
+| **Q-56 — Périmètre proportionné** | Une mission ne nécessite pas d'outils MCP, de publication Git ou d'administration Cursor supplémentaires lorsqu'ils sont sans rapport avec le travail demandé. |
+
+## 19.7. Limites et condition de sortie de préparation
+
+Cette clarification fixe la frontière fonctionnelle. Elle ne constitue ni un contrat physique d'API SDK, ni une décision de migration DB, ni une preuve d'intégration dans Studio Next.
+
+La préparation fonctionnelle est suffisamment cadrée pour une revue de clôture avec réserves. Les choix d'implémentation et preuves de comportement appartiennent au futur macro-lot de construction, sous les gates Morris applicables.
+
+**Statut : DOCUMENTED CANDIDATE — NOT IMPLEMENTED / NOT BEHAVIOR PROVEN / NOT ADOPTED.**

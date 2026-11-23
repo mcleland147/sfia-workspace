@@ -1477,3 +1477,122 @@ Les valeurs de cycle sont **qualifications conceptuelles**, pas un nouvel enum r
 **Vérifications bloquantes sous GO technique distinct** : version SDK et import LIVE, tool_call normal/erreur/annulation, crash/reconnexion/ACK perdu sans second effet, branches/permissions/push réel bornés, handoff/captures consultables, contrôle de couverture D8 et revue finale Nora, deux contrats sur un dépôt, **MCP Figma/Canva réellement chargé et authentifié** sous SDK local puis vérification sur serveur isolé, mutation MCP hors mandat techniquement empêchée. DETERMINISTIC, BROWSER, LIVE SDK et REAL Git distincts.
 
 **Statut : DESIGN CONTRACTS DOCUMENTED / SDK LOCAL PREFERRED / MCP SUPPORT DOCUMENTED / IMPLEMENTATION AND BEHAVIOR NOT PROVEN / NO ARCHITECTURE ADOPTED / GATE C OPEN.**
+
+## 18.14. Recentrage de l'intégration Cursor et enseignements de la qualification SDK
+
+**Date :** 23 novembre 2026  
+**Statut :** conception technique candidate validée en contenu par Morris ; complément aux §§18.1–18.13 ; NOT MERGED  
+**Preuve de référence :** [Review Handoff L3 au commit bacee519](https://github.com/mcleland147/sfia-workspace/blob/bacee519a4639114bf80775abf8197f0fe346128/sfia-review-handoff/latest-chatgpt-review.md), blob \`fbea7f6a036ce4d4d59e1082ae9724cb3e0aac62\`.
+
+### 18.14.1. Frontière d'architecture retenue pour la préparation
+
+SFIA Studio Next doit prendre en charge le transfert automatique d'une instruction technique gouvernée vers Cursor SDK, puis la récupération des observations et réalisations nécessaires à la continuité et à la revue finale.
+
+Cursor conserve son environnement d'exécution, ses configurations locales, ses MCP, ses authentifications et ses moyens d'administration.
+
+Cursor Desktop peut être installé et rester ouvert, sur le Mac de développement ou sur le futur serveur. Son ouverture permanente n'est ni interdite ni exigée par le contrat Studio.
+
+La communication avec Cursor SDK reste une intégration technique distincte de l'interface Desktop. Le fonctionnement des approbations et des sessions partagées ne peut pas être inféré de la seule présence de Desktop.
+
+**Conséquence :** aucun service généraliste d'administration Cursor ou de gestion MCP n'entre par défaut dans le périmètre ML5.
+
+### 18.14.2. Contrat minimal de transmission et de retour
+
+Réutiliser le propriétaire D7 déjà présent dans Next, sans introduire de second moteur d'effets.
+
+Le lancement doit associer :
+
+- l'identité du Pilote et du projet ;
+- le contrat inspecté, sa version et son empreinte ;
+- le mandat D6 applicable ;
+- l'instruction exacte transmise au SDK ;
+- l'identité unique de tentative ;
+- l'environnement et le workspace cibles ;
+- les identifiants SDK observés ;
+- les références Git applicables, lorsque la mission porte sur un dépôt.
+
+D7 conserve l'identité et les conditions de tentative avant le dispatch. Un défaut de réponse, une fermeture du navigateur ou une perte d'ACK impose une réconciliation avant tout nouveau lancement.
+
+L'exécution longue peut requérir un processus supervisé indépendant de la requête HTTP. Ce mécanisme est un détail d'exécution à qualifier, non un second propriétaire de tentative.
+
+Le store SDK conserve les informations du fournisseur. Le journal D7 conserve la vérité métier des tentatives et de leurs autorisations.
+
+### 18.14.3. MCP : administration externe, disponibilité vérifiée
+
+La configuration initiale des MCP peut être effectuée manuellement par Morris dans l'environnement Cursor.
+
+Le SDK peut réutiliser des configurations et authentifications compatibles, mais leur chargement réel doit être contrôlé. Le Mac et le futur serveur possèdent leurs propres identités OS, dépendances, configurations et sessions.
+
+Le préflight de mission distingue : outil configuré ; outil chargé et joignable par le SDK ; authentification effective ; capacité requise réellement invocable ; permission compatible avec le mandat.
+
+Une connexion au fournisseur ne prouve pas qu'une action précise sera autorisée par les mécanismes de sécurité du SDK.
+
+**Politique d'architecture candidate :** privilégier les permissions et outils existants, bornés au besoin, avant de créer un nouveau mécanisme d'approbation. Ne pas assimiler une désactivation globale de sandbox à une solution satisfaisante.
+
+Lorsqu'une mission exige Figma, Canva ou un autre MCP, la qualification de cet outil est nécessaire pour cette mission. Aucune obligation universelle de configurer ou tester tous les MCP dans le macro-lot.
+
+### 18.14.4. Preuves SDK obtenues le 23 novembre 2026
+
+La campagne \`ML5 C9\` s'est déroulée en sandbox locale isolée sur macOS ARM64 : \`@cursor/sdk\` \`1.4.2\`, Node.js \`v24.16.0\`, modèle \`composer-2.5\`, store JSONL isolé ; verdict **PASS WITH RESERVES**.
+
+- **Run LIVE :** création, envoi, streaming, attente et terminaison ; fichier témoin identifié.
+- **Événements :** 22 événements rapportés, dont 2 \`status\`, 3 \`tool_call\` et 10 \`thinking\`. Contrairement à la seule hypothèse documentaire antérieure, des événements \`status\` ont été rapportés sur cet agent local dans cette version du SDK. Leur portée exacte et la projection filtrée nécessitent un contrôle à l'intégration.
+- **Reprise :** même identité d'agent retrouvée après redémarrage du processus, nouveau run distinct, fichier témoin préservé. Ce résultat ne prouve pas la récupération d'un run interrompu brutalement en cours d'effet ni la résolution d'une perte d'ACK.
+- **Annulation :** terminal \`cancelled\` observé ; pas de garantie de rollback des effets déjà produits.
+- **Git :** commits, push vers remote bare local, relecture du SHA et refus de push divergent. Aucun push GitHub REAL démontré.
+- **MCP :** appels de contrôle réussis via \`customTools\` et MCP stdio dans une configuration autorisée ; découverte Penpot utilisateur. Figma/Canva non testés en usage réel. Un MCP stdio sous sandbox a rencontré une approbation interactive non satisfaite en mode headless.
+- **Handoff :** rapport et manifeste expérimentaux produits, omission volontaire détectée par contrôle de couverture. Le contenu intégral des scripts et pièces locales n'était pas entièrement accessible pour revue Git indépendante.
+
+Cette campagne confirme une faisabilité partielle du SDK local ; elle ne démontre ni intégration D7 de Next, ni sécurité MCP de production, ni GitHub REAL, ni comportement bout en bout de Nora.
+
+### 18.14.5. Git : réutilisation avant construction supplémentaire
+
+Deux options demeurent ouvertes :
+
+- **A — Git direct dans Cursor**, techniquement limité par ses droits effectifs.
+- **B — Cursor réalise les fichiers, publication contrôlée sous D7/D9.**
+
+La campagne recommande B, mais cette préférence ne constitue pas une architecture adoptée.
+
+La qualification suivante doit examiner comment réutiliser les opérations Git gouvernées déjà présentes dans Next. Un composant distinct de publication n'est justifié que si une responsabilité technique indispensable ne peut pas être satisfaite par l'existant. Les missions sans mutation Git ne doivent pas être forcées dans un parcours de publication artificiel.
+
+Pour les missions modifiant un dépôt, conserver les invariants de branche, base SHA, publication bornée, relecture distante et continuité entre contrats, sans PR/merge implicites.
+
+### 18.14.6. Revue finale et récupération des productions
+
+À la terminaison ou après réconciliation d'une interruption :
+
+1. D7 retrouve identités, états, observations et références de tentative.
+2. D9 vérifie les faits Git réels lorsque Git est concerné.
+3. D8 confronte inventaire, modifications, artefacts accessibles, tests et limites.
+4. Nora reçoit le dossier vérifié ou explicitement partiel et produit une seule analyse globale.
+
+L'absence de rapport complet ne doit provoquer ni effacement des observations, ni répétition automatique de la mission.
+
+Le handoff Studio demeure propre à chaque tentative ; il est distinct du Review Handoff externe SFIA v2.6.
+
+### 18.14.7. Contrat d'acceptation intégré futur
+
+Le premier parcours produit devra prouver, sans copier-coller :
+
+- la fidélité entre instruction inspectée et instruction transmise ;
+- l'absence de doublon après double clic ou réponse perdue ;
+- une exécution Cursor SDK réellement lancée ;
+- l'observation d'états LIVE factuels et filtrés ;
+- la continuité après fermeture du navigateur ;
+- la récupération de réalisations et références exactes ;
+- la qualification des preuves et une analyse finale Nora ;
+- l'absence d'effet Git ou MCP hors mandat ;
+- la possibilité d'administrer Cursor séparément de Studio.
+
+Les essais spécialisés GitHub REAL et MCP Figma/Canva sont déclenchés lorsqu'ils sont nécessaires à la capacité effectivement construite. Ils restent obligatoires avant de revendiquer le comportement réel correspondant, sans constituer un prérequis général à toute transmission de prompt.
+
+### 18.14.8. Sortie de préparation et réserves gouvernées
+
+La préparation des axes A, B, C et D peut être soumise à une revue globale de complétude, sans nouveau chantier de conception généraliste.
+
+Réserves à transférer au futur delivery : disponibilité, reprise et atomicité D3 ; investigation web et événements disponibles ; transport/reconnexion activité ; dispatch D7, ACK perdu et crash ; confinement SDK/outils ; publication Git appropriée ; stockage et intégrité du handoff ; accès des preuves à D8 et Nora ; essais bout en bout, BROWSER et REAL.
+
+Aucun sujet ne devient automatiquement un macro-lot préparatoire séparé. Décisions structurantes ou évolutions de persistance : gate Morris propre.
+
+**Verdict : PREPARATION TECHNIQUE DOCUMENTED WITH GOVERNED GAPS — CANDIDATE / NOT IMPLEMENTED / NOT BEHAVIOR PROVEN / GATE C OPEN.**
