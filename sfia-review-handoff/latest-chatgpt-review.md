@@ -2311,4 +2311,19 @@ Implémentation élargie (9 IMPLEMENTED / 70 PARTIAL / 20 NOT_IMPL). Sécurité 
 
 ## 18. État publication Review Handoff
 
-À compléter après publish-in-cycle.
+**`HANDOFF UPDATED — REMOTE VERIFIED`**
+
+| Champ | Valeur |
+|---|---|
+| Mode | `publish-in-cycle` L3 borné |
+| Branche | `sfia/review-handoff` |
+| Commit distant | `4d5d17330e8cc10e18c1b048a795d7e1b943782b` |
+| Parent | `897578692368940065e2b7a3e650e739fe909119` |
+| Message | `docs(review-handoff): publish ML5 functional completion review` |
+| Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Blob git | `d95fb23edea114cf2eefb5982d7db180d5f4091b` |
+| SHA-256 contenu (pack initial publié) | `e693e9c9f46ab4bc0bf9808e02fa14e256c9ef39f810407c107f915500dfa5fd` |
+| Push projet | **NONE** |
+| Worktree ML5 | branche `sfia/next-ml5-integrated-delivery-20261123` / HEAD `6cf33e99…` inchangé |
+
+Note: ce §18 est la preuve de vérification distante du pack FULL ; un amendement mono-fichier peut suivre uniquement pour figer ce tableau sur le remote.
