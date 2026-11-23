@@ -100,9 +100,135 @@ Aucune opération destructrice. Modifications cycle 3 préservées et étendues.
 
 ## 4. Inventaire 99 exigences
 
-Voir registre §3 ter (exhaustif) : **IMPLEMENTED=9 · PARTIAL=70 · NOT_IMPL=20**.
+Source vivante : registre `ml5-registre-couverture-et-revue-developpement.md` §3 ter.
 
-Les 99 lignes sont dans `projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md` section « 3 ter ».
+## 3 ter. Inventaire d'implémentation A01–I11 (cycle 4 — 2026-11-23, réconcilié)
+
+> Axe **Implémentation** distinct de la conformité (NV/PARTIEL/VÉRIFIÉ).
+> Réconcilié avec l'inventaire explore [Inventory A01-I11](28376cd8-26ca-4d04-95ec-34395679e40f) et les correctifs cycle 4 (journal sources, frontier B1, sendIntent, READY prepId, classification synthèse).
+> IMPLEMENTED = comportement constitutif raccordé sans manques essentiels. PARTIAL = pièces présentes. NOT_IMPL = absent.
+
+| ID | Impl | Owner | Fichiers / fonctions | Écart / exit |
+|---|---|---|---|---|
+| `A01` | PARTIAL | D3 | semantic-qualification, nora-adapter | Qualification courte hors intent contrat non consolidée dans investigation-state |
+| `A02` | PARTIAL | D3 | cognitive-policy, nora-adapter tools | Profondeur non exposée transversalement sas/document/bilan |
+| `A03` | PARTIAL | D3/D7 | nora-contract-bridge, nora-contract-prepare, tool-source-journal | Intent + sources CONSULTED/VERIFIED requises (journal cycle 4) ; GO préparation explicite absent |
+| `A04` | NOT_IMPL | D3 | — | Brouillon correctif spontané hors nouveau dispatch absent |
+| `A05` | PARTIAL | D3/D7 | REQUIRES_REQUALIFICATION, fingerprint mismatch | Anti-boucle partielle ; pas de requal hors mandat complète |
+| `A06` | PARTIAL | D3 | investigation-state questions | Pas de conducteur séquencé révision questions↔découvertes |
+| `A07` | PARTIAL | D3/D4 | d4-read-tools+journal, git/history tools | Lectures D4 journalisées CONSULTED ; git/history journal incomplet |
+| `A08` | PARTIAL | D3 | investigation-state SourceCoverage, tool-source-journal | Types OK ; VERIFIED rare ; peuplement partiel |
+| `A09` | PARTIAL | D3/D7 | technical-contract-server-ready | READY serveur ; snapshot sans lecture D4 live systématique |
+| `A10` | PARTIAL | D3 | investigation-persistence | Snapshot durable ; consolidation acquis D4 incomplète |
+| `A11` | PARTIAL | D3 | investigation-persistence, resumeInvestigation | Reprise mid-turn/incident non branchée au fil |
+| `A12` | PARTIAL | D3 | cognitive-policy | Économie simple sur tour projet seulement |
+| `B01` | PARTIAL | D3 | public-web-search-frontier (cycle 4) | SCRIPTED query-only ; LIVE gated ; hosted tool détaché |
+| `B02` | PARTIAL | D3 | public_web_open_page SCRIPTED | Ouverture LIVE non implémentée |
+| `B03` | NOT_IMPL | D3 | — | Confrontation dates/applicabilité absente |
+| `B04` | NOT_IMPL | D3 | — | Citations/fraîcheur UX absentes |
+| `B05` | PARTIAL | D3 | frontier coverage DISCOVERED/CONSULTED via open | Distinction partielle runtime ; UX absente |
+| `B06` | PARTIAL | D3 | instructions non-autorité + résultats untrusted | Injection LIVE non prouvée |
+| `B07` | PARTIAL | D3 | frontier outbound log + sanitize | Non-exfil SCRIPTED testé ; WEB LIVE NOT PROVEN |
+| `B08` | PARTIAL | D3 | frontier DENIED/TIMEOUT/budget calls | Timeout/reprise web partielle |
+| `B09` | NOT_IMPL | D3 | — | Compatibilité fournisseur web LIVE absente |
+| `C01` | PARTIAL | D3 | appendActivityEvent, service producers | UI fil n'affiche pas GET activity pendant RUNNING |
+| `C02` | PARTIAL | D3 | natures + OBSERVED sources journal (cycle 4) | Événements outil OBSERVED partiels (D4/WEB ; git/history incomplets) |
+| `C03` | PARTIAL | D3 | activity sourceRef depuis journal | Relier lectures git/history encore ouvert |
+| `C04` | PARTIAL | D3 | status FAILED/LIMITED | Affichage UX limites incomplet |
+| `C05` | NOT_IMPL | D3/UX | compactActivitySummary helper only | UI résumé+détail repliable absente |
+| `C06` | PARTIAL | D3 | listActivityEvents API | Sans consommateur UX reconnexion |
+| `C07` | NOT_IMPL | D3 | polling endpoint existe | Fraîcheur/régression non prouvée |
+| `C08` | PARTIAL | D3 | ownerToken fence + redact | Isolation multi-Pilote incomplete |
+| `D01` | PARTIAL | D3/D7 | nora-contract-prepare + bridge + journal | Pas multi-sources LIVE bout-en-bout |
+| `D02` | PARTIAL | D7 | server-ready ; client prepId ignoré (cycle 4) | Droits révoqués BROWSER ouvert |
+| `D03` | PARTIAL | D7 | technical-contract + fingerprint + mig 018 | Versions OK ; changement matériel helper non branché |
+| `D04` | PARTIAL | D7/UX | ContractViewer | Pas 50/50 Travail Figma 12.02 |
+| `D05` | PARTIAL | D7/UX | ContractViewer volets | Inspectable Exécution, pas Travail |
+| `D06` | PARTIAL | D7/UX | instruction_text + expand | F2 12.14 ouvert |
+| `D07` | PARTIAL | D6/D7 | authorize fingerprint + dispatch | LIVE octets SDK non garantis |
+| `D08` | PARTIAL | D7 | fingerprint mismatch au dispatch | isMaterialContractChange non appelé |
+| `D09` | NOT_IMPL | D3/UX | Travail = document viewer | Pas visionneuse 50/50 fil+contrat |
+| `D10` | PARTIAL | D6/UX | d6-confirm sur Exécution | Pas 12.03 générique sur Travail |
+| `D11` | PARTIAL | D6/D7 | assertCurrentCursorAuthority | MCP réel non vérifié |
+| `D12` | PARTIAL | D7 | FKs attempt/contract/pilot/project | Cycle D5 optionnel non câblé |
+| `E01` | PARTIAL | D7 | dispatchCursorRun SCRIPTED/LIVE env | Parcours LIVE Studio incomplet |
+| `E02` | PARTIAL | D7 | workspace-resolver | Pas admin Desktop/MCP Studio (by design) |
+| `E03` | PARTIAL | D7 | prepareCursorExecution + correlationKey | — |
+| `E04` | PARTIAL | D7 | claim + sendRequestedAt atomique (cycle 4) | Vérité SDK LIVE partielle |
+| `E05` | PARTIAL | D7 | waitForTerminal=false LIVE | Worker long-run absent |
+| `E06` | PARTIAL | D7/UX | CursorLiveProjection + execution surface | Événements SDK partiels |
+| `E07` | PARTIAL | D7 | CursorLiveProjection fields | — |
+| `E08` | PARTIAL | D7 | stop API | Effets partiels partiels |
+| `E09` | PARTIAL | D7 | priorSend + fence + sendIntent ; PG T-04 | LIVE ACK-loss E2E ouvert |
+| `E10` | PARTIAL | D7 | reconcile + crash-before-SDK via sendIntent | Reconnect navigateur incomplet |
+| `E11` | PARTIAL | D7/UX | attempts list execution | Historique Figma 12.04/05 non équivalent |
+| `E12` | NOT_IMPL | D7 | mcpRequired listé seulement | Vérif MCP absente |
+| `E13` | IMPLEMENTED | D7 | pas d'admin MCP Studio | Exigence négative respectée |
+| `E14` | PARTIAL | D7 | gitScope/mcp optionnels | — |
+| `E15` | PARTIAL | D7 | workspace-resolver root | Isolation OS/Pilotes non prouvée |
+| `F01` | NOT_IMPL | D7/D9 | ML4 Git seulement ; A/B non ADOPTED | Arbitrage Morris A/B |
+| `F02` | NOT_IMPL | D7/D9 | ML4 Git seulement ; A/B non ADOPTED | Arbitrage Morris A/B |
+| `F03` | NOT_IMPL | D7/D9 | ML4 Git seulement ; A/B non ADOPTED | Arbitrage Morris A/B |
+| `F04` | NOT_IMPL | D7/D9 | ML4 Git seulement ; A/B non ADOPTED | Arbitrage Morris A/B |
+| `F05` | NOT_IMPL | D7/D9 | ML4 Git seulement ; A/B non ADOPTED | Arbitrage Morris A/B |
+| `F06` | NOT_IMPL | D7/D9 | ML4 Git seulement ; A/B non ADOPTED | Arbitrage Morris A/B |
+| `F07` | NOT_IMPL | D7/D9 | ML4 Git seulement ; A/B non ADOPTED | Arbitrage Morris A/B |
+| `F08` | NOT_IMPL | D7/D9 | ML4 Git seulement ; A/B non ADOPTED | Arbitrage Morris A/B |
+| `F09` | NOT_IMPL | D7/D9 | ML4 Git seulement ; A/B non ADOPTED | Arbitrage Morris A/B |
+| `G01` | PARTIAL | D7 | realization_handoffs UNIQUE | — |
+| `G02` | PARTIAL | D7 | handoff fields | — |
+| `G03` | PARTIAL | D7 | report + gaps | Structuration incidents/STOP incomplète |
+| `G04` | PARTIAL | D8 | inventoryComplete | Acquisition serveur auto absente |
+| `G05` | PARTIAL | D7 | reportMarkdown | Lecture Git D9 pièces absente |
+| `G06` | PARTIAL | D8 | qualify testsDeclared/Captured | Collecte runtime tests absente |
+| `G07` | NOT_IMPL | D8 | — | Captures originales absentes |
+| `G08` | PARTIAL | D7 | one handoff/attempt | — |
+| `G09` | PARTIAL | D7/D8 | REJECTED/INCOMPLETE | — |
+| `G10` | PARTIAL | D7/D8 | gitFactsVerified hook | Feed D9 Cursor non branché |
+| `G11` | PARTIAL | D8/UX | 9 rubrics + 4 tabs | Recoupement réel faible ; F2 ouvert |
+| `G12` | PARTIAL | D3/D8 | DETERMINISTIC_SYNTHESIS ≠ NORA_COGNITIVE (cycle 4) | Run D3 LIVE post-tentative ouvert |
+| `G13` | PARTIAL | D8/UX | labels + surfaces execution/publication | — |
+| `G14` | PARTIAL | UX | onDiscussWithNora draft | Référence bilan structurée absente |
+| `G15` | NOT_IMPL | D8 | — | Requalification datée absente |
+| `H01` | NOT_IMPL | UX | Travail NoraConversation | 12.01 activité/contrat préparation Figma absent |
+| `H02` | NOT_IMPL | UX | ContractViewer sur Exécution seulement | 12.02/03/14 Travail 50/50 absent |
+| `H03` | PARTIAL | UX | surface=execution | Identité/versions partielles vs 12.04/05 |
+| `H04` | PARTIAL | UX | AMBIGUOUS + live projection | États LIVE Figma incomplets |
+| `H05` | PARTIAL | UX | RealizationBilan 4 onglets | Fidélité 12.08/11-13 ouverte |
+| `H06` | PARTIAL | UX | discuss→Travail | Frame 12.09 non F2 |
+| `H07` | PARTIAL | UX | sas preparations activity | C1 sas ML5 partiel |
+| `H08` | NOT_IMPL | UX | L0/L1 docs antérieurs | Pipeline F2 méthode v1.1 absent ce cycle |
+| `I01` | PARTIAL | transverse | CURSOR_EXECUTION additive | Vigilance double autorité |
+| `I02` | PARTIAL | D6 | cursor-authority | Matrice I02 incomplete |
+| `I03` | PARTIAL | QA | claim/fence/PG T-04 | UX concurrence ACK/STOP incomplete |
+| `I04` | PARTIAL | QA | frontier+sanitize tests | Suite injection/MCP/Git incomplete |
+| `I05` | PARTIAL | QA | unit+PG+docs cycle 4 | Exigence processus partielle |
+| `I06` | NOT_IMPL | QA | — | BROWSER NOT RUN |
+| `I07` | PARTIAL | QA | Fake/Real dans packs | Pas distinction UX |
+| `I08` | PARTIAL | gov | pas REAL mutatif ce cycle | Gate I08 ML5 partiel |
+| `I09` | PARTIAL | docs | as-built/registre | — |
+| `I10` | NOT_IMPL | QA | chaîne partielle APIs | Parcours intégré Travail→D6→SDK→D8 non câblé bout-en-bout |
+| `I11` | PARTIAL | gov | ENV-01 DEV ; NO RELEASE | Politique ADOPTED hors code |
+
+**Totaux implémentation (réconciliés) :** IMPLEMENTED=1 · PARTIAL=74 · NOT_IMPL=24 · Σ=99.
+
+**Écarts majeurs confirmés par explore + cycle 4 :** D09/H01/H02 Travail 50/50 absents ; F01–F09 NOT_IMPL ; I10 parcours intégré absent ; B03/B04/B09 et G07/G15 absents ; E13 seule exigence négative IMPLEMENTED sans réserve majeure.
+
+**T-01…T-12 (sens canonique) :**
+| T | Sens | État |
+|---|---|---|
+| T-01 | Investigation + contrat Nora | PARTIAL |
+| T-02 | Refus Pilote sans effet | PARTIAL (Exécution Non) |
+| T-03 | Autorisation contrat exact | PARTIAL |
+| T-04 | ACK perdu sans second envoi | PG PASS |
+| T-05 | Mission longue navigateur fermé | NOT PROVEN |
+| T-06 | STOP effets partiels | PARTIAL |
+| T-07 | Tests non vérifiés → D8 refuse | PARTIAL |
+| T-08 | Contradiction Git/rapport | PARTIAL (qualify) ; F Cursor NOT_IMPL |
+| T-09 | Unique revue Nora | PARTIAL (synthesis≠D3) |
+| T-10 | Reprise discussion | PARTIAL |
+| T-11 | Web sans exfiltration | PARTIAL SCRIPTED |
+| T-12 | Deux Pilotes / dépôt partagé | NOT PROVEN |
 
 ---
 
@@ -2307,23 +2433,18 @@ BROWSER · FIGMA F2 · LIVE Nora · LIVE SDK · WEB LIVE · GitHub/MCP REAL.
 
 **`ML5 PARTIAL — GOVERNED GAPS`**
 
-Implémentation élargie (9 IMPLEMENTED / 70 PARTIAL / 20 NOT_IMPL). Sécurité P0 renforcée. B1 frontier construite en SCRIPTED. Preuves BROWSER/F2/LIVE absentes. Pas READY FOR RECETTE. Pas ADOPTED.
+Implémentation élargie mais conservatrice après réconciliation : **1 IMPLEMENTED / 74 PARTIAL / 24 NOT_IMPL**. Sécurité P0 renforcée. B1 frontier construite en SCRIPTED. Preuves BROWSER/F2/LIVE absentes. Pas READY FOR RECETTE. Pas ADOPTED.
 
 ## 18. État publication Review Handoff
 
-**`HANDOFF UPDATED — REMOTE VERIFIED`**
+**Amendement inventaire en cours de publication** — ce §18 sera mis à jour avec le SHA distant après push L3 de la réconciliation 1/74/24.
 
 | Champ | Valeur |
 |---|---|
 | Mode | `publish-in-cycle` L3 borné |
 | Branche | `sfia/review-handoff` |
-| Commit distant | `4d5d17330e8cc10e18c1b048a795d7e1b943782b` |
-| Parent | `897578692368940065e2b7a3e650e739fe909119` |
-| Message | `docs(review-handoff): publish ML5 functional completion review` |
+| Parent attendu | `4b11ce93b72e1eb8910df615dfa05055cbb43ae1` |
+| Message | `docs(review-handoff): reconcile ML5 A01-I11 inventory (explore)` |
 | Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Blob git | `d95fb23edea114cf2eefb5982d7db180d5f4091b` |
-| SHA-256 contenu (pack initial publié) | `e693e9c9f46ab4bc0bf9808e02fa14e256c9ef39f810407c107f915500dfa5fd` |
 | Push projet | **NONE** |
 | Worktree ML5 | branche `sfia/next-ml5-integrated-delivery-20261123` / HEAD `6cf33e99…` inchangé |
-
-Note: ce §18 est la preuve de vérification distante du pack FULL ; un amendement mono-fichier peut suivre uniquement pour figer ce tableau sur le remote.
