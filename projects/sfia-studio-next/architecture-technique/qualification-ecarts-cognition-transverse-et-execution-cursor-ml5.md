@@ -7,10 +7,10 @@
 | Champ | Valeur |
 | --- | --- |
 | Nature | **Document d'analyse exploratoire D0**, enregistré sur branche candidate ; non normatif, non décisionnel |
-| Version | **v0.8 — 23 novembre 2026** ; axe D complété : LIVE informatif sans analyse intermédiaire, publication Git progressive, handoff complet final/partiel, références et artefacts, contrôles D8 et reprise |
+| Version | **v0.9 — 23 novembre 2026** ; axe D : machine à états candidate D7, événement LIVE, publication Git, remise du handoff, D8 et configuration MCP SDK |
 | Statut | **DOCUMENTED / A+B+C CONSOLIDÉS ; D ORIENTATION ET PARCOURS AFFINÉS SUR DEMANDE MORRIS — NOT ARCHITECTURE-VALIDATED / NOT QUALIFIED FOR BUILD** ; SDK local privilégié ; **LIVE sobre pendant, revue Nora finale uniquement**, Git et handoff traçables ; transport, contrôle runtime et sûreté à qualifier |
 | Autorité de décision | Morris ; aucune adoption d'architecture inférée |
-| Source fonctionnelle candidate | [Contrat fonctionnel Nora transverse et Cursor](../conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md) — v0.3 validée en contenu par Morris, branche candidate |
+| Source fonctionnelle candidate | [Contrat fonctionnel Nora transverse et Cursor](../conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md) — base v0.3 validée ; compléments v0.4 et v0.5 candidats, branche candidate |
 | Base Git du diagnostic | **main@997897fd7cf914771e7d08e8030dc7123fab7d25** ; branche candidate initiale **39c00f72c10e69f7981dd2490a0b68fc5e4b8d78** |
 | Worktree et index locaux | **NON OBSERVÉS** |
 | État de gouvernance | Ensemble 08 intégré sur main avec réserves ; **Gate C OPEN** ; aucun GO Cursor ML5, ni PR, merge, release ou ADOPTED déduit ; validation visuelle Morris de la page 12 Figma ne vaut pas gate technique |
@@ -1415,3 +1415,65 @@ Quand ce dossier final est constitué, **Nora réalise une analyse globale uniqu
 **Preuves de sortie à obtenir après GO technique distinct** : un run SDK LIVE réussi, un run en échec, une interruption/crash, une reconnexion, une publication Git REAL bornée, une preuve UX avec capture vérifiable, un handoff incomplet, un contrôle de couverture D8, une revue finale Nora réellement fondée sur les artefacts et deux contrats successifs sur un même projet. DETERMINISTIC, BROWSER, LIVE et REAL **ne se remplacent pas**.
 
 **Statut : orientation de parcours documentée à la demande Morris ; détails de mécanisme CANDIDATE, NON IMPLÉMENTÉS / NON PROUVÉS / NON ADOPTED, Gate C OPEN.**
+
+## 18.13. Qualification technique candidate — SDK, états D7, Git, handoff et MCP
+
+> **Complément du 23/11/2026** à l'axe D, cohérent avec le contrat fonctionnel v0.5. Sources fournisseur : [Cursor TypeScript SDK](https://cursor.com/docs/sdk/typescript) et [MCP Cursor](https://cursor.com/docs/mcp). **Documentation fournisseur ≠ comportement LIVE prouvé sur Next**. Aucun choix de table, schéma de migration, API ou technologie de transport adopté.
+
+### 18.13.1. Capacités du SDK pertinentes pour la réalisation
+
+**Session / reprise :** `Agent.create({local:{cwd}})` et `agent.send()` renvoient un `Run` ; `run.stream()`, `run.wait()`, `Agent.resume()`, `Agent.getRun()`, `Agent.cancelRun()` et un store local persistant (SQLite/JSONL/configurable) sont documentés. L'option `idempotencyKey` n'apporte **aucune preuve** de déduplication d'effets Git/MCP ; vérifier le run et les refs avant toute relance. Le store SDK reste une donnée fournisseur **distincte** du journal d'autorité D7 Studio.
+
+**Observations :** événements `tool_call` avec enveloppe `call_id/name/status` (`running/completed/error`) et `task` disponibles. Les `args/result` et noms d'outils sont variables et parfois tronqués ; les parser de manière défensive. **Les événements `status` du stream sont documentés comme transitions Cloud** : ne pas les présumer pour les agents locaux ; confronter `Run.status`, les appels SDK et le superviseur local. Les événements `thinking` ne sont ni nécessaires à l'UX, ni diffusés au Pilote.
+
+**Artefacts :** en local, `listArtifacts()` est documenté comme vide et `downloadArtifact()` non supporté. Les PNG, scripts, documents ou résultats de tests doivent donc être lus dans le workspace autorisé puis publiés en Git ou en stockage d'artefacts gouverné. `run.wait().result` ne devient pas automatiquement un Review Pack complet.
+
+### 18.13.2. Une tentative D7, dimensions distinctes
+
+| Dimension logique | Propriétaire | Informations requises |
+| --- | --- | --- |
+| **Cycle de tentative** | D7 | `attemptId`, Pilote/projet, contrat/fingerprint, mandat D6, cible Git, worker, `agentId/runId`, activité, terminal/error/STOP/UNKNOWN |
+| **Remise de résultat** | D7 + Git D9 | Rapport attendu/reçu/incomplet/absent, manifestes, SHAs, accessibilité/empreinte des pièces |
+| **Qualification finale** | D8, analyse Nora D3 | Critères, faits vérifiés, écarts, conclusion bornée et réserves ; aucun GO D6 ni adoption |
+
+Les valeurs de cycle sont **qualifications conceptuelles**, pas un nouvel enum remplaçant `EffectAttemptStatus`. `finished` ≠ handoff reçu ; `STOP demandé` ≠ arrêt constaté ; commit accessible ≠ tests PASS ; rapport reçu ≠ preuve D8.
+
+**Worker candidat** : superviseur local SDK **séparé de la requête HTTP** pour runs longs, sans deuxième propriétaire de tentative. Même modèle métier sur Mac DEV et serveur secondaire PROD. D7 persiste une identité et son mandat **avant** `send()`; une perte d'ACK déclenche **réconciliation et fencing**, pas un nouveau dispatch aveugle.
+
+### 18.13.3. Événements LIVE : enveloppe et projection
+
+**Enveloppe conceptuelle :** `attemptId`, `runId?`, `sequence` attribuée à réception, `observedAt`, `eventKind`, `state`, `provenance` (SDK/worker/D9), `summary` fonctionnel borné et `diagnosticRef?`. Ne pas confondre ordre des arrivées Studio et ordre garanti chez le fournisseur. Prévoir déduplication par identités réellement présentes (`call_id` et état lorsque disponibles), journal durable et lecture après reconnexion.
+
+**Projection Exécution** : dernier statut connu, activité réellement observée, erreur/attente/STOP éventuel, dernier commit distant confirmé. Pas de progression chiffrée fictive, console d'outils brute ou analyse Nora automatique. Timeout ou absence d'événement → **état à vérifier**, avec interrogation worker/run et effets Git avant nouvelle action. Le transport de l'axe C est réutilisable ; D7 reste le propriétaire.
+
+### 18.13.4. Publication Git : options et contrôles communs
+
+**Préconditions** : branche distante de travail et base SHA vérifiées avant effet, permissions Git distinctes de l'identité Cursor, contrat D6 bornant les effets, workspace isolé, refus des cibles interdites. Cursor crée/modifie les fichiers et produit commits et preuves ; les pushes aux jalons significatifs doivent être **effectivement re-lus à distance**, sans revue Nora intermédiaire.
+
+**Option A, push direct Cursor borné** : moins de médiation, mais le jeton/exécuteur peut dépasser un mandat si les permissions OS/Git sont trop larges. **Option B, publication gouvernée par D7/D9 depuis le travail Cursor** : meilleure possibilité de revalider cible, base, droits et contenu, mais nécessite un contrat d'intégration supplémentaire. **Option B privilégiée à l'étude, non arbitrée**, avec obligation de réutiliser D7/D9 existants et d'éviter un moteur Git parallèle. Toute mutation exige D6/permissions techniques effectives ; pas de PR/merge/force-push implicites. ACK perdu → relecture de branche/commits existants avant tout retry.
+
+### 18.13.5. Rapport et manifeste : remise finale vérifiable
+
+**Rapport Markdown adaptatif** : réalisé/non réalisé, sources lues, actions techniques, erreurs, tests, écarts, dettes et suites. **Manifeste obligatoire en couverture** : projet/contrat/attempt, ref/base, **SHA de travail**, commits, inventaire fichiers créés/modifiés/déplacés/supprimés, référents de sources, tests/commandes, captures Figma/application, pièces utiles, provenance, empreinte/accès et inconnues. Type et schéma physique non tranchés.
+
+**Canal candidat** : handoff/manifestes/captures appropriés sur la **branche distante d'intervention** (identité de tentative propre), et stockage sous droits Studio pour pièces volumineuses ou sensibles. D9 lit la version Git par **SHA immuable** ; le texte inaccessible par référence est inclus dans le rapport seulement si autorisé/sûr, sinon déclaré manquant. La branche externe `sfia/review-handoff` et son unique `latest-chatgpt-review.md` restent réservés à **SFIA v2.6**, et non réutilisés dans le produit Next.
+
+**Pas d'auto-référence Git circulaire** : distinguer `workSha` (dernier état des réalisations à examiner) et `handoffCommitSha` (SHA découvert après la publication du rapport). Deux commits peuvent faciliter ce découplage, sans en faire un format imposé. Ne pas publier secrets, dumps sensibles ni fichiers anormalement lourds sur Git.
+
+**D8 en fin de tentative** : recouper diff réel base→`workSha`, références lisibles et fichiers/manifeste, captures originales et contexte Figma/viewport, résultats de tests réellement capturés vs déclarés, out-of-scope et restrictions. Un rapport absent ou tronqué → dossier **MISSING/PARTIAL** et revue Nora limitée **une seule fois après réconciliation**, jamais nouvelle exécution automatique destinée à fabriquer le handoff.
+
+### 18.13.6. MCP et authentification — le même poste n'est pas le même environnement distant
+
+**Sources MCP locales documentées** : `mcpServers` sur `Agent.create()` ou `agent.send()` ; `local.settingSources` doit inclure `"user"` (fichier `~/.cursor/mcp.json`), `"project"` (fichier `.cursor/mcp.json`) et/ou `"plugins"` selon sources voulues. **Sans settingSources, seuls les MCP déclarés inline sont chargés.** Un `mcpServers` fourni à `agent.send()` **remplace** celui donné à la création pour ce run (pas de fusion silencieuse). L'ordre de préséance est envoyé > création > plugins > projet > utilisateur pour les agents locaux.
+
+**OAuth** : le SDK local ne sait **pas ouvrir une fenêtre de connexion**, mais peut réutiliser un login MCP déjà établi dans Cursor Desktop sur le même environnement/compte effectif. **DEV Mac** : réutilisation des configurations et sessions Cursor **possible sous préflight réel**. **PROD serveur secondaire** : fichiers, dépendances `stdio`, identité OS, secrets et OAuth du Mac **non hérités** ; configurer/autoriser chaque MCP requis sur ce serveur, sans recopier des jetons personnels ou supposer le fonctionnement d'une UI Desktop. Les MCP configurés sur le dashboard Cloud ne sont pas automatiquement chargés par le SDK local.
+
+**Autorité et sécurité** : `settingSources:["user","project"]` peut faire entrer des MCP non souhaités, et une configuration projet `stdio` peut lancer un exécutable. Établir une **allowlist de capacités par intervention**, sous contrôle d'environnement et des permissions ; ne pas considérer le prompt ou la liste déclarative comme barrière technique. Lecture de frame Figma ne vaut pas autorisation d'écriture Figma ; même vigilance Canva ou tout MCP de mutation. D6 autorise l'effet ; le préflight vérifie disponibilité réelle et droits ; les lectures/mutations déterminantes figurent au rapport avec provenance. Pas de moteur MCP Studio parallèle par défaut.
+
+### 18.13.7. Risques, preuve à obtenir et décision suivante
+
+**Blast radius** : D7 effects/types, ownership et journal, D6 mandat au point d'effet, D9 Git/branches/identité, D8 preuve/artefacts, D3 lecture multimodale et synthèse, transport activité C, worker local, DB, secrets/MCP, Exécution/Résultats et infra DEV/PROD. Chaque modification devra synchroniser architecture/code/tests dans le macro-lot, **pas de micro-cycle documentaire**.
+
+**Vérifications bloquantes sous GO technique distinct** : version SDK et import LIVE, tool_call normal/erreur/annulation, crash/reconnexion/ACK perdu sans second effet, branches/permissions/push réel bornés, handoff/captures consultables, contrôle de couverture D8 et revue finale Nora, deux contrats sur un dépôt, **MCP Figma/Canva réellement chargé et authentifié** sous SDK local puis vérification sur serveur isolé, mutation MCP hors mandat techniquement empêchée. DETERMINISTIC, BROWSER, LIVE SDK et REAL Git distincts.
+
+**Statut : DESIGN CONTRACTS DOCUMENTED / SDK LOCAL PREFERRED / MCP SUPPORT DOCUMENTED / IMPLEMENTATION AND BEHAVIOR NOT PROVEN / NO ARCHITECTURE ADOPTED / GATE C OPEN.**
