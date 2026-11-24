@@ -488,7 +488,7 @@ index 71e298e7..2ceed504 100644
    sasPresentationCopy,
  } from "@/components/figma/sas-presentation";
 +import { projectActivityLabel } from "@/domains/conversation/activity-labels";
- 
+
  type Msg = { id: string; role: string; content: string; status: string };
  type Doc = {
 @@ -74,6 +75,18 @@ export default function PreparationPage() {
@@ -804,7 +804,7 @@ index 0c8dc2ef..b8c4d3ea 100644
 --- a/projects/sfia-studio-next/web/src/components/SafeMarkdown.tsx
 +++ b/projects/sfia-studio-next/web/src/components/SafeMarkdown.tsx
 @@ -74,6 +74,31 @@ function renderMarkdown(md: string): string {
- 
+
    while (i < lines.length) {
      const line = lines[i];
 +    // UAT-13 — contractual document body belongs in the viewer, not raw in the thread.
@@ -847,7 +847,7 @@ index a497a28d..4f667bb3 100644
 +  buildActivitySteps,
 +  projectActivityLabel,
 +} from "@/domains/conversation/activity-labels";
- 
+
  export type NoraMsg = {
    id: string;
 @@ -60,6 +64,7 @@ export function NoraConversation(props: {
@@ -938,19 +938,19 @@ index ca7b0a5f..80ad1ef3 100644
 +++ b/projects/sfia-studio-next/web/src/components/figma/PreparationConversation.tsx
 @@ -1,6 +1,10 @@
  "use client";
- 
+
  import { SafeMarkdown } from "@/components/SafeMarkdown";
 +import {
 +  buildActivitySteps,
 +  projectActivityLabel,
 +} from "@/domains/conversation/activity-labels";
- 
+
  export type PrepMessage = {
    id: string;
 @@ -9,6 +13,16 @@ export type PrepMessage = {
    status: string;
  };
- 
+
 +export type PrepLiveActivityEvent = {
 +  sequence: number;
 +  nature: string;
@@ -977,13 +977,13 @@ index ca7b0a5f..80ad1ef3 100644
 +  const showLive =
 +    (props.noraActivity === "preparing" || liveEvents.length > 0) &&
 +    Boolean(props.liveActivityHeadline || liveEvents.length > 0);
- 
+
    return (
      <section className="sas-thread" data-testid="prep-conversation">
 @@ -32,7 +53,7 @@ export function PreparationConversation(props: {
            </div>
          ) : null}
- 
+
 -        {empty ? (
 +        {empty && !showLive ? (
            <article className="sas-msg sas-msg-nora" data-testid="prep-empty-invite">
@@ -1000,7 +1000,7 @@ index ca7b0a5f..80ad1ef3 100644
 @@ -89,7 +111,50 @@ export function PreparationConversation(props: {
            );
          })}
- 
+
 -        {props.noraActivity === "preparing" ? (
 +        {showLive ? (
 +          <div
@@ -1076,7 +1076,7 @@ index c71d8054..f9f0aff3 100644
 +      unavailableReason?: string;
 +      consulted?: boolean;
      };
- 
+
  export function TravailViewer(props: {
 @@ -39,11 +49,17 @@ export function TravailViewer(props: {
  }) {
@@ -1170,12 +1170,12 @@ index 03113645..7fb645a0 100644
 +  max-width: 100%;
 +  overflow-x: auto;
  }
- 
+
  .fig-msg-body p {
 @@ -538,6 +548,109 @@
    outline-offset: 2px;
  }
- 
+
 +/* Figma 12.01 / 12.10 — Activité Nora LIVE (functional, not SDK dump) */
 +.fig-nora-live-activity {
 +  display: flex;
@@ -1297,7 +1297,7 @@ index 03113645..7fb645a0 100644
 +  max-width: 100%;
 +  overflow-x: auto;
  }
- 
+
  .sas-msg-body p { margin: 0 0 0.55rem; }
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/activity-projection.ts b/projects/sfia-studio-next/web/src/domains/conversation/activity-projection.ts
 index 892d5136..d288a5b0 100644
@@ -1306,7 +1306,7 @@ index 892d5136..d288a5b0 100644
 @@ -132,14 +132,5 @@ export async function listActivityEvents(input: {
    };
  }
- 
+
 -/** Compact projection for UI — no secrets, no chain-of-thought. */
 -export function compactActivitySummary(
 -  events: Array<{ nature: string; summary: string; status: string }>,
@@ -1344,7 +1344,7 @@ index e18a6dc3..34ca2d9a 100644
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
 @@ -143,7 +143,8 @@ export type NoraGenerateResult = {
  };
- 
+
  const SYSTEM_INSTRUCTIONS = [
 -  "Tu es Nora, copilote cognitif de SFIA Studio Next.",
 +  "Tu es Nora, copilote professionnelle de SFIA Studio Next.",
@@ -1384,11 +1384,11 @@ index e18a6dc3..34ca2d9a 100644
 -  "Réponds en français. Markdown utile autorisé (titres, listes, tableaux).",
 +  "Réponds en français. Markdown utile autorisé (titres, listes, tableaux) — seulement quand cela sert réellement la réponse.",
  ].join("\n");
- 
+
  /**
 @@ -1244,6 +1250,32 @@ async function runLiveWithTools(
        });
- 
+
        const status = cat.interrupted ? ("INTERRUPTED" as const) : ("UNKNOWN" as const);
 +      const toolsOnErr = policy.budgets.maxD4ToolCalls - initialBudget.remainingCalls;
 +      const sourcesOnErr = sourceJournal.entries.slice();
@@ -1445,7 +1445,7 @@ index bb6979b6..1db4161d 100644
 @@ -29,6 +29,25 @@ describe("ML5 C15 — cognitive conductor foundations", () => {
      expect(r.reason).toMatch(/SEGMENT/);
    });
- 
+
 +  it("excludes verified cacheTokens from token envelope billable input", () => {
 +    const withoutCache = evaluateGlobalResourceEnvelope(
 +      { segmentCalls: 2, inputTokens: 180_000, outputTokens: 30_000 },
@@ -1529,4 +1529,3 @@ Wd1da23ab615814047a7b9bfdcf81ce05c17f83` |
 ## 14. Instruction ChatGPT
 
 Consulter le handoff distant `sfia/review-handoff` fichier `sfia-review-handoff/latest-chatgpt-review.md` (commit message ci-dessus). Qualifier écarts; ne pas fermer ML5; proposer GO bascule borné si conforme.
-
