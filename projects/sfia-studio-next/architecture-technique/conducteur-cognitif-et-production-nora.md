@@ -1,5 +1,7 @@
 # SFIA Studio Next — ML5 : conception intégrée du conducteur cognitif et de la production Nora
 
+> **Lecture courante post-C20 :** [synthèse globale](https://github.com/mcleland147/sfia-workspace/blob/978e42648aa0149e4f2f2bab03b4483a5bbfd496/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md#11-revue-globale-post-c20--état-de-travail-au-24112026-d1-factuel), addendum factuel en fin de document. État historique pré-C20 conservé ; pas d'acceptation ni de changement des règles.
+
 | Champ | Valeur |
 |---|---|
 | Date | 24 novembre 2026 |
@@ -193,3 +195,20 @@ Le mandat doit être produit depuis le routing guide et le template Git SFIA v2.
 Review Pack complet mono-cycle, contenu créé intégral, modifications par sections/diff, tests et limites, reset du pack temporaire ; Review Handoff L3 selon SFIA v2.6 sur branche et chemin dédiés, SHA et relecture distante, distinct de toute publication du code projet. Synchroniser le registre, l'architecture et la documentation réellement affectés ; ne pas effacer les constats historiques. Aucun GO de PR/merge ou promotion, aucun ADOPTED automatique.
 
 **Verdict de conception : ML5 LOT 1 — DESIGN ORIENTATIONS VALIDATED IN CONTENT / DOCUMENTED CANDIDATE / IMPLEMENTATION AND BEHAVIOR PROOF PENDING.** Les travaux C1–C14 sont la base à compléter. Le résultat de construction et la suite restent soumis à revue et décision Morris.
+
+## 13. État de réalisation observé post-C20 (addendum factuel, non normatif)
+
+**Portée :** actualisation factuelle D1 sous GO Morris du 24/11, candidat non mergé, sans modification des oracles ou orientations validées. [Revue globale post-C20 §11](https://github.com/mcleland147/sfia-workspace/blob/978e42648aa0149e4f2f2bab03b4483a5bbfd496/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md#11-revue-globale-post-c20--état-de-travail-au-24112026-d1-factuel) ; [C20](https://github.com/mcleland147/sfia-workspace/blob/51cbadf26b8ce2f0b0ce52b3ebebd136ce4b6bef/sfia-review-handoff/latest-chatgpt-review.md) (13/13 fichiers déclarés, blob ea7635fa), [C19 régularisé](https://github.com/mcleland147/sfia-workspace/blob/55dff99750cfc5ab4392c975862c7d6257b73c6f/sfia-review-handoff/latest-chatgpt-review.md), [C18](https://github.com/mcleland147/sfia-workspace/blob/ead52de9c6c4f6aaae712186c16bd94d51f3b79a/sfia-review-handoff/latest-chatgpt-review.md). Candidat code HEAD rapporté 6cf33e99 DIRTY C1–C20 ; local NON OBSERVÉ ; build C20 FLRkHLwoatlm8o_Iq979R, tsc/build/smoke/22 tests PASS rapportés. Cursor READY WITH RESERVES ; ChatGPT : socle exploitable, lot 1 exit NON QUALIFIÉ, lot 2 sous conditions proposé et non décidé. NO RELEASE / NOT ADOPTED.
+
+Les orientations §4 B/C/C sont conservées ; il n'est pas proposé de les réexaminer. La cible §5–11 reste opposable ; les observations suivantes distinguent construction et qualification.
+
+| Interface | As-built observé dans handoffs | Écart résiduel |
+|---|---|---|
+| Qualification → conducteur D3 | C18 sortie structurée et outil dédié ; C19 probe relation, C20 needsClarify sans création de travail | Probe avant claim à couvrir dans lifecycle/ressources et scope ; adaptation et plusieurs segments réellement utiles |
+| D3 → PostgreSQL | État travail distinct du tour, checkpoints, claim et CAS ; C19 immuabilité et C20 leases | Reprise réelle pendant travail et incertitude fournisseur, concurrence fine, identité de production |
+| D3 → D4 | C19 conservation 3 tours/34 553 caractères ; C20 service consomme production consolidée, D4 AVAILABLE 1 351 | Consolidation sémantique, reprise multi-segments, égalité du contenu et version D4, pas seulement taille |
+| D3 → D7 | C18 outil contrat dédié, long et critères spécifiques ; C19/20 filiation et revalidation | Suffisance et dépendances actuelles, exactitude des octets inspectés/autorisés/envoyés ; preuve dispatch obsolète |
+| D3 → WEB | Agent isolé, destination pinned rapportée, allowlist C20 | B07 P0 : requête issue de contexte privé toujours libre/filtrée lexicalement ; confinement avant usage, provenance/autorisation et preuves |
+| D3 → activité | Corrélation événements/tour et polling | Vérifier activité utile et reprise sur mission réelle |
+
+C20 confirme les progrès I1/I5/I6 dans leurs scénarios, I2 revalidation D4 sur fonction et double check dans code, I3 allowlist mais non confidentialité structurelle. Ne pas refaire les acquis. Pour la suite, les corrections d'autorité sont naturellement des préconditions du lot 2 ; la production/reprise peut être vérifiée dans une mission intégrée. WEB OFF vérifié est une proposition de confinement, pas un exit P0 ni un changement de §11. Toute modification de l'ordre de sortie ou autorisation lot 2 reste à décider Morris. Aucun nouveau contrat de conception ni nouvelle architecture.
