@@ -12,12 +12,14 @@ Append-only logical journal of Cursor product deliveries.
 | Type | RUN · correctif intégré · cutover RECETTE · **NO RELEASE** |
 | Branche | `sfia/next-ml5-integrated-delivery-20261123` |
 | Parent HEAD | `807713cb89163b711db33f1f0e28bd9b99dbbc4d` |
-| Candidate SHA | *(rempli après commit local)* |
+| Candidate SHA | `7f48daa28f00f390c34c58951ee5ceeb311f4d40` |
+| Candidate tree | `7b8683951dbbe8a2bb6a72b5a0e39fd29b2d7e7e` |
+| Build RECETTE | `_ZDI1cWa1hscluvBhaiA4` · digest `ed59106d8706fb8267620682c0fd0abd2636cab06b4e649a18d23ff64bf8514f` |
 | Policy version | `ml5-cog-policy-v3-recette-operational-provisional` |
 | Contenu | `OPERATIONAL_PROVISIONAL` autorisé DEV+RECETTE ; catalogue WEB public RECETTE ; confinement Cursor refuse racines produit ; probe LIVE sans dispatch ; cutover `:3200` |
 | Ancienne RECETTE | `8410906d` / BUILD `e0XwSWvjujz-xaHfXsrQK` / TEST_BOUNDARY + Cursor FAKE |
 | Push projet | **NONE** |
-| Verdict candidat | *(rempli après cutover)* |
+| Verdict candidat | **RECETTE OPERATIONAL PARITY — READY FOR MORRIS UAT** · served `http://127.0.0.1:3200` |
 
 ## delivery_id: DELIV-2026-11-24-ML5-CYCLE11-RECETTE-CANDIDATE
 
