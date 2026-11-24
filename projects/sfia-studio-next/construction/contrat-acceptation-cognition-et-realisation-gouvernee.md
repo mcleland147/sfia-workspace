@@ -1,5 +1,8 @@
 # SFIA Studio Next — Contrat d'acceptation intégré : cognition et réalisation gouvernée
 
+> **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](./recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
+
+
 > **Lecture courante post-C22 :** [revue indépendante §12](https://github.com/mcleland147/sfia-workspace/blob/ea74688a2ac2643a157dc680d4b2f5fa1fa0b517/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md), addendum en fin de document. États antérieurs historiques ; critères et décisions conservés.
 
 > **Lecture courante post-C20 :** [synthèse globale](https://github.com/mcleland147/sfia-workspace/blob/978e42648aa0149e4f2f2bab03b4483a5bbfd496/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md#11-revue-globale-post-c20--état-de-travail-au-24112026-d1-factuel), addendum factuel en fin de document. État historique pré-C20 conservé ; pas d'acceptation ni de changement des règles.
@@ -280,3 +283,9 @@ Scénario intégrateur lot 2 proposé : besoin métier naturel → sources autor
 **CA-01/03/04 :** préparation/consolidation/activité et inspection à qualifier ensemble. **CA-02 :** confinement acquis dans test négatif, positif WEB non démontré. **CA-05/06 :** LIVE aval borné, autorité et Git selon mission. **CA-07 :** collecte réelle mais intégrité du verdict D8 non acquise. **CA-08 :** vrai avis D3 LIVE observé après reprise, autonomie/version et pièces exactes non prouvées. **CA-09/10 :** parcours UI/continuité et invariants de qualification restent opposables. Les 56 Q et PF restent au registre, aucun PASS global par inférence.
 
 Scénario discriminant suivant proposé : fonctionnalité locale réellement testée avec capture d'exécution, puis variante fichier erroné et capture fabriquée ; préparation Nora naturelle multi-source, inspection, Oui, SDK réel borné, terminal détecté par superviseur sans reconcile de campagne, D8 recoupe preuve/critère, avis D3 consulte les pièces ; reconnexion, preuve tardive et ancien propriétaire expiré sans écriture. Ne pas forcer Git/MCP ni nouvelle génération volumineuse ; utiliser les oracles existants. Aucun GO lot 3 ni modification des critères.
+
+## 11. Observations UAT — 24/11/2026 (oracles inchangés)
+
+[Journal UAT](./recette-utilisateur-ml5-pilotage-360-20261124.md). CA01 PARTIAL, CA02 FAIL WEB, CA03 PARTIAL, CA04 FAIL mission/version, CA05 PARTIAL, CA06 N/A mission / NOT RUN global, CA07 PARTIAL, CA08 FAIL, CA09 PARTIAL, CA10 PARTIAL. T01/T03/T07/T09/T10 partiels, T11 non abouti, T02/T04–06/T12 non rejoués, T08 N/A. Q/PF non réceptionnés individuellement ; conserver oracles et résultats historiques par SHA. Prochain candidat doit livrer résultat métier et preuves, pas seul terminal. UAT15/21/25/26/29/30 et P0 empêchent réception globale.
+
+**ML5 PRIMARY FLOW PARTIALLY OBSERVED — BUSINESS END-TO-END NOT ACHIEVED; OPEN / NO RELEASE / NOT ADOPTED.**

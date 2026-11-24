@@ -1,5 +1,8 @@
 # ML5 as-built — Cursor realization (2026-11-23)
 
+> **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](./recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
+
+
 > **Lecture courante — post-C22 :** **Source :** [snapshot C22](https://github.com/mcleland147/sfia-workspace/blob/075d085628e5062b2fd17301f6347195fd25c53a/sfia-review-handoff/latest-chatgpt-review.md), code et documentation locale reproduits par Cursor, branche produit DIRTY/non publiée. [Revue indépendante post-C22](https://github.com/mcleland147/sfia-workspace/blob/ea74688a2ac2643a157dc680d4b2f5fa1fa0b517/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md). Les verdicts historiques ci-dessous sont ceux rapportés par Cursor, pas des réceptions ChatGPT/Morris. GO documentaire du 24/11 : synchronisation factuelle, pas de mutation code/critères, pas de lot 3 ni publication projet. Les mentions B recommandée des cycles anciens sont historiques : Git A a été validée en contenu le 23/11.
 
 | Champ | Valeur |
@@ -123,3 +126,9 @@ Conformité globale : **0 VÉRIFIÉ** — preuves BROWSER/F2/LIVE/REAL absentes.
 - LIVE aval : attempt efx_5184aab4-4c0e-47cc-919c-1637b1d8422b, handoff rhf_b555c06b-9713-4940-af32-c6a65279ad21, work cgw_ad0f188f-839f-435f-b0ba-f2a0c565960d. Contrat seedé, pas E2E naturel.
 - Candidat rapporté HEAD 6cf33e99 DIRTY C1–C22, merge-base 997897fd, DEV PG migrations 020/021, build xDm9gI5jk9N2qEGkFUqN_. NON OBSERVÉ localement. Aucun commit code rapporté, NO RELEASE.
 - Verdict ChatGPT : NOT READY FOR LOT 2 EXIT — LIVE DOWNSTREAM OBSERVED / D8 EVIDENCE INTEGRITY AND RESTITUTION FENCING OPEN. Pas de GO lot 3. Voir revue globale pour exacts écarts et trajectoire.
+
+## As-built observé en RECETTE — 24/11/2026
+
+[Journal UAT](./recette-utilisateur-ml5-pilotage-360-20261124.md). 7f48daa28f00f390c34c58951ee5ceeb311f4d40 / _ZDI1cWa1hscluvBhaiA4, GPT-6.2 Sol, OPERATIONAL_PROVISIONAL, Cursor LIVE, [handoff](https://github.com/mcleland147/sfia-workspace/blob/e497030bde17dd28ed5e17116b398b578d68f2f0/sfia-review-handoff/latest-chatgpt-review.md), local NON OBSERVÉ. D3/D4/D5 : sas, trajectoire/OPEN, Journal, v1, échec v2, WEB non lu, Git borné après échec structuré. D7 : deux v1, READY/D6 UI, efx_3bc4d781-70c7-4d6d-8cfa-2beddbd5ee5a LIVE terminal, rapport déclare finalisation de contrat sans prototype. D8 : rhf_7fbfc935-c921-41df-927a-bedd3df42711 RECEIVED, inventaire/tests MISSING, PARTIAL/conformityProven=false, D9 N/A mandat local. Synthèse déterministe, rapport inaccessible à Nora, troisième DRAFT annoncé malgré démarche seule. Cwd isolé applicativement rapporté, OS non démontré ; aucune preuve indépendante FS ou octets SDK. Ne pas confondre déclaration et conformité.
+
+**ML5 PRIMARY FLOW PARTIALLY OBSERVED — BUSINESS END-TO-END NOT ACHIEVED; OPEN / NO RELEASE / NOT ADOPTED.**

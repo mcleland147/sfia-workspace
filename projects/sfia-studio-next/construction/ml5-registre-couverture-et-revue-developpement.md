@@ -1,5 +1,8 @@
 # SFIA Studio Next — ML5 · Registre de couverture et de revue du développement
 
+> **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](./recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
+
+
 > **Lecture courante post-C22 :** [revue indépendante §12](https://github.com/mcleland147/sfia-workspace/blob/ea74688a2ac2643a157dc680d4b2f5fa1fa0b517/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md), addendum en fin de document. États antérieurs historiques ; critères et décisions conservés.
 
 > **Lecture courante post-C20 :** [synthèse globale](https://github.com/mcleland147/sfia-workspace/blob/978e42648aa0149e4f2f2bab03b4483a5bbfd496/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md#11-revue-globale-post-c20--état-de-travail-au-24112026-d1-factuel), addendum factuel en fin de document. État historique pré-C20 conservé ; pas d'acceptation ni de changement des règles.
@@ -652,3 +655,9 @@ Les 99 IDs du registre initial sont tous repris ci-dessous (contrôle exhaustif 
 | I11 | DEV NO RELEASE, aucun commit projet rapporté | ENV-01, gel et gates Morris distincts |
 
 **Preuves C22 :** L95–207 observations LIVE aval ; L213–431 WEB ; L524–798 collecte et evidence ; L814–911 claim ; L1227–1413 D8/avis ; L1485–1516 boot ; L1938–2016 consolidation ; L3529–3788 test LIVE. Le test crée le contrat et sa filiation et demande à Cursor d'écrire add.exit=0, ne lance pas de test add ; reconcile appelé en boucle. D8 CONFORMING observé n'est pas validé. Les captures ne sont pas une évaluation sémantique. Le propriétaire expiré peut encore écrire ; le bool final n'est pas contrôlé. P0 intégrité D8 et fencing non clos. WEB confinement déterministe n'est pas qualification fonctionnelle. Les exigences CA, T, Q-01…56 et PF demeurent inchangées ; voir contrat d'acceptation §10. Le statut global ne vaut ni lot 2 exit ni GO lot 3.
+
+## 11. Suivi UAT du 24/11/2026 (D1 factuel)
+
+[Journal UAT](./recette-utilisateur-ml5-pilotage-360-20261124.md). 99 exigences non requalifiées individuellement ; matrice et 30 UAT avec sévérité/oracles dans journal §§3/6. A cognition D4/Git borné OBS, budget/schema/effets PARTIAL ; B WEB FAIL ; C activité PARTIAL ; D READY/D6 observés mais mission/filiation FAIL ; E SDK LIVE/terminal OBS, supervision et isolation PARTIAL ; F D9 N/A mission sans Git, REAL global non rejoué ; G rapport OBS, inventaire/tests et retour FAIL/PARTIAL ; H visionneuse et onglets présents mais F2 ouverte ; I10 résultat métier FAIL, I11 aucune promotion. CA/T/Q/PF inchangés. 15 majeures, 13 moyennes, 2 mineures ; P0 sécurité/intégrité ouverts. UAT07/10 amélioration ciblée non close, UAT08/24 à confirmer.
+
+**ML5 PRIMARY FLOW PARTIALLY OBSERVED — BUSINESS END-TO-END NOT ACHIEVED; OPEN / NO RELEASE / NOT ADOPTED.**

@@ -1,5 +1,8 @@
 # SFIA Studio Next — ML5 : conception intégrée du conducteur cognitif et de la production Nora
 
+> **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](../construction/recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
+
+
 > **Lecture courante post-C22 :** [revue indépendante §12](https://github.com/mcleland147/sfia-workspace/blob/ea74688a2ac2643a157dc680d4b2f5fa1fa0b517/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md), addendum en fin de document. États antérieurs historiques ; critères et décisions conservés.
 
 > **Lecture courante post-C20 :** [synthèse globale](https://github.com/mcleland147/sfia-workspace/blob/978e42648aa0149e4f2f2bab03b4483a5bbfd496/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md#11-revue-globale-post-c20--état-de-travail-au-24112026-d1-factuel), addendum factuel en fin de document. État historique pré-C20 conservé ; pas d'acceptation ni de changement des règles.
@@ -228,3 +231,9 @@ C20 confirme les progrès I1/I5/I6 dans leurs scénarios, I2 revalidation D4 sur
 | Activité | Capital C1 + investigation.engaged C21 | BROWSER RUNNING et reconnexion restant |
 
 L'architecture B/C/C demeure. Le travail restant porte sur le fonctionnement des interfaces et la preuve, pas une nouvelle architecture. D8 reste propriétaire du verdict ; D3 ne doit pas transformer une observation de fichier en conformité. Les exigences de reprise, propriété et complétude sont inchangées.
+
+## 15. Interfaces D3 observées en UAT — 24/11/2026
+
+[Journal UAT](../construction/recette-utilisateur-ml5-pilotage-360-20261124.md). B/C/C inchangées. UAT15/16 D4 révision et budget, UAT19 output invalide après lectures Git, UAT17/18 WEB, UAT20/21/30 production/qualification contrat, UAT26/29 retour D8. Instruire frontière sortie/effet, checkpoints, sources exactes, budget/segmentation, conservation versionnée exacte, mission opérationnelle indépendante de la demande de préparation, aucune mutation sur discussion seule ; D8→D3 scope projet/tentative/version, rapport réellement accessible, avis LIVE unique et provenance. UAT01/09 activité fonctionnelle. WEB options §5 journal : réutiliser B1, récupération bornée si nécessaire, navigateur isolé seulement si besoin démontré ; sécurité non validée. Pas de nouveau moteur ou choix normatif.
+
+**ML5 PRIMARY FLOW PARTIALLY OBSERVED — BUSINESS END-TO-END NOT ACHIEVED; OPEN / NO RELEASE / NOT ADOPTED.**

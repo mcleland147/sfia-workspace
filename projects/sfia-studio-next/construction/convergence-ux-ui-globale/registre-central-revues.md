@@ -1,5 +1,8 @@
 # SFIA Studio Next — Registre central de revue et convergence UX/UI (ML4D)
 
+> **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](../recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
+
+
 | Métadonnée | Valeur |
 |---|---|
 | Version | **v0.19 — 21/11/2026 : Ensemble 07 recette Morris ACCEPTED, PR #687 et #686 MERGED, CI post-merge SUCCESS ; Ensemble 08 prochain** · registre documentaire évolutif ; Gate C / STABLE / ADOPTED non acquis |
@@ -420,3 +423,9 @@ Les **ensembles de réalisation** ne sont créés qu'à partir des observations 
 - [Review Handoff E04 — cutover STOP CP01/CP02](https://github.com/mcleland147/sfia-workspace/blob/300b02f87f781bd7ac019c2bc7effd5a90fd39e5/sfia-review-handoff/latest-chatgpt-review.md) — aucune mutation de RECETTE sur `351aea96`.
 - [Review Handoff E04 — qualification CP01/CP02 et RECETTE finale](https://github.com/mcleland147/sfia-workspace/blob/c35f0bbd0f3024f06c729511ad4c8824354e418e/sfia-review-handoff/latest-chatgpt-review.md) — full diffs et tests, candidat local `984d77a3`, BUILD_ID servi, sauvegarde, smoke et réserves OAuth.
 - **Réception Morris E04 du 17/11/2026** : capture RECETTE Travail et décision conversationnelle d'acceptation visuelle avec réserves ; **pas d'artefact Git de capture utilisateur** dans ce registre.
+
+## Suivi transverse ML5 — UAT du 24/11/2026
+
+[Journal UAT](../recette-utilisateur-ml5-pilotage-360-20261124.md). E04 sas UAT01–06, E05 Travail UAT02/03/09/13/14/18, E06 Journal/Documents UAT08/12/15/16, E07 Projet/Trajectoire UAT07/08/10/11/12/24, E08 Git UAT19, ML5 page 12 UAT20–30. Conserver acceptations historiques par SHA ; régression causale non établie. Quatre onglets/visionneuse présents, F2 non acquise. Rejouer ciblé dans ML5, pas réouverture globale des ensembles ni mutation Figma.
+
+**ML5 PRIMARY FLOW PARTIALLY OBSERVED — BUSINESS END-TO-END NOT ACHIEVED; OPEN / NO RELEASE / NOT ADOPTED.**

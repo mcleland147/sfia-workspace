@@ -1,5 +1,8 @@
 # Ensemble 07 — As-built (qualification initiale Projet / Trajectoire / Nora)
 
+> **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](../recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
+
+
 **Statut:** Morris UAT accepté (21/11) · réserve Acquis/À clarifier **techniquement levée** · RECETTE · NO RELEASE · prêt revue intégration Git
 **Base Git figée RECETTE antérieure:** `09a935bc71a3ab77eb063e9425b6f07ca1162417` · tree `5809a0bb707822eadde898b477e341125b746971`
 **Branche DEV:** `sfia/next-ensemble07-projet-trajectoire-delivery`
@@ -74,3 +77,9 @@ Option A hybride (dossier §8.1) + corrections P0 stabilisation + **correctif co
 - 09.03/09.10/09.07 : mesurés en capture ; certains sélecteurs secondaires absents selon seed (états métier variables).
 - LIVE Nora fournisseur : NOT RUN ce cycle.
 - Acceptation finale Morris UAT : **REQUIRED**.
+
+## Réserve de non-régression ML5 — 24/11/2026
+
+[Journal UAT](../recette-utilisateur-ml5-pilotage-360-20261124.md). S04–08 : insuffisance DEV puis RETAIN/OPEN distincts en RECETTE opérationnelle, cartes disparaissent entre rétention et ouverture, finalité générique et cycle d'origine à vérifier. UAT07/08/10/11/24. Configuration gap et réserve historique LIVE E07, causalité non établie. Rejeu ciblé projection et effet D5, verdict historique conservé.
+
+**ML5 PRIMARY FLOW PARTIALLY OBSERVED — BUSINESS END-TO-END NOT ACHIEVED; OPEN / NO RELEASE / NOT ADOPTED.**

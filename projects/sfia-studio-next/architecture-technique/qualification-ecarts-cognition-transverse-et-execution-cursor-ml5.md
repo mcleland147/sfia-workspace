@@ -1,5 +1,16 @@
 # SFIA Studio Next — Pré-analyse des écarts : cognition transverse de Nora et réalisation Cursor
 
+> **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](../construction/recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
+
+
+> **Lecture courante post-C22 :** [revue indépendante §12](https://github.com/mcleland147/sfia-workspace/blob/ea74688a2ac2643a157dc680d4b2f5fa1fa0b517/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md), addendum factuel en fin de document ; pas de changement normatif.
+
+> **Lecture courante post-C20 :** [synthèse globale](https://github.com/mcleland147/sfia-workspace/blob/978e42648aa0149e4f2f2bab03b4483a5bbfd496/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md#11-revue-globale-post-c20--état-de-travail-au-24112026-d1-factuel), addendum factuel en fin de document. Exigences et décisions antérieures conservées ; aucune adoption ni GO lot 2.
+
+> **Lecture prioritaire — revue approfondie post-C14 (24/11/2026) : ML5 TARGET ARCHITECTURE COHERENT — IMPLEMENTATION CONFORMITY PARTIAL — FUNCTIONAL COMPLETION REQUIRED.** [Revue complète](https://github.com/mcleland147/sfia-workspace/blob/37edb41329526d07134a802f8f73e7371c941c16/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md) ; [registre](https://github.com/mcleland147/sfia-workspace/blob/37edb41329526d07134a802f8f73e7371c941c16/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md) ; [acceptation](https://github.com/mcleland147/sfia-workspace/blob/37edb41329526d07134a802f8f73e7371c941c16/projects/sfia-studio-next/construction/contrat-acceptation-cognition-et-realisation-gouvernee.md). Morris valide la consolidation et les trois lots de convergence comme base de travail, pas une adoption ni un GO C15. Les sections R-004 et les instantanés préconstruction restent historiques pour l'état, opposables pour les exigences. Code reproduit dans snapshot consulté, worktree NON OBSERVÉ, aucune publication projet.
+
+> **Lecture prioritaire — consolidation R-004 du 24/11/2026.** Morris confirme la poursuite de ML5 (R5), la primauté de la complétude fonctionnelle et l'arbitrage de conduite sémantique de Nora ci-dessous. Les constats antérieurs à la construction sont historiques. Les handoffs C11–C13 établissent des frontières DEV LIVE bornées, pas une acceptation globale. Le candidat code C3–C13 reste local, non publié et NON OBSERVÉ directement par ChatGPT. Aucun GO de publication code, PR, merge, RECETTE, release ou adoption ; aucun changement de la décision Git A. La fidélité Figma reste une exigence reportée à la recette UX, non un gate de la consolidation fonctionnelle actuelle.
+
 ## Base d'investigation architecture et UX — ML5
 
 > **Lecture prioritaire :** axes A, B et C consolidés aux **§15–17** ; **§18 axe D** : Cursor SDK local, états LIVE sobres, branche Git de travail, handoff de fin de tentative et revue globale Nora. **§18.12 précise la convergence du 23/11 et prime sur toute suggestion historique de revue intermédiaire.** Aucune implémentation ni preuve runtime/REAL, aucun GO construction, PR, merge ou ADOPTED.
@@ -7,7 +18,7 @@
 | Champ | Valeur |
 | --- | --- |
 | Nature | **Document d'analyse exploratoire D0**, enregistré sur branche candidate ; non normatif, non décisionnel |
-| Version | **v0.9 — 23 novembre 2026** ; axe D : machine à états candidate D7, événement LIVE, publication Git, remise du handoff, D8 et configuration MCP SDK |
+| Version | **v0.10 candidate — consolidation R-004 du 24 novembre 2026 ; v0.9 historique** ; axe D : machine à états candidate D7, événement LIVE, publication Git, remise du handoff, D8 et configuration MCP SDK |
 | Statut | **DOCUMENTED / A+B+C CONSOLIDÉS ; D ORIENTATION ET PARCOURS AFFINÉS SUR DEMANDE MORRIS — NOT ARCHITECTURE-VALIDATED / NOT QUALIFIED FOR BUILD** ; SDK local privilégié ; **LIVE sobre pendant, revue Nora finale uniquement**, Git et handoff traçables ; transport, contrôle runtime et sûreté à qualifier |
 | Autorité de décision | Morris ; aucune adoption d'architecture inférée |
 | Source fonctionnelle candidate | [Contrat fonctionnel Nora transverse et Cursor](../conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md) — base v0.3 validée ; compléments v0.4 et v0.5 candidats, branche candidate |
@@ -17,6 +28,8 @@
 | Portée | Pré-qualification en lecture seule du code et de la documentation Next ; analyse à approfondir, **pas un contrat technique d'exécution** |
 
 > Ce document fixe les **premiers écarts observés** entre la vision fonctionnelle validée et la réalité du dépôt, afin de reprendre la qualification d'architecture ultérieurement. Il ne modifie ni SEF, ni Roadmap, ni ADR, ni spécifications R2 propriétaires ; il ne remplace pas une revue exhaustive des flux, invariants, tests et preuves LIVE/REAL.
+
+> **Décisions Morris du 23/11/2026 — lecture prioritaire :** voir **§19** et la [décision Git direct Cursor + auto-session DEV](https://github.com/mcleland147/sfia-workspace/blob/b411e3276e987e93627348de266e0b383419eab9/projects/sfia-studio-next/governance/decisions/2026-11-23-ml5-cursor-git-direct-et-session-dev-automatique.md). **Option A validée** : Cursor commit/push directement sous mandat ; D9 lit/vérifie ; Studio ne publie pas le code. Les recommandations historiques pour B sont supplantées. DEV auto-session local autorisé en conception avec garde-fous ; aucune preuve runtime ni GO d'effets externes implicites.
 
 ---
 
@@ -1608,3 +1621,148 @@ La page 12 Figma de Studio Next (`itgvCulInEnFY6DvgIegvP`) constitue une **sourc
 - **Gates de transposition** : extraction source Figma L0/L1/L2, oracle PNG natif/empreinte, navigation et défilement contractuels, puis assertions de conformité et captures BROWSER sur le produit effectivement construit.
 
 **État : DOCUMENTED CANDIDATE / PREPARATION UX VALIDATED IN CONTENT / NO PRODUCT CODE / NO ADOPTED / GATE C OPEN.**
+
+# 19. Arbitrages Morris validés le 23/11/2026 — Git direct Cursor et DEV BROWSER
+
+**Statut : D2 VALIDATED IN CONTENT / GIT CANDIDATE / NOT MERGED / IMPLEMENTATION NOT PROVEN.** La décision [Git direct Cursor et auto-session DEV](https://github.com/mcleland147/sfia-workspace/blob/b411e3276e987e93627348de266e0b383419eab9/projects/sfia-studio-next/governance/decisions/2026-11-23-ml5-cursor-git-direct-et-session-dev-automatique.md) prime sur le choix A/B encore candidat aux §§18.13.4/18.14.5. Elle ne remplace pas le contrat de réalisation, les gates SFIA ou une preuve LIVE/REAL.
+
+## 19.1. Option A — responsabilités et topologie cible
+
+- **D3 Nora** prépare les sources et le contrat ; **D6** valide la portée, les opérations Git permises et les exceptions ; **D7** conserve la tentative, le dispatch et les états ; **Cursor SDK local** réalise les modifications, commits et pushes de branche autorisés ; **D9 Studio** lit et vérifie les refs distantes ; **D8** qualifie les pièces ; Nora analyse une fois à la fin.
+- **Git direct dans Cursor**, authentifications/droits matériels administrés par Morris et distincts des permissions GitHub de Studio. Workspace isolé, branche distante dédiée, base SHA figée, préflight D7/D9 et vérification des droits effectifs avant mutation. Une instruction de prompt ne remplace jamais une barrière technique de permissions.
+- **Contrôle avant et après publication :** mandat D6/version contractuelle, repo/branche/base SHA/protections, allowlist de chemins et effets si applicable, commit/push bornés ; relecture D9 de SHA/refs et inventaire distant après chaque publication significative. Ne pas certifier une publication à partir du seul stdout Cursor.
+- **Continuité et reprise :** distinguer `workSha` local, commit(s) poussés et `remoteTipSha` re-lu ; un état local non publié reste marqué inaccessible à Studio ; ne pas repusher automatiquement après ACK perdu, révocation, crash ou ref divergente. Entre contrats, utiliser un SHA distant effectivement autorisé.
+- **ML4 inchangé :** Studio conserve sa voie de publication documentaire gouvernée. L'implémentation ML5 n'étend pas ce publisher au code Cursor et n'introduit pas de second moteur D7/D9.
+- **PR/merge et opérations à risque** sont techniquement réalisables par Cursor **seulement dans des contrats et décisions spécifiques** : aucun merge, force-push, release ou mutation par effet de bord d'un push de travail.
+
+**Blast radius :** D7 contrat/attempt et préflight, D9 lecture/contrôle ref, Git workspace et permissions Cursor, D8 dossier de preuve, Exécution/Résultats et tests F01–F09. Toute évolution de schéma nécessaire doit rester proportionnée, documentée et soumise aux gates applicables. Aucun publisher Git code Studio.
+
+## 19.2. Auto-session DEV — limite technique nécessaire
+
+**But :** débloquer BROWSER/Figma F2 des frames 12.01–12.14 après un blocage sur `/login`, sans modifier l'authentification cible ni le contrôle HumanDecision.
+
+- **Entrée DEV explicite et fail-closed** : mode de test configuré serveur, lane DEV vérifiée, base/sessions/secrets propres, **écoute loopback** ou exposition protégée équivalente démontrée. Ne se fier ni au paramètre navigateur ni au `Host`/à l'`Origin` déclarés par le client pour autoriser le bypass.
+- **Pilote test stable et serveur-owned** : établir une session normale pour D1/D6/D7 ; pas de désactivation globale des contrôles ni d'usurpation par sélection de `pilotId` côté client. Tests multi-Pilotes avec deux identités fictives autorisées et contextes séparés.
+- **RECETTE/STABLE non impactées** : login obligatoire, aucune configuration auto-session héritée, tests négatifs de fail-closed, absence de secrets dans Git, UI et handoff. Conserver une campagne login réel indépendante.
+- **Limites d'effets** : session DEV ≠ autorisation SDK LIVE, WEB LIVE, MCP mutatif, GitHub REAL, push projet, PR/merge. Les portes D6/D7 et ENV-01 restent obligatoires.
+- **Preuve attendue :** Playwright/BROWSER authentifié automatiquement sur DEV avec interactions fonctionnelles, captures runtime originales, comparaison L0/L1/L2 et F2, erreurs, reconnexion, auth négative et T-12 ; le test sur `/login` seul ne vaut pas preuve de parcours.
+
+## 19.3. Impacts ML5 et conditions de sortie
+
+Les exigences **F01–F09** doivent désormais être développées selon **l'option A**, tandis que Travail/activité Nora, B1 sécurisé, supervision D7, D8 G15, analyse cognitive finale et UX sont fermés progressivement dans le **même macro-lot**. Ne pas ouvrir de moteur ou de registre concurrent.
+
+**GO présent : documentation D2 publiée sur branche candidate uniquement.** Pas de mutation du worktree de développement, activation LIVE/REAL, push code, PR, merge, changement RECETTE/STABLE, release ni ADOPTED.
+
+**Verdict : ARCHITECTURAL ORIENTATION VALIDATED BY MORRIS IN CONTENT / CANDIDATE GIT / BEHAVIOR NOT PROVEN.**
+
+# 20. R-004 — consolidation architecturale après C13 (24/11/2026)
+
+**Statut : DOCUMENTED / CANDIDATE / NOT MERGED.** Arbitrage fonctionnel Morris de conduite sémantique validé en contenu : voir [contrat fonctionnel §21](../conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md). Les options physiques restent soumises aux gates applicables. Cette revue confirme la cohérence des responsabilités D3–D9 au niveau conception ; elle ne certifie pas exhaustivement le worktree local C3–C13, NON OBSERVÉ directement. Handoffs sources : [C5](https://github.com/mcleland147/sfia-workspace/blob/8199b1f01d9cee5f946d9f3f0837b4e00386e03c/sfia-review-handoff/latest-chatgpt-review.md), [C11](https://github.com/mcleland147/sfia-workspace/blob/f9dfcaaad90470e046d95a9d0a93115341a750d3/sfia-review-handoff/latest-chatgpt-review.md), [C12](https://github.com/mcleland147/sfia-workspace/blob/45311f75dad80e19f76ae09adfb1da387514531f/sfia-review-handoff/latest-chatgpt-review.md), [C13](https://github.com/mcleland147/sfia-workspace/blob/e3ed518b55ecda9430c862cda063052f94da8e7c/sfia-review-handoff/latest-chatgpt-review.md).
+
+## 20.1. Axe A — écart de conduite cognitive à traiter en priorité
+
+Le code reproduit dans les handoffs historiques expose notamment `detectsTechnicalContractIntent` / regex TECH_INTENT, `createEmptyInvestigation` et un profil dépendant de la longueur, `draftBodyFromInvestigation` avec assemblage et extrait de réponse borné à 1 500 caractères, critères par défaut « Handoff RECEIVED / Inventaire fichiers présent », `evaluateContractReadiness`, `investigation-persistence.ts` (snapshot dans projection_json). **Ce sont des observations historiques, à confirmer ou infirmer sur le code local actuel**, pas une affirmation que chaque ligne est encore présente.
+
+**Cible :** conducteur D3 unique ; qualification sémantique IA contextualisée et sortie structurée validée, questions/sources/contraintes/contradictions et suffisance, instruction contractuelle complète et critères propres au besoin. Aucun routeur de mots-clés, regex ou longueur pour déterminer une intention, un mode cognitif ou un contrat, y compris en fallback. Recherche lexicale comme découverte seulement, parsing et garde-fous déterministes conservés. Réutiliser les composants D3/D4, journal et bridge existants lorsqu'ils satisfont le contrat ; ne pas ajouter un agent permanent concurrent. Inspecter également les appels indirects, chemins de secours, UI et tests qui pourraient imposer la même heuristique. Qualifier la fraîcheur et le rattachement du snapshot au bon travail, le fencing et la reprise avant tout effet. Refuser READY lorsque la couverture déterminante n'est pas établie, même si un modèle ou un client affirme la complétude ; source critique partielle/obsolète ou contradiction non résolue ne peut être masquée par une question marquée ANSWERED.
+
+**Exit :** LIVE sur demande courte complexe, paraphrases, négations, discussion sans mandat, restriction tardive, sources contradictoires, source essentielle absente, deux travaux distincts et reprise ; contrat inspecté/transmis intégral et critères métier vérifiables. Tests déterministes des invariants et tests LIVE des décisions sémantiques ; pas de tests « mots attendus » en guise de compréhension.
+
+## 20.2. Axe B — raccorder le fournisseur, pas inventer un moteur
+
+Le code C5 de `public-web-search-frontier.ts` possède une branche LIVE refusée/non implémentée ; B09 demeure déclaré NOT_IMPL à C13. Préférence B1 §16 conservée : segment public isolé et minimal au sein de D3, fournisseur hébergé compatible avec les versions réellement installées, observations réintégrées dans A et C. Vérifier la séparation technique des données privées au point de sortie ; une variable, un prompt ou un filtre lexical seul ne suffisent pas. Préserver annotations/citations et distinguer découverte, ouverture, extrait, fraîcheur et couverture ; traiter l'injection comme donnée non fiable. Si aucune garantie d'isolation n'est établie, rester fail-closed. Ne pas construire un navigateur/crawler autonome. Le GO DEV LIVE déjà donné reste borné aux ressources DEV et à la recherche publique sûre, sans nouvelle mutation Git.
+
+## 20.3. Axe C — conserver C1 et qualifier le comportement transverse
+
+Les journaux de sources, projections et polling existants sont cohérents avec C1 ; C13 ajoute un journal D8. Vérifier la production d'événements pendant le RUNNING réel D3, sur sas/projet/documents, l'ordre, la reconnexion, l'isolation et la minimisation. Ne pas assimiler appels d'outils à nombre de sources lues, ni introduire SSE/WebSocket sans besoin mesuré. Preuve UI fonctionnelle minimale, sans gate F2 dans ce travail.
+
+## 20.4. Axe D — terminer le raccordement autonome de restitution
+
+C11/C12 prouvent des frontières réelles sur missions bornées, avec ingestion/qualification explicitement appelée par les scripts ; C13 prouve STOP LIVE et supervision in-process sans navigateur. La limite `REPORT_MUST_BE_INGESTED_SEPARATELY` et la production d'un handoff précoce C12 montrent qu'un chaînage produit autonome doit encore être vérifié localement et complété si absent. D7 observe terminal/interruption et attribue une remise à la tentative ; collecte/lecture de faits autorisés et rapport, D9 vérifie Git si applicable, D8 qualifie le dossier, D3 formule un avis global unique consultatif. Déclenchement métier idempotent, reprise sur terminal durable, rapport absent/partiel honnête, pièces tardives et historique ; pas de GET mutatif ni de relance Cursor. Ne pas confondre ce handoff produit et le Review Handoff SFIA externe.
+
+**Sécurité et résilience à fermer :** D8 refuse les symlinks statiques (C13 12 unit + 8 PG) mais vérifier la substitution concurrente d'un répertoire intermédiaire et la lecture strictement bornée même si le fichier grossit ; aucun contenu hors périmètre ne doit être transmis à Nora. Vérifier la fraîcheur transactionnelle de qualification, le journal individuel et les références des pièces. Supervision D7 in-process avec reprise sur réconciliation : ne pas revendiquer redémarrage autonome du processus ; corriger la reprise au démarrage et la concurrence STOP/observation selon besoin démontré, sans moteur d'états/queue parallèle. ACK perdu déterministe, STOP LIVE observé, CANCEL ≠ rollback. Aucune publication Git code demandée ; option A reste cible pour les missions Git autorisées, MCP conditionnel.
+
+## 20.5. Trajectoire et gates
+
+1. Complétude A/B/C et D01–D02 : audit local, conduite sémantique, web isolé LIVE, activité et contrat ; corrections de sécurité bloquantes dès la frontière concernée.
+2. Parcours D autonome : terminaison, remise, D8, Nora et continuité, reprendre les réserves sécurité/autorité/résilience utiles.
+3. Qualification consolidée : missions représentatives, TypeScript/lint/build, tests domaines/PG/permissions et non-régression ; 99 exigences, CA/T/Q/PF et CP-01…08 conservés dans R-004. Git/MCP selon mission et mandat ; Figma F2 conservé pour recette UX, pas un critère de refus des livraisons fonctionnelles indépendantes.
+
+Aucune nouvelle topologie, migration structurante, autorité ou adoption déduite. Code, tests, as-built et registre vivant doivent converger dans le même macro-lot. État : **ML5 ARCHITECTURAL ALIGNMENT CONFIRMED — FUNCTIONAL COMPLETION REQUIRED**, sans readiness environnement utilisateur ni autorisation de publication projet.
+
+# 21. Revue approfondie de conformité post-C14 — écarts d'implémentation et convergence (24/11/2026)
+
+**Consolidation documentaire validée par Morris comme base de travail, non adoption de topologie ou de choix physique.** [Revue approfondie intégrale, code et exits](https://github.com/mcleland147/sfia-workspace/blob/37edb41329526d07134a802f8f73e7371c941c16/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md), [registre courant](https://github.com/mcleland147/sfia-workspace/blob/37edb41329526d07134a802f8f73e7371c941c16/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md), [oracles d'acceptation](https://github.com/mcleland147/sfia-workspace/blob/37edb41329526d07134a802f8f73e7371c941c16/projects/sfia-studio-next/construction/contrat-acceptation-cognition-et-realisation-gouvernee.md), [snapshot post-C14](https://github.com/mcleland147/sfia-workspace/blob/78f60e40f466b520ac0381d5d27e212bd2fa5695/sfia-review-handoff/latest-chatgpt-review.md). Source snapshot commit 78f60e40f466b520ac0381d5d27e212bd2fa5695, blob 01961de12b10dc1d8802a2ba24bc5095a51b4949 ; HEAD produit local rapporté 6cf33e99, 97 DIRTY, non publié. Les constats ci-dessous priment sur états préconstruction/R-004 historiques ; aucun GO C15, modification de SEF, ADR, persistance structurante ou publication code induite.
+
+## 21.1. Axe A — un seul conducteur D3 adaptatif, pas une succession de runs sans continuité
+
+Le snapshot confirme l'orientation sémantique mais pas la conduite complète : cognitive-policy.ts fixe analyse/medium, budgets de profil et maxTurns décroissants ; nora-adapter.ts lance un run borné sans réallocation/continuation consolidée ; mesure réelle tokens/coût/effort appliqué insuffisante. Schéma Zod et replyDraft bornés, contexte initial compact, D4 paginé mais lecture Git 8k initiale et WEB/D8 extraits bornés : risque de source critique inaccessible. Augmenter les quotas n'est pas une réponse d'architecture.
+
+Reprendre §§15.3–15.12 et 20.1 : allocation initiale sémantique et révisable, réévaluation en cours d'investigation, continuation en segments dans un même travail, fenêtre de contexte et consolidation sourcée, checkpoint et reprise, sécurité/consommation propriétaire et arrêt honnête si impossibilité. Mesures réelles si exposées, distinguer maxTurns/appels/tokens/coût/temps, y compris segment public WEB ; pas de quota métier arbitraire ni de consommation infinie. Ne pas coupler la profondeur à Zod ni faire de replyDraft le contenant obligatoire du contrat/document. Séparer production cognitive des objets métier et validation structurée. Préserver une réponse simple proportionnée.
+
+investigation-state.ts / nora-contract-bridge.ts / service.ts : questions/contraintes/contradictions essentiellement héritées, bridge surtout après génération et intent de contrat. Raccorder réellement au conducteur transverse ; questions déterminantes révisables, sélection sémantique des sources, renvois, couverture, faits/version et réouverture. tool-source-journal.ts déduplique kind/ref et privilégie rang fort sans mise à jour version ni dégradation ; distinguer observations versionnées et invalidation ciblée. Ne pas confondre état D3 avec mémoire/autorité D4. Snapshot par préparation, écriture JSON sans fence propre et reprise surtout après bridge : vérifier identité du travail, version, checkpoints intermédiaires, droits et sources lors de reprise ; réutiliser persistance existante si possible, décision structurante Morris sinon. Pas nouveau moteur cognitif ni nouvelle base par défaut.
+
+P0 : evaluateContractReadiness peut transformer état vide/UNKNOWN/BUDGET_EXHAUSTED en SUFFICIENT par absence de bloqueur. Contrôle qualitatif positif sur questions indispensables/versions/autorité, garde-fou serveur fail-closed si source/restriction critique manque. READY et fingerprint liés à l'investigation et au contrat exact ; revalidation ciblée si changement matériel. Aucune heuristique lexicale décisionnelle, y compris contradiction, ni substitution par compteurs. Les indices de découverte/parsing/contrôles techniques restent légitimes. Contrat canonique conservé ; bridge tronque 24k/800 et 8 critères et fixe capacités/permissions/gitScope génériques : produire objet métier complet propre à la mission, assemblage déterministe réservé à forme et invariants. Exit A/B/C/D01–02 : cf. revue §§3–6 et lot 1.
+
+## 21.2. Axe B — B1 réel, frontière et qualité de lecture à terminer
+
+C14 : segment hébergé isolé query-only réel ; B09 présence IMPLEMENTED rapportée, conformité partielle. Chemin nominal n'alimente pas privateContextMarkers ; prompt/regex seuls ne constituent pas barrière de confidentialité. Contrôler données publiques autorisées en sortie (requêtes et URL/traces), destination réseau réelle/DNS, redirections et téléchargement réellement borné/timeout corps complet. WEB avec données fictives/publiques DEV tant que sûreté privée non qualifiée. Le parser de résultats de recherche ne prouve que découverte ; extraction HTML 8k puis citation 500 peut masquer contenu non étudié, fraîcheur fixe un an et confrontation lexicale ne prouvent pas applicabilité/contradiction. Lectures utiles progressives, couverture, provenance, confrontation sémantique et coûts agrégés au travail D3. Aucun crawler ou navigateur autonome parallèle. Détail et tests négatifs dans revue §4.
+
+## 21.3. Axe C — C1 conservé
+
+Projection événementielle transactionnelle et polling incrémental sont cohérents. Enrichir avec véritables étapes cognitives et nouvelles observations versionnées, corrélation exacte, ordre/reprise/ownership, minimisation de summary/detail/sourceRef et absence de chaîne privée ou progrès fictif. Valider usage pendant RUNNING sur sas/projet/documents/bilan ; pas de transport supplémentaire sans nécessité. Détail revue §5.
+
+## 21.4. Axe D — contrats, autorité, réalisation, Git et restitution
+
+D6/D7 : garder contrôle mandat, claim avant send, identités SDK, STOP et supervision C13. Ne pas assimiler cwd à sandbox ni prompt à permission. Vérifier workspace Pilote/projet (liens internes/concurrence), droits/permissions réels fournisseur, capacités MCP requises conditionnellement, restriction/mandat au point d'effet. Supervisor in-process, max ticks et resume via reconcile : reprise autonome boot/serveur à qualifier ; écritures concurrentes de projection STOP/observe/ingestion à sécuriser, no blind redispatch ; pas machine à états ou infrastructure parallèle sans besoin. Auto-session DEV : vérifier écoute réellement restreinte, non simple bind déclaré + connect loopback, auth normale ailleurs. Détail revue D.2–D.4 et §7.
+
+Git A : mandat exact et permissions réelles, pas liste commit/push/create_branch implicite ; observation distante fraîche (tracking cache ≠ remote), base/branche/cible au point d'effet, D9 vérification indépendante, continuité et local non publié distinct. Aucun publisher de code Studio ; circuit ML4 documentaire distinct conservé. Aucun GitHub REAL sans cible/GO explicite, MCP conditionnel. Détail D.5.
+
+Restitution : SDK marque REPORT_MUST_BE_INGESTED_SEPARATELY ; D7 observe terminal mais chemins inspectés ne chaînent pas remise→D8→avis. Enchaîner propriétaires existants de manière idempotente après fin/interruption réconciliée, collecte et inventaire authentiques, absence/rapport précoce/hostile honnête, pièces tardives versionnées. D8 compare preuves effectives aux critères propres au contrat, pas uniquement compteurs/manifeste ; paramètres Git vérifiés et captures à raccorder à qualification, neuf rubriques, possibilité de conformité technique positivement prouvée distincte de réception humaine. Référence manifeste ne vaut pas accessibilité. D8 confinement statique C13 acquis, race de substitution intermédiaire et lecture non strictement bornée à fermer. Verrou de qualification ne garantit pas fraîcheur si dossier lu avant ; avis hors transaction à rattacher à version exacte sans écrasement concurrent. D3 final LIVE avec journal individuel des pièces réellement consultées (pas compteur global ni marqueur Markdown), unique avis consultatif versionné, retour contextualisé sans auto-envoi. Détail D.6–D.9.
+
+## 21.5. Trajectoire, blast radius et gates
+
+Les trois lots de convergence validés comme orientation restent **dans ML5**. (1) conducteur cognitif complet : D3/D4/WEB/activité, contrat/READY D6-D7, API/données/UX/sécurité et non-régression ; (2) réalisation et restitution autonomes : D6/D7/D8/D9/D3, contraintes d'autorité et concurrence, transport/collecte/version/qualification/avis ; (3) qualification intégrée : continuité, 99 IDs et sous-critères, CA/T/Q/PF, tsc/lint/build, intégration PG/API, missions LIVE représentatives et non-régression ML1–ML4 selon impact, as-built et registre. IN/OUT, risques, dépendances, preuves et exit détaillés dans [revue §9](https://github.com/mcleland147/sfia-workspace/blob/37edb41329526d07134a802f8f73e7371c941c16/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md). P0 dès frontière ; préserver composants éprouvés, pas d'architecture physique anticipée. Nombre de cycles selon capacité/risque, pas découpage documentaire artificiel.
+
+Contrôle documentaire : les copies locales de conception/registre reproduites par Cursor ne reprennent pas intégralement R-004 ; sources Git candidates actualisées prioritaires pour prochaine construction, réconciliation sans écraser les 97 DIRTY. Le snapshot contient 237 fichiers mais pas toutes dépendances UI/boot/lockfile ; récupération ciblée avant conclusions sur ces chemins. Non-régression globale non démontrée, incompatibilité type toolAllowlist à compiler. La revue couvre les familles et 99 IDs par groupes, pas une certification ligne par ligne. F2 reporté à recette UX, interactions fonctionnelles minimales maintenant. Pas nouvelle lane, pas publication projet (Morris expliquera modalités), PR/merge/recette/promotion/adoption ni GO C15. **Verdict courant : ML5 TARGET ARCHITECTURE COHERENT — IMPLEMENTATION CONFORMITY PARTIAL — FUNCTIONAL COMPLETION REQUIRED.**
+
+## 22. Actualisation factuelle des écarts après C20 (24/11/2026)
+
+**Nature :** addendum de suivi D1 strictement factuel sous GO Morris du 24/11/2026 pour synchroniser les documents ML5 publiés ; aucune modification normative, aucun nouvel arbitrage, aucun GO lot 2, pas de réception/adoption. Références opposables pour l'état courant : [revue globale §11](https://github.com/mcleland147/sfia-workspace/blob/978e42648aa0149e4f2f2bab03b4483a5bbfd496/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md#11-revue-globale-post-c20--état-de-travail-au-24112026-d1-factuel), [registre §9](https://github.com/mcleland147/sfia-workspace/blob/f649776bc2da1be1a0ba77486675b76891a31cb3/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md), [conception du conducteur §13](https://github.com/mcleland147/sfia-workspace/blob/141faa488a72d9164678e927b5785370da67146a/projects/sfia-studio-next/architecture-technique/conducteur-cognitif-et-production-nora.md), [suivi des preuves §9](https://github.com/mcleland147/sfia-workspace/blob/af589c6949a26a197bbc30f43925d8267a3994c1/projects/sfia-studio-next/construction/contrat-acceptation-cognition-et-realisation-gouvernee.md), [handoff C20](https://github.com/mcleland147/sfia-workspace/blob/51cbadf26b8ce2f0b0ce52b3ebebd136ce4b6bef/sfia-review-handoff/latest-chatgpt-review.md). Code candidat local rapporté DIRTY C1–C20 @6cf33e99, NON OBSERVÉ directement, NO RELEASE ; main inchangé. Cursor READY WITH RESERVES ; ChatGPT : socle exploitable, sortie lot 1 non qualifiée, lot 2 conditionnel recommandé et non décidé.
+
+L'architecture B/C/C est conservée, de même que les propriétaires R4 et Git A. Les constats pré-C15 décrivent leur snapshot et ne doivent plus être lus comme absence du conducteur ou de la persistance.
+
+| Axe / interface | Évolution observée | Travail résiduel |
+|---|---|---|
+| A : D3 conducteur | Structuré C18, checkpoint immuable C19, lease/CAS C20, attachement ambigu clarifié | Reprise réelle, probe/ownership, adaptation et consolidation multi-segments ; pas nouveau moteur |
+| B : B1 WEB | Allowlist de découverte C20, agent isolé C14, pinned/redirect bornés rapportés | P0 B07 toujours ouvert : args.query libre et regex ; véritable autorisation des données à l'egress, confinement avant usage |
+| C : activité | Événements corrélés/polling, premiers browser | Vérification utile en cours de travail/reconnexion |
+| D.1–D.2 | Production longue structurée, filiation READY, D4 supersession et double contrôle pré-SDK | Exactitude des dépendances/permissions, réservation et preuve de refus au dispatch ; contrat inspecté/autorisé/transmis |
+| D.3–D.5 | D6, SDK LIVE/ACK-first/STOP et supervision existants ; décision A | Confinement réel workspace/fournisseur, boot/concurrence/ACK incertain, Git exact et D9 indépendant si mission ; pas nouveau publisher |
+| D.6–D.9 | Handoff, D8, outils Nora et avis LIVE séparés disponibles | **Construction majeure restante** : terminal→collecte/ingestion→D8/D9→avis versionné, vrai recoupement critères/pièces, provenance, confinement borné et fraîcheur, preuves tardives, avis unique et retour fil |
+
+Le service C20 injecte le contenu de production cognitive dans documentProposal (handoff L5577–5599) ; I6 observe D4 AVAILABLE sur document simple, pas identité intégrale longue. I2 observe supersession D4 au niveau assess (L261–276) et code post-claim (L2182–2233), pas preuve de zéro dispatch après autorisation. I3 tests lexical/URL ne garantissent pas confidentialité métier non marquée (L2692–2744, L3515–3529). Le maintien d'un P0 interdit d'utiliser la frontière concernée ; proposition de WEB OFF vérifié en entrée du lot 2, non décision ni fermeture.
+
+Le prochain travail utile porte sur le résultat intégré de lot 2 §21.4, avec gates d'autorité et confinement, puis lot 3 qualification. Les limites d'audit post-C14 restent pertinentes là où aucun code/preuve plus récent n'a été observé ; qualifier localement avant modification. Aucun pivot architectural, changement de doctrine ou gate induit.
+
+## 23. État transverse post-C22 — constat as-built et écarts
+
+**Portée :** actualisation D1 factuelle sous GO Morris du 24/11/2026. [Revue globale §12](https://github.com/mcleland147/sfia-workspace/blob/ea74688a2ac2643a157dc680d4b2f5fa1fa0b517/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md) ; [registre des 99 exigences §10](https://github.com/mcleland147/sfia-workspace/blob/eec09fdcabcf4299d3c57b4cf612a3d67c8a1718/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md) ; [handoff C22](https://github.com/mcleland147/sfia-workspace/blob/075d085628e5062b2fd17301f6347195fd25c53a/sfia-review-handoff/latest-chatgpt-review.md). Candidat DIRTY C1–C22 @6cf33e99 rapporté, NON OBSERVÉ directement. GO lot 2 et C22 acquis. Cursor READY WITH RESERVES ; ChatGPT NOT READY FOR LOT 2 EXIT — LIVE DOWNSTREAM OBSERVED / D8 EVIDENCE INTEGRITY AND RESTITUTION FENCING OPEN. NO RELEASE. Aucun changement de cible, exigences, décisions ou gates.
+
+| Interface | État C22 observé | Invariant / exit restant |
+|---|---|---|
+| A D3 | Conducteur PG commun ; mergeMode structuré ; avis D8 via scope attemptId | Consolidation sémantique réelle, reprise et production canonique, journal des pièces |
+| B B1 | Autorisation exact allowlist/registre ; deny registre vide | Registre serveur alimenté en pratique, egress positif sûr et contrôle URL/logs ; confinement distinct de qualification |
+| C activité | C1 + événement investigation C21 | RUNNING réel, reconnexion, corrélation et minimisation BROWSER |
+| D.1–D.2 D6/D7 | Filiation, revalidation C20, dispatch C22 | Dépendances actuelles, point de réservation, identité contrat, négatif zéro SDK |
+| D.3–D.5 D7 | SDK LIVE/ACK/STOP et instrumentation boot | Supervision autonome sans reconcile de campagne ; confinement SDK effectif ; D9/Git A conditionnel |
+| D.6 D7 collecte | Rapport attempt-bound, FS confiné et hash | Binding canonique et fallback non certifiant ; CAS claim acquis, écrire sous fence actuel |
+| D.7 D8 | buildVerifiedEvidenceFromWorkspace et verdict CONFORMING | P0 : nom fichier et exit déclaré ne prouvent pas satisfaction ; test exécuté, contenu effectivement évalué, provenance et version |
+| D.8–D.9 Nora | runNoraCognitiveTurn + D8, avis LIVE après reprise | Avis par dossier/version, absence d'écrasement stale, distinction synthèse et COMPLETE, preuve tardive et retour fil |
+
+Références code C22 L537–609/1033–1061 (binding/fallback), L748–781 (verified par nom ou exit), L814–911/1227–1413 (claim vs écritures), L1299–1345 (scope D8), L1485–1516 (boot), L1938–2016 (mergeMode), L3587–3597/3680–3768 (mission et reconcile). D8 doit rester propriétaire de la qualification ; Nora donne un avis distinct, Pilote décide. Pas de nouveau moteur, store ou pivot. L'architecture B/C/C et Git A restent applicables. La chaîne aval LIVE constitue une avancée, non une réception du lot 2. Voir revue globale pour priorisation. Aucun GO lot 3.
+
+# 24. Observation runtime UAT — 24/11/2026
+
+[Journal UAT](../construction/recette-utilisateur-ml5-pilotage-360-20261124.md). D3/D4 : v1 OBS, v2 FAIL, output Git large et budget ; B1 WEB directe FAIL, options A/B/C/D et exit sécurité §5 du journal ; D5 rétention/ouverture distinctes OBS mais projection partielle ; D6/D7 : mission de Nora au lieu de Cursor, nouveaux IDs v1, READY/D6 UI, contrôle exact authority/version/empreinte non prouvé ; D7 SDK terminal LIVE et état partiel ; D7/D8/D9 handoff reçu, preuve/inventaire incomplets, D9 N/A local ; D8→D3 avis déterministe et rapport inaccessible. P0 OS/permissions et fencing/intégrité à requalifier. Préserver propriétaires et B/C/C + Git A ; aucun nouveau ADR, choix navigateur ou moteur concurrent. Code exact non observé.
+
+**ML5 PRIMARY FLOW PARTIALLY OBSERVED — BUSINESS END-TO-END NOT ACHIEVED; OPEN / NO RELEASE / NOT ADOPTED.**

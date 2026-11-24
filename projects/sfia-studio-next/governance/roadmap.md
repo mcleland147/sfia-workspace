@@ -1,5 +1,8 @@
 # SFIA Studio Next — Living Roadmap
 
+> **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](../construction/recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
+
+
 ## ÉTAT COURANT — 22 NOVEMBRE 2026 : Ensemble 08 intégré sur main, CI post-merge vérifiée
 
 **Nature :** mise à jour strictement factuelle validée par Morris, prioritaire sur les instantanés historiques ci-dessous, conservés intacts. Aucun nouveau Gate C, GO ML5, R6 global, adoption, choix d'architecture ni promotion.
@@ -530,3 +533,9 @@ Morris valide la [sortie R2 avec réserves](decisions/2026-11-02-r2-functional-e
 **Décision Morris :** finaliser et intégrer la documentation ML4, dont la conception Figma **218–235 et INDEX 388:425 VALIDATED SPEC UX**, puis qualifier et construire la convergence UX du parcours réellement implémenté ML1–ML3 **avant** le développement technique Git ML4. [Décision d'ordonnancement](decisions/2026-11-07-ml4-ux-validation-convergence.md), [registre UX](../ux-ui/integration-git-ux-ml4.md), [revue de préparation](../construction/ml4-integration-git/revue-preparation-ml4.md).
 
 **État :** R5 IN PROGRESS ; ML1 CLOSE avec réserves, ML2 recette acceptée avec réserves, ML3 CLOSE avec réserves ; ML4 **préparation documentaire en candidature / UX validée en conception / NON IMPLÉMENTÉ / GO BUILD ABSENT**. La publication de cet addendum ne constitue ni un merge sur `main`, ni un GO de construction, ni STABLE/release/ADOPTED.
+
+## 24 NOVEMBRE 2026 — Etat factuel ML5 (branche documentaire candidate)
+
+[Journal UAT](../construction/recette-utilisateur-ml5-pilotage-360-20261124.md). Main E08 #691 inchangé ; Gate C OPEN historique ci-dessus reflète son instantané. GO ML5/Gate C avec réserves du 23/11 consignés registre candidat. GO RECETTE et parité rapportés [cutover](https://github.com/mcleland147/sfia-workspace/blob/d165c53076bc69f8c16051226d42df08ed02ff5a/sfia-review-handoff/latest-chatgpt-review.md) [parité](https://github.com/mcleland147/sfia-workspace/blob/e497030bde17dd28ed5e17116b398b578d68f2f0/sfia-review-handoff/latest-chatgpt-review.md). Candidat 7f48daa2/_ZDI1cWa1hscluvBhaiA4 non publié, local NON OBSERVÉ, OPERATIONAL_PROVISIONAL et Cursor LIVE. R5 ML5 IN PROGRESS, R6 non démarré. 30 UAT, 99/CA/T/Q/PF et P0 ouverts ; suite proposée : correction intégrée dans ML5 puis rejeu sur candidat figé, à arbitrer. Aucun nouveau gate ou décision normative.
+
+**ML5 PRIMARY FLOW PARTIALLY OBSERVED — BUSINESS END-TO-END NOT ACHIEVED; OPEN / NO RELEASE / NOT ADOPTED.**

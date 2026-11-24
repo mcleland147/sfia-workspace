@@ -1,5 +1,8 @@
 # SFIA Studio Next — Delivery history
 
+> **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](./recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
+
+
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
@@ -4438,3 +4441,9 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | RECETTE / STABLE | intouchées |
 | Classe | NO RELEASE · Gate C OPEN |
 | Verdict cible | `LOCAL GIT CANDIDATE FROZEN` (± GOVERNED RESERVES) |
+
+## 2026-11-24 — ML5 · consolidation UAT DEV/RECETTE (D1, NO RELEASE)
+
+[Journal UAT](./recette-utilisateur-ml5-pilotage-360-20261124.md). C24 DEV build aXcIQCDMIigpelfT-Jvr5 [handoff](https://github.com/mcleland147/sfia-workspace/blob/0ea7e6cff6e2e0d9f705c7c4f4908a1f1dc40c4d/sfia-review-handoff/latest-chatgpt-review.md) ; cutover 8410906d/e0XwSWvjujz-xaHfXsrQK TEST_BOUNDARY FAKE [handoff](https://github.com/mcleland147/sfia-workspace/blob/d165c53076bc69f8c16051226d42df08ed02ff5a/sfia-review-handoff/latest-chatgpt-review.md) ; parité 7f48daa2/_ZDI1cWa1hscluvBhaiA4 OPERATIONAL_PROVISIONAL Cursor LIVE [handoff](https://github.com/mcleland147/sfia-workspace/blob/e497030bde17dd28ed5e17116b398b578d68f2f0/sfia-review-handoff/latest-chatgpt-review.md), 26 projets préservés. S01–18/UAT01–30 : SDK LIVE et rapport reçu, D8 PARTIAL, prototype non réalisé selon rapport, avis LIVE absent, rapport inaccessible Nora. GO documentaire seulement. Entrée de suivi et non livraison technique ; aucune modification code, CI ou candidat servi.
+
+**ML5 PRIMARY FLOW PARTIALLY OBSERVED — BUSINESS END-TO-END NOT ACHIEVED; OPEN / NO RELEASE / NOT ADOPTED.**

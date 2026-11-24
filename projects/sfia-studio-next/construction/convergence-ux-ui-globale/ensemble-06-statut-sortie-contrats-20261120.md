@@ -1,5 +1,8 @@
 # Ensemble 06 — Statut de sortie des contrats (20 novembre 2026)
 
+> **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](../recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
+
+
 **Nature :** addendum factuel de sortie UAT.
 **Ne remplace pas** les contrats/matrices source (blobs Git exacts conservés sur leurs branches de conception).
 **Ne clôture pas** les réserves listées.
@@ -44,3 +47,9 @@
 ## Gate restant
 
 Revue indépendante + CI sur SHA publié + **GO Morris MERGE** distinct.
+
+## Réserve de non-régression ML5 — 24/11/2026
+
+[Journal UAT](../recette-utilisateur-ml5-pilotage-360-20261124.md). S08–10 : Journal enrichi, v1 créée, compteur Projet 0 sémantique à vérifier ; proposition §4 texte correct mais ancienne section dans visionneuse, conservation non effectuée, historique une v1, budget épuisé (UAT12–16). Verdict E06 historique inchangé ; cause non établie, rejouer D4 création/proposition/conservation exacte/v2/historique/projections.
+
+**ML5 PRIMARY FLOW PARTIALLY OBSERVED — BUSINESS END-TO-END NOT ACHIEVED; OPEN / NO RELEASE / NOT ADOPTED.**

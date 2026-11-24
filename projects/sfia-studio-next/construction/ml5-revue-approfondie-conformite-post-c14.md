@@ -1,5 +1,8 @@
 # SFIA Studio Next — ML5 · Revue approfondie de conformité post-C14
 
+> **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](./recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
+
+
 > **Lecture courante post-C22 :** §12 (24/11/2026) — lot 2 engagé, chaîne aval LIVE bornée observée, intégrité D8 et fencing résiduels ; sortie non qualifiée. §11 historique.
 
 > **État courant post-C20 (24/11/2026)** : voir §11 — synthèse factuelle, socle cognitif exploitable, sortie intégrale lot 1 non qualifiée ; engagement lot 2 sous conditions proposé, non décidé. Les critères antérieurs restent opposables.
@@ -320,3 +323,9 @@ C1–C14 : socle D6/D7/D8/D9, contrat et UI, SDK LIVE C11, ACK-first C12, STOP e
 ### 12.4 Proposition d'arbitrage — non décidée
 
 **NOT READY FOR LOT 2 EXIT — LIVE DOWNSTREAM OBSERVED / D8 EVIDENCE INTEGRITY AND RESTITUTION FENCING OPEN.** Ne pas rouvrir les composants construits. Proposition : un seul travail intégré de finalisation/qualification avant sortie, éventuellement dans l'entrée du lot 3 si Morris accepte explicitement la trajectoire, sans fermer P0 par réserve. Priorités : D8 vérifie le sens du critère et une capture réellement produite par commande, négatif fichier faux + exit fabriqué/stale ; fence sur toutes écritures et version du dossier, reprise sûre ; WEB reste fail-closed tant que positif sécurisé non qualifié ; preuve autonome sans reconcile injecté et avis D3 véritable ; préparation naturelle et BROWSER activité dans même mission. Les tests doivent appeler les propriétaires, non injecter les verdicts. Reporter GitHub REAL/MCP si non requis par la mission, F2 à recette, optimisation ressources et perfectionnements non bloquants avec propriétaire/exit. Aucune décision lot 3 par cette revue. Pas de nouveau cycle uniquement documentaire.
+
+## 13. Revue utilisateur intégrée post-C24 — 24/11/2026
+
+[Journal UAT](./recette-utilisateur-ml5-pilotage-360-20261124.md). Candidat RECETTE 7f48daa2 rapporté, code local NON OBSERVÉ ; [parité](https://github.com/mcleland147/sfia-workspace/blob/e497030bde17dd28ed5e17116b398b578d68f2f0/sfia-review-handoff/latest-chatgpt-review.md). D3→D7 LIVE→handoff observés, prototype non réalisé selon rapport, D8 PARTIAL, inventaire vide, avis déterministe, rapport inaccessible à Nora. Révision D4 non conservée, WEB direct non abouti, sortie structurée Git large en échec, contrat dupliqué et mission de préparation, effet DRAFT contradictoire UAT30. Préserver acquis et prudence D8. Axes A/B/C/D et trois lots §9–10 inchangés ; proposition §7 journal : conducteur/WEB, continuité D4/D7, réalisation/retour, UX intégrées. P0 OS/autorité, preuves/fencing ouverts ; régression E06/E07/E08 ciblée. Pas de sortie lot 2/3/ML5, décision de correctif distincte.
+
+**ML5 PRIMARY FLOW PARTIALLY OBSERVED — BUSINESS END-TO-END NOT ACHIEVED; OPEN / NO RELEASE / NOT ADOPTED.**

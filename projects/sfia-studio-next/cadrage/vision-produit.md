@@ -1,5 +1,8 @@
 # SFIA Studio Next — Vision produit : relation Pilote ↔ Nora
 
+> **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](../construction/recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
+
+
 | Champ | Valeur |
 | --- | --- |
 | Jalon | **R1 — cadrage produit, CLOSED BY MORRIS WITH CARRIED RESERVES (2026-11-02)** |
@@ -1183,3 +1186,15 @@ Le Pilote peut utiliser Studio sans dépôt. L'espace **Paramètres → Intégra
 ## R1 — Raccord de la préparation ML4 et de la convergence UX (2026-11-07)
 
 Les sept E2E de vision restent propriétaires de leur périmètre. **Les maquettes 218–235 et l'INDEX ML4** ont été validés par Morris en conception : [registre Figma](../ux-ui/integration-git-ux-ml4.md). Elles complètent E2E07 par la collaboration Git documentaire native sous D6/D7/D8/D9, sans preuve d'effet réel ni modification des frontières R1. L'ordre retenu pour R5 est : intégrer le paquet documentaire ML4 → qualifier la convergence UX de l'application ML1–ML3 existante → réaliser techniquement Git ML4, sous GO distinct. [Décision d'ordonnancement](../governance/decisions/2026-11-07-ml4-ux-validation-convergence.md).
+
+## Point de suivi ML5 post-C22 — 24/11/2026 (factuel, sans modification de la vision R1)
+
+**Portée :** actualisation D1 factuelle sous GO Morris du 24/11/2026. [Revue globale §12](https://github.com/mcleland147/sfia-workspace/blob/ea74688a2ac2643a157dc680d4b2f5fa1fa0b517/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md) ; [registre des 99 exigences §10](https://github.com/mcleland147/sfia-workspace/blob/eec09fdcabcf4299d3c57b4cf612a3d67c8a1718/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md) ; [handoff C22](https://github.com/mcleland147/sfia-workspace/blob/075d085628e5062b2fd17301f6347195fd25c53a/sfia-review-handoff/latest-chatgpt-review.md). Candidat DIRTY C1–C22 @6cf33e99 rapporté, NON OBSERVÉ directement. GO lot 2 et C22 acquis. Cursor READY WITH RESERVES ; ChatGPT NOT READY FOR LOT 2 EXIT — LIVE DOWNSTREAM OBSERVED / D8 EVIDENCE INTEGRITY AND RESTITUTION FENCING OPEN. NO RELEASE. Aucun changement de cible, exigences, décisions ou gates.
+
+La relation Pilote ↔ Nora et les neuf domaines restent la cible validée de R1. Dans le périmètre ML5, les capacités de préparation cognitive, contrat et autorité, exécution Cursor, collecte et avis cognitif sont présentes avec une observation LIVE aval bornée en C22. La qualification des preuves D8, l'intégrité de restitution, le WEB fonctionnel sûr et la preuve de la chaîne naturelle complète demeurent partiels ; le bilan doit rester consultatif et les décisions appartiennent au Pilote. Cet état de livraison n'altère ni les principes fondateurs ni les réserves R1, et ne vaut ni acceptation utilisateur ni adoption. Les sources détaillées de réalisation sont les documents ML5 référencés, non le présent cadrage.
+
+## Point de suivi ML5 post-recette naturelle — 24/11/2026
+
+[Journal UAT](../construction/recette-utilisateur-ml5-pilotage-360-20261124.md). Vision Pilote–Nora–capacités inchangée. Transport LIVE depuis Studio puis rapport reçu observés, résultat métier et continuité cognitive/WEB/révision documentaire non aboutis. Les référentiels ML5 propriétaires portent les réserves ; pas de preuve intégrée de la vision ni adoption.
+
+**ML5 PRIMARY FLOW PARTIALLY OBSERVED — BUSINESS END-TO-END NOT ACHIEVED; OPEN / NO RELEASE / NOT ADOPTED.**

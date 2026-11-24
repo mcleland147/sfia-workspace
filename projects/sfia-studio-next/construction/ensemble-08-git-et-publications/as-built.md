@@ -1,5 +1,8 @@
 # Ensemble 08 — As-built (consultation Git + conduite Nora)
 
+> **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](../recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
+
+
 ## État courant post-merge (22 novembre 2026) — prioritaire sur les états historiques ci-dessous
 
 **Verdict : E08 MERGED / POST-MERGE CI VERIFIED / WITH DOCUMENTED RESERVES.** Les tableaux et mentions de candidats/branches précédents restent des jalons historiques, pas la situation courante.
@@ -251,3 +254,9 @@
 - Statut courant addenda : **D2 APPROVED / PUBLISHED ON CANDIDATE** — pas VALIDATED SPEC global, pas ADOPTED.
 - `web/` tree : toujours `77c89ed84546b3bfb0356164416c04eac26ed229` (= SOURCE `10128bdb`).
 - RECETTE runtime : **INCHANGÉE** (`10128bdb` / `2uHrYBsQUvf6aii40hMpj`).
+
+## Non-régression ML5 — 24/11/2026
+
+[Journal UAT](../recette-utilisateur-ml5-pilotage-360-20261124.md). S12 : GitHub App limitée Chantiers360, rattachement explicite, lecture bornée 8c398c49 avec provenance rapportée, tour large échoue après lectures réussies selon Cursor (sortie structurée). UAT19 ouverte, pas échec OAuth établi. Mutation distante non exercée ; D9 N/A réalisation locale. Préserver E08 #690/#691 et réutiliser D9 existant ; aucune modification droits/publisher.
+
+**ML5 PRIMARY FLOW PARTIALLY OBSERVED — BUSINESS END-TO-END NOT ACHIEVED; OPEN / NO RELEASE / NOT ADOPTED.**
