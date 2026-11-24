@@ -12,8 +12,8 @@ Append-only logical journal of Cursor product deliveries.
 | Type | RUN · consolidation C1–C24 · cutover RECETTE · **NO RELEASE** |
 | Branche | `sfia/next-ml5-integrated-delivery-20261123` |
 | HEAD pré-consolidation | `6cf33e9923796974b9ee540a9c6ff27110342950` |
-| Candidate SHA | _PENDING_COMMIT_ |
-| Candidate tree | _PENDING_TREE_ |
+| Candidate SHA | d4b89c906411e554f467a9eebe8f8c8e891c8e08 |
+| Candidate tree | f8d5a66391451dfac008af234557d41657f0de79 |
 | Ancienne RECETTE | SOURCE `10128bdb6bb1020a0fd8d4976b91879bff26c3b3` · BUILD `2uHrYBsQUvf6aii40hMpj` |
 | Build RECETTE | _PENDING_BUILD_ |
 | Contenu | Commit local consolidé ML5 ; worktree RECETTE indépendant ; migrations additives 019–021 ; auth normale (pas auto-session) ; UAT-01…10 capitalisées ouvertes |
