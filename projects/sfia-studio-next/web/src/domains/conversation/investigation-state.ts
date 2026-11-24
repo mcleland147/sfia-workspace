@@ -51,6 +51,22 @@ export type InvestigationState = {
     | "UNKNOWN";
   contractReady: boolean;
   contractReadyBlockedReason?: string | null;
+  /** C17 — dedicated technical instruction (≠ conversational reply). */
+  productionInstruction?: string | null;
+  /** C17 — acceptance criteria distinct from remainingWork. */
+  acceptanceCriteria?: string[];
+  /** C17 — filiation to exact cognitive work / revision. */
+  cognitiveWorkId?: string | null;
+  cognitiveRevision?: number | null;
+  /**
+   * C23 — server-registered public WEB topics for the turn (ref → exact query).
+   * Provenance must be established server-side before Nora can use them.
+   */
+  registeredPublicTopics?: Record<string, string>;
+  /** Exact public queries explicitly authorized for this turn. */
+  authorizedExactWebQueries?: string[];
+  /** Public facts already registered for composition. */
+  registeredPublicFacts?: string[];
 };
 
 export function createEmptyInvestigation(intent: string): InvestigationState {
@@ -59,7 +75,8 @@ export function createEmptyInvestigation(intent: string): InvestigationState {
     desiredOutcome: "",
     constraints: [],
     risks: [],
-    profileHint: intent.trim().length < 80 ? "simple" : "analyse",
+    // C14: never derive profileHint from message length.
+    profileHint: "analyse",
     questions: [],
     sources: [],
     contradictions: [],
@@ -72,30 +89,15 @@ export function createEmptyInvestigation(intent: string): InvestigationState {
 }
 
 /**
- * Une restriction déterminante inconnue ou une source critique partielle
- * interdit le statut « contrat prêt ».
+ * C15 — positive sufficiency for contract READY.
+ * Absence of open questions / contradictions on an empty or UNKNOWN state
+ * must NEVER imply SUFFICIENT / contractReady.
  */
 export function evaluateContractReadiness(state: InvestigationState): InvestigationState {
-  const determinantOpen = state.questions.filter(
-    (q) => q.importance === "DETERMINANT" && q.status !== "ANSWERED",
-  );
-  const criticalPartial = state.sources.some(
-    (s) =>
-      (s.coverage === "PARTIAL" ||
-        s.coverage === "DENIED" ||
-        s.coverage === "UNKNOWN" ||
-        s.coverage === "STALE") &&
-      state.questions.some(
-        (q) =>
-          q.importance === "DETERMINANT" &&
-          q.status !== "ANSWERED" &&
-          (q.sourceRefs ?? []).includes(s.ref),
-      ),
-  );
-  const hasContradiction = state.contradictions.length > 0;
-  const blockedRestriction = state.sufficiency === "BLOCKED_BY_UNKNOWN_RESTRICTION";
-
-  if (blockedRestriction) {
+  // C17: BUDGET_EXHAUSTED is not a sticky poison across re-evaluation.
+  // Only an explicit global envelope decision (conductor) may re-assert it after
+  // checking resources; a technical SEGMENT_INVOCATION_LIMIT must not block READY forever.
+  if (state.sufficiency === "BLOCKED_BY_UNKNOWN_RESTRICTION") {
     return {
       ...state,
       contractReady: false,
@@ -103,32 +105,79 @@ export function evaluateContractReadiness(state: InvestigationState): Investigat
       sufficiency: "BLOCKED_BY_UNKNOWN_RESTRICTION",
     };
   }
-  if (determinantOpen.length > 0) {
-    return {
-      ...state,
-      contractReady: false,
-      contractReadyBlockedReason: `Questions déterminantes ouvertes: ${determinantOpen
-        .map((q) => q.id)
-        .join(", ")}`,
-      sufficiency: "INSUFFICIENT",
-    };
+
+  const intentOk = Boolean(state.intentSummary?.trim());
+  const outcomeOk = Boolean(state.desiredOutcome?.trim());
+  const consulted = state.sources.filter(
+    (s) => s.coverage === "CONSULTED" || s.coverage === "VERIFIED",
+  );
+  const determinantOpen = state.questions.filter(
+    (q) => q.importance === "DETERMINANT" && q.status !== "ANSWERED",
+  );
+  const hasDeterminantQuestions = state.questions.some((q) => q.importance === "DETERMINANT");
+  // C16: ANSWERED without exploitable answer is not positive sufficiency.
+  const answeredHollow = state.questions.filter(
+    (q) =>
+      q.importance === "DETERMINANT" &&
+      q.status === "ANSWERED" &&
+      !(q.answerSummary && q.answerSummary.trim()),
+  );
+  // Determinant / material source degradation reopens READY even if questions stay ANSWERED.
+  const determinantDegraded = state.sources.some((s) => {
+    if (s.coverage === "STALE" || s.coverage === "DENIED" || s.coverage === "CONTRADICTORY") {
+      return true;
+    }
+    if (s.coverage !== "PARTIAL" && s.coverage !== "UNKNOWN") return false;
+    const linked = state.questions.some(
+      (q) =>
+        q.importance === "DETERMINANT" &&
+        (q.sourceRefs ?? []).includes(s.ref),
+    );
+    // Unlinked PARTIAL/UNKNOWN on the only consulted path still blocks when no VERIFIED remains.
+    return linked || consulted.length === 0;
+  });
+  const hasContradiction = state.contradictions.length > 0;
+
+  const fail = (reason: string, sufficiency: InvestigationState["sufficiency"] = "INSUFFICIENT") => ({
+    ...state,
+    contractReady: false as const,
+    contractReadyBlockedReason: reason,
+    sufficiency,
+  });
+
+  if (!intentOk) return fail("Intention non établie", "UNKNOWN");
+  if (!outcomeOk) return fail("Résultat attendu non spécifié", "INSUFFICIENT");
+
+  // C18: instruction + criteria text alone is NOT positive sufficiency for READY.
+  // Do not invent determinant questions; when present they must be answered with substance.
+  // Consulted/verified sources remain the default positive basis.
+  if (consulted.length === 0) {
+    return fail(
+      "Aucune source CONSULTED/VERIFIED — base positive insuffisante pour READY",
+      "INSUFFICIENT",
+    );
   }
-  if (criticalPartial) {
-    return {
-      ...state,
-      contractReady: false,
-      contractReadyBlockedReason: "Source critique partielle, refusée ou non vérifiable",
-      sufficiency: "INSUFFICIENT",
-    };
+  if (hasDeterminantQuestions) {
+    if (determinantOpen.length > 0) {
+      return fail(
+        `Questions déterminantes ouvertes: ${determinantOpen.map((q) => q.id).join(", ")}`,
+      );
+    }
+    if (answeredHollow.length > 0) {
+      return fail(
+        `Réponses déterminantes non étayées: ${answeredHollow.map((q) => q.id).join(", ")}`,
+      );
+    }
+  }
+  if (determinantDegraded) {
+    return fail(
+      "Source déterminante dégradée (STALE/DENIED/UNKNOWN/PARTIAL/CONTRADICTORY) — requalification requise",
+    );
   }
   if (hasContradiction) {
-    return {
-      ...state,
-      contractReady: false,
-      contractReadyBlockedReason: "Contradictions non résolues entre sources",
-      sufficiency: "INSUFFICIENT",
-    };
+    return fail("Contradictions non résolues entre sources");
   }
+
   return {
     ...state,
     contractReady: true,

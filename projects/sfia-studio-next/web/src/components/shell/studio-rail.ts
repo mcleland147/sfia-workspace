@@ -17,6 +17,7 @@ export type StudioSurface =
   | "journal"
   | "document"
   | "git"
+  | "execution"
   | "publication";
 
 export type StudioRailTokens = {
@@ -93,6 +94,7 @@ export const PROJECT_SURFACES: StudioSurface[] = [
   "journal",
   "document",
   "git",
+  "execution",
   "publication",
 ];
 
@@ -104,7 +106,8 @@ export const PROJECT_SURFACE_LABELS: Record<StudioSurface, string> = {
   journal: "Journal",
   document: "Documents Nora",
   git: "Sources Git",
-  publication: "Résultats et preuves",
+  execution: "Exécution",
+  publication: "Résultats & preuves",
 };
 
 export function parseStudioSurface(raw: string | null | undefined): StudioSurface | null {
@@ -229,7 +232,14 @@ export function resolveRailVariant(input: {
   }
   if (path.startsWith("/projects/")) {
     const surface = parseStudioSurface(input.surface) ?? "travail";
-    if (surface === "document" || surface === "git" || surface === "publication") return "inspection";
+    if (
+      surface === "document" ||
+      surface === "git" ||
+      surface === "execution" ||
+      surface === "publication"
+    ) {
+      return "inspection";
+    }
     if (surface === "travail") return "conversation";
     if (surface === "journal") return "personnel";
     // projet overview + pilotage/trajectoire share the product rail fill

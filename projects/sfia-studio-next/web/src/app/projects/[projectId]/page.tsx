@@ -6,6 +6,12 @@ import { ProjectChrome } from "@/components/figma/ProjectChrome";
 import { NoraConversation } from "@/components/figma/NoraConversation";
 import { CursorRealizationSurface } from "@/components/figma/CursorRealizationSurface";
 import { TravailViewer, type TravailViewerResource } from "@/components/figma/TravailViewer";
+import { ContractViewer, type ContractViewerModel } from "@/components/figma/ContractViewer";
+import { D6ConfirmLaunch } from "@/components/figma/D6ConfirmLaunch";
+import {
+  mergeDraftWithDossierAttachment,
+  type DossierComposerAttachment,
+} from "@/domains/conversation/dossier-composer-attachment";
 import {
   ProjectJournal,
   type JournalContradiction,
@@ -102,14 +108,7 @@ type Knowledge = {
   openPoints: Array<{ id: string; statement: string; status: string; subjectId: string | null }>;
 };
 
-type Surface =
-  | "travail"
-  | "projet"
-  | "pilotage"
-  | "journal"
-  | "document"
-  | "git"
-  | "publication";
+type Surface = StudioSurface;
 type DocUiState = "READING" | "EDITING" | "SAVING" | "CONFLICT" | "FAILED" | "UNKNOWN";
 type DocView = "library" | "read" | "history" | "compare";
 type HistoricalSourceConfirmation = {
@@ -216,6 +215,7 @@ const SURFACES: Surface[] = [
   "journal",
   "document",
   "git",
+  "execution",
   "publication",
 ];
 
@@ -283,6 +283,9 @@ export default function ProjectPage() {
   const [projectLoadState, setProjectLoadState] = useState<"loading" | "ready">("loading");
   const [surface, setSurface] = useState<Surface>(() => parseSurface(searchParams.get("surface")) ?? "travail");
   const [draft, setDraft] = useState("");
+  /** Figma 12.09 — durable retirable D8 dossier ref (survives draft edits). */
+  const [dossierAttachment, setDossierAttachment] =
+    useState<DossierComposerAttachment | null>(null);
   const [busy, setBusy] = useState(false);
   const [pilotId, setPilotId] = useState<string | null>(null);
   const [turnProjections, setTurnProjections] = useState<TurnProjection[]>([]);
@@ -290,6 +293,25 @@ export default function ProjectPage() {
   const [forceStickToken, setForceStickToken] = useState(0);
   const [viewer, setViewer] = useState<TravailViewerResource | null>(null);
   const [viewerEnlarged, setViewerEnlarged] = useState(false);
+  /** D09/H02 — technical contract in Travail 50/50; D6 Oui/Non depuis Travail lorsque READY. */
+  const [contractViewer, setContractViewer] = useState<ContractViewerModel | null>(null);
+  const [contractInstructionExpanded, setContractInstructionExpanded] = useState(false);
+  const [readyContracts, setReadyContracts] = useState<
+    Array<{ id: string; contractKey: string; version: number; title: string; status: string }>
+  >([]);
+  const [travailD6AttemptId, setTravailD6AttemptId] = useState<string | null>(null);
+  const [travailD6Busy, setTravailD6Busy] = useState(false);
+  const [liveActivityEvents, setLiveActivityEvents] = useState<
+    Array<{
+      sequence: number;
+      nature: string;
+      status: string;
+      summary: string;
+      phase: string;
+      sourceRef?: string | null;
+    }>
+  >([]);
+  const [liveActivityHeadline, setLiveActivityHeadline] = useState("");
   const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
   const [status, setStatus] = useState("");
   const [pilotageStatus, setPilotageStatus] = useState("");
@@ -399,6 +421,12 @@ export default function ProjectPage() {
   }, [preparationId]);
 
   useEffect(() => {
+    if (surface !== "travail") return;
+    void refreshReadyContracts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- refresh on surface entry
+  }, [surface, params.projectId]);
+
+  useEffect(() => {
     if (surface !== "journal") return;
     let cancelled = false;
     void (async () => {
@@ -496,6 +524,8 @@ export default function ProjectPage() {
     viewerOpenRef.current = false;
     setViewer(null);
     setViewerEnlarged(false);
+    setContractViewer(null);
+    setContractInstructionExpanded(false);
   }
 
   function applyViewerIfCurrent(
@@ -755,11 +785,216 @@ export default function ProjectPage() {
     });
   }
 
+  async function refreshReadyContracts() {
+    try {
+      const res = await fetch(`/api/projects/${params.projectId}/realization/contracts`);
+      const j = (await res.json().catch(() => ({}))) as {
+        contracts?: Array<{
+          id: string;
+          contractKey: string;
+          version: number;
+          status: string;
+          body?: { title?: string };
+        }>;
+      };
+      setReadyContracts(
+        (j.contracts ?? [])
+          .filter((c) => c.status === "READY")
+          .map((c) => ({
+            id: c.id,
+            contractKey: c.contractKey,
+            version: c.version,
+            title: c.body?.title ?? c.contractKey,
+            status: c.status,
+          })),
+      );
+    } catch {
+      /* non-blocking */
+    }
+  }
+
+  async function openContractViewer(contractId: string) {
+    try {
+      const res = await fetch(`/api/projects/${params.projectId}/realization/contracts`);
+      const j = (await res.json().catch(() => ({}))) as {
+        contracts?: Array<{
+          id: string;
+          contractKey: string;
+          version: number;
+          fingerprint: string;
+          status: string;
+          body: ContractViewerModel["engagements"] extends infer _E
+            ? {
+                title: string;
+                engagements: ContractViewerModel["engagements"];
+                volets: ContractViewerModel["volets"];
+                instructionText: string;
+                risks: string[];
+                exclusions: string[];
+              }
+            : never;
+        }>;
+      };
+      const row = (j.contracts ?? []).find((c) => c.id === contractId);
+      if (!row) {
+        setStatus("Contrat introuvable pour la visionneuse Travail");
+        return;
+      }
+      setViewer(null);
+      setViewerEnlarged(false);
+      setContractInstructionExpanded(false);
+      setReadyContracts(
+        (j.contracts ?? [])
+          .filter((c) => c.status === "READY")
+          .map((c) => ({
+            id: c.id,
+            contractKey: c.contractKey,
+            version: c.version,
+            title: c.body?.title ?? c.contractKey,
+            status: c.status,
+          })),
+      );
+      setContractViewer({
+        contractId: row.id,
+        contractKey: row.contractKey,
+        version: row.version,
+        fingerprint: row.fingerprint,
+        status: row.status,
+        title: row.body.title,
+        engagements: row.body.engagements,
+        volets: row.body.volets,
+        instructionText: row.body.instructionText,
+        risks: row.body.risks ?? [],
+        exclusions: row.body.exclusions ?? [],
+      });
+    } catch {
+      setStatus("Impossible d'ouvrir le contrat dans Travail");
+    }
+  }
+
+  async function prepareTravailD6() {
+    if (!contractViewer || contractViewer.status !== "READY") return;
+    setTravailD6Busy(true);
+    setStatus("");
+    try {
+      const correlationKey = `ml5-travail-${contractViewer.contractId}-${Date.now()}`;
+      const res = await fetch(
+        `/api/projects/${params.projectId}/realization/attempts/prepare`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contractId: contractViewer.contractId,
+            correlationKey,
+            workspaceKey: "default",
+          }),
+        },
+      );
+      const j = (await res.json().catch(() => ({}))) as {
+        attemptId?: string;
+        error?: string;
+        message?: string;
+      };
+      if (!res.ok || !j.attemptId) {
+        setStatus(j.message ?? j.error ?? "Préparation refusée");
+        return;
+      }
+      setTravailD6AttemptId(j.attemptId);
+    } finally {
+      setTravailD6Busy(false);
+    }
+  }
+
+  async function confirmTravailD6Yes() {
+    if (!travailD6AttemptId || !contractViewer) return;
+    setTravailD6Busy(true);
+    try {
+      const auth = await fetch(
+        `/api/projects/${params.projectId}/realization/attempts/${travailD6AttemptId}/authorize`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            statement: "Je mandate l'exécution Cursor du contrat inspecté (Travail)",
+            inspectedFingerprint: contractViewer.fingerprint,
+            confirmed: true,
+          }),
+        },
+      );
+      const aj = (await auth.json().catch(() => ({}))) as {
+        error?: string;
+        message?: string;
+        decisionId?: string;
+      };
+      if (!auth.ok) {
+        setStatus(aj.message ?? aj.error ?? "Autorisation refusée");
+        setTravailD6AttemptId(null);
+        return;
+      }
+      const disp = await fetch(
+        `/api/projects/${params.projectId}/realization/attempts/${travailD6AttemptId}/dispatch`,
+        { method: "POST" },
+      );
+      const dj = (await disp.json().catch(() => ({}))) as { error?: string; message?: string };
+      setStatus(
+        disp.ok
+          ? `D6 Oui (Travail) — décision ${aj.decisionId ?? "—"} — dispatch accepté`
+          : dj.message ?? dj.error ?? "Dispatch refusé",
+      );
+      setTravailD6AttemptId(null);
+      selectSurface("execution");
+    } finally {
+      setTravailD6Busy(false);
+    }
+  }
+
+  async function confirmTravailD6No() {
+    if (!travailD6AttemptId || !contractViewer) {
+      setTravailD6AttemptId(null);
+      return;
+    }
+    setTravailD6Busy(true);
+    try {
+      const auth = await fetch(
+        `/api/projects/${params.projectId}/realization/attempts/${travailD6AttemptId}/authorize`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            statement: "Refus explicite D6 depuis Travail — pas d'exécution Cursor",
+            inspectedFingerprint: contractViewer.fingerprint,
+            confirmed: false,
+          }),
+        },
+      );
+      const aj = (await auth.json().catch(() => ({}))) as {
+        error?: string;
+        message?: string;
+        decisionId?: string;
+        status?: string;
+      };
+      setStatus(
+        auth.ok
+          ? `Refus D6 (Travail) ${aj.status ?? "CANCELLED"} — ${aj.decisionId ?? "—"} — aucun dispatch`
+          : aj.message ?? aj.error ?? "Refus D6 non enregistré",
+      );
+      setTravailD6AttemptId(null);
+    } finally {
+      setTravailD6Busy(false);
+    }
+  }
+
   /** C1/Final A — exact revision or live current via D4; D9 Git via existing APIs. */
   async function openTravailReference(ref: TurnReference) {
     const projectIdAtStart = params.projectId;
     const seq = ++viewerRequestSeqRef.current;
     viewerOpenRef.current = true;
+
+    if (ref.kind === "contract" && ref.resourceId) {
+      viewerOpenRef.current = false;
+      await openContractViewer(ref.resourceId);
+      return;
+    }
 
     if (ref.kind === "document" && ref.resourceId) {
       const match = documents.find((d) => d.document.id === ref.resourceId);
@@ -2231,7 +2466,9 @@ export default function ProjectPage() {
     overrideText?: string,
     opts?: { fromChoice?: boolean },
   ) {
-    const text = (overrideText ?? draft).trim();
+    // C24 / 12.09 — dossier chip travels with the turn even if draft was replaced.
+    const raw = (overrideText ?? draft).trim();
+    const text = mergeDraftWithDossierAttachment(raw, dossierAttachment).trim();
     if (!text || !preparationId) return;
     const fromChoice = opts?.fromChoice === true;
     const sentVersion = fromChoice ? null : draftVersionRef.current;
@@ -2252,6 +2489,8 @@ export default function ProjectPage() {
     const pendingBefore = unresolvedPending ?? readPending();
     setBusy(true);
     setNoraActivity("preparing");
+    setLiveActivityEvents([]);
+    setLiveActivityHeadline("Nora prépare une réponse…");
     // Same content reuses the same turn key until a terminal result clears it.
     if (!messageTurnKeyRef.current || messageTurnKeyRef.current.content !== text) {
       messageTurnKeyRef.current = {
@@ -2270,6 +2509,57 @@ export default function ProjectPage() {
       clientCommandKey,
       ...pendingMeta,
     });
+    // C01/C07 — poll durable turn + activity while POST awaits Nora (parallel read path).
+    let lastActivitySeq = 0;
+    let knownTurnCommandId: string | null = null;
+    const pollLiveActivity = async () => {
+      try {
+        if (!knownTurnCommandId) {
+          const look = await fetch(
+            `/api/preparations/${preparationId}/turns/by-key/${encodeURIComponent(clientTurnKey)}`,
+          );
+          if (look.ok) {
+            const lj = (await look.json()) as { turnCommandId?: string | null };
+            if (lj.turnCommandId) knownTurnCommandId = lj.turnCommandId;
+          }
+        }
+        if (!knownTurnCommandId) return;
+        const q = lastActivitySeq > 0 ? `?afterSequence=${lastActivitySeq}` : "";
+        const act = await fetch(
+          `/api/projects/${params.projectId}/turns/${knownTurnCommandId}/activity${q}`,
+        );
+        if (!act.ok) return;
+        const aj = (await act.json()) as {
+          events?: Array<{
+            sequence: number;
+            nature: string;
+            status: string;
+            summary: string;
+            phase: string;
+            sourceRef?: string | null;
+          }>;
+        };
+        const batch = aj.events ?? [];
+        if (batch.length === 0) return;
+        setLiveActivityEvents((prev) => {
+          const seen = new Set(prev.map((e) => e.sequence));
+          const merged = [...prev];
+          for (const ev of batch) {
+            if (!seen.has(ev.sequence)) merged.push(ev);
+          }
+          return merged;
+        });
+        const last = batch[batch.length - 1]!;
+        lastActivitySeq = Math.max(lastActivitySeq, last.sequence);
+        setLiveActivityHeadline(`${last.nature}: ${last.summary}`.slice(0, 160));
+      } catch {
+        /* observational poll */
+      }
+    };
+    const activityPollTimer = window.setInterval(() => {
+      void pollLiveActivity();
+    }, 800);
+    void pollLiveActivity();
     try {
       const res = await fetch(`/api/preparations/${preparationId}/messages`, {
         method: "POST",
@@ -2290,6 +2580,20 @@ export default function ProjectPage() {
         j = { errorCategory: "RESPONSE_PARSE_FAILED" };
       }
       if (res.ok) {
+        const prepared = j.preparedContract as
+          | {
+              contractId: string;
+              contractKey: string;
+              version: number;
+              fingerprint: string;
+              status: string;
+            }
+          | null
+          | undefined;
+        if (prepared?.contractId) {
+          void openContractViewer(prepared.contractId);
+        }
+        void pollLiveActivity();
         const serverKind = (j.nextTurnKind as ThreadTurnKind | undefined) ?? "INCERTAIN";
         const independent = serverKind === "DIALOGUE_INDEPENDANT";
         const effectBlocked = Boolean(j.pendingEffectBlocked);
@@ -2533,6 +2837,7 @@ export default function ProjectPage() {
       setNoraActivity("error");
       setStatus("échec réseau — intention de tour conservée");
     } finally {
+      if (activityPollTimer != null) window.clearInterval(activityPollTimer);
       setBusy(false);
     }
   }
@@ -2568,7 +2873,12 @@ export default function ProjectPage() {
     );
   }
 
-  const travailLayout = viewer ? (viewerEnlarged ? "enlarged" : "split") : "normal";
+  const travailLayout =
+    contractViewer || viewer || dossierAttachment?.attemptId
+      ? viewerEnlarged && !contractViewer && !dossierAttachment?.attemptId
+        ? "enlarged"
+        : "split"
+      : "normal";
 
   const docListItems = documents.map((d) => ({
     document: { ...d.document, projectId: params.projectId },
@@ -2623,30 +2933,36 @@ export default function ProjectPage() {
   const travailHero =
     surface !== "travail"
       ? null
-      : qualificationLockActive
+      : dossierAttachment?.attemptId
         ? {
-            kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
-            title: "Nora prépare votre trajectoire",
-            sub: "Le compositeur est temporairement indisponible pendant la qualification initiale.",
+            kicker: "ESPACE PROJET  /  REPRENDRE AVEC NORA",
+            title: "Reprendre avec Nora",
+            sub: "Depuis un bilan, revenir au fil avec une référence jointe au message, sans déclenchement automatique.",
           }
-        : pendingDocumentProposal
+        : qualificationLockActive
           ? {
               kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
-              title: "Examiner une proposition de Nora",
-              sub: "Le Pilote peut préciser sa demande ou demander la conservation d’une nouvelle version documentaire.",
+              title: "Nora prépare votre trajectoire",
+              sub: "Le compositeur est temporairement indisponible pendant la qualification initiale.",
             }
-          : documentFocus &&
-              documentFocus.sourceRevisionId !== documentFocus.observedHeadRevisionId
+          : pendingDocumentProposal
             ? {
                 kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
-                title: "Réviser une version historique avec Nora",
-                sub: "Nora vérifie la version courante avant de proposer une révision fondée sur une ancienne version.",
+                title: "Examiner une proposition de Nora",
+                sub: "Le Pilote peut préciser sa demande ou demander la conservation d’une nouvelle version documentaire.",
               }
-            : {
-                kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
-                title: "Conversation du projet",
-                sub: "Poursuivez le fil avec Nora — les décisions d’ouverture et de clôture restent les vôtres.",
-              };
+            : documentFocus &&
+                documentFocus.sourceRevisionId !== documentFocus.observedHeadRevisionId
+              ? {
+                  kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
+                  title: "Réviser une version historique avec Nora",
+                  sub: "Nora vérifie la version courante avant de proposer une révision fondée sur une ancienne version.",
+                }
+              : {
+                  kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
+                  title: "Conversation du projet",
+                  sub: "Poursuivez le fil avec Nora — les décisions d’ouverture et de clôture restent les vôtres.",
+                };
 
   return (
     <ProjectChrome
@@ -2686,6 +3002,8 @@ export default function ProjectPage() {
           onOpenTrajectoire={() => selectSurface("pilotage")}
           unresolvedPending={Boolean(unresolvedPending)}
           activity={noraActivity}
+          liveActivityEvents={liveActivityEvents}
+          liveActivityHeadline={liveActivityHeadline}
           status={[status, pilotageStatus].filter(Boolean).join(" · ") || undefined}
           projections={resolveActionableProjections({
             messages,
@@ -2709,6 +3027,8 @@ export default function ProjectPage() {
             setDraft(v);
             persistDraft(v);
           }}
+          dossierAttachment={dossierAttachment}
+          onRemoveDossierAttachment={() => setDossierAttachment(null)}
           onSend={() => void sendMessage()}
           onReconcile={
             unresolvedPending
@@ -2716,7 +3036,32 @@ export default function ProjectPage() {
               : undefined
           }
           aside={
-            viewer ? (
+            contractViewer ? (
+              <ContractViewer
+                contract={contractViewer}
+                instructionExpanded={contractInstructionExpanded}
+                onToggleInstruction={() =>
+                  setContractInstructionExpanded((v) => !v)
+                }
+                onClose={() => {
+                  setContractViewer(null);
+                  setContractInstructionExpanded(false);
+                  setTravailD6AttemptId(null);
+                }}
+                onOpenInExecution={() => {
+                  setContractViewer(null);
+                  selectSurface("execution");
+                }}
+                onRequestExecute={
+                  contractViewer.status === "READY"
+                    ? () => void prepareTravailD6()
+                    : undefined
+                }
+                executeDisabled={
+                  travailD6Busy || contractViewer.status !== "READY"
+                }
+              />
+            ) : viewer ? (
               <TravailViewer
                 resource={viewer}
                 enlarged={viewerEnlarged}
@@ -2735,6 +3080,57 @@ export default function ProjectPage() {
                     : undefined
                 }
               />
+            ) : dossierAttachment?.attemptId ? (
+              <div
+                className="fig-inspector fig-dossier-context-panel"
+                data-testid="dossier-context-panel"
+                data-figma-frame="12.09"
+              >
+                <p className="fig-kicker">CONTEXTE JOINT</p>
+                <h2 className="fig-inspector-title">Bilan sélectionné</h2>
+                <p className="fig-travail-viewer-meta">
+                  Bilan, manifeste et références vérifiables accessibles selon les droits.
+                </p>
+                <div className="fig-inspector-rule" aria-hidden />
+                <div className="fig-dossier-context-stack">
+                  <div className="fig-inspector-card">
+                    <p className="fig-inspector-card-title">PROJET</p>
+                    <p className="fig-inspector-card-body">{projectName ?? "Projet"}</p>
+                  </div>
+                  <div className="fig-inspector-card">
+                    <p className="fig-inspector-card-title">BILAN</p>
+                    <p className="fig-inspector-card-body">
+                      {dossierAttachment.attemptId}
+                      {dossierAttachment.verdictD8
+                        ? ` · ${dossierAttachment.verdictD8}`
+                        : ""}
+                    </p>
+                  </div>
+                  <div className="fig-inspector-card">
+                    <p className="fig-inspector-card-title">INTERVENTION</p>
+                    <p className="fig-inspector-card-body">{dossierAttachment.attemptId}</p>
+                  </div>
+                  <div className="fig-inspector-card">
+                    <p className="fig-inspector-card-title">CONTRAT</p>
+                    <p className="fig-inspector-card-body">
+                      {dossierAttachment.contractId ?? "—"}
+                      {dossierAttachment.dossierVersion != null
+                        ? ` · v${dossierAttachment.dossierVersion}`
+                        : ""}
+                    </p>
+                  </div>
+                </div>
+                <div className="fig-inspector-card" style={{ marginTop: 12 }}>
+                  <p className="fig-inspector-card-title">Toujours sous contrôle du Pilote</p>
+                  <p className="fig-inspector-card-body">
+                    Ce retour n&apos;autorise ni nouveau run ni publication Git ; toute suite
+                    requiert un mandat D6.
+                  </p>
+                </div>
+                <p className="fig-travail-viewer-meta" style={{ marginTop: 12 }}>
+                  Source liée : Résultats &amp; preuves / lecture seule
+                </p>
+              </div>
             ) : (
             <div className="fig-inspector" data-testid="travail-aside-inspector">
               <p className="fig-kicker">Contexte projet</p>
@@ -2755,6 +3151,38 @@ export default function ProjectPage() {
                 <p className="fig-inspector-card-body">
                   Fil de préparation et conversation consultables depuis Travail.
                 </p>
+              </div>
+              <div className="fig-inspector-card" data-testid="travail-aside-contracts">
+                <p className="fig-inspector-card-title">Contrats techniques</p>
+                <p className="fig-inspector-card-body">
+                  Visionneuse 50/50 — lecture intégrale puis D6 si READY.
+                </p>
+                <button
+                  type="button"
+                  className="btn secondary mt-2"
+                  data-testid="travail-refresh-contracts"
+                  onClick={() => void refreshReadyContracts()}
+                >
+                  Actualiser
+                </button>
+                {readyContracts.length === 0 ? (
+                  <p className="fig-travail-viewer-meta mt-2">Aucun contrat READY.</p>
+                ) : (
+                  <ul className="mt-2 space-y-1" data-testid="travail-ready-contracts">
+                    {readyContracts.map((c) => (
+                      <li key={c.id}>
+                        <button
+                          type="button"
+                          className="btn secondary"
+                          data-testid={`travail-open-contract-${c.id}`}
+                          onClick={() => void openContractViewer(c.id)}
+                        >
+                          {c.title} · v{c.version}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
               <div className="fig-inspector-card">
                 <p className="fig-inspector-card-title">Dossier du projet</p>
@@ -2789,9 +3217,16 @@ export default function ProjectPage() {
                   <button
                     type="button"
                     className="fig-inspector-link"
+                    onClick={() => selectSurface("execution")}
+                  >
+                    Exécution
+                  </button>
+                  <button
+                    type="button"
+                    className="fig-inspector-link"
                     onClick={() => selectSurface("publication")}
                   >
-                    Résultats et preuves
+                    Résultats & preuves
                   </button>
                 </div>
               </div>
@@ -2816,6 +3251,21 @@ export default function ProjectPage() {
             )
           }
         />
+        {travailD6AttemptId && contractViewer ? (
+          <D6ConfirmLaunch
+            contractKey={contractViewer.contractKey}
+            version={contractViewer.version}
+            fingerprint={contractViewer.fingerprint}
+            title={contractViewer.title}
+            busy={travailD6Busy}
+            onYes={() => void confirmTravailD6Yes()}
+            onNo={() => void confirmTravailD6No()}
+            onCancel={() => {
+              setTravailD6AttemptId(null);
+              setStatus("Dialogue D6 annulé (Travail) — aucun acte");
+            }}
+          />
+        ) : null}
         </>
       ) : null}
 
@@ -2984,18 +3434,31 @@ export default function ProjectPage() {
         />
       ) : null}
 
+      {surface === "execution" ? (
+        <div data-testid="execution-surface-ml5">
+          <CursorRealizationSurface
+            projectId={params.projectId}
+            projectName={projectName}
+            mode="execution"
+            onDiscussWithNora={(att) => {
+              setDossierAttachment(att);
+              // Keep composer free for the Pilote's next ask — dossier is a chip (12.09).
+              selectSurface("travail");
+            }}
+          />
+        </div>
+      ) : null}
+
       {surface === "publication" ? (
         <div data-testid="publication-surface-ml5">
           <CursorRealizationSurface
             projectId={params.projectId}
-            onDiscussWithNora={(text) => {
-              setDraft(text);
+            projectName={projectName}
+            mode="results"
+            onDiscussWithNora={(att) => {
+              setDossierAttachment(att);
               selectSurface("travail");
             }}
-          />
-          <GitRepositoriesSurface
-            projectId={params.projectId}
-            projectName={projectName}
           />
         </div>
       ) : null}

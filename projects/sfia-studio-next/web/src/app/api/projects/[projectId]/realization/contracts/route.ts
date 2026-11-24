@@ -3,6 +3,7 @@ import {
   createTechnicalContract,
   listTechnicalContracts,
 } from "@/domains/execution/technical-contract";
+import { prepareTechnicalContractFromNora } from "@/domains/execution/nora-contract-prepare";
 import type { TechnicalContractBody } from "@/domains/execution/types";
 import { requireStudioSession } from "@/domains/identity/session";
 import { studioErrorResponse } from "@/lib/http-errors";
@@ -35,14 +36,34 @@ export async function POST(req: Request, ctx: { params: Promise<{ projectId: str
       body?: TechnicalContractBody;
       sourceTurnCommandId?: string | null;
       supersedesContractId?: string | null;
-      /** Explicit promotion — syntax-complete alone never yields READY. */
+      /** When true, prepare via durable investigation (Nora path) — always DRAFT. */
+      fromNoraInvestigation?: boolean;
+      /** Ignored for READY — syntax-complete create is DRAFT unless markReady+server facts. */
       markReady?: boolean;
-      unknownRestrictions?: string[];
-      sourcesSufficient?: boolean;
     };
     if (!body.contractKey || !body.body) {
       return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 400 });
     }
+
+    if (body.fromNoraInvestigation) {
+      if (!body.preparationId) {
+        return NextResponse.json(
+          { error: "INVALID_REQUEST", message: "preparationId requis pour préparation Nora" },
+          { status: 400 },
+        );
+      }
+      const result = await prepareTechnicalContractFromNora({
+        pilotId: session.pilotId,
+        projectId,
+        preparationId: body.preparationId,
+        contractKey: body.contractKey,
+        body: body.body,
+        sourceTurnCommandId: body.sourceTurnCommandId,
+      });
+      return NextResponse.json(result);
+    }
+
+    // Manual/API create: always DRAFT. READY only via server-side /ready route (CF-02).
     const result = await createTechnicalContract({
       pilotId: session.pilotId,
       projectId,
@@ -51,9 +72,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ projectId: str
       body: body.body,
       sourceTurnCommandId: body.sourceTurnCommandId,
       supersedesContractId: body.supersedesContractId,
-      markReady: body.markReady === true,
-      unknownRestrictions: body.unknownRestrictions,
-      sourcesSufficient: body.sourcesSufficient,
+      markReady: false,
     });
     return NextResponse.json(result);
   } catch (e) {

@@ -14,8 +14,17 @@ export type PolicyProfileType =
 export type ReasoningEffort = "low" | "medium" | "high";
 
 export const COGNITIVE_POLICY_VERSION = "ml2-cog-policy-v2-corrective" as const;
-/** Study model — LIVE entitlement not proven in this cycle. */
-export const NORA_STUDY_MODEL = "gpt-6.1-sol" as const;
+/** Study model — C23: all active Nora refs use GPT-6.2 Sol (Morris). */
+export const NORA_STUDY_MODEL = "gpt-6.2-sol" as const;
+
+/** Default effort for a profile when no semantic effortHint is provided. */
+export function defaultEffortForProfile(
+  profile: CognitiveProfile,
+): ReasoningEffort {
+  if (profile === "simple") return "low";
+  if (profile === "investigation") return "high";
+  return "medium";
+}
 
 export type BudgetLimits = {
   maxProviderCalls: number;
@@ -115,6 +124,12 @@ export type CognitivePolicy = {
     | "read_git_commit"
     | "compare_git_refs"
     | "read_git_commit_status"
+    | "list_realization_evidence"
+    | "read_realization_handoff_report"
+    | "read_attempt_workspace_file"
+    | "read_evidence_capture_meta"
+    | "public_web_search"
+    | "public_web_open_page"
   >;
   budgets: BudgetLimits;
   reasonCodes: string[];
@@ -195,27 +210,20 @@ export function resolveProfileType(override?: PolicyProfileType): PolicyProfileT
 }
 
 /**
- * SEM / Lot D5: length may raise cost ceilings, never strip authorized tools.
- * Short complex requests keep at least `analyse` tool budgets.
+ * C14 / Morris D2: message length must NOT decide cognitive profile, investigation
+ * need, or tool selection. Budgets default to `analyse` / medium; Nora escalates
+ * depth semantically via tools and structured qualification — never via length.
+ * `userText` is retained for API stability / future semantic override wiring only.
  */
-export function qualifyCognitiveProfile(userText: string): {
+export function qualifyCognitiveProfile(_userText: string): {
   profile: CognitiveProfile;
   effort: ReasoningEffort;
   reasonCodes: string[];
 } {
-  const len = userText.trim().length;
-  if (len > 600) {
-    return {
-      profile: "investigation",
-      effort: "high",
-      reasonCodes: ["BUDGET_LEN_LONG"],
-    };
-  }
-  // Default analyse — never demote short utterances to tool-less simple.
   return {
     profile: "analyse",
     effort: "medium",
-    reasonCodes: len < 80 ? ["BUDGET_LEN_SHORT_KEPT_ANALYSE"] : ["BUDGET_LEN_DEFAULT"],
+    reasonCodes: ["BUDGET_DEFAULT_ANALYSE_NO_LENGTH_ROUTING"],
   };
 }
 
@@ -239,13 +247,25 @@ export function createSharedToolBudget(budgets: BudgetLimits): {
 export function buildCognitivePolicy(
   userText: string,
   overrideType?: PolicyProfileType,
+  opts?: {
+    /** C18 — semantic profile from consolidated investigation / qualification. */
+    profileHint?: CognitiveProfile;
+    effortHint?: ReasoningEffort;
+  },
 ): CognitivePolicy {
   const profileType = resolveProfileType(overrideType);
   const q = qualifyCognitiveProfile(userText);
+  const profile = opts?.profileHint ?? q.profile;
+  // Profile (nature of work) ≠ effort (mobilized depth). When only a profile
+  // hint is set, derive a proportional effort default — never leave
+  // investigation stuck on medium by accident.
+  const effort =
+    opts?.effortHint ??
+    (opts?.profileHint ? defaultEffortForProfile(profile) : q.effort);
   const budgets =
     profileType === "TEST_BOUNDARY"
-      ? TEST_BOUNDARY_BUDGETS[q.profile]
-      : OPERATIONAL_BUDGETS_PROVISIONAL[q.profile];
+      ? TEST_BOUNDARY_BUDGETS[profile]
+      : OPERATIONAL_BUDGETS_PROVISIONAL[profile];
 
   // SEM corrective: short utterances still get authorized read tools.
   // Length budgets control cost (maxTurns/chars), not métier intent detection.
@@ -264,17 +284,31 @@ export function buildCognitivePolicy(
     "read_git_commit",
     "compare_git_refs",
     "read_git_commit_status",
+    "list_realization_evidence",
+    "read_realization_handoff_report",
+    "read_attempt_workspace_file",
+    "read_evidence_capture_meta",
+    "public_web_search",
+    "public_web_open_page",
   ];
+
+  const reasonCodes = [
+    ...q.reasonCodes,
+    `PROFILE_TYPE_${profileType}`,
+    `LANE_${studioLane()}`,
+  ];
+  if (opts?.profileHint) reasonCodes.push(`PROFILE_HINT_${opts.profileHint}`);
+  if (opts?.effortHint) reasonCodes.push(`EFFORT_HINT_${opts.effortHint}`);
 
   return {
     policyVersion: COGNITIVE_POLICY_VERSION,
     profileType,
-    profile: q.profile,
+    profile,
     modelRequested: NORA_STUDY_MODEL,
-    effortRequested: q.effort,
+    effortRequested: effort,
     toolAllowlist,
     budgets,
-    reasonCodes: [...q.reasonCodes, `PROFILE_TYPE_${profileType}`, `LANE_${studioLane()}`],
+    reasonCodes,
   };
 }
 

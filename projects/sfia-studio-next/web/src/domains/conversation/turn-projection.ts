@@ -24,7 +24,7 @@ export type TurnChoice = {
 };
 
 export type TurnReference = {
-  kind: "document" | "git" | "external";
+  kind: "document" | "git" | "external" | "contract";
   label: string;
   resourceId?: string;
   revisionId?: string;
@@ -34,6 +34,8 @@ export type TurnReference = {
   commit?: string;
   href?: string;
   available?: boolean;
+  /** Contract identity (when kind=contract). */
+  fingerprint?: string;
 };
 
 export type TurnActivitySummary = {

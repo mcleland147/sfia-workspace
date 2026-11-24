@@ -44,6 +44,15 @@ function LoginPageInner() {
         if (!cancelled) {
           setTestLoginAvailable(Boolean(status?.testLoginAvailable));
         }
+        // DÉC-ML5-DEV — skip /login UI when auto-session is enabled on DEV.
+        if (!cancelled && status?.autoSessionAvailable) {
+          const next = searchParams.get("next") || "/portfolio";
+          const auto = await fetch("/api/dev/auto-session", { method: "POST" });
+          if (auto.ok) {
+            router.replace(next.startsWith("/") ? next : "/portfolio");
+            return;
+          }
+        }
       } catch {
         if (!cancelled) setTestLoginAvailable(false);
       }
@@ -51,7 +60,7 @@ function LoginPageInner() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [router, searchParams]);
 
   async function startGitHubOAuth() {
     setBusy(true);

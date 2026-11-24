@@ -1816,6 +1816,54 @@
   background: #151c29;
 }
 
+/* C24 / Figma 12.09 — retirable D8 dossier reference above the draft. */
+.fig-dossier-attachment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px;
+  border: 1px solid #3a4270;
+  border-radius: 10px;
+  background: #1a2236;
+}
+.fig-dossier-attachment-body {
+  min-width: 0;
+  flex: 1;
+}
+.fig-dossier-attachment-label {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #c5c9e8;
+}
+.fig-dossier-attachment-meta {
+  margin: 2px 0 0;
+  font-size: 0.7rem;
+  color: #8b93b5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fig-dossier-attachment-remove {
+  flex-shrink: 0;
+  border: 1px solid #7477ed66;
+  border-radius: 8px;
+  background: transparent;
+  color: #a8acf0;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+.fig-dossier-attachment-remove:hover:not(:disabled) {
+  border-color: #7477ed;
+  color: #d0d3ff;
+}
+.fig-dossier-attachment-remove:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* O-06 — long-thread composer remains reachable while the journal scrolls. */
 .fig-nora-thread-shell {
   display: flex;
@@ -5963,4 +6011,870 @@
     min-width: 0;
     width: 100%;
   }
+}
+
+/* ─── ML5 C10 — Contract viewer / D6 modal / D8 bilan ─── */
+
+.fig-contract-viewer {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  background: #151d2c;
+  border: 1px solid #2b3850;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* C24 fidelity — ContractViewer page 12 composition */
+.fig-contract-viewer--page12 {
+  gap: 10px;
+  padding: 20px;
+  overflow: auto;
+}
+.fig-cv-head { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.fig-cv-head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.fig-cv-kicker {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #7477ed;
+  letter-spacing: 0.02em;
+}
+.fig-cv-link {
+  border: 0;
+  background: transparent;
+  color: #a3b0c7;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+.fig-cv-link:hover { color: #7477ed; }
+.fig-cv-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #f3f5ff;
+  line-height: 1.25;
+}
+.fig-cv-meta {
+  margin: 0;
+  font-size: 12px;
+  color: #a3b0c7;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.fig-cv-engagements {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+  min-width: 0;
+}
+.fig-cv-engagement-card {
+  min-width: 0;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #2b3850;
+  background: #1b2639;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.fig-cv-engagement-label {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #7477ed;
+}
+.fig-cv-engagement-body {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #f3f5ff;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.fig-cv-section-label {
+  margin: 4px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #7477ed;
+}
+.fig-cv-volets {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+.fig-cv-volet {
+  background: #1b2639;
+  border-radius: 0;
+  min-width: 0;
+}
+.fig-cv-volet-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 35px;
+  padding: 0 13px;
+  border: 0;
+  background: transparent;
+  color: #f3f5ff;
+  cursor: pointer;
+  text-align: left;
+}
+.fig-cv-volet-title { font-size: 12px; font-weight: 500; }
+.fig-cv-volet-plus { font-size: 13px; font-weight: 600; color: #a3b0c7; }
+.fig-cv-volet-body {
+  padding: 0 13px 12px;
+  font-size: 12px;
+  color: #a3b0c7;
+  line-height: 1.4;
+}
+.fig-cv-instruction {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #2b3850;
+  background: #1b2639;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.fig-cv-instruction-link {
+  border: 0;
+  background: transparent;
+  color: #7477ed;
+  font-size: 10px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+}
+.fig-cv-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 4px;
+}
+.fig-cv-footer-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Proof cards / bilan page12 */
+.fig-proof-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  min-width: 0;
+}
+.fig-proof-card {
+  min-width: 0;
+  padding: 12px 13px 11px;
+  border-radius: 9px;
+  border: 1px solid #2b3850;
+  background: #1b2639;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.fig-proof-card-rubrique {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #7477ed;
+}
+.fig-proof-card-fact-strong {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
+  color: #f3f5ff;
+  overflow-wrap: anywhere;
+}
+.fig-proof-card-fact {
+  margin: 0;
+  font-size: 11px;
+  color: #a3b0c7;
+  overflow-wrap: anywhere;
+}
+.fig-bilan-title {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  color: #f3f5ff;
+}
+.fig-bilan-appreciations {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.fig-bilan-appreciation {
+  min-width: 0;
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: #1b2639;
+}
+.fig-bilan-appreciation-label {
+  margin: 0 0 4px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #a3b0c7;
+}
+.fig-bilan-appreciation-status {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+}
+.fig-bilan-appreciation-status.is-ok { color: #6cdbba; }
+.fig-bilan-appreciation-status.is-warn { color: #e6ba76; }
+.fig-bilan-appreciation-body {
+  margin: 0;
+  font-size: 12px;
+  color: #f3f5ff;
+  line-height: 1.35;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.fig-bilan-tabs--spread {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  border-bottom: 1px solid #2b3850;
+  padding-bottom: 6px;
+}
+.fig-bilan-tab {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 500;
+  color: #a3b0c7;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+.fig-bilan-tab.is-active {
+  font-weight: 700;
+  color: #7477ed;
+}
+.fig-bilan-nora-band {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 10px 0;
+  min-width: 0;
+}
+.fig-bilan-nora-kicker {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: #e6ba76;
+}
+.fig-bilan-nora-body {
+  margin: 0;
+  font-size: 11px;
+  color: #f3f5ff;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.fig-bilan-table-block { min-width: 0; }
+.fig-bilan-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid #2b3850;
+  border-radius: 9px;
+  overflow: hidden;
+}
+.fig-bilan-table-head,
+.fig-bilan-table-row {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 0.9fr) minmax(0, 0.9fr) minmax(0, 1fr);
+  gap: 8px;
+  padding: 10px 12px;
+  font-size: 11px;
+}
+.fig-bilan-table-head {
+  background: #242c4b;
+  color: #a3b0c7;
+  font-weight: 600;
+}
+.fig-bilan-table-row {
+  background: #1b2639;
+  color: #f3f5ff;
+  border-top: 1px solid #2b3850;
+}
+.fig-bilan-table-row span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fig-bilan-table-row.is-empty { color: #a3b0c7; }
+
+/* Execution list/detail (12.04) */
+.fig-exec-split {
+  display: grid;
+  grid-template-columns: minmax(280px, 437fr) minmax(0, 903fr);
+  gap: 18px;
+  align-items: stretch;
+  min-width: 0;
+}
+.fig-exec-list-panel,
+.fig-exec-detail-panel {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #2b3850;
+  border-radius: 10px;
+  background: #151d2c;
+}
+.fig-exec-list-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.fig-exec-list-head h3 {
+  margin: 0;
+  font-size: 19px;
+  color: #f3f5ff;
+}
+.fig-exec-count {
+  font-size: 10px;
+  font-weight: 600;
+  color: #7477ed;
+  padding: 7px;
+  border-radius: 15px;
+  border: 1px solid #2b3850;
+  background: #242c4b;
+}
+.fig-exec-filters {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+  flex-wrap: wrap;
+}
+.fig-exec-filter {
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #2b3850;
+  background: #1b2639;
+  color: #a3b0c7;
+}
+.fig-exec-filter.is-active {
+  color: #f3f5ff;
+  background: #242c4b;
+}
+.fig-exec-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.fig-exec-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  width: 100%;
+  text-align: left;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid #2b3850;
+  background: #1b2639;
+  color: #f3f5ff;
+  cursor: pointer;
+}
+.fig-exec-card.is-selected { background: #242c4b; }
+.fig-exec-card-kicker { font-size: 10px; font-weight: 600; color: #7477ed; }
+.fig-exec-card-title { font-size: 13px; font-weight: 600; color: #f3f5ff; }
+.fig-exec-card-meta { font-size: 11px; color: #a3b0c7; }
+.fig-exec-detail-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.fig-exec-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+  margin: 14px 0;
+}
+.fig-exec-detail-grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.fig-exec-situation {
+  margin: 14px 0;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #2b3850;
+  background: #1b2639;
+}
+.fig-realization-status-bar {
+  margin: 0 0 12px;
+}
+.project-ml5-realization-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+.fig-dossier-context-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.fig-exec-detail-card {
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid #2b3850;
+  background: #1b2639;
+}
+.fig-exec-detail-card-label {
+  margin: 0 0 6px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #a3b0c7;
+}
+.fig-exec-detail-card-value {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f3f5ff;
+  overflow-wrap: anywhere;
+}
+.fig-exec-live-panel {
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid #2b3850;
+  background: #1b2639;
+}
+.fig-exec-live-events {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.fig-exec-live-events li {
+  font-size: 12px;
+  color: #a3b0c7;
+  padding: 8px 11px;
+  border-radius: 7px;
+  background: #151d2c;
+  border: 1px solid #2b3850;
+}
+
+@media (max-width: 1100px) {
+  .fig-cv-engagements,
+  .fig-proof-grid,
+  .fig-exec-split,
+  .fig-results-split,
+  .fig-bilan-appreciations,
+  .fig-bilan-tabs--spread,
+  .fig-exec-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fig-contract-viewer .fig-travail-viewer-head,
+.fig-contract-viewer .fig-contract-footer {
+  flex-shrink: 0;
+}
+
+.fig-contract-section {
+  min-width: 0;
+  max-width: 100%;
+  padding: 12px 18px;
+  border-bottom: 1px solid #272e49;
+}
+
+.fig-contract-section h3 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--fig-accent-soft);
+}
+
+.fig-contract-section dl,
+.fig-contract-section ul,
+.fig-contract-section p,
+.fig-contract-section dd,
+.fig-contract-section li {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.fig-contract-section dl {
+  display: grid;
+  grid-template-columns: minmax(0, 9rem) minmax(0, 1fr);
+  gap: 6px 12px;
+  margin: 0;
+}
+
+.fig-contract-section dt {
+  color: var(--fig-quiet);
+  font-size: 12px;
+}
+
+.fig-contract-section dd {
+  margin: 0;
+  font-size: 13px;
+  color: var(--fig-ink);
+}
+
+.fig-contract-instruction-full {
+  margin: 8px 0 0;
+  padding: 12px;
+  max-width: 100%;
+  max-height: min(48vh, 420px);
+  overflow-x: auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #f4f6fc;
+  background: #0f1420;
+  border: 1px solid #272e49;
+  border-radius: 10px;
+}
+
+.fig-contract-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+  padding: 12px 18px 16px;
+  border-top: 1px solid #272e49;
+}
+
+.fig-cursor-realization {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.fig-cursor-realization header,
+.fig-cursor-realization section {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.fig-cursor-realization ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fig-cursor-realization li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.fig-d6-confirm {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(7, 10, 18, 0.72);
+  backdrop-filter: blur(2px);
+}
+
+.fig-d6-confirm-card {
+  /* Figma 12.03 modal native: 490×230, radius 10, fill #151d2c, stroke #2b3850 */
+  width: min(490px, 100%);
+  max-height: min(80vh, 640px);
+  overflow: auto;
+  padding: 24px;
+  background: #151d2c;
+  border: 1px solid #2b3850;
+  border-radius: 10px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+}
+
+.fig-d6-confirm-card h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  color: var(--fig-ink);
+}
+
+.fig-d6-confirm-card p {
+  margin: 0 0 12px;
+  color: var(--fig-muted);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.fig-d6-confirm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.fig-realization-bilan {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 4px 0 24px;
+}
+
+/* Figma 12.08 — results split: bilans 437 + dossier 903, gap 18 */
+.fig-results-split {
+  display: grid;
+  grid-template-columns: minmax(280px, 437fr) minmax(0, 903fr);
+  gap: 18px;
+  align-items: start;
+  min-width: 0;
+}
+.fig-results-bilans-list,
+.fig-results-dossier {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #2b3850;
+  border-radius: 10px;
+  background: #151d2c;
+}
+.fig-results-bilans-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.fig-results-bilans-head h3 {
+  margin: 0;
+  font-size: 19px;
+  color: #f3f5ff;
+}
+.fig-results-bilans-count {
+  font-size: 11px;
+  padding: 7px;
+  border-radius: 15px;
+  border: 1px solid #2b3850;
+  background: #242c4b;
+  color: #a3b0c7;
+  white-space: nowrap;
+}
+.fig-results-bilans-ul {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.fig-results-bilan-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  width: 100%;
+  text-align: left;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid #2b3850;
+  background: #1b2639;
+  color: #f3f5ff;
+  cursor: pointer;
+}
+.fig-results-bilan-card.is-selected {
+  background: #242c4b;
+}
+.fig-results-bilan-kicker {
+  font-size: 10px;
+  font-weight: 600;
+  color: #7477ed;
+}
+.fig-results-bilan-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f3f5ff;
+}
+.fig-results-bilan-meta {
+  font-size: 11px;
+  color: #a3b0c7;
+}
+
+.fig-bilan-appreciations {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.fig-bilan-appreciation {
+  min-width: 0;
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: #1b2639;
+}
+.fig-bilan-appreciation-label {
+  margin: 0 0 4px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #a3b0c7;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.fig-bilan-appreciation-body {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #f3f5ff;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.fig-bilan-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  border-bottom: 1px solid #2b3850;
+  padding-bottom: 6px;
+}
+.fig-bilan-tabs .btn,
+.fig-bilan-tabs .btn.secondary {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #a3b0c7;
+}
+.fig-bilan-tabs .btn:not(.secondary) {
+  color: #7477ed;
+}
+
+.fig-bilan-rubrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 12px;
+}
+
+.fig-bilan-rubric {
+  min-width: 0;
+  padding: 14px 16px;
+  background: #151c29;
+  border: 1px solid #272e49;
+  border-radius: 12px;
+}
+
+.fig-bilan-rubric h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--fig-ink);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.fig-bilan-rubric p,
+.fig-bilan-rubric pre {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--fig-muted);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.fig-bilan-coverage {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.fig-bilan-coverage[data-coverage="COMPLETE"] {
+  background: var(--fig-ok-bg);
+  color: var(--fig-ok);
+}
+
+.fig-bilan-coverage[data-coverage="PARTIAL"] {
+  background: var(--fig-warn-bg);
+  color: var(--fig-warn);
+}
+
+.fig-bilan-coverage[data-coverage="MISSING"],
+.fig-bilan-coverage[data-coverage="UNKNOWN"] {
+  background: #3a2030;
+  color: #f0a0b8;
+}
+
+.fig-bilan-empty {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px dashed #3a4570;
+  border-radius: 10px;
+  color: var(--fig-quiet);
+  font-size: 13px;
+}
+
+.fig-bilan-limits ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--fig-muted);
+  font-size: 13px;
+}
+
+.fig-bilan-nora-analysis pre {
+  margin: 8px 0 0;
+  padding: 12px;
+  max-height: 240px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  background: #0f1420;
+  border: 1px solid #272e49;
+  border-radius: 10px;
+  font-size: 12px;
 }

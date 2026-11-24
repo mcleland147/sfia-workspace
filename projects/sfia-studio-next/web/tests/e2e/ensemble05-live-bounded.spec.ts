@@ -17,7 +17,7 @@ const EVIDENCE = path.resolve(
   "../../docs/evidence/ensemble-05-travail-nora/live-bounded-campaign-20261118",
 );
 
-/** gpt-6.1-sol short-context USD/1M (OpenAI pricing page 2026-11-18). */
+/** gpt-6.2-sol short-context USD/1M (pricing page reference; C23 active model). */
 const USD_IN_PER_M = 2.0;
 const USD_OUT_PER_M = 10.0;
 /** Conservative USD→EUR + TTC (VAT 20%). */
@@ -144,7 +144,7 @@ test.describe("Ensemble 05 LIVE bounded L01–L12", () => {
       stoppedEarly?: string;
     } = {
       ceilingEurTtc: CEILING_EUR_TTC,
-      model: "gpt-6.1-sol",
+      model: "gpt-6.2-sol",
       pricing: "USD $2/$10 per 1M in/out · ×0.95 EUR · ×1.20 TTC · fallback €0.85/turn",
       turns: [],
     };

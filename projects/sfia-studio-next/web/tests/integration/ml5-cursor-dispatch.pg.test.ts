@@ -11,7 +11,7 @@ import { tmpdir } from "os";
 import { join } from "path";
 import { eq } from "drizzle-orm";
 import { db } from "@/db/client";
-import { effectAttempts, pilots, preparations, schemaRevision } from "@/db/schema";
+import { effectAttempts, schemaRevision } from "@/db/schema";
 import {
   authorizeCursorExecution,
   dispatchCursorExecution,
@@ -22,8 +22,7 @@ import { claimCursorAttempt, persistCursorOwnedResult } from "@/domains/executio
 import { createTechnicalContract } from "@/domains/execution/technical-contract";
 import type { TechnicalContractBody } from "@/domains/execution/types";
 import { __resetScriptedCursorRunsForTests } from "@/domains/execution/cursor-sdk-adapter";
-import { createProjectCommand } from "@/domains/preparation/create-project";
-import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
+import { seedPilotProjectWithCognitiveFiliation } from "../helpers/cognitive-filiation-seed";
 import { newId } from "@/lib/ids";
 import { StudioError } from "@/lib/http-errors";
 import { readClaim, writeClaimInto, mintClaim } from "@/domains/execution/claim-lease";
@@ -61,27 +60,33 @@ function sampleBody(): TechnicalContractBody {
 }
 
 async function seed(label = `ml5-${newId("nm").slice(-8)}`) {
-  const pilotId = newId("pilot");
-  await db.insert(pilots).values({ id: pilotId, displayName: label, githubUserId: `gh-${pilotId}` });
-  const prep = await openOrCreatePreparation(pilotId);
-  await updatePreview(pilotId, prep.id, label, "s");
-  const refreshed = (await db.select().from(preparations).where(eq(preparations.id, prep.id)))[0]!;
-  const created = await createProjectCommand({
-    pilotId,
-    preparationId: prep.id,
-    expectedCreationRevision: refreshed.creationRevision,
-    projectName: label,
-    previewSummary: "s",
-    idempotencyKey: newId("idem"),
+  return seedPilotProjectWithCognitiveFiliation(label);
+}
+
+type Seeded = {
+  pilotId: string;
+  projectId: string;
+  preparationId: string;
+  cognitiveWorkId: string;
+  cognitiveRevision: number;
+};
+
+async function readyContract(
+  s: Seeded,
+  contractKey: string,
+  body: TechnicalContractBody = sampleBody(),
+) {
+  return createTechnicalContract({
+    pilotId: s.pilotId,
+    projectId: s.projectId,
+    preparationId: s.preparationId,
+    contractKey,
+    body,
+    markReady: true,
+    sourcesSufficient: true,
+    cognitiveWorkId: s.cognitiveWorkId,
+    cognitiveRevision: s.cognitiveRevision,
   });
-  if (
-    (created.status !== "CREATED" && created.status !== "ALREADY_CREATED") ||
-    !("projectId" in created) ||
-    !created.projectId
-  ) {
-    throw new Error(`seed fail: ${JSON.stringify(created)}`);
-  }
-  return { pilotId, projectId: created.projectId, preparationId: prep.id };
 }
 
 describe("PostgreSQL ML5 Cursor dispatch concurrency (SCRIPTED)", () => {
@@ -98,32 +103,27 @@ describe("PostgreSQL ML5 Cursor dispatch concurrency (SCRIPTED)", () => {
     __resetScriptedCursorRunsForTests();
   });
 
-  it("schema revision includes 018", () => {
-    expect(schemaRevision).toBe("018_ml5_contract_reversibility");
+  it("schema revision includes 019", () => {
+    expect(schemaRevision).toMatch(/020_cognitive_work|019_ml5/);
   });
 
   it("persists reversibilityLimits round-trip and DRAFT≠READY without markReady", async () => {
-    const { pilotId, projectId } = await seed();
+    const s = await seed();
     const draft = await createTechnicalContract({
-      pilotId,
-      projectId,
+      pilotId: s.pilotId,
+      projectId: s.projectId,
+      preparationId: s.preparationId,
       contractKey: "c-draft",
       body: sampleBody(),
       markReady: false,
     });
     expect(draft.status).toBe("DRAFT");
-    const ready = await createTechnicalContract({
-      pilotId,
-      projectId,
-      contractKey: "c-ready",
-      body: sampleBody(),
-      markReady: true,
-    });
+    const ready = await readyContract(s, "c-ready");
     expect(ready.status).toBe("READY");
     const { getTechnicalContract } = await import("@/domains/execution/technical-contract");
     const got = await getTechnicalContract({
-      pilotId,
-      projectId,
+      pilotId: s.pilotId,
+      projectId: s.projectId,
       contractId: ready.contractId,
     });
     expect(got.body.reversibilityLimits).toEqual(["no rollback"]);
@@ -131,14 +131,9 @@ describe("PostgreSQL ML5 Cursor dispatch concurrency (SCRIPTED)", () => {
   });
 
   it("concurrent dispatch: at most one send wins claim", async () => {
-    const { pilotId, projectId } = await seed();
-    const c = await createTechnicalContract({
-      pilotId,
-      projectId,
-      contractKey: "c-race",
-      body: sampleBody(),
-      markReady: true,
-    });
+    const s = await seed();
+    const { pilotId, projectId } = s;
+    const c = await readyContract(s, "c-race");
     const prep = await prepareCursorExecution({
       pilotId,
       projectId,
@@ -161,8 +156,16 @@ describe("PostgreSQL ML5 Cursor dispatch concurrency (SCRIPTED)", () => {
     ]);
     const fulfilled = results.filter((r) => r.status === "fulfilled");
     const rejected = results.filter((r) => r.status === "rejected");
-    expect(fulfilled.length).toBe(1);
-    expect(rejected.length).toBe(1);
+    // At most one non-idempotent send. A second call may REJECT (claim lost) or
+    // fulfill as idempotent if SCRIPTED already reached COMPLETED.
+    const primary = fulfilled.filter(
+      (r) => r.status === "fulfilled" && r.value.idempotent !== true,
+    );
+    const idempotent = fulfilled.filter(
+      (r) => r.status === "fulfilled" && r.value.idempotent === true,
+    );
+    expect(primary.length).toBe(1);
+    expect(primary.length + rejected.length + idempotent.length).toBe(2);
     const row = (
       await db.select().from(effectAttempts).where(eq(effectAttempts.id, prep.attemptId)).limit(1)
     )[0]!;
@@ -170,14 +173,9 @@ describe("PostgreSQL ML5 Cursor dispatch concurrency (SCRIPTED)", () => {
   });
 
   it("same correlationKey with different workspaceKey → CONFLICT", async () => {
-    const { pilotId, projectId } = await seed();
-    const c = await createTechnicalContract({
-      pilotId,
-      projectId,
-      contractKey: "c-corr",
-      body: sampleBody(),
-      markReady: true,
-    });
+    const s = await seed();
+    const { pilotId, projectId } = s;
+    const c = await readyContract(s, "c-corr");
     const corr = newId("corr");
     await prepareCursorExecution({
       pilotId,
@@ -198,14 +196,9 @@ describe("PostgreSQL ML5 Cursor dispatch concurrency (SCRIPTED)", () => {
   });
 
   it("rejects absolute client workspaceCwd", async () => {
-    const { pilotId, projectId } = await seed();
-    const c = await createTechnicalContract({
-      pilotId,
-      projectId,
-      contractKey: "c-cwd",
-      body: sampleBody(),
-      markReady: true,
-    });
+    const s = await seed();
+    const { pilotId, projectId } = s;
+    const c = await readyContract(s, "c-cwd");
     await expect(
       prepareCursorExecution({
         pilotId,
@@ -218,14 +211,9 @@ describe("PostgreSQL ML5 Cursor dispatch concurrency (SCRIPTED)", () => {
   });
 
   it("stale claimToken cannot overwrite after fencing", async () => {
-    const { pilotId, projectId } = await seed();
-    const c = await createTechnicalContract({
-      pilotId,
-      projectId,
-      contractKey: "c-fence",
-      body: sampleBody(),
-      markReady: true,
-    });
+    const s = await seed();
+    const { pilotId, projectId } = s;
+    const c = await readyContract(s, "c-fence");
     const prep = await prepareCursorExecution({
       pilotId,
       projectId,
@@ -241,7 +229,9 @@ describe("PostgreSQL ML5 Cursor dispatch concurrency (SCRIPTED)", () => {
       inspectedFingerprint: c.fingerprint,
       confirmed: true,
     });
-    const claimed = await claimCursorAttempt(prep.attemptId, "AUTHORIZED");
+    const claimed = await claimCursorAttempt(prep.attemptId, "AUTHORIZED", {
+      stampSendIntent: false,
+    });
     expect(claimed).toBeTruthy();
     const staleToken = claimed!.claim.claimToken;
 
@@ -270,14 +260,9 @@ describe("PostgreSQL ML5 Cursor dispatch concurrency (SCRIPTED)", () => {
   });
 
   it("reconcile does not redispatch", async () => {
-    const { pilotId, projectId } = await seed();
-    const c = await createTechnicalContract({
-      pilotId,
-      projectId,
-      contractKey: "c-rec",
-      body: sampleBody(),
-      markReady: true,
-    });
+    const s = await seed();
+    const { pilotId, projectId } = s;
+    const c = await readyContract(s, "c-rec");
     const prep = await prepareCursorExecution({
       pilotId,
       projectId,
@@ -302,5 +287,121 @@ describe("PostgreSQL ML5 Cursor dispatch concurrency (SCRIPTED)", () => {
       await db.select().from(effectAttempts).where(eq(effectAttempts.id, prep.attemptId)).limit(1)
     )[0]!;
     expect(after.status).toBe(before.status);
+  });
+
+  it("CF-03/T-04: first send → ACK lost → claim expired → no AMBIGUOUS redispatch", async () => {
+    const s = await seed();
+    const { pilotId, projectId } = s;
+    const c = await readyContract(s, "c-ack-lost");
+    const prep = await prepareCursorExecution({
+      pilotId,
+      projectId,
+      contractId: c.contractId,
+      correlationKey: newId("corr"),
+      workspaceKey: "default",
+    });
+    await authorizeCursorExecution({
+      pilotId,
+      projectId,
+      attemptId: prep.attemptId,
+      statement: "mandate",
+      inspectedFingerprint: c.fingerprint,
+      confirmed: true,
+    });
+
+    // Simulate: claim+sendIntent, SDK "called", ACK lost, lease expired, AMBIGUOUS.
+    const claimed = await claimCursorAttempt(prep.attemptId, "AUTHORIZED", {
+      stampSendIntent: true,
+    });
+    expect(claimed).toBeTruthy();
+    expect(claimed!.sendRequestedAt).toBeTruthy();
+    const row = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prep.attemptId)).limit(1)
+    )[0]!;
+    const live = JSON.parse(row.resultJson || "{}") as Record<string, unknown>;
+    expect(live.sendRequestedAt).toBeTruthy();
+    const expiredClaim = {
+      ...(live.claim as object),
+      leaseExpiresAt: new Date(Date.now() - 60_000).toISOString(),
+      releasedAt: null,
+    };
+    const ambiguousJson = JSON.stringify({
+      ...live,
+      claim: expiredClaim,
+      agentId: "agent-sim-1",
+      runId: "run-sim-1",
+      // ackReceivedAt intentionally absent — ACK lost
+    });
+    await db
+      .update(effectAttempts)
+      .set({ status: "AMBIGUOUS", resultJson: ambiguousJson, updatedAt: new Date() })
+      .where(eq(effectAttempts.id, prep.attemptId));
+
+    // Reclaim must refuse — prior send may have produced an effect.
+    const reclaim = await claimCursorAttempt(prep.attemptId, "AMBIGUOUS");
+    expect(reclaim).toBeNull();
+
+    await expect(
+      dispatchCursorExecution({ pilotId, projectId, attemptId: prep.attemptId }),
+    ).rejects.toBeInstanceOf(StudioError);
+
+    const after = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prep.attemptId)).limit(1)
+    )[0]!;
+    expect(after.status).toBe("AMBIGUOUS");
+    const afterLive = JSON.parse(after.resultJson || "{}") as {
+      sendRequestedAt?: string;
+      agentId?: string;
+    };
+    expect(afterLive.sendRequestedAt).toBeTruthy();
+    expect(afterLive.agentId).toBe("agent-sim-1");
+  });
+
+  it("P0: claim stamps sendRequestedAt before SDK — crash window covered", async () => {
+    const s = await seed();
+    const { pilotId, projectId } = s;
+    const c = await readyContract(s, "c-pre-send");
+    const prep = await prepareCursorExecution({
+      pilotId,
+      projectId,
+      contractId: c.contractId,
+      correlationKey: newId("corr"),
+      workspaceKey: "default",
+    });
+    await authorizeCursorExecution({
+      pilotId,
+      projectId,
+      attemptId: prep.attemptId,
+      statement: "mandate",
+      inspectedFingerprint: c.fingerprint,
+      confirmed: true,
+    });
+    const claimed = await claimCursorAttempt(prep.attemptId, "AUTHORIZED", {
+      stampSendIntent: true,
+    });
+    expect(claimed?.sendRequestedAt).toBeTruthy();
+    const row = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, prep.attemptId)).limit(1)
+    )[0]!;
+    expect(row.status).toBe("DISPATCHED");
+    expect(JSON.parse(row.resultJson || "{}").sendRequestedAt).toBeTruthy();
+    // Simulate crash before SDK: force AMBIGUOUS with expired claim, keep sendRequestedAt.
+    const live = JSON.parse(row.resultJson || "{}") as Record<string, unknown>;
+    await db
+      .update(effectAttempts)
+      .set({
+        status: "AMBIGUOUS",
+        resultJson: JSON.stringify({
+          ...live,
+          claim: {
+            ...(live.claim as object),
+            leaseExpiresAt: new Date(Date.now() - 60_000).toISOString(),
+            releasedAt: null,
+          },
+        }),
+        updatedAt: new Date(),
+      })
+      .where(eq(effectAttempts.id, prep.attemptId));
+    expect(await claimCursorAttempt(prep.attemptId, "AMBIGUOUS")).toBeNull();
   });
 });

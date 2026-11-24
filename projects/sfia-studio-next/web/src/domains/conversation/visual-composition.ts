@@ -118,7 +118,7 @@ export type VisualProvenance = {
 
 /** Structural twin of TurnReference — kept here to avoid import cycles. */
 export type CanonicalReference = {
-  kind: "document" | "git" | "external";
+  kind: "document" | "git" | "external" | "contract";
   label: string;
   resourceId?: string;
   revisionId?: string;
@@ -128,6 +128,7 @@ export type CanonicalReference = {
   commit?: string;
   href?: string;
   available?: boolean;
+  fingerprint?: string;
 };
 
 export type ComparisonAlternative = {

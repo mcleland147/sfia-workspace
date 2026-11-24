@@ -15,6 +15,9 @@ import {
 import { getPreparationContext } from "@/domains/preparation/service";
 import { emitObs } from "@/lib/observability";
 
+import type { ToolSourceJournal } from "./tool-source-journal";
+import { recordToolSource } from "./tool-source-journal";
+
 export type D4ToolScope = {
   pilotId: string;
   preparationId: string;
@@ -22,6 +25,8 @@ export type D4ToolScope = {
   generationId: string;
   /** Remaining D4 tool call budget (mutated by callers). */
   budget: { remainingCalls: number; remainingChars: number };
+  /** Optional journal of sources actually returned this turn. */
+  sourceJournal?: ToolSourceJournal | null;
 };
 
 export type ToolCoverage = "COMPLETE" | "PARTIAL" | "EMPTY" | "DENIED" | "NOT_FOUND" | "STALE";
@@ -342,7 +347,26 @@ export async function searchProjectResources(scope: D4ToolScope, input: SearchPr
       modelChoseScope: false,
     },
     note: corpusNote,
-  };  // Charge full returned envelope against D4 char budget.
+  };
+  // Search lists titles — DISCOVERED until a body is read (never auto-CONSULTED).
+  for (const item of page) {
+    const ref =
+      typeof item.resource_ref === "string"
+        ? item.resource_ref
+        : typeof item.id === "string"
+          ? String(item.type ?? "resource") + ":" + item.id
+          : null;
+    if (ref) {
+      recordToolSource(scope.sourceJournal, {
+        kind: "D4",
+        ref,
+        title: typeof item.title === "string" ? item.title : undefined,
+        coverage: "DISCOVERED",
+        notes: "search_project_resources — metadata only",
+      });
+    }
+  }
+  // Charge full returned envelope against D4 char budget.
   let charsCharged = chargeBudget(scope, payload);
   if (scope.budget.remainingChars <= 0 && charsCharged > 0) {
     // Budget exhausted by this payload — shrink items honestly.
@@ -595,6 +619,16 @@ export async function readProjectDocumentRevision(
       coverage: trimmed.coverage,
       revision_status: rev.status,
     },
+  });
+
+  // Body actually returned → CONSULTED (or PARTIAL/STALE from tool coverage).
+  recordToolSource(scope.sourceJournal, {
+    kind: "D4",
+    ref: result.resource_ref,
+    title: owned.title,
+    versionOrSha: `v${rev.revisionNumber}`,
+    coverage: trimmed.coverage,
+    notes: "read_project_document_revision",
   });
 
   return { ...result, charsCharged };

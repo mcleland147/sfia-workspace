@@ -151,13 +151,32 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-[11px] shrink-0">
             <span
               aria-hidden
-              className="inline-flex h-10 w-10 items-center justify-center rounded-[12px] text-[22px] font-bold leading-none"
-              style={{ background: "#656fe1", color: "#f4f6fc" }}
+              className="inline-flex items-center justify-center shrink-0"
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 8,
+                padding: 8,
+                background: "#292e5d",
+                color: "#f3f5ff",
+                fontSize: 18,
+                fontWeight: 700,
+                lineHeight: 1,
+              }}
+              data-testid="sfia-logo-mark"
             >
               S
             </span>
             <div className="min-w-0">
-              <div className="text-[19px] font-semibold tracking-tight studio-title leading-[27px]">
+              <div
+                className="studio-title"
+                style={{
+                  fontSize: 17,
+                  fontWeight: 600,
+                  lineHeight: "normal",
+                  color: "#f3f5ff",
+                }}
+              >
                 SFIA Studio
               </div>
               {personalSpace ? (
@@ -352,18 +371,32 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
                   <span>Sources Git</span>
                 </Link>
                 <Link
+                  href={`/projects/${projectId}?surface=execution`}
+                  className={`studio-rail-direct-link ${
+                    surface === "execution" ? "is-active" : ""
+                  }`}
+                  data-testid="nav-execution"
+                  onClick={() => noteProjectSurfaceNavIntent(projectId, "execution")}
+                  title="Exécution Cursor gouvernée — interventions, LIVE, instruction"
+                >
+                  <span aria-hidden className="studio-rail-nav-glyph">
+                    ▷
+                  </span>
+                  <span>Exécution</span>
+                </Link>
+                <Link
                   href={`/projects/${projectId}?surface=publication`}
                   className={`studio-rail-direct-link ${
                     surface === "publication" ? "is-active" : ""
                   }`}
                   data-testid="nav-resultats"
                   onClick={() => noteProjectSurfaceNavIntent(projectId, "publication")}
-                  title="Publication Git existante (préparation / autorisation / dispatch) — libellé Figma provisoire"
+                  title="Résultats & preuves D8 — SYNTHÈSE / LIVRABLES ET TESTS / GIT & PIÈCES / ÉCARTS"
                 >
                   <span aria-hidden className="studio-rail-nav-glyph">
                     ▦
                   </span>
-                  <span>Résultats et preuves</span>
+                  <span>Résultats & preuves</span>
                 </Link>
               </div>
             ) : null}

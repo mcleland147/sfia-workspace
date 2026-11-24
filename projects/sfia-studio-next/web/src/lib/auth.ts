@@ -81,6 +81,18 @@ export function studioEntryCapabilities() {
   const testLoginFlag = process.env.STUDIO_DEV_TEST_LOGIN === "1";
   const testLoginAvailable =
     testLoginFlag && (lane === "DEV" || lane === "RECETTE");
+  /** DÉC-ML5-DEV — probe only; issuance remains fail-closed on /api/dev/auto-session. */
+  const bind = (process.env.STUDIO_DEV_BIND ?? "").trim().toLowerCase();
+  const listenConfined =
+    bind === "127.0.0.1" ||
+    bind === "localhost" ||
+    bind === "::1" ||
+    bind === "[::1]";
+  const autoSessionAvailable =
+    process.env.STUDIO_DEV_AUTO_SESSION === "1" &&
+    testLoginFlag &&
+    lane === "DEV" &&
+    listenConfined;
   return {
     provider: "github-oauth-studio-identity-only",
     configured: githubConfigured,
@@ -93,6 +105,12 @@ export function studioEntryCapabilities() {
     testLoginLabel: testLoginAvailable
       ? "Accès de test (non OAuth) — lane autorisée"
       : null,
+    autoSessionAvailable,
+    autoSessionLabel: autoSessionAvailable
+      ? "Session Pilote de test automatique (DEV loopback + bind confinés)"
+      : null,
+    listenConfined,
+    listenBind: listenConfined ? bind : null,
   };
 }
 

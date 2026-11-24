@@ -15,7 +15,7 @@ import {
 } from "@/db/schema";
 // db still used by getConversationId / listMessages
 import { newId } from "@/lib/ids";
-import { generateNoraReply } from "./nora-adapter";
+import { runNoraCognitiveTurn } from "./run-nora-cognitive-turn";
 import {
   applyPreparationProjection,
   getPreparationContext,
@@ -472,6 +472,7 @@ export async function lookupDurableTurnByClientKey(
   clientTurnKey: string,
 ): Promise<{
   found: boolean;
+  turnCommandId: string | null;
   status: string | null;
   generationId: string | null;
   operationId: string | null;
@@ -484,6 +485,7 @@ export async function lookupDurableTurnByClientKey(
   const key = clientTurnKey.trim();
   const empty = {
     found: false as const,
+    turnCommandId: null,
     status: null,
     generationId: null,
     operationId: null,
@@ -501,6 +503,7 @@ export async function lookupDurableTurnByClientKey(
   const row = (
     await db
       .select({
+        id: conversationTurnCommands.id,
         status: conversationTurnCommands.status,
         generationId: conversationTurnCommands.generationId,
         operationId: conversationTurnCommands.operationId,
@@ -544,6 +547,7 @@ export async function lookupDurableTurnByClientKey(
 
   return {
     found: true,
+    turnCommandId: row.id,
     status: row.status,
     generationId: row.generationId,
     operationId: row.operationId,
@@ -761,6 +765,25 @@ export type TurnResult = {
     effects?: Array<{ effectKind: string; targetRef: string }>;
   } | null;
   reconciled?: boolean;
+  /** Durable turn id — available for mid-turn activity polling (C01/C07). */
+  turnCommandId?: string | null;
+  /** CA-01 — DRAFT contract prepared this turn (never READY / never D6). */
+  preparedContract?: {
+    contractId: string;
+    contractKey: string;
+    version: number;
+    fingerprint: string;
+    status: string;
+  } | null;
+  /** C17 — cognitive work filiation for continuity / READY. */
+  cognitiveWork?: {
+    workId: string;
+    revision: number;
+    segmentsRun: number;
+    resumed: boolean;
+    suspended: boolean;
+    suspendReason: string | null;
+  } | null;
   /** Refs-only mission projection — never owner truth for D4/D6/D7. */
   missionProjection?: MissionProjection | null;
   /** S05 — server-derived turn kind from Nora qualification (not client lexical). */
@@ -875,6 +898,9 @@ export async function postUserMessageAndNora(
       pendingCandidateId?: string;
       pendingCandidateContentSha256?: string;
     } | null;
+    /** C17 — continue an explicit cognitive work when the Pilote resumes. */
+    cognitiveWorkId?: string | null;
+    forceNewCognitiveWork?: boolean;
   },
 ): Promise<TurnResult> {
   const requestId = opts?.requestId ?? newRequestId();
@@ -1085,6 +1111,8 @@ export async function postUserMessageAndNora(
   }
 
   let reply;
+  let preparedContract: TurnResult["preparedContract"] = null;
+  let cognitiveWorkMeta: TurnResult["cognitiveWork"] = null;
   try {
     // C1 — announce Nora work (ANNOUNCED ≠ OBSERVED). Best-effort; never blocks the turn.
     try {
@@ -1107,8 +1135,28 @@ export async function postUserMessageAndNora(
     const leasePulse = setInterval(() => {
       void touchTurnLease(reserved.commandId, reserved.ownerToken);
     }, 60_000);
+    // C16/C17 — cognitive conductor with semantic/technical work attachment.
+    let cognitiveWorkId: string | null = null;
     try {
-      reply = await generateNoraReply({
+      // C19: expire abandoned RUNNING leases before attachment / generate.
+      try {
+        const { reconcileStaleRunningCognitiveWorks } = await import("./cognitive-work");
+        await reconcileStaleRunningCognitiveWorks({
+          pilotId,
+          preparationId,
+        });
+      } catch {
+        /* reconciliation best-effort */
+      }
+      const turn = await runNoraCognitiveTurn({
+        pilotId,
+        preparationId,
+        projectId: ctx.project?.id ?? null,
+        conversationId: reserved.conversationId,
+        turnCommandId: reserved.commandId,
+        forceNewWork: opts?.forceNewCognitiveWork === true,
+        workId: opts?.cognitiveWorkId ?? null,
+        objective: content.slice(0, 2000),
         userText: content,
         contextSnippets,
         knowledgeSnippets: [
@@ -1117,17 +1165,56 @@ export async function postUserMessageAndNora(
           ...publicationOwnerSnippets,
         ],
         pilotageSnippets: pilotageCtx.snippets,
-        // C01: same structured Level A contract for fixture and LIVE — never authority.
         levelASignals: pilotageCtx.levelASignals,
-        // Requested level only. The adapter emits DELIVERED after a real generate.
         ckiDelivery: pilotageCtx.ckiDelivery,
         toolScope: {
           pilotId,
           preparationId,
           operationId: reserved.operationId,
           projectId: ctx.project?.id,
+          activityContext: {
+            conversationId: reserved.conversationId,
+            turnCommandId: reserved.commandId,
+            ownerPilotId: pilotId,
+            ownerToken: reserved.ownerToken,
+          },
         },
       });
+      reply = turn;
+      cognitiveWorkId = turn.conductor.workId || null;
+      // C20: consolidated cognitive DOCUMENT production is the canonical D4 body
+      // when present — reply documentProposal must not compete with it.
+      const consolidated = turn.conductor.production;
+      if (
+        consolidated?.kind === "DOCUMENT" &&
+        consolidated.contentMarkdown?.trim() &&
+        reply.qualification
+      ) {
+        const title =
+          reply.qualification.documentProposal?.title?.trim() ||
+          consolidated.parts[0]?.title ||
+          "Document";
+        reply = {
+          ...reply,
+          qualification: {
+            ...reply.qualification,
+            documentProposal: {
+              title,
+              contentMarkdown: consolidated.contentMarkdown,
+            },
+          },
+        };
+      }
+      cognitiveWorkMeta = turn.conductor.workId
+        ? {
+            workId: turn.conductor.workId,
+            revision: turn.conductor.revision,
+            segmentsRun: turn.conductor.segmentsRun,
+            resumed: turn.conductor.resumed,
+            suspended: turn.conductor.suspended,
+            suspendReason: turn.conductor.suspendReason,
+          }
+        : null;
       try {
         const { appendActivityEvent } = await import("./activity-projection");
         await appendActivityEvent({
@@ -1136,16 +1223,171 @@ export async function postUserMessageAndNora(
           ownerPilotId: pilotId,
           generationId: reply.generationId ?? null,
           phase: "nora.generate",
-          nature: "COMPLETED",
-          status: "COMPLETED",
-          summary: "Réponse Nora disponible",
+          nature: turn.conductor.suspended ? "UNCERTAIN" : "COMPLETED",
+          status: turn.conductor.suspended ? "LIMITED" : "COMPLETED",
+          summary: turn.conductor.suspended
+            ? `Travail cognitif suspendu (${turn.conductor.suspendReason ?? "LIMIT"})`
+            : "Réponse Nora disponible",
           ownerToken: reserved.ownerToken,
         });
+        // Dedup: mid-turn onRecord already emitted OBSERVED; keep a compact post-hoc
+        // summary only when no mid-turn events were produced (fixture without sink).
       } catch {
         /* activity observational */
       }
+      // CA-01 / C14 — bridge investigation → DRAFT when semantic qualification asks for it.
+      // Never READY here; never lexical intent; never a second preparation engine.
+      if (ctx.project?.id && reply.qualification) {
+        // Hoisted for catch diagnostics (const inside try is invisible to catch).
+        let structuredInstruction = "";
+        let structuredCriteria: string[] = [];
+        try {
+          const {
+            bridgeNoraTurnToContractPreparation,
+            semanticWantsCursorContractPrepare,
+            semanticWantsCorrectiveDraft,
+          } = await import("./nora-contract-bridge");
+          // C18: prepare when capability intent OR typed tool OR structured
+          // qualification/investigation production is present (≠ replyDraft prose).
+          structuredInstruction =
+            reply.cursorContractProduction?.productionInstruction?.trim() ||
+            reply.qualification?.intents?.find(
+              (i) => i.capabilityId === "d7.prepare_cursor_contract",
+            )?.parameters?.productionInstruction?.trim() ||
+            reply.qualification?.productionInstruction?.trim() ||
+            turn.conductor.investigation.productionInstruction?.trim() ||
+            "";
+          const rawCriteria =
+            reply.cursorContractProduction?.acceptanceCriteria ??
+            reply.qualification?.intents?.find(
+              (i) => i.capabilityId === "d7.prepare_cursor_contract",
+            )?.parameters?.acceptanceCriteria ??
+            reply.qualification?.acceptanceCriteria ??
+            turn.conductor.investigation.acceptanceCriteria ??
+            [];
+          structuredCriteria = Array.isArray(rawCriteria)
+            ? rawCriteria.filter((c): c is string => typeof c === "string" && c.trim().length > 0)
+            : [];
+          const hasStructuredProduction =
+            structuredInstruction.length > 0 && structuredCriteria.length > 0;
+          const wantsPrepare =
+            semanticWantsCursorContractPrepare(reply.qualification) ||
+            semanticWantsCorrectiveDraft(reply.qualification) ||
+            hasStructuredProduction;
+          if (!wantsPrepare && reply.qualification?.status === "QUALIFIED") {
+            try {
+              const { appendActivityEvent } = await import("./activity-projection");
+              await appendActivityEvent({
+                conversationId: reserved.conversationId,
+                turnCommandId: reserved.commandId,
+                ownerPilotId: pilotId,
+                phase: "nora.contract.prepare",
+                nature: "OBSERVED",
+                status: "LIMITED",
+                summary: "Pas de production structurée contrat — DRAFT non préparé",
+                detail: {
+                  intentIds: (reply.qualification.intents ?? []).map((i) => i.capabilityId),
+                  hasTopProductionInstruction: Boolean(reply.qualification.productionInstruction),
+                  hasToolProduction: Boolean(
+                    reply.cursorContractProduction?.productionInstruction,
+                  ),
+                  investigationHasProduction: Boolean(
+                    turn.conductor.investigation.productionInstruction,
+                  ),
+                  investigationCriteriaCount: Array.isArray(
+                    turn.conductor.investigation.acceptanceCriteria,
+                  )
+                    ? turn.conductor.investigation.acceptanceCriteria.length
+                    : -1,
+                },
+                ownerToken: reserved.ownerToken,
+              });
+            } catch {
+              /* observational */
+            }
+          }
+          if (wantsPrepare) {
+            const observedSources = Array.isArray(reply.observedToolSources)
+              ? reply.observedToolSources
+              : [];
+            const bridge = await bridgeNoraTurnToContractPreparation({
+              pilotId,
+              projectId: ctx.project.id,
+              preparationId,
+              conversationId: reserved.conversationId,
+              turnCommandId: reserved.commandId,
+              ownerToken: reserved.ownerToken,
+              userText: content,
+              assistantText: reply.content,
+              qualification: reply.qualification,
+              observedSources,
+              attemptPrepare: true,
+              sourceTurnCommandId: reserved.commandId,
+              workId: turn.conductor.workId,
+              workRevision: turn.conductor.revision,
+              investigationOverride: turn.conductor.investigation,
+              // C18: instruction/criteria from tool → intent → qualification → investigation.
+              productionInstruction: structuredInstruction || null,
+              acceptanceCriteria: structuredCriteria,
+            });
+            preparedContract = bridge.prepared;
+            if (!preparedContract) {
+              try {
+                const { appendActivityEvent } = await import("./activity-projection");
+                await appendActivityEvent({
+                  conversationId: reserved.conversationId,
+                  turnCommandId: reserved.commandId,
+                  ownerPilotId: pilotId,
+                  phase: "nora.contract.prepare",
+                  nature: "OBSERVED",
+                  status: "LIMITED",
+                  summary: "Bridge contrat sans DRAFT — prepared null",
+                  detail: {
+                    blockedReason: bridge.blockedReason,
+                    intentDetected: bridge.intentDetected,
+                    instructionChars: structuredInstruction.length,
+                    criteriaCount: structuredCriteria.length,
+                  },
+                  ownerToken: reserved.ownerToken,
+                });
+              } catch {
+                /* observational */
+              }
+            }
+          }
+        } catch (bridgeErr) {
+          // C18: never swallow silently — DRAFT failure must be observable.
+          try {
+            const { appendActivityEvent } = await import("./activity-projection");
+            await appendActivityEvent({
+              conversationId: reserved.conversationId,
+              turnCommandId: reserved.commandId,
+              ownerPilotId: pilotId,
+              phase: "nora.contract.prepare",
+              nature: "UNCERTAIN",
+              status: "FAILED",
+              summary: "Échec bridge contrat DRAFT — exception propriétaire",
+              detail: {
+                errorName:
+                  bridgeErr instanceof Error ? bridgeErr.name : "unknown",
+                errorMessage:
+                  bridgeErr instanceof Error
+                    ? bridgeErr.message.slice(0, 400)
+                    : String(bridgeErr).slice(0, 400),
+                hasStructuredInstruction: structuredInstruction.length > 0,
+                criteriaCount: structuredCriteria.length,
+              },
+              ownerToken: reserved.ownerToken,
+            });
+          } catch {
+            /* observational */
+          }
+        }
+      }
     } finally {
       clearInterval(leasePulse);
+      // Conductor owns claim/checkpoint/release; no systematic SUSPENDED here.
+      void cognitiveWorkId;
     }
   } catch {
     // SEM order: Nora runs before same-turn D5/D6, so a provider failure here
@@ -1702,7 +1944,17 @@ export async function postUserMessageAndNora(
     d4Effect: null,
   });
 
-  if (reply.status === "COMPLETE" && allowOwnerEffects) {
+  // C17: segment-limit suspension keeps work SUSPENDED (honest) but may still
+  // carry a complete document fence for D4 — do not require conversational COMPLETE.
+  const interruptedWithDocument =
+    reply.status === "INTERRUPTED" &&
+    Boolean(cognitiveWorkMeta?.suspended) &&
+    extractContractualDocumentProposal(reply.content).ok;
+  const replyAllowsOwnerEffects =
+    allowOwnerEffects &&
+    (reply.status === "COMPLETE" || interruptedWithDocument);
+
+  if (replyAllowsOwnerEffects) {
     if (turnRaceHooks.beforeD4Effect) {
       await turnRaceHooks.beforeD4Effect();
     }
@@ -3437,9 +3689,11 @@ export async function postUserMessageAndNora(
       ? "UNKNOWN"
       : reply.status === "COMPLETE"
         ? "COMPLETE"
-        : reply.status === "UNKNOWN"
-          ? "UNKNOWN"
-          : "FAILED";
+        : reply.status === "INTERRUPTED"
+          ? "UNKNOWN" // suspended cognitive work — not a failed turn fabrication
+          : reply.status === "UNKNOWN"
+            ? "UNKNOWN"
+            : "FAILED";
 
   if (
     !ownershipLostBeforeD4 &&
@@ -3478,6 +3732,9 @@ export async function postUserMessageAndNora(
     assistantMessageId: ownershipLostBeforeD4 ? null : assistantId,
     operationId: reserved.operationId,
     requestId,
+    turnCommandId: reserved.commandId,
+    preparedContract,
+    cognitiveWork: cognitiveWorkMeta,
     noraMode: reply.mode,
     status: turnStatus === "COMPLETE" ? reply.status : turnStatus,
     generationId: reply.generationId,

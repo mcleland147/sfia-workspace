@@ -49,6 +49,7 @@ export async function GET(
     }
     return NextResponse.json({
       found: true,
+      turnCommandId: result.turnCommandId,
       status: result.status,
       generationId: result.generationId,
       operationId: result.operationId,

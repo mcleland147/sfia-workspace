@@ -18,10 +18,11 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
     else process.env.STUDIO_LANE = prevLane;
   });
 
-  it("SEM: length may raise ceilings; short messages keep tools (Lot D5)", () => {
+  it("C14/C23: length must NOT route profile; tools stay available (Lot D5)", () => {
     const s = buildCognitivePolicy("C'est quoi un sas ?", "TEST_BOUNDARY");
     expect(s.profile).toBe("analyse");
     expect(s.effortRequested).toBe("medium");
+    expect(s.modelRequested).toBe("gpt-6.2-sol");
     expect(s.toolAllowlist.length).toBeGreaterThan(0);
     expect(s.budgets.maxD4ToolCalls).toBeGreaterThan(0);
 
@@ -32,10 +33,17 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
     expect(a.effortRequested).toBe("medium");
     expect(a.toolAllowlist.length).toBeGreaterThan(0);
 
+    // C14 Morris: message length ≠ investigation/high. Semantic hints do.
     const long = "x".repeat(601);
     const i = buildCognitivePolicy(long, "TEST_BOUNDARY");
-    expect(i.profile).toBe("investigation");
-    expect(i.effortRequested).toBe("high");
+    expect(i.profile).toBe("analyse");
+    expect(i.effortRequested).toBe("medium");
+
+    const hinted = buildCognitivePolicy(long, "TEST_BOUNDARY", {
+      profileHint: "investigation",
+    });
+    expect(hinted.profile).toBe("investigation");
+    expect(hinted.effortRequested).toBe("high");
   });
 
   it("TEST_BOUNDARY budgets stay artificial and distinct from OPERATIONAL_PROVISIONAL", () => {
@@ -90,7 +98,11 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
     const prevLane = process.env.STUDIO_LANE;
     process.env.STUDIO_LANE = "DEV";
     try {
-      const p = buildCognitivePolicy("x".repeat(601), "OPERATIONAL_PROVISIONAL");
+      const p = buildCognitivePolicy("x".repeat(601), "OPERATIONAL_PROVISIONAL", {
+        profileHint: "investigation",
+        effortHint: "high",
+      });
+      expect(p.profile).toBe("investigation");
       expect(maxTurnsForPolicy(p)).toBe(p.budgets.maxProviderCalls);
       expect(maxTurnsForPolicy(p)).toBeGreaterThan(12);
       // Lot D5: short messages keep analyse tools — never tool-less maxTurns=1.

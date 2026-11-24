@@ -68,6 +68,8 @@ export type CursorExecutionPlan = {
   /** Short key used to resolve workspaceCwd; browser may only send this. */
   workspaceKey?: string;
   effectProviderMode: "SCRIPTED" | "LIVE";
+  /** Optional SDK model id — resolved at prepare from SFIA_CURSOR_MODEL_ID when omitted. */
+  modelId?: string;
   gitScope?: TechnicalContractBody["gitScope"];
   mcpRequired: string[];
 };
@@ -95,6 +97,22 @@ export type CursorLiveProjection = {
     | "REJECTED"
     | "UNVERIFIED"
     | null;
+  /** C21 — autonomous restitution pipeline (handoff→D8→Nora), not SFIA v2.6 handoff. */
+  restitutionPipelineStatus?:
+    | "IDLE"
+    | "COLLECTING"
+    | "QUALIFYING"
+    | "NORA"
+    | "COMPLETE"
+    | "PARTIAL"
+    | "FAILED"
+    | null;
+  restitutionHandoffId?: string | null;
+  restitutionQualificationId?: string | null;
+  restitutionStartedAt?: string | null;
+  restitutionCompletedAt?: string | null;
+  /** Runtime-collected report text when present on the attempt. */
+  reportMarkdown?: string | null;
   limits?: string[];
   claim?: unknown;
 };

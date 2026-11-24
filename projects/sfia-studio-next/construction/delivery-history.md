@@ -3,6 +3,440 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE11-RECETTE-CANDIDATE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 11 Déploiement / mise à disposition RECETTE (NO RELEASE) |
+| Type | RUN · consolidation C1–C24 · cutover RECETTE · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD pré-consolidation | `6cf33e9923796974b9ee540a9c6ff27110342950` |
+| Candidate SHA | _PENDING_COMMIT_ |
+| Candidate tree | _PENDING_TREE_ |
+| Ancienne RECETTE | SOURCE `10128bdb6bb1020a0fd8d4976b91879bff26c3b3` · BUILD `2uHrYBsQUvf6aii40hMpj` |
+| Build RECETTE | _PENDING_BUILD_ |
+| Contenu | Commit local consolidé ML5 ; worktree RECETTE indépendant ; migrations additives 019–021 ; auth normale (pas auto-session) ; UAT-01…10 capitalisées ouvertes |
+| Push projet | **NONE** |
+| Verdict candidat | _PENDING_CUTOVER_ |
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE24-PRODUCT-UX-FIDELITY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 24 reprise approfondie Figma-to-code page 12 (fidélité produit réel) |
+| Type | CONSTRUCTION DEV · **NO RELEASE** · INC Critical · §6.6 UX/UI |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY C1–C24, aucun commit produit) |
+| Build testé | `aXcIQCDMIigpelfT-Jvr5` · contentDigest `84f42bb7f8eb8285696f6d7495cd7e255e764fb0551bdd18b6298170911f2cb7` |
+| Contenu | Reprise compositionnelle (pas widgets isolés) : ContractViewer 2×2 + 6 volets ; Exécution liste/détail sans bilan empilé ; Résultats bilans/dossier permanent + 4 onglets thématiques ; ProjectChrome heroes 12.04/12.08/12.09 ; panneau CONTEXTE JOINT ; deep-link `?attempt=` ; publication sans GitRepositories empilé |
+| Preuves | Playwright routes produit `:3100` projet `proj_c08249f9-…` ; captures AFTER sous `.sfia-evidence/figma-page12-product-after/` ; comparatifs Figma\|Studio sous `figma-page12-product-compare/` ; continuity unit 7/7 ; `execution-bilan-stacked.txt` PASS |
+| Push projet | **NONE** (handoff L3 mono-fichier autorisé) |
+| Verdict candidat | **FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED** (F2 rectangle ≠ 0 px partout ; densité contenu / icônes rail) · composition structurelle page 12 **alignée** · **READY FOR REVIEW** · pas ML5 CLOSED / pas GO RECETTE |
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE24-CONTINUITY-UX-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 24 correctif continuité R2 + convergence UX page 12 + readiness qualification Morris |
+| Type | CONSTRUCTION DEV · **NO RELEASE** · INC Critical |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY C1–C24) |
+| Build testé | `KMN8QlvhIkUKTYDCTui_7` (digest `7edea656…`) ; build intermédiaire `ou99IxxSA5an5yI1umd5B` |
+| Contenu | Cause racine R2 : question déterminante « joindre dossier D8 » empoisonnait READY après overwrite du brouillon bilan ; correctif chip dossier retirable (12.09) + consolidation `mergeQuestions` ; plafonds qualify 800k/48 **révoqués** (défauts 200k/24) ; Figma page 12 L0–L2 + PNG hashés ; tabs SYNTHÈSE/… ; 3 appréciations ; split bilans/dossier ; fixtures `/dev/ml5-page12-visual/*` |
+| Preuves | vitest `ml5-c24-dossier-attachment-continuity` 7/7 ; labels onglets ; inventaire Figma 14 frames ; pas de campagne LIVE exhaustive |
+| Push projet | **NONE** (handoff L3 mono-fichier autorisé) |
+| Verdict candidat | **R2 CORRECTION: PROVEN (unit)** · **FIGMA PAGE 12: PARTIAL — DELIVERY REQUIRED (F2 runtime)** · **DEV USER QUALIFICATION READINESS: READY WITH RESERVES** — pas ML5 CLOSED / pas GO RECETTE |
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE24-INTEGRATED-OPERATIONAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 24 convergence opérationnelle intégrée (1 projet / 2 réalisations) |
+| Type | CONSTRUCTION DEV · **NO RELEASE** · INC Critical |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY C1–C24) |
+| Build testé | `wh16LAR_5NCCh-Q_7FF2t` (digest `00f5c6f8…`) ; antérieurs `5Yoo0gEG…`, `TQGWa9Ig…`, `rHdeFBfa…` |
+| Contenu | qualify owned PID + contentDigest + sessionFingerprint ; D6 authorize→dispatch same-request ; resume AUTHORIZED ; avis Nora resume si pipeline COMPLETE ; READY admet travail OPEN ; budget cognitif qualify 800k ; scénario directeur BROWSER |
+| Preuves R1 | Multiples COMPLETED LIVE + handoff RECEIVED + D8 PARTIAL + avis Nora (ex. `efx_f9127c71…`, `efx_a0400dcf…`, `efx_46a0462c…`) ; bilan BROWSER |
+| Écart R2 | Seconde réalisation READY non closée sur même projet (investigation OPEN / questions déterminantes / budget) — continuité R2 non démontrée E2E |
+| Push projet | **NONE** |
+| Verdict candidat | **DEV: BEHAVIOR PROVEN** · **ML5 LOT 3: NOT READY** (réserve bloquante: 2e réalisation naturelle) — isolation D8 exec disabled inchangée |
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE24-DEV-QUALIFY-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 24 stabilisation mode qualification DEV + finalisation opérationnelle |
+| Type | CONSTRUCTION DEV · **NO RELEASE** · INC Critical |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY C1–C24) |
+| Contenu | `npm run qualify` (check/build/start/stop/browser) ; Playwright LIVE `playwright.qualify.config.ts` vs E2E FAKE :3101 ; HMAC D8 durable `.sfia-evidence/` ; fencing atomique handoff/D8/Nora avis ; lease absent refusé ; boot resume collect + Nora différé ; WEB catalog élargi + intent sémantique |
+| Build | `k4mH0Ja1tniQZx4umDAM1` |
+| Preuves | qualify:check OK ; BROWSER Q0+Q1 LIVE (liveBadge + assistant) ; M1 LIVE+registry ; M2 Cursor LIVE COMPLETE PARTIAL LIVE_D3 ; M3 continuité LIVE recallsVerdict ; restart qualify stop→start /login 200 ; fencing PG + HMAC durable unit |
+| Push projet | **NONE** |
+| Verdict candidat | **DEV QUALIFICATION MODE: PROVEN** · **ML5 LOT 3: READY WITH RESERVES** — réserves : isolation OS D8 non disponible (exec disabled) ; WEB open page partiel ; Figma F2 non re-qualifié ; STOP/browser-close LIVE non exhaustifs |
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE24-OPERATIONAL-REPRISE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 24 reprise opérationnelle (même cycle, pas C25) |
+| Type | CONSTRUCTION DEV · **NO RELEASE** · INC Critical |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY) |
+| Contenu | P0A disable isolated exec default; P0B Studio HMAC authority (workspace forge non-certifying); P0C LIVE Nora criterion assessments; P0D fence before handoff/D8 insert; P0E gitRequired vs N/A; P0F restitutionNoraKind; boot resume sans Nora LIVE storm; Next build `0veM5eBUecko8RAocdAaT` |
+| Preuves | unit reprise P0; M1 Nora LIVE+WEB registry; M2 Cursor LIVE efx_94c1230d COMPLETE PARTIAL + D8_COGNITIVE_CRITERIA_LIVE + NORA LIVE_D3; BROWSER IDE TOOLING GAP |
+| Push projet | **NONE** |
+| Verdict candidat | **NOT READY** — P0 frontière D8/fencing avancés et missions 1–2 LIVE observées; M3/M4/BROWSER/Figma incomplets |
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE24-OPERATIONAL-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 24 lot 3 convergence opérationnelle LIVE/REAL |
+| Type | CONSTRUCTION DEV · **NO RELEASE** · INC Critical |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C1–C24 non poussés) |
+| Contenu | P0 D8: suppression `new Function` / STUDIO_BOUNDED non certifiant ; `studio-isolated-verify` (subprocess scrubbed + static tokens) ; preuves liées au critère ; contribution cognitive D8 (heuristic, no upgrade) ; fencing lease-not-expired sur `persistPipelineOwned` ; registre WEB produit (catalog DEV) ; métriques usage Agents SDK (`state.usage`) ; bilan ouverture sans POST silencieux |
+| Preuves | unit C24 safety/registry/usage/cognitive ; PG fencing lease A→B ; NR C20–C24 54 tests ; smoke `c24-mission-smoke` ; LIVE Nora gpt-6.2-sol usage `input=5971 output=137 requests=1` |
+| Push projet | **NONE** |
+| Verdict candidat | **READY WITH RESERVES** — P0 D8 exécution + faux positifs + fencing fermés ; réserves : missions 1–4 E2E BROWSER LIVE/REAL non rejouées intégralement ; Figma F2 non re-qualifié ; WEB LIVE positif fournisseur via parcours Pilote partiel (registry alimenté, probe Nora sans outil WEB) |
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE23-INTEGRATED-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 23 lot 3 convergence fonctionnelle + qualification intégrée |
+| Type | CONSTRUCTION DEV · **NO RELEASE** · INC Critical |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C1–C23 non poussés) |
+| Contenu | GPT-6.2 Sol ; effort adaptatif par profil ; D8 Studio verification (agent exit≠preuve) ; binding rapport field-exact ; fencing Nora CAS ; turnPublicTopics wired ; bilan structuré Figma ; D9 local observe |
+| Preuves | unit policy/D8/WEB ; PG D8+CAS ; LIVE `efx_7118c5f9…` CONFORMING+STUDIO_VERIFY+Nora gpt-6.2 ; build `0IfMNnVNQMjcrQ0Z7wppl` |
+| Push projet | **NONE** |
+| Verdict candidat | **READY WITH RESERVES** — P0 D8/model fermés ; réserves BROWSER/F2, WEB LIVE positif, T-05 restart, parcours naturel non-seedé PARTIAL |
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE22-EVIDENCE-LIVE-RESTITUTION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 22 finalisation restitution probante + qualification LIVE intégrée |
+| Type | CONSTRUCTION DEV · **NO RELEASE** · INC Critical |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C1–C22 non poussés) |
+| Contenu | WEB provenance EXPLICIT_AUTHORIZED_EXACT \| REGISTERED_PUBLIC_COMPOSITION only ; collecte rapport attempt-bound + confined FS (préférence workspace sur prose SDK) ; CAS restitution owner/version/lease ; D8 evidence workspace → CONFORMING sans injection ; consolidation mergeMode ; avis runNoraCognitiveTurn ; instrumentation boot resume |
+| Preuves | Unit WEB/report/consolidation ; PG restitution+CAS+D8 CONFORMING+contradiction ; LIVE director Cursor SDK ; evidence-replay CONFORMING sur workspace LIVE ; build `xDm9gI5jk9N2qEGkFUqN_` |
+| Push projet | **NONE** |
+| Verdict candidat | **READY WITH RESERVES** — frontiers P0 + D8 product path + LIVE chain ; réserves : BROWSER activité long-run PARTIAL ; WEB LIVE fournisseur non rejoué ; D9/Git REAL non exercés |
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE21-AUTONOMOUS-REALIZATION-RESTITUTION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 21 lot de convergence 2 (réalisation et restitution autonomes) |
+| Type | CONSTRUCTION DEV · **NO RELEASE** · INC Critical |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C1–C21 non poussés) |
+| Contenu | WEB provenance serveur (publicTopic / exact allowlist) ; consolidation production (supersession finale) ; restitution autonome terminal→handoff→D8→avis ; D8 critère-à-preuve (CONFORMING possible) ; reprise superviseurs au boot auto-session ; activité investigation engagée |
+| Preuves | Unit WEB authorize + D8 CONFORMING/PARTIAL ; PG restitution sans POST manuel ; PG dispatch filiation ; tsc ; next build `5mVBWTsOfnWwNfLerv0Ke` ; smoke DEV :3100 |
+| Push projet | **NONE** |
+| Verdict candidat | **READY WITH RESERVES** — chaîne autonome SCRIPTED démontrée ; réserves : WEB LIVE fournisseur+BROWSER activité long-run ; Nora avis cognitif LIVE sous `SFIA_AUTONOMOUS_NORA_AVIS=1` ; D9/Git REAL non exercés (mission locale) ; confinement WEB ≠ qualification WEB complète |
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE20-LOT1-EXIT-QUALIFICATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 20 qualification de sortie lot convergence 1 |
+| Type | CONSTRUCTION DEV · **NO RELEASE** · INC Critical |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C1–C20 non poussés) |
+| Contenu | Corrections P0 bloquantes uniquement : lease/CAS concurrency ; D4 dependency currency + re-assert post-claim ; WEB discovery URL + confidential sanitize ; ambiguity clarify ; production consolidée → D4 |
+| Preuves | I1 PG heartbeat≠reconcile ; I2 `Dépendance D4 supersédée` ; I3 unit open denied sans egress ; I5 clarify sans nouveau work ; I6 production.mdLen = D4 revision length |
+| Push projet | **NONE** |
+| Verdict candidat | **READY WITH RESERVES** — lot 1 exit proposé ; réserves non bloquantes bornées |
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE19-RESIDUAL-INVARIANTS
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 19 fermeture invariants résiduels + qualification finale lot convergence 1 |
+| Type | CONSTRUCTION DEV · **NO RELEASE** · INC Critical |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C1–C19 non poussés) |
+| Contenu | I1 révisions immuables (pas de mutate-in-place checkpoint) ; I2 applicabilité mandat aux points d'effet ; I3 sanitize/egress WEB ; I4 reconcile mid-RUNNING + PROCESS_OR_LEASE_INTERRUPT ; I5 rattachement `cognitiveWorkRelation`/`proposedCognitiveWorkId` ; I6 conservation production multi-tours |
+| Preuves discriminantes | I1 checkpoints INVESTIGATION_SAVE distincts ; I2 READY r5 puis prepare/authorize 409 « mandat non applicable » ; I4 fence+kill RUNNING → interrupt → même workId ; I5 CONTINUE+INDEPENDENT sans inject ; I6 DOCUMENT 4762→12241→34553 chars, 3 part ids stables |
+| Build | `next build` PASS · BUILD_ID `1pvGV0NLFRLhOqgw3Mxn_` ; tsc PASS ; vitest C19+WEB+C18 27 PASS ; smoke DEV :3100 PASS |
+| Push projet | **NONE** |
+| Verdict candidat | **READY WITH RESERVES** — lot 1 invariants I1–I6 démontrés ; réserves non bloquantes : WEB LIVE fournisseur+contexte privé non rejoué ce cycle (DETERMINISTIC/SCRIPTED capitalisés) ; interrupt mid-production I6 non capturé (couvert via I4 + conservation multi-tours) |
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE18-COGNITIVE-OUTPUT-CONTRACT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 18 finalisation contrat de sortie cognitive (lot convergence 1) |
+| Type | CONSTRUCTION DEV · **NO RELEASE** · INC Critical |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C1–C18 non poussés) |
+| Contenu | Contrat de sortie structuré (qualification + outil `submit_cursor_contract_production`) ; suppression heuristiques A–F C17 ; bridge DRAFT sans collision checkpoint ; READY filiation exacte ; P1–P4 DEV LIVE rejoués |
+| Corrections racines | A lexical critères ; B prose>800 ; C auto-ANSWER ; D remainingWork≠criteria ; E policy profileHint ; F fin indépendante de contractReady |
+| Preuves LIVE | P1 LIVE Agents SDK ; P2 même workId sans inject + indep + reprise post-restart ; P3 DRAFT + instruction 40994 (>24k) + 15 critères ; P4 READY+refus D6 CANCELLED |
+| Build | `npm run build` PASS (état DIRTY testé) ; vitest C18/C15/C16/investigation 24 PASS ; tsc PASS |
+| Push projet | **NONE** |
+| Verdict candidat | **READY WITH RESERVES** — lot 1 démontré DEV LIVE ; réserves : AWAIT_PILOT→OPEN non systématique ; invalidation matérielle d’un mandat READY via nouveau contrat distinct (pas mutation in-place) ; WEB redirect volontairement non suivi (blocage honnête) |
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE17-VERTICAL-COGNITIVE-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 17 convergence fonctionnelle verticale (lot convergence 1) |
+| Type | CONSTRUCTION DEV · **NO RELEASE** · INC Critical |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C1–C17 non poussés) |
+| Contenu | Parcours P1–P4 LIVE ; forceNew corrigé ; merge investigation riche ; SEGMENT≠BUDGET global ; filiation READY migration 021 ; production basis ; D4 document LIVE ; contrat DRAFT→READY→refus D6 LIVE |
+| Migration DEV | `021_cognitive_contract_filiation.sql` additive sur DEV |
+| Preuves LIVE | P1-A PASS ; P1-B PARTIAL ; P2 continuité PASS ; P3 document D4 PASS ; P4 DRAFT+READY+refus PASS ; invalidation matérielle / restart serveur / instruction ≥24k non clos |
+| Tests | investigation 8 PASS ; C16 integration 5 PASS ; PG ownership 5 PASS ; tsc PASS ; build Next PASS (cycle) |
+| Push projet | **NONE** |
+| Verdict | **NOT READY** — lot 1 non sorti (réserves P1-B/P2-C/P3 long/P4 invalidation) ; convergence fonctionnelle partielle DEV LIVE démontrée |
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE16-INTEGRATED-CONDUCTOR
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 16 finalisation fonctionnelle + qualification intégrée du conducteur |
+| Type | CONSTRUCTION DEV · **NO RELEASE** · INC Critical |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C1–C16 non poussés) |
+| Contenu | Raccordement produit `runNoraCognitiveTurn` → conducteur D3 ; claim/lease/fencing ; READY positif + requalification ; DRAFT incomplet sans slice(0,8) ; WEB DNS+connect pinned+timeout lecture ; multi-entrées service/intent/D8 |
+| Tests | units C16 5 PASS ; C15 5 PASS ; PG ownership C16 5 PASS ; PG C15 2 PASS |
+| Push projet | **NONE** |
+| Verdict | **READY WITH RESERVES** — raccordement + P0 ownership/READY/WEB démontrés DETERMINISTIC/INTEGRATION ; LIVE E2E product path encore PARTIAL (Next offline au moment des preuves) |
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE15-COGNITIVE-CONDUCTOR
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 15 conducteur cognitif Nora (lot convergence 1) |
+| Type | CONSTRUCTION DEV · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C3–C15 non poussés) |
+| Contenu | Persistance D3 `cognitive_works` ; conducteur multi-segments ; READY positif ; journal non monotone ; contrat sans plafonds 24k/8 ; WEB egress DNS+stream |
+| Migration DEV | `020_cognitive_work.sql` sur `sfia_next_dev` + `sfia_next_e2e` |
+| Tests | units C15 + investigation/bridge ; PG cognitive work 2 PASS |
+| Push projet | **NONE** |
+| Verdict | **READY WITH RESERVES** — infrastructure + invariants discriminants ; LIVE intégré lot 1 encore PARTIAL |
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE14-COGNITIVE-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 14 conduite cognitive Nora + WEB LIVE + contrats |
+| Type | CONSTRUCTION DEV · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C3–C14 non poussés) |
+| Contenu | Suppression routage lexical TECH_INTENT ; profil sans longueur ; capability `d7.prepare_cursor_contract` ; WEB LIVE isolé + fetch + parse navigation ; critères métier contrat |
+| WEB LIVE | Isolation outbound query-only **PASS** ; search LIVE items **DISCOVERED** (MDN) ; open MDN **PAGE_OPENED** + citation ; hosted tool détaché de Nora privée |
+| Scénarios | S2 négation sans contrat ; S5 contrat DRAFT instruction ≥6k ; S4 WEB LIVE ; S8 dispatch sans READY → 400 ; units C14 **31 PASS** |
+| Push projet | **NONE** |
+| Verdict | **ML5 NORA COGNITIVE CONVERGENCE PROVEN — FUNCTIONAL COMPLETION IN PROGRESS** |
+
+## delivery_id: DELIV-2026-11-23-ML5-CYCLE13-RESILIENCE-CANDIDATE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-23 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 13 confinement D8 + supervision durable + STOP LIVE + candidat |
+| Type | CONSTRUCTION DEV · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C3–C13 non poussés) |
+| Contenu | `d8-path-confine` + journal D8 ; `cursor-live-supervisor` ; STOP LIVE ; handoff honesty ; inventaire candidat |
+| STOP LIVE | `efx_03b99d0f…` agent `agent-c6b4acd1…` run `run-1a115791…` — BEFORE_STOP OK ; `LIVE_CANCEL_OBSERVED` ; terminal `cancelled` ; AFTER_STOP absent |
+| Long-run T-05 | `efx_53198bd9…` agent `agent-b339a662…` run `run-7159ad8b…` — browser closed 90s → COMPLETED finished ; identities stable ; double-dispatch idempotent |
+| D8 security | unit confine 12 PASS ; PG real reader 8 PASS (symlink/traversal/pilot/project) |
+| Push projet | **NONE** — `PROJECT CANDIDATE READY FOR MORRIS GIT REVIEW` |
+| Verdict | **ML5 DEV LIVE RESILIENCE PROVEN — QUALIFICATION IN PROGRESS** |
+
+## delivery_id: DELIV-2026-11-23-ML5-CYCLE12-LIVE-RESILIENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-23 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 12 LIVE resilience + D8 evidence + candidat |
+| Type | CONSTRUCTION DEV · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C3–C12 non poussés) |
+| Contenu | LIVE_WAIT=0 ACK-first; observeLiveCursorRun+apiKey; DROP_ACK fault T-04; D8 evidence tools Nora; STOP SCRIPTED; inventaire candidat |
+| Scénario LIVE | `ml5-c12-live-20261123` — `efx_6ef408be…` agent `agent-f1b001a0…` run `run-66b05967…` COMPLETED; RESULT_C12.txt OK |
+| Incident T-04 | DROP_ACK → AMBIGUOUS + priorSend + refus second dispatch (**PASS**) |
+| Nora D8 | `NORA_D8_TOOLS_OBSERVED` (11 tool calls) |
+| Push projet | **NONE** — `PROJECT CANDIDATE PREPARED — PUSH REQUIRES MORRIS GO` |
+| Verdict | **ML5 DEV LIVE PARTIAL — GOVERNED RESILIENCE GAPS** |
+
+## delivery_id: DELIV-2026-11-23-ML5-CYCLE11-DEV-LIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-23 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 11 activation DEV LIVE Nora + Cursor SDK |
+| Type | CONSTRUCTION DEV · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C3–C11 non poussés) |
+| Contenu | FileCredentialStore + model `composer-2.5` ; observeLiveCursorRun ; attachNoraCognitive→generateNoraReply ; openBilan sans requalify silencieux ; env LIVE DEV |
+| Scénario | `ml5-c11-live-20261123` — project `proj_c08249f9…` — Oui `efx_306b2b49…` — agent `agent-29c4c0f4…` — run `run-51c77f21…` — handoff `rhf_90ccccb6…` — témoin DEMO_C11.txt |
+| Frontier | **END-TO-END DEV LIVE** — Nora LIVE + Cursor SDK LIVE + D8 + Nora COGNITIVE ; B09/GitHub REAL/MCP N/A |
+| Tests | Journey C11 **10 PASS / 0 FAIL / 3 N/A** ; unit ciblés 11 PASS ; D8 verdict PARTIAL (honnête) |
+| Inventaire | **1 / 97 / 1** (B09 NOT_IMPL) — conformité LIVE améliorée, présence inchangée |
+| Push projet | **NONE** |
+| Verdict | **ML5 END-TO-END DEV LIVE PROVEN — QUALIFICATION IN PROGRESS** |
+
+## delivery_id: DELIV-2026-11-23-ML5-CYCLE10-UX-D8-QUAL
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-23 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 10 convergence UX, D6, D8 et qualification visuelle |
+| Type | CONSTRUCTION DEV · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C3–C10 non poussés) |
+| Contenu | CSS contrat/D6/D8 ; Travail 50/50 + D6 ; `confirmed` boolean strict ; bilan requalify après handoff ; pièce nouvelle G15 ; viewport 1680×970 |
+| Scénario | `ml5-c10-mono-20261123` — project `proj_d54a9443…` — Oui `efx_d4617b21…` — handoff `rhf_cc411abd…` |
+| Tests | Unit ML5 **73 PASS** ; Playwright C10 **15 PASS / 0 FAIL** ; F2 **0 PASS / NOT PROVEN** |
+| Inventaire | **1 / 97 / 1** (B09 NOT_IMPL) |
+| Push projet | **NONE** |
+| Verdict | **ML5 INTEGRATED — QUALIFICATION IN PROGRESS** |
+
+## delivery_id: DELIV-2026-11-23-ML5-CYCLE9-E2E-MONO-ATTEMPT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-23 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 9 démonstration fonctionnelle intégrée mono-tentative |
+| Type | CONSTRUCTION DEV · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C3–C9 non poussés) |
+| Contenu | D6 Non authentifié (CANCELLED+decisionId) ; D6 Oui+fingerprint ; SCRIPTED_PHASED RUNNING→reconcile COMPLETED ; bilan D8 4 onglets ; retour Nora brouillon ; 14 captures + manifeste mono-tentative |
+| Scénario | `ml5-c9-mono-20261123` — project `proj_a4525a4a…` — attempt Oui `efx_1e86bf8c…` — refus `efx_b70c69ef…` |
+| Frontier | SCRIPTED / DEV — ≠ Nora LIVE, ≠ Cursor SDK LIVE, ≠ WEB LIVE |
+| Tests | Unit C9 phased 3 PASS ; unit ML5 ciblés 15+ PASS ; Playwright E2E 15 PASS / 1 PARTIAL (handoff re-ingéré) ; F2 global NOT PROVEN |
+| Inventaire | **1 / 97 / 1** (B09 NOT_IMPL) — conformité BROWSER améliorée, présence inchangée |
+| Push projet | **NONE** |
+| Verdict | **ML5 INTEGRATED — QUALIFICATION IN PROGRESS** |
+
+## delivery_id: DELIV-2026-11-23-ML5-CYCLE8-INVARIANTS-INTEGRATED
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-23 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 8 fermeture invariants + parcours intégré |
+| Type | CONSTRUCTION DEV · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY) |
+| Contenu | A1 origin/ls-remote/REMOTE_VERIFIED ; A2 listen probe ; A3 MCP fail-closed UNKNOWN ; B1 proof exact + no handoff fallback ; G07 PNG magic ; BROWSER intégré SCRIPTED |
+| Tests | Unit+PG ML5 **79 PASS** ; tsc PASS ; Playwright C8 ; F2 global NOT PROVEN |
+| Inventaire | **1 / 97 / 1** (B09 NOT_IMPL) — conformité ≠ présence |
+| Push projet | **NONE** |
+| Verdict | **ML5 PARTIAL — GOVERNED GAPS** |
+
+## delivery_id: DELIV-2026-11-23-ML5-CYCLE7-INTEGRATED-CONVERGENCE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-23 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 7 convergence fonctionnelle, sécurisation, qualification |
+| Type | CONSTRUCTION DEV · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD entrée | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY) |
+| Checkpoint | R-003 @ `5a4e4405` · handoff C6 `b5466dd7` |
+| Contenu | CP-01 observeWorkspaceGitFacts ; CP-02 STUDIO_DEV_BIND ; CP-03 proof-ref + qualify-in-TX ; G07 evidence-captures ; B04 citations ; E12 MCP check ; Playwright runtime PNG ; fixture SCRIPTED BROWSER |
+| Tests | Unit+PG ML5 **75 PASS** ; tsc PASS ; Playwright 4 captures ; F2 global **NOT PROVEN** |
+| Inventaire | **1 / 97 / 1** (B09 reste NOT_IMPL) |
+| Push projet | **NONE** |
+| Verdict | **ML5 PARTIAL — GOVERNED GAPS** |
+
+## delivery_id: DELIV-2026-11-23-ML5-CYCLE6-GIT-A-DEV-BROWSER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-23 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 6 Git Cursor option A + DEV auto-session + fermeture |
+| Type | CONSTRUCTION DEV · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD entrée | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY) |
+| Décision | `1e6929c543a88606488094be2f5dfe7fc34a0cb9` — DÉC-ML5-GIT A + DÉC-ML5-DEV |
+| Lane | DEV `sfia_next_dev` :5433 — mig **019** ; RECETTE/STABLE inchangées |
+| Contenu | Auto-session Pilote DEV fail-closed ; Git option A preflight/observe/bare harness (Studio non publisher) ; G15 FOR UPDATE + PG concurrent ; activityFlushQueue await ; A04 corrective intent ; next.config serverExternalPackages `@cursor/sdk` ; BROWSER Travail/Exécution/Résultats/sas |
+| Tests | Unit+PG ciblés **34 PASS** ; tsc PASS ; BROWSER snapshots OK ; F2 PNG **NOT PROVEN** (capture timeout) ; LIVE/REAL **NOT** |
+| Inventaire | **1 / 92 / 6** (was 1/81/17) |
+| Push projet | **NONE** |
+| Verdict | **ML5 PARTIAL — GOVERNED GAPS** |
+
+## delivery_id: DELIV-2026-11-23-ML5-CYCLE5-INTEGRATED-COMPLETION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-23 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 5 finalisation fonctionnelle intégrée |
+| Type | CONSTRUCTION DEV · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD entrée | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY) |
+| Lane | DEV `sfia_next_dev` :5433 — mig **019** history_json |
+| Contenu | Travail ContractViewer 50/50 ; activité poll RUNNING ; mid-turn OBSERVED ; B1 assertPublicHttpsUrl+confront ; G15 requalify ; Cursor poll/reconcile UI ; preparedContract sur TurnResult |
+| Tests | Unit ciblés **22 PASS** ; PG dispatch **9 PASS** ; tsc PASS ; BROWSER/F2/LIVE **NOT PROVEN** |
+| Push projet | **NONE** |
+| Verdict | **ML5 PARTIAL — GOVERNED GAPS** |
+
+## delivery_id: DELIV-2026-11-23-ML5-FUNCTIONAL-COMPLETION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-23 (Europe/Paris) |
+| Macro-lot | ML5 — Complétude fonctionnelle, sécurisation et stabilisation |
+| Type | CONSTRUCTION DEV · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD entrée | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — cycles 3+4 non commités) |
+| Base | `0f1d37c3b055371c84c1f30e9bebe3d0efee41b2` |
+| Worktree | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
+| Lane | DEV `sfia_next_dev` :5433 — RECETTE/STABLE inchangées |
+| Contenu | Inventaire Impl **1/74/24** (réconcilié explore) ; sendIntent pre-SDK ; tool-source-journal ; READY prepId persisté ; B1 public-web-search-frontier SCRIPTED ; activité OBSERVED sources ; DETERMINISTIC_SYNTHESIS ≠ NORA_COGNITIVE ; D8 critères sans preuve lexicale |
+| Tests | Unit ML5 **53 PASS** ; PG dispatch **9 PASS** ; tsc PASS ; BROWSER/F2/LIVE/REAL **NOT PROVEN** |
+| Push projet / PR / merge | **NONE** |
+| STABLE | NOT AVAILABLE |
+| Verdict | **ML5 PARTIAL — GOVERNED GAPS** |
+
+## delivery_id: DELIV-2026-11-23-ML5-CONVERGENCE-CONFORMITY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-23 (Europe/Paris) |
+| Macro-lot | ML5 — Convergence fonctionnelle et conformité intégrée |
+| Type | CONSTRUCTION DEV · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD entrée | `6cf33e9923796974b9ee540a9c6ff27110342950` |
+| Base | `0f1d37c3b055371c84c1f30e9bebe3d0efee41b2` |
+| Worktree | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
+| Lane | DEV only (`sfia_next_dev` :5433) — RECETTE/STABLE inchangées |
+| Contenu | CF-03 anti-duplicat ACK-lost ; CF-02 READY serveur ; provenance handoff ; Nora→contrat DRAFT bridge ; surfaces `execution`/`publication` ; onglets D8 Figma ; analyse cognitive Nora (dossier) ; docs acceptation/registre |
+| Tests | Unit ML5 **25 PASS** (fichiers ciblés) ; PG dispatch **8 PASS** incl. T-04 ACK-lost ; tsc PASS ; BROWSER/F2/LIVE/REAL **NOT PROVEN** |
+| Push projet / PR / merge | **NONE** |
+| STABLE | NOT AVAILABLE |
+| Verdict | **ML5 PARTIAL — GOVERNED GAPS** |
+
 ## delivery_id: DELIV-2026-11-23-ML5-INTEGRATION-CONSOLIDATION
 
 | Field | Value |

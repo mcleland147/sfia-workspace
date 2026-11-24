@@ -4,9 +4,21 @@
 
 | Champ | Valeur |
 |---|---|
-| Version | v0.2 — 23 novembre 2026 : décision Gate C et ouverture de ML5 enregistrées |
+| Version | v0.13 candidate — 24 novembre 2026 : Cycle 20 qualification sortie lot 1 (concurrency lease, D4 currency, WEB discovery URL, clarify ambigu, D4←production) ; C4–C20 |
 | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
-| Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` |
+| Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
+| Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |
+| Cycle 10 | Scénario `ml5-c10-mono-20261123` — Travail 50/50 + D6 overlay + bilan post-handoff + requalify pièce `ecap_1c817ffb…` |
+| Cycle 11 | Scénario `ml5-c11-live-20261123` — Nora LIVE → D6 → Cursor SDK LIVE → D8 PARTIAL → Nora COGNITIVE |
+| Cycle 12 | `ml5-c12-live-20261123` — ACK-first + reconnect + COMPLETED ; T-04 DROP_ACK PASS ; Nora D8 tools ; STOP SCRIPTED ; candidat inventorié — **ML5 DEV LIVE PARTIAL — GOVERNED RESILIENCE GAPS** |
+| Cycle 13 | Confinement D8 (realpath/lstat/O_NOFOLLOW) ; journal provenance outils ; supervisor LIVE in-process ; STOP LIVE cancelled observé ; long-run sans navigateur ; candidat C3–C13 inventorié — **ML5 DEV LIVE RESILIENCE PROVEN — QUALIFICATION IN PROGRESS** |
+| Cycle 20 | Qualification sortie lot 1 — P0 concurrency/D4 currency/WEB discovery/clarify/D4 canonique — **READY WITH RESERVES** |
+| Cycle 19 | Fermeture I1–I6 : révisions immuables ; invalidation mandat aux effets ; WEB sanitize ; mid-RUNNING reconcile ; rattachement sémantique effectif ; production multi-tours conservée — **READY WITH RESERVES** (lot convergence 1) |
+| Cycle 18 | Contrat sortie structuré + outil production ; heuristiques A–F retirées ; P1–P4 LIVE ; DRAFT/READY/D6 — **NOT READY** (lifecycle gouverné incomplet — clôturé C19) |
+| Cycle 17 | Convergence verticale P1–P4 LIVE partielle — **NOT READY** |
+| Cycle 16 | Raccordement produit conducteur ; claim/lease/CAS ; READY requalifié ; DRAFT incomplet ; WEB pinned ; critères intégraux — **READY WITH RESERVES** (LIVE E2E PARTIAL) |
+| Cycle 15 | Conducteur adaptatif + persistance D3 PG + READY positif + WEB egress P0 — fondations ; intégration fonctionnelle incomplète (corrigée C16) |
+| Cycle 14 | Routage sémantique (TECH_INTENT inerte) ; WEB LIVE isolé search+open MDN ; contrats sémantiques `d7.prepare_cursor_contract` ; S2/S5/S8 LIVE — **ML5 NORA COGNITIVE CONVERGENCE PROVEN — FUNCTIONAL COMPLETION IN PROGRESS** |
 | Gate | **GATE C ACCEPTÉ PAR MORRIS AVEC RÉSERVES / GO CONSTRUCTION ML5** — décision explicite du 23/11/2026 dans la conversation ; la Roadmap de `main` présente encore son instantané antérieur `OPEN` et reste à synchroniser sous mandat D2 approprié. |
 | Publication | Document de pilotage **non normatif**, sur branche candidate non mergée ; consigne la décision Morris exprimée, sans prétendre modifier automatiquement les décisions/roadmap de `main`. |
 | Suivi | ChatGPT qualifie les Review Packs/écarts ; Cursor fournit réalisation/rapports ; Morris décide les arbitrages |
@@ -68,14 +80,14 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
 |---|---|---|---|---|
 | ☐ | `A01` | Qualifier l'intention, le résultat, le contexte, les contraintes et les risques même pour une demande courte. | NV | — |
 | ☐ | `A02` | Adapter profondeur et moyens : réponse directe, investigation, documents, historique, Git ou autres outils utiles sans recherche systématique. | NV | — |
-| ☐ | `A03` | Ne préparer de nouveau contrat Cursor qu'après demande claire, GO de préparation ou mandat de correction déjà borné. | NV | — |
-| ☐ | `A04` | Permettre un brouillon correctif spontané dans la portée du mandat existant, sans nouveau dispatch automatique. | NV | — |
+| ☐ | `A03` | Ne préparer de nouveau contrat Cursor qu'après demande claire, GO de préparation ou mandat de correction déjà borné. | PARTIEL | `nora-contract-bridge` intent + sources CONSULTED/VERIFIED requises ; LIVE multi-sources NON PROUVÉ |
+| ☐ | `A04` | Permettre un brouillon correctif spontané dans la portée du mandat existant, sans nouveau dispatch automatique. | PARTIEL | Cycle 6 — `detectsCorrectiveDraftIntent` + bridge `cursorRedispatch:false` ; LIVE non prouvé |
 | ☐ | `A05` | Requalifier hors mandat, changement matériel ou échecs répétés ; ne pas créer une boucle autonome de contrats. | NV | — |
 | ☐ | `A06` | Conduire une investigation séquencée, suivre les renvois déterminants et réviser les questions à mesure des découvertes. | NV | — |
 | ☐ | `A07` | Sélectionner et lire les bonnes versions des sources D4, conversation, historique, Git, décisions, rapports antérieurs et documents pertinents. | NV | — |
 | ☐ | `A08` | Distinguer découvert, consulté, vérifié, partiel, périmé, refusé et contradictoire ; préserver provenance, branche et version. | NV | — |
-| ☐ | `A09` | Contrôler qualitativement la suffisance des informations : une restriction déterminante inconnue interdit le statut de contrat prêt. | PARTIEL | `investigation-state.ts` + unit ; non branché tour LIVE |
-| ☐ | `A10` | Consolider faits, sources, exclusions, décisions, contradictions, acquis, questions et travail restant sans nouveau registre d'autorité D4. | PARTIEL | État mémoire A ; pas encore checkpoint durable A |
+| ☐ | `A09` | Contrôler qualitativement la suffisance des informations : une restriction déterminante inconnue interdit le statut de contrat prêt. | PARTIEL | `investigation-state` + READY serveur (`technical-contract-server-ready`) ignore flags client ; LIVE NON PROUVÉ |
+| ☐ | `A10` | Consolider faits, sources, exclusions, décisions, contradictions, acquis, questions et travail restant sans nouveau registre d'autorité D4. | PARTIEL | Snapshot durable + bridge tour ; pas de second registre D4 |
 | ☐ | `A11` | Conserver/reconstituer de façon fiable l'investigation après déconnexion, interruption, limite de contexte ou incident fournisseur sans fausse lecture ni effet rejoué. | PARTIEL | `investigation-persistence.ts` → `preparations.projection_json` ; reprise unit OK ; PG reprise tour non exhaustif |
 | ☐ | `A12` | Réduire les coûts/latences sur demandes simples et rendre ces capacités disponibles transversalement dans sas, projet, documents, décision et bilan. | NV | — |
 
@@ -90,7 +102,7 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
 | ☐ | `B04` | Afficher des citations/liens sources utilisables et les métadonnées de fraîcheur réellement établies. | NV | — |
 | ☐ | `B05` | Distinguer source découverte, page ouverte, extrait disponible, couverture partielle et fait vérifié ; ne jamais inventer une lecture complète. | NV | — |
 | ☐ | `B06` | Neutraliser les injections d'instructions issues de pages/snippets et ne leur attribuer aucun droit D6/D7/Git. | PARTIEL | Instructions système + résultats non-autorité ; LIVE injection non prouvée |
-| ☐ | `B07` | Empêcher l'exfiltration de secrets et données privées via requêtes web, résultats, traces ou liens affichés. | PARTIEL | P0-03 : outil détaché tant que `SFIA_WEB_SEARCH_ISOLATION_PROVEN≠1` ; sanitize DETERMINISTIC ; LIVE non-exfil NOT PROVEN |
+| ☐ | `B07` | Empêcher l'exfiltration de secrets et données privées via requêtes web, résultats, traces ou liens affichés. | PARTIEL→C22 | C22 : autorisation exacte EXPLICIT_AUTHORIZED_EXACT \| REGISTERED_PUBLIC_COMPOSITION ; registre vide = deny ; free-form publicTopic/rawQuery refusés (unit ml5-web-search-authorize) ; confinement ≠ qualification WEB LIVE complète |
 | ☐ | `B08` | Traiter timeout, pages/PDF indisponibles, budget/coût/latence, échec et reprise avec limite honnête et sans crawler parallèle par défaut. | NV | — |
 | ☐ | `B09` | Prouver la compatibilité du fournisseur/outillage web avec le runtime D3 et la réponse structurée, sur modèle/version réels. | NV | — |
 
@@ -113,8 +125,8 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
 
 | Revu | ID | Exigence de résultat / comportement attendu | État | Preuve (SHA / run / test / capture / réserve) |
 |---|---|---|---|---|
-| ☐ | `D01` | Nora prépare un contrat à partir des sources, résultats antérieurs, risques, restrictions et mandat de préparation applicable. | NV | — |
-| ☐ | `D02` | Bloquer le statut prêt si source critique, cible, droit ou restriction structurante manquent ou divergent. | PARTIEL | DRAFT≠READY ; `markReady` + unknownRestrictions ; syntaxe ≠ suffisance |
+| ☐ | `D01` | Nora prépare un contrat à partir des sources, résultats antérieurs, risques, restrictions et mandat de préparation applicable. | PARTIEL | `prepareTechnicalContractFromNora` + bridge tour → DRAFT ; LIVE investigation multi-sources NON PROUVÉE |
+| ☐ | `D02` | Bloquer le statut prêt si source critique, cible, droit ou restriction structurante manquent ou divergent. | PARTIEL | CF-02 : READY serveur via investigation durable ; client `sourcesSufficient` ignoré ; BROWSER NON PROUVÉ |
 | ☐ | `D03` | Conserver une identité/version/fingerprint de contrat canonique unique, projet et cycle historique facultatif. | PARTIEL | `reversibility_limits_json` round-trip + fingerprint canonique ; PG test |
 | ☐ | `D04` | Afficher les quatre engagements : ce qui sera fait, non fait, résultat attendu, contrôle du Pilote. | PARTIEL | `ContractViewer` ; BROWSER Figma F2 manquant |
 | ☐ | `D05` | Rendre inspectables les six volets R2 D7 : mission, périmètre, capacités/autorité, STOP, preuves/sources, intégrité. | PARTIEL | `ContractViewer` volets ; F2 manquant |
@@ -139,8 +151,8 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
 | ☐ | `E06` | Collecter événements SDK réellement exposés et projeter des états LIVE sobres dans Exécution. | PARTIEL | Projection resultJson ; UI Exécution partielle |
 | ☐ | `E07` | Distinguer demande de lancement, ACK, run observé, travail, erreur, timeout, fin et UNKNOWN. | PARTIEL | `CursorLiveProjection` fields |
 | ☐ | `E08` | Distinguer STOP demandé, transmis, observé et effets partiels ; annulation n'implique pas rollback. | PARTIEL | stop API + limits CANCEL_IS_NOT_ROLLBACK |
-| ☐ | `E09` | Protéger double clic, perte d'ACK, timeout et retry contre un second dispatch aveugle. | PARTIEL | P0-01 CAS `claimCursorAttempt` ; PG concurrent 1 win ; no blind redispatch DISPATCHED |
-| ☐ | `E10` | Réconcilier après crash, reconnexion, perte d'ownership et état incertain, avec fencing/idempotence prouvés. | PARTIEL | reconcile sans redispatch ; stale claimToken fenced (PG) |
+| ☐ | `E09` | Protéger double clic, perte d'ACK, timeout et retry contre un second dispatch aveugle. | PARTIEL | CF-03 : `priorSendMayHaveOccurred` + SQL fence AMBIGUOUS ; PG T-04 ACK-lost **PASS** (DEV) ; LIVE NOT PROVEN |
+| ☐ | `E10` | Réconcilier après crash, reconnexion, perte d'ownership et état incertain, avec fencing/idempotence prouvés. | PARTIEL→C19 | C19 I4 : `reconcileStaleRunningCognitiveWorks` → `PROCESS_OR_LEASE_INTERRUPT` ; fence owner + kill LISTEN mid-RUNNING ; reprise même workId DEV LIVE |
 | ☐ | `E11` | Retrouver durablement interventions, contrats, versions, événements et tentatives, y compris hors cycle. | PARTIEL | Tables durables ; UI historique 12.04 non câblée |
 | ☐ | `E12` | Vérifier seulement les MCP indispensables à la mission : chargement, authentification, invocabilité et permissions réelles. | NV | mcpRequired listé dans plan ; vérification LIVE non faite |
 | ☐ | `E13` | Ne pas construire un gestionnaire MCP/approbations dans Studio, ni désactiver globalement les protections pour rendre un test vert. | PARTIEL | Aucun admin MCP ajouté |
@@ -152,15 +164,15 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
 
 | Revu | ID | Exigence de résultat / comportement attendu | État | Preuve (SHA / run / test / capture / réserve) |
 |---|---|---|---|---|
-| ☐ | `F01` | Vérifier dépôt, base SHA, branche de travail distante et droits avant toute mutation de dépôt. | NV | — |
-| ☐ | `F02` | Utiliser un workspace Git local isolé et rattaché à la bonne branche/autorité. | NV | — |
-| ☐ | `F03` | Bornee les commits/pushes significatifs au mandat effectif, sans push par action ni droit implicite. | NV | — |
-| ☐ | `F04` | Rendre les réalisations significatives consultables sur branche distante sous GO spécifique sans imposer de revue Nora à chaque publication. | NV | — |
-| ☐ | `F05` | Relire SHA/refs distant réels après publication ; conserver branch, base, historique et provenance. | NV | — |
-| ☐ | `F06` | Séparer clairement travail local non publié et contenu Git distant effectivement accessible. | NV | — |
-| ☐ | `F07` | Empêcher PR, merge, force-push, publication STABLE ou adoption implicites. | NV | — |
-| ☐ | `F08` | Assurer la continuité entre contrats via références Git réelles, vérifiées et autorisées plutôt que mémoire SDK seule. | NV | — |
-| ☐ | `F09` | Réutiliser D7/D9 existants ; décider A direct borné ou B publication gouvernée avant réalisation correspondante, sans moteur Git parallèle. | NV | — |
+| ☐ | `F01` | Vérifier dépôt, base SHA, branche de travail distante et droits avant toute mutation de dépôt. | PARTIEL | Cycle 6 option A — `preflightCursorGitOptionA` ; bare local DETERMINISTIC ; GitHub REAL NON |
+| ☐ | `F02` | Utiliser un workspace Git local isolé et rattaché à la bonne branche/autorité. | PARTIEL | Harness bare + workspace path ; LIVE workspace OS non prouvé |
+| ☐ | `F03` | Bornee les commits/pushes significatifs au mandat effectif, sans push par action ni droit implicite. | PARTIEL | Mandate allowedOps ; PR/merge hors mandat par défaut |
+| ☐ | `F04` | Rendre les réalisations significatives consultables sur branche distante sous GO spécifique sans imposer de revue Nora à chaque publication. | PARTIEL | Observation REMOTE_VERIFIED après relecture ; Studio non publisher |
+| ☐ | `F05` | Relire SHA/refs distant réels après publication ; conserver branch, base, historique et provenance. | PARTIEL | `observeRemoteAfterPush` bare ; GitHub REAL NON |
+| ☐ | `F06` | Séparer clairement travail local non publié et contenu Git distant effectivement accessible. | PARTIEL | LOCAL_ONLY vs REMOTE_VERIFIED |
+| ☐ | `F07` | Empêcher PR, merge, force-push, publication STABLE ou adoption implicites. | PARTIEL | allowPullRequest/allowMerge false par défaut ; unit refus |
+| ☐ | `F08` | Assurer la continuité entre contrats via références Git réelles, vérifiées et autorisées plutôt que mémoire SDK seule. | PARTIEL | Mandate/baseSha continuity helpers ; multi-contrat LIVE ouvert |
+| ☐ | `F09` | Réutiliser D7/D9 existants ; décider A direct borné ou B publication gouvernée avant réalisation correspondante, sans moteur Git parallèle. | PARTIEL | DÉC-ML5-GIT option A appliquée ; préflight branché prepare ; pas de publisher Studio |
 
 ### G. Handoff par tentative, qualification D8/D9 et analyse Nora
 **Responsabilités :** D7/D8/D9/D3. **Sources :** Contrat ML5 §§10–11,17.3–17.4,18.3,19.5 ; R2 D8.
@@ -178,10 +190,10 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
 | ☐ | `G09` | En cas de crash/rapport absent/partiel/hostile ou contradiction, conserver faits accessibles et état PARTIAL/UNKNOWN sans succès inventé. | PARTIEL | MISSING/INCOMPLETE/REJECTED ; secrets → REJECTED |
 | ☐ | `G10` | D7 rattache/contrôle identité de rapport ; D9 vérifie Git ; D8 recoupe les changements réels, manifestes et critères. | PARTIEL | D7+D8 ; D9 recoupement Git Cursor non branché |
 | ☐ | `G11` | Rendre consultables les neuf rubriques D8 : résumé, prévu, réalisé, évaluation, écarts, impact, verdict, recommandations, sources. | PARTIEL | `qualifyCursorRealization` + `RealizationBilan` |
-| ☐ | `G12` | Déclencher une unique revue globale Nora après fin ou interruption réconciliée, jamais à chaque événement/commit. | PARTIEL | Brief technique déterministe ≠ avis Nora cognitif (`noraAnalysisKind`) ; run Nora cognitif encore ouvert |
-| ☐ | `G13` | Distinguer déclaration Cursor, observation, verdict D8, avis Nora et décision HumanDecision D6. | PARTIEL | Labels + `CursorRealizationSurface` sur `?surface=publication` |
+| ☐ | `G12` | Déclencher une unique revue globale Nora après fin ou interruption réconciliée, jamais à chaque événement/commit. | PARTIEL | `buildNoraCognitiveAnalysis` (dossier) + brief distinct ; LIVE Nora run = preuve supérieure encore ouverte |
+| ☐ | `G13` | Distinguer déclaration Cursor, observation, verdict D8, avis Nora et décision HumanDecision D6. | PARTIEL | Labels + surfaces `execution` / `publication` (results) distinctes |
 | ☐ | `G14` | Permettre En discuter avec Nora : référence de bilan jointe au brouillon, retirable, aucun envoi automatique. | PARTIEL | `onDiscussWithNora` → `setDraft` + Travail ; envoi non automatique |
-| ☐ | `G15` | Conserver historique/version et réserves ; requalification datée si preuve tardive, sans rejouer la mission. | NV | — |
+| ☐ | `G15` | Conserver historique/version et réserves ; requalification datée si preuve tardive, sans rejouer la mission. | PARTIEL | Cycle 6 — FOR UPDATE + newProofRef + PG concurrent PASS ; BROWSER requalify ouvert |
 
 ### H. UX Figma page 12 et fidélité de transposition
 **Responsabilités :** R3 UX / D3 D6 D7 D8 D9 ; Cursor exécute sous méthode Figma v1.1. **Sources :** Figma file itgvCulInEnFY6DvgIegvP page 12 ; ux-ui/methodologie-contrat-figma-cursor.md v1.1.
@@ -190,12 +202,12 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
 |---|---|---|---|---|
 | ☐ | `H01` | 12.01 : conduite/activité Nora pour un travail de préparation de contrat. | NV | — |
 | ☐ | `H02` | 12.02,12.03,12.14 : 50/50, inspection/confirmation, instruction technique intégrale défilante. | NV | — |
-| ☐ | `H03` | 12.04,12.05 : interventions et contrats retrouvables avec identité, autorité, versions et tentatives. | NV | — |
-| ☐ | `H04` | 12.06,12.07 : tentative LIVE observée, erreur/UNKNOWN, réconciliation sans faux état. | NV | — |
-| ☐ | `H05` | 12.08,12.11,12.12,12.13 : quatre onglets de bilan couvrant neuf rubriques D8, valeurs et réserves cohérentes. | NV | — |
-| ☐ | `H06` | 12.09 : retour contextualisé du bilan vers le fil Nora sans envoi automatique. | NV | — |
-| ☐ | `H07` | 12.10 : activité de Nora dans le sas sans projet fictif. | NV | — |
-| ☐ | `H08` | Avant code de chaque surface : Figma validée et extraction L0/L1/L2, assets exacts, PNG natif hashé, mapping node→DOM→assertion ; après code : runtime screenshot, styles/DOM/F2, état/viewport/fixture identiques, interactions browser, réserves explicites. | PARTIEL | L0+L1 metadata 14 frames + design context 12.02 ; F2/BROWSER runtime NOT PROVEN |
+| ☐ | `H03` | 12.04,12.05 : interventions et contrats retrouvables avec identité, autorité, versions et tentatives. | PARTIEL | `?surface=execution` + historique interventions ; F2/BROWSER NOT PROVEN |
+| ☐ | `H04` | 12.06,12.07 : tentative LIVE observée, erreur/UNKNOWN, réconciliation sans faux état. | PARTIEL | UI AMBIGUOUS « à réconcilier » + LIVE projection ; LIVE SDK NOT PROVEN |
+| ☐ | `H05` | 12.08,12.11,12.12,12.13 : quatre onglets de bilan couvrant neuf rubriques D8, valeurs et réserves cohérentes. | PARTIEL | C24 : onglets `SYNTHÈSE` / `LIVRABLES ET TESTS` / `GIT & PIÈCES` / `ÉCARTS` + 3 appréciations + split bilans/dossier ; fixtures runtime 14/14 ; F2 shell complet PARTIEL |
+| ☐ | `H06` | 12.09 : retour contextualisé du bilan vers le fil Nora sans envoi automatique. | PARTIEL | C24 : chip dossier retirable + `mergeDraftWithDossierAttachment` + consolidation questions joindre ; pas d'envoi auto ; fixture 12.09 capturée |
+| ☐ | `H07` | 12.10 : activité de Nora dans le sas sans projet fictif. | PARTIEL | Fixture 12.10 capturing preparing ; rail sas personnel non dupliqué |
+| ☐ | `H08` | Avant code de chaque surface : Figma validée et extraction L0/L1/L2, assets exacts, PNG natif hashé, mapping node→DOM→assertion ; après code : runtime screenshot, styles/DOM/F2, état/viewport/fixture identiques, interactions browser, réserves explicites. | PARTIEL | C24 : L0–L2 + PNG Figma hashés 14/14 + runtime fixtures 14/14 ; F2 δ≤2 CSS px shell projet encore PARTIEL |
 
 ### I. Non-régression, qualité, preuve et gouvernance
 **Responsabilités :** Transverse D1–D9 / SEF / ENV-01. **Sources :** SEF v0.2, ENV-01, product-versioning, SFIA v2.6 ; ML5 architecture A–D.
@@ -204,7 +216,7 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
 |---|---|---|---|---|
 | ☐ | `I01` | Ne pas dupliquer les autorités D3/D4/D5/D6/D7/D8/D9 ni inventer moteur cognitif, Git ou d'exécution concurrent. | NV | — |
 | ☐ | `I02` | Vérifier droits par Pilote/projet/ressource, restrictions, suspensions, révocations et absence d'effet hors mandat. | NV | — |
-| ☐ | `I03` | Tester concurrence, ownership, idempotence, fencing, ACK perdu, STOP et reprise selon les responsabilités. | NV | — |
+| ☐ | `I03` | Tester concurrence, ownership, idempotence, fencing, ACK perdu, STOP et reprise selon les responsabilités. | PARTIEL | PG ML5 dispatch **8 PASS** incl. ACK-lost ; concurrence 1 win ; fencing stale claim |
 | ☐ | `I04` | Tester secrets, prompt injection, exfiltration web, artefacts hostiles, sécurité MCP/Git et isolation. | NV | — |
 | ☐ | `I05` | Associer code, tests déterministes et d'intégration, scénarios nominaux/négatifs et documentation dans chaque livraison. | NV | — |
 | ☐ | `I06` | Tester les parcours UX réellement concernés sur navigateur/capture avec SHA/build/viewport/état identifiables. | NV | — |
@@ -213,6 +225,151 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
 | ☐ | `I09` | Synchroniser code, UX, architecture et as-built ; changer de schéma/autorité uniquement sur gate Morris. | NV | — |
 | ☐ | `I10` | Prouver le parcours intégré Nora→contrat inspecté→HumanDecision→Cursor→retours→D8/D9→avis Nora→suite. | NV | — |
 | ☐ | `I11` | Respecter ENV-01 DEV/RECETTE/STABLE, versioning NO RELEASE, recette SHA figé, PR/merge/promotion sous GO et ADOPTED jamais automatique. | NV | — |
+
+
+## 3 ter. Inventaire d'implémentation A01–I11 (cycle 4 — 2026-11-23, réconcilié)
+
+> Axe **Implémentation** distinct de la conformité (NV/PARTIEL/VÉRIFIÉ).
+> Réconcilié avec l'inventaire explore [Inventory A01-I11](28376cd8-26ca-4d04-95ec-34395679e40f) et les correctifs cycle 4 (journal sources, frontier B1, sendIntent, READY prepId, classification synthèse).
+> IMPLEMENTED = comportement constitutif raccordé sans manques essentiels. PARTIAL = pièces présentes. NOT_IMPL = absent.
+
+| ID | Impl | Owner | Fichiers / fonctions | Écart / exit |
+|---|---|---|---|---|
+| `A01` | PARTIAL | D3 | semantic-qualification, nora-adapter | Qualification courte hors intent contrat non consolidée dans investigation-state |
+| `A02` | PARTIAL | D3 | cognitive-policy, nora-adapter tools | Profondeur non exposée transversalement sas/document/bilan |
+| `A03` | PARTIAL | D3/D7 | nora-contract-bridge, nora-contract-prepare, tool-source-journal | C11 — contrat DRAFT/READY produit après Nora LIVE (`openai-agents-sdk-live`) ; GO préparation explicite encore partiel |
+| `A04` | PARTIAL | D3 | nora-contract-bridge correctiveIntent | Cycle 6 — détection + cursorRedispatch:false ; LIVE non prouvé |
+| `A05` | PARTIAL | D3/D7 | REQUIRES_REQUALIFICATION, fingerprint mismatch | Anti-boucle partielle ; pas de requal hors mandat complète |
+| `A06` | PARTIAL | D3 | investigation-state questions | Pas de conducteur séquencé révision questions↔découvertes |
+| `A07` | PARTIAL | D3/D4 | d4-read-tools+journal, git/history tools | Lectures D4 journalisées CONSULTED ; git/history journal incomplet |
+| `A08` | PARTIAL | D3 | investigation-state SourceCoverage, tool-source-journal | Types OK ; VERIFIED rare ; peuplement partiel |
+| `A09` | PARTIAL | D3/D7 | technical-contract-server-ready | READY serveur ; snapshot sans lecture D4 live systématique |
+| `A10` | PARTIAL | D3 | investigation-persistence | Snapshot durable ; consolidation acquis D4 incomplète |
+| `A11` | PARTIAL | D3 | investigation-persistence, resumeInvestigation | Reprise mid-turn/incident non branchée au fil |
+| `A12` | PARTIAL | D3 | cognitive-policy | Économie simple sur tour projet seulement |
+| `B01` | PARTIAL | D3 | public-web-search-frontier (cycle 4) | SCRIPTED query-only ; LIVE gated ; hosted tool détaché |
+| `B02` | PARTIAL | D3 | public_web_open_page SCRIPTED | Ouverture LIVE non implémentée |
+| `B03` | PARTIAL | D3 | confrontWebSources (cycle 5) | SCRIPTED confrontation ; LIVE ouvert |
+| `B04` | PARTIAL | D3 | web-source-citation + open_page citation | Cycle 7 — contrat citation SCRIPTED ; UX affichage partiel ; LIVE gated |
+| `B05` | PARTIAL | D3 | frontier coverage DISCOVERED/CONSULTED via open | Distinction partielle runtime ; UX absente |
+| `B06` | PARTIAL | D3 | instructions non-autorité + résultats untrusted | Injection LIVE non prouvée |
+| `B07` | PARTIAL | D3 | frontier outbound log + sanitize | Non-exfil SCRIPTED testé ; WEB LIVE NOT PROVEN |
+| `B08` | PARTIAL | D3 | frontier DENIED/TIMEOUT/budget calls | Timeout/reprise web partielle |
+| `B09` | IMPLEMENTED | D3 | `public-web-search-frontier` isolated Agent + webSearchTool + fetch open | C14 LIVE — items DISCOVERED + PAGE_OPENED MDN ; isolation outbound PASS ; hosted tool jamais sur agent Nora privé |
+| `C01` | PARTIAL | D3 | appendActivityEvent, service producers | UI fil n'affiche pas GET activity pendant RUNNING |
+| `C02` | PARTIAL | D3 | natures + OBSERVED sources journal (cycle 4) | Événements outil OBSERVED partiels (D4/WEB ; git/history incomplets) |
+| `C03` | PARTIAL | D3 | activity sourceRef depuis journal | Relier lectures git/history encore ouvert |
+| `C04` | PARTIAL | D3 | status FAILED/LIMITED | Affichage UX limites incomplet |
+| `C05` | PARTIAL | D3/UX | NoraConversation liveActivity detail (cycle 5) | BROWSER/F2 non prouvé |
+| `C06` | PARTIAL | D3 | listActivityEvents API | Sans consommateur UX reconnexion |
+| `C07` | PARTIAL | D3/UX | poll by-key+activity pendant send (cycle 5) | BROWSER longue investigation ouvert |
+| `C08` | PARTIAL | D3 | ownerToken fence + redact | Isolation multi-Pilote incomplete |
+| `D01` | PARTIAL | D3/D7 | nora-contract-prepare + bridge + journal | C11 — préparation LIVE sur projet DEV documenté ; multi-sources/contradiction encore partielle |
+| `D02` | PARTIAL | D7 | server-ready ; client prepId ignoré (cycle 4) | Droits révoqués BROWSER ouvert |
+| `D03` | PARTIAL | D7 | technical-contract + fingerprint + mig 018 | Versions OK ; changement matériel helper non branché |
+| `D04` | PARTIAL | D7/UX | ContractViewer | Pas 50/50 Travail Figma 12.02 |
+| `D05` | PARTIAL | D7/UX | ContractViewer volets | Inspectable Exécution, pas Travail |
+| `D06` | PARTIAL | D7/UX | instruction_text + expand | F2 12.14 ouvert |
+| `D07` | PARTIAL | D6/D7 | authorize fingerprint + dispatch + C9 refuseCursorExecution | C11 — D6 Non/Oui + dispatch LIVE ; instruction bytes = contrat autorisé |
+| `D08` | PARTIAL | D7 | fingerprint mismatch au dispatch | isMaterialContractChange non appelé |
+| `D09` | PARTIAL | D3/UX | ContractViewer dans Travail aside (cycle 5) | F2 12.02 / BROWSER non prouvé |
+| `D10` | PARTIAL | D6/UX | d6-confirm sur Exécution | Pas 12.03 générique sur Travail |
+| `D11` | PARTIAL | D6/D7 | assertCurrentCursorAuthority | MCP réel non vérifié |
+| `D12` | PARTIAL | D7 | FKs attempt/contract/pilot/project | Cycle D5 optionnel non câblé |
+| `E01` | PARTIAL | D7 | dispatchCursorRun SCRIPTED/LIVE env | C11 — LIVE Studio prouvé (`composer-2.5`, FileCredentialStore) ; SCRIPTED conservé |
+| `E02` | PARTIAL | D7 | workspace-resolver | Pas admin Desktop/MCP Studio (by design) |
+| `E03` | PARTIAL | D7 | prepareCursorExecution + correlationKey | — |
+| `E04` | PARTIAL | D7 | claim + sendRequestedAt atomique (cycle 4) | C11 — run LIVE `agent-29c4c0f4…` / `run-51c77f21…` lié attempt |
+| `E05` | PARTIAL | D7 | ACK-first + `cursor-live-supervisor` (C13) | C13 T-05 long-run COMPLETED sans navigateur ; resume-once ; ≠ queue/scheduler général |
+| `E06` | PARTIAL | D7/UX | CursorLiveProjection + execution surface | Événements SDK partiels |
+| `E07` | PARTIAL | D7 | CursorLiveProjection fields | — |
+| `E08` | PARTIAL | D7 | stop API | Effets partiels partiels |
+| `E09` | PARTIAL | D7 | priorSend + DROP_ACK fault (C12) | T-04 DETERMINISTIC PASS ; LIVE borné non rejoué (effet) |
+| `E10` | PARTIAL | D7 | reconcile + observeLiveCursorRun (C11) | LIVE observe sans second send ; reconnect navigateur incomplet |
+| `E11` | PARTIAL | D7/UX | attempts list execution | Historique Figma 12.04/05 non équivalent |
+| `E12` | PARTIAL | D7 | mcp-capability-check + prepare gate | Cycle 7 — check conditionnel ; inventaire déclaratif ; MCP REAL gated |
+| `E13` | IMPLEMENTED | D7 | pas d'admin MCP Studio | Exigence négative respectée |
+| `E14` | PARTIAL | D7 | gitScope/mcp optionnels | — |
+| `E15` | PARTIAL | D7 | workspace-resolver root | Isolation OS/Pilotes non prouvée |
+| `F01` | PARTIAL | D7/D9 | observeWorkspaceGitFacts + preflight | CP-01 C7 — observations indépendantes ; GitHub REAL NON |
+| `F02` | PARTIAL | D7/D9 | cursor-git-option-a harness | Workspace isolé test ; OS multi-Pilote ouvert |
+| `F03` | PARTIAL | D7/D9 | mandate allowedOps | Commit/push mandatés ; PR/merge distincts |
+| `F04` | PARTIAL | D7/D9 | observation REMOTE_VERIFIED | Studio lit ; ne publie pas |
+| `F05` | PARTIAL | D7/D9 | observeRemoteAfterPush | Relecture SHA bare ; REAL ouvert |
+| `F06` | PARTIAL | D7/D9 | LOCAL_ONLY vs REMOTE_VERIFIED | Déclaration push ≠ constat |
+| `F07` | PARTIAL | D7/D9 | allowPR/Merge false default | Unit refus hors mandat |
+| `F08` | PARTIAL | D7/D9 | baseSha continuity | Multi-contrat LIVE ouvert |
+| `F09` | PARTIAL | D7/D9 | preflight on prepare + D9 read | Pas de publisher Studio ; option B abandonnée |
+| `G01` | PARTIAL | D7 | realization_handoffs UNIQUE | — |
+| `G02` | PARTIAL | D7 | handoff fields | — |
+| `G03` | PARTIAL | D7 | report + gaps | Structuration incidents/STOP incomplète |
+| `G04` | PARTIAL | D8 | inventoryComplete | Acquisition serveur auto absente |
+| `G05` | PARTIAL | D7 | reportMarkdown | Lecture Git D9 pièces absente |
+| `G06` | PARTIAL | D8 | qualify testsDeclared/Captured | Collecte runtime tests absente |
+| `G07` | PARTIAL | D8 | evidence-captures + API captures | Cycle 7 — store SHA + Playwright PNG ; bilan UX rattachement partiel |
+| `G08` | PARTIAL | D7 | one handoff/attempt | — |
+| `G09` | PARTIAL | D7/D8 | REJECTED/INCOMPLETE | — |
+| `G10` | PARTIAL | D7/D8 | gitFactsVerified hook | Feed D9 Cursor non branché |
+| `G11` | PARTIAL | D8/UX | 9 rubrics + 4 tabs | Recoupement réel faible ; F2 ouvert |
+| `G12` | PARTIAL | D3/D8 | D8 tools + path confine + journal (C13) | C13 — confinement symlink PASS ; journal CONSULTED≠toolCalls ; secrets non divulgués |
+| `G13` | PARTIAL | D8/UX | labels + surfaces execution/publication | — |
+| `G14` | PARTIAL | UX | onDiscussWithNora draft | Référence bilan structurée absente |
+| `G15` | PARTIAL | D8 | FOR UPDATE + newProofRef + expectedUpdatedAt | PG concurrent PASS cycle 6 ; BROWSER requalify ouvert |
+| `H01` | PARTIAL | UX | live activity + preparedContract open (cycle 5) | F2 12.01 NOT RUN |
+| `H02` | PARTIAL | UX | ContractViewer Travail 50/50 (cycle 5) | F2/BROWSER NOT RUN |
+| `H03` | PARTIAL | UX | surface=execution | Identité/versions partielles vs 12.04/05 |
+| `H04` | PARTIAL | UX | AMBIGUOUS + live projection | États LIVE Figma incomplets |
+| `H05` | PARTIAL | UX | RealizationBilan 4 onglets | Fidélité 12.08/11-13 ouverte |
+| `H06` | PARTIAL | UX | discuss→Travail | Frame 12.09 non F2 |
+| `H07` | PARTIAL | UX | sas preparations activity | C1 sas ML5 partiel |
+| `H08` | PARTIAL | UX | Figma oracles + Playwright runtime | Cycle 7 — 4 oracles + 4 runtime ; F2 ≤2px global NOT PROVEN |
+| `I01` | PARTIAL | transverse | CURSOR_EXECUTION additive | Vigilance double autorité |
+| `I02` | PARTIAL | D6 | cursor-authority | Matrice I02 incomplete |
+| `I03` | PARTIAL | QA | claim/fence/PG T-04 | UX concurrence ACK/STOP incomplete |
+| `I04` | PARTIAL | QA | frontier+sanitize tests | Suite injection/MCP/Git incomplete |
+| `I05` | PARTIAL | QA | unit+PG+docs cycle 4 | Exigence processus partielle |
+| `I06` | PARTIAL | QA | DEV auto-session + BROWSER snapshots | Cycle 6 — Travail/Exécution/Résultats/sas servis ; F2 PNG timeout |
+| `I07` | PARTIAL | QA | Fake/Real dans packs | Pas distinction UX |
+| `I08` | PARTIAL | gov | pas REAL mutatif ce cycle | Gate I08 ML5 partiel |
+| `I09` | PARTIAL | docs | as-built/registre | — |
+| `I10` | PARTIAL | QA | fixture SCRIPTED + BROWSER surfaces | Cycle 7 — contrat/attempt/handoff DEV + captures ; D6/LIVE non E2E |
+| `I11` | PARTIAL | gov | ENV-01 DEV ; NO RELEASE | Politique ADOPTED hors code |
+
+**Totaux implémentation (cycle 5) :** IMPLEMENTED=1 · PARTIAL=81 · NOT_IMPL=17 · Σ=99.
+
+**Totaux implémentation (cycle 6) :** IMPLEMENTED=1 · PARTIAL=92 · NOT_IMPL=6 · Σ=99.
+Mouvements : A04, F01–F09, I06 → PARTIAL. Restent NOT_IMPL : B04, B09, E12, G07, H08, I10.
+
+**Totaux implémentation (cycle 7) :** IMPLEMENTED=1 · PARTIAL=97 · NOT_IMPL=1 · Σ=99.
+Mouvements NOT_IMPL→PARTIAL : B04, E12, G07, H08, I10. Reste NOT_IMPL : **B09** (WEB LIVE fournisseur).
+CP-01 préflight observations indépendantes ; CP-02 STUDIO_DEV_BIND ; CP-03 proof-ref verify ; Playwright captures runtime ; F2 global NOT PROVEN.
+
+**Totaux implémentation (cycle 8) :** IMPLEMENTED=1 · PARTIAL=97 · NOT_IMPL=1 (B09) · Σ=99 — pas de conversion artificielle.
+CP-01 : origin match + ls-remote frais + REMOTE_VERIFIED exige local HEAD. CP-02 : probe TCP loopback à l'émission. CP-03 : preuve exacte, pas de fallback handoff. A3 MCP : UNKNOWN fail-closed. G07 : magic PNG/JPEG. BROWSER intégré SCRIPTED + captures C8. F2 global **NOT PROVEN**.
+
+**Totaux implémentation (cycle 11) :** IMPLEMENTED=1 · PARTIAL=97 · NOT_IMPL=1 (B09) · Σ=99 — **aucune promotion artificielle PARTIAL→IMPLEMENTED**.
+Preuves LIVE (conformité ≠ présence) : Nora prepare (`openai-agents-sdk-live`) ; Cursor SDK LIVE (`@cursor/sdk` 1.4.2, modèle `composer-2.5`, clé FileCredentialStore) ; témoin `DEMO_C11.txt` vérifié sous cwd résolu ; handoff RECEIVED ; D8 verdict PARTIAL honnête ; analyse finale `NORA_COGNITIVE`. B09 / GitHub REAL mutatif / MCP mission : N/A ou NOT_IMPL. Option Git A inchangée (pas de contradiction dans constats courants). F2 hors gate C11.
+
+**Totaux implémentation (cycle 14) :** IMPLEMENTED=2 · PARTIAL=97 · NOT_IMPL=0 · Σ=99.
+Mouvement : **B09 NOT_IMPL → IMPLEMENTED** (agent isolé LIVE + open fetch + parse navigation ; preuves `/tmp/sfia-c14-web-probe4.log`, cognitive `s4_web`). Aucune promotion artificielle des 97 PARTIAL. Conformité A01–A12 / C01–C08 / D01–D02 reste majoritairement PARTIEL (LIVE sémantique S2/S5 PASS ; reprise S7 / contradiction S6 / activité BROWSER non exhaustifs).
+
+**Écarts majeurs cycle 6 :** F2 pixel NOT PROVEN (screenshot tooling timeout) ; WEB/SDK/GitHub REAL gated ; I10 parcours E2E non câblé bout-en-bout ; captures G07 absentes.
+
+**T-01…T-12 (sens canonique) :**
+| T | Sens | État |
+|---|---|---|
+| T-01 | Investigation + contrat Nora | PARTIAL |
+| T-02 | Refus Pilote sans effet | PARTIAL (Exécution Non) |
+| T-03 | Autorisation contrat exact | PARTIAL |
+| T-04 | ACK perdu sans second envoi | PG PASS |
+| T-05 | Mission longue navigateur fermé | NOT PROVEN |
+| T-06 | STOP effets partiels | PARTIAL |
+| T-07 | Tests non vérifiés → D8 refuse | PARTIAL |
+| T-08 | Contradiction Git/rapport | PARTIAL (qualify) ; F Cursor NOT_IMPL |
+| T-09 | Unique revue Nora | PARTIAL (synthesis≠D3) |
+| T-10 | Reprise discussion | PARTIAL |
+| T-11 | Web sans exfiltration | PARTIAL SCRIPTED |
+| T-12 | Deux Pilotes / dépôt partagé | NOT PROVEN |
 
 ## 4. Contrôle transversal des 56 scénarios de recette fonctionnelle
 
@@ -232,11 +389,41 @@ Les cas **Q-01…Q-56** du contrat fonctionnel ML5 sont la matrice de comporteme
 
 **Condition d'intégrité de couverture :** une ligne A–I ou un scénario Q applicable ne peut disparaître sans trace d'un arbitrage explicitement attribué. Une mention « réalisé » sans ref et preuve n'est jamais `VERIFIÉ`.
 
+## 4 bis. Revue de conformité transversale et contrat d'acceptation — R-002 (23/11/2026)
+
+**Contrat d'acceptation intégré candidat :** [Cognition et réalisation gouvernée](./contrat-acceptation-cognition-et-realisation-gouvernee.md). Le présent registre demeure le **seul index de couverture des 99 exigences**. Les 12 cas intégrateurs du contrat d'acceptation sont des regroupements d'oracles de qualification, **pas** un remplacement des Q-01…Q-56 ni des PF propriétaires.
+
+**État reconstitué (sources : deux Review Packs FULL distants) :** 44 PARTIEL, 1 EC, 54 NV, **0 VÉRIFIÉ** au niveau d'acceptation complet. Les preuves unitaires/PostgreSQL ne valent ni BROWSER, ni F2, ni LIVE SDK, ni REAL GitHub. Les statuts des lignes ci-dessus reprennent les changements explicitement tracés dans les diffs des deux handoffs. **Le HEAD produit local `6cf33e99…` n'a pas été lu directement par ChatGPT : son tree, son état et ses tests restent NON OBSERVÉS indépendamment.** Les tests PASS sont déclarés dans les rapports.
+
+| Famille | Total | PARTIEL | EC | NV | Résultat produit manquant |
+|---|---:|---:|---:|---:|---|
+| A — Conduite cognitive | 12 | 3 | 0 | 9 | Investigation Nora et préparation réelle du contrat |
+| B — Recherche web | 9 | 2 | 0 | 7 | Isolation publique et lecture WEB LIVE |
+| C — Activité Nora | 8 | 2 | 0 | 6 | Observations outils, fil courant et reconnexion |
+| D — Contrat / autorité | 12 | 10 | 0 | 2 | READY établi côté serveur, inspection 50/50, fidélité intégrale |
+| E — Cursor SDK / D7 | 15 | 14 | 0 | 1 | ACK perdu sans double effet, supervision, LIVE confiné |
+| F — Git Cursor / D9 | 9 | 0 | 0 | 9 | Choix A/B et continuité par SHA vérifiés |
+| G — Handoff / D8 | 15 | 12 | 1 | 2 | Provenance, inventaire probant, D8 révisable et avis Nora |
+| H — UX Figma | 8 | 1 | 0 | 7 | Surfaces Exécution/Résultats distinctes et F2/BROWSER |
+| I — QA/gates | 11 | 0 | 0 | 11 | Parcours intégré, non-régression et preuves par niveaux |
+| **TOTAL** | **99** | **44** | **1** | **54** | **Aucune réception ML5** |
+
+**Écart UX vérifié directement sur Figma :** page 12 (14 frames) présente Travail 50/50 (12.02), **Exécution distincte** (12.04, 12.05, 12.06, 12.07, 12.14) et **Résultats & preuves distincts** (12.08, 12.11, 12.12, 12.13). Le code rapporté monte `CursorRealizationSurface` sous `?surface=publication` et utilise quatre onglets D8 différents. **Conformité structurelle et F2 NON PROUVÉES.** Les extraits Figma ne sont pas des captures runtime.
+
+**Contrats propriétaires à recroiser impérativement :** R2 D3/D4/D5/D6/D7/D8/D9 ; `PF-REAL-01…30`, `PF-PRV-01…32`, scénarios gouvernance et Git applicables. Les invariants ML4, ENV-01 et les réserves antérieures continuent de s'appliquer.
+
+**Trajectoire recommandée (même macro-lot, pas de micro-gates inventés) :** sécuriser effets/READY/qualification, raccorder Nora et les parcours visuels, rendre les preuves D8 effectivement consultables, qualifier les frontières réelles selon les mandats, puis réconcilier le registre et les scénarios. Git B (publication gouvernée D7/D9) reste **RECOMMANDÉE NON ARBITRÉE**. Aucune architecture, migration structurante ou promotion n'est adoptée par ce document.
+
 ## 5. Journal des livraisons et revues
 
 | ID | Date | Contrat Cursor / cycle | Branche / HEAD / build | Review Pack / handoff | IDs revus | Verdict et réserves |
 |---|---|---|---|---|---|---|
-| R-001 | 2026-11-23 | ML5 integrated delivery | `sfia/next-ml5-integrated-delivery-20261123` @ base `0f1d37c3` + commits locaux | `.tmp-sfia-review/chatgpt-review.md` → handoff L3 | A09–A11 PARTIEL ; B06–B07 PARTIEL ; C01/C06 EC ; D01–D08/D10–D12 EC–PARTIEL ; E01–E11/E13–E15 EC–PARTIEL ; G01–G13 EC–PARTIEL ; H01–H08 L0 only ; I01/I05/I07/I11 PARTIEL | **ML5 PARTIAL — GOVERNED GAPS** — SCRIPTED/DETERMINISTIC only ; LIVE/BROWSER/REAL outstanding |
+| R-001a | 23/11/2026 | ML5 socle vertical — CRITICAL | `sfia/next-ml5-integrated-delivery-20261123` / `69aeb329…` local rapporté ; aucune publication projet | [Review Pack 1 @ d731c1d7](https://github.com/mcleland147/sfia-workspace/blob/d731c1d77016b4585dda1b96051f949478f67b8e/sfia-review-handoff/latest-chatgpt-review.md) | A–I, Q applicables, socle D/E/G | ML5 PARTIAL — GOVERNED GAPS ; 17 tests unitaires rapportés ; BROWSER/LIVE/REAL non prouvés |
+| R-001b | 23/11/2026 | ML5 consolidation P0/UX initiale — CRITICAL | même worktree, HEAD local `6b7dac12…` dans pack et `6cf33e99…` rapporté ensuite ; non lu directement | [Review Pack 2 @ 2b2d27f6](https://github.com/mcleland147/sfia-workspace/blob/2b2d27f6e8b2495adcccd4677078a8b77670b4b5/sfia-review-handoff/latest-chatgpt-review.md) | A–I et 56 Q selon pack ; 29 unit + 7 PG PASS **rapportés** | ML5 PARTIAL — GOVERNED GAPS ; P0 DEV partiels, F2/BROWSER/LIVE/REAL ouverts |
+| R-002 | 23/11/2026 | Revue de conformité fonctionnelle/UX/architecture D0 + intégration documentaire D1/D2 candidate | Branch documentaire de revue, `main` inchangé ; SHA commit à relever après écriture | Même deux Review Packs + Figma page 12 (lecture) | 99 exigences + Q-01…Q-56 + PF propriétaires à recouper | 44 PARTIEL / 1 EC / 54 NV ; contrat d'acceptation **CANDIDAT**, non réceptionné |
+| R-003 | 23/11/2026 | ML5 convergence intégrée — CF-02/03, Nora prepare, surfaces Exécution/Résultats, D8/Nora | `sfia/next-ml5-integrated-delivery-20261123` worktree local (HEAD post-cycle à figer) ; push projet **interdit** | Review Pack 3 → `sfia/review-handoff` (publish-in-cycle) | A03/A09/D01/D02/E09/G12–G14/H03–H06/I03 + CF-02/03 | ML5 PARTIAL — GOVERNED GAPS ; PG 8 PASS ; unit 25+ ; BROWSER/F2/LIVE/REAL ouverts |
+| R-005 | 23/11/2026 | ML5 cycle 5 — Travail 50/50, activité RUNNING, B1 URL, G15 requalify, supervision poll | même worktree DIRTY ; HEAD `6cf33e99…` | Review Pack 5 → `sfia/review-handoff` | Impl 1/81/17 ; BROWSER/F2 NOT RUN | ML5 PARTIAL — GOVERNED GAPS |
+| R-004 | 23/11/2026 | ML5 complétude — inventaire 99, P0 sendIntent, provenance sources, B1 frontier, synthèse≠Nora | même worktree DIRTY ; HEAD entrée `6cf33e99…` | Review Pack 4 → `sfia/review-handoff` | Impl **1/74/24** (réconcilié explore + cycle 4) ; T-01…T-12 corrigés | ML5 PARTIAL — GOVERNED GAPS ; unit 53 + PG 9 ; BROWSER/F2/LIVE ouverts |
 
 Un **Review Pack SFIA v2.6 FULL** est attendu lorsque le profil Critical est justifié ; `.tmp-sfia-review/chatgpt-review.md` reste la source mono-cycle, avec Review Handoff L3 distinct de l'historique produit Studio. Ne jamais considérer un résumé seul comme contenu complet des fichiers modifiés.
 
@@ -244,7 +431,18 @@ Un **Review Pack SFIA v2.6 FULL** est attendu lorsque le profil Critical est jus
 
 | ID | Date/lot | Exigence(s) | Fait/écart constaté (≠ hypothèse) | Gravité | Preuve et SHA | Responsable / correction | Exit / état |
 |---|---|---|---|---|---|---|---|
-| — | — | — | — | — | — | — | — |
+| CF-01 | R-002 / ML5 | A01–A12, D01 | Nora ne prépare pas encore de contrat à partir d'une investigation et des sources effectivement qualifiées | MAJEUR | Packs → cycle 4 | bridge + tool-source-journal (CONSULTED from reads) ; fake count removed | LIVE multi-sources + BROWSER ; PARTIEL |
+| CF-02 | R-002 / ML5 | A09, D02, D11 | READY dépend d'indications client (`sourcesSufficient`, `unknownRestrictions`) | BLOQUANT EFFET | Pack 2 → cycle 3 | `technical-contract-server-ready` + route `/ready` ; client flags ignorés | BROWSER + rights revoked still open ; REMEDIATED DEV / PARTIEL |
+| CF-03 | R-002 / ML5 | E09–E10 | Chemin `AMBIGUOUS → DISPATCHED` potentiellement redéclenchable après ACK perdu | BLOQUANT LIVE | Pack 2 → cycle 3 | `priorSendMayHaveOccurred` + SQL fence ; PG T-04 PASS | LIVE SDK still open ; REMEDIATED DEV / PARTIEL |
+| CF-04 | R-002 / ML5 | B01–B09 | Web B1 désactivé ; variable ISOLATION_PROVEN non équivalente à une barrière sûre | BLOQUANT B1 LIVE | Pack → cycle 4 | `public-web-search-frontier` query-only SCRIPTED + outbound log ; hosted tool détaché ; WEB LIVE gated | WEB LIVE Morris gate ; REMEDIATED DEV SCRIPTED / PARTIEL |
+| CF-05 | R-002 / ML5 | C01–C08 | Activité annoncée/fin de tour, événements outil et reprise incomplètes | MAJEUR | Pack 2 | Cursor : observer outils D3, préserver C1 | BROWSER sas/projet pendant RUNNING/reconnexion ; OUVERT |
+| CF-06 | R-002 / ML5 | D09–D10, H01–H08 | Travail 50/50, Exécution et Résultats distincts de Figma ; F2 absent | MAJEUR UX | Figma page 12 + pack 2 | Cursor : composants propriétaires, L1/L2, BROWSER F2 | 14 états qualifiés par frame/fixture ; OUVERT |
+| CF-07 | R-002 / ML5 | E05–E08, E12/E15 | Supervision run long et SDK LIVE confiné non démontrés | BLOQUANT LIVE | Pack 2 / qualification C9 bornée | Cursor : prouver supervision/reprise, MCP seulement si requis | Browser fermé/crash/STOP, identités réelles ; OUVERT |
+| CF-08 | R-002 / ML5 | F01–F09 | Publication Git Cursor et continuité non implémentées ; option A/B ouverte | GATE MORRIS | Pack 2 / R2 D9 | Morris : arbitrage A/B ; Cursor prépare blast radius | Permettre continuité par SHA sans privilège tacite ; OUVERT |
+| CF-09 | R-002 / ML5 | G01–G11/G15 | Provenance client-déclarée, dossier et D8 pas réellement recoupés et révisables | MAJEUR | Pack 2 | Cursor : acquisition serveur / recoupement D9-D8 | PF-PRV contradictions/preuve tardive ; OUVERT |
+| CF-10 | R-002 / ML5 | G12–G14 | Brief déterministe distinct du véritable avis Nora, absent | MAJEUR | Pack → cycle 4 | Classification corrigée (DETERMINISTIC_SYNTHESIS ≠ NORA_COGNITIVE) ; prompt D3 prêt | Run Nora D3 LIVE encore ouvert ; PARTIEL |
+| CF-11 | R-002 / ML5 | I01–I11, Q-01…Q-56 | Pas de preuve BROWSER/F2/LIVE/REAL ni matrice PF complète | GATE QA | Packs 1–2 | Cursor : preuves multi-niveaux par exigence | Qualifier toutes exigences et les PF sans auto-réception ; OUVERT |
+| CF-12 | R-002 / ML5 | Gouvernance | `main` snapshot Gate C ancien ; code ML5 local ; pas de push produit | SYNCHRO GOUVERNÉE | Git refs vérifiées | Morris : GO séparé si synchronisation normative | Pas de merge/recette/adoption implicite ; OUVERT |
 
 Chaque réserve transférée comporte **propriétaire, impact, preuve attendue, condition de sortie et moment de relecture**. Une correction technique ne déclenche pas de nouvelle tentative Cursor sans GO lorsqu'un nouvel acte d'effet est requis.
 
@@ -273,6 +471,29 @@ Chaque réserve transférée comporte **propriétaire, impact, preuve attendue, 
 - [ ] Code/tests/architecture/UX/as-built synchronisés ; dette et capacité suivante qualifiées.
 - [ ] Décision Morris de réception, intégration, promotion et adoption traitée séparément.
 
-**État initial révisé :** `REVIEW REGISTRY VALIDATED FOR USE / ALL 99 ITEMS NV / GATE C ACCEPTED WITH RESERVES BY MORRIS 2026-11-23 / ML5 BUILD GO GRANTED / NO PR-MERGE-CUTOVER-RELEASE / NOT ADOPTED`.
+**État courant R-002 (d'après rapports, sans accès au worktree local) :** `ML5 PARTIAL — GOVERNED GAPS / 44 PARTIEL / 1 EC / 54 NV / NO VERIFIED / NO BROWSER F2 LIVE REAL / NO PR-MERGE-CUTOVER-RELEASE / NOT ADOPTED`. L'état historique initial était ALL 99 NV ; les états présentés ci-dessus ne constituent pas une preuve d'acceptation.
 
 **Hors périmètre de ce document :** nouvelle doctrine, architecture physique adoptée, ordre impératif de micro-lots, auto-acceptation, PR/merge, mutation/runtime, gestion MCP Studio universelle.
+
+## 9. Observations UAT utilisateur DEV — Pilotage 360 (2026-11-24)
+
+**Projet :** `proj_f89ee486-dd24-4def-a744-019e9e32828f` — *Pilotage 360* (DEV qualify `:3100`).
+**Environnement :** DEV LIVE Nora. **Niveau de preuve :** BROWSER + observation Morris/ChatGPT (pas PASS de résolution).
+**Décision de traitement :** capitalisées pour la poursuite en RECETTE ; **non déclarées résolues** dans ce cycle de mise à disposition.
+
+| ID | Constat | État | Preuve / environnement |
+|---|---|---|---|
+| UAT-01 | Activité Nora LIVE absente dans le sas | OUVERT | DEV · observation Morris |
+| UAT-02 | Affichage tardif du message du Pilote | OUVERT | DEV · observation Morris |
+| UAT-03 | Métadonnées techniques acceptées en DEV seulement — **ne pas exposer en RECETTE/STABLE** | ACCEPTÉ (périmètre DEV) / **À CONFINER RECETTE** | DEV · arbitrage Morris |
+| UAT-04 | Indicateur de chargement statique | OUVERT | DEV · observation Morris |
+| UAT-05 | Icône d'information déformée | OUVERT | DEV · observation Morris |
+| UAT-06 | Modale de création restant en attente alors que Nora a terminé | OUVERT | DEV · observation Morris |
+| UAT-07 | Première recommandation automatique de trajectoire insuffisamment pertinente | OUVERT | DEV · Pilotage 360 |
+| UAT-08 | Ancienne question à clarifier visible après création du projet | OUVERT | DEV · Pilotage 360 |
+| UAT-09 | Activité LIVE générique / technique / éloignée de Figma | OUVERT | DEV · observation Morris |
+| UAT-10 | Recommandation conversationnelle non traduite en proposition d'ouverture de cycle visible | OUVERT | DEV · Pilotage 360 · écart orientation≠ouverture (E07 déjà réservé) |
+
+**Acquis observés (non-régression qualitative) :** quatre échanges cognitifs satisfaisants dans le sas ; clarification et proposition évolutive ; création explicite du projet ; historique du sas retrouvé dans Travail ; recommandation argumentée après relance ; capitalisation du contexte métier ; restitution fonctionnelle de l'activité encore partielle.
+
+**Diagnostic trajectoire (hypothèse de travail, non verdict de correction) :** `BEHAVIOR DIFFERENCE — ROOT CAUSE NOT ESTABLISHED` possible combinaison CONFIGURATION GAP + HISTORICAL GAP (E07) ; à confirmer en RECETTE sans refonte cognitive dans le cycle de cutover.

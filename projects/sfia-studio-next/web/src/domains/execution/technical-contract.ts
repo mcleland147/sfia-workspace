@@ -107,6 +107,8 @@ export async function createTechnicalContract(input: {
   markReady?: boolean;
   unknownRestrictions?: string[];
   sourcesSufficient?: boolean;
+  cognitiveWorkId?: string | null;
+  cognitiveRevision?: number | null;
 }) {
   await assertProject(input.pilotId, input.projectId);
   assertContractBodyComplete(input.body);
@@ -165,9 +167,18 @@ export async function createTechnicalContract(input: {
     stopConditionsJson: JSON.stringify(input.body.stopConditions),
     reversibilityLimitsJson: JSON.stringify(input.body.reversibilityLimits ?? []),
     gitScopeJson: input.body.gitScope ? JSON.stringify(input.body.gitScope) : null,
-    readinessJson: JSON.stringify(readiness),
+    readinessJson: JSON.stringify({
+      ...readiness,
+      cognitiveFiliation: {
+        workId: input.cognitiveWorkId ?? null,
+        revision: input.cognitiveRevision ?? null,
+        preparationId: input.preparationId ?? null,
+      },
+    }),
     sourceTurnCommandId: input.sourceTurnCommandId ?? null,
     supersedesContractId: input.supersedesContractId ?? null,
+    cognitiveWorkId: input.cognitiveWorkId ?? null,
+    cognitiveRevision: input.cognitiveRevision ?? null,
     createdAt: now,
     updatedAt: now,
   });
@@ -180,6 +191,8 @@ export async function createTechnicalContract(input: {
     instructionFingerprint: instructionFp,
     status: status as "READY" | "DRAFT",
     readiness,
+    cognitiveWorkId: input.cognitiveWorkId ?? null,
+    cognitiveRevision: input.cognitiveRevision ?? null,
   };
 }
 
@@ -307,6 +320,9 @@ function rowToContract(row: typeof technicalContracts.$inferSelect) {
     fingerprint: row.fingerprint,
     instructionFingerprint: instructionFingerprint(row.instructionText),
     status: row.status,
+    preparationId: row.preparationId,
+    cognitiveWorkId: row.cognitiveWorkId ?? null,
+    cognitiveRevision: row.cognitiveRevision ?? null,
     body,
     readiness,
     createdAt: row.createdAt.toISOString(),

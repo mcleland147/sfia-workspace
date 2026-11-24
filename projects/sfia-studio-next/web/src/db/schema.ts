@@ -939,6 +939,9 @@ export const technicalContracts = pgTable(
     sourceTurnCommandId: text("source_turn_command_id"),
     supersedesContractId: text("supersedes_contract_id"),
     readinessJson: text("readiness_json"),
+    /** C17 — filiation to exact cognitive work (additive). */
+    cognitiveWorkId: text("cognitive_work_id"),
+    cognitiveRevision: integer("cognitive_revision"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
@@ -950,6 +953,7 @@ export const technicalContracts = pgTable(
     ),
     index("technical_contracts_project_idx").on(t.projectId),
     index("technical_contracts_fingerprint_idx").on(t.fingerprint),
+    index("technical_contracts_cognitive_work_idx").on(t.cognitiveWorkId),
   ],
 );
 
@@ -1009,6 +1013,8 @@ export const realizationQualifications = pgTable(
     noraAnalysisMarkdown: text("nora_analysis_markdown"),
     noraAnalysisAt: timestamp("nora_analysis_at", { withTimezone: true }),
     limitsJson: text("limits_json").notNull().default("[]"),
+    /** G15 — append-only prior qualification snapshots (JSON array). */
+    historyJson: text("history_json").notNull().default("[]"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
@@ -1049,4 +1055,59 @@ export const noraActivityEvents = pgTable(
   ],
 );
 
-export const schemaRevision = "018_ml5_contract_reversibility";
+/** D3 — cognitive work distinct from conversation turn commands (ML5 C15 Option C). */
+export const cognitiveWorks = pgTable(
+  "cognitive_works",
+  {
+    id: text("id").primaryKey(),
+    ownerPilotId: text("owner_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    preparationId: text("preparation_id")
+      .notNull()
+      .references(() => preparations.id),
+    projectId: text("project_id").references(() => projects.id),
+    conversationId: text("conversation_id").references(() => conversations.id),
+    status: text("status").notNull(),
+    revision: integer("revision").notNull().default(1),
+    ownerToken: text("owner_token"),
+    leaseUntil: timestamp("lease_until", { withTimezone: true }),
+    objective: text("objective").notNull().default(""),
+    expectedOutcome: text("expected_outcome").notNull().default(""),
+    stateJson: text("state_json").notNull().default("{}"),
+    resourcesJson: text("resources_json").notNull().default("{}"),
+    productionJson: text("production_json").notNull().default("{}"),
+    interruptCause: text("interrupt_cause"),
+    parentWorkId: text("parent_work_id"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    index("cognitive_works_prep_idx").on(t.preparationId),
+    index("cognitive_works_pilot_status_idx").on(t.ownerPilotId, t.status),
+  ],
+);
+
+export const cognitiveWorkCheckpoints = pgTable(
+  "cognitive_work_checkpoints",
+  {
+    id: text("id").primaryKey(),
+    workId: text("work_id")
+      .notNull()
+      .references(() => cognitiveWorks.id),
+    revision: integer("revision").notNull(),
+    parentRevision: integer("parent_revision"),
+    cause: text("cause").notNull(),
+    turnCommandId: text("turn_command_id"),
+    generationId: text("generation_id"),
+    payloadJson: text("payload_json").notNull().default("{}"),
+    resourcesJson: text("resources_json").notNull().default("{}"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("cognitive_work_checkpoints_work_rev_uidx").on(t.workId, t.revision),
+    index("cognitive_work_checkpoints_work_idx").on(t.workId),
+  ],
+);
+
+export const schemaRevision = "020_cognitive_work";

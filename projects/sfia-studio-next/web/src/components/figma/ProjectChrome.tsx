@@ -41,10 +41,15 @@ const HERO: Record<
     title: "Dépôts Git",
     sub: "Parcourir un dépôt autorisé puis lire le fichier directement dans l’espace projet.",
   },
+  execution: {
+    kicker: "ESPACE PROJET  /  EXÉCUTION",
+    title: "Exécution",
+    sub: "Retrouver contrats, tentatives et réalisations ; une intervention en cours conserve son suivi LIVE.",
+  },
   publication: {
-    kicker: "ESPACE PROJET / DÉPÔTS GIT",
-    title: "Dépôts Git",
-    sub: "Parcourir un dépôt autorisé puis lire le fichier directement dans l’espace projet.",
+    kicker: "ESPACE PROJET  /  RÉSULTATS & PREUVES",
+    title: "Résultats & preuves",
+    sub: "Dossier de réalisation : fichiers, tests, Git, captures, manifeste et avis Nora, sans validation automatique.",
   },
 };
 
@@ -78,9 +83,16 @@ export function ProjectChrome(props: {
   const isJournal = props.surface === "journal";
   /** Ensemble 07 — Projet / Trajectoire heroes live in ProjectOverview / TrajectoryBoard. */
   const isProjetOrTrajectoire = props.surface === "projet" || props.surface === "pilotage";
-  /** Ensemble 08 — Dépôts Git / Publications heroes live in GitRepositoriesSurface. */
-  const isGitSurface = props.surface === "git" || props.surface === "publication";
-  const breadcrumbOnly = isTravail || isJournal || isProjetOrTrajectoire || isGitSurface;
+  /** Ensemble 08 — Dépôts Git hero lives in GitRepositoriesSurface. */
+  const isGitSurface = props.surface === "git";
+  /** Exécution / Résultats page 12 — hero in stage (not duplicated in header). */
+  const isMl5Realization = props.surface === "execution" || props.surface === "publication";
+  const breadcrumbOnly =
+    isTravail ||
+    isJournal ||
+    isProjetOrTrajectoire ||
+    isGitSurface ||
+    isMl5Realization;
 
   const continuityBadge =
     isTravail && props.statusHint && !/^chargement/i.test(props.statusHint) ? (
@@ -177,6 +189,11 @@ export function ProjectChrome(props: {
             data-testid="travail-intro-rule"
             aria-hidden
           />
+          {props.children}
+        </div>
+      ) : isMl5Realization ? (
+        <div className="project-ml5-realization-stage" data-testid="project-ml5-realization-stage">
+          {intro}
           {props.children}
         </div>
       ) : (

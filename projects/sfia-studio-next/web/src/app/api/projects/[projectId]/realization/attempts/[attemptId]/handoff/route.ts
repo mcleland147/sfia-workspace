@@ -51,6 +51,23 @@ export async function POST(
     ) {
       return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 400 });
     }
+    // Client may never self-attest RUNTIME_COLLECTED (CF-09).
+    const clientAcquisition = body.provenance?.acquisition;
+    if (clientAcquisition === "RUNTIME_COLLECTED") {
+      return NextResponse.json(
+        {
+          error: "INVALID_REQUEST",
+          message: "RUNTIME_COLLECTED réservé au runtime serveur — pas au client",
+        },
+        { status: 400 },
+      );
+    }
+    const acquisition =
+      clientAcquisition === "SCRIPTED_ADAPTER" ||
+      clientAcquisition === "CLIENT_DECLARED" ||
+      clientAcquisition === "UNKNOWN"
+        ? clientAcquisition
+        : "CLIENT_DECLARED";
     const result = await ingestRealizationHandoff({
       pilotId: session.pilotId,
       projectId,
@@ -58,14 +75,12 @@ export async function POST(
       reportMarkdown: body.reportMarkdown,
       manifest: body.manifest,
       expectedContractFingerprint: body.expectedContractFingerprint,
-      provenance: body.provenance
-        ? {
-            acquisition: body.provenance.acquisition ?? "CLIENT_DECLARED",
-            declaredExecutorId: body.provenance.declaredExecutorId,
-            observedAgentId: body.provenance.observedAgentId,
-            observedRunId: body.provenance.observedRunId,
-          }
-        : { acquisition: "CLIENT_DECLARED" },
+      provenance: {
+        acquisition,
+        declaredExecutorId: body.provenance?.declaredExecutorId,
+        observedAgentId: body.provenance?.observedAgentId,
+        observedRunId: body.provenance?.observedRunId,
+      },
     });
     return NextResponse.json(result);
   } catch (e) {

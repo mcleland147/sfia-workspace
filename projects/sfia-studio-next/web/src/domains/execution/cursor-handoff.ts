@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import { effectAttempts, realizationHandoffs } from "@/db/schema";
 import { StudioError } from "@/lib/http-errors";
@@ -33,6 +33,16 @@ export async function ingestRealizationHandoff(input: {
   manifest: HandoffManifest;
   expectedContractFingerprint: string;
   provenance?: HandoffProvenance;
+  /**
+   * C24 — when set, handoff insert + effectAttempts patch are atomic with
+   * owner+version+lease CAS (no fence-then-write window).
+   */
+  ownershipGate?: {
+    ownerToken: string;
+    expectedVersion: number;
+    /** Merged into resultJson on successful CAS (pipeline status, etc.). */
+    livePatch?: Record<string, unknown>;
+  };
 }) {
   const row = (
     await db
@@ -130,6 +140,14 @@ export async function ingestRealizationHandoff(input: {
     status = "INCOMPLETE";
     limits.push("REPORT_EMPTY");
   }
+  // C13 — early handoff before terminal observation stays honest (INCOMPLETE).
+  if (
+    row.status === "DISPATCHED" &&
+    (!live.terminalStatus || live.terminalStatus === "unknown")
+  ) {
+    status = "INCOMPLETE";
+    limits.push("EARLY_HANDOFF_BEFORE_TERMINAL_OBSERVATION");
+  }
   // Long but incomplete inventory cannot succeed.
   if (!inventoryComplete(input.manifest)) {
     status = "INCOMPLETE";
@@ -137,6 +155,16 @@ export async function ingestRealizationHandoff(input: {
     if (report.trim().length >= 200) {
       limits.push("LONG_REPORT_WITHOUT_COMPLETE_INVENTORY — succès refusé");
     }
+  }
+  // C13 — tests announced without captured output cannot imply verified execution.
+  const testsDeclared = input.manifest.testsDeclared?.length ?? 0;
+  const testsExecuted = input.manifest.testsExecuted?.length ?? 0;
+  const testsCaptured = input.manifest.testsCaptured?.length ?? 0;
+  if (testsDeclared + testsExecuted > 0 && testsCaptured === 0) {
+    status = "INCOMPLETE";
+    limits.push(
+      "TESTS_DECLARED_WITHOUT_CAPTURED_OUTPUT — RESULT file ≠ verified unit test",
+    );
   }
   if (report.includes("BEGIN PRIVATE KEY") || /\bsk-[A-Za-z0-9]{20,}\b/.test(report)) {
     status = "REJECTED";
@@ -163,7 +191,14 @@ export async function ingestRealizationHandoff(input: {
     _observedRunId: live.runId ?? null,
   };
 
-  await db.insert(realizationHandoffs).values({
+  live.reportStatus =
+    status === "RECEIVED" ? "RECEIVED" : status === "REJECTED" ? "REJECTED" : "INCOMPLETE";
+  live.limits = [...(live.limits ?? []), ...limits];
+  if (input.ownershipGate?.livePatch) {
+    Object.assign(live, input.ownershipGate.livePatch);
+  }
+
+  const handoffValues = {
     id,
     attemptId: row.id,
     projectId: input.projectId,
@@ -179,15 +214,52 @@ export async function ingestRealizationHandoff(input: {
     limitsJson: JSON.stringify(limits),
     createdAt: now,
     updatedAt: now,
-  });
+  };
 
-  live.reportStatus =
-    status === "RECEIVED" ? "RECEIVED" : status === "REJECTED" ? "REJECTED" : "INCOMPLETE";
-  live.limits = [...(live.limits ?? []), ...limits];
-  await db
-    .update(effectAttempts)
-    .set({ resultJson: JSON.stringify(live), updatedAt: now })
-    .where(eq(effectAttempts.id, row.id));
+  if (input.ownershipGate) {
+    const gate = input.ownershipGate;
+    const leaseRenew = new Date(Date.now() + 120_000).toISOString();
+    const nextLive = {
+      ...live,
+      restitutionOwnerToken: gate.ownerToken,
+      restitutionVersion: gate.expectedVersion,
+      restitutionLeaseExpiresAt: leaseRenew,
+    };
+    await db.transaction(async (tx) => {
+      const cas = await tx
+        .update(effectAttempts)
+        .set({
+          resultJson: JSON.stringify(nextLive),
+          updatedAt: now,
+        })
+        .where(
+          and(
+            eq(effectAttempts.id, row.id),
+            sql`${effectAttempts.resultJson}::jsonb->>'restitutionOwnerToken' = ${gate.ownerToken}`,
+            sql`COALESCE((${effectAttempts.resultJson}::jsonb->>'restitutionVersion')::int, 0) = ${gate.expectedVersion}`,
+            sql`(
+              NULLIF(${effectAttempts.resultJson}::jsonb->>'restitutionLeaseExpiresAt', '') IS NOT NULL
+              AND (${effectAttempts.resultJson}::jsonb->>'restitutionLeaseExpiresAt')::timestamptz > now()
+            )`,
+          ),
+        )
+        .returning({ id: effectAttempts.id });
+      if (!cas[0]) {
+        throw new StudioError(
+          "CONFLICT",
+          "OWNERSHIP_LOST_ATOMIC_HANDOFF — owner/lease/version refused",
+          { exposeMessage: true },
+        );
+      }
+      await tx.insert(realizationHandoffs).values(handoffValues);
+    });
+  } else {
+    await db.insert(realizationHandoffs).values(handoffValues);
+    await db
+      .update(effectAttempts)
+      .set({ resultJson: JSON.stringify(live), updatedAt: now })
+      .where(eq(effectAttempts.id, row.id));
+  }
 
   return {
     handoffId: id,

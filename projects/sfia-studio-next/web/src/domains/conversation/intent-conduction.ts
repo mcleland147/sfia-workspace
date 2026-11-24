@@ -26,7 +26,7 @@ import {
   type DocumentEffectSummary,
   type QualifiedDocumentAct,
 } from "./document-act";
-import { generateNoraReply } from "./nora-adapter";
+import { runNoraCognitiveTurn } from "./run-nora-cognitive-turn";
 import { TURN_RUNNING_STALE_MS, turnClock } from "./turn-command";
 import {
   appendMissionAck,
@@ -1012,9 +1012,15 @@ export async function continueAfterProjectCreated(input: {
       `Intention initiale:\n${original}\n\n` +
       `Produis le document demandé (titre + corps en fence sfia-document) pour ce projet.`;
 
-    const reply = await generateNoraReply({
+    const reply = await runNoraCognitiveTurn({
+      pilotId: input.pilotId,
+      preparationId: input.preparationId,
+      projectId: input.projectId,
+      forceNewWork: false,
+      objective: "Poursuite documentaire post-création projet",
       userText: userPrompt,
       contextSnippets: [`projectId=${input.projectId}`, `preparationId=${input.preparationId}`],
+      maxSegmentsThisInvocation: 2,
     });
 
     if (continuationRaceHooks.afterNoraBeforeD4) {

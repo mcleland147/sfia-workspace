@@ -11,6 +11,16 @@ const PATHISH =
 const GITHUB_TOKENISH = /\bgh[pousr]_[A-Za-z0-9_]{20,}\b/g;
 const OPENAI_KEYISH = /\bsk-[A-Za-z0-9_-]{20,}\b/g;
 const JWTISH = /\beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\b/g;
+/** Studio-private identity tokens — never egress on public web. */
+const STUDIO_PRIVATE_IDISH =
+  /\b(?:prep_|proj_|cgw_|doc_|drev_|tctr_|tcmd_|msg_|op_|req_|dec_|efx_|pilot_|sess_)[A-Za-z0-9_-]{8,}\b/g;
+const COOKIEISH = /\b(?:session|cookie|set-cookie|owner[_-]?token)\s*[:=]\s*\S+/gi;
+/**
+ * C20 — confidential business content must not become public merely because
+ * it lacks a studio id marker. Block first-person / internal confidential cues.
+ */
+const CONFIDENTIAL_BUSINESS =
+  /\b(confidentiel|confidential|internal[- ]only|ne pas diffuser|do not (?:share|forward)|notre (?:secret|mot de passe|budget interne|salaire)|password\s*[:=]|api[_-]?key\s*[:=]|bearer\s+[a-z0-9._-]{12,})\b/i;
 
 export type SanitizeWebQueryResult = {
   ok: boolean;
@@ -25,11 +35,11 @@ export function sanitizePublicWebQuery(raw: string): SanitizeWebQueryResult {
   if (!q) {
     return { ok: false, query: "", redactions, blockedReason: "EMPTY_QUERY" };
   }
-  if (SECRETISH.test(q)) {
+  if (SECRETISH.test(q) || CONFIDENTIAL_BUSINESS.test(q)) {
     return {
       ok: false,
       query: "",
-      redactions: ["SECRETISH_KEYWORD"],
+      redactions: ["SECRETISH_OR_CONFIDENTIAL"],
       blockedReason: "SECRETISH_CONTENT",
     };
   }
@@ -38,7 +48,9 @@ export function sanitizePublicWebQuery(raw: string): SanitizeWebQueryResult {
   q = q.replace(OPENAI_KEYISH, "[REDACTED_SK]");
   q = q.replace(JWTISH, "[REDACTED_JWT]");
   q = q.replace(PATHISH, "[REDACTED_PATH]");
-  if (q !== before) redactions.push("TOKEN_OR_PATH");
+  q = q.replace(STUDIO_PRIVATE_IDISH, "[REDACTED_STUDIO_ID]");
+  q = q.replace(COOKIEISH, "[REDACTED_SESSION]");
+  if (q !== before) redactions.push("TOKEN_OR_PATH_OR_PRIVATE_ID");
   // Refuse if redaction left almost nothing useful.
   const useful = q.replace(/\[REDACTED_[A-Z]+\]/g, "").replace(/\s+/g, " ").trim();
   if (useful.length < 3) {

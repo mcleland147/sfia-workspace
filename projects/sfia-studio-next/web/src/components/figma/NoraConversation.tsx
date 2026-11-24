@@ -52,6 +52,24 @@ export function NoraConversation(props: {
   /** E07 05.17 — bandeau qualification + lien Trajectoire. */
   qualificationBanner?: boolean;
   onOpenTrajectoire?: () => void;
+  /** C01/C05/C07 — mid-turn functional activity (polled), distinct from response streaming. */
+  liveActivityEvents?: Array<{
+    sequence: number;
+    nature: string;
+    status: string;
+    summary: string;
+    phase: string;
+    sourceRef?: string | null;
+  }>;
+  liveActivityHeadline?: string;
+  /** Figma 12.09 — retirable D8 dossier reference (not free-text). */
+  dossierAttachment?: {
+    attemptId: string;
+    contractId?: string | null;
+    dossierVersion?: number | string | null;
+    verdictD8?: string | null;
+  } | null;
+  onRemoveDossierAttachment?: () => void;
 }) {
   const n = props.messages.length;
   const frame = n === 0 ? "161:216" : n <= 2 ? "161:288" : "94:214";
@@ -59,7 +77,11 @@ export function NoraConversation(props: {
     n === 0 ? "Première conversation" : n <= 2 ? "Reprise contextualisée" : "Fil long";
   const embedded = Boolean(props.embeddedInStage);
   const composerLocked = Boolean(props.composerLocked);
-  const sendDisabled = props.busy || !props.draft.trim() || composerLocked;
+  const hasDossier = Boolean(props.dossierAttachment?.attemptId);
+  const sendDisabled =
+    props.busy ||
+    (!props.draft.trim() && !hasDossier) ||
+    composerLocked;
   const lastMessageId = n > 0 ? props.messages[n - 1]!.id : null;
   const { threadRef, onScroll, scrollToBottom, newBelow } = useNoraThreadScroll({
     messageCount: n,
@@ -364,6 +386,38 @@ export function NoraConversation(props: {
               </span>
             </div>
           ) : null}
+          {(props.activity === "preparing" || (props.liveActivityEvents?.length ?? 0) > 0) &&
+          (props.liveActivityHeadline || (props.liveActivityEvents?.length ?? 0) > 0) ? (
+            <div
+              className="fig-nora-live-activity"
+              role="status"
+              aria-live="polite"
+              data-testid="nora-live-activity"
+            >
+              <p className="fig-nora-live-activity-headline" data-testid="nora-live-activity-headline">
+                {props.liveActivityHeadline ||
+                  props.liveActivityEvents?.[props.liveActivityEvents.length - 1]?.summary ||
+                  "Activité en cours"}
+              </p>
+              {(props.liveActivityEvents?.length ?? 0) > 0 ? (
+                <details data-testid="nora-live-activity-detail">
+                  <summary>
+                    Détail ({props.liveActivityEvents!.length} événement
+                    {props.liveActivityEvents!.length > 1 ? "s" : ""})
+                  </summary>
+                  <ul>
+                    {props.liveActivityEvents!.map((ev) => (
+                      <li key={ev.sequence} data-nature={ev.nature} data-phase={ev.phase}>
+                        <span className="fig-nora-live-activity-nature">{ev.nature}</span>
+                        {" · "}
+                        {ev.summary}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              ) : null}
+            </div>
+          ) : null}
           {props.activity === "error" ? (
             <div className="fig-alert" role="alert" data-testid="nora-activity-error">
               La dernière réponse n&apos;a pas pu être consolidée entièrement. Le texte saisi est
@@ -453,6 +507,35 @@ export function NoraConversation(props: {
               </button>
             </div>
           ) : null}
+          {props.dossierAttachment?.attemptId ? (
+            <div
+              className="fig-dossier-attachment"
+              data-testid="dossier-composer-attachment"
+            >
+              <div className="fig-dossier-attachment-body">
+                <p className="fig-dossier-attachment-label">Dossier D8 joint</p>
+                <p className="fig-dossier-attachment-meta">
+                  {props.dossierAttachment.attemptId}
+                  {props.dossierAttachment.dossierVersion != null
+                    ? ` · v${props.dossierAttachment.dossierVersion}`
+                    : ""}
+                  {props.dossierAttachment.verdictD8
+                    ? ` · ${props.dossierAttachment.verdictD8}`
+                    : ""}
+                </p>
+              </div>
+              <button
+                type="button"
+                className="fig-dossier-attachment-remove"
+                data-testid="dossier-composer-attachment-remove"
+                disabled={composerLocked || props.busy}
+                onClick={() => props.onRemoveDossierAttachment?.()}
+                aria-label="Retirer la référence du dossier D8"
+              >
+                Retirer
+              </button>
+            </div>
+          ) : null}
           <div className="fig-travail-composer-row">
             <span className="fig-travail-composer-plus" aria-hidden>
               +
@@ -481,7 +564,7 @@ export function NoraConversation(props: {
                 if (isMobile) return;
                 if (e.key === "Enter" && !e.shiftKey && !props.busy) {
                   e.preventDefault();
-                  if (props.draft.trim()) props.onSend();
+                  if (props.draft.trim() || hasDossier) props.onSend();
                 }
               }}
             />

@@ -34,6 +34,8 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
       correlationKey?: string;
       clientTurnKey?: string;
       unresolvedPendingClientTurnKey?: string;
+      cognitiveWorkId?: string | null;
+      forceNewCognitiveWork?: boolean;
       documentFocus?: {
         documentId: string;
         sourceRevisionId: string;
@@ -70,6 +72,8 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
         clientTurnKey: body.clientTurnKey ?? body.correlationKey,
         unresolvedPendingClientTurnKey: body.unresolvedPendingClientTurnKey,
         documentFocus: body.documentFocus ?? null,
+        cognitiveWorkId: body.cognitiveWorkId ?? null,
+        forceNewCognitiveWork: body.forceNewCognitiveWork === true,
         requestId,
       },
     );

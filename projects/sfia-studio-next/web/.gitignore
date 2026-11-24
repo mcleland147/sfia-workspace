@@ -52,3 +52,6 @@ next-env.d.ts
 
 # UAT-03 ephemeral forensic dumps (DEV only)
 .tmp-sfia-nora-diag/
+
+# C24 DEV qualification evidence / HMAC secrets (never commit)
+.sfia-evidence/

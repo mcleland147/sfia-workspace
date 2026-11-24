@@ -62,6 +62,11 @@ export const StudioCapabilityIdSchema = z.enum([
   "d7.dispatch_publication",
   /** Documentary merge of an existing Studio publication PR — distinct from publication. */
   "d7.merge_publication",
+  /**
+   * C14 — prepare a Cursor technical contract DRAFT from investigation (D7).
+   * Semantic only: mode PREPARE. Never lexical. Never implies D6 authorize / dispatch.
+   */
+  "d7.prepare_cursor_contract",
   "d9.git_integration",
 ]);
 export type StudioCapabilityId = z.infer<typeof StudioCapabilityIdSchema>;
@@ -131,6 +136,12 @@ export const QualifiedIntentItemSchema = z.object({
       restrictionTargetRefHint: z.string().max(120).optional(),
       /** Soft target ~500 ; raised 400→2000 (2026-11-19) decision rationale UNKNOWN. */
       notes: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
+      /**
+       * C14 — when capabilityId=d7.prepare_cursor_contract, mark a corrective draft
+       * within an existing mandate (A04). Never implies Cursor dispatch.
+       * Enum string (not boolean) for Agents SDK JSON Schema compatibility.
+       */
+      correctiveDraft: z.enum(["true", "false"]).optional(),
       /** Typed D4 continuity capitalisation (RG-KNOW-001) — owner still validates. */
       knowledgeKind: KnowledgeRecordKindSchema.optional(),
       /** Raised 500→5000 (2026-11-19): SUBJECT synthesis / rich ACQUIS were failing LIVE schema validation (CampusNova UNKNOWN). */
@@ -148,6 +159,13 @@ export const QualifiedIntentItemSchema = z.object({
       supersedesAcquisId: z.string().max(120).optional(),
       /** When an ACQUIS factually closes an open point, Nora may cite its id. */
       resolvesOpenPointId: z.string().max(120).optional(),
+      /**
+       * C18 — dedicated Cursor technical instruction on prepare_cursor_contract.
+       * Prefer this over top-level productionInstruction when emitting the intent.
+       */
+      productionInstruction: z.string().min(1).max(100_000).optional(),
+      /** C18 — specific acceptance criteria for prepare_cursor_contract (≠ remainingWork). */
+      acceptanceCriteria: z.array(z.string().min(1).max(LIVE_PROSE_HARD_MAX)).max(40).optional(),
     })
     .strict()
     .default({}),
@@ -165,6 +183,12 @@ export const DocumentProposalSchema = z
     /** Soft target ~400. */
     title: z.string().min(1).max(LIVE_PROSE_HARD_MAX),
     contentMarkdown: z.string().min(1).max(100_000),
+    /**
+     * C22 — semantic merge intent decided by Nora (server enforces integrity).
+     * APPEND = mid-work contribution; CORRECT = patch prior; SUPERSEDE = consolidated replacement.
+     * Never inferred from heading count or length alone.
+     */
+    mergeMode: z.enum(["APPEND", "CORRECT", "SUPERSEDE"]).optional(),
   })
   .strict();
 /** C-03 — designate a prior assistant proposal by message id (content resolved server-side). */
@@ -272,6 +296,71 @@ export const NoraTurnQualificationSchema = z.object({
    * LIVE WRITE uses NoraTurnQualificationAgentSchema (canonical-v1 only — no empty `{}` schema).
    */
   visualComposition: VisualCompositionPersistedSchema.optional(),
+  /**
+   * C18 — cognitive work relation proposed by Nora (server validates identity/scope).
+   * CONTINUE = same work; INDEPENDENT = new work; CLARIFY = await pilot; MATERIAL_CHANGE = new objective.
+   */
+  cognitiveWorkRelation: z
+    .enum(["CONTINUE", "INDEPENDENT", "CLARIFY", "MATERIAL_CHANGE", "UNRELATED"])
+    .optional(),
+  /** Proposed cognitive work id when CONTINUE/CLARIFY — never authoritative alone. */
+  proposedCognitiveWorkId: z.string().min(1).max(128).optional(),
+  /**
+   * Disposition of the current cognitive objective after this segment.
+   * COMPLETE = objective done; AWAIT_PILOT = explicit wait; CONTINUE = more segments;
+   * SUSPEND = technical/honest pause. Independent of Cursor contract readiness.
+   */
+  workDisposition: z
+    .enum(["CONTINUE", "AWAIT_PILOT", "SUSPEND", "COMPLETE"])
+    .optional(),
+  /** Stable determining questions — ids must be stable across turns when reusing. */
+  determiningQuestions: z
+    .array(
+      z.object({
+        id: z.string().min(1).max(64),
+        text: z.string().min(1).max(LIVE_PROSE_HARD_MAX),
+        status: z.enum(["OPEN", "ANSWERED", "BLOCKED", "DEFERRED"]),
+        importance: z.enum(["DETERMINANT", "USEFUL", "OPTIONAL"]),
+        answerSummary: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
+        sourceRefs: z.array(z.string().max(200)).max(8).optional(),
+      }),
+    )
+    .max(16)
+    .optional(),
+  /** Versioned remaining work — not acceptance criteria. */
+  remainingWorkItems: z
+    .array(
+      z.object({
+        id: z.string().min(1).max(64),
+        text: z.string().min(1).max(LIVE_PROSE_HARD_MAX),
+        status: z.enum(["OPEN", "RESOLVED", "REPLACED", "OBSOLETE", "BLOCKED"]),
+      }),
+    )
+    .max(24)
+    .optional(),
+  contradictions: z
+    .array(
+      z.object({
+        a: z.string().min(1).max(LIVE_PROSE_HARD_MAX),
+        b: z.string().min(1).max(LIVE_PROSE_HARD_MAX),
+        detail: z.string().min(1).max(LIVE_PROSE_HARD_MAX),
+      }),
+    )
+    .max(8)
+    .optional(),
+  restrictions: z.array(z.string().min(1).max(LIVE_PROSE_HARD_MAX)).max(12).optional(),
+  /**
+   * Dedicated technical instruction for Cursor contract — ≠ replyDraft.
+   * Ceiling matches D4 document body (long contracts). Omission = no instruction this turn.
+   */
+  productionInstruction: z.string().min(1).max(100_000).optional(),
+  /**
+   * Acceptance criteria as business production result — ≠ remainingWork.
+   * Soft ceiling for schema safety only (not a business rule of 8 or 12).
+   */
+  acceptanceCriteria: z.array(z.string().min(1).max(LIVE_PROSE_HARD_MAX)).max(40).optional(),
+  /** Semantic profile hint for adaptive policy — server may apply; never length-based. */
+  cognitiveProfileHint: z.enum(["simple", "analyse", "investigation"]).optional(),
 });
 export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
 

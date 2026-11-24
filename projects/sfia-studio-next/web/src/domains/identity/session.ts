@@ -239,6 +239,77 @@ function assertDevTestLoginAllowed(gate: DevLoginGateInput) {
   }
 }
 
+/**
+ * CP-02 — server listen confinement for auto-session.
+ * Headers alone are forgeable; bind address must be explicitly loopback.
+ * Expected: next started with `-H 127.0.0.1` and `STUDIO_DEV_BIND=127.0.0.1`.
+ */
+export function isDevListenConfined(
+  env: NodeJS.ProcessEnv | Record<string, string | undefined> = process.env,
+): boolean {
+  const bind = (env.STUDIO_DEV_BIND ?? env.HOSTNAME ?? "").trim().toLowerCase();
+  if (!bind) return false;
+  // Exact bind host only — no ports here (ports are in STUDIO_PORT).
+  return (
+    bind === "127.0.0.1" ||
+    bind === "localhost" ||
+    bind === "::1" ||
+    bind === "[::1]"
+  );
+}
+
+/**
+ * DÉC-ML5-DEV — auto-session gate (stricter than manual DEV test login).
+ * DEV lane only — never RECETTE/STABLE. Explicit flag + loopback Host + bind.
+ */
+export function isDevAutoSessionAllowed(gate: DevLoginGateInput): boolean {
+  if (process.env.STUDIO_DEV_AUTO_SESSION !== "1") return false;
+  if (process.env.STUDIO_DEV_TEST_LOGIN !== "1") return false;
+  const lane = (process.env.STUDIO_LANE ?? "").trim().toUpperCase();
+  if (lane !== "DEV") return false;
+  if (!isDevListenConfined()) return false;
+  try {
+    assertDevTestLoginAllowed({
+      ...gate,
+      // assertDevTestLoginAllowed already checks DEV|RECETTE; we force DEV above.
+    });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function assertDevAutoSessionAllowed(gate: DevLoginGateInput) {
+  if (process.env.STUDIO_DEV_AUTO_SESSION !== "1") {
+    throw new Error("DEV_AUTO_SESSION_DISABLED");
+  }
+  if (process.env.STUDIO_DEV_TEST_LOGIN !== "1") {
+    throw new Error("DEV_TEST_LOGIN_DISABLED");
+  }
+  const lane = (process.env.STUDIO_LANE ?? "").trim().toUpperCase();
+  if (lane !== "DEV") {
+    throw new Error("DEV_AUTO_SESSION_LANE_FORBIDDEN");
+  }
+  if (!isDevListenConfined()) {
+    throw new Error("DEV_AUTO_SESSION_BIND_NOT_LOOPBACK");
+  }
+  assertDevTestLoginAllowed(gate);
+}
+
+/**
+ * DÉC-ML5-DEV — automatic Pilot A test session for BROWSER/F2 on DEV local.
+ * Never chooses an arbitrary real pilot. Same deterministic identity as manual Pilote A.
+ */
+export async function createDevAutoSession(
+  gate: DevLoginGateInput | string | null = null,
+): Promise<{ token: string; pilotId: string; sessionId: string; which: "a" }> {
+  const normalized: DevLoginGateInput =
+    typeof gate === "string" || gate == null ? { host: gate } : gate;
+  assertDevAutoSessionAllowed(normalized);
+  const created = await createDevTestSession("a", normalized);
+  return { ...created, which: "a" };
+}
+
 /** DEV-ONLY test login — Fake/Real: NOT GitHub OAuth proof. Loopback + DEV lane only. */
 export async function createDevTestSession(
   which: "a" | "b",
