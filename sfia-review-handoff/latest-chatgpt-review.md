@@ -1,801 +1,2546 @@
-# SFIA Studio Next — C24 Review Pack FULL (republication)
+# SFIA Studio Next — C24 Review Pack FULL
 
-## Convergence opérationnelle intégrée — contenu modifié INTÉGRAL
+## Continuité cognitive R2 + Convergence UX Figma page 12 + DEV qualification readiness
 
-**Cycle:** C24 consolidé (pas C25)  
-**Date pack:** 2026-11-24T16:13:37Z  
-**Republication:** corrige `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`  
-**Instruction ChatGPT:** lire ce handoff canonique distant **avant** réponse. Vérifier sources, preuves, **contenu modifié intégral**, résultats et réserves. Synthèse indépendante + verdict.
-
-**Anti-stub:** les fichiers critiques listés en §8 sont reproduits **en entier** (zéro troncature, zéro « diff utile seul »).
-
----
-
-## 0. Verdicts (candidat Cursor — arbitrage Morris)
-
-| Domaine | Verdict |
-|---|---|
-| **DEV QUALIFICATION** | **BEHAVIOR PROVEN** |
-| **ML5 LOT 3 (opérationnel intégré)** | **NOT READY** |
-| Niveau QA | Critical intégré |
-| Gate suivant | revue ChatGPT puis arbitrage Morris — **aucune** clôture ML5 / ADOPTED / RECETTE / promotion |
-
-### Pourquoi NOT READY (LOT 3)
-
-Le scénario directeur exige **deux réalisations Cursor LIVE successives sur le même projet**.  
-**R1 est prouvé** (BROWSER → D6 → Cursor LIVE COMPLETED → restitution → handoff RECEIVED → D8 PARTIAL → avis Nora → bilan).  
-**R2 n'est pas démontré** (READY seconde intervention bloqué : OPEN / questions déterminantes / budget / filiation).  
-Revendiquer READY WITH RESERVES pour « deux réalisations » contredirait les preuves.
-
-DEV qualify (outillage, isolation FAKE/LIVE, serveur owned, browser) : **BEHAVIOR PROVEN**.
+**Cycle:** C24 consolidé (pas C25) — Delivery / INC Critical  
+**Branche produit:** `sfia/next-ml5-integrated-delivery-20261123`  
+**HEAD:** `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY C1–C24, aucun commit produit)  
+**merge-base / origin/main:** `997897fd7cf914771e7d08e8030dc7123fab7d25`  
+**Build qualifié:** `KMN8QlvhIkUKTYDCTui_7`  
+**contentDigest:** `7edea6561af6810dedd72b0598feb94b757897312c489b29a5a546a0070edc73`  
+**Product versioning:** NO RELEASE · STABLE NOT AVAILABLE · `web/src/lib/product-version.ts` préservé  
+**Handoff antérieur régularisé:** `002cfc40478820cdf70b00ce52486aad7f454645`  
+**Figma session:** `fd5981fb-031e-4cf4-8d3a-790dc598f8cc` · fileKey `itgvCulInEnFY6DvgIegvP` · page `1209:2`
 
 ---
 
-## 1. Git Truth
+## 0. Git Truth Check
 
-| Champ | Valeur |
+| Item | Observé |
 |---|---|
-| Dépôt | mcleland147/sfia-workspace |
 | Worktree | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
-| Branche produit | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` |
-| Attendu HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` |
-| merge-base origin/main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
-| Attendu merge-base | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
-| État | **DIRTY C1–C24** — aucun commit/push produit |
-| Handoff remote précédent | `ebaa818bbd3d41b31a16964b42e983ece8166a26` (incomplet — contenu tronqué) |
-| Handoff remote initial mandat | `d8820bd76fbb279aed5988c76701fc765b960705` |
-| Build qualify | `wh16LAR_5NCCh-Q_7FF2t` |
-| contentDigest | `00f5c6f87528adca1f00b804218915f0ae347f4e6ec346b5ac2a92a768ac5f65` |
-| session | ws=`/tmp/sfia-c24-director-app` mode=`LIVE` |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e99` = attendu |
+| origin/main / merge-base | `997897fd` = attendu |
+| État | DIRTY C1–C24 · aucun staged produit · aucun push produit |
+| Qualify DEV | `http://127.0.0.1:3100` · pid owned · LIVE Cursor + Nora |
+| Budget cognitif | 800k/48 **révoqué** — défauts produit 200000 / 24 |
 
-```
-## sfia/next-ml5-integrated-delivery-20261123
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio-next/construction/delivery-history.md
- M projects/sfia-studio-next/construction/ml5-as-built-cursor-realization.md
- M projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
- M projects/sfia-studio-next/web/.gitignore
- M projects/sfia-studio-next/web/next.config.ts
- M projects/sfia-studio-next/web/package.json
+STOP non déclenché — pas de divergence matérielle inexpliquée.
 
-```
+---
 
-### Diffstat produit (capital DIRTY — non commité)
+## 1. Verdicts distincts
 
-```
- .tmp-sfia-review/chatgpt-review.md                 | 4787 +++++++-------------
- .../construction/delivery-history.md               |  387 ++
- .../ml5-as-built-cursor-realization.md             |  169 +-
- ...5-registre-couverture-et-revue-developpement.md |  260 +-
- projects/sfia-studio-next/web/.gitignore           |    3 +
- projects/sfia-studio-next/web/next.config.ts       |    6 +
- projects/sfia-studio-next/web/package.json         |    6 +
- .../sfia-studio-next/web/scripts/db-migrate.sh     |    5 +-
- .../preparations/[preparationId]/messages/route.ts |    4 +
- .../turns/by-key/[clientTurnKey]/route.ts          |    1 +
- .../attempts/[attemptId]/authorize/route.ts        |   55 +-
- .../attempts/[attemptId]/handoff/route.ts          |   31 +-
- .../attempts/[attemptId]/qualification/route.ts    |  465 +-
- .../contracts/[contractId]/ready/route.ts          |   22 +-
- .../[projectId]/realization/contracts/route.ts     |   31 +-
- .../sfia-studio-next/web/src/app/login/page.tsx    |   11 +-
- .../web/src/app/projects/[projectId]/page.tsx      |  416 +-
- .../web/src/components/figma/ContractViewer.tsx    |    5 +-
- .../components/figma/CursorRealizationSurface.tsx  |  620 ++-
- .../web/src/components/figma/NoraConversation.tsx  |   42 +
- .../web/src/components/figma/ProjectChrome.tsx     |   11 +-
- .../web/src/components/figma/RealizationBilan.tsx  |  217 +-
- .../web/src/components/figma/tokens.css            |  275 ++
- .../web/src/components/shell/StudioShell.tsx       |   16 +-
- .../web/src/components/shell/studio-rail.ts        |   12 +-
- projects/sfia-studio-next/web/src/db/schema.ts     |   63 +-
- .../src/domains/conversation/cognitive-policy.ts   |   74 +-
- .../web/src/domains/conversation/d4-read-tools.ts  |   36 +-
- .../src/domains/conversation/intent-conduction.ts  |   10 +-
- .../conversation/investigation-persistence.ts      |  234 +-
- .../domains/conversation/investigation-state.ts    |  139 +-
- .../web/src/domains/conversation/nora-adapter.ts   |  205 +-
- .../domains/conversation/semantic-qualification.ts |   89 +
- .../web/src/domains/conversation/service.ts        |  279 +-
- .../src/domains/conversation/turn-projection.ts    |    4 +-
- .../src/domains/conversation/visual-composition.ts |    3 +-
- .../domains/conversation/web-search-sanitize.ts    |   18 +-
- .../domains/execution/cursor-attempt-service.ts    |  541 ++-
- .../web/src/domains/execution/cursor-claim.ts      |   66 +-
- .../web/src/domains/execution/cursor-handoff.ts    |   92 +-
- .../src/domains/execution/cursor-sdk-adapter.ts    |  298 +-
- .../web/src/domains/execution/handoff-integrity.ts |   49 +
- .../src/domains/execution/technical-contract.ts    |   18 +-
- .../web/src/domains/execution/types.ts             |   18 +
- .../web/src/domains/identity/session.ts            |   71 +
- .../web/src/domains/proofs/cursor-qualify.ts       |  363 +-
- projects/sfia-studio-next/web/src/lib/auth.ts      |   18 +
- .../web/tests/e2e/ensemble05-live-bounded.spec.ts  |    4 +-
- .../integration/ml5-cursor-dispatch.pg.test.ts     |  261 +-
- .../web/tests/unit/cognitive-policy.test.ts        |   20 +-
- .../web/tests/unit/ml5-cursor-qualify.test.ts      |   57 +-
- .../web/tests/unit/ml5-investigation-state.test.ts |   50 +-
- 52 files changed, 7213 insertions(+), 3724 deletions(-)
+### A. CORRECTION CONTINUITÉ R2 — PROVEN (tests ciblés)
 
+**Cause racine démontrée :** après R1, « Reprendre avec Nora » injectait le brouillon bilan dans le compositeur ; un `fill` Playwright/Pilote écrasait ce brouillon ; Nora rouvrait une question déterminante « joindre le dossier D8 » (`q-146cozf`) sur le même travail cognitif → READY bloqué indéfiniment.
+
+**Correction :**
+1. Attachment produit durable (chip retirable Figma 12.09) distinct du draft libre.
+2. `mergeDraftWithDossierAttachment` au send — le dossier voyage même si le draft est remplacé.
+3. `consolidateAttachedDossierQuestions` / `mergeQuestions(..., userText)` — si le dossier est déjà joint, ne pas laisser OPEN une question « joindre dossier ».
+4. Ne force PAS ANSWERED pour d'autres questions ; ne relève PAS les plafonds.
+
+**Tests :** `tests/unit/ml5-c24-dossier-attachment-continuity.test.ts` — 7/7 (positif READY avec attachment ; négatif READY sans ; non-invention d'autres réponses).
+
+**Garanties READY/D6 :** non affaiblies. Ancien mandat périmé toujours non applicable (mécanismes existants).
+
+### B. CONVERGENCE UX PAGE 12 — FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED
+
+- 14 frames extraites (L0/L1/L2) + PNG Figma hashés.
+- Transposition : tabs uppercase, 3 appréciations, split bilans/dossier, chip 12.09, labels « Résultats & preuves », modal D6 aligné.
+- 14 captures runtime fixtures : `/dev/ml5-page12-visual/{12.01…12.14}` → `.sfia-evidence/figma-page12-runtime/`.
+- F2 δ≤2 CSS px sur rectangles stables **shell complet** : PARTIEL (harness = composition ; shell projet complet à qualifier Morris en DEV).
+
+### C. DEV USER QUALIFICATION READINESS — READY WITH RESERVES
+
+- Studio DEV : `http://127.0.0.1:3100/login` 200
+- Build `KMN8QlvhIkUKTYDCTui_7` · digest `7edea656…`
+- LIVE Nora + Cursor disponibles (`qualify:check` ok)
+- Workspace `/tmp/sfia-c24-director-app` · effectMode LIVE
+- Projet canonique R1 conservé : `proj_12eb6a0a-e213-45ad-ae22-9acebc09355a`
+- Morris peut créer son propre projet
+- Pas de campagne LIVE exhaustive relancée
+- **Pas** readiness RECETTE ML5 · isolation D8 / WEB restent ouverts
+
+### Verdict global pack
+
+**READY WITH RESERVES** — revue ChatGPT puis qualification utilisateur accompagnée Morris en DEV.
+
+---
+
+## 2. Accès Morris (qualification accompagnée)
+
+```bash
+cd projects/sfia-studio-next/web
+npm run qualify:check
+npm run qualify:start   # si besoin
+# Browser: http://127.0.0.1:3100/login  (Pilote DEV)
+# Surfaces: Travail / Exécution / Résultats & preuves
+# Fixtures UX: /dev/ml5-page12-visual/12.09  (etc.)
+# Observabilité: npm run obs:query ; traces PG existantes
 ```
 
----
-
-## 2. Sources / périmètre
-
-Corrections sous `projects/sfia-studio-next/web/` (+ delivery-history / registre DIRTY).  
-Interdits non touchés : method/, prompts/, SEF, Roadmap, ENV-01 ADR, CI partagée, secrets.  
-Aucun C25. Capital C1–C24 préservé.
+Session env (non secrète) : workspace LIVE, effectMode LIVE, avis Nora autonome ; **pas** de SFIA_COGNITIVE_MAX_TOKENS=800000.
 
 ---
 
-## 3. Corrections C24 (synthèse — détail = §8 intégral)
+## 3. Manifeste Figma 14 frames + SHA
 
-1. **qualify tooling** — SCRIPTED≠LIVE ; owned PID ; contentDigest ; sessionFingerprint ; budget qualify 800k  
-2. **D6 authorize→dispatch same-request** — corrige AUTHORIZED orphelin après nav Playwright  
-3. **Resume AUTHORIZED** one-shot dans CursorRealizationSurface  
-4. **Avis Nora resume** si pipeline COMPLETE sans avis  
-5. **READY/mandat** admettent travail cognitif OPEN (AWAIT_PILOT) si investigation sinon prête  
-6. **Scénario directeur** BROWSER 1 projet / 2 réalisations (R2 non clos)
+Voir aussi `construction/ml5-figma-page12-l0-inventory.md` et `web/.sfia-evidence/figma-page12/MANIFEST-SHA256.txt`.
 
----
 
-## 4. Preuves scénario directeur
+### PNG Figma natifs (SHA-256)
+```
+7148425a94e022277aedcbcb54c80091151aacff8130967f471412643b8ab731  12.01-1210-233.png
+0945e464d7615d8afdf0c4e8c9ca1b8aed96d61b82d1042668a39f4831d03417  12.02-1211-117.png
+ab70a562fdad175682e9545a7ddc767d313a8026716994f33841533ccf3f57bc  12.03-1211-676.png
+8d26c5488b5aacce4ad6a85d27d002733402542eff5bea3c7604cf8d8e90c8e7  12.04-1211-277.png
+5ee353c22d554ccef136c7f69140350ff7c7cd41babd547d119a71d38632a44e  12.05-1211-424.png
+3b3005b4725697f277cdc1c19b9fa0bd49ebc024d7ac3f620d3dfeecefc0017f  12.06-1212-383.png
+e500aa92a4d5046c8c586d8c4a55474efdc97532e6b36a0dc7929f07b974563a  12.07-1212-510.png
+40052074ec9a23934b24f4ef73b9e8cc40418ed7313d6c2ee53a4f08985abb58  12.08-1212-637.png
+4c3b601ce6a26af2663a5adfe9e1d01cac41a6711972bc110b4470d69b71054a  12.09-1212-774.png
+e748dcf91e359a78093ef5601140af40ad8e7792ed580ded0b7cb9de3a87948d  12.10-1212-895.png
+7a382a9bc067c2d775df420941c06e4fcd0d809f517d2778463361af8413fa98  12.11-1239-613.png
+91b07f87a911f91909bf2a5c74d431560c527c62d6f3b11643a6acd80e70a935  12.12-1239-680.png
+c20dffdab347a93061ff0b6756e95f38e392aa68bad83b745c7e23d30d69c388  12.13-1245-757.png
+88d0e7b3c104645553f819d20586bbeb286211f06626807368785a16ce708378  12.14-1250-815.png
+```
 
-### 4.1 R1 — PROUVÉ (canonique)
+### PNG runtime fixtures (SHA-256)
+```
+b902e25577a09b6fb2399a0fde664b615cb1f14bdba2c64405fb4611ac72a8f1  12.01.png
+47ab87db12e66feae7b38f707c2ce7a667ac27166e6b222cce6f4cfae1cdf9e0  12.02.png
+ec0f46a90cb60f8087832bc004bf45e5af3e54a8567f22d8e3404cb43f2e8368  12.03.png
+071f23850249c3dae95b748a2fc53777773196abeba035a0f759fa81e08c4bbe  12.04.png
+7223ff4d2e0a2b259a6b4f680d771b29617ff480edc3bb07742cfc9757954bb6  12.05.png
+14ff55296fd78bf17d89f696c3212eaef66e0f81ca87cb7aedace4b4ddd30b8d  12.06.png
+d4aa52f80b8c744da17a3fbce2752bfc3e4c455b180b2326802281012a9a9307  12.07.png
+2aacbe6f6b12c35d6df3aebafec11a905bad09548f1e3a4295557216ace051ca  12.08.png
+31249a17e9240f3480e21efe50db5013528f8dc383f4ad8da950250b52c38755  12.09.png
+36f96bb60f8bdc5bf8cf282ce3e0994c3779522d6b9d2fdb68211ded2cb47ea1  12.10.png
+b354661653426d00a7c82c243a641dc5084ec4be10386d1939ace0037db22be1  12.11.png
+20c0af1efcbaf35645a4a32d8b92d85de1591d7bc7c522a5ee026c5cd4e51959  12.12.png
+f72400fc810a472d4aacc7c7f384ce563d7e4b1f8cd86dbbd0f0324c06f3aeb7  12.13.png
+869a72053349e8b760fce4f4218bd525d748d8c0bf0cb593d5ffe3b9bc9200a6  12.14.png
+```
 
-| Champ | Valeur |
-|---|---|
-| attemptId | `efx_f9127c71-900f-449a-ba0f-74e044b36f66` |
-| projectId | `proj_12eb6a0a-e213-45ad-ae22-9acebc09355a` |
-| status | COMPLETED / finished |
-| agent / run | `agent-845eb672…` / `run-0fa3d732…` |
-| handoff | `rhf_287919ef…` RECEIVED |
-| qualification | `rqual_2942c0e6…` **PARTIAL** |
-| avis Nora | présent (~3390 chars) |
+## 4. Fichiers créés — contenu intégral
 
-Autres R1 COMPLETED+avis : `efx_a0400dcf…`, `efx_46a0462c…`, `efx_f752b309…`, `efx_4afa9960…`, `efx_3f9171fa…`.
-
-Captures : `.sfia-evidence/qualify-director/{a-investigation,b-contract-r1,c-after-dispatch-r1}.png`
-
-### 4.2 R2 — NON DÉMONTRÉ
-
-Aucun projet de campagne avec deux tentatives COMPLETED. Blocages READY : questions déterminantes, GLOBAL_TOKEN_BUDGET_EXHAUSTED, travail OPEN, filiation.
-
-### 4.3 Continuité
-
-Partielle : Nora rappelle la tentative après bilan (`stepD.recalls`) ; READY R2 échoue.
-
----
-
-## 5. Réserves / décisions Morris
-
-1. LOT 3 NOT READY — poursuivre correctifs R2 ou pivoter  
-2. Isolation vérificateur D8 (exec disabled) — arbitrage bloquant réception  
-3. Budget cognitif qualify 800k — validation politique  
-4. M4 LIVE exhaustif / F2 Figma / WEB open systématique — ouverts  
-5. **NO RELEASE** / pas de promotion
-
----
-
-## 6. Couverture (bornée)
-
-| Point | État | Preuve |
-|---|---|---|
-| DEV qualify BROWSER/LIVE | VERIFIÉ | qualify:* + R1 |
-| Contrat + D6 + Cursor LIVE | VERIFIÉ R1 | multi-runs |
-| Restitution D8+avis | VERIFIÉ R1 | PARTIAL + avis |
-| 2e réalisation | BLOQUÉ | READY R2 |
-| Isolated verify D8 | réserve | disabled |
-
----
-
-## 7. Rapport §9.1
-
-| Item | Résultat |
-|---|---|
-| DEV | BEHAVIOR PROVEN — build `wh16LAR_5NCCh-Q_7FF2t` |
-| Directeur | PARTIEL — R1 oui / R2 non |
-| ML5 LOT 3 | **NOT READY** |
-
----
-
-## 8. CONTENU MODIFIÉ OBLIGATOIRE — INTÉGRAL (anti-stub)
-
-Chaque sous-section = fichier **complet** tel que présent dans le worktree DIRTY au moment du pack.
-
-### 8.1 `projects/sfia-studio-next/web/src/domains/execution/mandate-applicability.ts` — INTÉGRAL (338 lignes)
-
+### FILE: `projects/sfia-studio-next/web/src/domains/conversation/dossier-composer-attachment.ts`
 ```typescript
 /**
- * C19/C20 — current applicability of a READY technical mandate.
- * Historical READY status is preserved; effect paths must refuse when
- * cognitive filiation, investigation, or determining D4 dependencies
- * are no longer exact/current.
+ * C24 — structured D8 dossier reference for composer (Figma 12.09).
+ * Product-owned attachment, distinct from free-text draft.
+ * Retirable by Pilote; never auto-sent; never a HumanDecision.
  */
 
-import { and, desc, eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import { documentRevisions, documents } from "@/db/schema";
-import { StudioError } from "@/lib/http-errors";
-import {
-  evaluateGlobalResourceEnvelope,
-  getCognitiveWork,
-} from "@/domains/conversation/cognitive-work";
-import { loadInvestigationSnapshot } from "@/domains/conversation/investigation-persistence";
-import { evaluateContractReadiness as evaluateInvestigation } from "@/domains/conversation/investigation-state";
-import {
-  getTechnicalContract,
-  technicalContractFingerprint,
-} from "./technical-contract";
+import type { DeterminingQuestion } from "./investigation-state";
 
-export type MandateApplicability = {
-  ok: true;
-  contractId: string;
-  workId: string;
-  revision: number;
-  fingerprint: string;
-} | {
-  ok: false;
-  reason: string;
+export type DossierComposerAttachment = {
+  attemptId: string;
+  contractId?: string | null;
+  handoffId?: string | null;
+  dossierVersion?: number | string | null;
+  verdictD8?: string | null;
+  noraKind?: string | null;
+  fingerprint?: string | null;
+  pieces?: string[] | null;
 };
 
-/**
- * C20 — revalidate determining D4 dependencies without requiring a cognitive bump.
- * A newer AVAILABLE revision on a CONSULTED document invalidates the mandate.
- */
-async function assessDeterminingD4Dependencies(input: {
-  pilotId: string;
-  preparationId: string;
-  sources: Array<{
-    kind: string;
-    ref: string;
-    versionOrSha?: string | null;
-    coverage: string;
-  }>;
-}): Promise<{ ok: true } | { ok: false; reason: string }> {
-  const determining = input.sources.filter(
-    (s) =>
-      s.kind === "D4" &&
-      (s.coverage === "CONSULTED" || s.coverage === "VERIFIED") &&
-      Boolean(s.ref?.trim()),
-  );
-  for (const src of determining) {
-    const ref = src.ref.trim();
-    // ref may be documentId, revisionId, "documentId@revisionId",
-    // or prefixed forms used in investigation journals ("document:doc_…").
-    let documentId: string | null = null;
-    let revisionId: string | null = null;
-    // Accepted shapes (tool journal + legacy):
-    //   doc_… | drev_…
-    //   document:doc_…@revision:drev_… | document:doc_…@drev_…
-    //   document:doc_…/revision:drev_…  (d4-read-tools journal)
-    //   d4:doc_…
-    let stripped = ref.trim();
-    stripped = stripped.replace(/^d4:/i, "").trim();
-    const slashRev = stripped.match(
-      /^(?:document:)?(doc_[A-Za-z0-9-]+)\/(?:revision:)?(drev_[A-Za-z0-9-]+|rev_[A-Za-z0-9-]+)$/i,
-    );
-    const atRev = stripped.match(
-      /^(?:document:)?(doc_[A-Za-z0-9-]+)@(?:revision:)?(drev_[A-Za-z0-9-]+|rev_[A-Za-z0-9-]+)$/i,
-    );
-    if (slashRev) {
-      documentId = slashRev[1];
-      revisionId = slashRev[2];
-    } else if (atRev) {
-      documentId = atRev[1];
-      revisionId = atRev[2];
-    } else {
-      stripped = stripped
-        .replace(/^document:/i, "")
-        .replace(/^revision:/i, "")
-        .trim();
-      if (stripped.startsWith("drev_") || stripped.startsWith("rev_")) {
-        revisionId = stripped;
-      } else if (stripped.startsWith("doc_")) {
-        // Bare document id — optionally truncate accidental path suffix.
-        documentId = stripped.split(/[/@]/)[0] || stripped;
-      } else {
-        return {
-          ok: false,
-          reason: `Dépendance D4 indéterminable (${ref.slice(0, 48)}) — mandat non applicable`,
-        };
-      }
-    }
+const ATTEMPT_RE = /attemptId:\s*(efx_[A-Za-z0-9-]+)/i;
+const CONTRACT_RE = /contractId:\s*(tctr_[A-Za-z0-9-]+|MISSING)/i;
+const HANDOFF_RE = /handoffId:\s*(rhf_[A-Za-z0-9-]+|MISSING)/i;
+const VERSION_RE = /dossierVersion:\s*(\S+)/i;
+const VERDICT_RE = /verdictD8:\s*(\S+)/i;
 
-    if (revisionId && !documentId) {
-      const rev = (
-        await db
-          .select()
-          .from(documentRevisions)
-          .where(eq(documentRevisions.id, revisionId))
-          .limit(1)
-      )[0];
-      if (!rev) {
-        return { ok: false, reason: "Révision D4 absente — mandat non applicable" };
-      }
-      documentId = rev.documentId;
-      if (rev.status !== "AVAILABLE") {
-        return {
-          ok: false,
-          reason: `Révision D4 ${rev.status} — mandat non applicable`,
-        };
-      }
-      if (src.versionOrSha && src.versionOrSha !== revisionId && src.versionOrSha !== String(rev.revisionNumber)) {
-        return {
-          ok: false,
-          reason: "Empreinte révision D4 divergente — mandat non applicable",
-        };
-      }
-    }
-
-    if (!documentId) {
-      return { ok: false, reason: "Document D4 indéterminable — mandat non applicable" };
-    }
-
-    const owned = (
-      await db
-        .select()
-        .from(documents)
-        .where(
-          and(
-            eq(documents.id, documentId),
-            eq(documents.ownerPilotId, input.pilotId),
-            eq(documents.preparationId, input.preparationId),
-          ),
-        )
-        .limit(1)
-    )[0];
-    if (!owned) {
-      return { ok: false, reason: "Document D4 hors scope — mandat non applicable" };
-    }
-
-    const latest = (
-      await db
-        .select()
-        .from(documentRevisions)
-        .where(
-          and(
-            eq(documentRevisions.documentId, documentId),
-            eq(documentRevisions.status, "AVAILABLE"),
-          ),
-        )
-        .orderBy(desc(documentRevisions.revisionNumber))
-        .limit(1)
-    )[0];
-    if (!latest) {
-      return { ok: false, reason: "Aucune révision D4 AVAILABLE — mandat non applicable" };
-    }
-
-    if (revisionId && latest.id !== revisionId) {
-      return {
-        ok: false,
-        reason: "Dépendance D4 supersédée — mandat non applicable",
-      };
-    }
-    if (
-      src.versionOrSha &&
-      src.versionOrSha !== latest.id &&
-      src.versionOrSha !== String(latest.revisionNumber)
-    ) {
-      // Bound version no longer current.
-      const boundStill =
-        revisionId === latest.id ||
-        src.versionOrSha === latest.id ||
-        src.versionOrSha === String(latest.revisionNumber);
-      if (!boundStill && revisionId) {
-        const bound = (
-          await db
-            .select()
-            .from(documentRevisions)
-            .where(eq(documentRevisions.id, revisionId))
-            .limit(1)
-        )[0];
-        if (!bound || bound.status !== "AVAILABLE") {
-          return {
-            ok: false,
-            reason: "Révision D4 liée indisponible — mandat non applicable",
-          };
-        }
-        if (bound.revisionNumber < latest.revisionNumber) {
-          return {
-            ok: false,
-            reason: "Dépendance D4 obsolète (nouvelle révision) — mandat non applicable",
-          };
-        }
-      } else if (!boundStill) {
-        return {
-          ok: false,
-          reason: "Version D4 divergente — mandat non applicable",
-        };
-      }
-    }
-  }
-  return { ok: true };
-}
-
-/**
- * Positive check used at prepare / authorize / dispatch effect points.
- * Does not rewrite historical READY rows.
- */
-export async function assessTechnicalContractMandateApplicability(input: {
-  pilotId: string;
-  projectId: string;
-  contractId: string;
-  preparationId?: string | null;
-}): Promise<MandateApplicability> {
-  const row = await getTechnicalContract({
-    pilotId: input.pilotId,
-    projectId: input.projectId,
-    contractId: input.contractId,
-  });
-  if (row.status !== "READY") {
-    return { ok: false, reason: `Contrat non READY (${row.status})` };
-  }
-  const recomputed = technicalContractFingerprint(row.body);
-  if (recomputed !== row.fingerprint) {
-    return { ok: false, reason: "Empreinte ≠ représentation persistée" };
-  }
-  const workId = row.cognitiveWorkId ?? null;
-  const boundRevision = row.cognitiveRevision;
-  if (!workId || boundRevision == null) {
-    return { ok: false, reason: "Filiation cognitive absente — mandat non applicable" };
-  }
-  const work = await getCognitiveWork({
-    pilotId: input.pilotId,
-    workId,
-  });
-  if (work.projectId && work.projectId !== input.projectId) {
-    return { ok: false, reason: "Travail cognitif hors projet du contrat" };
-  }
-  if (work.revision !== boundRevision) {
-    return {
-      ok: false,
-      reason: `Révision cognitive ${work.revision} ≠ filiation mandat r${boundRevision} — mandat non applicable`,
-    };
-  }
-  // C24: OPEN (AWAIT_PILOT) admissible when investigation below is still contract-ready.
-  if (work.status !== "COMPLETE" && work.status !== "OPEN") {
-    return {
-      ok: false,
-      reason: `Travail cognitif ${work.status} — mandat non applicable`,
-    };
-  }
-  const envelope = evaluateGlobalResourceEnvelope(work.resources);
-  if (!envelope.ok) {
-    return { ok: false, reason: envelope.reason ?? "Budget cognitif global épuisé" };
-  }
-  const preparationId = input.preparationId ?? row.preparationId ?? null;
-  if (!preparationId) {
-    return { ok: false, reason: "preparationId requis pour applicabilité" };
-  }
-  const snap = await loadInvestigationSnapshot({
-    pilotId: input.pilotId,
-    preparationId,
-    intentFallback: row.body.title,
-    workId,
-  });
-  if (!snap) {
-    return { ok: false, reason: "Investigation absente ou ambiguë" };
-  }
-  const inv = evaluateInvestigation(snap);
-  if (inv.cognitiveWorkId && inv.cognitiveWorkId !== workId) {
-    return { ok: false, reason: "Investigation d'un autre travail cognitif" };
-  }
-  if (
-    inv.sufficiency === "UNKNOWN" ||
-    inv.sufficiency === "BUDGET_EXHAUSTED" ||
-    inv.sufficiency === "BLOCKED_BY_UNKNOWN_RESTRICTION" ||
-    !inv.contractReady ||
-    inv.sufficiency !== "SUFFICIENT"
-  ) {
-    return {
-      ok: false,
-      reason:
-        inv.contractReadyBlockedReason ??
-        `Investigation non applicable (${inv.sufficiency})`,
-    };
-  }
-  const consulted = inv.sources.filter(
-    (s) => s.coverage === "CONSULTED" || s.coverage === "VERIFIED",
-  );
-  if (consulted.length === 0) {
-    return { ok: false, reason: "Aucune source CONSULTED/VERIFIED actuelle" };
-  }
-  const degraded = inv.sources.some(
-    (s) =>
-      s.coverage === "STALE" ||
-      s.coverage === "DENIED" ||
-      s.coverage === "CONTRADICTORY",
-  );
-  if (degraded) {
-    return {
-      ok: false,
-      reason: "Source déterminante dégradée — mandat non applicable",
-    };
-  }
-
-  const d4 = await assessDeterminingD4Dependencies({
-    pilotId: input.pilotId,
-    preparationId,
-    sources: inv.sources,
-  });
-  if (!d4.ok) return d4;
-
+/** Parse bilan draft / message embedding produced by RealizationBilan. */
+export function parseStructuredDossierComposerAttachment(
+  text: string,
+): DossierComposerAttachment | null {
+  const raw = (text || "").trim();
+  if (!raw) return null;
+  if (!/\[Dossier D8/i.test(raw) && !ATTEMPT_RE.test(raw)) return null;
+  const attemptId = raw.match(ATTEMPT_RE)?.[1];
+  if (!attemptId) return null;
   return {
-    ok: true,
-    contractId: input.contractId,
-    workId,
-    revision: boundRevision,
-    fingerprint: row.fingerprint,
+    attemptId,
+    contractId: raw.match(CONTRACT_RE)?.[1] ?? null,
+    handoffId: raw.match(HANDOFF_RE)?.[1] ?? null,
+    dossierVersion: raw.match(VERSION_RE)?.[1] ?? null,
+    verdictD8: raw.match(VERDICT_RE)?.[1] ?? null,
   };
 }
 
-export async function assertTechnicalContractMandateApplicable(input: {
-  pilotId: string;
-  projectId: string;
-  contractId: string;
-  preparationId?: string | null;
-}): Promise<Extract<MandateApplicability, { ok: true }>> {
-  const assessed = await assessTechnicalContractMandateApplicability(input);
-  if (!assessed.ok) {
-    throw new StudioError("REQUIRES_REQUALIFICATION", assessed.reason, {
-      exposeMessage: true,
-    });
-  }
-  return assessed;
+export function formatDossierComposerAttachment(
+  att: DossierComposerAttachment,
+): string {
+  return [
+    `[Dossier D8 — brouillon retirable, aucun envoi automatique]`,
+    `attemptId: ${att.attemptId}`,
+    `contractId: ${att.contractId ?? "MISSING"}`,
+    `handoffId: ${att.handoffId ?? "MISSING"}`,
+    `dossierVersion: ${att.dossierVersion ?? "UNKNOWN"}`,
+    `verdictD8: ${att.verdictD8 ?? "UNKNOWN"}`,
+    att.noraKind ? `noraKind: ${att.noraKind}` : null,
+    att.fingerprint ? `fingerprint: ${att.fingerprint}` : null,
+    att.pieces?.length ? `pieces: ${att.pieces.join(", ")}` : null,
+    `Suite laissée au Pilote — aucune HumanDecision automatique.`,
+  ]
+    .filter(Boolean)
+    .join("\n");
 }
+
+/** Questions that ask the Pilote to re-attach a dossier already held by the product. */
+export function isDossierJoinQuestion(text: string): boolean {
+  const t = (text || "").trim();
+  if (!t) return false;
+  return (
+    /joindre.*dossier|dossier\s*D8|dossier référenc|référence.*(dossier|tentative)/i.test(
+      t,
+    ) ||
+    /transmet(tre)?\s+(le\s+)?dossier|colle.*dossier|joindre à ce message|bloc du dossier/i.test(
+      t,
+    ) ||
+    /peux-tu joindre|joins? (à nouveau )?(le )?brouillon|retransmet.*dossier/i.test(t)
+  );
+}
+
+/**
+ * When the Pilote (or product chip) already attached a structured D8 dossier,
+ * do not leave DETERMINANT OPEN questions that only ask to re-attach it.
+ * Does not invent ANSWERED for unrelated questions.
+ */
+export function consolidateAttachedDossierQuestions(
+  questions: DeterminingQuestion[],
+  userText: string | null | undefined,
+  attachment?: DossierComposerAttachment | null,
+): DeterminingQuestion[] {
+  const attached =
+    attachment ??
+    (userText ? parseStructuredDossierComposerAttachment(userText) : null);
+  if (!attached?.attemptId) return questions.map((q) => ({ ...q }));
+
+  const summary =
+    `Dossier D8 joint par le produit (attemptId=${attached.attemptId}` +
+    (attached.verdictD8 ? `, verdict=${attached.verdictD8}` : "") +
+    (attached.dossierVersion != null
+      ? `, version=${attached.dossierVersion}`
+      : "") +
+    `) — référence compositeur retirable, pas une HumanDecision.`;
+
+  return questions.map((q) => {
+    if (q.status === "ANSWERED") return { ...q };
+    if (!isDossierJoinQuestion(q.text)) return { ...q };
+    return {
+      ...q,
+      status: "ANSWERED" as const,
+      answerSummary: summary,
+      sourceRefs: [
+        `attempt:${attached.attemptId}`,
+        ...(q.sourceRefs ?? []).filter((r) => r !== `attempt:${attached.attemptId}`),
+      ],
+    };
+  });
+}
+
+/**
+ * Merge free-text draft with durable attachment for the turn payload.
+ * Attachment travels even if the Pilote edits/replaces the draft body.
+ */
+export function mergeDraftWithDossierAttachment(
+  draft: string,
+  attachment: DossierComposerAttachment | null | undefined,
+): string {
+  const body = (draft || "").trim();
+  if (!attachment?.attemptId) return body;
+  const block = formatDossierComposerAttachment(attachment);
+  if (!body) return block;
+  if (body.includes(attachment.attemptId) && /dossierVersion:/i.test(body)) {
+    return body;
+  }
+  return `${block}\n\n${body}`;
+}
+
 ```
 
-<!-- END FULL FILE projects/sfia-studio-next/web/src/domains/execution/mandate-applicability.ts lines=338 -->
+### FILE: `projects/sfia-studio-next/web/tests/unit/ml5-c24-dossier-attachment-continuity.test.ts`
+```typescript
+import { describe, expect, it } from "vitest";
+import {
+  consolidateAttachedDossierQuestions,
+  formatDossierComposerAttachment,
+  isDossierJoinQuestion,
+  mergeDraftWithDossierAttachment,
+  parseStructuredDossierComposerAttachment,
+} from "@/domains/conversation/dossier-composer-attachment";
+import {
+  mergeInvestigationFromReply,
+  mergeQuestions,
+} from "@/domains/conversation/run-nora-cognitive-turn";
+import {
+  createEmptyInvestigation,
+  evaluateContractReadiness,
+} from "@/domains/conversation/investigation-state";
+import type { NoraGenerateResult } from "@/domains/conversation/nora-adapter";
+import type { NoraTurnQualification } from "@/domains/conversation/semantic-qualification";
 
-### 8.2 `projects/sfia-studio-next/web/src/domains/execution/technical-contract-server-ready.ts` — INTÉGRAL (236 lignes)
+function qual(partial: Partial<NoraTurnQualification>): NoraTurnQualification {
+  return {
+    schemaVersion: "ml4c-sem-qual-v1",
+    status: "QUALIFIED",
+    goal: "ajouter processWidgetMaxLen",
+    projectIntention: "",
+    desiredOutcome: "fonction maxLen + tests",
+    initialScope: "",
+    proposedProjectName: "",
+    intents: [],
+    replyDraft: "ok",
+    ...partial,
+  };
+}
 
+const CANON_ATTACHMENT = {
+  attemptId: "efx_f9127c71-900f-449a-ba0f-74e044b36f66",
+  contractId: "tctr_216cc6c2-a5bc-4d6a-a309-1f682d09b627",
+  handoffId: "rhf_287919ef-b4af-48c8-9dd5-cf50794897b1",
+  dossierVersion: 1,
+  verdictD8: "PARTIAL",
+};
+
+describe("C24 dossier attachment continuity (R2 root cause)", () => {
+  it("parses and formats structured bilan dossier blocks", () => {
+    const formatted = formatDossierComposerAttachment(CANON_ATTACHMENT);
+    const parsed = parseStructuredDossierComposerAttachment(formatted);
+    expect(parsed?.attemptId).toBe(CANON_ATTACHMENT.attemptId);
+    expect(parsed?.verdictD8).toBe("PARTIAL");
+    expect(parsed?.dossierVersion).toBe("1");
+  });
+
+  it("keeps dossier attachment when Pilote replaces free-text draft", () => {
+    const merged = mergeDraftWithDossierAttachment(
+      "Prépare un contrat processWidgetMaxLen avec tests.",
+      CANON_ATTACHMENT,
+    );
+    expect(merged).toContain(CANON_ATTACHMENT.attemptId);
+    expect(merged).toContain("processWidgetMaxLen");
+    expect(merged).toContain("verdictD8: PARTIAL");
+  });
+
+  it("recognizes dossier-join determinant questions", () => {
+    expect(
+      isDossierJoinQuestion(
+        "Pour restituer le verdict D8 et ses limites exactes, peux-tu joindre à ce message le dossier référencé ?",
+      ),
+    ).toBe(true);
+    expect(isDossierJoinQuestion("Quel workspace Cursor utiliser ?")).toBe(false);
+  });
+
+  it("ANSWERS open dossier-join questions when attachment is present — does not invent other answers", () => {
+    const userText = formatDossierComposerAttachment(CANON_ATTACHMENT);
+    const qs = consolidateAttachedDossierQuestions(
+      [
+        {
+          id: "q-146cozf",
+          text: "Pour restituer le verdict D8, peux-tu joindre le dossier référencé ?",
+          status: "OPEN",
+          importance: "DETERMINANT",
+        },
+        {
+          id: "q-ws",
+          text: "Quel workspace ?",
+          status: "OPEN",
+          importance: "DETERMINANT",
+        },
+      ],
+      userText,
+    );
+    expect(qs.find((q) => q.id === "q-146cozf")?.status).toBe("ANSWERED");
+    expect(qs.find((q) => q.id === "q-146cozf")?.answerSummary).toMatch(/efx_f9127c71/);
+    expect(qs.find((q) => q.id === "q-ws")?.status).toBe("OPEN");
+  });
+
+  it("mergeQuestions consolidates dossier-join clarifications when userText has attachment", () => {
+    const userText = mergeDraftWithDossierAttachment(
+      "Nouveau contrat MaxLen",
+      CANON_ATTACHMENT,
+    );
+    const next = mergeQuestions(
+      [],
+      qual({
+        clarifications: [
+          "Peux-tu joindre à ce message le dossier D8 référencé ?",
+          "Quel plafond maxLen appliquer ?",
+        ],
+      }),
+      userText,
+    );
+    const join = next.find((q) => /joindre/i.test(q.text));
+    const max = next.find((q) => /maxLen/i.test(q.text));
+    expect(join?.status).toBe("ANSWERED");
+    expect(max?.status).toBe("OPEN");
+  });
+
+  it("READY stays refused when dossier-join remains OPEN without attachment", () => {
+    const base = createEmptyInvestigation("continuité MaxLen");
+    base.intentSummary = "ajouter processWidgetMaxLen";
+    base.desiredOutcome = "refuse strings > maxLen + tests";
+    base.sources = [
+      {
+        kind: "DOCUMENT",
+        ref: "document:doc_widget",
+        coverage: "CONSULTED",
+        title: "Widget service",
+      },
+    ];
+    base.questions = [
+      {
+        id: "q-146cozf",
+        text: "Pour restituer le verdict D8, peux-tu joindre le dossier référencé ?",
+        status: "OPEN",
+        importance: "DETERMINANT",
+      },
+    ];
+    const blocked = evaluateContractReadiness(base);
+    expect(blocked.contractReady).toBe(false);
+    const reply = {
+      content: "ok",
+      status: "COMPLETE",
+      generationId: "gen_neg",
+      qualification: qual({
+        determiningQuestions: [
+          {
+            id: "q-146cozf",
+            text: base.questions[0]!.text,
+            status: "OPEN",
+            importance: "DETERMINANT",
+          },
+        ],
+      }),
+      observedToolSources: base.sources,
+    } as unknown as NoraGenerateResult;
+    const stillBlocked = mergeInvestigationFromReply(
+      base,
+      reply,
+      "Prépare MaxLen sans joindre le dossier.",
+    );
+    expect(stillBlocked.contractReady).toBe(false);
+    expect(stillBlocked.questions.find((q) => q.id === "q-146cozf")?.status).toBe(
+      "OPEN",
+    );
+  });
+
+  it("canonical R2 poison pattern: dossier-join OPEN blocks READY; attachment clears it", () => {
+    const base = createEmptyInvestigation("continuité MaxLen");
+    base.intentSummary = "ajouter processWidgetMaxLen";
+    base.desiredOutcome = "refuse strings > maxLen + tests";
+    base.sources = [
+      {
+        kind: "DOCUMENT",
+        ref: "document:doc_widget",
+        coverage: "CONSULTED",
+        title: "Widget service",
+      },
+    ];
+    base.questions = [
+      {
+        id: "q-146cozf",
+        text: "Pour restituer le verdict D8 et ses limites exactes, peux-tu joindre à ce message le dossier référencé ?",
+        status: "OPEN",
+        importance: "DETERMINANT",
+      },
+    ];
+    const blocked = evaluateContractReadiness(base);
+    expect(blocked.contractReady).toBe(false);
+    expect(blocked.contractReadyBlockedReason).toMatch(/q-146cozf/);
+
+    const userText = mergeDraftWithDossierAttachment(
+      "Ferme les questions et prépare processWidgetMaxLen.",
+      CANON_ATTACHMENT,
+    );
+    const reply = {
+      content: "ok",
+      status: "COMPLETE",
+      generationId: "gen_test",
+      qualification: qual({
+        determiningQuestions: [
+          {
+            id: "q-146cozf",
+            text: base.questions[0]!.text,
+            status: "OPEN",
+            importance: "DETERMINANT",
+          },
+        ],
+      }),
+      observedToolSources: base.sources,
+    } as unknown as NoraGenerateResult;
+
+    const merged = mergeInvestigationFromReply(base, reply, userText);
+    expect(merged.contractReady).toBe(true);
+    expect(merged.questions.find((q) => q.id === "q-146cozf")?.status).toBe(
+      "ANSWERED",
+    );
+  });
+});
+
+```
+
+### FILE: `projects/sfia-studio-next/web/src/components/figma/ml5-page12-visual-fixtures.ts`
 ```typescript
 /**
- * CF-02 — READY qualification is server-owned.
- * Client `sourcesSufficient` / `unknownRestrictions` are never authoritative.
+ * C24 — deterministic fixtures for Figma page 12 visual harness.
+ * Illustrative data only — never treated as LIVE proof.
  */
 
-import { and, eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import { technicalContracts } from "@/db/schema";
-import { StudioError } from "@/lib/http-errors";
-import {
-  evaluateGlobalResourceEnvelope,
-  getCognitiveWork,
-} from "@/domains/conversation/cognitive-work";
-import { loadInvestigationSnapshot } from "@/domains/conversation/investigation-persistence";
-import { evaluateContractReadiness as evaluateInvestigation } from "@/domains/conversation/investigation-state";
-import {
-  evaluateContractReadiness,
-  getTechnicalContract,
-  technicalContractFingerprint,
-} from "./technical-contract";
+import type { ContractViewerModel } from "./ContractViewer";
+import type { BilanTab } from "./RealizationBilan";
+import type { D8Rubric } from "@/domains/proofs/cursor-qualify";
 
-export async function qualifyTechnicalContractReadyServerSide(input: {
-  pilotId: string;
-  projectId: string;
-  contractId: string;
-  preparationId?: string | null;
-  /** C16 — exact cognitive work filiation when known. */
-  workId?: string | null;
-}) {
-  const row = await getTechnicalContract(input);
-  // C16: existing READY never skips positive requalification of current conditions.
-  const wasReady = row.status === "READY";
+export const ML5_PAGE12_STATES = [
+  "12.01",
+  "12.02",
+  "12.03",
+  "12.04",
+  "12.05",
+  "12.06",
+  "12.07",
+  "12.08",
+  "12.09",
+  "12.10",
+  "12.11",
+  "12.12",
+  "12.13",
+  "12.14",
+] as const;
 
-  // C18: filiation must already be bound on the contract — no client workId fallback.
-  const boundWorkId = row.cognitiveWorkId ?? null;
-  if (input.workId && boundWorkId && input.workId !== boundWorkId) {
-    throw new StudioError(
-      "REQUIRES_REQUALIFICATION",
-      "workId client ≠ filiation du contrat — READY refusé",
-      { exposeMessage: true },
-    );
-  }
-  if (!boundWorkId) {
-    throw new StudioError(
-      "REQUIRES_REQUALIFICATION",
-      "Filiation cognitive_work absente sur le contrat — READY serveur impossible",
-      { exposeMessage: true },
-    );
-  }
-  const effectiveWorkId = boundWorkId;
+export type Ml5Page12State = (typeof ML5_PAGE12_STATES)[number];
 
-  let unknownRestrictions: string[] = [];
-  let sourcesSufficient = false;
+const SAMPLE_CONTRACT: ContractViewerModel = {
+  contractId: "tctr_visual_fixture_01",
+  contractKey: "ctr_visual_maxLen",
+  version: 2,
+  fingerprint: "fp_visual_fixture_abcdef0123456789",
+  title: "Ajouter processWidgetMaxLen",
+  status: "READY",
+  engagements: {
+    willDo: "Implémenter la contrainte maxLen et les tests unitaires associés.",
+    willNotDo: "Aucune publication distante, aucun secret, hors workspace isolé.",
+    expectedResult: "Refuse les chaînes au-delà de maxLen ; tests verts déclarés.",
+    pilotControl: "Oui/Non D6 requis ; STOP disponible ; lecture ≠ autorisation.",
+  },
+  volets: {
+    mission: "Mission : contrainte maxLen sur processWidget.",
+    perimeter: "Périmètre : fichier service + tests ; hors migration schema.",
+    capabilitiesAuthority: "Exécuteur Cursor SDK ; capacités LIVE bornées au workspace.",
+    stopConditions: "STOP demandé ≠ arrêté ; tests lancés ≠ PASS.",
+    proofsSources: "Tests, diffs locaux, manifeste — déclarés ≠ vérifiés.",
+    integrity: "Fingerprint fp_visual… · version 2.",
+  },
+  instructionText:
+    "# Instruction technique intégrale\n\n1. Lire le service processWidget.\n2. Ajouter maxLen.\n3. Couvrir par tests.\n4. Ne pas pousser remote.\n\n" +
+    "Lorem instruction non tronquée pour la preuve 12.14.\n".repeat(8),
+  risks: ["Workspace isolé requis"],
+  exclusions: ["Publication Git distante"],
+};
 
-  if (input.preparationId) {
-    // C17: READY when bound work is COMPLETE.
-    // C24: OPEN (AWAIT_PILOT) is also admissible — READY is the Pilote act that
-    // proceeds once investigation is sufficient; SUSPENDED/RUNNING stay refused.
-    const boundWork = await getCognitiveWork({
-      pilotId: input.pilotId,
-      workId: effectiveWorkId,
-    });
-    if (boundWork.status === "SUSPENDED" || boundWork.status === "RUNNING") {
-      throw new StudioError(
-        "REQUIRES_REQUALIFICATION",
-        `Travail cognitif ${boundWork.status}${boundWork.interruptCause ? ` (${boundWork.interruptCause})` : ""} — READY refusé`,
-        { exposeMessage: true },
-      );
-    }
-    if (boundWork.status !== "COMPLETE" && boundWork.status !== "OPEN") {
-      throw new StudioError(
-        "REQUIRES_REQUALIFICATION",
-        `Travail cognitif non COMPLETE (${boundWork.status}) — READY refusé`,
-        { exposeMessage: true },
-      );
-    }
-    // Exact filiation: later revision must not auto-validate an older contract binding.
-    if (
-      row.cognitiveRevision != null &&
-      boundWork.revision !== row.cognitiveRevision
-    ) {
-      throw new StudioError(
-        "REQUIRES_REQUALIFICATION",
-        `Révision cognitive ${boundWork.revision} ≠ filiation contrat r${row.cognitiveRevision} — READY refusé`,
-        { exposeMessage: true },
-      );
-    }
-    const envelope = evaluateGlobalResourceEnvelope(boundWork.resources);
-    if (!envelope.ok) {
-      throw new StudioError(
-        "REQUIRES_REQUALIFICATION",
-        envelope.reason ?? "Budget cognitif global épuisé",
-        { exposeMessage: true },
-      );
-    }
-    const snap = await loadInvestigationSnapshot({
-      pilotId: input.pilotId,
-      preparationId: input.preparationId,
-      intentFallback: row.body.title,
-      workId: effectiveWorkId,
-    });
-    if (!snap) {
-      throw new StudioError(
-        "REQUIRES_REQUALIFICATION",
-        "Investigation absente ou ambiguë (multi-travaux) — READY serveur impossible",
-        { exposeMessage: true },
-      );
-    }
-    const inv = evaluateInvestigation(snap);
-    if (inv.cognitiveWorkId && inv.cognitiveWorkId !== effectiveWorkId) {
-      throw new StudioError(
-        "REQUIRES_REQUALIFICATION",
-        "Investigation d'un autre travail cognitif — READY refusé",
-        { exposeMessage: true },
-      );
-    }
-    // C15 positive sufficiency — empty/UNKNOWN/BUDGET never READY.
-    if (
-      inv.sufficiency === "UNKNOWN" ||
-      inv.sufficiency === "BUDGET_EXHAUSTED" ||
-      inv.sufficiency === "BLOCKED_BY_UNKNOWN_RESTRICTION"
-    ) {
-      throw new StudioError(
-        "REQUIRES_REQUALIFICATION",
-        inv.contractReadyBlockedReason ?? `Suffisance ${inv.sufficiency} — READY refusé`,
-        { exposeMessage: true },
-      );
-    }
-    if (!inv.contractReady || inv.sufficiency !== "SUFFICIENT") {
-      throw new StudioError(
-        "REQUIRES_REQUALIFICATION",
-        inv.contractReadyBlockedReason ?? "Investigation non prête",
-        { exposeMessage: true },
-      );
-    }
-    sourcesSufficient = inv.sufficiency === "SUFFICIENT";
-    unknownRestrictions = inv.questions
-      .filter((q) => q.importance === "DETERMINANT" && q.status !== "ANSWERED")
-      .map((q) => q.id);
-  } else {
-    // Without preparation linkage, refuse READY — no client substitute.
-    throw new StudioError(
-      "REQUIRES_REQUALIFICATION",
-      "preparationId requis pour qualification READY serveur",
-      { exposeMessage: true },
-    );
-  }
+const SAMPLE_RUBRICS: D8Rubric[] = [
+  {
+    key: "resume",
+    title: "Résumé",
+    content: "Intervention terminée avec livrables partiels.",
+    coverage: "PARTIAL",
+  },
+  {
+    key: "prevu",
+    title: "Prévu",
+    content: "maxLen + tests.",
+    coverage: "COMPLETE",
+  },
+  {
+    key: "realise",
+    title: "Réalisé",
+    content: "Fichier modifié déclaré ; tests partiellement capturés.",
+    coverage: "PARTIAL",
+  },
+  {
+    key: "evaluation",
+    title: "Évaluation",
+    content: "Couverture tests incomplète.",
+    coverage: "PARTIAL",
+  },
+  {
+    key: "ecarts",
+    title: "Écarts",
+    content: "Capture manquante ; un test déclaré non observé.",
+    coverage: "PARTIAL",
+  },
+  {
+    key: "impact",
+    title: "Impact",
+    content: "Impact local seulement — non publié.",
+    coverage: "COMPLETE",
+  },
+  {
+    key: "verdict",
+    title: "Verdict",
+    content: "PARTIAL — preuves insuffisantes pour PASS.",
+    coverage: "PARTIAL",
+  },
+  {
+    key: "recommandations",
+    title: "Recommandations",
+    content: "Compléter les preuves de tests avant nouvelle mission.",
+    coverage: "COMPLETE",
+  },
+  {
+    key: "sources",
+    title: "Sources",
+    content: "Manifeste local ; SHA distant non constaté.",
+    coverage: "PARTIAL",
+  },
+];
 
-  const readiness = evaluateContractReadiness({
-    body: row.body,
-    unknownRestrictions,
-    sourcesSufficient,
-  });
-  if (!readiness.ready) {
-    throw new StudioError(
-      "REQUIRES_REQUALIFICATION",
-      `Promotion READY refusée: ${readiness.blockedReasons.join("; ")}`,
-      { exposeMessage: true },
-    );
-  }
+const ATTEMPTS = [
+  {
+    attemptId: "efx_visual_007",
+    status: "COMPLETED",
+    terminalStatus: "PARTIAL",
+    summary: "Contrôler les erreurs de validation",
+  },
+  {
+    attemptId: "efx_visual_006",
+    status: "COMPLETED",
+    terminalStatus: "PASS",
+    summary: "Compléter les tests de régression",
+  },
+  {
+    attemptId: "efx_visual_005",
+    status: "COMPLETED",
+    terminalStatus: "PARTIAL",
+    summary: "Examiner la migration de données",
+  },
+];
 
-  const recomputed = technicalContractFingerprint(row.body);
-  if (recomputed !== row.fingerprint) {
-    throw new StudioError(
-      "REQUIRES_REQUALIFICATION",
-      "Empreinte ≠ représentation persistée — nouvelle version requise",
-      { exposeMessage: true },
-    );
-  }
-
-  const readinessWithFiliation = {
-    ...readiness,
-    cognitiveFiliation: {
-      preparationId: input.preparationId ?? null,
-      workId: effectiveWorkId,
-      revision: row.cognitiveRevision ?? null,
-      contractId: input.contractId,
-      fingerprint: row.fingerprint,
-      requalifiedAt: new Date().toISOString(),
-    },
+export type Ml5Page12Fixture = {
+  state: Ml5Page12State;
+  frame: string;
+  nodeId: string;
+  kind: "travail" | "resume" | "contract" | "confirm" | "execution" | "results";
+  kicker: string;
+  title: string;
+  subtitle: string;
+  draft?: string;
+  busy?: boolean;
+  activity?: "idle" | "preparing" | "streaming";
+  messages?: Array<{ id: string; role: "user" | "assistant"; content: string }>;
+  dossierAttachment?: {
+    attemptId: string;
+    contractId?: string | null;
+    dossierVersion?: number | string | null;
+    verdictD8?: string | null;
+  } | null;
+  contract?: ContractViewerModel;
+  instructionExpanded?: boolean;
+  attempts?: Array<{
+    attemptId: string;
+    status: string;
+    terminalStatus: string;
+    summary: string;
+    ambiguous?: boolean;
+  }>;
+  livePanel?: { note: string; events: string[] };
+  bilan?: {
+    attemptId: string;
+    verdict: string;
+    rubrics: D8Rubric[];
+    limits: string[];
+    noraAnalysisMarkdown?: string | null;
+    noraAnalysisKind?: string | null;
+    dossier?: {
+      attemptId: string;
+      contractId?: string | null;
+      handoffId?: string | null;
+      dossierVersion?: number | null;
+      gaps?: string[];
+      testsDeclared?: string[];
+      testsCaptured?: string[];
+      filesModified?: string[];
+      git?: { tipSha?: string | null; branch?: string | null; remoteSha?: string | null };
+    } | null;
   };
+  defaultTab?: BilanTab;
+};
 
-  if (wasReady) {
-    // Conditions still hold — refresh readiness proof; keep READY.
-    await db
-      .update(technicalContracts)
-      .set({
-        readinessJson: JSON.stringify(readinessWithFiliation),
-        updatedAt: new Date(),
-      })
-      .where(
-        and(
-          eq(technicalContracts.id, input.contractId),
-          eq(technicalContracts.projectId, input.projectId),
-          eq(technicalContracts.pilotId, input.pilotId),
-          eq(technicalContracts.status, "READY"),
-        ),
+const BASE_BILAN = {
+  attemptId: "efx_visual_007",
+  verdict: "PARTIAL",
+  rubrics: SAMPLE_RUBRICS,
+  limits: ["Preuves tests incomplètes", "SHA distant non constaté"],
+  noraAnalysisMarkdown:
+    "Les travaux sont décrits, mais les preuves de tests, les contenus et la capture attendue restent incomplets.",
+  noraAnalysisKind: "NORA_COGNITIVE" as const,
+  dossier: {
+    attemptId: "efx_visual_007",
+    contractId: "tctr_visual_fixture_01",
+    handoffId: "rhf_visual_fixture_01",
+    dossierVersion: 1,
+    gaps: ["Capture manquante", "Test déclaré non observé"],
+    testsDeclared: ["unit:maxLen"],
+    testsCaptured: [],
+    filesModified: ["src/processWidget.ts"],
+    git: {
+      tipSha: "abc1234",
+      branch: "qual/visual",
+      remoteSha: null,
+    },
+  },
+};
+
+const FIXTURES: Record<Ml5Page12State, Ml5Page12Fixture> = {
+  "12.01": {
+    state: "12.01",
+    frame: "12.01",
+    nodeId: "1210:233",
+    kind: "travail",
+    kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
+    title: "Nora prépare une intervention",
+    subtitle: "Activité fonctionnelle observable — pas de raisonnement privé.",
+    busy: true,
+    activity: "preparing",
+    messages: [
+      {
+        id: "m1",
+        role: "user",
+        content: "Prépare un contrat pour processWidgetMaxLen.",
+      },
+      {
+        id: "m2",
+        role: "assistant",
+        content: "Je consulte les sources Git et Documents avant de préparer le contrat.",
+      },
+    ],
+  },
+  "12.02": {
+    state: "12.02",
+    frame: "12.02",
+    nodeId: "1211:117",
+    kind: "contract",
+    kicker: "ESPACE PROJET  /  CONTRAT CURSOR",
+    title: "Inspecter le contrat Cursor",
+    subtitle: "Lecture seule — consulter n'autorise pas.",
+    contract: SAMPLE_CONTRACT,
+  },
+  "12.03": {
+    state: "12.03",
+    frame: "12.03",
+    nodeId: "1211:676",
+    kind: "confirm",
+    kicker: "ESPACE PROJET  /  CONFIRMATION D6",
+    title: "Confirmation du lancement",
+    subtitle: "Oui/Non explicite — Non = aucun dispatch.",
+    contract: SAMPLE_CONTRACT,
+  },
+  "12.04": {
+    state: "12.04",
+    frame: "12.04",
+    nodeId: "1211:277",
+    kind: "execution",
+    kicker: "ESPACE PROJET  /  EXÉCUTION",
+    title: "Historique des interventions",
+    subtitle: "Sélection et identité des tentatives.",
+    attempts: ATTEMPTS,
+  },
+  "12.05": {
+    state: "12.05",
+    frame: "12.05",
+    nodeId: "1211:424",
+    kind: "contract",
+    kicker: "ESPACE PROJET  /  CONTRAT D'EXÉCUTION",
+    title: "Instruction et autorité",
+    subtitle: "Quatre engagements et six volets d'inspection.",
+    contract: { ...SAMPLE_CONTRACT, status: "READY" },
+  },
+  "12.06": {
+    state: "12.06",
+    frame: "12.06",
+    nodeId: "1212:383",
+    kind: "execution",
+    kicker: "ESPACE PROJET  /  SUIVI DE LA RÉALISATION",
+    title: "Réalisation en cours",
+    subtitle: "Observer les faits LIVE — aucun faux pourcentage.",
+    attempts: [
+      {
+        attemptId: "efx_visual_008",
+        status: "DISPATCHED",
+        terminalStatus: "RUNNING",
+        summary: "Cursor SDK · activité LIVE",
+      },
+    ],
+    livePanel: {
+      note: "Événements factuels du run · aucun raisonnement interne.",
+      events: [
+        "run.started",
+        "tool.shell.observed",
+        "file.edited.declared",
+        "awaiting.terminal",
+      ],
+    },
+  },
+  "12.07": {
+    state: "12.07",
+    frame: "12.07",
+    nodeId: "1212:510",
+    kind: "execution",
+    kicker: "ESPACE PROJET  /  EXÉCUTION",
+    title: "État à réconcilier",
+    subtitle: "État inconnu ≠ échec certain.",
+    attempts: [
+      {
+        attemptId: "efx_visual_009",
+        status: "AMBIGUOUS",
+        terminalStatus: "UNKNOWN",
+        summary: "Signal interrompu — réconciliation requise",
+        ambiguous: true,
+      },
+    ],
+  },
+  "12.08": {
+    state: "12.08",
+    frame: "12.08",
+    nodeId: "1212:637",
+    kind: "results",
+    kicker: "ESPACE PROJET  /  RÉSULTATS & PREUVES",
+    title: "Synthèse du dossier",
+    subtitle: "Trois appréciations distinctes · quatre onglets.",
+    attempts: ATTEMPTS,
+    bilan: BASE_BILAN,
+    defaultTab: "synthese",
+  },
+  "12.09": {
+    state: "12.09",
+    frame: "12.09",
+    nodeId: "1212:774",
+    kind: "resume",
+    kicker: "ESPACE PROJET  /  REPRENDRE AVEC NORA",
+    title: "Reprendre avec Nora",
+    subtitle:
+      "Depuis un bilan, revenir au fil avec une référence jointe, sans déclenchement automatique.",
+    draft: "Je souhaite examiner les fichiers, tests et réserves du bilan.",
+    messages: [
+      {
+        id: "m1",
+        role: "assistant",
+        content:
+          "J'ai examiné RES-007 : livrables identifiés, mais plusieurs résultats restent non vérifiés.",
+      },
+    ],
+    dossierAttachment: {
+      attemptId: "efx_visual_007",
+      contractId: "tctr_visual_fixture_01",
+      dossierVersion: 1,
+      verdictD8: "PARTIAL",
+    },
+  },
+  "12.10": {
+    state: "12.10",
+    frame: "12.10",
+    nodeId: "1212:895",
+    kind: "travail",
+    kicker: "SAS NORA  /  PRÉPARATION",
+    title: "Nora travaille dans le sas",
+    subtitle: "Préparation sans création automatique de projet.",
+    busy: true,
+    activity: "preparing",
+    messages: [
+      {
+        id: "m1",
+        role: "user",
+        content: "Aide-moi à cadrer une intervention sur maxLen.",
+      },
+    ],
+  },
+  "12.11": {
+    state: "12.11",
+    frame: "12.11",
+    nodeId: "1239:613",
+    kind: "results",
+    kicker: "ESPACE PROJET  /  RÉSULTATS & PREUVES",
+    title: "Livrables et tests",
+    subtitle: "Déclaré ≠ capturé ≠ vérifié.",
+    attempts: ATTEMPTS,
+    bilan: BASE_BILAN,
+    defaultTab: "livrables",
+  },
+  "12.12": {
+    state: "12.12",
+    frame: "12.12",
+    nodeId: "1239:680",
+    kind: "results",
+    kicker: "ESPACE PROJET  /  RÉSULTATS & PREUVES",
+    title: "Git, pièces et handoff",
+    subtitle: "SHA local déclaré ≠ SHA distant vérifié.",
+    attempts: ATTEMPTS,
+    bilan: BASE_BILAN,
+    defaultTab: "git",
+  },
+  "12.13": {
+    state: "12.13",
+    frame: "12.13",
+    nodeId: "1245:757",
+    kind: "results",
+    kicker: "ESPACE PROJET  /  RÉSULTATS & PREUVES",
+    title: "Écarts",
+    subtitle: "Preuve absente ≠ statut positif.",
+    attempts: ATTEMPTS,
+    bilan: BASE_BILAN,
+    defaultTab: "ecarts",
+  },
+  "12.14": {
+    state: "12.14",
+    frame: "12.14",
+    nodeId: "1250:815",
+    kind: "contract",
+    kicker: "ESPACE PROJET  /  INSTRUCTION INTÉGRALE",
+    title: "Contrat Cursor — Instruction intégrale",
+    subtitle: "Instruction technique lisible et non tronquée.",
+    contract: SAMPLE_CONTRACT,
+    instructionExpanded: true,
+  },
+};
+
+export function parseMl5Page12Fixture(raw: string | undefined): Ml5Page12Fixture | null {
+  const key = (raw || "").trim() as Ml5Page12State;
+  if (!ML5_PAGE12_STATES.includes(key)) return null;
+  return FIXTURES[key];
+}
+
+```
+
+### FILE: `projects/sfia-studio-next/web/src/app/dev/ml5-page12-visual/[state]/page.tsx`
+```typescript
+"use client";
+
+/**
+ * C24 — DEV visual harness for Figma page 12 states (fixtures only).
+ * Proves rendering; does not prove LIVE behavior.
+ */
+
+import { useParams } from "next/navigation";
+import { useMemo, useState } from "react";
+import { ContractViewer } from "@/components/figma/ContractViewer";
+import { D6ConfirmLaunch } from "@/components/figma/D6ConfirmLaunch";
+import { NoraConversation } from "@/components/figma/NoraConversation";
+import {
+  RealizationBilan,
+  type BilanTab,
+} from "@/components/figma/RealizationBilan";
+import {
+  ML5_PAGE12_STATES,
+  parseMl5Page12Fixture,
+} from "@/components/figma/ml5-page12-visual-fixtures";
+
+export default function Ml5Page12VisualHarnessPage() {
+  const params = useParams<{ state: string }>();
+  const fixture = useMemo(() => parseMl5Page12Fixture(params.state), [params.state]);
+  const [tab, setTab] = useState<BilanTab>(fixture?.defaultTab ?? "synthese");
+  const [draft, setDraft] = useState(fixture?.draft ?? "");
+  const [dossier, setDossier] = useState(fixture?.dossierAttachment ?? null);
+  const [instructionExpanded, setInstructionExpanded] = useState(
+    fixture?.instructionExpanded === true,
+  );
+
+  if (process.env.NODE_ENV === "production" && process.env.STUDIO_LANE === "RECETTE") {
+    return (
+      <p className="muted" data-testid="ml5-page12-visual-forbidden">
+        Harness visuel page 12 indisponible hors DEV.
+      </p>
+    );
+  }
+
+  if (!fixture) {
+    return (
+      <div data-testid="ml5-page12-visual-unknown">
+        <p className="muted">État inconnu. États : {ML5_PAGE12_STATES.join(", ")}</p>
+      </div>
+    );
+  }
+
+  const messages = (fixture.messages ?? []).map((m) => ({
+    id: m.id,
+    role: m.role,
+    content: m.content,
+    status: "COMPLETE",
+  }));
+
+  return (
+    <div
+      className="fig-page"
+      data-testid="ml5-page12-visual"
+      data-figma-frame={fixture.frame}
+      data-figma-node={fixture.nodeId}
+      data-ml5-page12-state={fixture.state}
+      style={{ minHeight: "970px", background: "#0b101b", padding: "24px 38px" }}
+    >
+      <header className="fig-travail-intro" style={{ marginBottom: 18 }}>
+        <p className="fig-kicker">{fixture.kicker}</p>
+        <h1 className="fig-hero-title">{fixture.title}</h1>
+        <p className="fig-hero-sub">{fixture.subtitle}</p>
+      </header>
+
+      {fixture.kind === "travail" || fixture.kind === "resume" ? (
+        <NoraConversation
+          messages={messages}
+          draft={draft}
+          onDraft={setDraft}
+          onSend={() => undefined}
+          busy={fixture.busy === true}
+          activity={fixture.activity === "preparing" ? "preparing" : "idle"}
+          dossierAttachment={dossier ?? undefined}
+          onRemoveDossierAttachment={() => setDossier(null)}
+        />
+      ) : null}
+
+      {fixture.kind === "contract" && fixture.contract ? (
+        <ContractViewer
+          contract={fixture.contract}
+          instructionExpanded={instructionExpanded}
+          onToggleInstruction={() => setInstructionExpanded((v) => !v)}
+          onClose={() => undefined}
+          onOpenInExecution={() => undefined}
+        />
+      ) : null}
+
+      {fixture.kind === "confirm" && fixture.contract ? (
+        <>
+          <ContractViewer
+            contract={fixture.contract}
+            instructionExpanded={false}
+            onToggleInstruction={() => undefined}
+            onClose={() => undefined}
+            onOpenInExecution={() => undefined}
+          />
+          <D6ConfirmLaunch
+            contractKey={fixture.contract.contractKey}
+            version={fixture.contract.version}
+            fingerprint={fixture.contract.fingerprint}
+            title={fixture.contract.title}
+            onYes={() => undefined}
+            onNo={() => undefined}
+            onCancel={() => undefined}
+          />
+        </>
+      ) : null}
+
+      {fixture.kind === "execution" ? (
+        <div className="fig-cursor-realization" data-mode="execution">
+          <header>
+            <p className="fig-kicker !mb-0">EXÉCUTION CURSOR</p>
+            <h2 className="fig-inspector-title">{fixture.title}</h2>
+            <p className="fig-travail-viewer-meta">{fixture.subtitle}</p>
+          </header>
+          <section data-testid="realization-attempts">
+            <h3>Historique des interventions</h3>
+            <ul>
+              {(fixture.attempts ?? []).map((a) => (
+                <li key={a.attemptId} data-testid={`attempt-row-${a.attemptId}`}>
+                  <span>
+                    {a.status} · {a.terminalStatus} · {a.summary}
+                    {a.ambiguous ? " · à réconcilier" : ""}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+          {fixture.livePanel ? (
+            <section data-testid="ml5-live-panel">
+              <p className="fig-kicker">CURSOR SDK / ACTIVITÉ OBSERVÉE</p>
+              <h3>La réalisation, en direct</h3>
+              <p className="fig-travail-viewer-meta">{fixture.livePanel.note}</p>
+              <ul>
+                {fixture.livePanel.events.map((e) => (
+                  <li key={e}>{e}</li>
+                ))}
+              </ul>
+              <p className="fig-travail-viewer-meta">
+                STOP demandé ≠ arrêté · tests lancés ≠ tests PASS
+              </p>
+            </section>
+          ) : null}
+        </div>
+      ) : null}
+
+      {fixture.kind === "results" && fixture.bilan ? (
+        <div className="fig-results-split" data-testid="results-split">
+          <section className="fig-results-bilans-list">
+            <div className="fig-results-bilans-head">
+              <h3>Bilans disponibles</h3>
+              <span className="fig-results-bilans-count">
+                {(fixture.attempts ?? []).length} bilans
+              </span>
+            </div>
+            <ul className="fig-results-bilans-ul">
+              {(fixture.attempts ?? []).map((a, i) => (
+                <li key={a.attemptId}>
+                  <button
+                    type="button"
+                    className={
+                      i === 0
+                        ? "fig-results-bilan-card is-selected"
+                        : "fig-results-bilan-card"
+                    }
+                  >
+                    <span className="fig-results-bilan-kicker">
+                      {a.attemptId} · {a.status}
+                    </span>
+                    <span className="fig-results-bilan-title">{a.summary}</span>
+                    <span className="fig-results-bilan-meta">{a.terminalStatus}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </section>
+          <div className="fig-results-dossier">
+            <RealizationBilan
+              attemptId={fixture.bilan.attemptId}
+              verdict={fixture.bilan.verdict}
+              rubrics={fixture.bilan.rubrics}
+              limits={fixture.bilan.limits}
+              noraAnalysisMarkdown={fixture.bilan.noraAnalysisMarkdown}
+              noraAnalysisKind={fixture.bilan.noraAnalysisKind}
+              dossier={fixture.bilan.dossier}
+              activeTab={tab}
+              onTabChange={setTab}
+              onDiscussWithNora={() => undefined}
+            />
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+```
+
+### FILE: `projects/sfia-studio-next/web/tests/e2e/ml5-c24-page12-visual.spec.ts`
+```typescript
+/**
+ * C24 — capture runtime fixtures for Figma page 12 (14 states).
+ * Visual proof only — not LIVE behavior proof.
+ */
+import { test, expect } from "@playwright/test";
+import fs from "node:fs";
+import path from "node:path";
+import { createHash } from "node:crypto";
+
+const STATES = [
+  "12.01",
+  "12.02",
+  "12.03",
+  "12.04",
+  "12.05",
+  "12.06",
+  "12.07",
+  "12.08",
+  "12.09",
+  "12.10",
+  "12.11",
+  "12.12",
+  "12.13",
+  "12.14",
+] as const;
+
+const OUT_DIR = path.join(
+  process.cwd(),
+  ".sfia-evidence",
+  "figma-page12-runtime",
+);
+
+test.describe("C24 page 12 visual fixtures", () => {
+  test.beforeAll(() => {
+    fs.mkdirSync(OUT_DIR, { recursive: true });
+  });
+
+  for (const state of STATES) {
+    test(`capture ${state}`, async ({ page }) => {
+      await page.setViewportSize({ width: 1680, height: 970 });
+      await page.goto(`/dev/ml5-page12-visual/${state}`, {
+        waitUntil: "networkidle",
+      });
+      const root = page.getByTestId("ml5-page12-visual");
+      await expect(root).toBeVisible();
+      await expect(root).toHaveAttribute("data-ml5-page12-state", state);
+
+      if (state === "12.09") {
+        await expect(page.getByTestId("dossier-composer-attachment")).toBeVisible();
+      }
+      if (state === "12.03") {
+        await expect(page.getByTestId("d6-confirm-launch")).toBeVisible();
+      }
+      if (state === "12.08" || state === "12.11" || state === "12.12" || state === "12.13") {
+        await expect(page.getByTestId("bilan-appreciations")).toBeVisible();
+        await expect(page.getByTestId("bilan-tabs")).toBeVisible();
+      }
+
+      const file = path.join(OUT_DIR, `${state}.png`);
+      await page.screenshot({ path: file, fullPage: false });
+      const buf = fs.readFileSync(file);
+      const sha = createHash("sha256").update(buf).digest("hex");
+      fs.writeFileSync(
+        path.join(OUT_DIR, `${state}.sha256`),
+        `${sha}  ${state}.png\n`,
       );
+    });
+  }
+});
+
+```
+
+### FILE: `projects/sfia-studio-next/web/playwright.page12-visual.config.ts`
+```typescript
+import { defineConfig } from "@playwright/test";
+
+/**
+ * C24 — visual fixture captures against qualify DEV :3100.
+ * Does not spawn FAKE E2E :3101. Operator must have `qualify:start`.
+ */
+export default defineConfig({
+  testDir: "tests/e2e",
+  testMatch: "**/ml5-c24-page12-visual.spec.ts",
+  timeout: 60_000,
+  fullyParallel: false,
+  workers: 1,
+  retries: 0,
+  reporter: [["list"]],
+  use: {
+    baseURL: process.env.SFIA_QUALIFY_BASE_URL || "http://127.0.0.1:3100",
+    viewport: { width: 1680, height: 970 },
+    trace: "off",
+    screenshot: "off",
+    video: "off",
+  },
+  webServer: undefined,
+});
+
+```
+
+### FILE: `projects/sfia-studio-next/construction/ml5-figma-page12-l0-inventory.md`
+```markdown
+# ML5 — Figma page 12 L0/L1/L2 inventory (C24)
+
+| Champ | Valeur |
+|---|---|
+| FileKey | `itgvCulInEnFY6DvgIegvP` |
+| Page | `12 · ML5 — Exécution & Résultats · Conception UX candidate` |
+| Page node | `1209:2` |
+| Session C24 | `fd5981fb-031e-4cf4-8d3a-790dc598f8cc` |
+| Date | 2026-11-24 |
+| Viewport dominant | 1680×970 |
+
+## Frames 12.01–12.14
+
+| État | Node-id | Nom | Bounds | Shell L0 | PNG SHA-256 |
+|---|---|---|---|---|---|
+| 12.01 | `1210:233` | Nora prépare une intervention | 1680×970 @ (100,190) | Rail Travail 246 + surface | `7148425a94e022277aedcbcb54c80091151aacff8130967f471412643b8ab731` |
+| 12.02 | `1211:117` | Inspecter le contrat Cursor | 1680×970 @ (1960,190) | Visionneuse contrat | `0945e464d7615d8afdf0c4e8c9ca1b8aed96d61b82d1042668a39f4831d03417` |
+| 12.03 | `1211:676` | Confirmation du lancement | 1680×970 @ (3820,190) | Overlay modal 490×230 r10 | `ab70a562fdad175682e9545a7ddc767d313a8026716994f33841533ccf3f57bc` |
+| 12.04 | `1211:277` | Exécution · Historique | 1680×970 @ (100,1370) | Rail Exécution | `8d26c5488b5aacce4ad6a85d27d002733402542eff5bea3c7604cf8d8e90c8e7` |
+| 12.05 | `1211:424` | Contrat d’exécution | 1680×970 @ (1960,1370) | Instruction + autorité | `5ee353c22d554ccef136c7f69140350ff7c7cd41babd547d119a71d38632a44e` |
+| 12.06 | `1212:383` | Réalisation LIVE | 1680×970 @ (3820,1370) | Suivi 607 + LIVE 733 | `3b3005b4725697f277cdc1c19b9fa0bd49ebc024d7ac3f620d3dfeecefc0017f` |
+| 12.07 | `1212:510` | État à réconcilier | 1680×970 @ (100,2550) | UNKNOWN ≠ échec | `e500aa92a4d5046c8c586d8c4a55474efdc97532e6b36a0dc7929f07b974563a` |
+| 12.08 | `1212:637` | Synthèse du dossier | 1680×970 @ (1960,2550) | Bilans 437 + dossier 903 | `40052074ec9a23934b24f4ef73b9e8cc40418ed7313d6c2ee53a4f08985abb58` |
+| 12.09 | `1212:774` | Reprendre avec Nora | 1680×970 @ (3820,2550) | Chip dossier + fil | `4c3b601ce6a26af2663a5adfe9e1d01cac41a6711972bc110b4470d69b71054a` |
+| 12.10 | `1212:895` | Nora sas | 1680×970 @ (100,3730) | Rail sas personnel | `e748dcf91e359a78093ef5601140af40ad8e7792ed580ded0b7cb9de3a87948d` |
+| 12.11 | `1239:613` | Livrables et tests | 1680×970 @ (1960,3730) | Onglet livrables | `7a382a9bc067c2d775df420941c06e4fcd0d809f517d2778463361af8413fa98` |
+| 12.12 | `1239:680` | Git, pièces et handoff | 1680×970 @ (3820,3730) | Onglet Git & pièces | `91b07f87a911f91909bf2a5c74d431560c527c62d6f3b11643a6acd80e70a935` |
+| 12.13 | `1245:757` | Écarts | 1680×970 @ (100,4910) | Onglet écarts | `c20dffdab347a93061ff0b6756e95f38e392aa68bad83b745c7e23d30d69c388` |
+| 12.14 | `1250:815` | Instruction intégrale | 1680×970 @ (1960,4910) | Instruction scrollable | `88d0e7b3c104645553f819d20586bbeb286211f06626807368785a16ce708378` |
+
+PNG natifs : `web/.sfia-evidence/figma-page12/` + `MANIFEST-SHA256.txt`.
+
+## L1 / L2 contractuels stables
+
+| Token / mesure | Valeur native |
+|---|---|
+| Fond page | `#0b101b` |
+| Rail | `#0c101a`, largeur **246** |
+| Surface pad | `[30,38,26,38]`, gap **18** |
+| Bandeau | h **70**, pad horizontal **38**, stroke `#2b3850` |
+| Accent | `#7477ed` |
+| Texte fort | `#f3f5ff` |
+| Texte muted | `#a3b0c7` |
+| Panneaux | `#151d2c`, radius **10**, stroke `#2b3850` |
+| Cartes internes | `#1b2639`, radius **8–10** |
+| Modal D6 (12.03) | **490×230**, radius **10**, Oui/Non |
+| Résultats split (12.08) | liste **437** + dossier **903**, gap **18** |
+| Onglets | `SYNTHÈSE` / `LIVRABLES ET TESTS` / `GIT & PIÈCES` / `ÉCARTS` |
+| Appréciations | 3 cartes : Cursor déclaré · D8/D9 · Nora consultative |
+
+## Mapping produit
+
+| Frame | Responsabilité | Composant runtime |
+|---|---|---|
+| 12.01 / 12.10 | Activité Nora | `NoraConversation` + activity |
+| 12.02 / 12.05 / 12.14 | Inspection contrat | `ContractViewer` |
+| 12.03 | Confirmation D6 | `D6ConfirmLaunch` |
+| 12.04 / 12.06 / 12.07 | Tentative LIVE | `CursorRealizationSurface` mode=execution |
+| 12.08 / 11 / 12 / 13 | Bilan D8 | `CursorRealizationSurface` mode=results + `RealizationBilan` |
+| 12.09 | Reprendre Nora | chip `dossier-composer-attachment` + fil projet |
+
+## Statut C24
+
+- L0 / L1 metadata : **FAIT** (14 frames confirmées).
+- L2 tokens + PNG hashés : **FAIT**.
+- Transposition runtime ciblée : **FAIT** (tabs, appréciations, split résultats, chip 12.09, labels nav, modal D6).
+- Fixtures visuelles : `/dev/ml5-page12-visual/{12.01…12.14}`.
+- F2 runtime vs native (δ ≤ 2 CSS px) : à qualifier via captures BROWSER du harness — **PARTIEL** jusqu’aux captures runtime.
+
+## Écarts soumis / documentés
+
+| Écart | Traitement |
+|---|---|
+| Données fictives Figma (RES-007…) | Jamais injectées comme runtime LIVE |
+| Rail « Exécution » vs `surface=execution` | Aligné Accès directs |
+| Label « Résultats & preuves » | Aligné (&) |
+| Harness ≠ shell complet 1680 | Fixtures prouvent composition ; shell complet via Studio DEV |
+
+```
+
+## 5. Sections modifiées — contenu utile complet
+
+### FILE: `projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts` (full current)
+```typescript
+/**
+ * C16/C17 — product entry into the adaptive D3 cognitive conductor.
+ * generateNoraReply remains the provider adapter; this module orchestrates
+ * cognitive work attachment, multi-segment continuation, and investigation merge.
+ */
+
+import {
+  runCognitiveConductor,
+  type ConductorRunResult,
+} from "./cognitive-conductor";
+import { buildCognitivePolicy } from "./cognitive-policy";
+import {
+  listCognitiveWorksForPreparation,
+  type CognitiveProductionState,
+  type CognitiveWorkRow,
+} from "./cognitive-work";
+import {
+  createEmptyInvestigation,
+  evaluateContractReadiness,
+  type DeterminingQuestion,
+  type InvestigationState,
+} from "./investigation-state";
+import {
+  generateNoraReply,
+  type NoraGenerateInput,
+  type NoraGenerateResult,
+} from "./nora-adapter";
+import { resolvePublicWebRegistry } from "./public-web-registry";
+import {
+  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  unavailableQualification,
+  type NoraTurnQualification,
+} from "./semantic-qualification";
+import {
+  consolidateAttachedDossierQuestions,
+  isDossierJoinQuestion,
+  parseStructuredDossierComposerAttachment,
+} from "./dossier-composer-attachment";
+
+export type NoraCognitiveTurnInput = NoraGenerateInput & {
+  pilotId: string;
+  preparationId: string;
+  projectId?: string | null;
+  conversationId?: string | null;
+  turnCommandId?: string | null;
+  /** Explicit continuation of a prior suspended/open work. */
+  workId?: string | null;
+  /** When true, always open a new cognitive work (independent request). */
+  forceNewWork?: boolean;
+  objective?: string;
+  expectedOutcome?: string;
+  maxSegmentsThisInvocation?: number;
+};
+
+export type NoraCognitiveTurnResult = NoraGenerateResult & {
+  conductor: {
+    workId: string;
+    revision: number;
+    segmentsRun: number;
+    resumed: boolean;
+    suspended: boolean;
+    suspendReason: string | null;
+    investigation: InvestigationState;
+    production: CognitiveProductionState;
+  };
+};
+
+/** Extract usage when the adapter exposes it; otherwise UNKNOWN (null). */
+function usageFromReply(reply: NoraGenerateResult): {
+  inputTokens: number | null;
+  outputTokens: number | null;
+  reasoningTokens: number | null;
+  cachedInputTokens: number | null;
+  providerRequests: number | null;
+} {
+  const u = reply.usage;
+  const anyReply = reply as NoraGenerateResult & {
+    inputTokens?: number | null;
+    outputTokens?: number | null;
+  };
+  const input = u?.inputTokens ?? anyReply.inputTokens ?? null;
+  const output = u?.outputTokens ?? anyReply.outputTokens ?? null;
+  return {
+    inputTokens: typeof input === "number" ? input : null,
+    outputTokens: typeof output === "number" ? output : null,
+    reasoningTokens:
+      typeof u?.reasoningTokens === "number" ? u.reasoningTokens : null,
+    cachedInputTokens:
+      typeof u?.cachedInputTokens === "number" ? u.cachedInputTokens : null,
+    providerRequests:
+      typeof u?.providerRequests === "number" ? u.providerRequests : null,
+  };
+}
+
+/**
+ * C18 — merge determining questions from structured qualification only.
+ * Never invent ANSWERED from user prose or absence of clarifications[].
+ * C24 — when a structured D8 dossier is already attached in userText, do not
+ * leave OPEN determinant questions that only ask to re-attach that dossier.
+ */
+export function mergeQuestions(
+  prior: DeterminingQuestion[],
+  qualification: NoraTurnQualification | null | undefined,
+  userText?: string | null,
+): DeterminingQuestion[] {
+  const byId = new Map(prior.map((q) => [q.id, { ...q }]));
+  const attached = userText
+    ? parseStructuredDossierComposerAttachment(userText)
+    : null;
+  const structured = qualification?.determiningQuestions;
+  if (structured && structured.length > 0) {
+    for (const q of structured) {
+      const id = q.id.trim();
+      if (!id) continue;
+      const prev = byId.get(id);
+      byId.set(id, {
+        id,
+        text: q.text.trim() || prev?.text || id,
+        status: q.status,
+        importance: q.importance,
+        answerSummary:
+          q.status === "ANSWERED"
+            ? q.answerSummary?.trim() || prev?.answerSummary
+            : q.answerSummary?.trim() || undefined,
+        sourceRefs: q.sourceRefs ?? prev?.sourceRefs,
+      });
+    }
+    return consolidateAttachedDossierQuestions([...byId.values()], userText, attached);
+  }
+  const clarifications =
+    qualification && qualification.status !== "UNAVAILABLE"
+      ? qualification.clarifications
+      : undefined;
+  if (clarifications === undefined) {
+    return consolidateAttachedDossierQuestions([...byId.values()], userText, attached);
+  }
+  if (clarifications.length === 0) {
+    return consolidateAttachedDossierQuestions([...byId.values()], userText, attached);
+  }
+  for (const text of clarifications) {
+    const trimmed = text.trim();
+    if (!trimmed) continue;
+    const existing = [...byId.values()].find((q) => q.text === trimmed);
+    if (existing) continue;
+    const id = `q-${stableShortId(trimmed)}`;
+    // C24: dossier already in composer → do not open a determinant "joindre" question.
+    if (attached && isDossierJoinQuestion(trimmed)) {
+      byId.set(id, {
+        id,
+        text: trimmed,
+        status: "ANSWERED",
+        importance: "DETERMINANT",
+        answerSummary: `Dossier D8 déjà joint (attemptId=${attached.attemptId})`,
+        sourceRefs: [`attempt:${attached.attemptId}`],
+      });
+      continue;
+    }
+    byId.set(id, {
+      id,
+      text: trimmed,
+      status: "OPEN",
+      importance: "DETERMINANT",
+    });
+  }
+  return consolidateAttachedDossierQuestions([...byId.values()], userText, attached);
+}
+
+function stableShortId(text: string): string {
+  let h = 0;
+  for (let i = 0; i < text.length; i++) h = (h * 31 + text.charCodeAt(i)) >>> 0;
+  return h.toString(36).slice(0, 10);
+}
+
+function mergeRemainingWork(
+  prior: InvestigationState,
+  qualification: NoraTurnQualification | null | undefined,
+): string[] {
+  const items = qualification?.remainingWorkItems;
+  if (items && items.length > 0) {
+    return items
+      .filter((i) => i.status === "OPEN" || i.status === "BLOCKED")
+      .map((i) => i.text.trim())
+      .filter(Boolean);
+  }
+  return [...prior.remainingWork];
+}
+
+/**
+ * C18 — consolidate investigation from structured qualification + observed tools.
+ * No lexical criteria extraction. No prose→instruction fallback.
+ */
+export function mergeInvestigationFromReply(
+  prior: InvestigationState,
+  reply: NoraGenerateResult,
+  userText: string,
+): InvestigationState {
+  const q = reply.qualification;
+  const goal =
+    q && q.status !== "UNAVAILABLE" ? q.goal?.trim() || "" : "";
+  const outcome =
+    q && q.status !== "UNAVAILABLE" ? q.desiredOutcome?.trim() || "" : "";
+  const scope =
+    q && q.status !== "UNAVAILABLE" ? q.initialScope?.trim() || "" : "";
+
+  const sources = [...prior.sources];
+  for (const s of reply.observedToolSources ?? []) {
+    const idx = sources.findIndex((p) => p.ref === s.ref && p.kind === s.kind);
+    if (idx < 0) sources.push(s);
+    else {
+      const prev = sources[idx]!;
+      sources[idx] = {
+        ...prev,
+        ...s,
+        notes: [prev.notes, prev.coverage !== s.coverage ? `${prev.coverage}->${s.coverage}` : null, s.notes]
+          .filter(Boolean)
+          .join("; "),
+      };
+    }
+  }
+
+  const questions = mergeQuestions(prior.questions, q, userText);
+  const remainingWork = mergeRemainingWork(prior, q);
+
+  const constraints = [...prior.constraints];
+  if (scope && !constraints.includes(scope)) constraints.push(scope);
+  for (const r of q?.restrictions ?? []) {
+    const t = r.trim();
+    if (t && !constraints.includes(t)) constraints.push(t);
+  }
+
+  const contradictions = [
+    ...prior.contradictions,
+    ...((q?.contradictions ?? []).map((c) => ({
+      a: c.a,
+      b: c.b,
+      detail: c.detail,
+    })) as InvestigationState["contradictions"]),
+  ].slice(-16);
+
+  // C18: prefer typed tool submission, then intent parameters, then top-level fields.
+  const toolProd = reply.cursorContractProduction;
+  const prepareIntent = q?.intents?.find(
+    (i) =>
+      i.capabilityId === "d7.prepare_cursor_contract" &&
+      (i.mode === "PREPARE" || i.mode === "REQUEST_EFFECT"),
+  );
+  const productionInstruction =
+    toolProd?.productionInstruction?.trim() ||
+    prepareIntent?.parameters?.productionInstruction?.trim() ||
+    q?.productionInstruction?.trim() ||
+    prior.productionInstruction ||
+    null;
+  const fromToolCriteria = toolProd?.acceptanceCriteria?.map((c) => c.trim()).filter(Boolean);
+  const fromIntentCriteria = prepareIntent?.parameters?.acceptanceCriteria
+    ?.map((c) => c.trim())
+    .filter(Boolean);
+  const fromTopCriteria = q?.acceptanceCriteria?.map((c) => c.trim()).filter(Boolean);
+  const acceptanceCriteria =
+    fromToolCriteria && fromToolCriteria.length > 0
+      ? fromToolCriteria
+      : fromIntentCriteria && fromIntentCriteria.length > 0
+        ? fromIntentCriteria
+        : fromTopCriteria && fromTopCriteria.length > 0
+          ? fromTopCriteria
+          : [...(prior.acceptanceCriteria ?? [])];
+  // Tool submission may also carry desiredOutcome when qualification omitted it.
+  const desiredFromTool = toolProd?.desiredOutcome?.trim() || "";
+
+  const profileHint: InvestigationState["profileHint"] =
+    q?.cognitiveProfileHint ??
+    (q?.status === "NEEDS_CLARIFICATION"
+      ? "investigation"
+      : prior.profileHint === "simple"
+        ? "analyse"
+        : prior.profileHint);
+
+  const desiredOutcome = outcome || desiredFromTool || prior.desiredOutcome || "";
+
+  return evaluateContractReadiness({
+    ...prior,
+    intentSummary: goal || prior.intentSummary || userText.slice(0, 800),
+    desiredOutcome,
+    sources,
+    questions,
+    remainingWork,
+    contradictions,
+    constraints,
+    profileHint,
+    productionInstruction,
+    acceptanceCriteria,
+  });
+}
+
+/**
+ * C18 — continuation by workDisposition / objective class — not contractReady alone.
+ */
+export function semanticContinueWork(
+  qualification: NoraTurnQualification | null,
+  investigation: InvestigationState,
+  reply: NoraGenerateResult,
+): boolean {
+  if (reply.status !== "COMPLETE") return false;
+  if (
+    investigation.contractReadyBlockedReason === "GLOBAL_BUDGET_EXHAUSTED" ||
+    (investigation.contractReadyBlockedReason ?? "").startsWith("GLOBAL_")
+  ) {
+    return false;
+  }
+  const disposition = qualification?.workDisposition;
+  if (disposition === "COMPLETE" || disposition === "AWAIT_PILOT" || disposition === "SUSPEND") {
+    return false;
+  }
+  if (disposition === "CONTINUE") return true;
+
+  if (qualification?.status === "NEEDS_CLARIFICATION") {
+    return false;
+  }
+  const openDeterminant = investigation.questions.some(
+    (q) => q.importance === "DETERMINANT" && q.status !== "ANSWERED",
+  );
+  if (openDeterminant) {
+    return (reply.observedToolSources?.length ?? 0) > 0;
+  }
+  if (investigation.remainingWork.length > 0) return true;
+  return false;
+}
+
+/**
+ * C18 — semantic attachment: Nora may propose relation/workId; server validates.
+ */
+export async function resolveCognitiveWorkAttachment(input: {
+  pilotId: string;
+  preparationId: string;
+  workId?: string | null;
+  forceNewWork?: boolean;
+  userText?: string | null;
+  qualification?: NoraTurnQualification | null;
+}): Promise<{
+  workId?: string | null;
+  forceNew: boolean;
+  reason: string;
+  /** C20 — do not create/claim; await pilot clarification. */
+  needsClarify?: boolean;
+}> {
+  if (input.forceNewWork === true) {
+    return { forceNew: true, reason: "FORCE_NEW_EXPLICIT" };
+  }
+  if (input.workId) {
+    return { workId: input.workId, forceNew: false, reason: "EXPLICIT_WORK_ID" };
+  }
+
+  const works = await listCognitiveWorksForPreparation({
+    pilotId: input.pilotId,
+    preparationId: input.preparationId,
+  });
+  const relation = input.qualification?.cognitiveWorkRelation;
+  const proposed = input.qualification?.proposedCognitiveWorkId?.trim() || null;
+
+  if (relation === "INDEPENDENT" || relation === "MATERIAL_CHANGE" || relation === "UNRELATED") {
+    return { forceNew: true, reason: `SEMANTIC_${relation}` };
+  }
+  if (relation === "CLARIFY") {
+    if (proposed && works.some((w) => w.id === proposed)) {
+      return { workId: proposed, forceNew: false, reason: "SEMANTIC_CLARIFY_ATTACH" };
+    }
     return {
-      contractId: input.contractId,
-      status: "READY" as const,
-      idempotent: true as const,
-      fingerprint: row.fingerprint,
-      readiness: readinessWithFiliation,
+      forceNew: false,
+      workId: null,
+      reason: "SEMANTIC_CLARIFY_AWAIT",
+      needsClarify: true,
+    };
+  }
+  if ((relation === "CONTINUE" || relation === "CLARIFY") && proposed) {
+    const hit = works.find((w) => w.id === proposed);
+    if (hit) {
+      return { workId: hit.id, forceNew: false, reason: "SEMANTIC_PROPOSED_WORK" };
+    }
+    return {
+      forceNew: false,
+      workId: null,
+      reason: "SEMANTIC_PROPOSED_UNKNOWN",
+      needsClarify: true,
     };
   }
 
-  const updated = await db
-    .update(technicalContracts)
-    .set({
-      status: "READY",
-      readinessJson: JSON.stringify(readinessWithFiliation),
-      updatedAt: new Date(),
-    })
-    .where(
-      and(
-        eq(technicalContracts.id, input.contractId),
-        eq(technicalContracts.projectId, input.projectId),
-        eq(technicalContracts.pilotId, input.pilotId),
-        eq(technicalContracts.status, "DRAFT"),
-      ),
-    )
-    .returning({ id: technicalContracts.id });
-
-  if (!updated[0]) {
-    throw new StudioError("CONFLICT", "Promotion READY concurrente ou statut non DRAFT");
+  // C20: technical suspend resume only when Nora explicitly CONTINUEs.
+  const segmentSuspended = works.filter(
+    (w) =>
+      w.status === "SUSPENDED" &&
+      (w.interruptCause === "SEGMENT_INVOCATION_LIMIT" ||
+        w.interruptCause === "PROCESS_OR_LEASE_INTERRUPT" ||
+        (w.interruptCause ?? "").startsWith("SEGMENT")),
+  );
+  if (relation === "CONTINUE" && segmentSuspended.length === 1 && !proposed) {
+    return {
+      workId: segmentSuspended[0]!.id,
+      forceNew: false,
+      reason: "TECHNICAL_SUSPEND_RESUME",
+    };
   }
 
+  // C19: never deduce continuation from sole open presence without CONTINUE.
+  const open = works.filter(
+    (w) => w.status === "OPEN" || w.status === "SUSPENDED" || w.status === "RUNNING",
+  );
+  if (relation === "CONTINUE") {
+    if (proposed) {
+      const hit = works.find((w) => w.id === proposed);
+      if (hit) return { workId: hit.id, forceNew: false, reason: "SEMANTIC_CONTINUE_PROPOSED" };
+      return {
+        forceNew: false,
+        workId: null,
+        reason: "SEMANTIC_CONTINUE_UNKNOWN_ID",
+        needsClarify: true,
+      };
+    }
+    if (open.length === 1) {
+      return { workId: open[0]!.id, forceNew: false, reason: "SEMANTIC_CONTINUE_SINGLE" };
+    }
+    if (open.length > 1) {
+      return {
+        forceNew: false,
+        workId: null,
+        reason: "SEMANTIC_CONTINUE_AMBIGUOUS",
+        needsClarify: true,
+      };
+    }
+  }
+  if (open.length > 1 && !proposed) {
+    return {
+      forceNew: false,
+      workId: null,
+      reason: "AMBIGUOUS_MULTI_OPEN",
+      needsClarify: true,
+    };
+  }
+  // Without structured relation, do not auto-attach to an open work.
+  return { forceNew: true, reason: "NEW_OR_NEEDS_SEMANTIC_RELATION" };
+}
+
+/**
+ * C22 — merge document production using structured mergeMode from Nora.
+ * Exported for unit tests against the real owner function (not a copy).
+ * Never derive SUPERSEDE from heading count or length alone.
+ */
+export function mergeDocumentProductionBody(input: {
+  prevDoc: string;
+  incoming: string;
+  mergeMode?: "APPEND" | "CORRECT" | "SUPERSEDE" | null;
+  workDisposition?: string | null;
+  continueWork: boolean;
+}): { contentMarkdown: string; appliedMode: "APPEND" | "CORRECT" | "SUPERSEDE" | "IDENTITY" } {
+  const body = input.incoming.trim();
+  const prev = (input.prevDoc ?? "").trim();
+  if (!prev) return { contentMarkdown: body, appliedMode: "IDENTITY" };
+  if (prev.includes(body) && body.length < prev.length) {
+    return { contentMarkdown: prev, appliedMode: "IDENTITY" };
+  }
+  const explicit = input.mergeMode ?? null;
+  // SUPERSEDE only when Nora declares it, or COMPLETE + explicit SUPERSEDE.
+  if (explicit === "SUPERSEDE") {
+    return { contentMarkdown: body, appliedMode: "SUPERSEDE" };
+  }
+  if (explicit === "CORRECT") {
+    // Correction replaces prior body when disposition is COMPLETE; else append note.
+    if (!input.continueWork || input.workDisposition === "COMPLETE") {
+      return { contentMarkdown: body, appliedMode: "CORRECT" };
+    }
+    return {
+      contentMarkdown: `${prev}\n\n<!-- correction -->\n\n${body}`.trim(),
+      appliedMode: "CORRECT",
+    };
+  }
+  // Default APPEND — mid-work continuity. Avoid duplicating identical prefix dumps.
+  if (body.includes(prev.slice(0, Math.min(200, prev.length))) && body.length >= prev.length) {
+    // Incoming already contains prior — treat as Nora-provided consolidated body only
+    // when mergeMode SUPERSEDE was omitted but workDisposition COMPLETE *and*
+    // qualification marked document as superseding via workDisposition alone is insufficient.
+    // C22: stay APPEND unless explicit SUPERSEDE — keep prior + novel tail if any.
+    if (body === prev) return { contentMarkdown: prev, appliedMode: "IDENTITY" };
+  }
+  if (prev.includes(body)) return { contentMarkdown: prev, appliedMode: "IDENTITY" };
   return {
-    contractId: input.contractId,
-    status: "READY" as const,
-    idempotent: false as const,
-    fingerprint: row.fingerprint,
-    readiness: readinessWithFiliation,
+    contentMarkdown: `${prev}\n\n${body}`.trim(),
+    appliedMode: "APPEND",
   };
 }
+
+function documentProductionFromReply(
+  work: CognitiveWorkRow,
+  reply: NoraGenerateResult,
+  segmentIndex: number,
+  continueWork: boolean,
+): CognitiveProductionState | undefined {
+  const prevDoc =
+    (work.production as CognitiveProductionState & { contentMarkdown?: string })
+      .contentMarkdown ?? "";
+  // C19: part ids are stable across invocations — never collide on local segmentIndex 0.
+  const partId = `gen-${reply.generationId || `seg-${work.revision}-${segmentIndex}`}`;
+  const appendPart = (
+    parts: CognitiveProductionState["parts"],
+    title: string,
+    complete: boolean,
+  ) => [...parts.filter((p) => p.id !== partId), { id: partId, title, complete }];
+
+  const proposal = reply.qualification?.documentProposal;
+  if (proposal?.contentMarkdown?.trim()) {
+    const merged = mergeDocumentProductionBody({
+      prevDoc,
+      incoming: proposal.contentMarkdown,
+      mergeMode: proposal.mergeMode ?? null,
+      workDisposition: reply.qualification?.workDisposition ?? null,
+      continueWork,
+    });
+    return {
+      kind: "DOCUMENT",
+      status: continueWork ? "IN_PROGRESS" : "COMPLETE",
+      objectRef: work.production.objectRef || reply.generationId,
+      parts: appendPart(
+        work.production.parts,
+        proposal.title || `document-part-${work.production.parts.length + 1}`,
+        !continueWork,
+      ),
+      contentMarkdown: merged.contentMarkdown,
+      limits: [`MERGE_MODE_${merged.appliedMode}`],
+    } as CognitiveProductionState;
+  }
+  // C19: Markdown fence is transport/legacy only — never authority that replaces
+  // structured production. Preserve prior DOCUMENT on resume.
+  const extracted = reply.content.match(/```sfia-document\b([\s\S]*?)```/i);
+  if (extracted && !prevDoc) {
+    return {
+      kind: "DOCUMENT",
+      status: continueWork ? "IN_PROGRESS" : "COMPLETE",
+      objectRef: reply.generationId,
+      parts: appendPart(
+        work.production.parts,
+        `document-part-${work.production.parts.length + 1}`,
+        !continueWork,
+      ),
+      contentMarkdown: extracted[1]!.trim(),
+      limits: ["MARKDOWN_FENCE_TRANSPORT_ONLY"],
+    } as CognitiveProductionState;
+  }
+  if (work.production.kind === "DOCUMENT" && prevDoc) {
+    return {
+      ...work.production,
+      status: continueWork ? "IN_PROGRESS" : work.production.status,
+      parts: appendPart(
+        work.production.parts,
+        reply.generationId,
+        !continueWork,
+      ),
+    };
+  }
+  return {
+    kind: "REPLY",
+    status: continueWork ? "IN_PROGRESS" : "COMPLETE",
+    objectRef: reply.generationId,
+    parts: appendPart(work.production.parts, reply.generationId, !continueWork),
+    limits: continueWork ? ["PRODUCTION_IN_PROGRESS"] : undefined,
+  };
+}
+
+/**
+ * Run Nora through the cognitive conductor for a product turn.
+ */
+export async function runNoraCognitiveTurn(
+  input: NoraCognitiveTurnInput,
+): Promise<NoraCognitiveTurnResult> {
+  const segmentBox: { reply: NoraGenerateResult | null } = { reply: null };
+
+  // C19: expose candidate works so Nora can emit cognitiveWorkRelation / proposed id.
+  const candidates = await listCognitiveWorksForPreparation({
+    pilotId: input.pilotId,
+    preparationId: input.preparationId,
+  });
+  const candidateSnippet =
+    candidates.length === 0
+      ? "Travaux cognitifs candidats: (aucun)"
+      : [
+          "Travaux cognitifs candidats (serveur valide; ne pas inventer d'id):",
+          ...candidates.slice(0, 8).map(
+            (w) =>
+              `- ${w.id} status=${w.status} rev=${w.revision} obj=${(w.objective || "").slice(0, 120)}`,
+          ),
+          "Émettre cognitiveWorkRelation=CONTINUE|INDEPENDENT|CLARIFY|MATERIAL_CHANGE|UNRELATED et proposedCognitiveWorkId si rattachement.",
+        ].join("\n");
+
+  let attachment: Awaited<ReturnType<typeof resolveCognitiveWorkAttachment>>;
+  let probeReply: NoraGenerateResult | null = null;
+  let probeConsumed = false;
+
+  // C19: when attachment is not forced/explicit, qualify first then resolve with structured fields.
+  if (!input.workId && input.forceNewWork !== true) {
+    const probePolicy =
+      input.policyOverride ??
+      buildCognitivePolicy(input.userText, undefined, { profileHint: "analyse" });
+    probeReply = await generateNoraReply({
+      userText: input.userText,
+      contextSnippets: [...input.contextSnippets, candidateSnippet, "attachment=PENDING_SEMANTIC"],
+      knowledgeSnippets: input.knowledgeSnippets,
+      pilotageSnippets: input.pilotageSnippets,
+      levelASignals: input.levelASignals,
+      ckiDelivery: input.ckiDelivery,
+      onProvisionalChunk: input.onProvisionalChunk,
+      toolScope: input.toolScope,
+      policyOverride: probePolicy,
+    });
+    segmentBox.reply = probeReply;
+    attachment = await resolveCognitiveWorkAttachment({
+      pilotId: input.pilotId,
+      preparationId: input.preparationId,
+      workId: input.workId,
+      forceNewWork: input.forceNewWork,
+      userText: input.userText,
+      qualification: probeReply.qualification,
+    });
+  } else {
+    attachment = await resolveCognitiveWorkAttachment({
+      pilotId: input.pilotId,
+      preparationId: input.preparationId,
+      workId: input.workId,
+      forceNewWork: input.forceNewWork,
+      userText: input.userText,
+    });
+  }
+
+  // C20: ambiguity / clarify — do not invent a new cognitive work; return AWAIT_PILOT.
+  if (attachment.needsClarify) {
+    const clarifyText =
+      "Plusieurs travaux cognitifs sont candidats. Précisez lequel continuer (identifiant) ou confirmez une demande indépendante.";
+    const basePolicy = buildCognitivePolicy(input.userText, undefined, {
+      profileHint: "analyse",
+    });
+    const clarify: NoraGenerateResult = probeReply
+      ? {
+          ...probeReply,
+          content: probeReply.content?.trim() || clarifyText,
+          status: "COMPLETE",
+        }
+      : {
+          content: clarifyText,
+          status: "COMPLETE",
+          generationId: `clarify-${Date.now()}`,
+          mode: "deterministic-fixture",
+          policy: basePolicy,
+          modelRequested: basePolicy.modelRequested,
+          modelApplied: null,
+          effortRequested: basePolicy.effortRequested,
+          effortApplied: null,
+          attempts: [],
+          toolCallsObserved: 0,
+          d4CharsReturned: 0,
+          observedToolSources: [],
+          qualification: unavailableQualification(
+            "CLARIFY_COGNITIVE_WORK_ATTACHMENT",
+            clarifyText,
+          ),
+        };
+    const q: NoraTurnQualification = {
+      ...clarify.qualification,
+      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+      status: "NEEDS_CLARIFICATION",
+      workDisposition: "AWAIT_PILOT",
+      cognitiveWorkRelation: "CLARIFY",
+      replyDraft:
+        clarify.qualification.replyDraft ||
+        clarify.content ||
+        clarifyText,
+    };
+    return {
+      ...clarify,
+      content: clarify.content,
+      qualification: q,
+      status: "COMPLETE",
+      conductor: {
+        workId: "",
+        revision: 0,
+        segmentsRun: probeReply ? 1 : 0,
+        resumed: false,
+        suspended: false,
+        suspendReason: null,
+        investigation: {
+          ...createEmptyInvestigation(input.userText),
+          remainingWork: ["CLARIFY_COGNITIVE_WORK_ATTACHMENT"],
+        },
+        production: { kind: "REPLY", status: "PARTIAL", parts: [] },
+      },
+    };
+  }
+
+  const conductor: ConductorRunResult = await runCognitiveConductor({
+    pilotId: input.pilotId,
+    preparationId: input.preparationId,
+    projectId: input.projectId,
+    conversationId: input.conversationId,
+    objective: input.objective ?? input.userText.slice(0, 2000),
+    expectedOutcome: input.expectedOutcome,
+    workId: attachment.workId,
+    forceNewWork: attachment.forceNew,
+    turnCommandId: input.turnCommandId,
+    // C17: local cap remains technical; default raised for investigation depth.
+    // SEGMENT_INVOCATION_LIMIT still suspends honestly when exhausted.
+    maxSegmentsThisInvocation: input.maxSegmentsThisInvocation ?? 5,
+    resolvePolicy: (work, segmentIndex) => {
+      const seed =
+        work.state.intentSummary ||
+        work.objective ||
+        input.userText;
+      const hint = work.state.profileHint;
+      const base = buildCognitivePolicy(seed, undefined, { profileHint: hint });
+      if (segmentIndex > 0 && hint === "investigation") {
+        return buildCognitivePolicy(seed, undefined, {
+          profileHint: "investigation",
+          effortHint: "high",
+        });
+      }
+      if (hint === "simple") {
+        return buildCognitivePolicy(seed, undefined, {
+          profileHint: "simple",
+          effortHint: "low",
+        });
+      }
+      return input.policyOverride ?? base;
+    },
+    runSegment: async ({ work, segmentIndex, policy }) => {
+      const continuationHint =
+        segmentIndex === 0
+          ? ""
+          : [
+              "",
+              "[Continuation du même travail cognitif — segment suivant]",
+              `workId=${work.id} revision=${work.revision}`,
+              `Objectif: ${work.objective}`,
+              work.state.intentSummary
+                ? `Intention consolidée: ${work.state.intentSummary}`
+                : null,
+              work.state.desiredOutcome
+                ? `Résultat attendu: ${work.state.desiredOutcome}`
+                : null,
+              work.state.remainingWork.length
+                ? `Travail restant: ${work.state.remainingWork.join("; ")}`
+                : null,
+              work.state.questions
+                .filter((q) => q.status !== "ANSWERED")
+                .map((q) => `Q[${q.importance}]: ${q.text}`)
+                .join("\n") || null,
+              work.state.constraints.length
+                ? `Contraintes: ${work.state.constraints.join("; ")}`
+                : null,
+            ]
+              .filter(Boolean)
+              .join("\n");
+
+      // C24 — feed public WEB registry from prior state + DEV catalog match
+      // (server-side provenance). Nora cannot self-authorize free-form topics.
+      const webRegistry = resolvePublicWebRegistry({
+        priorTopics: work.state.registeredPublicTopics,
+        priorExactQueries: work.state.authorizedExactWebQueries,
+        priorFacts: work.state.registeredPublicFacts,
+        haystack: [
+          input.userText,
+          work.state.intentSummary ?? "",
+          work.objective ?? "",
+          input.objective ?? "",
+        ].join("\n"),
+      });
+
+      let reply: NoraGenerateResult;
+      if (probeReply && segmentIndex === 0 && !probeConsumed) {
+        probeConsumed = true;
+        reply = probeReply;
+      } else {
+        reply = await generateNoraReply({
+          userText:
+            segmentIndex === 0
+              ? input.userText
+              : `${input.userText}${continuationHint}`,
+          contextSnippets: [
+            ...input.contextSnippets,
+            candidateSnippet,
+            ...(segmentIndex > 0
+              ? [
+                  `Checkpoint cognitif ${work.id} r${work.revision}`,
+                  work.state.intentSummary || "",
+                  `attachment=${attachment.reason}`,
+                ].filter(Boolean)
+              : [`attachment=${attachment.reason}`]),
+            ...(webRegistry.limits.length
+              ? [`publicWebRegistry=${webRegistry.limits.join(",")}`]
+              : []),
+          ],
+          knowledgeSnippets: input.knowledgeSnippets,
+          pilotageSnippets: input.pilotageSnippets,
+          levelASignals: input.levelASignals,
+          ckiDelivery: input.ckiDelivery,
+          onProvisionalChunk: input.onProvisionalChunk,
+          toolScope: input.toolScope,
+          policyOverride: policy,
+          publicWebRegistry: {
+            topics: webRegistry.topics,
+            exactQueries: webRegistry.exactQueries,
+            facts: webRegistry.facts,
+          },
+        });
+      }
+      segmentBox.reply = reply;
+      const investigation = mergeInvestigationFromReply(
+        work.state.intentSummary
+          ? work.state
+          : createEmptyInvestigation(input.userText),
+        reply,
+        input.userText,
+      );
+      // Persist registered public WEB provenance on investigation for next segments.
+      investigation.registeredPublicTopics = {
+        ...(investigation.registeredPublicTopics ?? {}),
+        ...webRegistry.topics,
+      };
+      investigation.authorizedExactWebQueries = [
+        ...new Set([
+          ...(investigation.authorizedExactWebQueries ?? []),
+          ...webRegistry.exactQueries,
+        ]),
+      ];
+      investigation.registeredPublicFacts = [
+        ...new Set([
+          ...(investigation.registeredPublicFacts ?? []),
+          ...webRegistry.facts,
+        ]),
+      ];
+      // Stamp filiation on investigation for READY/DRAFT consumers.
+      investigation.cognitiveWorkId = work.id;
+      investigation.cognitiveRevision = work.revision;
+      const continueWork = semanticContinueWork(
+        reply.qualification,
+        investigation,
+        reply,
+      );
+      const usage = usageFromReply(reply);
+      const production = documentProductionFromReply(
+        work,
+        reply,
+        segmentIndex,
+        continueWork,
+      );
+      return {
+        replyText: reply.content,
+        qualification: reply.qualification,
+        investigation,
+        generationId: reply.generationId,
+        continueWork,
+        resourcesDelta: {
+          inputTokens: usage.inputTokens,
+          outputTokens: usage.outputTokens,
+          reasoningTokens: usage.reasoningTokens,
+          // cachedInputTokens in limits only — do not double-count in token budget
+          cacheTokens: usage.cachedInputTokens,
+          modelRequested: reply.modelRequested,
+          modelApplied: reply.modelApplied,
+          effortRequested: reply.effortRequested,
+          effortApplied: reply.effortApplied,
+          webCalls: (reply.observedToolSources ?? []).filter((s) => s.kind === "WEB")
+            .length,
+          limits: [
+            ...(usage.inputTokens == null ? ["USAGE_TOKENS_UNKNOWN"] : []),
+            ...(usage.reasoningTokens == null
+              ? ["REASONING_TOKENS_UNVERIFIED"]
+              : []),
+            ...(usage.cachedInputTokens == null
+              ? ["CACHED_INPUT_TOKENS_UNVERIFIED"]
+              : [`CACHED_INPUT_TOKENS:${usage.cachedInputTokens}`]),
+            ...(usage.providerRequests != null
+              ? [`PROVIDER_REQUESTS:${usage.providerRequests}`]
+              : ["PROVIDER_REQUESTS_UNVERIFIED"]),
+            ...(reply.usage?.provenance
+              ? [`USAGE_PROVENANCE:${reply.usage.provenance}`]
+              : []),
+          ],
+        },
+        production,
+      };
+    },
+  });
+
+  const lastReply = segmentBox.reply;
+  if (!lastReply) {
+    throw new Error("CONDUCTOR_NO_SEGMENT");
+  }
+
+  // C17: align lifecycle — suspended conductor must not claim COMPLETE reply.
+  const alignedStatus: NoraGenerateResult["status"] = conductor.suspended
+    ? "INTERRUPTED"
+    : lastReply.status;
+
+  const reply: NoraGenerateResult = {
+    ...lastReply,
+    content: conductor.replyText || lastReply.content,
+    qualification: conductor.qualification ?? lastReply.qualification,
+    status: alignedStatus,
+  };
+
+  return {
+    ...reply,
+    conductor: {
+      workId: conductor.work.id,
+      revision: conductor.work.revision,
+      segmentsRun: conductor.segmentsRun,
+      resumed: conductor.resumed,
+      suspended: conductor.suspended,
+      suspendReason: conductor.suspendReason,
+      investigation: {
+        ...conductor.investigation,
+        cognitiveWorkId: conductor.work.id,
+        cognitiveRevision: conductor.work.revision,
+      },
+      production: conductor.production,
+    },
+  };
+}
+
 ```
 
-<!-- END FULL FILE projects/sfia-studio-next/web/src/domains/execution/technical-contract-server-ready.ts lines=236 -->
+### FILE: `projects/sfia-studio-next/web/src/components/figma/RealizationBilan.tsx` (full current)
+```typescript
+"use client";
 
-### 8.3 `projects/sfia-studio-next/web/src/components/figma/CursorRealizationSurface.tsx` — INTÉGRAL (754 lignes)
+/**
+ * ML5 — Bilan D8 (frames 12.08 / 12.11 / 12.12 / 12.13).
+ * Four Figma tabs: SYNTHÈSE / LIVRABLES ET TESTS / GIT & PIÈCES / ÉCARTS.
+ * Cover nine rubrics. Verdict D8 ≠ avis Nora ≠ décision D6.
+ */
 
-```tsx
+import type { D8Rubric } from "@/domains/proofs/cursor-qualify";
+
+/** Figma page 12 tabs — exact labels (12.08 / 12.11 / 12.12 / 12.13). */
+export const BILAN_TAB_LABELS = {
+  synthese: "SYNTHÈSE",
+  livrables: "LIVRABLES ET TESTS",
+  git: "GIT & PIÈCES",
+  ecarts: "ÉCARTS",
+} as const;
+
+export type BilanTab = keyof typeof BILAN_TAB_LABELS;
+
+const TAB_RUBRICS: Record<BilanTab, Array<D8Rubric["key"]>> = {
+  synthese: ["resume", "prevu", "realise", "verdict", "recommandations"],
+  livrables: ["evaluation"],
+  git: ["sources", "impact"],
+  ecarts: ["ecarts"],
+};
+
+export type BilanDossierStructured = {
+  attemptId: string;
+  contractId?: string | null;
+  handoffId?: string | null;
+  handoffStatus?: string | null;
+  dossierVersion?: number | null;
+  integrityHash?: string | null;
+  filesCreated?: string[];
+  filesModified?: string[];
+  filesObserved?: string[];
+  filesConsulted?: Array<{ path: string; sha256?: string }>;
+  testsDeclared?: string[];
+  testsCaptured?: string[];
+  gaps?: string[];
+  sourcesConsulted?: string[];
+  git?: {
+    tipSha?: string | null;
+    branch?: string | null;
+    baseRef?: string | null;
+    remoteSha?: string | null;
+  } | null;
+  terminalStatus?: string | null;
+  pipelineStatus?: string | null;
+};
+
+function listOrMissing(items: string[] | undefined, emptyLabel = "MISSING"): string {
+  if (!items || items.length === 0) return emptyLabel;
+  return items.join(", ");
+}
+
+export function RealizationBilan(props: {
+  attemptId: string;
+  verdict: string;
+  rubrics: D8Rubric[];
+  limits: string[];
+  noraAnalysisMarkdown?: string | null;
+  noraAnalysisKind?: string | null;
+  dossier?: BilanDossierStructured | null;
+  activeTab: BilanTab;
+  onTabChange: (tab: BilanTab) => void;
+  onDiscussWithNora?: () => void;
+}) {
+  const byKey = new Map(props.rubrics.map((r) => [r.key, r]));
+  const keys = TAB_RUBRICS[props.activeTab] ?? [];
+  const d = props.dossier;
+  const cursorDeclared =
+    byKey.get("realise")?.content?.trim() ||
+    byKey.get("resume")?.content?.trim() ||
+    "Résultat déclaré par Cursor non restitué.";
+  const d8Control =
+    byKey.get("verdict")?.content?.trim() ||
+    `Contrôle D8/D9 : ${props.verdict || "UNKNOWN"}`;
+  const noraConsult =
+    (props.noraAnalysisMarkdown ?? "").trim().slice(0, 280) ||
+    "Analyse consultative Nora absente — ne constitue pas une preuve.";
+  return (
+    <div
+      className="fig-realization-bilan"
+      data-testid="realization-bilan"
+      data-attempt-id={props.attemptId}
+      data-verdict={props.verdict}
+      data-active-tab={props.activeTab}
+      data-dossier-version={d?.dossierVersion ?? ""}
+    >
+      <header>
+        <p className="fig-kicker !mb-0">
+          BILAN {props.attemptId.slice(0, 12)}
+          {d?.contractId ? `  /  ${d.contractId.slice(0, 12)}` : ""}
+        </p>
+        <h2 className="fig-inspector-title">
+          Bilan global : prévu, réalisé, preuves et impact
+        </h2>
+        <p className="fig-travail-viewer-meta" data-testid="bilan-attempt-id">
+          Tentative {props.attemptId}
+          {d?.dossierVersion != null ? ` · dossier v${d.dossierVersion}` : ""}
+          {d?.handoffStatus ? ` · handoff ${d.handoffStatus}` : ""}
+        </p>
+      </header>
+      {/* Figma 12.08 — three distinct appréciations (declared ≠ D8/D9 ≠ Nora). */}
+      <div className="fig-bilan-appreciations" data-testid="bilan-appreciations">
+        <article
+          className="fig-bilan-appreciation"
+          data-testid="bilan-appreciation-cursor"
+        >
+          <p className="fig-bilan-appreciation-label">Résultat déclaré par Cursor</p>
+          <p className="fig-bilan-appreciation-body">{cursorDeclared}</p>
+        </article>
+        <article
+          className="fig-bilan-appreciation"
+          data-testid="bilan-appreciation-d8"
+        >
+          <p className="fig-bilan-appreciation-label">Contrôle et verdict D8/D9</p>
+          <p className="fig-bilan-appreciation-body">{d8Control}</p>
+        </article>
+        <article
+          className="fig-bilan-appreciation"
+          data-testid="bilan-appreciation-nora"
+        >
+          <p className="fig-bilan-appreciation-label">Analyse consultative de Nora</p>
+          <p className="fig-bilan-appreciation-body">{noraConsult}</p>
+        </article>
+      </div>
+      {d ? (
+        <section
+          className="fig-bilan-structured"
+          data-testid="bilan-structured"
+          data-tab={props.activeTab}
+        >
+          {props.activeTab === "synthese" ? (
+            <dl data-testid="bilan-structured-synthese">
+              <dt>Contrat</dt>
+              <dd>{d.contractId ?? "MISSING"}</dd>
+              <dt>Handoff</dt>
+              <dd>
+                {d.handoffId ?? "MISSING"} ({d.handoffStatus ?? "MISSING"})
+              </dd>
+              <dt>Terminal / pipeline</dt>
+              <dd>
+                {d.terminalStatus ?? "UNKNOWN"} / {d.pipelineStatus ?? "UNKNOWN"}
+              </dd>
+              <dt>Intégrité</dt>
+              <dd>{d.integrityHash ?? "MISSING"}</dd>
+            </dl>
+          ) : null}
+          {props.activeTab === "livrables" ? (
+            <dl data-testid="bilan-structured-livrables">
+              <dt>Fichiers créés</dt>
+              <dd>{listOrMissing(d.filesCreated)}</dd>
+              <dt>Fichiers modifiés</dt>
+              <dd>{listOrMissing(d.filesModified)}</dd>
+              <dt>Observés / consultés</dt>
+              <dd>
+                {listOrMissing(d.filesObserved)} /{" "}
+                {listOrMissing(d.filesConsulted?.map((f) => f.path))}
+              </dd>
+              <dt>Tests déclarés / capturés</dt>
+              <dd>
+                {listOrMissing(d.testsDeclared)} / {listOrMissing(d.testsCaptured)}
+              </dd>
+            </dl>
+          ) : null}
+          {props.activeTab === "git" ? (
+            <dl data-testid="bilan-structured-git">
+              <dt>Branche / base</dt>
+              <dd>
+                {d.git?.branch ?? "N/A"} / {d.git?.baseRef ?? "N/A"}
+              </dd>
+              <dt>SHA local déclaré</dt>
+              <dd>{d.git?.tipSha ?? "N/A"}</dd>
+              <dt>SHA distant vérifié</dt>
+              <dd>{d.git?.remoteSha ?? "N/A"}</dd>
+              <dt>Sources</dt>
+              <dd>{listOrMissing(d.sourcesConsulted, "MISSING")}</dd>
+              <dt>Empreinte handoff</dt>
+              <dd>{d.integrityHash ?? "MISSING"}</dd>
+            </dl>
+          ) : null}
+          {props.activeTab === "ecarts" ? (
+            <dl data-testid="bilan-structured-ecarts">
+              <dt>Écarts inventoriés</dt>
+              <dd>{listOrMissing(d.gaps, "Aucun écart inventorié (UNKNOWN)")}</dd>
+            </dl>
+          ) : null}
+        </section>
+      ) : null}
+      <nav data-testid="bilan-tabs" className="fig-bilan-tabs">
+        {(Object.keys(BILAN_TAB_LABELS) as BilanTab[]).map((tab) => (
+          <button
+            key={tab}
+            type="button"
+            className={props.activeTab === tab ? "btn" : "btn secondary"}
+            data-testid={`bilan-tab-${tab}`}
+            onClick={() => props.onTabChange(tab)}
+          >
+            {BILAN_TAB_LABELS[tab]}
+          </button>
+        ))}
+      </nav>
+      <section data-testid="bilan-rubrics" className="fig-bilan-rubrics">
+        {keys.length === 0 ? (
+          <p className="fig-bilan-empty" data-testid="bilan-rubrics-empty">
+            Aucune rubrique pour cet onglet.
+          </p>
+        ) : (
+          keys.map((k) => {
+            const r = byKey.get(k);
+            if (!r) {
+              return (
+                <article
+                  key={k}
+                  className="fig-bilan-rubric"
+                  data-testid={`bilan-rubric-${k}`}
+                  data-empty="1"
+                >
+                  <h3>
+                    {k}{" "}
+                    <span className="fig-bilan-coverage" data-coverage="MISSING">
+                      MISSING
+                    </span>
+                  </h3>
+                  <p className="fig-bilan-empty">Rubrique absente de ce dossier.</p>
+                </article>
+              );
+            }
+            const empty =
+              !r.content?.trim() ||
+              r.coverage === "MISSING" ||
+              /^rapport manquant$/i.test(r.content.trim());
+            return (
+              <article
+                key={k}
+                className="fig-bilan-rubric"
+                data-testid={`bilan-rubric-${k}`}
+                data-coverage={r.coverage}
+              >
+                <h3>
+                  {r.title}{" "}
+                  <span className="fig-bilan-coverage" data-coverage={r.coverage}>
+                    {r.coverage}
+                  </span>
+                </h3>
+                {empty ? (
+                  <p className="fig-bilan-empty" data-testid={`bilan-rubric-empty-${k}`}>
+                    {r.content?.trim() || "Donnée absente — non certifiée."}
+                  </p>
+                ) : (
+                  <p>{r.content}</p>
+                )}
+              </article>
+            );
+          })
+        )}
+      </section>
+      {props.limits.length > 0 ? (
+        <section data-testid="bilan-limits" className="fig-bilan-limits">
+          <h3>Limites</h3>
+          <ul>
+            {props.limits.map((l) => (
+              <li key={l}>{l}</li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+      {props.noraAnalysisMarkdown ? (
+        <section
+          className="fig-bilan-nora-analysis"
+          data-testid="bilan-nora-analysis"
+          data-kind={props.noraAnalysisKind ?? "unknown"}
+        >
+          <h3>
+            {props.noraAnalysisKind === "NORA_COGNITIVE"
+              ? "Analyse Nora D3 (post-tentative)"
+              : props.noraAnalysisKind === "DETERMINISTIC_SYNTHESIS"
+                ? "Synthèse déterministe (≠ run Nora)"
+                : "Brief technique (≠ avis Nora)"}
+          </h3>
+          <pre>{props.noraAnalysisMarkdown}</pre>
+        </section>
+      ) : null}
+      {props.onDiscussWithNora ? (
+        <button
+          type="button"
+          className="btn secondary"
+          data-testid="bilan-discuss-nora"
+          onClick={props.onDiscussWithNora}
+        >
+          En discuter avec Nora
+        </button>
+      ) : null}
+    </div>
+  );
+}
+
+```
+
+### FILE: `projects/sfia-studio-next/web/src/components/figma/CursorRealizationSurface.tsx` (full current)
+```typescript
 "use client";
 
 /**
@@ -858,7 +2603,17 @@ export function CursorRealizationSurface(props: {
   projectId: string;
   /** Figma: execution vs résultats — same shell, distinct responsibility. */
   mode?: "execution" | "results";
-  onDiscussWithNora?: (draft: string) => void;
+  /** Figma 12.09 — structured retirable dossier ref (not free-text draft alone). */
+  onDiscussWithNora?: (attachment: {
+    attemptId: string;
+    contractId?: string | null;
+    handoffId?: string | null;
+    dossierVersion?: number | string | null;
+    verdictD8?: string | null;
+    noraKind?: string | null;
+    fingerprint?: string | null;
+    pieces?: string[] | null;
+  }) => void;
 }) {
   const mode = props.mode ?? "execution";
   const [contracts, setContracts] = useState<ContractRow[]>([]);
@@ -1459,3749 +3214,2637 @@ export function CursorRealizationSurface(props: {
         />
       ) : null}
 
-      <section data-testid="realization-attempts">
-        <h3>{showExecutionChrome ? "Historique des interventions" : "Tentatives à bilanter"}</h3>
-        {attempts.length === 0 ? (
-          <p className="muted">Aucune tentative Cursor pour ce projet.</p>
-        ) : (
-          <ul>
-            {attempts.map((a) => (
-              <li key={a.attemptId} data-testid={`attempt-row-${a.attemptId}`}>
-                <span>
-                  {a.status} · {a.live.terminalStatus ?? "—"} ·{" "}
-                  {a.live.lastActivitySummary ?? "pas d'observation"}
-                  {a.live.agentId ? ` · agent ${a.live.agentId.slice(0, 8)}` : ""}
-                  {a.live.runId ? ` · run ${a.live.runId.slice(0, 8)}` : ""}
-                  {a.status === "AMBIGUOUS" ? " · à réconcilier" : ""}
+      {showResultsChrome ? (
+        <div className="fig-results-split" data-testid="results-split">
+          <section
+            className="fig-results-bilans-list"
+            data-testid="realization-attempts"
+          >
+            <div className="fig-results-bilans-head">
+              <h3>Bilans disponibles</h3>
+              <span className="fig-results-bilans-count" data-testid="bilans-count">
+                {attempts.length} bilan{attempts.length === 1 ? "" : "s"}
+              </span>
+            </div>
+            <p className="fig-travail-viewer-meta">
+              Bilans et preuves qualifiées par intervention
+            </p>
+            {attempts.length === 0 ? (
+              <p className="muted">Aucune tentative Cursor pour ce projet.</p>
+            ) : (
+              <ul className="fig-results-bilans-ul">
+                {attempts.map((a) => {
+                  const selected = selectedAttempt?.attemptId === a.attemptId;
+                  return (
+                    <li
+                      key={a.attemptId}
+                      data-testid={`attempt-row-${a.attemptId}`}
+                      data-selected={selected ? "1" : "0"}
+                    >
+                      <button
+                        type="button"
+                        className={
+                          selected
+                            ? "fig-results-bilan-card is-selected"
+                            : "fig-results-bilan-card"
+                        }
+                        data-testid={`attempt-bilan-${a.attemptId}`}
+                        onClick={() => void openBilan(a)}
+                      >
+                        <span className="fig-results-bilan-kicker">
+                          {a.attemptId.slice(0, 12)} · {a.status}
+                        </span>
+                        <span className="fig-results-bilan-title">
+                          {a.live.lastActivitySummary ||
+                            `${a.plan.contractKey} v${a.plan.contractVersion}`}
+                        </span>
+                        <span className="fig-results-bilan-meta">
+                          {a.live.terminalStatus ?? "—"}
+                          {a.status === "AMBIGUOUS" ? " · à réconcilier" : ""}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+            <p className="fig-travail-viewer-meta">
+              Lecture seule · aucun arbitrage requis dans cette vue
+            </p>
+          </section>
+          <div className="fig-results-dossier" data-testid="results-dossier">
+            {bilan && selectedAttempt ? (
+              <RealizationBilan
+                attemptId={selectedAttempt.attemptId}
+                verdict={bilan.verdict}
+                rubrics={bilan.rubrics}
+                limits={bilan.limits}
+                noraAnalysisMarkdown={bilan.noraAnalysisMarkdown}
+                noraAnalysisKind={bilan.noraAnalysisKind}
+                dossier={bilan.dossier}
+                activeTab={bilanTab}
+                onTabChange={setBilanTab}
+                onDiscussWithNora={() => {
+                  const d = bilan.dossier;
+                  props.onDiscussWithNora?.({
+                    attemptId: selectedAttempt.attemptId,
+                    contractId: d?.contractId ?? selectedAttempt.plan.contractId,
+                    handoffId: d?.handoffId ?? null,
+                    dossierVersion: d?.dossierVersion ?? null,
+                    verdictD8: bilan.verdict,
+                    noraKind: bilan.noraAnalysisKind ?? null,
+                    fingerprint: selectedAttempt.fingerprint,
+                    pieces: d?.filesConsulted?.length
+                      ? d.filesConsulted.map((f) => f.path)
+                      : null,
+                  });
+                }}
+              />
+            ) : (
+              <p className="muted" data-testid="results-dossier-empty">
+                Sélectionnez un bilan à gauche pour ouvrir le dossier.
+              </p>
+            )}
+          </div>
+        </div>
+      ) : (
+        <>
+          <section data-testid="realization-attempts">
+            <h3>Historique des interventions</h3>
+            {attempts.length === 0 ? (
+              <p className="muted">Aucune tentative Cursor pour ce projet.</p>
+            ) : (
+              <ul>
+                {attempts.map((a) => (
+                  <li key={a.attemptId} data-testid={`attempt-row-${a.attemptId}`}>
+                    <span>
+                      {a.status} · {a.live.terminalStatus ?? "—"} ·{" "}
+                      {a.live.lastActivitySummary ?? "pas d'observation"}
+                      {a.live.agentId ? ` · agent ${a.live.agentId.slice(0, 8)}` : ""}
+                      {a.live.runId ? ` · run ${a.live.runId.slice(0, 8)}` : ""}
+                      {a.status === "AMBIGUOUS" ? " · à réconcilier" : ""}
+                    </span>
+                    {a.status === "COMPLETED" ||
+                    a.status === "FAILED" ||
+                    a.status === "AMBIGUOUS" ? (
+                      <button
+                        type="button"
+                        className="btn secondary"
+                        data-testid={`attempt-bilan-${a.attemptId}`}
+                        onClick={() => void openBilan(a)}
+                      >
+                        Bilan D8
+                      </button>
+                    ) : null}
+                    {a.status === "DISPATCHED" || a.status === "AMBIGUOUS" ? (
+                      <button
+                        type="button"
+                        className="btn secondary"
+                        data-testid="cursor-reconcile"
+                        data-attempt-id={a.attemptId}
+                        disabled={busy}
+                        onClick={() => void reconcileAttempt(a.attemptId)}
+                      >
+                        Réconcilier
+                      </button>
+                    ) : null}
+                    {a.status === "DISPATCHED" ? (
+                      <button
+                        type="button"
+                        className="btn secondary"
+                        data-testid={`attempt-stop-${a.attemptId}`}
+                        onClick={() => void requestStop(a.attemptId)}
+                      >
+                        STOP
+                      </button>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+
+          {bilan && selectedAttempt ? (
+            <RealizationBilan
+              attemptId={selectedAttempt.attemptId}
+              verdict={bilan.verdict}
+              rubrics={bilan.rubrics}
+              limits={bilan.limits}
+              noraAnalysisMarkdown={bilan.noraAnalysisMarkdown}
+              noraAnalysisKind={bilan.noraAnalysisKind}
+              dossier={bilan.dossier}
+              activeTab={bilanTab}
+              onTabChange={setBilanTab}
+              onDiscussWithNora={() => {
+                const d = bilan.dossier;
+                props.onDiscussWithNora?.({
+                  attemptId: selectedAttempt.attemptId,
+                  contractId: d?.contractId ?? selectedAttempt.plan.contractId,
+                  handoffId: d?.handoffId ?? null,
+                  dossierVersion: d?.dossierVersion ?? null,
+                  verdictD8: bilan.verdict,
+                  noraKind: bilan.noraAnalysisKind ?? null,
+                  fingerprint: selectedAttempt.fingerprint,
+                  pieces: d?.filesConsulted?.length
+                    ? d.filesConsulted.map((f) => f.path)
+                    : null,
+                });
+              }}
+            />
+          ) : null}
+        </>
+      )}
+    </div>
+  );
+}
+
+```
+
+### FILE: `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx` (full current)
+```typescript
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { SafeMarkdown } from "@/components/SafeMarkdown";
+import { NoraComposition } from "@/components/figma/NoraComposition";
+import { useNoraThreadScroll } from "@/hooks/useNoraThreadScroll";
+import type {
+  MessageProjectionView,
+  TurnChoice,
+  TurnReference,
+} from "@/domains/conversation/turn-projection";
+import { admitConversationalComposition } from "@/domains/conversation/conversational-composition";
+import {
+  compositionAnchorsChoices,
+  compositionAnchorsReferences,
+} from "@/domains/conversation/visual-composition";
+
+export type NoraMsg = {
+  id: string;
+  role: string;
+  content: string;
+  status: string;
+};
+
+export function NoraConversation(props: {
+  messages: NoraMsg[];
+  draft: string;
+  busy: boolean;
+  unresolvedPending?: boolean;
+  activity?: "idle" | "preparing" | "error";
+  status?: string;
+  onDraft: (v: string) => void;
+  onSend: () => void;
+  onReconcile?: () => void;
+  aside?: React.ReactNode;
+  /** When set, participates in project-travail-stage CSS grid via display:contents. */
+  embeddedInStage?: boolean;
+  projections?: MessageProjectionView[];
+  onChoice?: (choice: TurnChoice, messageId: string) => void;
+  /** Consultation links — independent of choice lifetime (§6.10). */
+  onReference?: (ref: TurnReference) => void;
+  choiceFrozen?: boolean;
+  forceStickToken?: number;
+  layoutMode?: "normal" | "split" | "enlarged";
+  /** J-C13 — scroll/highlight exact message without sending. */
+  focusMessageId?: string | null;
+  onFocusMessageHandled?: () => void;
+  focusStatus?: string | null;
+  /** Ensemble 07 — verrou qualification initiale (UI + accessibilité). */
+  composerLocked?: boolean;
+  composerLockReason?: string;
+  /** E07 05.17 — bandeau qualification + lien Trajectoire. */
+  qualificationBanner?: boolean;
+  onOpenTrajectoire?: () => void;
+  /** C01/C05/C07 — mid-turn functional activity (polled), distinct from response streaming. */
+  liveActivityEvents?: Array<{
+    sequence: number;
+    nature: string;
+    status: string;
+    summary: string;
+    phase: string;
+    sourceRef?: string | null;
+  }>;
+  liveActivityHeadline?: string;
+  /** Figma 12.09 — retirable D8 dossier reference (not free-text). */
+  dossierAttachment?: {
+    attemptId: string;
+    contractId?: string | null;
+    dossierVersion?: number | string | null;
+    verdictD8?: string | null;
+  } | null;
+  onRemoveDossierAttachment?: () => void;
+}) {
+  const n = props.messages.length;
+  const frame = n === 0 ? "161:216" : n <= 2 ? "161:288" : "94:214";
+  const variantLabel =
+    n === 0 ? "Première conversation" : n <= 2 ? "Reprise contextualisée" : "Fil long";
+  const embedded = Boolean(props.embeddedInStage);
+  const composerLocked = Boolean(props.composerLocked);
+  const hasDossier = Boolean(props.dossierAttachment?.attemptId);
+  const sendDisabled =
+    props.busy ||
+    (!props.draft.trim() && !hasDossier) ||
+    composerLocked;
+  const lastMessageId = n > 0 ? props.messages[n - 1]!.id : null;
+  const { threadRef, onScroll, scrollToBottom, newBelow } = useNoraThreadScroll({
+    messageCount: n,
+    lastMessageId,
+    activityPreparing: props.activity === "preparing",
+    forceStickToken: props.forceStickToken ?? 0,
+    focusMessageId: props.focusMessageId,
+  });
+
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const [imeComposing, setImeComposing] = useState(false);
+  const isMobile =
+    typeof window !== "undefined" &&
+    window.matchMedia &&
+    window.matchMedia("(max-width: 700px)").matches;
+
+  useEffect(() => {
+    const el = textareaRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    const max = Math.min(window.innerHeight * 0.36, 280);
+    const next = Math.min(Math.max(el.scrollHeight, 24), max);
+    el.style.height = `${next}px`;
+    el.style.overflowY = el.scrollHeight > max ? "auto" : "hidden";
+  }, [props.draft]);
+
+  // Include message id order so Journal→Travail highlight rebinds after a same-length
+  // setMessages remount (length-only deps lost data-journal-focus on replaced nodes).
+  const messageIdsKey = props.messages.map((m) => m.id).join("\0");
+  useEffect(() => {
+    const targetId = props.focusMessageId?.trim();
+    if (!targetId) return;
+    let cancelled = false;
+    let highlightTimer: number | undefined;
+    let attempts = 0;
+    const tryFocus = () => {
+      if (cancelled) return;
+      const root = threadRef.current;
+      const node = root?.querySelector(
+        `[data-message-id="${CSS.escape(targetId)}"]`,
+      ) as HTMLElement | null;
+      if (!node) {
+        attempts += 1;
+        // Wait for async insert / paint — do not clear focus on first miss (avoids landing on last message).
+        if (attempts < 40) {
+          window.setTimeout(tryFocus, 50);
+          return;
+        }
+        props.onFocusMessageHandled?.();
+        return;
+      }
+      node.scrollIntoView({ block: "center", behavior: "smooth" });
+      node.setAttribute("data-journal-focus", "1");
+      node.classList.add("is-journal-focus");
+      // Keep focus marker long enough for Journal→Travail deep-link asserts / paint races.
+      highlightTimer = window.setTimeout(() => {
+        node.classList.remove("is-journal-focus");
+        node.removeAttribute("data-journal-focus");
+        props.onFocusMessageHandled?.();
+      }, 5200);
+    };
+    tryFocus();
+    return () => {
+      cancelled = true;
+      if (highlightTimer) window.clearTimeout(highlightTimer);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.focusMessageId, messageIdsKey]);
+
+  const projectionByMessage = new Map(
+    (props.projections ?? []).map((p) => [p.messageId ?? "", p]),
+  );
+
+  return (
+    <div
+      className={
+        embedded
+          ? "fig-travail-workspace-embed"
+          : "fig-workspace fig-nora-responsive fig-travail-workspace"
+      }
+      data-figma-frame={frame}
+      data-figma-mobile-frames="282:468,282:492"
+      data-testid="nora-workspace"
+      data-travail-embed={embedded ? "1" : "0"}
+      data-travail-layout={props.layoutMode ?? "normal"}
+    >
+      <section
+        className="fig-conversation-panel"
+        data-testid="nora-conversation-panel"
+        data-nora-main="1"
+        id="nora-main"
+        hidden={props.layoutMode === "enlarged"}
+      >
+        <div className="fig-conversation-head">
+          <p className="fig-kicker !mb-0">Conversation du projet</p>
+          <span className="fig-tag fig-tag-muted">{variantLabel}</span>
+          {props.unresolvedPending ? (
+            <span className="fig-tag fig-tag-warn">Interruption / reprise</span>
+          ) : null}
+          {props.focusStatus ? (
+            <span className="fig-tag fig-tag-warn" data-testid="nora-focus-status">
+              {props.focusStatus}
+            </span>
+          ) : null}
+          {newBelow ? (
+            <button
+              type="button"
+              className="fig-tag fig-tag-ok"
+              data-testid="nora-new-below"
+              onClick={() => scrollToBottom("smooth")}
+            >
+              Nouveaux messages ↓
+            </button>
+          ) : null}
+        </div>
+
+        <div
+          className="fig-nora-thread"
+          data-testid="nora-thread"
+          ref={threadRef}
+          onScroll={onScroll}
+        >
+          {n === 0 ? (
+            <div className="fig-msg fig-msg-nora text-sm" data-testid="nora-first-empty">
+              <div className="fig-msg-meta">
+                <span className="fig-msg-avatar" aria-hidden>
+                  N
                 </span>
-                {showResultsChrome ||
-                a.status === "COMPLETED" ||
-                a.status === "FAILED" ||
-                a.status === "AMBIGUOUS" ? (
-                  <button
-                    type="button"
-                    className="btn secondary"
-                    data-testid={`attempt-bilan-${a.attemptId}`}
-                    onClick={() => void openBilan(a)}
-                  >
-                    Bilan D8
-                  </button>
+                <span className="fig-msg-role">Nora</span>
+              </div>
+              <p className="fig-msg-body">
+                Première conversation — écrivez pour démarrer le fil du projet. Aucun message fictif
+                n&apos;est prérempli.
+              </p>
+            </div>
+          ) : null}
+          {props.messages.map((m) => {
+            const isNora = m.role === "assistant";
+            const proj = isNora ? projectionByMessage.get(m.id) : undefined;
+            return (
+              <article
+                key={m.id}
+                className={`fig-msg ${isNora ? "fig-msg-nora" : "fig-msg-pilot"}`}
+                data-message-id={m.id}
+                data-testid={isNora ? "nora-msg-assistant" : "nora-msg-pilot"}
+              >
+                <div className="fig-msg-meta">
+                  {isNora ? (
+                    <span className="fig-msg-avatar" aria-hidden>
+                      N
+                    </span>
+                  ) : null}
+                  <span className={`fig-msg-role ${isNora ? "" : "fig-msg-role-pilot"}`}>
+                    {isNora ? "Nora" : "Pilote"}
+                  </span>
+                  <span className="sr-only">{m.status}</span>
+                </div>
+                {isNora ? (
+                  <div className="fig-msg-body">
+                    {(() => {
+                      const admission = proj?.visualComposition
+                        ? admitConversationalComposition(proj.visualComposition, {
+                            canonicalText: m.content,
+                          })
+                        : null;
+                      const policy = admission?.bodyPolicy ?? "markdown_only";
+                      const compositionEl =
+                        proj?.visualComposition && policy !== "markdown_only" ? (
+                          <NoraComposition
+                            composition={proj.visualComposition}
+                            canonicalText={m.content}
+                            choices={proj.choices}
+                            references={proj.references}
+                            actionable={proj.actionable}
+                            busy={props.busy}
+                            choiceFrozen={props.choiceFrozen}
+                            messageId={m.id}
+                            onChoice={props.onChoice}
+                            onReference={props.onReference}
+                          />
+                        ) : null;
+                      if (policy === "substitute" && compositionEl) {
+                        return compositionEl;
+                      }
+                      if (policy === "complement" && compositionEl) {
+                        return (
+                          <>
+                            <SafeMarkdown content={m.content} />
+                            <div
+                              className="fig-comp-complement"
+                              data-testid="nora-composition-complement"
+                            >
+                              {compositionEl}
+                            </div>
+                          </>
+                        );
+                      }
+                      return <SafeMarkdown content={m.content} />;
+                    })()}
+                  </div>
+                ) : (
+                  <div className="fig-msg-body whitespace-pre-wrap">{m.content}</div>
+                )}
+                {proj?.activity && proj.activity.kind !== "wait" ? (
+                  <details className="fig-nora-activity-history" data-testid="nora-activity-history">
+                    <summary>Activité de cette réponse</summary>
+                    <p>
+                      {proj.activity.label}
+                      {proj.activity.detail ? ` — ${proj.activity.detail}` : ""}
+                    </p>
+                  </details>
                 ) : null}
-                {showExecutionChrome &&
-                (a.status === "DISPATCHED" || a.status === "AMBIGUOUS") ? (
-                  <button
-                    type="button"
-                    className="btn secondary"
-                    data-testid="cursor-reconcile"
-                    data-attempt-id={a.attemptId}
-                    disabled={busy}
-                    onClick={() => void reconcileAttempt(a.attemptId)}
+                {proj &&
+                proj.choices.length > 0 &&
+                !compositionAnchorsChoices(proj.visualComposition) ? (
+                  <div
+                    className="fig-nora-choices"
+                    data-testid="nora-choices"
+                    data-actionable={proj.actionable ? "1" : "0"}
+                    data-message-id={m.id}
                   >
-                    Réconcilier
-                  </button>
+                    {proj.choices.map((c) => (
+                      <button
+                        key={c.id}
+                        type="button"
+                        className="fig-nora-choice"
+                        data-testid="nora-choice"
+                        data-choice-id={c.id}
+                        disabled={!proj.actionable || props.busy || props.choiceFrozen}
+                        onClick={() => props.onChoice?.(c, m.id)}
+                      >
+                        {c.label}
+                      </button>
+                    ))}
+                    {!proj.actionable ? (
+                      <p className="fig-nora-choices-expired" data-testid="nora-choices-expired">
+                        Propositions expirées — consultation seule.
+                      </p>
+                    ) : null}
+                  </div>
                 ) : null}
-                {showExecutionChrome && a.status === "DISPATCHED" ? (
-                  <button
-                    type="button"
-                    className="btn secondary"
-                    data-testid={`attempt-stop-${a.attemptId}`}
-                    onClick={() => void requestStop(a.attemptId)}
-                  >
-                    STOP
-                  </button>
+                {proj?.references?.length &&
+                !compositionAnchorsReferences(proj.visualComposition) ? (
+                  <ul className="fig-nora-refs" data-testid="nora-refs">
+                    {proj.references.map((r, i) => (
+                      <li key={`${r.kind}-${r.resourceId ?? r.path ?? i}`}>
+                        <button
+                          type="button"
+                          className="fig-nora-ref-link"
+                          data-testid="nora-ref-link"
+                          data-ref-kind={r.kind}
+                          onClick={() => props.onReference?.(r)}
+                        >
+                          Consulter · {r.label}
+                          {r.available === false ? " (à vérifier)" : ""}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
                 ) : null}
-              </li>
-            ))}
-          </ul>
-        )}
+              </article>
+            );
+          })}
+          {props.qualificationBanner ? (
+            <div
+              className="fig-panel space-y-3 my-3"
+              role="status"
+              aria-live="polite"
+              data-testid="qualification-activity-banner"
+              style={{ borderColor: "#7477ed55" }}
+            >
+              <p className="text-[10px] uppercase tracking-wide text-[#7477ed] font-semibold">
+                Nora prépare sa réponse
+              </p>
+              <div className="space-y-2 text-sm text-[#a3b0c7]">
+                <p>✓ Sources et intention du projet consultées</p>
+                <p>○ Préparation de la première orientation de trajectoire…</p>
+              </div>
+              {props.onOpenTrajectoire ? (
+                <button
+                  type="button"
+                  className="text-sm font-semibold text-[#7477ed] hover:underline"
+                  data-testid="qualification-voir-trajectoire"
+                  onClick={props.onOpenTrajectoire}
+                >
+                  Voir la trajectoire ↗
+                </button>
+              ) : null}
+            </div>
+          ) : null}
+          {props.activity === "preparing" && !props.qualificationBanner ? (
+            <div
+              className="fig-nora-activity"
+              role="status"
+              aria-live="polite"
+              data-testid="nora-activity-preparing"
+            >
+              <span className="fig-nora-activity-pulse" aria-hidden />
+              <span>Nora prépare une réponse…</span>
+              <span className="fig-nora-activity-note">
+                Attente réelle — aucune étape inventée.
+              </span>
+            </div>
+          ) : null}
+          {(props.activity === "preparing" || (props.liveActivityEvents?.length ?? 0) > 0) &&
+          (props.liveActivityHeadline || (props.liveActivityEvents?.length ?? 0) > 0) ? (
+            <div
+              className="fig-nora-live-activity"
+              role="status"
+              aria-live="polite"
+              data-testid="nora-live-activity"
+            >
+              <p className="fig-nora-live-activity-headline" data-testid="nora-live-activity-headline">
+                {props.liveActivityHeadline ||
+                  props.liveActivityEvents?.[props.liveActivityEvents.length - 1]?.summary ||
+                  "Activité en cours"}
+              </p>
+              {(props.liveActivityEvents?.length ?? 0) > 0 ? (
+                <details data-testid="nora-live-activity-detail">
+                  <summary>
+                    Détail ({props.liveActivityEvents!.length} événement
+                    {props.liveActivityEvents!.length > 1 ? "s" : ""})
+                  </summary>
+                  <ul>
+                    {props.liveActivityEvents!.map((ev) => (
+                      <li key={ev.sequence} data-nature={ev.nature} data-phase={ev.phase}>
+                        <span className="fig-nora-live-activity-nature">{ev.nature}</span>
+                        {" · "}
+                        {ev.summary}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              ) : null}
+            </div>
+          ) : null}
+          {props.activity === "error" ? (
+            <div className="fig-alert" role="alert" data-testid="nora-activity-error">
+              La dernière réponse n&apos;a pas pu être consolidée entièrement. Le texte saisi est
+              conservé. Aucune mutation n&apos;est relancée automatiquement — reformulez, ou
+              réconciliez seulement si une intention d&apos;effet reste ouverte.
+            </div>
+          ) : null}
+        </div>
       </section>
 
-      {bilan && selectedAttempt && (showResultsChrome || mode === "execution") ? (
-        <RealizationBilan
-          attemptId={selectedAttempt.attemptId}
-          verdict={bilan.verdict}
-          rubrics={bilan.rubrics}
-          limits={bilan.limits}
-          noraAnalysisMarkdown={bilan.noraAnalysisMarkdown}
-          noraAnalysisKind={bilan.noraAnalysisKind}
-          dossier={bilan.dossier}
-          activeTab={bilanTab}
-          onTabChange={setBilanTab}
-          onDiscussWithNora={() => {
-            const d = bilan.dossier;
-            const draft = [
-              `[Dossier D8 — brouillon retirable, aucun envoi automatique]`,
-              `attemptId: ${selectedAttempt.attemptId}`,
-              `contractId: ${d?.contractId ?? selectedAttempt.plan.contractId}`,
-              `handoffId: ${d?.handoffId ?? "MISSING"}`,
-              `dossierVersion: ${d?.dossierVersion ?? "UNKNOWN"}`,
-              `verdictD8: ${bilan.verdict}`,
-              `noraKind: ${bilan.noraAnalysisKind ?? "UNKNOWN"}`,
-              `fingerprint: ${selectedAttempt.fingerprint}`,
-              d?.filesConsulted?.length
-                ? `pieces: ${d.filesConsulted.map((f) => f.path).join(", ")}`
-                : "pieces: MISSING",
-              `Suite laissée au Pilote — aucune HumanDecision automatique.`,
-            ].join("\n");
-            props.onDiscussWithNora?.(draft);
-          }}
-        />
+      {/*
+        Pending banner lives outside the Figma-sized composer card so
+        max-height never clips reconcile controls under the shell lock.
+      */}
+      <div
+        className="fig-travail-composer-stack"
+        data-testid="nora-composer-stack"
+        data-pending={props.unresolvedPending ? "1" : "0"}
+        hidden={props.layoutMode === "enlarged"}
+      >
+        {props.unresolvedPending && props.onReconcile ? (
+          <div className="fig-travail-pending" data-testid="thread-pending-banner">
+            <p className="fig-travail-pending-copy">
+              Tentative non résolue — vérifier l&apos;état serveur avant un nouveau tour. Une
+              génération cognitive déjà terminée sans effet métier peut être levée ; un effet
+              métier incertain reste protégé.
+            </p>
+            <button
+              type="button"
+              className="btn secondary"
+              disabled={props.busy}
+              data-testid="thread-reconcile-pending"
+              onClick={props.onReconcile}
+            >
+              Vérifier et reprendre
+            </button>
+          </div>
+        ) : null}
+        <div
+          className="fig-composer fig-travail-composer relative"
+          data-testid="nora-composer"
+          data-composer-locked={composerLocked ? "1" : "0"}
+          data-composer-expanded={props.draft.includes("\n") || props.draft.length > 80 ? "1" : "0"}
+        >
+          {composerLocked ? (
+            <div
+              className="fig-travail-composer-lock absolute inset-0 z-10 flex items-center gap-3 rounded-xl px-4"
+              style={{ background: "rgba(12, 16, 28, 0.72)" }}
+              data-testid="composer-lock-overlay"
+            >
+              <svg
+                className="shrink-0 text-[#7477ed]"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                aria-hidden
+              >
+                <rect x="5" y="11" width="14" height="10" rx="2" />
+                <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+              </svg>
+              <div className="min-w-0 flex-1 text-xs text-[#a3b0c7]">
+                <p className="font-semibold text-[#f3f5ff]" data-testid="composer-lock-title">
+                  Compositeur temporairement indisponible
+                </p>
+                <p data-testid="composer-lock-reason">
+                  {props.composerLockReason ||
+                    "Nora prépare la trajectoire — saisie et envoi désactivés jusqu'au résultat terminal."}
+                </p>
+              </div>
+              <button
+                type="button"
+                className="shrink-0 rounded border border-[#7477ed55] px-1.5 py-0.5 text-[#7477ed]"
+                title={
+                  props.composerLockReason ||
+                  "Compositeur temporairement indisponible pendant la qualification de trajectoire."
+                }
+                aria-label={
+                  props.composerLockReason ||
+                  "Compositeur temporairement indisponible pendant la qualification de trajectoire."
+                }
+                data-testid="composer-lock-info"
+              >
+                i
+              </button>
+            </div>
+          ) : null}
+          {props.dossierAttachment?.attemptId ? (
+            <div
+              className="fig-dossier-attachment"
+              data-testid="dossier-composer-attachment"
+            >
+              <div className="fig-dossier-attachment-body">
+                <p className="fig-dossier-attachment-label">Dossier D8 joint</p>
+                <p className="fig-dossier-attachment-meta">
+                  {props.dossierAttachment.attemptId}
+                  {props.dossierAttachment.dossierVersion != null
+                    ? ` · v${props.dossierAttachment.dossierVersion}`
+                    : ""}
+                  {props.dossierAttachment.verdictD8
+                    ? ` · ${props.dossierAttachment.verdictD8}`
+                    : ""}
+                </p>
+              </div>
+              <button
+                type="button"
+                className="fig-dossier-attachment-remove"
+                data-testid="dossier-composer-attachment-remove"
+                disabled={composerLocked || props.busy}
+                onClick={() => props.onRemoveDossierAttachment?.()}
+                aria-label="Retirer la référence du dossier D8"
+              >
+                Retirer
+              </button>
+            </div>
+          ) : null}
+          <div className="fig-travail-composer-row">
+            <span className="fig-travail-composer-plus" aria-hidden>
+              +
+            </span>
+            <textarea
+              ref={textareaRef}
+              className="fig-travail-composer-input"
+              value={props.draft}
+              onChange={(e) => props.onDraft(e.target.value)}
+              placeholder="Écrire à Nora dans ce projet…"
+              aria-label="Message à Nora"
+              data-testid="thread-draft"
+              rows={1}
+              readOnly={composerLocked}
+              disabled={composerLocked}
+              aria-disabled={composerLocked}
+              onCompositionStart={() => setImeComposing(true)}
+              onCompositionEnd={() => setImeComposing(false)}
+              onKeyDown={(e) => {
+                if (composerLocked) {
+                  e.preventDefault();
+                  return;
+                }
+                if (imeComposing || e.nativeEvent.isComposing) return;
+                // Mobile: Enter = newline; send via button only.
+                if (isMobile) return;
+                if (e.key === "Enter" && !e.shiftKey && !props.busy) {
+                  e.preventDefault();
+                  if (props.draft.trim() || hasDossier) props.onSend();
+                }
+              }}
+            />
+            <button
+              type="button"
+              className="fig-travail-composer-send"
+              disabled={sendDisabled}
+              onClick={props.onSend}
+              data-testid="thread-send"
+              aria-label="Envoyer"
+            >
+              <span aria-hidden>↑</span>
+            </button>
+          </div>
+          {props.status ? (
+            <p className="sr-only" data-testid="thread-nora-status" role="status">
+              {props.status}
+            </p>
+          ) : null}
+        </div>
+      </div>
+
+      {props.aside ? (
+        <aside className="fig-travail-aside" data-testid="nora-aside">
+          {props.aside}
+        </aside>
       ) : null}
     </div>
   );
 }
+
 ```
 
-<!-- END FULL FILE projects/sfia-studio-next/web/src/components/figma/CursorRealizationSurface.tsx lines=754 -->
-
-### 8.4 `projects/sfia-studio-next/web/src/domains/execution/cursor-autonomous-restitution.ts` — INTÉGRAL (1698 lignes)
-
+### FILE: `projects/sfia-studio-next/web/src/components/figma/D6ConfirmLaunch.tsx` (full current)
 ```typescript
+"use client";
+
 /**
- * C22 — autonomous product restitution after Cursor terminal observation.
- *
- * Owner: D7 triggers collection; D8 qualifies from verified pieces; D3 avis
- * via cognitive conductor. Distinct from SFIA v2.6 external Review Handoff.
- *
- * C22 hardening:
- * - attempt-bound report identity + confined FS read
- * - atomic restitution claim (CAS + owner token + lease)
- * - D8 criterionEvidence from real workspace observations (no injected verified)
- * - Nora avis via runNoraCognitiveTurn + D8 tool scope
+ * ML5 C10 — HumanDecision D6 confirmation overlay (Oui / Non).
+ * Shared by Travail 50/50 and Exécution. Reading ≠ authorizing.
  */
 
-import { createHash, randomBytes } from "crypto";
-import { and, eq, sql } from "drizzle-orm";
-import { db } from "@/db/client";
-import {
-  effectAttempts,
-  realizationHandoffs,
-  realizationQualifications,
-  technicalContracts,
-} from "@/db/schema";
-import { newId } from "@/lib/ids";
-import {
-  buildDeterministicDossierSynthesis,
-  buildNoraCognitiveAnalysisPrompt,
-  classifyAttachedNoraPayload,
-  qualifyCursorRealization,
-  type CriterionEvaluation,
-} from "@/domains/proofs/cursor-qualify";
-import { readConfinedWorkspaceFile } from "@/domains/proofs/d8-path-confine";
-import {
-  staticEvaluateContentAgainstCriterion,
-  runIsolatedVerificationCommands,
-  deriveStudioVerifyPlanFromWorkspace,
-  readStudioVerificationArtifact,
-  matchCriterionToVerifyId,
-} from "@/domains/proofs/studio-isolated-verify";
-import {
-  heuristicCognitiveCriterionAssessments,
-  applyCognitiveAssessmentsToEvidence,
-} from "@/domains/proofs/d8-cognitive-criterion-eval";
-import {
-  ingestRealizationHandoff,
-  type HandoffManifest,
-} from "./cursor-handoff";
-import type { CursorExecutionPlan, CursorLiveProjection } from "./types";
+export function D6ConfirmLaunch(props: {
+  contractKey: string;
+  version: number;
+  fingerprint: string;
+  title?: string;
+  busy?: boolean;
+  onYes: () => void;
+  onNo: () => void;
+  onCancel?: () => void;
+}) {
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="d6-confirm-title"
+      data-testid="d6-confirm-launch"
+      className="fig-d6-confirm"
+    >
+      <div className="fig-d6-confirm-card">
+        <p className="fig-kicker !mb-0">Autoriser l&apos;exécution dans Cursor</p>
+        <h3 id="d6-confirm-title">
+          Transmettre le contrat inspecté et lancer une tentative ?
+        </h3>
+        <p data-testid="d6-confirm-scope">
+          Contrat{" "}
+          <strong>
+            {props.contractKey} v{props.version}
+          </strong>
+          {props.title ? ` — ${props.title}` : ""}. Aucun copier-coller : Studio
+          transmettra l&apos;instruction figée à Cursor SDK.
+        </p>
+        <p className="fig-travail-viewer-meta" data-testid="d6-confirm-fingerprint">
+          Empreinte inspectée : {props.fingerprint.slice(0, 16)}…
+        </p>
+        <p className="fig-travail-viewer-meta">
+          Oui = HumanDecision D6 (mandat). Non = refus explicite, aucun dispatch.
+          {props.onCancel ? " Annuler = fermer sans acte." : ""}
+        </p>
+        <div className="fig-d6-confirm-actions">
+          {props.onCancel ? (
+            <button
+              type="button"
+              className="btn secondary"
+              data-testid="d6-confirm-cancel"
+              disabled={props.busy}
+              onClick={props.onCancel}
+            >
+              Annuler
+            </button>
+          ) : null}
+          <button
+            type="button"
+            className="btn secondary"
+            data-testid="d6-confirm-no"
+            disabled={props.busy}
+            onClick={props.onNo}
+          >
+            Non
+          </button>
+          <button
+            type="button"
+            className="btn"
+            data-testid="d6-confirm-yes"
+            disabled={props.busy}
+            onClick={props.onYes}
+          >
+            Oui
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-export type RestitutionPipelineStatus =
-  | "IDLE"
-  | "COLLECTING"
-  | "QUALIFYING"
-  | "NORA"
-  | "COMPLETE"
-  | "PARTIAL"
-  | "FAILED";
+```
 
-type LiveWithRestitution = CursorLiveProjection & {
-  restitutionPipelineStatus?: RestitutionPipelineStatus;
-  restitutionHandoffId?: string | null;
-  restitutionQualificationId?: string | null;
-  restitutionStartedAt?: string | null;
-  restitutionCompletedAt?: string | null;
-  restitutionOwnerToken?: string | null;
-  restitutionVersion?: number | null;
-  restitutionLeaseExpiresAt?: string | null;
-  restitutionDossierVersion?: number | null;
-  /** C24 reprise — distinguish LIVE Nora avis vs deterministic synthesis. */
-  restitutionNoraKind?: "LIVE_D3" | "DETERMINISTIC" | "ATTACHED" | "NONE" | null;
-  reportMarkdown?: string | null;
+### FILE: `projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx` (full current)
+```typescript
+"use client";
+
+import {
+  PROJECT_SURFACE_LABELS,
+  type StudioSurface,
+} from "@/components/shell/studio-rail";
+
+type Surface = StudioSurface;
+
+const HERO: Record<
+  Surface,
+  { kicker: string; title: string; sub: string }
+> = {
+  travail: {
+    kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
+    title: "Réviser un document avec Nora",
+    sub: "Le chat reste à gauche ; le document sélectionné s’ouvre dans la visionneuse à droite.",
+  },
+  projet: {
+    kicker: "ESPACE PROJET / VUE D'ENSEMBLE",
+    title: "Vue d'ensemble",
+    sub: "Identité, cycle et activité du projet.",
+  },
+  pilotage: {
+    kicker: "ESPACE PROJET / TRAJECTOIRE",
+    title: "Trajectoire du projet",
+    sub: "Ce qui est terminé, ce qui est en cours et ce qui pourrait suivre.",
+  },
+  journal: {
+    kicker: "ESPACE PROJET  /  JOURNAL",
+    title: "Journal",
+    sub: "La mémoire du projet, organisée par thèmes. Retrouvez l’essentiel sans remonter toute la conversation.",
+  },
+  document: {
+    kicker: "ESPACE PROJET  /  DOCUMENTS",
+    title: "Bibliothèque du projet",
+    sub: "Retrouvez les documents durables du projet, leurs versions et les actions disponibles.",
+  },
+  git: {
+    kicker: "ESPACE PROJET / DÉPÔTS GIT",
+    title: "Dépôts Git",
+    sub: "Parcourir un dépôt autorisé puis lire le fichier directement dans l’espace projet.",
+  },
+  execution: {
+    kicker: "ESPACE PROJET  /  EXÉCUTION",
+    title: "Exécution gouvernée",
+    sub: "Contrats, interventions, observations LIVE et instruction intégrale — sans revue Nora permanente.",
+  },
+  publication: {
+    kicker: "ESPACE PROJET  /  RÉSULTATS & PREUVES",
+    title: "Résultats & preuves",
+    sub: "Dossier de réalisation : fichiers, tests, Git, captures, manifeste et avis Nora, sans validation automatique.",
+  },
 };
 
-const RESTITUTION_LEASE_MS = 120_000;
-const REPORT_MAX_BYTES = 256_000;
+export function ProjectChrome(props: {
+  projectId: string;
+  projectName: string | null;
+  surface: Surface;
+  /** Optional status line — never raw technical IDs in the nominal path. */
+  statusHint?: string;
+  /** Observable project bootstrap: loading until load()+surface sync finish. */
+  loadState?: "loading" | "ready";
+  /** Ensemble 05 — Travail layout: normal | split (viewer) | enlarged viewer. */
+  travailLayout?: "normal" | "split" | "enlarged";
+  /** Documents sub-views (08.02–08.06) — overrides default Bibliothèque hero. */
+  documentHero?: { kicker: string; title: string; sub: string } | null;
+  /** Travail states 08.07 / 08.08 — overrides default Travail hero. */
+  travailHero?: { kicker: string; title: string; sub: string } | null;
+  children: React.ReactNode;
+}) {
+  const loadState = props.loadState ?? "ready";
+  const hero =
+    props.surface === "document" && props.documentHero
+      ? props.documentHero
+      : props.surface === "travail" && props.travailHero
+        ? props.travailHero
+        : HERO[props.surface];
+  const surfaceLabel = PROJECT_SURFACE_LABELS[props.surface];
+  const displayName = props.projectName?.trim() || "Projet";
+  const isTravail = props.surface === "travail";
+  /** Journal V4 — hero lives inside ProjectJournal (full vs compact 40/60). */
+  const isJournal = props.surface === "journal";
+  /** Ensemble 07 — Projet / Trajectoire heroes live in ProjectOverview / TrajectoryBoard. */
+  const isProjetOrTrajectoire = props.surface === "projet" || props.surface === "pilotage";
+  /** Ensemble 08 — Dépôts Git / Publications heroes live in GitRepositoriesSurface. */
+  const isGitSurface = props.surface === "git" || props.surface === "publication";
+  const breadcrumbOnly = isTravail || isJournal || isProjetOrTrajectoire || isGitSurface;
 
-function parseLive(resultJson: string | null | undefined): LiveWithRestitution {
-  try {
-    return JSON.parse(resultJson || "{}") as LiveWithRestitution;
-  } catch {
-    return {};
-  }
+  const continuityBadge =
+    isTravail && props.statusHint && !/^chargement/i.test(props.statusHint) ? (
+      <span className="fig-tag fig-tag-ok" data-testid="project-status-hint">
+        {/reprise|conservé|durable/i.test(props.statusHint)
+          ? "Contexte conservé"
+          : props.statusHint}
+      </span>
+    ) : null;
+
+  const intro = (
+    <header className="project-space-hero fig-travail-intro" data-testid="travail-intro">
+      <p className="fig-kicker project-space-kicker">{hero.kicker}</p>
+      <div className="project-space-hero-row">
+        <h1 className="fig-hero-title" data-testid="project-surface-title">
+          {hero.title}
+        </h1>
+        {continuityBadge}
+      </div>
+      <p className="fig-hero-sub">{hero.sub}</p>
+    </header>
+  );
+
+  return (
+    <div
+      className={`fig-page project-space-page${isTravail ? " project-space-page--travail" : ""}${isJournal ? " project-space-page--journal" : ""}`}
+      data-project-surface={props.surface}
+      data-testid="project-load-state"
+      data-project-load-state={loadState}
+      data-project-id={props.projectId}
+      data-project-name={props.projectName ?? ""}
+    >
+      <div
+        className={`project-space-header${breadcrumbOnly ? " project-space-header--breadcrumb-only" : ""}`}
+        data-testid="project-space-header"
+      >
+        <div className="fig-breadcrumb project-space-breadcrumb">
+          <span data-testid="project-breadcrumb">
+            SFIA Studio&nbsp;&nbsp;/&nbsp;&nbsp;{displayName}&nbsp;&nbsp;/&nbsp;&nbsp;
+            {surfaceLabel}
+          </span>
+          <span className="project-space-badge" data-testid="project-espace-badge">
+            ESPACE PROJET
+          </span>
+        </div>
+
+        {!breadcrumbOnly ? (
+          <header className="project-space-hero space-y-1">
+            <p className="fig-kicker project-space-kicker">{hero.kicker}</p>
+            <div className="project-space-hero-row">
+              <h1 className="fig-hero-title" data-testid="project-surface-title">
+                {hero.title}
+              </h1>
+            </div>
+            <p className="fig-hero-sub">{hero.sub}</p>
+            {props.statusHint ? (
+              <p className="text-xs muted" data-testid="project-status-hint">
+                {props.statusHint}
+              </p>
+            ) : null}
+          </header>
+        ) : null}
+      </div>
+
+      <div className="sr-only" aria-hidden>
+        {(
+          [
+            "travail",
+            "projet",
+            "pilotage",
+            "journal",
+            "document",
+            "git",
+            "publication",
+          ] as const
+        ).map((id) => (
+          <span
+            key={id}
+            data-testid={`surface-${id}`}
+            data-surface-active={props.surface === id ? "1" : "0"}
+          />
+        ))}
+      </div>
+
+      {isTravail ? (
+        <div
+          className="project-travail-stage"
+          data-testid="project-travail-stage"
+          data-travail-layout={props.travailLayout ?? "normal"}
+        >
+          {intro}
+          <div
+            className="fig-travail-intro-rule"
+            data-testid="travail-intro-rule"
+            aria-hidden
+          />
+          {props.children}
+        </div>
+      ) : (
+        props.children
+      )}
+    </div>
+  );
 }
 
-function isTerminal(live: LiveWithRestitution, status: string): boolean {
-  if (status === "COMPLETED" || status === "FAILED" || status === "AMBIGUOUS") {
-    return true;
-  }
-  const t = live.terminalStatus;
-  return t === "finished" || t === "error" || t === "cancelled";
-}
+```
 
-function mintOwnerToken(): string {
-  return `rst_${randomBytes(16).toString("hex")}`;
-}
-
+### FILE: `projects/sfia-studio-next/web/src/components/shell/studio-rail.ts` (full current)
+```typescript
 /**
- * Attempt-bound report paths. Generic names are accepted only when the body
- * binds attemptId + contractFingerprint (and optionally runId).
+ * F1 Navigation rail variants — values from G2 railEvidence (VERIFY PASS).
+ * Discriminant fills are intentional: personnel ≠ projet.
+ *
+ * Variant selection follows proven frame ↔ route ↔ state mapping (G2),
+ * not a free pathname heuristic.
  */
-function attemptBoundRelPaths(attemptId: string): string[] {
-  return [
-    `.sfia/attempts/${attemptId}/realization-report.md`,
-    `.sfia/attempts/${attemptId}/SFIA_REALIZATION_REPORT.md`,
-  ];
-}
 
-const GENERIC_REPORT_RELS = [
-  ".sfia-realization-report.md",
-  "SFIA_REALIZATION_REPORT.md",
-  "realization-report.md",
+import type { CSSProperties } from "react";
+
+export type StudioRailVariant = "personnel" | "projet" | "conversation" | "inspection";
+
+export type StudioSurface =
+  | "travail"
+  | "projet"
+  | "pilotage"
+  | "journal"
+  | "document"
+  | "git"
+  | "execution"
+  | "publication";
+
+export type StudioRailTokens = {
+  variant: StudioRailVariant;
+  widthPx: number;
+  fill: string;
+  paddingTop: number;
+  paddingRight: number;
+  paddingBottom: number;
+  paddingLeft: number;
+  gap: number;
+  railComponentId: string;
+  sourceNodeId: string;
+};
+
+/** Canonical tokens measured in G2 L2 / railEvidence. */
+export const STUDIO_RAIL_VARIANTS: Record<StudioRailVariant, StudioRailTokens> = {
+  personnel: {
+    variant: "personnel",
+    widthPx: 246,
+    fill: "#0D1220",
+    paddingTop: 20,
+    paddingRight: 19,
+    paddingBottom: 0,
+    paddingLeft: 19,
+    gap: 10,
+    railComponentId: "shell.rail.personnel",
+    sourceNodeId: "606:20",
+  },
+  projet: {
+    variant: "projet",
+    widthPx: 246,
+    // ML4D 652:* validated — common project rail fill
+    fill: "#0C101A",
+    paddingTop: 22,
+    paddingRight: 16,
+    paddingBottom: 22,
+    paddingLeft: 16,
+    gap: 10,
+    railComponentId: "shell.rail.projet",
+    sourceNodeId: "652:8",
+  },
+  conversation: {
+    variant: "conversation",
+    // Ensemble 04 — project desktop rail fixed at 246 (Figma 652:*)
+    widthPx: 246,
+    fill: "#0C101A",
+    paddingTop: 22,
+    paddingRight: 16,
+    paddingBottom: 16,
+    paddingLeft: 16,
+    gap: 10,
+    railComponentId: "shell.rail.conversation",
+    sourceNodeId: "652:8",
+  },
+  inspection: {
+    variant: "inspection",
+    widthPx: 246,
+    fill: "#0C101A",
+    paddingTop: 22,
+    paddingRight: 16,
+    paddingBottom: 16,
+    paddingLeft: 16,
+    gap: 10,
+    railComponentId: "shell.rail.inspection",
+    sourceNodeId: "652:8",
+  },
+};
+
+export const PROJECT_SURFACES: StudioSurface[] = [
+  "travail",
+  "projet",
+  "pilotage",
+  "journal",
+  "document",
+  "git",
+  "execution",
+  "publication",
 ];
 
-/**
- * Binding must be field-exact — not a casual substring that could appear in prose
- * about another attempt. Accepts `attemptId: <id>` / `contractFingerprint: <fp>`.
- */
-function reportBindsAttempt(
-  markdown: string,
-  attemptId: string,
-  contractFingerprint: string,
-): boolean {
-  const attemptOk = new RegExp(
-    `(?:^|\\n)\\s*attemptId\\s*[:：]\\s*${escapeRegExp(attemptId)}\\s*(?:$|\\n)`,
-    "i",
-  ).test(markdown);
-  const fpOk = new RegExp(
-    `(?:^|\\n)\\s*contractFingerprint\\s*[:：]\\s*${escapeRegExp(contractFingerprint)}\\s*(?:$|\\n)`,
-    "i",
-  ).test(markdown);
-  return attemptOk && fpOk;
-}
-
-function escapeRegExp(s: string): string {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
-export async function collectAttemptBoundReport(input: {
-  workspaceCwd: string | null | undefined;
-  attemptId: string;
-  contractFingerprint: string;
-  agentId?: string | null;
-  runId?: string | null;
-}): Promise<{
-  markdown: string | null;
-  source: string;
-  limits: string[];
-  sha256: string | null;
-}> {
-  const limits: string[] = [];
-  if (!input.workspaceCwd) {
-    return {
-      markdown: null,
-      source: "NONE",
-      limits: ["NO_WORKSPACE_CWD"],
-      sha256: null,
-    };
-  }
-  const candidates = [
-    ...attemptBoundRelPaths(input.attemptId),
-    ...GENERIC_REPORT_RELS,
-  ];
-  for (const rel of candidates) {
-    const confined = readConfinedWorkspaceFile(input.workspaceCwd, rel, {
-      maxBytes: REPORT_MAX_BYTES,
-    });
-    if (!confined.ok) {
-      if (
-        confined.reason === "SYMLINK_ESCAPE" ||
-        confined.reason === "SYMLINK_COMPONENT" ||
-        confined.reason === "PATH_OUTSIDE_WORKSPACE" ||
-        confined.reason === "UNSAFE_RELATIVE_PATH"
-      ) {
-        limits.push(`REPORT_PATH_DENIED:${confined.reason}`);
-      } else if (confined.reason === "FILE_TOO_LARGE") {
-        limits.push("REPORT_FILE_TOO_LARGE");
-      }
-      continue;
-    }
-    const markdown = confined.bytes.toString("utf8");
-    if (!markdown.trim()) continue;
-    const bound = reportBindsAttempt(
-      markdown,
-      input.attemptId,
-      input.contractFingerprint,
-    );
-    const isAttemptPath = rel.includes(input.attemptId);
-    if (!bound && !isAttemptPath) {
-      limits.push("REPORT_BINDING_MISSING — generic report not attributable");
-      continue;
-    }
-    if (!bound && isAttemptPath) {
-      limits.push("REPORT_BINDING_WEAK — path attempt-scoped but body lacks fingerprint");
-      // Still refuse: identity of content must bind fingerprint.
-      continue;
-    }
-    if (input.runId && markdown.includes("runId:") && !markdown.includes(input.runId)) {
-      limits.push("REPORT_RUN_ID_MISMATCH");
-      continue;
-    }
-    const sha256 = createHash("sha256").update(confined.bytes).digest("hex");
-    return {
-      markdown,
-      source: `CONFINED_WORKSPACE:${rel}`,
-      limits: [
-        "REPORT_COLLECTED_CONFINED",
-        `REPORT_BYTES:${confined.byteLength}`,
-        `REPORT_SHA256:${sha256.slice(0, 16)}`,
-        ...limits,
-      ],
-      sha256,
-    };
-  }
-  return {
-    markdown: null,
-    source: "MISSING",
-    limits: [...limits, "REPORT_FILE_NOT_FOUND_OR_UNBOUND"],
-    sha256: null,
-  };
-}
-
-export type CriterionEvidenceLevel =
-  | "DECLARED"
-  | "OBSERVED"
-  | "ACCESSIBLE"
-  | "INTEGRITY_VERIFIED"
-  | "CONTENT_EVALUATED"
-  | "STUDIO_VERIFIED"
-  | "SATISFIED"
-  | "NOT_SATISFIED"
-  | "INSUFFICIENT"
-  | "INDETERMINATE";
-
-/**
- * Build manifest + criterionEvidence from confined FS observations — not from
- * PASS strings in prose. Agent-written exit/PASS files are OBSERVED only.
- * verified=true requires Studio content evaluation and/or Studio-owned verification.
- */
-export async function buildVerifiedEvidenceFromWorkspace(input: {
-  workspaceCwd: string | null | undefined;
-  reportMarkdown: string;
-  acceptanceCriteria: string[];
-  attemptId?: string | null;
-  contractFingerprint?: string | null;
-}): Promise<{
-  manifest: HandoffManifest;
-  criterionEvidence: Record<
-    string,
-    { refs: string[]; verified: boolean; level?: CriterionEvidenceLevel; note?: string }
-  >;
-  limits: string[];
-}> {
-  const limits: string[] = [];
-  const filesCreated: string[] = [];
-  const filesModified: string[] = [];
-  const filesObserved: string[] = [];
-  const filesConsulted: Array<{ path: string; sha256?: string; content?: string }> =
-    [];
-  const testsDeclared: string[] = [];
-  /** Agent-declared captures — observational only, never certifying alone. */
-  const testsCaptured: string[] = [];
-  /** Studio-owned verification results — may certify. */
-  const studioVerifiedTests: string[] = [];
-  const gaps: string[] = [];
-
-  const createdMatch = input.reportMarkdown.match(
-    /(?:filesCreated|Fichiers créés)\s*[:：]\s*([^\n]+)/i,
-  );
-  if (createdMatch) {
-    for (const p of createdMatch[1]!.split(/[,;]/).map((s) => s.trim()).filter(Boolean)) {
-      filesCreated.push(p.replace(/^[-*]\s*/, ""));
-    }
-  }
-  const modMatch = input.reportMarkdown.match(
-    /(?:filesModified|Fichiers modifiés)\s*[:：]\s*([^\n]+)/i,
-  );
-  if (modMatch) {
-    for (const p of modMatch[1]!.split(/[,;]/).map((s) => s.trim()).filter(Boolean)) {
-      filesModified.push(p.replace(/^[-*]\s*/, ""));
-    }
-  }
-  const testDecl = input.reportMarkdown.match(
-    /(?:testsDeclared|Tests)\s*[:：]\s*([^\n]+)/i,
-  );
-  if (testDecl) {
-    for (const t of testDecl[1]!.split(/[,;]/).map((s) => s.trim()).filter(Boolean)) {
-      if (!/^(non|aucune|n\/a)/i.test(t)) testsDeclared.push(t.replace(/^[-*]\s*/, ""));
-    }
-  }
-
-  const cwd = input.workspaceCwd;
-  const observe = (rel: string) => {
-    if (!cwd) return;
-    const r = readConfinedWorkspaceFile(cwd, rel, { maxBytes: REPORT_MAX_BYTES });
-    if (r.ok) {
-      filesObserved.push(rel);
-      filesConsulted.push({
-        path: rel,
-        sha256: createHash("sha256").update(r.bytes).digest("hex"),
-        content: r.bytes.toString("utf8"),
-      });
-    } else if (r.reason !== "FILE_ABSENT") {
-      limits.push(`OBSERVE_DENIED:${rel}:${r.reason}`);
-    } else {
-      gaps.push(`fichier annoncé absent: ${rel}`);
-    }
-  };
-
-  for (const f of [...filesCreated, ...filesModified]) observe(f);
-
-  // Also observe paths explicitly named in acceptance criteria.
-  for (const criterion of input.acceptanceCriteria) {
-    const pathHit = criterion.match(
-      /((?:src\/|lib\/|tests?\/|web\/)[\w./-]+\.[a-zA-Z0-9]+)/,
-    );
-    if (pathHit && !filesConsulted.some((c) => c.path === pathHit[1])) {
-      observe(pathHit[1]!);
-    }
-  }
-
-  // Agent captures — OBSERVED only (T-07: agent writing exit=0 ≠ Studio proof).
-  const agentCaptureMissing: string[] = [];
-  for (const t of testsDeclared) {
-    const captureRels = [
-      `.sfia/test-captures/${t}.exit`,
-      `.sfia/test-captures/${t}.stdout`,
-      `test-results/${t}.exit`,
-    ];
-    let captured = false;
-    if (cwd) {
-      for (const rel of captureRels) {
-        const r = readConfinedWorkspaceFile(cwd, rel, { maxBytes: 64_000 });
-        if (r.ok) {
-          const text = r.bytes.toString("utf8").trim();
-          if (rel.endsWith(".exit")) {
-            const code = Number(text.split(/\s+/)[0]);
-            if (Number.isFinite(code)) {
-              testsCaptured.push(`${t}:agent-exit=${code}:OBSERVED_ONLY`);
-              captured = true;
-              filesConsulted.push({
-                path: rel,
-                sha256: createHash("sha256").update(r.bytes).digest("hex"),
-              });
-              limits.push(
-                `AGENT_EXIT_CAPTURE_NOT_CERTIFYING:${t}:exit=${code}`,
-              );
-            }
-          } else {
-            testsCaptured.push(`${t}:agent-stdout:OBSERVED_ONLY`);
-            captured = true;
-          }
-          break;
-        }
-      }
-    }
-    if (!captured) agentCaptureMissing.push(t);
-  }
-
-  // C24 reprise — do not execute Cursor workspace code from Studio process.
-  // Subprocess+scrubbed-env ≠ system isolation. Default: TOOLING GAP / INSUFFICIENT.
-  {
-    const { isStudioIsolatedVerifyExecutionEnabled } = await import(
-      "@/domains/proofs/studio-verify-authority"
-    );
-    const gate = isStudioIsolatedVerifyExecutionEnabled();
-    limits.push(...gate.limits);
-    if (
-      gate.enabled &&
-      cwd &&
-      input.attemptId &&
-      input.contractFingerprint
-    ) {
-      const planCmds = deriveStudioVerifyPlanFromWorkspace({
-        workspaceCwd: cwd,
-        acceptanceCriteria: input.acceptanceCriteria,
-      });
-      if (planCmds.length > 0) {
-        const isolated = await runIsolatedVerificationCommands({
-          workspaceCwd: cwd,
-          attemptId: input.attemptId,
-          contractFingerprint: input.contractFingerprint,
-          commands: planCmds,
-        });
-        limits.push(...isolated.limits);
-        for (const r of isolated.results) {
-          studioVerifiedTests.push(
-            `${r.id}:studio-isolated-exit=${r.exitCode ?? "null"}:${r.ok ? "OK" : "FAIL"}`,
-          );
-          if (!r.ok) gaps.push(`studio isolated verify fail: ${r.id}`);
-        }
-      } else {
-        limits.push(
-          "ISOLATED_VERIFY_NO_STUDIO_EXPLICIT_PLAN — package.json alone is not authorization",
-        );
-      }
-    } else if (
-      input.acceptanceCriteria.some((c) =>
-        /test|unitaire|spec|exit\s*=\s*0/i.test(c),
-      )
-    ) {
-      limits.push(
-        "ISOLATED_VERIFY_TOOLING_GAP — test criteria remain INSUFFICIENT without Studio authority proof",
-      );
-    }
-  }
-
-  for (const t of agentCaptureMissing) {
-    const studioCovered = studioVerifiedTests.some(
-      (v) => v.includes(`${t}:`) || v.startsWith("npm-test:"),
-    );
-    if (!studioCovered) {
-      gaps.push(`test déclaré sans preuve Studio isolée: ${t}`);
-    } else {
-      limits.push(`AGENT_CAPTURE_OPTIONAL_STUDIO_COVERED:${t}`);
-    }
-  }
-
-  if (
-    /``\`(?:bash|sh|txt)?\n[\s\S]*?\bPASS\b/i.test(input.reportMarkdown) &&
-    studioVerifiedTests.length === 0
-  ) {
-    limits.push(
-      "PROSE_PASS_IGNORED — PASS dans le rapport ≠ capture de test vérifiée",
-    );
-  }
-
-  if (filesCreated.length + filesModified.length === 0) {
-    gaps.push("inventaire non exhaustif — dérivé du rapport");
-  }
-
-  const criterionEvidence: Record<
-    string,
-    { refs: string[]; verified: boolean; level?: CriterionEvidenceLevel; note?: string }
-  > = {};
-
-  for (const criterion of input.acceptanceCriteria) {
-    const refs: string[] = [];
-    let level: CriterionEvidenceLevel = "DECLARED";
-    let verified = false;
-    let note = "aucune preuve indépendante";
-
-    const pathInCriterion = criterion.match(
-      /((?:src\/|lib\/|tests?\/|web\/)[\w./-]+\.[a-zA-Z0-9]+)/,
-    )?.[1];
-
-    // File criteria: path must be explicit; static content check — no default success.
-    if (pathInCriterion) {
-      const consulted = filesConsulted.find((c) => c.path === pathInCriterion);
-      if (!consulted) {
-        level = "NOT_SATISFIED";
-        note = `pièce absente ou inaccessible: ${pathInCriterion}`;
-        gaps.push(note);
-      } else {
-        refs.push(pathInCriterion);
-        level = "ACCESSIBLE";
-        const contentOk = staticEvaluateContentAgainstCriterion(
-          criterion,
-          consulted.content ?? "",
-        );
-        if (contentOk.ok) {
-          level = "CONTENT_EVALUATED";
-          verified = true;
-          note = contentOk.note;
-        } else if (/INSUFFICIENT/i.test(contentOk.note)) {
-          level = "INSUFFICIENT";
-          verified = false;
-          note = contentOk.note;
-          limits.push("CONTENT_EVAL_INSUFFICIENT_NO_DEFAULT_PASS");
-        } else {
-          level = "NOT_SATISFIED";
-          note = contentOk.note;
-          gaps.push(`contenu non conforme: ${pathInCriterion}`);
-        }
-      }
-    } else {
-      // Stem-only mention → ACCESSIBLE at best, never auto-verified.
-      for (const c of filesConsulted) {
-        const stem = (c.path.split("/").pop() || "")
-          .toLowerCase()
-          .replace(/\.[^.]+$/, "");
-        if (
-          stem.length >= 2 &&
-          criterion.toLowerCase().includes(stem) &&
-          !c.path.includes("test-captures") &&
-          !c.path.includes("studio-verifications")
-        ) {
-          refs.push(c.path);
-          if (level === "DECLARED") level = "ACCESSIBLE";
-        }
-      }
-      if (level === "ACCESSIBLE") {
-        note = "accessible ≠ satisfait — critère sans chemin explicite";
-      }
-    }
-
-    // Test criteria: only Studio isolated verification linked to THIS criterion.
-    const isTestCriterion = /test|unitaire|spec|exit\s*=\s*0/i.test(criterion);
-    if (isTestCriterion) {
-      for (const cap of testsCaptured) {
-        refs.push(cap);
-        if (level === "DECLARED" || level === "ACCESSIBLE") level = "OBSERVED";
-      }
-      verified = false; // never inherit file-criterion verification
-      const availableIds = studioVerifiedTests.map((v) => v.split(":")[0]!);
-      const tokenIds = [
-        ...criterion.matchAll(/\b([a-z][\w-]{1,40})\b/gi),
-      ]
-        .map((m) => m[1]!)
-        .filter((w) => !/^(test|exit|unitaire|spec|the|and|for|with)$/i.test(w));
-      const candidateIds = [
-        ...new Set([...availableIds, "npm-test", ...tokenIds]),
-      ];
-      const linkedId = matchCriterionToVerifyId(criterion, candidateIds);
-      let linkedOk = false;
-      if (cwd && input.attemptId && input.contractFingerprint && linkedId) {
-        const art = readStudioVerificationArtifact({
-          workspaceCwd: cwd,
-          attemptId: input.attemptId,
-          testId: linkedId,
-          contractFingerprint: input.contractFingerprint,
-        });
-        limits.push(...art.limits);
-        if (art.ok) {
-          refs.push(`${linkedId}:studio-isolated-exit=0`);
-          level = "STUDIO_VERIFIED";
-          verified = true;
-          linkedOk = true;
-          note = `vérification Studio isolée (${art.verifiedBy}) liée au critère`;
-        } else if (art.limits.some((l) => /LEGACY_NOT_CERTIFYING|UNTRUSTED|MISMATCH/.test(l))) {
-          // Artifact present but not certifying — criterion stays insufficient.
-          linkedOk = false;
-          note = `artefact Studio non certifiant: ${art.limits.join(",")}`;
-        } else if (art.exit != null && art.exit !== 0) {
-          refs.push(`${linkedId}:studio-isolated-exit=${art.exit}`);
-          level = "NOT_SATISFIED";
-          note = "vérification Studio isolée: échec";
-          gaps.push(`studio isolated fail for criterion: ${criterion.slice(0, 60)}`);
-          linkedOk = true; // resolved as fail
-        }
-      }
-      // Do NOT reuse an unrelated studioHit for another criterion (C23 bug).
-      if (!linkedOk) {
-        level = "INSUFFICIENT";
-        note =
-          "test non certifié — besoin preuve Studio isolée liée au critère (agent exit insuffisant)";
-        limits.push("TEST_CRITERION_INSUFFICIENT_WITHOUT_LINKED_STUDIO_VERIFY");
-      }
-    }
-
-    // Presence / ACCESSIBLE alone never satisfies.
-    if (verified && (level === "ACCESSIBLE" || level === "OBSERVED")) {
-      verified = false;
-      level = "INSUFFICIENT";
-      note = "accessible/observé ≠ satisfait";
-    }
-
-    criterionEvidence[criterion] = { refs, verified, level, note };
-  }
-
-  return {
-    manifest: {
-      filesCreated,
-      filesModified,
-      filesObserved,
-      filesConsulted: filesConsulted.map(({ path, sha256 }) => ({
-        path,
-        sha256,
-      })),
-      testsDeclared,
-      testsCaptured: [...testsCaptured, ...studioVerifiedTests],
-      gaps,
-      sourcesConsulted: [
-        "cursor-report",
-        "workspace-confined",
-        "studio-isolated-verification",
-      ],
-    },
-    criterionEvidence,
-    limits,
-  };
-}
-
-/**
- * Independent local Git observation for D9 (option A). Read-only; no remote mutation.
- * Does not trust Cursor report tipSha alone.
- */
-async function observeLocalGitFactsForAttempt(
-  workspaceCwd: string | null | undefined,
-): Promise<{
-  facts: Array<{ path: string; sha?: string | null }>;
-  verified: boolean | null;
-  tipSha: string | null;
-  branch: string | null;
-  limits: string[];
-}> {
-  const limits: string[] = [];
-  if (!workspaceCwd) {
-    return {
-      facts: [],
-      verified: false,
-      tipSha: null,
-      branch: null,
-      limits: ["D9_NO_WORKSPACE — Git requis mais cwd absent"],
-    };
-  }
-  try {
-    const { execFile } = await import("node:child_process");
-    const { promisify } = await import("node:util");
-    const execFileAsync = promisify(execFile);
-    const { stdout: headOut } = await execFileAsync(
-      "git",
-      ["-C", workspaceCwd, "rev-parse", "HEAD"],
-      { timeout: 5_000 },
-    );
-    const tipSha = headOut.trim();
-    let branch: string | null = null;
-    try {
-      const { stdout: br } = await execFileAsync(
-        "git",
-        ["-C", workspaceCwd, "rev-parse", "--abbrev-ref", "HEAD"],
-        { timeout: 5_000 },
-      );
-      branch = br.trim() || null;
-    } catch {
-      branch = null;
-    }
-    if (!/^[0-9a-f]{40}$/i.test(tipSha)) {
-      limits.push("D9_TIP_SHA_INVALID");
-      return { facts: [], verified: false, tipSha: null, branch, limits };
-    }
-    limits.push("D9_LOCAL_TIP_OBSERVED");
-    // Remote SHA not verified here (read-only; no mutative GitHub). Local ≠ remote.
-    limits.push("D9_REMOTE_SHA_NOT_VERIFIED_THIS_CYCLE");
-    return {
-      facts: [{ path: ".git/HEAD", sha: tipSha }],
-      // null = local observed, remote still indeterminate — not a false failure.
-      verified: null,
-      tipSha,
-      branch,
-      limits,
-    };
-  } catch (e) {
-    limits.push(
-      `D9_LOCAL_OBSERVE_FAILED:${String((e as Error)?.message ?? e).slice(0, 80)}`,
-    );
-    return {
-      facts: [],
-      verified: false,
-      tipSha: null,
-      branch: null,
-      limits,
-    };
-  }
-}
-
-function sqlRestitutionClaimable() {
-  return sql`(
-    ${effectAttempts.resultJson}::jsonb->>'restitutionPipelineStatus' IS NULL
-    OR ${effectAttempts.resultJson}::jsonb->>'restitutionPipelineStatus' IN ('IDLE', 'PARTIAL', 'FAILED')
-    OR (
-      ${effectAttempts.resultJson}::jsonb->>'restitutionPipelineStatus' IN ('COLLECTING', 'QUALIFYING', 'NORA')
-      AND (
-        NULLIF(${effectAttempts.resultJson}::jsonb->>'restitutionLeaseExpiresAt', '') IS NULL
-        OR (${effectAttempts.resultJson}::jsonb->>'restitutionLeaseExpiresAt')::timestamptz <= now()
-      )
-    )
-  )`;
-}
-
-/** Exported for C24 fencing proofs — reclaim after lease expiry. */
-export async function claimRestitutionPipelineAtomic(input: {
-  attemptId: string;
-}): Promise<{
-  claimed: boolean;
-  live: LiveWithRestitution;
-  ownerToken: string | null;
-  version: number | null;
-}> {
-  const current = (
-    await db
-      .select({ resultJson: effectAttempts.resultJson })
-      .from(effectAttempts)
-      .where(eq(effectAttempts.id, input.attemptId))
-      .limit(1)
-  )[0];
-  if (!current) {
-    return { claimed: false, live: {}, ownerToken: null, version: null };
-  }
-  const prev = parseLive(current.resultJson);
-  if (prev.restitutionPipelineStatus === "COMPLETE" && prev.restitutionHandoffId) {
-    return { claimed: false, live: prev, ownerToken: null, version: null };
-  }
-
-  const ownerToken = mintOwnerToken();
-  const startedAt = new Date().toISOString();
-  const leaseExpiresAt = new Date(Date.now() + RESTITUTION_LEASE_MS).toISOString();
-  const prevVersion = prev.restitutionVersion ?? 0;
-  const nextVersion = prevVersion + 1;
-  const next: LiveWithRestitution = {
-    ...prev,
-    restitutionPipelineStatus: "COLLECTING",
-    restitutionOwnerToken: ownerToken,
-    restitutionStartedAt: startedAt,
-    restitutionLeaseExpiresAt: leaseExpiresAt,
-    restitutionVersion: nextVersion,
-  };
-
-  // CAS on restitutionVersion — concurrent claimants: at most one wins.
-  const updated = await db
-    .update(effectAttempts)
-    .set({
-      resultJson: JSON.stringify(next),
-      updatedAt: new Date(),
-    })
-    .where(
-      and(
-        eq(effectAttempts.id, input.attemptId),
-        sqlRestitutionClaimable(),
-        sql`COALESCE((${effectAttempts.resultJson}::jsonb->>'restitutionVersion')::int, 0) = ${prevVersion}`,
-      ),
-    )
-    .returning({ id: effectAttempts.id, resultJson: effectAttempts.resultJson });
-
-  if (!updated[0]) {
-    return {
-      claimed: false,
-      live: parseLive(current.resultJson),
-      ownerToken: null,
-      version: null,
-    };
-  }
-  const live = parseLive(updated[0].resultJson);
-  if (live.restitutionOwnerToken !== ownerToken) {
-    return { claimed: false, live, ownerToken: null, version: null };
-  }
-  return { claimed: true, live, ownerToken, version: nextVersion };
-}
-
-/** Exported for C24 fencing proofs — expired owner must not renew via write. */
-export async function persistPipelineOwned(input: {
-  attemptId: string;
-  ownerToken: string;
-  expectedVersion: number;
-  live: LiveWithRestitution;
-}): Promise<boolean> {
-  const payload: LiveWithRestitution = {
-    ...input.live,
-    restitutionOwnerToken: input.ownerToken,
-    restitutionVersion: input.expectedVersion,
-    restitutionLeaseExpiresAt: new Date(
-      Date.now() + RESTITUTION_LEASE_MS,
-    ).toISOString(),
-  };
-  // C24 — owner + version + lease required and still valid.
-  // Absent lease does NOT establish authority (refuse NULL / empty).
-  const updated = await db
-    .update(effectAttempts)
-    .set({
-      resultJson: JSON.stringify(payload),
-      updatedAt: new Date(),
-    })
-    .where(
-      and(
-        eq(effectAttempts.id, input.attemptId),
-        sql`${effectAttempts.resultJson}::jsonb->>'restitutionOwnerToken' = ${input.ownerToken}`,
-        sql`COALESCE((${effectAttempts.resultJson}::jsonb->>'restitutionVersion')::int, 0) = ${input.expectedVersion}`,
-        sql`(
-          NULLIF(${effectAttempts.resultJson}::jsonb->>'restitutionLeaseExpiresAt', '') IS NOT NULL
-          AND (${effectAttempts.resultJson}::jsonb->>'restitutionLeaseExpiresAt')::timestamptz > now()
-        )`,
-      ),
-    )
-    .returning({ id: effectAttempts.id });
-  return Boolean(updated[0]);
-}
-
-/**
- * After terminal observation: collect handoff → D8 qualify → Nora avis.
- * Safe to call repeatedly; no second Cursor dispatch.
- */
-export async function runAutonomousRestitutionAfterTerminal(input: {
-  pilotId: string;
-  projectId: string;
-  attemptId: string;
-  /** Default true when provider configured — fallback labelled if unavailable. */
-  attachNoraCognitive?: boolean;
-}): Promise<{
-  ran: boolean;
-  handoffId: string | null;
-  qualificationId: string | null;
-  handoffStatus: string | null;
-  verdict: string | null;
-  limits: string[];
-  pipelineStatus: RestitutionPipelineStatus;
-  criteria?: CriterionEvaluation[];
-}> {
-  const limits: string[] = [];
-  const row = (
-    await db
-      .select()
-      .from(effectAttempts)
-      .where(
-        and(
-          eq(effectAttempts.id, input.attemptId),
-          eq(effectAttempts.projectId, input.projectId),
-          eq(effectAttempts.pilotId, input.pilotId),
-        ),
-      )
-      .limit(1)
-  )[0];
-  if (!row) {
-    return {
-      ran: false,
-      handoffId: null,
-      qualificationId: null,
-      handoffStatus: null,
-      verdict: null,
-      limits: ["ATTEMPT_NOT_FOUND"],
-      pipelineStatus: "FAILED",
-    };
-  }
-
-  let live = parseLive(row.resultJson);
-  if (!isTerminal(live, row.status)) {
-    return {
-      ran: false,
-      handoffId: null,
-      qualificationId: null,
-      handoffStatus: null,
-      verdict: null,
-      limits: ["NOT_TERMINAL"],
-      pipelineStatus: live.restitutionPipelineStatus ?? "IDLE",
-    };
-  }
-
-  // Distinguish: technical dossier available vs cognitive avis pending vs fully complete.
-  {
-    const existingHandoff = (
-      await db
-        .select()
-        .from(realizationHandoffs)
-        .where(eq(realizationHandoffs.attemptId, row.id))
-        .limit(1)
-    )[0];
-    const existingQual = (
-      await db
-        .select()
-        .from(realizationQualifications)
-        .where(eq(realizationQualifications.attemptId, row.id))
-        .limit(1)
-    )[0];
-    const hasAvis = Boolean(existingQual?.noraAnalysisMarkdown?.trim());
-    const noraKind = live.restitutionNoraKind ?? null;
-    const wantNora =
-      input.attachNoraCognitive !== false &&
-      (process.env.SFIA_AUTONOMOUS_NORA_AVIS || "1").trim() !== "0";
-
-    // Fully materialised: handoff + qual + avis — no re-entry (late proof → requalify route).
-    if (existingHandoff && existingQual && hasAvis) {
-      return {
-        ran: false,
-        handoffId: existingHandoff.id,
-        qualificationId: existingQual.id,
-        handoffStatus: existingHandoff.status,
-        verdict: existingQual.verdict,
-        limits: [
-          "ALREADY_MATERIALISED_DOSSIER",
-          "RESTITUTION_TECHNICAL_AND_COGNITIVE_COMPLETE",
-        ],
-        pipelineStatus: "COMPLETE",
-        criteria: undefined,
-      };
-    }
-
-    // Pipeline marked COMPLETE but cognitive avis still missing → resume Nora only.
-    if (
-      live.restitutionPipelineStatus === "COMPLETE" &&
-      existingHandoff &&
-      existingQual &&
-      !hasAvis &&
-      wantNora
-    ) {
-      // Drop COMPLETE + expire lease so claimRestitutionPipelineAtomic can reclaim
-      // without redispatch — handoff/qual already present; Nora attach continues below.
-      live = {
-        ...live,
-        restitutionPipelineStatus: "NORA",
-        restitutionNoraKind: noraKind === "LIVE_D3" ? noraKind : "NONE",
-        restitutionOwnerToken: null,
-        restitutionLeaseExpiresAt: new Date(Date.now() - 1_000).toISOString(),
-        limits: [
-          ...(live.limits ?? []),
-          "COGNITIVE_AVIS_RESUME_FROM_TECHNICAL_COMPLETE",
-        ],
-      };
-      await db
-        .update(effectAttempts)
-        .set({
-          resultJson: JSON.stringify(live),
-          updatedAt: new Date(),
-        })
-        .where(eq(effectAttempts.id, row.id));
-      live = parseLive(
-        (
-          await db
-            .select({ resultJson: effectAttempts.resultJson })
-            .from(effectAttempts)
-            .where(eq(effectAttempts.id, row.id))
-            .limit(1)
-        )[0]?.resultJson,
-      );
-    } else if (live.restitutionPipelineStatus === "COMPLETE") {
-      return {
-        ran: false,
-        handoffId: live.restitutionHandoffId ?? existingHandoff?.id ?? null,
-        qualificationId:
-          live.restitutionQualificationId ?? existingQual?.id ?? null,
-        handoffStatus: existingHandoff?.status ?? live.reportStatus ?? null,
-        verdict: existingQual?.verdict ?? null,
-        limits: [
-          "ALREADY_COMPLETE_TECHNICAL",
-          hasAvis
-            ? "COGNITIVE_AVIS_PRESENT"
-            : "COGNITIVE_AVIS_ABSENT_BUT_NORA_ATTACH_DISABLED",
-        ],
-        pipelineStatus: "COMPLETE",
-      };
-    }
-  }
-
-  const claim = await claimRestitutionPipelineAtomic({ attemptId: row.id });
-  if (!claim.claimed || !claim.ownerToken || claim.version == null) {
-    return {
-      ran: false,
-      handoffId: claim.live.restitutionHandoffId ?? null,
-      qualificationId: claim.live.restitutionQualificationId ?? null,
-      handoffStatus: claim.live.reportStatus ?? null,
-      verdict: null,
-      limits: ["PIPELINE_CLAIM_LOST_OR_HELD"],
-      pipelineStatus: claim.live.restitutionPipelineStatus ?? "IDLE",
-    };
-  }
-  live = claim.live;
-  const ownerToken = claim.ownerToken;
-  const version = claim.version;
-
-  const plan = JSON.parse(row.planJson) as CursorExecutionPlan;
-
-  // 1) Collect report — prefer confined attempt-bound workspace file (attributable).
-  // SDK result text is a fallback when no bound workspace report exists.
-  let reportMarkdown = "";
-  let acquisition: "RUNTIME_COLLECTED" | "SCRIPTED_ADAPTER" | "UNKNOWN" =
-    "UNKNOWN";
-  const collected = await collectAttemptBoundReport({
-    workspaceCwd: plan.workspaceCwd,
-    attemptId: row.id,
-    contractFingerprint: plan.contractFingerprint,
-    agentId: live.agentId,
-    runId: live.runId,
-  });
-  limits.push(...collected.limits);
-  if (collected.markdown?.trim()) {
-    reportMarkdown = collected.markdown.trim();
-    acquisition = "RUNTIME_COLLECTED";
-    limits.push("REPORT_FROM_CONFINED_WORKSPACE");
-  } else if ((live.reportMarkdown ?? "").trim()) {
-    reportMarkdown = (live.reportMarkdown ?? "").trim();
-    acquisition =
-      plan.effectProviderMode === "SCRIPTED"
-        ? "SCRIPTED_ADAPTER"
-        : "RUNTIME_COLLECTED";
-    if (
-      !reportBindsAttempt(reportMarkdown, row.id, plan.contractFingerprint) &&
-      plan.effectProviderMode === "LIVE"
-    ) {
-      limits.push("RUNTIME_REPORT_BINDING_WEAK");
-    }
-    limits.push("REPORT_FROM_ATTEMPT_RESULT");
-  }
-
-  const contract = (
-    await db
-      .select()
-      .from(technicalContracts)
-      .where(eq(technicalContracts.id, plan.contractId))
-      .limit(1)
-  )[0];
-  let acceptanceCriteria: string[] = [];
-  let expectedProofs: string[] = [];
-  let contractTitle: string | null = null;
-  if (contract) {
-    contractTitle = contract.title ?? null;
-    try {
-      const acceptance = JSON.parse(contract.acceptanceJson || "{}") as {
-        criteria?: string[];
-        expectedProofs?: string[];
-      };
-      acceptanceCriteria = acceptance.criteria ?? [];
-      expectedProofs = acceptance.expectedProofs ?? [];
-    } catch {
-      /* ignore */
-    }
-  }
-
-  const evidence = await buildVerifiedEvidenceFromWorkspace({
-    workspaceCwd: plan.workspaceCwd,
-    reportMarkdown: reportMarkdown || "",
-    acceptanceCriteria,
-    attemptId: row.id,
-    contractFingerprint: plan.contractFingerprint,
-  });
-  limits.push(...evidence.limits);
-
-  // C24 reprise — LIVE Nora cognitive criterion assessment is nominal;
-  // heuristic is an explicitly labelled fallback only.
-  let cogAssessments = heuristicCognitiveCriterionAssessments({
-    criteria: acceptanceCriteria,
-    criterionEvidence: evidence.criterionEvidence,
-  });
-  const wantCriteriaLive =
-    input.attachNoraCognitive !== false &&
-    (process.env.SFIA_D8_COGNITIVE_CRITERIA_LIVE || "1").trim() !== "0" &&
-    (process.env.SFIA_AUTONOMOUS_NORA_AVIS || "1").trim() !== "0";
-  if (wantCriteriaLive && contract?.preparationId && acceptanceCriteria.length > 0) {
-    try {
-      const { runLiveCognitiveCriterionAssessments } = await import(
-        "@/domains/proofs/d8-cognitive-criterion-eval"
-      );
-      const liveCog = await runLiveCognitiveCriterionAssessments({
-        pilotId: input.pilotId,
-        preparationId: contract.preparationId,
-        projectId: input.projectId,
-        attemptId: row.id,
-        contractTitle,
-        acceptanceCriteria,
-        criterionEvidence: evidence.criterionEvidence,
-        reportExcerpt: (reportMarkdown || "").slice(0, 4000),
-      });
-      if (liveCog.assessments.length > 0) {
-        cogAssessments = liveCog;
-        limits.push("D8_COGNITIVE_CRITERIA_LIVE");
-      } else {
-        limits.push(
-          ...liveCog.limits,
-          "D8_COGNITIVE_CRITERIA_FALLBACK_HEURISTIC",
-        );
-      }
-    } catch (e) {
-      limits.push(
-        `D8_COGNITIVE_LIVE_ERROR:${String((e as Error)?.message ?? e).slice(0, 80)}`,
-        "D8_COGNITIVE_CRITERIA_FALLBACK_HEURISTIC",
-      );
-    }
-  } else {
-    limits.push("D8_COGNITIVE_CRITERIA_HEURISTIC_ONLY");
-  }
-  const applied = applyCognitiveAssessmentsToEvidence({
-    criterionEvidence: evidence.criterionEvidence,
-    assessments: cogAssessments.assessments,
-  });
-  evidence.criterionEvidence = applied.criterionEvidence as typeof evidence.criterionEvidence;
-  limits.push(...cogAssessments.limits, ...applied.limits);
-
-  let handoff = (
-    await db
-      .select()
-      .from(realizationHandoffs)
-      .where(eq(realizationHandoffs.attemptId, row.id))
-      .limit(1)
-  )[0];
-
-  let handoffId = handoff?.id ?? null;
-  let handoffStatus = handoff?.status ?? null;
-
-  if (!handoff) {
-    try {
-      // C24 — atomic ownership CAS + handoff insert (no fence-then-write window).
-      const ingested = await ingestRealizationHandoff({
-        pilotId: input.pilotId,
-        projectId: input.projectId,
-        attemptId: row.id,
-        reportMarkdown: reportMarkdown || "",
-        manifest: evidence.manifest,
-        expectedContractFingerprint: plan.contractFingerprint,
-        provenance: {
-          acquisition,
-          observedAgentId: live.agentId ?? null,
-          observedRunId: live.runId ?? null,
-        },
-        ownershipGate: {
-          ownerToken,
-          expectedVersion: version,
-          livePatch: {
-            restitutionPipelineStatus: "COLLECTING",
-          },
-        },
-      });
-      handoffId = ingested.handoffId;
-      handoffStatus = ingested.status;
-      limits.push(...ingested.limits, "AUTONOMOUS_HANDOFF_INGESTED_ATOMIC");
-    } catch (e) {
-      const msg = String((e as Error)?.message ?? e);
-      if (/OWNERSHIP_LOST_ATOMIC_HANDOFF/.test(msg)) {
-        limits.push("OWNERSHIP_LOST_ATOMIC_HANDOFF");
-      }
-      limits.push(
-        `HANDOFF_INGEST_FAILED:${msg.slice(0, 100)}`,
-      );
-      live = {
-        ...live,
-        restitutionPipelineStatus: "PARTIAL",
-        restitutionCompletedAt: new Date().toISOString(),
-      };
-      await persistPipelineOwned({
-        attemptId: row.id,
-        ownerToken,
-        expectedVersion: version,
-        live,
-      });
-      return {
-        ran: true,
-        handoffId: null,
-        qualificationId: null,
-        handoffStatus: null,
-        verdict: null,
-        limits,
-        pipelineStatus: "PARTIAL",
-      };
-    }
-    handoff = (
-      await db
-        .select()
-        .from(realizationHandoffs)
-        .where(eq(realizationHandoffs.attemptId, row.id))
-        .limit(1)
-    )[0];
-  } else {
-    limits.push("HANDOFF_ALREADY_PRESENT");
-  }
-
-  live = {
-    ...live,
-    restitutionPipelineStatus: "QUALIFYING",
-    restitutionHandoffId: handoffId,
-  };
-  if (
-    !(await persistPipelineOwned({
-      attemptId: row.id,
-      ownerToken,
-      expectedVersion: version,
-      live,
-    }))
-  ) {
-    return {
-      ran: true,
-      handoffId,
-      qualificationId: null,
-      handoffStatus,
-      verdict: null,
-      limits: [...limits, "OWNERSHIP_LOST_AT_QUALIFY"],
-      pipelineStatus: "PARTIAL",
-    };
-  }
-
-  let existingQual = (
-    await db
-      .select()
-      .from(realizationQualifications)
-      .where(eq(realizationQualifications.attemptId, row.id))
-      .limit(1)
-  )[0];
-
-  let manifest: HandoffManifest = evidence.manifest;
-  try {
-    if (handoff?.manifestJson) {
-      manifest = {
-        ...evidence.manifest,
-        ...(JSON.parse(handoff.manifestJson) as HandoffManifest),
-        filesObserved: evidence.manifest.filesObserved,
-        filesConsulted: evidence.manifest.filesConsulted,
-        testsCaptured: evidence.manifest.testsCaptured,
-        gaps: [
-          ...new Set([
-            ...(evidence.manifest.gaps ?? []),
-            ...((JSON.parse(handoff.manifestJson) as HandoffManifest).gaps ?? []),
-          ]),
-        ],
-      };
-    }
-  } catch {
-    /* keep evidence.manifest */
-  }
-
-  // C23 D9 — when Git is required by the contract, observe independently or refuse
-  // conformity. Missions without gitScope stay N/A (gitFactsVerified=null).
-  let gitFactsVerified: boolean | null = null;
-  let gitFacts: Array<{ path: string; sha?: string | null }> | undefined;
-  if (plan.gitScope?.required) {
-    const observed = await observeLocalGitFactsForAttempt(plan.workspaceCwd);
-    gitFacts = observed.facts;
-    gitFactsVerified = observed.verified;
-    limits.push(...observed.limits);
-    if (observed.tipSha) {
-      manifest = {
-        ...manifest,
-        git: {
-          ...(manifest.git ?? {}),
-          tipSha: observed.tipSha,
-          branch: observed.branch ?? plan.gitScope.workBranch ?? null,
-          baseSha: plan.gitScope.baseSha ?? null,
-        },
-      };
-    }
-  }
-
-  const gitRequired = Boolean(plan.gitScope?.required);
-  const q = qualifyCursorRealization({
-    contractFingerprint: plan.contractFingerprint,
-    acceptanceCriteria,
-    expectedProofs,
-    handoffStatus: handoff?.status ?? null,
-    reportMarkdown: (handoff?.reportMarkdown ?? reportMarkdown) || null,
-    manifest,
-    terminalStatus: live.terminalStatus ?? null,
-    // C22/C23 — product path builds evidence; never inject verified from campaign.
-    criterionEvidence: evidence.criterionEvidence,
-    gitFacts,
-    gitFactsVerified,
-    gitRequired,
-  });
-
-  let qualificationId = existingQual?.id ?? null;
-  const dossierVersion = (live.restitutionDossierVersion ?? 0) + 1;
-  if (!existingQual) {
-    // C24 — atomic CAS + D8 insert in one transaction.
-    const id = newId("rqual");
-    const now = new Date();
-    const liveForQual: LiveWithRestitution = {
-      ...live,
-      restitutionPipelineStatus: "QUALIFYING",
-      restitutionHandoffId: handoffId,
-      restitutionDossierVersion: dossierVersion,
-      restitutionOwnerToken: ownerToken,
-      restitutionVersion: version,
-      restitutionLeaseExpiresAt: new Date(
-        Date.now() + RESTITUTION_LEASE_MS,
-      ).toISOString(),
-    };
-    const inserted = await db.transaction(async (tx) => {
-      const cas = await tx
-        .update(effectAttempts)
-        .set({
-          resultJson: JSON.stringify(liveForQual),
-          updatedAt: now,
-        })
-        .where(
-          and(
-            eq(effectAttempts.id, row.id),
-            sql`${effectAttempts.resultJson}::jsonb->>'restitutionOwnerToken' = ${ownerToken}`,
-            sql`COALESCE((${effectAttempts.resultJson}::jsonb->>'restitutionVersion')::int, 0) = ${version}`,
-            sql`(
-              NULLIF(${effectAttempts.resultJson}::jsonb->>'restitutionLeaseExpiresAt', '') IS NOT NULL
-              AND (${effectAttempts.resultJson}::jsonb->>'restitutionLeaseExpiresAt')::timestamptz > now()
-            )`,
-          ),
-        )
-        .returning({ id: effectAttempts.id });
-      if (!cas[0]) return false;
-      await tx.insert(realizationQualifications).values({
-        id,
-        attemptId: row.id,
-        projectId: input.projectId,
-        pilotId: input.pilotId,
-        handoffId: handoffId,
-        status: "QUALIFIED",
-        rubricsJson: JSON.stringify(q.rubrics),
-        verdict: q.verdict,
-        limitsJson: JSON.stringify([
-          ...q.limits,
-          "AUTONOMOUS_D8_QUALIFICATION_C22",
-          `DOSSIER_VERSION:${dossierVersion}`,
-          "D8_INSERT_ATOMIC_OWNERSHIP",
-          ...limits,
-        ]),
-        historyJson: "[]",
-        noraAnalysisMarkdown: null,
-        noraAnalysisAt: null,
-        createdAt: now,
-        updatedAt: now,
-      });
-      return true;
-    });
-    if (!inserted) {
-      return {
-        ran: true,
-        handoffId,
-        qualificationId: null,
-        handoffStatus,
-        verdict: q.verdict,
-        limits: [...limits, "OWNERSHIP_LOST_ATOMIC_D8_INSERT"],
-        pipelineStatus: "PARTIAL",
-        criteria: q.criteria,
-      };
-    }
-    qualificationId = id;
-    existingQual = (
-      await db
-        .select()
-        .from(realizationQualifications)
-        .where(eq(realizationQualifications.id, id))
-        .limit(1)
-    )[0];
-    limits.push("AUTONOMOUS_D8_INSERTED_ATOMIC");
-  } else {
-    limits.push("D8_ALREADY_PRESENT");
-  }
-
-  live = {
-    ...live,
-    restitutionPipelineStatus: "NORA",
-    restitutionQualificationId: qualificationId,
-    restitutionDossierVersion: dossierVersion,
-  };
-  if (
-    !(await persistPipelineOwned({
-      attemptId: row.id,
-      ownerToken,
-      expectedVersion: version,
-      live,
-    }))
-  ) {
-    return {
-      ran: true,
-      handoffId,
-      qualificationId,
-      handoffStatus,
-      verdict: q.verdict,
-      limits: [...limits, "OWNERSHIP_LOST_BEFORE_NORA"],
-      pipelineStatus: "PARTIAL",
-      criteria: q.criteria,
-    };
-  }
-
-  const wantCognitive =
-    input.attachNoraCognitive !== false &&
-    (process.env.SFIA_AUTONOMOUS_NORA_AVIS || "1").trim() !== "0";
-
-  let noraMarkdown: string | null = null;
-  if (existingQual && !existingQual.noraAnalysisMarkdown) {
-    if (wantCognitive) {
-      try {
-        const { runNoraCognitiveTurn } = await import(
-          "@/domains/conversation/run-nora-cognitive-turn"
-        );
-        const prompt = buildNoraCognitiveAnalysisPrompt({
-          qualification: q,
-          contractTitle,
-          attemptId: row.id,
-          sourcesAccessible: [
-            ...(manifest.sourcesConsulted ?? []),
-            ...(manifest.filesConsulted ?? []).map((f) => f.path),
-          ],
-        });
-        const prepId = contract?.preparationId ?? null;
-        const reply = prepId
-          ? await runNoraCognitiveTurn({
-              pilotId: input.pilotId,
-              preparationId: prepId,
-              projectId: input.projectId,
-              forceNewWork: true,
-              objective: `Avis cognitif D8 attempt ${row.id} v${dossierVersion}`,
-              userText: [
-                prompt,
-                "",
-                "OUTILS D8 OBLIGATOIRES: list_realization_evidence, read_realization_handoff_report, read_attempt_workspace_file.",
-                "Ne te fonde pas uniquement sur un extrait. Distingue CONSULTÉ / métadonnée / déclaration.",
-              ].join("\n"),
-              contextSnippets: [
-                `attemptId=${row.id}`,
-                `dossierVersion=${dossierVersion}`,
-                `verdict=${q.verdict}`,
-                `handoffStatus=${handoff?.status ?? "NONE"}`,
-                `integrity=${handoff?.integrityHash ?? ""}`,
-                `workspace=${plan.workspaceCwd ?? ""}`,
-              ],
-              toolScope: {
-                pilotId: input.pilotId,
-                preparationId: prepId,
-                operationId: `d8-nora-auto-${row.id}-v${dossierVersion}`,
-                projectId: input.projectId,
-                attemptId: row.id,
-              },
-              maxSegmentsThisInvocation: 2,
-            })
-          : null;
-
-        if (!reply) {
-          limits.push("NORA_NO_PREPARATION_ID — fallback synthèse");
-        } else {
-          const raw = (reply.content ?? "").trim();
-          const liveOk =
-            reply.mode === "openai-agents-sdk-live" &&
-            reply.status === "COMPLETE" &&
-            raw.length > 0;
-          if (liveOk) {
-            noraMarkdown = raw.includes("ANALYSE COGNITIVE NORA (D3)")
-              ? raw
-              : `[ANALYSE COGNITIVE NORA (D3)]\n\n${raw}`;
-            limits.push(
-              "NORA_COGNITIVE_AUTONOMOUS_CONDUCTOR",
-              `NORA_WORK:${reply.conductor?.workId ?? "unknown"}`,
-              `NORA_TOOLS:${reply.toolCallsObserved ?? 0}`,
-            );
-          } else {
-            limits.push(
-              `NORA_COGNITIVE_UNAVAILABLE_${reply.mode}`,
-              "FALLBACK_DETERMINISTIC_SYNTHESIS",
-            );
-          }
-        }
-      } catch (e) {
-        limits.push(
-          `NORA_ERROR:${String((e as Error)?.message ?? e).slice(0, 80)}`,
-          "FALLBACK_DETERMINISTIC_SYNTHESIS",
-        );
-      }
-    }
-    if (!noraMarkdown) {
-      noraMarkdown = buildDeterministicDossierSynthesis({
-        qualification: q,
-        contractTitle,
-        attemptId: row.id,
-        sourcesAccessible: manifest.sourcesConsulted,
-        dossierIncomplete: handoff?.status !== "RECEIVED",
-      });
-      limits.push(
-        "DETERMINISTIC_SYNTHESIS_AUTONOMOUS — pas un avis cognitif Nora D3",
-      );
-    }
-    // C24 — Nora avis write atomic with ownership: single transaction,
-    // CAS on noraAnalysisMarkdown IS NULL AND owner+lease+version still valid.
-    const noraAt = new Date();
-    const liveNora: LiveWithRestitution = {
-      ...live,
-      restitutionPipelineStatus: "NORA",
-      restitutionDossierVersion: dossierVersion,
-      restitutionOwnerToken: ownerToken,
-      restitutionVersion: version,
-      restitutionLeaseExpiresAt: new Date(
-        Date.now() + RESTITUTION_LEASE_MS,
-      ).toISOString(),
-    };
-    const noraWrite = await db.transaction(async (tx) => {
-      const cas = await tx
-        .update(effectAttempts)
-        .set({
-          resultJson: JSON.stringify(liveNora),
-          updatedAt: noraAt,
-        })
-        .where(
-          and(
-            eq(effectAttempts.id, row.id),
-            sql`${effectAttempts.resultJson}::jsonb->>'restitutionOwnerToken' = ${ownerToken}`,
-            sql`COALESCE((${effectAttempts.resultJson}::jsonb->>'restitutionVersion')::int, 0) = ${version}`,
-            sql`(
-              NULLIF(${effectAttempts.resultJson}::jsonb->>'restitutionLeaseExpiresAt', '') IS NOT NULL
-              AND (${effectAttempts.resultJson}::jsonb->>'restitutionLeaseExpiresAt')::timestamptz > now()
-            )`,
-          ),
-        )
-        .returning({ id: effectAttempts.id });
-      if (!cas[0]) return { wrote: false as const, reason: "OWNERSHIP" as const };
-      const avis = await tx
-        .update(realizationQualifications)
-        .set({
-          noraAnalysisMarkdown: noraMarkdown,
-          noraAnalysisAt: noraAt,
-          limitsJson: JSON.stringify([
-            ...q.limits,
-            ...limits,
-            `NORA_KIND:${classifyAttachedNoraPayload(noraMarkdown)}`,
-            `DOSSIER_VERSION:${dossierVersion}`,
-            "NORA_AVIS_ATOMIC_OWNERSHIP",
-          ]),
-          updatedAt: noraAt,
-        })
-        .where(
-          and(
-            eq(realizationQualifications.id, qualificationId!),
-            sql`${realizationQualifications.noraAnalysisMarkdown} IS NULL`,
-          ),
-        )
-        .returning({ id: realizationQualifications.id });
-      if (!avis[0]) return { wrote: false as const, reason: "AVIS_CAS" as const };
-      return { wrote: true as const, reason: "OK" as const };
-    });
-    if (!noraWrite.wrote) {
-      if (noraWrite.reason === "OWNERSHIP") {
-        limits.push("OWNERSHIP_LOST_ATOMIC_NORA_AVIS — avis non persisté");
-        return {
-          ran: true,
-          handoffId,
-          qualificationId,
-          handoffStatus,
-          verdict: q.verdict,
-          limits,
-          pipelineStatus: "PARTIAL",
-          criteria: q.criteria,
-        };
-      }
-      limits.push("NORA_AVIS_WRITE_CAS_LOST — concurrent/stale attach refused");
-    }
-  } else {
-    limits.push("NORA_ALREADY_ATTACHED_OR_SKIPPED");
-  }
-
-  // C24 reprise — do not assimilate handoff+qual to cognitive COMPLETE.
-  const noraLive =
-    limits.includes("NORA_COGNITIVE_AUTONOMOUS_CONDUCTOR") ||
-    Boolean(
-      existingQual?.noraAnalysisMarkdown &&
-        /ANALYSE COGNITIVE NORA \(D3\)/.test(existingQual.noraAnalysisMarkdown),
-    );
-  const noraDeterministicOnly = limits.some((l) =>
-    /DETERMINISTIC_SYNTHESIS_AUTONOMOUS/.test(l),
-  );
-  const pipelineStatus: RestitutionPipelineStatus =
-    handoffStatus === "RECEIVED" && qualificationId ? "COMPLETE" : "PARTIAL";
-  if (pipelineStatus === "COMPLETE" && noraDeterministicOnly && !noraLive) {
-    // Qualification available, but cognitive avis not LIVE — honest label (not assimilation).
-    limits.push(
-      "RESTITUTION_QUALIFICATION_COMPLETE_COGNITIVE_DETERMINISTIC — pas un avis Nora LIVE",
-    );
-  }
-  if (pipelineStatus === "COMPLETE" && noraLive) {
-    limits.push("RESTITUTION_COGNITIVE_LIVE_ATTACHED");
-  }
-  live = {
-    ...live,
-    reportStatus:
-      handoffStatus === "RECEIVED"
-        ? "RECEIVED"
-        : handoffStatus === "REJECTED"
-          ? "REJECTED"
-          : live.reportStatus ?? "INCOMPLETE",
-    restitutionPipelineStatus: pipelineStatus,
-    restitutionHandoffId: handoffId,
-    restitutionQualificationId: qualificationId,
-    restitutionCompletedAt: new Date().toISOString(),
-    restitutionDossierVersion: dossierVersion,
-    restitutionNoraKind: noraLive
-      ? "LIVE_D3"
-      : noraDeterministicOnly
-        ? "DETERMINISTIC"
-        : existingQual?.noraAnalysisMarkdown
-          ? "ATTACHED"
-          : "NONE",
-    limits: [...(live.limits ?? []), ...limits, "AUTONOMOUS_RESTITUTION_C24"],
-  };
-  if (
-    !(await persistPipelineOwned({
-      attemptId: row.id,
-      ownerToken,
-      expectedVersion: version,
-      live,
-    }))
-  ) {
-    limits.push("OWNERSHIP_LOST_AT_COMPLETE");
-    return {
-      ran: true,
-      handoffId,
-      qualificationId,
-      handoffStatus,
-      verdict: q.verdict,
-      limits,
-      pipelineStatus: "PARTIAL",
-      criteria: q.criteria,
-    };
-  }
-
-  return {
-    ran: true,
-    handoffId,
-    qualificationId,
-    handoffStatus,
-    verdict: q.verdict,
-    limits,
-    pipelineStatus,
-    criteria: q.criteria,
-  };
-}
-
-export function reportContentFingerprint(markdown: string): string {
-  return createHash("sha256").update(markdown, "utf8").digest("hex");
-}
-
-/**
- * Resume incomplete restitutions after process boot (observation/collect only).
- * Boot path: collect/qualify without LIVE Nora (no storm).
- * Deferred: schedule cognitive attach for dossiers missing Nora avis — does not
- * block register(); does not redispatch Cursor.
- */
-export async function resumeIncompleteRestitutions(): Promise<{
-  resumed: number;
-  attemptIds: string[];
-  deferredNora: string[];
-}> {
-  const rows = await db
-    .select({
-      id: effectAttempts.id,
-      pilotId: effectAttempts.pilotId,
-      projectId: effectAttempts.projectId,
-      status: effectAttempts.status,
-      resultJson: effectAttempts.resultJson,
-    })
-    .from(effectAttempts)
-    .where(eq(effectAttempts.kind, "CURSOR_EXECUTION"));
-
-  const attemptIds: string[] = [];
-  const deferredNora: string[] = [];
-  let resumed = 0;
-  for (const row of rows) {
-    const live = parseLive(row.resultJson);
-    if (!isTerminal(live, row.status)) continue;
-    const st = live.restitutionPipelineStatus;
-    if (st === "COMPLETE") {
-      // Complete qual but cognitive avis still missing → defer Nora only.
-      if (
-        live.restitutionQualificationId &&
-        (live.restitutionNoraKind === "NONE" ||
-          live.restitutionNoraKind === "DETERMINISTIC" ||
-          !live.restitutionNoraKind)
-      ) {
-        deferredNora.push(row.id);
-      }
-      continue;
-    }
-    if (
-      st === "COLLECTING" ||
-      st === "QUALIFYING" ||
-      st === "NORA" ||
-      st === "PARTIAL" ||
-      st === "FAILED" ||
-      st == null ||
-      st === "IDLE" ||
-      live.reportStatus === "EXPECTED"
-    ) {
-      try {
-        // Boot resume: collect/qualify without LIVE Nora storms (criteria+avis).
-        const r = await runAutonomousRestitutionAfterTerminal({
-          pilotId: row.pilotId,
-          projectId: row.projectId,
-          attemptId: row.id,
-          attachNoraCognitive: false,
-        });
-        if (r.ran) {
-          resumed += 1;
-          attemptIds.push(row.id);
-          if (
-            r.qualificationId &&
-            (r.pipelineStatus === "COMPLETE" || r.pipelineStatus === "PARTIAL")
-          ) {
-            deferredNora.push(row.id);
-          }
-        }
-      } catch {
-        /* boot resume must not crash */
-      }
-    }
-  }
-
-  if (
-    deferredNora.length > 0 &&
-    (process.env.SFIA_AUTONOMOUS_NORA_AVIS || "1").trim() !== "0" &&
-    (process.env.SFIA_BOOT_DEFER_NORA || "1").trim() !== "0"
-  ) {
-    const uniq = [...new Set(deferredNora)];
-    setTimeout(() => {
-      void (async () => {
-        for (const attemptId of uniq) {
-          const row = rows.find((r) => r.id === attemptId);
-          if (!row) continue;
-          try {
-            await runAutonomousRestitutionAfterTerminal({
-              pilotId: row.pilotId,
-              projectId: row.projectId,
-              attemptId,
-              attachNoraCognitive: true,
-            });
-          } catch {
-            /* deferred Nora must not crash process */
-          }
-        }
-      })();
-    }, 2_500);
-  }
-
-  return { resumed, attemptIds, deferredNora: [...new Set(deferredNora)] };
-}
-```
-
-<!-- END FULL FILE projects/sfia-studio-next/web/src/domains/execution/cursor-autonomous-restitution.ts lines=1698 -->
-
-### 8.5 `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/authorize/route.ts` — INTÉGRAL (85 lignes)
-
-```typescript
-import { NextResponse } from "next/server";
-import {
-  authorizeCursorExecution,
-  dispatchCursorExecution,
-} from "@/domains/execution/cursor-attempt-service";
-import { requireStudioSession } from "@/domains/identity/session";
-import { studioErrorResponse } from "@/lib/http-errors";
-
-export async function POST(
-  req: Request,
-  ctx: { params: Promise<{ projectId: string; attemptId: string }> },
-) {
-  try {
-    const session = await requireStudioSession();
-    const { projectId, attemptId } = await ctx.params;
-    const body = (await req.json()) as {
-      statement?: string;
-      inspectedFingerprint?: string;
-      /** Explicit Oui/Non — must be boolean. Absent/null/invalid = no HumanDecision. */
-      confirmed?: unknown;
-    };
-    if (!body.statement || !body.inspectedFingerprint) {
-      return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 400 });
-    }
-    // C10 / T-02 — confirmed must be an explicit boolean.
-    // Absent, null, or non-boolean → reject without HumanDecision / mutation.
-    if (typeof body.confirmed !== "boolean") {
-      return NextResponse.json(
-        {
-          error: "CONFIRMATION_REQUIRED",
-          message:
-            "confirmed doit être true (Oui) ou false (Non) — absence/null/invalide = aucun acte D6",
-        },
-        { status: 400 },
-      );
-    }
-    const result = await authorizeCursorExecution({
-      pilotId: session.pilotId,
-      projectId,
-      attemptId,
-      statement: body.statement,
-      inspectedFingerprint: body.inspectedFingerprint,
-      confirmed: body.confirmed,
-    });
-    // C24 — D6 Oui must not leave AUTHORIZED orphaned when the browser navigates
-    // away before a second /dispatch fetch. Same-request dispatch after authorize.
-    if (body.confirmed === true && result.status === "AUTHORIZED") {
-      try {
-        const dispatched = await dispatchCursorExecution({
-          pilotId: session.pilotId,
-          projectId,
-          attemptId,
-        });
-        return NextResponse.json({
-          ...result,
-          status: dispatched.status,
-          dispatch: {
-            status: dispatched.status,
-            idempotent: "idempotent" in dispatched ? dispatched.idempotent : false,
-            limits: "limits" in dispatched ? dispatched.limits : undefined,
-          },
-        });
-      } catch (dispatchErr) {
-        const mapped = studioErrorResponse(dispatchErr);
-        return NextResponse.json(
-          {
-            ...result,
-            status: "AUTHORIZED",
-            dispatch: {
-              status: "FAILED",
-              error: mapped.body.error ?? "DISPATCH_FAILED",
-              message: mapped.body.message ?? String((dispatchErr as Error)?.message ?? ""),
-            },
-          },
-          // Authorize succeeded — surface dispatch failure without undoing D6.
-          { status: 200 },
-        );
-      }
-    }
-    return NextResponse.json(result);
-  } catch (e) {
-    const mapped = studioErrorResponse(e);
-    return NextResponse.json(mapped.body, { status: mapped.status });
-  }
-}
-```
-
-<!-- END FULL FILE projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/authorize/route.ts lines=85 -->
-
-### 8.6 `projects/sfia-studio-next/web/scripts/qualify-dev.sh` — INTÉGRAL (319 lignes)
-
-```bash
-#!/usr/bin/env bash
-# C24 — DEV qualification mode (reuse existing DEV lane; not a new QUALIF env).
-# Usage:
-#   npm run qualify:check
-#   npm run qualify:start          # build if needed + next start :3100
-#   npm run qualify:browser        # Playwright LIVE against :3100
-#   npm run qualify                # check → start → browser smoke
-#   npm run qualify:stop
-# Does NOT mutate E2E FAKE suite (port 3101 / STUDIO_E2E).
-set -euo pipefail
-
-ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-cd "${ROOT}"
-
-PID_FILE="${ROOT}/.sfia-evidence/qualify-server.pid"
-IDENTITY_FILE="${ROOT}/.sfia-evidence/qualify-server.identity.json"
-BUILD_META="${ROOT}/.sfia-evidence/qualify-build.json"
-HOST="127.0.0.1"
-PORT="${SFIA_QUALIFY_PORT:-${STUDIO_PORT:-3100}}"
-ACTION="${1:-help}"
-
-mkdir -p "${ROOT}/.sfia-evidence"
-
-load_env() {
-  if [[ -f "${ROOT}/.env.local" ]]; then
-    # shellcheck disable=SC1091
-    eval "$(node "${ROOT}/scripts/export-dev-env-for-live.mjs")"
-  fi
-  export NODE_ENV=production
-  export STUDIO_LANE=DEV
-  export STUDIO_DEV_TEST_LOGIN=1
-  # Empty-but-set wins over dotenv FORCE=1
-  export STUDIO_FORCE_NORA_FIXTURE=
-  export STUDIO_NORA_SIMULATED_PROVIDER=
-  export STUDIO_E2E=
-  export NEXT_PUBLIC_STUDIO_E2E=
-  export SFIA_QUALIFY_MODE=1
-  export SFIA_QUALIFY_PORT="${PORT}"
-  # Session overrides (workspace root, effect mode) after .env.local — never silent SCRIPTED.
-  if [[ -f "${ROOT}/.sfia-evidence/qualify-session.env" ]]; then
-    # shellcheck disable=SC1091
-    set -a
-    # shellcheck disable=SC1090
-    source "${ROOT}/.sfia-evidence/qualify-session.env"
-    set +a
-  fi
-  # Caller-exported LIVE overrides win last.
-  if [[ -n "${SFIA_QUALIFY_WORKSPACE_ROOT:-}" ]]; then
-    export SFIA_CURSOR_WORKSPACE_ROOT="${SFIA_QUALIFY_WORKSPACE_ROOT}"
-  fi
-}
-
-port_http_ok() {
-  curl -s -o /dev/null -w "%{http_code}" --max-time 2 "http://${HOST}:${PORT}/login" 2>/dev/null | grep -qE '200|307|302'
-}
-
-content_digest() {
-  # Content identity beyond mtime: sha256 of sorted path+file hashes.
-  (
-    cd "${ROOT}"
-    printf 'pkg:%s\n' "$(openssl dgst -sha256 package.json 2>/dev/null | awk '{print $NF}')"
-    printf 'cfg:%s\n' "$(openssl dgst -sha256 next.config.ts 2>/dev/null | awk '{print $NF}')"
-    find src -type f \( -name '*.ts' -o -name '*.tsx' -o -name '*.css' -o -name '*.sql' \) \
-      2>/dev/null | sort | while IFS= read -r f; do
-      printf '%s:%s\n' "$f" "$(openssl dgst -sha256 "$f" 2>/dev/null | awk '{print $NF}')"
-    done
-  ) | openssl dgst -sha256 2>/dev/null | awk '{print $NF}'
-}
-
-session_fingerprint() {
-  # Capture LIVE session knobs that must match the running process.
-  local ws mode
-  ws="${SFIA_CURSOR_WORKSPACE_ROOT:-}"
-  mode="${SFIA_CURSOR_EFFECT_MODE:-}"
-  printf 'ws:%s|mode:%s\n' "${ws}" "${mode}" | openssl dgst -sha256 2>/dev/null | awk '{print $NF}'
-}
-
-write_identity() {
-  local pid="$1"
-  local bid="$2"
-  local digest="$3"
-  local started sess
-  started="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-  sess="$(session_fingerprint)"
-  printf '%s\n' "{\"pid\":${pid},\"port\":${PORT},\"host\":$(node -e "console.log(JSON.stringify(process.argv[1]))" "${HOST}"),\"buildId\":$(node -e "console.log(JSON.stringify(process.argv[1]))" "${bid}"),\"contentDigest\":$(node -e "console.log(JSON.stringify(process.argv[1]))" "${digest}"),\"sessionFingerprint\":$(node -e "console.log(JSON.stringify(process.argv[1]))" "${sess}"),\"workspaceRoot\":$(node -e "console.log(JSON.stringify(process.argv[1]))" "${SFIA_CURSOR_WORKSPACE_ROOT:-}"),\"effectMode\":$(node -e "console.log(JSON.stringify(process.argv[1]))" "${SFIA_CURSOR_EFFECT_MODE:-}"),\"startedAt\":\"${started}\",\"mode\":\"qualify-next-start\"}" > "${IDENTITY_FILE}"
-}
-
-owned_qualify_pid() {
-  if [[ ! -f "${PID_FILE}" ]]; then
-    echo ""
-    return 0
-  fi
-  local pid
-  pid="$(cat "${PID_FILE}" 2>/dev/null || true)"
-  if [[ -z "${pid}" ]] || ! kill -0 "${pid}" 2>/dev/null; then
-    echo ""
-    return 0
-  fi
-  # Confirm process is ours: cmdline contains next start and our port, or identity matches.
-  local cmd
-  cmd="$(ps -p "${pid}" -o command= 2>/dev/null || true)"
-  if [[ "${cmd}" == *"next"* ]] && [[ "${cmd}" == *"${PORT}"* || "${cmd}" == *"start"* ]]; then
-    echo "${pid}"
-    return 0
-  fi
-  if [[ -f "${IDENTITY_FILE}" ]]; then
-    local id_pid
-    id_pid="$(node -e "try{const j=require(process.argv[1]);process.stdout.write(String(j.pid||''))}catch{}" "${IDENTITY_FILE}")"
-    if [[ "${id_pid}" == "${pid}" ]]; then
-      echo "${pid}"
-      return 0
-    fi
-  fi
-  echo ""
-}
-
-probe_running_server() {
-  # Identify build via local BUILD_ID + identity file; HTTP alone is insufficient.
-  local bid=""
-  local digest=""
-  local pid=""
-  [[ -f "${ROOT}/.next/BUILD_ID" ]] && bid="$(cat "${ROOT}/.next/BUILD_ID")"
-  [[ -f "${BUILD_META}" ]] && digest="$(node -e "try{const j=require(process.argv[1]);process.stdout.write(j.contentDigest||'')}catch{}" "${BUILD_META}")"
-  pid="$(owned_qualify_pid)"
-  if port_http_ok; then
-    if [[ -n "${pid}" ]]; then
-      echo "qualify: owned server pid=${pid} build=${bid:-unknown} digest=${digest:-unknown} http=ok" >&2
-      return 0
-    fi
-    echo "qualify: http://127.0.0.1:${PORT}/login responds but no owned qualify pid — refuse silent reuse" >&2
-    echo "qualify: stop foreign listener manually or free the port, then qualify:start" >&2
-    return 1
-  fi
-  return 2
-}
-
-cmd_check() {
-  load_env
-  npx --yes tsx "${ROOT}/scripts/qualify-check.mts"
-}
-
-cmd_build() {
-  load_env
-  local force="${SFIA_QUALIFY_FORCE_BUILD:-0}"
-  local need=0
-  local digest
-  digest="$(content_digest)"
-  local prev_digest=""
-  if [[ -f "${BUILD_META}" ]]; then
-    prev_digest="$(node -e "try{const j=require(process.argv[1]);process.stdout.write(j.contentDigest||'')}catch{}" "${BUILD_META}")"
-  fi
-  if [[ "${force}" == "1" ]]; then need=1; fi
-  if [[ ! -f "${ROOT}/.next/BUILD_ID" ]]; then need=1; fi
-  if [[ "${need}" == "0" && -n "${prev_digest}" && "${prev_digest}" != "${digest}" ]]; then
-    need=1
-    echo "qualify: contentDigest changed — rebuild required" >&2
-  fi
-  if [[ "${need}" == "0" && -z "${prev_digest}" ]]; then
-    # No prior digest: fall back to mtime then record digest after reuse/build.
-    if [[ -n "$(find "${ROOT}/src" "${ROOT}/package.json" "${ROOT}/next.config.ts" -newer "${ROOT}/.next/BUILD_ID" 2>/dev/null | head -1)" ]]; then
-      need=1
-    fi
-  fi
-  if [[ "${need}" == "0" ]]; then
-    local bid
-    bid="$(cat "${ROOT}/.next/BUILD_ID")"
-    echo "qualify: reuse existing build ${bid} digest=${digest}" >&2
-    printf '%s\n' "{\"buildId\":$(node -e "console.log(JSON.stringify(process.argv[1]))" "${bid}"),\"reused\":true,\"contentDigest\":$(node -e "console.log(JSON.stringify(process.argv[1]))" "${digest}"),\"at\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}" > "${BUILD_META}"
-    return 0
-  fi
-  echo "qualify: building Next…" >&2
-  npm run build
-  local bid
-  bid="$(cat "${ROOT}/.next/BUILD_ID")"
-  export SFIA_BUILD_ID="${bid}"
-  digest="$(content_digest)"
-  printf '%s\n' "{\"buildId\":$(node -e "console.log(JSON.stringify(process.argv[1]))" "${bid}"),\"reused\":false,\"contentDigest\":$(node -e "console.log(JSON.stringify(process.argv[1]))" "${digest}"),\"at\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}" > "${BUILD_META}"
-  echo "qualify: BUILD_ID=${bid} digest=${digest}" >&2
-}
-
-cmd_start() {
-  load_env
-  local want_sess want_digest
-  want_sess="$(session_fingerprint)"
-  want_digest="$(content_digest)"
-  if probe_running_server; then
-    local have_sess="" have_digest=""
-    if [[ -f "${IDENTITY_FILE}" ]]; then
-      have_sess="$(node -e "try{const j=require(process.argv[1]);process.stdout.write(j.sessionFingerprint||'')}catch{}" "${IDENTITY_FILE}")"
-      have_digest="$(node -e "try{const j=require(process.argv[1]);process.stdout.write(j.contentDigest||'')}catch{}" "${IDENTITY_FILE}")"
-    fi
-    local force="${SFIA_QUALIFY_FORCE_BUILD:-0}"
-    if [[ "${force}" == "1" ]]; then
-      echo "qualify: SFIA_QUALIFY_FORCE_BUILD=1 — restart owned server" >&2
-      cmd_stop
-    elif [[ -n "${want_sess}" && "${have_sess}" == "${want_sess}" && "${have_digest}" == "${want_digest}" ]]; then
-      echo "qualify: reuse owned server — session+contentDigest match (${want_sess:0:12}…)" >&2
-      return 0
-    else
-      echo "qualify: identity drift (sess have=${have_sess:-none} want=${want_sess:0:12}… digest have=${have_digest:0:12}… want=${want_digest:0:12}…) — restart" >&2
-      cmd_stop
-    fi
-  else
-    local probe_rc=$?
-    if [[ "${probe_rc}" -eq 1 ]]; then
-      exit 4
-    fi
-  fi
-  if [[ -f "${PID_FILE}" ]]; then
-    local old
-    old="$(cat "${PID_FILE}" || true)"
-    if [[ -n "${old}" ]] && kill -0 "${old}" 2>/dev/null; then
-      echo "qualify: pid ${old} alive but /login not ready — waiting" >&2
-    else
-      rm -f "${PID_FILE}" "${IDENTITY_FILE}"
-    fi
-  fi
-  cmd_build
-  local bid digest
-  bid="$(cat "${ROOT}/.next/BUILD_ID")"
-  digest="$(node -e "try{const j=require(process.argv[1]);process.stdout.write(j.contentDigest||'')}catch{}" "${BUILD_META}")"
-  export SFIA_BUILD_ID="${bid}"
-  if [[ -z "${SFIA_D8_VERIFY_HMAC_SECRET:-}" ]]; then
-    local sec_file="${ROOT}/.sfia-evidence/d8-verify-hmac.secret"
-    if [[ ! -f "${sec_file}" ]]; then
-      openssl rand -hex 32 > "${sec_file}"
-      chmod 600 "${sec_file}"
-    fi
-    export SFIA_D8_VERIFY_HMAC_SECRET
-    SFIA_D8_VERIFY_HMAC_SECRET="$(cat "${sec_file}")"
-  fi
-  # Ensure workspace root exists before start (LIVE confinement).
-  if [[ -n "${SFIA_CURSOR_WORKSPACE_ROOT:-}" ]]; then
-    mkdir -p "${SFIA_CURSOR_WORKSPACE_ROOT}"
-  fi
-  echo "qualify: starting next start ${HOST}:${PORT} build=${bid} digest=${digest} ws=${SFIA_CURSOR_WORKSPACE_ROOT:-unset} mode=${SFIA_CURSOR_EFFECT_MODE:-unset}" >&2
-  nohup npx next start -p "${PORT}" -H "${HOST}" \
-    > "${ROOT}/.sfia-evidence/qualify-server.log" 2>&1 &
-  local pid=$!
-  echo "${pid}" > "${PID_FILE}"
-  write_identity "${pid}" "${bid}" "${digest}"
-  local i=0
-  while (( i < 60 )); do
-    if port_http_ok; then
-      echo "qualify: ready http://${HOST}:${PORT}/login pid=${pid} build=${bid}" >&2
-      return 0
-    fi
-    sleep 1
-    i=$((i + 1))
-  done
-  echo "STOP — qualify server did not become ready on :${PORT}" >&2
-  tail -n 40 "${ROOT}/.sfia-evidence/qualify-server.log" >&2 || true
-  exit 3
-}
-
-cmd_stop() {
-  local pid
-  pid="$(owned_qualify_pid)"
-  if [[ -z "${pid}" ]]; then
-    echo "qualify: no owned qualify process to stop (refusing port-wide kill)" >&2
-    rm -f "${PID_FILE}"
-    # Keep identity for diagnosis unless explicitly cleared.
-    return 0
-  fi
-  echo "qualify: stopping owned pid ${pid}" >&2
-  kill "${pid}" 2>/dev/null || true
-  sleep 1
-  if kill -0 "${pid}" 2>/dev/null; then
-    kill -9 "${pid}" 2>/dev/null || true
-  fi
-  rm -f "${PID_FILE}" "${IDENTITY_FILE}"
-  echo "qualify: stopped owned pid ${pid}" >&2
-}
-
-cmd_browser() {
-  load_env
-  if ! port_http_ok; then
-    echo "STOP — server not ready; run npm run qualify:start first" >&2
-    exit 2
-  fi
-  local pid
-  pid="$(owned_qualify_pid)"
-  if [[ -z "${pid}" ]]; then
-    echo "qualify: WARN — browser against :${PORT} without owned qualify identity" >&2
-  else
-    echo "qualify: browser against owned pid=${pid}" >&2
-  fi
-  export SFIA_QUALIFY_BASE_URL="http://${HOST}:${PORT}"
-  if [[ -f "${ROOT}/.next/BUILD_ID" ]]; then
-    export SFIA_BUILD_ID
-    SFIA_BUILD_ID="$(cat "${ROOT}/.next/BUILD_ID")"
-  fi
-  npx playwright test -c playwright.qualify.config.ts "$@"
-}
-
-cmd_all() {
-  cmd_check
-  cmd_start
-  cmd_browser
-}
-
-case "${ACTION}" in
-  check) cmd_check ;;
-  build) cmd_build ;;
-  start) cmd_start ;;
-  stop) cmd_stop ;;
-  browser) shift; cmd_browser "$@" ;;
-  all|qualify) cmd_all ;;
-  help|*)
-    cat <<EOF
-DEV qualification mode (C24) — same DEV lane, explicit LIVE qualify.
-  bash scripts/qualify-dev.sh check
-  bash scripts/qualify-dev.sh start
-  bash scripts/qualify-dev.sh browser [playwright args]
-  bash scripts/qualify-dev.sh stop
-  bash scripts/qualify-dev.sh all
-EOF
-    ;;
-esac
-```
-
-<!-- END FULL FILE projects/sfia-studio-next/web/scripts/qualify-dev.sh lines=319 -->
-
-### 8.7 `projects/sfia-studio-next/web/scripts/qualify-check.mts` — INTÉGRAL (211 lignes)
-
-```typescript
-/**
- * C24 — DEV qualification preflight (lane, ports, providers, DB).
- * No secrets printed. Does not start the server.
- * LIVE qualify refuses SCRIPTED Cursor / FAKE Nora as "LIVE OK".
- */
-import { config } from "dotenv";
-config({ path: ".env.local" });
-
-import { createServer } from "node:net";
-import { existsSync, readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
-import postgres from "postgres";
-
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const PORT = Number(process.env.STUDIO_PORT || process.env.SFIA_QUALIFY_PORT || 3100);
-const HOST = "127.0.0.1";
-
-type Check = { id: string; ok: boolean; detail: string; live?: boolean };
-
-function mask(v: string | undefined): string {
-  if (!v) return "absent";
-  return `set(len=${v.length})`;
-}
-
-async function portListening(port: number): Promise<boolean> {
-  return new Promise((resolve) => {
-    const s = createServer();
-    s.once("error", () => resolve(true));
-    s.once("listening", () => {
-      s.close(() => resolve(false));
-    });
-    s.listen(port, HOST);
-  });
-}
-
-async function probeDevDatabase(url: string): Promise<Check> {
-  if (!url) {
-    return { id: "database-probe", ok: false, detail: "DATABASE_URL absent" };
-  }
-  if (/5434|recette|stable|\bprod\b/i.test(url)) {
-    return {
-      id: "database-probe",
-      ok: false,
-      detail: "DATABASE_URL matches protected lane marker — refuse",
-    };
-  }
-  try {
-    const sql = postgres(url, { max: 1, connect_timeout: 5, idle_timeout: 5 });
-    try {
-      const rows = await sql<{ v: number; db: string }[]>`
-        select 1::int as v, current_database() as db
-      `;
-      const db = rows[0]?.db ?? "?";
-      const ok =
-        rows[0]?.v === 1 &&
-        !/recette|stable|e2e|prod/i.test(db) &&
-        (/sfia_next_dev/i.test(db) || /dev/i.test(db) || db.length > 0);
-      return {
-        id: "database-probe",
-        ok,
-        detail: ok
-          ? `connected current_database=${db}`
-          : `unexpected database name=${db}`,
-      };
-    } finally {
-      await sql.end({ timeout: 2 });
-    }
-  } catch (e) {
-    return {
-      id: "database-probe",
-      ok: false,
-      detail: `connect failed: ${String((e as Error)?.message ?? e).slice(0, 120)}`,
-    };
-  }
-}
-
-async function main() {
-  const checks: Check[] = [];
-  const lane = (process.env.STUDIO_LANE || "").trim().toUpperCase();
-  checks.push({
-    id: "lane",
-    ok: lane === "DEV",
-    detail: `STUDIO_LANE=${lane || "(empty)"}`,
-  });
-
-  const dbUrl = process.env.DATABASE_URL || "";
-  const dbShapeOk =
-    Boolean(dbUrl) &&
-    !/5434|recette|stable|\bprod\b/i.test(dbUrl) &&
-    (/:5433\b/.test(dbUrl) || /sfia_next_dev|localhost|127\.0\.0\.1/.test(dbUrl));
-  checks.push({
-    id: "database-shape",
-    ok: dbShapeOk,
-    detail: dbShapeOk
-      ? "DATABASE_URL looks DEV (no RECETTE/STABLE markers)"
-      : "DATABASE_URL missing or not DEV",
-  });
-  checks.push(await probeDevDatabase(dbUrl));
-
-  checks.push({
-    id: "test-login",
-    ok: process.env.STUDIO_DEV_TEST_LOGIN === "1",
-    detail: `STUDIO_DEV_TEST_LOGIN=${process.env.STUDIO_DEV_TEST_LOGIN || "0"}`,
-  });
-
-  const fixture =
-    process.env.STUDIO_FORCE_NORA_FIXTURE === "1" ||
-    process.env.STUDIO_NORA_SIMULATED_PROVIDER === "1" ||
-    process.env.STUDIO_E2E === "1";
-  checks.push({
-    id: "no-fake-nora",
-    ok: !fixture,
-    live: !fixture,
-    detail: fixture
-      ? "FAKE/SIM/E2E flags set — refuse LIVE qualify"
-      : "fixture/SIM/E2E cleared for LIVE",
-  });
-
-  checks.push({
-    id: "openai",
-    ok: Boolean((process.env.OPENAI_API_KEY || "").trim()),
-    live: Boolean((process.env.OPENAI_API_KEY || "").trim()) && !fixture,
-    detail: `OPENAI_API_KEY=${mask(process.env.OPENAI_API_KEY)}`,
-  });
-
-  const effectMode = (process.env.SFIA_CURSOR_EFFECT_MODE || "").trim().toUpperCase();
-  let cursorSource: "ENV" | "FILE_CREDENTIAL_STORE" | "NONE" = "NONE";
-  if ((process.env.CURSOR_API_KEY || "").trim()) {
-    cursorSource = "ENV";
-  } else {
-    try {
-      const { FileCredentialStore } = await import("@cursor/sdk");
-      const store = new FileCredentialStore();
-      const creds = await store.load();
-      const key = typeof creds?.apiKey === "string" ? creds.apiKey.trim() : "";
-      if (key) cursorSource = "FILE_CREDENTIAL_STORE";
-    } catch {
-      /* store unavailable */
-    }
-  }
-  // SCRIPTED is never LIVE — qualify LIVE requires Cursor LIVE + key.
-  const cursorLive =
-    effectMode === "LIVE" &&
-    (cursorSource === "ENV" || cursorSource === "FILE_CREDENTIAL_STORE");
-  checks.push({
-    id: "cursor-sdk",
-    ok: cursorLive,
-    live: cursorLive,
-    detail:
-      effectMode === "SCRIPTED"
-        ? `mode=SCRIPTED source=${cursorSource} — NOT LIVE (refuse as LIVE qualify)`
-        : `mode=${effectMode || "(unset)"} source=${cursorSource} live=${cursorLive}`,
-  });
-
-  const listening = await portListening(PORT);
-  checks.push({
-    id: "port",
-    ok: true,
-    detail: listening
-      ? `${HOST}:${PORT} already listening (reuse allowed for qualify:browser)`
-      : `${HOST}:${PORT} free`,
-  });
-
-  const buildIdPath = join(ROOT, ".next", "BUILD_ID");
-  const hasBuild = existsSync(buildIdPath);
-  const buildId = hasBuild ? readFileSync(buildIdPath, "utf8").trim() : null;
-  const metaPath = join(ROOT, ".sfia-evidence", "qualify-build.json");
-  let metaDetail = "no qualify-build.json";
-  if (existsSync(metaPath)) {
-    try {
-      const meta = JSON.parse(readFileSync(metaPath, "utf8")) as {
-        buildId?: string;
-        contentDigest?: string;
-      };
-      metaDetail = `meta.buildId=${meta.buildId ?? "?"} digest=${meta.contentDigest ?? "absent"}`;
-    } catch {
-      metaDetail = "qualify-build.json unreadable";
-    }
-  }
-  checks.push({
-    id: "build",
-    ok: true,
-    detail: hasBuild
-      ? `BUILD_ID=${buildId}; ${metaDetail}`
-      : `no .next/BUILD_ID — qualify:start will build; ${metaDetail}`,
-  });
-
-  const failed = checks.filter((c) => !c.ok);
-  const liveCapable = checks
-    .filter((c) => c.live === true)
-    .map((c) => c.id);
-  const report = {
-    at: new Date().toISOString(),
-    host: HOST,
-    port: PORT,
-    checks,
-    ok: failed.length === 0,
-    failIds: failed.map((c) => c.id),
-    liveCapable,
-    note:
-      "SCRIPTED Cursor never counts as LIVE. database-probe opens a real DEV connection.",
-  };
-  console.log(JSON.stringify(report, null, 2));
-  if (failed.length) process.exit(2);
-}
-
-main().catch((e) => {
-  console.error(String(e?.stack || e));
-  process.exit(1);
-});
-```
-
-<!-- END FULL FILE projects/sfia-studio-next/web/scripts/qualify-check.mts lines=211 -->
-
-### 8.8 `projects/sfia-studio-next/web/playwright.qualify.config.ts` — INTÉGRAL (27 lignes)
-
-```typescript
-import { defineConfig } from "@playwright/test";
-
-/**
- * C24 — DEV qualification BROWSER (LIVE).
- * Targets operator DEV :3100 started via `npm run qualify:start`.
- * Never starts e2e-web-server.sh / never forces Nora FAKE.
- * Standard `npm run test:e2e` remains FAKE on :3101.
- */
-const baseURL =
-  process.env.SFIA_QUALIFY_BASE_URL || "http://127.0.0.1:3100";
-
-export default defineConfig({
-  testDir: "tests/qualify",
-  timeout: 180_000,
-  fullyParallel: false,
-  workers: 1,
-  retries: 0,
-  reporter: [["list"], ["json", { outputFile: ".sfia-evidence/qualify-playwright.json" }]],
-  use: {
-    baseURL,
-    trace: "retain-on-failure",
-    screenshot: "only-on-failure",
-    video: "off",
-  },
-  // Operator must have started qualify:start — do not spawn FAKE E2E server.
-  webServer: undefined,
-});
-```
-
-<!-- END FULL FILE projects/sfia-studio-next/web/playwright.qualify.config.ts lines=27 -->
-
-### 8.9 `projects/sfia-studio-next/web/tests/qualify/c24-director-two-realizations.spec.ts` — INTÉGRAL (534 lignes)
-
-```typescript
-import { test, expect } from "@playwright/test";
-import fs from "node:fs";
-import path from "node:path";
-import {
-  openNewPreparation,
-  constituteAndCreateProject,
-  uniqueProjectName,
-} from "../e2e/helpers/g4-chat-first";
-
-/**
- * C24 director scenario — ONE project, TWO successive governed realizations.
- * Playwright automates Pilote clicks only — does not seed contracts / verdicts.
- */
-const EVIDENCE = path.resolve(__dirname, "../../.sfia-evidence/qualify-director");
-const LONG = 240_000;
-
-test.describe.configure({ mode: "serial" });
-test.setTimeout(900_000);
-
-test.beforeAll(() => {
-  fs.mkdirSync(EVIDENCE, { recursive: true });
-});
-
-async function sendNora(page: import("@playwright/test").Page, text: string) {
-  const draft = page.getByTestId("thread-draft");
-  const send = page.getByTestId("thread-send");
-  await expect(draft).toBeVisible({ timeout: 60_000 });
-  await expect(draft).toHaveValue("", { timeout: 120_000 });
-  // Capture prior assistant count so we wait for a new COMPLETE turn.
-  const priorNora = await page.locator(".fig-msg-nora").count();
-  await draft.fill(text);
-  await expect(send).toBeEnabled({ timeout: 15_000 });
-  await send.click();
-  await expect(draft).toHaveValue("", { timeout: LONG });
-  // Wait for LIVE Nora turn to finish — otherwise READY/prepare race a still-running
-  // turn that advances cognitive revision past the contract filiation.
-  const status = page.getByTestId("thread-nora-status");
-  if (await status.count()) {
-    await expect(status).toContainText(/COMPLETE|FAILED|UNKNOWN|INTERRUPTED/i, {
-      timeout: LONG,
-    });
-  } else {
-    await expect
-      .poll(async () => page.locator(".fig-msg-nora").count(), { timeout: LONG })
-      .toBeGreaterThan(priorNora);
-  }
-}
-
-async function openExecutionSurface(
-  page: import("@playwright/test").Page,
-  projectId: string,
-) {
-  await page.goto(`/projects/${projectId}?surface=execution`);
-  await expect(page.getByTestId("realization-contracts")).toBeVisible({
-    timeout: 60_000,
-  });
-}
-
-test("Director — investigation → R1 → bilan → continuity → R2", async ({
-  page,
-}) => {
-  const report: Record<string, unknown> = {
-    at: new Date().toISOString(),
-    buildId: process.env.SFIA_BUILD_ID || null,
-    workspaceRoot: process.env.SFIA_CURSOR_WORKSPACE_ROOT || null,
-  };
-
-  await page.goto("/portfolio");
-  await expect(page.getByTestId("portfolio-new-prep")).toBeVisible({
-    timeout: 60_000,
-  });
-  const preparationId = await openNewPreparation(page);
-  // Initial test data (allowed): durable document Nora can CONSULT before READY.
-  const docRes = await page.request.post(
-    `/api/preparations/${preparationId}/documents`,
-    {
-      data: {
-        title: "Widget service — état initial",
-        contentMarkdown: [
-          "# Widget service",
-          "",
-          "## Fichiers",
-          "- `src/widget.js` — `processWidget(input)` trim une string ; TypeError sinon.",
-          "- `src/config.js` — `WIDGET_LIMITS.maxLen = 10000`.",
-          "- `tests/widget.test.js` — test node:test du trim.",
-          "",
-          "## Contraintes",
-          "- Pas de réseau dans les tests.",
-          "- Workspace Git de test isolé du worktree Studio.",
-        ].join("\n"),
-        correlationKey: `c24-director-doc-${Date.now()}`,
-      },
-    },
-  );
-  report.seedDocumentOk = docRes.ok();
-  const projectName = uniqueProjectName("C24 Director");
-  const projectId = await constituteAndCreateProject(page, {
-    name: projectName,
-    summary:
-      "Service widget multi-fichiers — deux réalisations gouvernées successives",
-    alreadyUnique: true,
-  });
-  report.projectId = projectId;
-  report.projectName = projectName;
-  report.preparationId = preparationId;
-
-  // --- Étape A: investigation multi-sources ---
-  await sendNora(
-    page,
-    [
-      "Lis d'abord le document « Widget service — état initial » (outil de lecture document),",
-      "puis investigue : (1) ce que fait processWidget aujourd'hui d'après ce document,",
-      "(2) la version Node LTS recommandée via le site officiel nodejs.org,",
-      "(3) si nous devons rester sur une LTS pour ce service interne.",
-      "Cite tes sources réellement consultées et signale ce qui n'est pas vérifié.",
-    ].join(" "),
-  );
-  const thread = page.getByTestId("nora-thread");
-  await expect(thread).toBeVisible();
-  const afterA = ((await thread.locator(".fig-msg-nora").last().textContent()) || "").trim();
-  report.stepA = {
-    assistantHead: afterA.slice(0, 500),
-    len: afterA.length,
-  };
-  expect(afterA.length).toBeGreaterThan(80);
-  await page.screenshot({
-    path: path.join(EVIDENCE, "a-investigation.png"),
-    fullPage: true,
-  });
-
-  // --- Étape B: first contract naturally ---
-  await sendNora(
-    page,
-    [
-      "Prépare maintenant un contrat technique Cursor pour une première intervention :",
-      "ajouter processWidgetSafe(input) qui refuse les non-string (TypeError) et délègue le trim à processWidget pour les strings,",
-      "mettre à jour les tests node:test, sans réseau. Inclure critères d'acceptation et preuves attendues.",
-      "Utilise l'outil submit_cursor_contract_production.",
-    ].join(" "),
-  );
-  await page.waitForTimeout(3000);
-  await openExecutionSurface(page, projectId);
-
-  // Wait for a contract to appear (Nora-produced DRAFT)
-  let contractBtn = page.locator("[data-testid^=contract-select-]").first();
-  await expect(contractBtn).toBeVisible({ timeout: LONG });
-  const contractTestId = await contractBtn.getAttribute("data-testid");
-  const contractId = contractTestId?.replace("contract-select-", "") ?? "";
-  report.r1ContractId = contractId;
-  await contractBtn.click();
-  await expect(page.getByTestId("contract-viewer")).toBeVisible({ timeout: 30_000 });
-  await page.getByTestId("contract-instruction-toggle").click().catch(() => undefined);
-  await page.screenshot({
-    path: path.join(EVIDENCE, "b-contract-r1.png"),
-    fullPage: true,
-  });
-
-  // READY server act from UI — if refused, ask Nora to consult then retry (product path).
-  async function tryReady(id: string): Promise<boolean> {
-    const btn = page.getByTestId(`contract-ready-${id}`);
-    if (!(await btn.count())) return false;
-    await btn.click();
-    await page.waitForTimeout(2500);
-    const st = page.getByTestId("realization-status");
-    if (await st.count()) {
-      report.readyStatus = await st.textContent();
-    }
-    await openExecutionSurface(page, projectId);
-    return (await page.getByTestId(`contract-prepare-${id}`).count()) > 0;
-  }
-
-  let readyOk = await tryReady(contractId);
-  if (!readyOk) {
-    await page.goto(`/projects/${projectId}?surface=travail`);
-    await sendNora(
-      page,
-      [
-        "READY a été refusé (sources ou filiation cognitive).",
-        "Sans poursuivre d'autre discussion : relis le document Widget (corps complet),",
-        "puis appelle submit_cursor_contract_production pour un NOUVEAU contrat processWidgetSafe",
-        "lié à ce tour (filiation courante). Préparer ≠ autoriser.",
-      ].join(" "),
-    );
-    await openExecutionSurface(page, projectId);
-    // Newest contract carries the current cognitive revision filiation.
-    const all = page.locator("[data-testid^=contract-select-]");
-    await expect.poll(async () => all.count(), { timeout: LONG }).toBeGreaterThan(0);
-    const count = await all.count();
-    const latest = all.nth(count - 1);
-    const tid = await latest.getAttribute("data-testid");
-    const nid = tid?.replace("contract-select-", "") ?? contractId;
-    report.r1ContractIdRetry = nid;
-    await latest.click();
-    readyOk = await tryReady(nid);
-    if (readyOk) report.r1ContractId = nid;
-  }
-
-  let activeContractId = String(report.r1ContractId);
-
-  async function refreshNewestContractAndReady(prompt: string): Promise<void> {
-    await page.goto(`/projects/${projectId}?surface=travail`);
-    await sendNora(page, prompt);
-    await openExecutionSurface(page, projectId);
-    const all = page.locator("[data-testid^=contract-select-]");
-    await expect.poll(async () => all.count(), { timeout: LONG }).toBeGreaterThan(0);
-    const count = await all.count();
-    const latest = all.nth(count - 1);
-    const tid = await latest.getAttribute("data-testid");
-    activeContractId = tid?.replace("contract-select-", "") ?? activeContractId;
-    report.r1ContractId = activeContractId;
-    await latest.click();
-    await tryReady(activeContractId);
-  }
-
-  async function prepareUntilD6(): Promise<void> {
-    for (let attempt = 0; attempt < 3; attempt += 1) {
-      await openExecutionSurface(page, projectId);
-      const prepareBtn = page.getByTestId(`contract-prepare-${activeContractId}`);
-      if (!(await prepareBtn.count())) {
-        await refreshNewestContractAndReady(
-          [
-            "Contrat non READY pour prepare. Relis le document Widget,",
-            "puis submit_cursor_contract_production pour un NOUVEAU contrat lié à ce tour.",
-          ].join(" "),
-        );
-        continue;
-      }
-      await prepareBtn.click();
-      const d6 = page.getByTestId("d6-confirm-launch");
-      const prepStatus = page.getByTestId("realization-status");
-      let resolved = "wait";
-      const deadline = Date.now() + 60_000;
-      while (Date.now() < deadline) {
-        if (await d6.count()) {
-          resolved = "d6";
-          break;
-        }
-        if (await prepStatus.count()) {
-          const t = (await prepStatus.textContent()) || "";
-          if (/refusé|refus|non applicable|mismatch|ERROR|INVALID|filiation/i.test(t)) {
-            resolved = `fail:${t}`;
-            break;
-          }
-        }
-        await page.waitForTimeout(1500);
-      }
-      if (resolved === "d6") return;
-      report.prepareFail = resolved === "wait" ? "fail:timeout" : resolved;
-      await refreshNewestContractAndReady(
-        [
-          "Le prepare a échoué (mandat/filiation). Relis le document Widget,",
-          "puis submit_cursor_contract_production pour un NOUVEAU contrat à la révision courante.",
-        ].join(" "),
-      );
-    }
-    throw new Error(`R1: prepare never reached D6 — ${String(report.prepareFail ?? "unknown")}`);
-  }
-
-  await prepareUntilD6();
-  const fp = await page.getByTestId("d6-confirm-fingerprint").textContent();
-  report.r1Fingerprint = fp;
-  await page.getByTestId("d6-confirm-yes").click();
-  // Wait for authorize+dispatch to finish BEFORE any page.goto (nav aborts in-flight fetch).
-  await expect
-    .poll(
-      async () => {
-        const st = page.getByTestId("realization-status");
-        if (await st.count()) {
-          const t = ((await st.textContent()) || "").trim();
-          if (/Dispatch accepté|DISPATCHED|COMPLETED|AMBIGUOUS|FAILED/i.test(t)) return t;
-          if (/Dispatch refusé|Autorisation refusée/i.test(t)) return `fail:${t}`;
-        }
-        if (!(await page.getByTestId("d6-confirm-launch").count())) {
-          // Dialog closed — soft reload via attempts list without full navigation yet.
-          const texts = await page.locator("[data-testid^=attempt-]").allTextContents();
-          const joined = texts.join(" ");
-          if (/DISPATCHED|COMPLETED|FAILED|AMBIGUOUS|RUNNING/i.test(joined)) return joined;
-        }
-        return "wait";
-      },
-      { timeout: 90_000, intervals: [1_000, 2_000, 3_000] },
-    )
-    .not.toMatch(/^fail:/);
-  await expect
-    .poll(
-      async () => {
-        // Prefer soft reload of surface only after dispatch advanced past AUTHORIZED.
-        await openExecutionSurface(page, projectId);
-        const texts = await page.locator("[data-testid^=attempt-]").allTextContents();
-        return texts.join(" ");
-      },
-      { timeout: LONG, intervals: [8_000, 12_000, 15_000] },
-    )
-    // DISPATCHED alone is insufficient — wait for terminal attempt + restitution signal.
-    .toMatch(/COMPLETED|FAILED|AMBIGUOUS/i);
-
-  await page.screenshot({
-    path: path.join(EVIDENCE, "c-after-dispatch-r1.png"),
-    fullPage: true,
-  });
-
-  // Open bilan (results surface) + discuss with Nora (no auto-send)
-  await page.goto(`/projects/${projectId}?surface=publication`);
-  const bilanBtn = page.locator("[data-testid^=attempt-bilan-]").first();
-  await expect(bilanBtn).toBeVisible({ timeout: LONG });
-  // Retries: restitution may still be attaching handoff/qual after COMPLETED.
-  await expect
-    .poll(
-      async () => {
-        await bilanBtn.click();
-        if (await page.getByTestId("realization-bilan").count()) return "bilan";
-        const st = page.getByTestId("realization-status");
-        if (await st.count()) {
-          const t = ((await st.textContent()) || "").trim();
-          if (/en cours|absent|MISSING/i.test(t)) return "wait-dossier";
-          if (/requalification|Bilan D8|PARTIAL|CONFORMING|INDETERMINATE/i.test(t)) {
-            return t;
-          }
-        }
-        return "wait";
-      },
-      { timeout: LONG, intervals: [3_000, 5_000, 8_000] },
-    )
-    .toMatch(/bilan|Bilan D8|PARTIAL|CONFORMING|INDETERMINATE|requalification/i);
-  await expect(page.getByTestId("realization-bilan")).toBeVisible({
-    timeout: 60_000,
-  });
-  report.r1Bilan = {
-    attemptId: await page.getByTestId("bilan-attempt-id").textContent(),
-    bodyHead: ((await page.getByTestId("realization-bilan").textContent()) || "").slice(
-      0,
-      400,
-    ),
-  };
-  const discuss = page.getByTestId("bilan-discuss-nora");
-  if (await discuss.count()) {
-    await discuss.click();
-  }
-
-  // --- Étape D/E: continuity + second realization in SAME project ---
-  await page.goto(`/projects/${projectId}?surface=travail`);
-  await sendNora(
-    page,
-    [
-      "Tu as le brouillon de dossier D8 dans le compositeur (référence attempt/contrat/version).",
-      "En continuité sur CE projet : rappelle le verdict D8 et les limites réellement attachés.",
-      "Décisions Pilote pour la suite: Node LTS; tests sans réseau; maxLen=10000 déjà en config.",
-      "Ferme toute question déterminante encore ouverte (ANSWERED + answerSummary),",
-      "relis le document Widget, puis prépare un NOUVEAU contrat Cursor distinct pour",
-      "ajouter processWidgetMaxLen qui refuse les chaînes > WIDGET_LIMITS.maxLen, avec tests.",
-      "Utilise submit_cursor_contract_production. Critères différents de processWidgetSafe.",
-    ].join(" "),
-  );
-  const afterD = ((await thread.locator(".fig-msg-nora").last().textContent()) || "").trim();
-  report.stepD = {
-    recalls: /PARTIAL|CONFORMING|INDETERMINATE|verdict|D8|limite|dossier/i.test(afterD),
-    head: afterD.slice(0, 500),
-  };
-
-  await openExecutionSurface(page, projectId);
-
-  /** Try READY on every non-R1 contract (newest first) until one qualifies. */
-  async function readyAnyOtherThan(excludeId: string): Promise<string> {
-    const all = page.locator("[data-testid^=contract-select-]");
-    await expect.poll(async () => all.count(), { timeout: LONG }).toBeGreaterThan(0);
-    const count = await all.count();
-    const tried: string[] = [];
-    for (let i = count - 1; i >= 0; i -= 1) {
-      const el = all.nth(i);
-      const tid = await el.getAttribute("data-testid");
-      const id = tid?.replace("contract-select-", "") ?? "";
-      if (!id || id === excludeId) continue;
-      tried.push(id);
-      await el.click();
-      if (await tryReady(id)) {
-        report.r2ReadyStatus = report.readyStatus;
-        return id;
-      }
-    }
-    report.r2TriedContracts = tried;
-    report.r2ReadyStatus = report.readyStatus;
-    return "";
-  }
-
-  await expect
-    .poll(async () => page.locator("[data-testid^=contract-select-]").count(), {
-      timeout: LONG,
-    })
-    .toBeGreaterThanOrEqual(2);
-  report.contractCountAfterR2Prep = await page
-    .locator("[data-testid^=contract-select-]")
-    .count();
-
-  let r2Id = await readyAnyOtherThan(activeContractId);
-  if (!r2Id) {
-    const openQ = String(report.r2ReadyStatus ?? report.readyStatus ?? "");
-    for (const prompt of [
-      [
-        "READY R2 refusé — investigation incomplète.",
-        openQ ? `Statut serveur: ${openQ}.` : "",
-        "Ferme d'abord toute question déterminante ouverte (determiningQuestions → ANSWERED",
-        "avec answerSummary étayé). Décisions Pilote pour ce service interne:",
-        "Node LTS OK; pas de réseau dans les tests; maxLen=10000 déjà dans config;",
-        "processWidgetMaxLen doit refuser les strings trop longues.",
-        "Puis relis le document Widget (CONSULTED) et submit_cursor_contract_production",
-        "pour processWidgetMaxLen lié à CE tour.",
-      ]
-        .filter(Boolean)
-        .join(" "),
-      [
-        "Encore un échec READY. Réponds explicitement aux questions déterminantes restantes,",
-        "relis le document Widget intégralement, puis produis un contrat processWidgetMaxLen neuf",
-        "via submit_cursor_contract_production sur la filiation courante (sources CONSULTED).",
-      ].join(" "),
-    ]) {
-      await page.goto(`/projects/${projectId}?surface=travail`);
-      await sendNora(page, prompt);
-      await openExecutionSurface(page, projectId);
-      r2Id = await readyAnyOtherThan(activeContractId);
-      if (r2Id) break;
-    }
-  }
-  report.r2ContractId = r2Id;
-  if (!r2Id) {
-    fs.writeFileSync(
-      path.join(EVIDENCE, "director-report.json"),
-      JSON.stringify(report, null, 2),
-    );
-  }
-  expect(r2Id).toBeTruthy();
-  expect(r2Id).not.toBe(activeContractId);
-
-  // Prepare with filiation recovery (same pattern as R1).
-  let r2Prepared = false;
-  for (let attempt = 0; attempt < 3; attempt += 1) {
-    await openExecutionSurface(page, projectId);
-    const prep = page.getByTestId(`contract-prepare-${r2Id}`);
-    if (!(await prep.count())) {
-      await page.goto(`/projects/${projectId}?surface=travail`);
-      await sendNora(
-        page,
-        "Contrat R2 non préparable. Relis le document Widget puis submit_cursor_contract_production processWidgetMaxLen.",
-      );
-      await openExecutionSurface(page, projectId);
-      r2Id = await readyAnyOtherThan(activeContractId);
-      report.r2ContractId = r2Id;
-      continue;
-    }
-    await prep.click();
-    const d6 = page.getByTestId("d6-confirm-launch");
-    const prepStatus = page.getByTestId("realization-status");
-    let resolved = "wait";
-    const deadline = Date.now() + 60_000;
-    while (Date.now() < deadline) {
-      if (await d6.count()) {
-        resolved = "d6";
-        break;
-      }
-      if (await prepStatus.count()) {
-        const t = (await prepStatus.textContent()) || "";
-        if (/refusé|refus|non applicable|mismatch|ERROR|INVALID|filiation/i.test(t)) {
-          resolved = `fail:${t}`;
-          break;
-        }
-      }
-      await page.waitForTimeout(1500);
-    }
-    if (resolved === "d6") {
-      r2Prepared = true;
-      break;
-    }
-    report.r2PrepareFail = resolved;
-    await page.goto(`/projects/${projectId}?surface=travail`);
-    await sendNora(
-      page,
-      "Prepare R2 échoué. Relis le document Widget puis submit_cursor_contract_production processWidgetMaxLen à la révision courante.",
-    );
-    await openExecutionSurface(page, projectId);
-    r2Id = await readyAnyOtherThan(activeContractId);
-    report.r2ContractId = r2Id;
-  }
-  expect(r2Prepared).toBe(true);
-  await page.getByTestId("d6-confirm-yes").click();
-  await expect
-    .poll(
-      async () => {
-        const st = page.getByTestId("realization-status");
-        if (await st.count()) {
-          const t = ((await st.textContent()) || "").trim();
-          if (/Dispatch accepté|DISPATCHED|COMPLETED|AMBIGUOUS|FAILED/i.test(t)) return t;
-          if (/Dispatch refusé|Autorisation refusée/i.test(t)) return `fail:${t}`;
-        }
-        const texts = await page.locator("[data-testid^=attempt-]").allTextContents();
-        const joined = texts.join(" ");
-        if (/DISPATCHED|COMPLETED|FAILED|AMBIGUOUS|RUNNING/i.test(joined)) return joined;
-        return "wait";
-      },
-      { timeout: 90_000, intervals: [1_000, 2_000, 3_000] },
-    )
-    .not.toMatch(/^fail:/);
-  report.r2Dispatched = true;
-
-  await expect
-    .poll(
-      async () => {
-        await openExecutionSurface(page, projectId);
-        // Need TWO terminal attempts for R1+R2.
-        const texts = await page.locator("[data-testid^=attempt-]").allTextContents();
-        const terminals = texts.filter((t) =>
-          /COMPLETED|FAILED|AMBIGUOUS/i.test(t),
-        );
-        return terminals.length >= 2 ? texts.join(" ") : `pending:${texts.join(" ")}`;
-      },
-      { timeout: LONG, intervals: [10_000, 15_000] },
-    )
-    .toMatch(/COMPLETED|FAILED|AMBIGUOUS/i);
-
-  await page.screenshot({
-    path: path.join(EVIDENCE, "e-after-r2.png"),
-    fullPage: true,
-  });
-  report.ok =
-    Boolean(report.r1ContractId) &&
-    Boolean(report.r2ContractId) &&
-    report.r2ContractId !== report.r1ContractId &&
-    Boolean(report.r2Dispatched);
-  fs.writeFileSync(
-    path.join(EVIDENCE, "director-report.json"),
-    JSON.stringify(report, null, 2),
-  );
-  expect(report.r1ContractId).toBeTruthy();
-  expect(report.r2Dispatched).toBe(true);
-  expect((report.stepD as { recalls?: boolean }).recalls).toBe(true);
-});
-```
-
-<!-- END FULL FILE projects/sfia-studio-next/web/tests/qualify/c24-director-two-realizations.spec.ts lines=534 -->
-
-### 8.10 `projects/sfia-studio-next/web/tests/qualify/c24-browser-live-smoke.spec.ts` — INTÉGRAL (128 lignes)
-
-```typescript
-import { test, expect } from "@playwright/test";
-import fs from "node:fs";
-import path from "node:path";
-import {
-  openNewPreparation,
-  constituteAndCreateProject,
-  uniqueProjectName,
-} from "../e2e/helpers/g4-chat-first";
-
-/**
- * C24 qualify — real Chromium against DEV :3100 (LIVE Nora).
- * AUTOMATE interactions: yes. SIMULATE Nora/Cursor: no.
- */
-const EVIDENCE = path.resolve(__dirname, "../../.sfia-evidence/qualify-browser");
-
-test.describe.configure({ mode: "serial" });
-
-test.beforeAll(() => {
-  fs.mkdirSync(EVIDENCE, { recursive: true });
-});
-
-test("Q0 — /login loads and DEV session opens portfolio", async ({ page }) => {
-  const res = await page.goto("/login", { waitUntil: "domcontentloaded" });
-  expect(res?.ok() || res?.status() === 304).toBeTruthy();
-  // Auto-session or test login → portfolio
-  await page.waitForURL(/\/(portfolio|projects|preparations|login)/, {
-    timeout: 60_000,
-  });
-  if (page.url().includes("/login")) {
-    const testBtn = page.getByRole("button", {
-      name: /connexion de test|test login|entrer en session/i,
-    });
-    if (await testBtn.count()) {
-      await testBtn.first().click();
-    } else {
-      // Force auto-session API then navigate
-      const auto = await page.request.post("/api/dev/auto-session");
-      expect(auto.ok()).toBeTruthy();
-      await page.goto("/portfolio");
-    }
-  }
-  await page.waitForURL("**/portfolio**", { timeout: 60_000 });
-  await expect(page.getByTestId("portfolio-new-prep")).toBeVisible({
-    timeout: 30_000,
-  });
-  await page.screenshot({
-    path: path.join(EVIDENCE, "q0-portfolio.png"),
-    fullPage: true,
-  });
-  fs.writeFileSync(
-    path.join(EVIDENCE, "q0.json"),
-    JSON.stringify(
-      {
-        at: new Date().toISOString(),
-        buildId: process.env.SFIA_BUILD_ID || null,
-        url: page.url(),
-        ok: true,
-      },
-      null,
-      2,
-    ),
-  );
-});
-
-test("Q1 — Mission 1 fragment: project + Nora LIVE reply", async ({ page }) => {
-  await page.goto("/portfolio");
-  await expect(page.getByTestId("portfolio-new-prep")).toBeVisible({
-    timeout: 30_000,
-  });
-  await openNewPreparation(page);
-  const projectName = uniqueProjectName("C24 Qualif M1");
-  const projectId = await constituteAndCreateProject(page, {
-    name: projectName,
-    summary: "Qualification C24 — investigation Node LTS",
-    alreadyUnique: true,
-  });
-  expect(projectId).toBeTruthy();
-
-  // Project conversation composer (Nora LIVE)
-  const draft = page.getByTestId("thread-draft");
-  const send = page.getByTestId("thread-send");
-  await expect(draft).toBeVisible({ timeout: 60_000 });
-  const prompt =
-    "Peux-tu vérifier la version Node.js LTS actuelle sur le site officiel et me recommander si nous devons rester sur une LTS pour un service API Node interne ? Cite tes sources.";
-  await draft.fill(prompt);
-  await expect(send).toBeEnabled({ timeout: 10_000 });
-  await send.click();
-
-  // Wait for turn completion: draft cleared (Nora finished) — not user-prompt echo.
-  await expect(draft).toHaveValue("", { timeout: 180_000 });
-  await expect(page.getByText("deterministic-fixture", { exact: false })).toHaveCount(0);
-
-  const thread = page.getByTestId("nora-thread");
-  await expect(thread).toBeVisible({ timeout: 30_000 });
-  // Assistant bubble must contain recommendation language beyond the user prompt echo.
-  const assistant = thread.locator(".fig-msg-nora, [data-role='assistant']").last();
-  await expect(assistant).toBeVisible({ timeout: 60_000 });
-  const assistantText = ((await assistant.textContent()) || "").trim();
-  expect(assistantText.length).toBeGreaterThan(80);
-  expect(assistantText.toLowerCase()).not.toEqual(prompt.toLowerCase());
-
-  const liveBadge = page.getByText(/openai-agents-sdk-live|gpt-6\.2-sol/i);
-  const liveCount = await liveBadge.count();
-  await page.screenshot({
-    path: path.join(EVIDENCE, "q1-m1-nora.png"),
-    fullPage: true,
-  });
-  const ok = assistantText.length > 80;
-  fs.writeFileSync(
-    path.join(EVIDENCE, "q1-m1.json"),
-    JSON.stringify(
-      {
-        at: new Date().toISOString(),
-        buildId: process.env.SFIA_BUILD_ID || null,
-        projectId,
-        projectName,
-        prompt,
-        liveBadgeObserved: liveCount > 0,
-        assistantHead: assistantText.slice(0, 400),
-        url: page.url(),
-        ok,
-      },
-      null,
-      2,
-    ),
-  );
-  expect(ok).toBe(true);
-});
-```
-
-<!-- END FULL FILE projects/sfia-studio-next/web/tests/qualify/c24-browser-live-smoke.spec.ts lines=128 -->
-
-## 9. Fichiers complémentaires DIRTY (intégral)
-
-### 9.1 `projects/sfia-studio-next/web/src/domains/proofs/studio-verify-authority.ts` — INTÉGRAL (293 lignes)
-
-```typescript
-/**
- * C24 reprise — Studio-owned verification authority, distinct from Cursor workspace FS.
- *
- * Workspace JSON with verifiedBy=STUDIO_ISOLATED_SUBPROCESS is NOT certifying by itself:
- * an executor can write that file. Certifying records live in this Studio-side registry
- * keyed by attempt + contract + verifyId, with HMAC integrity.
- *
- * Durability (C24 qualify): when SFIA_D8_VERIFY_HMAC_SECRET is set (or a Studio-owned
- * secret file under .sfia-evidence/), records persist to a Studio-owned JSON file
- * outside the Cursor workspace so restart does not silently lose authority.
- *
- * Product path must not execute untrusted workspace code unless
- * SFIA_D8_ISOLATED_VERIFY_PROVEN=1 AND an explicit Studio verification plan
- * (never package.json alone as authorization).
- */
-
-import {
-  createHmac,
-  randomBytes,
-  timingSafeEqual,
-} from "node:crypto";
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  writeFileSync,
-} from "node:fs";
-import { dirname, join } from "node:path";
-
-export type StudioVerifyRecord = {
-  attemptId: string;
-  contractFingerprint: string;
-  verifyId: string;
-  ok: boolean;
-  exitCode: number | null;
-  observedAt: string;
-  contentVersionSha256: string | null;
-  argvDigest: string | null;
-  hmac: string;
+/** Breadcrumb / chrome labels — Trajectoire remains URL-compatible with ?surface=pilotage. */
+export const PROJECT_SURFACE_LABELS: Record<StudioSurface, string> = {
+  travail: "Travail",
+  projet: "Projet",
+  pilotage: "Trajectoire",
+  journal: "Journal",
+  document: "Documents Nora",
+  git: "Sources Git",
+  execution: "Exécution",
+  publication: "Résultats & preuves",
 };
 
-const store = new Map<string, StudioVerifyRecord>();
-let hydrated = false;
-
-function storeKey(
-  attemptId: string,
-  contractFingerprint: string,
-  verifyId: string,
-): string {
-  return `${attemptId}::${contractFingerprint}::${verifyId}`;
+export function parseStudioSurface(raw: string | null | undefined): StudioSurface | null {
+  if (!raw) return null;
+  const v = raw.toLowerCase();
+  return PROJECT_SURFACES.includes(v as StudioSurface) ? (v as StudioSurface) : null;
 }
 
-function authorityDir(): string {
-  const fromEnv = (process.env.SFIA_D8_VERIFY_AUTHORITY_DIR || "").trim();
-  if (fromEnv) return fromEnv;
-  // Studio-owned evidence dir next to web package — never under Cursor workspace cwd.
-  return join(process.cwd(), ".sfia-evidence");
-}
+/**
+ * Transient project-surface navigation intent shared by StudioShell (rail Links)
+ * and ProjectPage (selectSurface / load normalisation).
+ *
+ * Scoped by projectId so an intent for project A cannot influence load() of B.
+ * Not a durable store: cleared when the URL catches up for that project.
+ */
+type ProjectSurfaceNavIntent = { projectId: string; surface: StudioSurface };
 
-function persistPath(): string {
-  return join(authorityDir(), "studio-verify-authority.json");
-}
+let projectSurfaceNavIntent: ProjectSurfaceNavIntent | null = null;
 
-function hmacSecret(): string {
-  const fromEnv = (process.env.SFIA_D8_VERIFY_HMAC_SECRET || "").trim();
-  if (fromEnv.length >= 16) return fromEnv;
-  // Durable Studio-owned secret file (qualify:start writes this).
-  try {
-    const secretFile = join(authorityDir(), "d8-verify-hmac.secret");
-    if (existsSync(secretFile)) {
-      const s = readFileSync(secretFile, "utf8").trim();
-      if (s.length >= 16) return s;
-    }
-    mkdirSync(dirname(secretFile), { recursive: true });
-    const minted = randomBytes(32).toString("hex");
-    writeFileSync(secretFile, minted, { mode: 0o600 });
-    return minted;
-  } catch {
-    /* fall through to ephemeral */
+export function noteProjectSurfaceNavIntent(
+  projectId: string | null | undefined,
+  surface: StudioSurface | null,
+): void {
+  if (!projectId || !surface) {
+    return;
   }
-  const g = globalThis as { __sfiaD8VerifySecret?: string };
-  if (!g.__sfiaD8VerifySecret) {
-    g.__sfiaD8VerifySecret = randomBytes(32).toString("hex");
-  }
-  return g.__sfiaD8VerifySecret;
+  projectSurfaceNavIntent = { projectId, surface };
 }
 
-function sign(payload: Omit<StudioVerifyRecord, "hmac">): string {
-  const body = JSON.stringify({
-    attemptId: payload.attemptId,
-    contractFingerprint: payload.contractFingerprint,
-    verifyId: payload.verifyId,
-    ok: payload.ok,
-    exitCode: payload.exitCode,
-    observedAt: payload.observedAt,
-    contentVersionSha256: payload.contentVersionSha256,
-    argvDigest: payload.argvDigest,
-  });
-  return createHmac("sha256", hmacSecret()).update(body).digest("hex");
+/** Peek intent only when it belongs to the given project. */
+export function peekProjectSurfaceNavIntent(
+  projectId: string | null | undefined,
+): StudioSurface | null {
+  if (!projectId || !projectSurfaceNavIntent) return null;
+  if (projectSurfaceNavIntent.projectId !== projectId) return null;
+  return projectSurfaceNavIntent.surface;
 }
 
-function hydrateFromDisk(): void {
-  if (hydrated) return;
-  hydrated = true;
-  try {
-    const p = persistPath();
-    if (!existsSync(p)) return;
-    const raw = JSON.parse(readFileSync(p, "utf8")) as {
-      records?: StudioVerifyRecord[];
-    };
-    for (const rec of raw.records ?? []) {
-      if (!rec?.attemptId || !rec.verifyId || !rec.hmac) continue;
-      store.set(
-        storeKey(rec.attemptId, rec.contractFingerprint, rec.verifyId),
-        rec,
-      );
-    }
-  } catch {
-    /* corrupt file — start empty; limits surface on read */
+export function clearProjectSurfaceNavIntent(
+  projectId?: string | null,
+  matched?: StudioSurface | null,
+): void {
+  if (!projectSurfaceNavIntent) return;
+  if (projectId != null && projectSurfaceNavIntent.projectId !== projectId) return;
+  if (matched == null || projectSurfaceNavIntent.surface === matched) {
+    projectSurfaceNavIntent = null;
   }
 }
 
-function flushToDisk(): void {
-  try {
-    const dir = authorityDir();
-    mkdirSync(dir, { recursive: true });
-    const records = [...store.values()];
-    writeFileSync(
-      persistPath(),
-      JSON.stringify(
-        {
-          version: 1,
-          updatedAt: new Date().toISOString(),
-          records,
-        },
-        null,
-        2,
-      ),
-      { mode: 0o600 },
-    );
-  } catch {
-    /* durable write failure — in-memory still authoritative for this process */
-  }
+export type ProjectLoadSurfaceDecision = {
+  /** Surface to display after load settles. */
+  effectiveSurface: StudioSurface;
+  /** True when the live URL lacks a valid `surface` query and must be normalised. */
+  shouldNormalizeUrl: boolean;
+};
+
+/**
+ * Resolve surface after async project `load()` completes.
+ * Priority: valid live URL surface → recent nav intent → default `travail`.
+ * Normalise only when the URL has no valid surface; never invent a silent
+ * downgrade from an explicit user intent (e.g. pilotage) to travail.
+ */
+export function resolveProjectLoadSurface(input: {
+  rawSurface: string | null | undefined;
+  pendingIntent: StudioSurface | null;
+}): ProjectLoadSurfaceDecision {
+  const qSurface = parseStudioSurface(input.rawSurface ?? null);
+  const effectiveSurface = qSurface ?? input.pendingIntent ?? "travail";
+  const shouldNormalizeUrl =
+    !input.rawSurface || (Boolean(input.rawSurface) && !qSurface);
+  return { effectiveSurface, shouldNormalizeUrl };
 }
 
-export function putStudioVerifyRecord(
-  input: Omit<StudioVerifyRecord, "hmac" | "observedAt"> & {
-    observedAt?: string;
-  },
-): StudioVerifyRecord {
-  hydrateFromDisk();
-  const base: Omit<StudioVerifyRecord, "hmac"> = {
-    attemptId: input.attemptId,
-    contractFingerprint: input.contractFingerprint,
-    verifyId: input.verifyId,
-    ok: input.ok,
-    exitCode: input.exitCode,
-    observedAt: input.observedAt ?? new Date().toISOString(),
-    contentVersionSha256: input.contentVersionSha256,
-    argvDigest: input.argvDigest,
-  };
-  const rec: StudioVerifyRecord = { ...base, hmac: sign(base) };
-  store.set(
-    storeKey(rec.attemptId, rec.contractFingerprint, rec.verifyId),
-    rec,
-  );
-  flushToDisk();
-  return rec;
+export function parseProjectId(pathname: string): string | null {
+  const m = pathname.match(/^\/projects\/([^/?#]+)/);
+  return m?.[1] ?? null;
 }
 
-export function getStudioVerifyRecord(input: {
-  attemptId: string;
-  contractFingerprint: string;
-  verifyId: string;
-  /**
-   * When provided, must equal the contentVersionSha256 sealed in the authority
-   * record. An older valid HMAC must not certify a modified content version.
-   */
-  expectedContentVersionSha256?: string | null;
-}): { ok: boolean; record: StudioVerifyRecord | null; limits: string[] } {
-  hydrateFromDisk();
-  const rec = store.get(
-    storeKey(input.attemptId, input.contractFingerprint, input.verifyId),
-  );
-  if (!rec) {
-    return {
-      ok: false,
-      record: null,
-      limits: ["STUDIO_VERIFY_AUTHORITY_ABSENT"],
-    };
-  }
-  const expected = sign({
-    attemptId: rec.attemptId,
-    contractFingerprint: rec.contractFingerprint,
-    verifyId: rec.verifyId,
-    ok: rec.ok,
-    exitCode: rec.exitCode,
-    observedAt: rec.observedAt,
-    contentVersionSha256: rec.contentVersionSha256,
-    argvDigest: rec.argvDigest,
-  });
-  try {
-    const a = Buffer.from(expected, "hex");
-    const b = Buffer.from(rec.hmac, "hex");
-    if (a.length !== b.length || !timingSafeEqual(a, b)) {
-      return {
-        ok: false,
-        record: null,
-        limits: ["STUDIO_VERIFY_HMAC_MISMATCH"],
-      };
-    }
-  } catch {
-    return {
-      ok: false,
-      record: null,
-      limits: ["STUDIO_VERIFY_HMAC_ERROR"],
-    };
-  }
-  if (
-    rec.attemptId !== input.attemptId ||
-    rec.contractFingerprint !== input.contractFingerprint ||
-    rec.verifyId !== input.verifyId
-  ) {
-    return {
-      ok: false,
-      record: null,
-      limits: ["STUDIO_VERIFY_BINDING_MISMATCH"],
-    };
-  }
-  const want = (input.expectedContentVersionSha256 || "").trim();
-  if (want) {
-    const sealed = (rec.contentVersionSha256 || "").trim();
-    if (!sealed || sealed !== want) {
-      return {
-        ok: false,
-        record: rec,
-        limits: [
-          "STUDIO_VERIFY_CONTENT_VERSION_MISMATCH — sealed HMAC does not certify current content",
-        ],
-      };
-    }
-  }
+export function parsePreparationId(pathname: string): string | null {
+  const m = pathname.match(/^\/preparations\/([^/?#]+)/);
+  return m?.[1] ?? null;
+}
+
+export function railStyle(tokens: StudioRailTokens): CSSProperties {
   return {
-    ok: rec.ok && rec.exitCode === 0,
-    record: rec,
-    limits: ["STUDIO_VERIFY_AUTHORITY_READ"],
+    width: tokens.widthPx,
+    background: tokens.fill,
+    paddingTop: tokens.paddingTop,
+    paddingRight: tokens.paddingRight,
+    paddingBottom: tokens.paddingBottom,
+    paddingLeft: tokens.paddingLeft,
+    gap: tokens.gap,
   };
 }
 
-/** Clear authority store — tests only. */
-export function __resetStudioVerifyAuthorityForTests(): void {
-  store.clear();
-  hydrated = true;
-  try {
-    if (existsSync(persistPath())) {
-      writeFileSync(persistPath(), JSON.stringify({ version: 1, records: [] }));
+/**
+ * Frame ↔ route ↔ state from G2 railEvidence (not a free pathname heuristic):
+ * - portfolio / login → personnel (94:50)
+ * - sas avant projet → personnel (94:135); reprise liée projet → projet (159:145) via ?resume=1
+ * - projet + travail (fil long) → conversation (94:214)
+ * - projet + document → inspection (94:370 / 97:359)
+ * - projet + journal → personnel (94:515 sujets; correctedFrom projet)
+ * - projet + pilotage → projet (125:33 / 127:106)
+ */
+export function resolveRailVariant(input: {
+  pathname: string;
+  surface?: string | null;
+  searchParams?: URLSearchParams | { get(name: string): string | null } | null;
+}): StudioRailVariant {
+  const path = input.pathname || "/";
+  const sp = input.searchParams;
+  if (path.startsWith("/portfolio") || path === "/" || path.startsWith("/login")) {
+    return "personnel";
+  }
+  if (path.startsWith("/preparations/")) {
+    // Sas Nora Figma 607:* — all five states use the personal minimal rail (606:20).
+    void sp;
+    return "personnel";
+  }
+  if (path.startsWith("/settings")) {
+    return "personnel";
+  }
+  if (path.startsWith("/projects/")) {
+    const surface = parseStudioSurface(input.surface) ?? "travail";
+    if (
+      surface === "document" ||
+      surface === "git" ||
+      surface === "execution" ||
+      surface === "publication"
+    ) {
+      return "inspection";
     }
-  } catch {
-    /* ignore */
+    if (surface === "travail") return "conversation";
+    if (surface === "journal") return "personnel";
+    // projet overview + pilotage/trajectoire share the product rail fill
+    return "projet";
   }
+  return "personnel";
 }
 
-/** Simulate process restart: drop memory, keep durable file — tests only. */
-export function __unloadStudioVerifyAuthorityForTests(): void {
-  store.clear();
-  hydrated = false;
-}
+export type ShellNavAction = "open-preparation";
+
+export type ShellNavItem = {
+  key: string;
+  label: string;
+  href: string | null;
+  active: boolean;
+  /** Inactive without context — never a fake # link. */
+  disabledReason?: string;
+  /** Explicit UI action (not a GET navigation). */
+  action?: ShellNavAction;
+};
 
 /**
- * Effective isolation gate. Subprocess+cwd+scrubbed env alone is NOT proven isolation.
- * Default: disabled → TOOLING GAP / INSUFFICIENT (no CONFORMING via exec path).
+ * Personal-space breadcrumb second segment — known routes only.
+ * Never invent a label; never keep « Portefeuille » on another route.
  */
-export function isStudioIsolatedVerifyExecutionEnabled(
-  env: Record<string, string | undefined> = process.env,
-): { enabled: boolean; limits: string[] } {
-  if ((env.SFIA_D8_ISOLATED_VERIFY_PROVEN || "").trim() !== "1") {
-    return {
-      enabled: false,
-      limits: [
-        "ISOLATED_VERIFY_EXECUTION_DISABLED_C24 — subprocess/cwd/scrubbed-env ≠ system isolation; set SFIA_D8_ISOLATED_VERIFY_PROVEN=1 only when a real isolate is available",
-      ],
-    };
+export function resolvePersonalBreadcrumb(
+  pathname: string,
+  searchParams?: URLSearchParams | { get(name: string): string | null } | null,
+): string | null {
+  const path = pathname || "/";
+  if (path.startsWith("/portfolio") || path === "/") return "Portefeuille";
+  if (path.startsWith("/preparations/")) {
+    const resumed =
+      searchParams?.get("resume") === "1" || searchParams?.get("from") === "portfolio";
+    return resumed ? "Préparation reprise" : "Nouvelle préparation";
   }
-  if ((env.SFIA_D8_VERIFY_PLAN_SOURCE || "").trim() !== "STUDIO_EXPLICIT") {
-    return {
-      enabled: false,
-      limits: [
-        "ISOLATED_VERIFY_PLAN_NOT_STUDIO_EXPLICIT — package.json alone is not authorization",
-      ],
-    };
-  }
-  return { enabled: true, limits: ["ISOLATED_VERIFY_EXECUTION_ENABLED"] };
+  if (path.startsWith("/dev/sas-visual/resume")) return "Préparation reprise";
+  if (path.startsWith("/dev/sas-visual/")) return "Nouvelle préparation";
+  if (path.startsWith("/settings/integrations")) return "Intégrations";
+  if (path.startsWith("/settings")) return "Paramètres";
+  return null;
 }
+
+export function buildShellNav(input: {
+  pathname: string;
+  surface?: string | null;
+}): ShellNavItem[] {
+  const path = input.pathname || "/";
+  const projectId = parseProjectId(path);
+  const preparationId = parsePreparationId(path);
+  const surface = parseStudioSurface(input.surface) ?? (projectId ? "travail" : null);
+
+  // UX-004: one personal destination — Portefeuille (no Mes projets / Tous les projets).
+  const items: ShellNavItem[] = [
+    {
+      key: "portfolio",
+      label: "Portefeuille",
+      href: "/portfolio",
+      active: path.startsWith("/portfolio") || path === "/",
+    },
+  ];
+
+  if (!projectId && !preparationId) {
+    items.push({
+      key: "new-prep",
+      label: "Nouveau projet",
+      href: null,
+      active: false,
+      action: "open-preparation",
+    });
+    // Connected personal space: no redundant « Connexion » rail entry.
+    return items;
+  }
+
+  if (preparationId) {
+    // SAS-F-13 — minimal personal rail: Portefeuille + Préparation en cours.
+    // No Travail / Pilotage / Documents / Journal before verified project creation.
+    items.push({
+      key: "sas",
+      label: "Préparation en cours",
+      href: `/preparations/${preparationId}`,
+      active: true,
+    });
+    return items;
+  }
+
+  // Ensemble 04 rail NAVIGATION — Documents/Git stay in Accès directs (not primary).
+  // Trajectoire keeps ?surface=pilotage for deep-link compatibility.
+  const surfaces: Array<{ key: StudioSurface; label: string }> = [
+    { key: "travail", label: "Travail" },
+    { key: "projet", label: "Projet" },
+    { key: "journal", label: "Journal" },
+    { key: "pilotage", label: "Trajectoire" },
+  ];
+  for (const s of surfaces) {
+    items.push({
+      key: s.key,
+      label: s.label,
+      href: `/projects/${projectId}?surface=${s.key}`,
+      active: surface === s.key,
+    });
+  }
+  return items;
+}
+
 ```
 
-<!-- END FULL FILE projects/sfia-studio-next/web/src/domains/proofs/studio-verify-authority.ts lines=293 -->
-
-### 9.2 `projects/sfia-studio-next/web/tests/integration/ml5-c24-nora-avis-resume.pg.test.ts` — INTÉGRAL (190 lignes)
-
+### FILE: `projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx` (full current)
 ```typescript
-/**
- * C24 — technical COMPLETE without Nora avis must resume avis (no redispatch).
- */
-import { beforeAll, describe, expect, it } from "vitest";
-import { config } from "dotenv";
-config({ path: ".env.local" });
+"use client";
 
-import { mkdtempSync } from "fs";
-import { tmpdir } from "os";
-import { join } from "path";
-import { eq } from "drizzle-orm";
-import { db } from "@/db/client";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
-  effectAttempts,
-  realizationHandoffs,
-  realizationQualifications,
-} from "@/db/schema";
+  runOpenPreparation,
+  subscribeOpenPreparationBusy,
+} from "@/lib/open-preparation";
+import { PRODUCT_VERSIONING } from "@/lib/product-version";
+import { ProjectSpaceProvider, useProjectSpace } from "./ProjectSpaceContext";
 import {
-  authorizeCursorExecution,
-  dispatchCursorExecution,
-  prepareCursorExecution,
-} from "@/domains/execution/cursor-attempt-service";
-import { createTechnicalContract } from "@/domains/execution/technical-contract";
-import { runAutonomousRestitutionAfterTerminal } from "@/domains/execution/cursor-autonomous-restitution";
-import { __resetScriptedCursorRunsForTests } from "@/domains/execution/cursor-sdk-adapter";
-import { seedPilotProjectWithCognitiveFiliation } from "../helpers/cognitive-filiation-seed";
-import { newId } from "@/lib/ids";
-import type { TechnicalContractBody } from "@/domains/execution/types";
+  STUDIO_RAIL_VARIANTS,
+  buildShellNav,
+  noteProjectSurfaceNavIntent,
+  parsePreparationId,
+  parseProjectId,
+  parseStudioSurface,
+  railStyle,
+  resolvePersonalBreadcrumb,
+  resolveRailVariant,
+} from "./studio-rail";
+import "./studio-shell.css";
 
-function body(): TechnicalContractBody {
-  return {
-    title: "C24 nora resume",
-    engagements: {
-      willDo: "resume avis",
-      willNotDo: "redispatch",
-      expectedResult: "avis attached",
-      pilotControl: "D6",
-    },
-    volets: {
-      mission: "c24",
-      perimeter: "sandbox",
-      capabilitiesAuthority: "scripted",
-      stopConditions: "STOP",
-      proofsSources: "handoff",
-      integrity: "fp",
-    },
-    instructionText: "scripted resume",
-    risks: [],
-    exclusions: [],
-    acceptance: { criteria: ["one"], expectedProofs: ["handoff"] },
-    executor: {
-      kind: "CURSOR_SDK_LOCAL",
-      capabilities: [],
-      permissionsNeeded: [],
-    },
-    stopConditions: ["STOP"],
-    reversibilityLimits: ["no rollback"],
-    gitScope: null,
-  };
+/** Existing real account destination — integrations settings (no invented account hub). */
+const ACCOUNT_HREF = "/settings/integrations";
+
+/** Figma 652:* rail glyphs — decorative, paired with visible labels. */
+function railNavGlyph(key: string): string {
+  switch (key) {
+    case "travail":
+      return "◉";
+    case "projet":
+      return "▦";
+    case "journal":
+      return "▤";
+    case "pilotage":
+      return "◇";
+    case "sas":
+      return "◇";
+    default:
+      return "·";
+  }
 }
 
-describe("C24 cognitive avis resume from technical COMPLETE", () => {
-  beforeAll(() => {
-    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-    process.env.SFIA_CURSOR_EFFECT_MODE = "SCRIPTED";
-    delete process.env.SFIA_CURSOR_SCRIPTED_PHASED;
-    process.env.SFIA_CURSOR_WORKSPACE_ROOT = mkdtempSync(
-      join(tmpdir(), "sfia-c24-resume-"),
-    );
-    process.env.SFIA_AUTONOMOUS_NORA_AVIS = "0";
-  });
-
-  it(
-    "does not return ALREADY_COMPLETE when avis missing and Nora attach enabled",
-    async () => {
-    __resetScriptedCursorRunsForTests();
-    process.env.SFIA_D8_COGNITIVE_LIVE = "0";
-    const seed = await seedPilotProjectWithCognitiveFiliation();
-    const c = await createTechnicalContract({
-      pilotId: seed.pilotId,
-      projectId: seed.projectId,
-      preparationId: seed.preparationId,
-      contractKey: `c24-resume-${Date.now()}`,
-      body: body(),
-      markReady: true,
-      sourcesSufficient: true,
-      cognitiveWorkId: seed.cognitiveWorkId,
-      cognitiveRevision: seed.cognitiveRevision,
-    });
-    const prep = await prepareCursorExecution({
-      pilotId: seed.pilotId,
-      projectId: seed.projectId,
-      contractId: c.contractId,
-      correlationKey: newId("corr"),
-      workspaceKey: "default",
-    });
-    await authorizeCursorExecution({
-      pilotId: seed.pilotId,
-      projectId: seed.projectId,
-      attemptId: prep.attemptId,
-      statement: "ok",
-      inspectedFingerprint: c.fingerprint,
-      confirmed: true,
-    });
-    await dispatchCursorExecution({
-      pilotId: seed.pilotId,
-      projectId: seed.projectId,
-      attemptId: prep.attemptId,
-    });
-
-    // First pass: collect/qualify without Nora
-    process.env.SFIA_AUTONOMOUS_NORA_AVIS = "0";
-    const first = await runAutonomousRestitutionAfterTerminal({
-      pilotId: seed.pilotId,
-      projectId: seed.projectId,
-      attemptId: prep.attemptId,
-      attachNoraCognitive: false,
-    });
-    expect(first.qualificationId).toBeTruthy();
-
-    // Force technical COMPLETE without avis
-    const row = (
-      await db
-        .select()
-        .from(effectAttempts)
-        .where(eq(effectAttempts.id, prep.attemptId))
-        .limit(1)
-    )[0]!;
-    const live = JSON.parse(row.resultJson || "{}") as Record<string, unknown>;
-    await db
-      .update(effectAttempts)
-      .set({
-        resultJson: JSON.stringify({
-          ...live,
-          restitutionPipelineStatus: "COMPLETE",
-          restitutionNoraKind: "NONE",
-          restitutionQualificationId: first.qualificationId,
-          restitutionHandoffId: first.handoffId,
-        }),
-        updatedAt: new Date(),
-      })
-      .where(eq(effectAttempts.id, prep.attemptId));
-
-    await db
-      .update(realizationQualifications)
-      .set({
-        noraAnalysisMarkdown: null,
-        noraAnalysisAt: null,
-        updatedAt: new Date(),
-      })
-      .where(eq(realizationQualifications.attemptId, prep.attemptId));
-
-    // Resume with Nora attach — must not stuck on ALREADY_COMPLETE
-    process.env.SFIA_AUTONOMOUS_NORA_AVIS = "1";
-    const second = await runAutonomousRestitutionAfterTerminal({
-      pilotId: seed.pilotId,
-      projectId: seed.projectId,
-      attemptId: prep.attemptId,
-      attachNoraCognitive: true,
-    });
-    expect(second.limits?.includes("ALREADY_COMPLETE")).toBe(false);
-    expect(
-      second.limits?.some((l) =>
-        /COGNITIVE_AVIS_RESUME|NORA_COGNITIVE|DETERMINISTIC_SYNTHESIS|NORA_AVIS/.test(
-          l,
-        ),
-      ) || Boolean(second.ran),
-    ).toBe(true);
-
-    const q = (
-      await db
-        .select()
-        .from(realizationQualifications)
-        .where(eq(realizationQualifications.attemptId, prep.attemptId))
-        .limit(1)
-    )[0];
-    expect(q?.noraAnalysisMarkdown).toBeTruthy();
-    // handoff unchanged (no redispatch)
-    const h = (
-      await db
-        .select()
-        .from(realizationHandoffs)
-        .where(eq(realizationHandoffs.attemptId, prep.attemptId))
-        .limit(1)
-    )[0];
-    expect(h?.id).toBe(first.handoffId);
-  },
-    60_000,
+export function StudioShell({ children }: { children: React.ReactNode }) {
+  return (
+    <ProjectSpaceProvider>
+      <StudioShellInner>{children}</StudioShellInner>
+    </ProjectSpaceProvider>
   );
-});
-```
+}
 
-<!-- END FULL FILE projects/sfia-studio-next/web/tests/integration/ml5-c24-nora-avis-resume.pg.test.ts lines=190 -->
+function StudioShellInner({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname() || "/";
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const surface = searchParams.get("surface");
+  const variant = resolveRailVariant({ pathname, surface, searchParams });
+  const tokens = STUDIO_RAIL_VARIANTS[variant];
+  const projectId = parseProjectId(pathname);
+  const preparationId = parsePreparationId(pathname);
+  const { info: projectSpace } = useProjectSpace();
+  const projectSpaceReady =
+    Boolean(projectId) &&
+    projectSpace?.projectId === projectId &&
+    projectSpace.available;
+  const projectSpaceBlocked =
+    Boolean(projectId) &&
+    projectSpace?.projectId === projectId &&
+    Boolean(projectSpace?.blockNavigation);
+  const rawItems = buildShellNav({ pathname, surface });
+  // Qualified unavailable: keep Portefeuille only — no deep nav into a dead context.
+  const items = projectSpaceBlocked
+    ? rawItems.filter((i) => i.key === "portfolio")
+    : rawItems;
+  const inProductSpace = Boolean(projectId || preparationId);
+  const personalSpace = !inProductSpace;
+  const portfolioActive = pathname.startsWith("/portfolio") || pathname === "/";
+  const accountActive = pathname.startsWith("/settings");
+  const breadcrumb = resolvePersonalBreadcrumb(pathname, searchParams);
+  const onSasVisual = pathname.startsWith("/dev/sas-visual/");
+  const onSasPreparation = Boolean(preparationId) || onSasVisual;
+  const [openingPrep, setOpeningPrep] = useState(false);
+  const [prepNotice, setPrepNotice] = useState("");
+  const activeProjectName = projectSpaceReady ? projectSpace?.projectName ?? null : null;
+  const activeProjectSubtitle = projectSpaceReady ? projectSpace?.subtitle ?? null : null;
 
-### 9.3 `projects/sfia-studio-next/web/tests/unit/ml5-c24-d4-ref-parse.test.ts` — INTÉGRAL (64 lignes)
+  useEffect(() => subscribeOpenPreparationBusy(setOpeningPrep), []);
 
-```typescript
-import { describe, expect, it } from "vitest";
+  async function handleOpenPreparation() {
+    setPrepNotice("");
+    const outcome = await runOpenPreparation(async (result) => {
+      if (result.kind === "opened") {
+        router.push(`/preparations/${result.preparationId}`);
+        return;
+      }
+      if (result.kind === "unauthorized") {
+        router.push("/login");
+        return;
+      }
+      if (result.kind === "refused") {
+        setPrepNotice(result.message);
+        return;
+      }
+      // UNCERTAIN: honest message; never navigate by guess.
+      setPrepNotice(result.message);
+    });
+    if (outcome.kind === "busy") return;
+  }
 
-/**
- * Mirror of mandate D4 ref parsing — keep in sync with mandate-applicability.ts.
- * Full PG ownership check is covered by director prepare after rebuild.
- */
-function parseD4Ref(ref: string): {
-  documentId: string | null;
-  revisionId: string | null;
-  ok: boolean;
-} {
-  let documentId: string | null = null;
-  let revisionId: string | null = null;
-  let stripped = ref.trim().replace(/^d4:/i, "").trim();
-  const slashRev = stripped.match(
-    /^(?:document:)?(doc_[A-Za-z0-9-]+)\/(?:revision:)?(drev_[A-Za-z0-9-]+|rev_[A-Za-z0-9-]+)$/i,
-  );
-  const atRev = stripped.match(
-    /^(?:document:)?(doc_[A-Za-z0-9-]+)@(?:revision:)?(drev_[A-Za-z0-9-]+|rev_[A-Za-z0-9-]+)$/i,
-  );
-  if (slashRev) {
-    documentId = slashRev[1];
-    revisionId = slashRev[2];
-  } else if (atRev) {
-    documentId = atRev[1];
-    revisionId = atRev[2];
-  } else {
-    stripped = stripped
-      .replace(/^document:/i, "")
-      .replace(/^revision:/i, "")
-      .trim();
-    if (stripped.startsWith("drev_") || stripped.startsWith("rev_")) {
-      revisionId = stripped;
-    } else if (stripped.startsWith("doc_")) {
-      documentId = stripped.split(/[/@]/)[0] || stripped;
-    } else {
-      return { documentId: null, revisionId: null, ok: false };
+  // UX-003: /login is a public entry surface — no private project rail.
+  useEffect(() => {
+    if (pathname === "/login") {
+      document.documentElement.classList.remove("studio-shell-lock");
+      return;
     }
+    document.documentElement.classList.add("studio-shell-lock");
+    return () => {
+      document.documentElement.classList.remove("studio-shell-lock");
+    };
+  }, [pathname]);
+
+  if (pathname === "/login") {
+    return (
+      <div className="min-h-screen" data-testid="studio-shell-entry" data-shell-mode="entry">
+        {children}
+      </div>
+    );
   }
-  return { documentId, revisionId, ok: Boolean(documentId || revisionId) };
+
+  return (
+    <div
+      className="studio-shell-app studio-shell"
+      data-rail-variant={variant}
+      data-shell-mode={personalSpace ? "personnel" : "produit"}
+      data-testid="studio-shell-app"
+    >
+      <aside
+        className="studio-shell-rail hidden md:flex flex-col border-r border-[var(--line)]"
+        style={railStyle(tokens)}
+        aria-label="Navigation Studio"
+        data-testid="studio-rail"
+        data-rail-variant={variant}
+        data-rail-component-id={tokens.railComponentId}
+        data-rail-source-node={tokens.sourceNodeId}
+        data-rail-width={tokens.widthPx}
+        data-rail-fill={tokens.fill}
+      >
+        <div className="studio-shell-rail-inner" style={{ gap: tokens.gap }}>
+          <div className="flex items-center gap-[11px] shrink-0">
+            <span
+              aria-hidden
+              className="inline-flex h-10 w-10 items-center justify-center rounded-[12px] text-[22px] font-bold leading-none"
+              style={{ background: "#656fe1", color: "#f4f6fc" }}
+            >
+              S
+            </span>
+            <div className="min-w-0">
+              <div className="text-[19px] font-semibold tracking-tight studio-title leading-[27px]">
+                SFIA Studio
+              </div>
+              {personalSpace ? (
+                <div className="text-[10px] muted">{PRODUCT_VERSIONING.releaseStatus}</div>
+              ) : null}
+            </div>
+          </div>
+
+          <div className="studio-rail-rule shrink-0" aria-hidden />
+
+          {projectId ? (
+            <>
+              <div className="studio-rail-section !mt-0" aria-hidden>
+                Espace actif
+              </div>
+              <div
+                className="studio-rail-espace-actif shrink-0"
+                style={{ background: "#151c29" }}
+                data-testid="rail-espace-actif"
+              >
+                <div
+                  className="studio-rail-project-name"
+                  title={activeProjectName ?? undefined}
+                  data-testid="rail-project-name"
+                >
+                  {activeProjectName ??
+                    (projectSpaceBlocked ? "Projet indisponible" : "Chargement…")}
+                </div>
+                {activeProjectSubtitle ? (
+                  <div
+                    className="studio-rail-project-subtitle"
+                    data-testid="rail-project-subtitle"
+                  >
+                    {activeProjectSubtitle}
+                  </div>
+                ) : null}
+                {projectSpaceReady ? (
+                  <div className="studio-rail-project-status" data-testid="rail-project-status">
+                    <span className="studio-rail-status-dot" aria-hidden />
+                    Projet actif
+                  </div>
+                ) : null}
+              </div>
+            </>
+          ) : (
+            <div className="studio-rail-section" aria-hidden>
+              Votre espace
+            </div>
+          )}
+
+          <nav
+            className="studio-shell-rail-nav text-sm"
+            style={{ gap: tokens.gap }}
+            aria-label="Principal"
+          >
+            {items.map((item) => {
+              if (item.action === "open-preparation") {
+                return (
+                  <button
+                    key={item.key}
+                    type="button"
+                    className="studio-rail-nav-item text-left w-full"
+                    data-testid={`nav-${item.key}`}
+                    disabled={openingPrep}
+                    onClick={() => void handleOpenPreparation()}
+                  >
+                    <span aria-hidden className="studio-rail-nav-glyph">
+                      +
+                    </span>
+                    <span>{openingPrep ? "Ouverture…" : item.label}</span>
+                  </button>
+                );
+              }
+              if (!item.href) {
+                return (
+                  <span
+                    key={item.key}
+                    className="muted pl-2"
+                    title={item.disabledReason}
+                    data-testid={`nav-disabled-${item.key}`}
+                  >
+                    {item.label}
+                  </span>
+                );
+              }
+
+              if (item.key === "portfolio" && projectId) {
+                return (
+                  <Link
+                    key={item.key}
+                    href={item.href}
+                    className="studio-rail-portfolio-link"
+                    data-testid={`nav-${item.key}`}
+                  >
+                    ←&nbsp;&nbsp;Portefeuille
+                  </Link>
+                );
+              }
+
+              const showNavSection =
+                projectId &&
+                item.key === "travail" &&
+                !projectSpaceBlocked;
+
+              return (
+                <div key={item.key} className="contents">
+                  {showNavSection ? (
+                    <>
+                      <div className="studio-rail-rule" aria-hidden />
+                      <div className="studio-rail-section">Navigation</div>
+                    </>
+                  ) : null}
+                  <Link
+                    href={item.href}
+                    className={`studio-rail-nav-item ${item.active ? "is-active" : ""}`}
+                    aria-current={item.active ? "page" : undefined}
+                    data-testid={`nav-${item.key}`}
+                    onClick={() => {
+                      const surfaceKey = parseStudioSurface(item.key);
+                      if (projectId && surfaceKey) {
+                        noteProjectSurfaceNavIntent(projectId, surfaceKey);
+                      }
+                    }}
+                  >
+                    {item.key === "portfolio" ? (
+                      <span aria-hidden className="grid grid-cols-2 gap-[2px] w-3.5 h-3.5 shrink-0">
+                        <span className="block rounded-[2px] bg-[var(--accent-soft)]" />
+                        <span className="block rounded-[2px] bg-[var(--accent-soft)]" />
+                        <span className="block rounded-[2px] bg-[var(--accent-soft)]" />
+                        <span className="block rounded-[2px] bg-[var(--accent-soft)]" />
+                      </span>
+                    ) : (
+                      <span aria-hidden className="studio-rail-nav-glyph">
+                        {railNavGlyph(item.key)}
+                      </span>
+                    )}
+                    <span>{item.label}</span>
+                  </Link>
+                </div>
+              );
+            })}
+            {prepNotice ? (
+              <p className="text-xs text-[var(--bad)] px-2" role="status" data-testid="shell-prep-notice">
+                {prepNotice}
+              </p>
+            ) : null}
+
+            {personalSpace ? (
+              <div className="mt-2">
+                <div className="studio-rail-section mb-1">Accès</div>
+                <Link
+                  href={ACCOUNT_HREF}
+                  className={`studio-rail-nav-item ${
+                    pathname.startsWith("/settings/integrations") ? "is-active" : ""
+                  }`}
+                  aria-current={pathname.startsWith("/settings/integrations") ? "page" : undefined}
+                  data-testid="nav-integrations"
+                >
+                  <span>Intégrations</span>
+                </Link>
+              </div>
+            ) : null}
+
+            {projectId && projectSpaceReady ? (
+              <div className="mt-1 space-y-0.5" data-testid="rail-acces-directs">
+                <div className="studio-rail-rule" aria-hidden />
+                <div className="studio-rail-section">Accès directs</div>
+                <Link
+                  href={`/projects/${projectId}?surface=document`}
+                  className={`studio-rail-direct-link ${
+                    surface === "document" ? "is-active" : ""
+                  }`}
+                  data-testid="nav-documents"
+                  onClick={() => noteProjectSurfaceNavIntent(projectId, "document")}
+                >
+                  <span aria-hidden className="studio-rail-nav-glyph">
+                    ▤
+                  </span>
+                  <span>Documents Nora</span>
+                </Link>
+                <Link
+                  href={`/projects/${projectId}?surface=git`}
+                  className={`studio-rail-direct-link ${
+                    surface === "git" ? "is-active" : ""
+                  }`}
+                  data-testid="nav-sources-git"
+                  onClick={() => noteProjectSurfaceNavIntent(projectId, "git")}
+                >
+                  <span aria-hidden className="studio-rail-nav-glyph">
+                    ◇
+                  </span>
+                  <span>Sources Git</span>
+                </Link>
+                <Link
+                  href={`/projects/${projectId}?surface=execution`}
+                  className={`studio-rail-direct-link ${
+                    surface === "execution" ? "is-active" : ""
+                  }`}
+                  data-testid="nav-execution"
+                  onClick={() => noteProjectSurfaceNavIntent(projectId, "execution")}
+                  title="Exécution Cursor gouvernée — interventions, LIVE, instruction"
+                >
+                  <span aria-hidden className="studio-rail-nav-glyph">
+                    ▷
+                  </span>
+                  <span>Exécution</span>
+                </Link>
+                <Link
+                  href={`/projects/${projectId}?surface=publication`}
+                  className={`studio-rail-direct-link ${
+                    surface === "publication" ? "is-active" : ""
+                  }`}
+                  data-testid="nav-resultats"
+                  onClick={() => noteProjectSurfaceNavIntent(projectId, "publication")}
+                  title="Résultats & preuves D8 — SYNTHÈSE / LIVRABLES ET TESTS / GIT & PIÈCES / ÉCARTS"
+                >
+                  <span aria-hidden className="studio-rail-nav-glyph">
+                    ▦
+                  </span>
+                  <span>Résultats & preuves</span>
+                </Link>
+              </div>
+            ) : null}
+          </nav>
+
+          <div className="studio-shell-rail-foot" data-testid="studio-rail-account">
+            <Link
+              href={ACCOUNT_HREF}
+              className="studio-account-link"
+              data-testid="nav-account"
+              aria-label="Compte — Intégrations"
+            >
+              <span
+                aria-hidden
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold shrink-0"
+                style={{ background: "rgba(101,111,225,0.25)", color: "var(--fig-accent-soft)" }}
+              >
+                P
+              </span>
+              <div className="text-xs min-w-0">
+                <div className="font-semibold text-[14px]">Pilote</div>
+                <div className="muted">{inProductSpace ? "Connecté" : "Espace personnel"}</div>
+              </div>
+              <span aria-hidden className="muted ml-auto text-lg leading-none">
+                ⌄
+              </span>
+            </Link>
+          </div>
+        </div>
+      </aside>
+
+      <div className="studio-shell-column">
+        {personalSpace ? (
+          <header
+            className="studio-shell-topbar"
+            data-testid="studio-shell-topbar"
+          >
+            <div className="flex items-center gap-3 min-w-0 md:hidden">
+              <span
+                aria-hidden
+                className="inline-flex h-[34px] w-[34px] items-center justify-center rounded-[8px] text-sm font-bold"
+                style={{ background: "var(--fig-accent)", color: "white" }}
+              >
+                S
+              </span>
+              <span className="font-semibold truncate">SFIA Studio</span>
+            </div>
+            <p
+              className="hidden md:block text-sm muted truncate m-0"
+              data-testid="studio-shell-breadcrumb"
+            >
+              {breadcrumb
+                ? <>SFIA Studio&nbsp;&nbsp;/&nbsp;&nbsp;{breadcrumb}</>
+                : <>SFIA Studio</>}
+            </p>
+            {onSasPreparation ? (
+              <span className="sas-project-badge" data-testid="sas-header-project-status">
+                PROJET NON CRÉÉ
+              </span>
+            ) : (
+              <Link
+                href={ACCOUNT_HREF}
+                className="studio-account-link shrink-0"
+                data-testid="nav-account-top"
+                aria-label="Compte — Intégrations"
+              >
+                <span
+                  aria-hidden
+                  className="inline-flex h-[25px] w-[25px] items-center justify-center rounded-full text-[12px] font-bold"
+                  style={{ background: "rgba(101,111,225,0.25)", color: "var(--fig-accent-soft)" }}
+                >
+                  P
+                </span>
+                <span className="hidden sm:inline text-[13px] text-[var(--muted)]">Pilote</span>
+              </Link>
+            )}
+          </header>
+        ) : (
+          <nav
+            className="studio-shell-mobile-strip md:hidden"
+            aria-label="Navigation Studio mobile"
+            data-testid="studio-rail-mobile"
+          >
+            {items.map((item) => {
+              if (!item.href) {
+                return (
+                  <span
+                    key={item.key}
+                    className="muted whitespace-nowrap"
+                    title={item.disabledReason}
+                    data-testid={`nav-disabled-${item.key}`}
+                  >
+                    {item.label}
+                  </span>
+                );
+              }
+              return (
+                <Link
+                  key={item.key}
+                  href={item.href}
+                  className={`whitespace-nowrap ${item.active ? "font-semibold" : ""}`}
+                  aria-current={item.active ? "page" : undefined}
+                  data-testid={`nav-${item.key}`}
+                  onClick={() => {
+                    const surfaceKey = parseStudioSurface(item.key);
+                    if (projectId && surfaceKey) {
+                      noteProjectSurfaceNavIntent(projectId, surfaceKey);
+                    }
+                  }}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+        )}
+
+        <main
+          className={`studio-shell-main ${personalSpace ? "studio-shell-main-mobile-pad" : ""}`}
+          data-testid="studio-shell-main"
+          data-sas-layout={onSasPreparation ? "1" : undefined}
+          data-travail-layout={
+            projectId &&
+            (parseStudioSurface(surface) ?? "travail") === "travail" &&
+            !projectSpaceBlocked
+              ? "1"
+              : undefined
+          }
+          data-journal-layout={
+            projectId &&
+            (parseStudioSurface(surface) ?? "travail") === "journal" &&
+            !projectSpaceBlocked
+              ? "1"
+              : undefined
+          }
+          data-project-figma-layout={
+            projectId &&
+            !projectSpaceBlocked &&
+            ["projet", "pilotage"].includes(parseStudioSurface(surface) ?? "")
+              ? "1"
+              : undefined
+          }
+        >
+          {children}
+        </main>
+
+        {personalSpace ? (
+          <nav
+            className="studio-shell-bottom-nav md:hidden"
+            aria-label="Navigation personnelle mobile"
+            data-testid="studio-mobile-bottom-nav"
+          >
+            <Link
+              href="/portfolio"
+              className={portfolioActive ? "is-active" : ""}
+              aria-current={portfolioActive ? "page" : undefined}
+              data-testid="mobile-nav-portfolio"
+            >
+              <span className="nav-glyph" aria-hidden>
+                ▦
+              </span>
+              Portefeuille
+            </Link>
+            <button
+              type="button"
+              className="studio-shell-bottom-nav-btn"
+              data-testid="mobile-nav-create"
+              disabled={openingPrep}
+              onClick={() => void handleOpenPreparation()}
+            >
+              <span className="nav-glyph" aria-hidden>
+                +
+              </span>
+              {openingPrep ? "…" : "Créer"}
+            </button>
+            <Link
+              href={ACCOUNT_HREF}
+              className={accountActive ? "is-active" : ""}
+              aria-current={accountActive ? "page" : undefined}
+              data-testid="mobile-nav-account"
+            >
+              <span className="nav-glyph" aria-hidden>
+                ◔
+              </span>
+              Compte
+            </Link>
+          </nav>
+        ) : null}
+      </div>
+    </div>
+  );
 }
 
-describe("C24 D4 ref parse (journal slash form)", () => {
-  it("parses document:doc_/revision:drev_", () => {
-    const r = parseD4Ref(
-      "document:doc_76b7500a-cd19-49cb-ad88-a4988daf9eb2/revision:drev_4e27edfa-755d-40aa-b111-222233334444",
-    );
-    expect(r.ok).toBe(true);
-    expect(r.documentId).toBe("doc_76b7500a-cd19-49cb-ad88-a4988daf9eb2");
-    expect(r.revisionId).toBe("drev_4e27edfa-755d-40aa-b111-222233334444");
-  });
-
-  it("parses legacy @ form", () => {
-    const r = parseD4Ref("document:doc_abc@drev_xyz");
-    expect(r.documentId).toBe("doc_abc");
-    expect(r.revisionId).toBe("drev_xyz");
-  });
-
-  it("parses bare doc_", () => {
-    const r = parseD4Ref("doc_only");
-    expect(r.documentId).toBe("doc_only");
-    expect(r.revisionId).toBeNull();
-  });
-});
 ```
 
-<!-- END FULL FILE projects/sfia-studio-next/web/tests/unit/ml5-c24-d4-ref-parse.test.ts lines=64 -->
+### FILE: `projects/sfia-studio-next/web/src/components/figma/tokens.css` (C24 blocks)
+```css
+/* C24 / Figma 12.09 — retirable D8 dossier reference above the draft. */
+.fig-dossier-attachment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px;
+  border: 1px solid #3a4270;
+  border-radius: 10px;
+  background: #1a2236;
+}
+.fig-dossier-attachment-body {
+  min-width: 0;
+  flex: 1;
+}
+.fig-dossier-attachment-label {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #c5c9e8;
+}
+.fig-dossier-attachment-meta {
+  margin: 2px 0 0;
+  font-size: 0.7rem;
+  color: #8b93b5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fig-dossier-attachment-remove {
+  flex-shrink: 0;
+  border: 1px solid #7477ed66;
+  border-radius: 8px;
+  background: transparent;
+  color: #a8acf0;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+.fig-dossier-attachment-remove:hover:not(:disabled) {
+  border-color: #7477ed;
+  color: #d0d3ff;
+}
+.fig-dossier-attachment-remove:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
----
+/* O-06 — long-thread composer remains reachable while the journal scrolls. */
+.fig-nora-thread-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+.fig-composer-sticky {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  background: #0c1018;
+}
 
-## 10. Contrôle anti-stub (auto)
+.fig-two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 800fr) minmax(0, 510fr);
+  gap: 20px;
+}
 
-Fichiers critiques intégralement embarqués :
-- OK `projects/sfia-studio-next/web/src/domains/execution/mandate-applicability.ts` bytes=10544 head+tail embedded
-- OK `projects/sfia-studio-next/web/src/domains/execution/technical-contract-server-ready.ts` bytes=7826 head+tail embedded
-- OK `projects/sfia-studio-next/web/src/components/figma/CursorRealizationSurface.tsx` bytes=26183 head+tail embedded
-- OK `projects/sfia-studio-next/web/src/domains/execution/cursor-autonomous-restitution.ts` bytes=54928 head+tail embedded
-- OK `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/authorize/route.ts` bytes=3041 head+tail embedded
-- OK `projects/sfia-studio-next/web/scripts/qualify-dev.sh` bytes=11889 head+tail embedded
-- OK `projects/sfia-studio-next/web/scripts/qualify-check.mts` bytes=6542 head+tail embedded
-- OK `projects/sfia-studio-next/web/playwright.qualify.config.ts` bytes=803 head+tail embedded
-- OK `projects/sfia-studio-next/web/tests/qualify/c24-director-two-realizations.spec.ts` bytes=21001 head+tail embedded
-- OK `projects/sfia-studio-next/web/tests/qualify/c24-browser-live-smoke.spec.ts` bytes=4371 head+tail embedded
-- OK `projects/sfia-studio-next/web/src/domains/proofs/studio-verify-authority.ts` bytes=8571 head+tail embedded
-- OK `projects/sfia-studio-next/web/tests/integration/ml5-c24-nora-avis-resume.pg.test.ts` bytes=5950 head+tail embedded
-- OK `projects/sfia-studio-next/web/tests/unit/ml5-c24-d4-ref-parse.test.ts` bytes=2160 head+tail embedded
+.fig-empty-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.fig-empty-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--fig-line);
+  font-size: 0.85rem;
+}
+.fig-empty-row:last-child { border-bottom: 0; }
 
-**ANTI_STUB_GATE:** PASS
+.fig-alert {
+  border: 1px solid color-mix(in srgb, var(--fig-info) 55%, var(--fig-line));
+  background: var(--fig-info-bg);
+  border-radius: var(--fig-radius-sm);
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  color: #c9d7ff;
+}
 
-## 11. Handoff L3
+/* UX-004 portfolio composition */
+.fig-stat-value-text {
+  font-size: 1.35rem;
+  margin-top: 14px;
+}
 
-- Branche : `sfia/review-handoff`
-- Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-- Message : `docs(review-handoff): publish Next ML5 C24 integrated operational qualification`
-- Remplace `ebaa818b` (pack incomplet)
-- Produit : aucun commit/push
+.fig-card-sep {
+  height: 1px;
+  background: var(--fig-line);
+  width: 100%;
+}
 
-*Fin Review Pack FULL C24 — republication contenu modifié intégral.*
+.portfolio-project-card {
+  min-height: 180px;
+}
+
+.portfolio-empty-projects {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  border: 1px solid var(--fig-line);
+  border-radius: 12px;
+  background: var(--fig-panel);
+  padding: 1.35rem 1.25rem;
+  min-height: 160px;
+}
+
+.portfolio-empty-glyph {
+  flex-shrink: 0;
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--fig-accent) 22%, transparent);
+  color: var(--fig-accent-soft);
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.portfolio-empty-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.portfolio-empty-copy {
+  margin: 0.45rem 0 0;
+  color: var(--fig-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  max-width: 42rem;
+}
+
+.portfolio-prep-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.portfolio-prep-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-height: 66px;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--fig-line);
+  border-radius: 10px;
+  background: var(--fig-panel);
+}
+
+.portfolio-prep-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #272e49;
+  color: var(--fig-accent-soft);
+  font-size: 1.1rem;
+}
+
+.portfolio-prep-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--fig-ink);
+}
+
+.portfolio-prep-meta {
+  font-size: 0.75rem;
+  color: var(--fig-muted);
+  margin-top: 0.1rem;
+}
+
+.portfolio-prep-resume {
+  min-width: 7.5rem;
+}
+
+.portfolio-empty-preps {
+  min-height: 91px;
+  display: flex;
+  align-items: center;
+}
+
+.portfolio-continuity h3 {
+  font-size: 0.95rem;
+}
+
+@media (max-width: 1100px) {
+  .fig-stat-grid,
+  .fig-card-grid,
+  .fig-workspace,
+  .fig-travail-workspace,
+  .fig-workspace-3,
+  .fig-two-col {
+    grid-template-columns: 1fr;
+  }
+
+  .fig-nora-thread {
+    max-height: none;
+  }
+
+  .fig-msg-pilot,
+  .fig-msg-nora {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .fig-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .fig-stat-access {
+    display: none;
+  }
+  .fig-card-grid {
+    grid-template-columns: 1fr;
+  }
+  .portfolio-project-card {
+    min-height: 86px;
+  }
+  .portfolio-prep-row {
+    min-hei
+
+/* ---- */
+
+/* Figma 12.08 — results split: bilans 437 + dossier 903, gap 18 */
+.fig-results-split {
+  display: grid;
+  grid-template-columns: minmax(280px, 437fr) minmax(0, 903fr);
+  gap: 18px;
+  align-items: start;
+  min-width: 0;
+}
+.fig-results-bilans-list,
+.fig-results-dossier {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #2b3850;
+  border-radius: 10px;
+  background: #151d2c;
+}
+.fig-results-bilans-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.fig-results-bilans-head h3 {
+  margin: 0;
+  font-size: 19px;
+  color: #f3f5ff;
+}
+.fig-results-bilans-count {
+  font-size: 11px;
+  padding: 7px;
+  border-radius: 15px;
+  border: 1px solid #2b3850;
+  background: #242c4b;
+  color: #a3b0c7;
+  white-space: nowrap;
+}
+.fig-results-bilans-ul {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.fig-results-bilan-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  width: 100%;
+  text-align: left;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid #2b3850;
+  background: #1b2639;
+  color: #f3f5ff;
+  cursor: pointer;
+}
+.fig-results-bilan-card.is-selected {
+  background: #242c4b;
+}
+.fig-results-bilan-kicker {
+  font-size: 10px;
+  font-weight: 600;
+  color: #7477ed;
+}
+.fig-results-bilan-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f3f5ff;
+}
+.fig-results-bilan-meta {
+  font-size: 11px;
+  color: #a3b0c7;
+}
+
+.fig-bilan-appreciations {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.fig-bilan-appreciation {
+  min-width: 0;
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: #1b2639;
+}
+.fig-bilan-appreciation-label {
+  margin: 0 0 4px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #a3b0c7;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.fig-bilan-appreciation-body {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #f3f5ff;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.fig-bilan-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  border-bottom: 1px solid #2b3850;
+  padding-bottom: 6px;
+}
+.fig-bilan-tabs .btn,
+.fig-bilan-tabs .btn.secondary {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #a3b0c7;
+}
+.fig-bilan-tabs .btn:not(.secondary) {
+  color: #7477ed;
+}
+
+.fig-bilan-rubrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 12px;
+}
+
+.fig-bilan-rubric {
+  min-width: 0;
+  padding: 14px 16px;
+  background: #151c29;
+  border: 1px solid #272e49;
+  border-radius: 12px;
+}
+
+.fig-bilan-rubric h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--fig-ink);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.fig-bilan-rubric p,
+.fig-bilan-rubric pre {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--fig-muted);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.fig-bilan-coverage {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.fig-bilan-coverage[data-coverage="COMPLETE"] {
+  background: var(--fig-ok-bg);
+  color: var(--fig-ok);
+}
+
+.fig-bilan-coverage[data-coverage="PARTIAL"] {
+  background: var(--fig-warn-bg);
+  color: var(--fig-warn);
+}
+
+.fig-bilan-coverage[data-coverage="MISSING"],
+.fig-bilan-coverage[data-coverage="UNKNOWN"] {
+  background: #3a2030;
+  color: #f0a0b8;
+}
+
+.fig-bilan-empty {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px dashed #3a4570;
+  border-radius: 10px;
+  color: var(--fig-quiet);
+  font-size: 13px;
+}
+
+.fig-bilan-limits ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--fig-muted);
+  font-size: 13px;
+}
+
+.fig-bilan-nora-analysis pre {
+  margin: 8px 0 0;
+  padding: 12px;
+  max-height: 240px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  background: #0f1420;
+  border: 1px solid #272e49;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+
+/* ---- */
+
+.fig-d6-confirm-card {
+  /* Figma 12.03 modal native: 490×230, radius 10, fill #151d2c, stroke #2b3850 */
+  width: min(490px, 100%);
+  max-height: min(80vh, 640px);
+  overflow: auto;
+  padding: 24px;
+  background: #151d2c;
+  border: 1px solid #2b3850;
+  border-radius: 10px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+}
+
+.fig-d6-confirm-card h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  color: var(--fig-ink);
+}
+
+.fig-d6-confirm-card p {
+  margin: 0 0 12px;
+  color: var(--fig-muted);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.fig-d6-confirm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.fig-realization-bilan {
+  display:
+```
+
+### FILE: `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx` (C24 excerpts)
+```typescript
+import { D6ConfirmLaunch } from "@/components/figma/D6ConfirmLaunch";
+import {
+  mergeDraftWithDossierAttachment,
+  type DossierComposerAttachment,
+} from "@/domains/conversation/dossier-composer-attachment";
+import {
+  ProjectJournal,
+  type JournalContradiction,
+// ...
+  const [draft, setDraft] = useState("");
+  /** Figma 12.09 — durable retirable D8 dossier ref (survives draft edits). */
+  const [dossierAttachment, setDossierAttachment] =
+    useState<DossierComposerAttachment | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [pilotId, setPilotId] = useState<string | null>(null);
+  const [turnProjections, setTurnProjections] = useState<TurnProjection[]>([]);
+  const [choiceFrozen, setChoiceFrozen] = useState(false);
+// ...
+    // C24 / 12.09 — dossier chip travels with the turn even if draft was replaced.
+    const raw = (overrideText ?? draft).trim();
+    const text = mergeDraftWithDossierAttachment(raw, dossierAttachment).trim();
+    if (!text || !preparationId) return;
+    const fromChoice = opts?.fromChoice === true;
+    const sentVersion = fromChoice ? null : draftVersionRef.current;
+    const pendingMeta: Pick<
+      ThreadPendingTurn,
+// ...
+            persistDraft(v);
+          }}
+          dossierAttachment={dossierAttachment}
+          onRemoveDossierAttachment={() => setDossierAttachment(null)}
+          onSend={() => void sendMessage()}
+          onReconcile={
+            unresolvedPending
+              ? () => void reconcilePending(unresolvedPending)
+// ...
+          }}
+          dossierAttachment={dossierAttachment}
+          onRemoveDossierAttachment={() => setDossierAttachment(null)}
+          onSend={() => void sendMessage()}
+          onReconcile={
+            unresolvedPending
+              ? () => void reconcilePending(unresolvedPending)
+              : undefined
+// ...
+                    onClick={() => selectSurface("publication")}
+                  >
+                    Résultats & preuves
+                  </button>
+                </div>
+              </div>
+              <div className="fig-inspector-rule" aria-hidden />
+              <p className="fig-inspector-section">Points à clarifier</p>
+// ...
+            projectId={params.projectId}
+            mode="execution"
+            onDiscussWithNora={(att) => {
+              setDossierAttachment(att);
+              // Keep composer free for the Pilote's next ask — dossier is a chip (12.09).
+              selectSurface("travail");
+            }}
+          />
+// ...
+            mode="execution"
+            onDiscussWithNora={(att) => {
+              setDossierAttachment(att);
+              // Keep composer free for the Pilote's next ask — dossier is a chip (12.09).
+              selectSurface("travail");
+            }}
+          />
+        </div>
+// ...
+            projectId={params.projectId}
+            mode="results"
+            onDiscussWithNora={(att) => {
+              setDossierAttachment(att);
+              selectSurface("travail");
+            }}
+          />
+          <GitRepositoriesSurface
+// ...
+            mode="results"
+            onDiscussWithNora={(att) => {
+              setDossierAttachment(att);
+              selectSurface("travail");
+            }}
+          />
+          <GitRepositoriesSurface
+            projectId={params.projectId}
+// ...
+```
+
+## 6. Tableau F2 / 14 états
+
+| Frame | node-id | Route fixture | Éléments contractuels | Correspondance | F2 δ CSS | Capture Figma | Capture runtime | Écarts | Verdict |
+|---|---|---|---|---|---|---|---|---|---|
+| 12.01 | 1210:233 | /dev/ml5-page12-visual/12.01 | Activité Nora + fil | NoraConversation | PARTIAL — harness sans rail projet complet | figma-page12/12.01-*.png | figma-page12-runtime/12.01.png | Shell Accès directs non monté dans harness | PARTIAL |
+| 12.02 | 1211:117 | …/12.02 | 4 engagements + 6 volets | ContractViewer | PARTIAL | … | …/12.02.png | Composition viewer OK ; shell PARTIAL | PARTIAL |
+| 12.03 | 1211:676 | …/12.03 | Modal Oui/Non 490×230 r10 | D6ConfirmLaunch | PARTIAL (modal aligné) | … | …/12.03.png | Copy/radius alignés ; mesure DOM exacte ouverte | PARTIAL |
+| 12.04 | 1211:277 | …/12.04 | Historique interventions | CursorRealizationSurface exec | PARTIAL | … | …/12.04.png | Liste interventions | PARTIAL |
+| 12.05 | 1211:424 | …/12.05 | Instruction + autorité | ContractViewer | PARTIAL | … | …/12.05.png | Même viewer | PARTIAL |
+| 12.06 | 1212:383 | …/12.06 | LIVE events · STOP≠arrêt | execution + livePanel fixture | PARTIAL | … | …/12.06.png | Pas de faux % | PARTIAL |
+| 12.07 | 1212:510 | …/12.07 | UNKNOWN / réconcilier | AMBIGUOUS row | PARTIAL | … | …/12.07.png | État inconnu ≠ échec | PARTIAL |
+| 12.08 | 1212:637 | …/12.08 | 3 appréciations · SYNTHÈSE | results split + RealizationBilan | PARTIAL — composition alignée | … | …/12.08.png | Onglets + 3 cartes OK ; rail projet PARTIAL | PARTIAL |
+| 12.09 | 1212:774 | …/12.09 | Chip dossier retirable | NoraConversation chip | PARTIAL — chip contractuel présent | … | …/12.09.png | Contexte joint droit Figma non monté dans harness | PARTIAL |
+| 12.10 | 1212:895 | …/12.10 | Sas sans projet auto | NoraConversation preparing | PARTIAL | … | …/12.10.png | Rail sas personnel non reproduit | PARTIAL |
+| 12.11 | 1239:613 | …/12.11 | LIVRABLES ET TESTS | Bilan tab livrables | PARTIAL | … | …/12.11.png | Tab label exact | PARTIAL |
+| 12.12 | 1239:680 | …/12.12 | GIT & PIÈCES | Bilan tab git | PARTIAL | … | …/12.12.png | Tab label exact | PARTIAL |
+| 12.13 | 1245:757 | …/12.13 | ÉCARTS | Bilan tab ecarts | PARTIAL | … | …/12.13.png | Tab label exact | PARTIAL |
+| 12.14 | 1250:815 | …/12.14 | Instruction intégrale | ContractViewer expanded | PARTIAL | … | …/12.14.png | Instruction non tronquée | PARTIAL |
+
+**Verdict UX pack :** FIGMA TO RUNTIME PARTIAL — DELIVERY REQUIRED (F2 shell complet + mesures DOM δ≤2 à finaliser avec Morris).
+
+## 7. Réserves ML5 restantes
+
+- Isolation OS D8 (exec disabled) — ouverte
+- WEB open page / dégradés critiques — ouverts
+- F2 δ≤2 CSS px sur shell projet 1680×970 — PARTIEL (fixtures OK)
+- Qualification utilisateur Morris — **non déclarée réussie**
+- Pas ML5 CLOSED / ADOPTED / GO RECETTE / promotion
+- Plafonds 800k/48 non validés — révoqués
+
+## 8. Instruction ChatGPT
+
+Relire le handoff canonique distant `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` avant réponse.
+Vérifier corrections R2, contrats UX page 12, preuves runtime, limites.
+Produire une synthèse indépendante. Gate suivant : qualification utilisateur accompagnée Morris en DEV.
