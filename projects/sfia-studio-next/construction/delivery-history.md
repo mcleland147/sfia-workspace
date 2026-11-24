@@ -12,8 +12,8 @@ Append-only logical journal of Cursor product deliveries.
 | Type | INC Critical · delivery intégré · **NO RELEASE** |
 | Branche | `sfia/next-ml5-integrated-delivery-20261123` |
 | Parent HEAD | `34c614d988827db798024ac9d0a874927b8bacdf` |
-| Candidate SHA | `2d8622fc56f5c979ff231f5fe853816e828f159e` |
-| Candidate tree | `46bd2fda979eb7b9e1016f0ec6984d3b8674cd74` |
+| Candidate SHA | `d98e61133da18a51144b9dea732292584fc28aba` |
+| Candidate tree | `d6b21a7856810cfa6747896d5c4617f62c4e48da` |
 | Build DEV candidat | `zXUhtTemfQ4rO8vXc_3Nz` · digest `a56c77f4b98ac1e3885d24e86bb7e1275a12a5a3c61be43b7ed115fde8edfa38` |
 | RECETTE runtime | **inchangé** `7f48daa2` / `_ZDI1cWa1hscluvBhaiA4` — bascule après GO Morris |
 | Contenu | Activité LIVE transverse sas+travail ; UI Figma 12.01/12.10 ; labels métier ; composeur optimiste ; WEB≠GIT viewer ; strip fence fil ; envelope tokens cache ; personnalité ; guide recette |
