@@ -1,130 +1,922 @@
-# SFIA Review Pack — ML5 Cycle 15 FULL
+# SFIA Studio Next — ML5 C16 Review Pack FULL
 
 | Champ | Valeur |
 |---|---|
-| Date/heure UTC | 2026-11-24T05:30:48Z |
-| Cycle | ML5 / C15 — CRITICAL — conducteur cognitif Nora (lot convergence 1) |
-| Profil | Critical |
-| Worktree | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
+| Date/heure | 2026-11-24T06:54:55+01:00 |
+| Objectif | Finalisation fonctionnelle + qualification intégrée du conducteur cognitif Nora (lot convergence 1) |
+| Cycle | ML5 / C16 / INC Critical |
+| Profil | Critical — GO Morris |
+| Review Pack | FULL · mono-cycle C16 · réinitialisé |
+| Versioning | NO RELEASE |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` |
 | Branche | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY C3–C15) |
-| Baseline | `main@997897fd7cf914771e7d08e8030dc7123fab7d25` |
-| Conception | `975a8d5f` blob `2f19c614` conducteur-cognitif-et-production-nora.md |
-| Snapshot post-C14 | `78f60e40` |
-| Mode | DEV only · **NO RELEASE** · aucun push projet |
-| Review Pack | FULL mono-cycle C15 (réinitialisé) |
-| Verdict Delivery | **READY WITH RESERVES** |
+| Worktree | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
+| Push projet | NONE |
 
-> Distingue : héritage C1–C14 préservé ; modifications C15 ci-dessous ; LIVE intégré lot 1 encore PARTIAL.
+## 1. Objectif et verdict Cursor
 
----
+**Verdict proposé :** READY WITH RESERVES
 
-## 1. Git Truth Check
+Le conducteur D3 C15 est désormais **raccordé aux entrées produit** (`service`, `intent-conduction`, qualification D8). Les P0 ownership/READY/WEB sont corrigés et prouvés en DETERMINISTIC + INTEGRATION PG. LIVE E2E product path (Next :3100) **non rejoué** dans ce cycle — réserve explicite.
 
-- HEAD confirmé `6cf33e99…` ; staged=0 à l'entrée ; DIRTY ~97+ ; aucun reset/clean
-- ENV : PG `:5433` ; Next peut être down (non bloquant pour migrations/tests PG)
-- Migration 020 appliquée sur `sfia_next_dev` et `sfia_next_e2e`
+## 2. Git Truth
 
----
+### Initial / final (même HEAD — DIRTY préservé)
 
-## 2. Architecture physique retenue (Options B/C/C)
+- Remote dépôt : `mcleland147/sfia-workspace`
+- Branche active : `sfia/next-ml5-integrated-delivery-20261123`
+- HEAD : `6cf33e9923796974b9ee540a9c6ff27110342950` (inchangé — aucun commit projet)
+- Travaux C1–C15 DIRTY conservés ; C16 ajoute corrections + fichiers listés
+- Pas de reset / clean / stash / rebase / merge
 
-1. **Conducteur** : `cognitive-conductor.ts` — segments Agents SDK réutilisant `nora-adapter` ; enveloppe globale tokens/segments non réinitialisée.
-2. **Persistance** : tables `cognitive_works` + `cognitive_work_checkpoints` ; lease/CAS/revision ; distinct des tours.
-3. **Production** : instruction/critères sans plafonds 24k/8 ; DRAFT inspectable ; READY = suffisance positive serveur.
-4. **WEB P0** : DNS egress + lecture flux bornée avant téléchargement intégral.
-5. **Legacy** : `ml5InvestigationSnapshot` non autoritaire ; miroir optionnel `SFIA_COGNITIVE_LEGACY_MIRROR=1`.
-
----
-
-## 3. Diff stat (fichiers C15 touchés)
+### `git status --short` (extrait périmètre Next)
 
 ```
- .../construction/delivery-history.md               | 211 +++++++++++++++++
- ...5-registre-couverture-et-revue-developpement.md | 251 ++++++++++++++++++---
+ M projects/sfia-studio-next/construction/delivery-history.md
+ M projects/sfia-studio-next/construction/ml5-as-built-cursor-realization.md
+ M projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
+ M projects/sfia-studio-next/web/next.config.ts
+ M projects/sfia-studio-next/web/scripts/db-migrate.sh
+ M projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/turns/by-key/[clientTurnKey]/route.ts
+ M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/authorize/route.ts
+ M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/handoff/route.ts
+ M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/qualification/route.ts
+ M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/contracts/[contractId]/ready/route.ts
+ M projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/contracts/route.ts
+ M projects/sfia-studio-next/web/src/app/login/page.tsx
+ M projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+ M projects/sfia-studio-next/web/src/components/figma/ContractViewer.tsx
+ M projects/sfia-studio-next/web/src/components/figma/CursorRealizationSurface.tsx
+ M projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
+ M projects/sfia-studio-next/web/src/components/figma/ProjectChrome.tsx
+ M projects/sfia-studio-next/web/src/components/figma/RealizationBilan.tsx
+ M projects/sfia-studio-next/web/src/components/figma/tokens.css
+ M projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
+ M projects/sfia-studio-next/web/src/components/shell/studio-rail.ts
+ M projects/sfia-studio-next/web/src/db/schema.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/d4-read-tools.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/investigation-persistence.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/service.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/turn-projection.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/visual-composition.ts
+ M projects/sfia-studio-next/web/src/domains/execution/cursor-attempt-service.ts
+ M projects/sfia-studio-next/web/src/domains/execution/cursor-claim.ts
+ M projects/sfia-studio-next/web/src/domains/execution/cursor-handoff.ts
+ M projects/sfia-studio-next/web/src/domains/execution/cursor-sdk-adapter.ts
+ M projects/sfia-studio-next/web/src/domains/execution/handoff-integrity.ts
+ M projects/sfia-studio-next/web/src/domains/execution/technical-contract.ts
+ M projects/sfia-studio-next/web/src/domains/execution/types.ts
+ M projects/sfia-studio-next/web/src/domains/identity/session.ts
+ M projects/sfia-studio-next/web/src/domains/proofs/cursor-qualify.ts
+ M projects/sfia-studio-next/web/src/lib/auth.ts
+ M projects/sfia-studio-next/web/tests/integration/ml5-cursor-dispatch.pg.test.ts
+ M projects/sfia-studio-next/web/tests/unit/ml5-cursor-qualify.test.ts
+ M projects/sfia-studio-next/web/tests/unit/ml5-investigation-state.test.ts
+?? projects/sfia-studio-next/architecture-technique/conducteur-cognitif-et-production-nora.md
+?? projects/sfia-studio-next/construction/contrat-acceptation-cognition-et-realisation-gouvernee.md
+?? projects/sfia-studio-next/construction/ml5-candidat-git-inventaire-c13.md
+?? projects/sfia-studio-next/web/.sfia-evidence/
+?? projects/sfia-studio-next/web/scripts/ml5-c10-e2e-journey.mts
+?? projects/sfia-studio-next/web/scripts/ml5-c10-seed-scenario.mts
+?? projects/sfia-studio-next/web/scripts/ml5-c11-live-journey.mts
+?? projects/sfia-studio-next/web/scripts/ml5-c11-seed-project.mts
+?? projects/sfia-studio-next/web/scripts/ml5-c12-ack-drop-incident.mts
+?? projects/sfia-studio-next/web/scripts/ml5-c12-seed-and-live.mts
+?? projects/sfia-studio-next/web/scripts/ml5-c13-long-run-supervisor.mts
+?? projects/sfia-studio-next/web/scripts/ml5-c13-probe-mode.mts
+?? projects/sfia-studio-next/web/scripts/ml5-c13-stop-live.mts
+?? projects/sfia-studio-next/web/scripts/ml5-c14-cognitive-live.mts
+?? projects/sfia-studio-next/web/scripts/ml5-c14-s2-s5-live.mts
+?? projects/sfia-studio-next/web/scripts/ml5-c14-web-frontier-debug.mts
+?? projects/sfia-studio-next/web/scripts/ml5-c14-web-live-probe.mts
+?? projects/sfia-studio-next/web/scripts/ml5-c14-web-raw-debug.mts
+?? projects/sfia-studio-next/web/scripts/ml5-c9-e2e-journey.mts
+?? projects/sfia-studio-next/web/scripts/ml5-c9-seed-scenario.mts
+?? projects/sfia-studio-next/web/src/app/api/dev/auto-session/
+?? projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/captures/
+?? projects/sfia-studio-next/web/src/components/figma/D6ConfirmLaunch.tsx
+?? projects/sfia-studio-next/web/src/db/migrations/019_ml5_qualification_history.sql
+?? projects/sfia-studio-next/web/src/db/migrations/020_cognitive_work.sql
+?? projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts
+?? projects/sfia-studio-next/web/src/domains/conversation/cognitive-work.ts
+?? projects/sfia-studio-next/web/src/domains/conversation/nora-contract-bridge.ts
+?? projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts
+?? projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
+?? projects/sfia-studio-next/web/src/domains/conversation/tool-source-journal.ts
+?? projects/sfia-studio-next/web/src/domains/conversation/web-egress-guard.ts
+?? projects/sfia-studio-next/web/src/domains/conversation/web-source-citation.ts
+?? projects/sfia-studio-next/web/src/domains/execution/cursor-git-option-a.ts
+?? projects/sfia-studio-next/web/src/domains/execution/cursor-live-supervisor.ts
+?? projects/sfia-studio-next/web/src/domains/execution/mcp-capability-check.ts
+?? projects/sfia-studio-next/web/src/domains/execution/nora-contract-prepare.ts
+?? projects/sfia-studio-next/web/src/domains/execution/technical-contract-server-ready.ts
+?? projects/sfia-studio-next/web/src/domains/identity/dev-listen-probe.ts
+?? projects/sfia-studio-next/web/src/domains/proofs/d8-evidence-read.ts
+?? projects/sfia-studio-next/web/src/domains/proofs/d8-evidence-tools-sdk.ts
+?? projects/sfia-studio-next/web/src/domains/proofs/d8-path-confine.ts
+?? projects/sfia-studio-next/web/src/domains/proofs/evidence-captures.ts
+?? projects/sfia-studio-next/web/src/domains/proofs/proof-ref-verify.ts
+?? projects/sfia-studio-next/web/tests/integration/ml5-c13-d8-evidence-confine.pg.test.ts
+?? projects/sfia-studio-next/web/tests/integration/ml5-c15-cognitive-work.pg.test.ts
+?? projects/sfia-studio-next/web/tests/integration/ml5-c16-cognitive-ownership.pg.test.ts
+?? projects/sfia-studio-next/web/tests/integration/ml5-qualification-requalify.pg.test.ts
+?? projects/sfia-studio-next/web/tests/unit/ml5-c10-d6-confirmed-required.test.ts
+?? projects/sfia-studio-next/web/tests/unit/ml5-c12-ack-drop-fault.test.ts
+?? projects/sfia-studio-next/web/tests/unit/ml5-c12-d8-evidence-read.test.ts
+?? projects/sfia-studio-next/web/tests/unit/ml5-c13-d8-path-confine.test.ts
+?? projects/sfia-studio-next/web/tests/unit/ml5-c13-d8-tool-journal.test.ts
+?? projects/sfia-studio-next/web/tests/unit/ml5-c13-live-supervisor.test.ts
+?? projects/sfia-studio-next/web/tests/unit/ml5-c14-semantic-routing.test.ts
+?? projects/sfia-studio-next/web/tests/unit/ml5-c15-cognitive-conductor.test.ts
+?? projects/sfia-studio-next/web/tests/unit/ml5-c16-cognitive-integration.test.ts
+?? projects/sfia-studio-next/web/tests/unit/ml5-c9-d6-refuse-phased.test.ts
+?? projects/sfia-studio-next/web/tests/unit/ml5-cursor-claim-anti-duplicat.test.ts
+
+```
+
+### `git diff --stat` (tracked sous projects/sfia-studio-next/)
+
+```
+ .../construction/delivery-history.md               | 225 +++++++++++
+ .../ml5-as-built-cursor-realization.md             | 104 ++---
+ ...5-registre-couverture-et-revue-developpement.md | 252 ++++++++++--
+ projects/sfia-studio-next/web/next.config.ts       |   6 +
  .../sfia-studio-next/web/scripts/db-migrate.sh     |   4 +-
- projects/sfia-studio-next/web/src/db/schema.ts     |  59 ++++-
- .../conversation/investigation-persistence.ts      | 139 +++++++++---
- .../domains/conversation/investigation-state.ts    |  82 ++++---
- .../web/src/domains/conversation/service.ts        | 107 +++++++++
- .../web/tests/unit/ml5-investigation-state.test.ts |  30 ++-
- 8 files changed, 794 insertions(+), 89 deletions(-)
+ .../turns/by-key/[clientTurnKey]/route.ts          |   1 +
+ .../attempts/[attemptId]/authorize/route.ts        |  15 +-
+ .../attempts/[attemptId]/handoff/route.ts          |  31 +-
+ .../attempts/[attemptId]/qualification/route.ts    | 400 +++++++++++++++++--
+ .../contracts/[contractId]/ready/route.ts          |  22 +-
+ .../[projectId]/realization/contracts/route.ts     |  31 +-
+ .../sfia-studio-next/web/src/app/login/page.tsx    |  11 +-
+ .../web/src/app/projects/[projectId]/page.tsx      | 417 +++++++++++++++++++-
+ .../web/src/components/figma/ContractViewer.tsx    |   5 +-
+ .../components/figma/CursorRealizationSurface.tsx  | 436 +++++++++++++++------
+ .../web/src/components/figma/NoraConversation.tsx  |  42 ++
+ .../web/src/components/figma/ProjectChrome.tsx     |  11 +-
+ .../web/src/components/figma/RealizationBilan.tsx  | 119 ++++--
+ .../web/src/components/figma/tokens.css            | 275 +++++++++++++
+ .../web/src/components/shell/StudioShell.tsx       |  16 +-
+ .../web/src/components/shell/studio-rail.ts        |  12 +-
+ projects/sfia-studio-next/web/src/db/schema.ts     |  59 ++-
+ .../src/domains/conversation/cognitive-policy.ts   |  29 +-
+ .../web/src/domains/conversation/d4-read-tools.ts  |  36 +-
+ .../src/domains/conversation/intent-conduction.ts  |  10 +-
+ .../conversation/investigation-persistence.ts      | 139 +++++--
+ .../domains/conversation/investigation-state.ts    | 121 ++++--
+ .../web/src/domains/conversation/nora-adapter.ts   | 132 ++++++-
+ .../domains/conversation/semantic-qualification.ts |  11 +
+ .../web/src/domains/conversation/service.ts        |  82 +++-
+ .../src/domains/conversation/turn-projection.ts    |   4 +-
+ .../src/domains/conversation/visual-composition.ts |   3 +-
+ .../domains/execution/cursor-attempt-service.ts    | 434 +++++++++++++++++++-
+ .../web/src/domains/execution/cursor-claim.ts      |  66 +++-
+ .../web/src/domains/execution/cursor-handoff.ts    |  18 +
+ .../src/domains/execution/cursor-sdk-adapter.ts    | 288 +++++++++++++-
+ .../web/src/domains/execution/handoff-integrity.ts |  49 +++
+ .../src/domains/execution/technical-contract.ts    |   1 +
+ .../web/src/domains/execution/types.ts             |   2 +
+ .../web/src/domains/identity/session.ts            |  71 ++++
+ .../web/src/domains/proofs/cursor-qualify.ts       | 180 ++++++++-
+ projects/sfia-studio-next/web/src/lib/auth.ts      |  18 +
+ .../integration/ml5-cursor-dispatch.pg.test.ts     | 146 ++++++-
+ .../web/tests/unit/ml5-cursor-qualify.test.ts      |  23 ++
+ .../web/tests/unit/ml5-investigation-state.test.ts |  30 +-
+ 45 files changed, 3941 insertions(+), 446 deletions(-)
 
 ```
 
----
+Untracked Next : 65 entrées (inclut créations C15/C16 jamais commités).
 
-## 4. Validations exécutées
+## 3. Sources lues (refs)
 
-- vitest units C15 + investigation + bridge + semantic : PASS
-- PG `ml5-c15-cognitive-work.pg.test.ts` : 2 PASS (deux travaux + CAS)
-- Pas de nouvelle campagne LIVE fournisseur dans ce pack (héritage C14 conservé ; lot 1 LIVE intégré PARTIAL)
+- MAIN `997897fd…` ; conception `017a77e9…` ; conformité `975a8d5f…` ; handoff C15 `965fd42a…`
+- `conducteur-cognitif-et-production-nora.md` (blob conception) ; registres ; contrat acceptation
+- Code local C15 confronté aux écarts A–J du handoff C15 — **tous confirmés** puis corrigés C16
 
----
+## 4. Écarts C15 → corrections C16
 
-## 5. Fichiers créés (contenu intégral)
+| Écart | Confirmé | Correction C16 | Preuve |
+|---|---|---|---|
+| A service → generateNoraReply sans conducteur | OUI | `runNoraCognitiveTurn` dans service.ts | grep + import path |
+| B faux COMPLETE après maxSegments | OUI | SUSPEND `SEGMENT_INVOCATION_LIMIT` | unit C16 |
+| C claim RUNNING sans expiry ; revision non bumpée ; reset resources | OUI | lease fence + revision+CLAIM ; preserve resources | PG C16 |
+| D legacy snapshot autorité | OUI | legacy load off by default | code path |
+| E READY structurel / early return | OUI | positive + hollow/STALE ; requalify READY | unit + server-ready |
+| F DRAFT gated + slice(0,8) + assistantText | OUI | DRAFT incomplet ; critères intégraux ; instruction dédiée préférée | unit + bridge |
+| G DNS ≠ destination ; timeout headers | OUI | `fetchPublicHttpsPinned` + timeout jusqu'à lecture | web-egress-guard |
+| H sources bridge écrasent observations | OUI | `mergeSourcesPreferCurrent` | bridge |
+| I tests isolés | OUI | conductor + PG ownership suite | vitest |
+| J docs handoff C15 incomplet | PARTIEL | delivery-history + registre + as-built C16 + pack FULL | ce pack |
 
-### FILE `projects/sfia-studio-next/web/src/db/migrations/020_cognitive_work.sql`
+## 5. Architecture as-built (chaîne C16)
 
-- bytes: 1852
-- sha256: `198778cbccd2e684e45339396776774a0d3ff57a7ad5308d3aa2e1bfd266bf7d`
-
-```sql
--- ML5 C15 — D3 cognitive work persistence (Option C).
--- Dedicated from conversation turn identity. Additive DEV migration.
--- RECETTE/STABLE untouched. No destructive rewrite of preparations.projection_json.
-
-CREATE TABLE IF NOT EXISTS cognitive_works (
-  id text PRIMARY KEY,
-  owner_pilot_id text NOT NULL REFERENCES pilots(id),
-  preparation_id text NOT NULL REFERENCES preparations(id),
-  project_id text REFERENCES projects(id),
-  conversation_id text REFERENCES conversations(id),
-  status text NOT NULL,
-  revision integer NOT NULL DEFAULT 1,
-  owner_token text,
-  lease_until timestamptz,
-  objective text NOT NULL DEFAULT '',
-  expected_outcome text NOT NULL DEFAULT '',
-  state_json text NOT NULL DEFAULT '{}',
-  resources_json text NOT NULL DEFAULT '{}',
-  production_json text NOT NULL DEFAULT '{}',
-  interrupt_cause text,
-  parent_work_id text,
-  created_at timestamptz NOT NULL DEFAULT now(),
-  updated_at timestamptz NOT NULL DEFAULT now()
-);
-
-CREATE INDEX IF NOT EXISTS cognitive_works_prep_idx
-  ON cognitive_works (preparation_id, updated_at DESC);
-CREATE INDEX IF NOT EXISTS cognitive_works_pilot_status_idx
-  ON cognitive_works (owner_pilot_id, status);
-CREATE INDEX IF NOT EXISTS cognitive_works_project_idx
-  ON cognitive_works (project_id)
-  WHERE project_id IS NOT NULL;
-
-CREATE TABLE IF NOT EXISTS cognitive_work_checkpoints (
-  id text PRIMARY KEY,
-  work_id text NOT NULL REFERENCES cognitive_works(id),
-  revision integer NOT NULL,
-  parent_revision integer,
-  cause text NOT NULL,
-  turn_command_id text,
-  generation_id text,
-  payload_json text NOT NULL DEFAULT '{}',
-  resources_json text NOT NULL DEFAULT '{}',
-  created_at timestamptz NOT NULL DEFAULT now(),
-  UNIQUE (work_id, revision)
-);
-
-CREATE INDEX IF NOT EXISTS cognitive_work_checkpoints_work_idx
-  ON cognitive_work_checkpoints (work_id, revision DESC);
+```
+Demande Pilote
+ → conversation/service (ou intent-conduction / D8 qualif)
+ → runNoraCognitiveTurn
+ → runCognitiveConductor
+ → openOrResumeCognitiveWork (lease/CAS)
+ → generateNoraReply (segments, adapter seul)
+ → checkpointCognitiveWork (ressources préservées)
+ → release COMPLETE | SUSPENDED (honnête)
+ → bridgeNoraTurnToContractPreparation (DRAFT optionnel)
+ → qualifyTechnicalContractReadyServerSide (READY positif + requalify)
 ```
 
-### FILE `projects/sfia-studio-next/web/src/domains/conversation/cognitive-work.ts`
+## 6. Fichiers créés C16 (complets)
 
-- bytes: 15099
-- sha256: `ecbe75f390d89f6dcc68c8e0b08391f8aa3ff92f9a4fba7ad14b8a9a84acdc75`
+
+### `projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts`
+
+```typescript
+/**
+ * C16 — product entry into the adaptive D3 cognitive conductor.
+ * generateNoraReply remains the provider adapter; this module is the sole
+ * product-facing orchestration for turns that require cognitive conduction.
+ */
+
+import {
+  runCognitiveConductor,
+  type ConductorRunResult,
+} from "./cognitive-conductor";
+import {
+  createEmptyInvestigation,
+  evaluateContractReadiness,
+  type InvestigationState,
+} from "./investigation-state";
+import {
+  generateNoraReply,
+  type NoraGenerateInput,
+  type NoraGenerateResult,
+} from "./nora-adapter";
+import type { NoraTurnQualification } from "./semantic-qualification";
+
+export type NoraCognitiveTurnInput = NoraGenerateInput & {
+  pilotId: string;
+  preparationId: string;
+  projectId?: string | null;
+  conversationId?: string | null;
+  turnCommandId?: string | null;
+  /** Explicit continuation of a prior suspended/open work. */
+  workId?: string | null;
+  /** When true, always open a new cognitive work (independent request). */
+  forceNewWork?: boolean;
+  objective?: string;
+  expectedOutcome?: string;
+  maxSegmentsThisInvocation?: number;
+};
+
+export type NoraCognitiveTurnResult = NoraGenerateResult & {
+  conductor: {
+    workId: string;
+    revision: number;
+    segmentsRun: number;
+    resumed: boolean;
+    suspended: boolean;
+    suspendReason: string | null;
+    investigation: InvestigationState;
+  };
+};
+
+function mergeInvestigationFromReply(
+  prior: InvestigationState,
+  reply: NoraGenerateResult,
+  userText: string,
+): InvestigationState {
+  const q = reply.qualification;
+  const goal =
+    q && q.status !== "UNAVAILABLE" ? q.goal?.trim() || "" : "";
+  const outcome =
+    q && q.status !== "UNAVAILABLE" ? q.desiredOutcome?.trim() || "" : "";
+  const sources = [...prior.sources];
+  for (const s of reply.observedToolSources ?? []) {
+    const idx = sources.findIndex((p) => p.ref === s.ref && p.kind === s.kind);
+    if (idx < 0) sources.push(s);
+    else {
+      const prev = sources[idx]!;
+      sources[idx] = {
+        ...prev,
+        ...s,
+        notes: [prev.notes, prev.coverage !== s.coverage ? `${prev.coverage}->${s.coverage}` : null, s.notes]
+          .filter(Boolean)
+          .join("; "),
+      };
+    }
+  }
+  return evaluateContractReadiness({
+    ...prior,
+    intentSummary: goal || prior.intentSummary || userText.slice(0, 800),
+    desiredOutcome: outcome || prior.desiredOutcome,
+    sources,
+  });
+}
+
+/**
+ * Semantic continuation signal — never based on message length or lexical regex.
+ * Uses qualification intents / remaining investigation gaps from the work state.
+ */
+function semanticContinueWork(
+  qualification: NoraTurnQualification | null,
+  investigation: InvestigationState,
+  reply: NoraGenerateResult,
+): boolean {
+  if (reply.status !== "COMPLETE") return false;
+  if (investigation.sufficiency === "BUDGET_EXHAUSTED") return false;
+  if (qualification && qualification.status === "NEEDS_CLARIFICATION") {
+    return true;
+  }
+  if (qualification && qualification.status !== "UNAVAILABLE") {
+    const wantsExploreOrPrepare = qualification.intents.some(
+      (i) => i.mode === "EXPLORE" || i.mode === "PREPARE",
+    );
+    if (wantsExploreOrPrepare && !investigation.contractReady) return true;
+    if ((qualification.clarifications?.length ?? 0) > 0) return true;
+  }
+  if (
+    investigation.remainingWork.length > 0 &&
+    investigation.sufficiency !== "SUFFICIENT"
+  ) {
+    return true;
+  }
+  if (
+    investigation.questions.some(
+      (q) => q.importance === "DETERMINANT" && q.status !== "ANSWERED",
+    ) &&
+    (reply.observedToolSources?.length ?? 0) > 0
+  ) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Run Nora through the cognitive conductor for a product turn.
+ */
+export async function runNoraCognitiveTurn(
+  input: NoraCognitiveTurnInput,
+): Promise<NoraCognitiveTurnResult> {
+  const segmentBox: { reply: NoraGenerateResult | null } = { reply: null };
+
+  const conductor: ConductorRunResult = await runCognitiveConductor({
+    pilotId: input.pilotId,
+    preparationId: input.preparationId,
+    projectId: input.projectId,
+    conversationId: input.conversationId,
+    objective: input.objective ?? input.userText.slice(0, 2000),
+    expectedOutcome: input.expectedOutcome,
+    workId: input.workId,
+    forceNewWork: input.forceNewWork ?? true,
+    turnCommandId: input.turnCommandId,
+    maxSegmentsThisInvocation: input.maxSegmentsThisInvocation ?? 3,
+    runSegment: async ({ work, segmentIndex, policy }) => {
+      const continuationHint =
+        segmentIndex === 0
+          ? ""
+          : [
+              "",
+              "[Continuation du même travail cognitif — segment suivant]",
+              `Objectif: ${work.objective}`,
+              work.state.intentSummary
+                ? `Intention consolidée: ${work.state.intentSummary}`
+                : null,
+              work.state.desiredOutcome
+                ? `Résultat attendu: ${work.state.desiredOutcome}`
+                : null,
+              work.state.remainingWork.length
+                ? `Travail restant: ${work.state.remainingWork.join("; ")}`
+                : null,
+              work.state.questions
+                .filter((q) => q.status !== "ANSWERED")
+                .map((q) => `Q[${q.importance}]: ${q.text}`)
+                .join("\n") || null,
+            ]
+              .filter(Boolean)
+              .join("\n");
+
+      const reply = await generateNoraReply({
+        userText:
+          segmentIndex === 0
+            ? input.userText
+            : `${input.userText}${continuationHint}`,
+        contextSnippets: [
+          ...input.contextSnippets,
+          ...(segmentIndex > 0
+            ? [
+                `Checkpoint cognitif r${work.revision}`,
+                work.state.intentSummary || "",
+              ].filter(Boolean)
+            : []),
+        ],
+        knowledgeSnippets: input.knowledgeSnippets,
+        pilotageSnippets: input.pilotageSnippets,
+        levelASignals: input.levelASignals,
+        ckiDelivery: input.ckiDelivery,
+        onProvisionalChunk: input.onProvisionalChunk,
+        toolScope: input.toolScope,
+        policyOverride: input.policyOverride ?? policy,
+      });
+      segmentBox.reply = reply;
+      const investigation = mergeInvestigationFromReply(
+        work.state.intentSummary
+          ? work.state
+          : createEmptyInvestigation(input.userText),
+        reply,
+        input.userText,
+      );
+      const continueWork = semanticContinueWork(
+        reply.qualification,
+        investigation,
+        reply,
+      );
+      return {
+        replyText: reply.content,
+        qualification: reply.qualification,
+        investigation,
+        generationId: reply.generationId,
+        continueWork,
+        resourcesDelta: {
+          inputTokens: null,
+          outputTokens: null,
+          modelRequested: reply.modelRequested,
+          modelApplied: reply.modelApplied,
+          effortRequested: reply.effortRequested,
+          effortApplied: reply.effortApplied,
+          webCalls: (reply.observedToolSources ?? []).filter((s) => s.kind === "WEB")
+            .length,
+        },
+        production:
+          reply.content.trim().length > 0
+            ? {
+                kind: "REPLY" as const,
+                status: continueWork ? ("IN_PROGRESS" as const) : ("COMPLETE" as const),
+                objectRef: reply.generationId,
+                parts: [
+                  ...work.production.parts.filter((p) => p.id !== `seg-${segmentIndex}`),
+                  {
+                    id: `seg-${segmentIndex}`,
+                    title: reply.generationId,
+                    complete: !continueWork,
+                  },
+                ],
+              }
+            : undefined,
+      };
+    },
+  });
+
+  const lastReply = segmentBox.reply;
+  if (!lastReply) {
+    throw new Error("CONDUCTOR_NO_SEGMENT");
+  }
+
+  const reply: NoraGenerateResult = {
+    ...lastReply,
+    content: conductor.replyText || lastReply.content,
+    qualification: conductor.qualification ?? lastReply.qualification,
+    status: conductor.suspended
+      ? lastReply.status === "COMPLETE"
+        ? "COMPLETE"
+        : lastReply.status
+      : lastReply.status,
+  };
+
+  return {
+    ...reply,
+    conductor: {
+      workId: conductor.work.id,
+      revision: conductor.work.revision,
+      segmentsRun: conductor.segmentsRun,
+      resumed: conductor.resumed,
+      suspended: conductor.suspended,
+      suspendReason: conductor.suspendReason,
+      investigation: conductor.investigation,
+    },
+  };
+}
+
+```
+
+### `projects/sfia-studio-next/web/tests/unit/ml5-c16-cognitive-integration.test.ts`
+
+```typescript
+/**
+ * C16 — conductor continuation semantics, READY positive, DRAFT criteria, WEB pin.
+ */
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  createEmptyInvestigation,
+  evaluateContractReadiness,
+} from "@/domains/conversation/investigation-state";
+import { draftBodyFromInvestigation } from "@/domains/conversation/nora-contract-bridge";
+import { assertPublicDnsEgress } from "@/domains/conversation/web-egress-guard";
+
+const openOrResumeCognitiveWork = vi.fn();
+const heartbeatCognitiveWork = vi.fn();
+const checkpointCognitiveWork = vi.fn();
+const releaseCognitiveWorkLease = vi.fn();
+
+vi.mock("@/domains/conversation/cognitive-work", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/domains/conversation/cognitive-work")>();
+  return {
+    ...actual,
+    openOrResumeCognitiveWork: (...args: unknown[]) => openOrResumeCognitiveWork(...args),
+    heartbeatCognitiveWork: (...args: unknown[]) => heartbeatCognitiveWork(...args),
+    checkpointCognitiveWork: (...args: unknown[]) => checkpointCognitiveWork(...args),
+    releaseCognitiveWorkLease: (...args: unknown[]) => releaseCognitiveWorkLease(...args),
+  };
+});
+
+describe("ML5 C16 — integrated cognitive conductor", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    let revision = 1;
+    const baseWork = {
+      id: "cgw_test",
+      ownerPilotId: "pilot",
+      preparationId: "prep",
+      projectId: null as string | null,
+      conversationId: null as string | null,
+      status: "RUNNING" as const,
+      revision: 1,
+      ownerToken: "tok",
+      leaseUntil: new Date(Date.now() + 60_000),
+      objective: "mission",
+      expectedOutcome: "result",
+      state: createEmptyInvestigation("mission"),
+      resources: { segmentCalls: 0 },
+      production: { kind: "NONE" as const, status: "IDLE" as const, parts: [] },
+      interruptCause: null as string | null,
+    };
+    openOrResumeCognitiveWork.mockImplementation(async () => ({
+      work: { ...baseWork, revision },
+      resumed: false,
+      ownerToken: "tok",
+    }));
+    heartbeatCognitiveWork.mockResolvedValue(true);
+    checkpointCognitiveWork.mockImplementation(async (input: {
+      expectedRevision: number;
+      state: unknown;
+      resources: unknown;
+      production: unknown;
+      status?: string;
+    }) => {
+      revision = input.expectedRevision + 1;
+      return {
+        ...baseWork,
+        revision,
+        status: input.status ?? "RUNNING",
+        state: input.state,
+        resources: input.resources,
+        production: input.production,
+      };
+    });
+    releaseCognitiveWorkLease.mockResolvedValue(undefined);
+  });
+
+  it("suspends with SEGMENT_INVOCATION_LIMIT instead of false COMPLETE", async () => {
+    const { runCognitiveConductor } = await import(
+      "@/domains/conversation/cognitive-conductor"
+    );
+    const result = await runCognitiveConductor({
+      pilotId: "pilot",
+      preparationId: "prep",
+      objective: "complex investigation",
+      maxSegmentsThisInvocation: 2,
+      runSegment: async ({ segmentIndex }) => ({
+        replyText: `seg-${segmentIndex}`,
+        qualification: null,
+        investigation: {
+          ...createEmptyInvestigation("complex investigation"),
+          desiredOutcome: "done",
+          remainingWork: ["more"],
+        },
+        continueWork: true,
+        resourcesDelta: {},
+      }),
+    });
+    expect(result.suspended).toBe(true);
+    expect(result.suspendReason).toBe("SEGMENT_INVOCATION_LIMIT");
+    expect(result.segmentsRun).toBe(2);
+    expect(result.work.status).toBe("SUSPENDED");
+  });
+
+  it("completes when segment signals no continuation", async () => {
+    const { runCognitiveConductor } = await import(
+      "@/domains/conversation/cognitive-conductor"
+    );
+    const result = await runCognitiveConductor({
+      pilotId: "pilot",
+      preparationId: "prep",
+      objective: "simple",
+      maxSegmentsThisInvocation: 3,
+      runSegment: async () => ({
+        replyText: "ok",
+        qualification: null,
+        investigation: createEmptyInvestigation("simple"),
+        continueWork: false,
+        resourcesDelta: {},
+      }),
+    });
+    expect(result.suspended).toBe(false);
+    expect(result.segmentsRun).toBe(1);
+    expect(result.work.status).toBe("COMPLETE");
+  });
+
+  it("READY refuses hollow ANSWERED and STALE determinant source", () => {
+    const hollow = evaluateContractReadiness({
+      ...createEmptyInvestigation("tva"),
+      desiredOutcome: "export",
+      sources: [{ kind: "D4", ref: "spec", coverage: "CONSULTED" }],
+      questions: [
+        { id: "q1", text: "régime?", status: "ANSWERED", importance: "DETERMINANT" },
+      ],
+    });
+    expect(hollow.contractReady).toBe(false);
+
+    const stale = evaluateContractReadiness({
+      ...createEmptyInvestigation("tva"),
+      desiredOutcome: "export",
+      sources: [
+        { kind: "D4", ref: "spec", coverage: "CONSULTED" },
+        { kind: "D4", ref: "old", coverage: "STALE" },
+      ],
+      questions: [
+        {
+          id: "q1",
+          text: "régime?",
+          status: "ANSWERED",
+          importance: "DETERMINANT",
+          answerSummary: "export 0%",
+          sourceRefs: ["old"],
+        },
+      ],
+    });
+    expect(stale.contractReady).toBe(false);
+
+    const ok = evaluateContractReadiness({
+      ...createEmptyInvestigation("tva"),
+      desiredOutcome: "export",
+      sources: [{ kind: "D4", ref: "spec", coverage: "CONSULTED" }],
+      questions: [
+        {
+          id: "q1",
+          text: "régime?",
+          status: "ANSWERED",
+          importance: "DETERMINANT",
+          answerSummary: "export 0%",
+          sourceRefs: ["spec"],
+        },
+      ],
+    });
+    expect(ok.contractReady).toBe(true);
+  });
+
+  it("draft criteria are not capped at 8", () => {
+    const inv = evaluateContractReadiness({
+      ...createEmptyInvestigation("mission"),
+      desiredOutcome: "livrable",
+      sources: [{ kind: "D4", ref: "d", coverage: "CONSULTED" }],
+      questions: [
+        {
+          id: "q1",
+          text: "ok?",
+          status: "ANSWERED",
+          importance: "DETERMINANT",
+          answerSummary: "oui",
+        },
+      ],
+      remainingWork: Array.from({ length: 12 }, (_, i) => `critère ${i + 1}`),
+    });
+    expect(inv.contractReady).toBe(true);
+    const body = draftBodyFromInvestigation(inv, {
+      businessCriteria: inv.remainingWork,
+      instructionFromNora: "instruction métier dédiée",
+    });
+    expect(body.acceptance.criteria).toHaveLength(12);
+    expect(body.instructionText).toContain("instruction métier dédiée");
+  });
+
+  it("DNS egress rejects metadata / private representations", async () => {
+    expect((await assertPublicDnsEgress("https://169.254.169.254/latest")).ok).toBe(false);
+    expect((await assertPublicDnsEgress("https://127.0.0.1/x")).ok).toBe(false);
+    expect((await assertPublicDnsEgress("https://[::1]/x")).ok).toBe(false);
+  });
+});
+
+```
+
+### `projects/sfia-studio-next/web/tests/integration/ml5-c16-cognitive-ownership.pg.test.ts`
+
+```typescript
+/**
+ * C16 — ownership / lease / CAS / partial checkpoint / multi-work PG proofs.
+ */
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { cognitiveWorks, preparations, pilots } from "@/db/schema";
+import { newId } from "@/lib/ids";
+import {
+  checkpointCognitiveWork,
+  cognitiveClock,
+  openOrResumeCognitiveWork,
+  releaseCognitiveWorkLease,
+  getCognitiveWork,
+  COGNITIVE_LEASE_MS,
+} from "@/domains/conversation/cognitive-work";
+import {
+  createEmptyInvestigation,
+  evaluateContractReadiness,
+} from "@/domains/conversation/investigation-state";
+
+const dockerOk = () => Boolean(process.env.DATABASE_URL?.includes("5433"));
+
+describe.skipIf(!dockerOk())("ML5 C16 cognitive ownership PG", () => {
+  let pilotId = "";
+  let prepId = "";
+
+  beforeAll(async () => {
+    const pilot = (
+      await db.select().from(pilots).where(eq(pilots.githubUserId, "dev-github-a")).limit(1)
+    )[0];
+    if (!pilot) throw new Error("Pilot A missing");
+    pilotId = pilot.id;
+    prepId = newId("prep");
+    await db.insert(preparations).values({
+      id: prepId,
+      ownerPilotId: pilotId,
+      previewName: "C16 ownership test",
+      status: "OPEN",
+    });
+  });
+
+  afterAll(async () => {
+    /* leave rows */
+  });
+
+  it("refuses concurrent claim while lease is active", async () => {
+    const a = await openOrResumeCognitiveWork({
+      pilotId,
+      preparationId: prepId,
+      objective: "lease exclusive",
+      forceNew: true,
+    });
+    await expect(
+      openOrResumeCognitiveWork({
+        pilotId,
+        preparationId: prepId,
+        objective: "lease exclusive",
+        workId: a.work.id,
+        forceNew: false,
+      }),
+    ).rejects.toMatchObject({ code: "CONFLICT" });
+    await releaseCognitiveWorkLease({
+      workId: a.work.id,
+      ownerToken: a.ownerToken,
+      status: "SUSPENDED",
+    });
+  });
+
+  it("allows reclaim after lease expiry with revision bump", async () => {
+    const a = await openOrResumeCognitiveWork({
+      pilotId,
+      preparationId: prepId,
+      objective: "expired lease",
+      forceNew: true,
+    });
+    const revBefore = a.work.revision;
+    // Expire lease in DB without releasing.
+    await db
+      .update(cognitiveWorks)
+      .set({ leaseUntil: new Date(cognitiveClock.nowMs() - 1_000) })
+      .where(eq(cognitiveWorks.id, a.work.id));
+    const b = await openOrResumeCognitiveWork({
+      pilotId,
+      preparationId: prepId,
+      objective: "expired lease",
+      workId: a.work.id,
+      forceNew: false,
+    });
+    expect(b.resumed).toBe(true);
+    expect(b.work.revision).toBe(revBefore + 1);
+    expect(b.ownerToken).not.toBe(a.ownerToken);
+    // Stale owner cannot checkpoint.
+    await expect(
+      checkpointCognitiveWork({
+        pilotId,
+        workId: a.work.id,
+        ownerToken: a.ownerToken,
+        expectedRevision: b.work.revision,
+        cause: "STALE_OWNER",
+        state: createEmptyInvestigation("x"),
+      }),
+    ).rejects.toMatchObject({ code: "CONFLICT" });
+    await releaseCognitiveWorkLease({
+      workId: b.work.id,
+      ownerToken: b.ownerToken,
+      status: "SUSPENDED",
+    });
+  });
+
+  it("partial checkpoint without resources does not wipe prior counters", async () => {
+    const opened = await openOrResumeCognitiveWork({
+      pilotId,
+      preparationId: prepId,
+      objective: "resources preserve",
+      forceNew: true,
+    });
+    const state = evaluateContractReadiness({
+      ...createEmptyInvestigation("resources preserve"),
+      desiredOutcome: "ok",
+      sources: [{ kind: "D4", ref: "d1", coverage: "CONSULTED" }],
+      questions: [
+        {
+          id: "q1",
+          text: "ok?",
+          status: "ANSWERED",
+          importance: "DETERMINANT",
+          answerSummary: "oui",
+        },
+      ],
+    });
+    await checkpointCognitiveWork({
+      pilotId,
+      workId: opened.work.id,
+      ownerToken: opened.ownerToken,
+      expectedRevision: opened.work.revision,
+      cause: "SEG",
+      state,
+      resources: {
+        segmentCalls: 2,
+        inputTokens: 100,
+        outputTokens: 40,
+        webCalls: 1,
+      },
+    });
+    const mid = await getCognitiveWork({ pilotId, workId: opened.work.id });
+    await checkpointCognitiveWork({
+      pilotId,
+      workId: opened.work.id,
+      ownerToken: opened.ownerToken,
+      expectedRevision: mid.revision,
+      cause: "PARTIAL",
+      state,
+      // resources omitted on purpose
+    });
+    const after = await getCognitiveWork({ pilotId, workId: opened.work.id });
+    expect(after.resources.segmentCalls).toBe(2);
+    expect(after.resources.inputTokens).toBe(100);
+    expect(after.resources.webCalls).toBe(1);
+    await releaseCognitiveWorkLease({
+      workId: opened.work.id,
+      ownerToken: opened.ownerToken,
+      status: "COMPLETE",
+    });
+  });
+
+  it("two independent works coexist; SUSPENDED is not auto-resumed without workId", async () => {
+    const a = await openOrResumeCognitiveWork({
+      pilotId,
+      preparationId: prepId,
+      objective: "work A",
+      forceNew: true,
+    });
+    await releaseCognitiveWorkLease({
+      workId: a.work.id,
+      ownerToken: a.ownerToken,
+      status: "SUSPENDED",
+    });
+    const b = await openOrResumeCognitiveWork({
+      pilotId,
+      preparationId: prepId,
+      objective: "work B",
+      forceNew: false, // must create new — no OPEN auto-resume of SUSPENDED
+    });
+    expect(b.work.id).not.toBe(a.work.id);
+    expect(b.resumed).toBe(false);
+    await releaseCognitiveWorkLease({
+      workId: b.work.id,
+      ownerToken: b.ownerToken,
+      status: "COMPLETE",
+    });
+  });
+
+  it("lease constant is positive (fencing window)", () => {
+    expect(COGNITIVE_LEASE_MS).toBeGreaterThan(60_000);
+  });
+});
+
+```
+
+## 7. Fichiers modifiés C16 — contenu utile complet
+
+### `projects/sfia-studio-next/web/src/domains/conversation/cognitive-work.ts` (complet, 17014 octets)
 
 ```typescript
 /**
@@ -273,29 +1065,65 @@ export async function openOrResumeCognitiveWork(input: {
     if (existing.preparationId !== input.preparationId) {
       throw new StudioError("ACCESS_DENIED", "Travail hors préparation");
     }
-    const ownerToken = randomUUID();
-    const leaseUntil = new Date(cognitiveClock.nowMs() + COGNITIVE_LEASE_MS);
-    const updated = await db
-      .update(cognitiveWorks)
-      .set({
-        status: "RUNNING",
-        ownerToken,
-        leaseUntil,
-        updatedAt: new Date(),
-        interruptCause: null,
-      })
-      .where(
-        and(
-          eq(cognitiveWorks.id, existing.id),
-          eq(cognitiveWorks.revision, existing.revision),
-          sql`${cognitiveWorks.status} IN ('OPEN', 'SUSPENDED', 'RUNNING')`,
-        ),
-      )
-      .returning();
-    if (!updated[0]) {
-      throw new StudioError("CONFLICT", "Lease/revision cognitive concurrente");
+    const now = cognitiveClock.nowMs();
+    const leaseActive =
+      existing.status === "RUNNING" &&
+      existing.leaseUntil != null &&
+      existing.leaseUntil.getTime() > now;
+    if (leaseActive) {
+      throw new StudioError(
+        "CONFLICT",
+        "Lease cognitif actif — reprise refusée tant que le propriétaire détient le travail",
+      );
     }
-    return { work: mapRow(updated[0]), resumed: true as const, ownerToken };
+    // C16: claim bumps revision (fencing) — never silent takeover of same revision.
+    const ownerToken = randomUUID();
+    const leaseUntil = new Date(now + COGNITIVE_LEASE_MS);
+    const nextRevision = existing.revision + 1;
+    const nowIso = new Date(now).toISOString();
+    const updated = await db.transaction(async (tx) => {
+      const rows = await tx
+        .update(cognitiveWorks)
+        .set({
+          status: "RUNNING",
+          ownerToken,
+          leaseUntil,
+          revision: nextRevision,
+          updatedAt: new Date(),
+          interruptCause: null,
+        })
+        .where(
+          and(
+            eq(cognitiveWorks.id, existing.id),
+            eq(cognitiveWorks.revision, existing.revision),
+            sql`(
+              ${cognitiveWorks.status} IN ('OPEN', 'SUSPENDED')
+              OR (
+                ${cognitiveWorks.status} = 'RUNNING'
+                AND (
+                  ${cognitiveWorks.leaseUntil} IS NULL
+                  OR ${cognitiveWorks.leaseUntil} <= ${nowIso}::timestamptz
+                )
+              )
+            )`,
+          ),
+        )
+        .returning();
+      if (!rows[0]) {
+        throw new StudioError("CONFLICT", "Lease/revision cognitive concurrente");
+      }
+      await tx.insert(cognitiveWorkCheckpoints).values({
+        id: newId("cgcp"),
+        workId: existing.id,
+        revision: nextRevision,
+        parentRevision: existing.revision,
+        cause: "CLAIM",
+        payloadJson: rows[0].stateJson,
+        resourcesJson: rows[0].resourcesJson,
+      });
+      return rows[0];
+    });
+    return { work: mapRow(updated), resumed: true as const, ownerToken };
   }
 
   if (input.workId && !input.forceNew) {
@@ -306,8 +1134,8 @@ export async function openOrResumeCognitiveWork(input: {
     return claimExisting(existing);
   }
 
-  // Continuity without explicit workId: resume latest eligible work on this preparation
-  // when a single recent OPEN/SUSPENDED exists — never merge two distinct works.
+  // C16: without explicit workId, do NOT auto-resume SUSPENDED (semantic attachment required).
+  // Only a single OPEN work may be continued implicitly; otherwise create new.
   if (!input.forceNew) {
     const candidates = await db
       .select()
@@ -316,7 +1144,7 @@ export async function openOrResumeCognitiveWork(input: {
         and(
           eq(cognitiveWorks.preparationId, input.preparationId),
           eq(cognitiveWorks.ownerPilotId, input.pilotId),
-          sql`${cognitiveWorks.status} IN ('OPEN', 'SUSPENDED')`,
+          eq(cognitiveWorks.status, "OPEN"),
         ),
       )
       .orderBy(desc(cognitiveWorks.updatedAt))
@@ -324,7 +1152,6 @@ export async function openOrResumeCognitiveWork(input: {
     if (candidates.length === 1) {
       return claimExisting(candidates[0]!);
     }
-    // 0 → create new; 2+ → create new (ambiguity: Nora must propose workId later).
   }
 
   const ownerToken = randomUUID();
@@ -407,12 +1234,37 @@ export async function checkpointCognitiveWork(input: {
   expectedOutcome?: string;
 }): Promise<CognitiveWorkRow> {
   const evaluated = evaluateContractReadiness(input.state);
-  const resources = input.resources ?? emptyResources();
-  const production = input.production ?? emptyProduction();
   const nextRevision = input.expectedRevision + 1;
   const leaseUntil = new Date(cognitiveClock.nowMs() + COGNITIVE_LEASE_MS);
 
   const result = await db.transaction(async (tx) => {
+    // C16: absent field ≠ empty replacement — load current row first.
+    const current = (
+      await tx
+        .select()
+        .from(cognitiveWorks)
+        .where(
+          and(
+            eq(cognitiveWorks.id, input.workId),
+            eq(cognitiveWorks.ownerPilotId, input.pilotId),
+            eq(cognitiveWorks.ownerToken, input.ownerToken),
+            eq(cognitiveWorks.revision, input.expectedRevision),
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (!current) {
+      throw new StudioError(
+        "CONFLICT",
+        "Checkpoint cognitif refusé — ownership ou révision concurrente",
+      );
+    }
+    const resources =
+      input.resources ??
+      parseJson<CognitiveResources>(current.resourcesJson, emptyResources());
+    const production =
+      input.production ??
+      parseJson<CognitiveProductionState>(current.productionJson, emptyProduction());
     const patch: Record<string, unknown> = {
       revision: nextRevision,
       status: input.status ?? "RUNNING",
@@ -584,12 +1436,10 @@ export function evaluateGlobalResourceEnvelope(
   }
   return { ok: true };
 }
+
 ```
 
-### FILE `projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts`
-
-- bytes: 6332
-- sha256: `eb3d3872a1bca7cf4a762b553d8971d7b09ddbb25a4117414b1156a35a4c0523`
+### `projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts` (complet, 7275 octets)
 
 ```typescript
 /**
@@ -685,7 +1535,7 @@ export async function runCognitiveConductor(
   });
 
   let work = opened.work;
-  let ownerToken = opened.ownerToken;
+  const ownerToken = opened.ownerToken;
   let revision = work.revision;
   let resources: CognitiveResources = { ...work.resources };
   let production: CognitiveProductionState = { ...work.production };
@@ -765,6 +1615,36 @@ export async function runCognitiveConductor(
       suspendReason = again.reason ?? "GLOBAL_BUDGET_EXHAUSTED";
       break;
     }
+
+    // C16: local invocation segment cap is technical, not a business COMPLETE.
+    if (i === maxLocal - 1) {
+      suspended = true;
+      suspendReason = "SEGMENT_INVOCATION_LIMIT";
+      investigation = {
+        ...investigation,
+        contractReady: false,
+        contractReadyBlockedReason: suspendReason,
+        remainingWork:
+          investigation.remainingWork.length > 0
+            ? investigation.remainingWork
+            : ["Continuation requise — limite de segments de cette invocation"],
+      };
+      work = await checkpointCognitiveWork({
+        pilotId: input.pilotId,
+        workId: work.id,
+        ownerToken,
+        expectedRevision: revision,
+        cause: "BUDGET",
+        state: investigation,
+        resources,
+        production,
+        status: "SUSPENDED",
+        interruptCause: suspendReason,
+        turnCommandId: input.turnCommandId,
+      });
+      revision = work.revision;
+      break;
+    }
   }
 
   const terminalStatus = suspended
@@ -803,1747 +1683,1653 @@ export async function runCognitiveConductor(
     production,
   };
 }
+
 ```
 
-### FILE `projects/sfia-studio-next/web/src/domains/conversation/web-egress-guard.ts`
+### `projects/sfia-studio-next/web/src/domains/conversation/service.ts` — fichier large (146727 octets) — sections clés via diff tracked
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+index e2ada8bb..7b89a078 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+@@ -15,7 +15,7 @@ import {
+ } from "@/db/schema";
+ // db still used by getConversationId / listMessages
+ import { newId } from "@/lib/ids";
+-import { generateNoraReply } from "./nora-adapter";
++import { runNoraCognitiveTurn } from "./run-nora-cognitive-turn";
+ import {
+   applyPreparationProjection,
+   getPreparationContext,
+@@ -472,6 +472,7 @@ export async function lookupDurableTurnByClientKey(
+   clientTurnKey: string,
+ ): Promise<{
+   found: boolean;
++  turnCommandId: string | null;
+   status: string | null;
+   generationId: string | null;
+   operationId: string | null;
+@@ -484,6 +485,7 @@ export async function lookupDurableTurnByClientKey(
+   const key = clientTurnKey.trim();
+   const empty = {
+     found: false as const,
++    turnCommandId: null,
+     status: null,
+     generationId: null,
+     operationId: null,
+@@ -501,6 +503,7 @@ export async function lookupDurableTurnByClientKey(
+   const row = (
+     await db
+       .select({
++        id: conversationTurnCommands.id,
+         status: conversationTurnCommands.status,
+         generationId: conversationTurnCommands.generationId,
+         operationId: conversationTurnCommands.operationId,
+@@ -544,6 +547,7 @@ export async function lookupDurableTurnByClientKey(
 
-- bytes: 4292
-- sha256: `aaf2e66a792a84090e4042221e6a1fe38e40664f34f31137a4c85d8face6ed4b`
+   return {
+     found: true,
++    turnCommandId: row.id,
+     status: row.status,
+     generationId: row.generationId,
+     operationId: row.operationId,
+@@ -761,6 +765,16 @@ export type TurnResult = {
+     effects?: Array<{ effectKind: string; targetRef: string }>;
+   } | null;
+   reconciled?: boolean;
++  /** Durable turn id — available for mid-turn activity polling (C01/C07). */
++  turnCommandId?: string | null;
++  /** CA-01 — DRAFT contract prepared this turn (never READY / never D6). */
++  preparedContract?: {
++    contractId: string;
++    contractKey: string;
++    version: number;
++    fingerprint: string;
++    status: string;
++  } | null;
+   /** Refs-only mission projection — never owner truth for D4/D6/D7. */
+   missionProjection?: MissionProjection | null;
+   /** S05 — server-derived turn kind from Nora qualification (not client lexical). */
+@@ -1085,6 +1099,7 @@ export async function postUserMessageAndNora(
+   }
+
+   let reply;
++  let preparedContract: TurnResult["preparedContract"] = null;
+   try {
+     // C1 — announce Nora work (ANNOUNCED ≠ OBSERVED). Best-effort; never blocks the turn.
+     try {
+@@ -1107,8 +1122,17 @@ export async function postUserMessageAndNora(
+     const leasePulse = setInterval(() => {
+       void touchTurnLease(reserved.commandId, reserved.ownerToken);
+     }, 60_000);
++    // C16 — product path uses the cognitive conductor (not open→generateNoraReply→SUSPEND).
++    let cognitiveWorkId: string | null = null;
+     try {
+-      reply = await generateNoraReply({
++      const turn = await runNoraCognitiveTurn({
++        pilotId,
++        preparationId,
++        projectId: ctx.project?.id ?? null,
++        conversationId: reserved.conversationId,
++        turnCommandId: reserved.commandId,
++        forceNewWork: true,
++        objective: content.slice(0, 2000),
+         userText: content,
+         contextSnippets,
+         knowledgeSnippets: [
+@@ -1117,17 +1141,23 @@ export async function postUserMessageAndNora(
+           ...publicationOwnerSnippets,
+         ],
+         pilotageSnippets: pilotageCtx.snippets,
+-        // C01: same structured Level A contract for fixture and LIVE — never authority.
+         levelASignals: pilotageCtx.levelASignals,
+-        // Requested level only. The adapter emits DELIVERED after a real generate.
+         ckiDelivery: pilotageCtx.ckiDelivery,
+         toolScope: {
+           pilotId,
+           preparationId,
+           operationId: reserved.operationId,
+           projectId: ctx.project?.id,
++          activityContext: {
++            conversationId: reserved.conversationId,
++            turnCommandId: reserved.commandId,
++            ownerPilotId: pilotId,
++            ownerToken: reserved.ownerToken,
++          },
+         },
+       });
++      reply = turn;
++      cognitiveWorkId = turn.conductor.workId;
+       try {
+         const { appendActivityEvent } = await import("./activity-projection");
+         await appendActivityEvent({
+@@ -1141,11 +1171,53 @@ export async function postUserMessageAndNora(
+           summary: "Réponse Nora disponible",
+           ownerToken: reserved.ownerToken,
+         });
++        // Dedup: mid-turn onRecord already emitted OBSERVED; keep a compact post-hoc
++        // summary only when no mid-turn events were produced (fixture without sink).
+       } catch {
+         /* activity observational */
+       }
++      // CA-01 / C14 — bridge investigation → DRAFT when semantic qualification asks for it.
++      // Never READY here; never lexical intent; never a second preparation engine.
++      if (ctx.project?.id && reply.qualification) {
++        try {
++          const {
++            bridgeNoraTurnToContractPreparation,
++            semanticWantsCursorContractPrepare,
++            semanticWantsCorrectiveDraft,
++          } = await import("./nora-contract-bridge");
++          const wantsPrepare =
++            semanticWantsCursorContractPrepare(reply.qualification) ||
++            semanticWantsCorrectiveDraft(reply.qualification);
++          if (wantsPrepare) {
++            const observedSources = Array.isArray(reply.observedToolSources)
++              ? reply.observedToolSources
++              : [];
++            const bridge = await bridgeNoraTurnToContractPreparation({
++              pilotId,
++              projectId: ctx.project.id,
++              preparationId,
++              conversationId: reserved.conversationId,
++              turnCommandId: reserved.commandId,
++              ownerToken: reserved.ownerToken,
++              userText: content,
++              assistantText: reply.content,
++              qualification: reply.qualification,
++              observedSources,
++              attemptPrepare: observedSources.some(
++                (s) => s.coverage === "CONSULTED" || s.coverage === "VERIFIED",
++              ),
++              sourceTurnCommandId: reserved.commandId,
++            });
++            preparedContract = bridge.prepared;
++          }
++        } catch {
++          /* bridge observational / qualification — turn continues */
++        }
++      }
+     } finally {
+       clearInterval(leasePulse);
++      // Conductor owns claim/checkpoint/release; no systematic SUSPENDED here.
++      void cognitiveWorkId;
+     }
+   } catch {
+     // SEM order: Nora runs before same-turn D5/D6, so a provider failure here
+@@ -3478,6 +3550,8 @@ export async function postUserMessageAndNora(
+     assistantMessageId: ownershipLostBeforeD4 ? null : assistantId,
+     operationId: reserved.operationId,
+     requestId,
++    turnCommandId: reserved.commandId,
++    preparedContract,
+     noraMode: reply.mode,
+     status: turnStatus === "COMPLETE" ? reply.status : turnStatus,
+     generationId: reply.generationId,
+
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/intent-conduction.ts` (complet, 47119 octets)
 
 ```typescript
 /**
- * WEB B1 P0 — egress controls at the real exit point (C15).
- * Literal URL checks alone are insufficient; DNS + stream bounds apply before/during fetch.
+ * D3 common intent conduction — domain-agnostic helpers.
+ * NOT a parallel engine: no new authority, permissions, or effect journal.
+ * Domain owners remain D2/D4/D5/D6/D7/D9; this module only qualifies,
+ * projects refs, reconstructs prior mission state, and continues after
+ * owner-confirmed acts when the original intention already required it.
  */
+import { and, desc, eq, sql } from "drizzle-orm";
+import { randomUUID } from "node:crypto";
+import { db } from "@/db/client";
+import {
+  conversationTurnCommands,
+  conversations,
+  createProjectCommands,
+  messages,
+} from "@/db/schema";
+import { savePreparationDocument } from "@/domains/document/service";
+import { StudioError } from "@/lib/http-errors";
+import { newId } from "@/lib/ids";
+import { emitObs } from "@/lib/observability";
+import {
+  appendDocumentEffectAck,
+  documentSaveToEffectSummary,
+  extractContractualDocumentProposal,
+  hasCompetingTransactionalClaim,
+  type DocumentEffectSummary,
+  type QualifiedDocumentAct,
+} from "./document-act";
+import { runNoraCognitiveTurn } from "./run-nora-cognitive-turn";
+import { TURN_RUNNING_STALE_MS, turnClock } from "./turn-command";
+import {
+  appendMissionAck,
+  composeCanonicalMissionRestitution,
+  type MissionOwnerActBinding,
+  type MissionProjection,
+  type MissionStep,
+  type MissionStatus,
+  type PublicationMissionIntent,
+} from "./mission-continuity";
 
-import { lookup } from "node:dns/promises";
-import { isIP } from "node:net";
-import { assertPublicHttpsUrl } from "./public-web-search-frontier";
+/**
+ * Test-only fault injection for continuation crash points (P3–P6).
+ * Must stay no-op in production.
+ */
+export const continuationRaceHooks: {
+  afterReserveBeforeWork?: () => Promise<void>;
+  afterNoraBeforeD4?: () => Promise<void>;
+  afterD4BeforeCommit?: () => Promise<void>;
+} = {};
 
-function isPrivateOrLocalIp(ip: string): boolean {
-  const v = ip.toLowerCase();
-  if (v === "::1" || v === "0:0:0:0:0:0:0:1") return true;
-  if (v.startsWith("fe80:") || v.startsWith("fc") || v.startsWith("fd")) return true;
-  const m = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(v);
-  if (!m) return false;
-  const a = Number(m[1]);
-  const b = Number(m[2]);
-  return (
-    a === 0 ||
-    a === 10 ||
-    a === 127 ||
-    (a === 172 && b >= 16 && b <= 31) ||
-    (a === 192 && b === 168) ||
-    (a === 169 && b === 254)
-  );
+/** Stable D2↔mission correlation key reused as createProjectCommands.idempotencyKey when known. */
+export function d2MissionIdempotencyKey(clientIntentKey: string): string {
+  return `d2:mission:${clientIntentKey}`;
 }
 
-export type EgressDnsCheck =
-  | { ok: true; hostname: string; addresses: string[] }
-  | { ok: false; reason: string; hostname?: string };
+export function buildD2OwnerActBinding(
+  preparationId: string,
+  clientIntentKey: string,
+): MissionOwnerActBinding {
+  return {
+    kind: "D2_CREATE_PROJECT",
+    preparationId,
+    clientIntentKey,
+    suggestedIdempotencyKey: d2MissionIdempotencyKey(clientIntentKey),
+  };
+}
 
-/** Resolve hostname and refuse private/link-local/metadata destinations. */
-export async function assertPublicDnsEgress(url: string): Promise<EgressDnsCheck> {
-  const checked = assertPublicHttpsUrl(url);
-  if (!checked.ok) return { ok: false, reason: checked.reason };
-  let hostname: string;
-  try {
-    hostname = new URL(checked.url).hostname;
-  } catch {
-    return { ok: false, reason: "URL_PARSE" };
-  }
-  if (isIP(hostname)) {
-    if (isPrivateOrLocalIp(hostname)) {
-      return { ok: false, reason: "URL_PRIVATE_IP", hostname };
-    }
-    return { ok: true, hostname, addresses: [hostname] };
-  }
-  try {
-    const records = await lookup(hostname, { all: true, verbatim: true });
-    const addresses = records.map((r) => r.address);
-    if (!addresses.length) return { ok: false, reason: "DNS_EMPTY", hostname };
-    for (const addr of addresses) {
-      if (isPrivateOrLocalIp(addr)) {
-        return { ok: false, reason: "DNS_RESOLVED_PRIVATE", hostname };
-      }
-    }
-    return { ok: true, hostname, addresses };
-  } catch {
-    return { ok: false, reason: "DNS_LOOKUP_FAILED", hostname };
-  }
+/** Logical capability ids — mapping only, not a second permission catalog. */
+export type StudioCapabilityId =
+  | "d2.create_project"
+  | "d3.converse"
+  | "d4.create_document"
+  | "d4.revise_document"
+  | "d4.read_knowledge"
+  | "d4.record_knowledge"
+  | "d5.pilotage_command"
+  | "d6.human_decision"
+  | "d7.prepare_publication"
+  | "d7.dispatch_publication"
+  | "d7.merge_publication"
+  | "d9.git_integration";
+
+export type QualifiedIntent = {
+  wantsProjectCreate: boolean;
+  proposedProjectName: string | null;
+  wantsFollowOnDocument: boolean;
+  pendingDocumentBrief: string | null;
+  documentAct: QualifiedDocumentAct;
+  publication: PublicationMissionIntent;
+  likelyPilotageSignal: boolean;
+  simpleDialogue: boolean;
+};
+
+/**
+ * Technical name capture from an already-qualified create-project intent.
+ * Not a métier intent router — do not use to decide whether create was requested.
+ */
+export function extractProposedProjectName(userText: string): string | null {
+  const named = userText.match(
+    /projet\s+(?:nomm[eé]|intitul[eé]|appel[eé])\s+[«"]?(.+?)[»"]?(?=\s+puis\b|\s+ensuite\b|\s+et\s+(?:un|une|le|la|des|ce|cet|cette)\b|\s+pour\s+(?:la|le|les|un|une|ce|cet|cette|l['’])\b|\s*[,.;:]|$)/i,
+  );
+  if (named?.[1]) return named[1].replace(/[«»"']/g, "").trim();
+  return null;
 }
 
 /**
- * Read response body with hard byte cap — cancel stream before full download.
- * Does not treat the page as fully consulted.
+ * Executable mobilization contract — not metadata-only.
+ * invokeOwnerRef names the real owner function; tests supply a boundary double
+ * for future.* capabilities only.
  */
-export async function readBoundedResponseText(
-  res: Response,
-  opts?: { maxBytes?: number; excerptChars?: number },
-): Promise<{ text: string; bytesRead: number; truncated: boolean }> {
-  const maxBytes = opts?.maxBytes ?? 200_000;
-  const excerptChars = opts?.excerptChars ?? 8_000;
-  const cl = res.headers.get("content-length");
-  if (cl && Number(cl) > maxBytes * 4) {
-    // Refuse absurd Content-Length before reading (still may be lying).
-    return { text: "", bytesRead: 0, truncated: true };
+export type CapabilityMobilizationContract = {
+  capabilityId: StudioCapabilityId | string;
+  ownerDomain: "D1" | "D2" | "D3" | "D4" | "D5" | "D6" | "D7" | "D8" | "D9" | string;
+  invokeOwnerRef: string;
+  preconditions: string[];
+  rightsBoundary: string;
+  structuredResultKeys: string[];
+  continuationHook: "cognitiveContinueFromFacts" | "authoritySnippets" | "missionProjection" | "none";
+  interruptionRecovery: string;
+};
+
+export type CapabilityInvokeContext = {
+  pilotId: string;
+  preparationId?: string;
+  projectId?: string;
+  payload?: Record<string, unknown>;
+};
+
+export type CapabilityInvokeResult = {
+  status: string;
+  result: Record<string, unknown>;
+};
+
+export type CapabilityOwnerAdapter = {
+  capabilityId: string;
+  invoke: (ctx: CapabilityInvokeContext) => Promise<CapabilityInvokeResult>;
+};
+
+export const CAPABILITY_CONTRACTS: CapabilityMobilizationContract[] = [
+  {
+    capabilityId: "d2.create_project",
+    ownerDomain: "D2",
+    invokeOwnerRef: "createProjectCommand",
+    preconditions: ["preparation OPEN", "previewName/summary", "Pilot click/API"],
+    rightsBoundary: "ownerPilotId + creationRevision CAS",
+    structuredResultKeys: ["status", "projectId"],
+    continuationHook: "missionProjection",
+    interruptionRecovery: "create_project_commands idempotencyKey + reconcileCreateProject",
+  },
+  {
+    capabilityId: "d4.create_document",
+    ownerDomain: "D4",
+    invokeOwnerRef: "savePreparationDocument",
+    preconditions: ["explicit CREATE intent", "proposal extract", "turn fence or owner continue"],
+    rightsBoundary: "preparation ownership",
+    structuredResultKeys: ["status", "documentId", "revisionId"],
+    continuationHook: "cognitiveContinueFromFacts",
+    interruptionRecovery: "creationCorrelationKey / reconstituteConfirmedD4Effects",
+  },
+  {
+    capabilityId: "d5.pilotage_command",
+    ownerDomain: "D5",
+    invokeOwnerRef: "applyConversationalAuthority→executePilotageCommand",
+    preconditions: ["project linked", "CLEAR intent", "USER message COMPLETE"],
+    rightsBoundary: "project ownership + HumanDecision when required",
+    structuredResultKeys: ["status", "operation"],
+    continuationHook: "authoritySnippets",
+    interruptionRecovery: "business_commands clientCommandKey",
+  },
+  {
+    capabilityId: "d6.human_decision",
+    ownerDomain: "D6",
+    invokeOwnerRef: "insertHumanDecision / authorizePublication",
+    preconditions: ["Pilot act", "fingerprint/mandate when effect-bound"],
+    rightsBoundary: "D6 owner only — Nora never invents HD",
+    structuredResultKeys: ["decisionId", "state"],
+    continuationHook: "missionProjection",
+    interruptionRecovery: "human_decisions + effect_attempts.decisionId",
+  },
+  {
+    capabilityId: "d7.prepare_publication",
+    ownerDomain: "D7",
+    invokeOwnerRef: "preparePublication",
+    preconditions: ["AVAILABLE revision", "git link", "explicit path for Nora mission"],
+    rightsBoundary: "D1/D9 permissions at prepare",
+    structuredResultKeys: ["attemptId", "status", "fingerprint"],
+    continuationHook: "missionProjection",
+    interruptionRecovery: "effect_attempts correlationKey pub:mission:*",
+  },
+  {
+    capabilityId: "future.example_capability",
+    ownerDomain: "Dn",
+    invokeOwnerRef: "testBoundaryDouble.only",
+    preconditions: ["declared by owner"],
+    rightsBoundary: "owner rights — never Nora",
+    structuredResultKeys: ["status", "id"],
+    continuationHook: "cognitiveContinueFromFacts",
+    interruptionRecovery: "owner correlation / idempotency",
+  },
+];
+
+/** GAP-02: exercise a contract by invoking a matching owner adapter; verify result keys. */
+export async function mobilizeCapability(
+  contract: CapabilityMobilizationContract,
+  adapter: CapabilityOwnerAdapter,
+  ctx: CapabilityInvokeContext,
+): Promise<CapabilityInvokeResult> {
+  if (adapter.capabilityId !== contract.capabilityId) {
+    throw new StudioError(
+      "CONFLICT",
+      `Adapter ${adapter.capabilityId} ≠ contract ${contract.capabilityId}`,
+    );
   }
-  if (!res.body) {
-    const buf = Buffer.from(await res.arrayBuffer());
-    const slice = buf.subarray(0, maxBytes);
+  const out = await adapter.invoke(ctx);
+  for (const key of contract.structuredResultKeys) {
+    if (!(key in out.result) && key !== "status") {
+      // status may live on out.status
+      if (key === "status" && out.status) continue;
+      if (!(key in out) && out.status === undefined) {
+        throw new StudioError("INVALID_REQUEST", `Missing structured key ${key}`);
+      }
+    }
+  }
+  // Ensure each declared key is present on result or top-level status
+  for (const key of contract.structuredResultKeys) {
+    const ok =
+      key === "status"
+        ? out.status != null || out.result.status != null
+        : out.result[key] !== undefined;
+    if (!ok) {
+      throw new StudioError("INVALID_REQUEST", `Owner result missing key ${key}`);
+    }
+  }
+  return out;
+}
+
+/**
+ * SEM-02 — retired as production métier router.
+ * Production uses Nora structured qualification + projectStudioEffects.
+ * Fail-closed dialogue stub so accidental callers cannot invent D2/D4/D7 effects.
+ */
+export function qualifyStudioIntent(_userText: string): QualifiedIntent {
+  return {
+    wantsProjectCreate: false,
+    proposedProjectName: null,
+    wantsFollowOnDocument: false,
+    pendingDocumentBrief: null,
+    documentAct: { kind: "NONE" },
+    publication: {
+      wantsDocumentCreate: false,
+      wantsPublish: false,
+      targetPath: null,
+      targetBranch: null,
+      ambiguous: false,
+      needsExplicitPath: false,
+    },
+    likelyPilotageSignal: false,
+    simpleDialogue: true,
+  };
+}
+
+export function emptyMission(clientIntentKey: string, goalSummary: string): MissionProjection {
+  return {
+    clientIntentKey,
+    status: "ACTIVE",
+    goalSummary,
+    steps: [],
+    restitution: "PENDING",
+  };
+}
+
+export function mergeMissionSteps(
+  base: MissionProjection,
+  steps: MissionStep[],
+  status?: MissionStatus,
+): MissionProjection {
+  return {
+    ...base,
+    status: status ?? base.status,
+    steps: [...base.steps, ...steps],
+  };
+}
+
+export type LoadMissionOpts = {
+  /** Only return missions whose LATEST projection awaits Pilot D2 act. */
+  awaitingPilotAct?: boolean;
+  /** Match exact clientIntentKey when known. */
+  clientIntentKey?: string;
+  /** Scope to preparationId stored on projection. */
+  preparationId?: string;
+  /**
+   * Optional soft cap for diagnostics only — correctness must not depend on it.
+   * Default: no limit (full conversation turn history for this conversation).
+   */
+  limit?: number;
+};
+
+/**
+ * G1/G3: collapse to latest projection per clientIntentKey across ALL COMPLETE turns
+ * for the conversation. A completed continuation supersedes an older AWAITING snapshot.
+ */
+export async function loadLatestMissionsByIntentKey(
+  conversationId: string,
+  opts?: { limit?: number },
+): Promise<Map<string, MissionProjection>> {
+  const q = db
+    .select({
+      resultJson: conversationTurnCommands.resultJson,
+      clientTurnKey: conversationTurnCommands.clientTurnKey,
+      createdAt: conversationTurnCommands.createdAt,
+    })
+    .from(conversationTurnCommands)
+    .where(
+      and(
+        eq(conversationTurnCommands.conversationId, conversationId),
+        eq(conversationTurnCommands.status, "COMPLETE"),
+      ),
+    )
+    .orderBy(desc(conversationTurnCommands.createdAt));
+
+  const rows = opts?.limit != null ? await q.limit(opts.limit) : await q;
+  const latest = new Map<string, MissionProjection>();
+  for (const row of rows) {
+    if (!row.resultJson) continue;
+    try {
+      const parsed = JSON.parse(row.resultJson) as { missionProjection?: MissionProjection | null };
+      const m = parsed.missionProjection;
+      if (!m?.clientIntentKey) continue;
+      if (!latest.has(m.clientIntentKey)) {
+        latest.set(m.clientIntentKey, m);
+      }
+    } catch {
+      /* skip */
+    }
+  }
+  return latest;
+}
+
+/**
+ * Intention-anchored load — uses latest-per-key map (never an older AWAITING after COMPLETE).
+ */
+export async function loadPriorMissionProjection(
+  conversationId: string,
+  opts?: LoadMissionOpts,
+): Promise<MissionProjection | null> {
+  const latest = await loadLatestMissionsByIntentKey(conversationId, {
+    limit: opts?.limit,
+  });
+  const candidates = [...latest.values()].filter((m) => {
+    if (opts?.clientIntentKey && m.clientIntentKey !== opts.clientIntentKey) return false;
+    if (opts?.preparationId && m.preparationId && m.preparationId !== opts.preparationId) {
+      return false;
+    }
+    if (opts?.awaitingPilotAct && m.status !== "AWAITING_PILOT_ACT") return false;
+    return true;
+  });
+  if (opts?.clientIntentKey) {
+    return candidates[0] ?? null;
+  }
+  // Prefer most recently updated awaiting (map iteration = insertion = newest-first scan).
+  return candidates[0] ?? null;
+}
+
+export type MissionD2Resolve =
+  | { status: "OK"; mission: MissionProjection }
+  | { status: "ALREADY_CONTINUED"; mission: MissionProjection }
+  | { status: "NO_AWAITING_MISSION" }
+  | { status: "MISSION_KEY_MISMATCH"; reason: string }
+  | { status: "MISSION_NAME_MISMATCH"; reason: string; expected: string; received: string }
+  | { status: "AMBIGUOUS_AWAITING"; count: number };
+
+/**
+ * Server-authoritative binding of a D2 create act to an awaiting mission.
+ * Client clientIntentKey is a hint that must match DB truth — never silent fallback
+ * to another mission when the hint is wrong (B/C).
+ * Project name authority is D2-inspected (createProjectCommand), not mission rewrite.
+ */
+export async function verifyMissionForD2Act(input: {
+  conversationId: string;
+  preparationId: string;
+  clientIntentKey?: string | null;
+  /** Retained for callers; durable name match is enforced under D2 lock at create. */
+  projectName?: string | null;
+}): Promise<MissionD2Resolve> {
+  const latest = await loadLatestMissionsByIntentKey(input.conversationId);
+  const awaiting = [...latest.values()].filter(
+    (m) =>
+      m.status === "AWAITING_PILOT_ACT" &&
+      (!m.preparationId || m.preparationId === input.preparationId),
+  );
+
+  const hint = input.clientIntentKey?.trim() || null;
+  if (hint) {
+    const hinted = latest.get(hint);
+    if (!hinted) {
+      return {
+        status: "MISSION_KEY_MISMATCH",
+        reason: "clientIntentKey unknown for this conversation",
+      };
+    }
+    if (hinted.preparationId && hinted.preparationId !== input.preparationId) {
+      return {
+        status: "MISSION_KEY_MISMATCH",
+        reason: "clientIntentKey belongs to another preparation",
+      };
+    }
+    if (hinted.status === "AWAITING_PILOT_ACT") {
+      // Mission binding authorizes the awaiting act only. The durable project name is owned by
+      // D2 (inspected preparation projection / preview) and enforced under lock in createProjectCommand.
+      // Never rewrite mission.proposedProjectName from the client payload — that would launder an
+      // arbitrary name into mission memory without a persisted D2 correction.
+      return { status: "OK", mission: hinted };
+    }
+    return { status: "ALREADY_CONTINUED", mission: hinted };
+  }
+
+  if (awaiting.length === 1) return { status: "OK", mission: awaiting[0]! };
+  if (awaiting.length === 0) return { status: "NO_AWAITING_MISSION" };
+  return { status: "AMBIGUOUS_AWAITING", count: awaiting.length };
+}
+
+/**
+ * G1 — authorize a mission-bound D2 create BEFORE any project mutation.
+ * Classic path (no clientIntentKey) remains create-only without mission binding.
+ * clientIntentKey never authorizes by itself: DB mission truth decides.
+ */
+export type D2MissionCreateAuthorization =
+  | { outcome: "CLASSIC" }
+  | {
+      outcome: "AUTHORIZED" | "REPLAY_ALLOWED";
+      mission: MissionProjection;
+      idempotencyKey: string;
+    }
+  | {
+      outcome: "FORBIDDEN";
+      code:
+        | "MISSION_KEY_MISMATCH"
+        | "MISSION_NAME_MISMATCH"
+        | "AMBIGUOUS_AWAITING"
+        | "NO_CONVERSATION"
+        | "FORBIDDEN";
+      reason: string;
+    };
+
+export async function authorizeMissionBoundD2Create(input: {
+  pilotId: string;
+  preparationId: string;
+  clientIntentKey?: string | null;
+  projectName?: string | null;
+}): Promise<D2MissionCreateAuthorization> {
+  const hint = input.clientIntentKey?.trim() || null;
+  if (!hint) {
+    // Explicit classic create: do not silently bind a neighboring awaiting mission.
+    return { outcome: "CLASSIC" };
+  }
+
+  const conv = (
+    await db
+      .select()
+      .from(conversations)
+      .where(
+        and(
+          eq(conversations.preparationId, input.preparationId),
+          eq(conversations.ownerPilotId, input.pilotId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!conv) {
     return {
-      text: slice.toString("utf8").slice(0, excerptChars),
-      bytesRead: slice.length,
-      truncated: buf.length > maxBytes,
+      outcome: "FORBIDDEN",
+      code: "NO_CONVERSATION",
+      reason: "no conversation for preparation/pilot",
     };
   }
-  const reader = res.body.getReader();
-  const chunks: Uint8Array[] = [];
-  let bytesRead = 0;
-  let truncated = false;
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    if (!value) continue;
-    const remain = maxBytes - bytesRead;
-    if (remain <= 0) {
-      truncated = true;
-      try {
-        await reader.cancel("WEB_BYTE_BUDGET");
-      } catch {
-        /* ignore */
-      }
-      break;
-    }
-    if (value.byteLength > remain) {
-      chunks.push(value.subarray(0, remain));
-      bytesRead += remain;
-      truncated = true;
-      try {
-        await reader.cancel("WEB_BYTE_BUDGET");
-      } catch {
-        /* ignore */
-      }
-      break;
-    }
-    chunks.push(value);
-    bytesRead += value.byteLength;
+
+  const verified = await verifyMissionForD2Act({
+    conversationId: conv.id,
+    preparationId: input.preparationId,
+    clientIntentKey: hint,
+    projectName: input.projectName,
+  });
+
+  if (verified.status === "OK") {
+    return {
+      outcome: "AUTHORIZED",
+      mission: verified.mission,
+      idempotencyKey: d2MissionIdempotencyKey(verified.mission.clientIntentKey),
+    };
   }
-  const buf = Buffer.concat(chunks.map((c) => Buffer.from(c)));
-  let text = buf.toString("utf8");
-  text = text
-    .replace(/<script[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .slice(0, excerptChars);
-  if (/ignore\s+previous\s+instructions|<\/?system>/i.test(text)) {
-    text = text.replace(/ignore\s+previous\s+instructions/gi, "[hostile-marker]");
+  if (verified.status === "ALREADY_CONTINUED") {
+    return {
+      outcome: "REPLAY_ALLOWED",
+      mission: verified.mission,
+      idempotencyKey: d2MissionIdempotencyKey(verified.mission.clientIntentKey),
+    };
   }
-  return { text, bytesRead, truncated };
+  if (verified.status === "MISSION_KEY_MISMATCH") {
+    return { outcome: "FORBIDDEN", code: "MISSION_KEY_MISMATCH", reason: verified.reason };
+  }
+  if (verified.status === "MISSION_NAME_MISMATCH") {
+    return {
+      outcome: "FORBIDDEN",
+      code: "MISSION_NAME_MISMATCH",
+      reason: `${verified.reason} (expected «${verified.expected}», received «${verified.received}»)`,
+    };
+  }
+  if (verified.status === "AMBIGUOUS_AWAITING") {
+    return {
+      outcome: "FORBIDDEN",
+      code: "AMBIGUOUS_AWAITING",
+      reason: `ambiguous awaiting missions: ${verified.count}`,
+    };
+  }
+  return {
+    outcome: "FORBIDDEN",
+    code: "MISSION_KEY_MISMATCH",
+    reason: "clientIntentKey provided but no awaiting mission matched",
+  };
 }
-```
 
-### FILE `projects/sfia-studio-next/web/tests/unit/ml5-c15-cognitive-conductor.test.ts`
-
-- bytes: 2696
-- sha256: `e6468541e9b76793f9a7037d1ae9e861073e1194ddfd55945a639119841f4127`
-
-```typescript
-import { describe, expect, it } from "vitest";
-import {
-  accumulateResources,
-  evaluateGlobalResourceEnvelope,
-} from "@/domains/conversation/cognitive-work";
-import { evaluateContractReadiness, createEmptyInvestigation } from "@/domains/conversation/investigation-state";
-import { recordToolSource, createToolSourceJournal } from "@/domains/conversation/tool-source-journal";
-import { draftBodyFromInvestigation } from "@/domains/conversation/nora-contract-bridge";
-import { assertPublicDnsEgress } from "@/domains/conversation/web-egress-guard";
-
-describe("ML5 C15 — cognitive conductor foundations", () => {
-  it("accumulates resources across segments without reset", () => {
-    const a = accumulateResources(
-      { segmentCalls: 1, inputTokens: 100, outputTokens: 50, webCalls: 1 },
-      { segmentCalls: 1, inputTokens: 80, outputTokens: 40, webCalls: 2 },
-    );
-    expect(a.segmentCalls).toBe(2);
-    expect(a.inputTokens).toBe(180);
-    expect(a.outputTokens).toBe(90);
-    expect(a.webCalls).toBe(3);
+/** Structured awaiting mission for UI/API — never parse Nora prose. */
+export async function getAwaitingMissionForPreparation(
+  pilotId: string,
+  preparationId: string,
+): Promise<MissionProjection | null> {
+  const conv = (
+    await db
+      .select()
+      .from(conversations)
+      .where(
+        and(
+          eq(conversations.preparationId, preparationId),
+          eq(conversations.ownerPilotId, pilotId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!conv) return null;
+  return loadPriorMissionProjection(conv.id, {
+    awaitingPilotAct: true,
+    preparationId,
   });
+}
 
-  it("suspends on global segment envelope", () => {
-    const r = evaluateGlobalResourceEnvelope(
-      { segmentCalls: 8 },
-      { SFIA_COGNITIVE_MAX_SEGMENTS: "8" },
-    );
-    expect(r.ok).toBe(false);
-    expect(r.reason).toMatch(/SEGMENT/);
+/** @deprecated Prefer verifyMissionForD2Act — kept for narrow test helpers. */
+export async function resolveMissionAwaitingD2Create(input: {
+  conversationId: string;
+  preparationId: string;
+  projectId: string;
+  projectName?: string | null;
+  clientIntentKey?: string | null;
+}): Promise<MissionProjection | null> {
+  const v = await verifyMissionForD2Act({
+    conversationId: input.conversationId,
+    preparationId: input.preparationId,
+    clientIntentKey: input.clientIntentKey,
   });
+  return v.status === "OK" ? v.mission : null;
+}
 
-  it("allows source coverage degradation (non-monotonic)", () => {
-    const j = createToolSourceJournal();
-    recordToolSource(j, { kind: "D4", ref: "doc:1", coverage: "CONSULTED" });
-    recordToolSource(j, { kind: "D4", ref: "doc:1", coverage: "STALE", notes: "new revision" });
-    expect(j.entries).toHaveLength(1);
-    expect(j.entries[0]!.coverage).toBe("STALE");
-    expect(j.entries[0]!.notes).toMatch(/CONSULTED->STALE/);
-  });
+export function advanceMissionAfterProjectCreated(
+  prior: MissionProjection,
+  projectId: string,
+): MissionProjection {
+  const steps = prior.steps.map((s) =>
+    s.id === "d2_create_project" || s.capabilityId === "d2.create_project"
+      ? {
+          ...s,
+          status: "DONE" as const,
+          reason: `projectId=${projectId}`,
+        }
+      : s,
+  );
+  const stillWaiting = steps.some((s) => s.status === "WAITING" || s.status === "PENDING");
+  return {
+    ...prior,
+    steps,
+    status: stillWaiting ? "ACTIVE" : "COMPLETED",
+    goalSummary: prior.goalSummary.includes("projet")
+      ? `${prior.goalSummary} — projet confirmé ${projectId}`
+      : prior.goalSummary,
+    restitution: "PENDING",
+  };
+}
 
-  it("draft instruction is not capped at 24000 chars", () => {
-    const long = "X".repeat(30_000);
-    const inv = evaluateContractReadiness({
-      ...createEmptyInvestigation("mission TVA"),
-      desiredOutcome: "TVA export 0%",
-      sources: [{ kind: "D4", ref: "spec", coverage: "CONSULTED" }],
-      questions: [
-        {
-          id: "q1",
-          text: "Régime?",
-          status: "ANSWERED",
-          importance: "DETERMINANT",
-          answerSummary: "export",
-        },
-      ],
-      remainingWork: Array.from({ length: 12 }, (_, i) => `critère métier ${i + 1}`),
-    });
-    const body = draftBodyFromInvestigation(inv, { instructionFromNora: long });
-    expect(body.instructionText.length).toBeGreaterThan(24_000);
-    expect(body.acceptance.criteria).toHaveLength(12);
-  });
+export function buildD2AwaitingStep(proposedName: string | null): MissionStep {
+  return {
+    id: "d2_create_project",
+    capabilityId: "d2.create_project",
+    status: "WAITING",
+    reason: proposedName
+      ? `Acte Pilote requis (Créer le projet) — preview «${proposedName}»`
+      : "Acte Pilote requis (Créer le projet) — préciser le nom si besoin",
+  };
+}
 
-  it("DNS egress rejects private IP literals", async () => {
-    const r = await assertPublicDnsEgress("https://127.0.0.1/secret");
-    expect(r.ok).toBe(false);
-  });
-});
-```
+export function buildPendingDocumentStep(kind: "CREATE" | "REVISE", brief?: string | null): MissionStep {
+  return {
+    id: kind === "CREATE" ? "d4_create" : "d4_revise",
+    capabilityId: kind === "CREATE" ? "d4.create_document" : "d4.revise_document",
+    status: "PENDING",
+    reason: brief?.slice(0, 200) ?? "En attente après création projet / contexte",
+  };
+}
 
-### FILE `projects/sfia-studio-next/web/tests/integration/ml5-c15-cognitive-work.pg.test.ts`
+type DocumentSaveSummary = {
+  status: string;
+  documentId?: string;
+  revisionId?: string;
+  revisionNumber?: number;
+  act?: string;
+  reason?: string;
+};
 
-- bytes: 3533
-- sha256: `1ffaabe8b4598c05a5ab78054ac51286b5a1a4ea1acb1a8c4a3f57357bb659a4`
+function continuationTurnKey(clientIntentKey: string, projectId: string): string {
+  return `mission-continue:${clientIntentKey}:${projectId}`;
+}
 
-```typescript
+function isStaleContinuation(updatedAt: Date | null | undefined): boolean {
+  if (!updatedAt) return true;
+  return turnClock.nowMs() - updatedAt.getTime() > TURN_RUNNING_STALE_MS;
+}
+
+type ContinuationClaim =
+  | {
+      kind: "replay";
+      missionProjection: MissionProjection;
+      documentSave: DocumentSaveSummary | null;
+      assistantMessageId: string | null;
+    }
+  | { kind: "fresh"; commandId: string; ownerToken: string; clientTurnKey: string }
+  | { kind: "in_progress" };
+
 /**
- * C15 — cognitive work PG: two works, checkpoint CAS, lease conflict.
+ * Short transactional claim — xact advisory lock only (released at TX end).
+ * Never hold a session lock across the pool or across Nora/D4 work.
  */
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import { preparations, pilots } from "@/db/schema";
-import { newId } from "@/lib/ids";
-import {
-  checkpointCognitiveWork,
-  openOrResumeCognitiveWork,
-  releaseCognitiveWorkLease,
-  getCognitiveWork,
-  listCognitiveWorksForPreparation,
-} from "@/domains/conversation/cognitive-work";
-import {
-  createEmptyInvestigation,
-  evaluateContractReadiness,
-} from "@/domains/conversation/investigation-state";
-
-const dockerOk = () => Boolean(process.env.DATABASE_URL?.includes("5433"));
-
-describe.skipIf(!dockerOk())("ML5 C15 cognitive_works PG", () => {
-  let pilotId = "";
-  let prepId = "";
-
-  beforeAll(async () => {
-    const pilot = (
-      await db.select().from(pilots).where(eq(pilots.githubUserId, "dev-github-a")).limit(1)
+async function claimContinuationOwnership(input: {
+  conversationId: string;
+  pilotId: string;
+  clientIntentKey: string;
+  projectId: string;
+  missionSnapshot: MissionProjection;
+}): Promise<ContinuationClaim> {
+  const clientTurnKey = continuationTurnKey(input.clientIntentKey, input.projectId);
+  return db.transaction(async (tx) => {
+    await tx.execute(
+      sql`SELECT pg_advisory_xact_lock(hashtext(${input.conversationId}), hashtext(${clientTurnKey}))`,
+    );
+    const existing = (
+      await tx
+        .select()
+        .from(conversationTurnCommands)
+        .where(
+          and(
+            eq(conversationTurnCommands.conversationId, input.conversationId),
+            eq(conversationTurnCommands.clientTurnKey, clientTurnKey),
+          ),
+        )
+        .limit(1)
     )[0];
-    if (!pilot) throw new Error("Pilot A missing");
-    pilotId = pilot.id;
-    prepId = newId("prep");
-    await db.insert(preparations).values({
-      id: prepId,
-      ownerPilotId: pilotId,
-      title: "C15 cognitive work test",
-      status: "OPEN",
+
+    if (existing?.status === "COMPLETE" && existing.resultJson) {
+      try {
+        const parsed = JSON.parse(existing.resultJson) as {
+          missionProjection?: MissionProjection | null;
+          documentSave?: DocumentSaveSummary | null;
+        };
+        if (parsed.missionProjection && parsed.missionProjection.status !== "AWAITING_PILOT_ACT") {
+          return {
+            kind: "replay" as const,
+            missionProjection: parsed.missionProjection,
+            documentSave: parsed.documentSave ?? null,
+            assistantMessageId: existing.assistantMessageId,
+          };
+        }
+      } catch {
+        /* fall through to reclaim */
+      }
+    }
+
+    if (existing && (existing.status === "RUNNING" || existing.status === "ACCEPTED")) {
+      if (!isStaleContinuation(existing.updatedAt)) {
+        return { kind: "in_progress" as const };
+      }
+      await tx
+        .update(conversationTurnCommands)
+        .set({
+          status: "UNKNOWN",
+          errorCategory: "RECONCILED_STALE_CONTINUATION",
+          ownerToken: `revoked_${randomUUID()}`,
+          updatedAt: new Date(turnClock.nowMs()),
+        })
+        .where(
+          and(
+            eq(conversationTurnCommands.id, existing.id),
+            eq(conversationTurnCommands.status, existing.status),
+          ),
+        );
+    }
+
+    const ownerToken = `own_${randomUUID()}`;
+    const resultJson = JSON.stringify({
+      missionProjection: input.missionSnapshot,
+      continuedAfterProjectId: input.projectId,
+      phase: "RESERVED",
     });
+
+    if (existing) {
+      const cas = await tx
+        .update(conversationTurnCommands)
+        .set({
+          status: "RUNNING",
+          ownerToken,
+          resultJson,
+          errorCategory: null,
+          assistantMessageId: null,
+          updatedAt: new Date(turnClock.nowMs()),
+        })
+        .where(
+          and(
+            eq(conversationTurnCommands.id, existing.id),
+            sql`${conversationTurnCommands.status} IN ('UNKNOWN', 'FAILED', 'COMPLETE')`,
+          ),
+        )
+        .returning({ id: conversationTurnCommands.id });
+      if (!cas[0]) return { kind: "in_progress" as const };
+      return {
+        kind: "fresh" as const,
+        commandId: existing.id,
+        ownerToken,
+        clientTurnKey,
+      };
+    }
+
+    const commandId = newId("ctc");
+    await tx.insert(conversationTurnCommands).values({
+      id: commandId,
+      conversationId: input.conversationId,
+      ownerPilotId: input.pilotId,
+      clientTurnKey,
+      requestFingerprint: `fp-continue-${input.projectId}`,
+      operationId: newId("op"),
+      status: "RUNNING",
+      ownerToken,
+      resultJson,
+      assistantMessageId: null,
+      createdAt: new Date(turnClock.nowMs()),
+      updatedAt: new Date(turnClock.nowMs()),
+    });
+    return { kind: "fresh" as const, commandId, ownerToken, clientTurnKey };
   });
-
-  afterAll(async () => {
-    // leave rows for inspection; DEV only
-  });
-
-  it("keeps two distinct works on same preparation", async () => {
-    const a = await openOrResumeCognitiveWork({
-      pilotId,
-      preparationId: prepId,
-      objective: "work A TVA",
-      forceNew: true,
-    });
-    await releaseCognitiveWorkLease({
-      workId: a.work.id,
-      ownerToken: a.ownerToken,
-      status: "SUSPENDED",
-    });
-    const b = await openOrResumeCognitiveWork({
-      pilotId,
-      preparationId: prepId,
-      objective: "work B unrelated",
-      forceNew: true,
-    });
-    await releaseCognitiveWorkLease({
-      workId: b.work.id,
-      ownerToken: b.ownerToken,
-      status: "SUSPENDED",
-    });
-    expect(a.work.id).not.toBe(b.work.id);
-    const listed = await listCognitiveWorksForPreparation({
-      pilotId,
-      preparationId: prepId,
-    });
-    expect(listed.length).toBeGreaterThanOrEqual(2);
-  });
-
-  it("CAS refuses stale revision checkpoint", async () => {
-    const opened = await openOrResumeCognitiveWork({
-      pilotId,
-      preparationId: prepId,
-      objective: "CAS work",
-      forceNew: true,
-    });
-    const state = evaluateContractReadiness({
-      ...createEmptyInvestigation("CAS work"),
-      desiredOutcome: "ok",
-      sources: [{ kind: "D4", ref: "d1", coverage: "CONSULTED" }],
-      questions: [
-        {
-          id: "q1",
-          text: "ok?",
-          status: "ANSWERED",
-          importance: "DETERMINANT",
-        },
-      ],
-    });
-    await checkpointCognitiveWork({
-      pilotId,
-      workId: opened.work.id,
-      ownerToken: opened.ownerToken,
-      expectedRevision: opened.work.revision,
-      cause: "TEST",
-      state,
-    });
-    await expect(
-      checkpointCognitiveWork({
-        pilotId,
-        workId: opened.work.id,
-        ownerToken: opened.ownerToken,
-        expectedRevision: opened.work.revision, // stale
-        cause: "STALE",
-        state,
-      }),
-    ).rejects.toMatchObject({ code: "CONFLICT" });
-    const latest = await getCognitiveWork({
-      pilotId,
-      workId: opened.work.id,
-    });
-    expect(latest.revision).toBe(opened.work.revision + 1);
-    await releaseCognitiveWorkLease({
-      workId: opened.work.id,
-      ownerToken: opened.ownerToken,
-      status: "COMPLETE",
-    });
-  });
-});
-```
-
-### FILE `projects/sfia-studio-next/architecture-technique/conducteur-cognitif-et-production-nora.md`
-
-- bytes: 41435
-- sha256: `a9284ee0d9e920611ee5441f7cd3cb9d84c3f2d91055612f06003bee4029b807`
-
-```markdown
-# SFIA Studio Next — ML5 : conception intégrée du conducteur cognitif et de la production Nora
-
-| Champ | Valeur |
-|---|---|
-| Date | 24 novembre 2026 |
-| Périmètre | R5 / ML5 « Réalisation technique gouvernée avec Cursor » — lot de convergence 1 de la revue post-C14 §9 |
-| Nature | Complément de conception et contrat de réalisation du périmètre cognitif ; ni nouveau macro-lot, ni nouvelle doctrine, ni registre de couverture concurrent |
-| Autorité | Morris : option B (conducteur adaptatif), option C (persistance cognitive D3 dédiée dans PostgreSQL), option C (production adaptative indépendante de la réponse) validées explicitement en conversation ; GO de principe de construction du lot et GO Git pour ce nouveau document |
-| Statuts | **VALIDATED IN CONTENT** pour ces trois orientations ; **DOCUMENTED / CANDIDATE** pour la déclinaison ci-dessous ; choix physiques détaillés à qualifier sur le code local ; aucun IMPLEMENTED, COVERAGE VERIFIED, BEHAVIOR PROVEN ou ADOPTED induit |
-| Base documentaire | `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; branche de conception `sfia/next-nora-cognition-cursor-contract-candidate@017a77e9b4cba12ff3cacb41873bbbdf64822d64` ; branche de conformité `sfia/next-ml5-conformity-acceptance-candidate@37edb41329526d07134a802f8f73e7371c941c16` avant création |
-| Source technique | Review Handoff `78f60e40f466b520ac0381d5d27e212bd2fa5695`, blob `01961de12b10dc1d8802a2ba24bc5095a51b4949` (237 fichiers, snapshot post-C14). Code local de la branche `sfia/next-ml5-integrated-delivery-20261123`, HEAD rapporté `6cf33e9923796974b9ee540a9c6ff27110342950`, 97 DIRTY rapportés ; worktree **NON OBSERVÉ** par ChatGPT, ref distante non résolue |
-| Autorisation | Création de ce fichier seulement, sur branche documentaire de conformité existante ; pas de modification des autres sources, publication de code, PR, merge, cutover, promotion, release ou ADOPTED. Mandat Cursor instancié séparément sous SFIA v2.6 ; aucune opération externe induite |
-
-## 1. Rattachement canonique et continuité ML5
-
-Ce complément **précise la réalisation** des axes A (cognition), B (WEB), C (activité), D (contrat) déjà définis dans ML5. Il ne remplace ni la spécification fonctionnelle, ni l'architecture initiale, ni le registre, ni le contrat d'acceptation. La capacité suivante reste la réalisation et restitution autonomes (lot 2), puis la qualification intégrée (lot 3), **dans le même ML5**. Le but est de finir le produit engagé, pas de démarrer une nouvelle reconstruction.
-
-### Sources opposables et lecture prioritaire
-
-- [SEF v0.2](../governance/SEF.md) §§4–7, 9–10 ; [Roadmap](../governance/roadmap.md) ; [convention de nommage](../governance/product-naming-conventions.md) ; [ADR R4-01..04 et DATA-01](../governance/decisions/2026-11-04-r4-architecture-exit.md). PostgreSQL unique, module D3, propriétaires D1–D9, continuité V-A, intégrité et contrôle humain demeurent.
-- [Spécification fonctionnelle ML5 actualisée, §§3–7, 13, 20–22](https://github.com/mcleland147/sfia-workspace/blob/017a77e9b4cba12ff3cacb41873bbbdf64822d64/projects/sfia-studio-next/conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md), blob `fcad5935ab9b30d347b549a79f5a9812dcbd3b13`.
-- [Architecture ML5 actualisée, §§15–21](https://github.com/mcleland147/sfia-workspace/blob/017a77e9b4cba12ff3cacb41873bbbdf64822d64/projects/sfia-studio-next/architecture-technique/qualification-ecarts-cognition-transverse-et-execution-cursor-ml5.md), blob `75b2fe926bb9ed39ad14b055aca9d1e1cfbda526`. Le présent complément prolonge spécialement §15 et §21.1–21.5, sans remplacer les contrats B1/C1/D ni les exigences antérieures.
-- [Décision Git A / session DEV locale](https://github.com/mcleland147/sfia-workspace/blob/017a77e9b4cba12ff3cacb41873bbbdf64822d64/projects/sfia-studio-next/governance/decisions/2026-11-23-ml5-cursor-git-direct-et-session-dev-automatique.md) ; R-004 (interdiction des déclencheurs lexicaux décisionnels), dans les addenda précités.
-- [Revue approfondie post-C14](../construction/ml5-revue-approfondie-conformite-post-c14.md) §§3–10, blob `54a77c4dc61c4a4a886f55b0a93cd51cfba9955e` ; [registre unique des 99 exigences](../construction/ml5-registre-couverture-et-revue-developpement.md), blob `2c2485630332d91863ab7acb9f35e655503a131f` avant contribution ; [contrat d'acceptation](../construction/contrat-acceptation-cognition-et-realisation-gouvernee.md), blob `50d3125a94c0782644d9372a82fa8935285c1b31`, en particulier §8. Les IDs A–I, Q-01…56, T-01…12, CA-01…10 et PF propriétaires restent les références ; aucune nouvelle matrice normative.
-- [Snapshot post-C14](https://github.com/mcleland147/sfia-workspace/blob/78f60e40f466b520ac0381d5d27e212bd2fa5695/sfia-review-handoff/latest-chatgpt-review.md). Les constats statiques ne sont pas des observations runtime. Les preuves C1–C14 restent bornées à leurs scénarios.
-- R2 propriétaires sur main : [D3](../conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md), [D4](../conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md), [D5](../conception-fonctionnelle/trajectoire-cycles-et-guidance-cki.md), [D6](../conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md), [D7](../conception-fonctionnelle/realisation-operationnelle-gouvernee.md), [D8](../conception-fonctionnelle/resultats-et-preuves.md), [D9](../conception-fonctionnelle/integration-git-gouvernee.md). ENV-01, versioning et contrat d'observabilité transverse restent applicables.
-
-**Écart documentaire connu :** les deux branches candidates divergent (ancêtre commun `0f1d37c3b055371c84c1f30e9bebe3d0efee41b2` ; comparaison conception→conformité : +5/−3 commits avant contribution). La branche de conformité contient les versions antérieures de l'architecture et de la spécification, sans leurs derniers addenda ; les liens figés ci-dessus désignent donc les versions applicables. Le présent ajout se place à côté du registre et de la revue consolidée, sans créer une troisième branche, ni merger, ni remplacer des fichiers. Cursor réconcilie les copies locales et les sources approuvées dans le même travail sans écraser les modifications C1–C14 ; intégration distante des branches sous GO séparé. Roadmap main : Gate C OPEN dans son instantané E08 ; registre candidat : Gate C accepté avec réserves et GO ML5 du 23/11. Ce décalage documentaire n'est ni une révocation de la décision ni une autorisation de merge.
-
-## 2. Résultat et périmètre de convergence
-
-**Résultat Pilote :** Nora traite une demande simple directement ; pour un travail complexe, elle comprend, investigue, approfondit, adapte ses moyens, conserve ses acquis et termine un résultat intégral, ou expose une suspension honnête et reprend sans perdre ce qui est établi. Cela fonctionne dans le sas, le projet, la connaissance/documentation, le pilotage/décisions, la préparation technique et le bilan. Le Pilote ne découpe pas une demande selon les limites du fournisseur.
-
-**IN** : conducteur D3 commun (A01–A12), sources D4/historique/Git/D8, frontière WEB B1 (B01–B09), activité existante C1 (C01–C08), production intégrale et contrat/READY (D01–D08 selon impact), non-régression des autres familles et propriétaires, sécurité, tests, documentation et preuve. Prioriser P0 : frontière d'egress et accès, suffisance/READY, identité/version/ownership. Aucun recours à Cursor par Nora pour une tâche intellectuelle qu'elle peut conduire elle-même.
-
-**OUT** : automatisation complète terminal→handoff→D8/D9→avis (lot 2) ; réécriture D7/D8, nouveau publisher Git, gestionnaire MCP, refonte UX F2, nouvelle lane, migration RECETTE/STABLE, publication du code produit, PR/merge, release, adoption. Les risques P0 rencontrés à une interface sont bloquants pour son usage ; les risques hors périmètre sont tracés, non réputés fermés. La qualification de lot 1 ne vaut pas qualification complète ML5.
-
-## 3. Préservation du capital C1–C14
-
-Réutiliser, corriger et éprouver les éléments présents ; ne supprimer ni substituer un mécanisme éprouvé sans motif et preuve de non-régression. Les références de détail et de preuve restent le registre et la revue §8, pas une reclassification nouvelle.
-
-| Capital | Réutilisation et garde-fou |
-|---|---|
-| C1–C8 : construction progressive des axes A/B/C/D, état d'investigation, outils et provenance, projection d'activité, contrat et contrôles serveur, frontières Git/DEV, handoff initial | Examiner le contenu local et les tests avant changement ; prolonger les responsabilités existantes. Le statut rapporté C6 1/92/6 est historique. Les contrôles partiels ne deviennent pas preuves globales. |
-| C9/C10 : qualification SDK sandbox, parcours BROWSER scripted, vue 50/50, inspection, Oui/Non, quatre onglets et retour contextualisé | Préserver l'accès et les interactions minimales. Pas de nouvelle UX concurrente. F2 reste dû selon gate UX, pas revendiqué. |
-| C11 : Agents SDK LIVE, D6 refus et autorisation, Cursor SDK LIVE, témoin de fichier, handoff et avis Nora | Conserver adaptateurs, D6, identité et tentative ; intégrer le futur conducteur au point d'entrée avis, sans prétendre automatisation de la chaîne D8. |
-| C12 : second module, ACK-first/reconnexion, identité stable, DROP_ACK déterministe, analyse Nora | Pas de redispatch ou de rejeu d'effet en reprise cognitive ; distinguer déterministe et panne réelle. |
-| C13 : run long et STOP LIVE sans navigateur, superviseur in-process, confinement statique D8, provenance ; 72 unitaires et 17 PG ciblés rapportés | Ne pas réécrire les mécanismes D7 pour ce lot. Préserver les contrôles, ne pas prétendre reprise boot ou confinement concurrent déjà prouvés. |
-| C14 : neutralisation de déclencheurs lexicaux, outil sémantique de préparation, WEB LIVE raccordé, DRAFT et refus sans READY ; 31 tests unitaires rapportés | Étendre la conduite sémantique, le fournisseur public, l'activité et les contrats existants ; ne pas revenir à un détecteur, au fallback lexical ou à un nouveau moteur. |
-
-Références de preuves bornées : [C11](https://github.com/mcleland147/sfia-workspace/blob/f9dfcaaad90470e046d95a9d0a93115341a750d3/sfia-review-handoff/latest-chatgpt-review.md), [C12](https://github.com/mcleland147/sfia-workspace/blob/45311f75dad80e19f76ae09adfb1da387514531f/sfia-review-handoff/latest-chatgpt-review.md), [C13](https://github.com/mcleland147/sfia-workspace/blob/e3ed518b55ecda9430c862cda063052f94da8e7c/sfia-review-handoff/latest-chatgpt-review.md), [C14](https://github.com/mcleland147/sfia-workspace/blob/47a4bdbe2690c09023f130e0b8c1d8c9295d9480/sfia-review-handoff/latest-chatgpt-review.md). Présence post-C14 rapportée 2 IMPLEMENTED / 97 PARTIAL / 0 NOT_IMPL (E13, B09) : ni pourcentage d'avancement, ni couverture de conformité indépendante.
-
-## 4. Arbitrages de conception validés en contenu
-
-| Décision | Retenu | Alternatives écartées pour ce périmètre |
-|---|---|---|
-| Conduite — B | Un conducteur D3 adaptatif, un ou plusieurs segments techniques Agents SDK pour le même travail logique. | Run unique simplement agrandi ; orchestration multi-agents généralisée. |
-| Continuité — C | Persistance dédiée aux travaux cognitifs D3 dans la base PostgreSQL active ; identité distincte du tour, checkpoints versionnés. | Snapshot unique de préparation comme autorité ; stockage de toute la cognition dans les seules commandes de tour. |
-| Production — C | Mode de production adaptatif du même conducteur ; résultat métier intégral distinct de la réponse conversationnelle. | Appel unique obligatoire ; découpage systématique section par section. |
-
-Les décisions valident les **responsabilités et invariants**, non un nombre de tables, une queue distribuée, un modèle précis ou un API fournisseur non observé. Le choix physique minimal, le plan de migration et le cycle de vie serveur sont détaillés par Cursor au préflight ; STOP si un pivot, un nouvel environnement, une nouvelle frontière d'autorité ou une politique globale de coûts/sécurité doit être arbitrée. Aucun nom de classe/table illustratif n'est imposé. Convention de nommage validée : responsabilité durable, pas de nom permanent par cycle/chantier historique.
-
-## 5. Architecture logique : un seul conducteur D3
-
-```mermaid
-flowchart TD
-  P[Pilote / appel propriétaire] --> E[Entrée D3 : objectif et contexte autorisé]
-  E --> C[Conducteur cognitif adaptatif]
-  C <--> S[État du travail et checkpoints D3]
-  C <--> A[Agents SDK et outils autorisés]
-  A <--> R[D4 / historique / D5-D6 lecture / D8-D9 lecture / WEB public]
-  C --> K[Consolidation et suffisance]
-  K -->|travail utile restant| C
-  K -->|limite / incertitude| S
-  K -->|résultat| O[Réponse et/ou proposition métier intégrale]
-  O --> V[Validation et persistance par propriétaire]
-  V --> D[D6 autorité distincte si effet requis]
-  D --> T[D7 effet autorisé uniquement]
-```
-
-Schéma logique, pas une séquence métier obligatoire. Un traitement simple peut terminer dans le premier segment. Les fonctions de qualification, conduite, continuité, production et restitution sont des responsabilités internes du même D3, non des services autonomes. Le conducteur peut revenir aux sources durant la rédaction.
-
-### Interfaces et raccordement à l'existant
-
-Chemins relatifs à `web/src/domains/` sauf mention. Les noms actuels sont observés dans le snapshot, leur existence/état local sont à confirmer.
-
-- `conversation/nora-adapter.ts` et `cognitive-policy.ts` : adapter SDK, politique et budgets ; remplacer le profil fixe analyse/medium (snapshot L809–818) par allocation sémantique et ressources contrôlées. Préserver fournisseur, classification d'erreur et refus de retry aveugle après contact incertain.
-- `conversation/service.ts` (L20121–20272) : entrée principale, réserver/identifier le travail et transmettre le contexte propriétaire ; ne pas limiter la compréhension aux six extraits de 200 caractères et cinq titres ; ne pas masquer un échec de production dans un catch silencieux.
-- `conversation/intent-conduction.ts` (L13150+) : continuation sas→projet ; utiliser le même conducteur avec contexte et droits résolus, pas un chemin simplifié sans outils ; préserver corrélation, effet D2 et D4 existants.
-- Route `app/api/projects/[projectId]/realization/attempts/[attemptId]/qualification/route.ts` (snapshot L46833+) : avis Nora via même conducteur, contexte exact de tentative/qualification/rapport ; conserver avis consultatif et versionné. L'automatisation terminale relève du lot 2.
-- `conversation/semantic-qualification.ts` : conserver qualification structurée et frontières propriétaires ; dissocier contenu long de l'enveloppe conversationnelle. Pas de fallback lexical sur sortie invalide.
-- `conversation/investigation-state.ts`, `investigation-persistence.ts`, `tool-source-journal.ts` : compléter l'état, remplacer la persistance générique comme autorité, conserver observations versionnées ; voir §7.
-- `conversation/turn-command.ts` : identité de tour, fencing transactionnel, heartbeat et replay ; réutiliser les mécanismes adaptés sans confondre tour et travail. `activity-projection.ts` : conserver projection/polling et événements réels.
-- `document/service.ts` : création/révision, corrélation et provenance scellée ; D4 reste propriétaire du document. `knowledge/service.ts` : capitalisation sélective et sujets ; pas de mémoire projet concurrente.
-- `conversation/nora-contract-bridge.ts`, `execution/nora-contract-prepare.ts`, `technical-contract-server-ready.ts`, `technical-contract-fingerprint.ts`, `technical-contract.ts` : raccorder le résultat métier spécifique, supprimer assemblage générique substitutif et troncatures, qualifier DRAFT/READY lié au travail et à la version ; préserver structure canonique, D6 et D7.
-
-## 6. Allocation et conduite adaptatives
-
-Le serveur résout d'abord identité, scope, lane, outils réellement accessibles et politique de ressources. Nora qualifie sémantiquement intention, résultat, risques, profondeur et stratégie. La qualification initiale peut être intégrée au premier segment pour une demande simple ; aucun appel de classification obligatoire pour chaque message. La mobilisation effective du modèle/effort et la possibilité de reprendre/changer de paramètres dépendent du SDK installé : vérifier lockfile, API et signaux exposés, ne pas inventer de capacité. Un effort initial révisable n'est pas une règle métier fixe.
-
-Pour une continuation, Nora fournit une synthèse de travail exploitable : objectif, acquis référencés, questions, lacunes, contradictions, restrictions, résultat partiel, besoin et justification de moyens supplémentaires. Le serveur valide forme, périmètre, consommation et possibilité de continuer. La décision cognitive de poursuivre n'est pas une condition regex, nombre de caractères ou quota de critères. Rechercher la valeur informative marginale, éviter la répétition sans progrès ; si aucune continuation utile ou permise, terminer partiellement/suspendre. Une boucle technique déterministe peut garantir la sécurité et la gestion des ressources sans déterminer le sens de la demande.
-
-Distinguer : limite d'un segment, fenêtre de contexte ou limite de sortie fournisseur, validation structurelle, politique financière et de sécurité globale administrable. Le dépassement de segment ne clôt pas un travail ; la limite globale ne se réinitialise pas silencieusement entre générations. Mesurer appels, durée, tokens entrée/sortie/cache/raisonnement si exposés, coût estimé ou observé avec provenance, modèle/effort demandés et appliqués distincts ; indisponibilité explicite. Inclure appels WEB et lectures. Pas de nouveau plafond métier arbitraire ni augmentation aveugle. Tester calibration simple vs complexe avec mesure, pas un benchmark de tokens inventé.
-
-## 7. Continuité et persistance cognitive
-
-### 7.1 Contrats logiques
-
-Un travail possède une identité stable, son Pilote et scope préparation/projet, objectif, références de tours et générations, état consolidé, révision, checkpoints et résultat(s) liés. Un tour identifie une interaction/idempotence ; une génération identifie un appel fournisseur. Un travail peut se poursuivre sans nouveau tour, ou après intervention Pilote ; un nouveau sujet ne doit pas réutiliser l'état d'une autre investigation. Nora propose le rattachement sémantique ; le serveur vérifie propriété, scope et identité. Si ambiguïté déterminante, clarification ciblée. Pas de routage lexical. La continuité sas→projet respecte V-A, sans copie de fil ni changement de propriétaire implicite.
-
-Quatre vérités distinctes : D3 conversation ; D3 état cognitif (temporaire ou durable selon besoin) ; D4 connaissance durable du projet ; D6–D9 autorité, effets et preuves. L'état de travail n'est ni un journal de raisonnement privé ni une preuve ni une décision. Capitaliser D4 selon règles existantes, jamais convertir une hypothèse en fait ou une recommandation en décision.
-
-Checkpoint minimal : identité travail/tour/génération et propriétaire, révision et parent, objectif/résultat, état et cause de limite, questions déterminantes et réponses justifiées, sources effectivement lues (révision/plage/couverture), conclusions et hypothèses, contradictions, restrictions et références d'autorité, travail restant, production partielle/version, usage connu, références nécessaires à la reprise. Persisté à progrès significatif et aux frontières de segments/arrêt maîtrisé. Ne pas stocker des chaînes privées, prompts bruts indiscriminés, secrets ou des copies intégrales de sources privées inutiles ; appliquer DATA-01 et minimisation à tout checkpoint et diagnostic.
-
-### 7.2 Contrôle de concurrence et reprise
-
-Un seul écrivain applicable à un travail/révision ; lease/fence et compare-and-set transactionnel sur la version, transitions atomiques et corrélation de sortie. Réutiliser les principes de `turn-command.ts` (ownerToken, fencing, transaction, heartbeat), en distinguant les propriétaires travail/tour ; préciser ordre de verrouillage et ne pas garder une transaction ouverte pendant l'appel fournisseur. Les générations tardives ne peuvent ni écraser un checkpoint plus récent ni publier un objet après perte d'ownership. Relecture/replay idempotent, effet métier référencé par son identité canonique, pas de duplication.
-
-Un arrêt/restart, une fermeture/reconnexion, un dépassement de segment, une limite globale ou une interruption fournisseur restent distincts. Le produit reprend les travaux éligibles depuis le dernier checkpoint durable après revalidation de scope, droits, restrictions, sources et état réel du fournisseur. Le navigateur n'est pas l'autorité ni l'unique déclencheur de continuité interne ; démontrer reprise serveur. Si contact fournisseur incertain, réconcilier et signaler l'incertitude ; aucune relance aveugle ni rejeu d'effet. Si continuation légitime d'une étape read-only, nouvelle génération corrélée après qualification ; ne pas prétendre disposer d'une réponse perdue. Une demande suspendue pour limite globale/ambiguïté peut nécessiter intervention explicite du Pilote. Ne pas présenter un travail comme actif sans exécuteur observé.
-
-### 7.3 Persistance physique et transition
-
-La décision C autorise une persistance D3 dédiée dans PostgreSQL, pas une seconde base. Cursor identifie le schéma réel, migrations, contraintes et conventions, propose le minimum compatible avec les invariants ; utiliser identités/relations, révision et données structurées avec transactions. Définir plan de migration DEV et restauration avant modification, conservation des commandes, messages, connaissances, contrats et preuves ; pas de suppression de données ni de migration protégée. Les snapshots historiques `preparations.projection_json.ml5InvestigationSnapshot` peuvent être conservés comme traces/import contrôlé si l'identité et provenance sont établies. Si ambiguës, ne pas les rattacher automatiquement ni les utiliser pour READY : requalification. Bascule vers une unique vérité de travail D3, retrait de l'écriture concurrente de l'ancien snapshot ; compatibilité de lecture transitoire seulement avec exit explicite. Pas de double-write durable ni reprise de statut suffisant par défaut. Tester deux travaux dans même préparation, accès croisé refusé, redémarrage, concurrence, perte de lease et migration non destructive. R4-02 et DATA-01 applicables ; durées ou mécanismes nouveaux nécessitant arbitrage ne sont pas décidés ici.
-
-## 8. Contexte, sources, sécurité et activité
-
-**Contexte progressif :** demande et périmètre courant ; état consolidé ; connaissance D4/CKI/décisions pertinentes ; outils de lecture à la demande. Ne pas charger tout le projet par défaut. La présélection existante reste un amorçage, jamais une limite de compréhension. Nora approfondit, suit les renvois, qualifie ce qui reste inconnu. Compaction conserve références, désaccords, restrictions et questions ; ne pas perdre les éléments déterminants lors d'une réduction de contexte.
-
-**Sources :** réutiliser `d4-read-tools.ts`, `history-tools.ts`, `git-read-tools.ts`, lecture D8 et B1. Rendre lecture progressive réelle (sections/plages/pagination, version/commit/révision, contenu utile, complément). Ne pas confondre résultat de recherche, ouverture, extrait, couverture consultée, fait établi, source applicable et vérification. Absence de match lexical n'est pas absence démontrée. Le journal de sources doit conserver observations et révisions, distinguer couverture cumulée et état courant ; une révocation, nouvelle révision ou contradiction peut dégrader une source auparavant consultée. Réouvrir uniquement conclusions dépendantes. Un compteur global d'appels ne prouve pas une pièce. Supprimer le classement monotone qui masque les dégradations, sans inventer lecture ou fait.
-
-**WEB B1 (P0 avant sortie)** : garder le fournisseur raccordé C14. Public/fictif uniquement DEV tant que sécurité et confidentialité ne sont pas qualifiées. Construction des requêtes publiques séparée du contexte privé, contrôle au point d'egress ; ne pas transmettre texte privé, données projet, secrets, historique ou checkpoint au fournisseur public. Contrôle des destinations réellement contactées (HTTP(S), DNS/résolution et connexions, IP privées/locales/métadonnées, redirections contrôlées, accès indirects), délai sur lecture complète et limite effective du flux, pas de téléchargement intégral avant coupe, pagination/lecture utile et provenance. Référence issue de recherche ou URL explicitement autorisée et contrôlée. Sources externes non fiables = données, pas instructions ni autorité. Vérifier injections, accès et minimisation dans logs, événements, traces, diagnostics, prompt Cursor et toutes sorties concernées ; pas d'extension des droits de fournisseur. Confrontation sémantique des versions, dates, périmètres et contradictions ; indices lexicaux possibles comme aide de navigation, jamais comme décision cognitive. Si sécurité non démontrable, bloquer l'usage concerné et conserver résultat honnête.
-
-**Activité C1 :** conserver la projection et le polling existants. Événements corrélés Pilote/conversation/travail/tour/génération et version, ownership obligatoire pour writers applicatifs, ordre, accès, reconnexion ; annoncer vs observer vs terminer vs incertitude. Mettre à jour lors d'une dégradation/requalification source. Ne pas inventer un pourcentage, un progrès, un outil utilisé ou un raisonnement privé ; aucune journalisation brute d'informations sensibles. Un défaut du canal d'activité ne fabrique pas une vérité de travail. En cas de panne, restituer l'état réellement persistant.
-
-## 9. Production adaptative et propriétaire du résultat
-
-D3 produit une réponse conversationnelle et/ou une proposition d'objet métier à partir du même travail. Le format dépend du résultat demandé ; un seul appel si suffisant, plusieurs segments si nécessaire. Un document, contrat ou rapport volumineux ne doit pas transiter obligatoirement par `replyDraft` ou dépendre de la taille d'une sortie structurée unique. Si des parties sont produites séparément, identité et révision de la production, ordre, dépendances, complétude, consolidation et relecture globale ; aucune concaténation mécanique se substituant à la cohérence intellectuelle. Si une information manque durant rédaction, reprendre les sources. Ne pas fabriquer une deuxième vérité de document/contrat : état D3 en cours de travail, résultat canonique dans le domaine propriétaire.
-
-Préserver `NoraTurnQualificationSchema` et l'autorité des propriétaires ; adapter les interfaces de production structurée selon les contraintes réelles du SDK/Zod. Les bornes techniques de validation peuvent subsister sur un segment/objet d'enveloppe, mais ne doivent pas tronquer ni plafonner arbitrairement le résultat métier. Préserver la différence entre champ absent (non réévalué) et liste vide (réévaluée sans élément). Un échec de production est visible, partiel ou suspendu, jamais simple succès conversationnel masquant le défaut.
-
-D4 : sauvegarde/révision explicite selon contrat existant, provenance/corrélation/idempotence et versions ; une proposition D3 n'est pas un document enregistré. D5 : proposition de trajectoire, CKI et autorité inchangées. D6 : HumanDecision uniquement selon acte humain requis. D7 : contrat technique inspectable/versionné. D8 : dossier/qualification propriétaire, avis Nora consultatif. Les autres domaines restent des interfaces ; ne pas construire un nouveau moteur d'écriture.
-
-### 9.1 Contrat technique, intégralité et permissions
-
-Préparer un contrat sur demande sémantique positive, GO de préparation ou mandat correctif existant exact et borné (A03–A05). Une négation, une hypothèse ou une simple explication n'autorise ni production métier mutative ni dispatch. Un brouillon correctif peut être proposé dans un mandat existant réellement vérifié, jamais par marqueur textuel seul ; nouvelle portée, restrictions, échec répété → requalification. Aucun dispatch automatique. Préserver quatre engagements, six volets, instruction intégrale, risques/exclusions, critères spécifiques, preuves attendues, capacité/permissions/STOP/réversibilité, Git/MCP conditionnels. Le contenu est issu des acquis et du résultat utilisateur, non d'une phrase générique ou de la reprise tronquée du texte conversationnel. Supprimer plafonds arbitraires observés (24 000 caractères d'instruction, 8 critères dérivés, mission 800 chars comme limite de contenu) sans supprimer les protections de transport et de sécurité ; produire réellement plus long lorsque requis et vérifier intégralité. Un aperçu UX n'est jamais le corps transmis.
-
-D6/D7 conservent les interfaces propriétaire, mandat exact, point de dispatch et contrôle de permissions. Git option A : Cursor opère les mutations couvertes par son mandat, D9 lit indépendamment ; aucun publisher code Studio ; ML4 publication documentaire inchangée. Les opérations Git/MCP effectives restent conditionnelles à la mission et aux autorisations. Le conducteur ne peut pas contourner cette frontière.
-
-### 9.2 Suffisance positive et contrat READY
-
-DRAFT peut être inspectable avec limitations, questions ouvertes et état partiel explicites ; READY exige une qualification positive, pas l'absence de blocage renseigné. Revoir le chemin actuel qui peut refuser toute création DRAFT si insuffisant : permettre l'inspection honnête sans rendre exécutable. Pour READY : objectif/résultat compris, questions déterminantes résolues avec provenance utile, sources nécessaires/version/couverture établies, restrictions applicables vérifiées, contradictions matérielles traitées, contrat complet et critères spécifiques, droits/permissions pertinents. Une qualification absente, UNKNOWN/BUDGET_EXHAUSTED, état vide, mauvais travail, source critique manquante ou restriction inconnue ne devient pas READY. Pas de checklist lourde pour les conversations simples.
-
-Relier la suffisance à l'identité du travail et à sa révision/checkpoint, au contrat exact (id/version/fingerprint) et aux dépendances matérielles. Le serveur valide positivement cohérence, identité, version, droits et autorité ; un booléen client ou une auto-déclaration Nora ne suffit pas. Réévaluer les dépendances déterminantes à READY, à autorisation et au point d'effet ; pas de retour idempotent READY obsolète. Les lectures et transitions concurrentes doivent être protégées contre un snapshot périmé. Changement matériel → nouvelle qualification et mandat de la nouvelle version si requis. Garder trace de l'ancienne version/autorité sans la réutiliser. Vérifier l'identité exacte des octets UTF-8 de l'instruction inspectée/autorisée/transmise avec empreinte canonique, pas seulement le titre ou un compteur. D6 Oui/Non et D7 dispatch séparés ; Non sans effet. Une panne de vérification signifie non prêt, pas conformité supposée. La qualification cognitive ne vaut pas preuve de réalisation.
-
-## 10. Contrat d'acceptation du lot — références existantes, preuves discriminantes
-
-La matrice suivante **rattache** des scénarios à la couverture existante, elle ne remplace pas les CA/T/Q/PF ni les 99 lignes. Chaque preuve précise ref/worktree/build, scénario, mode, commandes/conditions et résultat/artefact, données fictives/publiques, limites et verdict. Utiliser fixtures uniquement pour propriétés déterministes ; démontrer les comportements cognitifs en DEV LIVE (pas simulateur), et les interactions utiles en BROWSER. Les seuils de reproduction d'un test (ex. >24k chars) éprouvent une limite historique, pas un plafond fonctionnel. Préserver les preuves antérieures tant que la frontière n'a pas changé ; rejouer selon impact.
-
-| Exigences existantes | Scénarios et oracles du lot 1 |
-|---|---|
-| A01–A02, A12, CA-01 | Demande simple utile, pas de délégation ou recherche artificielle ; demande complexe, paraphrases/négations, allocation réellement différenciée et évolution selon besoin ; usage réel et incertitude explicite. Limite de segment atteinte → continuation automatique du même travail si éligible, sans réinitialiser le budget global. |
-| A03–A05, D01–D02 | Préparation positive, hypothèse/négation/explication sans préparation indue ; brouillon correctif uniquement avec mandat vérifié ; changement de portée non couvert → requalification. |
-| A06–A10, B01–B05, CA-02/03 selon contrat | Plusieurs sources longues D4/Git/historique et rapport D8 selon scope, questions apparues tardivement, renvois, lecture utile et plages, contradiction et nouvelle version/révocation ; pas de lecture inventée, état de couverture exact, conclusions révisées. |
-| A11–A12, C05–C08 | Deux travaux distincts dans une préparation ; même travail sur plusieurs segments/tours ; interruption, fermeture/reconnexion et redémarrage effectif serveur ; perte d'ownership/concurrence, ancienne génération refusée ; reprise sans perte d'acquis ni effet rejoué ; budget global épuisé → suspension explicite. |
-| B06–B09 | WEB public LIVE au sein du travail Nora avec recherche et lecture effective ; injection, URL/destination interdite, DNS/redirect, timeout/flux bornés, données privées fictives interdites au point de sortie, aucun secret dans les traces ; pas de validation sur simple appel direct B1. |
-| C01–C08 | Événements réels observés pendant travail, nature et source versionnée, dégradation, ordre, reconnect et isolation deux Pilotes ; aucune progression fictive ni trace privée ; réponse simple sans suractivité. |
-| D01–D08, CA-04 | Document D4 simple et long ; contrat spécifique >24 000 caractères lorsque scénario le justifie et >8 critères utiles, tous présents ; exactitude inspecté/autorisé/transmis, échec de production visible, reprise et version sans doublon ; DRAFT partiel inspectable, état vide/épuisé/mauvais travail/source critique/révocation/contradiction → READY refusé ; requalification d'un READY matériellement changé. |
-| D09–D12, E/G/F selon impact | Préserver Oui/Non (Non sans effet), autorité, refus, isolation et interfaces de dispatch/qualification ; Git A et pas de publication non autorisée ; avis Nora sur dossier exact sans prétendre chaîne terminale autonome. |
-| H/I, CA/T/Q/PF applicables | Parcours fonctionnels sas/projet/document/contrat/bilan, accès lecture intégrale, retour conversationnel, usage DEV isolé, tests PG/API concurrence et migration, TypeScript/ESLint/build, suite propriétaire et ML1–ML4 selon blast radius. Pas de revendication F2 ni R6 globale. |
-
-Vérifier les sous-critères et IDs CA/T/Q/PF exacts avec le contrat canonique avant exécution ; les regroupements ci-dessus ne modifient aucun oracle. Inclure le cas de production tardivement contradictoire, permissions retirées avant effet, impossibilité de lire et sécurité de l'auto-session DEV (écoute restreinte effective, auth normale ailleurs). Les tests LIVE en DEV exigent configuration réellement isolée et autorisations techniques explicites en vigueur ; aucune mutation GitHub REAL, MCP mutatif, données privées WEB, dispatch sur dépôt réel ou coût hors mandat induits. Si précondition absente, preuve NOT RUN/BLOCKED honnête et STOP sur effet concerné. Le test ne doit pas injecter manuellement un résultat pour masquer une étape produit manquante.
-
-## 11. Blast radius, dette et conditions de sortie
-
-| Surface | Risque / garde-fou / exit |
-|---|---|
-| D3 / SDK / API | Multiplication de runs et coûts, modèle non vérifié, attente HTTP, incompatibilité SDK/Zod ; contrôler consommation globale, lifecycle serveur, sortie stable, mesure et test simple/complexe. Vérifier la divergence de type toolAllowlist observée et compiler. |
-| D3 / PostgreSQL | Collision, données perdues, snapshots anciens, migration ; version/fencing, sauvegarde/restauration DEV, migration non destructive, tests PG concurrence et reprise. Retirer ancienne autorité, exit de toute compatibilité transitoire. |
-| D4/D5 | Contexte tronqué, doublons, mauvais projet, dérive capitalisation/CKI ; garder droits/provenance/corrélation propriétaires et régression. |
-| D6/D7 | READY faux, ancienne autorisation, contrat incohérent, effet non permis ; bloquer par défaut si preuve/identité/permission manque, requalifier et vérifier au dispatch ; ne pas élargir permissions. |
-| WEB / D8 / D9 / logs | Exfiltration, source hostile, lecture hors scope ; contrôle au point de sortie, confinement et minimisation, droits et actualité vérifiés ; pas de nouvel usage exposé avant preuve P0. |
-| UX | Fausses activités ou faux succès, perte de lecture intégrale ; conserver parcours actuels, état honnête et relecture BROWSER. F2 non acquis, reste à sa recette. |
-| Docs / Git | Sources candidates divergentes, 97 DIRTY et réserves historiques ; réconciliation ciblée sans écraser, pas de rebase/merge/push projet. As-built, architecture et registre mis à jour dans la même livraison selon faits et preuves. |
-
-Exit du lot : résultat Pilote §2 effectivement éprouvé en DEV LIVE et interfaces BROWSER utiles, sécurité P0 du périmètre, aucune régression bloquante, preuves et réserves renseignées par exigence dans le registre unique, intégrité code/docs, limitation et dette résiduelle avec propriétaire et exit. **Les preuves non disponibles demeurent PARTIAL/NOT RUN/BLOCKED ; pas de promotion de statut par présence de fichiers.** Ne pas prétendre clôture ML5 ou acceptation de l'utilisateur. Le lot 2 consomme le conducteur versionné et la production/qualification fiables ; les preuves et le contrat de sortie restent réutilisables.
-
-## 12. Préparation du prochain mandat Cursor
-
-Morris a donné le GO de principe de construction de ce lot, distinct du mandat technique instancié. Avant changement, Cursor vérifie et restitue repo, branche, HEAD/base, statut local réel, staged/unstaged/untracked, provenance des modifications C1–C14, worktree, lane/DB, lockfile et dépendances SDK, état des migrations et des sources. Si divergence, ne pas reset, stash imposé, checkout destructif, cherry-pick automatique ou nettoyage arbitraire ; STOP pour arbitrage si identité/portée non sûre. Les fichiers de snapshot non couverts (notamment boot, lockfile, UI projet/contrat) sont à lire selon impact. Examiner les protections d'autorité existantes avant modifications.
-
-Le mandat doit être produit depuis le routing guide et le template Git SFIA v2.6 applicables ; aucun template parallèle. Regrouper conception détaillée restante, code, migrations DEV bornées, tests, preuves et synchronisation documentaire de la capacité ; dimensionner selon risques réels, pas de nombre de cycles imposé. Un profil Critical est à justifier par persistance, autorité READY et sécurité egress ; routing final selon guide. Préflight et intégration/validation sont des gates à l'intérieur d'un travail cohérent, pas des microcycles documentaires. STOP si choix physique incompatible avec R4, migration destructive, droits non bornés, conflit de version, nouvelle politique propriétaire ou risque P0 non maîtrisé.
-
-Review Pack complet mono-cycle, contenu créé intégral, modifications par sections/diff, tests et limites, reset du pack temporaire ; Review Handoff L3 selon SFIA v2.6 sur branche et chemin dédiés, SHA et relecture distante, distinct de toute publication du code projet. Synchroniser le registre, l'architecture et la documentation réellement affectés ; ne pas effacer les constats historiques. Aucun GO de PR/merge ou promotion, aucun ADOPTED automatique.
-
-**Verdict de conception : ML5 LOT 1 — DESIGN ORIENTATIONS VALIDATED IN CONTENT / DOCUMENTED CANDIDATE / IMPLEMENTATION AND BEHAVIOR PROOF PENDING.** Les travaux C1–C14 sont la base à compléter. Le résultat de construction et la suite restent soumis à revue et décision Morris.
-
-
-## As-built C15 (implémentation locale — 2026-11-24)
-
-| Élément | Fait |
-|---|---|
-| Persistance | Tables `cognitive_works` + `cognitive_work_checkpoints` (mig 020) — vérité D3 active |
-| Conducteur | `cognitive-conductor.ts` multi-segments + enveloppe globale |
-| READY | Suffisance positive (intention, résultat, sources CONSULTED/VERIFIED, questions déterminantes) |
-| Journal sources | Couverture non monotone (dégradation autorisée) |
-| Contrat | Suppression plafonds 24k / 8 critères dans `draftBodyFromInvestigation` |
-| WEB P0 | `web-egress-guard.ts` DNS + lecture bornée par flux |
-| Legacy snapshot | Lecture compat uniquement ; écriture miroir seulement si `SFIA_COGNITIVE_LEGACY_MIRROR=1` |
-| Preuves | units C15 + PG CAS/deux travaux ; LIVE complet lot 1 PARTIAL |
-```
-
-
-## 6. Fichiers modifiés — contenu courant intégral (interfaces C15)
-
-### FILE `projects/sfia-studio-next/web/src/db/schema.ts`
-
-- bytes (reproduit): 44289
-- sha256 fichier disque: `0edbef70063c531e39cbd9fef745c1feb91da3f01022fefcaf46642c02bc6215`
-
-```typescript
-import { sql } from "drizzle-orm";
-import {
-  pgTable,
-  text,
-  timestamp,
-  integer,
-  uniqueIndex,
-  index,
-  boolean,
-  jsonb,
-} from "drizzle-orm/pg-core";
-
-/** D1 — Studio pilot identity (internal stable id). */
-export const pilots = pgTable(
-  "pilots",
-  {
-    id: text("id").primaryKey(),
-    githubUserId: text("github_user_id"),
-    displayName: text("display_name").notNull(),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [uniqueIndex("pilots_github_user_id_uidx").on(t.githubUserId)],
-);
-
-/** Better Auth core tables (minimal subset used with drizzle adapter). */
-export const users = pgTable("users", {
-  id: text("id").primaryKey(),
-  name: text("name").notNull(),
-  email: text("email").notNull().unique(),
-  emailVerified: boolean("email_verified").notNull().default(false),
-  image: text("image"),
-  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  pilotId: text("pilot_id").references(() => pilots.id),
-});
-
-export const sessions = pgTable(
-  "sessions",
-  {
-    id: text("id").primaryKey(),
-    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
-    token: text("token").notNull().unique(),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-    ipAddress: text("ip_address"),
-    userAgent: text("user_agent"),
-    userId: text("user_id")
-      .notNull()
-      .references(() => users.id),
-    revokedAt: timestamp("revoked_at", { withTimezone: true }),
-    authMode: text("auth_mode").notNull().default("unknown"),
-  },
-  (t) => [index("sessions_user_id_idx").on(t.userId)],
-);
-
-export const accounts = pgTable("accounts", {
-  id: text("id").primaryKey(),
-  accountId: text("account_id").notNull(),
-  providerId: text("provider_id").notNull(),
-  userId: text("user_id")
-    .notNull()
-    .references(() => users.id),
-  accessToken: text("access_token"),
-  refreshToken: text("refresh_token"),
-  idToken: text("id_token"),
-  accessTokenExpiresAt: timestamp("access_token_expires_at", { withTimezone: true }),
-  refreshTokenExpiresAt: timestamp("refresh_token_expires_at", { withTimezone: true }),
-  scope: text("scope"),
-  password: text("password"),
-  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-});
-
-export const verifications = pgTable("verifications", {
-  id: text("id").primaryKey(),
-  identifier: text("identifier").notNull(),
-  value: text("value").notNull(),
-  expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-});
-
-/** D2 — durable preparation without project. */
-export const preparations = pgTable(
-  "preparations",
-  {
-    id: text("id").primaryKey(),
-    ownerPilotId: text("owner_pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    status: text("status").notNull().default("OPEN"), // OPEN | ATTACHED
-    creationRevision: integer("creation_revision").notNull().default(1),
-    previewName: text("preview_name").notNull().default(""),
-    previewSummary: text("preview_summary").notNull().default(""),
-    /** D2 PreparationProjection v1 JSON snapshot — additive; null = legacy/partial. */
-    projectionJson: jsonb("projection_json").$type<Record<string, unknown> | null>(),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [index("preparations_owner_idx").on(t.ownerPilotId)],
-);
-
-export const projects = pgTable(
-  "projects",
-  {
-    id: text("id").primaryKey(),
-    ownerPilotId: text("owner_pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    name: text("name").notNull(),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [index("projects_owner_idx").on(t.ownerPilotId)],
-);
-
-export const preparationProjectLinks = pgTable(
-  "preparation_project_links",
-  {
-    preparationId: text("preparation_id")
-      .primaryKey()
-      .references(() => preparations.id),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    attachedAt: timestamp("attached_at", { withTimezone: true }).notNull().defaultNow(),
-    /** P0-04 — true only for creates after Ensemble 07 qualification capability. Legacy = false. */
-    initialQualificationExpected: boolean("initial_qualification_expected").notNull().default(false),
-  },
-);
-
-export const createProjectCommands = pgTable(
-  "create_project_commands",
-  {
-    id: text("id").primaryKey(),
-    pilotId: text("pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    idempotencyKey: text("idempotency_key").notNull(),
-    fingerprint: text("fingerprint").notNull(),
-    preparationId: text("preparation_id")
-      .notNull()
-      .references(() => preparations.id),
-    projectId: text("project_id").references(() => projects.id),
-    result: text("result").notNull(), // CREATED | ALREADY_CREATED | CONFLICT | ...
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("create_project_commands_pilot_key_uidx").on(t.pilotId, t.idempotencyKey),
-  ],
-);
-
-/** D3 — conversation / messages. */
-export const conversations = pgTable(
-  "conversations",
-  {
-    id: text("id").primaryKey(),
-    preparationId: text("preparation_id")
-      .notNull()
-      .references(() => preparations.id),
-    projectId: text("project_id").references(() => projects.id),
-    ownerPilotId: text("owner_pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [index("conversations_prep_idx").on(t.preparationId)],
-);
-
-export const messages = pgTable(
-  "messages",
-  {
-    id: text("id").primaryKey(),
-    conversationId: text("conversation_id")
-      .notNull()
-      .references(() => conversations.id),
-    role: text("role").notNull(), // user | assistant | system
-    content: text("content").notNull(),
-    status: text("status").notNull(), // COMPLETE | FAILED | INTERRUPTED | UNKNOWN | PENDING
-    generationId: text("generation_id"),
-    ordinal: integer("ordinal").notNull(),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    index("messages_conversation_idx").on(t.conversationId),
-    uniqueIndex("messages_conversation_ordinal_uidx").on(t.conversationId, t.ordinal),
-  ],
-);
-
-/**
- * D3 — durable turn command for full-turn idempotence.
- * Uniqueness: (conversation_id, client_turn_key). Short lock only around reservation.
- */
-export const conversationTurnCommands = pgTable(
-  "conversation_turn_commands",
-  {
-    id: text("id").primaryKey(),
-    conversationId: text("conversation_id")
-      .notNull()
-      .references(() => conversations.id),
-    ownerPilotId: text("owner_pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    clientTurnKey: text("client_turn_key").notNull(),
-    requestFingerprint: text("request_fingerprint").notNull(),
-    operationId: text("operation_id").notNull(),
-    status: text("status").notNull(),
-    ordinalUser: integer("ordinal_user"),
-    ordinalAssistant: integer("ordinal_assistant"),
-    userMessageId: text("user_message_id"),
-    assistantMessageId: text("assistant_message_id"),
-    generationId: text("generation_id"),
-    resultJson: text("result_json"),
-    errorCategory: text("error_category"),
-    /** Ownership fence — invalidated on reconcile; required for terminal CAS / D4 gates. */
-    ownerToken: text("owner_token"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("conversation_turn_commands_conv_key_uidx").on(t.conversationId, t.clientTurnKey),
-    uniqueIndex("conversation_turn_commands_operation_uidx").on(t.operationId),
-    index("conversation_turn_commands_conv_status_idx").on(t.conversationId, t.status),
-  ],
-);
-
-/** D4 — documents / revisions. */
-export const documents = pgTable(
-  "documents",
-  {
-    id: text("id").primaryKey(),
-    preparationId: text("preparation_id")
-      .notNull()
-      .references(() => preparations.id),
-    projectId: text("project_id").references(() => projects.id),
-    ownerPilotId: text("owner_pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    title: text("title").notNull(),
-    creationCorrelationKey: text("creation_correlation_key"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [index("documents_prep_idx").on(t.preparationId)],
-);
-
-export const documentRevisions = pgTable(
-  "document_revisions",
-  {
-    id: text("id").primaryKey(),
-    documentId: text("document_id")
-      .notNull()
-      .references(() => documents.id),
-    revisionNumber: integer("revision_number").notNull(),
-    contentMarkdown: text("content_markdown").notNull(),
-    status: text("status").notNull(), // SAVING | AVAILABLE | FAILED | UNKNOWN
-    baseRevisionId: text("base_revision_id"),
-    correlationKey: text("correlation_key"),
-    provenanceJson: text("provenance_json").notNull().default("{}"),
-    scope: text("scope").notNull().default("document"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("document_revisions_doc_rev_uidx").on(t.documentId, t.revisionNumber),
-  ],
-);
-
-/** D4 — knowledge subjects / acquis / open points (ML2). */
-export const knowledgeSubjects = pgTable(
-  "knowledge_subjects",
-  {
-    id: text("id").primaryKey(),
-    preparationId: text("preparation_id")
-      .notNull()
-      .references(() => preparations.id),
-    projectId: text("project_id").references(() => projects.id),
-    ownerPilotId: text("owner_pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    parentSubjectId: text("parent_subject_id"),
-    title: text("title").notNull(),
-    status: text("status").notNull().default("ACTIVE"),
-    originatedFromSubjectId: text("originated_from_subject_id"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [index("knowledge_subjects_prep_idx").on(t.preparationId)],
-);
-
-export const knowledgeAcquis = pgTable(
-  "knowledge_acquis",
-  {
-    id: text("id").primaryKey(),
-    preparationId: text("preparation_id")
-      .notNull()
-      .references(() => preparations.id),
-    projectId: text("project_id").references(() => projects.id),
-    ownerPilotId: text("owner_pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    subjectId: text("subject_id").references(() => knowledgeSubjects.id),
-    kind: text("kind").notNull().default("FACT"),
-    statement: text("statement").notNull(),
-    provenanceJson: text("provenance_json").notNull().default("{}"),
-    status: text("status").notNull().default("CURRENT"),
-    supersedesAcquisId: text("supersedes_acquis_id"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [index("knowledge_acquis_prep_idx").on(t.preparationId)],
-);
-
-export const knowledgeOpenPoints = pgTable(
-  "knowledge_open_points",
-  {
-    id: text("id").primaryKey(),
-    preparationId: text("preparation_id")
-      .notNull()
-      .references(() => preparations.id),
-    projectId: text("project_id").references(() => projects.id),
-    ownerPilotId: text("owner_pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    subjectId: text("subject_id").references(() => knowledgeSubjects.id),
-    statement: text("statement").notNull(),
-    status: text("status").notNull().default("OPEN"),
-    provenanceJson: text("provenance_json").notNull().default("{}"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [index("knowledge_open_points_prep_idx").on(t.preparationId)],
-);
-
-export const knowledgeSubjectEvents = pgTable(
-  "knowledge_subject_events",
-  {
-    id: text("id").primaryKey(),
-    preparationId: text("preparation_id")
-      .notNull()
-      .references(() => preparations.id),
-    ownerPilotId: text("owner_pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    subjectId: text("subject_id")
-      .notNull()
-      .references(() => knowledgeSubjects.id),
-    eventType: text("event_type").notNull(),
-    payloadJson: text("payload_json").notNull().default("{}"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [index("knowledge_subject_events_subject_idx").on(t.subjectId)],
-);
-
-/** D4 — immutable subject synthesis revisions (Journal §16A). */
-export const knowledgeSubjectSummaryRevisions = pgTable(
-  "knowledge_subject_summary_revisions",
-  {
-    id: text("id").primaryKey(),
-    subjectId: text("subject_id")
-      .notNull()
-      .references(() => knowledgeSubjects.id),
-    preparationId: text("preparation_id")
-      .notNull()
-      .references(() => preparations.id),
-    projectId: text("project_id").references(() => projects.id),
-    ownerPilotId: text("owner_pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    revisionNumber: integer("revision_number").notNull(),
-    summaryMarkdown: text("summary_markdown").notNull(),
-    provenanceJson: text("provenance_json").notNull().default("{}"),
-    operationId: text("operation_id"),
-    idempotencyKey: text("idempotency_key"),
-    expectedRevision: integer("expected_revision"),
-    sourceFingerprint: text("source_fingerprint"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("knowledge_subject_summary_revisions_subj_rev_uidx").on(
-      t.subjectId,
-      t.revisionNumber,
-    ),
-    index("knowledge_subject_summary_revisions_subj_idx").on(t.subjectId),
-  ],
-);
-
-/** D4 — open-point factual lifecycle events. */
-export const knowledgeOpenPointEvents = pgTable(
-  "knowledge_open_point_events",
-  {
-    id: text("id").primaryKey(),
-    openPointId: text("open_point_id")
-      .notNull()
-      .references(() => knowledgeOpenPoints.id),
-    preparationId: text("preparation_id")
-      .notNull()
-      .references(() => preparations.id),
-    projectId: text("project_id").references(() => projects.id),
-    ownerPilotId: text("owner_pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    eventType: text("event_type").notNull(),
-    reason: text("reason").notNull().default(""),
-    actorKind: text("actor_kind").notNull().default("system"),
-    provenanceJson: text("provenance_json").notNull().default("{}"),
-    operationId: text("operation_id"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [index("knowledge_open_point_events_point_idx").on(t.openPointId)],
-);
-
-/** D6 — human decisions (authority). Revisions never delete the prior act. */
-export const humanDecisions = pgTable(
-  "human_decisions",
-  {
-    id: text("id").primaryKey(),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    pilotId: text("pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    sourceKind: text("source_kind").notNull(),
-    sourceRef: text("source_ref").notNull(),
-    kind: text("kind").notNull(),
-    objectRef: text("object_ref").notNull().default(""),
-    scope: text("scope").notNull().default("PROJECT"),
-    statement: text("statement").notNull().default(""),
-    state: text("state").notNull(), // APPLICABLE | REVISED | REVOKED | SUPERSEDED
-    effectConditions: text("effect_conditions"),
-    supersedesDecisionId: text("supersedes_decision_id"),
-    revokesDecisionId: text("revokes_decision_id"),
-    liftsRestrictionId: text("lifts_restriction_id"),
-    effectiveAt: timestamp("effective_at", { withTimezone: true }).notNull().defaultNow(),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [index("human_decisions_project_idx").on(t.projectId)],
-);
-
-/** D4 — immutable decision explanation revisions (narrative only; after human_decisions). */
-export const knowledgeDecisionExplanationRevisions = pgTable(
-  "knowledge_decision_explanation_revisions",
-  {
-    id: text("id").primaryKey(),
-    decisionId: text("decision_id")
-      .notNull()
-      .references(() => humanDecisions.id),
-    preparationId: text("preparation_id").references(() => preparations.id),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    ownerPilotId: text("owner_pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    revisionNumber: integer("revision_number").notNull(),
-    officialDecisionFingerprint: text("official_decision_fingerprint").notNull(),
-    explanationMarkdown: text("explanation_markdown").notNull(),
-    provenanceJson: text("provenance_json").notNull().default("{}"),
-    operationId: text("operation_id"),
-    idempotencyKey: text("idempotency_key"),
-    expectedRevision: integer("expected_revision"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("knowledge_decision_explanation_revisions_dec_rev_uidx").on(
-      t.decisionId,
-      t.revisionNumber,
-    ),
-    index("knowledge_decision_explanation_revisions_dec_idx").on(t.decisionId),
-  ],
-);
-
-/** D5 — trajectory revisions. PROPOSED is not authority; RETAINED points at a D6 act. */
-export const trajectoryRevisions = pgTable(
-  "trajectory_revisions",
-  {
-    id: text("id").primaryKey(),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    revisionNumber: integer("revision_number").notNull(),
-    status: text("status").notNull(), // PROPOSED | RETAINED | SUPERSEDED
-    orientation: text("orientation").notNull(),
-    sourceKind: text("source_kind").notNull(),
-    sourceRef: text("source_ref").notNull().default(""),
-    decisionId: text("decision_id").references(() => humanDecisions.id),
-    /** Structured sequential cycle forecast (Ensemble 07). */
-    forecastJson: jsonb("forecast_json"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("trajectory_revisions_project_rev_uidx").on(t.projectId, t.revisionNumber),
-    index("trajectory_revisions_project_idx").on(t.projectId),
-  ],
-);
-
-/** D5/D3 — one durable initial trajectory qualification per project (Ensemble 07). */
-export const trajectoryQualificationOperations = pgTable(
-  "trajectory_qualification_operations",
-  {
-    id: text("id").primaryKey(),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    preparationId: text("preparation_id")
-      .notNull()
-      .references(() => preparations.id),
-    pilotId: text("pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    status: text("status").notNull(),
-    phase: text("phase").notNull(),
-    version: integer("version").notNull().default(1),
-    inputFingerprint: text("input_fingerprint").notNull().default(""),
-    trajectoryRevisionId: text("trajectory_revision_id").references(() => trajectoryRevisions.id),
-    assistantMessageId: text("assistant_message_id"),
-    resultJson: jsonb("result_json"),
-    errorCode: text("error_code"),
-    ownerToken: text("owner_token"),
-    claimedAt: timestamp("claimed_at", { withTimezone: true }),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("trajectory_qualification_operations_project_uidx").on(t.projectId),
-    index("trajectory_qualification_operations_preparation_idx").on(t.preparationId),
-    index("trajectory_qualification_operations_status_idx").on(t.status),
-  ],
-);
-
-/** D5 — lockable project revision. Missing row means revision 0 (no cycle created with the project). */
-export const projectPilotageState = pgTable("project_pilotage_state", {
-  projectId: text("project_id")
-    .primaryKey()
-    .references(() => projects.id),
-  revision: integer("revision").notNull().default(0),
-  currentTrajectoryRevisionId: text("current_trajectory_revision_id").references(
-    () => trajectoryRevisions.id,
-  ),
-  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-});
-
-/** D5 — cycles. At most one ACTIVE per project (partial unique index). */
-export const projectCycles = pgTable(
-  "project_cycles",
-  {
-    id: text("id").primaryKey(),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    cycleType: text("cycle_type").notNull(),
-    objective: text("objective").notNull(),
-    status: text("status").notNull(), // ACTIVE | CLOSED
-    revision: integer("revision").notNull().default(1),
-    openedAt: timestamp("opened_at", { withTimezone: true }).notNull().defaultNow(),
-    closedAt: timestamp("closed_at", { withTimezone: true }),
-    openDecisionId: text("open_decision_id").references(() => humanDecisions.id),
-    closeDecisionId: text("close_decision_id").references(() => humanDecisions.id),
-    ckiId: text("cki_id"),
-    ckiPinnedVersion: text("cki_pinned_version"),
-    ckiContentDigest: text("cki_content_digest"),
-    ckiManifestRef: text("cki_manifest_ref"),
-    ckiPinOrigin: text("cki_pin_origin"),
-    balanceNote: text("balance_note"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("project_cycles_one_active_uidx").on(t.projectId).where(sql`status = 'ACTIVE'`),
-    index("project_cycles_project_idx").on(t.projectId),
-  ],
-);
-
-/** D5 — method applications. One current row per (project, scope). */
-export const methodApplications = pgTable(
-  "method_applications",
-  {
-    id: text("id").primaryKey(),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    methodRef: text("method_ref").notNull(),
-    methodVersion: text("method_version").notNull(),
-    scope: text("scope").notNull().default("PROJECT"),
-    decisionId: text("decision_id")
-      .notNull()
-      .references(() => humanDecisions.id),
-    effectiveFrom: timestamp("effective_from", { withTimezone: true }).notNull().defaultNow(),
-    effectiveUntil: timestamp("effective_until", { withTimezone: true }),
-    closeReason: text("close_reason"),
-    isCurrent: boolean("is_current").notNull().default(true),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("method_applications_current_uidx")
-      .on(t.projectId, t.scope)
-      .where(sql`is_current = true`),
-    index("method_applications_project_idx").on(t.projectId),
-  ],
-);
-
-/** D6 — restrictions. Lifting is a distinct act; rows are not deleted. */
-export const governanceRestrictions = pgTable(
-  "governance_restrictions",
-  {
-    id: text("id").primaryKey(),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    targetKind: text("target_kind").notNull(),
-    targetRef: text("target_ref").notNull().default("*"),
-    effect: text("effect").notNull().default("BLOCK"),
-    originDecisionId: text("origin_decision_id")
-      .notNull()
-      .references(() => humanDecisions.id),
-    liftDecisionId: text("lift_decision_id").references(() => humanDecisions.id),
-    status: text("status").notNull(), // ACTIVE | LIFTED
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    liftedAt: timestamp("lifted_at", { withTimezone: true }),
-  },
-  (t) => [index("governance_restrictions_project_idx").on(t.projectId, t.status)],
-);
-
-/**
- * D5/D6 — business command.
- * Client key and human intent are unique. No PARTIAL status: internal CLOSE+OPEN share one commit.
- */
-export const businessCommands = pgTable(
-  "business_commands",
-  {
-    id: text("id").primaryKey(),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    actorPilotId: text("actor_pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    clientCommandKey: text("client_command_key").notNull(),
-    fingerprint: text("fingerprint").notNull(),
-    sourceKind: text("source_kind").notNull(),
-    sourceRef: text("source_ref").notNull(),
-    sourceActionKey: text("source_action_key").notNull(),
-    operation: text("operation").notNull(),
-    expectedRevision: integer("expected_revision").notNull(),
-    stateRevision: integer("state_revision"),
-    status: text("status").notNull(), // APPLIED | REJECTED
-    resultJson: text("result_json").notNull().default("{}"),
-    decisionId: text("decision_id").references(() => humanDecisions.id),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("business_commands_client_key_uidx").on(
-      t.projectId,
-      t.actorPilotId,
-      t.clientCommandKey,
-    ),
-    uniqueIndex("business_commands_human_intent_uidx").on(
-      t.projectId,
-      t.sourceKind,
-      t.sourceRef,
-      t.sourceActionKey,
-    ),
-    index("business_commands_project_idx").on(t.projectId),
-  ],
-);
-
-/** Observable effects of one committed command. A transition stores CLOSE and OPEN together. */
-export const businessCommandEffects = pgTable(
-  "business_command_effects",
-  {
-    id: text("id").primaryKey(),
-    commandId: text("command_id")
-      .notNull()
-      .references(() => businessCommands.id),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    effectKind: text("effect_kind").notNull(),
-    targetRef: text("target_ref").notNull(),
-    outcome: text("outcome").notNull(),
-    ordinal: integer("ordinal").notNull(),
-    detailJson: text("detail_json").notNull().default("{}"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("business_command_effects_command_ordinal_uidx").on(t.commandId, t.ordinal),
-    index("business_command_effects_command_idx").on(t.commandId),
-  ],
-);
-
-/** D9 — GitHub App / integration authorization (pilot-scoped; not a D6 mandate). */
-export const integrationAuthorizations = pgTable(
-  "integration_authorizations",
-  {
-    id: text("id").primaryKey(),
-    pilotId: text("pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    provider: text("provider").notNull().default("github"),
-    status: text("status").notNull(), // CONNECTED | PENDING_APPROVAL | ACCESS_REMOVED | REVOKED | DISCONNECTED | EXPIRED | REQUIRES_REAUTH
-    installationId: text("installation_id"),
-    accountLogin: text("account_login"),
-    /** Stable GitHub user id (not mutable login). */
-    githubUserId: text("github_user_id"),
-    /** AES-GCM ciphertext of user access token — never plaintext. */
-    tokenCiphertext: text("token_ciphertext"),
-    tokenNonce: text("token_nonce"),
-    tokenKeyVersion: text("token_key_version"),
-    refreshCiphertext: text("refresh_ciphertext"),
-    refreshNonce: text("refresh_nonce"),
-    tokenExpiresAt: timestamp("token_expires_at", { withTimezone: true }),
-    /** Short-lived lease for a single in-flight refresh of this authorization generation. */
-    refreshLeaseToken: text("refresh_lease_token"),
-    refreshLeaseExpiresAt: timestamp("refresh_lease_expires_at", { withTimezone: true }),
-    scopesJson: text("scopes_json").notNull().default("[]"),
-    lastValidatedAt: timestamp("last_validated_at", { withTimezone: true }),
-    metadataJson: text("metadata_json").notNull().default("{}"),
-    connectedAt: timestamp("connected_at", { withTimezone: true }),
-    revokedAt: timestamp("revoked_at", { withTimezone: true }),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    index("integration_authorizations_pilot_idx").on(t.pilotId),
-    index("integration_authorizations_pilot_status_idx").on(t.pilotId, t.status),
-    index("integration_authorizations_github_user_idx").on(t.githubUserId),
-    // C2: at most one CONNECTED per Pilot × provider (cross-process).
-    uniqueIndex("integration_authorizations_one_connected_uidx")
-      .on(t.pilotId, t.provider)
-      .where(sql`status = 'CONNECTED'`),
-  ],
-);
-
-/** D9 — OAuth/state for GitHub App user-to-server connect (CSRF + PKCE). */
-export const integrationOauthStates = pgTable(
-  "integration_oauth_states",
-  {
-    id: text("id").primaryKey(),
-    pilotId: text("pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    stateToken: text("state_token").notNull(),
-    returnPath: text("return_path").notNull().default("/settings/integrations"),
-    codeVerifier: text("code_verifier"),
-    nonce: text("nonce"),
-    codeChallengeMethod: text("code_challenge_method"),
-    /** Better Auth / DEV adapter session id — binds state to effective Studio session. */
-    studioSessionId: text("studio_session_id"),
-    /** Server-chosen flow at start: scripted | github_app_user_oauth — never client-chosen. */
-    flow: text("flow"),
-    consumedAt: timestamp("consumed_at", { withTimezone: true }),
-    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("integration_oauth_states_token_uidx").on(t.stateToken),
-    index("integration_oauth_states_session_idx").on(t.studioSessionId),
-  ],
-);
-
-/** D9 — repos authorized for the installation (server-truth snapshot). */
-export const authorizedRepositories = pgTable(
-  "authorized_repositories",
-  {
-    id: text("id").primaryKey(),
-    pilotId: text("pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    authorizationId: text("authorization_id")
-      .notNull()
-      .references(() => integrationAuthorizations.id),
-    owner: text("owner").notNull(),
-    name: text("name").notNull(),
-    fullName: text("full_name").notNull(),
-    defaultBranch: text("default_branch"),
-    status: text("status").notNull().default("ACTIVE"), // ACTIVE | REMOVED
-    permissionsJson: text("permissions_json").notNull().default("{}"),
-    syncedAt: timestamp("synced_at", { withTimezone: true }).notNull().defaultNow(),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("authorized_repositories_pilot_full_uidx").on(t.pilotId, t.fullName),
-    index("authorized_repositories_auth_idx").on(t.authorizationId),
-  ],
-);
-
-/** D9 — voluntary project ↔ repo attachment (distinct from authorization). */
-export const projectGitLinks = pgTable(
-  "project_git_links",
-  {
-    id: text("id").primaryKey(),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    pilotId: text("pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    repositoryId: text("repository_id")
-      .notNull()
-      .references(() => authorizedRepositories.id),
-    status: text("status").notNull().default("ATTACHED"), // ATTACHED | DETACHED
-    attachedAt: timestamp("attached_at", { withTimezone: true }).notNull().defaultNow(),
-    detachedAt: timestamp("detached_at", { withTimezone: true }),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    index("project_git_links_project_idx").on(t.projectId, t.status),
-    uniqueIndex("project_git_links_project_repo_uidx").on(t.projectId, t.repositoryId),
-  ],
-);
-
-/** D4 — link between document revision and observed Git publication. */
-export const documentPublicationRefs = pgTable(
-  "document_publication_refs",
-  {
-    id: text("id").primaryKey(),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    pilotId: text("pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    documentId: text("document_id")
-      .notNull()
-      .references(() => documents.id),
-    revisionId: text("revision_id")
-      .notNull()
-      .references(() => documentRevisions.id),
-    repositoryId: text("repository_id")
-      .notNull()
-      .references(() => authorizedRepositories.id),
-    targetPath: text("target_path").notNull(),
-    targetBranch: text("target_branch").notNull(),
-    baseSha: text("base_sha"),
-    headSha: text("head_sha"),
-    prNumber: integer("pr_number"),
-    status: text("status").notNull(),
-    effectAttemptId: text("effect_attempt_id"),
-    detailJson: text("detail_json").notNull().default("{}"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    index("document_publication_refs_project_idx").on(t.projectId),
-    index("document_publication_refs_doc_rev_idx").on(t.documentId, t.revisionId),
-    // Partial UNIQUE: one publicationRef per effect attempt (NULL allowed for detached remediation).
-    uniqueIndex("document_publication_refs_effect_attempt_uidx")
-      .on(t.effectAttemptId)
-      .where(sql`${t.effectAttemptId} IS NOT NULL`),
-  ],
-);
-
-/** D7 — Git effect attempt (publication / merge). */
-export const effectAttempts = pgTable(
-  "effect_attempts",
-  {
-    id: text("id").primaryKey(),
-    pilotId: text("pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    kind: text("kind").notNull(), // GIT_PUBLICATION | GIT_MERGE | CURSOR_EXECUTION
-    status: text("status").notNull(),
-    correlationKey: text("correlation_key").notNull(),
-    fingerprint: text("fingerprint").notNull(),
-    decisionId: text("decision_id").references(() => humanDecisions.id),
-    effectConditions: text("effect_conditions"),
-    planJson: text("plan_json").notNull().default("{}"),
-    resultJson: text("result_json").notNull().default("{}"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("effect_attempts_correlation_uidx").on(
-      t.pilotId,
-      t.projectId,
-      t.correlationKey,
-    ),
-    index("effect_attempts_project_idx").on(t.projectId),
-  ],
-);
-
-/** D8/D9 — observed Git facts after remote re-read. */
-export const observedGitFacts = pgTable(
-  "observed_git_facts",
-  {
-    id: text("id").primaryKey(),
-    attemptId: text("attempt_id")
-      .notNull()
-      .references(() => effectAttempts.id),
-    pilotId: text("pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    factKind: text("fact_kind").notNull(),
-    repositoryFullName: text("repository_full_name").notNull(),
-    refName: text("ref_name").notNull(),
-    sha: text("sha").notNull(),
-    prNumber: integer("pr_number"),
-    observedAt: timestamp("observed_at", { withTimezone: true }).notNull().defaultNow(),
-    detailJson: text("detail_json").notNull().default("{}"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    index("observed_git_facts_attempt_idx").on(t.attemptId),
-    index("observed_git_facts_project_idx").on(t.projectId),
-  ],
-);
-
-/** D7 — canonical technical contract versions (ML5). Distinct from Nora replyDraft. */
-export const technicalContracts = pgTable(
-  "technical_contracts",
-  {
-    id: text("id").primaryKey(),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    pilotId: text("pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    preparationId: text("preparation_id").references(() => preparations.id),
-    contractKey: text("contract_key").notNull(),
-    version: integer("version").notNull(),
-    fingerprint: text("fingerprint").notNull(),
-    status: text("status").notNull(),
-    title: text("title").notNull().default(""),
-    engagementsJson: text("engagements_json").notNull().default("{}"),
-    voletsJson: text("volets_json").notNull().default("{}"),
-    instructionText: text("instruction_text").notNull(),
-    risksJson: text("risks_json").notNull().default("[]"),
-    exclusionsJson: text("exclusions_json").notNull().default("[]"),
-    acceptanceJson: text("acceptance_json").notNull().default("{}"),
-    executorJson: text("executor_json").notNull().default("{}"),
-    stopConditionsJson: text("stop_conditions_json").notNull().default("[]"),
-    reversibilityLimitsJson: text("reversibility_limits_json").notNull().default("[]"),
-    gitScopeJson: text("git_scope_json"),
-    sourceTurnCommandId: text("source_turn_command_id"),
-    supersedesContractId: text("supersedes_contract_id"),
-    readinessJson: text("readiness_json"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("technical_contracts_key_version_uidx").on(
-      t.projectId,
-      t.contractKey,
-      t.version,
-    ),
-    index("technical_contracts_project_idx").on(t.projectId),
-    index("technical_contracts_fingerprint_idx").on(t.fingerprint),
-  ],
-);
-
-/** D7 — realization handoff per Cursor attempt (immutable binding). */
-export const realizationHandoffs = pgTable(
-  "realization_handoffs",
-  {
-    id: text("id").primaryKey(),
-    attemptId: text("attempt_id")
-      .notNull()
-      .references(() => effectAttempts.id),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    pilotId: text("pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    contractId: text("contract_id")
-      .notNull()
-      .references(() => technicalContracts.id),
-    contractVersion: integer("contract_version").notNull(),
-    contractFingerprint: text("contract_fingerprint").notNull(),
-    status: text("status").notNull(),
-    reportMarkdown: text("report_markdown"),
-    manifestJson: text("manifest_json").notNull().default("{}"),
-    integrityHash: text("integrity_hash"),
-    sourceKind: text("source_kind").notNull().default("CURSOR"),
-    limitsJson: text("limits_json").notNull().default("[]"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("realization_handoffs_attempt_uidx").on(t.attemptId),
-    index("realization_handoffs_project_idx").on(t.projectId),
-    index("realization_handoffs_contract_idx").on(t.contractId),
-  ],
-);
-
-/** D8 — nine-rubric qualification snapshot per attempt. */
-export const realizationQualifications = pgTable(
-  "realization_qualifications",
-  {
-    id: text("id").primaryKey(),
-    attemptId: text("attempt_id")
-      .notNull()
-      .references(() => effectAttempts.id),
-    handoffId: text("handoff_id").references(() => realizationHandoffs.id),
-    projectId: text("project_id")
-      .notNull()
-      .references(() => projects.id),
-    pilotId: text("pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    status: text("status").notNull(),
-    rubricsJson: text("rubrics_json").notNull().default("{}"),
-    verdict: text("verdict").notNull().default("INDETERMINATE"),
-    noraAnalysisMarkdown: text("nora_analysis_markdown"),
-    noraAnalysisAt: timestamp("nora_analysis_at", { withTimezone: true }),
-    limitsJson: text("limits_json").notNull().default("[]"),
-    /** G15 — append-only prior qualification snapshots (JSON array). */
-    historyJson: text("history_json").notNull().default("[]"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("realization_qualifications_attempt_uidx").on(t.attemptId),
-    index("realization_qualifications_project_idx").on(t.projectId),
-  ],
-);
-
-/** C1 — functional Nora activity events correlated to a turn (not authority). */
-export const noraActivityEvents = pgTable(
-  "nora_activity_events",
-  {
-    id: text("id").primaryKey(),
-    conversationId: text("conversation_id")
-      .notNull()
-      .references(() => conversations.id),
-    turnCommandId: text("turn_command_id")
-      .notNull()
-      .references(() => conversationTurnCommands.id),
-    ownerPilotId: text("owner_pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    generationId: text("generation_id"),
-    sequence: integer("sequence").notNull(),
-    phase: text("phase").notNull(),
-    nature: text("nature").notNull(),
-    status: text("status").notNull(),
-    summary: text("summary").notNull().default(""),
-    detailJson: text("detail_json").notNull().default("{}"),
-    sourceRef: text("source_ref"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("nora_activity_events_turn_seq_uidx").on(t.turnCommandId, t.sequence),
-    index("nora_activity_events_turn_idx").on(t.turnCommandId),
-    index("nora_activity_events_conv_idx").on(t.conversationId),
-  ],
-);
-
-/** D3 — cognitive work distinct from conversation turn commands (ML5 C15 Option C). */
-export const cognitiveWorks = pgTable(
-  "cognitive_works",
-  {
-    id: text("id").primaryKey(),
-    ownerPilotId: text("owner_pilot_id")
-      .notNull()
-      .references(() => pilots.id),
-    preparationId: text("preparation_id")
-      .notNull()
-      .references(() => preparations.id),
-    projectId: text("project_id").references(() => projects.id),
-    conversationId: text("conversation_id").references(() => conversations.id),
-    status: text("status").notNull(),
-    revision: integer("revision").notNull().default(1),
-    ownerToken: text("owner_token"),
-    leaseUntil: timestamp("lease_until", { withTimezone: true }),
-    objective: text("objective").notNull().default(""),
-    expectedOutcome: text("expected_outcome").notNull().default(""),
-    stateJson: text("state_json").notNull().default("{}"),
-    resourcesJson: text("resources_json").notNull().default("{}"),
-    productionJson: text("production_json").notNull().default("{}"),
-    interruptCause: text("interrupt_cause"),
-    parentWorkId: text("parent_work_id"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    index("cognitive_works_prep_idx").on(t.preparationId),
-    index("cognitive_works_pilot_status_idx").on(t.ownerPilotId, t.status),
-  ],
-);
-
-export const cognitiveWorkCheckpoints = pgTable(
-  "cognitive_work_checkpoints",
-  {
-    id: text("id").primaryKey(),
-    workId: text("work_id")
-      .notNull()
-      .references(() => cognitiveWorks.id),
-    revision: integer("revision").notNull(),
-    parentRevision: integer("parent_revision"),
-    cause: text("cause").notNull(),
-    turnCommandId: text("turn_command_id"),
-    generationId: text("generation_id"),
-    payloadJson: text("payload_json").notNull().default("{}"),
-    resourcesJson: text("resources_json").notNull().default("{}"),
-    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [
-    uniqueIndex("cognitive_work_checkpoints_work_rev_uidx").on(t.workId, t.revision),
-    index("cognitive_work_checkpoints_work_idx").on(t.workId),
-  ],
-);
-
-export const schemaRevision = "020_cognitive_work";
-```
-
-### FILE `projects/sfia-studio-next/web/scripts/db-migrate.sh`
-
-- bytes (reproduit): 1518
-- sha256 fichier disque: `482f740ab881b74c6ec719659a708a2ade5a864b5b334216ebecb318c6f6222e`
-
-```bash
-#!/usr/bin/env bash
-# Apply studio core migrations in order on a target Postgres database.
-# Defaults target the local DEV container/database — never RECETTE/STABLE.
-# Fail-closed: any SQL error aborts the script (ON_ERROR_STOP + set -e).
-set -euo pipefail
-
-ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-CONTAINER="${SFIA_PG_CONTAINER:-sfia-next-dev-pg}"
-DB_USER="${SFIA_PG_USER:-sfia_next_dev}"
-DB_NAME="${SFIA_PG_DATABASE:-sfia_next_dev}"
-MIGRATIONS_DIR="${ROOT}/src/db/migrations"
-
-apply() {
-  local file="$1"
-  echo "Applying ${file} → ${CONTAINER}/${DB_NAME}"
-  docker exec -i "${CONTAINER}" \
-    psql -v ON_ERROR_STOP=1 -U "${DB_USER}" -d "${DB_NAME}" \
-    < "${MIGRATIONS_DIR}/${file}"
 }
 
-apply "001_initial_studio_core.sql"
-apply "002_session_auth_mode.sql"
-apply "003_ml2_knowledge_documents.sql"
-apply "004_ml2_integrity_corrective.sql"
-apply "005_ml2_conversation_turn_command.sql"
-apply "006_ml2_turn_owner_token.sql"
-apply "007_ml3_pilotage_decisions.sql"
-apply "008_git_collaboration.sql"
-apply "009_publication_ref_attempt_unique.sql"
-apply "010_github_app_user_oauth.sql"
-apply "011_oauth_session_binding.sql"
-apply "012_auth_concurrency_safety.sql"
-apply "013_preparation_projection.sql"
-apply "014_journal_d4_revisions.sql"
-apply "015_trajectory_qualification.sql"
-apply "016_initial_qualification_expected.sql"
-apply "017_ml5_cursor_realization.sql"
-apply "018_ml5_contract_reversibility.sql"
-apply "019_ml5_qualification_history.sql"
-apply "020_cognitive_work.sql"
-echo "db:migrate OK (001→020)"
+/** Terminal commit under ownership fence — short TX, CAS on owner_token. */
+async function commitContinuationOwned(input: {
+  commandId: string;
+  ownerToken: string;
+  conversationId: string;
+  mission: MissionProjection;
+  projectId: string;
+  documentSave: DocumentSaveSummary | null;
+  assistantContent: string;
+  generationId: string;
+}): Promise<{ applied: boolean; assistantMessageId: string | null }> {
+  return db.transaction(async (tx) => {
+    const owned = (
+      await tx
+        .select()
+        .from(conversationTurnCommands)
+        .where(
+          and(
+            eq(conversationTurnCommands.id, input.commandId),
+            eq(conversationTurnCommands.ownerToken, input.ownerToken),
+            eq(conversationTurnCommands.status, "RUNNING"),
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (!owned) return { applied: false, assistantMessageId: null };
+
+    let assistantMessageId: string | null = null;
+    const existingMsg = (
+      await tx
+        .select()
+        .from(messages)
+        .where(
+          and(
+            eq(messages.conversationId, input.conversationId),
+            eq(messages.generationId, input.generationId),
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (existingMsg) {
+      assistantMessageId = existingMsg.id;
+    } else {
+      const last = (
+        await tx
+          .select({ ordinal: messages.ordinal })
+          .from(messages)
+          .where(eq(messages.conversationId, input.conversationId))
+          .orderBy(sql`${messages.ordinal} desc`)
+          .limit(1)
+      )[0];
+      assistantMessageId = `msg_mcont_${input.generationId.replace(/[^a-zA-Z0-9_:-]/g, "").slice(-48)}`;
+      await tx.insert(messages).values({
+        id: assistantMessageId,
+        conversationId: input.conversationId,
+        role: "assistant",
+        content: input.assistantContent,
+        status: "COMPLETE",
+        ordinal: (last?.ordinal ?? 0) + 1,
+        generationId: input.generationId,
+        createdAt: new Date(turnClock.nowMs()),
+      });
+    }
+
+    const resultJson = JSON.stringify({
+      missionProjection: input.mission,
+      documentSave: input.documentSave,
+      continuedAfterProjectId: input.projectId,
+    });
+    const cas = await tx
+      .update(conversationTurnCommands)
+      .set({
+        status: "COMPLETE",
+        resultJson,
+        assistantMessageId,
+        updatedAt: new Date(turnClock.nowMs()),
+      })
+      .where(
+        and(
+          eq(conversationTurnCommands.id, input.commandId),
+          eq(conversationTurnCommands.ownerToken, input.ownerToken),
+          eq(conversationTurnCommands.status, "RUNNING"),
+        ),
+      )
+      .returning({ id: conversationTurnCommands.id });
+
+    if (!cas[0]) {
+      throw new StudioError("CONFLICT", "CONTINUATION_OWNERSHIP_LOST");
+    }
+    return { applied: true, assistantMessageId };
+  });
+}
+
+/**
+ * After D2 createProjectCommand succeeds, continue the SAME intention (pending D4)
+ * without a new Pilot message. COMMAND path only — never from listMessages.
+ * Concurrency: short xact claim + owner_token fence (no session advisory lock).
+ */
+export async function continueAfterProjectCreated(input: {
+  pilotId: string;
+  preparationId: string;
+  projectId: string;
+  projectName?: string | null;
+  /** Hint only — server verifies against durable mission state. */
+  clientIntentKey?: string | null;
+}): Promise<{
+  continued: boolean;
+  missionProjection: MissionProjection | null;
+  documentSave: DocumentSaveSummary | null;
+  assistantMessageId: string | null;
+  reason?: string;
+  replayed?: boolean;
+}> {
+  const conv = (
+    await db
+      .select()
+      .from(conversations)
+      .where(
+        and(
+          eq(conversations.preparationId, input.preparationId),
+          eq(conversations.ownerPilotId, input.pilotId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!conv) {
+    return {
+      continued: false,
+      missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+      reason: "NO_CONVERSATION",
+    };
+  }
+
+  const verified = await verifyMissionForD2Act({
+    conversationId: conv.id,
+    preparationId: input.preparationId,
+    clientIntentKey: input.clientIntentKey,
+    projectName: input.projectName,
+  });
+
+  if (verified.status === "MISSION_KEY_MISMATCH") {
+    return {
+      continued: false,
+      missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+      reason: "MISSION_KEY_MISMATCH",
+    };
+  }
+  if (verified.status === "MISSION_NAME_MISMATCH") {
+    return {
+      continued: false,
+      missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+      reason: "MISSION_NAME_MISMATCH",
+    };
+  }
+  if (verified.status === "AMBIGUOUS_AWAITING") {
+    return {
+      continued: false,
+      missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+      reason: "AMBIGUOUS_AWAITING",
+    };
+  }
+  if (verified.status === "ALREADY_CONTINUED") {
+    const replay = await loadContinuationReplay(
+      conv.id,
+      verified.mission.clientIntentKey,
+      input.projectId,
+    );
+    if (replay) {
+      return { ...replay, continued: true, replayed: true, reason: "ALREADY_CONTINUED" };
+    }
+    return {
+      continued: false,
+      missionProjection: verified.mission,
+      documentSave: null,
+      assistantMessageId: null,
+      reason: "MISSION_NO_LONGER_AWAITING",
+    };
+  }
+  if (verified.status === "NO_AWAITING_MISSION") {
+    return {
+      continued: false,
+      missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+      reason: "NO_AWAITING_MISSION",
+    };
+  }
+
+  const prior = verified.mission;
+  let mission = advanceMissionAfterProjectCreated(prior, input.projectId);
+
+  const claim = await claimContinuationOwnership({
+    conversationId: conv.id,
+    pilotId: input.pilotId,
+    clientIntentKey: prior.clientIntentKey,
+    projectId: input.projectId,
+    missionSnapshot: mission,
+  });
+
+  if (claim.kind === "replay") {
+    return {
+      continued: true,
+      missionProjection: claim.missionProjection,
+      documentSave: claim.documentSave,
+      assistantMessageId: claim.assistantMessageId,
+      replayed: true,
+      reason: "ALREADY_CONTINUED",
+    };
+  }
+  if (claim.kind === "in_progress") {
+    return {
+      continued: false,
+      missionProjection: mission,
+      documentSave: null,
+      assistantMessageId: null,
+      reason: "CONTINUATION_IN_PROGRESS",
+    };
+  }
+
+  if (continuationRaceHooks.afterReserveBeforeWork) {
+    await continuationRaceHooks.afterReserveBeforeWork();
+  }
+
+  const pendingDoc = mission.steps.find(
+    (s) =>
+      (s.id === "d4_create" || s.capabilityId === "d4.create_document") &&
+      (s.status === "PENDING" || s.status === "WAITING"),
+  );
+
+  let documentSave: DocumentSaveSummary | null = null;
+  let assistantContent: string;
+  let generationId: string;
+
+  if (!pendingDoc) {
+    mission = { ...mission, status: "COMPLETED", restitution: "DELIVERED" };
+    generationId = `mission-continue-d2:${mission.clientIntentKey}:${input.projectId}`;
+    // E07 — métier restitution only in the thread; keep structured missionProjection for audit.
+    assistantContent =
+      "Le projet a bien été créé. Vous pouvez poursuivre dans Travail, consulter la Trajectoire " +
+      "et décider avec Nora de l'ouverture du premier cycle lorsque vous serez prêt.";
+  } else {
+    const original =
+      mission.originalUserText ??
+      mission.pendingDocumentBrief ??
+      "Prépare le document de cadrage demandé dans l'intention initiale.";
+    const userPrompt =
+      `Le projet a été créé (projectId=${input.projectId}). ` +
+      `Poursuis MAINTENANT l'intention initiale du Pilote sans lui redemander.\n\n` +
+      `Intention initiale:\n${original}\n\n` +
+      `Produis le document demandé (titre + corps en fence sfia-document) pour ce projet.`;
+
+    const reply = await runNoraCognitiveTurn({
+      pilotId: input.pilotId,
+      preparationId: input.preparationId,
+      projectId: input.projectId,
+      forceNewWork: true,
+      objective: "Poursuite documentaire post-création projet",
+      userText: userPrompt,
+      contextSnippets: [`projectId=${input.projectId}`, `preparationId=${input.preparationId}`],
+      maxSegmentsThisInvocation: 2,
+    });
+
+    if (continuationRaceHooks.afterNoraBeforeD4) {
+      await continuationRaceHooks.afterNoraBeforeD4();
+    }
+
+    if (reply.status === "COMPLETE" && reply.content.trim()) {
+      const extracted = extractContractualDocumentProposal(reply.content);
+      if (extracted.ok) {
+        const d4Contract = CAPABILITY_CONTRACTS.find(
+          (c) => c.capabilityId === "d4.create_document",
+        )!;
+        const mobilized = await mobilizeCapability(
+          d4Contract,
+          {
+            capabilityId: "d4.create_document",
+            invoke: async (ctx) => {
+              const saved = await savePreparationDocument(
+                ctx.pilotId,
+                ctx.preparationId!,
+                extracted.title,
+                extracted.content,
+                undefined,
+                {
+                  correlationKey: `doc:mission-continue:${mission.clientIntentKey}`,
+                  provenance: {
+                    sourceKind: "nora",
+                    generationId: reply.generationId,
+                    userMessageId: null,
+                    explicitRequest: true,
+                    act: "CREATE",
+                  },
+                  scope: "document",
+                },
+              );
+              return {
+                status: saved.status,
+                result: {
+                  status: saved.status,
+                  documentId: "documentId" in saved ? saved.documentId ?? null : null,
+                  revisionId: "revisionId" in saved ? saved.revisionId ?? null : null,
+                  revisionNumber:
+                    "revisionNumber" in saved ? saved.revisionNumber ?? null : null,
+                  reason: "reason" in saved ? (saved as { reason?: string }).reason : undefined,
+                },
+              };
+            },
+          },
+          {
+            pilotId: input.pilotId,
+            preparationId: input.preparationId,
+            projectId: input.projectId,
+          },
+        );
+        documentSave = {
+          status: String(mobilized.result.status ?? mobilized.status),
+          documentId: mobilized.result.documentId as string | undefined,
+          revisionId: mobilized.result.revisionId as string | undefined,
+          revisionNumber: mobilized.result.revisionNumber as number | undefined,
+          reason: mobilized.result.reason as string | undefined,
+          act: "CREATE",
+        };
+      } else {
+        documentSave = { status: "FAILED", reason: extracted.reason, act: "CREATE" };
+      }
+    } else {
+      documentSave = { status: "FAILED", reason: "CONTINUE_GENERATION_FAILED", act: "CREATE" };
+    }
+
+    // Assigned on every branch above; local const keeps callbacks type-narrowed.
+    const d4Save = documentSave!;
+
+    // S03: preserve owner D4 status on restitution (AVAILABLE|FAILED|CONFLICT|UNKNOWN|NOT_EXECUTED).
+    // Never collapse UNKNOWN / absent → FAILED by default.
+    const documentEffect: DocumentEffectSummary = documentSaveToEffectSummary({
+      act: "CREATE",
+      status: d4Save.status,
+      documentId: d4Save.documentId,
+      revisionId: d4Save.revisionId,
+      revisionNumber: d4Save.revisionNumber,
+      reason: d4Save.reason,
+    });
+
+    if (d4Save.status === "AVAILABLE" && d4Save.documentId) {
+      mission = {
+        ...mission,
+        steps: mission.steps.map((s) =>
+          s.id === "d4_create" || s.capabilityId === "d4.create_document"
+            ? {
+                ...s,
+                status: "DONE" as const,
+                documentId: d4Save.documentId,
+                revisionId: d4Save.revisionId,
+                reason: undefined,
+              }
+            : s,
+        ),
+        status: "COMPLETED",
+        restitution: "DELIVERED",
+      };
+    } else if (
+      documentEffect.status === "UNKNOWN" ||
+      documentEffect.status === "NOT_EXECUTED"
+    ) {
+      mission = {
+        ...mission,
+        steps: mission.steps.map((s) =>
+          s.id === "d4_create" || s.capabilityId === "d4.create_document"
+            ? {
+                ...s,
+                status: "WAITING" as const,
+                reason: d4Save.reason ?? documentEffect.status,
+              }
+            : s,
+        ),
+        status: "RESTITUTION_PENDING",
+        restitution: "CANONICAL",
+      };
+    } else {
+      mission = {
+        ...mission,
+        steps: mission.steps.map((s) =>
+          s.id === "d4_create" || s.capabilityId === "d4.create_document"
+            ? {
+                ...s,
+                status: "FAILED" as const,
+                reason: d4Save.reason ?? d4Save.status,
+              }
+            : s,
+        ),
+        status: "PARTIAL_FAILED_STEP",
+        restitution: "CANONICAL",
+      };
+    }
+    const canonical = composeCanonicalMissionRestitution({
+      documentEffect,
+      restitutionNote: `Reprise automatique après création projet ${input.projectId} — même intention (${mission.clientIntentKey}).`,
+    });
+    const noraBody =
+      reply.status === "COMPLETE" && reply.content.trim() ? reply.content : canonical;
+    const withDocAck = appendDocumentEffectAck(noraBody, documentEffect);
+    assistantContent = appendMissionAck(withDocAck, mission);
+    if (hasCompetingTransactionalClaim(assistantContent, documentEffect)) {
+      // Fail-closed narration: prefer canonical + structured ACKs over competing claims.
+      assistantContent = appendMissionAck(
+        appendDocumentEffectAck(canonical, documentEffect),
+        mission,
+      );
+    }
+    generationId = `mission-continue-d2d4:${mission.clientIntentKey}:${input.projectId}`;
+  }
+
+  if (continuationRaceHooks.afterD4BeforeCommit) {
+    await continuationRaceHooks.afterD4BeforeCommit();
+  }
+
+  try {
+    const committed = await commitContinuationOwned({
+      commandId: claim.commandId,
+      ownerToken: claim.ownerToken,
+      conversationId: conv.id,
+      mission,
+      projectId: input.projectId,
+      documentSave,
+      assistantContent,
+      generationId,
+    });
+
+    emitObs({
+      event_name: "d3.mission.continue_after_project_created",
+      component: "d3.intent_conduction",
+      outcome: mission.status === "COMPLETED" ? "SUCCESS" : "PARTIAL",
+      meta: {
+        project_id: input.projectId,
+        client_intent_key: mission.clientIntentKey,
+        document_status: documentSave?.status ?? null,
+        ownership_applied: committed.applied,
+      },
+    });
+
+    return {
+      continued: committed.applied,
+      missionProjection: mission,
+      documentSave,
+      assistantMessageId: committed.assistantMessageId,
+      reason: pendingDoc ? undefined : "D2_ONLY_COMPLETED",
+    };
+  } catch (e) {
+    if (e instanceof StudioError && e.message.includes("CONTINUATION_OWNERSHIP_LOST")) {
+      const replay = await loadContinuationReplay(conv.id, prior.clientIntentKey, input.projectId);
+      if (replay) {
+        return { ...replay, continued: true, replayed: true, reason: "ALREADY_CONTINUED" };
+      }
+      return {
+        continued: false,
+        missionProjection: mission,
+        documentSave,
+        assistantMessageId: null,
+        reason: "CONTINUATION_OWNERSHIP_LOST",
+      };
+    }
+    throw e;
+  }
+}
+
+async function loadContinuationReplay(
+  conversationId: string,
+  clientIntentKey: string,
+  projectId: string,
+): Promise<{
+  continued: boolean;
+  missionProjection: MissionProjection | null;
+  documentSave: DocumentSaveSummary | null;
+  assistantMessageId: string | null;
+} | null> {
+  const clientTurnKey = continuationTurnKey(clientIntentKey, projectId);
+  const existing = (
+    await db
+      .select()
+      .from(conversationTurnCommands)
+      .where(
+        and(
+          eq(conversationTurnCommands.conversationId, conversationId),
+          eq(conversationTurnCommands.clientTurnKey, clientTurnKey),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!existing || existing.status !== "COMPLETE" || !existing.resultJson) return null;
+  try {
+    const parsed = JSON.parse(existing.resultJson) as {
+      missionProjection?: MissionProjection | null;
+      documentSave?: DocumentSaveSummary | null;
+    };
+    if (!parsed.missionProjection || parsed.missionProjection.status === "AWAITING_PILOT_ACT") {
+      return null;
+    }
+    return {
+      continued: true,
+      missionProjection: parsed.missionProjection,
+      documentSave: parsed.documentSave ?? null,
+      assistantMessageId: existing.assistantMessageId,
+    };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * G2/S06/S07 — nominal recovery after D2 confirmed + interrupted continuation.
+ * COMMAND path only (never listMessages/GET). Idempotent; reuses continueAfterProjectCreated
+ * fencing. Trigger surfaces: create-project ALREADY_CREATED retry, project resume POST,
+ * next chat turn when project already linked.
+ *
+ * Selection order (RG-CTX-001 / mission isolation):
+ * 1) incomplete mission-continue turn for THIS projectId
+ * 2) create_project_commands.idempotencyKey d2:mission:* for THIS project
+ * Never: lone awaiting mission / newest message / project-name similarity.
+ */
+export async function recoverPendingMissionContinuation(input: {
+  pilotId: string;
+  projectId: string;
+}): Promise<{
+  attempted: boolean;
+  recovered: boolean;
+  reason?: string;
+  missionProjection: MissionProjection | null;
+  documentSave: DocumentSaveSummary | null;
+  assistantMessageId: string | null;
+  replayed?: boolean;
+}> {
+  const conv = (
+    await db
+      .select()
+      .from(conversations)
+      .where(
+        and(
+          eq(conversations.projectId, input.projectId),
+          eq(conversations.ownerPilotId, input.pilotId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!conv || !conv.preparationId) {
+    return {
+      attempted: false,
+      recovered: false,
+      reason: "NO_CONVERSATION",
+      missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+    };
+  }
+
+  const latest = await loadLatestMissionsByIntentKey(conv.id);
+
+  // Incomplete continuation turns for THIS project (crash mid-continue).
+  const contPrefix = `mission-continue:`;
+  const contSuffix = `:${input.projectId}`;
+  const turns = await db
+    .select()
+    .from(conversationTurnCommands)
+    .where(eq(conversationTurnCommands.conversationId, conv.id));
+  const incompleteKeys = [
+    ...new Set(
+      turns
+        .filter(
+          (t) =>
+            (t.status === "RUNNING" || t.status === "ACCEPTED" || t.status === "UNKNOWN") &&
+            t.clientTurnKey.startsWith(contPrefix) &&
+            t.clientTurnKey.endsWith(contSuffix),
+        )
+        .map((t) =>
+          t.clientTurnKey.slice(contPrefix.length, t.clientTurnKey.length - contSuffix.length),
+        )
+        .filter((k) => k.length > 0),
+    ),
+  ];
+
+  if (incompleteKeys.length > 1) {
+    return {
+      attempted: true,
+      recovered: false,
+      reason: "AMBIGUOUS_PENDING",
+      missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+    };
+  }
+
+  // Owner-act binding: create_project_commands.idempotencyKey = d2:mission:<clientIntentKey>
+  // for THIS project — decisive over any other awaiting mission in the same thread (S06/S07).
+  const missionCmds = await db
+    .select()
+    .from(createProjectCommands)
+    .where(
+      and(
+        eq(createProjectCommands.pilotId, input.pilotId),
+        eq(createProjectCommands.projectId, input.projectId),
+        eq(createProjectCommands.preparationId, conv.preparationId),
+      ),
+    )
+    .orderBy(desc(createProjectCommands.createdAt))
+    .limit(8);
+  const missionBoundKeys = [
+    ...new Set(
+      missionCmds
+        .map((r) => r.idempotencyKey ?? "")
+        .filter((k) => k.startsWith("d2:mission:"))
+        .map((k) => k.slice("d2:mission:".length)),
+    ),
+  ];
+
+  let clientIntentKey: string | null = null;
+  if (incompleteKeys.length === 1) {
+    const incompleteKey = incompleteKeys[0]!;
+    if (missionBoundKeys.length > 0 && !missionBoundKeys.includes(incompleteKey)) {
+      return {
+        attempted: true,
+        recovered: false,
+        reason: "MISSION_OWNER_ACT_MISMATCH",
+        missionProjection: null,
+        documentSave: null,
+        assistantMessageId: null,
+      };
+    }
+    clientIntentKey = incompleteKey;
+  } else if (missionBoundKeys.length === 1) {
+    clientIntentKey = missionBoundKeys[0]!;
+  } else if (missionBoundKeys.length > 1) {
+    return {
+      attempted: true,
+      recovered: false,
+      reason: "AMBIGUOUS_OWNER_ACT",
+      missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+    };
+  } else {
+    // No mission-bound D2 command for this project → do NOT pick a neighboring awaiting mission.
+    return {
+      attempted: false,
+      recovered: false,
+      reason: "NOTHING_PENDING",
+      missionProjection: null,
+      documentSave: null,
+      assistantMessageId: null,
+    };
+  }
+
+  const boundMission = latest.get(clientIntentKey);
+  if (boundMission?.status === "COMPLETED") {
+    const replay = await loadContinuationReplay(conv.id, clientIntentKey, input.projectId);
+    if (replay) {
+      return {
+        attempted: true,
+        recovered: true,
+        reason: "ALREADY_CONTINUED",
+        missionProjection: replay.missionProjection,
+        documentSave: replay.documentSave,
+        assistantMessageId: replay.assistantMessageId,
+        replayed: true,
+      };
+    }
+    return {
+      attempted: false,
+      recovered: false,
+      reason: "NOTHING_PENDING",
+      missionProjection: boundMission,
+      documentSave: null,
+      assistantMessageId: null,
+    };
+  }
+
+  const cont = await continueAfterProjectCreated({
+    pilotId: input.pilotId,
+    preparationId: conv.preparationId,
+    projectId: input.projectId,
+    clientIntentKey,
+  });
+
+  return {
+    attempted: true,
+    recovered: Boolean(cont.continued),
+    reason: cont.reason,
+    missionProjection: cont.missionProjection,
+    documentSave: cont.documentSave,
+    assistantMessageId: cont.assistantMessageId,
+    replayed: cont.replayed,
+  };
+}
+
 ```
 
-### FILE `projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts`
-
-- bytes (reproduit): 5423
-- sha256 fichier disque: `8636b08fa2e2654735d24e9b2616d00a8269b1c63d6718e48175ec140ad2b6c1`
+### `projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts` (complet, 6132 octets)
 
 ```typescript
 /**
@@ -2652,19 +3438,27 @@ export function evaluateContractReadiness(state: InvestigationState): Investigat
     (q) => q.importance === "DETERMINANT" && q.status !== "ANSWERED",
   );
   const hasDeterminantQuestions = state.questions.some((q) => q.importance === "DETERMINANT");
-  const criticalPartial = state.sources.some(
-    (s) =>
-      (s.coverage === "PARTIAL" ||
-        s.coverage === "DENIED" ||
-        s.coverage === "UNKNOWN" ||
-        s.coverage === "STALE") &&
-      state.questions.some(
-        (q) =>
-          q.importance === "DETERMINANT" &&
-          q.status !== "ANSWERED" &&
-          (q.sourceRefs ?? []).includes(s.ref),
-      ),
+  // C16: ANSWERED without exploitable answer is not positive sufficiency.
+  const answeredHollow = state.questions.filter(
+    (q) =>
+      q.importance === "DETERMINANT" &&
+      q.status === "ANSWERED" &&
+      !(q.answerSummary && q.answerSummary.trim()),
   );
+  // Determinant / material source degradation reopens READY even if questions stay ANSWERED.
+  const determinantDegraded = state.sources.some((s) => {
+    if (s.coverage === "STALE" || s.coverage === "DENIED" || s.coverage === "CONTRADICTORY") {
+      return true;
+    }
+    if (s.coverage !== "PARTIAL" && s.coverage !== "UNKNOWN") return false;
+    const linked = state.questions.some(
+      (q) =>
+        q.importance === "DETERMINANT" &&
+        (q.sourceRefs ?? []).includes(s.ref),
+    );
+    // Unlinked PARTIAL/UNKNOWN on the only consulted path still blocks when no VERIFIED remains.
+    return linked || consulted.length === 0;
+  });
   const hasContradiction = state.contradictions.length > 0;
 
   const fail = (reason: string, sufficiency: InvestigationState["sufficiency"] = "INSUFFICIENT") => ({
@@ -2690,8 +3484,15 @@ export function evaluateContractReadiness(state: InvestigationState): Investigat
       `Questions déterminantes ouvertes: ${determinantOpen.map((q) => q.id).join(", ")}`,
     );
   }
-  if (criticalPartial) {
-    return fail("Source critique partielle, refusée ou non vérifiable");
+  if (answeredHollow.length > 0) {
+    return fail(
+      `Réponses déterminantes non étayées: ${answeredHollow.map((q) => q.id).join(", ")}`,
+    );
+  }
+  if (determinantDegraded) {
+    return fail(
+      "Source déterminante dégradée (STALE/DENIED/UNKNOWN/PARTIAL/CONTRADICTORY) — requalification requise",
+    );
   }
   if (hasContradiction) {
     return fail("Contradictions non résolues entre sources");
@@ -2720,12 +3521,10 @@ export function resumeInvestigation(
   base.sources = (base.sources ?? []).filter((s) => s.ref && s.coverage);
   return evaluateContractReadiness(base);
 }
+
 ```
 
-### FILE `projects/sfia-studio-next/web/src/domains/conversation/investigation-persistence.ts`
-
-- bytes (reproduit): 5250
-- sha256 fichier disque: `10eec1bd3389a936c504a88ae867fed150e0ac2eab4a95879af92259d75fade8`
+### `projects/sfia-studio-next/web/src/domains/conversation/investigation-persistence.ts` (complet, 5228 octets)
 
 ```typescript
 /**
@@ -2862,7 +3661,11 @@ export async function loadInvestigationSnapshot(input: {
     return null;
   }
 
-  // Legacy read-compat: only if single unambiguous snapshot and flagged.
+  // C16: legacy snapshot is never READY authority and is not returned on the
+  // authoritative load path. Compatibility diagnostics remain opt-in via env.
+  if ((process.env.SFIA_COGNITIVE_LEGACY_READ || "").trim() !== "1") {
+    return null;
+  }
   const prep = (
     await db.select().from(preparations).where(eq(preparations.id, input.preparationId)).limit(1)
   )[0];
@@ -2878,128 +3681,13 @@ export async function loadInvestigationSnapshot(input: {
     | { state?: InvestigationState; cognitiveWorkId?: string; authority?: string }
     | undefined;
   if (!snap?.state) return null;
-  // Never use ambiguous legacy snapshot as READY authority.
-  if (snap.authority === "LEGACY_MIRROR_NON_AUTHORITATIVE" && !snap.cognitiveWorkId) {
-    return null;
-  }
-  // Import path: return state for display/resume only — caller must not treat as READY proof alone.
+  // Explicit non-authoritative — callers must not promote READY from this alone.
   return resumeInvestigation(snap.state, input.intentFallback ?? snap.state.intentSummary ?? "");
 }
+
 ```
 
-### FILE `projects/sfia-studio-next/web/src/domains/conversation/tool-source-journal.ts`
-
-- bytes (reproduit): 3088
-- sha256 fichier disque: `a0eda6499ae40703be5ee55951a97c999d9a233a44eddea34164581afab187b9`
-
-```typescript
-/**
- * Journal of sources actually returned by D3 tools this turn.
- * A tool-call count alone never proves CONSULTED — only concrete refs + coverage.
- */
-
-import type { InvestigationSourceRef, SourceCoverage } from "./investigation-state";
-import type { ToolCoverage } from "./d4-read-tools";
-
-export type ToolSourceJournal = {
-  entries: InvestigationSourceRef[];
-  /** Fired when a concrete source is recorded — use for mid-turn OBSERVED activity. */
-  onRecord?: (entry: InvestigationSourceRef) => void;
-};
-
-export function createToolSourceJournal(
-  opts?: { onRecord?: (entry: InvestigationSourceRef) => void },
-): ToolSourceJournal {
-  return { entries: [], onRecord: opts?.onRecord };
-}
-
-export function mapToolCoverageToSource(coverage: ToolCoverage | string): SourceCoverage {
-  switch (coverage) {
-    case "COMPLETE":
-      return "CONSULTED";
-    case "PARTIAL":
-      return "PARTIAL";
-    case "STALE":
-      return "STALE";
-    case "DENIED":
-      return "DENIED";
-    case "NOT_FOUND":
-    case "EMPTY":
-      return "DISCOVERED";
-    default:
-      return "UNKNOWN";
-  }
-}
-
-export function recordToolSource(
-  journal: ToolSourceJournal | null | undefined,
-  entry: {
-    kind: InvestigationSourceRef["kind"];
-    ref: string;
-    coverage: ToolCoverage | SourceCoverage | string;
-    title?: string;
-    versionOrSha?: string | null;
-    notes?: string;
-  },
-): void {
-  if (!journal || !entry.ref) return;
-  const coverage =
-    entry.coverage === "CONSULTED" ||
-    entry.coverage === "VERIFIED" ||
-    entry.coverage === "DISCOVERED" ||
-    entry.coverage === "PARTIAL" ||
-    entry.coverage === "STALE" ||
-    entry.coverage === "DENIED" ||
-    entry.coverage === "CONTRADICTORY" ||
-    entry.coverage === "UNKNOWN"
-      ? (entry.coverage as SourceCoverage)
-      : mapToolCoverageToSource(entry.coverage);
-  // Never upgrade UNKNOWN from empty counters.
-  if (!entry.ref.trim()) return;
-  const existing = journal.entries.find((e) => e.kind === entry.kind && e.ref === entry.ref);
-  if (existing) {
-    // C15: coverage is current observation, not a monotonic upgrade-only lattice.
-    // A previously CONSULTED source may become STALE / DENIED / CONTRADICTORY / PARTIAL.
-    const prev = existing.coverage;
-    existing.coverage = coverage;
-    if (entry.title) existing.title = entry.title;
-    if (entry.versionOrSha !== undefined) existing.versionOrSha = entry.versionOrSha;
-    if (entry.notes || prev !== coverage) {
-      existing.notes = [
-        entry.notes,
-        prev !== coverage ? `coverage:${prev}->${coverage}` : null,
-      ]
-        .filter(Boolean)
-        .join("; ");
-    }
-    try {
-      journal.onRecord?.(existing);
-    } catch {
-      /* observational */
-    }
-    return;
-  }
-  const recorded: InvestigationSourceRef = {
-    kind: entry.kind,
-    ref: entry.ref,
-    title: entry.title,
-    versionOrSha: entry.versionOrSha ?? null,
-    coverage,
-    notes: entry.notes,
-  };
-  journal.entries.push(recorded);
-  try {
-    journal.onRecord?.(recorded);
-  } catch {
-    /* observational sink must never break tool execution */
-  }
-}
-```
-
-### FILE `projects/sfia-studio-next/web/src/domains/conversation/nora-contract-bridge.ts`
-
-- bytes (reproduit): 13678
-- sha256 fichier disque: `12dfb3f5f0bbd7e8e04013ba38f6ce69c0e024c60783d2113c2933004bba9e7d`
+### `projects/sfia-studio-next/web/src/domains/conversation/nora-contract-bridge.ts` (complet, 15603 octets)
 
 ```typescript
 /**
@@ -3024,6 +3712,36 @@ import {
 } from "./investigation-persistence";
 import { appendActivityEvent } from "./activity-projection";
 import type { NoraTurnQualification } from "./semantic-qualification";
+
+/** C16 — current observation wins for same ref; history kept as notes, not authority. */
+function mergeSourcesPreferCurrent(
+  prior: InvestigationSourceRef[],
+  observed: InvestigationSourceRef[],
+): InvestigationSourceRef[] {
+  const byKey = new Map<string, InvestigationSourceRef>();
+  for (const s of prior) {
+    byKey.set(`${s.kind}:${s.ref}`, { ...s });
+  }
+  for (const s of observed) {
+    const key = `${s.kind}:${s.ref}`;
+    const prev = byKey.get(key);
+    if (!prev) {
+      byKey.set(key, { ...s });
+      continue;
+    }
+    const noteBits = [prev.notes, prev.coverage !== s.coverage ? `${prev.coverage}->${s.coverage}` : null, s.notes]
+      .filter(Boolean)
+      .join("; ");
+    byKey.set(key, {
+      ...prev,
+      ...s,
+      notes: noteBits || s.notes,
+      versionOrSha: s.versionOrSha ?? prev.versionOrSha,
+    });
+  }
+  return [...byKey.values()];
+}
+
 
 /** C14 — semantic prepare signal from structured qualification (not user-text regex). */
 export function semanticWantsCursorContractPrepare(
@@ -3055,12 +3773,14 @@ export function semanticWantsCorrectiveDraft(
  * @deprecated C14 — lexical detectors removed. Kept as always-false stubs so any
  * residual import fails closed (no contract from keywords). Prefer semanticWants*.
  */
-export function detectsTechnicalContractIntent(_text: string): boolean {
+export function detectsTechnicalContractIntent(text: string): boolean {
+  void text;
   return false;
 }
 
 /** @deprecated C14 — see detectsTechnicalContractIntent. */
-export function detectsCorrectiveDraftIntent(_text: string): boolean {
+export function detectsCorrectiveDraftIntent(text: string): boolean {
+  void text;
   return false;
 }
 
@@ -3238,12 +3958,7 @@ export async function bridgeNoraTurnToContractPreparation(
       (q?.goal?.trim() || prior.intentSummary || input.userText).slice(0, 800),
     desiredOutcome:
       (q?.desiredOutcome?.trim() || prior.desiredOutcome || "").slice(0, 800),
-    sources: [
-      ...prior.sources,
-      ...(input.observedSources ?? []).filter(
-        (s) => !prior.sources.some((p) => p.ref === s.ref && p.kind === s.kind),
-      ),
-    ],
+    sources: mergeSourcesPreferCurrent(prior.sources, input.observedSources ?? []),
     constraints: correctiveIntent
       ? [
           ...prior.constraints.filter((c) => !c.startsWith("A04:")),
@@ -3289,35 +4004,58 @@ export async function bridgeNoraTurnToContractPreparation(
     /* observational */
   }
 
-  const hasConsultedSource = evaluated.sources.some(
-    (s) => s.coverage === "CONSULTED" || s.coverage === "VERIFIED",
-  );
-  if (
-    !input.attemptPrepare ||
-    !intentDetected ||
-    !evaluated.contractReady ||
-    !hasConsultedSource
-  ) {
+  // C16: DRAFT may be prepared incomplete (inspectable). READY stays blocked elsewhere.
+  // remainingWork is NOT acceptance criteria — never slice(0,8) into businessCriteria.
+  if (!input.attemptPrepare || !intentDetected) {
     return {
       intentDetected,
       correctiveIntent,
       investigation: evaluated,
       prepared: null,
-      blockedReason: !intentDetected
-        ? null
-        : !hasConsultedSource
-          ? "Aucune source CONSULTED/VERIFIED — contrat non préparé"
-          : evaluated.contractReady
-            ? null
-            : evaluated.contractReadyBlockedReason ?? "Investigation insuffisante",
+      blockedReason: null,
       cursorRedispatch: false,
     };
   }
+  const hasConsultedSource = evaluated.sources.some(
+    (s) => s.coverage === "CONSULTED" || s.coverage === "VERIFIED",
+  );
 
+  const acceptanceCriteria =
+    evaluated.remainingWork.length > 0
+      ? evaluated.remainingWork.filter((w) => w.trim())
+      : [
+          "Comportements métier du résultat attendu vérifiés",
+          "Sources CONSULTED/VERIFIED alignées sur le fingerprint",
+          "Aucune restriction déterminante ouverte",
+        ];
+  // Prefer dedicated production instruction when present; assistantText is conversational.
+  const productionInstruction =
+    (evaluated as InvestigationState & { productionInstruction?: string }).productionInstruction ||
+    "";
   const body = draftBodyFromInvestigation(evaluated, {
-    instructionFromNora: input.assistantText,
-    businessCriteria: evaluated.remainingWork.slice(0, 8),
+    instructionFromNora: productionInstruction.trim() || undefined,
+    instructionExtra: productionInstruction.trim()
+      ? undefined
+      : input.assistantText
+        ? `[Contexte conversationnel — non instruction technique canonique]\n${input.assistantText}`
+        : undefined,
+    businessCriteria: acceptanceCriteria,
   });
+  if (!evaluated.contractReady || !hasConsultedSource) {
+    body.exclusions = [
+      ...body.exclusions,
+      "DRAFT_INCOMPLETE — qualification positive non établie; READY interdit",
+      ...(!hasConsultedSource
+        ? ["DRAFT_INCOMPLETE — aucune source CONSULTED/VERIFIED au moment du brouillon"]
+        : []),
+    ];
+    if (!body.acceptance.criteria.some((c) => c.includes("DRAFT_INCOMPLETE"))) {
+      body.acceptance.criteria = [
+        ...body.acceptance.criteria,
+        "DRAFT_INCOMPLETE: compléter investigation avant READY",
+      ];
+    }
+  }
   const key =
     input.contractKey ??
     `nora-${input.preparationId.slice(-8)}-${Date.now().toString(36)}`;
@@ -3402,12 +4140,285 @@ export async function bridgeNoraTurnToContractPreparation(
     };
   }
 }
+
 ```
 
-### FILE `projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts`
+### `projects/sfia-studio-next/web/src/domains/conversation/web-egress-guard.ts` (complet, 9028 octets)
 
-- bytes (reproduit): 23773
-- sha256 fichier disque: `72046395dc5779ca33004b52d8ae23e474700f1a09631430a4195177d880cb6c`
+```typescript
+/**
+ * WEB B1 P0 — egress controls at the real exit point (C15/C16).
+ * DNS pre-check alone is insufficient: connection must target asserted addresses,
+ * and the wall-clock timeout covers headers + bounded body read.
+ */
+
+import { lookup } from "node:dns/promises";
+import https from "node:https";
+import { isIP } from "node:net";
+import { assertPublicHttpsUrl } from "./public-web-search-frontier";
+
+function isPrivateOrLocalIp(ip: string): boolean {
+  const v = ip.toLowerCase();
+  if (v === "::1" || v === "0:0:0:0:0:0:0:1") return true;
+  if (v.startsWith("fe80:") || v.startsWith("fc") || v.startsWith("fd")) return true;
+  // IPv4-mapped IPv6
+  const mapped = /^::ffff:(\d{1,3}(?:\.\d{1,3}){3})$/i.exec(v);
+  if (mapped) return isPrivateOrLocalIp(mapped[1]!);
+  const m = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(v);
+  if (!m) return false;
+  const a = Number(m[1]);
+  const b = Number(m[2]);
+  return (
+    a === 0 ||
+    a === 10 ||
+    a === 127 ||
+    (a === 172 && b >= 16 && b <= 31) ||
+    (a === 192 && b === 168) ||
+    (a === 169 && b === 254) ||
+    // 100.64/10 CGNAT, 198.18/15 benchmarking, metadata-adjacent
+    (a === 100 && b >= 64 && b <= 127) ||
+    (a === 198 && (b === 18 || b === 19))
+  );
+}
+
+export type EgressDnsCheck =
+  | { ok: true; hostname: string; addresses: string[] }
+  | { ok: false; reason: string; hostname?: string };
+
+/** Resolve hostname and refuse private/link-local/metadata destinations. */
+export async function assertPublicDnsEgress(url: string): Promise<EgressDnsCheck> {
+  const checked = assertPublicHttpsUrl(url);
+  if (!checked.ok) return { ok: false, reason: checked.reason };
+  let hostname: string;
+  try {
+    hostname = new URL(checked.url).hostname;
+  } catch {
+    return { ok: false, reason: "URL_PARSE" };
+  }
+  if (isIP(hostname)) {
+    if (isPrivateOrLocalIp(hostname)) {
+      return { ok: false, reason: "URL_PRIVATE_IP", hostname };
+    }
+    return { ok: true, hostname, addresses: [hostname] };
+  }
+  try {
+    const records = await lookup(hostname, { all: true, verbatim: true });
+    const addresses = records.map((r) => r.address);
+    if (!addresses.length) return { ok: false, reason: "DNS_EMPTY", hostname };
+    for (const addr of addresses) {
+      if (isPrivateOrLocalIp(addr)) {
+        return { ok: false, reason: "DNS_RESOLVED_PRIVATE", hostname };
+      }
+    }
+    return { ok: true, hostname, addresses };
+  } catch {
+    return { ok: false, reason: "DNS_LOOKUP_FAILED", hostname };
+  }
+}
+
+export type PinnedFetchResult = {
+  status: number;
+  headers: Headers;
+  body: ReadableStream<Uint8Array> | null;
+  url: string;
+  pinnedAddress: string;
+};
+
+/**
+ * HTTPS GET pinned to previously asserted public addresses.
+ * Custom lookup refuses any address outside the allowlist (TOCTOU mitigation).
+ * Timeout signal must remain active through body consumption by the caller.
+ */
+export async function fetchPublicHttpsPinned(input: {
+  url: string;
+  addresses: string[];
+  signal: AbortSignal;
+  headers?: Record<string, string>;
+}): Promise<PinnedFetchResult> {
+  const checked = assertPublicHttpsUrl(input.url);
+  if (!checked.ok) {
+    throw new Error(`EGRESS_URL_BLOCKED:${checked.reason}`);
+  }
+  const allow = new Set(input.addresses);
+  if (allow.size === 0) throw new Error("EGRESS_NO_PINNED_ADDRESS");
+  const target = new URL(checked.url);
+
+  return new Promise<PinnedFetchResult>((resolve, reject) => {
+    if (input.signal.aborted) {
+      reject(new Error("EGRESS_ABORTED"));
+      return;
+    }
+    const onAbort = () => {
+      req.destroy(new Error("EGRESS_ABORTED"));
+      reject(new Error("EGRESS_ABORTED"));
+    };
+    input.signal.addEventListener("abort", onAbort, { once: true });
+
+    const req = https.request(
+      {
+        protocol: "https:",
+        hostname: target.hostname,
+        port: target.port || 443,
+        path: `${target.pathname}${target.search}`,
+        method: "GET",
+        headers: {
+          Host: target.host,
+          Accept: "text/html,text/plain;q=0.9,*/*;q=0.1",
+          "User-Agent": "SFIA-Studio-Next-PublicWeb/1.0",
+          ...(input.headers ?? {}),
+        },
+        // Pin connection to asserted public IPs only.
+        lookup: (hostname, options, callback) => {
+          const cb = callback as (
+            err: NodeJS.ErrnoException | null,
+            address: string,
+            family: number,
+          ) => void;
+          const first = [...allow][0]!;
+          if (!allow.has(first)) {
+            cb(Object.assign(new Error("EGRESS_LOOKUP_REFUSED"), { code: "EGRESS_LOOKUP_REFUSED" }), "", 4);
+            return;
+          }
+          // Prefer IPv4 when present.
+          const v4 = [...allow].find((a) => isIP(a) === 4);
+          const chosen = v4 ?? first;
+          if (isPrivateOrLocalIp(chosen) || !allow.has(chosen)) {
+            cb(Object.assign(new Error("EGRESS_PRIVATE_REFUSED"), { code: "EGRESS_PRIVATE_REFUSED" }), "", 4);
+            return;
+          }
+          cb(null, chosen, isIP(chosen) === 6 ? 6 : 4);
+          void hostname;
+          void options;
+        },
+      },
+      (res) => {
+        input.signal.removeEventListener("abort", onAbort);
+        const headerBag = new Headers();
+        for (const [k, v] of Object.entries(res.headers)) {
+          if (v == null) continue;
+          headerBag.set(k, Array.isArray(v) ? v.join(", ") : v);
+        }
+        const pinnedAddress = (res.socket as { remoteAddress?: string } | null)?.remoteAddress ?? "unknown";
+        if (pinnedAddress !== "unknown" && isPrivateOrLocalIp(pinnedAddress)) {
+          res.destroy();
+          reject(new Error("EGRESS_CONNECTED_PRIVATE"));
+          return;
+        }
+        const stream = new ReadableStream<Uint8Array>({
+          start(controller) {
+            res.on("data", (chunk: Buffer) => {
+              if (input.signal.aborted) {
+                res.destroy();
+                controller.error(new Error("EGRESS_ABORTED"));
+                return;
+              }
+              controller.enqueue(new Uint8Array(chunk));
+            });
+            res.on("end", () => controller.close());
+            res.on("error", (err) => controller.error(err));
+          },
+          cancel() {
+            res.destroy();
+          },
+        });
+        resolve({
+          status: res.statusCode ?? 0,
+          headers: headerBag,
+          body: stream,
+          url: checked.url,
+          pinnedAddress,
+        });
+      },
+    );
+    req.on("error", (err) => {
+      input.signal.removeEventListener("abort", onAbort);
+      reject(err);
+    });
+    req.end();
+  });
+}
+
+/**
+ * Read response body with hard byte cap — cancel stream before full download.
+ * Does not treat the page as fully consulted.
+ */
+export async function readBoundedResponseText(
+  res: { body: ReadableStream<Uint8Array> | null; arrayBuffer?: () => Promise<ArrayBuffer>; headers: Headers },
+  opts?: { maxBytes?: number; excerptChars?: number; signal?: AbortSignal },
+): Promise<{ text: string; bytesRead: number; truncated: boolean }> {
+  const maxBytes = opts?.maxBytes ?? 200_000;
+  const excerptChars = opts?.excerptChars ?? 8_000;
+  const cl = res.headers.get("content-length");
+  if (cl && Number(cl) > maxBytes * 4) {
+    return { text: "", bytesRead: 0, truncated: true };
+  }
+  if (!res.body) {
+    const buf = Buffer.from(await (res.arrayBuffer?.() ?? Promise.resolve(new ArrayBuffer(0))));
+    const slice = buf.subarray(0, maxBytes);
+    return {
+      text: slice.toString("utf8").slice(0, excerptChars),
+      bytesRead: slice.length,
+      truncated: buf.length > maxBytes,
+    };
+  }
+  const reader = res.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let bytesRead = 0;
+  let truncated = false;
+  while (true) {
+    if (opts?.signal?.aborted) {
+      try {
+        await reader.cancel("WEB_TIMEOUT");
+      } catch {
+        /* ignore */
+      }
+      throw new Error("EGRESS_ABORTED");
+    }
+    const { done, value } = await reader.read();
+    if (done) break;
+    if (!value) continue;
+    const remain = maxBytes - bytesRead;
+    if (remain <= 0) {
+      truncated = true;
+      try {
+        await reader.cancel("WEB_BYTE_BUDGET");
+      } catch {
+        /* ignore */
+      }
+      break;
+    }
+    if (value.byteLength > remain) {
+      chunks.push(value.subarray(0, remain));
+      bytesRead += remain;
+      truncated = true;
+      try {
+        await reader.cancel("WEB_BYTE_BUDGET");
+      } catch {
+        /* ignore */
+      }
+      break;
+    }
+    chunks.push(value);
+    bytesRead += value.byteLength;
+  }
+  const buf = Buffer.concat(chunks.map((c) => Buffer.from(c)));
+  let text = buf.toString("utf8");
+  text = text
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, excerptChars);
+  if (/ignore\s+previous\s+instructions|<\/?system>/i.test(text)) {
+    text = text.replace(/ignore\s+previous\s+instructions/gi, "[hostile-marker]");
+  }
+  return { text, bytesRead, truncated };
+}
+
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts` (complet, 24034 octets)
 
 ```typescript
 /**
@@ -3963,11 +4974,13 @@ export async function executePublicWebOpenPage(input: {
     };
   }
 
-  // LIVE open — DNS egress check + bounded stream read; no cookies/auth; untrusted body.
+  // LIVE open — DNS + pinned connect + timeout through body read; no cookies/auth.
   try {
-    const { assertPublicDnsEgress, readBoundedResponseText } = await import(
-      "./web-egress-guard"
-    );
+    const {
+      assertPublicDnsEgress,
+      fetchPublicHttpsPinned,
+      readBoundedResponseText,
+    } = await import("./web-egress-guard");
     const dns = await assertPublicDnsEgress(url);
     if (!dns.ok) {
       return {
@@ -3985,74 +4998,79 @@ export async function executePublicWebOpenPage(input: {
       () => ctrl.abort(),
       Number.isFinite(timeoutMs) && timeoutMs > 0 ? timeoutMs : 8_000,
     );
-    const res = await fetch(url, {
-      method: "GET",
-      redirect: "manual",
-      signal: ctrl.signal,
-      headers: {
-        Accept: "text/html,text/plain;q=0.9,*/*;q=0.1",
-        "User-Agent": "SFIA-Studio-Next-PublicWeb/1.0",
-      },
-    });
-    clearTimeout(timer);
-    if (res.status >= 300 && res.status < 400) {
-      const loc = res.headers.get("location") || "";
-      const hop = assertPublicHttpsUrl(loc);
-      const hopDns = hop.ok ? await assertPublicDnsEgress(hop.url) : null;
-      return {
-        status: "DENIED",
-        coverage: "DENIED",
+    try {
+      const pinned = await fetchPublicHttpsPinned({
         url,
-        excerpt: "",
+        addresses: dns.addresses,
+        signal: ctrl.signal,
+      });
+      if (pinned.status >= 300 && pinned.status < 400) {
+        const loc = pinned.headers.get("location") || "";
+        const hop = assertPublicHttpsUrl(loc);
+        const hopDns = hop.ok ? await assertPublicDnsEgress(hop.url) : null;
+        return {
+          status: "DENIED",
+          coverage: "DENIED",
+          url,
+          excerpt: "",
+          limits: [
+            "REDIRECT_NOT_FOLLOWED",
+            hop.ok ? "REVALIDATE_HOP_REQUIRED" : `REDIRECT_${hop.reason}`,
+            hopDns && !hopDns.ok ? `REDIRECT_${hopDns.reason}` : "REDIRECT_DNS_PENDING",
+          ],
+          mode: "LIVE",
+        };
+      }
+      if (pinned.status < 200 || pinned.status >= 300) {
+        return {
+          status: "ERROR",
+          coverage: "DENIED",
+          url,
+          excerpt: "",
+          limits: [`HTTP_${pinned.status}`],
+          mode: "LIVE",
+        };
+      }
+      const maxBytes = Number(process.env.SFIA_WEB_FETCH_MAX_BYTES || "200000");
+      const bounded = await readBoundedResponseText(
+        { body: pinned.body, headers: pinned.headers },
+        {
+          maxBytes: Number.isFinite(maxBytes) && maxBytes > 0 ? maxBytes : 200_000,
+          excerptChars: 8_000,
+          signal: ctrl.signal,
+        },
+      );
+      const text = bounded.text;
+      const { buildWebSourceCitation } = await import("./web-source-citation");
+      const citation = buildWebSourceCitation({
+        url,
+        establishedUrl: url,
+        title: new URL(url).hostname,
+        coverage: bounded.truncated ? "PARTIAL" : "OPENED",
+        excerpt: text,
         limits: [
-          "REDIRECT_NOT_FOLLOWED",
-          hop.ok ? "REVALIDATE_HOP_REQUIRED" : `REDIRECT_${hop.reason}`,
-          hopDns && !hopDns.ok ? `REDIRECT_${hopDns.reason}` : "REDIRECT_DNS_PENDING",
+          "WEB_LIVE_FETCH",
+          "UNTRUSTED_WEB_CONTENT",
+          "NO_AUTHORITY",
+          "EGRESS_DNS_CHECKED",
+          "EGRESS_PINNED_CONNECT",
+          `PINNED_${pinned.pinnedAddress}`,
+          bounded.truncated ? "EXCERPT_TRUNCATED" : "EXCERPT_BOUNDED",
+          "PAGE_NOT_FULLY_CONSULTED",
         ],
-        mode: "LIVE",
-      };
-    }
-    if (!res.ok) {
+      });
       return {
-        status: "ERROR",
-        coverage: "DENIED",
+        status: "AVAILABLE",
+        coverage: bounded.truncated ? "PARTIAL" : "PAGE_OPENED",
         url,
-        excerpt: "",
-        limits: [`HTTP_${res.status}`],
+        excerpt: citation.excerpt ?? text,
+        limits: citation.limits,
         mode: "LIVE",
+        citation,
       };
+    } finally {
+      clearTimeout(timer);
     }
-    const maxBytes = Number(process.env.SFIA_WEB_FETCH_MAX_BYTES || "200000");
-    const bounded = await readBoundedResponseText(res, {
-      maxBytes: Number.isFinite(maxBytes) && maxBytes > 0 ? maxBytes : 200_000,
-      excerptChars: 8_000,
-    });
-    const text = bounded.text;
-    const { buildWebSourceCitation } = await import("./web-source-citation");
-    const citation = buildWebSourceCitation({
-      url,
-      establishedUrl: url,
-      title: new URL(url).hostname,
-      coverage: bounded.truncated ? "PARTIAL" : "OPENED",
-      excerpt: text,
-      limits: [
-        "WEB_LIVE_FETCH",
-        "UNTRUSTED_WEB_CONTENT",
-        "NO_AUTHORITY",
-        "EGRESS_DNS_CHECKED",
-        bounded.truncated ? "EXCERPT_TRUNCATED" : "EXCERPT_BOUNDED",
-        "PAGE_NOT_FULLY_CONSULTED",
-      ],
-    });
-    return {
-      status: "AVAILABLE",
-      coverage: bounded.truncated ? "PARTIAL" : "PAGE_OPENED",
-      url,
-      excerpt: citation.excerpt ?? text,
-      limits: citation.limits,
-      mode: "LIVE",
-      citation,
-    };
   } catch (e) {
     return {
       status: "ERROR",
@@ -4128,3856 +5146,10 @@ export async function buildPublicWebFrontierTools(input: {
     }),
   ];
 }
+
 ```
 
-### FILE `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
-
-- bytes (reproduit): 148349
-- sha256 fichier disque: `4f2e36bdc2b24a43fab70e9fd966892e7121cd353bfbc1a418c8b2102fe1d826`
-
-```typescript
-import { and, asc, eq, inArray, sql } from "drizzle-orm";
-import { db } from "@/db/client";
-import {
-  businessCommands,
-  conversationTurnCommands,
-  conversations,
-  createProjectCommands,
-  documentRevisions,
-  documents,
-  effectAttempts,
-  humanDecisions,
-  knowledgeAcquis,
-  knowledgeOpenPoints,
-  messages,
-} from "@/db/schema";
-// db still used by getConversationId / listMessages
-import { newId } from "@/lib/ids";
-import { generateNoraReply } from "./nora-adapter";
-import {
-  applyPreparationProjection,
-  getPreparationContext,
-  openOrCreatePreparation,
-} from "@/domains/preparation/service";
-import {
-  maybeCapitalizeFromExchange,
-  reconstituteConfirmedD4Effects,
-  selectRelevantKnowledgeContext,
-} from "@/domains/knowledge/service";
-import { getDocumentRevision, listDocuments } from "@/domains/document/service";
-import {
-  admitDocumentCommand,
-  canonicalizeDocumentProposal,
-  confrontProposalWithFence,
-  contentSha256,
-  resolveAssistantProposal,
-  sealAndApplyDocumentCommand,
-  serializeProposalFence,
-  type DocumentProposalExact,
-} from "@/domains/conversation/document-command";
-import {
-  DOC_CONSERVE_PROPOSAL,
-  isConserveProposalTransmit,
-  isHistoricalSourceChoiceTransmit,
-  loadHistoricalSourceAuthorization,
-  assertHistoricalAuthBoundToCandidate,
-  loadPendingDocumentCandidate,
-  markPendingCandidateConsumed,
-  pendingCandidateSummary,
-  stashHistoricalSourceAuthorization,
-  stashPendingDocumentCandidate,
-  type HistoricalSourceAuthorization,
-  type PendingDocumentCandidate,
-} from "@/domains/conversation/document-candidate";
-import {
-  bindTurnGenerationId,
-  commitTurnTerminal,
-  findUnresolvedSiblingTurns,
-  markTurnUnknown,
-  requireTurnOwnership,
-  reserveTurnCommand,
-  stashTurnQualification,
-  touchTurnLease,
-  turnRaceHooks,
-} from "./turn-command";
-import { emitObs, newRequestId } from "@/lib/observability";
-import { StudioError } from "@/lib/http-errors";
-import {
-  applyConversationalAuthority,
-  conversationalCommandKey,
-  reconstituteConversationalAuthority,
-  type ConversationalAuthorityOutcome,
-} from "@/domains/pilotage/conversation-authority";
-import { buildNoraPilotageContext } from "@/domains/pilotage/nora-context";
-import { assertPilotTurnNotBlockedByQualification } from "@/domains/pilotage/initial-qualification";
-import {
-  composePilotageEffectRestitution,
-  isTechnicalMissionAssistantContent,
-  projectMetierMissionMessage,
-} from "@/domains/conversation/pilotage-effect-restitution";
-import {
-  appendDocumentEffectAck,
-  applyTargetedSectionRevision,
-  assertSectionScope,
-  extractContractualDocumentProposal,
-  resolveHistoricalConfirmation,
-  resolveReviseTarget,
-  stripContractualDocumentFences,
-  type DocumentEffectSummary,
-  type DocumentProposalExtract,
-} from "./document-act";
-import {
-  deriveThreadTurnKind,
-  effectIntents,
-  extractKnowledgeProposals,
-  summarizeKnowledgeProposals,
-  extractKnowledgeSelectionHints,
-  extractPilotageBinding,
-  projectStudioEffects,
-  unavailableQualification,
-  type NoraTurnQualification,
-} from "./semantic-qualification";
-import { loadLatestMissionsByIntentKey } from "./intent-conduction";
-import {
-  buildTurnCorrelationKeys,
-  evaluateS05SiblingPolicy,
-  parseSiblingResultEvidence,
-  type S05SiblingEvidence,
-} from "./s05-pending-policy";
-import type { ThreadTurnKind } from "@/domains/pilotage/thread-recovery";
-import {
-  appendMissionAck,
-  cognitiveContinueFromFacts,
-  composeCanonicalMissionRestitution,
-  isPublicationPathClarificationResume,
-  missionCorrelationKeys,
-  preparePublicationForMission,
-  publicationRefsFromClarifyingMission,
-  recoverAuthorizedNoraMissions,
-  resolvePublicationPathAfterClarification,
-  type MissionProjection,
-} from "./mission-continuity";
-import { admitConversationalPublicationMandate } from "./conversation-publication-authority";
-import {
-  extractAllPublicationBranchHints,
-  extractExplicitPublicationBranch,
-} from "./conversation-publication-mandate-guards";
-import {
-  admitConversationalMergeMandate,
-  extractPositivelyRequestedPrNumbers,
-  userStatementHasOpenMergeCondition,
-  userStatementHasUnresolvedSamePrMergeContradiction,
-  userStatementIsNonAuthorizingMergeTalk,
-  userStatementRefusesMerge,
-} from "./conversation-merge-authority";
-import { userStatementRefusesPublication } from "./conversation-publication-mandate-guards";
-import {
-  composePublicationEffectRestitution,
-  publicationWriteGate,
-  type PublicationEffectView,
-} from "./publication-effect-restitution";
-import {
-  buildPublicationEffectViewFromAttempt,
-  formatPublicationOwnerFactsSnippets,
-  loadLatestCompletedPublicationSnippet,
-} from "./publication-effect-view";
-import { listProjectPublications } from "@/domains/integrations/publication-projection-service";
-import {
-  confirmPublicationDocumentWithD4,
-  resolvePublicationDocumentTarget,
-} from "./publication-document-target";
-import {
-  advanceMissionAfterProjectCreated,
-  buildD2AwaitingStep,
-  buildD2OwnerActBinding,
-  buildPendingDocumentStep,
-  emptyMission,
-  loadPriorMissionProjection,
-  mergeMissionSteps,
-  recoverPendingMissionContinuation,
-} from "./intent-conduction";
-import { draftProjectionFromQualification } from "@/domains/preparation/projection";
-import {
-  buildTurnProjection,
-  extractTurnProjectionFromResultJson,
-  type TurnProjection,
-} from "./turn-projection";
-
-/**
- * S05 R-01 — gather owner-side evidence for one unresolved sibling.
- * true = correlated owner row found; false = applicable owners probed empty;
- * null = incomplete / errored / identity insufficient.
- * Never derives absence of effect from resultJson alone.
- */
-export async function probeSiblingOwnerEffects(input: {
-  pilotId: string;
-  preparationId: string;
-  projectId: string | null;
-  sibling: {
-    commandId: string;
-    clientTurnKey: string;
-    userMessageId: string | null;
-    operationId: string | null;
-    bindingCorrelationKeys: string[];
-  };
-}): Promise<boolean | null> {
-  const { sibling } = input;
-  const missionKeys = missionCorrelationKeys(sibling.clientTurnKey);
-  const corrKeys = [
-    ...new Set(
-      [
-        ...sibling.bindingCorrelationKeys,
-        missionKeys.document,
-        missionKeys.publication,
-        sibling.clientTurnKey.trim() || null,
-      ].filter((k): k is string => Boolean(k && k.trim())),
-    ),
-  ];
-
-  try {
-    // DEV/E2E seam only — never set in RECETTE/STABLE; forces conservative null.
-    if (process.env.STUDIO_S05_PROBE_FORCE_ERROR === "1") {
-      throw new Error("STUDIO_S05_PROBE_FORCE_ERROR");
-    }
-
-    if (corrKeys.length > 0) {
-      const docs = await db
-        .select({ id: documents.id })
-        .from(documents)
-        .where(
-          and(
-            eq(documents.preparationId, input.preparationId),
-            eq(documents.ownerPilotId, input.pilotId),
-            inArray(documents.creationCorrelationKey, corrKeys),
-          ),
-        )
-        .limit(1);
-      if (docs.length > 0) return true;
-
-      const revs = await db
-        .select({ id: documentRevisions.id })
-        .from(documentRevisions)
-        .innerJoin(documents, eq(documentRevisions.documentId, documents.id))
-        .where(
-          and(
-            eq(documents.preparationId, input.preparationId),
-            eq(documents.ownerPilotId, input.pilotId),
-            inArray(documentRevisions.correlationKey, corrKeys),
-          ),
-        )
-        .limit(1);
-      if (revs.length > 0) return true;
-    }
-
-    const cmdNeedle = sibling.commandId;
-    const provenanceHits = await db
-      .select({ id: documentRevisions.id })
-      .from(documentRevisions)
-      .innerJoin(documents, eq(documentRevisions.documentId, documents.id))
-      .where(
-        and(
-          eq(documents.preparationId, input.preparationId),
-          eq(documents.ownerPilotId, input.pilotId),
-          sql`${documentRevisions.provenanceJson} like ${"%" + cmdNeedle + "%"}`,
-        ),
-      )
-      .limit(1);
-    if (provenanceHits.length > 0) return true;
-
-    const d2 = await db
-      .select({ id: createProjectCommands.id })
-      .from(createProjectCommands)
-      .where(
-        and(
-          eq(createProjectCommands.pilotId, input.pilotId),
-          eq(createProjectCommands.preparationId, input.preparationId),
-          eq(createProjectCommands.idempotencyKey, sibling.clientTurnKey),
-        ),
-      )
-      .limit(1);
-    if (d2.length > 0) return true;
-
-    if (input.projectId) {
-      const bizKey = conversationalCommandKey(sibling.clientTurnKey);
-      const bizByKey = await db
-        .select({ id: businessCommands.id })
-        .from(businessCommands)
-        .where(
-          and(
-            eq(businessCommands.projectId, input.projectId),
-            eq(businessCommands.actorPilotId, input.pilotId),
-            eq(businessCommands.clientCommandKey, bizKey),
-          ),
-        )
-        .limit(1);
-      if (bizByKey.length > 0) return true;
-
-      if (sibling.userMessageId) {
-        const bizByMsg = await db
-          .select({ id: businessCommands.id })
-          .from(businessCommands)
-          .where(
-            and(
-              eq(businessCommands.projectId, input.projectId),
-              eq(businessCommands.actorPilotId, input.pilotId),
-              eq(businessCommands.sourceKind, "USER_MESSAGE"),
-              eq(businessCommands.sourceRef, sibling.userMessageId),
-            ),
-          )
-          .limit(1);
-        if (bizByMsg.length > 0) return true;
-
-        const hd = await db
-          .select({ id: humanDecisions.id })
-          .from(humanDecisions)
-          .where(
-            and(
-              eq(humanDecisions.projectId, input.projectId),
-              eq(humanDecisions.pilotId, input.pilotId),
-              eq(humanDecisions.sourceRef, sibling.userMessageId),
-            ),
-          )
-          .limit(1);
-        if (hd.length > 0) return true;
-      }
-
-      const eaKeys = [
-        ...new Set(
-          [missionKeys.publication, ...sibling.bindingCorrelationKeys].filter(
-            (k): k is string => Boolean(k && k.trim()),
-          ),
-        ),
-      ];
-      if (eaKeys.length > 0) {
-        const ea = await db
-          .select({ id: effectAttempts.id })
-          .from(effectAttempts)
-          .where(
-            and(
-              eq(effectAttempts.pilotId, input.pilotId),
-              eq(effectAttempts.projectId, input.projectId),
-              inArray(effectAttempts.correlationKey, eaKeys),
-            ),
-          )
-          .limit(1);
-        if (ea.length > 0) return true;
-      }
-    }
-
-    // D4 knowledge — use provenance keys actually written by maybeCapitalizeFromExchange:
-    // { sourceKind: "message", sourceId: userMessageId, generationId }.
-    // commandId is NOT written into knowledge provenance; LIKE(commandId) is not exhaustive.
-    // knowledge_subjects has no turn provenance — never attribute by title/createdAt/prep alone.
-    const msgId = sibling.userMessageId?.trim() || null;
-    let generationId: string | null = null;
-    const turnMeta = (
-      await db
-        .select({ generationId: conversationTurnCommands.generationId })
-        .from(conversationTurnCommands)
-        .where(eq(conversationTurnCommands.id, sibling.commandId))
-        .limit(1)
-    )[0];
-    generationId = turnMeta?.generationId?.trim() || null;
-
-    if (!msgId && !generationId) {
-      // Knowledge negative proof requires durable message/generation identity.
-      return null;
-    }
-
-    const acquisProv = generationId
-      ? sql`(
-          ${knowledgeAcquis.provenanceJson}::jsonb->>'generationId' = ${generationId}
-          or (
-            coalesce(${knowledgeAcquis.provenanceJson}::jsonb->>'generationId', '') = ''
-            and ${msgId}::text is not null
-            and ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceKind' = 'message'
-            and ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceId' = ${msgId}
-          )
-        )`
-      : sql`(
-          ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceKind' = 'message'
-          and ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceId' = ${msgId}
-        )`;
-    const openProv = generationId
-      ? sql`(
-          ${knowledgeOpenPoints.provenanceJson}::jsonb->>'generationId' = ${generationId}
-          or (
-            coalesce(${knowledgeOpenPoints.provenanceJson}::jsonb->>'generationId', '') = ''
-            and ${msgId}::text is not null
-            and ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceKind' = 'message'
-            and ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceId' = ${msgId}
-          )
-        )`
-      : sql`(
-          ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceKind' = 'message'
-          and ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceId' = ${msgId}
-        )`;
-
-    const acquisHit = await db
-      .select({ id: knowledgeAcquis.id })
-      .from(knowledgeAcquis)
-      .where(
-        and(
-          eq(knowledgeAcquis.preparationId, input.preparationId),
-          eq(knowledgeAcquis.ownerPilotId, input.pilotId),
-          acquisProv,
-        ),
-      )
-      .limit(1);
-    if (acquisHit.length > 0) return true;
-
-    const openHit = await db
-      .select({ id: knowledgeOpenPoints.id })
-      .from(knowledgeOpenPoints)
-      .where(
-        and(
-          eq(knowledgeOpenPoints.preparationId, input.preparationId),
-          eq(knowledgeOpenPoints.ownerPilotId, input.pilotId),
-          openProv,
-        ),
-      )
-      .limit(1);
-    if (openHit.length > 0) return true;
-
-    // Historical / non-canonical formats: positive-only commandId needle (never sole negative proof).
-    if (cmdNeedle) {
-      const acquisLegacy = await db
-        .select({ id: knowledgeAcquis.id })
-        .from(knowledgeAcquis)
-        .where(
-          and(
-            eq(knowledgeAcquis.preparationId, input.preparationId),
-            eq(knowledgeAcquis.ownerPilotId, input.pilotId),
-            sql`${knowledgeAcquis.provenanceJson} like ${"%" + cmdNeedle + "%"}`,
-          ),
-        )
-        .limit(1);
-      if (acquisLegacy.length > 0) return true;
-      const openLegacy = await db
-        .select({ id: knowledgeOpenPoints.id })
-        .from(knowledgeOpenPoints)
-        .where(
-          and(
-            eq(knowledgeOpenPoints.preparationId, input.preparationId),
-            eq(knowledgeOpenPoints.ownerPilotId, input.pilotId),
-            sql`${knowledgeOpenPoints.provenanceJson} like ${"%" + cmdNeedle + "%"}`,
-          ),
-        )
-        .limit(1);
-      if (openLegacy.length > 0) return true;
-    }
-
-    // Subjects: no command provenance on schema — do not invent attribution.
-    // Negative false here means acquis/open_points probes completed empty with durable
-    // message/generation identity. Subject-only writes remain unattributable; QUALIFIED
-    // REQUEST_EFFECT knowledge paths stay blocked by classifySiblingEffectRisk via effectIntents.
-    // UNAVAILABLE turns cannot produce extractKnowledgeProposals → knowledge write path closed.
-    return false;
-  } catch {
-    return null;
-  }
-}
-
-export async function listMessages(pilotId: string, preparationId: string) {
-  // READ ≠ COMMAND: listing must not dispatch Git or mutate effects.
-  const ctx = await getPreparationContext(pilotId, preparationId);
-  if (!ctx.conversation) return [];
-  const rows = await db
-    .select()
-    .from(messages)
-    .where(eq(messages.conversationId, ctx.conversation.id))
-    .orderBy(asc(messages.ordinal));
-  // E07 — project technical mission dumps as métier text (no DB rewrite).
-  return rows.map((m) => {
-    if (
-      m.role === "assistant" &&
-      isTechnicalMissionAssistantContent(m.content, m.generationId)
-    ) {
-      return { ...m, content: projectMetierMissionMessage(m.content) };
-    }
-    return m;
-  });
-}
-
-/**
- * R05 — READ-ONLY durable turn lookup by clientTurnKey.
- * Never reserves, never calls Nora, never mutates. Used by cognitive recovery
- * so UI pending clear is grounded in server state (not a bare D7 404).
- */
-export async function lookupDurableTurnByClientKey(
-  pilotId: string,
-  preparationId: string,
-  clientTurnKey: string,
-): Promise<{
-  found: boolean;
-  turnCommandId: string | null;
-  status: string | null;
-  generationId: string | null;
-  operationId: string | null;
-  userMessageId: string | null;
-  assistantMessageId: string | null;
-  pilotageEffect: TurnResult["pilotageEffect"];
-  idempotentReplay: true;
-  noraMode: "durable-lookup";
-}> {
-  const key = clientTurnKey.trim();
-  const empty = {
-    found: false as const,
-    turnCommandId: null,
-    status: null,
-    generationId: null,
-    operationId: null,
-    userMessageId: null,
-    assistantMessageId: null,
-    pilotageEffect: null,
-    idempotentReplay: true as const,
-    noraMode: "durable-lookup" as const,
-  };
-  if (!key) return empty;
-
-  const ctx = await getPreparationContext(pilotId, preparationId);
-  if (!ctx.conversation) return empty;
-
-  const row = (
-    await db
-      .select({
-        id: conversationTurnCommands.id,
-        status: conversationTurnCommands.status,
-        generationId: conversationTurnCommands.generationId,
-        operationId: conversationTurnCommands.operationId,
-        userMessageId: conversationTurnCommands.userMessageId,
-        assistantMessageId: conversationTurnCommands.assistantMessageId,
-        resultJson: conversationTurnCommands.resultJson,
-        clientTurnKey: conversationTurnCommands.clientTurnKey,
-      })
-      .from(conversationTurnCommands)
-      .where(
-        and(
-          eq(conversationTurnCommands.conversationId, ctx.conversation.id),
-          eq(conversationTurnCommands.clientTurnKey, key),
-        ),
-      )
-      .limit(1)
-  )[0];
-
-  if (!row) return empty;
-
-  let fromJson: TurnResult["pilotageEffect"] = null;
-  let humanDecisionCreated = false;
-  if (row.resultJson) {
-    try {
-      const parsed = JSON.parse(row.resultJson) as TurnResult;
-      fromJson = parsed.pilotageEffect ?? null;
-      humanDecisionCreated = Boolean(parsed.humanDecisionCreated);
-    } catch {
-      /* ignore corrupt payload — status row still authoritative for D3 */
-    }
-  }
-
-  const resolved = await resolvePilotageEffectForReplay({
-    pilotId,
-    projectId: ctx.project?.id,
-    clientTurnKey: row.clientTurnKey,
-    userMessageId: row.userMessageId,
-    fromJson,
-    humanDecisionCreated,
-  });
-
-  return {
-    found: true,
-    turnCommandId: row.id,
-    status: row.status,
-    generationId: row.generationId,
-    operationId: row.operationId,
-    userMessageId: row.userMessageId,
-    assistantMessageId: row.assistantMessageId,
-    pilotageEffect: resolved.pilotageEffect,
-    idempotentReplay: true,
-    noraMode: "durable-lookup",
-  };
-}
-
-/**
- * Ensemble 05 / M1 — reload projections from existing result_json (no new table).
- * READ ≠ COMMAND.
- */
-export async function listTurnProjections(pilotId: string, preparationId: string) {
-  const ctx = await getPreparationContext(pilotId, preparationId);
-  if (!ctx.conversation) return [];
-  const rows = await db
-    .select({
-      id: conversationTurnCommands.id,
-      assistantMessageId: conversationTurnCommands.assistantMessageId,
-      status: conversationTurnCommands.status,
-      resultJson: conversationTurnCommands.resultJson,
-    })
-    .from(conversationTurnCommands)
-    .where(
-      and(
-        eq(conversationTurnCommands.conversationId, ctx.conversation.id),
-        eq(conversationTurnCommands.ownerPilotId, pilotId),
-      ),
-    );
-  const out = [];
-  for (const row of rows) {
-    if (!row.assistantMessageId || !row.resultJson) continue;
-    const proj = extractTurnProjectionFromResultJson(row.resultJson);
-    if (!proj) continue;
-    // E07 — surface durable Studio effect alongside turnProjection (sibling in resultJson).
-    let pilotageEffect: TurnResult["pilotageEffect"] = null;
-    try {
-      const parsed = JSON.parse(row.resultJson) as {
-        pilotageEffect?: TurnResult["pilotageEffect"];
-      };
-      pilotageEffect = parsed.pilotageEffect ?? null;
-    } catch {
-      pilotageEffect = null;
-    }
-    out.push({
-      ...proj,
-      messageId: proj.messageId ?? row.assistantMessageId,
-      turnCommandId: proj.turnCommandId ?? row.id,
-      finalized: proj.finalized || row.status === "COMPLETE",
-      status: proj.status || row.status,
-      pilotageEffect,
-    });
-  }
-  return out;
-}
-
-/** Qualification decision before extract/D4 — metadata only, never blocks D4. */
-function emitDocumentActQualificationObs(args: {
-  requestId: string;
-  operationId: string;
-  generationId?: string | null;
-  qualificationKind: "CREATE" | "REVISE" | "NONE";
-  qualificationReason?: string | null;
-  documentaryIntentSignal: boolean;
-  d4Attempted: boolean;
-  d4Effect?: string | null;
-}) {
-  emitObs({
-    event_name: "d3.turn.document_act_qualification",
-    component: "d3.conversation",
-    request_id: args.requestId,
-    operation_id: args.operationId,
-    generation_id: args.generationId ?? undefined,
-    outcome:
-      args.qualificationKind === "NONE"
-        ? "PARTIAL"
-        : args.d4Effect === "AVAILABLE"
-          ? "SUCCESS"
-          : args.d4Attempted
-            ? "PARTIAL"
-            : "PARTIAL",
-    meta: {
-      qualification_kind: args.qualificationKind,
-      qualification_reason: args.qualificationReason ?? null,
-      documentary_intent_signal: args.documentaryIntentSignal,
-      d4_attempted: args.d4Attempted,
-      d4_effect: args.d4Effect ?? null,
-    },
-  });
-}
-
-function emitDocumentProposalObs(args: {
-  requestId: string;
-  operationId: string;
-  generationId: string | null | undefined;
-  act: "CREATE" | "REVISE";
-  extracted: DocumentProposalExtract;
-  scopeVerdict?: string | null;
-  refuseCode?: string | null;
-  d4Attempted: boolean;
-  d4Effect?: string | null;
-}) {
-  emitObs({
-    event_name: "d3.turn.document_proposal",
-    component: "d3.conversation",
-    request_id: args.requestId,
-    operation_id: args.operationId,
-    generation_id: args.generationId ?? undefined,
-    outcome: args.extracted.ok
-      ? args.refuseCode
-        ? "FAILED"
-        : args.d4Effect === "AVAILABLE"
-          ? "SUCCESS"
-          : args.d4Attempted
-            ? "FAILED"
-            : "PARTIAL"
-      : "FAILED",
-    meta: {
-      act: args.act,
-      extract_path: args.extracted.path,
-      proposal_present: args.extracted.ok,
-      fence_count: args.extracted.fenceCount,
-      section_count: args.extracted.sectionCount,
-      proposal_chars: args.extracted.proposalChars,
-      proposal_digest16: args.extracted.proposalDigest16,
-      body_ends_with_nl: args.extracted.bodyEndsWithNewline,
-      scope_verdict: args.scopeVerdict ?? null,
-      refuse_code: args.refuseCode ?? (args.extracted.ok ? null : args.extracted.reason),
-      d4_attempted: args.d4Attempted,
-      d4_effect: args.d4Effect ?? null,
-    },
-  });
-}
-
-export type TurnResult = {
-  userMessageId?: string | null;
-  assistantMessageId?: string | null;
-  operationId: string;
-  requestId: string;
-  noraMode?: string;
-  status?: string;
-  generationId?: string | null;
-  policy?: {
-    version: string;
-    profileType: string;
-    profile: string;
-    modelRequested: string;
-    modelApplied: string | null;
-    effortRequested: string;
-    effortApplied: string | null;
-    reasonCodes: string[];
-  };
-  attempts?: unknown[];
-  toolCallsObserved?: number;
-  d4CharsReturned?: number;
-  streaming?: { attempted: boolean; delivered: boolean; notes: string | null };
-  knowledgeSelection?: unknown;
-  /** Post-qualification preferred listing — resume hint only, not cognition of current reply. */
-  knowledgeResumeHints?: unknown;
-  capitalisation?: unknown;
-  capitalisationAttempted?: unknown;
-  capitalisationLimit?: string;
-  documentSave?: {
-    status?: string;
-    documentId?: string;
-    revisionId?: string;
-    revisionNumber?: number;
-    baseRevisionId?: string;
-    reason?: string;
-    act?: "CREATE" | "REVISE";
-    idempotentReplay?: boolean;
-  } | null;
-  /** F1 — sealed proposal candidate awaiting explicit conservation (no D4 yet). */
-  pendingDocumentCandidate?: {
-    candidateId: string;
-    contentSha256: string;
-    documentId: string;
-    sourceRevisionId: string;
-    observedHeadRevisionId: string;
-    title: string;
-    /** Exact merged markdown for visionneuse — server-authoritative. */
-    contentMarkdown?: string;
-  } | null;
-  /** F2 — server-issued historical base authorization from an explicit Pilot choice. */
-  historicalAuthorization?: {
-    authorizationId: string;
-    documentId: string;
-    sourceRevisionId: string;
-    observedHeadRevisionId: string;
-    choice: "USE_SOURCE" | "USE_HEAD";
-  } | null;
-  idempotentReplay: boolean;
-  /**
-   * True only when a HumanDecision id was actually produced (APPLIED/ALREADY_APPLIED).
-   * Never conflated with "intent detected" or "command attempted".
-   */
-  humanDecisionCreated: boolean;
-  /** Honest D5/D6 bridge outcome for this USER turn (absent when no project / no act). */
-  pilotageEffect?: {
-    attempted: boolean;
-    intentClarity: "CLEAR" | "AMBIGUOUS" | "NONE";
-    intentReason?: string;
-    operation?: string;
-    status?: string | null;
-    reasonCode?: string | null;
-    reason?: string | null;
-    commandId?: string | null;
-    decisionId?: string | null;
-    clarification?: string;
-    source: ConversationalAuthorityOutcome["source"];
-    clientCommandKey?: string;
-    effects?: Array<{ effectKind: string; targetRef: string }>;
-  } | null;
-  reconciled?: boolean;
-  /** Durable turn id — available for mid-turn activity polling (C01/C07). */
-  turnCommandId?: string | null;
-  /** CA-01 — DRAFT contract prepared this turn (never READY / never D6). */
-  preparedContract?: {
-    contractId: string;
-    contractKey: string;
-    version: number;
-    fingerprint: string;
-    status: string;
-  } | null;
-  /** Refs-only mission projection — never owner truth for D4/D6/D7. */
-  missionProjection?: MissionProjection | null;
-  /** S05 — server-derived turn kind from Nora qualification (not client lexical). */
-  nextTurnKind?: ThreadTurnKind;
-  /** Echo of durable qualification status for clients / recovery. */
-  semanticQualificationStatus?: string;
-  /** D2 living sas projection ack for this turn (never an authority grant). */
-  preparationProjection?: {
-    status: string;
-    revision?: number;
-    assessment?: string;
-  } | null;
-  /** S05 — true when a sibling pending blocked owner effects for this turn. */
-  pendingEffectBlocked?: boolean;
-  pendingBlockReason?: string;
-  unresolvedPendingClientTurnKey?: string | null;
-  /**
-   * Ensemble 05 / M1 — structured reply projection (choices, refs, activity).
-   * Additive in result_json; never an authority grant.
-   */
-  turnProjection?: TurnProjection | null;
-};
-
-function pilotageEffectFromAuthority(
-  authority: ConversationalAuthorityOutcome | null,
-): TurnResult["pilotageEffect"] {
-  if (!authority) return null;
-  return {
-    attempted: authority.attempted,
-    intentClarity: authority.intentClarity,
-    intentReason: authority.intentReason,
-    operation: authority.operation,
-    status: authority.command?.status ?? null,
-    reasonCode: authority.command?.reasonCode ?? null,
-    reason: authority.command?.reason ?? authority.intentReason ?? null,
-    commandId: authority.command?.commandId ?? null,
-    decisionId: authority.decisionId,
-    clarification: authority.clarification,
-    source: authority.source,
-    clientCommandKey: authority.clientCommandKey,
-    effects: authority.command?.effects?.map((e) => ({
-      effectKind: e.effectKind,
-      targetRef: e.targetRef,
-    })),
-  };
-}
-
-async function resolvePilotageEffectForReplay(input: {
-  pilotId: string;
-  projectId: string | null | undefined;
-  clientTurnKey?: string | null;
-  userMessageId?: string | null;
-  fromJson: TurnResult["pilotageEffect"] | null | undefined;
-  humanDecisionCreated: boolean;
-}): Promise<{ pilotageEffect: TurnResult["pilotageEffect"]; humanDecisionCreated: boolean }> {
-  if (input.fromJson?.attempted && input.fromJson.status) {
-    return {
-      pilotageEffect: input.fromJson,
-      humanDecisionCreated: input.humanDecisionCreated || Boolean(input.fromJson.decisionId),
-    };
-  }
-  if (!input.projectId) {
-    return { pilotageEffect: input.fromJson ?? null, humanDecisionCreated: input.humanDecisionCreated };
-  }
-  const reconstituted = await reconstituteConversationalAuthority({
-    pilotId: input.pilotId,
-    projectId: input.projectId,
-    clientTurnKey: input.clientTurnKey,
-    userMessageId: input.userMessageId,
-  });
-  if (!reconstituted) {
-    return { pilotageEffect: input.fromJson ?? null, humanDecisionCreated: input.humanDecisionCreated };
-  }
-  const effect = pilotageEffectFromAuthority(reconstituted);
-  return {
-    pilotageEffect: effect,
-    humanDecisionCreated:
-      input.humanDecisionCreated || Boolean(reconstituted.humanDecisionCreated),
-  };
-}
-
-export async function postUserMessageAndNora(
-  pilotId: string,
-  preparationId: string,
-  content: string,
-  opts?: {
-    correlationKey?: string;
-    clientTurnKey?: string;
-    requestId?: string;
-    /** Client UX hint only — server DB siblings are authoritative for S05. */
-    unresolvedPendingClientTurnKey?: string;
-    /** Documents→Travail focus: exact source revision (may be historical). */
-    documentFocus?: {
-      documentId: string;
-      sourceRevisionId: string;
-      sourceRevisionNumber?: number;
-      /** Ignored for drafting authority (R1) — D4 getDocumentRevision is sole source. */
-      sourceContentMarkdown?: string;
-      observedHeadRevisionId: string;
-      observedHeadRevisionNumber?: number;
-      confirmedHistoricalSource?: boolean;
-      historicalConfirmation?: {
-        documentId: string;
-        sourceRevisionId: string;
-        observedHeadRevisionId: string;
-        choice: "USE_SOURCE" | "USE_HEAD" | "REFUSED";
-      };
-      /** F2 — server-issued id from a prior historical choice turn. */
-      historicalAuthorizationId?: string;
-      /** F1 — explicit conservation bound to a pending candidate. */
-      conserveProposal?: boolean;
-      pendingCandidateId?: string;
-      pendingCandidateContentSha256?: string;
-    } | null;
-  },
-): Promise<TurnResult> {
-  const requestId = opts?.requestId ?? newRequestId();
-  const ctx = await getPreparationContext(pilotId, preparationId);
-  if (!ctx.conversation) throw new StudioError("NOT_FOUND", "Préparation introuvable");
-
-  // Governed recovery (COMMAND path only — never from listMessages READ).
-  // P0-B: next turn recovers AUTHORIZED Nora missions after crash mid-authorize→dispatch.
-  // G2: also recover interrupted D2→D4 mission continuation when project already exists.
-  if (ctx.project?.id) {
-    // Ensemble 07 — RG-CONV-018: refuse pilot turns while initial trajectory qualification is open.
-    await assertPilotTurnNotBlockedByQualification(pilotId, ctx.project.id);
-
-    try {
-      await recoverAuthorizedNoraMissions({ pilotId, projectId: ctx.project.id });
-    } catch {
-      /* never block the new turn */
-    }
-    try {
-      await recoverPendingMissionContinuation({ pilotId, projectId: ctx.project.id });
-    } catch {
-      /* never block the new turn */
-    }
-  }
-
-  // Multi-domain continuity: prefer intention-anchored load (GAP-04).
-  // Primary D2→D4 continuation is continueAfterProjectCreated on create-project COMMAND.
-  let carriedMission: MissionProjection | null = null;
-  try {
-    const awaiting = await loadPriorMissionProjection(ctx.conversation.id, {
-      awaitingPilotAct: true,
-      preparationId,
-    });
-    if (awaiting && ctx.project?.id) {
-      carriedMission = advanceMissionAfterProjectCreated(awaiting, ctx.project.id);
-    } else {
-      const priorMission = await loadPriorMissionProjection(ctx.conversation.id, {
-        preparationId,
-      });
-      if (priorMission && priorMission.status !== "COMPLETED") {
-        carriedMission = priorMission;
-      }
-    }
-  } catch {
-    carriedMission = null;
-  }
-
-  const clientTurnKey =
-    opts?.clientTurnKey?.trim() ||
-    opts?.correlationKey?.trim() ||
-    `turn-${newId("auto")}`;
-
-  const reserved = await reserveTurnCommand({
-    conversationId: ctx.conversation.id,
-    ownerPilotId: pilotId,
-    clientTurnKey,
-    content,
-  });
-
-  if (reserved.kind === "replay") {
-    emitObs({
-      event_name: "d3.turn.replay",
-      component: "d3.conversation",
-      request_id: requestId,
-      operation_id: reserved.operationId,
-      outcome: reserved.status === "COMPLETE" ? "SUCCESS" : "UNKNOWN",
-      meta: {
-        status: reserved.status,
-        reconciled: Boolean(reserved.reconciled),
-      },
-    });
-    if (reserved.resultJson && reserved.status === "COMPLETE") {
-      try {
-        const parsed = JSON.parse(reserved.resultJson) as TurnResult;
-        return {
-          ...parsed,
-          operationId: reserved.operationId,
-          requestId,
-          idempotentReplay: true,
-          // Preserve factual decision flag from the stored terminal payload.
-          humanDecisionCreated: Boolean(parsed.humanDecisionCreated),
-          reconciled: reserved.reconciled,
-        };
-      } catch {
-        /* fall through */
-      }
-    }
-    // FAILED/UNKNOWN: never fabricate COMPLETE; reconstitute durable D4 + D5/D6 from DB.
-    if (reserved.status === "UNKNOWN" || reserved.status === "FAILED") {
-      const reconstituted = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
-        generationId: reserved.generationId,
-        userMessageId: reserved.userMessageId,
-      });
-      let replayPilotage: TurnResult["pilotageEffect"] = null;
-      let replayDecision = false;
-      if (reserved.resultJson) {
-        try {
-          const parsed = JSON.parse(reserved.resultJson) as TurnResult;
-          replayPilotage = parsed.pilotageEffect ?? null;
-          replayDecision = Boolean(parsed.humanDecisionCreated);
-        } catch {
-          /* ignore */
-        }
-      }
-      const resolved = await resolvePilotageEffectForReplay({
-        pilotId,
-        projectId: ctx.project?.id,
-        clientTurnKey: reserved.clientTurnKey ?? clientTurnKey,
-        userMessageId: reserved.userMessageId,
-        fromJson: replayPilotage,
-        humanDecisionCreated: replayDecision,
-      });
-      return {
-        operationId: reserved.operationId,
-        requestId,
-        status: reserved.status,
-        idempotentReplay: true,
-        generationId: reserved.generationId,
-        userMessageId: reserved.userMessageId,
-        assistantMessageId: reserved.assistantMessageId,
-        humanDecisionCreated: resolved.humanDecisionCreated,
-        pilotageEffect: resolved.pilotageEffect,
-        reconciled: reserved.reconciled,
-        noraMode: "replay-terminal",
-        capitalisation: reconstituted.capitalisation,
-        capitalisationLimit: reconstituted.capitalisationLimit,
-        documentSave: reconstituted.documentSave,
-      };
-    }
-    return {
-      operationId: reserved.operationId,
-      requestId,
-      status: reserved.status,
-      idempotentReplay: true,
-      generationId: reserved.generationId,
-      userMessageId: reserved.userMessageId,
-      assistantMessageId: reserved.assistantMessageId,
-      humanDecisionCreated: false,
-      pilotageEffect: null,
-      reconciled: reserved.reconciled,
-      noraMode: reserved.status === "COMPLETE" ? "deterministic-fixture" : "replay-terminal",
-    };
-  }
-
-  emitObs({
-    event_name: "d3.turn.accepted",
-    component: "d3.conversation",
-    request_id: requestId,
-    operation_id: reserved.operationId,
-    outcome: "PARTIAL",
-    meta: { client_turn_key_fp: reserved.requestFingerprint.slice(0, 12) },
-  });
-
-  let pendingDocumentCandidateOut: TurnResult["pendingDocumentCandidate"] = null;
-  let historicalAuthorizationOut: TurnResult["historicalAuthorization"] = null;
-  let continueChoicesOverride: Array<{
-    id: string;
-    label: string;
-    transmitText: string;
-  }> | null = null;
-
-  /** SEM/TV: D5/D6 after Nora semantic qualification — not before. */
-  let authority: ConversationalAuthorityOutcome | null = null;
-
-  const existing = await listMessages(pilotId, preparationId);
-  const contextSnippets = existing
-    .filter((m) => m.status === "COMPLETE" && m.id !== reserved.userMessageId)
-    .slice(-6)
-    .map((m) => `${m.role}: ${m.content.slice(0, 200)}`);
-
-  // F4: pre-Nora context ONLY feeds generation. Post-qual preferred ids are resume hints,
-  // never claimed as having nourished the reply already produced.
-  const knowledgeForNora = await selectRelevantKnowledgeContext(pilotId, preparationId, content, {
-    projectId: ctx.project?.id ?? null,
-  });
-  let knowledgeResumeHints: Awaited<ReturnType<typeof selectRelevantKnowledgeContext>> | null =
-    null;
-
-  const docs = await listDocuments(pilotId, preparationId);
-  const docSnippets = docs.slice(0, 5).map((d) => {
-    const rev = d.latestRevision;
-    return `DOCUMENT[${d.document.id}] «${d.document.title}» v${rev?.revisionNumber ?? "?"} status=${rev?.status ?? "∅"}`;
-  });
-
-  // SEM/TV: Nora qualifies first; same-turn D5/D6 runs after structured qualification.
-  // Prior-turn D5/D6 facts still arrive via buildNoraPilotageContext projection only.
-  const pilotageCtx = await buildNoraPilotageContext(pilotId, preparationId, content);
-
-  // E08 — owner publication facts for follow-up verification (branch/path/SHA/PR).
-  // Read-only D8 projection; never invents merge. Bounded to avoid context bloat.
-  const publicationOwnerSnippets: string[] = [];
-  if (ctx.project?.id) {
-    try {
-      const listed = await listProjectPublications(pilotId, ctx.project.id);
-      publicationOwnerSnippets.push(
-        ...formatPublicationOwnerFactsSnippets(listed.publications, 3),
-      );
-      if (publicationOwnerSnippets.length === 0) {
-        const latest = await loadLatestCompletedPublicationSnippet({
-          pilotId,
-          projectId: ctx.project.id,
-        });
-        if (latest) publicationOwnerSnippets.push(latest);
-      }
-    } catch {
-      /* projection unavailable — Nora still has git READ tools when projectId set */
-    }
-  }
-
-  let reply;
-  let preparedContract: TurnResult["preparedContract"] = null;
-  try {
-    // C1 — announce Nora work (ANNOUNCED ≠ OBSERVED). Best-effort; never blocks the turn.
-    try {
-      const { appendActivityEvent } = await import("./activity-projection");
-      await appendActivityEvent({
-        conversationId: reserved.conversationId,
-        turnCommandId: reserved.commandId,
-        ownerPilotId: pilotId,
-        generationId: null,
-        phase: "nora.generate",
-        nature: "ANNOUNCED",
-        status: "RUNNING",
-        summary: "Nora prépare une réponse",
-        ownerToken: reserved.ownerToken,
-      });
-    } catch {
-      /* activity is observational — turn continues */
-    }
-    // Heartbeat during long provider work so stale lease does not falsely orphan an active run.
-    const leasePulse = setInterval(() => {
-      void touchTurnLease(reserved.commandId, reserved.ownerToken);
-    }, 60_000);
-    // C15 — open/resume dedicated cognitive work (distinct from turn command).
-    let cognitiveWorkId: string | null = null;
-    let cognitiveOwnerToken: string | null = null;
-    try {
-      const { openOrResumeCognitiveWork, heartbeatCognitiveWork } =
-        await import("./cognitive-work");
-      const opened = await openOrResumeCognitiveWork({
-        pilotId,
-        preparationId,
-        projectId: ctx.project?.id ?? null,
-        conversationId: reserved.conversationId,
-        objective: content.slice(0, 2000),
-        forceNew: false,
-      });
-      cognitiveWorkId = opened.work.id;
-      cognitiveOwnerToken = opened.ownerToken;
-      const cogPulse = setInterval(() => {
-        if (cognitiveWorkId && cognitiveOwnerToken) {
-          void heartbeatCognitiveWork({
-            workId: cognitiveWorkId,
-            ownerToken: cognitiveOwnerToken,
-          });
-        }
-      }, 60_000);
-      (leasePulse as unknown as { __cog?: ReturnType<typeof setInterval> }).__cog = cogPulse;
-    } catch {
-      /* cognitive work best-effort — turn continues on legacy path */
-    }
-    try {
-      reply = await generateNoraReply({
-        userText: content,
-        contextSnippets,
-        knowledgeSnippets: [
-          ...knowledgeForNora.snippets,
-          ...docSnippets,
-          ...publicationOwnerSnippets,
-        ],
-        pilotageSnippets: pilotageCtx.snippets,
-        // C01: same structured Level A contract for fixture and LIVE — never authority.
-        levelASignals: pilotageCtx.levelASignals,
-        // Requested level only. The adapter emits DELIVERED after a real generate.
-        ckiDelivery: pilotageCtx.ckiDelivery,
-        toolScope: {
-          pilotId,
-          preparationId,
-          operationId: reserved.operationId,
-          projectId: ctx.project?.id,
-          // Mid-turn OBSERVED activity (C01) — concrete tool refs only.
-          activityContext: {
-            conversationId: reserved.conversationId,
-            turnCommandId: reserved.commandId,
-            ownerPilotId: pilotId,
-            ownerToken: reserved.ownerToken,
-          },
-        },
-      });
-      try {
-        const { appendActivityEvent } = await import("./activity-projection");
-        await appendActivityEvent({
-          conversationId: reserved.conversationId,
-          turnCommandId: reserved.commandId,
-          ownerPilotId: pilotId,
-          generationId: reply.generationId ?? null,
-          phase: "nora.generate",
-          nature: "COMPLETED",
-          status: "COMPLETED",
-          summary: "Réponse Nora disponible",
-          ownerToken: reserved.ownerToken,
-        });
-        // Dedup: mid-turn onRecord already emitted OBSERVED; keep a compact post-hoc
-        // summary only when no mid-turn events were produced (fixture without sink).
-      } catch {
-        /* activity observational */
-      }
-      // CA-01 / C14 — bridge investigation → DRAFT when semantic qualification asks for it.
-      // Never READY here; never lexical intent; never a second preparation engine.
-      if (ctx.project?.id && reply.qualification) {
-        try {
-          const {
-            bridgeNoraTurnToContractPreparation,
-            semanticWantsCursorContractPrepare,
-            semanticWantsCorrectiveDraft,
-          } = await import("./nora-contract-bridge");
-          const wantsPrepare =
-            semanticWantsCursorContractPrepare(reply.qualification) ||
-            semanticWantsCorrectiveDraft(reply.qualification);
-          if (wantsPrepare) {
-            const observedSources = Array.isArray(reply.observedToolSources)
-              ? reply.observedToolSources
-              : [];
-            const bridge = await bridgeNoraTurnToContractPreparation({
-              pilotId,
-              projectId: ctx.project.id,
-              preparationId,
-              conversationId: reserved.conversationId,
-              turnCommandId: reserved.commandId,
-              ownerToken: reserved.ownerToken,
-              userText: content,
-              assistantText: reply.content,
-              qualification: reply.qualification,
-              observedSources,
-              attemptPrepare: observedSources.some(
-                (s) => s.coverage === "CONSULTED" || s.coverage === "VERIFIED",
-              ),
-              sourceTurnCommandId: reserved.commandId,
-            });
-            preparedContract = bridge.prepared;
-          }
-        } catch {
-          /* bridge observational / qualification — turn continues */
-        }
-      }
-    } finally {
-      clearInterval(leasePulse);
-      const cogPulse = (leasePulse as unknown as { __cog?: ReturnType<typeof setInterval> })
-        .__cog;
-      if (cogPulse) clearInterval(cogPulse);
-      if (cognitiveWorkId && cognitiveOwnerToken) {
-        try {
-          const { releaseCognitiveWorkLease } = await import("./cognitive-work");
-          await releaseCognitiveWorkLease({
-            workId: cognitiveWorkId,
-            ownerToken: cognitiveOwnerToken,
-            status: "SUSPENDED",
-          });
-        } catch {
-          /* lease release best-effort */
-        }
-      }
-    }
-  } catch {
-    // SEM order: Nora runs before same-turn D5/D6, so a provider failure here
-    // cannot have produced a same-turn HumanDecision. Prior-turn recovery stays
-    // on the reconstitution path below.
-    const unknownPayload: TurnResult = {
-      userMessageId: reserved.userMessageId,
-      assistantMessageId: null,
-      operationId: reserved.operationId,
-      requestId,
-      status: "UNKNOWN",
-      idempotentReplay: false,
-      humanDecisionCreated: false,
-      pilotageEffect: null,
-      noraMode: "provider-exception",
-    };
-    try {
-      await markTurnUnknown(
-        reserved.commandId,
-        "PROVIDER_EXCEPTION",
-        reserved.ownerToken,
-        JSON.stringify(unknownPayload),
-      );
-    } catch {
-      /* ownership may already be lost — still return reconstituted truth below */
-    }
-    emitObs({
-      event_name: "d3.turn.unknown",
-      component: "d3.conversation",
-      request_id: requestId,
-      operation_id: reserved.operationId,
-      outcome: "UNKNOWN",
-      error_category: "PROVIDER_EXCEPTION",
-    });
-    const resolved = await resolvePilotageEffectForReplay({
-      pilotId,
-      projectId: ctx.project?.id,
-      clientTurnKey,
-      userMessageId: reserved.userMessageId,
-      fromJson: unknownPayload.pilotageEffect,
-      humanDecisionCreated: unknownPayload.humanDecisionCreated,
-    });
-    return {
-      ...unknownPayload,
-      humanDecisionCreated: resolved.humanDecisionCreated,
-      pilotageEffect: resolved.pilotageEffect,
-    };
-  }
-
-  if (turnRaceHooks.afterGenerateBeforeEffects) {
-    await turnRaceHooks.afterGenerateBeforeEffects();
-  }
-
-  // Test-only injection: swap assistant text before contractual extraction / D4.
-  if (turnRaceHooks.replaceNoraAssistantText && reply.status === "COMPLETE") {
-    reply = {
-      ...reply,
-      content: turnRaceHooks.replaceNoraAssistantText(reply.content),
-    };
-  }
-
-  // Ownership may have been revoked/reconciled during generation — no COMPLETE, no D4.
-  if (!(await requireTurnOwnership(reserved.commandId, reserved.ownerToken))) {
-    emitObs({
-      event_name: "d3.turn.ownership_lost",
-      component: "d3.conversation",
-      request_id: requestId,
-      operation_id: reserved.operationId,
-      generation_id: reply.generationId,
-      outcome: "UNKNOWN",
-      error_category: "OWNERSHIP_LOST_AFTER_GENERATE",
-    });
-    return {
-      operationId: reserved.operationId,
-      requestId,
-      status: "UNKNOWN",
-      generationId: reply.generationId,
-      userMessageId: reserved.userMessageId,
-      assistantMessageId: null,
-      idempotentReplay: false,
-      humanDecisionCreated: false,
-      noraMode: reply.mode,
-    };
-  }
-
-  // Bind generationId while ownership holds so D4 provenance + UNKNOWN reconstitution share one key.
-  await bindTurnGenerationId(reserved.commandId, reserved.ownerToken, reply.generationId);
-
-  const qualification: NoraTurnQualification =
-    reply.qualification ?? unavailableQualification("MISSING_QUALIFICATION", reply.content);
-
-  // TV-04 / T-03 — durable qualification before first owner mutation; applied required.
-  const stashed = await stashTurnQualification({
-    commandId: reserved.commandId,
-    ownerToken: reserved.ownerToken,
-    qualificationJson: JSON.stringify(qualification),
-  });
-  if (!stashed.applied) {
-    emitObs({
-      event_name: "d3.turn.qualification_stash_failed",
-      component: "d3.conversation",
-      request_id: requestId,
-      operation_id: reserved.operationId,
-      outcome: "FAILED",
-      error_category: "QUALIFICATION_STASH_NOT_APPLIED",
-    });
-    try {
-      await markTurnUnknown(
-        reserved.commandId,
-        "QUALIFICATION_STASH_NOT_APPLIED",
-        reserved.ownerToken,
-        JSON.stringify({
-          userMessageId: reserved.userMessageId,
-          assistantMessageId: null,
-          operationId: reserved.operationId,
-          requestId,
-          status: "UNKNOWN",
-          idempotentReplay: false,
-          humanDecisionCreated: false,
-          semanticQualificationStatus: "STASH_FAILED",
-        }),
-      );
-    } catch {
-      /* ownership may already be lost */
-    }
-    return {
-      operationId: reserved.operationId,
-      requestId,
-      status: "UNKNOWN",
-      generationId: reply.generationId,
-      userMessageId: reserved.userMessageId,
-      assistantMessageId: null,
-      idempotentReplay: false,
-      humanDecisionCreated: false,
-      noraMode: reply.mode,
-      nextTurnKind: "INCERTAIN",
-      semanticQualificationStatus: "STASH_FAILED",
-    };
-  }
-
-  const nextTurnKind = deriveThreadTurnKind(qualification);
-  const studioProjection = projectStudioEffects(qualification);
-
-  // F2/F4 — explicit historical base choice: server-issued authorization (not client bool).
-  const historicalChoice = isHistoricalSourceChoiceTransmit(content);
-  const histFocus = opts?.documentFocus ?? null;
-  if (
-    historicalChoice &&
-    histFocus?.documentId &&
-    histFocus.sourceRevisionId &&
-    histFocus.observedHeadRevisionId &&
-    histFocus.sourceRevisionId !== histFocus.observedHeadRevisionId
-  ) {
-    const authStash = await stashHistoricalSourceAuthorization({
-      commandId: reserved.commandId,
-      ownerToken: reserved.ownerToken,
-      preparationId,
-      pilotId,
-      documentId: histFocus.documentId,
-      sourceRevisionId: histFocus.sourceRevisionId,
-      observedHeadRevisionId: histFocus.observedHeadRevisionId,
-      choice: historicalChoice,
-    });
-    if (authStash.ok) {
-      historicalAuthorizationOut = {
-        authorizationId: authStash.authorization.id,
-        documentId: authStash.authorization.documentId,
-        sourceRevisionId: authStash.authorization.sourceRevisionId,
-        observedHeadRevisionId: authStash.authorization.observedHeadRevisionId,
-        choice: authStash.authorization.choice,
-      };
-    }
-  }
-
-  const pilotageBinding = extractPilotageBinding(qualification);
-  const knowledgeHints = extractKnowledgeSelectionHints(qualification);
-  if (
-    knowledgeHints.acquisIds.length ||
-    knowledgeHints.openPointIds.length ||
-    knowledgeHints.subjectIds.length
-  ) {
-    knowledgeResumeHints = await selectRelevantKnowledgeContext(pilotId, preparationId, content, {
-      preferredAcquisIds: knowledgeHints.acquisIds,
-      preferredOpenPointIds: knowledgeHints.openPointIds,
-      preferredSubjectIds: knowledgeHints.subjectIds,
-    });
-  }
-
-  // S05 — durable unresolved work (turns + missions). Client hint is UX only.
-  const siblings = await findUnresolvedSiblingTurns({
-    conversationId: ctx.conversation.id,
-    ownerPilotId: pilotId,
-    excludeClientTurnKey: clientTurnKey,
-  });
-  const clientPendingHint = opts?.unresolvedPendingClientTurnKey?.trim() || null;
-  const missionsByKey = await loadLatestMissionsByIntentKey(ctx.conversation.id);
-  const unresolvedMissions = [...missionsByKey.values()].filter((m) =>
-    ["AWAITING_PILOT_ACT", "AWAITING_PILOT_AUTH", "AWAITING_CLARIFICATION", "ACTIVE"].includes(
-      m.status,
-    ),
-  );
-  // ACTIVE only blocks when a step is still WAITING/PENDING (real unfinished work).
-  const blockingMission =
-    unresolvedMissions.find((m) =>
-      m.status === "ACTIVE"
-        ? m.steps.some((s) => s.status === "WAITING" || s.status === "PENDING")
-        : true,
-    ) ?? null;
-
-  // UAT-GIT-PUB-01 — clarifying replies (path / go) must resume the open publication
-  // AWAITING_CLARIFICATION mission instead of being S05-blocked against it.
-  const publicationClarificationResume = isPublicationPathClarificationResume({
-    blockingMission,
-    wantsPublish: studioProjection.publication.wantsPublish,
-  });
-  const clarifyingPublicationMission = publicationClarificationResume
-    ? blockingMission
-    : null;
-
-  const applyPendingGate =
-    nextTurnKind === "INTENTION_EFFET" || nextTurnKind === "INCERTAIN";
-  // R-02 — durable comparable identities only (never USER text / title / lexical).
-  // Clarification resume reuses the awaiting mission key (same publication intention).
-  const publicationMissionIntentKey =
-    clarifyingPublicationMission?.clientIntentKey?.trim() ||
-    carriedMission?.clientIntentKey?.trim() ||
-    clientTurnKey;
-  const currentMissionKeys = missionCorrelationKeys(publicationMissionIntentKey);
-  const currentCorrelationKeys = buildTurnCorrelationKeys({
-    commandId: reserved.commandId,
-    operationId: reserved.operationId,
-    userMessageId: reserved.userMessageId,
-    clientTurnKey,
-    clientCorrelationSalt: opts?.correlationKey?.trim() || null,
-    bindingCorrelationKeys: [],
-    businessClientCommandKey: conversationalCommandKey(clientTurnKey),
-    missionKeys: [currentMissionKeys.document, currentMissionKeys.publication],
-  });
-  const siblingEvidence: S05SiblingEvidence[] = await Promise.all(
-    siblings.map(async (s) => {
-      const parsed = parseSiblingResultEvidence(s.resultJson);
-      const siblingMission = missionCorrelationKeys(s.clientTurnKey);
-      const ownerEffectsFound = await probeSiblingOwnerEffects({
-        pilotId,
-        preparationId,
-        projectId: ctx.project?.id ?? null,
-        sibling: {
-          commandId: s.id,
-          clientTurnKey: s.clientTurnKey,
-          userMessageId: s.userMessageId,
-          operationId: s.operationId,
-          bindingCorrelationKeys: parsed.bindingCorrelationKeys,
-        },
-      });
-      return {
-        id: s.id,
-        clientTurnKey: s.clientTurnKey,
-        status: s.status,
-        createdAtMs: s.createdAt.getTime(),
-        qualificationStatus: parsed.qualificationStatus,
-        qualification: parsed.qualification,
-        documentSaveStatus: parsed.documentSaveStatus,
-        pilotageEffectAttempted: parsed.pilotageEffectAttempted,
-        humanDecisionCreated: parsed.humanDecisionCreated,
-        ownerEffectsFound,
-        correlationKeys: buildTurnCorrelationKeys({
-          commandId: s.id,
-          operationId: s.operationId,
-          userMessageId: s.userMessageId,
-          clientTurnKey: s.clientTurnKey,
-          bindingCorrelationKeys: parsed.bindingCorrelationKeys,
-          businessClientCommandKey: conversationalCommandKey(s.clientTurnKey),
-          missionKeys: [siblingMission.document, siblingMission.publication],
-        }),
-      };
-    }),
-  );
-  const siblingPolicy = evaluateS05SiblingPolicy({
-    siblings: siblingEvidence,
-    current: {
-      correlationKeys: currentCorrelationKeys,
-      requestsOwnerEffect: applyPendingGate,
-    },
-    clientPendingHint,
-    applyPendingGate,
-  });
-
-  let pendingEffectBlocked = false;
-  let pendingBlockReason: string | undefined;
-  let allowOwnerEffects = true;
-  const blockingSiblingKey = siblingPolicy.primaryBlockingKey;
-  const blockingSibling =
-    siblings.find((s) => s.clientTurnKey === blockingSiblingKey) ?? null;
-
-  if (applyPendingGate) {
-    if (siblingPolicy.pendingEffectBlocked) {
-      allowOwnerEffects = false;
-      pendingEffectBlocked = true;
-      pendingBlockReason = siblingPolicy.pendingBlockReason;
-    }
-    // Do not S05-block a clarifying USER turn against its own path-awaiting publication mission.
-    if (blockingMission && !publicationClarificationResume) {
-      allowOwnerEffects = false;
-      pendingEffectBlocked = true;
-      if (!pendingBlockReason) {
-        pendingBlockReason =
-          nextTurnKind === "INTENTION_EFFET"
-            ? `S05_MISSION_BLOCKS_EFFECT:${blockingMission.clientIntentKey ?? "mission"}`
-            : `S05_MISSION_BLOCKS_AMBIGUOUS:${blockingMission.clientIntentKey ?? "mission"}`;
-      }
-    } else if (publicationClarificationResume && clarifyingPublicationMission) {
-      emitObs({
-        event_name: "d3.mission.publication_clarification_resume",
-        component: "d3.mission_continuity",
-        request_id: requestId,
-        operation_id: reserved.operationId,
-        outcome: "PARTIAL",
-        meta: {
-          resumed_mission_key: clarifyingPublicationMission.clientIntentKey,
-          current_turn_key: clientTurnKey,
-          has_path: Boolean(studioProjection.publication.targetPath),
-        },
-      });
-    }
-  }
-
-  if (pendingEffectBlocked) {
-    emitObs({
-      event_name: "d3.turn.s05_pending_block",
-      component: "d3.conversation",
-      request_id: requestId,
-      operation_id: reserved.operationId,
-      outcome: "PARTIAL",
-      meta: {
-        pending_client_turn_key: blockingSibling?.clientTurnKey ?? null,
-        pending_status: blockingSibling?.status ?? null,
-        pending_block_reason: pendingBlockReason ?? null,
-        // Primitive summary only — emitObs allowlists scalar meta (QA-19).
-        sibling_risks_summary: siblingPolicy.classifications
-          .map((c) => `${c.clientTurnKey}:${c.status}:${c.risk}`)
-          .join("|")
-          .slice(0, 500),
-        sibling_blocker_count: siblingPolicy.classifications.filter((c) =>
-          ["ACTIVE_EFFECT_RISK", "UNKNOWN_EFFECT_RISK", "SAME_INTENT"].includes(c.risk),
-        ).length,
-        mission_status: blockingMission?.status ?? null,
-        mission_key: blockingMission?.clientIntentKey ?? null,
-        next_turn_kind: nextTurnKind,
-        client_hint_ignored_as_authority: true,
-      },
-    });
-  }
-  // DIALOGUE_INDEPENDANT may answer without métier mutations that bypass A.
-
-  // D5/D6 after semantic qualification — typed binding only (never parameters.notes).
-  if (
-    allowOwnerEffects &&
-    pilotageBinding &&
-    !("ambiguous" in pilotageBinding) &&
-    ctx.project?.id
-  ) {
-    const stillOwned = await requireTurnOwnership(reserved.commandId, reserved.ownerToken);
-    if (stillOwned) {
-      const preQualified = {
-        clarity: "CLEAR" as const,
-        operation: pilotageBinding.operation,
-        objective: pilotageBinding.objective ?? content,
-        statement: pilotageBinding.statement,
-        objectRef: pilotageBinding.objectRef,
-        decisionId: pilotageBinding.decisionId,
-        methodRef: pilotageBinding.methodRef,
-        methodVersion: pilotageBinding.methodVersion,
-        restrictionKindHint: pilotageBinding.restrictionKindHint,
-        restrictionTargetRefHint: pilotageBinding.restrictionTargetRefHint,
-        cycleType: pilotageBinding.cycleType as import("@/domains/pilotage/cki-resolve").CycleType | undefined,
-        toCycleType: pilotageBinding.toCycleType as import("@/domains/pilotage/cki-resolve").CycleType | undefined,
-        semanticIntentId: pilotageBinding.intentId,
-        semanticSchemaVersion: pilotageBinding.schemaVersion,
-      };
-      authority = await applyConversationalAuthority({
-        pilotId,
-        projectId: ctx.project.id,
-        userMessageId: reserved.userMessageId,
-        content,
-        clientTurnKey,
-        preQualified,
-      });
-      emitObs({
-        event_name: "d3.turn.conversational_authority",
-        component: "d3.conversation",
-        request_id: requestId,
-        operation_id: reserved.operationId,
-        outcome: authority.attempted
-          ? authority.command?.status === "APPLIED" || authority.command?.status === "ALREADY_APPLIED"
-            ? "SUCCESS"
-            : authority.command?.status === "UNKNOWN"
-              ? "UNKNOWN"
-              : "FAILED"
-          : "PARTIAL",
-        meta: {
-          attempted: authority.attempted,
-          intent_clarity: authority.intentClarity,
-          operation: authority.operation ?? null,
-          command_status: authority.command?.status ?? null,
-          reason_code: authority.command?.reasonCode ?? null,
-          decision_id: authority.decisionId,
-          source: authority.source,
-          semantic_gate: true,
-          semantic_intent_id: pilotageBinding.intentId,
-        },
-      });
-    }
-  } else if (pilotageBinding && "ambiguous" in pilotageBinding) {
-    emitObs({
-      event_name: "d3.turn.conversational_authority",
-      component: "d3.conversation",
-      request_id: requestId,
-      operation_id: reserved.operationId,
-      outcome: "PARTIAL",
-      meta: {
-        attempted: false,
-        intent_clarity: "AMBIGUOUS",
-        semantic_gate: true,
-        reason: pilotageBinding.reason,
-      },
-    });
-  }
-
-  // C02 fault injection — AFTER same-turn D5/D6 (SEM/TV order: Nora → qualify → authority).
-  // Hook name is historical; it must not run before Nora anymore.
-  if (turnRaceHooks.afterAuthorityBeforeNora) {
-    try {
-      await turnRaceHooks.afterAuthorityBeforeNora();
-    } catch {
-      const unknownPayload: TurnResult = {
-        userMessageId: reserved.userMessageId,
-        assistantMessageId: null,
-        operationId: reserved.operationId,
-        requestId,
-        status: "UNKNOWN",
-        idempotentReplay: false,
-        humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
-        pilotageEffect: pilotageEffectFromAuthority(authority),
-        noraMode: reply.mode,
-      };
-      try {
-        await markTurnUnknown(
-          reserved.commandId,
-          "PROVIDER_EXCEPTION",
-          reserved.ownerToken,
-          JSON.stringify(unknownPayload),
-        );
-      } catch {
-        /* ownership may already be lost */
-      }
-      emitObs({
-        event_name: "d3.turn.unknown",
-        component: "d3.conversation",
-        request_id: requestId,
-        operation_id: reserved.operationId,
-        outcome: "UNKNOWN",
-        error_category: "POST_AUTHORITY_FAULT",
-      });
-      const resolved = await resolvePilotageEffectForReplay({
-        pilotId,
-        projectId: ctx.project?.id,
-        clientTurnKey,
-        userMessageId: reserved.userMessageId,
-        fromJson: unknownPayload.pilotageEffect,
-        humanDecisionCreated: unknownPayload.humanDecisionCreated,
-      });
-      return {
-        ...unknownPayload,
-        humanDecisionCreated: resolved.humanDecisionCreated,
-        pilotageEffect: resolved.pilotageEffect,
-      };
-    }
-  }
-
-  const assistantId = newId("msg");
-
-  let capitalisation: Awaited<ReturnType<typeof maybeCapitalizeFromExchange>> = {
-    capitalisations: [],
-    selectionMethod: "semantic-proposals",
-    selectionLimit:
-      "SEM-02: capitalisation depuis propositions Nora typées (d4.record_knowledge).",
-    humanDecisionCreated: false,
-    ownershipLost: false,
-  };
-  let capitalisationError: string | undefined;
-  type DocumentSaveResult = {
-    status: string;
-    documentId?: string;
-    revisionId?: string;
-    revisionNumber?: number;
-    baseRevisionId?: string;
-    reason?: string;
-    act?: "CREATE" | "REVISE";
-    idempotentReplay?: boolean;
-  };
-  let documentSave: DocumentSaveResult | null = null;
-  let documentSaveUnknown = false;
-  let ownershipLostBeforeD4 = false;
-  const documentAct = studioProjection.documentAct;
-  const documentaryIntentSignal = documentAct.kind !== "NONE";
-  const missionIntent = studioProjection.publication;
-  const studioIntent = studioProjection;
-  // Clarification resume reuses awaiting mission key for D7 correlation only.
-  const clientIntentKey =
-    clarifyingPublicationMission?.clientIntentKey?.trim() || clientTurnKey;
-  const missionKeys = missionCorrelationKeys(clientIntentKey);
-
-  let publicationMandateDecisionId: string | null = null;
-
-  let durableProposal: DocumentProposalExact | null = null;
-  /** P1: set when concurrent fence diverges / is invalid — block silent strip+reinject. */
-  let proposalAuthorityConflict: string | null = null;
-  const sectionScopedConfront =
-    documentAct.kind === "REVISE" && Boolean(documentAct.sectionHint);
-  if (
-    reply.status === "COMPLETE" &&
-    qualification.documentProposal &&
-    !qualification.documentSource
-  ) {
-    const earlyCanonical = canonicalizeDocumentProposal(qualification.documentProposal);
-    if (earlyCanonical.ok) {
-      const earlyExtract = extractContractualDocumentProposal(reply.content);
-      const confront = confrontProposalWithFence(earlyCanonical.proposal, earlyExtract, {
-        sectionScoped: sectionScopedConfront,
-      });
-      if (!confront.ok) {
-        proposalAuthorityConflict = confront.reason;
-        durableProposal = null;
-      } else {
-        durableProposal = earlyCanonical.proposal;
-        if (confront.materialize) {
-          reply = {
-            ...reply,
-            content: `${reply.content.trimEnd()}\n\n${serializeProposalFence(durableProposal)}`,
-          };
-        }
-      }
-    }
-  }
-  // Semantic qualification visible before extract/D4. Absence of obs must never invent D4.
-  emitDocumentActQualificationObs({
-    requestId,
-    operationId: reserved.operationId,
-    generationId: reply.generationId,
-    qualificationKind: documentAct.kind,
-    qualificationReason: documentAct.kind === "NONE" ? "SEMANTIC_NONE" : null,
-    documentaryIntentSignal,
-    d4Attempted: false,
-    d4Effect: null,
-  });
-
-  if (reply.status === "COMPLETE" && allowOwnerEffects) {
-    if (turnRaceHooks.beforeD4Effect) {
-      await turnRaceHooks.beforeD4Effect();
-    }
-    if (!(await requireTurnOwnership(reserved.commandId, reserved.ownerToken))) {
-      ownershipLostBeforeD4 = true;
-    } else {
-      try {
-        const knowledgeProposals = extractKnowledgeProposals(qualification);
-        const proposalSummary = summarizeKnowledgeProposals(knowledgeProposals);
-        emitObs({
-          event_name: "d3.turn.knowledge_proposals",
-          component: "d3.conversation",
-          request_id: requestId,
-          operation_id: reserved.operationId,
-          generation_id: reply.generationId,
-          outcome: proposalSummary.proposal_present ? "PARTIAL" : "SUCCESS",
-          meta: {
-            qualification_status: qualification.status,
-            reply_status: reply.status,
-            proposal_present: proposalSummary.proposal_present,
-            proposal_count: proposalSummary.proposal_count,
-            subject_count: proposalSummary.subject_count,
-            acquis_count: proposalSummary.acquis_count,
-            open_point_count: proposalSummary.open_point_count,
-          },
-        });
-        capitalisation = await maybeCapitalizeFromExchange(pilotId, preparationId, {
-          userText: content,
-          assistantText: reply.content,
-          generationId: reply.generationId,
-          userMessageId: reserved.userMessageId,
-          assistantMessageId: ownershipLostBeforeD4 ? null : assistantId,
-          proposals: knowledgeProposals,
-          turnFence: {
-            commandId: reserved.commandId,
-            ownerToken: reserved.ownerToken,
-            beforeFenceCheck: turnRaceHooks.beforeD4Effect,
-          },
-        });
-        const written = capitalisation.capitalisations.filter(
-          (c) => c.status === "AVAILABLE" || c.status === "OK",
-        ).length;
-        const failed = capitalisation.capitalisations.filter((c) => c.status === "FAILED").length;
-        emitObs({
-          event_name: "d3.turn.knowledge_capitalisation",
-          component: "d3.conversation",
-          request_id: requestId,
-          operation_id: reserved.operationId,
-          generation_id: reply.generationId,
-          outcome:
-            written > 0 ? "SUCCESS" : proposalSummary.proposal_present ? "PARTIAL" : "SUCCESS",
-          meta: {
-            proposal_present: proposalSummary.proposal_present,
-            proposal_count: proposalSummary.proposal_count,
-            capitalisation_written: written,
-            capitalisation_failed_count: failed,
-            reply_status: reply.status,
-          },
-        });
-        if (capitalisation.ownershipLost) {
-          ownershipLostBeforeD4 = true;
-        }
-      } catch {
-        capitalisationError = "CAPITALISATION_EXCEPTION";
-        emitObs({
-          event_name: "d3.turn.capitalisation_failed",
-          component: "d3.conversation",
-          request_id: requestId,
-          operation_id: reserved.operationId,
-          generation_id: reply.generationId,
-          outcome: "UNKNOWN",
-          error_category: "CAPITALISATION_EXCEPTION",
-        });
-      }
-
-      if (documentAct.kind === "CREATE" && !ownershipLostBeforeD4) {
-        // C-02/C-03: exact proposal from prior message OR canonical documentProposal OR fence.
-        type ExactProposal = { title: string; contentMarkdown: string; contentSha256: string };
-        let exact: ExactProposal | null = null;
-        let source:
-          | { kind: "ASSISTANT_MESSAGE"; assistantMessageId: string }
-          | { kind: "SAME_TURN_SNAPSHOT"; commandId: string } = {
-          kind: "SAME_TURN_SNAPSHOT",
-          commandId: reserved.commandId,
-        };
-        let createBlocked: string | null = null;
-        let extracted = extractContractualDocumentProposal(reply.content);
-
-        if (qualification.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE") {
-          const resolved = await resolveAssistantProposal({
-            pilotId,
-            preparationId,
-            assistantMessageId: qualification.documentSource.assistantMessageId,
-          });
-          if (!resolved.ok) {
-            createBlocked = resolved.reason;
-          } else {
-            const confront = confrontProposalWithFence(resolved.proposal, extracted);
-            if (!confront.ok) {
-              createBlocked = confront.reason;
-              proposalAuthorityConflict = confront.reason;
-              durableProposal = null;
-            } else {
-              exact = resolved.proposal;
-              durableProposal = exact;
-              source = {
-                kind: "ASSISTANT_MESSAGE",
-                assistantMessageId: resolved.assistantMessageId,
-              };
-              if (confront.materialize) {
-                reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(exact)}`;
-                extracted = extractContractualDocumentProposal(reply.content);
-              }
-            }
-          }
-        } else if (qualification.documentProposal) {
-          const canonical = canonicalizeDocumentProposal(qualification.documentProposal);
-          if (!canonical.ok) {
-            createBlocked = canonical.reason;
-          } else {
-            const confront = confrontProposalWithFence(canonical.proposal, extracted);
-            if (!confront.ok) {
-              createBlocked = confront.reason;
-              proposalAuthorityConflict = confront.reason;
-              durableProposal = null;
-            } else {
-              exact = canonical.proposal;
-              durableProposal = exact;
-              if (confront.materialize) {
-                reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(exact)}`;
-                extracted = extractContractualDocumentProposal(reply.content);
-              }
-            }
-          }
-        } else if (extracted.ok) {
-          const canonical = canonicalizeDocumentProposal({
-            title: extracted.title,
-            contentMarkdown: extracted.content,
-          });
-          if (!canonical.ok) createBlocked = canonical.reason;
-          else {
-            exact = canonical.proposal;
-            durableProposal = exact;
-          }
-        } else {
-          createBlocked = extracted.reason;
-        }
-
-        if (createBlocked || !exact) {
-          // Pre-effect refuse — D4 not attempted (QA-16).
-          documentSave = {
-            status: "NOT_EXECUTED",
-            reason: createBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
-            act: "CREATE",
-          };
-          emitDocumentProposalObs({
-            requestId,
-            operationId: reserved.operationId,
-            generationId: reply.generationId,
-            act: "CREATE",
-            extracted: extracted.ok
-              ? extracted
-              : {
-                  ok: false,
-                  reason: "DOCUMENT_PROPOSAL_MISSING",
-                  path: "none",
-                  fenceCount: 0,
-                  proposalChars: 0,
-                  proposalDigest16: null,
-                  bodyEndsWithNewline: false,
-                  sectionCount: 0,
-                },
-            refuseCode: createBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
-            d4Attempted: false,
-            d4Effect: null,
-          });
-        } else {
-          try {
-            const createIntents = effectIntents(qualification).filter(
-              (i) => i.capabilityId === "d4.create_document",
-            );
-            if (createIntents.length > 1) {
-              documentSave = {
-                status: "NOT_EXECUTED",
-                reason: "AMBIGUOUS_CREATE_INTENT",
-                act: "CREATE",
-              };
-            } else {
-              const createIntent = createIntents[0];
-              if (!createIntent) {
-                documentSave = {
-                  status: "NOT_EXECUTED",
-                  reason: "MISSING_CREATE_INTENT",
-                  act: "CREATE",
-                };
-              } else {
-                const clientSalt =
-                  opts?.correlationKey?.trim() ||
-                  (missionIntent.wantsPublish ? missionKeys.document : null);
-                const admitted = admitDocumentCommand({
-                  commandId: reserved.commandId,
-                  operationId: reserved.operationId,
-                  userMessageId: reserved.userMessageId,
-                  qualifiedIntentId: createIntent.id,
-                  action: "CREATE",
-                  preparationId,
-                  source,
-                  title: exact.title,
-                  contentMarkdown: exact.contentMarkdown,
-                  clientCorrelationSalt: clientSalt,
-                });
-                if (!admitted.ok) {
-                  documentSave = {
-                    status: "NOT_EXECUTED",
-                    reason: admitted.reason,
-                    act: "CREATE",
-                  };
-                } else {
-                  const sealed = await sealAndApplyDocumentCommand({
-                    pilotId,
-                    fence: {
-                      commandId: reserved.commandId,
-                      ownerToken: reserved.ownerToken,
-                      beforeFenceCheck: turnRaceHooks.beforeD4Effect,
-                    },
-                    binding: admitted.binding,
-                  });
-                  if (!sealed.sealApplied) {
-                    documentSave = {
-                      status: "NOT_EXECUTED",
-                      reason: "BINDING_SEAL_FAILED",
-                      act: "CREATE",
-                    };
-                  } else {
-                    documentSave = { ...sealed.effect, act: "CREATE" };
-                  }
-                }
-              }
-            }
-            if (documentSave.status === "FAILED" && documentSave.reason === "TURN_OWNERSHIP_LOST") {
-              ownershipLostBeforeD4 = true;
-              documentSave = null;
-            } else if (
-              documentSave &&
-              documentSave.status !== "AVAILABLE" &&
-              documentSave.status !== "CONFLICT"
-            ) {
-              documentSaveUnknown =
-                documentSave.status === "UNKNOWN" || documentSave.status === "FAILED";
-            }
-            emitDocumentProposalObs({
-              requestId,
-              operationId: reserved.operationId,
-              generationId: reply.generationId,
-              act: "CREATE",
-              extracted: extracted.ok
-                ? extracted
-                : {
-                    ok: true,
-                    content: exact.contentMarkdown,
-                    title: exact.title,
-                    // Obs-only snapshot of authority proposal — explicit title, never LEGACY_UNTITLED.
-                    titleProvenance: "STRUCTURED" as const,
-                    path: "fence",
-                    fenceTag: "sfia-document",
-                    fenceCount: 1,
-                    proposalChars: exact.contentMarkdown.length,
-                    proposalDigest16: exact.contentSha256.slice(0, 16),
-                    bodyEndsWithNewline: exact.contentMarkdown.endsWith("\n"),
-                    sectionCount: 0,
-                  },
-              refuseCode:
-                documentSave?.status === "AVAILABLE" || documentSave?.status === "CONFLICT"
-                  ? null
-                  : (documentSave?.reason ?? null),
-              d4Attempted: true,
-              d4Effect: documentSave?.status ?? null,
-            });
-          } catch {
-            documentSave = { status: "UNKNOWN", reason: "DOCUMENT_SAVE_EXCEPTION", act: "CREATE" };
-            documentSaveUnknown = true;
-            emitDocumentProposalObs({
-              requestId,
-              operationId: reserved.operationId,
-              generationId: reply.generationId,
-              act: "CREATE",
-              extracted,
-              refuseCode: "DOCUMENT_SAVE_EXCEPTION",
-              d4Attempted: true,
-              d4Effect: "UNKNOWN",
-            });
-            emitObs({
-              event_name: "d3.turn.document_save_failed",
-              component: "d3.conversation",
-              request_id: requestId,
-              operation_id: reserved.operationId,
-              generation_id: reply.generationId,
-              outcome: "UNKNOWN",
-              error_category: "DOCUMENT_SAVE_EXCEPTION",
-            });
-          }
-        }
-      } else if (documentAct.kind === "REVISE" && !ownershipLostBeforeD4) {
-        try {
-          const docs = await listDocuments(pilotId, preparationId);
-          const focus = opts?.documentFocus ?? null;
-          let target = resolveReviseTarget(docs, documentAct.documentHint, focus);
-          // R1: when Documents focus names a source revision, ALWAYS reload body from D4.
-          // Client sourceContentMarkdown is never drafting authority — including when
-          // resolveReviseTarget already filled head content from the list payload.
-          if (target.ok && focus?.sourceRevisionId) {
-            const loaded = await getDocumentRevision(
-              pilotId,
-              preparationId,
-              target.documentId,
-              focus.sourceRevisionId,
-            );
-            if (
-              loaded.status === "AVAILABLE" &&
-              loaded.revision &&
-              loaded.revision.id === focus.sourceRevisionId &&
-              typeof loaded.revision.contentMarkdown === "string" &&
-              loaded.revision.contentMarkdown.length > 0
-            ) {
-              target = {
-                ...target,
-                baseRevisionId: loaded.revision.id,
-                baseRevisionNumber: loaded.revision.revisionNumber,
-                baseContent: loaded.revision.contentMarkdown,
-              };
-            } else {
-              // No silent fallback to latest / client markdown when exact source is unavailable.
-              target = { ok: false, reason: "NOT_FOUND" };
-            }
-          }
-          if (!target.ok) {
-            documentSave = {
-              status: "FAILED",
-              reason: `REVISE_${target.reason}`,
-              act: "REVISE",
-            };
-            emitDocumentProposalObs({
-              requestId,
-              operationId: reserved.operationId,
-              generationId: reply.generationId,
-              act: "REVISE",
-              extracted: extractContractualDocumentProposal(reply.content),
-              refuseCode: `REVISE_${target.reason}`,
-              d4Attempted: false,
-              d4Effect: null,
-            });
-          } else {
-            let extracted = extractContractualDocumentProposal(reply.content);
-            let reviseProposalContent: string | null = null;
-            let reviseBlocked: string | null = null;
-            let reviseSource:
-              | { kind: "ASSISTANT_MESSAGE"; assistantMessageId: string }
-              | { kind: "SAME_TURN_SNAPSHOT"; commandId: string } = {
-              kind: "SAME_TURN_SNAPSHOT",
-              commandId: reserved.commandId,
-            };
-            if (qualification.documentSource?.kind === "PRIOR_ASSISTANT_MESSAGE") {
-              const resolved = await resolveAssistantProposal({
-                pilotId,
-                preparationId,
-                assistantMessageId: qualification.documentSource.assistantMessageId,
-              });
-              if (!resolved.ok) reviseBlocked = resolved.reason;
-              else {
-                const confront = confrontProposalWithFence(resolved.proposal, extracted, {
-                  sectionScoped: sectionScopedConfront,
-                });
-                if (!confront.ok) {
-                  reviseBlocked = confront.reason;
-                  proposalAuthorityConflict = confront.reason;
-                  durableProposal = null;
-                } else {
-                  reviseProposalContent = resolved.proposal.contentMarkdown;
-                  durableProposal = resolved.proposal;
-                  reviseSource = {
-                    kind: "ASSISTANT_MESSAGE",
-                    assistantMessageId: resolved.assistantMessageId,
-                  };
-                  if (confront.materialize) {
-                    reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(resolved.proposal)}`;
-                    extracted = extractContractualDocumentProposal(reply.content);
-                  }
-                }
-              }
-            } else if (qualification.documentProposal) {
-              const canonical = canonicalizeDocumentProposal(qualification.documentProposal);
-              if (!canonical.ok) reviseBlocked = canonical.reason;
-              else {
-                const confront = confrontProposalWithFence(canonical.proposal, extracted, {
-                  sectionScoped: sectionScopedConfront,
-                });
-                if (!confront.ok) {
-                  reviseBlocked = confront.reason;
-                  proposalAuthorityConflict = confront.reason;
-                  durableProposal = null;
-                } else {
-                  reviseProposalContent = canonical.proposal.contentMarkdown;
-                  durableProposal = canonical.proposal;
-                  if (confront.materialize) {
-                    reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(canonical.proposal)}`;
-                    extracted = extractContractualDocumentProposal(reply.content);
-                  }
-                }
-              }
-            } else if (extracted.ok) {
-              reviseProposalContent = extracted.content;
-              const canonical = canonicalizeDocumentProposal({
-                title: extracted.title,
-                contentMarkdown: extracted.content,
-              });
-              if (canonical.ok) durableProposal = canonical.proposal;
-            } else {
-              reviseBlocked = extracted.reason;
-            }
-            if (reviseBlocked || !reviseProposalContent) {
-              documentSave = {
-                status: "NOT_EXECUTED",
-                reason: reviseBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
-                documentId: target.documentId,
-                baseRevisionId: target.baseRevisionId,
-                act: "REVISE",
-              };
-              emitDocumentProposalObs({
-                requestId,
-                operationId: reserved.operationId,
-                generationId: reply.generationId,
-                act: "REVISE",
-                extracted,
-                refuseCode: reviseBlocked ?? "DOCUMENT_PROPOSAL_MISSING",
-                d4Attempted: false,
-                d4Effect: null,
-              });
-            } else {
-              const merged = applyTargetedSectionRevision(
-                target.baseContent,
-                reviseProposalContent,
-                documentAct.sectionHint,
-              );
-              if (!merged.ok) {
-                documentSave = {
-                  status: "NOT_EXECUTED",
-                  reason: merged.reason,
-                  documentId: target.documentId,
-                  baseRevisionId: target.baseRevisionId,
-                  act: "REVISE",
-                };
-                emitDocumentProposalObs({
-                  requestId,
-                  operationId: reserved.operationId,
-                  generationId: reply.generationId,
-                  act: "REVISE",
-                  extracted,
-                  scopeVerdict: merged.reason,
-                  refuseCode: merged.reason,
-                  d4Attempted: false,
-                  d4Effect: null,
-                });
-              } else {
-                const scopeCheck = assertSectionScope(
-                  target.baseContent,
-                  merged.content,
-                  documentAct.sectionHint,
-                );
-                if (!scopeCheck.ok) {
-                  documentSave = {
-                    status: "NOT_EXECUTED",
-                    reason: scopeCheck.reason,
-                    documentId: target.documentId,
-                    baseRevisionId: target.baseRevisionId,
-                    act: "REVISE",
-                  };
-                  emitDocumentProposalObs({
-                    requestId,
-                    operationId: reserved.operationId,
-                    generationId: reply.generationId,
-                    act: "REVISE",
-                    extracted,
-                    scopeVerdict: scopeCheck.reason,
-                    refuseCode: scopeCheck.reason,
-                    d4Attempted: false,
-                    d4Effect: null,
-                  });
-                } else {
-                  const reviseIntents = effectIntents(qualification).filter(
-                    (i) => i.capabilityId === "d4.revise_document",
-                  );
-                  if (reviseIntents.length !== 1) {
-                    documentSave = {
-                      status: "NOT_EXECUTED",
-                      reason:
-                        reviseIntents.length === 0
-                          ? "MISSING_REVISE_INTENT"
-                          : "AMBIGUOUS_REVISE_INTENT",
-                      documentId: target.documentId,
-                      baseRevisionId: target.baseRevisionId,
-                      act: "REVISE",
-                    };
-                  } else {
-                    const reviseIntent = reviseIntents[0]!;
-                    const clientSalt =
-                      opts?.correlationKey?.trim() ||
-                      `${target.documentId}:${target.baseRevisionId}`;
-                    const actualHeadId =
-                      docs.find((d) => d.document.id === target.documentId)?.latestRevision
-                        ?.id ?? target.baseRevisionId;
-                    const claimedObservedHeadId =
-                      focus?.observedHeadRevisionId ?? actualHeadId;
-                    const observedHeadId = claimedObservedHeadId;
-                    const sourceIsHistorical = target.baseRevisionId !== actualHeadId;
-
-                    // F2 — load server authorization when client presents an id (never trust client bool alone).
-                    let serverAuth: HistoricalSourceAuthorization | null = null;
-                    if (focus?.historicalAuthorizationId) {
-                      const loadedAuth = await loadHistoricalSourceAuthorization({
-                        pilotId,
-                        preparationId,
-                        authorizationId: focus.historicalAuthorizationId,
-                      });
-                      if (loadedAuth.ok) serverAuth = loadedAuth.authorization;
-                    }
-                    const histConfirm = resolveHistoricalConfirmation({
-                      focus,
-                      documentId: target.documentId,
-                      sourceRevisionId: target.baseRevisionId,
-                      claimedObservedHeadRevisionId: claimedObservedHeadId,
-                      actualHeadRevisionId: actualHeadId,
-                      serverAuthorization: serverAuth,
-                    });
-                    const confirmedHistoricalSource =
-                      sourceIsHistorical && histConfirm.confirmed;
-                    if (
-                      sourceIsHistorical &&
-                      !confirmedHistoricalSource &&
-                      focus?.sourceRevisionId
-                    ) {
-                      documentSave = {
-                        status: "NOT_EXECUTED",
-                        reason:
-                          histConfirm.reason === "HEAD_MOVED"
-                            ? "HISTORICAL_HEAD_MOVED"
-                            : histConfirm.reason === "IDENTITY_MISMATCH"
-                              ? "HISTORICAL_CONFIRMATION_IDENTITY_MISMATCH"
-                              : histConfirm.reason === "CLIENT_CLAIM_INSUFFICIENT"
-                                ? "HISTORICAL_CONFIRMATION_SERVER_REQUIRED"
-                                : "HISTORICAL_CONFIRMATION_REQUIRED",
-                        documentId: target.documentId,
-                        baseRevisionId: target.baseRevisionId,
-                        act: "REVISE",
-                      };
-                      emitDocumentProposalObs({
-                        requestId,
-                        operationId: reserved.operationId,
-                        generationId: reply.generationId,
-                        act: "REVISE",
-                        extracted,
-                        refuseCode:
-                          typeof documentSave.reason === "string"
-                            ? documentSave.reason
-                            : "HISTORICAL_CONFIRMATION_REQUIRED",
-                        d4Attempted: false,
-                        d4Effect: null,
-                      });
-                    } else {
-                    // P0-A — REVISE via conversation never writes D4 unless explicit conserve of sealed pdoc.
-                    // Absence of documentFocus must NOT fall through to admit/seal (prior gap).
-                    // Sas manual editor uses documents API directly — out of this branch.
-                    const conserveRequested =
-                      isConserveProposalTransmit(content) ||
-                      focus?.conserveProposal === true;
-                    if (!conserveRequested) {
-                      // Title must match leading H1 when present (canonicalizeDocumentProposal).
-                      const proposalTitle =
-                        /^#\s+(.+?)(?:\r?\n|$)/.exec(merged.content)?.[1]?.trim() ||
-                        durableProposal?.title?.trim() ||
-                        target.title;
-                      // Historical proposals require a server hauth already bound on focus.
-                      if (
-                        sourceIsHistorical &&
-                        !focus?.historicalAuthorizationId
-                      ) {
-                        documentSave = {
-                          status: "NOT_EXECUTED",
-                          reason: "HISTORICAL_CONFIRMATION_SERVER_REQUIRED",
-                          documentId: target.documentId,
-                          baseRevisionId: target.baseRevisionId,
-                          act: "REVISE",
-                        };
-                        emitDocumentProposalObs({
-                          requestId,
-                          operationId: reserved.operationId,
-                          generationId: reply.generationId,
-                          act: "REVISE",
-                          extracted,
-                          refuseCode: "HISTORICAL_CONFIRMATION_SERVER_REQUIRED",
-                          d4Attempted: false,
-                          d4Effect: null,
-                        });
-                      } else {
-                      const stashedCandidate = await stashPendingDocumentCandidate({
-                        commandId: reserved.commandId,
-                        ownerToken: reserved.ownerToken,
-                        preparationId,
-                        pilotId,
-                        documentId: target.documentId,
-                        sourceRevisionId: target.baseRevisionId,
-                        observedHeadRevisionId: observedHeadId,
-                        title: proposalTitle,
-                        contentMarkdown: merged.content,
-                        historicalAuthorizationId:
-                          focus?.historicalAuthorizationId ?? null,
-                      });
-                      if (!stashedCandidate.ok) {
-                        documentSave = {
-                          status: "NOT_EXECUTED",
-                          reason: stashedCandidate.reason,
-                          documentId: target.documentId,
-                          baseRevisionId: target.baseRevisionId,
-                          act: "REVISE",
-                        };
-                      } else {
-                        const summary = pendingCandidateSummary(stashedCandidate.candidate);
-                        pendingDocumentCandidateOut = {
-                          ...summary,
-                          contentMarkdown: stashedCandidate.candidate.contentMarkdown,
-                        };
-                        documentSave = {
-                          status: "NOT_EXECUTED",
-                          reason: "PROPOSAL_PENDING_CONSERVATION",
-                          documentId: target.documentId,
-                          baseRevisionId: target.baseRevisionId,
-                          act: "REVISE",
-                        };
-                        continueChoicesOverride = [
-                          {
-                            id: "conserve-proposal",
-                            label: "Conserver comme nouvelle version",
-                            transmitText: DOC_CONSERVE_PROPOSAL,
-                          },
-                        ];
-                      }
-                      emitDocumentProposalObs({
-                        requestId,
-                        operationId: reserved.operationId,
-                        generationId: reply.generationId,
-                        act: "REVISE",
-                        extracted,
-                        refuseCode: "PROPOSAL_PENDING_CONSERVATION",
-                        d4Attempted: false,
-                        d4Effect: null,
-                      });
-                      }
-                    } else {
-                    // F1/P0-A/B conserve: sealed candidate required — never regenerate; never trust client body.
-                    let conserveContent = merged.content;
-                    let conserveTitle = target.title;
-                    let conserveSource = reviseSource;
-                    let conserveBlocked: string | null = null;
-                    const candidateId = focus?.pendingCandidateId?.trim() || "";
-                    if (!candidateId) {
-                      conserveBlocked = "PENDING_CANDIDATE_REQUIRED";
-                    } else {
-                      const loaded = await loadPendingDocumentCandidate({
-                        pilotId,
-                        preparationId,
-                        candidateId,
-                        expectedContentSha256: focus?.pendingCandidateContentSha256,
-                      });
-                      if (!loaded.ok) {
-                        conserveBlocked = loaded.reason;
-                      } else {
-                        const c = loaded.candidate;
-                        if (
-                          c.documentId !== target.documentId ||
-                          c.sourceRevisionId !== target.baseRevisionId
-                        ) {
-                          conserveBlocked = "CANDIDATE_IDENTITY_MISMATCH";
-                        } else if (c.observedHeadRevisionId !== observedHeadId) {
-                          conserveBlocked = "CANDIDATE_HEAD_MOVED";
-                        } else {
-                          const bound = assertHistoricalAuthBoundToCandidate({
-                            sourceIsHistorical,
-                            candidate: c,
-                            authorization: serverAuth,
-                            actualHeadRevisionId: actualHeadId,
-                          });
-                          if (!bound.ok) {
-                            conserveBlocked = bound.reason;
-                          } else {
-                            // Exact inspected content — ignore freshly regenerated qualification body.
-                            conserveContent = c.contentMarkdown;
-                            conserveTitle = c.title;
-                            conserveSource = {
-                              kind: "SAME_TURN_SNAPSHOT",
-                              commandId: c.turnCommandId,
-                            };
-                          }
-                        }
-                      }
-                    }
-                    if (conserveBlocked) {
-                      documentSave = {
-                        status: "NOT_EXECUTED",
-                        reason: conserveBlocked,
-                        documentId: target.documentId,
-                        baseRevisionId: target.baseRevisionId,
-                        act: "REVISE",
-                      };
-                      emitDocumentProposalObs({
-                        requestId,
-                        operationId: reserved.operationId,
-                        generationId: reply.generationId,
-                        act: "REVISE",
-                        extracted,
-                        refuseCode: conserveBlocked,
-                        d4Attempted: false,
-                        d4Effect: null,
-                      });
-                    } else {
-                    const admitted = admitDocumentCommand({
-                      commandId: reserved.commandId,
-                      operationId: reserved.operationId,
-                      userMessageId: reserved.userMessageId,
-                      qualifiedIntentId: reviseIntent.id,
-                      action: "REVISE",
-                      preparationId,
-                      documentId: target.documentId,
-                      baseRevisionId: target.baseRevisionId,
-                      ...(sourceIsHistorical
-                        ? {
-                            sourceRevisionId: target.baseRevisionId,
-                            observedHeadRevisionId: observedHeadId,
-                            confirmedHistoricalSource,
-                          }
-                        : focus?.sourceRevisionId
-                          ? {
-                              sourceRevisionId: target.baseRevisionId,
-                              observedHeadRevisionId: observedHeadId,
-                              confirmedHistoricalSource: false,
-                            }
-                          : {}),
-                      sectionHint: documentAct.sectionHint,
-                      source: conserveSource,
-                      title: conserveTitle,
-                      contentMarkdown: conserveContent,
-                      clientCorrelationSalt: clientSalt,
-                    });
-                    if (!admitted.ok) {
-                      documentSave = {
-                        status: "NOT_EXECUTED",
-                        reason: admitted.reason,
-                        documentId: target.documentId,
-                        baseRevisionId: target.baseRevisionId,
-                        act: "REVISE",
-                      };
-                    } else {
-                      const sealed = await sealAndApplyDocumentCommand({
-                        pilotId,
-                        fence: {
-                          commandId: reserved.commandId,
-                          ownerToken: reserved.ownerToken,
-                          beforeFenceCheck: turnRaceHooks.beforeD4Effect,
-                        },
-                        binding: admitted.binding,
-                      });
-                      if (!sealed.sealApplied) {
-                        documentSave = {
-                          status: "NOT_EXECUTED",
-                          reason: "BINDING_SEAL_FAILED",
-                          documentId: target.documentId,
-                          baseRevisionId: target.baseRevisionId,
-                          act: "REVISE",
-                        };
-                      } else {
-                        const revised = sealed.effect;
-                        documentSave = {
-                          ...revised,
-                          act: "REVISE",
-                          baseRevisionId:
-                            "baseRevisionId" in revised &&
-                            typeof (revised as { baseRevisionId?: string }).baseRevisionId ===
-                              "string"
-                              ? (revised as { baseRevisionId: string }).baseRevisionId
-                              : target.baseRevisionId,
-                        };
-                        if (
-                          documentSave.status === "AVAILABLE" &&
-                          focus?.pendingCandidateId
-                        ) {
-                          await markPendingCandidateConsumed({
-                            pilotId,
-                            preparationId,
-                            candidateId: focus.pendingCandidateId,
-                          });
-                        }
-                      }
-                    }
-                    if (
-                      documentSave.status !== "AVAILABLE" &&
-                      documentSave.status !== "CONFLICT" &&
-                      !(documentSave.status === "FAILED" && documentSave.idempotentReplay)
-                    ) {
-                      documentSaveUnknown =
-                        documentSave.status === "UNKNOWN" || documentSave.status === "FAILED";
-                    }
-                    emitDocumentProposalObs({
-                      requestId,
-                      operationId: reserved.operationId,
-                      generationId: reply.generationId,
-                      act: "REVISE",
-                      extracted,
-                      scopeVerdict: "OK",
-                      refuseCode:
-                        documentSave.status === "AVAILABLE" || documentSave.status === "CONFLICT"
-                          ? null
-                          : (documentSave.reason ?? null),
-                      d4Attempted: true,
-                      d4Effect: documentSave.status ?? null,
-                    });
-                    } // conserveBlocked else
-                    } // conserveRequested else
-                    } // historical confirmation gate
-                  } // reviseIntents cardinality else
-                }
-              }
-            }
-          }
-          emitObs({
-            event_name: "d3.turn.document_revise",
-            component: "d3.conversation",
-            request_id: requestId,
-            operation_id: reserved.operationId,
-            generation_id: reply.generationId,
-            outcome:
-              documentSave?.status === "AVAILABLE"
-                ? "SUCCESS"
-                : documentSave?.status === "CONFLICT"
-                  ? "FAILED"
-                  : documentSave?.status === "FAILED"
-                    ? "FAILED"
-                    : "UNKNOWN",
-            meta: {
-              act: "REVISE",
-              status: documentSave?.status ?? null,
-              refuse_code: documentSave?.reason ?? null,
-              d4_effect: documentSave?.status ?? null,
-            },
-          });
-        } catch {
-          documentSave = { status: "UNKNOWN", reason: "DOCUMENT_REVISE_EXCEPTION", act: "REVISE" };
-          documentSaveUnknown = true;
-          emitObs({
-            event_name: "d3.turn.document_revise_failed",
-            component: "d3.conversation",
-            request_id: requestId,
-            operation_id: reserved.operationId,
-            generation_id: reply.generationId,
-            outcome: "UNKNOWN",
-            error_category: "DOCUMENT_REVISE_EXCEPTION",
-          });
-        }
-      }
-    }
-  }
-
-  const documentEffectForAck: DocumentEffectSummary | null =
-    documentSave && !ownershipLostBeforeD4
-      ? {
-          act: documentSave.act ?? (documentAct.kind === "REVISE" ? "REVISE" : "CREATE"),
-          status: documentSave.status,
-          documentId: documentSave.documentId,
-          revisionId: documentSave.revisionId,
-          revisionNumber: documentSave.revisionNumber,
-          baseRevisionId: documentSave.baseRevisionId,
-          reason: documentSave.reason,
-          idempotentReplay: documentSave.idempotentReplay,
-        }
-      : documentAct.kind !== "NONE" && !ownershipLostBeforeD4
-        ? {
-            act: documentAct.kind === "REVISE" ? "REVISE" : "CREATE",
-            // S05 block / skipped owner path: not a transactional UNKNOWN.
-            status: "NOT_EXECUTED",
-            reason: pendingBlockReason ?? "NO_EFFECT_OBSERVED",
-          }
-        : // Loyal pre-effect: plausible write language, not qualified → NOT_EXECUTED (never fake FAILED).
-          documentAct.kind === "NONE" &&
-            documentaryIntentSignal &&
-            !ownershipLostBeforeD4 &&
-            reply.status === "COMPLETE"
-          ? {
-              act: "NONE",
-              status: "NOT_EXECUTED",
-              reason: "NO_EXPLICIT_WRITE",
-            }
-          : null;
-
-  // Post-effect continuity: facts-first Continue after D4 AVAILABLE (REC-08 + ACCEPT-01).
-  let missionProjection: MissionProjection | null = null;
-  let continueFailedAfterEffect = false;
-  let assistantBody = reply.content;
-
-  if (
-    !ownershipLostBeforeD4 &&
-    documentEffectForAck?.status === "AVAILABLE" &&
-    documentEffectForAck.documentId &&
-    documentEffectForAck.revisionId
-  ) {
-    const factsBlock = [
-      `D4 ${documentEffectForAck.act}=${documentEffectForAck.status}`,
-      `documentId=${documentEffectForAck.documentId}`,
-      `revisionId=${documentEffectForAck.revisionId}`,
-      documentEffectForAck.revisionNumber != null
-        ? `revisionNumber=${documentEffectForAck.revisionNumber}`
-        : null,
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
-      try {
-        const continued = await cognitiveContinueFromFacts({
-          userText: content,
-          factsBlock,
-          contextSnippets,
-          toolScope: {
-            pilotId,
-            preparationId,
-            operationId: reserved.operationId,
-            projectId: ctx.project?.id,
-          },
-        });
-        if (continued.status === "COMPLETE" && continued.content.trim()) {
-          assistantBody = continued.content;
-        } else {
-          continueFailedAfterEffect = true;
-          assistantBody = composeCanonicalMissionRestitution({
-            documentEffect: documentEffectForAck,
-            restitutionNote:
-              "Continuation cognitive incomplète — faits D4 conservés (RESTITUTION_PENDING).",
-          });
-        }
-      } catch {
-        continueFailedAfterEffect = true;
-        assistantBody = composeCanonicalMissionRestitution({
-          documentEffect: documentEffectForAck,
-          restitutionNote:
-            "Continuation cognitive indisponible — faits D4 conservés (RESTITUTION_PENDING).",
-        });
-      }
-    }
-  }
-
-  // Explicit refusal must not leave a publication PREPARED / AWAITING_PILOT_AUTH.
-  const userRefusesPublish = userStatementRefusesPublication(content);
-
-  // Publication mission: same-turn D4 CREATE/REVISE OR publish-existing (no D4 AVAILABLE gate).
-  // Restitution belongs to Nora after Studio outcome — never a fixed pre-effect hedge.
-  let publicationEffectView: PublicationEffectView = null;
-
-  // Effective path: qualification path, or root clarification → derived filename.
-  const clarifyingRefs = clarifyingPublicationMission
-    ? publicationRefsFromClarifyingMission(clarifyingPublicationMission)
-    : { documentId: null, revisionId: null };
-
-  if (
-    allowOwnerEffects &&
-    !ownershipLostBeforeD4 &&
-    missionIntent.wantsPublish &&
-    !userRefusesPublish &&
-    ctx.project?.id
-  ) {
-    const docsForPub = await listDocuments(pilotId, preparationId);
-    let pubTarget = resolvePublicationDocumentTarget({
-      sameTurnEffect: documentEffectForAck
-        ? {
-            status: documentEffectForAck.status ?? "UNKNOWN",
-            documentId: documentEffectForAck.documentId ?? null,
-            revisionId: documentEffectForAck.revisionId ?? null,
-            revisionNumber: documentEffectForAck.revisionNumber ?? null,
-            title: null,
-          }
-        : null,
-      docs: docsForPub,
-      documentHint: missionIntent.documentHint ?? null,
-      objectRef:
-        missionIntent.objectRef ?? clarifyingRefs.documentId ?? null,
-      focus: opts?.documentFocus
-        ? {
-            documentId: opts.documentFocus.documentId,
-            sourceRevisionId: opts.documentFocus.sourceRevisionId,
-            sourceRevisionNumber: opts.documentFocus.sourceRevisionNumber,
-            observedHeadRevisionId: opts.documentFocus.observedHeadRevisionId,
-          }
-        : clarifyingRefs.documentId && clarifyingRefs.revisionId
-          ? {
-              documentId: clarifyingRefs.documentId,
-              sourceRevisionId: clarifyingRefs.revisionId,
-              observedHeadRevisionId: clarifyingRefs.revisionId,
-            }
-          : null,
-    });
-
-    // D4 owner confirmation before any D7 prepare — never trust client focus alone.
-    if (pubTarget.ok) {
-      pubTarget = await confirmPublicationDocumentWithD4({
-        pilotId,
-        preparationId,
-        target: pubTarget,
-      });
-    }
-
-    const steps: MissionProjection["steps"] = [];
-    if (pubTarget.ok && pubTarget.source === "same_turn_d4") {
-      steps.push({
-        id: "d4_create",
-        capabilityId: "d4.create_document",
-        status: "DONE",
-        correlationKey: missionKeys.document,
-        documentId: pubTarget.documentId,
-        revisionId: pubTarget.revisionId ?? undefined,
-      });
-    } else if (pubTarget.ok) {
-      steps.push({
-        id: "d4_source",
-        capabilityId: "d4.create_document",
-        status: "DONE",
-        correlationKey: missionKeys.document,
-        documentId: pubTarget.documentId,
-        revisionId: pubTarget.revisionId ?? undefined,
-        reason: `EXISTING_DOC:${pubTarget.source}${pubTarget.overriddenImplicit ? ":OVERRIDE_IMPLICIT" : ""}`,
-      });
-    }
-
-    const writeGate = publicationWriteGate();
-
-    const resolvedPath = resolvePublicationPathAfterClarification({
-      userText: content,
-      qualifiedPath: missionIntent.targetPath,
-      documentTitle: pubTarget.ok
-        ? pubTarget.title
-        : missionIntent.documentHint,
-    });
-    const effectiveNeedsExplicitPath =
-      Boolean(missionIntent.wantsPublish) && !resolvedPath;
-    const effectiveTargetPath = resolvedPath;
-
-    if (!pubTarget.ok) {
-      const clarify =
-        pubTarget.reason === "AMBIGUOUS" ||
-        pubTarget.reason === "NOT_FOUND" ||
-        pubTarget.reason === "REVISION_NOT_FOUND" ||
-        pubTarget.reason === "NO_AVAILABLE_REVISION" ||
-        pubTarget.reason === "EXPLICIT_FOCUS_CONFLICT";
-      const refused =
-        pubTarget.reason === "FORBIDDEN" || pubTarget.reason === "REVISION_MISMATCH";
-      steps.push({
-        id: "d7_prepare",
-        capabilityId: "d7.prepare_publication",
-        status: clarify ? "PENDING" : "FAILED",
-        correlationKey: missionKeys.publication,
-        reason: `${pubTarget.reason}${pubTarget.detail ? `:${pubTarget.detail}` : ""}`,
-      });
-      missionProjection = {
-        clientIntentKey,
-        status: clarify ? "AWAITING_CLARIFICATION" : "PARTIAL_FAILED_STEP",
-        goalSummary: refused
-          ? "Publication refusée — cible documentaire invalide"
-          : "Publication — document ou révision à préciser",
-        steps,
-        restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
-      };
-      publicationEffectView = {
-        attempted: true,
-        outcome: refused ? "REFUSED_AUTHORITY" : "AWAITING_CLARIFICATION",
-        reason:
-          pubTarget.reason === "AMBIGUOUS"
-            ? "Plusieurs documents correspondent — précisez lequel publier."
-            : pubTarget.reason === "FORBIDDEN"
-              ? "Document inaccessible pour ce Pilote ou ce projet."
-              : pubTarget.reason === "REVISION_MISMATCH"
-                ? "La révision indiquée n'appartient pas au document demandé."
-                : pubTarget.reason === "REVISION_NOT_FOUND"
-                  ? "Révision demandée introuvable ou non publiable."
-                  : "Document ou révision de publication non déterminé.",
-      };
-    } else if (!pubTarget.revisionId) {
-      steps.push({
-        id: "d7_prepare",
-        capabilityId: "d7.prepare_publication",
-        status: "PENDING",
-        correlationKey: missionKeys.publication,
-        documentId: pubTarget.documentId,
-        reason: "REVISION_REQUIRED",
-      });
-      missionProjection = {
-        clientIntentKey,
-        status: "AWAITING_CLARIFICATION",
-        goalSummary: "Publication — révision à préciser",
-        steps,
-        restitution: "DELIVERED",
-      };
-      publicationEffectView = {
-        attempted: true,
-        outcome: "AWAITING_CLARIFICATION",
-        reason: "Révision de publication non déterminée.",
-        documentTitle: pubTarget.title,
-        revisionNumber: pubTarget.revisionNumber,
-      };
-    } else if (!writeGate.allowed) {
-      steps.push({
-        id: "d7_prepare",
-        capabilityId: "d7.prepare_publication",
-        status: "FAILED",
-        correlationKey: missionKeys.publication,
-        documentId: pubTarget.documentId,
-        revisionId: pubTarget.revisionId,
-        reason: "WRITE_DISABLED",
-      });
-      missionProjection = {
-        clientIntentKey,
-        status: "PARTIAL_FAILED_STEP",
-        goalSummary: "Publication refusée — écritures GitHub désactivées",
-        steps,
-        restitution: "DELIVERED",
-      };
-      publicationEffectView = {
-        attempted: true,
-        outcome: "REFUSED_WRITE_DISABLED",
-        reason: writeGate.reason,
-        documentTitle: pubTarget.title,
-        revisionNumber: pubTarget.revisionNumber,
-        repositoryFullName: missionIntent.repositoryHint,
-      };
-      emitObs({
-        event_name: "d3.mission.publication_write_disabled",
-        component: "d3.mission_continuity",
-        request_id: requestId,
-        operation_id: reserved.operationId,
-        generation_id: reply.generationId,
-        outcome: "DENIED",
-        meta: {
-          document_id: pubTarget.documentId,
-          revision_id: pubTarget.revisionId,
-          reason: writeGate.reason,
-        },
-      });
-    } else if (effectiveNeedsExplicitPath) {
-      // P1-E: no silent path/branch deduction — clarify before D7 prepare.
-      steps.push({
-        id: "d7_prepare",
-        capabilityId: "d7.prepare_publication",
-        status: "PENDING",
-        correlationKey: missionKeys.publication,
-        documentId: pubTarget.documentId,
-        revisionId: pubTarget.revisionId,
-        reason: missionIntent.clarify ?? "PATH_REQUIRED",
-      });
-      missionProjection = {
-        clientIntentKey,
-        status: "AWAITING_CLARIFICATION",
-        goalSummary: "Document identifié — chemin Git requis avant préparation",
-        steps,
-        restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
-      };
-      publicationEffectView = {
-        attempted: true,
-        outcome: "AWAITING_CLARIFICATION",
-        reason: missionIntent.clarify ?? "Chemin de publication Git manquant.",
-        documentTitle: pubTarget.title,
-        revisionNumber: pubTarget.revisionNumber,
-      };
-    } else if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
-      const baseBranch = (missionIntent.targetBranch ?? "main").trim() || "main";
-      const branchHints = extractAllPublicationBranchHints(content);
-      const nonBaseBranchHints = [...new Set(branchHints.filter((b) => b !== baseBranch))];
-      if (nonBaseBranchHints.length > 1) {
-        steps.push({
-          id: "d7_prepare",
-          capabilityId: "d7.prepare_publication",
-          status: "PENDING",
-          correlationKey: missionKeys.publication,
-          documentId: pubTarget.documentId,
-          revisionId: pubTarget.revisionId,
-          reason: "AMBIGUOUS_BRANCH",
-        });
-        missionProjection = {
-          clientIntentKey,
-          status: "AWAITING_CLARIFICATION",
-          goalSummary: "Publication Git — branches contradictoires à clarifier",
-          steps,
-          restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
-        };
-        publicationEffectView = {
-          attempted: true,
-          outcome: "AWAITING_CLARIFICATION",
-          reason: "Plusieurs branches de publication distinctes de la base — précision requise.",
-          documentTitle: pubTarget.title,
-          revisionNumber: pubTarget.revisionNumber,
-        };
-      } else {
-      const explicitPublicationBranch = extractExplicitPublicationBranch({
-        userText: content,
-        baseBranch,
-      });
-      const prepared = await preparePublicationForMission({
-        pilotId,
-        projectId: ctx.project.id,
-        documentId: pubTarget.documentId,
-        revisionId: pubTarget.revisionId,
-        clientIntentKey,
-        targetPath: effectiveTargetPath,
-        targetBranch: baseBranch,
-        publicationBranch: explicitPublicationBranch,
-      });
-      if (prepared.ok) {
-        const prepStep: MissionProjection["steps"][number] = {
-          id: "d7_prepare",
-          capabilityId: "d7.prepare_publication",
-          status: prepared.status === "PREPARED" ? "WAITING" : "DONE",
-          correlationKey: missionKeys.publication,
-          attemptId: prepared.attemptId,
-          documentId: pubTarget.documentId,
-          revisionId: pubTarget.revisionId,
-        };
-        steps.push(prepStep);
-
-        let missionStatus: MissionProjection["status"] = "AWAITING_PILOT_AUTH";
-        let goalSummary = "Publication Git (attente autorisation Pilote)";
-        let authorizeCalled = false;
-
-        const mandateAdmission = await admitConversationalPublicationMandate({
-          pilotId,
-          projectId: ctx.project.id,
-          attemptId: prepared.attemptId,
-          userMessageId: reserved.userMessageId,
-          userStatement: content,
-          // Provenance: reserved turn key. Correlation: mission key (may equal turn key).
-          clientTurnKey,
-          missionClientIntentKey: clientIntentKey,
-          qualifiedPath: effectiveTargetPath,
-          // Bind the publication head the Pilote named (not the base branch).
-          qualifiedBranch: explicitPublicationBranch,
-          wantsPublishFromQual: missionIntent.wantsPublish,
-        });
-
-        if (mandateAdmission.authorized && mandateAdmission.decisionId) {
-          publicationMandateDecisionId = mandateAdmission.decisionId;
-          authorizeCalled = true;
-          prepStep.decisionId = mandateAdmission.decisionId;
-          const resumeStatus = mandateAdmission.missionResume?.status ?? "AUTHORIZED";
-          if (resumeStatus === "COMPLETED") {
-            prepStep.status = "DONE";
-            missionStatus = "COMPLETED";
-            goalSummary = "Publication Git (mandat conversationnel + effet terminé)";
-            publicationEffectView =
-              (await buildPublicationEffectViewFromAttempt({
-                pilotId,
-                projectId: ctx.project.id,
-                attemptId: prepared.attemptId,
-                outcome: "COMPLETED",
-                documentTitle: pubTarget.title,
-                revisionNumber: pubTarget.revisionNumber,
-                decisionId: mandateAdmission.decisionId,
-              })) ?? {
-                attempted: true,
-                outcome: "COMPLETED",
-                documentTitle: pubTarget.title,
-                revisionNumber: pubTarget.revisionNumber,
-                attemptId: prepared.attemptId,
-                decisionId: mandateAdmission.decisionId,
-                repositoryFullName: missionIntent.repositoryHint,
-                commitSha: mandateAdmission.missionResume?.commitSha ?? null,
-                prNumber: mandateAdmission.missionResume?.prNumber ?? null,
-              };
-          } else if (
-            resumeStatus === "DISPATCHED" ||
-            resumeStatus === "AMBIGUOUS" ||
-            mandateAdmission.missionResume?.dispatched
-          ) {
-            prepStep.status = "WAITING";
-            missionStatus = "ACTIVE";
-            goalSummary = "Publication Git (mandat conversationnel — dispatch en cours)";
-            publicationEffectView = {
-              attempted: true,
-              outcome: "UNKNOWN",
-              reason: "Dispatch en cours — résultat Studio non encore consolidé.",
-              documentTitle: pubTarget.title,
-              revisionNumber: pubTarget.revisionNumber,
-              attemptId: prepared.attemptId,
-              decisionId: mandateAdmission.decisionId,
-            };
-          } else {
-            prepStep.status = "WAITING";
-            missionStatus = "AWAITING_PILOT_AUTH";
-            goalSummary =
-              "Publication Git (mandat enregistré — reprise dispatch en attente)";
-            publicationEffectView = {
-              attempted: true,
-              outcome: "PREPARED_AWAITING_AUTH",
-              reason: "Autorisation enregistrée — effet non encore observé.",
-              documentTitle: pubTarget.title,
-              revisionNumber: pubTarget.revisionNumber,
-              attemptId: prepared.attemptId,
-              decisionId: mandateAdmission.decisionId,
-            };
-          }
-        } else if (
-          mandateAdmission.attempted &&
-          mandateAdmission.reasonCode &&
-          !["ALREADY_AUTHORIZED", "REFUSED", "MERGE_ONLY", "NO_PUBLISH_QUAL"].includes(
-            mandateAdmission.reasonCode,
-          ) &&
-          (mandateAdmission.reasonCode === "AMBIGUOUS_PATH" ||
-            mandateAdmission.reasonCode === "AMBIGUOUS_BRANCH" ||
-            mandateAdmission.reasonCode === "PLAN_DRIFT" ||
-            mandateAdmission.reasonCode === "AMBIGUOUS")
-        ) {
-          missionStatus = "AWAITING_CLARIFICATION";
-          goalSummary = "Publication préparée — mandat conversationnel ambigu (précision requise)";
-          prepStep.reason = mandateAdmission.reason ?? mandateAdmission.reasonCode;
-          publicationEffectView = {
-            attempted: true,
-            outcome: "AWAITING_CLARIFICATION",
-            reason: mandateAdmission.reason ?? mandateAdmission.reasonCode,
-            documentTitle: pubTarget.title,
-            revisionNumber: pubTarget.revisionNumber,
-            attemptId: prepared.attemptId,
-          };
-        } else if (
-          mandateAdmission.attempted &&
-          (mandateAdmission.reasonCode === "REFUSED" ||
-            mandateAdmission.reasonCode === "INSUFFICIENT_PERMISSION")
-        ) {
-          prepStep.status = "FAILED";
-          missionStatus = "PARTIAL_FAILED_STEP";
-          goalSummary = "Publication refusée — autorité insuffisante";
-          publicationEffectView = {
-            attempted: true,
-            outcome: "REFUSED_AUTHORITY",
-            reason: mandateAdmission.reason ?? mandateAdmission.reasonCode,
-            documentTitle: pubTarget.title,
-            revisionNumber: pubTarget.revisionNumber,
-            attemptId: prepared.attemptId,
-          };
-        } else {
-          publicationEffectView = {
-            attempted: true,
-            outcome: "PREPARED_AWAITING_AUTH",
-            reason: mandateAdmission.reason ?? "Préparation disponible — autorisation Pilote requise.",
-            documentTitle: pubTarget.title,
-            revisionNumber: pubTarget.revisionNumber,
-            attemptId: prepared.attemptId,
-          };
-        }
-
-        missionProjection = {
-          clientIntentKey,
-          status: missionStatus,
-          goalSummary,
-          steps,
-          restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
-        };
-        emitObs({
-          event_name: mandateAdmission.authorized
-            ? "d3.mission.prepared_conversational_authorize"
-            : "d3.mission.prepared_awaiting_auth",
-          component: "d3.mission_continuity",
-          request_id: requestId,
-          operation_id: reserved.operationId,
-          generation_id: reply.generationId,
-          outcome: mandateAdmission.authorized ? "SUCCESS" : "PARTIAL",
-          meta: {
-            attempt_id: prepared.attemptId,
-            document_id: pubTarget.documentId,
-            authorize_called: authorizeCalled,
-            mandate_reason: mandateAdmission.reasonCode ?? null,
-            decision_id: mandateAdmission.decisionId,
-            publish_source: pubTarget.source,
-          },
-        });
-      } else {
-        const refusedWrite =
-          prepared.code === "WRITE_DISABLED" ||
-          /ALLOW_MUTATIONS|écritures GitHub|WRITE/i.test(prepared.message);
-        steps.push({
-          id: "d7_prepare",
-          capabilityId: "d7.prepare_publication",
-          status: "FAILED",
-          correlationKey: missionKeys.publication,
-          documentId: pubTarget.documentId,
-          revisionId: pubTarget.revisionId,
-          reason: `${prepared.code}:${prepared.message}`,
-        });
-        missionProjection = {
-          clientIntentKey,
-          status: "PARTIAL_FAILED_STEP",
-          goalSummary: refusedWrite
-            ? "Publication refusée — écritures GitHub désactivées"
-            : "Document identifié — préparation Git non réalisée",
-          steps,
-          restitution: continueFailedAfterEffect ? "PENDING" : "CANONICAL",
-        };
-        publicationEffectView = {
-          attempted: true,
-          outcome: refusedWrite ? "REFUSED_WRITE_DISABLED" : "DISPATCH_FAILED",
-          reason: prepared.message,
-          documentTitle: pubTarget.title,
-          revisionNumber: pubTarget.revisionNumber,
-        };
-      }
-      } // end unambiguous-branch prepare path
-    }
-
-    if (continueFailedAfterEffect && missionProjection) {
-      missionProjection = {
-        ...missionProjection,
-        restitution: "PENDING",
-      };
-    }
-  }
-
-  // Documentary merge — distinct D6 mandate (publication ≠ merge).
-  // E08-S02: durable qualification owns métier routing — no closed verb-list gate.
-  // Fail-closed: refuse / contradiction / open condition / non-authorizing talk.
-  const mergeIntent = studioProjection.merge;
-  const mergePrHints = extractPositivelyRequestedPrNumbers(content);
-  const mergeRequestedPr =
-    mergeIntent.prNumber != null && mergeIntent.prNumber > 0
-      ? mergeIntent.prNumber
-      : mergePrHints.length === 1
-        ? mergePrHints[0]!
-        : null;
-  if (
-    allowOwnerEffects &&
-    !ownershipLostBeforeD4 &&
-    ctx.project?.id &&
-    mergeIntent.wantsMerge &&
-    mergeIntent.conditionStatus === "NONE" &&
-    !userStatementRefusesMerge(content) &&
-    !userStatementHasOpenMergeCondition(content) &&
-    !userStatementHasUnresolvedSamePrMergeContradiction(content) &&
-    !userStatementIsNonAuthorizingMergeTalk(content)
-  ) {
-    if (await requireTurnOwnership(reserved.commandId, reserved.ownerToken)) {
-      const mergeAdmit = await admitConversationalMergeMandate({
-        pilotId,
-        projectId: ctx.project.id,
-        userMessageId: reserved.userMessageId,
-        userStatement: content,
-        clientTurnKey: clientIntentKey,
-        requestedPrNumber: mergeRequestedPr,
-        repositoryFullNameHint: mergeIntent.repositoryHint,
-        wantsMergeFromQual: mergeIntent.wantsMerge,
-        conditionStatus: mergeIntent.conditionStatus,
-        conditionText: mergeIntent.conditionText,
-      });
-      if (mergeAdmit.authorized && mergeAdmit.attemptId) {
-        const mergeStep = {
-          id: "d7_merge",
-          capabilityId: "d7.merge_publication",
-          status:
-            mergeAdmit.dispatchStatus === "COMPLETED"
-              ? ("DONE" as const)
-              : ("WAITING" as const),
-          correlationKey: `merge:mission:${clientIntentKey}`,
-          attemptId: mergeAdmit.attemptId,
-          decisionId: mergeAdmit.decisionId ?? undefined,
-          reason: mergeAdmit.reasonCode,
-        };
-        if (!missionProjection) {
-          missionProjection = {
-            clientIntentKey,
-            status: mergeAdmit.dispatchStatus === "COMPLETED" ? "COMPLETED" : "ACTIVE",
-            goalSummary:
-              mergeAdmit.dispatchStatus === "COMPLETED"
-                ? `Merge documentaire conversationnel terminé (PR #${mergeAdmit.resolvedPrNumber ?? "?"})`
-                : `Merge documentaire — mandat D6 (PR #${mergeAdmit.resolvedPrNumber ?? "?"})`,
-            steps: [mergeStep],
-            restitution: "CANONICAL",
-          };
-        } else {
-          missionProjection = {
-            ...missionProjection,
-            steps: [...missionProjection.steps, mergeStep],
-            status:
-              mergeAdmit.dispatchStatus === "COMPLETED"
-                ? "COMPLETED"
-                : missionProjection.status,
-            goalSummary:
-              mergeAdmit.dispatchStatus === "COMPLETED"
-                ? `${missionProjection.goalSummary} · merge terminé`
-                : `${missionProjection.goalSummary} · merge en cours`,
-          };
-        }
-      } else if (
-        mergeAdmit.attempted &&
-        [
-          "AMBIGUOUS_TARGET",
-          "AMBIGUOUS_PR",
-          "AMBIGUOUS",
-          "AMBIGUOUS_REPOSITORY",
-          "REPOSITORY_MISMATCH",
-          "TARGET_UNRESOLVED",
-          "PR_NOT_FOUND",
-          "PR_MISMATCH",
-          "NO_PUBLICATION",
-          "PUBLICATION_NOT_FOUND",
-          "PUBLICATION_NOT_COMPLETED",
-          "CONDITION_OPEN",
-          "CONDITION_UNPROVEN",
-        ].includes(mergeAdmit.reasonCode ?? "")
-      ) {
-        const clarifyStep = {
-          id: "d7_merge",
-          capabilityId: "d7.merge_publication",
-          status: "PENDING" as const,
-          correlationKey: `merge:mission:${clientIntentKey}`,
-          reason: mergeAdmit.reason ?? mergeAdmit.reasonCode,
-        };
-        if (!missionProjection) {
-          missionProjection = {
-            clientIntentKey,
-            status: "AWAITING_CLARIFICATION",
-            goalSummary:
-              mergeAdmit.reasonCode === "CONDITION_OPEN" ||
-              mergeAdmit.reasonCode === "CONDITION_UNPROVEN"
-                ? "Merge documentaire — condition non satisfaite / non prouvée"
-                : "Merge documentaire — précision requise",
-            steps: [clarifyStep],
-            restitution: "CANONICAL",
-          };
-        }
-      }
-      // REFUSED / NON_AUTHORIZING / NO_MERGE_QUAL: no prepare, no HD, no dispatch.
-    }
-  } else if (
-    allowOwnerEffects &&
-    !ownershipLostBeforeD4 &&
-    ctx.project?.id &&
-    mergeIntent.capabilityId === "d7.merge_publication" &&
-    (mergeIntent.conditionStatus === "OPEN" ||
-      mergeIntent.conditionStatus === "UNVERIFIABLE" ||
-      mergeIntent.conditionStatus === "SATISFIED" ||
-      userStatementHasOpenMergeCondition(content))
-  ) {
-    // E08-S01 — condition present ⇒ clarification / refuse, never silent drop.
-    if (!missionProjection) {
-      missionProjection = {
-        clientIntentKey,
-        status: "AWAITING_CLARIFICATION",
-        goalSummary: "Merge documentaire — condition ouverte ou non prouvée",
-        steps: [
-          {
-            id: "d7_merge",
-            capabilityId: "d7.merge_publication",
-            status: "PENDING",
-            correlationKey: `merge:mission:${clientIntentKey}`,
-            reason: mergeIntent.clarify ?? "CONDITION_OPEN",
-          },
-        ],
-        restitution: "CANONICAL",
-      };
-    }
-  }
-
-  // D2 projection draft prepared here; persisted only AFTER durable terminal commit (Gap C).
-  let preparationProjectionDraft: ReturnType<typeof draftProjectionFromQualification> = null;
-  let preparationProjectionAck:
-    | { status: string; revision?: number; assessment?: string }
-    | null = null;
-  if (allowOwnerEffects && !ownershipLostBeforeD4 && !ctx.project?.id) {
-    const openFromQual = extractKnowledgeProposals(qualification)
-      .filter((p) => p.kind === "OPEN_POINT")
-      .map((p) => p.statement)
-      .slice(0, 6);
-    const proposedName =
-      (qualification.proposedProjectName?.trim()
-        ? qualification.proposedProjectName.trim()
-        : null) ||
-      studioIntent.proposedProjectName;
-    preparationProjectionDraft = draftProjectionFromQualification({
-      preparationId,
-      turnKey: clientIntentKey,
-      qualificationStatus: qualification.status,
-      goal: qualification.goal || "",
-      projectIntention: qualification.projectIntention || "",
-      desiredOutcome: qualification.desiredOutcome || "",
-      initialScope: qualification.initialScope || "",
-      // Pass through undefined when envelope omitted clarifications (≠ explicit []).
-      clarifications: qualification.clarifications,
-      proposedProjectName: proposedName,
-      openPointStatements: openFromQual,
-      preparationAssessment: qualification.preparationAssessment ?? null,
-      preparationAssessmentExplanation:
-        qualification.preparationAssessmentExplanation ?? null,
-      // Goal→intention bootstrap only when no durable intention exists yet (R1).
-      allowGoalIntentionBootstrap: !(ctx.projection?.intention?.value ?? "").trim(),
-    });
-    if (!preparationProjectionDraft && qualification.status === "UNAVAILABLE") {
-      preparationProjectionAck = { status: "UNAVAILABLE" };
-    }
-  }
-
-  // D2 — accompany project creation; Pilot explicit act remains mandatory (no implicit create).
-  if (
-    allowOwnerEffects &&
-    !ownershipLostBeforeD4 &&
-    studioIntent.wantsProjectCreate &&
-    !ctx.project?.id
-  ) {
-    const proposed =
-      (studioIntent.proposedProjectName?.trim()
-        ? studioIntent.proposedProjectName.trim()
-        : null) || "Nouveau projet";
-    let d2Mission = emptyMission(
-      clientIntentKey,
-      `Création de projet «${proposed}» — attente acte Pilote`,
-    );
-    d2Mission = {
-      ...d2Mission,
-      originalUserText: content,
-      pendingDocumentBrief: studioIntent.pendingDocumentBrief ?? undefined,
-      preparationId,
-      proposedProjectName: proposed,
-      ownerActBinding: buildD2OwnerActBinding(preparationId, clientIntentKey),
-    };
-    d2Mission = mergeMissionSteps(d2Mission, [buildD2AwaitingStep(proposed)], "AWAITING_PILOT_ACT");
-    if (
-      studioIntent.wantsFollowOnDocument ||
-      studioIntent.documentAct.kind === "CREATE" ||
-      studioIntent.publication.wantsPublish
-    ) {
-      d2Mission = mergeMissionSteps(d2Mission, [
-        buildPendingDocumentStep("CREATE", studioIntent.pendingDocumentBrief),
-      ]);
-    }
-    missionProjection = d2Mission;
-  } else if (
-    !missionProjection &&
-    carriedMission &&
-    (carriedMission.status === "ACTIVE" || carriedMission.status === "AWAITING_PILOT_ACT")
-  ) {
-    // Resume carried multi-domain mission after D2 confirmed (or still waiting).
-    if (documentEffectForAck?.status === "AVAILABLE" && documentEffectForAck.documentId) {
-      const steps = carriedMission.steps.map((s) =>
-        s.id === "d4_create" || s.capabilityId === "d4.create_document"
-          ? {
-              ...s,
-              status: "DONE" as const,
-              documentId: documentEffectForAck.documentId,
-              revisionId: documentEffectForAck.revisionId,
-            }
-          : s,
-      );
-      missionProjection = {
-        ...carriedMission,
-        steps,
-        status: steps.some((s) => s.status === "WAITING" || s.status === "PENDING")
-          ? "ACTIVE"
-          : "COMPLETED",
-        restitution: continueFailedAfterEffect ? "PENDING" : "DELIVERED",
-      };
-    } else {
-      missionProjection = carriedMission;
-    }
-  }
-
-  // P1: PREPARE-only conflict must be observable without D4 mutation or silent rewrite.
-  if (
-    proposalAuthorityConflict &&
-    !documentSave &&
-    !ownershipLostBeforeD4 &&
-    documentAct.kind === "NONE"
-  ) {
-    documentSave = {
-      status: "NOT_EXECUTED",
-      reason: proposalAuthorityConflict,
-    };
-  }
-
-  // P1: never strip+reinject when concurrent fence was invalid or divergent.
-  if (durableProposal && !ownershipLostBeforeD4 && !proposalAuthorityConflict) {
-    const narrative = stripContractualDocumentFences(assistantBody);
-    const fenced = serializeProposalFence(durableProposal);
-    assistantBody = [narrative.trimEnd(), fenced].filter((s) => s.length > 0).join("\n\n");
-  }
-
-  // E07 — post-effect métier restitution: final assistant text must match Studio outcome.
-  if (!ownershipLostBeforeD4 && authority?.attempted) {
-    assistantBody = composePilotageEffectRestitution({
-      priorContent: assistantBody,
-      effect: pilotageEffectFromAuthority(authority) ?? null,
-    });
-  }
-
-  // E08 POST-UAT — publication outcome after Studio owners; strip pre-effect hedges.
-  if (!ownershipLostBeforeD4 && publicationEffectView?.attempted) {
-    assistantBody = composePublicationEffectRestitution({
-      priorContent: assistantBody,
-      effect: publicationEffectView,
-    });
-  } else if (!ownershipLostBeforeD4 && missionIntent.wantsPublish) {
-    // Intention recognized, no Studio publication attempt — NOT_ATTEMPTED (never success).
-    assistantBody = composePublicationEffectRestitution({
-      priorContent: assistantBody,
-      effect: {
-        attempted: true,
-        outcome: "NOT_ATTEMPTED",
-        reason:
-          "Intention de publication reconnue — aucun effet Studio n'a été lancé",
-      },
-    });
-  }
-
-  const assistantContentForCommit = ownershipLostBeforeD4
-    ? reply.content
-    : appendMissionAck(
-        appendDocumentEffectAck(assistantBody, documentEffectForAck),
-        missionProjection,
-      );
-
-  const confirmedCapitalisations = capitalisation.capitalisations.filter(
-    (c) => c.status === "AVAILABLE",
-  );
-
-  let turnStatus: "COMPLETE" | "FAILED" | "UNKNOWN" =
-    ownershipLostBeforeD4
-      ? "UNKNOWN"
-      : reply.status === "COMPLETE"
-        ? "COMPLETE"
-        : reply.status === "UNKNOWN"
-          ? "UNKNOWN"
-          : "FAILED";
-
-  if (
-    !ownershipLostBeforeD4 &&
-    reply.status === "COMPLETE" &&
-    (documentSaveUnknown || capitalisationError) &&
-    documentAct.kind !== "NONE"
-  ) {
-    turnStatus = "UNKNOWN";
-  } else if (
-    !ownershipLostBeforeD4 &&
-    reply.status === "COMPLETE" &&
-    capitalisationError &&
-    documentAct.kind === "NONE"
-  ) {
-    turnStatus = "UNKNOWN";
-  }
-
-  // Lost ownership ⇒ never claim COMPLETE even if reply looked complete.
-  if (ownershipLostBeforeD4) {
-    turnStatus = "UNKNOWN";
-  }
-
-  // When ownership already lost, prefer DB reconstitution over in-memory lists
-  // (local vars may omit effects committed earlier in the turn).
-  let unknownCapReconstituted: Awaited<ReturnType<typeof reconstituteConfirmedD4Effects>> | null =
-    null;
-  if (ownershipLostBeforeD4 || turnStatus === "UNKNOWN") {
-    unknownCapReconstituted = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
-      generationId: reply.generationId,
-      userMessageId: reserved.userMessageId,
-    });
-  }
-
-  const resultPayload: TurnResult = {
-    userMessageId: reserved.userMessageId,
-    assistantMessageId: ownershipLostBeforeD4 ? null : assistantId,
-    operationId: reserved.operationId,
-    requestId,
-    turnCommandId: reserved.commandId,
-    preparedContract,
-    noraMode: reply.mode,
-    status: turnStatus === "COMPLETE" ? reply.status : turnStatus,
-    generationId: reply.generationId,
-    policy: {
-      version: reply.policy.policyVersion,
-      profileType: reply.policy.profileType,
-      profile: reply.policy.profile,
-      modelRequested: reply.modelRequested,
-      modelApplied: reply.modelApplied,
-      effortRequested: reply.effortRequested,
-      effortApplied: reply.effortApplied,
-      reasonCodes: reply.policy.reasonCodes,
-    },
-    attempts: reply.attempts,
-    toolCallsObserved: reply.toolCallsObserved,
-    d4CharsReturned: reply.d4CharsReturned,
-    streaming: {
-      attempted: reply.streamingAttempted ?? false,
-      delivered: reply.streamingDelivered ?? false,
-      notes: reply.streamingNotes ?? null,
-    },
-    knowledgeSelection: {
-      ...knowledgeForNora.counts,
-      selectionMethod: knowledgeForNora.selectionMethod,
-      selectionLimit: knowledgeForNora.selectionLimit,
-      role: "pre_generation_context" as const,
-      selectedAcquisIds: knowledgeForNora.selectedAcquisIds,
-      selectedOpenPointIds: knowledgeForNora.selectedOpenPointIds,
-    },
-    knowledgeResumeHints: knowledgeResumeHints
-      ? {
-          ...knowledgeResumeHints.counts,
-          selectionMethod: knowledgeResumeHints.selectionMethod,
-          selectionLimit: knowledgeResumeHints.selectionLimit,
-          role: "post_qualification_resume_only" as const,
-          selectedAcquisIds: knowledgeResumeHints.selectedAcquisIds,
-          selectedOpenPointIds: knowledgeResumeHints.selectedOpenPointIds,
-          note: "Indice de reprise — n'a pas nourri la réponse déjà générée",
-        }
-      : null,
-    capitalisation: ownershipLostBeforeD4
-      ? (unknownCapReconstituted?.capitalisation ?? [])
-      : confirmedCapitalisations,
-    capitalisationAttempted: ownershipLostBeforeD4 ? [] : capitalisation.capitalisations,
-    capitalisationLimit: ownershipLostBeforeD4
-      ? (unknownCapReconstituted?.capitalisationLimit ?? "OWNERSHIP_LOST")
-      : capitalisationError ?? capitalisation.selectionLimit,
-    documentSave: ownershipLostBeforeD4
-      ? (unknownCapReconstituted?.documentSave ?? null)
-      : documentSave,
-    pendingDocumentCandidate: ownershipLostBeforeD4 ? null : pendingDocumentCandidateOut,
-    historicalAuthorization: ownershipLostBeforeD4 ? null : historicalAuthorizationOut,
-    idempotentReplay: false,
-    humanDecisionCreated:
-      Boolean(authority?.humanDecisionCreated) || Boolean(publicationMandateDecisionId),
-    pilotageEffect: pilotageEffectFromAuthority(authority),
-    missionProjection,
-    nextTurnKind,
-    pendingEffectBlocked,
-    pendingBlockReason,
-    unresolvedPendingClientTurnKey:
-      blockingSibling?.clientTurnKey ??
-      blockingMission?.clientIntentKey ??
-      clientPendingHint,
-    semanticQualificationStatus: qualification.status,
-    preparationProjection: preparationProjectionAck,
-    turnProjection: buildTurnProjection({
-      messageId: ownershipLostBeforeD4 ? null : assistantId,
-      turnCommandId: reserved.commandId,
-      status: turnStatus === "COMPLETE" ? reply.status : turnStatus,
-      finalized: turnStatus === "COMPLETE" && !ownershipLostBeforeD4,
-      // P1-A: never map clarifications[] → continue buttons.
-      continueChoices: continueChoicesOverride ?? qualification.continueChoices ?? null,
-      references: (qualification.resourceReferences ?? []).map((r) => ({
-        kind: r.kind,
-        label: r.label,
-        resourceId: r.resourceId,
-        revisionId: r.revisionId,
-        repositoryId: r.repositoryId,
-        path: r.path,
-        ref: r.ref,
-        commit: r.commit,
-        href: r.href,
-        available: true,
-      })),
-      toolCallsObserved: reply.toolCallsObserved,
-      d4CharsReturned: reply.d4CharsReturned,
-      documentSave,
-      visualComposition: qualification.visualComposition,
-    }),
-  };
-
-  if (turnRaceHooks.beforeTerminalCommit) {
-    await turnRaceHooks.beforeTerminalCommit();
-  }
-
-  let applied: { applied: boolean };
-  try {
-    applied = await commitTurnTerminal({
-      commandId: reserved.commandId,
-      ownerToken: reserved.ownerToken,
-      status: turnStatus,
-      conversationId: ctx.conversation.id,
-      assistant: ownershipLostBeforeD4
-        ? undefined
-        : {
-            id: assistantId,
-            content: assistantContentForCommit,
-            messageStatus: reply.status,
-            generationId: reply.generationId,
-            ordinal: reserved.ordinalAssistant,
-          },
-      generationId: reply.generationId,
-      resultJson: JSON.stringify(resultPayload),
-      errorCategory:
-        turnStatus === "COMPLETE"
-          ? undefined
-          : ownershipLostBeforeD4
-            ? "OWNERSHIP_LOST"
-            : capitalisationError ?? reply.status,
-    });
-  } catch (e) {
-    // Mid-TX DB failure after attempted assistant write — TX rolled back; never COMPLETE.
-    if (e instanceof StudioError && e.code === "CONFLICT") {
-      emitObs({
-        event_name: "d3.turn.assistant_identity_conflict",
-        component: "d3.conversation",
-        request_id: requestId,
-        operation_id: reserved.operationId,
-        generation_id: reply.generationId,
-        outcome: "UNKNOWN",
-        error_category: "ASSISTANT_IDENTITY_CONFLICT",
-      });
-    } else {
-      emitObs({
-        event_name: "d3.turn.terminal_tx_failed",
-        component: "d3.conversation",
-        request_id: requestId,
-        operation_id: reserved.operationId,
-        generation_id: reply.generationId,
-        outcome: "UNKNOWN",
-        error_category: "TERMINAL_TX_EXCEPTION",
-      });
-    }
-    try {
-      await markTurnUnknown(reserved.commandId, "TERMINAL_TX_EXCEPTION", reserved.ownerToken);
-    } catch {
-      /* ownership may already be lost */
-    }
-    const reconstituted = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
-      generationId: reply.generationId,
-      userMessageId: reserved.userMessageId,
-    });
-    return {
-      ...resultPayload,
-      status: "UNKNOWN",
-      assistantMessageId: null,
-      capitalisation: reconstituted.capitalisation,
-      capitalisationLimit: reconstituted.capitalisationLimit,
-      documentSave: reconstituted.documentSave,
-    };
-  }
-
-  if (!applied.applied) {
-    emitObs({
-      event_name: "d3.turn.complete_cas_miss",
-      component: "d3.conversation",
-      request_id: requestId,
-      operation_id: reserved.operationId,
-      generation_id: reply.generationId,
-      outcome: "UNKNOWN",
-      error_category: "COMPLETE_CAS_MISSED",
-    });
-    // Never return COMPLETE when ownership CAS failed — but surface DB-confirmed D4 refs.
-    const reconstituted = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
-      generationId: reply.generationId,
-      userMessageId: reserved.userMessageId,
-    });
-    return {
-      ...resultPayload,
-      status: "UNKNOWN",
-      assistantMessageId: null,
-      capitalisation: reconstituted.capitalisation,
-      capitalisationLimit: reconstituted.capitalisationLimit,
-      documentSave: reconstituted.documentSave,
-      preparationProjection: { status: "SKIPPED_OWNERSHIP" },
-    };
-  }
-
-  // Persist living projection only after durable COMPLETE terminal commit (Gap C).
-  if (
-    turnStatus === "COMPLETE" &&
-    preparationProjectionDraft &&
-    !ctx.project?.id &&
-    !ownershipLostBeforeD4
-  ) {
-    try {
-      const freshPrep = await openOrCreatePreparation(pilotId, preparationId);
-      const appliedProj = await applyPreparationProjection({
-        pilotId,
-        preparationId,
-        expectedCreationRevision: freshPrep.creationRevision,
-        draft: preparationProjectionDraft,
-      });
-      preparationProjectionAck = {
-        status: appliedProj.status,
-        revision: "revision" in appliedProj ? appliedProj.revision : undefined,
-        assessment: preparationProjectionDraft.suggestion?.assessment,
-      };
-    } catch {
-      preparationProjectionAck = { status: "UNAVAILABLE" };
-    }
-    resultPayload.preparationProjection = preparationProjectionAck;
-  }
-
-  emitObs({
-    event_name: "d3.turn.completed",
-    component: "d3.conversation",
-    request_id: requestId,
-    operation_id: reserved.operationId,
-    generation_id: reply.generationId,
-    outcome:
-      turnStatus === "COMPLETE" ? "SUCCESS" : turnStatus === "UNKNOWN" ? "UNKNOWN" : "FAILED",
-    policy_version: reply.policy.policyVersion,
-    profile_type:
-      reply.policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
-    meta: {
-      attempts: reply.attempts.length,
-      tool_calls: reply.toolCallsObserved,
-      turn_status: turnStatus,
-      cas_applied: applied.applied,
-    },
-  });
-
-  return resultPayload;
-}
-
-export async function getConversationId(pilotId: string, preparationId: string) {
-  const row = (
-    await db
-      .select()
-      .from(conversations)
-      .where(
-        and(eq(conversations.preparationId, preparationId), eq(conversations.ownerPilotId, pilotId)),
-      )
-      .limit(1)
-  )[0];
-  return row?.id ?? null;
-}
-```
-
-### FILE `projects/sfia-studio-next/web/src/domains/execution/technical-contract-server-ready.ts`
-
-- bytes (reproduit): 4253
-- sha256 fichier disque: `b478a96adf02a1c874cf74241d66f0feec8e8c3a1a965461f663a01bf2ff34d0`
+### `projects/sfia-studio-next/web/src/domains/execution/technical-contract-server-ready.ts` (complet, 5198 octets)
 
 ```typescript
 /**
@@ -8002,17 +5174,12 @@ export async function qualifyTechnicalContractReadyServerSide(input: {
   projectId: string;
   contractId: string;
   preparationId?: string | null;
+  /** C16 — exact cognitive work filiation when known. */
+  workId?: string | null;
 }) {
   const row = await getTechnicalContract(input);
-  if (row.status === "READY") {
-    return {
-      contractId: row.id,
-      status: "READY" as const,
-      idempotent: true as const,
-      fingerprint: row.fingerprint,
-      readiness: row.readiness,
-    };
-  }
+  // C16: existing READY never skips positive requalification of current conditions.
+  const wasReady = row.status === "READY";
 
   let unknownRestrictions: string[] = [];
   let sourcesSufficient = false;
@@ -8022,6 +5189,7 @@ export async function qualifyTechnicalContractReadyServerSide(input: {
       pilotId: input.pilotId,
       preparationId: input.preparationId,
       intentFallback: row.body.title,
+      workId: input.workId ?? null,
     });
     if (!snap) {
       throw new StudioError(
@@ -8054,9 +5222,6 @@ export async function qualifyTechnicalContractReadyServerSide(input: {
     unknownRestrictions = inv.questions
       .filter((q) => q.importance === "DETERMINANT" && q.status !== "ANSWERED")
       .map((q) => q.id);
-    if (inv.sufficiency === "BLOCKED_BY_UNKNOWN_RESTRICTION") {
-      unknownRestrictions.push("UNKNOWN_RESTRICTION");
-    }
   } else {
     // Without preparation linkage, refuse READY — no client substitute.
     throw new StudioError(
@@ -8088,11 +5253,47 @@ export async function qualifyTechnicalContractReadyServerSide(input: {
     );
   }
 
+  const readinessWithFiliation = {
+    ...readiness,
+    cognitiveFiliation: {
+      preparationId: input.preparationId ?? null,
+      workId: input.workId ?? null,
+      contractId: input.contractId,
+      fingerprint: row.fingerprint,
+      requalifiedAt: new Date().toISOString(),
+    },
+  };
+
+  if (wasReady) {
+    // Conditions still hold — refresh readiness proof; keep READY.
+    await db
+      .update(technicalContracts)
+      .set({
+        readinessJson: JSON.stringify(readinessWithFiliation),
+        updatedAt: new Date(),
+      })
+      .where(
+        and(
+          eq(technicalContracts.id, input.contractId),
+          eq(technicalContracts.projectId, input.projectId),
+          eq(technicalContracts.pilotId, input.pilotId),
+          eq(technicalContracts.status, "READY"),
+        ),
+      );
+    return {
+      contractId: input.contractId,
+      status: "READY" as const,
+      idempotent: true as const,
+      fingerprint: row.fingerprint,
+      readiness: readinessWithFiliation,
+    };
+  }
+
   const updated = await db
     .update(technicalContracts)
     .set({
       status: "READY",
-      readinessJson: JSON.stringify(readiness),
+      readinessJson: JSON.stringify(readinessWithFiliation),
       updatedAt: new Date(),
     })
     .where(
@@ -8114,308 +5315,877 @@ export async function qualifyTechnicalContractReadyServerSide(input: {
     status: "READY" as const,
     idempotent: false as const,
     fingerprint: row.fingerprint,
-    readiness,
+    readiness: readinessWithFiliation,
   };
 }
+
 ```
 
-### FILE `projects/sfia-studio-next/web/tests/unit/ml5-investigation-state.test.ts`
-
-- bytes (reproduit): 3544
-- sha256 fichier disque: `91ecea348c01f53cbbbb981073ce36064066608e1ffd4bdbfe651f2ffbfd380d`
+### `projects/sfia-studio-next/web/src/domains/execution/nora-contract-prepare.ts` (complet, 3360 octets)
 
 ```typescript
-import { describe, expect, it } from "vitest";
+/**
+ * CA-01 — Nora prepares a technical contract from a durable investigation.
+ * Reuses D3 investigation + D7 technical_contracts — no second preparation engine.
+ */
+
+import { StudioError } from "@/lib/http-errors";
 import {
-  createEmptyInvestigation,
-  evaluateContractReadiness,
-  qualifySearchMiss,
-  resumeInvestigation,
+  loadInvestigationSnapshot,
+  saveInvestigationSnapshot,
+} from "@/domains/conversation/investigation-persistence";
+import {
+  evaluateContractReadiness as evaluateInvestigationReadiness,
   type InvestigationState,
 } from "@/domains/conversation/investigation-state";
+import {
+  createTechnicalContract,
+  evaluateContractReadiness,
+} from "./technical-contract";
+import type { TechnicalContractBody } from "./types";
 
-describe("ML5 A — investigation-state", () => {
-  it("blocks contract ready when determinant questions remain open", () => {
-    const state: InvestigationState = {
-      ...createEmptyInvestigation("Préparer un contrat Cursor"),
-      desiredOutcome: "contrat inspectable",
-      profileHint: "investigation",
-      sources: [{ kind: "D4", ref: "doc:spec", coverage: "CONSULTED" }],
-      questions: [
-        {
-          id: "q1",
-          text: "Quelle branche de travail ?",
-          status: "OPEN",
-          importance: "DETERMINANT",
-        },
-      ],
-    };
-    const next = evaluateContractReadiness(state);
-    expect(next.contractReady).toBe(false);
-    expect(next.sufficiency).toBe("INSUFFICIENT");
-    expect(next.contractReadyBlockedReason).toMatch(/q1/);
-  });
+export type NoraContractPrepareInput = {
+  pilotId: string;
+  projectId: string;
+  preparationId: string;
+  contractKey: string;
+  body: TechnicalContractBody;
+  sourceTurnCommandId?: string | null;
+  /** Server-owned: never trust client "sourcesSufficient". */
+  investigationOverride?: InvestigationState | null;
+};
 
-  it("blocks when late unknown restriction is recorded", () => {
-    const state: InvestigationState = {
-      ...createEmptyInvestigation("mission"),
-      questions: [],
-      sufficiency: "BLOCKED_BY_UNKNOWN_RESTRICTION",
-    };
-    const next = evaluateContractReadiness(state);
-    expect(next.contractReady).toBe(false);
-    expect(next.sufficiency).toBe("BLOCKED_BY_UNKNOWN_RESTRICTION");
-  });
+/**
+ * Persist a DRAFT technical contract when investigation is sufficient.
+ * READY is never granted here — markReady requires separate server qualification.
+ */
+export async function prepareTechnicalContractFromNora(
+  input: NoraContractPrepareInput,
+) {
+  const investigation =
+    input.investigationOverride ??
+    (await loadInvestigationSnapshot({
+      pilotId: input.pilotId,
+      preparationId: input.preparationId,
+      intentFallback: input.body.title || input.body.volets.mission,
+    }));
 
-  it("allows ready only with positive sufficiency (outcome + consulted + determinants)", () => {
-    const state: InvestigationState = {
-      ...createEmptyInvestigation("mission"),
-      desiredOutcome: "module sandbox livré",
-      questions: [
-        {
-          id: "q1",
-          text: "Cible ?",
-          status: "ANSWERED",
-          importance: "DETERMINANT",
-          answerSummary: "sandbox only",
-        },
-      ],
-      sources: [
-        {
-          kind: "GIT",
-          ref: "repo@abc",
-          coverage: "VERIFIED",
-        },
-      ],
-      contradictions: [],
-      sufficiency: "UNKNOWN",
-    };
-    const next = evaluateContractReadiness(state);
-    expect(next.contractReady).toBe(true);
-    expect(next.sufficiency).toBe("SUFFICIENT");
-  });
-
-  it("refuses READY on empty investigation (C15 positive sufficiency)", () => {
-    const next = evaluateContractReadiness(createEmptyInvestigation("mission"));
-    expect(next.contractReady).toBe(false);
-    expect(next.sufficiency).not.toBe("SUFFICIENT");
-  });
-
-  it("refuses READY when BUDGET_EXHAUSTED", () => {
-    const next = evaluateContractReadiness({
-      ...createEmptyInvestigation("mission"),
-      desiredOutcome: "x",
-      sufficiency: "BUDGET_EXHAUSTED",
-      sources: [{ kind: "D4", ref: "doc:1", coverage: "CONSULTED" }],
-      questions: [
-        {
-          id: "q1",
-          text: "ok?",
-          status: "ANSWERED",
-          importance: "DETERMINANT",
-        },
-      ],
-    });
-    expect(next.contractReady).toBe(false);
-    expect(next.sufficiency).toBe("BUDGET_EXHAUSTED");
-  });
-
-  it("does not treat lexical miss as demonstrated absence", () => {
-    expect(qualifySearchMiss("LEXICAL_MISS")).toBe("UNKNOWN");
-    expect(qualifySearchMiss("DEMONSTRATED_ABSENCE")).toBe("VERIFIED");
-  });
-
-  it("resume does not invent sources", () => {
-    const resumed = resumeInvestigation(
-      {
-        intentSummary: "reprendre",
-        sources: [{ kind: "D4", ref: "", coverage: "CONSULTED" }],
-      } as Partial<InvestigationState>,
-      "reprendre",
+  if (!investigation) {
+    throw new StudioError(
+      "REQUIRES_REQUALIFICATION",
+      "Aucune investigation durable — Nora doit qualifier les sources avant contrat",
+      { exposeMessage: true },
     );
-    expect(resumed.sources).toEqual([]);
+  }
+
+  const evaluated = evaluateInvestigationReadiness(investigation);
+  await saveInvestigationSnapshot({
+    pilotId: input.pilotId,
+    preparationId: input.preparationId,
+    state: evaluated,
   });
-});
+
+  // C16: incomplete DRAFT is allowed and inspectable; READY remains blocked.
+  // contractReady=false → sourcesSufficient=false so status stays DRAFT.
+  const unknownFromInvestigation = [
+    ...evaluated.questions
+      .filter((q) => q.importance === "DETERMINANT" && q.status === "BLOCKED")
+      .map((q) => q.id),
+    ...(evaluated.sufficiency === "BLOCKED_BY_UNKNOWN_RESTRICTION"
+      ? ["UNKNOWN_RESTRICTION"]
+      : []),
+    ...(!evaluated.contractReady
+      ? [evaluated.contractReadyBlockedReason ?? "INVESTIGATION_INCOMPLETE"]
+      : []),
+  ];
+
+  const docReadiness = evaluateContractReadiness({
+    body: input.body,
+    unknownRestrictions: unknownFromInvestigation,
+    // Sources judged from investigation, never from client boolean.
+    sourcesSufficient: evaluated.contractReady && evaluated.sufficiency === "SUFFICIENT",
+  });
+
+  const created = await createTechnicalContract({
+    pilotId: input.pilotId,
+    projectId: input.projectId,
+    preparationId: input.preparationId,
+    contractKey: input.contractKey,
+    body: input.body,
+    sourceTurnCommandId: input.sourceTurnCommandId,
+    markReady: false, // always DRAFT from Nora prepare — READY is a separate server act
+    unknownRestrictions: unknownFromInvestigation,
+    sourcesSufficient: docReadiness.sourcesSufficient,
+  });
+
+  return {
+    ...created,
+    investigationSufficiency: evaluated.sufficiency,
+    contractReady: evaluated.contractReady,
+    readiness: docReadiness,
+  };
+}
+
 ```
 
-### FILE `projects/sfia-studio-next/web/tests/unit/ml5-nora-contract-bridge.test.ts`
-
-- bytes (reproduit): 4498
-- sha256 fichier disque: `3450ed3460440f1d0a4ba9fd6f4fa1ccacf4846f0adc4fe8bb1a8c890101a05e`
+### `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/realization/attempts/[attemptId]/qualification/route.ts` (complet, 18843 octets)
 
 ```typescript
-import { describe, expect, it } from "vitest";
+import { NextResponse } from "next/server";
+import { and, eq, sql } from "drizzle-orm";
+import { db } from "@/db/client";
+import { effectAttempts, realizationHandoffs, realizationQualifications } from "@/db/schema";
+import { getCursorAttempt } from "@/domains/execution/cursor-attempt-service";
+import { getTechnicalContract } from "@/domains/execution/technical-contract";
+import type { HandoffManifest } from "@/domains/execution/handoff-integrity";
 import {
-  detectsTechnicalContractIntent,
-  draftBodyFromInvestigation,
-  semanticWantsCorrectiveDraft,
-  semanticWantsCursorContractPrepare,
-} from "@/domains/conversation/nora-contract-bridge";
-import {
-  createEmptyInvestigation,
-  evaluateContractReadiness,
-} from "@/domains/conversation/investigation-state";
-import {
-  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-  type NoraTurnQualification,
-} from "@/domains/conversation/semantic-qualification";
-import {
-  buildNoraCognitiveAnalysis,
+  buildDeterministicDossierSynthesis,
+  buildNoraCognitiveAnalysisPrompt,
+  buildNoraFinalAnalysisBrief,
   classifyAttachedNoraPayload,
   qualifyCursorRealization,
 } from "@/domains/proofs/cursor-qualify";
-import { BILAN_TAB_LABELS } from "@/components/figma/RealizationBilan";
+import { generateNoraReply } from "@/domains/conversation/nora-adapter";
+import { runNoraCognitiveTurn } from "@/domains/conversation/run-nora-cognitive-turn";
+import {
+  collectManifestRefs,
+  verifyNewProofRef,
+} from "@/domains/proofs/proof-ref-verify";
+import { listEvidenceCapturesForAttempt } from "@/domains/proofs/evidence-captures";
+import { requireStudioSession } from "@/domains/identity/session";
+import { newId } from "@/lib/ids";
+import { studioErrorResponse, StudioError } from "@/lib/http-errors";
 
-describe("ML5 CA-01 Nora contract bridge helpers", () => {
-  it("C14: lexical detectors are inert (fail-closed)", () => {
-    expect(
-      detectsTechnicalContractIntent("Prépare un contrat technique pour Cursor"),
-    ).toBe(false);
-  });
+export async function GET(
+  _req: Request,
+  ctx: { params: Promise<{ projectId: string; attemptId: string }> },
+) {
+  try {
+    const session = await requireStudioSession();
+    const { projectId, attemptId } = await ctx.params;
+    await getCursorAttempt({
+      pilotId: session.pilotId,
+      projectId,
+      attemptId,
+    });
+    const row = (
+      await db
+        .select()
+        .from(realizationQualifications)
+        .where(
+          and(
+            eq(realizationQualifications.attemptId, attemptId),
+            eq(realizationQualifications.projectId, projectId),
+            eq(realizationQualifications.pilotId, session.pilotId),
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (!row) return NextResponse.json({ status: "MISSING", qualification: null });
+    const markdown = row.noraAnalysisMarkdown;
+    let history: unknown[] = [];
+    try {
+      history = JSON.parse(row.historyJson || "[]") as unknown[];
+    } catch {
+      history = [];
+    }
+    return NextResponse.json({
+      status: row.status,
+      qualification: {
+        id: row.id,
+        verdict: row.verdict,
+        rubrics: JSON.parse(row.rubricsJson || "{}"),
+        noraAnalysisMarkdown: markdown,
+        noraAnalysisKind: classifyAttachedNoraPayload(markdown),
+        noraAnalysisAt: row.noraAnalysisAt?.toISOString() ?? null,
+        limits: JSON.parse(row.limitsJson || "[]"),
+        history,
+        updatedAt: row.updatedAt?.toISOString() ?? null,
+      },
+    });
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    return NextResponse.json(mapped.body, { status: mapped.status });
+  }
+}
 
-  it("C14: semantic prepare / corrective from qualification", () => {
-    const base: NoraTurnQualification = {
-      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-      status: "QUALIFIED",
-      goal: "préparer mandat",
-      projectIntention: "",
-      desiredOutcome: "module",
-      initialScope: "",
-      proposedProjectName: "",
-      intents: [
-        {
-          id: "p1",
-          capabilityId: "d7.prepare_cursor_contract",
-          mode: "PREPARE",
-          parameters: { correctiveDraft: "true" },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-      clarifications: [],
-      continueChoices: [],
-      resourceReferences: [],
-      replyDraft: "ok",
-      preparationAssessment: "PROPOSAL",
-      preparationAssessmentExplanation: "",
+export async function POST(
+  req: Request,
+  ctx: { params: Promise<{ projectId: string; attemptId: string }> },
+) {
+  try {
+    const session = await requireStudioSession();
+    const { projectId, attemptId } = await ctx.params;
+    const body = (await req.json().catch(() => ({}))) as {
+      attachNoraAnalysis?: boolean;
+      /** Prefer cognitive analysis (CA-08). Technical brief remains available. */
+      attachNoraCognitive?: boolean;
+      /** G15 — dated requalification on new proofs; never re-dispatches Cursor. */
+      requalify?: boolean;
+      reason?: string;
+      /** Optional optimistic concurrency — ISO updatedAt from GET. */
+      expectedUpdatedAt?: string;
+      /** Optional — correlate requalify to new proof artifact id/ref. */
+      newProofRef?: string;
     };
-    expect(semanticWantsCursorContractPrepare(base)).toBe(true);
-    expect(semanticWantsCorrectiveDraft(base)).toBe(true);
-  });
-
-  it("refuses READY on empty investigation (C15 positive sufficiency)", () => {
-    const inv = evaluateContractReadiness(createEmptyInvestigation("mission cursor"));
-    expect(inv.contractReady).toBe(false);
-    expect(inv.sources.some((s) => s.coverage === "CONSULTED")).toBe(false);
-  });
-
-  it("drafts a contract body from investigation with sources + business criteria", () => {
-    const base = createEmptyInvestigation("réalisation cursor du module X");
-    const inv = evaluateContractReadiness({
-      ...base,
-      desiredOutcome: "module X livré avec calcul correct",
-      remainingWork: ["cas limite TVA 0%", "arrondi centimes"],
-      sources: [
-        { kind: "GIT", ref: "repo/README.md", coverage: "CONSULTED" },
-        { kind: "D4", ref: "doc:spec", coverage: "VERIFIED" },
-      ],
-      exclusions: ["push GitHub"],
+    const attempt = await getCursorAttempt({
+      pilotId: session.pilotId,
+      projectId,
+      attemptId,
     });
-    const body = draftBodyFromInvestigation(inv, {
-      instructionFromNora: "Détail technique long de Nora pour le mandat.",
-    });
-    expect(body.instructionText).toMatch(/Sources consultées/);
-    expect(body.instructionText).toMatch(/Détail technique long/);
-    expect(body.acceptance.criteria).toContain("cas limite TVA 0%");
-    expect(body.exclusions).toContain("push GitHub");
-    expect(body.executor.kind).toBe("CURSOR_SDK_LOCAL");
-  });
-});
+    const handoff = (
+      await db
+        .select()
+        .from(realizationHandoffs)
+        .where(eq(realizationHandoffs.attemptId, attemptId))
+        .limit(1)
+    )[0];
+    const manifest = handoff
+      ? (JSON.parse(handoff.manifestJson || "{}") as HandoffManifest)
+      : null;
 
-describe("ML5 CA-08 synthesis vs Nora cognitive classification", () => {
-  it("classifies deterministic synthesis distinctly from NORA_COGNITIVE", () => {
-    const q = qualifyCursorRealization({
-      contractFingerprint: "fp",
-      acceptanceCriteria: ["handoff RECEIVED"],
-      handoffStatus: "RECEIVED",
-      reportMarkdown: "# Rapport\nhandoff RECEIVED ok",
-      manifest: { filesCreated: ["a.ts"], gaps: ["preuve tardive"] },
-      terminalStatus: "finished",
-    });
-    const syn = buildNoraCognitiveAnalysis({
-      qualification: q,
-      attemptId: "att-1",
-      contractTitle: "Module X",
-      dossierIncomplete: true,
-    });
-    expect(classifyAttachedNoraPayload(syn)).toBe("DETERMINISTIC_SYNTHESIS");
-    expect(syn).toMatch(/SYNTHÈSE DÉTERMINISTE CONSULTATIVE/);
-    expect(syn).not.toMatch(/BRIEF TECHNIQUE DÉTERMINISTE/);
-    expect(
-      classifyAttachedNoraPayload(
-        "[ANALYSE COGNITIVE NORA (D3)]\nAvis sourcé après run D3.",
-      ),
-    ).toBe("NORA_COGNITIVE");
-  });
-});
+    let contractTitle: string | null = null;
+    let acceptanceCriteria: string[] = [];
+    let expectedProofs: string[] = [];
+    let preparationId: string | null = null;
+    try {
+      const contract = await getTechnicalContract({
+        pilotId: session.pilotId,
+        projectId,
+        contractId: attempt.plan.contractId,
+      });
+      contractTitle = contract.body.title;
+      acceptanceCriteria = contract.body.acceptance?.criteria ?? [];
+      expectedProofs = contract.body.acceptance?.expectedProofs ?? [];
+      preparationId = contract.preparationId ?? null;
+    } catch {
+      /* contract may be missing — qualify with fingerprint only */
+    }
 
-describe("ML5 CA-09 Figma D8 tab labels", () => {
-  it("exposes the four Figma tab labels", () => {
-    expect(Object.values(BILAN_TAB_LABELS)).toEqual([
-      "Synthèse",
-      "Livrables et tests",
-      "Git et pièces",
-      "Écarts",
-    ]);
-  });
-});
+    const existing = (
+      await db
+        .select()
+        .from(realizationQualifications)
+        .where(eq(realizationQualifications.attemptId, attemptId))
+        .limit(1)
+    )[0];
+    const requalify =
+      Boolean(body.requalify) && Boolean((body.reason ?? "").trim());
+    if (existing && !requalify) {
+      throw new StudioError("CONFLICT", "Qualification déjà enregistrée pour cette tentative", {
+        exposeMessage: true,
+      });
+    }
+    if (existing && body.requalify && !(body.reason ?? "").trim()) {
+      throw new StudioError("INVALID_REQUEST", "requalify exige une raison datée", {
+        exposeMessage: true,
+      });
+    }
+    const efx = (
+      await db
+        .select({ id: effectAttempts.id })
+        .from(effectAttempts)
+        .where(eq(effectAttempts.id, attemptId))
+        .limit(1)
+    )[0];
+    if (!efx) throw new StudioError("NOT_FOUND", "Tentative introuvable");
+
+    const now = new Date();
+
+    /** CP-03 — build qualification from currently observed dossier (handoff + captures). */
+    function evaluateQualificationOnly() {
+      return qualifyCursorRealization({
+        contractFingerprint: attempt.fingerprint,
+        acceptanceCriteria,
+        expectedProofs,
+        handoffStatus: handoff?.status ?? null,
+        reportMarkdown: handoff?.reportMarkdown ?? null,
+        manifest,
+        terminalStatus: attempt.live.terminalStatus ?? null,
+      });
+    }
+
+    /**
+     * CA-08 — real D3 Nora cognitive analysis when attachNoraCognitive.
+     * Never invent NORA_COGNITIVE from the deterministic synthesis alone.
+     * Provider failure → deterministic fallback with explicit limit (not silent success).
+     */
+    async function attachNoraAnalysisMarkdown(
+      q: ReturnType<typeof qualifyCursorRealization>,
+    ): Promise<{ finalMarkdown: string | null; noraKind: ReturnType<typeof classifyAttachedNoraPayload>; limits: string[] }> {
+      const dossierIncomplete =
+        q.verdict === "INDETERMINATE" || !handoff || handoff.status !== "RECEIVED";
+      const limits: string[] = [...q.limits];
+
+      if (body.attachNoraCognitive) {
+        const prompt = [
+          buildNoraCognitiveAnalysisPrompt({
+            qualification: q,
+            contractTitle,
+            attemptId,
+            sourcesAccessible: manifest?.sourcesConsulted,
+          }),
+          "",
+          "OUTILS D8 OBLIGATOIRES pour cette analyse:",
+          "- list_realization_evidence",
+          "- read_realization_handoff_report (rapport intégral, pas un extrait fourni)",
+          "- read_attempt_workspace_file pour tout fichier témoin cité (chemin relatif)",
+          "Distingue explicitement: pièce CONSULTÉE vs métadonnée vs déclaration Cursor vs inaccessible.",
+          "N'affirme jamais avoir lu un fichier sans l'avoir ouvert via outil.",
+        ].join("\n");
+        try {
+          const reply = preparationId
+            ? await runNoraCognitiveTurn({
+                pilotId: session.pilotId,
+                preparationId,
+                projectId,
+                forceNewWork: true,
+                objective: `Qualification D8 attempt ${attemptId}`,
+                userText: prompt,
+                contextSnippets: [
+                  `attemptId=${attemptId}`,
+                  `contractTitle=${contractTitle ?? ""}`,
+                  `handoffStatus=${handoff?.status ?? "NONE"}`,
+                  `verdict=${q.verdict}`,
+                  `terminalStatus=${attempt.live.terminalStatus ?? "null"}`,
+                  `agentId=${attempt.live.agentId ?? "null"}`,
+                  `runId=${attempt.live.runId ?? "null"}`,
+                  `reportExcerptHint=${(handoff?.reportMarkdown ?? "").slice(0, 500)}`,
+                  `workspaceHint=${attempt.plan.workspaceCwd ?? ""}`,
+                ],
+                toolScope: {
+                  pilotId: session.pilotId,
+                  preparationId,
+                  operationId: `d8-nora-${attemptId}`,
+                  projectId,
+                  attemptId,
+                },
+                maxSegmentsThisInvocation: 2,
+              })
+            : await generateNoraReply({
+                userText: prompt,
+                contextSnippets: [
+                  `attemptId=${attemptId}`,
+                  `contractTitle=${contractTitle ?? ""}`,
+                  `handoffStatus=${handoff?.status ?? "NONE"}`,
+                  `verdict=${q.verdict}`,
+                  `terminalStatus=${attempt.live.terminalStatus ?? "null"}`,
+                  `agentId=${attempt.live.agentId ?? "null"}`,
+                  `runId=${attempt.live.runId ?? "null"}`,
+                  `reportExcerptHint=${(handoff?.reportMarkdown ?? "").slice(0, 500)}`,
+                  `workspaceHint=${attempt.plan.workspaceCwd ?? ""}`,
+                ],
+              });
+          const raw = (reply.content ?? "").trim();
+          const prefixed = raw.includes("ANALYSE COGNITIVE NORA (D3)")
+            ? raw
+            : `[ANALYSE COGNITIVE NORA (D3)]\n\n${raw}`;
+          const liveOk =
+            reply.mode === "openai-agents-sdk-live" &&
+            reply.status === "COMPLETE" &&
+            raw.length > 0;
+          const toolsUsed = reply.toolCallsObserved ?? 0;
+          if (liveOk) {
+            limits.push(
+              "NORA_COGNITIVE — run D3 post-tentative",
+              `NORA_MODE_${reply.mode}`,
+              reply.modelApplied
+                ? `NORA_MODEL_${reply.modelApplied}`
+                : "NORA_MODEL_UNVERIFIED",
+              `NORA_TOOL_CALLS_${toolsUsed}`,
+              toolsUsed > 0
+                ? "NORA_D8_TOOLS_OBSERVED"
+                : "NORA_D8_TOOLS_NOT_OBSERVED — consultation originale non prouvée par toolCalls",
+            );
+            return {
+              finalMarkdown: prefixed,
+              noraKind: "NORA_COGNITIVE",
+              limits,
+            };
+          }
+          limits.push(
+            `NORA_COGNITIVE_UNAVAILABLE — mode=${reply.mode} status=${reply.status}`,
+            "FALLBACK_DETERMINISTIC_SYNTHESIS",
+          );
+        } catch (e) {
+          limits.push(
+            `NORA_COGNITIVE_ERROR:${String((e as Error)?.message ?? e).slice(0, 80)}`,
+            "FALLBACK_DETERMINISTIC_SYNTHESIS",
+          );
+        }
+        const syn = buildDeterministicDossierSynthesis({
+          qualification: q,
+          contractTitle,
+          attemptId,
+          sourcesAccessible: manifest?.sourcesConsulted,
+          dossierIncomplete,
+        });
+        return {
+          finalMarkdown: syn,
+          noraKind: classifyAttachedNoraPayload(syn),
+          limits: [
+            ...limits,
+            "DETERMINISTIC_SYNTHESIS — pas un run cognitif Nora D3 ; CA-08 LIVE encore ouvert",
+          ],
+        };
+      }
+
+      if (body.attachNoraAnalysis) {
+        const brief = buildNoraFinalAnalysisBrief(q);
+        return {
+          finalMarkdown: brief,
+          noraKind: classifyAttachedNoraPayload(brief),
+          limits: [
+            ...limits,
+            "NORA_ATTACHMENT_IS_TECHNICAL_BRIEF — avis cognitif Nora non exécuté",
+          ],
+        };
+      }
+
+      return { finalMarkdown: null, noraKind: "UNAVAILABLE", limits };
+    }
+
+    async function evaluateFromObserved() {
+      const q = evaluateQualificationOnly();
+      const attached = await attachNoraAnalysisMarkdown(q);
+      return { q, ...attached };
+    }
+
+    if (existing && requalify) {
+      const reason = (body.reason ?? "").trim().slice(0, 500);
+      const newProofRef = (body.newProofRef ?? "").trim().slice(0, 200);
+      const requalifyMode =
+        (body as { requalifyMode?: string }).requalifyMode === "judgment_correction"
+          ? ("judgment_correction" as const)
+          : ("new_proof" as const);
+      if (requalifyMode === "new_proof" && !newProofRef) {
+        throw new StudioError(
+          "INVALID_REQUEST",
+          "requalify new_proof exige newProofRef explicite — pas de fallback handoff",
+          { exposeMessage: true },
+        );
+      }
+      const captures = listEvidenceCapturesForAttempt(attemptId).filter(
+        (c) => c.pilotId === session.pilotId && c.projectId === projectId,
+      );
+      const proofCheck = verifyNewProofRef({
+        newProofRef: newProofRef || (requalifyMode === "judgment_correction" ? handoff?.id || "" : ""),
+        attemptId,
+        handoffId: handoff?.id ?? null,
+        handoffIntegrityHash: handoff?.integrityHash ?? null,
+        manifestRefs: collectManifestRefs(manifest),
+        captureIds: captures.map((c) => c.id),
+        mode: requalifyMode,
+        priorHandoffId: existing.handoffId,
+      });
+      if (!proofCheck.ok) {
+        throw new StudioError(
+          "INVALID_REQUEST",
+          `requalify preuve non vérifiée: ${proofCheck.reason}`,
+          { exposeMessage: true },
+        );
+      }
+      // G15 + CP-03 — lock first, then evaluate from observed dossier, then write.
+      const txResult = await db.transaction(async (tx) => {
+        await tx.execute(
+          sql`select id from realization_qualifications where id = ${existing.id} for update`,
+        );
+        const locked = (
+          await tx
+            .select()
+            .from(realizationQualifications)
+            .where(eq(realizationQualifications.id, existing.id))
+            .limit(1)
+        )[0];
+        if (!locked) throw new StudioError("NOT_FOUND", "Qualification introuvable");
+        if (
+          body.expectedUpdatedAt &&
+          locked.updatedAt.toISOString() !== body.expectedUpdatedAt
+        ) {
+          throw new StudioError(
+            "CONFLICT",
+            "REQUALIFY_VERSION_CONFLICT — relire puis réessayer",
+            { exposeMessage: true },
+          );
+        }
+        // Re-evaluate qualification inside TX after lock (Nora call stays outside TX).
+        const q = evaluateQualificationOnly();
+        let history: unknown[] = [];
+        try {
+          history = JSON.parse(locked.historyJson || "[]") as unknown[];
+        } catch {
+          history = [];
+        }
+        if (!Array.isArray(history)) history = [];
+        const previousVerdict = locked.verdict;
+        history.push({
+          at: locked.updatedAt.toISOString(),
+          verdict: locked.verdict,
+          rubrics: JSON.parse(locked.rubricsJson || "{}"),
+          limits: JSON.parse(locked.limitsJson || "[]"),
+          noraAnalysisKind: classifyAttachedNoraPayload(locked.noraAnalysisMarkdown),
+          authorPilotId: locked.pilotId,
+          supersededAt: now.toISOString(),
+          requalifyReason: reason,
+          newProofRef: proofCheck.candidate.ref,
+          proofKind: proofCheck.candidate.kind,
+          handoffId: handoff?.id ?? locked.handoffId,
+        });
+        // Persist rubrics/verdict first; Nora markdown filled after TX.
+        await tx
+          .update(realizationQualifications)
+          .set({
+            handoffId: handoff?.id ?? locked.handoffId,
+            status: "REQUALIFIED",
+            rubricsJson: JSON.stringify(q.rubrics),
+            verdict: q.verdict,
+            limitsJson: JSON.stringify([
+              ...q.limits,
+              `REQUALIFIED_AT:${now.toISOString()}`,
+              `PREVIOUS_VERDICT:${previousVerdict}`,
+              `PROOF_VERIFIED:${proofCheck.candidate.kind}`,
+              `NEW_PROOF_REF:${proofCheck.candidate.ref}`,
+            ]),
+            historyJson: JSON.stringify(history),
+            updatedAt: now,
+          })
+          .where(eq(realizationQualifications.id, locked.id));
+        return {
+          previousVerdict,
+          history,
+          qualificationId: locked.id,
+          q,
+        };
+      });
+      const attached = await attachNoraAnalysisMarkdown(txResult.q);
+      if (attached.finalMarkdown) {
+        await db
+          .update(realizationQualifications)
+          .set({
+            noraAnalysisMarkdown: attached.finalMarkdown,
+            noraAnalysisAt: now,
+            limitsJson: JSON.stringify([
+              ...attached.limits,
+              `REQUALIFIED_AT:${now.toISOString()}`,
+              `PREVIOUS_VERDICT:${txResult.previousVerdict}`,
+              `PROOF_VERIFIED:${proofCheck.candidate.kind}`,
+              `NEW_PROOF_REF:${proofCheck.candidate.ref}`,
+            ]),
+            updatedAt: new Date(),
+          })
+          .where(eq(realizationQualifications.id, txResult.qualificationId));
+      }
+      return NextResponse.json({
+        qualificationId: txResult.qualificationId,
+        requalified: true,
+        previousVerdict: txResult.previousVerdict,
+        verdict: txResult.q.verdict,
+        rubrics: txResult.q.rubrics,
+        limits: attached.limits,
+        history: txResult.history,
+        noraAnalysisMarkdown: attached.finalMarkdown,
+        noraAnalysisKind: attached.noraKind,
+        testsPass: txResult.q.testsPass,
+        conformityProven: txResult.q.conformityProven,
+        morrisAcceptance: txResult.q.morrisAcceptance,
+        adopted: txResult.q.adopted,
+        proofVerified: proofCheck.candidate,
+        cursorRedispatch: false,
+      });
+    }
+
+    const { q, finalMarkdown, noraKind, limits } = await evaluateFromObserved();
+
+    const id = newId("rqual");
+    await db.insert(realizationQualifications).values({
+      id,
+      attemptId,
+      handoffId: handoff?.id ?? null,
+      projectId,
+      pilotId: session.pilotId,
+      status: "RECORDED",
+      rubricsJson: JSON.stringify(q.rubrics),
+      verdict: q.verdict,
+      noraAnalysisMarkdown: finalMarkdown,
+      noraAnalysisAt: finalMarkdown ? now : null,
+      limitsJson: JSON.stringify(limits),
+      historyJson: "[]",
+      createdAt: now,
+      updatedAt: now,
+    });
+    return NextResponse.json({
+      qualificationId: id,
+      requalified: false,
+      verdict: q.verdict,
+      rubrics: q.rubrics,
+      limits,
+      noraAnalysisMarkdown: finalMarkdown,
+      noraAnalysisKind: noraKind,
+      testsPass: q.testsPass,
+      conformityProven: q.conformityProven,
+      morrisAcceptance: q.morrisAcceptance,
+      adopted: q.adopted,
+      cursorRedispatch: false,
+    });
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    return NextResponse.json(mapped.body, { status: mapped.status });
+  }
+}
+
 ```
 
-### FILE `projects/sfia-studio-next/construction/delivery-history.md` (extrait C15 + en-tête ; fichier local complet hors pack pour volume)
+### `projects/sfia-studio-next/construction/delivery-history.md` — fichier large (262460 octets) — sections clés via diff tracked
+```diff
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index cc1c771f..9afb899a 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -3,6 +3,231 @@
+ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
-- bytes (reproduit): 1180
-- sha256 fichier disque: `3775882371ecde2e5f9b383a7e859fd98644433f80f6cea934f39e4737a4bff5`
++## delivery_id: DELIV-2026-11-24-ML5-CYCLE16-INTEGRATED-CONDUCTOR
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-24 (Europe/Paris) |
++| Macro-lot | ML5 — Cycle 16 finalisation fonctionnelle + qualification intégrée du conducteur |
++| Type | CONSTRUCTION DEV · **NO RELEASE** · INC Critical |
++| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
++| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C1–C16 non poussés) |
++| Contenu | Raccordement produit `runNoraCognitiveTurn` → conducteur D3 ; claim/lease/fencing ; READY positif + requalification ; DRAFT incomplet sans slice(0,8) ; WEB DNS+connect pinned+timeout lecture ; multi-entrées service/intent/D8 |
++| Tests | units C16 5 PASS ; C15 5 PASS ; PG ownership C16 5 PASS ; PG C15 2 PASS |
++| Push projet | **NONE** |
++| Verdict | **READY WITH RESERVES** — raccordement + P0 ownership/READY/WEB démontrés DETERMINISTIC/INTEGRATION ; LIVE E2E product path encore PARTIAL (Next offline au moment des preuves) |
++
++## delivery_id: DELIV-2026-11-24-ML5-CYCLE15-COGNITIVE-CONDUCTOR
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-24 (Europe/Paris) |
++| Macro-lot | ML5 — Cycle 15 conducteur cognitif Nora (lot convergence 1) |
++| Type | CONSTRUCTION DEV · **NO RELEASE** |
++| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
++| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C3–C15 non poussés) |
++| Contenu | Persistance D3 `cognitive_works` ; conducteur multi-segments ; READY positif ; journal non monotone ; contrat sans plafonds 24k/8 ; WEB egress DNS+stream |
++| Migration DEV | `020_cognitive_work.sql` sur `sfia_next_dev` + `sfia_next_e2e` |
++| Tests | units C15 + investigation/bridge ; PG cognitive work 2 PASS |
++| Push projet | **NONE** |
++| Verdict | **READY WITH RESERVES** — infrastructure + invariants discriminants ; LIVE intégré lot 1 encore PARTIAL |
++
++## delivery_id: DELIV-2026-11-24-ML5-CYCLE14-COGNITIVE-CONVERGENCE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-24 (Europe/Paris) |
++| Macro-lot | ML5 — Cycle 14 conduite cognitive Nora + WEB LIVE + contrats |
++| Type | CONSTRUCTION DEV · **NO RELEASE** |
++| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
++| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C3–C14 non poussés) |
++| Contenu | Suppression routage lexical TECH_INTENT ; profil sans longueur ; capability `d7.prepare_cursor_contract` ; WEB LIVE isolé + fetch + parse navigation ; critères métier contrat |
++| WEB LIVE | Isolation outbound query-only **PASS** ; search LIVE items **DISCOVERED** (MDN) ; open MDN **PAGE_OPENED** + citation ; hosted tool détaché de Nora privée |
++| Scénarios | S2 négation sans contrat ; S5 contrat DRAFT instruction ≥6k ; S4 WEB LIVE ; S8 dispatch sans READY → 400 ; units C14 **31 PASS** |
++| Push projet | **NONE** |
++| Verdict | **ML5 NORA COGNITIVE CONVERGENCE PROVEN — FUNCTIONAL COMPLETION IN PROGRESS** |
++
++## delivery_id: DELIV-2026-11-23-ML5-CYCLE13-RESILIENCE-CANDIDATE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-23 (Europe/Paris) |
++| Macro-lot | ML5 — Cycle 13 confinement D8 + supervision durable + STOP LIVE + candidat |
++| Type | CONSTRUCTION DEV · **NO RELEASE** |
++| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
++| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C3–C13 non poussés) |
++| Contenu | `d8-path-confine` + journal D8 ; `cursor-live-supervisor` ; STOP LIVE ; handoff honesty ; inventaire candidat |
++| STOP LIVE | `efx_03b99d0f…` agent `agent-c6b4acd1…` run `run-1a115791…` — BEFORE_STOP OK ; `LIVE_CANCEL_OBSERVED` ; terminal `cancelled` ; AFTER_STOP absent |
++| Long-run T-05 | `efx_53198bd9…` agent `agent-b339a662…` run `run-7159ad8b…` — browser closed 90s → COMPLETED finished ; identities stable ; double-dispatch idempotent |
++| D8 security | unit confine 12 PASS ; PG real reader 8 PASS (symlink/traversal/pilot/project) |
++| Push projet | **NONE** — `PROJECT CANDIDATE READY FOR MORRIS GIT REVIEW` |
++| Verdict | **ML5 DEV LIVE RESILIENCE PROVEN — QUALIFICATION IN PROGRESS** |
++
++## delivery_id: DELIV-2026-11-23-ML5-CYCLE12-LIVE-RESILIENCE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-23 (Europe/Paris) |
++| Macro-lot | ML5 — Cycle 12 LIVE resilience + D8 evidence + candidat |
++| Type | CONSTRUCTION DEV · **NO RELEASE** |
++| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
++| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C3–C12 non poussés) |
++| Contenu | LIVE_WAIT=0 ACK-first; observeLiveCursorRun+apiKey; DROP_ACK fault T-04; D8 evidence tools Nora; STOP SCRIPTED; inventaire candidat |
++| Scénario LIVE | `ml5-c12-live-20261123` — `efx_6ef408be…` agent `agent-f1b001a0…` run `run-66b05967…` COMPLETED; RESULT_C12.txt OK |
++| Incident T-04 | DROP_ACK → AMBIGUOUS + priorSend + refus second dispatch (**PASS**) |
++| Nora D8 | `NORA_D8_TOOLS_OBSERVED` (11 tool calls) |
++| Push projet | **NONE** — `PROJECT CANDIDATE PREPARED — PUSH REQUIRES MORRIS GO` |
++| Verdict | **ML5 DEV LIVE PARTIAL — GOVERNED RESILIENCE GAPS** |
++
++## delivery_id: DELIV-2026-11-23-ML5-CYCLE11-DEV-LIVE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-23 (Europe/Paris) |
++| Macro-lot | ML5 — Cycle 11 activation DEV LIVE Nora + Cursor SDK |
++| Type | CONSTRUCTION DEV · **NO RELEASE** |
++| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
++| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C3–C11 non poussés) |
++| Contenu | FileCredentialStore + model `composer-2.5` ; observeLiveCursorRun ; attachNoraCognitive→generateNoraReply ; openBilan sans requalify silencieux ; env LIVE DEV |
++| Scénario | `ml5-c11-live-20261123` — project `proj_c08249f9…` — Oui `efx_306b2b49…` — agent `agent-29c4c0f4…` — run `run-51c77f21…` — handoff `rhf_90ccccb6…` — témoin DEMO_C11.txt |
++| Frontier | **END-TO-END DEV LIVE** — Nora LIVE + Cursor SDK LIVE + D8 + Nora COGNITIVE ; B09/GitHub REAL/MCP N/A |
++| Tests | Journey C11 **10 PASS / 0 FAIL / 3 N/A** ; unit ciblés 11 PASS ; D8 verdict PARTIAL (honnête) |
++| Inventaire | **1 / 97 / 1** (B09 NOT_IMPL) — conformité LIVE améliorée, présence inchangée |
++| Push projet | **NONE** |
++| Verdict | **ML5 END-TO-END DEV LIVE PROVEN — QUALIFICATION IN PROGRESS** |
++
++## delivery_id: DELIV-2026-11-23-ML5-CYCLE10-UX-D8-QUAL
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-23 (Europe/Paris) |
++| Macro-lot | ML5 — Cycle 10 convergence UX, D6, D8 et qualification visuelle |
++| Type | CONSTRUCTION DEV · **NO RELEASE** |
++| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
++| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C3–C10 non poussés) |
++| Contenu | CSS contrat/D6/D8 ; Travail 50/50 + D6 ; `confirmed` boolean strict ; bilan requalify après handoff ; pièce nouvelle G15 ; viewport 1680×970 |
++| Scénario | `ml5-c10-mono-20261123` — project `proj_d54a9443…` — Oui `efx_d4617b21…` — handoff `rhf_cc411abd…` |
++| Tests | Unit ML5 **73 PASS** ; Playwright C10 **15 PASS / 0 FAIL** ; F2 **0 PASS / NOT PROVEN** |
++| Inventaire | **1 / 97 / 1** (B09 NOT_IMPL) |
++| Push projet | **NONE** |
++| Verdict | **ML5 INTEGRATED — QUALIFICATION IN PROGRESS** |
++
++## delivery_id: DELIV-2026-11-23-ML5-CYCLE9-E2E-MONO-ATTEMPT
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-23 (Europe/Paris) |
++| Macro-lot | ML5 — Cycle 9 démonstration fonctionnelle intégrée mono-tentative |
++| Type | CONSTRUCTION DEV · **NO RELEASE** |
++| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
++| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C3–C9 non poussés) |
++| Contenu | D6 Non authentifié (CANCELLED+decisionId) ; D6 Oui+fingerprint ; SCRIPTED_PHASED RUNNING→reconcile COMPLETED ; bilan D8 4 onglets ; retour Nora brouillon ; 14 captures + manifeste mono-tentative |
++| Scénario | `ml5-c9-mono-20261123` — project `proj_a4525a4a…` — attempt Oui `efx_1e86bf8c…` — refus `efx_b70c69ef…` |
++| Frontier | SCRIPTED / DEV — ≠ Nora LIVE, ≠ Cursor SDK LIVE, ≠ WEB LIVE |
++| Tests | Unit C9 phased 3 PASS ; unit ML5 ciblés 15+ PASS ; Playwright E2E 15 PASS / 1 PARTIAL (handoff re-ingéré) ; F2 global NOT PROVEN |
++| Inventaire | **1 / 97 / 1** (B09 NOT_IMPL) — conformité BROWSER améliorée, présence inchangée |
++| Push projet | **NONE** |
++| Verdict | **ML5 INTEGRATED — QUALIFICATION IN PROGRESS** |
++
++## delivery_id: DELIV-2026-11-23-ML5-CYCLE8-INVARIANTS-INTEGRATED
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-23 (Europe/Paris) |
++| Macro-lot | ML5 — Cycle 8 fermeture invariants + parcours intégré |
++| Type | CONSTRUCTION DEV · **NO RELEASE** |
++| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
++| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY) |
++| Contenu | A1 origin/ls-remote/REMOTE_VERIFIED ; A2 listen probe ; A3 MCP fail-closed UNKNOWN ; B1 proof exact + no handoff fallback ; G07 PNG magic ; BROWSER intégré SCRIPTED |
++| Tests | Unit+PG ML5 **79 PASS** ; tsc PASS ; Playwright C8 ; F2 global NOT PROVEN |
++| Inventaire | **1 / 97 / 1** (B09 NOT_IMPL) — conformité ≠ présence |
++| Push projet | **NONE** |
++| Verdict | **ML5 PARTIAL — GOVERNED GAPS** |
++
++## delivery_id: DELIV-2026-11-23-ML5-CYCLE7-INTEGRATED-CONVERGENCE
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-23 (Europe/Paris) |
++| Macro-lot | ML5 — Cycle 7 convergence fonctionnelle, sécurisation, qualification |
++| Type | CONSTRUCTION DEV · **NO RELEASE** |
++| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
++| HEAD entrée | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY) |
++| Checkpoint | R-003 @ `5a4e4405` · handoff C6 `b5466dd7` |
++| Contenu | CP-01 observeWorkspaceGitFacts ; CP-02 STUDIO_DEV_BIND ; CP-03 proof-ref + qualify-in-TX ; G07 evidence-captures ; B04 citations ; E12 MCP check ; Playwright runtime PNG ; fixture SCRIPTED BROWSER |
++| Tests | Unit+PG ML5 **75 PASS** ; tsc PASS ; Playwright 4 captures ; F2 global **NOT PROVEN** |
++| Inventaire | **1 / 97 / 1** (B09 reste NOT_IMPL) |
++| Push projet | **NONE** |
++| Verdict | **ML5 PARTIAL — GOVERNED GAPS** |
++
++## delivery_id: DELIV-2026-11-23-ML5-CYCLE6-GIT-A-DEV-BROWSER
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-23 (Europe/Paris) |
++| Macro-lot | ML5 — Cycle 6 Git Cursor option A + DEV auto-session + fermeture |
++| Type | CONSTRUCTION DEV · **NO RELEASE** |
++| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
++| HEAD entrée | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY) |
++| Décision | `1e6929c543a88606488094be2f5dfe7fc34a0cb9` — DÉC-ML5-GIT A + DÉC-ML5-DEV |
++| Lane | DEV `sfia_next_dev` :5433 — mig **019** ; RECETTE/STABLE inchangées |
++| Contenu | Auto-session Pilote DEV fail-closed ; Git option A preflight/observe/bare harness (Studio non publisher) ; G15 FOR UPDATE + PG concurrent ; activityFlushQueue await ; A04 corrective intent ; next.config serverExternalPackages `@cursor/sdk` ; BROWSER Travail/Exécution/Résultats/sas |
++| Tests | Unit+PG ciblés **34 PASS** ; tsc PASS ; BROWSER snapshots OK ; F2 PNG **NOT PROVEN** (capture timeout) ; LIVE/REAL **NOT** |
++| Inventaire | **1 / 92 / 6** (was 1/81/17) |
++| Push projet | **NONE** |
++| Verdict | **ML5 PARTIAL — GOVERNED GAPS** |
++
++## delivery_id: DELIV-2026-11-23-ML5-CYCLE5-INTEGRATED-COMPLETION
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-23 (Europe/Paris) |
++| Macro-lot | ML5 — Cycle 5 finalisation fonctionnelle intégrée |
++| Type | CONSTRUCTION DEV · **NO RELEASE** |
++| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
++| HEAD entrée | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY) |
++| Lane | DEV `sfia_next_dev` :5433 — mig **019** history_json |
++| Contenu | Travail ContractViewer 50/50 ; activité poll RUNNING ; mid-turn OBSERVED ; B1 assertPublicHttpsUrl+confront ; G15 requalify ; Cursor poll/reconcile UI ; preparedContract sur TurnResult |
++| Tests | Unit ciblés **22 PASS** ; PG dispatch **9 PASS** ; tsc PASS ; BROWSER/F2/LIVE **NOT PROVEN** |
++| Push projet | **NONE** |
++| Verdict | **ML5 PARTIAL — GOVERNED GAPS** |
++
++## delivery_id: DELIV-2026-11-23-ML5-FUNCTIONAL-COMPLETION
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-23 (Europe/Paris) |
++| Macro-lot | ML5 — Complétude fonctionnelle, sécurisation et stabilisation |
++| Type | CONSTRUCTION DEV · **NO RELEASE** |
++| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
++| HEAD entrée | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — cycles 3+4 non commités) |
++| Base | `0f1d37c3b055371c84c1f30e9bebe3d0efee41b2` |
++| Worktree | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
++| Lane | DEV `sfia_next_dev` :5433 — RECETTE/STABLE inchangées |
++| Contenu | Inventaire Impl **1/74/24** (réconcilié explore) ; sendIntent pre-SDK ; tool-source-journal ; READY prepId persisté ; B1 public-web-search-frontier SCRIPTED ; activité OBSERVED sources ; DETERMINISTIC_SYNTHESIS ≠ NORA_COGNITIVE ; D8 critères sans preuve lexicale |
++| Tests | Unit ML5 **53 PASS** ; PG dispatch **9 PASS** ; tsc PASS ; BROWSER/F2/LIVE/REAL **NOT PROVEN** |
++| Push projet / PR / merge | **NONE** |
++| STABLE | NOT AVAILABLE |
++| Verdict | **ML5 PARTIAL — GOVERNED GAPS** |
++
++## delivery_id: DELIV-2026-11-23-ML5-CONVERGENCE-CONFORMITY
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-23 (Europe/Paris) |
++| Macro-lot | ML5 — Convergence fonctionnelle et conformité intégrée |
++| Type | CONSTRUCTION DEV · **NO RELEASE** |
++| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
++| HEAD entrée | `6cf33e9923796974b9ee540a9c6ff27110342950` |
++| Base | `0f1d37c3b055371c84c1f30e9bebe3d0efee41b2` |
++| Worktree | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
++| Lane | DEV only (`sfia_next_dev` :5433) — RECETTE/STABLE inchangées |
++| Contenu | CF-03 anti-duplicat ACK-lost ; CF-02 READY serveur ; provenance handoff ; Nora→contrat DRAFT bridge ; surfaces `execution`/`publication` ; onglets D8 Figma ; analyse cognitive Nora (dossier) ; docs acceptation/registre |
++| Tests | Unit ML5 **25 PASS** (fichiers ciblés) ; PG dispatch **8 PASS** incl. T-04 ACK-lost ; tsc PASS ; BROWSER/F2/LIVE/REAL **NOT PROVEN** |
++| Push projet / PR / merge | **NONE** |
++| STABLE | NOT AVAILABLE |
++| Verdict | **ML5 PARTIAL — GOVERNED GAPS** |
++
+ ## delivery_id: DELIV-2026-11-23-ML5-INTEGRATION-CONSOLIDATION
 
-```markdown
-# SFIA Studio Next — Delivery history
+ | Field | Value |
 
-Append-only logical journal of Cursor product deliveries.
-**Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
-
-## delivery_id: DELIV-2026-11-24-ML5-CYCLE15-COGNITIVE-CONDUCTOR
-
-| Field | Value |
-| --- | --- |
-| Date | 2026-11-24 (Europe/Paris) |
-| Macro-lot | ML5 — Cycle 15 conducteur cognitif Nora (lot convergence 1) |
-| Type | CONSTRUCTION DEV · **NO RELEASE** |
-| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C3–C15 non poussés) |
-| Contenu | Persistance D3 `cognitive_works` ; conducteur multi-segments ; READY positif ; journal non monotone ; contrat sans plafonds 24k/8 ; WEB egress DNS+stream |
-| Migration DEV | `020_cognitive_work.sql` sur `sfia_next_dev` + `sfia_next_e2e` |
-| Tests | units C15 + investigation/bridge ; PG cognitive work 2 PASS |
-| Push projet | **NONE** |
-| Verdict | **READY WITH RESERVES** — infrastructure + invariants discriminants ; LIVE intégré lot 1 encore PARTIAL |
-
-## delivery_id: DELIV-2026-11-24-ML5-CYCLE14-COGNITIVE-CONVERGENCE
-
-… [suite historique inchangée omise — fichier complet local] …
 ```
 
-### FILE `projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md` (en-tête C15 ; registre 99 lignes en local)
+### `projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md` (complet, 57496 octets)
 
-- bytes (reproduit): 10193
-- sha256 fichier disque: `920273926956cb4c5e49da01a27aa4ebdbd4f55a53e94d4166eb54d67a5dd7cc`
-
-```markdown
+```md
 # SFIA Studio Next — ML5 · Registre de couverture et de revue du développement
 
 > **Registre de revue ML5 — contenu validé comme support de suivi par Morris ; Gate C accepté avec réserves et GO de construction ML5 exprimés le 23/11/2026.** Aucun GO implicite de push projet, PR, merge, recette/cutover, release, adoption ou promotion.
 
 | Champ | Valeur |
 |---|---|
-| Version | v0.10 candidate — 24 novembre 2026 : Cycle 14 cognition + WEB LIVE ; B09 **IMPLEMENTED** (search DISCOVERED + open PAGE_OPENED LIVE) ; R-004 + C4–C14 |
+| Version | v0.11 candidate — 24 novembre 2026 : Cycle 16 raccordement conducteur + P0 ownership/READY/WEB ; R-004 + C4–C16 |
 | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
 | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
 | Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |
@@ -8423,7 +6193,8 @@ Append-only logical journal of Cursor product deliveries.
 | Cycle 11 | Scénario `ml5-c11-live-20261123` — Nora LIVE → D6 → Cursor SDK LIVE → D8 PARTIAL → Nora COGNITIVE |
 | Cycle 12 | `ml5-c12-live-20261123` — ACK-first + reconnect + COMPLETED ; T-04 DROP_ACK PASS ; Nora D8 tools ; STOP SCRIPTED ; candidat inventorié — **ML5 DEV LIVE PARTIAL — GOVERNED RESILIENCE GAPS** |
 | Cycle 13 | Confinement D8 (realpath/lstat/O_NOFOLLOW) ; journal provenance outils ; supervisor LIVE in-process ; STOP LIVE cancelled observé ; long-run sans navigateur ; candidat C3–C13 inventorié — **ML5 DEV LIVE RESILIENCE PROVEN — QUALIFICATION IN PROGRESS** |
-| Cycle 15 | Conducteur adaptatif + persistance D3 PG + READY positif + WEB egress P0 — **READY WITH RESERVES** (LIVE lot 1 PARTIAL) |
+| Cycle 16 | Raccordement produit conducteur ; claim/lease/CAS ; READY requalifié ; DRAFT incomplet ; WEB pinned ; critères intégraux — **READY WITH RESERVES** (LIVE E2E PARTIAL) |
+| Cycle 15 | Conducteur adaptatif + persistance D3 PG + READY positif + WEB egress P0 — fondations ; intégration fonctionnelle incomplète (corrigée C16) |
 | Cycle 14 | Routage sémantique (TECH_INTENT inerte) ; WEB LIVE isolé search+open MDN ; contrats sémantiques `d7.prepare_cursor_contract` ; S2/S5/S8 LIVE — **ML5 NORA COGNITIVE CONVERGENCE PROVEN — FUNCTIONAL COMPLETION IN PROGRESS** |
 | Gate | **GATE C ACCEPTÉ PAR MORRIS AVEC RÉSERVES / GO CONSTRUCTION ML5** — décision explicite du 23/11/2026 dans la conversation ; la Roadmap de `main` présente encore son instantané antérieur `OPEN` et reste à synchroniser sous mandat D2 approprié. |
 | Publication | Document de pilotage **non normatif**, sur branche candidate non mergée ; consigne la décision Morris exprimée, sans prétendre modifier automatiquement les décisions/roadmap de `main`. |
@@ -8489,40 +6260,857 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
 | ☐ | `A03` | Ne préparer de nouveau contrat Cursor qu'après demande claire, GO de préparation ou mandat de correction déjà borné. | PARTIEL | `nora-contract-bridge` intent + sources CONSULTED/VERIFIED requises ; LIVE multi-sources NON PROUVÉ |
 | ☐ | `A04` | Permettre un brouillon correctif spontané dans la portée du mandat existant, sans nouveau dispatch automatique. | PARTIEL | Cycle 6 — `detectsCorrectiveDraftIntent` + bridge `cursorRedispatch:false` ; LIVE non prouvé |
 | ☐ | `A05` | Requalifier hors mandat, changement matériel ou échecs répétés ; ne pas créer une boucle autonome de contrats. | NV | — |
+| ☐ | `A06` | Conduire une investigation séquencée, suivre les renvois déterminants et réviser les questions à mesure des découvertes. | NV | — |
+| ☐ | `A07` | Sélectionner et lire les bonnes versions des sources D4, conversation, historique, Git, décisions, rapports antérieurs et documents pertinents. | NV | — |
+| ☐ | `A08` | Distinguer découvert, consulté, vérifié, partiel, périmé, refusé et contradictoire ; préserver provenance, branche et version. | NV | — |
+| ☐ | `A09` | Contrôler qualitativement la suffisance des informations : une restriction déterminante inconnue interdit le statut de contrat prêt. | PARTIEL | `investigation-state` + READY serveur (`technical-contract-server-ready`) ignore flags client ; LIVE NON PROUVÉ |
+| ☐ | `A10` | Consolider faits, sources, exclusions, décisions, contradictions, acquis, questions et travail restant sans nouveau registre d'autorité D4. | PARTIEL | Snapshot durable + bridge tour ; pas de second registre D4 |
+| ☐ | `A11` | Conserver/reconstituer de façon fiable l'investigation après déconnexion, interruption, limite de contexte ou incident fournisseur sans fausse lecture ni effet rejoué. | PARTIEL | `investigation-persistence.ts` → `preparations.projection_json` ; reprise unit OK ; PG reprise tour non exhaustif |
+| ☐ | `A12` | Réduire les coûts/latences sur demandes simples et rendre ces capacités disponibles transversalement dans sas, projet, documents, décision et bilan. | NV | — |
 
-… [corps 99 exigences — fichier local complet] …
+### B. Recherche et lecture web publique
+**Responsabilités :** D3 / outil hébergé B1 candidat. **Sources :** Contrat ML5 §5.5, §13 ; architecture §16.
+
+| Revu | ID | Exigence de résultat / comportement attendu | État | Preuve (SHA / run / test / capture / réserve) |
+|---|---|---|---|---|
+| ☐ | `B01` | Déclencher une recherche web publique seulement lorsqu'elle apporte une valeur déterminante ; lecture seule. | NV | — |
+| ☐ | `B02` | Ouvrir effectivement les pages utiles et, si disponible, y rechercher/ouvrir les références nécessaires au lieu d'exploiter uniquement des résultats indexés. | NV | — |
+| ☐ | `B03` | Confronter sources, dates, version fournisseur et applicabilité ; document officiel ≠ fonction disponible dans Next. | NV | — |
+| ☐ | `B04` | Afficher des citations/liens sources utilisables et les métadonnées de fraîcheur réellement établies. | NV | — |
+| ☐ | `B05` | Distinguer source découverte, page ouverte, extrait disponible, couverture partielle et fait vérifié ; ne jamais inventer une lecture complète. | NV | — |
+| ☐ | `B06` | Neutraliser les injections d'instructions issues de pages/snippets et ne leur attribuer aucun droit D6/D7/Git. | PARTIEL | Instructions système + résultats non-autorité ; LIVE injection non prouvée |
+| ☐ | `B07` | Empêcher l'exfiltration de secrets et données privées via requêtes web, résultats, traces ou liens affichés. | PARTIEL | P0-03 : outil détaché tant que `SFIA_WEB_SEARCH_ISOLATION_PROVEN≠1` ; sanitize DETERMINISTIC ; LIVE non-exfil NOT PROVEN |
+| ☐ | `B08` | Traiter timeout, pages/PDF indisponibles, budget/coût/latence, échec et reprise avec limite honnête et sans crawler parallèle par défaut. | NV | — |
+| ☐ | `B09` | Prouver la compatibilité du fournisseur/outillage web avec le runtime D3 et la réponse structurée, sur modèle/version réels. | NV | — |
+
+### C. Activité fonctionnelle de Nora pendant ses travaux
+**Responsabilités :** D3 ; projection corrélée, sans seconde autorité. **Sources :** Contrat ML5 §6 ; architecture §17.
+
+| Revu | ID | Exigence de résultat / comportement attendu | État | Preuve (SHA / run / test / capture / réserve) |
+|---|---|---|---|---|
+| ☐ | `C01` | Afficher les phases significatives de travail long dans le fil concerné, pendant l'investigation, sans activité artificielle pour chaque message. | PARTIEL | Producteur `appendActivityEvent` branché au tour Nora (ANNOUNCED→COMPLETED) ; UI fil partielle |
+| ☐ | `C02` | Différencier étape annoncée, tentative d'outil, retour effectivement observé, confirmation, échec et incertitude. | PARTIEL | Natures ANNOUNCED/OBSERVED/COMPLETED/UNCERTAIN ; séquence sous lock PG |
+| ☐ | `C03` | Relier les événements aux lectures D4/historique/Git/web réellement effectuées et à leur couverture. | NV | — |
+| ☐ | `C04` | Afficher statut, limites et erreurs proportionnés, sans pourcentage fictif, lecture inventée ou résultat présumé. | NV | — |
+| ☐ | `C05` | Proposer résumé compact et détail repliable, sans console brute ni raisonnement privé. | NV | — |
+| ☐ | `C06` | Corréler chaque activité à l'identité du bon tour/opération, la persister raisonnablement et la retrouver après reconnexion. | NV | — |
+| ☐ | `C07` | Vérifier la fraîcheur réelle du polling/transport et l'absence de régression d'événements/doublons et d'affichage LIVE fictif. | NV | — |
+| ☐ | `C08` | Appliquer isolation, secrets, filtrage et droits ; ne pas créer de commandes de micro-pilotage de l'activité. | NV | — |
+
+### D. Contrat Cursor, inspection et HumanDecision
+**Responsabilités :** D3/D6/D7 (D9 si Git). **Sources :** Contrat ML5 §§4, 7–8, 19 ; R2 D6/D7 ; Figma 12.02/12.03/12.14.
+
+| Revu | ID | Exigence de résultat / comportement attendu | État | Preuve (SHA / run / test / capture / réserve) |
+|---|---|---|---|---|
+| ☐ | `D01` | Nora prépare un contrat à partir des sources, résultats antérieurs, risques, restrictions et mandat de préparation applicable. | PARTIEL | `prepareTechnicalContractFromNora` + bridge tour → DRAFT ; LIVE investigation multi-sources NON PROUVÉE |
+| ☐ | `D02` | Bloquer le statut prêt si source critique, cible, droit ou restriction structurante manquent ou divergent. | PARTIEL | CF-02 : READY serveur via investigation durable ; client `sourcesSufficient` ignoré ; BROWSER NON PROUVÉ |
+| ☐ | `D03` | Conserver une identité/version/fingerprint de contrat canonique unique, projet et cycle historique facultatif. | PARTIEL | `reversibility_limits_json` round-trip + fingerprint canonique ; PG test |
+| ☐ | `D04` | Afficher les quatre engagements : ce qui sera fait, non fait, résultat attendu, contrôle du Pilote. | PARTIEL | `ContractViewer` ; BROWSER Figma F2 manquant |
+| ☐ | `D05` | Rendre inspectables les six volets R2 D7 : mission, périmètre, capacités/autorité, STOP, preuves/sources, intégrité. | PARTIEL | `ContractViewer` volets ; F2 manquant |
+| ☐ | `D06` | Afficher l'instruction technique complète en lecture défilante, sans troncature ni substitution des champs de réponse Nora. | PARTIEL | Stockage full `instruction_text` + UI expand ; F2 12.14 manquant |
+| ☐ | `D07` | Garantir identité de version/empreinte entre texte inspecté, texte autorisé et octets effectivement transmis au SDK. | PARTIEL | Fingerprint + authorize inspect match + dispatch recheck ; LIVE SDK non prouvé |
+| ☐ | `D08` | Requalifier un changement matériel d'instruction, périmètre, cible, risque, droit ou version avant lancement. | PARTIEL | `isMaterialContractChange` + requalification au dispatch |
+| ☐ | `D09` | Implémenter la visionneuse Travail 50/50 avec fil Nora utilisable, carte de contrat et navigation vers Exécution. | NV | — |
+| ☐ | `D10` | Exécuter uniquement après acte explicite Exécuter et confirmation générique Oui/Non ; Non sans effet. | PARTIEL | `confirmed:true` requis API + dialog `d6-confirm-launch` dans `CursorRealizationSurface` ; BROWSER F2 non prouvé |
+| ☐ | `D11` | Recontrôler D6/D7/D9 et capacités/permissions réelles au point d'effet ; interdictions et suspensions opposables. | PARTIEL | `assertCurrentCursorAuthority` au dispatch ; MCP réel non vérifié |
+| ☐ | `D12` | Conserver lien au bon projet, Pilote, contrat et cycle d'origine le cas échéant, sans imposer de cycle. | PARTIEL | attempt/contract/pilot/project liés |
+
+### E. Dispatch, exécution LIVE, arrêt et reprise Cursor SDK
+**Responsabilités :** D7, D6 ; Cursor environnement d'exécution administré hors Studio. **Sources :** Contrat ML5 §§9, 17–19 ; architecture §18 ; SDK C9.
+
+| Revu | ID | Exigence de résultat / comportement attendu | État | Preuve (SHA / run / test / capture / réserve) |
+|---|---|---|---|---|
+| ☐ | `E01` | Déclencher Cursor SDK automatiquement depuis Studio sans copier-coller ni conversation Cursor manuelle par mission. | PARTIEL | Dispatch service SCRIPTED ; LIVE entitlement non prouvé |
+| ☐ | `E02` | Exécuter dans l'environnement Cursor effectif ; Cursor Desktop demeure disponible pour administration, comptes, MCP et authentifications. | PARTIEL | Pas d'admin Desktop dans Studio ; LIVE cwd à qualifier |
+| ☐ | `E03` | Créer/récupérer une tentative unique avec projet, Pilote, contrat/version/empreinte et mandat. | PARTIEL | `prepareCursorExecution` + correlationKey |
+| ☐ | `E04` | Persister identité/autorité/tentative et contexte avant send/dispatch ; séparer store SDK et vérité métier D7. | PARTIEL | claim avant send ; resultJson D7 |
+| ☐ | `E05` | Superviser les runs longs hors durée de vie d'une requête HTTP ou d'un onglet navigateur. | PARTIEL | LIVE `waitForTerminal=false` après ACK ; SCRIPTED terminal immédiat ; worker prod non imposé |
+| ☐ | `E06` | Collecter événements SDK réellement exposés et projeter des états LIVE sobres dans Exécution. | PARTIEL | Projection resultJson ; UI Exécution partielle |
+| ☐ | `E07` | Distinguer demande de lancement, ACK, run observé, travail, erreur, timeout, fin et UNKNOWN. | PARTIEL | `CursorLiveProjection` fields |
+| ☐ | `E08` | Distinguer STOP demandé, transmis, observé et effets partiels ; annulation n'implique pas rollback. | PARTIEL | stop API + limits CANCEL_IS_NOT_ROLLBACK |
+| ☐ | `E09` | Protéger double clic, perte d'ACK, timeout et retry contre un second dispatch aveugle. | PARTIEL | CF-03 : `priorSendMayHaveOccurred` + SQL fence AMBIGUOUS ; PG T-04 ACK-lost **PASS** (DEV) ; LIVE NOT PROVEN |
+| ☐ | `E10` | Réconcilier après crash, reconnexion, perte d'ownership et état incertain, avec fencing/idempotence prouvés. | PARTIEL | reconcile sans redispatch ; stale claimToken fenced (PG) |
+| ☐ | `E11` | Retrouver durablement interventions, contrats, versions, événements et tentatives, y compris hors cycle. | PARTIEL | Tables durables ; UI historique 12.04 non câblée |
+| ☐ | `E12` | Vérifier seulement les MCP indispensables à la mission : chargement, authentification, invocabilité et permissions réelles. | NV | mcpRequired listé dans plan ; vérification LIVE non faite |
+| ☐ | `E13` | Ne pas construire un gestionnaire MCP/approbations dans Studio, ni désactiver globalement les protections pour rendre un test vert. | PARTIEL | Aucun admin MCP ajouté |
+| ☐ | `E14` | Ne pas forcer Git/MCP sur une mission qui n'en a pas besoin ; production et DEV utilisent le même sens du contrat avec environnements distincts. | PARTIEL | gitScope/mcp optionnels sur plan |
+| ☐ | `E15` | Isoler concurrents, projets, workspaces, identités SDK, secrets et rapports ; aucun croisement de tentative. | PARTIEL | P0-02 `resolveCursorWorkspace` sous `SFIA_CURSOR_WORKSPACE_ROOT` ; client cwd refusé ; LIVE isolation OS NOT PROVEN |
+
+### F. Git de travail et continuité des réalisations
+**Responsabilités :** D7/D9/D6 — conditionnel aux missions Git. **Sources :** Contrat ML5 §§17.2,18.2,19.5 ; R2 D9 et architecture §18.
+
+| Revu | ID | Exigence de résultat / comportement attendu | État | Preuve (SHA / run / test / capture / réserve) |
+|---|---|---|---|---|
+| ☐ | `F01` | Vérifier dépôt, base SHA, branche de travail distante et droits avant toute mutation de dépôt. | PARTIEL | Cycle 6 option A — `preflightCursorGitOptionA` ; bare local DETERMINISTIC ; GitHub REAL NON |
+| ☐ | `F02` | Utiliser un workspace Git local isolé et rattaché à la bonne branche/autorité. | PARTIEL | Harness bare + workspace path ; LIVE workspace OS non prouvé |
+| ☐ | `F03` | Bornee les commits/pushes significatifs au mandat effectif, sans push par action ni droit implicite. | PARTIEL | Mandate allowedOps ; PR/merge hors mandat par défaut |
+| ☐ | `F04` | Rendre les réalisations significatives consultables sur branche distante sous GO spécifique sans imposer de revue Nora à chaque publication. | PARTIEL | Observation REMOTE_VERIFIED après relecture ; Studio non publisher |
+| ☐ | `F05` | Relire SHA/refs distant réels après publication ; conserver branch, base, historique et provenance. | PARTIEL | `observeRemoteAfterPush` bare ; GitHub REAL NON |
+| ☐ | `F06` | Séparer clairement travail local non publié et contenu Git distant effectivement accessible. | PARTIEL | LOCAL_ONLY vs REMOTE_VERIFIED |
+| ☐ | `F07` | Empêcher PR, merge, force-push, publication STABLE ou adoption implicites. | PARTIEL | allowPullRequest/allowMerge false par défaut ; unit refus |
+| ☐ | `F08` | Assurer la continuité entre contrats via références Git réelles, vérifiées et autorisées plutôt que mémoire SDK seule. | PARTIEL | Mandate/baseSha continuity helpers ; multi-contrat LIVE ouvert |
+| ☐ | `F09` | Réutiliser D7/D9 existants ; décider A direct borné ou B publication gouvernée avant réalisation correspondante, sans moteur Git parallèle. | PARTIEL | DÉC-ML5-GIT option A appliquée ; préflight branché prepare ; pas de publisher Studio |
+
+### G. Handoff par tentative, qualification D8/D9 et analyse Nora
+**Responsabilités :** D7/D8/D9/D3. **Sources :** Contrat ML5 §§10–11,17.3–17.4,18.3,19.5 ; R2 D8.
+
+| Revu | ID | Exigence de résultat / comportement attendu | État | Preuve (SHA / run / test / capture / réserve) |
+|---|---|---|---|---|
+| ☐ | `G01` | Créer un dossier/handoff identifié et non écrasé pour chaque tentative, distinct du handoff externe SFIA v2.6. | PARTIEL | `realization_handoffs` UNIQUE attempt ; immutable |
+| ☐ | `G02` | Porter contrat/version/empreinte, tentative, exécutant, environnement, état, branche/base/SHAs connus. | PARTIEL | Champs handoff + manifest.git optionnel |
+| ☐ | `G03` | Décrire réalisé/non réalisé, sources consultées, commandes, actions, incidents, STOP, tests et réserves. | PARTIEL | Rapport markdown + gaps ; format libre |
+| ☐ | `G04` | Inventorier exhaustivement les fichiers créés, modifiés, déplacés et supprimés, y compris tests, code, scripts, docs et pièces. | PARTIEL | Manifest inventaire ; enforcement INCOMPLETE si vide |
+| ☐ | `G05` | Fournir contenu réellement lisible par SHA/diff/sections, ou contenu texte sûr dans rapport, sinon lacune explicite. | EC | Contenu via reportMarkdown ; accès Git D9 non branché ici |
+| ☐ | `G06` | Séparer tests déclarés, réellement exécutés, capturés, non exécutés et couverture vérifiée. | PARTIEL | Champs manifest + D8 refuse PASS sans capture |
+| ☐ | `G07` | Rendre accessibles captures originales runtime, références Figma/frame, manifestes et preuves spécialisées nécessaires. | NV | Non implémenté stockage captures |
+| ☐ | `G08` | Conserver handoff et artefacts à références durables, sans latest multi-tentatives ni confusion SFIA v2.6. | PARTIEL | Une ligne/attempt ; pas de latest produit |
+| ☐ | `G09` | En cas de crash/rapport absent/partiel/hostile ou contradiction, conserver faits accessibles et état PARTIAL/UNKNOWN sans succès inventé. | PARTIEL | MISSING/INCOMPLETE/REJECTED ; secrets → REJECTED |
+| ☐ | `G10` | D7 rattache/contrôle identité de rapport ; D9 vérifie Git ; D8 recoupe les changements réels, manifestes et critères. | PARTIEL | D7+D8 ; D9 recoupement Git Cursor non branché |
+| ☐ | `G11` | Rendre consultables les neuf rubriques D8 : résumé, prévu, réalisé, évaluation, écarts, impact, verdict, recommandations, sources. | PARTIEL | `qualifyCursorRealization` + `RealizationBilan` |
+| ☐ | `G12` | Déclencher une unique revue globale Nora après fin ou interruption réconciliée, jamais à chaque événement/commit. | PARTIEL | `buildNoraCognitiveAnalysis` (dossier) + brief distinct ; LIVE Nora run = preuve supérieure encore ouverte |
+| ☐ | `G13` | Distinguer déclaration Cursor, observation, verdict D8, avis Nora et décision HumanDecision D6. | PARTIEL | Labels + surfaces `execution` / `publication` (results) distinctes |
+| ☐ | `G14` | Permettre En discuter avec Nora : référence de bilan jointe au brouillon, retirable, aucun envoi automatique. | PARTIEL | `onDiscussWithNora` → `setDraft` + Travail ; envoi non automatique |
+| ☐ | `G15` | Conserver historique/version et réserves ; requalification datée si preuve tardive, sans rejouer la mission. | PARTIEL | Cycle 6 — FOR UPDATE + newProofRef + PG concurrent PASS ; BROWSER requalify ouvert |
+
+### H. UX Figma page 12 et fidélité de transposition
+**Responsabilités :** R3 UX / D3 D6 D7 D8 D9 ; Cursor exécute sous méthode Figma v1.1. **Sources :** Figma file itgvCulInEnFY6DvgIegvP page 12 ; ux-ui/methodologie-contrat-figma-cursor.md v1.1.
+
+| Revu | ID | Exigence de résultat / comportement attendu | État | Preuve (SHA / run / test / capture / réserve) |
+|---|---|---|---|---|
+| ☐ | `H01` | 12.01 : conduite/activité Nora pour un travail de préparation de contrat. | NV | — |
+| ☐ | `H02` | 12.02,12.03,12.14 : 50/50, inspection/confirmation, instruction technique intégrale défilante. | NV | — |
+| ☐ | `H03` | 12.04,12.05 : interventions et contrats retrouvables avec identité, autorité, versions et tentatives. | PARTIEL | `?surface=execution` + historique interventions ; F2/BROWSER NOT PROVEN |
+| ☐ | `H04` | 12.06,12.07 : tentative LIVE observée, erreur/UNKNOWN, réconciliation sans faux état. | PARTIEL | UI AMBIGUOUS « à réconcilier » + LIVE projection ; LIVE SDK NOT PROVEN |
+| ☐ | `H05` | 12.08,12.11,12.12,12.13 : quatre onglets de bilan couvrant neuf rubriques D8, valeurs et réserves cohérentes. | PARTIEL | Onglets Figma Synthèse/Livrables et tests/Git et pièces/Écarts ; F2 NOT PROVEN |
+| ☐ | `H06` | 12.09 : retour contextualisé du bilan vers le fil Nora sans envoi automatique. | PARTIEL | Bouton bilan → draft Travail ; envoi auto absent ; F2 NOT PROVEN |
+| ☐ | `H07` | 12.10 : activité de Nora dans le sas sans projet fictif. | NV | — |
+| ☐ | `H08` | Avant code de chaque surface : Figma validée et extraction L0/L1/L2, assets exacts, PNG natif hashé, mapping node→DOM→assertion ; après code : runtime screenshot, styles/DOM/F2, état/viewport/fixture identiques, interactions browser, réserves explicites. | PARTIEL | L0+L1 metadata 14 frames + design context 12.02 ; F2/BROWSER runtime NOT PROVEN |
+
+### I. Non-régression, qualité, preuve et gouvernance
+**Responsabilités :** Transverse D1–D9 / SEF / ENV-01. **Sources :** SEF v0.2, ENV-01, product-versioning, SFIA v2.6 ; ML5 architecture A–D.
+
+| Revu | ID | Exigence de résultat / comportement attendu | État | Preuve (SHA / run / test / capture / réserve) |
+|---|---|---|---|---|
+| ☐ | `I01` | Ne pas dupliquer les autorités D3/D4/D5/D6/D7/D8/D9 ni inventer moteur cognitif, Git ou d'exécution concurrent. | NV | — |
+| ☐ | `I02` | Vérifier droits par Pilote/projet/ressource, restrictions, suspensions, révocations et absence d'effet hors mandat. | NV | — |
+| ☐ | `I03` | Tester concurrence, ownership, idempotence, fencing, ACK perdu, STOP et reprise selon les responsabilités. | PARTIEL | PG ML5 dispatch **8 PASS** incl. ACK-lost ; concurrence 1 win ; fencing stale claim |
+| ☐ | `I04` | Tester secrets, prompt injection, exfiltration web, artefacts hostiles, sécurité MCP/Git et isolation. | NV | — |
+| ☐ | `I05` | Associer code, tests déterministes et d'intégration, scénarios nominaux/négatifs et documentation dans chaque livraison. | NV | — |
+| ☐ | `I06` | Tester les parcours UX réellement concernés sur navigateur/capture avec SHA/build/viewport/état identifiables. | NV | — |
+| ☐ | `I07` | Distinguer simulation, DETERMINISTIC, INTEGRATION, BROWSER, SDK LIVE et effet GitHub/MCP REAL. | NV | — |
+| ☐ | `I08` | Limiter les essais GitHub REAL et MCP/Figma/Canva aux capacités effectivement concernées et aux GO réels. | NV | — |
+| ☐ | `I09` | Synchroniser code, UX, architecture et as-built ; changer de schéma/autorité uniquement sur gate Morris. | NV | — |
+| ☐ | `I10` | Prouver le parcours intégré Nora→contrat inspecté→HumanDecision→Cursor→retours→D8/D9→avis Nora→suite. | NV | — |
+| ☐ | `I11` | Respecter ENV-01 DEV/RECETTE/STABLE, versioning NO RELEASE, recette SHA figé, PR/merge/promotion sous GO et ADOPTED jamais automatique. | NV | — |
+
+
+## 3 ter. Inventaire d'implémentation A01–I11 (cycle 4 — 2026-11-23, réconcilié)
+
+> Axe **Implémentation** distinct de la conformité (NV/PARTIEL/VÉRIFIÉ).
+> Réconcilié avec l'inventaire explore [Inventory A01-I11](28376cd8-26ca-4d04-95ec-34395679e40f) et les correctifs cycle 4 (journal sources, frontier B1, sendIntent, READY prepId, classification synthèse).
+> IMPLEMENTED = comportement constitutif raccordé sans manques essentiels. PARTIAL = pièces présentes. NOT_IMPL = absent.
+
+| ID | Impl | Owner | Fichiers / fonctions | Écart / exit |
+|---|---|---|---|---|
+| `A01` | PARTIAL | D3 | semantic-qualification, nora-adapter | Qualification courte hors intent contrat non consolidée dans investigation-state |
+| `A02` | PARTIAL | D3 | cognitive-policy, nora-adapter tools | Profondeur non exposée transversalement sas/document/bilan |
+| `A03` | PARTIAL | D3/D7 | nora-contract-bridge, nora-contract-prepare, tool-source-journal | C11 — contrat DRAFT/READY produit après Nora LIVE (`openai-agents-sdk-live`) ; GO préparation explicite encore partiel |
+| `A04` | PARTIAL | D3 | nora-contract-bridge correctiveIntent | Cycle 6 — détection + cursorRedispatch:false ; LIVE non prouvé |
+| `A05` | PARTIAL | D3/D7 | REQUIRES_REQUALIFICATION, fingerprint mismatch | Anti-boucle partielle ; pas de requal hors mandat complète |
+| `A06` | PARTIAL | D3 | investigation-state questions | Pas de conducteur séquencé révision questions↔découvertes |
+| `A07` | PARTIAL | D3/D4 | d4-read-tools+journal, git/history tools | Lectures D4 journalisées CONSULTED ; git/history journal incomplet |
+| `A08` | PARTIAL | D3 | investigation-state SourceCoverage, tool-source-journal | Types OK ; VERIFIED rare ; peuplement partiel |
+| `A09` | PARTIAL | D3/D7 | technical-contract-server-ready | READY serveur ; snapshot sans lecture D4 live systématique |
+| `A10` | PARTIAL | D3 | investigation-persistence | Snapshot durable ; consolidation acquis D4 incomplète |
+| `A11` | PARTIAL | D3 | investigation-persistence, resumeInvestigation | Reprise mid-turn/incident non branchée au fil |
+| `A12` | PARTIAL | D3 | cognitive-policy | Économie simple sur tour projet seulement |
+| `B01` | PARTIAL | D3 | public-web-search-frontier (cycle 4) | SCRIPTED query-only ; LIVE gated ; hosted tool détaché |
+| `B02` | PARTIAL | D3 | public_web_open_page SCRIPTED | Ouverture LIVE non implémentée |
+| `B03` | PARTIAL | D3 | confrontWebSources (cycle 5) | SCRIPTED confrontation ; LIVE ouvert |
+| `B04` | PARTIAL | D3 | web-source-citation + open_page citation | Cycle 7 — contrat citation SCRIPTED ; UX affichage partiel ; LIVE gated |
+| `B05` | PARTIAL | D3 | frontier coverage DISCOVERED/CONSULTED via open | Distinction partielle runtime ; UX absente |
+| `B06` | PARTIAL | D3 | instructions non-autorité + résultats untrusted | Injection LIVE non prouvée |
+| `B07` | PARTIAL | D3 | frontier outbound log + sanitize | Non-exfil SCRIPTED testé ; WEB LIVE NOT PROVEN |
+| `B08` | PARTIAL | D3 | frontier DENIED/TIMEOUT/budget calls | Timeout/reprise web partielle |
+| `B09` | IMPLEMENTED | D3 | `public-web-search-frontier` isolated Agent + webSearchTool + fetch open | C14 LIVE — items DISCOVERED + PAGE_OPENED MDN ; isolation outbound PASS ; hosted tool jamais sur agent Nora privé |
+| `C01` | PARTIAL | D3 | appendActivityEvent, service producers | UI fil n'affiche pas GET activity pendant RUNNING |
+| `C02` | PARTIAL | D3 | natures + OBSERVED sources journal (cycle 4) | Événements outil OBSERVED partiels (D4/WEB ; git/history incomplets) |
+| `C03` | PARTIAL | D3 | activity sourceRef depuis journal | Relier lectures git/history encore ouvert |
+| `C04` | PARTIAL | D3 | status FAILED/LIMITED | Affichage UX limites incomplet |
+| `C05` | PARTIAL | D3/UX | NoraConversation liveActivity detail (cycle 5) | BROWSER/F2 non prouvé |
+| `C06` | PARTIAL | D3 | listActivityEvents API | Sans consommateur UX reconnexion |
+| `C07` | PARTIAL | D3/UX | poll by-key+activity pendant send (cycle 5) | BROWSER longue investigation ouvert |
+| `C08` | PARTIAL | D3 | ownerToken fence + redact | Isolation multi-Pilote incomplete |
+| `D01` | PARTIAL | D3/D7 | nora-contract-prepare + bridge + journal | C11 — préparation LIVE sur projet DEV documenté ; multi-sources/contradiction encore partielle |
+| `D02` | PARTIAL | D7 | server-ready ; client prepId ignoré (cycle 4) | Droits révoqués BROWSER ouvert |
+| `D03` | PARTIAL | D7 | technical-contract + fingerprint + mig 018 | Versions OK ; changement matériel helper non branché |
+| `D04` | PARTIAL | D7/UX | ContractViewer | Pas 50/50 Travail Figma 12.02 |
+| `D05` | PARTIAL | D7/UX | ContractViewer volets | Inspectable Exécution, pas Travail |
+| `D06` | PARTIAL | D7/UX | instruction_text + expand | F2 12.14 ouvert |
+| `D07` | PARTIAL | D6/D7 | authorize fingerprint + dispatch + C9 refuseCursorExecution | C11 — D6 Non/Oui + dispatch LIVE ; instruction bytes = contrat autorisé |
+| `D08` | PARTIAL | D7 | fingerprint mismatch au dispatch | isMaterialContractChange non appelé |
+| `D09` | PARTIAL | D3/UX | ContractViewer dans Travail aside (cycle 5) | F2 12.02 / BROWSER non prouvé |
+| `D10` | PARTIAL | D6/UX | d6-confirm sur Exécution | Pas 12.03 générique sur Travail |
+| `D11` | PARTIAL | D6/D7 | assertCurrentCursorAuthority | MCP réel non vérifié |
+| `D12` | PARTIAL | D7 | FKs attempt/contract/pilot/project | Cycle D5 optionnel non câblé |
+| `E01` | PARTIAL | D7 | dispatchCursorRun SCRIPTED/LIVE env | C11 — LIVE Studio prouvé (`composer-2.5`, FileCredentialStore) ; SCRIPTED conservé |
+| `E02` | PARTIAL | D7 | workspace-resolver | Pas admin Desktop/MCP Studio (by design) |
+| `E03` | PARTIAL | D7 | prepareCursorExecution + correlationKey | — |
+| `E04` | PARTIAL | D7 | claim + sendRequestedAt atomique (cycle 4) | C11 — run LIVE `agent-29c4c0f4…` / `run-51c77f21…` lié attempt |
+| `E05` | PARTIAL | D7 | ACK-first + `cursor-live-supervisor` (C13) | C13 T-05 long-run COMPLETED sans navigateur ; resume-once ; ≠ queue/scheduler général |
+| `E06` | PARTIAL | D7/UX | CursorLiveProjection + execution surface | Événements SDK partiels |
+| `E07` | PARTIAL | D7 | CursorLiveProjection fields | — |
+| `E08` | PARTIAL | D7 | stop API | Effets partiels partiels |
+| `E09` | PARTIAL | D7 | priorSend + DROP_ACK fault (C12) | T-04 DETERMINISTIC PASS ; LIVE borné non rejoué (effet) |
+| `E10` | PARTIAL | D7 | reconcile + observeLiveCursorRun (C11) | LIVE observe sans second send ; reconnect navigateur incomplet |
+| `E11` | PARTIAL | D7/UX | attempts list execution | Historique Figma 12.04/05 non équivalent |
+| `E12` | PARTIAL | D7 | mcp-capability-check + prepare gate | Cycle 7 — check conditionnel ; inventaire déclaratif ; MCP REAL gated |
+| `E13` | IMPLEMENTED | D7 | pas d'admin MCP Studio | Exigence négative respectée |
+| `E14` | PARTIAL | D7 | gitScope/mcp optionnels | — |
+| `E15` | PARTIAL | D7 | workspace-resolver root | Isolation OS/Pilotes non prouvée |
+| `F01` | PARTIAL | D7/D9 | observeWorkspaceGitFacts + preflight | CP-01 C7 — observations indépendantes ; GitHub REAL NON |
+| `F02` | PARTIAL | D7/D9 | cursor-git-option-a harness | Workspace isolé test ; OS multi-Pilote ouvert |
+| `F03` | PARTIAL | D7/D9 | mandate allowedOps | Commit/push mandatés ; PR/merge distincts |
+| `F04` | PARTIAL | D7/D9 | observation REMOTE_VERIFIED | Studio lit ; ne publie pas |
+| `F05` | PARTIAL | D7/D9 | observeRemoteAfterPush | Relecture SHA bare ; REAL ouvert |
+| `F06` | PARTIAL | D7/D9 | LOCAL_ONLY vs REMOTE_VERIFIED | Déclaration push ≠ constat |
+| `F07` | PARTIAL | D7/D9 | allowPR/Merge false default | Unit refus hors mandat |
+| `F08` | PARTIAL | D7/D9 | baseSha continuity | Multi-contrat LIVE ouvert |
+| `F09` | PARTIAL | D7/D9 | preflight on prepare + D9 read | Pas de publisher Studio ; option B abandonnée |
+| `G01` | PARTIAL | D7 | realization_handoffs UNIQUE | — |
+| `G02` | PARTIAL | D7 | handoff fields | — |
+| `G03` | PARTIAL | D7 | report + gaps | Structuration incidents/STOP incomplète |
+| `G04` | PARTIAL | D8 | inventoryComplete | Acquisition serveur auto absente |
+| `G05` | PARTIAL | D7 | reportMarkdown | Lecture Git D9 pièces absente |
+| `G06` | PARTIAL | D8 | qualify testsDeclared/Captured | Collecte runtime tests absente |
+| `G07` | PARTIAL | D8 | evidence-captures + API captures | Cycle 7 — store SHA + Playwright PNG ; bilan UX rattachement partiel |
+| `G08` | PARTIAL | D7 | one handoff/attempt | — |
+| `G09` | PARTIAL | D7/D8 | REJECTED/INCOMPLETE | — |
+| `G10` | PARTIAL | D7/D8 | gitFactsVerified hook | Feed D9 Cursor non branché |
+| `G11` | PARTIAL | D8/UX | 9 rubrics + 4 tabs | Recoupement réel faible ; F2 ouvert |
+| `G12` | PARTIAL | D3/D8 | D8 tools + path confine + journal (C13) | C13 — confinement symlink PASS ; journal CONSULTED≠toolCalls ; secrets non divulgués |
+| `G13` | PARTIAL | D8/UX | labels + surfaces execution/publication | — |
+| `G14` | PARTIAL | UX | onDiscussWithNora draft | Référence bilan structurée absente |
+| `G15` | PARTIAL | D8 | FOR UPDATE + newProofRef + expectedUpdatedAt | PG concurrent PASS cycle 6 ; BROWSER requalify ouvert |
+| `H01` | PARTIAL | UX | live activity + preparedContract open (cycle 5) | F2 12.01 NOT RUN |
+| `H02` | PARTIAL | UX | ContractViewer Travail 50/50 (cycle 5) | F2/BROWSER NOT RUN |
+| `H03` | PARTIAL | UX | surface=execution | Identité/versions partielles vs 12.04/05 |
+| `H04` | PARTIAL | UX | AMBIGUOUS + live projection | États LIVE Figma incomplets |
+| `H05` | PARTIAL | UX | RealizationBilan 4 onglets | Fidélité 12.08/11-13 ouverte |
+| `H06` | PARTIAL | UX | discuss→Travail | Frame 12.09 non F2 |
+| `H07` | PARTIAL | UX | sas preparations activity | C1 sas ML5 partiel |
+| `H08` | PARTIAL | UX | Figma oracles + Playwright runtime | Cycle 7 — 4 oracles + 4 runtime ; F2 ≤2px global NOT PROVEN |
+| `I01` | PARTIAL | transverse | CURSOR_EXECUTION additive | Vigilance double autorité |
+| `I02` | PARTIAL | D6 | cursor-authority | Matrice I02 incomplete |
+| `I03` | PARTIAL | QA | claim/fence/PG T-04 | UX concurrence ACK/STOP incomplete |
+| `I04` | PARTIAL | QA | frontier+sanitize tests | Suite injection/MCP/Git incomplete |
+| `I05` | PARTIAL | QA | unit+PG+docs cycle 4 | Exigence processus partielle |
+| `I06` | PARTIAL | QA | DEV auto-session + BROWSER snapshots | Cycle 6 — Travail/Exécution/Résultats/sas servis ; F2 PNG timeout |
+| `I07` | PARTIAL | QA | Fake/Real dans packs | Pas distinction UX |
+| `I08` | PARTIAL | gov | pas REAL mutatif ce cycle | Gate I08 ML5 partiel |
+| `I09` | PARTIAL | docs | as-built/registre | — |
+| `I10` | PARTIAL | QA | fixture SCRIPTED + BROWSER surfaces | Cycle 7 — contrat/attempt/handoff DEV + captures ; D6/LIVE non E2E |
+| `I11` | PARTIAL | gov | ENV-01 DEV ; NO RELEASE | Politique ADOPTED hors code |
+
+**Totaux implémentation (cycle 5) :** IMPLEMENTED=1 · PARTIAL=81 · NOT_IMPL=17 · Σ=99.
+
+**Totaux implémentation (cycle 6) :** IMPLEMENTED=1 · PARTIAL=92 · NOT_IMPL=6 · Σ=99.
+Mouvements : A04, F01–F09, I06 → PARTIAL. Restent NOT_IMPL : B04, B09, E12, G07, H08, I10.
+
+**Totaux implémentation (cycle 7) :** IMPLEMENTED=1 · PARTIAL=97 · NOT_IMPL=1 · Σ=99.
+Mouvements NOT_IMPL→PARTIAL : B04, E12, G07, H08, I10. Reste NOT_IMPL : **B09** (WEB LIVE fournisseur).
+CP-01 préflight observations indépendantes ; CP-02 STUDIO_DEV_BIND ; CP-03 proof-ref verify ; Playwright captures runtime ; F2 global NOT PROVEN.
+
+**Totaux implémentation (cycle 8) :** IMPLEMENTED=1 · PARTIAL=97 · NOT_IMPL=1 (B09) · Σ=99 — pas de conversion artificielle.
+CP-01 : origin match + ls-remote frais + REMOTE_VERIFIED exige local HEAD. CP-02 : probe TCP loopback à l'émission. CP-03 : preuve exacte, pas de fallback handoff. A3 MCP : UNKNOWN fail-closed. G07 : magic PNG/JPEG. BROWSER intégré SCRIPTED + captures C8. F2 global **NOT PROVEN**.
+
+**Totaux implémentation (cycle 11) :** IMPLEMENTED=1 · PARTIAL=97 · NOT_IMPL=1 (B09) · Σ=99 — **aucune promotion artificielle PARTIAL→IMPLEMENTED**.
+Preuves LIVE (conformité ≠ présence) : Nora prepare (`openai-agents-sdk-live`) ; Cursor SDK LIVE (`@cursor/sdk` 1.4.2, modèle `composer-2.5`, clé FileCredentialStore) ; témoin `DEMO_C11.txt` vérifié sous cwd résolu ; handoff RECEIVED ; D8 verdict PARTIAL honnête ; analyse finale `NORA_COGNITIVE`. B09 / GitHub REAL mutatif / MCP mission : N/A ou NOT_IMPL. Option Git A inchangée (pas de contradiction dans constats courants). F2 hors gate C11.
+
+**Totaux implémentation (cycle 14) :** IMPLEMENTED=2 · PARTIAL=97 · NOT_IMPL=0 · Σ=99.
+Mouvement : **B09 NOT_IMPL → IMPLEMENTED** (agent isolé LIVE + open fetch + parse navigation ; preuves `/tmp/sfia-c14-web-probe4.log`, cognitive `s4_web`). Aucune promotion artificielle des 97 PARTIAL. Conformité A01–A12 / C01–C08 / D01–D02 reste majoritairement PARTIEL (LIVE sémantique S2/S5 PASS ; reprise S7 / contradiction S6 / activité BROWSER non exhaustifs).
+
+**Écarts majeurs cycle 6 :** F2 pixel NOT PROVEN (screenshot tooling timeout) ; WEB/SDK/GitHub REAL gated ; I10 parcours E2E non câblé bout-en-bout ; captures G07 absentes.
+
+**T-01…T-12 (sens canonique) :**
+| T | Sens | État |
+|---|---|---|
+| T-01 | Investigation + contrat Nora | PARTIAL |
+| T-02 | Refus Pilote sans effet | PARTIAL (Exécution Non) |
+| T-03 | Autorisation contrat exact | PARTIAL |
+| T-04 | ACK perdu sans second envoi | PG PASS |
+| T-05 | Mission longue navigateur fermé | NOT PROVEN |
+| T-06 | STOP effets partiels | PARTIAL |
+| T-07 | Tests non vérifiés → D8 refuse | PARTIAL |
+| T-08 | Contradiction Git/rapport | PARTIAL (qualify) ; F Cursor NOT_IMPL |
+| T-09 | Unique revue Nora | PARTIAL (synthesis≠D3) |
+| T-10 | Reprise discussion | PARTIAL |
+| T-11 | Web sans exfiltration | PARTIAL SCRIPTED |
+| T-12 | Deux Pilotes / dépôt partagé | NOT PROVEN |
+
+## 4. Contrôle transversal des 56 scénarios de recette fonctionnelle
+
+Les cas **Q-01…Q-56** du contrat fonctionnel ML5 sont la matrice de comportements de référence. Après chaque livraison, contrôler **les scénarios réellement dans le périmètre de la tentative** ; au bilan ML5, vérifier que chaque cas pertinent est couvert, reporté avec preuve ou EXCLU sous arbitrage Morris.
+
+| Scénarios source | Familles principalement concernées |
+|---|---|
+| Q-01…Q-07 | A / D — mandat, initiative, correction et refus d'auto-relance |
+| Q-08…Q-18 | A / B / C / D / F — cognition transverse, sources, longueur, provenance |
+| Q-19…Q-23 | B / I — recherche web, dates, sécurité, indisponibilité |
+| Q-24…Q-26 | C / H — activité annoncée/observée, sas et documents |
+| Q-27…Q-33 | D / E / H — visionneuse, confirmation, autorité, tentative et cycle |
+| Q-34…Q-38 | G / H — résultats, preuves, avis, réception et retour Nora |
+| Q-39…Q-41 | E / C / I — reconnexion, STOP et activité LIVE sobre |
+| Q-42…Q-48 | F / G / I — Git, handoff, pièces, contrôle D8 et continuité |
+| Q-49…Q-56 | D / E / G / I — transmission intégrale, administration Cursor, MCP conditionnel, reprise et restitution |
+
+**Condition d'intégrité de couverture :** une ligne A–I ou un scénario Q applicable ne peut disparaître sans trace d'un arbitrage explicitement attribué. Une mention « réalisé » sans ref et preuve n'est jamais `VERIFIÉ`.
+
+## 4 bis. Revue de conformité transversale et contrat d'acceptation — R-002 (23/11/2026)
+
+**Contrat d'acceptation intégré candidat :** [Cognition et réalisation gouvernée](./contrat-acceptation-cognition-et-realisation-gouvernee.md). Le présent registre demeure le **seul index de couverture des 99 exigences**. Les 12 cas intégrateurs du contrat d'acceptation sont des regroupements d'oracles de qualification, **pas** un remplacement des Q-01…Q-56 ni des PF propriétaires.
+
+**État reconstitué (sources : deux Review Packs FULL distants) :** 44 PARTIEL, 1 EC, 54 NV, **0 VÉRIFIÉ** au niveau d'acceptation complet. Les preuves unitaires/PostgreSQL ne valent ni BROWSER, ni F2, ni LIVE SDK, ni REAL GitHub. Les statuts des lignes ci-dessus reprennent les changements explicitement tracés dans les diffs des deux handoffs. **Le HEAD produit local `6cf33e99…` n'a pas été lu directement par ChatGPT : son tree, son état et ses tests restent NON OBSERVÉS indépendamment.** Les tests PASS sont déclarés dans les rapports.
+
+| Famille | Total | PARTIEL | EC | NV | Résultat produit manquant |
+|---|---:|---:|---:|---:|---|
+| A — Conduite cognitive | 12 | 3 | 0 | 9 | Investigation Nora et préparation réelle du contrat |
+| B — Recherche web | 9 | 2 | 0 | 7 | Isolation publique et lecture WEB LIVE |
+| C — Activité Nora | 8 | 2 | 0 | 6 | Observations outils, fil courant et reconnexion |
+| D — Contrat / autorité | 12 | 10 | 0 | 2 | READY établi côté serveur, inspection 50/50, fidélité intégrale |
+| E — Cursor SDK / D7 | 15 | 14 | 0 | 1 | ACK perdu sans double effet, supervision, LIVE confiné |
+| F — Git Cursor / D9 | 9 | 0 | 0 | 9 | Choix A/B et continuité par SHA vérifiés |
+| G — Handoff / D8 | 15 | 12 | 1 | 2 | Provenance, inventaire probant, D8 révisable et avis Nora |
+| H — UX Figma | 8 | 1 | 0 | 7 | Surfaces Exécution/Résultats distinctes et F2/BROWSER |
+| I — QA/gates | 11 | 0 | 0 | 11 | Parcours intégré, non-régression et preuves par niveaux |
+| **TOTAL** | **99** | **44** | **1** | **54** | **Aucune réception ML5** |
+
+**Écart UX vérifié directement sur Figma :** page 12 (14 frames) présente Travail 50/50 (12.02), **Exécution distincte** (12.04, 12.05, 12.06, 12.07, 12.14) et **Résultats & preuves distincts** (12.08, 12.11, 12.12, 12.13). Le code rapporté monte `CursorRealizationSurface` sous `?surface=publication` et utilise quatre onglets D8 différents. **Conformité structurelle et F2 NON PROUVÉES.** Les extraits Figma ne sont pas des captures runtime.
+
+**Contrats propriétaires à recroiser impérativement :** R2 D3/D4/D5/D6/D7/D8/D9 ; `PF-REAL-01…30`, `PF-PRV-01…32`, scénarios gouvernance et Git applicables. Les invariants ML4, ENV-01 et les réserves antérieures continuent de s'appliquer.
+
+**Trajectoire recommandée (même macro-lot, pas de micro-gates inventés) :** sécuriser effets/READY/qualification, raccorder Nora et les parcours visuels, rendre les preuves D8 effectivement consultables, qualifier les frontières réelles selon les mandats, puis réconcilier le registre et les scénarios. Git B (publication gouvernée D7/D9) reste **RECOMMANDÉE NON ARBITRÉE**. Aucune architecture, migration structurante ou promotion n'est adoptée par ce document.
+
+## 5. Journal des livraisons et revues
+
+| ID | Date | Contrat Cursor / cycle | Branche / HEAD / build | Review Pack / handoff | IDs revus | Verdict et réserves |
+|---|---|---|---|---|---|---|
+| R-001a | 23/11/2026 | ML5 socle vertical — CRITICAL | `sfia/next-ml5-integrated-delivery-20261123` / `69aeb329…` local rapporté ; aucune publication projet | [Review Pack 1 @ d731c1d7](https://github.com/mcleland147/sfia-workspace/blob/d731c1d77016b4585dda1b96051f949478f67b8e/sfia-review-handoff/latest-chatgpt-review.md) | A–I, Q applicables, socle D/E/G | ML5 PARTIAL — GOVERNED GAPS ; 17 tests unitaires rapportés ; BROWSER/LIVE/REAL non prouvés |
+| R-001b | 23/11/2026 | ML5 consolidation P0/UX initiale — CRITICAL | même worktree, HEAD local `6b7dac12…` dans pack et `6cf33e99…` rapporté ensuite ; non lu directement | [Review Pack 2 @ 2b2d27f6](https://github.com/mcleland147/sfia-workspace/blob/2b2d27f6e8b2495adcccd4677078a8b77670b4b5/sfia-review-handoff/latest-chatgpt-review.md) | A–I et 56 Q selon pack ; 29 unit + 7 PG PASS **rapportés** | ML5 PARTIAL — GOVERNED GAPS ; P0 DEV partiels, F2/BROWSER/LIVE/REAL ouverts |
+| R-002 | 23/11/2026 | Revue de conformité fonctionnelle/UX/architecture D0 + intégration documentaire D1/D2 candidate | Branch documentaire de revue, `main` inchangé ; SHA commit à relever après écriture | Même deux Review Packs + Figma page 12 (lecture) | 99 exigences + Q-01…Q-56 + PF propriétaires à recouper | 44 PARTIEL / 1 EC / 54 NV ; contrat d'acceptation **CANDIDAT**, non réceptionné |
+| R-003 | 23/11/2026 | ML5 convergence intégrée — CF-02/03, Nora prepare, surfaces Exécution/Résultats, D8/Nora | `sfia/next-ml5-integrated-delivery-20261123` worktree local (HEAD post-cycle à figer) ; push projet **interdit** | Review Pack 3 → `sfia/review-handoff` (publish-in-cycle) | A03/A09/D01/D02/E09/G12–G14/H03–H06/I03 + CF-02/03 | ML5 PARTIAL — GOVERNED GAPS ; PG 8 PASS ; unit 25+ ; BROWSER/F2/LIVE/REAL ouverts |
+| R-005 | 23/11/2026 | ML5 cycle 5 — Travail 50/50, activité RUNNING, B1 URL, G15 requalify, supervision poll | même worktree DIRTY ; HEAD `6cf33e99…` | Review Pack 5 → `sfia/review-handoff` | Impl 1/81/17 ; BROWSER/F2 NOT RUN | ML5 PARTIAL — GOVERNED GAPS |
+| R-004 | 23/11/2026 | ML5 complétude — inventaire 99, P0 sendIntent, provenance sources, B1 frontier, synthèse≠Nora | même worktree DIRTY ; HEAD entrée `6cf33e99…` | Review Pack 4 → `sfia/review-handoff` | Impl **1/74/24** (réconcilié explore + cycle 4) ; T-01…T-12 corrigés | ML5 PARTIAL — GOVERNED GAPS ; unit 53 + PG 9 ; BROWSER/F2/LIVE ouverts |
+
+Un **Review Pack SFIA v2.6 FULL** est attendu lorsque le profil Critical est justifié ; `.tmp-sfia-review/chatgpt-review.md` reste la source mono-cycle, avec Review Handoff L3 distinct de l'historique produit Studio. Ne jamais considérer un résumé seul comme contenu complet des fichiers modifiés.
+
+## 6. Registre d'écarts, corrections, réserves et dette
+
+| ID | Date/lot | Exigence(s) | Fait/écart constaté (≠ hypothèse) | Gravité | Preuve et SHA | Responsable / correction | Exit / état |
+|---|---|---|---|---|---|---|---|
+| CF-01 | R-002 / ML5 | A01–A12, D01 | Nora ne prépare pas encore de contrat à partir d'une investigation et des sources effectivement qualifiées | MAJEUR | Packs → cycle 4 | bridge + tool-source-journal (CONSULTED from reads) ; fake count removed | LIVE multi-sources + BROWSER ; PARTIEL |
+| CF-02 | R-002 / ML5 | A09, D02, D11 | READY dépend d'indications client (`sourcesSufficient`, `unknownRestrictions`) | BLOQUANT EFFET | Pack 2 → cycle 3 | `technical-contract-server-ready` + route `/ready` ; client flags ignorés | BROWSER + rights revoked still open ; REMEDIATED DEV / PARTIEL |
+| CF-03 | R-002 / ML5 | E09–E10 | Chemin `AMBIGUOUS → DISPATCHED` potentiellement redéclenchable après ACK perdu | BLOQUANT LIVE | Pack 2 → cycle 3 | `priorSendMayHaveOccurred` + SQL fence ; PG T-04 PASS | LIVE SDK still open ; REMEDIATED DEV / PARTIEL |
+| CF-04 | R-002 / ML5 | B01–B09 | Web B1 désactivé ; variable ISOLATION_PROVEN non équivalente à une barrière sûre | BLOQUANT B1 LIVE | Pack → cycle 4 | `public-web-search-frontier` query-only SCRIPTED + outbound log ; hosted tool détaché ; WEB LIVE gated | WEB LIVE Morris gate ; REMEDIATED DEV SCRIPTED / PARTIEL |
+| CF-05 | R-002 / ML5 | C01–C08 | Activité annoncée/fin de tour, événements outil et reprise incomplètes | MAJEUR | Pack 2 | Cursor : observer outils D3, préserver C1 | BROWSER sas/projet pendant RUNNING/reconnexion ; OUVERT |
+| CF-06 | R-002 / ML5 | D09–D10, H01–H08 | Travail 50/50, Exécution et Résultats distincts de Figma ; F2 absent | MAJEUR UX | Figma page 12 + pack 2 | Cursor : composants propriétaires, L1/L2, BROWSER F2 | 14 états qualifiés par frame/fixture ; OUVERT |
+| CF-07 | R-002 / ML5 | E05–E08, E12/E15 | Supervision run long et SDK LIVE confiné non démontrés | BLOQUANT LIVE | Pack 2 / qualification C9 bornée | Cursor : prouver supervision/reprise, MCP seulement si requis | Browser fermé/crash/STOP, identités réelles ; OUVERT |
+| CF-08 | R-002 / ML5 | F01–F09 | Publication Git Cursor et continuité non implémentées ; option A/B ouverte | GATE MORRIS | Pack 2 / R2 D9 | Morris : arbitrage A/B ; Cursor prépare blast radius | Permettre continuité par SHA sans privilège tacite ; OUVERT |
+| CF-09 | R-002 / ML5 | G01–G11/G15 | Provenance client-déclarée, dossier et D8 pas réellement recoupés et révisables | MAJEUR | Pack 2 | Cursor : acquisition serveur / recoupement D9-D8 | PF-PRV contradictions/preuve tardive ; OUVERT |
+| CF-10 | R-002 / ML5 | G12–G14 | Brief déterministe distinct du véritable avis Nora, absent | MAJEUR | Pack → cycle 4 | Classification corrigée (DETERMINISTIC_SYNTHESIS ≠ NORA_COGNITIVE) ; prompt D3 prêt | Run Nora D3 LIVE encore ouvert ; PARTIEL |
+| CF-11 | R-002 / ML5 | I01–I11, Q-01…Q-56 | Pas de preuve BROWSER/F2/LIVE/REAL ni matrice PF complète | GATE QA | Packs 1–2 | Cursor : preuves multi-niveaux par exigence | Qualifier toutes exigences et les PF sans auto-réception ; OUVERT |
+| CF-12 | R-002 / ML5 | Gouvernance | `main` snapshot Gate C ancien ; code ML5 local ; pas de push produit | SYNCHRO GOUVERNÉE | Git refs vérifiées | Morris : GO séparé si synchronisation normative | Pas de merge/recette/adoption implicite ; OUVERT |
+
+Chaque réserve transférée comporte **propriétaire, impact, preuve attendue, condition de sortie et moment de relecture**. Une correction technique ne déclenche pas de nouvelle tentative Cursor sans GO lorsqu'un nouvel acte d'effet est requis.
+
+## 7. Vigilances initiales (risques, non défauts constatés)
+
+| ID | Attention particulière de revue | Condition de vérification |
+|---|---|---|
+| V-01 | Contrat long | Empreinte/version : texte inspecté = texte envoyé, sans troncature liée à `replyDraft`. |
+| V-02 | ACK perdu / crash SDK | Tentative unique, fencing, run retrouvé ou état UNKNOWN, jamais nouveau dispatch aveugle. |
+| V-03 | Réutilisation D7 | Étendre le propriétaire d'effets/tentatives existant, pas un deuxième moteur. |
+| V-04 | Handoff | Diff complet, inventaire toutes créations/modifications/suppressions et artefacts lisibles, D8 réellement recoupé. |
+| V-05 | Web | Provenance réelle, non-exfiltration, compatibilité SDK/effort et limites de lecture. |
+| V-06 | Activité Nora | Événements effectivement accessibles pendant le travail, sans streaming ou progrès fictifs. |
+| V-07 | MCP headless (conditionnel) | **Non bloquant global ML5** : administration MCP dans Cursor Desktop conservée ; vérifier seulement la mission MCP concernée et les droits effectifs du SDK. |
+| V-08 | Figma | **Méthode v1.1 obligatoire** : L0/L1/L2, actifs/icons exacts, PNG source hashé, DOM/F2 ≤2 px des rectangles stables, comparaison par région et BROWSER au même état. |
+| V-09 | Git réel | Publication distante seulement si mission Git et mandat ; SHA vérifié, local non publié distingué, aucun PR/merge induit. |
+
+## 8. Réception et clôture de couverture
+
+- [ ] Chaque exigence applicable A–I possède statut, preuve, source et limite.
+- [ ] Les Q-01…Q-56 applicables ont une couverture, une réserve ou une exclusion Morris explicite.
+- [ ] Aucun `PARTIEL/BLOQUÉ/NV` n'est masqué par un verdict global ; décision de report explicite et condition de sortie.
+- [ ] Un parcours intégré Nora → contrat → acte D6 → Cursor SDK → fin/interruption → D7/D9/D8 → avis Nora est éprouvé au niveau demandé.
+- [ ] Les preuves UX/browser et REAL concernées sont attribuées aux bons SHA/build, avec non-régression des parcours existants.
+- [ ] Rapport SFIA v2.6 complet et handoff distant vérifié ; différences entre processus externe et handoff Studio conservées.
+- [ ] Code/tests/architecture/UX/as-built synchronisés ; dette et capacité suivante qualifiées.
+- [ ] Décision Morris de réception, intégration, promotion et adoption traitée séparément.
+
+**État courant R-002 (d'après rapports, sans accès au worktree local) :** `ML5 PARTIAL — GOVERNED GAPS / 44 PARTIEL / 1 EC / 54 NV / NO VERIFIED / NO BROWSER F2 LIVE REAL / NO PR-MERGE-CUTOVER-RELEASE / NOT ADOPTED`. L'état historique initial était ALL 99 NV ; les états présentés ci-dessus ne constituent pas une preuve d'acceptation.
+
+**Hors périmètre de ce document :** nouvelle doctrine, architecture physique adoptée, ordre impératif de micro-lots, auto-acceptation, PR/merge, mutation/runtime, gestion MCP Studio universelle.
+
 ```
 
+### `projects/sfia-studio-next/architecture-technique/conducteur-cognitif-et-production-nora.md` (complet, 41461 octets)
 
-## 7. Fake/Real Qualification
+```md
+# SFIA Studio Next — ML5 : conception intégrée du conducteur cognitif et de la production Nora
 
-| Frontière | Niveau |
+| Champ | Valeur |
 |---|---|
-| PG cognitive work | INTEGRATION PROVEN (e2e DB) |
-| Suffisance READY | DETERMINISTIC PROVEN |
-| WEB DNS/stream | DETERMINISTIC (+ LIVE open hérité C14) |
-| Conducteur multi-segment LIVE | PARTIAL / NOT RUN campagne dédiée C15 |
-| Reprise redémarrage serveur | PARTIAL (mécanisme code+PG ; demo boot non rejouée) |
+| Date | 24 novembre 2026 |
+| Périmètre | R5 / ML5 « Réalisation technique gouvernée avec Cursor » — lot de convergence 1 de la revue post-C14 §9 |
+| Nature | Complément de conception et contrat de réalisation du périmètre cognitif ; ni nouveau macro-lot, ni nouvelle doctrine, ni registre de couverture concurrent |
+| Autorité | Morris : option B (conducteur adaptatif), option C (persistance cognitive D3 dédiée dans PostgreSQL), option C (production adaptative indépendante de la réponse) validées explicitement en conversation ; GO de principe de construction du lot et GO Git pour ce nouveau document |
+| Statuts | **VALIDATED IN CONTENT** pour ces trois orientations ; **DOCUMENTED / CANDIDATE** pour la déclinaison ci-dessous ; choix physiques détaillés à qualifier sur le code local ; aucun IMPLEMENTED, COVERAGE VERIFIED, BEHAVIOR PROVEN ou ADOPTED induit |
+| Base documentaire | `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; branche de conception `sfia/next-nora-cognition-cursor-contract-candidate@017a77e9b4cba12ff3cacb41873bbbdf64822d64` ; branche de conformité `sfia/next-ml5-conformity-acceptance-candidate@37edb41329526d07134a802f8f73e7371c941c16` avant création |
+| Source technique | Review Handoff `78f60e40f466b520ac0381d5d27e212bd2fa5695`, blob `01961de12b10dc1d8802a2ba24bc5095a51b4949` (237 fichiers, snapshot post-C14). Code local de la branche `sfia/next-ml5-integrated-delivery-20261123`, HEAD rapporté `6cf33e9923796974b9ee540a9c6ff27110342950`, 97 DIRTY rapportés ; worktree **NON OBSERVÉ** par ChatGPT, ref distante non résolue |
+| Autorisation | Création de ce fichier seulement, sur branche documentaire de conformité existante ; pas de modification des autres sources, publication de code, PR, merge, cutover, promotion, release ou ADOPTED. Mandat Cursor instancié séparément sous SFIA v2.6 ; aucune opération externe induite |
 
-DETERMINISTIC ≠ READY FOR REAL. LIVE provider ≠ END-TO-END REAL PROVEN.
+## 1. Rattachement canonique et continuité ML5
 
-## 8. Risques / réserves / exit
+Ce complément **précise la réalisation** des axes A (cognition), B (WEB), C (activité), D (contrat) déjà définis dans ML5. Il ne remplace ni la spécification fonctionnelle, ni l'architecture initiale, ni le registre, ni le contrat d'acceptation. La capacité suivante reste la réalisation et restitution autonomes (lot 2), puis la qualification intégrée (lot 3), **dans le même ML5**. Le but est de finir le produit engagé, pas de démarrer une nouvelle reconstruction.
 
-- LIVE intégré sas/projet/document/contrat multi-segments : à approfondir
-- Production document D4 multi-parts : socle production_json présent ; parcours E2E PARTIAL
-- Ambiguïté multi-travaux sans workId explicite : crée nouveau travail (pas de fusion)
-- F2 / lot 2 terminal D7→D8 : hors périmètre
+### Sources opposables et lecture prioritaire
 
-## 9. Décisions Morris
+- [SEF v0.2](../governance/SEF.md) §§4–7, 9–10 ; [Roadmap](../governance/roadmap.md) ; [convention de nommage](../governance/product-naming-conventions.md) ; [ADR R4-01..04 et DATA-01](../governance/decisions/2026-11-04-r4-architecture-exit.md). PostgreSQL unique, module D3, propriétaires D1–D9, continuité V-A, intégrité et contrôle humain demeurent.
+- [Spécification fonctionnelle ML5 actualisée, §§3–7, 13, 20–22](https://github.com/mcleland147/sfia-workspace/blob/017a77e9b4cba12ff3cacb41873bbbdf64822d64/projects/sfia-studio-next/conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md), blob `fcad5935ab9b30d347b549a79f5a9812dcbd3b13`.
+- [Architecture ML5 actualisée, §§15–21](https://github.com/mcleland147/sfia-workspace/blob/017a77e9b4cba12ff3cacb41873bbbdf64822d64/projects/sfia-studio-next/architecture-technique/qualification-ecarts-cognition-transverse-et-execution-cursor-ml5.md), blob `75b2fe926bb9ed39ad14b055aca9d1e1cfbda526`. Le présent complément prolonge spécialement §15 et §21.1–21.5, sans remplacer les contrats B1/C1/D ni les exigences antérieures.
+- [Décision Git A / session DEV locale](https://github.com/mcleland147/sfia-workspace/blob/017a77e9b4cba12ff3cacb41873bbbdf64822d64/projects/sfia-studio-next/governance/decisions/2026-11-23-ml5-cursor-git-direct-et-session-dev-automatique.md) ; R-004 (interdiction des déclencheurs lexicaux décisionnels), dans les addenda précités.
+- [Revue approfondie post-C14](../construction/ml5-revue-approfondie-conformite-post-c14.md) §§3–10, blob `54a77c4dc61c4a4a886f55b0a93cd51cfba9955e` ; [registre unique des 99 exigences](../construction/ml5-registre-couverture-et-revue-developpement.md), blob `2c2485630332d91863ab7acb9f35e655503a131f` avant contribution ; [contrat d'acceptation](../construction/contrat-acceptation-cognition-et-realisation-gouvernee.md), blob `50d3125a94c0782644d9372a82fa8935285c1b31`, en particulier §8. Les IDs A–I, Q-01…56, T-01…12, CA-01…10 et PF propriétaires restent les références ; aucune nouvelle matrice normative.
+- [Snapshot post-C14](https://github.com/mcleland147/sfia-workspace/blob/78f60e40f466b520ac0381d5d27e212bd2fa5695/sfia-review-handoff/latest-chatgpt-review.md). Les constats statiques ne sont pas des observations runtime. Les preuves C1–C14 restent bornées à leurs scénarios.
+- R2 propriétaires sur main : [D3](../conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md), [D4](../conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md), [D5](../conception-fonctionnelle/trajectoire-cycles-et-guidance-cki.md), [D6](../conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md), [D7](../conception-fonctionnelle/realisation-operationnelle-gouvernee.md), [D8](../conception-fonctionnelle/resultats-et-preuves.md), [D9](../conception-fonctionnelle/integration-git-gouvernee.md). ENV-01, versioning et contrat d'observabilité transverse restent applicables.
 
-Aucune nouvelle décision structurante requise pour clôturer l'infra C15.
-Suite : revue ChatGPT puis GO éventuel qualification LIVE élargie / lot 2.
+**Écart documentaire connu :** les deux branches candidates divergent (ancêtre commun `0f1d37c3b055371c84c1f30e9bebe3d0efee41b2` ; comparaison conception→conformité : +5/−3 commits avant contribution). La branche de conformité contient les versions antérieures de l'architecture et de la spécification, sans leurs derniers addenda ; les liens figés ci-dessus désignent donc les versions applicables. Le présent ajout se place à côté du registre et de la revue consolidée, sans créer une troisième branche, ni merger, ni remplacer des fichiers. Cursor réconcilie les copies locales et les sources approuvées dans le même travail sans écraser les modifications C1–C14 ; intégration distante des branches sous GO séparé. Roadmap main : Gate C OPEN dans son instantané E08 ; registre candidat : Gate C accepté avec réserves et GO ML5 du 23/11. Ce décalage documentaire n'est ni une révocation de la décision ni une autorisation de merge.
 
-## 10. Instruction ChatGPT
+## 2. Résultat et périmètre de convergence
 
-`sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md`
+**Résultat Pilote :** Nora traite une demande simple directement ; pour un travail complexe, elle comprend, investigue, approfondit, adapte ses moyens, conserve ses acquis et termine un résultat intégral, ou expose une suspension honnête et reprend sans perdre ce qui est établi. Cela fonctionne dans le sas, le projet, la connaissance/documentation, le pilotage/décisions, la préparation technique et le bilan. Le Pilote ne découpe pas une demande selon les limites du fournisseur.
 
-Vérifier cycle C15, HEAD, créations/modifications, migration 020, READY positif, WEB P0, preuves et réserves.
+**IN** : conducteur D3 commun (A01–A12), sources D4/historique/Git/D8, frontière WEB B1 (B01–B09), activité existante C1 (C01–C08), production intégrale et contrat/READY (D01–D08 selon impact), non-régression des autres familles et propriétaires, sécurité, tests, documentation et preuve. Prioriser P0 : frontière d'egress et accès, suffisance/READY, identité/version/ownership. Aucun recours à Cursor par Nora pour une tâche intellectuelle qu'elle peut conduire elle-même.
 
----
-*Fin Review Pack C15 FULL — aucun secret.*
+**OUT** : automatisation complète terminal→handoff→D8/D9→avis (lot 2) ; réécriture D7/D8, nouveau publisher Git, gestionnaire MCP, refonte UX F2, nouvelle lane, migration RECETTE/STABLE, publication du code produit, PR/merge, release, adoption. Les risques P0 rencontrés à une interface sont bloquants pour son usage ; les risques hors périmètre sont tracés, non réputés fermés. La qualification de lot 1 ne vaut pas qualification complète ML5.
+
+## 3. Préservation du capital C1–C14
+
+Réutiliser, corriger et éprouver les éléments présents ; ne supprimer ni substituer un mécanisme éprouvé sans motif et preuve de non-régression. Les références de détail et de preuve restent le registre et la revue §8, pas une reclassification nouvelle.
+
+| Capital | Réutilisation et garde-fou |
+|---|---|
+| C1–C8 : construction progressive des axes A/B/C/D, état d'investigation, outils et provenance, projection d'activité, contrat et contrôles serveur, frontières Git/DEV, handoff initial | Examiner le contenu local et les tests avant changement ; prolonger les responsabilités existantes. Le statut rapporté C6 1/92/6 est historique. Les contrôles partiels ne deviennent pas preuves globales. |
+| C9/C10 : qualification SDK sandbox, parcours BROWSER scripted, vue 50/50, inspection, Oui/Non, quatre onglets et retour contextualisé | Préserver l'accès et les interactions minimales. Pas de nouvelle UX concurrente. F2 reste dû selon gate UX, pas revendiqué. |
+| C11 : Agents SDK LIVE, D6 refus et autorisation, Cursor SDK LIVE, témoin de fichier, handoff et avis Nora | Conserver adaptateurs, D6, identité et tentative ; intégrer le futur conducteur au point d'entrée avis, sans prétendre automatisation de la chaîne D8. |
+| C12 : second module, ACK-first/reconnexion, identité stable, DROP_ACK déterministe, analyse Nora | Pas de redispatch ou de rejeu d'effet en reprise cognitive ; distinguer déterministe et panne réelle. |
+| C13 : run long et STOP LIVE sans navigateur, superviseur in-process, confinement statique D8, provenance ; 72 unitaires et 17 PG ciblés rapportés | Ne pas réécrire les mécanismes D7 pour ce lot. Préserver les contrôles, ne pas prétendre reprise boot ou confinement concurrent déjà prouvés. |
+| C14 : neutralisation de déclencheurs lexicaux, outil sémantique de préparation, WEB LIVE raccordé, DRAFT et refus sans READY ; 31 tests unitaires rapportés | Étendre la conduite sémantique, le fournisseur public, l'activité et les contrats existants ; ne pas revenir à un détecteur, au fallback lexical ou à un nouveau moteur. |
+
+Références de preuves bornées : [C11](https://github.com/mcleland147/sfia-workspace/blob/f9dfcaaad90470e046d95a9d0a93115341a750d3/sfia-review-handoff/latest-chatgpt-review.md), [C12](https://github.com/mcleland147/sfia-workspace/blob/45311f75dad80e19f76ae09adfb1da387514531f/sfia-review-handoff/latest-chatgpt-review.md), [C13](https://github.com/mcleland147/sfia-workspace/blob/e3ed518b55ecda9430c862cda063052f94da8e7c/sfia-review-handoff/latest-chatgpt-review.md), [C14](https://github.com/mcleland147/sfia-workspace/blob/47a4bdbe2690c09023f130e0b8c1d8c9295d9480/sfia-review-handoff/latest-chatgpt-review.md). Présence post-C14 rapportée 2 IMPLEMENTED / 97 PARTIAL / 0 NOT_IMPL (E13, B09) : ni pourcentage d'avancement, ni couverture de conformité indépendante.
+
+## 4. Arbitrages de conception validés en contenu
+
+| Décision | Retenu | Alternatives écartées pour ce périmètre |
+|---|---|---|
+| Conduite — B | Un conducteur D3 adaptatif, un ou plusieurs segments techniques Agents SDK pour le même travail logique. | Run unique simplement agrandi ; orchestration multi-agents généralisée. |
+| Continuité — C | Persistance dédiée aux travaux cognitifs D3 dans la base PostgreSQL active ; identité distincte du tour, checkpoints versionnés. | Snapshot unique de préparation comme autorité ; stockage de toute la cognition dans les seules commandes de tour. |
+| Production — C | Mode de production adaptatif du même conducteur ; résultat métier intégral distinct de la réponse conversationnelle. | Appel unique obligatoire ; découpage systématique section par section. |
+
+Les décisions valident les **responsabilités et invariants**, non un nombre de tables, une queue distribuée, un modèle précis ou un API fournisseur non observé. Le choix physique minimal, le plan de migration et le cycle de vie serveur sont détaillés par Cursor au préflight ; STOP si un pivot, un nouvel environnement, une nouvelle frontière d'autorité ou une politique globale de coûts/sécurité doit être arbitrée. Aucun nom de classe/table illustratif n'est imposé. Convention de nommage validée : responsabilité durable, pas de nom permanent par cycle/chantier historique.
+
+## 5. Architecture logique : un seul conducteur D3
+
+```mermaid
+flowchart TD
+  P[Pilote / appel propriétaire] --> E[Entrée D3 : objectif et contexte autorisé]
+  E --> C[Conducteur cognitif adaptatif]
+  C <--> S[État du travail et checkpoints D3]
+  C <--> A[Agents SDK et outils autorisés]
+  A <--> R[D4 / historique / D5-D6 lecture / D8-D9 lecture / WEB public]
+  C --> K[Consolidation et suffisance]
+  K -->|travail utile restant| C
+  K -->|limite / incertitude| S
+  K -->|résultat| O[Réponse et/ou proposition métier intégrale]
+  O --> V[Validation et persistance par propriétaire]
+  V --> D[D6 autorité distincte si effet requis]
+  D --> T[D7 effet autorisé uniquement]
+```
+
+Schéma logique, pas une séquence métier obligatoire. Un traitement simple peut terminer dans le premier segment. Les fonctions de qualification, conduite, continuité, production et restitution sont des responsabilités internes du même D3, non des services autonomes. Le conducteur peut revenir aux sources durant la rédaction.
+
+### Interfaces et raccordement à l'existant
+
+Chemins relatifs à `web/src/domains/` sauf mention. Les noms actuels sont observés dans le snapshot, leur existence/état local sont à confirmer.
+
+- `conversation/nora-adapter.ts` et `cognitive-policy.ts` : adapter SDK, politique et budgets ; remplacer le profil fixe analyse/medium (snapshot L809–818) par allocation sémantique et ressources contrôlées. Préserver fournisseur, classification d'erreur et refus de retry aveugle après contact incertain.
+- `conversation/service.ts` (L20121–20272) : entrée principale, réserver/identifier le travail et transmettre le contexte propriétaire ; ne pas limiter la compréhension aux six extraits de 200 caractères et cinq titres ; ne pas masquer un échec de production dans un catch silencieux.
+- `conversation/intent-conduction.ts` (L13150+) : continuation sas→projet ; utiliser le même conducteur avec contexte et droits résolus, pas un chemin simplifié sans outils ; préserver corrélation, effet D2 et D4 existants.
+- Route `app/api/projects/[projectId]/realization/attempts/[attemptId]/qualification/route.ts` (snapshot L46833+) : avis Nora via même conducteur, contexte exact de tentative/qualification/rapport ; conserver avis consultatif et versionné. L'automatisation terminale relève du lot 2.
+- `conversation/semantic-qualification.ts` : conserver qualification structurée et frontières propriétaires ; dissocier contenu long de l'enveloppe conversationnelle. Pas de fallback lexical sur sortie invalide.
+- `conversation/investigation-state.ts`, `investigation-persistence.ts`, `tool-source-journal.ts` : compléter l'état, remplacer la persistance générique comme autorité, conserver observations versionnées ; voir §7.
+- `conversation/turn-command.ts` : identité de tour, fencing transactionnel, heartbeat et replay ; réutiliser les mécanismes adaptés sans confondre tour et travail. `activity-projection.ts` : conserver projection/polling et événements réels.
+- `document/service.ts` : création/révision, corrélation et provenance scellée ; D4 reste propriétaire du document. `knowledge/service.ts` : capitalisation sélective et sujets ; pas de mémoire projet concurrente.
+- `conversation/nora-contract-bridge.ts`, `execution/nora-contract-prepare.ts`, `technical-contract-server-ready.ts`, `technical-contract-fingerprint.ts`, `technical-contract.ts` : raccorder le résultat métier spécifique, supprimer assemblage générique substitutif et troncatures, qualifier DRAFT/READY lié au travail et à la version ; préserver structure canonique, D6 et D7.
+
+## 6. Allocation et conduite adaptatives
+
+Le serveur résout d'abord identité, scope, lane, outils réellement accessibles et politique de ressources. Nora qualifie sémantiquement intention, résultat, risques, profondeur et stratégie. La qualification initiale peut être intégrée au premier segment pour une demande simple ; aucun appel de classification obligatoire pour chaque message. La mobilisation effective du modèle/effort et la possibilité de reprendre/changer de paramètres dépendent du SDK installé : vérifier lockfile, API et signaux exposés, ne pas inventer de capacité. Un effort initial révisable n'est pas une règle métier fixe.
+
+Pour une continuation, Nora fournit une synthèse de travail exploitable : objectif, acquis référencés, questions, lacunes, contradictions, restrictions, résultat partiel, besoin et justification de moyens supplémentaires. Le serveur valide forme, périmètre, consommation et possibilité de continuer. La décision cognitive de poursuivre n'est pas une condition regex, nombre de caractères ou quota de critères. Rechercher la valeur informative marginale, éviter la répétition sans progrès ; si aucune continuation utile ou permise, terminer partiellement/suspendre. Une boucle technique déterministe peut garantir la sécurité et la gestion des ressources sans déterminer le sens de la demande.
+
+Distinguer : limite d'un segment, fenêtre de contexte ou limite de sortie fournisseur, validation structurelle, politique financière et de sécurité globale administrable. Le dépassement de segment ne clôt pas un travail ; la limite globale ne se réinitialise pas silencieusement entre générations. Mesurer appels, durée, tokens entrée/sortie/cache/raisonnement si exposés, coût estimé ou observé avec provenance, modèle/effort demandés et appliqués distincts ; indisponibilité explicite. Inclure appels WEB et lectures. Pas de nouveau plafond métier arbitraire ni augmentation aveugle. Tester calibration simple vs complexe avec mesure, pas un benchmark de tokens inventé.
+
+## 7. Continuité et persistance cognitive
+
+### 7.1 Contrats logiques
+
+Un travail possède une identité stable, son Pilote et scope préparation/projet, objectif, références de tours et générations, état consolidé, révision, checkpoints et résultat(s) liés. Un tour identifie une interaction/idempotence ; une génération identifie un appel fournisseur. Un travail peut se poursuivre sans nouveau tour, ou après intervention Pilote ; un nouveau sujet ne doit pas réutiliser l'état d'une autre investigation. Nora propose le rattachement sémantique ; le serveur vérifie propriété, scope et identité. Si ambiguïté déterminante, clarification ciblée. Pas de routage lexical. La continuité sas→projet respecte V-A, sans copie de fil ni changement de propriétaire implicite.
+
+Quatre vérités distinctes : D3 conversation ; D3 état cognitif (temporaire ou durable selon besoin) ; D4 connaissance durable du projet ; D6–D9 autorité, effets et preuves. L'état de travail n'est ni un journal de raisonnement privé ni une preuve ni une décision. Capitaliser D4 selon règles existantes, jamais convertir une hypothèse en fait ou une recommandation en décision.
+
+Checkpoint minimal : identité travail/tour/génération et propriétaire, révision et parent, objectif/résultat, état et cause de limite, questions déterminantes et réponses justifiées, sources effectivement lues (révision/plage/couverture), conclusions et hypothèses, contradictions, restrictions et références d'autorité, travail restant, production partielle/version, usage connu, références nécessaires à la reprise. Persisté à progrès significatif et aux frontières de segments/arrêt maîtrisé. Ne pas stocker des chaînes privées, prompts bruts indiscriminés, secrets ou des copies intégrales de sources privées inutiles ; appliquer DATA-01 et minimisation à tout checkpoint et diagnostic.
+
+### 7.2 Contrôle de concurrence et reprise
+
+Un seul écrivain applicable à un travail/révision ; lease/fence et compare-and-set transactionnel sur la version, transitions atomiques et corrélation de sortie. Réutiliser les principes de `turn-command.ts` (ownerToken, fencing, transaction, heartbeat), en distinguant les propriétaires travail/tour ; préciser ordre de verrouillage et ne pas garder une transaction ouverte pendant l'appel fournisseur. Les générations tardives ne peuvent ni écraser un checkpoint plus récent ni publier un objet après perte d'ownership. Relecture/replay idempotent, effet métier référencé par son identité canonique, pas de duplication.
+
+Un arrêt/restart, une fermeture/reconnexion, un dépassement de segment, une limite globale ou une interruption fournisseur restent distincts. Le produit reprend les travaux éligibles depuis le dernier checkpoint durable après revalidation de scope, droits, restrictions, sources et état réel du fournisseur. Le navigateur n'est pas l'autorité ni l'unique déclencheur de continuité interne ; démontrer reprise serveur. Si contact fournisseur incertain, réconcilier et signaler l'incertitude ; aucune relance aveugle ni rejeu d'effet. Si continuation légitime d'une étape read-only, nouvelle génération corrélée après qualification ; ne pas prétendre disposer d'une réponse perdue. Une demande suspendue pour limite globale/ambiguïté peut nécessiter intervention explicite du Pilote. Ne pas présenter un travail comme actif sans exécuteur observé.
+
+### 7.3 Persistance physique et transition
+
+La décision C autorise une persistance D3 dédiée dans PostgreSQL, pas une seconde base. Cursor identifie le schéma réel, migrations, contraintes et conventions, propose le minimum compatible avec les invariants ; utiliser identités/relations, révision et données structurées avec transactions. Définir plan de migration DEV et restauration avant modification, conservation des commandes, messages, connaissances, contrats et preuves ; pas de suppression de données ni de migration protégée. Les snapshots historiques `preparations.projection_json.ml5InvestigationSnapshot` peuvent être conservés comme traces/import contrôlé si l'identité et provenance sont établies. Si ambiguës, ne pas les rattacher automatiquement ni les utiliser pour READY : requalification. Bascule vers une unique vérité de travail D3, retrait de l'écriture concurrente de l'ancien snapshot ; compatibilité de lecture transitoire seulement avec exit explicite. Pas de double-write durable ni reprise de statut suffisant par défaut. Tester deux travaux dans même préparation, accès croisé refusé, redémarrage, concurrence, perte de lease et migration non destructive. R4-02 et DATA-01 applicables ; durées ou mécanismes nouveaux nécessitant arbitrage ne sont pas décidés ici.
+
+## 8. Contexte, sources, sécurité et activité
+
+**Contexte progressif :** demande et périmètre courant ; état consolidé ; connaissance D4/CKI/décisions pertinentes ; outils de lecture à la demande. Ne pas charger tout le projet par défaut. La présélection existante reste un amorçage, jamais une limite de compréhension. Nora approfondit, suit les renvois, qualifie ce qui reste inconnu. Compaction conserve références, désaccords, restrictions et questions ; ne pas perdre les éléments déterminants lors d'une réduction de contexte.
+
+**Sources :** réutiliser `d4-read-tools.ts`, `history-tools.ts`, `git-read-tools.ts`, lecture D8 et B1. Rendre lecture progressive réelle (sections/plages/pagination, version/commit/révision, contenu utile, complément). Ne pas confondre résultat de recherche, ouverture, extrait, couverture consultée, fait établi, source applicable et vérification. Absence de match lexical n'est pas absence démontrée. Le journal de sources doit conserver observations et révisions, distinguer couverture cumulée et état courant ; une révocation, nouvelle révision ou contradiction peut dégrader une source auparavant consultée. Réouvrir uniquement conclusions dépendantes. Un compteur global d'appels ne prouve pas une pièce. Supprimer le classement monotone qui masque les dégradations, sans inventer lecture ou fait.
+
+**WEB B1 (P0 avant sortie)** : garder le fournisseur raccordé C14. Public/fictif uniquement DEV tant que sécurité et confidentialité ne sont pas qualifiées. Construction des requêtes publiques séparée du contexte privé, contrôle au point d'egress ; ne pas transmettre texte privé, données projet, secrets, historique ou checkpoint au fournisseur public. Contrôle des destinations réellement contactées (HTTP(S), DNS/résolution et connexions, IP privées/locales/métadonnées, redirections contrôlées, accès indirects), délai sur lecture complète et limite effective du flux, pas de téléchargement intégral avant coupe, pagination/lecture utile et provenance. Référence issue de recherche ou URL explicitement autorisée et contrôlée. Sources externes non fiables = données, pas instructions ni autorité. Vérifier injections, accès et minimisation dans logs, événements, traces, diagnostics, prompt Cursor et toutes sorties concernées ; pas d'extension des droits de fournisseur. Confrontation sémantique des versions, dates, périmètres et contradictions ; indices lexicaux possibles comme aide de navigation, jamais comme décision cognitive. Si sécurité non démontrable, bloquer l'usage concerné et conserver résultat honnête.
+
+**Activité C1 :** conserver la projection et le polling existants. Événements corrélés Pilote/conversation/travail/tour/génération et version, ownership obligatoire pour writers applicatifs, ordre, accès, reconnexion ; annoncer vs observer vs terminer vs incertitude. Mettre à jour lors d'une dégradation/requalification source. Ne pas inventer un pourcentage, un progrès, un outil utilisé ou un raisonnement privé ; aucune journalisation brute d'informations sensibles. Un défaut du canal d'activité ne fabrique pas une vérité de travail. En cas de panne, restituer l'état réellement persistant.
+
+## 9. Production adaptative et propriétaire du résultat
+
+D3 produit une réponse conversationnelle et/ou une proposition d'objet métier à partir du même travail. Le format dépend du résultat demandé ; un seul appel si suffisant, plusieurs segments si nécessaire. Un document, contrat ou rapport volumineux ne doit pas transiter obligatoirement par `replyDraft` ou dépendre de la taille d'une sortie structurée unique. Si des parties sont produites séparément, identité et révision de la production, ordre, dépendances, complétude, consolidation et relecture globale ; aucune concaténation mécanique se substituant à la cohérence intellectuelle. Si une information manque durant rédaction, reprendre les sources. Ne pas fabriquer une deuxième vérité de document/contrat : état D3 en cours de travail, résultat canonique dans le domaine propriétaire.
+
+Préserver `NoraTurnQualificationSchema` et l'autorité des propriétaires ; adapter les interfaces de production structurée selon les contraintes réelles du SDK/Zod. Les bornes techniques de validation peuvent subsister sur un segment/objet d'enveloppe, mais ne doivent pas tronquer ni plafonner arbitrairement le résultat métier. Préserver la différence entre champ absent (non réévalué) et liste vide (réévaluée sans élément). Un échec de production est visible, partiel ou suspendu, jamais simple succès conversationnel masquant le défaut.
+
+D4 : sauvegarde/révision explicite selon contrat existant, provenance/corrélation/idempotence et versions ; une proposition D3 n'est pas un document enregistré. D5 : proposition de trajectoire, CKI et autorité inchangées. D6 : HumanDecision uniquement selon acte humain requis. D7 : contrat technique inspectable/versionné. D8 : dossier/qualification propriétaire, avis Nora consultatif. Les autres domaines restent des interfaces ; ne pas construire un nouveau moteur d'écriture.
+
+### 9.1 Contrat technique, intégralité et permissions
+
+Préparer un contrat sur demande sémantique positive, GO de préparation ou mandat correctif existant exact et borné (A03–A05). Une négation, une hypothèse ou une simple explication n'autorise ni production métier mutative ni dispatch. Un brouillon correctif peut être proposé dans un mandat existant réellement vérifié, jamais par marqueur textuel seul ; nouvelle portée, restrictions, échec répété → requalification. Aucun dispatch automatique. Préserver quatre engagements, six volets, instruction intégrale, risques/exclusions, critères spécifiques, preuves attendues, capacité/permissions/STOP/réversibilité, Git/MCP conditionnels. Le contenu est issu des acquis et du résultat utilisateur, non d'une phrase générique ou de la reprise tronquée du texte conversationnel. Supprimer plafonds arbitraires observés (24 000 caractères d'instruction, 8 critères dérivés, mission 800 chars comme limite de contenu) sans supprimer les protections de transport et de sécurité ; produire réellement plus long lorsque requis et vérifier intégralité. Un aperçu UX n'est jamais le corps transmis.
+
+D6/D7 conservent les interfaces propriétaire, mandat exact, point de dispatch et contrôle de permissions. Git option A : Cursor opère les mutations couvertes par son mandat, D9 lit indépendamment ; aucun publisher code Studio ; ML4 publication documentaire inchangée. Les opérations Git/MCP effectives restent conditionnelles à la mission et aux autorisations. Le conducteur ne peut pas contourner cette frontière.
+
+### 9.2 Suffisance positive et contrat READY
+
+DRAFT peut être inspectable avec limitations, questions ouvertes et état partiel explicites ; READY exige une qualification positive, pas l'absence de blocage renseigné. Revoir le chemin actuel qui peut refuser toute création DRAFT si insuffisant : permettre l'inspection honnête sans rendre exécutable. Pour READY : objectif/résultat compris, questions déterminantes résolues avec provenance utile, sources nécessaires/version/couverture établies, restrictions applicables vérifiées, contradictions matérielles traitées, contrat complet et critères spécifiques, droits/permissions pertinents. Une qualification absente, UNKNOWN/BUDGET_EXHAUSTED, état vide, mauvais travail, source critique manquante ou restriction inconnue ne devient pas READY. Pas de checklist lourde pour les conversations simples.
+
+Relier la suffisance à l'identité du travail et à sa révision/checkpoint, au contrat exact (id/version/fingerprint) et aux dépendances matérielles. Le serveur valide positivement cohérence, identité, version, droits et autorité ; un booléen client ou une auto-déclaration Nora ne suffit pas. Réévaluer les dépendances déterminantes à READY, à autorisation et au point d'effet ; pas de retour idempotent READY obsolète. Les lectures et transitions concurrentes doivent être protégées contre un snapshot périmé. Changement matériel → nouvelle qualification et mandat de la nouvelle version si requis. Garder trace de l'ancienne version/autorité sans la réutiliser. Vérifier l'identité exacte des octets UTF-8 de l'instruction inspectée/autorisée/transmise avec empreinte canonique, pas seulement le titre ou un compteur. D6 Oui/Non et D7 dispatch séparés ; Non sans effet. Une panne de vérification signifie non prêt, pas conformité supposée. La qualification cognitive ne vaut pas preuve de réalisation.
+
+## 10. Contrat d'acceptation du lot — références existantes, preuves discriminantes
+
+La matrice suivante **rattache** des scénarios à la couverture existante, elle ne remplace pas les CA/T/Q/PF ni les 99 lignes. Chaque preuve précise ref/worktree/build, scénario, mode, commandes/conditions et résultat/artefact, données fictives/publiques, limites et verdict. Utiliser fixtures uniquement pour propriétés déterministes ; démontrer les comportements cognitifs en DEV LIVE (pas simulateur), et les interactions utiles en BROWSER. Les seuils de reproduction d'un test (ex. >24k chars) éprouvent une limite historique, pas un plafond fonctionnel. Préserver les preuves antérieures tant que la frontière n'a pas changé ; rejouer selon impact.
+
+| Exigences existantes | Scénarios et oracles du lot 1 |
+|---|---|
+| A01–A02, A12, CA-01 | Demande simple utile, pas de délégation ou recherche artificielle ; demande complexe, paraphrases/négations, allocation réellement différenciée et évolution selon besoin ; usage réel et incertitude explicite. Limite de segment atteinte → continuation automatique du même travail si éligible, sans réinitialiser le budget global. |
+| A03–A05, D01–D02 | Préparation positive, hypothèse/négation/explication sans préparation indue ; brouillon correctif uniquement avec mandat vérifié ; changement de portée non couvert → requalification. |
+| A06–A10, B01–B05, CA-02/03 selon contrat | Plusieurs sources longues D4/Git/historique et rapport D8 selon scope, questions apparues tardivement, renvois, lecture utile et plages, contradiction et nouvelle version/révocation ; pas de lecture inventée, état de couverture exact, conclusions révisées. |
+| A11–A12, C05–C08 | Deux travaux distincts dans une préparation ; même travail sur plusieurs segments/tours ; interruption, fermeture/reconnexion et redémarrage effectif serveur ; perte d'ownership/concurrence, ancienne génération refusée ; reprise sans perte d'acquis ni effet rejoué ; budget global épuisé → suspension explicite. |
+| B06–B09 | WEB public LIVE au sein du travail Nora avec recherche et lecture effective ; injection, URL/destination interdite, DNS/redirect, timeout/flux bornés, données privées fictives interdites au point de sortie, aucun secret dans les traces ; pas de validation sur simple appel direct B1. |
+| C01–C08 | Événements réels observés pendant travail, nature et source versionnée, dégradation, ordre, reconnect et isolation deux Pilotes ; aucune progression fictive ni trace privée ; réponse simple sans suractivité. |
+| D01–D08, CA-04 | Document D4 simple et long ; contrat spécifique >24 000 caractères lorsque scénario le justifie et >8 critères utiles, tous présents ; exactitude inspecté/autorisé/transmis, échec de production visible, reprise et version sans doublon ; DRAFT partiel inspectable, état vide/épuisé/mauvais travail/source critique/révocation/contradiction → READY refusé ; requalification d'un READY matériellement changé. |
+| D09–D12, E/G/F selon impact | Préserver Oui/Non (Non sans effet), autorité, refus, isolation et interfaces de dispatch/qualification ; Git A et pas de publication non autorisée ; avis Nora sur dossier exact sans prétendre chaîne terminale autonome. |
+| H/I, CA/T/Q/PF applicables | Parcours fonctionnels sas/projet/document/contrat/bilan, accès lecture intégrale, retour conversationnel, usage DEV isolé, tests PG/API concurrence et migration, TypeScript/ESLint/build, suite propriétaire et ML1–ML4 selon blast radius. Pas de revendication F2 ni R6 globale. |
+
+Vérifier les sous-critères et IDs CA/T/Q/PF exacts avec le contrat canonique avant exécution ; les regroupements ci-dessus ne modifient aucun oracle. Inclure le cas de production tardivement contradictoire, permissions retirées avant effet, impossibilité de lire et sécurité de l'auto-session DEV (écoute restreinte effective, auth normale ailleurs). Les tests LIVE en DEV exigent configuration réellement isolée et autorisations techniques explicites en vigueur ; aucune mutation GitHub REAL, MCP mutatif, données privées WEB, dispatch sur dépôt réel ou coût hors mandat induits. Si précondition absente, preuve NOT RUN/BLOCKED honnête et STOP sur effet concerné. Le test ne doit pas injecter manuellement un résultat pour masquer une étape produit manquante.
+
+## 11. Blast radius, dette et conditions de sortie
+
+| Surface | Risque / garde-fou / exit |
+|---|---|
+| D3 / SDK / API | Multiplication de runs et coûts, modèle non vérifié, attente HTTP, incompatibilité SDK/Zod ; contrôler consommation globale, lifecycle serveur, sortie stable, mesure et test simple/complexe. Vérifier la divergence de type toolAllowlist observée et compiler. |
+| D3 / PostgreSQL | Collision, données perdues, snapshots anciens, migration ; version/fencing, sauvegarde/restauration DEV, migration non destructive, tests PG concurrence et reprise. Retirer ancienne autorité, exit de toute compatibilité transitoire. |
+| D4/D5 | Contexte tronqué, doublons, mauvais projet, dérive capitalisation/CKI ; garder droits/provenance/corrélation propriétaires et régression. |
+| D6/D7 | READY faux, ancienne autorisation, contrat incohérent, effet non permis ; bloquer par défaut si preuve/identité/permission manque, requalifier et vérifier au dispatch ; ne pas élargir permissions. |
+| WEB / D8 / D9 / logs | Exfiltration, source hostile, lecture hors scope ; contrôle au point de sortie, confinement et minimisation, droits et actualité vérifiés ; pas de nouvel usage exposé avant preuve P0. |
+| UX | Fausses activités ou faux succès, perte de lecture intégrale ; conserver parcours actuels, état honnête et relecture BROWSER. F2 non acquis, reste à sa recette. |
+| Docs / Git | Sources candidates divergentes, 97 DIRTY et réserves historiques ; réconciliation ciblée sans écraser, pas de rebase/merge/push projet. As-built, architecture et registre mis à jour dans la même livraison selon faits et preuves. |
+
+Exit du lot : résultat Pilote §2 effectivement éprouvé en DEV LIVE et interfaces BROWSER utiles, sécurité P0 du périmètre, aucune régression bloquante, preuves et réserves renseignées par exigence dans le registre unique, intégrité code/docs, limitation et dette résiduelle avec propriétaire et exit. **Les preuves non disponibles demeurent PARTIAL/NOT RUN/BLOCKED ; pas de promotion de statut par présence de fichiers.** Ne pas prétendre clôture ML5 ou acceptation de l'utilisateur. Le lot 2 consomme le conducteur versionné et la production/qualification fiables ; les preuves et le contrat de sortie restent réutilisables.
+
+## 12. Préparation du prochain mandat Cursor
+
+Morris a donné le GO de principe de construction de ce lot, distinct du mandat technique instancié. Avant changement, Cursor vérifie et restitue repo, branche, HEAD/base, statut local réel, staged/unstaged/untracked, provenance des modifications C1–C14, worktree, lane/DB, lockfile et dépendances SDK, état des migrations et des sources. Si divergence, ne pas reset, stash imposé, checkout destructif, cherry-pick automatique ou nettoyage arbitraire ; STOP pour arbitrage si identité/portée non sûre. Les fichiers de snapshot non couverts (notamment boot, lockfile, UI projet/contrat) sont à lire selon impact. Examiner les protections d'autorité existantes avant modifications.
+
+Le mandat doit être produit depuis le routing guide et le template Git SFIA v2.6 applicables ; aucun template parallèle. Regrouper conception détaillée restante, code, migrations DEV bornées, tests, preuves et synchronisation documentaire de la capacité ; dimensionner selon risques réels, pas de nombre de cycles imposé. Un profil Critical est à justifier par persistance, autorité READY et sécurité egress ; routing final selon guide. Préflight et intégration/validation sont des gates à l'intérieur d'un travail cohérent, pas des microcycles documentaires. STOP si choix physique incompatible avec R4, migration destructive, droits non bornés, conflit de version, nouvelle politique propriétaire ou risque P0 non maîtrisé.
+
+Review Pack complet mono-cycle, contenu créé intégral, modifications par sections/diff, tests et limites, reset du pack temporaire ; Review Handoff L3 selon SFIA v2.6 sur branche et chemin dédiés, SHA et relecture distante, distinct de toute publication du code projet. Synchroniser le registre, l'architecture et la documentation réellement affectés ; ne pas effacer les constats historiques. Aucun GO de PR/merge ou promotion, aucun ADOPTED automatique.
+
+**Verdict de conception : ML5 LOT 1 — DESIGN ORIENTATIONS VALIDATED IN CONTENT / DOCUMENTED CANDIDATE / IMPLEMENTATION AND BEHAVIOR PROOF PENDING.** Les travaux C1–C14 sont la base à compléter. Le résultat de construction et la suite restent soumis à revue et décision Morris.
+
+
+## As-built C15 (implémentation locale — 2026-11-24)
+
+| Élément | Fait |
+|---|---|
+| Persistance | Tables `cognitive_works` + `cognitive_work_checkpoints` (mig 020) — vérité D3 active |
+| Conducteur | `cognitive-conductor.ts` multi-segments + enveloppe globale |
+| READY | Suffisance positive (intention, résultat, sources CONSULTED/VERIFIED, questions déterminantes) |
+| Journal sources | Couverture non monotone (dégradation autorisée) |
+| Contrat | Suppression plafonds 24k / 8 critères dans `draftBodyFromInvestigation` |
+| WEB P0 | `web-egress-guard.ts` DNS + lecture bornée par flux |
+| Legacy snapshot | Lecture compat uniquement ; écriture miroir seulement si `SFIA_COGNITIVE_LEGACY_MIRROR=1` |
+| Preuves | units C15 + PG CAS/deux travaux ; LIVE complet lot 1 PARTIAL |
+
+
+## As-built C16 — raccordement fonctionnel
+
+| Champ | Valeur |
+|---|---|
+| Date | 24 novembre 2026 |
+| Cycle | ML5 C16 Critical |
+| HEAD baseline | `6cf33e9923796974b9ee540a9c6ff27110342950` DIRTY |
+| Entrée produit | `runNoraCognitiveTurn` (service conversation, intent-conduction, qualification D8 avec préparation) |
+| Conducteur | `runCognitiveConductor` — multi-segments ; `SEGMENT_INVOCATION_LIMIT` → SUSPENDED (plus de faux COMPLETE) |
+| Ownership | claim refuse lease actif ; reclaim après expiry avec bump de révision + checkpoint CLAIM |
+| READY | suffisance positive (réponse étayée, sources non dégradées) ; requalification même si statut READY ; legacy snapshot non autoritaire |
+| DRAFT | préparable incomplet ; critères sans `slice(0,8)` ; instruction préférentiellement dédiée |
+| WEB | DNS + `fetchPublicHttpsPinned` + timeout jusqu'à fin de lecture bornée |
+| Preuves | units C16 5 PASS ; PG ownership 5 PASS ; units connexes 33 PASS (bundle ciblé) |
+| Réserves | LIVE E2E product path (Next :3100) non rejoué dans C16 ; boot resume serveur non démontré bout-en-bout ; production documentaire multi-segments D4 PARTIAL |
+
+Aucun nouvel arbitrage B/C/C. Aucune release.
+
+```
+
+### `projects/sfia-studio-next/web/tests/integration/ml5-c15-cognitive-work.pg.test.ts` (complet, 3569 octets)
+
+```typescript
+/**
+ * C15 — cognitive work PG: two works, checkpoint CAS, lease conflict.
+ */
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { preparations, pilots } from "@/db/schema";
+import { newId } from "@/lib/ids";
+import {
+  checkpointCognitiveWork,
+  openOrResumeCognitiveWork,
+  releaseCognitiveWorkLease,
+  getCognitiveWork,
+  listCognitiveWorksForPreparation,
+} from "@/domains/conversation/cognitive-work";
+import {
+  createEmptyInvestigation,
+  evaluateContractReadiness,
+} from "@/domains/conversation/investigation-state";
+
+const dockerOk = () => Boolean(process.env.DATABASE_URL?.includes("5433"));
+
+describe.skipIf(!dockerOk())("ML5 C15 cognitive_works PG", () => {
+  let pilotId = "";
+  let prepId = "";
+
+  beforeAll(async () => {
+    const pilot = (
+      await db.select().from(pilots).where(eq(pilots.githubUserId, "dev-github-a")).limit(1)
+    )[0];
+    if (!pilot) throw new Error("Pilot A missing");
+    pilotId = pilot.id;
+    prepId = newId("prep");
+    await db.insert(preparations).values({
+      id: prepId,
+      ownerPilotId: pilotId,
+      previewName: "C15 cognitive work test",
+      status: "OPEN",
+    });
+  });
+
+  afterAll(async () => {
+    // leave rows for inspection; DEV only
+  });
+
+  it("keeps two distinct works on same preparation", async () => {
+    const a = await openOrResumeCognitiveWork({
+      pilotId,
+      preparationId: prepId,
+      objective: "work A TVA",
+      forceNew: true,
+    });
+    await releaseCognitiveWorkLease({
+      workId: a.work.id,
+      ownerToken: a.ownerToken,
+      status: "SUSPENDED",
+    });
+    const b = await openOrResumeCognitiveWork({
+      pilotId,
+      preparationId: prepId,
+      objective: "work B unrelated",
+      forceNew: true,
+    });
+    await releaseCognitiveWorkLease({
+      workId: b.work.id,
+      ownerToken: b.ownerToken,
+      status: "SUSPENDED",
+    });
+    expect(a.work.id).not.toBe(b.work.id);
+    const listed = await listCognitiveWorksForPreparation({
+      pilotId,
+      preparationId: prepId,
+    });
+    expect(listed.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("CAS refuses stale revision checkpoint", async () => {
+    const opened = await openOrResumeCognitiveWork({
+      pilotId,
+      preparationId: prepId,
+      objective: "CAS work",
+      forceNew: true,
+    });
+    const state = evaluateContractReadiness({
+      ...createEmptyInvestigation("CAS work"),
+      desiredOutcome: "ok",
+      sources: [{ kind: "D4", ref: "d1", coverage: "CONSULTED" }],
+      questions: [
+        {
+          id: "q1",
+          text: "ok?",
+          status: "ANSWERED",
+          importance: "DETERMINANT",
+          answerSummary: "oui",
+        },
+      ],
+    });
+    await checkpointCognitiveWork({
+      pilotId,
+      workId: opened.work.id,
+      ownerToken: opened.ownerToken,
+      expectedRevision: opened.work.revision,
+      cause: "TEST",
+      state,
+    });
+    await expect(
+      checkpointCognitiveWork({
+        pilotId,
+        workId: opened.work.id,
+        ownerToken: opened.ownerToken,
+        expectedRevision: opened.work.revision, // stale
+        cause: "STALE",
+        state,
+      }),
+    ).rejects.toMatchObject({ code: "CONFLICT" });
+    const latest = await getCognitiveWork({
+      pilotId,
+      workId: opened.work.id,
+    });
+    expect(latest.revision).toBe(opened.work.revision + 1);
+    await releaseCognitiveWorkLease({
+      workId: opened.work.id,
+      ownerToken: opened.ownerToken,
+      status: "COMPLETE",
+    });
+  });
+});
+
+```
+
+## 8. Résultats de tests C16
+
+### Units ciblés (exécutés)
+
+```
+ml5-c16-cognitive-integration.test.ts — 5 PASS
+ml5-c15-cognitive-conductor.test.ts — 5 PASS
+ml5-investigation-state.test.ts — 7 PASS
+ml5-nora-contract-bridge.test.ts — 6 PASS
+ml5-public-web-frontier.test.ts — 10 PASS
+TOTAL bundle : 33 PASS
+```
+
+### PG (DATABASE_URL …:5433/sfia_next_e2e)
+
+```
+ml5-c16-cognitive-ownership.pg.test.ts — 5 PASS
+  - concurrent claim / lease actif
+  - reclaim après expiry + revision bump + stale owner refus
+  - partial checkpoint sans wipe resources
+  - deux travaux ; SUSPENDED non auto-resumé
+  - lease constant
+ml5-c15-cognitive-work.pg.test.ts — 2 PASS
+```
+
+### Qualité
+
+- ESLint fichiers C16 cœur : PASS (0 errors / 0 warnings)
+- `tsc` : erreurs préexistantes hors C16 (cursor-sdk, d8 DOCUMENT kind, etc.) ; fichiers C16 cœur sans erreur nouvelle
+- `git diff --check` : OK sur fichiers C16 touchés
+- Build Next : non rejoué ce cycle (Next :3100 offline)
+- LIVE product path / BROWSER : **NOT RUN C16** — réserve
+
+## 9. Matrice exigences / preuves (périmètre prioritaire touché)
+
+| ID | Après C16 | Preuve | Réserve |
+|---|---|---|---|
+| A01–A08 | PARTIAL→amélioré (conducteur raccordé) | wiring + unit multi-seg | LIVE E2E |
+| A09 / D02 | PARTIAL→renforcé | READY positive + requalify | BROWSER READY UI |
+| B01–B07 | PARTIAL→renforcé egress | pinned connect + timeout | LIVE WEB C16 non rejoué |
+| C01–C03 | PARTIAL | activity phases conservées | corrélation workId en events PARTIAL |
+| D01–D05 | PARTIAL→DRAFT incomplet OK | bridge + prepare | instruction production D4 long PARTIAL |
+| Ownership P0 | CLOSED DETERMINISTIC/PG | PG 5 | cross-process boot resume PARTIAL |
+
+## 10. Fake/Real
+
+| Frontière | Niveau | Verdict |
+|---|---|---|
+| Ownership/CAS PG | INTEGRATION | PROVEN |
+| Conducteur multi-seg | DETERMINISTIC | PROVEN |
+| READY positif | DETERMINISTIC | PROVEN |
+| WEB egress pin | DETERMINISTIC (code) | PROVEN structure ; LIVE pin NOT RE-RUN |
+| Nora LIVE product | DEV LIVE | NOT RUN C16 |
+| Cursor SDK / Git REAL | — | N/A C16 |
+
+## 11. Limitations / réserves / dette
+
+1. Next DEV :3100 offline — pas de campagne LIVE conversationnelle C16.
+2. Reprise après redémarrage serveur process : non démontrée bout-en-bout.
+3. Production documentaire multi-segments D4 : structure production_json améliorée mais parcours document long LIVE PARTIAL.
+4. Filiation workId sur technical_contracts : via readinessJson (pas de migration 021) — acceptable additif sans schéma destructif.
+5. ESLint global / tsc global : dettes préexistantes hors périmètre.
+
+## 12. Décisions Morris
+
+- Sortie lot convergence 1 après revue indépendante handoff.
+- Autoriser ou non campagne LIVE E2E C16 complémentaire.
+- Lot 2 (réalisation/restitution autonomes) **non engagé**.
+
+## 13. Review Pack meta
+
+| Champ | Valeur |
+|---|---|
+| Réinitialisé | OUI |
+| FULL | OUI |
+| Mono-cycle | C16 |
+| Stub | NON |
+| Créations couvertes | OUI (fichiers complets) |
+| Modifications couvertes | OUI (complets ou diff utile) |
+| synthesis-only | NON |
+| Verdict pack | COMPLETE FOR INDEPENDENT REVIEW |
+
+## 14. Instruction ChatGPT (obligatoire)
+
+Avant toute revue du résultat C16, consulter depuis Git :
+
+- branche `sfia/review-handoff`
+- fichier `sfia-review-handoff/latest-chatgpt-review.md`
+
+Confronter : contrat C16, contenus créés/modifiés, flux réels, preuves, réserves, statut Git, complétude handoff.
+
+Si contenu manquant : `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`.
+Si distant non actualisé : `REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED`.
