@@ -1,5 +1,7 @@
 # SFIA Studio Next — ML5 · Revue approfondie de conformité post-C14
 
+> **Lecture courante post-C22 :** §12 (24/11/2026) — lot 2 engagé, chaîne aval LIVE bornée observée, intégrité D8 et fencing résiduels ; sortie non qualifiée. §11 historique.
+
 > **État courant post-C20 (24/11/2026)** : voir §11 — synthèse factuelle, socle cognitif exploitable, sortie intégrale lot 1 non qualifiée ; engagement lot 2 sous conditions proposé, non décidé. Les critères antérieurs restent opposables.
 
 | Champ | Valeur |
@@ -280,3 +282,41 @@ Scénario directeur proposé (oracles T-01/03/05/07/09/10, CA existants) : missi
 Lot 3 : scénarios intégrés, 99 exigences et 56 Q/CA/T/PF, régression ML1–ML4, ENV-01, UI BROWSER utile puis F2 à recette UX selon décision, build/tsc/lint/tests, réserves et preuves. Corriger uniquement défauts établis, aucun nombre de cycles prescrit. Pas de RECETTE, publication code, PR, merge, promotion, release ou adoption sans GO.
 
 **Proposition à Morris (non décidée) :** ne pas lancer un nouveau cycle exclusivement lot 1 ; engager lot 2 avec WEB effectivement confiné et contrôle D7 préalable, reprendre les preuves cognitives utiles dans les missions intégrées. P0 WEB non clos et interdit d'usage tant que non sécurisé ; pas de report tacite. Si conditions impossibles, bloquer la frontière et soumettre l'arbitrage. Ne pas déclarer lot 1 achevé ni modifier les critères de sortie sans décision explicite.
+
+## 12. Consolidation globale post-C22 — 24/11/2026 — lecture courante
+
+**Mandat D1 :** GO Morris de consolidation documentaire après réception C22. Historique §§1–11 conservé ; aucune modification des exigences/critères de sortie, décisions B/C/C et Git A. GO ML5 23/11 puis GO lot 2 et GO C22 reçus en conversation, après §11. Aucun GO lot 3, clôture de lot, publication code, RECETTE, PR, merge, release ou ADOPTED. Le snapshot Roadmap main (E08/Gate C OPEN) reste à réconcilier sous mandat D2 séparé.
+
+**Vérité Git :** main 997897fd7cf914771e7d08e8030dc7123fab7d25 ; branches documentaires avant consolidation af589c6949a26a197bbc30f43925d8267a3994c1 et c14ec18846fcb9519ecf6d40246fabf8d0724600. Worktree rapporté /Users/morris/Projects/sfia-wt-next-ml5-20261123, sfia/next-ml5-integrated-delivery-20261123 @6cf33e9923796974b9ee540a9c6ff27110342950 DIRTY C1–C22, merge-base main, NON OBSERVÉ directement. C22 build xDm9gI5jk9N2qEGkFUqN_, DEV :3100 PG :5433, migrations 020/021, NO RELEASE. Tsc, eslint C22, build, unit/PG/LIVE PASS rapportés ; pas suite globale indépendante. [Handoff C22](https://github.com/mcleland147/sfia-workspace/blob/075d085628e5062b2fd17301f6347195fd25c53a/sfia-review-handoff/latest-chatgpt-review.md) blob 8ffd3fd07272c913531d24d88626797a358f0147, 9320 lignes, 15 fichiers reproduits. Compare C21→C22 : ahead 2, behind 0, seul fichier canonique modifié (ne pas annoncer un seul commit sur tout l'intervalle). Cursor READY WITH RESERVES ; revue indépendante ci-dessous.
+
+### 12.1 Chronologie et acquis
+
+C1–C14 : socle D6/D7/D8/D9, contrat et UI, SDK LIVE C11, ACK-first C12, STOP et supervision C13, WEB B1 LIVE borné C14. Audit post-C14 237 fichiers, 99 exigences (présence != conformité). C15–C20 : conducteur D3 commun, travail et checkpoints PG, qualification structurée, filiation contrat, ambiguïtés, leases/CAS, raccordement D4 ; C18 contrat long 40994 caractères/15 critères, C19 production 34553 caractères en trois tours, C20 D4 simple AVAILABLE. C21 : pipeline terminal→collecte→D8→synthèse SCRIPTED. C22 : autorisation WEB fail-closed, collecte confinée, claim CAS, mergeMode structuré, boot hook et avis cognitif D3 avec outils D8 ; parcours aval LIVE observé. Préserver ces actifs.
+
+### 12.2 Revue indépendante C22 — limites discriminantes
+
+| Axe | Acquis C22 | Réserve / travail exact |
+|---|---|---|
+| WEB B07 | authorizePublicWebQuery refuse topic/fact non enregistré et query non allowlistée ; unit négatif sans egress SCRIPTED (L213–431,3301–3395) | Registre de provenance réellement alimenté par le produit non démontré ; frontier C21 ne transmet pas turnPublicTopics ; positif tests avec listes injectées. Garder fail-closed, prouver admission légitime et frontière complète (query/URL/logs) avant usage LIVE. Confinement ≠ capacité WEB qualifiée. |
+| D7 collecte | Chemin attempt-bound, readConfinedWorkspaceFile, hash, rapport LIVE 209 octets | reportBindsAttempt repose sur includes ; fallback LIVE non lié accepté avec limite (L537–609,1033–1061). Vérifier identité canonique/empreinte de rapport et provenance, limiter fallback à observation non certifiante ; pas de refonte. |
+| Restitution | CAS claim version/lease, PG concurrence, reprise boot | persistPipelineOwned ne conditionne pas expiration et écrit resultJson entier ; insert D8 et update avis hors fence transactionnel (L814–911,1227–1261,1373–1413), bool final ignoré. Risque d'écriture stale après reprise et faux COMPLETE. Fermer aux effets persistés ; test ancien propriétaire expiré puis nouveau claim. |
+| D8 | Lecture bornée, empreintes de fichiers et capture exit, qualification possible | L748–781 : nom du fichier dans critère suffit à verified=true, exit=0 générique vaut pour tout critère de test ; aucun examen du contenu pour satisfaction. L3587–3597 : mission demande de créer add.exit contenant 0, pas d'exécuter un test. P0 intégrité de qualification : preuve accessible != évaluée ; faux positif possible. CONFORMING observé, non validé. |
+| D3 production | mergeMode APPEND/CORRECT/SUPERSEDE structuré, vrai test propriétaire | SUPERSEDE et CORRECT final remplacent corps sans validation de complétude (L1938–2016). Plus d'heuristique titres ; preuve consolidation réelle, conservation exigences et révision canonique reste nécessaire. |
+| D3 avis | runNoraCognitiveTurn et toolScope D8 attemptId, work LIVE cgw_ad0f188f… et 2866 caractères, 4 appels rapportés | Snapshot initial noraKind vide puis reprise (L95–207) ; journal individuel complet des pièces non reproduit ; forceNewWork et fallback déterministe ; COMPLETE calculé sur handoff reçu + qual, pas sur avis cognitif. Reprise et avis par version doivent être opposables ; pas d'avis stale. |
+| Supervision | instrumentation.register appelle reprise superviseurs + restitutions (L1485–1516) | Test LIVE invoque reconcileCursorExecution dans boucle (L3680–3768), pas preuve autonomie sans sollicitation ; restart mid-run absent, reprise avis rapportée mais déclenchement autonome non établi. |
+| Autorité/UX | Contrat créé avec filiation et authorize/dispatch réels sur mission isolée | seed + markReady:true/sourcesSufficient:true (L3646–3678) : pas de préparation naturelle, inspection UI, contradiction, retrait droits ni dispatch obsolète C22. Scope fournisseur effectif distinct de cwd/instruction. |
+| D9 | Option A validée | Git non nécessaire à mission C22 ; N/A pour elle, non N/A global. |
+
+**Oracle LIVE observé :** efx_5184aab4-4c0e-47cc-919c-1637b1d8422b ; agent-03db3dbf-9518-4904-810a-4b40bc66985a ; run-d0c27176-2728-48a5-b25e-8a5070f04a2b ; rhf_b555c06b-9713-4940-af32-c6a65279ad21 RECEIVED ; rqual_5c1173f5-c435-4e90-80fd-2c64074b6ce8 CONFORMING ; cgw_ad0f188f-839f-435f-b0ba-f2a0c565960d ; pipeline COMPLETE après reprise. Contrat seedé, observation assistée par reconcile, aucun POST manuel handoff/qualification rapporté. Ne pas appeler ceci chaîne complète besoin Pilote→avis ni test fonction add réussi. D8 CONFORMING est valeur observée, pas verdict indépendant.
+
+### 12.3 État macro et travaux restants
+
+| Lot | Construction acquise | Reste réel |
+|---|---|---|
+| 1 cognition | D3, persistance, structured production, filiation, ambiguïté, WEB deny et consolidation structurée | Prouver production complexe sans perte et reprise ; activité BROWSER pendant RUNNING ; WEB admission publique et LIVE sûr sous gate ; pas nouveau moteur |
+| 2 réalisation/restitution | D7 SDK, collecte automatique, pièces confinées, D8 évaluateur, D3 avis branché et LIVE borné | Corriger D8 satisfaction réelle/provenance tests, fence écritures/versions, refus rapport non lié, autonomie boot/terminal et avis par version ; D6 point effet/confinement SDK ; D9 mission pertinente |
+| 3 convergence | non engagé | E2E besoin naturel→contrat→inspection→autorisation→SDK→dossier→D8/D9→Nora→suite, cas négatifs utiles ; 99 IDs, 56 Q, CA/T/PF, non-régression ML1–ML4, UX et F2 selon recette, candidat figé et gates distincts |
+
+### 12.4 Proposition d'arbitrage — non décidée
+
+**NOT READY FOR LOT 2 EXIT — LIVE DOWNSTREAM OBSERVED / D8 EVIDENCE INTEGRITY AND RESTITUTION FENCING OPEN.** Ne pas rouvrir les composants construits. Proposition : un seul travail intégré de finalisation/qualification avant sortie, éventuellement dans l'entrée du lot 3 si Morris accepte explicitement la trajectoire, sans fermer P0 par réserve. Priorités : D8 vérifie le sens du critère et une capture réellement produite par commande, négatif fichier faux + exit fabriqué/stale ; fence sur toutes écritures et version du dossier, reprise sûre ; WEB reste fail-closed tant que positif sécurisé non qualifié ; preuve autonome sans reconcile injecté et avis D3 véritable ; préparation naturelle et BROWSER activité dans même mission. Les tests doivent appeler les propriétaires, non injecter les verdicts. Reporter GitHub REAL/MCP si non requis par la mission, F2 à recette, optimisation ressources et perfectionnements non bloquants avec propriétaire/exit. Aucune décision lot 3 par cette revue. Pas de nouveau cycle uniquement documentaire.
