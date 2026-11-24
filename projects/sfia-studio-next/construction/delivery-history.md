@@ -15,7 +15,7 @@ Append-only logical journal of Cursor product deliveries.
 | Candidate SHA | d4b89c906411e554f467a9eebe8f8c8e891c8e08 |
 | Candidate tree | f8d5a66391451dfac008af234557d41657f0de79 |
 | Ancienne RECETTE | SOURCE `10128bdb6bb1020a0fd8d4976b91879bff26c3b3` · BUILD `2uHrYBsQUvf6aii40hMpj` |
-| Build RECETTE | _PENDING_BUILD_ |
+| Build RECETTE | _TO_BE_FILLED_AFTER_BUILD_ |
 | Contenu | Commit local consolidé ML5 ; worktree RECETTE indépendant ; migrations additives 019–021 ; auth normale (pas auto-session) ; UAT-01…10 capitalisées ouvertes |
 | Push projet | **NONE** |
 | Verdict candidat | _PENDING_CUTOVER_ |
@@ -957,7 +957,7 @@ Append-only logical journal of Cursor product deliveries.
 | Type | EVOL / CRITICAL · **NO RELEASE** |
 | Base | `origin/main` `a12f89a1` · branche `feat/next-ensemble08-git-publications-nora` |
 | Prior handoff | `19bd0099` |
-| Candidate SHA | `98185598de0d3f3b84af862aecea04b9099217ca` |
+| Candidate SHA | `010d59ddc9201a1a3afcf58083da3df91f97a30f` |
 | TREE | `1c70839facb7fbc799980c585ce8bfba51cdb5d6` |
 | BUILD_ID | `1xEbvCdTAX6ht262w4oKF` |
 | Build worktree | `sfia-workspace-next-ml4d-ensemble08-recette-build-98185598` |
