@@ -1,5 +1,7 @@
 # SFIA Studio Next — ML5 : conception intégrée du conducteur cognitif et de la production Nora
 
+> **Lecture courante post-C22 :** [revue indépendante §12](https://github.com/mcleland147/sfia-workspace/blob/ea74688a2ac2643a157dc680d4b2f5fa1fa0b517/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md), addendum en fin de document. États antérieurs historiques ; critères et décisions conservés.
+
 > **Lecture courante post-C20 :** [synthèse globale](https://github.com/mcleland147/sfia-workspace/blob/978e42648aa0149e4f2f2bab03b4483a5bbfd496/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md#11-revue-globale-post-c20--état-de-travail-au-24112026-d1-factuel), addendum factuel en fin de document. État historique pré-C20 conservé ; pas d'acceptation ni de changement des règles.
 
 | Champ | Valeur |
@@ -212,3 +214,17 @@ Les orientations §4 B/C/C sont conservées ; il n'est pas proposé de les réex
 | D3 → activité | Corrélation événements/tour et polling | Vérifier activité utile et reprise sur mission réelle |
 
 C20 confirme les progrès I1/I5/I6 dans leurs scénarios, I2 revalidation D4 sur fonction et double check dans code, I3 allowlist mais non confidentialité structurelle. Ne pas refaire les acquis. Pour la suite, les corrections d'autorité sont naturellement des préconditions du lot 2 ; la production/reprise peut être vérifiée dans une mission intégrée. WEB OFF vérifié est une proposition de confinement, pas un exit P0 ni un changement de §11. Toute modification de l'ordre de sortie ou autorisation lot 2 reste à décider Morris. Aucun nouveau contrat de conception ni nouvelle architecture.
+
+## 14. As-built observé post-C22 — addendum factuel
+
+**D1 factuel — GO Morris du 24/11/2026 :** [revue indépendante globale §12](https://github.com/mcleland147/sfia-workspace/blob/ea74688a2ac2643a157dc680d4b2f5fa1fa0b517/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md) ; [handoff C22](https://github.com/mcleland147/sfia-workspace/blob/075d085628e5062b2fd17301f6347195fd25c53a/sfia-review-handoff/latest-chatgpt-review.md), blob 8ffd3fd07272c913531d24d88626797a358f0147. Candidat DIRTY C1–C22 @6cf33e99 rapporté, NON OBSERVÉ localement ; build xDm9gI5jk9N2qEGkFUqN_ ; Cursor READY WITH RESERVES, ChatGPT NOT READY FOR LOT 2 EXIT — LIVE DOWNSTREAM OBSERVED / D8 EVIDENCE INTEGRITY AND RESTITUTION FENCING OPEN. GO lot 2/C22 acquis ; aucun GO lot 3, clôture, publication projet ou ADOPTED. NO RELEASE. Exigences et oracles inchangés.
+
+| Interface | Réalisation | Limite |
+|---|---|---|
+| D3 → WEB | authorizePublicWebQuery admet exact allowlist / registre, refuse libre | Registre alimenté et path positif réellement exposé par produit non démontrés ; C21 frontier ne transmet pas turnPublicTopics ; maintenir fail-closed |
+| D3 → D4 | mergeMode APPEND/CORRECT/SUPERSEDE structuré, propriétaire testé | SUPERSEDE/CORRECT peuvent remplacer corps sans preuve de complétude ; consolidation réelle et identité canonique à éprouver |
+| D3 → D7 | Contrat et filiation existants, dispatch LIVE C22 | Contrat créé par seed ; préparation naturelle et inspection non prouvées par C22 |
+| D8 → D3 | runNoraCognitiveTurn avec scope attemptId ; work LIVE cgw_ad0f188f…, avis 2866 chars/4 outils après reprise | Journal individuel des pièces, unique work par dossier/version, reprise/fencing et avis vs synthèse à qualifier ; pas de COMPLETE sur seul D8 |
+| Activité | Capital C1 + investigation.engaged C21 | BROWSER RUNNING et reconnexion restant |
+
+L'architecture B/C/C demeure. Le travail restant porte sur le fonctionnement des interfaces et la preuve, pas une nouvelle architecture. D8 reste propriétaire du verdict ; D3 ne doit pas transformer une observation de fichier en conformité. Les exigences de reprise, propriété et complétude sont inchangées.
