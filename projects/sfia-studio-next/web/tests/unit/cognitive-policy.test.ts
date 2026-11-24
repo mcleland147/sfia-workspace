@@ -63,7 +63,7 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
     expect(o.budgets.maxD4CharsReturned).toBeGreaterThan(32_000);
   });
 
-  it("FIX-BUD-01: absent type defaults TEST_BOUNDARY in DEV; fails closed in protected lane", () => {
+  it("FIX-BUD-01: absent type defaults TEST_BOUNDARY in DEV; fails closed without env on RECETTE", () => {
     process.env.STUDIO_LANE = "DEV";
     delete process.env.SFIA_COG_PROFILE_TYPE;
     expect(resolveProfileType()).toBe("TEST_BOUNDARY");
@@ -75,12 +75,29 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
     process.env.SFIA_COG_PROFILE_TYPE = "OPERATIONAL_PROVISIONAL";
     expect(resolveProfileType()).toBe("OPERATIONAL_PROVISIONAL");
 
+    // Morris GO 2026-11-24: explicit OPERATIONAL_PROVISIONAL allowed on RECETTE
     process.env.STUDIO_LANE = "RECETTE";
-    expect(() => resolveProfileType()).toThrow(StudioError);
+    process.env.SFIA_COG_PROFILE_TYPE = "OPERATIONAL_PROVISIONAL";
+    expect(resolveProfileType()).toBe("OPERATIONAL_PROVISIONAL");
+
+    process.env.STUDIO_LANE = "STABLE";
+    expect(() => resolveProfileType()).toThrow(/interdit hors STUDIO_LANE=DEV\|RECETTE/);
+
+    process.env.STUDIO_LANE = "PROD";
+    expect(() => resolveProfileType()).toThrow(/interdit hors STUDIO_LANE=DEV\|RECETTE/);
 
     process.env.STUDIO_LANE = "DEV";
     process.env.SFIA_COG_PROFILE_TYPE = "OPERATIONAL_VALIDATED";
     expect(() => resolveProfileType()).toThrow(StudioError);
+  });
+
+  it("override OPERATIONAL_PROVISIONAL allowed on RECETTE, refused on STABLE", () => {
+    process.env.STUDIO_LANE = "RECETTE";
+    expect(resolveProfileType("OPERATIONAL_PROVISIONAL")).toBe("OPERATIONAL_PROVISIONAL");
+    process.env.STUDIO_LANE = "STABLE";
+    expect(() => resolveProfileType("OPERATIONAL_PROVISIONAL")).toThrow(
+      /interdit hors DEV\/RECETTE/,
+    );
   });
 
   it("toolAllowlist includes conversation history read tools", () => {

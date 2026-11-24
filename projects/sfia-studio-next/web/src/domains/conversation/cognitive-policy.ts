@@ -1,6 +1,7 @@
 /**
  * D3 cognitive policy — proportional qualification without a second LLM classifier.
- * TEST_BOUNDARY = stress-only. OPERATIONAL_PROVISIONAL = DEV explicit only (not validated).
+ * TEST_BOUNDARY = stress-only (explicit tests).
+ * OPERATIONAL_PROVISIONAL = explicit DEV or RECETTE (Morris GO 2026-11-24) — not production-validated.
  * OPERATIONAL_VALIDATED = Morris-approved only (not yet available).
  */
 
@@ -13,7 +14,9 @@ export type PolicyProfileType =
   | "OPERATIONAL_VALIDATED";
 export type ReasoningEffort = "low" | "medium" | "high";
 
-export const COGNITIVE_POLICY_VERSION = "ml2-cog-policy-v2-corrective" as const;
+/** Traces RECETTE operational-provisional allowance without rewriting historical meta. */
+export const COGNITIVE_POLICY_VERSION =
+  "ml5-cog-policy-v3-recette-operational-provisional" as const;
 /** Study model — C23: all active Nora refs use GPT-6.2 Sol (Morris). */
 export const NORA_STUDY_MODEL = "gpt-6.2-sol" as const;
 
@@ -44,10 +47,9 @@ export type BudgetLimits = {
  * Artificial stress ceilings for qualification only.
  * MUST NOT become implicit operational defaults.
  *
- * RECETTE currently runs SFIA_COG_PROFILE_TYPE=TEST_BOUNDARY (OPERATIONAL_*
- * forbidden on protected lanes until OPERATIONAL_VALIDATED). Git call ceilings
- * below are sized for a nominal multi-tool Git READ (UAT-01..07), not for
- * unbounded exploration — D4 call stress ceilings stay tighter.
+ * TEST_BOUNDARY remains available for explicit stress tests.
+ * Nominal RECETTE uses OPERATIONAL_PROVISIONAL (explicit env), not these ceilings.
+ * Git call ceilings below are sized for a nominal multi-tool Git READ (UAT-01..07).
  */
 export const TEST_BOUNDARY_BUDGETS: Record<CognitiveProfile, BudgetLimits> = {
   // Lot E/D5: short messages must still be able to call authorized read tools.
@@ -76,8 +78,9 @@ export const TEST_BOUNDARY_BUDGETS: Record<CognitiveProfile, BudgetLimits> = {
 
 /**
  * Provisional OPERATIONAL ceilings — finite and reconfigurable.
- * NOT VALIDATED. Must be explicitly activated in DEV (SFIA_COG_PROFILE_TYPE).
- * Must NEVER activate silently in RECETTE/PROD/protected lanes.
+ * NOT VALIDATED as production policy.
+ * Explicit activation via SFIA_COG_PROFILE_TYPE on DEV or RECETTE only.
+ * Never silent; never STABLE/PROD/UNKNOWN.
  */
 export const OPERATIONAL_BUDGETS_PROVISIONAL: Record<CognitiveProfile, BudgetLimits> = {
   simple: {
@@ -139,16 +142,29 @@ function studioLane(): string {
   return (process.env.STUDIO_LANE ?? "UNKNOWN").trim().toUpperCase() || "UNKNOWN";
 }
 
-function isProtectedLane(lane: string): boolean {
-  return lane === "RECETTE" || lane === "STABLE" || lane === "PROD" || lane === "PRODUCTION";
+/** STABLE/PROD/unknown never receive operational budgets. */
+export function isOperationalForbiddenLane(lane: string): boolean {
+  return (
+    lane === "STABLE" ||
+    lane === "PROD" ||
+    lane === "PRODUCTION" ||
+    lane === "UNKNOWN" ||
+    !lane
+  );
+}
+
+/** Morris GO 2026-11-24 — OPERATIONAL_PROVISIONAL explicit on DEV and RECETTE only. */
+export function isOperationalProvisionalAllowedLane(lane: string): boolean {
+  return lane === "DEV" || lane === "RECETTE";
 }
 
 /**
  * Fail-closed profile resolution.
- * - absent → DEV defaults to TEST_BOUNDARY; protected/unknown → refuse
- * - OPERATIONAL_PROVISIONAL → DEV only
+ * - absent → DEV defaults to TEST_BOUNDARY; other lanes → refuse
+ * - OPERATIONAL_PROVISIONAL → explicit DEV or RECETTE only
  * - OPERATIONAL_VALIDATED → not yet approved → refuse
- * - legacy "OPERATIONAL" → alias of PROVISIONAL in DEV only
+ * - legacy "OPERATIONAL" → alias of PROVISIONAL (same lane rules)
+ * - STABLE / PROD / UNKNOWN → refuse operational regimes
  */
 export function resolveProfileType(override?: PolicyProfileType): PolicyProfileType {
   if (override) {
@@ -159,10 +175,13 @@ export function resolveProfileType(override?: PolicyProfileType): PolicyProfileT
         { httpStatus: 400 },
       );
     }
-    if (override === "OPERATIONAL_PROVISIONAL" && isProtectedLane(studioLane())) {
+    if (
+      override === "OPERATIONAL_PROVISIONAL" &&
+      !isOperationalProvisionalAllowedLane(studioLane())
+    ) {
       throw new StudioError(
         "INVALID_REQUEST",
-        "OPERATIONAL_PROVISIONAL interdit hors DEV",
+        "OPERATIONAL_PROVISIONAL interdit hors DEV/RECETTE",
         { httpStatus: 400 },
       );
     }
@@ -192,10 +211,17 @@ export function resolveProfileType(override?: PolicyProfileType): PolicyProfileT
   }
 
   if (raw === "OPERATIONAL_PROVISIONAL" || raw === "OPERATIONAL") {
-    if (lane !== "DEV") {
+    if (!isOperationalProvisionalAllowedLane(lane)) {
       throw new StudioError(
         "INVALID_REQUEST",
-        "OPERATIONAL_PROVISIONAL / OPERATIONAL interdit hors STUDIO_LANE=DEV",
+        "OPERATIONAL_PROVISIONAL / OPERATIONAL interdit hors STUDIO_LANE=DEV|RECETTE",
+        { httpStatus: 400 },
+      );
+    }
+    if (isOperationalForbiddenLane(lane)) {
+      throw new StudioError(
+        "INVALID_REQUEST",
+        "OPERATIONAL_PROVISIONAL interdit sur lane STABLE/PROD/UNKNOWN",
         { httpStatus: 400 },
       );
     }

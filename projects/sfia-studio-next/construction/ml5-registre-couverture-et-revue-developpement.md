@@ -157,7 +157,7 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
 | ☐ | `E12` | Vérifier seulement les MCP indispensables à la mission : chargement, authentification, invocabilité et permissions réelles. | NV | mcpRequired listé dans plan ; vérification LIVE non faite |
 | ☐ | `E13` | Ne pas construire un gestionnaire MCP/approbations dans Studio, ni désactiver globalement les protections pour rendre un test vert. | PARTIEL | Aucun admin MCP ajouté |
 | ☐ | `E14` | Ne pas forcer Git/MCP sur une mission qui n'en a pas besoin ; production et DEV utilisent le même sens du contrat avec environnements distincts. | PARTIEL | gitScope/mcp optionnels sur plan |
-| ☐ | `E15` | Isoler concurrents, projets, workspaces, identités SDK, secrets et rapports ; aucun croisement de tentative. | PARTIEL | P0-02 `resolveCursorWorkspace` sous `SFIA_CURSOR_WORKSPACE_ROOT` ; client cwd refusé ; LIVE isolation OS NOT PROVEN |
+| ☐ | `E15` | Isoler concurrents, projets, workspaces, identités SDK, secrets et rapports ; aucun croisement de tentative. | PARTIEL | P0-02 + refus racines dans arbres produit ; client cwd refusé ; LIVE isolation OS NOT PROVEN |
 
 ### F. Git de travail et continuité des réalisations
 **Responsabilités :** D7/D9/D6 — conditionnel aux missions Git. **Sources :** Contrat ML5 §§17.2,18.2,19.5 ; R2 D9 et architecture §18.
@@ -247,7 +247,9 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
 | `A10` | PARTIAL | D3 | investigation-persistence | Snapshot durable ; consolidation acquis D4 incomplète |
 | `A11` | PARTIAL | D3 | investigation-persistence, resumeInvestigation | Reprise mid-turn/incident non branchée au fil |
 | `A12` | PARTIAL | D3 | cognitive-policy | Économie simple sur tour projet seulement |
+| `A13` | IMPLEMENTED | D3 | cognitive-policy v3 | `OPERATIONAL_PROVISIONAL` explicite DEV\|RECETTE (GO 2026-11-24) ; STABLE/PROD refusés ; `OPERATIONAL_VALIDATED` toujours non adopté |
 | `B01` | PARTIAL | D3 | public-web-search-frontier (cycle 4) | SCRIPTED query-only ; LIVE gated ; hosted tool détaché |
+| `B10` | IMPLEMENTED | D3 | public-web-registry | Catalogue public par défaut aussi en RECETTE (templates connus ; pas de recherche libre) |
 | `B02` | PARTIAL | D3 | public_web_open_page SCRIPTED | Ouverture LIVE non implémentée |
 | `B03` | PARTIAL | D3 | confrontWebSources (cycle 5) | SCRIPTED confrontation ; LIVE ouvert |
 | `B04` | PARTIAL | D3 | web-source-citation + open_page citation | Cycle 7 — contrat citation SCRIPTED ; UX affichage partiel ; LIVE gated |

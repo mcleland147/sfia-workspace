@@ -74,8 +74,9 @@ function normalize(s: string): string {
 }
 
 /**
- * Parse SFIA_DEV_PUBLIC_WEB_TOPIC_CATALOG JSON when set; else DEFAULT_DEV_CATALOG in DEV.
- * Production lanes get empty catalog unless explicitly configured.
+ * Parse SFIA_DEV_PUBLIC_WEB_TOPIC_CATALOG JSON when set; else DEFAULT catalog
+ * on DEV and RECETTE (known-public templates only — never free search).
+ * STABLE/PROD/UNKNOWN get empty catalog unless explicitly configured.
  */
 export function loadPublicTopicCatalog(
   env: Record<string, string | undefined> = process.env,
@@ -97,7 +98,7 @@ export function loadPublicTopicCatalog(
     }
   }
   const lane = (env.STUDIO_LANE || "DEV").trim().toUpperCase();
-  if (lane !== "DEV") return [];
+  if (lane !== "DEV" && lane !== "RECETTE") return [];
   if ((env.SFIA_PUBLIC_WEB_CATALOG_DEFAULT || "1").trim() === "0") return [];
   return DEFAULT_DEV_CATALOG;
 }

@@ -37,6 +37,20 @@ describe("C24 public WEB registry feeding", () => {
     });
     expect(c.length).toBeGreaterThan(0);
   });
+
+  it("RECETTE loads the same default public catalog (parity)", () => {
+    const c = loadPublicTopicCatalog({ STUDIO_LANE: "RECETTE" });
+    expect(c.length).toBeGreaterThan(0);
+    const r = resolvePublicWebRegistry({
+      haystack: "Consulte la doc Next.js App Router",
+      env: { STUDIO_LANE: "RECETTE" },
+    });
+    expect(r.topics["nextjs-docs"]).toMatch(/Next\.js/);
+  });
+
+  it("STABLE gets empty default catalog", () => {
+    expect(loadPublicTopicCatalog({ STUDIO_LANE: "STABLE" })).toEqual([]);
+  });
 });
 
 describe("C24 provider usage extraction", () => {

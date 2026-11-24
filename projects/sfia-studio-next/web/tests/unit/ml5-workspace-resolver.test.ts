@@ -75,4 +75,15 @@ describe("ML5 P0-02 — workspace confinement", () => {
       }),
     ).toThrow(/SFIA_CURSOR_WORKSPACE_ROOT/);
   });
+
+  it("rejects workspace root inside a product/method tree", () => {
+    const productLike = mkdtempSync(join(tmpdir(), "sfia-wt-next-fake-"));
+    expect(() =>
+      resolveCursorWorkspace({
+        pilotId: "p",
+        projectId: "j",
+        env: { SFIA_CURSOR_WORKSPACE_ROOT: productLike } as unknown as NodeJS.ProcessEnv,
+      }),
+    ).toThrow(/arbre produit|dépôt produit|ACCESS_DENIED|refuse/);
+  });
 });

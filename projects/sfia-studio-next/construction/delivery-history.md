@@ -3,6 +3,22 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-24-ML5-OPERATIONAL-RECETTE-PARITY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 8 consolidation opérationnelle RECETTE (politique Nora + capacités + Cursor LIVE) |
+| Type | RUN · correctif intégré · cutover RECETTE · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| Parent HEAD | `807713cb89163b711db33f1f0e28bd9b99dbbc4d` |
+| Candidate SHA | *(rempli après commit local)* |
+| Policy version | `ml5-cog-policy-v3-recette-operational-provisional` |
+| Contenu | `OPERATIONAL_PROVISIONAL` autorisé DEV+RECETTE ; catalogue WEB public RECETTE ; confinement Cursor refuse racines produit ; probe LIVE sans dispatch ; cutover `:3200` |
+| Ancienne RECETTE | `8410906d` / BUILD `e0XwSWvjujz-xaHfXsrQK` / TEST_BOUNDARY + Cursor FAKE |
+| Push projet | **NONE** |
+| Verdict candidat | *(rempli après cutover)* |
+
 ## delivery_id: DELIV-2026-11-24-ML5-CYCLE11-RECETTE-CANDIDATE
 
 | Field | Value |

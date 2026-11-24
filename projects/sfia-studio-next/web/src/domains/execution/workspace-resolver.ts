@@ -42,6 +42,42 @@ function assertSafeKey(key: string): string {
   return k;
 }
 
+/**
+ * Refuse Cursor roots that sit inside product / method trees.
+ * A cwd hint in the prompt is not confinement — the root itself must be outside.
+ */
+function assertRootNotInsideProductTrees(realRoot: string): void {
+  const lowered = realRoot.toLowerCase();
+  const forbiddenSubstrings = [
+    "/sfia-workspace/",
+    "/sfia-wt-next-",
+    "/sfia-workspace-next-",
+    "/projects/sfia-studio-next/",
+  ];
+  for (const marker of forbiddenSubstrings) {
+    if (lowered.includes(marker.toLowerCase())) {
+      throw new StudioError(
+        "ACCESS_DENIED",
+        "SFIA_CURSOR_WORKSPACE_ROOT refuse — racine à l'intérieur d'un arbre produit/méthode",
+        { exposeMessage: true },
+      );
+    }
+  }
+  // Exact leaf matches (root == product checkout basename path endings)
+  const leaf = realRoot.replace(/\/+$/, "").split(sep).pop() ?? "";
+  if (
+    leaf === "sfia-workspace" ||
+    /^sfia-wt-next-/.test(leaf) ||
+    /^sfia-workspace-next-/.test(leaf)
+  ) {
+    throw new StudioError(
+      "ACCESS_DENIED",
+      "SFIA_CURSOR_WORKSPACE_ROOT refuse — racine égale à un dépôt produit",
+      { exposeMessage: true },
+    );
+  }
+}
+
 function resolveRoot(env: NodeJS.ProcessEnv): string {
   const raw = (env.SFIA_CURSOR_WORKSPACE_ROOT || "").trim();
   if (!raw) {
@@ -70,6 +106,7 @@ function resolveRoot(env: NodeJS.ProcessEnv): string {
       exposeMessage: true,
     });
   }
+  assertRootNotInsideProductTrees(real);
   return real;
 }
 

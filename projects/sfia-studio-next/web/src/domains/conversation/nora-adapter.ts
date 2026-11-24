@@ -8,6 +8,7 @@ import {
 } from "@/domains/decisions/divergence-assist";
 import {
   buildCognitivePolicy,
+  COGNITIVE_POLICY_VERSION,
   createSharedToolBudget,
   maxTurnsForPolicy,
   type CognitivePolicy,
@@ -1335,7 +1336,7 @@ async function runLiveWithTools(
 function minimalBoundaryPolicy(reasonCode: string): CognitivePolicy {
   // Construct without env resolution — used only for boundary fail envelopes.
   return {
-    policyVersion: "ml2-cog-policy-v2-corrective",
+    policyVersion: COGNITIVE_POLICY_VERSION,
     profileType: "TEST_BOUNDARY",
     profile: "simple",
     modelRequested: NORA_STUDY_MODEL,
