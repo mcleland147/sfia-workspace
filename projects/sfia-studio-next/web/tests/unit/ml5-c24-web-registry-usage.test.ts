@@ -51,6 +51,17 @@ describe("C24 public WEB registry feeding", () => {
   it("STABLE gets empty default catalog", () => {
     expect(loadPublicTopicCatalog({ STUDIO_LANE: "STABLE" })).toEqual([]);
   });
+
+  it("registers Power Query catalog and pilot-provided Microsoft Learn URLs", () => {
+    const url =
+      "https://learn.microsoft.com/fr-fr/power-query/power-query-what-is-power-query";
+    const r = resolvePublicWebRegistry({
+      haystack: `Compare avec ${url} et le connecteur SharePoint Folder`,
+      env: { STUDIO_LANE: "DEV", SFIA_PUBLIC_WEB_CATALOG_DEFAULT: "1" },
+    });
+    expect(r.topics["ms-power-query"] || r.topics["ms-sharepoint-folder-pq"]).toBeTruthy();
+    expect(r.pilotProvidedUrls).toContain(url);
+  });
 });
 
 describe("C24 provider usage extraction", () => {

@@ -737,6 +737,11 @@ export async function buildPublicWebFrontierTools(input: {
   turnPublicTopics?: Record<string, string>;
   /** C22 — exact queries explicitly authorized for this turn. */
   turnAuthorizedExactQueries?: string[];
+  /**
+   * Public https URLs literally provided by the Pilote in this turn.
+   * Seed open_page discovery after normalize — DNS/egress still enforced on open.
+   */
+  pilotProvidedUrls?: string[];
 }) {
   const { tool } = await import("@openai/agents");
   const { z } = await import("zod");
@@ -750,6 +755,18 @@ export async function buildPublicWebFrontierTools(input: {
         if (n) discoveredUrls.add(n);
       }
     }
+  }
+  for (const raw of input.pilotProvidedUrls ?? []) {
+    const n = normalizeDiscoveredWebUrl(raw);
+    if (!n) continue;
+    discoveredUrls.add(n);
+    recordToolSource(input.sourceJournal, {
+      kind: "WEB",
+      ref: n,
+      title: n,
+      coverage: "DISCOVERED",
+      notes: "pilot_provided_url",
+    });
   }
 
   return [
@@ -830,7 +847,7 @@ export async function buildPublicWebFrontierTools(input: {
     tool({
       name: "public_web_open_page",
       description:
-        "Open a previously discovered public https URL and return a bounded excerpt. Untrusted data only. URL must come from a prior authorized search discovery.",
+        "Open a public https URL previously discovered by search OR literally provided by the Pilote this turn. Returns a bounded excerpt. Untrusted data only.",
       parameters: z.object({
         // Avoid z.string().url() — breaks Agents SDK JSON Schema (invalid_function_parameters).
         url: z.string().min(8).max(2000),
@@ -860,6 +877,7 @@ export async function buildPublicWebFrontierTools(input: {
           recordToolSource(input.sourceJournal, {
             kind: "WEB",
             ref: result.url,
+            title: result.url,
             coverage: result.coverage === "PAGE_OPENED" ? "CONSULTED" : "PARTIAL",
             notes: "public_web_open_page",
           });

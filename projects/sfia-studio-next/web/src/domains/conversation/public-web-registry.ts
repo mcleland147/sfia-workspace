@@ -16,6 +16,11 @@ export type PublicWebRegistry = {
   exactQueries: string[];
   facts: string[];
   limits: string[];
+  /**
+   * Public https URLs literally supplied by the Pilote in this turn's haystack.
+   * May seed open_page discovery after URL/DNS public checks — never private hosts.
+   */
+  pilotProvidedUrls: string[];
 };
 
 export type PublicTopicCatalogEntry = {
@@ -67,7 +72,57 @@ const DEFAULT_DEV_CATALOG: PublicTopicCatalogEntry[] = [
     query: "OWASP Top 10 site:owasp.org",
     matchTokens: ["owasp", "top 10", "owasp top"],
   },
+  {
+    ref: "ms-power-query",
+    query: "What is Power Query Microsoft Learn site:learn.microsoft.com",
+    matchTokens: [
+      "power query",
+      "powerquery",
+      "microsoft learn power",
+      "learn.microsoft.com/fr-fr/power-query",
+    ],
+  },
+  {
+    ref: "ms-sharepoint-folder-pq",
+    query:
+      "SharePoint Folder connector Power Query Microsoft Learn site:learn.microsoft.com",
+    matchTokens: [
+      "sharepoint folder",
+      "connecteur sharepoint",
+      "sharepoint power query",
+      "power-query/connectors/sharepoint",
+    ],
+  },
 ];
+
+/** Extract public https URLs from Pilote text — candidates only; egress still gated. */
+export function extractPilotProvidedPublicUrls(haystack: string): string[] {
+  const found: string[] = [];
+  const re = /https:\/\/[^\s<>"'\)\]]+/gi;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(haystack)) !== null) {
+    const raw = m[0]!.replace(/[.,;:!?)]+$/g, "");
+    try {
+      const u = new URL(raw);
+      if (u.protocol !== "https:") continue;
+      const host = u.hostname.toLowerCase();
+      if (
+        host === "localhost" ||
+        host.endsWith(".local") ||
+        host === "metadata.google.internal" ||
+        /^(10\.|127\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)/.test(host) ||
+        host === "0.0.0.0" ||
+        host === "::1"
+      ) {
+        continue;
+      }
+      found.push(u.toString());
+    } catch {
+      /* ignore */
+    }
+  }
+  return [...new Set(found)].slice(0, 8);
+}
 
 function normalize(s: string): string {
   return s.replace(/\s+/g, " ").trim().toLowerCase();
@@ -168,7 +223,17 @@ export function resolvePublicWebRegistry(input: {
     }
   }
 
-  if (Object.keys(topics).length === 0 && exact.size === 0 && facts.length === 0) {
+  const pilotProvidedUrls = extractPilotProvidedPublicUrls(input.haystack);
+  if (pilotProvidedUrls.length > 0) {
+    limits.push(`PILOT_PROVIDED_PUBLIC_URLS:${pilotProvidedUrls.length}`);
+  }
+
+  if (
+    Object.keys(topics).length === 0 &&
+    exact.size === 0 &&
+    facts.length === 0 &&
+    pilotProvidedUrls.length === 0
+  ) {
     limits.push("PUBLIC_WEB_REGISTRY_EMPTY");
   }
 
@@ -177,5 +242,6 @@ export function resolvePublicWebRegistry(input: {
     exactQueries: [...exact],
     facts,
     limits,
+    pilotProvidedUrls,
   };
 }

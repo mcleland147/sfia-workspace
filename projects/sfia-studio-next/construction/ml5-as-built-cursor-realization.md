@@ -139,3 +139,16 @@ Conformité globale : **0 VÉRIFIÉ** — preuves BROWSER/F2/LIVE/REAL absentes.
 | Cognition | cacheTokens exclus du billable envelope ; restitution partielle post-échec structuré |
 | Preuves | vitest activity-labels + conductor PASS ; build OK ; F2/LIVE UAT = Morris |
 
+
+## Functional completion — Nora cognitive experience (2026-11-25)
+
+| Champ | Valeur |
+|---|---|
+| Build | `oLyRjFCDc4Y7JSvbzZkFo` |
+| Lots | L1–L6 intégrés |
+| Activité | états autoritatifs; identité source; objective; NoraLiveActivity partagé |
+| Tokens | envelope input+output sans soustraction cache |
+| WEB B1 | catalog Power Query; pilot-provided public URLs seed open |
+| Docs | viewer candidate forcé; prepare this-turn only (UAT-30) |
+| Preuves | vitest 21 PASS; build OK; F2 NOT PROVEN; LIVE UAT Morris |
+

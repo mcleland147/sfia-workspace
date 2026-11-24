@@ -3,6 +3,24 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-25-ML5-NORA-FUNCTIONAL-COMPLETION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-25 (Europe/Paris) |
+| Macro-lot | ML5 — Nora functional completion (livraison 1 complément) |
+| Type | INC Critical · six lots L1–L6 · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| Parent HEAD | `5309dfaa5682cbdc92e9d6d354fd9c6c61d580f0` |
+| Candidate SHA | *(post-commit)* |
+| Candidate tree | *(post-commit)* |
+| Web tree | *(post-commit)* |
+| Build DEV | `oLyRjFCDc4Y7JSvbzZkFo` · digest `5c7c5a812df4d3baddfc64d32414560ac9b64c1fed80729a1cd59176f44bae66` |
+| RECETTE | **inchangé** `7f48daa2` / `_ZDI1cWa1hscluvBhaiA4` |
+| Contenu | L1 états/identité/contexte activité; L2 NoraLiveActivity; L3 envelope tokens; L4 B1 catalog+pilot URL; L5 viewer/prepare gate; L6 optimistic id |
+| Push projet | **NONE** |
+| Verdict | **FUNCTIONAL COMPLETION READY FOR REVIEW** · READY WITH RESERVES |
+
 ## delivery_id: DELIV-2026-11-25-ML5-NORA-COGNITIVE-EXPERIENCE
 
 | Field | Value |

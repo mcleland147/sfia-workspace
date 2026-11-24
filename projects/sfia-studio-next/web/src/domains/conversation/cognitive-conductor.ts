@@ -106,6 +106,12 @@ export async function runCognitiveConductor(
   if (input.conversationId && input.turnCommandId) {
     try {
       const { appendActivityEvent } = await import("./activity-projection");
+      const objective = (input.objective || work.objective || "").trim();
+      const objectiveLabel = objective
+        ? objective.length > 140
+          ? `${objective.slice(0, 137)}…`
+          : objective
+        : null;
       await appendActivityEvent({
         conversationId: input.conversationId,
         turnCommandId: input.turnCommandId,
@@ -114,16 +120,35 @@ export async function runCognitiveConductor(
         nature: "ANNOUNCED",
         status: "RUNNING",
         summary: opened.resumed
-          ? "Reprise du travail cognitif en cours"
-          : "Investigation engagée",
+          ? objectiveLabel
+            ? `Reprise — ${objectiveLabel}`
+            : "Reprise du travail cognitif en cours"
+          : objectiveLabel
+            ? `Investigation — ${objectiveLabel}`
+            : "Investigation engagée",
         detail: {
           workId: work.id,
           revision: work.revision,
           resumed: opened.resumed,
+          objective: objectiveLabel,
         },
         sourceRef: work.id,
         ownerToken,
       });
+      if (objectiveLabel) {
+        await appendActivityEvent({
+          conversationId: input.conversationId,
+          turnCommandId: input.turnCommandId,
+          ownerPilotId: input.pilotId,
+          phase: "nora.objective",
+          nature: "ANNOUNCED",
+          status: "RUNNING",
+          summary: objectiveLabel,
+          detail: { objective: objectiveLabel, workId: work.id },
+          sourceRef: work.id,
+          ownerToken,
+        });
+      }
     } catch {
       /* activity must not fail the conductor */
     }

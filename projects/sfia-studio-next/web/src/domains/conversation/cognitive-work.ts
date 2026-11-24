@@ -626,12 +626,11 @@ export function evaluateGlobalResourceEnvelope(
   }
   // C24 — do not add reasoningTokens on top of outputTokens (SDK usually
   // already includes reasoning in output). Track reasoning separately for OBS.
-  // ML5 — cached prompt tokens are already billed inside inputTokens on many
-  // providers; subtracting verified cacheTokens avoids double-counting the same
-  // context window across segments (UAT-16). When cache is unknown, keep full input.
-  const cached = resources.cacheTokens ?? 0;
-  const inputBillable = Math.max(0, (resources.inputTokens ?? 0) - cached);
-  const used = inputBillable + (resources.outputTokens ?? 0);
+  // Functional completion: the global envelope guards cumulative tokens processed
+  // in the work (input + output). Cached tokens remain part of the context window
+  // and must NOT be subtracted from the safety envelope (UAT-16 / FinOps ≠ window).
+  // cacheTokens stay in resources.limits / OBS for cost analysis only.
+  const used = (resources.inputTokens ?? 0) + (resources.outputTokens ?? 0);
   if (Number.isFinite(maxTokens) && used >= maxTokens) {
     return { ok: false, reason: "GLOBAL_TOKEN_BUDGET_EXHAUSTED" };
   }

@@ -14,10 +14,7 @@ import {
   compositionAnchorsChoices,
   compositionAnchorsReferences,
 } from "@/domains/conversation/visual-composition";
-import {
-  buildActivitySteps,
-  projectActivityLabel,
-} from "@/domains/conversation/activity-labels";
+import { NoraLiveActivity } from "@/components/figma/NoraLiveActivity";
 
 export type NoraMsg = {
   id: string;
@@ -393,66 +390,11 @@ export function NoraConversation(props: {
           ) : null}
           {(props.activity === "preparing" || (props.liveActivityEvents?.length ?? 0) > 0) &&
           (props.liveActivityHeadline || (props.liveActivityEvents?.length ?? 0) > 0) ? (
-            <div
-              className="fig-nora-live-activity"
-              role="status"
-              aria-live="polite"
-              data-testid="nora-live-activity"
-              data-figma-frame="12.01-12.10"
-            >
-              <div className="fig-nora-live-activity-head">
-                <p className="fig-nora-live-activity-kicker">ACTIVITÉ NORA</p>
-                <span className="fig-nora-live-activity-badge" data-testid="nora-live-activity-badge">
-                  En cours
-                </span>
-              </div>
-              <p className="fig-nora-live-activity-headline" data-testid="nora-live-activity-headline">
-                {props.liveActivityHeadline ||
-                  (props.liveActivityEvents?.length
-                    ? projectActivityLabel(
-                        props.liveActivityEvents[props.liveActivityEvents.length - 1]!,
-                      )
-                    : "Activité en cours")}
-              </p>
-              <p className="fig-nora-live-activity-lead">
-                Les principales vérifications sont présentées au fil du travail.
-              </p>
-              {(props.liveActivityEvents?.length ?? 0) > 0 ? (
-                <>
-                  <ul className="fig-nora-live-activity-steps" data-testid="nora-live-activity-steps">
-                    {buildActivitySteps(props.liveActivityEvents!).map((step) => (
-                      <li
-                        key={step.key}
-                        data-state={step.state}
-                        data-nature={step.nature}
-                        className={`fig-nora-live-activity-step fig-nora-live-activity-step-${step.state}`}
-                      >
-                        <span className="fig-nora-live-activity-mark" aria-hidden>
-                          {step.state === "done" ? "✓" : step.state === "current" ? "◌" : "○"}
-                        </span>
-                        <span>{step.label}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="fig-nora-live-activity-footnote">
-                    Activité fonctionnelle · aucun raisonnement interne exposé
-                  </p>
-                  <details data-testid="nora-live-activity-detail" className="fig-nora-live-activity-detail">
-                    <summary>
-                      Détail ({props.liveActivityEvents!.length} événement
-                      {props.liveActivityEvents!.length > 1 ? "s" : ""})
-                    </summary>
-                    <ul>
-                      {props.liveActivityEvents!.map((ev) => (
-                        <li key={ev.sequence} data-nature={ev.nature} data-phase={ev.phase}>
-                          {projectActivityLabel(ev)}
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                </>
-              ) : null}
-            </div>
+            <NoraLiveActivity
+              events={props.liveActivityEvents ?? []}
+              headline={props.liveActivityHeadline}
+              figmaFrame="12.01"
+            />
           ) : null}
           {props.activity === "error" ? (
             <div className="fig-alert" role="alert" data-testid="nora-activity-error">

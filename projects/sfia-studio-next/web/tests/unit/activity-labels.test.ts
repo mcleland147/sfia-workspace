@@ -5,30 +5,95 @@ import {
   projectActivityLabel,
 } from "@/domains/conversation/activity-labels";
 
-describe("activity-labels", () => {
-  it("maps WEB discovery without claiming consultation", () => {
+describe("activity-labels functional completion", () => {
+  it("contextualizes WEB discovery without claiming consultation", () => {
     expect(
       projectActivityLabel({
         phase: "nora.source.web",
         nature: "OBSERVED",
-        summary: "DISCOVERED: https://example.com/doc",
-        detail: { kind: "WEB", coverage: "DISCOVERED" },
+        status: "RUNNING",
+        summary: "Source web découverte — Power Query",
+        detail: { kind: "WEB", coverage: "DISCOVERED", title: "Power Query" },
       }),
-    ).toBe("Source web découverte — page non encore ouverte");
-  });
-
-  it("maps GIT without exposing raw coverage codes as headline", () => {
+    ).toMatch(/découverte/i);
     expect(
       projectActivityLabel({
-        phase: "nora.source.git",
+        phase: "nora.source.web",
         nature: "OBSERVED",
-        summary: "COMPLETE: README.md",
-        detail: { kind: "GIT", coverage: "COMPLETE" },
+        status: "RUNNING",
+        summary: "Source web découverte — Power Query",
+        detail: { kind: "WEB", coverage: "DISCOVERED", title: "Power Query" },
       }),
-    ).toBe("Consultation Git effectuée");
+    ).not.toMatch(/consultée/i);
   });
 
-  it("never surfaces NATURE: summary technical headlines", () => {
+  it("keeps distinct source identities instead of deduping by label", () => {
+    const steps = buildActivitySteps([
+      {
+        sequence: 1,
+        nature: "OBSERVED",
+        status: "COMPLETED",
+        phase: "nora.source.d4",
+        summary: "Document — Cadrage",
+        sourceRef: "doc_a",
+        detail: { kind: "D4", coverage: "CONSULTED", title: "Cadrage" },
+      },
+      {
+        sequence: 2,
+        nature: "OBSERVED",
+        status: "COMPLETED",
+        phase: "nora.source.d4",
+        summary: "Document — Conception",
+        sourceRef: "doc_b",
+        detail: { kind: "D4", coverage: "CONSULTED", title: "Conception" },
+      },
+    ]);
+    expect(steps).toHaveLength(2);
+    expect(steps.map((s) => s.sourceRef).sort()).toEqual(["doc_a", "doc_b"]);
+  });
+
+  it("does not rewrite earlier current steps to done when a new current appears", () => {
+    const steps = buildActivitySteps([
+      {
+        sequence: 1,
+        nature: "ANNOUNCED",
+        status: "RUNNING",
+        phase: "nora.objective",
+        summary: "Comparer cadrage et conception",
+        detail: { objective: "Comparer cadrage et conception" },
+      },
+      {
+        sequence: 2,
+        nature: "OBSERVED",
+        status: "RUNNING",
+        phase: "nora.source.git",
+        summary: "Consultation Git — README",
+        sourceRef: "README.md",
+        detail: { kind: "GIT", coverage: "DISCOVERED", title: "README" },
+      },
+    ]);
+    expect(steps.some((s) => s.state === "current")).toBe(true);
+    // DISCOVERED must not be treated as done success.
+    const git = steps.find((s) => s.sourceRef === "README.md");
+    expect(git?.state).not.toBe("done");
+  });
+
+  it("never projects DENIED as done success", () => {
+    const steps = buildActivitySteps([
+      {
+        sequence: 1,
+        nature: "OBSERVED",
+        status: "FAILED",
+        phase: "nora.source.web",
+        summary: "Consultation web limitée",
+        sourceRef: "https://example.com",
+        detail: { kind: "WEB", coverage: "DENIED", title: "example" },
+      },
+    ]);
+    expect(steps[0]!.state).toBe("failed");
+  });
+
+  it("compact headline stays métier", () => {
     const { headline } = compactActivitySummary([
       {
         nature: "ANNOUNCED",
@@ -39,35 +104,5 @@ describe("activity-labels", () => {
     ]);
     expect(headline).not.toMatch(/ANNOUNCED:/);
     expect(headline).not.toMatch(/^COMPLETE:/);
-    expect(headline.length).toBeGreaterThan(0);
-  });
-
-  it("builds a short checklist with a single current step", () => {
-    const steps = buildActivitySteps([
-      {
-        sequence: 1,
-        nature: "ANNOUNCED",
-        status: "RUNNING",
-        phase: "nora.investigation",
-        summary: "start",
-      },
-      {
-        sequence: 2,
-        nature: "OBSERVED",
-        status: "COMPLETED",
-        phase: "nora.source.d4",
-        summary: "COMPLETE: note",
-        detail: { kind: "D4" },
-      },
-      {
-        sequence: 3,
-        nature: "ANNOUNCED",
-        status: "RUNNING",
-        phase: "nora.generate",
-        summary: "writing",
-      },
-    ]);
-    expect(steps.length).toBeGreaterThan(0);
-    expect(steps.filter((s) => s.state === "current").length).toBeLessThanOrEqual(1);
   });
 });

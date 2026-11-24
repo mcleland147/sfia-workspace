@@ -580,6 +580,7 @@
 .fig-nora-live-activity-badge {
   display: inline-flex;
   align-items: center;
+  gap: 6px;
   min-height: 29px;
   padding: 7px 12px;
   border-radius: 15px;
@@ -588,6 +589,22 @@
   color: var(--fig-amber, #e6ba76);
   font-size: 10px;
   font-weight: 600;
+}
+
+.fig-nora-live-activity-badge .fig-nora-live-activity-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--fig-accent, #7477ed);
+  animation: fig-nora-pulse 1.2s ease-in-out infinite;
+}
+
+.fig-nora-live-activity-step-limited {
+  color: var(--fig-amber, #e6ba76);
+}
+
+.fig-nora-live-activity-step-failed {
+  color: #e08a8a;
 }
 
 .fig-nora-live-activity-headline {

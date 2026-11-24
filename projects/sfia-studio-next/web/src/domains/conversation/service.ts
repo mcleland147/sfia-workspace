@@ -1249,31 +1249,52 @@ export async function postUserMessageAndNora(
           } = await import("./nora-contract-bridge");
           // C18: prepare when capability intent OR typed tool OR structured
           // qualification/investigation production is present (≠ replyDraft prose).
-          structuredInstruction =
+          // UAT-30 — investigation leftovers from a prior attach must NOT alone
+          // create a DRAFT on a discussion turn. Only this-turn tool / intent /
+          // qualification production can establish structured prepare authority.
+          const intentProd = reply.qualification?.intents?.find(
+            (i) => i.capabilityId === "d7.prepare_cursor_contract",
+          )?.parameters?.productionInstruction?.trim();
+          const thisTurnInstruction =
             reply.cursorContractProduction?.productionInstruction?.trim() ||
-            reply.qualification?.intents?.find(
-              (i) => i.capabilityId === "d7.prepare_cursor_contract",
-            )?.parameters?.productionInstruction?.trim() ||
+            intentProd ||
             reply.qualification?.productionInstruction?.trim() ||
-            turn.conductor.investigation.productionInstruction?.trim() ||
             "";
-          const rawCriteria =
+          const thisTurnCriteriaRaw =
             reply.cursorContractProduction?.acceptanceCriteria ??
             reply.qualification?.intents?.find(
               (i) => i.capabilityId === "d7.prepare_cursor_contract",
             )?.parameters?.acceptanceCriteria ??
             reply.qualification?.acceptanceCriteria ??
-            turn.conductor.investigation.acceptanceCriteria ??
             [];
-          structuredCriteria = Array.isArray(rawCriteria)
-            ? rawCriteria.filter((c): c is string => typeof c === "string" && c.trim().length > 0)
+          const thisTurnCriteria = Array.isArray(thisTurnCriteriaRaw)
+            ? thisTurnCriteriaRaw.filter(
+                (c): c is string => typeof c === "string" && c.trim().length > 0,
+              )
             : [];
-          const hasStructuredProduction =
-            structuredInstruction.length > 0 && structuredCriteria.length > 0;
+          const hasStructuredProductionThisTurn =
+            thisTurnInstruction.length > 0 && thisTurnCriteria.length > 0;
           const wantsPrepare =
             semanticWantsCursorContractPrepare(reply.qualification) ||
             semanticWantsCorrectiveDraft(reply.qualification) ||
-            hasStructuredProduction;
+            hasStructuredProductionThisTurn;
+          // Enrichment only after prepare is established for this turn.
+          structuredInstruction =
+            thisTurnInstruction ||
+            (wantsPrepare
+              ? turn.conductor.investigation.productionInstruction?.trim() || ""
+              : "");
+          const invCriteria = Array.isArray(turn.conductor.investigation.acceptanceCriteria)
+            ? turn.conductor.investigation.acceptanceCriteria.filter(
+                (c): c is string => typeof c === "string" && c.trim().length > 0,
+              )
+            : [];
+          structuredCriteria =
+            thisTurnCriteria.length > 0
+              ? thisTurnCriteria
+              : wantsPrepare
+                ? invCriteria
+                : [];
           if (!wantsPrepare && reply.qualification?.status === "QUALIFIED") {
             try {
               const { appendActivityEvent } = await import("./activity-projection");

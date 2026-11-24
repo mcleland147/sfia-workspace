@@ -364,6 +364,8 @@ export default function ProjectPage() {
   const preparationIdRef = useRef<string | null>(null);
   const projectIdRef = useRef(params.projectId);
   const messageTurnKeyRef = useRef<{ content: string; key: string } | null>(null);
+  /** L1.5 — invalidate in-flight activity polls when a new send starts or ends. */
+  const activityPollEpochRef = useRef(0);
   const reviseCorrelationRef = useRef<string | null>(null);
   const reviseBaseIdRef = useRef<string | null>(null);
   const documentsRef = useRef<Doc[]>([]);
@@ -2529,8 +2531,11 @@ export default function ProjectPage() {
     // C01/C07 — poll durable turn + activity while POST awaits Nora (parallel read path).
     let lastActivitySeq = 0;
     let knownTurnCommandId: string | null = null;
+    // L1.5 — fence late polls from a previous turn after this send ends.
+    const pollEpoch = ++activityPollEpochRef.current;
     const pollLiveActivity = async () => {
       try {
+        if (pollEpoch !== activityPollEpochRef.current) return;
         if (!knownTurnCommandId) {
           const look = await fetch(
             `/api/preparations/${preparationId}/turns/by-key/${encodeURIComponent(clientTurnKey)}`,
@@ -2541,11 +2546,13 @@ export default function ProjectPage() {
           }
         }
         if (!knownTurnCommandId) return;
+        if (pollEpoch !== activityPollEpochRef.current) return;
         const q = lastActivitySeq > 0 ? `?afterSequence=${lastActivitySeq}` : "";
         const act = await fetch(
           `/api/projects/${params.projectId}/turns/${knownTurnCommandId}/activity${q}`,
         );
         if (!act.ok) return;
+        if (pollEpoch !== activityPollEpochRef.current) return;
         const aj = (await act.json()) as {
           events?: Array<{
             sequence: number;
@@ -2556,7 +2563,11 @@ export default function ProjectPage() {
             sourceRef?: string | null;
             detail?: Record<string, unknown> | null;
           }>;
+          turnCommandId?: string;
         };
+        if (aj.turnCommandId && knownTurnCommandId && aj.turnCommandId !== knownTurnCommandId) {
+          return;
+        }
         const batch = aj.events ?? [];
         if (batch.length === 0) return;
         setLiveActivityEvents((prev) => {
@@ -2579,9 +2590,10 @@ export default function ProjectPage() {
     }, 800);
     void pollLiveActivity();
     // UAT-02 — pilot message joins the thread immediately (optimistic; server remains authority).
+    // L6.1 — identity is the turn key, never message text equality (duplicate texts OK).
     const optimisticId = `local:${clientTurnKey}`;
     setMessages((prev) => {
-      if (prev.some((m) => m.id === optimisticId || m.content === text && m.role === "user")) {
+      if (prev.some((m) => m.id === optimisticId)) {
         return prev;
       }
       return [
@@ -2720,17 +2732,30 @@ export default function ProjectPage() {
               pendingCandidateContentSha256: pendingCand.contentSha256,
             });
           }
-          // F5 — visionneuse shows exact candidate, not historical V2 rebadged.
-          if (viewer?.kind === "document" || documentFocusRef.current) {
+          // F5 / UAT-15 — visionneuse shows exact candidate (merged section), not head v1.
+          if (pendingCand.contentMarkdown && documentFocusRef.current) {
             const focus = documentFocusRef.current;
+            const match = documentsRef.current.find((d) => d.document.id === focus.documentId);
             setViewer((prev) => {
-              if (!prev || prev.kind !== "document" || !focus) return prev;
+              const base =
+                prev && prev.kind === "document"
+                  ? prev
+                  : {
+                      kind: "document" as const,
+                      documentId: focus.documentId,
+                      title: match?.document.title ?? "Document",
+                      revisionId: null,
+                      revisionNumber: headNum != null ? headNum + 1 : null,
+                      versionSource: "exact" as const,
+                      markdown: null,
+                      available: false,
+                    };
               return {
-                ...prev,
-                markdown: pendingCand.contentMarkdown ?? prev.markdown,
+                ...base,
+                markdown: pendingCand.contentMarkdown ?? base.markdown,
                 available: Boolean(pendingCand.contentMarkdown),
                 unavailableReason: undefined,
-                revisionNumber: headNum != null ? headNum + 1 : prev.revisionNumber,
+                revisionNumber: headNum != null ? headNum + 1 : base.revisionNumber,
                 versionSource: "exact",
               };
             });
@@ -2882,6 +2907,7 @@ export default function ProjectPage() {
       setStatus("échec réseau — intention de tour conservée");
     } finally {
       if (activityPollTimer != null) window.clearInterval(activityPollTimer);
+      activityPollEpochRef.current += 1;
       setBusy(false);
     }
   }

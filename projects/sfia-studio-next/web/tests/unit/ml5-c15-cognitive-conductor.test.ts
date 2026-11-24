@@ -29,14 +29,8 @@ describe("ML5 C15 — cognitive conductor foundations", () => {
     expect(r.reason).toMatch(/SEGMENT/);
   });
 
-  it("excludes verified cacheTokens from token envelope billable input", () => {
-    const withoutCache = evaluateGlobalResourceEnvelope(
-      { segmentCalls: 2, inputTokens: 180_000, outputTokens: 30_000 },
-      { SFIA_COGNITIVE_MAX_TOKENS: "200000" },
-    );
-    expect(withoutCache.ok).toBe(false);
-    expect(withoutCache.reason).toMatch(/TOKEN/);
-    const withCache = evaluateGlobalResourceEnvelope(
+  it("keeps cacheTokens inside the global token envelope (context window)", () => {
+    const over = evaluateGlobalResourceEnvelope(
       {
         segmentCalls: 2,
         inputTokens: 180_000,
@@ -45,7 +39,18 @@ describe("ML5 C15 — cognitive conductor foundations", () => {
       },
       { SFIA_COGNITIVE_MAX_TOKENS: "200000" },
     );
-    expect(withCache.ok).toBe(true);
+    expect(over.ok).toBe(false);
+    expect(over.reason).toMatch(/TOKEN/);
+    const under = evaluateGlobalResourceEnvelope(
+      {
+        segmentCalls: 2,
+        inputTokens: 100_000,
+        outputTokens: 20_000,
+        cacheTokens: 80_000,
+      },
+      { SFIA_COGNITIVE_MAX_TOKENS: "200000" },
+    );
+    expect(under.ok).toBe(true);
   });
 
   it("allows source coverage degradation (non-monotonic)", () => {

@@ -73,6 +73,7 @@ export type NoraGenerateInput = {
     topics?: Record<string, string>;
     exactQueries?: string[];
     facts?: string[];
+    pilotProvidedUrls?: string[];
   };
 };
 
@@ -575,6 +576,37 @@ async function fixtureReply(
     onRecord: (entry) => {
       const ctx = input.toolScope?.activityContext;
       if (!ctx) return;
+      const title = entry.title?.trim() || null;
+      const human =
+        entry.kind === "WEB"
+          ? entry.coverage === "DISCOVERED"
+            ? title
+              ? `Source web découverte — ${title}`
+              : "Source web découverte"
+            : entry.coverage === "CONSULTED" || entry.coverage === "VERIFIED"
+              ? title
+                ? `Page web consultée — ${title}`
+                : "Page web consultée"
+              : title
+                ? `Recherche web — ${title}`
+                : "Recherche web publique"
+          : entry.kind === "GIT"
+            ? title
+              ? `Consultation Git — ${title}`
+              : `Consultation Git — ${entry.ref}`
+            : entry.kind === "D4"
+              ? title
+                ? `Document — ${title}`
+                : `Document — ${entry.ref}`
+              : title || `${entry.kind}: ${entry.ref}`;
+      const status =
+        entry.coverage === "DENIED"
+          ? ("FAILED" as const)
+          : entry.coverage === "PARTIAL" || entry.coverage === "STALE"
+            ? ("LIMITED" as const)
+            : entry.coverage === "DISCOVERED"
+              ? ("RUNNING" as const)
+              : ("COMPLETED" as const);
       activityFlushQueue.push(
         appendActivityEvent({
           conversationId: ctx.conversationId,
@@ -583,14 +615,14 @@ async function fixtureReply(
           generationId,
           phase: `nora.source.${entry.kind.toLowerCase()}`,
           nature: "OBSERVED",
-          status:
-            entry.coverage === "DENIED"
-              ? "FAILED"
-              : entry.coverage === "PARTIAL" || entry.coverage === "STALE"
-                ? "LIMITED"
-                : "COMPLETED",
-          summary: `${entry.coverage}: ${entry.ref}`.slice(0, 200),
-          detail: { kind: entry.kind, coverage: entry.coverage, title: entry.title ?? null },
+          status,
+          summary: human.slice(0, 200),
+          detail: {
+            kind: entry.kind,
+            coverage: entry.coverage,
+            title,
+            ref: entry.ref,
+          },
           sourceRef: entry.ref,
           ownerToken: ctx.ownerToken,
         }).catch(() => {
@@ -887,6 +919,37 @@ async function runLiveWithTools(
     onRecord: (entry) => {
       const ctx = input.toolScope?.activityContext;
       if (!ctx) return;
+      const title = entry.title?.trim() || null;
+      const human =
+        entry.kind === "WEB"
+          ? entry.coverage === "DISCOVERED"
+            ? title
+              ? `Source web découverte — ${title}`
+              : "Source web découverte"
+            : entry.coverage === "CONSULTED" || entry.coverage === "VERIFIED"
+              ? title
+                ? `Page web consultée — ${title}`
+                : "Page web consultée"
+              : title
+                ? `Recherche web — ${title}`
+                : "Recherche web publique"
+          : entry.kind === "GIT"
+            ? title
+              ? `Consultation Git — ${title}`
+              : `Consultation Git — ${entry.ref}`
+            : entry.kind === "D4"
+              ? title
+                ? `Document — ${title}`
+                : `Document — ${entry.ref}`
+              : title || `${entry.kind}: ${entry.ref}`;
+      const status =
+        entry.coverage === "DENIED"
+          ? ("FAILED" as const)
+          : entry.coverage === "PARTIAL" || entry.coverage === "STALE"
+            ? ("LIMITED" as const)
+            : entry.coverage === "DISCOVERED"
+              ? ("RUNNING" as const)
+              : ("COMPLETED" as const);
       liveActivityFlushQueue.push(
         appendLiveActivity({
           conversationId: ctx.conversationId,
@@ -895,14 +958,14 @@ async function runLiveWithTools(
           generationId,
           phase: `nora.source.${entry.kind.toLowerCase()}`,
           nature: "OBSERVED",
-          status:
-            entry.coverage === "DENIED"
-              ? "FAILED"
-              : entry.coverage === "PARTIAL" || entry.coverage === "STALE"
-                ? "LIMITED"
-                : "COMPLETED",
-          summary: `${entry.coverage}: ${entry.ref}`.slice(0, 200),
-          detail: { kind: entry.kind, coverage: entry.coverage, title: entry.title ?? null },
+          status,
+          summary: human.slice(0, 200),
+          detail: {
+            kind: entry.kind,
+            coverage: entry.coverage,
+            title,
+            ref: entry.ref,
+          },
           sourceRef: entry.ref,
           ownerToken: ctx.ownerToken,
         }).catch(() => {
@@ -943,6 +1006,7 @@ async function runLiveWithTools(
         turnPublicTopics: input.publicWebRegistry?.topics,
         turnPublicFacts: input.publicWebRegistry?.facts,
         turnAuthorizedExactQueries: input.publicWebRegistry?.exactQueries,
+        pilotProvidedUrls: input.publicWebRegistry?.pilotProvidedUrls,
       });
       tools = [...tools, ...webTools];
     }
@@ -1252,30 +1316,49 @@ async function runLiveWithTools(
       const status = cat.interrupted ? ("INTERRUPTED" as const) : ("UNKNOWN" as const);
       const toolsOnErr = policy.budgets.maxD4ToolCalls - initialBudget.remainingCalls;
       const sourcesOnErr = sourceJournal.entries.slice();
-      const sourceLines = sourcesOnErr
-        .slice(-8)
-        .map((s) => {
-          const kind =
-            s.kind === "WEB"
-              ? "Web"
-              : s.kind === "GIT"
-                ? "Git"
-                : s.kind === "D4"
-                  ? "Document"
-                  : s.kind;
-          const cov = s.coverage ? ` (${s.coverage})` : "";
-          return `• ${kind}${cov}${s.title ? ` — ${s.title}` : s.ref ? ` — ${s.ref}` : ""}`;
-        })
-        .join("\n");
+      const consulted = sourcesOnErr.filter(
+        (s) =>
+          s.coverage === "CONSULTED" ||
+          s.coverage === "VERIFIED" ||
+          s.coverage === "PARTIAL",
+      );
+      const discoveredOnly = sourcesOnErr.filter((s) => s.coverage === "DISCOVERED");
+      const formatSrc = (s: (typeof sourcesOnErr)[number]) => {
+        const kind =
+          s.kind === "WEB"
+            ? "Web"
+            : s.kind === "GIT"
+              ? "Git"
+              : s.kind === "D4"
+                ? "Document"
+                : s.kind;
+        return `• ${kind} · ${s.coverage}${s.title ? ` — ${s.title}` : s.ref ? ` — ${s.ref}` : ""}`;
+      };
+      const submitted = latestContractProduction(contractProdJournal);
+      const acquisLines: string[] = [];
+      if (submitted?.productionInstruction?.trim()) {
+        acquisLines.push(
+          `Production technique amorcée (instruction ${submitted.productionInstruction.trim().length} car.) — non consolidée en réponse.`,
+        );
+      }
+      if (consulted.length > 0) {
+        acquisLines.push("Lectures effectuées :", ...consulted.slice(-6).map(formatSrc));
+      }
+      if (discoveredOnly.length > 0) {
+        acquisLines.push(
+          "Sources découvertes non ouvertes :",
+          ...discoveredOnly.slice(-4).map(formatSrc),
+        );
+      }
       const honestPartial =
-        sourcesOnErr.length > 0
+        acquisLines.length > 0
           ? [
-              "J’ai commencé le travail, mais je n’ai pas pu consolider une restitution complète sur ce tour.",
-              "Sources effectivement mobilisées :",
-              sourceLines,
-              "Votre message est conservé. Vous pouvez me demander de reprendre à partir de ces acquis — aucune relance automatique.",
+              "J’ai avancé sur ce travail, mais je n’ai pas pu livrer une restitution complète et fiable sur ce tour.",
+              ...acquisLines,
+              "Aucune conclusion métier n’est affirmée au-delà de ces acquis observés.",
+              "Votre message est conservé. Vous pouvez me demander de reprendre — aucune relance automatique.",
             ].join("\n")
-          : "Je n’ai pas pu terminer cette réponse. Votre message est conservé ; vous pouvez reformuler ou reprendre. Aucune relance automatique.";
+          : "Je n’ai pas pu terminer cette réponse et aucun acquis de lecture n’a été consolidé. Votre message est conservé ; vous pouvez reformuler ou reprendre. Aucune relance automatique.";
       return {
         generationId,
         mode: "openai-agents-sdk-live",

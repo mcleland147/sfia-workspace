@@ -1,10 +1,7 @@
 "use client";
 
 import { SafeMarkdown } from "@/components/SafeMarkdown";
-import {
-  buildActivitySteps,
-  projectActivityLabel,
-} from "@/domains/conversation/activity-labels";
+import { NoraLiveActivity } from "@/components/figma/NoraLiveActivity";
 
 export type PrepMessage = {
   id: string;
@@ -112,46 +109,11 @@ export function PreparationConversation(props: {
         })}
 
         {showLive ? (
-          <div
-            className="fig-nora-live-activity"
-            role="status"
-            aria-live="polite"
-            data-testid="nora-live-activity"
-            data-figma-frame="12.10"
-          >
-            <div className="fig-nora-live-activity-head">
-              <p className="fig-nora-live-activity-kicker">ACTIVITÉ NORA</p>
-              <span className="fig-nora-live-activity-badge" data-testid="nora-live-activity-badge">
-                En cours
-              </span>
-            </div>
-            <p className="fig-nora-live-activity-headline" data-testid="nora-live-activity-headline">
-              {props.liveActivityHeadline ||
-                (liveEvents.length
-                  ? projectActivityLabel(liveEvents[liveEvents.length - 1]!)
-                  : "Activité en cours")}
-            </p>
-            <p className="fig-nora-live-activity-lead">
-              Les principales vérifications sont présentées au fil du travail.
-            </p>
-            {liveEvents.length > 0 ? (
-              <ul className="fig-nora-live-activity-steps" data-testid="nora-live-activity-steps">
-                {buildActivitySteps(liveEvents).map((step) => (
-                  <li
-                    key={step.key}
-                    data-state={step.state}
-                    data-nature={step.nature}
-                    className={`fig-nora-live-activity-step fig-nora-live-activity-step-${step.state}`}
-                  >
-                    <span className="fig-nora-live-activity-mark" aria-hidden>
-                      {step.state === "done" ? "✓" : step.state === "current" ? "◌" : "○"}
-                    </span>
-                    <span>{step.label}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
+          <NoraLiveActivity
+            events={liveEvents}
+            headline={props.liveActivityHeadline}
+            figmaFrame="12.10"
+          />
         ) : null}
 
         {props.noraActivity === "preparing" && !showLive ? (

@@ -802,6 +802,7 @@ export async function runNoraCognitiveTurn(
             topics: webRegistry.topics,
             exactQueries: webRegistry.exactQueries,
             facts: webRegistry.facts,
+            pilotProvidedUrls: webRegistry.pilotProvidedUrls,
           },
         });
       }

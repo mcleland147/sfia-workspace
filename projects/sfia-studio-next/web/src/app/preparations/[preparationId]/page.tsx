@@ -108,6 +108,7 @@ export default function PreparationPage() {
   const reviseIntentRef = useRef<ReviseIntent | null>(null);
   /** Stable client turn key for the current draft — reused across network retries. */
   const messageTurnKeyRef = useRef<{ content: string; key: string } | null>(null);
+  const activityPollEpochRef = useRef(0);
   const idempotencyKey = useMemo(() => `create-${preparationId}`, [preparationId]);
   /** Structured awaiting mission key from server — never parsed from Nora prose. */
   const [awaitingClientIntentKey, setAwaitingClientIntentKey] = useState<string | null>(null);
@@ -276,8 +277,10 @@ export default function PreparationPage() {
     setDraft("");
     let lastActivitySeq = 0;
     let knownTurnCommandId: string | null = null;
+    const pollEpoch = ++activityPollEpochRef.current;
     const pollLiveActivity = async () => {
       try {
+        if (pollEpoch !== activityPollEpochRef.current) return;
         if (!knownTurnCommandId) {
           const look = await fetch(
             `/api/preparations/${preparationId}/turns/by-key/${encodeURIComponent(clientTurnKey)}`,
@@ -288,11 +291,13 @@ export default function PreparationPage() {
           }
         }
         if (!knownTurnCommandId) return;
+        if (pollEpoch !== activityPollEpochRef.current) return;
         const q = lastActivitySeq > 0 ? `?afterSequence=${lastActivitySeq}` : "";
         const act = await fetch(
           `/api/preparations/${preparationId}/turns/${knownTurnCommandId}/activity${q}`,
         );
         if (!act.ok) return;
+        if (pollEpoch !== activityPollEpochRef.current) return;
         const aj = (await act.json()) as {
           events?: Array<{
             sequence: number;
@@ -303,7 +308,11 @@ export default function PreparationPage() {
             sourceRef?: string | null;
             detail?: Record<string, unknown> | null;
           }>;
+          turnCommandId?: string;
         };
+        if (aj.turnCommandId && knownTurnCommandId && aj.turnCommandId !== knownTurnCommandId) {
+          return;
+        }
         const batch = aj.events ?? [];
         if (batch.length === 0) return;
         setLiveActivityEvents((prev) => {
@@ -398,6 +407,7 @@ export default function PreparationPage() {
       setStatus("échec réseau — intention de tour conservée");
     } finally {
       window.clearInterval(activityPollTimer);
+      activityPollEpochRef.current += 1;
       setBusy(false);
     }
   }
