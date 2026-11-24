@@ -1,5 +1,7 @@
 # SFIA Studio Next — Préparation cognitive transverse de Nora et réalisation technique gouvernée
 
+> **Lecture courante post-C22 :** [revue indépendante §12](https://github.com/mcleland147/sfia-workspace/blob/ea74688a2ac2643a157dc680d4b2f5fa1fa0b517/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md), addendum factuel en fin de document ; pas de changement normatif.
+
 > **Lecture courante post-C20 :** [synthèse globale](https://github.com/mcleland147/sfia-workspace/blob/978e42648aa0149e4f2f2bab03b4483a5bbfd496/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md#11-revue-globale-post-c20--état-de-travail-au-24112026-d1-factuel), addendum factuel en fin de document. Exigences et décisions antérieures conservées ; aucune adoption ni GO lot 2.
 
 > **Lecture prioritaire — revue approfondie post-C14 (24/11/2026) : ML5 TARGET ARCHITECTURE COHERENT — IMPLEMENTATION CONFORMITY PARTIAL — FUNCTIONAL COMPLETION REQUIRED.** [Revue complète](https://github.com/mcleland147/sfia-workspace/blob/37edb41329526d07134a802f8f73e7371c941c16/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md) ; [registre](https://github.com/mcleland147/sfia-workspace/blob/37edb41329526d07134a802f8f73e7371c941c16/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md) ; [acceptation](https://github.com/mcleland147/sfia-workspace/blob/37edb41329526d07134a802f8f73e7371c941c16/projects/sfia-studio-next/construction/contrat-acceptation-cognition-et-realisation-gouvernee.md). Morris valide la consolidation et les trois lots de convergence comme base de travail, pas une adoption ni un GO C15. Les sections R-004 et les instantanés préconstruction restent historiques pour l'état, opposables pour les exigences. Code reproduit dans snapshot consulté, worktree NON OBSERVÉ, aucune publication projet.
@@ -875,3 +877,19 @@ Le détail IN/OUT, risques, responsabilités, oracles, dette/exit et dépendance
 - **Qualifer :** lot 3 = parcours intégrés, non-régression, couverture et préparation des essais utilisateur ; F2 sous gate recette UX. Préserver les règles de décision, les quatre engagements et six volets, la distinction avis/qualification/autorisation et Git A.
 
 Les scénarios intégrateurs proposés dans la revue globale composent les exigences déjà approuvées ; pas de nouvel oracle normatif. Le report/confinement des risques résiduels, la sortie lot 1 et l'engagement lot 2 restent des décisions Morris distinctes. Les constats historiques §§1–22 restent préservés ; ce point met seulement à jour l'état connu.
+
+## 24. Situation fonctionnelle post-C22 — lecture courante
+
+**Portée :** actualisation D1 factuelle sous GO Morris du 24/11/2026. [Revue globale §12](https://github.com/mcleland147/sfia-workspace/blob/ea74688a2ac2643a157dc680d4b2f5fa1fa0b517/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md) ; [registre des 99 exigences §10](https://github.com/mcleland147/sfia-workspace/blob/eec09fdcabcf4299d3c57b4cf612a3d67c8a1718/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md) ; [handoff C22](https://github.com/mcleland147/sfia-workspace/blob/075d085628e5062b2fd17301f6347195fd25c53a/sfia-review-handoff/latest-chatgpt-review.md). Candidat DIRTY C1–C22 @6cf33e99 rapporté, NON OBSERVÉ directement. GO lot 2 et C22 acquis. Cursor READY WITH RESERVES ; ChatGPT NOT READY FOR LOT 2 EXIT — LIVE DOWNSTREAM OBSERVED / D8 EVIDENCE INTEGRITY AND RESTITUTION FENCING OPEN. NO RELEASE. Aucun changement de cible, exigences, décisions ou gates.
+
+La cible reste besoin naturel du Pilote → investigation et production Nora → contrat inspectable → autorisation D6 → réalisation Cursor → collecte D7 → qualification D8/D9 → avis Nora → décision/suite. C22 démontre en DEV LIVE un parcours aval à partir d'un contrat préparé par la campagne : authorize/dispatch, agent/run SDK, rapport RECEIVED, verdict D8 CONFORMING observé, avis cognitif D3 après reprise. Le contrat n'est pas produit naturellement par Nora dans ce scénario ; reconcile est appelé en boucle. Le fichier add.exit=0 est demandé comme création et ne démontre pas un test exécuté. La qualification sémantique des critères et le fencing complet restent à terminer.
+
+| Résultat utilisateur | Acquis | Reste |
+|---|---|---|
+| Nora comprend et prépare | C18 production structurée longue, C20 ambiguïté, C22 mergeMode | Investigation naturelle et consolidation sans perte, activité BROWSER |
+| Recherche utile et sûre | C22 refuse free-form non autorisé | Provenance publique réellement alimentée, WEB LIVE autorisé ; garder deny tant que non sûr |
+| Pilote autorise et suit | D6/D7 SDK LIVE, supervision et hook boot | Inspection exacte et refus obsolète, confinement fournisseur, supervision/restart sans appel intermédiaire |
+| Studio restitue | collecte confinée et avis via conducteur avec outils D8 | Qualification réelle par critère, rapport lié, ownership et versions, avis unique et parcours UI |
+| Pilote décide ensuite | bilan/retour contextualisé historique | Qualification BROWSER du bilan réel et suite, aucun auto-dispatch |
+
+Préserver les quatre engagements, six volets, séparation autorité/avis, Git A. Le lot 3 non engagé vise la convergence intégrée et les corrections résiduelles, pas une nouvelle conception. Les états des §§1–23 sont historiques quant à la réalisation. Aucun passage de lot déduit de cette synchronisation.
