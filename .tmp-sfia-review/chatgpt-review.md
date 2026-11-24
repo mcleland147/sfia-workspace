@@ -1911,16 +1911,20 @@ Fake/Real: déterministe ≠ READY FOR REAL.
 | 15,30 | IMPLEMENTED viewer/prepare gate — OPEN E2E |
 | 02 | prior+ L6.1 — OPEN |
 
-## 12. Manifeste candidat (pré-commit — maj post-commit)
+## 12. Manifeste candidat
 
 | Champ | Valeur |
 |---|---|
+| Candidate SHA (delivery) | `d0372b856af17793820817a78aa21739cddbdfd8` |
+| Candidate tree | `14dbf2066bd991359f0cf6c09ee12af7c4cd4da4` |
+| Web tree | `b5b8dc474c3d70f708039ad56798b253a5c1bed0` |
 | Build DEV servi | `oLyRjFCDc4Y7JSvbzZkFo` |
 | BUILD digest | `5c7c5a812df4d3baddfc64d32414560ac9b64c1fed80729a1cd59176f44bae66` |
+| Relation | **Source à construire RECETTE** = SHA delivery ci-dessus |
 | Migrations | aucune |
 | RECETTE | inchangée `7f48daa2` / `_ZDI1cWa1hscluvBhaiA4` |
 | Rollback | conserver runtime RECETTE actuel |
-| Capacités | activité contextualisée; B1 catalog+pilot URL; prepare this-turn; viewer candidate |
+
 
 ## 13. Décisions Morris
 
@@ -1931,4 +1935,3 @@ Fake/Real: déterministe ≠ READY FOR REAL.
 ## 14. Instruction ChatGPT
 
 Consulter le handoff distant `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` (commit message ci-dessus). Qualifier complétude L1–L6; ne pas fermer ML5; proposer GO bascule borné si conforme.
-

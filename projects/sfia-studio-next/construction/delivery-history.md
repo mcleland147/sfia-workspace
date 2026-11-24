@@ -12,9 +12,9 @@ Append-only logical journal of Cursor product deliveries.
 | Type | INC Critical · six lots L1–L6 · **NO RELEASE** |
 | Branche | `sfia/next-ml5-integrated-delivery-20261123` |
 | Parent HEAD | `5309dfaa5682cbdc92e9d6d354fd9c6c61d580f0` |
-| Candidate SHA | *(post-commit)* |
-| Candidate tree | *(post-commit)* |
-| Web tree | *(post-commit)* |
+| Candidate SHA | `d0372b856af17793820817a78aa21739cddbdfd8` |
+| Candidate tree | `14dbf2066bd991359f0cf6c09ee12af7c4cd4da4` |
+| Web tree | `b5b8dc474c3d70f708039ad56798b253a5c1bed0` |
 | Build DEV | `oLyRjFCDc4Y7JSvbzZkFo` · digest `5c7c5a812df4d3baddfc64d32414560ac9b64c1fed80729a1cd59176f44bae66` |
 | RECETTE | **inchangé** `7f48daa2` / `_ZDI1cWa1hscluvBhaiA4` |
 | Contenu | L1 états/identité/contexte activité; L2 NoraLiveActivity; L3 envelope tokens; L4 B1 catalog+pilot URL; L5 viewer/prepare gate; L6 optimistic id |
