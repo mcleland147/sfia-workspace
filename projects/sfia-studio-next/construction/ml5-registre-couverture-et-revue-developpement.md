@@ -1,5 +1,7 @@
 # SFIA Studio Next — ML5 · Registre de couverture et de revue du développement
 
+> **Lecture prioritaire — revue approfondie post-C14 du 24/11/2026 : ML5 TARGET ARCHITECTURE COHERENT — IMPLEMENTATION CONFORMITY PARTIAL — FUNCTIONAL COMPLETION REQUIRED.** Voir [revue complète](./ml5-revue-approfondie-conformite-post-c14.md) et complément courant en fin de document. Snapshot de code consulté, worktree NON OBSERVÉ ; C14 présence 2/97/0 rapportée, conformité partielle. R-004 reste historique et opposable pour les exigences ; trois lots de convergence approuvés comme trajectoire, aucun GO C15 ni publication code.
+
 > **Lecture prioritaire — R-004 du 24/11/2026 : ML5 ARCHITECTURAL ALIGNMENT CONFIRMED — FUNCTIONAL COMPLETION REQUIRED.** Consolidation documentaire sous GO Morris ; candidat local C3–C13 non publié, code courant NON OBSERVÉ directement. Les états R-001/R-002/R-003 et les critères d'acceptation antérieurs restent historiques ; les réserves et exigences ne sont pas effacées. Pas de publication code ni de préparation de promotion dans le présent lot. Figma F2 est conservé pour recette UX, non bloquant pour les validations fonctionnelles indépendantes. Références actualisées : [contrat fonctionnel v0.6 §21](https://github.com/mcleland147/sfia-workspace/blob/af97e428b8904922a48a023028fbbfbec019c1f1/projects/sfia-studio-next/conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md) et [architecture v0.10 §20](https://github.com/mcleland147/sfia-workspace/blob/af97e428b8904922a48a023028fbbfbec019c1f1/projects/sfia-studio-next/architecture-technique/qualification-ecarts-cognition-transverse-et-execution-cursor-ml5.md), branche documentaire candidate non mergée. La conduite sémantique IA est un arbitrage Morris validé en contenu ; pas de déclencheur décisionnel lexical/regex/longueur. Aucun ADOPTED.
 
 > **Registre de revue ML5 — contenu validé comme support de suivi par Morris ; Gate C accepté avec réserves et GO de construction ML5 exprimés le 23/11/2026.** Aucun GO implicite de push projet, PR, merge, recette/cutover, release, adoption ou promotion.
@@ -474,3 +476,64 @@ Chaque réserve transférée comporte **propriétaire, impact, preuve attendue, 
 **Checkpoint courant R-004 :** voir §4 quater ; 1/97/1 rapporté C13, conformité ligne par ligne à réconcilier, complétude A/B/C/D/G et sûreté ciblées avant proposition de test utilisateur. Aucun push code, promotion ou ADOPTED.
 
 **Hors périmètre de ce document :** nouvelle doctrine, architecture physique adoptée, ordre impératif de micro-lots, auto-acceptation, PR/merge, mutation/runtime, gestion MCP Studio universelle.
+
+## 4 quinquies. Revue approfondie post-C14 — checkpoint courant du 24/11/2026
+
+**Consolidation approuvée par Morris pour publication documentaire candidate.** [Revue complète](./ml5-revue-approfondie-conformite-post-c14.md) — source de détail des constats, références du snapshot et exits ; ce registre reste l'index unique des 99 exigences. [Snapshot](https://github.com/mcleland147/sfia-workspace/blob/78f60e40f466b520ac0381d5d27e212bd2fa5695/sfia-review-handoff/latest-chatgpt-review.md), blob 01961de12b10dc1d8802a2ba24bc5095a51b4949. C3–C14 local HEAD 6cf33e99, 97 DIRTY rapportés, non publié ; contenu observé dans le snapshot, worktree NON OBSERVÉ. R-004 et historiques préservés ; les constats ci-dessous priment pour l'état courant. La revue constate que copies locales de CF/architecture/registre ne sont pas intégralement réconciliées avec R-004 distant (option B historique encore présentée comme non arbitrée, vieux détecteurs, etc.). Synchroniser sans écraser les travaux lors du prochain lot.
+
+**Deux axes :** C14 rapporte présence 2 IMPLEMENTED (E13/B09) / 97 PARTIAL / 0 NOT_IMPL, contre C13 1/97/1. Pas de reclassification indépendante des 99 lignes ni de pourcentage d'achèvement. Conformité statique groupée dans §8 de la revue complète, preuves individuelles et CA/T/Q/PF à réconcilier. B09 fournisseur LIVE raccordé, usage intégré et sécurité partiels. R-004 historique 44 PARTIEL/1 EC/54 NV n'est pas l'état courant consolidé par ligne.
+
+| IDs | Constat et priorité | Exit / référence détaillée |
+|---|---|---|
+| A01–A02 | qualification LIVE bornée ; profil analyse/medium fixe, non conforme adaptation P1 | revue A.1–2 : intention et complexité sémantiques, allocation et réallocation |
+| A03–A05 | bridge sémantique, initiative/mandat correctif partiels | A.1/D.1 : paraphrases, négation, mandat exact, aucune relance |
+| A06–A08 | questions non alimentées en cours de travail, lecture/version et provenance incomplètes P1 | A.3–4/A.6 : renvois, questions révisables, pagination/version |
+| A09–A10 | suffisance par absence, état vide/épuisé peut être SUFFICIENT P0 ; consolidation incomplète | A.4–6 : preuve positive, source critique absente, restriction et contradiction |
+| A11–A12 | snapshot par préparation, reprise et budget/contexte incomplets P1 | A.2/A.7 : checkpoints, continuation, compaction, consommation réelle, transversalité |
+| B01–B02 | fournisseur LIVE, S4 direct, MDN navigation | B.3 : travail Nora réellement intégré, extrait utile progressif |
+| B03–B05 | confrontation/versions/citations partielles | B.3 : jugement sémantique, applicabilité, couverture attestée |
+| B06–B08 | confidentialité sortie, DNS/HTTP et budgets P0/P1 | B.1–3 : frontière testée avec données fictives, destination et lecture bornées |
+| B09 | présence IMPLEMENTED déclarée, conformité partielle | B.3 : recherche et lecture réelles au sein de réponse structurée |
+| C01–C04 | activité et journal partiels | §5 : événements réels, couverture/fraîcheur |
+| C05–C08 | projection/poll utiles, isolation et reconnexion à qualifier | §5 : fil correct, minimisation, fencing, sas/projet/docs/bilan |
+| D01–D02 | assemblage générique et READY insuffisant P0/P1 | D.1–2 : contrat spécifique, filiation et suffisance positive |
+| D03–D08 | troncatures, version/empreinte et changement matériel | D.1–2 : instruction intégrale, critères propres, READY lié au travail |
+| D09–D10 | BROWSER borné | §7/D.3 : inspection/confirmation et aucun effet après Non |
+| D11–D12 | droits/identité et restrictions au point d'effet partiels | D.2–3 : mandats et capacités effectives |
+| E01–E04 | LIVE borné C11/C12 | D.3–4 : conserver SDK, D6, tentative et claim avant envoi |
+| E05–E08 | long-run/STOP LIVE C13, reprise autonome non prouvée | D.4 : boot/reprise et états honnêtes |
+| E09–E11 | idempotence déterministe ; concurrence projection | D.4 : ACK perdu, double clic, réconciliation/STOP concurrents |
+| E12–E15 | MCP conditionnel, isolation/confinement P0 | D.3–5 : permissions réelles, workspace et missions sans Git/MCP |
+| F01–F03 | Git A préflight incomplet | D.5 : refs/droits/mandat précis au point d'effet |
+| F04–F06 | Git REAL non prouvé | D.5 : refs distantes, local ≠ distant, mandat distinct |
+| F07–F09 | option A, continuité partielle | D.5 : pas de publisher Studio code, pas PR/merge implicite |
+| G01–G04 | handoff manuel dans scripts, automatisation manquante | D.6 : terminal→collecte/remise automatique |
+| G05–G08 | pièces/captures/provenance partielles | D.6–8 : accès réel et preuve versionnée |
+| G09–G11 | qualification surtout structurelle | D.7–8 : critères vs preuves, 9 rubriques, cas positif/négatif |
+| G12–G14 | avis LIVE borné, chaîne autonome non raccordée | D.6/D.9 : avis unique, provenance, retour fil sans envoi |
+| G15 | preuve déclarée ≠ nouvelle preuve, verrou/avis stale | D.7–9 : version, CAS, histoire, sans redispatch |
+| H01–H08 | BROWSER partiel ; F2 reporté | §7 : fonctionnel utilisable puis recette UX |
+| I01–I04 | autorité, isolation et concurrency à fermer | §§3–7 : invariants et négatifs ciblés |
+| I05–I07 | tsc/lint/build non réattestés, preuves ciblées | §7 : compilation/régression et distinction niveaux |
+| I08–I11 | conditions de qualification intégrée | §§7–10 : mandat, E2E, sync, ENV-01 et décision Morris |
+
+**Sous-critères de suivi, rattachés aux IDs existants, sans nouveau corpus normatif :**
+
+| ID | Propriétés à qualifier explicitement |
+|---|---|
+| A02 | allocation initiale sémantique, effort, réallocation dynamique selon besoin et risque |
+| A06 | questions déterminantes révisables, séquençage interne et continuation du même travail |
+| A07/A08 | lecture progressive D4/Git/web/D8, versions, plages et couverture, invalidation des sources |
+| A09 | suffisance positivement établie ; UNKNOWN/BUDGET_EXHAUSTED/absence critique ne deviennent pas READY |
+| A10 | acquis sourcés, compaction, contradictions, exclusions, restrictions, réouverture ciblée |
+| A11 | checkpoints versionnés, identité du travail, reprise et réévaluation des droits |
+| A12 | tokens réels si exposés, appels/coût/latence, simple vs complexe, budget de segment ≠ enveloppe globale ; transversalité |
+| D01/D06 | production objet métier distinct de replyDraft/Zod, contrat intégral, critères spécifiques et non tronqués |
+| D02/D08 | filiation investigation/version/contrat/READY, requalification des dépendances affectées |
+| E15/F03 | confinement et permissions fournisseur effectifs, Git A et portée exacte des effets |
+| G01/G12 | déclenchement autonome terminal→handoff→D8/D9→avis Nora, pas de script injecteur |
+| G10/G15 | pièce réellement accessible/vérifiée/évaluée, preuve tardive authentique, version dossier/verdict/avis et concurrence |
+
+Priorités : P0 sécurité WEB/sortie réseau, suffisance/READY/autorité, confinement/isolation et auto-session DEV ; P1 complétude cognitive, contrat long, restitution autonome et D8 probant, reprise ; P2 activité et qualification complémentaire intégrées aux résultats. Les 3 lots de convergence approuvés comme trajectoire dans ML5 sont détaillés dans [la revue §9](./ml5-revue-approfondie-conformite-post-c14.md#9-trajectoire-de-convergence-validée-comme-base-de-travail-par-morris) : 1 conducteur cognitif complet (A/B/C/D01–02 et contrat), 2 réalisation et restitution autonomes (D7/D8/D9/D3, sûreté/résilience), 3 qualification intégrée et continuité. Aucun nombre de cycles imposé, ni GO C15. Pour toute ligne touchée : référence du code et chemin nominal, sous-critère, présence/conformité distinctes, preuves par niveau, réserve, responsable et exit. Réconcilier Q-01…56, T-01…12, CA-01…10 et PF propriétaires sans promotion automatique. Historique §3/§4 préservé, ne pas utiliser ancien verdict comme courant.
+
+**État courant : ML5 TARGET ARCHITECTURE COHERENT — IMPLEMENTATION CONFORMITY PARTIAL — FUNCTIONAL COMPLETION REQUIRED.** NO CODE PUBLICATION / NO RELEASE / NOT ADOPTED.
