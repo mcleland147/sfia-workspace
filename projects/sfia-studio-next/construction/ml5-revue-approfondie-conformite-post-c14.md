@@ -1,5 +1,7 @@
 # SFIA Studio Next — ML5 · Revue approfondie de conformité post-C14
 
+> **État courant post-C20 (24/11/2026)** : voir §11 — synthèse factuelle, socle cognitif exploitable, sortie intégrale lot 1 non qualifiée ; engagement lot 2 sous conditions proposé, non décidé. Les critères antérieurs restent opposables.
+
 | Champ | Valeur |
 |---|---|
 | Date | 24 novembre 2026 |
@@ -230,3 +232,51 @@ P0 : suffisance/READY et autorité au point d'effet, confidentialité WEB et ré
 Pour chaque correction : source cible précise, mécanisme et point d'entrée nominal, limites/fallbacks, responsabilité, impact (API, données, autorité, UX, sécurité, tests), état de couverture/conformité distinct, preuve et condition de sortie. Ne pas considérer fonction inutilisée comme opérationnelle, ou PASS script comme preuve du produit. Retester proportionnellement, conserver les preuves existantes valables. Réconciliation individuelle et scénarios Q/PF à compléter ; verdict actuel ne signifie pas conformité exhaustive du code. Morris décide du lancement du prochain contrat, des choix structurants/persistance, des gates et de la mise à disposition.
 
 **Verdict : ML5 TARGET ARCHITECTURE COHERENT — IMPLEMENTATION CONFORMITY PARTIAL — FUNCTIONAL COMPLETION REQUIRED.** Socle à conserver : Agents SDK LIVE, qualification sémantique, propriétaires D3–D9, contrat canonique, D6, Cursor SDK LIVE, supervision/STOP, PostgreSQL, frontière B1, projection d'activité. Capacités à terminer : conducteur adaptatif, gestion contexte/suffisance, production contractuelle, lecture/confidentialité WEB, confinement, restitution automatique, D8 probant, continuité/reprise, validation transverse. **NO GO C15 / NO CODE PUBLICATION / NO RELEASE / NOT ADOPTED.**
+
+## 11. Revue globale post-C20 — état de travail au 24/11/2026 (D1 factuel)
+
+**Autorité et portée :** GO Morris du 24/11 pour actualiser les documents ML5 déjà publiés et reprendre la vision macro. Actualisation de constats et propositions d'arbitrage, sans modification des exigences, orientations B/C/C, critères de sortie §9–10 ou décision Git A. Aucun GO lot 2, report P0, réception, code, PR, merge ou promotion induit. Historique post-C14 conservé. Main E08 et Gate C historique inchangés ; GO ML5 du 23/11 applicable.
+
+**Vérité Git :** main `997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `017a77e9b4cba12ff3cacb41873bbbdf64822d64` ; conformité avant cette actualisation `975a8d5fb491c3620c6737b133a0b39aab3dd60a`. Candidat code `sfia/next-ml5-integrated-delivery-20261123`, HEAD rapporté `6cf33e9923796974b9ee540a9c6ff27110342950`, DIRTY C1–C20 rapporté, NON OBSERVÉ localement par ChatGPT ; aucune publication projet rapportée. C20 build `FLRkHLwoatlm8o_Iq979R`, tsc/build/smoke/22 tests PASS rapportés, pas de preuve globale ESLint/PG/BROWSER sur build final. NO RELEASE.
+
+**Sources de réalisation relues :** [C18](https://github.com/mcleland147/sfia-workspace/blob/ead52de9c6c4f6aaae712186c16bd94d51f3b79a/sfia-review-handoff/latest-chatgpt-review.md), [C19 régularisé 14/14](https://github.com/mcleland147/sfia-workspace/blob/55dff99750cfc5ab4392c975862c7d6257b73c6f/sfia-review-handoff/latest-chatgpt-review.md), [C20 13/13](https://github.com/mcleland147/sfia-workspace/blob/51cbadf26b8ce2f0b0ce52b3ebebd136ce4b6bef/sfia-review-handoff/latest-chatgpt-review.md) (blob `ea7635fabb8c903a5aeeac58f95eabcd1680ca6f`). Handoff distant mono-fichier vérifié. Les états antérieurs C1–C14 restent des preuves bornées et non une certification du candidat C20.
+
+### 11.1 Résultat macro et répartition du travail
+
+ML5 = besoin Pilote → Nora investigue → contrat métier inspectable → HumanDecision → Cursor SDK → résultat et preuves → D8/D9 → avis Nora et suite. Les trois lots §9 restent dans ML5 ; lot 2 comporte encore de la construction, lot 3 principalement de l'intégration/qualification et des corrections nécessaires. Aucun moteur nouveau à concevoir par défaut.
+
+| Famille | Capital observé / rapporté | Reste concret | Destination |
+|---|---|---|---|
+| A — cognition | Conducteur D3, état PostgreSQL, checkpoints/lease/CAS, qualification structurée, rattachement et ambiguïté LIVE, reprise assistée | Investigation réellement multi-sources/multi-segments, continuation autonome et reprise en cours de production, allocation effective et scope/probe ; conserver mécanismes | Lot 1 résiduel ; preuves mutualisables avec lot 2/3 si arbitrage |
+| B — WEB | B1 LIVE isolé C14, DNS/pinned rapporté, refus redirect, allowlist URL C20, filtres et tests | Autorisation/provenance des données de requête indépendamment des regex, confinement lecture/timeout et logs ; WEB LIVE sûr | P0 lot 1 ; désactivation vérifiée proposée avant lot 2, pas fermeture |
+| C — activité | Journal/projection, corrélation et polling existants, premiers parcours browser antérieurs | Activité réellement observée durant travail/reconnexion sur les parcours utiles | Lot 1 résiduel / qualification intégrée |
+| D — contrat/autorité | Contrat canonique, production structurée C18 40 994 caractères/15 critères, DRAFT/READY et refus D6 LIVE, filiation et invalidation D4 C20 | Suffisance, identité intégrale inspecté/autorisé/envoyé, dépendances actuelles déterminantes, droits et concurrence de réservation ; preuve post-autorisation sans effet | Gate D6/D7 avant dispatch lot 2 ; couverture finale lot 3 |
+| E — exécution | SDK LIVE C11, ACK-first C12, STOP LIVE et supervision C13, tentative unique, identités/claims, UI | Confinement réel workspace/outils et droits (cwd ≠ sandbox), reprise autonome au boot, supervision sans onglet, transitions concurrentes, ACK incertain | Lot 2 construction/QA ; MCP seulement si mission |
+| F — Git | Option A validée ; préflight et observations locales/distantes partiels | Mandat exact, relecture D9 indépendante, SHA/base/branche, permissions effectives et continuité ; aucun publisher code Studio | Lot 2 si mission Git ; REAL sous GO distinct |
+| G — restitution | Rapport, handoff par tentative, D8 neuf rubriques, outils de lecture, avis Nora LIVE borné, retour contextualisé et historique | Chaînage terminal→collecte automatique→D8/D9→avis ; preuves réellement accessibles et évaluées par critère, verdict positif possible, absences/contradictions, versions et preuve tardive ; aucune relance manuelle | Cœur construction lot 2 |
+| H — UX | Travail 50/50, inspection Oui/Non, Exécution/Résultats et retour fil partiellement éprouvés C9–C10 | Vérifier parcours fonctionnels courants ; F2 sur 14 états à recette UX | Lot 2/3 ; pas de refonte esthétique par défaut |
+| I — qualité | Tests ciblés, versioning, DEV et reports de gates | Non-régressions ML1–ML4, 99 IDs/56 Q/12 T/CA/PF, sécurité et qualification intégrée ; décision de mise à disposition | Lot 3, ENV-01 et gates séparés |
+
+### 11.2 Lot 1 : reste de construction vs preuve
+
+- **P0 B07 ouvert confirmé**, pas simple absence de LIVE : C20 `web-search-sanitize.ts` L2692–2744, `public-web-search-frontier.ts` L3020–3075 et L3515–3529 acceptent une requête libre issue de Nora privée après filtrage lexical. L'allowlist URL L3334–3359 est un acquis. Correction réelle : autorisation serveur des données publiques (p.ex. requête exacte autorisée et liée à sa provenance), tests avec donnée privée synthétique non marquée et absence de sortie/log. Proposition de confinement : WEB OFF effectivement vérifié, y compris probe et avis, avant tout lot 2 ; maintien B07 ouvert jusqu'à preuve de sécurité et réactivation sous gate. Aucun transfert implicite.
+- **Autorité :** C20 revalide D4 et réassert après claim (L1285–1436, L2182–2233). Test I2 évalue la fonction, pas le dispatch déjà autorisé. Reste : revalidation dépendances exactes/permissions et réservation opposable, preuve négative sur chemin propriétaire sans SDK. À traiter comme précondition du parcours lot 2, pas refonte D6/D7.
+- **Production/continuité :** C18 production longue structurée ; C19 34 553 caractères en trois tours distincts, non preuve multi-segments autonome ; C20 D4 AVAILABLE 1 351 caractères et raccordement production consolidée dans service L5577–5599. Reste : consolidation sémantique (concaténation ≠ consolidation), preuve identité du contenu D4 et révision, continuation autonome et reprise sans perte sur travail réel. Vérifier que les capacités existantes suffisent avant modifier. Exploiter une vraie mission représentative plutôt que remplir un volume artificiel.
+- **Ownership :** C20 predicates lease/CAS et I1 PG observés ; C19 perte d'ownership provoquée/reprise assistée. Reste : couvrir probe avant claim, scope et récupération après interruption naturelle, ressources/état inconnu, sans rejouer un effet. Limites de réallocation fine et de présentation à prioriser selon résultat réel.
+- **Pas de nouveau conducteur, moteur, base ou modèle d'autorité.** Le socle est exploitable, sortie stricte du lot 1 NON QUALIFIÉE selon §9–10. Cursor READY WITH RESERVES ; revue ChatGPT : recommandation d'engagement lot 2 sous conditions, pas réception.
+
+### 11.3 Lot 2 : backlog de construction orienté résultat
+
+1. **Mandat → effet sûr :** reprendre contrat READY et HumanDecision ; preuves du contenu exact inspecté/autorisé/transmis, dépendance changée après autorisation et refus sans appel SDK, confinement effectif workspace et droits ; intégrer en entrée du lot, avant dispatch concerné.
+2. **D7 → terminal autonome :** réutiliser SDK, claim, IDs et supervisor ; sécuriser transitions, reprise boot, STOP/ACK perdu et concurrence ; ne pas imposer un nouveau worker distribué si l'existant suffit.
+3. **Terminal → dossier :** construire/raccorder le déclenchement durable idempotent de collecte/ingestion du rapport, inventaire/diffs/tests/pièces ; missing/early/hostile/partial honnête ; D9 observations indépendantes si Git ; rapport produit distinct du handoff externe.
+4. **D8 → qualification :** véritable recoupement critère par critère sur pièces vérifiées, verdict positif et négatif possibles, neuf rubriques ; confinement lecture bornée et version/empreinte, verrou/CAS et preuves tardives authentiques.
+5. **D8 → Nora :** déclenchement autonome unique par version du dossier, lecture effective des pièces via conducteur, avis consultatif versionné, réouverture contextualisée sans auto-envoi ni redispatch ; stale avis ne remplace pas résultat récent.
+
+Scénario directeur proposé (oracles T-01/03/05/07/09/10, CA existants) : mission locale isolée avec document de référence, demande naturelle, contrat inspecté, autorisation, véritable Cursor SDK, fermeture navigateur et reprise, terminal, ingestion et qualification sans script injecteur/appel manuel, bilan et avis Nora. Variante négative : document déterminant supersédé avant dispatch (zéro appel) ; variante dossier incomplet/contradictoire et preuve tardive, aucune certification fictive ni nouvelle exécution. STOP/ACK incertain et concurrence par essais contrôlés complémentaires. Git/MCP optionnels, pas d'effet distant non autorisé. Contrat architecture + oracle discriminant + boucle corriger/rejouer dans le même cycle borné ; véritables blocages remontés à Morris.
+
+### 11.4 Lot 3 et arbitrage
+
+Lot 3 : scénarios intégrés, 99 exigences et 56 Q/CA/T/PF, régression ML1–ML4, ENV-01, UI BROWSER utile puis F2 à recette UX selon décision, build/tsc/lint/tests, réserves et preuves. Corriger uniquement défauts établis, aucun nombre de cycles prescrit. Pas de RECETTE, publication code, PR, merge, promotion, release ou adoption sans GO.
+
+**Proposition à Morris (non décidée) :** ne pas lancer un nouveau cycle exclusivement lot 1 ; engager lot 2 avec WEB effectivement confiné et contrôle D7 préalable, reprendre les preuves cognitives utiles dans les missions intégrées. P0 WEB non clos et interdit d'usage tant que non sécurisé ; pas de report tacite. Si conditions impossibles, bloquer la frontière et soumettre l'arbitrage. Ne pas déclarer lot 1 achevé ni modifier les critères de sortie sans décision explicite.
