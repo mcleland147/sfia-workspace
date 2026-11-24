@@ -40,6 +40,7 @@ import {
   revisionCurrencyLabel,
 } from "@/components/figma/DocumentSurfaces";
 import { shouldApplyDurableRefresh } from "@/lib/durable-refresh-guard";
+import { projectActivityLabel } from "@/domains/conversation/activity-labels";
 import {
   conversationalClientCommandKey,
   mayClearComposerDraftOnReconcile,
@@ -309,6 +310,7 @@ export default function ProjectPage() {
       summary: string;
       phase: string;
       sourceRef?: string | null;
+      detail?: Record<string, unknown> | null;
     }>
   >([]);
   const [liveActivityHeadline, setLiveActivityHeadline] = useState("");
@@ -1122,16 +1124,31 @@ export default function ProjectPage() {
       }
       return;
     }
+    // UAT-18 — external / web references are not Git sources.
+    const looksWeb =
+      ref.kind === "external" ||
+      (typeof ref.href === "string" && /^https?:\/\//i.test(ref.href));
     applyViewerIfCurrent(
       seq,
-      {
-        kind: "git",
-        title: ref.label,
-        content: null,
-        available: false,
-        unavailableReason: "Référence externe — ouvrir le lien si disponible.",
-        href: ref.href ?? null,
-      },
+      looksWeb
+        ? {
+            kind: "web",
+            title: ref.label || "Source web",
+            href: ref.href ?? null,
+            content: null,
+            available: false,
+            consulted: false,
+            unavailableReason:
+              "Source web — page non ouverte dans Studio. Utilisez le lien pour consulter la référence publique.",
+          }
+        : {
+            kind: "git",
+            title: ref.label,
+            content: null,
+            available: false,
+            unavailableReason: "Référence externe — ouvrir le lien si disponible.",
+            href: ref.href ?? null,
+          },
       projectIdAtStart,
     );
   }
@@ -2537,6 +2554,7 @@ export default function ProjectPage() {
             summary: string;
             phase: string;
             sourceRef?: string | null;
+            detail?: Record<string, unknown> | null;
           }>;
         };
         const batch = aj.events ?? [];
@@ -2551,7 +2569,7 @@ export default function ProjectPage() {
         });
         const last = batch[batch.length - 1]!;
         lastActivitySeq = Math.max(lastActivitySeq, last.sequence);
-        setLiveActivityHeadline(`${last.nature}: ${last.summary}`.slice(0, 160));
+        setLiveActivityHeadline(projectActivityLabel(last).slice(0, 160));
       } catch {
         /* observational poll */
       }
@@ -2560,6 +2578,26 @@ export default function ProjectPage() {
       void pollLiveActivity();
     }, 800);
     void pollLiveActivity();
+    // UAT-02 — pilot message joins the thread immediately (optimistic; server remains authority).
+    const optimisticId = `local:${clientTurnKey}`;
+    setMessages((prev) => {
+      if (prev.some((m) => m.id === optimisticId || m.content === text && m.role === "user")) {
+        return prev;
+      }
+      return [
+        ...prev,
+        {
+          id: optimisticId,
+          role: "user",
+          content: text,
+          status: "PENDING_LOCAL",
+          createdAt: new Date().toISOString(),
+        },
+      ];
+    });
+    if (!fromChoice) {
+      setDraft("");
+    }
     try {
       const res = await fetch(`/api/preparations/${preparationId}/messages`, {
         method: "POST",
@@ -2608,7 +2646,13 @@ export default function ProjectPage() {
         const preserveMetierPending =
           (independent || effectBlocked || distinctFromUnresolved) && Boolean(pendingBefore);
         setMessages((j.messages as Msg[]) ?? []);
-        setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
+        setLiveActivityEvents([]);
+        setLiveActivityHeadline("");
+        {
+          const mode = String(j.noraMode ?? "").trim();
+          const st = String(j.status ?? "").trim();
+          setStatus(mode && st ? `${mode} · ${st}` : st || mode);
+        }
         const save = j.documentSave as
           | { status?: string; reason?: string; documentId?: string; revisionNumber?: number }
           | null

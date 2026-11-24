@@ -132,14 +132,5 @@ export async function listActivityEvents(input: {
   };
 }
 
-/** Compact projection for UI — no secrets, no chain-of-thought. */
-export function compactActivitySummary(
-  events: Array<{ nature: string; summary: string; status: string }>,
-): { headline: string; detailCount: number } {
-  if (events.length === 0) return { headline: "", detailCount: 0 };
-  const last = events[events.length - 1]!;
-  return {
-    headline: `${last.nature}: ${last.summary}`.slice(0, 160),
-    detailCount: events.length,
-  };
-}
+/** Compact projection for UI — delegated to product labels (no SDK dumps). */
+export { compactActivitySummary, projectActivityLabel, buildActivitySteps } from "./activity-labels";

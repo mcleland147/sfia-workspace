@@ -124,3 +124,18 @@ Conformité globale : **0 VÉRIFIÉ** — preuves BROWSER/F2/LIVE/REAL absentes.
 - **STOP LIVE :** `LIVE_CANCEL_OBSERVED` + terminal `cancelled` ; effets antérieurs conservés ; CANCEL ≠ ROLLBACK.
 - **Handoff honesty :** `EARLY_HANDOFF_BEFORE_TERMINAL` ; tests déclarés sans capture → INCOMPLETE ; `classifyManifestHonesty`.
 - **Candidat Git :** inventaire C3–C13 préparé — **aucun commit/push projet**.
+
+## Livraison 1 — Nora cognitive experience (2026-11-25)
+
+| Champ | Valeur |
+|---|---|
+| Build candidat | `zXUhtTemfQ4rO8vXc_3Nz` |
+| RECETTE | inchangée (`7f48daa2`) |
+| Migrations | aucune |
+| Activité | API sas + labels + carte Figma 12.01/12.10 (sas + Travail) |
+| Composeur | message Pilote immédiat (`PENDING_LOCAL`) |
+| WEB | viewer `kind:web` ; labels découverte≠consultation |
+| Docs fil | fence `sfia-document` masquée à l’affichage |
+| Cognition | cacheTokens exclus du billable envelope ; restitution partielle post-échec structuré |
+| Preuves | vitest activity-labels + conductor PASS ; build OK ; F2/LIVE UAT = Morris |
+

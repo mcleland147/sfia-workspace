@@ -74,6 +74,31 @@ function renderMarkdown(md: string): string {
 
   while (i < lines.length) {
     const line = lines[i];
+    // UAT-13 — contractual document body belongs in the viewer, not raw in the thread.
+    const docFence = line.match(/^(`{3,}|~{3,})\s*sfia-document\b/i);
+    if (docFence && !inCode) {
+      flushList();
+      flushTable();
+      const fenceChar = docFence[1]![0]!;
+      const fenceLen = docFence[1]!.length;
+      i += 1;
+      while (i < lines.length) {
+        const close = lines[i]!.match(/^(`{3,}|~{3,})\s*$/);
+        if (
+          close &&
+          close[1]![0] === fenceChar &&
+          close[1]!.length >= fenceLen
+        ) {
+          i += 1;
+          break;
+        }
+        i += 1;
+      }
+      out.push(
+        `<p class="safe-md-doc-ref"><em>Document proposé — contenu intégral dans la visionneuse.</em></p>`,
+      );
+      continue;
+    }
     if (line.startsWith("```")) {
       flushList();
       flushTable();

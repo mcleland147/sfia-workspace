@@ -306,6 +306,16 @@
   line-height: 1.5;
   color: #f4f6fc;
   font-weight: 400;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.fig-msg-body .safe-md,
+.fig-msg-body pre,
+.fig-msg-body code {
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 .fig-msg-body p {
@@ -536,6 +546,109 @@
 .fig-nora-ref-link:focus-visible {
   outline: 2px solid var(--fig-accent-soft);
   outline-offset: 2px;
+}
+
+/* Figma 12.01 / 12.10 — Activité Nora LIVE (functional, not SDK dump) */
+.fig-nora-live-activity {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 730px;
+  border: 1px solid var(--fig-line, #2b3850);
+  border-radius: 10px;
+  padding: 20px;
+  background: var(--fig-panel, #151d2c);
+  color: var(--fig-text, #f3f5ff);
+}
+
+.fig-nora-live-activity-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.fig-nora-live-activity-kicker {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fig-accent, #7477ed);
+  letter-spacing: 0.02em;
+}
+
+.fig-nora-live-activity-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 29px;
+  padding: 7px 12px;
+  border-radius: 15px;
+  border: 1px solid var(--fig-line, #2b3850);
+  background: var(--fig-accent-bg, #242c4b);
+  color: var(--fig-amber, #e6ba76);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.fig-nora-live-activity-headline {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--fig-text, #f3f5ff);
+}
+
+.fig-nora-live-activity-lead,
+.fig-nora-live-activity-footnote {
+  margin: 0;
+  font-size: 12px;
+  color: var(--fig-muted, #a3b0c7);
+}
+
+.fig-nora-live-activity-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fig-nora-live-activity-step {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fig-text, #f3f5ff);
+}
+
+.fig-nora-live-activity-step-current {
+  color: var(--fig-accent, #7477ed);
+}
+
+.fig-nora-live-activity-step-pending {
+  color: var(--fig-muted, #a3b0c7);
+}
+
+.fig-nora-live-activity-mark {
+  flex: 0 0 auto;
+  width: 1.1em;
+}
+
+.fig-nora-live-activity-detail {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--fig-muted, #a3b0c7);
+}
+
+.fig-nora-live-activity-detail summary {
+  cursor: pointer;
+}
+
+.fig-nora-live-activity-detail ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
 }
 
 .fig-nora-activity {
@@ -911,6 +1024,16 @@
   font-size: 14px;
   line-height: 20px;
   color: var(--fig-ink);
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.sas-msg-body .safe-md,
+.sas-msg-body pre,
+.sas-msg-body code {
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 .sas-msg-body p { margin: 0 0 0.55rem; }

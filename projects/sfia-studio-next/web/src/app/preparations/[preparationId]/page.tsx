@@ -22,6 +22,7 @@ import {
   resolveSasPresentationStage,
   sasPresentationCopy,
 } from "@/components/figma/sas-presentation";
+import { projectActivityLabel } from "@/domains/conversation/activity-labels";
 
 type Msg = { id: string; role: string; content: string; status: string };
 type Doc = {
@@ -74,6 +75,18 @@ export default function PreparationPage() {
   const [status, setStatus] = useState("");
   const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
   const [busy, setBusy] = useState(false);
+  const [liveActivityEvents, setLiveActivityEvents] = useState<
+    Array<{
+      sequence: number;
+      nature: string;
+      status: string;
+      summary: string;
+      phase: string;
+      sourceRef?: string | null;
+      detail?: Record<string, unknown> | null;
+    }>
+  >([]);
+  const [liveActivityHeadline, setLiveActivityHeadline] = useState("");
   const [surface, setSurface] = useState<Surface>("travail");
   const [inspectDocId, setInspectDocId] = useState<string | null>(null);
   const [diffText, setDiffText] = useState("");
@@ -238,6 +251,8 @@ export default function PreparationPage() {
     if (!draft.trim()) return;
     setBusy(true);
     setNoraActivity("preparing");
+    setLiveActivityEvents([]);
+    setLiveActivityHeadline("Nora prépare une réponse…");
     const text = draft.trim();
     if (!messageTurnKeyRef.current || messageTurnKeyRef.current.content !== text) {
       messageTurnKeyRef.current = {
@@ -249,6 +264,67 @@ export default function PreparationPage() {
       };
     }
     const clientTurnKey = messageTurnKeyRef.current.key;
+    // UAT-02 — message joins the sas thread immediately; composer freed.
+    const optimisticId = `local:${clientTurnKey}`;
+    setMessages((prev) => {
+      if (prev.some((m) => m.id === optimisticId)) return prev;
+      return [
+        ...prev,
+        { id: optimisticId, role: "user", content: text, status: "PENDING_LOCAL" },
+      ];
+    });
+    setDraft("");
+    let lastActivitySeq = 0;
+    let knownTurnCommandId: string | null = null;
+    const pollLiveActivity = async () => {
+      try {
+        if (!knownTurnCommandId) {
+          const look = await fetch(
+            `/api/preparations/${preparationId}/turns/by-key/${encodeURIComponent(clientTurnKey)}`,
+          );
+          if (look.ok) {
+            const lj = (await look.json()) as { turnCommandId?: string | null };
+            if (lj.turnCommandId) knownTurnCommandId = lj.turnCommandId;
+          }
+        }
+        if (!knownTurnCommandId) return;
+        const q = lastActivitySeq > 0 ? `?afterSequence=${lastActivitySeq}` : "";
+        const act = await fetch(
+          `/api/preparations/${preparationId}/turns/${knownTurnCommandId}/activity${q}`,
+        );
+        if (!act.ok) return;
+        const aj = (await act.json()) as {
+          events?: Array<{
+            sequence: number;
+            nature: string;
+            status: string;
+            summary: string;
+            phase: string;
+            sourceRef?: string | null;
+            detail?: Record<string, unknown> | null;
+          }>;
+        };
+        const batch = aj.events ?? [];
+        if (batch.length === 0) return;
+        setLiveActivityEvents((prev) => {
+          const seen = new Set(prev.map((e) => e.sequence));
+          const merged = [...prev];
+          for (const ev of batch) {
+            if (!seen.has(ev.sequence)) merged.push(ev);
+          }
+          return merged;
+        });
+        const last = batch[batch.length - 1]!;
+        lastActivitySeq = Math.max(lastActivitySeq, last.sequence);
+        setLiveActivityHeadline(projectActivityLabel(last).slice(0, 160));
+      } catch {
+        /* observational poll */
+      }
+    };
+    const activityPollTimer = window.setInterval(() => {
+      void pollLiveActivity();
+    }, 800);
+    void pollLiveActivity();
     try {
       const res = await fetch(`/api/preparations/${preparationId}/messages`, {
         method: "POST",
@@ -265,11 +341,13 @@ export default function PreparationPage() {
       } catch {
         j = { errorCategory: "RESPONSE_PARSE_FAILED" };
       }
+      void pollLiveActivity();
       if (res.ok) {
         messageTurnKeyRef.current = null;
-        setDraft("");
         setMessages((j.messages as typeof messages) ?? []);
         setNoraActivity("idle");
+        setLiveActivityEvents([]);
+        setLiveActivityHeadline("");
         const mp = j.missionProjection as
           | { clientIntentKey?: string; status?: string }
           | null
@@ -279,48 +357,29 @@ export default function PreparationPage() {
             ? mp.clientIntentKey
             : null,
         );
-        const policy = j.policy as
-          | { profile?: string; profileType?: string }
-          | undefined;
-        const policyPart = policy?.profile
-          ? ` · policy ${policy.profile}/${policy.profileType}`
-          : "";
-        const opPart = j.operationId ? ` · op ${String(j.operationId).slice(0, 18)}` : "";
-        const replayPart = j.idempotentReplay ? " · rejeu tour" : "";
         const documentSave = j.documentSave as
           | { status?: string; documentId?: string; revisionNumber?: number; reason?: string }
-          | undefined;
-        const docPart =
-          documentSave?.status === "AVAILABLE"
-            ? ` · document ${documentSave.documentId} v${documentSave.revisionNumber}`
-            : documentSave
-              ? ` · document ${documentSave.status}`
-              : "";
-        const capitalisation = j.capitalisation;
-        const cap =
-          Array.isArray(capitalisation) && capitalisation.length
-            ? ` · capitalisé ${capitalisation.length} (AVAILABLE confirmé)`
-            : "";
-        const docConflict =
-          documentSave?.status === "CONFLICT" ? ` · CONFLICT ${documentSave.reason ?? ""}` : "";
-        const streaming = j.streaming as
-          | { attempted?: boolean; delivered?: boolean }
           | undefined;
         const prepProj = j.preparationProjection as
           | { status?: string; assessment?: string; revision?: number }
           | null
           | undefined;
-        const projPart = prepProj?.status
-          ? ` · projection ${prepProj.status}${prepProj.assessment ? `/${prepProj.assessment}` : ""}`
-          : "";
         if (prepProj?.status === "UNAVAILABLE") {
           setProjectionFreshness("unavailable");
         }
+        // UAT-03 — pilot-facing status stays métier; no SDK / policy / op dump.
+        const noraMode = String(j.noraMode ?? "").trim();
+        const turnStatus = String(j.status ?? "").trim();
+        const docPart =
+          documentSave?.status === "AVAILABLE"
+            ? ` · document v${documentSave.revisionNumber ?? "?"}`
+            : documentSave?.status === "CONFLICT"
+              ? " · conflit documentaire"
+              : "";
         setStatus(
-          `Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}${policyPart}${opPart}${replayPart}${docPart}${docConflict}${cap}${projPart}` +
-            (streaming?.attempted
-              ? ` · stream attempted=${streaming.attempted} delivered=${streaming.delivered}`
-              : ""),
+          [noraMode && turnStatus ? `${noraMode} · ${turnStatus}` : turnStatus || noraMode, docPart]
+            .filter(Boolean)
+            .join(""),
         );
         await reload();
       } else {
@@ -338,6 +397,7 @@ export default function PreparationPage() {
       // Keep clientTurnKey — network failure must not mint a new intention.
       setStatus("échec réseau — intention de tour conservée");
     } finally {
+      window.clearInterval(activityPollTimer);
       setBusy(false);
     }
   }
@@ -838,6 +898,8 @@ export default function PreparationPage() {
             onDraftChange={setDraft}
             onSend={() => void sendMessage()}
             showResumeBanner={isResumedPrep}
+            liveActivityEvents={liveActivityEvents}
+            liveActivityHeadline={liveActivityHeadline}
           />
           <PreparationProposal
             projectId={projectId}

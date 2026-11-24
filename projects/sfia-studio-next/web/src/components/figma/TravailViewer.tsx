@@ -25,6 +25,16 @@ export type TravailViewerResource =
       available: boolean;
       unavailableReason?: string;
       href?: string | null;
+    }
+  | {
+      /** UAT-18 — public web page must not render as SOURCE GIT. */
+      kind: "web";
+      title: string;
+      href?: string | null;
+      content: string | null;
+      available: boolean;
+      unavailableReason?: string;
+      consulted?: boolean;
     };
 
 export function TravailViewer(props: {
@@ -39,11 +49,17 @@ export function TravailViewer(props: {
 }) {
   const { resource } = props;
   const title =
-    resource.kind === "document" ? resource.title : resource.title || "Source Git";
+    resource.kind === "document"
+      ? resource.title
+      : resource.kind === "web"
+        ? resource.title || "Source web"
+        : resource.title || "Source Git";
   const kicker =
     resource.kind === "document"
       ? "VISIONNEUSE  /  LECTURE SEULE"
-      : "VISIONNEUSE  /  SOURCE GIT";
+      : resource.kind === "web"
+        ? "VISIONNEUSE  /  SOURCE WEB"
+        : "VISIONNEUSE  /  SOURCE GIT";
   const currencyBadge =
     resource.kind === "document"
       ? props.documentFocusBanner === "proposal"
@@ -51,7 +67,11 @@ export function TravailViewer(props: {
         : resource.versionSource === "exact"
           ? "HISTORIQUE"
           : "COURANTE"
-      : null;
+      : resource.kind === "web"
+        ? resource.consulted
+          ? "CONSULTÉE"
+          : "DÉCOUVERTE"
+        : null;
   // Journal V4 accepted label ("Version N · révision citée") preserved;
   // Documents adds proposal candidate wording + currency badge separately.
   const versionLine =
@@ -111,6 +131,13 @@ export function TravailViewer(props: {
                 .join(" · ") || "Provenance partielle"}
             </p>
           ) : null}
+          {resource.kind === "web" && resource.href ? (
+            <p className="fig-travail-viewer-meta" data-testid="travail-viewer-web-href">
+              <a href={resource.href} target="_blank" rel="noreferrer noopener">
+                {resource.href}
+              </a>
+            </p>
+          ) : null}
         </div>
         <div className="fig-travail-viewer-actions">
           {props.enlarged ? (
@@ -168,7 +195,7 @@ export function TravailViewer(props: {
           <div className="fig-alert" role="alert" data-testid="travail-viewer-unavailable">
             {resource.unavailableReason ??
               "Source indisponible ou droits insuffisants — aucun extrait inventé."}
-            {resource.kind === "git" && resource.href ? (
+            {(resource.kind === "git" || resource.kind === "web") && resource.href ? (
               <p className="mt-2">
                 <a href={resource.href} target="_blank" rel="noreferrer">
                   Ouvrir la référence externe
@@ -181,6 +208,16 @@ export function TravailViewer(props: {
             <SafeMarkdown content={resource.markdown} />
           ) : (
             <p className="fig-inspector-card-body">Document sans contenu lisible.</p>
+          )
+        ) : resource.kind === "web" ? (
+          resource.content ? (
+            <SafeMarkdown content={resource.content} />
+          ) : (
+            <p className="fig-inspector-card-body">
+              {resource.consulted
+                ? "Page ouverte — extrait non disponible."
+                : "Source découverte — page non encore ouverte."}
+            </p>
           )
         ) : resource.content ? (
           <pre className="fig-travail-viewer-pre">{resource.content}</pre>
