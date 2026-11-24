@@ -1,5 +1,7 @@
 # SFIA Studio Next — ML5 · Registre de couverture et de revue du développement
 
+> **Lecture courante post-C22 :** [revue indépendante §12](https://github.com/mcleland147/sfia-workspace/blob/ea74688a2ac2643a157dc680d4b2f5fa1fa0b517/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md), addendum en fin de document. États antérieurs historiques ; critères et décisions conservés.
+
 > **Lecture courante post-C20 :** [synthèse globale](https://github.com/mcleland147/sfia-workspace/blob/978e42648aa0149e4f2f2bab03b4483a5bbfd496/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md#11-revue-globale-post-c20--état-de-travail-au-24112026-d1-factuel), addendum factuel en fin de document. État historique pré-C20 conservé ; pas d'acceptation ni de changement des règles.
 
 > **Lecture prioritaire — revue approfondie post-C14 du 24/11/2026 : ML5 TARGET ARCHITECTURE COHERENT — IMPLEMENTATION CONFORMITY PARTIAL — FUNCTIONAL COMPLETION REQUIRED.** Voir [revue complète](./ml5-revue-approfondie-conformite-post-c14.md) et complément courant en fin de document. Snapshot de code consulté, worktree NON OBSERVÉ ; C14 présence 2/97/0 rapportée, conformité partielle. R-004 reste historique et opposable pour les exigences ; trois lots de convergence approuvés comme trajectoire, aucun GO C15 ni publication code.
@@ -587,4 +589,66 @@ Cette section actualise les constats de présence, preuve et reste à faire pour
 
 **Index de preuve :** C18 P3/P4 ; C19 I1–I6 §8–10 ; C20 I1/I2/I5/I6 §7 et §10. C20 I2 est un assess, pas un dispatch refusé ; I6 égalité longueur/objet D4 simple, pas identité intégrale de production longue ; I3 tests déterministes, requête privée non marquée non protégée structurellement. C20 I1 tests ciblés pas preuve de tous les interleavings. P0 WEB n'est pas fermé. Aucun statut BEHAVIOR PROVEN global.
 
-**Travail restant / arbitrage :** réutiliser la matrice §11 de la revue globale. Les CA/T/Q/PF historiques restent opposables. T-01/02/03/04/05/06/07/08/09/10/11/12 : preuves ciblées existantes mais qualification intégrée reste partielle ; T-09 chaîne autonome et T-07 qualification réellement probante sont les cœurs de lot 2, T-11 bloqué tant que B07 non sécurisé. Q-01…56 et PF à relier au candidat final dans le flux de lot 2/3, aucun PASS en masse. Aucun nouveau lot 2 autorisé par cette mise à jour. 
+**Travail restant / arbitrage :** réutiliser la matrice §11 de la revue globale. Les CA/T/Q/PF historiques restent opposables. T-01/02/03/04/05/06/07/08/09/10/11/12 : preuves ciblées existantes mais qualification intégrée reste partielle ; T-09 chaîne autonome et T-07 qualification réellement probante sont les cœurs de lot 2, T-11 bloqué tant que B07 non sécurisé. Q-01…56 et PF à relier au candidat final dans le flux de lot 2/3, aucun PASS en masse. Aucun nouveau lot 2 autorisé par cette mise à jour.
+
+## 10. Réconciliation post-C22 — index courant des 99 exigences
+
+**D1 factuel — GO Morris du 24/11/2026 :** [revue indépendante globale §12](https://github.com/mcleland147/sfia-workspace/blob/ea74688a2ac2643a157dc680d4b2f5fa1fa0b517/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md) ; [handoff C22](https://github.com/mcleland147/sfia-workspace/blob/075d085628e5062b2fd17301f6347195fd25c53a/sfia-review-handoff/latest-chatgpt-review.md), blob 8ffd3fd07272c913531d24d88626797a358f0147. Candidat DIRTY C1–C22 @6cf33e99 rapporté, NON OBSERVÉ localement ; build xDm9gI5jk9N2qEGkFUqN_ ; Cursor READY WITH RESERVES, ChatGPT NOT READY FOR LOT 2 EXIT — LIVE DOWNSTREAM OBSERVED / D8 EVIDENCE INTEGRITY AND RESTITUTION FENCING OPEN. GO lot 2/C22 acquis ; aucun GO lot 3, clôture, publication projet ou ADOPTED. NO RELEASE. Exigences et oracles inchangés.
+
+Les 99 IDs du registre initial sont tous repris ci-dessous (contrôle exhaustif des identifiants, sans création/suppression). Les exigences textuelles originales et états historiques restent intacts. Les mentions d'acquis désignent le sous-comportement observé, non un PASS global de l'exigence ; PARTIAL par défaut sauf E13 (présence structurelle) et décision F09 (validée en contenu, réalisation partielle). N/A seulement sur la mission C22, non sur ML5. Les états de §9 post-C20 sont historiques. Aucune extrapolation de pourcentage.
+
+| IDs | Acquis / niveau borné | Reste / exit |
+|---|---|---|
+| A01 | Qualification structurée, ambiguïté C20 | Demande naturelle et probe gouverné |
+| A02,A12 | Conducteur commun, ressources adaptatives partielles | Proportionnalité simple/complexe et réallocation effective |
+| A03,A04,A05 | Préparation structurée et séparation D6/D7 | Correctif dans mandat, requalification et absence auto-dispatch |
+| A06,A07,A08 | Journal et lectures bornées, avis D8 LIVE C22 | Investigation multi-sources/version/contradictions et journal individuel |
+| A09 | Filiation et READY C18–20 ; C22 contrat seedé | Suffisance réelle avant READY, négatif source critique absente |
+| A10 | mergeMode structuré C22, test propriétaire | Consolidation sémantique sans perte, D4/D7 contenu exact |
+| A11 | Checkpoints PG et reprise assistée C19/C20 ; D3 avis LIVE C22 | Reprise pendant génération/production et ownership avant effet |
+| B01,B02,B03,B04,B05 | B1 C14 LIVE, C20 allowlist, C22 autorisation restrictive | Recherche légitime depuis produit, lecture/citation/contradiction |
+| B06 | Instructions non autoritaires | Injection sur frontière réelle sûre |
+| B07 | C22 deny sans registre/allowlist, unit sans egress SCRIPTED | Confinement déterministe acquis, registre public fiable alimenté par produit et contrôle URL/logs ; pas d'usage LIVE non qualifié |
+| B08 | Pinned/redirect et limites historiques | Timeout flux, limites et erreurs sur frontière réellement autorisée |
+| B09 | B1 LIVE C14 borné | Requalifier compatibilité fournisseur après C22 ; pas de preuve LIVE complète |
+| C01,C02,C03,C04,C05,C06,C07,C08 | Projection/journal/polling C1 et investigation.engaged C21 | BROWSER pendant RUNNING, lectures corrélées, reconnexion et isolation, sobriété |
+| D01,D06 | Contrat structuré long C18 ; C22 mergeMode D4 | Préparation naturelle, complétude et octets intégraux |
+| D02,D03,D07,D08 | Filiation, revalidation D4 et post-claim C20 ; C22 LIVE authorize/dispatch seedé | Réservation opposable, changement après autorisation, identité inspecté/autorisé/SDK |
+| D04,D05,D09 | Engagements/volets/50-50 et parcours historiques | BROWSER candidat final, F2 recette |
+| D10 | Refus C11/C18 ; C22 authorize service | Confirmation réelle UI et Non sans effet, régression |
+| D11,D12 | Contrôles scope/autorité et identité tentative | Droits effectifs, révocation au point d'effet et isolation |
+| E01,E02 | SDK LIVE C11/C22, mission add isolée rapportée | Garder SDK ; vérifier confinement effectif et environnement |
+| E03,E04 | Tentative/claim/send intent/ACK C12/C22 | Identité et absence de double dispatch sur reprises |
+| E05,E06,E07 | Supervisor et boot hook C22, run/terminal LIVE | Autonomie sans appels reconcile de campagne, reconnexion et erreur |
+| E08 | STOP LIVE C13 borné | Non-régression STOP et dossier effets partiels |
+| E09,E10 | ACK perdu déterministe C12, claim C22 | Restart mid-run et fencing effectif jusqu'aux écritures |
+| E11 | Historique et identités persistés | Retrouver bilan/versions en UI |
+| E12 | MCP conditionnel | N/A mission C22 ; si besoin, permissions et invocabilité |
+| E13 | Pas de gestionnaire MCP parallèle observé | Préserver |
+| E14 | Mission locale C22 sans Git/MCP | Préserver absence d'obligation artificielle ; parité lanes |
+| E15 | Lecture confinée et chemin attempt-bound C22 | P0 : provenance exacte et fencing ; isolation réelle deux pilotes/SDK |
+| F01,F02,F03,F04,F05,F06,F07,F08 | Option A et observations historiques | D9 indépendant et mandat Git exact sur mission pertinente ; REAL sous GO spécifique |
+| F09 | Option A validée en contenu | Préserver D7/D9, pas de publisher Studio |
+| G01,G02 | Handoff LIVE RECEIVED identifié ; hash et chemin attempt-bound | Binding exact et refus de fallback faible |
+| G03,G04 | Rapport collecté, manifeste issu du rapport | Inventaire réel exhaustif et réalisé/non réalisé, commandes et STOP |
+| G05,G07,G08 | Lecture confinée et empreintes ; outils D8 | Pièces originales/version durable, captures et références réellement consultables |
+| G06 | Capture exit lue ; distinction PASS prose améliorée | P0 : capture issue d'exécution effective ; fichier exit=0 écrit sur ordre ne prouve pas test |
+| G09 | PARTIAL/UNKNOWN et reprise disponibles | Refus faux succès, rapport absent/hostile, reprise et preuve tardive |
+| G10 | D8 chemin propriétaire et CONFORMING observé C22 | P0 : nom fichier/exit=0 ne satisfait pas critère ; évaluation contenu + test réel et D9 si applicable |
+| G11 | Neuf rubriques présentes | Valeurs probantes et consultation UI |
+| G12,G13 | Avis via conducteur D3 + toolScope D8 LIVE après reprise | Unicité/versions, journal des pièces, autonomie et distinction synthèse/avis/D6 |
+| G14 | Retour contextualisé historique | BROWSER bilan→brouillon, retirable, sans envoi |
+| G15 | Historique/requalify existants ; claim CAS C22 | P0 : fence toutes écritures, version et preuve tardive authentique, pas redispatch |
+| H01,H07 | Projection activité présente | BROWSER préparation/sas pendant travail |
+| H02,H03,H04 | Inspection/Exécution présentes, observation SDK | BROWSER identité, inspection, reconnexion, UNKNOWN |
+| H05,H06 | Bilan et retour fil présents | BROWSER 4 onglets et avis exact, référence retirable |
+| H08 | L0/L1 historique | F2 recette sur 14 états ; pas de refonte |
+| I01 | Propriétaires existants réutilisés | Préserver absence moteurs parallèles |
+| I02,I03,I04 | Gates, CAS, confinement et deny C22 | P0 intégrité D8, fencing et scope/permissions ; WEB bloqué tant que non sûr |
+| I05,I07,I09 | Unit/PG/LIVE borné et handoff C22 ; docs synchronisées | Non-régression, distinguer preuve et claim, réconcilier local sans écraser code |
+| I06 | BROWSER historique partiel | Scénarios actuels avec build/captures |
+| I08 | GitHub REAL/MCP non exercés C22 | N/A mission, GO distinct si pertinent |
+| I10 | Aval LIVE à partir contrat seedé ; D8/Nora après reconcile/reprise | E2E naturel complet sans injections ni relance intermédiaire, résultat probant |
+| I11 | DEV NO RELEASE, aucun commit projet rapporté | ENV-01, gel et gates Morris distincts |
+
+**Preuves C22 :** L95–207 observations LIVE aval ; L213–431 WEB ; L524–798 collecte et evidence ; L814–911 claim ; L1227–1413 D8/avis ; L1485–1516 boot ; L1938–2016 consolidation ; L3529–3788 test LIVE. Le test crée le contrat et sa filiation et demande à Cursor d'écrire add.exit=0, ne lance pas de test add ; reconcile appelé en boucle. D8 CONFORMING observé n'est pas validé. Les captures ne sont pas une évaluation sémantique. Le propriétaire expiré peut encore écrire ; le bool final n'est pas contrôlé. P0 intégrité D8 et fencing non clos. WEB confinement déterministe n'est pas qualification fonctionnelle. Les exigences CA, T, Q-01…56 et PF demeurent inchangées ; voir contrat d'acceptation §10. Le statut global ne vaut ni lot 2 exit ni GO lot 3.
