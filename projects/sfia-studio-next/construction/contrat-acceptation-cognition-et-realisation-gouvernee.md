@@ -1,5 +1,7 @@
 # SFIA Studio Next — Contrat d'acceptation intégré : cognition et réalisation gouvernée
 
+> **Lecture courante post-C22 :** [revue indépendante §12](https://github.com/mcleland147/sfia-workspace/blob/ea74688a2ac2643a157dc680d4b2f5fa1fa0b517/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md), addendum en fin de document. États antérieurs historiques ; critères et décisions conservés.
+
 > **Lecture courante post-C20 :** [synthèse globale](https://github.com/mcleland147/sfia-workspace/blob/978e42648aa0149e4f2f2bab03b4483a5bbfd496/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md#11-revue-globale-post-c20--état-de-travail-au-24112026-d1-factuel), addendum factuel en fin de document. État historique pré-C20 conservé ; pas d'acceptation ni de changement des règles.
 
 > **Lecture prioritaire — revue approfondie post-C14 du 24/11/2026 : ML5 TARGET ARCHITECTURE COHERENT — IMPLEMENTATION CONFORMITY PARTIAL — FUNCTIONAL COMPLETION REQUIRED.** Voir [revue complète](./ml5-revue-approfondie-conformite-post-c14.md) et complément courant en fin de document. Snapshot de code consulté, worktree NON OBSERVÉ ; C14 présence 2/97/0 rapportée, conformité partielle. R-004 reste historique et opposable pour les exigences ; trois lots de convergence approuvés comme trajectoire, aucun GO C15 ni publication code.
@@ -255,3 +257,26 @@ Les douze parcours T et les CA des §§4/8 ne sont pas modifiés. Capitaliser le
 CA-04 reste opposable : instruction/critères intégraux, fingerprint, source critique, changement/restriction, refus sans effet ; C18/C19/C20 n'établissent pas tous ses sous-critères. Les autres CA, 56 Q et PF restent à réconcilier dans le registre, pas de réception en masse.
 
 Scénario intégrateur lot 2 proposé : besoin métier naturel → sources autorisées → contrat inspecté → Oui → SDK réel isolé → navigateur fermé/reprise → terminal → dossier automatiquement ingéré → D8 vérifie pièces/D9 si mission → avis Nora consultatif → retour contextualisé. Variantes discriminantes : dépendance D4 supersédée après autorisation (aucun appel SDK), rapport incomplet et preuve tardive (pas de faux verdict ni redispatch), interruption/STOP. Les tests doivent emprunter les chemins propriétaires et ne pas injecter la qualification cognitive ou le handoff attendu. Construire selon les règles de conception puis corriger/rejouer dans le même cycle borné jusqu'au résultat ou véritable STOP. Ce scénario compose les oracles existants et ne les remplace pas. Aucun GO lot 2, aucun report automatique P0.
+
+## 10. Qualification des preuves post-C22 — suivi, oracles inchangés
+
+**D1 factuel — GO Morris du 24/11/2026 :** [revue indépendante globale §12](https://github.com/mcleland147/sfia-workspace/blob/ea74688a2ac2643a157dc680d4b2f5fa1fa0b517/projects/sfia-studio-next/construction/ml5-revue-approfondie-conformite-post-c14.md) ; [handoff C22](https://github.com/mcleland147/sfia-workspace/blob/075d085628e5062b2fd17301f6347195fd25c53a/sfia-review-handoff/latest-chatgpt-review.md), blob 8ffd3fd07272c913531d24d88626797a358f0147. Candidat DIRTY C1–C22 @6cf33e99 rapporté, NON OBSERVÉ localement ; build xDm9gI5jk9N2qEGkFUqN_ ; Cursor READY WITH RESERVES, ChatGPT NOT READY FOR LOT 2 EXIT — LIVE DOWNSTREAM OBSERVED / D8 EVIDENCE INTEGRITY AND RESTITUTION FENCING OPEN. GO lot 2/C22 acquis ; aucun GO lot 3, clôture, publication projet ou ADOPTED. NO RELEASE. Exigences et oracles inchangés.
+
+| Parcours | Capital / limite actuelle | Reste à démontrer |
+|---|---|---|
+| T-01 | C18 long contrat, C19 multi-tours, C22 mergeMode ; contrat LIVE seedé | Demande naturelle multi-source, contradiction, consolidation et objet canonique |
+| T-02 | C11/C18 Non LIVE borné | Refus UI sans effet sur candidat |
+| T-03 | C20 revalidation/post-claim, C22 authorize/dispatch service | Octets inspectés/autorisés/envoyés ; mandat supersédé après autorisation, zéro SDK |
+| T-04 | ACK-first C12 et CAS C22 | Double clic, ACK incertain et reprise sans deuxième envoi |
+| T-05 | run LIVE + boot hook C22 | Fermeture navigateur/restart pendant RUNNING, sans reconcile scripté |
+| T-06 | STOP C13 LIVE | STOP effets partiels et restitution fiable |
+| T-07 | D8 lit pièces, verdict CONFORMING C22 non validé | **P0 :** fichier faux et exit fabriqué ne satisfont pas, test réellement exécuté, preuve par critère et négatif |
+| T-08 | Git A | D9 indépendant sur mission Git pertinente ; N/A C22 |
+| T-09 | Terminal→handoff→D8→avis LIVE après reprise | Autonomie sans sollicitation intermédiaire, fencing/versions et journal individuel |
+| T-10 | Retour contextualisé historique | BROWSER bilan réel→brouillon sans envoi |
+| T-11 | C14 LIVE historique, C22 deny déterministe | Recherche publique autorisée par produit, lecture et absence de fuite sur egress réel ; WEB non sûr bloqué |
+| T-12 | Scope et lecture confinée, CAS claim | Isolation deux pilotes, write fence post-expiration, permissions SDK réelles |
+
+**CA-01/03/04 :** préparation/consolidation/activité et inspection à qualifier ensemble. **CA-02 :** confinement acquis dans test négatif, positif WEB non démontré. **CA-05/06 :** LIVE aval borné, autorité et Git selon mission. **CA-07 :** collecte réelle mais intégrité du verdict D8 non acquise. **CA-08 :** vrai avis D3 LIVE observé après reprise, autonomie/version et pièces exactes non prouvées. **CA-09/10 :** parcours UI/continuité et invariants de qualification restent opposables. Les 56 Q et PF restent au registre, aucun PASS global par inférence.
+
+Scénario discriminant suivant proposé : fonctionnalité locale réellement testée avec capture d'exécution, puis variante fichier erroné et capture fabriquée ; préparation Nora naturelle multi-source, inspection, Oui, SDK réel borné, terminal détecté par superviseur sans reconcile de campagne, D8 recoupe preuve/critère, avis D3 consulte les pièces ; reconnexion, preuve tardive et ancien propriétaire expiré sans écriture. Ne pas forcer Git/MCP ni nouvelle génération volumineuse ; utiliser les oracles existants. Aucun GO lot 3 ni modification des critères.
