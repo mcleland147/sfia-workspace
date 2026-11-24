@@ -1,17 +1,16 @@
-# SFIA Studio Next — ML5 C19 Review Pack FULL
+# SFIA Studio Next — ML5 C20 Review Pack FULL
 
-Date/heure : 2026-11-24T10:57:50+01:00
-Cycle : ML5 C19 — Fermeture invariants résiduels et qualification finale lot convergence 1
-Profil : Critical (validé Morris)
-Classe : NO RELEASE / Gate C OPEN (Roadmap main) / GO ML5 23/11 applicable
+Date/heure : 2026-11-24T11:18:19+01:00
+Cycle : ML5 C20 — Qualification de sortie lot convergence 1
+Profil : Critical
+Classe : NO RELEASE
 Verdict Cursor : **READY WITH RESERVES**
-Régularisation : **FULL modified content** — republication handoff après `REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING`
 
 ## 0. Instruction ChatGPT (obligatoire)
 
 ChatGPT doit relire **depuis Git** le fichier canonique distant
-`sfia-review-handoff/latest-chatgpt-review.md` sur la branche `sfia/review-handoff`
-**après** cette republication C19 (contenu modifié complet), avant de statuer.
+`sfia-review-handoff/latest-chatgpt-review.md` sur `sfia/review-handoff`
+**après** publication C20, avant de statuer.
 
 Si contenu manquant : `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`.
 Si distant non actualisé : `REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED`.
@@ -23,26 +22,23 @@ Si distant non actualisé : `REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT 
 | Produit | SFIA Studio Next |
 | Jalon | R5 |
 | Macro-lot | ML5 |
-| Capacité | Lot de convergence 1 |
-| Cycle | C19 |
+| Capacité | Lot de convergence 1 — qualification de sortie |
+| Cycle | C20 |
 | Type | 8 — Delivery / INC |
-| Autonomie | L3 bornée (handoff mono-fichier uniquement) |
+| Autonomie | L3 bornée |
 | Review Pack | FULL |
-| Review Handoff | required / publish-in-cycle (republication contenu modifié)
+| Handoff C19 capitalisé | tip `55dff997` / blob `0e148034` (14/14 FULL) |
 
 ## 2. Git Truth
 
 | Champ | Valeur |
 |---|---|
-| Dépôt | mcleland147/sfia-workspace |
 | Worktree | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
 | Branche | `sfia/next-ml5-integrated-delivery-20261123` |
 | HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` |
 | origin/main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
-| merge-base | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
-| État | **DIRTY** — candidat C1–C19 préservé ; **aucun commit projet** |
-| Handoff tip précédent (incomplet) | `60850b5ca0f040740b094047ae1182e652610729` / blob `03af06b0` |
-| Motif republication | 14 fichiers inventoriés, seulement 6 contenus reproduits — couverture documentaire insuffisante |
+| État | **DIRTY** C1–C20 ; **aucun commit projet** |
+| Handoff tip entrée | `55dff99750cfc5ab4392c975862c7d6257b73c6f` |
 
 ### git status --short (extrait)
 
@@ -159,6 +155,7 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio-next/web/tests/unit/ml5-c16-cognitive-integration.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/ml5-c18-cognitive-output.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/ml5-c19-invariants.test.ts
+?? projects/sfia-studio-next/web/tests/unit/ml5-c20-invariants.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/ml5-c9-d6-refuse-phased.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/ml5-cursor-claim-anti-duplicat.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/ml5-cursor-git-option-a.test.ts
@@ -169,2342 +166,176 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio-next/web/tests/unit/ml5-qualification-requalify.test.ts
 ```
 
-## 3. Sources opposables
+## 3. Classification A/B/C/D
 
-- MAIN `997897fd7cf914771e7d08e8030dc7123fab7d25`
-- CONCEPTION `017a77e9b4cba12ff3cacb41873bbbdf64822d64`
-- CONFORMITÉ `975a8d5fb491c3620c6737b133a0b39aab3dd60a`
-- HANDOFF C18 `ead52de9` / blob `158a4acf`
-- ENV-01 blob `14b61f0d` ; Product versioning blob `8bc93e0f`
-- Lane DEV : Next `127.0.0.1:3100` · PG `:5433` · `sfia_next_dev` / `sfia_next_e2e` · migrations 020/021
+| Écart | Code réel | Preuve existante | Classe | Action C20 |
+|---|---|---|---|---|
+| I1 lease/CAS | predicates manquants C19 | immuabilité C19 | **C** | lease dans UPDATE reconcile/heartbeat/checkpoint ; CAS lecture |
+| I2 D4 currency / post-claim | filiation seule | 409 rev C19 | **C** | D4 supersession + re-assert après claim |
+| I3 WEB URL/conf | markers only | sanitize C19 | **C** | discovery allowlist + confidential + no raw markers |
+| I4 mid-work | fence C19 | PROCESS_OR_LEASE C19 | **B** | capitaliser + predicates I1 ; PG concurrency |
+| I5 ambiguity | forceNew sur multi | CONTINUE/INDEP C19 | **C** | needsClarify / AWAIT_PILOT |
+| I6 D4 canonique | documentProposal last | multi-tour C19 | **C** | productionJson → documentProposal |
+| P1–P4 | acquis C18 | packs C18/C19 | **A** | capitaliser |
 
-## 4. Inventaire changements propres C19
+
+## 4. Inventaire changements C20
 
 | Fichier | sha256 | lignes | Contenu pack |
 |---|---|---|---|
-| `projects/sfia-studio-next/web/src/domains/execution/mandate-applicability.ts` | `576e5dad0b12e3742c411627c21e8c8b9ac6e21d830ddb112c3e14c744d9c0d6` | 151 | FULL |
-| `projects/sfia-studio-next/web/src/domains/conversation/investigation-persistence.ts` | `a9ff8e91e593a3bca34d43d65231bfe2e4a27381d4f23c4d1215b04add54ca6d` | 215 | FULL |
-| `projects/sfia-studio-next/web/src/domains/conversation/cognitive-work.ts` | `1626adeffbd0ad6dbe070f9f1dc38146c3ec4402d721b5fe8892562641d66cd1` | 594 | FULL |
-| `projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts` | `31b604541c106a35733830f4967394c1b863849ffe7884d5a470c5c72fe46e94` | 687 | FULL |
-| `projects/sfia-studio-next/web/src/domains/conversation/nora-contract-bridge.ts` | `b81bdaa9ba8ceb0e48bf5133f99384b26458ed504a1c099aca52716b9aaf2e2f` | 499 | FULL |
-| `projects/sfia-studio-next/web/src/domains/execution/nora-contract-prepare.ts` | `b307cf2031b86e4605e5b352753f298e4b162ec8226c548eee0f0e656ace81ed` | 113 | FULL |
-| `projects/sfia-studio-next/web/src/domains/conversation/web-search-sanitize.ts` | `3bdf7362ead3d21620e8b250fe0945b68ca5c32088049914ff714ebcf1c01c08` | 95 | FULL |
-| `projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts` | `8f8d21d12577bd984354e0d8a6e58414003fe03cde547795714d194fdc8fcdbf` | 731 | FULL |
-| `projects/sfia-studio-next/web/src/domains/conversation/service.ts` | `3f4b64ad2c8d9e9809a4a8dd5982cac2bb57051c87e61f7c3a1fb47fac4813b3` | 3961 | FULL |
-| `projects/sfia-studio-next/web/src/domains/execution/cursor-attempt-service.ts` | `1e81d3ce154b0d04e379a573b0a7b7cbb6822c24dabace61ffa4978e8f83b26a` | 1057 | FULL |
-| `projects/sfia-studio-next/web/tests/unit/ml5-c19-invariants.test.ts` | `d9bb1237597a863a1b36011c001b994fda1b0bb434a29add85e90be4f85a09a3` | 52 | FULL |
-| `projects/sfia-studio-next/construction/delivery-history.md` | `92b10c29209dc4c3dc1ac32506a62b360a0de3f69fe3d992e2dfba681d998ef4` | 4392 | FULL |
-| `projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md` | `a87f4f33ebf13dd95f21d4f47625b5a0541a445e5b0592c57e2eb6e1dfbf18b7` | 475 | FULL |
-| `projects/sfia-studio-next/construction/ml5-as-built-cursor-realization.md` | `6d7c22f76b7c6ca5139c30b0f7a5545190d738685b8ecb836a34dbe55c0af724` | 92 | FULL |
+| `projects/sfia-studio-next/web/src/domains/conversation/cognitive-work.ts` | `c155dd5807322701c2166b8da6502ba4d1f55f3c708b7bb29c2be9472c1e9c5e` | 635 | FULL |
+| `projects/sfia-studio-next/web/src/domains/conversation/investigation-persistence.ts` | `5ebbfbb80fba42d56af2b1b11576af1f5475ed3ef2b2a81ed0bfeb2d731197bb` | 252 | FULL |
+| `projects/sfia-studio-next/web/src/domains/execution/mandate-applicability.ts` | `1fb503234c14d1afb4e0e058c4178744a47d679169c7fa78f33296fff1631248` | 321 | FULL |
+| `projects/sfia-studio-next/web/src/domains/execution/cursor-attempt-service.ts` | `d8bccc3423c9097ce4dd1c5bc11cae533eef1f0a636e02a182d99c8a4e942b4e` | 1086 | FULL |
+| `projects/sfia-studio-next/web/src/domains/conversation/web-search-sanitize.ts` | `16108204f6c6c1f7af7b861a1d4249cc95372611bdd8cd7cc1eb88a3ba9a51bc` | 101 | FULL |
+| `projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts` | `c60e9ce1e137b47ff31ce9f4bcbf56af301f25d54213072b96923382c6f3c91e` | 800 | FULL |
+| `projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts` | `540afe2db55ad6289b51f05e7330c30c78998fa52ed928f76c56ca6e668ca048` | 788 | FULL |
+| `projects/sfia-studio-next/web/src/domains/conversation/service.ts` | `f1928853e49aafa5ec893b9dfc63e8b702a24ad45fb007c0131dca1683779472` | 3986 | FULL |
+| `projects/sfia-studio-next/web/tests/unit/ml5-c20-invariants.test.ts` | `0dbceb49307735d1afa30660c48bbbdb8ffddc7cea99355596964551f9094edf` | 51 | FULL |
+| `projects/sfia-studio-next/web/tests/unit/ml5-public-web-frontier.test.ts` | `51c9e564291c4fab0d3393f3adde8fe9f7e03e7ca7f8ee8bec9d7e21bf4f06b9` | 177 | FULL |
+| `projects/sfia-studio-next/construction/delivery-history.md` | `b75756284e589f90c5049b9cf10c5072b283166797cc84e6053eabf2277c829f` | 4406 | FULL |
+| `projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md` | `58a97346afa3bc86c8fafa762423278fb07a4bad598b34b07b2cf129548ebeb0` | 476 | FULL |
+| `projects/sfia-studio-next/construction/ml5-as-built-cursor-realization.md` | `f7ba7304aa4acc5a2ea5f2c41964b26b42ccf3b01fa1443b84b95d205f45b5de` | 101 | FULL |
 
-### Corrections
+Fichiers C19 inchangés : référencer handoff C19 tip `55dff997` / blob `0e148034` — **non recopiés** (règle C20).
 
-1. **I1** — `investigation-persistence.ts` : plus de mutation in-place du checkpoint ; bump révision + nouveau checkpoint ; restore statut durable après claim.
-2. **I2** — `mandate-applicability.ts` + wiring `cursor-attempt-service` / prepare : applicabilité au point d'effet (filiation révision exacte, fingerprint, investigation courante).
-3. **I3** — `web-search-sanitize.ts` + contrôles frontier/outbound private markers.
-4. **I4** — `reconcileStaleRunningCognitiveWorks` dans `cognitive-work.ts` ; appel avant tour dans `service.ts`.
-5. **I5** — `run-nora-cognitive-turn.ts` : candidates + probe qualification puis `resolveCognitiveWorkAttachment` avec relation structurée.
-6. **I6** — `documentProductionFromReply` : merge conservateur, part ids `gen-{generationId}`, fence Markdown non autoritaire.
-
-## 4bis. Couverture documentaire des fichiers affectés (régularisation)
+## 4bis. Couverture documentaire
 
 | Métrique | Valeur |
 |---|---|
-| Fichiers déclarés affectés | 14 |
-| Fichiers avec contenu FULL disponible | 14 |
-| Fichiers manquants | 0 |
-| Règle | Chaque fichier de l'inventaire C19 est reproduit **intégralement** en section 10 — aucune troncature |
-
-Cette section corrige le verdict antérieur `REVIEW PACK INCOMPLETE — MODIFIED CONTENT MISSING` sur la publication `60850b5c` / blob `03af06b0`.
-
-Fichiers précédemment manquants désormais inclus FULL :
-- `cursor-attempt-service.ts`
-- `public-web-search-frontier.ts`
-- `nora-contract-bridge.ts`
-- `nora-contract-prepare.ts`
-- `service.ts`
-- `ml5-registre-couverture-et-revue-developpement.md`
-- `ml5-as-built-cursor-realization.md`
-- `delivery-history.md`
+| Fichiers C20 déclarés | 13 |
+| Contenu FULL présent | 13 |
+| Manquants | 0 |
 
 ## 5. Matrice I1–I6
 
-| Invariant | Résultat attendu | Résultat observé | Niveau de preuve | Verdict |
-|---|---|---|---|---|
-| I1 — intégrité cognitive | Révision immuable ; nouveau checkpoint ; pas de mutate-in-place | Checkpoints distincts SEGMENT_COMPLETE/CLAIM/INVESTIGATION_SAVE avec payloads distincts ; CAS owner | INTEGRATION + DEV LIVE | **PASS** |
-| I2 — invalidation READY | Ancien mandat non applicable aux effets après changement matériel | READY r5 OK ; après bump cognitif prepare+authorize **409** « mandat non applicable » | DEV LIVE | **PASS** |
-| I3 — WEB | Séparation privé/public à l'egress | sanitize + private markers + outbound log ; frontier 10 PASS ; secrets bloqués | DETERMINISTIC / SCRIPTED | **PASS** (réserve LIVE fournisseur+contexte privé non rejoué) |
-| I4 — reprise mid-work | RUNNING interrompu → reconcile → même workId | Fence owner mid-RUNNING + kill LISTEN ; `PROCESS_OR_LEASE_INTERRUPT` r11 ; resume same workId COMPLETE r14 | DEV LIVE | **PASS** |
-| I5 — rattachement sémantique | CONTINUE / INDEPENDENT sans inject workId/forceNew | t2 sameWork+resumed ; t3 independent new workId | DEV LIVE | **PASS** |
-| I6 — investigation/production | Multi-sources + conservation multi-segments | DOCUMENT 4762→12241→34553 ; 3 part ids stables ; snippets T1/T2 préservés | DEV LIVE | **PASS** (interrupt mid-prod I6 non capturé ; couvert I4) |
+| Invariant | État C19 | Qualification C20 | Correction | Preuve | Verdict |
+|---|---|---|---|---|---|
+| I1 intégrité | immuabilité OK ; lease race | concurrency maîtrisée | lease predicates + CAS | PG hb0/rec1 ; live lease protect | **PASS** |
+| I2 autorité | 409 rev OK | D4 currency + post-claim | mandate D4 + re-assert | `Dépendance D4 supersédée` | **PASS** |
+| I3 WEB | sanitize partiel | discovery+confidential | allowlist URL + sanitize | units + no egress log | **PASS** |
+| I4 reprise | fence+interrupt | capitalisé + I1 | predicates | C19 + PG C20 | **PASS** |
+| I5 rattachement | CONTINUE/INDEP | ambiguity clarify | needsClarify | LIVE cw=null, 0 new works | **PASS** |
+| I6 production | multi-tour | D4 = production | inject productionJson | mdLen 1351 = D4 rev | **PASS** |
 
-
-## 6. Non-régressions P1–P4
-
-| Oracle | Statut C19 |
-|---|---|
-| P1 compréhension/production LIVE | Capitalisé C18 + exercé I5/I6 |
-| P2 continuité même workId / indep / reprise | Exercé I4/I5/I6 |
-| P3 contrat long / critères | Capitalisé C18 (40994 chars / 15 critères) ; non rejoué inutilement |
-| P4 READY + refus D6 | Capitalisé C18 ; I2 prouve invalidation post-READY aux effets |
-
-## 7. Build / runtime / tests
+## 6. Build / tests
 
 | Check | Résultat |
 |---|---|
-| `tsc --noEmit` | PASS |
-| ESLint fichiers C19 critiques | 0 error (warnings préexistants hors scope) |
-| `next build` | PASS · BUILD_ID `1pvGV0NLFRLhOqgw3Mxn_` |
-| Smoke DEV auto-session + /portfolio | PASS 200 |
-| vitest `ml5-c19-invariants` | 3 PASS |
-| vitest C18 + WEB frontier/sanitize/boundary | 24 PASS |
-| Campagne LIVE I1–I6 | `/tmp/sfia-c19-campaign/` (51 JSON) |
+| tsc | PASS |
+| next build | PASS · `FLRkHLwoatlm8o_Iq979R` |
+| vitest C20+WEB+C19 | 22 PASS |
+| smoke DEV | PASS (après restart) |
 
-Product versioning : `NO RELEASE` / STABLE NOT AVAILABLE / `0.0.0-dev`.
+## 7. Preuves C20
 
-## 8. Preuves brutes I1–I6
-
-### Evidence `i1-checkpoints.json`
+### Evidence `i1-hb-vs-reconcile.json`
 
 ```json
 {
-  "rows": [
-    "2:SEGMENT_COMPLETE:4305",
-    "3:SEGMENT_COMPLETE:4305",
-    "4:CLAIM:4305",
-    "5:INVESTIGATION_SAVE:4337",
-    "6:CLAIM:4337",
-    "7:INVESTIGATION_SAVE:4337"
-  ],
-  "workRev": 3
-}
-```
-
-### Evidence `i1-ctr.json`
-
-```json
-{
-  "prepared": {
-    "contractId": "tctr_20998f85-e4c9-438e-ac27-3713a290ab5c",
-    "contractKey": "nora-a8581e90-mwugcmeq",
-    "version": 1,
-    "fingerprint": "64ffb8dd499a1779ac2863a054719a639df9e971e70002cee22e18c3cd6ee3e1",
-    "status": "DRAFT"
+  "heartbeatRows": 0,
+  "reconcileRows": 1,
+  "final": {
+    "status": "SUSPENDED",
+    "revision": 2,
+    "interrupt_cause": "PROCESS_OR_LEASE_INTERRUPT",
+    "no_owner": true
   },
-  "cw": {
-    "workId": "cgw_6eb0a7d7-c808-45a3-88da-22edeb2316f7",
-    "revision": 3,
-    "segmentsRun": 1,
-    "resumed": false,
-    "suspended": false,
-    "suspendReason": null
-  }
+  "expect": "heartbeat 0 (expired), reconcile 1 SUSPENDED"
 }
 ```
 
-### Evidence `i2-att-old.json`
+### Evidence `i1-live-lease-protect.json`
 
 ```json
 {
-  "http": 400,
-  "message": "Contrat non prêt pour tentative: DRAFT"
-}
-```
-
-### Evidence `i2-material.json`
-
-```json
-{
-  "status": "COMPLETE",
-  "cw": {
-    "workId": "cgw_6eb0a7d7-c808-45a3-88da-22edeb2316f7",
-    "revision": 10,
-    "segmentsRun": 1,
-    "resumed": true,
-    "suspended": false,
-    "suspendReason": null
-  },
-  "prepared": {
-    "contractId": "tctr_9b9ff7b2-54ba-49dd-99a4-00238bcdab18",
-    "contractKey": "nora-a8581e90-mwugdsc1",
-    "version": 1,
-    "fingerprint": "984ecbfdd18b60d8d646e383e660dbed8b4253845ea0141362e0f0419451a24d",
-    "status": "DRAFT"
-  }
-}
-```
-
-### Evidence `i2-ready.json`
-
-```json
-{
-  "http": 409,
-  "boundRev": 5,
-  "msg": "Travail cognitif non COMPLETE (OPEN) — READY refusé"
-}
-```
-
-### Evidence `i2b-ctr.json`
-
-```json
-{
-  "prepared": {
-    "contractId": "tctr_3eec2230-e388-445f-88b4-ba52e1a30e77",
-    "contractKey": "nora-12a5114e-mwugg7ku",
-    "version": 1,
-    "fingerprint": "6d86828ac1cbded73f59a4cf3c5832fe2f0843bcb0d86d03ce4cf9e50efec7ed",
-    "status": "DRAFT"
-  },
-  "cw": {
-    "workId": "cgw_07f4ae92-c915-420a-a2e8-c10f5c49e644",
-    "revision": 3,
-    "segmentsRun": 1,
-    "resumed": false,
-    "suspended": false,
-    "suspendReason": null
-  },
-  "workStatus": "COMPLETE:7"
-}
-```
-
-### Evidence `i2b-get.json`
-
-```json
-{
-  "status": "DRAFT",
-  "cw": "cgw_07f4ae92-c915-420a-a2e8-c10f5c49e644",
-  "rev": 5,
-  "fp": "6d86828ac1cbded73f59a4cf3c5832fe2f0843bcb0d86d03ce4cf9e50efec7ed",
-  "instrLen": 2108,
-  "crit": 12
-}
-```
-
-### Evidence `i2b-ready.json`
-
-```json
-{
-  "http": 409,
-  "msg": "Révision cognitive 7 ≠ filiation contrat r5 — READY refusé"
-}
-```
-
-### Evidence `i2c-att-obsolete.json`
-
-```json
-{
-  "http": 409,
-  "message": "Révision cognitive 10 ≠ filiation mandat r5 — mandat non applicable"
-}
-```
-
-### Evidence `i2c-att.json`
-
-```json
-{
-  "http": 200,
-  "status": "PREPARED",
-  "attemptId": "efx_3bc58c8d-97a3-4cbe-9e4d-f31b7c9854e2"
-}
-```
-
-### Evidence `i2c-auth-obsolete.json`
-
-```json
-{
-  "http": 409,
-  "message": "Révision cognitive 10 ≠ filiation mandat r5 — mandat non applicable"
-}
-```
-
-### Evidence `i2c-bump.json`
-
-```json
-{
-  "cw": {
-    "workId": "cgw_b3f8508f-a80d-4e77-bd90-834d73244751",
-    "revision": 8,
-    "segmentsRun": 1,
-    "resumed": true,
-    "suspended": false,
-    "suspendReason": null
-  },
-  "db": "COMPLETE:10",
-  "contractRev": 5
-}
-```
-
-### Evidence `i2c-pre.json`
-
-```json
-{
-  "db": "COMPLETE:5",
-  "contractRev": 5,
-  "cw": "cgw_b3f8508f-a80d-4e77-bd90-834d73244751",
-  "status": "DRAFT"
-}
-```
-
-### Evidence `i2c-ready.json`
-
-```json
-{
-  "http": 200,
-  "status": "READY",
-  "fp": "bd8cb6fa87de78fcaa62a0cd9729b50e16948da712e89c7fb32fc69cb7192cbf",
-  "filiation": {
-    "preparationId": "prep_a0fa2192-24fb-4a4b-8017-4ece4e6f36cf",
-    "workId": "cgw_b3f8508f-a80d-4e77-bd90-834d73244751",
-    "revision": 5,
-    "contractId": "tctr_6be7f0af-3e2c-4adc-811a-97e087a65a98",
-    "fingerprint": "bd8cb6fa87de78fcaa62a0cd9729b50e16948da712e89c7fb32fc69cb7192cbf",
-    "requalifiedAt": "2026-11-24T08:53:04.269Z"
-  }
-}
-```
-
-### Evidence `i4-after-kill-db.json`
-
-```json
-{
-  "afterKill": null
-}
-```
-
-### Evidence `i4-mid-result.json`
-
-```json
-{
-  "mid": {
-    "error": "Error: socket hang up"
-  }
-}
-```
-
-### Evidence `i4-no-running.json`
-
-```json
-{
-  "note": "no RUNNING observed quickly — inject expired RUNNING via SQL after awaiting partial"
-}
-```
-
-### Evidence `i4-resume.json`
-
-```json
-{
-  "same": null,
-  "db": null
-}
-```
-
-### Evidence `i4c-forced-running.json`
-
-```json
-{
-  "db": "RUNNING|3|c19-i4-orphaned-owner|2026-11-24 08:53:59.441498+00|"
-}
-```
-
-### Evidence `i4c-live-no-running.json`
-
-```json
-{
-  "final": "COMPLETE|7",
-  "hung": {
-    "status": 200,
-    "json": {
-      "userMessageId": "msg_808adeb1-0310-4bff-afe4-d8c3bf0e8279",
-      "assistantMessageId": "msg_405a48b5-55fd-40be-a6bb-6800d94d807c",
-      "operationId": "op_8b927c1f-6d72-4ca9-96c3-5939f8da711a",
-      "requestId": "req_cddcf765-c2a1-4b34-8c0b-9d0a9e6ff3d5",
-      "turnCommandId": "tcmd_2ca7ec0a-2dbf-4d93-95e5-00399e5c3eca",
-      "preparedContract": null,
-      "cognitiveWork": {
-        "workId": "cgw_65be7374-b663-4550-9390-a6411761decd",
-        "revision": 10,
-        "segmentsRun": 1,
-        "resumed": true,
-        "suspended": false,
-        "suspendReason": null
-      },
-      "noraMode": "openai-agents-sdk-live",
-      "status": "COMPLETE",
-      "generationId": "gen_2511b288-f86f-46c7-96ab-0af3e7e52c83",
-      "policy": {
-        "version": "ml2-cog-policy-v2-corrective",
-        "profileType": "OPERATIONAL_PROVISIONAL",
-        "profile": "analyse",
-        "modelRequested": "gpt-6.1-sol",
-        "modelApplied": "UNVERIFIED",
-        "effortRequested": "medium",
-        "effortApplied": "UNVERIFIED",
-        "reasonCodes": [
-          "BUDGET_DEFAULT_ANALYSE_NO_LENGTH_ROUTING",
-          "PROFILE_TYPE_OPERATIONAL_PROVISIONAL",
-          "LANE_DEV",
-          "PROFILE_HINT_analyse"
-        ]
-      },
-      "attempts": [
-        {
-          "attemptId": "att_e85ed856-31ca-4eb2-8fce-fc0d7431813b",
-          "kind": "non_stream",
-          "outcome": "SUCCESS",
-          "notes": "structured_non_stream_finalOutput",
-          "providerContacted": "YES"
-        }
-      ],
-      "toolCallsObserved": 3,
-      "d4CharsReturned": 5653,
-      "streaming": {
-        "attempted": true,
-        "delivered": true,
-        "notes": "structured_non_stream_finalOutput"
-      },
-      "knowledgeSelection": {
-        "subjects": 0,
-        "acquisCurrent": 0,
-        "openPoints": 0,
-        "reactivatedOpenPoints": 0,
-        "selectionMethod": "bounded-resource-listing",
-        "selectionLimit": "RG-KNOW-011 + J-C04: réactivation contextuelle des points ouverts projet, puis ids préférés / listing borné — pas de clôture par silence.",
-        "role": "pre_generation_context",
-        "selectedAcquisIds": [],
-        "selectedOpenPointIds": []
-      },
-      "knowledgeResumeHints": null,
-      "capitalisation": [],
-      "capitalisationAttempted": [],
-      "capitalisationLimit": "Aucune proposition d4.record_knowledge — zéro écriture D4",
-      "documentSave": {
-        "status": "NOT_EXECUTED",
-        "reason": "SECTION_AMBIGUOUS_OR_MISSING_IN_BASE",
-        "documentId": "doc_129ad6db-f438-4f7a-b926-c40d159d5b96",
-        "baseRevisionId": "drev_2418d839-54f2-42da-85bc-6fab7b139d0e",
-        "act": "REVISE"
-      },
-      "pendingDocumentCandidate": null,
-      "historicalAuthorization": null,
-      "idempotentReplay": false,
-      "humanDecisionCreated": false,
-      "pilotageEffect": null,
-      "missionProjection": null,
-      "nextTurnKind": "INTENTION_EFFET",
-      "pendingEffectBlocked": false,
-      "unresolvedPendingClientTurnKey": null,
-      "semanticQualificationStatus": "QUALIFIED",
-      "preparationProjection": null,
-      "turnProjection": {
-        "schemaVersion": "e05-turn-projection-v1",
-        "messageId": "msg_405a48b5-55fd-40be-a6bb-6800d94d807c",
-        "turnCommandId": "tcmd_2ca7ec0a-2dbf-4d93-95e5-00399e5c3eca",
-        "finalized": true,
-        "status": "COMPLETE",
-        "choices": [],
-        "references": [
-          {
-            "kind": "document",
-            "label": "SpecI4c — révision 1 consultée",
-            "resourceId": "doc_129ad6db-f438-4f7a-b926-c40d159d5b96",
-            "revisionId": "drev_2418d839-54f2-42da-85bc-6fab7b139d0e",
-            "available": true
-          }
-        ],
-        "activity": {
-          "kind": "sources_consulted",
-          "label": "Sources consultées pour cette réponse",
-          "detail": "3 consultation(s) observée(s)"
-        }
-      },
-      "messages": [
-        {
-          "id": "msg_iq_iqop_d930b86b-ef25-47e6-bf41-aa58f13e5fae_v1",
-          "conversationId": "conv_cd11fa63-9067-43a2-8da7-558be1226196",
-          "role": "assistant",
-          "content": "Pour proposer une première progression de cycles, précisez le premier résultat utile attendu et le type de cycle qui vous semble le plus pertinent (cadrage, conception fonctionnelle, UX, etc.).",
-          "status": "COMPLETE",
-          "generationId": "sfia:iq:iqop_d930b86b-ef25-47e6-bf41-aa58f13e5fae:v1",
-          "ordinal": 1,
-          "createdAt": "2026-11-24T08:55:36.100Z"
-        },
-        {
-          "id": "msg_0d68db53-987a-443b-aa96-e92fb329ce04",
-          "conversationId": "conv_cd11fa63-9067-43a2-8da7-558be1226196",
-          "role": "user",
-          "content": "Create SpecI4c briefly: Context only. workDisposition COMPLETE. cognitiveProfileHint=investigation. No contract.",
-          "status": "COMPLETE",
-          "generationId": null,
-          "ordinal": 2,
-          "createdAt": "2026-11-24T08:55:36.332Z"
-        },
-        {
-          "id": "msg_d9504c32-e830-41fb-9d87-87849f5ee4e3",
-          "conversationId": "conv_cd11fa63-9067-43a2-8da7-558be1226196",
-          "role": "assistant",
-          "content": "**Création D4 confirmée — révision 1.**\n\nPérimètre demandé pour **SpecI4c** : **Contexte uniquement**. Le contenu de la révision n’a pas été relu ici.\n\nAucune création réexécutée, aucun contrat préparé.\n\n``​`sfia-document title-b64=U3BlY0k0Yw chars=265 pair-sha256=584c01d3adb5bd50ad54013c1381bb17fbcd410cbd6eaa35bab1fc8a45eae50f\n# SpecI4c\n\n## Contexte\n\nLe projet est en phase de clarification. L’objectif métier et le premier résultat utile attendu ne sont pas précisés dans les éléments disponibles. Aucun cycle ni aucune méthode ne sont actuellement définis ; aucune restriction n’est active.\n``​`\n\n---\n### Résultat d'enregistrement\n\nNouvelle version disponible : v1.\n\nL'enregistrement est confirmé. Les versions antérieures restent inchangées.\n",
-          "status": "COMPLETE",
-          "generationId": "gen_c49be049-7ef2-4d13-bfff-32a7bf8fa68c",
-          "ordinal": 3,
-          "createdAt": "2026-11-24T08:55:59.286Z"
-        },
-        {
-          "id": "msg_98bd4309-524d-44f3-831e-6558fb8094ae",
-          "conversationId": "conv_cd11fa63-9067-43a2-8da7-558be1226196",
-          "role": "user",
-          "content": "Continue SpecI4c after mid-work interrupt. Add Architecture and Rules. cognitiveWorkRelation=CONTINUE. proposedCognitiveWorkId=cgw_65be7374-b663-4550-9390-a6411761decd. workDisposition COMPLETE. No contract.",
-          "status": "COMPLETE",
-          "generationId": null,
-          "ordinal": 4,
-          "createdAt": "2026-11-24T08:55:59.725Z"
-        },
-        {
-          "id": "msg_aa6a9685-97ea-4c05-9130-9fe8d4ea9dcb",
-          "conversationId": "conv_cd11fa63-9067-43a2-8da7-558be1226196",
-          "role": "assistant",
-          "content": "Reprise de **SpecI4c** à partir de la révision 1 consultée. Voici l’ajout proposé, sans modifier le Contexte. Celui-ci ne précisant pas encore l’objectif métier, les choix restent ouverts. Aucun contrat préparé.\n\n``​`sfia-document title-b64=U3BlY0k0Yw chars=600 pair-sha256=40e5cb8e5fe2c4aad2e6759221a7596c0e8db627d77070da38d18ec89672380c\n## Architecture\n\nL’architecture reste à définir à partir de l’objectif métier et du premier résultat utile attendu.\n\n- Composants et responsabilités : à préciser.\n- Interfaces, flux et données : à identifier.\n- Contraintes techniques et dépendances : à expliciter.\n\nAucun choix d’architecture n’est établi dans le contexte disponible.\n\n## Règles\n\n- Règles métier, conditions d’application et exceptions : à définir.\n- Droits d’accès et exigences de sécurité : à préciser.\n- Critères de validation du résultat attendu : à établir.\n\nCes points sont ouverts ; ils ne constituent pas des règles validées.\n``​`\n\n---\n### Résultat applicatif\n\nAucun enregistrement documentaire n'a été effectué sur ce tour.\n\nLa demande n'a pas été qualifiée pour une écriture. La réponse Nora ci-dessus n'est pas un verdict d'enregistrement.\n",
-          "status": "COMPLETE",
-          "generationId": "gen_176caf6b-a2c2-4d00-be0e-048c354c5865",
-          "ordinal": 5,
-          "createdAt": "2026-11-24T08:56:18.374Z"
-        },
-        {
-          "id": "msg_808adeb1-0310-4bff-afe4-d8c3bf0e8279",
-          "conversationId": "conv_cd11fa63-9067-43a2-8da7-558be1226196",
-          "role": "user",
-          "content": "Expand SpecI4c with Risks OpenQuestions Alternatives Implementation Validation. Thorough multi-paragraph. workDisposition COMPLETE. cognitiveWorkRelation=CONTINUE. proposedCognitiveWorkId=cgw_65be7374-b663-4550-9390-a6411761decd. No contract.",
-          "status": "COMPLETE",
-          "generationId": null,
-          "ordinal": 6,
-          "createdAt": "2026-11-24T08:56:42.432Z"
-        },
-        {
-          "id": "msg_405a48b5-55fd-40be-a6bb-6800d94d807c",
-          "conversationId": "conv_cd11fa63-9067-43a2-8da7-558be1226196",
-          "role": "assistant",
-          "content": "Voici l’extension détaillée proposée pour **SpecI4c**, limitée aux cinq sections demandées. Le Contexte de la révision 1 consultée ne précise pas encore l’objectif métier ; les éléments ci-dessous distinguent donc risques, questions ouvertes et recommandations conditionnelles, sans inventer de choix validés. Les sections existantes sont à préserver. **Aucun contrat préparé.**\n\n``​`sfia-document title-b64=U3BlY0k0Yw chars=6916 pair-sha256=ef2711258c6a9dda78ff7ae7c16743a7cae0e4e336af35e7e295d91de3e28f36\n## Risks\n\nLe principal risque de cadrage est de spécifier une solution avant d’avoir défini le problème métier, ses utilisateurs et le premier résultat utile attendu. Cela pourrait conduire à une architecture cohérente sur le plan technique mais inadaptée au besoin réel. L’absence d’objectif explicite rend également difficile la priorisation : une fonctionnalité ne peut pas encore être justifiée par une contribution mesurable au résultat recherché.\n\nUn second risque concerne la transformation progressive d’hypothèses en exigences implicites. Les composants, interfaces, règles métier et droits d’accès restent à préciser ; leur simple mention dans une spécification ne vaut pas validation. Pour limiter ce risque, il est recommandé, si le document sert de base à la conception, d’indiquer pour chaque élément structurant son statut, sa justification et les questions dont il dépend.\n\nLes risques de sécurité, de confidentialité, d’intégration et d’exploitation ne sont pas encore évaluables faute d’informations sur les données, les systèmes concernés et les conditions d’utilisation. Cette absence d’évaluation ne signifie ni absence de risque ni criticité démontrée. Toute mise en œuvre devrait être précédée d’une analyse proportionnée au périmètre réel, notamment sur les accès, les erreurs, la conservation des données et les dépendances externes.\n\n## OpenQuestions\n\nQuel problème concret SpecI4c doit-il contribuer à résoudre, pour quels utilisateurs et dans quelle situation ? Le premier résultat utile doit être exprimé sous une forme observable : une action rendue possible, une difficulté réduite ou un livrable exploitable. Il reste aussi à préciser ce qui serait considéré comme un échec, afin d’éviter une définition du succès limitée à la seule livraison d’une solution.\n\nQuel est le périmètre initial, et quelles capacités sont explicitement exclues ? Les parcours prioritaires, les règles métier, les exceptions et les responsabilités des acteurs sont à identifier. Les besoins de compatibilité, d’accessibilité, de performance ou de disponibilité devront être précisés lorsqu’ils modifient effectivement la conception ; aucun seuil chiffré n’est établi à ce stade.\n\nQuelles données seront utilisées, d’où proviendront-elles et qui pourra les consulter ou les modifier ? Les systèmes à intégrer, les contraintes techniques imposées, les dépendances organisationnelles et les modalités d’exploitation restent ouverts. Enfin, les personnes habilitées à accepter le résultat et les preuves nécessaires à cette acceptation doivent être identifiées. Ces questions structurent la suite de la spécification sans empêcher la rédaction du présent complément.\n\n## Alternatives\n\nUne première option serait de poursuivre par une clarification documentaire courte, centrée sur le besoin et un scénario représentatif, sans réalisation technique. Cette approche limiterait les engagements prématurés et faciliterait la comparaison des périmètres possibles. Sa limite serait de ne pas lever, à elle seule, une incertitude portant sur la faisabilité d’une intégration, une contrainte de performance ou l’usage réel d’une interface.\n\nUne deuxième option serait de préparer un prototype exploratoire une fois l’incertitude à tester explicitée. Un prototype pourrait aider à observer un parcours ou à vérifier un échange de données, mais ses résultats resteraient bornés aux conditions de l’essai. Il ne constituerait ni une architecture de production validée ni une preuve de sécurité ou de robustesse générale. Son coût ne serait justifié que si l’expérience permet de répondre à une question déterminante.\n\nUne troisième option serait d’envisager une première réalisation limitée à un parcours de bout en bout, après clarification du besoin et des critères d’acceptation. La réutilisation d’un outil existant, une adaptation légère ou une procédure manuelle devraient alors être comparées à un développement spécifique. À ce stade, la recommandation conditionnelle est de privilégier l’option qui réduit l’incertitude principale avec le moins d’engagement difficilement réversible ; aucune alternative n’est retenue par ce document.\n\n## Implementation\n\nLa démarche proposée commence par la définition d’un scénario de référence : acteur, situation initiale, déclencheur, informations nécessaires et résultat observable. Ce scénario permettrait de délimiter un premier périmètre et de relier les exigences aux besoins qu’elles servent. Les hypothèses encore nécessaires seraient consignées séparément, avec les conséquences possibles de leur invalidation.\n\nUne fois ce socle suffisamment précisé, la conception pourrait décrire les responsabilités des composants, les interfaces, les flux de données et les règles applicables. Le choix d’une technologie, d’un stockage ou d’un mode de déploiement devrait être justifié par des contraintes identifiées plutôt que présumé. Une investigation technique ciblée serait pertinente si une dépendance ou une limite de faisabilité conditionne réellement la solution.\n\nSi une réalisation est ensuite autorisée, une progression par incréments vérifiables est recommandée : couvrir d’abord le parcours nominal retenu, puis les erreurs et exceptions prioritaires, avant d’élargir le périmètre. Chaque incrément devrait disposer de preuves de fonctionnement et, selon son exposition, de moyens adaptés de diagnostic et de retour arrière. Cette section décrit une démarche possible ; elle ne constitue ni un mandat d’exécution, ni un calendrier engagé, ni une autorisation de développement.\n\n## Validation\n\nLa première validation porte sur la cohérence de la spécification : le problème, les utilisateurs, le périmètre et le résultat attendu doivent pouvoir être compris sans hypothèses cachées. Chaque exigence importante devrait être reliée à un besoin ou à une contrainte explicite. Les formulations ambiguës et les affirmations non étayées seraient signalées comme points ouverts plutôt que considérées comme acquises.\n\nLa validation fonctionnelle reposerait ensuite sur des scénarios d’acceptation décrivant une situation initiale, une action et un résultat attendu observable. Elle devrait couvrir le parcours nominal ainsi que les erreurs, exceptions et cas limites pertinents. Les exigences non fonctionnelles feraient l’objet de vérifications adaptées lorsque leurs seuils et leurs conditions de mesure auront été définis ; aucun résultat de test ni niveau de conformité n’est affirmé ici.\n\nEnfin, les preuves produites devraient permettre de distinguer ce qui a été vérifié, ce qui reste inconnu et ce qui n’entre pas dans le périmètre. Un compte rendu de validation préciserait la version examinée, les conditions d’essai, les résultats et les écarts résiduels. L’acceptation finale resterait du ressort des personnes habilitées, sur la base de critères convenus ; la complétude rédactionnelle de SpecI4c ne suffirait pas à démontrer que la solution répond au besoin.\n``​`\n\n---\n### Résultat applicatif\n\nAucun enregistrement documentaire n'a été effectué sur ce tour.\n\nLa demande n'a pas été qualifiée pour une écriture. La réponse Nora ci-dessus n'est pas un verdict d'enregistrement.\n",
-          "status": "COMPLETE",
-          "generationId": "gen_2511b288-f86f-46c7-96ab-0af3e7e52c83",
-          "ordinal": 7,
-          "createdAt": "2026-11-24T08:57:47.704Z"
-        }
-      ]
-    }
-  }
-}
-```
-
-### Evidence `i4c-reconcile-evidence.json`
-
-```json
-{
-  "checkpoints": [
-    "2|SEGMENT_COMPLETE|1",
-    "3|SEGMENT_COMPLETE|2",
-    "4|PROCESS_OR_LEASE_INTERRUPT|3",
-    "5|CLAIM|4",
-    "6|SEGMENT_COMPLETE|5",
-    "7|SEGMENT_COMPLETE|6"
-  ],
-  "finalBeforeLive": "COMPLETE|7|",
-  "hasProcessInterrupt": true
-}
-```
-
-### Evidence `i4c-seed.json`
-
-```json
-{
-  "status": "COMPLETE",
-  "workId": "cgw_65be7374-b663-4550-9390-a6411761decd",
-  "cw": {
-    "workId": "cgw_65be7374-b663-4550-9390-a6411761decd",
-    "revision": 3,
-    "segmentsRun": 1,
-    "resumed": false,
-    "suspended": false,
-    "suspendReason": null
-  },
-  "db": "COMPLETE|3||"
-}
-```
-
-### Evidence `i4f-before-resume.json`
-
-```json
-{
-  "prep": "prep_7ef45dfd-9b27-4ed3-a87c-4158753ef8c0",
-  "before": "COMPLETE|7|||",
-  "killAt": {
-    "ms": 87468,
-    "workId": "cgw_40a4977c-f1f5-4b84-9fd0-3372db61c365",
-    "revision": 6,
-    "owner": "4a80bc55-1a90-4dff-b508-d70f99e591a1"
-  }
-}
-```
-
-### Evidence `i4f-kill-at.json`
-
-```json
-{
-  "ms": 87468,
-  "workId": "cgw_40a4977c-f1f5-4b84-9fd0-3372db61c365",
-  "revision": 6,
-  "owner": "4a80bc55-1a90-4dff-b508-d70f99e591a1"
-}
-```
-
-### Evidence `i4f-resume.json`
-
-```json
-{
-  "before": "COMPLETE|7|||",
-  "same": false,
-  "final": "COMPLETE|7|",
-  "cks": "2|SEGMENT_CONTINUE|1\n3|SEGMENT_COMPLETE|2\n4|AWAIT_PILOT|3\n5|CLAIM|4\n6|SEGMENT_COMPLETE|5\n7|SEGMENT_COMPLETE|6",
-  "processInterruptCount": "0"
-}
-```
-
-### Evidence `i4f-seed.json`
-
-```json
-{
-  "status": "COMPLETE",
-  "workId": "cgw_40a4977c-f1f5-4b84-9fd0-3372db61c365",
-  "cw": {
-    "workId": "cgw_40a4977c-f1f5-4b84-9fd0-3372db61c365",
-    "revision": 4,
-    "segmentsRun": 2,
-    "resumed": false,
-    "suspended": false,
-    "suspendReason": null
-  },
-  "db": "OPEN|4|AWAIT_OR_SUSPEND"
-}
-```
-
-### Evidence `i4fe-after-fence.json`
-
-```json
-{
-  "fenced": true,
-  "fenceMeta": {
-    "ms": 51921,
-    "before": {
-      "id": "cgw_72339a55-01ac-4ef7-9069-38b63dacb0f0",
-      "status": "RUNNING",
-      "revision": 9,
-      "owner_token": "4c3177df-e49b-4959-9d9f-ede41c68c4fb"
-    },
-    "after": {
-      "id": "cgw_72339a55-01ac-4ef7-9069-38b63dacb0f0",
-      "status": "RUNNING",
-      "revision": 10,
-      "owner_token": "fenced-obsolete-owner",
-      "lease_until": "2026-11-24T09:25:32.324Z"
-    }
-  },
-  "db": "RUNNING|10|2026-11-24 09:25:32.324423+00||fenced-obsolete-owner"
-}
-```
-
-### Evidence `i4fe-fence-at.json`
-
-```json
-{
-  "ms": 51921,
-  "before": {
-    "id": "cgw_72339a55-01ac-4ef7-9069-38b63dacb0f0",
+  "heartbeatRows": 1,
+  "reconcileRows": 0,
+  "final": {
     "status": "RUNNING",
-    "revision": 9,
-    "owner_token": "4c3177df-e49b-4959-9d9f-ede41c68c4fb"
+    "revision": 1
+  }
+}
+```
+
+### Evidence `i2-d4-supersede.json`
+
+```json
+{
+  "contractId": "tctr_6be7f0af-3e2c-4adc-811a-97e087a65a98",
+  "alignedRevision": 10,
+  "docId": "doc_95217aef-4108-484e-8b52-faa216ac06a3",
+  "rev1": "drev_97355428-27d2-40b8-903e-27012cecf6aa",
+  "rev2": "drev_8edbba48-ec46-4ebe-97c8-85579ea396bc",
+  "assessed": {
+    "ok": false,
+    "reason": "Dépendance D4 supersédée — mandat non applicable"
   },
-  "after": {
-    "id": "cgw_72339a55-01ac-4ef7-9069-38b63dacb0f0",
-    "status": "RUNNING",
-    "revision": 10,
-    "owner_token": "fenced-obsolete-owner",
-    "lease_until": "2026-11-24T09:25:32.324Z"
-  }
+  "expectFail": true
 }
 ```
 
-### Evidence `i4fe-hung.json`
+### Evidence `i5-ambiguous.json`
 
 ```json
 {
-  "hung": {
-    "status": 200,
-    "json": {
-      "userMessageId": "msg_9a028c1b-7d89-486a-a94a-e0eefa63a4f0",
-      "assistantMessageId": null,
-      "operationId": "op_9de24dc2-8c46-4eab-b0d8-86548462b9c0",
-      "requestId": "req_b1acf4dd-b3a8-4f17-b612-5b3a859ba6fc",
-      "status": "UNKNOWN",
-      "idempotentReplay": false,
-      "humanDecisionCreated": false,
-      "pilotageEffect": null,
-      "noraMode": "provider-exception",
-      "messages": [
-        {
-          "id": "msg_iq_iqop_001f0a7d-b762-40f3-b44f-d81da51013ef_v1",
-          "conversationId": "conv_464ab8e0-cbcf-4882-b5ed-3e02d8a38609",
-          "role": "assistant",
-          "content": "Pour proposer une première progression de cycles, précisez le premier résultat utile attendu et le type de cycle qui vous semble le plus pertinent (cadrage, conception fonctionnelle, UX, etc.).",
-          "status": "COMPLETE",
-          "generationId": "sfia:iq:iqop_001f0a7d-b762-40f3-b44f-d81da51013ef:v1",
-          "ordinal": 1,
-          "createdAt": "2026-11-24T09:27:18.184Z"
-        },
-        {
-          "id": "msg_c0126999-ac93-495b-b1a9-7cad7c2f365a",
-          "conversationId": "conv_464ab8e0-cbcf-4882-b5ed-3e02d8a38609",
-          "role": "user",
-          "content": "Begin SpecI4fence. Context section only. Then leave work OPEN for continuation (workDisposition OPEN). cognitiveProfileHint=investigation. No contract.",
-          "status": "COMPLETE",
-          "generationId": null,
-          "ordinal": 2,
-          "createdAt": "2026-11-24T09:27:19.103Z"
-        },
-        {
-          "id": "msg_726090ae-f973-42b5-98c6-07bc530b35dc",
-          "conversationId": "conv_464ab8e0-cbcf-4882-b5ed-3e02d8a38609",
-          "role": "assistant",
-          "content": "Première ébauche limitée au contexte, sans inventer les éléments métier encore manquants.\n\nLe travail reste ouvert pour continuation. Aucun contrat n’est préparé.\n\n``​`sfia-document\n## Contexte\n\nLe contexte métier de SpecI4fence reste à préciser. Les éléments disponibles ne décrivent pas encore la situation de départ, le besoin à traiter ni les acteurs concernés.\n\nCette section sera enrichie à partir des prochains éléments du Pilote.\n``​`\n\n---\n### Résultat applicatif\n\nAucun enregistrement documentaire n'a été effectué sur ce tour.\n\nLa demande n'a pas été qualifiée pour une écriture. La réponse Nora ci-dessus n'est pas un verdict d'enregistrement.\n",
-          "status": "INTERRUPTED",
-          "generationId": "gen_15eaeb19-bace-4b24-8964-1c0cc0650377",
-          "ordinal": 3,
-          "createdAt": "2026-11-24T09:29:40.248Z"
-        },
-        {
-          "id": "msg_9a028c1b-7d89-486a-a94a-e0eefa63a4f0",
-          "conversationId": "conv_464ab8e0-cbcf-4882-b5ed-3e02d8a38609",
-          "role": "user",
-          "content": "Continue SpecI4fence. Add Architecture Rules Risks Implementation Validation with detailed paragraphs. cognitiveWorkRelation=CONTINUE. proposedCognitiveWorkId=cgw_72339a55-01ac-4ef7-9069-38b63dacb0f0. workDisposition COMPLETE. No contract.",
-          "status": "COMPLETE",
-          "generationId": null,
-          "ordinal": 4,
-          "createdAt": "2026-11-24T09:29:40.679Z"
-        }
-      ]
-    }
-  }
+  "w1": "cgw_fd9e1e39-120a-4503-8db4-a90f50e6dd23",
+  "w2": "cgw_2815899c-8573-404b-8ed9-a0353221a433",
+  "http": 200,
+  "cw": null,
+  "assistantHead": "Souhaitez-vous ajouter la section **Architecture** à **SpecB — Contexte** (l’investigation la plus récente) ou à **SpecA — Contexte** ? Les deux investigations étant indépendantes, je préfère confirmer la cible avant de poursuivre.",
+  "worksAfter": "cgw_fd9e1e39-120a-4503-8db4-a90f50e6dd23|OPEN|3\ncgw_2815899c-8573-404b-8ed9-a0353221a433|OPEN|3",
+  "newWorksCreated": [],
+  "clarifyHint": false
 }
 ```
 
-### Evidence `i4fe-resume.json`
+### Evidence `i6-d4-link.json`
 
 ```json
 {
-  "beforeResume": "RUNNING|10||fenced-obsolete-owner",
   "http": 200,
   "status": "COMPLETE",
-  "cw": {
-    "workId": "cgw_72339a55-01ac-4ef7-9069-38b63dacb0f0",
-    "revision": 14,
-    "segmentsRun": 1,
-    "resumed": true,
-    "suspended": false,
-    "suspendReason": null
-  },
-  "same": true,
-  "resumed": true,
-  "final": "COMPLETE|14|",
-  "cks": "2|SEGMENT_CONTINUE|1\n3|SEGMENT_CONTINUE|2\n4|SEGMENT_CONTINUE|3\n5|SEGMENT_CONTINUE|4\n6|SEGMENT_CONTINUE|5\n7|BUDGET|6\n8|BUDGET|7\n9|CLAIM|8\n10|SEGMENT_COMPLETE|9\n11|PROCESS_OR_LEASE_INTERRUPT|10\n12|CLAIM|11\n13|SEGMENT_COMPLETE|12\n14|SEGMENT_COMPLETE|13",
-  "processInterruptCount": "1"
-}
-```
-
-### Evidence `i4fe-seed.json`
-
-```json
-{
-  "status": "UNKNOWN",
-  "workId": "cgw_72339a55-01ac-4ef7-9069-38b63dacb0f0",
-  "db": "SUSPENDED|8|SEGMENT_INVOCATION_LIMIT"
-}
-```
-
-### Evidence `i4h-after-kill-db.json`
-
-```json
-{
-  "killed": false,
-  "killMeta": null,
-  "dbRightAfter": "COMPLETE|3|||"
-}
-```
-
-### Evidence `i4h-hung.json`
-
-```json
-{
-  "hung": {
-    "status": 200,
-    "json": {
-      "userMessageId": "msg_1fccc597-38e4-42d6-971c-c098474aa170",
-      "assistantMessageId": "msg_1f8697ac-0245-49cb-970e-19207a44ea13",
-      "operationId": "op_77e988d8-b959-4887-b859-ef9b3beb4909",
-      "requestId": "req_48f21176-9884-4051-bd71-1dcbe29f306e",
-      "turnCommandId": "tcmd_6af8849b-9d33-41bc-a3c6-0f98367d36b7",
-      "preparedContract": null,
-      "cognitiveWork": {
-        "workId": "cgw_0147ae35-7571-4cb1-892b-5a36eedeb370",
-        "revision": 3,
-        "segmentsRun": 1,
-        "resumed": false,
-        "suspended": false,
-        "suspendReason": null
-      },
-      "noraMode": "openai-agents-sdk-live",
-      "status": "UNKNOWN",
-      "generationId": "gen_017b42be-b76a-40a7-a791-d84eeec7cc51",
-      "policy": {
-        "version": "ml2-cog-policy-v2-corrective",
-        "profileType": "OPERATIONAL_PROVISIONAL",
-        "profile": "analyse",
-        "modelRequested": "gpt-6.1-sol",
-        "modelApplied": null,
-        "effortRequested": "medium",
-        "effortApplied": null,
-        "reasonCodes": [
-          "BUDGET_DEFAULT_ANALYSE_NO_LENGTH_ROUTING",
-          "PROFILE_TYPE_OPERATIONAL_PROVISIONAL",
-          "LANE_DEV",
-          "PROFILE_HINT_analyse"
-        ]
-      },
-      "attempts": [
-        {
-          "attemptId": "att_227c6e8f-c8f4-42e9-8a4a-516718c44ba7",
-          "kind": "non_stream",
-          "outcome": "UNKNOWN",
-          "notes": "PROVIDER_SCHEMA_OR_OUTPUT",
-          "providerContacted": "UNCERTAIN"
-        }
-      ],
-      "toolCallsObserved": 1,
-      "d4CharsReturned": 1074,
-      "streaming": {
-        "attempted": true,
-        "delivered": false,
-        "notes": "PROVIDER_SCHEMA_OR_OUTPUT"
-      },
-      "knowledgeSelection": {
-        "subjects": 0,
-        "acquisCurrent": 0,
-        "openPoints": 0,
-        "reactivatedOpenPoints": 0,
-        "selectionMethod": "bounded-resource-listing",
-        "selectionLimit": "RG-KNOW-011 + J-C04: réactivation contextuelle des points ouverts projet, puis ids préférés / listing borné — pas de clôture par silence.",
-        "role": "pre_generation_context",
-        "selectedAcquisIds": [],
-        "selectedOpenPointIds": []
-      },
-      "knowledgeResumeHints": null,
-      "capitalisation": [],
-      "capitalisationAttempted": [],
-      "capitalisationLimit": "SEM-02: capitalisation depuis propositions Nora typées (d4.record_knowledge).",
-      "documentSave": null,
-      "pendingDocumentCandidate": null,
-      "historicalAuthorization": null,
-      "idempotentReplay": false,
-      "humanDecisionCreated": false,
-      "pilotageEffect": null,
-      "missionProjection": null,
-      "nextTurnKind": "INCERTAIN",
-      "pendingEffectBlocked": false,
-      "unresolvedPendingClientTurnKey": null,
-      "semanticQualificationStatus": "UNAVAILABLE",
-      "preparationProjection": null,
-      "turnProjection": {
-        "schemaVersion": "e05-turn-projection-v1",
-        "messageId": "msg_1f8697ac-0245-49cb-970e-19207a44ea13",
-        "turnCommandId": "tcmd_6af8849b-9d33-41bc-a3c6-0f98367d36b7",
-        "finalized": false,
-        "status": "UNKNOWN",
-        "choices": [],
-        "references": [],
-        "activity": {
-          "kind": "uncertain",
-          "label": "État de la réponse encore incertain"
-        }
-      },
-      "messages": [
-        {
-          "id": "msg_iq_iqop_8583a4c5-a038-411d-ba9d-3e9836f3557e_v1",
-          "conversationId": "conv_b5f278ba-1378-4e9f-a079-dde6f7ffdcf1",
-          "role": "assistant",
-          "content": "Pour proposer une première progression de cycles, précisez le premier résultat utile attendu et le type de cycle qui vous semble le plus pertinent (cadrage, conception fonctionnelle, UX, etc.).",
-          "status": "COMPLETE",
-          "generationId": "sfia:iq:iqop_8583a4c5-a038-411d-ba9d-3e9836f3557e:v1",
-          "ordinal": 1,
-          "createdAt": "2026-11-24T09:10:47.513Z"
-        },
-        {
-          "id": "msg_3fed97ab-1b3c-420e-b568-62c4a4144a37",
-          "conversationId": "conv_b5f278ba-1378-4e9f-a079-dde6f7ffdcf1",
-          "role": "user",
-          "content": "Create SpecI4hard Context only. workDisposition COMPLETE. cognitiveProfileHint=investigation. No contract.",
-          "status": "COMPLETE",
-          "generationId": null,
-          "ordinal": 2,
-          "createdAt": "2026-11-24T09:10:47.752Z"
-        },
-        {
-          "id": "msg_7edf81d8-622a-4176-a2db-89d602ef1479",
-          "conversationId": "conv_b5f278ba-1378-4e9f-a079-dde6f7ffdcf1",
-          "role": "assistant",
-          "content": "### SpecI4hard — Context only\n\nLe résultat applicatif fourni indique :\n- **D4 CREATE : AVAILABLE**\n- **Document :** `doc_afaac5a6-df0d-4bc9-9856-957ef6a92aef`\n- **Révision :** `drev_f0881eae-16df-4100-86f2-1e5c4ec13e1b`\n- **Numéro de révision :** 1\n\nJe ne relance pas la création et ne prépare aucun contrat. Aucun effet supplémentaire n’est demandé.\n\n``​`sfia-document title-b64=U3BlY0k0aGFyZA chars=506 pair-sha256=2daa56d36223f198bcbb7b97708587e4186e489ed6ae0b0041f7a8ac595ad203\n# SpecI4hard\n\n## Context\n\nLe projet est à un stade initial : aucun cycle ni aucune méthode ne sont actuellement définis. La projection courante ne signale aucune restriction active ni décision applicable.\n\nLe besoin métier, les utilisateurs concernés, le premier résultat utile attendu et le périmètre fonctionnel ne sont pas précisés dans les éléments disponibles.\n\nLe présent document se limite à ce contexte ; il ne définit ni exigences fonctionnelles, ni architecture, ni contrat d’exécution technique.\n``​`\n\n---\n### Résultat d'enregistrement\n\nNouvelle version disponible : v1.\n\nL'enregistrement est confirmé. Les versions antérieures restent inchangées.\n",
-          "status": "COMPLETE",
-          "generationId": "gen_cbab79cc-14bc-4367-a38c-1b04a3ca0614",
-          "ordinal": 3,
-          "createdAt": "2026-11-24T09:11:16.755Z"
-        },
-        {
-          "id": "msg_1fccc597-38e4-42d6-971c-c098474aa170",
-          "conversationId": "conv_b5f278ba-1378-4e9f-a079-dde6f7ffdcf1",
-          "role": "user",
-          "content": "CONTINUE SpecI4hard. Write a long thorough multi-section specification covering Architecture Rules Risks OpenQuestions Alternatives Implementation Validation Operations. Many detailed paragraphs. cognitiveWorkRelation=CONTINUE. proposedCognitiveWorkId=cgw_50f9d6dc-fa02-4b20-bb21-f4792a2e1b73. workDisposition COMPLETE. No contract.",
-          "status": "COMPLETE",
-          "generationId": null,
-          "ordinal": 4,
-          "createdAt": "2026-11-24T09:11:17.139Z"
-        },
-        {
-          "id": "msg_1f8697ac-0245-49cb-970e-19207a44ea13",
-          "conversationId": "conv_b5f278ba-1378-4e9f-a079-dde6f7ffdcf1",
-          "role": "assistant",
-          "content": "Nora LIVE UNKNOWN: une seule tentative fournisseur — aucune relance automatique après exception. Message utilisateur déjà persisté. Détail technique non exposé.",
-          "status": "UNKNOWN",
-          "generationId": "gen_017b42be-b76a-40a7-a791-d84eeec7cc51",
-          "ordinal": 5,
-          "createdAt": "2026-11-24T09:13:57.509Z"
-        }
-      ]
-    }
-  }
-}
-```
-
-### Evidence `i4h-resume.json`
-
-```json
-{
-  "beforeResume": "COMPLETE|3|",
-  "status": "COMPLETE",
-  "cw": {
-    "workId": "cgw_50f9d6dc-fa02-4b20-bb21-f4792a2e1b73",
-    "revision": 6,
-    "segmentsRun": 1,
-    "resumed": true,
-    "suspended": false,
-    "suspendReason": null
-  },
-  "same": true,
-  "resumed": true,
-  "final": "COMPLETE|6|",
-  "cks": "2|SEGMENT_COMPLETE|1\n3|SEGMENT_COMPLETE|2\n4|CLAIM|3\n5|SEGMENT_COMPLETE|4\n6|SEGMENT_COMPLETE|5",
-  "processInterruptCount": "0"
-}
-```
-
-### Evidence `i4h-seed.json`
-
-```json
-{
-  "status": "COMPLETE",
-  "workId": "cgw_50f9d6dc-fa02-4b20-bb21-f4792a2e1b73",
-  "db": "COMPLETE|3"
-}
-```
-
-### Evidence `i4k-after-kill.json`
-
-```json
-{
-  "killAt": null,
-  "db": "SUSPENDED|8||SEGMENT_INVOCATION_LIMIT|"
-}
-```
-
-### Evidence `i4k-hung.json`
-
-```json
-{
-  "hung": {
-    "status": 200,
-    "json": {
-      "userMessageId": "msg_3905db1c-67c9-4baa-a152-c48aa8766bb2",
-      "assistantMessageId": "msg_503305ab-9be2-4a36-88ab-1dea2ecfff78",
-      "operationId": "op_ba16647b-905b-4a77-b0d5-b888ab67610b",
-      "requestId": "req_a3227457-8b02-4989-8f96-ed75d9fd16e8",
-      "turnCommandId": "tcmd_174d6b2f-44f3-4e91-b260-f15ebf029ff0",
-      "preparedContract": null,
-      "cognitiveWork": {
-        "workId": "cgw_9c5ce88b-811f-4e18-814a-f3cbcac7d7ba",
-        "revision": 11,
-        "segmentsRun": 1,
-        "resumed": true,
-        "suspended": false,
-        "suspendReason": null
-      },
-      "noraMode": "openai-agents-sdk-live",
-      "status": "UNKNOWN",
-      "generationId": "gen_91374a35-e001-4d62-bdb6-60909cd09a03",
-      "policy": {
-        "version": "ml2-cog-policy-v2-corrective",
-        "profileType": "OPERATIONAL_PROVISIONAL",
-        "profile": "analyse",
-        "modelRequested": "gpt-6.1-sol",
-        "modelApplied": null,
-        "effortRequested": "medium",
-        "effortApplied": null,
-        "reasonCodes": [
-          "BUDGET_DEFAULT_ANALYSE_NO_LENGTH_ROUTING",
-          "PROFILE_TYPE_OPERATIONAL_PROVISIONAL",
-          "LANE_DEV",
-          "PROFILE_HINT_analyse"
-        ]
-      },
-      "attempts": [
-        {
-          "attemptId": "att_2a766120-eb38-4521-aa67-1406ac4a10b2",
-          "kind": "non_stream",
-          "outcome": "UNKNOWN",
-          "notes": "PROVIDER_SCHEMA_OR_OUTPUT",
-          "providerContacted": "UNCERTAIN"
-        }
-      ],
-      "toolCallsObserved": 2,
-      "d4CharsReturned": 3008,
-      "streaming": {
-        "attempted": true,
-        "delivered": false,
-        "notes": "PROVIDER_SCHEMA_OR_OUTPUT"
-      },
-      "knowledgeSelection": {
-        "subjects": 0,
-        "acquisCurrent": 0,
-        "openPoints": 0,
-        "reactivatedOpenPoints": 0,
-        "selectionMethod": "bounded-resource-listing",
-        "selectionLimit": "RG-KNOW-011 + J-C04: réactivation contextuelle des points ouverts projet, puis ids préférés / listing borné — pas de clôture par silence.",
-        "role": "pre_generation_context",
-        "selectedAcquisIds": [],
-        "selectedOpenPointIds": []
-      },
-      "knowledgeResumeHints": null,
-      "capitalisation": [],
-      "capitalisationAttempted": [],
-      "capitalisationLimit": "SEM-02: capitalisation depuis propositions Nora typées (d4.record_knowledge).",
-      "documentSave": null,
-      "pendingDocumentCandidate": null,
-      "historicalAuthorization": null,
-      "idempotentReplay": false,
-      "humanDecisionCreated": false,
-      "pilotageEffect": null,
-      "missionProjection": null,
-      "nextTurnKind": "INCERTAIN",
-      "pendingEffectBlocked": false,
-      "unresolvedPendingClientTurnKey": null,
-      "semanticQualificationStatus": "UNAVAILABLE",
-      "preparationProjection": null,
-      "turnProjection": {
-        "schemaVersion": "e05-turn-projection-v1",
-        "messageId": "msg_503305ab-9be2-4a36-88ab-1dea2ecfff78",
-        "turnCommandId": "tcmd_174d6b2f-44f3-4e91-b260-f15ebf029ff0",
-        "finalized": false,
-        "status": "UNKNOWN",
-        "choices": [],
-        "references": [],
-        "activity": {
-          "kind": "uncertain",
-          "label": "État de la réponse encore incertain"
-        }
-      },
-      "messages": [
-        {
-          "id": "msg_iq_iqop_6df6f660-1a1c-47fc-8f3f-d21fd0bcc40b_v1",
-          "conversationId": "conv_f239fbb7-141f-4468-a84a-a08fc0f82477",
-          "role": "assistant",
-          "content": "Pour proposer une première progression de cycles, précisez le premier résultat utile attendu et le type de cycle qui vous semble le plus pertinent (cadrage, conception fonctionnelle, UX, etc.).",
-          "status": "COMPLETE",
-          "generationId": "sfia:iq:iqop_6df6f660-1a1c-47fc-8f3f-d21fd0bcc40b:v1",
-          "ordinal": 1,
-          "createdAt": "2026-11-24T08:58:20.629Z"
-        },
-        {
-          "id": "msg_f9e9192d-cbf7-4a36-a98a-782e39f0d5ef",
-          "conversationId": "conv_f239fbb7-141f-4468-a84a-a08fc0f82477",
-          "role": "user",
-          "content": "Start SpecKill with Context paragraph only. workDisposition OPEN. cognitiveProfileHint=investigation. Leave work open for continuation. No contract.",
-          "status": "COMPLETE",
-          "generationId": null,
-          "ordinal": 2,
-          "createdAt": "2026-11-24T08:58:20.867Z"
-        },
-        {
-          "id": "msg_d48212b5-f7b4-42bb-81e8-e2c120489cd9",
-          "conversationId": "conv_f239fbb7-141f-4468-a84a-a08fc0f82477",
-          "role": "assistant",
-          "content": "**Contexte —** SpecKill s’amorce par une exploration de son contexte métier, qui reste à préciser : la situation de départ, le problème à traiter et les personnes concernées ne sont pas encore décrits dans les éléments disponibles. Ce premier cadrage reste donc provisoire, sans présumer de solution ni engager d’exécution ; il sera enrichi au fil de la continuation.",
-          "status": "INTERRUPTED",
-          "generationId": "gen_119edeb3-f624-4709-9887-38b1aa40b9f5",
-          "ordinal": 3,
-          "createdAt": "2026-11-24T09:00:12.507Z"
-        },
-        {
-          "id": "msg_3905db1c-67c9-4baa-a152-c48aa8766bb2",
-          "conversationId": "conv_f239fbb7-141f-4468-a84a-a08fc0f82477",
-          "role": "user",
-          "content": "CONTINUE SpecKill. Write a very long thorough multi-section specification: Context Architecture Rules Risks OpenQuestions Alternatives Implementation Validation Operations Security Compliance Testing Rollout. Many detailed paragraphs per section. Take as long as needed. cognitiveWorkRelation=CONTINUE. proposedCognitiveWorkId=cgw_9c5ce88b-811f-4e18-814a-f3cbcac7d7ba. workDisposition COMPLETE. No contract.",
-          "status": "COMPLETE",
-          "generationId": null,
-          "ordinal": 4,
-          "createdAt": "2026-11-24T09:00:13.007Z"
-        },
-        {
-          "id": "msg_503305ab-9be2-4a36-88ab-1dea2ecfff78",
-          "conversationId": "conv_f239fbb7-141f-4468-a84a-a08fc0f82477",
-          "role": "assistant",
-          "content": "Nora LIVE UNKNOWN: une seule tentative fournisseur — aucune relance automatique après exception. Message utilisateur déjà persisté. Détail technique non exposé.",
-          "status": "UNKNOWN",
-          "generationId": "gen_91374a35-e001-4d62-bdb6-60909cd09a03",
-          "ordinal": 5,
-          "createdAt": "2026-11-24T09:03:45.462Z"
-        }
-      ]
-    }
-  }
-}
-```
-
-### Evidence `i4k-resume.json`
-
-```json
-{
-  "status": "COMPLETE",
-  "cw": {
-    "workId": "cgw_9c5ce88b-811f-4e18-814a-f3cbcac7d7ba",
-    "revision": 14,
-    "segmentsRun": 1,
-    "resumed": true,
-    "suspended": false,
-    "suspendReason": null
-  },
-  "same": true,
-  "resumed": true,
-  "final": "OPEN|14|AWAIT_PILOT",
-  "cks": "2|SEGMENT_CONTINUE|1\n3|SEGMENT_CONTINUE|2\n4|SEGMENT_CONTINUE|3\n5|SEGMENT_CONTINUE|4\n6|SEGMENT_CONTINUE|5\n7|BUDGET|6\n8|BUDGET|7\n9|CLAIM|8\n10|SEGMENT_COMPLETE|9\n11|AWAIT_PILOT|10\n12|CLAIM|11\n13|SEGMENT_COMPLETE|12\n14|AWAIT_PILOT|13"
-}
-```
-
-### Evidence `i4k-seed.json`
-
-```json
-{
-  "status": "UNKNOWN",
-  "workId": "cgw_9c5ce88b-811f-4e18-814a-f3cbcac7d7ba",
-  "cw": {
-    "workId": "cgw_9c5ce88b-811f-4e18-814a-f3cbcac7d7ba",
-    "revision": 8,
-    "segmentsRun": 5,
-    "resumed": false,
-    "suspended": true,
-    "suspendReason": "SEGMENT_INVOCATION_LIMIT"
-  },
-  "db": "SUSPENDED|8"
-}
-```
-
-### Evidence `i4pg-after-kill-db.json`
-
-```json
-{
-  "killed": true,
-  "killMeta": {
-    "ms": 116152,
-    "revision": 5,
-    "owner": "aba05f0f-08b0-49fc-be5e-2fa2e0096eb1",
-    "lease": "2026-11-24T09:29:25.820Z"
-  },
-  "db": "COMPLETE|6|||"
-}
-```
-
-### Evidence `i4pg-hung.json`
-
-```json
-{
-  "hung": {
-    "status": 200,
-    "json": {
-      "userMessageId": "msg_3ca6c7f6-0fd6-465f-b507-169ec092493a",
-      "assistantMessageId": "msg_e46969f8-5de1-4651-9a68-acdd42dce5db",
-      "operationId": "op_9d7f1e96-75be-42e1-b366-791c3d5b5c15",
-      "requestId": "req_33e6c018-4048-4979-92f7-99802b7c7b76",
-      "turnCommandId": "tcmd_197215f2-c084-4930-9341-4ce00922f8ed",
-      "preparedContract": null,
-      "cognitiveWork": {
-        "workId": "cgw_71395587-8a84-4a3b-a482-6c489283034e",
-        "revision": 6,
-        "segmentsRun": 1,
-        "resumed": true,
-        "suspended": false,
-        "suspendReason": null
-      },
-      "noraMode": "openai-agents-sdk-live",
-      "status": "COMPLETE",
-      "generationId": "gen_985dae51-d922-4f49-9c35-6c33c87ab8a6",
-      "policy": {
-        "version": "ml2-cog-policy-v2-corrective",
-        "profileType": "OPERATIONAL_PROVISIONAL",
-        "profile": "analyse",
-        "modelRequested": "gpt-6.1-sol",
-        "modelApplied": "UNVERIFIED",
-        "effortRequested": "medium",
-        "effortApplied": "UNVERIFIED",
-        "reasonCodes": [
-          "BUDGET_DEFAULT_ANALYSE_NO_LENGTH_ROUTING",
-          "PROFILE_TYPE_OPERATIONAL_PROVISIONAL",
-          "LANE_DEV",
-          "PROFILE_HINT_analyse"
-        ]
-      },
-      "attempts": [
-        {
-          "attemptId": "att_36d7541d-31d4-4a99-82da-31aaf3e33819",
-          "kind": "non_stream",
-          "outcome": "SUCCESS",
-          "notes": "structured_non_stream_finalOutput",
-          "providerContacted": "YES"
-        }
-      ],
-      "toolCallsObserved": 3,
-      "d4CharsReturned": 3740,
-      "streaming": {
-        "attempted": true,
-        "delivered": true,
-        "notes": "structured_non_stream_finalOutput"
-      },
-      "knowledgeSelection": {
-        "subjects": 0,
-        "acquisCurrent": 0,
-        "openPoints": 0,
-        "reactivatedOpenPoints": 0,
-        "selectionMethod": "bounded-resource-listing",
-        "selectionLimit": "RG-KNOW-011 + J-C04: réactivation contextuelle des points ouverts projet, puis ids préférés / listing borné — pas de clôture par silence.",
-        "role": "pre_generation_context",
-        "selectedAcquisIds": [],
-        "selectedOpenPointIds": []
-      },
-      "knowledgeResumeHints": null,
-      "capitalisation": [],
-      "capitalisationAttempted": [],
-      "capitalisationLimit": "Aucune proposition d4.record_knowledge — zéro écriture D4",
-      "documentSave": {
-        "status": "NOT_EXECUTED",
-        "reason": "TITLE_H1_MISMATCH",
-        "act": "CREATE"
-      },
-      "pendingDocumentCandidate": null,
-      "historicalAuthorization": null,
-      "idempotentReplay": false,
-      "humanDecisionCreated": false,
-      "pilotageEffect": null,
-      "missionProjection": null,
-      "nextTurnKind": "INTENTION_EFFET",
-      "pendingEffectBlocked": false,
-      "unresolvedPendingClientTurnKey": null,
-      "semanticQualificationStatus": "QUALIFIED",
-      "preparationProjection": null,
-      "turnProjection": {
-        "schemaVersion": "e05-turn-projection-v1",
-        "messageId": "msg_e46969f8-5de1-4651-9a68-acdd42dce5db",
-        "turnCommandId": "tcmd_197215f2-c084-4930-9341-4ce00922f8ed",
-        "finalized": true,
-        "status": "COMPLETE",
-        "choices": [],
-        "references": [],
-        "activity": {
-          "kind": "sources_consulted",
-          "label": "Sources consultées pour cette réponse",
-          "detail": "3 consultation(s) observée(s)"
-        }
-      },
-      "messages": [
-        {
-          "id": "msg_iq_iqop_e16b2423-85ea-400a-bd75-b177525e985d_v1",
-          "conversationId": "conv_77acfb87-b025-4add-929f-7c9ea5dcfdd9",
-          "role": "assistant",
-          "content": "Pour proposer une première progression de cycles, précisez le premier résultat utile attendu et le type de cycle qui vous semble le plus pertinent (cadrage, conception fonctionnelle, UX, etc.).",
-          "status": "COMPLETE",
-          "generationId": "sfia:iq:iqop_e16b2423-85ea-400a-bd75-b177525e985d:v1",
-          "ordinal": 1,
-          "createdAt": "2026-11-24T09:07:08.972Z"
-        },
-        {
-          "id": "msg_9c26de38-2838-4cf4-a2fe-503bc9b513e4",
-          "conversationId": "conv_77acfb87-b025-4add-929f-7c9ea5dcfdd9",
-          "role": "user",
-          "content": "Create SpecI4pg Context section only. workDisposition COMPLETE. cognitiveProfileHint=investigation. No contract.",
-          "status": "COMPLETE",
-          "generationId": null,
-          "ordinal": 2,
-          "createdAt": "2026-11-24T09:07:09.206Z"
-        },
-        {
-          "id": "msg_56cf3c90-6238-45e9-8b71-1dcdd9b8b512",
-          "conversationId": "conv_77acfb87-b025-4add-929f-7c9ea5dcfdd9",
-          "role": "assistant",
-          "content": "Voici la section demandée. Aucun contexte métier supplémentaire n’a été retrouvé dans les ressources D4 ni dans l’historique disponible ; les informations manquantes sont donc signalées explicitement.\n\n``​`sfia-document\n## Context\n\nLe contexte métier de SpecI4pg reste à documenter. Les informations disponibles ne permettent pas encore d’établir :\n\n- le problème ou le besoin à l’origine de l’initiative ;\n- les utilisateurs et parties prenantes concernés ;\n- la situation existante et ses limites ;\n- les enjeux, contraintes et dépendances structurants.\n\nAucune hypothèse sur ces éléments n’est retenue comme un fait dans cette section.\n``​`\n\n---\n### Résultat applicatif\n\nAucun enregistrement documentaire n'a été effectué sur ce tour.\n\nLa demande n'a pas été qualifiée pour une écriture. La réponse Nora ci-dessus n'est pas un verdict d'enregistrement.\n",
-          "status": "COMPLETE",
-          "generationId": "gen_55d21861-48fc-4846-9e2e-9a01ffedc20b",
-          "ordinal": 3,
-          "createdAt": "2026-11-24T09:07:29.549Z"
-        },
-        {
-          "id": "msg_3ca6c7f6-0fd6-465f-b507-169ec092493a",
-          "conversationId": "conv_77acfb87-b025-4add-929f-7c9ea5dcfdd9",
-          "role": "user",
-          "content": "CONTINUE SpecI4pg. Produce a long multi-section document: Architecture Rules Risks OpenQuestions Alternatives Implementation Validation. Detailed paragraphs. cognitiveWorkRelation=CONTINUE. proposedCognitiveWorkId=cgw_71395587-8a84-4a3b-a482-6c489283034e. workDisposition COMPLETE. No contract.",
-          "status": "COMPLETE",
-          "generationId": null,
-          "ordinal": 4,
-          "createdAt": "2026-11-24T09:07:29.932Z"
-        },
-        {
-          "id": "msg_e46969f8-5de1-4651-9a68-acdd42dce5db",
-          "conversationId": "conv_77acfb87-b025-4add-929f-7c9ea5dcfdd9",
-          "role": "assistant",
-          "content": "Voici la suite détaillée de **SpecI4pg**, limitée aux sept sections demandées. La section **Context** antérieure a été relue dans l’historique : elle ne définit pas encore le besoin métier. Les choix ci-dessous sont donc présentés comme des **propositions conditionnelles**, et non comme une architecture validée. Aucun contrat n’est préparé.\n\n``​`sfia-document\n# SpecI4pg — Spécification complémentaire\n\n## Architecture\n\n### État de définition et portée\n\nL’architecture de SpecI4pg ne peut pas encore être décrite comme celle d’un système identifié. Le problème métier, les utilisateurs, les interactions attendues et l’environnement existant restent à préciser. Cette section propose une structure de raisonnement pour préparer les choix futurs ; elle ne constitue ni une description de l’existant ni une décision de conception. Aucun langage, fournisseur, composant déployé ou mode d’hébergement n’est présumé.\n\n### Décomposition logique proposée\n\nSi SpecI4pg conduit à réaliser une application, une première décomposition pourrait distinguer les interfaces d’interaction, l’orchestration des cas d’usage, les règles métier et les adaptateurs vers les systèmes externes. Cette séparation est recommandée conditionnellement : elle devient utile si elle rend les responsabilités plus lisibles et facilite les tests. Elle n’impose pas quatre services, quatre dépôts ou quatre unités de déploiement ; un même programme peut porter plusieurs responsabilités logiques clairement séparées.\n\nLes interfaces devraient exprimer les intentions des utilisateurs sans devenir le lieu unique des règles déterminantes. L’orchestration coordonnerait les opérations, tandis que les règles métier décriraient les conditions de validité indépendamment d’un écran ou d’un protocole. Les accès au stockage et aux services tiers seraient isolés lorsque leur variabilité ou leur criticité le justifie. La pertinence de ces frontières devra être vérifiée sur des scénarios réels avant toute généralisation.\n\n### Données, échanges et frontières de confiance\n\nAucun modèle de données ne peut être fixé sans connaître les objets métier et leur cycle de vie. Pour chaque objet identifié ultérieurement, la conception devra préciser sa source de référence, son propriétaire, ses états autorisés et ses modalités de modification. Pour chaque échange, elle devra distinguer l’acceptation d’une demande, son traitement et la confirmation de son résultat. Les frontières de confiance, les garanties de cohérence et les besoins de synchronisation devront être explicités avant de retenir un protocole ou un mécanisme de messagerie.\n\n## Rules\n\n### Règles métier à établir\n\nAucune règle métier propre à SpecI4pg n’est établie par les éléments consultés. Les recommandations de cette section concernent donc la manière de définir et de vérifier les règles futures. Chaque règle devrait décrire son champ d’application, les données nécessaires, la condition évaluée et la conséquence observable. Une règle insuffisamment définie doit rester une question ouverte plutôt qu’être complétée par une hypothèse implicite dans le code.\n\nLes formulations devront permettre de distinguer une obligation métier, une contrainte réglementaire attestée, une préférence d’interface et une limitation technique. Ces catégories n’ont ni la même autorité ni les mêmes conditions de modification. Une exception devra préciser les circonstances qui la rendent applicable et, lorsque cela est pertinent, le rôle habilité à l’utiliser. Les conflits entre règles devront être exposés avec leurs conséquences ; aucun ordre de priorité ne doit être inventé pour les masquer.\n\n### Cohérence des opérations et droits\n\nSi le système modifie des données, les transitions autorisées devront être définies à partir de leurs états et préconditions. La conception devra traiter les demandes répétées, les modifications concurrentes et les échecs survenant après un début de traitement. Selon les scénarios, une opération pourra devoir être atomique, rejouable sans effet supplémentaire, compensable ou explicitement irréversible. Le choix devra découler du besoin plutôt que d’une règle technique uniforme.\n\nSi plusieurs catégories d’acteurs existent, leurs droits devront être décrits par action et par objet, en distinguant consultation, modification, validation et administration. Un contrôle d’interface seul ne constitue pas une protection suffisante des opérations sensibles. Les contrôles devront être appliqués au point d’exécution approprié et accompagnés de messages permettant de comprendre un refus sans exposer d’informations confidentielles.\n\n## Risks\n\n### Risque de construire sur un besoin indéterminé\n\nLe principal risque actuellement identifiable est documentaire : produire une spécification détaillée peut donner une impression de maturité supérieure aux informations disponibles. Il pourrait en résulter une architecture cohérente sur le papier mais inadéquate au problème réel. La réduction de ce risque passe par un premier scénario métier concret, un résultat attendu observable et une distinction maintenue entre faits, hypothèses et recommandations. Le présent document ne suffit donc pas à conclure que la réalisation peut commencer sans cadrage complémentaire.\n\n### Risques techniques et opérationnels à examiner\n\nLa surarchitecture constitue un risque possible si des services distribués, des mécanismes asynchrones ou des abstractions nombreuses sont retenus sans besoin démontré. À l’inverse, une solution trop concentrée peut devenir difficile à faire évoluer si des responsabilités réellement indépendantes apparaissent. Ces deux risques ne se résolvent pas par une préférence générale : leur appréciation dépendra de la charge, des exigences de disponibilité, des intégrations et des capacités de maintenance.\n\nLes pertes de données, les doublons, les incohérences et les erreurs de reprise devront être examinés dès que les opérations critiques seront connues. Les dépendances externes peuvent introduire des indisponibilités, des changements de contrat ou des coûts variables. Leur criticité reste inconnue à ce stade ; elle devra être évaluée par scénario, avec une stratégie adaptée de détection, de limitation d’impact et de récupération.\n\n### Sécurité, confidentialité et suivi des risques\n\nLa présence de données personnelles, confidentielles ou réglementées n’est pas établie. Elle doit être vérifiée avant de fixer les mécanismes d’accès, les journaux, les durées de conservation et les transferts éventuels. Un risque identifié devrait être accompagné de sa cause, de son impact, des éléments qui étayent son appréciation et d’une mesure de traitement. Aucune probabilité chiffrée ni aucun niveau résiduel n’est attribué ici faute de preuves suffisantes.\n\n## OpenQuestions\n\n### Finalité, utilisateurs et périmètre\n\nQuel problème SpecI4pg doit-il résoudre, pour quels utilisateurs et avec quel premier résultat utile ? Cette question conditionne la sélection des fonctionnalités, les limites du système et les critères d’acceptation. Il reste également à identifier la situation actuelle : processus manuel, outil existant, intégration entre systèmes ou création d’un service nouveau. Sans cette information, la notion même d’amélioration ne dispose pas encore de référence observable.\n\nQuels scénarios appartiennent à la première livraison, lesquels sont différés et lesquels sont explicitement exclus ? Il faudra distinguer les actions usuelles des exceptions, identifier les rôles concernés et préciser les conséquences d’une erreur. Un scénario représentatif devrait décrire son déclencheur, ses préconditions, ses données d’entrée et son résultat attendu, y compris lorsque l’opération ne peut pas aboutir.\n\n### Données et contraintes structurantes\n\nQuelles informations seront manipulées, d’où proviendront-elles et quelle source fera référence en cas de divergence ? Les volumes, la fréquence des mises à jour, les exigences de conservation et les éventuelles obligations de suppression restent inconnus. Il faudra aussi préciser si le fonctionnement doit être possible hors connexion, si plusieurs utilisateurs peuvent modifier les mêmes objets et si des échanges avec des tiers sont nécessaires.\n\nQuelles contraintes de délai, de budget, d’exploitation, de sécurité et de performance sont réellement applicables ? Les réponses devront distinguer les impératifs attestés des préférences négociables. Aucun objectif de temps de réponse, de disponibilité ou de capacité ne doit être traité comme acquis avant d’être relié à un usage et à une méthode de mesure.\n\n### Arbitrage et responsabilité\n\nQui pourra confirmer les besoins, arbitrer les alternatives et accepter le résultat ? La réponse doit identifier des responsabilités concrètes sans supposer une organisation particulière. Ces questions restent ouvertes pour la conception future, mais elles n’empêchent pas de terminer la présente rédaction exploratoire. Elles devront être réévaluées lorsque des éléments métier seront disponibles.\n\n## Alternatives\n\n### Adapter l’existant ou développer une solution\n\nSi un outil ou un processus existant couvre une part significative du besoin, son adaptation devra être comparée à un développement spécifique. L’adaptation peut réduire le délai initial et la charge d’exploitation, mais elle peut limiter la maîtrise des données, des intégrations ou des évolutions. Une réalisation spécifique offre davantage de contrôle au prix d’un investissement durable de maintenance. Aucun des deux chemins ne peut être recommandé définitivement sans inventaire de l’existant et analyse des écarts fonctionnels.\n\n### Architecture concentrée ou distribuée\n\nSi une application sur mesure est nécessaire, une application unique structurée en modules constitue une option à évaluer, non un choix retenu. Elle peut simplifier les transactions, les tests intégrés et l’exploitation initiale. Une architecture distribuée peut devenir pertinente lorsque des besoins démontrés d’autonomie, d’isolation ou de dimensionnement indépendant le justifient. Elle introduit toutefois des coûts de communication, de cohérence, d’observabilité et de reprise qu’une simple séparation fonctionnelle ne suffit pas à légitimer.\n\n### Traitement synchrone ou asynchrone\n\nUn traitement synchrone peut convenir lorsque l’utilisateur a besoin d’un résultat immédiat et que l’exécution reste compatible avec une attente maîtrisée. Un traitement asynchrone peut mieux convenir aux opérations longues ou dépendantes de services variables, mais il impose de représenter l’avancement, l’échec et les tentatives de reprise. Le choix doit être effectué par scénario ; une combinaison des deux approches reste possible si elle conserve une compréhension claire du résultat.\n\nLa comparaison finale devrait examiner l’adéquation métier, le coût total, les compétences nécessaires, les risques, la réversibilité et les preuves disponibles. Une expérimentation ciblée est recommandée conditionnellement lorsqu’une incertitude importante ne peut pas être levée par l’analyse seule. Elle devra tester une hypothèse précise plutôt que reproduire prématurément toute la solution.\n\n## Implementation\n\n### Préparation et première tranche fonctionnelle\n\nCette section décrit une démarche de mise en œuvre proposée ; elle ne constitue pas un contrat d’exécution. La première étape serait de transformer les réponses de cadrage en scénarios vérifiables, puis d’identifier les règles et données nécessaires à un parcours prioritaire. Les éléments non indispensables à ce parcours devraient être différés explicitement plutôt qu’introduits pour anticiper tous les besoins possibles.\n\nUne première tranche verticale pourrait ensuite couvrir le parcours retenu de bout en bout : entrée de la demande, contrôles, traitement, éventuelle persistance et restitution du résultat. Son intérêt serait de vérifier les frontières architecturales avec un cas concret. Si un prototype est utilisé pour lever une incertitude, son objectif et ses limites devront être explicités ; sa réussite ne démontrera pas automatiquement l’aptitude du produit à être exploité.\n\n### Gestion des erreurs et intégration\n\nLes comportements d’échec devraient être conçus avec le parcours nominal. La mise en œuvre devra préciser comment signaler une entrée invalide, une absence de droit, une dépendance indisponible ou un état devenu incompatible. Les nouvelles tentatives ne devront pas produire silencieusement des effets multiples. Les mécanismes de reprise et les informations de diagnostic devront être adaptés à la sensibilité des données et au rôle de leurs destinataires.\n\nLes dépendances externes devraient être introduites à partir de contrats vérifiables et d’environnements de test adaptés lorsqu’ils existent. Si des données doivent être migrées, la démarche devra prévoir les contrôles avant et après transfert, les incompatibilités possibles et les conditions de retour à une situation maîtrisée. Aucune migration n’est présumée nécessaire dans l’état actuel des informations.\n\n### Progression et préparation opérationnelle\n\nLes étapes suivantes devraient être ordonnées selon la valeur attendue et les risques à réduire, sans calendrier artificiel ni estimation non étayée. Avant une utilisation réelle, il faudra adapter les modalités de configuration, de gestion des secrets, de supervision et de récupération au contexte confirmé. Chaque incrément devrait préciser ce qu’il permet effectivement, ses limites connues et les preuves de validation disponibles.\n\n## Validation\n\n### Traçabilité et critères observables\n\nLa validation devra relier chaque scénario prioritaire aux règles concernées, aux critères d’acceptation et aux preuves obtenues. Un critère utile décrit des conditions initiales, une action et un résultat observable. Les expressions générales comme « rapide », « fiable » ou « intuitif » devront être remplacées par des attentes vérifiables dès que leur contexte sera connu. Aucun seuil numérique n’est fixé dans cette version.\n\n### Couverture fonctionnelle et technique\n\nLa stratégie de test devrait combiner la vérification des règles isolées, les interactions entre composants et les parcours représentatifs de bout en bout. La répartition exacte dépendra de l’architecture retenue. Les cas de test devront inclure les refus attendus, les entrées invalides et les limites pertinentes, sans se limiter aux parcours réussis. Si la concurrence, les reprises ou les échanges asynchrones existent, leurs comportements devront faire l’objet de scénarios dédiés.\n\nLes essais de sécurité, de performance, d’accessibilité et de récupération devront être dimensionnés à partir des risques et usages confirmés. Un essai de charge sans modèle d’usage ne démontre pas une capacité métier ; une sauvegarde déclarée sans restauration vérifiée ne démontre pas la récupération. Les environnements, les jeux de données et les limites de représentativité devront accompagner les résultats afin d’éviter les extrapolations injustifiées.\n\n### Preuves et état de validation\n\nChaque résultat de validation devrait identifier la version examinée, les conditions d’exécution, le résultat attendu, le résultat observé et les écarts. Les anomalies devront être appréciées selon leur impact sur les scénarios et les données, et non uniquement selon leur nombre. L’acceptation finale dépendra de critères et de responsabilités encore à préciser ; elle ne peut pas être déduite de cette rédaction.\n\nAucun test, prototype, audit ou exercice de restauration n’a été réalisé dans le cadre de ce document. La production des sept sections est achevée pour ce tour, tandis que la définition métier et la validation du système restent ouvertes. Cette distinction permet d’utiliser le texte comme support de travail sans lui attribuer une valeur de preuve qu’il ne possède pas.\n``​`\n\n---\n### Résultat applicatif\n\nAucun enregistrement documentaire n'a été effectué sur ce tour.\n\nLa demande n'a pas été qualifiée pour une écriture. La réponse Nora ci-dessus n'est pas un verdict d'enregistrement.\n",
-          "status": "COMPLETE",
-          "generationId": "gen_985dae51-d922-4f49-9c35-6c33c87ab8a6",
-          "ordinal": 5,
-          "createdAt": "2026-11-24T09:09:25.873Z"
-        }
-      ]
-    }
-  }
-}
-```
-
-### Evidence `i4pg-kill-at.json`
-
-```json
-{
-  "ms": 116152,
-  "revision": 5,
-  "owner": "aba05f0f-08b0-49fc-be5e-2fa2e0096eb1",
-  "lease": "2026-11-24T09:29:25.820Z"
-}
-```
-
-### Evidence `i4pg-resume.json`
-
-```json
-{
-  "status": "COMPLETE",
-  "cw": {
-    "workId": "cgw_71395587-8a84-4a3b-a482-6c489283034e",
-    "revision": 9,
-    "segmentsRun": 1,
-    "resumed": true,
-    "suspended": false,
-    "suspendReason": null
-  },
-  "same": true,
-  "resumed": true,
-  "final": "COMPLETE|9|",
-  "cks": "2|SEGMENT_COMPLETE|1\n3|SEGMENT_COMPLETE|2\n4|CLAIM|3\n5|SEGMENT_COMPLETE|4\n6|SEGMENT_COMPLETE|5\n7|CLAIM|6\n8|SEGMENT_COMPLETE|7\n9|SEGMENT_COMPLETE|8",
-  "processInterruptCount": "0"
-}
-```
-
-### Evidence `i4pg-seed.json`
-
-```json
-{
-  "status": "COMPLETE",
-  "workId": "cgw_71395587-8a84-4a3b-a482-6c489283034e",
-  "db": "COMPLETE|3"
-}
-```
-
-### Evidence `i5-t1.json`
-
-```json
-{
-  "status": "COMPLETE",
-  "cw": {
-    "workId": "cgw_51bb8d37-f953-4447-91fe-1fd78fb37921",
-    "revision": 3,
-    "segmentsRun": 1,
-    "resumed": false,
-    "suspended": false,
-    "suspendReason": null
-  }
-}
-```
-
-### Evidence `i5-t2.json`
-
-```json
-{
-  "status": "COMPLETE",
-  "cw": {
-    "workId": "cgw_51bb8d37-f953-4447-91fe-1fd78fb37921",
-    "revision": 6,
-    "segmentsRun": 1,
-    "resumed": true,
-    "suspended": false,
-    "suspendReason": null
-  },
-  "sameWork": true,
-  "resumed": true
-}
-```
-
-### Evidence `i5-t3.json`
-
-```json
-{
-  "status": "COMPLETE",
-  "cw": {
-    "workId": "cgw_1b338a12-942f-4589-950a-b8de61ad209c",
-    "revision": 3,
-    "segmentsRun": 1,
-    "resumed": false,
-    "suspended": false,
-    "suspendReason": null
-  },
-  "independent": true
-}
-```
-
-### Evidence `i6-mid.json`
-
-```json
-{
-  "fenced": false,
-  "state": "COMPLETE|6|",
-  "mdLen": 12241,
-  "preservedFromT2": true
-}
-```
-
-### Evidence `i6-t1.json`
-
-```json
-{
-  "status": "COMPLETE",
-  "workId": "cgw_15d2ca00-0334-4261-8bb3-2138a9542ec1",
-  "cw": {
-    "workId": "cgw_15d2ca00-0334-4261-8bb3-2138a9542ec1",
-    "revision": 3,
-    "segmentsRun": 1,
-    "resumed": false,
-    "suspended": false,
-    "suspendReason": null
-  },
-  "state1": "COMPLETE|3|",
+  "workId": "cgw_d349f14c-06dc-4776-b41c-9e0eaeb31f5f",
   "prodKind": "DOCUMENT",
-  "parts": 1,
-  "mdLen": 4762,
-  "mdFp": "e90d06bf12417b76",
-  "mdHead": "# SpecI6\n\n## Context\n\nCette investigation compare trois sources fictives décrites par le Pilote. Elle vise à distinguer les affirmations, leurs contradictions et les informations manquantes, puis à co"
-}
-```
-
-### Evidence `i6-t2.json`
-
-```json
-{
-  "status": "COMPLETE",
-  "cw": {
-    "workId": "cgw_15d2ca00-0334-4261-8bb3-2138a9542ec1",
-    "revision": 6,
-    "segmentsRun": 1,
-    "resumed": true,
-    "suspended": false,
-    "suspendReason": null
-  },
-  "same": true,
-  "resumed": true,
-  "state2": "COMPLETE|6|",
-  "prodKind": "DOCUMENT",
-  "parts": [
-    {
-      "id": "gen-gen_e9a466a3-ac48-43e1-8ca4-0ab7cc5e3230",
-      "title": "SpecI6",
-      "complete": true
-    },
-    {
-      "id": "gen-gen_58b66338-fb4e-4925-992d-2d8408b42600",
-      "title": "SpecI6",
-      "complete": true
-    }
-  ],
-  "mdLen": 12241,
-  "mdFp": "fc1fe3aa30c4fb63",
-  "preservedPriorSnippet": true,
-  "grew": true,
-  "cks": "2|SEGMENT_COMPLETE\n3|SEGMENT_COMPLETE\n4|CLAIM\n5|SEGMENT_COMPLETE\n6|SEGMENT_COMPLETE"
-}
-```
-
-### Evidence `i6-t3.json`
-
-```json
-{
-  "status": "COMPLETE",
-  "cw": {
-    "workId": "cgw_15d2ca00-0334-4261-8bb3-2138a9542ec1",
-    "revision": 9,
-    "segmentsRun": 1,
-    "resumed": true,
-    "suspended": false,
-    "suspendReason": null
-  },
-  "same": true,
-  "resumed": true,
-  "final": "COMPLETE|9|",
-  "prodKind": "DOCUMENT",
-  "parts": [
-    {
-      "id": "gen-gen_e9a466a3-ac48-43e1-8ca4-0ab7cc5e3230",
-      "title": "SpecI6",
-      "complete": true
-    },
-    {
-      "id": "gen-gen_58b66338-fb4e-4925-992d-2d8408b42600",
-      "title": "SpecI6",
-      "complete": true
-    },
-    {
-      "id": "gen-gen_5b60d1a2-01ae-49d0-935c-7b7884b228e9",
-      "title": "SpecI6",
-      "complete": true
-    }
-  ],
-  "mdLen": 34553,
-  "mdFp": "2c652d89236b6f09",
-  "preservedT1snippet": true,
-  "preservedT2snippet": true,
-  "processInterrupts": "0",
-  "cks": "2|SEGMENT_COMPLETE\n3|SEGMENT_COMPLETE\n4|CLAIM\n5|SEGMENT_COMPLETE\n6|SEGMENT_COMPLETE\n7|CLAIM\n8|SEGMENT_COMPLETE\n9|SEGMENT_COMPLETE"
+  "mdLen": 1351,
+  "mdHead": "# SpecI6C20\n\n## Context\n\nCe document répond à la demande du Pilote de produire un document Markdown nommé **SpecI6C20**, comportant les sections **Context** et ",
+  "docs": "doc_784c4538-ff31-4d87-ab4f-c0d0c40cb5d9|drev_2ddab937-0387-4dbf-a9d5-a96b62d15946|1351|# SpecI6C20\n\n## Context\n\nCe document rép",
+  "documentEffect": {
+    "status": "AVAILABLE",
+    "documentId": "doc_784c4538-ff31-4d87-ab4f-c0d0c40cb5d9",
+    "revisionId": "drev_2ddab937-0387-4dbf-a9d5-a96b62d15946",
+    "revisionNumber": 1,
+    "act": "CREATE"
+  }
 }
 ```
 
 
-## 9. Production I6 (objet métier)
-
-- workId `cgw_15d2ca00-0334-4261-8bb3-2138a9542ec1`
-- mdLen final **34553** · sha256 `2c652d89236b6f09426a8036cded04701051b730b55e7aa4bf2df1d87c60f89f`
-- parts : 3 ids stables `gen-gen_*`
-
-### Contenu intégral SpecI6
-
-```markdown
-# SpecI6
-
-## Context
-
-Cette investigation compare trois sources fictives décrites par le Pilote. Elle vise à distinguer les affirmations, leurs contradictions et les informations manquantes, puis à consolider une conclusion traçable.
-
-Les documents originaux ne sont pas fournis. L’analyse porte uniquement sur leurs résumés dans le message du Pilote. Les montants sont conservés sous la forme « 100k » et « 250k » : la devise et l’assiette budgétaire ne sont pas précisées.
-
-## Sources
-
-### 1. Alpha — première hypothèse de référence
-
-**Affirmations fournies :** délai cible de 30 jours ; budget de 100k.
-
-**Lecture à ce stade :** Alpha constitue une première proposition chiffrée, non une référence validée. Sa date, son périmètre, ses hypothèses et son niveau d’autorité ne sont pas connus.
-
-### 2. Beta — apparition d’une contradiction
-
-**Affirmations fournies :** délai de 90 jours ; budget de 250k. Le Pilote précise que Beta contredit Alpha sur le délai.
-
-**Mise à jour du raisonnement :** le délai de 30 jours ne peut plus être retenu comme cible unique sur la seule base du corpus. Beta propose un délai trois fois supérieur et un budget 2,5 fois supérieur à ceux d’Alpha.
-
-Ces rapports sont arithmétiques : ils ne démontrent ni un coût du retard ni une relation causale entre délai et budget. Rien ne permet de conclure que Beta est plus récente, plus fiable ou qu’elle remplace Alpha.
-
-### 3. Gamma — ajout d’une contrainte transversale
-
-**Affirmation fournie :** existence d’une contrainte réglementaire absente d’Alpha et de Beta.
-
-**Mise à jour du raisonnement :** l’évaluation ne peut plus se limiter au couple délai-budget. La contrainte doit être qualifiée avant de conclure à la faisabilité ou à la conformité d’un scénario.
-
-Son contenu, sa juridiction, son applicabilité et ses échéances ne sont pas précisés. Son absence des résumés d’Alpha et de Beta ne prouve ni qu’elle a été ignorée dans leurs calculs ni que leurs propositions sont non conformes.
-
-## Contradiction
-
-| Dimension | Alpha | Beta | Conclusion analytique |
-|---|---|---|---|
-| Délai | 30 jours | 90 jours | Contradiction explicitement signalée par le Pilote. Les hypothèses de calcul restent à comparer. |
-| Budget | 100k | 250k | Divergence chiffrée de 150k ; incompatibilité budgétaire stricte à confirmer selon la devise et l’assiette. |
-| Réglementation | Non mentionnée | Non mentionnée | Gamma ajoute une information ; ce silence ne constitue pas, à lui seul, une contradiction. |
-
-Les sources ne permettent pas d’identifier laquelle doit prévaloir. Une différence de périmètre, de date ou d’hypothèses pourrait expliquer certaines divergences, mais ces explications restent des hypothèses.
-
-## Consolidation
-
-**Conclusion : le corpus fournit deux propositions chiffrées concurrentes et une contrainte réglementaire transversale non qualifiée. Il ne justifie pas une cible unique de délai ou de budget.**
-
-L’état consolidé est donc le suivant :
-
-- **Scénario Alpha :** 30 jours et 100k, à évaluer avec ses hypothèses propres.
-- **Scénario Beta :** 90 jours et 250k, à évaluer avec ses hypothèses propres.
-- **Contrainte Gamma :** à examiner pour chacun des deux scénarios ; effets éventuels encore inconnus.
-
-Cette consolidation conserve les couples délai-budget tels qu’ils ont été fournis. Elle ne crée ni scénario hybride ni moyenne : retenir 60 jours et 175k n’aurait aucune justification dans les sources.
-
-Les valeurs 90 jours et 250k ne constituent pas davantage une enveloppe de sécurité démontrée : Gamma pourrait avoir un effet nul, limité ou supérieur à ces valeurs. Aucun de ces effets n’est établi.
-
-**Recommandation conditionnelle :** si l’objectif suivant est de retenir une référence opérationnelle, comparer d’abord les périmètres et hypothèses d’Alpha et de Beta, puis qualifier l’applicabilité et les impacts de Gamma. L’arbitrage devra ensuite être explicite ; la présente analyse ne le remplace pas.
-
-La consolidation analytique demandée est achevée. La validation d’une référence opérationnelle reste ouverte.
-
-## OpenQuestions
-
-1. Alpha et Beta portent-elles sur le même périmètre, les mêmes livrables et le même niveau de qualité ?
-2. Les délais utilisent-ils le même point de départ et la même unité : jours calendaires ou ouvrés ?
-3. Quelle devise et quels postes de coûts couvrent les budgets ?
-4. Quelles sont les dates, versions et hypothèses respectives des deux propositions ?
-5. Quelle règle ou quelle autorité permettra de retenir une cible lorsqu’elles auront été comparées ?
-6. Quel est le texte réglementaire évoqué par Gamma, sa juridiction, son applicabilité et son échéance éventuelle ?
-7. Cette contrainte était-elle déjà intégrée aux estimations d’Alpha ou de Beta ? Quels impacts démontrables aurait-elle sur chaque scénario ?
-
-## Architecture
-
-### Statut et périmètre
-
-Cette architecture est une proposition méthodologique pour organiser l’investigation. Elle ne décrit ni un système déjà réalisé ni une architecture technique validée. Elle s’appuie sur les résumés des trois sources fictives analysés dans les sections précédentes. Elle ne remplace pas leur contenu et ne tranche pas les questions ouvertes.
-
-### Composants et responsabilités
-
-| Composant analytique | Responsabilité | Sortie attendue | Limite |
-|---|---|---|---|
-| Registre des sources | Identifier Alpha, Beta et Gamma, leur provenance et les métadonnées disponibles. | Références et lacunes explicites. | Un résumé n’équivaut pas au document original. |
-| Registre des affirmations | Séparer les assertions chiffrées, les contraintes rapportées et les interprétations. | Affirmations attribuées à leur source. | Une affirmation rapportée n’est pas une vérité vérifiée. |
-| Comparaison | Examiner délai, budget, périmètre et hypothèses sur des bases comparables. | Divergences qualifiées et comparabilité documentée. | Aucun rapprochement forcé si les unités ou assiettes sont inconnues. |
-| Analyse réglementaire | Qualifier la contrainte Gamma et examiner ses effets sur chaque scénario. | Applicabilité et impacts documentés, ou inconnues maintenues. | L’existence rapportée d’une contrainte ne prouve pas son applicabilité. |
-| Consolidation | Maintenir les scénarios distincts et relier chaque conclusion à ses éléments de preuve. | Synthèse conditionnelle et traçable. | Aucun choix de référence par défaut. |
-| Suivi des questions | Organiser les informations manquantes et les preuves nécessaires. | Questions actualisées et conditions de résolution. | Une question ne se ferme pas par simple reformulation. |
-
-Ces composants désignent des fonctions de raisonnement ; ils n’imposent ni logiciel, ni service, ni stockage particulier.
-
-### Objets d’information
-
-- **Source** : nom, nature du matériau disponible, date et version si connues, périmètre et limites de provenance.
-- **Affirmation** : contenu, source, dimension concernée, unité, hypothèses et statut de vérification. Les champs inconnus restent explicitement inconnus.
-- **Scénario** : couple délai-budget et hypothèses associées. Alpha conserve 30 jours et 100k ; Beta conserve 90 jours et 250k.
-- **Contrainte** : contenu rapporté, référence normative éventuelle, juridiction, applicabilité, échéance et effets démontrés. Pour Gamma, ces précisions restent à obtenir.
-- **Divergence** : affirmations comparées, différence observée, conditions de comparabilité et explications possibles non démontrées.
-- **Question ouverte** : information manquante, conséquence analytique et preuve attendue pour la résoudre.
-- **Conclusion** : éléments qui la soutiennent, limites et conditions imposant son réexamen.
-
-### Flux d’analyse et évolution
-
-1. Identifier le matériau reçu et distinguer document original, résumé et interprétation.
-2. Extraire les affirmations sans modifier leurs valeurs ni compléter leurs unités par supposition.
-3. Vérifier la comparabilité des périmètres, des calendriers et des budgets.
-4. Qualifier séparément chaque divergence et les inconnues qui empêchent de conclure.
-5. Examiner Gamma transversalement sur Alpha et Beta, sans présumer un impact identique.
-6. Mettre à jour la consolidation et les questions ouvertes en conservant la trace des éléments antérieurs pertinents.
-7. Présenter, si les preuves deviennent suffisantes, les options d’arbitrage à la personne habilitée ; l’analyse ne réalise pas cet arbitrage.
-
-Toute nouvelle information doit pouvoir être reliée aux affirmations, scénarios et conclusions qu’elle confirme, nuance ou remet en cause. Une correction ne doit pas effacer silencieusement l’état antérieur.
-
-## Rules
-
-Les règles suivantes sont proposées pour la conduite et la restitution de l’investigation. Elles ne constituent ni une décision d’arbitrage ni une autorisation d’exécution.
-
-### R1 — Préserver le corpus et attribuer les affirmations
-
-Conserver les sections existantes lors de cet enrichissement. Distinguer les propos attribués aux sources, les calculs dérivés et les propositions analytiques. Ne pas présenter les documents originaux comme consultés : seuls leurs résumés sont disponibles dans le corpus actuel.
-
-### R2 — Conserver les couples délai-budget
-
-Maintenir Alpha à 30 jours et 100k, et Beta à 90 jours et 250k, tant qu’aucune correction sourcée n’est apportée. Ne pas créer de moyenne, de scénario hybride ou d’enveloppe de sécurité présentée comme justifiée par ces seules valeurs.
-
-### R3 — Vérifier la comparabilité avant toute équivalence
-
-Avant une comparaison opérationnelle, préciser périmètre, livrables, qualité, point de départ, jours ouvrés ou calendaires, devise et assiette budgétaire. Si ces informations manquent, les écarts restent descriptifs ; ils ne démontrent ni une performance relative ni une incompatibilité budgétaire stricte.
-
-### R4 — Qualifier les divergences sans les surinterpréter
-
-Conserver la contradiction de délai explicitement signalée par le Pilote. Distinguer cette contradiction de la divergence budgétaire, dont la portée dépend des bases de comparaison. Une différence de date, de périmètre ou d’hypothèses reste une explication possible, non un fait établi.
-
-### R5 — Ne pas confondre calcul et causalité
-
-Les rapports de 3 pour le délai et de 2,5 pour le budget, ainsi que l’écart nominal de 150k, sont des calculs à partir des valeurs rapportées. Ils ne prouvent ni coût du retard, ni proportionnalité, ni relation causale entre budget et délai.
-
-### R6 — Traiter Gamma comme une contrainte à qualifier
-
-Rechercher le texte concerné, sa juridiction, son champ d’application, sa version et ses échéances avant de conclure sur l’applicabilité. L’absence de mention dans Alpha ou Beta ne prouve ni omission dans leurs estimations ni non-conformité. Examiner séparément les effets sur chaque scénario ; ne chiffrer aucun impact sans justification.
-
-### R7 — Ne pas fabriquer de priorité entre sources
-
-Ni l’ordre de présentation, ni un montant plus élevé, ni un délai plus long ne donnent automatiquement autorité à une source. La récence, la fiabilité et une éventuelle règle de préséance doivent être établies avant d’être utilisées. Aucune source n’est réputée remplacer une autre à ce stade.
-
-### R8 — Maintenir les inconnues et résoudre sur preuve
-
-Conserver les questions d’OpenQuestions tant qu’une réponse explicite et suffisamment étayée manque. Pour chaque résolution, identifier la réponse, sa provenance et les conclusions affectées. En cas de réponse partielle, limiter la résolution à la partie effectivement démontrée.
-
-### R9 — Réexaminer sans réécrire silencieusement l’historique
-
-À réception d’une correction, d’un original ou d’une précision réglementaire, identifier les éléments affectés puis réévaluer la comparaison et la consolidation. Distinguer affirmation initiale, correction reçue et conclusion actuelle. Une nouvelle information peut aussi ouvrir une question supplémentaire.
-
-### R10 — Séparer analyse achevée et référence validée
-
-L’enrichissement documentaire peut être achevé alors que le choix opérationnel reste ouvert. Recommandation conditionnelle : si une référence doit être retenue, établir d’abord la comparabilité des scénarios et qualifier Gamma, puis soumettre les options et incertitudes à un arbitrage explicite. Aucune cible, conformité ou autorisation n’est déduite de la seule complétude du document.
-
-## Architecture
-
-### Statut et périmètre
-
-Cette architecture est une proposition méthodologique pour organiser l’investigation. Elle ne décrit ni un système déjà réalisé ni une architecture technique validée. Elle s’appuie sur les résumés des trois sources fictives analysés dans les sections précédentes. Elle ne remplace pas leur contenu et ne tranche pas les questions ouvertes.
-
-### Composants et responsabilités
-
-| Composant analytique | Responsabilité | Sortie attendue | Limite |
-|---|---|---|---|
-| Registre des sources | Identifier Alpha, Beta et Gamma, leur provenance et les métadonnées disponibles. | Références et lacunes explicites. | Un résumé n’équivaut pas au document original. |
-| Registre des affirmations | Séparer les assertions chiffrées, les contraintes rapportées et les interprétations. | Affirmations attribuées à leur source. | Une affirmation rapportée n’est pas une vérité vérifiée. |
-| Comparaison | Examiner délai, budget, périmètre et hypothèses sur des bases comparables. | Divergences qualifiées et comparabilité documentée. | Aucun rapprochement forcé si les unités ou assiettes sont inconnues. |
-| Analyse réglementaire | Qualifier la contrainte Gamma et examiner ses effets sur chaque scénario. | Applicabilité et impacts documentés, ou inconnues maintenues. | L’existence rapportée d’une contrainte ne prouve pas son applicabilité. |
-| Consolidation | Maintenir les scénarios distincts et relier chaque conclusion à ses éléments de preuve. | Synthèse conditionnelle et traçable. | Aucun choix de référence par défaut. |
-| Suivi des questions | Organiser les informations manquantes et les preuves nécessaires. | Questions actualisées et conditions de résolution. | Une question ne se ferme pas par simple reformulation. |
-
-Ces composants désignent des fonctions de raisonnement ; ils n’imposent ni logiciel, ni service, ni stockage particulier.
-
-### Objets d’information
-
-- **Source** : nom, nature du matériau disponible, date et version si connues, périmètre et limites de provenance.
-- **Affirmation** : contenu, source, dimension concernée, unité, hypothèses et statut de vérification. Les champs inconnus restent explicitement inconnus.
-- **Scénario** : couple délai-budget et hypothèses associées. Alpha conserve 30 jours et 100k ; Beta conserve 90 jours et 250k.
-- **Contrainte** : contenu rapporté, référence normative éventuelle, juridiction, applicabilité, échéance et effets démontrés. Pour Gamma, ces précisions restent à obtenir.
-- **Divergence** : affirmations comparées, différence observée, conditions de comparabilité et explications possibles non démontrées.
-- **Question ouverte** : information manquante, conséquence analytique et preuve attendue pour la résoudre.
-- **Conclusion** : éléments qui la soutiennent, limites et conditions imposant son réexamen.
-
-### Flux d’analyse et évolution
-
-1. Identifier le matériau reçu et distinguer document original, résumé et interprétation.
-2. Extraire les affirmations sans modifier leurs valeurs ni compléter leurs unités par supposition.
-3. Vérifier la comparabilité des périmètres, des calendriers et des budgets.
-4. Qualifier séparément chaque divergence et les inconnues qui empêchent de conclure.
-5. Examiner Gamma transversalement sur Alpha et Beta, sans présumer un impact identique.
-6. Mettre à jour la consolidation et les questions ouvertes en conservant la trace des éléments antérieurs pertinents.
-7. Présenter, si les preuves deviennent suffisantes, les options d’arbitrage à la personne habilitée ; l’analyse ne réalise pas cet arbitrage.
-
-Toute nouvelle information doit pouvoir être reliée aux affirmations, scénarios et conclusions qu’elle confirme, nuance ou remet en cause. Une correction ne doit pas effacer silencieusement l’état antérieur.
-
-## Rules
-
-Les règles suivantes sont proposées pour la conduite et la restitution de l’investigation. Elles ne constituent ni une décision d’arbitrage ni une autorisation d’exécution.
-
-### R1 — Préserver le corpus et attribuer les affirmations
-
-Conserver les sections existantes lors de cet enrichissement. Distinguer les propos attribués aux sources, les calculs dérivés et les propositions analytiques. Ne pas présenter les documents originaux comme consultés : seuls leurs résumés sont disponibles dans le corpus actuel.
-
-### R2 — Conserver les couples délai-budget
-
-Maintenir Alpha à 30 jours et 100k, et Beta à 90 jours et 250k, tant qu’aucune correction sourcée n’est apportée. Ne pas créer de moyenne, de scénario hybride ou d’enveloppe de sécurité présentée comme justifiée par ces seules valeurs.
-
-### R3 — Vérifier la comparabilité avant toute équivalence
-
-Avant une comparaison opérationnelle, préciser périmètre, livrables, qualité, point de départ, jours ouvrés ou calendaires, devise et assiette budgétaire. Si ces informations manquent, les écarts restent descriptifs ; ils ne démontrent ni une performance relative ni une incompatibilité budgétaire stricte.
-
-### R4 — Qualifier les divergences sans les surinterpréter
-
-Conserver la contradiction de délai explicitement signalée par le Pilote. Distinguer cette contradiction de la divergence budgétaire, dont la portée dépend des bases de comparaison. Une différence de date, de périmètre ou d’hypothèses reste une explication possible, non un fait établi.
-
-### R5 — Ne pas confondre calcul et causalité
-
-Les rapports de 3 pour le délai et de 2,5 pour le budget, ainsi que l’écart nominal de 150k, sont des calculs à partir des valeurs rapportées. Ils ne prouvent ni coût du retard, ni proportionnalité, ni relation causale entre budget et délai.
-
-### R6 — Traiter Gamma comme une contrainte à qualifier
-
-Rechercher le texte concerné, sa juridiction, son champ d’application, sa version et ses échéances avant de conclure sur l’applicabilité. L’absence de mention dans Alpha ou Beta ne prouve ni omission dans leurs estimations ni non-conformité. Examiner séparément les effets sur chaque scénario ; ne chiffrer aucun impact sans justification.
-
-### R7 — Ne pas fabriquer de priorité entre sources
-
-Ni l’ordre de présentation, ni un montant plus élevé, ni un délai plus long ne donnent automatiquement autorité à une source. La récence, la fiabilité et une éventuelle règle de préséance doivent être établies avant d’être utilisées. Aucune source n’est réputée remplacer une autre à ce stade.
-
-### R8 — Maintenir les inconnues et résoudre sur preuve
-
-Conserver les questions d’OpenQuestions tant qu’une réponse explicite et suffisamment étayée manque. Pour chaque résolution, identifier la réponse, sa provenance et les conclusions affectées. En cas de réponse partielle, limiter la résolution à la partie effectivement démontrée.
-
-### R9 — Réexaminer sans réécrire silencieusement l’historique
-
-À réception d’une correction, d’un original ou d’une précision réglementaire, identifier les éléments affectés puis réévaluer la comparaison et la consolidation. Distinguer affirmation initiale, correction reçue et conclusion actuelle. Une nouvelle information peut aussi ouvrir une question supplémentaire.
-
-### R10 — Séparer analyse achevée et référence validée
-
-L’enrichissement documentaire peut être achevé alors que le choix opérationnel reste ouvert. Recommandation conditionnelle : si une référence doit être retenue, établir d’abord la comparabilité des scénarios et qualifier Gamma, puis soumettre les options et incertitudes à un arbitrage explicite. Aucune cible, conformité ou autorisation n’est déduite de la seule complétude du document.
-
-## Implementation
-
-### I1 — Nature de la mise en œuvre
-
-Cette section décrit la mise en œuvre du dispositif d’investigation défini dans Architecture et Rules. Il s’agit d’une procédure méthodologique proposée, non d’un développement logiciel réalisé, d’un engagement de délai-budget ou d’une autorisation d’exécution. Aucun choix de technologie, d’hébergement ou de fournisseur n’est déduit du corpus.
-
-Recommandation conditionnelle : si l’investigation doit se poursuivre avec de nouveaux éléments, appliquer les étapes suivantes afin de conserver une analyse traçable et révisable.
-
-### I2 — Préserver le socle documentaire
-
-1. Identifier la révision de départ et relever les titres des sections existantes.
-2. Conserver intégralement Context, Sources, Contradiction, Consolidation et OpenQuestions.
-3. Conserver le complément Architecture et Rules, y compris ses réserves et règles de non-arbitrage.
-4. Ajouter Implementation et Validation sans remplacer les développements précédents par une synthèse.
-5. Contrôler les différences avant admission : aucun retrait ni changement silencieux ne doit affecter le contenu antérieur.
-6. Si une révision concurrente apparaît, comparer les contenus avant de poursuivre ; ne pas écraser une modification plus récente sur la seule base du présent complément.
-
-Une correction factuelle future devra être explicitement sourcée et distinguée de cet enrichissement additif. La conservation de l’historique ne signifie pas qu’une affirmation corrigée reste la conclusion actuelle.
-
-### I3 — Initialiser le registre d’analyse
-
-Les identifiants ci-dessous sont des repères documentaires locaux ; ils ne désignent pas des objets applicatifs déjà créés.
-
-| Repère | Contenu initial | Qualification | Information manquante |
-|---|---|---|---|
-| SRC-A | Résumé d’Alpha transmis par le Pilote | Source fictive rapportée | Original, date, version, périmètre, autorité |
-| SRC-B | Résumé de Beta transmis par le Pilote | Source fictive rapportée | Original, date, version, périmètre, autorité |
-| SRC-G | Résumé de Gamma transmis par le Pilote | Source fictive rapportée | Texte réglementaire, juridiction, applicabilité, échéance |
-| SC-A | 30 jours ; 100k | Proposition attribuée à Alpha | Base calendaire, devise, assiette et hypothèses |
-| SC-B | 90 jours ; 250k | Proposition attribuée à Beta | Base calendaire, devise, assiette et hypothèses |
-| CT-G | Existence rapportée d’une contrainte réglementaire | Contrainte à qualifier | Contenu et effets sur chaque scénario |
-
-Pour chaque entrée, conserver : la provenance disponible, la formulation reçue, les unités connues, les inconnues, les liens avec les autres entrées et la qualification analytique. Une date de collecte ne doit pas être utilisée comme date du document source.
-
-### I4 — Dérouler les étapes d’investigation
-
-| Étape | Opération | Livrable attendu | Condition de progression |
-|---|---|---|---|
-| 1. Réception | Identifier original, extrait, résumé ou correction ; relever les limites d’accès. | Fiche de provenance. | Nature du matériau explicitée, même si elle reste limitée. |
-| 2. Extraction | Isoler délai, budget, périmètre et contrainte sans compléter les champs inconnus. | Affirmations attribuées. | Chaque valeur est reliée à sa source. |
-| 3. Comparabilité | Examiner livrables, qualité, calendrier, devise et assiette. | Matrice de comparaison renseignée ou lacunaire. | Les lacunes sont visibles ; elles n’interdisent pas une comparaison descriptive. |
-| 4. Divergences | Séparer contradiction signalée, différence chiffrée et explication hypothétique. | Registre des divergences. | Aucun mécanisme causal ou remplacement de source n’est inféré. |
-| 5. Gamma | Rechercher la référence exacte puis examiner chaque scénario séparément. | Analyse d’applicabilité et d’impact, ou inconnues documentées. | Aucune conclusion de conformité sans éléments suffisants. |
-| 6. Consolidation | Relier chaque conclusion aux affirmations et limites pertinentes. | Synthèse actualisée. | Les scénarios restent distincts tant qu’aucun arbitrage explicite ne les départage. |
-| 7. Revue | Vérifier conservation, traçabilité, calculs et qualifications. | Compte rendu des contrôles. | Les anomalies sont corrigées ou signalées avant présentation. |
-
-La progression n’oblige pas à disposer immédiatement de toutes les réponses. Une étape peut produire un constat de connaissance insuffisante plutôt qu’une conclusion positive.
-
-### I5 — Qualifier Gamma sans extrapolation
-
-Pour Gamma, rechercher successivement la référence du texte, sa version, la juridiction, les activités et entités concernées, les conditions d’application, les échéances et les obligations pertinentes. Distinguer ce que le texte indique de son interprétation pour le cas étudié.
-
-Pour Alpha puis Beta, examiner : l’applicabilité démontrée ou indéterminée ; la prise en compte éventuelle dans l’estimation initiale ; les adaptations nécessaires si elles sont établies ; leurs effets justifiés sur délai, budget et périmètre. Un effet inconnu ne doit pas devenir un effet nul. Un effet identifié sur un scénario ne doit pas être reporté automatiquement sur l’autre.
-
-Si le texte original manque, conserver CT-G comme contrainte rapportée à qualifier. Si une interprétation spécialisée est nécessaire, identifier cette dépendance sans attribuer une validation juridique à la présente analyse.
-
-### I6 — Gérer les informations nouvelles et les reprises
-
-À chaque nouvel élément :
-
-1. Enregistrer sa provenance et sa nature : précision, nouvelle hypothèse, correction ou preuve.
-2. Identifier les affirmations et questions concernées.
-3. Conserver l’état antérieur pertinent et expliciter ce qui change.
-4. Réexaminer les calculs et conclusions dépendants, sans modifier les éléments non concernés.
-5. Mettre à jour uniquement les questions effectivement résolues ; conserver les parties encore ouvertes.
-6. Produire une synthèse distinguant état actuel, incertitudes et éventuel besoin d’arbitrage.
-
-Après interruption, reprendre depuis les contenus effectivement accessibles. Un passage non retrouvé ne doit pas être reconstitué comme s’il avait été lu. Distinguer contenu documentaire consulté, proposition conversationnelle retrouvée et travail restant à rédiger.
-
-### I7 — Gérer les cas dégradés
-
-- **Original indisponible :** poursuivre sur le résumé en maintenant sa limite de provenance.
-- **Réponse partielle :** renseigner uniquement les champs étayés ; conserver les autres inconnues.
-- **Nouvelle contradiction :** ajouter les assertions concurrentes, leurs portées et la question discriminante ; ne pas choisir arbitrairement.
-- **Correction sourcée :** distinguer valeur initiale et valeur corrigée, puis réexaminer les conclusions affectées.
-- **Absence de réponse :** laisser la question ouverte ; le silence ne vaut ni accord ni preuve.
-- **Évolution documentaire concurrente :** interrompre le remplacement automatique et comparer les versions avant intégration.
-
-### I8 — Sorties et limite d’achèvement
-
-La mise en œuvre proposée produit un registre des sources et affirmations, deux scénarios conservés séparément, une analyse de Gamma, une matrice des divergences, une consolidation et un suivi des questions. Ces éléments peuvent être organisés dans le document sans imposer un outil particulier.
-
-L’achèvement rédactionnel d’Implementation et Validation signifie que la procédure et ses contrôles sont décrits. Il ne signifie pas que toutes les preuves ont été obtenues, que les contrôles ont été exécutés, qu’une référence opérationnelle a été choisie ou qu’une conformité a été établie.
-
-## Validation
-
-### V1 — Objet et niveaux de validation
-
-La validation proposée distingue quatre objets :
-
-1. **Intégrité documentaire :** absence de perte du contenu antérieur et présence des compléments attendus.
-2. **Fidélité au corpus :** attribution correcte des valeurs et conservation des limites des résumés.
-3. **Cohérence analytique :** calculs exacts, inconnues maintenues et conclusions proportionnées.
-4. **Validité opérationnelle :** comparabilité, applicabilité réglementaire et choix de référence, qui nécessitent encore des preuves et un arbitrage explicite.
-
-La réussite d’un niveau ne vaut pas réussite automatique des suivants. Cette section définit un protocole ; elle ne constitue pas un procès-verbal de tests exécutés.
-
-### V2 — Protocole de contrôle
-
-Pour chaque contrôle, consigner l’objet examiné, la révision ou source utilisée, la méthode, le résultat observé, la preuve disponible et l’écart éventuel. Employer les statuts : **à exécuter**, **conforme**, **non conforme**, **indéterminé** ou **non applicable avec justification**.
-
-Attribuer « conforme » uniquement après observation du résultat attendu. L’absence de preuve n’est pas un résultat conforme. Si le contrôle dépend d’un document indisponible ou d’une information manquante, retenir « indéterminé » et préciser la dépendance.
-
-### V3 — Matrice de validation documentaire et analytique
-
-| ID | Contrôle et méthode | Résultat attendu |
-|---|---|---|
-| VAL-01 | Comparer les cinq sections initiales à la révision 1, sans normalisation masquant une perte. | Context, Sources, Contradiction, Consolidation et OpenQuestions sont intégralement conservées. |
-| VAL-02 | Comparer Architecture et Rules au complément antérieur retrouvé. | Aucun paragraphe, tableau, réserve ou règle R1 à R10 n’est perdu. |
-| VAL-03 | Inspecter la structure finale. | Les quatre sections complémentaires sont présentes une seule fois, sans remplacement du socle par les seuls ajouts. |
-| VAL-04 | Relever les couples délai-budget dans le document. | Alpha reste associé à 30 jours et 100k ; Beta à 90 jours et 250k ; aucune valeur corrigée n’est inventée. |
-| VAL-05 | Recalculer les écarts descriptifs. | 90/30 = 3 ; 250/100 = 2,5 ; 250k − 100k = 150k. Leur portée reste limitée aux valeurs rapportées. |
-| VAL-06 | Rechercher les conclusions causales non étayées. | Aucun coût du retard, lien causal ou avantage de performance n’est déduit des seuls rapports arithmétiques. |
-| VAL-07 | Examiner la qualification des divergences. | Contradiction de délai signalée par le Pilote ; divergence budgétaire à qualifier ; Gamma traité comme ajout transversal. |
-| VAL-08 | Examiner unités et périmètres. | Devise, assiette, jours ouvrés/calendaires et point de départ restent inconnus tant qu’aucune précision ne les établit. |
-| VAL-09 | Examiner les conclusions réglementaires. | Aucune conformité, non-conformité, applicabilité ou absence d’impact n’est affirmée sans justification suffisante. |
-| VAL-10 | Vérifier les liens de provenance des conclusions déterminantes. | Chaque conclusion renvoie au matériau disponible ou est explicitement marquée comme hypothèse ou recommandation conditionnelle. |
-| VAL-11 | Rechercher une priorité ou un scénario fabriqué. | Ni remplacement automatique d’Alpha, ni choix automatique de Beta, ni moyenne de 60 jours/175k, ni enveloppe de sécurité réputée démontrée. |
-| VAL-12 | Examiner OpenQuestions et les réponses éventuellement reçues. | Aucune question n’est réputée résolue sans réponse explicite et suffisamment étayée ; une réponse partielle ne ferme pas le reste. |
-| VAL-13 | Examiner les formulations de statut. | Rédaction, admission documentaire, tests exécutés et validation opérationnelle sont distingués. Aucun contrat ou mandat n’est présenté comme préparé. |
-
-Les contrôles d’intégrité portent sur le contenu complet, pas seulement sur la présence des titres. Une table des matières intacte ne prouve pas la conservation des paragraphes.
-
-### V4 — Cas de robustesse du raisonnement
-
-Les cas suivants sont des jeux d’essai hypothétiques. Ils n’ajoutent aucun fait au corpus.
-
-| Cas | Entrée simulée | Comportement attendu |
-|---|---|---|
-| ROB-01 | Beta est présentée après Alpha, sans date documentaire. | Ne pas conclure que Beta est plus récente ou remplace Alpha. |
-| ROB-02 | Une précision établit des calendriers différents. | Réexaminer la comparabilité ; conserver les valeurs originales et expliciter toute conversion justifiée. |
-| ROB-03 | Les budgets couvrent des postes différents. | Limiter la comparaison ; ne pas traiter l’écart nominal comme un surcoût à périmètre constant. |
-| ROB-04 | Gamma est cité sans texte accessible. | Conserver une contrainte rapportée ; ne conclure ni conformité ni non-conformité. |
-| ROB-05 | Gamma est étayé pour Alpha uniquement. | Limiter la conclusion à Alpha ; maintenir l’incertitude pour Beta. |
-| ROB-06 | Une correction sourcée modifie une valeur d’Alpha. | Conserver la trace de l’ancienne valeur, identifier la correction et recalculer les résultats dépendants. |
-| ROB-07 | Une réponse ne traite que la devise. | Renseigner la devise sans fermer les questions d’assiette et de périmètre. |
-| ROB-08 | Reprise après interruption avec un complément retrouvé dans l’historique. | Identifier sa provenance, préserver son contenu et ne pas présenter un texte inaccessible comme récupéré. |
-| ROB-09 | Une nouvelle révision contient des ajouts non présents dans la base de travail. | Comparer les versions et préserver ces ajouts avant toute intégration. |
-
-### V5 — Traitement des écarts et recontrôle
-
-Une perte de contenu, une attribution erronée, un calcul incorrect ou une conclusion de conformité non étayée empêche de considérer le contrôle concerné comme conforme. Décrire précisément l’écart, corriger la partie affectée, puis rejouer ce contrôle et les contrôles dépendants.
-
-Une inconnue explicitement conservée n’est pas, en elle-même, une anomalie rédactionnelle. Elle devient une dépendance bloquante pour une conclusion opérationnelle si cette conclusion exige l’information manquante. Ne pas contourner cette dépendance en supprimant la question ou en donnant une valeur par défaut.
-
-### V6 — Critères de clôture distincts
-
-**Clôture de l’enrichissement rédactionnel :** les contenus antérieurs sont préservés, Architecture et Rules sont repris intégralement, Implementation et Validation sont détaillés, les limites sont explicites et aucun arbitrage n’est inventé.
-
-**Confirmation documentaire :** l’existence d’une nouvelle révision et son statut doivent être attestés par le résultat applicatif documentaire ; le présent texte n’en tient pas lieu.
-
-**Clôture de la validation opérationnelle :** elle reste distincte et nécessite les preuves de comparabilité, la qualification de Gamma et un arbitrage explicite par la personne habilitée. Le corpus actuel ne permet pas de la déclarer acquise.
-
-### V7 — Conclusion de validation à ce stade
-
-Le corpus soutient toujours deux propositions chiffrées concurrentes et une contrainte réglementaire rapportée non qualifiée. La procédure de mise en œuvre et le plan de validation sont désormais décrits. Leur rédaction ne transforme ni Alpha ni Beta en référence retenue et ne résout pas les sept questions initiales.
-```
-
-## 10. Fichiers sources C19 — CONTENU INTÉGRAL (14/14)
-
-Chaque fichier inventorié est reproduit ci-dessous **sans troncature**.
-
-### FULL FILE `projects/sfia-studio-next/web/src/domains/execution/mandate-applicability.ts`
-
-- sha256 (worktree): `576e5dad0b12e3742c411627c21e8c8b9ac6e21d830ddb112c3e14c744d9c0d6`
-- lines: 151
-- bytes: 4707
-- inclusion: **COMPLETE** (no truncation; trailing whitespace stripped for handoff hygiene only)
-
-```typescript
-/**
- * C19 — current applicability of a READY technical mandate.
- * Historical READY status is preserved; effect paths must refuse when
- * cognitive filiation or investigation is no longer exact/current.
- */
-
-import { StudioError } from "@/lib/http-errors";
-import {
-  evaluateGlobalResourceEnvelope,
-  getCognitiveWork,
-} from "@/domains/conversation/cognitive-work";
-import { loadInvestigationSnapshot } from "@/domains/conversation/investigation-persistence";
-import { evaluateContractReadiness as evaluateInvestigation } from "@/domains/conversation/investigation-state";
-import {
-  getTechnicalContract,
-  technicalContractFingerprint,
-} from "./technical-contract";
-
-export type MandateApplicability = {
-  ok: true;
-  contractId: string;
-  workId: string;
-  revision: number;
-  fingerprint: string;
-} | {
-  ok: false;
-  reason: string;
-};
-
-/**
- * Positive check used at prepare / authorize / dispatch effect points.
- * Does not rewrite historical READY rows.
- */
-export async function assessTechnicalContractMandateApplicability(input: {
-  pilotId: string;
-  projectId: string;
-  contractId: string;
-  preparationId?: string | null;
-}): Promise<MandateApplicability> {
-  const row = await getTechnicalContract({
-    pilotId: input.pilotId,
-    projectId: input.projectId,
-    contractId: input.contractId,
-  });
-  if (row.status !== "READY") {
-    return { ok: false, reason: `Contrat non READY (${row.status})` };
-  }
-  const recomputed = technicalContractFingerprint(row.body);
-  if (recomputed !== row.fingerprint) {
-    return { ok: false, reason: "Empreinte ≠ représentation persistée" };
-  }
-  const workId = row.cognitiveWorkId ?? null;
-  const boundRevision = row.cognitiveRevision;
-  if (!workId || boundRevision == null) {
-    return { ok: false, reason: "Filiation cognitive absente — mandat non applicable" };
-  }
-  const work = await getCognitiveWork({
-    pilotId: input.pilotId,
-    workId,
-  });
-  if (work.projectId && work.projectId !== input.projectId) {
-    return { ok: false, reason: "Travail cognitif hors projet du contrat" };
-  }
-  if (work.revision !== boundRevision) {
-    return {
-      ok: false,
-      reason: `Révision cognitive ${work.revision} ≠ filiation mandat r${boundRevision} — mandat non applicable`,
-    };
-  }
-  if (work.status !== "COMPLETE") {
-    return {
-      ok: false,
-      reason: `Travail cognitif ${work.status} — mandat non applicable`,
-    };
-  }
-  const envelope = evaluateGlobalResourceEnvelope(work.resources);
-  if (!envelope.ok) {
-    return { ok: false, reason: envelope.reason ?? "Budget cognitif global épuisé" };
-  }
-  const preparationId = input.preparationId ?? row.preparationId ?? null;
-  if (!preparationId) {
-    return { ok: false, reason: "preparationId requis pour applicabilité" };
-  }
-  const snap = await loadInvestigationSnapshot({
-    pilotId: input.pilotId,
-    preparationId,
-    intentFallback: row.body.title,
-    workId,
-  });
-  if (!snap) {
-    return { ok: false, reason: "Investigation absente ou ambiguë" };
-  }
-  const inv = evaluateInvestigation(snap);
-  if (inv.cognitiveWorkId && inv.cognitiveWorkId !== workId) {
-    return { ok: false, reason: "Investigation d'un autre travail cognitif" };
-  }
-  if (
-    inv.sufficiency === "UNKNOWN" ||
-    inv.sufficiency === "BUDGET_EXHAUSTED" ||
-    inv.sufficiency === "BLOCKED_BY_UNKNOWN_RESTRICTION" ||
-    !inv.contractReady ||
-    inv.sufficiency !== "SUFFICIENT"
-  ) {
-    return {
-      ok: false,
-      reason:
-        inv.contractReadyBlockedReason ??
-        `Investigation non applicable (${inv.sufficiency})`,
-    };
-  }
-  const consulted = inv.sources.filter(
-    (s) => s.coverage === "CONSULTED" || s.coverage === "VERIFIED",
-  );
-  if (consulted.length === 0) {
-    return { ok: false, reason: "Aucune source CONSULTED/VERIFIED actuelle" };
-  }
-  const degraded = inv.sources.some(
-    (s) =>
-      s.coverage === "STALE" ||
-      s.coverage === "DENIED" ||
-      s.coverage === "CONTRADICTORY",
-  );
-  if (degraded) {
-    return {
-      ok: false,
-      reason: "Source déterminante dégradée — mandat non applicable",
-    };
-  }
-  return {
-    ok: true,
-    contractId: input.contractId,
-    workId,
-    revision: boundRevision,
-    fingerprint: row.fingerprint,
-  };
-}
-
-export async function assertTechnicalContractMandateApplicable(input: {
-  pilotId: string;
-  projectId: string;
-  contractId: string;
-  preparationId?: string | null;
-}): Promise<Extract<MandateApplicability, { ok: true }>> {
-  const assessed = await assessTechnicalContractMandateApplicability(input);
-  if (!assessed.ok) {
-    throw new StudioError("REQUIRES_REQUALIFICATION", assessed.reason, {
-      exposeMessage: true,
-    });
-  }
-  return assessed;
-}
-
-```
-
-### FULL FILE `projects/sfia-studio-next/web/src/domains/conversation/investigation-persistence.ts`
-
-- sha256 (worktree): `a9ff8e91e593a3bca34d43d65231bfe2e4a27381d4f23c4d1215b04add54ca6d`
-- lines: 215
-- bytes: 7367
-- inclusion: **COMPLETE** (no truncation; trailing whitespace stripped for handoff hygiene only)
-
-```typescript
-/**
- * Investigation persistence facade.
- * C15: cognitive_works is the active D3 truth.
- * Legacy preparations.projection_json.ml5InvestigationSnapshot is read-compat only
- * (ambiguous bindings never feed READY). Exit: stop writing the legacy snapshot.
- *
- * C19: material investigation writes bump revision + new immutable checkpoint.
- * Never mutate an existing checkpoint payload in place.
- */
-
-import { eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import { preparations } from "@/db/schema";
-import { StudioError } from "@/lib/http-errors";
-import {
-  getCognitiveWork,
-  listCognitiveWorksForPreparation,
-  openOrResumeCognitiveWork,
-  checkpointCognitiveWork,
-  releaseCognitiveWorkLease,
-} from "./cognitive-work";
-import {
-  evaluateContractReadiness,
-  resumeInvestigation,
-  type InvestigationState,
-} from "./investigation-state";
-
-const SNAPSHOT_KEY = "ml5InvestigationSnapshot";
-
-/** @deprecated C15 — legacy key retained for read-compat / migration diagnostics only. */
-export const LEGACY_INVESTIGATION_SNAPSHOT_KEY = SNAPSHOT_KEY;
-
-function stableStateJson(state: InvestigationState): string {
-  return JSON.stringify(evaluateContractReadiness(state));
-}
-
-/**
- * Persist investigation into dedicated cognitive work (active truth).
- * Optionally keep a non-authoritative legacy mirror for transition diagnostics.
- */
-export async function saveInvestigationSnapshot(input: {
-  pilotId: string;
-  preparationId: string;
-  state: InvestigationState;
-  workId?: string | null;
-  projectId?: string | null;
-  conversationId?: string | null;
-}): Promise<{ savedAt: string; workId: string; revision: number; bumped: boolean }> {
-  // C17: never re-evaluate with a sticky BUDGET_EXHAUSTED left by SEGMENT_INVOCATION_LIMIT.
-  let incoming = input.state;
-  const blocked = incoming.contractReadyBlockedReason ?? "";
-  if (
-    incoming.sufficiency === "BUDGET_EXHAUSTED" &&
-    (blocked === "SEGMENT_INVOCATION_LIMIT" || blocked.includes("SEGMENT_INVOCATION"))
-  ) {
-    incoming = {
-      ...incoming,
-      sufficiency: "UNKNOWN",
-      contractReady: false,
-      contractReadyBlockedReason: "SEGMENT_INVOCATION_LIMIT",
-    };
-  }
-  const evaluated = evaluateContractReadiness(incoming);
-  const nextJson = stableStateJson(evaluated);
-
-  // Capture durable status BEFORE claim (claim temporarily sets RUNNING).
-  let durableStatus: "OPEN" | "SUSPENDED" | "COMPLETE" | "FAILED" | "RUNNING" | "ABANDONED" =
-    "OPEN";
-  if (input.workId) {
-    const current = await getCognitiveWork({
-      pilotId: input.pilotId,
-      workId: input.workId,
-    });
-    if (current.preparationId !== input.preparationId) {
-      throw new StudioError("ACCESS_DENIED", "Travail hors préparation");
-    }
-    durableStatus = current.status;
-    // Idempotent: identical material state → keep revision, no checkpoint rewrite.
-    if (stableStateJson(current.state) === nextJson) {
-      return {
-        savedAt: new Date().toISOString(),
-        workId: current.id,
-        revision: current.revision,
-        bumped: false,
-      };
-    }
-  }
-
-  const opened = await openOrResumeCognitiveWork({
-    pilotId: input.pilotId,
-    preparationId: input.preparationId,
-    projectId: input.projectId,
-    conversationId: input.conversationId,
-    objective: evaluated.intentSummary || "investigation",
-    expectedOutcome: evaluated.desiredOutcome,
-    workId: input.workId,
-  });
-  // C19: restore pre-claim terminal status — claim must not demote COMPLETE→OPEN.
-  const persistStatus =
-    durableStatus === "COMPLETE"
-      ? "COMPLETE"
-      : durableStatus === "FAILED"
-        ? "FAILED"
-        : "OPEN";
-
-  // C19: material change → new revision + new immutable checkpoint (CAS).
-  const saved = await checkpointCognitiveWork({
-    pilotId: input.pilotId,
-    workId: opened.work.id,
-    ownerToken: opened.ownerToken,
-    expectedRevision: opened.work.revision,
-    cause: "INVESTIGATION_SAVE",
-    state: evaluated,
-    status: persistStatus,
-    interruptCause: persistStatus === "COMPLETE" ? null : opened.work.interruptCause,
-  });
-  await releaseCognitiveWorkLease({
-    workId: opened.work.id,
-    ownerToken: opened.ownerToken,
-    status: persistStatus,
-    interruptCause: persistStatus === "COMPLETE" ? null : opened.work.interruptCause,
-  });
-
-  // Transitional diagnostic mirror — NOT authoritative for READY (C15 exit path).
-  if ((process.env.SFIA_COGNITIVE_LEGACY_MIRROR || "").trim() === "1") {
-    const prep = (
-      await db.select().from(preparations).where(eq(preparations.id, input.preparationId)).limit(1)
-    )[0];
-    if (prep && prep.ownerPilotId === input.pilotId) {
-      const savedAt = new Date().toISOString();
-      const base =
-        prep.projectionJson && typeof prep.projectionJson === "object"
-          ? { ...(prep.projectionJson as Record<string, unknown>) }
-          : {};
-      await db
-        .update(preparations)
-        .set({
-          projectionJson: {
-            ...base,
-            [SNAPSHOT_KEY]: {
-              state: evaluated,
-              savedAt,
-              cognitiveWorkId: saved.id,
-              authority: "LEGACY_MIRROR_NON_AUTHORITATIVE",
-            },
-          },
-          updatedAt: new Date(),
-        })
-        .where(eq(preparations.id, input.preparationId));
-    }
-  }
-
-  return {
-    savedAt: new Date().toISOString(),
-    workId: saved.id,
-    revision: saved.revision,
-    bumped: true,
-  };
-}
-
-export async function loadInvestigationSnapshot(input: {
-  pilotId: string;
-  preparationId: string;
-  intentFallback?: string;
-  workId?: string | null;
-}): Promise<InvestigationState | null> {
-  // Prefer dedicated cognitive work.
-  if (input.workId) {
-    const work = await getCognitiveWork({
-      pilotId: input.pilotId,
-      workId: input.workId,
-    });
-    return resumeInvestigation(
-      work.state,
-      input.intentFallback ?? work.state.intentSummary ?? "",
-    );
-  }
-  const works = await listCognitiveWorksForPreparation({
-    pilotId: input.pilotId,
-    preparationId: input.preparationId,
-  });
-  if (works.length === 1) {
-    return resumeInvestigation(
-      works[0]!.state,
-      input.intentFallback ?? works[0]!.state.intentSummary ?? "",
-    );
-  }
-  if (works.length > 1) {
-    // Ambiguous multi-work — do not guess for READY.
-    return null;
-  }
-
-  // C16: legacy snapshot is never READY authority and is not returned on the
-  // authoritative load path. Compatibility diagnostics remain opt-in via env.
-  if ((process.env.SFIA_COGNITIVE_LEGACY_READ || "").trim() !== "1") {
-    return null;
-  }
-  const prep = (
-    await db.select().from(preparations).where(eq(preparations.id, input.preparationId)).limit(1)
-  )[0];
-  if (!prep) throw new StudioError("NOT_FOUND", "Préparation introuvable");
-  if (prep.ownerPilotId !== input.pilotId) {
-    throw new StudioError("ACCESS_DENIED", "Préparation d'un autre Pilote");
-  }
-  const base =
-    prep.projectionJson && typeof prep.projectionJson === "object"
-      ? (prep.projectionJson as Record<string, unknown>)
-      : {};
-  const snap = base[SNAPSHOT_KEY] as
-    | { state?: InvestigationState; cognitiveWorkId?: string; authority?: string }
-    | undefined;
-  if (!snap?.state) return null;
-  // Explicit non-authoritative — callers must not promote READY from this alone.
-  return resumeInvestigation(snap.state, input.intentFallback ?? snap.state.intentSummary ?? "");
-}
-
-```
+## 8. Preuves capitalisées
+
+- C19 handoff tip `55dff997` / blob `0e148034` (I1 immuabilité, I2 409, I4 PROCESS_OR_LEASE, I5/I6 multi-tour)
+- C18 P3 instruction 40994 / 15 critères ; P4 READY+refus D6
+
+## 9. Fake / Real
+
+| Frontière | Niveau |
+|---|---|
+| I1 concurrency | INTEGRATION PG |
+| I2 D4 currency | INTEGRATION (assess) |
+| I3 WEB | DETERMINISTIC |
+| I5 ambiguity | DEV LIVE |
+| I6 D4 identity | DEV LIVE |
+| GitHub REAL | NON |
+| Lot 2 | NON engagé |
+
+## 10. Fichiers sources C20 — CONTENU INTÉGRAL
 
 ### FULL FILE `projects/sfia-studio-next/web/src/domains/conversation/cognitive-work.ts`
 
-- sha256 (worktree): `1626adeffbd0ad6dbe070f9f1dc38146c3ec4402d721b5fe8892562641d66cd1`
-- lines: 594
-- bytes: 19789
-- inclusion: **COMPLETE** (no truncation; trailing whitespace stripped for handoff hygiene only)
+- sha256 (worktree): `c155dd5807322701c2166b8da6502ba4d1f55f3c708b7bb29c2be9472c1e9c5e`
+- lines: 635
+- inclusion: **COMPLETE**
 
 ```typescript
 /**
@@ -2654,6 +485,21 @@ export async function openOrResumeCognitiveWork(input: {
     }
     if (existing.preparationId !== input.preparationId) {
       throw new StudioError("ACCESS_DENIED", "Travail hors préparation");
+    }
+    // C20: explicit project/conversation scope must match when provided.
+    if (
+      input.projectId &&
+      existing.projectId &&
+      existing.projectId !== input.projectId
+    ) {
+      throw new StudioError("ACCESS_DENIED", "Travail hors projet");
+    }
+    if (
+      input.conversationId &&
+      existing.conversationId &&
+      existing.conversationId !== input.conversationId
+    ) {
+      throw new StudioError("ACCESS_DENIED", "Travail hors conversation");
     }
     const now = cognitiveClock.nowMs();
     const leaseActive =
@@ -2829,8 +675,10 @@ export async function checkpointCognitiveWork(input: {
   const nextRevision = input.expectedRevision + 1;
   const leaseUntil = new Date(cognitiveClock.nowMs() + COGNITIVE_LEASE_MS);
 
+  const nowIso = new Date(cognitiveClock.nowMs()).toISOString();
   const result = await db.transaction(async (tx) => {
     // C16: absent field ≠ empty replacement — load current row first.
+    // C20: lease must still be live for this owner — expired owner cannot write.
     const current = (
       await tx
         .select()
@@ -2841,6 +689,11 @@ export async function checkpointCognitiveWork(input: {
             eq(cognitiveWorks.ownerPilotId, input.pilotId),
             eq(cognitiveWorks.ownerToken, input.ownerToken),
             eq(cognitiveWorks.revision, input.expectedRevision),
+            eq(cognitiveWorks.status, "RUNNING"),
+            sql`(
+              ${cognitiveWorks.leaseUntil} IS NULL
+              OR ${cognitiveWorks.leaseUntil} > ${nowIso}::timestamptz
+            )`,
           ),
         )
         .limit(1)
@@ -2848,7 +701,7 @@ export async function checkpointCognitiveWork(input: {
     if (!current) {
       throw new StudioError(
         "CONFLICT",
-        "Checkpoint cognitif refusé — ownership ou révision concurrente",
+        "Checkpoint cognitif refusé — ownership, lease expiré ou révision concurrente",
       );
     }
     const resources =
@@ -2878,13 +731,18 @@ export async function checkpointCognitiveWork(input: {
           eq(cognitiveWorks.ownerPilotId, input.pilotId),
           eq(cognitiveWorks.ownerToken, input.ownerToken),
           eq(cognitiveWorks.revision, input.expectedRevision),
+          eq(cognitiveWorks.status, "RUNNING"),
+          sql`(
+            ${cognitiveWorks.leaseUntil} IS NULL
+            OR ${cognitiveWorks.leaseUntil} > ${nowIso}::timestamptz
+          )`,
         ),
       )
       .returning();
     if (!updated[0]) {
       throw new StudioError(
         "CONFLICT",
-        "Checkpoint cognitif refusé — ownership ou révision concurrente",
+        "Checkpoint cognitif refusé — ownership, lease expiré ou révision concurrente",
       );
     }
     await tx.insert(cognitiveWorkCheckpoints).values({
@@ -2909,7 +767,10 @@ export async function heartbeatCognitiveWork(input: {
   workId: string;
   ownerToken: string;
 }): Promise<boolean> {
-  const leaseUntil = new Date(cognitiveClock.nowMs() + COGNITIVE_LEASE_MS);
+  const nowMs = cognitiveClock.nowMs();
+  const leaseUntil = new Date(nowMs + COGNITIVE_LEASE_MS);
+  const nowIso = new Date(nowMs).toISOString();
+  // C20: refuse renew when lease already expired — expired owner is not live.
   const updated = await db
     .update(cognitiveWorks)
     .set({ leaseUntil, updatedAt: new Date() })
@@ -2918,6 +779,10 @@ export async function heartbeatCognitiveWork(input: {
         eq(cognitiveWorks.id, input.workId),
         eq(cognitiveWorks.ownerToken, input.ownerToken),
         eq(cognitiveWorks.status, "RUNNING"),
+        sql`(
+          ${cognitiveWorks.leaseUntil} IS NULL
+          OR ${cognitiveWorks.leaseUntil} > ${nowIso}::timestamptz
+        )`,
       ),
     )
     .returning({ id: cognitiveWorks.id });
@@ -2960,6 +825,9 @@ export async function reconcileStaleRunningCognitiveWorks(input?: {
   for (const row of stale) {
     const nextRevision = row.revision + 1;
     const updated = await db.transaction(async (tx) => {
+      // C20: re-assert lease expiry inside the transaction so a concurrent
+      // heartbeat that renewed the lease cannot be suspended.
+      const txNow = new Date(cognitiveClock.nowMs()).toISOString();
       const rows = await tx
         .update(cognitiveWorks)
         .set({
@@ -2975,6 +843,10 @@ export async function reconcileStaleRunningCognitiveWorks(input?: {
             eq(cognitiveWorks.id, row.id),
             eq(cognitiveWorks.revision, row.revision),
             eq(cognitiveWorks.status, "RUNNING"),
+            sql`(
+              ${cognitiveWorks.leaseUntil} IS NULL
+              OR ${cognitiveWorks.leaseUntil} <= ${txNow}::timestamptz
+            )`,
           ),
         )
         .returning({ id: cognitiveWorks.id });
@@ -3104,1344 +976,1700 @@ export function evaluateGlobalResourceEnvelope(
 
 ```
 
-### FULL FILE `projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts`
+### FULL FILE `projects/sfia-studio-next/web/src/domains/conversation/investigation-persistence.ts`
 
-- sha256 (worktree): `31b604541c106a35733830f4967394c1b863849ffe7884d5a470c5c72fe46e94`
-- lines: 687
-- bytes: 23627
-- inclusion: **COMPLETE** (no truncation; trailing whitespace stripped for handoff hygiene only)
+- sha256 (worktree): `5ebbfbb80fba42d56af2b1b11576af1f5475ed3ef2b2a81ed0bfeb2d731197bb`
+- lines: 252
+- inclusion: **COMPLETE**
 
 ```typescript
 /**
- * C16/C17 — product entry into the adaptive D3 cognitive conductor.
- * generateNoraReply remains the provider adapter; this module orchestrates
- * cognitive work attachment, multi-segment continuation, and investigation merge.
+ * Investigation persistence facade.
+ * C15: cognitive_works is the active D3 truth.
+ * Legacy preparations.projection_json.ml5InvestigationSnapshot is read-compat only
+ * (ambiguous bindings never feed READY). Exit: stop writing the legacy snapshot.
+ *
+ * C19: material investigation writes bump revision + new immutable checkpoint.
+ * Never mutate an existing checkpoint payload in place.
  */
 
+import { eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { preparations } from "@/db/schema";
+import { StudioError } from "@/lib/http-errors";
 import {
-  runCognitiveConductor,
-  type ConductorRunResult,
-} from "./cognitive-conductor";
-import { buildCognitivePolicy } from "./cognitive-policy";
-import {
+  getCognitiveWork,
   listCognitiveWorksForPreparation,
-  type CognitiveProductionState,
-  type CognitiveWorkRow,
+  openOrResumeCognitiveWork,
+  checkpointCognitiveWork,
+  releaseCognitiveWorkLease,
 } from "./cognitive-work";
 import {
-  createEmptyInvestigation,
   evaluateContractReadiness,
-  type DeterminingQuestion,
+  resumeInvestigation,
   type InvestigationState,
 } from "./investigation-state";
-import {
-  generateNoraReply,
-  type NoraGenerateInput,
-  type NoraGenerateResult,
-} from "./nora-adapter";
-import type { NoraTurnQualification } from "./semantic-qualification";
 
-export type NoraCognitiveTurnInput = NoraGenerateInput & {
+const SNAPSHOT_KEY = "ml5InvestigationSnapshot";
+
+/** @deprecated C15 — legacy key retained for read-compat / migration diagnostics only. */
+export const LEGACY_INVESTIGATION_SNAPSHOT_KEY = SNAPSHOT_KEY;
+
+function stableStateJson(state: InvestigationState): string {
+  return JSON.stringify(evaluateContractReadiness(state));
+}
+
+/**
+ * Persist investigation into dedicated cognitive work (active truth).
+ * Optionally keep a non-authoritative legacy mirror for transition diagnostics.
+ */
+export async function saveInvestigationSnapshot(input: {
   pilotId: string;
   preparationId: string;
+  state: InvestigationState;
+  workId?: string | null;
   projectId?: string | null;
   conversationId?: string | null;
-  turnCommandId?: string | null;
-  /** Explicit continuation of a prior suspended/open work. */
-  workId?: string | null;
-  /** When true, always open a new cognitive work (independent request). */
-  forceNewWork?: boolean;
-  objective?: string;
-  expectedOutcome?: string;
-  maxSegmentsThisInvocation?: number;
-};
-
-export type NoraCognitiveTurnResult = NoraGenerateResult & {
-  conductor: {
-    workId: string;
-    revision: number;
-    segmentsRun: number;
-    resumed: boolean;
-    suspended: boolean;
-    suspendReason: string | null;
-    investigation: InvestigationState;
-    production: CognitiveProductionState;
-  };
-};
-
-/** Extract usage when the adapter exposes it; otherwise UNKNOWN (null). */
-function usageFromReply(reply: NoraGenerateResult): {
-  inputTokens: number | null;
-  outputTokens: number | null;
-} {
-  const anyReply = reply as NoraGenerateResult & {
-    usage?: { inputTokens?: number; outputTokens?: number; totalTokens?: number };
-    inputTokens?: number | null;
-    outputTokens?: number | null;
-  };
-  const input =
-    anyReply.usage?.inputTokens ?? anyReply.inputTokens ?? null;
-  const output =
-    anyReply.usage?.outputTokens ?? anyReply.outputTokens ?? null;
-  return {
-    inputTokens: typeof input === "number" ? input : null,
-    outputTokens: typeof output === "number" ? output : null,
-  };
-}
-
-/**
- * C18 — merge determining questions from structured qualification only.
- * Never invent ANSWERED from user prose or absence of clarifications[].
- */
-export function mergeQuestions(
-  prior: DeterminingQuestion[],
-  qualification: NoraTurnQualification | null | undefined,
-): DeterminingQuestion[] {
-  const byId = new Map(prior.map((q) => [q.id, { ...q }]));
-  const structured = qualification?.determiningQuestions;
-  if (structured && structured.length > 0) {
-    for (const q of structured) {
-      const id = q.id.trim();
-      if (!id) continue;
-      const prev = byId.get(id);
-      byId.set(id, {
-        id,
-        text: q.text.trim() || prev?.text || id,
-        status: q.status,
-        importance: q.importance,
-        answerSummary:
-          q.status === "ANSWERED"
-            ? q.answerSummary?.trim() || prev?.answerSummary
-            : q.answerSummary?.trim() || undefined,
-        sourceRefs: q.sourceRefs ?? prev?.sourceRefs,
-      });
-    }
-    return [...byId.values()];
+}): Promise<{ savedAt: string; workId: string; revision: number; bumped: boolean }> {
+  // C17: never re-evaluate with a sticky BUDGET_EXHAUSTED left by SEGMENT_INVOCATION_LIMIT.
+  let incoming = input.state;
+  const blocked = incoming.contractReadyBlockedReason ?? "";
+  if (
+    incoming.sufficiency === "BUDGET_EXHAUSTED" &&
+    (blocked === "SEGMENT_INVOCATION_LIMIT" || blocked.includes("SEGMENT_INVOCATION"))
+  ) {
+    incoming = {
+      ...incoming,
+      sufficiency: "UNKNOWN",
+      contractReady: false,
+      contractReadyBlockedReason: "SEGMENT_INVOCATION_LIMIT",
+    };
   }
-  const clarifications =
-    qualification && qualification.status !== "UNAVAILABLE"
-      ? qualification.clarifications
-      : undefined;
-  if (clarifications === undefined) {
-    return [...byId.values()];
-  }
-  if (clarifications.length === 0) {
-    return [...byId.values()];
-  }
-  for (const text of clarifications) {
-    const trimmed = text.trim();
-    if (!trimmed) continue;
-    const existing = [...byId.values()].find((q) => q.text === trimmed);
-    if (existing) continue;
-    const id = `q-${stableShortId(trimmed)}`;
-    byId.set(id, {
-      id,
-      text: trimmed,
-      status: "OPEN",
-      importance: "DETERMINANT",
+  const evaluated = evaluateContractReadiness(incoming);
+  const nextJson = stableStateJson(evaluated);
+
+  // Capture durable status BEFORE claim (claim temporarily sets RUNNING).
+  let durableStatus: "OPEN" | "SUSPENDED" | "COMPLETE" | "FAILED" | "RUNNING" | "ABANDONED" =
+    "OPEN";
+  let preClaimRevision: number | null = null;
+  if (input.workId) {
+    const current = await getCognitiveWork({
+      pilotId: input.pilotId,
+      workId: input.workId,
     });
-  }
-  return [...byId.values()];
-}
-
-function stableShortId(text: string): string {
-  let h = 0;
-  for (let i = 0; i < text.length; i++) h = (h * 31 + text.charCodeAt(i)) >>> 0;
-  return h.toString(36).slice(0, 10);
-}
-
-function mergeRemainingWork(
-  prior: InvestigationState,
-  qualification: NoraTurnQualification | null | undefined,
-): string[] {
-  const items = qualification?.remainingWorkItems;
-  if (items && items.length > 0) {
-    return items
-      .filter((i) => i.status === "OPEN" || i.status === "BLOCKED")
-      .map((i) => i.text.trim())
-      .filter(Boolean);
-  }
-  return [...prior.remainingWork];
-}
-
-/**
- * C18 — consolidate investigation from structured qualification + observed tools.
- * No lexical criteria extraction. No prose→instruction fallback.
- */
-export function mergeInvestigationFromReply(
-  prior: InvestigationState,
-  reply: NoraGenerateResult,
-  userText: string,
-): InvestigationState {
-  const q = reply.qualification;
-  const goal =
-    q && q.status !== "UNAVAILABLE" ? q.goal?.trim() || "" : "";
-  const outcome =
-    q && q.status !== "UNAVAILABLE" ? q.desiredOutcome?.trim() || "" : "";
-  const scope =
-    q && q.status !== "UNAVAILABLE" ? q.initialScope?.trim() || "" : "";
-
-  const sources = [...prior.sources];
-  for (const s of reply.observedToolSources ?? []) {
-    const idx = sources.findIndex((p) => p.ref === s.ref && p.kind === s.kind);
-    if (idx < 0) sources.push(s);
-    else {
-      const prev = sources[idx]!;
-      sources[idx] = {
-        ...prev,
-        ...s,
-        notes: [prev.notes, prev.coverage !== s.coverage ? `${prev.coverage}->${s.coverage}` : null, s.notes]
-          .filter(Boolean)
-          .join("; "),
+    if (current.preparationId !== input.preparationId) {
+      throw new StudioError("ACCESS_DENIED", "Travail hors préparation");
+    }
+    if (input.projectId && current.projectId && current.projectId !== input.projectId) {
+      throw new StudioError("ACCESS_DENIED", "Travail hors projet");
+    }
+    durableStatus = current.status;
+    preClaimRevision = current.revision;
+    // Idempotent: identical material state → keep revision, no checkpoint rewrite.
+    if (stableStateJson(current.state) === nextJson) {
+      return {
+        savedAt: new Date().toISOString(),
+        workId: current.id,
+        revision: current.revision,
+        bumped: false,
       };
     }
   }
 
-  const questions = mergeQuestions(prior.questions, q);
-  const remainingWork = mergeRemainingWork(prior, q);
-
-  const constraints = [...prior.constraints];
-  if (scope && !constraints.includes(scope)) constraints.push(scope);
-  for (const r of q?.restrictions ?? []) {
-    const t = r.trim();
-    if (t && !constraints.includes(t)) constraints.push(t);
-  }
-
-  const contradictions = [
-    ...prior.contradictions,
-    ...((q?.contradictions ?? []).map((c) => ({
-      a: c.a,
-      b: c.b,
-      detail: c.detail,
-    })) as InvestigationState["contradictions"]),
-  ].slice(-16);
-
-  // C18: prefer typed tool submission, then intent parameters, then top-level fields.
-  const toolProd = reply.cursorContractProduction;
-  const prepareIntent = q?.intents?.find(
-    (i) =>
-      i.capabilityId === "d7.prepare_cursor_contract" &&
-      (i.mode === "PREPARE" || i.mode === "REQUEST_EFFECT"),
-  );
-  const productionInstruction =
-    toolProd?.productionInstruction?.trim() ||
-    prepareIntent?.parameters?.productionInstruction?.trim() ||
-    q?.productionInstruction?.trim() ||
-    prior.productionInstruction ||
-    null;
-  const fromToolCriteria = toolProd?.acceptanceCriteria?.map((c) => c.trim()).filter(Boolean);
-  const fromIntentCriteria = prepareIntent?.parameters?.acceptanceCriteria
-    ?.map((c) => c.trim())
-    .filter(Boolean);
-  const fromTopCriteria = q?.acceptanceCriteria?.map((c) => c.trim()).filter(Boolean);
-  const acceptanceCriteria =
-    fromToolCriteria && fromToolCriteria.length > 0
-      ? fromToolCriteria
-      : fromIntentCriteria && fromIntentCriteria.length > 0
-        ? fromIntentCriteria
-        : fromTopCriteria && fromTopCriteria.length > 0
-          ? fromTopCriteria
-          : [...(prior.acceptanceCriteria ?? [])];
-  // Tool submission may also carry desiredOutcome when qualification omitted it.
-  const desiredFromTool = toolProd?.desiredOutcome?.trim() || "";
-
-  const profileHint: InvestigationState["profileHint"] =
-    q?.cognitiveProfileHint ??
-    (q?.status === "NEEDS_CLARIFICATION"
-      ? "investigation"
-      : prior.profileHint === "simple"
-        ? "analyse"
-        : prior.profileHint);
-
-  const desiredOutcome = outcome || desiredFromTool || prior.desiredOutcome || "";
-
-  return evaluateContractReadiness({
-    ...prior,
-    intentSummary: goal || prior.intentSummary || userText.slice(0, 800),
-    desiredOutcome,
-    sources,
-    questions,
-    remainingWork,
-    contradictions,
-    constraints,
-    profileHint,
-    productionInstruction,
-    acceptanceCriteria,
+  const opened = await openOrResumeCognitiveWork({
+    pilotId: input.pilotId,
+    preparationId: input.preparationId,
+    projectId: input.projectId,
+    conversationId: input.conversationId,
+    objective: evaluated.intentSummary || "investigation",
+    expectedOutcome: evaluated.desiredOutcome,
+    workId: input.workId,
   });
-}
-
-/**
- * C18 — continuation by workDisposition / objective class — not contractReady alone.
- */
-export function semanticContinueWork(
-  qualification: NoraTurnQualification | null,
-  investigation: InvestigationState,
-  reply: NoraGenerateResult,
-): boolean {
-  if (reply.status !== "COMPLETE") return false;
+  // C20: CAS on consumed state — refuse if concurrent writers advanced beyond our claim.
   if (
-    investigation.contractReadyBlockedReason === "GLOBAL_BUDGET_EXHAUSTED" ||
-    (investigation.contractReadyBlockedReason ?? "").startsWith("GLOBAL_")
+    preClaimRevision != null &&
+    opened.resumed &&
+    opened.work.revision !== preClaimRevision + 1
   ) {
-    return false;
+    await releaseCognitiveWorkLease({
+      workId: opened.work.id,
+      ownerToken: opened.ownerToken,
+      status: durableStatus === "COMPLETE" ? "COMPLETE" : durableStatus === "FAILED" ? "FAILED" : "OPEN",
+      interruptCause: opened.work.interruptCause,
+    });
+    throw new StudioError(
+      "CONFLICT",
+      "Sauvegarde investigation refusée — état concurrent plus récent",
+    );
   }
-  const disposition = qualification?.workDisposition;
-  if (disposition === "COMPLETE" || disposition === "AWAIT_PILOT" || disposition === "SUSPEND") {
-    return false;
+  // Idempotent after claim: another path may have already persisted identical material.
+  if (stableStateJson(opened.work.state) === nextJson) {
+    await releaseCognitiveWorkLease({
+      workId: opened.work.id,
+      ownerToken: opened.ownerToken,
+      status: durableStatus === "COMPLETE" ? "COMPLETE" : durableStatus === "FAILED" ? "FAILED" : "OPEN",
+      interruptCause: opened.work.interruptCause,
+    });
+    return {
+      savedAt: new Date().toISOString(),
+      workId: opened.work.id,
+      revision: opened.work.revision,
+      bumped: false,
+    };
   }
-  if (disposition === "CONTINUE") return true;
+  // C19: restore pre-claim terminal status — claim must not demote COMPLETE→OPEN.
+  const persistStatus =
+    durableStatus === "COMPLETE"
+      ? "COMPLETE"
+      : durableStatus === "FAILED"
+        ? "FAILED"
+        : "OPEN";
 
-  if (qualification?.status === "NEEDS_CLARIFICATION") {
-    return false;
+  // C19: material change → new revision + new immutable checkpoint (CAS).
+  const saved = await checkpointCognitiveWork({
+    pilotId: input.pilotId,
+    workId: opened.work.id,
+    ownerToken: opened.ownerToken,
+    expectedRevision: opened.work.revision,
+    cause: "INVESTIGATION_SAVE",
+    state: evaluated,
+    status: persistStatus,
+    interruptCause: persistStatus === "COMPLETE" ? null : opened.work.interruptCause,
+  });
+  await releaseCognitiveWorkLease({
+    workId: opened.work.id,
+    ownerToken: opened.ownerToken,
+    status: persistStatus,
+    interruptCause: persistStatus === "COMPLETE" ? null : opened.work.interruptCause,
+  });
+
+  // Transitional diagnostic mirror — NOT authoritative for READY (C15 exit path).
+  if ((process.env.SFIA_COGNITIVE_LEGACY_MIRROR || "").trim() === "1") {
+    const prep = (
+      await db.select().from(preparations).where(eq(preparations.id, input.preparationId)).limit(1)
+    )[0];
+    if (prep && prep.ownerPilotId === input.pilotId) {
+      const savedAt = new Date().toISOString();
+      const base =
+        prep.projectionJson && typeof prep.projectionJson === "object"
+          ? { ...(prep.projectionJson as Record<string, unknown>) }
+          : {};
+      await db
+        .update(preparations)
+        .set({
+          projectionJson: {
+            ...base,
+            [SNAPSHOT_KEY]: {
+              state: evaluated,
+              savedAt,
+              cognitiveWorkId: saved.id,
+              authority: "LEGACY_MIRROR_NON_AUTHORITATIVE",
+            },
+          },
+          updatedAt: new Date(),
+        })
+        .where(eq(preparations.id, input.preparationId));
+    }
   }
-  const openDeterminant = investigation.questions.some(
-    (q) => q.importance === "DETERMINANT" && q.status !== "ANSWERED",
-  );
-  if (openDeterminant) {
-    return (reply.observedToolSources?.length ?? 0) > 0;
-  }
-  if (investigation.remainingWork.length > 0) return true;
-  return false;
+
+  return {
+    savedAt: new Date().toISOString(),
+    workId: saved.id,
+    revision: saved.revision,
+    bumped: true,
+  };
 }
 
-/**
- * C18 — semantic attachment: Nora may propose relation/workId; server validates.
- */
-export async function resolveCognitiveWorkAttachment(input: {
+export async function loadInvestigationSnapshot(input: {
   pilotId: string;
   preparationId: string;
+  intentFallback?: string;
   workId?: string | null;
-  forceNewWork?: boolean;
-  userText?: string | null;
-  qualification?: NoraTurnQualification | null;
-}): Promise<{ workId?: string | null; forceNew: boolean; reason: string }> {
-  if (input.forceNewWork === true) {
-    return { forceNew: true, reason: "FORCE_NEW_EXPLICIT" };
-  }
+}): Promise<InvestigationState | null> {
+  // Prefer dedicated cognitive work.
   if (input.workId) {
-    return { workId: input.workId, forceNew: false, reason: "EXPLICIT_WORK_ID" };
+    const work = await getCognitiveWork({
+      pilotId: input.pilotId,
+      workId: input.workId,
+    });
+    return resumeInvestigation(
+      work.state,
+      input.intentFallback ?? work.state.intentSummary ?? "",
+    );
   }
-
   const works = await listCognitiveWorksForPreparation({
     pilotId: input.pilotId,
     preparationId: input.preparationId,
   });
-  const relation = input.qualification?.cognitiveWorkRelation;
-  const proposed = input.qualification?.proposedCognitiveWorkId?.trim() || null;
-
-  if (relation === "INDEPENDENT" || relation === "MATERIAL_CHANGE" || relation === "UNRELATED") {
-    return { forceNew: true, reason: `SEMANTIC_${relation}` };
+  if (works.length === 1) {
+    return resumeInvestigation(
+      works[0]!.state,
+      input.intentFallback ?? works[0]!.state.intentSummary ?? "",
+    );
   }
-  if (relation === "CLARIFY") {
-    if (proposed && works.some((w) => w.id === proposed)) {
-      return { workId: proposed, forceNew: false, reason: "SEMANTIC_CLARIFY_ATTACH" };
-    }
-  }
-  if ((relation === "CONTINUE" || relation === "CLARIFY") && proposed) {
-    const hit = works.find((w) => w.id === proposed);
-    if (hit) {
-      return { workId: hit.id, forceNew: false, reason: "SEMANTIC_PROPOSED_WORK" };
-    }
-    return { forceNew: true, reason: "SEMANTIC_PROPOSED_UNKNOWN" };
+  if (works.length > 1) {
+    // Ambiguous multi-work — do not guess for READY.
+    return null;
   }
 
-  const segmentSuspended = works.filter(
-    (w) =>
-      w.status === "SUSPENDED" &&
-      (w.interruptCause === "SEGMENT_INVOCATION_LIMIT" ||
-        w.interruptCause === "PROCESS_OR_LEASE_INTERRUPT" ||
-        (w.interruptCause ?? "").startsWith("SEGMENT")),
-  );
-  if (segmentSuspended.length === 1) {
-    return {
-      workId: segmentSuspended[0]!.id,
-      forceNew: false,
-      reason: "TECHNICAL_SUSPEND_RESUME",
-    };
+  // C16: legacy snapshot is never READY authority and is not returned on the
+  // authoritative load path. Compatibility diagnostics remain opt-in via env.
+  if ((process.env.SFIA_COGNITIVE_LEGACY_READ || "").trim() !== "1") {
+    return null;
   }
-
-  // C19: never deduce continuation from sole open presence without CONTINUE.
-  const open = works.filter(
-    (w) => w.status === "OPEN" || w.status === "SUSPENDED" || w.status === "RUNNING",
-  );
-  if (relation === "CONTINUE") {
-    if (proposed) {
-      const hit = works.find((w) => w.id === proposed);
-      if (hit) return { workId: hit.id, forceNew: false, reason: "SEMANTIC_CONTINUE_PROPOSED" };
-      return { forceNew: true, reason: "SEMANTIC_CONTINUE_UNKNOWN_ID" };
-    }
-    if (open.length === 1) {
-      return { workId: open[0]!.id, forceNew: false, reason: "SEMANTIC_CONTINUE_SINGLE" };
-    }
-    if (open.length > 1) {
-      return { forceNew: true, reason: "SEMANTIC_CONTINUE_AMBIGUOUS" };
-    }
+  const prep = (
+    await db.select().from(preparations).where(eq(preparations.id, input.preparationId)).limit(1)
+  )[0];
+  if (!prep) throw new StudioError("NOT_FOUND", "Préparation introuvable");
+  if (prep.ownerPilotId !== input.pilotId) {
+    throw new StudioError("ACCESS_DENIED", "Préparation d'un autre Pilote");
   }
-  if (open.length > 1 && !proposed) {
-    return { forceNew: true, reason: "AMBIGUOUS_MULTI_OPEN" };
-  }
-  // Without structured relation, do not auto-attach to an open work.
-  return { forceNew: true, reason: "NEW_OR_NEEDS_SEMANTIC_RELATION" };
-}
-
-function documentProductionFromReply(
-  work: CognitiveWorkRow,
-  reply: NoraGenerateResult,
-  segmentIndex: number,
-  continueWork: boolean,
-): CognitiveProductionState | undefined {
-  const prevDoc =
-    (work.production as CognitiveProductionState & { contentMarkdown?: string })
-      .contentMarkdown ?? "";
-  // C19: part ids are stable across invocations — never collide on local segmentIndex 0.
-  const partId = `gen-${reply.generationId || `seg-${work.revision}-${segmentIndex}`}`;
-  const appendPart = (
-    parts: CognitiveProductionState["parts"],
-    title: string,
-    complete: boolean,
-  ) => [...parts.filter((p) => p.id !== partId), { id: partId, title, complete }];
-
-  const mergeBody = (incoming: string): string => {
-    const body = incoming.trim();
-    if (!prevDoc) return body;
-    if (prevDoc.includes(body)) return prevDoc;
-    return `${prevDoc}\n\n${body}`.trim();
-  };
-
-  const proposal = reply.qualification?.documentProposal;
-  if (proposal?.contentMarkdown?.trim()) {
-    return {
-      kind: "DOCUMENT",
-      status: continueWork ? "IN_PROGRESS" : "COMPLETE",
-      objectRef: work.production.objectRef || reply.generationId,
-      parts: appendPart(
-        work.production.parts,
-        proposal.title || `document-part-${work.production.parts.length + 1}`,
-        !continueWork,
-      ),
-      contentMarkdown: mergeBody(proposal.contentMarkdown),
-    } as CognitiveProductionState;
-  }
-  // C19: Markdown fence is transport/legacy only — never authority that replaces
-  // structured production. Preserve prior DOCUMENT on resume.
-  const extracted = reply.content.match(/``​`sfia-document\b([\s\S]*?)``​`/i);
-  if (extracted && !prevDoc) {
-    return {
-      kind: "DOCUMENT",
-      status: continueWork ? "IN_PROGRESS" : "COMPLETE",
-      objectRef: reply.generationId,
-      parts: appendPart(
-        work.production.parts,
-        `document-part-${work.production.parts.length + 1}`,
-        !continueWork,
-      ),
-      contentMarkdown: extracted[1]!.trim(),
-      limits: ["MARKDOWN_FENCE_TRANSPORT_ONLY"],
-    } as CognitiveProductionState;
-  }
-  if (work.production.kind === "DOCUMENT" && prevDoc) {
-    return {
-      ...work.production,
-      status: continueWork ? "IN_PROGRESS" : work.production.status,
-      parts: appendPart(
-        work.production.parts,
-        reply.generationId,
-        !continueWork,
-      ),
-    };
-  }
-  return {
-    kind: "REPLY",
-    status: continueWork ? "IN_PROGRESS" : "COMPLETE",
-    objectRef: reply.generationId,
-    parts: appendPart(work.production.parts, reply.generationId, !continueWork),
-    limits: continueWork ? ["PRODUCTION_IN_PROGRESS"] : undefined,
-  };
-}
-
-/**
- * Run Nora through the cognitive conductor for a product turn.
- */
-export async function runNoraCognitiveTurn(
-  input: NoraCognitiveTurnInput,
-): Promise<NoraCognitiveTurnResult> {
-  const segmentBox: { reply: NoraGenerateResult | null } = { reply: null };
-
-  // C19: expose candidate works so Nora can emit cognitiveWorkRelation / proposed id.
-  const candidates = await listCognitiveWorksForPreparation({
-    pilotId: input.pilotId,
-    preparationId: input.preparationId,
-  });
-  const candidateSnippet =
-    candidates.length === 0
-      ? "Travaux cognitifs candidats: (aucun)"
-      : [
-          "Travaux cognitifs candidats (serveur valide; ne pas inventer d'id):",
-          ...candidates.slice(0, 8).map(
-            (w) =>
-              `- ${w.id} status=${w.status} rev=${w.revision} obj=${(w.objective || "").slice(0, 120)}`,
-          ),
-          "Émettre cognitiveWorkRelation=CONTINUE|INDEPENDENT|CLARIFY|MATERIAL_CHANGE|UNRELATED et proposedCognitiveWorkId si rattachement.",
-        ].join("\n");
-
-  let attachment: Awaited<ReturnType<typeof resolveCognitiveWorkAttachment>>;
-  let probeReply: NoraGenerateResult | null = null;
-  let probeConsumed = false;
-
-  // C19: when attachment is not forced/explicit, qualify first then resolve with structured fields.
-  if (!input.workId && input.forceNewWork !== true) {
-    const probePolicy =
-      input.policyOverride ??
-      buildCognitivePolicy(input.userText, undefined, { profileHint: "analyse" });
-    probeReply = await generateNoraReply({
-      userText: input.userText,
-      contextSnippets: [...input.contextSnippets, candidateSnippet, "attachment=PENDING_SEMANTIC"],
-      knowledgeSnippets: input.knowledgeSnippets,
-      pilotageSnippets: input.pilotageSnippets,
-      levelASignals: input.levelASignals,
-      ckiDelivery: input.ckiDelivery,
-      onProvisionalChunk: input.onProvisionalChunk,
-      toolScope: input.toolScope,
-      policyOverride: probePolicy,
-    });
-    segmentBox.reply = probeReply;
-    attachment = await resolveCognitiveWorkAttachment({
-      pilotId: input.pilotId,
-      preparationId: input.preparationId,
-      workId: input.workId,
-      forceNewWork: input.forceNewWork,
-      userText: input.userText,
-      qualification: probeReply.qualification,
-    });
-  } else {
-    attachment = await resolveCognitiveWorkAttachment({
-      pilotId: input.pilotId,
-      preparationId: input.preparationId,
-      workId: input.workId,
-      forceNewWork: input.forceNewWork,
-      userText: input.userText,
-    });
-  }
-
-  const conductor: ConductorRunResult = await runCognitiveConductor({
-    pilotId: input.pilotId,
-    preparationId: input.preparationId,
-    projectId: input.projectId,
-    conversationId: input.conversationId,
-    objective: input.objective ?? input.userText.slice(0, 2000),
-    expectedOutcome: input.expectedOutcome,
-    workId: attachment.workId,
-    forceNewWork: attachment.forceNew,
-    turnCommandId: input.turnCommandId,
-    // C17: local cap remains technical; default raised for investigation depth.
-    // SEGMENT_INVOCATION_LIMIT still suspends honestly when exhausted.
-    maxSegmentsThisInvocation: input.maxSegmentsThisInvocation ?? 5,
-    resolvePolicy: (work, segmentIndex) => {
-      const seed =
-        work.state.intentSummary ||
-        work.objective ||
-        input.userText;
-      const hint = work.state.profileHint;
-      const base = buildCognitivePolicy(seed, undefined, { profileHint: hint });
-      if (segmentIndex > 0 && hint === "investigation") {
-        return buildCognitivePolicy(seed, undefined, {
-          profileHint: "investigation",
-          effortHint: "high",
-        });
-      }
-      if (hint === "simple") {
-        return buildCognitivePolicy(seed, undefined, {
-          profileHint: "simple",
-          effortHint: "low",
-        });
-      }
-      return input.policyOverride ?? base;
-    },
-    runSegment: async ({ work, segmentIndex, policy }) => {
-      const continuationHint =
-        segmentIndex === 0
-          ? ""
-          : [
-              "",
-              "[Continuation du même travail cognitif — segment suivant]",
-              `workId=${work.id} revision=${work.revision}`,
-              `Objectif: ${work.objective}`,
-              work.state.intentSummary
-                ? `Intention consolidée: ${work.state.intentSummary}`
-                : null,
-              work.state.desiredOutcome
-                ? `Résultat attendu: ${work.state.desiredOutcome}`
-                : null,
-              work.state.remainingWork.length
-                ? `Travail restant: ${work.state.remainingWork.join("; ")}`
-                : null,
-              work.state.questions
-                .filter((q) => q.status !== "ANSWERED")
-                .map((q) => `Q[${q.importance}]: ${q.text}`)
-                .join("\n") || null,
-              work.state.constraints.length
-                ? `Contraintes: ${work.state.constraints.join("; ")}`
-                : null,
-            ]
-              .filter(Boolean)
-              .join("\n");
-
-      let reply: NoraGenerateResult;
-      if (probeReply && segmentIndex === 0 && !probeConsumed) {
-        probeConsumed = true;
-        reply = probeReply;
-      } else {
-        reply = await generateNoraReply({
-          userText:
-            segmentIndex === 0
-              ? input.userText
-              : `${input.userText}${continuationHint}`,
-          contextSnippets: [
-            ...input.contextSnippets,
-            candidateSnippet,
-            ...(segmentIndex > 0
-              ? [
-                  `Checkpoint cognitif ${work.id} r${work.revision}`,
-                  work.state.intentSummary || "",
-                  `attachment=${attachment.reason}`,
-                ].filter(Boolean)
-              : [`attachment=${attachment.reason}`]),
-          ],
-          knowledgeSnippets: input.knowledgeSnippets,
-          pilotageSnippets: input.pilotageSnippets,
-          levelASignals: input.levelASignals,
-          ckiDelivery: input.ckiDelivery,
-          onProvisionalChunk: input.onProvisionalChunk,
-          toolScope: input.toolScope,
-          policyOverride: policy,
-        });
-      }
-      segmentBox.reply = reply;
-      const investigation = mergeInvestigationFromReply(
-        work.state.intentSummary
-          ? work.state
-          : createEmptyInvestigation(input.userText),
-        reply,
-        input.userText,
-      );
-      // Stamp filiation on investigation for READY/DRAFT consumers.
-      investigation.cognitiveWorkId = work.id;
-      investigation.cognitiveRevision = work.revision;
-      const continueWork = semanticContinueWork(
-        reply.qualification,
-        investigation,
-        reply,
-      );
-      const usage = usageFromReply(reply);
-      const production = documentProductionFromReply(
-        work,
-        reply,
-        segmentIndex,
-        continueWork,
-      );
-      return {
-        replyText: reply.content,
-        qualification: reply.qualification,
-        investigation,
-        generationId: reply.generationId,
-        continueWork,
-        resourcesDelta: {
-          inputTokens: usage.inputTokens,
-          outputTokens: usage.outputTokens,
-          modelRequested: reply.modelRequested,
-          modelApplied: reply.modelApplied,
-          effortRequested: reply.effortRequested,
-          effortApplied: reply.effortApplied,
-          webCalls: (reply.observedToolSources ?? []).filter((s) => s.kind === "WEB")
-            .length,
-          limits:
-            usage.inputTokens == null
-              ? ["USAGE_TOKENS_UNKNOWN"]
-              : undefined,
-        },
-        production,
-      };
-    },
-  });
-
-  const lastReply = segmentBox.reply;
-  if (!lastReply) {
-    throw new Error("CONDUCTOR_NO_SEGMENT");
-  }
-
-  // C17: align lifecycle — suspended conductor must not claim COMPLETE reply.
-  const alignedStatus: NoraGenerateResult["status"] = conductor.suspended
-    ? "INTERRUPTED"
-    : lastReply.status;
-
-  const reply: NoraGenerateResult = {
-    ...lastReply,
-    content: conductor.replyText || lastReply.content,
-    qualification: conductor.qualification ?? lastReply.qualification,
-    status: alignedStatus,
-  };
-
-  return {
-    ...reply,
-    conductor: {
-      workId: conductor.work.id,
-      revision: conductor.work.revision,
-      segmentsRun: conductor.segmentsRun,
-      resumed: conductor.resumed,
-      suspended: conductor.suspended,
-      suspendReason: conductor.suspendReason,
-      investigation: {
-        ...conductor.investigation,
-        cognitiveWorkId: conductor.work.id,
-        cognitiveRevision: conductor.work.revision,
-      },
-      production: conductor.production,
-    },
-  };
+  const base =
+    prep.projectionJson && typeof prep.projectionJson === "object"
+      ? (prep.projectionJson as Record<string, unknown>)
+      : {};
+  const snap = base[SNAPSHOT_KEY] as
+    | { state?: InvestigationState; cognitiveWorkId?: string; authority?: string }
+    | undefined;
+  if (!snap?.state) return null;
+  // Explicit non-authoritative — callers must not promote READY from this alone.
+  return resumeInvestigation(snap.state, input.intentFallback ?? snap.state.intentSummary ?? "");
 }
 
 ```
 
-### FULL FILE `projects/sfia-studio-next/web/src/domains/conversation/nora-contract-bridge.ts`
+### FULL FILE `projects/sfia-studio-next/web/src/domains/execution/mandate-applicability.ts`
 
-- sha256 (worktree): `b81bdaa9ba8ceb0e48bf5133f99384b26458ed504a1c099aca52716b9aaf2e2f`
-- lines: 499
-- bytes: 17854
-- inclusion: **COMPLETE** (no truncation; trailing whitespace stripped for handoff hygiene only)
+- sha256 (worktree): `1fb503234c14d1afb4e0e058c4178744a47d679169c7fa78f33296fff1631248`
+- lines: 321
+- inclusion: **COMPLETE**
 
 ```typescript
 /**
- * CA-01 / C14 bridge — after a Nora turn, persist investigation facts and optionally
- * prepare a DRAFT technical contract. Reuses nora-contract-prepare + investigation
- * persistence — no second preparation engine.
- *
- * C14: contract-prepare intent is semantic (qualification intents), never lexical.
+ * C19/C20 — current applicability of a READY technical mandate.
+ * Historical READY status is preserved; effect paths must refuse when
+ * cognitive filiation, investigation, or determining D4 dependencies
+ * are no longer exact/current.
  */
 
-import { prepareTechnicalContractFromNora } from "@/domains/execution/nora-contract-prepare";
-import type { TechnicalContractBody } from "@/domains/execution/types";
+import { and, desc, eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { documentRevisions, documents } from "@/db/schema";
+import { StudioError } from "@/lib/http-errors";
 import {
-  createEmptyInvestigation,
-  evaluateContractReadiness,
-  type InvestigationSourceRef,
-  type InvestigationState,
-} from "./investigation-state";
+  evaluateGlobalResourceEnvelope,
+  getCognitiveWork,
+} from "@/domains/conversation/cognitive-work";
+import { loadInvestigationSnapshot } from "@/domains/conversation/investigation-persistence";
+import { evaluateContractReadiness as evaluateInvestigation } from "@/domains/conversation/investigation-state";
 import {
-  loadInvestigationSnapshot,
-  saveInvestigationSnapshot,
-} from "./investigation-persistence";
-import { appendActivityEvent } from "./activity-projection";
-import type { NoraTurnQualification } from "./semantic-qualification";
+  getTechnicalContract,
+  technicalContractFingerprint,
+} from "./technical-contract";
 
-/** C16 — current observation wins for same ref; history kept as notes, not authority. */
-function mergeSourcesPreferCurrent(
-  prior: InvestigationSourceRef[],
-  observed: InvestigationSourceRef[],
-): InvestigationSourceRef[] {
-  const byKey = new Map<string, InvestigationSourceRef>();
-  for (const s of prior) {
-    byKey.set(`${s.kind}:${s.ref}`, { ...s });
-  }
-  for (const s of observed) {
-    const key = `${s.kind}:${s.ref}`;
-    const prev = byKey.get(key);
-    if (!prev) {
-      byKey.set(key, { ...s });
-      continue;
+export type MandateApplicability = {
+  ok: true;
+  contractId: string;
+  workId: string;
+  revision: number;
+  fingerprint: string;
+} | {
+  ok: false;
+  reason: string;
+};
+
+/**
+ * C20 — revalidate determining D4 dependencies without requiring a cognitive bump.
+ * A newer AVAILABLE revision on a CONSULTED document invalidates the mandate.
+ */
+async function assessDeterminingD4Dependencies(input: {
+  pilotId: string;
+  preparationId: string;
+  sources: Array<{
+    kind: string;
+    ref: string;
+    versionOrSha?: string | null;
+    coverage: string;
+  }>;
+}): Promise<{ ok: true } | { ok: false; reason: string }> {
+  const determining = input.sources.filter(
+    (s) =>
+      s.kind === "D4" &&
+      (s.coverage === "CONSULTED" || s.coverage === "VERIFIED") &&
+      Boolean(s.ref?.trim()),
+  );
+  for (const src of determining) {
+    const ref = src.ref.trim();
+    // ref may be documentId, revisionId, "documentId@revisionId",
+    // or prefixed forms used in investigation journals ("document:doc_…").
+    let documentId: string | null = null;
+    let revisionId: string | null = null;
+    const stripped = ref
+      .replace(/^document:/i, "")
+      .replace(/^revision:/i, "")
+      .replace(/^d4:/i, "")
+      .trim();
+    if (stripped.includes("@")) {
+      const [d, r] = stripped.split("@");
+      documentId = d?.replace(/^document:/i, "") || null;
+      revisionId = r?.replace(/^revision:/i, "") || null;
+    } else if (stripped.startsWith("drev_") || stripped.startsWith("rev_")) {
+      revisionId = stripped;
+    } else if (stripped.startsWith("doc_")) {
+      documentId = stripped;
+    } else {
+      // Unknown D4 ref shape — cannot revalidate → refuse effect.
+      return {
+        ok: false,
+        reason: `Dépendance D4 indéterminable (${ref.slice(0, 48)}) — mandat non applicable`,
+      };
     }
-    const noteBits = [prev.notes, prev.coverage !== s.coverage ? `${prev.coverage}->${s.coverage}` : null, s.notes]
-      .filter(Boolean)
-      .join("; ");
-    byKey.set(key, {
-      ...prev,
-      ...s,
-      notes: noteBits || s.notes,
-      versionOrSha: s.versionOrSha ?? prev.versionOrSha,
-    });
+
+    if (revisionId && !documentId) {
+      const rev = (
+        await db
+          .select()
+          .from(documentRevisions)
+          .where(eq(documentRevisions.id, revisionId))
+          .limit(1)
+      )[0];
+      if (!rev) {
+        return { ok: false, reason: "Révision D4 absente — mandat non applicable" };
+      }
+      documentId = rev.documentId;
+      if (rev.status !== "AVAILABLE") {
+        return {
+          ok: false,
+          reason: `Révision D4 ${rev.status} — mandat non applicable`,
+        };
+      }
+      if (src.versionOrSha && src.versionOrSha !== revisionId && src.versionOrSha !== String(rev.revisionNumber)) {
+        return {
+          ok: false,
+          reason: "Empreinte révision D4 divergente — mandat non applicable",
+        };
+      }
+    }
+
+    if (!documentId) {
+      return { ok: false, reason: "Document D4 indéterminable — mandat non applicable" };
+    }
+
+    const owned = (
+      await db
+        .select()
+        .from(documents)
+        .where(
+          and(
+            eq(documents.id, documentId),
+            eq(documents.ownerPilotId, input.pilotId),
+            eq(documents.preparationId, input.preparationId),
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (!owned) {
+      return { ok: false, reason: "Document D4 hors scope — mandat non applicable" };
+    }
+
+    const latest = (
+      await db
+        .select()
+        .from(documentRevisions)
+        .where(
+          and(
+            eq(documentRevisions.documentId, documentId),
+            eq(documentRevisions.status, "AVAILABLE"),
+          ),
+        )
+        .orderBy(desc(documentRevisions.revisionNumber))
+        .limit(1)
+    )[0];
+    if (!latest) {
+      return { ok: false, reason: "Aucune révision D4 AVAILABLE — mandat non applicable" };
+    }
+
+    if (revisionId && latest.id !== revisionId) {
+      return {
+        ok: false,
+        reason: "Dépendance D4 supersédée — mandat non applicable",
+      };
+    }
+    if (
+      src.versionOrSha &&
+      src.versionOrSha !== latest.id &&
+      src.versionOrSha !== String(latest.revisionNumber)
+    ) {
+      // Bound version no longer current.
+      const boundStill =
+        revisionId === latest.id ||
+        src.versionOrSha === latest.id ||
+        src.versionOrSha === String(latest.revisionNumber);
+      if (!boundStill && revisionId) {
+        const bound = (
+          await db
+            .select()
+            .from(documentRevisions)
+            .where(eq(documentRevisions.id, revisionId))
+            .limit(1)
+        )[0];
+        if (!bound || bound.status !== "AVAILABLE") {
+          return {
+            ok: false,
+            reason: "Révision D4 liée indisponible — mandat non applicable",
+          };
+        }
+        if (bound.revisionNumber < latest.revisionNumber) {
+          return {
+            ok: false,
+            reason: "Dépendance D4 obsolète (nouvelle révision) — mandat non applicable",
+          };
+        }
+      } else if (!boundStill) {
+        return {
+          ok: false,
+          reason: "Version D4 divergente — mandat non applicable",
+        };
+      }
+    }
   }
-  return [...byKey.values()];
-}
-
-
-/** C14 — semantic prepare signal from structured qualification (not user-text regex). */
-export function semanticWantsCursorContractPrepare(
-  qualification: NoraTurnQualification | null | undefined,
-): boolean {
-  if (!qualification || qualification.status === "UNAVAILABLE") return false;
-  return qualification.intents.some(
-    (i) =>
-      i.capabilityId === "d7.prepare_cursor_contract" &&
-      (i.mode === "PREPARE" || i.mode === "REQUEST_EFFECT"),
-  );
-}
-
-/** C14 — corrective draft within existing mandate (A04); never implies dispatch. */
-export function semanticWantsCorrectiveDraft(
-  qualification: NoraTurnQualification | null | undefined,
-): boolean {
-  if (!qualification || qualification.status === "UNAVAILABLE") return false;
-  return qualification.intents.some(
-    (i) =>
-      i.capabilityId === "d7.prepare_cursor_contract" &&
-      (i.parameters?.correctiveDraft === "true" ||
-        // legacy boolean if ever present in persisted JSON
-        (i.parameters as { correctiveDraft?: unknown })?.correctiveDraft === true),
-  );
+  return { ok: true };
 }
 
 /**
- * @deprecated C14 — lexical detectors removed. Kept as always-false stubs so any
- * residual import fails closed (no contract from keywords). Prefer semanticWants*.
+ * Positive check used at prepare / authorize / dispatch effect points.
+ * Does not rewrite historical READY rows.
  */
-export function detectsTechnicalContractIntent(text: string): boolean {
-  void text;
-  return false;
-}
-
-/** @deprecated C14 — see detectsTechnicalContractIntent. */
-export function detectsCorrectiveDraftIntent(text: string): boolean {
-  void text;
-  return false;
-}
-
-export function draftBodyFromInvestigation(
-  inv: InvestigationState,
-  opts?: {
-    title?: string;
-    instructionExtra?: string;
-    /** Full assistant prose when available — not silently truncated to a toy budget. */
-    instructionFromNora?: string;
-    businessCriteria?: string[];
-  },
-): TechnicalContractBody {
-  const title =
-    opts?.title?.trim() ||
-    inv.desiredOutcome.trim() ||
-    inv.intentSummary.trim().slice(0, 120) ||
-    "Contrat technique préparé par Nora";
+export async function assessTechnicalContractMandateApplicability(input: {
+  pilotId: string;
+  projectId: string;
+  contractId: string;
+  preparationId?: string | null;
+}): Promise<MandateApplicability> {
+  const row = await getTechnicalContract({
+    pilotId: input.pilotId,
+    projectId: input.projectId,
+    contractId: input.contractId,
+  });
+  if (row.status !== "READY") {
+    return { ok: false, reason: `Contrat non READY (${row.status})` };
+  }
+  const recomputed = technicalContractFingerprint(row.body);
+  if (recomputed !== row.fingerprint) {
+    return { ok: false, reason: "Empreinte ≠ représentation persistée" };
+  }
+  const workId = row.cognitiveWorkId ?? null;
+  const boundRevision = row.cognitiveRevision;
+  if (!workId || boundRevision == null) {
+    return { ok: false, reason: "Filiation cognitive absente — mandat non applicable" };
+  }
+  const work = await getCognitiveWork({
+    pilotId: input.pilotId,
+    workId,
+  });
+  if (work.projectId && work.projectId !== input.projectId) {
+    return { ok: false, reason: "Travail cognitif hors projet du contrat" };
+  }
+  if (work.revision !== boundRevision) {
+    return {
+      ok: false,
+      reason: `Révision cognitive ${work.revision} ≠ filiation mandat r${boundRevision} — mandat non applicable`,
+    };
+  }
+  if (work.status !== "COMPLETE") {
+    return {
+      ok: false,
+      reason: `Travail cognitif ${work.status} — mandat non applicable`,
+    };
+  }
+  const envelope = evaluateGlobalResourceEnvelope(work.resources);
+  if (!envelope.ok) {
+    return { ok: false, reason: envelope.reason ?? "Budget cognitif global épuisé" };
+  }
+  const preparationId = input.preparationId ?? row.preparationId ?? null;
+  if (!preparationId) {
+    return { ok: false, reason: "preparationId requis pour applicabilité" };
+  }
+  const snap = await loadInvestigationSnapshot({
+    pilotId: input.pilotId,
+    preparationId,
+    intentFallback: row.body.title,
+    workId,
+  });
+  if (!snap) {
+    return { ok: false, reason: "Investigation absente ou ambiguë" };
+  }
+  const inv = evaluateInvestigation(snap);
+  if (inv.cognitiveWorkId && inv.cognitiveWorkId !== workId) {
+    return { ok: false, reason: "Investigation d'un autre travail cognitif" };
+  }
+  if (
+    inv.sufficiency === "UNKNOWN" ||
+    inv.sufficiency === "BUDGET_EXHAUSTED" ||
+    inv.sufficiency === "BLOCKED_BY_UNKNOWN_RESTRICTION" ||
+    !inv.contractReady ||
+    inv.sufficiency !== "SUFFICIENT"
+  ) {
+    return {
+      ok: false,
+      reason:
+        inv.contractReadyBlockedReason ??
+        `Investigation non applicable (${inv.sufficiency})`,
+    };
+  }
   const consulted = inv.sources.filter(
     (s) => s.coverage === "CONSULTED" || s.coverage === "VERIFIED",
   );
-  const sources = consulted.map((s) => `${s.kind}:${s.ref}`).join(", ");
-  const openQs = inv.questions
-    .filter((q) => q.status === "OPEN" || q.status === "BLOCKED")
-    .map((q) => `[${q.importance}] ${q.text}`)
-    .join("\n- ");
-  const contradictions = inv.contradictions
-    .map((c) => `${c.a} ↔ ${c.b}: ${c.detail}`)
-    .join("\n- ");
-  // C15: no silent 24k truncation of Nora technical elaboration.
-  // Transport/security limits remain elsewhere; business instruction stays integral.
-  const noraInstruction =
-    opts?.instructionFromNora?.trim() || opts?.instructionExtra?.trim() || "";
+  if (consulted.length === 0) {
+    return { ok: false, reason: "Aucune source CONSULTED/VERIFIED actuelle" };
+  }
+  const degraded = inv.sources.some(
+    (s) =>
+      s.coverage === "STALE" ||
+      s.coverage === "DENIED" ||
+      s.coverage === "CONTRADICTORY",
+  );
+  if (degraded) {
+    return {
+      ok: false,
+      reason: "Source déterminante dégradée — mandat non applicable",
+    };
+  }
 
-  const instruction = [
-    `# Instruction technique (issue de l'investigation Nora)`,
-    ``,
-    `## Mission`,
-    inv.intentSummary || "(intention non résumée)",
-    inv.desiredOutcome ? `\n## Résultat attendu\n${inv.desiredOutcome}` : null,
-    inv.constraints.length
-      ? `\n## Contraintes / restrictions\n- ${inv.constraints.join("\n- ")}`
-      : null,
-    inv.exclusions.length
-      ? `\n## Exclusions (OUT)\n- ${inv.exclusions.join("\n- ")}`
-      : null,
-    inv.risks.length ? `\n## Risques\n- ${inv.risks.join("\n- ")}` : null,
-    sources
-      ? `\n## Sources consultées (CONSULTED/VERIFIED)\n${sources}`
-      : `\n## Sources\nAucune source CONSULTED/VERIFIED au moment de la préparation.`,
-    openQs ? `\n## Questions encore ouvertes\n- ${openQs}` : null,
-    contradictions ? `\n## Contradictions non résolues\n- ${contradictions}` : null,
-    noraInstruction
-      ? `\n## Élaboration Nora (contexte technique)\n${noraInstruction}`
-      : null,
-    `\n## Exécuteur`,
-    `Cursor SDK local — aucune publication Git sans mandat D6/D9 distinct.`,
-    `Préparer ≠ autoriser. Aucun dispatch sans HumanDecision D6.`,
-  ]
-    .filter(Boolean)
-    .join("\n");
-
-  // C15: keep all business criteria — no artificial cap of 8.
-  const businessCriteria =
-    opts?.businessCriteria?.filter((c) => c.trim()) ??
-    inv.remainingWork.filter((w) => w.trim());
+  const d4 = await assessDeterminingD4Dependencies({
+    pilotId: input.pilotId,
+    preparationId,
+    sources: inv.sources,
+  });
+  if (!d4.ok) return d4;
 
   return {
-    title,
-    engagements: {
-      willDo: inv.desiredOutcome || inv.intentSummary,
-      willNotDo: inv.exclusions.join("; ") || "Hors périmètre non listé",
-      expectedResult: inv.desiredOutcome || "Livrables conformes au contrat",
-      pilotControl: "HumanDecision D6 avant dispatch ; STOP observé ≠ rollback",
-    },
-    volets: {
-      mission: inv.intentSummary,
-      perimeter: inv.constraints.join("; ") || "Périmètre à confirmer",
-      capabilitiesAuthority: "CURSOR_SDK_LOCAL — permissions effectives uniquement",
-      stopConditions:
-        "STOP demandé / observé ; interruption → AMBIGUOUS si effet possible",
-      proofsSources: sources || "Preuves à établir dans le handoff",
-      integrity: "Fingerprint contrat + instruction exacte ; pas de troncature",
-    },
-    instructionText: instruction,
-    risks: inv.risks.length ? inv.risks : ["Effets externes possibles via Cursor"],
-    exclusions: inv.exclusions,
-    acceptance: {
-      criteria: businessCriteria.length
-        ? businessCriteria
-        : [
-            "Comportements métier du résultat attendu vérifiés",
-            "Handoff RECEIVED avec inventaire observé (complément, pas substitut métier)",
-          ],
-      expectedProofs: [
-        "rapport markdown",
-        "manifeste inventaire (fichiers observés)",
-        "sorties de tests capturées lorsque des tests sont annoncés",
-      ],
-    },
-    executor: {
-      kind: "CURSOR_SDK_LOCAL",
-      capabilities: ["file_edit", "shell_test"],
-      permissionsNeeded: [],
-    },
-    stopConditions: ["STOP", "claim fence invalid"],
-    reversibilityLimits: ["Pas de rollback automatique des effets Cursor"],
-    gitScope: null,
+    ok: true,
+    contractId: input.contractId,
+    workId,
+    revision: boundRevision,
+    fingerprint: row.fingerprint,
   };
 }
 
-export type NoraContractBridgeInput = {
+export async function assertTechnicalContractMandateApplicable(input: {
   pilotId: string;
   projectId: string;
-  preparationId: string;
-  conversationId: string;
-  turnCommandId: string;
-  ownerToken?: string | null;
-  userText: string;
-  assistantText?: string;
-  /** C14 — structured qualification drives prepare/corrective (required for intent). */
-  qualification?: NoraTurnQualification | null;
-  observedSources?: InvestigationSourceRef[];
-  attemptPrepare?: boolean;
-  contractKey?: string;
-  sourceTurnCommandId?: string | null;
-  /** C17 — exact cognitive work filiation (server-resolved). */
-  workId?: string | null;
-  workRevision?: number | null;
-  investigationOverride?: InvestigationState | null;
-  productionInstruction?: string | null;
-  acceptanceCriteria?: string[] | null;
-};
-
-export type NoraContractBridgeResult = {
-  intentDetected: boolean;
-  correctiveIntent: boolean;
-  investigation: InvestigationState | null;
-  prepared: {
-    contractId: string;
-    contractKey: string;
-    version: number;
-    fingerprint: string;
-    status: string;
-  } | null;
-  blockedReason: string | null;
-  cursorRedispatch: false;
-};
-
-/**
- * Persist investigation progress and optionally prepare a DRAFT contract.
- * READY is never granted here. A04 corrective drafts never dispatch Cursor.
- */
-export async function bridgeNoraTurnToContractPreparation(
-  input: NoraContractBridgeInput,
-): Promise<NoraContractBridgeResult> {
-  const intentDetected =
-    semanticWantsCursorContractPrepare(input.qualification) ||
-    // C18: structured production (tool / qualification / investigation) is
-    // an observed prepare signal — never replyDraft prose scrape.
-    Boolean(
-      input.productionInstruction?.trim() &&
-        (input.acceptanceCriteria?.filter((c) => c.trim()).length ?? 0) > 0,
-    );
-  const correctiveIntent = semanticWantsCorrectiveDraft(input.qualification);
-  if (!intentDetected && !correctiveIntent && !(input.observedSources?.length)) {
-    return {
-      intentDetected: false,
-      correctiveIntent: false,
-      investigation: null,
-      prepared: null,
-      blockedReason: null,
-      cursorRedispatch: false,
-    };
-  }
-
-  const prior =
-    input.investigationOverride ??
-    (await loadInvestigationSnapshot({
-      pilotId: input.pilotId,
-      preparationId: input.preparationId,
-      intentFallback: input.userText,
-      workId: input.workId,
-    })) ??
-    createEmptyInvestigation(input.userText);
-
-  const q = input.qualification;
-  const merged: InvestigationState = {
-    ...prior,
-    intentSummary:
-      (q?.goal?.trim() || prior.intentSummary || input.userText).slice(0, 800),
-    desiredOutcome:
-      (q?.desiredOutcome?.trim() || prior.desiredOutcome || "").slice(0, 800),
-    sources: mergeSourcesPreferCurrent(prior.sources, input.observedSources ?? []),
-    constraints: correctiveIntent
-      ? [
-          ...prior.constraints.filter((c) => !c.startsWith("A04:")),
-          "A04: brouillon correctif dans mandat existant — aucun nouveau dispatch Cursor",
-        ]
-      : prior.constraints,
-    exclusions: prior.exclusions,
-    profileHint:
-      prior.profileHint === "simple" && (intentDetected || correctiveIntent)
-        ? "investigation"
-        : prior.profileHint === "simple"
-          ? "analyse"
-          : prior.profileHint,
-  };
-  const evaluated = evaluateContractReadiness({
-    ...merged,
-    cognitiveWorkId: input.workId ?? merged.cognitiveWorkId ?? null,
-    cognitiveRevision: input.workRevision ?? merged.cognitiveRevision ?? null,
-    productionInstruction:
-      input.productionInstruction?.trim() ||
-      merged.productionInstruction ||
-      null,
-    acceptanceCriteria:
-      input.acceptanceCriteria?.filter((c) => c.trim()) ??
-      merged.acceptanceCriteria ??
-      [],
-  });
-  evaluated.cognitiveWorkId = input.workId ?? evaluated.cognitiveWorkId ?? null;
-  evaluated.cognitiveRevision = input.workRevision ?? evaluated.cognitiveRevision ?? null;
-  const persisted = await saveInvestigationSnapshot({
-    pilotId: input.pilotId,
-    preparationId: input.preparationId,
-    state: evaluated,
-    workId: input.workId,
-    projectId: input.projectId,
-    conversationId: input.conversationId,
-  });
-  // Contract filiation uses the immutable checkpoint revision actually written.
-  // Do not re-save solely to rewrite cognitiveRevision inside state_json (would bump again).
-  evaluated.cognitiveWorkId = persisted.workId;
-  evaluated.cognitiveRevision = persisted.revision;
-
-  try {
-    await appendActivityEvent({
-      conversationId: input.conversationId,
-      turnCommandId: input.turnCommandId,
-      ownerPilotId: input.pilotId,
-      phase: "nora.investigation",
-      nature: "OBSERVED",
-      status: evaluated.contractReady ? "COMPLETED" : "LIMITED",
-      summary: evaluated.contractReady
-        ? "Investigation suffisante pour préparer un contrat DRAFT"
-        : evaluated.contractReadyBlockedReason ?? "Investigation en cours",
-      detail: {
-        sufficiency: evaluated.sufficiency,
-        sourceCount: evaluated.sources.length,
-        contractReady: evaluated.contractReady,
-        semanticPrepare: intentDetected,
-        semanticCorrective: correctiveIntent,
-      },
-      ownerToken: input.ownerToken,
+  contractId: string;
+  preparationId?: string | null;
+}): Promise<Extract<MandateApplicability, { ok: true }>> {
+  const assessed = await assessTechnicalContractMandateApplicability(input);
+  if (!assessed.ok) {
+    throw new StudioError("REQUIRES_REQUALIFICATION", assessed.reason, {
+      exposeMessage: true,
     });
-  } catch {
-    /* observational */
   }
-
-  // C16: DRAFT may be prepared incomplete (inspectable). READY stays blocked elsewhere.
-  // remainingWork is NOT acceptance criteria — never slice(0,8) into businessCriteria.
-  if (!input.attemptPrepare || !intentDetected) {
-    return {
-      intentDetected,
-      correctiveIntent,
-      investigation: evaluated,
-      prepared: null,
-      blockedReason: null,
-      cursorRedispatch: false,
-    };
-  }
-  const hasConsultedSource = evaluated.sources.some(
-    (s) => s.coverage === "CONSULTED" || s.coverage === "VERIFIED",
-  );
-
-  // C18: acceptanceCriteria / productionInstruction only from structured production.
-  // No generic fallback criteria that could become READY. DRAFT may be incomplete.
-  const structuredCriteria =
-    (evaluated.acceptanceCriteria?.filter((c) => c.trim()).length
-      ? evaluated.acceptanceCriteria.filter((c) => c.trim())
-      : null) ??
-    (input.acceptanceCriteria?.filter((c) => c.trim()).length
-      ? input.acceptanceCriteria.filter((c) => c.trim())
-      : null);
-  const acceptanceCriteria = structuredCriteria ?? [];
-  const productionInstruction =
-    evaluated.productionInstruction?.trim() ||
-    input.productionInstruction?.trim() ||
-    "";
-  evaluated.acceptanceCriteria = acceptanceCriteria;
-  evaluated.productionInstruction =
-    productionInstruction || evaluated.productionInstruction || null;
-  // Never invent desiredOutcome — READY requires an explicit outcome from Nora.
-  const draftIncomplete =
-    !evaluated.contractReady ||
-    !hasConsultedSource ||
-    !productionInstruction ||
-    acceptanceCriteria.length === 0;
-  const body = draftBodyFromInvestigation(evaluated, {
-    instructionFromNora: productionInstruction || undefined,
-    instructionExtra: undefined,
-    businessCriteria:
-      acceptanceCriteria.length > 0
-        ? acceptanceCriteria
-        : ["DRAFT_INCOMPLETE — critères d'acceptation structurés absents"],
-  });
-  if (draftIncomplete) {
-    body.exclusions = [
-      ...body.exclusions,
-      "DRAFT_INCOMPLETE — qualification positive non établie; READY interdit",
-      ...(!hasConsultedSource
-        ? ["DRAFT_INCOMPLETE — aucune source CONSULTED/VERIFIED au moment du brouillon"]
-        : []),
-      ...(!productionInstruction
-        ? ["DRAFT_INCOMPLETE — productionInstruction structurée absente"]
-        : []),
-      ...(acceptanceCriteria.length === 0
-        ? ["DRAFT_INCOMPLETE — acceptanceCriteria structurés absents"]
-        : []),
-    ];
-  }
-  const key =
-    input.contractKey ??
-    `nora-${input.preparationId.slice(-8)}-${Date.now().toString(36)}`;
-
-  try {
-    await appendActivityEvent({
-      conversationId: input.conversationId,
-      turnCommandId: input.turnCommandId,
-      ownerPilotId: input.pilotId,
-      phase: "nora.contract.prepare",
-      nature: "ANNOUNCED",
-      status: "RUNNING",
-      summary: "Nora prépare un contrat technique DRAFT",
-      ownerToken: input.ownerToken,
-    });
-  } catch {
-    /* observational */
-  }
-
-  try {
-    const created = await prepareTechnicalContractFromNora({
-      pilotId: input.pilotId,
-      projectId: input.projectId,
-      preparationId: input.preparationId,
-      contractKey: key,
-      body,
-      sourceTurnCommandId: input.sourceTurnCommandId ?? input.turnCommandId,
-      investigationOverride: evaluated,
-      cognitiveWorkId: evaluated.cognitiveWorkId ?? input.workId ?? null,
-      cognitiveRevision: evaluated.cognitiveRevision ?? input.workRevision ?? null,
-    });
-    try {
-      await appendActivityEvent({
-        conversationId: input.conversationId,
-        turnCommandId: input.turnCommandId,
-        ownerPilotId: input.pilotId,
-        phase: "nora.contract.prepare",
-        nature: "COMPLETED",
-        status: "COMPLETED",
-        summary: `Contrat DRAFT ${created.contractKey} v${created.version} préparé`,
-        sourceRef: created.contractId,
-        ownerToken: input.ownerToken,
-      });
-    } catch {
-      /* observational */
-    }
-    return {
-      intentDetected,
-      correctiveIntent,
-      investigation: evaluated,
-      prepared: {
-        contractId: created.contractId,
-        contractKey: created.contractKey,
-        version: created.version,
-        fingerprint: created.fingerprint,
-        status: created.status,
-      },
-      blockedReason: null,
-      cursorRedispatch: false,
-    };
-  } catch (e) {
-    const msg = e instanceof Error ? e.message : "Préparation contrat refusée";
-    try {
-      await appendActivityEvent({
-        conversationId: input.conversationId,
-        turnCommandId: input.turnCommandId,
-        ownerPilotId: input.pilotId,
-        phase: "nora.contract.prepare",
-        nature: "UNCERTAIN",
-        status: "FAILED",
-        summary: msg.slice(0, 200),
-        ownerToken: input.ownerToken,
-      });
-    } catch {
-      /* observational */
-    }
-    return {
-      intentDetected,
-      correctiveIntent,
-      investigation: evaluated,
-      prepared: null,
-      blockedReason: msg,
-      cursorRedispatch: false,
-    };
-  }
+  return assessed;
 }
 
 ```
 
-### FULL FILE `projects/sfia-studio-next/web/src/domains/execution/nora-contract-prepare.ts`
+### FULL FILE `projects/sfia-studio-next/web/src/domains/execution/cursor-attempt-service.ts`
 
-- sha256 (worktree): `b307cf2031b86e4605e5b352753f298e4b162ec8226c548eee0f0e656ace81ed`
-- lines: 113
-- bytes: 3942
-- inclusion: **COMPLETE** (no truncation; trailing whitespace stripped for handoff hygiene only)
+- sha256 (worktree): `d8bccc3423c9097ce4dd1c5bc11cae533eef1f0a636e02a182d99c8a4e942b4e`
+- lines: 1086
+- inclusion: **COMPLETE**
 
 ```typescript
-/**
- * CA-01 — Nora prepares a technical contract from a durable investigation.
- * Reuses D3 investigation + D7 technical_contracts — no second preparation engine.
- */
-
+import { and, eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { effectAttempts, projects, technicalContracts } from "@/db/schema";
+import { insertHumanDecision } from "@/domains/decisions/service";
 import { StudioError } from "@/lib/http-errors";
+import { newId } from "@/lib/ids";
+import { assertCurrentCursorAuthority } from "./cursor-authority";
+import { claimCursorAttempt, persistCursorOwnedResult } from "./cursor-claim";
 import {
-  loadInvestigationSnapshot,
-  saveInvestigationSnapshot,
-} from "@/domains/conversation/investigation-persistence";
-import {
-  evaluateContractReadiness as evaluateInvestigationReadiness,
-  type InvestigationState,
-} from "@/domains/conversation/investigation-state";
-import {
-  createTechnicalContract,
-  evaluateContractReadiness,
-} from "./technical-contract";
-import type { TechnicalContractBody } from "./types";
+  dispatchCursorRun,
+  resolveCursorAdapterMode,
+  stopCursorRun,
+} from "./cursor-sdk-adapter";
+import { isClaimActive, readClaim } from "./claim-lease";
+import { instructionFingerprint } from "./technical-contract-fingerprint";
+import { resolveCursorWorkspace } from "./workspace-resolver";
+import type { CursorExecutionPlan, CursorLiveProjection } from "./types";
 
-export type NoraContractPrepareInput = {
+async function assertProject(pilotId: string, projectId: string) {
+  const p = (
+    await db
+      .select({ id: projects.id })
+      .from(projects)
+      .where(and(eq(projects.id, projectId), eq(projects.ownerPilotId, pilotId)))
+      .limit(1)
+  )[0];
+  if (!p) throw new StudioError("NOT_FOUND", "Projet introuvable");
+}
+
+function parseLive(resultJson: string | null | undefined): CursorLiveProjection {
+  try {
+    return JSON.parse(resultJson || "{}") as CursorLiveProjection;
+  } catch {
+    return {};
+  }
+}
+
+function planFingerprintPayload(plan: CursorExecutionPlan): string {
+  return JSON.stringify({
+    kind: plan.kind,
+    contractId: plan.contractId,
+    contractVersion: plan.contractVersion,
+    contractFingerprint: plan.contractFingerprint,
+    instructionFingerprint: plan.instructionFingerprint,
+    workspaceCwd: plan.workspaceCwd,
+    workspaceKey: plan.workspaceKey ?? null,
+    effectProviderMode: plan.effectProviderMode,
+    gitScope: plan.gitScope ?? null,
+    mcpRequired: [...(plan.mcpRequired ?? [])].sort(),
+  });
+}
+
+export async function prepareCursorExecution(input: {
   pilotId: string;
   projectId: string;
-  preparationId: string;
-  contractKey: string;
-  body: TechnicalContractBody;
-  sourceTurnCommandId?: string | null;
-  /** Server-owned: never trust client "sourcesSufficient". */
-  investigationOverride?: InvestigationState | null;
-  cognitiveWorkId?: string | null;
-  cognitiveRevision?: number | null;
-};
+  contractId: string;
+  correlationKey: string;
+  /** Server-side key only — never an absolute client path. */
+  workspaceKey?: string | null;
+  /** Legacy client field — absolute paths are rejected. */
+  workspaceCwd?: string | null;
+  mcpRequired?: string[];
+}) {
+  await assertProject(input.pilotId, input.projectId);
+
+  const contract = (
+    await db
+      .select()
+      .from(technicalContracts)
+      .where(
+        and(
+          eq(technicalContracts.id, input.contractId),
+          eq(technicalContracts.projectId, input.projectId),
+          eq(technicalContracts.pilotId, input.pilotId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!contract) throw new StudioError("NOT_FOUND", "Contrat technique introuvable");
+  if (contract.status !== "READY") {
+    throw new StudioError(
+      "INVALID_REQUEST",
+      `Contrat non prêt pour tentative: ${contract.status}`,
+      { exposeMessage: true },
+    );
+  }
+  // C19: READY historique ≠ applicabilité actuelle au point d'effet.
+  const { assertTechnicalContractMandateApplicable } = await import(
+    "./mandate-applicability"
+  );
+  await assertTechnicalContractMandateApplicable({
+    pilotId: input.pilotId,
+    projectId: input.projectId,
+    contractId: input.contractId,
+    preparationId: contract.preparationId,
+  });
+
+  const workspace = resolveCursorWorkspace({
+    pilotId: input.pilotId,
+    projectId: input.projectId,
+    workspaceKey: input.workspaceKey,
+    clientDeclaredCwd: input.workspaceCwd,
+    ensureDir: true,
+  });
+
+  const prior = (
+    await db
+      .select()
+      .from(effectAttempts)
+      .where(
+        and(
+          eq(effectAttempts.pilotId, input.pilotId),
+          eq(effectAttempts.projectId, input.projectId),
+          eq(effectAttempts.correlationKey, input.correlationKey),
+        ),
+      )
+      .limit(1)
+  )[0];
+
+  const mode = resolveCursorAdapterMode();
+  const gitScope = contract.gitScopeJson
+    ? (JSON.parse(contract.gitScopeJson) as CursorExecutionPlan["gitScope"])
+    : null;
+  // DÉC-ML5-GIT Option A — CP-01 independent Git observations (never contract SHA echo).
+  if (gitScope?.required) {
+    const {
+      buildCursorGitMandateFromScope,
+      observeWorkspaceGitFacts,
+      preflightCursorGitOptionA,
+    } = await import("./cursor-git-option-a");
+    const mandate = buildCursorGitMandateFromScope(gitScope);
+    const authorized =
+      process.env.SFIA_CURSOR_GIT_AUTHORIZED_REPOS?.split(",")
+        .map((s) => s.trim())
+        .filter(Boolean) ?? [];
+    // DEV SCRIPTED: allow the declared repo name when authorized list empty and mode SCRIPTED.
+    const repos =
+      authorized.length > 0
+        ? authorized
+        : mode === "SCRIPTED" && gitScope.repositoryFullName
+          ? [gitScope.repositoryFullName]
+          : [];
+    const observations = observeWorkspaceGitFacts(
+      workspace.workspaceCwd,
+      gitScope.baseRef ?? "main",
+      gitScope.workBranch ?? "cursor/work",
+    );
+    const pre = preflightCursorGitOptionA({
+      mandate,
+      workspacePath: workspace.workspaceCwd,
+      authorizedRepos: repos,
+      observations,
+    });
+    if (!pre.ok) {
+      throw new StudioError(
+        "INVALID_REQUEST",
+        `Préflight Git Cursor option A refusé: ${pre.reason}`,
+        { exposeMessage: true },
+      );
+    }
+  }
+  // E12 / C8 A3 — MCP fail-closed: UNKNOWN blocks; SCRIPTED may simulate explicitly.
+  const mcpRequired = input.mcpRequired ?? [];
+  if (mcpRequired.length > 0) {
+    const { assertMcpReadyForDispatch, checkRequiredMcpCapabilities } = await import(
+      "./mcp-capability-check"
+    );
+    const scriptedSimulation = mode === "SCRIPTED";
+    const mcpResults = checkRequiredMcpCapabilities(mcpRequired, process.env, {
+      scriptedSimulation,
+    });
+    const mcpGate = assertMcpReadyForDispatch(mcpResults, {
+      allowScriptedSimulation: scriptedSimulation,
+    });
+    if (!mcpGate.ok) {
+      throw new StudioError(
+        "INVALID_REQUEST",
+        `Préflight MCP refusé: ${mcpGate.reason}`,
+        { exposeMessage: true },
+      );
+    }
+  }
+  const modelId = (process.env.SFIA_CURSOR_MODEL_ID || "").trim() || undefined;
+  const plan: CursorExecutionPlan = {
+    kind: "CURSOR_EXECUTION",
+    contractId: contract.id,
+    contractKey: contract.contractKey,
+    contractVersion: contract.version,
+    contractFingerprint: contract.fingerprint,
+    instructionFingerprint: instructionFingerprint(contract.instructionText),
+    workspaceCwd: workspace.workspaceCwd,
+    workspaceKey: workspace.workspaceKey,
+    effectProviderMode: mode,
+    ...(modelId ? { modelId } : {}),
+    gitScope,
+    mcpRequired,
+  };
+  const fingerprint = contract.fingerprint;
+  const planFp = planFingerprintPayload(plan);
+
+  if (prior) {
+    if (prior.kind !== "CURSOR_EXECUTION") {
+      throw new StudioError("CONFLICT", "correlationKey déjà utilisé par un autre kind");
+    }
+    if (prior.fingerprint !== fingerprint) {
+      throw new StudioError("CONFLICT", "PAYLOAD_MISMATCH pour correlationKey", {
+        exposeMessage: true,
+      });
+    }
+    const priorPlan = JSON.parse(prior.planJson) as CursorExecutionPlan;
+    if (planFingerprintPayload(priorPlan) !== planFp) {
+      throw new StudioError(
+        "CONFLICT",
+        "PAYLOAD_MISMATCH — même correlationKey, cible/workspace/capacités différents",
+        { exposeMessage: true },
+      );
+    }
+    return {
+      attemptId: prior.id,
+      status: prior.status,
+      idempotent: true as const,
+      fingerprint: prior.fingerprint,
+      plan: priorPlan,
+    };
+  }
+
+  const attemptId = newId("efx");
+  const now = new Date();
+  await db.insert(effectAttempts).values({
+    id: attemptId,
+    pilotId: input.pilotId,
+    projectId: input.projectId,
+    kind: "CURSOR_EXECUTION",
+    status: "PREPARED",
+    correlationKey: input.correlationKey,
+    fingerprint,
+    planJson: JSON.stringify(plan),
+    resultJson: JSON.stringify({ reportStatus: "EXPECTED" } satisfies CursorLiveProjection),
+    createdAt: now,
+    updatedAt: now,
+  });
+
+  return {
+    attemptId,
+    status: "PREPARED" as const,
+    idempotent: false as const,
+    fingerprint,
+    plan,
+  };
+}
 
 /**
- * Persist a DRAFT technical contract when investigation is sufficient.
- * READY is never granted here — markReady requires separate server qualification.
+ * Authenticated D6 Non — records an explicit HumanDecision refusal.
+ * No AUTHORIZED transition, no dispatch, no Cursor effect.
+ * Attempt moves PREPARED → CANCELLED (still the same attemptId).
  */
-export async function prepareTechnicalContractFromNora(
-  input: NoraContractPrepareInput,
-) {
-  const investigation =
-    input.investigationOverride ??
-    (await loadInvestigationSnapshot({
+export async function refuseCursorExecution(input: {
+  pilotId: string;
+  projectId: string;
+  attemptId: string;
+  statement: string;
+  inspectedFingerprint: string;
+}) {
+  return db.transaction(async (tx) => {
+    const row = (
+      await tx
+        .select()
+        .from(effectAttempts)
+        .where(
+          and(
+            eq(effectAttempts.id, input.attemptId),
+            eq(effectAttempts.projectId, input.projectId),
+            eq(effectAttempts.pilotId, input.pilotId),
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (!row) throw new StudioError("NOT_FOUND", "Tentative introuvable");
+    if (row.kind !== "CURSOR_EXECUTION") {
+      throw new StudioError("INVALID_REQUEST", "Tentative non Cursor");
+    }
+    if (row.status === "CANCELLED" && row.decisionId) {
+      return {
+        attemptId: row.id,
+        status: "CANCELLED" as const,
+        decisionId: row.decisionId,
+        idempotent: true as const,
+        fingerprint: row.fingerprint,
+        refused: true as const,
+      };
+    }
+    if (row.status !== "PREPARED") {
+      throw new StudioError(
+        "CONFLICT",
+        `Refus D6 impossible depuis statut ${row.status}`,
+        { exposeMessage: true },
+      );
+    }
+    if (input.inspectedFingerprint !== row.fingerprint) {
+      throw new StudioError(
+        "REQUIRES_REQUALIFICATION",
+        "Empreinte inspectée ≠ tentative — relire le contrat",
+        { exposeMessage: true },
+      );
+    }
+    const effectConditions = JSON.stringify({
+      fingerprint: row.fingerprint,
+      kind: "CURSOR_EXECUTION_REFUSAL",
+      attemptId: row.id,
+    });
+    const decisionId = await insertHumanDecision(tx, {
+      projectId: input.projectId,
       pilotId: input.pilotId,
-      preparationId: input.preparationId,
-      intentFallback: input.body.title || input.body.volets.mission,
-    }));
+      sourceKind: "CURSOR_EXECUTION",
+      sourceRef: row.id,
+      kind: "CURSOR_EXECUTION_REFUSAL",
+      objectRef: row.id,
+      statement: (input.statement || "Refus explicite D6 — pas d'exécution Cursor").slice(0, 500),
+      effectConditions,
+    });
+    const now = new Date();
+    await tx
+      .update(effectAttempts)
+      .set({
+        status: "CANCELLED",
+        decisionId,
+        effectConditions,
+        updatedAt: now,
+      })
+      .where(eq(effectAttempts.id, row.id));
+    return {
+      attemptId: row.id,
+      status: "CANCELLED" as const,
+      decisionId,
+      idempotent: false as const,
+      fingerprint: row.fingerprint,
+      refused: true as const,
+    };
+  });
+}
 
-  if (!investigation) {
+export async function authorizeCursorExecution(input: {
+  pilotId: string;
+  projectId: string;
+  attemptId: string;
+  statement: string;
+  inspectedFingerprint: string;
+  /** Explicit confirmation — required. */
+  confirmed: boolean;
+}) {
+  if (!input.confirmed) {
+    return refuseCursorExecution({
+      pilotId: input.pilotId,
+      projectId: input.projectId,
+      attemptId: input.attemptId,
+      statement: input.statement,
+      inspectedFingerprint: input.inspectedFingerprint,
+    });
+  }
+  return db.transaction(async (tx) => {
+    const row = (
+      await tx
+        .select()
+        .from(effectAttempts)
+        .where(
+          and(
+            eq(effectAttempts.id, input.attemptId),
+            eq(effectAttempts.projectId, input.projectId),
+            eq(effectAttempts.pilotId, input.pilotId),
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (!row) throw new StudioError("NOT_FOUND", "Tentative introuvable");
+    if (row.kind !== "CURSOR_EXECUTION") {
+      throw new StudioError("INVALID_REQUEST", "Tentative non Cursor");
+    }
+    if (row.status !== "PREPARED" && row.status !== "AUTHORIZED") {
+      throw new StudioError("CONFLICT", `Statut non autorisable: ${row.status}`);
+    }
+    if (input.inspectedFingerprint !== row.fingerprint) {
+      throw new StudioError(
+        "REQUIRES_REQUALIFICATION",
+        "Empreinte inspectée ≠ tentative — relire le contrat",
+        { exposeMessage: true },
+      );
+    }
+
+    const contract = (
+      await tx
+        .select()
+        .from(technicalContracts)
+        .where(eq(technicalContracts.id, (JSON.parse(row.planJson) as CursorExecutionPlan).contractId))
+        .limit(1)
+    )[0];
+    if (!contract || contract.status !== "READY") {
+      throw new StudioError("REQUIRES_REQUALIFICATION", "Contrat non READY au moment D6");
+    }
+    if (contract.fingerprint !== row.fingerprint) {
+      throw new StudioError("REQUIRES_REQUALIFICATION", "Contrat divergé depuis prepare");
+    }
+    // C19: re-check filiation / investigation currency before HumanDecision.
+    const { assertTechnicalContractMandateApplicable } = await import(
+      "./mandate-applicability"
+    );
+    await assertTechnicalContractMandateApplicable({
+      pilotId: input.pilotId,
+      projectId: input.projectId,
+      contractId: contract.id,
+      preparationId: contract.preparationId,
+    });
+
+    if (row.status === "AUTHORIZED" && row.decisionId) {
+      return {
+        attemptId: row.id,
+        status: "AUTHORIZED" as const,
+        decisionId: row.decisionId,
+        idempotent: true as const,
+        fingerprint: row.fingerprint,
+      };
+    }
+
+    const effectConditions = JSON.stringify({
+      fingerprint: row.fingerprint,
+      kind: "CURSOR_EXECUTION_MANDATE",
+      attemptId: row.id,
+    });
+    const decisionId = await insertHumanDecision(tx, {
+      projectId: input.projectId,
+      pilotId: input.pilotId,
+      sourceKind: "CURSOR_EXECUTION",
+      sourceRef: row.id,
+      kind: "CURSOR_EXECUTION_MANDATE",
+      objectRef: row.id,
+      statement: input.statement.slice(0, 500),
+      effectConditions,
+    });
+
+    const now = new Date();
+    await tx
+      .update(effectAttempts)
+      .set({
+        status: "AUTHORIZED",
+        decisionId,
+        effectConditions,
+        updatedAt: now,
+      })
+      .where(eq(effectAttempts.id, row.id));
+
+    return {
+      attemptId: row.id,
+      status: "AUTHORIZED" as const,
+      decisionId,
+      idempotent: false as const,
+      fingerprint: row.fingerprint,
+    };
+  });
+}
+
+export async function dispatchCursorExecution(input: {
+  pilotId: string;
+  projectId: string;
+  attemptId: string;
+}) {
+  const row = (
+    await db
+      .select()
+      .from(effectAttempts)
+      .where(
+        and(
+          eq(effectAttempts.id, input.attemptId),
+          eq(effectAttempts.projectId, input.projectId),
+          eq(effectAttempts.pilotId, input.pilotId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!row) throw new StudioError("NOT_FOUND", "Tentative introuvable");
+  if (row.kind !== "CURSOR_EXECUTION") {
+    throw new StudioError("INVALID_REQUEST", "Tentative non Cursor");
+  }
+
+  const live = parseLive(row.resultJson);
+
+  // Terminal / in-flight: never blind redispatches.
+  if (row.status === "DISPATCHED") {
+    throw new StudioError(
+      "CONFLICT",
+      "Exécution déjà DISPATCHED — reconcile puis reprise contrôlée (AMBIGUOUS) requise",
+      { exposeMessage: true },
+    );
+  }
+  if (row.status === "COMPLETED" || row.status === "FAILED" || row.status === "CONFLICT") {
+    return {
+      attemptId: row.id,
+      status: row.status,
+      idempotent: true as const,
+      live,
+      limits: ["NO_BLIND_REDISPATCH", ...(live.limits ?? [])],
+    };
+  }
+  if (row.status !== "AUTHORIZED" && row.status !== "AMBIGUOUS") {
+    throw new StudioError("CONFLICT", `Dispatch refusé depuis statut ${row.status}`, {
+      exposeMessage: true,
+    });
+  }
+
+  await assertCurrentCursorAuthority({
+    pilotId: input.pilotId,
+    projectId: input.projectId,
+    decisionId: row.decisionId,
+    attemptId: row.id,
+    fingerprint: row.fingerprint,
+    effectConditionsFingerprint: row.effectConditions
+      ? (JSON.parse(row.effectConditions) as { fingerprint?: string }).fingerprint ?? null
+      : null,
+  });
+
+  const plan = JSON.parse(row.planJson) as CursorExecutionPlan;
+  if (plan.contractFingerprint !== row.fingerprint) {
+    throw new StudioError("REQUIRES_REQUALIFICATION", "Plan ≠ fingerprint tentative");
+  }
+
+  // Re-resolve workspace — refuse if confinement broken since prepare.
+  const workspace = resolveCursorWorkspace({
+    pilotId: input.pilotId,
+    projectId: input.projectId,
+    workspaceKey: plan.workspaceKey ?? "default",
+    ensureDir: true,
+  });
+  if (workspace.workspaceCwd !== plan.workspaceCwd) {
     throw new StudioError(
       "REQUIRES_REQUALIFICATION",
-      "Aucune investigation durable — Nora doit qualifier les sources avant contrat",
+      "Workspace résolu ≠ plan préparé — nouvel acte requis",
       { exposeMessage: true },
     );
   }
 
-  const evaluated = evaluateInvestigationReadiness(investigation);
-  // C19: when caller already persisted investigation (bridge), do not bump again.
-  // Redundant saves previously advanced revision past contract filiation.
-  if (!input.investigationOverride) {
-    await saveInvestigationSnapshot({
-      pilotId: input.pilotId,
-      preparationId: input.preparationId,
-      state: evaluated,
-      workId: input.cognitiveWorkId ?? evaluated.cognitiveWorkId ?? null,
-      projectId: input.projectId,
+  const contract = (
+    await db
+      .select()
+      .from(technicalContracts)
+      .where(eq(technicalContracts.id, plan.contractId))
+      .limit(1)
+  )[0];
+  if (!contract) throw new StudioError("NOT_FOUND", "Contrat disparu");
+  if (contract.fingerprint !== row.fingerprint || contract.status !== "READY") {
+    throw new StudioError(
+      "REQUIRES_REQUALIFICATION",
+      "Contrat modifié ou non READY depuis l'autorisation",
+      { exposeMessage: true },
+    );
+  }
+  // C19: dispatch effect point — obsolete mandate cannot run.
+  const { assertTechnicalContractMandateApplicable: assertMandateAtDispatch } =
+    await import("./mandate-applicability");
+  await assertMandateAtDispatch({
+    pilotId: input.pilotId,
+    projectId: input.projectId,
+    contractId: contract.id,
+    preparationId: contract.preparationId,
+  });
+
+  const fromStatus = row.status as "AUTHORIZED" | "AMBIGUOUS";
+  if (fromStatus === "AMBIGUOUS") {
+    const { priorSendMayHaveOccurred } = await import("./cursor-claim");
+    if (priorSendMayHaveOccurred(row.resultJson)) {
+      throw new StudioError(
+        "CONFLICT",
+        "AMBIGUOUS avec envoi antérieur possible — pas de redispatch ; réconcilier ou conserver UNKNOWN",
+        { exposeMessage: true },
+      );
+    }
+  }
+  // P0: claim + sendRequestedAt in one durable write BEFORE any external SDK call.
+  // Crash between this point and SDK ⇒ priorSendMayHaveOccurred ⇒ no blind redispatch.
+  const claimed = await claimCursorAttempt(row.id, fromStatus, { stampSendIntent: true });
+  if (!claimed) {
+    const again = (
+      await db.select().from(effectAttempts).where(eq(effectAttempts.id, row.id)).limit(1)
+    )[0];
+    if (again?.status === "DISPATCHED") {
+      throw new StudioError("CONFLICT", "Claim concurrent — un seul dispatch", {
+        exposeMessage: true,
+      });
+    }
+    const { priorSendMayHaveOccurred } = await import("./cursor-claim");
+    if (fromStatus === "AMBIGUOUS" && priorSendMayHaveOccurred(again?.resultJson)) {
+      throw new StudioError(
+        "CONFLICT",
+        "Claim refusé — effet externe possible après ACK perdu ; pas de second envoi",
+        { exposeMessage: true },
+      );
+    }
+    throw new StudioError("CONFLICT", "Claim atomique échoué — pas de dispatch", {
+      exposeMessage: true,
     });
   }
 
-  // C16: incomplete DRAFT is allowed and inspectable; READY remains blocked.
-  // contractReady=false → sourcesSufficient=false so status stays DRAFT.
-  const unknownFromInvestigation = [
-    ...evaluated.questions
-      .filter((q) => q.importance === "DETERMINANT" && q.status === "BLOCKED")
-      .map((q) => q.id),
-    ...(evaluated.sufficiency === "BLOCKED_BY_UNKNOWN_RESTRICTION"
-      ? ["UNKNOWN_RESTRICTION"]
-      : []),
-    ...(!evaluated.contractReady
-      ? [evaluated.contractReadyBlockedReason ?? "INVESTIGATION_INCOMPLETE"]
-      : []),
-  ];
+  const claimToken = claimed.claim.claimToken;
+  const sendRequestedAt =
+    claimed.sendRequestedAt ?? new Date().toISOString();
 
-  const docReadiness = evaluateContractReadiness({
-    body: input.body,
-    unknownRestrictions: unknownFromInvestigation,
-    // Sources judged from investigation, never from client boolean.
-    sourcesSufficient: evaluated.contractReady && evaluated.sufficiency === "SUFFICIENT",
+  // C20: linearization — re-assert applicability AFTER claim, BEFORE provider.
+  // If mandate became obsolete between pre-check and reservation, release without effect.
+  try {
+    await assertMandateAtDispatch({
+      pilotId: input.pilotId,
+      projectId: input.projectId,
+      contractId: contract.id,
+      preparationId: contract.preparationId,
+    });
+  } catch (mandateErr) {
+    const failLive: CursorLiveProjection = {
+      ...live,
+      sendRequestedAt,
+      terminalStatus: "error",
+      limits: [
+        "MANDATE_OBSOLETE_AFTER_CLAIM",
+        String((mandateErr as Error)?.message ?? "mandate").slice(0, 160),
+      ],
+    };
+    await persistCursorOwnedResult({
+      attemptId: row.id,
+      claimToken,
+      resultJson: JSON.stringify(failLive),
+      status: "FAILED",
+      release: true,
+    });
+    throw mandateErr;
+  }
+
+  let dispatched;
+  try {
+    const { isScriptedPhasedMode } = await import("./cursor-sdk-adapter");
+    const scriptedPhased =
+      plan.effectProviderMode === "SCRIPTED" && isScriptedPhasedMode();
+    const liveWait =
+      plan.effectProviderMode === "LIVE" &&
+      (process.env.SFIA_CURSOR_LIVE_WAIT || "").trim() === "1";
+    dispatched = await dispatchCursorRun({
+      attemptId: row.id,
+      instructionText: contract.instructionText,
+      instructionFingerprint: plan.instructionFingerprint,
+      workspaceCwd: plan.workspaceCwd,
+      idempotencyKey: row.id,
+      modelId: plan.modelId,
+      /**
+       * LIVE default: return after ACK — reconcile observes terminal without resend.
+       * SFIA_CURSOR_LIVE_WAIT=1: block until terminal (DEV worker-style, C11).
+       * SCRIPTED default: finish immediately unless SFIA_CURSOR_SCRIPTED_PHASED=1.
+       */
+      waitForTerminal:
+        liveWait || (plan.effectProviderMode === "SCRIPTED" && !scriptedPhased),
+    });
+  } catch (e) {
+    const failLive: CursorLiveProjection = {
+      ...live,
+      sendRequestedAt,
+      terminalStatus: "unknown",
+      limits: ["DISPATCH_SEND_FAILED", String((e as Error)?.message ?? "error").slice(0, 120)],
+    };
+    await persistCursorOwnedResult({
+      attemptId: row.id,
+      claimToken,
+      resultJson: JSON.stringify(failLive),
+      status: "AMBIGUOUS",
+      release: true,
+    });
+    throw e;
+  }
+
+  const nextLive: CursorLiveProjection = {
+    sendRequestedAt: dispatched.sendRequestedAt ?? sendRequestedAt,
+    ackReceivedAt: dispatched.ackReceivedAt,
+    runObservedAt: dispatched.runObservedAt,
+    agentId: dispatched.agentId,
+    runId: dispatched.runId,
+    lastActivitySummary: dispatched.lastActivitySummary,
+    terminalStatus: dispatched.terminalStatus,
+    reportStatus: "EXPECTED",
+    limits: dispatched.limits,
+  };
+
+  const terminal =
+    dispatched.terminalStatus === "finished" ||
+    dispatched.terminalStatus === "error" ||
+    dispatched.terminalStatus === "cancelled";
+
+  await persistCursorOwnedResult({
+    attemptId: row.id,
+    claimToken,
+    resultJson: JSON.stringify(nextLive),
+    status: terminal ? "COMPLETED" : "DISPATCHED",
+    release: terminal,
   });
 
-  const created = await createTechnicalContract({
-    pilotId: input.pilotId,
-    projectId: input.projectId,
-    preparationId: input.preparationId,
-    contractKey: input.contractKey,
-    body: input.body,
-    sourceTurnCommandId: input.sourceTurnCommandId,
-    markReady: false, // always DRAFT from Nora prepare — READY is a separate server act
-    unknownRestrictions: unknownFromInvestigation,
-    sourcesSufficient: docReadiness.sourcesSufficient,
-    cognitiveWorkId:
-      input.cognitiveWorkId ?? evaluated.cognitiveWorkId ?? null,
-    cognitiveRevision:
-      input.cognitiveRevision ?? evaluated.cognitiveRevision ?? null,
-  });
+  // C13 — durable observation independent of browser/HTTP when LIVE ACK returns early.
+  // Observation only (reconcile); never a second send.
+  if (
+    !terminal &&
+    plan.effectProviderMode === "LIVE" &&
+    nextLive.runId
+  ) {
+    try {
+      const { ensureCursorLiveSupervisor } = await import(
+        "./cursor-live-supervisor"
+      );
+      ensureCursorLiveSupervisor({
+        pilotId: input.pilotId,
+        projectId: input.projectId,
+        attemptId: row.id,
+      });
+    } catch {
+      /* supervisor start must not fail dispatch ACK */
+    }
+  }
 
   return {
-    ...created,
-    investigationSufficiency: evaluated.sufficiency,
-    contractReady: evaluated.contractReady,
-    readiness: docReadiness,
+    attemptId: row.id,
+    status: terminal ? ("COMPLETED" as const) : ("DISPATCHED" as const),
+    idempotent: false as const,
+    live: nextLive,
+    scriptedReportMarkdown: dispatched.resultText,
+    limits: dispatched.limits,
+    claimToken,
   };
+}
+
+export async function requestStopCursorExecution(input: {
+  pilotId: string;
+  projectId: string;
+  attemptId: string;
+}) {
+  const row = (
+    await db
+      .select()
+      .from(effectAttempts)
+      .where(
+        and(
+          eq(effectAttempts.id, input.attemptId),
+          eq(effectAttempts.projectId, input.projectId),
+          eq(effectAttempts.pilotId, input.pilotId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!row) throw new StudioError("NOT_FOUND", "Tentative introuvable");
+  const live = parseLive(row.resultJson);
+  const plan = JSON.parse(row.planJson) as CursorExecutionPlan;
+  const stop = await stopCursorRun({
+    attemptId: row.id,
+    agentId: live.agentId ?? null,
+    runId: live.runId ?? null,
+    workspaceCwd: plan.workspaceCwd,
+    mode: plan.effectProviderMode,
+  });
+  const nextLive: CursorLiveProjection = {
+    ...live,
+    stopRequestedAt: stop.stopRequestedAt,
+    stopObservedAt: stop.stopObservedAt,
+    terminalStatus: stop.stopObservedAt
+      ? stop.terminalStatus ?? live.terminalStatus
+      : live.terminalStatus ?? "unknown",
+    limits: [
+      ...(live.limits ?? []),
+      ...stop.limits,
+      stop.stopObservedAt ? "STOP_OBSERVED" : "STOP_REQUESTED_NOT_CONFIRMED",
+    ],
+  };
+  // STOP requested ≠ STOP observed. If uncertain after possible effect → keep
+  // DISPATCHED/AMBIGUOUS; never invent cancelled without observation.
+  let nextStatus = row.status;
+  if (stop.stopObservedAt && stop.terminalStatus === "cancelled") {
+    nextStatus = "COMPLETED";
+  } else if (
+    !stop.stopObservedAt &&
+    (live.agentId || live.runId || live.sendRequestedAt) &&
+    row.status === "DISPATCHED"
+  ) {
+    nextLive.limits = [
+      ...(nextLive.limits ?? []),
+      "STOP_UNCERTAIN_AFTER_POSSIBLE_EFFECT — conserver DISPATCHED, pas de succès inventé",
+    ];
+  }
+  await db
+    .update(effectAttempts)
+    .set({
+      resultJson: JSON.stringify(nextLive),
+      status: nextStatus,
+      updatedAt: new Date(),
+    })
+    .where(eq(effectAttempts.id, row.id));
+  return {
+    attemptId: row.id,
+    status: nextStatus,
+    live: nextLive,
+    limits: nextLive.limits ?? [],
+    stopRequested: true as const,
+    stopObserved: Boolean(stop.stopObservedAt),
+  };
+}
+
+export async function reconcileCursorExecution(input: {
+  pilotId: string;
+  projectId: string;
+  attemptId: string;
+}) {
+  try {
+    const { ensureLiveSupervisorsResumedOnce } = await import(
+      "./cursor-live-supervisor"
+    );
+    await ensureLiveSupervisorsResumedOnce();
+  } catch {
+    /* resume must not block reconcile */
+  }
+
+  const row = (
+    await db
+      .select()
+      .from(effectAttempts)
+      .where(
+        and(
+          eq(effectAttempts.id, input.attemptId),
+          eq(effectAttempts.projectId, input.projectId),
+          eq(effectAttempts.pilotId, input.pilotId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!row) throw new StudioError("NOT_FOUND", "Tentative introuvable");
+  const live = parseLive(row.resultJson);
+  const claim = readClaim(row.resultJson);
+  const limits = [...(live.limits ?? [])];
+  const plan = JSON.parse(row.planJson) as CursorExecutionPlan;
+
+  // Re-attach durable observer only for LIVE DISPATCHED with known run handle.
+  if (
+    row.status === "DISPATCHED" &&
+    plan.effectProviderMode === "LIVE" &&
+    live.runId
+  ) {
+    try {
+      const { ensureCursorLiveSupervisor } = await import(
+        "./cursor-live-supervisor"
+      );
+      ensureCursorLiveSupervisor({
+        pilotId: input.pilotId,
+        projectId: input.projectId,
+        attemptId: input.attemptId,
+      });
+    } catch {
+      /* ensure must not block reconcile */
+    }
+  }
+
+  // SCRIPTED phased: advance in-memory run → COMPLETED without a second send.
+  if (
+    row.status === "DISPATCHED" &&
+    plan.effectProviderMode === "SCRIPTED" &&
+    !live.terminalStatus
+  ) {
+    const { advanceScriptedRunToFinished } = await import("./cursor-sdk-adapter");
+    const advanced = advanceScriptedRunToFinished(row.id);
+    if (advanced) {
+      const nextLive: CursorLiveProjection = {
+        ...live,
+        agentId: advanced.agentId,
+        runId: advanced.runId,
+        terminalStatus: "finished",
+        lastActivitySummary: advanced.lastActivitySummary,
+        reportStatus: "RECEIVED",
+        limits: [
+          ...limits,
+          "SCRIPTED_MODE",
+          "SCRIPTED_PHASED_RECONCILED",
+          "NO_REAL_SIDE_EFFECT",
+        ],
+      };
+      if (claim && isClaimActive(claim)) {
+        await persistCursorOwnedResult({
+          attemptId: row.id,
+          claimToken: claim.claimToken,
+          resultJson: JSON.stringify({
+            ...nextLive,
+            reportMarkdown: advanced.resultText,
+          }),
+          status: "COMPLETED",
+          release: true,
+        });
+      } else {
+        await db
+          .update(effectAttempts)
+          .set({
+            status: "COMPLETED",
+            resultJson: JSON.stringify({
+              ...nextLive,
+              reportMarkdown: advanced.resultText,
+            }),
+            updatedAt: new Date(),
+          })
+          .where(eq(effectAttempts.id, row.id));
+      }
+      return {
+        attemptId: row.id,
+        status: "COMPLETED" as const,
+        live: nextLive,
+        limits: nextLive.limits ?? [],
+        scriptedReportMarkdown: advanced.resultText,
+      };
+    }
+  }
+
+  // LIVE: observe existing run — never a second send.
+  // "unknown" from a prior failed observe is NOT terminal — re-observe.
+  const liveNeedsObserve =
+    !live.terminalStatus || live.terminalStatus === "unknown";
+  if (
+    row.status === "DISPATCHED" &&
+    plan.effectProviderMode === "LIVE" &&
+    liveNeedsObserve &&
+    live.runId
+  ) {
+    const { observeLiveCursorRun } = await import("./cursor-sdk-adapter");
+    const observed = await observeLiveCursorRun({
+      runId: live.runId,
+      agentId: live.agentId ?? null,
+      workspaceCwd: plan.workspaceCwd,
+    });
+    const nextLive: CursorLiveProjection = {
+      ...live,
+      terminalStatus: observed.terminalStatus ?? live.terminalStatus,
+      lastActivitySummary:
+        observed.lastActivitySummary ?? live.lastActivitySummary,
+      reportStatus:
+        observed.terminalStatus === "finished" ? "EXPECTED" : live.reportStatus,
+      limits: [...new Set([...limits, ...(observed.limits ?? [])])],
+    };
+    const terminal =
+      nextLive.terminalStatus === "finished" ||
+      nextLive.terminalStatus === "error" ||
+      nextLive.terminalStatus === "cancelled";
+    if (terminal) {
+      const payload = {
+        ...nextLive,
+        ...(observed.resultText
+          ? { reportMarkdown: observed.resultText }
+          : {}),
+      };
+      if (claim && isClaimActive(claim)) {
+        await persistCursorOwnedResult({
+          attemptId: row.id,
+          claimToken: claim.claimToken,
+          resultJson: JSON.stringify(payload),
+          status: "COMPLETED",
+          release: true,
+        });
+      } else {
+        await db
+          .update(effectAttempts)
+          .set({
+            status: "COMPLETED",
+            resultJson: JSON.stringify(payload),
+            updatedAt: new Date(),
+          })
+          .where(
+            and(
+              eq(effectAttempts.id, row.id),
+              eq(effectAttempts.status, "DISPATCHED"),
+            ),
+          );
+      }
+      return {
+        attemptId: row.id,
+        status: "COMPLETED" as const,
+        live: nextLive,
+        limits: nextLive.limits ?? [],
+        scriptedReportMarkdown: observed.resultText,
+      };
+    }
+    // Non-terminal observation — persist activity, stay DISPATCHED.
+    await db
+      .update(effectAttempts)
+      .set({
+        resultJson: JSON.stringify(nextLive),
+        updatedAt: new Date(),
+      })
+      .where(
+        and(
+          eq(effectAttempts.id, row.id),
+          eq(effectAttempts.status, "DISPATCHED"),
+        ),
+      );
+    return {
+      attemptId: row.id,
+      status: "DISPATCHED" as const,
+      live: nextLive,
+      limits: nextLive.limits ?? [],
+    };
+  }
+
+  if (row.status === "DISPATCHED" && !isClaimActive(claim)) {
+    if (!live.runId && !live.agentId) {
+      limits.push("ACK_OR_OWNERSHIP_LOST — état UNKNOWN, pas de redispatch aveugle");
+      const nextLive: CursorLiveProjection = {
+        ...live,
+        terminalStatus: live.terminalStatus ?? "unknown",
+        limits,
+      };
+      await db
+        .update(effectAttempts)
+        .set({
+          status: "AMBIGUOUS",
+          resultJson: JSON.stringify(nextLive),
+          updatedAt: new Date(),
+        })
+        .where(and(eq(effectAttempts.id, row.id), eq(effectAttempts.status, "DISPATCHED")));
+      return { attemptId: row.id, status: "AMBIGUOUS" as const, live: nextLive, limits };
+    }
+    limits.push("LEASE_INACTIVE_WITH_RUN_IDS — conserver DISPATCHED/UNKNOWN, pas de second send");
+    return { attemptId: row.id, status: row.status, live, limits };
+  }
+
+  return { attemptId: row.id, status: row.status, live, limits };
+}
+
+export async function getCursorAttempt(input: {
+  pilotId: string;
+  projectId: string;
+  attemptId: string;
+}) {
+  const row = (
+    await db
+      .select()
+      .from(effectAttempts)
+      .where(
+        and(
+          eq(effectAttempts.id, input.attemptId),
+          eq(effectAttempts.projectId, input.projectId),
+          eq(effectAttempts.pilotId, input.pilotId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!row) throw new StudioError("NOT_FOUND", "Tentative introuvable");
+  return {
+    attemptId: row.id,
+    kind: row.kind,
+    status: row.status,
+    fingerprint: row.fingerprint,
+    decisionId: row.decisionId,
+    correlationKey: row.correlationKey,
+    plan: JSON.parse(row.planJson) as CursorExecutionPlan,
+    live: parseLive(row.resultJson),
+    createdAt: row.createdAt.toISOString(),
+    updatedAt: row.updatedAt.toISOString(),
+  };
+}
+
+export async function listCursorAttempts(input: {
+  pilotId: string;
+  projectId: string;
+}) {
+  await assertProject(input.pilotId, input.projectId);
+  const rows = await db
+    .select()
+    .from(effectAttempts)
+    .where(
+      and(
+        eq(effectAttempts.pilotId, input.pilotId),
+        eq(effectAttempts.projectId, input.projectId),
+        eq(effectAttempts.kind, "CURSOR_EXECUTION"),
+      ),
+    );
+  return rows.map((row) => ({
+    attemptId: row.id,
+    status: row.status,
+    fingerprint: row.fingerprint,
+    correlationKey: row.correlationKey,
+    decisionId: row.decisionId,
+    plan: JSON.parse(row.planJson) as CursorExecutionPlan,
+    live: parseLive(row.resultJson),
+    createdAt: row.createdAt.toISOString(),
+    updatedAt: row.updatedAt.toISOString(),
+  }));
 }
 
 ```
 
 ### FULL FILE `projects/sfia-studio-next/web/src/domains/conversation/web-search-sanitize.ts`
 
-- sha256 (worktree): `3bdf7362ead3d21620e8b250fe0945b68ca5c32088049914ff714ebcf1c01c08`
-- lines: 95
-- bytes: 3209
-- inclusion: **COMPLETE** (no truncation; trailing whitespace stripped for handoff hygiene only)
+- sha256 (worktree): `16108204f6c6c1f7af7b861a1d4249cc95372611bdd8cd7cc1eb88a3ba9a51bc`
+- lines: 101
+- inclusion: **COMPLETE**
 
 ```typescript
 /**
@@ -4461,6 +2689,12 @@ const JWTISH = /\beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\
 const STUDIO_PRIVATE_IDISH =
   /\b(?:prep_|proj_|cgw_|doc_|drev_|tctr_|tcmd_|msg_|op_|req_|dec_|efx_|pilot_|sess_)[A-Za-z0-9_-]{8,}\b/g;
 const COOKIEISH = /\b(?:session|cookie|set-cookie|owner[_-]?token)\s*[:=]\s*\S+/gi;
+/**
+ * C20 — confidential business content must not become public merely because
+ * it lacks a studio id marker. Block first-person / internal confidential cues.
+ */
+const CONFIDENTIAL_BUSINESS =
+  /\b(confidentiel|confidential|internal[- ]only|ne pas diffuser|do not (?:share|forward)|notre (?:secret|mot de passe|budget interne|salaire)|password\s*[:=]|api[_-]?key\s*[:=]|bearer\s+[a-z0-9._-]{12,})\b/i;
 
 export type SanitizeWebQueryResult = {
   ok: boolean;
@@ -4475,11 +2709,11 @@ export function sanitizePublicWebQuery(raw: string): SanitizeWebQueryResult {
   if (!q) {
     return { ok: false, query: "", redactions, blockedReason: "EMPTY_QUERY" };
   }
-  if (SECRETISH.test(q)) {
+  if (SECRETISH.test(q) || CONFIDENTIAL_BUSINESS.test(q)) {
     return {
       ok: false,
       query: "",
-      redactions: ["SECRETISH_KEYWORD"],
+      redactions: ["SECRETISH_OR_CONFIDENTIAL"],
       blockedReason: "SECRETISH_CONTENT",
     };
   }
@@ -4544,10 +2778,9 @@ export function coverageFromObservation(input: {
 
 ### FULL FILE `projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts`
 
-- sha256 (worktree): `8f8d21d12577bd984354e0d8a6e58414003fe03cde547795714d194fdc8fcdbf`
-- lines: 731
-- bytes: 24322
-- inclusion: **COMPLETE** (no truncation; trailing whitespace stripped for handoff hygiene only)
+- sha256 (worktree): `c60e9ce1e137b47ff31ce9f4bcbf56af301f25d54213072b96923382c6f3c91e`
+- lines: 800
+- inclusion: **COMPLETE**
 
 ```typescript
 /**
@@ -4617,7 +2850,23 @@ export function assertOutboundHasNoPrivateLeak(
 ): { ok: true } | { ok: false; leaked: string[] } {
   const blob = JSON.stringify(outbound).toLowerCase();
   const leaked = privateMarkers.filter((m) => m && blob.includes(m.toLowerCase()));
-  return leaked.length ? { ok: false, leaked } : { ok: true };
+  // C20: never echo raw private markers in diagnostics — only opaque counts/labels.
+  return leaked.length
+    ? { ok: false, leaked: leaked.map((_, i) => `PRIVATE_MARKER_${i + 1}`) }
+    : { ok: true };
+}
+
+/** Normalize URL for discovery membership (strip hash; keep query). */
+export function normalizeDiscoveredWebUrl(raw: string): string | null {
+  const checked = assertPublicHttpsUrl(raw);
+  if (!checked.ok) return null;
+  try {
+    const u = new URL(checked.url);
+    u.hash = "";
+    return u.toString();
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -5051,6 +3300,13 @@ export type PublicOpenResult = {
 export async function executePublicWebOpenPage(input: {
   url: string;
   env?: NodeJS.ProcessEnv | Record<string, string | undefined>;
+  /**
+   * C20 — URLs that were discovered by an authorized search or explicitly
+   * allowlisted by the server. Opening outside this set is refused before egress.
+   */
+  allowedUrls?: string[] | null;
+  /** When true, skip discovery membership (explicit pilot/server authorization). */
+  explicitlyAuthorized?: boolean;
 }): Promise<PublicOpenResult> {
   const env = input.env ?? process.env;
   const mode = webMode(env);
@@ -5076,6 +3332,25 @@ export async function executePublicWebOpenPage(input: {
     };
   }
   const url = checked.url;
+  const normalized = normalizeDiscoveredWebUrl(url);
+  if (!input.explicitlyAuthorized) {
+    const allowed = new Set(
+      (input.allowedUrls ?? [])
+        .map((u) => normalizeDiscoveredWebUrl(u))
+        .filter((u): u is string => Boolean(u)),
+    );
+    if (!normalized || !allowed.has(normalized)) {
+      return {
+        status: "DENIED",
+        coverage: "DENIED",
+        url: "",
+        excerpt: "",
+        limits: ["URL_NOT_IN_AUTHORIZED_DISCOVERY"],
+        mode,
+      };
+    }
+  }
+  // C20: journal outbound only after authorization — never before.
   outboundLog.push({
     at: new Date().toISOString(),
     action: "open_page",
@@ -5224,6 +3499,16 @@ export async function buildPublicWebFrontierTools(input: {
   const { tool } = await import("@openai/agents");
   const { z } = await import("zod");
   const markers = (input.privateContextMarkers ?? []).filter(Boolean);
+  /** C20 — URLs discovered this turn (and prior journal DISCOVERED/CONSULTED WEB refs). */
+  const discoveredUrls = new Set<string>();
+  if (input.sourceJournal) {
+    for (const s of input.sourceJournal.entries) {
+      if (s.kind === "WEB" && s.ref) {
+        const n = normalizeDiscoveredWebUrl(s.ref);
+        if (n) discoveredUrls.add(n);
+      }
+    }
+  }
 
   return [
     tool({
@@ -5243,6 +3528,8 @@ export async function buildPublicWebFrontierTools(input: {
           privateContextMarkers: markers,
         });
         for (const item of result.items) {
+          const n = normalizeDiscoveredWebUrl(item.url);
+          if (n) discoveredUrls.add(n);
           recordToolSource(input.sourceJournal, {
             kind: "WEB",
             ref: item.url,
@@ -5257,7 +3544,7 @@ export async function buildPublicWebFrontierTools(input: {
     tool({
       name: "public_web_open_page",
       description:
-        "Open a previously discovered public https URL and return a bounded excerpt. Untrusted data only.",
+        "Open a previously discovered public https URL and return a bounded excerpt. Untrusted data only. URL must come from a prior authorized search discovery.",
       parameters: z.object({
         // Avoid z.string().url() — breaks Agents SDK JSON Schema (invalid_function_parameters).
         url: z.string().min(8).max(2000),
@@ -5266,8 +3553,23 @@ export async function buildPublicWebFrontierTools(input: {
         if (input.budget.remainingCalls <= 0) {
           return { status: "DENIED", reason: "BUDGET_EXHAUSTED" };
         }
+        // C20: authorize discovery membership BEFORE decrementing budget / network.
+        const preview = normalizeDiscoveredWebUrl(args.url);
+        if (!preview || !discoveredUrls.has(preview)) {
+          return {
+            status: "DENIED",
+            coverage: "DENIED",
+            url: "",
+            excerpt: "",
+            limits: ["URL_NOT_IN_AUTHORIZED_DISCOVERY"],
+            mode: webMode(),
+          };
+        }
         input.budget.remainingCalls -= 1;
-        const result = await executePublicWebOpenPage({ url: args.url });
+        const result = await executePublicWebOpenPage({
+          url: args.url,
+          allowedUrls: [...discoveredUrls],
+        });
         if (result.status === "AVAILABLE") {
           recordToolSource(input.sourceJournal, {
             kind: "WEB",
@@ -5284,12 +3586,809 @@ export async function buildPublicWebFrontierTools(input: {
 
 ```
 
+### FULL FILE `projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts`
+
+- sha256 (worktree): `540afe2db55ad6289b51f05e7330c30c78998fa52ed928f76c56ca6e668ca048`
+- lines: 788
+- inclusion: **COMPLETE**
+
+```typescript
+/**
+ * C16/C17 — product entry into the adaptive D3 cognitive conductor.
+ * generateNoraReply remains the provider adapter; this module orchestrates
+ * cognitive work attachment, multi-segment continuation, and investigation merge.
+ */
+
+import {
+  runCognitiveConductor,
+  type ConductorRunResult,
+} from "./cognitive-conductor";
+import { buildCognitivePolicy } from "./cognitive-policy";
+import {
+  listCognitiveWorksForPreparation,
+  type CognitiveProductionState,
+  type CognitiveWorkRow,
+} from "./cognitive-work";
+import {
+  createEmptyInvestigation,
+  evaluateContractReadiness,
+  type DeterminingQuestion,
+  type InvestigationState,
+} from "./investigation-state";
+import {
+  generateNoraReply,
+  type NoraGenerateInput,
+  type NoraGenerateResult,
+} from "./nora-adapter";
+import {
+  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  unavailableQualification,
+  type NoraTurnQualification,
+} from "./semantic-qualification";
+
+export type NoraCognitiveTurnInput = NoraGenerateInput & {
+  pilotId: string;
+  preparationId: string;
+  projectId?: string | null;
+  conversationId?: string | null;
+  turnCommandId?: string | null;
+  /** Explicit continuation of a prior suspended/open work. */
+  workId?: string | null;
+  /** When true, always open a new cognitive work (independent request). */
+  forceNewWork?: boolean;
+  objective?: string;
+  expectedOutcome?: string;
+  maxSegmentsThisInvocation?: number;
+};
+
+export type NoraCognitiveTurnResult = NoraGenerateResult & {
+  conductor: {
+    workId: string;
+    revision: number;
+    segmentsRun: number;
+    resumed: boolean;
+    suspended: boolean;
+    suspendReason: string | null;
+    investigation: InvestigationState;
+    production: CognitiveProductionState;
+  };
+};
+
+/** Extract usage when the adapter exposes it; otherwise UNKNOWN (null). */
+function usageFromReply(reply: NoraGenerateResult): {
+  inputTokens: number | null;
+  outputTokens: number | null;
+} {
+  const anyReply = reply as NoraGenerateResult & {
+    usage?: { inputTokens?: number; outputTokens?: number; totalTokens?: number };
+    inputTokens?: number | null;
+    outputTokens?: number | null;
+  };
+  const input =
+    anyReply.usage?.inputTokens ?? anyReply.inputTokens ?? null;
+  const output =
+    anyReply.usage?.outputTokens ?? anyReply.outputTokens ?? null;
+  return {
+    inputTokens: typeof input === "number" ? input : null,
+    outputTokens: typeof output === "number" ? output : null,
+  };
+}
+
+/**
+ * C18 — merge determining questions from structured qualification only.
+ * Never invent ANSWERED from user prose or absence of clarifications[].
+ */
+export function mergeQuestions(
+  prior: DeterminingQuestion[],
+  qualification: NoraTurnQualification | null | undefined,
+): DeterminingQuestion[] {
+  const byId = new Map(prior.map((q) => [q.id, { ...q }]));
+  const structured = qualification?.determiningQuestions;
+  if (structured && structured.length > 0) {
+    for (const q of structured) {
+      const id = q.id.trim();
+      if (!id) continue;
+      const prev = byId.get(id);
+      byId.set(id, {
+        id,
+        text: q.text.trim() || prev?.text || id,
+        status: q.status,
+        importance: q.importance,
+        answerSummary:
+          q.status === "ANSWERED"
+            ? q.answerSummary?.trim() || prev?.answerSummary
+            : q.answerSummary?.trim() || undefined,
+        sourceRefs: q.sourceRefs ?? prev?.sourceRefs,
+      });
+    }
+    return [...byId.values()];
+  }
+  const clarifications =
+    qualification && qualification.status !== "UNAVAILABLE"
+      ? qualification.clarifications
+      : undefined;
+  if (clarifications === undefined) {
+    return [...byId.values()];
+  }
+  if (clarifications.length === 0) {
+    return [...byId.values()];
+  }
+  for (const text of clarifications) {
+    const trimmed = text.trim();
+    if (!trimmed) continue;
+    const existing = [...byId.values()].find((q) => q.text === trimmed);
+    if (existing) continue;
+    const id = `q-${stableShortId(trimmed)}`;
+    byId.set(id, {
+      id,
+      text: trimmed,
+      status: "OPEN",
+      importance: "DETERMINANT",
+    });
+  }
+  return [...byId.values()];
+}
+
+function stableShortId(text: string): string {
+  let h = 0;
+  for (let i = 0; i < text.length; i++) h = (h * 31 + text.charCodeAt(i)) >>> 0;
+  return h.toString(36).slice(0, 10);
+}
+
+function mergeRemainingWork(
+  prior: InvestigationState,
+  qualification: NoraTurnQualification | null | undefined,
+): string[] {
+  const items = qualification?.remainingWorkItems;
+  if (items && items.length > 0) {
+    return items
+      .filter((i) => i.status === "OPEN" || i.status === "BLOCKED")
+      .map((i) => i.text.trim())
+      .filter(Boolean);
+  }
+  return [...prior.remainingWork];
+}
+
+/**
+ * C18 — consolidate investigation from structured qualification + observed tools.
+ * No lexical criteria extraction. No prose→instruction fallback.
+ */
+export function mergeInvestigationFromReply(
+  prior: InvestigationState,
+  reply: NoraGenerateResult,
+  userText: string,
+): InvestigationState {
+  const q = reply.qualification;
+  const goal =
+    q && q.status !== "UNAVAILABLE" ? q.goal?.trim() || "" : "";
+  const outcome =
+    q && q.status !== "UNAVAILABLE" ? q.desiredOutcome?.trim() || "" : "";
+  const scope =
+    q && q.status !== "UNAVAILABLE" ? q.initialScope?.trim() || "" : "";
+
+  const sources = [...prior.sources];
+  for (const s of reply.observedToolSources ?? []) {
+    const idx = sources.findIndex((p) => p.ref === s.ref && p.kind === s.kind);
+    if (idx < 0) sources.push(s);
+    else {
+      const prev = sources[idx]!;
+      sources[idx] = {
+        ...prev,
+        ...s,
+        notes: [prev.notes, prev.coverage !== s.coverage ? `${prev.coverage}->${s.coverage}` : null, s.notes]
+          .filter(Boolean)
+          .join("; "),
+      };
+    }
+  }
+
+  const questions = mergeQuestions(prior.questions, q);
+  const remainingWork = mergeRemainingWork(prior, q);
+
+  const constraints = [...prior.constraints];
+  if (scope && !constraints.includes(scope)) constraints.push(scope);
+  for (const r of q?.restrictions ?? []) {
+    const t = r.trim();
+    if (t && !constraints.includes(t)) constraints.push(t);
+  }
+
+  const contradictions = [
+    ...prior.contradictions,
+    ...((q?.contradictions ?? []).map((c) => ({
+      a: c.a,
+      b: c.b,
+      detail: c.detail,
+    })) as InvestigationState["contradictions"]),
+  ].slice(-16);
+
+  // C18: prefer typed tool submission, then intent parameters, then top-level fields.
+  const toolProd = reply.cursorContractProduction;
+  const prepareIntent = q?.intents?.find(
+    (i) =>
+      i.capabilityId === "d7.prepare_cursor_contract" &&
+      (i.mode === "PREPARE" || i.mode === "REQUEST_EFFECT"),
+  );
+  const productionInstruction =
+    toolProd?.productionInstruction?.trim() ||
+    prepareIntent?.parameters?.productionInstruction?.trim() ||
+    q?.productionInstruction?.trim() ||
+    prior.productionInstruction ||
+    null;
+  const fromToolCriteria = toolProd?.acceptanceCriteria?.map((c) => c.trim()).filter(Boolean);
+  const fromIntentCriteria = prepareIntent?.parameters?.acceptanceCriteria
+    ?.map((c) => c.trim())
+    .filter(Boolean);
+  const fromTopCriteria = q?.acceptanceCriteria?.map((c) => c.trim()).filter(Boolean);
+  const acceptanceCriteria =
+    fromToolCriteria && fromToolCriteria.length > 0
+      ? fromToolCriteria
+      : fromIntentCriteria && fromIntentCriteria.length > 0
+        ? fromIntentCriteria
+        : fromTopCriteria && fromTopCriteria.length > 0
+          ? fromTopCriteria
+          : [...(prior.acceptanceCriteria ?? [])];
+  // Tool submission may also carry desiredOutcome when qualification omitted it.
+  const desiredFromTool = toolProd?.desiredOutcome?.trim() || "";
+
+  const profileHint: InvestigationState["profileHint"] =
+    q?.cognitiveProfileHint ??
+    (q?.status === "NEEDS_CLARIFICATION"
+      ? "investigation"
+      : prior.profileHint === "simple"
+        ? "analyse"
+        : prior.profileHint);
+
+  const desiredOutcome = outcome || desiredFromTool || prior.desiredOutcome || "";
+
+  return evaluateContractReadiness({
+    ...prior,
+    intentSummary: goal || prior.intentSummary || userText.slice(0, 800),
+    desiredOutcome,
+    sources,
+    questions,
+    remainingWork,
+    contradictions,
+    constraints,
+    profileHint,
+    productionInstruction,
+    acceptanceCriteria,
+  });
+}
+
+/**
+ * C18 — continuation by workDisposition / objective class — not contractReady alone.
+ */
+export function semanticContinueWork(
+  qualification: NoraTurnQualification | null,
+  investigation: InvestigationState,
+  reply: NoraGenerateResult,
+): boolean {
+  if (reply.status !== "COMPLETE") return false;
+  if (
+    investigation.contractReadyBlockedReason === "GLOBAL_BUDGET_EXHAUSTED" ||
+    (investigation.contractReadyBlockedReason ?? "").startsWith("GLOBAL_")
+  ) {
+    return false;
+  }
+  const disposition = qualification?.workDisposition;
+  if (disposition === "COMPLETE" || disposition === "AWAIT_PILOT" || disposition === "SUSPEND") {
+    return false;
+  }
+  if (disposition === "CONTINUE") return true;
+
+  if (qualification?.status === "NEEDS_CLARIFICATION") {
+    return false;
+  }
+  const openDeterminant = investigation.questions.some(
+    (q) => q.importance === "DETERMINANT" && q.status !== "ANSWERED",
+  );
+  if (openDeterminant) {
+    return (reply.observedToolSources?.length ?? 0) > 0;
+  }
+  if (investigation.remainingWork.length > 0) return true;
+  return false;
+}
+
+/**
+ * C18 — semantic attachment: Nora may propose relation/workId; server validates.
+ */
+export async function resolveCognitiveWorkAttachment(input: {
+  pilotId: string;
+  preparationId: string;
+  workId?: string | null;
+  forceNewWork?: boolean;
+  userText?: string | null;
+  qualification?: NoraTurnQualification | null;
+}): Promise<{
+  workId?: string | null;
+  forceNew: boolean;
+  reason: string;
+  /** C20 — do not create/claim; await pilot clarification. */
+  needsClarify?: boolean;
+}> {
+  if (input.forceNewWork === true) {
+    return { forceNew: true, reason: "FORCE_NEW_EXPLICIT" };
+  }
+  if (input.workId) {
+    return { workId: input.workId, forceNew: false, reason: "EXPLICIT_WORK_ID" };
+  }
+
+  const works = await listCognitiveWorksForPreparation({
+    pilotId: input.pilotId,
+    preparationId: input.preparationId,
+  });
+  const relation = input.qualification?.cognitiveWorkRelation;
+  const proposed = input.qualification?.proposedCognitiveWorkId?.trim() || null;
+
+  if (relation === "INDEPENDENT" || relation === "MATERIAL_CHANGE" || relation === "UNRELATED") {
+    return { forceNew: true, reason: `SEMANTIC_${relation}` };
+  }
+  if (relation === "CLARIFY") {
+    if (proposed && works.some((w) => w.id === proposed)) {
+      return { workId: proposed, forceNew: false, reason: "SEMANTIC_CLARIFY_ATTACH" };
+    }
+    return {
+      forceNew: false,
+      workId: null,
+      reason: "SEMANTIC_CLARIFY_AWAIT",
+      needsClarify: true,
+    };
+  }
+  if ((relation === "CONTINUE" || relation === "CLARIFY") && proposed) {
+    const hit = works.find((w) => w.id === proposed);
+    if (hit) {
+      return { workId: hit.id, forceNew: false, reason: "SEMANTIC_PROPOSED_WORK" };
+    }
+    return {
+      forceNew: false,
+      workId: null,
+      reason: "SEMANTIC_PROPOSED_UNKNOWN",
+      needsClarify: true,
+    };
+  }
+
+  // C20: technical suspend resume only when Nora explicitly CONTINUEs.
+  const segmentSuspended = works.filter(
+    (w) =>
+      w.status === "SUSPENDED" &&
+      (w.interruptCause === "SEGMENT_INVOCATION_LIMIT" ||
+        w.interruptCause === "PROCESS_OR_LEASE_INTERRUPT" ||
+        (w.interruptCause ?? "").startsWith("SEGMENT")),
+  );
+  if (relation === "CONTINUE" && segmentSuspended.length === 1 && !proposed) {
+    return {
+      workId: segmentSuspended[0]!.id,
+      forceNew: false,
+      reason: "TECHNICAL_SUSPEND_RESUME",
+    };
+  }
+
+  // C19: never deduce continuation from sole open presence without CONTINUE.
+  const open = works.filter(
+    (w) => w.status === "OPEN" || w.status === "SUSPENDED" || w.status === "RUNNING",
+  );
+  if (relation === "CONTINUE") {
+    if (proposed) {
+      const hit = works.find((w) => w.id === proposed);
+      if (hit) return { workId: hit.id, forceNew: false, reason: "SEMANTIC_CONTINUE_PROPOSED" };
+      return {
+        forceNew: false,
+        workId: null,
+        reason: "SEMANTIC_CONTINUE_UNKNOWN_ID",
+        needsClarify: true,
+      };
+    }
+    if (open.length === 1) {
+      return { workId: open[0]!.id, forceNew: false, reason: "SEMANTIC_CONTINUE_SINGLE" };
+    }
+    if (open.length > 1) {
+      return {
+        forceNew: false,
+        workId: null,
+        reason: "SEMANTIC_CONTINUE_AMBIGUOUS",
+        needsClarify: true,
+      };
+    }
+  }
+  if (open.length > 1 && !proposed) {
+    return {
+      forceNew: false,
+      workId: null,
+      reason: "AMBIGUOUS_MULTI_OPEN",
+      needsClarify: true,
+    };
+  }
+  // Without structured relation, do not auto-attach to an open work.
+  return { forceNew: true, reason: "NEW_OR_NEEDS_SEMANTIC_RELATION" };
+}
+
+function documentProductionFromReply(
+  work: CognitiveWorkRow,
+  reply: NoraGenerateResult,
+  segmentIndex: number,
+  continueWork: boolean,
+): CognitiveProductionState | undefined {
+  const prevDoc =
+    (work.production as CognitiveProductionState & { contentMarkdown?: string })
+      .contentMarkdown ?? "";
+  // C19: part ids are stable across invocations — never collide on local segmentIndex 0.
+  const partId = `gen-${reply.generationId || `seg-${work.revision}-${segmentIndex}`}`;
+  const appendPart = (
+    parts: CognitiveProductionState["parts"],
+    title: string,
+    complete: boolean,
+  ) => [...parts.filter((p) => p.id !== partId), { id: partId, title, complete }];
+
+  const mergeBody = (incoming: string): string => {
+    const body = incoming.trim();
+    if (!prevDoc) return body;
+    if (prevDoc.includes(body)) return prevDoc;
+    return `${prevDoc}\n\n${body}`.trim();
+  };
+
+  const proposal = reply.qualification?.documentProposal;
+  if (proposal?.contentMarkdown?.trim()) {
+    return {
+      kind: "DOCUMENT",
+      status: continueWork ? "IN_PROGRESS" : "COMPLETE",
+      objectRef: work.production.objectRef || reply.generationId,
+      parts: appendPart(
+        work.production.parts,
+        proposal.title || `document-part-${work.production.parts.length + 1}`,
+        !continueWork,
+      ),
+      contentMarkdown: mergeBody(proposal.contentMarkdown),
+    } as CognitiveProductionState;
+  }
+  // C19: Markdown fence is transport/legacy only — never authority that replaces
+  // structured production. Preserve prior DOCUMENT on resume.
+  const extracted = reply.content.match(/``​`sfia-document\b([\s\S]*?)``​`/i);
+  if (extracted && !prevDoc) {
+    return {
+      kind: "DOCUMENT",
+      status: continueWork ? "IN_PROGRESS" : "COMPLETE",
+      objectRef: reply.generationId,
+      parts: appendPart(
+        work.production.parts,
+        `document-part-${work.production.parts.length + 1}`,
+        !continueWork,
+      ),
+      contentMarkdown: extracted[1]!.trim(),
+      limits: ["MARKDOWN_FENCE_TRANSPORT_ONLY"],
+    } as CognitiveProductionState;
+  }
+  if (work.production.kind === "DOCUMENT" && prevDoc) {
+    return {
+      ...work.production,
+      status: continueWork ? "IN_PROGRESS" : work.production.status,
+      parts: appendPart(
+        work.production.parts,
+        reply.generationId,
+        !continueWork,
+      ),
+    };
+  }
+  return {
+    kind: "REPLY",
+    status: continueWork ? "IN_PROGRESS" : "COMPLETE",
+    objectRef: reply.generationId,
+    parts: appendPart(work.production.parts, reply.generationId, !continueWork),
+    limits: continueWork ? ["PRODUCTION_IN_PROGRESS"] : undefined,
+  };
+}
+
+/**
+ * Run Nora through the cognitive conductor for a product turn.
+ */
+export async function runNoraCognitiveTurn(
+  input: NoraCognitiveTurnInput,
+): Promise<NoraCognitiveTurnResult> {
+  const segmentBox: { reply: NoraGenerateResult | null } = { reply: null };
+
+  // C19: expose candidate works so Nora can emit cognitiveWorkRelation / proposed id.
+  const candidates = await listCognitiveWorksForPreparation({
+    pilotId: input.pilotId,
+    preparationId: input.preparationId,
+  });
+  const candidateSnippet =
+    candidates.length === 0
+      ? "Travaux cognitifs candidats: (aucun)"
+      : [
+          "Travaux cognitifs candidats (serveur valide; ne pas inventer d'id):",
+          ...candidates.slice(0, 8).map(
+            (w) =>
+              `- ${w.id} status=${w.status} rev=${w.revision} obj=${(w.objective || "").slice(0, 120)}`,
+          ),
+          "Émettre cognitiveWorkRelation=CONTINUE|INDEPENDENT|CLARIFY|MATERIAL_CHANGE|UNRELATED et proposedCognitiveWorkId si rattachement.",
+        ].join("\n");
+
+  let attachment: Awaited<ReturnType<typeof resolveCognitiveWorkAttachment>>;
+  let probeReply: NoraGenerateResult | null = null;
+  let probeConsumed = false;
+
+  // C19: when attachment is not forced/explicit, qualify first then resolve with structured fields.
+  if (!input.workId && input.forceNewWork !== true) {
+    const probePolicy =
+      input.policyOverride ??
+      buildCognitivePolicy(input.userText, undefined, { profileHint: "analyse" });
+    probeReply = await generateNoraReply({
+      userText: input.userText,
+      contextSnippets: [...input.contextSnippets, candidateSnippet, "attachment=PENDING_SEMANTIC"],
+      knowledgeSnippets: input.knowledgeSnippets,
+      pilotageSnippets: input.pilotageSnippets,
+      levelASignals: input.levelASignals,
+      ckiDelivery: input.ckiDelivery,
+      onProvisionalChunk: input.onProvisionalChunk,
+      toolScope: input.toolScope,
+      policyOverride: probePolicy,
+    });
+    segmentBox.reply = probeReply;
+    attachment = await resolveCognitiveWorkAttachment({
+      pilotId: input.pilotId,
+      preparationId: input.preparationId,
+      workId: input.workId,
+      forceNewWork: input.forceNewWork,
+      userText: input.userText,
+      qualification: probeReply.qualification,
+    });
+  } else {
+    attachment = await resolveCognitiveWorkAttachment({
+      pilotId: input.pilotId,
+      preparationId: input.preparationId,
+      workId: input.workId,
+      forceNewWork: input.forceNewWork,
+      userText: input.userText,
+    });
+  }
+
+  // C20: ambiguity / clarify — do not invent a new cognitive work; return AWAIT_PILOT.
+  if (attachment.needsClarify) {
+    const clarifyText =
+      "Plusieurs travaux cognitifs sont candidats. Précisez lequel continuer (identifiant) ou confirmez une demande indépendante.";
+    const basePolicy = buildCognitivePolicy(input.userText, undefined, {
+      profileHint: "analyse",
+    });
+    const clarify: NoraGenerateResult = probeReply
+      ? {
+          ...probeReply,
+          content: probeReply.content?.trim() || clarifyText,
+          status: "COMPLETE",
+        }
+      : {
+          content: clarifyText,
+          status: "COMPLETE",
+          generationId: `clarify-${Date.now()}`,
+          mode: "deterministic-fixture",
+          policy: basePolicy,
+          modelRequested: basePolicy.modelRequested,
+          modelApplied: null,
+          effortRequested: basePolicy.effortRequested,
+          effortApplied: null,
+          attempts: [],
+          toolCallsObserved: 0,
+          d4CharsReturned: 0,
+          observedToolSources: [],
+          qualification: unavailableQualification(
+            "CLARIFY_COGNITIVE_WORK_ATTACHMENT",
+            clarifyText,
+          ),
+        };
+    const q: NoraTurnQualification = {
+      ...clarify.qualification,
+      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+      status: "NEEDS_CLARIFICATION",
+      workDisposition: "AWAIT_PILOT",
+      cognitiveWorkRelation: "CLARIFY",
+      replyDraft:
+        clarify.qualification.replyDraft ||
+        clarify.content ||
+        clarifyText,
+    };
+    return {
+      ...clarify,
+      content: clarify.content,
+      qualification: q,
+      status: "COMPLETE",
+      conductor: {
+        workId: "",
+        revision: 0,
+        segmentsRun: probeReply ? 1 : 0,
+        resumed: false,
+        suspended: false,
+        suspendReason: null,
+        investigation: {
+          ...createEmptyInvestigation(input.userText),
+          remainingWork: ["CLARIFY_COGNITIVE_WORK_ATTACHMENT"],
+        },
+        production: { kind: "REPLY", status: "PARTIAL", parts: [] },
+      },
+    };
+  }
+
+  const conductor: ConductorRunResult = await runCognitiveConductor({
+    pilotId: input.pilotId,
+    preparationId: input.preparationId,
+    projectId: input.projectId,
+    conversationId: input.conversationId,
+    objective: input.objective ?? input.userText.slice(0, 2000),
+    expectedOutcome: input.expectedOutcome,
+    workId: attachment.workId,
+    forceNewWork: attachment.forceNew,
+    turnCommandId: input.turnCommandId,
+    // C17: local cap remains technical; default raised for investigation depth.
+    // SEGMENT_INVOCATION_LIMIT still suspends honestly when exhausted.
+    maxSegmentsThisInvocation: input.maxSegmentsThisInvocation ?? 5,
+    resolvePolicy: (work, segmentIndex) => {
+      const seed =
+        work.state.intentSummary ||
+        work.objective ||
+        input.userText;
+      const hint = work.state.profileHint;
+      const base = buildCognitivePolicy(seed, undefined, { profileHint: hint });
+      if (segmentIndex > 0 && hint === "investigation") {
+        return buildCognitivePolicy(seed, undefined, {
+          profileHint: "investigation",
+          effortHint: "high",
+        });
+      }
+      if (hint === "simple") {
+        return buildCognitivePolicy(seed, undefined, {
+          profileHint: "simple",
+          effortHint: "low",
+        });
+      }
+      return input.policyOverride ?? base;
+    },
+    runSegment: async ({ work, segmentIndex, policy }) => {
+      const continuationHint =
+        segmentIndex === 0
+          ? ""
+          : [
+              "",
+              "[Continuation du même travail cognitif — segment suivant]",
+              `workId=${work.id} revision=${work.revision}`,
+              `Objectif: ${work.objective}`,
+              work.state.intentSummary
+                ? `Intention consolidée: ${work.state.intentSummary}`
+                : null,
+              work.state.desiredOutcome
+                ? `Résultat attendu: ${work.state.desiredOutcome}`
+                : null,
+              work.state.remainingWork.length
+                ? `Travail restant: ${work.state.remainingWork.join("; ")}`
+                : null,
+              work.state.questions
+                .filter((q) => q.status !== "ANSWERED")
+                .map((q) => `Q[${q.importance}]: ${q.text}`)
+                .join("\n") || null,
+              work.state.constraints.length
+                ? `Contraintes: ${work.state.constraints.join("; ")}`
+                : null,
+            ]
+              .filter(Boolean)
+              .join("\n");
+
+      let reply: NoraGenerateResult;
+      if (probeReply && segmentIndex === 0 && !probeConsumed) {
+        probeConsumed = true;
+        reply = probeReply;
+      } else {
+        reply = await generateNoraReply({
+          userText:
+            segmentIndex === 0
+              ? input.userText
+              : `${input.userText}${continuationHint}`,
+          contextSnippets: [
+            ...input.contextSnippets,
+            candidateSnippet,
+            ...(segmentIndex > 0
+              ? [
+                  `Checkpoint cognitif ${work.id} r${work.revision}`,
+                  work.state.intentSummary || "",
+                  `attachment=${attachment.reason}`,
+                ].filter(Boolean)
+              : [`attachment=${attachment.reason}`]),
+          ],
+          knowledgeSnippets: input.knowledgeSnippets,
+          pilotageSnippets: input.pilotageSnippets,
+          levelASignals: input.levelASignals,
+          ckiDelivery: input.ckiDelivery,
+          onProvisionalChunk: input.onProvisionalChunk,
+          toolScope: input.toolScope,
+          policyOverride: policy,
+        });
+      }
+      segmentBox.reply = reply;
+      const investigation = mergeInvestigationFromReply(
+        work.state.intentSummary
+          ? work.state
+          : createEmptyInvestigation(input.userText),
+        reply,
+        input.userText,
+      );
+      // Stamp filiation on investigation for READY/DRAFT consumers.
+      investigation.cognitiveWorkId = work.id;
+      investigation.cognitiveRevision = work.revision;
+      const continueWork = semanticContinueWork(
+        reply.qualification,
+        investigation,
+        reply,
+      );
+      const usage = usageFromReply(reply);
+      const production = documentProductionFromReply(
+        work,
+        reply,
+        segmentIndex,
+        continueWork,
+      );
+      return {
+        replyText: reply.content,
+        qualification: reply.qualification,
+        investigation,
+        generationId: reply.generationId,
+        continueWork,
+        resourcesDelta: {
+          inputTokens: usage.inputTokens,
+          outputTokens: usage.outputTokens,
+          modelRequested: reply.modelRequested,
+          modelApplied: reply.modelApplied,
+          effortRequested: reply.effortRequested,
+          effortApplied: reply.effortApplied,
+          webCalls: (reply.observedToolSources ?? []).filter((s) => s.kind === "WEB")
+            .length,
+          limits:
+            usage.inputTokens == null
+              ? ["USAGE_TOKENS_UNKNOWN"]
+              : undefined,
+        },
+        production,
+      };
+    },
+  });
+
+  const lastReply = segmentBox.reply;
+  if (!lastReply) {
+    throw new Error("CONDUCTOR_NO_SEGMENT");
+  }
+
+  // C17: align lifecycle — suspended conductor must not claim COMPLETE reply.
+  const alignedStatus: NoraGenerateResult["status"] = conductor.suspended
+    ? "INTERRUPTED"
+    : lastReply.status;
+
+  const reply: NoraGenerateResult = {
+    ...lastReply,
+    content: conductor.replyText || lastReply.content,
+    qualification: conductor.qualification ?? lastReply.qualification,
+    status: alignedStatus,
+  };
+
+  return {
+    ...reply,
+    conductor: {
+      workId: conductor.work.id,
+      revision: conductor.work.revision,
+      segmentsRun: conductor.segmentsRun,
+      resumed: conductor.resumed,
+      suspended: conductor.suspended,
+      suspendReason: conductor.suspendReason,
+      investigation: {
+        ...conductor.investigation,
+        cognitiveWorkId: conductor.work.id,
+        cognitiveRevision: conductor.work.revision,
+      },
+      production: conductor.production,
+    },
+  };
+}
+
+```
+
 ### FULL FILE `projects/sfia-studio-next/web/src/domains/conversation/service.ts`
 
-- sha256 (worktree): `3f4b64ad2c8d9e9809a4a8dd5982cac2bb57051c87e61f7c3a1fb47fac4813b3`
-- lines: 3961
-- bytes: 154400
-- inclusion: **COMPLETE** (no truncation; trailing whitespace stripped for handoff hygiene only)
+- sha256 (worktree): `f1928853e49aafa5ec893b9dfc63e8b702a24ad45fb007c0131dca1683779472`
+- lines: 3986
+- inclusion: **COMPLETE**
 
 ```typescript
 import { and, asc, eq, inArray, sql } from "drizzle-orm";
@@ -6475,15 +5574,40 @@ export async function postUserMessageAndNora(
         },
       });
       reply = turn;
-      cognitiveWorkId = turn.conductor.workId;
-      cognitiveWorkMeta = {
-        workId: turn.conductor.workId,
-        revision: turn.conductor.revision,
-        segmentsRun: turn.conductor.segmentsRun,
-        resumed: turn.conductor.resumed,
-        suspended: turn.conductor.suspended,
-        suspendReason: turn.conductor.suspendReason,
-      };
+      cognitiveWorkId = turn.conductor.workId || null;
+      // C20: consolidated cognitive DOCUMENT production is the canonical D4 body
+      // when present — reply documentProposal must not compete with it.
+      const consolidated = turn.conductor.production;
+      if (
+        consolidated?.kind === "DOCUMENT" &&
+        consolidated.contentMarkdown?.trim() &&
+        reply.qualification
+      ) {
+        const title =
+          reply.qualification.documentProposal?.title?.trim() ||
+          consolidated.parts[0]?.title ||
+          "Document";
+        reply = {
+          ...reply,
+          qualification: {
+            ...reply.qualification,
+            documentProposal: {
+              title,
+              contentMarkdown: consolidated.contentMarkdown,
+            },
+          },
+        };
+      }
+      cognitiveWorkMeta = turn.conductor.workId
+        ? {
+            workId: turn.conductor.workId,
+            revision: turn.conductor.revision,
+            segmentsRun: turn.conductor.segmentsRun,
+            resumed: turn.conductor.resumed,
+            suspended: turn.conductor.suspended,
+            suspendReason: turn.conductor.suspendReason,
+          }
+        : null;
       try {
         const { appendActivityEvent } = await import("./activity-projection");
         await appendActivityEvent({
@@ -9256,1132 +8380,249 @@ export async function getConversationId(pilotId: string, preparationId: string) 
 
 ```
 
-### FULL FILE `projects/sfia-studio-next/web/src/domains/execution/cursor-attempt-service.ts`
+### FULL FILE `projects/sfia-studio-next/web/tests/unit/ml5-c20-invariants.test.ts`
 
-- sha256 (worktree): `1e81d3ce154b0d04e379a573b0a7b7cbb6822c24dabace61ffa4978e8f83b26a`
-- lines: 1057
-- bytes: 32900
-- inclusion: **COMPLETE** (no truncation; trailing whitespace stripped for handoff hygiene only)
-
-```typescript
-import { and, eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import { effectAttempts, projects, technicalContracts } from "@/db/schema";
-import { insertHumanDecision } from "@/domains/decisions/service";
-import { StudioError } from "@/lib/http-errors";
-import { newId } from "@/lib/ids";
-import { assertCurrentCursorAuthority } from "./cursor-authority";
-import { claimCursorAttempt, persistCursorOwnedResult } from "./cursor-claim";
-import {
-  dispatchCursorRun,
-  resolveCursorAdapterMode,
-  stopCursorRun,
-} from "./cursor-sdk-adapter";
-import { isClaimActive, readClaim } from "./claim-lease";
-import { instructionFingerprint } from "./technical-contract-fingerprint";
-import { resolveCursorWorkspace } from "./workspace-resolver";
-import type { CursorExecutionPlan, CursorLiveProjection } from "./types";
-
-async function assertProject(pilotId: string, projectId: string) {
-  const p = (
-    await db
-      .select({ id: projects.id })
-      .from(projects)
-      .where(and(eq(projects.id, projectId), eq(projects.ownerPilotId, pilotId)))
-      .limit(1)
-  )[0];
-  if (!p) throw new StudioError("NOT_FOUND", "Projet introuvable");
-}
-
-function parseLive(resultJson: string | null | undefined): CursorLiveProjection {
-  try {
-    return JSON.parse(resultJson || "{}") as CursorLiveProjection;
-  } catch {
-    return {};
-  }
-}
-
-function planFingerprintPayload(plan: CursorExecutionPlan): string {
-  return JSON.stringify({
-    kind: plan.kind,
-    contractId: plan.contractId,
-    contractVersion: plan.contractVersion,
-    contractFingerprint: plan.contractFingerprint,
-    instructionFingerprint: plan.instructionFingerprint,
-    workspaceCwd: plan.workspaceCwd,
-    workspaceKey: plan.workspaceKey ?? null,
-    effectProviderMode: plan.effectProviderMode,
-    gitScope: plan.gitScope ?? null,
-    mcpRequired: [...(plan.mcpRequired ?? [])].sort(),
-  });
-}
-
-export async function prepareCursorExecution(input: {
-  pilotId: string;
-  projectId: string;
-  contractId: string;
-  correlationKey: string;
-  /** Server-side key only — never an absolute client path. */
-  workspaceKey?: string | null;
-  /** Legacy client field — absolute paths are rejected. */
-  workspaceCwd?: string | null;
-  mcpRequired?: string[];
-}) {
-  await assertProject(input.pilotId, input.projectId);
-
-  const contract = (
-    await db
-      .select()
-      .from(technicalContracts)
-      .where(
-        and(
-          eq(technicalContracts.id, input.contractId),
-          eq(technicalContracts.projectId, input.projectId),
-          eq(technicalContracts.pilotId, input.pilotId),
-        ),
-      )
-      .limit(1)
-  )[0];
-  if (!contract) throw new StudioError("NOT_FOUND", "Contrat technique introuvable");
-  if (contract.status !== "READY") {
-    throw new StudioError(
-      "INVALID_REQUEST",
-      `Contrat non prêt pour tentative: ${contract.status}`,
-      { exposeMessage: true },
-    );
-  }
-  // C19: READY historique ≠ applicabilité actuelle au point d'effet.
-  const { assertTechnicalContractMandateApplicable } = await import(
-    "./mandate-applicability"
-  );
-  await assertTechnicalContractMandateApplicable({
-    pilotId: input.pilotId,
-    projectId: input.projectId,
-    contractId: input.contractId,
-    preparationId: contract.preparationId,
-  });
-
-  const workspace = resolveCursorWorkspace({
-    pilotId: input.pilotId,
-    projectId: input.projectId,
-    workspaceKey: input.workspaceKey,
-    clientDeclaredCwd: input.workspaceCwd,
-    ensureDir: true,
-  });
-
-  const prior = (
-    await db
-      .select()
-      .from(effectAttempts)
-      .where(
-        and(
-          eq(effectAttempts.pilotId, input.pilotId),
-          eq(effectAttempts.projectId, input.projectId),
-          eq(effectAttempts.correlationKey, input.correlationKey),
-        ),
-      )
-      .limit(1)
-  )[0];
-
-  const mode = resolveCursorAdapterMode();
-  const gitScope = contract.gitScopeJson
-    ? (JSON.parse(contract.gitScopeJson) as CursorExecutionPlan["gitScope"])
-    : null;
-  // DÉC-ML5-GIT Option A — CP-01 independent Git observations (never contract SHA echo).
-  if (gitScope?.required) {
-    const {
-      buildCursorGitMandateFromScope,
-      observeWorkspaceGitFacts,
-      preflightCursorGitOptionA,
-    } = await import("./cursor-git-option-a");
-    const mandate = buildCursorGitMandateFromScope(gitScope);
-    const authorized =
-      process.env.SFIA_CURSOR_GIT_AUTHORIZED_REPOS?.split(",")
-        .map((s) => s.trim())
-        .filter(Boolean) ?? [];
-    // DEV SCRIPTED: allow the declared repo name when authorized list empty and mode SCRIPTED.
-    const repos =
-      authorized.length > 0
-        ? authorized
-        : mode === "SCRIPTED" && gitScope.repositoryFullName
-          ? [gitScope.repositoryFullName]
-          : [];
-    const observations = observeWorkspaceGitFacts(
-      workspace.workspaceCwd,
-      gitScope.baseRef ?? "main",
-      gitScope.workBranch ?? "cursor/work",
-    );
-    const pre = preflightCursorGitOptionA({
-      mandate,
-      workspacePath: workspace.workspaceCwd,
-      authorizedRepos: repos,
-      observations,
-    });
-    if (!pre.ok) {
-      throw new StudioError(
-        "INVALID_REQUEST",
-        `Préflight Git Cursor option A refusé: ${pre.reason}`,
-        { exposeMessage: true },
-      );
-    }
-  }
-  // E12 / C8 A3 — MCP fail-closed: UNKNOWN blocks; SCRIPTED may simulate explicitly.
-  const mcpRequired = input.mcpRequired ?? [];
-  if (mcpRequired.length > 0) {
-    const { assertMcpReadyForDispatch, checkRequiredMcpCapabilities } = await import(
-      "./mcp-capability-check"
-    );
-    const scriptedSimulation = mode === "SCRIPTED";
-    const mcpResults = checkRequiredMcpCapabilities(mcpRequired, process.env, {
-      scriptedSimulation,
-    });
-    const mcpGate = assertMcpReadyForDispatch(mcpResults, {
-      allowScriptedSimulation: scriptedSimulation,
-    });
-    if (!mcpGate.ok) {
-      throw new StudioError(
-        "INVALID_REQUEST",
-        `Préflight MCP refusé: ${mcpGate.reason}`,
-        { exposeMessage: true },
-      );
-    }
-  }
-  const modelId = (process.env.SFIA_CURSOR_MODEL_ID || "").trim() || undefined;
-  const plan: CursorExecutionPlan = {
-    kind: "CURSOR_EXECUTION",
-    contractId: contract.id,
-    contractKey: contract.contractKey,
-    contractVersion: contract.version,
-    contractFingerprint: contract.fingerprint,
-    instructionFingerprint: instructionFingerprint(contract.instructionText),
-    workspaceCwd: workspace.workspaceCwd,
-    workspaceKey: workspace.workspaceKey,
-    effectProviderMode: mode,
-    ...(modelId ? { modelId } : {}),
-    gitScope,
-    mcpRequired,
-  };
-  const fingerprint = contract.fingerprint;
-  const planFp = planFingerprintPayload(plan);
-
-  if (prior) {
-    if (prior.kind !== "CURSOR_EXECUTION") {
-      throw new StudioError("CONFLICT", "correlationKey déjà utilisé par un autre kind");
-    }
-    if (prior.fingerprint !== fingerprint) {
-      throw new StudioError("CONFLICT", "PAYLOAD_MISMATCH pour correlationKey", {
-        exposeMessage: true,
-      });
-    }
-    const priorPlan = JSON.parse(prior.planJson) as CursorExecutionPlan;
-    if (planFingerprintPayload(priorPlan) !== planFp) {
-      throw new StudioError(
-        "CONFLICT",
-        "PAYLOAD_MISMATCH — même correlationKey, cible/workspace/capacités différents",
-        { exposeMessage: true },
-      );
-    }
-    return {
-      attemptId: prior.id,
-      status: prior.status,
-      idempotent: true as const,
-      fingerprint: prior.fingerprint,
-      plan: priorPlan,
-    };
-  }
-
-  const attemptId = newId("efx");
-  const now = new Date();
-  await db.insert(effectAttempts).values({
-    id: attemptId,
-    pilotId: input.pilotId,
-    projectId: input.projectId,
-    kind: "CURSOR_EXECUTION",
-    status: "PREPARED",
-    correlationKey: input.correlationKey,
-    fingerprint,
-    planJson: JSON.stringify(plan),
-    resultJson: JSON.stringify({ reportStatus: "EXPECTED" } satisfies CursorLiveProjection),
-    createdAt: now,
-    updatedAt: now,
-  });
-
-  return {
-    attemptId,
-    status: "PREPARED" as const,
-    idempotent: false as const,
-    fingerprint,
-    plan,
-  };
-}
-
-/**
- * Authenticated D6 Non — records an explicit HumanDecision refusal.
- * No AUTHORIZED transition, no dispatch, no Cursor effect.
- * Attempt moves PREPARED → CANCELLED (still the same attemptId).
- */
-export async function refuseCursorExecution(input: {
-  pilotId: string;
-  projectId: string;
-  attemptId: string;
-  statement: string;
-  inspectedFingerprint: string;
-}) {
-  return db.transaction(async (tx) => {
-    const row = (
-      await tx
-        .select()
-        .from(effectAttempts)
-        .where(
-          and(
-            eq(effectAttempts.id, input.attemptId),
-            eq(effectAttempts.projectId, input.projectId),
-            eq(effectAttempts.pilotId, input.pilotId),
-          ),
-        )
-        .limit(1)
-    )[0];
-    if (!row) throw new StudioError("NOT_FOUND", "Tentative introuvable");
-    if (row.kind !== "CURSOR_EXECUTION") {
-      throw new StudioError("INVALID_REQUEST", "Tentative non Cursor");
-    }
-    if (row.status === "CANCELLED" && row.decisionId) {
-      return {
-        attemptId: row.id,
-        status: "CANCELLED" as const,
-        decisionId: row.decisionId,
-        idempotent: true as const,
-        fingerprint: row.fingerprint,
-        refused: true as const,
-      };
-    }
-    if (row.status !== "PREPARED") {
-      throw new StudioError(
-        "CONFLICT",
-        `Refus D6 impossible depuis statut ${row.status}`,
-        { exposeMessage: true },
-      );
-    }
-    if (input.inspectedFingerprint !== row.fingerprint) {
-      throw new StudioError(
-        "REQUIRES_REQUALIFICATION",
-        "Empreinte inspectée ≠ tentative — relire le contrat",
-        { exposeMessage: true },
-      );
-    }
-    const effectConditions = JSON.stringify({
-      fingerprint: row.fingerprint,
-      kind: "CURSOR_EXECUTION_REFUSAL",
-      attemptId: row.id,
-    });
-    const decisionId = await insertHumanDecision(tx, {
-      projectId: input.projectId,
-      pilotId: input.pilotId,
-      sourceKind: "CURSOR_EXECUTION",
-      sourceRef: row.id,
-      kind: "CURSOR_EXECUTION_REFUSAL",
-      objectRef: row.id,
-      statement: (input.statement || "Refus explicite D6 — pas d'exécution Cursor").slice(0, 500),
-      effectConditions,
-    });
-    const now = new Date();
-    await tx
-      .update(effectAttempts)
-      .set({
-        status: "CANCELLED",
-        decisionId,
-        effectConditions,
-        updatedAt: now,
-      })
-      .where(eq(effectAttempts.id, row.id));
-    return {
-      attemptId: row.id,
-      status: "CANCELLED" as const,
-      decisionId,
-      idempotent: false as const,
-      fingerprint: row.fingerprint,
-      refused: true as const,
-    };
-  });
-}
-
-export async function authorizeCursorExecution(input: {
-  pilotId: string;
-  projectId: string;
-  attemptId: string;
-  statement: string;
-  inspectedFingerprint: string;
-  /** Explicit confirmation — required. */
-  confirmed: boolean;
-}) {
-  if (!input.confirmed) {
-    return refuseCursorExecution({
-      pilotId: input.pilotId,
-      projectId: input.projectId,
-      attemptId: input.attemptId,
-      statement: input.statement,
-      inspectedFingerprint: input.inspectedFingerprint,
-    });
-  }
-  return db.transaction(async (tx) => {
-    const row = (
-      await tx
-        .select()
-        .from(effectAttempts)
-        .where(
-          and(
-            eq(effectAttempts.id, input.attemptId),
-            eq(effectAttempts.projectId, input.projectId),
-            eq(effectAttempts.pilotId, input.pilotId),
-          ),
-        )
-        .limit(1)
-    )[0];
-    if (!row) throw new StudioError("NOT_FOUND", "Tentative introuvable");
-    if (row.kind !== "CURSOR_EXECUTION") {
-      throw new StudioError("INVALID_REQUEST", "Tentative non Cursor");
-    }
-    if (row.status !== "PREPARED" && row.status !== "AUTHORIZED") {
-      throw new StudioError("CONFLICT", `Statut non autorisable: ${row.status}`);
-    }
-    if (input.inspectedFingerprint !== row.fingerprint) {
-      throw new StudioError(
-        "REQUIRES_REQUALIFICATION",
-        "Empreinte inspectée ≠ tentative — relire le contrat",
-        { exposeMessage: true },
-      );
-    }
-
-    const contract = (
-      await tx
-        .select()
-        .from(technicalContracts)
-        .where(eq(technicalContracts.id, (JSON.parse(row.planJson) as CursorExecutionPlan).contractId))
-        .limit(1)
-    )[0];
-    if (!contract || contract.status !== "READY") {
-      throw new StudioError("REQUIRES_REQUALIFICATION", "Contrat non READY au moment D6");
-    }
-    if (contract.fingerprint !== row.fingerprint) {
-      throw new StudioError("REQUIRES_REQUALIFICATION", "Contrat divergé depuis prepare");
-    }
-    // C19: re-check filiation / investigation currency before HumanDecision.
-    const { assertTechnicalContractMandateApplicable } = await import(
-      "./mandate-applicability"
-    );
-    await assertTechnicalContractMandateApplicable({
-      pilotId: input.pilotId,
-      projectId: input.projectId,
-      contractId: contract.id,
-      preparationId: contract.preparationId,
-    });
-
-    if (row.status === "AUTHORIZED" && row.decisionId) {
-      return {
-        attemptId: row.id,
-        status: "AUTHORIZED" as const,
-        decisionId: row.decisionId,
-        idempotent: true as const,
-        fingerprint: row.fingerprint,
-      };
-    }
-
-    const effectConditions = JSON.stringify({
-      fingerprint: row.fingerprint,
-      kind: "CURSOR_EXECUTION_MANDATE",
-      attemptId: row.id,
-    });
-    const decisionId = await insertHumanDecision(tx, {
-      projectId: input.projectId,
-      pilotId: input.pilotId,
-      sourceKind: "CURSOR_EXECUTION",
-      sourceRef: row.id,
-      kind: "CURSOR_EXECUTION_MANDATE",
-      objectRef: row.id,
-      statement: input.statement.slice(0, 500),
-      effectConditions,
-    });
-
-    const now = new Date();
-    await tx
-      .update(effectAttempts)
-      .set({
-        status: "AUTHORIZED",
-        decisionId,
-        effectConditions,
-        updatedAt: now,
-      })
-      .where(eq(effectAttempts.id, row.id));
-
-    return {
-      attemptId: row.id,
-      status: "AUTHORIZED" as const,
-      decisionId,
-      idempotent: false as const,
-      fingerprint: row.fingerprint,
-    };
-  });
-}
-
-export async function dispatchCursorExecution(input: {
-  pilotId: string;
-  projectId: string;
-  attemptId: string;
-}) {
-  const row = (
-    await db
-      .select()
-      .from(effectAttempts)
-      .where(
-        and(
-          eq(effectAttempts.id, input.attemptId),
-          eq(effectAttempts.projectId, input.projectId),
-          eq(effectAttempts.pilotId, input.pilotId),
-        ),
-      )
-      .limit(1)
-  )[0];
-  if (!row) throw new StudioError("NOT_FOUND", "Tentative introuvable");
-  if (row.kind !== "CURSOR_EXECUTION") {
-    throw new StudioError("INVALID_REQUEST", "Tentative non Cursor");
-  }
-
-  const live = parseLive(row.resultJson);
-
-  // Terminal / in-flight: never blind redispatches.
-  if (row.status === "DISPATCHED") {
-    throw new StudioError(
-      "CONFLICT",
-      "Exécution déjà DISPATCHED — reconcile puis reprise contrôlée (AMBIGUOUS) requise",
-      { exposeMessage: true },
-    );
-  }
-  if (row.status === "COMPLETED" || row.status === "FAILED" || row.status === "CONFLICT") {
-    return {
-      attemptId: row.id,
-      status: row.status,
-      idempotent: true as const,
-      live,
-      limits: ["NO_BLIND_REDISPATCH", ...(live.limits ?? [])],
-    };
-  }
-  if (row.status !== "AUTHORIZED" && row.status !== "AMBIGUOUS") {
-    throw new StudioError("CONFLICT", `Dispatch refusé depuis statut ${row.status}`, {
-      exposeMessage: true,
-    });
-  }
-
-  await assertCurrentCursorAuthority({
-    pilotId: input.pilotId,
-    projectId: input.projectId,
-    decisionId: row.decisionId,
-    attemptId: row.id,
-    fingerprint: row.fingerprint,
-    effectConditionsFingerprint: row.effectConditions
-      ? (JSON.parse(row.effectConditions) as { fingerprint?: string }).fingerprint ?? null
-      : null,
-  });
-
-  const plan = JSON.parse(row.planJson) as CursorExecutionPlan;
-  if (plan.contractFingerprint !== row.fingerprint) {
-    throw new StudioError("REQUIRES_REQUALIFICATION", "Plan ≠ fingerprint tentative");
-  }
-
-  // Re-resolve workspace — refuse if confinement broken since prepare.
-  const workspace = resolveCursorWorkspace({
-    pilotId: input.pilotId,
-    projectId: input.projectId,
-    workspaceKey: plan.workspaceKey ?? "default",
-    ensureDir: true,
-  });
-  if (workspace.workspaceCwd !== plan.workspaceCwd) {
-    throw new StudioError(
-      "REQUIRES_REQUALIFICATION",
-      "Workspace résolu ≠ plan préparé — nouvel acte requis",
-      { exposeMessage: true },
-    );
-  }
-
-  const contract = (
-    await db
-      .select()
-      .from(technicalContracts)
-      .where(eq(technicalContracts.id, plan.contractId))
-      .limit(1)
-  )[0];
-  if (!contract) throw new StudioError("NOT_FOUND", "Contrat disparu");
-  if (contract.fingerprint !== row.fingerprint || contract.status !== "READY") {
-    throw new StudioError(
-      "REQUIRES_REQUALIFICATION",
-      "Contrat modifié ou non READY depuis l'autorisation",
-      { exposeMessage: true },
-    );
-  }
-  // C19: dispatch effect point — obsolete mandate cannot run.
-  const { assertTechnicalContractMandateApplicable: assertMandateAtDispatch } =
-    await import("./mandate-applicability");
-  await assertMandateAtDispatch({
-    pilotId: input.pilotId,
-    projectId: input.projectId,
-    contractId: contract.id,
-    preparationId: contract.preparationId,
-  });
-
-  const fromStatus = row.status as "AUTHORIZED" | "AMBIGUOUS";
-  if (fromStatus === "AMBIGUOUS") {
-    const { priorSendMayHaveOccurred } = await import("./cursor-claim");
-    if (priorSendMayHaveOccurred(row.resultJson)) {
-      throw new StudioError(
-        "CONFLICT",
-        "AMBIGUOUS avec envoi antérieur possible — pas de redispatch ; réconcilier ou conserver UNKNOWN",
-        { exposeMessage: true },
-      );
-    }
-  }
-  // P0: claim + sendRequestedAt in one durable write BEFORE any external SDK call.
-  // Crash between this point and SDK ⇒ priorSendMayHaveOccurred ⇒ no blind redispatch.
-  const claimed = await claimCursorAttempt(row.id, fromStatus, { stampSendIntent: true });
-  if (!claimed) {
-    const again = (
-      await db.select().from(effectAttempts).where(eq(effectAttempts.id, row.id)).limit(1)
-    )[0];
-    if (again?.status === "DISPATCHED") {
-      throw new StudioError("CONFLICT", "Claim concurrent — un seul dispatch", {
-        exposeMessage: true,
-      });
-    }
-    const { priorSendMayHaveOccurred } = await import("./cursor-claim");
-    if (fromStatus === "AMBIGUOUS" && priorSendMayHaveOccurred(again?.resultJson)) {
-      throw new StudioError(
-        "CONFLICT",
-        "Claim refusé — effet externe possible après ACK perdu ; pas de second envoi",
-        { exposeMessage: true },
-      );
-    }
-    throw new StudioError("CONFLICT", "Claim atomique échoué — pas de dispatch", {
-      exposeMessage: true,
-    });
-  }
-
-  const claimToken = claimed.claim.claimToken;
-  const sendRequestedAt =
-    claimed.sendRequestedAt ?? new Date().toISOString();
-
-  let dispatched;
-  try {
-    const { isScriptedPhasedMode } = await import("./cursor-sdk-adapter");
-    const scriptedPhased =
-      plan.effectProviderMode === "SCRIPTED" && isScriptedPhasedMode();
-    const liveWait =
-      plan.effectProviderMode === "LIVE" &&
-      (process.env.SFIA_CURSOR_LIVE_WAIT || "").trim() === "1";
-    dispatched = await dispatchCursorRun({
-      attemptId: row.id,
-      instructionText: contract.instructionText,
-      instructionFingerprint: plan.instructionFingerprint,
-      workspaceCwd: plan.workspaceCwd,
-      idempotencyKey: row.id,
-      modelId: plan.modelId,
-      /**
-       * LIVE default: return after ACK — reconcile observes terminal without resend.
-       * SFIA_CURSOR_LIVE_WAIT=1: block until terminal (DEV worker-style, C11).
-       * SCRIPTED default: finish immediately unless SFIA_CURSOR_SCRIPTED_PHASED=1.
-       */
-      waitForTerminal:
-        liveWait || (plan.effectProviderMode === "SCRIPTED" && !scriptedPhased),
-    });
-  } catch (e) {
-    const failLive: CursorLiveProjection = {
-      ...live,
-      sendRequestedAt,
-      terminalStatus: "unknown",
-      limits: ["DISPATCH_SEND_FAILED", String((e as Error)?.message ?? "error").slice(0, 120)],
-    };
-    await persistCursorOwnedResult({
-      attemptId: row.id,
-      claimToken,
-      resultJson: JSON.stringify(failLive),
-      status: "AMBIGUOUS",
-      release: true,
-    });
-    throw e;
-  }
-
-  const nextLive: CursorLiveProjection = {
-    sendRequestedAt: dispatched.sendRequestedAt ?? sendRequestedAt,
-    ackReceivedAt: dispatched.ackReceivedAt,
-    runObservedAt: dispatched.runObservedAt,
-    agentId: dispatched.agentId,
-    runId: dispatched.runId,
-    lastActivitySummary: dispatched.lastActivitySummary,
-    terminalStatus: dispatched.terminalStatus,
-    reportStatus: "EXPECTED",
-    limits: dispatched.limits,
-  };
-
-  const terminal =
-    dispatched.terminalStatus === "finished" ||
-    dispatched.terminalStatus === "error" ||
-    dispatched.terminalStatus === "cancelled";
-
-  await persistCursorOwnedResult({
-    attemptId: row.id,
-    claimToken,
-    resultJson: JSON.stringify(nextLive),
-    status: terminal ? "COMPLETED" : "DISPATCHED",
-    release: terminal,
-  });
-
-  // C13 — durable observation independent of browser/HTTP when LIVE ACK returns early.
-  // Observation only (reconcile); never a second send.
-  if (
-    !terminal &&
-    plan.effectProviderMode === "LIVE" &&
-    nextLive.runId
-  ) {
-    try {
-      const { ensureCursorLiveSupervisor } = await import(
-        "./cursor-live-supervisor"
-      );
-      ensureCursorLiveSupervisor({
-        pilotId: input.pilotId,
-        projectId: input.projectId,
-        attemptId: row.id,
-      });
-    } catch {
-      /* supervisor start must not fail dispatch ACK */
-    }
-  }
-
-  return {
-    attemptId: row.id,
-    status: terminal ? ("COMPLETED" as const) : ("DISPATCHED" as const),
-    idempotent: false as const,
-    live: nextLive,
-    scriptedReportMarkdown: dispatched.resultText,
-    limits: dispatched.limits,
-    claimToken,
-  };
-}
-
-export async function requestStopCursorExecution(input: {
-  pilotId: string;
-  projectId: string;
-  attemptId: string;
-}) {
-  const row = (
-    await db
-      .select()
-      .from(effectAttempts)
-      .where(
-        and(
-          eq(effectAttempts.id, input.attemptId),
-          eq(effectAttempts.projectId, input.projectId),
-          eq(effectAttempts.pilotId, input.pilotId),
-        ),
-      )
-      .limit(1)
-  )[0];
-  if (!row) throw new StudioError("NOT_FOUND", "Tentative introuvable");
-  const live = parseLive(row.resultJson);
-  const plan = JSON.parse(row.planJson) as CursorExecutionPlan;
-  const stop = await stopCursorRun({
-    attemptId: row.id,
-    agentId: live.agentId ?? null,
-    runId: live.runId ?? null,
-    workspaceCwd: plan.workspaceCwd,
-    mode: plan.effectProviderMode,
-  });
-  const nextLive: CursorLiveProjection = {
-    ...live,
-    stopRequestedAt: stop.stopRequestedAt,
-    stopObservedAt: stop.stopObservedAt,
-    terminalStatus: stop.stopObservedAt
-      ? stop.terminalStatus ?? live.terminalStatus
-      : live.terminalStatus ?? "unknown",
-    limits: [
-      ...(live.limits ?? []),
-      ...stop.limits,
-      stop.stopObservedAt ? "STOP_OBSERVED" : "STOP_REQUESTED_NOT_CONFIRMED",
-    ],
-  };
-  // STOP requested ≠ STOP observed. If uncertain after possible effect → keep
-  // DISPATCHED/AMBIGUOUS; never invent cancelled without observation.
-  let nextStatus = row.status;
-  if (stop.stopObservedAt && stop.terminalStatus === "cancelled") {
-    nextStatus = "COMPLETED";
-  } else if (
-    !stop.stopObservedAt &&
-    (live.agentId || live.runId || live.sendRequestedAt) &&
-    row.status === "DISPATCHED"
-  ) {
-    nextLive.limits = [
-      ...(nextLive.limits ?? []),
-      "STOP_UNCERTAIN_AFTER_POSSIBLE_EFFECT — conserver DISPATCHED, pas de succès inventé",
-    ];
-  }
-  await db
-    .update(effectAttempts)
-    .set({
-      resultJson: JSON.stringify(nextLive),
-      status: nextStatus,
-      updatedAt: new Date(),
-    })
-    .where(eq(effectAttempts.id, row.id));
-  return {
-    attemptId: row.id,
-    status: nextStatus,
-    live: nextLive,
-    limits: nextLive.limits ?? [],
-    stopRequested: true as const,
-    stopObserved: Boolean(stop.stopObservedAt),
-  };
-}
-
-export async function reconcileCursorExecution(input: {
-  pilotId: string;
-  projectId: string;
-  attemptId: string;
-}) {
-  try {
-    const { ensureLiveSupervisorsResumedOnce } = await import(
-      "./cursor-live-supervisor"
-    );
-    await ensureLiveSupervisorsResumedOnce();
-  } catch {
-    /* resume must not block reconcile */
-  }
-
-  const row = (
-    await db
-      .select()
-      .from(effectAttempts)
-      .where(
-        and(
-          eq(effectAttempts.id, input.attemptId),
-          eq(effectAttempts.projectId, input.projectId),
-          eq(effectAttempts.pilotId, input.pilotId),
-        ),
-      )
-      .limit(1)
-  )[0];
-  if (!row) throw new StudioError("NOT_FOUND", "Tentative introuvable");
-  const live = parseLive(row.resultJson);
-  const claim = readClaim(row.resultJson);
-  const limits = [...(live.limits ?? [])];
-  const plan = JSON.parse(row.planJson) as CursorExecutionPlan;
-
-  // Re-attach durable observer only for LIVE DISPATCHED with known run handle.
-  if (
-    row.status === "DISPATCHED" &&
-    plan.effectProviderMode === "LIVE" &&
-    live.runId
-  ) {
-    try {
-      const { ensureCursorLiveSupervisor } = await import(
-        "./cursor-live-supervisor"
-      );
-      ensureCursorLiveSupervisor({
-        pilotId: input.pilotId,
-        projectId: input.projectId,
-        attemptId: input.attemptId,
-      });
-    } catch {
-      /* ensure must not block reconcile */
-    }
-  }
-
-  // SCRIPTED phased: advance in-memory run → COMPLETED without a second send.
-  if (
-    row.status === "DISPATCHED" &&
-    plan.effectProviderMode === "SCRIPTED" &&
-    !live.terminalStatus
-  ) {
-    const { advanceScriptedRunToFinished } = await import("./cursor-sdk-adapter");
-    const advanced = advanceScriptedRunToFinished(row.id);
-    if (advanced) {
-      const nextLive: CursorLiveProjection = {
-        ...live,
-        agentId: advanced.agentId,
-        runId: advanced.runId,
-        terminalStatus: "finished",
-        lastActivitySummary: advanced.lastActivitySummary,
-        reportStatus: "RECEIVED",
-        limits: [
-          ...limits,
-          "SCRIPTED_MODE",
-          "SCRIPTED_PHASED_RECONCILED",
-          "NO_REAL_SIDE_EFFECT",
-        ],
-      };
-      if (claim && isClaimActive(claim)) {
-        await persistCursorOwnedResult({
-          attemptId: row.id,
-          claimToken: claim.claimToken,
-          resultJson: JSON.stringify({
-            ...nextLive,
-            reportMarkdown: advanced.resultText,
-          }),
-          status: "COMPLETED",
-          release: true,
-        });
-      } else {
-        await db
-          .update(effectAttempts)
-          .set({
-            status: "COMPLETED",
-            resultJson: JSON.stringify({
-              ...nextLive,
-              reportMarkdown: advanced.resultText,
-            }),
-            updatedAt: new Date(),
-          })
-          .where(eq(effectAttempts.id, row.id));
-      }
-      return {
-        attemptId: row.id,
-        status: "COMPLETED" as const,
-        live: nextLive,
-        limits: nextLive.limits ?? [],
-        scriptedReportMarkdown: advanced.resultText,
-      };
-    }
-  }
-
-  // LIVE: observe existing run — never a second send.
-  // "unknown" from a prior failed observe is NOT terminal — re-observe.
-  const liveNeedsObserve =
-    !live.terminalStatus || live.terminalStatus === "unknown";
-  if (
-    row.status === "DISPATCHED" &&
-    plan.effectProviderMode === "LIVE" &&
-    liveNeedsObserve &&
-    live.runId
-  ) {
-    const { observeLiveCursorRun } = await import("./cursor-sdk-adapter");
-    const observed = await observeLiveCursorRun({
-      runId: live.runId,
-      agentId: live.agentId ?? null,
-      workspaceCwd: plan.workspaceCwd,
-    });
-    const nextLive: CursorLiveProjection = {
-      ...live,
-      terminalStatus: observed.terminalStatus ?? live.terminalStatus,
-      lastActivitySummary:
-        observed.lastActivitySummary ?? live.lastActivitySummary,
-      reportStatus:
-        observed.terminalStatus === "finished" ? "EXPECTED" : live.reportStatus,
-      limits: [...new Set([...limits, ...(observed.limits ?? [])])],
-    };
-    const terminal =
-      nextLive.terminalStatus === "finished" ||
-      nextLive.terminalStatus === "error" ||
-      nextLive.terminalStatus === "cancelled";
-    if (terminal) {
-      const payload = {
-        ...nextLive,
-        ...(observed.resultText
-          ? { reportMarkdown: observed.resultText }
-          : {}),
-      };
-      if (claim && isClaimActive(claim)) {
-        await persistCursorOwnedResult({
-          attemptId: row.id,
-          claimToken: claim.claimToken,
-          resultJson: JSON.stringify(payload),
-          status: "COMPLETED",
-          release: true,
-        });
-      } else {
-        await db
-          .update(effectAttempts)
-          .set({
-            status: "COMPLETED",
-            resultJson: JSON.stringify(payload),
-            updatedAt: new Date(),
-          })
-          .where(
-            and(
-              eq(effectAttempts.id, row.id),
-              eq(effectAttempts.status, "DISPATCHED"),
-            ),
-          );
-      }
-      return {
-        attemptId: row.id,
-        status: "COMPLETED" as const,
-        live: nextLive,
-        limits: nextLive.limits ?? [],
-        scriptedReportMarkdown: observed.resultText,
-      };
-    }
-    // Non-terminal observation — persist activity, stay DISPATCHED.
-    await db
-      .update(effectAttempts)
-      .set({
-        resultJson: JSON.stringify(nextLive),
-        updatedAt: new Date(),
-      })
-      .where(
-        and(
-          eq(effectAttempts.id, row.id),
-          eq(effectAttempts.status, "DISPATCHED"),
-        ),
-      );
-    return {
-      attemptId: row.id,
-      status: "DISPATCHED" as const,
-      live: nextLive,
-      limits: nextLive.limits ?? [],
-    };
-  }
-
-  if (row.status === "DISPATCHED" && !isClaimActive(claim)) {
-    if (!live.runId && !live.agentId) {
-      limits.push("ACK_OR_OWNERSHIP_LOST — état UNKNOWN, pas de redispatch aveugle");
-      const nextLive: CursorLiveProjection = {
-        ...live,
-        terminalStatus: live.terminalStatus ?? "unknown",
-        limits,
-      };
-      await db
-        .update(effectAttempts)
-        .set({
-          status: "AMBIGUOUS",
-          resultJson: JSON.stringify(nextLive),
-          updatedAt: new Date(),
-        })
-        .where(and(eq(effectAttempts.id, row.id), eq(effectAttempts.status, "DISPATCHED")));
-      return { attemptId: row.id, status: "AMBIGUOUS" as const, live: nextLive, limits };
-    }
-    limits.push("LEASE_INACTIVE_WITH_RUN_IDS — conserver DISPATCHED/UNKNOWN, pas de second send");
-    return { attemptId: row.id, status: row.status, live, limits };
-  }
-
-  return { attemptId: row.id, status: row.status, live, limits };
-}
-
-export async function getCursorAttempt(input: {
-  pilotId: string;
-  projectId: string;
-  attemptId: string;
-}) {
-  const row = (
-    await db
-      .select()
-      .from(effectAttempts)
-      .where(
-        and(
-          eq(effectAttempts.id, input.attemptId),
-          eq(effectAttempts.projectId, input.projectId),
-          eq(effectAttempts.pilotId, input.pilotId),
-        ),
-      )
-      .limit(1)
-  )[0];
-  if (!row) throw new StudioError("NOT_FOUND", "Tentative introuvable");
-  return {
-    attemptId: row.id,
-    kind: row.kind,
-    status: row.status,
-    fingerprint: row.fingerprint,
-    decisionId: row.decisionId,
-    correlationKey: row.correlationKey,
-    plan: JSON.parse(row.planJson) as CursorExecutionPlan,
-    live: parseLive(row.resultJson),
-    createdAt: row.createdAt.toISOString(),
-    updatedAt: row.updatedAt.toISOString(),
-  };
-}
-
-export async function listCursorAttempts(input: {
-  pilotId: string;
-  projectId: string;
-}) {
-  await assertProject(input.pilotId, input.projectId);
-  const rows = await db
-    .select()
-    .from(effectAttempts)
-    .where(
-      and(
-        eq(effectAttempts.pilotId, input.pilotId),
-        eq(effectAttempts.projectId, input.projectId),
-        eq(effectAttempts.kind, "CURSOR_EXECUTION"),
-      ),
-    );
-  return rows.map((row) => ({
-    attemptId: row.id,
-    status: row.status,
-    fingerprint: row.fingerprint,
-    correlationKey: row.correlationKey,
-    decisionId: row.decisionId,
-    plan: JSON.parse(row.planJson) as CursorExecutionPlan,
-    live: parseLive(row.resultJson),
-    createdAt: row.createdAt.toISOString(),
-    updatedAt: row.updatedAt.toISOString(),
-  }));
-}
-
-```
-
-### FULL FILE `projects/sfia-studio-next/web/tests/unit/ml5-c19-invariants.test.ts`
-
-- sha256 (worktree): `d9bb1237597a863a1b36011c001b994fda1b0bb434a29add85e90be4f85a09a3`
-- lines: 52
-- bytes: 1989
-- inclusion: **COMPLETE** (no truncation; trailing whitespace stripped for handoff hygiene only)
+- sha256 (worktree): `0dbceb49307735d1afa30660c48bbbdb8ffddc7cea99355596964551f9094edf`
+- lines: 51
+- inclusion: **COMPLETE**
 
 ```typescript
 /**
- * C19 — residual invariants (deterministic).
+ * C20 — blocking residual invariants (deterministic).
  */
 import { describe, expect, it } from "vitest";
 import { sanitizePublicWebQuery } from "@/domains/conversation/web-search-sanitize";
 import {
   assertOutboundHasNoPrivateLeak,
+  executePublicWebOpenPage,
+  normalizeDiscoveredWebUrl,
   __resetPublicWebOutboundLogForTests,
   __getPublicWebOutboundLogForTests,
-  executePublicWebSearch,
 } from "@/domains/conversation/public-web-search-frontier";
-describe("C19 I3 WEB sanitize / egress confidentiality", () => {
-  it("redacts studio-private ids and blocks secretish queries", () => {
-    const a = sanitizePublicWebQuery(
-      "compare prep_abc12345-aaaa-bbbb-cccc-ddddeeee0000 with public RFC",
-    );
-    expect(a.ok).toBe(true);
-    expect(a.query).not.toMatch(/prep_/);
-    expect(a.redactions.length).toBeGreaterThan(0);
-
-    const blocked = sanitizePublicWebQuery("my api_key is sk-abcdefghijklmnopqrstuvwxyz");
-    expect(blocked.ok).toBe(false);
-  });
-
-  it("blocks outbound when private markers leak into fields", () => {
-    const r = assertOutboundHasNoPrivateLeak(
-      { q: "public topic prep_secretid12345678" },
-      ["prep_secretid12345678"],
+describe("C20 I3 WEB confidentiality / URL authorization", () => {
+  it("blocks confidential business content without studio id markers", () => {
+    const r = sanitizePublicWebQuery(
+      "compare our internal only roadmap with public RFCs",
     );
     expect(r.ok).toBe(false);
+    expect(r.blockedReason).toBe("SECRETISH_CONTENT");
   });
 
-  it("scripted search records only sanitized outbound query", async () => {
-    __resetPublicWebOutboundLogForTests();
-    const prev = process.env.SFIA_WEB_SEARCH_ENABLED;
-    process.env.SFIA_WEB_SEARCH_ENABLED = "1";
-    delete process.env.SFIA_WEB_SEARCH_LIVE;
-    try {
-      const r = await executePublicWebSearch({
-        rawQuery: "public markdown specification",
-        privateContextMarkers: ["proj_should_not_appear_zzzzzzzz"],
-      });
-      expect(r.status).toBe("AVAILABLE");
-      const log = __getPublicWebOutboundLogForTests();
-      expect(log.length).toBe(1);
-      expect(JSON.stringify(log[0]!.outboundFields)).not.toContain("proj_should_not_appear");
-    } finally {
-      if (prev === undefined) delete process.env.SFIA_WEB_SEARCH_ENABLED;
-      else process.env.SFIA_WEB_SEARCH_ENABLED = prev;
+  it("does not echo raw private markers in leak diagnostics", () => {
+    const r = assertOutboundHasNoPrivateLeak(
+      { q: "x prep_abc12345-aaaa-bbbb-cccc-ddddeeee0000 y" },
+      ["prep_abc12345-aaaa-bbbb-cccc-ddddeeee0000"],
+    );
+    expect(r.ok).toBe(false);
+    if (!r.ok) {
+      expect(r.leaked[0]).toMatch(/^PRIVATE_MARKER_/);
+      expect(r.leaked.join("")).not.toMatch(/prep_/);
     }
+  });
+
+  it("refuses open_page for URL outside discovery and does not log egress", async () => {
+    __resetPublicWebOutboundLogForTests();
+    const r = await executePublicWebOpenPage({
+      url: "https://example.invalid/secret-page",
+      env: { SFIA_WEB_SEARCH_ENABLED: "1" },
+      allowedUrls: ["https://example.invalid/allowed"],
+    });
+    expect(r.status).toBe("DENIED");
+    expect(r.limits).toContain("URL_NOT_IN_AUTHORIZED_DISCOVERY");
+    expect(__getPublicWebOutboundLogForTests()).toHaveLength(0);
+  });
+
+  it("normalizes discovered URLs without hash", () => {
+    expect(normalizeDiscoveredWebUrl("https://example.invalid/a#frag")).toBe(
+      "https://example.invalid/a",
+    );
+  });
+});
+
+```
+
+### FULL FILE `projects/sfia-studio-next/web/tests/unit/ml5-public-web-frontier.test.ts`
+
+- sha256 (worktree): `51c9e564291c4fab0d3393f3adde8fe9f7e03e7ca7f8ee8bec9d7e21bf4f06b9`
+- lines: 177
+- inclusion: **COMPLETE**
+
+```typescript
+import { afterEach, describe, expect, it } from "vitest";
+import {
+  __getPublicWebOutboundLogForTests,
+  __resetPublicWebOutboundLogForTests,
+  __parseLiveWebItemsForTests,
+  assertOutboundHasNoPrivateLeak,
+  assertPublicHttpsUrl,
+  canUsePublicWebFrontier,
+  confrontWebSources,
+  executePublicWebOpenPage,
+  executePublicWebSearch,
+} from "@/domains/conversation/public-web-search-frontier";
+import type { CognitivePolicy } from "@/domains/conversation/cognitive-policy";
+
+const basePolicy = {
+  profile: "analyse",
+  profileType: "OPERATIONAL",
+} as unknown as CognitivePolicy;
+
+function env(partial: Record<string, string>): NodeJS.ProcessEnv {
+  // Default LIVE off in unit tests unless the case opts in — avoid shell pollution.
+  return { ...process.env, SFIA_WEB_SEARCH_LIVE: "0", ...partial };
+}
+
+afterEach(() => {
+  __resetPublicWebOutboundLogForTests();
+});
+
+describe("ML5 B1 public web frontier", () => {
+  it("is off by default", () => {
+    expect(canUsePublicWebFrontier(basePolicy, env({ SFIA_WEB_SEARCH_ENABLED: "0" }))).toBe(
+      false,
+    );
+  });
+
+  it("blocks secretish queries and records no useful outbound", async () => {
+    const r = await executePublicWebSearch({
+      rawQuery: "api_key=sk-abcdefghijklmnopqrstuvwxyz123456",
+      env: env({ SFIA_WEB_SEARCH_ENABLED: "1" }),
+    });
+    expect(r.status).toBe("DENIED");
+    expect(__getPublicWebOutboundLogForTests()).toHaveLength(0);
+  });
+
+  it("SCRIPTED search records only sanitized public query", async () => {
+    const secret = "super-private-doc-xyz";
+    const r = await executePublicWebSearch({
+      rawQuery: "RFC 9110 HTTP semantics",
+      privateContextMarkers: [secret, "/Users/morris/secret"],
+      env: env({ SFIA_WEB_SEARCH_ENABLED: "1" }),
+    });
+    expect(r.status).toBe("AVAILABLE");
+    expect(r.mode).toBe("SCRIPTED");
+    const log = __getPublicWebOutboundLogForTests();
+    expect(log).toHaveLength(1);
+    expect(log[0]!.outboundFields.q).toMatch(/RFC 9110/);
+    const leak = assertOutboundHasNoPrivateLeak(log[0]!.outboundFields, [
+      secret,
+      "/Users/morris/secret",
+    ]);
+    expect(leak.ok).toBe(true);
+  });
+
+  it("refuses private path leakage in query", async () => {
+    const r = await executePublicWebSearch({
+      rawQuery: "see /Users/morris/Projects/private/notes.md for details",
+      env: env({ SFIA_WEB_SEARCH_ENABLED: "1" }),
+    });
+    if (r.status === "AVAILABLE") {
+      const log = __getPublicWebOutboundLogForTests();
+      expect(JSON.stringify(log)).not.toMatch(/\/Users\/morris/);
+    } else {
+      expect(r.limits.length).toBeGreaterThan(0);
+    }
+  });
+
+  it(
+    "SCRIPTED open_page marks PAGE_OPENED; LIVE open is no longer Morris-gate-denied",
+    async () => {
+      const opened = await executePublicWebOpenPage({
+        url: "https://example.invalid/doc",
+        env: env({ SFIA_WEB_SEARCH_ENABLED: "1" }),
+        allowedUrls: ["https://example.invalid/doc"],
+      });
+      expect(opened.coverage).toBe("PAGE_OPENED");
+      // LIVE open attempts a real fetch (fail-closed on DNS/timeout) — not MORRIS_GATE stub.
+      process.env.SFIA_WEB_FETCH_TIMEOUT_MS = "2000";
+      const liveOpen = await executePublicWebOpenPage({
+        url: "https://example.invalid/doc",
+        env: env({ SFIA_WEB_SEARCH_ENABLED: "1", SFIA_WEB_SEARCH_LIVE: "1" }),
+        allowedUrls: ["https://example.invalid/doc"],
+      });
+      expect(liveOpen.limits.some((l) => /MORRIS_GATE/.test(l))).toBe(false);
+      expect(["ERROR", "DENIED", "AVAILABLE"]).toContain(liveOpen.status);
+    },
+    12_000,
+  );
+
+  it("assertPublicHttpsUrl rejects private and credentialed destinations", () => {
+    expect(assertPublicHttpsUrl("http://example.com").ok).toBe(false);
+    expect(assertPublicHttpsUrl("https://127.0.0.1/x").ok).toBe(false);
+    expect(assertPublicHttpsUrl("https://10.0.0.5/x").ok).toBe(false);
+    expect(assertPublicHttpsUrl("https://192.168.1.1/x").ok).toBe(false);
+    expect(assertPublicHttpsUrl("https://user:pass@example.com/x").ok).toBe(false);
+    expect(assertPublicHttpsUrl("https://example.invalid/doc").ok).toBe(true);
+  });
+
+  it("open_page denies private IP even over https", async () => {
+    const r = await executePublicWebOpenPage({
+      url: "https://10.1.2.3/secret",
+      env: env({ SFIA_WEB_SEARCH_ENABLED: "1" }),
+      explicitlyAuthorized: true,
+    });
+    expect(r.status).toBe("DENIED");
+    expect(r.limits).toContain("URL_PRIVATE_IP");
+    expect(__getPublicWebOutboundLogForTests()).toHaveLength(0);
+  });
+
+  it("C20 open_page refuses URL outside authorized discovery before egress", async () => {
+    const r = await executePublicWebOpenPage({
+      url: "https://example.invalid/not-discovered",
+      env: env({ SFIA_WEB_SEARCH_ENABLED: "1" }),
+      allowedUrls: ["https://example.invalid/other"],
+    });
+    expect(r.status).toBe("DENIED");
+    expect(r.limits).toContain("URL_NOT_IN_AUTHORIZED_DISCOVERY");
+    expect(__getPublicWebOutboundLogForTests()).toHaveLength(0);
+  });
+
+  it("parses LIVE single-object, array, and hosted navigation shapes", () => {
+    const one = __parseLiveWebItemsForTests(
+      '{"url":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map","title":"map","snippet":"creates a new array"}',
+    );
+    expect(one).toHaveLength(1);
+    expect(one[0]!.url).toContain("developer.mozilla.org");
+    const many = __parseLiveWebItemsForTests(
+      '[{"url":"https://example.invalid/a","title":"A","snippet":"a"},{"url":"https://example.invalid/b","title":"B","snippet":"b"}]',
+    );
+    expect(many).toHaveLength(2);
+    const nav = __parseLiveWebItemsForTests(
+      '{"navigation":[["MDN map","developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"]],"needs_search":true}',
+    );
+    expect(nav).toHaveLength(1);
+    expect(nav[0]!.url).toMatch(/^https:\/\/developer\.mozilla\.org\//);
+  });
+
+  it("confrontWebSources flags opposing year claims", () => {
+    const c = confrontWebSources([
+      { url: "https://a.example/x", title: "Spec 2019", snippet: "deprecated in practice" },
+      { url: "https://b.example/y", title: "Guide 2024", snippet: "recommended current approach" },
+    ]);
+    expect(c.contradictions.length).toBeGreaterThan(0);
+  });
+
+  it("never treats ISOLATION_PROVEN env as attaching hosted tool", async () => {
+    const { canAttachWebSearchTool, buildPublicWebSearchTool } = await import(
+      "@/domains/conversation/web-search-tools"
+    );
+    expect(
+      buildPublicWebSearchTool(
+        env({
+          SFIA_WEB_SEARCH_ENABLED: "1",
+          SFIA_WEB_SEARCH_ISOLATION_PROVEN: "0",
+        }),
+      ),
+    ).toBeNull();
+    expect(
+      canAttachWebSearchTool(
+        basePolicy,
+        env({
+          SFIA_WEB_SEARCH_ENABLED: "1",
+          SFIA_WEB_SEARCH_ISOLATION_PROVEN: "0",
+        }),
+      ),
+    ).toBe(false);
   });
 });
 
@@ -10389,16 +8630,29 @@ describe("C19 I3 WEB sanitize / egress confidentiality", () => {
 
 ### FULL FILE `projects/sfia-studio-next/construction/delivery-history.md`
 
-- sha256 (worktree): `92b10c29209dc4c3dc1ac32506a62b360a0de3f69fe3d992e2dfba681d998ef4`
-- lines: 4392
-- bytes: 271569
-- inclusion: **COMPLETE** (no truncation; trailing whitespace stripped for handoff hygiene only)
+- sha256 (worktree): `b75756284e589f90c5049b9cf10c5072b283166797cc84e6053eabf2277c829f`
+- lines: 4406
+- inclusion: **COMPLETE**
 
 ```markdown
 # SFIA Studio Next — Delivery history
 
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+
+## delivery_id: DELIV-2026-11-24-ML5-CYCLE20-LOT1-EXIT-QUALIFICATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-24 (Europe/Paris) |
+| Macro-lot | ML5 — Cycle 20 qualification de sortie lot convergence 1 |
+| Type | CONSTRUCTION DEV · **NO RELEASE** · INC Critical |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `6cf33e9923796974b9ee540a9c6ff27110342950` (DIRTY — C1–C20 non poussés) |
+| Contenu | Corrections P0 bloquantes uniquement : lease/CAS concurrency ; D4 dependency currency + re-assert post-claim ; WEB discovery URL + confidential sanitize ; ambiguity clarify ; production consolidée → D4 |
+| Preuves | I1 PG heartbeat≠reconcile ; I2 `Dépendance D4 supersédée` ; I3 unit open denied sans egress ; I5 clarify sans nouveau work ; I6 production.mdLen = D4 revision length |
+| Push projet | **NONE** |
+| Verdict candidat | **READY WITH RESERVES** — lot 1 exit proposé ; réserves non bloquantes bornées |
 
 ## delivery_id: DELIV-2026-11-24-ML5-CYCLE19-RESIDUAL-INVARIANTS
 
@@ -14792,10 +13046,9 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 
 ### FULL FILE `projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md`
 
-- sha256 (worktree): `a87f4f33ebf13dd95f21d4f47625b5a0541a445e5b0592c57e2eb6e1dfbf18b7`
-- lines: 475
-- bytes: 59965
-- inclusion: **COMPLETE** (no truncation; trailing whitespace stripped for handoff hygiene only)
+- sha256 (worktree): `58a97346afa3bc86c8fafa762423278fb07a4bad598b34b07b2cf129548ebeb0`
+- lines: 476
+- inclusion: **COMPLETE**
 
 ```markdown
 # SFIA Studio Next — ML5 · Registre de couverture et de revue du développement
@@ -14804,7 +13057,7 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 
 | Champ | Valeur |
 |---|---|
-| Version | v0.12 candidate — 24 novembre 2026 : Cycle 19 fermeture I1–I6 (révisions immuables, invalidation mandat, WEB sanitize, mid-work reconcile, rattachement sémantique, production multi-tours) ; C4–C19 |
+| Version | v0.13 candidate — 24 novembre 2026 : Cycle 20 qualification sortie lot 1 (concurrency lease, D4 currency, WEB discovery URL, clarify ambigu, D4←production) ; C4–C20 |
 | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
 | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
 | Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |
@@ -14812,6 +13065,7 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | Cycle 11 | Scénario `ml5-c11-live-20261123` — Nora LIVE → D6 → Cursor SDK LIVE → D8 PARTIAL → Nora COGNITIVE |
 | Cycle 12 | `ml5-c12-live-20261123` — ACK-first + reconnect + COMPLETED ; T-04 DROP_ACK PASS ; Nora D8 tools ; STOP SCRIPTED ; candidat inventorié — **ML5 DEV LIVE PARTIAL — GOVERNED RESILIENCE GAPS** |
 | Cycle 13 | Confinement D8 (realpath/lstat/O_NOFOLLOW) ; journal provenance outils ; supervisor LIVE in-process ; STOP LIVE cancelled observé ; long-run sans navigateur ; candidat C3–C13 inventorié — **ML5 DEV LIVE RESILIENCE PROVEN — QUALIFICATION IN PROGRESS** |
+| Cycle 20 | Qualification sortie lot 1 — P0 concurrency/D4 currency/WEB discovery/clarify/D4 canonique — **READY WITH RESERVES** |
 | Cycle 19 | Fermeture I1–I6 : révisions immuables ; invalidation mandat aux effets ; WEB sanitize ; mid-RUNNING reconcile ; rattachement sémantique effectif ; production multi-tours conservée — **READY WITH RESERVES** (lot convergence 1) |
 | Cycle 18 | Contrat sortie structuré + outil production ; heuristiques A–F retirées ; P1–P4 LIVE ; DRAFT/READY/D6 — **NOT READY** (lifecycle gouverné incomplet — clôturé C19) |
 | Cycle 17 | Convergence verticale P1–P4 LIVE partielle — **NOT READY** |
@@ -15278,10 +13532,9 @@ Chaque réserve transférée comporte **propriétaire, impact, preuve attendue, 
 
 ### FULL FILE `projects/sfia-studio-next/construction/ml5-as-built-cursor-realization.md`
 
-- sha256 (worktree): `6d7c22f76b7c6ca5139c30b0f7a5545190d738685b8ecb836a34dbe55c0af724`
-- lines: 92
-- bytes: 5425
-- inclusion: **COMPLETE** (no truncation; trailing whitespace stripped for handoff hygiene only)
+- sha256 (worktree): `f7ba7304aa4acc5a2ea5f2c41964b26b42ccf3b01fa1443b84b95d205f45b5de`
+- lines: 101
+- inclusion: **COMPLETE**
 
 ```markdown
 # ML5 as-built — Cursor realization (2026-11-23)
@@ -15349,6 +13602,15 @@ Conformité globale : **0 VÉRIFIÉ** — preuves BROWSER/F2/LIVE/REAL absentes.
 - **Git Cursor F01–F09 :** toujours NOT_IMPL ; option **B** recommandée, non ADOPTED.
 - **Preuves :** DETERMINISTIC/PG OK ; BROWSER/F2/LIVE NOT PROVEN.
 
+## Cycle 20 — qualification sortie lot 1 (2026-11-24)
+
+- **I1 :** reconcile/heartbeat/checkpoint — predicate lease opposable en transaction ; scope projet/conversation ; CAS lecture obsolète.
+- **I2 :** dépendances D4 revalidées sans bump cognitif ; re-assert mandate après claim avant fournisseur.
+- **I3 :** open_page limité aux URL découvertes ; sanitize confidentiel métier ; diagnostics sans marqueurs bruts.
+- **I5 :** ambiguïté → `needsClarify` / AWAIT_PILOT, pas de nouveau work automatique.
+- **I6 :** `productionJson` DOCUMENT consolidé injecté comme `documentProposal` canonique pour D4.
+- **Build :** contenu DIRTY `6cf33e99` · NO RELEASE · push projet NONE.
+
 ## Cycle 19 — invariants résiduels lot 1 (2026-11-24)
 
 - **I1 :** `investigation-persistence` — toute modification matérielle → nouvelle révision + checkpoint ; pas de mutate-in-place ; idempotence sans bump.
@@ -15380,38 +13642,18 @@ Conformité globale : **0 VÉRIFIÉ** — preuves BROWSER/F2/LIVE/REAL absentes.
 ```
 
 
-## 11. Fake / Real
+## 11. Dette / réserves
 
-| Frontière | Niveau |
-|---|---|
-| I1 persistence/CAS | INTEGRATION PG |
-| I2 mandate effect paths | DEV LIVE API |
-| I3 WEB sanitize/outbound | DETERMINISTIC / SCRIPTED |
-| I4 mid-work reconcile | DEV LIVE (fence+kill processus) |
-| I5 semantic attach | DEV LIVE Agents SDK |
-| I6 production multi-tours | DEV LIVE Agents SDK |
-| Mutation GitHub REAL | NON |
-| Lot 2 | NON engagé |
-
-## 12. Dette / exit / réserves
-
-| Réserve | Portée | Propriétaire | Exit |
+| Réserve | Impact | Propriétaire | Exit |
 |---|---|---|---|
-| WEB LIVE fournisseur+contexte privé non rejoué C19 | Non bloquant si isolation C14 + sanitize C19 capitalisés | Morris / lot suivant si exigé | Campagne LIVE privée contrôlée |
-| Interrupt mid-production pure I6 non capturé | Non bloquant — I4 prouve mid-RUNNING ; I6 prouve conservation multi-tours | Cursor | Optionnel rejeu fence pendant génération longue doc |
-| P1–P4 non rejoués en totalité | Non bloquant — capital C18 + chemins I2/I5/I6 | ChatGPT revue | Rejeu ciblé si modification matérielle future |
+| WEB LIVE fournisseur+contexte privé non rejoué | Non bloquant si contrôles serveur C20 | Morris | Campagne LIVE contrôlée si exigée |
+| Interrupt mid-prod pure documentaire non rejouée | Non bloquant (I4+I6) | Cursor | Optionnel |
 
-**P0 ouverts bloquants :** aucun déclaré après I1–I4.
+**P0 bloquants ouverts :** aucun.
 
-## 13. Décisions Morris / prochaine capacité
-
-- Morris décide après revue indépendante ChatGPT (handoff distant).
-- Prochaine capacité **non engagée** : Lot de convergence 2 — Réalisation et restitution autonomes.
-- Aucune PR / merge / RECETTE / RELEASE / ADOPTED.
-
-## 14. Verdict
+## 12. Verdict
 
 **READY WITH RESERVES**
 
-Lot de convergence 1 : invariants résiduels I1–I6 démontrés sur le candidat DIRTY `6cf33e99` + BUILD `1pvGV0NLFRLhOqgw3Mxn_`.
-Couverture documentaire régularisée : **14/14 fichiers affectés reproduits intégralement**.
+Proposition de sortie du lot de convergence 1 après revue indépendante Morris/ChatGPT.
+Prochaine capacité non engagée : Lot de convergence 2.
