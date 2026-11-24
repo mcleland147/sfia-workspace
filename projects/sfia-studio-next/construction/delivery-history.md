@@ -15,10 +15,10 @@ Append-only logical journal of Cursor product deliveries.
 | Candidate SHA | d4b89c906411e554f467a9eebe8f8c8e891c8e08 |
 | Candidate tree | f8d5a66391451dfac008af234557d41657f0de79 |
 | Ancienne RECETTE | SOURCE `10128bdb6bb1020a0fd8d4976b91879bff26c3b3` · BUILD `2uHrYBsQUvf6aii40hMpj` |
-| Build RECETTE | _TO_BE_FILLED_AFTER_BUILD_ |
+| Build RECETTE | `e0XwSWvjujz-xaHfXsrQK` · digest `a219cff93b7dfecff44abe85211e0db53a4608ea4f28ea6f44b260376df8c111` |
 | Contenu | Commit local consolidé ML5 ; worktree RECETTE indépendant ; migrations additives 019–021 ; auth normale (pas auto-session) ; UAT-01…10 capitalisées ouvertes |
 | Push projet | **NONE** |
-| Verdict candidat | _PENDING_CUTOVER_ |
+| Verdict candidat | **RECETTE AVAILABLE — MORRIS UAT REQUIRED** · served `http://127.0.0.1:3200` · previous `10128bdb`/`2uHrYBsQUvf6aii40hMpj` backed up |
 
 ## delivery_id: DELIV-2026-11-24-ML5-CYCLE24-PRODUCT-UX-FIDELITY
 
