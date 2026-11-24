@@ -1,11 +1,13 @@
 # SFIA Studio Next — Préparation cognitive transverse de Nora et réalisation technique gouvernée
 
+> **Lecture prioritaire — consolidation R-004 du 24/11/2026.** Morris confirme la poursuite de ML5 (R5), la primauté de la complétude fonctionnelle et l'arbitrage de conduite sémantique de Nora ci-dessous. Les constats antérieurs à la construction sont historiques. Les handoffs C11–C13 établissent des frontières DEV LIVE bornées, pas une acceptation globale. Le candidat code C3–C13 reste local, non publié et NON OBSERVÉ directement par ChatGPT. Aucun GO de publication code, PR, merge, RECETTE, release ou adoption ; aucun changement de la décision Git A. La fidélité Figma reste une exigence reportée à la recette UX, non un gate de la consolidation fonctionnelle actuelle.
+
 ## Contrat fonctionnel consolidé — trajectoire ML5
 
 | Champ | Valeur |
 | --- | --- |
 | Document | Contrat fonctionnel consolidé : investigation cognitive transverse, activité Nora, contrats et réalisation Cursor |
-| Version | **v0.5 — qualification complémentaire du 23 novembre 2026** : LIVE, Git, handoff, vérification finale et outillage MCP Cursor |
+| Version | **v0.6 candidate — consolidation R-004 du 24 novembre 2026 ; v0.5 historique** : LIVE, Git, handoff, vérification finale et outillage MCP Cursor |
 | Autorité du contenu | Morris — **v0.3 validée en contenu le 22/11/2026** ; **compléments v0.4 exprimés le 23/11 et intégrés à sa demande**, détails de réalisation encore candidats |
 | Statut | **D2 — BASE v0.3 VALIDATED IN CONTENT ; v0.4 PARCOURS CONFIRMÉ ; v0.5 INTERFACES CANDIDATES — NOT MERGED** ; détails techniques et preuves non validés ; ne remplace pas les R2 propriétaires |
 | Dépôt et référence de vérification | mcleland147/sfia-workspace ; main@997897fd7cf914771e7d08e8030dc7123fab7d25 |
@@ -803,3 +805,29 @@ Le mode doit être explicitement activé, réservé à une lane DEV isolée, lim
 Le développement technique se poursuit dans **le même ML5**, sous Cursor et SFIA v2.6. Le présent GO concerne uniquement l'intégration documentaire des décisions ; les effets code/Git distants, PR, merge, migration RECETTE/STABLE, activations WEB LIVE/SDK LIVE, promotion et adoption restent distincts.
 
 **Verdict : FONCTIONNEL VALIDATED IN CONTENT / IMPLEMENTATION AND BROWSER NOT YET PROVEN / NOT ADOPTED.**
+
+# 21. Consolidation R-004 — décision Morris et cible fonctionnelle après C13 (24/11/2026)
+
+**Autorité :** Morris, décision explicite en conversation et GO Git documentaire du 24/11/2026. **D2 — VALIDATED IN CONTENT** pour l'interdiction des déclencheurs lexicaux décisionnels et la priorité fonctionnelle ; **DOCUMENTED / CANDIDATE / NOT MERGED** pour la consolidation et les conditions de vérification. Aucun choix physique de persistance, modèle ou topologie supplémentaire adopté. Le présent complément prime sur les constats historiques de non-implémentation et précise les §§3–7, 10–13 et 20 sans annuler les exigences ni réécrire leur historique.
+
+## 21.1. Arbitrage ferme — Nora comprend l'intention, elle ne la détecte pas par mots-clés
+
+Nora qualifie **sémantiquement** l'intention, le contexte, le résultat, la complexité, les risques et les contraintes, puis choisit les moyens proportionnés. La décision de répondre directement, approfondir, rechercher une source, préparer un contrat, proposer une correction ou demander une clarification relève du conducteur cognitif D3 et de sa qualification structurée, validée par les contrats existants.
+
+- Aucun regex, dictionnaire/liste de mots-clés, matching de phrases, comptage de mots ou seuil de longueur ne décide de l'intention, de la profondeur cognitive, du recours à un outil ou du déclenchement de préparation d'un contrat ; aucun fallback lexical équivalent, y compris lorsque le modèle est indisponible.
+- Les expressions régulières et contrôles déterministes restent légitimes pour parsing, formats, détection de secrets, sécurité, permissions, budgets, identité/version/empreinte, validation de schéma et invariants. Une recherche lexicale peut fournir un **indice de découverte de source**, jamais établir l'intention, la suffisance, l'absence d'un fait ou l'autorité.
+- Si la qualification sémantique est incertaine, incomplète ou indisponible : clarification proportionnée, résultat partiel ou refus de préparation READY selon le risque ; aucun effet ni mandat inféré. Les contrôles opposables D6/D7/D9 restent déterministes et indépendants de l'avis IA.
+- Le comportement doit tenir pour paraphrases, demandes courtes complexes, négations, citations de termes techniques, demandes sans vocabulaire attendu, contextes ambigus et conversation simple. Il ne doit pas créer de contrat pour une simple discussion sur Cursor.
+
+## 21.2. Conditions de complétude fonctionnelle
+
+- **A — cognition :** questions déterminantes explicites, sélection et consultation des bonnes versions, suivi de renvois, contradictions et restrictions, réouverture ciblée, suffisance qualitative et reprise avec droits/versions recontrôlés. Le contrat est élaboré sur les faits et le résultat métier, pas par un assemblage générique d'extraits. Critères d'acceptation propres à la mission ; pas de troncature silencieuse de l'instruction ni de READY fondé sur un simple compteur de sources. L'initiative cognitive n'est jamais un droit d'effet.
+- **B — web :** capacité publique LIVE réelle, déclenchée sur besoin sémantique, recherche et consultation attestées selon les signaux disponibles, citations accessibles et confrontation aux sources privées côté D3. Isolation au point de sortie et traitement des contenus non fiables restent impératifs. B09 est déclaré NOT_IMPL après C13 ; l'implémentation de la frontière seule ne satisfait pas la capacité.
+- **C — activité :** projection du travail réel Nora pendant RUNNING, pour sas, projet, documents et revue ; provenance des événements, reprise et ordre, aucune chaîne de pensée ni progrès inventé. Conserver une réponse simple sans surcharge.
+- **D — réalisation :** conserver contrat unique, autorisation D6, tentative D7 et exécution SDK LIVE. Après terminaison ou interruption réconciliée, le produit doit constituer ou recevoir le dossier automatiquement dans le circuit propriétaire, qualifier D8 puis rendre disponible l'unique avis global Nora sur preuves accessibles, sans dépendre d'un script de test appelant manuellement les routes de handoff/qualification. L'absence de rapport produit un dossier honnête PARTIAL/UNKNOWN ; pièces tardives gouvernées sans réécriture ni redispatch. Git option A et MCP sont conditionnels ; nouveau contrat et nouvel Exécuter pour une nouvelle tentative.
+
+## 21.3. Qualification et priorités
+
+C11 et C12 rapportent des missions locales réelles Nora/SDK/D8/Nora ; C13 rapporte une mission longue sans navigateur et STOP LIVE observé. Cela ne prouve ni investigation transverse complexe, ni génération de contrats sans raccourci lexical, ni restitution autonome, ni WEB LIVE, ni reprise autonome après redémarrage serveur. Les résultats historiques restent bornés à leurs scénarios. La revue R-004 cible d'abord A/B/C et D01–D02, puis restitution autonome et sécurité/intégrité D7/D8, puis continuité et non-régression consolidées. Les vérifications UI fonctionnelles minimales sont nécessaires ; Figma F2 reste à traiter en recette UX sans exclusion du contrat.
+
+**État de suivi proposé et accepté comme consolidation de travail :** ML5 ARCHITECTURAL ALIGNMENT CONFIRMED — FUNCTIONAL COMPLETION REQUIRED. Ne vaut pas validation exhaustive du code, acceptation produit, GO de publication ou mise à disposition. R-004 se trouve dans le registre vivant, à synchroniser dans le même lot que le code lors du prochain cycle Cursor. Sources : [C11](https://github.com/mcleland147/sfia-workspace/blob/f9dfcaaad90470e046d95a9d0a93115341a750d3/sfia-review-handoff/latest-chatgpt-review.md), [C12](https://github.com/mcleland147/sfia-workspace/blob/45311f75dad80e19f76ae09adfb1da387514531f/sfia-review-handoff/latest-chatgpt-review.md), [C13](https://github.com/mcleland147/sfia-workspace/blob/e3ed518b55ecda9430c862cda063052f94da8e7c/sfia-review-handoff/latest-chatgpt-review.md).

@@ -1,5 +1,7 @@
 # SFIA Studio Next — Pré-analyse des écarts : cognition transverse de Nora et réalisation Cursor
 
+> **Lecture prioritaire — consolidation R-004 du 24/11/2026.** Morris confirme la poursuite de ML5 (R5), la primauté de la complétude fonctionnelle et l'arbitrage de conduite sémantique de Nora ci-dessous. Les constats antérieurs à la construction sont historiques. Les handoffs C11–C13 établissent des frontières DEV LIVE bornées, pas une acceptation globale. Le candidat code C3–C13 reste local, non publié et NON OBSERVÉ directement par ChatGPT. Aucun GO de publication code, PR, merge, RECETTE, release ou adoption ; aucun changement de la décision Git A. La fidélité Figma reste une exigence reportée à la recette UX, non un gate de la consolidation fonctionnelle actuelle.
+
 ## Base d'investigation architecture et UX — ML5
 
 > **Lecture prioritaire :** axes A, B et C consolidés aux **§15–17** ; **§18 axe D** : Cursor SDK local, états LIVE sobres, branche Git de travail, handoff de fin de tentative et revue globale Nora. **§18.12 précise la convergence du 23/11 et prime sur toute suggestion historique de revue intermédiaire.** Aucune implémentation ni preuve runtime/REAL, aucun GO construction, PR, merge ou ADOPTED.
@@ -7,7 +9,7 @@
 | Champ | Valeur |
 | --- | --- |
 | Nature | **Document d'analyse exploratoire D0**, enregistré sur branche candidate ; non normatif, non décisionnel |
-| Version | **v0.9 — 23 novembre 2026** ; axe D : machine à états candidate D7, événement LIVE, publication Git, remise du handoff, D8 et configuration MCP SDK |
+| Version | **v0.10 candidate — consolidation R-004 du 24 novembre 2026 ; v0.9 historique** ; axe D : machine à états candidate D7, événement LIVE, publication Git, remise du handoff, D8 et configuration MCP SDK |
 | Statut | **DOCUMENTED / A+B+C CONSOLIDÉS ; D ORIENTATION ET PARCOURS AFFINÉS SUR DEMANDE MORRIS — NOT ARCHITECTURE-VALIDATED / NOT QUALIFIED FOR BUILD** ; SDK local privilégié ; **LIVE sobre pendant, revue Nora finale uniquement**, Git et handoff traçables ; transport, contrôle runtime et sûreté à qualifier |
 | Autorité de décision | Morris ; aucune adoption d'architecture inférée |
 | Source fonctionnelle candidate | [Contrat fonctionnel Nora transverse et Cursor](../conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md) — base v0.3 validée ; compléments v0.4 et v0.5 candidats, branche candidate |
@@ -1643,3 +1645,37 @@ Les exigences **F01–F09** doivent désormais être développées selon **l'opt
 **GO présent : documentation D2 publiée sur branche candidate uniquement.** Pas de mutation du worktree de développement, activation LIVE/REAL, push code, PR, merge, changement RECETTE/STABLE, release ni ADOPTED.
 
 **Verdict : ARCHITECTURAL ORIENTATION VALIDATED BY MORRIS IN CONTENT / CANDIDATE GIT / BEHAVIOR NOT PROVEN.**
+
+# 20. R-004 — consolidation architecturale après C13 (24/11/2026)
+
+**Statut : DOCUMENTED / CANDIDATE / NOT MERGED.** Arbitrage fonctionnel Morris de conduite sémantique validé en contenu : voir [contrat fonctionnel §21](../conception-fonctionnelle/preparation-cognitive-et-realisation-technique-gouvernee.md). Les options physiques restent soumises aux gates applicables. Cette revue confirme la cohérence des responsabilités D3–D9 au niveau conception ; elle ne certifie pas exhaustivement le worktree local C3–C13, NON OBSERVÉ directement. Handoffs sources : [C5](https://github.com/mcleland147/sfia-workspace/blob/8199b1f01d9cee5f946d9f3f0837b4e00386e03c/sfia-review-handoff/latest-chatgpt-review.md), [C11](https://github.com/mcleland147/sfia-workspace/blob/f9dfcaaad90470e046d95a9d0a93115341a750d3/sfia-review-handoff/latest-chatgpt-review.md), [C12](https://github.com/mcleland147/sfia-workspace/blob/45311f75dad80e19f76ae09adfb1da387514531f/sfia-review-handoff/latest-chatgpt-review.md), [C13](https://github.com/mcleland147/sfia-workspace/blob/e3ed518b55ecda9430c862cda063052f94da8e7c/sfia-review-handoff/latest-chatgpt-review.md).
+
+## 20.1. Axe A — écart de conduite cognitive à traiter en priorité
+
+Le code reproduit dans les handoffs historiques expose notamment `detectsTechnicalContractIntent` / regex TECH_INTENT, `createEmptyInvestigation` et un profil dépendant de la longueur, `draftBodyFromInvestigation` avec assemblage et extrait de réponse borné à 1 500 caractères, critères par défaut « Handoff RECEIVED / Inventaire fichiers présent », `evaluateContractReadiness`, `investigation-persistence.ts` (snapshot dans projection_json). **Ce sont des observations historiques, à confirmer ou infirmer sur le code local actuel**, pas une affirmation que chaque ligne est encore présente.
+
+**Cible :** conducteur D3 unique ; qualification sémantique IA contextualisée et sortie structurée validée, questions/sources/contraintes/contradictions et suffisance, instruction contractuelle complète et critères propres au besoin. Aucun routeur de mots-clés, regex ou longueur pour déterminer une intention, un mode cognitif ou un contrat, y compris en fallback. Recherche lexicale comme découverte seulement, parsing et garde-fous déterministes conservés. Réutiliser les composants D3/D4, journal et bridge existants lorsqu'ils satisfont le contrat ; ne pas ajouter un agent permanent concurrent. Inspecter également les appels indirects, chemins de secours, UI et tests qui pourraient imposer la même heuristique. Qualifier la fraîcheur et le rattachement du snapshot au bon travail, le fencing et la reprise avant tout effet. Refuser READY lorsque la couverture déterminante n'est pas établie, même si un modèle ou un client affirme la complétude ; source critique partielle/obsolète ou contradiction non résolue ne peut être masquée par une question marquée ANSWERED.
+
+**Exit :** LIVE sur demande courte complexe, paraphrases, négations, discussion sans mandat, restriction tardive, sources contradictoires, source essentielle absente, deux travaux distincts et reprise ; contrat inspecté/transmis intégral et critères métier vérifiables. Tests déterministes des invariants et tests LIVE des décisions sémantiques ; pas de tests « mots attendus » en guise de compréhension.
+
+## 20.2. Axe B — raccorder le fournisseur, pas inventer un moteur
+
+Le code C5 de `public-web-search-frontier.ts` possède une branche LIVE refusée/non implémentée ; B09 demeure déclaré NOT_IMPL à C13. Préférence B1 §16 conservée : segment public isolé et minimal au sein de D3, fournisseur hébergé compatible avec les versions réellement installées, observations réintégrées dans A et C. Vérifier la séparation technique des données privées au point de sortie ; une variable, un prompt ou un filtre lexical seul ne suffisent pas. Préserver annotations/citations et distinguer découverte, ouverture, extrait, fraîcheur et couverture ; traiter l'injection comme donnée non fiable. Si aucune garantie d'isolation n'est établie, rester fail-closed. Ne pas construire un navigateur/crawler autonome. Le GO DEV LIVE déjà donné reste borné aux ressources DEV et à la recherche publique sûre, sans nouvelle mutation Git.
+
+## 20.3. Axe C — conserver C1 et qualifier le comportement transverse
+
+Les journaux de sources, projections et polling existants sont cohérents avec C1 ; C13 ajoute un journal D8. Vérifier la production d'événements pendant le RUNNING réel D3, sur sas/projet/documents, l'ordre, la reconnexion, l'isolation et la minimisation. Ne pas assimiler appels d'outils à nombre de sources lues, ni introduire SSE/WebSocket sans besoin mesuré. Preuve UI fonctionnelle minimale, sans gate F2 dans ce travail.
+
+## 20.4. Axe D — terminer le raccordement autonome de restitution
+
+C11/C12 prouvent des frontières réelles sur missions bornées, avec ingestion/qualification explicitement appelée par les scripts ; C13 prouve STOP LIVE et supervision in-process sans navigateur. La limite `REPORT_MUST_BE_INGESTED_SEPARATELY` et la production d'un handoff précoce C12 montrent qu'un chaînage produit autonome doit encore être vérifié localement et complété si absent. D7 observe terminal/interruption et attribue une remise à la tentative ; collecte/lecture de faits autorisés et rapport, D9 vérifie Git si applicable, D8 qualifie le dossier, D3 formule un avis global unique consultatif. Déclenchement métier idempotent, reprise sur terminal durable, rapport absent/partiel honnête, pièces tardives et historique ; pas de GET mutatif ni de relance Cursor. Ne pas confondre ce handoff produit et le Review Handoff SFIA externe.
+
+**Sécurité et résilience à fermer :** D8 refuse les symlinks statiques (C13 12 unit + 8 PG) mais vérifier la substitution concurrente d'un répertoire intermédiaire et la lecture strictement bornée même si le fichier grossit ; aucun contenu hors périmètre ne doit être transmis à Nora. Vérifier la fraîcheur transactionnelle de qualification, le journal individuel et les références des pièces. Supervision D7 in-process avec reprise sur réconciliation : ne pas revendiquer redémarrage autonome du processus ; corriger la reprise au démarrage et la concurrence STOP/observation selon besoin démontré, sans moteur d'états/queue parallèle. ACK perdu déterministe, STOP LIVE observé, CANCEL ≠ rollback. Aucune publication Git code demandée ; option A reste cible pour les missions Git autorisées, MCP conditionnel.
+
+## 20.5. Trajectoire et gates
+
+1. Complétude A/B/C et D01–D02 : audit local, conduite sémantique, web isolé LIVE, activité et contrat ; corrections de sécurité bloquantes dès la frontière concernée.
+2. Parcours D autonome : terminaison, remise, D8, Nora et continuité, reprendre les réserves sécurité/autorité/résilience utiles.
+3. Qualification consolidée : missions représentatives, TypeScript/lint/build, tests domaines/PG/permissions et non-régression ; 99 exigences, CA/T/Q/PF et CP-01…08 conservés dans R-004. Git/MCP selon mission et mandat ; Figma F2 conservé pour recette UX, pas un critère de refus des livraisons fonctionnelles indépendantes.
+
+Aucune nouvelle topologie, migration structurante, autorité ou adoption déduite. Code, tests, as-built et registre vivant doivent converger dans le même macro-lot. État : **ML5 ARCHITECTURAL ALIGNMENT CONFIRMED — FUNCTIONAL COMPLETION REQUIRED**, sans readiness environnement utilisateur ni autorisation de publication projet.
