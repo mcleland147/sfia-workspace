@@ -234,7 +234,13 @@ export function SasCreateProgressPopup(props: {
                   ) : current ? (
                     <>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={ASSET.focusHalo} alt="" width={35} height={35} />
+                      <img
+                        src={ASSET.focusHalo}
+                        alt=""
+                        width={35}
+                        height={35}
+                        className="fig-sas-progress-ring-spin"
+                      />
                       <span className="absolute inset-0 flex items-center justify-center">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={ASSET.evaluation} alt="" width={19} height={19} />

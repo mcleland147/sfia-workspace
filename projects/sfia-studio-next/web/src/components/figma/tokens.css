@@ -302,7 +302,7 @@
 }
 
 .fig-msg-body {
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.5;
   color: #f4f6fc;
   font-weight: 400;
@@ -316,6 +316,29 @@
 .fig-msg-body code {
   max-width: 100%;
   overflow-x: auto;
+}
+
+/* IT-04 — keep markdown table cells readable (no vertical letter stacking). */
+.fig-msg-body .safe-md table,
+.sas-msg-body .safe-md table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  -webkit-overflow-scrolling: touch;
+}
+
+.fig-msg-body .safe-md th,
+.fig-msg-body .safe-md td,
+.sas-msg-body .safe-md th,
+.sas-msg-body .safe-md td {
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+  min-width: 3.5rem;
+  padding: 0.35em 0.6em;
+  vertical-align: top;
 }
 
 .fig-msg-body p {
@@ -825,6 +848,26 @@
   width: 100%;
 }
 
+@keyframes fig-sas-progress-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fig-sas-progress-ring-spin {
+  animation: fig-sas-progress-spin 1.1s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fig-sas-progress-ring-spin {
+    animation: none;
+  }
+}
+
 @keyframes fig-nora-pulse {
   0%,
   100% {
@@ -1168,7 +1211,7 @@
 .sas-msg-role-pilot { color: var(--fig-muted); }
 
 .sas-msg-body {
-  font-size: 14px;
+  font-size: 13px;
   line-height: 20px;
   color: var(--fig-ink);
   min-width: 0;

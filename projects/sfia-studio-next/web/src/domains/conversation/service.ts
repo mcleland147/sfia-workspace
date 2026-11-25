@@ -81,14 +81,7 @@ import {
 } from "@/domains/conversation/pilotage-effect-restitution";
 import {
   appendDocumentEffectAck,
-  applyTargetedSectionRevision,
-  applyTargetedFragmentRevision,
-  assertSectionScope,
-  assertFragmentScope,
-  extractFragmentIds,
   extractContractualDocumentProposal,
-  extractSectionHintFromPilotText,
-  extractSectionHintFromProposalMarkdown,
   resolveHistoricalConfirmation,
   resolveReviseTarget,
   stripContractualDocumentFences,
@@ -1125,10 +1118,9 @@ export async function postUserMessageAndNora(
     // C1 — announce Nora work (ANNOUNCED ≠ OBSERVED). Best-effort; never blocks the turn.
     try {
       const { appendActivityEvent } = await import("./activity-projection");
-      const { projectMissionHeadlineFromUserAsk } = await import("./activity-labels");
       {
-        // Contextual objective from the ask — never dump the full prompt as title.
-        const summary = projectMissionHeadlineFromUserAsk(content);
+        // Neutral provisional objective — never reformulate the Pilote prompt as activity.
+        const summary = "Orientation du travail à partir de la demande du Pilote";
         await appendActivityEvent({
           conversationId: reserved.conversationId,
           turnCommandId: reserved.commandId,
@@ -1165,10 +1157,9 @@ export async function postUserMessageAndNora(
       // D2 — conserve of a sealed candidate must not re-run a costly investigation.
       // Body authority remains the pdoc; this path only supplies REVISE qualification.
       const conserveFocus = opts?.documentFocus;
-      // T2 — authority is explicit conserve action + sealed candidate identity,
-      // not the sole equality of a transmit string.
+      // Explicit human conserve: exact DOC_CONSERVE_PROPOSAL + sealed candidate on focus.
+      // Freeform validation text never enters this path.
       const conserveOnly =
-        conserveFocus?.conserveProposal === true &&
         Boolean(conserveFocus?.pendingCandidateId) &&
         Boolean(conserveFocus?.documentId) &&
         isConserveProposalTransmit(content);
@@ -1307,21 +1298,20 @@ export async function postUserMessageAndNora(
         : null;
       try {
         const { appendActivityEvent } = await import("./activity-projection");
+        // Close provisional objective — do not announce a redundant « réponse disponible ».
         await appendActivityEvent({
           conversationId: reserved.conversationId,
           turnCommandId: reserved.commandId,
           ownerPilotId: pilotId,
           generationId: reply.generationId ?? null,
-          phase: "nora.generate",
+          phase: "nora.objective",
           nature: turn.conductor.suspended ? "UNCERTAIN" : "COMPLETED",
           status: turn.conductor.suspended ? "LIMITED" : "COMPLETED",
           summary: turn.conductor.suspended
             ? `Travail cognitif suspendu (${turn.conductor.suspendReason ?? "LIMIT"})`
-            : "Réponse Nora disponible",
+            : "Orientation du travail terminée",
           ownerToken: reserved.ownerToken,
         });
-        // Dedup: mid-turn onRecord already emitted OBSERVED; keep a compact post-hoc
-        // summary only when no mid-turn events were produced (fixture without sink).
       } catch {
         /* activity observational */
       }
@@ -1972,25 +1962,7 @@ export async function postUserMessageAndNora(
   let documentSave: DocumentSaveResult | null = null;
   let documentSaveUnknown = false;
   let ownershipLostBeforeD4 = false;
-  const documentActBase = studioProjection.documentAct;
-  // RB-24 — natural multi-section: recover sectionHint from Pilote wording or
-  // partial fence headings when Nora omits parameters.sectionHint.
-  let documentAct = documentActBase;
-  if (documentActBase.kind === "REVISE" && !documentActBase.sectionHint) {
-    const fenceExtractEarly = extractContractualDocumentProposal(reply.content);
-    const fromPilot = extractSectionHintFromPilotText(content);
-    const fromFence =
-      fenceExtractEarly.ok
-        ? extractSectionHintFromProposalMarkdown(fenceExtractEarly.content)
-        : null;
-    const fromProposal = qualification.documentProposal?.contentMarkdown
-      ? extractSectionHintFromProposalMarkdown(qualification.documentProposal.contentMarkdown)
-      : null;
-    const recovered = fromPilot || fromFence || fromProposal;
-    if (recovered) {
-      documentAct = { ...documentActBase, sectionHint: recovered };
-    }
-  }
+  const documentAct = studioProjection.documentAct;
   const documentaryIntentSignal = documentAct.kind !== "NONE";
   const missionIntent = studioProjection.publication;
   const studioIntent = studioProjection;
@@ -2004,8 +1976,9 @@ export async function postUserMessageAndNora(
   let durableProposal: DocumentProposalExact | null = null;
   /** P1: set when concurrent fence diverges / is invalid — block silent strip+reinject. */
   let proposalAuthorityConflict: string | null = null;
-  const sectionScopedConfront =
-    documentAct.kind === "REVISE" && Boolean(documentAct.sectionHint);
+  // Documentary autonomy: Nora's full documentProposal is the write body.
+  // Studio no longer reconstructs via section/fragment heuristics.
+  const sectionScopedConfront = false;
   if (
     reply.status === "COMPLETE" &&
     qualification.documentProposal &&
@@ -2412,8 +2385,8 @@ export async function postUserMessageAndNora(
             // T2 — explicit conserve of sealed pdoc: skip proposal extraction / merge.
             // Body authority is the candidate; no provider regenerates content here.
             if (
-              focus?.conserveProposal === true &&
-              focus.pendingCandidateId?.trim()
+              focus?.pendingCandidateId?.trim() &&
+              isConserveProposalTransmit(content)
             ) {
               const observedHeadId =
                 focus.observedHeadRevisionId?.trim() || target.baseRevisionId;
@@ -2679,29 +2652,16 @@ export async function postUserMessageAndNora(
                 d4Effect: null,
               });
             } else {
-              // Only authorized fragment ids from sectionHint / Pilote wording —
-              // never harvest every RM-* present in the proposal body.
-              const fragmentIds = [
-                ...extractFragmentIds(documentAct.sectionHint),
-                ...extractFragmentIds(content),
-              ].filter((id, i, arr) => arr.indexOf(id) === i);
-              // Prefer exact fragment splice when Nora/Pilote name rules (RM-03, R04…);
-              // otherwise fall back to section-level targeted revise.
-              const merged = fragmentIds.length
-                ? applyTargetedFragmentRevision(
-                    target.baseContent,
-                    reviseProposalContent,
-                    fragmentIds,
-                  )
-                : applyTargetedSectionRevision(
-                    target.baseContent,
-                    reviseProposalContent,
-                    documentAct.sectionHint,
-                  );
-              if (!merged.ok) {
+              // Documentary autonomy — seal Nora's complete proposal as-is.
+              // No fragment/section reconstruction; D4 persists the exact body.
+              const mergedContent = reviseProposalContent;
+              const noDelta =
+                mergedContent.replace(/\r\n/g, "\n") ===
+                target.baseContent.replace(/\r\n/g, "\n");
+              if (noDelta) {
                 documentSave = {
                   status: "NOT_EXECUTED",
-                  reason: merged.reason,
+                  reason: "DOCUMENT_NO_DELTA",
                   documentId: target.documentId,
                   baseRevisionId: target.baseRevisionId,
                   act: "REVISE",
@@ -2712,45 +2672,14 @@ export async function postUserMessageAndNora(
                   generationId: reply.generationId,
                   act: "REVISE",
                   extracted,
-                  scopeVerdict: merged.reason,
-                  refuseCode: merged.reason,
+                  scopeVerdict: "DOCUMENT_NO_DELTA",
+                  refuseCode: "DOCUMENT_NO_DELTA",
                   d4Attempted: false,
                   d4Effect: null,
                 });
               } else {
-                const scopeCheck = fragmentIds.length
-                  ? assertFragmentScope(
-                      target.baseContent,
-                      merged.content,
-                      fragmentIds,
-                    )
-                  : assertSectionScope(
-                      target.baseContent,
-                      merged.content,
-                      documentAct.sectionHint,
-                    );
-                if (!scopeCheck.ok) {
-                  documentSave = {
-                    status: "NOT_EXECUTED",
-                    reason: scopeCheck.reason,
-                    documentId: target.documentId,
-                    baseRevisionId: target.baseRevisionId,
-                    act: "REVISE",
-                  };
-                  emitDocumentProposalObs({
-                    requestId,
-                    operationId: reserved.operationId,
-                    generationId: reply.generationId,
-                    act: "REVISE",
-                    extracted,
-                    scopeVerdict: scopeCheck.reason,
-                    refuseCode: scopeCheck.reason,
-                    d4Attempted: false,
-                    d4Effect: null,
-                  });
-                } else {
                   // PREPARE|REQUEST_EFFECT — pending inspect uses either;
-                  // conserve/write further down still requires explicit conserve flag.
+                  // conserve/write further down still requires explicit conserve of sealed pdoc.
                   const reviseIntents = documentaryMaterializeIntents(qualification).filter(
                     (i) => i.capabilityId === "d4.revise_document",
                   );
@@ -2837,9 +2766,13 @@ export async function postUserMessageAndNora(
                     // P0-A — REVISE via conversation never writes D4 unless explicit conserve of sealed pdoc.
                     // Absence of documentFocus must NOT fall through to admit/seal (prior gap).
                     // Sas manual editor uses documents API directly — out of this branch.
-                    // T2 — conservation requires explicit session action flag + sealed candidate.
-                    // Transmit-text equality alone must not authorize D4 write.
-                    const conserveRequested = focus?.conserveProposal === true;
+                    // Human conserve authority: exact DOC_CONSERVE_PROPOSAL transmit + sealed
+                    // candidate identity on focus (button sets conserveProposal; transmit alone
+                    // with bound pdoc is the same explicit choice — freeform text never writes).
+                    const conserveRequested =
+                      Boolean(focus?.pendingCandidateId) &&
+                      Boolean(focus?.documentId) &&
+                      isConserveProposalTransmit(content);
                     if (!conserveRequested) {
                       // Métier title only — never promote document-part-N synthetic labels.
                       const rawPropTitle = durableProposal?.title?.trim() || "";
@@ -2847,7 +2780,7 @@ export async function postUserMessageAndNora(
                         ? ""
                         : rawPropTitle;
                       const proposalTitle =
-                        /^#\s+(.+?)(?:\r?\n|$)/.exec(merged.content)?.[1]?.trim() ||
+                        /^#\s+(.+?)(?:\r?\n|$)/.exec(mergedContent)?.[1]?.trim() ||
                         safePropTitle ||
                         target.title;
                       // Historical proposals require a server hauth already bound on focus.
@@ -2882,7 +2815,7 @@ export async function postUserMessageAndNora(
                         sourceRevisionId: target.baseRevisionId,
                         observedHeadRevisionId: observedHeadId,
                         title: proposalTitle,
-                        contentMarkdown: merged.content,
+                        contentMarkdown: mergedContent,
                         historicalAuthorizationId:
                           focus?.historicalAuthorizationId ?? null,
                       });
@@ -2928,7 +2861,7 @@ export async function postUserMessageAndNora(
                       }
                     } else {
                     // F1/P0-A/B conserve: sealed candidate required — never regenerate; never trust client body.
-                    let conserveContent = merged.content;
+                    let conserveContent = mergedContent;
                     let conserveTitle = target.title;
                     let conserveSource = reviseSource;
                     let conserveBlocked: string | null = null;
@@ -3097,10 +3030,9 @@ export async function postUserMessageAndNora(
                     } // conserveRequested else
                     } // historical confirmation gate
                   } // reviseIntents cardinality else
-                }
-              }
-            }
-            } // else: non-conserve proposal/merge path
+              } // noDelta else — seal Nora proposal as-is
+            } // reviseProposalContent present
+            } // else: non-conserve proposal path
           }
           emitObs({
             event_name: "d3.turn.document_revise",

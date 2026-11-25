@@ -12,8 +12,6 @@ import {
 } from "@/domains/conversation/document-command";
 import {
   appendDocumentEffectAck,
-  applyTargetedSectionRevision,
-  assertSectionScope,
   extractContractualDocumentProposal,
   LEGACY_UNTITLED_DOCUMENT_TITLE,
 } from "@/domains/conversation/document-act";
@@ -252,16 +250,6 @@ SOURCE-CANARI-BETA-73
         { sectionScoped: true },
       ),
     ).toEqual({ ok: false, reason: "PROPOSAL_SOURCE_CONFLICT" });
-  });
-
-  it("R02–R05: section merge keeps Option A canari and emits Option B canari", () => {
-    const merged = applyTargetedSectionRevision(v1, sectionBody, "Option B");
-    expect(merged.ok).toBe(true);
-    if (!merged.ok) throw new Error(merged.reason);
-    expect(assertSectionScope(v1, merged.content, "Option B")).toEqual({ ok: true });
-    expect(merged.content).toContain("SOURCE-CANARI-BETA-73");
-    expect(merged.content).toContain("REVISION-CANARI-GAMMA-91");
-    expect(merged.content).toMatch(/## Option A[\s\S]*SOURCE-CANARI-BETA-73/);
   });
 
   it("R09: different document title with claimed H1 still conflicts under sectionScoped", () => {

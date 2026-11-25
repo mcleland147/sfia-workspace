@@ -458,35 +458,6 @@ const GROUP_META: Record<string, { title: string; description: string }> = {
   },
 };
 
-/**
- * Compact métier headline from the Pilote ask — never the full prompt dump.
- */
-export function projectMissionHeadlineFromUserAsk(ask: string): string {
-  const raw = (ask || "").replace(/\s+/g, " ").trim();
-  if (!raw) return "Travail engagé";
-  // Prefer the first sentence / line, stripped of imperative noise.
-  const first =
-    raw.split(/(?<=[.!?])\s+/)[0]?.trim() ||
-    raw.split("\n")[0]?.trim() ||
-    raw;
-  let t = first
-    .replace(/^(peux-tu|pouvez-vous|merci de|stp|s'il te plaît)\s+/i, "")
-    .replace(/^(prépare[- ]moi|prépare|modifie|révise|consulte|examine|analyse)\s+/i, (m) => {
-      const verb = m.trim().toLowerCase();
-      if (verb.startsWith("prépare")) return "Préparation — ";
-      if (verb.startsWith("modifie") || verb.startsWith("révise")) return "Révision — ";
-      if (verb.startsWith("consulte") || verb.startsWith("examine")) return "Consultation — ";
-      if (verb.startsWith("analyse")) return "Analyse — ";
-      return "";
-    })
-    .trim();
-  if (t.length < 8) t = first;
-  if (t.length > 120) t = `${t.slice(0, 117).trim()}…`;
-  // Never use a technical id as the mission title.
-  if (/^(tcmd_|proj_|prep_|doc_|drev_|pdoc_)/i.test(t)) return "Travail engagé";
-  return t || "Travail engagé";
-}
-
 function contextualGroupTitle(
   key: string,
   list: Array<ActivityLabelInput & { sequence: number; nature: string; status: string }>,

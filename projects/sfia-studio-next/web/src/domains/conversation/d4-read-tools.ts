@@ -634,6 +634,114 @@ export async function readProjectDocumentRevision(
   return { ...result, charsCharged };
 }
 
+/**
+ * Objective line diff between an AVAILABLE base revision and Nora's proposal draft.
+ * Does not decide métier scope — returns factual added/removed samples only.
+ */
+export async function compareDocumentProposal(
+  scope: D4ToolScope,
+  input: {
+    documentId: string;
+    baseRevisionId: string;
+    proposalMarkdown: string;
+    maxSampleLines?: number;
+  },
+) {
+  if (scope.budget.remainingCalls <= 0 || scope.budget.remainingChars <= 0) {
+    return {
+      status: "DENIED" as const,
+      reason: "D4_TOOL_BUDGET_EXHAUSTED",
+      coverage: "DENIED" as ToolCoverage,
+      charsCharged: 0,
+    };
+  }
+  scope.budget.remainingCalls -= 1;
+  await assertScope(scope);
+
+  const owned = await db
+    .select({
+      id: documents.id,
+      title: documents.title,
+    })
+    .from(documents)
+    .where(
+      and(
+        eq(documents.id, input.documentId),
+        eq(documents.preparationId, scope.preparationId),
+        eq(documents.ownerPilotId, scope.pilotId),
+      ),
+    )
+    .limit(1)
+    .then((r) => r[0] ?? null);
+  if (!owned) {
+    return {
+      status: "NOT_FOUND" as const,
+      reason: "DOCUMENT_NOT_FOUND",
+      coverage: "NOT_FOUND" as ToolCoverage,
+      charsCharged: 0,
+    };
+  }
+  const rev = await db
+    .select({
+      id: documentRevisions.id,
+      revisionNumber: documentRevisions.revisionNumber,
+      status: documentRevisions.status,
+      contentMarkdown: documentRevisions.contentMarkdown,
+    })
+    .from(documentRevisions)
+    .where(
+      and(
+        eq(documentRevisions.id, input.baseRevisionId),
+        eq(documentRevisions.documentId, input.documentId),
+      ),
+    )
+    .limit(1)
+    .then((r) => r[0] ?? null);
+  if (!rev || rev.status !== "AVAILABLE") {
+    return {
+      status: "DENIED" as const,
+      reason: "BASE_REVISION_NOT_AVAILABLE",
+      coverage: "DENIED" as ToolCoverage,
+      charsCharged: 0,
+    };
+  }
+
+  const { diffMarkdown } = await import("@/domains/document/service");
+  const diff = diffMarkdown(rev.contentMarkdown, input.proposalMarkdown);
+  const sample = Math.min(Math.max(input.maxSampleLines ?? 24, 4), 60);
+  const payload = {
+    status: diff.degraded ? ("DEGRADED" as const) : ("AVAILABLE" as const),
+    reason: diff.degraded ? (diff.reason ?? "DIFF_BUDGET_EXCEEDED") : null,
+    documentId: owned.id,
+    title: owned.title,
+    baseRevisionId: rev.id,
+    baseRevisionNumber: rev.revisionNumber,
+    identical: !diff.degraded && diff.added.length === 0 && diff.removed.length === 0,
+    addedCount: diff.added.length,
+    removedCount: diff.removed.length,
+    unchangedCount: diff.unchangedCount,
+    addedSample: diff.added.slice(0, sample),
+    removedSample: diff.removed.slice(0, sample),
+    note: "Comparaison objective ligne à ligne — Nora interprète le sens métier ; Studio ne reconstruit pas le document.",
+  };
+  const charsCharged = chargeBudget(scope, payload);
+  emitObs({
+    event_name: "d4.tool.compare_document_proposal",
+    component: "d4.read_tools",
+    request_id: scope.operationId,
+    generation_id: scope.generationId,
+    outcome: diff.degraded ? "FAILED" : "SUCCESS",
+    meta: {
+      document_id: owned.id,
+      base_revision_id: rev.id,
+      added: diff.added.length,
+      removed: diff.removed.length,
+      degraded: Boolean(diff.degraded),
+    },
+  });
+  return { ...payload, charsCharged, coverage: diff.degraded ? ("PARTIAL" as ToolCoverage) : ("COMPLETE" as ToolCoverage) };
+}
+
 /** Build Agents SDK tool() definitions with server-closed-over scope. */
 export async function buildNoraD4Tools(scope: D4ToolScope) {
   const { tool } = await import("@openai/agents");
@@ -678,6 +786,25 @@ export async function buildNoraD4Tools(scope: D4ToolScope) {
           revisionId: args.revisionId ?? undefined,
           charOffset: args.charOffset ?? undefined,
           maxChars: args.maxChars ?? undefined,
+        });
+      },
+    }),
+    tool({
+      name: "compare_document_proposal",
+      description:
+        "Compare an AVAILABLE base document revision to your complete proposal markdown. Returns factual added/removed line samples. Does not rewrite the document. Use before presenting a revise candidate to verify expected changes and hors-scope.",
+      parameters: z.object({
+        documentId: z.string(),
+        baseRevisionId: z.string(),
+        proposalMarkdown: z.string().min(1),
+        maxSampleLines: z.number().int().min(4).max(60).nullable().optional(),
+      }),
+      execute: async (args) => {
+        return compareDocumentProposal(scope, {
+          documentId: args.documentId,
+          baseRevisionId: args.baseRevisionId,
+          proposalMarkdown: args.proposalMarkdown,
+          maxSampleLines: args.maxSampleLines ?? undefined,
         });
       },
     }),

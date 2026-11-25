@@ -86,11 +86,3 @@ describe("ML5 documentary PREPARE materialization (AssetTrack causes)", () => {
     expect(effectIntents(qual)).toHaveLength(0);
   });
 });
-
-import { expandSectionHints } from "@/domains/conversation/document-act";
-
-describe("ML5 section hint normalization", () => {
-  it("normalizes Section 2 (RM-03) et section 4 (R04) to numeric targets", () => {
-    expect(expandSectionHints("Section 2 (RM-03) et section 4 (R04)")).toEqual(["2", "4"]);
-  });
-});

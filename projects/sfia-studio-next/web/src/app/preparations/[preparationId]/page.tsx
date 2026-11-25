@@ -483,14 +483,14 @@ export default function PreparationPage() {
             : documentSave?.status === "CONFLICT"
               ? "Conflit documentaire"
               : "";
+        // IT-01 — the assistant message itself marks completion; no redundant
+        // « Réponse disponible » when nothing else is useful to say.
         const métier =
-          turnStatus === "COMPLETE"
-            ? "Réponse disponible"
-            : turnStatus === "INTERRUPTED"
-              ? "Réponse partielle — reprise possible"
-              : turnStatus === "FAILED" || turnStatus === "UNKNOWN"
-                ? "Réponse non aboutie"
-                : "";
+          turnStatus === "INTERRUPTED"
+            ? "Réponse partielle — reprise possible"
+            : turnStatus === "FAILED" || turnStatus === "UNKNOWN"
+              ? "Réponse non aboutie"
+              : "";
         setStatus([métier, docPart].filter(Boolean).join(" · "));
         await reload();
       } else {

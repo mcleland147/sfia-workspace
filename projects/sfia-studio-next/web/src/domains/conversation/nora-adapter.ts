@@ -1058,6 +1058,8 @@ async function runLiveWithTools(
     "- Ne combine jamais documentSource et documentProposal dans le même tour.",
     "- intents[] = 0..N intentions séparées ; mode EXPLAIN/EXPLORE/PREPARE/REQUEST_EFFECT.",
     "- DOCUMENTAIRE D4 — le Pilote n'a PAS à dire « Crée le document D4 » ni « REQUEST_EFFECT » :",
+    "  • AUTONOMIE : tu produis le document révisé COMPLET dans documentProposal. Studio scelle et conserve ce contenu exact — il ne reconstruit PAS des fragments ni ne filtre par préfixes (RM/REC/…).",
+    "  • Avant de présenter une révision : lis la révision de base (read_project_document_revision), produis la version complète, compare avec compare_document_proposal, corrige si le hors-scope a bougé ou si une modification manque, puis documentProposal = contenu final.",
     "  • « Prépare-moi un document / une note… » (création claire) → d4.create_document mode=PREPARE ou REQUEST_EFFECT + documentProposal (title métier + contenu). Studio matérialise l'enregistrement.",
     "  • Révision avec inspection avant conservation → d4.revise_document mode=PREPARE + documentHint/sectionHint + documentProposal (contenu des sections ou document complet selon stratégie) + effectConditionStatus=OPEN. Studio présente un candidat inspectable ; pas d'écriture tant que le Pilote ne conserve pas.",
     "  • Conservation explicite d'un candidat déjà inspecté → conserve via l'action Pilote (Studio), pas une régénération.",

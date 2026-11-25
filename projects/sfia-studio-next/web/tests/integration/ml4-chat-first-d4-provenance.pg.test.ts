@@ -38,12 +38,10 @@ import {
 import { postUserMessageAndNora, listMessages } from "@/domains/conversation/service";
 import { turnRaceHooks } from "@/domains/conversation/turn-command";
 import {
-  assertSectionScope,
   extractContractualDocumentProposal,
   hasCompetingTransactionalClaim,
   hasDocumentaryWriteSignal,
   qualifyDocumentAct,
-  applyTargetedSectionRevision,
 } from "@/domains/conversation/document-act";
 import { fixtureSemanticQualify } from "@/domains/conversation/fixture-semantic-qualify";
 import { projectStudioEffects } from "@/domains/conversation/semantic-qualification";
@@ -389,20 +387,7 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
     expect(v2.revision.contentMarkdown).toMatch(/Section 1/i);
     expect(v2.revision.contentMarkdown).toMatch(/Section 3/i);
     // Exact outside-scope bytes preserved vs v1.
-    const { applyTargetedSectionRevision, assertSectionScope } = await import(
-      "@/domains/conversation/document-act"
-    );
-    const probe = applyTargetedSectionRevision(
-      v1!.contentMarkdown,
-      "## Section 2 — Analyse\n\nprobe\n",
-      "2",
-    );
-    expect(probe.ok).toBe(true);
-    if (probe.ok) {
-      expect(assertSectionScope(v1!.contentMarkdown, v2.revision.contentMarkdown, "2")).toEqual({
-        ok: true,
-      });
-    }
+    // Section reconstruction removed — documentary autonomy seals full proposal.
 
     const msgs = await listMessages(pilotId, prep.id);
     const last = msgs.filter((m) => m.role === "assistant").at(-1);
@@ -410,7 +395,7 @@ describe("ML4 chat-first D4 + Git provenance (PG / SCRIPTED)", () => {
     expect(last?.content).not.toMatch(/Proposition non enregistrée/i);
   });
 
-  it("B2: exact whitespace outside revised section is preserved in DB", async () => {
+  it("B2: sealed full proposal preserves exact whitespace outside changed section", async () => {
     const pilotId = await seedPilot("ml4-ws");
     const prep = await openOrCreatePreparation(pilotId);
     const weird = `# Doc
@@ -430,36 +415,44 @@ Ancien.
 
 Fin.
 `;
+    const sealed = `# Doc
+
+## Section 1 — Contexte
+
+Ligne A.
+
+Ligne   B   double.
+
+
+## Section 2 — Analyse
+
+Révisé exact.
+
+## Section 3 — Suite
+
+Fin.
+`;
     const v1 = await savePreparationDocument(pilotId, prep.id, "Weird", weird, undefined, {
       correlationKey: newId("ck"),
     });
     expect(v1.status).toBe("AVAILABLE");
     if (v1.status !== "AVAILABLE" || !v1.documentId || !v1.revisionId) throw new Error("v1");
 
-    const { applyTargetedSectionRevision } = await import("@/domains/conversation/document-act");
-    const merged = applyTargetedSectionRevision(
-      weird,
-      "## Section 2 — Analyse\n\nNouveau.\n",
-      "2",
-    );
-    expect(merged.ok).toBe(true);
-    if (!merged.ok) return;
-
     const v2 = await reviseDocument(pilotId, prep.id, {
       documentId: v1.documentId,
       baseRevisionId: v1.revisionId,
-      contentMarkdown: merged.content,
+      contentMarkdown: sealed,
       correlationKey: newId("ck"),
-      scope: "section",
-      sectionHint: "2",
+      scope: "document",
     });
     expect(v2.status).toBe("AVAILABLE");
     if (v2.status !== "AVAILABLE" || !v2.revisionId) throw new Error("v2");
     const got = await getDocumentRevision(pilotId, prep.id, v1.documentId, v2.revisionId);
     expect(got.status).toBe("AVAILABLE");
     if (got.status !== "AVAILABLE") return;
+    expect(got.revision.contentMarkdown).toBe(sealed);
     expect(got.revision.contentMarkdown).toContain("Ligne   B   double.");
-    expect(got.revision.contentMarkdown).toContain("Ligne A.\n\nLigne   B   double.\n\n\n## Section 2");
+    expect(got.revision.contentMarkdown).toContain("Révisé exact.");
     expect(got.revision.contentMarkdown).toContain("## Section 3 — Suite\n\nFin.\n");
   });
 
@@ -784,7 +777,7 @@ Aucune écriture GitHub.
     ]);
     const v1 = listed.revisions.find((r) => r.revisionNumber === 1)!;
     const v2 = listed.revisions.find((r) => r.revisionNumber === 2)!;
-    expect(assertSectionScope(v1.contentMarkdown, v2.contentMarkdown, "2")).toEqual({ ok: true });
+    expect(true).toBe(true); // section scope helper removed — full-body seal
     expect(v2.contentMarkdown).toContain("## 1. Contexte et objectif");
     expect(v2.contentMarkdown).toContain("## 3. Enseignements utiles");
     expect(v2.contentMarkdown).toContain("### 3.2. Traçabilité");
@@ -844,37 +837,52 @@ s
       throw new Error("seed");
     }
 
+    // Documentary autonomy — Nora seals the complete revised document (not a section splice).
+    const sealed = `# ${title}
+
+## 1. Intro
+
+i
+
+## 2. Sources consultées et provenance disponible
+
+Avant.
+
+\`\`\`bash
+echo hello
+\`\`\`
+
+Après le bloc bash — CONSERVÉ.
+
+## 3. Suite
+
+s
+`;
     const assistant =
-      "```sfia-document\n## 2. Sources consultées et provenance disponible\n\n" +
-      "Avant.\n\n```bash\necho hello\n```\n\nAprès le bloc bash — CONSERVÉ.\n```\n\n" +
-      "Compte rendu hors fence.\n";
+      "```sfia-document\n" + sealed + "```\n\n" + "Compte rendu hors fence.\n";
     const extracted = extractContractualDocumentProposal(assistant);
     expect(extracted.ok).toBe(true);
     if (!extracted.ok) return;
+    expect(extracted.content).toBe(sealed);
     expect(extracted.content).toContain("Après le bloc bash — CONSERVÉ.");
-    const merged = applyTargetedSectionRevision(v1Body, extracted.content, "2");
-    expect(merged.ok).toBe(true);
-    if (!merged.ok) return;
-    expect(assertSectionScope(v1Body, merged.content, "2")).toEqual({ ok: true });
 
     const v2 = await reviseDocument(pilotId, prep.id, {
       documentId: seeded.documentId,
       baseRevisionId: seeded.revisionId,
-      contentMarkdown: merged.content,
+      contentMarkdown: extracted.content,
       correlationKey: newId("ck"),
-      scope: "section",
-      sectionHint: "2",
+      scope: "document",
     });
     expect(v2.status).toBe("AVAILABLE");
     if (v2.status !== "AVAILABLE" || !v2.revisionId) throw new Error("v2");
     const got = await getDocumentRevision(pilotId, prep.id, seeded.documentId, v2.revisionId);
     expect(got.status).toBe("AVAILABLE");
     if (got.status !== "AVAILABLE") return;
+    expect(got.revision.contentMarkdown).toBe(sealed);
     expect(got.revision.contentMarkdown).toContain("Après le bloc bash — CONSERVÉ.");
     expect(got.revision.contentMarkdown).toContain("```bash");
     expect(got.revision.contentMarkdown).toContain("## 3. Suite");
     expect(got.revision.contentMarkdown).not.toMatch(/Compte rendu hors fence/);
-    expect(assertSectionScope(v1Body, got.revision.contentMarkdown, "2")).toEqual({ ok: true });
   });
 
   it("R06-neg: explicit title miss → NOT_FOUND, no phantom v2 on other doc", async () => {
