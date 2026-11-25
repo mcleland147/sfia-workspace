@@ -4695,10 +4695,10 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | Type | INC · Critical · Cycle 8 Delivery |
 | Base | 3c663fd2809cae9e91b3f4929515d859b0284e81 |
 | Delivery précédent incomplet | 98e58ec46b4d9cac2921b68c361ded91a714e8f3 |
-| SHA candidat final | 9115bc507f1d16371bdc2c03bb2715f3e6fc59cd |
-| Tree | 365b6623b336dab0b648b7dd57a48ab1001fa457 |
+| SHA candidat final (avant ce sync docs) | e93a5b75b68372f005fff883c487c01658970827 |
+| Tree (avant ce sync docs) | c119d0f0f5af9b2f1938d6fcf8ccbb2dc2a2c54f |
 | Web tree | eb8dc550456c87f77053a3a5952e3edd20de5099 |
-| Commits finalisation | efda774a Git LIVE journal · 1da28a66 type fix · d4b66e3c multi-section/fork/ceilings · 9115bc50 docs |
+| Commits finalisation | efda774a Git LIVE journal · 1da28a66 type fix · d4b66e3c multi-section/fork/ceilings · docs delivery-history |
 | Compatibilité | NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN |
 | Environnement | DEV :3100 / PG :5433 · Build 51-56htNe0RqDnqwULV8n · Digest b39574559a81b0f3adb3e24e2e70368e20c102bd25e781d3c8748faec6425348 |
 | Migration | NONE |
