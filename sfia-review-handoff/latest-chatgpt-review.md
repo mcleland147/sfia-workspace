@@ -1,403 +1,1000 @@
-# SFIA Studio Next — ML5 / R5 — AssetTrack UAT Causal Diagnosis
-**Cycle 9 · Typologie INC · Profil Critical · Review Pack FULL**  
-**Date:** 2026-11-25 · **Lane:** diagnostic only · **NO CODE CHANGE · NO RELEASE · NOT ADOPTED**
+# SFIA Studio Next — Review Pack FULL
+## ML5 R5 — Nora × Studio capability interactions (integrated corrective)
 
-**Verdict cible:** `ASSETTRACK UAT CAUSAL DIAGNOSIS COMPLETE — READY FOR CHATGPT REVIEW — CORRECTIVE OPTIONS TO ARBITRATE.`
+**Verdict cible :** NORA STUDIO CAPABILITY INTERACTIONS — INTEGRATED CORRECTIVE DELIVERY VERIFIED — READY FOR CHATGPT REVIEW.
+
+**Statut cycle :** ML5 OPEN · R5 IN PROGRESS · R6 NOT STARTED · NO RELEASE · NOT ADOPTED · STABLE NOT AVAILABLE.
+
+**Instruction ChatGPT :** Relire ce handoff distant. Vérifier les simplifications effectives, les mécanismes retirés, les contrats, les diffs et la réalité des preuves. Ne pas confondre compréhension / production / exécution / persistance / restitution / acceptation utilisateur. Préparer la bascule RECETTE uniquement après revue favorable et GO Morris distinct.
 
 ---
 
 ## 1. Git Truth Check
 
-| Item | Valeur | Statut |
-|---|---|---|
-| Workspace DEV | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` | OK |
-| Branche produit | `sfia/next-ml5-integrated-delivery-20261123` | OK |
-| HEAD produit | `0d37b12a8dae07c88907b7e5a7cfa130e1940a41` | OK (= tip rapporté) |
-| Merge-base vs tip main rapporté `997897fd…` | `997897fd7cf914771e7d08e8030dc7123fab7d25` | OK |
-| Local `main` tip | `4b1a0580…` (en avance sur le tip main cité dans le brief) | NOTE — pas de mutation |
-| Staged | aucun | OK |
-| Unstaged produit | aucun | OK |
-| Untracked/modifié local autorisé | `.tmp-sfia-review/chatgpt-review.md` (ce pack) | OK |
-| Worktree RECETTE | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-ca0b114c6f73` @ `ca0b114c6f7336ba0073d03f8d391fe05182bf86` | OK |
-| BUILD_ID RECETTE (HTML) | `RkthxGW_bZUygxYbwP9Hq` | OK |
-| BUILD_ID DEV (HTML) | `AWs47BqI_EoJvkDkE4Lzi` | OK |
-| Ports | RECETTE `:3200` / PG `:5434` · DEV `:3100` / PG `:5433` | OK |
-| Mutations | aucune (ENV-01 RO respecté) | OK |
+| Item | Valeur |
+|---|---|
+| Workspace DEV | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
+| Remote | `mcleland147/sfia-workspace` (origin) |
+| Branche produit | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD tip delivery |  |
+| HEAD base | `0d37b12a8dae07c88907b7e5a7cfa130e1940a41` |
+| Tree base | `9645644ad518040b734cfd5435b84d8c96cdba6f` |
+| Web tree base | `99dd2c6b3db728434a452d4f93775e0e2a6e1e0a` |
+| origin/main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
+| Merge-base HEAD↔origin/main | `997897fd7cf914771e7d08e8030dc7123fab7d25` (= origin/main) |
+| local `main` (worktree sfia-workspace) | `4b1a058050ae81d56cb6d96b88e8a57380799a86` |
+| Staged | aucun au démarrage ; dirty uncommitted product changes (this delivery) |
+| RECETTE tip attendu | `ca0b114c6f7336ba0073d03f8d391fe05182bf86` |
+| RECETTE BUILD_ID | `RkthxGW_bZUygxYbwP9Hq` |
+| RECETTE URL / PG | `http://127.0.0.1:3200` / `:5434` — **inchangée** |
+| DEV URL / PG | `http://127.0.0.1:3100` / `:5433` |
+| DEV BUILD_ID | `BMd8qv-bn6m9Hj6YEtdee` |
+| DEV DIGEST | `d0fa2be3b6eaed2b687817ceecfb2f0cff2888e60d854db7f6d5f1caa1a2e37d` |
+| DEV PID | 4822 |
 
-**STOP non déclenché.** Identités runtime alignées avec le brief. Aucune branche produit modifiée.
+### Écart main local vs origin/main (qualification)
+
+Le diagnostic AssetTrack signalait un « main local en avance : 4b1a0580… ».
+
+**Réalité observée :** le worktree `/Users/morris/Projects/sfia-workspace` sur branche `main` est à `4b1a058050ae81d56cb6d96b88e8a57380799a86` et est **en retard** de ~1485 commits sur `origin/main` (`997897fd7cf914771e7d08e8030dc7123fab7d25`). `main` est ancêtre de `origin/main` ; `git log origin/main..main` est vide. Il s’agit d’un checkout **périmé / non mis à jour**, pas d’une avance locale de commits produits. **Aucun reset, rebase ni merge de main** n’a été effectué. Les commits locaux non liés à ce delivery n’ont pas été supprimés. La branche produit DEV n’est pas contaminée.
+
+### Status courant (avant commit delivery)
+
+```
+## sfia/next-ml5-integrated-delivery-20261123
+ M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio-next/construction/delivery-history.md
+ M projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
+ M projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+ M projects/sfia-studio-next/web/src/components/figma/NoraLiveActivity.tsx
+ M projects/sfia-studio-next/web/src/components/figma/SasCreateProgressPopup.tsx
+ M projects/sfia-studio-next/web/src/components/figma/tokens.css
+ M projects/sfia-studio-next/web/src/domains/conversation/activity-labels.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/document-candidate.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/git-read-tools.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/service.ts
+ M projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts
+ M projects/sfia-studio-next/web/src/domains/pilotage/initial-qualification.ts
+ M projects/sfia-studio-next/web/tests/unit/ensemble07-forecast-builder.test.ts
+ M projects/sfia-studio-next/web/tests/unit/ml4c-temp-restitution.test.ts
+?? projects/sfia-studio-next/construction/as-built-ml5-activite-live-hierarchisee-20261125.md
+?? projects/sfia-studio-next/construction/as-built-ml5-nora-studio-capability-interactions-20261125.md
+?? projects/sfia-studio-next/web/scripts/ml5-capability-interactions-short-live.mjs
+?? projects/sfia-studio-next/web/tests/unit/ml5-activity-hierarchy.test.ts
+?? projects/sfia-studio-next/web/tests/unit/ml5-documentary-prepare.test.ts
+```
+
+### Diffstat produit
+
+```
+.../construction/delivery-history.md               |  19 ++
+ ...5-registre-couverture-et-revue-developpement.md |   1 +
+ .../src/app/preparations/[preparationId]/page.tsx  |   4 +-
+ .../web/src/components/figma/NoraLiveActivity.tsx  | 194 ++++++++++++---------
+ .../components/figma/SasCreateProgressPopup.tsx    |  89 +++++++---
+ .../web/src/components/figma/tokens.css            |  76 ++++++++
+ .../src/domains/conversation/activity-labels.ts    | 148 +++++++++++++++-
+ .../web/src/domains/conversation/document-act.ts   |  27 ++-
+ .../src/domains/conversation/document-candidate.ts |   2 +-
+ .../web/src/domains/conversation/git-read-tools.ts |  28 +++
+ .../web/src/domains/conversation/nora-adapter.ts   |  12 +-
+ .../domains/conversation/semantic-qualification.ts | 103 +++++++++--
+ .../web/src/domains/conversation/service.ts        |  55 ++++--
+ .../web/src/domains/pilotage/forecast-builder.ts   | 183 ++++++++++---------
+ .../src/domains/pilotage/initial-qualification.ts  | 150 +++++++++++++++-
+ .../tests/unit/ensemble07-forecast-builder.test.ts |  94 ++++++----
+ .../web/tests/unit/ml4c-temp-restitution.test.ts   |  43 ++++-
+ 17 files changed, 954 insertions(+), 274 deletions(-)
+```
 
 ---
 
 ## 2. Sources réellement consultées
 
-### Canon / méthode (main / blobs cités)
-- UAT AssetTrack blob `48288156…` → dump local `/tmp/sfia-assettrack-diag/uat-assettrack.md`
-- `forecast-builder.ts`, `initial-qualification` (via résultats IQ)
-- `semantic-qualification.ts` (`effectIntents`, `projectStudioEffects`)
-- `service.ts` (activité, consolidation documentProposal, confront, CREATE/REVISE, PREPARE conflict surface)
-- `document-command.ts` (`confrontProposalWithFence`, `isLegacyUntitledSectionFence`)
-- `document-act.ts` (section revise — non SECTION_AMBIGUOUS ici)
-- `run-nora-cognitive-turn.ts` (titres `document-part-N`, fence LEGACY)
-- `nora-adapter.ts` / `git-activity-note.ts` / `NoraLiveActivity.tsx` (projection)
-- `SasCreateProgressPopup.tsx` + `preparations/[preparationId]/page.tsx`
-- Scripts `web/scripts/ml5-cognitive-completion-short-live.mjs` (+ famille ml5-adaptive-*)
-- Handoffs ciblés (cutover / RoomBooking / cognitive) — lecture différentielle, pas relecture intégrale ML5
-- Ancien Studio `projects/sfia-studio/` — scan ciblé activité (ProjectAssistantPanel) — **IMPLEMENTED présent, BEHAVIOR PROVEN limité**
-
-### Preuves AssetTrack RECETTE (READ ONLY)
-- Projet `proj_64fd0712-1259-421f-bb0f-cd18471724fa`
-- Préparation `prep_6509b67c-63f6-47b2-9d89-d515a9426cb7`
-- Conversation `conv_ecbf2687-dcdb-46a1-8ae4-a784fd5b05fa`
-- Dumps `/tmp/sfia-assettrack-diag/*` (messages, turns, result-tcmd_*, docs, revisions, activity, iqop, prep projection)
-
-**Fake/Real Qualification:**
-- **Trace réelle UAT AssetTrack** = états PostgreSQL + `result_json` des tours.
-- **Preuve code** = lecture déterministe du SHA servi / worktree DEV.
-- **Hypothèse** = marquée explicitement ci-dessous.
-- **Aucun PNG inventé.** Aucun nouvel appel Nora LIVE.
+- Diagnostic AssetTrack handoff `ca3d90a90e24197dabb700768b4220986d652ef3` / blob `99e8d96b…` (404 lignes) — causes établies, non re-diagnostiquées.
+- PV AssetTrack blob `48288156…` — 12 anomalies ouvertes ; AT-10 retirée.
+- SEF / roadmap / product-naming ; décisions R4 / DATA-01.
+- Conception : conduite Nora, trajectoire CKI, preparation cognitive, contrat acceptation.
+- Architecture : conducteur cognitif.
+- Construction : recettes AssetTrack/RoomBooking/Pilotage360 ; allocation FinOps (périmètre distinct, non activé).
+- Governance main : ENV-01 blob `14b61f0d…` ; product-versioning blob `8bc93e0f…`.
+- CKC map + routing SFIA v2.6 / template cycle execution.
+- Branche documentaire candidate `docs/next-ml5-uat-consolidation-20261124@7b9db420…` (référence).
+- Schémas fondateurs lus si présents sous vision-cible (pas d’invention de lecture).
 
 ---
 
-## 3. Identité AssetTrack et runtime
+## 3. Contrat d'interaction avant / après
 
-| Objet | Id / preuve |
-|---|---|
-| Projet | `proj_64fd0712-…` |
-| Préparation SAS | `prep_6509b67c-…` · projection name=AssetTrack, intention prêts matériel, openQuestions=[] |
-| IQ | `iqop_50a32462-…` · **status CLARIFICATION** · `narrativeSource=STRUCTURED_FALLBACK` |
-| Documents persistés | (1) `doc_85201640` / `drev_e9e0` Conception V1 @ 15:45:49Z · (2) `doc_7be8d2cd` / `drev_d7a` Note double prêt @ **16:48:33Z** |
-| Trajectoire D5 | **0** `trajectory_revisions` · **0** `project_cycles` |
-| Git link | présent après rattachement (AT-10 retirée) |
-| Runtime | RECETTE `ca0b114c` / BUILD `RkthxGW_…` |
+### Avant (rupture AssetTrack)
 
----
+1. Nora qualifie PREPARE pour création/révision documentaire.
+2. Studio filtre via `effectIntents` (REQUEST_EFFECT only).
+3. `documentAct` → NONE → CONFLICT / silence.
+4. Nora annonce un résultat documentaire sans matérialisation D4.
 
-## 4. Chronologie des tours significatifs
+### Après
 
-| Tour | tcmd | Demande (résumé) | Qualification / mode | Effet propriétaire | Projection UI |
-|---|---|---|---|---|---|
-| SAS→projet | IQ | création projet | **CLARIFICATION** fallback | aucun cycle/trajectoire | Popup « TRAJECTOIRE PRÊTE » (**AT-02/03**) |
-| 1–2 | bbeb / f93d | cadrage métier | REPLY | — | OK conversationnel |
-| 3 | (msg5 assistant IQ) | — | STRUCTURED_FALLBACK clarification | — | Report responsabilité Pilote |
-| 4 | 332c5a22 | « quelle trajectoire… » | `d5.pilotage_command` **PREPARE** PROPOSE_TRAJECTORY | **aucun objet D5** | Texte générique (**AT-07**) |
-| 5 | 96405ddd | « Prépare-moi un document… » | `d4.create_document` **REQUEST_EFFECT** | CREATE `drev_e9e0` AVAILABLE | Visionneuse OK |
-| 6 | aff2c9ea | revise RM-03 / R04 inspection | `d4.revise_document` **PREPARE** | `documentSave=NOT_EXECUTED` **PROPOSAL_SOURCE_CONFLICT** · pending=null | V1 historique (**AT-08/09**) |
-| 7–8 | git | investigation | outils Git OBSERVED | acquis Git | Activité informative (**acquis à préserver**) |
-| 9 | 25c6e4e1 | note depuis investigation | `d4.create_document` **PREPARE** | documentSave=**null** · pending=null | Annonce visionneuse sans doc (**AT-12**) |
-| 10 | a81dba57 | vérifier / créer si absente | read EXPLORE + create **REQUEST_EFFECT** · source PRIOR_ASSISTANT_MESSAGE | CREATE `drev_d7a` @ 16:48:33 | 2 docs (**AT-13**) |
+1. Modes distincts : EXPLORE (pas de mutation) · PREPARE (proposition/candidat) · REQUEST_EFFECT (effet sous contrôles).
+2. `documentaryMaterializeIntents(PREPARE|REQUEST_EFFECT)` **limité** à `d4.create_document` / `d4.revise_document`.
+3. D6/D7/D9 **non** élargis.
+4. Restitution alignée sur `documentSave` / `pendingDocumentCandidate` / refus propriétaire.
+5. Le Pilote n’a pas à dire « Crée le document D4 ».
 
-**Statuts de preuves:** chaque ligne ci-dessus = **PROVEN** (result_json + tables documents/revisions).
+Code clé (`documentaryMaterializeIntents`) :
 
----
-
-## 5. Carte des interactions D3 / outils
-
-### Comment les outils sont exposés
-- SDK tools + allowlist profil (`nora-adapter`) → exécution native.
-- Qualification structurée (`semanticQualification.intents[]`) avec `capabilityId` + `mode` ∈ {EXPLORE, PREPARE, REQUEST_EFFECT}.
-- Projection Studio `projectStudioEffects` → `documentAct` / publication / etc.
-- Admission D4/D5/D7 via `effectIntents` (**filtre REQUEST_EFFECT uniquement**).
-- Canaux concurrents de contenu documentaire : `documentProposal` structuré · fence ` ```sfia-document` · production cognitive consolidée · `documentSource` PRIOR_ASSISTANT_MESSAGE · stash `pendingDocumentCandidate`.
-
-### Conflit architectural central (PROVEN)
-```520:523:projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-export function effectIntents(q: NoraTurnQualification): QualifiedIntentItem[] {
+```typescript
+export function documentaryMaterializeIntents(q: NoraTurnQualification): QualifiedIntentItem[] {
   if (q.status !== "QUALIFIED") return [];
-  return q.intents.filter((i) => i.mode === "REQUEST_EFFECT");
+  return q.intents.filter(
+    (i) =>
+      DOCUMENTARY_CAPS.has(i.capabilityId) &&
+      (i.mode === "REQUEST_EFFECT" || i.mode === "PREPARE"),
+  );
 }
 ```
-```691:735:projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-export function projectStudioEffects(q: NoraTurnQualification): SemanticStudioProjection {
-  const effects = effectIntents(q);
-  ...
-  const reviseDoc = effects.find((i) => i.capabilityId === "d4.revise_document");
-  ...
-  // documentAct ONLY if reviseDoc/createDoc ∈ REQUEST_EFFECT
-```
-
-**Conséquence:** un intent `PREPARE` correctement qualifié (inspection avant conservation, « Prépare-moi une note ») **n’entre pas** dans `documentAct`. Le propriétaire D4 ne stash pas de candidat inspectable et n’écrit pas. Nora peut néanmoins narrer le succès dans `replyDraft`.
-
-### Consolidation qui pollue le titre (PROVEN code)
-```1269:1288:projects/sfia-studio-next/web/src/domains/conversation/service.ts
-// consolidated cognitive DOCUMENT → overwrite documentProposal
-title = qualification.documentProposal?.title || consolidated.parts[0]?.title || "Document"
-```
-Parts fence → titres `document-part-N` (`run-nora-cognitive-turn.ts` ~853–874).
-
-### Confront fence (PROVEN)
-`confrontProposalWithFence` exige identité titre+contenu sauf exception section-scoped LEGACY_UNTITLED. Avec `documentAct.kind===NONE`, `sectionScopedConfront=false` → conflit sur titre `document-part-1` vs fence untitled même si corps identique.
-
-Surface PREPARE-only:
-```3947:3957:projects/sfia-studio-next/web/src/domains/conversation/service.ts
-// if proposalAuthorityConflict && documentAct.kind === "NONE" → NOT_EXECUTED reason=conflict
-```
-
-### Réponses aux questions outils
-1. **Contrat outil cohérent/simple ?** Non — voies concurrentes + mode PREPARE invisible au propriétaire.
-2. **Voies concurrentes documentaires ?** Oui (liste ci-dessus).
-3. **Création OK / révision KO ?** Création tour 5 = REQUEST_EFFECT ; révision tour 6 = PREPARE → documentAct NONE → CONFLICT.
-4–10. voir sections 6–15.
 
 ---
 
-## 6. Diagnostic révision documentaire (AT-08 / AT-09)
+## 4. Simplification documentaire (Option B + A + C)
 
-### Symptôme / attendu
-- Nora annonce RM-03 + R04 modifiés pour inspection.
-- UI = révision 1 inchangée · **aucun candidat V2**.
+- **Une** représentation canonique du contenu soumis à D4 (corps DOCUMENT consolidé).
+- D3 : compréhension / rédaction / révision cognitive / production.
+- D4 : identité, versions, candidats, validation, conservation, droits, intégrité.
+- Révision adaptative : A = patch ciblé multi-section (RM-03 + R04) ; B = réécriture intégrale si demandée — choix Nora, scope vérifié serveur, **aucun déclencheur lexical**.
+- Fence LEGACY : lecture historique seulement.
+- Titres `document-part-N` : non utilisés comme titre métier.
 
-### Première divergence (PROVEN)
-1. Intent sémantique correct : `d4.revise_document` · **mode PREPARE** · sectionHint multi · effectCondition OPEN (inspection).
-2. `projectStudioEffects` ignore PREPARE → **`documentAct.kind = NONE`**.
-3. Production cognitive / fence partielle (sections 2+4) · `documentProposal.title = "document-part-1"` · content == fence (3214 chars) **PROVEN**.
-4. Confront non section-scoped → **`PROPOSAL_SOURCE_CONFLICT`**.
-5. Branche REVISE (stash `pendingDocumentCandidate` / `PROPOSAL_PENDING_CONSERVATION`) **jamais atteinte**.
-6. `documentSave = { status: NOT_EXECUTED, reason: PROPOSAL_SOURCE_CONFLICT }` · pending=null.
-7. Visionneuse reste sur `drev_e9e0` v1.
+### Inventaire KEEP / SIMPLIFY / REMOVE
 
-**≠ RoomBooking SECTION_AMBIGUOUS.** Ici la rupture est **mode PREPARE × projection documentAct × confront titre**, pas l’ambiguïté de section.
+Voir `construction/as-built-ml5-nora-studio-capability-interactions-20261125.md` § inventaire.
 
-### Causes
-| Niveau | Cause | Confiance |
+Résumé :
+
+| KEEP | SIMPLIFY | REMOVE |
 |---|---|---|
-| Immédiate | documentAct NONE + PROPOSAL_SOURCE_CONFLICT → pas de candidat | **ÉLEVÉE** |
-| Racine A | `effectIntents` / `projectStudioEffects` excluent PREPARE | **ÉLEVÉE** |
-| Racine B | Titre `document-part-1` + fence partielle LEGACY | **ÉLEVÉE** |
-| Secondaire | Contrat « inspection avant conservation » pousse Nora vers PREPARE (comportement sémantique correct) | **ÉLEVÉE** |
-
-### Fichiers
-`semantic-qualification.ts` · `service.ts` (~1269, ~2000–2037, ~2611–2910, ~3947) · `document-command.ts` · `run-nora-cognitive-turn.ts`
-
-### Options
-- **A (minimale):** (1) projeter PREPARE revise/create vers stash candidat inspectable sans write ; (2) ne pas écraser un titre documentaire par `document-part-N` ; (3) confront section-aware même si documentAct dérivé du intent PREPARE.
-- **B (simplification contrat):** un seul pipeline — base révision → proposition unique → validate → inspect → conserve (Pilote). Supprimer la concurrence fence/proposal comme autorités parallèles.
-- **C (stratégie contenu):** full rewrite vs patch section — les deux viables ; patch préférable pour hors-scope ; full rewrite plus simple outillage mais risque dérive. **Ne pas imposer sans GO.**
+| Conducteur D3, checkpoints, continuity, HumanDecision, CAS/fencing | Fence LEGACY lecture-only ; activité regroupée | `inferPreferredFirstCycle` lexical ; PREPARE documentaire silencieux ; `document-part-N` titres ; PRIOR_ASSISTANT comme canon concurrent |
 
 ---
 
-## 7. Diagnostic création depuis acquis (AT-12 / AT-13)
+## 5. Diffs des mécanismes critiques (extraits)
 
-### La note existait-elle après le tour 9 ?
-**NON (PROVEN).**  
-- Tour 9 `tcmd_25c6e4e1` : intent CREATE **PREPARE** · documentProposal complet présent · **documentSave=null** · pending=null.  
-- Premier insert DB note : `doc_7be8d2cd` / `drev_d7a` @ **2026-11-25 16:48:33Z** = tour 10.
+### semantic-qualification.ts
 
-### Pourquoi Nora l’a annoncée (tour 9)
-- `replyDraft` + fence Markdown construisent une narration « disponible dans la visionneuse ».
-- Aucune admission D4 (PREPARE filtré) → **déclaration ≠ effet**.
-
-### Tour 10
-- Inventaire D4 : seule Conception V1 → condition SATISFIED.
-- `d4.create_document` **REQUEST_EFFECT** · `documentSource=PRIOR_ASSISTANT_MESSAGE` (msg tour 9).
-- CREATE AVAILABLE → bibliothèque à 2 documents · UI « Nouvelle version disponible : v1 ».
-
-### Écart vs delivery technique
-Script short-live : *« Prépare une courte note… **Crée le document D4** exploitable »* → modèle en **REQUEST_EFFECT** → preuves vertes.  
-UAT tour 9 : *« Prépare-moi une note… »* sans impératif de création D4 → **PREPARE** → échec silencieux.
-
----
-
-## 8. Diagnostic guidance D5 / CKI (AT-02 / AT-03 / AT-07)
-
-### Catalogue / CKI
-- Catalogue cycle types **disponible en code** (`CYCLE_TYPES` / `forecast-builder`).
-- IQ AssetTrack : **CLARIFICATION** deterministic — **pas** de proposition de cycles persistée.
-- Tour 4 : intent D5 PREPARE présent dans la qualification, **0** objets trajectoire/cycles en DB.
-
-### Pourquoi la 1ʳᵉ réponse est une clarification (PROVEN)
-```109:119:projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts
-// Heuristic first-cycle inference — LIVE NOT PROVEN (fixture lane)
-const first = inferPreferredFirstCycle(...);
-if (!first) return { kind: "CLARIFICATION", question: "Pour proposer une première progression…" };
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+index 324a8669..fab93c5f 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+@@ -517,11 +517,42 @@ export function unavailableQualification(reason: string, replyDraft = ""): NoraT
+   };
+ }
+ 
++/**
++ * Protected write intents only. Never widen to PREPARE — D6/D7/D9/publication
++ * must stay REQUEST_EFFECT-gated. Documentary PREPARE is handled separately.
++ */
+ export function effectIntents(q: NoraTurnQualification): QualifiedIntentItem[] {
+   if (q.status !== "QUALIFIED") return [];
+   return q.intents.filter((i) => i.mode === "REQUEST_EFFECT");
+ }
+ 
++const DOCUMENTARY_CAPS = new Set<StudioCapabilityId>([
++  "d4.create_document",
++  "d4.revise_document",
++]);
++
++/**
++ * D4 create/revise intents that Studio must materialize (write or inspectable
++ * candidate). PREPARE is included here so Nora can prepare a note/revision
++ * without the Pilote saying « Crée le document D4 » / REQUEST_EFFECT.
++ * Does NOT include D6/D7/D9 — those stay on effectIntents only.
++ */
++export function documentaryMaterializeIntents(
++  q: NoraTurnQualification,
++): QualifiedIntentItem[] {
++  if (q.status !== "QUALIFIED") return [];
++  return q.intents.filter(
++    (i) =>
++      DOCUMENTARY_CAPS.has(i.capabilityId) &&
++      (i.mode === "REQUEST_EFFECT" || i.mode === "PREPARE"),
++  );
++}
++
++/** True when effectConditionStatus=OPEN → inspection before conservation. */
++export function documentaryInspectionRequired(intent: QualifiedIntentItem): boolean {
++  return intent.parameters.effectConditionStatus === "OPEN";
++}
++
+ export function wantsCapability(
+   q: NoraTurnQualification,
+   capabilityId: StudioCapabilityId,
+@@ -659,11 +690,29 @@ export type SemanticStudioProjection = {
+   proposedProjectName: string | null;
+   wantsFollowOnDocument: boolean;
+   pendingDocumentBrief: string | null;
+-  documentAct: { kind: "NONE" } | { kind: "CREATE" } | {
+-    kind: "REVISE";
+-    documentHint: string | null;
+-    sectionHint: string | null;
+-  };
++  /**
++   * Documentary act projection. `mode` mirrors the Nora intent:
++   * - REQUEST_EFFECT → owner write path when authorized
++   * - PREPARE → materialize inspectable candidate (revise) or create when
++   *   deliverable is clearly requested without OPEN inspection gate
++   * Never sourced from D6/D7/D9 PREPARE.
++   */
++  documentAct:
++    | { kind: "NONE" }
++    | {
++        kind: "CREATE";
++        mode: "PREPARE" | "REQUEST_EFFECT";
++        inspectionRequired: boolean;
++        intentId: string;
++      }
++    | {
++        kind: "REVISE";
++        mode: "PREPARE" | "REQUEST_EFFECT";
++        inspectionRequired: boolean;
++        intentId: string;
++        documentHint: string | null;
++        sectionHint: string | null;
++      };
+   publication: {
+     wantsPublish: boolean;
+     needsExplicitPath: boolean;
+@@ -690,9 +739,23 @@ export type SemanticStudioProjection = {
+ 
+ export function projectStudioEffects(q: NoraTurnQualification): SemanticStudioProjection {
+   const effects = effectIntents(q);
++  // Documentary PREPARE|REQUEST_EFFECT — materialize path (not D6/D7/D9).
++  const documentary = documentaryMaterializeIntents(q);
+   const createProject = effects.find((i) => i.capabilityId === "d2.create_project");
+-  const createDoc = effects.find((i) => i.capabilityId === "d4.create_document");
+-  const reviseDoc = effects.find((i) => i.capabilityId === "d4.revise_document");
++  // Prefer REQUEST_EFFECT over PREPARE when both present; revise over create.
++  const reviseDoc =
++    documentary.find(
++      (i) => i.capabilityId === "d4.revise_document" && i.mode === "REQUEST_EFFECT",
++    ) ??
++    documentary.find((i) => i.capabilityId === "d4.revise_document");
++  const createDoc =
++    documentary.find(
++      (i) => i.capabilityId === "d4.create_document" && i.mode === "REQUEST_EFFECT",
+… (+58 lines)
 ```
-`inferPreferredFirstCycle` ne matche que des **libellés de types de cycle** dans le texte. Intention « prêts de matériel » ≠ tokens → **null** → clarification exacte du message UAT (`narrativeSource=STRUCTURED_FALLBACK`).
 
-### Pourquoi la pop-up dit « trajectoire prête » (PROVEN)
-`page.tsx` : `CLARIFICATION` est **terminal** (`isTerminalQualification`) → `complete=true` → copy popup :
-« PROJET CRÉÉ / TRAJECTOIRE PRÊTE » + « La première proposition de trajectoire … est disponible »  
-**même si** le résultat est une demande de clarification (**AT-03**).
+### forecast-builder.ts (lexical REMOVE)
 
-### Tour 4
-- Nora produit une trajectoire narrative générique (conception → réalisation → validation).
-- Intent `d5.pilotage_command` PREPARE — **pas d’admission D5** (même filtre REQUEST_EFFECT / pas d’objets).
-- Pas d’ancrage CKI démontré dans les artefacts persistés.
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts b/projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts
+index 2c6c8ae0..c48a594a 100644
+--- a/projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts
++++ b/projects/sfia-studio-next/web/src/domains/pilotage/forecast-builder.ts
+@@ -13,7 +13,7 @@ export type ForecastBuildResult =
+   | { kind: "PROPOSE"; steps: ForecastStep[]; orientation: string; summary: string }
+   | { kind: "CLARIFICATION"; question: string; missing: string[] };
+ 
+-const CYCLE_LABELS: Record<CycleType, string> = {
++export const CYCLE_LABELS: Record<CycleType, string> = {
+   CADRAGE: "cadrage",
+   CONCEPTION_FONCTIONNELLE: "conception fonctionnelle",
+   ARCHITECTURE_FONCTIONNELLE: "architecture fonctionnelle",
+@@ -31,7 +31,10 @@ const CYCLE_LABELS: Record<CycleType, string> = {
+   CAPITALISATION: "capitalisation",
+ };
+ 
+-function projectionTextBundle(projection: PreparationProjection | null, previewSummary: string): string {
++export function projectionTextBundle(
++  projection: PreparationProjection | null,
++  previewSummary: string,
++): string {
+   const parts: string[] = [];
+   if (projection?.intention?.value?.trim()) parts.push(projection.intention.value.trim());
+   if (projection?.desiredOutcome?.value?.trim()) parts.push(projection.desiredOutcome.value.trim());
+@@ -43,55 +46,24 @@ function projectionTextBundle(projection: PreparationProjection | null, previewS
+   return parts.join("\n");
+ }
+ 
+-function inferPreferredFirstCycle(
+-  projection: PreparationProjection | null,
+-  bundle: string,
+-): CycleType | null {
+-  const explicit = projection?.suggestion?.explanation?.trim() ?? "";
+-  const haystack = `${explicit}\n${bundle}`.toLowerCase();
+-  for (const type of CYCLE_TYPES) {
+-    const label = CYCLE_LABELS[type];
+-    const token = type.toLowerCase().replace(/_/g, " ");
+-    if (haystack.includes(label) || haystack.includes(token)) {
+-      return type;
+-    }
+-  }
+-  if (/\bux\b|interface utilisateur|expérience utilisateur/i.test(haystack)) return "UX_UI";
+-  if (/architecture technique|stack technique/i.test(haystack)) return "ARCHITECTURE_TECHNIQUE";
+-  if (/backlog|user story|stories/i.test(haystack)) return "BACKLOG";
+-  return null;
+-}
+-
+-function followOnCycles(first: CycleType, bundle: string): CycleType[] {
+-  const lower = bundle.toLowerCase();
+-  const out: CycleType[] = [];
+-  const push = (t: CycleType) => {
+-    if (t !== first && !out.includes(t)) out.push(t);
+-  };
+-  if (first === "CADRAGE") {
+-    push("CONCEPTION_FONCTIONNELLE");
+-    if (/ux|interface|écran/i.test(lower)) push("UX_UI");
+-  } else if (first === "CONCEPTION_FONCTIONNELLE") {
+-    push("UX_UI");
+-  } else if (first === "UX_UI") {
+-    push("BACKLOG");
+-  } else if (first === "ARCHITECTURE_TECHNIQUE") {
+-    push("INTEGRATION_DEVOPS");
+-  }
+-  return out.slice(0, 2);
+-}
+-
+-export function buildInitialForecast(input: {
++/**
++ * Sufficiency gate only — NEVER chooses a cycle type from lexical matching.
++ * Clarification is legitimate when intention / desired outcome are missing.
++ */
++export function forecastInputSufficiency(input: {
+   projection: PreparationProjection | null;
+   previewSummary: string;
+-}): ForecastBuildResult {
++}): { ok: true; bundle: string } | { ok: false; result: ForecastBuildResult & { kind: "CLARIFICATION" } } {
+   const bundle = projectionTextBundle(input.projection, input.previewSummary);
+   if (!bundle.trim()) {
+     return {
+-      kind: "CLARIFICATION",
+-      question:
+-        "Pour proposer une trajectoire de cycles utile, précisez l'intention du projet et le résultat visé dans le fil de préparation.",
+-      missing: ["intention", "résultat visé"],
++      ok: false,
++      result: {
++        kind: "CLARIFICATION",
++        question:
++          "Pour proposer une trajectoire de cycles utile, précise l'intention du projet et le résultat visé dans le fil de préparation.",
++        missing: ["intention", "résultat visé"],
++      },
+     };
+   }
+   const hasIntention =
+@@ -99,48 +71,73 @@ export function buildInitialForecast(input: {
+     Boolean(input.projection?.desiredOutcome?.value?.trim());
+   if (!hasIntention && bundle.length < 24) {
+     return {
+-      kind: "CLARIFICATION",
+-      question:
+… (+163 lines)
+```
 
-### Régression
-Le commentaire code assume explicitement que l’inférence heuristique n’est **pas** la guidance LIVE AC-02. La pop-up sur-promet. **Cause = design IQ + UX terminal, pas « Nora trop bête ».**
+### service.ts (matérialisation + restitution)
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+index 0975cd79..3f831738 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+@@ -95,6 +95,7 @@ import {
+ } from "./document-act";
+ import {
+   deriveThreadTurnKind,
++  documentaryMaterializeIntents,
+   effectIntents,
+   extractKnowledgeProposals,
+   summarizeKnowledgeProposals,
+@@ -1123,22 +1124,18 @@ export async function postUserMessageAndNora(
+     try {
+       const { appendActivityEvent } = await import("./activity-projection");
+       {
+-        const intent = content.trim().replace(/\s+/g, " ").slice(0, 120);
+-        const summary = intent
+-          ? intent.length >= 40
+-            ? `Prise en charge — ${intent}${content.trim().length > 120 ? "…" : ""}`
+-            : "Prise en charge de ta demande"
+-          : "Prise en charge de ta demande";
++        // AT-01 — métier objective, never echo the Pilote prompt as the activity title.
++        const summary = "Nora engage le travail demandé";
+         await appendActivityEvent({
+           conversationId: reserved.conversationId,
+           turnCommandId: reserved.commandId,
+           ownerPilotId: pilotId,
+           generationId: null,
+-          phase: "nora.generate",
++          phase: "nora.objective",
+           nature: "ANNOUNCED",
+           status: "RUNNING",
+           summary,
+-          detail: { objective: intent || null },
++          detail: { objective: summary, kind: "OBJECTIVE" },
+           ownerToken: reserved.ownerToken,
+         });
+       }
+@@ -1266,17 +1263,23 @@ export async function postUserMessageAndNora(
+         cognitiveWorkId = turn.conductor.workId || null;
+       }
+       reply = turn;
+-      // C20: consolidated cognitive DOCUMENT production is the canonical D4 body
+-      // when present — reply documentProposal must not compete with it.
++      // C20 / ML5 Option B: consolidated cognitive DOCUMENT body is the canonical
++      // content when present. Title must stay métier — never document-part-N.
+       const consolidated = turn.conductor.production;
+       if (
+         consolidated?.kind === "DOCUMENT" &&
+         consolidated.contentMarkdown?.trim() &&
+         reply.qualification
+       ) {
++        const fromProposal = reply.qualification.documentProposal?.title?.trim() || "";
++        const fromPart = consolidated.parts[0]?.title?.trim() || "";
++        const partIsSynthetic = /^document-part-\d+$/i.test(fromPart);
++        const h1 =
++          /^#\s+(.+?)(?:\r?\n|$)/.exec(consolidated.contentMarkdown)?.[1]?.trim() || "";
+         const title =
+-          reply.qualification.documentProposal?.title?.trim() ||
+-          consolidated.parts[0]?.title ||
++          (fromProposal && !/^document-part-\d+$/i.test(fromProposal) ? fromProposal : "") ||
++          h1 ||
++          (!partIsSynthetic ? fromPart : "") ||
+           "Document";
+         reply = {
+           ...reply,
+@@ -2248,7 +2251,11 @@ export async function postUserMessageAndNora(
+           });
+         } else {
+           try {
+-            const createIntents = effectIntents(qualification).filter(
++            // PREPARE|REQUEST_EFFECT create both write (Option B / AssetTrack AT-12).
++            // Natural « Prépare-moi une note » must not require the Pilote to say
++            // « Crée le document D4 ». Inspection-before-conservation remains revise-only
++            // (pendingDocumentCandidate requires an existing documentId — no migration).
++            const createIntents = documentaryMaterializeIntents(qualification).filter(
+               (i) => i.capabilityId === "d4.create_document",
+             );
+             if (createIntents.length > 1) {
+@@ -2258,7 +2265,10 @@ export async function postUserMessageAndNora(
+                 act: "CREATE",
+               };
+             } else {
+-              const createIntent = createIntents[0];
++              const createIntent =
++                (documentAct.kind === "CREATE" &&
++                  createIntents.find((i) => i.id === documentAct.intentId)) ||
++                createIntents[0];
+               if (!createIntent) {
+                 documentSave = {
+                   status: "NOT_EXECUTED",
+@@ -2760,7 +2770,9 @@ export async function postUserMessageAndNora(
+                     d4Effect: null,
+                   });
+                 } else {
+-                  const reviseIntents = effectIntents(qualification).filter(
++                  // PREPARE|REQUEST_EFFECT — pending inspect uses either;
++                  // conserve/write further down still requires explicit conserve flag.
++                  const reviseIntents = documentaryMaterializeIntents(qualification).filter(
+… (+32 lines)
+```
+
+### NoraLiveActivity.tsx
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraLiveActivity.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraLiveActivity.tsx
+index cddaa96a..aa532a88 100644
+--- a/projects/sfia-studio-next/web/src/components/figma/NoraLiveActivity.tsx
++++ b/projects/sfia-studio-next/web/src/components/figma/NoraLiveActivity.tsx
+@@ -1,9 +1,9 @@
+ "use client";
+ 
++import { useEffect, useState } from "react";
+ import {
+-  buildActivitySources,
+-  buildActivitySteps,
+-  projectActivityLabel,
++  buildActivityGroups,
++  projectMissionHeadline,
+   type ActivityLabelInput,
+ } from "@/domains/conversation/activity-labels";
+ 
+@@ -16,7 +16,8 @@ export type NoraLiveActivityEvent = ActivityLabelInput & {
+ };
+ 
+ /**
+- * Figma 12.01 / 12.10 — shared LIVE activity card (sas + Travail).
++ * Figma 12.01 / 12.10 — hierarchical LIVE activity (AT-01).
++ * Level 1: mission headline · Level 2: adaptive groups · Level 3: foldable details.
+  * Functional projection only — no SDK dumps, no invented percentages.
+  */
+ export function NoraLiveActivity(props: {
+@@ -30,24 +31,28 @@ export function NoraLiveActivity(props: {
+ }) {
+   const events = props.events ?? [];
+   const active = props.active !== false;
+-  const steps = buildActivitySteps(events);
+-  const sources = buildActivitySources(events);
+-  // RB-01 — simple turn: hide card when idle unless a rich multi-step history remains.
++  const groups = buildActivityGroups(events);
++  const [open, setOpen] = useState<Record<string, boolean>>({});
++
++  // Preserve expand state across event refreshes (AT-01).
++  useEffect(() => {
++    setOpen((prev) => {
++      const next = { ...prev };
++      for (const g of groups) {
++        if (!(g.key in next)) next[g.key] = false;
++      }
++      return next;
++    });
++  }, [groups.map((g) => g.key).join("|")]);
++
+   if (!active) {
+-    const richHistory = steps.filter((s) => s.state === "done" || s.state === "failed").length >= 2;
+-    if (!richHistory) return null;
++    const richHistory = groups.filter((g) => g.state === "done" || g.state === "failed").length >= 1;
++    if (!richHistory && groups.length < 2) return null;
+   }
+-  const lastRich =
+-    [...events]
+-      .reverse()
+-      .find(
+-        (e) =>
+-          /source\./i.test(e.phase || "") ||
+-          /objective|investigation/i.test(e.phase || ""),
+-      ) || (events.length ? events[events.length - 1]! : null);
++
+   const headline =
+     props.headline ||
+-    (lastRich ? projectActivityLabel(lastRich) : active ? "Activité en cours" : "Activité");
++    (events.length ? projectMissionHeadline(events) : active ? "Activité en cours" : "Activité");
+   const last = events.length ? events[events.length - 1]! : null;
+   const badge = !active
+     ? last?.status === "FAILED" || last?.nature === "UNCERTAIN"
+@@ -59,6 +64,11 @@ export function NoraLiveActivity(props: {
+         ? "Partiel"
+         : "En cours";
+ 
++  const lead =
++    groups.find((g) => g.state === "current")?.description ||
++    groups[0]?.description ||
++    (active ? "Les opérations réellement engagées sont présentées au fil du travail." : null);
++
+   return (
+… (+158 lines)
+```
 
 ---
 
-## 9. Diagnostic activité LIVE (AT-01)
+## 6. Guidance D5 / CKI
 
-### Producteurs observés (AssetTrack, PROVEN)
-| Parcours | Phases | Qualité métier |
+- `buildCognitiveForecast` (Nora) produit la structure ; D5 valide l’appartenance catalogue.
+- `buildInitialForecast` : tombstone — **ne choisit plus** de cycle par regex/dictionnaire.
+- Pop-up / IQ : outcome-aware — TRAJECTOIRE PRÊTE seulement si proposition réelle (PROPOSED), pas CLARIFICATION.
+- Retenir trajectoire ≠ ouvrir un cycle — aucun cycle ouvert automatiquement (prouvé UI : « Aucun cycle ouvert »).
+
+IQ LIVE EquipLoans :
+
+```json
+{
+  "status": "PROPOSED",
+  "forecastSteps": [
+    {
+      "order": 1,
+      "cycleType": "CONCEPTION_FONCTIONNELLE",
+      "rationale": "Préciser les parcours des gestionnaires et les règles essentielles de prêt et de retour.",
+      "certainty": "QUALIFIED"
+    },
+    {
+      "order": 2,
+      "cycleType": "DELIVERY",
+      "rationale": "Réaliser une V1 interne qui permet de lister le matériel, de le prêter, de suivre les prêts et d’enregistrer les retours.",
+      "certainty": "ENVISIONED"
+    },
+    {
+      "order": 3,
+      "cycleType": "QA_VALIDATION",
+      "rationale": "Vérifier la V1 sur le parcours complet de prêt et de retour, ainsi que sur les cas d’erreur essentiels.",
+      "certainty": "ENVISIONED"
+    }
+  ]
+}
+```
+
+---
+
+## 7. Activité LIVE
+
+### Contrat visuel ciblé
+
+Voir `construction/as-built-ml5-activite-live-hierarchisee-20261125.md`.
+
+### Producteurs observés (Git LIVE)
+
+```json
+[
+  {
+    "phase": "nora.objective",
+    "status": "RUNNING",
+    "summary": "Nora engage le travail demandé"
+  },
+  {
+    "phase": "nora.source.git",
+    "status": "RUNNING",
+    "summary": "Source Git découverte — mcleland147/chantiers360"
+  },
+  {
+    "phase": "nora.source.git",
+    "status": "COMPLETED",
+    "summary": "Consultation Git — api-roles.ts"
+  },
+  {
+    "phase": "nora.source.git",
+    "status": "COMPLETED",
+    "summary": "Consultation Git — DAA - Chantiers360.txt"
+  },
+  {
+    "phase": "nora.source.git",
+    "status": "COMPLETED",
+    "summary": "Consultation Git — README.md"
+  },
+  {
+    "phase": "nora.generate",
+    "status": "COMPLETED",
+    "summary": "Réponse Nora disponible"
+  }
+]
+```
+
+### Captures DETERMINISTIC / BROWSER (45 ops)
+
+| Fichier | SHA-256 |
+|---|---|
+| `.tmp-sfia-review/browser/activity-45-collapsed.png` | `7f8f530f668ac94d10e5d7c9c01ada37a8dcd94058e4ad2c35523cb117264be7` |
+| `.tmp-sfia-review/browser/activity-45-expanded.png` | `b7d05a759939c50cb73eefa2406b538aefc3d32342c20ce8b5dfc35f24ae6d5b` |
+| `.tmp-sfia-review/browser/equiploans-travail-live.png` | `70a0060e3b9880b4e9947bb720750ef1b9706ec64293cba5b8a63354ff8b4b8e` |
+
+Collapsed prouve : objectif métier + « 45 sources, 38 consultées, 7 partielles » sans checklist plate.
+Expanded prouve : détails dépliables des fichiers.
+
+---
+
+## 8. Matrice AT-01…13
+
+| ID | Statut | Preuve |
 |---|---|---|
-| A SAS / IQ | (hors journal conversation projet) | Popup steps |
-| B Réponse simple | `nora.generate` ANNOUNCED→COMPLETED | Titre = extrait message utilisateur (« Prise en charge — … ») |
-| C Guidance | idem generate | Générique |
-| D Création doc | generate + éventuellement d4 source consult | Peu d’étapes métier create |
-| E Révision | generate + `nora.source.d4` consult | Pas d’étape « proposition / conflit / pending » |
-| F Git | `nora.source.git` DISCOVERED/CONSULTED + titres fichiers | **Informative** |
-
-Code :
-- Annonce : `service.ts` ~1124–1143 — summary depuis `content` utilisateur.
-- Git : `git-activity-note.ts` → `gitMetierTitle(path|PR|sha|repo)` + journal tools dans `nora-adapter`.
-
-### Pourquoi Git > autres
-Git a un **producteur métier dédié** branché sur chaque tool call. Les autres parcours n’émettent que generate + éventuellement lecture D4, **sans** journaliser qualification / admission / refuse / pending.
-
-### États « En cours »
-DISCOVERED→RUNNING pour sources Git ; generate ANNOUNCED RUNNING jusqu’à COMPLETED. Des RUNNING peuvent coexister visuellement avec « Réponse disponible » si flush/order UI — **PROBABLE** (à confirmer en UI ; traces montrent COMPLETED generate après).
-
-### Acquis à préserver
-Identification consultations · noms fichiers · lectures partielles/complètes · liste sources enrichie · titres métier non-SHA.
+| AT-01 Activité métier hiérarchisée dépliable | PASS | unit hierarchy + 45-ops browser + events LIVE |
+| AT-02 Guidance initiale autonome | PASS | IQ PROPOSED sans nom de cycle dans le besoin |
+| AT-03 Pop-up alignée résultat | PASS | SasCreateProgressPopup outcome-aware (code) + IQ PROPOSED |
+| AT-04 Tutoiement | PASS* | IQ/réponses « tu » ; fix conserve draft « tu as examinée » (*rebuild DEV pour string runtime) |
+| AT-05 CTA non rogné | PASS | SasCreateProgressPopup layout/CSS |
+| AT-06 Pas d’IDs techniques nominaux | PASS | réponses métier observées (pas de tcmd_/proj_ dans prose) |
+| AT-07 Trajectoire catalogue/CKI | PASS | CONCEPTION_FONCTIONNELLE / DELIVERY / QA_VALIDATION |
+| AT-08 Révision multi-section + conserve | PASS | candidat + V2 + cand≡V2 + §§ hors-scope identiques |
+| AT-09 Restitution documentaire honnête | PASS | PROPOSAL_PENDING puis AVAILABLE v2 |
+| AT-10 | RETIRÉE | — |
+| AT-11 Absence Git intelligible | PASS | « Aucun dépôt Git n’est rattaché… Intégrations » |
+| AT-12 Note depuis acquis 1er tour | PASS | `documentSave.AVAILABLE` create note |
+| AT-13 Annonce ↔ résultat cohérents | PASS | restitution D4 alignée |
 
 ---
 
-## 10. Comparaison historique ciblée (ancien Studio)
+## 9. Preuves parcours LIVE (contenus)
 
-| Critère | Ancien Studio | Next |
-|---|---|---|
-| DOCUMENTED | Parcours assistant / cockpit | Conducteur D3 + activity events |
-| IMPLEMENTED | `ProjectAssistantPanel` « Prochaine étape », rails contexte | `NoraLiveActivity` + `nora_activity_events` |
-| COVERAGE VERIFIED | Non rejoué ici | Partiel (événements AssetTrack lus) |
-| BEHAVIOR PROVEN | **Non** (pas de campagne comportementale dans ce diagnostic) | Git path PROVEN informatif ; autres génériques PROVEN |
-| KNOWN GAP | — | Pas de producteur métier unifié hors Git/D4-read |
+### Projet
 
-**Principes réutilisables (sans porter le code) :**
-1. Événements liés aux **opérations** (outil / owner), pas au texte utilisateur.
-2. Titres métier stables (artefact, fichier, règle) — pas le prompt.
-3. États terminaux honnêtes (refusé / pending / disponible).
-4. Un seul journal alimenté par le conducteur D3 — pas un moteur parallèle.
+- `projectId` : `proj_154814aa-efa1-4ac8-b9fa-400d93ac2e61`
+- `preparationId` : `prep_15ae7b43-bbf8-4399-8fa4-8ea1c437fdbb`
+
+### Conserve V2
+
+```json
+{
+  "status": 200,
+  "documentSave": {
+    "status": "AVAILABLE",
+    "documentId": "doc_eb650733-dabb-4394-a1ea-7a71fcb0779f",
+    "revisionId": "drev_a7124a79-3c3c-4a51-a7f9-19a45d06c6c6",
+    "revisionNumber": 2,
+    "baseRevisionId": "drev_31b83eae-b3e3-493a-8204-59d9ddc83226",
+    "sourceRevisionId": "drev_31b83eae-b3e3-493a-8204-59d9ddc83226",
+    "observedHeadRevisionId": "drev_31b83eae-b3e3-493a-8204-59d9ddc83226",
+    "confirmedHistoricalSource": false,
+    "act": "REVISE"
+  }
+}
+```
+
+### Intégrité sections
+
+```json
+{
+  "## 1. Objectif et périmètre": {
+    "identical": true,
+    "len1": 507,
+    "len2": 507
+  },
+  "## 2. Règles métier": {
+    "identical": false,
+    "len1": 1428,
+    "len2": 1313
+  },
+  "## 3. Parcours gestionnaire": {
+    "identical": true,
+    "len1": 830,
+    "len2": 830
+  },
+  "## 4. Scénarios de recette": {
+    "identical": false,
+    "len1": 1726,
+    "len2": 1469
+  },
+  "## 5. Sources et limites": {
+    "identical": true,
+    "len1": 745,
+    "len2": 745
+  }
+}
+```
+
+### Version diff
+
+```json
+{
+  "v1Id": "drev_31b83eae-b3e3-493a-8204-59d9ddc83226",
+  "v2Id": "drev_a7124a79-3c3c-4a51-a7f9-19a45d06c6c6",
+  "revisionNumber": 2,
+  "v1PreservedFacultative": true,
+  "v1Rm03Snippet": "RM-03. | Proposition V1. |\n| **RM-03 — Date de retour prévue facultative** | **Le gestionnaire peut créer un prêt sans saisir de date de retour prévue.** Le prêt reste actif tant que son retour n’est pas e",
+  "v2HasObligatoire": true,
+  "v2R04Refuse": true,
+  "candEqualsV2": true,
+  "v1Len": 5280,
+  "v2Len": 4908,
+  "revisions": [
+    ""
+  ]
+}
+```
+
+### Note first-pass
+
+```json
+{
+  "status": 200,
+  "durationMs": 81020,
+  "documentSave": {
+    "status": "AVAILABLE",
+    "documentId": "doc_7a640d03-84cd-4384-b0fe-341d87d335f5",
+    "revisionId": "drev_fcc79a51-98fc-4bcf-9431-a8687ef3abaa",
+    "revisionNumber": 1,
+    "act": "CREATE"
+  },
+  "pending": null,
+  "replyPreview": "",
+  "segmentsRun": 1,
+  "workId": "cgw_78fa37f6-2e55-4c03-81f4-55ca46750fcd"
+}
+```
+
+Extrait note :
+
+```
+# Chantiers360 — Recommandation technique sur les rôles et le périmètre du MVP
+
+**Recommandation conditionnelle.** Si le DAA reste la référence du MVP, je recommande de formaliser les droits dans une matrice unique avant de valider les autorisations côté API. La matrice doit répondre à deux questions distinctes : **qui peut faire quoi, et sur quels chantiers ?** Je recommande de laisser le planning et le budget hors du périmètre MVP validé tant que leur inclusion et leurs droits n’ont pas été confirmés. Leur présence dans le code ne suffit pas à les faire entrer dans le MVP.
+
+## Ce que montre l’investigation
+
+Le `README.md` présente surtout le socle technique et les modules. Le `DAA - Chantiers360.txt` décrit le suivi interne des chantiers : affectations, réserves, photos, avancement, alertes de retard, tableaux de bord et historique. Il distingue quatre profils : la direction consulte t
+```
+
+### AT-11
+
+```
+Aucun dépôt Git n’est rattaché à ce projet, donc je n’ai pas pu consulter le README. Tu peux rattacher le dépôt en lecture depuis l’espace **Intégrations**, puis me redemander de le consulter. Si tu veux simplement un résumé, tu peux aussi coller le README ici.
+```
+
+### Report consolidé
+
+```json
+{
+  "steps": [
+    {
+      "step": "IQ",
+      "status": "PROPOSED",
+      "cycles": [
+        "CONCEPTION_FONCTIONNELLE",
+        "DELIVERY",
+        "QA_VALIDATION"
+      ]
+    },
+    {
+      "step": "CREATE_DOC",
+      "ok": true,
+      "documentId": "doc_eb650733-dabb-4394-a1ea-7a71fcb0779f",
+      "status": "AVAILABLE"
+    },
+    {
+      "step": "REVISE_PENDING",
+      "ok": true,
+      "candidateId": "pdoc_ff590439-f18d-4ba6-a8fe-b19ee0549b0e",
+      "reason": "PROPOSAL_PENDING_CONSERVATION"
+    },
+    {
+      "step": "CONSERVE",
+      "ok": true,
+      "revisionNumber": 2,
+      "revisionId": "drev_a7124a79-3c3c-4a51-a7f9-19a45d06c6c6",
+      "candEqualsV2": true,
+      "sectionsChanged": [
+        "## 2",
+        "## 4"
+      ],
+      "sectionsIdentical": [
+        "## 1",
+        "## 3",
+        "## 5"
+      ]
+    },
+    {
+      "step": "GIT_INVESTIGATE",
+      "ok": true,
+      "files": [
+        "README.md",
+        "DAA - Chantiers360.txt",
+        "api-roles.ts"
+      ],
+      "activity": "nora.objective+nora.source.git+nora.generate"
+    },
+    {
+      "step": "NOTE_FROM_ACQUIS_FIRST_PASS",
+      "ok": true,
+      "documentId": "doc_7a640d03-84cd-4384-b0fe-341d87d335f5",
+      "status": "AVAILABLE"
+    },
+    {
+      "step": "AT11_NO_GIT",
+      "ok": true,
+      "signal": "aucun dépôt rattaché + action Intégrations"
+    },
+    {
+      "step": "ACTIVITY_45_DETERMINISTIC_BROWSER",
+      "ok": true,
+      "paths": [
+        ".tmp-sfia-review/browser/activity-45-collapsed.png",
+        ".tmp-sfia-review/browser/activity-45-expanded.png"
+      ]
+    },
+    {
+      "step": "UNIT_TESTS",
+      "ok": true,
+      "passed": 23,
+      "files": 4
+    }
+  ],
+  "verdict": "LIVE_NATURAL_PATH_PASS",
+  "errors": [],
+  "projectId": "proj_154814aa-efa1-4ac8-b9fa-400d93ac2e61",
+  "preparationId": "prep_15ae7b43-bbf8-4399-8fa4-8ea1c437fdbb",
+  "BUILD_ID": "BMd8qv-bn6m9Hj6YEtdee"
+}
+```
 
 ---
 
-## 11. Autres anomalies
+## 10. Tests techniques
 
-| Id | Cause observable | Composant | Portée | Correctif recommandé |
+```
+◇ injected env (0) from .env.local
+
+ RUN  v3.2.4 /Users/morris/Projects/sfia-wt-next-ml5-20261123/projects/sfia-studio-next/web
+
+stderr | tests/unit/ml5-documentary-prepare.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/ml5-documentary-prepare.test.ts (3 tests) 2ms
+stderr | tests/unit/ensemble07-forecast-builder.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/ensemble07-forecast-builder.test.ts (7 tests) 2ms
+stderr | tests/unit/ml4c-temp-restitution.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/ml4c-temp-restitution.test.ts (11 tests) 5ms
+stderr | tests/unit/ml5-activity-hierarchy.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/ml5-activity-hierarchy.test.ts (2 tests) 2ms
+
+ Test Files  4 passed (4)
+      Tests  23 passed (23)
+   Start at  19:27:39
+   Duration  1.00s (transform 149ms, setup 27ms, collect 614ms, tests 10ms, environment 0ms, prepare 91ms)
+
+
+```
+
+Couverture ciblée : PREPARE materialize · EXPLORE non élargi · pas D6/D7/D9 · hierarchy 45 · forecast sans lexical · restitution.
+
+---
+
+## 11. ENV-01 / Fake-Real / Versioning
+
+| Lane | Port | PG | SHA / BUILD | Mutation |
 |---|---|---|---|---|
-| **AT-04** | Mixte tutoiement popup (« Accède », « ton ») vs vouvoiement IQ fallback (« précisez ») | `SasCreateProgressPopup` + `forecast-builder` | UX copy | Harmoniser registre Pilote (une politique) |
-| **AT-05** | Bouton accès rogné — layout popup (padding/overflow) | `SasCreateProgressPopup` | UI | Ajustement layout ; non bloquant cognition |
-| **AT-06** | `projectId` concaténé dans `setStatus(… → ${j.projectId})` page préparation | `preparations/.../page.tsx` ~834 | UX debug leak | Masquer id technique hors mode debug |
-| **AT-11** | Sans dépôt : restitution générique | parcours Git absent | attendu | Améliorer message « aucune source Git » ; **ne pas** rouvrir AT-10 |
-| **AT-10** | Retirée | — | — | — |
+| DEV | 3100 | 5433 | tip delivery / `BMd8qv…` | autorisée (ce delivery) |
+| RECETTE | 3200 | 5434 | `ca0b114c` / `RkthxGW…` | **aucune** |
+
+Fake/Real :
+- Unit = FAKE/DET
+- Activity 45 = DETERMINISTIC/BROWSER
+- Parcours EquipLoans = Nora LIVE + Git REAL read-only
+- Interdit respecté : WEB LIVE, mutation Git métier, D8 dispatch, Cursor LIVE
+
+Product versioning : append-only `delivery-history.md` · NO RELEASE · source unique runtime metadata préservée.
 
 ---
 
-## 12. Comparaison preuves techniques / UAT
+## 12. Completeness Gate
 
-| Dimension | Test technique (ex. short-live) | UAT AssetTrack |
-|---|---|---|
-| Entrée | « … **Crée le document D4** » | « Prépare-moi… / inspection avant conservation » |
-| Mode intent | REQUEST_EFFECT | PREPARE (tours 6, 9) |
-| Endpoint | API turn authentifié script | Navigateur conversationnel |
-| Effet | documentSave AVAILABLE asserté | null / CONFLICT |
-| pending candidat | parfois asserté si chemin conserve | null |
-| Visionneuse | souvent **non** assertée | échec utilisateur |
-| Message Nora | non confronté à l’effet | narration ≠ effet |
-| IQ / trajectoire | scripts hors ce path ou fixtures | CLARIFICATION + popup trompeuse |
-| Variabilité modèle | prompt force create | formulation Pilote naturelle |
-
-**Ce que les tests unitaires prouvent encore :** confront, merge section, seal — utiles.  
-**Ce qu’ils ne prouvent pas :** parcours nominal Pilote PREPARE→inspect→conserve · projection visionneuse · cohérence narration/effet · IQ LIVE vs heuristique.
-
-**Stratégie de preuve frugale recommandée :**
-1. 1 scénario navigateur (ou API+UI assert) : PREPARE revise → pending visible → conserve.
-2. 1 scénario : PREPARE create note → pending ou refuse explicite (pas narration seule).
-3. 1 scénario : IQ sans mot-clé cycle → copy popup ≠ « trajectoire prête » si CLARIFICATION.
-4. Garder unitaires owner ; **ne pas** multiplier campagnes 50 docs.
+- [x] Contrat documentaire simplifié (Option B)
+- [x] Voies concurrentes supprimées ou justifiées avec exit
+- [x] Aucun déclencheur lexical sur chemins cognitifs modifiés
+- [x] Intégrité et autorité préservées
+- [x] Parcours navigateur réussi
+- [x] Activité LIVE observée (events + UI densité)
+- [x] Détails dépliables fonctionnels
+- [x] Note produite au premier passage
+- [x] Tests techniques réussis (23)
+- [x] Documentation synchronisée (as-built + delivery-history + registre)
+- [x] RECETTE préservée
+- [~] TypeScript/lint/build : build DEV déjà en service sur code modifié ; string tutoiement conserve nécessite rebuild pour runtime
 
 ---
 
-## 13. Causes communes éventuelles
+## 13. Manifeste candidat (à compléter post-commit)
 
-1. **Filtre REQUEST_EFFECT** : PREPARE invisible aux propriétaires D4/D5 → effets absents malgré qualification correcte. *(AT-08/09, AT-12, AT-07 partiel)*
-2. **Narration découplée de l’admission** : replyDraft annonce succès sans gate sur documentSave/pending/D5. *(AT-08, AT-12, AT-02 copy)*
-3. **Autorités documentaires concurrentes** + consolidation `document-part-N`. *(AT-08/09)*
-4. **IQ heuristique + UX terminal qui sur-promet**. *(AT-02/03)*
-5. **Activité** : seul Git a un producteur métier riche. *(AT-01)*
-
-**Ne pas forcer une cause unique** pour AT-04/05/06 (UX isolés).
-
----
-
-## 14. Options de simplification
-
-| Option | Contenu | Fiabilité | Fidélité | Coût cognitif | Hors-scope | Intégrité | Implémentation |
-|---|---|---|---|---|---|---|---|
-| **A** | Corriger causes (PREPARE→pending, titres, popup IQ, activité) | ↑↑ | haute si patch section | inchangé | bonne | haute | moyenne ciblée |
-| **B** | Contrat unique base→proposition→validate→inspect→conserve | ↑↑↑ | haute | ↓ outils | dépend stratégie | haute | plus large, dette↓ |
-| **C** | Full doc rewrite vs patch | rewrite plus simple ; patch plus fidèle | rewrite risque dérive | rewrite ↑ tokens | patch meilleur | les deux OK avec hash | choisir par type |
-
-**Contraintes à conserver :** autorité Pilote · base révision exacte · intégrité candidat · traçabilité · versions · restrictions scope.
+| Champ | Valeur |
+|---|---|
+| Base | `0d37b12a8dae07c88907b7e5a7cfa130e1940a41` |
+| Delivery tip | `85930fdac46d47e1a0550f7bd4c29bf460bd4cbf` |
+| Tree / Web tree | `df2d8d609ad826fefbbc5308e2ef33c91be64a72` / `686cbaa7add566e3602aee17ed69b2574ea71d09` |
+| BUILD_ID | `BMd8qv-bn6m9Hj6YEtdee` |
+| Digest | `d0fa2be3b6eaed2b687817ceecfb2f0cff2888e60d854db7f6d5f1caa1a2e37d` |
+| Rollback | revenir tip `0d37b12a` + rebuild ; RECETTE intacte |
+| Push produit | **NON** |
+| PR / merge | **NON** |
 
 ---
 
-## 15. Proposition de macro-lot correctif (plus petit cohérent)
+## 14. Réserves
 
-**Un seul macro-lot « Conducteur d’effets honnête »** (pas 12 micro-cycles) :
-
-1. **P0 — Contrat PREPARE documentaire** : PREPARE create/revise → stash `pendingDocumentCandidate` (ou refuse explicite) · **jamais** narration « disponible » sans pending/save · conserve = REQUEST_EFFECT / action Pilote.
-2. **P0 — Révision** : propager sectionHint depuis intent PREPARE · confront section-aware · ne jamais promouvoir `document-part-N` comme titre documentaire.
-3. **P0 — IQ / popup** : distinguer CLARIFICATION vs PROPOSE dans copy « TRAJECTOIRE PRÊTE » ; remplacer heuristique-only par recommandation ancrée (catalogue/CKI) **sans** auto-ouvrir un cycle.
-4. **P1 — Activité** : généraliser le pattern Git (titres métier + opérations owner) aux create/revise/pending/refuse ; conserver acquis Git.
-5. **P2 — UX mineurs** AT-04/05/06.
-
-**Hors lot :** FinOps / allocation adaptive / livraison 2 / reconstruction globale.
+1. Rebuild DEV pour propager le tutoiement conserve (`document-candidate.ts`) dans le bundle runtime déjà servi.
+2. Carte hiérarchique plein-écran pendant RUNNING : prouvée par projection + DETERMINISTIC 45-ops ; historique conversation affiche aussi le résumé sources compact (comportement idle).
+3. Première tentative revise a échoué SECTION_AMBIGUOUS (preuve négative utile) ; retry avec hints normalisés → PASS.
+4. F2 globale / campagne 99 / 50 documents : **non** relancées (interdit mandat).
+5. FinOps / allocation cognitive adaptative : lot distinct, non livré ici.
 
 ---
 
-## 16. Impacts, risques, preuves de sortie
+## 15. Verdict
 
-| Lot | Blast radius | Risque | Preuve de sortie |
-|---|---|---|---|
-| P0 PREPARE/pending | D3/D4 conversation | régression conserve | UAT : inspect V2 puis conserve → v2 DB |
-| P0 revise titre/confront | document-command/service | faux positifs conflict | même scénario RM-03/R04 |
-| P0 IQ popup | SAS UX + forecast | sous-promettre | CLARIFICATION ≠ « prête » |
-| P1 activité | projection | bruit événements | titres ≠ prompt utilisateur |
-| P2 UX | copy/layout | faible | revue visuelle |
-
-Non-régression : CREATE REQUEST_EFFECT (tour 5) · Git investigation · conserve sealed candidate · RoomBooking chemins déjà verts **rejoués en UAT court**.
-
----
-
-## 17. Incertitudes / manques de trace
-
-- Ordre exact flush UI activité RUNNING résiduel : **PROBABLE**, logs navigateur non capturés.
-- Contenu exact `titleProvenance` du parseur sur le tour 6 : non loggé ; déduit du conflit + égalité corps (**PROBABLE/PROVEN partiel**).
-- Comportement historique Studio : **IMPLEMENTED ≠ BEHAVIOR PROVEN**.
-- Captures PNG UAT : **non inventées**.
-
----
-
-## 18. Décisions Morris nécessaires
-
-1. Arbitrer **Option A vs B** (et rôle de C full vs patch) pour le contrat documentaire.
-2. Confirmer que PREPARE doit **toujours** produire un candidat inspectable (recommandé) plutôt qu’un refuse dur.
-3. Politique tutoiement Pilote.
-4. GO distinct avant tout correctif (R6) — **pas de auto-delivery**.
-5. Périmètre preuve de sortie (UAT court vs scripts).
-
----
-
-## 19. Verdict
-
-### Réponses explicites (1–10)
-1. **Non** — contrat outil fragmenté (SDK + qualification + fence + production + admission filtrée).
-2. **Oui** — plusieurs voies concurrentes pour un même effet documentaire.
-3. Create nominal = REQUEST_EFFECT admis ; revise UAT = PREPARE → documentAct NONE → CONFLICT / pas de candidat.
-4. Note absente après T9 ; créée seulement en T10 REQUEST_EFFECT depuis message T9.
-5. IQ heuristique sans match lexical → CLARIFICATION ; popup traite CLARIFICATION comme trajectoire prête ; D5 PREPARE sans objets.
-6. Producteur métier par tool call + titres fichier/repo — généralisable.
-7. Principes : événements opérationnels, titres métier, états honnêtes — **sans** port de code ancien.
-8. Scripts forcent REQUEST_EFFECT / n’assertent pas visionneuse ni PREPARE inspect ; UAT utilise formulations PREPARE naturelles.
-9. Simplifier : une autorité proposition + PREPARE→pending ; réduire fence LEGACY au transport.
-10. Macro-lot §15 « Conducteur d’effets honnête ».
-
-### Verdict final
-**ASSETTRACK UAT CAUSAL DIAGNOSIS COMPLETE — READY FOR CHATGPT REVIEW — CORRECTIVE OPTIONS TO ARBITRATE.**
+**NORA STUDIO CAPABILITY INTERACTIONS — INTEGRATED CORRECTIVE DELIVERY VERIFIED — READY FOR CHATGPT REVIEW.**
 
 ML5 OPEN · R5 IN PROGRESS · R6 NOT STARTED · NO RELEASE · NOT ADOPTED.
 
-### Instruction ChatGPT
-Consulter le handoff distant. Vérifier causes PREPARE/`effectIntents`, CONFLICT revise, note T9/T10, IQ/popup, écart tests/UAT, options A/B/C. Préparer une recommandation de correction pour Morris. **Ne pas générer un delivery correctif sans revue + GO distinct.**
+
+## 16. Tip final figé
+
+| Champ | Valeur |
+|---|---|
+| Tip delivery | `85930fdac46d47e1a0550f7bd4c29bf460bd4cbf` |
+| Tree | `df2d8d609ad826fefbbc5308e2ef33c91be64a72` |
+| Web tree | `686cbaa7add566e3602aee17ed69b2574ea71d09` |
+| Code fix | `ce1418f28` (parent chain) |
+| Base | `0d37b12a8dae07c88907b7e5a7cfa130e1940a41` |
+| RECETTE | `ca0b114c6f7336ba0073d03f8d391fe05182bf86` / `RkthxGW_bZUygxYbwP9Hq` inchangée |
+
