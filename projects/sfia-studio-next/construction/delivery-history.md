@@ -4716,6 +4716,9 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | Macro-lot | Finalisation ML5 Livraison 1 — conduite cognitive adaptative (pas un nouveau macro-lot) |
 | Type | INC · Critical · Cycle 8 Delivery |
 | Base | tip `cb4ae5990c0e8c2f75c466962f8a77f300c63e24` · tree `ad1f01fa976666dddb64e80665abdb677ec17717` · web tree `eb8dc550456c87f77053a3a5952e3edd20de5099` |
+| SHA candidat | `b34defd09a34feb8a5daa871fd8fa468c7af78e0` |
+| Tree | `43b9ddadf292865f891ee95af3f38e5672ae23fe` |
+| Web tree | `7e7b793e614026933cc81aaa76909592cadb5aaa` |
 | Calibration | `SFIA_COGNITIVE_MAX_TOKENS=2000000` · `REEVAL=1000000` · `MAX_SEGMENTS=120` · OPERATIONAL_PROVISIONAL |
 | Compatibilité | NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN · R5 IN PROGRESS |
 | Environnement | DEV `:3100` / PG `:5433` · Build `CC0wLCfVBY-Q1uALQDItr` · Digest `882e1eff3c198e79a91c8d732275195a31841dd2ba469c4540e50934889f02a7` |

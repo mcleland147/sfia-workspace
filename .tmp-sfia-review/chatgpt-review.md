@@ -13,7 +13,7 @@
 | Workspace | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
 | Branch | `sfia/next-ml5-integrated-delivery-20261123` |
 | HEAD (pre-commit tip expected base) | `cb4ae5990c0e8c2f75c466962f8a77f300c63e24` |
-| Working tip (uncommitted until commit) | `cb4ae5990c0e8c2f75c466962f8a77f300c63e24` |
+| Delivery SHA | `b34defd09a34feb8a5daa871fd8fa468c7af78e0` |
 | Tree at base | `ad1f01fa976666dddb64e80665abdb677ec17717` |
 | Web tree at base | `eb8dc550456c87f77053a3a5952e3edd20de5099` |
 | Main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
