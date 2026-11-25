@@ -3,6 +3,32 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-25-ML5-NORA-CAPABILITY-INTERACTIONS-FINALIZE-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-25 (Europe/Paris) |
+| Macro-lot | ML5 — Finalisation interactions Nora/Studio (3 écarts) + cutover RECETTE |
+| Type | INC Critical · correctif + mise à disposition · **NO RELEASE** |
+| Branche source | `sfia/next-ml5-integrated-delivery-20261123` |
+| Base tip | `85930fdac46d47e1a0550f7bd4c29bf460bd4cbf` |
+| Candidate SHA **servi** | `b21df867acd4f63934612ef6dee77e78ecf3b863` |
+| Tree / web tree | `2fefa9a41e38624c55cb1be6ca1ebfd944bcc92a` / `eea7b17bceb55b7ce1e31c742c84819e75696d36` |
+| Worktree RECETTE | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-b21df867acd4` |
+| BUILD_ID RECETTE | `gzqaaKhie0CqcfpgrvMMp` · digest `af8c516356774e017dceb85530d5a0c97490269d173fd978c916a2f9495c5f83` |
+| URL | `http://127.0.0.1:3200` · PG `:5434` · base `sfia_next_recette_ml4` |
+| Cognition effective | OPERATIONAL_PROVISIONAL · **2M / 1M / 120** |
+| WEB LIVE | **BLOQUÉ** (0/0/0) |
+| Contenu | (1) voie documentaire canonique unique + revise fragmentaire ; (2) suppression fallback CF→DELIVERY + catalogue CKI ; (3) activité LIVE contextualisée, pagination réelle, états honnêtes |
+| Preuves | unit `ml5-fragment-revise` + suite ciblée 50 PASS ; build RECETTE propre ; post-cutover login 200 · `/api/portfolio` 401 · counts inchangés |
+| Données AVANT/APRÈS | projects=29 documents=121 revisions=192 conversations=208 messages=794 cognitive_works=17 (**Δ=0**) |
+| Sauvegarde | `/Users/morris/Projects/sfia-recette-backups/ml5-20261125T190405Z-pre-b21df867acd4` · dump sha256 `acf8a4ca5fdd8bf35c673cc0712c061e02ffb40113bb6f83608a3b94a896225c` |
+| Rollback code | worktree `…-ca0b114c6f73` · build `RkthxGW_bZUygxYbwP9Hq` · plist bak `…pre-finalize-cutover-b21df867acd4.bak` |
+| DEV | **préservé** `:3100` / `:5433` · build `z1tZ-LIvlI5-w4b_Jvlai` · tip aligné |
+| Push produit | **NONE** |
+| Réserves | inspection CREATE sans second store ; titres d'activité dépendent des productions D3 disponibles ; pas de campagne LIVE cognitive exhaustive ce cycle |
+| Verdict | **NORA CAPABILITY INTERACTIONS — RECETTE AVAILABLE WITH RESERVES — READY FOR MORRIS UAT** |
+
 ## delivery_id: DELIV-2026-11-25-ML5-NORA-COGNITIVE-COMPLETION-RECETTE-CUTOVER
 
 | Field | Value |

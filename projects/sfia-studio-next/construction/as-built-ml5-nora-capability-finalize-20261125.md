@@ -40,3 +40,17 @@ Fallback déterministe `CONCEPTION_FONCTIONNELLE → DELIVERY` dans `buildCognit
 ## Protections préservées
 
 Conducteur D3, checkpoints, continuity, Git RO, HumanDecision, CAS/fencing, OPERATIONAL_PROVISIONAL 2M/1M/120.
+
+## Identité candidat (cutover)
+
+| Champ | Valeur |
+| --- | --- |
+| SHA | `b21df867acd4f63934612ef6dee77e78ecf3b863` |
+| Tree | `2fefa9a41e38624c55cb1be6ca1ebfd944bcc92a` |
+| Web tree | `eea7b17bceb55b7ce1e31c742c84819e75696d36` |
+| BUILD_ID RECETTE | `gzqaaKhie0CqcfpgrvMMp` |
+| Digest | `af8c516356774e017dceb85530d5a0c97490269d173fd978c916a2f9495c5f83` |
+| URL | `http://127.0.0.1:3200` |
+| PG | `:5434` / `sfia_next_recette_ml4` |
+| Précédent | `ca0b114c` / `RkthxGW_bZUygxYbwP9Hq` |
+| Backup | `…/ml5-20261125T190405Z-pre-b21df867acd4` |
