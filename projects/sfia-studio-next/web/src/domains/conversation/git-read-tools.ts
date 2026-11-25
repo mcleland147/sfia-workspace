@@ -239,27 +239,13 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
         };
         const charsCharged = chargeBudget(scope, payload);
         for (const s of sources) {
-          const repoId =
-            typeof (s as { id?: string }).id === "string"
-              ? (s as { id: string }).id
-              : typeof (s as { repositoryId?: string }).repositoryId === "string"
-                ? (s as { repositoryId: string }).repositoryId
-                : null;
-          const label =
-            typeof (s as { fullName?: string }).fullName === "string"
-              ? (s as { fullName: string }).fullName
-              : typeof (s as { name?: string }).name === "string"
-                ? (s as { name: string }).name
-                : "dépôt";
-          if (repoId) {
-            noteGitToolSource(scope, {
-              operation: "list_project_git_sources",
-              ref: `git-repo:${repoId}`,
-              coverage: "DISCOVERED",
-              repoLabel: label,
-              notes: "métadonnées dépôt — non encore ouvert",
-            });
-          }
+          noteGitToolSource(scope, {
+            operation: "list_project_git_sources",
+            ref: `git-repo:${s.repositoryId}`,
+            coverage: "DISCOVERED",
+            repoLabel: s.fullName || "dépôt",
+            notes: "métadonnées dépôt — non encore ouvert",
+          });
         }
         emitObs({
           event_name: "d3.tool.list_project_git_sources",
