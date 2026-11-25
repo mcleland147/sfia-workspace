@@ -16,7 +16,7 @@
 | Workspace DEV | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
 | Remote | `mcleland147/sfia-workspace` (origin) |
 | Branche produit | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD tip delivery |  |
+| HEAD tip delivery | `85930fdac46d47e1a0550f7bd4c29bf460bd4cbf` |
 | HEAD base | `0d37b12a8dae07c88907b7e5a7cfa130e1940a41` |
 | Tree base | `9645644ad518040b734cfd5435b84d8c96cdba6f` |
 | Web tree base | `99dd2c6b3db728434a452d4f93775e0e2a6e1e0a` |
