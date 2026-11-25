@@ -448,7 +448,8 @@ export default function PreparationPage() {
       } catch {
         j = { errorCategory: "RESPONSE_PARSE_FAILED" };
       }
-      void pollLiveActivity();
+      // RB-01/02 — fence late polls before terminal clear (do not re-hydrate idle card).
+      activityPollEpochRef.current += 1;
       if (res.ok) {
         messageTurnKeyRef.current = null;
         setMessages((j.messages as typeof messages) ?? []);
@@ -474,20 +475,23 @@ export default function PreparationPage() {
         if (prepProj?.status === "UNAVAILABLE") {
           setProjectionFreshness("unavailable");
         }
-        // UAT-03 — pilot-facing status stays métier; no SDK / policy / op dump.
-        const noraMode = String(j.noraMode ?? "").trim();
+        // RB-04 — pilot-facing status stays métier; never dump SDK / policy / mode codes.
         const turnStatus = String(j.status ?? "").trim();
         const docPart =
           documentSave?.status === "AVAILABLE"
-            ? ` · document v${documentSave.revisionNumber ?? "?"}`
+            ? `Document disponible (v${documentSave.revisionNumber ?? "?"})`
             : documentSave?.status === "CONFLICT"
-              ? " · conflit documentaire"
+              ? "Conflit documentaire"
               : "";
-        setStatus(
-          [noraMode && turnStatus ? `${noraMode} · ${turnStatus}` : turnStatus || noraMode, docPart]
-            .filter(Boolean)
-            .join(""),
-        );
+        const métier =
+          turnStatus === "COMPLETE"
+            ? "Réponse disponible"
+            : turnStatus === "INTERRUPTED"
+              ? "Réponse partielle — reprise possible"
+              : turnStatus === "FAILED" || turnStatus === "UNKNOWN"
+                ? "Réponse non aboutie"
+                : "";
+        setStatus([métier, docPart].filter(Boolean).join(" · "));
         await reload();
       } else {
         setNoraActivity("error");
@@ -505,7 +509,6 @@ export default function PreparationPage() {
       setStatus("échec réseau — intention de tour conservée");
     } finally {
       window.clearInterval(activityPollTimer);
-      activityPollEpochRef.current += 1;
       setBusy(false);
     }
   }

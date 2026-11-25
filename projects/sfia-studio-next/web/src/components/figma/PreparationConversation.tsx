@@ -112,6 +112,7 @@ export function PreparationConversation(props: {
           <NoraLiveActivity
             events={liveEvents}
             headline={props.liveActivityHeadline}
+            active={props.noraActivity === "preparing"}
             figmaFrame="12.10"
           />
         ) : null}

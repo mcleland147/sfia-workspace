@@ -29,11 +29,12 @@ export function NoraLiveActivity(props: {
 }) {
   const events = props.events ?? [];
   const active = props.active !== false;
-  // RB-01 — simple turn: hide card entirely when idle and no durable steps left.
-  if (!active && events.length === 0) {
-    return null;
-  }
   const steps = buildActivitySteps(events);
+  // RB-01 — simple turn: hide card when idle unless a rich multi-step history remains.
+  if (!active) {
+    const richHistory = steps.filter((s) => s.state === "done" || s.state === "failed").length >= 2;
+    if (!richHistory) return null;
+  }
   const last = events.length ? events[events.length - 1]! : null;
   const headline =
     props.headline ||
