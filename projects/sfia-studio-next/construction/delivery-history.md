@@ -4641,3 +4641,26 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | RECETTE / STABLE | intouchées |
 | Classe | NO RELEASE · Gate C OPEN |
 | Verdict cible | `LOCAL GIT CANDIDATE FROZEN` (± GOVERNED RESERVES) |
+
+## 2026-11-25 — ML5 Nora Livraison 1 — RECETTE cutover (Cycle 11 RUN)
+
+| Champ | Valeur |
+|---|---|
+| Cycle | 11 — Déploiement / release · Critical RUN |
+| Candidate SHA | `2a024b1c8d713ded6260d2a6427448a29f98a646` |
+| Tree | `031f13043423c0e93d0b94af9fb27e852e262e74` |
+| Web tree | `f57bb8eed98af19f4ea6d0a33d6de431084f635d` |
+| Build RECETTE | `3RyhswMcKrNv8woukVXsT` |
+| contentDigest | `cc7f5e5dbcff5af418393630de1d7d80d24e9cc44aa847eebda59eaa4e557a25` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-2a024b1c8d71` |
+| URL | `http://127.0.0.1:3200` |
+| Cognitive | `ml5-cog-policy-v3-recette-operational-provisional` · `OPERATIONAL_PROVISIONAL` · 24/200k · model `gpt-6.2-sol` |
+| WEB | LIVE BLOCKED (ENABLED=0 LIVE=0) — P0 OPEN |
+| Nora smoke | `openai-agents-sdk-live` COMPLETE — not F2 proven |
+| Cursor | LIVE configured + confinement PASS — no D6 dispatch |
+| DB | `sfia_next_recette_ml4` :5434 preserved projects=27 documents=118 revisions=189 · migrations 001→021 unchanged |
+| Previous | `7f48daa28f00` / `_ZDI1cWa1hscluvBhaiA4` retained for rollback |
+| Backup | `/Users/morris/Projects/sfia-recette-backups/ml5-20261125T064937Z-pre-2a024b1c8d71` |
+| Class | NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN |
+| Verdict | RECETTE AVAILABLE — MORRIS UAT REQUIRED — WEB LIVE BLOCKED |
+
