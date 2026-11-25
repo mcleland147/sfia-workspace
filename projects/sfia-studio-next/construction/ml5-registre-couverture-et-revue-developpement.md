@@ -4,7 +4,7 @@
 
 | Champ | Valeur |
 |---|---|
-| Version | v0.14 candidate — 25 novembre 2026 : Cycle finalize Nora×Studio (voie documentaire unique + fragment revise ; guidance sans fallback CF→DELIVERY ; activité LIVE contextualisée) + cutover RECETTE `b21df867` / `gzqaaKhie0CqcfpgrvMMp` — **RECETTE AVAILABLE WITH RESERVES** ; C4–C20 + finalize |
+| Version | v0.15 candidate — 25 novembre 2026 : Nora documentary autonomy (seal full proposal, no fragment/section rewrite ; compare_document_proposal ; exact conserve) + LIVE/UX IT-01…05 + cutover RECETTE `e012401f` / `KotrF7y02wbZN79HDsjAb` — **RECETTE AVAILABLE WITH EXPLICIT RESERVES** |
 | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
 | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
 | Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |

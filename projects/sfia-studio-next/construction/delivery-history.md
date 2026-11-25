@@ -3,6 +3,31 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-25-ML5-NORA-DOCUMENTARY-AUTONOMY-RECETTE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-25 (Europe/Paris) |
+| Macro-lot | ML5 — Nora documentary autonomy + LIVE/UX IT-01…05 · cutover RECETTE |
+| Type | INC Critical · correctif intégré · **NO RELEASE** |
+| Branche source | `sfia/next-ml5-integrated-delivery-20261123` |
+| Candidate SHA **servi** | `e012401f6af438df2168f3efb069bbabd03e80c0` |
+| Tree / web tree | `fd5492926a6a9b892eaac7d9e2b6f48c76ed6d29` / `d88b9aa38c8256e835fa13c3734ab7e650e07fb9` |
+| Worktree RECETTE | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-e012401f6af4` |
+| BUILD_ID RECETTE | `KotrF7y02wbZN79HDsjAb` · digest `74a4459ec1eaead042c8dbd02b8487b7cb468397c45963c86c39f2dc875eb374` |
+| URL | `http://127.0.0.1:3200` · PG `:5434` · base `sfia_next_recette_ml4` |
+| Cognition effective | OPERATIONAL_PROVISIONAL · **2M / 1M / 120** |
+| WEB LIVE | **BLOQUÉ** (0/0/0) |
+| Contenu | (1) scellage documentProposal complet — suppression reconstruction fragmentaire/section ; (2) `compare_document_proposal` ; (3) conserve exacte candidat inspecté ; (4) activité LIVE sans reformulation prompt ; (5) UX IT-02/04/05 |
+| Preuves | unit autonomy 8 + fence/document/activity ; PG seal/stale/idempotent 3 PASS ; LIVE create→revise→pending→conserve V2===candidat (~106s) ; build RECETTE propre |
+| Données AVANT/APRÈS | projects=30 documents=122 revisions=193 conversations=209 messages=809 (**Δ=0**) |
+| Sauvegarde | `/Users/morris/Projects/sfia-recette-backups/ml5-20261125T205938Z-pre-e012401f6af4` · dump sha256 `f54582eead905328b504ce7121224b5768cf240e3ee773940f2c5dbc77df6bba` |
+| Rollback code | worktree `…-b21df867acd4` · build `gzqaaKhie0CqcfpgrvMMp` · plist bak `…pre-autonomy-cutover-e012401f6af4.bak` |
+| DEV | **préservé** `:3100` / `:5433` · build `Z7oT_rRySTn2jBXgDHVB1` · tip `e012401f` |
+| Push produit | **NONE** |
+| Réserves | DET conversational CREATE/REVISE fixtures préexistants SEMANTIC_NONE (conductor probe) — hors gate seal ; LIVE UX captures navigateur non rejouées ce cycle ; IT-06 couvert par seal+LIVE |
+| Verdict | **NORA DOCUMENTARY AUTONOMY — INTEGRATED CORRECTIVE DELIVERY VERIFIED — RECETTE AVAILABLE WITH EXPLICIT RESERVES — READY FOR MORRIS UAT** |
+
 ## delivery_id: DELIV-2026-11-25-ML5-NORA-CAPABILITY-INTERACTIONS-FINALIZE-RECETTE
 
 | Field | Value |
