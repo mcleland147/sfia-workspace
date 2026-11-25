@@ -94,17 +94,29 @@ export function NoraLiveActivity(props: {
           {steps.map((step) => (
             <li
               key={step.key}
-              data-state={!active && step.state === "current" ? "done" : step.state}
+              data-state={
+                step.state === "failed" || step.state === "limited"
+                  ? step.state
+                  : !active && step.state === "current"
+                    ? "done"
+                    : step.state
+              }
               data-nature={step.nature}
-              className={`fig-nora-live-activity-step fig-nora-live-activity-step-${!active && step.state === "current" ? "done" : step.state}`}
+              className={`fig-nora-live-activity-step fig-nora-live-activity-step-${
+                step.state === "failed" || step.state === "limited"
+                  ? step.state
+                  : !active && step.state === "current"
+                    ? "done"
+                    : step.state
+              }`}
             >
               <span className="fig-nora-live-activity-mark" aria-hidden>
-                {!active || step.state === "done"
-                  ? "✓"
-                  : step.state === "failed"
-                    ? "✕"
-                    : step.state === "limited"
-                      ? "!"
+                {step.state === "failed"
+                  ? "✕"
+                  : step.state === "limited"
+                    ? "!"
+                    : !active || step.state === "done"
+                      ? "✓"
                       : step.state === "current"
                         ? "◌"
                         : "○"}

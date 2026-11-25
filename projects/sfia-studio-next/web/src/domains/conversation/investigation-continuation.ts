@@ -71,6 +71,12 @@ export function formatInvestigationContinuationContext(
     lines.push(`Travail restant: ${state.remainingWork.slice(0, 6).join("; ")}`);
   }
 
+  if (state.inventoryTotal != null) {
+    lines.push(
+      `Couverture inventaire: ${state.inventoryExamined ?? 0}/${state.inventoryTotal}`,
+    );
+  }
+
   const conclusions = (state.conclusions ?? []).filter((c) => c.trim().length > 0);
   if (conclusions.length > 0) {
     lines.push("Conclusions réutilisables:");
@@ -101,6 +107,9 @@ function humanizeSuspendReason(reason: string | null | undefined): string | null
   }
   if (reason === "SEGMENT_INVOCATION_LIMIT") {
     return "J’ai atteint la limite technique de segments pour cette invocation — une reprise bornée reste possible.";
+  }
+  if (reason === "NO_PROGRESS_DETECTED") {
+    return "J’ai suspendu ce travail faute de progression mesurable sur plusieurs segments.";
   }
   if (reason.startsWith("GLOBAL_") || /BUDGET|EXHAUSTED|LIMIT/i.test(reason)) {
     return "Le travail a été interrompu par une limite technique.";
@@ -192,14 +201,14 @@ export function composeInvestigationPartialRestitution(input: {
 
 /**
  * Scale per-segment D4 char budget with remaining global token headroom.
- * Does not change the 200k / 24 ceilings — only local tool share.
+ * Local tool share only — global envelope is 1M reeval / 2M admin max.
  */
 export function scaleSegmentCharBudget(input: {
   baseChars: number;
   usedTokens: number;
   maxTokens?: number;
 }): { chars: number; reasonCode: string } {
-  const maxTokens = input.maxTokens ?? 200_000;
+  const maxTokens = input.maxTokens ?? 2_000_000;
   const remaining = Math.max(0, maxTokens - Math.max(0, input.usedTokens));
   const ratio = maxTokens > 0 ? remaining / maxTokens : 1;
   if (ratio >= 0.5) {

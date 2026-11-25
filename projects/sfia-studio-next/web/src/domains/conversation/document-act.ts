@@ -680,12 +680,23 @@ export function formatNumericSectionHint(nums: Array<string | number>): string |
 }
 
 /**
- * Recover section targets from natural Pilote wording
- * (« dans la section 2 et … section 3 ») when Nora omits sectionHint.
+ * Recover section targets from natural Pilote wording that authorizes revision
+ * (« dans la section 2 », « intègre … section 3 », « révise la section 4 »).
+ * A bare mention of « section N » as reference is NOT an authority to modify it.
  */
 export function extractSectionHintFromPilotText(text: string | null | undefined): string | null {
   if (!text) return null;
-  const nums = [...text.matchAll(/\bsections?\s+(\d+)\b/gi)].map((m) => m[1]!);
+  const nums = [
+    ...text.matchAll(
+      /\b(?:dans|sur|pour|vers)\s+(?:la\s+)?sections?\s+(\d+)\b/gi,
+    ),
+    ...text.matchAll(
+      /\b(?:intègre|integrer|intégrer|modifie|modifier|révise|revise|révise|mets?\s+[àa]\s+jour|ajoute|ajouter|corrige|corriger)\b[\s\S]{0,80}?\bsections?\s+(\d+)\b/gi,
+    ),
+    ...text.matchAll(
+      /\bsections?\s+(\d+)\b[\s\S]{0,40}?\b(?:avec|en\s+y|pour\s+y)\b/gi,
+    ),
+  ].map((m) => m[1]!);
   return formatNumericSectionHint(nums);
 }
 

@@ -1,20 +1,55 @@
 import { describe, expect, it } from "vitest";
-import { evaluateGlobalResourceEnvelope } from "@/domains/conversation/cognitive-work";
+import {
+  COGNITIVE_DEFAULT_MAX_TOKENS,
+  COGNITIVE_DEFAULT_REEVAL_TOKENS,
+  evaluateGlobalResourceEnvelope,
+} from "@/domains/conversation/cognitive-work";
 import { composeInvestigationPartialRestitution } from "@/domains/conversation/investigation-continuation";
 import { createEmptyInvestigation } from "@/domains/conversation/investigation-state";
-import { mergeInvestigationFromReply } from "@/domains/conversation/run-nora-cognitive-turn";
+import {
+  mergeInvestigationFromReply,
+  semanticContinueWork,
+} from "@/domains/conversation/run-nora-cognitive-turn";
 import type { NoraGenerateResult } from "@/domains/conversation/nora-adapter";
+import { contentBodySha256, contentSha256 } from "@/domains/conversation/document-command";
+import { extractSectionHintFromPilotText } from "@/domains/conversation/document-act";
 
-describe("RB-27 preventive envelope", () => {
-  it("hard-stops at 200k used", () => {
-    const r = evaluateGlobalResourceEnvelope({
-      segmentCalls: 2,
-      inputTokens: 190_000,
-      outputTokens: 15_000,
-      webCalls: 0,
-      durationMs: 1,
-      limits: [],
-    });
+describe("adaptive resource envelope (1M reeval / 2M admin)", () => {
+  it("allows work under 2M with default calibration", () => {
+    const r = evaluateGlobalResourceEnvelope(
+      {
+        segmentCalls: 10,
+        inputTokens: 1_050_000,
+        outputTokens: 50_000,
+        webCalls: 0,
+        durationMs: 1,
+        limits: [],
+      },
+      {
+        SFIA_COGNITIVE_MAX_TOKENS: String(COGNITIVE_DEFAULT_MAX_TOKENS),
+        SFIA_COGNITIVE_MAX_SEGMENTS: "120",
+        SFIA_COGNITIVE_REEVAL_TOKENS: String(COGNITIVE_DEFAULT_REEVAL_TOKENS),
+      },
+    );
+    expect(r.ok).toBe(true);
+    expect(r.reevaluationNeeded).toBe(true);
+  });
+
+  it("hard-stops at 2M used", () => {
+    const r = evaluateGlobalResourceEnvelope(
+      {
+        segmentCalls: 2,
+        inputTokens: 1_900_000,
+        outputTokens: 150_000,
+        webCalls: 0,
+        durationMs: 1,
+        limits: [],
+      },
+      {
+        SFIA_COGNITIVE_MAX_TOKENS: "2000000",
+        SFIA_COGNITIVE_MAX_SEGMENTS: "120",
+      },
+    );
     expect(r.ok).toBe(false);
     expect(r.reason).toBe("GLOBAL_TOKEN_BUDGET_EXHAUSTED");
   });
@@ -23,14 +58,14 @@ describe("RB-27 preventive envelope", () => {
     const r = evaluateGlobalResourceEnvelope(
       {
         segmentCalls: 2,
-        inputTokens: 185_000,
+        inputTokens: 1_980_000,
         outputTokens: 5_000,
         webCalls: 0,
         durationMs: 1,
         limits: [],
       },
-      process.env,
-      { reserveForRestitution: 12_000 },
+      { SFIA_COGNITIVE_MAX_TOKENS: "2000000" },
+      { reserveForRestitution: 24_000 },
     );
     expect(r.ok).toBe(false);
     expect(r.softStop).toBe(true);
@@ -46,20 +81,20 @@ describe("RB-27 preventive envelope", () => {
         durationMs: 0,
         limits: [],
       },
-      process.env,
+      { SFIA_COGNITIVE_MAX_TOKENS: "2000000" },
       { reserveForRestitution: 0, projectedNextSegmentTokens: 0 },
     );
     expect(r.ok).toBe(true);
   });
 
-  it("does not raise ceilings above 200k/24", () => {
+  it("honours configurable segment anti-loop ceiling", () => {
     const env = {
-      SFIA_COGNITIVE_MAX_TOKENS: "200000",
-      SFIA_COGNITIVE_MAX_SEGMENTS: "24",
+      SFIA_COGNITIVE_MAX_TOKENS: "2000000",
+      SFIA_COGNITIVE_MAX_SEGMENTS: "120",
     };
     const overSeg = evaluateGlobalResourceEnvelope(
       {
-        segmentCalls: 24,
+        segmentCalls: 120,
         inputTokens: 10,
         outputTokens: 10,
         webCalls: 0,
@@ -70,6 +105,22 @@ describe("RB-27 preventive envelope", () => {
     );
     expect(overSeg.ok).toBe(false);
     expect(overSeg.reason).toBe("GLOBAL_SEGMENT_BUDGET_EXHAUSTED");
+  });
+
+  it("still respects an explicit 200k env override", () => {
+    const r = evaluateGlobalResourceEnvelope(
+      {
+        segmentCalls: 2,
+        inputTokens: 190_000,
+        outputTokens: 15_000,
+        webCalls: 0,
+        durationMs: 1,
+        limits: [],
+      },
+      { SFIA_COGNITIVE_MAX_TOKENS: "200000" },
+    );
+    expect(r.ok).toBe(false);
+    expect(r.reason).toBe("GLOBAL_TOKEN_BUDGET_EXHAUSTED");
   });
 });
 
@@ -120,24 +171,121 @@ describe("RB-28/B5 restitution", () => {
     state.sources = [
       {
         kind: "GIT",
-        ref: "src/booking.ts",
-        title: "booking.ts",
+        ref: "a.ts",
+        title: "a",
         coverage: "CONSULTED",
       },
     ];
     const text = composeInvestigationPartialRestitution({
       state,
       suspendReason: "GLOBAL_TOKEN_BUDGET_EXHAUSTED",
-      production: {
-        kind: "REPLY",
-        status: "PARTIAL",
-        parts: [],
-        contentMarkdown: "Synthèse métier déjà produite sur le travail précédent.",
-      },
     });
+    expect(text).toMatch(/contigu/i);
     expect(text).not.toMatch(/GLOBAL_TOKEN_BUDGET_EXHAUSTED/);
-    expect(text).toMatch(/limite de ressources/i);
-    expect(text).toMatch(/Créneaux contigus/);
-    expect(text).not.toMatch(/Aucune conclusion métier fiable n'a été consolidée/);
+  });
+});
+
+describe("C1 contentSha256 pair vs body", () => {
+  it("pair digest differs from body-only when title is non-empty", () => {
+    const title = "Note de recommandation";
+    const body = "# Note\n\nContenu métier.";
+    const pair = contentSha256(title, body);
+    const bodyOnly = contentBodySha256(body);
+    expect(pair).not.toBe(bodyOnly);
+    expect(contentSha256(title, body)).toBe(pair);
+  });
+});
+
+describe("C2 section hint authority", () => {
+  it("ignores bare section mentions used as reference", () => {
+    const hint = extractSectionHintFromPilotText(
+      "Comme indiqué en section 1, prépare une synthèse sans modifier le document.",
+    );
+    expect(hint).toBeNull();
+  });
+
+  it("recovers intentional multi-section revision targets", () => {
+    const hint = extractSectionHintFromPilotText(
+      "Intègre ces précisions dans la section 2 et dans la section 3.",
+    );
+    expect(hint).toMatch(/2/);
+    expect(hint).toMatch(/3/);
+  });
+});
+
+describe("B3 inventory-incomplete continuation", () => {
+  it("continues when Nora declares COMPLETE but inventory remains open", () => {
+    const inv = createEmptyInvestigation("Examine intégralement les 50 documents");
+    inv.inventoryTotal = 50;
+    inv.inventoryExamined = 32;
+    inv.sources = [
+      {
+        kind: "GIT",
+        ref: "a.md",
+        title: "a",
+        coverage: "CONSULTED",
+      },
+    ];
+    const reply = {
+      content: "Synthèse partielle",
+      status: "COMPLETE",
+      qualification: {
+        status: "QUALIFIED",
+        workDisposition: "COMPLETE",
+        goal: "Synthèse",
+        desiredOutcome: "Synthèse",
+        intents: [],
+        determiningQuestions: [],
+      },
+      observedToolSources: [
+        { kind: "GIT", ref: "a.md", title: "a", coverage: "CONSULTED" },
+      ],
+    } as unknown as NoraGenerateResult;
+    expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(true);
+  });
+
+  it("continues when inventory is declared but no source recorded yet", () => {
+    const inv = createEmptyInvestigation("Examine intégralement les 50 documents");
+    inv.inventoryTotal = 50;
+    inv.inventoryExamined = 0;
+    const reply = {
+      content: "Accès Git indisponible pour l’instant",
+      status: "COMPLETE",
+      qualification: {
+        status: "QUALIFIED",
+        workDisposition: "COMPLETE",
+        goal: "Synthèse",
+        desiredOutcome: "Synthèse",
+        intents: [],
+        determiningQuestions: [],
+      },
+      observedToolSources: [],
+    } as unknown as NoraGenerateResult;
+    expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(true);
+  });
+
+  it("stops when inventory is complete and disposition is COMPLETE", () => {
+    const inv = createEmptyInvestigation("done");
+    inv.inventoryTotal = 3;
+    inv.inventoryExamined = 3;
+    inv.sources = [
+      { kind: "GIT", ref: "a", title: "a", coverage: "CONSULTED" },
+      { kind: "GIT", ref: "b", title: "b", coverage: "CONSULTED" },
+      { kind: "GIT", ref: "c", title: "c", coverage: "CONSULTED" },
+    ];
+    const reply = {
+      content: "Synthèse",
+      status: "COMPLETE",
+      qualification: {
+        status: "QUALIFIED",
+        workDisposition: "COMPLETE",
+        goal: "Synthèse",
+        desiredOutcome: "Synthèse",
+        intents: [],
+        determiningQuestions: [],
+      },
+      observedToolSources: [],
+    } as unknown as NoraGenerateResult;
+    expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(false);
   });
 });

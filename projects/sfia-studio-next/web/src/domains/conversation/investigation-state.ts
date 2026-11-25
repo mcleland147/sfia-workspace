@@ -73,6 +73,13 @@ export type InvestigationState = {
   authorizedExactWebQueries?: string[];
   /** Public facts already registered for composition. */
   registeredPublicFacts?: string[];
+  /**
+   * B2 — when an exhaustive inventory is established (e.g. 50 files),
+   * total expected sources in the declared perimeter. Null until inventoried.
+   */
+  inventoryTotal?: number | null;
+  /** Distinct source refs marked CONSULTED/VERIFIED/PARTIAL within the inventory. */
+  inventoryExamined?: number | null;
 };
 
 export function createEmptyInvestigation(intent: string): InvestigationState {

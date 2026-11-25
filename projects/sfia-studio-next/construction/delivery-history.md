@@ -4707,3 +4707,21 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | Réserves | Soft-stop ≠ garantie d'interruption mid-SDK ; F2 globale non revendiquée ; WEB LIVE blocked ; OAuth utilisateur GitHub interactif non complété (reads via App installation) |
 | Statut | DEV CANDIDATE COMPLETE — READY FOR CHATGPT REVIEW — NOT ADOPTED — NO RECETTE CUTOVER |
 
+## 2026-11-25 — ML5 adaptive cognitive continuation (Cycle 8 Delivery / DEV final)
+
+| Champ | Valeur |
+|---|---|
+| Delivery ID | `next-ml5-adaptive-cognitive-continuation-20261125` |
+| Date | 2026-11-25 |
+| Macro-lot | Finalisation ML5 Livraison 1 — conduite cognitive adaptative (pas un nouveau macro-lot) |
+| Type | INC · Critical · Cycle 8 Delivery |
+| Base | tip `cb4ae5990c0e8c2f75c466962f8a77f300c63e24` · tree `ad1f01fa976666dddb64e80665abdb677ec17717` · web tree `eb8dc550456c87f77053a3a5952e3edd20de5099` |
+| Calibration | `SFIA_COGNITIVE_MAX_TOKENS=2000000` · `REEVAL=1000000` · `MAX_SEGMENTS=120` · OPERATIONAL_PROVISIONAL |
+| Compatibilité | NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN · R5 IN PROGRESS |
+| Environnement | DEV `:3100` / PG `:5433` · Build `CC0wLCfVBY-Q1uALQDItr` · Digest `882e1eff3c198e79a91c8d732275195a31841dd2ba469c4540e50934889f02a7` |
+| Migration | NONE |
+| Contrôles | Vitest envelope/continuity + C18 PASS · next build · LIVE S1 simple · S2 multi-seg + D4 note · S3 50-sources 26 segments / 50/50 coverage · parent_work_id provenance · RECETTE `2a024b1c` / `3RyhswMcKrNv8woukVXsT` préservée |
+| Preuves clés | `cgw_1991a962` 26 segs · 2045830 tok · 27 ckpts · couverture 34 CONSULTED + 14 PARTIAL + 2 DENIED · `cgw_cd948312` parent=`cgw_ef647d73` · doc_86a08511 |
+| Réserves | Inflation inventaire 51/52 corrigée (freeze périmètre) ; travaux note-from-acquis peuvent encore relire Git malgré injection parent ; soft-boundary ne pollue plus le corps DOCUMENT ; timeouts HTTP client ≠ arrêt serveur |
+| Statut | DEV CANDIDATE — LONG INVESTIGATION PROVEN — READY FOR CHATGPT REVIEW — NOT ADOPTED — NO RECETTE CUTOVER |
+

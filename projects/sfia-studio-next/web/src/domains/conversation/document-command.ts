@@ -61,12 +61,22 @@ export type DocumentCommandAdmission =
   | { ok: true; binding: DocumentCommandBinding }
   | { ok: false; verdict: "NOT_EXECUTED" | "CONFLICT" | "FAILED"; reason: string };
 
+/**
+ * Pair digest for a D4 candidate: SHA-256(title || "" + "\0" + contentMarkdown).
+ * This is the canonical contentSha256 stored on sealed candidates.
+ * Do NOT compare against a body-only hash of contentMarkdown alone (C1).
+ */
 export function contentSha256(title: string, contentMarkdown: string): string {
   return createHash("sha256")
     .update(title || "")
     .update("\0")
     .update(contentMarkdown)
     .digest("hex");
+}
+
+/** Body-only digest — for forensic comparison; not the sealed candidate identity. */
+export function contentBodySha256(contentMarkdown: string): string {
+  return createHash("sha256").update(contentMarkdown).digest("hex");
 }
 
 export function payloadSha256(parts: {

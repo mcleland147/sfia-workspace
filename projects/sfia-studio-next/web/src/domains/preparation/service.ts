@@ -304,13 +304,28 @@ export async function getPreparationContext(pilotId: string, preparationId: stri
         .limit(1)
     )[0];
   }
-  const conv = (
+  let conv = (
     await db
       .select()
       .from(conversations)
       .where(and(eq(conversations.preparationId, preparationId), eq(conversations.ownerPilotId, pilotId)))
       .limit(1)
   )[0];
+  // Bind conversation → project when the prep link exists but the conversation row
+  // was created before create-project (or a prior script skipped the bind).
+  if (conv && project && !conv.projectId) {
+    const [updated] = await db
+      .update(conversations)
+      .set({ projectId: project.id })
+      .where(
+        and(
+          eq(conversations.id, conv.id),
+          sql`${conversations.projectId} IS NULL`,
+        ),
+      )
+      .returning();
+    if (updated) conv = updated;
+  }
   const projection = parseProjectionJson(
     prep.projectionJson,
     preparationId,

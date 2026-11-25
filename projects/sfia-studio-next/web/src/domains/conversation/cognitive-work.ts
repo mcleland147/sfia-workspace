@@ -66,6 +66,8 @@ export type CognitiveWorkRow = {
   resources: CognitiveResources;
   production: CognitiveProductionState;
   interruptCause: string | null;
+  /** B4 — provenance when a new work reuses acquis from a prior work. */
+  parentWorkId: string | null;
 };
 
 export const COGNITIVE_LEASE_MS = 20 * 60 * 1000;
@@ -110,6 +112,7 @@ function mapRow(row: typeof cognitiveWorks.$inferSelect): CognitiveWorkRow {
     resources: parseJson<CognitiveResources>(row.resourcesJson, emptyResources()),
     production: parseJson<CognitiveProductionState>(row.productionJson, emptyProduction()),
     interruptCause: row.interruptCause,
+    parentWorkId: row.parentWorkId ?? null,
   };
 }
 
@@ -136,6 +139,8 @@ export async function openOrResumeCognitiveWork(input: {
   workId?: string | null;
   /** Independent new demand — never overwrite another work. */
   forceNew?: boolean;
+  /** B4 — prior work whose acquis this new envelope reuses. */
+  parentWorkId?: string | null;
 }): Promise<{ work: CognitiveWorkRow; resumed: boolean; ownerToken: string }> {
   await assertPrepOwnership(input.pilotId, input.preparationId);
 
@@ -274,6 +279,7 @@ export async function openOrResumeCognitiveWork(input: {
       stateJson: JSON.stringify(state),
       resourcesJson: JSON.stringify(emptyResources()),
       productionJson: JSON.stringify(emptyProduction()),
+      parentWorkId: input.parentWorkId?.trim() || null,
     })
     .returning();
   return { work: mapRow(row!), resumed: false, ownerToken };
@@ -609,13 +615,34 @@ function sumOpt(a?: number | null, b?: number | null): number | null {
   return (a ?? 0) + (b ?? 0);
 }
 
+/** Calibration defaults — OPERATIONAL_PROVISIONAL DEV (Morris GO adaptive continuation). */
+export const COGNITIVE_DEFAULT_MAX_TOKENS = 2_000_000;
+export const COGNITIVE_DEFAULT_REEVAL_TOKENS = 1_000_000;
+/** Anti-loop safety — not a cognitive depth oracle; progress detection is primary. */
+export const COGNITIVE_DEFAULT_MAX_SEGMENTS = 120;
+
+export function cognitiveEnvelopeLimits(
+  env: NodeJS.ProcessEnv | Record<string, string | undefined> = process.env,
+): { maxTokens: number; maxSegments: number; reevalTokens: number } {
+  return {
+    maxTokens: Number(env.SFIA_COGNITIVE_MAX_TOKENS || String(COGNITIVE_DEFAULT_MAX_TOKENS)),
+    maxSegments: Number(
+      env.SFIA_COGNITIVE_MAX_SEGMENTS || String(COGNITIVE_DEFAULT_MAX_SEGMENTS),
+    ),
+    reevalTokens: Number(
+      env.SFIA_COGNITIVE_REEVAL_TOKENS || String(COGNITIVE_DEFAULT_REEVAL_TOKENS),
+    ),
+  };
+}
+
 /**
  * Global envelope — administrative safety, not a cognitive depth oracle.
  * Exceeding suspends the work honestly.
  *
- * RB-27 — preventive mode reserves headroom for a final restitution segment
- * so a mid-investigation call cannot consume the entire 200k ceiling.
- * Soft stop (wouldExceedAfter / reserve) is not a raise of 24/200k.
+ * Adaptive calibration (Morris GO): 1M reevaluation threshold, 2M administrative max.
+ * Soft stop (projected / reserve) is NOT a hard SDK cap — residual overshoot possible
+ * when provider usage for the in-flight call is not yet known.
+ * Cached tokens are never subtracted from the cumulative safety envelope.
  */
 export function evaluateGlobalResourceEnvelope(
   resources: CognitiveResources,
@@ -626,11 +653,15 @@ export function evaluateGlobalResourceEnvelope(
     /** Estimated cost of the next segment before starting it. */
     projectedNextSegmentTokens?: number;
   },
-): { ok: boolean; reason?: string; remainingTokens?: number; softStop?: boolean } {
-  // C17: default raised — local invocation caps (≈5) must leave headroom for honest resume
-  // without immediately tripping a false global exhaustion on simple prepare+continue paths.
-  const maxSegments = Number(env.SFIA_COGNITIVE_MAX_SEGMENTS || "24");
-  const maxTokens = Number(env.SFIA_COGNITIVE_MAX_TOKENS || "200000");
+): {
+  ok: boolean;
+  reason?: string;
+  remainingTokens?: number;
+  softStop?: boolean;
+  /** Crossed 1M reevaluation threshold — strategy may adapt; not a suspension. */
+  reevaluationNeeded?: boolean;
+} {
+  const { maxSegments, maxTokens, reevalTokens } = cognitiveEnvelopeLimits(env);
   if (Number.isFinite(maxSegments) && resources.segmentCalls >= maxSegments) {
     return { ok: false, reason: "GLOBAL_SEGMENT_BUDGET_EXHAUSTED", remainingTokens: 0 };
   }
@@ -669,5 +700,7 @@ export function evaluateGlobalResourceEnvelope(
       softStop: true,
     };
   }
-  return { ok: true, remainingTokens: remaining };
+  const reevaluationNeeded =
+    Number.isFinite(reevalTokens) && reevalTokens > 0 && used >= reevalTokens;
+  return { ok: true, remainingTokens: remaining, reevaluationNeeded };
 }

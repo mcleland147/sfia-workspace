@@ -10,6 +10,8 @@ import {
 } from "./cognitive-conductor";
 import { buildCognitivePolicy } from "./cognitive-policy";
 import {
+  cognitiveEnvelopeLimits,
+  getCognitiveWork,
   listCognitiveWorksForPreparation,
   type CognitiveProductionState,
   type CognitiveWorkRow,
@@ -312,19 +314,106 @@ export function mergeInvestigationFromReply(
     if (!conclusions.some((c) => c.startsWith("Synthèse:"))) conclusions.push(excerpt);
   }
 
+  // B2 — inventory coverage: prefer prior checkpoint; else declare from an
+  // explicit predeclared perimeter in the Pilote message, else from discovered set.
+  const discoveredOrBetter = sources.filter(
+    (s) =>
+      s.coverage === "DISCOVERED" ||
+      s.coverage === "CONSULTED" ||
+      s.coverage === "VERIFIED" ||
+      s.coverage === "PARTIAL",
+  ).length;
+  const exhaustiveIntent =
+    /intégralement|exhausti|tous les|toutes les|l'intégralité|chaque (?:document|fichier|source)/i.test(
+      userText,
+    ) ||
+    /intégralement|exhausti|inventaire/i.test(goal || prior.intentSummary || "");
+  const listedPaths = [
+    ...userText.matchAll(
+      /(?:^|\n)\s*([^\n]+?\.(?:md|txt|ts|tsx|js|jsx|json|yml|yaml|sql|prisma|mjs|cjs))\s*(?=\n|$)/gi,
+    ),
+  ]
+    .map((m) => m[1]!.trim())
+    .filter((p) => p.length > 2 && !/\s{3,}/.test(p) && !/^https?:/i.test(p));
+  const uniqueListed = [...new Set(listedPaths)];
+  const declaredCount = (() => {
+    const m = userText.match(
+      /\b(\d{2,3})\s+(?:documents?|fichiers?|sources?|textes?)\b/i,
+    );
+    return m ? Number(m[1]) : null;
+  })();
+  let inventoryTotal = prior.inventoryTotal ?? null;
+  // B2 — once a Pilote perimeter is declared (listed paths or explicit count),
+  // freeze that total. Extra discoveries must not inflate the inventaire and
+  // block completion after the declared sources are examined.
+  const perimeterFrozen =
+    (declaredCount != null && declaredCount >= 10) || uniqueListed.length >= 10;
+  const perimeterSize = perimeterFrozen
+    ? Math.max(uniqueListed.length, declaredCount ?? 0)
+    : null;
+  if (perimeterFrozen && perimeterSize != null && perimeterSize >= 10) {
+    inventoryTotal = perimeterSize;
+  } else if (inventoryTotal == null && exhaustiveIntent && uniqueListed.length >= 10) {
+    inventoryTotal = Math.max(uniqueListed.length, declaredCount ?? 0);
+  } else if (
+    inventoryTotal == null &&
+    exhaustiveIntent &&
+    declaredCount != null &&
+    declaredCount >= 10
+  ) {
+    inventoryTotal = declaredCount;
+  } else if (
+    inventoryTotal == null &&
+    exhaustiveIntent &&
+    discoveredOrBetter >= 10
+  ) {
+    inventoryTotal = discoveredOrBetter;
+  } else if (
+    inventoryTotal != null &&
+    discoveredOrBetter > inventoryTotal &&
+    !perimeterFrozen
+  ) {
+    inventoryTotal = discoveredOrBetter;
+  }
+  // Count perimeter coverage against the declared list when available.
+  const listedSet = new Set(uniqueListed.map((p) => p.replace(/^.*\//, "").toLowerCase()));
+  const inventoryExamined = sources.filter((s) => {
+    const covered =
+      s.coverage === "CONSULTED" ||
+      s.coverage === "VERIFIED" ||
+      s.coverage === "PARTIAL" ||
+      s.coverage === "DENIED";
+    if (!covered) return false;
+    if (listedSet.size === 0) return true;
+    const base = (s.ref || "").replace(/^.*\//, "").toLowerCase();
+    return listedSet.has(base) || listedSet.has((s.ref || "").toLowerCase());
+  }).length;
+  const nextRemaining = [...remainingWork];
+  if (
+    inventoryTotal != null &&
+    inventoryExamined < inventoryTotal &&
+    !nextRemaining.some((w) => /inventaire|couverture|sources restantes/i.test(w))
+  ) {
+    nextRemaining.push(
+      `Couverture inventaire ${inventoryExamined}/${inventoryTotal} — poursuivre les sources non examinées`,
+    );
+  }
+
   return evaluateContractReadiness({
     ...prior,
     intentSummary: goal || prior.intentSummary || userText.slice(0, 800),
     desiredOutcome,
     sources,
     questions,
-    remainingWork,
+    remainingWork: nextRemaining,
     contradictions,
     constraints,
     profileHint,
     productionInstruction,
     acceptanceCriteria,
     conclusions: conclusions.slice(-24),
+    inventoryTotal,
+    inventoryExamined,
   });
 }
 
@@ -336,14 +425,39 @@ export function semanticContinueWork(
   investigation: InvestigationState,
   reply: NoraGenerateResult,
 ): boolean {
-  if (reply.status !== "COMPLETE") return false;
   if (
     investigation.contractReadyBlockedReason === "GLOBAL_BUDGET_EXHAUSTED" ||
     (investigation.contractReadyBlockedReason ?? "").startsWith("GLOBAL_")
   ) {
     return false;
   }
+  const examined = investigation.inventoryExamined ?? 0;
+  const total = investigation.inventoryTotal;
+  // Near-complete coverage (≤2 gap after ≥50 examined) must not block restitution
+  // when discovery inflation left a tiny residual gap.
+  const inventoryIncomplete =
+    total != null &&
+    examined < total &&
+    !(examined >= 50 && total - examined <= 2);
+  const hasAcquis =
+    (reply.observedToolSources?.length ?? 0) > 0 ||
+    investigation.sources.some((s) =>
+      ["CONSULTED", "VERIFIED", "PARTIAL", "DISCOVERED"].includes(s.coverage),
+    );
+  // B3 — incomplete exhaustive inventory continues even after a soft provider
+  // interruption (UNKNOWN/INTERRUPTED) when acquis already progressed.
+  if (inventoryIncomplete && hasAcquis && reply.status !== "COMPLETE") {
+    return true;
+  }
+  if (reply.status !== "COMPLETE") return false;
   const disposition = qualification?.workDisposition;
+  // B3 — incomplete exhaustive inventory is a conductor continuation, not a pilot wait.
+  // Nora declaring COMPLETE/AWAIT while sources remain unexamined must not stop the work.
+  // Also continue when inventory is declared but no source was recorded yet (tool-scope
+  // recovery / first failed segment) — anti-loop still stops three stagnant segments.
+  if (inventoryIncomplete && (hasAcquis || (investigation.inventoryExamined ?? 0) === 0)) {
+    return true;
+  }
   if (disposition === "COMPLETE" || disposition === "AWAIT_PILOT" || disposition === "SUSPEND") {
     return false;
   }
@@ -378,23 +492,45 @@ export async function resolveCognitiveWorkAttachment(input: {
   reason: string;
   /** C20 — do not create/claim; await pilot clarification. */
   needsClarify?: boolean;
+  /** B4 — prior work id when forking a new envelope that reuses acquis. */
+  parentWorkId?: string | null;
 }> {
+  const works = await listCognitiveWorksForPreparation({
+    pilotId: input.pilotId,
+    preparationId: input.preparationId,
+  });
+  const priorWithAcquis = works
+    .filter(
+      (w) =>
+        (w.state.conclusions?.length ?? 0) > 0 ||
+        w.state.sources.some((s) =>
+          ["CONSULTED", "VERIFIED", "PARTIAL"].includes(s.coverage),
+        ),
+    )
+    .sort((a, b) => b.revision - a.revision);
+  const provenanceParent = priorWithAcquis[0]?.id ?? null;
+
   if (input.forceNewWork === true) {
-    return { forceNew: true, reason: "FORCE_NEW_EXPLICIT" };
+    return {
+      forceNew: true,
+      reason: "FORCE_NEW_EXPLICIT",
+      // B4 — explicit new work still inherits provenance when prior acquis exist.
+      parentWorkId: provenanceParent,
+    };
   }
   if (input.workId) {
     return { workId: input.workId, forceNew: false, reason: "EXPLICIT_WORK_ID" };
   }
 
-  const works = await listCognitiveWorksForPreparation({
-    pilotId: input.pilotId,
-    preparationId: input.preparationId,
-  });
   const relation = input.qualification?.cognitiveWorkRelation;
   const proposed = input.qualification?.proposedCognitiveWorkId?.trim() || null;
 
   if (relation === "INDEPENDENT" || relation === "MATERIAL_CHANGE" || relation === "UNRELATED") {
-    return { forceNew: true, reason: `SEMANTIC_${relation}` };
+    return {
+      forceNew: true,
+      reason: `SEMANTIC_${relation}`,
+      parentWorkId: provenanceParent ?? proposed,
+    };
   }
 
   // RB-31 / RB-27 — new document production after a completed / exhausted analysis
@@ -405,13 +541,20 @@ export async function resolveCognitiveWorkAttachment(input: {
       i.capabilityId === "d4.create_document" &&
       (i.mode === "REQUEST_EFFECT" || i.mode === "PREPARE"),
   );
+  const text = input.userText ?? "";
+  const wantsNoteFromPrior =
+    /note de recommandation|à partir de (cette|l['’] ?|mon |notre ).{0,40}(analyse|synthèse|investigation|examen)|crée(r)? (le |un |une )?(document|note)/i.test(
+      text,
+    );
+  const { maxTokens: envelopeMax } = cognitiveEnvelopeLimits();
+  const saturatedFloor = Math.max(190_000, Math.floor(envelopeMax * 0.95));
   const exhausted = works.filter(
     (w) =>
       (w.status === "SUSPENDED" || w.status === "COMPLETE" || w.status === "FAILED") &&
       (w.interruptCause === "GLOBAL_TOKEN_BUDGET_EXHAUSTED" ||
         w.interruptCause === "GLOBAL_SEGMENT_BUDGET_EXHAUSTED" ||
         w.interruptCause === "GLOBAL_BUDGET_EXHAUSTED" ||
-        (w.resources.inputTokens ?? 0) + (w.resources.outputTokens ?? 0) >= 190_000),
+        (w.resources.inputTokens ?? 0) + (w.resources.outputTokens ?? 0) >= saturatedFloor),
   );
   const proposedExhausted = proposed ? exhausted.some((w) => w.id === proposed) : false;
   // Fork document production off an exhausted / saturated prior work even when Nora
@@ -421,7 +564,22 @@ export async function resolveCognitiveWorkAttachment(input: {
     exhausted.length > 0 &&
     (!relation || relation === "CONTINUE" || proposedExhausted)
   ) {
-    return { forceNew: true, reason: "NEW_PRODUCTION_FROM_PRIOR_ACQUIS" };
+    return {
+      forceNew: true,
+      reason: "NEW_PRODUCTION_FROM_PRIOR_ACQUIS",
+      parentWorkId: exhausted[0]?.id ?? provenanceParent ?? proposed,
+    };
+  }
+  if (
+    (wantsCreateDoc || wantsNoteFromPrior) &&
+    priorWithAcquis.length > 0 &&
+    (!relation || relation === "CONTINUE" || relation == null)
+  ) {
+    return {
+      forceNew: true,
+      reason: "NEW_PRODUCTION_FROM_PRIOR_ACQUIS",
+      parentWorkId: provenanceParent,
+    };
   }
   if (relation === "CONTINUE" && exhausted.length > 0 && !proposed) {
     // Refuse blind resume of a saturated envelope — pilot/Nora must fork or clarify.
@@ -580,6 +738,15 @@ function documentProductionFromReply(
   const prevDoc =
     (work.production as CognitiveProductionState & { contentMarkdown?: string })
       .contentMarkdown ?? "";
+  // Soft segment boundaries are conductor control messages — never document body.
+  if (
+    String(reply.streamingNotes || "").includes("SEGMENT_MAX_TURNS_BOUNDARY") ||
+    /^Segment technique atteint/i.test((reply.content || "").trim())
+  ) {
+    return work.production?.kind === "DOCUMENT" || work.production?.kind === "SYNTHESIS"
+      ? { ...work.production, status: continueWork ? "IN_PROGRESS" : work.production.status }
+      : undefined;
+  }
   // C19: part ids are stable across invocations — never collide on local segmentIndex 0.
   const partId = `gen-${reply.generationId || `seg-${work.revision}-${segmentIndex}`}`;
   const appendPart = (
@@ -781,27 +948,44 @@ export async function runNoraCognitiveTurn(
     };
   }
 
-  const conductor: ConductorRunResult = await runCognitiveConductor({
+  // Adaptive local segment budget — technical per-invocation cap, not global envelope.
+  // Investigation gets more segments so long work can auto-continue without pilot clicks.
+  const exhaustiveSeed =
+    /\b(?:50|intégralement|exhausti|tous les documents|toutes les sources)\b/i.test(
+      input.userText || "",
+    );
+  const defaultLocalSegments = (() => {
+    if (input.maxSegmentsThisInvocation != null) return input.maxSegmentsThisInvocation;
+    const seed = input.objective ?? input.userText;
+    const hint = buildCognitivePolicy(seed).profile;
+    if (hint === "investigation" || exhaustiveSeed) return 40;
+    if (hint === "analyse") return 12;
+    return 3;
+  })();
+
+  const runConductorOnce = (workId: string | null | undefined, forceNew: boolean) =>
+    runCognitiveConductor({
     pilotId: input.pilotId,
     preparationId: input.preparationId,
     projectId: input.projectId,
     conversationId: input.conversationId,
     objective: input.objective ?? input.userText.slice(0, 2000),
     expectedOutcome: input.expectedOutcome,
-    workId: attachment.workId,
-    forceNewWork: attachment.forceNew,
+    workId,
+    forceNewWork: forceNew,
+    parentWorkId: attachment.parentWorkId,
     turnCommandId: input.turnCommandId,
-    // C17: local cap remains technical; default raised for investigation depth.
-    // SEGMENT_INVOCATION_LIMIT still suspends honestly when exhausted.
-    maxSegmentsThisInvocation: input.maxSegmentsThisInvocation ?? 5,
+    maxSegmentsThisInvocation: defaultLocalSegments,
     resolvePolicy: (work, segmentIndex) => {
       const seed =
         work.state.intentSummary ||
         work.objective ||
         input.userText;
-      const hint = work.state.profileHint;
+      const hint =
+        work.state.profileHint ||
+        (exhaustiveSeed ? "investigation" : undefined);
       let base =
-        segmentIndex > 0 && hint === "investigation"
+        (segmentIndex > 0 && hint === "investigation") || exhaustiveSeed
           ? buildCognitivePolicy(seed, undefined, {
               profileHint: "investigation",
               effortHint: "high",
@@ -830,14 +1014,64 @@ export async function runNoraCognitiveTurn(
       return base;
     },
     runSegment: async ({ work, segmentIndex, policy }) => {
-      const acquisBlock =
-        segmentIndex === 0
-          ? ""
-          : formatInvestigationContinuationContext(work.state);
-      const continuationHint =
-        segmentIndex === 0
-          ? ""
-          : [
+      // Compact acquis whenever prior checkpoint material exists — including
+      // segmentIndex 0 of an auto-continued invocation (same work, new lease).
+      const hasPriorAcquis =
+        work.state.sources.length > 0 ||
+        (work.state.conclusions?.length ?? 0) > 0 ||
+        work.state.remainingWork.length > 0 ||
+        work.revision > 0;
+      // B4 — new envelope from prior acquis: inject parent checkpoint context once.
+      let parentAcquisBlock = "";
+      if (
+        attachment.parentWorkId &&
+        segmentIndex === 0 &&
+        !hasPriorAcquis &&
+        attachment.parentWorkId !== work.id
+      ) {
+        try {
+          const parent = await getCognitiveWork({
+            pilotId: input.pilotId,
+            workId: attachment.parentWorkId,
+          });
+          parentAcquisBlock = [
+            `[Acquis du travail parent ${parent.id} — réutiliser, ne pas tout relire]`,
+            formatInvestigationContinuationContext(parent.state, { maxChars: 6500 }),
+          ].join("\n");
+        } catch {
+          parentAcquisBlock = "";
+        }
+      }
+      const useContinuation = segmentIndex > 0 || hasPriorAcquis || Boolean(parentAcquisBlock);
+      const acquisBlock = hasPriorAcquis
+        ? formatInvestigationContinuationContext(work.state)
+        : parentAcquisBlock;
+      // B2 — next unexamined paths from the Pilote perimeter (compacted, not full history).
+      const examinedRefs = new Set(
+        work.state.sources
+          .filter((s) =>
+            ["CONSULTED", "VERIFIED", "PARTIAL", "DENIED"].includes(s.coverage),
+          )
+          .map((s) => s.ref.replace(/^.*\//, "").toLowerCase()),
+      );
+      const listedNext = [
+        ...input.userText.matchAll(
+          /(?:^|\n)\s*([^\n]+?\.(?:md|txt|ts|tsx|js|jsx|json|yml|yaml|sql|prisma|mjs|cjs))\s*(?=\n|$)/gi,
+        ),
+      ]
+        .map((m) => m[1]!.trim())
+        .filter((p) => {
+          const base = p.replace(/^.*\//, "").toLowerCase();
+          return (
+            p.length > 2 &&
+            !examinedRefs.has(base) &&
+            !examinedRefs.has(p.toLowerCase())
+          );
+        });
+      const uniqueNext = [...new Set(listedNext)].slice(0, 12);
+      const continuationHint = !useContinuation
+        ? ""
+        : [
               "",
               "[Continuation du même travail cognitif — segment suivant]",
               `workId=${work.id} revision=${work.revision}`,
@@ -858,6 +1092,13 @@ export async function runNoraCognitiveTurn(
               work.state.constraints.length
                 ? `Contraintes: ${work.state.constraints.join("; ")}`
                 : null,
+              work.state.inventoryTotal != null
+                ? `Couverture inventaire: ${work.state.inventoryExamined ?? 0}/${work.state.inventoryTotal}`
+                : null,
+              uniqueNext.length > 0
+                ? `Prochaines sources à examiner (échantillon): ${uniqueNext.join("; ")}`
+                : null,
+              "Consigne: ne pas relire les sources déjà CONSULTED; ouvrir les suivantes; si inventaire incomplet workDisposition=CONTINUE.",
               acquisBlock || null,
             ]
               .filter(Boolean)
@@ -887,19 +1128,18 @@ export async function runNoraCognitiveTurn(
       });
 
       let reply: NoraGenerateResult;
-      if (probeReply && segmentIndex === 0 && !probeConsumed) {
+      if (probeReply && segmentIndex === 0 && !probeConsumed && !hasPriorAcquis) {
         probeConsumed = true;
         reply = probeReply;
       } else {
         reply = await generateNoraReply({
-          userText:
-            segmentIndex === 0
+          userText: !useContinuation
               ? input.userText
               : `${input.userText}${continuationHint}`,
           contextSnippets: [
             ...input.contextSnippets,
             candidateSnippet,
-            ...(segmentIndex > 0
+            ...(useContinuation
               ? [
                   `Checkpoint cognitif ${work.id} r${work.revision}`,
                   work.state.intentSummary || "",
@@ -1003,6 +1243,42 @@ export async function runNoraCognitiveTurn(
       };
     },
   });
+
+  // B3 — server-side auto-continue across local SEGMENT_INVOCATION_LIMIT without
+  // requiring a new Pilote message. Same work identity; cumulative resources preserved.
+  let conductor: ConductorRunResult = await runConductorOnce(
+    attachment.workId,
+    attachment.forceNew,
+  );
+  let totalSegmentsRun = conductor.segmentsRun;
+  // Long exhaustive investigations need wall room beyond a single HTTP comfort window;
+  // browser observes, server continues. Soft cap still applies via envelope + autoRounds.
+  const wallDeadline =
+    Date.now() +
+    (defaultLocalSegments >= 20 ? 3_000_000 : 1_700_000);
+  let autoRounds = 0;
+  while (
+    conductor.suspended &&
+    conductor.suspendReason === "SEGMENT_INVOCATION_LIMIT" &&
+    autoRounds < 12 &&
+    Date.now() < wallDeadline &&
+    (conductor.investigation.remainingWork.length > 0 ||
+      conductor.investigation.questions.some(
+        (q) => q.importance === "DETERMINANT" && q.status !== "ANSWERED",
+      ) ||
+      (conductor.investigation.inventoryTotal != null &&
+        (conductor.investigation.inventoryExamined ?? 0) <
+          conductor.investigation.inventoryTotal))
+  ) {
+    autoRounds += 1;
+    const next = await runConductorOnce(conductor.work.id, false);
+    totalSegmentsRun += next.segmentsRun;
+    conductor = {
+      ...next,
+      segmentsRun: totalSegmentsRun,
+      resumed: true,
+    };
+  }
 
   const lastReply = segmentBox.reply;
   if (!lastReply) {

@@ -2014,14 +2014,25 @@ export async function postUserMessageAndNora(
       if (!confront.ok) {
         // Section-scoped natural revise: Nora often emits a partial LEGACY fence for
         // the targeted sections while documentProposal carries a divergent full body.
-        // Do not poison the turn — the REVISE path prefers the contractual fence.
+        // Prefer the contractual LEGACY fence as canonical merge input (deterministic),
+        // never silently ignore a material authority conflict outside that case.
         if (
-          !(
-            sectionScopedConfront &&
-            earlyExtract.ok &&
-            isLegacyUntitledSectionFence(earlyExtract)
-          )
+          sectionScopedConfront &&
+          earlyExtract.ok &&
+          isLegacyUntitledSectionFence(earlyExtract)
         ) {
+          const fenceCanonical = canonicalizeDocumentProposal({
+            title: earlyCanonical.proposal.title,
+            contentMarkdown: earlyExtract.content,
+          });
+          if (fenceCanonical.ok) {
+            durableProposal = fenceCanonical.proposal;
+            proposalAuthorityConflict = null;
+          } else {
+            proposalAuthorityConflict = confront.reason;
+            durableProposal = null;
+          }
+        } else {
           proposalAuthorityConflict = confront.reason;
           durableProposal = null;
         }

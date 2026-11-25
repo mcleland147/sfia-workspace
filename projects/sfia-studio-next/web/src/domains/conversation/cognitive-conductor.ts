@@ -25,6 +25,21 @@ import {
 } from "./investigation-state";
 import type { NoraTurnQualification } from "./semantic-qualification";
 
+/** Fingerprint of measurable progress — sources, conclusions, remaining work, questions. */
+function progressFingerprint(state: InvestigationState): string {
+  const sources = state.sources
+    .map((s) => `${s.ref}:${s.coverage}:${s.versionOrSha ?? ""}`)
+    .sort()
+    .join("|");
+  const conclusions = (state.conclusions ?? []).join("|");
+  const remaining = state.remainingWork.join("|");
+  const questions = state.questions
+    .map((q) => `${q.id}:${q.status}:${q.answerSummary ?? ""}`)
+    .sort()
+    .join("|");
+  return `${sources}#${conclusions}#${remaining}#${questions}`;
+}
+
 export type ConductorSegmentResult = {
   replyText: string;
   qualification: NoraTurnQualification | null;
@@ -45,6 +60,8 @@ export type ConductorRunInput = {
   expectedOutcome?: string;
   workId?: string | null;
   forceNewWork?: boolean;
+  /** B4 — provenance when forceNew reuses prior acquis. */
+  parentWorkId?: string | null;
   turnCommandId?: string | null;
   ownerTokenTurn?: string | null;
   /** Execute one provider segment; conductor decides whether to continue. */
@@ -88,6 +105,7 @@ export async function runCognitiveConductor(
     expectedOutcome: input.expectedOutcome,
     workId: input.workId,
     forceNew: input.forceNewWork,
+    parentWorkId: input.parentWorkId,
   });
 
   let work = opened.work;
@@ -155,18 +173,21 @@ export async function runCognitiveConductor(
   }
 
   const maxLocal = Math.max(1, input.maxSegmentsThisInvocation ?? 3);
+  let stagnantSegments = 0;
+  let lastProgressKey = progressFingerprint(investigation);
+  let reevaluationNoted = false;
 
   for (let i = 0; i < maxLocal; i++) {
-    // RB-27 — preventive check with restitution reserve + projected next-segment cost.
+    // Preventive check with restitution reserve + projected next-segment cost.
     // Soft stop before another heavy segment; hard stop when already at/over ceiling.
     const usedBefore =
       (resources.inputTokens ?? 0) + (resources.outputTokens ?? 0);
     const projectedNext =
       i === 0 && usedBefore === 0
         ? 0
-        : Math.min(80_000, Math.max(25_000, Math.floor(usedBefore * 0.35) || 40_000));
+        : Math.min(60_000, Math.max(20_000, Math.floor(usedBefore * 0.12) || 30_000));
     const envelope = evaluateGlobalResourceEnvelope(resources, process.env, {
-      reserveForRestitution: i === 0 ? 0 : 12_000,
+      reserveForRestitution: i === 0 ? 0 : 24_000,
       projectedNextSegmentTokens: i === 0 ? 0 : projectedNext,
     });
     if (!envelope.ok) {
@@ -179,6 +200,20 @@ export async function runCognitiveConductor(
         contractReadyBlockedReason: suspendReason,
       };
       break;
+    }
+    if (envelope.reevaluationNeeded && !reevaluationNoted) {
+      reevaluationNoted = true;
+      investigation = {
+        ...investigation,
+        remainingWork: [
+          ...investigation.remainingWork.filter((w) => !/réévaluation/i.test(w)),
+          "Réévaluation stratégique — seuil de 1M tokens cumulés atteint",
+        ].slice(0, 12),
+      };
+      resources = {
+        ...resources,
+        limits: [...(resources.limits ?? []), "REEVAL_THRESHOLD_1M"].slice(-40),
+      };
     }
 
     const policy =
@@ -205,6 +240,14 @@ export async function runCognitiveConductor(
         ...segment.production,
         parts: segment.production.parts ?? production.parts,
       };
+    }
+
+    const nextProgressKey = progressFingerprint(investigation);
+    if (nextProgressKey === lastProgressKey && segment.continueWork) {
+      stagnantSegments += 1;
+    } else {
+      stagnantSegments = 0;
+      lastProgressKey = nextProgressKey;
     }
 
     work = await checkpointCognitiveWork({
@@ -237,12 +280,20 @@ export async function runCognitiveConductor(
         const discovered = investigation.sources.filter(
           (s) => s.coverage === "DISCOVERED",
         ).length;
+        const inventoryTotal =
+          typeof investigation.inventoryTotal === "number"
+            ? investigation.inventoryTotal
+            : null;
         const progressSummary = segment.continueWork
           ? consulted > 0
-            ? `Approfondissement — ${consulted} source${consulted > 1 ? "s" : ""} consultée${consulted > 1 ? "s" : ""}${discovered ? ` · ${discovered} découverte${discovered > 1 ? "s" : ""}` : ""}`
+            ? inventoryTotal != null && inventoryTotal > 0
+              ? `Approfondissement — ${consulted}/${inventoryTotal} sources examinées`
+              : `Approfondissement — ${consulted} source${consulted > 1 ? "s" : ""} consultée${consulted > 1 ? "s" : ""}${discovered ? ` · ${discovered} découverte${discovered > 1 ? "s" : ""}` : ""}`
             : `Approfondissement du travail — segment ${segmentsRun}`
           : consulted > 0
-            ? `Consolidation — ${consulted} source${consulted > 1 ? "s" : ""} exploitée${consulted > 1 ? "s" : ""}`
+            ? inventoryTotal != null && inventoryTotal > 0
+              ? `Consolidation — ${consulted}/${inventoryTotal} sources couvertes`
+              : `Consolidation — ${consulted} source${consulted > 1 ? "s" : ""} exploitée${consulted > 1 ? "s" : ""}`
             : "Consolidation de la réponse";
         await appendActivityEvent({
           conversationId: input.conversationId,
@@ -258,6 +309,7 @@ export async function runCognitiveConductor(
             segmentsRun,
             consulted,
             discovered,
+            inventoryTotal,
             objective: (investigation.intentSummary || work.objective || "").slice(0, 140),
           },
           sourceRef: work.id,
@@ -272,15 +324,45 @@ export async function runCognitiveConductor(
       break;
     }
 
+    // Anti-loop: three consecutive segments without new sources/conclusions/questions.
+    if (stagnantSegments >= 3) {
+      suspended = true;
+      suspendReason = "NO_PROGRESS_DETECTED";
+      investigation = {
+        ...investigation,
+        contractReady: false,
+        contractReadyBlockedReason: suspendReason,
+        remainingWork: [
+          ...investigation.remainingWork,
+          "Suspension — absence de progression mesurable sur trois segments",
+        ].slice(0, 12),
+      };
+      work = await checkpointCognitiveWork({
+        pilotId: input.pilotId,
+        workId: work.id,
+        ownerToken,
+        expectedRevision: revision,
+        cause: "BUDGET",
+        state: investigation,
+        resources,
+        production,
+        status: "SUSPENDED",
+        interruptCause: suspendReason,
+        turnCommandId: input.turnCommandId,
+      });
+      revision = work.revision;
+      break;
+    }
+
     const again = evaluateGlobalResourceEnvelope(resources, process.env, {
-      reserveForRestitution: 12_000,
+      reserveForRestitution: 24_000,
       projectedNextSegmentTokens: Math.min(
-        80_000,
+        60_000,
         Math.max(
-          25_000,
+          20_000,
           Math.floor(
-            ((resources.inputTokens ?? 0) + (resources.outputTokens ?? 0)) * 0.35,
-          ) || 40_000,
+            ((resources.inputTokens ?? 0) + (resources.outputTokens ?? 0)) * 0.12,
+          ) || 30_000,
         ),
       ),
     });

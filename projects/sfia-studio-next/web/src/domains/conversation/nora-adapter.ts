@@ -235,6 +235,7 @@ export function categorizeProviderError(err: unknown): {
   preContactLikely: boolean;
 } {
   const msg = err instanceof Error ? err.message : String(err);
+  const errName = err instanceof Error ? err.name : "";
   // Include "timed out" (ModelTimeoutError) — contiguous "timeout" alone misses it.
   const interrupted = /abort|timeout|timed\s*out|AbortError/i.test(msg);
   // Only treat as pre-contact when clearly local/config before network.
@@ -244,7 +245,9 @@ export function categorizeProviderError(err: unknown): {
     ) && !/fetch|network|ECONN|socket|HTTP|429|500|502|503/i.test(msg);
   let category = "PROVIDER_ERROR";
   if (interrupted) category = "PROVIDER_INTERRUPTED";
-  else if (
+  else if (/MaxTurnsExceeded/i.test(errName) || /max(?:imum)? turns/i.test(msg)) {
+    category = "max_turns";
+  } else if (
     // UAT-03: Agents SDK uses "Invalid output type" (space) — must match, not only output_type.
     /json.?schema|invalid schema|invalid output type|schema validation|structured output|response_format|output[_\s]?type|unsupported.*schema|ZodError|failed schema/i.test(
       msg,
@@ -1061,8 +1064,11 @@ async function runLiveWithTools(
     "- OBLIGATOIRE pour préparer un contrat Cursor : (1) appeler l'outil submit_cursor_contract_production avec productionInstruction + acceptanceCriteria + desiredOutcome ; (2) intent d7.prepare_cursor_contract mode=PREPARE ; (3) workDisposition=COMPLETE si prêt, sinon AWAIT_PILOT. replyDraft seul = échec. Préparer ≠ autoriser ≠ dispatch.",
     "- C18 SORTIE COGNITIVE (champs selon besoin — ne pas inventer) :",
     "  • workDisposition=COMPLETE|CONTINUE|AWAIT_PILOT|SUSPEND selon l'objectif du tour (investigation ≠ contrat ≠ document).",
+    "  • Investigation longue : si des sources restent à examiner ou des conclusions à consolider, workDisposition=CONTINUE + remainingWorkItems (le conducteur ouvre un nouveau segment avec acquis compactés — ne pas tout relire).",
+    "  • Ne pas recopier intégralement les contenus d'outils dans replyDraft ; citer avec références exactes et synthétiser.",
     "  • Si une question déterminante manque : workDisposition=AWAIT_PILOT (le travail reste ouvert pour la reprise).",
     "  • cognitiveWorkRelation=CONTINUE|INDEPENDENT|CLARIFY|MATERIAL_CHANGE + proposedCognitiveWorkId si rattachement.",
+    "  • Nouvelle production documentaire à partir d'acquis d'un travail antérieur : cognitiveWorkRelation=INDEPENDENT ou MATERIAL_CHANGE (nouvelle enveloppe) — réutiliser conclusions/références, ne pas relancer l'investigation depuis zéro.",
     "  • determiningQuestions[] avec id stable, status OPEN/ANSWERED, answerSummary + sourceRefs si résolu — jamais résoudre une question sans réponse explicite.",
     "  • remainingWorkItems[] versionnés (OPEN/RESOLVED/OBSOLETE/…) — ≠ acceptanceCriteria.",
     "  • cognitiveProfileHint=simple|analyse|investigation pour adapter les moyens.",
@@ -1320,7 +1326,6 @@ async function runLiveWithTools(
         },
       });
 
-      const status = cat.interrupted ? ("INTERRUPTED" as const) : ("UNKNOWN" as const);
       const toolsOnErr = policy.budgets.maxD4ToolCalls - initialBudget.remainingCalls;
       const sourcesOnErr = sourceJournal.entries.slice();
       const consulted = sourcesOnErr.filter(
@@ -1357,6 +1362,62 @@ async function runLiveWithTools(
           ...discoveredOnly.slice(-4).map(formatSrc),
         );
       }
+      // A3 — MaxTurnsExceeded / structured-output failure with acquis is a soft
+      // segment boundary, not a work failure. Conductor checkpoints and may open
+      // the next segment with compacted context.
+      const softSegmentBoundary =
+        (cat.category === "max_turns" ||
+          cat.category === "PROVIDER_SCHEMA_OR_OUTPUT" ||
+          /schema|structured_output|invalid_type|ModelBehavior/i.test(
+            String(cat.category || "") + String(streamingNotes || ""),
+          )) &&
+        (consulted.length > 0 || discoveredOnly.length > 0 || Boolean(submitted));
+      if (softSegmentBoundary) {
+        const boundaryContent = [
+          "Segment technique atteint — acquis consolidés pour continuation automatique.",
+          ...acquisLines,
+          "Travail restant: poursuivre l’investigation avec un nouveau segment (contexte compacté).",
+        ].join("\n");
+        const boundaryQual = unavailableQualification("max_turns_segment_boundary");
+        return {
+          generationId,
+          mode: "openai-agents-sdk-live",
+          status: "COMPLETE" as const,
+          streamingProvisional: false,
+          streamingAttempted,
+          streamingDelivered,
+          streamingNotes: `${streamingNotes}|SEGMENT_MAX_TURNS_BOUNDARY`,
+          content: boundaryContent,
+          policy,
+          modelRequested: policy.modelRequested,
+          modelApplied: null,
+          effortRequested: policy.effortRequested,
+          effortApplied: null,
+          attempts,
+          toolCallsObserved: toolsOnErr,
+          d4CharsReturned: policy.budgets.maxD4CharsReturned - initialBudget.remainingChars,
+          observedToolSources: sourcesOnErr,
+          usage: providerUsage ?? undefined,
+          qualification: {
+            ...boundaryQual,
+            status: "QUALIFIED" as const,
+            workDisposition: "CONTINUE" as const,
+            replyDraft: boundaryContent,
+            goal: boundaryQual.goal || "Poursuivre l’investigation",
+            desiredOutcome: boundaryQual.desiredOutcome || "Synthèse complète",
+            intents: [],
+            determiningQuestions: [
+              {
+                id: "seg-boundary-remaining",
+                text: "Travail restant après frontière de segment technique",
+                status: "OPEN" as const,
+                importance: "DETERMINANT" as const,
+              },
+            ],
+          },
+        };
+      }
+      const status = cat.interrupted ? ("INTERRUPTED" as const) : ("UNKNOWN" as const);
       const honestPartial =
         acquisLines.length > 0
           ? [

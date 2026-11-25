@@ -90,22 +90,22 @@ export const OPERATIONAL_BUDGETS_PROVISIONAL: Record<CognitiveProfile, BudgetLim
     wallClockMs: 600_000,
     maxD4CharsReturned: 100_000,
   },
-  // RB-27 — tool/char ceilings sized so a single Agents SDK segment stays
-  // realistically under the 200k work envelope (soft-stop ≠ mid-run abort).
-  // Global 24 / 200000 ceilings are unchanged.
+  // Adaptive continuation — shorter per-segment provider loops so the conductor
+  // can checkpoint, compact acquis, and open a new segment before a single SDK
+  // run saturates the context. Global envelope is 1M reeval / 2M admin max.
   analyse: {
-    maxProviderCalls: 12,
-    maxD4ToolCalls: 12,
-    maxGitToolCalls: 14,
+    maxProviderCalls: 8,
+    maxD4ToolCalls: 10,
+    maxGitToolCalls: 12,
     wallClockMs: 600_000,
-    maxD4CharsReturned: 96_000,
+    maxD4CharsReturned: 64_000,
   },
   investigation: {
-    maxProviderCalls: 16,
-    maxD4ToolCalls: 16,
-    maxGitToolCalls: 18,
-    wallClockMs: 900_000,
-    maxD4CharsReturned: 120_000,
+    maxProviderCalls: 8,
+    maxD4ToolCalls: 12,
+    maxGitToolCalls: 14,
+    wallClockMs: 1_800_000,
+    maxD4CharsReturned: 48_000,
   },
 };
 
