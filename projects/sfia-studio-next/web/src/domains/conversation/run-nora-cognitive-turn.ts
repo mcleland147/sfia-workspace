@@ -27,6 +27,11 @@ import {
 } from "./nora-adapter";
 import { resolvePublicWebRegistry } from "./public-web-registry";
 import {
+  composeInvestigationPartialRestitution,
+  formatInvestigationContinuationContext,
+  scaleSegmentCharBudget,
+} from "./investigation-continuation";
+import {
   SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
   unavailableQualification,
   type NoraTurnQualification,
@@ -709,22 +714,40 @@ export async function runNoraCognitiveTurn(
         work.objective ||
         input.userText;
       const hint = work.state.profileHint;
-      const base = buildCognitivePolicy(seed, undefined, { profileHint: hint });
-      if (segmentIndex > 0 && hint === "investigation") {
-        return buildCognitivePolicy(seed, undefined, {
-          profileHint: "investigation",
-          effortHint: "high",
-        });
+      let base =
+        segmentIndex > 0 && hint === "investigation"
+          ? buildCognitivePolicy(seed, undefined, {
+              profileHint: "investigation",
+              effortHint: "high",
+            })
+          : hint === "simple"
+            ? buildCognitivePolicy(seed, undefined, {
+                profileHint: "simple",
+                effortHint: "low",
+              })
+            : (input.policyOverride ??
+              buildCognitivePolicy(seed, undefined, { profileHint: hint }));
+      // A2 — reallocate per-segment tool chars from remaining global headroom.
+      const used =
+        (work.resources.inputTokens ?? 0) + (work.resources.outputTokens ?? 0);
+      const scaled = scaleSegmentCharBudget({
+        baseChars: base.budgets.maxD4CharsReturned,
+        usedTokens: used,
+      });
+      if (scaled.chars !== base.budgets.maxD4CharsReturned) {
+        base = {
+          ...base,
+          budgets: { ...base.budgets, maxD4CharsReturned: scaled.chars },
+          reasonCodes: [...base.reasonCodes, scaled.reasonCode],
+        };
       }
-      if (hint === "simple") {
-        return buildCognitivePolicy(seed, undefined, {
-          profileHint: "simple",
-          effortHint: "low",
-        });
-      }
-      return input.policyOverride ?? base;
+      return base;
     },
     runSegment: async ({ work, segmentIndex, policy }) => {
+      const acquisBlock =
+        segmentIndex === 0
+          ? ""
+          : formatInvestigationContinuationContext(work.state);
       const continuationHint =
         segmentIndex === 0
           ? ""
@@ -749,16 +772,26 @@ export async function runNoraCognitiveTurn(
               work.state.constraints.length
                 ? `Contraintes: ${work.state.constraints.join("; ")}`
                 : null,
+              acquisBlock || null,
             ]
               .filter(Boolean)
               .join("\n");
 
-      // C24 — feed public WEB registry from prior state + DEV catalog match
-      // (server-side provenance). Nora cannot self-authorize free-form topics.
+      // C24 — feed public WEB registry from prior state + catalog / generic pilot query.
+      // pilotText = this-turn Pilote only (P0: no objective/checkpoint URL authority).
+      const privateMarkers = [
+        input.pilotId,
+        input.preparationId,
+        input.projectId ?? "",
+        input.conversationId ?? "",
+        work.id,
+      ].filter((m) => m.trim().length >= 4);
       const webRegistry = resolvePublicWebRegistry({
         priorTopics: work.state.registeredPublicTopics,
         priorExactQueries: work.state.authorizedExactWebQueries,
         priorFacts: work.state.registeredPublicFacts,
+        pilotText: input.userText,
+        privateMarkers,
         haystack: [
           input.userText,
           work.state.intentSummary ?? "",
@@ -895,9 +928,24 @@ export async function runNoraCognitiveTurn(
     ? "INTERRUPTED"
     : lastReply.status;
 
+  let content = conductor.replyText || lastReply.content;
+  if (conductor.suspended) {
+    // A4 — restitution from durable acquis, not last provider fragment alone.
+    content = composeInvestigationPartialRestitution({
+      state: {
+        ...conductor.investigation,
+        cognitiveWorkId: conductor.work.id,
+        cognitiveRevision: conductor.work.revision,
+      },
+      production: conductor.production,
+      suspendReason: conductor.suspendReason,
+      sourceFallback: lastReply.observedToolSources,
+    });
+  }
+
   const reply: NoraGenerateResult = {
     ...lastReply,
-    content: conductor.replyText || lastReply.content,
+    content,
     qualification: conductor.qualification ?? lastReply.qualification,
     status: alignedStatus,
   };

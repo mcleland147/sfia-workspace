@@ -1236,8 +1236,47 @@ async function runLiveWithTools(
         providerContacted = "YES";
       } else {
         // TV-05: no lexical fallback on invalid structured output.
+        // A4 — when tools already ran, still surface observed acquis (not a bare UNKNOWN).
         qualification = unavailableQualification(validated.reason);
-        content = qualification.replyDraft;
+        const sourcesOnFail = sourceJournal.entries.slice();
+        const consultedFail = sourcesOnFail.filter(
+          (s) =>
+            s.coverage === "CONSULTED" ||
+            s.coverage === "VERIFIED" ||
+            s.coverage === "PARTIAL",
+        );
+        const discoveredFail = sourcesOnFail.filter((s) => s.coverage === "DISCOVERED");
+        if (consultedFail.length > 0 || discoveredFail.length > 0) {
+          const fmt = (s: (typeof sourcesOnFail)[number]) => {
+            const kind =
+              s.kind === "WEB"
+                ? "Web"
+                : s.kind === "GIT"
+                  ? "Git"
+                  : s.kind === "D4"
+                    ? "Document"
+                    : s.kind;
+            return `• ${kind} · ${s.coverage}${s.title ? ` — ${s.title}` : s.ref ? ` — ${s.ref}` : ""}`;
+          };
+          content = [
+            "J’ai avancé sur ce travail, mais la sortie structurée n’a pas pu être validée.",
+            consultedFail.length
+              ? ["Lectures effectuées :", ...consultedFail.slice(-6).map(fmt)].join("\n")
+              : null,
+            discoveredFail.length
+              ? [
+                  "Sources découvertes non ouvertes :",
+                  ...discoveredFail.slice(-4).map(fmt),
+                ].join("\n")
+              : null,
+            "Aucune conclusion métier n’est affirmée au-delà de ces acquis observés.",
+            "Votre message est conservé. Vous pouvez me demander de reprendre — aucune relance automatique.",
+          ]
+            .filter(Boolean)
+            .join("\n");
+        } else {
+          content = qualification.replyDraft;
+        }
         streamingNotes = `${streamingNotes}|QUALIFICATION_${validated.reason}`;
       }
 
@@ -1390,6 +1429,46 @@ async function runLiveWithTools(
   const d4CharsReturned = policy.budgets.maxD4CharsReturned - initialBudget.remainingChars;
 
   if (!content || qualification.status === "UNAVAILABLE") {
+    const sourcesEmpty = sourceJournal.entries.slice();
+    const consultedEmpty = sourcesEmpty.filter(
+      (s) =>
+        s.coverage === "CONSULTED" ||
+        s.coverage === "VERIFIED" ||
+        s.coverage === "PARTIAL",
+    );
+    const discoveredEmpty = sourcesEmpty.filter((s) => s.coverage === "DISCOVERED");
+    let emptyContent = content;
+    if (
+      (!emptyContent || qualification.status === "UNAVAILABLE") &&
+      (consultedEmpty.length > 0 || discoveredEmpty.length > 0)
+    ) {
+      const fmt = (s: (typeof sourcesEmpty)[number]) => {
+        const kind =
+          s.kind === "WEB"
+            ? "Web"
+            : s.kind === "GIT"
+              ? "Git"
+              : s.kind === "D4"
+                ? "Document"
+                : s.kind;
+        return `• ${kind} · ${s.coverage}${s.title ? ` — ${s.title}` : s.ref ? ` — ${s.ref}` : ""}`;
+      };
+      emptyContent = [
+        "Réponse structurée indisponible — acquis observés uniquement.",
+        consultedEmpty.length
+          ? ["Lectures effectuées :", ...consultedEmpty.slice(-6).map(fmt)].join("\n")
+          : null,
+        discoveredEmpty.length
+          ? [
+              "Sources découvertes non ouvertes :",
+              ...discoveredEmpty.slice(-4).map(fmt),
+            ].join("\n")
+          : null,
+        "Aucun effet métier inventé. Votre message est conservé.",
+      ]
+        .filter(Boolean)
+        .join("\n");
+    }
     return {
       generationId,
       mode: "openai-agents-sdk-live",
@@ -1399,7 +1478,7 @@ async function runLiveWithTools(
       streamingDelivered,
       streamingNotes,
       content:
-        content ||
+        emptyContent ||
         "Réponse Agents SDK vide ou qualification indisponible — état UNKNOWN, aucun effet métier inventé.",
       policy,
       modelRequested: policy.modelRequested,
@@ -1409,7 +1488,7 @@ async function runLiveWithTools(
       attempts,
       toolCallsObserved,
       d4CharsReturned,
-      observedToolSources: sourceJournal.entries.slice(),
+      observedToolSources: sourcesEmpty,
       usage: providerUsage,
       qualification:
         qualification.status === "UNAVAILABLE"

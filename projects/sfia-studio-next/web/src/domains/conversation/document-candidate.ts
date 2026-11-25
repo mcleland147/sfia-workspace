@@ -9,6 +9,10 @@ import { conversationTurnCommands, conversations } from "@/db/schema";
 import { newId } from "@/lib/ids";
 import { contentSha256 } from "@/domains/conversation/document-command";
 import { turnClock } from "@/domains/conversation/turn-command";
+import {
+  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+  type NoraTurnQualification,
+} from "@/domains/conversation/semantic-qualification";
 
 export type PendingDocumentCandidate = {
   id: string;
@@ -53,6 +57,42 @@ export function isHistoricalSourceChoiceTransmit(text: string): "USE_SOURCE" | "
 
 export function isConserveProposalTransmit(text: string): boolean {
   return text.replace(/\s+/g, " ").trim() === DOC_CONSERVE_PROPOSAL;
+}
+
+/**
+ * D — conserve-only qualification: REVISE intent for the focused document
+ * without a new provider investigation. Body authority remains the sealed pdoc.
+ */
+export function buildConserveOnlyQualification(input: {
+  documentId: string;
+  documentTitle?: string | null;
+}): NoraTurnQualification {
+  return {
+    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    status: "QUALIFIED",
+    goal: "Conserver la proposition documentaire déjà inspectée",
+    projectIntention: "",
+    desiredOutcome: "Nouvelle révision documentaire persistée",
+    initialScope: "",
+    proposedProjectName: "",
+    intents: [
+      {
+        id: "conserve-revise-1",
+        mode: "REQUEST_EFFECT",
+        capabilityId: "d4.revise_document",
+        summary: "Conserver la proposition documentaire préparée",
+        dependsOn: [],
+        constraints: [],
+        sourceEvidence: [],
+        parameters: {
+          documentHint: input.documentTitle?.trim() || input.documentId,
+        },
+      },
+    ],
+    clarifications: [],
+    replyDraft:
+      "Je conserve la proposition documentaire que vous avez examinée, sans la régénérer.",
+  };
 }
 
 /**

@@ -152,3 +152,15 @@ Conformité globale : **0 VÉRIFIÉ** — preuves BROWSER/F2/LIVE/REAL absentes.
 | Docs | viewer candidate forcé; prepare this-turn only (UAT-30) |
 | Preuves | vitest 21 PASS; build OK; F2 NOT PROVEN; LIVE UAT Morris |
 
+## Residual A/B/C/D — Nora functional corrections (2026-11-25)
+
+| Champ | Valeur |
+|---|---|
+| Build | `oLyRjFCDc4Y7JSvbzZkFo` |
+| A | continuation acquis; scale segment chars; partial restitution suspend/schema |
+| B | `pilot-public-query` générique (sans entrée sujet); catalog match strict |
+| C | URLs depuis pilotText only; `assertPublicHttpsUrl`; CGNAT/198.18 fail-closed |
+| D | conserve-only fixture (no provider); UI `conserveProposal`; PG proposal/conserve PASS |
+| Preuves | vitest residual+c24+c15+labels; PG documents-proposal-candidate; WEB LIVE = flags/UAT |
+| RECETTE | inchangée |
+

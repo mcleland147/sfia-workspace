@@ -6,10 +6,16 @@
  * 2. Preparation / project explicit exact-query authorizations (when present).
  * 3. A DEV catalog of known-public topic templates (env), matched against
  *    the Pilote message / objective — never private markers.
+ * 4. A generic pilot-public query composed from *this-turn* Pilote text when
+ *    public-research intent is detected (REGISTERED_PUBLIC_COMPOSITION /
+ *    EXPLICIT_AUTHORIZED_EXACT) — no topic-specific hardcoding required.
  *
  * Tests must not inject registry entries solely to force a PASS; they may
  * exercise the catalog/matching path with representative public topics.
  */
+
+import { assertPublicHttpsUrl } from "./public-web-search-frontier";
+import { sanitizePublicWebQuery } from "./web-search-sanitize";
 
 export type PublicWebRegistry = {
   topics: Record<string, string>;
@@ -17,7 +23,7 @@ export type PublicWebRegistry = {
   facts: string[];
   limits: string[];
   /**
-   * Public https URLs literally supplied by the Pilote in this turn's haystack.
+   * Public https URLs literally supplied by the Pilote in this-turn pilot text.
    * May seed open_page discovery after URL/DNS public checks — never private hosts.
    */
   pilotProvidedUrls: string[];
@@ -95,37 +101,89 @@ const DEFAULT_DEV_CATALOG: PublicTopicCatalogEntry[] = [
   },
 ];
 
-/** Extract public https URLs from Pilote text — candidates only; egress still gated. */
-export function extractPilotProvidedPublicUrls(haystack: string): string[] {
+const PILOT_PUBLIC_QUERY_REF = "pilot-public-query";
+
+/**
+ * Extract public https URLs from Pilote-only text.
+ * Authority is NOT created by regex — only candidates for discovery after assertPublicHttpsUrl.
+ */
+export function extractPilotProvidedPublicUrls(pilotText: string): string[] {
   const found: string[] = [];
   const re = /https:\/\/[^\s<>"'\)\]]+/gi;
   let m: RegExpExecArray | null;
-  while ((m = re.exec(haystack)) !== null) {
+  while ((m = re.exec(pilotText)) !== null) {
     const raw = m[0]!.replace(/[.,;:!?)]+$/g, "");
-    try {
-      const u = new URL(raw);
-      if (u.protocol !== "https:") continue;
-      const host = u.hostname.toLowerCase();
-      if (
-        host === "localhost" ||
-        host.endsWith(".local") ||
-        host === "metadata.google.internal" ||
-        /^(10\.|127\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)/.test(host) ||
-        host === "0.0.0.0" ||
-        host === "::1"
-      ) {
-        continue;
-      }
-      found.push(u.toString());
-    } catch {
-      /* ignore */
-    }
+    const checked = assertPublicHttpsUrl(raw);
+    if (!checked.ok) continue;
+    found.push(checked.url);
   }
   return [...new Set(found)].slice(0, 8);
 }
 
 function normalize(s: string): string {
   return s.replace(/\s+/g, " ").trim().toLowerCase();
+}
+
+/**
+ * Detect public-research intent on Pilote utterance (server-side).
+ * Intent ≠ authorization — registration still requires sanitize + provenance modes.
+ */
+export function detectPublicResearchIntent(text: string): boolean {
+  return /\b(recherch|search|vérifi|verify|quelle version|current version|documentation officielle|site officiel|consulter (le |la |l')?(doc|documentation|site)|look up|official (docs?|documentation)|documentation publique|page publique)\b/i.test(
+    text,
+  );
+}
+
+/**
+ * Compose a generic public search query from this-turn Pilote text.
+ * Strips intent boilerplate; never pulls private context haystack.
+ */
+export function composePilotPublicSearchQuery(
+  pilotText: string,
+  privateMarkers: string[] = [],
+): { ok: true; query: string } | { ok: false; reason: string } {
+  let q = (pilotText || "").replace(/\s+/g, " ").trim();
+  if (!q) return { ok: false, reason: "EMPTY_PILOT_TEXT" };
+
+  // Drop literal URLs — open_page path handles them separately.
+  q = q.replace(/https:\/\/[^\s<>"'\)\]]+/gi, " ").replace(/\s+/g, " ").trim();
+
+  q = q
+    .replace(
+      /\b(peux[- ]tu|pouvez[- ]vous|please|merci de|je (te|vous) (demande|prie)|nora[,:]?)\b/gi,
+      " ",
+    )
+    .replace(
+      /\b(rechercher?|search|consulter|look up|vérifier|verify|trouver|find)\b/gi,
+      " ",
+    )
+    .replace(
+      /\b(la |le |les |du |de la |des |une? |the |a |an )?(documentation officielle|documentation publique|site officiel|official docs?|page publique)\b/gi,
+      " ",
+    )
+    .replace(/\s+/g, " ")
+    .trim();
+
+  // Prefer quoted public topic if present.
+  const quoted = /[«"]([^»"]{3,120})[»"]/.exec(pilotText);
+  if (quoted?.[1]?.trim()) {
+    q = quoted[1].trim();
+  }
+
+  if (q.length < 3) return { ok: false, reason: "QUERY_TOO_SHORT_AFTER_STRIP" };
+  if (q.length > 280) q = q.slice(0, 280);
+
+  for (const m of privateMarkers) {
+    if (m.trim().length >= 4 && q.toLowerCase().includes(m.toLowerCase())) {
+      return { ok: false, reason: "PRIVATE_MARKER_IN_PILOT_QUERY" };
+    }
+  }
+
+  const sanitized = sanitizePublicWebQuery(q);
+  if (!sanitized.ok) {
+    return { ok: false, reason: sanitized.blockedReason ?? "SANITIZE_BLOCKED" };
+  }
+  return { ok: true, query: sanitized.query };
 }
 
 /**
@@ -159,8 +217,13 @@ export function loadPublicTopicCatalog(
 }
 
 /**
- * Merge prior registry with catalog matches against haystack (user + objective).
+ * Merge prior registry with catalog matches + optional generic pilot query.
  * Does not accept free-form Nora proposals as public provenance.
+ *
+ * `pilotText` (this-turn Pilote message) is the only source for:
+ * - pilotProvidedUrls
+ * - pilot-public-query composition
+ * Haystack may include objective/intent for catalog matching only.
  */
 export function resolvePublicWebRegistry(input: {
   priorTopics?: Record<string, string> | null;
@@ -169,12 +232,18 @@ export function resolvePublicWebRegistry(input: {
   /** Explicit exact queries authorized by Pilote/server for this preparation. */
   explicitExactQueries?: string[] | null;
   haystack: string;
+  /**
+   * This-turn Pilote utterance only — never objectives, documents, tool results,
+   * or checkpoints. Defaults to haystack for backward-compatible callers.
+   */
+  pilotText?: string;
   privateMarkers?: string[];
   env?: Record<string, string | undefined>;
 }): PublicWebRegistry {
   const limits: string[] = [];
   const markers = (input.privateMarkers ?? []).filter((m) => m.trim().length >= 4);
   const hay = normalize(input.haystack);
+  const pilotText = (input.pilotText ?? input.haystack).trim();
   const topics: Record<string, string> = {
     ...(input.priorTopics ?? {}),
   };
@@ -190,26 +259,16 @@ export function resolvePublicWebRegistry(input: {
     limits.push("PUBLIC_WEB_CATALOG_EMPTY");
   }
 
-  // Semantic public-research intent (server-side) — still requires catalog match;
-  // never free-form Nora text as provenance. Nora may identify the need; the
-  // server maps it onto an already-public catalog query.
-  const publicResearchIntent =
-    /\b(recherch|search|vérifi|verify|quelle version|current version|documentation officielle|site officiel|consulter (le |la |l')?(doc|documentation|site)|look up|official (docs?|documentation))\b/i.test(
-      input.haystack,
-    );
+  const publicResearchIntent = detectPublicResearchIntent(pilotText);
   if (publicResearchIntent) {
     limits.push("PUBLIC_RESEARCH_INTENT_DETECTED");
   }
 
   for (const entry of catalog) {
-    const hit =
-      entry.matchTokens.some((t) => hay.includes(normalize(t))) ||
-      (publicResearchIntent &&
-        entry.matchTokens.some((t) => {
-          // Looser token: single distinctive word from catalog token (≥4 chars).
-          const parts = normalize(t).split(/\s+/).filter((w) => w.length >= 4);
-          return parts.some((w) => hay.includes(w));
-        }));
+    // Catalog registration requires a real topic token match — never a single
+    // generic word like "documentation" via public-research intent alone.
+    // Generic public subjects use pilot-public-query (below).
+    const hit = entry.matchTokens.some((t) => hay.includes(normalize(t)));
     if (!hit) continue;
     const q = entry.query.replace(/\s+/g, " ").trim();
     if (!q) continue;
@@ -223,7 +282,29 @@ export function resolvePublicWebRegistry(input: {
     }
   }
 
-  const pilotProvidedUrls = extractPilotProvidedPublicUrls(input.haystack);
+  // Generic path — no new hardcoded topic required for a new public subject.
+  // Prefer catalog when it already registered something for this turn; still
+  // allow pilot-public-query when research intent is clear and sanitize passes.
+  if (publicResearchIntent) {
+    const composed = composePilotPublicSearchQuery(pilotText, markers);
+    if (composed.ok) {
+      const alreadySame = Object.values(topics).some(
+        (t) => normalize(t) === normalize(composed.query),
+      );
+      if (!alreadySame && !topics[PILOT_PUBLIC_QUERY_REF]) {
+        topics[PILOT_PUBLIC_QUERY_REF] = composed.query;
+        exact.add(composed.query);
+        limits.push("PILOT_PUBLIC_QUERY_REGISTERED");
+      } else if (alreadySame) {
+        limits.push("PILOT_PUBLIC_QUERY_DEDUPED_CATALOG");
+      }
+    } else {
+      limits.push(`PILOT_PUBLIC_QUERY_SKIPPED:${composed.reason}`);
+    }
+  }
+
+  // C — URLs only from this-turn Pilote text (not objective / prior summaries).
+  const pilotProvidedUrls = extractPilotProvidedPublicUrls(pilotText);
   if (pilotProvidedUrls.length > 0) {
     limits.push(`PILOT_PROVIDED_PUBLIC_URLS:${pilotProvidedUrls.length}`);
   }

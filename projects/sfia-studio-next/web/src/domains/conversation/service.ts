@@ -39,6 +39,7 @@ import {
 } from "@/domains/conversation/document-command";
 import {
   DOC_CONSERVE_PROPOSAL,
+  buildConserveOnlyQualification,
   isConserveProposalTransmit,
   isHistoricalSourceChoiceTransmit,
   loadHistoricalSourceAuthorization,
@@ -51,6 +52,7 @@ import {
   type HistoricalSourceAuthorization,
   type PendingDocumentCandidate,
 } from "@/domains/conversation/document-candidate";
+import { buildCognitivePolicy } from "@/domains/conversation/cognitive-policy";
 import {
   bindTurnGenerationId,
   commitTurnTerminal,
@@ -1148,40 +1150,107 @@ export async function postUserMessageAndNora(
       } catch {
         /* reconciliation best-effort */
       }
-      const turn = await runNoraCognitiveTurn({
-        pilotId,
-        preparationId,
-        projectId: ctx.project?.id ?? null,
-        conversationId: reserved.conversationId,
-        turnCommandId: reserved.commandId,
-        forceNewWork: opts?.forceNewCognitiveWork === true,
-        workId: opts?.cognitiveWorkId ?? null,
-        objective: content.slice(0, 2000),
-        userText: content,
-        contextSnippets,
-        knowledgeSnippets: [
-          ...knowledgeForNora.snippets,
-          ...docSnippets,
-          ...publicationOwnerSnippets,
-        ],
-        pilotageSnippets: pilotageCtx.snippets,
-        levelASignals: pilotageCtx.levelASignals,
-        ckiDelivery: pilotageCtx.ckiDelivery,
-        toolScope: {
+      // D2 — conserve of a sealed candidate must not re-run a costly investigation.
+      // Body authority remains the pdoc; this path only supplies REVISE qualification.
+      const conserveFocus = opts?.documentFocus;
+      const conserveOnly =
+        isConserveProposalTransmit(content) &&
+        Boolean(conserveFocus?.pendingCandidateId) &&
+        Boolean(conserveFocus?.documentId);
+      let turn: Awaited<ReturnType<typeof runNoraCognitiveTurn>>;
+      if (conserveOnly && conserveFocus?.documentId) {
+        const policy = buildCognitivePolicy(content, undefined, {
+          profileHint: "simple",
+          effortHint: "low",
+        });
+        const qualification = buildConserveOnlyQualification({
+          documentId: conserveFocus.documentId,
+        });
+        turn = {
+          content: qualification.replyDraft,
+          status: "COMPLETE",
+          generationId: `conserve-${reserved.commandId}`,
+          mode: "deterministic-fixture",
+          policy,
+          modelRequested: policy.modelRequested,
+          modelApplied: null,
+          effortRequested: policy.effortRequested,
+          effortApplied: null,
+          attempts: [
+            {
+              attemptId: `conserve-${reserved.commandId}`,
+              kind: "non_stream",
+              outcome: "SUCCESS",
+              notes: "CONSERVE_ONLY_NO_PROVIDER",
+              providerContacted: "NO",
+            },
+          ],
+          toolCallsObserved: 0,
+          d4CharsReturned: 0,
+          observedToolSources: [],
+          qualification,
+          conductor: {
+            workId: "",
+            revision: 0,
+            segmentsRun: 0,
+            resumed: false,
+            suspended: false,
+            suspendReason: null,
+            investigation: {
+              intentSummary: qualification.goal,
+              desiredOutcome: qualification.desiredOutcome,
+              constraints: [],
+              risks: [],
+              profileHint: "simple",
+              questions: [],
+              sources: [],
+              contradictions: [],
+              exclusions: [],
+              remainingWork: [],
+              sufficiency: "SUFFICIENT",
+              contractReady: false,
+              contractReadyBlockedReason: "CONSERVE_ONLY",
+            },
+            production: { kind: "REPLY", status: "COMPLETE", parts: [] },
+          },
+        };
+        cognitiveWorkId = null;
+      } else {
+        turn = await runNoraCognitiveTurn({
           pilotId,
           preparationId,
-          operationId: reserved.operationId,
-          projectId: ctx.project?.id,
-          activityContext: {
-            conversationId: reserved.conversationId,
-            turnCommandId: reserved.commandId,
-            ownerPilotId: pilotId,
-            ownerToken: reserved.ownerToken,
+          projectId: ctx.project?.id ?? null,
+          conversationId: reserved.conversationId,
+          turnCommandId: reserved.commandId,
+          forceNewWork: opts?.forceNewCognitiveWork === true,
+          workId: opts?.cognitiveWorkId ?? null,
+          objective: content.slice(0, 2000),
+          userText: content,
+          contextSnippets,
+          knowledgeSnippets: [
+            ...knowledgeForNora.snippets,
+            ...docSnippets,
+            ...publicationOwnerSnippets,
+          ],
+          pilotageSnippets: pilotageCtx.snippets,
+          levelASignals: pilotageCtx.levelASignals,
+          ckiDelivery: pilotageCtx.ckiDelivery,
+          toolScope: {
+            pilotId,
+            preparationId,
+            operationId: reserved.operationId,
+            projectId: ctx.project?.id,
+            activityContext: {
+              conversationId: reserved.conversationId,
+              turnCommandId: reserved.commandId,
+              ownerPilotId: pilotId,
+              ownerToken: reserved.ownerToken,
+            },
           },
-        },
-      });
+        });
+        cognitiveWorkId = turn.conductor.workId || null;
+      }
       reply = turn;
-      cognitiveWorkId = turn.conductor.workId || null;
       // C20: consolidated cognitive DOCUMENT production is the canonical D4 body
       // when present — reply documentProposal must not compete with it.
       const consolidated = turn.conductor.production;

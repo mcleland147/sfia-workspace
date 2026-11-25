@@ -127,7 +127,10 @@ export function assertPublicHttpsUrl(
       a === 0 ||
       (a === 172 && b >= 16 && b <= 31) ||
       (a === 192 && b === 168) ||
-      (a === 169 && b === 254)
+      (a === 169 && b === 254) ||
+      // CGNAT / benchmarking ranges — fail closed for egress candidates.
+      (a === 100 && b >= 64 && b <= 127) ||
+      (a === 198 && (b === 18 || b === 19))
     ) {
       return { ok: false, reason: "URL_PRIVATE_IP" };
     }

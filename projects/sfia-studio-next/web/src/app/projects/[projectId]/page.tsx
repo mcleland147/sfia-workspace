@@ -2447,6 +2447,17 @@ export default function ProjectPage() {
   }
 
   function sendChoice(choice: TurnChoice, _messageId: string) {
+    // D — bind conserve flag on focus so server can skip cognitive regen.
+    if (
+      choice.transmitText ===
+        "Conserver comme nouvelle version la proposition documentaire préparée." &&
+      documentFocusRef.current?.pendingCandidateId
+    ) {
+      applyDocumentFocus({
+        ...documentFocusRef.current,
+        conserveProposal: true,
+      });
+    }
     void sendMessage(choice.transmitText, { fromChoice: true });
   }
 

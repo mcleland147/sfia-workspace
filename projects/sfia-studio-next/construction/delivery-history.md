@@ -3,6 +3,24 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-25-ML5-NORA-RESIDUAL-ABCD
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-25 (Europe/Paris) |
+| Macro-lot | ML5 — Nora residual functional corrections (A/B/C/D) |
+| Type | INC Critical · ciblé · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| Parent HEAD | `961ebdbd9361c746a43fa36ea0ee224acb720fc2` |
+| Candidate SHA | *(post-commit)* |
+| Candidate tree | *(post-commit)* |
+| Web tree | *(post-commit)* |
+| Build DEV | `oLyRjFCDc4Y7JSvbzZkFo` |
+| RECETTE | **inchangé** `7f48daa2` / `_ZDI1cWa1hscluvBhaiA4` |
+| Contenu | A continuation/restitution/scale; B pilot-public-query générique; C URL pilot-only + assertPublicHttpsUrl; D conserve-only sans regen |
+| Push projet | **NONE** |
+| Verdict | **RESIDUAL FUNCTIONAL CORRECTIONS COMPLETE — READY FOR REVIEW** |
+
 ## delivery_id: DELIV-2026-11-25-ML5-NORA-FUNCTIONAL-COMPLETION
 
 | Field | Value |
