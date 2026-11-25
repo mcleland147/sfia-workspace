@@ -3,6 +3,29 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-25-ML5-NORA-COGNITIVE-COMPLETION-RECETTE-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-25 (Europe/Paris) |
+| Macro-lot | ML5 — Nora cognitive completion · **Cycle 11 cutover RECETTE** |
+| Type | RUN Critical · mise à disposition · **NO RELEASE** |
+| Branche source | `sfia/next-ml5-integrated-delivery-20261123` |
+| Candidate SHA **servi** | `ca0b114c6f7336ba0073d03f8d391fe05182bf86` |
+| Tree / web tree | `b555377d…` / `99dd2c6b…` |
+| Identité | Divergence `7b93ddc4` (delivery-history @86be) vs `99dd2c6b` (tip) = **métadonnées + script LIVE helper** uniquement ; runtime applicatif inchangé hors docs/script |
+| Worktree RECETTE | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-ca0b114c6f73` |
+| BUILD_ID RECETTE | `RkthxGW_bZUygxYbwP9Hq` · digest `890007559f60f0b1ed73142dcf93758db5d24ec9ac5dd5bf7210d44ba10ae1ed` |
+| URL | `http://127.0.0.1:3200` · PID `48039` · PG `:5434` |
+| Cognition effective | OPERATIONAL_PROVISIONAL · gpt-6.2-sol · **2M / 1M / 120** (remplace 200k/24) |
+| WEB LIVE | **BLOQUÉ** (0/0/0) |
+| Données | counts inchangés projects=28 conversations=207 messages=773 documents=119 revisions=190 cog_works=10 ckpts=104 |
+| Sauvegarde | `/Users/morris/Projects/sfia-recette-backups/ml5-20261125T145816Z-pre-ca0b114c` · dump sha256 `3c49b53c…` |
+| Rollback | worktree `…-2a024b1c8d71` · build `3RyhswMcKrNv8woukVXsT` · plist bak pré-cutover |
+| DEV | **préservé** `:3100` / `:5433` · build `AWs47BqI-EoJvkDkE4Lzi` |
+| Push produit | **NONE** |
+| Verdict | **NORA COGNITIVE COMPLETION — RECETTE CUTOVER VERIFIED — READY FOR MORRIS UAT** |
+
 ## delivery_id: DELIV-2026-11-25-ML5-NORA-COGNITIVE-COMPLETION
 
 | Field | Value |
