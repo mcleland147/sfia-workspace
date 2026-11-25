@@ -1,10 +1,10 @@
 # Review Pack FULL — Next ML5 Nora Livraison 1 — RECETTE cutover
 
-**Generated (UTC):** 2026-11-25T06:55:45Z  
-**Mode:** publish-in-cycle · Review Pack FULL · Critical RUN (Cycle 11)  
-**Product branch:** `sfia/next-ml5-integrated-delivery-20261123`  
-**Scope:** `projects/sfia-studio-next/`  
-**Class:** NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN · R5 IN PROGRESS  
+**Generated (UTC):** 2026-11-25T06:55:45Z
+**Mode:** publish-in-cycle · Review Pack FULL · Critical RUN (Cycle 11)
+**Product branch:** `sfia/next-ml5-integrated-delivery-20261123`
+**Scope:** `projects/sfia-studio-next/`
+**Class:** NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN · R5 IN PROGRESS
 
 ## 1. Verdict
 
@@ -397,14 +397,14 @@ index 2dc519c2..78db9c49 100644
 
 ## 15. Réserves
 
-1. WEB LIVE BLOCKED — P0 OPEN  
-2. Hosted search DNS pin = KNOWN GAP  
-3. F2 / R2 LIVE complete NOT PROVEN  
-4. D8 OS isolation NOT DEMONSTRATED  
-5. OPERATIONAL_PROVISIONAL ≠ VALIDATED ≠ production  
-6. ENV-01 cookie ports not sold — distinct browser profiles  
-7. No D6 → no Cursor dispatch this cycle  
-8. Digest note: readiness recorded `44d00186`; canonical `content_digest` method yields `cc7f5e5d` equal on DEV+RECETTE source trees  
+1. WEB LIVE BLOCKED — P0 OPEN
+2. Hosted search DNS pin = KNOWN GAP
+3. F2 / R2 LIVE complete NOT PROVEN
+4. D8 OS isolation NOT DEMONSTRATED
+5. OPERATIONAL_PROVISIONAL ≠ VALIDATED ≠ production
+6. ENV-01 cookie ports not sold — distinct browser profiles
+7. No D6 → no Cursor dispatch this cycle
+8. Digest note: readiness recorded `44d00186`; canonical `content_digest` method yields `cc7f5e5d` equal on DEV+RECETTE source trees
 
 ## 16. Capacités disponibles / bloquées
 
@@ -415,4 +415,3 @@ index 2dc519c2..78db9c49 100644
 ## 17. Instruction ChatGPT
 
 Relire le handoff distant `sfia/review-handoff` après publication. Vérifier SHA/build réellement servis, politique cognitive effective (anti-TEST_BOUNDARY), WEB LIVE BLOCKED, préservation données, rollback, et verdict RECETTE AVAILABLE. Ne pas déclarer USER ACCEPTED / F2 PROVEN / ML5 CLOSED / STABLE / ADOPTED.
-
