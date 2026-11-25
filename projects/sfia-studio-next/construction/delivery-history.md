@@ -12,9 +12,9 @@ Append-only logical journal of Cursor product deliveries.
 | Type | INC Critical · régularisation pré-recette · **NO RELEASE** |
 | Branche | `sfia/next-ml5-integrated-delivery-20261123` |
 | Parent HEAD | `3a56eb9d38661586dab79d9c999eef078476b5ac` |
-| Candidate SHA | *(post-commit)* |
-| Candidate tree | *(post-commit)* |
-| Web tree | *(post-commit)* |
+| Candidate SHA | `2a024b1c8d713ded6260d2a6427448a29f98a646` |
+| Candidate tree | `031f13043423c0e93d0b94af9fb27e852e262e74` |
+| Web tree | `f57bb8eed98af19f4ea6d0a33d6de431084f635d` |
 | Build DEV | `prUUuYxFrKalrxiMsKoc4` · digest `44d00186941598b86c4102ab37291b1c006760a36bf194a1afa8ace2a7849d0f` |
 | RECETTE | **inchangé** `7f48daa2` / `_ZDI1cWa1hscluvBhaiA4` |
 | Contenu | T1 admission sémantique B1 (pas lexical); T2 conserve-only nominal PG; T3 rebuild identité |
