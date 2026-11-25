@@ -361,6 +361,19 @@ export const NoraTurnQualificationSchema = z.object({
   acceptanceCriteria: z.array(z.string().min(1).max(LIVE_PROSE_HARD_MAX)).max(40).optional(),
   /** Semantic profile hint for adaptive policy — server may apply; never length-based. */
   cognitiveProfileHint: z.enum(["simple", "analyse", "investigation"]).optional(),
+  /**
+   * Investigation breadth as determined by Nora (semantic) — never by keyword density.
+   * TARGETED = finite known set; EXHAUSTIVE = declared perimeter must be covered;
+   * OPEN = discover and deepen as needed.
+   */
+  investigationMode: z.enum(["TARGETED", "EXHAUSTIVE", "OPEN"]).optional(),
+  /**
+   * Sufficiency of the cognitive objective after this segment (Nora).
+   * Server uses this with workDisposition to decide continuation vs restitution.
+   */
+  investigationSufficiency: z
+    .enum(["SUFFICIENT", "INSUFFICIENT", "UNKNOWN"])
+    .optional(),
 });
 export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
 

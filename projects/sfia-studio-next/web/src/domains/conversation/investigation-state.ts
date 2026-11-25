@@ -23,6 +23,55 @@ export type InvestigationSourceRef = {
   notes?: string;
 };
 
+/**
+ * Canonical identity key for coverage — full path (not basename).
+ * `git-file:arepo:path/to/file.ts@sha` → `path/to/file.ts`
+ */
+export function canonicalSourcePathKey(ref: string): string {
+  const raw = (ref || "").trim();
+  if (!raw) return "";
+  const stripSha = (p: string) => p.replace(/@[0-9a-f]+$/i, "");
+  // Prefer split over non-greedy regex so short test SHAs still strip.
+  if (/^git-file:/i.test(raw)) {
+    const parts = raw.split(":");
+    // git-file : owner/repo : path[@sha]
+    if (parts.length >= 3) {
+      const pathPart = parts.slice(2).join(":");
+      return stripSha(pathPart).replace(/\\/g, "/").toLowerCase();
+    }
+  }
+  if (/^git-commit:/i.test(raw)) return raw.toLowerCase();
+  return stripSha(raw).replace(/\\/g, "/").toLowerCase();
+}
+
+/** Cheap consolidation key — reformulations of the same finding collapse. */
+export function normalizeConclusionKey(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s]/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 180);
+}
+
+export function upsertConclusion(list: string[], line: string): string[] {
+  const key = normalizeConclusionKey(line);
+  if (!key || key.length < 12) return list;
+  const exists = list.some((c) => {
+    const k = normalizeConclusionKey(c);
+    if (!k) return false;
+    if (k === key) return true;
+    // Near-duplicate: one contains the other with high overlap.
+    const shorter = k.length <= key.length ? k : key;
+    const longer = k.length > key.length ? k : key;
+    return shorter.length >= 40 && longer.includes(shorter);
+  });
+  if (exists) return list;
+  return [...list, line];
+}
+
 export type DeterminingQuestion = {
   id: string;
   text: string;
@@ -74,12 +123,25 @@ export type InvestigationState = {
   /** Public facts already registered for composition. */
   registeredPublicFacts?: string[];
   /**
-   * B2 — when an exhaustive inventory is established (e.g. 50 files),
-   * total expected sources in the declared perimeter. Null until inventoried.
+   * B2 — when a fixed perimeter is established (listed paths / EXHAUSTIVE mode),
+   * total expected sources in that perimeter. Null until inventoried.
    */
   inventoryTotal?: number | null;
-  /** Distinct source refs marked CONSULTED/VERIFIED/PARTIAL within the inventory. */
+  /**
+   * Distinct perimeter keys with content fully read (CONSULTED|VERIFIED only).
+   * PARTIAL and DENIED are tracked separately — not counted as full reads.
+   */
   inventoryExamined?: number | null;
+  /** Stable full-path keys of the declared perimeter (never basename-only). */
+  inventoryKeys?: string[] | null;
+  /** Keys resolved as DENIED (access terminal — not content analysis). */
+  inventoryDenied?: number | null;
+  /** Keys still only PARTIAL within the perimeter. */
+  inventoryPartial?: number | null;
+  /** Anti-loop: consecutive no-progress segments across invocations. */
+  stagnantSegments?: number | null;
+  /** Semantic investigation mode from structured qualification. */
+  investigationMode?: "TARGETED" | "EXHAUSTIVE" | "OPEN" | null;
 };
 
 export function createEmptyInvestigation(intent: string): InvestigationState {

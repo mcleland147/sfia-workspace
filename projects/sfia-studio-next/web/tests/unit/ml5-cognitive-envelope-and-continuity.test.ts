@@ -241,12 +241,80 @@ describe("B3 inventory-incomplete continuation", () => {
         { kind: "GIT", ref: "a.md", title: "a", coverage: "CONSULTED" },
       ],
     } as unknown as NoraGenerateResult;
+    // D3 — COMPLETE disposition wins over incomplete inventory (no more force-continue).
+    expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(false);
+  });
+
+  it("continues incomplete inventory only when disposition is CONTINUE", () => {
+    const inv = createEmptyInvestigation("Examine le périmètre déclaré");
+    inv.inventoryTotal = 5;
+    inv.inventoryExamined = 2;
+    inv.inventoryDenied = 0;
+    inv.sources = [
+      { kind: "GIT", ref: "a.md", title: "a", coverage: "CONSULTED" },
+      { kind: "GIT", ref: "b.md", title: "b", coverage: "CONSULTED" },
+    ];
+    const reply = {
+      content: "Suite",
+      status: "COMPLETE",
+      qualification: {
+        status: "QUALIFIED",
+        workDisposition: "CONTINUE",
+        goal: "Synthèse",
+        desiredOutcome: "Synthèse",
+        intents: [],
+        determiningQuestions: [],
+      },
+      observedToolSources: [
+        { kind: "GIT", ref: "a.md", title: "a", coverage: "CONSULTED" },
+      ],
+    } as unknown as NoraGenerateResult;
     expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(true);
   });
 
-  it("continues when inventory is declared but no source recorded yet", () => {
-    const inv = createEmptyInvestigation("Examine intégralement les 50 documents");
-    inv.inventoryTotal = 50;
+  it("respects AWAIT_PILOT even when inventory incomplete", () => {
+    const inv = createEmptyInvestigation("Investigate");
+    inv.inventoryTotal = 10;
+    inv.inventoryExamined = 3;
+    const reply = {
+      content: "Clarification requise",
+      status: "COMPLETE",
+      qualification: {
+        status: "QUALIFIED",
+        workDisposition: "AWAIT_PILOT",
+        goal: "Synthèse",
+        desiredOutcome: "Synthèse",
+        intents: [],
+        determiningQuestions: [],
+      },
+      observedToolSources: [],
+    } as unknown as NoraGenerateResult;
+    expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(false);
+  });
+
+  it("continues when inventory is declared but no source recorded yet and disposition unset", () => {
+    const inv = createEmptyInvestigation("Examine le périmètre");
+    inv.inventoryTotal = 5;
+    inv.inventoryExamined = 0;
+    const reply = {
+      content: "Accès Git indisponible pour l’instant",
+      status: "COMPLETE",
+      qualification: {
+        status: "QUALIFIED",
+        workDisposition: undefined,
+        goal: "Synthèse",
+        desiredOutcome: "Synthèse",
+        intents: [],
+        determiningQuestions: [],
+      },
+      observedToolSources: [],
+    } as unknown as NoraGenerateResult;
+    expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(true);
+  });
+
+  it("stops when COMPLETE is declared even if no source recorded yet", () => {
+    const inv = createEmptyInvestigation("Examine le périmètre");
+    inv.inventoryTotal = 5;
     inv.inventoryExamined = 0;
     const reply = {
       content: "Accès Git indisponible pour l’instant",
@@ -261,7 +329,7 @@ describe("B3 inventory-incomplete continuation", () => {
       },
       observedToolSources: [],
     } as unknown as NoraGenerateResult;
-    expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(true);
+    expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(false);
   });
 
   it("stops when inventory is complete and disposition is COMPLETE", () => {

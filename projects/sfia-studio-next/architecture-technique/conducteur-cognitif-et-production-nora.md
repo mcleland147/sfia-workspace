@@ -100,6 +100,15 @@ Le serveur résout d'abord identité, scope, lane, outils réellement accessible
 
 Pour une continuation, Nora fournit une synthèse de travail exploitable : objectif, acquis référencés, questions, lacunes, contradictions, restrictions, résultat partiel, besoin et justification de moyens supplémentaires. Le serveur valide forme, périmètre, consommation et possibilité de continuer. La décision cognitive de poursuivre n'est pas une condition regex, nombre de caractères ou quota de critères. Rechercher la valeur informative marginale, éviter la répétition sans progrès ; si aucune continuation utile ou permise, terminer partiellement/suspendre. Une boucle technique déterministe peut garantir la sécurité et la gestion des ressources sans déterminer le sens de la demande.
 
+### 6.1 As-built — finalisation cognitive ciblée (A/B/C/D, ML5)
+
+Mécanismes runtime (pas une refonte du conducteur) :
+
+- **A — Qualification sémantique** : `investigationMode` (`TARGETED`|`EXHAUSTIVE`|`OPEN`) et `investigationSufficiency` (`SUFFICIENT`|`INSUFFICIENT`|`UNKNOWN`) dans la qualification structurée ; profil / largeur / note-from-prior via champs et intents, jamais via mots-clés (« 50 », « exhausti », regex de note).
+- **B — Identité et couverture** : clé canonique de chemin complet (`canonicalSourcePathKey`) ; inventaire `inventoryKeys` ; `CONSULTED`/`VERIFIED` ≠ `PARTIAL` ≠ `DENIED` ; périmètre fixé non gonflé par découvertes ; aucune exception « near-complete ≥50 ».
+- **C — Capitalisation** : `upsertConclusion` / empreinte normalisée (reformulation ≠ progrès) ; parent d'acquis par pertinence sémantique (pas le seul compteur de révisions) ; `NEW_PRODUCTION_FROM_PRIOR_ACQUIS` sur intents/relation structurés.
+- **D — Terminaison** : `COMPLETE`/`AWAIT_PILOT`/`SUSPEND` respectés même si inventaire incomplet ; suffisance Nora déclenche phase de restitution ; réserve de restitution réellement consommable (`RESTITUTION_PHASE`, soft-stop ≠ abandon) ; seuil 1M pose `REEVAL_THRESHOLD_1M` et restreint la stratégie, pas seulement un texte dans `remainingWork`. Calibration nominale inchangée : 2M / 1M / 120.
+
 Distinguer : limite d'un segment, fenêtre de contexte ou limite de sortie fournisseur, validation structurelle, politique financière et de sécurité globale administrable. Le dépassement de segment ne clôt pas un travail ; la limite globale ne se réinitialise pas silencieusement entre générations. Mesurer appels, durée, tokens entrée/sortie/cache/raisonnement si exposés, coût estimé ou observé avec provenance, modèle/effort demandés et appliqués distincts ; indisponibilité explicite. Inclure appels WEB et lectures. Pas de nouveau plafond métier arbitraire ni augmentation aveugle. Tester calibration simple vs complexe avec mesure, pas un benchmark de tokens inventé.
 
 ## 7. Continuité et persistance cognitive

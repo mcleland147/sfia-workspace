@@ -17,8 +17,10 @@ import {
   type CognitiveWorkRow,
 } from "./cognitive-work";
 import {
+  canonicalSourcePathKey,
   createEmptyInvestigation,
   evaluateContractReadiness,
+  upsertConclusion,
   type DeterminingQuestion,
   type InvestigationState,
 } from "./investigation-state";
@@ -284,50 +286,35 @@ export function mergeInvestigationFromReply(
   const desiredOutcome = outcome || desiredFromTool || prior.desiredOutcome || "";
 
   // RB-30 — capitalize answered determinant questions + explicit findings as conclusions.
-  const conclusions = [...(prior.conclusions ?? [])];
-  for (const q of questions) {
-    if (q.status === "ANSWERED" && q.answerSummary?.trim()) {
-      const line = `${q.text.slice(0, 120)} → ${q.answerSummary.trim().slice(0, 400)}`;
-      if (!conclusions.includes(line)) conclusions.push(line);
-    }
-  }
-  for (const r of q?.restrictions ?? []) {
-    const t = r.trim();
-    if (t && t.length >= 12 && !conclusions.includes(t)) {
-      // restrictions are constraints; skip — conclusions come from answers/outcomes
+  // C1 — consolidate near-duplicates; keep real contradictions as separate entries.
+  let conclusions = [...(prior.conclusions ?? [])];
+  for (const qq of questions) {
+    if (qq.status === "ANSWERED" && qq.answerSummary?.trim()) {
+      conclusions = upsertConclusion(
+        conclusions,
+        `${qq.text.slice(0, 120)} → ${qq.answerSummary.trim().slice(0, 400)}`,
+      );
     }
   }
   if (desiredOutcome && desiredOutcome.length >= 20) {
-    const outcomeLine = `Résultat consolidé: ${desiredOutcome.slice(0, 400)}`;
-    if (!conclusions.some((c) => c.startsWith("Résultat consolidé:"))) {
-      conclusions.push(outcomeLine);
-    }
+    conclusions = upsertConclusion(
+      conclusions,
+      `Résultat consolidé: ${desiredOutcome.slice(0, 400)}`,
+    );
   }
-  // Prefer structured replyDraft excerpt only when investigation produced sources/answers
-  // (avoid treating every chat reply as verified conclusion).
   const draft = (q?.replyDraft ?? reply.content ?? "").trim();
   if (
     draft.length >= 80 &&
-    (questions.some((x) => x.status === "ANSWERED") || sources.some((s) => s.coverage === "CONSULTED" || s.coverage === "VERIFIED"))
+    (questions.some((x) => x.status === "ANSWERED") ||
+      sources.some((s) => s.coverage === "CONSULTED" || s.coverage === "VERIFIED"))
   ) {
-    const excerpt = `Synthèse: ${draft.slice(0, 600)}`;
-    if (!conclusions.some((c) => c.startsWith("Synthèse:"))) conclusions.push(excerpt);
+    conclusions = upsertConclusion(conclusions, `Synthèse: ${draft.slice(0, 600)}`);
   }
 
-  // B2 — inventory coverage: prefer prior checkpoint; else declare from an
-  // explicit predeclared perimeter in the Pilote message, else from discovered set.
-  const discoveredOrBetter = sources.filter(
-    (s) =>
-      s.coverage === "DISCOVERED" ||
-      s.coverage === "CONSULTED" ||
-      s.coverage === "VERIFIED" ||
-      s.coverage === "PARTIAL",
-  ).length;
-  const exhaustiveIntent =
-    /intégralement|exhausti|tous les|toutes les|l'intégralité|chaque (?:document|fichier|source)/i.test(
-      userText,
-    ) ||
-    /intégralement|exhausti|inventaire/i.test(goal || prior.intentSummary || "");
+  // B2 — perimeter from prior keys or technical parse of listed paths (not keyword/count).
+  // Semantic mode comes from structured qualification — never from "50"/"intégralement".
+  const investigationMode =
+    q?.investigationMode ?? prior.investigationMode ?? null;
   const listedPaths = [
     ...userText.matchAll(
       /(?:^|\n)\s*([^\n]+?\.(?:md|txt|ts|tsx|js|jsx|json|yml|yaml|sql|prisma|mjs|cjs))\s*(?=\n|$)/gi,
@@ -335,71 +322,83 @@ export function mergeInvestigationFromReply(
   ]
     .map((m) => m[1]!.trim())
     .filter((p) => p.length > 2 && !/\s{3,}/.test(p) && !/^https?:/i.test(p));
-  const uniqueListed = [...new Set(listedPaths)];
-  const declaredCount = (() => {
-    const m = userText.match(
-      /\b(\d{2,3})\s+(?:documents?|fichiers?|sources?|textes?)\b/i,
-    );
-    return m ? Number(m[1]) : null;
-  })();
-  let inventoryTotal = prior.inventoryTotal ?? null;
-  // B2 — once a Pilote perimeter is declared (listed paths or explicit count),
-  // freeze that total. Extra discoveries must not inflate the inventaire and
-  // block completion after the declared sources are examined.
-  const perimeterFrozen =
-    (declaredCount != null && declaredCount >= 10) || uniqueListed.length >= 10;
-  const perimeterSize = perimeterFrozen
-    ? Math.max(uniqueListed.length, declaredCount ?? 0)
-    : null;
-  if (perimeterFrozen && perimeterSize != null && perimeterSize >= 10) {
-    inventoryTotal = perimeterSize;
-  } else if (inventoryTotal == null && exhaustiveIntent && uniqueListed.length >= 10) {
-    inventoryTotal = Math.max(uniqueListed.length, declaredCount ?? 0);
+  const uniqueListedKeys = [
+    ...new Set(listedPaths.map((p) => canonicalSourcePathKey(p)).filter(Boolean)),
+  ];
+  let inventoryKeys = [...(prior.inventoryKeys ?? [])];
+  if (inventoryKeys.length === 0 && uniqueListedKeys.length >= 2) {
+    inventoryKeys = uniqueListedKeys;
   } else if (
-    inventoryTotal == null &&
-    exhaustiveIntent &&
-    declaredCount != null &&
-    declaredCount >= 10
+    inventoryKeys.length > 0 &&
+    uniqueListedKeys.length > 0 &&
+    (investigationMode === "EXHAUSTIVE" || investigationMode === "TARGETED")
   ) {
-    inventoryTotal = declaredCount;
-  } else if (
-    inventoryTotal == null &&
-    exhaustiveIntent &&
-    discoveredOrBetter >= 10
-  ) {
-    inventoryTotal = discoveredOrBetter;
-  } else if (
-    inventoryTotal != null &&
-    discoveredOrBetter > inventoryTotal &&
-    !perimeterFrozen
-  ) {
-    inventoryTotal = discoveredOrBetter;
+    // Fixed perimeter: do not silently grow from discoveries; allow explicit listed keys.
+    const set = new Set(inventoryKeys);
+    for (const k of uniqueListedKeys) if (!set.has(k)) inventoryKeys.push(k);
   }
-  // Count perimeter coverage against the declared list when available.
-  const listedSet = new Set(uniqueListed.map((p) => p.replace(/^.*\//, "").toLowerCase()));
-  const inventoryExamined = sources.filter((s) => {
-    const covered =
-      s.coverage === "CONSULTED" ||
-      s.coverage === "VERIFIED" ||
-      s.coverage === "PARTIAL" ||
-      s.coverage === "DENIED";
-    if (!covered) return false;
-    if (listedSet.size === 0) return true;
-    const base = (s.ref || "").replace(/^.*\//, "").toLowerCase();
-    return listedSet.has(base) || listedSet.has((s.ref || "").toLowerCase());
-  }).length;
+  const perimeterFixed =
+    inventoryKeys.length >= 2 &&
+    (investigationMode === "EXHAUSTIVE" ||
+      investigationMode === "TARGETED" ||
+      (prior.inventoryTotal != null && prior.inventoryKeys != null));
+  let inventoryTotal = prior.inventoryTotal ?? null;
+  if (perimeterFixed) {
+    inventoryTotal = inventoryKeys.length;
+  } else if (
+    inventoryTotal == null &&
+    investigationMode === "OPEN" &&
+    sources.filter((s) => s.coverage !== "DISCOVERED").length >= 2
+  ) {
+    // Open investigation: total tracks distinct content-bearing sources, may grow.
+    inventoryTotal = new Set(
+      sources
+        .filter((s) =>
+          ["CONSULTED", "VERIFIED", "PARTIAL", "DENIED"].includes(s.coverage),
+        )
+        .map((s) => canonicalSourcePathKey(s.ref))
+        .filter(Boolean),
+    ).size;
+  }
+
+  const coverageByKey = new Map<string, InvestigationState["sources"][number]["coverage"]>();
+  for (const s of sources) {
+    const key = canonicalSourcePathKey(s.ref);
+    if (!key) continue;
+    const prev = coverageByKey.get(key);
+    const rank = (c: string) =>
+      c === "VERIFIED" ? 4 : c === "CONSULTED" ? 3 : c === "PARTIAL" ? 2 : c === "DENIED" ? 1 : 0;
+    if (!prev || rank(s.coverage) > rank(prev)) coverageByKey.set(key, s.coverage);
+  }
+  const keysToScore =
+    inventoryKeys.length > 0 ? inventoryKeys : [...coverageByKey.keys()];
+  let inventoryExamined = 0;
+  let inventoryPartial = 0;
+  let inventoryDenied = 0;
+  for (const key of keysToScore) {
+    const c = coverageByKey.get(key);
+    if (c === "CONSULTED" || c === "VERIFIED") inventoryExamined += 1;
+    else if (c === "PARTIAL") inventoryPartial += 1;
+    else if (c === "DENIED") inventoryDenied += 1;
+  }
+  // Perimeter "resolved" = full read OR honest access denial (not PARTIAL).
+  const inventoryResolved = inventoryExamined + inventoryDenied;
   const nextRemaining = [...remainingWork];
   if (
+    perimeterFixed &&
     inventoryTotal != null &&
-    inventoryExamined < inventoryTotal &&
-    !nextRemaining.some((w) => /inventaire|couverture|sources restantes/i.test(w))
+    inventoryResolved < inventoryTotal &&
+    q?.investigationSufficiency !== "SUFFICIENT" &&
+    q?.workDisposition !== "COMPLETE" &&
+    !nextRemaining.some((w) => /couverture périmètre|sources restantes/i.test(w))
   ) {
+    const pending = inventoryTotal - inventoryResolved;
     nextRemaining.push(
-      `Couverture inventaire ${inventoryExamined}/${inventoryTotal} — poursuivre les sources non examinées`,
+      `Couverture périmètre ${inventoryResolved}/${inventoryTotal} (${inventoryPartial} partielles, ${pending} restantes) — poursuivre les sources non résolues`,
     );
   }
 
-  return evaluateContractReadiness({
+  const evaluated = evaluateContractReadiness({
     ...prior,
     intentSummary: goal || prior.intentSummary || userText.slice(0, 800),
     desiredOutcome,
@@ -414,11 +413,43 @@ export function mergeInvestigationFromReply(
     conclusions: conclusions.slice(-24),
     inventoryTotal,
     inventoryExamined,
+    inventoryKeys: inventoryKeys.length > 0 ? inventoryKeys : prior.inventoryKeys ?? null,
+    inventoryDenied,
+    inventoryPartial,
+    investigationMode,
   });
+  // D1 — Nora's objective sufficiency is distinct from D4 contract READY.
+  // Preserve SUFFICIENT for termination even when contract criteria are unmet.
+  if (
+    q?.investigationSufficiency === "SUFFICIENT" &&
+    evaluated.sufficiency !== "BUDGET_EXHAUSTED" &&
+    evaluated.sufficiency !== "BLOCKED_BY_UNKNOWN_RESTRICTION"
+  ) {
+    return { ...evaluated, sufficiency: "SUFFICIENT" };
+  }
+  if (
+    q?.investigationSufficiency === "INSUFFICIENT" &&
+    evaluated.sufficiency === "UNKNOWN"
+  ) {
+    return { ...evaluated, sufficiency: "INSUFFICIENT" };
+  }
+  return evaluated;
 }
 
 /**
- * C18 — continuation by workDisposition / objective class — not contractReady alone.
+ * Resolved perimeter coverage: full reads + honest DENIED access terminals.
+ * PARTIAL never counts as resolved.
+ */
+export function inventoryResolvedCount(investigation: InvestigationState): number {
+  const examined = investigation.inventoryExamined ?? 0;
+  const denied = investigation.inventoryDenied ?? 0;
+  return examined + denied;
+}
+
+/**
+ * C18 / D3 — continuation by structured disposition + sufficiency.
+ * Incomplete coverage must NOT cancel legitimate AWAIT_PILOT / SUSPEND / COMPLETE.
+ * No scenario-specific thresholds (removed examined≥50 near-complete exception).
  */
 export function semanticContinueWork(
   qualification: NoraTurnQualification | null,
@@ -431,41 +462,53 @@ export function semanticContinueWork(
   ) {
     return false;
   }
-  const examined = investigation.inventoryExamined ?? 0;
+  // D3 — explicit terminal dispositions always win over inventory gaps.
+  const disposition = qualification?.workDisposition;
+  if (
+    disposition === "COMPLETE" ||
+    disposition === "AWAIT_PILOT" ||
+    disposition === "SUSPEND"
+  ) {
+    return false;
+  }
+  if (qualification?.status === "NEEDS_CLARIFICATION") {
+    return false;
+  }
+  // D1 — Nora-declared sufficiency ends investigation (restitution, not more reads).
+  if (
+    qualification?.investigationSufficiency === "SUFFICIENT" ||
+    investigation.sufficiency === "SUFFICIENT"
+  ) {
+    return disposition === "CONTINUE";
+  }
+
   const total = investigation.inventoryTotal;
-  // Near-complete coverage (≤2 gap after ≥50 examined) must not block restitution
-  // when discovery inflation left a tiny residual gap.
+  const resolved = inventoryResolvedCount(investigation);
   const inventoryIncomplete =
-    total != null &&
-    examined < total &&
-    !(examined >= 50 && total - examined <= 2);
+    total != null && total > 0 && resolved < total;
   const hasAcquis =
     (reply.observedToolSources?.length ?? 0) > 0 ||
     investigation.sources.some((s) =>
       ["CONSULTED", "VERIFIED", "PARTIAL", "DISCOVERED"].includes(s.coverage),
     );
-  // B3 — incomplete exhaustive inventory continues even after a soft provider
-  // interruption (UNKNOWN/INTERRUPTED) when acquis already progressed.
+
+  // Soft provider interrupt with unfinished perimeter — AWAIT/SUSPEND/COMPLETE already returned.
   if (inventoryIncomplete && hasAcquis && reply.status !== "COMPLETE") {
     return true;
   }
   if (reply.status !== "COMPLETE") return false;
-  const disposition = qualification?.workDisposition;
-  // B3 — incomplete exhaustive inventory is a conductor continuation, not a pilot wait.
-  // Nora declaring COMPLETE/AWAIT while sources remain unexamined must not stop the work.
-  // Also continue when inventory is declared but no source was recorded yet (tool-scope
-  // recovery / first failed segment) — anti-loop still stops three stagnant segments.
-  if (inventoryIncomplete && (hasAcquis || (investigation.inventoryExamined ?? 0) === 0)) {
-    return true;
-  }
-  if (disposition === "COMPLETE" || disposition === "AWAIT_PILOT" || disposition === "SUSPEND") {
-    return false;
-  }
+
   if (disposition === "CONTINUE") return true;
 
-  if (qualification?.status === "NEEDS_CLARIFICATION") {
-    return false;
+  // Unset disposition + incomplete fixed perimeter → continue useful reads.
+  if (
+    inventoryIncomplete &&
+    (hasAcquis || resolved === 0) &&
+    (disposition == null || disposition === "CONTINUE")
+  ) {
+    return true;
   }
+
   const openDeterminant = investigation.questions.some(
     (q) => q.importance === "DETERMINANT" && q.status !== "ANSWERED",
   );
@@ -499,16 +542,52 @@ export async function resolveCognitiveWorkAttachment(input: {
     pilotId: input.pilotId,
     preparationId: input.preparationId,
   });
-  const priorWithAcquis = works
-    .filter(
-      (w) =>
-        (w.state.conclusions?.length ?? 0) > 0 ||
-        w.state.sources.some((s) =>
-          ["CONSULTED", "VERIFIED", "PARTIAL"].includes(s.coverage),
-        ),
-    )
-    .sort((a, b) => b.revision - a.revision);
-  const provenanceParent = priorWithAcquis[0]?.id ?? null;
+  // C2 — pick parent by acquis relevance to this request, not revision count alone.
+  const priorWithAcquis = works.filter(
+    (w) =>
+      (w.state.conclusions?.length ?? 0) > 0 ||
+      w.state.sources.some((s) =>
+        ["CONSULTED", "VERIFIED", "PARTIAL"].includes(s.coverage),
+      ),
+  );
+  const relevanceQuery = [
+    input.userText ?? "",
+    input.qualification?.goal ?? "",
+    input.qualification?.desiredOutcome ?? "",
+  ]
+    .join(" ")
+    .toLowerCase();
+  const scoreParent = (w: (typeof works)[number]): number => {
+    let score = 0;
+    const intent = (w.state.intentSummary || w.objective || "").toLowerCase();
+    const outcome = (w.state.desiredOutcome || w.expectedOutcome || "").toLowerCase();
+    if (intent && relevanceQuery.includes(intent.slice(0, 48))) score += 8;
+    if (outcome && relevanceQuery.includes(outcome.slice(0, 48))) score += 6;
+    // Token overlap on conclusions / objective (cheap, no second LLM).
+    const bag = `${intent} ${outcome} ${(w.state.conclusions ?? []).join(" ")}`.toLowerCase();
+    const tokens = relevanceQuery
+      .split(/[^a-z0-9àâäéèêëïîôùûüç]+/i)
+      .filter((t) => t.length >= 5)
+      .slice(0, 24);
+    for (const t of tokens) {
+      if (bag.includes(t)) score += 1;
+    }
+    score += Math.min(4, w.state.conclusions?.length ?? 0);
+    score += Math.min(
+      4,
+      w.state.sources.filter((s) =>
+        ["CONSULTED", "VERIFIED"].includes(s.coverage),
+      ).length,
+    );
+    // Mild revision tie-break only after relevance.
+    score += Math.min(2, Math.floor(w.revision / 10));
+    return score;
+  };
+  const rankedParents = [...priorWithAcquis].sort((a, b) => {
+    const d = scoreParent(b) - scoreParent(a);
+    return d !== 0 ? d : b.revision - a.revision;
+  });
+  const provenanceParent = rankedParents[0]?.id ?? null;
 
   if (input.forceNewWork === true) {
     return {
@@ -536,16 +615,17 @@ export async function resolveCognitiveWorkAttachment(input: {
   // RB-31 / RB-27 — new document production after a completed / exhausted analysis
   // is a distinct cognitive work (own envelope). Never auto-continue a saturated work
   // for a create_document effect; Nora may still CONTINUE for true follow-up.
+  // A — document-from-prior is driven by structured intents / relation, never lexical regex.
   const wantsCreateDoc = (input.qualification?.intents ?? []).some(
     (i) =>
       i.capabilityId === "d4.create_document" &&
       (i.mode === "REQUEST_EFFECT" || i.mode === "PREPARE"),
   );
-  const text = input.userText ?? "";
-  const wantsNoteFromPrior =
-    /note de recommandation|à partir de (cette|l['’] ?|mon |notre ).{0,40}(analyse|synthèse|investigation|examen)|crée(r)? (le |un |une )?(document|note)/i.test(
-      text,
-    );
+  // INDEPENDENT / MATERIAL_CHANGE already returned above; here only create_document fork.
+  const semanticNewFromPrior =
+    wantsCreateDoc &&
+    (relation === "CONTINUE" || relation == null) &&
+    priorWithAcquis.length > 0;
   const { maxTokens: envelopeMax } = cognitiveEnvelopeLimits();
   const saturatedFloor = Math.max(190_000, Math.floor(envelopeMax * 0.95));
   const exhausted = works.filter(
@@ -564,17 +644,17 @@ export async function resolveCognitiveWorkAttachment(input: {
     exhausted.length > 0 &&
     (!relation || relation === "CONTINUE" || proposedExhausted)
   ) {
+    const exhaustedRanked = [...exhausted].sort((a, b) => {
+      const d = scoreParent(b) - scoreParent(a);
+      return d !== 0 ? d : b.revision - a.revision;
+    });
     return {
       forceNew: true,
       reason: "NEW_PRODUCTION_FROM_PRIOR_ACQUIS",
-      parentWorkId: exhausted[0]?.id ?? provenanceParent ?? proposed,
+      parentWorkId: exhaustedRanked[0]?.id ?? provenanceParent ?? proposed,
     };
   }
-  if (
-    (wantsCreateDoc || wantsNoteFromPrior) &&
-    priorWithAcquis.length > 0 &&
-    (!relation || relation === "CONTINUE" || relation == null)
-  ) {
+  if (semanticNewFromPrior && priorWithAcquis.length > 0) {
     return {
       forceNew: true,
       reason: "NEW_PRODUCTION_FROM_PRIOR_ACQUIS",
@@ -949,16 +1029,19 @@ export async function runNoraCognitiveTurn(
   }
 
   // Adaptive local segment budget — technical per-invocation cap, not global envelope.
-  // Investigation gets more segments so long work can auto-continue without pilot clicks.
-  const exhaustiveSeed =
-    /\b(?:50|intégralement|exhausti|tous les documents|toutes les sources)\b/i.test(
-      input.userText || "",
-    );
+  // A — profile / breadth from structured qualification only (never keyword "50"/exhausti).
+  const semanticProfile =
+    probeReply?.qualification?.cognitiveProfileHint ??
+    (probeReply?.qualification?.investigationMode === "EXHAUSTIVE" ||
+    probeReply?.qualification?.investigationMode === "OPEN"
+      ? "investigation"
+      : undefined);
   const defaultLocalSegments = (() => {
     if (input.maxSegmentsThisInvocation != null) return input.maxSegmentsThisInvocation;
     const seed = input.objective ?? input.userText;
-    const hint = buildCognitivePolicy(seed).profile;
-    if (hint === "investigation" || exhaustiveSeed) return 40;
+    const hint =
+      semanticProfile ?? buildCognitivePolicy(seed).profile;
+    if (hint === "investigation") return 40;
     if (hint === "analyse") return 12;
     return 3;
   })();
@@ -983,9 +1066,18 @@ export async function runNoraCognitiveTurn(
         input.userText;
       const hint =
         work.state.profileHint ||
-        (exhaustiveSeed ? "investigation" : undefined);
-      let base =
-        (segmentIndex > 0 && hint === "investigation") || exhaustiveSeed
+        semanticProfile;
+      const reevalActive = (work.resources.limits ?? []).includes("REEVAL_THRESHOLD_1M");
+      const restitutionPhase =
+        reevalActive ||
+        work.state.sufficiency === "SUFFICIENT" ||
+        (work.resources.limits ?? []).includes("RESTITUTION_PHASE");
+      let base = restitutionPhase
+        ? buildCognitivePolicy(seed, undefined, {
+            profileHint: hint === "simple" ? "simple" : "analyse",
+            effortHint: "medium",
+          })
+        : segmentIndex > 0 && hint === "investigation"
           ? buildCognitivePolicy(seed, undefined, {
               profileHint: "investigation",
               effortHint: "high",
@@ -997,6 +1089,12 @@ export async function runNoraCognitiveTurn(
               })
             : (input.policyOverride ??
               buildCognitivePolicy(seed, undefined, { profileHint: hint }));
+      if (reevalActive) {
+        base = {
+          ...base,
+          reasonCodes: [...base.reasonCodes, "STRATEGY_REEVAL_1M"],
+        };
+      }
       // A2 — reallocate per-segment tool chars from remaining global headroom.
       const used =
         (work.resources.inputTokens ?? 0) + (work.resources.outputTokens ?? 0);
@@ -1046,34 +1144,41 @@ export async function runNoraCognitiveTurn(
       const acquisBlock = hasPriorAcquis
         ? formatInvestigationContinuationContext(work.state)
         : parentAcquisBlock;
-      // B2 — next unexamined paths from the Pilote perimeter (compacted, not full history).
-      const examinedRefs = new Set(
+      // B2 — next unresolved perimeter keys (canonical full path, never basename).
+      const resolvedKeys = new Set(
         work.state.sources
           .filter((s) =>
-            ["CONSULTED", "VERIFIED", "PARTIAL", "DENIED"].includes(s.coverage),
+            ["CONSULTED", "VERIFIED", "DENIED"].includes(s.coverage),
           )
-          .map((s) => s.ref.replace(/^.*\//, "").toLowerCase()),
+          .map((s) => canonicalSourcePathKey(s.ref))
+          .filter(Boolean),
       );
-      const listedNext = [
-        ...input.userText.matchAll(
-          /(?:^|\n)\s*([^\n]+?\.(?:md|txt|ts|tsx|js|jsx|json|yml|yaml|sql|prisma|mjs|cjs))\s*(?=\n|$)/gi,
-        ),
-      ]
-        .map((m) => m[1]!.trim())
-        .filter((p) => {
-          const base = p.replace(/^.*\//, "").toLowerCase();
-          return (
-            p.length > 2 &&
-            !examinedRefs.has(base) &&
-            !examinedRefs.has(p.toLowerCase())
-          );
-        });
-      const uniqueNext = [...new Set(listedNext)].slice(0, 12);
+      const perimeterKeys =
+        work.state.inventoryKeys && work.state.inventoryKeys.length > 0
+          ? work.state.inventoryKeys
+          : [
+              ...input.userText.matchAll(
+                /(?:^|\n)\s*([^\n]+?\.(?:md|txt|ts|tsx|js|jsx|json|yml|yaml|sql|prisma|mjs|cjs))\s*(?=\n|$)/gi,
+              ),
+            ].map((m) => canonicalSourcePathKey(m[1]!.trim()));
+      const uniqueNext = perimeterKeys
+        .filter((k) => k.length > 2 && !resolvedKeys.has(k))
+        .slice(0, 12);
+      const resolved = inventoryResolvedCount(work.state);
+      const reevalActive = (work.resources.limits ?? []).includes(
+        "REEVAL_THRESHOLD_1M",
+      );
+      const sufficiencyHit =
+        work.state.sufficiency === "SUFFICIENT" ||
+        (segmentBox.reply?.qualification?.investigationSufficiency ===
+          "SUFFICIENT");
       const continuationHint = !useContinuation
         ? ""
         : [
               "",
-              "[Continuation du même travail cognitif — segment suivant]",
+              sufficiencyHit || reevalActive
+                ? "[Phase de restitution — consolider et livrer; ne pas relancer une investigation complète]"
+                : "[Continuation du même travail cognitif — segment suivant]",
               `workId=${work.id} revision=${work.revision}`,
               `Objectif: ${work.objective}`,
               work.state.intentSummary
@@ -1083,7 +1188,7 @@ export async function runNoraCognitiveTurn(
                 ? `Résultat attendu: ${work.state.desiredOutcome}`
                 : null,
               work.state.remainingWork.length
-                ? `Travail restant: ${work.state.remainingWork.join("; ")}`
+                ? `Travail restant précis: ${work.state.remainingWork.join("; ")}`
                 : null,
               work.state.questions
                 .filter((q) => q.status !== "ANSWERED")
@@ -1093,12 +1198,16 @@ export async function runNoraCognitiveTurn(
                 ? `Contraintes: ${work.state.constraints.join("; ")}`
                 : null,
               work.state.inventoryTotal != null
-                ? `Couverture inventaire: ${work.state.inventoryExamined ?? 0}/${work.state.inventoryTotal}`
+                ? `Couverture périmètre: ${resolved}/${work.state.inventoryTotal} (consultées=${work.state.inventoryExamined ?? 0}, partielles=${work.state.inventoryPartial ?? 0}, refus=${work.state.inventoryDenied ?? 0})`
                 : null,
-              uniqueNext.length > 0
-                ? `Prochaines sources à examiner (échantillon): ${uniqueNext.join("; ")}`
+              !sufficiencyHit && uniqueNext.length > 0
+                ? `Prochaines sources à examiner (chemins complets): ${uniqueNext.join("; ")}`
                 : null,
-              "Consigne: ne pas relire les sources déjà CONSULTED; ouvrir les suivantes; si inventaire incomplet workDisposition=CONTINUE.",
+              sufficiencyHit
+                ? "Consigne: investigation suffisante — produire la synthèse finale avec références et limites; workDisposition=COMPLETE."
+                : reevalActive
+                  ? "Consigne: seuil 1M — réévaluer la stratégie; approfondir uniquement le travail restant utile ou restituer; workDisposition=COMPLETE si suffisant."
+                  : "Consigne: ne pas relire les sources déjà CONSULTED/VERIFIED; ouvrir les suivantes par chemin complet; si périmètre incomplet et objectif non atteint workDisposition=CONTINUE; si suffisant workDisposition=COMPLETE.",
               acquisBlock || null,
             ]
               .filter(Boolean)

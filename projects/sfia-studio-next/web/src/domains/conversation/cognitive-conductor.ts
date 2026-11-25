@@ -21,6 +21,7 @@ import {
 } from "./cognitive-work";
 import {
   evaluateContractReadiness,
+  normalizeConclusionKey,
   type InvestigationState,
 } from "./investigation-state";
 import type { NoraTurnQualification } from "./semantic-qualification";
@@ -31,13 +32,22 @@ function progressFingerprint(state: InvestigationState): string {
     .map((s) => `${s.ref}:${s.coverage}:${s.versionOrSha ?? ""}`)
     .sort()
     .join("|");
-  const conclusions = (state.conclusions ?? []).join("|");
-  const remaining = state.remainingWork.join("|");
-  const questions = state.questions
-    .map((q) => `${q.id}:${q.status}:${q.answerSummary ?? ""}`)
+  // C1 / D2 — reformulations of the same conclusion must not count as progress.
+  const conclusions = [...new Set((state.conclusions ?? []).map(normalizeConclusionKey))]
+    .filter(Boolean)
     .sort()
     .join("|");
-  return `${sources}#${conclusions}#${remaining}#${questions}`;
+  const remaining = state.remainingWork
+    .map((w) => normalizeConclusionKey(w))
+    .filter(Boolean)
+    .sort()
+    .join("|");
+  const questions = state.questions
+    .map((q) => `${q.id}:${q.status}:${normalizeConclusionKey(q.answerSummary ?? "")}`)
+    .sort()
+    .join("|");
+  const inventory = `${state.inventoryExamined ?? 0}:${state.inventoryPartial ?? 0}:${state.inventoryDenied ?? 0}:${state.inventoryTotal ?? ""}`;
+  return `${sources}#${conclusions}#${remaining}#${questions}#${inventory}`;
 }
 
 export type ConductorSegmentResult = {
@@ -176,21 +186,58 @@ export async function runCognitiveConductor(
   let stagnantSegments = 0;
   let lastProgressKey = progressFingerprint(investigation);
   let reevaluationNoted = false;
+  /** D4 — once set, next segment may consume the restitution reserve (no further investigation). */
+  let restitutionPhase = (resources.limits ?? []).includes("RESTITUTION_PHASE");
 
   for (let i = 0; i < maxLocal; i++) {
     // Preventive check with restitution reserve + projected next-segment cost.
     // Soft stop before another heavy segment; hard stop when already at/over ceiling.
+    // D4 — restitution phase may spend the reserve (reserveForRestitution: 0).
     const usedBefore =
       (resources.inputTokens ?? 0) + (resources.outputTokens ?? 0);
     const projectedNext =
       i === 0 && usedBefore === 0
         ? 0
-        : Math.min(60_000, Math.max(20_000, Math.floor(usedBefore * 0.12) || 30_000));
+        : restitutionPhase
+          ? Math.min(24_000, Math.max(8_000, Math.floor(usedBefore * 0.04) || 12_000))
+          : Math.min(60_000, Math.max(20_000, Math.floor(usedBefore * 0.12) || 30_000));
     const envelope = evaluateGlobalResourceEnvelope(resources, process.env, {
-      reserveForRestitution: i === 0 ? 0 : 24_000,
+      reserveForRestitution: i === 0 || restitutionPhase ? 0 : 24_000,
       projectedNextSegmentTokens: i === 0 ? 0 : projectedNext,
     });
     if (!envelope.ok) {
+      // Soft stop with acquis → enter restitution once instead of discarding the reserve.
+      const hasAcquis =
+        investigation.sources.some((s) =>
+          ["CONSULTED", "VERIFIED", "PARTIAL"].includes(s.coverage),
+        ) || (investigation.conclusions?.length ?? 0) > 0;
+      if (
+        envelope.softStop &&
+        !restitutionPhase &&
+        hasAcquis &&
+        i < maxLocal
+      ) {
+        restitutionPhase = true;
+        resources = {
+          ...resources,
+          limits: [
+            ...(resources.limits ?? []).filter((l) => l !== "RESTITUTION_PHASE"),
+            "RESTITUTION_PHASE",
+          ].slice(-40),
+        };
+        investigation = {
+          ...investigation,
+          remainingWork: [
+            ...investigation.remainingWork.filter(
+              (w) => !/restitution|synthèse finale/i.test(w),
+            ),
+            "Restitution — produire la synthèse finale avec références et limites explicites",
+          ].slice(0, 12),
+        };
+        // Retry this iteration under restitution accounting.
+        i -= 1;
+        continue;
+      }
       suspended = true;
       suspendReason = envelope.reason ?? "GLOBAL_BUDGET_EXHAUSTED";
       investigation = {
@@ -203,16 +250,22 @@ export async function runCognitiveConductor(
     }
     if (envelope.reevaluationNeeded && !reevaluationNoted) {
       reevaluationNoted = true;
+      // D5 — 1M threshold changes strategy (restitution / narrower continue), not only text.
+      restitutionPhase = true;
       investigation = {
         ...investigation,
         remainingWork: [
           ...investigation.remainingWork.filter((w) => !/réévaluation/i.test(w)),
-          "Réévaluation stratégique — seuil de 1M tokens cumulés atteint",
+          "Réévaluation stratégique 1M — restreindre aux questions ouvertes déterminantes ou restituer",
         ].slice(0, 12),
       };
       resources = {
         ...resources,
-        limits: [...(resources.limits ?? []), "REEVAL_THRESHOLD_1M"].slice(-40),
+        limits: [
+          ...(resources.limits ?? []),
+          "REEVAL_THRESHOLD_1M",
+          "RESTITUTION_PHASE",
+        ].slice(-40),
       };
     }
 
@@ -354,19 +407,59 @@ export async function runCognitiveConductor(
       break;
     }
 
+    // Enter restitution when Nora marks the objective sufficient mid-run.
+    if (
+      !restitutionPhase &&
+      (qualification?.investigationSufficiency === "SUFFICIENT" ||
+        investigation.sufficiency === "SUFFICIENT")
+    ) {
+      restitutionPhase = true;
+      resources = {
+        ...resources,
+        limits: [
+          ...(resources.limits ?? []).filter((l) => l !== "RESTITUTION_PHASE"),
+          "RESTITUTION_PHASE",
+        ].slice(-40),
+      };
+    }
+
     const again = evaluateGlobalResourceEnvelope(resources, process.env, {
-      reserveForRestitution: 24_000,
-      projectedNextSegmentTokens: Math.min(
-        60_000,
-        Math.max(
-          20_000,
-          Math.floor(
-            ((resources.inputTokens ?? 0) + (resources.outputTokens ?? 0)) * 0.12,
-          ) || 30_000,
-        ),
-      ),
+      reserveForRestitution: restitutionPhase ? 0 : 24_000,
+      projectedNextSegmentTokens: restitutionPhase
+        ? Math.min(
+            24_000,
+            Math.max(
+              8_000,
+              Math.floor(
+                ((resources.inputTokens ?? 0) + (resources.outputTokens ?? 0)) *
+                  0.04,
+              ) || 12_000,
+            ),
+          )
+        : Math.min(
+            60_000,
+            Math.max(
+              20_000,
+              Math.floor(
+                ((resources.inputTokens ?? 0) + (resources.outputTokens ?? 0)) *
+                  0.12,
+              ) || 30_000,
+            ),
+          ),
     });
     if (!again.ok) {
+      if (again.softStop && !restitutionPhase) {
+        restitutionPhase = true;
+        resources = {
+          ...resources,
+          limits: [
+            ...(resources.limits ?? []).filter((l) => l !== "RESTITUTION_PHASE"),
+            "RESTITUTION_PHASE",
+          ].slice(-40),
+        };
+        // Allow one more loop iteration under restitution accounting.
+        continue;
+      }
       suspended = true;
       suspendReason = again.reason ?? "GLOBAL_BUDGET_EXHAUSTED";
       break;
