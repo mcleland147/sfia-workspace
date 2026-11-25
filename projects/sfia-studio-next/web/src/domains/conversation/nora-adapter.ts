@@ -1007,6 +1007,8 @@ async function runLiveWithTools(
         turnPublicFacts: input.publicWebRegistry?.facts,
         turnAuthorizedExactQueries: input.publicWebRegistry?.exactQueries,
         pilotProvidedUrls: input.publicWebRegistry?.pilotProvidedUrls,
+        // T1.2 — explicit this-turn Pilote text only (never haystack/objective).
+        pilotText: input.userText,
       });
       tools = [...tools, ...webTools];
     }

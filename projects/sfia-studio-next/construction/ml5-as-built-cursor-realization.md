@@ -164,3 +164,14 @@ Conformité globale : **0 VÉRIFIÉ** — preuves BROWSER/F2/LIVE/REAL absentes.
 | Preuves | vitest residual+c24+c15+labels; PG documents-proposal-candidate; WEB LIVE = flags/UAT |
 | RECETTE | inchangée |
 
+## Recette readiness T1/T2/T3 (2026-11-25)
+
+| Champ | Valeur |
+|---|---|
+| Build | `prUUuYxFrKalrxiMsKoc4` (≠ oLyRjFCDc4Y7JSvbzZkFo) |
+| Digest | `44d00186941598b86c4102ab37291b1c006760a36bf194a1afa8ace2a7849d0f` |
+| T1 | lexical registration disabled; Nora proposedPublicQuery + admitNoraProposedPublicQuery; pilotText required; URL not auto-authorized |
+| T2 | conserve-only early path; conserveProposal flag required; PG ml5-conserve-only-nominal PASS |
+| T3 | next build + next start :3100; RECETTE inchangée |
+| WEB LIVE | flag-gated; search DNS = provider-hosted KNOWN GAP; open LIVE = Studio DNS pin |
+

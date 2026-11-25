@@ -1153,10 +1153,13 @@ export async function postUserMessageAndNora(
       // D2 — conserve of a sealed candidate must not re-run a costly investigation.
       // Body authority remains the pdoc; this path only supplies REVISE qualification.
       const conserveFocus = opts?.documentFocus;
+      // T2 — authority is explicit conserve action + sealed candidate identity,
+      // not the sole equality of a transmit string.
       const conserveOnly =
-        isConserveProposalTransmit(content) &&
+        conserveFocus?.conserveProposal === true &&
         Boolean(conserveFocus?.pendingCandidateId) &&
-        Boolean(conserveFocus?.documentId);
+        Boolean(conserveFocus?.documentId) &&
+        isConserveProposalTransmit(content);
       let turn: Awaited<ReturnType<typeof runNoraCognitiveTurn>>;
       if (conserveOnly && conserveFocus?.documentId) {
         const policy = buildCognitivePolicy(content, undefined, {
@@ -2397,6 +2400,193 @@ export async function postUserMessageAndNora(
               d4Effect: null,
             });
           } else {
+            // T2 — explicit conserve of sealed pdoc: skip proposal extraction / merge.
+            // Body authority is the candidate; no provider regenerates content here.
+            if (
+              focus?.conserveProposal === true &&
+              focus.pendingCandidateId?.trim()
+            ) {
+              const observedHeadId =
+                focus.observedHeadRevisionId?.trim() || target.baseRevisionId;
+              const actualHeadId =
+                docs.find((d) => d.document.id === target.documentId)?.latestRevision
+                  ?.id ?? observedHeadId;
+              const sourceIsHistorical =
+                Boolean(focus.sourceRevisionId) &&
+                focus.sourceRevisionId !== actualHeadId;
+              let serverAuth: HistoricalSourceAuthorization | null = null;
+              if (sourceIsHistorical && focus.historicalAuthorizationId) {
+                const authLoad = await loadHistoricalSourceAuthorization({
+                  pilotId,
+                  preparationId,
+                  authorizationId: focus.historicalAuthorizationId,
+                });
+                serverAuth = authLoad.ok ? authLoad.authorization : null;
+              }
+              let conserveBlocked: string | null = null;
+              let conserveContent = "";
+              let conserveTitle = target.title;
+              let conserveSource: {
+                kind: "SAME_TURN_SNAPSHOT";
+                commandId: string;
+              } = { kind: "SAME_TURN_SNAPSHOT", commandId: reserved.commandId };
+              const loaded = await loadPendingDocumentCandidate({
+                pilotId,
+                preparationId,
+                candidateId: focus.pendingCandidateId,
+                expectedContentSha256: focus.pendingCandidateContentSha256,
+              });
+              if (!loaded.ok) {
+                conserveBlocked = loaded.reason;
+              } else {
+                const c = loaded.candidate;
+                if (
+                  c.documentId !== target.documentId ||
+                  c.sourceRevisionId !== target.baseRevisionId
+                ) {
+                  conserveBlocked = "CANDIDATE_IDENTITY_MISMATCH";
+                } else if (c.observedHeadRevisionId !== observedHeadId) {
+                  conserveBlocked = "CANDIDATE_HEAD_MOVED";
+                } else {
+                  const bound = assertHistoricalAuthBoundToCandidate({
+                    sourceIsHistorical,
+                    candidate: c,
+                    authorization: serverAuth,
+                    actualHeadRevisionId: actualHeadId,
+                  });
+                  if (!bound.ok) {
+                    conserveBlocked = bound.reason;
+                  } else {
+                    conserveContent = c.contentMarkdown;
+                    conserveTitle = c.title;
+                    conserveSource = {
+                      kind: "SAME_TURN_SNAPSHOT",
+                      commandId: c.turnCommandId,
+                    };
+                  }
+                }
+              }
+              if (conserveBlocked) {
+                documentSave = {
+                  status: "NOT_EXECUTED",
+                  reason: conserveBlocked,
+                  documentId: target.documentId,
+                  baseRevisionId: target.baseRevisionId,
+                  act: "REVISE",
+                };
+              } else {
+                const reviseIntents = effectIntents(qualification).filter(
+                  (i) => i.capabilityId === "d4.revise_document",
+                );
+                const reviseIntent = reviseIntents[0];
+                if (!reviseIntent) {
+                  documentSave = {
+                    status: "NOT_EXECUTED",
+                    reason: "MISSING_REVISE_INTENT",
+                    documentId: target.documentId,
+                    baseRevisionId: target.baseRevisionId,
+                    act: "REVISE",
+                  };
+                } else {
+                  const clientSalt =
+                    opts?.correlationKey?.trim() ||
+                    `conserve-${reserved.commandId}`;
+                  const admitted = admitDocumentCommand({
+                    commandId: reserved.commandId,
+                    operationId: reserved.operationId,
+                    userMessageId: reserved.userMessageId,
+                    qualifiedIntentId: reviseIntent.id,
+                    action: "REVISE",
+                    preparationId,
+                    documentId: target.documentId,
+                    baseRevisionId: target.baseRevisionId,
+                    ...(sourceIsHistorical
+                      ? {
+                          sourceRevisionId: target.baseRevisionId,
+                          observedHeadRevisionId: observedHeadId,
+                          confirmedHistoricalSource: true,
+                        }
+                      : focus?.sourceRevisionId
+                        ? {
+                            sourceRevisionId: target.baseRevisionId,
+                            observedHeadRevisionId: observedHeadId,
+                            confirmedHistoricalSource: false,
+                          }
+                        : {}),
+                    sectionHint: documentAct.sectionHint,
+                    source: conserveSource,
+                    title: conserveTitle,
+                    contentMarkdown: conserveContent,
+                    clientCorrelationSalt: clientSalt,
+                  });
+                  if (!admitted.ok) {
+                    documentSave = {
+                      status: "NOT_EXECUTED",
+                      reason: admitted.reason,
+                      documentId: target.documentId,
+                      baseRevisionId: target.baseRevisionId,
+                      act: "REVISE",
+                    };
+                  } else {
+                    const sealed = await sealAndApplyDocumentCommand({
+                      pilotId,
+                      fence: {
+                        commandId: reserved.commandId,
+                        ownerToken: reserved.ownerToken,
+                        beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+                      },
+                      binding: admitted.binding,
+                    });
+                    if (!sealed.sealApplied) {
+                      documentSave = {
+                        status: "NOT_EXECUTED",
+                        reason: "BINDING_SEAL_FAILED",
+                        documentId: target.documentId,
+                        baseRevisionId: target.baseRevisionId,
+                        act: "REVISE",
+                      };
+                    } else {
+                      const revised = sealed.effect;
+                      documentSave = {
+                        ...revised,
+                        act: "REVISE",
+                        baseRevisionId:
+                          "baseRevisionId" in revised &&
+                          typeof (revised as { baseRevisionId?: string }).baseRevisionId ===
+                            "string"
+                            ? (revised as { baseRevisionId: string }).baseRevisionId
+                            : target.baseRevisionId,
+                      };
+                      if (
+                        documentSave.status === "AVAILABLE" &&
+                        focus.pendingCandidateId
+                      ) {
+                        await markPendingCandidateConsumed({
+                          pilotId,
+                          preparationId,
+                          candidateId: focus.pendingCandidateId,
+                        });
+                      }
+                    }
+                  }
+                }
+              }
+              emitDocumentProposalObs({
+                requestId,
+                operationId: reserved.operationId,
+                generationId: reply.generationId,
+                act: "REVISE",
+                extracted: extractContractualDocumentProposal(reply.content),
+                refuseCode:
+                  documentSave?.status === "AVAILABLE"
+                    ? null
+                    : typeof documentSave?.reason === "string"
+                      ? documentSave.reason
+                      : "CONSERVE_ONLY",
+                d4Attempted: documentSave?.status === "AVAILABLE",
+                d4Effect: documentSave?.status ?? null,
+              });
+            } else {
             let extracted = extractContractualDocumentProposal(reply.content);
             let reviseProposalContent: string | null = null;
             let reviseBlocked: string | null = null;
@@ -2616,9 +2806,9 @@ export async function postUserMessageAndNora(
                     // P0-A — REVISE via conversation never writes D4 unless explicit conserve of sealed pdoc.
                     // Absence of documentFocus must NOT fall through to admit/seal (prior gap).
                     // Sas manual editor uses documents API directly — out of this branch.
-                    const conserveRequested =
-                      isConserveProposalTransmit(content) ||
-                      focus?.conserveProposal === true;
+                    // T2 — conservation requires explicit session action flag + sealed candidate.
+                    // Transmit-text equality alone must not authorize D4 write.
+                    const conserveRequested = focus?.conserveProposal === true;
                     if (!conserveRequested) {
                       // Title must match leading H1 when present (canonicalizeDocumentProposal).
                       const proposalTitle =
@@ -2875,6 +3065,7 @@ export async function postUserMessageAndNora(
                 }
               }
             }
+            } // else: non-conserve proposal/merge path
           }
           emitObs({
             event_name: "d3.turn.document_revise",

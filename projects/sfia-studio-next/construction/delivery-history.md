@@ -3,6 +3,24 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-25-ML5-NORA-RECETTE-READINESS
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-25 (Europe/Paris) |
+| Macro-lot | ML5 — Nora recette readiness (T1/T2/T3) |
+| Type | INC Critical · régularisation pré-recette · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| Parent HEAD | `3a56eb9d38661586dab79d9c999eef078476b5ac` |
+| Candidate SHA | *(post-commit)* |
+| Candidate tree | *(post-commit)* |
+| Web tree | *(post-commit)* |
+| Build DEV | `prUUuYxFrKalrxiMsKoc4` · digest `44d00186941598b86c4102ab37291b1c006760a36bf194a1afa8ace2a7849d0f` |
+| RECETTE | **inchangé** `7f48daa2` / `_ZDI1cWa1hscluvBhaiA4` |
+| Contenu | T1 admission sémantique B1 (pas lexical); T2 conserve-only nominal PG; T3 rebuild identité |
+| Push projet | **NONE** |
+| Verdict | **READY FOR RECETTE CUTOVER REVIEW** |
+
 ## delivery_id: DELIV-2026-11-25-ML5-NORA-RESIDUAL-ABCD
 
 | Field | Value |

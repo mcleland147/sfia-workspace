@@ -52,15 +52,18 @@ describe("C24 public WEB registry feeding", () => {
     expect(loadPublicTopicCatalog({ STUDIO_LANE: "STABLE" })).toEqual([]);
   });
 
-  it("registers Power Query catalog and pilot-provided Microsoft Learn URLs", () => {
+  it("registers Power Query catalog and extracts pilot URL candidates (not auto-authorized)", () => {
     const url =
       "https://learn.microsoft.com/fr-fr/power-query/power-query-what-is-power-query";
+    const text = `Compare avec ${url} et le connecteur SharePoint Folder`;
     const r = resolvePublicWebRegistry({
-      haystack: `Compare avec ${url} et le connecteur SharePoint Folder`,
+      pilotText: text,
+      haystack: text,
       env: { STUDIO_LANE: "DEV", SFIA_PUBLIC_WEB_CATALOG_DEFAULT: "1" },
     });
     expect(r.topics["ms-power-query"] || r.topics["ms-sharepoint-folder-pq"]).toBeTruthy();
     expect(r.pilotProvidedUrls).toContain(url);
+    expect(r.limits).toContain("PILOT_URL_NOT_AUTO_AUTHORIZED");
   });
 });
 

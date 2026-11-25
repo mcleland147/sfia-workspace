@@ -3,6 +3,8 @@ import {
   composePilotPublicSearchQuery,
   extractPilotProvidedPublicUrls,
   resolvePublicWebRegistry,
+  admitNoraProposedPublicQuery,
+  PILOT_PUBLIC_QUERY_REF,
 } from "@/domains/conversation/public-web-registry";
 import { assertPublicHttpsUrl } from "@/domains/conversation/public-web-search-frontier";
 import {
@@ -17,6 +19,7 @@ import {
   DOC_CONSERVE_PROPOSAL,
 } from "@/domains/conversation/document-candidate";
 import { projectStudioEffects } from "@/domains/conversation/semantic-qualification";
+import { authorizePublicWebQuery } from "@/domains/conversation/web-search-authorize";
 
 describe("A — investigation continuation / restitution", () => {
   it("includes consulted sources and answered questions in continuation context", () => {
@@ -87,32 +90,43 @@ describe("A — investigation continuation / restitution", () => {
   });
 });
 
-describe("B — generic public WEB registration", () => {
-  it("registers pilot-public-query for a new public subject without catalog hardcoding", () => {
+describe("B/C — WEB admission (post T1 regularization)", () => {
+  it("does not lexically register a generic public subject", () => {
     const r = resolvePublicWebRegistry({
       pilotText:
         "Recherche la documentation officielle du protocole QUIC sur le site de l'IETF",
-      haystack: "Recherche la documentation officielle du protocole QUIC sur le site de l'IETF",
+      haystack:
+        "Recherche la documentation officielle du protocole QUIC sur le site de l'IETF",
       env: { STUDIO_LANE: "DEV", SFIA_PUBLIC_WEB_CATALOG_DEFAULT: "1" },
     });
-    expect(r.limits).toContain("PUBLIC_RESEARCH_INTENT_DETECTED");
-    expect(r.topics["pilot-public-query"] || r.exactQueries.length > 0).toBeTruthy();
-    expect(r.limits.some((l) => /PILOT_PUBLIC_QUERY_REGISTERED/.test(l))).toBe(true);
-    // Must not require a QUIC-specific catalog entry
-    expect(Object.keys(r.topics).every((k) => k !== "quic-hardcoded")).toBe(true);
+    expect(r.topics[PILOT_PUBLIC_QUERY_REF]).toBeUndefined();
+    expect(r.limits).toContain("LEXICAL_PILOT_QUERY_REGISTRATION_DISABLED");
   });
 
-  it("does not register free-form internal work without research intent", () => {
+  it("Nora proposal + server admit enables authorize under B1 modes", () => {
+    const admitted = admitNoraProposedPublicQuery({
+      proposedQuery: "QUIC protocol site:datatracker.ietf.org",
+    });
+    expect(admitted.ok).toBe(true);
+    if (!admitted.ok) throw new Error(admitted.reason);
+    const auth = authorizePublicWebQuery({
+      publicTopicRef: admitted.ref,
+      turnPublicTopics: { [admitted.ref]: admitted.query },
+      turnAuthorizedExactQueries: [admitted.query],
+    });
+    expect(auth.ok).toBe(true);
+  });
+
+  it("does not register free-form internal work", () => {
     const r = resolvePublicWebRegistry({
       pilotText: "corrige le bug de validation CSV interne du sas",
       haystack: "corrige le bug de validation CSV interne du sas",
       env: { STUDIO_LANE: "DEV", SFIA_PUBLIC_WEB_CATALOG_DEFAULT: "1" },
     });
-    expect(r.topics["pilot-public-query"]).toBeUndefined();
-    expect(r.limits).toContain("PUBLIC_WEB_REGISTRY_EMPTY");
+    expect(r.topics[PILOT_PUBLIC_QUERY_REF]).toBeUndefined();
   });
 
-  it("composePilotPublicSearchQuery sanitizes confidential cues", () => {
+  it("composePilotPublicSearchQuery remains disabled", () => {
     const bad = composePilotPublicSearchQuery(
       "recherche documentation confidentiel budget interne",
     );
@@ -133,9 +147,8 @@ describe("C — WEB P0 URL provenance", () => {
     ]);
   });
 
-  it("does not treat URLs from objective/checkpoint haystack as pilot-provided when pilotText is separate", () => {
+  it("does not treat URLs from objective/checkpoint haystack as pilot-provided when pilotText absent", () => {
     const r = resolvePublicWebRegistry({
-      pilotText: "Peux-tu comparer ces approches ?",
       haystack:
         "Peux-tu comparer ces approches ?\nhttps://learn.microsoft.com/fr-fr/power-query/power-query-what-is-power-query\ncheckpoint prior",
       env: { STUDIO_LANE: "DEV", SFIA_PUBLIC_WEB_CATALOG_DEFAULT: "0" },
