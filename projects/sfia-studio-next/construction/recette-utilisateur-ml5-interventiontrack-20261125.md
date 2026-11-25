@@ -59,3 +59,66 @@ Diagnostic causal demandé sur les deux tentatives réelles, RECETTE strictement
 ## 7. Verdict et suite
 
 **INTERVENTIONTRACK UAT — PARTIALLY SATISFACTORY — DOCUMENT REVISION NOT ACCEPTED — LIVE IMPROVEMENT REQUIRED.** Guidance initiale et création documentaire satisfaisantes sur ce parcours ; révision KO deux fois ; consultation LIVE documentaire positive mais expérience générale encore insuffisante. Conservation non testée. ML5 reste OPEN. Suite : diagnostic ciblé, correctif cohérent et recette discriminante, puis Allocation cognitive adaptative et FinOps (observabilité centrale), puis livraison 2. Aucune promotion, PR, merge, release ou adoption implicite.
+
+---
+
+## 8. Addendum — rejeu post-autonomisation documentaire (25/11/2026, 22h10–22h43 Europe/Paris)
+
+**DOCUMENTED — UAT KO sur projet existant ET projet neuf.** Morris demande de terminer la recette, consigner les résultats et lancer un diagnostic court avant tout nouveau correctif. L'arbitrage d'autonomisation de Nora reste valide ; aucune nouvelle orientation technique adoptée.
+
+### 8.1 Identité du delivery et limites
+
+- Candidat RECETTE rapporté : `e012401f6af438df2168f3efb069bbabd03e80c0`, tree `fd5492926a6a9b892eaac7d9e2b6f48c76ed6d29`, web tree `d88b9aa38c8256e835fa13c3734ab7e650e07fb9`, BUILD_ID `KotrF7y02wbZN79HDsjAb`, digest `74a4459ec1eaead042c8dbd02b8487b7cb468397c45963c86c39f2dc875eb374`. Tip documentaire local `42b8ee2e5542f0221d30dac92db3ab774b1fb349`.
+- [Delivery FULL](https://github.com/mcleland147/sfia-workspace/blob/69d3d3e112b2b885581d9f6378b070ae8bf09fc6/sfia-review-handoff/latest-chatgpt-review.md), blob `3ead1cd148e7152509a6a5cec6dfe04033712714`. [Diagnostic précédent](https://github.com/mcleland147/sfia-workspace/blob/383ea251b4877c5c4883764dbfa8c33e732327f8/sfia-review-handoff/latest-chatgpt-review.md) : Nora produisait les deux changements ; reconstruction fragmentaire en perdait un, tandis que les captures montraient les deux anciens fragments. Projection non expliquée intégralement.
+- Delivery : suppression reconstruction RM/REC et sections, comparaison D4 accessible à Nora, scellement complet, conservation exacte, suppression reformulation du prompt et annonce réponse disponible, CSS ciblé. Parcours LIVE DEV ~106 s : lecture et quatre comparaisons réellement tracées, V2 égale candidat, V1 intacte. Réserves : fixtures DET conversationnelles SEMANTIC_NONE, pas de captures navigateur rejouées. Le test LIVE n'établit pas la conformité des deux changements demandés.
+- DEV :3100 / PG :5433 ; RECETTE :3200 / PG :5434. Identités runtime/DB locales NON OBSERVÉES directement par ChatGPT. Captures utilisateur (non déposées sur Git) et retours oraux constituent preuve navigateur des contenus visibles, pas du contenu PostgreSQL. Pas de nouveau budget mesuré. Main distant inchangé `997897fd7cf914771e7d08e8030dc7123fab7d25`. Branche documentaire non mergée.
+
+### 8.2 Rejeu InterventionTrack sur document historique
+
+Demande : « Repars de la version V1 actuellement conservée du document de conception fonctionnelle d'InterventionTrack, sans réutiliser les précédentes propositions de révision. Dans RM-02, rends obligatoire le lieu d'intervention en complément des champs déjà obligatoires. Dans REC-02, ajoute le cas d'une demande créée sans lieu d'intervention, qui doit être refusée. Conserve strictement tout le reste du document à l'identique. Vérifie ta nouvelle proposition avant de me la présenter pour inspection. »
+
+- Captures 22:10:41–22:14:06. Nora annonce deux lignes modifiées et 52 autres identiques ; relève les incohérences laissées hors périmètre. Proposition non enregistrée, visionneuse PROPOSITION / Version 1 · Candidate. RM-02 et REC-02 affichées strictement comme avant (lieu absent). IT-06 KO reproduite.
+- LIVE : plus de résumé du prompt ; en cours, titre « Document consulté — InterventionTrack — Conception fonctionnelle V1 », phrase « Orientation du travail à partir de la demande du Pilote » répétée trois fois (intro, groupe, détail), consultation des sources 1/1 visible. Historique terminal : « Orientation du travail terminée » trois fois et formulation initiale une fois ; groupe consultation absent de la capture de l'historique. Ne pas conclure à perte durable sans vérifier corrélation/projection. IT-01 OPEN ; IT-03 annonce prématurée non reproduite sur ce tour, état terminal visible.
+- Morris propose un projet neuf pour distinguer défaut de transition et défaut nominal. Les anciennes tentatives de conservation relevées par le diagnostic étaient des essais utilisateur de Morris, non aboutis ; ne pas les assimiler à des écritures non autorisées.
+
+### 8.3 StockTrack — base neuve (quatre tours)
+
+| Tour | Demande / action | Observations et verdict |
+|---|---|---|
+| S1 | « Je souhaite créer une application interne appelée StockTrack permettant à une équipe logistique d'enregistrer ses articles, de suivre les quantités disponibles et de gérer les entrées et sorties de stock. Je souhaite une première version simple, réservée à l'équipe logistique, sans gestion des fournisseurs ni notifications automatiques. » | Capture 22:22:43. Base suffisante, périmètre respecté, propose refus de sortie supérieure au stock et laisse arbitrage ouvert. OK. |
+| S2 | Créer projet puis Travail. | Capture 22:24:37 ; vidéo fournie 22:23:30, constat Morris : chargement toujours statique (IT-02 KO ; animation non vérifiée indépendamment par ChatGPT). Recommandation conception fonctionnelle → backlog court, matérialisée dans contexte, aucun cycle ouvert ni trajectoire retenue. Guidance OK. |
+| S3 | « Prépare-moi un document de conception fonctionnelle V1 de StockTrack comprenant le périmètre, le parcours utilisateur, les règles métier et les scénarios de recette associés. Identifie chaque règle métier et chaque scénario de recette pour que nous puissions ensuite les retravailler ensemble. Garde le document proportionné à cette première version de l'application. » | Captures 22:29:43–22:30:13. V1 disponible dans Travail/visionneuse/Documents, version courante, préfixe de révision drev_63b… ; 6 règles et 8 scénarios annoncés, 7 scénarios visibles dans les captures. Sections 1–4 ; propositions distinctes du besoin retenu. Création OK. |
+| S4 | « Je souhaite que la référence d'un article comporte au minimum trois caractères. Modifie uniquement la règle RM-02 et le scénario REC-03 du document de conception fonctionnelle de StockTrack pour intégrer cette exigence et vérifier qu'une référence de deux caractères est refusée. Conserve strictement tout le reste du document à l'identique. Vérifie les différences avec la version actuelle et présente-moi le document révisé complet pour inspection avant conservation. » | Captures 22:43:10 et 22:43:24. Nora affirme comparaison intégrale, deux lignes changées et 46 autres identiques ; annonce RM-02 ≥3 caractères, REC-03 ajout d'un essai AB non utilisé avec libellé valide. Visionneuse PROPOSITION / Version 1 · Candidate, mais les deux lignes visibles restent celles de V1. KO. Pas de conservation de ce candidat ; arrêt décidé par Morris. |
+
+Preuve discriminante StockTrack :
+
+| Fragment | V1 et candidat affiché | Attendu |
+|---|---|---|
+| RM-02 | Une référence et un libellé non vides sont obligatoires. Une même référence ne peut désigner qu'un seul article. | Ajouter minimum trois caractères, conserver présence et unicité. |
+| REC-03 | Tenter de créer un article sans référence, sans libellé, puis avec une référence déjà utilisée : chaque tentative est refusée et aucun article n'est ajouté. | Ajouter tentative avec référence de deux caractères non utilisée et libellé valide, refus sans création ; préserver les trois cas existants. |
+
+**Conclusion expérimentale :** l'historique documentaire ancien n'est pas une condition nécessaire à la reproduction du défaut. Une dette de transition n'explique donc pas à elle seule le KO. Ne pas purger les projets ou les candidats. La cause exacte du nouveau KO reste à établir ; ne pas supposer que l'ancienne regex est encore responsable.
+
+### 8.4 Mise à jour du registre (mêmes IDs)
+
+| ID | Rejeu | Statut |
+|---|---|---|
+| IT-01 | Reformulation du prompt supprimée, répétition de la formulation neutre et du terminal ; consultation utile durant le travail, non visible dans capture terminale ; Morris demande de supprimer les deux niveaux introductifs inutiles. | OPEN — amélioration partielle ; vérifier conservation et présentation réelle des activités. |
+| IT-02 | Anneau toujours statique selon Morris à la création StockTrack. | OPEN — KO navigateur rapporté. |
+| IT-03 | « Réponse Nora disponible » non observée sur le rejeu InterventionTrack ; terminal visible. | Correction partiellement observée ; pas de clôture globale. |
+| IT-04 | Pas de tableau conversationnel comparable à la colonne Statut écrasée dans ce rejeu ; tableaux documentaires lisibles. | NON REJOUÉ sur le cas discriminant. |
+| IT-05 | Police conversationnelle réduite visiblement ; pas de nouvelle plainte. | Amélioration observée, validation UX définitive non prononcée. |
+| IT-06 | Deux fragments inchangés dans la visionneuse sur InterventionTrack et StockTrack. | OPEN — BLOQUANTE ; conservation utilisateur post-correctif NON TESTÉE. |
+
+### 8.5 Diagnostic suivant — strictement ciblé
+
+Prouver, pour les deux tours exacts, identité et corps/empreinte de V1, proposition(s) envoyée(s) au comparateur, résultat de diff, production finale documentProposal, éventuelle fence, corps réellement sélectionné, candidat scellé et persistant, réponse API/projection et source lue par le navigateur. Comparer également avec le cas DEV positif TicketLite, sans nouvel appel fournisseur. Localiser la première divergence, distinguer divergence de contenu et divergence de sélection/affichage. Un candidat peut être fidèle en DB et mal présenté ; ne pas refaire le moteur documentaire si tel est le cas.
+
+Pistes vérifiées dans le handoff 69d3d3e1 (pas causes établies du nouveau KO) :
+- `nora-adapter.ts` ajoute production complète mais garde une instruction contradictoire « contenu des sections ou document complet selon stratégie ».
+- `service.ts` scelle `reviseProposalContent` ; identifier sa source effective. Le LIVE positif trace `extract_path=fence` : l'autorité canonique et l'égalité avec la production finale doivent être vérifiées, pas supposées.
+- `compare_document_proposal` renvoie échantillons (4–60 lignes par catégorie) et compteurs ; vérifier la couverture réelle et la liaison entre le corps comparé et le corps finalement scellé. Un appel réussi ne valide pas le candidat.
+- Le test LIVE vérifie candidat = V2 et V1 intacte ; branche alternative accepte une écriture directe ; il n'exige pas les deux modifications ni le hors-scope strict ni l'affichage navigateur. Les tests unitaires de chaînes ne démontrent pas le chemin D3→D4. Expliquer le PASS vs UAT KO.
+- LIVE : vérifier duplication projection N1/groupe/description/détail, historique du tour et producteurs D4 comparateur, état final ; CSS animation : DOM réellement rendu, classe et keyframes, style calculé/reduced-motion. Ne pas reconstruire les acquis.
+
+**Verdict : ML5 DELIVERY 1 — UAT NOT ACCEPTED — STOCKTRACK CLEAN-PROJECT REPRODUCTION CONFIRMED — TARGETED DIAGNOSIS REQUIRED.** Guidance et création satisfaisantes sur ces parcours ; révision KO sur deux bases ; activité LIVE partielle. Aucune nouvelle campagne, aucune correction avant revue du diagnostic. R5 IN PROGRESS / ML5 OPEN / R6 NOT STARTED / NO RELEASE / NOT ADOPTED. Suite inchangée : correctif discriminant puis recette, FinOps et livraison 2. 
