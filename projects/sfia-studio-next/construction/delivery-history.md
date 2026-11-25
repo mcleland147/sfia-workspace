@@ -4784,7 +4784,7 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | GO Morris | 25/11 — Option B + corrections A + stratégie C ; Nora pivot cognitif ; activité hiérarchisée dépliable ; suppression complexité inutile |
 | Base | tip produit `0d37b12a8dae07c88907b7e5a7cfa130e1940a41` |
 | Diagnostic AssetTrack | handoff `ca3d90a90e24197dabb700768b4220986d652ef3` |
-| SHA candidat (post-commit) | *à figer après commit local* |
+| SHA candidat (post-commit) |  |
 | Compatibilité | NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN · R5 IN PROGRESS · R6 NOT STARTED |
 | Environnement | DEV `:3100` / PG `:5433` · Build `BMd8qv-bn6m9Hj6YEtdee` · Digest `d0fa2be3b6eaed2b687817ceecfb2f0cff2888e60d854db7f6d5f1caa1a2e37d` |
 | Migration | NONE |
