@@ -58,8 +58,9 @@ function save(name, data) {
 
 function pgJson(sql) {
   try {
+    const oneLine = sql.replace(/\s+/g, " ").trim();
     const raw = execSync(
-      `docker exec sfia-next-dev-pg psql -U sfia_next_dev -d sfia_next_dev -t -A -c ${JSON.stringify(sql)}`,
+      `docker exec sfia-next-dev-pg psql -U sfia_next_dev -d sfia_next_dev -t -A -c ${JSON.stringify(oneLine)}`,
       { encoding: "utf8", maxBuffer: 20_000_000 },
     ).trim();
     if (!raw) return null;

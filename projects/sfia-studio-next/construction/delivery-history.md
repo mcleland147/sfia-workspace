@@ -3,6 +3,28 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-25-ML5-NORA-COGNITIVE-COMPLETION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-25 (Europe/Paris) |
+| Macro-lot | ML5 — Nora cognitive completion (A/B/C/D ciblés) |
+| Type | INC Critical · correctif interne · **NO RELEASE** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| Parent / tip de base | `d58d42802e50d64c97cdfc9e66bc769c74e0c0fa` |
+| Candidate SHA | `86be16899b93f962be3a50efa70d968637ea09d6` (+ docs delivery-history) |
+| Candidate tree | `6a6a2564d0f30e86152cc47681f8763fa6871431` |
+| Web tree | `7b93ddc4fb2e5ce9eee8bd82b3274a6b79ab1e0b` |
+| Build DEV | `AWs47BqI-EoJvkDkE4Lzi` · digest `a9b52e9ed0bd6e48a9307996a466aa56db197d8928178a6410b76bc90e370b51` |
+| Lane | DEV `127.0.0.1:3100` / PG `:5433` · PID `31104` |
+| RECETTE | **inchangé** `2a024b1c8d713ded6260d2a6427448a29f98a646` / build `3RyhswMcKrNv8woukVXsT` · PID `58642` · worktree `…/sfia-workspace-next-ml5-recette-build-2a024b1c8d71` |
+| Contenu | A qualification sémantique (`investigationMode`/`investigationSufficiency`, plus de seed lexical 50/exhausti) ; B identité canonique + PARTIAL/DENIED ; C dédup conclusions + parent par pertinence ; D terminaison / restitution utilisable / 1M reeval stratégique |
+| Preuves | unit `ml5-cognitive-completion-abcd.test.ts` (+ envelope/c18) ; LIVE court 5 fichiers Chantiers360 `cgw_71a26db3…` 5/5 TARGETED COMPLETE (~50k tok) ; note D4 depuis acquis `cgw_37e09f04…` parent lié · 0 relecture · `doc_363cea7d…` |
+| Compatibilité | Calibration 2M/1M/120 inchangée · pas de multi-modèles · pas de campagne 50 sources |
+| Rollback | tip précédent `d58d4280` / app `b34defd0` |
+| Push projet | **NONE** |
+| Verdict | **NORA COGNITIVE COMPLETION — TARGETED CORRECTIONS VERIFIED — READY FOR CHATGPT REVIEW** (≠ 50 COMPLETE ≠ ML5 CLOSED ≠ STABLE) |
+
 ## delivery_id: DELIV-2026-11-25-ML5-NORA-RECETTE-READINESS
 
 | Field | Value |
