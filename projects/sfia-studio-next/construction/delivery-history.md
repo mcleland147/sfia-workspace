@@ -12,9 +12,9 @@ Append-only logical journal of Cursor product deliveries.
 | Type | INC Critical · ciblé · **NO RELEASE** |
 | Branche | `sfia/next-ml5-integrated-delivery-20261123` |
 | Parent HEAD | `961ebdbd9361c746a43fa36ea0ee224acb720fc2` |
-| Candidate SHA | *(post-commit)* |
-| Candidate tree | *(post-commit)* |
-| Web tree | *(post-commit)* |
+| Candidate SHA | `9672ec8723939a1d2bc5cf7c5f43696420ace6a5` |
+| Candidate tree | `98ec6199a66618fe507e41d1684e2998b0c25228` |
+| Web tree | `24d6fde7114eb0b28741c0135645917b97dc0803` |
 | Build DEV | `oLyRjFCDc4Y7JSvbzZkFo` |
 | RECETTE | **inchangé** `7f48daa2` / `_ZDI1cWa1hscluvBhaiA4` |
 | Contenu | A continuation/restitution/scale; B pilot-public-query générique; C URL pilot-only + assertPublicHttpsUrl; D conserve-only sans regen |
