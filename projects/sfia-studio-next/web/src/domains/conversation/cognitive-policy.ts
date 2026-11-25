@@ -90,19 +90,22 @@ export const OPERATIONAL_BUDGETS_PROVISIONAL: Record<CognitiveProfile, BudgetLim
     wallClockMs: 600_000,
     maxD4CharsReturned: 100_000,
   },
+  // RB-27 — tool/char ceilings sized so a single Agents SDK segment stays
+  // realistically under the 200k work envelope (soft-stop ≠ mid-run abort).
+  // Global 24 / 200000 ceilings are unchanged.
   analyse: {
-    maxProviderCalls: 20,
-    maxD4ToolCalls: 20,
-    maxGitToolCalls: 24,
+    maxProviderCalls: 12,
+    maxD4ToolCalls: 12,
+    maxGitToolCalls: 14,
     wallClockMs: 600_000,
-    maxD4CharsReturned: 500_000,
+    maxD4CharsReturned: 96_000,
   },
   investigation: {
-    maxProviderCalls: 40,
-    maxD4ToolCalls: 40,
-    maxGitToolCalls: 40,
+    maxProviderCalls: 16,
+    maxD4ToolCalls: 16,
+    maxGitToolCalls: 18,
     wallClockMs: 900_000,
-    maxD4CharsReturned: 2_000_000,
+    maxD4CharsReturned: 120_000,
   },
 };
 

@@ -663,6 +663,44 @@ export function expandSectionHints(hint: string | null | undefined): string[] {
   });
 }
 
+/** Format numeric section indexes into a canonical multi-section hint. */
+export function formatNumericSectionHint(nums: Array<string | number>): string | null {
+  const uniq = [
+    ...new Set(
+      nums
+        .map((n) => String(n).trim())
+        .filter((n) => /^\d+$/.test(n))
+        .map((n) => String(Number(n))),
+    ),
+  ].sort((a, b) => Number(a) - Number(b));
+  if (uniq.length === 0) return null;
+  if (uniq.length === 1) return uniq[0]!;
+  if (uniq.length === 2) return `Sections ${uniq[0]} et ${uniq[1]}`;
+  return `Sections ${uniq.slice(0, -1).join(", ")} et ${uniq[uniq.length - 1]}`;
+}
+
+/**
+ * Recover section targets from natural Pilote wording
+ * (« dans la section 2 et … section 3 ») when Nora omits sectionHint.
+ */
+export function extractSectionHintFromPilotText(text: string | null | undefined): string | null {
+  if (!text) return null;
+  const nums = [...text.matchAll(/\bsections?\s+(\d+)\b/gi)].map((m) => m[1]!);
+  return formatNumericSectionHint(nums);
+}
+
+/**
+ * Recover section targets from a partial contractual fence / proposal body
+ * that only carries the revised headings (## 2. … / ## 3. …).
+ */
+export function extractSectionHintFromProposalMarkdown(
+  markdown: string | null | undefined,
+): string | null {
+  if (!markdown) return null;
+  const nums = [...markdown.matchAll(/^#{2,6}\s*(\d+)\b/gm)].map((m) => m[1]!);
+  return formatNumericSectionHint(nums);
+}
+
 /**
  * Resolve section spans for a Pilote/Nora hint.
  * Numeric hints ("2", "section 2") match only headings whose *leading* section

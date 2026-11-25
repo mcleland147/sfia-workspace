@@ -32,6 +32,7 @@ import {
   canonicalizeDocumentProposal,
   confrontProposalWithFence,
   contentSha256,
+  isLegacyUntitledSectionFence,
   resolveAssistantProposal,
   sealAndApplyDocumentCommand,
   serializeProposalFence,
@@ -84,6 +85,8 @@ import {
   applyTargetedSectionRevision,
   assertSectionScope,
   extractContractualDocumentProposal,
+  extractSectionHintFromPilotText,
+  extractSectionHintFromProposalMarkdown,
   resolveHistoricalConfirmation,
   resolveReviseTarget,
   stripContractualDocumentFences,
@@ -1963,7 +1966,25 @@ export async function postUserMessageAndNora(
   let documentSave: DocumentSaveResult | null = null;
   let documentSaveUnknown = false;
   let ownershipLostBeforeD4 = false;
-  const documentAct = studioProjection.documentAct;
+  const documentActBase = studioProjection.documentAct;
+  // RB-24 — natural multi-section: recover sectionHint from Pilote wording or
+  // partial fence headings when Nora omits parameters.sectionHint.
+  let documentAct = documentActBase;
+  if (documentActBase.kind === "REVISE" && !documentActBase.sectionHint) {
+    const fenceExtractEarly = extractContractualDocumentProposal(reply.content);
+    const fromPilot = extractSectionHintFromPilotText(content);
+    const fromFence =
+      fenceExtractEarly.ok
+        ? extractSectionHintFromProposalMarkdown(fenceExtractEarly.content)
+        : null;
+    const fromProposal = qualification.documentProposal?.contentMarkdown
+      ? extractSectionHintFromProposalMarkdown(qualification.documentProposal.contentMarkdown)
+      : null;
+    const recovered = fromPilot || fromFence || fromProposal;
+    if (recovered) {
+      documentAct = { ...documentActBase, sectionHint: recovered };
+    }
+  }
   const documentaryIntentSignal = documentAct.kind !== "NONE";
   const missionIntent = studioProjection.publication;
   const studioIntent = studioProjection;
@@ -1991,8 +2012,19 @@ export async function postUserMessageAndNora(
         sectionScoped: sectionScopedConfront,
       });
       if (!confront.ok) {
-        proposalAuthorityConflict = confront.reason;
-        durableProposal = null;
+        // Section-scoped natural revise: Nora often emits a partial LEGACY fence for
+        // the targeted sections while documentProposal carries a divergent full body.
+        // Do not poison the turn — the REVISE path prefers the contractual fence.
+        if (
+          !(
+            sectionScopedConfront &&
+            earlyExtract.ok &&
+            isLegacyUntitledSectionFence(earlyExtract)
+          )
+        ) {
+          proposalAuthorityConflict = confront.reason;
+          durableProposal = null;
+        }
       } else {
         durableProposal = earlyCanonical.proposal;
         if (confront.materialize) {
@@ -2611,9 +2643,24 @@ export async function postUserMessageAndNora(
                   sectionScoped: sectionScopedConfront,
                 });
                 if (!confront.ok) {
-                  reviseBlocked = confront.reason;
-                  proposalAuthorityConflict = confront.reason;
-                  durableProposal = null;
+                  // Prefer partial LEGACY fence as merge input for section-scoped REVISE.
+                  if (
+                    sectionScopedConfront &&
+                    extracted.ok &&
+                    isLegacyUntitledSectionFence(extracted)
+                  ) {
+                    reviseProposalContent = extracted.content;
+                    const fenceCanonical = canonicalizeDocumentProposal({
+                      title: canonical.proposal.title,
+                      contentMarkdown: extracted.content,
+                    });
+                    if (fenceCanonical.ok) durableProposal = fenceCanonical.proposal;
+                    proposalAuthorityConflict = null;
+                  } else {
+                    reviseBlocked = confront.reason;
+                    proposalAuthorityConflict = confront.reason;
+                    durableProposal = null;
+                  }
                 } else {
                   reviseProposalContent = canonical.proposal.contentMarkdown;
                   durableProposal = canonical.proposal;

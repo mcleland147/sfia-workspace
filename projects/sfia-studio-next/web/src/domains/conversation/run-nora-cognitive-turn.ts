@@ -413,8 +413,14 @@ export async function resolveCognitiveWorkAttachment(input: {
         w.interruptCause === "GLOBAL_BUDGET_EXHAUSTED" ||
         (w.resources.inputTokens ?? 0) + (w.resources.outputTokens ?? 0) >= 190_000),
   );
-  // Relation INDEPENDENT/MATERIAL_CHANGE already returned above; here cover absent relation.
-  if (wantsCreateDoc && !relation) {
+  const proposedExhausted = proposed ? exhausted.some((w) => w.id === proposed) : false;
+  // Fork document production off an exhausted / saturated prior work even when Nora
+  // incorrectly marks CONTINUE + proposedCognitiveWorkId toward that envelope.
+  if (
+    wantsCreateDoc &&
+    exhausted.length > 0 &&
+    (!relation || relation === "CONTINUE" || proposedExhausted)
+  ) {
     return { forceNew: true, reason: "NEW_PRODUCTION_FROM_PRIOR_ACQUIS" };
   }
   if (relation === "CONTINUE" && exhausted.length > 0 && !proposed) {
@@ -443,6 +449,15 @@ export async function resolveCognitiveWorkAttachment(input: {
   if ((relation === "CONTINUE" || relation === "CLARIFY") && proposed) {
     const hit = works.find((w) => w.id === proposed);
     if (hit) {
+      if (exhausted.some((w) => w.id === hit.id)) {
+        // Never re-enter a saturated envelope via proposed CONTINUE.
+        return {
+          forceNew: false,
+          workId: null,
+          reason: "EXHAUSTED_WORK_NEEDS_FORK_OR_CLARIFY",
+          needsClarify: true,
+        };
+      }
       return { workId: hit.id, forceNew: false, reason: "SEMANTIC_PROPOSED_WORK" };
     }
     return {

@@ -3,7 +3,10 @@ import {
   applyTargetedSectionRevision,
   assertSectionScope,
   expandSectionHints,
+  extractSectionHintFromPilotText,
+  extractSectionHintFromProposalMarkdown,
   formatDocumentEffectAck,
+  formatNumericSectionHint,
 } from "@/domains/conversation/document-act";
 
 const base = `# RoomBooking — Conception fonctionnelle V1
@@ -61,6 +64,19 @@ describe("expandSectionHints", () => {
 
   it("expands comma lists", () => {
     expect(expandSectionHints("sections 2, 3 et 4")).toEqual(["2", "3", "4"]);
+  });
+
+  it("recovers natural Pilote multi-section wording", () => {
+    expect(
+      extractSectionHintFromPilotText(
+        "Intègre cette règle dans la section 2 et ajoute le scénario correspondant dans la section 3.",
+      ),
+    ).toEqual("Sections 2 et 3");
+    expect(formatNumericSectionHint(["3", "2", "2"])).toEqual("Sections 2 et 3");
+  });
+
+  it("recovers section numbers from partial proposal markdown", () => {
+    expect(extractSectionHintFromProposalMarkdown(proposalTwoSections)).toEqual("Sections 2 et 3");
   });
 });
 
