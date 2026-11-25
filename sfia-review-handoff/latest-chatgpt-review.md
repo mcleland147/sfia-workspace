@@ -1,418 +1,445 @@
-# SFIA Studio Next — ML5 Adaptive Cognitive Continuation — Review Pack FULL
+# SFIA Studio Next — ML5 Cognitive Completion (A/B/C/D) — Review Pack FULL
 
-**Date:** 2026-11-25  
-**Mode:** publish-in-cycle · Review Pack FULL · L3 handoff REQUIRED  
-**Verdict cible:** NORA ADAPTIVE COGNITIVE CONTINUATION — LONG INVESTIGATION PROVEN — ML5 CORRECTIVE DELIVERY COMPLETE — READY FOR CHATGPT REVIEW
+Generated: 2026-11-25T14:45:08Z
+Verdict target: **NORA COGNITIVE COMPLETION — TARGETED CORRECTIONS VERIFIED — READY FOR CHATGPT REVIEW**
 
----
+Does **NOT** mean: 50 SOURCES EXHAUSTIVE PROVEN · USER ACCEPTED · ML5 CLOSED · STABLE · RELEASE · ADOPTED.
 
 ## 1. Git Truth Check
 
-| Item | Value |
-|---|---|
-| Workspace | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
-| Branch | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD (pre-commit tip expected base) | `cb4ae5990c0e8c2f75c466962f8a77f300c63e24` |
-| Delivery SHA | `b34defd09a34feb8a5daa871fd8fa468c7af78e0` |
-| Tree at base | `ad1f01fa976666dddb64e80665abdb677ec17717` |
-| Web tree at base | `eb8dc550456c87f77053a3a5952e3edd20de5099` |
-| Main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
-| Remote | |
-```
-origin	https://github.com/mcleland147/sfia-workspace.git (fetch)
-origin	https://github.com/mcleland147/sfia-workspace.git (push)
-```
-| Staged | none expected before commit |
-| Lane DEV | `127.0.0.1:3100` · PG `:5433` |
-| RECETTE | `127.0.0.1:3200` · PG `:5434` · SHA `2a024b1c` · Build `3RyhswMcKrNv8woukVXsT` — **préservée** |
-| BUILD_ID candidat | `CC0wLCfVBY-Q1uALQDItr` |
-| Digest | `882e1eff3c198e79a91c8d732275195a31841dd2ba469c4540e50934889f02a7` |
-| Calibration | MAX_TOKENS=2000000 · REEVAL=1000000 · MAX_SEGMENTS=120 · OPERATIONAL_PROVISIONAL |
+| Field | Value |
+| --- | --- |
+| Repository | https://github.com/mcleland147/sfia-workspace.git |
+| Branch | sfia/next-ml5-integrated-delivery-20261123 |
+| Tip | `ca0b114c6f7336ba0073d03f8d391fe05182bf86` |
+| Diff base | `d58d42802e50d64c97cdfc9e66bc769c74e0c0fa` |
+| Merge-base | `d58d42802e50d64c97cdfc9e66bc769c74e0c0fa` |
+| Delivery app (prior) | `b34defd09a34feb8a5daa871fd8fa468c7af78e0` |
+| Candidate commits | `86be16899b93f962be3a50efa70d968637ea09d6` (code) · `ca0b114c6f7336ba0073d03f8d391fe05182bf86` (docs) |
+| Tree | `b555377d42e0f14a8a3c856eb3806f091bfc4153` |
+| Web tree | `99dd2c6b3db728434a452d4f93775e0e2a6e1e0a` |
+| Main (ref) | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
+| Staged | none expected / `0` |
+| Unstaged (pack only) | `.tmp-sfia-review/chatgpt-review.md` |
+| Build DEV | `AWs47BqI-EoJvkDkE4Lzi` |
+| Digest | `a9b52e9ed0bd6e48a9307996a466aa56db197d8928178a6410b76bc90e370b51` |
+| DEV | 127.0.0.1:3100 / PG :5433 / PID 31104 |
+| RECETTE | **preserved** SHA `2a024b1c8d713ded6260d2a6427448a29f98a646` / build `3RyhswMcKrNv8woukVXsT` / :3200 / PG :5434 / PID 58642 |
+| Product push | NONE |
+| 50-source campaign | **NOT relaunched** |
 
-### git status
-```
-## sfia/next-ml5-integrated-delivery-20261123
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio-next/construction/delivery-history.md
- M projects/sfia-studio-next/web/src/components/figma/NoraLiveActivity.tsx
- M projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts
- M projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
- M projects/sfia-studio-next/web/src/domains/conversation/cognitive-work.ts
- M projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
- M projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
- M projects/sfia-studio-next/web/src/domains/conversation/investigation-continuation.ts
- M projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts
- M projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
- M projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
- M projects/sfia-studio-next/web/src/domains/conversation/service.ts
- M projects/sfia-studio-next/web/src/domains/preparation/service.ts
- M projects/sfia-studio-next/web/tests/unit/ml5-cognitive-envelope-and-continuity.test.ts
-?? projects/sfia-studio-next/web/scripts/ml5-adaptive-live-campaign.mjs
-?? projects/sfia-studio-next/web/scripts/ml5-adaptive-live-continue.mjs
-?? projects/sfia-studio-next/web/scripts/ml5-adaptive-s2-note-parent.mjs
-?? projects/sfia-studio-next/web/scripts/ml5-adaptive-s3-only.mjs
-?? projects/sfia-studio-next/web/scripts/ml5-adaptive-s3-synthesis-from-acquis.mjs
-```
+## 2. Sources consulted (this cycle)
 
-### Diffstat vs base cb4ae599
-```
-.../construction/delivery-history.md               |  18 ++
- .../web/src/components/figma/NoraLiveActivity.tsx  |  28 +-
- .../domains/conversation/cognitive-conductor.ts    | 102 ++++++-
- .../src/domains/conversation/cognitive-policy.ts   |  24 +-
- .../web/src/domains/conversation/cognitive-work.ts |  51 +++-
- .../web/src/domains/conversation/document-act.ts   |  17 +-
- .../src/domains/conversation/document-command.ts   |  10 +
- .../conversation/investigation-continuation.ts     |  13 +-
- .../domains/conversation/investigation-state.ts    |   7 +
- .../web/src/domains/conversation/nora-adapter.ts   |  65 +++-
- .../conversation/run-nora-cognitive-turn.ts        | 336 +++++++++++++++++++--
- .../web/src/domains/conversation/service.ts        |  23 +-
- .../web/src/domains/preparation/service.ts         |  17 +-
- .../ml5-cognitive-envelope-and-continuity.test.ts  | 210 +++++++++++--
- 14 files changed, 807 insertions(+), 114 deletions(-)
-```
+- method/sfia-fast-track + SEF/routing (mandate)
+- sfia-review-handoff/latest-chatgpt-review.md @3fecb855 (prior adaptive)
+- architecture-technique/conducteur-cognitif-et-production-nora.md
+- construction/delivery-history.md, ml5-registre-couverture-et-revue-developpement.md
+- web conversation: semantic-qualification, investigation-state, run-nora-cognitive-turn, cognitive-conductor, nora-adapter, cognitive-work/policy
+- unit tests + short LIVE Chantiers360 (5 files)
 
----
+## 3. Corrections A/B/C/D
 
-## 2. Sources réellement consultées
+### A — Semantic qualification
+- Removed lexical `exhaustiveSeed` / `wantsNoteFromPrior` / count-based inventory seed.
+- Added structured `investigationMode` + `investigationSufficiency`.
+- Profile/segment budget from qualification / investigation state.
 
-- Architecture `conducteur-cognitif-et-production-nora.md` (ref docs) — reprise opérationnelle.
-- Handoffs `5f208d5e` / blob `1a72b12a` — réserves B4, LEGACY, LIVE.
-- SDK `@openai/agents` 0.21.0 installé — maxTurns, usage, soft boundary applicative (pas de compaction opaque inventée).
-- OpenAI Agents JS guides (running/sessions/results/models) + compaction/conversation-state — vérifiés vs version installée.
-- SEF / roadmap / ENV-01 / product-versioning (blobs main).
-- Corpus Chantiers360 (arepo_60b78cda) — 50 paths pré-déclarés.
+### B — Reliable source tracking
+- `canonicalSourcePathKey` (full path, not basename).
+- `inventoryKeys` / examined vs partial vs denied; frozen perimeter does not inflate.
+- Removed `examined >= 50 && total-examined <= 2` exception.
 
----
+### C — Capitalisation
+- `upsertConclusion` / normalized fingerprint (reformulation ≠ progress).
+- Parent selection by acquis relevance score.
+- Note-from-prior via structured intents/relation only.
 
-## 3. SDK et capacités vérifiées
+### D — Intelligent termination
+- COMPLETE/AWAIT_PILOT/SUSPEND respected even if inventory incomplete.
+- Soft-stop enters `RESTITUTION_PHASE` (reserve usable); 1M sets `REEVAL_THRESHOLD_1M` + strategy change.
+- Calibration unchanged: 2M / 1M / 120.
 
-| Capacité | Statut |
-|---|---|
-| maxTurns | Exception MaxTurnsExceeded → soft segment boundary CONTINUE (category `max_turns`) |
-| Usage | AGENTS_SDK_RUN_STATE ; cache **non** soustrait du cumul |
-| Sessions SDK | non utilisées comme politique de compaction métier |
-| Compaction fournisseur | non substituée aux checkpoints D3 |
-| AbortSignal / HTTP | timeouts client ≠ arrêt serveur ; travail continue côté Next |
-
----
-
-## 4. Mécanisme d’exécution réel
-
-1. `runNoraCognitiveTurn` → `resolveCognitiveWorkAttachment` → `runCognitiveConductor`.
-2. Segments locaux (investigation jusqu’à 40) ; auto-rounds serveur sur `SEGMENT_INVOCATION_LIMIT`.
-3. Avant segment : `evaluateGlobalResourceEnvelope` (2M + réserve restitution).
-4. Après : checkpoint PG, fingerprint anti-boucle, activity métier.
-5. Soft boundary provider → CONTINUE + checkpoint, **sans** polluer le corps DOCUMENT (correctif final).
-6. Inventaire périmètre : freeze sur liste Pilote / count déclaré ; continue si inventaire incomplet.
-
----
-
-## 5. Architecture de correction (A/B/C/D)
-
-### A — Conduite adaptative
-- Politique 2M / 1M reeval / 120 segments.
-- Segments courts (maxProviderCalls investigation 8) + frontières soft.
-- Continuité automatique sans nouveau message Pilote.
-- Contexte compacté + prochaines sources non examinées.
-
-### B — Continuité / capitalisation
-- Checkpoints PG versionnés.
-- Couverture inventaire + plages PARTIAL/DENIED.
-- `parent_work_id` + injection acquis parent (B4).
-- `NEW_PRODUCTION_FROM_PRIOR_ACQUIS` / note-from-prior text heuristic.
-
-### C — Intégrité documentaire
-- `contentSha256` titre\0corps vs `contentBodySha256`.
-- Section hints authority-aware (C2).
-- LEGACY fence → canonicalize déterministe (préservé).
-- Soft-boundary exclu du merge DOCUMENT.
-
-### D — Activité LIVE
-- Producteurs Git + progress `consulted/inventoryTotal`.
-- Objectif stable ; failed ≠ ✓ (NoraLiveActivity).
-
----
-
-## 6. Politique de ressources effective
+## 4. Git Review Index (vs d58d42802e50d64c97cdfc9e66bc769c74e0c0fa)
 
 ```
-SFIA_COGNITIVE_MAX_TOKENS=2000000
-SFIA_COGNITIVE_REEVAL_TOKENS=1000000
-SFIA_COGNITIVE_MAX_SEGMENTS=120
-```
-Seuil 1M = réévaluation (notée dans remainingWork / limits), pas suspension.
-Plafond 2M = enveloppe administrative ; soft-stop avec réserve restitution.
-Cache tokens comptabilisés séparément, **non** déduits du cumul sécurité.
-
----
-
-## 7. Mesures cognitives LIVE
-
-### S1 — Demande simple
-```json
-{
-  "id": "cgw_a177e731-63c2-4360-a020-b6d12ef25901",
-  "status": "COMPLETE",
-  "revision": 3,
-  "interrupt_cause": null,
-  "objective": "D\u00e9finir en une phrase ce qu\u2019est un checkpoint cognitif dans Studio Next.",
-  "resources": {
-    "segmentCalls": 1,
-    "inputTokens": 8436,
-    "outputTokens": 245,
-    "cacheTokens": 2764,
-    "reasoningTokens": 0,
-    "estimatedCostUsd": null,
-    "modelRequested": "gpt-6.2-sol",
-    "modelApplied": "UNVERIFIED",
-    "effortRequested": "medium",
-    "effortApplied": "UNVERIFIED",
-    "webCalls": 0,
-    "durationMs": 5625,
-    "limits": [
-      "CACHED_INPUT_TOKENS:2764",
-      "PROVIDER_REQUESTS:1",
-      "USAGE_PROVENANCE:AGENTS_SDK_RUN_STATE"
-    ]
-  },
-  "state": {
-    "intentSummary": "D\u00e9finir en une phrase ce qu\u2019est un checkpoint cognitif dans Studio Next.",
-    "desiredOutcome": "",
-    "constraints": [],
-    "risks": [],
-    "profileHint": "simple",
-    "questions": [],
-    "sources": [],
-    "contradictions": [],
-    "exclusions": [],
-    "remainingWork": [],
-    "sufficiency": "INSUFFICIENT",
-    "contractReady": false,
-    "contractReadyBlockedReason": "R\u00e9sultat attendu non sp\u00e9cifi\u00e9",
-    "productionInstruction": null,
-    "acceptanceCriteria": [],
-    "conclusions": [],
-    "inventoryTotal": null,
-    "inventoryExamined": 0,
-    "registeredPublicTopics": {},
-    "authorizedExactWebQueries": [],
-    "registeredPublicFacts": [],
-    "cognitiveWorkId": "cgw_a177e731-63c2-4360-a020-b6d12ef25901",
-
+ .../conducteur-cognitif-et-production-nora.md      |   9 +
+ .../construction/delivery-history.md               |  22 ++
+ ...5-registre-couverture-et-revue-developpement.md |   8 +-
+ .../ml5-cognitive-completion-short-live.mjs        | 259 ++++++++++++
+ .../domains/conversation/cognitive-conductor.ts    | 129 +++++-
+ .../domains/conversation/investigation-state.ts    |  68 +++-
+ .../web/src/domains/conversation/nora-adapter.ts   |   4 +-
+ .../conversation/run-nora-cognitive-turn.ts        | 435 +++++++++++++--------
+ .../domains/conversation/semantic-qualification.ts |  13 +
+ .../unit/ml5-cognitive-completion-abcd.test.ts     | 330 ++++++++++++++++
+ .../ml5-cognitive-envelope-and-continuity.test.ts  |  76 +++-
+ 11 files changed, 1160 insertions(+), 193 deletions(-)
 ```
 
-### S2 — Investigation Git + note
-- Analyse multi-seg: keys=['id', 'status', 'revision', 'interrupt_cause', 'objective', 'resources', 'state', 'production', 'parent_work_id']
-- Note D4: `documentSave`={"status": "AVAILABLE", "documentId": "doc_86a08511-23c1-4644-8f04-28a0617becea", "revisionId": "drev_57eaac9c-70da-429f-9534-847ae27462b4", "revisionNumber": 1, "act": "CREATE"}
-- Work note antérieur parent null (avant fix) ; correctif parent prouvé sur travaux suivants.
-- S2c note-with-parent: status=OPEN parent=cgw_ef647d73-cad1-4dcc-b2eb-926e7e144d90 segs=12 tok=1110137 prod=COMPLETE
+## 5. Created files (full contents)
 
-### S3 — Investigation longue 50 sources (discriminant)
-
-| Métrique | Valeur |
-|---|---|
-| Work | `cgw_1991a962-0063-4c57-abb3-8ef905d05110` |
-| Segments | 26 |
-| Tokens cumulés | 2 045 830 |
-| Checkpoints | 27 |
-| Inventaire déclaré | 50 |
-| Couverture chemins | **50/50** (34 CONSULTED + 14 PARTIAL + 2 DENIED) |
-| Terminal | SUSPENDED `GLOBAL_TOKEN_BUDGET_EXHAUSTED` (après couverture ; inflation 51/52 corrigée ensuite) |
-| Conclusions persistées | 24 |
-| Continuité | multi-générations SEGMENT_CONTINUE automatiques ; passage seuil 1M observé |
-
-```json
-{
-  "workId": "cgw_1991a962-0063-4c57-abb3-8ef905d05110",
-  "status": "SUSPENDED",
-  "interruptCause": "GLOBAL_TOKEN_BUDGET_EXHAUSTED",
-  "segments": 26,
-  "tokens": 2045830,
-  "checkpoints": 27,
-  "coverageCounter": {
-    "PARTIAL": 14,
-    "CONSULTED": 34,
-    "DENIED": 2
-  },
-  "coveredPaths": 50,
-  "inventoryDeclared": 50,
-  "conclusionsSample": [
-    "Que prouvent les migrations de planning, de budget et d’alertes budgétaires ? → 0004 crée les ouvriers et leurs créneaux (EVOL-002, ADR-001) ; 0005 crée les ressources et dépenses et active par défaut les réglages d’alerte à 80 % et 100 % ; 0006 ajoute les deux types d’alerte. Ces migrations ne prouvent ni le calcul ni l’émission d’une alerte.",
-    "Comment les gardes et décorateurs appliquent-ils les règles d’identité et de rôle déclarées ? → D’après les lectures antérieures reportées : identité résolue et exposée sur la requête, sinon 401 ; CurrentUser lit ce contexte ; les métadonnées de méthode priment sur celles de classe, et un rôle requis non satisfait donne 403.",
-    "Les six fichiers alerts mettent-ils en œuvre un déclenchement des alertes ? → Non dans ces six fichiers : le module câble un contrôleur sans route et un service vide ; DTO, entité et dépôt sont vides. Les deux options de seuil de la migration 0005 ne prouvent pas un déclenchement.",
-    "Que prouvent les trois premières migrations sur le socle métier, les réserves et les photos ? → 0001 pose le socle relationnel, les statuts et les valeurs par défaut ; ne contraint pas les transitions de chantier ni l’unicité des affectations. 0002 ajoute le responsable et la date de prise en charge facultatifs, impose une FK pour le créateur et remet le responsable à NULL à la suppression. 0003 introduit les métadonnées de stockage, la suppression logique et une clé de stockage unique, avec",
-    "Comment les gardes et décorateurs appliquent-ils les règles d’identité et de rôle déclarées ? → Selon les lectures antérieures rapportées : les gardes d’identité alimentent le contexte utilisateur de la requête ou renvoient 401 ; CurrentUser lit ce contexte. Les métadonnées de méthode priment sur celles de classe ; le défaut d’un rôle exigé produit un 403. Reste à rattacher ce constat aux routes et à la configuration du module Auth, sans relire les gardes.",
-    "Pour chacun des 50 chemins, quel état de lecture peut-on justifier au commit fixé ? → 13 lectures intégrales directement attestées dans ce segment, 33 lectures antérieures rapportées sans nouve
-```
-
-#### Inventaire pré-déclaré (50)
-```
-.github/dependabot.yml
-.github/workflows/ci.yml
-.github/workflows/docker-publish.yml
-Cartographie des workflows.txt
-Compte rendu - Atelier cadrage #1.txt
-Compte rendu - Atelier cadrage #2.txt
-Compte rendu - Validation du périmètre fonctionnel.txt
-DAA - Chantiers360.txt
-Modèle de données détaillé.txt
-README.md
-SFG - Projet Chantiers360.txt
-backend/README.md
-backend/prisma.config.ts
-backend/prisma/migrations/0001_init/migration.sql
-backend/prisma/migrations/0002_issue_assignee/migration.sql
-backend/prisma/migrations/0003_photo_upload_storage/migration.sql
-backend/prisma/migrations/0004_worker_planning/migration.sql
-backend/prisma/migrations/0005_budget_resources_expenses/migration.sql
-backend/prisma/migrations/0006_alert_budget_types/migration.sql
-backend/prisma/recette-seed.ts
-backend/prisma/schema.prisma
-backend/prisma/seed.ts
-backend/src/alerts/alerts.controller.ts
-backend/src/alerts/alerts.module.ts
-backend/src/alerts/alerts.service.ts
-backend/src/alerts/dto/create-alerts.dto/create-alerts.dto.ts
-backend/src/alerts/entities/alerts.entity/alerts.entity.ts
-backend/src/alerts/repositories/alerts.repository/alerts.repository.ts
-backend/src/app.controller.spec.ts
-backend/src/app.controller.ts
-backend/src/app.module.ts
-backend/src/app.service.ts
-backend/src/assignments/assignments.controller.ts
-backend/src/assignments/assignments.module.ts
-backend/src/assignments/assignments.service.ts
-backend/src/assignments/dto/create-assignments.dto/create-assignments.dto.ts
-backend/src/assignments/entities/assignments.entity/assignments.entity.ts
-backend/src/assignments/repositories/assignments.repository/assignments.repository.ts
-backend/src/auth/auth.controller.ts
-backend/src/auth/auth.module.ts
-backend/src/auth/auth.service.spec.ts
-backend/src/auth/auth.service.ts
-backend/src/auth/constants/api-roles.ts
-backend/src/auth/decorators/current-user.decorator.ts
-backend/src/auth/decorators/roles.decorator.ts
-backend/src/auth/dto/login.dto.ts
-backend/src/auth/guards/jwt-auth.guard.ts
-backend/src/auth/guards/roles.guard.spec.ts
-backend/src/auth/guards/roles.guard.ts
-backend/src/auth/guards/user-context.guard.ts
+### `projects/sfia-studio-next/web/tests/unit/ml5-cognitive-completion-abcd.test.ts`
 
 ```
-
-#### Extrait restitution / synthèse
-```
-J’ai avancé sur ce travail, mais je n’ai pas pu livrer une restitution complète et fiable sur ce tour. J’ai atteint la limite de ressources allouée à ce travail cognitif. Conclusions et acquis déjà consolidés:
-• Quels chemins et quelle révision régissent la revue ? → Les 50 chemins de la demande initiale, au commit fixé ; le relevé est dédupliqué par chemin et ne somme pas les compteurs historiques. • Une réserve EN_COURS satisfait-elle le critère métier de clôture ? → Non selon le cadrage : réception validée et toutes les réserves levées. L’ambiguïté de la SFG subsiste et la règle métier ne prouve pas le verrou serveur. • Une réserve EN_COURS est-elle compatible avec la règle de clôture du cadrage ? → Non. Le cadrage exige une réception validée et toutes les réserves levées. La SFG reste ambiguë et ce constat documentaire ne démontre pas le verrou serveur. • Une réserve EN_COURS est-elle compatible avec la règle de clôture du cadrage ? → Non : le cadrage exige une réception validée et toutes les réserves levées. Le mot « ouvertes » dans la SFG est ambigu et n’établit pas le comportement du serveur. • Une réserve EN_COURS est-elle compatible avec la règle de clôture du cadrage ? → Non. L’atelier nº 2 exige une réception validée et toutes les réserves levées. La formulation de la SFG reste ambiguë et ne renseigne pas sur le comportement serveur. • Une réserve EN_COURS est-elle compatible avec la règle métier de clôture ? → Non. Le cadrage exige une réception validée et toutes les réserves levées. Cette règle ne prouve pas son application serveur. • Quels chemins et quelle révision régissent la revue ? → Seuls les 50 chemins nommés dans la demande initiale sont admis, au commit fixé ; le relevé est dédupliqué par chemin. • Une réserve EN_COURS est-elle compatible avec la règle de clôture du cadrage ? → Non. Le cadrage exige une réception validée et toutes les réserves levées. Le mot « ouvertes » dans la SFG est ambigu ; il ne démontre pas la règle effectivement appliquée par le serveur. Lectures effectuées:
-• Git · CONSULTED — alerts.entity.ts — read_git_file — fichier lu
-• Git · CONSULTED — roles.guard.spec.ts — read_git_file — fichier lu
-• Git · CONSULTED — api-
-```
-
-#### Trace segments (échantillon chronologique)
-| Time UTC | segs | tokens | inv |
-|---|---|---|---|
-| 11:23 | 1 | — | 11/50 |
-| 11:25 | 2 | — | 19/50 |
-| 11:27 | 3 | 76 195 | 31/50 |
-| 11:28 | 4 | 147 923 | 43/50 |
-| 11:31 | 5 | 249 958 | 50/51* |
-| 11:49 | 14 | 1 003 854 | 51/52* |
-| 12:12 | 26 | 2 045 830 | 51/52* |
-
-\* inflation inventaire par découvertes hors périmètre — **corrigée** (freeze périmètre Pilote).
-
-### B4 parent_work_id
-- `cgw_610bcbce.parent_work_id = cgw_1991a962`
-- `cgw_cd948312.parent_work_id = cgw_ef647d73`
-- Injection acquis parent dans le premier segment du nouvel enveloppe.
-
-### Note D4
-- `doc_86a08511-23c1-4644-8f04-28a0617becea` — « Prévenir les doubles réservations — recommandation pour un MVP »
-
----
-
-## 8. Completeness Gate
-
-| # | Condition | Preuve |
-|---|---|---|
-| 1 | Stratégie adaptative | profiles simple/analyse/investigation + exhaustiveSeed |
-| 2 | Segmentation réelle | 26 segs S3 ; 2+ S2 |
-| 3 | Continuation automatique | SEGMENT_CONTINUE + auto-rounds |
-| 4 | Contrôle appels | soft boundary max_turns/schema ; envelope avant segment |
-| 5 | Contextes maîtrisés | continuation compactée + next paths |
-| 6 | Checkpoints durables | 27 ckpts S3 |
-| 7 | Ressources cumulatives | 2.04M mesurés |
-| 8 | Calibration 1M/2M | env + evaluateGlobalResourceEnvelope tests |
-| 9 | Anti-boucles | NO_PROGRESS_DETECTED fingerprint |
-| 10 | Demande simple | S1 campaign |
-| 11 | Investigation Git | S2 LIVE |
-| 12 | 50 sources | s3d-coverage-50.json 50/50 |
-| 13 | Couverture exacte | pathCoverage 50 |
-| 14 | Synthèse | restitution + 24 conclusions |
-| 15 | Réutilisation acquis | parent_work_id + parent acquis block |
-| 16 | Note D4 | doc_86a08511 |
-| 17 | Reprise | lease/CAS préservés ; SEGMENT_INVOCATION auto-continue |
-| 18–20 | C1–C3 | tests contentSha + section authority + LEGACY path |
-| 21–23 | LIVE honest | NoraLiveActivity failed≠✓ ; git producers |
-| 24 | Non-régression RB | mécanismes antérieurs préservés |
-| 25 | Docs | delivery-history append |
-| 26 | Build DEV | CC0wLCfVBY-Q1uALQDItr |
-| 27 | RECETTE préservée | 3RyhswMcKrNv8woukVXsT |
-
----
-
-## 9. Manifeste candidat
-
-| Champ | Valeur |
-|---|---|
-| Delivery | next-ml5-adaptive-cognitive-continuation-20261125 |
-| Base | cb4ae599 |
-| BUILD_ID | CC0wLCfVBY-Q1uALQDItr |
-| Digest | 882e1eff3c198e79a91c8d732275195a31841dd2ba469c4540e50934889f02a7 |
-| Lane | DEV |
-| DB | :5433 |
-| RECETTE | inchangée |
-| NO RELEASE | oui |
-
----
-
-## 10. Réserves et verdict
-
-**Réserves**
-1. Terminal S3 = GLOBAL_TOKEN_BUDGET_EXHAUSTED après couverture complète des 50 (inflation inventaire) — freeze déployé.
-2. Travaux « note from acquis » peuvent encore consommer beaucoup de tokens en relectures Git malgré parent.
-3. Soft-boundary ne doit plus écrire dans contentMarkdown DOCUMENT (correctif inclus).
-4. Timeouts HTTP client (undici/curl) n’arrêtent pas le conducteur serveur.
-
-**Verdict**
-
-NORA ADAPTIVE COGNITIVE CONTINUATION — LONG INVESTIGATION PROVEN — ML5 CORRECTIVE DELIVERY COMPLETE — READY FOR CHATGPT REVIEW.
-
-ML5 OPEN · R5 IN PROGRESS · R6 NOT STARTED · NO RELEASE · NOT ADOPTED.
-
----
-
-## 11. Git Review Index — nouveaux fichiers
-
-### `projects/sfia-studio-next/web/scripts/ml5-adaptive-live-campaign.mjs`
-```javascript
 /**
- * ML5 adaptive continuation — three discriminating LIVE scenarios (DEV only).
- * Product API path only — no injected checkpoints / no direct model calls.
+ * ML5 targeted A/B/C/D — semantic qualification, source identity,
+ * capitalisation, intelligent termination. No 50-source campaign.
  */
-import { writeFileSync, mkdirSync, readFileSync } from "node:fs";
+import { describe, expect, it } from "vitest";
+import {
+  canonicalSourcePathKey,
+  createEmptyInvestigation,
+  normalizeConclusionKey,
+  upsertConclusion,
+} from "@/domains/conversation/investigation-state";
+import {
+  inventoryResolvedCount,
+  mergeInvestigationFromReply,
+  semanticContinueWork,
+} from "@/domains/conversation/run-nora-cognitive-turn";
+import { evaluateGlobalResourceEnvelope } from "@/domains/conversation/cognitive-work";
+import type { NoraGenerateResult } from "@/domains/conversation/nora-adapter";
+import type { NoraTurnQualification } from "@/domains/conversation/semantic-qualification";
+
+function reply(
+  q: Partial<NoraTurnQualification>,
+  extras?: Partial<NoraGenerateResult>,
+): NoraGenerateResult {
+  return {
+    content: "ok",
+    status: "COMPLETE",
+    generationId: "g1",
+    mode: "deterministic-fixture",
+    policy: {} as NoraGenerateResult["policy"],
+    modelRequested: "gpt-6.2-sol",
+    modelApplied: null,
+    effortRequested: "medium",
+    effortApplied: null,
+    attempts: [],
+    toolCallsObserved: 0,
+    d4CharsReturned: 0,
+    observedToolSources: extras?.observedToolSources ?? [],
+    qualification: {
+      schemaVersion: "1",
+      status: "QUALIFIED",
+      goal: "g",
+      desiredOutcome: "o",
+      intents: [],
+      determiningQuestions: [],
+      ...q,
+    } as NoraTurnQualification,
+    ...extras,
+  } as NoraGenerateResult;
+}
+
+describe("A — semantic qualification (no lexical mission routing)", () => {
+  it("does not invent EXHAUSTIVE mode from the digit 50 alone", () => {
+    const userText =
+      "Le ticket #50 mentionne une règle de gouvernance; résume-la brièvement.";
+    const merged = mergeInvestigationFromReply(
+      createEmptyInvestigation(userText),
+      reply({
+        cognitiveProfileHint: "simple",
+        investigationMode: "TARGETED",
+        workDisposition: "COMPLETE",
+        investigationSufficiency: "SUFFICIENT",
+      }),
+      userText,
+    );
+    expect(merged.investigationMode).toBe("TARGETED");
+    expect(merged.inventoryTotal == null || merged.inventoryTotal < 50).toBe(true);
+    expect(merged.profileHint).toBe("simple");
+  });
+
+  it("honours EXHAUSTIVE from structured qualification without keyword density", () => {
+    const userText =
+      "Parcours le jeu de documents de ce dépôt et compare les responsabilités.";
+    const prior = createEmptyInvestigation(userText);
+    prior.inventoryKeys = [
+      "docs/a/policy.md",
+      "docs/b/policy.md",
+      "docs/c/roles.md",
+    ];
+    prior.inventoryTotal = 3;
+    const merged = mergeInvestigationFromReply(
+      prior,
+      reply({
+        cognitiveProfileHint: "investigation",
+        investigationMode: "EXHAUSTIVE",
+        workDisposition: "CONTINUE",
+        investigationSufficiency: "INSUFFICIENT",
+      }),
+      userText,
+    );
+    expect(merged.investigationMode).toBe("EXHAUSTIVE");
+    expect(merged.inventoryTotal).toBe(3);
+    expect(merged.profileHint).toBe("investigation");
+  });
+
+  it("stops on SUFFICIENT even when disposition was CONTINUE is not required", () => {
+    const inv = createEmptyInvestigation("synthèse");
+    inv.sufficiency = "SUFFICIENT";
+    expect(
+      semanticContinueWork(
+        {
+          status: "QUALIFIED",
+          workDisposition: "COMPLETE",
+          investigationSufficiency: "SUFFICIENT",
+          goal: "g",
+          desiredOutcome: "o",
+          intents: [],
+          determiningQuestions: [],
+        } as unknown as NoraTurnQualification,
+        inv,
+        reply({ workDisposition: "COMPLETE", investigationSufficiency: "SUFFICIENT" }),
+      ),
+    ).toBe(false);
+  });
+});
+
+describe("B — canonical source identity and coverage", () => {
+  it("distinguishes same basename under different directories", () => {
+    const a = canonicalSourcePathKey(
+      "git-file:org/repo:migrations/0001/migration.sql@abc1234",
+    );
+    const b = canonicalSourcePathKey(
+      "git-file:org/repo:migrations/0002/migration.sql@abc1234",
+    );
+    expect(a).toBe("migrations/0001/migration.sql");
+    expect(b).toBe("migrations/0002/migration.sql");
+    expect(a).not.toBe(b);
+  });
+
+  it("counts CONSULTED/VERIFIED as examined; PARTIAL and DENIED separately", () => {
+    const userText = [
+      "Examine:",
+      "docs/alpha/readme.md",
+      "docs/beta/readme.md",
+      "docs/gamma/notes.md",
+    ].join("\n");
+    const prior = createEmptyInvestigation(userText);
+    prior.investigationMode = "TARGETED";
+    const merged = mergeInvestigationFromReply(
+      prior,
+      reply(
+        {
+          investigationMode: "TARGETED",
+          workDisposition: "CONTINUE",
+          goal: "Couverture",
+          desiredOutcome: "Synthèse",
+        },
+        {
+          observedToolSources: [
+            {
+              kind: "GIT",
+              ref: "git-file:org/r:docs/alpha/readme.md@deadbeef",
+              title: "readme",
+              coverage: "CONSULTED",
+            },
+            {
+              kind: "GIT",
+              ref: "git-file:org/r:docs/beta/readme.md@deadbeef",
+              title: "readme",
+              coverage: "PARTIAL",
+            },
+            {
+              kind: "GIT",
+              ref: "git-file:org/r:docs/gamma/notes.md@deadbeef",
+              title: "notes",
+              coverage: "DENIED",
+            },
+          ],
+        },
+      ),
+      userText,
+    );
+    expect(merged.inventoryKeys?.length).toBe(3);
+    expect(merged.inventoryExamined).toBe(1);
+    expect(merged.inventoryPartial).toBe(1);
+    expect(merged.inventoryDenied).toBe(1);
+    expect(inventoryResolvedCount(merged)).toBe(2);
+    // Same basename must not collapse alpha/beta.
+    expect(merged.inventoryExamined).not.toBe(2);
+  });
+
+  it("does not grow a frozen perimeter from extra discoveries", () => {
+    const userText = ["docs/a.md", "docs/b.md"].join("\n");
+    const prior = createEmptyInvestigation(userText);
+    prior.inventoryKeys = ["docs/a.md", "docs/b.md"];
+    prior.inventoryTotal = 2;
+    prior.investigationMode = "EXHAUSTIVE";
+    const merged = mergeInvestigationFromReply(
+      prior,
+      reply(
+        { investigationMode: "EXHAUSTIVE", workDisposition: "CONTINUE" },
+        {
+          observedToolSources: [
+            {
+              kind: "GIT",
+              ref: "git-file:org/r:docs/a.md@1",
+              title: "a",
+              coverage: "CONSULTED",
+            },
+            {
+              kind: "GIT",
+              ref: "git-file:org/r:docs/b.md@1",
+              title: "b",
+              coverage: "CONSULTED",
+            },
+            {
+              kind: "GIT",
+              ref: "git-file:org/r:docs/surprise.md@1",
+              title: "surprise",
+              coverage: "DISCOVERED",
+            },
+          ],
+        },
+      ),
+      userText,
+    );
+    expect(merged.inventoryTotal).toBe(2);
+    expect(merged.inventoryExamined).toBe(2);
+  });
+});
+
+describe("C — capitalisation", () => {
+  it("dedupes near-identical conclusions without dropping a real contradiction nuance", () => {
+    let list: string[] = [];
+    list = upsertConclusion(
+      list,
+      "La responsabilité de validation appartient au Pilote métier.",
+    );
+    list = upsertConclusion(
+      list,
+      "la responsabilite de validation appartient au pilote metier",
+    );
+    list = upsertConclusion(
+      list,
+      "La responsabilité de validation appartient au comité technique — contradiction ouverte.",
+    );
+    expect(list).toHaveLength(2);
+    expect(normalizeConclusionKey(list[0]!)).not.toBe(
+      normalizeConclusionKey(list[1]!),
+    );
+  });
+});
+
+describe("D — termination and restitution reserve", () => {
+  it("soft-stops to preserve restitution headroom without claiming mid-SDK interrupt", () => {
+    const env = {
+      SFIA_COGNITIVE_MAX_TOKENS: "100000",
+      SFIA_COGNITIVE_REEVAL_TOKENS: "50000",
+      SFIA_COGNITIVE_MAX_SEGMENTS: "120",
+    };
+    const soft = evaluateGlobalResourceEnvelope(
+      {
+        inputTokens: 80_000,
+        outputTokens: 0,
+        segmentCalls: 2,
+        webCalls: 0,
+        durationMs: 1,
+        limits: [],
+      },
+      env,
+      { reserveForRestitution: 24_000, projectedNextSegmentTokens: 30_000 },
+    );
+    expect(soft.ok).toBe(false);
+    expect(soft.softStop).toBe(true);
+
+    // Same budget, restitution phase (reserve=0, smaller projection) must be usable.
+    const restitution = evaluateGlobalResourceEnvelope(
+      {
+        inputTokens: 80_000,
+        outputTokens: 0,
+        segmentCalls: 2,
+        webCalls: 0,
+        durationMs: 1,
+        limits: ["RESTITUTION_PHASE"],
+      },
+      env,
+      { reserveForRestitution: 0, projectedNextSegmentTokens: 12_000 },
+    );
+    expect(restitution.ok).toBe(true);
+  });
+
+  it("flags 1M reevaluation without suspending", () => {
+    const env = {
+      SFIA_COGNITIVE_MAX_TOKENS: "2000000",
+      SFIA_COGNITIVE_REEVAL_TOKENS: "1000000",
+      SFIA_COGNITIVE_MAX_SEGMENTS: "120",
+    };
+    const mid = evaluateGlobalResourceEnvelope(
+      {
+        inputTokens: 1_100_000,
+        outputTokens: 0,
+        segmentCalls: 5,
+        webCalls: 0,
+        durationMs: 1,
+        limits: [],
+      },
+      env,
+      { reserveForRestitution: 24_000, projectedNextSegmentTokens: 30_000 },
+    );
+    expect(mid.ok).toBe(true);
+    expect(mid.reevaluationNeeded).toBe(true);
+  });
+
+  it("DENIED counts toward perimeter resolution (no infinite retry)", () => {
+    const inv = createEmptyInvestigation("périmètre");
+    inv.inventoryTotal = 3;
+    inv.inventoryExamined = 2;
+    inv.inventoryDenied = 1;
+    inv.inventoryPartial = 0;
+    expect(inventoryResolvedCount(inv)).toBe(3);
+    expect(
+      semanticContinueWork(
+        {
+          status: "QUALIFIED",
+          workDisposition: "COMPLETE",
+          investigationSufficiency: "SUFFICIENT",
+          goal: "g",
+          desiredOutcome: "o",
+          intents: [],
+          determiningQuestions: [],
+        } as unknown as NoraTurnQualification,
+        inv,
+        reply({
+          workDisposition: "COMPLETE",
+          investigationSufficiency: "SUFFICIENT",
+        }),
+      ),
+    ).toBe(false);
+  });
+});
+```
+
+### `projects/sfia-studio-next/web/scripts/ml5-cognitive-completion-short-live.mjs`
+
+```
+/**
+ * ML5 cognitive completion — ONE short LIVE investigation (3–5 Git files) + note-from-acquis.
+ * DEV :3100 only. Does NOT relaunch the 50-source campaign.
+ */
+import { writeFileSync, mkdirSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import { execSync } from "node:child_process";
 
 const BASE = process.env.SFIA_ADAPTIVE_BASE || "http://127.0.0.1:3100";
-const OUT = process.env.SFIA_ADAPTIVE_OUT || "/tmp/sfia-ml5-adaptive-proofs";
+const OUT = process.env.SFIA_ADAPTIVE_OUT || "/tmp/sfia-ml5-cognitive-completion-proofs";
 mkdirSync(OUT, { recursive: true });
 
+const CORPUS = [
+  "README.md",
+  "SFG - Projet Chantiers360.txt",
+  "DAA - Chantiers360.txt",
+  "backend/src/auth/constants/api-roles.ts",
+  "Compte rendu - Validation du périmètre fonctionnel.txt",
+];
+
+const REPO_ID = "arepo_60b78cda-7450-47fd-accd-3525c2e53a62";
 const jar = { cookie: "" };
-async function api(path, { method = "GET", body, timeoutMs = 1_800_000 } = {}) {
+
+async function api(path, { method = "GET", body, timeoutMs = 900_000 } = {}) {
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), timeoutMs);
   try {
@@ -435,7 +462,7 @@ async function api(path, { method = "GET", body, timeoutMs = 1_800_000 } = {}) {
     try {
       json = JSON.parse(text);
     } catch {
-      json = { _raw: text.slice(0, 800) };
+      json = { _raw: text.slice(0, 1200) };
     }
     return { status: res.status, json };
   } finally {
@@ -449,8 +476,9 @@ function save(name, data) {
 
 function pgJson(sql) {
   try {
+    const oneLine = sql.replace(/\s+/g, " ").trim();
     const raw = execSync(
-      `docker exec sfia-next-dev-pg psql -U sfia_next_dev -d sfia_next_dev -t -A -c ${JSON.stringify(sql)}`,
+      `docker exec sfia-next-dev-pg psql -U sfia_next_dev -d sfia_next_dev -t -A -c ${JSON.stringify(oneLine)}`,
       { encoding: "utf8", maxBuffer: 20_000_000 },
     ).trim();
     if (!raw) return null;
@@ -464,11 +492,12 @@ function pgJson(sql) {
   }
 }
 
-function loadWorkMetrics(workId) {
+function metrics(workId) {
   if (!workId) return null;
   const work = pgJson(
     `SELECT row_to_json(t) FROM (
       SELECT id, status, revision, interrupt_cause AS "interruptCause",
+             parent_work_id AS "parentWorkId",
              objective, resources_json::json AS resources,
              state_json::json AS state, production_json::json AS production
       FROM cognitive_works WHERE id='${workId}'
@@ -488,508 +517,56 @@ function loadWorkMetrics(workId) {
     status: work?.status,
     revision: work?.revision,
     interruptCause: work?.interruptCause,
+    parentWorkId: work?.parentWorkId ?? null,
     objective: work?.objective,
     resources,
     inventoryTotal: state.inventoryTotal ?? null,
     inventoryExamined: state.inventoryExamined ?? null,
-    sourcesConsulted: sources.filter((s) =>
-      ["CONSULTED", "VERIFIED", "PARTIAL"].includes(s.coverage),
-    ).length,
-    sourcesDiscovered: sources.filter((s) => s.coverage === "DISCOVERED").length,
-    sourceRefs: sources.map((s) => ({
+    inventoryPartial: state.inventoryPartial ?? null,
+    inventoryDenied: state.inventoryDenied ?? null,
+    inventoryKeys: state.inventoryKeys ?? null,
+    investigationMode: state.investigationMode ?? null,
+    sufficiency: state.sufficiency ?? null,
+    sources: sources.map((s) => ({
       ref: s.ref,
       coverage: s.coverage,
       kind: s.kind,
     })),
     conclusions: state.conclusions || [],
     remainingWork: state.remainingWork || [],
+    productionKind: work?.production?.kind ?? null,
+    productionStatus: work?.production?.status ?? null,
+    contentPreview: (work?.production?.contentMarkdown || "").slice(0, 1200),
     checkpoints: checkpoints || [],
     checkpointCount: Array.isArray(checkpoints) ? checkpoints.length : 0,
   };
 }
 
-const report = {
-  startedAt: new Date().toISOString(),
-  base: BASE,
-  steps: [],
-  inventory: null,
-  scenarios: {},
-};
-function step(name, data) {
-  report.steps.push({ name, at: new Date().toISOString(), ...data });
-  console.log(`[${name}]`, JSON.stringify(data).slice(0, 500));
-}
-
-function summarizeTurn(json, httpStatus = null) {
-  const cw = json.cognitiveWork || json.conductor || {};
-  const inv = cw.investigation || json.investigation || {};
-  const resources = cw.resources || {};
-  const lastMsg =
-    (json.messages || []).slice(-1)[0] ||
-    (json.assistantMessage ? { content: json.assistantMessage } : null);
-  return {
-    httpStatus: httpStatus ?? json.httpStatus ?? null,
-    apiError: json.error || null,
-    replyStatus: json.replyStatus || json.noraStatus || json.status,
-    workId: cw.workId || cw.id || null,
-    revision: cw.revision ?? null,
-    segmentsRun: cw.segmentsRun ?? null,
-    suspended: cw.suspended ?? null,
-    suspendReason: cw.suspendReason ?? null,
-    inputTokens: resources.inputTokens ?? null,
-    outputTokens: resources.outputTokens ?? null,
-    totalTokens:
-      (resources.inputTokens ?? 0) + (resources.outputTokens ?? 0) || null,
-    segmentCalls: resources.segmentCalls ?? null,
-    cacheTokens: resources.cacheTokens ?? null,
-    limits: (resources.limits || []).slice(-12),
-    sourcesConsulted: (inv.sources || []).filter((s) =>
-      ["CONSULTED", "VERIFIED", "PARTIAL"].includes(s.coverage),
-    ).length,
-    sourcesDiscovered: (inv.sources || []).filter((s) => s.coverage === "DISCOVERED")
-      .length,
-    inventoryTotal: inv.inventoryTotal ?? null,
-    inventoryExamined: inv.inventoryExamined ?? null,
-    conclusions: (inv.conclusions || []).length,
-    remainingWork: inv.remainingWork || [],
-    parentWorkHint: cw.parentWorkId || null,
-    attachmentReason: json.cognitiveAttachmentReason || null,
-    documentSave: json.documentSave || null,
-    contentPreview: (lastMsg?.content || json.content || "").slice(0, 400),
-  };
-}
-
-await api("/api/dev/auto-session", { method: "POST" });
-step("auth", { ok: true });
-
-async function waitQualificationTerminal(projectId, { timeoutMs = 120_000 } = {}) {
+async function waitIq(projectId, { timeoutMs = 120_000 } = {}) {
   const started = Date.now();
   let last = null;
   while (Date.now() - started < timeoutMs) {
-    const r = await api(
-      `/api/projects/${projectId}/initial-qualification/reconcile`,
-      { method: "POST", timeoutMs: 60_000 },
-    );
+    const r = await api(`/api/projects/${projectId}/initial-qualification/reconcile`, {
+      method: "POST",
+      timeoutMs: 60_000,
+    });
     last = r.json?.initialQualification || r.json;
-    const status = last?.status;
-    if (status && !["PENDING", "RUNNING", "UNKNOWN"].includes(status)) {
+    if (last?.status && !["PENDING", "RUNNING", "UNKNOWN"].includes(last.status)) {
       return last;
     }
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    await new Promise((r) => setTimeout(r, 1500));
   }
   return last;
 }
 
-async function newProject(name, intention) {
-  const intentionText =
-    intention ||
-    "Analyser et documenter les mécanismes métier d'un dépôt Git autorisé, puis produire des notes de recommandation actionnables.";
-  const prep = await api("/api/preparations", { method: "POST", body: {} });
-  const preparationId = prep.json.preparationId;
-  let g = await api(`/api/preparations/${preparationId}`);
-  let rev = g.json.preparation.creationRevision;
-  await api(`/api/preparations/${preparationId}`, {
-    method: "PATCH",
-    body: {
-      previewName: name,
-      previewSummary: intentionText,
-      expectedCreationRevision: rev,
-    },
-  });
-  g = await api(`/api/preparations/${preparationId}`);
-  rev = g.json.preparation.creationRevision;
-  const created = await api(`/api/preparations/${preparationId}/create-project`, {
-    method: "POST",
-    body: {
-      expectedCreationRevision: rev,
-      projectName: name,
-      idempotencyKey: `adaptive-${randomUUID()}`,
-      previewSummary: intentionText,
-    },
-  });
-  const projectId = created.json.projectId;
-  const iq = await waitQualificationTerminal(projectId);
-  step("qualification", {
-    projectId,
-    status: iq?.status,
-    phase: iq?.phase,
-    composerLocked: iq?.composerLocked,
-  });
-  return { preparationId, projectId, iq };
-}
-
-async function msg(preparationId, content, opts = {}) {
-  return api(`/api/preparations/${preparationId}/messages`, {
-    method: "POST",
-    body: {
-      content,
-      clientTurnKey: `adaptive-${randomUUID()}`,
-      ...(opts.forceNew ? { forceNewCognitiveWork: true } : {}),
-      ...(opts.workId ? { cognitiveWorkId: opts.workId } : {}),
-    },
-    timeoutMs: opts.timeoutMs ?? 1_800_000,
-  });
-}
-
-const REPO_ID =
-  process.env.SFIA_CHANTIERS360_REPO_ID ||
-  "arepo_60b78cda-7450-47fd-accd-3525c2e53a62";
-
-async functi
-```
-
-### `projects/sfia-studio-next/web/scripts/ml5-adaptive-live-continue.mjs`
-```javascript
-/**
- * Continue adaptive LIVE proofs after first multi-segment observation.
- */
-import { writeFileSync, mkdirSync, readFileSync } from "node:fs";
-import { randomUUID } from "node:crypto";
-import { execSync } from "node:child_process";
-
-const BASE = "http://127.0.0.1:3100";
-const OUT = "/tmp/sfia-ml5-adaptive-proofs";
-mkdirSync(OUT, { recursive: true });
-const jar = { cookie: "" };
-
-async function api(path, { method = "GET", body, timeoutMs = 1_800_000 } = {}) {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), timeoutMs);
-  try {
-    const res = await fetch(`${BASE}${path}`, {
-      method,
-      headers: {
-        ...(body ? { "content-type": "application/json" } : {}),
-        ...(jar.cookie ? { cookie: jar.cookie } : {}),
-      },
-      body: body ? JSON.stringify(body) : undefined,
-      signal: ctrl.signal,
-    });
-    for (const c of res.headers.getSetCookie?.() || []) {
-      const part = c.split(";")[0];
-      jar.cookie = jar.cookie ? `${jar.cookie}; ${part}` : part;
-    }
-    const text = await res.text();
-    let json;
-    try {
-      json = JSON.parse(text);
-    } catch {
-      json = { _raw: text.slice(0, 800) };
-    }
-    return { status: res.status, json };
-  } finally {
-    clearTimeout(t);
-  }
-}
-
-function save(name, data) {
-  writeFileSync(`${OUT}/${name}.json`, JSON.stringify(data, null, 2));
-}
-function log(n, d) {
-  console.log(`[${n}]`, JSON.stringify(d).slice(0, 600));
-}
-function pg(sql) {
-  const oneLine = sql.replace(/\s+/g, " ").trim();
-  try {
-    const raw = execSync(
-      `docker exec sfia-next-dev-pg psql -U sfia_next_dev -d sfia_next_dev -t -A -c ${JSON.stringify(oneLine)}`,
-      { encoding: "utf8", maxBuffer: 20_000_000 },
-    ).trim();
-    if (!raw) return null;
-    try {
-      return JSON.parse(raw);
-    } catch {
-      return raw;
-    }
-  } catch (e) {
-    return { error: String(e.message || e) };
-  }
-}
-function metrics(workId) {
-  if (!workId) return null;
-  const work = pg(
-    `SELECT row_to_json(t) FROM (SELECT id, status, revision, interrupt_cause, objective, resources_json::json AS resources, state_json::json AS state, parent_work_id FROM cognitive_works WHERE id='${workId}') t;`,
-  );
-  if (!work || work.error) return { workId, error: work?.error || "missing" };
-  const checkpoints = pg(
-    `SELECT COALESCE(json_agg(row_to_json(t) ORDER BY revision),'[]'::json) FROM (SELECT revision, cause, generation_id, created_at FROM cognitive_work_checkpoints WHERE work_id='${workId}') t;`,
-  );
-  const st = work.state || {};
-  const sources = st.sources || [];
-  const r = work.resources || {};
-  return {
-    workId,
-    status: work.status,
-    revision: work.revision,
-    interruptCause: work.interrupt_cause,
-    parentWorkId: work.parent_work_id,
-    segmentCalls: r.segmentCalls,
-    inputTokens: r.inputTokens,
-    outputTokens: r.outputTokens,
-    totalTokens: (r.inputTokens || 0) + (r.outputTokens || 0),
-    limits: (r.limits || []).slice(-12),
-    sourcesConsulted: sources.filter((s) =>
-      ["CONSULTED", "VERIFIED", "PARTIAL"].includes(s.coverage),
-    ).length,
-    sourcesDiscovered: sources.filter((s) => s.coverage === "DISCOVERED").length,
-    inventoryTotal: st.inventoryTotal ?? null,
-    inventoryExamined: st.inventoryExamined ?? null,
-    conclusions: st.conclusions || [],
-    remainingWork: st.remainingWork || [],
-    sourceRefs: sources.map((s) => ({ ref: s.ref, coverage: s.coverage, kind: s.kind })),
-    checkpoints: Array.isArray(checkpoints) ? checkpoints : [],
-  };
-}
-
-await api("/api/dev/auto-session", { method: "POST" });
-
-async function waitIq(projectId) {
-  for (let i = 0; i < 80; i++) {
-    const r = await api(`/api/projects/${projectId}/initial-qualification/reconcile`, {
-      method: "POST",
-      timeoutMs: 90_000,
-    });
-    const st = r.json?.initialQualification?.status;
-    if (st && !["PENDING", "RUNNING", "UNKNOWN"].includes(st)) return r.json.initialQualification;
-    await new Promise((r) => setTimeout(r, 1500));
-  }
-  return null;
-}
-
-async function newProject(name, intention) {
-  const prep = await api("/api/preparations", { method: "POST", body: {} });
-  const preparationId = prep.json.preparationId;
-  let g = await api(`/api/preparations/${preparationId}`);
-  let rev = g.json.preparation.creationRevision;
-  await api(`/api/preparations/${preparationId}`, {
-    method: "PATCH",
-    body: { previewName: name, previewSummary: intention, expectedCreationRevision: rev },
-  });
-  g = await api(`/api/preparations/${preparationId}`);
-  rev = g.json.preparation.creationRevision;
-  const created = await api(`/api/preparations/${preparationId}/create-project`, {
-    method: "POST",
-    body: {
-      expectedCreationRevision: rev,
-      projectName: name,
-      idempotencyKey: `adaptive2-${randomUUID()}`,
-      previewSummary: intention,
-    },
-  });
-  const projectId = created.json.projectId;
-  const iq = await waitIq(projectId);
-  log("qualification", { projectId, status: iq?.status });
-  return { preparationId, projectId, iq };
-}
-
-async function msg(preparationId, content, opts = {}) {
-  return api(`/api/preparations/${preparationId}/messages`, {
-    method: "POST",
-    body: {
-      content,
-      clientTurnKey: `adaptive2-${randomUUID()}`,
-      ...(opts.forceNew ? { forceNewCognitiveWork: true } : {}),
-      ...(opts.workId ? { cognitiveWorkId: opts.workId } : {}),
-    },
-    timeoutMs: opts.timeoutMs ?? 1_800_000,
-  });
-}
-
-async function attachGit(projectId) {
-  return api(`/api/projects/${projectId}/git/links`, {
-    method: "POST",
-    body: { repositoryId: "arepo_60b78cda-7450-47fd-accd-3525c2e53a62" },
-  });
-}
-
-// ---- S1 simple on fresh project after IQ terminal ----
-if (process.env.SFIA_SKIP_S1 !== "1") {
-  const { preparationId, projectId } = await newProject(
-    "Adaptive S1b Simple",
-    "Projet fictif DEV — réponses conversationnelles simples sans investigation Git.",
-  );
-  const t0 = Date.now();
-  const res = await msg(
-    preparationId,
-    "En une phrase, qu'est-ce qu'un checkpoint cognitif dans Studio Next ?",
-    { forceNew: true, timeoutMs: 180_000 },
-  );
-  const workId = res.json?.cognitiveWork?.workId || null;
-  const out = {
-    http: res.status,
-    status: res.json?.status,
-    workId,
-    segmentsRun: res.json?.cognitiveWork?.segmentsRun,
-    suspended: res.json?.cognitiveWork?.suspended,
-    durationMs: Date.now() - t0,
-    metrics: metrics(workId),
-    preview: (res.json?.messages || []).slice(-1)[0]?.content?.slice(0, 300) ||
-      res.json?.error ||
-      null,
-  };
-  save("s1b-simple", { out, raw: res.json });
-  log("s1b_simple", out);
-} else {
-  log("s1b_simple", { skipped: true, workId: "cgw_a177e731-63c2-4360-a020-b6d12ef25901" });
-}
-
-// ---- S2 note from prior acquis (same prep as multi-segment analysis) ----
-{
-  const preparationId = "prep_85f051f7-0c6e-4649-91fb-f313c840b40c";
-  const priorWorkId = "cgw_ef647d73-cad1-4dcc-b2eb-926e7e144d90";
-  const t0 = Date.now();
-  const res = await msg(
-    preparationId,
-    "Prépare une note de recommandation à partir de cette analyse. Crée le document D4 exploitable.",
-    { forceNew: false, timeoutMs: 600_000 },
-  );
-  const workId = res.json?.cognitiveWork?.workId || null;
-  const out = {
-    http: res.status,
-    status: res.json?.status,
-    workId,
-    priorWorkId,
-    segmentsRun: res.json?.cognitiveWork?.segmentsRun,
-    documentSave: res.json?.documentSave || null,
-    pendingCandidate: res.json?.pendingDocumentCandidate
-      ? {
-          title: res.json.pendingDocumentCandidate.title,
-          contentSha256: res.json.pendingDocumentCandidate.contentSha256,
-        }
-      : null,
-    attachment: res.json?.cognitiveAttachmentReason || null,
-    durationMs: Date.now() - t0,
-    metrics: metrics(workId),
-    priorMetrics: metrics(priorWorkId),
-  };
-  save("s2b-note", { out, raw: res.json });
-  log("s2b_note", out);
-}
-
-// ---- S3 exhaustive 50 ----
-{
-  const inventory = readFileSync(`${OUT}/inventory-50-paths.txt`, "utf8")
-    .trim()
-    .split("\n")
-    .filter(Boole
-```
-
-### `projects/sfia-studio-next/web/scripts/ml5-adaptive-s3-only.mjs`
-```javascript
-import { writeFileSync, mkdirSync, readFileSync } from "node:fs";
-import { randomUUID } from "node:crypto";
-import { execSync } from "node:child_process";
-const BASE = "http://127.0.0.1:3100";
-const OUT = "/tmp/sfia-ml5-adaptive-proofs";
-mkdirSync(OUT, { recursive: true });
-const jar = { cookie: "" };
-
-async function api(path, { method = "GET", body, timeoutMs = 3_200_000 } = {}) {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), timeoutMs);
-  try {
-    const res = await fetch(`${BASE}${path}`, {
-      method,
-      headers: {
-        ...(body ? { "content-type": "application/json" } : {}),
-        ...(jar.cookie ? { cookie: jar.cookie } : {}),
-      },
-      body: body ? JSON.stringify(body) : undefined,
-      signal: ctrl.signal,
-    });
-    for (const c of res.headers.getSetCookie?.() || []) {
-      const part = c.split(";")[0];
-      jar.cookie = jar.cookie ? `${jar.cookie}; ${part}` : part;
-    }
-    const text = await res.text();
-    let json;
-    try {
-      json = JSON.parse(text);
-    } catch {
-      json = { _raw: text.slice(0, 800) };
-    }
-    return { status: res.status, json };
-  } finally {
-    clearTimeout(t);
-  }
-}
-function save(n, d) {
-  writeFileSync(`${OUT}/${n}.json`, JSON.stringify(d, null, 2));
-}
-function pg(sql) {
-  const oneLine = sql.replace(/\s+/g, " ").trim();
-  const raw = execSync(
-    `docker exec sfia-next-dev-pg psql -U sfia_next_dev -d sfia_next_dev -t -A -c ${JSON.stringify(oneLine)}`,
-    { encoding: "utf8", maxBuffer: 20_000_000 },
-  ).trim();
-  if (!raw) return null;
-  try {
-    return JSON.parse(raw);
-  } catch {
-    return raw;
-  }
-}
-function metrics(workId) {
-  if (!workId) return null;
-  const work = pg(
-    `SELECT row_to_json(t) FROM (SELECT id, status, revision, interrupt_cause, objective, resources_json::json AS resources, state_json::json AS state, parent_work_id FROM cognitive_works WHERE id='${workId}') t;`,
-  );
-  const checkpoints = pg(
-    `SELECT COALESCE(json_agg(row_to_json(t) ORDER BY revision),'[]'::json) FROM (SELECT revision, cause, generation_id, created_at FROM cognitive_work_checkpoints WHERE work_id='${workId}') t;`,
-  );
-  const st = work?.state || {};
-  const sources = st.sources || [];
-  const r = work?.resources || {};
-  return {
-    workId,
-    status: work?.status,
-    revision: work?.revision,
-    interruptCause: work?.interrupt_cause,
-    parentWorkId: work?.parent_work_id,
-    segmentCalls: r.segmentCalls,
-    inputTokens: r.inputTokens,
-    outputTokens: r.outputTokens,
-    totalTokens: (r.inputTokens || 0) + (r.outputTokens || 0),
-    limits: (r.limits || []).slice(-16),
-    sourcesConsulted: sources.filter((s) =>
-      ["CONSULTED", "VERIFIED", "PARTIAL"].includes(s.coverage),
-    ).length,
-    sourcesDiscovered: sources.filter((s) => s.coverage === "DISCOVERED").length,
-    inventoryTotal: st.inventoryTotal ?? null,
-    inventoryExamined: st.inventoryExamined ?? null,
-    conclusions: st.conclusions || [],
-    remainingWork: st.remainingWork || [],
-    sourceRefs: sources.map((s) => ({ ref: s.ref, coverage: s.coverage })),
-    checkpoints: Array.isArray(checkpoints) ? checkpoints : [],
-  };
-}
-
-await api("/api/dev/auto-session", { method: "POST" });
-
-async function waitIq(projectId) {
-  for (let i = 0; i < 80; i++) {
-    const r = await api(`/api/projects/${projectId}/initial-qualification/reconcile`, {
-      method: "POST",
-      timeoutMs: 90_000,
-    });
-    const st = r.json?.initialQualification?.status;
-    if (st && !["PENDING", "RUNNING", "UNKNOWN"].includes(st)) return r.json.initialQualification;
-    await new Promise((r) => setTimeout(r, 1500));
-  }
-  return null;
-}
-
-const inventory = readFileSync(`${OUT}/inventory-50-paths.txt`, "utf8")
-  .trim()
-  .split("\n")
-  .filter(Boolean);
-console.log("inventory", inventory.length);
-
 const runId = randomUUID().slice(0, 8);
-const projectName = `Adaptive S3 ${runId} Exhaustive50`;
+const projectName = `CogComplete Short ${runId}`;
+
+await api("/api/dev/auto-session", { method: "POST" });
 const prep = await api("/api/preparations", { method: "POST", body: {} });
 const preparationId = prep.json.preparationId;
 if (!preparationId) throw new Error(`prep failed: ${JSON.stringify(prep.json).slice(0, 400)}`);
+
 let g = await api(`/api/preparations/${preparationId}`);
 let rev = g.json.preparation.creationRevision;
 await api(`/api/preparations/${preparationId}`, {
@@ -997,7 +574,7 @@ await api(`/api/preparations/${preparationId}`, {
   body: {
     previewName: projectName,
     previewSummary:
-      "Examiner intégralement 50 sources Git et produire une synthèse structurée avec références.",
+      "Examiner un petit périmètre Git, identifier règles et responsabilités, produire une synthèse.",
     expectedCreationRevision: rev,
   },
 });
@@ -1008,1682 +585,1082 @@ const created = await api(`/api/preparations/${preparationId}/create-project`, {
   body: {
     expectedCreationRevision: rev,
     projectName,
-    idempotencyKey: `s3c-${randomUUID()}`,
+    idempotencyKey: `cog-short-${randomUUID()}`,
     previewSummary:
-      "Examiner intégralement 50 sources Git et produire une synthèse structurée avec références.",
+      "Examiner un petit périmètre Git, identifier règles et responsabilités, produire une synthèse.",
   },
 });
 const projectId = created.json.projectId;
-console.log("create-project", created.status, created.json?.status || created.json, projectId);
-if (!projectId) {
-  throw new Error(`create-project missing projectId: ${JSON.stringify(created.json).slice(0, 800)}`);
-}
+if (!projectId) throw new Error(`create-project failed: ${JSON.stringify(created.json).slice(0, 600)}`);
 const iq = await waitIq(projectId);
-console.log("iq", iq?.status);
 const gitLink = await api(`/api/projects/${projectId}/git/links`, {
   method: "POST",
-  body: { repositoryId: "arepo_60b78cda-7450-47fd-accd-3525c2e53a62" },
+  body: { repositoryId: REPO_ID },
 });
-console.log("git-link", gitLink.status, JSON.stringify(gitLink.json).slice(0, 300));
 if (gitLink.status >= 400) {
   throw new Error(`git link failed: ${JSON.stringify(gitLink.json).slice(0, 500)}`);
 }
-// Confirm prep context sees the project (conversation bind).
-const prepCtx = await api(`/api/preparations/${preparationId}`);
-console.log(
-  "prep-ctx",
-  prepCtx.json?.project?.id || prepCtx.json?.preparation?.status,
-  "convProject",
-  prepCtx.json?.conversation?.projectId || null,
-);
 
-const prompt = [
-  "Examine intégralement les 50 documents de ce périmètre Git Chantiers360 (lecture seule).",
-  "Périmètre fixé à l'avance (ne pas en inventer d'autres pour remplacer) :",
-  inventory.join("\n"),
+const investigatePrompt = [
+  "Examine les documents et fichiers de ce périmètre, identifie les règles,",
+  "les responsabilités et les éventuelles contradictions, puis fais-moi une synthèse.",
   "",
-  "Identifie les responsabilités, les règles métier, les décisions, les dépendances et les contradictions.",
-  "Produis une synthèse complète avec les références pertinentes.",
-  "Couvre effectivement ces 50 sources ; signale celles qui sont inaccessibles.",
-  "Tant que la couverture inventaire est incomplète, continue automatiquement sans m'interrompre.",
+  "Périmètre fixé (révision du dépôt lié ; lecture seule) :",
+  ...CORPUS,
+  "",
+  "Ne relance pas une campagne large. Couvre ce périmètre, puis livre la synthèse.",
 ].join("\n");
 
 const t0 = Date.now();
-const res = await api(`/api/preparations/${preparationId}/messages`, {
+const invRes = await api(`/api/preparations/${preparationId}/messages`, {
   method: "POST",
   body: {
-    content: prompt,
-    clientTurnKey: `s3c-${randomUUID()}`,
+    content: investigatePrompt,
+    clientTurnKey: `cog-short-inv-${randomUUID()}`,
     forceNewCognitiveWork: true,
   },
-    timeoutMs: 3_200_000,
+  timeoutMs: 900_000,
 });
-const workId = res.json?.cognitiveWork?.workId || null;
-const out = {
-  http: res.status,
-  status: res.json?.status,
-  workId,
-  segmentsRun: res.json?.cognitiveWork?.segmentsRun,
-  suspended: res.json?.cognitiveWork?.suspended,
-  suspendReason: res.json?.cognitiveWork?.suspendReason,
+const invWorkId = invRes.json?.cognitiveWork?.workId || null;
+const investigation = {
+  http: invRes.status,
+  status: invRes.json?.status,
+  workId: invWorkId,
+  segmentsRun: invRes.json?.cognitiveWork?.segmentsRun,
+  suspended: invRes.json?.cognitiveWork?.suspended,
+  suspendReason: invRes.json?.cognitiveWork?.suspendReason,
   durationMs: Date.now() - t0,
-  metrics: metrics(workId),
+  metrics: metrics(invWorkId),
+  replyPreview: (invRes.json?.assistantMessage?.content || invRes.json?.content || "").slice(
+    0,
+    1500,
+  ),
 };
-save("s3c-long", { out, raw: res.json, inventoryCount: inventory.length });
-console.log("s3c_long", JSON.stringify(out).slice(0, 1200));
-console.log("DONE");
+save("short-investigation", { investigation, corpus: CORPUS, projectId, preparationId, iq });
+console.log("INVESTIGATION", JSON.stringify(investigation).slice(0, 1500));
 
-```
-
-### `projects/sfia-studio-next/web/scripts/ml5-adaptive-s3-synthesis-from-acquis.mjs`
-```javascript
-/**
- * B4 + S3 closure: new envelope from prior acquis → structured synthesis + optional D4 note.
- */
-import { writeFileSync, mkdirSync } from "node:fs";
-import { randomUUID } from "node:crypto";
-import { execSync, spawnSync } from "node:child_process";
-
-const BASE = "http://127.0.0.1:3100";
-const OUT = "/tmp/sfia-ml5-adaptive-proofs";
-mkdirSync(OUT, { recursive: true });
-const jar = { cookie: "" };
-const PRIOR = "cgw_1991a962-0063-4c57-abb3-8ef905d05110";
-const PREP = "prep_a2c334b0-7f33-4d26-b928-c1a5040b194d";
-
-function curlJson(method, path, body, timeoutSec = 1200) {
-  const args = [
-    "-sS",
-    "-X",
-    method,
-    `${BASE}${path}`,
-    "-H",
-    "content-type: application/json",
-    "--max-time",
-    String(timeoutSec),
-    "-D",
-    "-",
-  ];
-  if (jar.cookie) {
-    args.push("-H", `cookie: ${jar.cookie}`);
-  }
-  if (body !== undefined) {
-    args.push("--data-binary", JSON.stringify(body));
-  }
-  const r = spawnSync("curl", args, {
-    encoding: "utf8",
-    maxBuffer: 50_000_000,
-  });
-  if (r.error) throw r.error;
-  const raw = r.stdout || "";
-  const split = raw.indexOf("\r\n\r\n");
-  const headerPart = split >= 0 ? raw.slice(0, split) : "";
-  const bodyPart = split >= 0 ? raw.slice(split + 4) : raw;
-  for (const line of headerPart.split(/\r?\n/)) {
-    const m = line.match(/^set-cookie:\s*([^;]+)/i);
-    if (m) {
-      jar.cookie = jar.cookie ? `${jar.cookie}; ${m[1]}` : m[1];
-    }
-  }
-  const statusMatch = headerPart.match(/^HTTP\/\S+\s+(\d+)/m);
-  const status = statusMatch ? Number(statusMatch[1]) : r.status || 0;
-  let json;
-  try {
-    json = JSON.parse(bodyPart);
-  } catch {
-    json = { _raw: bodyPart.slice(0, 800) };
-  }
-  return { status, json };
-}
-
-function pg(sql) {
-  const oneLine = sql.replace(/\s+/g, " ").trim();
-  const raw = execSync(
-    `docker exec sfia-next-dev-pg psql -U sfia_next_dev -d sfia_next_dev -t -A -c ${JSON.stringify(oneLine)}`,
-    { encoding: "utf8", maxBuffer: 20_000_000 },
-  ).trim();
-  if (!raw) return null;
-  try {
-    return JSON.parse(raw);
-  } catch {
-    return raw;
-  }
-}
-
-curlJson("POST", "/api/dev/auto-session", {});
-
-const prompt = [
-  "À partir des acquis de l'analyse des 50 documents Chantiers360 déjà consolidés dans le travail cognitif précédent,",
-  "produis maintenant la synthèse complète structurée : responsabilités, règles métier, décisions, dépendances, contradictions,",
-  "avec les références pertinentes (chemins Git).",
-  "Crée une note de recommandation D4 exploitable.",
-  "Ne relis pas inutilement les sources déjà consultées ; réutilise les conclusions et références persistées.",
-].join(" ");
-
-const t0 = Date.now();
-const res = curlJson(
-  "POST",
-  `/api/preparations/${PREP}/messages`,
-  {
-    content: prompt,
-    clientTurnKey: `s3-synth-${randomUUID()}`,
+const notePrompt =
+  "Prépare une courte note à partir de cette analyse. Crée le document D4 exploitable. Réutilise les acquis déjà consolidés sans tout relire.";
+const t1 = Date.now();
+const noteRes = await api(`/api/preparations/${preparationId}/messages`, {
+  method: "POST",
+  body: {
+    content: notePrompt,
+    clientTurnKey: `cog-short-note-${randomUUID()}`,
   },
-  1200,
-);
-
-const workId = res.json?.cognitiveWork?.workId || null;
-const work = workId
-  ? pg(
-      `SELECT row_to_json(t) FROM (SELECT id, status, revision, interrupt_cause, parent_work_id, resources_json::json AS resources, state_json::json AS state FROM cognitive_works WHERE id='${workId}') t;`,
-    )
-  : null;
-
-const out = {
-  http: res.status,
-  status: res.json?.status,
-  workId,
-  priorWorkId: PRIOR,
-  parentWorkId: work?.parent_work_id ?? null,
-  segmentsRun: res.json?.cognitiveWork?.segmentsRun,
-  documentSave: res.json?.documentSave ?? null,
-  pendingCandidate: res.json?.pendingDocumentCandidate ?? null,
-  durationMs: Date.now() - t0,
-  resources: work?.resources ?? null,
-  conclusions: (work?.state?.conclusions || []).slice(0, 8),
+  timeoutMs: 600_000,
+});
+const noteWorkId = noteRes.json?.cognitiveWork?.workId || null;
+const note = {
+  http: noteRes.status,
+  status: noteRes.json?.status,
+  workId: noteWorkId,
+  segmentsRun: noteRes.json?.cognitiveWork?.segmentsRun,
+  suspended: noteRes.json?.cognitiveWork?.suspended,
+  suspendReason: noteRes.json?.cognitiveWork?.suspendReason,
+  documentSave: noteRes.json?.documentSave ?? null,
+  pendingCandidate: noteRes.json?.pendingDocumentCandidate ?? null,
+  durationMs: Date.now() - t1,
+  metrics: metrics(noteWorkId),
+  replyPreview: (noteRes.json?.assistantMessage?.content || noteRes.json?.content || "").slice(
+    0,
+    1200,
+  ),
 };
-
-writeFileSync(`${OUT}/s3e-synthesis-from-acquis.json`, JSON.stringify({ out, raw: res.json }, null, 2));
-console.log(JSON.stringify(out, null, 2).slice(0, 2500));
-console.log("DONE");
-
+save("short-note-from-acquis", {
+  note,
+  priorWorkId: invWorkId,
+  projectId,
+  preparationId,
+});
+console.log("NOTE", JSON.stringify(note).slice(0, 1500));
+console.log("DONE", OUT);
 ```
 
-### `projects/sfia-studio-next/web/scripts/ml5-adaptive-s2-note-parent.mjs`
-```javascript
-import { writeFileSync, mkdirSync } from "node:fs";
-import { randomUUID } from "node:crypto";
-import { execSync, spawnSync } from "node:child_process";
+## 6. Modified files (full diffs vs d58d42802e50d64c97cdfc9e66bc769c74e0c0fa)
 
-const BASE = "http://127.0.0.1:3100";
-const OUT = "/tmp/sfia-ml5-adaptive-proofs";
-mkdirSync(OUT, { recursive: true });
-const jar = { cookie: "" };
-const PRIOR = "cgw_ef647d73-cad1-4dcc-b2eb-926e7e144d90";
-
-function curlJson(method, path, body, timeoutSec = 600) {
-  const args = ["-sS", "-X", method, `${BASE}${path}`, "-H", "content-type: application/json", "--max-time", String(timeoutSec), "-D", "-"];
-  if (jar.cookie) args.push("-H", `cookie: ${jar.cookie}`);
-  if (body !== undefined) args.push("--data-binary", JSON.stringify(body));
-  const r = spawnSync("curl", args, { encoding: "utf8", maxBuffer: 50_000_000 });
-  if (r.error) throw r.error;
-  const raw = r.stdout || "";
-  const split = raw.indexOf("\r\n\r\n");
-  const headerPart = split >= 0 ? raw.slice(0, split) : "";
-  const bodyPart = split >= 0 ? raw.slice(split + 4) : raw;
-  for (const line of headerPart.split(/\r?\n/)) {
-    const m = line.match(/^set-cookie:\s*([^;]+)/i);
-    if (m) jar.cookie = jar.cookie ? `${jar.cookie}; ${m[1]}` : m[1];
-  }
-  const statusMatch = headerPart.match(/^HTTP\/\S+\s+(\d+)/m);
-  const status = statusMatch ? Number(statusMatch[1]) : r.status || 0;
-  let json;
-  try {
-    json = JSON.parse(bodyPart);
-  } catch {
-    json = { _raw: bodyPart.slice(0, 800) };
-  }
-  return { status, json };
-}
-
-function pg(sql) {
-  const oneLine = sql.replace(/\s+/g, " ").trim();
-  const raw = execSync(
-    `docker exec sfia-next-dev-pg psql -U sfia_next_dev -d sfia_next_dev -t -A -c ${JSON.stringify(oneLine)}`,
-    { encoding: "utf8", maxBuffer: 20_000_000 },
-  ).trim();
-  if (!raw) return null;
-  try {
-    return JSON.parse(raw);
-  } catch {
-    return raw;
-  }
-}
-
-curlJson("POST", "/api/dev/auto-session", {});
-const prep = pg(`SELECT preparation_id FROM cognitive_works WHERE id='${PRIOR}'`);
-const preparationId = typeof prep === "string" ? prep : prep?.preparation_id || prep;
-console.log("prep", preparationId);
-
-const t0 = Date.now();
-const res = curlJson("POST", `/api/preparations/${preparationId}/messages`, {
-  content:
-    "Prépare une note de recommandation à partir de cette analyse des conflits de planning. Crée le document D4 exploitable. Réutilise les acquis déjà consolidés sans tout relire.",
-  clientTurnKey: `s2-parent-note-${randomUUID()}`,
-}, 600);
-
-const workId = res.json?.cognitiveWork?.workId || null;
-const work = workId
-  ? pg(
-      `SELECT row_to_json(t) FROM (SELECT id, status, revision, interrupt_cause, parent_work_id, resources_json::json AS resources FROM cognitive_works WHERE id='${workId}') t;`,
-    )
-  : null;
-
-const out = {
-  http: res.status,
-  status: res.json?.status,
-  workId,
-  priorWorkId: PRIOR,
-  parentWorkId: work?.parent_work_id ?? null,
-  segmentsRun: res.json?.cognitiveWork?.segmentsRun,
-  documentSave: res.json?.documentSave ?? null,
-  pendingCandidate: res.json?.pendingDocumentCandidate ?? null,
-  durationMs: Date.now() - t0,
-  resources: work?.resources ?? null,
-};
-writeFileSync(`${OUT}/s2c-note-with-parent.json`, JSON.stringify({ out, raw: res.json }, null, 2));
-console.log(JSON.stringify(out, null, 2));
-console.log("DONE");
-
-```
-
----
-
-## 12. Diffs réels vs cb4ae599
+### `projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts`
 
 ```diff
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index aa8ccf9f..fa487483 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4707,3 +4707,21 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
- | Réserves | Soft-stop ≠ garantie d'interruption mid-SDK ; F2 globale non revendiquée ; WEB LIVE blocked ; OAuth utilisateur GitHub interactif non complété (reads via App installation) |
- | Statut | DEV CANDIDATE COMPLETE — READY FOR CHATGPT REVIEW — NOT ADOPTED — NO RECETTE CUTOVER |
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+index 8ca43a1c..324a8669 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+@@ -361,6 +361,19 @@ export const NoraTurnQualificationSchema = z.object({
+   acceptanceCriteria: z.array(z.string().min(1).max(LIVE_PROSE_HARD_MAX)).max(40).optional(),
+   /** Semantic profile hint for adaptive policy — server may apply; never length-based. */
+   cognitiveProfileHint: z.enum(["simple", "analyse", "investigation"]).optional(),
++  /**
++   * Investigation breadth as determined by Nora (semantic) — never by keyword density.
++   * TARGETED = finite known set; EXHAUSTIVE = declared perimeter must be covered;
++   * OPEN = discover and deepen as needed.
++   */
++  investigationMode: z.enum(["TARGETED", "EXHAUSTIVE", "OPEN"]).optional(),
++  /**
++   * Sufficiency of the cognitive objective after this segment (Nora).
++   * Server uses this with workDisposition to decide continuation vs restitution.
++   */
++  investigationSufficiency: z
++    .enum(["SUFFICIENT", "INSUFFICIENT", "UNKNOWN"])
++    .optional(),
+ });
+ export type NoraTurnQualification = z.infer<typeof NoraTurnQualificationSchema>;
  
-+## 2026-11-25 — ML5 adaptive cognitive continuation (Cycle 8 Delivery / DEV final)
-+
-+| Champ | Valeur |
-+|---|---|
-+| Delivery ID | `next-ml5-adaptive-cognitive-continuation-20261125` |
-+| Date | 2026-11-25 |
-+| Macro-lot | Finalisation ML5 Livraison 1 — conduite cognitive adaptative (pas un nouveau macro-lot) |
-+| Type | INC · Critical · Cycle 8 Delivery |
-+| Base | tip `cb4ae5990c0e8c2f75c466962f8a77f300c63e24` · tree `ad1f01fa976666dddb64e80665abdb677ec17717` · web tree `eb8dc550456c87f77053a3a5952e3edd20de5099` |
-+| Calibration | `SFIA_COGNITIVE_MAX_TOKENS=2000000` · `REEVAL=1000000` · `MAX_SEGMENTS=120` · OPERATIONAL_PROVISIONAL |
-+| Compatibilité | NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN · R5 IN PROGRESS |
-+| Environnement | DEV `:3100` / PG `:5433` · Build `CC0wLCfVBY-Q1uALQDItr` · Digest `882e1eff3c198e79a91c8d732275195a31841dd2ba469c4540e50934889f02a7` |
-+| Migration | NONE |
-+| Contrôles | Vitest envelope/continuity + C18 PASS · next build · LIVE S1 simple · S2 multi-seg + D4 note · S3 50-sources 26 segments / 50/50 coverage · parent_work_id provenance · RECETTE `2a024b1c` / `3RyhswMcKrNv8woukVXsT` préservée |
-+| Preuves clés | `cgw_1991a962` 26 segs · 2045830 tok · 27 ckpts · couverture 34 CONSULTED + 14 PARTIAL + 2 DENIED · `cgw_cd948312` parent=`cgw_ef647d73` · doc_86a08511 |
-+| Réserves | Inflation inventaire 51/52 corrigée (freeze périmètre) ; travaux note-from-acquis peuvent encore relire Git malgré injection parent ; soft-boundary ne pollue plus le corps DOCUMENT ; timeouts HTTP client ≠ arrêt serveur |
-+| Statut | DEV CANDIDATE — LONG INVESTIGATION PROVEN — READY FOR CHATGPT REVIEW — NOT ADOPTED — NO RECETTE CUTOVER |
-+
-diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraLiveActivity.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraLiveActivity.tsx
-index 57ce4930..cddaa96a 100644
---- a/projects/sfia-studio-next/web/src/components/figma/NoraLiveActivity.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/NoraLiveActivity.tsx
-@@ -94,17 +94,29 @@ export function NoraLiveActivity(props: {
-           {steps.map((step) => (
-             <li
-               key={step.key}
--              data-state={!active && step.state === "current" ? "done" : step.state}
-+              data-state={
-+                step.state === "failed" || step.state === "limited"
-+                  ? step.state
-+                  : !active && step.state === "current"
-+                    ? "done"
-+                    : step.state
-+              }
-               data-nature={step.nature}
--              className={`fig-nora-live-activity-step fig-nora-live-activity-step-${!active && step.state === "current" ? "done" : step.state}`}
-+              className={`fig-nora-live-activity-step fig-nora-live-activity-step-${
-+                step.state === "failed" || step.state === "limited"
-+                  ? step.state
-+                  : !active && step.state === "current"
-+                    ? "done"
-+                    : step.state
-+              }`}
-             >
-               <span className="fig-nora-live-activity-mark" aria-hidden>
--                {!active || step.state === "done"
--                  ? "✓"
--                  : step.state === "failed"
--                    ? "✕"
--                    : step.state === "limited"
--                      ? "!"
-+                {step.state === "failed"
-+                  ? "✕"
-+                  : step.state === "limited"
-+                    ? "!"
-+                    : !active || step.state === "done"
-+                      ? "✓"
-                       : step.state === "current"
-                         ? "◌"
-                         : "○"}
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts
-index 01cb3406..7937a62e 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts
-@@ -25,6 +25,21 @@ import {
- } from "./investigation-state";
- import type { NoraTurnQualification } from "./semantic-qualification";
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts b/projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts
+index 60e6c796..c9bad4d9 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts
+@@ -23,6 +23,55 @@ export type InvestigationSourceRef = {
+   notes?: string;
+ };
  
-+/** Fingerprint of measurable progress — sources, conclusions, remaining work, questions. */
-+function progressFingerprint(state: InvestigationState): string {
-+  const sources = state.sources
-+    .map((s) => `${s.ref}:${s.coverage}:${s.versionOrSha ?? ""}`)
-+    .sort()
-+    .join("|");
-+  const conclusions = (state.conclusions ?? []).join("|");
-+  const remaining = state.remainingWork.join("|");
-+  const questions = state.questions
-+    .map((q) => `${q.id}:${q.status}:${q.answerSummary ?? ""}`)
-+    .sort()
-+    .join("|");
-+  return `${sources}#${conclusions}#${remaining}#${questions}`;
++/**
++ * Canonical identity key for coverage — full path (not basename).
++ * `git-file:arepo:path/to/file.ts@sha` → `path/to/file.ts`
++ */
++export function canonicalSourcePathKey(ref: string): string {
++  const raw = (ref || "").trim();
++  if (!raw) return "";
++  const stripSha = (p: string) => p.replace(/@[0-9a-f]+$/i, "");
++  // Prefer split over non-greedy regex so short test SHAs still strip.
++  if (/^git-file:/i.test(raw)) {
++    const parts = raw.split(":");
++    // git-file : owner/repo : path[@sha]
++    if (parts.length >= 3) {
++      const pathPart = parts.slice(2).join(":");
++      return stripSha(pathPart).replace(/\\/g, "/").toLowerCase();
++    }
++  }
++  if (/^git-commit:/i.test(raw)) return raw.toLowerCase();
++  return stripSha(raw).replace(/\\/g, "/").toLowerCase();
 +}
 +
- export type ConductorSegmentResult = {
-   replyText: string;
-   qualification: NoraTurnQualification | null;
-@@ -45,6 +60,8 @@ export type ConductorRunInput = {
-   expectedOutcome?: string;
-   workId?: string | null;
-   forceNewWork?: boolean;
-+  /** B4 — provenance when forceNew reuses prior acquis. */
-+  parentWorkId?: string | null;
-   turnCommandId?: string | null;
-   ownerTokenTurn?: string | null;
-   /** Execute one provider segment; conductor decides whether to continue. */
-@@ -88,6 +105,7 @@ export async function runCognitiveConductor(
-     expectedOutcome: input.expectedOutcome,
-     workId: input.workId,
-     forceNew: input.forceNewWork,
-+    parentWorkId: input.parentWorkId,
-   });
++/** Cheap consolidation key — reformulations of the same finding collapse. */
++export function normalizeConclusionKey(text: string): string {
++  return text
++    .toLowerCase()
++    .normalize("NFKD")
++    .replace(/[\u0300-\u036f]/g, "")
++    .replace(/[^a-z0-9\s]/gi, " ")
++    .replace(/\s+/g, " ")
++    .trim()
++    .slice(0, 180);
++}
++
++export function upsertConclusion(list: string[], line: string): string[] {
++  const key = normalizeConclusionKey(line);
++  if (!key || key.length < 12) return list;
++  const exists = list.some((c) => {
++    const k = normalizeConclusionKey(c);
++    if (!k) return false;
++    if (k === key) return true;
++    // Near-duplicate: one contains the other with high overlap.
++    const shorter = k.length <= key.length ? k : key;
++    const longer = k.length > key.length ? k : key;
++    return shorter.length >= 40 && longer.includes(shorter);
++  });
++  if (exists) return list;
++  return [...list, line];
++}
++
+ export type DeterminingQuestion = {
+   id: string;
+   text: string;
+@@ -74,12 +123,25 @@ export type InvestigationState = {
+   /** Public facts already registered for composition. */
+   registeredPublicFacts?: string[];
+   /**
+-   * B2 — when an exhaustive inventory is established (e.g. 50 files),
+-   * total expected sources in the declared perimeter. Null until inventoried.
++   * B2 — when a fixed perimeter is established (listed paths / EXHAUSTIVE mode),
++   * total expected sources in that perimeter. Null until inventoried.
+    */
+   inventoryTotal?: number | null;
+-  /** Distinct source refs marked CONSULTED/VERIFIED/PARTIAL within the inventory. */
++  /**
++   * Distinct perimeter keys with content fully read (CONSULTED|VERIFIED only).
++   * PARTIAL and DENIED are tracked separately — not counted as full reads.
++   */
+   inventoryExamined?: number | null;
++  /** Stable full-path keys of the declared perimeter (never basename-only). */
++  inventoryKeys?: string[] | null;
++  /** Keys resolved as DENIED (access terminal — not content analysis). */
++  inventoryDenied?: number | null;
++  /** Keys still only PARTIAL within the perimeter. */
++  inventoryPartial?: number | null;
++  /** Anti-loop: consecutive no-progress segments across invocations. */
++  stagnantSegments?: number | null;
++  /** Semantic investigation mode from structured qualification. */
++  investigationMode?: "TARGETED" | "EXHAUSTIVE" | "OPEN" | null;
+ };
  
-   let work = opened.work;
-@@ -155,18 +173,21 @@ export async function runCognitiveConductor(
+ export function createEmptyInvestigation(intent: string): InvestigationState {
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts b/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
+index 3fb84336..8bf44919 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
+@@ -17,8 +17,10 @@ import {
+   type CognitiveWorkRow,
+ } from "./cognitive-work";
+ import {
++  canonicalSourcePathKey,
+   createEmptyInvestigation,
+   evaluateContractReadiness,
++  upsertConclusion,
+   type DeterminingQuestion,
+   type InvestigationState,
+ } from "./investigation-state";
+@@ -284,50 +286,35 @@ export function mergeInvestigationFromReply(
+   const desiredOutcome = outcome || desiredFromTool || prior.desiredOutcome || "";
+ 
+   // RB-30 — capitalize answered determinant questions + explicit findings as conclusions.
+-  const conclusions = [...(prior.conclusions ?? [])];
+-  for (const q of questions) {
+-    if (q.status === "ANSWERED" && q.answerSummary?.trim()) {
+-      const line = `${q.text.slice(0, 120)} → ${q.answerSummary.trim().slice(0, 400)}`;
+-      if (!conclusions.includes(line)) conclusions.push(line);
+-    }
+-  }
+-  for (const r of q?.restrictions ?? []) {
+-    const t = r.trim();
+-    if (t && t.length >= 12 && !conclusions.includes(t)) {
+-      // restrictions are constraints; skip — conclusions come from answers/outcomes
++  // C1 — consolidate near-duplicates; keep real contradictions as separate entries.
++  let conclusions = [...(prior.conclusions ?? [])];
++  for (const qq of questions) {
++    if (qq.status === "ANSWERED" && qq.answerSummary?.trim()) {
++      conclusions = upsertConclusion(
++        conclusions,
++        `${qq.text.slice(0, 120)} → ${qq.answerSummary.trim().slice(0, 400)}`,
++      );
+     }
+   }
+   if (desiredOutcome && desiredOutcome.length >= 20) {
+-    const outcomeLine = `Résultat consolidé: ${desiredOutcome.slice(0, 400)}`;
+-    if (!conclusions.some((c) => c.startsWith("Résultat consolidé:"))) {
+-      conclusions.push(outcomeLine);
+-    }
++    conclusions = upsertConclusion(
++      conclusions,
++      `Résultat consolidé: ${desiredOutcome.slice(0, 400)}`,
++    );
+   }
+-  // Prefer structured replyDraft excerpt only when investigation produced sources/answers
+-  // (avoid treating every chat reply as verified conclusion).
+   const draft = (q?.replyDraft ?? reply.content ?? "").trim();
+   if (
+     draft.length >= 80 &&
+-    (questions.some((x) => x.status === "ANSWERED") || sources.some((s) => s.coverage === "CONSULTED" || s.coverage === "VERIFIED"))
++    (questions.some((x) => x.status === "ANSWERED") ||
++      sources.some((s) => s.coverage === "CONSULTED" || s.coverage === "VERIFIED"))
+   ) {
+-    const excerpt = `Synthèse: ${draft.slice(0, 600)}`;
+-    if (!conclusions.some((c) => c.startsWith("Synthèse:"))) conclusions.push(excerpt);
++    conclusions = upsertConclusion(conclusions, `Synthèse: ${draft.slice(0, 600)}`);
    }
  
-   const maxLocal = Math.max(1, input.maxSegmentsThisInvocation ?? 3);
-+  let stagnantSegments = 0;
-+  let lastProgressKey = progressFingerprint(investigation);
-+  let reevaluationNoted = false;
+-  // B2 — inventory coverage: prefer prior checkpoint; else declare from an
+-  // explicit predeclared perimeter in the Pilote message, else from discovered set.
+-  const discoveredOrBetter = sources.filter(
+-    (s) =>
+-      s.coverage === "DISCOVERED" ||
+-      s.coverage === "CONSULTED" ||
+-      s.coverage === "VERIFIED" ||
+-      s.coverage === "PARTIAL",
+-  ).length;
+-  const exhaustiveIntent =
+-    /intégralement|exhausti|tous les|toutes les|l'intégralité|chaque (?:document|fichier|source)/i.test(
+-      userText,
+-    ) ||
+-    /intégralement|exhausti|inventaire/i.test(goal || prior.intentSummary || "");
++  // B2 — perimeter from prior keys or technical parse of listed paths (not keyword/count).
++  // Semantic mode comes from structured qualification — never from "50"/"intégralement".
++  const investigationMode =
++    q?.investigationMode ?? prior.investigationMode ?? null;
+   const listedPaths = [
+     ...userText.matchAll(
+       /(?:^|\n)\s*([^\n]+?\.(?:md|txt|ts|tsx|js|jsx|json|yml|yaml|sql|prisma|mjs|cjs))\s*(?=\n|$)/gi,
+@@ -335,71 +322,83 @@ export function mergeInvestigationFromReply(
+   ]
+     .map((m) => m[1]!.trim())
+     .filter((p) => p.length > 2 && !/\s{3,}/.test(p) && !/^https?:/i.test(p));
+-  const uniqueListed = [...new Set(listedPaths)];
+-  const declaredCount = (() => {
+-    const m = userText.match(
+-      /\b(\d{2,3})\s+(?:documents?|fichiers?|sources?|textes?)\b/i,
+-    );
+-    return m ? Number(m[1]) : null;
+-  })();
+-  let inventoryTotal = prior.inventoryTotal ?? null;
+-  // B2 — once a Pilote perimeter is declared (listed paths or explicit count),
+-  // freeze that total. Extra discoveries must not inflate the inventaire and
+-  // block completion after the declared sources are examined.
+-  const perimeterFrozen =
+-    (declaredCount != null && declaredCount >= 10) || uniqueListed.length >= 10;
+-  const perimeterSize = perimeterFrozen
+-    ? Math.max(uniqueListed.length, declaredCount ?? 0)
+-    : null;
+-  if (perimeterFrozen && perimeterSize != null && perimeterSize >= 10) {
+-    inventoryTotal = perimeterSize;
+-  } else if (inventoryTotal == null && exhaustiveIntent && uniqueListed.length >= 10) {
+-    inventoryTotal = Math.max(uniqueListed.length, declaredCount ?? 0);
++  const uniqueListedKeys = [
++    ...new Set(listedPaths.map((p) => canonicalSourcePathKey(p)).filter(Boolean)),
++  ];
++  let inventoryKeys = [...(prior.inventoryKeys ?? [])];
++  if (inventoryKeys.length === 0 && uniqueListedKeys.length >= 2) {
++    inventoryKeys = uniqueListedKeys;
+   } else if (
+-    inventoryTotal == null &&
+-    exhaustiveIntent &&
+-    declaredCount != null &&
+-    declaredCount >= 10
++    inventoryKeys.length > 0 &&
++    uniqueListedKeys.length > 0 &&
++    (investigationMode === "EXHAUSTIVE" || investigationMode === "TARGETED")
+   ) {
+-    inventoryTotal = declaredCount;
++    // Fixed perimeter: do not silently grow from discoveries; allow explicit listed keys.
++    const set = new Set(inventoryKeys);
++    for (const k of uniqueListedKeys) if (!set.has(k)) inventoryKeys.push(k);
++  }
++  const perimeterFixed =
++    inventoryKeys.length >= 2 &&
++    (investigationMode === "EXHAUSTIVE" ||
++      investigationMode === "TARGETED" ||
++      (prior.inventoryTotal != null && prior.inventoryKeys != null));
++  let inventoryTotal = prior.inventoryTotal ?? null;
++  if (perimeterFixed) {
++    inventoryTotal = inventoryKeys.length;
+   } else if (
+     inventoryTotal == null &&
+-    exhaustiveIntent &&
+-    discoveredOrBetter >= 10
+-  ) {
+-    inventoryTotal = discoveredOrBetter;
+-  } else if (
+-    inventoryTotal != null &&
+-    discoveredOrBetter > inventoryTotal &&
+-    !perimeterFrozen
++    investigationMode === "OPEN" &&
++    sources.filter((s) => s.coverage !== "DISCOVERED").length >= 2
+   ) {
+-    inventoryTotal = discoveredOrBetter;
++    // Open investigation: total tracks distinct content-bearing sources, may grow.
++    inventoryTotal = new Set(
++      sources
++        .filter((s) =>
++          ["CONSULTED", "VERIFIED", "PARTIAL", "DENIED"].includes(s.coverage),
++        )
++        .map((s) => canonicalSourcePathKey(s.ref))
++        .filter(Boolean),
++    ).size;
++  }
++
++  const coverageByKey = new Map<string, InvestigationState["sources"][number]["coverage"]>();
++  for (const s of sources) {
++    const key = canonicalSourcePathKey(s.ref);
++    if (!key) continue;
++    const prev = coverageByKey.get(key);
++    const rank = (c: string) =>
++      c === "VERIFIED" ? 4 : c === "CONSULTED" ? 3 : c === "PARTIAL" ? 2 : c === "DENIED" ? 1 : 0;
++    if (!prev || rank(s.coverage) > rank(prev)) coverageByKey.set(key, s.coverage);
++  }
++  const keysToScore =
++    inventoryKeys.length > 0 ? inventoryKeys : [...coverageByKey.keys()];
++  let inventoryExamined = 0;
++  let inventoryPartial = 0;
++  let inventoryDenied = 0;
++  for (const key of keysToScore) {
++    const c = coverageByKey.get(key);
++    if (c === "CONSULTED" || c === "VERIFIED") inventoryExamined += 1;
++    else if (c === "PARTIAL") inventoryPartial += 1;
++    else if (c === "DENIED") inventoryDenied += 1;
+   }
+-  // Count perimeter coverage against the declared list when available.
+-  const listedSet = new Set(uniqueListed.map((p) => p.replace(/^.*\//, "").toLowerCase()));
+-  const inventoryExamined = sources.filter((s) => {
+-    const covered =
+-      s.coverage === "CONSULTED" ||
+-      s.coverage === "VERIFIED" ||
+-      s.coverage === "PARTIAL" ||
+-      s.coverage === "DENIED";
+-    if (!covered) return false;
+-    if (listedSet.size === 0) return true;
+-    const base = (s.ref || "").replace(/^.*\//, "").toLowerCase();
+-    return listedSet.has(base) || listedSet.has((s.ref || "").toLowerCase());
+-  }).length;
++  // Perimeter "resolved" = full read OR honest access denial (not PARTIAL).
++  const inventoryResolved = inventoryExamined + inventoryDenied;
+   const nextRemaining = [...remainingWork];
+   if (
++    perimeterFixed &&
+     inventoryTotal != null &&
+-    inventoryExamined < inventoryTotal &&
+-    !nextRemaining.some((w) => /inventaire|couverture|sources restantes/i.test(w))
++    inventoryResolved < inventoryTotal &&
++    q?.investigationSufficiency !== "SUFFICIENT" &&
++    q?.workDisposition !== "COMPLETE" &&
++    !nextRemaining.some((w) => /couverture périmètre|sources restantes/i.test(w))
+   ) {
++    const pending = inventoryTotal - inventoryResolved;
+     nextRemaining.push(
+-      `Couverture inventaire ${inventoryExamined}/${inventoryTotal} — poursuivre les sources non examinées`,
++      `Couverture périmètre ${inventoryResolved}/${inventoryTotal} (${inventoryPartial} partielles, ${pending} restantes) — poursuivre les sources non résolues`,
+     );
+   }
+ 
+-  return evaluateContractReadiness({
++  const evaluated = evaluateContractReadiness({
+     ...prior,
+     intentSummary: goal || prior.intentSummary || userText.slice(0, 800),
+     desiredOutcome,
+@@ -414,11 +413,43 @@ export function mergeInvestigationFromReply(
+     conclusions: conclusions.slice(-24),
+     inventoryTotal,
+     inventoryExamined,
++    inventoryKeys: inventoryKeys.length > 0 ? inventoryKeys : prior.inventoryKeys ?? null,
++    inventoryDenied,
++    inventoryPartial,
++    investigationMode,
+   });
++  // D1 — Nora's objective sufficiency is distinct from D4 contract READY.
++  // Preserve SUFFICIENT for termination even when contract criteria are unmet.
++  if (
++    q?.investigationSufficiency === "SUFFICIENT" &&
++    evaluated.sufficiency !== "BUDGET_EXHAUSTED" &&
++    evaluated.sufficiency !== "BLOCKED_BY_UNKNOWN_RESTRICTION"
++  ) {
++    return { ...evaluated, sufficiency: "SUFFICIENT" };
++  }
++  if (
++    q?.investigationSufficiency === "INSUFFICIENT" &&
++    evaluated.sufficiency === "UNKNOWN"
++  ) {
++    return { ...evaluated, sufficiency: "INSUFFICIENT" };
++  }
++  return evaluated;
+ }
+ 
+ /**
+- * C18 — continuation by workDisposition / objective class — not contractReady alone.
++ * Resolved perimeter coverage: full reads + honest DENIED access terminals.
++ * PARTIAL never counts as resolved.
++ */
++export function inventoryResolvedCount(investigation: InvestigationState): number {
++  const examined = investigation.inventoryExamined ?? 0;
++  const denied = investigation.inventoryDenied ?? 0;
++  return examined + denied;
++}
++
++/**
++ * C18 / D3 — continuation by structured disposition + sufficiency.
++ * Incomplete coverage must NOT cancel legitimate AWAIT_PILOT / SUSPEND / COMPLETE.
++ * No scenario-specific thresholds (removed examined≥50 near-complete exception).
+  */
+ export function semanticContinueWork(
+   qualification: NoraTurnQualification | null,
+@@ -431,41 +462,53 @@ export function semanticContinueWork(
+   ) {
+     return false;
+   }
+-  const examined = investigation.inventoryExamined ?? 0;
++  // D3 — explicit terminal dispositions always win over inventory gaps.
++  const disposition = qualification?.workDisposition;
++  if (
++    disposition === "COMPLETE" ||
++    disposition === "AWAIT_PILOT" ||
++    disposition === "SUSPEND"
++  ) {
++    return false;
++  }
++  if (qualification?.status === "NEEDS_CLARIFICATION") {
++    return false;
++  }
++  // D1 — Nora-declared sufficiency ends investigation (restitution, not more reads).
++  if (
++    qualification?.investigationSufficiency === "SUFFICIENT" ||
++    investigation.sufficiency === "SUFFICIENT"
++  ) {
++    return disposition === "CONTINUE";
++  }
++
+   const total = investigation.inventoryTotal;
+-  // Near-complete coverage (≤2 gap after ≥50 examined) must not block restitution
+-  // when discovery inflation left a tiny residual gap.
++  const resolved = inventoryResolvedCount(investigation);
+   const inventoryIncomplete =
+-    total != null &&
+-    examined < total &&
+-    !(examined >= 50 && total - examined <= 2);
++    total != null && total > 0 && resolved < total;
+   const hasAcquis =
+     (reply.observedToolSources?.length ?? 0) > 0 ||
+     investigation.sources.some((s) =>
+       ["CONSULTED", "VERIFIED", "PARTIAL", "DISCOVERED"].includes(s.coverage),
+     );
+-  // B3 — incomplete exhaustive inventory continues even after a soft provider
+-  // interruption (UNKNOWN/INTERRUPTED) when acquis already progressed.
++
++  // Soft provider interrupt with unfinished perimeter — AWAIT/SUSPEND/COMPLETE already returned.
+   if (inventoryIncomplete && hasAcquis && reply.status !== "COMPLETE") {
+     return true;
+   }
+   if (reply.status !== "COMPLETE") return false;
+-  const disposition = qualification?.workDisposition;
+-  // B3 — incomplete exhaustive inventory is a conductor continuation, not a pilot wait.
+-  // Nora declaring COMPLETE/AWAIT while sources remain unexamined must not stop the work.
+-  // Also continue when inventory is declared but no source was recorded yet (tool-scope
+-  // recovery / first failed segment) — anti-loop still stops three stagnant segments.
+-  if (inventoryIncomplete && (hasAcquis || (investigation.inventoryExamined ?? 0) === 0)) {
+-    return true;
+-  }
+-  if (disposition === "COMPLETE" || disposition === "AWAIT_PILOT" || disposition === "SUSPEND") {
+-    return false;
+-  }
++
+   if (disposition === "CONTINUE") return true;
+ 
+-  if (qualification?.status === "NEEDS_CLARIFICATION") {
+-    return false;
++  // Unset disposition + incomplete fixed perimeter → continue useful reads.
++  if (
++    inventoryIncomplete &&
++    (hasAcquis || resolved === 0) &&
++    (disposition == null || disposition === "CONTINUE")
++  ) {
++    return true;
+   }
++
+   const openDeterminant = investigation.questions.some(
+     (q) => q.importance === "DETERMINANT" && q.status !== "ANSWERED",
+   );
+@@ -499,16 +542,52 @@ export async function resolveCognitiveWorkAttachment(input: {
+     pilotId: input.pilotId,
+     preparationId: input.preparationId,
+   });
+-  const priorWithAcquis = works
+-    .filter(
+-      (w) =>
+-        (w.state.conclusions?.length ?? 0) > 0 ||
+-        w.state.sources.some((s) =>
+-          ["CONSULTED", "VERIFIED", "PARTIAL"].includes(s.coverage),
+-        ),
+-    )
+-    .sort((a, b) => b.revision - a.revision);
+-  const provenanceParent = priorWithAcquis[0]?.id ?? null;
++  // C2 — pick parent by acquis relevance to this request, not revision count alone.
++  const priorWithAcquis = works.filter(
++    (w) =>
++      (w.state.conclusions?.length ?? 0) > 0 ||
++      w.state.sources.some((s) =>
++        ["CONSULTED", "VERIFIED", "PARTIAL"].includes(s.coverage),
++      ),
++  );
++  const relevanceQuery = [
++    input.userText ?? "",
++    input.qualification?.goal ?? "",
++    input.qualification?.desiredOutcome ?? "",
++  ]
++    .join(" ")
++    .toLowerCase();
++  const scoreParent = (w: (typeof works)[number]): number => {
++    let score = 0;
++    const intent = (w.state.intentSummary || w.objective || "").toLowerCase();
++    const outcome = (w.state.desiredOutcome || w.expectedOutcome || "").toLowerCase();
++    if (intent && relevanceQuery.includes(intent.slice(0, 48))) score += 8;
++    if (outcome && relevanceQuery.includes(outcome.slice(0, 48))) score += 6;
++    // Token overlap on conclusions / objective (cheap, no second LLM).
++    const bag = `${intent} ${outcome} ${(w.state.conclusions ?? []).join(" ")}`.toLowerCase();
++    const tokens = relevanceQuery
++      .split(/[^a-z0-9àâäéèêëïîôùûüç]+/i)
++      .filter((t) => t.length >= 5)
++      .slice(0, 24);
++    for (const t of tokens) {
++      if (bag.includes(t)) score += 1;
++    }
++    score += Math.min(4, w.state.conclusions?.length ?? 0);
++    score += Math.min(
++      4,
++      w.state.sources.filter((s) =>
++        ["CONSULTED", "VERIFIED"].includes(s.coverage),
++      ).length,
++    );
++    // Mild revision tie-break only after relevance.
++    score += Math.min(2, Math.floor(w.revision / 10));
++    return score;
++  };
++  const rankedParents = [...priorWithAcquis].sort((a, b) => {
++    const d = scoreParent(b) - scoreParent(a);
++    return d !== 0 ? d : b.revision - a.revision;
++  });
++  const provenanceParent = rankedParents[0]?.id ?? null;
+ 
+   if (input.forceNewWork === true) {
+     return {
+@@ -536,16 +615,17 @@ export async function resolveCognitiveWorkAttachment(input: {
+   // RB-31 / RB-27 — new document production after a completed / exhausted analysis
+   // is a distinct cognitive work (own envelope). Never auto-continue a saturated work
+   // for a create_document effect; Nora may still CONTINUE for true follow-up.
++  // A — document-from-prior is driven by structured intents / relation, never lexical regex.
+   const wantsCreateDoc = (input.qualification?.intents ?? []).some(
+     (i) =>
+       i.capabilityId === "d4.create_document" &&
+       (i.mode === "REQUEST_EFFECT" || i.mode === "PREPARE"),
+   );
+-  const text = input.userText ?? "";
+-  const wantsNoteFromPrior =
+-    /note de recommandation|à partir de (cette|l['’] ?|mon |notre ).{0,40}(analyse|synthèse|investigation|examen)|crée(r)? (le |un |une )?(document|note)/i.test(
+-      text,
+-    );
++  // INDEPENDENT / MATERIAL_CHANGE already returned above; here only create_document fork.
++  const semanticNewFromPrior =
++    wantsCreateDoc &&
++    (relation === "CONTINUE" || relation == null) &&
++    priorWithAcquis.length > 0;
+   const { maxTokens: envelopeMax } = cognitiveEnvelopeLimits();
+   const saturatedFloor = Math.max(190_000, Math.floor(envelopeMax * 0.95));
+   const exhausted = works.filter(
+@@ -564,17 +644,17 @@ export async function resolveCognitiveWorkAttachment(input: {
+     exhausted.length > 0 &&
+     (!relation || relation === "CONTINUE" || proposedExhausted)
+   ) {
++    const exhaustedRanked = [...exhausted].sort((a, b) => {
++      const d = scoreParent(b) - scoreParent(a);
++      return d !== 0 ? d : b.revision - a.revision;
++    });
+     return {
+       forceNew: true,
+       reason: "NEW_PRODUCTION_FROM_PRIOR_ACQUIS",
+-      parentWorkId: exhausted[0]?.id ?? provenanceParent ?? proposed,
++      parentWorkId: exhaustedRanked[0]?.id ?? provenanceParent ?? proposed,
+     };
+   }
+-  if (
+-    (wantsCreateDoc || wantsNoteFromPrior) &&
+-    priorWithAcquis.length > 0 &&
+-    (!relation || relation === "CONTINUE" || relation == null)
+-  ) {
++  if (semanticNewFromPrior && priorWithAcquis.length > 0) {
+     return {
+       forceNew: true,
+       reason: "NEW_PRODUCTION_FROM_PRIOR_ACQUIS",
+@@ -949,16 +1029,19 @@ export async function runNoraCognitiveTurn(
+   }
+ 
+   // Adaptive local segment budget — technical per-invocation cap, not global envelope.
+-  // Investigation gets more segments so long work can auto-continue without pilot clicks.
+-  const exhaustiveSeed =
+-    /\b(?:50|intégralement|exhausti|tous les documents|toutes les sources)\b/i.test(
+-      input.userText || "",
+-    );
++  // A — profile / breadth from structured qualification only (never keyword "50"/exhausti).
++  const semanticProfile =
++    probeReply?.qualification?.cognitiveProfileHint ??
++    (probeReply?.qualification?.investigationMode === "EXHAUSTIVE" ||
++    probeReply?.qualification?.investigationMode === "OPEN"
++      ? "investigation"
++      : undefined);
+   const defaultLocalSegments = (() => {
+     if (input.maxSegmentsThisInvocation != null) return input.maxSegmentsThisInvocation;
+     const seed = input.objective ?? input.userText;
+-    const hint = buildCognitivePolicy(seed).profile;
+-    if (hint === "investigation" || exhaustiveSeed) return 40;
++    const hint =
++      semanticProfile ?? buildCognitivePolicy(seed).profile;
++    if (hint === "investigation") return 40;
+     if (hint === "analyse") return 12;
+     return 3;
+   })();
+@@ -983,9 +1066,18 @@ export async function runNoraCognitiveTurn(
+         input.userText;
+       const hint =
+         work.state.profileHint ||
+-        (exhaustiveSeed ? "investigation" : undefined);
+-      let base =
+-        (segmentIndex > 0 && hint === "investigation") || exhaustiveSeed
++        semanticProfile;
++      const reevalActive = (work.resources.limits ?? []).includes("REEVAL_THRESHOLD_1M");
++      const restitutionPhase =
++        reevalActive ||
++        work.state.sufficiency === "SUFFICIENT" ||
++        (work.resources.limits ?? []).includes("RESTITUTION_PHASE");
++      let base = restitutionPhase
++        ? buildCognitivePolicy(seed, undefined, {
++            profileHint: hint === "simple" ? "simple" : "analyse",
++            effortHint: "medium",
++          })
++        : segmentIndex > 0 && hint === "investigation"
+           ? buildCognitivePolicy(seed, undefined, {
+               profileHint: "investigation",
+               effortHint: "high",
+@@ -997,6 +1089,12 @@ export async function runNoraCognitiveTurn(
+               })
+             : (input.policyOverride ??
+               buildCognitivePolicy(seed, undefined, { profileHint: hint }));
++      if (reevalActive) {
++        base = {
++          ...base,
++          reasonCodes: [...base.reasonCodes, "STRATEGY_REEVAL_1M"],
++        };
++      }
+       // A2 — reallocate per-segment tool chars from remaining global headroom.
+       const used =
+         (work.resources.inputTokens ?? 0) + (work.resources.outputTokens ?? 0);
+@@ -1046,34 +1144,41 @@ export async function runNoraCognitiveTurn(
+       const acquisBlock = hasPriorAcquis
+         ? formatInvestigationContinuationContext(work.state)
+         : parentAcquisBlock;
+-      // B2 — next unexamined paths from the Pilote perimeter (compacted, not full history).
+-      const examinedRefs = new Set(
++      // B2 — next unresolved perimeter keys (canonical full path, never basename).
++      const resolvedKeys = new Set(
+         work.state.sources
+           .filter((s) =>
+-            ["CONSULTED", "VERIFIED", "PARTIAL", "DENIED"].includes(s.coverage),
++            ["CONSULTED", "VERIFIED", "DENIED"].includes(s.coverage),
+           )
+-          .map((s) => s.ref.replace(/^.*\//, "").toLowerCase()),
++          .map((s) => canonicalSourcePathKey(s.ref))
++          .filter(Boolean),
+       );
+-      const listedNext = [
+-        ...input.userText.matchAll(
+-          /(?:^|\n)\s*([^\n]+?\.(?:md|txt|ts|tsx|js|jsx|json|yml|yaml|sql|prisma|mjs|cjs))\s*(?=\n|$)/gi,
+-        ),
+-      ]
+-        .map((m) => m[1]!.trim())
+-        .filter((p) => {
+-          const base = p.replace(/^.*\//, "").toLowerCase();
+-          return (
+-            p.length > 2 &&
+-            !examinedRefs.has(base) &&
+-            !examinedRefs.has(p.toLowerCase())
+-          );
+-        });
+-      const uniqueNext = [...new Set(listedNext)].slice(0, 12);
++      const perimeterKeys =
++        work.state.inventoryKeys && work.state.inventoryKeys.length > 0
++          ? work.state.inventoryKeys
++          : [
++              ...input.userText.matchAll(
++                /(?:^|\n)\s*([^\n]+?\.(?:md|txt|ts|tsx|js|jsx|json|yml|yaml|sql|prisma|mjs|cjs))\s*(?=\n|$)/gi,
++              ),
++            ].map((m) => canonicalSourcePathKey(m[1]!.trim()));
++      const uniqueNext = perimeterKeys
++        .filter((k) => k.length > 2 && !resolvedKeys.has(k))
++        .slice(0, 12);
++      const resolved = inventoryResolvedCount(work.state);
++      const reevalActive = (work.resources.limits ?? []).includes(
++        "REEVAL_THRESHOLD_1M",
++      );
++      const sufficiencyHit =
++        work.state.sufficiency === "SUFFICIENT" ||
++        (segmentBox.reply?.qualification?.investigationSufficiency ===
++          "SUFFICIENT");
+       const continuationHint = !useContinuation
+         ? ""
+         : [
+               "",
+-              "[Continuation du même travail cognitif — segment suivant]",
++              sufficiencyHit || reevalActive
++                ? "[Phase de restitution — consolider et livrer; ne pas relancer une investigation complète]"
++                : "[Continuation du même travail cognitif — segment suivant]",
+               `workId=${work.id} revision=${work.revision}`,
+               `Objectif: ${work.objective}`,
+               work.state.intentSummary
+@@ -1083,7 +1188,7 @@ export async function runNoraCognitiveTurn(
+                 ? `Résultat attendu: ${work.state.desiredOutcome}`
+                 : null,
+               work.state.remainingWork.length
+-                ? `Travail restant: ${work.state.remainingWork.join("; ")}`
++                ? `Travail restant précis: ${work.state.remainingWork.join("; ")}`
+                 : null,
+               work.state.questions
+                 .filter((q) => q.status !== "ANSWERED")
+@@ -1093,12 +1198,16 @@ export async function runNoraCognitiveTurn(
+                 ? `Contraintes: ${work.state.constraints.join("; ")}`
+                 : null,
+               work.state.inventoryTotal != null
+-                ? `Couverture inventaire: ${work.state.inventoryExamined ?? 0}/${work.state.inventoryTotal}`
++                ? `Couverture périmètre: ${resolved}/${work.state.inventoryTotal} (consultées=${work.state.inventoryExamined ?? 0}, partielles=${work.state.inventoryPartial ?? 0}, refus=${work.state.inventoryDenied ?? 0})`
+                 : null,
+-              uniqueNext.length > 0
+-                ? `Prochaines sources à examiner (échantillon): ${uniqueNext.join("; ")}`
++              !sufficiencyHit && uniqueNext.length > 0
++                ? `Prochaines sources à examiner (chemins complets): ${uniqueNext.join("; ")}`
+                 : null,
+-              "Consigne: ne pas relire les sources déjà CONSULTED; ouvrir les suivantes; si inventaire incomplet workDisposition=CONTINUE.",
++              sufficiencyHit
++                ? "Consigne: investigation suffisante — produire la synthèse finale avec références et limites; workDisposition=COMPLETE."
++                : reevalActive
++                  ? "Consigne: seuil 1M — réévaluer la stratégie; approfondir uniquement le travail restant utile ou restituer; workDisposition=COMPLETE si suffisant."
++                  : "Consigne: ne pas relire les sources déjà CONSULTED/VERIFIED; ouvrir les suivantes par chemin complet; si périmètre incomplet et objectif non atteint workDisposition=CONTINUE; si suffisant workDisposition=COMPLETE.",
+               acquisBlock || null,
+             ]
+               .filter(Boolean)
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts`
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts
+index 7937a62e..7dfb1ef8 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts
+@@ -21,6 +21,7 @@ import {
+ } from "./cognitive-work";
+ import {
+   evaluateContractReadiness,
++  normalizeConclusionKey,
+   type InvestigationState,
+ } from "./investigation-state";
+ import type { NoraTurnQualification } from "./semantic-qualification";
+@@ -31,13 +32,22 @@ function progressFingerprint(state: InvestigationState): string {
+     .map((s) => `${s.ref}:${s.coverage}:${s.versionOrSha ?? ""}`)
+     .sort()
+     .join("|");
+-  const conclusions = (state.conclusions ?? []).join("|");
+-  const remaining = state.remainingWork.join("|");
++  // C1 / D2 — reformulations of the same conclusion must not count as progress.
++  const conclusions = [...new Set((state.conclusions ?? []).map(normalizeConclusionKey))]
++    .filter(Boolean)
++    .sort()
++    .join("|");
++  const remaining = state.remainingWork
++    .map((w) => normalizeConclusionKey(w))
++    .filter(Boolean)
++    .sort()
++    .join("|");
+   const questions = state.questions
+-    .map((q) => `${q.id}:${q.status}:${q.answerSummary ?? ""}`)
++    .map((q) => `${q.id}:${q.status}:${normalizeConclusionKey(q.answerSummary ?? "")}`)
+     .sort()
+     .join("|");
+-  return `${sources}#${conclusions}#${remaining}#${questions}`;
++  const inventory = `${state.inventoryExamined ?? 0}:${state.inventoryPartial ?? 0}:${state.inventoryDenied ?? 0}:${state.inventoryTotal ?? ""}`;
++  return `${sources}#${conclusions}#${remaining}#${questions}#${inventory}`;
+ }
+ 
+ export type ConductorSegmentResult = {
+@@ -176,21 +186,58 @@ export async function runCognitiveConductor(
+   let stagnantSegments = 0;
+   let lastProgressKey = progressFingerprint(investigation);
+   let reevaluationNoted = false;
++  /** D4 — once set, next segment may consume the restitution reserve (no further investigation). */
++  let restitutionPhase = (resources.limits ?? []).includes("RESTITUTION_PHASE");
  
    for (let i = 0; i < maxLocal; i++) {
--    // RB-27 — preventive check with restitution reserve + projected next-segment cost.
-+    // Preventive check with restitution reserve + projected next-segment cost.
+     // Preventive check with restitution reserve + projected next-segment cost.
      // Soft stop before another heavy segment; hard stop when already at/over ceiling.
++    // D4 — restitution phase may spend the reserve (reserveForRestitution: 0).
      const usedBefore =
        (resources.inputTokens ?? 0) + (resources.outputTokens ?? 0);
      const projectedNext =
        i === 0 && usedBefore === 0
          ? 0
--        : Math.min(80_000, Math.max(25_000, Math.floor(usedBefore * 0.35) || 40_000));
-+        : Math.min(60_000, Math.max(20_000, Math.floor(usedBefore * 0.12) || 30_000));
+-        : Math.min(60_000, Math.max(20_000, Math.floor(usedBefore * 0.12) || 30_000));
++        : restitutionPhase
++          ? Math.min(24_000, Math.max(8_000, Math.floor(usedBefore * 0.04) || 12_000))
++          : Math.min(60_000, Math.max(20_000, Math.floor(usedBefore * 0.12) || 30_000));
      const envelope = evaluateGlobalResourceEnvelope(resources, process.env, {
--      reserveForRestitution: i === 0 ? 0 : 12_000,
-+      reserveForRestitution: i === 0 ? 0 : 24_000,
+-      reserveForRestitution: i === 0 ? 0 : 24_000,
++      reserveForRestitution: i === 0 || restitutionPhase ? 0 : 24_000,
        projectedNextSegmentTokens: i === 0 ? 0 : projectedNext,
      });
      if (!envelope.ok) {
-@@ -180,6 +201,20 @@ export async function runCognitiveConductor(
++      // Soft stop with acquis → enter restitution once instead of discarding the reserve.
++      const hasAcquis =
++        investigation.sources.some((s) =>
++          ["CONSULTED", "VERIFIED", "PARTIAL"].includes(s.coverage),
++        ) || (investigation.conclusions?.length ?? 0) > 0;
++      if (
++        envelope.softStop &&
++        !restitutionPhase &&
++        hasAcquis &&
++        i < maxLocal
++      ) {
++        restitutionPhase = true;
++        resources = {
++          ...resources,
++          limits: [
++            ...(resources.limits ?? []).filter((l) => l !== "RESTITUTION_PHASE"),
++            "RESTITUTION_PHASE",
++          ].slice(-40),
++        };
++        investigation = {
++          ...investigation,
++          remainingWork: [
++            ...investigation.remainingWork.filter(
++              (w) => !/restitution|synthèse finale/i.test(w),
++            ),
++            "Restitution — produire la synthèse finale avec références et limites explicites",
++          ].slice(0, 12),
++        };
++        // Retry this iteration under restitution accounting.
++        i -= 1;
++        continue;
++      }
+       suspended = true;
+       suspendReason = envelope.reason ?? "GLOBAL_BUDGET_EXHAUSTED";
+       investigation = {
+@@ -203,16 +250,22 @@ export async function runCognitiveConductor(
+     }
+     if (envelope.reevaluationNeeded && !reevaluationNoted) {
+       reevaluationNoted = true;
++      // D5 — 1M threshold changes strategy (restitution / narrower continue), not only text.
++      restitutionPhase = true;
+       investigation = {
+         ...investigation,
+         remainingWork: [
+           ...investigation.remainingWork.filter((w) => !/réévaluation/i.test(w)),
+-          "Réévaluation stratégique — seuil de 1M tokens cumulés atteint",
++          "Réévaluation stratégique 1M — restreindre aux questions ouvertes déterminantes ou restituer",
+         ].slice(0, 12),
        };
+       resources = {
+         ...resources,
+-        limits: [...(resources.limits ?? []), "REEVAL_THRESHOLD_1M"].slice(-40),
++        limits: [
++          ...(resources.limits ?? []),
++          "REEVAL_THRESHOLD_1M",
++          "RESTITUTION_PHASE",
++        ].slice(-40),
+       };
+     }
+ 
+@@ -354,19 +407,59 @@ export async function runCognitiveConductor(
        break;
      }
-+    if (envelope.reevaluationNeeded && !reevaluationNoted) {
-+      reevaluationNoted = true;
-+      investigation = {
-+        ...investigation,
-+        remainingWork: [
-+          ...investigation.remainingWork.filter((w) => !/réévaluation/i.test(w)),
-+          "Réévaluation stratégique — seuil de 1M tokens cumulés atteint",
-+        ].slice(0, 12),
-+      };
+ 
++    // Enter restitution when Nora marks the objective sufficient mid-run.
++    if (
++      !restitutionPhase &&
++      (qualification?.investigationSufficiency === "SUFFICIENT" ||
++        investigation.sufficiency === "SUFFICIENT")
++    ) {
++      restitutionPhase = true;
 +      resources = {
 +        ...resources,
-+        limits: [...(resources.limits ?? []), "REEVAL_THRESHOLD_1M"].slice(-40),
++        limits: [
++          ...(resources.limits ?? []).filter((l) => l !== "RESTITUTION_PHASE"),
++          "RESTITUTION_PHASE",
++        ].slice(-40),
 +      };
-+    }
- 
-     const policy =
-       input.resolvePolicy?.(work, i) ??
-@@ -207,6 +242,14 @@ export async function runCognitiveConductor(
-       };
-     }
- 
-+    const nextProgressKey = progressFingerprint(investigation);
-+    if (nextProgressKey === lastProgressKey && segment.continueWork) {
-+      stagnantSegments += 1;
-+    } else {
-+      stagnantSegments = 0;
-+      lastProgressKey = nextProgressKey;
-+    }
-+
-     work = await checkpointCognitiveWork({
-       pilotId: input.pilotId,
-       workId: work.id,
-@@ -237,12 +280,20 @@ export async function runCognitiveConductor(
-         const discovered = investigation.sources.filter(
-           (s) => s.coverage === "DISCOVERED",
-         ).length;
-+        const inventoryTotal =
-+          typeof investigation.inventoryTotal === "number"
-+            ? investigation.inventoryTotal
-+            : null;
-         const progressSummary = segment.continueWork
-           ? consulted > 0
--            ? `Approfondissement — ${consulted} source${consulted > 1 ? "s" : ""} consultée${consulted > 1 ? "s" : ""}${discovered ? ` · ${discovered} découverte${discovered > 1 ? "s" : ""}` : ""}`
-+            ? inventoryTotal != null && inventoryTotal > 0
-+              ? `Approfondissement — ${consulted}/${inventoryTotal} sources examinées`
-+              : `Approfondissement — ${consulted} source${consulted > 1 ? "s" : ""} consultée${consulted > 1 ? "s" : ""}${discovered ? ` · ${discovered} découverte${discovered > 1 ? "s" : ""}` : ""}`
-             : `Approfondissement du travail — segment ${segmentsRun}`
-           : consulted > 0
--            ? `Consolidation — ${consulted} source${consulted > 1 ? "s" : ""} exploitée${consulted > 1 ? "s" : ""}`
-+            ? inventoryTotal != null && inventoryTotal > 0
-+              ? `Consolidation — ${consulted}/${inventoryTotal} sources couvertes`
-+              : `Consolidation — ${consulted} source${consulted > 1 ? "s" : ""} exploitée${consulted > 1 ? "s" : ""}`
-             : "Consolidation de la réponse";
-         await appendActivityEvent({
-           conversationId: input.conversationId,
-@@ -258,6 +309,7 @@ export async function runCognitiveConductor(
-             segmentsRun,
-             consulted,
-             discovered,
-+            inventoryTotal,
-             objective: (investigation.intentSummary || work.objective || "").slice(0, 140),
-           },
-           sourceRef: work.id,
-@@ -272,15 +324,45 @@ export async function runCognitiveConductor(
-       break;
-     }
- 
-+    // Anti-loop: three consecutive segments without new sources/conclusions/questions.
-+    if (stagnantSegments >= 3) {
-+      suspended = true;
-+      suspendReason = "NO_PROGRESS_DETECTED";
-+      investigation = {
-+        ...investigation,
-+        contractReady: false,
-+        contractReadyBlockedReason: suspendReason,
-+        remainingWork: [
-+          ...investigation.remainingWork,
-+          "Suspension — absence de progression mesurable sur trois segments",
-+        ].slice(0, 12),
-+      };
-+      work = await checkpointCognitiveWork({
-+        pilotId: input.pilotId,
-+        workId: work.id,
-+        ownerToken,
-+        expectedRevision: revision,
-+        cause: "BUDGET",
-+        state: investigation,
-+        resources,
-+        production,
-+        status: "SUSPENDED",
-+        interruptCause: suspendReason,
-+        turnCommandId: input.turnCommandId,
-+      });
-+      revision = work.revision;
-+      break;
 +    }
 +
      const again = evaluateGlobalResourceEnvelope(resources, process.env, {
--      reserveForRestitution: 12_000,
-+      reserveForRestitution: 24_000,
-       projectedNextSegmentTokens: Math.min(
--        80_000,
-+        60_000,
-         Math.max(
--          25_000,
-+          20_000,
-           Math.floor(
--            ((resources.inputTokens ?? 0) + (resources.outputTokens ?? 0)) * 0.35,
--          ) || 40_000,
-+            ((resources.inputTokens ?? 0) + (resources.outputTokens ?? 0)) * 0.12,
-+          ) || 30_000,
-         ),
-       ),
+-      reserveForRestitution: 24_000,
+-      projectedNextSegmentTokens: Math.min(
+-        60_000,
+-        Math.max(
+-          20_000,
+-          Math.floor(
+-            ((resources.inputTokens ?? 0) + (resources.outputTokens ?? 0)) * 0.12,
+-          ) || 30_000,
+-        ),
+-      ),
++      reserveForRestitution: restitutionPhase ? 0 : 24_000,
++      projectedNextSegmentTokens: restitutionPhase
++        ? Math.min(
++            24_000,
++            Math.max(
++              8_000,
++              Math.floor(
++                ((resources.inputTokens ?? 0) + (resources.outputTokens ?? 0)) *
++                  0.04,
++              ) || 12_000,
++            ),
++          )
++        : Math.min(
++            60_000,
++            Math.max(
++              20_000,
++              Math.floor(
++                ((resources.inputTokens ?? 0) + (resources.outputTokens ?? 0)) *
++                  0.12,
++              ) || 30_000,
++            ),
++          ),
      });
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
-index eeaf6a7e..7b75e25b 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
-@@ -90,22 +90,22 @@ export const OPERATIONAL_BUDGETS_PROVISIONAL: Record<CognitiveProfile, BudgetLim
-     wallClockMs: 600_000,
-     maxD4CharsReturned: 100_000,
-   },
--  // RB-27 — tool/char ceilings sized so a single Agents SDK segment stays
--  // realistically under the 200k work envelope (soft-stop ≠ mid-run abort).
--  // Global 24 / 200000 ceilings are unchanged.
-+  // Adaptive continuation — shorter per-segment provider loops so the conductor
-+  // can checkpoint, compact acquis, and open a new segment before a single SDK
-+  // run saturates the context. Global envelope is 1M reeval / 2M admin max.
-   analyse: {
--    maxProviderCalls: 12,
--    maxD4ToolCalls: 12,
--    maxGitToolCalls: 14,
-+    maxProviderCalls: 8,
-+    maxD4ToolCalls: 10,
-+    maxGitToolCalls: 12,
-     wallClockMs: 600_000,
--    maxD4CharsReturned: 96_000,
-+    maxD4CharsReturned: 64_000,
-   },
-   investigation: {
--    maxProviderCalls: 16,
--    maxD4ToolCalls: 16,
--    maxGitToolCalls: 18,
--    wallClockMs: 900_000,
--    maxD4CharsReturned: 120_000,
-+    maxProviderCalls: 8,
-+    maxD4ToolCalls: 12,
-+    maxGitToolCalls: 14,
-+    wallClockMs: 1_800_000,
-+    maxD4CharsReturned: 48_000,
-   },
- };
- 
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-work.ts b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-work.ts
-index 3381e732..6d61414e 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-work.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-work.ts
-@@ -66,6 +66,8 @@ export type CognitiveWorkRow = {
-   resources: CognitiveResources;
-   production: CognitiveProductionState;
-   interruptCause: string | null;
-+  /** B4 — provenance when a new work reuses acquis from a prior work. */
-+  parentWorkId: string | null;
- };
- 
- export const COGNITIVE_LEASE_MS = 20 * 60 * 1000;
-@@ -110,6 +112,7 @@ function mapRow(row: typeof cognitiveWorks.$inferSelect): CognitiveWorkRow {
-     resources: parseJson<CognitiveResources>(row.resourcesJson, emptyResources()),
-     production: parseJson<CognitiveProductionState>(row.productionJson, emptyProduction()),
-     interruptCause: row.interruptCause,
-+    parentWorkId: row.parentWorkId ?? null,
-   };
- }
- 
-@@ -136,6 +139,8 @@ export async function openOrResumeCognitiveWork(input: {
-   workId?: string | null;
-   /** Independent new demand — never overwrite another work. */
-   forceNew?: boolean;
-+  /** B4 — prior work whose acquis this new envelope reuses. */
-+  parentWorkId?: string | null;
- }): Promise<{ work: CognitiveWorkRow; resumed: boolean; ownerToken: string }> {
-   await assertPrepOwnership(input.pilotId, input.preparationId);
- 
-@@ -274,6 +279,7 @@ export async function openOrResumeCognitiveWork(input: {
-       stateJson: JSON.stringify(state),
-       resourcesJson: JSON.stringify(emptyResources()),
-       productionJson: JSON.stringify(emptyProduction()),
-+      parentWorkId: input.parentWorkId?.trim() || null,
-     })
-     .returning();
-   return { work: mapRow(row!), resumed: false, ownerToken };
-@@ -609,13 +615,34 @@ function sumOpt(a?: number | null, b?: number | null): number | null {
-   return (a ?? 0) + (b ?? 0);
- }
- 
-+/** Calibration defaults — OPERATIONAL_PROVISIONAL DEV (Morris GO adaptive continuation). */
-+export const COGNITIVE_DEFAULT_MAX_TOKENS = 2_000_000;
-+export const COGNITIVE_DEFAULT_REEVAL_TOKENS = 1_000_000;
-+/** Anti-loop safety — not a cognitive depth oracle; progress detection is primary. */
-+export const COGNITIVE_DEFAULT_MAX_SEGMENTS = 120;
-+
-+export function cognitiveEnvelopeLimits(
-+  env: NodeJS.ProcessEnv | Record<string, string | undefined> = process.env,
-+): { maxTokens: number; maxSegments: number; reevalTokens: number } {
-+  return {
-+    maxTokens: Number(env.SFIA_COGNITIVE_MAX_TOKENS || String(COGNITIVE_DEFAULT_MAX_TOKENS)),
-+    maxSegments: Number(
-+      env.SFIA_COGNITIVE_MAX_SEGMENTS || String(COGNITIVE_DEFAULT_MAX_SEGMENTS),
-+    ),
-+    reevalTokens: Number(
-+      env.SFIA_COGNITIVE_REEVAL_TOKENS || String(COGNITIVE_DEFAULT_REEVAL_TOKENS),
-+    ),
-+  };
-+}
-+
- /**
-  * Global envelope — administrative safety, not a cognitive depth oracle.
-  * Exceeding suspends the work honestly.
-  *
-- * RB-27 — preventive mode reserves headroom for a final restitution segment
-- * so a mid-investigation call cannot consume the entire 200k ceiling.
-- * Soft stop (wouldExceedAfter / reserve) is not a raise of 24/200k.
-+ * Adaptive calibration (Morris GO): 1M reevaluation threshold, 2M administrative max.
-+ * Soft stop (projected / reserve) is NOT a hard SDK cap — residual overshoot possible
-+ * when provider usage for the in-flight call is not yet known.
-+ * Cached tokens are never subtracted from the cumulative safety envelope.
-  */
- export function evaluateGlobalResourceEnvelope(
-   resources: CognitiveResources,
-@@ -626,11 +653,15 @@ export function evaluateGlobalResourceEnvelope(
-     /** Estimated cost of the next segment before starting it. */
-     projectedNextSegmentTokens?: number;
-   },
--): { ok: boolean; reason?: string; remainingTokens?: number; softStop?: boolean } {
--  // C17: default raised — local invocation caps (≈5) must leave headroom for honest resume
--  // without immediately tripping a false global exhaustion on simple prepare+continue paths.
--  const maxSegments = Number(env.SFIA_COGNITIVE_MAX_SEGMENTS || "24");
--  const maxTokens = Number(env.SFIA_COGNITIVE_MAX_TOKENS || "200000");
-+): {
-+  ok: boolean;
-+  reason?: string;
-+  remainingTokens?: number;
-+  softStop?: boolean;
-+  /** Crossed 1M reevaluation threshold — strategy may adapt; not a suspension. */
-+  reevaluationNeeded?: boolean;
-+} {
-+  const { maxSegments, maxTokens, reevalTokens } = cognitiveEnvelopeLimits(env);
-   if (Number.isFinite(maxSegments) && resources.segmentCalls >= maxSegments) {
-     return { ok: false, reason: "GLOBAL_SEGMENT_BUDGET_EXHAUSTED", remainingTokens: 0 };
-   }
-@@ -669,5 +700,7 @@ export function evaluateGlobalResourceEnvelope(
-       softStop: true,
-     };
-   }
--  return { ok: true, remainingTokens: remaining };
-+  const reevaluationNeeded =
-+    Number.isFinite(reevalTokens) && reevalTokens > 0 && used >= reevalTokens;
-+  return { ok: true, remainingTokens: remaining, reevaluationNeeded };
- }
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-index 48b5b2cb..a3ba410b 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/document-act.ts
-@@ -680,12 +680,23 @@ export function formatNumericSectionHint(nums: Array<string | number>): string |
- }
- 
- /**
-- * Recover section targets from natural Pilote wording
-- * (« dans la section 2 et … section 3 ») when Nora omits sectionHint.
-+ * Recover section targets from natural Pilote wording that authorizes revision
-+ * (« dans la section 2 », « intègre … section 3 », « révise la section 4 »).
-+ * A bare mention of « section N » as reference is NOT an authority to modify it.
-  */
- export function extractSectionHintFromPilotText(text: string | null | undefined): string | null {
-   if (!text) return null;
--  const nums = [...text.matchAll(/\bsections?\s+(\d+)\b/gi)].map((m) => m[1]!);
-+  const nums = [
-+    ...text.matchAll(
-+      /\b(?:dans|sur|pour|vers)\s+(?:la\s+)?sections?\s+(\d+)\b/gi,
-+    ),
-+    ...text.matchAll(
-+      /\b(?:intègre|integrer|intégrer|modifie|modifier|révise|revise|révise|mets?\s+[àa]\s+jour|ajoute|ajouter|corrige|corriger)\b[\s\S]{0,80}?\bsections?\s+(\d+)\b/gi,
-+    ),
-+    ...text.matchAll(
-+      /\bsections?\s+(\d+)\b[\s\S]{0,40}?\b(?:avec|en\s+y|pour\s+y)\b/gi,
-+    ),
-+  ].map((m) => m[1]!);
-   return formatNumericSectionHint(nums);
- }
- 
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
-index 30d8aa10..bdd4afda 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/document-command.ts
-@@ -61,6 +61,11 @@ export type DocumentCommandAdmission =
-   | { ok: true; binding: DocumentCommandBinding }
-   | { ok: false; verdict: "NOT_EXECUTED" | "CONFLICT" | "FAILED"; reason: string };
- 
-+/**
-+ * Pair digest for a D4 candidate: SHA-256(title || "" + "\0" + contentMarkdown).
-+ * This is the canonical contentSha256 stored on sealed candidates.
-+ * Do NOT compare against a body-only hash of contentMarkdown alone (C1).
-+ */
- export function contentSha256(title: string, contentMarkdown: string): string {
-   return createHash("sha256")
-     .update(title || "")
-@@ -69,6 +74,11 @@ export function contentSha256(title: string, contentMarkdown: string): string {
-     .digest("hex");
- }
- 
-+/** Body-only digest — for forensic comparison; not the sealed candidate identity. */
-+export function contentBodySha256(contentMarkdown: string): string {
-+  return createHash("sha256").update(contentMarkdown).digest("hex");
-+}
-+
- export function payloadSha256(parts: {
-   action: "CREATE" | "REVISE";
-   source: DocumentCommandSource;
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/investigation-continuation.ts b/projects/sfia-studio-next/web/src/domains/conversation/investigation-continuation.ts
-index 62fb446c..00f02b82 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/investigation-continuation.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/investigation-continuation.ts
-@@ -71,6 +71,12 @@ export function formatInvestigationContinuationContext(
-     lines.push(`Travail restant: ${state.remainingWork.slice(0, 6).join("; ")}`);
-   }
- 
-+  if (state.inventoryTotal != null) {
-+    lines.push(
-+      `Couverture inventaire: ${state.inventoryExamined ?? 0}/${state.inventoryTotal}`,
-+    );
-+  }
-+
-   const conclusions = (state.conclusions ?? []).filter((c) => c.trim().length > 0);
-   if (conclusions.length > 0) {
-     lines.push("Conclusions réutilisables:");
-@@ -102,6 +108,9 @@ function humanizeSuspendReason(reason: string | null | undefined): string | null
-   if (reason === "SEGMENT_INVOCATION_LIMIT") {
-     return "J’ai atteint la limite technique de segments pour cette invocation — une reprise bornée reste possible.";
-   }
-+  if (reason === "NO_PROGRESS_DETECTED") {
-+    return "J’ai suspendu ce travail faute de progression mesurable sur plusieurs segments.";
-+  }
-   if (reason.startsWith("GLOBAL_") || /BUDGET|EXHAUSTED|LIMIT/i.test(reason)) {
-     return "Le travail a été interrompu par une limite technique.";
-   }
-@@ -192,14 +201,14 @@ export function composeInvestigationPartialRestitution(input: {
- 
- /**
-  * Scale per-segment D4 char budget with remaining global token headroom.
-- * Does not change the 200k / 24 ceilings — only local tool share.
-+ * Local tool share only — global envelope is 1M reeval / 2M admin max.
-  */
- export function scaleSegmentCharBudget(input: {
-   baseChars: number;
-   usedTokens: number;
-   maxTokens?: number;
- }): { chars: number; reasonCode: string } {
--  const maxTokens = input.maxTokens ?? 200_000;
-+  const maxTokens = input.maxTokens ?? 2_000_000;
-   const remaining = Math.max(0, maxTokens - Math.max(0, input.usedTokens));
-   const ratio = maxTokens > 0 ? remaining / maxTokens : 1;
-   if (ratio >= 0.5) {
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts b/projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts
-index 288795eb..60e6c796 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts
-@@ -73,6 +73,13 @@ export type InvestigationState = {
-   authorizedExactWebQueries?: string[];
-   /** Public facts already registered for composition. */
-   registeredPublicFacts?: string[];
-+  /**
-+   * B2 — when an exhaustive inventory is established (e.g. 50 files),
-+   * total expected sources in the declared perimeter. Null until inventoried.
-+   */
-+  inventoryTotal?: number | null;
-+  /** Distinct source refs marked CONSULTED/VERIFIED/PARTIAL within the inventory. */
-+  inventoryExamined?: number | null;
- };
- 
- export function createEmptyInvestigation(intent: string): InvestigationState {
+     if (!again.ok) {
++      if (again.softStop && !restitutionPhase) {
++        restitutionPhase = true;
++        resources = {
++          ...resources,
++          limits: [
++            ...(resources.limits ?? []).filter((l) => l !== "RESTITUTION_PHASE"),
++            "RESTITUTION_PHASE",
++          ].slice(-40),
++        };
++        // Allow one more loop iteration under restitution accounting.
++        continue;
++      }
+       suspended = true;
+       suspendReason = again.reason ?? "GLOBAL_BUDGET_EXHAUSTED";
+       break;
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts`
+
+```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-index 0481c513..a1d114e1 100644
+index a1d114e1..ecc7f1f0 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-@@ -235,6 +235,7 @@ export function categorizeProviderError(err: unknown): {
-   preContactLikely: boolean;
- } {
-   const msg = err instanceof Error ? err.message : String(err);
-+  const errName = err instanceof Error ? err.name : "";
-   // Include "timed out" (ModelTimeoutError) — contiguous "timeout" alone misses it.
-   const interrupted = /abort|timeout|timed\s*out|AbortError/i.test(msg);
-   // Only treat as pre-contact when clearly local/config before network.
-@@ -244,7 +245,9 @@ export function categorizeProviderError(err: unknown): {
-     ) && !/fetch|network|ECONN|socket|HTTP|429|500|502|503/i.test(msg);
-   let category = "PROVIDER_ERROR";
-   if (interrupted) category = "PROVIDER_INTERRUPTED";
--  else if (
-+  else if (/MaxTurnsExceeded/i.test(errName) || /max(?:imum)? turns/i.test(msg)) {
-+    category = "max_turns";
-+  } else if (
-     // UAT-03: Agents SDK uses "Invalid output type" (space) — must match, not only output_type.
-     /json.?schema|invalid schema|invalid output type|schema validation|structured output|response_format|output[_\s]?type|unsupported.*schema|ZodError|failed schema/i.test(
-       msg,
-@@ -1061,8 +1064,11 @@ async function runLiveWithTools(
-     "- OBLIGATOIRE pour préparer un contrat Cursor : (1) appeler l'outil submit_cursor_contract_production avec productionInstruction + acceptanceCriteria + desiredOutcome ; (2) intent d7.prepare_cursor_contract mode=PREPARE ; (3) workDisposition=COMPLETE si prêt, sinon AWAIT_PILOT. replyDraft seul = échec. Préparer ≠ autoriser ≠ dispatch.",
-     "- C18 SORTIE COGNITIVE (champs selon besoin — ne pas inventer) :",
-     "  • workDisposition=COMPLETE|CONTINUE|AWAIT_PILOT|SUSPEND selon l'objectif du tour (investigation ≠ contrat ≠ document).",
-+    "  • Investigation longue : si des sources restent à examiner ou des conclusions à consolider, workDisposition=CONTINUE + remainingWorkItems (le conducteur ouvre un nouveau segment avec acquis compactés — ne pas tout relire).",
-+    "  • Ne pas recopier intégralement les contenus d'outils dans replyDraft ; citer avec références exactes et synthétiser.",
-     "  • Si une question déterminante manque : workDisposition=AWAIT_PILOT (le travail reste ouvert pour la reprise).",
-     "  • cognitiveWorkRelation=CONTINUE|INDEPENDENT|CLARIFY|MATERIAL_CHANGE + proposedCognitiveWorkId si rattachement.",
-+    "  • Nouvelle production documentaire à partir d'acquis d'un travail antérieur : cognitiveWorkRelation=INDEPENDENT ou MATERIAL_CHANGE (nouvelle enveloppe) — réutiliser conclusions/références, ne pas relancer l'investigation depuis zéro.",
+@@ -1071,7 +1071,9 @@ async function runLiveWithTools(
+     "  • Nouvelle production documentaire à partir d'acquis d'un travail antérieur : cognitiveWorkRelation=INDEPENDENT ou MATERIAL_CHANGE (nouvelle enveloppe) — réutiliser conclusions/références, ne pas relancer l'investigation depuis zéro.",
      "  • determiningQuestions[] avec id stable, status OPEN/ANSWERED, answerSummary + sourceRefs si résolu — jamais résoudre une question sans réponse explicite.",
      "  • remainingWorkItems[] versionnés (OPEN/RESOLVED/OBSOLETE/…) — ≠ acceptanceCriteria.",
-     "  • cognitiveProfileHint=simple|analyse|investigation pour adapter les moyens.",
-@@ -1320,7 +1326,6 @@ async function runLiveWithTools(
-         },
-       });
- 
--      const status = cat.interrupted ? ("INTERRUPTED" as const) : ("UNKNOWN" as const);
-       const toolsOnErr = policy.budgets.maxD4ToolCalls - initialBudget.remainingCalls;
-       const sourcesOnErr = sourceJournal.entries.slice();
-       const consulted = sourcesOnErr.filter(
-@@ -1357,6 +1362,62 @@ async function runLiveWithTools(
-           ...discoveredOnly.slice(-4).map(formatSrc),
-         );
-       }
-+      // A3 — MaxTurnsExceeded / structured-output failure with acquis is a soft
-+      // segment boundary, not a work failure. Conductor checkpoints and may open
-+      // the next segment with compacted context.
-+      const softSegmentBoundary =
-+        (cat.category === "max_turns" ||
-+          cat.category === "PROVIDER_SCHEMA_OR_OUTPUT" ||
-+          /schema|structured_output|invalid_type|ModelBehavior/i.test(
-+            String(cat.category || "") + String(streamingNotes || ""),
-+          )) &&
-+        (consulted.length > 0 || discoveredOnly.length > 0 || Boolean(submitted));
-+      if (softSegmentBoundary) {
-+        const boundaryContent = [
-+          "Segment technique atteint — acquis consolidés pour continuation automatique.",
-+          ...acquisLines,
-+          "Travail restant: poursuivre l’investigation avec un nouveau segment (contexte compacté).",
-+        ].join("\n");
-+        const boundaryQual = unavailableQualification("max_turns_segment_boundary");
-+        return {
-+          generationId,
-+          mode: "openai-agents-sdk-live",
-+          status: "COMPLETE" as const,
-+          streamingProvisional: false,
-+          streamingAttempted,
-+          streamingDelivered,
-+          streamingNotes: `${streamingNotes}|SEGMENT_MAX_TURNS_BOUNDARY`,
-+          content: boundaryContent,
-+          policy,
-+          modelRequested: policy.modelRequested,
-+          modelApplied: null,
-+          effortRequested: policy.effortRequested,
-+          effortApplied: null,
-+          attempts,
-+          toolCallsObserved: toolsOnErr,
-+          d4CharsReturned: policy.budgets.maxD4CharsReturned - initialBudget.remainingChars,
-+          observedToolSources: sourcesOnErr,
-+          usage: providerUsage ?? undefined,
-+          qualification: {
-+            ...boundaryQual,
-+            status: "QUALIFIED" as const,
-+            workDisposition: "CONTINUE" as const,
-+            replyDraft: boundaryContent,
-+            goal: boundaryQual.goal || "Poursuivre l’investigation",
-+            desiredOutcome: boundaryQual.desiredOutcome || "Synthèse complète",
-+            intents: [],
-+            determiningQuestions: [
-+              {
-+                id: "seg-boundary-remaining",
-+                text: "Travail restant après frontière de segment technique",
-+                status: "OPEN" as const,
-+                importance: "DETERMINANT" as const,
-+              },
-+            ],
-+          },
-+        };
-+      }
-+      const status = cat.interrupted ? ("INTERRUPTED" as const) : ("UNKNOWN" as const);
-       const honestPartial =
-         acquisLines.length > 0
-           ? [
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts b/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
-index 0b1ba16e..3fb84336 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
-@@ -10,6 +10,8 @@ import {
- } from "./cognitive-conductor";
- import { buildCognitivePolicy } from "./cognitive-policy";
- import {
-+  cognitiveEnvelopeLimits,
-+  getCognitiveWork,
-   listCognitiveWorksForPreparation,
-   type CognitiveProductionState,
-   type CognitiveWorkRow,
-@@ -312,19 +314,106 @@ export function mergeInvestigationFromReply(
-     if (!conclusions.some((c) => c.startsWith("Synthèse:"))) conclusions.push(excerpt);
-   }
- 
-+  // B2 — inventory coverage: prefer prior checkpoint; else declare from an
-+  // explicit predeclared perimeter in the Pilote message, else from discovered set.
-+  const discoveredOrBetter = sources.filter(
-+    (s) =>
-+      s.coverage === "DISCOVERED" ||
-+      s.coverage === "CONSULTED" ||
-+      s.coverage === "VERIFIED" ||
-+      s.coverage === "PARTIAL",
-+  ).length;
-+  const exhaustiveIntent =
-+    /intégralement|exhausti|tous les|toutes les|l'intégralité|chaque (?:document|fichier|source)/i.test(
-+      userText,
-+    ) ||
-+    /intégralement|exhausti|inventaire/i.test(goal || prior.intentSummary || "");
-+  const listedPaths = [
-+    ...userText.matchAll(
-+      /(?:^|\n)\s*([^\n]+?\.(?:md|txt|ts|tsx|js|jsx|json|yml|yaml|sql|prisma|mjs|cjs))\s*(?=\n|$)/gi,
-+    ),
-+  ]
-+    .map((m) => m[1]!.trim())
-+    .filter((p) => p.length > 2 && !/\s{3,}/.test(p) && !/^https?:/i.test(p));
-+  const uniqueListed = [...new Set(listedPaths)];
-+  const declaredCount = (() => {
-+    const m = userText.match(
-+      /\b(\d{2,3})\s+(?:documents?|fichiers?|sources?|textes?)\b/i,
-+    );
-+    return m ? Number(m[1]) : null;
-+  })();
-+  let inventoryTotal = prior.inventoryTotal ?? null;
-+  // B2 — once a Pilote perimeter is declared (listed paths or explicit count),
-+  // freeze that total. Extra discoveries must not inflate the inventaire and
-+  // block completion after the declared sources are examined.
-+  const perimeterFrozen =
-+    (declaredCount != null && declaredCount >= 10) || uniqueListed.length >= 10;
-+  const perimeterSize = perimeterFrozen
-+    ? Math.max(uniqueListed.length, declaredCount ?? 0)
-+    : null;
-+  if (perimeterFrozen && perimeterSize != null && perimeterSize >= 10) {
-+    inventoryTotal = perimeterSize;
-+  } else if (inventoryTotal == null && exhaustiveIntent && uniqueListed.length >= 10) {
-+    inventoryTotal = Math.max(uniqueListed.length, declaredCount ?? 0);
-+  } else if (
-+    inventoryTotal == null &&
-+    exhaustiveIntent &&
-+    declaredCount != null &&
-+    declaredCount >= 10
-+  ) {
-+    inventoryTotal = declaredCount;
-+  } else if (
-+    inventoryTotal == null &&
-+    exhaustiveIntent &&
-+    discoveredOrBetter >= 10
-+  ) {
-+    inventoryTotal = discoveredOrBetter;
-+  } else if (
-+    inventoryTotal != null &&
-+    discoveredOrBetter > inventoryTotal &&
-+    !perimeterFrozen
-+  ) {
-+    inventoryTotal = discoveredOrBetter;
-+  }
-+  // Count perimeter coverage against the declared list when available.
-+  const listedSet = new Set(uniqueListed.map((p) => p.replace(/^.*\//, "").toLowerCase()));
-+  const inventoryExamined = sources.filter((s) => {
-+    const covered =
-+      s.coverage === "CONSULTED" ||
-+      s.coverage === "VERIFIED" ||
-+      s.coverage === "PARTIAL" ||
-+      s.coverage === "DENIED";
-+    if (!covered) return false;
-+    if (listedSet.size === 0) return true;
-+    const base = (s.ref || "").replace(/^.*\//, "").toLowerCase();
-+    return listedSet.has(base) || listedSet.has((s.ref || "").toLowerCase());
-+  }).length;
-+  const nextRemaining = [...remainingWork];
-+  if (
-+    inventoryTotal != null &&
-+    inventoryExamined < inventoryTotal &&
-+    !nextRemaining.some((w) => /inventaire|couverture|sources restantes/i.test(w))
-+  ) {
-+    nextRemaining.push(
-+      `Couverture inventaire ${inventoryExamined}/${inventoryTotal} — poursuivre les sources non examinées`,
-+    );
-+  }
-+
-   return evaluateContractReadiness({
-     ...prior,
-     intentSummary: goal || prior.intentSummary || userText.slice(0, 800),
-     desiredOutcome,
-     sources,
-     questions,
--    remainingWork,
-+    remainingWork: nextRemaining,
-     contradictions,
-     constraints,
-     profileHint,
-     productionInstruction,
-     acceptanceCriteria,
-     conclusions: conclusions.slice(-24),
-+    inventoryTotal,
-+    inventoryExamined,
-   });
- }
- 
-@@ -336,14 +425,39 @@ export function semanticContinueWork(
-   investigation: InvestigationState,
-   reply: NoraGenerateResult,
- ): boolean {
--  if (reply.status !== "COMPLETE") return false;
-   if (
-     investigation.contractReadyBlockedReason === "GLOBAL_BUDGET_EXHAUSTED" ||
-     (investigation.contractReadyBlockedReason ?? "").startsWith("GLOBAL_")
-   ) {
-     return false;
-   }
-+  const examined = investigation.inventoryExamined ?? 0;
-+  const total = investigation.inventoryTotal;
-+  // Near-complete coverage (≤2 gap after ≥50 examined) must not block restitution
-+  // when discovery inflation left a tiny residual gap.
-+  const inventoryIncomplete =
-+    total != null &&
-+    examined < total &&
-+    !(examined >= 50 && total - examined <= 2);
-+  const hasAcquis =
-+    (reply.observedToolSources?.length ?? 0) > 0 ||
-+    investigation.sources.some((s) =>
-+      ["CONSULTED", "VERIFIED", "PARTIAL", "DISCOVERED"].includes(s.coverage),
-+    );
-+  // B3 — incomplete exhaustive inventory continues even after a soft provider
-+  // interruption (UNKNOWN/INTERRUPTED) when acquis already progressed.
-+  if (inventoryIncomplete && hasAcquis && reply.status !== "COMPLETE") {
-+    return true;
-+  }
-+  if (reply.status !== "COMPLETE") return false;
-   const disposition = qualification?.workDisposition;
-+  // B3 — incomplete exhaustive inventory is a conductor continuation, not a pilot wait.
-+  // Nora declaring COMPLETE/AWAIT while sources remain unexamined must not stop the work.
-+  // Also continue when inventory is declared but no source was recorded yet (tool-scope
-+  // recovery / first failed segment) — anti-loop still stops three stagnant segments.
-+  if (inventoryIncomplete && (hasAcquis || (investigation.inventoryExamined ?? 0) === 0)) {
-+    return true;
-+  }
-   if (disposition === "COMPLETE" || disposition === "AWAIT_PILOT" || disposition === "SUSPEND") {
-     return false;
-   }
-@@ -378,23 +492,45 @@ export async function resolveCognitiveWorkAttachment(input: {
-   reason: string;
-   /** C20 — do not create/claim; await pilot clarification. */
-   needsClarify?: boolean;
-+  /** B4 — prior work id when forking a new envelope that reuses acquis. */
-+  parentWorkId?: string | null;
- }> {
-+  const works = await listCognitiveWorksForPreparation({
-+    pilotId: input.pilotId,
-+    preparationId: input.preparationId,
-+  });
-+  const priorWithAcquis = works
-+    .filter(
-+      (w) =>
-+        (w.state.conclusions?.length ?? 0) > 0 ||
-+        w.state.sources.some((s) =>
-+          ["CONSULTED", "VERIFIED", "PARTIAL"].includes(s.coverage),
-+        ),
-+    )
-+    .sort((a, b) => b.revision - a.revision);
-+  const provenanceParent = priorWithAcquis[0]?.id ?? null;
-+
-   if (input.forceNewWork === true) {
--    return { forceNew: true, reason: "FORCE_NEW_EXPLICIT" };
-+    return {
-+      forceNew: true,
-+      reason: "FORCE_NEW_EXPLICIT",
-+      // B4 — explicit new work still inherits provenance when prior acquis exist.
-+      parentWorkId: provenanceParent,
-+    };
-   }
-   if (input.workId) {
-     return { workId: input.workId, forceNew: false, reason: "EXPLICIT_WORK_ID" };
-   }
- 
--  const works = await listCognitiveWorksForPreparation({
--    pilotId: input.pilotId,
--    preparationId: input.preparationId,
--  });
-   const relation = input.qualification?.cognitiveWorkRelation;
-   const proposed = input.qualification?.proposedCognitiveWorkId?.trim() || null;
- 
-   if (relation === "INDEPENDENT" || relation === "MATERIAL_CHANGE" || relation === "UNRELATED") {
--    return { forceNew: true, reason: `SEMANTIC_${relation}` };
-+    return {
-+      forceNew: true,
-+      reason: `SEMANTIC_${relation}`,
-+      parentWorkId: provenanceParent ?? proposed,
-+    };
-   }
- 
-   // RB-31 / RB-27 — new document production after a completed / exhausted analysis
-@@ -405,13 +541,20 @@ export async function resolveCognitiveWorkAttachment(input: {
-       i.capabilityId === "d4.create_document" &&
-       (i.mode === "REQUEST_EFFECT" || i.mode === "PREPARE"),
-   );
-+  const text = input.userText ?? "";
-+  const wantsNoteFromPrior =
-+    /note de recommandation|à partir de (cette|l['’] ?|mon |notre ).{0,40}(analyse|synthèse|investigation|examen)|crée(r)? (le |un |une )?(document|note)/i.test(
-+      text,
-+    );
-+  const { maxTokens: envelopeMax } = cognitiveEnvelopeLimits();
-+  const saturatedFloor = Math.max(190_000, Math.floor(envelopeMax * 0.95));
-   const exhausted = works.filter(
-     (w) =>
-       (w.status === "SUSPENDED" || w.status === "COMPLETE" || w.status === "FAILED") &&
-       (w.interruptCause === "GLOBAL_TOKEN_BUDGET_EXHAUSTED" ||
-         w.interruptCause === "GLOBAL_SEGMENT_BUDGET_EXHAUSTED" ||
-         w.interruptCause === "GLOBAL_BUDGET_EXHAUSTED" ||
--        (w.resources.inputTokens ?? 0) + (w.resources.outputTokens ?? 0) >= 190_000),
-+        (w.resources.inputTokens ?? 0) + (w.resources.outputTokens ?? 0) >= saturatedFloor),
-   );
-   const proposedExhausted = proposed ? exhausted.some((w) => w.id === proposed) : false;
-   // Fork document production off an exhausted / saturated prior work even when Nora
-@@ -421,7 +564,22 @@ export async function resolveCognitiveWorkAttachment(input: {
-     exhausted.length > 0 &&
-     (!relation || relation === "CONTINUE" || proposedExhausted)
-   ) {
--    return { forceNew: true, reason: "NEW_PRODUCTION_FROM_PRIOR_ACQUIS" };
-+    return {
-+      forceNew: true,
-+      reason: "NEW_PRODUCTION_FROM_PRIOR_ACQUIS",
-+      parentWorkId: exhausted[0]?.id ?? provenanceParent ?? proposed,
-+    };
-+  }
-+  if (
-+    (wantsCreateDoc || wantsNoteFromPrior) &&
-+    priorWithAcquis.length > 0 &&
-+    (!relation || relation === "CONTINUE" || relation == null)
-+  ) {
-+    return {
-+      forceNew: true,
-+      reason: "NEW_PRODUCTION_FROM_PRIOR_ACQUIS",
-+      parentWorkId: provenanceParent,
-+    };
-   }
-   if (relation === "CONTINUE" && exhausted.length > 0 && !proposed) {
-     // Refuse blind resume of a saturated envelope — pilot/Nora must fork or clarify.
-@@ -580,6 +738,15 @@ function documentProductionFromReply(
-   const prevDoc =
-     (work.production as CognitiveProductionState & { contentMarkdown?: string })
-       .contentMarkdown ?? "";
-+  // Soft segment boundaries are conductor control messages — never document body.
-+  if (
-+    String(reply.streamingNotes || "").includes("SEGMENT_MAX_TURNS_BOUNDARY") ||
-+    /^Segment technique atteint/i.test((reply.content || "").trim())
-+  ) {
-+    return work.production?.kind === "DOCUMENT" || work.production?.kind === "SYNTHESIS"
-+      ? { ...work.production, status: continueWork ? "IN_PROGRESS" : work.production.status }
-+      : undefined;
-+  }
-   // C19: part ids are stable across invocations — never collide on local segmentIndex 0.
-   const partId = `gen-${reply.generationId || `seg-${work.revision}-${segmentIndex}`}`;
-   const appendPart = (
-@@ -781,27 +948,44 @@ export async function runNoraCognitiveTurn(
-     };
-   }
- 
--  const conductor: ConductorRunResult = await runCognitiveConductor({
-+  // Adaptive local segment budget — technical per-invocation cap, not global envelope.
-+  // Investigation gets more segments so long work can auto-continue without pilot clicks.
-+  const exhaustiveSeed =
-+    /\b(?:50|intégralement|exhausti|tous les documents|toutes les sources)\b/i.test(
-+      input.userText || "",
-+    );
-+  const defaultLocalSegments = (() => {
-+    if (input.maxSegmentsThisInvocation != null) return input.maxSegmentsThisInvocation;
-+    const seed = input.objective ?? input.userText;
-+    const hint = buildCognitivePolicy(seed).profile;
-+    if (hint === "investigation" || exhaustiveSeed) return 40;
-+    if (hint === "analyse") return 12;
-+    return 3;
-+  })();
-+
-+  const runConductorOnce = (workId: string | null | undefined, forceNew: boolean) =>
-+    runCognitiveConductor({
-     pilotId: input.pilotId,
-     preparationId: input.preparationId,
-     projectId: input.projectId,
-     conversationId: input.conversationId,
-     objective: input.objective ?? input.userText.slice(0, 2000),
-     expectedOutcome: input.expectedOutcome,
--    workId: attachment.workId,
--    forceNewWork: attachment.forceNew,
-+    workId,
-+    forceNewWork: forceNew,
-+    parentWorkId: attachment.parentWorkId,
-     turnCommandId: input.turnCommandId,
--    // C17: local cap remains technical; default raised for investigation depth.
--    // SEGMENT_INVOCATION_LIMIT still suspends honestly when exhausted.
--    maxSegmentsThisInvocation: input.maxSegmentsThisInvocation ?? 5,
-+    maxSegmentsThisInvocation: defaultLocalSegments,
-     resolvePolicy: (work, segmentIndex) => {
-       const seed =
-         work.state.intentSummary ||
-         work.objective ||
-         input.userText;
--      const hint = work.state.profileHint;
-+      const hint =
-+        work.state.profileHint ||
-+        (exhaustiveSeed ? "investigation" : undefined);
-       let base =
--        segmentIndex > 0 && hint === "investigation"
-+        (segmentIndex > 0 && hint === "investigation") || exhaustiveSeed
-           ? buildCognitivePolicy(seed, undefined, {
-               profileHint: "investigation",
-               effortHint: "high",
-@@ -830,14 +1014,64 @@ export async function runNoraCognitiveTurn(
-       return base;
-     },
-     runSegment: async ({ work, segmentIndex, policy }) => {
--      const acquisBlock =
--        segmentIndex === 0
--          ? ""
--          : formatInvestigationContinuationContext(work.state);
--      const continuationHint =
--        segmentIndex === 0
--          ? ""
--          : [
-+      // Compact acquis whenever prior checkpoint material exists — including
-+      // segmentIndex 0 of an auto-continued invocation (same work, new lease).
-+      const hasPriorAcquis =
-+        work.state.sources.length > 0 ||
-+        (work.state.conclusions?.length ?? 0) > 0 ||
-+        work.state.remainingWork.length > 0 ||
-+        work.revision > 0;
-+      // B4 — new envelope from prior acquis: inject parent checkpoint context once.
-+      let parentAcquisBlock = "";
-+      if (
-+        attachment.parentWorkId &&
-+        segmentIndex === 0 &&
-+        !hasPriorAcquis &&
-+        attachment.parentWorkId !== work.id
-+      ) {
-+        try {
-+          const parent = await getCognitiveWork({
-+            pilotId: input.pilotId,
-+            workId: attachment.parentWorkId,
-+          });
-+          parentAcquisBlock = [
-+            `[Acquis du travail parent ${parent.id} — réutiliser, ne pas tout relire]`,
-+            formatInvestigationContinuationContext(parent.state, { maxChars: 6500 }),
-+          ].join("\n");
-+        } catch {
-+          parentAcquisBlock = "";
-+        }
-+      }
-+      const useContinuation = segmentIndex > 0 || hasPriorAcquis || Boolean(parentAcquisBlock);
-+      const acquisBlock = hasPriorAcquis
-+        ? formatInvestigationContinuationContext(work.state)
-+        : parentAcquisBlock;
-+      // B2 — next unexamined paths from the Pilote perimeter (compacted, not full history).
-+      const examinedRefs = new Set(
-+        work.state.sources
-+          .filter((s) =>
-+            ["CONSULTED", "VERIFIED", "PARTIAL", "DENIED"].includes(s.coverage),
-+          )
-+          .map((s) => s.ref.replace(/^.*\//, "").toLowerCase()),
-+      );
-+      const listedNext = [
-+        ...input.userText.matchAll(
-+          /(?:^|\n)\s*([^\n]+?\.(?:md|txt|ts|tsx|js|jsx|json|yml|yaml|sql|prisma|mjs|cjs))\s*(?=\n|$)/gi,
-+        ),
-+      ]
-+        .map((m) => m[1]!.trim())
-+        .filter((p) => {
-+          const base = p.replace(/^.*\//, "").toLowerCase();
-+          return (
-+            p.length > 2 &&
-+            !examinedRefs.has(base) &&
-+            !examinedRefs.has(p.toLowerCase())
-+          );
-+        });
-+      const uniqueNext = [...new Set(listedNext)].slice(0, 12);
-+      const continuationHint = !useContinuation
-+        ? ""
-+        : [
-               "",
-               "[Continuation du même travail cognitif — segment suivant]",
-               `workId=${work.id} revision=${work.revision}`,
-@@ -858,6 +1092,13 @@ export async function runNoraCognitiveTurn(
-               work.state.constraints.length
-                 ? `Contraintes: ${work.state.constraints.join("; ")}`
-                 : null,
-+              work.state.inventoryTotal != null
-+                ? `Couverture inventaire: ${work.state.inventoryExamined ?? 0}/${work.state.inventoryTotal}`
-+                : null,
-+              uniqueNext.length > 0
-+                ? `Prochaines sources à examiner (échantillon): ${uniqueNext.join("; ")}`
-+                : null,
-+              "Consigne: ne pas relire les sources déjà CONSULTED; ouvrir les suivantes; si inventaire incomplet workDisposition=CONTINUE.",
-               acquisBlock || null,
-             ]
-               .filter(Boolean)
-@@ -887,19 +1128,18 @@ export async function runNoraCognitiveTurn(
-       });
- 
-       let reply: NoraGenerateResult;
--      if (probeReply && segmentIndex === 0 && !probeConsumed) {
-+      if (probeReply && segmentIndex === 0 && !probeConsumed && !hasPriorAcquis) {
-         probeConsumed = true;
-         reply = probeReply;
-       } else {
-         reply = await generateNoraReply({
--          userText:
--            segmentIndex === 0
-+          userText: !useContinuation
-               ? input.userText
-               : `${input.userText}${continuationHint}`,
-           contextSnippets: [
-             ...input.contextSnippets,
-             candidateSnippet,
--            ...(segmentIndex > 0
-+            ...(useContinuation
-               ? [
-                   `Checkpoint cognitif ${work.id} r${work.revision}`,
-                   work.state.intentSummary || "",
-@@ -1004,6 +1244,42 @@ export async function runNoraCognitiveTurn(
-     },
-   });
- 
-+  // B3 — server-side auto-continue across local SEGMENT_INVOCATION_LIMIT without
-+  // requiring a new Pilote message. Same work identity; cumulative resources preserved.
-+  let conductor: ConductorRunResult = await runConductorOnce(
-+    attachment.workId,
-+    attachment.forceNew,
-+  );
-+  let totalSegmentsRun = conductor.segmentsRun;
-+  // Long exhaustive investigations need wall room beyond a single HTTP comfort window;
-+  // browser observes, server continues. Soft cap still applies via envelope + autoRounds.
-+  const wallDeadline =
-+    Date.now() +
-+    (defaultLocalSegments >= 20 ? 3_000_000 : 1_700_000);
-+  let autoRounds = 0;
-+  while (
-+    conductor.suspended &&
-+    conductor.suspendReason === "SEGMENT_INVOCATION_LIMIT" &&
-+    autoRounds < 12 &&
-+    Date.now() < wallDeadline &&
-+    (conductor.investigation.remainingWork.length > 0 ||
-+      conductor.investigation.questions.some(
-+        (q) => q.importance === "DETERMINANT" && q.status !== "ANSWERED",
-+      ) ||
-+      (conductor.investigation.inventoryTotal != null &&
-+        (conductor.investigation.inventoryExamined ?? 0) <
-+          conductor.investigation.inventoryTotal))
-+  ) {
-+    autoRounds += 1;
-+    const next = await runConductorOnce(conductor.work.id, false);
-+    totalSegmentsRun += next.segmentsRun;
-+    conductor = {
-+      ...next,
-+      segmentsRun: totalSegmentsRun,
-+      resumed: true,
-+    };
-+  }
-+
-   const lastReply = segmentBox.reply;
-   if (!lastReply) {
-     throw new Error("CONDUCTOR_NO_SEGMENT");
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index c6344a58..0975cd79 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -2014,14 +2014,25 @@ export async function postUserMessageAndNora(
-       if (!confront.ok) {
-         // Section-scoped natural revise: Nora often emits a partial LEGACY fence for
-         // the targeted sections while documentProposal carries a divergent full body.
--        // Do not poison the turn — the REVISE path prefers the contractual fence.
-+        // Prefer the contractual LEGACY fence as canonical merge input (deterministic),
-+        // never silently ignore a material authority conflict outside that case.
-         if (
--          !(
--            sectionScopedConfront &&
--            earlyExtract.ok &&
--            isLegacyUntitledSectionFence(earlyExtract)
--          )
-+          sectionScopedConfront &&
-+          earlyExtract.ok &&
-+          isLegacyUntitledSectionFence(earlyExtract)
-         ) {
-+          const fenceCanonical = canonicalizeDocumentProposal({
-+            title: earlyCanonical.proposal.title,
-+            contentMarkdown: earlyExtract.content,
-+          });
-+          if (fenceCanonical.ok) {
-+            durableProposal = fenceCanonical.proposal;
-+            proposalAuthorityConflict = null;
-+          } else {
-+            proposalAuthorityConflict = confront.reason;
-+            durableProposal = null;
-+          }
-+        } else {
-           proposalAuthorityConflict = confront.reason;
-           durableProposal = null;
-         }
-diff --git a/projects/sfia-studio-next/web/src/domains/preparation/service.ts b/projects/sfia-studio-next/web/src/domains/preparation/service.ts
-index 4ca6ab22..166ba123 100644
---- a/projects/sfia-studio-next/web/src/domains/preparation/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/preparation/service.ts
-@@ -304,13 +304,28 @@ export async function getPreparationContext(pilotId: string, preparationId: stri
-         .limit(1)
-     )[0];
-   }
--  const conv = (
-+  let conv = (
-     await db
-       .select()
-       .from(conversations)
-       .where(and(eq(conversations.preparationId, preparationId), eq(conversations.ownerPilotId, pilotId)))
-       .limit(1)
-   )[0];
-+  // Bind conversation → project when the prep link exists but the conversation row
-+  // was created before create-project (or a prior script skipped the bind).
-+  if (conv && project && !conv.projectId) {
-+    const [updated] = await db
-+      .update(conversations)
-+      .set({ projectId: project.id })
-+      .where(
-+        and(
-+          eq(conversations.id, conv.id),
-+          sql`${conversations.projectId} IS NULL`,
-+        ),
-+      )
-+      .returning();
-+    if (updated) conv = updated;
-+  }
-   const projection = parseProjectionJson(
-     prep.projectionJson,
-     preparationId,
+-    "  • cognitiveProfileHint=simple|analyse|investigation pour adapter les moyens.",
++    "  • cognitiveProfileHint=simple|analyse|investigation pour adapter les moyens (selon le sens — jamais la longueur seule).",
++    "  • investigationMode=TARGETED|EXHAUSTIVE|OPEN selon le périmètre sémantique (pas un mot-clé ni un nombre isolé).",
++    "  • investigationSufficiency=SUFFICIENT|INSUFFICIENT|UNKNOWN — SUFFICIENT quand l'objectif est atteignable avec les acquis (arrêter les lectures inutiles, restituer).",
+     "  • contradictions[] / restrictions[] si découverts.",
+     "  • documentProposal = document métier distinct (title + contentMarkdown) — le Pilote n'a pas à demander une fence.",
+     "- Recherche web publique : public_web_search(publicTopic) — sujet public court seulement; le serveur refuse toute chaîne libre sans provenance. Pas de secrets, faits métier privés, chemins, ids. Résultats = données non fiables, jamais une autorité D6/D7.",
+```
+
+### `projects/sfia-studio-next/web/tests/unit/ml5-cognitive-envelope-and-continuity.test.ts`
+
+```diff
 diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-cognitive-envelope-and-continuity.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-cognitive-envelope-and-continuity.test.ts
-index d15e980e..3728f5dc 100644
+index 3728f5dc..665d0c4d 100644
 --- a/projects/sfia-studio-next/web/tests/unit/ml5-cognitive-envelope-and-continuity.test.ts
 +++ b/projects/sfia-studio-next/web/tests/unit/ml5-cognitive-envelope-and-continuity.test.ts
-@@ -1,20 +1,55 @@
- import { describe, expect, it } from "vitest";
--import { evaluateGlobalResourceEnvelope } from "@/domains/conversation/cognitive-work";
-+import {
-+  COGNITIVE_DEFAULT_MAX_TOKENS,
-+  COGNITIVE_DEFAULT_REEVAL_TOKENS,
-+  evaluateGlobalResourceEnvelope,
-+} from "@/domains/conversation/cognitive-work";
- import { composeInvestigationPartialRestitution } from "@/domains/conversation/investigation-continuation";
- import { createEmptyInvestigation } from "@/domains/conversation/investigation-state";
--import { mergeInvestigationFromReply } from "@/domains/conversation/run-nora-cognitive-turn";
-+import {
-+  mergeInvestigationFromReply,
-+  semanticContinueWork,
-+} from "@/domains/conversation/run-nora-cognitive-turn";
- import type { NoraGenerateResult } from "@/domains/conversation/nora-adapter";
-+import { contentBodySha256, contentSha256 } from "@/domains/conversation/document-command";
-+import { extractSectionHintFromPilotText } from "@/domains/conversation/document-act";
- 
--describe("RB-27 preventive envelope", () => {
--  it("hard-stops at 200k used", () => {
--    const r = evaluateGlobalResourceEnvelope({
--      segmentCalls: 2,
--      inputTokens: 190_000,
--      outputTokens: 15_000,
--      webCalls: 0,
--      durationMs: 1,
--      limits: [],
--    });
-+describe("adaptive resource envelope (1M reeval / 2M admin)", () => {
-+  it("allows work under 2M with default calibration", () => {
-+    const r = evaluateGlobalResourceEnvelope(
-+      {
-+        segmentCalls: 10,
-+        inputTokens: 1_050_000,
-+        outputTokens: 50_000,
-+        webCalls: 0,
-+        durationMs: 1,
-+        limits: [],
-+      },
-+      {
-+        SFIA_COGNITIVE_MAX_TOKENS: String(COGNITIVE_DEFAULT_MAX_TOKENS),
-+        SFIA_COGNITIVE_MAX_SEGMENTS: "120",
-+        SFIA_COGNITIVE_REEVAL_TOKENS: String(COGNITIVE_DEFAULT_REEVAL_TOKENS),
-+      },
-+    );
-+    expect(r.ok).toBe(true);
-+    expect(r.reevaluationNeeded).toBe(true);
+@@ -241,19 +241,67 @@ describe("B3 inventory-incomplete continuation", () => {
+         { kind: "GIT", ref: "a.md", title: "a", coverage: "CONSULTED" },
+       ],
+     } as unknown as NoraGenerateResult;
++    // D3 — COMPLETE disposition wins over incomplete inventory (no more force-continue).
++    expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(false);
 +  });
 +
-+  it("hard-stops at 2M used", () => {
-+    const r = evaluateGlobalResourceEnvelope(
-+      {
-+        segmentCalls: 2,
-+        inputTokens: 1_900_000,
-+        outputTokens: 150_000,
-+        webCalls: 0,
-+        durationMs: 1,
-+        limits: [],
-+      },
-+      {
-+        SFIA_COGNITIVE_MAX_TOKENS: "2000000",
-+        SFIA_COGNITIVE_MAX_SEGMENTS: "120",
-+      },
-+    );
-     expect(r.ok).toBe(false);
-     expect(r.reason).toBe("GLOBAL_TOKEN_BUDGET_EXHAUSTED");
-   });
-@@ -23,14 +58,14 @@ describe("RB-27 preventive envelope", () => {
-     const r = evaluateGlobalResourceEnvelope(
-       {
-         segmentCalls: 2,
--        inputTokens: 185_000,
-+        inputTokens: 1_980_000,
-         outputTokens: 5_000,
-         webCalls: 0,
-         durationMs: 1,
-         limits: [],
-       },
--      process.env,
--      { reserveForRestitution: 12_000 },
-+      { SFIA_COGNITIVE_MAX_TOKENS: "2000000" },
-+      { reserveForRestitution: 24_000 },
-     );
-     expect(r.ok).toBe(false);
-     expect(r.softStop).toBe(true);
-@@ -46,20 +81,20 @@ describe("RB-27 preventive envelope", () => {
-         durationMs: 0,
-         limits: [],
-       },
--      process.env,
-+      { SFIA_COGNITIVE_MAX_TOKENS: "2000000" },
-       { reserveForRestitution: 0, projectedNextSegmentTokens: 0 },
-     );
-     expect(r.ok).toBe(true);
-   });
- 
--  it("does not raise ceilings above 200k/24", () => {
-+  it("honours configurable segment anti-loop ceiling", () => {
-     const env = {
--      SFIA_COGNITIVE_MAX_TOKENS: "200000",
--      SFIA_COGNITIVE_MAX_SEGMENTS: "24",
-+      SFIA_COGNITIVE_MAX_TOKENS: "2000000",
-+      SFIA_COGNITIVE_MAX_SEGMENTS: "120",
-     };
-     const overSeg = evaluateGlobalResourceEnvelope(
-       {
--        segmentCalls: 24,
-+        segmentCalls: 120,
-         inputTokens: 10,
-         outputTokens: 10,
-         webCalls: 0,
-@@ -71,6 +106,22 @@ describe("RB-27 preventive envelope", () => {
-     expect(overSeg.ok).toBe(false);
-     expect(overSeg.reason).toBe("GLOBAL_SEGMENT_BUDGET_EXHAUSTED");
-   });
-+
-+  it("still respects an explicit 200k env override", () => {
-+    const r = evaluateGlobalResourceEnvelope(
-+      {
-+        segmentCalls: 2,
-+        inputTokens: 190_000,
-+        outputTokens: 15_000,
-+        webCalls: 0,
-+        durationMs: 1,
-+        limits: [],
-+      },
-+      { SFIA_COGNITIVE_MAX_TOKENS: "200000" },
-+    );
-+    expect(r.ok).toBe(false);
-+    expect(r.reason).toBe("GLOBAL_TOKEN_BUDGET_EXHAUSTED");
-+  });
- });
- 
- describe("RB-30 conclusions capitalization", () => {
-@@ -120,24 +171,121 @@ describe("RB-28/B5 restitution", () => {
-     state.sources = [
-       {
-         kind: "GIT",
--        ref: "src/booking.ts",
--        title: "booking.ts",
-+        ref: "a.ts",
-+        title: "a",
-         coverage: "CONSULTED",
-       },
-     ];
-     const text = composeInvestigationPartialRestitution({
-       state,
-       suspendReason: "GLOBAL_TOKEN_BUDGET_EXHAUSTED",
--      production: {
--        kind: "REPLY",
--        status: "PARTIAL",
--        parts: [],
--        contentMarkdown: "Synthèse métier déjà produite sur le travail précédent.",
--      },
-     });
-+    expect(text).toMatch(/contigu/i);
-     expect(text).not.toMatch(/GLOBAL_TOKEN_BUDGET_EXHAUSTED/);
--    expect(text).toMatch(/limite de ressources/i);
--    expect(text).toMatch(/Créneaux contigus/);
--    expect(text).not.toMatch(/Aucune conclusion métier fiable n'a été consolidée/);
-+  });
-+});
-+
-+describe("C1 contentSha256 pair vs body", () => {
-+  it("pair digest differs from body-only when title is non-empty", () => {
-+    const title = "Note de recommandation";
-+    const body = "# Note\n\nContenu métier.";
-+    const pair = contentSha256(title, body);
-+    const bodyOnly = contentBodySha256(body);
-+    expect(pair).not.toBe(bodyOnly);
-+    expect(contentSha256(title, body)).toBe(pair);
-+  });
-+});
-+
-+describe("C2 section hint authority", () => {
-+  it("ignores bare section mentions used as reference", () => {
-+    const hint = extractSectionHintFromPilotText(
-+      "Comme indiqué en section 1, prépare une synthèse sans modifier le document.",
-+    );
-+    expect(hint).toBeNull();
-+  });
-+
-+  it("recovers intentional multi-section revision targets", () => {
-+    const hint = extractSectionHintFromPilotText(
-+      "Intègre ces précisions dans la section 2 et dans la section 3.",
-+    );
-+    expect(hint).toMatch(/2/);
-+    expect(hint).toMatch(/3/);
-+  });
-+});
-+
-+describe("B3 inventory-incomplete continuation", () => {
-+  it("continues when Nora declares COMPLETE but inventory remains open", () => {
-+    const inv = createEmptyInvestigation("Examine intégralement les 50 documents");
-+    inv.inventoryTotal = 50;
-+    inv.inventoryExamined = 32;
++  it("continues incomplete inventory only when disposition is CONTINUE", () => {
++    const inv = createEmptyInvestigation("Examine le périmètre déclaré");
++    inv.inventoryTotal = 5;
++    inv.inventoryExamined = 2;
++    inv.inventoryDenied = 0;
 +    inv.sources = [
-+      {
-+        kind: "GIT",
-+        ref: "a.md",
-+        title: "a",
-+        coverage: "CONSULTED",
-+      },
++      { kind: "GIT", ref: "a.md", title: "a", coverage: "CONSULTED" },
++      { kind: "GIT", ref: "b.md", title: "b", coverage: "CONSULTED" },
 +    ];
 +    const reply = {
-+      content: "Synthèse partielle",
++      content: "Suite",
 +      status: "COMPLETE",
 +      qualification: {
 +        status: "QUALIFIED",
-+        workDisposition: "COMPLETE",
++        workDisposition: "CONTINUE",
 +        goal: "Synthèse",
 +        desiredOutcome: "Synthèse",
 +        intents: [],
@@ -2693,12 +1670,53 @@ index d15e980e..3728f5dc 100644
 +        { kind: "GIT", ref: "a.md", title: "a", coverage: "CONSULTED" },
 +      ],
 +    } as unknown as NoraGenerateResult;
-+    expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(true);
+     expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(true);
+   });
+ 
+-  it("continues when inventory is declared but no source recorded yet", () => {
+-    const inv = createEmptyInvestigation("Examine intégralement les 50 documents");
+-    inv.inventoryTotal = 50;
++  it("respects AWAIT_PILOT even when inventory incomplete", () => {
++    const inv = createEmptyInvestigation("Investigate");
++    inv.inventoryTotal = 10;
++    inv.inventoryExamined = 3;
++    const reply = {
++      content: "Clarification requise",
++      status: "COMPLETE",
++      qualification: {
++        status: "QUALIFIED",
++        workDisposition: "AWAIT_PILOT",
++        goal: "Synthèse",
++        desiredOutcome: "Synthèse",
++        intents: [],
++        determiningQuestions: [],
++      },
++      observedToolSources: [],
++    } as unknown as NoraGenerateResult;
++    expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(false);
 +  });
 +
-+  it("continues when inventory is declared but no source recorded yet", () => {
-+    const inv = createEmptyInvestigation("Examine intégralement les 50 documents");
-+    inv.inventoryTotal = 50;
++  it("continues when inventory is declared but no source recorded yet and disposition unset", () => {
++    const inv = createEmptyInvestigation("Examine le périmètre");
++    inv.inventoryTotal = 5;
+     inv.inventoryExamined = 0;
+     const reply = {
+       content: "Accès Git indisponible pour l’instant",
+       status: "COMPLETE",
+       qualification: {
+         status: "QUALIFIED",
+-        workDisposition: "COMPLETE",
++        workDisposition: undefined,
+         goal: "Synthèse",
+         desiredOutcome: "Synthèse",
+         intents: [],
+@@ -264,6 +312,26 @@ describe("B3 inventory-incomplete continuation", () => {
+     expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(true);
+   });
+ 
++  it("stops when COMPLETE is declared even if no source recorded yet", () => {
++    const inv = createEmptyInvestigation("Examine le périmètre");
++    inv.inventoryTotal = 5;
 +    inv.inventoryExamined = 0;
 +    const reply = {
 +      content: "Accès Git indisponible pour l’instant",
@@ -2713,32 +1731,189 @@ index d15e980e..3728f5dc 100644
 +      },
 +      observedToolSources: [],
 +    } as unknown as NoraGenerateResult;
-+    expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(true);
++    expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(false);
 +  });
 +
-+  it("stops when inventory is complete and disposition is COMPLETE", () => {
-+    const inv = createEmptyInvestigation("done");
-+    inv.inventoryTotal = 3;
-+    inv.inventoryExamined = 3;
-+    inv.sources = [
-+      { kind: "GIT", ref: "a", title: "a", coverage: "CONSULTED" },
-+      { kind: "GIT", ref: "b", title: "b", coverage: "CONSULTED" },
-+      { kind: "GIT", ref: "c", title: "c", coverage: "CONSULTED" },
-+    ];
-+    const reply = {
-+      content: "Synthèse",
-+      status: "COMPLETE",
-+      qualification: {
-+        status: "QUALIFIED",
-+        workDisposition: "COMPLETE",
-+        goal: "Synthèse",
-+        desiredOutcome: "Synthèse",
-+        intents: [],
-+        determiningQuestions: [],
-+      },
-+      observedToolSources: [],
-+    } as unknown as NoraGenerateResult;
-+    expect(semanticContinueWork(reply.qualification!, inv, reply)).toBe(false);
-   });
- });
+   it("stops when inventory is complete and disposition is COMPLETE", () => {
+     const inv = createEmptyInvestigation("done");
+     inv.inventoryTotal = 3;
 ```
+
+### `projects/sfia-studio-next/architecture-technique/conducteur-cognitif-et-production-nora.md`
+
+```diff
+diff --git a/projects/sfia-studio-next/architecture-technique/conducteur-cognitif-et-production-nora.md b/projects/sfia-studio-next/architecture-technique/conducteur-cognitif-et-production-nora.md
+index 3b25c553..7ee1b3ca 100644
+--- a/projects/sfia-studio-next/architecture-technique/conducteur-cognitif-et-production-nora.md
++++ b/projects/sfia-studio-next/architecture-technique/conducteur-cognitif-et-production-nora.md
+@@ -100,6 +100,15 @@ Le serveur résout d'abord identité, scope, lane, outils réellement accessible
+ 
+ Pour une continuation, Nora fournit une synthèse de travail exploitable : objectif, acquis référencés, questions, lacunes, contradictions, restrictions, résultat partiel, besoin et justification de moyens supplémentaires. Le serveur valide forme, périmètre, consommation et possibilité de continuer. La décision cognitive de poursuivre n'est pas une condition regex, nombre de caractères ou quota de critères. Rechercher la valeur informative marginale, éviter la répétition sans progrès ; si aucune continuation utile ou permise, terminer partiellement/suspendre. Une boucle technique déterministe peut garantir la sécurité et la gestion des ressources sans déterminer le sens de la demande.
+ 
++### 6.1 As-built — finalisation cognitive ciblée (A/B/C/D, ML5)
++
++Mécanismes runtime (pas une refonte du conducteur) :
++
++- **A — Qualification sémantique** : `investigationMode` (`TARGETED`|`EXHAUSTIVE`|`OPEN`) et `investigationSufficiency` (`SUFFICIENT`|`INSUFFICIENT`|`UNKNOWN`) dans la qualification structurée ; profil / largeur / note-from-prior via champs et intents, jamais via mots-clés (« 50 », « exhausti », regex de note).
++- **B — Identité et couverture** : clé canonique de chemin complet (`canonicalSourcePathKey`) ; inventaire `inventoryKeys` ; `CONSULTED`/`VERIFIED` ≠ `PARTIAL` ≠ `DENIED` ; périmètre fixé non gonflé par découvertes ; aucune exception « near-complete ≥50 ».
++- **C — Capitalisation** : `upsertConclusion` / empreinte normalisée (reformulation ≠ progrès) ; parent d'acquis par pertinence sémantique (pas le seul compteur de révisions) ; `NEW_PRODUCTION_FROM_PRIOR_ACQUIS` sur intents/relation structurés.
++- **D — Terminaison** : `COMPLETE`/`AWAIT_PILOT`/`SUSPEND` respectés même si inventaire incomplet ; suffisance Nora déclenche phase de restitution ; réserve de restitution réellement consommable (`RESTITUTION_PHASE`, soft-stop ≠ abandon) ; seuil 1M pose `REEVAL_THRESHOLD_1M` et restreint la stratégie, pas seulement un texte dans `remainingWork`. Calibration nominale inchangée : 2M / 1M / 120.
++
+ Distinguer : limite d'un segment, fenêtre de contexte ou limite de sortie fournisseur, validation structurelle, politique financière et de sécurité globale administrable. Le dépassement de segment ne clôt pas un travail ; la limite globale ne se réinitialise pas silencieusement entre générations. Mesurer appels, durée, tokens entrée/sortie/cache/raisonnement si exposés, coût estimé ou observé avec provenance, modèle/effort demandés et appliqués distincts ; indisponibilité explicite. Inclure appels WEB et lectures. Pas de nouveau plafond métier arbitraire ni augmentation aveugle. Tester calibration simple vs complexe avec mesure, pas un benchmark de tokens inventé.
+ 
+ ## 7. Continuité et persistance cognitive
+```
+
+### `projects/sfia-studio-next/construction/delivery-history.md`
+
+```diff
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 059c509d..e6b651ca 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -3,6 +3,28 @@
+ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+ 
++## delivery_id: DELIV-2026-11-25-ML5-NORA-COGNITIVE-COMPLETION
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-25 (Europe/Paris) |
++| Macro-lot | ML5 — Nora cognitive completion (A/B/C/D ciblés) |
++| Type | INC Critical · correctif interne · **NO RELEASE** |
++| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
++| Parent / tip de base | `d58d42802e50d64c97cdfc9e66bc769c74e0c0fa` |
++| Candidate SHA | `86be16899b93f962be3a50efa70d968637ea09d6` (+ docs delivery-history) |
++| Candidate tree | `6a6a2564d0f30e86152cc47681f8763fa6871431` |
++| Web tree | `7b93ddc4fb2e5ce9eee8bd82b3274a6b79ab1e0b` |
++| Build DEV | `AWs47BqI-EoJvkDkE4Lzi` · digest `a9b52e9ed0bd6e48a9307996a466aa56db197d8928178a6410b76bc90e370b51` |
++| Lane | DEV `127.0.0.1:3100` / PG `:5433` · PID `31104` |
++| RECETTE | **inchangé** `2a024b1c8d713ded6260d2a6427448a29f98a646` / build `3RyhswMcKrNv8woukVXsT` · PID `58642` · worktree `…/sfia-workspace-next-ml5-recette-build-2a024b1c8d71` |
++| Contenu | A qualification sémantique (`investigationMode`/`investigationSufficiency`, plus de seed lexical 50/exhausti) ; B identité canonique + PARTIAL/DENIED ; C dédup conclusions + parent par pertinence ; D terminaison / restitution utilisable / 1M reeval stratégique |
++| Preuves | unit `ml5-cognitive-completion-abcd.test.ts` (+ envelope/c18) ; LIVE court 5 fichiers Chantiers360 `cgw_71a26db3…` 5/5 TARGETED COMPLETE (~50k tok) ; note D4 depuis acquis `cgw_37e09f04…` parent lié · 0 relecture · `doc_363cea7d…` |
++| Compatibilité | Calibration 2M/1M/120 inchangée · pas de multi-modèles · pas de campagne 50 sources |
++| Rollback | tip précédent `d58d4280` / app `b34defd0` |
++| Push projet | **NONE** |
++| Verdict | **NORA COGNITIVE COMPLETION — TARGETED CORRECTIONS VERIFIED — READY FOR CHATGPT REVIEW** (≠ 50 COMPLETE ≠ ML5 CLOSED ≠ STABLE) |
++
+ ## delivery_id: DELIV-2026-11-25-ML5-NORA-RECETTE-READINESS
+ 
+ | Field | Value |
+```
+
+### `projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md`
+
+```diff
+diff --git a/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md b/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
+index e7db8175..cd5bb123 100644
+--- a/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
++++ b/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
+@@ -84,10 +84,10 @@ Les colonnes `État`/`Preuve et revue` sont **éditables à chaque revue signifi
+ | ☐ | `A04` | Permettre un brouillon correctif spontané dans la portée du mandat existant, sans nouveau dispatch automatique. | PARTIEL | Cycle 6 — `detectsCorrectiveDraftIntent` + bridge `cursorRedispatch:false` ; LIVE non prouvé |
+ | ☐ | `A05` | Requalifier hors mandat, changement matériel ou échecs répétés ; ne pas créer une boucle autonome de contrats. | NV | — |
+ | ☐ | `A06` | Conduire une investigation séquencée, suivre les renvois déterminants et réviser les questions à mesure des découvertes. | NV | — |
+-| ☐ | `A07` | Sélectionner et lire les bonnes versions des sources D4, conversation, historique, Git, décisions, rapports antérieurs et documents pertinents. | NV | — |
+-| ☐ | `A08` | Distinguer découvert, consulté, vérifié, partiel, périmé, refusé et contradictoire ; préserver provenance, branche et version. | NV | — |
+-| ☐ | `A09` | Contrôler qualitativement la suffisance des informations : une restriction déterminante inconnue interdit le statut de contrat prêt. | PARTIEL | `investigation-state` + READY serveur (`technical-contract-server-ready`) ignore flags client ; LIVE NON PROUVÉ |
+-| ☐ | `A10` | Consolider faits, sources, exclusions, décisions, contradictions, acquis, questions et travail restant sans nouveau registre d'autorité D4. | PARTIEL | Snapshot durable + bridge tour ; pas de second registre D4 |
++| ☐ | `A07` | Sélectionner et lire les bonnes versions des sources D4, conversation, historique, Git, décisions, rapports antérieurs et documents pertinents. | PARTIEL | Cognitive completion `86be1689` : clé canonique chemin+rev ; LIVE court 5/5 CONSULTED @`8c398c4` — pas preuve 50 sources |
++| ☐ | `A08` | Distinguer découvert, consulté, vérifié, partiel, périmé, refusé et contradictoire ; préserver provenance, branche et version. | PARTIEL | `inventoryExamined`/`Partial`/`Denied` séparés ; unit collision basename + PARTIAL≠full ; LIVE TARGETED |
++| ☐ | `A09` | Contrôler qualitativement la suffisance des informations : une restriction déterminante inconnue interdit le statut de contrat prêt. | PARTIEL | `investigationSufficiency` + dispositions COMPLETE/AWAIT respectées ; READY serveur inchangé ; LIVE restitution 1 segment |
++| ☐ | `A10` | Consolider faits, sources, exclusions, décisions, contradictions, acquis, questions et travail restant sans nouveau registre d'autorité D4. | PARTIEL | `upsertConclusion` ; note D4 parent=`cgw_71a26db3…` sans relecture (0 sources) |
+ | ☐ | `A11` | Conserver/reconstituer de façon fiable l'investigation après déconnexion, interruption, limite de contexte ou incident fournisseur sans fausse lecture ni effet rejoué. | PARTIEL | `investigation-persistence.ts` → `preparations.projection_json` ; reprise unit OK ; PG reprise tour non exhaustif |
+ | ☐ | `A12` | Réduire les coûts/latences sur demandes simples et rendre ces capacités disponibles transversalement dans sas, projet, documents, décision et bilan. | NV | — |
+ 
+```
+
+
+## 7. Tests (targeted)
+```
+
+ RUN  v3.2.4 /Users/morris/Projects/sfia-wt-next-ml5-20261123/projects/sfia-studio-next/web
+
+ ✓ tests/unit/ml5-cognitive-envelope-and-continuity.test.ts (17 tests) 3ms
+ ✓ tests/unit/ml5-cognitive-completion-abcd.test.ts (10 tests) 3ms
+ ✓ tests/unit/ml5-c18-cognitive-output.test.ts (6 tests) 2ms
+
+ Test Files  3 passed (3)
+      Tests  33 passed (33)
+   Start at  15:45:09
+   Duration  1.27s (transform 225ms, setup 24ms, collect 962ms, tests 8ms, environment 0ms, prepare 71ms)
+
+◇ injected env (0) from .env.local
+stderr | tests/unit/ml5-cognitive-envelope-and-continuity.test.ts
+◇ injected env (0) from .env.local
+
+stderr | tests/unit/ml5-cognitive-completion-abcd.test.ts
+◇ injected env (0) from .env.local
+
+stderr | tests/unit/ml5-c18-cognitive-output.test.ts
+◇ injected env (0) from .env.local
+
+
+```
+## 8. Short LIVE proof (3–5 files — NOT 50)
+| Field | Value |
+| --- | --- |
+| Corpus | README.md, SFG - Projet Chantiers360.txt, DAA - Chantiers360.txt, backend/src/auth/constants/api-roles.ts, Compte rendu - Validation du périmètre fonctionnel.txt |
+| Investigation work | `cgw_71a26db3-90fa-4973-8001-5c84e43f25c5` |
+| Status / mode / coverage | COMPLETE / TARGETED / 5/5 |
+| Tokens (in/out) | 46243 / 3719 |
+| Segments | 1 |
+| Note work | `cgw_37e09f04-d2ff-4587-ba5a-5e28952de33c` parent=`cgw_71a26db3-90fa-4973-8001-5c84e43f25c5` |
+| Note sources re-read | 0 |
+| D4 document | `doc_363cea7d-cfba-4068-a999-6a8ca2f2a6a8` act=CREATE |
+| Note tokens (in/out) | 30215 / 2876 |
+
+### Synthesis excerpt
+
+```
+Synthèse: ## Synthèse — Chantiers360
+
+Les cinq fichiers demandés ont été lus intégralement, en lecture seule, au commit [`8c398c4`](https://github.com/mcleland147/chantiers360/commit/8c398c494dd918272aab5b2653777c6c21d2e76e). **Le cœur du MVP est cohérent entre les sources.** Les écarts portent surtout sur les opérations explicitement validées par le métier et sur ce que les constantes de rôles permettent réellement de conclure.
+
+### Règles métier
+
+- **Chantiers.** Le cycle validé est **Préparation → Planification → Démarrage → Réalisation → Réception → Clôture**. Le chantier démarre au statut Préparati
+```
+
+### Sources consulted (investigation)
+
+```
+DISCOVERED|git-repo:arepo_60b78cda-7450-47fd-accd-3525c2e53a62
+CONSULTED|git-commit:arepo_60b78cda-7450-47fd-accd-3525c2e53a62:8c398c494dd918272aab5b2653777c6c21d2e76e
+CONSULTED|git-file:arepo_60b78cda-7450-47fd-accd-3525c2e53a62:backend/src/auth/constants/api-roles.ts@8c398c494dd918272aab5b2653777c6c21d2e76e
+CONSULTED|git-file:arepo_60b78cda-7450-47fd-accd-3525c2e53a62:README.md@8c398c494dd918272aab5b2653777c6c21d2e76e
+CONSULTED|git-file:arepo_60b78cda-7450-47fd-accd-3525c2e53a62:SFG - Projet Chantiers360.txt@8c398c494dd918272aab5b2653777c6c21d2e76e
+CONSULTED|git-file:arepo_60b78cda-7450-47fd-accd-3525c2e53a62:Compte rendu - Validation du périmètre fonctionnel.txt@8c398c494dd918272aab5b2653777c6c21d2e76e
+CONSULTED|git-file:arepo_60b78cda-7450-47fd-accd-3525c2e53a62:DAA - Chantiers360.txt@8c398c494dd918272aab5b2653777c6c21d2e76e
+```
+
+## 9. Completeness Gate
+
+- [x] Qualification sémantique corrigée
+- [x] Identité et couverture sources fiables
+- [x] Capitalisation non redondante
+- [x] Rattachement parent pertinent
+- [x] Terminaison maîtrisée
+- [x] Restitution finale réellement produite
+- [x] Autorités et interruptions préservées
+- [x] Tests ciblés réussis
+- [x] Courte investigation LIVE réussie
+- [x] Note depuis acquis produite
+- [x] Acquis précédents non régressés (continuation D3 conservée)
+- [x] Documentation synchronisée
+- [x] Candidat DEV identifié
+- [x] RECETTE inchangée
+
+## 10. Manifeste
+
+- Classification: NO RELEASE / STABLE NOT AVAILABLE
+- Fake/Real: REAL borné (Nora LIVE + Git READ) for short control only; unit DETERMINISTIC preserved
+- ENV-01: DEV only mutated; RECETTE protected
+- Reserves: 50-source exhaustive remains PARTIAL; WEB P0 OPEN; FinOps/Lot2 not started; UX historical reserves unchanged
+
+## 11. Instruction ChatGPT
+
+Relire ce handoff. Vérifier les quatre corrections, diffs, contrôles discriminants, réserves et candidat DEV. Préparer bascule RECETTE après GO Morris distinct. ML5 OPEN. R5 IN PROGRESS. R6 NOT STARTED.
