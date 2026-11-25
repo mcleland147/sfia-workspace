@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  buildActivitySources,
   buildActivitySteps,
   projectActivityLabel,
   type ActivityLabelInput,
@@ -30,15 +31,24 @@ export function NoraLiveActivity(props: {
   const events = props.events ?? [];
   const active = props.active !== false;
   const steps = buildActivitySteps(events);
+  const sources = buildActivitySources(events);
   // RB-01 — simple turn: hide card when idle unless a rich multi-step history remains.
   if (!active) {
     const richHistory = steps.filter((s) => s.state === "done" || s.state === "failed").length >= 2;
     if (!richHistory) return null;
   }
-  const last = events.length ? events[events.length - 1]! : null;
+  const lastRich =
+    [...events]
+      .reverse()
+      .find(
+        (e) =>
+          /source\./i.test(e.phase || "") ||
+          /objective|investigation/i.test(e.phase || ""),
+      ) || (events.length ? events[events.length - 1]! : null);
   const headline =
     props.headline ||
-    (last ? projectActivityLabel(last) : active ? "Activité en cours" : "Activité");
+    (lastRich ? projectActivityLabel(lastRich) : active ? "Activité en cours" : "Activité");
+  const last = events.length ? events[events.length - 1]! : null;
   const badge = !active
     ? last?.status === "FAILED" || last?.nature === "UNCERTAIN"
       ? "Limite"
@@ -103,6 +113,33 @@ export function NoraLiveActivity(props: {
             </li>
           ))}
         </ul>
+      ) : null}
+      {sources.length > 0 ? (
+        <div className="fig-nora-live-activity-sources" data-testid="nora-live-activity-sources">
+          <p className="fig-nora-live-activity-sources-kicker">
+            Sources ({sources.length})
+          </p>
+          <ul>
+            {sources.map((s) => (
+              <li key={s.key} data-coverage={s.coverage} data-kind={s.kind}>
+                <span className="fig-nora-live-activity-source-cov">
+                  {s.coverage === "DISCOVERED"
+                    ? "Identifiée"
+                    : s.coverage === "CONSULTED" ||
+                        s.coverage === "VERIFIED" ||
+                        s.coverage === "COMPLETE"
+                      ? "Consultée"
+                      : s.coverage === "PARTIAL"
+                        ? "Partielle"
+                        : s.coverage === "DENIED"
+                          ? "Inaccessible"
+                          : s.coverage}
+                </span>
+                <span>{s.title}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : null}
     </div>
   );

@@ -224,6 +224,50 @@ export async function runCognitiveConductor(
     });
     revision = work.revision;
 
+    // RB-15/22 — segment progress as métier activity (not raw SDK dump).
+    if (input.conversationId && input.turnCommandId) {
+      try {
+        const { appendActivityEvent } = await import("./activity-projection");
+        const consulted = investigation.sources.filter(
+          (s) =>
+            s.coverage === "CONSULTED" ||
+            s.coverage === "VERIFIED" ||
+            s.coverage === "PARTIAL",
+        ).length;
+        const discovered = investigation.sources.filter(
+          (s) => s.coverage === "DISCOVERED",
+        ).length;
+        const progressSummary = segment.continueWork
+          ? consulted > 0
+            ? `Approfondissement — ${consulted} source${consulted > 1 ? "s" : ""} consultée${consulted > 1 ? "s" : ""}${discovered ? ` · ${discovered} découverte${discovered > 1 ? "s" : ""}` : ""}`
+            : `Approfondissement du travail — segment ${segmentsRun}`
+          : consulted > 0
+            ? `Consolidation — ${consulted} source${consulted > 1 ? "s" : ""} exploitée${consulted > 1 ? "s" : ""}`
+            : "Consolidation de la réponse";
+        await appendActivityEvent({
+          conversationId: input.conversationId,
+          turnCommandId: input.turnCommandId,
+          ownerPilotId: input.pilotId,
+          phase: "nora.investigation",
+          nature: segment.continueWork ? "OBSERVED" : "COMPLETED",
+          status: segment.continueWork ? "RUNNING" : "COMPLETED",
+          summary: progressSummary,
+          detail: {
+            workId: work.id,
+            segmentIndex: i,
+            segmentsRun,
+            consulted,
+            discovered,
+            objective: (investigation.intentSummary || work.objective || "").slice(0, 140),
+          },
+          sourceRef: work.id,
+          ownerToken,
+        });
+      } catch {
+        /* observational */
+      }
+    }
+
     if (!segment.continueWork) {
       break;
     }

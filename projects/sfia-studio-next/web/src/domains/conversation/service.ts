@@ -1119,17 +1119,26 @@ export async function postUserMessageAndNora(
     // C1 — announce Nora work (ANNOUNCED ≠ OBSERVED). Best-effort; never blocks the turn.
     try {
       const { appendActivityEvent } = await import("./activity-projection");
-      await appendActivityEvent({
-        conversationId: reserved.conversationId,
-        turnCommandId: reserved.commandId,
-        ownerPilotId: pilotId,
-        generationId: null,
-        phase: "nora.generate",
-        nature: "ANNOUNCED",
-        status: "RUNNING",
-        summary: "Nora prépare une réponse",
-        ownerToken: reserved.ownerToken,
-      });
+      {
+        const intent = content.trim().replace(/\s+/g, " ").slice(0, 120);
+        const summary = intent
+          ? intent.length >= 40
+            ? `Prise en charge — ${intent}${content.trim().length > 120 ? "…" : ""}`
+            : "Prise en charge de ta demande"
+          : "Prise en charge de ta demande";
+        await appendActivityEvent({
+          conversationId: reserved.conversationId,
+          turnCommandId: reserved.commandId,
+          ownerPilotId: pilotId,
+          generationId: null,
+          phase: "nora.generate",
+          nature: "ANNOUNCED",
+          status: "RUNNING",
+          summary,
+          detail: { objective: intent || null },
+          ownerToken: reserved.ownerToken,
+        });
+      }
     } catch {
       /* activity is observational — turn continues */
     }

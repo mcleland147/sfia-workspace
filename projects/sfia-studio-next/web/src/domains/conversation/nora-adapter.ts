@@ -572,33 +572,13 @@ async function fixtureReply(
   const { appendActivityEvent } = await import("./activity-projection");
   /** Cycle 6 P1 — ordered durable activity; flushed before reply returns. */
   const activityFlushQueue: Promise<unknown>[] = [];
+  const { formatSourceActivitySummary } = await import("./activity-labels");
   const sourceJournal = createToolSourceJournal({
     onRecord: (entry) => {
       const ctx = input.toolScope?.activityContext;
       if (!ctx) return;
       const title = entry.title?.trim() || null;
-      const human =
-        entry.kind === "WEB"
-          ? entry.coverage === "DISCOVERED"
-            ? title
-              ? `Source web découverte — ${title}`
-              : "Source web découverte"
-            : entry.coverage === "CONSULTED" || entry.coverage === "VERIFIED"
-              ? title
-                ? `Page web consultée — ${title}`
-                : "Page web consultée"
-              : title
-                ? `Recherche web — ${title}`
-                : "Recherche web publique"
-          : entry.kind === "GIT"
-            ? title
-              ? `Consultation Git — ${title}`
-              : `Consultation Git — ${entry.ref}`
-            : entry.kind === "D4"
-              ? title
-                ? `Document — ${title}`
-                : `Document — ${entry.ref}`
-              : title || `${entry.kind}: ${entry.ref}`;
+      const human = formatSourceActivitySummary(entry);
       const status =
         entry.coverage === "DENIED"
           ? ("FAILED" as const)
@@ -622,6 +602,7 @@ async function fixtureReply(
             coverage: entry.coverage,
             title,
             ref: entry.ref,
+            operation: entry.notes?.split(" — ")[0] || entry.kind,
           },
           sourceRef: entry.ref,
           ownerToken: ctx.ownerToken,
@@ -915,33 +896,15 @@ async function runLiveWithTools(
   const { appendActivityEvent: appendLiveActivity } = await import("./activity-projection");
   const liveActivityFlushQueue: Promise<unknown>[] = [];
   const contractProdJournal = createCursorContractProductionJournal();
+  const { formatSourceActivitySummary: formatLiveSourceSummary } = await import(
+    "./activity-labels"
+  );
   const sourceJournal = createToolSourceJournal({
     onRecord: (entry) => {
       const ctx = input.toolScope?.activityContext;
       if (!ctx) return;
       const title = entry.title?.trim() || null;
-      const human =
-        entry.kind === "WEB"
-          ? entry.coverage === "DISCOVERED"
-            ? title
-              ? `Source web découverte — ${title}`
-              : "Source web découverte"
-            : entry.coverage === "CONSULTED" || entry.coverage === "VERIFIED"
-              ? title
-                ? `Page web consultée — ${title}`
-                : "Page web consultée"
-              : title
-                ? `Recherche web — ${title}`
-                : "Recherche web publique"
-          : entry.kind === "GIT"
-            ? title
-              ? `Consultation Git — ${title}`
-              : `Consultation Git — ${entry.ref}`
-            : entry.kind === "D4"
-              ? title
-                ? `Document — ${title}`
-                : `Document — ${entry.ref}`
-              : title || `${entry.kind}: ${entry.ref}`;
+      const human = formatLiveSourceSummary(entry);
       const status =
         entry.coverage === "DENIED"
           ? ("FAILED" as const)
@@ -965,6 +928,7 @@ async function runLiveWithTools(
             coverage: entry.coverage,
             title,
             ref: entry.ref,
+            operation: entry.notes?.split(" — ")[0] || entry.kind,
           },
           sourceRef: entry.ref,
           ownerToken: ctx.ownerToken,
@@ -1035,6 +999,8 @@ async function runLiveWithTools(
         operationId: input.toolScope.operationId,
         generationId,
         budget: sharedToolBudget,
+        // RB-15 — Git READ must emit the same LIVE source journal as D4/WEB.
+        sourceJournal,
       });
       tools = [...tools, ...gitTools];
     }

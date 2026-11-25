@@ -33,10 +33,81 @@ function looksTechnical(summary: string): boolean {
     /^(COMPLETE|PARTIAL|DENIED|DISCOVERED|CONSULTED|AVAILABLE|UNAVAILABLE|PAGE_OPENED|STALE|UNKNOWN)\b/i.test(
       summary,
     ) ||
-    /\b(doc_|gen_|att_|op_|proj_|prep_|tctr_|efx_|cgw_|nact_)/i.test(summary) ||
+    /\b(doc_|gen_|att_|op_|proj_|prep_|tctr_|efx_|cgw_|nact_|acq_)/i.test(summary) ||
     /^https?:\/\//i.test(summary.trim()) ||
     /OBSERVED:|ANNOUNCED:|COMPLETED:/i.test(summary)
   );
+}
+
+/** Shared métier copy for tool-source journal → LIVE activity producers. */
+export function formatSourceActivitySummary(entry: {
+  kind: string;
+  coverage: string;
+  title?: string | null;
+  ref?: string | null;
+  notes?: string | null;
+}): string {
+  const title = entry.title?.trim() || null;
+  const kind = entry.kind.toUpperCase();
+  const cov = entry.coverage.toUpperCase();
+  let human: string;
+  if (kind === "WEB") {
+    human =
+      cov === "DISCOVERED"
+        ? title
+          ? `Source web découverte — ${title}`
+          : "Source web découverte"
+        : cov === "CONSULTED" || cov === "VERIFIED"
+          ? title
+            ? `Page web consultée — ${title}`
+            : "Page web consultée"
+          : title
+            ? `Recherche web — ${title}`
+            : "Recherche web publique";
+  } else if (kind === "GIT") {
+    human =
+      cov === "DISCOVERED"
+        ? title
+          ? `Source Git découverte — ${title}`
+          : "Source Git découverte"
+        : cov === "CONSULTED" || cov === "VERIFIED"
+          ? title
+            ? `Consultation Git — ${title}`
+            : "Consultation Git effectuée"
+          : cov === "PARTIAL"
+            ? title
+              ? `Consultation Git partielle — ${title}`
+              : "Consultation Git partielle"
+            : cov === "DENIED"
+              ? title
+                ? `Consultation Git refusée — ${title}`
+                : "Consultation Git refusée"
+              : title
+                ? `Consultation Git — ${title}`
+                : "Consultation Git";
+  } else if (kind === "D4") {
+    human =
+      cov === "DISCOVERED"
+        ? title
+          ? `Document identifié — ${title}`
+          : "Document identifié"
+        : cov === "DENIED"
+          ? title
+            ? `Document non accessible — ${title}`
+            : "Document non accessible"
+          : title
+            ? `Document consulté — ${title}`
+            : "Document consulté";
+  } else if (kind === "HISTORY") {
+    human = "Historique conversationnel consulté";
+  } else {
+    human = title || "Consultation de source";
+  }
+  return human
+    .replace(/\b(acq_|cgw_|nact_|gen_|doc_|prep_|proj_)[a-z0-9-]+/gi, "")
+    .replace(/\s{2,}/g, " ")
+    .trim()
+    .slice(0, 200);
 }
 
 function detailString(
@@ -218,21 +289,87 @@ function authoritativeState(
 function identityKey(ev: ActivityLabelInput & { sequence: number; nature: string }): string {
   const kind = kindFromDetail(ev.detail) || ev.phase || "step";
   const ref = (ev.sourceRef || detailString(ev.detail, "ref") || "").trim();
+  const operation = detailString(ev.detail, "operation") || "";
+  // RB-23 — distinct consultations of the same source stay distinct operations.
+  if (
+    (ev.nature === "OBSERVED" || ev.nature === "COMPLETED") &&
+    /source\.(git|d4|web)/i.test(ev.phase || "")
+  ) {
+    return `${kind}:${ref || "x"}:${operation || "op"}:seq:${ev.sequence}`;
+  }
   if (ref) return `${kind}:${ref}`;
-  // Distinct operations without shared source keep their sequence identity.
   return `${kind}:seq:${ev.sequence}`;
+}
+
+export type ActivitySourceView = {
+  key: string;
+  kind: string;
+  title: string;
+  coverage: string;
+  openUrl?: string | null;
+};
+
+/**
+ * Unique sources consulted/discovered — independent of operation step count (RB-23).
+ */
+export function buildActivitySources(
+  events: Array<ActivityLabelInput & { sequence: number; nature: string }>,
+): ActivitySourceView[] {
+  const byRef = new Map<string, ActivitySourceView>();
+  for (const ev of events) {
+    if (!/source\./i.test(ev.phase || "")) continue;
+    const kind = (kindFromDetail(ev.detail) || "OTHER").toUpperCase();
+    const ref = (ev.sourceRef || detailString(ev.detail, "ref") || "").trim();
+    if (!ref) continue;
+    const key = `${kind}:${ref}`;
+    const title =
+      humanTitle(ev) ||
+      stripCoveragePrefix((ev.summary || "").trim()) ||
+      "Source";
+    const coverage = (coverageFrom(ev) || "UNKNOWN").toUpperCase();
+    const openUrl = detailString(ev.detail, "openUrl");
+    const prev = byRef.get(key);
+    // Prefer CONSULTED/VERIFIED over DISCOVERED when the same source advances.
+    const rank = (c: string) =>
+      c === "CONSULTED" || c === "VERIFIED" || c === "COMPLETE"
+        ? 3
+        : c === "PARTIAL"
+          ? 2
+          : c === "DISCOVERED"
+            ? 1
+            : 0;
+    if (!prev || rank(coverage) >= rank(prev.coverage)) {
+      byRef.set(key, {
+        key,
+        kind,
+        title: title.slice(0, 120),
+        coverage,
+        openUrl: openUrl || prev?.openUrl || null,
+      });
+    }
+  }
+  return [...byRef.values()].slice(0, 12);
 }
 
 /**
  * Build a short checklist for the Figma activity card from durable events.
  * Dedupes by source/operation identity — never by human label alone.
  * Does NOT rewrite earlier "current" steps to "done" when a new step appears.
+ * Filters generic nora.generate when richer source/objective events exist.
  */
 export function buildActivitySteps(
   events: Array<ActivityLabelInput & { sequence: number; nature: string }>,
 ): ActivityStepView[] {
+  const hasRich = events.some(
+    (e) =>
+      /source\./i.test(e.phase || "") ||
+      /objective|investigation/i.test(e.phase || ""),
+  );
+  const filtered = hasRich
+    ? events.filter((e) => !/^nora\.generate$/i.test(e.phase || ""))
+    : events;
   const byId = new Map<string, ActivityStepView>();
-  for (const ev of events) {
+  for (const ev of filtered) {
     const id = identityKey(ev);
     const label = projectActivityLabel(ev);
     const state = authoritativeState(ev);
