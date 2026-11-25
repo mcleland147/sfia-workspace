@@ -4685,3 +4685,25 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | Réserves | Discriminant PG conserve multi-section path + Git investigation→note LIVE + token before/after measures not fully closed in-cycle · F2 global not claimed · WEB LIVE blocked |
 | Statut | DEV CANDIDATE BUILT — COMPLETENESS GATE PARTIAL — NOT READY FOR RECETTE CUTOVER |
 
+## 2026-11-25 — ML5 RoomBooking corrective completion (Cycle 8 Delivery / DEV final)
+
+| Champ | Valeur |
+|---|---|
+| Delivery ID |  |
+| Date | 2026-11-25 |
+| Macro-lot | Finalisation du macro-lot correctif RoomBooking RB-01..31 (pas un nouveau lot) |
+| Type | INC · Critical · Cycle 8 Delivery |
+| Base |  |
+| Delivery précédent incomplet |  |
+| SHA candidat final |  |
+| Tree |  |
+| Web tree |  |
+| Commits finalisation |  Git LIVE journal ·  type fix ·  multi-section/fork/ceilings |
+| Compatibilité | NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN |
+| Environnement | DEV  / PG  · Build  · Digest  |
+| Migration | NONE |
+| Contrôles | LIVE Git multi-états · révision naturelle+conserve PG v2 · note depuis acquis · mesures ressources · resume unit/PG · SAS browser · Completeness Gate 31/31 · Review Pack FULL diffs |
+| RECETTE | inchangée  /  |
+| Réserves | Soft-stop ≠ garantie d'interruption mid-SDK ; F2 globale non revendiquée ; WEB LIVE blocked ; OAuth utilisateur GitHub interactif non complété (reads via App installation) |
+| Statut | DEV CANDIDATE COMPLETE — READY FOR CHATGPT REVIEW — NOT ADOPTED — NO RECETTE CUTOVER |
+
