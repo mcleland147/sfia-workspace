@@ -4773,3 +4773,22 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | Réserves | Inflation inventaire 51/52 corrigée (freeze périmètre) ; travaux note-from-acquis peuvent encore relire Git malgré injection parent ; soft-boundary ne pollue plus le corps DOCUMENT ; timeouts HTTP client ≠ arrêt serveur |
 | Statut | DEV CANDIDATE — LONG INVESTIGATION PROVEN — READY FOR CHATGPT REVIEW — NOT ADOPTED — NO RECETTE CUTOVER |
 
+## 2026-11-25 — ML5 Nora×Studio capability interactions (Cycle 8 Delivery / DEV final)
+
+| Champ | Valeur |
+|---|---|
+| Delivery ID | `next-ml5-nora-studio-capability-interactions-20261125` |
+| Date | 2026-11-25 |
+| Macro-lot | ML5 livraison 1 — correctif intégré AssetTrack (AT-01…13, AT-10 retirée) |
+| Type | INC · Critical · Cycle 8 Delivery |
+| GO Morris | 25/11 — Option B + corrections A + stratégie C ; Nora pivot cognitif ; activité hiérarchisée dépliable ; suppression complexité inutile |
+| Base | tip produit `0d37b12a8dae07c88907b7e5a7cfa130e1940a41` |
+| Diagnostic AssetTrack | handoff `ca3d90a90e24197dabb700768b4220986d652ef3` |
+| SHA candidat (post-commit) | *à figer après commit local* |
+| Compatibilité | NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN · R5 IN PROGRESS · R6 NOT STARTED |
+| Environnement | DEV `:3100` / PG `:5433` · Build `BMd8qv-bn6m9Hj6YEtdee` · Digest `d0fa2be3b6eaed2b687817ceecfb2f0cff2888e60d854db7f6d5f1caa1a2e37d` |
+| Migration | NONE |
+| Contrôles | Vitest 23 PASS (documentary PREPARE, activity hierarchy 45-ops, forecast, restitution) · parcours LIVE naturel EquipLoans · conserve V2 cand≡stock · note first-pass · Git REAL read-only · AT-11 NO_GIT · densité DETERMINISTIC/BROWSER · RECETTE `ca0b114c` / `RkthxGW_bZUygxYbwP9Hq` préservée |
+| Preuves clés | proj `proj_154814aa…` · IQ PROPOSED CONCEPTION→DELIVERY→QA · doc V1→V2 `drev_a7124a79…` · note `doc_7a640d03…` · activity git 6 events |
+| Réserves | Rebuild DEV nécessaire pour string tutoiement conserve après fix source ; activité historique UI reste compacte (carte hiérarchique prouvée LIVE events + DETERMINISTIC 45-ops) ; F2 globale / WEB LIVE non revendiqués |
+| Statut | DEV CANDIDATE — INTEGRATED CORRECTIVE — READY FOR CHATGPT REVIEW — NOT ADOPTED — NO RECETTE CUTOVER |
