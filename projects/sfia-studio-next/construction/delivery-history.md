@@ -4664,3 +4664,24 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | Class | NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN |
 | Verdict | RECETTE AVAILABLE — MORRIS UAT REQUIRED — WEB LIVE BLOCKED |
 
+
+## 2026-11-25 — ML5 RoomBooking integrated corrective (Cycle 8 Delivery / DEV candidate)
+
+| Champ | Valeur |
+|---|---|
+| Delivery ID | `next-ml5-roombooking-integrated-corrective-20261125` |
+| Date | 2026-11-25 |
+| Macro-lot | RoomBooking integrated corrective RB-01..31 (axes A–E) |
+| Type | INC · Critical · Cycle 8 Delivery |
+| Base | tip diagnostic `3c663fd2809cae9e91b3f4929515d859b0284e81` · UAT candidate `2a024b1c8d713ded6260d2a6427448a29f98a646` |
+| SHA candidat | `98e58ec46b4d9cac2921b68c361ded91a714e8f3` |
+| Tree | `76efa6f2487a18291f13fe8fb99dc94da770ba2e` |
+| Web tree | `bf00736cafa90ad233afbce59d6ae08be4a18d9a` |
+| Diff | `47818360` mechanisms A–D + `98e58ec4` SAS LIVE clear |
+| Compatibilité | NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN |
+| Environnement | DEV `:3100` / PG `:5433` · Build `iPIn-B5JYIW9udTiFAG7o` · Digest `dd3565f9e2aa527cd4c50f7b7318f30b65edd3b9a01c537132717f408650feb8` |
+| Migration | NONE |
+| Contrôles | Vitest multi-section + envelope/continuity PASS · tsc clean · next build · DEV restart · SAS LIVE mid-turn observed · RECETTE identity preserved `2a024b1c` / `3RyhswMcKrNv8woukVXsT` |
+| Réserves | Discriminant PG conserve multi-section path + Git investigation→note LIVE + token before/after measures not fully closed in-cycle · F2 global not claimed · WEB LIVE blocked |
+| Statut | DEV CANDIDATE BUILT — COMPLETENESS GATE PARTIAL — NOT READY FOR RECETTE CUTOVER |
+
