@@ -2,6 +2,18 @@
 
 > **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](../construction/recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
 
+## Suivi courant ML5 — 25 NOVEMBRE 2026 : allocation cognitive adaptative et FinOps inscrits à la trajectoire
+
+**Orientation et séquencement validés par Morris le 25/11/2026 — branche documentaire candidate, non mergée.** R5 IN PROGRESS / ML5 OPEN / R6 NOT STARTED / NO RELEASE / NOT ADOPTED. Ce bloc complète le suivi ML5 du 24/11, sans réécrire les faits historiques ni prononcer une nouvelle acceptation.
+
+- **État d'entrée :** [UAT RoomBooking](../construction/recette-utilisateur-ml5-roombooking-20261125.md), 11 tours et 31 écarts recensés ; livraison 1 non acceptée. [Dernier handoff distant observé](https://github.com/mcleland147/sfia-workspace/blob/5f208d5e6c678e70aa4572dd14e178e7898c0dec/sfia-review-handoff/latest-chatgpt-review.md) : correctif avancé mais complétude non validée par ChatGPT, notamment RB-27 (280 545 tokens sur enveloppe 200k, suspension). Delivery de conduite cognitive adaptative engagé selon le mandat conversationnel ; résultat non encore observé. Candidat DEV local rapporté `cb4ae5990c0e8c2f75c466962f8a77f300c63e24`, RECETTE rapportée `2a024b1c`. Aucun changement runtime dans cette contribution.
+- **Lot ML5 ajouté : [Allocation cognitive adaptative et FinOps](../construction/allocation-cognitive-adaptative-et-finops.md)** — distinguer complexité et charge, allocation sémantique modèle/effort révisable (Luna, Terra, Sol à calibrer), continuité D3 commune, observabilité des usages, coûts, tarifs versionnés et restitution exploitable par les rôles autorisés. L'observabilité est une capacité centrale et un critère de sortie ; coût par travail réussi, pas économie au détriment de la qualité.
+- **Trajectoire décidée :** (1) finaliser la conduite cognitive et obtenir une preuve d'investigation longue ; revue et recette livraison 1 ; (2) réaliser le lot intégré allocation cognitive adaptative et FinOps (calibration comparative, politique, observabilité, UX, code, tests, recette) ; (3) reprendre ML5 livraison 2, réalisation gouvernée et résultats ; (4) qualification intégrée ML5 puis R6 selon gates existants. Pas de nouveau macro-jalon ni de découpage en micro-lots documentaires.
+- **Frontières :** calibration et choix détaillés à instruire après la livraison 1 ; GO technique, arbitrages financiers/architecture, cutover, recette et promotions distincts. Aucun changement du SEF, des ADR, des exigences ML5 existantes ni du statut des P0 (WEB LIVE bloqué, D8 indépendant non qualifié).
+
+---
+
+
 
 ## ÉTAT COURANT — 22 NOVEMBRE 2026 : Ensemble 08 intégré sur main, CI post-merge vérifiée
 
