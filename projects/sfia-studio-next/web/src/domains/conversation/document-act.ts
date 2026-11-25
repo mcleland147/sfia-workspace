@@ -1356,6 +1356,86 @@ export function assertSectionScope(
   return { ok: true };
 }
 
+/**
+ * Extract stable fragment ids (RM-03, R04, …) from a sectionHint or Pilote wording.
+ * Used for rule/row-level revise when whole-section replace would be too coarse.
+ */
+export function extractFragmentIds(text: string | null | undefined): string[] {
+  if (!text) return [];
+  const out: string[] = [];
+  for (const m of text.matchAll(/\b(RM|R|REQ|SC|UC)[- ]?(\d{1,3}[A-Za-z]?)\b/gi)) {
+    out.push(`${m[1]!.toUpperCase()}-${m[2]!.toUpperCase()}`);
+  }
+  return [...new Set(out)];
+}
+
+/** Locate a markdown table row (or bold-labelled line) that carries the fragment id. */
+export function findFragmentLine(
+  markdown: string,
+  fragmentId: string,
+): { start: number; end: number; line: string } | null {
+  // Accept both R-04 and R04 forms in the document.
+  const loose = fragmentId.replace(/-/g, "[- ]?");
+  const re = new RegExp(`^.*\\b${loose}\\b.*$`, "gmi");
+  const m = re.exec(markdown);
+  if (!m || m.index == null) return null;
+  const line = m[0]!;
+  return { start: m.index, end: m.index + line.length, line };
+}
+
+/**
+ * Splice proposed fragment lines into the base document.
+ * Only the exact authorized fragment lines change; everything else is byte-identical.
+ */
+export function applyTargetedFragmentRevision(
+  baseMarkdown: string,
+  proposedMarkdown: string,
+  fragmentIds: string[],
+): { ok: true; content: string } | { ok: false; reason: string } {
+  if (!fragmentIds.length) {
+    return { ok: false, reason: "FRAGMENT_IDS_REQUIRED" };
+  }
+  let content = baseMarkdown;
+  // Apply high→low offsets so earlier indices stay valid.
+  const ops: Array<{ start: number; end: number; replacement: string }> = [];
+  for (const id of fragmentIds) {
+    const baseHit = findFragmentLine(content, id);
+    const propHit = findFragmentLine(proposedMarkdown, id);
+    if (!baseHit) return { ok: false, reason: `FRAGMENT_MISSING_IN_BASE:${id}` };
+    if (!propHit) return { ok: false, reason: `FRAGMENT_MISSING_IN_PROPOSAL:${id}` };
+    ops.push({ start: baseHit.start, end: baseHit.end, replacement: propHit.line });
+  }
+  ops.sort((a, b) => b.start - a.start);
+  for (const op of ops) {
+    content = content.slice(0, op.start) + op.replacement + content.slice(op.end);
+  }
+  return { ok: true, content };
+}
+
+/**
+ * Exact check: outside authorized fragment lines, base and next are identical.
+ */
+export function assertFragmentScope(
+  baseMarkdown: string,
+  nextMarkdown: string,
+  fragmentIds: string[],
+): { ok: true } | { ok: false; reason: string } {
+  if (!fragmentIds.length) return { ok: true };
+  const mask = (md: string): string => {
+    let out = md;
+    for (const id of fragmentIds) {
+      const hit = findFragmentLine(out, id);
+      if (!hit) continue;
+      out = `${out.slice(0, hit.start)}⟦FRAG:${id}⟧${out.slice(hit.end)}`;
+    }
+    return out;
+  };
+  if (mask(baseMarkdown) !== mask(nextMarkdown)) {
+    return { ok: false, reason: "FRAGMENT_SCOPE_EXCEEDED" };
+  }
+  return { ok: true };
+}
+
 export type DocumentEffectSummary = {
   /** NONE = pre-effect (no D4 transaction attempted). */
   act: "CREATE" | "REVISE" | "NONE";

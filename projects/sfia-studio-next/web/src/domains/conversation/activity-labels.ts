@@ -434,6 +434,7 @@ function groupKeyForPhase(phase: string): string {
   return "work";
 }
 
+/** Structural fallback labels — overridden by contextual event summaries when present. */
 const GROUP_META: Record<string, { title: string; description: string }> = {
   understand: {
     title: "Compréhension du besoin",
@@ -458,9 +459,65 @@ const GROUP_META: Record<string, { title: string; description: string }> = {
 };
 
 /**
+ * Compact métier headline from the Pilote ask — never the full prompt dump.
+ */
+export function projectMissionHeadlineFromUserAsk(ask: string): string {
+  const raw = (ask || "").replace(/\s+/g, " ").trim();
+  if (!raw) return "Travail engagé";
+  // Prefer the first sentence / line, stripped of imperative noise.
+  const first =
+    raw.split(/(?<=[.!?])\s+/)[0]?.trim() ||
+    raw.split("\n")[0]?.trim() ||
+    raw;
+  let t = first
+    .replace(/^(peux-tu|pouvez-vous|merci de|stp|s'il te plaît)\s+/i, "")
+    .replace(/^(prépare[- ]moi|prépare|modifie|révise|consulte|examine|analyse)\s+/i, (m) => {
+      const verb = m.trim().toLowerCase();
+      if (verb.startsWith("prépare")) return "Préparation — ";
+      if (verb.startsWith("modifie") || verb.startsWith("révise")) return "Révision — ";
+      if (verb.startsWith("consulte") || verb.startsWith("examine")) return "Consultation — ";
+      if (verb.startsWith("analyse")) return "Analyse — ";
+      return "";
+    })
+    .trim();
+  if (t.length < 8) t = first;
+  if (t.length > 120) t = `${t.slice(0, 117).trim()}…`;
+  // Never use a technical id as the mission title.
+  if (/^(tcmd_|proj_|prep_|doc_|drev_|pdoc_)/i.test(t)) return "Travail engagé";
+  return t || "Travail engagé";
+}
+
+function contextualGroupTitle(
+  key: string,
+  list: Array<ActivityLabelInput & { sequence: number; nature: string; status: string }>,
+  fallback: string,
+): string {
+  // Prefer Nora-produced métier summaries on objective / produce / restitute events.
+  const rich = [...list]
+    .reverse()
+    .find((e) => {
+      const label = (e.summary || "").trim();
+      if (!label || looksTechnical(label)) return false;
+      if (/^Nora engage/i.test(label)) return false;
+      if (/^Consultation Git —/i.test(label) && key !== "sources") return false;
+      if (detailString(e.detail, "metierTitle")) return true;
+      if (/objective|investigation|document|generate|restitution/i.test(e.phase || "")) {
+        return label.length >= 12 && label.length <= 160;
+      }
+      return false;
+    });
+  if (rich) {
+    const metier = detailString(rich.detail, "metierTitle");
+    if (metier && !looksTechnical(metier)) return metier.slice(0, 120);
+    if (rich.summary && !looksTechnical(rich.summary)) return rich.summary.slice(0, 120);
+  }
+  return fallback;
+}
+
+/**
  * Hierarchical métier groups for LIVE activity (AT-01).
  * Adaptive: only groups with real events appear. Details stay foldable in UI.
- * Caps synthetic list length; never drops sources from the underlying journal.
+ * No silent drop of details — UI paginates display; journal stays complete.
  */
 export function buildActivityGroups(
   events: Array<ActivityLabelInput & { sequence: number; nature: string; status: string }>,
@@ -485,6 +542,7 @@ export function buildActivityGroups(
       if (st === "failed") worst = "failed";
       else if (st === "limited" && worst !== "failed") worst = "limited";
       else if (st === "current" && worst === "done") worst = "current";
+      else if (st === "pending" && worst === "done") worst = "pending";
     }
     let resultSummary: string | null = null;
     let details: ActivityGroupView["details"] = [];
@@ -512,7 +570,7 @@ export function buildActivityGroups(
       const steps = buildActivitySteps(list);
       resultSummary =
         steps.length > 1 ? `${steps.length} opérations observées` : steps[0]?.label || null;
-      details = steps.slice(0, 40).map((s) => ({
+      details = steps.map((s) => ({
         key: s.key,
         title: s.label,
         coverage: s.state.toUpperCase(),
@@ -521,7 +579,7 @@ export function buildActivityGroups(
     }
     groups.push({
       key,
-      title: meta.title,
+      title: contextualGroupTitle(key, list, meta.title),
       description: meta.description,
       state: worst,
       resultSummary,

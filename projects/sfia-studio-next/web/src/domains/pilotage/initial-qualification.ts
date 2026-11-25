@@ -578,9 +578,36 @@ async function buildCognitiveForecast(input: {
   if (!sufficiency.ok) {
     return { built: sufficiency.result, structureSource: "STRUCTURED_FALLBACK" };
   }
-  const catalogLines = CYCLE_TYPES.map(
-    (t) => `- ${t} (${CYCLE_LABELS[t]})`,
-  ).join("\n");
+  const { CYCLE_CKI, resolveCkiDirectory } = await import("./cki-resolve");
+  const { readFileSync, existsSync } = await import("node:fs");
+  const { resolve } = await import("node:path");
+  const ckiDir = resolveCkiDirectory();
+  const catalogLines = CYCLE_TYPES.map((t) => {
+    const label = CYCLE_LABELS[t];
+    const ckiId = CYCLE_CKI[t];
+    let purpose = "";
+    let pertinent = "";
+    try {
+      const file = resolve(ckiDir, `${ckiId}.md`);
+      if (existsSync(file)) {
+        const text = readFileSync(file, "utf8");
+        const result = /\*\*Résultat recherché\s*:\*\*\s*([^\n]+)/i.exec(text);
+        const pert = /- \*\*Pertinent\s*:\*\*\s*([^\n]+)/i.exec(text);
+        if (result?.[1]) purpose = result[1].trim();
+        if (pert?.[1]) pertinent = pert[1].trim();
+      }
+    } catch {
+      /* catalog enrichment best-effort */
+    }
+    return [
+      `- ${t} (${label})`,
+      purpose ? `  Finalité: ${purpose}` : null,
+      pertinent ? `  Pertinent si: ${pertinent}` : null,
+      `  CKI: ${ckiId} (référence méthodologique — ne pas activer comme CKI principal d'un cycle non ouvert)`,
+    ]
+      .filter(Boolean)
+      .join("\n");
+  }).join("\n");
   try {
     const { generateNoraReply } = await import("@/domains/conversation/nora-adapter");
     const { buildCognitivePolicy } = await import("@/domains/conversation/cognitive-policy");
@@ -603,11 +630,12 @@ async function buildCognitiveForecast(input: {
     const reply = await generateNoraReply({
       userText: [
         `Le projet « ${input.projectName} » vient d'être créé.`,
-        "Propose une première trajectoire de cycles SFIA proportionnée.",
-        "Choisis 1 à 3 types de cycles dans le catalogue canonique ci-dessous.",
+        "Propose une première trajectoire de cycles SFIA proportionnée aux acquis SAS.",
+        "Choisis 1 à 3 types dans le catalogue enrichi (finalité, pertinence, CKI).",
         "Émets des intents d5.pilotage_command mode=PREPARE operation=PROPOSE_TRAJECTORY avec parameters.cycleType pour chaque étape (ordre = ordre des intents).",
-        "N'ouvre aucun cycle. Ne demande pas au Pilote de choisir un type de cycle si les acquis SAS suffisent.",
-        "Clarifie seulement si l'intention ou le résultat utile manquent vraiment.",
+        "N'ouvre aucun cycle. Ne demande pas au Pilote de choisir un type si les acquis suffisent.",
+        "Clarifie seulement si une information déterminante manque vraiment.",
+        "Si tu ne peux pas structurer une proposition exploitable, dis-le clairement — n'invente pas une trajectoire par défaut.",
       ].join("\n"),
       contextSnippets: [
         `Intention: ${input.projection?.intention?.value || "(non précisée)"}`,
@@ -626,7 +654,7 @@ async function buildCognitiveForecast(input: {
         input.previewSummary
           ? `Synthèse SAS: ${input.previewSummary.slice(0, 1200)}`
           : "",
-        `Catalogue cycles SFIA (uniquement ces types):\n${catalogLines}`,
+        `Catalogue cycles SFIA (uniquement ces types — guidance CKI référentielle):\n${catalogLines}`,
       ].filter(Boolean),
       policyOverride: slimPolicy,
     });
@@ -635,7 +663,6 @@ async function buildCognitiveForecast(input: {
     );
     let steps: ForecastStep[] = fromIntents;
     if (!steps.length && reply.qualification) {
-      // Optional structured array if Nora embeds forecastSteps in reply (future-safe).
       const raw = (reply.qualification as { forecastSteps?: unknown }).forecastSteps;
       const parsed = parseForecastJson(raw);
       if (parsed?.length) steps = parsed;
@@ -647,7 +674,6 @@ async function buildCognitiveForecast(input: {
         return { built: assembled, structureSource: "NORA_COGNITIVE" };
       }
     }
-    // Nora returned clarification-shaped reply with insufficient structure.
     if (
       reply.qualification?.status === "NEEDS_CLARIFICATION" &&
       (reply.qualification.clarifications?.length ?? 0) > 0
@@ -664,29 +690,29 @@ async function buildCognitiveForecast(input: {
         structureSource: "NORA_COGNITIVE",
       };
     }
+    // No deterministic cycle substitution — honest structure failure / clarification.
+    const honest =
+      (reply.content || "").trim() ||
+      "Je n'ai pas pu structurer une trajectoire exploitable à partir des acquis. Précise le premier résultat utile attendu, ou demande-moi de reprendre l'analyse.";
+    return {
+      built: {
+        kind: "CLARIFICATION",
+        question: honest.slice(0, 1200),
+        missing: ["structure trajectoire Nora"],
+      },
+      structureSource: "STRUCTURED_FALLBACK",
+    };
   } catch {
-    /* fallback below */
+    return {
+      built: {
+        kind: "CLARIFICATION",
+        question:
+          "La recommandation de trajectoire n'a pas pu être produite. Tu peux reformuler l'intention ou me demander de reprendre.",
+        missing: ["structure trajectoire Nora"],
+      },
+      structureSource: "STRUCTURED_FALLBACK",
+    };
   }
-  // Honest fallback when Nora structure unavailable but SAS acquis suffice:
-  // proportional first cycle CONCEPTION_FONCTIONNELLE — methodological default,
-  // NOT lexical matching of the Pilote text (AssetTrack-class apps).
-  const fallbackSteps: ForecastStep[] = [
-    {
-      order: 1,
-      cycleType: "CONCEPTION_FONCTIONNELLE",
-      rationale:
-        "Premier cycle proportionné : préciser le parcours utile et les règles métier avant réalisation, à partir de l'intention déjà qualifiée.",
-      certainty: "QUALIFIED",
-    },
-    {
-      order: 2,
-      cycleType: "DELIVERY",
-      rationale: "Suite envisagée si la conception confirme le périmètre.",
-      certainty: "ENVISIONED",
-    },
-  ];
-  const assembled = assembleForecastFromSteps(fallbackSteps);
-  return { built: assembled, structureSource: "STRUCTURED_FALLBACK" };
 }
 
 /**

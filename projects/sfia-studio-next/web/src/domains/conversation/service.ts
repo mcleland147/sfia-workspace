@@ -32,7 +32,6 @@ import {
   canonicalizeDocumentProposal,
   confrontProposalWithFence,
   contentSha256,
-  isLegacyUntitledSectionFence,
   resolveAssistantProposal,
   sealAndApplyDocumentCommand,
   serializeProposalFence,
@@ -83,7 +82,10 @@ import {
 import {
   appendDocumentEffectAck,
   applyTargetedSectionRevision,
+  applyTargetedFragmentRevision,
   assertSectionScope,
+  assertFragmentScope,
+  extractFragmentIds,
   extractContractualDocumentProposal,
   extractSectionHintFromPilotText,
   extractSectionHintFromProposalMarkdown,
@@ -1123,9 +1125,10 @@ export async function postUserMessageAndNora(
     // C1 — announce Nora work (ANNOUNCED ≠ OBSERVED). Best-effort; never blocks the turn.
     try {
       const { appendActivityEvent } = await import("./activity-projection");
+      const { projectMissionHeadlineFromUserAsk } = await import("./activity-labels");
       {
-        // AT-01 — métier objective, never echo the Pilote prompt as the activity title.
-        const summary = "Nora engage le travail demandé";
+        // Contextual objective from the ask — never dump the full prompt as title.
+        const summary = projectMissionHeadlineFromUserAsk(content);
         await appendActivityEvent({
           conversationId: reserved.conversationId,
           turnCommandId: reserved.commandId,
@@ -1135,7 +1138,7 @@ export async function postUserMessageAndNora(
           nature: "ANNOUNCED",
           status: "RUNNING",
           summary,
-          detail: { objective: summary, kind: "OBJECTIVE" },
+          detail: { objective: summary, kind: "OBJECTIVE", provisional: true },
           ownerToken: reserved.ownerToken,
         });
       }
@@ -2014,40 +2017,18 @@ export async function postUserMessageAndNora(
       const confront = confrontProposalWithFence(earlyCanonical.proposal, earlyExtract, {
         sectionScoped: sectionScopedConfront,
       });
-      if (!confront.ok) {
-        // Section-scoped natural revise: Nora often emits a partial LEGACY fence for
-        // the targeted sections while documentProposal carries a divergent full body.
-        // Prefer the contractual LEGACY fence as canonical merge input (deterministic),
-        // never silently ignore a material authority conflict outside that case.
-        if (
-          sectionScopedConfront &&
-          earlyExtract.ok &&
-          isLegacyUntitledSectionFence(earlyExtract)
-        ) {
-          const fenceCanonical = canonicalizeDocumentProposal({
-            title: earlyCanonical.proposal.title,
-            contentMarkdown: earlyExtract.content,
-          });
-          if (fenceCanonical.ok) {
-            durableProposal = fenceCanonical.proposal;
-            proposalAuthorityConflict = null;
-          } else {
-            proposalAuthorityConflict = confront.reason;
-            durableProposal = null;
-          }
-        } else {
-          proposalAuthorityConflict = confront.reason;
-          durableProposal = null;
-        }
-      } else {
-        durableProposal = earlyCanonical.proposal;
-        if (confront.materialize) {
-          reply = {
-            ...reply,
-            content: `${reply.content.trimEnd()}\n\n${serializeProposalFence(durableProposal)}`,
-          };
-        }
+      // Option B — single canonical authority: documentProposal (C20).
+      // Fence is transport / rehydration only — never a competing write authority.
+      // LEGACY partial fences are historical-compatible reads, not current content authority.
+      durableProposal = earlyCanonical.proposal;
+      proposalAuthorityConflict = null;
+      if (confront.ok && confront.materialize) {
+        reply = {
+          ...reply,
+          content: `${reply.content.trimEnd()}\n\n${serializeProposalFence(durableProposal)}`,
+        };
       }
+      // Divergent fence ignored for content; integrity of D4 still uses durableProposal.
     }
   }
   // Semantic qualification visible before extract/D4. Absence of obs must never invent D4.
@@ -2193,18 +2174,14 @@ export async function postUserMessageAndNora(
           if (!canonical.ok) {
             createBlocked = canonical.reason;
           } else {
+            // Canonical CREATE body = documentProposal; fence is transport only.
             const confront = confrontProposalWithFence(canonical.proposal, extracted);
-            if (!confront.ok) {
-              createBlocked = confront.reason;
-              proposalAuthorityConflict = confront.reason;
-              durableProposal = null;
-            } else {
-              exact = canonical.proposal;
-              durableProposal = exact;
-              if (confront.materialize) {
-                reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(exact)}`;
-                extracted = extractContractualDocumentProposal(reply.content);
-              }
+            exact = canonical.proposal;
+            durableProposal = exact;
+            proposalAuthorityConflict = null;
+            if (confront.ok && confront.materialize) {
+              reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(exact)}`;
+              extracted = extractContractualDocumentProposal(reply.content);
             }
           }
         } else if (extracted.ok) {
@@ -2663,32 +2640,14 @@ export async function postUserMessageAndNora(
                 const confront = confrontProposalWithFence(canonical.proposal, extracted, {
                   sectionScoped: sectionScopedConfront,
                 });
-                if (!confront.ok) {
-                  // Prefer partial LEGACY fence as merge input for section-scoped REVISE.
-                  if (
-                    sectionScopedConfront &&
-                    extracted.ok &&
-                    isLegacyUntitledSectionFence(extracted)
-                  ) {
-                    reviseProposalContent = extracted.content;
-                    const fenceCanonical = canonicalizeDocumentProposal({
-                      title: canonical.proposal.title,
-                      contentMarkdown: extracted.content,
-                    });
-                    if (fenceCanonical.ok) durableProposal = fenceCanonical.proposal;
-                    proposalAuthorityConflict = null;
-                  } else {
-                    reviseBlocked = confront.reason;
-                    proposalAuthorityConflict = confront.reason;
-                    durableProposal = null;
-                  }
-                } else {
-                  reviseProposalContent = canonical.proposal.contentMarkdown;
-                  durableProposal = canonical.proposal;
-                  if (confront.materialize) {
-                    reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(canonical.proposal)}`;
-                    extracted = extractContractualDocumentProposal(reply.content);
-                  }
+                // Single canonical authority: qualification.documentProposal.
+                // Divergent LEGACY fence must not override the proposal body.
+                reviseProposalContent = canonical.proposal.contentMarkdown;
+                durableProposal = canonical.proposal;
+                proposalAuthorityConflict = null;
+                if (confront.ok && confront.materialize) {
+                  reply.content = `${reply.content.trim()}\n\n${serializeProposalFence(canonical.proposal)}`;
+                  extracted = extractContractualDocumentProposal(reply.content);
                 }
               }
             } else if (extracted.ok) {
@@ -2720,11 +2679,25 @@ export async function postUserMessageAndNora(
                 d4Effect: null,
               });
             } else {
-              const merged = applyTargetedSectionRevision(
-                target.baseContent,
-                reviseProposalContent,
-                documentAct.sectionHint,
-              );
+              // Only authorized fragment ids from sectionHint / Pilote wording —
+              // never harvest every RM-* present in the proposal body.
+              const fragmentIds = [
+                ...extractFragmentIds(documentAct.sectionHint),
+                ...extractFragmentIds(content),
+              ].filter((id, i, arr) => arr.indexOf(id) === i);
+              // Prefer exact fragment splice when Nora/Pilote name rules (RM-03, R04…);
+              // otherwise fall back to section-level targeted revise.
+              const merged = fragmentIds.length
+                ? applyTargetedFragmentRevision(
+                    target.baseContent,
+                    reviseProposalContent,
+                    fragmentIds,
+                  )
+                : applyTargetedSectionRevision(
+                    target.baseContent,
+                    reviseProposalContent,
+                    documentAct.sectionHint,
+                  );
               if (!merged.ok) {
                 documentSave = {
                   status: "NOT_EXECUTED",
@@ -2745,11 +2718,17 @@ export async function postUserMessageAndNora(
                   d4Effect: null,
                 });
               } else {
-                const scopeCheck = assertSectionScope(
-                  target.baseContent,
-                  merged.content,
-                  documentAct.sectionHint,
-                );
+                const scopeCheck = fragmentIds.length
+                  ? assertFragmentScope(
+                      target.baseContent,
+                      merged.content,
+                      fragmentIds,
+                    )
+                  : assertSectionScope(
+                      target.baseContent,
+                      merged.content,
+                      documentAct.sectionHint,
+                    );
                 if (!scopeCheck.ok) {
                   documentSave = {
                     status: "NOT_EXECUTED",

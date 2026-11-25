@@ -15,6 +15,8 @@ export type NoraLiveActivityEvent = ActivityLabelInput & {
   phase: string;
 };
 
+const DETAILS_PAGE = 40;
+
 /**
  * Figma 12.01 / 12.10 — hierarchical LIVE activity (AT-01).
  * Level 1: mission headline · Level 2: adaptive groups · Level 3: foldable details.
@@ -33,8 +35,9 @@ export function NoraLiveActivity(props: {
   const active = props.active !== false;
   const groups = buildActivityGroups(events);
   const [open, setOpen] = useState<Record<string, boolean>>({});
+  const [visible, setVisible] = useState<Record<string, number>>({});
 
-  // Preserve expand state across event refreshes (AT-01).
+  // Preserve expand / pagination state across event refreshes (AT-01).
   useEffect(() => {
     setOpen((prev) => {
       const next = { ...prev };
@@ -43,10 +46,19 @@ export function NoraLiveActivity(props: {
       }
       return next;
     });
+    setVisible((prev) => {
+      const next = { ...prev };
+      for (const g of groups) {
+        if (!(g.key in next)) next[g.key] = DETAILS_PAGE;
+      }
+      return next;
+    });
   }, [groups.map((g) => g.key).join("|")]);
 
   if (!active) {
-    const richHistory = groups.filter((g) => g.state === "done" || g.state === "failed").length >= 1;
+    const richHistory =
+      groups.filter((g) => g.state === "done" || g.state === "failed" || g.state === "limited")
+        .length >= 1;
     if (!richHistory && groups.length < 2) return null;
   }
 
@@ -54,10 +66,19 @@ export function NoraLiveActivity(props: {
     props.headline ||
     (events.length ? projectMissionHeadline(events) : active ? "Activité en cours" : "Activité");
   const last = events.length ? events[events.length - 1]! : null;
+  const anyFailed = groups.some((g) => g.state === "failed");
+  const anyLimited = groups.some((g) => g.state === "limited");
+  const anyCurrent = groups.some((g) => g.state === "current" || g.state === "pending");
   const badge = !active
-    ? last?.status === "FAILED" || last?.nature === "UNCERTAIN"
-      ? "Limite"
-      : "Terminé"
+    ? anyFailed
+      ? "Échec"
+      : anyLimited
+        ? "Partiel"
+        : anyCurrent
+          ? "Suspendu"
+          : last?.status === "FAILED" || last?.nature === "UNCERTAIN"
+            ? "Limite"
+            : "Terminé"
     : last?.status === "FAILED" || last?.nature === "UNCERTAIN"
       ? "Limite"
       : last?.status === "LIMITED"
@@ -99,16 +120,20 @@ export function NoraLiveActivity(props: {
         <ul className="fig-nora-live-activity-groups" data-testid="nora-live-activity-groups">
           {groups.map((g) => {
             const expanded = open[g.key] === true;
+            // Idle must not invent success: only ✓ when the group itself is done.
             const mark =
               g.state === "failed"
                 ? "✕"
                 : g.state === "limited"
                   ? "!"
-                  : !active || g.state === "done"
+                  : g.state === "done"
                     ? "✓"
                     : g.state === "current"
                       ? "◌"
                       : "○";
+            const shown = visible[g.key] ?? DETAILS_PAGE;
+            const page = g.details.slice(0, shown);
+            const remaining = Math.max(0, g.details.length - shown);
             return (
               <li
                 key={g.key}
@@ -143,7 +168,7 @@ export function NoraLiveActivity(props: {
                     className="fig-nora-live-activity-details"
                     data-testid={`nora-live-activity-details-${g.key}`}
                   >
-                    {g.details.slice(0, 60).map((d) => (
+                    {page.map((d) => (
                       <li key={d.key} data-coverage={d.coverage} data-kind={d.kind}>
                         <span className="fig-nora-live-activity-source-cov">
                           {d.coverage === "DISCOVERED"
@@ -164,10 +189,21 @@ export function NoraLiveActivity(props: {
                         <span>{d.title}</span>
                       </li>
                     ))}
-                    {g.details.length > 60 ? (
+                    {remaining > 0 ? (
                       <li data-testid="nora-live-activity-details-more">
-                        <span className="fig-nora-live-activity-source-cov">…</span>
-                        <span>{g.details.length - 60} autres opérations accessibles</span>
+                        <button
+                          type="button"
+                          className="fig-nora-live-activity-more"
+                          data-testid={`nora-live-activity-more-${g.key}`}
+                          onClick={() =>
+                            setVisible((prev) => ({
+                              ...prev,
+                              [g.key]: (prev[g.key] ?? DETAILS_PAGE) + DETAILS_PAGE,
+                            }))
+                          }
+                        >
+                          Afficher la suite ({remaining} restantes)
+                        </button>
                       </li>
                     ) : null}
                   </ul>
