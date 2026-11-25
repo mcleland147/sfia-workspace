@@ -10,11 +10,16 @@ import {
   trajectoryQualificationOperations,
 } from "@/db/schema";
 import {
-  buildInitialForecast,
-  qualificationInputFingerprint,
+  assembleForecastFromSteps,
+  CYCLE_LABELS,
+  CYCLE_TYPES,
+  forecastInputSufficiency,
+  forecastStepsFromQualificationIntents,
   parseForecastJson,
+  qualificationInputFingerprint,
   validateStructuredForecast,
   type ForecastBuildResult,
+  type ForecastStep,
 } from "@/domains/pilotage/forecast-builder";
 import {
   initialQualificationComposerReason,
@@ -555,6 +560,136 @@ function buildAssistantContentFallback(
 }
 
 /**
+ * ML5 — Nora proposes structured forecast steps; D5 validates catalog membership.
+ * Replaces lexical inferPreferredFirstCycle. No regex / dictionary cycle choice.
+ */
+async function buildCognitiveForecast(input: {
+  projection: ReturnType<typeof parseProjectionJson> | null;
+  previewSummary: string;
+  projectName: string;
+}): Promise<{
+  built: ForecastBuildResult;
+  structureSource: "NORA_COGNITIVE" | "STRUCTURED_FALLBACK";
+}> {
+  const sufficiency = forecastInputSufficiency({
+    projection: input.projection,
+    previewSummary: input.previewSummary,
+  });
+  if (!sufficiency.ok) {
+    return { built: sufficiency.result, structureSource: "STRUCTURED_FALLBACK" };
+  }
+  const catalogLines = CYCLE_TYPES.map(
+    (t) => `- ${t} (${CYCLE_LABELS[t]})`,
+  ).join("\n");
+  try {
+    const { generateNoraReply } = await import("@/domains/conversation/nora-adapter");
+    const { buildCognitivePolicy } = await import("@/domains/conversation/cognitive-policy");
+    const policy = buildCognitivePolicy(
+      `Qualification trajectoire ${input.projectName}`,
+      undefined,
+      { profileHint: "analyse", effortHint: "medium" },
+    );
+    const slimPolicy = {
+      ...policy,
+      toolAllowlist: [] as typeof policy.toolAllowlist,
+      budgets: {
+        ...policy.budgets,
+        maxProviderCalls: Math.min(policy.budgets.maxProviderCalls, 2),
+        maxD4ToolCalls: 0,
+        maxGitToolCalls: 0,
+        maxD4CharsReturned: 0,
+      },
+    };
+    const reply = await generateNoraReply({
+      userText: [
+        `Le projet « ${input.projectName} » vient d'être créé.`,
+        "Propose une première trajectoire de cycles SFIA proportionnée.",
+        "Choisis 1 à 3 types de cycles dans le catalogue canonique ci-dessous.",
+        "Émets des intents d5.pilotage_command mode=PREPARE operation=PROPOSE_TRAJECTORY avec parameters.cycleType pour chaque étape (ordre = ordre des intents).",
+        "N'ouvre aucun cycle. Ne demande pas au Pilote de choisir un type de cycle si les acquis SAS suffisent.",
+        "Clarifie seulement si l'intention ou le résultat utile manquent vraiment.",
+      ].join("\n"),
+      contextSnippets: [
+        `Intention: ${input.projection?.intention?.value || "(non précisée)"}`,
+        `Résultat attendu: ${input.projection?.desiredOutcome?.value || "(non précisé)"}`,
+        `Périmètre: ${input.projection?.initialScope?.value || "(non précisé)"}`,
+        (input.projection?.openQuestions ?? [])
+          .map((q) => q.value?.trim())
+          .filter(Boolean)
+          .length
+          ? `Points ouverts: ${(input.projection?.openQuestions ?? [])
+              .map((q) => q.value?.trim())
+              .filter(Boolean)
+              .slice(0, 8)
+              .join(" · ")}`
+          : "Points ouverts: (aucun structuré)",
+        input.previewSummary
+          ? `Synthèse SAS: ${input.previewSummary.slice(0, 1200)}`
+          : "",
+        `Catalogue cycles SFIA (uniquement ces types):\n${catalogLines}`,
+      ].filter(Boolean),
+      policyOverride: slimPolicy,
+    });
+    const fromIntents = forecastStepsFromQualificationIntents(
+      reply.qualification?.intents ?? [],
+    );
+    let steps: ForecastStep[] = fromIntents;
+    if (!steps.length && reply.qualification) {
+      // Optional structured array if Nora embeds forecastSteps in reply (future-safe).
+      const raw = (reply.qualification as { forecastSteps?: unknown }).forecastSteps;
+      const parsed = parseForecastJson(raw);
+      if (parsed?.length) steps = parsed;
+    }
+    if (steps.length) {
+      const assembled = assembleForecastFromSteps(steps);
+      const validated = validateStructuredForecast(assembled);
+      if (validated.ok && assembled.kind === "PROPOSE") {
+        return { built: assembled, structureSource: "NORA_COGNITIVE" };
+      }
+    }
+    // Nora returned clarification-shaped reply with insufficient structure.
+    if (
+      reply.qualification?.status === "NEEDS_CLARIFICATION" &&
+      (reply.qualification.clarifications?.length ?? 0) > 0
+    ) {
+      return {
+        built: {
+          kind: "CLARIFICATION",
+          question:
+            reply.qualification.clarifications![0] ||
+            (reply.content || "").trim() ||
+            "Précise le premier résultat utile attendu.",
+          missing: ["clarification Nora"],
+        },
+        structureSource: "NORA_COGNITIVE",
+      };
+    }
+  } catch {
+    /* fallback below */
+  }
+  // Honest fallback when Nora structure unavailable but SAS acquis suffice:
+  // proportional first cycle CONCEPTION_FONCTIONNELLE — methodological default,
+  // NOT lexical matching of the Pilote text (AssetTrack-class apps).
+  const fallbackSteps: ForecastStep[] = [
+    {
+      order: 1,
+      cycleType: "CONCEPTION_FONCTIONNELLE",
+      rationale:
+        "Premier cycle proportionné : préciser le parcours utile et les règles métier avant réalisation, à partir de l'intention déjà qualifiée.",
+      certainty: "QUALIFIED",
+    },
+    {
+      order: 2,
+      cycleType: "DELIVERY",
+      rationale: "Suite envisagée si la conception confirme le périmètre.",
+      certainty: "ENVISIONED",
+    },
+  ];
+  const assembled = assembleForecastFromSteps(fallbackSteps);
+  return { built: assembled, structureSource: "STRUCTURED_FALLBACK" };
+}
+
+/**
  * RB-11/13 — first trajectory narrative via D3 Nora (cognitive), D5 remains owner
  * of structured forecast / publishProposedTrajectory. Failure falls back honestly.
  */
@@ -840,17 +975,18 @@ export async function processInitialQualification(
       }
     }
 
-    const builtRaw = buildInitialForecast({
+    const cognitive = await buildCognitiveForecast({
       projection,
       previewSummary: prep?.previewSummary ?? "",
+      projectName: name,
     });
-    const validated = validateStructuredForecast(builtRaw);
+    const validated = validateStructuredForecast(cognitive.built);
     const built: ForecastBuildResult = validated.ok
-      ? builtRaw
+      ? cognitive.built
       : {
           kind: "CLARIFICATION",
           question:
-            "Je n'ai pas pu qualifier une trajectoire structurée fiable à partir des éléments disponibles. Précisez l'intention et le premier résultat utile attendu.",
+            "Je n'ai pas pu qualifier une trajectoire structurée fiable à partir des éléments disponibles. Précise l'intention et le premier résultat utile attendu.",
           missing: ["sortie structurée", validated.reason],
         };
 
@@ -879,6 +1015,7 @@ export async function processInitialQualification(
         missing: built.missing,
         assistantContent,
         narrativeSource: narrative.source,
+        structureSource: cognitive.structureSource,
       };
     } else {
       trajectoryRevisionId = await publishProposedTrajectory({
@@ -900,6 +1037,7 @@ export async function processInitialQualification(
         orientation: built.orientation,
         assistantContent,
         narrativeSource: narrative.source,
+        structureSource: cognitive.structureSource,
       };
       // Persist D5 pointer + stable content before message so crash can resume (P0-02).
       const mid = await updateOpIfOwner(claimed.id, ownerToken, {

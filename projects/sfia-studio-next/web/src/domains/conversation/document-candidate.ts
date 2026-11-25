@@ -91,7 +91,7 @@ export function buildConserveOnlyQualification(input: {
     ],
     clarifications: [],
     replyDraft:
-      "Je conserve la proposition documentaire que vous avez examinée, sans la régénérer.",
+      "Je conserve la proposition documentaire que tu as examinée, sans la régénérer.",
   };
 }
 

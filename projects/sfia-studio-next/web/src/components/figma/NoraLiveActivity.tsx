@@ -1,9 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
-  buildActivitySources,
-  buildActivitySteps,
-  projectActivityLabel,
+  buildActivityGroups,
+  projectMissionHeadline,
   type ActivityLabelInput,
 } from "@/domains/conversation/activity-labels";
 
@@ -16,7 +16,8 @@ export type NoraLiveActivityEvent = ActivityLabelInput & {
 };
 
 /**
- * Figma 12.01 / 12.10 — shared LIVE activity card (sas + Travail).
+ * Figma 12.01 / 12.10 — hierarchical LIVE activity (AT-01).
+ * Level 1: mission headline · Level 2: adaptive groups · Level 3: foldable details.
  * Functional projection only — no SDK dumps, no invented percentages.
  */
 export function NoraLiveActivity(props: {
@@ -30,24 +31,28 @@ export function NoraLiveActivity(props: {
 }) {
   const events = props.events ?? [];
   const active = props.active !== false;
-  const steps = buildActivitySteps(events);
-  const sources = buildActivitySources(events);
-  // RB-01 — simple turn: hide card when idle unless a rich multi-step history remains.
+  const groups = buildActivityGroups(events);
+  const [open, setOpen] = useState<Record<string, boolean>>({});
+
+  // Preserve expand state across event refreshes (AT-01).
+  useEffect(() => {
+    setOpen((prev) => {
+      const next = { ...prev };
+      for (const g of groups) {
+        if (!(g.key in next)) next[g.key] = false;
+      }
+      return next;
+    });
+  }, [groups.map((g) => g.key).join("|")]);
+
   if (!active) {
-    const richHistory = steps.filter((s) => s.state === "done" || s.state === "failed").length >= 2;
-    if (!richHistory) return null;
+    const richHistory = groups.filter((g) => g.state === "done" || g.state === "failed").length >= 1;
+    if (!richHistory && groups.length < 2) return null;
   }
-  const lastRich =
-    [...events]
-      .reverse()
-      .find(
-        (e) =>
-          /source\./i.test(e.phase || "") ||
-          /objective|investigation/i.test(e.phase || ""),
-      ) || (events.length ? events[events.length - 1]! : null);
+
   const headline =
     props.headline ||
-    (lastRich ? projectActivityLabel(lastRich) : active ? "Activité en cours" : "Activité");
+    (events.length ? projectMissionHeadline(events) : active ? "Activité en cours" : "Activité");
   const last = events.length ? events[events.length - 1]! : null;
   const badge = !active
     ? last?.status === "FAILED" || last?.nature === "UNCERTAIN"
@@ -58,6 +63,11 @@ export function NoraLiveActivity(props: {
       : last?.status === "LIMITED"
         ? "Partiel"
         : "En cours";
+
+  const lead =
+    groups.find((g) => g.state === "current")?.description ||
+    groups[0]?.description ||
+    (active ? "Les opérations réellement engagées sont présentées au fil du travail." : null);
 
   return (
     <div
@@ -84,74 +94,88 @@ export function NoraLiveActivity(props: {
       <p className="fig-nora-live-activity-headline" data-testid="nora-live-activity-headline">
         {headline}
       </p>
-      {active ? (
-        <p className="fig-nora-live-activity-lead">
-          Les principales vérifications sont présentées au fil du travail.
-        </p>
-      ) : null}
-      {steps.length > 0 ? (
-        <ul className="fig-nora-live-activity-steps" data-testid="nora-live-activity-steps">
-          {steps.map((step) => (
-            <li
-              key={step.key}
-              data-state={
-                step.state === "failed" || step.state === "limited"
-                  ? step.state
-                  : !active && step.state === "current"
-                    ? "done"
-                    : step.state
-              }
-              data-nature={step.nature}
-              className={`fig-nora-live-activity-step fig-nora-live-activity-step-${
-                step.state === "failed" || step.state === "limited"
-                  ? step.state
-                  : !active && step.state === "current"
-                    ? "done"
-                    : step.state
-              }`}
-            >
-              <span className="fig-nora-live-activity-mark" aria-hidden>
-                {step.state === "failed"
-                  ? "✕"
-                  : step.state === "limited"
-                    ? "!"
-                    : !active || step.state === "done"
-                      ? "✓"
-                      : step.state === "current"
-                        ? "◌"
-                        : "○"}
-              </span>
-              <span>{step.label}</span>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-      {sources.length > 0 ? (
-        <div className="fig-nora-live-activity-sources" data-testid="nora-live-activity-sources">
-          <p className="fig-nora-live-activity-sources-kicker">
-            Sources ({sources.length})
-          </p>
-          <ul>
-            {sources.map((s) => (
-              <li key={s.key} data-coverage={s.coverage} data-kind={s.kind}>
-                <span className="fig-nora-live-activity-source-cov">
-                  {s.coverage === "DISCOVERED"
-                    ? "Identifiée"
-                    : s.coverage === "CONSULTED" ||
-                        s.coverage === "VERIFIED" ||
-                        s.coverage === "COMPLETE"
-                      ? "Consultée"
-                      : s.coverage === "PARTIAL"
-                        ? "Partielle"
-                        : s.coverage === "DENIED"
-                          ? "Inaccessible"
-                          : s.coverage}
-                </span>
-                <span>{s.title}</span>
+      {lead ? <p className="fig-nora-live-activity-lead">{lead}</p> : null}
+      {groups.length > 0 ? (
+        <ul className="fig-nora-live-activity-groups" data-testid="nora-live-activity-groups">
+          {groups.map((g) => {
+            const expanded = open[g.key] === true;
+            const mark =
+              g.state === "failed"
+                ? "✕"
+                : g.state === "limited"
+                  ? "!"
+                  : !active || g.state === "done"
+                    ? "✓"
+                    : g.state === "current"
+                      ? "◌"
+                      : "○";
+            return (
+              <li
+                key={g.key}
+                className={`fig-nora-live-activity-group fig-nora-live-activity-group-${g.state}`}
+                data-state={g.state}
+                data-testid={`nora-live-activity-group-${g.key}`}
+              >
+                <button
+                  type="button"
+                  className="fig-nora-live-activity-group-toggle"
+                  aria-expanded={expanded}
+                  data-testid={`nora-live-activity-toggle-${g.key}`}
+                  onClick={() => setOpen((prev) => ({ ...prev, [g.key]: !expanded }))}
+                >
+                  <span className="fig-nora-live-activity-mark" aria-hidden>
+                    {mark}
+                  </span>
+                  <span className="fig-nora-live-activity-group-main">
+                    <span className="fig-nora-live-activity-group-title">{g.title}</span>
+                    {g.resultSummary ? (
+                      <span className="fig-nora-live-activity-group-result">{g.resultSummary}</span>
+                    ) : (
+                      <span className="fig-nora-live-activity-group-result">{g.description}</span>
+                    )}
+                  </span>
+                  <span className="fig-nora-live-activity-chevron" aria-hidden>
+                    {expanded ? "▾" : "▸"}
+                  </span>
+                </button>
+                {expanded && g.details.length > 0 ? (
+                  <ul
+                    className="fig-nora-live-activity-details"
+                    data-testid={`nora-live-activity-details-${g.key}`}
+                  >
+                    {g.details.slice(0, 60).map((d) => (
+                      <li key={d.key} data-coverage={d.coverage} data-kind={d.kind}>
+                        <span className="fig-nora-live-activity-source-cov">
+                          {d.coverage === "DISCOVERED"
+                            ? "Identifiée"
+                            : d.coverage === "CONSULTED" ||
+                                d.coverage === "VERIFIED" ||
+                                d.coverage === "COMPLETE" ||
+                                d.coverage === "DONE"
+                              ? "Consultée"
+                              : d.coverage === "PARTIAL" || d.coverage === "LIMITED"
+                                ? "Partielle"
+                                : d.coverage === "DENIED" || d.coverage === "FAILED"
+                                  ? "Inaccessible"
+                                  : d.coverage === "CURRENT"
+                                    ? "En cours"
+                                    : d.coverage}
+                        </span>
+                        <span>{d.title}</span>
+                      </li>
+                    ))}
+                    {g.details.length > 60 ? (
+                      <li data-testid="nora-live-activity-details-more">
+                        <span className="fig-nora-live-activity-source-cov">…</span>
+                        <span>{g.details.length - 60} autres opérations accessibles</span>
+                      </li>
+                    ) : null}
+                  </ul>
+                ) : null}
               </li>
-            ))}
-          </ul>
-        </div>
+            );
+          })}
+        </ul>
       ) : null}
     </div>
   );

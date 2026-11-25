@@ -30,12 +30,55 @@ export function SasCreateProgressPopup(props: {
 
   const complete = props.complete === true;
   const displayStep = complete ? 3 : props.step;
+  const iqStatus = props.qualification?.status ?? null;
+  /** AT-03 — terminal ≠ always « trajectoire prête ». */
+  const outcome: "PROPOSED" | "CLARIFICATION" | "FAILED" | "RUNNING" =
+    !complete
+      ? "RUNNING"
+      : iqStatus === "PROPOSED"
+        ? "PROPOSED"
+        : iqStatus === "FAILED"
+          ? "FAILED"
+          : iqStatus === "CLARIFICATION"
+            ? "CLARIFICATION"
+            : "PROPOSED";
+
+  const kicker =
+    outcome === "RUNNING"
+      ? "PROJET CRÉÉ / TRAJECTOIRE EN PRÉPARATION"
+      : outcome === "PROPOSED"
+        ? "PROJET CRÉÉ / TRAJECTOIRE PROPOSÉE"
+        : outcome === "CLARIFICATION"
+          ? "PROJET CRÉÉ / CLARIFICATION NÉCESSAIRE"
+          : "PROJET CRÉÉ / REPRISE NÉCESSAIRE";
+
+  const titleText =
+    outcome === "RUNNING"
+      ? "Projet créé. Nora prépare la suite."
+      : outcome === "PROPOSED"
+        ? "Préparation terminée. Accède au projet quand tu veux."
+        : outcome === "CLARIFICATION"
+          ? "Projet créé. Nora a besoin d’une précision avant de proposer la trajectoire."
+          : "Projet créé. La qualification initiale n’a pas abouti.";
+
+  const leadText =
+    outcome === "RUNNING"
+      ? props.projectName
+        ? `Nora analyse l’intention de « ${props.projectName} » pour proposer une première trajectoire.`
+        : "Nora analyse ton intention pour proposer une première trajectoire."
+      : outcome === "PROPOSED"
+        ? props.projectName
+          ? `La première proposition de trajectoire pour « ${props.projectName} » est disponible dans le fil. Aucun cycle ne démarre sans ton accord.`
+          : "La première proposition de trajectoire est disponible dans le fil. Aucun cycle ne démarre sans ton accord."
+        : outcome === "CLARIFICATION"
+          ? "Une clarification est dans le fil du projet. Réponds-y pour que Nora propose une trajectoire. Aucun cycle n’est ouvert."
+          : "Tu peux accéder au projet et reprendre la conversation. Aucun cycle n’a été ouvert.";
 
   const steps = [
     {
       n: 1 as const,
       title: "Projet créé",
-      detail: "Il reste accessible, même si vous quittez Studio.",
+      detail: "Il reste accessible, même si tu quittes Studio.",
       statusDone: "01  TERMINÉ",
       statusCurrent: "01  EN COURS",
       statusPending: "01  À VENIR",
@@ -51,7 +94,12 @@ export function SasCreateProgressPopup(props: {
     {
       n: 3 as const,
       title: "Première réponse de Nora",
-      detail: "Une proposition ou une clarification dans le fil du projet.",
+      detail:
+        outcome === "CLARIFICATION"
+          ? "Clarification dans le fil — pas encore de proposition de trajectoire."
+          : outcome === "FAILED"
+            ? "La qualification n’a pas abouti ; tu peux reprendre dans le projet."
+            : "Une proposition de trajectoire dans le fil du projet.",
       statusDone: "03  TERMINÉ",
       statusCurrent: "03  EN COURS",
       statusPending: "03  À VENIR",
@@ -112,10 +160,12 @@ export function SasCreateProgressPopup(props: {
                 <img src={ASSET.analyse} alt="" width={30} height={30} />
               </span>
             </div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#7477ed]">
-              {complete
-                ? "PROJET CRÉÉ / TRAJECTOIRE PRÊTE"
-                : "PROJET CRÉÉ / TRAJECTOIRE EN PRÉPARATION"}
+            <p
+              className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#7477ed]"
+              data-testid="sas-create-progress-kicker"
+              data-outcome={outcome}
+            >
+              {kicker}
             </p>
           </div>
           <span
@@ -131,19 +181,9 @@ export function SasCreateProgressPopup(props: {
             id="sas-create-progress-title"
             className="text-[28px] font-semibold leading-tight"
           >
-            {complete
-              ? "Préparation terminée. Accède au projet quand tu veux."
-              : "Projet créé. Nora prépare la suite."}
+            {titleText}
           </h2>
-          <p className="mt-3 text-[15px] leading-relaxed text-[#a3b0c7]">
-            {complete
-              ? props.projectName
-                ? `La première proposition de trajectoire pour « ${props.projectName} » est disponible dans le fil. Aucun cycle ne démarre sans ton accord.`
-                : "La première proposition de trajectoire est disponible dans le fil. Aucun cycle ne démarre sans ton accord."
-              : props.projectName
-                ? `Nora analyse l’intention de « ${props.projectName} » pour proposer une première trajectoire.`
-                : "Nora analyse ton intention pour proposer une première trajectoire."}
-          </p>
+          <p className="mt-3 text-[15px] leading-relaxed text-[#a3b0c7]">{leadText}</p>
         </div>
 
         <div className="mx-[35px] mt-6 h-px bg-[#2b3850]" />
@@ -258,16 +298,19 @@ export function SasCreateProgressPopup(props: {
         ) : null}
 
         <div
-          className="flex items-center justify-between gap-4"
-          style={{ padding: "22px 35px 28px" }}
+          className="flex flex-wrap items-center justify-between gap-4"
+          style={{ padding: "22px 35px 32px", position: "sticky", bottom: 0, background: "#1b2639" }}
+          data-testid="sas-create-progress-footer"
         >
-          <p className="text-[12px] text-[#7787a4]">Aucun cycle ne démarre sans votre accord.</p>
+          <p className="text-[12px] text-[#7787a4] min-w-0 flex-1">
+            Aucun cycle ne démarre sans ton accord.
+          </p>
           <button
             type="button"
-            className="btn primary"
+            className="btn primary shrink-0"
             onClick={props.onDismiss}
             data-testid="sas-create-progress-dismiss"
-            style={{ width: 190, minHeight: 40, borderRadius: 9 }}
+            style={{ width: 190, minHeight: 44, borderRadius: 9 }}
           >
             Accéder au projet
           </button>

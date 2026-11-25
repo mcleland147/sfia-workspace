@@ -348,7 +348,8 @@ export function buildActivitySources(
       });
     }
   }
-  return [...byRef.values()].slice(0, 12);
+  // No hard drop of known sources — UI folds the list; counters stay truthful.
+  return [...byRef.values()];
 }
 
 /**
@@ -408,4 +409,149 @@ export function compactActivitySummary(
     headline: projectActivityLabel(last).slice(0, 160),
     detailCount: events.length,
   };
+}
+
+export type ActivityGroupView = {
+  key: string;
+  title: string;
+  description: string;
+  state: ActivityStepState;
+  /** Compact count line e.g. « 8 fichiers consultés, dont 2 partiellement » */
+  resultSummary: string | null;
+  details: Array<{
+    key: string;
+    title: string;
+    coverage: string;
+    kind: string;
+  }>;
+};
+
+function groupKeyForPhase(phase: string): string {
+  if (/objective|investigation\.engaged/i.test(phase)) return "understand";
+  if (/source\.(git|d4|web|history)/i.test(phase)) return "sources";
+  if (/contract\.prepare|document|d4\.|pending|conserv/i.test(phase)) return "produce";
+  if (/generate|restitution|complete/i.test(phase)) return "restitute";
+  return "work";
+}
+
+const GROUP_META: Record<string, { title: string; description: string }> = {
+  understand: {
+    title: "Compréhension du besoin",
+    description: "Orientation du travail à partir de la demande du Pilote.",
+  },
+  sources: {
+    title: "Consultation des sources",
+    description: "Documents, Git et historiques réellement mobilisés.",
+  },
+  produce: {
+    title: "Production et validation",
+    description: "Préparation documentaire, candidat ou enregistrement.",
+  },
+  restitute: {
+    title: "Restitution",
+    description: "Consolidation de la réponse pour le Pilote.",
+  },
+  work: {
+    title: "Travail en cours",
+    description: "Opérations observées pendant le tour.",
+  },
+};
+
+/**
+ * Hierarchical métier groups for LIVE activity (AT-01).
+ * Adaptive: only groups with real events appear. Details stay foldable in UI.
+ * Caps synthetic list length; never drops sources from the underlying journal.
+ */
+export function buildActivityGroups(
+  events: Array<ActivityLabelInput & { sequence: number; nature: string; status: string }>,
+): ActivityGroupView[] {
+  const sources = buildActivitySources(events);
+  const byGroup = new Map<string, typeof events>();
+  for (const ev of events) {
+    const gk = groupKeyForPhase(ev.phase || "");
+    const list = byGroup.get(gk) || [];
+    list.push(ev);
+    byGroup.set(gk, list);
+  }
+  const order = ["understand", "sources", "produce", "restitute", "work"];
+  const groups: ActivityGroupView[] = [];
+  for (const key of order) {
+    const list = byGroup.get(key);
+    if (!list?.length) continue;
+    const meta = GROUP_META[key] || GROUP_META.work!;
+    let worst: ActivityStepState = "done";
+    for (const ev of list) {
+      const st = authoritativeState(ev);
+      if (st === "failed") worst = "failed";
+      else if (st === "limited" && worst !== "failed") worst = "limited";
+      else if (st === "current" && worst === "done") worst = "current";
+    }
+    let resultSummary: string | null = null;
+    let details: ActivityGroupView["details"] = [];
+    if (key === "sources") {
+      const consulted = sources.filter((s) =>
+        ["CONSULTED", "VERIFIED", "COMPLETE"].includes(s.coverage),
+      ).length;
+      const partial = sources.filter((s) => s.coverage === "PARTIAL").length;
+      const denied = sources.filter((s) => s.coverage === "DENIED").length;
+      const discovered = sources.filter((s) => s.coverage === "DISCOVERED").length;
+      const bits: string[] = [];
+      if (sources.length) bits.push(`${sources.length} source${sources.length > 1 ? "s" : ""}`);
+      if (consulted) bits.push(`${consulted} consultée${consulted > 1 ? "s" : ""}`);
+      if (partial) bits.push(`${partial} partielle${partial > 1 ? "s" : ""}`);
+      if (denied) bits.push(`${denied} inaccessible${denied > 1 ? "s" : ""}`);
+      if (discovered && !consulted) bits.push(`${discovered} identifiée${discovered > 1 ? "s" : ""}`);
+      resultSummary = bits.join(", ") || null;
+      details = sources.map((s) => ({
+        key: s.key,
+        title: s.title,
+        coverage: s.coverage,
+        kind: s.kind,
+      }));
+    } else {
+      const steps = buildActivitySteps(list);
+      resultSummary =
+        steps.length > 1 ? `${steps.length} opérations observées` : steps[0]?.label || null;
+      details = steps.slice(0, 40).map((s) => ({
+        key: s.key,
+        title: s.label,
+        coverage: s.state.toUpperCase(),
+        kind: "STEP",
+      }));
+    }
+    groups.push({
+      key,
+      title: meta.title,
+      description: meta.description,
+      state: worst,
+      resultSummary,
+      details,
+    });
+  }
+  return groups;
+}
+
+/**
+ * Mission-level headline: prefer objective events; never last filename alone.
+ */
+export function projectMissionHeadline(
+  events: Array<ActivityLabelInput & { sequence: number; nature: string }>,
+): string {
+  const objective = [...events]
+    .reverse()
+    .find(
+      (e) =>
+        /objective|investigation\.engaged/i.test(e.phase || "") ||
+        detailString(e.detail, "objective"),
+    );
+  if (objective) {
+    const o = detailString(objective.detail, "objective") || objective.summary;
+    if (o && !looksTechnical(o) && !/^Prise en charge/i.test(o)) return o.slice(0, 160);
+  }
+  const last = events[events.length - 1];
+  if (last) {
+    const headline = projectActivityLabel(last).slice(0, 160);
+    if (headline && !/Consultation Git —/i.test(headline)) return headline;
+  }
+  return "Activité Nora";
 }

@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
+  assembleForecastFromSteps,
   buildInitialForecast,
+  forecastInputSufficiency,
+  forecastStepsFromQualificationIntents,
   qualificationInputFingerprint,
   validateStructuredForecast,
 } from "@/domains/pilotage/forecast-builder";
@@ -23,28 +26,13 @@ function projection(partial: Partial<PreparationProjection>): PreparationProject
   };
 }
 
-describe("ensemble07 forecast builder", () => {
+describe("ensemble07 forecast builder (ML5 — no lexical cycle choice)", () => {
   it("returns CLARIFICATION when no durable text", () => {
     const r = buildInitialForecast({ projection: null, previewSummary: "   " });
     expect(r.kind).toBe("CLARIFICATION");
   });
 
-  it("does not invent CADRAGE when intention lacks cycle signal (E07-COR-06)", () => {
-    const r = buildInitialForecast({
-      projection: projection({
-        intention: {
-          value: "Lancer un produit B2B pour équipes terrain",
-          status: "PILOT_EXPRESSED",
-          source: { kind: "PILOT_TURN", ref: "t1" },
-          isCurrent: true,
-        },
-      }),
-      previewSummary: "Terrain",
-    });
-    expect(r.kind).toBe("CLARIFICATION");
-  });
-
-  it("proposes CADRAGE when intention explicitly signals cadrage", () => {
+  it("does not invent a cycle from intention keywords (lexical path removed)", () => {
     const r = buildInitialForecast({
       projection: projection({
         intention: {
@@ -56,17 +44,24 @@ describe("ensemble07 forecast builder", () => {
       }),
       previewSummary: "",
     });
-    expect(r.kind).toBe("PROPOSE");
-    if (r.kind === "PROPOSE") {
-      expect(r.steps[0]!.cycleType).toBe("CADRAGE");
+    // Without Nora cognitive structure, builder must NOT keyword-match « cadrage ».
+    expect(r.kind).toBe("CLARIFICATION");
+    if (r.kind === "CLARIFICATION") {
+      expect(r.missing).toContain("recommandation cognitive");
     }
   });
 
-  it("honours explicit UX cycle mention", () => {
-    const r = buildInitialForecast({
+  it("sufficiency accepts AssetTrack-class intention without cycle names", () => {
+    const s = forecastInputSufficiency({
       projection: projection({
         intention: {
-          value: "Concevoir l'expérience utilisateur d'une application mobile",
+          value: "Gérer les prêts de matériel informatique aux collaborateurs",
+          status: "PILOT_EXPRESSED",
+          source: { kind: "PILOT_TURN", ref: "t1" },
+          isCurrent: true,
+        },
+        desiredOutcome: {
+          value: "Une première version simple et utile",
           status: "PILOT_EXPRESSED",
           source: { kind: "PILOT_TURN", ref: "t1" },
           isCurrent: true,
@@ -74,25 +69,54 @@ describe("ensemble07 forecast builder", () => {
       }),
       previewSummary: "",
     });
+    expect(s.ok).toBe(true);
+  });
+
+  it("assembleForecastFromSteps builds PROPOSE from Nora-chosen types", () => {
+    const r = assembleForecastFromSteps([
+      {
+        order: 1,
+        cycleType: "CONCEPTION_FONCTIONNELLE",
+        rationale: "Préciser le parcours de prêt",
+        certainty: "QUALIFIED",
+      },
+      {
+        order: 2,
+        cycleType: "DELIVERY",
+        rationale: "Réaliser le parcours",
+        certainty: "ENVISIONED",
+      },
+    ]);
     expect(r.kind).toBe("PROPOSE");
     if (r.kind === "PROPOSE") {
-      expect(r.steps[0]!.cycleType).toBe("UX_UI");
+      expect(r.steps[0]!.cycleType).toBe("CONCEPTION_FONCTIONNELLE");
+      expect(validateStructuredForecast(r).ok).toBe(true);
     }
   });
 
-  it("FIX-07: validateStructuredForecast accepts ordered propose", () => {
-    const r = buildInitialForecast({
-      projection: projection({
-        intention: {
-          value: "Besoin d'un cadrage pour clarifier le périmètre",
-          status: "PILOT_EXPRESSED",
-          source: { kind: "PILOT_TURN", ref: "t1" },
-          isCurrent: true,
+  it("forecastStepsFromQualificationIntents reads d5 PREPARE PROPOSE_TRAJECTORY", () => {
+    const steps = forecastStepsFromQualificationIntents([
+      {
+        capabilityId: "d5.pilotage_command",
+        mode: "PREPARE",
+        parameters: {
+          pilotageOperation: "PROPOSE_TRAJECTORY",
+          cycleType: "CONCEPTION_FONCTIONNELLE",
         },
-      }),
-      previewSummary: "",
-    });
-    expect(validateStructuredForecast(r).ok).toBe(true);
+        summary: "Concevoir le parcours gestionnaire",
+      },
+      {
+        capabilityId: "d5.pilotage_command",
+        mode: "PREPARE",
+        parameters: {
+          pilotageOperation: "PROPOSE_TRAJECTORY",
+          cycleType: "QA_VALIDATION",
+        },
+        summary: "Valider avec les gestionnaires",
+      },
+    ]);
+    expect(steps).toHaveLength(2);
+    expect(steps[0]!.cycleType).toBe("CONCEPTION_FONCTIONNELLE");
   });
 
   it("FIX-07: validateStructuredForecast rejects empty propose steps", () => {

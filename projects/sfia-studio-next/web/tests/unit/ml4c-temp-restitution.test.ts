@@ -103,8 +103,49 @@ describe("ML4C TEMP — restitution fail-closed (DET)", () => {
         },
       ],
     });
-    expect(projectStudioEffects(q).documentAct).toEqual({ kind: "CREATE" });
+    expect(projectStudioEffects(q).documentAct).toEqual({
+      kind: "CREATE",
+      mode: "REQUEST_EFFECT",
+      inspectionRequired: false,
+      intentId: "i-create",
+    });
     expect(deriveThreadTurnKind(q)).toBe("INTENTION_EFFET");
+  });
+
+  it("ML5: PREPARE create projects documentAct without widening effectIntents", () => {
+    const q = qualified({
+      intents: [
+        {
+          id: "i-prep-note",
+          capabilityId: "d4.create_document",
+          mode: "PREPARE",
+          summary: "Préparer une note",
+          parameters: {},
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+        {
+          id: "i-pub",
+          capabilityId: "d7.prepare_publication",
+          mode: "PREPARE",
+          summary: "should not project as publish effect",
+          parameters: {},
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+      ],
+    });
+    const proj = projectStudioEffects(q);
+    expect(proj.documentAct).toEqual({
+      kind: "CREATE",
+      mode: "PREPARE",
+      inspectionRequired: false,
+      intentId: "i-prep-note",
+    });
+    expect(proj.publication.wantsPublish).toBe(false);
+    expect(effectIntents(q)).toHaveLength(0);
   });
 
   it("TEMP-05: hypothetical d4.record_knowledge EXPLAIN does not capitalise", () => {

@@ -13,7 +13,7 @@ export type ForecastBuildResult =
   | { kind: "PROPOSE"; steps: ForecastStep[]; orientation: string; summary: string }
   | { kind: "CLARIFICATION"; question: string; missing: string[] };
 
-const CYCLE_LABELS: Record<CycleType, string> = {
+export const CYCLE_LABELS: Record<CycleType, string> = {
   CADRAGE: "cadrage",
   CONCEPTION_FONCTIONNELLE: "conception fonctionnelle",
   ARCHITECTURE_FONCTIONNELLE: "architecture fonctionnelle",
@@ -31,7 +31,10 @@ const CYCLE_LABELS: Record<CycleType, string> = {
   CAPITALISATION: "capitalisation",
 };
 
-function projectionTextBundle(projection: PreparationProjection | null, previewSummary: string): string {
+export function projectionTextBundle(
+  projection: PreparationProjection | null,
+  previewSummary: string,
+): string {
   const parts: string[] = [];
   if (projection?.intention?.value?.trim()) parts.push(projection.intention.value.trim());
   if (projection?.desiredOutcome?.value?.trim()) parts.push(projection.desiredOutcome.value.trim());
@@ -43,55 +46,24 @@ function projectionTextBundle(projection: PreparationProjection | null, previewS
   return parts.join("\n");
 }
 
-function inferPreferredFirstCycle(
-  projection: PreparationProjection | null,
-  bundle: string,
-): CycleType | null {
-  const explicit = projection?.suggestion?.explanation?.trim() ?? "";
-  const haystack = `${explicit}\n${bundle}`.toLowerCase();
-  for (const type of CYCLE_TYPES) {
-    const label = CYCLE_LABELS[type];
-    const token = type.toLowerCase().replace(/_/g, " ");
-    if (haystack.includes(label) || haystack.includes(token)) {
-      return type;
-    }
-  }
-  if (/\bux\b|interface utilisateur|expérience utilisateur/i.test(haystack)) return "UX_UI";
-  if (/architecture technique|stack technique/i.test(haystack)) return "ARCHITECTURE_TECHNIQUE";
-  if (/backlog|user story|stories/i.test(haystack)) return "BACKLOG";
-  return null;
-}
-
-function followOnCycles(first: CycleType, bundle: string): CycleType[] {
-  const lower = bundle.toLowerCase();
-  const out: CycleType[] = [];
-  const push = (t: CycleType) => {
-    if (t !== first && !out.includes(t)) out.push(t);
-  };
-  if (first === "CADRAGE") {
-    push("CONCEPTION_FONCTIONNELLE");
-    if (/ux|interface|écran/i.test(lower)) push("UX_UI");
-  } else if (first === "CONCEPTION_FONCTIONNELLE") {
-    push("UX_UI");
-  } else if (first === "UX_UI") {
-    push("BACKLOG");
-  } else if (first === "ARCHITECTURE_TECHNIQUE") {
-    push("INTEGRATION_DEVOPS");
-  }
-  return out.slice(0, 2);
-}
-
-export function buildInitialForecast(input: {
+/**
+ * Sufficiency gate only — NEVER chooses a cycle type from lexical matching.
+ * Clarification is legitimate when intention / desired outcome are missing.
+ */
+export function forecastInputSufficiency(input: {
   projection: PreparationProjection | null;
   previewSummary: string;
-}): ForecastBuildResult {
+}): { ok: true; bundle: string } | { ok: false; result: ForecastBuildResult & { kind: "CLARIFICATION" } } {
   const bundle = projectionTextBundle(input.projection, input.previewSummary);
   if (!bundle.trim()) {
     return {
-      kind: "CLARIFICATION",
-      question:
-        "Pour proposer une trajectoire de cycles utile, précisez l'intention du projet et le résultat visé dans le fil de préparation.",
-      missing: ["intention", "résultat visé"],
+      ok: false,
+      result: {
+        kind: "CLARIFICATION",
+        question:
+          "Pour proposer une trajectoire de cycles utile, précise l'intention du projet et le résultat visé dans le fil de préparation.",
+        missing: ["intention", "résultat visé"],
+      },
     };
   }
   const hasIntention =
@@ -99,46 +71,71 @@ export function buildInitialForecast(input: {
     Boolean(input.projection?.desiredOutcome?.value?.trim());
   if (!hasIntention && bundle.length < 24) {
     return {
-      kind: "CLARIFICATION",
-      question:
-        "J'ai besoin de comprendre ce que vous voulez accomplir avec ce projet — pouvez-vous formuler l'intention et le premier résultat attendu ?",
-      missing: ["intention"],
+      ok: false,
+      result: {
+        kind: "CLARIFICATION",
+        question:
+          "J'ai besoin de comprendre ce que tu veux accomplir avec ce projet — peux-tu formuler l'intention et le premier résultat attendu ?",
+        missing: ["intention"],
+      },
     };
   }
+  return { ok: true, bundle };
+}
 
-  // E07-FIX-06 — deterministic structure validator / DEV fixture path.
-  // LIVE Nora cognitive integration: LIVE NOT PROVEN in this cycle (fixture lane).
-  // Heuristic first-cycle inference remains a bounded DEV stand-in, not AC-02 LIVE.
-  const first = inferPreferredFirstCycle(input.projection, bundle);
-  if (!first) {
+/**
+ * Assemble a PROPOSE result from Nora-chosen (or validated) steps.
+ * D5 catalog membership is enforced by validateStructuredForecast / isCycleType.
+ */
+export function assembleForecastFromSteps(
+  stepsIn: ForecastStep[],
+): ForecastBuildResult {
+  const steps = stepsIn
+    .filter((s) => isCycleType(s.cycleType))
+    .slice(0, 3)
+    .map((s, i) => ({
+      order: i + 1,
+      cycleType: s.cycleType,
+      rationale: s.rationale?.trim() || "Cycle recommandé à partir des acquis de préparation.",
+      certainty: (i === 0 ? "QUALIFIED" : s.certainty === "ENVISIONED" ? "ENVISIONED" : "ENVISIONED") as
+        | "QUALIFIED"
+        | "ENVISIONED",
+    }));
+  if (!steps.length) {
     return {
       kind: "CLARIFICATION",
       question:
-        "Pour proposer une première progression de cycles, précisez le premier résultat utile attendu et le type de cycle qui vous semble le plus pertinent (cadrage, conception fonctionnelle, UX, etc.).",
-      missing: ["premier cycle", "résultat utile"],
+        "Je n'ai pas pu qualifier une trajectoire structurée fiable. Précise le premier résultat utile attendu.",
+      missing: ["sortie structurée"],
     };
   }
-  const follow = followOnCycles(first, bundle);
-  const steps: ForecastStep[] = [
-    {
-      order: 1,
-      cycleType: first,
-      rationale: "Premier cycle recommandé à partir de votre intention et du périmètre qualifié.",
-      certainty: "QUALIFIED",
-    },
-    ...follow.map((cycleType, i) => ({
-      order: i + 2,
-      cycleType,
-      rationale: "Suite envisagée si le premier cycle confirme la direction.",
-      certainty: "ENVISIONED" as const,
-    })),
-  ];
-
+  steps[0] = { ...steps[0]!, certainty: "QUALIFIED" };
   const labels = steps.map((s) => CYCLE_LABELS[s.cycleType]);
+  const first = steps[0]!;
   const orientation = `Trajectoire séquentielle proposée : ${labels.join(" → ")}.`;
-  const summary = `Je recommande d'ouvrir d'abord un cycle ${CYCLE_LABELS[first]}, puis d'envisager ${labels.slice(1).join(", ") || "la suite"} selon ce que nous qualifions ensemble.`;
-
+  const summary = `Je recommande d'ouvrir d'abord un cycle ${CYCLE_LABELS[first.cycleType]}, puis d'envisager ${labels.slice(1).join(", ") || "la suite"} selon ce que nous qualifions ensemble.`;
   return { kind: "PROPOSE", steps, orientation, summary };
+}
+
+/**
+ * @deprecated REMOVE lexical decision path — kept as named tombstone for tests that
+ * must assert it no longer drives cycle choice. Prefer buildCognitiveForecast / assembleForecastFromSteps.
+ */
+export function buildInitialForecast(input: {
+  projection: PreparationProjection | null;
+  previewSummary: string;
+}): ForecastBuildResult {
+  const sufficiency = forecastInputSufficiency(input);
+  if (!sufficiency.ok) return sufficiency.result;
+  // ML5 GO Morris 2025-11-25: lexical inferPreferredFirstCycle REMOVED.
+  // Without a Nora-produced structure this function must NOT invent a cycle from
+  // keyword matching. Callers that need a proposal must use buildCognitiveForecast.
+  return {
+    kind: "CLARIFICATION",
+    question:
+      "La recommandation de trajectoire nécessite l'analyse cognitive Nora — la structure n'a pas encore été produite.",
+    missing: ["recommandation cognitive"],
+  };
 }
 
 export function qualificationInputFingerprint(input: {
@@ -159,7 +156,6 @@ export function qualificationInputFingerprint(input: {
     intention: input.projection?.intention?.value ?? "",
     desiredOutcome: input.projection?.desiredOutcome?.value ?? "",
     initialScope: input.projection?.initialScope?.value ?? "",
-    // FIX-04 — inputs that actually influence recommendation / clarification.
     openQuestions,
     suggestionExplanation: input.projection?.suggestion?.explanation ?? "",
   };
@@ -167,7 +163,7 @@ export function qualificationInputFingerprint(input: {
 }
 
 /**
- * Deterministic validator for structured forecast before D5 persist (FIX-07).
+ * Deterministic validator for structured forecast before D5 persist.
  * Does not invent cycles; rejects ambiguous / invalid shapes.
  */
 export function validateStructuredForecast(
@@ -182,12 +178,10 @@ export function validateStructuredForecast(
     return { ok: false, reason: "FIRST_CYCLE_NOT_QUALIFIED" };
   }
   const seen = new Set<number>();
-  const types = new Set<string>();
   for (const step of built.steps) {
     if (!isCycleType(step.cycleType)) return { ok: false, reason: "UNKNOWN_CYCLE_TYPE" };
     if (seen.has(step.order)) return { ok: false, reason: "DUPLICATE_ORDER" };
     seen.add(step.order);
-    types.add(step.cycleType);
   }
   const orders = [...seen].sort((a, b) => a - b);
   for (let i = 0; i < orders.length; i++) {
@@ -217,3 +211,32 @@ export function parseForecastJson(raw: unknown): ForecastStep[] | null {
   }
   return steps.length ? steps.sort((a, b) => a.order - b.order) : null;
 }
+
+/** Extract forecast steps from Nora qualification pilotage PREPARE intents. */
+export function forecastStepsFromQualificationIntents(
+  intents: Array<{
+    capabilityId: string;
+    mode: string;
+    parameters?: { pilotageOperation?: string; cycleType?: string; notes?: string };
+    summary?: string;
+  }>,
+): ForecastStep[] {
+  const steps: ForecastStep[] = [];
+  for (const intent of intents) {
+    if (intent.capabilityId !== "d5.pilotage_command") continue;
+    if (intent.mode !== "PREPARE" && intent.mode !== "REQUEST_EFFECT") continue;
+    const op = intent.parameters?.pilotageOperation;
+    if (op && op !== "PROPOSE_TRAJECTORY") continue;
+    const cycleType = intent.parameters?.cycleType;
+    if (!cycleType || !isCycleType(cycleType)) continue;
+    steps.push({
+      order: steps.length + 1,
+      cycleType,
+      rationale: intent.summary?.trim() || intent.parameters?.notes?.trim() || "",
+      certainty: steps.length === 0 ? "QUALIFIED" : "ENVISIONED",
+    });
+  }
+  return steps;
+}
+
+export { CYCLE_TYPES };

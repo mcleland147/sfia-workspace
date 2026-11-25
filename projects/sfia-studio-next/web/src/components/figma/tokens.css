@@ -653,6 +653,82 @@
   width: 1.1em;
 }
 
+.fig-nora-live-activity-groups {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fig-nora-live-activity-group-toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  padding: 6px 0;
+  color: inherit;
+  cursor: pointer;
+}
+
+.fig-nora-live-activity-group-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.fig-nora-live-activity-group-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f3f5ff;
+}
+
+.fig-nora-live-activity-group-result {
+  font-size: 12px;
+  color: #a3b0c7;
+  line-height: 1.35;
+}
+
+.fig-nora-live-activity-chevron {
+  flex: 0 0 auto;
+  color: #7787a4;
+  font-size: 12px;
+  padding-top: 2px;
+}
+
+.fig-nora-live-activity-details {
+  list-style: none;
+  margin: 0 0 4px 1.6em;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.fig-nora-live-activity-details li {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 12px;
+  color: #f3f5ff;
+}
+
+.fig-nora-live-activity-group-failed .fig-nora-live-activity-group-title {
+  color: #f5a8a8;
+}
+
+.fig-nora-live-activity-group-limited .fig-nora-live-activity-group-title {
+  color: #e6c07b;
+}
+
 .fig-nora-live-activity-sources {
   margin-top: 12px;
   padding-top: 10px;

@@ -517,9 +517,40 @@ export function unavailableQualification(reason: string, replyDraft = ""): NoraT
   };
 }
 
+/**
+ * Protected write intents only. Never widen to PREPARE — D6/D7/D9/publication
+ * must stay REQUEST_EFFECT-gated. Documentary PREPARE is handled separately.
+ */
 export function effectIntents(q: NoraTurnQualification): QualifiedIntentItem[] {
   if (q.status !== "QUALIFIED") return [];
   return q.intents.filter((i) => i.mode === "REQUEST_EFFECT");
+}
+
+const DOCUMENTARY_CAPS = new Set<StudioCapabilityId>([
+  "d4.create_document",
+  "d4.revise_document",
+]);
+
+/**
+ * D4 create/revise intents that Studio must materialize (write or inspectable
+ * candidate). PREPARE is included here so Nora can prepare a note/revision
+ * without the Pilote saying « Crée le document D4 » / REQUEST_EFFECT.
+ * Does NOT include D6/D7/D9 — those stay on effectIntents only.
+ */
+export function documentaryMaterializeIntents(
+  q: NoraTurnQualification,
+): QualifiedIntentItem[] {
+  if (q.status !== "QUALIFIED") return [];
+  return q.intents.filter(
+    (i) =>
+      DOCUMENTARY_CAPS.has(i.capabilityId) &&
+      (i.mode === "REQUEST_EFFECT" || i.mode === "PREPARE"),
+  );
+}
+
+/** True when effectConditionStatus=OPEN → inspection before conservation. */
+export function documentaryInspectionRequired(intent: QualifiedIntentItem): boolean {
+  return intent.parameters.effectConditionStatus === "OPEN";
 }
 
 export function wantsCapability(
@@ -659,11 +690,29 @@ export type SemanticStudioProjection = {
   proposedProjectName: string | null;
   wantsFollowOnDocument: boolean;
   pendingDocumentBrief: string | null;
-  documentAct: { kind: "NONE" } | { kind: "CREATE" } | {
-    kind: "REVISE";
-    documentHint: string | null;
-    sectionHint: string | null;
-  };
+  /**
+   * Documentary act projection. `mode` mirrors the Nora intent:
+   * - REQUEST_EFFECT → owner write path when authorized
+   * - PREPARE → materialize inspectable candidate (revise) or create when
+   *   deliverable is clearly requested without OPEN inspection gate
+   * Never sourced from D6/D7/D9 PREPARE.
+   */
+  documentAct:
+    | { kind: "NONE" }
+    | {
+        kind: "CREATE";
+        mode: "PREPARE" | "REQUEST_EFFECT";
+        inspectionRequired: boolean;
+        intentId: string;
+      }
+    | {
+        kind: "REVISE";
+        mode: "PREPARE" | "REQUEST_EFFECT";
+        inspectionRequired: boolean;
+        intentId: string;
+        documentHint: string | null;
+        sectionHint: string | null;
+      };
   publication: {
     wantsPublish: boolean;
     needsExplicitPath: boolean;
@@ -690,9 +739,23 @@ export type SemanticStudioProjection = {
 
 export function projectStudioEffects(q: NoraTurnQualification): SemanticStudioProjection {
   const effects = effectIntents(q);
+  // Documentary PREPARE|REQUEST_EFFECT — materialize path (not D6/D7/D9).
+  const documentary = documentaryMaterializeIntents(q);
   const createProject = effects.find((i) => i.capabilityId === "d2.create_project");
-  const createDoc = effects.find((i) => i.capabilityId === "d4.create_document");
-  const reviseDoc = effects.find((i) => i.capabilityId === "d4.revise_document");
+  // Prefer REQUEST_EFFECT over PREPARE when both present; revise over create.
+  const reviseDoc =
+    documentary.find(
+      (i) => i.capabilityId === "d4.revise_document" && i.mode === "REQUEST_EFFECT",
+    ) ??
+    documentary.find((i) => i.capabilityId === "d4.revise_document");
+  const createDoc =
+    documentary.find(
+      (i) => i.capabilityId === "d4.create_document" && i.mode === "REQUEST_EFFECT",
+    ) ??
+    documentary.find((i) => i.capabilityId === "d4.create_document");
+  // Follow-on create after project: only REQUEST_EFFECT create counts for gate
+  // (PREPARE create alone must not defer behind an unresolved D2).
+  const createDocEffect = effects.find((i) => i.capabilityId === "d4.create_document");
   const preparePub = effects.find((i) => i.capabilityId === "d7.prepare_publication");
   const dispatchPub = effects.find((i) => i.capabilityId === "d7.dispatch_publication");
   const gitPub = effects.find((i) => i.capabilityId === "d9.git_integration");
@@ -715,28 +778,44 @@ export function projectStudioEffects(q: NoraTurnQualification): SemanticStudioPr
 
   const wantsFollowOnDocument = Boolean(
     wantsProjectCreate &&
-      createDoc &&
+      createDocEffect &&
       createProject &&
-      createDoc.dependsOn.includes(createProject.id),
+      createDocEffect.dependsOn.includes(createProject.id),
   );
 
   // Follow-on D4 after D2: defer immediate documentAct until Pilot create.
-  // Immediate CREATE/REVISE only when not gated by an unresolved project-create intent.
+  // Immediate CREATE/REVISE when PREPARE or REQUEST_EFFECT documentary intent.
   let documentAct: SemanticStudioProjection["documentAct"] = { kind: "NONE" };
   if (!wantsFollowOnDocument) {
     if (reviseDoc) {
+      const mode = reviseDoc.mode === "REQUEST_EFFECT" ? "REQUEST_EFFECT" : "PREPARE";
       documentAct = {
         kind: "REVISE",
+        mode,
+        inspectionRequired:
+          documentaryInspectionRequired(reviseDoc) || mode === "PREPARE",
+        intentId: reviseDoc.id,
         documentHint: reviseDoc.parameters.documentHint ?? null,
         sectionHint: reviseDoc.parameters.sectionHint ?? null,
       };
     } else if (createDoc) {
-      documentAct = { kind: "CREATE" };
+      const mode = createDoc.mode === "REQUEST_EFFECT" ? "REQUEST_EFFECT" : "PREPARE";
+      documentAct = {
+        kind: "CREATE",
+        mode,
+        inspectionRequired: documentaryInspectionRequired(createDoc),
+        intentId: createDoc.id,
+      };
     }
   }
 
   const pendingDocumentBrief = wantsFollowOnDocument
-    ? (createDoc?.summary || createDoc?.parameters.notes || createDoc?.parameters.documentHint || null)
+    ? (createDocEffect?.summary ||
+        createDocEffect?.parameters.notes ||
+        createDocEffect?.parameters.documentHint ||
+        createDoc?.summary ||
+        createDoc?.parameters.documentHint ||
+        null)
     : null;
 
   const path = publish?.parameters.publicationPath?.trim() || publish?.parameters.pathHint?.trim() || null;

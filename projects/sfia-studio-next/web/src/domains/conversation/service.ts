@@ -95,6 +95,7 @@ import {
 } from "./document-act";
 import {
   deriveThreadTurnKind,
+  documentaryMaterializeIntents,
   effectIntents,
   extractKnowledgeProposals,
   summarizeKnowledgeProposals,
@@ -1123,22 +1124,18 @@ export async function postUserMessageAndNora(
     try {
       const { appendActivityEvent } = await import("./activity-projection");
       {
-        const intent = content.trim().replace(/\s+/g, " ").slice(0, 120);
-        const summary = intent
-          ? intent.length >= 40
-            ? `Prise en charge — ${intent}${content.trim().length > 120 ? "…" : ""}`
-            : "Prise en charge de ta demande"
-          : "Prise en charge de ta demande";
+        // AT-01 — métier objective, never echo the Pilote prompt as the activity title.
+        const summary = "Nora engage le travail demandé";
         await appendActivityEvent({
           conversationId: reserved.conversationId,
           turnCommandId: reserved.commandId,
           ownerPilotId: pilotId,
           generationId: null,
-          phase: "nora.generate",
+          phase: "nora.objective",
           nature: "ANNOUNCED",
           status: "RUNNING",
           summary,
-          detail: { objective: intent || null },
+          detail: { objective: summary, kind: "OBJECTIVE" },
           ownerToken: reserved.ownerToken,
         });
       }
@@ -1266,17 +1263,23 @@ export async function postUserMessageAndNora(
         cognitiveWorkId = turn.conductor.workId || null;
       }
       reply = turn;
-      // C20: consolidated cognitive DOCUMENT production is the canonical D4 body
-      // when present — reply documentProposal must not compete with it.
+      // C20 / ML5 Option B: consolidated cognitive DOCUMENT body is the canonical
+      // content when present. Title must stay métier — never document-part-N.
       const consolidated = turn.conductor.production;
       if (
         consolidated?.kind === "DOCUMENT" &&
         consolidated.contentMarkdown?.trim() &&
         reply.qualification
       ) {
+        const fromProposal = reply.qualification.documentProposal?.title?.trim() || "";
+        const fromPart = consolidated.parts[0]?.title?.trim() || "";
+        const partIsSynthetic = /^document-part-\d+$/i.test(fromPart);
+        const h1 =
+          /^#\s+(.+?)(?:\r?\n|$)/.exec(consolidated.contentMarkdown)?.[1]?.trim() || "";
         const title =
-          reply.qualification.documentProposal?.title?.trim() ||
-          consolidated.parts[0]?.title ||
+          (fromProposal && !/^document-part-\d+$/i.test(fromProposal) ? fromProposal : "") ||
+          h1 ||
+          (!partIsSynthetic ? fromPart : "") ||
           "Document";
         reply = {
           ...reply,
@@ -2248,7 +2251,11 @@ export async function postUserMessageAndNora(
           });
         } else {
           try {
-            const createIntents = effectIntents(qualification).filter(
+            // PREPARE|REQUEST_EFFECT create both write (Option B / AssetTrack AT-12).
+            // Natural « Prépare-moi une note » must not require the Pilote to say
+            // « Crée le document D4 ». Inspection-before-conservation remains revise-only
+            // (pendingDocumentCandidate requires an existing documentId — no migration).
+            const createIntents = documentaryMaterializeIntents(qualification).filter(
               (i) => i.capabilityId === "d4.create_document",
             );
             if (createIntents.length > 1) {
@@ -2258,7 +2265,10 @@ export async function postUserMessageAndNora(
                 act: "CREATE",
               };
             } else {
-              const createIntent = createIntents[0];
+              const createIntent =
+                (documentAct.kind === "CREATE" &&
+                  createIntents.find((i) => i.id === documentAct.intentId)) ||
+                createIntents[0];
               if (!createIntent) {
                 documentSave = {
                   status: "NOT_EXECUTED",
@@ -2760,7 +2770,9 @@ export async function postUserMessageAndNora(
                     d4Effect: null,
                   });
                 } else {
-                  const reviseIntents = effectIntents(qualification).filter(
+                  // PREPARE|REQUEST_EFFECT — pending inspect uses either;
+                  // conserve/write further down still requires explicit conserve flag.
+                  const reviseIntents = documentaryMaterializeIntents(qualification).filter(
                     (i) => i.capabilityId === "d4.revise_document",
                   );
                   if (reviseIntents.length !== 1) {
@@ -2775,7 +2787,10 @@ export async function postUserMessageAndNora(
                       act: "REVISE",
                     };
                   } else {
-                    const reviseIntent = reviseIntents[0]!;
+                    const reviseIntent =
+                      (documentAct.kind === "REVISE" &&
+                        reviseIntents.find((i) => i.id === documentAct.intentId)) ||
+                      reviseIntents[0]!;
                     const clientSalt =
                       opts?.correlationKey?.trim() ||
                       `${target.documentId}:${target.baseRevisionId}`;
@@ -2847,10 +2862,14 @@ export async function postUserMessageAndNora(
                     // Transmit-text equality alone must not authorize D4 write.
                     const conserveRequested = focus?.conserveProposal === true;
                     if (!conserveRequested) {
-                      // Title must match leading H1 when present (canonicalizeDocumentProposal).
+                      // Métier title only — never promote document-part-N synthetic labels.
+                      const rawPropTitle = durableProposal?.title?.trim() || "";
+                      const safePropTitle = /^document-part-\d+$/i.test(rawPropTitle)
+                        ? ""
+                        : rawPropTitle;
                       const proposalTitle =
                         /^#\s+(.+?)(?:\r?\n|$)/.exec(merged.content)?.[1]?.trim() ||
-                        durableProposal?.title?.trim() ||
+                        safePropTitle ||
                         target.title;
                       // Historical proposals require a server hauth already bound on focus.
                       if (

@@ -648,19 +648,32 @@ export function expandSectionHints(hint: string | null | undefined): string[] {
   const raw = hint.trim();
   if (!raw) return [];
   const stripped = raw.replace(/^sections?\s+/i, "").trim();
+  /**
+   * Normalize « Section 2 (RM-03) » / « 2 (RM-03) » → « 2 » so parenthetical
+   * rule ids do not break numeric section resolution (AssetTrack AT-08 LIVE).
+   */
+  const normalizePart = (p: string): string => {
+    const t = p.trim();
+    if (/^\d+$/.test(t)) return t;
+    const secNum = /^sections?\s+(\d+)\b/i.exec(t);
+    if (secNum) return secNum[1]!;
+    const bareNum = /^(\d+)\b/.exec(t);
+    if (bareNum) return bareNum[1]!;
+    return t;
+  };
   if (!/\b(?:et|and)\b|,|;/i.test(stripped)) {
-    return [raw];
+    const one = normalizePart(raw);
+    return [one || raw];
   }
   const parts = stripped
     .split(/\s*(?:,|;|\bet\b|\band\b)\s*/i)
     .map((p) => p.trim())
     .filter((p) => p.length > 0);
-  if (parts.length <= 1) return [raw];
-  return parts.map((p) => {
-    if (/^\d+$/.test(p)) return p;
-    if (/^section\s+\d+/i.test(p)) return p;
-    return p;
-  });
+  if (parts.length <= 1) {
+    const one = normalizePart(raw);
+    return [one || raw];
+  }
+  return parts.map(normalizePart);
 }
 
 /** Format numeric section indexes into a canonical multi-section hint. */

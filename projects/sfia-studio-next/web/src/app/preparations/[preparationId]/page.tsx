@@ -757,7 +757,7 @@ export default function PreparationPage() {
       if (j.status === "ALREADY_CREATED" && j.projectId) {
         setProjectId(j.projectId);
         setAwaitingClientIntentKey(null);
-        setStatus(`ALREADY_CREATED (réconcilié après ACK perdu) → ${j.projectId}`);
+        setStatus("ALREADY_CREATED (réconcilié après ACK perdu)");
         router.push(`/projects/${j.projectId}`);
         return j.projectId;
       }
@@ -831,7 +831,7 @@ export default function PreparationPage() {
         return;
       }
       if (j.status || j.projectId) {
-        setStatus(`${j.status ?? ""}${j.projectId ? ` → ${j.projectId}` : ""}${cont}${bindErr}`);
+        setStatus(`${j.status ?? "OK"}${cont}${bindErr}`);
       }
       if (j.projectId && !j.missionBindingError) {
         setProjectId(j.projectId);
