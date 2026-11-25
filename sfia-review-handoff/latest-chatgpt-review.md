@@ -1,417 +1,265 @@
-# Review Pack FULL — Next ML5 Nora Livraison 1 — RECETTE cutover
+# Review Pack FULL — Next ML5 RoomBooking UAT causal diagnosis
 
-**Generated (UTC):** 2026-11-25T06:55:45Z
-**Mode:** publish-in-cycle · Review Pack FULL · Critical RUN (Cycle 11)
+**Generated (UTC):** 2026-11-25T08:23:38Z
+**Mode:** publish-in-cycle · Review Pack FULL · Critical INC (Cycle 9 QA)
 **Product branch:** `sfia/next-ml5-integrated-delivery-20261123`
 **Scope:** `projects/sfia-studio-next/`
-**Class:** NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN · R5 IN PROGRESS
+**Class:** NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN · Livraison 1 NON ACCEPTÉE
 
 ## 1. Verdict
 
-**NORA COGNITIVE EXPERIENCE — RECETTE AVAILABLE — MORRIS UAT REQUIRED — WEB LIVE BLOCKED.**
+**ROOMBOOKING UAT — ROOT CAUSE DIAGNOSIS COMPLETE — INTEGRATED CORRECTIVE DELIVERY READY FOR REVIEW.**
 
-**Status:** READY FOR MORRIS UAT WITH RESERVES.
-
-Served: `http://127.0.0.1:3200` · SHA `2a024b1c8d713ded6260d2a6427448a29f98a646` · BUILD `3RyhswMcKrNv8woukVXsT` · COG `OPERATIONAL_PROVISIONAL` · WEB LIVE=0.
+Les 31 écarts sont instruits. Quatre causes communes propriétaires expliquent la majorité des blocages (révision multi-sections, enveloppe/continuité, activité événementielle, restitution UX). Aucun code produit modifié dans ce cycle. Aucune mutation RECETTE.
 
 ## 2. Git Truth Check
 
 | Check | Result |
 |---|---|
-| Repo / remote | `mcleland147/sfia-workspace` · origin GitHub |
-| DEV worktree | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
+| Repo / remote | mcleland147/sfia-workspace |
 | Branch | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD tip (docs) | `2d3d47a46c07ca5535bc8329d611490918447f0d` (+ local delivery-history append this cycle) |
-| **Candidate SHA served** | `2a024b1c8d713ded6260d2a6427448a29f98a646` |
-| Tree | `031f13043423c0e93d0b94af9fb27e852e262e74` |
-| Web tree | `f57bb8eed98af19f4ea6d0a33d6de431084f635d` |
-| Tip web == delivery web | YES |
-| Main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
-| Merge-base | `997897fd…` |
-| Staged at start | none |
+| HEAD tip | `3c663fd2809cae9e91b3f4929515d859b0284e81` (docs cutover only after tip `2d3d47a4`) |
+| Candidate recetté | `2a024b1c8d713ded6260d2a6427448a29f98a646` |
+| Tree / web | `031f1304…` / `f57bb8ee…` |
+| Tip web == candidate web | YES |
+| Main / merge-base | `997897fd…` |
+| Staged / dirty at start | none |
+| DEV | :3100 · `prUUuYxFrKalrxiMsKoc4` · DB :5433 |
+| RECETTE | :3200 · `3RyhswMcKrNv8woukVXsT` · DB :5434 · WT `…-2a024b1c8d71` |
+| RECETTE mutations this cycle | NONE (RO traces only) |
 | Product push | NONE |
-| RECETTE worktree | detached HEAD on candidate exact |
 
-## 3. Sources consulted
+## 3. Sources lues
 
-- main method/templates/CKC Cycle 11 synthetic map (routing)
-- ENV-01 blob `14b61f0d…` / Product Versioning blob `8bc93e0f…`
-- Decision Git A `b411e327…` · ML5 sources `e7f1582f…`
-- Handoff first cutover `d165c530` / blob `164438a9` — worktree/backup/LaunchAgent pattern only
-- Handoff **operational** cutover `e497030b` / blob `115ed7e3` — PRIORITY cognitive/LIVE/auth/isolation
-- Handoff DEV realign `46f91c87` / blob `3a4b8b48` — identity controls
-- Handoff readiness `1f6248e9` / blob `6a46a308` — T1/T2/T3 candidate + WEB LIVE blocked reserve
-- Local start script / LaunchAgent / `.env.local` (non-secret) / manifesto previous `7f48daa2`
+- PV RoomBooking blob `d428b3d1` @ docs `9ef428b0` (intégral)
+- Handoffs: `66f08975`, `3e873596`, `42748ce1`, `1f6248e9`, `eef8d289`, ops parity `e497030b`
+- Code candidat (même web tree): `service.ts`, `document-act.ts`, `document-candidate.ts`, `semantic-qualification.ts`, `cognitive-work.ts`, `cognitive-conductor.ts`, `investigation-continuation.ts`, `investigation-state.ts`, `nora-adapter.ts`, `run-nora-cognitive-turn.ts`, `activity-labels.ts`, `NoraLiveActivity.tsx`, `NoraConversation.tsx`, `initial-qualification.ts`, `pilotage-effect-restitution.ts`
+- RECETTE PG RO: projet `proj_7514cdde-…`, conv `conv_76d43d47-…`, 11 turns, 3 cognitive_works, 1 document / 1 revision, 0 technical_contracts, activity events
 
-## 4. Inventaire initial → cible
+## 4. Identité RoomBooking (traces)
 
-| Dimension | DEV | RECETTE avant | RECETTE après |
-|---|---|---|---|
-| Port / DB | :3100 / :5433 | :3200 / :5434 | :3200 / :5434 (preserved) |
-| SHA | tip docs / web=f57bb8ee | `7f48daa2` | **`2a024b1c`** |
-| BUILD | `prUUuYxFrKalrxiMsKoc4` | `_ZDI1cWa1hscluvBhaiA4` | **`3RyhswMcKrNv8woukVXsT`** |
-| COG | OPERATIONAL_PROVISIONAL | OPERATIONAL_PROVISIONAL | OPERATIONAL_PROVISIONAL (anti-TEST_BOUNDARY verified) |
-| Cursor | LIVE | LIVE | LIVE (no dispatch) |
-| WEB LIVE | gated | gated | **explicitly BLOCKED** ENABLED=0 LIVE=0 |
-| Auto-session | DEV only | OFF | OFF (403) |
-| Auth | auto-session | GitHub OAuth | GitHub OAuth |
-
-## 5. Anti-TEST_BOUNDARY (critique)
-
-| Contrôle | Résultat |
+| Élément | Valeur |
 |---|---|
-| `.env.local` `SFIA_COG_PROFILE_TYPE` | `OPERATIONAL_PROVISIONAL` |
-| Start script default | `OPERATIONAL_PROVISIONAL` |
-| Boot log | `COG=OPERATIONAL_PROVISIONAL` |
-| `resolveProfileType()` under RECETTE env | `OPERATIONAL_PROVISIONAL` |
-| `d3.nora.policy_selected` | policy_version v3 · profile_type_detail OPERATIONAL_PROVISIONAL · model gpt-6.2-sol |
-| TEST_BOUNDARY as nominal RECETTE | **ABSENT** |
+| Project | RoomBooking · `proj_7514cdde-42e1-4626-8806-3903373d7f69` · created 2026-11-25 07:09:03Z (~08:09 local) |
+| Conversation | `conv_76d43d47-a858-42b8-aa6d-c4c803849bcd` · 07:02:23Z |
+| Document | `doc_d2c01fdd-…` · v1 only `drev_57520f3b-…` (UI abrégé drev_575) |
+| Works | `cgw_e864432c` COMPLETE traj ; `cgw_4a35eaae` SUSPENDED GLOBAL_TOKEN (T5–T8) ; `cgw_e31d3438` SUSPENDED GLOBAL_TOKEN (T9–T11) |
+| Contracts / effect_attempts | **empty** (DRAFT UI ≠ contrat réel) |
 
-TEST_BOUNDARY remains in code/tests/fixtures (legitimate). Not nominal runtime.
+### Mapping tours → turn commands (UTC)
 
-## 6. WEB LIVE BLOCKED
+| UAT | tcmd | Ord | Status | Note |
+|---|---|---|---|---|
+| T1 | tcmd_21a2369f | 1–2 | COMPLETE | SAS |
+| T2 | tcmd_e1618afc | 3–4 | COMPLETE | |
+| T3* | msg_iq_* | 5 | COMPLETE | trajectoire **déterministe** initial-qualification |
+| T4 | tcmd_a2a089fe | 6–7 | COMPLETE | traj légère · work cgw_e864432c |
+| T5a | tcmd_d8b68bd1 | 8–9 | COMPLETE | RETAIN · start cgw_4a35eaae |
+| T5b | tcmd_4cda7fcc | 10–11 | COMPLETE | OPEN cycle |
+| T6 | tcmd_e4fe0b05 | 12–13 | COMPLETE | CREATE v1 AVAILABLE |
+| T7 | tcmd_20c27c1c | 14–15 | COMPLETE | REVISE QUALIFIED · documentSave NOT_EXECUTED |
+| T8 | tcmd_97aa957b | 16–17 | UNKNOWN/INTERRUPTED | GLOBAL_TOKEN · used 201506 |
+| T9 | tcmd_793d5778 | 18–19 | COMPLETE | Git explore |
+| T10 | tcmd_4e44aac0 | 20–21 | COMPLETE | Git deepen · used→391581 |
+| T11 | tcmd_dd62b393 | 22–23 | UNKNOWN/INTERRUPTED | segmentsRun=0 · GLOBAL_TOKEN |
 
-| Flag / mécanisme | Valeur effective |
+## 5. Cartographie fonctionnement réel (chaîne)
+
+```
+Pilot message
+ → turn command + focus/documentHint
+ → runNoraCognitiveTurn / generateNoraReply (SDK LIVE)
+ → structured qualification (intents, documentProposal, replyDraft)
+ → projectStudioEffects → documentAct CREATE|REVISE|NONE
+ → D4 path: canonicalize → applyTargetedSectionRevision → admit → seal
+ → pendingDocumentCandidate (inspectable) OR documentSave AVAILABLE
+ → appendDocumentEffectAck / activity events → UI
+```
+
+Autorité: Nora propose ; Studio admet/persiste. Conserve-only = chemin UI explicite séparé (flag `conserveProposal`) — **non traversé** en T7 (échec avant candidat).
+
+## 6. Axe A — Compréhension, outils, effets
+
+### A1–A3 Tour 7 — ROOT CAUSE ESTABLISHED
+
+1. **REVISE identifié:** `semanticQualificationStatus=QUALIFIED` ; intent `d4.revise_document` `REQUEST_EFFECT` ; `sectionHint="Sections 2 et 3"` ; `documentProposal` présent (##2 + ##3, 2438 chars).
+2. **Perte:** `applyTargetedSectionRevision(base, proposal, "Sections 2 et 3")` → `{ok:false, reason:"SECTION_AMBIGUOUS_OR_MISSING_IN_BASE"}` (`document-act.ts` 1131–1153). Hint multi-sections non supporté (API = 1 section exacte). Reproduction déterministe DEV: même call → même reason ; hint `"2. Parcours…"` → OK.
+3. **Production structurée:** OUI (`documentProposal` + fence `sfia-document` injectée dans le message).
+4. **Candidat:** `pendingDocumentCandidate=null` — jamais scellé.
+5. **Persistance:** une seule révision en base (v1).
+6. **Visionneuse:** reste v1 — cohérent.
+7. **Refus propriétaire:** légitime au sens « ne pas muter hors scope section » ; **illégitime comme message** « non qualifiée pour écriture ».
+8. **Annonce contradictoire:** `replyDraft` + fence annoncent la révision ; `appendDocumentEffectAck` (`document-act.ts` ~1399) mappe tout `NOT_EXECUTED` vers « La demande n'a pas été qualifiée pour une écriture » — **faux** ici (qualification OK, merge section échoué).
+
+### A4 DRAFT parasite — ROOT CAUSE ESTABLISHED
+
+`service.ts` 1370–1397: si `QUALIFIED && !wantsPrepare`, append systématique `nora.contract.prepare` / LIMITED / « Pas de production structurée contrat — DRAFT non préparé ». Observé T4–T11. **0** rows `technical_contracts` — pure projection UI, pas d'effet parasite DB.
+
+### A5 Contrat correctif A
+
+- Support REVISE multi-sections (ou décomposer + merge atomique) + full-document proposal path quand Nora fournit ##2+##3 sans H1.
+- Sur NOT_EXECUTED: ack honnête (`SECTION_AMBIGUOUS…` / raison réelle), jamais « non qualifiée » si SQ QUALIFIED.
+- Si merge échoue: ne pas présenter fence/replyDraft comme proposition inspectable ; ou matérieliser `pendingDocumentCandidate` inspectable sans conservation auto.
+- Ne pas supprimer D4 ; ne pas second moteur lexical d'autorité.
+- `document-act.ts` lexical helpers restent parsing aids — **pas** la cause T7.
+
+## 7. Axe B — Ressources et continuité
+
+### B1 Comptabilité — ROOT CAUSE ESTABLISHED (mesurée)
+
+`evaluateGlobalResourceEnvelope` (`cognitive-work.ts` 616–637): `used = inputTokens + outputTokens` (cache **non** soustrait). Plafond 200000.
+
+| Work | segmentCalls | input | output | used | Status |
+|---|---|---|---|---|---|
+| cgw_4a35eaae (T5–T8) | 6 | 192372 | 9134 | **201506** | SUSPENDED @ T8 |
+| cgw_e31d3438 (T9–T11) | 2 | 385399 | 6182 | **391581** | SUSPENDED @ T11 (déjà over après T10) |
+
+T10 COMPLETE malgré used≫200k (évaluation post-segment). T11: `segmentsRun=0`, `resumed=true`, suspend immédiat — **pas** une note « trop chère» ; enveloppe déjà saturée.
+
+### B2 Continuité T10→T11 — ROOT CAUSE ESTABLISHED
+
+- Conclusions T10 vivent dans `production_json` kind REPLY / message assistant — **pas** dans `investigation.questions[].answerSummary` ni sources CONSULTED du state final (state: `sufficiency=INSUFFICIENT`, `sources=[]`, `contractReady=false`).
+- Restitution suspend (`investigation-continuation.ts` 105–130): si aucune question ANSWERED et pas de production DOCUMENT → texte fixe « Aucune conclusion métier fiable n'a été consolidée dans l'état d'investigation » — **vrai pour l'état**, **faux pour l'expérience Pilote** (analyse riche T10).
+- Même work Git repris pour CREATE note → héritage budget + state insuffisant + `pendingEffectBlocked` S05.
+
+### B3 Corrections antérieures
+
+- Réallocation segment / scaleSegmentCharBudget: existent ; **n'empêchent pas** accumulation globale multi-tours.
+- Tests conserve-only fixture: prouvent seal path, **pas** Message→REVISE multi-section→candidat.
+- Verdicts readiness: déterministes / smoke — n'ont pas discriminé UAT RoomBooking.
+
+### B4 Contrat correctif B
+
+- Clôturer / forker work après REPLY COMPLETE utile ; nouveau work pour note documentaire avec seed des acquis (conclusions + refs Git) sans rejouer 385k tokens.
+- Persister conclusions métier exploitables (pas seulement reply text).
+- Réserver headroom restitution ; si used déjà ≥ max avant tour: refuse early avec reprise bornée + option « nouveau work depuis acquis ».
+- **Ne pas** monter 200k comme solution principale.
+
+## 8. Axe C — Activité LIVE
+
+### C1–C2 — ROOT CAUSE PARTIALLY ESTABLISHED / ESTABLISHED sur points clés
+
+Événements réels RoomBooking: quasi uniquement `nora.generate` ANNOUNCED/COMPLETED (« Nora prépare une réponse » / « Réponse Nora disponible ») + `nora.contract.prepare` LIMITED + rares `nora.source.d4` avec refs brutes `acquis:acq_…`.
+
+| Symptôme | Cause |
 |---|---|
-| `SFIA_WEB_SEARCH_ENABLED` | `0` |
-| `SFIA_WEB_SEARCH_LIVE` | `0` |
-| `SFIA_WEB_SEARCH_ISOLATION_PROVEN` | `0` |
-| `canUsePublicWebFrontier` | `false` |
-| Boot | `WEB_LIVE=0` |
-| P0 | **OPEN** — bounded RECETTE GO; no activation |
+| Double activité | `NoraConversation.tsx` 377–397: ancien bloc `fig-nora-activity` **et** `NoraLiveActivity` si `activity==="preparing"` |
+| Titre=activité générique | Events n'émettent pas d'opérations métier ; labels mappent phases techniques |
+| Partiel sur réponse OK | Badge LIMITED de `nora.contract.prepare` DRAFT |
+| IDs acquis bruts | `summary`/`detail_json.ref` non projetés en titres métier |
+| Carte persistante | COMPLETE event reste dans liste poll sans auto-dismiss post-réponse simple |
 
-Nora OpenAI LIVE remains available (not confused with WEB LIVE).
+Le composant `NoraLiveActivity` est une **coquille** ; la chaîne producteur d'événements riches (outil Git/D4 avec objectif) n'est pas alimentée sur ces tours.
 
-## 7. Contrôles post-déploiement
+### C4 Contrat correctif C
 
-### A. Santé / auth
-- `GET /login` → **200**
-- `GET /api/portfolio` → **401**
-- `POST /api/dev/auto-session` → **403**
-- Test login = 0 · cwd = new worktree web · DEV :3100 still `prUUuYxFrKalrxiMsKoc4`
+Une projection active ; events = opérations réellement exécutées ; terminal sync ; DRAFT hors intention → N/A silencieux ; historique repliable ; pas de fausse timeline depuis replyDraft.
 
-### B. Nora LIVE smoke (borné, non sensible)
-```json
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-25T06:54:10.130Z","lane":"RECETTE","source_sha":"2a024b1c8d713ded6260d2a6427448a29f98a646","build_id":"3RyhswMcKrNv8woukVXsT","event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_9e758ec4-42ef-4cf8-9b32-74fb1ad0db70","policy_version":"ml5-cog-policy-v3-recette-operational-provisional","profile_type":"OPERATIONAL","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.2-sol","tools":"search_project_resources,read_project_document_revision,search_conversation_hist…[len=463]","profile_type_detail":"OPERATIONAL_PROVISIONAL"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-25T06:54:10.617Z","lane":"RECETTE","source_sha":"2a024b1c8d713ded6260d2a6427448a29f98a646","build_id":"3RyhswMcKrNv8woukVXsT","event_name":"d3.nora.provider_attempt","component":"d3.nora_adapter","generation_id":"gen_9e758ec4-42ef-4cf8-9b32-74fb1ad0db70","attempt_id":"att_58fdd599-1574-43b2-ab5d-34b1d4cdd299","outcome":"PARTIAL","policy_version":"ml5-cog-policy-v3-recette-operational-provisional","profile_type":"OPERATIONAL","meta":{"kind":"non_stream","maxTurns":20,"model_requested":"gpt-6.2-sol","max_turns_note":"maxTurns≠maxProviderCalls"}}
-{"policyVersion":"ml5-cog-policy-v3-recette-operational-provisional","profileType":"OPERATIONAL_PROVISIONAL","mode":"openai-agents-sdk-live","status":"COMPLETE","contentLen":4,"hasFakeCompleteText":false,"generationIdPresent":true,"modelHint":null}
-```
-policy probe:
-```json
-{
-  "policyVersion": "ml5-cog-policy-v3-recette-operational-provisional",
-  "profileType": "OPERATIONAL_PROVISIONAL",
-  "builtProfile": "OPERATIONAL_PROVISIONAL",
-  "frontierUsable": false,
-  "webEnabled": "0",
-  "webLive": "0",
-  "isolation": "0",
-  "hostedToolFn": "n/a",
-  "lane": "RECETTE",
-  "antiTestBoundary": true
-}
-```
+## 9. Axe D — Parcours / UX / personnalité
 
-### C. Cursor confinement (no dispatch)
-```json
-{
-  "ok": true,
-  "effectModeConfigured": "LIVE",
-  "liveNominal": true,
-  "keySource": "FILE_CREDENTIAL_STORE",
-  "workspaceRoot": "/private/tmp/sfia-ml5-recette-cursor-live-ws",
-  "probeWorkspace": "/private/tmp/sfia-ml5-recette-cursor-live-ws/9b9b5e6e201d0586/2b3f8f003fa6fa4a/default",
-  "confinement": "ROOT_HASHED_SEGMENTS_OUTSIDE_PRODUCT_TREES",
-  "dispatch": "NOT_PERFORMED — requires D6 HumanDecision",
-  "mutation": "NONE"
-}
-```
-
-### D. Données
-Before/after: projects=27 documents=118 revisions=189 — **preserved**. Migrations 001→021 MIG_EQ — **no migration**.
-
-### E. DEV
-Unchanged port/build/DB.
-
-## 8. Sauvegarde / rollback
-
-- Backup dir: `/Users/morris/Projects/sfia-recette-backups/ml5-20261125T064937Z-pre-2a024b1c8d71`
-- Dump sha256: `16084da2d5fe28f39d998f88da37fff15fdb98307cfefcfc60d6a230c21ff3a0` (pg_restore -l OK)
-- Previous worktree/build retained: `7f48daa28f00` / `_ZDI1cWa1hscluvBhaiA4`
-- Plist bak + env bak dated `20261125T064937Z`
-
-Rollback: bootout → restore plist bak → previous start script → kickstart → verify BUILD `_ZDI1cWa1hscluvBhaiA4`. DB restore only if schema reverse needed (none).
-
-## 9. Manifeste RECETTE (intégral)
-
-```json
-{
-  "lane": "RECETTE",
-  "source_repository": "mcleland147/sfia-workspace",
-  "source_branch": "sfia/next-ml5-integrated-delivery-20261123",
-  "base_main_sha": "997897fd7cf914771e7d08e8030dc7123fab7d25",
-  "candidate_sha": "2a024b1c8d713ded6260d2a6427448a29f98a646",
-  "candidate_tree": "031f13043423c0e93d0b94af9fb27e852e262e74",
-  "web_tree": "f57bb8eed98af19f4ea6d0a33d6de431084f635d",
-  "build_identifier": "3RyhswMcKrNv8woukVXsT",
-  "contentDigest": "cc7f5e5dbcff5af418393630de1d7d80d24e9cc44aa847eebda59eaa4e557a25",
-  "contentDigest_method": "qualify-dev.sh content_digest (pkg+next.config+src ts/tsx/css/sql)",
-  "product_version": "NOT AVAILABLE",
-  "candidate_version": "NOT AVAILABLE",
-  "release_status": "NO RELEASE",
-  "served_address": "http://127.0.0.1:3200",
-  "listen_bind": "127.0.0.1:3200",
-  "cognitive_policy_version": "ml5-cog-policy-v3-recette-operational-provisional",
-  "cognitive_profile_type": "OPERATIONAL_PROVISIONAL",
-  "cognitive_budgets": {
-    "max_segments": 24,
-    "max_tokens": 200000
-  },
-  "nora_model_requested": "gpt-6.2-sol",
-  "schema_revision": "001→021 preserved (MIG_EQ vs previous RECETTE; no migration this cutover)",
-  "test_data_revision": "preserved-recette-ml4-db",
-  "worktree": "/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-2a024b1c8d71",
-  "start_script": "/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-2a024b1c8d71/start-recette-ml5-3RyhswMcKrNv8woukVXsT.sh",
-  "postgresql": {
-    "container": "sfia-next-recette-pg",
-    "port": 5434,
-    "database": "sfia_next_recette_ml4",
-    "projects_count": 27,
-    "documents_count": 118,
-    "document_revisions_count": 189
-  },
-  "previous_recette": {
-    "SOURCE": "7f48daa28f00f390c34c58951ee5ceeb311f4d40",
-    "TREE": "7b8683951dbbe8a2bb6a72b5a0e39fd29b2d7e7e",
-    "BUILD_ID": "_ZDI1cWa1hscluvBhaiA4",
-    "DIGEST": "ed59106d8706fb8267620682c0fd0abd2636cab06b4e649a18d23ff64bf8514f",
-    "worktree": "/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-7f48daa28f00",
-    "cog_profile": "OPERATIONAL_PROVISIONAL",
-    "cursor_mode": "LIVE"
-  },
-  "backup": {
-    "path": "/Users/morris/Projects/sfia-recette-backups/ml5-20261125T064937Z-pre-2a024b1c8d71",
-    "dump_sha256": "16084da2d5fe28f39d998f88da37fff15fdb98307cfefcfc60d6a230c21ff3a0",
-    "plist_bak": "/Users/morris/Library/LaunchAgents/com.sfia.studio.next.recette.ml4d-ux004.plist.20261125T064937Z.pre-nora-cutover-2a024b1c.bak",
-    "env_bak": "/Users/morris/.config/sfia-studio-next/recette/.env.local.bak.pre-nora-cutover-20261125T064937Z"
-  },
-  "capabilities": {
-    "github_oauth": "CONFIGURED — LIVE callback requires Morris browser authorize",
-    "studio_dev_test_login": "DISABLED",
-    "studio_dev_auto_session": "DISABLED (403 proven)",
-    "openai_nora": "LIVE smoke PASS openai-agents-sdk-live COMPLETE — OPERATIONAL_PROVISIONAL gpt-6.2-sol",
-    "git": "documentary mutations allowlist preserved — no push this cycle",
-    "web": "WEB LIVE BLOCKED — SFIA_WEB_SEARCH_ENABLED=0 LIVE=0 ISOLATION_PROVEN=0; frontierUsable=false; P0 OPEN",
-    "cursor_sdk": "LIVE configured + confinement probe PASS — dispatch still requires D6",
-    "d8_os_isolation": "NOT DEMONSTRATED — independent verify remains limited"
-  },
-  "quality_evidence": [
-    "Git Truth PASS delivery 2a024b1c tree 031f1304 web f57bb8ee",
-    "npm ci + next build BUILD_ID 3RyhswMcKrNv8woukVXsT",
-    "HTTP /login 200; /api/portfolio 401; auto-session 403",
-    "boot log COG=OPERATIONAL_PROVISIONAL WEB_LIVE=0 anti-TEST_BOUNDARY",
-    "Nora LIVE smoke COMPLETE policy v3 OPERATIONAL_PROVISIONAL",
-    "Cursor confinement probe LIVE key FILE_CREDENTIAL_STORE",
-    "projects/documents/revisions preserved 27/118/189",
-    "DEV untouched :3100 build prUUuYxFrKalrxiMsKoc4"
-  ],
-  "reserves": [
-    "WEB LIVE BLOCKED — P0 OPEN (bounded RECETTE GO)",
-    "search DNS pin KNOWN GAP for hosted provider search",
-    "F2 page 12 PARTIAL / NOT PROVEN",
-    "R2 LIVE complete not proven",
-    "D8 OS isolation pending",
-    "OPERATIONAL_PROVISIONAL not OPERATIONAL_VALIDATED / not production policy",
-    "Cursor LIVE dispatch not exercised without D6 HumanDecision this cycle",
-    "ENV-01 cookie isolation across :3100/:3200 not sold — distinct browser profiles recommended",
-    "prior readiness pack noted digest 44d00186 under alternate recording; canonical content_digest now cc7f5e5d (DEV+RECETTE equal)"
-  ],
-  "rollback": {
-    "plist_bak": "/Users/morris/Library/LaunchAgents/com.sfia.studio.next.recette.ml4d-ux004.plist.20261125T064937Z.pre-nora-cutover-2a024b1c.bak",
-    "previous_start": "/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-7f48daa28f00/start-recette-ml5-_ZDI1cWa1hscluvBhaiA4.sh",
-    "previous_worktree": "/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-7f48daa28f00",
-    "env_bak": "/Users/morris/.config/sfia-studio-next/recette/.env.local.bak.pre-nora-cutover-20261125T064937Z",
-    "note": "rollback code ≠ automatic data rollback; dump available if schema reverse required (none expected)"
-  },
-  "decision": "NORA COGNITIVE EXPERIENCE — RECETTE AVAILABLE — MORRIS UAT REQUIRED — WEB LIVE BLOCKED",
-  "stable": "NOT AVAILABLE",
-  "built_at_utc": "2026-11-25T06:54:59Z"
-}
-```
-
-## 10. Configuration non secrète (env redacted)
-
-```
-# SFIA Studio Next — RECETTE ML4 lane secrets (hors Git)
-# Permissions: dir 0700, file 0600. Hors Git.
-# D1 GITHUB_CLIENT_ID/SECRET: reprise RECETTE ML3 (61fe295b) — distincts de GITHUB_APP_*.
-# OPENAI_API_KEY: reprise RECETTE historique.
-# STUDIO_GITHUB_ALLOW_MUTATIONS / STUDIO_DEV_TEST_LOGIN / STUDIO_E2E: unset.
-
-STUDIO_LANE=RECETTE
-SFIA_COG_PROFILE_TYPE=OPERATIONAL_PROVISIONAL
-STUDIO_PORT=3200
-BETTER_AUTH_URL=http://127.0.0.1:3200
-BETTER_AUTH_SECRET=<redacted>
-GITHUB_CLIENT_ID=Ov23li87nAN4wE6KKMlb
-GITHUB_CLIENT_SECRET=<redacted>
-DATABASE_URL=<redacted>
-SFIA_SOURCE_SHA=2a024b1c8d713ded6260d2a6427448a29f98a646
-SFIA_DOCUMENT_ROOT=/Users/morris/.config/sfia-studio-next/recette/documents
-GITHUB_APP_ID=5677465
-GITHUB_APP_INSTALLATION_ID=180092114
-GITHUB_APP_EXPECTED_OWNER=mcleland147
-GITHUB_APP_ALLOWED_REPO=mcleland147/chantiers360
-GITHUB_APP_CALLBACK_URL=http://127.0.0.1:3200/api/integrations/github/callback
-GITHUB_APP_CLIENT_ID=Iv23liw3xCng4QFrdItV
-GITHUB_APP_CLIENT_SECRET=<redacted>
-GITHUB_APP_PRIVATE_KEY_PATH=<redacted>
-INTEGRATION_TOKEN_ENCRYPTION_KEY=<redacted>
-STUDIO_GITHUB_USER_OAUTH=real
-STUDIO_GITHUB_PROVIDER=real
-OPENAI_API_KEY=<redacted>
-
-# ML4 R12 — bounded REAL documentary mutations (operator gate; D6 still required)
-# Q2 2026-11-14: documentary mutations DISABLED (was documentary) — GO Q4 required
-
-STUDIO_DEV_TEST_LOGIN=0
-
-# GO Morris 2026-11-22 — GitHub REAL WRITE activation (persistent)
-STUDIO_GITHUB_ALLOW_MUTATIONS=documentary
-GITHUB_APP_WRITE_ALLOWED_REPOS=mcleland147/chantiers360
-SFIA_COGNITIVE_MAX_SEGMENTS=24
-SFIA_COGNITIVE_MAX_TOKENS=<redacted>
-SFIA_CURSOR_EFFECT_MODE=LIVE
-SFIA_CURSOR_WORKSPACE_ROOT=/tmp/sfia-ml5-recette-cursor-live-ws
-SFIA_CURSOR_MODEL_ID=composer-2.5
-SFIA_CURSOR_LIVE_WAIT=0
-SFIA_WEB_SEARCH_LIVE=0
-SFIA_WEB_SEARCH_ENABLED=0
-SFIA_WEB_SEARCH_ISOLATION_PROVEN=0
-```
-
-## 11. Start script (served)
-
-```bash
-#!/bin/bash
-set -euo pipefail
-export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
-cd "/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-2a024b1c8d71/projects/sfia-studio-next/web"
-set -a
-source "$HOME/.config/sfia-studio-next/recette/.env.local"
-set +a
-export SFIA_SOURCE_SHA=2a024b1c8d713ded6260d2a6427448a29f98a646
-export SFIA_BUILD_ID=3RyhswMcKrNv8woukVXsT
-export STUDIO_LANE=RECETTE
-export STUDIO_PORT=3200
-export NODE_ENV=production
-unset STUDIO_FORCE_NORA_FIXTURE || true
-export STUDIO_FORCE_NORA_FIXTURE=
-unset STUDIO_E2E || true
-unset STUDIO_NORA_SIMULATED_PROVIDER || true
-unset STUDIO_DEV_AUTO_SESSION || true
-export STUDIO_DEV_TEST_LOGIN=0
-export STUDIO_GITHUB_ALLOW_MUTATIONS="${STUDIO_GITHUB_ALLOW_MUTATIONS:-documentary}"
-export GITHUB_APP_WRITE_ALLOWED_REPOS="${GITHUB_APP_WRITE_ALLOWED_REPOS:-mcleland147/chantiers360}"
-export SFIA_CURSOR_EFFECT_MODE="${SFIA_CURSOR_EFFECT_MODE:-LIVE}"
-export SFIA_CURSOR_WORKSPACE_ROOT="${SFIA_CURSOR_WORKSPACE_ROOT:-/tmp/sfia-ml5-recette-cursor-live-ws}"
-export SFIA_CURSOR_MODEL_ID="${SFIA_CURSOR_MODEL_ID:-composer-2.5}"
-export SFIA_CURSOR_LIVE_WAIT="${SFIA_CURSOR_LIVE_WAIT:-0}"
-export SFIA_COG_PROFILE_TYPE="${SFIA_COG_PROFILE_TYPE:-OPERATIONAL_PROVISIONAL}"
-export SFIA_COGNITIVE_MAX_SEGMENTS="${SFIA_COGNITIVE_MAX_SEGMENTS:-24}"
-export SFIA_COGNITIVE_MAX_TOKENS="${SFIA_COGNITIVE_MAX_TOKENS:-200000}"
-# WEB LIVE BLOCKED — Morris GO bounded RECETTE (P0 OPEN)
-unset SFIA_WEB_SEARCH_LIVE || true
-unset SFIA_WEB_SEARCH_ENABLED || true
-unset SFIA_WEB_SEARCH_ISOLATION_PROVEN || true
-unset SFIA_WEB_SEARCH_TEST || true
-export SFIA_WEB_SEARCH_LIVE=0
-export SFIA_WEB_SEARCH_ENABLED=0
-export SFIA_WEB_SEARCH_ISOLATION_PROVEN=0
-mkdir -p "$SFIA_CURSOR_WORKSPACE_ROOT"
-chmod 700 "$SFIA_CURSOR_WORKSPACE_ROOT" || true
-unset STUDIO_DEV_HOLD_INITIAL_QUALIFICATION || true
-unset NODE_PATH || true
-{
-  echo "[sfia-recette-boot] $(date -u +%Y-%m-%dT%H:%M:%SZ) SHA=$SFIA_SOURCE_SHA BUILD=$SFIA_BUILD_ID LANE=$STUDIO_LANE COG=$SFIA_COG_PROFILE_TYPE CURSOR_MODE=$SFIA_CURSOR_EFFECT_MODE WEB_LIVE=$SFIA_WEB_SEARCH_LIVE WS=$SFIA_CURSOR_WORKSPACE_ROOT"
-} >&2
-exec npx next start -H 127.0.0.1 -p 3200
-```
-
-## 12. Fake / Real Qualification
-
-| Capacité | Qualification |
+| ID | Cause |
 |---|---|
-| Nora cognition provider | **REAL** smoke LIVE COMPLETE — quality F2 NOT PROVEN |
-| WEB search/open LIVE | **BLOCKED** (not SCRIPTED presented as real) |
-| Cursor SDK | **REAL config** + confinement — dispatch **NOT PERFORMED** |
-| Auto-session | **DISABLED** proven 403 |
-| Test login | **DISABLED** |
-| Conserve-only / T1–T3 | inherited from candidate `2a024b1c` (prior cycle) — not re-coded here |
+| RB-12/13 | `initial-qualification.ts` `buildAssistantContent` — template déterministe « proposition de trajectoire initiale (non retenue) » + **vouvoiement** (« Vous pouvez… ») ; msg id `msg_iq_*` |
+| RB-05..08 | SAS progress: step 3 reste « en cours » tant que projection non terminale / dismiss manuel ; rythme UI non assuré si backend rapide |
+| RB-09/10 | CSS/icône + dérive nombre cycles vs cartes forecast |
+| RB-18 | `pilotage-effect-restitution.ts` / acks documentaires administratifs |
+| RB-19 | panneau contexte non alimenté depuis open points / cycle actif propriétaires |
+| RB-29 | focus documentaire / mode révision UI non clearé sur intention Git lecture seule |
+| RB-03 | rendu Markdown listes (surfaces conversation + viewer) |
 
-## 13. Git Review Index
+## 10. Analyse corrections antérieures (obligatoire)
 
-| Path | Action |
-|---|---|
-| `projects/sfia-studio-next/construction/delivery-history.md` | append-only cutover entry (product branch tip docs; **not** served SHA) |
-| `.tmp-sfia-review/chatgpt-review.md` | FULL pack reset this cycle |
-| RECETTE worktree artifacts | start script, manifesto, `.next` — outside product branch commit |
+| Sujet | Annoncé | Couvert réellement | Limite du test | Pourquoi UAT échoue encore |
+|---|---|---|---|---|
+| Conserve-only + PG | path sans provider | fixture candidate → v2 | pas Message→proposal→merge section | T7 n'atteint jamais candidat |
+| Admission WEB sémantique | P0 | B1 flags | hors RoomBooking | N/A cette UAT |
+| Activity shared component | NoraLiveActivity + labels | UI shell | pas producteurs d'ops | double UI + events pauvres |
+| Budget / continuation | scale segment, partial restitution | local chars | pas fork work / conclusions persistées | T10 success puis T11 exhaust + message « aucune conclusion » |
+| Cognitive OPERATIONAL_PROVISIONAL | policy v3 | cutover smoke | ≠ F2 / ≠ multi-turn FinOps | OK policy ; KO gestion enveloppe |
 
-**No product code change. No candidate SHA mutation.**
+## 11. Matrice RB-01 … RB-31
 
-## 14. Diff documentaire (delivery-history)
+| ID | Symptôme | Tour | Preuve | Mécanisme | Cause immédiate | Cause racine | Certitude | Correction | Oracle |
+|---|---|---|---|---|---|---|---|---|---|
+| RB-01 | Carte réponse utile absente après simple | 1,2,4 | activity COMPLETE persiste | NoraLiveActivity + poll | pas dismiss terminal | lifecycle activité | ESTABLISHED | auto-hide carte active post-COMPLETE simple | Scénario 1/2 |
+| RB-02 | Spinner après réponse | 1,2 | UI + events RUNNING/COMPLETED | même | terminal non sync | lifecycle | ESTABLISHED | sync status message | 2 |
+| RB-03 | Listes sans puces | 2,4,6 | BROWSER | markdown CSS | styles surfaces | UX markdown | PARTIAL | styles + test nav | 7 |
+| RB-04 | SDK/COMPLETE exposés | 2,3 | BROWSER | chrome debug | métadonnées hors gate RECETTE | projection | PARTIAL | hide en RECETTE | 7 |
+| RB-05 | Loader SAS statique | 3 | BROWSER | SasCreateProgressPopup | animation/état | UX SAS | PARTIAL | animation + état réel | 1 |
+| RB-06 | Étapes 2/3 instantanées | 3 | BROWSER | même | pas min presentation | UX | ESTABLISHED | min durée présentation 2/3 | 1 |
+| RB-07 | Étape 3 bloquée | 3 | BROWSER | stepFromQualification | PROPOSED≠terminal UI | SAS state machine | PARTIAL | terminal explicite | 1 |
+| RB-08 | Pas confirmation terminale | 3 | BROWSER | même | manque état final | SAS | ESTABLISHED | bouton Accéder + done | 1 |
+| RB-09 | Icône i ovale | 3 | BROWSER | CSS | aspect-ratio | UX | ESTABLISHED | fix CSS | 7 |
+| RB-10 | 3 cycles / 2 cartes | 3 | BROWSER | forecast vs render | dérive count | projection IQ | PARTIAL | single source | 1 |
+| RB-11 | Argumentaire faible | 3 | msg_iq | template IQ | texte déterministe pauvre | IQ content | ESTABLISHED | enrichir ou déléguer Nora | 1 |
+| RB-12 | Tutoiement→vouvoiement | 3 | msg_iq content | buildAssistantContent | « Vous » | personnalité cassée | ESTABLISHED | tutoiement transverse | 1 |
+| RB-13 | Trajectoire préformatée | 3 | msg_iq_* id | processInitialQualification | non-cognitive | IQ path | ESTABLISHED | qualifier origine / Nora | 1 |
+| RB-14 | Double activité | 4,6 | NoraConversation | preparing + LiveActivity | coexistence | C | ESTABLISHED | un seul canal | 2 |
+| RB-15 | Activité non métier | 4+ | activity DB | phases generate only | producteurs pauvres | C | ESTABLISHED | events ops réelles | 2 |
+| RB-16 | DRAFT non préparé | 4–11 | activity detail | service 1370 | systématique | A4 | ESTABLISHED | N/A silencieux | 2/6 |
+| RB-17 | Partiel à tort | 4,5,10 | badge LIMITED | contract.prepare | dérive statut | C+A4 | ESTABLISHED | statut depuis objectif | 2 |
+| RB-18 | Résultat Studio admin | 5–7 | messages | restitution helpers | ton administratif | D | ESTABLISHED | formulation métier | 1/3 |
+| RB-19 | Contexte incomplet | 5 | BROWSER | context panel | non branché open points | D | PARTIAL | wire propriétaires | 1 |
+| RB-20 | IDs acquis bruts | 6,8 | activity summaries | source events | pas de title | C | ESTABLISHED | labels métier | 2 |
+| RB-21 | Anciens events | 6 | BROWSER | poll multi-turn | pas isolation tour | C | ESTABLISHED | scope turn | 2 |
+| RB-22 | Statuts steps figés | 6 | BROWSER | step states | mapping pauvre | C | PARTIAL | états discovery→done | 2 |
+| RB-23 | 3 consultations / 1 lien | 6 | turnProjection | aggregate label | granularité | C | PARTIAL | sources nommées | 2 |
+| RB-24 | REVISE non écrit | 7 | result_json | applyTargetedSectionRevision | multi-section hint | **A3** | ESTABLISHED | multi-section / candidature | 3 |
+| RB-25 | Candidat absent viewer | 7 | pending=null | seal never | suite RB-24 | A3 | ESTABLISHED | pending inspectable | 3 |
+| RB-26 | Annonce vs ack | 7 | message tail | appendDocumentEffectAck | mapping NOT_EXECUTED trompeur | A3 | ESTABLISHED | ack raison réelle | 3 |
+| RB-27 | GLOBAL_TOKEN T8/T11 | 8,11 | resources_json | envelope | used≥200k | **B1** | ESTABLISHED | fork/headroom | 4/5 |
+| RB-28 | Reprise T8 échoue | 8 | same work | continue saturated | budget+no candidate | B+A | ESTABLISHED | reprise utile | 3/5 |
+| RB-29 | Mode révision sticky | 10 | BROWSER | document focus UI | clear manquant | D | PARTIAL | clear on intent change | 6 |
+| RB-30 | « Aucune conclusion » | 11 | msg + continuation.ts | state sans ANSWERED | conclusions non persistées | **B2** | ESTABLISHED | persist acquis | 4 |
+| RB-31 | Note non créée | 11 | documentSave null | exhaust+block | B1+B2+create path | A+B | ESTABLISHED | create from acquis | 4 |
 
-```diff
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 2dc519c2..78db9c49 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -4641,3 +4641,26 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
- | RECETTE / STABLE | intouchées |
- | Classe | NO RELEASE · Gate C OPEN |
- | Verdict cible | `LOCAL GIT CANDIDATE FROZEN` (± GOVERNED RESERVES) |
-+
-+## 2026-11-25 — ML5 Nora Livraison 1 — RECETTE cutover (Cycle 11 RUN)
-+
-+| Champ | Valeur |
-+|---|---|
-+| Cycle | 11 — Déploiement / release · Critical RUN |
-+| Candidate SHA | `2a024b1c8d713ded6260d2a6427448a29f98a646` |
-+| Tree | `031f13043423c0e93d0b94af9fb27e852e262e74` |
-+| Web tree | `f57bb8eed98af19f4ea6d0a33d6de431084f635d` |
-+| Build RECETTE | `3RyhswMcKrNv8woukVXsT` |
-+| contentDigest | `cc7f5e5dbcff5af418393630de1d7d80d24e9cc44aa847eebda59eaa4e557a25` |
-+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-2a024b1c8d71` |
-+| URL | `http://127.0.0.1:3200` |
-+| Cognitive | `ml5-cog-policy-v3-recette-operational-provisional` · `OPERATIONAL_PROVISIONAL` · 24/200k · model `gpt-6.2-sol` |
-+| WEB | LIVE BLOCKED (ENABLED=0 LIVE=0) — P0 OPEN |
-+| Nora smoke | `openai-agents-sdk-live` COMPLETE — not F2 proven |
-+| Cursor | LIVE configured + confinement PASS — no D6 dispatch |
-+| DB | `sfia_next_recette_ml4` :5434 preserved projects=27 documents=118 revisions=189 · migrations 001→021 unchanged |
-+| Previous | `7f48daa28f00` / `_ZDI1cWa1hscluvBhaiA4` retained for rollback |
-+| Backup | `/Users/morris/Projects/sfia-recette-backups/ml5-20261125T064937Z-pre-2a024b1c8d71` |
-+| Class | NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN |
-+| Verdict | RECETTE AVAILABLE — MORRIS UAT REQUIRED — WEB LIVE BLOCKED |
-+
-```
+### Causes communes (regroupement macro-lot)
 
-## 15. Réserves
+1. **DOC-REVISE-PIPELINE** — RB-24,25,26,28(+),31(+)
+2. **COG-ENVELOPE-CONTINUITY** — RB-27,28,30,31
+3. **LIVE-ACTIVITY-PROJECTION** — RB-01,02,14,15,16,17,20,21,22,23
+4. **SAS-IQ-PERSONA-UX** — RB-03..13,18,19,29
 
-1. WEB LIVE BLOCKED — P0 OPEN
-2. Hosted search DNS pin = KNOWN GAP
-3. F2 / R2 LIVE complete NOT PROVEN
-4. D8 OS isolation NOT DEMONSTRATED
-5. OPERATIONAL_PROVISIONAL ≠ VALIDATED ≠ production
-6. ENV-01 cookie ports not sold — distinct browser profiles
-7. No D6 → no Cursor dispatch this cycle
-8. Digest note: readiness recorded `44d00186`; canonical `content_digest` method yields `cc7f5e5d` equal on DEV+RECETTE source trees
+## 12. Contrat du macro-lot correctif intégré
 
-## 16. Capacités disponibles / bloquées
+**Nom de travail:** ML5 Livraison 1 — Correctif intégré RoomBooking (A∪B∪C∪D)
 
-**Disponibles:** conversation Nora LIVE · auth GitHub OAuth · documents/DB préservés · Cursor LIVE *configuré* · conserve-only path (code candidat) · activité LIVE IHM (acquis antérieurs).
+**IN:** chaînes DOC-REVISE, COG continuity, LIVE activity producers+UI lifecycle, SAS/IQ personnalité, acks honnêtes, Markdown/CSS ciblés.
+**OUT:** WEB LIVE, D8, livraison 2, hausse plafonds 200k/24 comme fix, nouveau conducteur parallèle, nouveau fournisseur, refonte Figma page entière, merge doc branches.
 
-**Bloquées / bornées:** WEB LIVE · D8 indépendant · Cursor dispatch sans D6 · STABLE · RELEASE · auto-session.
+**Ordre proposé (une livraison):**
+1. DOC-REVISE (bloquant UAT-15) + ack honesty
+2. COG fork/persist conclusions (bloquant UAT-16)
+3. LIVE activity producers + single UI + DRAFT silence
+4. SAS/IQ/persona/UX polish
+5. Preuves scénarios 1–7 DEV → candidat → handoff → UAT Morris
 
-## 17. Instruction ChatGPT
+**Arbitrage Morris éventuel:** stratégie multi-section (API multi-span vs imposer full-document proposal). Recommandation: multi-span atomique + full proposal si H1+toutes sections.
 
-Relire le handoff distant `sfia/review-handoff` après publication. Vérifier SHA/build réellement servis, politique cognitive effective (anti-TEST_BOUNDARY), WEB LIVE BLOCKED, préservation données, rollback, et verdict RECETTE AVAILABLE. Ne pas déclarer USER ACCEPTED / F2 PROVEN / ML5 CLOSED / STABLE / ADOPTED.
+**Intégrateur:** Cursor delivery sous mandat borné post-GO.
+**Gates:** ChatGPT review → GO Morris cutover → UAT RoomBooking rapide.
+
+## 13. Stratégie de preuves (scénarios 1–7)
+
+Tel que mandat §14 — discriminants obligatoires:
+- Sc3: Message naturel → candidat réel §2+§3 → conserve → v2 exacte (pas fixture).
+- Sc4: Git multi-source → note sans re-saturation ; conclusions réutilisées.
+- Sc2: activité ops pendant travail long ; pas DRAFT parasite.
+- Sc5: budget réellement saturé → restitution utile + pas d'effet auto.
+
+## 14. Non observé / réserves
+
+- Captures PNG non dans Git — s'appuyer sur DB + PV.
+- Coût USD non mesuré (estimatedCostUsd null).
+- modelApplied UNVERIFIED.
+- Cookie ENV-01 ports — réserve inchangée.
+- F2 / USER ACCEPTED — non déclarés.
+- RB-03/04/05/07/10/19/22/23/29: PARTIAL (UI/CSS) — causes directionnelles établies, pixels non rejoués ici.
+
+## 15. Instruction ChatGPT
+
+Relire ce handoff distant. Challenger surtout: (1) multi-section revise vs full doc, (2) fork work vs raise budget, (3) activity producers vs labels-only. Vérifier couverture RB-01..31. Préparer mandat delivery intégré après arbitrage si besoin.
+
+## 16. Statuts finaux
+
+ML5 OPEN · R5 IN PROGRESS · R6 NOT STARTED · NO RELEASE · NOT ADOPTED · Livraison 1 NON ACCEPTÉE.
