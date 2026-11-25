@@ -1,265 +1,284 @@
-# Review Pack FULL — Next ML5 RoomBooking UAT causal diagnosis
+# SFIA Studio Next — ML5 RoomBooking Integrated Corrective — Review Pack FULL
 
-**Generated (UTC):** 2026-11-25T08:23:38Z
-**Mode:** publish-in-cycle · Review Pack FULL · Critical INC (Cycle 9 QA)
-**Product branch:** `sfia/next-ml5-integrated-delivery-20261123`
-**Scope:** `projects/sfia-studio-next/`
-**Class:** NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN · Livraison 1 NON ACCEPTÉE
+**Cycle:** 8 — Delivery / implémentation · Typologie INC · Critical
+**Date:** 2026-11-25
+**Verdict:** ROOMBOOKING CORRECTIVE DELIVERY — INCOMPLETE — NOT READY FOR RECETTE
 
-## 1. Verdict
+> Completeness Gate failed on discriminant LIVE/PG proofs still open after mechanism delivery. Mechanisms A–D landed; candidate DEV identifiable. Do not cutover RECETTE.
 
-**ROOMBOOKING UAT — ROOT CAUSE DIAGNOSIS COMPLETE — INTEGRATED CORRECTIVE DELIVERY READY FOR REVIEW.**
+---
 
-Les 31 écarts sont instruits. Quatre causes communes propriétaires expliquent la majorité des blocages (révision multi-sections, enveloppe/continuité, activité événementielle, restitution UX). Aucun code produit modifié dans ce cycle. Aucune mutation RECETTE.
+## 1. Qualification du cycle
+
+| Champ | Valeur |
+|---|---|
+| Repository | `mcleland147/sfia-workspace` (worktree local) |
+| Scope | `projects/sfia-studio-next/` |
+| SEF / SFIA | v0.2 / v2.6 |
+| R5 | IN PROGRESS · ML5 OPEN · Livraison 1 NON ACCEPTÉE |
+| Mandate | GO Morris — macro-lot correctif intégré RB-01..31 |
+| Integrator | Cursor |
+| Product Versioning | NO RELEASE |
+| Livraison 2 | NOT STARTED |
+
+---
 
 ## 2. Git Truth Check
 
 | Check | Result |
 |---|---|
-| Repo / remote | mcleland147/sfia-workspace |
+| Workspace | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
 | Branch | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD tip | `3c663fd2809cae9e91b3f4929515d859b0284e81` (docs cutover only after tip `2d3d47a4`) |
-| Candidate recetté | `2a024b1c8d713ded6260d2a6427448a29f98a646` |
-| Tree / web | `031f1304…` / `f57bb8ee…` |
-| Tip web == candidate web | YES |
-| Main / merge-base | `997897fd…` |
-| Staged / dirty at start | none |
-| DEV | :3100 · `prUUuYxFrKalrxiMsKoc4` · DB :5433 |
-| RECETTE | :3200 · `3RyhswMcKrNv8woukVXsT` · DB :5434 · WT `…-2a024b1c8d71` |
-| RECETTE mutations this cycle | NONE (RO traces only) |
-| Product push | NONE |
+| Tip local | `4d3a9d67212fac7c0acee57b6e3394394b5f1323` (docs pin; web tree = `98e58ec4`) |
+| Pre-delivery HEAD | `3c663fd2809cae9e91b3f4929515d859b0284e81` |
+| UAT candidate (recetté) | `2a024b1c8d713ded6260d2a6427448a29f98a646` |
+| Tree | `76efa6f2487a18291f13fe8fb99dc94da770ba2e` |
+| Web tree | `bf00736cafa90ad233afbce59d6ae08be4a18d9a` |
+| Staged | none at pack time (docs may be pending) |
+| Push projet | NONE |
+| RECETTE HEAD | `2a024b1c8d713ded6260d2a6427448a29f98a646` unchanged |
+| RECETTE Build | `3RyhswMcKrNv8woukVXsT` unchanged |
+| DEV Build | `iPIn-B5JYIW9udTiFAG7o` |
+| DEV Digest | `dd3565f9e2aa527cd4c50f7b7318f30b65edd3b9a01c537132717f408650feb8` |
+| DEV | `:3100` / PG `:5433` · AUTO_SESSION=1 · COG=OPERATIONAL_PROVISIONAL · WEB LIVE=0 |
+| Diff tip vs UAT | includes corrective commits `47818360` + `98e58ec4` on product web |
 
-## 3. Sources lues
+Commits product:
+1. `47818360` — axes A–D mechanisms
+2. `98e58ec4` — SAS LIVE clear / hide SDK status
 
-- PV RoomBooking blob `d428b3d1` @ docs `9ef428b0` (intégral)
-- Handoffs: `66f08975`, `3e873596`, `42748ce1`, `1f6248e9`, `eef8d289`, ops parity `e497030b`
-- Code candidat (même web tree): `service.ts`, `document-act.ts`, `document-candidate.ts`, `semantic-qualification.ts`, `cognitive-work.ts`, `cognitive-conductor.ts`, `investigation-continuation.ts`, `investigation-state.ts`, `nora-adapter.ts`, `run-nora-cognitive-turn.ts`, `activity-labels.ts`, `NoraLiveActivity.tsx`, `NoraConversation.tsx`, `initial-qualification.ts`, `pilotage-effect-restitution.ts`
-- RECETTE PG RO: projet `proj_7514cdde-…`, conv `conv_76d43d47-…`, 11 turns, 3 cognitive_works, 1 document / 1 revision, 0 technical_contracts, activity events
+---
 
-## 4. Identité RoomBooking (traces)
+## 3. Sources consultées
 
-| Élément | Valeur |
+- PV RoomBooking UAT (docs branch blob `d428b3d1…`) — 31 écarts
+- Diagnostic causal handoff `a4bd34b5` / blob `89e82e48` §§4–13
+- `governance/environnements-recette-et-promotions.md` · `product-versioning.md`
+- SEF / roadmap / decisions Git A / DATA-01
+- Code owners D3/D4/D5 paths under `web/src/domains/**`
+
+Diagnostic NOT re-done; used as execution baseline.
+
+---
+
+## 4. Matrice d'exécution (pilotage)
+
+| Axe | Statut technique | Notes |
+|---|---|---|
+| A Production/révision doc | IMPLEMENTED + unit VERIFIED | Multi-section merge + ack honesty; conserve full PG path not re-proven this cycle |
+| B Ressources/continuité | IMPLEMENTED + unit VERIFIED | Preventive envelope + conclusions + fork create; LIVE token before/after measures incomplete |
+| C Activité LIVE | IMPLEMENTED + partial LIVE | DRAFT parasite removed; single projection; SAS mid-turn observed; rich Git métier ops not fully re-observed |
+| D SAS/UX/personnalité | IMPLEMENTED + partial BROWSER | IQ cognitive path; SAS dwell 1200ms; markdown lists; cycle count; context aside; F2 not claimed |
+| E Intégration | PARTIAL | Build+DEV+unit+SAS smoke; scenarios 3/4/5 discriminant incomplete |
+
+---
+
+## 5. Corrections par axe
+
+### Axe A
+- `expandSectionHints` + atomic multi-section `applyTargetedSectionRevision` / `assertSectionScope`
+- Honest `formatDocumentEffectAck` (no false « non qualifiée » for SECTION_* / downstream reasons)
+- Unit discriminant RoomBooking sections 2+3 PASS
+
+### Axe B
+- `evaluateGlobalResourceEnvelope` reserve + projected soft-stop (ceilings still 24/200k)
+- Conductor preventive checks before/between segments
+- `conclusions[]` on investigation + REPLY `contentMarkdown` persistence
+- Restitution humanizes GLOBAL_TOKEN_* and surfaces acquis
+- Create-doc without relation → `NEW_PRODUCTION_FROM_PRIOR_ACQUIS`; exhausted CONTINUE clarify
+
+### Axe C
+- Removed QUALIFIED&&!wantsPrepare parasite DRAFT LIMITED event in `service.ts`
+- Single LIVE projection (`NoraLiveActivity` xor legacy preparer)
+- `active` prop; idle simple card hidden; late poll fence on SAS
+- Tool producers already emit métier summaries (preserved)
+
+### Axe D
+- SAS popup: min dwell 1200ms steps 2/3; `complete` terminal sync; info icon square box
+- IQ: `buildCognitiveTrajectoryNarrative` via D3 Nora (tools off) + tutoiement fallback; D5 still publishes structure
+- TrajectoryBoard cycle count dynamic
+- Travail aside cycle/trajectoire from pilotage
+- Markdown list-style restored; default Travail hero not « Réviser… »; statusHint clear on non-doc turns
+
+---
+
+## 6. Décisions d'implémentation
+
+1. Multi-section = generic hint expansion + region replace; no RoomBooking hardcode.
+2. Envelope soft-stop leaves restitution reserve; no ceiling raise.
+3. IQ narrative uses Nora generate with empty tool allowlist; D5 remains trajectory authority.
+4. N/A contract ≠ LIMITED — stop emitting prepare diagnostics when !wantsPrepare.
+5. UX dwell is client-only; backend not delayed.
+
+---
+
+## 7. Blast radius
+
+Touched: D3 conductor/work/run-turn, D4 document-act, conversation service, IQ pilotage, SAS/Travail UI, globals.css, unit tests.
+Not touched: D7/D8/D9 authorities, WEB LIVE, RECETTE, migrations, method/, prompts/.
+
+---
+
+## 8. Git Review Index
+
+| Path | Change |
 |---|---|
-| Project | RoomBooking · `proj_7514cdde-42e1-4626-8806-3903373d7f69` · created 2026-11-25 07:09:03Z (~08:09 local) |
-| Conversation | `conv_76d43d47-a858-42b8-aa6d-c4c803849bcd` · 07:02:23Z |
-| Document | `doc_d2c01fdd-…` · v1 only `drev_57520f3b-…` (UI abrégé drev_575) |
-| Works | `cgw_e864432c` COMPLETE traj ; `cgw_4a35eaae` SUSPENDED GLOBAL_TOKEN (T5–T8) ; `cgw_e31d3438` SUSPENDED GLOBAL_TOKEN (T9–T11) |
-| Contracts / effect_attempts | **empty** (DRAFT UI ≠ contrat réel) |
+| `web/src/domains/conversation/document-act.ts` | Multi-section revise + ack |
+| `web/src/domains/conversation/cognitive-work.ts` | Preventive envelope |
+| `web/src/domains/conversation/cognitive-conductor.ts` | Soft-stop loop |
+| `web/src/domains/conversation/run-nora-cognitive-turn.ts` | Conclusions, fork, REPLY body |
+| `web/src/domains/conversation/investigation-*.ts` | Restitution + conclusions field |
+| `web/src/domains/conversation/service.ts` | Remove DRAFT parasite |
+| `web/src/domains/pilotage/initial-qualification.ts` | Cognitive IQ narrative |
+| `web/src/components/figma/*` | LIVE, SAS, trajectory, chrome |
+| `web/src/app/preparations/...` | SAS dwell + status |
+| `web/src/app/projects/...` | Focus clear + aside cycle |
+| `web/src/app/globals.css` | List bullets |
+| `web/tests/unit/ml5-*.test.ts` | New + fix DOCUMENT→D4 |
 
-### Mapping tours → turn commands (UTC)
+---
 
-| UAT | tcmd | Ord | Status | Note |
-|---|---|---|---|---|
-| T1 | tcmd_21a2369f | 1–2 | COMPLETE | SAS |
-| T2 | tcmd_e1618afc | 3–4 | COMPLETE | |
-| T3* | msg_iq_* | 5 | COMPLETE | trajectoire **déterministe** initial-qualification |
-| T4 | tcmd_a2a089fe | 6–7 | COMPLETE | traj légère · work cgw_e864432c |
-| T5a | tcmd_d8b68bd1 | 8–9 | COMPLETE | RETAIN · start cgw_4a35eaae |
-| T5b | tcmd_4cda7fcc | 10–11 | COMPLETE | OPEN cycle |
-| T6 | tcmd_e4fe0b05 | 12–13 | COMPLETE | CREATE v1 AVAILABLE |
-| T7 | tcmd_20c27c1c | 14–15 | COMPLETE | REVISE QUALIFIED · documentSave NOT_EXECUTED |
-| T8 | tcmd_97aa957b | 16–17 | UNKNOWN/INTERRUPTED | GLOBAL_TOKEN · used 201506 |
-| T9 | tcmd_793d5778 | 18–19 | COMPLETE | Git explore |
-| T10 | tcmd_4e44aac0 | 20–21 | COMPLETE | Git deepen · used→391581 |
-| T11 | tcmd_dd62b393 | 22–23 | UNKNOWN/INTERRUPTED | segmentsRun=0 · GLOBAL_TOKEN |
+## 9–11. Files / diffs / docs
 
-## 5. Cartographie fonctionnement réel (chaîne)
+Product commits above. Docs: `construction/delivery-history.md` append (this delivery). Review pack resets `.tmp-sfia-review/chatgpt-review.md` (not product tree).
 
-```
-Pilot message
- → turn command + focus/documentHint
- → runNoraCognitiveTurn / generateNoraReply (SDK LIVE)
- → structured qualification (intents, documentProposal, replyDraft)
- → projectStudioEffects → documentAct CREATE|REVISE|NONE
- → D4 path: canonicalize → applyTargetedSectionRevision → admit → seal
- → pendingDocumentCandidate (inspectable) OR documentSave AVAILABLE
- → appendDocumentEffectAck / activity events → UI
-```
+---
 
-Autorité: Nora propose ; Studio admet/persiste. Conserve-only = chemin UI explicite séparé (flag `conserveProposal`) — **non traversé** en T7 (échec avant candidat).
+## 12. Tests et résultats
 
-## 6. Axe A — Compréhension, outils, effets
+| Suite | Result |
+|---|---|
+| `ml5-multi-section-revise.test.ts` | 7 PASS |
+| `ml5-cognitive-envelope-and-continuity.test.ts` | 6 PASS |
+| `ml5-c24-dossier-attachment-continuity.test.ts` | 7 PASS |
+| `tsc --noEmit` | clean (after DOCUMENT→D4 fix) |
+| `next build` | success → BUILD_ID `iPIn-B5JYIW9udTiFAG7o` |
 
-### A1–A3 Tour 7 — ROOT CAUSE ESTABLISHED
+---
 
-1. **REVISE identifié:** `semanticQualificationStatus=QUALIFIED` ; intent `d4.revise_document` `REQUEST_EFFECT` ; `sectionHint="Sections 2 et 3"` ; `documentProposal` présent (##2 + ##3, 2438 chars).
-2. **Perte:** `applyTargetedSectionRevision(base, proposal, "Sections 2 et 3")` → `{ok:false, reason:"SECTION_AMBIGUOUS_OR_MISSING_IN_BASE"}` (`document-act.ts` 1131–1153). Hint multi-sections non supporté (API = 1 section exacte). Reproduction déterministe DEV: même call → même reason ; hint `"2. Parcours…"` → OK.
-3. **Production structurée:** OUI (`documentProposal` + fence `sfia-document` injectée dans le message).
-4. **Candidat:** `pendingDocumentCandidate=null` — jamais scellé.
-5. **Persistance:** une seule révision en base (v1).
-6. **Visionneuse:** reste v1 — cohérent.
-7. **Refus propriétaire:** légitime au sens « ne pas muter hors scope section » ; **illégitime comme message** « non qualifiée pour écriture ».
-8. **Annonce contradictoire:** `replyDraft` + fence annoncent la révision ; `appendDocumentEffectAck` (`document-act.ts` ~1399) mappe tout `NOT_EXECUTED` vers « La demande n'a pas été qualifiée pour une écriture » — **faux** ici (qualification OK, merge section échoué).
+## 13. Mesures cognitives avant/après
 
-### A4 DRAFT parasite — ROOT CAUSE ESTABLISHED
+| Metric | RoomBooking UAT (before) | After (this delivery) |
+|---|---|---|
+| Global ceiling | 200k / 24 | unchanged |
+| T10 observed | 391581 tokens | N/A this cycle (not re-run) |
+| Soft-stop | late post-segment only | preventive reserve + projected next |
+| Proof of <200k on Git investigation | REQUIRED | **NOT CLOSED** this cycle |
 
-`service.ts` 1370–1397: si `QUALIFIED && !wantsPrepare`, append systématique `nora.contract.prepare` / LIMITED / « Pas de production structurée contrat — DRAFT non préparé ». Observé T4–T11. **0** rows `technical_contracts` — pure projection UI, pas d'effet parasite DB.
+---
 
-### A5 Contrat correctif A
+## 14–18. Preuves parcours
 
-- Support REVISE multi-sections (ou décomposer + merge atomique) + full-document proposal path quand Nora fournit ##2+##3 sans H1.
-- Sur NOT_EXECUTED: ack honnête (`SECTION_AMBIGUOUS…` / raison réelle), jamais « non qualifiée » si SQ QUALIFIED.
-- Si merge échoue: ne pas présenter fence/replyDraft comme proposition inspectable ; ou matérieliser `pendingDocumentCandidate` inspectable sans conservation auto.
-- Ne pas supprimer D4 ; ne pas second moteur lexical d'autorité.
-- `document-act.ts` lexical helpers restent parsing aids — **pas** la cause T7.
+### SAS LIVE (DEV, prep_32fbf86b…)
+- Auto-session issued (`dev-test-login`)
+- Mid-turn: ACTIVITÉ NORA · En cours · « Nora prépare une réponse » (screenshot `page-2026-11-25T08-52-20-279Z.png` local only)
+- Post-turn: COMPLETE; create CTA ContiguBook; residual activity observed then fixed in `98e58ec4` (rebuild includes fix)
+- Technical `openai-agents-sdk-live · COMPLETE` was exposed then removed from status line
 
-## 7. Axe B — Ressources et continuité
+### Missing discriminant proofs (gate fail)
+- Scénario 3: natural multi-section → candidate → conserve → v2 exact PG
+- Scénario 4: Git multi-source investigation → note from acquis with new work + token measures
+- Scénario 5: controlled interrupt/resume without duplicate effects
+- Multi-state Git LIVE métier operations correlation
 
-### B1 Comptabilité — ROOT CAUSE ESTABLISHED (mesurée)
+---
 
-`evaluateGlobalResourceEnvelope` (`cognitive-work.ts` 616–637): `used = inputTokens + outputTokens` (cache **non** soustrait). Plafond 200000.
+## 19. Matrice individuelle RB-01..31
 
-| Work | segmentCalls | input | output | used | Status |
+| ID | Cause confirmée | Mécanisme | Correction | Preuve | Statut |
 |---|---|---|---|---|---|
-| cgw_4a35eaae (T5–T8) | 6 | 192372 | 9134 | **201506** | SUSPENDED @ T8 |
-| cgw_e31d3438 (T9–T11) | 2 | 385399 | 6182 | **391581** | SUSPENDED @ T11 (déjà over après T10) |
+| RB-01 | Idle card stayed | NoraLiveActivity active/richHistory | Hide simple idle | SAS partial | IMPLEMENTED_UNVERIFIED (post-fix rebuild) |
+| RB-02 | En cours residual | active=false + clear events + poll fence | Done | SAS partial | IMPLEMENTED_UNVERIFIED |
+| RB-03 | list-style none | globals.css safe-md | disc/decimal | CSS+code | VERIFIED (static) |
+| RB-04 | SDK mode in status | prep status métier only | Done | code | VERIFIED (code) / UAT pending |
+| RB-05 | Static popup | SAS progress from IQ | Animation via current step | code | IMPLEMENTED_UNVERIFIED |
+| RB-06 | No UX dwell | 1200ms client dwell | Done | code | IMPLEMENTED_UNVERIFIED |
+| RB-07 | Step3 stuck EN COURS | `complete` prop | Done | code | IMPLEMENTED_UNVERIFIED |
+| RB-08 | Terminal confirm | complete title + Accéder | Done | code | IMPLEMENTED_UNVERIFIED |
+| RB-09 | Oval info icon | fixed 22×22 box | Done | code | VERIFIED (static) |
+| RB-10 | Hardcoded « trois » | dynamic forecast.length | Done | code | VERIFIED (static) |
+| RB-11 | Template IQ | Nora cognitive narrative | Done | code path | IMPLEMENTED_UNVERIFIED |
+| RB-12 | Vouvoiement IQ | tutoiement fallback + Nora | Done | code | IMPLEMENTED_UNVERIFIED |
+| RB-13 | msg_iq deterministic | generateNoraReply IQ | Done | code path | IMPLEMENTED_UNVERIFIED |
+| RB-14 | Dual activity | single projection | Done | code | VERIFIED (code) |
+| RB-15 | Generic activity | producers + labels | Partial enrich | SAS smoke | PARTIAL |
+| RB-16 | DRAFT LIMITED | removed producer | Done | code | VERIFIED (code) |
+| RB-17 | Partiel N/A | same as RB-16 | Done | code | VERIFIED (code) |
+| RB-18 | False ack | formatDocumentEffectAck | Done | unit | VERIFIED (unit) |
+| RB-19 | Stale context | aside cycle from pilotage | Done | code | IMPLEMENTED_UNVERIFIED |
+| RB-20 | Raw IDs | labels filter + status | Partial | SAS residual before fix | PARTIAL |
+| RB-21 | Cross-turn bleed | poll fence + turn id | Existing+fence | code | PARTIAL |
+| RB-22 | Status stuck | active/complete | Done | code | PARTIAL |
+| RB-23 | Source grain | existing journal coverage | Preserved | — | ALREADY_SATISFIED_WITH_PROOF (prior) / not re-proven |
+| RB-24 | Single section only | multi-section merge | Done | unit discriminant | VERIFIED (unit) |
+| RB-25 | Fake candidate | existing candidate path + multi merge | Partial | unit only | IMPLEMENTED_UNVERIFIED |
+| RB-26 | Ack lie | formatDocumentEffectAck | Done | unit | VERIFIED (unit) |
+| RB-27 | Late envelope | preventive soft-stop | Done | unit | VERIFIED (unit) / LIVE measure open |
+| RB-28 | Blind resume | exhausted clarify + restitution | Done | unit restitution | IMPLEMENTED_UNVERIFIED |
+| RB-29 | Revise mode sticky | statusHint clear + hero default | Done | code | IMPLEMENTED_UNVERIFIED |
+| RB-30 | Conclusions lost | conclusions[] + REPLY body | Done | unit | VERIFIED (unit) |
+| RB-31 | Note on same work | forceNew create-doc | Done | code | IMPLEMENTED_UNVERIFIED |
 
-T10 COMPLETE malgré used≫200k (évaluation post-segment). T11: `segmentsRun=0`, `resumed=true`, suspend immédiat — **pas** une note « trop chère» ; enveloppe déjà saturée.
+**None of the above closes UAT for Morris.** Technical statuses ≠ user acceptance.
 
-### B2 Continuité T10→T11 — ROOT CAUSE ESTABLISHED
+---
 
-- Conclusions T10 vivent dans `production_json` kind REPLY / message assistant — **pas** dans `investigation.questions[].answerSummary` ni sources CONSULTED du state final (state: `sufficiency=INSUFFICIENT`, `sources=[]`, `contractReady=false`).
-- Restitution suspend (`investigation-continuation.ts` 105–130): si aucune question ANSWERED et pas de production DOCUMENT → texte fixe « Aucune conclusion métier fiable n'a été consolidée dans l'état d'investigation » — **vrai pour l'état**, **faux pour l'expérience Pilote** (analyse riche T10).
-- Même work Git repris pour CREATE note → héritage budget + state insuffisant + `pendingEffectBlocked` S05.
+## 20. Non-régression
 
-### B3 Corrections antérieures
+Preserved: D3 single conductor, D4/D5 authorities, HumanDecision, RETAIN≠OPEN, WEB LIVE blocked, D8 off, RECETTE untouched, 24/200k ceilings, conserve-only path code (not re-proven), T9/T10 quality not re-run.
 
-- Réallocation segment / scaleSegmentCharBudget: existent ; **n'empêchent pas** accumulation globale multi-tours.
-- Tests conserve-only fixture: prouvent seal path, **pas** Message→REVISE multi-section→candidat.
-- Verdicts readiness: déterministes / smoke — n'ont pas discriminé UAT RoomBooking.
+---
 
-### B4 Contrat correctif B
+## 21. Completeness Gate final
 
-- Clôturer / forker work après REPLY COMPLETE utile ; nouveau work pour note documentaire avec seed des acquis (conclusions + refs Git) sans rejouer 385k tokens.
-- Persister conclusions métier exploitables (pas seulement reply text).
-- Réserver headroom restitution ; si used déjà ≥ max avant tour: refuse early avec reprise bornée + option « nouveau work depuis acquis ».
-- **Ne pas** monter 200k comme solution principale.
-
-## 8. Axe C — Activité LIVE
-
-### C1–C2 — ROOT CAUSE PARTIALLY ESTABLISHED / ESTABLISHED sur points clés
-
-Événements réels RoomBooking: quasi uniquement `nora.generate` ANNOUNCED/COMPLETED (« Nora prépare une réponse » / « Réponse Nora disponible ») + `nora.contract.prepare` LIMITED + rares `nora.source.d4` avec refs brutes `acquis:acq_…`.
-
-| Symptôme | Cause |
+| Gate item | OK? |
 |---|---|
-| Double activité | `NoraConversation.tsx` 377–397: ancien bloc `fig-nora-activity` **et** `NoraLiveActivity` si `activity==="preparing"` |
-| Titre=activité générique | Events n'émettent pas d'opérations métier ; labels mappent phases techniques |
-| Partiel sur réponse OK | Badge LIMITED de `nora.contract.prepare` DRAFT |
-| IDs acquis bruts | `summary`/`detail_json.ref` non projetés en titres métier |
-| Carte persistante | COMPLETE event reste dans liste poll sans auto-dismiss post-réponse simple |
+| 31 IDs present in matrix | YES |
+| 31 IDs corrected or pre-proven | NO — several IMPLEMENTED_UNVERIFIED / PARTIAL |
+| Axes A–D mechanisms landed | YES |
+| Multi-section unit discriminant | YES |
+| Candidate inspectable + conserve PG proven this cycle | NO |
+| Investigation→note LIVE + token measures | NO |
+| LIVE multi-state Git activity | NO (SAS mid-turn only) |
+| Build + DEV identity | YES |
+| RECETTE unchanged | YES |
+| Documentation synced | PARTIAL (delivery-history appended) |
 
-Le composant `NoraLiveActivity` est une **coquille** ; la chaîne producteur d'événements riches (outil Git/D4 avec objectif) n'est pas alimentée sur ces tours.
+**GATE RESULT: FAIL — return for remaining proofs OR declare INCOMPLETE (chosen).**
 
-### C4 Contrat correctif C
+---
 
-Une projection active ; events = opérations réellement exécutées ; terminal sync ; DRAFT hors intention → N/A silencieux ; historique repliable ; pas de fausse timeline depuis replyDraft.
+## 22. Manifeste candidat DEV
 
-## 9. Axe D — Parcours / UX / personnalité
-
-| ID | Cause |
+| Field | Value |
 |---|---|
-| RB-12/13 | `initial-qualification.ts` `buildAssistantContent` — template déterministe « proposition de trajectoire initiale (non retenue) » + **vouvoiement** (« Vous pouvez… ») ; msg id `msg_iq_*` |
-| RB-05..08 | SAS progress: step 3 reste « en cours » tant que projection non terminale / dismiss manuel ; rythme UI non assuré si backend rapide |
-| RB-09/10 | CSS/icône + dérive nombre cycles vs cartes forecast |
-| RB-18 | `pilotage-effect-restitution.ts` / acks documentaires administratifs |
-| RB-19 | panneau contexte non alimenté depuis open points / cycle actif propriétaires |
-| RB-29 | focus documentaire / mode révision UI non clearé sur intention Git lecture seule |
-| RB-03 | rendu Markdown listes (surfaces conversation + viewer) |
+| Delivery SHA (web) | `98e58ec46b4d9cac2921b68c361ded91a714e8f3` |
+| Tip local | `4d3a9d67212fac7c0acee57b6e3394394b5f1323` |
+| Tree | `76efa6f2487a18291f13fe8fb99dc94da770ba2e` |
+| Web tree | `bf00736cafa90ad233afbce59d6ae08be4a18d9a` |
+| BUILD_ID | `iPIn-B5JYIW9udTiFAG7o` |
+| Digest | `dd3565f9e2aa527cd4c50f7b7318f30b65edd3b9a01c537132717f408650feb8` |
+| Lane | DEV `:3100` / `:5433` |
+| Policy | OPERATIONAL_PROVISIONAL · 24 / 200000 |
+| WEB LIVE | BLOCKED |
+| RECETTE | `2a024b1c` / `3RyhswMcKrNv8woukVXsT` / `:3200` / `:5434` UNCHANGED |
 
-## 10. Analyse corrections antérieures (obligatoire)
+---
 
-| Sujet | Annoncé | Couvert réellement | Limite du test | Pourquoi UAT échoue encore |
-|---|---|---|---|---|
-| Conserve-only + PG | path sans provider | fixture candidate → v2 | pas Message→proposal→merge section | T7 n'atteint jamais candidat |
-| Admission WEB sémantique | P0 | B1 flags | hors RoomBooking | N/A cette UAT |
-| Activity shared component | NoraLiveActivity + labels | UI shell | pas producteurs d'ops | double UI + events pauvres |
-| Budget / continuation | scale segment, partial restitution | local chars | pas fork work / conclusions persistées | T10 success puis T11 exhaust + message « aucune conclusion » |
-| Cognitive OPERATIONAL_PROVISIONAL | policy v3 | cutover smoke | ≠ F2 / ≠ multi-turn FinOps | OK policy ; KO gestion enveloppe |
+## 23. Réserves réellement restantes
 
-## 11. Matrice RB-01 … RB-31
+1. Discriminant PG multi-section conserve + v1 history (RB-24/25 path end-to-end)
+2. Git investigation LIVE → note from acquis + resource measures (RB-27/30/31)
+3. SAS create popup dwell/terminal not browser-proven after rebuild
+4. F2 global not claimed
+5. User reception Morris pending
 
-| ID | Symptôme | Tour | Preuve | Mécanisme | Cause immédiate | Cause racine | Certitude | Correction | Oracle |
-|---|---|---|---|---|---|---|---|---|---|
-| RB-01 | Carte réponse utile absente après simple | 1,2,4 | activity COMPLETE persiste | NoraLiveActivity + poll | pas dismiss terminal | lifecycle activité | ESTABLISHED | auto-hide carte active post-COMPLETE simple | Scénario 1/2 |
-| RB-02 | Spinner après réponse | 1,2 | UI + events RUNNING/COMPLETED | même | terminal non sync | lifecycle | ESTABLISHED | sync status message | 2 |
-| RB-03 | Listes sans puces | 2,4,6 | BROWSER | markdown CSS | styles surfaces | UX markdown | PARTIAL | styles + test nav | 7 |
-| RB-04 | SDK/COMPLETE exposés | 2,3 | BROWSER | chrome debug | métadonnées hors gate RECETTE | projection | PARTIAL | hide en RECETTE | 7 |
-| RB-05 | Loader SAS statique | 3 | BROWSER | SasCreateProgressPopup | animation/état | UX SAS | PARTIAL | animation + état réel | 1 |
-| RB-06 | Étapes 2/3 instantanées | 3 | BROWSER | même | pas min presentation | UX | ESTABLISHED | min durée présentation 2/3 | 1 |
-| RB-07 | Étape 3 bloquée | 3 | BROWSER | stepFromQualification | PROPOSED≠terminal UI | SAS state machine | PARTIAL | terminal explicite | 1 |
-| RB-08 | Pas confirmation terminale | 3 | BROWSER | même | manque état final | SAS | ESTABLISHED | bouton Accéder + done | 1 |
-| RB-09 | Icône i ovale | 3 | BROWSER | CSS | aspect-ratio | UX | ESTABLISHED | fix CSS | 7 |
-| RB-10 | 3 cycles / 2 cartes | 3 | BROWSER | forecast vs render | dérive count | projection IQ | PARTIAL | single source | 1 |
-| RB-11 | Argumentaire faible | 3 | msg_iq | template IQ | texte déterministe pauvre | IQ content | ESTABLISHED | enrichir ou déléguer Nora | 1 |
-| RB-12 | Tutoiement→vouvoiement | 3 | msg_iq content | buildAssistantContent | « Vous » | personnalité cassée | ESTABLISHED | tutoiement transverse | 1 |
-| RB-13 | Trajectoire préformatée | 3 | msg_iq_* id | processInitialQualification | non-cognitive | IQ path | ESTABLISHED | qualifier origine / Nora | 1 |
-| RB-14 | Double activité | 4,6 | NoraConversation | preparing + LiveActivity | coexistence | C | ESTABLISHED | un seul canal | 2 |
-| RB-15 | Activité non métier | 4+ | activity DB | phases generate only | producteurs pauvres | C | ESTABLISHED | events ops réelles | 2 |
-| RB-16 | DRAFT non préparé | 4–11 | activity detail | service 1370 | systématique | A4 | ESTABLISHED | N/A silencieux | 2/6 |
-| RB-17 | Partiel à tort | 4,5,10 | badge LIMITED | contract.prepare | dérive statut | C+A4 | ESTABLISHED | statut depuis objectif | 2 |
-| RB-18 | Résultat Studio admin | 5–7 | messages | restitution helpers | ton administratif | D | ESTABLISHED | formulation métier | 1/3 |
-| RB-19 | Contexte incomplet | 5 | BROWSER | context panel | non branché open points | D | PARTIAL | wire propriétaires | 1 |
-| RB-20 | IDs acquis bruts | 6,8 | activity summaries | source events | pas de title | C | ESTABLISHED | labels métier | 2 |
-| RB-21 | Anciens events | 6 | BROWSER | poll multi-turn | pas isolation tour | C | ESTABLISHED | scope turn | 2 |
-| RB-22 | Statuts steps figés | 6 | BROWSER | step states | mapping pauvre | C | PARTIAL | états discovery→done | 2 |
-| RB-23 | 3 consultations / 1 lien | 6 | turnProjection | aggregate label | granularité | C | PARTIAL | sources nommées | 2 |
-| RB-24 | REVISE non écrit | 7 | result_json | applyTargetedSectionRevision | multi-section hint | **A3** | ESTABLISHED | multi-section / candidature | 3 |
-| RB-25 | Candidat absent viewer | 7 | pending=null | seal never | suite RB-24 | A3 | ESTABLISHED | pending inspectable | 3 |
-| RB-26 | Annonce vs ack | 7 | message tail | appendDocumentEffectAck | mapping NOT_EXECUTED trompeur | A3 | ESTABLISHED | ack raison réelle | 3 |
-| RB-27 | GLOBAL_TOKEN T8/T11 | 8,11 | resources_json | envelope | used≥200k | **B1** | ESTABLISHED | fork/headroom | 4/5 |
-| RB-28 | Reprise T8 échoue | 8 | same work | continue saturated | budget+no candidate | B+A | ESTABLISHED | reprise utile | 3/5 |
-| RB-29 | Mode révision sticky | 10 | BROWSER | document focus UI | clear manquant | D | PARTIAL | clear on intent change | 6 |
-| RB-30 | « Aucune conclusion » | 11 | msg + continuation.ts | state sans ANSWERED | conclusions non persistées | **B2** | ESTABLISHED | persist acquis | 4 |
-| RB-31 | Note non créée | 11 | documentSave null | exhaust+block | B1+B2+create path | A+B | ESTABLISHED | create from acquis | 4 |
+---
 
-### Causes communes (regroupement macro-lot)
+## 24. Verdict
 
-1. **DOC-REVISE-PIPELINE** — RB-24,25,26,28(+),31(+)
-2. **COG-ENVELOPE-CONTINUITY** — RB-27,28,30,31
-3. **LIVE-ACTIVITY-PROJECTION** — RB-01,02,14,15,16,17,20,21,22,23
-4. **SAS-IQ-PERSONA-UX** — RB-03..13,18,19,29
+**ROOMBOOKING CORRECTIVE DELIVERY — INCOMPLETE — NOT READY FOR RECETTE**
 
-## 12. Contrat du macro-lot correctif intégré
+Instruction ChatGPT: re-read remote handoff; verify real diffs; individual RB coverage; axes; LIVE/PG gaps; Completeness Gate honesty; candidate identity `98e58ec4` / build `iPIn-B5JYIW9udTiFAG7o`. Do not declare USER ACCEPTED / ML5 CLOSED / STABLE / RELEASE.
 
-**Nom de travail:** ML5 Livraison 1 — Correctif intégré RoomBooking (A∪B∪C∪D)
-
-**IN:** chaînes DOC-REVISE, COG continuity, LIVE activity producers+UI lifecycle, SAS/IQ personnalité, acks honnêtes, Markdown/CSS ciblés.
-**OUT:** WEB LIVE, D8, livraison 2, hausse plafonds 200k/24 comme fix, nouveau conducteur parallèle, nouveau fournisseur, refonte Figma page entière, merge doc branches.
-
-**Ordre proposé (une livraison):**
-1. DOC-REVISE (bloquant UAT-15) + ack honesty
-2. COG fork/persist conclusions (bloquant UAT-16)
-3. LIVE activity producers + single UI + DRAFT silence
-4. SAS/IQ/persona/UX polish
-5. Preuves scénarios 1–7 DEV → candidat → handoff → UAT Morris
-
-**Arbitrage Morris éventuel:** stratégie multi-section (API multi-span vs imposer full-document proposal). Recommandation: multi-span atomique + full proposal si H1+toutes sections.
-
-**Intégrateur:** Cursor delivery sous mandat borné post-GO.
-**Gates:** ChatGPT review → GO Morris cutover → UAT RoomBooking rapide.
-
-## 13. Stratégie de preuves (scénarios 1–7)
-
-Tel que mandat §14 — discriminants obligatoires:
-- Sc3: Message naturel → candidat réel §2+§3 → conserve → v2 exacte (pas fixture).
-- Sc4: Git multi-source → note sans re-saturation ; conclusions réutilisées.
-- Sc2: activité ops pendant travail long ; pas DRAFT parasite.
-- Sc5: budget réellement saturé → restitution utile + pas d'effet auto.
-
-## 14. Non observé / réserves
-
-- Captures PNG non dans Git — s'appuyer sur DB + PV.
-- Coût USD non mesuré (estimatedCostUsd null).
-- modelApplied UNVERIFIED.
-- Cookie ENV-01 ports — réserve inchangée.
-- F2 / USER ACCEPTED — non déclarés.
-- RB-03/04/05/07/10/19/22/23/29: PARTIAL (UI/CSS) — causes directionnelles établies, pixels non rejoués ici.
-
-## 15. Instruction ChatGPT
-
-Relire ce handoff distant. Challenger surtout: (1) multi-section revise vs full doc, (2) fork work vs raise budget, (3) activity producers vs labels-only. Vérifier couverture RB-01..31. Préparer mandat delivery intégré après arbitrage si besoin.
-
-## 16. Statuts finaux
-
-ML5 OPEN · R5 IN PROGRESS · R6 NOT STARTED · NO RELEASE · NOT ADOPTED · Livraison 1 NON ACCEPTÉE.
+Suite: Morris GO only after closing gate gaps or explicit acceptance of residual proof plan — then cutover distinct.
