@@ -157,7 +157,18 @@ export async function runCognitiveConductor(
   const maxLocal = Math.max(1, input.maxSegmentsThisInvocation ?? 3);
 
   for (let i = 0; i < maxLocal; i++) {
-    const envelope = evaluateGlobalResourceEnvelope(resources);
+    // RB-27 — preventive check with restitution reserve + projected next-segment cost.
+    // Soft stop before another heavy segment; hard stop when already at/over ceiling.
+    const usedBefore =
+      (resources.inputTokens ?? 0) + (resources.outputTokens ?? 0);
+    const projectedNext =
+      i === 0 && usedBefore === 0
+        ? 0
+        : Math.min(80_000, Math.max(25_000, Math.floor(usedBefore * 0.35) || 40_000));
+    const envelope = evaluateGlobalResourceEnvelope(resources, process.env, {
+      reserveForRestitution: i === 0 ? 0 : 12_000,
+      projectedNextSegmentTokens: i === 0 ? 0 : projectedNext,
+    });
     if (!envelope.ok) {
       suspended = true;
       suspendReason = envelope.reason ?? "GLOBAL_BUDGET_EXHAUSTED";
@@ -217,7 +228,18 @@ export async function runCognitiveConductor(
       break;
     }
 
-    const again = evaluateGlobalResourceEnvelope(resources);
+    const again = evaluateGlobalResourceEnvelope(resources, process.env, {
+      reserveForRestitution: 12_000,
+      projectedNextSegmentTokens: Math.min(
+        80_000,
+        Math.max(
+          25_000,
+          Math.floor(
+            ((resources.inputTokens ?? 0) + (resources.outputTokens ?? 0)) * 0.35,
+          ) || 40_000,
+        ),
+      ),
+    });
     if (!again.ok) {
       suspended = true;
       suspendReason = again.reason ?? "GLOBAL_BUDGET_EXHAUSTED";

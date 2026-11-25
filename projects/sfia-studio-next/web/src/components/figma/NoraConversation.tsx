@@ -374,7 +374,17 @@ export function NoraConversation(props: {
               ) : null}
             </div>
           ) : null}
-          {props.activity === "preparing" && !props.qualificationBanner ? (
+          {/* RB-14: single LIVE projection — NoraLiveActivity when events/headline exist;
+              legacy preparer only as fallback when no live card is shown. */}
+          {(props.activity === "preparing" || (props.liveActivityEvents?.length ?? 0) > 0) &&
+          (props.liveActivityHeadline || (props.liveActivityEvents?.length ?? 0) > 0) ? (
+            <NoraLiveActivity
+              events={props.liveActivityEvents ?? []}
+              headline={props.liveActivityHeadline}
+              active={props.activity === "preparing"}
+              figmaFrame="12.01"
+            />
+          ) : props.activity === "preparing" && !props.qualificationBanner ? (
             <div
               className="fig-nora-activity"
               role="status"
@@ -387,14 +397,6 @@ export function NoraConversation(props: {
                 Attente réelle — aucune étape inventée.
               </span>
             </div>
-          ) : null}
-          {(props.activity === "preparing" || (props.liveActivityEvents?.length ?? 0) > 0) &&
-          (props.liveActivityHeadline || (props.liveActivityEvents?.length ?? 0) > 0) ? (
-            <NoraLiveActivity
-              events={props.liveActivityEvents ?? []}
-              headline={props.liveActivityHeadline}
-              figmaFrame="12.01"
-            />
           ) : null}
           {props.activity === "error" ? (
             <div className="fig-alert" role="alert" data-testid="nora-activity-error">

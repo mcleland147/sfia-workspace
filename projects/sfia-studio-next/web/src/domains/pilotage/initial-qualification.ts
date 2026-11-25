@@ -152,7 +152,7 @@ function resumeAssistantContent(
   if (parsed.assistantContent?.trim()) return parsed.assistantContent;
   if (parsed.clarificationQuestion?.trim()) return parsed.clarificationQuestion;
   if (parsed.forecastSteps?.length) {
-    return buildAssistantContent(
+    return buildAssistantContentFallback(
       {
         kind: "PROPOSE",
         steps: parsed.forecastSteps,
@@ -164,7 +164,7 @@ function resumeAssistantContent(
       projectName,
     );
   }
-  return buildAssistantContent(
+  return buildAssistantContentFallback(
     {
       kind: "PROPOSE",
       steps: [],
@@ -510,26 +510,129 @@ async function stillOwnsOperation(opId: string, ownerToken: string): Promise<boo
   return Boolean(row);
 }
 
-function buildAssistantContent(
+/**
+ * Deterministic fallback narrative (tutoiement). Used when Nora cognitive
+ * generation is unavailable — never presented as a substitute for D5 structure.
+ */
+function buildAssistantContentFallback(
   built: ForecastBuildResult,
   projectName: string,
 ): string {
   if (built.kind === "CLARIFICATION") {
     return built.question;
   }
-  return [
-    `Projet **${projectName}** — proposition de trajectoire initiale (non retenue).`,
+  const first = built.steps[0];
+  const follow = built.steps.slice(1);
+  const lines = [
+    `**${projectName}** — voici ma première recommandation de trajectoire (non retenue).`,
     "",
-    built.summary,
+    built.summary.trim(),
     "",
-    "Vous pouvez accepter cette direction, la contester ou demander un autre premier cycle — chaque décision d'ouverture reste la vôtre.",
-  ].join("\n");
+  ];
+  if (first) {
+    lines.push(
+      `Je te recommande de commencer par **${first.cycleType.replace(/_/g, " ").toLowerCase()}** : ${first.rationale}`,
+    );
+    lines.push("");
+  }
+  if (follow.length > 0) {
+    lines.push("Ensuite, selon ce que ce premier cycle aura clarifié :");
+    for (const s of follow) {
+      lines.push(
+        `- **${s.cycleType.replace(/_/g, " ").toLowerCase()}** — ${s.rationale}`,
+      );
+    }
+    lines.push("");
+  }
+  if (built.orientation?.trim()) {
+    lines.push(`Orientation proposée : ${built.orientation.trim()}`);
+    lines.push("");
+  }
+  lines.push(
+    "Tu peux retenir cette direction, la contester ou demander un autre premier cycle — l’ouverture d’un cycle reste une décision distincte, à toi.",
+  );
+  return lines.join("\n");
+}
+
+/**
+ * RB-11/13 — first trajectory narrative via D3 Nora (cognitive), D5 remains owner
+ * of structured forecast / publishProposedTrajectory. Failure falls back honestly.
+ */
+async function buildCognitiveTrajectoryNarrative(input: {
+  built: ForecastBuildResult;
+  projectName: string;
+  intention?: string;
+  desiredOutcome?: string;
+  initialScope?: string;
+  openQuestions?: string[];
+  previewSummary?: string;
+}): Promise<{ content: string; source: "NORA_COGNITIVE" | "STRUCTURED_FALLBACK" }> {
+  if (input.built.kind === "CLARIFICATION") {
+    return { content: input.built.question, source: "STRUCTURED_FALLBACK" };
+  }
+  const fallback = buildAssistantContentFallback(input.built, input.projectName);
+  try {
+    const { generateNoraReply } = await import("@/domains/conversation/nora-adapter");
+    const { buildCognitivePolicy } = await import("@/domains/conversation/cognitive-policy");
+    const stepLines = input.built.steps
+      .map(
+        (s) =>
+          `${s.order}. ${s.cycleType} (${s.certainty}) — ${s.rationale}`,
+      )
+      .join("\n");
+    const policy = buildCognitivePolicy(
+      `Trajectoire initiale ${input.projectName}`,
+      undefined,
+      { profileHint: "simple", effortHint: "low" },
+    );
+    // No tools — narrative only; D5 already owns the structured steps.
+    const slimPolicy = {
+      ...policy,
+      toolAllowlist: [] as typeof policy.toolAllowlist,
+      budgets: {
+        ...policy.budgets,
+        maxProviderCalls: Math.min(policy.budgets.maxProviderCalls, 2),
+        maxD4ToolCalls: 0,
+        maxGitToolCalls: 0,
+        maxD4CharsReturned: 0,
+      },
+    };
+    const reply = await generateNoraReply({
+      userText: [
+        `Le projet « ${input.projectName} » vient d’être créé.`,
+        "Rédige la première recommandation de trajectoire pour le Pilote (tutoiement, ton professionnel et naturel).",
+        "Explique le premier cycle recommandé, pourquoi il est pertinent, ce qu’il permettra d’obtenir, les étapes suivantes utiles et les réserves significatives.",
+        "N’ouvre aucun cycle. N’invente pas de décision retenue. Ne propose pas d’effet D4/D7.",
+        "Appuie-toi sur la structure D5 ci-dessous sans la contredire.",
+      ].join("\n"),
+      contextSnippets: [
+        `Intention: ${input.intention || "(non précisée)"}`,
+        `Résultat attendu: ${input.desiredOutcome || "(non précisé)"}`,
+        `Périmètre: ${input.initialScope || "(non précisé)"}`,
+        input.openQuestions?.length
+          ? `Points ouverts: ${input.openQuestions.join(" · ")}`
+          : "Points ouverts: (aucun structuré)",
+        input.previewSummary ? `Synthèse SAS: ${input.previewSummary.slice(0, 1200)}` : "",
+        `Orientation D5: ${input.built.orientation}`,
+        `Étapes D5 (autorité structure):\n${stepLines}`,
+        `Résumé D5: ${input.built.summary}`,
+      ].filter(Boolean),
+      policyOverride: slimPolicy,
+    });
+    const text = (reply.content || reply.qualification?.replyDraft || "").trim();
+    if (text.length >= 80 && reply.status !== "FAILED") {
+      return { content: text, source: "NORA_COGNITIVE" };
+    }
+  } catch {
+    /* fallback below */
+  }
+  return { content: fallback, source: "STRUCTURED_FALLBACK" };
 }
 
 function studioFailedMessage(): string {
   return [
     "[Studio] La qualification initiale de trajectoire n'a pas abouti techniquement.",
-    "Le projet reste accessible. Vous pouvez continuer la conversation pour préciser votre intention ; la trajectoire pourra être qualifiée ultérieurement.",
+    "Le projet reste accessible. Tu peux continuer la conversation pour préciser ton intention ; la trajectoire pourra être qualifiée ultérieurement.",
   ].join("\n");
 }
 
@@ -754,7 +857,19 @@ export async function processInitialQualification(
     let trajectoryRevisionId: string | null = null;
     let terminalStatus: QualificationStatus;
     let resultJson: Record<string, unknown>;
-    const assistantContent = buildAssistantContent(built, name);
+    const narrative = await buildCognitiveTrajectoryNarrative({
+      built,
+      projectName: name,
+      intention: projection?.intention?.value,
+      desiredOutcome: projection?.desiredOutcome?.value,
+      initialScope: projection?.initialScope?.value,
+      openQuestions: (projection?.openQuestions ?? [])
+        .map((q) => q.value?.trim() || "")
+        .filter(Boolean)
+        .slice(0, 8),
+      previewSummary: prep?.previewSummary ?? "",
+    });
+    const assistantContent = narrative.content;
 
     if (built.kind === "CLARIFICATION") {
       terminalStatus = "CLARIFICATION";
@@ -763,6 +878,7 @@ export async function processInitialQualification(
         clarificationQuestion: built.question,
         missing: built.missing,
         assistantContent,
+        narrativeSource: narrative.source,
       };
     } else {
       trajectoryRevisionId = await publishProposedTrajectory({
@@ -783,6 +899,7 @@ export async function processInitialQualification(
         forecastSteps: built.steps,
         orientation: built.orientation,
         assistantContent,
+        narrativeSource: narrative.source,
       };
       // Persist D5 pointer + stable content before message so crash can resume (P0-02).
       const mid = await updateOpIfOwner(claimed.id, ownerToken, {

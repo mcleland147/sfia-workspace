@@ -21,10 +21,15 @@ export function SasCreateProgressPopup(props: {
   visible: boolean;
   projectName: string;
   step: 1 | 2 | 3;
+  /** RB-07/08 — when true, all three steps are TERMINÉ and title is confirmation. */
+  complete?: boolean;
   qualification: InitialQualificationProjection | null;
   onDismiss: () => void;
 }) {
   if (!props.visible) return null;
+
+  const complete = props.complete === true;
+  const displayStep = complete ? 3 : props.step;
 
   const steps = [
     {
@@ -108,7 +113,9 @@ export function SasCreateProgressPopup(props: {
               </span>
             </div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#7477ed]">
-              PROJET CRÉÉ / TRAJECTOIRE EN PRÉPARATION
+              {complete
+                ? "PROJET CRÉÉ / TRAJECTOIRE PRÊTE"
+                : "PROJET CRÉÉ / TRAJECTOIRE EN PRÉPARATION"}
             </p>
           </div>
           <span
@@ -124,12 +131,18 @@ export function SasCreateProgressPopup(props: {
             id="sas-create-progress-title"
             className="text-[28px] font-semibold leading-tight"
           >
-            Projet créé. Nora prépare la suite.
+            {complete
+              ? "Préparation terminée. Accède au projet quand tu veux."
+              : "Projet créé. Nora prépare la suite."}
           </h2>
           <p className="mt-3 text-[15px] leading-relaxed text-[#a3b0c7]">
-            {props.projectName
-              ? `Nora analyse l’intention de « ${props.projectName} » pour proposer une première trajectoire.`
-              : "Nora analyse votre intention pour proposer une première trajectoire."}
+            {complete
+              ? props.projectName
+                ? `La première proposition de trajectoire pour « ${props.projectName} » est disponible dans le fil. Aucun cycle ne démarre sans ton accord.`
+                : "La première proposition de trajectoire est disponible dans le fil. Aucun cycle ne démarre sans ton accord."
+              : props.projectName
+                ? `Nora analyse l’intention de « ${props.projectName} » pour proposer une première trajectoire.`
+                : "Nora analyse ton intention pour proposer une première trajectoire."}
           </p>
         </div>
 
@@ -144,8 +157,8 @@ export function SasCreateProgressPopup(props: {
 
         <ol className="mt-4 flex flex-col gap-[11px]" style={{ padding: "0 35px" }}>
           {steps.map((item) => {
-            const done = props.step > item.n;
-            const current = props.step === item.n;
+            const done = complete || displayStep > item.n;
+            const current = !complete && displayStep === item.n;
             const statusLabel = done
               ? item.statusDone
               : current
@@ -218,10 +231,23 @@ export function SasCreateProgressPopup(props: {
           className="mx-[35px] mt-4 flex gap-3 rounded-[10px] border border-[#2b3850] bg-[#151d2c] px-4 py-3"
           style={{ minHeight: 67 }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={ASSET.info} alt="" width={22} height={22} className="mt-0.5 shrink-0" />
+          {/* RB-09 — fixed square box so the info glyph stays circular under flex. */}
+          <span
+            className="mt-0.5 inline-flex shrink-0 items-center justify-center"
+            style={{ width: 22, height: 22, flex: "0 0 22px" }}
+            aria-hidden
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={ASSET.info}
+              alt=""
+              width={22}
+              height={22}
+              style={{ width: 22, height: 22, objectFit: "contain", display: "block" }}
+            />
+          </span>
           <p className="text-[12px] leading-relaxed text-[#a3b0c7]">
-            Vous pouvez quitter Studio : cette préparation sera retrouvée à votre retour.
+            Tu peux quitter Studio : cette préparation sera retrouvée à ton retour.
           </p>
         </div>
 

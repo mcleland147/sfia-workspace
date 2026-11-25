@@ -2676,6 +2676,24 @@ export default function ProjectPage() {
           const st = String(j.status ?? "").trim();
           setStatus(mode && st ? `${mode} · ${st}` : st || mode);
         }
+        // RB-29 — clear revise/proposal status hint when this turn did not keep a doc focus mode.
+        {
+          const savePeek = j.documentSave as
+            | { status?: string; documentId?: string }
+            | null
+            | undefined;
+          const candPeek = j.pendingDocumentCandidate as { candidateId?: string } | null | undefined;
+          const keptDocMode = Boolean(candPeek?.candidateId || savePeek?.documentId);
+          if (!keptDocMode) {
+            setStatusHint((prev) =>
+              /réviser|proposition|examiner une proposition/i.test(prev)
+                ? projectName
+                  ? `Projet · ${projectName}`
+                  : "Projet"
+                : prev,
+            );
+          }
+        }
         const save = j.documentSave as
           | { status?: string; reason?: string; documentId?: string; revisionNumber?: number }
           | null
@@ -3225,6 +3243,31 @@ export default function ProjectPage() {
                   ? "Contexte conservé"
                   : "Projet actif"}
               </span>
+              {/* RB-19 — cycle actif / trajectoire from durable pilotage, not stale copy. */}
+              <div
+                className="fig-inspector-card mt-3"
+                data-testid="travail-aside-cycle"
+              >
+                <p className="fig-inspector-card-title">Cycle et trajectoire</p>
+                <p className="fig-inspector-card-body">
+                  {pilotageProjection?.cycle
+                    ? `Cycle actif : ${String(pilotageProjection.cycle.cycleType).replace(/_/g, " ")} · ${pilotageProjection.cycle.status}`
+                    : "Aucun cycle ouvert pour le moment."}
+                </p>
+                {(
+                  pilotageProjection?.trajectory?.retained?.orientation ||
+                  pilotageProjection?.trajectory?.proposed?.orientation ||
+                  ""
+                ).trim() ? (
+                  <p className="fig-inspector-card-body mt-1">
+                    {(
+                      pilotageProjection?.trajectory?.retained?.orientation ||
+                      pilotageProjection?.trajectory?.proposed?.orientation ||
+                      ""
+                    ).slice(0, 180)}
+                  </p>
+                ) : null}
+              </div>
               <div className="fig-inspector-rule" aria-hidden />
               <p className="fig-inspector-section">Repères</p>
               <div className="fig-inspector-card" data-testid="travail-aside-objets">

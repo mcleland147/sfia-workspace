@@ -281,6 +281,37 @@ export function mergeInvestigationFromReply(
 
   const desiredOutcome = outcome || desiredFromTool || prior.desiredOutcome || "";
 
+  // RB-30 — capitalize answered determinant questions + explicit findings as conclusions.
+  const conclusions = [...(prior.conclusions ?? [])];
+  for (const q of questions) {
+    if (q.status === "ANSWERED" && q.answerSummary?.trim()) {
+      const line = `${q.text.slice(0, 120)} → ${q.answerSummary.trim().slice(0, 400)}`;
+      if (!conclusions.includes(line)) conclusions.push(line);
+    }
+  }
+  for (const r of q?.restrictions ?? []) {
+    const t = r.trim();
+    if (t && t.length >= 12 && !conclusions.includes(t)) {
+      // restrictions are constraints; skip — conclusions come from answers/outcomes
+    }
+  }
+  if (desiredOutcome && desiredOutcome.length >= 20) {
+    const outcomeLine = `Résultat consolidé: ${desiredOutcome.slice(0, 400)}`;
+    if (!conclusions.some((c) => c.startsWith("Résultat consolidé:"))) {
+      conclusions.push(outcomeLine);
+    }
+  }
+  // Prefer structured replyDraft excerpt only when investigation produced sources/answers
+  // (avoid treating every chat reply as verified conclusion).
+  const draft = (q?.replyDraft ?? reply.content ?? "").trim();
+  if (
+    draft.length >= 80 &&
+    (questions.some((x) => x.status === "ANSWERED") || sources.some((s) => s.coverage === "CONSULTED" || s.coverage === "VERIFIED"))
+  ) {
+    const excerpt = `Synthèse: ${draft.slice(0, 600)}`;
+    if (!conclusions.some((c) => c.startsWith("Synthèse:"))) conclusions.push(excerpt);
+  }
+
   return evaluateContractReadiness({
     ...prior,
     intentSummary: goal || prior.intentSummary || userText.slice(0, 800),
@@ -293,6 +324,7 @@ export function mergeInvestigationFromReply(
     profileHint,
     productionInstruction,
     acceptanceCriteria,
+    conclusions: conclusions.slice(-24),
   });
 }
 
@@ -364,6 +396,39 @@ export async function resolveCognitiveWorkAttachment(input: {
   if (relation === "INDEPENDENT" || relation === "MATERIAL_CHANGE" || relation === "UNRELATED") {
     return { forceNew: true, reason: `SEMANTIC_${relation}` };
   }
+
+  // RB-31 / RB-27 — new document production after a completed / exhausted analysis
+  // is a distinct cognitive work (own envelope). Never auto-continue a saturated work
+  // for a create_document effect; Nora may still CONTINUE for true follow-up.
+  const wantsCreateDoc = (input.qualification?.intents ?? []).some(
+    (i) =>
+      i.capabilityId === "d4.create_document" &&
+      (i.mode === "REQUEST_EFFECT" || i.mode === "PREPARE"),
+  );
+  const exhausted = works.filter(
+    (w) =>
+      (w.status === "SUSPENDED" || w.status === "COMPLETE" || w.status === "FAILED") &&
+      (w.interruptCause === "GLOBAL_TOKEN_BUDGET_EXHAUSTED" ||
+        w.interruptCause === "GLOBAL_SEGMENT_BUDGET_EXHAUSTED" ||
+        w.interruptCause === "GLOBAL_BUDGET_EXHAUSTED" ||
+        (w.resources.inputTokens ?? 0) + (w.resources.outputTokens ?? 0) >= 190_000),
+  );
+  // Relation INDEPENDENT/MATERIAL_CHANGE already returned above; here cover absent relation.
+  if (wantsCreateDoc && !relation) {
+    return { forceNew: true, reason: "NEW_PRODUCTION_FROM_PRIOR_ACQUIS" };
+  }
+  if (relation === "CONTINUE" && exhausted.length > 0 && !proposed) {
+    // Refuse blind resume of a saturated envelope — pilot/Nora must fork or clarify.
+    if (exhausted.length === 1 && works.filter((w) => w.status === "OPEN" || w.status === "RUNNING" || w.status === "SUSPENDED").length === 1) {
+      return {
+        forceNew: false,
+        workId: null,
+        reason: "EXHAUSTED_WORK_NEEDS_FORK_OR_CLARIFY",
+        needsClarify: true,
+      };
+    }
+  }
+
   if (relation === "CLARIFY") {
     if (proposed && works.some((w) => w.id === proposed)) {
       return { workId: proposed, forceNew: false, reason: "SEMANTIC_CLARIFY_ATTACH" };
@@ -558,11 +623,17 @@ function documentProductionFromReply(
       ),
     };
   }
+  // RB-30 — persist reply body as durable production so restitution / note reuse
+  // can recover conclusions even when investigation.questions stayed empty.
+  const replyBody = (reply.content || "").trim();
   return {
     kind: "REPLY",
     status: continueWork ? "IN_PROGRESS" : "COMPLETE",
     objectRef: reply.generationId,
     parts: appendPart(work.production.parts, reply.generationId, !continueWork),
+    contentMarkdown: replyBody
+      ? [prevDoc, replyBody].filter(Boolean).join("\n\n").trim()
+      : prevDoc || null,
     limits: continueWork ? ["PRODUCTION_IN_PROGRESS"] : undefined,
   };
 }

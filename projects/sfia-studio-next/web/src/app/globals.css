@@ -89,7 +89,33 @@ a:hover { text-decoration: underline; }
 .safe-md h2 { font-size: 1.1rem; font-weight: 700; margin: 0.55rem 0 0.3rem; }
 .safe-md h3 { font-size: 1rem; font-weight: 600; margin: 0.45rem 0 0.25rem; }
 .safe-md p { margin: 0.35rem 0; color: var(--ink); }
-.safe-md ul, .safe-md ol { margin: 0.35rem 0 0.35rem 1.1rem; }
+/* RB-03 — restore visible bullets (Tailwind preflight sets list-style: none). */
+.safe-md ul {
+  list-style: disc;
+  margin: 0.35rem 0 0.35rem 1.25rem;
+  padding-left: 0.35rem;
+}
+.safe-md ol {
+  list-style: decimal;
+  margin: 0.35rem 0 0.35rem 1.25rem;
+  padding-left: 0.35rem;
+}
+.safe-md li {
+  margin: 0.2rem 0;
+  display: list-item;
+}
+.safe-md ul ul { list-style: circle; }
+.safe-md ul ul ul { list-style: square; }
+.fig-msg-body .safe-md ul,
+.sas-msg-body .safe-md ul,
+.fig-doc-viewer .safe-md ul {
+  list-style: disc;
+}
+.fig-msg-body .safe-md ol,
+.sas-msg-body .safe-md ol,
+.fig-doc-viewer .safe-md ol {
+  list-style: decimal;
+}
 .safe-md code {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.85em;

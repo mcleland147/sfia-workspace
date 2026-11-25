@@ -417,8 +417,9 @@ function PropositionInitialeCard(props: {
           Une progression possible pour ce projet
         </h3>
         <p className="mt-2 max-w-3xl text-sm text-[#a3b0c7]">
-          Une suite séquentielle de cycles ; ce ne sont pas trois options concurrentes. Aucun cycle
-          n&apos;est encore ouvert.
+          {props.forecast.length <= 1
+            ? "Une première étape de trajectoire proposée — ce n’est pas un cycle ouvert."
+            : `Une suite séquentielle de ${props.forecast.length} cycles ; ce ne sont pas ${props.forecast.length} options concurrentes. Aucun cycle n’est encore ouvert.`}
         </p>
       </div>
 
@@ -481,8 +482,9 @@ function PropositionInitialeCard(props: {
 
       <div className="mt-auto flex flex-wrap items-end justify-between gap-4 pt-6">
         <p className="max-w-xl text-sm text-[#7787a4]">
-          Les trois cycles visibles constituent une projection de trajectoire, pas trois cycles
-          ouverts.
+          {props.forecast.length === 1
+            ? "Le cycle visible constitue une projection de trajectoire, pas un cycle ouvert."
+            : `Les ${props.forecast.length} cycles visibles constituent une projection de trajectoire, pas ${props.forecast.length} cycles ouverts.`}
         </p>
         <button
           type="button"

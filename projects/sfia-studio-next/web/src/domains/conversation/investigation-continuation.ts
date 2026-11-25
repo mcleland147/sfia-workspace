@@ -71,6 +71,14 @@ export function formatInvestigationContinuationContext(
     lines.push(`Travail restant: ${state.remainingWork.slice(0, 6).join("; ")}`);
   }
 
+  const conclusions = (state.conclusions ?? []).filter((c) => c.trim().length > 0);
+  if (conclusions.length > 0) {
+    lines.push("Conclusions réutilisables:");
+    for (const c of conclusions.slice(-8)) {
+      lines.push(`• ${c.slice(0, 320)}`);
+    }
+  }
+
   let out = lines.join("\n");
   if (out.length > maxChars) {
     out = `${out.slice(0, maxChars - 24)}\n…[acquis tronqués]`;
@@ -82,6 +90,24 @@ export function formatInvestigationContinuationContext(
  * Honest partial restitution when the conductor suspends or provider fails.
  * Distinguishes consulted vs discovered; never invents conclusions.
  */
+function humanizeSuspendReason(reason: string | null | undefined): string | null {
+  if (!reason) return null;
+  if (
+    reason === "GLOBAL_TOKEN_BUDGET_EXHAUSTED" ||
+    reason === "GLOBAL_BUDGET_EXHAUSTED" ||
+    reason === "GLOBAL_SEGMENT_BUDGET_EXHAUSTED"
+  ) {
+    return "J’ai atteint la limite de ressources allouée à ce travail cognitif.";
+  }
+  if (reason === "SEGMENT_INVOCATION_LIMIT") {
+    return "J’ai atteint la limite technique de segments pour cette invocation — une reprise bornée reste possible.";
+  }
+  if (reason.startsWith("GLOBAL_") || /BUDGET|EXHAUSTED|LIMIT/i.test(reason)) {
+    return "Le travail a été interrompu par une limite technique.";
+  }
+  return null;
+}
+
 export function composeInvestigationPartialRestitution(input: {
   state: InvestigationState;
   production?: CognitiveProductionState | null;
@@ -101,19 +127,36 @@ export function composeInvestigationPartialRestitution(input: {
   const answered = state.questions.filter(
     (q) => q.status === "ANSWERED" && (q.answerSummary?.trim() || "").length > 0,
   );
+  const conclusions = (state.conclusions ?? []).filter((c) => c.trim().length > 0);
+  const replyBody =
+    input.production?.kind === "REPLY" || input.production?.kind === "SYNTHESIS"
+      ? input.production.contentMarkdown?.trim() || ""
+      : "";
 
   const lines: string[] = [
     "J’ai avancé sur ce travail, mais je n’ai pas pu livrer une restitution complète et fiable sur ce tour.",
   ];
-  if (input.suspendReason) {
-    lines.push(`Suspension: ${input.suspendReason}.`);
+  const humanLimit = humanizeSuspendReason(input.suspendReason);
+  if (humanLimit) {
+    lines.push(humanLimit);
+  } else if (input.suspendReason && !/^[A-Z][A-Z0-9_]+$/.test(input.suspendReason)) {
+    lines.push(`Interruption: ${input.suspendReason}.`);
   }
 
-  if (answered.length > 0) {
+  if (conclusions.length > 0) {
+    lines.push("Conclusions et acquis déjà consolidés:");
+    for (const c of conclusions.slice(-8)) {
+      lines.push(`• ${c.slice(0, 420)}`);
+    }
+  } else if (answered.length > 0) {
     lines.push("Acquis métier consolidés:");
     for (const q of answered.slice(-6)) {
       lines.push(`• ${q.text.slice(0, 140)} → ${(q.answerSummary || "").slice(0, 280)}`);
     }
+  } else if (replyBody.length >= 40) {
+    lines.push("Résultat utile déjà produit sur ce travail:");
+    lines.push(replyBody.slice(0, 900));
+    if (replyBody.length > 900) lines.push("…");
   } else if (
     input.production?.kind === "DOCUMENT" &&
     input.production.contentMarkdown?.trim()
@@ -126,7 +169,7 @@ export function composeInvestigationPartialRestitution(input: {
     );
   } else {
     lines.push(
-      "Aucune conclusion métier fiable n’a été consolidée dans l’état d’investigation.",
+      "Aucun acquis métier consolidé n’est encore disponible pour ce travail — je n’invente pas de conclusions.",
     );
   }
 
@@ -142,7 +185,7 @@ export function composeInvestigationPartialRestitution(input: {
     lines.push(`Travail restant: ${state.remainingWork.slice(0, 5).join("; ")}`);
   }
   lines.push(
-    "Votre message est conservé. Vous pouvez me demander de reprendre — aucune relance automatique.",
+    "Ton message est conservé. Tu peux me demander de reprendre ou de produire une note à partir de ces acquis — aucune relance automatique.",
   );
   return lines.filter(Boolean).join("\n");
 }

@@ -612,17 +612,27 @@ function sumOpt(a?: number | null, b?: number | null): number | null {
 /**
  * Global envelope — administrative safety, not a cognitive depth oracle.
  * Exceeding suspends the work honestly.
+ *
+ * RB-27 — preventive mode reserves headroom for a final restitution segment
+ * so a mid-investigation call cannot consume the entire 200k ceiling.
+ * Soft stop (wouldExceedAfter / reserve) is not a raise of 24/200k.
  */
 export function evaluateGlobalResourceEnvelope(
   resources: CognitiveResources,
   env: NodeJS.ProcessEnv | Record<string, string | undefined> = process.env,
-): { ok: boolean; reason?: string } {
+  opts?: {
+    /** Tokens to keep for restitution / partial answer (default 12k). */
+    reserveForRestitution?: number;
+    /** Estimated cost of the next segment before starting it. */
+    projectedNextSegmentTokens?: number;
+  },
+): { ok: boolean; reason?: string; remainingTokens?: number; softStop?: boolean } {
   // C17: default raised — local invocation caps (≈5) must leave headroom for honest resume
   // without immediately tripping a false global exhaustion on simple prepare+continue paths.
   const maxSegments = Number(env.SFIA_COGNITIVE_MAX_SEGMENTS || "24");
   const maxTokens = Number(env.SFIA_COGNITIVE_MAX_TOKENS || "200000");
   if (Number.isFinite(maxSegments) && resources.segmentCalls >= maxSegments) {
-    return { ok: false, reason: "GLOBAL_SEGMENT_BUDGET_EXHAUSTED" };
+    return { ok: false, reason: "GLOBAL_SEGMENT_BUDGET_EXHAUSTED", remainingTokens: 0 };
   }
   // C24 — do not add reasoningTokens on top of outputTokens (SDK usually
   // already includes reasoning in output). Track reasoning separately for OBS.
@@ -631,8 +641,33 @@ export function evaluateGlobalResourceEnvelope(
   // and must NOT be subtracted from the safety envelope (UAT-16 / FinOps ≠ window).
   // cacheTokens stay in resources.limits / OBS for cost analysis only.
   const used = (resources.inputTokens ?? 0) + (resources.outputTokens ?? 0);
+  const remaining = Number.isFinite(maxTokens) ? Math.max(0, maxTokens - used) : Number.POSITIVE_INFINITY;
   if (Number.isFinite(maxTokens) && used >= maxTokens) {
-    return { ok: false, reason: "GLOBAL_TOKEN_BUDGET_EXHAUSTED" };
+    return { ok: false, reason: "GLOBAL_TOKEN_BUDGET_EXHAUSTED", remainingTokens: 0 };
   }
-  return { ok: true };
+  const reserve = Math.max(0, opts?.reserveForRestitution ?? 12_000);
+  const projected = Math.max(0, opts?.projectedNextSegmentTokens ?? 0);
+  if (Number.isFinite(maxTokens) && projected > 0 && used + projected > maxTokens) {
+    return {
+      ok: false,
+      reason: "GLOBAL_TOKEN_BUDGET_EXHAUSTED",
+      remainingTokens: remaining,
+      softStop: true,
+    };
+  }
+  // Soft stop: leave restitution reserve when continuing beyond the first segment.
+  if (
+    Number.isFinite(maxTokens) &&
+    reserve > 0 &&
+    resources.segmentCalls >= 1 &&
+    remaining <= reserve
+  ) {
+    return {
+      ok: false,
+      reason: "GLOBAL_TOKEN_BUDGET_EXHAUSTED",
+      remainingTokens: remaining,
+      softStop: true,
+    };
+  }
+  return { ok: true, remainingTokens: remaining };
 }

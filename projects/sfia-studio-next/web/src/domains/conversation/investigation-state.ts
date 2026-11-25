@@ -43,6 +43,12 @@ export type InvestigationState = {
   contradictions: Array<{ a: string; b: string; detail: string }>;
   exclusions: string[];
   remainingWork: string[];
+  /**
+   * RB-30 — durable métier conclusions / recommendations extracted from
+   * structured qualification (answered questions, explicit findings).
+   * Never raw private chain-of-thought. Provenance stays in sources/questions.
+   */
+  conclusions?: string[];
   sufficiency:
     | "SUFFICIENT"
     | "INSUFFICIENT"

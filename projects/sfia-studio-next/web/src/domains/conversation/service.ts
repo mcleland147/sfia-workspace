@@ -1367,38 +1367,8 @@ export async function postUserMessageAndNora(
               : wantsPrepare
                 ? invCriteria
                 : [];
-          if (!wantsPrepare && reply.qualification?.status === "QUALIFIED") {
-            try {
-              const { appendActivityEvent } = await import("./activity-projection");
-              await appendActivityEvent({
-                conversationId: reserved.conversationId,
-                turnCommandId: reserved.commandId,
-                ownerPilotId: pilotId,
-                phase: "nora.contract.prepare",
-                nature: "OBSERVED",
-                status: "LIMITED",
-                summary: "Pas de production structurée contrat — DRAFT non préparé",
-                detail: {
-                  intentIds: (reply.qualification.intents ?? []).map((i) => i.capabilityId),
-                  hasTopProductionInstruction: Boolean(reply.qualification.productionInstruction),
-                  hasToolProduction: Boolean(
-                    reply.cursorContractProduction?.productionInstruction,
-                  ),
-                  investigationHasProduction: Boolean(
-                    turn.conductor.investigation.productionInstruction,
-                  ),
-                  investigationCriteriaCount: Array.isArray(
-                    turn.conductor.investigation.acceptanceCriteria,
-                  )
-                    ? turn.conductor.investigation.acceptanceCriteria.length
-                    : -1,
-                },
-                ownerToken: reserved.ownerToken,
-              });
-            } catch {
-              /* observational */
-            }
-          }
+          // RB-16: contract N/A is not LIMITED — only emit prepare diagnostics when
+          // a contract was actually requested (wantsPrepare). No parasite DRAFT.
           if (wantsPrepare) {
             const observedSources = Array.isArray(reply.observedToolSources)
               ? reply.observedToolSources

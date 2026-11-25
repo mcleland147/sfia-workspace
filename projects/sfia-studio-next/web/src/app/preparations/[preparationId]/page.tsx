@@ -114,9 +114,19 @@ export default function PreparationPage() {
   const [awaitingClientIntentKey, setAwaitingClientIntentKey] = useState<string | null>(null);
   const [createProgressVisible, setCreateProgressVisible] = useState(false);
   const [createProgressStep, setCreateProgressStep] = useState<1 | 2 | 3>(1);
+  const [createProgressComplete, setCreateProgressComplete] = useState(false);
   const [createProgressQualification, setCreateProgressQualification] =
     useState<InitialQualificationProjection | null>(null);
   const [pendingNavigateProjectId, setPendingNavigateProjectId] = useState<string | null>(null);
+  /** RB-06 — UX min presentation for steps 2 and 3 (backend not delayed). Documented: 1200 ms. */
+  const SAS_STEP_MIN_MS = 1200;
+  const createProgressEnteredAtRef = useRef<number>(0);
+  const createProgressDisplayStepRef = useRef<1 | 2 | 3>(1);
+  const createProgressServerTerminalRef = useRef(false);
+  const createProgressPreferReducedMotion =
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function stepFromQualification(iq: InitialQualificationProjection | null): 1 | 2 | 3 {
     if (!iq) return 1;
@@ -139,13 +149,99 @@ export default function PreparationPage() {
     return 2;
   }
 
-  // E07 SAS06 — drive popup steps from server qualification (no artificial timers).
-  // Stop polling once step 3 is reached; skip setState when unchanged so the
-  // dismiss CTA stays stable for pointer/Playwright (reconcile every 1.5s).
+  function isTerminalQualification(iq: InitialQualificationProjection | null): boolean {
+    return (
+      iq?.status === "PROPOSED" ||
+      iq?.status === "CLARIFICATION" ||
+      iq?.status === "FAILED"
+    );
+  }
+
+  // RB-05/06/07 — drive popup from server qualification + UX min presentation for steps 2/3.
+  // Backend is never artificially slowed; only the displayed step advances after min dwell.
   useEffect(() => {
     if (!createProgressVisible || !pendingNavigateProjectId) return;
     let cancelled = false;
     let intervalId = 0;
+    let dwellTimer = 0;
+    createProgressEnteredAtRef.current = Date.now();
+    createProgressDisplayStepRef.current = 2;
+    createProgressServerTerminalRef.current = false;
+    setCreateProgressStep(2);
+    setCreateProgressComplete(false);
+
+    const minMs = createProgressPreferReducedMotion ? 0 : SAS_STEP_MIN_MS;
+
+    const applyDisplay = (serverStep: 1 | 2 | 3, terminal: boolean) => {
+      const now = Date.now();
+      const elapsed = now - createProgressEnteredAtRef.current;
+      const current = createProgressDisplayStepRef.current;
+
+      if (terminal) {
+        createProgressServerTerminalRef.current = true;
+        // Ensure step 2 was presented for minMs, then step 3 for minMs, then complete.
+        if (current < 2) {
+          createProgressDisplayStepRef.current = 2;
+          createProgressEnteredAtRef.current = now;
+          setCreateProgressStep(2);
+          setCreateProgressComplete(false);
+          return;
+        }
+        if (current === 2) {
+          if (elapsed < minMs) {
+            if (dwellTimer) window.clearTimeout(dwellTimer);
+            dwellTimer = window.setTimeout(() => {
+              if (cancelled) return;
+              createProgressDisplayStepRef.current = 3;
+              createProgressEnteredAtRef.current = Date.now();
+              setCreateProgressStep(3);
+              setCreateProgressComplete(false);
+              if (dwellTimer) window.clearTimeout(dwellTimer);
+              dwellTimer = window.setTimeout(() => {
+                if (cancelled) return;
+                setCreateProgressComplete(true);
+              }, minMs);
+            }, minMs - elapsed);
+            return;
+          }
+          createProgressDisplayStepRef.current = 3;
+          createProgressEnteredAtRef.current = now;
+          setCreateProgressStep(3);
+          setCreateProgressComplete(false);
+          if (dwellTimer) window.clearTimeout(dwellTimer);
+          dwellTimer = window.setTimeout(() => {
+            if (cancelled) return;
+            setCreateProgressComplete(true);
+          }, minMs);
+          return;
+        }
+        // current === 3
+        if (elapsed < minMs) {
+          if (dwellTimer) window.clearTimeout(dwellTimer);
+          dwellTimer = window.setTimeout(() => {
+            if (cancelled) return;
+            setCreateProgressComplete(true);
+          }, minMs - elapsed);
+          return;
+        }
+        setCreateProgressComplete(true);
+        return;
+      }
+
+      // Non-terminal: show server step but never skip ahead of min dwell on step 2.
+      if (serverStep >= 2 && current === 1) {
+        createProgressDisplayStepRef.current = 2;
+        createProgressEnteredAtRef.current = now;
+        setCreateProgressStep(2);
+        return;
+      }
+      if (serverStep !== current) {
+        setCreateProgressStep((prev) => (prev === serverStep ? prev : serverStep));
+        createProgressDisplayStepRef.current = serverStep;
+        createProgressEnteredAtRef.current = now;
+      }
+    };
+
     const tick = async () => {
       const recon = await fetch(
         `/api/projects/${pendingNavigateProjectId}/initial-qualification/reconcile`,
@@ -159,6 +255,7 @@ export default function PreparationPage() {
         const iq = body.initialQualification;
         if (iq) {
           const nextStep = stepFromQualification(iq);
+          const terminal = isTerminalQualification(iq);
           setCreateProgressQualification((prev) =>
             prev?.status === iq.status &&
             prev?.phase === iq.phase &&
@@ -166,8 +263,8 @@ export default function PreparationPage() {
               ? prev
               : iq,
           );
-          setCreateProgressStep((prev) => (prev === nextStep ? prev : nextStep));
-          if (nextStep === 3 && intervalId) {
+          applyDisplay(nextStep, terminal);
+          if (terminal && intervalId) {
             window.clearInterval(intervalId);
             intervalId = 0;
           }
@@ -179,8 +276,9 @@ export default function PreparationPage() {
     return () => {
       cancelled = true;
       if (intervalId) window.clearInterval(intervalId);
+      if (dwellTimer) window.clearTimeout(dwellTimer);
     };
-  }, [createProgressVisible, pendingNavigateProjectId]);
+  }, [createProgressVisible, pendingNavigateProjectId, createProgressPreferReducedMotion]);
 
   function rememberCreateIntent(next: CreateIntent | null) {
     createDocIntentRef.current = next;
@@ -735,12 +833,13 @@ export default function PreparationPage() {
       if (j.projectId && !j.missionBindingError) {
         setProjectId(j.projectId);
         setAwaitingClientIntentKey(null);
-        // E07 SAS06 — steps from server facts only (no artificial 400/900ms timers).
+        // RB-05/06/07 — popup opens on step 2 (step 1 already done); UX dwell in effect.
         const iq = j.initialQualification ?? null;
         setCreateProgressQualification(iq);
+        setCreateProgressComplete(false);
         setCreateProgressVisible(true);
         setPendingNavigateProjectId(j.projectId);
-        setCreateProgressStep(stepFromQualification(iq));
+        setCreateProgressStep(2);
         return;
       }
 
@@ -1080,9 +1179,11 @@ export default function PreparationPage() {
         visible={createProgressVisible}
         projectName={previewName || "Projet"}
         step={createProgressStep}
+        complete={createProgressComplete}
         qualification={createProgressQualification}
         onDismiss={() => {
           setCreateProgressVisible(false);
+          setCreateProgressComplete(false);
           if (pendingNavigateProjectId) {
             router.push(`/projects/${pendingNavigateProjectId}`);
             setPendingNavigateProjectId(null);

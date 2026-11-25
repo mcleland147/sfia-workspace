@@ -639,6 +639,31 @@ function parseSectionHint(hint: string): { number: string | null; titleTail: str
 }
 
 /**
+ * Expand a Pilote/Nora sectionHint into one or more atomic section targets.
+ * Supports: "2", "section 2", "Sections 2 et 3", "2, 3 et 4", "2 and 3".
+ * Does not invent targets — empty / unparsable multi-lists stay a single hint.
+ */
+export function expandSectionHints(hint: string | null | undefined): string[] {
+  if (!hint) return [];
+  const raw = hint.trim();
+  if (!raw) return [];
+  const stripped = raw.replace(/^sections?\s+/i, "").trim();
+  if (!/\b(?:et|and)\b|,|;/i.test(stripped)) {
+    return [raw];
+  }
+  const parts = stripped
+    .split(/\s*(?:,|;|\bet\b|\band\b)\s*/i)
+    .map((p) => p.trim())
+    .filter((p) => p.length > 0);
+  if (parts.length <= 1) return [raw];
+  return parts.map((p) => {
+    if (/^\d+$/.test(p)) return p;
+    if (/^section\s+\d+/i.test(p)) return p;
+    return p;
+  });
+}
+
+/**
  * Resolve section spans for a Pilote/Nora hint.
  * Numeric hints ("2", "section 2") match only headings whose *leading* section
  * number is that index — never bare `\b2\b` inside "Source 2" / "3.2".
@@ -1122,11 +1147,48 @@ export function extractProposedSectionBody(
   return { ok: true, body: `${trimmed}\n` };
 }
 
+function resolveUniqueSectionSpan(
+  spans: SectionSpan[],
+  hint: string,
+): { ok: true; span: SectionSpan } | { ok: false; reason: string } {
+  const hits = matchSectionSpans(spans, hint);
+  if (hits.length === 0) {
+    return { ok: false, reason: "SECTION_AMBIGUOUS_OR_MISSING_IN_BASE" };
+  }
+  if (hits.length > 1) {
+    return { ok: false, reason: "SECTION_AMBIGUOUS_OR_MISSING_IN_BASE" };
+  }
+  return { ok: true, span: hits[0]! };
+}
+
+function extractBodyForTarget(
+  proposedMarkdown: string,
+  hint: string,
+  baseHeading: string,
+): { ok: true; body: string } | { ok: false; reason: string } {
+  const primary = extractProposedSectionBody(proposedMarkdown, hint, baseHeading);
+  if (primary.ok) return primary;
+  // Multi-section proposals often use the full ATX heading; retry with base heading text.
+  if (baseHeading.trim() && baseHeading.trim().toLowerCase() !== hint.trim().toLowerCase()) {
+    const byHeading = extractProposedSectionBody(
+      proposedMarkdown,
+      baseHeading,
+      baseHeading,
+    );
+    if (byHeading.ok) return byHeading;
+  }
+  const byNumber = leadingSectionNumber(baseHeading);
+  if (byNumber && byNumber !== hint.trim()) {
+    const byNum = extractProposedSectionBody(proposedMarkdown, byNumber, baseHeading);
+    if (byNum.ok) return byNum;
+  }
+  return primary;
+}
+
 /**
  * Splice Nora's section body into the base document at exact offsets.
+ * Supports one or several section targets (atomic multi-section revise).
  * Non-target bytes are preserved verbatim (spaces, blank lines, fences).
- * Corrective A: ensure a line break before the base suffix so the next ATX
- * heading remains at column 0 — without rewriting the suffix itself.
  */
 export function applyTargetedSectionRevision(
   baseMarkdown: string,
@@ -1141,32 +1203,53 @@ export function applyTargetedSectionRevision(
     return { ok: true, content: proposedMarkdown };
   }
 
+  const hints = expandSectionHints(sectionHint);
   const baseSpans = locateSections(baseMarkdown);
   if (baseSpans.length === 0) {
     return { ok: false, reason: "NO_SECTION_STRUCTURE" };
   }
-  const hits = matchSectionSpans(baseSpans, sectionHint);
-  if (hits.length === 0) {
-    return { ok: false, reason: "SECTION_AMBIGUOUS_OR_MISSING_IN_BASE" };
-  }
-  if (hits.length > 1) {
-    return { ok: false, reason: "SECTION_AMBIGUOUS_OR_MISSING_IN_BASE" };
-  }
-  const target = hits[0]!;
-  const extracted = extractProposedSectionBody(proposedMarkdown, sectionHint, target.heading);
-  if (!extracted.ok) return extracted;
 
-  // A: body may omit a terminal newline; suffix must keep starting at a line boundary.
-  const body = extracted.body.endsWith("\n") ? extracted.body : `${extracted.body}\n`;
+  if (hints.length === 1) {
+    const resolved = resolveUniqueSectionSpan(baseSpans, hints[0]!);
+    if (!resolved.ok) return resolved;
+    const target = resolved.span;
+    const extracted = extractBodyForTarget(proposedMarkdown, hints[0]!, target.heading);
+    if (!extracted.ok) return extracted;
+    const body = extracted.body.endsWith("\n") ? extracted.body : `${extracted.body}\n`;
+    const content =
+      baseMarkdown.slice(0, target.bodyStart) + body + baseMarkdown.slice(target.end);
+    return { ok: true, content };
+  }
 
-  // Keep heading line + everything before bodyStart and everything after end byte-identical.
-  const content =
-    baseMarkdown.slice(0, target.bodyStart) + body + baseMarkdown.slice(target.end);
+  // Multi-section: resolve every target uniquely, then splice high→low offsets.
+  const replacements: Array<{ span: SectionSpan; body: string }> = [];
+  const claimedStarts = new Set<number>();
+  for (const hint of hints) {
+    const resolved = resolveUniqueSectionSpan(baseSpans, hint);
+    if (!resolved.ok) return resolved;
+    if (claimedStarts.has(resolved.span.start)) {
+      return { ok: false, reason: "SECTION_TARGET_OVERLAP" };
+    }
+    claimedStarts.add(resolved.span.start);
+    const extracted = extractBodyForTarget(proposedMarkdown, hint, resolved.span.heading);
+    if (!extracted.ok) return extracted;
+    const body = extracted.body.endsWith("\n") ? extracted.body : `${extracted.body}\n`;
+    replacements.push({ span: resolved.span, body });
+  }
+
+  replacements.sort((a, b) => b.span.start - a.span.start);
+  let content = baseMarkdown;
+  for (const rep of replacements) {
+    content =
+      content.slice(0, rep.span.bodyStart) + rep.body + content.slice(rep.span.end);
+  }
   return { ok: true, content };
 }
 
 /**
- * Exact (non-normalized) check that bytes outside the target section are unchanged.
+ * Exact (non-normalized) check that bytes outside the target section(s) are unchanged.
+ * For N targets sorted by offset: regions [0, bodyStart0), (end_i, bodyStart_{i+1}), (end_last, EOF)
+ * must be byte-identical between base and next (heading lines included in those prefixes).
  */
 export function assertSectionScope(
   baseMarkdown: string,
@@ -1174,26 +1257,38 @@ export function assertSectionScope(
   sectionHint: string | null,
 ): { ok: true } | { ok: false; reason: string } {
   if (!sectionHint) return { ok: true };
+  const hints = expandSectionHints(sectionHint);
   const baseSpans = locateSections(baseMarkdown);
   const nextSpans = locateSections(nextMarkdown);
-  const baseHits = matchSectionSpans(baseSpans, sectionHint);
-  const nextHits = matchSectionSpans(nextSpans, sectionHint);
-  if (baseHits.length !== 1) {
-    return { ok: false, reason: "SECTION_AMBIGUOUS_OR_MISSING_IN_BASE" };
+
+  const pairs: Array<{ base: SectionSpan; next: SectionSpan }> = [];
+  for (const hint of hints) {
+    const bHits = matchSectionSpans(baseSpans, hint);
+    const nHits = matchSectionSpans(nextSpans, hint);
+    if (bHits.length !== 1) {
+      return { ok: false, reason: "SECTION_AMBIGUOUS_OR_MISSING_IN_BASE" };
+    }
+    if (nHits.length !== 1) {
+      return { ok: false, reason: "SECTION_AMBIGUOUS_OR_MISSING_IN_NEXT" };
+    }
+    pairs.push({ base: bHits[0]!, next: nHits[0]! });
   }
-  if (nextHits.length !== 1) {
-    return { ok: false, reason: "SECTION_AMBIGUOUS_OR_MISSING_IN_NEXT" };
+
+  pairs.sort((a, b) => a.base.start - b.base.start);
+
+  let baseCursor = 0;
+  let nextCursor = 0;
+  for (const pair of pairs) {
+    if (
+      baseMarkdown.slice(baseCursor, pair.base.bodyStart) !==
+      nextMarkdown.slice(nextCursor, pair.next.bodyStart)
+    ) {
+      return { ok: false, reason: "SECTION_SCOPE_PREFIX_CHANGED" };
+    }
+    baseCursor = pair.base.end;
+    nextCursor = pair.next.end;
   }
-  const b = baseHits[0]!;
-  const n = nextHits[0]!;
-  const basePrefix = baseMarkdown.slice(0, b.bodyStart);
-  const nextPrefix = nextMarkdown.slice(0, n.bodyStart);
-  if (basePrefix !== nextPrefix) {
-    return { ok: false, reason: "SECTION_SCOPE_PREFIX_CHANGED" };
-  }
-  const baseSuffix = baseMarkdown.slice(b.end);
-  const nextSuffix = nextMarkdown.slice(n.end);
-  if (baseSuffix !== nextSuffix) {
+  if (baseMarkdown.slice(baseCursor) !== nextMarkdown.slice(nextCursor)) {
     return { ok: false, reason: "SECTION_SCOPE_EXCEEDED" };
   }
   return { ok: true };
@@ -1388,15 +1483,55 @@ export function formatDocumentEffectAck(effect: DocumentEffectSummary | null): s
         "",
         "La proposition précédente n'est plus valable — demande une nouvelle rédaction.",
       );
-    } else if (effect.reason === "CANDIDATE_HEAD_MOVED" || effect.reason === "HISTORICAL_HEAD_MOVED") {
+    } else     if (effect.reason === "CANDIDATE_HEAD_MOVED" || effect.reason === "HISTORICAL_HEAD_MOVED") {
       lines.push(
         "",
         "La version courante a changé — une nouvelle qualification est nécessaire.",
       );
+    } else if (
+      effect.reason === "SECTION_AMBIGUOUS_OR_MISSING_IN_BASE" ||
+      effect.reason === "SECTION_AMBIGUOUS_IN_PROPOSAL" ||
+      effect.reason === "SECTION_CONTENT_UNCLEAR_IN_PROPOSAL" ||
+      effect.reason === "SECTION_TARGET_OVERLAP" ||
+      effect.reason === "SECTION_AMBIGUOUS_OR_MISSING_IN_NEXT" ||
+      effect.reason === "SECTION_SCOPE_PREFIX_CHANGED" ||
+      effect.reason === "SECTION_SCOPE_EXCEEDED" ||
+      effect.reason === "NO_SECTION_STRUCTURE"
+    ) {
+      lines.push(
+        "",
+        "La révision ciblée n'a pas pu être appliquée : les sections à modifier sont ambiguës, introuvables ou hors périmètre.",
+        "Reformule les cibles (une ou plusieurs sections nommées) ou demande une révision du document entier.",
+      );
+    } else if (
+      effect.reason === "DOCUMENT_PROPOSAL_MISSING" ||
+      effect.reason === "DOCUMENT_PROPOSAL_EMPTY" ||
+      effect.reason === "DOCUMENT_PROPOSAL_AMBIGUOUS"
+    ) {
+      lines.push(
+        "",
+        "Aucune proposition documentaire exploitable n'a été produite sur ce tour.",
+      );
+    } else if (effect.reason === "NO_EXPLICIT_WRITE" || effect.reason === "SEMANTIC_NONE") {
+      lines.push(
+        "",
+        "Aucune écriture documentaire n'était demandée ou qualifiée sur ce tour.",
+      );
+    } else if (effect.reason === "QUALIFIED_BUT_NOT_APPLIED" || effect.reason === "MERGE_FAILED") {
+      lines.push(
+        "",
+        "L'intention documentaire a été comprise, mais la proposition n'a pas pu être appliquée.",
+      );
+    } else if (effect.reason) {
+      // RB-18/26 — never claim « non qualifiée » when a concrete downstream reason exists.
+      lines.push(
+        "",
+        "L'intention a pu être comprise, mais aucun enregistrement n'a été effectué — la proposition n'est pas devenue une version.",
+      );
     } else {
       lines.push(
         "",
-        "La demande n'a pas été qualifiée pour une écriture. La réponse Nora ci-dessus n'est pas un verdict d'enregistrement.",
+        "Aucun enregistrement documentaire n'a été effectué sur ce tour.",
       );
     }
     return lines.join("\n");

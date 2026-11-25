@@ -13,8 +13,8 @@ const HERO: Record<
 > = {
   travail: {
     kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
-    title: "Réviser un document avec Nora",
-    sub: "Le chat reste à gauche ; le document sélectionné s’ouvre dans la visionneuse à droite.",
+    title: "Conversation du projet",
+    sub: "Poursuis le fil avec Nora — les décisions d’ouverture et de clôture restent les tiennes.",
   },
   projet: {
     kicker: "ESPACE PROJET / VUE D'ENSEMBLE",

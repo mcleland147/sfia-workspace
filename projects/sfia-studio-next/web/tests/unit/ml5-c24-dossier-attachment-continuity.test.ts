@@ -119,7 +119,7 @@ describe("C24 dossier attachment continuity (R2 root cause)", () => {
     base.desiredOutcome = "refuse strings > maxLen + tests";
     base.sources = [
       {
-        kind: "DOCUMENT",
+        kind: "D4",
         ref: "document:doc_widget",
         coverage: "CONSULTED",
         title: "Widget service",
@@ -168,7 +168,7 @@ describe("C24 dossier attachment continuity (R2 root cause)", () => {
     base.desiredOutcome = "refuse strings > maxLen + tests";
     base.sources = [
       {
-        kind: "DOCUMENT",
+        kind: "D4",
         ref: "document:doc_widget",
         coverage: "CONSULTED",
         title: "Widget service",
