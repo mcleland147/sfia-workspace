@@ -1,589 +1,230 @@
 # SFIA REVIEW PACK — FULL / Critical
-# Cycle 8 — Macro-lot 1 Operational Completion
+# Cycle 8 — Admin & FinOps DEV Qualification
 # Date: 2026-11-26
 # Repo: mcleland147/sfia-workspace
 # Branch: sfia/next-ml5-integrated-delivery-20261123
-# Handoff message: docs(review-handoff): publish provider foundation operational completion
+# Handoff message: docs(review-handoff): publish admin and finops qualification
 
 ## 1. Git Truth
 
 | Field | Value |
 |---|---|
-| HEAD initial | `a095171e00db281d741010f2d04918e8c79af25c` |
-| web tree initial | `188c998ccb722d0a6810c97abf00a1475ad7fc1d` |
-| merge-base main | `997897fd7cf914771e7d08e8030dc7123fab7d25` (= `997897fd…`) |
-| handoff entry | `7505551ff6fecc52924363ae27d4346dfacefcdb` |
-| HEAD final | `106c6392c39ff1741eea729fe594ae8d12cdc9d3` |
-| web tree final | `d8eb399ef34904932d5621ef7e451afb2cdfb63b` |
-| Commit | `106c6392` feat(finops): operational provider foundation with DEV snapshot persistence |
-| Dirty after commit | pack only (this file) |
+| HEAD initial | `106c6392c39ff1741eea729fe594ae8d12cdc9d3` |
+| web tree initial | `d8eb399ef34904932d5621ef7e451afb2cdfb63b` |
+| merge-base main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
+| handoff entry | `f29914515350ceb3594fd638223008c509b367d4` / blob `52c19a21…` |
+| HEAD final | `348cf6bd1f55c2f84ebcc079b7e8c10acb276d47` |
+| web tree final | `54863eda3c7311e51d36237d59d3b7c078baad0a` |
+| Commit | `348cf6bd` fix(finops): harden Admin snapshot integrity and FinOps qualification |
+| Dirty | pack only |
 
-Git Truth: **CONCORDANT** at entry; final advanced by one local commit. No push projet.
+Git Truth entry: **CONCORDANT**. No push projet.
 
-## 2. Sources lues (applicables)
+## 2. Sources consultées
 
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md (réf.)
-- prompts/templates/sfia-cycle-execution-template.md §9.1
-- ENV-01 / Product Versioning (blobs main)
-- construction/convergence-openai-studio/* (cadrage, contrats, as-built, migration, A3, UX delta)
-- construction/ml5-registre-couverture-et-revue-developpement.md
-- construction/delivery-history.md
-- Code: provider-admin-*, usage-read-service, frontier, nora-adapter, agents-sdk-tracing, schema/migrations
-- SDK verrouillé: `@openai/agents` (exports setTraceProcessors / setTracingDisabled observés)
+- Template §9.1 · routing guide (réf.)
+- ENV-01 / Product Versioning blobs main
+- convergence-openai-studio/* (cadrage, contrats, as-built, migration 023/024, UX delta, procédure Admin)
+- delivery-history · registre couverture
+- Code Admin/FinOps/repository/transport/usage-read
+- Contrats OpenAI Usage/Costs (SDK paths allowlistés) — permissions compte **non** déduites
 
 ## 3. ENV isolation
 
-| Env | Preuve |
+| | Preuve |
 |---|---|
-| DEV app | `127.0.0.1:3100` qualify-next-start pid=91863 BUILD_ID=`cUOHTek8qSni3vSYXOTWZ` |
-| DEV PG | container `sfia-next-dev-pg` · `127.0.0.1:5433` · PG **16.16** · db `sfia_next_dev` |
-| RECETTE app | pid **89199** inchangé · cwd `…/sfia-workspace-next-ml5-recette-build-a150926cc78f/…` · `:3200` |
-| RECETTE PG | `sfia-next-recette-pg` · `:5434` distinct |
-| Secrets | jamais affichés ; dry-substituted sans clé Admin |
+| DEV | `:3100` BUILD_ID=`8eXiN6NO94261FxSLnuuj` pid=11160 |
+| DEV PG | `sfia-next-dev-pg` `:5433` PG 16.16 · migrations 023+024 |
+| RECETTE | pid **89199** inchangé · `:3200` |
+| Restore | `pg_restore` → `sfia_next_dev_restore_probe` (44 tables) puis DROP — operator/RECETTE intacts |
 
-**NEXT ENVIRONMENT GATE**: PASS (isolation démontrée).
+**NEXT ENVIRONMENT GATE**: PASS
 
-## 4. Migration DEV
+## 4. Correctifs clés
 
-- Backup: `.tmp-sfia-review/pg-backup/sfia_next_dev_pre_023.dump` (pg_dump -Fc; `pg_restore -l` OK)
-- Applied: `023_provider_admin_usage_snapshots.sql` on `sfia_next_dev` + `sfia_next_e2e`
-- Additive; NULLS NOT DISTINCT unique; roles `sfia_admin_collector` / `sfia_finops_reader`
-- Ledger `provider_usage_observations` préservé
-- Rollback app: `SFIA_ADMIN_SNAPSHOT_READ=0` (no DROP)
+1. **Upsert integrity** — partial never updates complete row metrics; older collected_at skipped
+2. **Provenance** — TEST_SUBSTITUTED | LIVE | UNKNOWN; TEST excluded from LIVE projections
+3. **No silent memory fallback** — PG down ⇒ UNAVAILABLE
+4. **Transport** — WeakSet registry; GO re-check before retry; bounded streaming body read
+5. **Envelope** — start required; LIVE requires end_time + project_ids; maxPages≤20
+6. **FinOps** — assessPeriodEquality; positive COMPARABLE proven; scoped freshness
+7. **PG roles** — reader INSERT refused; collector SELECT pilots refused
 
-## 5. Preuves intégrées
+## 5. Tests exacts
 
-### Collecteur → PG
 ```
-SFIA_ADMIN_COLLECTOR_PROCESS=1 STUDIO_LANE=DEV npx tsx scripts/finops-admin-collect.mts \
-  --path /organization/costs --start-time 1700000000 --dry-substituted
-→ status READY · collection_id acol_mwy05m9i · persisted=true · row in provider_admin_collection_runs
+npx vitest run tests/unit/ml5-provider-admin-usage-collector.test.ts \
+  tests/integration/ml5-admin-snapshots-pg.test.ts \
+  tests/integration/ml5-admin-finops-qualification.pg.test.ts
+→ 3 files · 21 tests PASS
 ```
-Processus Next (pid 91863) distinct du collecteur (processus CLI séparé).
 
-### Tests exacts
-```
-npx vitest run \
-  tests/unit/ml5-provider-admin-usage-collector.test.ts \
-  tests/unit/ml5-provider-emission-frontier.test.ts \
-  tests/unit/ml5-agents-sdk-tracing.test.ts \
-  tests/unit/ml5-agents-sdk-tracing-real-sdk.test.ts \
-  tests/integration/ml5-admin-snapshots-pg.test.ts
-→ 5 files · 44 tests PASS
-```
-Réel SDK: Agent.run sous oracle réseau → spans locaux OBS ; `traceExportUrls=[]`.
+## 6. Readiness Admin (10/10 technique DEV)
 
-### Build / runtime
-```
-npm run qualify:build → BUILD_ID=cUOHTek8qSni3vSYXOTWZ digest=fd6c132c…
-npm run qualify:start → http://127.0.0.1:3100/login pid=91863
-curl login=200 · consumption=200 · HTML contient BUILD_ID
-```
-`qualify:browser`: 3 passed / 4 failed (typo 11px≠12px, documentary, pdf, director) — **préexistants / hors périmètre ML1 foundation** ; smoke HTTP OK.
+All ten criteria PASS. G-ADMIN-SECRET proposable. G-ADMIN-LIVE **not executed**.
 
-### Typecheck
-`tsc --noEmit`: 12 erreurs **préexistantes** hors fichiers touchés (documentary autonomy, activity hierarchy, ProcessEnv casts, etc.). Aucune erreur dans modules Admin/FinOps/frontier/tracing/schema de ce lot. Build Next OK.
+## 7. Fake/Real
 
-## 6. Fake / Real
+REAL: PG DEV, roles, restore probe, API/runtime smoke.
+SUBSTITUTED: OpenAI Usage/Costs.
+DETERMINISTIC PROVEN ≠ READY FOR REAL.
 
-| Frontière | Mode |
-|---|---|
-| PostgreSQL DEV | REAL |
-| Processus / API / runtime navigateur smoke | REAL |
-| OpenAI Admin / Responses / WEB / continuité native | SUBSTITUÉ / OFF |
-| Agents SDK | REAL package + transport substitué + oracle egress |
+## 8. Gates
 
-Entrée: couverture déterministe partielle → **comportement intégré DEV prouvé**.
-DETERMINISTIC PROVEN ≠ READY FOR REAL. LIVE gates fermés.
+Fermés: G-ADMIN-SECRET (proposable) · G-ADMIN-LIVE · G-FINOPS-UX · G-TRACING-LOCAL · G-WEB-PUBLIC/A3 · G-NATIVE-CONTINUITY · G-PROVIDER-LIVE-QUALIFICATION · RECETTE
+Levé DEV: G-PROVIDER-SNAPSHOT-MIGRATION
 
-## 7. Matrice CONV (synthèse)
+## 9. Décisions Morris
 
-| Id | Résultat | Niveau | Réserve |
-|---|---|---|---|
-| F01-F08 Admin parse/gate/idempotence | PASS | déterministe+intégré DEV | LIVE BLOCKED |
-| F11 tracing | PASS real SDK+oracle | intégré DEV | G-TRACING-LOCAL OFF ops |
-| F12 continuité | PASS bind D3 callers; mode OFF | déterministe | G-NATIVE-CONTINUITY |
-| F13 FinOps PG/API | PASS PG+evidence refuse org sum | intégré DEV | COMPARABLE rare sans periodEqual |
-| F14 résilience collecte | PASS repeated cursor/has_more | déterministe | — |
-| F15 WEB | PASS PARTIAL aggregate; WEB OFF | déterministe | G-WEB-PUBLIC/A3 |
-
-## 8. Gates restants (dossier)
-
-1. G-ADMIN-SECRET
-2. G-ADMIN-LIVE
-3. G-FINOPS-UX
-4. G-WEB-PUBLIC / A3
-5. G-TRACING-LOCAL
-6. G-NATIVE-CONTINUITY
-7. G-PROVIDER-LIVE-QUALIFICATION
-8. RECETTE / promotions
-
-G-PROVIDER-SNAPSHOT-MIGRATION: **LEVÉ DEV**.
-
-## 9. Décisions Morris attendues
-
-- Revue readiness Admin pour G-ADMIN-SECRET (procédure bornée prête)
-- Non-engagement Lots 2/3
-- Pas de RECETTE / ADOPTED / RELEASE
+1. Revue readiness → éventuel GO G-ADMIN-SECRET
+2. Validation delta UX FinOps (G-FINOPS-UX)
+3. Ne pas engager Lots 2/3 / LIVE / RECETTE
 
 ## 10. Verdict
 
-**MACRO-LOT 1 — OPERATIONAL DEV FOUNDATION PROVEN — GOVERNED LIVE QUALIFICATION GATES REMAIN**
+**ADMIN COLLECTOR — READY FOR SECURE PROVISIONING AND BOUNDED LIVE QUALIFICATION**
 
-État programme: R5 IN PROGRESS · ML5 OPEN · Macro-lot 1 en qualification · Lots 2/3 non engagés · RECETTE protégée · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED
+R5 IN PROGRESS · ML5 OPEN · Lots 2/3 non engagés · RECETTE protégée · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED
 
-## 11. Roadmap delta (NON APPLIQUÉ)
-
-Proposer (hors merge): « Macro-lot 1 foundation opérationnelle DEV prouvée ; gates LIVE gouvernés restants ; Lots 2/3 non démarrés ».
-
----
-
-## 12. Commit metadata
+## 11. Commit metadata
 
 ```
-commit 106c6392c39ff1741eea729fe594ae8d12cdc9d3
+commit 348cf6bd1f55c2f84ebcc079b7e8c10acb276d47
 Author:     Morris Cleland <morris@macbook-air.home>
-AuthorDate: Thu Nov 26 21:30:16 2026 +0100
+AuthorDate: Thu Nov 26 21:45:04 2026 +0100
 Commit:     Morris Cleland <morris@macbook-air.home>
-CommitDate: Thu Nov 26 21:30:16 2026 +0100
+CommitDate: Thu Nov 26 21:45:04 2026 +0100
 
-    feat(finops): operational provider foundation with DEV snapshot persistence
+    fix(finops): harden Admin snapshot integrity and FinOps qualification
 
-    Wire isolated Admin collector TEST/LIVE gates to additive PostgreSQL snapshots,
-    harden FinOps scope evidence, frontier PARTIAL aggregates, D3 continuity bind,
-    and real SDK tracing proofs under substituted transport.
+    Prevent partial overwrites of complete snapshots, persist TEST/LIVE provenance,
+    exercise PG role refusals, bound LIVE envelopes, and enable demonstrable
+    period-equal COMPARABLE reconciliation without executing Admin LIVE.
 
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
- .../as-built-macro-lot-1-20261126.md               |  86 +++---
- .../dossier-g-web-public-a3-20261126.md            |   2 +
- ...migration-candidate-provider-admin-snapshots.md |   5 +-
- .../construction/delivery-history.md               |  18 ++
+ .../as-built-macro-lot-1-20261126.md               |  79 ++---
+ ...procedure-admin-live-qualification-candidate.md |  56 +++
+ .../ux-delta-finops-page13-candidate.md            |  39 ++-
+ .../construction/delivery-history.md               |  16 +
  ...5-registre-couverture-et-revue-developpement.md |   2 +-
  .../sfia-studio-next/web/scripts/db-migrate.sh     |   3 +-
- .../web/scripts/finops-admin-collect.mts           |  94 +++++--
- .../023_provider_admin_usage_snapshots.sql         |  83 ++++++
- projects/sfia-studio-next/web/src/db/schema.ts     |  56 +++-
- .../web/src/domains/conversation/nora-adapter.ts   |  43 +++
- .../conversation/provider-emission-frontier.ts     |  43 ++-
- .../conversation/run-nora-cognitive-turn.ts        |  15 +
- .../finops/provider-admin-http-transport.ts        |  82 ++++--
- .../finops/provider-admin-usage-collector.ts       | 308 ++++++++++++++++-----
- .../finops/provider-admin-usage-repository.ts      | 288 +++++++++++++++++++
- .../web/src/domains/finops/usage-read-service.ts   | 129 +++++++--
- .../integration/ml5-admin-snapshots-pg.test.ts     | 113 ++++++++
- .../unit/ml5-agents-sdk-tracing-real-sdk.test.ts   | 112 ++++++++
- .../ml5-provider-admin-usage-collector.test.ts     | 142 ++++++++--
- .../unit/ml5-provider-emission-frontier.test.ts    |  58 ++++
- 20 files changed, 1468 insertions(+), 214 deletions(-)
+ .../web/scripts/finops-admin-collect.mts           |  32 +-
+ .../024_provider_admin_snapshot_provenance.sql     |  68 ++++
+ projects/sfia-studio-next/web/src/db/schema.ts     |  10 +-
+ .../finops/provider-admin-http-transport.ts        |  51 ++-
+ .../finops/provider-admin-usage-collector.ts       | 146 +++++++-
+ .../finops/provider-admin-usage-repository.ts      | 238 +++++++++----
+ .../web/src/domains/finops/usage-read-service.ts   | 134 +++++--
+ .../ml5-admin-finops-qualification.pg.test.ts      | 282 +++++++++++++++
+ .../integration/ml5-admin-snapshots-pg.test.ts     |   2 +
+ .../ml5-provider-admin-usage-collector.test.ts     | 387 +++++++++++----------
+ 16 files changed, 1183 insertions(+), 362 deletions(-)
 
 ```
 
-## 13. Fichiers créés (intégralité)
+## 12. Fichiers créés (intégralité)
 
-### CREATED `projects/sfia-studio-next/web/src/db/migrations/023_provider_admin_usage_snapshots.sql`
+### CREATED `projects/sfia-studio-next/web/src/db/migrations/024_provider_admin_snapshot_provenance.sql`
 
 ```
--- ML1 — provider Admin Usage/Costs snapshots (DEV additive).
--- Distinct from provider_usage_observations (Studio attribution ledger).
--- RECETTE/STABLE untouched. No DROP/purge.
+-- ML1 Admin/FinOps qualification — additive provenance + integrity helpers.
+-- Does NOT rewrite 023. No DROP/DELETE of snapshot rows.
+-- Existing 023 rows get provenance='UNKNOWN' (excluded from LIVE FinOps projections).
 
-CREATE TABLE IF NOT EXISTS provider_admin_collection_runs (
-  collection_id text PRIMARY KEY,
-  started_at timestamptz NOT NULL,
-  finished_at timestamptz,
-  status text NOT NULL,
-  pages_fetched integer NOT NULL DEFAULT 0,
-  path text NOT NULL,
-  organization_scope text NOT NULL,
-  limits_json jsonb NOT NULL DEFAULT '[]'::jsonb,
-  last_error text
-);
+ALTER TABLE provider_admin_collection_runs
+  ADD COLUMN IF NOT EXISTS collection_provenance text NOT NULL DEFAULT 'UNKNOWN';
 
-CREATE TABLE IF NOT EXISTS provider_admin_usage_snapshots (
-  id uuid PRIMARY KEY,
-  collected_at timestamptz NOT NULL,
-  collection_id text NOT NULL REFERENCES provider_admin_collection_runs(collection_id),
-  source_endpoint text NOT NULL,
-  surface_object text NOT NULL,
-  organization_scope text NOT NULL,
-  interval_start_utc timestamptz NOT NULL,
-  interval_end_utc timestamptz NOT NULL,
-  CHECK (interval_end_utc > interval_start_utc),
-  granularity text NOT NULL CHECK (granularity IN ('1m','1h','1d')),
-  project_id text,
-  api_key_id text,
-  user_id text,
-  model text,
-  line_item text,
-  api_source text,
-  input_tokens bigint,
-  output_tokens bigint,
-  input_cached_tokens bigint,
-  num_model_requests integer,
-  num_requests integer,
-  amount numeric(24, 10),
-  currency text,
-  completeness text NOT NULL CHECK (completeness IN ('complete','partial')),
-  schema_version text NOT NULL DEFAULT '2'
-);
+ALTER TABLE provider_admin_collection_runs
+  DROP CONSTRAINT IF EXISTS provider_admin_collection_runs_provenance_check;
 
--- PG16: NULLS NOT DISTINCT so nullable dimension columns collide correctly.
-CREATE UNIQUE INDEX IF NOT EXISTS provider_admin_usage_snapshots_canon_uidx
-  ON provider_admin_usage_snapshots (
-    source_endpoint,
-    surface_object,
-    organization_scope,
-    interval_start_utc,
-    interval_end_utc,
-    granularity,
-    project_id,
-    api_key_id,
-    user_id,
-    model,
-    line_item,
-    api_source
-  ) NULLS NOT DISTINCT;
+ALTER TABLE provider_admin_collection_runs
+  ADD CONSTRAINT provider_admin_collection_runs_provenance_check
+  CHECK (collection_provenance IN ('TEST_SUBSTITUTED', 'LIVE', 'UNKNOWN'));
 
-CREATE INDEX IF NOT EXISTS provider_admin_usage_snapshots_org_interval_idx
-  ON provider_admin_usage_snapshots (organization_scope, interval_start_utc DESC);
+ALTER TABLE provider_admin_usage_snapshots
+  ADD COLUMN IF NOT EXISTS collection_provenance text NOT NULL DEFAULT 'UNKNOWN';
 
-CREATE INDEX IF NOT EXISTS provider_admin_usage_snapshots_collection_idx
-  ON provider_admin_usage_snapshots (collection_id);
+ALTER TABLE provider_admin_usage_snapshots
+  DROP CONSTRAINT IF EXISTS provider_admin_usage_snapshots_provenance_check;
 
--- DEV role intent (additive, NOLOGIN). Product uses existing sfia_next_dev.
--- Collector write vs FinOps read — no Admin OpenAI authority transferred.
+ALTER TABLE provider_admin_usage_snapshots
+  ADD CONSTRAINT provider_admin_usage_snapshots_provenance_check
+  CHECK (collection_provenance IN ('TEST_SUBSTITUTED', 'LIVE', 'UNKNOWN'));
+
+CREATE INDEX IF NOT EXISTS provider_admin_usage_snapshots_provenance_idx
+  ON provider_admin_usage_snapshots (collection_provenance, organization_scope);
+
+-- LOGIN roles for exercised permission proofs (DEV only). Passwords set by operator script.
 DO $$
 BEGIN
-  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_admin_collector') THEN
-    CREATE ROLE sfia_admin_collector NOLOGIN;
+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_admin_collector_login') THEN
+    CREATE ROLE sfia_admin_collector_login LOGIN PASSWORD 'sfia_dev_collector_only';
   END IF;
-  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_finops_reader') THEN
-    CREATE ROLE sfia_finops_reader NOLOGIN;
+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_finops_reader_login') THEN
+    CREATE ROLE sfia_finops_reader_login LOGIN PASSWORD 'sfia_dev_finops_read_only';
   END IF;
 END$$;
 
-GRANT SELECT, INSERT, UPDATE ON provider_admin_collection_runs TO sfia_admin_collector;
-GRANT SELECT, INSERT, UPDATE ON provider_admin_usage_snapshots TO sfia_admin_collector;
-GRANT SELECT ON provider_admin_collection_runs TO sfia_finops_reader;
-GRANT SELECT ON provider_admin_usage_snapshots TO sfia_finops_reader;
+GRANT sfia_admin_collector TO sfia_admin_collector_login;
+GRANT sfia_finops_reader TO sfia_finops_reader_login;
+GRANT USAGE ON SCHEMA public TO sfia_admin_collector_login;
+GRANT USAGE ON SCHEMA public TO sfia_finops_reader_login;
+-- CONNECT on current database only (DEV operator or e2e isolate).
+DO $$
+BEGIN
+  EXECUTE format(
+    'GRANT CONNECT ON DATABASE %I TO sfia_admin_collector_login',
+    current_database()
+  );
+  EXECUTE format(
+    'GRANT CONNECT ON DATABASE %I TO sfia_finops_reader_login',
+    current_database()
+  );
+END$$;
+
+-- Ensure collector cannot touch Studio attribution ledger / pilots.
+REVOKE ALL ON TABLE provider_usage_observations FROM sfia_admin_collector;
+REVOKE ALL ON TABLE provider_usage_observations FROM sfia_admin_collector_login;
+REVOKE ALL ON TABLE pilots FROM sfia_admin_collector;
+REVOKE ALL ON TABLE pilots FROM sfia_admin_collector_login;
+REVOKE ALL ON TABLE projects FROM sfia_admin_collector;
+REVOKE ALL ON TABLE projects FROM sfia_admin_collector_login;
+
+-- Reader cannot write snapshots.
+REVOKE INSERT, UPDATE, DELETE ON provider_admin_usage_snapshots FROM sfia_finops_reader;
+REVOKE INSERT, UPDATE, DELETE ON provider_admin_collection_runs FROM sfia_finops_reader;
+REVOKE INSERT, UPDATE, DELETE ON provider_admin_usage_snapshots FROM sfia_finops_reader_login;
+REVOKE INSERT, UPDATE, DELETE ON provider_admin_collection_runs FROM sfia_finops_reader_login;
 
 ```
 
-### CREATED `projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-repository.ts`
-
-```
-/**
- * Admin Usage/Costs snapshot repository — PostgreSQL SoT for FinOps product reads.
- *
- * Product/Next: read-only against authorized snapshots (no Admin collection capability).
- * Isolated collector: write runs + upsert snapshots.
- * Distinct from provider_usage_observations (Studio attribution ledger).
- */
-
-import { randomUUID } from "node:crypto";
-import { and, desc, eq, gte, lte, sql as dsql } from "drizzle-orm";
-import { db, sql } from "@/db/client";
-import {
-  providerAdminCollectionRuns,
-  providerAdminUsageSnapshots,
-} from "@/db/schema";
-import type {
-  AdminCollectorStatus,
-  AdminUsageSnapshot,
-} from "./provider-admin-usage-collector";
-
-function metricToNumber(
-  m: AdminUsageSnapshot["metrics"][keyof AdminUsageSnapshot["metrics"]],
-): number | null {
-  if (m.presence !== "MEASURED" || m.value == null) return null;
-  const n = Number(m.value);
-  return Number.isFinite(n) ? n : null;
-}
-
-function metricFromDb(
-  v: string | number | null | undefined,
-  kind: "int" | "decimal" | "string" = "int",
-): AdminUsageSnapshot["metrics"]["input_tokens"] {
-  if (v == null) return { presence: "ABSENT", value: null };
-  if (kind === "string") {
-    return { presence: "MEASURED", value: String(v) };
-  }
-  const n = typeof v === "number" ? v : Number(v);
-  if (!Number.isFinite(n)) return { presence: "INVALID", value: null };
-  return {
-    presence: "MEASURED",
-    value: kind === "decimal" ? String(v) : String(Math.trunc(n)),
-  };
-}
-
-export async function insertAdminCollectionRun(input: {
-  collectionId: string;
-  startedAtUtc: string;
-  status: AdminCollectorStatus;
-  path: string;
-  organizationScope: string;
-  pagesFetched?: number;
-  limits?: string[];
-  lastError?: string | null;
-}): Promise<void> {
-  await db
-    .insert(providerAdminCollectionRuns)
-    .values({
-      collectionId: input.collectionId,
-      startedAt: new Date(input.startedAtUtc),
-      finishedAt: null,
-      status: input.status,
-      pagesFetched: input.pagesFetched ?? 0,
-      path: input.path,
-      organizationScope: input.organizationScope,
-      limitsJson: input.limits ?? [],
-      lastError: input.lastError ?? null,
-    })
-    .onConflictDoUpdate({
-      target: providerAdminCollectionRuns.collectionId,
-      set: {
-        status: input.status,
-        pagesFetched: input.pagesFetched ?? 0,
-        limitsJson: input.limits ?? [],
-        lastError: input.lastError ?? null,
-      },
-    });
-}
-
-export async function finishAdminCollectionRun(input: {
-  collectionId: string;
-  finishedAtUtc: string;
-  status: AdminCollectorStatus;
-  pagesFetched: number;
-  limits: string[];
-  lastError: string | null;
-}): Promise<void> {
-  await db
-    .update(providerAdminCollectionRuns)
-    .set({
-      finishedAt: new Date(input.finishedAtUtc),
-      status: input.status,
-      pagesFetched: input.pagesFetched,
-      limitsJson: input.limits,
-      lastError: input.lastError,
-    })
-    .where(eq(providerAdminCollectionRuns.collectionId, input.collectionId));
-}
-
-/**
- * Idempotent upsert via NULLS NOT DISTINCT unique index
- * (provider_admin_usage_snapshots_canon_uidx).
- */
-export async function upsertAdminSnapshotsPg(
-  snapshots: AdminUsageSnapshot[],
-): Promise<number> {
-  let written = 0;
-  for (const s of snapshots) {
-    const id = randomUUID();
-    const amount =
-      s.metrics.amount.presence === "MEASURED" && s.metrics.amount.value
-        ? s.metrics.amount.value
-        : null;
-    const currency =
-      s.metrics.currency.presence === "MEASURED"
-        ? s.metrics.currency.value
-        : null;
-    await sql`
-      INSERT INTO provider_admin_usage_snapshots (
-        id, collected_at, collection_id, source_endpoint, surface_object,
-        organization_scope, interval_start_utc, interval_end_utc, granularity,
-        project_id, api_key_id, user_id, model, line_item, api_source,
-        input_tokens, output_tokens, input_cached_tokens,
-        num_model_requests, num_requests, amount, currency,
-        completeness, schema_version
-      ) VALUES (
-        ${id}::uuid,
-        ${s.collectedAtUtc}::timestamptz,
-        ${s.collectionId},
-        ${s.sourceEndpoint},
-        ${s.surfaceObject},
-        ${s.organizationScope},
-        ${s.intervalStartUtc}::timestamptz,
-        ${s.intervalEndUtc}::timestamptz,
-        ${s.granularity},
-        ${s.dimensions.project_id},
-        ${s.dimensions.api_key_id},
-        ${s.dimensions.user_id},
-        ${s.dimensions.model},
-        ${s.dimensions.line_item},
-        ${s.dimensions.api_source},
-        ${metricToNumber(s.metrics.input_tokens)},
-        ${metricToNumber(s.metrics.output_tokens)},
-        ${metricToNumber(s.metrics.input_cached_tokens)},
-        ${metricToNumber(s.metrics.num_model_requests)},
-        ${metricToNumber(s.metrics.num_requests)},
-        ${amount},
-        ${currency},
-        ${s.completeness},
-        ${"2"}
-      )
-      ON CONFLICT (
-        source_endpoint, surface_object, organization_scope,
-        interval_start_utc, interval_end_utc, granularity,
-        project_id, api_key_id, user_id, model, line_item, api_source
-      )
-      DO UPDATE SET
-        collected_at = EXCLUDED.collected_at,
-        collection_id = EXCLUDED.collection_id,
-        input_tokens = EXCLUDED.input_tokens,
-        output_tokens = EXCLUDED.output_tokens,
-        input_cached_tokens = EXCLUDED.input_cached_tokens,
-        num_model_requests = EXCLUDED.num_model_requests,
-        num_requests = EXCLUDED.num_requests,
-        amount = EXCLUDED.amount,
-        currency = EXCLUDED.currency,
-        completeness = CASE
-          WHEN provider_admin_usage_snapshots.completeness = 'complete'
-            AND EXCLUDED.completeness = 'partial'
-          THEN provider_admin_usage_snapshots.completeness
-          ELSE EXCLUDED.completeness
-        END,
-        schema_version = EXCLUDED.schema_version
-    `;
-    written += 1;
-  }
-  return written;
-}
-
-export async function listAdminSnapshotsFromPg(filter?: {
-  organizationScope?: string;
-  intervalStartUtc?: string;
-  intervalEndUtc?: string;
-  limit?: number;
-}): Promise<AdminUsageSnapshot[]> {
-  const clauses = [];
-  if (filter?.organizationScope) {
-    clauses.push(
-      eq(
-        providerAdminUsageSnapshots.organizationScope,
-        filter.organizationScope,
-      ),
-    );
-  }
-  if (filter?.intervalStartUtc) {
-    clauses.push(
-      gte(
-        providerAdminUsageSnapshots.intervalEndUtc,
-        new Date(filter.intervalStartUtc),
-      ),
-    );
-  }
-  if (filter?.intervalEndUtc) {
-    clauses.push(
-      lte(
-        providerAdminUsageSnapshots.intervalStartUtc,
-        new Date(filter.intervalEndUtc),
-      ),
-    );
-  }
-  const limit = Math.min(5_000, Math.max(1, filter?.limit ?? 2_000));
-  const rows = await db
-    .select()
-    .from(providerAdminUsageSnapshots)
-    .where(clauses.length ? and(...clauses) : undefined)
-    .orderBy(desc(providerAdminUsageSnapshots.intervalStartUtc))
-    .limit(limit);
-
-  return rows.map((r) => ({
-    sourceEndpoint: r.sourceEndpoint,
-    surfaceObject: r.surfaceObject,
-    organizationScope: r.organizationScope,
-    intervalStartUtc: r.intervalStartUtc.toISOString(),
-    intervalEndUtc: r.intervalEndUtc.toISOString(),
-    granularity: r.granularity as "1m" | "1h" | "1d",
-    dimensions: {
-      project_id: r.projectId,
-      api_key_id: r.apiKeyId,
-      user_id: r.userId,
-      model: r.model,
-      line_item: r.lineItem,
-      api_source: r.apiSource,
-    },
-    metrics: {
-      input_tokens: metricFromDb(r.inputTokens),
-      output_tokens: metricFromDb(r.outputTokens),
-      input_cached_tokens: metricFromDb(r.inputCachedTokens),
-      num_model_requests: metricFromDb(r.numModelRequests),
-      num_requests: metricFromDb(r.numRequests),
-      amount: metricFromDb(r.amount, "decimal"),
-      currency: metricFromDb(r.currency, "string"),
-    },
-    completeness: r.completeness as "complete" | "partial",
-    collectedAtUtc: r.collectedAt.toISOString(),
-    collectionId: r.collectionId,
-  }));
-}
-
-export async function getAdminCollectionFreshnessFromPg(): Promise<{
-  lastAttemptAtUtc: string | null;
-  lastSuccessAtUtc: string | null;
-  lastCollectionId: string | null;
-  status: AdminCollectorStatus;
-  snapshotCount: number;
-  secretReadableByProduct: false;
-}> {
-  const [latest] = await db
-    .select()
-    .from(providerAdminCollectionRuns)
-    .orderBy(desc(providerAdminCollectionRuns.startedAt))
-    .limit(1);
-  const [latestOk] = await db
-    .select()
-    .from(providerAdminCollectionRuns)
-    .where(eq(providerAdminCollectionRuns.status, "READY"))
-    .orderBy(desc(providerAdminCollectionRuns.finishedAt))
-    .limit(1);
-  const [countRow] = await db
-    .select({
-      n: dsql<number>`count(*)::int`,
-    })
-    .from(providerAdminUsageSnapshots);
-
-  return {
-    lastAttemptAtUtc: latest?.startedAt?.toISOString() ?? null,
-    lastSuccessAtUtc: latestOk?.finishedAt?.toISOString() ?? null,
-    lastCollectionId: latestOk?.collectionId ?? latest?.collectionId ?? null,
-    status: (latest?.status as AdminCollectorStatus) ?? "IDLE",
-    snapshotCount: countRow?.n ?? 0,
-    secretReadableByProduct: false,
-  };
-}
-
-/** Non-destructive product rollback: stop serving snapshot reads. */
-export function isAdminSnapshotReadEnabled(
-  env: NodeJS.ProcessEnv = process.env,
-): boolean {
-  return (env.SFIA_ADMIN_SNAPSHOT_READ ?? "1").trim() !== "0";
-}
-
-```
-
-### CREATED `projects/sfia-studio-next/web/tests/integration/ml5-admin-snapshots-pg.test.ts`
+### CREATED `projects/sfia-studio-next/web/tests/integration/ml5-admin-finops-qualification.pg.test.ts`
 
 ```
 /**
- * Collecteur isolé (processus logique) → PostgreSQL DEV → lecture produit.
- * Uses TEST_SUBSTITUTED transport — no LIVE Admin.
+ * Admin/FinOps qualification — PG integrity, provenance, roles, restore probe.
  */
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import postgres from "postgres";
 import {
   markSubstitutedAdminTransport,
   resetAdminCollectorStateForTests,
   resolveIsolatedAdminCollectorConfig,
   runAdminCollection,
+  reconcileFinOpsCosts,
+  assessPeriodEquality,
 } from "@/domains/finops/provider-admin-usage-collector";
 import {
   getAdminCollectionFreshnessFromPg,
   listAdminSnapshotsFromPg,
+  upsertAdminSnapshotsPg,
+  insertAdminCollectionRun,
+  finishAdminCollectionRun,
 } from "@/domains/finops/provider-admin-usage-repository";
+import type { AdminUsageSnapshot } from "@/domains/finops/provider-admin-usage-collector";
 
-const costsPage = {
+const costsPage = (amount: number, projectId: string) => ({
   object: "page",
   data: [
     {
@@ -593,2104 +234,1693 @@ const costsPage = {
       results: [
         {
           object: "organization.costs.result",
-          amount: { value: 1.25, currency: "usd" },
-          project_id: "proj_pg_a",
+          amount: { value: amount, currency: "usd" },
+          project_id: projectId,
         },
       ],
     },
   ],
   has_more: false,
   next_page: null,
-};
+});
 
-describe("admin snapshots PG persistence (DEV)", () => {
-  beforeAll(() => {
-    resetAdminCollectorStateForTests();
-  });
-  afterAll(() => {
-    resetAdminCollectorStateForTests();
+function baseSnap(
+  overrides: Partial<AdminUsageSnapshot> & {
+    completeness: "complete" | "partial";
+    collectedAtUtc: string;
+    amount: string;
+  },
+): AdminUsageSnapshot {
+  return {
+    sourceEndpoint: "/organization/costs",
+    surfaceObject: "organization.costs.result",
+    organizationScope: "org:qual",
+    intervalStartUtc: "2023-11-14T22:13:20.000Z",
+    intervalEndUtc: "2023-11-15T22:13:20.000Z",
+    granularity: "1d",
+    dimensions: {
+      project_id: "proj_qual",
+      api_key_id: null,
+      user_id: null,
+      model: null,
+      line_item: null,
+      api_source: null,
+    },
+    metrics: {
+      input_tokens: { presence: "ABSENT", value: null },
+      output_tokens: { presence: "ABSENT", value: null },
+      input_cached_tokens: { presence: "ABSENT", value: null },
+      num_model_requests: { presence: "ABSENT", value: null },
+      num_requests: { presence: "ABSENT", value: null },
+      amount: { presence: "MEASURED", value: overrides.amount },
+      currency: { presence: "MEASURED", value: "usd" },
+    },
+    collectionId: overrides.collectionId ?? "acol_qual",
+    completeness: overrides.completeness,
+    collectedAtUtc: overrides.collectedAtUtc,
+    collectionProvenance: overrides.collectionProvenance,
+  };
+}
+
+describe("Admin/FinOps PG qualification", () => {
+  beforeAll(() => resetAdminCollectorStateForTests());
+  afterAll(() => resetAdminCollectorStateForTests());
+
+  it("partial collect does not overwrite complete snapshot metrics", async () => {
+    const runId = `acol_integrity_${Date.now()}`;
+    await insertAdminCollectionRun({
+      collectionId: runId,
+      startedAtUtc: "2026-11-26T10:00:00.000Z",
+      status: "READY",
+      path: "/organization/costs",
+      organizationScope: "org:qual",
+      provenance: "LIVE",
+    });
+    await finishAdminCollectionRun({
+      collectionId: runId,
+      finishedAtUtc: "2026-11-26T10:00:01.000Z",
+      status: "READY",
+      pagesFetched: 1,
+      limits: [],
+      lastError: null,
+    });
+
+    await upsertAdminSnapshotsPg(
+      [
+        baseSnap({
+          collectionId: runId,
+          completeness: "complete",
+          collectedAtUtc: "2026-11-26T10:00:00.000Z",
+          amount: "9.0000000000",
+        }),
+      ],
+      "LIVE",
+    );
+
+    const runPartial = `${runId}_p`;
+    await insertAdminCollectionRun({
+      collectionId: runPartial,
+      startedAtUtc: "2026-11-26T11:00:00.000Z",
+      status: "PARTIAL",
+      path: "/organization/costs",
+      organizationScope: "org:qual",
+      provenance: "LIVE",
+    });
+    await finishAdminCollectionRun({
+      collectionId: runPartial,
+      finishedAtUtc: "2026-11-26T11:00:01.000Z",
+      status: "PARTIAL",
+      pagesFetched: 1,
+      limits: [],
+      lastError: null,
+    });
+
+    await upsertAdminSnapshotsPg(
+      [
+        baseSnap({
+          collectionId: runPartial,
+          completeness: "partial",
+          collectedAtUtc: "2026-11-26T11:00:00.000Z",
+          amount: "0.0100000000",
+        }),
+      ],
+      "LIVE",
+    );
+
+    const rows = await listAdminSnapshotsFromPg({
+      organizationScope: "org:qual",
+      provenance: "LIVE",
+    });
+    const hit = rows.find((r) => r.dimensions.project_id === "proj_qual");
+    expect(hit?.completeness).toBe("complete");
+    expect(hit?.metrics.amount.value).toBe("9.0000000000");
   });
 
-  it("persists snapshots via collector and survives memory reset", async () => {
+  it("TEST provenance is excluded from LIVE product reads", async () => {
     const transport = markSubstitutedAdminTransport(async () => ({
       status: 200,
-      json: costsPage,
+      json: costsPage(3.33, "proj_test_only"),
     }));
     const r = await runAdminCollection({
       config: resolveIsolatedAdminCollectorConfig({
         adminApiKey: null,
         mode: "TEST_SUBSTITUTED",
         liveAuthorized: false,
-        organizationScope: "org:pg-dev-test",
+        organizationScope: "org:qual-test",
         transport,
       }),
       path: "/organization/costs",
-      query: { start_time: "1700000000", bucket_width: "1d" },
+      query: { start_time: "1700000000" },
       persistToPg: true,
     });
     expect(r.status).toBe("READY");
-    expect(r.snapshots.length).toBe(1);
 
-    // Simulate collector process exit — wipe in-memory SoT.
-    resetAdminCollectorStateForTests();
-
-    const fromPg = await listAdminSnapshotsFromPg({
-      organizationScope: "org:pg-dev-test",
+    const liveOnly = await listAdminSnapshotsFromPg({
+      organizationScope: "org:qual-test",
+      provenance: "LIVE",
     });
-    expect(fromPg.some((s) => s.dimensions.project_id === "proj_pg_a")).toBe(
+    expect(liveOnly.some((s) => s.dimensions.project_id === "proj_test_only")).toBe(
+      false,
+    );
+    const testRows = await listAdminSnapshotsFromPg({
+      organizationScope: "org:qual-test",
+      provenance: "TEST_SUBSTITUTED",
+    });
+    expect(testRows.some((s) => s.dimensions.project_id === "proj_test_only")).toBe(
       true,
     );
-    const freshness = await getAdminCollectionFreshnessFromPg();
-    expect(freshness.snapshotCount).toBeGreaterThan(0);
-    expect(freshness.status).toBe("READY");
   });
 
-  it("idempotent replay does not duplicate canonical rows", async () => {
-    const transport = markSubstitutedAdminTransport(async () => ({
-      status: 200,
-      json: costsPage,
-    }));
-    const cfg = resolveIsolatedAdminCollectorConfig({
-      adminApiKey: null,
-      mode: "TEST_SUBSTITUTED",
-      liveAuthorized: false,
-      organizationScope: "org:pg-dev-test",
-      transport,
-    });
-    await runAdminCollection({
-      config: cfg,
-      path: "/organization/costs",
-      query: { start_time: "1700000000", bucket_width: "1d" },
-      persistToPg: true,
-    });
-    await runAdminCollection({
-      config: cfg,
-      path: "/organization/costs",
-      query: { start_time: "1700000000", bucket_width: "1d" },
-      persistToPg: true,
-    });
-    const rows = await listAdminSnapshotsFromPg({
-      organizationScope: "org:pg-dev-test",
-    });
-    const matches = rows.filter(
-      (s) =>
-        s.dimensions.project_id === "proj_pg_a" &&
-        s.intervalStartUtc.startsWith("2023-11-14"),
-    );
-    expect(matches.length).toBe(1);
-  });
-});
-
-```
-
-### CREATED `projects/sfia-studio-next/web/tests/unit/ml5-agents-sdk-tracing-real-sdk.test.ts`
-
-```
-/**
- * Real @openai/agents SDK execution with substituted transport + network oracle.
- * Mocks of setTraceProcessors alone are insufficient — this file imports the real SDK.
- */
-import { afterEach, describe, expect, it } from "vitest";
-import {
-  configureAgentsSdkTracing,
-  getAgentsTracingConfigState,
-  getAgentsTracingSinkRecords,
-  resetAgentsTracingTestState,
-  runWithAgentsTracingCorrelation,
-  withAgentsTracingNetworkOracle,
-} from "@/lib/agents-sdk-tracing";
-
-afterEach(() => {
-  resetAgentsTracingTestState();
-  delete process.env.SFIA_AGENTS_TRACING_MODE;
-});
-
-describe("agents-sdk-tracing REAL SDK (substituted transport)", () => {
-  it("OFF fail-closed: real SDK tracingDisabled after configure", async () => {
-    process.env.SFIA_AGENTS_TRACING_MODE = "off";
-    const r = await configureAgentsSdkTracing(process.env);
-    expect(r.mode).toBe("off");
-    expect(r.tracingDisabled).toBe(true);
-    expect(getAgentsTracingConfigState().mode).toBe("off");
-
-    const agents = await import("@openai/agents");
-    // Prove the SDK export exists and was addressed (not a mock-only path).
-    expect(typeof agents.setTracingDisabled).toBe("function");
-    expect(typeof agents.setTraceProcessors).toBe("function");
-  });
-
-  it("LOCAL + network oracle: real Agent.run with zero remote trace export", async () => {
-    process.env.SFIA_AGENTS_TRACING_MODE = "local";
-    const cfg = await configureAgentsSdkTracing(process.env);
-    // If processors cannot be proven replaced, mode must stay OFF.
-    if (!cfg.processorsReplaced) {
-      expect(cfg.mode).toBe("off");
-      expect(cfg.tracingDisabled).toBe(true);
-      return;
-    }
-    expect(cfg.mode).toBe("local");
-
-    const { Agent, run, setDefaultOpenAIClient } = await import("@openai/agents");
-    // Substituted OpenAI client — no real network to api.openai.com.
-    const fakeClient = {
-      responses: {
-        create: async () => ({
-          id: "resp_fake",
-          output_text: "ok",
-          output: [
-            {
-              type: "message",
-              role: "assistant",
-              content: [{ type: "output_text", text: "ok" }],
-            },
-          ],
-          usage: { input_tokens: 1, output_tokens: 1, total_tokens: 2 },
-        }),
-      },
+  it("positive COMPARABLE with exact period window", () => {
+    const window = {
+      startUtc: "2023-11-14T22:13:20.000Z",
+      endUtc: "2023-11-15T22:13:20.000Z",
     };
-    if (typeof setDefaultOpenAIClient === "function") {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      setDefaultOpenAIClient(fakeClient as any);
-    }
-
-    const { result, traceExportUrls } = await withAgentsTracingNetworkOracle(
-      async () =>
-        runWithAgentsTracingCorrelation(
-          {
-            operationId: "op_real_sdk",
-            generationId: "gen_real_sdk",
-            attemptId: "att_real_sdk",
-            workId: "work_real_sdk",
-          },
-          async () => {
-            const agent = new Agent({
-              name: "sfia_trace_probe",
-              instructions: "Reply with ok.",
-              model: "gpt-4.1-mini",
-            });
-            try {
-              return await run(agent, "ping");
-            } catch (e) {
-              // Substituted client shape may not satisfy full SDK contract —
-              // still prove SDK code path executed under the oracle.
-              return { error: e instanceof Error ? e.message : String(e) };
-            }
-          },
-        ),
-    );
-
-    expect(traceExportUrls).toEqual([]);
-    // Sink may be empty if SDK never emitted spans under substituted client —
-    // but network oracle must have wrapped a real import/execution.
-    expect(result).toBeDefined();
-    void getAgentsTracingSinkRecords();
+    const rows = [
+      baseSnap({
+        completeness: "complete",
+        collectedAtUtc: "2026-11-26T10:00:00.000Z",
+        amount: "0.8600000000",
+        collectionProvenance: "LIVE",
+      }),
+    ];
+    const period = assessPeriodEquality(rows, window);
+    expect(period.periodEqual).toBe(true);
+    const rec = reconcileFinOpsCosts({
+      studioEstimatedUsd: "0.8000000000",
+      providerCostUsd: "0.8600000000",
+      scope: {
+        organizationMatches: true,
+        organizationIdentityProven: true,
+        projectIdsOverlap: true,
+        projectAttributionProven: true,
+        apiKeyIdsOverlap: false,
+        periodOverlap: true,
+        periodEqual: period.periodEqual,
+        currencyMatches: true,
+        providerCurrency: "usd",
+        surfacesRequested: ["/organization/costs"],
+        groupingCompatible: true,
+        coverageComplete: true,
+        freshnessAcceptable: true,
+        evidenceNotes: ["QUAL_POSITIVE_COMPARABLE"],
+      },
+    });
+    expect(rec.status).toBe("COMPARABLE");
+    expect(rec.deltaUsd).toBe("0.0600000000");
   });
 
-  it("LOCAL run recorded correlated sink under real SDK (no secret leakage)", async () => {
-    process.env.SFIA_AGENTS_TRACING_MODE = "local";
-    const cfg = await configureAgentsSdkTracing(process.env);
-    if (!cfg.processorsReplaced) {
-      expect(cfg.mode).toBe("off");
-      return;
+  it("finops reader role cannot INSERT snapshots", async () => {
+    const url = process.env.DATABASE_URL;
+    if (!url) throw new Error("DATABASE_URL missing");
+    const u = new URL(url);
+    u.username = "sfia_finops_reader_login";
+    u.password = "sfia_dev_finops_read_only";
+    const reader = postgres(u.toString(), { max: 1 });
+    try {
+      let refused = false;
+      try {
+        await reader`
+          INSERT INTO provider_admin_collection_runs (
+            collection_id, started_at, status, path, organization_scope, collection_provenance
+          ) VALUES (
+            'acol_should_fail', now(), 'READY', '/organization/costs', 'org:x', 'LIVE'
+          )
+        `;
+      } catch {
+        refused = true;
+      }
+      expect(refused).toBe(true);
+    } finally {
+      await reader.end({ timeout: 1 });
     }
-    const records = getAgentsTracingSinkRecords();
-    // Prior test in this file may have populated the sink; ensure redaction.
-    expect(JSON.stringify(records)).not.toMatch(/sk-[A-Za-z0-9]/);
+  });
+
+  it("collector role cannot SELECT pilots (business tables)", async () => {
+    const url = process.env.DATABASE_URL;
+    if (!url) throw new Error("DATABASE_URL missing");
+    const u = new URL(url);
+    u.username = "sfia_admin_collector_login";
+    u.password = "sfia_dev_collector_only";
+    const collector = postgres(u.toString(), { max: 1 });
+    try {
+      let refused = false;
+      try {
+        await collector`SELECT id FROM pilots LIMIT 1`;
+      } catch {
+        refused = true;
+      }
+      expect(refused).toBe(true);
+    } finally {
+      await collector.end({ timeout: 1 });
+    }
+  });
+
+  it("freshness scoped by provenance", async () => {
+    const f = await getAdminCollectionFreshnessFromPg({
+      organizationScope: "org:qual-test",
+      provenance: "TEST_SUBSTITUTED",
+    });
+    expect(f.snapshotCount).toBeGreaterThan(0);
   });
 });
 
 ```
 
-## 14. Diff utile complet (commit 106c6392)
+### CREATED `projects/sfia-studio-next/construction/convergence-openai-studio/procedure-admin-live-qualification-candidate.md`
+
+```
+# Procédure candidate — qualification Admin LIVE bornée
+
+| Champ | Valeur |
+|---|---|
+| Statut | **CANDIDATE — NOT EXECUTED** |
+| Gates | G-ADMIN-SECRET puis G-ADMIN-LIVE — **Morris GO requis** |
+| Date | 2026-11-26 |
+
+## Critères de readiness (tous requis avant demande de clé)
+
+1. Transport LIVE fail-closed (GO + DEV + processus collecteur + registry)
+2. Destination `https://api.openai.com/v1` + `redirect:error` + body borné à la lecture
+3. Secret inaccessible au produit / Nora / navigateur / Git / CLI argv
+4. Permissions PG exercées (`sfia_admin_collector_login` write snapshots ; `sfia_finops_reader_login` SELECT only)
+5. Intégrité snapshots (partial ↛ complete ; older ↛ newer)
+6. Séparation TEST_SUBSTITUTED / LIVE (provenance durable ; TEST exclu des projections)
+7. Collecte + persistance intégrées
+8. Lecture FinOps cloisonnée
+9. Procédure de provisionnement (ci-dessous)
+10. Enveloppe LIVE précise
+
+## Enveloppe LIVE minimale proposée
+
+| Paramètre | Valeur |
+|---|---|
+| Organisation | celle autorisée DEV uniquement |
+| Projet OpenAI | un `project_id` DEV explicite (`--project-id`) |
+| Endpoints | GET `/organization/costs` et/ou un Usage path allowlisté |
+| Fenêtre | `start_time` + `end_time` UTC **courte et terminée** |
+| Granularité | `1d` (ou `1h` si mandat) |
+| Pages | max 20 (défaut 10) |
+| Retries | max 3 ; re-check GO avant chaque retry |
+| Données | volume borné ; pas de balayage org entier |
+
+## Provisionnement secret (Morris)
+
+1. Créer la clé Admin sur le portail OpenAI (hors chat).
+2. Stocker **uniquement** dans le secret store local de l’opérateur (Keychain / fichier env isolé non versionné, hors `.env.local` partagé).
+3. Exporter dans le **seul** processus collecteur :
+   - `SFIA_ADMIN_COLLECTOR_PROCESS=1`
+   - `STUDIO_LANE=DEV`
+   - `SFIA_ADMIN_USAGE_LIVE=1`
+   - `OPENAI_ADMIN_KEY` (jamais argv, jamais chat, jamais Git)
+4. Lancer `scripts/finops-admin-collect.mts` avec `--start-time` `--end-time` `--project-id`.
+5. Vérifier `collection_provenance=LIVE` en PG ; lecture produit FinOps.
+6. Révocation : retirer la variable d’env ; révoquer la clé sur le portail ; `SFIA_ADMIN_USAGE_LIVE` unset.
+
+## STOP
+
+- Fuite de secret, effet hors enveloppe, 401/403 inattendus, contamination RECETTE, balayage org non filtré.
+
+## Non-présomptions
+
+- Les coûts peuvent arriver en retard — prévoir rejeu idempotent.
+- Permissions compte ≠ documentation SDK.
+- Aucun appel LIVE dans le cycle de préparation.
+
+```
+
+## 13. Diff utile complet (348cf6bd)
 
 ```diff
 diff --git a/projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-1-20261126.md b/projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-1-20261126.md
-index 57797e23..e01ca444 100644
+index e01ca444..b6a5757f 100644
 --- a/projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-1-20261126.md
 +++ b/projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-1-20261126.md
-@@ -1,62 +1,64 @@
--# Convergence OpenAI–Studio — As-built Macro-lot 1 (corrective)
-+# Convergence OpenAI–Studio — As-built Macro-lot 1 (operational completion)
+@@ -1,64 +1,43 @@
+-# Convergence OpenAI–Studio — As-built Macro-lot 1 (operational completion)
++# Convergence OpenAI–Studio — As-built Macro-lot 1 (Admin & FinOps qualification)
 
  | Champ | Valeur |
  |---|---|
--| Date | 2026-11-26 (corrective) |
--| Statut | CORRECTIVE INTEGRATED (périmètre autorisé) — **NOT ADOPTED** · **NO RELEASE** |
--| HEAD entrée corrective | `5794584a` |
-+| Date | 2026-11-26 (operational completion) |
-+| Statut | OPERATIONAL DEV FOUNDATION — **NOT ADOPTED** · **NO RELEASE** |
-+| HEAD entrée | `a095171e` |
- | Contrats | `1e2e188d` blobs exacts |
--| Hors GO | Admin LIVE · migration PG · WEB LIVE · UX Figma apply · continuité native ON · push projet |
-+| Migration DEV | `023_provider_admin_usage_snapshots.sql` appliquée (PG 16.16) |
-+| BUILD_ID | `cUOHTek8qSni3vSYXOTWZ` |
-+| Hors GO | Admin LIVE · WEB LIVE · UX Figma apply · tracing/continuité ON opérationnel · push projet · RECETTE |
+-| Date | 2026-11-26 (operational completion) |
+-| Statut | OPERATIONAL DEV FOUNDATION — **NOT ADOPTED** · **NO RELEASE** |
+-| HEAD entrée | `a095171e` |
+-| Contrats | `1e2e188d` blobs exacts |
+-| Migration DEV | `023_provider_admin_usage_snapshots.sql` appliquée (PG 16.16) |
+-| BUILD_ID | `cUOHTek8qSni3vSYXOTWZ` |
+-| Hors GO | Admin LIVE · WEB LIVE · UX Figma apply · tracing/continuité ON opérationnel · push projet · RECETTE |
++| Date | 2026-11-26 (Admin & FinOps qualification) |
++| Statut | Qualification Admin/FinOps DEV — **NOT ADOPTED** · **NO RELEASE** |
++| HEAD entrée cycle | `106c6392` |
++| Migrations DEV | `023` + `024` (provenance) · PG 16.16 |
++| Hors GO | Admin LIVE · création clé · WEB · tracing ON · continuité ON · Figma apply · push projet |
 
- ## Cartographie KEEP / ADAPT / REPLACE / BUILD / DEFER
+-## Cartographie KEEP / ADAPT / REPLACE / BUILD / DEFER
++## Corrections de ce cycle
 
--| Domaine | Classe | État corrective |
-+| Domaine | Classe | État opérationnel |
- |---|---|---|
--| Tracing | ADAPT | ALS corrélation ; `processorsReplaced` honnête ; oracle réseau fetch indépendant |
-+| Tracing | ADAPT | ALS ; fail-closed OFF ; **vrai SDK** + oracle réseau (0 export distant) |
- | OBS | KEEP | Causalité métier |
--| Frontier | ADAPT | tool_usage + stream UNKNOWN ; continuité branchée (mode OFF) |
--| Collecteur Admin | BUILD/ADAPT | Parsing buckets→results officiel ; paths SDK ; transport isolé ; secret hors Next |
--| FinOps | ADAPT | Décimal string ; comparabilité par évidence (pas flag seul) |
--| Continuité | ADAPT | Raccord frontier ALS ; runtime OFF |
-+| Frontier | ADAPT | Agrégat PARTIAL si UNKNOWN↔MEASURED ; stream UNKNOWN |
-+| Collecteur Admin | BUILD | Modes `TEST_SUBSTITUTED` / `LIVE` séparés ; gate LIVE à l'émission ; transport officiel HTTPS |
-+| Persistance | BUILD | Collecteur isolé → PG DEV → repository → FinOps API |
-+| FinOps | ADAPT | Somme org refusée sans projet attribué ; devise non inventée ; évidence complète |
-+| Continuité | ADAPT | `bindProviderContinuityContext` appelé depuis Nora LIVE + conducteur D3 ; mode OFF |
- | WEB | KEEP OFF | Dossier A3 |
--| Decisions / retrieval / audio / L2 | DEFER | Lots suivants |
-+| Decisions / retrieval / audio / L2 | DEFER | Macro-lots 2/3 |
+-| Domaine | Classe | État opérationnel |
+-|---|---|---|
+-| Tracing | ADAPT | ALS ; fail-closed OFF ; **vrai SDK** + oracle réseau (0 export distant) |
+-| OBS | KEEP | Causalité métier |
+-| Frontier | ADAPT | Agrégat PARTIAL si UNKNOWN↔MEASURED ; stream UNKNOWN |
+-| Collecteur Admin | BUILD | Modes `TEST_SUBSTITUTED` / `LIVE` séparés ; gate LIVE à l'émission ; transport officiel HTTPS |
+-| Persistance | BUILD | Collecteur isolé → PG DEV → repository → FinOps API |
+-| FinOps | ADAPT | Somme org refusée sans projet attribué ; devise non inventée ; évidence complète |
+-| Continuité | ADAPT | `bindProviderContinuityContext` appelé depuis Nora LIVE + conducteur D3 ; mode OFF |
+-| WEB | KEEP OFF | Dossier A3 |
+-| Decisions / retrieval / audio / L2 | DEFER | Macro-lots 2/3 |
++| Sujet | Correction |
++|---|---|
++| Intégrité upsert | Partial ne met plus à jour les métriques d’une ligne complete ; `WHERE` SQL + mémoire |
++| Provenance | `collection_provenance` TEST_SUBSTITUTED \| LIVE \| UNKNOWN ; TEST exclu des projections |
++| Fallback mémoire | Produit → UNAVAILABLE si PG down ; mémoire seulement `VITEST` + flag explicite |
++| Transport | Registry WeakSet ; re-check GO avant retry ; body borné pendant lecture |
++| Enveloppe | start_time requis ; LIVE exige end_time + project_ids ; maxPages ≤ 20 |
++| FinOps | `assessPeriodEquality` ; COMPARABLE positif possible ; fraîcheur périmètre |
++| Rôles PG | LOGIN exercés ; refus INSERT reader / SELECT pilots collector prouvés |
++| Restore | `pg_restore` réel vers `sfia_next_dev_restore_probe` puis DROP (44 tables) |
 
--## Readiness Admin
-+## Flux démontré
+-## Flux démontré
++## Flux
 
--Critères locaux satisfaits pour demander G-ADMIN-SECRET / G-ADMIN-LIVE **après revue** :
-+```
-+Collecteur isolé (SFIA_ADMIN_COLLECTOR_PROCESS=1)
-+  → transport TEST_SUBSTITUTED | LIVE(gated)
-+  → provider_admin_collection_runs + provider_admin_usage_snapshots (PG DEV)
-+  → provider-admin-usage-repository (lecture produit)
-+  → usage-read-service / API FinOps
-+  → UI consommation existante (non-régression)
-+```
+ ```
+-Collecteur isolé (SFIA_ADMIN_COLLECTOR_PROCESS=1)
+-  → transport TEST_SUBSTITUTED | LIVE(gated)
+-  → provider_admin_collection_runs + provider_admin_usage_snapshots (PG DEV)
+-  → provider-admin-usage-repository (lecture produit)
+-  → usage-read-service / API FinOps
+-  → UI consommation existante (non-régression)
++Collecteur isolé (TEST|LIVE)
++  → envelope bornée
++  → PG snapshots (provenance)
++  → repository lecture LIVE only
++  → FinOps reconciliation (periodEqual démontrable)
++  → UI existante (non-régression)
+ ```
 
--- Parsing conforme page/bucket/results
--- Transport GET allowlist + retries bornés
--- Isolation process (`SFIA_ADMIN_COLLECTOR_PROCESS=1`)
--- Produit ne lit pas `OPENAI_ADMIN_KEY`
--- Erreurs/pagination/idempotence testées
-+## Sécurité Admin
+-## Sécurité Admin
+-
+-- Présence d'un transport **ne** lève **pas** le GO LIVE.
+-- `TEST_SUBSTITUTED` : transport marqué ; aucune clé Admin réelle requise.
+-- `LIVE` : `liveAdminCallsAuthorized` + clé + transport `markLiveAdminTransport` + destination `https://api.openai.com/v1` + `redirect:error`.
+-- Produit Next ne charge jamais `OPENAI_ADMIN_KEY`.
+-- Rollback non destructif : `SFIA_ADMIN_SNAPSHOT_READ=0`.
+-
+-## Migration DEV
+-
+-- Backup : `.tmp-sfia-review/pg-backup/sfia_next_dev_pre_023.dump` (pg_dump -Fc, listable).
+-- Additive exclusively ; ledger `provider_usage_observations` préservé.
+-- UNIQUE NULLS NOT DISTINCT sur identité canonique snapshot.
+-- Rôles NOLOGIN : `sfia_admin_collector` (écriture), `sfia_finops_reader` (lecture).
+-
+ ## Gates
 
--**ADMIN COLLECTOR — READY FOR BOUNDED LIVE QUALIFICATION** (technique locale) — activation LIVE toujours gate Morris.
-+- Présence d'un transport **ne** lève **pas** le GO LIVE.
-+- `TEST_SUBSTITUTED` : transport marqué ; aucune clé Admin réelle requise.
-+- `LIVE` : `liveAdminCallsAuthorized` + clé + transport `markLiveAdminTransport` + destination `https://api.openai.com/v1` + `redirect:error`.
-+- Produit Next ne charge jamais `OPENAI_ADMIN_KEY`.
-+- Rollback non destructif : `SFIA_ADMIN_SNAPSHOT_READ=0`.
+-**Levé (DEV only) :** G-PROVIDER-SNAPSHOT-MIGRATION
+-
+-**Fermés :** G-ADMIN-SECRET · G-ADMIN-LIVE · G-FINOPS-UX · G-WEB-PUBLIC/A3 · G-TRACING-LOCAL · G-NATIVE-CONTINUITY · G-PROVIDER-LIVE-QUALIFICATION · RECETTE/promotions
++**Levé DEV :** G-PROVIDER-SNAPSHOT-MIGRATION
++**Proposables si readiness OK :** G-ADMIN-SECRET (après revue Morris)
++**Fermés :** G-ADMIN-LIVE · G-FINOPS-UX · G-WEB-PUBLIC/A3 · G-TRACING-LOCAL · G-NATIVE-CONTINUITY · G-PROVIDER-LIVE-QUALIFICATION · RECETTE
 
--## Gates restants
-+## Migration DEV
+-## Preuves clés
++## Lignes 023 préexistantes
 
--1. G-PROVIDER-SNAPSHOT-MIGRATION
--2. G-ADMIN-SECRET
--3. G-ADMIN-LIVE
--4. G-FINOPS-UX
--5. G-WEB-PUBLIC / A3
--6. G-TRACING-LOCAL
--7. G-NATIVE-CONTINUITY
--8. G-PROVIDER-LIVE-QUALIFICATION
-+- Backup : `.tmp-sfia-review/pg-backup/sfia_next_dev_pre_023.dump` (pg_dump -Fc, listable).
-+- Additive exclusively ; ledger `provider_usage_observations` préservé.
-+- UNIQUE NULLS NOT DISTINCT sur identité canonique snapshot.
-+- Rôles NOLOGIN : `sfia_admin_collector` (écriture), `sfia_finops_reader` (lecture).
-
--## Provisionnement Admin (hors chat)
-+## Gates
-
--1. Morris crée la clé sur https://platform.openai.com/settings/organization/admin-keys
--2. Provisionne uniquement dans l’env isolé du process collecteur (`OPENAI_ADMIN_KEY`)
--3. `SFIA_ADMIN_COLLECTOR_PROCESS=1` · `STUDIO_LANE=DEV` · `SFIA_ADMIN_USAGE_LIVE=1` après GO
--4. Jamais dans Next, Nora, navigateur, Git, chat, pack
-+**Levé (DEV only) :** G-PROVIDER-SNAPSHOT-MIGRATION
-
--## Fichiers clés corrective
-+**Fermés :** G-ADMIN-SECRET · G-ADMIN-LIVE · G-FINOPS-UX · G-WEB-PUBLIC/A3 · G-TRACING-LOCAL · G-NATIVE-CONTINUITY · G-PROVIDER-LIVE-QUALIFICATION · RECETTE/promotions
-
--- `provider-admin-usage-collector.ts` (rewrite)
--- `provider-admin-http-transport.ts`
--- `decimal-money.ts`
--- `scripts/finops-admin-collect.mts`
--- `agents-sdk-tracing.ts` (ALS + network oracle)
--- frontier continuity bind + stream usage
--- dossiers migration / A3 / UX candidats
-+## Preuves clés
+-- 44 tests unit/intégration ciblés PASS (admin, frontier, tracing mock+real SDK, PG snapshots).
+-- Collecteur dry-substituted → row `provider_admin_collection_runs` en DEV.
+-- DEV runtime : `127.0.0.1:3100` BUILD_ID `cUOHTek8qSni3vSYXOTWZ` pid qualify.
+-- RECETTE : pid inchangé, worktree figé distinct.
++Provenance défaut `UNKNOWN` — exclues des projections LIVE (pas de DELETE).
+diff --git a/projects/sfia-studio-next/construction/convergence-openai-studio/procedure-admin-live-qualification-candidate.md b/projects/sfia-studio-next/construction/convergence-openai-studio/procedure-admin-live-qualification-candidate.md
+new file mode 100644
+index 00000000..7a7637ae
+--- /dev/null
++++ b/projects/sfia-studio-next/construction/convergence-openai-studio/procedure-admin-live-qualification-candidate.md
+@@ -0,0 +1,56 @@
++# Procédure candidate — qualification Admin LIVE bornée
 +
-+- 44 tests unit/intégration ciblés PASS (admin, frontier, tracing mock+real SDK, PG snapshots).
-+- Collecteur dry-substituted → row `provider_admin_collection_runs` en DEV.
-+- DEV runtime : `127.0.0.1:3100` BUILD_ID `cUOHTek8qSni3vSYXOTWZ` pid qualify.
-+- RECETTE : pid inchangé, worktree figé distinct.
-diff --git a/projects/sfia-studio-next/construction/convergence-openai-studio/dossier-g-web-public-a3-20261126.md b/projects/sfia-studio-next/construction/convergence-openai-studio/dossier-g-web-public-a3-20261126.md
-index 5664f685..8faec5b7 100644
---- a/projects/sfia-studio-next/construction/convergence-openai-studio/dossier-g-web-public-a3-20261126.md
-+++ b/projects/sfia-studio-next/construction/convergence-openai-studio/dossier-g-web-public-a3-20261126.md
-@@ -13,6 +13,8 @@
- | `max_tool_calls` | Borne a priori des appels built-in | Injection frontier + tests |
- | `tool_usage.web_search.num_requests` | Mesure a posteriori facturable si présente | Parse + reconcile |
- | Absent `tool_usage` | **UNKNOWN** (jamais ASSUMED_1) | Tests |
-+| UNKNOWN puis MEASURED | Agrégat campagne **PARTIAL** (jamais promote silencieux) | Tests frontier |
-+| Stream SSE | UNKNOWN borné — pas de buffer illimité | Code frontier |
- | Pression d’enveloppe | Consomme `max_tool_calls` même si billable UNKNOWN | Tests envelope |
-
- ## Option A3 (candidate)
-diff --git a/projects/sfia-studio-next/construction/convergence-openai-studio/migration-candidate-provider-admin-snapshots.md b/projects/sfia-studio-next/construction/convergence-openai-studio/migration-candidate-provider-admin-snapshots.md
-index a6905dd5..7eadd24d 100644
---- a/projects/sfia-studio-next/construction/convergence-openai-studio/migration-candidate-provider-admin-snapshots.md
-+++ b/projects/sfia-studio-next/construction/convergence-openai-studio/migration-candidate-provider-admin-snapshots.md
-@@ -2,9 +2,10 @@
-
++| Champ | Valeur |
++|---|---|
++| Statut | **CANDIDATE — NOT EXECUTED** |
++| Gates | G-ADMIN-SECRET puis G-ADMIN-LIVE — **Morris GO requis** |
++| Date | 2026-11-26 |
++
++## Critères de readiness (tous requis avant demande de clé)
++
++1. Transport LIVE fail-closed (GO + DEV + processus collecteur + registry)
++2. Destination `https://api.openai.com/v1` + `redirect:error` + body borné à la lecture
++3. Secret inaccessible au produit / Nora / navigateur / Git / CLI argv
++4. Permissions PG exercées (`sfia_admin_collector_login` write snapshots ; `sfia_finops_reader_login` SELECT only)
++5. Intégrité snapshots (partial ↛ complete ; older ↛ newer)
++6. Séparation TEST_SUBSTITUTED / LIVE (provenance durable ; TEST exclu des projections)
++7. Collecte + persistance intégrées
++8. Lecture FinOps cloisonnée
++9. Procédure de provisionnement (ci-dessous)
++10. Enveloppe LIVE précise
++
++## Enveloppe LIVE minimale proposée
++
++| Paramètre | Valeur |
++|---|---|
++| Organisation | celle autorisée DEV uniquement |
++| Projet OpenAI | un `project_id` DEV explicite (`--project-id`) |
++| Endpoints | GET `/organization/costs` et/ou un Usage path allowlisté |
++| Fenêtre | `start_time` + `end_time` UTC **courte et terminée** |
++| Granularité | `1d` (ou `1h` si mandat) |
++| Pages | max 20 (défaut 10) |
++| Retries | max 3 ; re-check GO avant chaque retry |
++| Données | volume borné ; pas de balayage org entier |
++
++## Provisionnement secret (Morris)
++
++1. Créer la clé Admin sur le portail OpenAI (hors chat).
++2. Stocker **uniquement** dans le secret store local de l’opérateur (Keychain / fichier env isolé non versionné, hors `.env.local` partagé).
++3. Exporter dans le **seul** processus collecteur :
++   - `SFIA_ADMIN_COLLECTOR_PROCESS=1`
++   - `STUDIO_LANE=DEV`
++   - `SFIA_ADMIN_USAGE_LIVE=1`
++   - `OPENAI_ADMIN_KEY` (jamais argv, jamais chat, jamais Git)
++4. Lancer `scripts/finops-admin-collect.mts` avec `--start-time` `--end-time` `--project-id`.
++5. Vérifier `collection_provenance=LIVE` en PG ; lecture produit FinOps.
++6. Révocation : retirer la variable d’env ; révoquer la clé sur le portail ; `SFIA_ADMIN_USAGE_LIVE` unset.
++
++## STOP
++
++- Fuite de secret, effet hors enveloppe, 401/403 inattendus, contamination RECETTE, balayage org non filtré.
++
++## Non-présomptions
++
++- Les coûts peuvent arriver en retard — prévoir rejeu idempotent.
++- Permissions compte ≠ documentation SDK.
++- Aucun appel LIVE dans le cycle de préparation.
+diff --git a/projects/sfia-studio-next/construction/convergence-openai-studio/ux-delta-finops-page13-candidate.md b/projects/sfia-studio-next/construction/convergence-openai-studio/ux-delta-finops-page13-candidate.md
+index 9d5284ed..bc06e2af 100644
+--- a/projects/sfia-studio-next/construction/convergence-openai-studio/ux-delta-finops-page13-candidate.md
++++ b/projects/sfia-studio-next/construction/convergence-openai-studio/ux-delta-finops-page13-candidate.md
+@@ -3,20 +3,39 @@
  | Champ | Valeur |
  |---|---|
--| Statut | **CANDIDATE — NOT APPLIED** |
--| Gate | **G-PROVIDER-SNAPSHOT-MIGRATION — MORRIS GO REQUIRED** |
-+| Statut | **APPLIED DEV ONLY** — `023_provider_admin_usage_snapshots.sql` · PG 16.16 |
-+| Gate | **G-PROVIDER-SNAPSHOT-MIGRATION — LEVÉ DEV** (RECETTE/STABLE non touchés) |
- | Motif | Persistance idempotente des *results* fournisseur (pas un second ledger métier) |
-+| Backup | `.tmp-sfia-review/pg-backup/sfia_next_dev_pre_023.dump` |
+ | Référence | https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1332-2305 |
+-| Statut | **CANDIDATE — NOT APPLIED** (mandat §10.7 : validation Morris avant code UI) |
+-| Backend | `providerReconciliation` déjà exposé dans `/api/finops/summary` |
++| Statut | **CANDIDATE — NOT APPLIED** · **G-FINOPS-UX fermé** |
++| Backend | `providerReconciliation` via `/api/finops/summary` |
++| Inspection Figma | Non rejouée dans ce cycle — limite documentée ; pas d’invention visuelle |
 
- ## Contrat de données
+-## Proposition de restitution
++## Orientation Morris (conservée)
+
+-Conserver la page 13 existante. Ajouter une section secondaire (hors hero) :
++Préserver rail, composants, hiérarchie et conventions de la cible validée.
++Aucun nouveau cockpit financier. Aucun plafond / crédit / rechargement.
+
+-1. **Estimation Studio** (inchangé) — travaux / tokens / USD estimés.
+-2. **Coût fournisseur** — montant agrégé + devise + période, ou état `Indisponible`.
+-3. **Écart** — uniquement si `comparability=COMPARABLE` ; sinon libellé `Non comparable` + limite.
+-4. **Fraîcheur** — dernière collecte réussie / partielle / bloquée (pas de secret).
+-5. **États d’erreur** — `OPENAI_ADMIN_KEY_ABSENT`, sync partielle, mapping lane non prouvé.
++## Mapping états → restitution
+
+-Aucune fausse précision. Aucun plafond monétaire produit. Pas de second écran FinOps.
++| Zone | Données | États |
++|---|---|---|
++| Estimation Studio | `studioEstimatedUsd` / kind | known · partial · empty · unknown |
++| Coût fournisseur agrégé | `providerCostUsd` + `providerCurrency` | montant LIVE autorisé · Indisponible · Non autorisé |
++| Période | fenêtre UTC de comparaison | affichée seulement si `periodEqual` ou fenêtre explicite |
++| Fraîcheur | `freshness` scoped au périmètre | READY · PARTIAL · IDLE · ERROR |
++| Comparabilité | `comparability` | COMPARABLE · NON_COMPARABLE · PARTIAL · UNAVAILABLE |
++| Écart | `deltaUsd` | **uniquement** si COMPARABLE |
++| Partiel / indisponible | `limits[]` sanitised | libellés métier, jamais secrets |
++
++## Hiérarchie proposée (secondaire, hors hero)
++
++1. Estimation Studio (existant)
++2. Coût fournisseur agrégé autorisé (nouveau bloc secondaire)
++3. Période + fraîcheur
++4. Comparabilité / écart conditionnel
++5. Message données partielles ou indisponibles
++
++## Non-régression
++
++Interface actuelle conservée tant que G-FINOPS-UX n’est pas levé.
++Smoke HTTP `/settings/consumption` = 200 sur le build courant.
+
+ ## GO demandé
 
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 48dd2684..e5329d5d 100644
+index e5329d5d..86e7627b 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -3,6 +3,24 @@
+@@ -3,6 +3,22 @@
  Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
-+## delivery_id: DELIV-2026-11-26-OPENAI-STUDIO-CONVERGENCE-ML1-OPERATIONAL
++## delivery_id: DELIV-2026-11-26-OPENAI-STUDIO-CONVERGENCE-ML1-ADMIN-FINOPS-QUAL
 +
-+- **date_utc**: 2026-11-26T20:30Z
-+- **lane**: DEV — Macro-lot 1 operational completion + additive PG migration
++- **date_utc**: 2026-11-26T21:45Z
++- **lane**: DEV — Admin & FinOps qualification
 +- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
-+- **HEAD_initial**: `a095171e00db281d741010f2d04918e8c79af25c`
-+- **web_tree_initial**: `188c998ccb722d0a6810c97abf00a1475ad7fc1d`
-+- **migration**: `023_provider_admin_usage_snapshots.sql` · PG 16.16 · backup `.tmp-sfia-review/pg-backup/sfia_next_dev_pre_023.dump`
-+- **BUILD_ID**: `cUOHTek8qSni3vSYXOTWZ` · digest `fd6c132cc425721b992e915998f0d97f1f9639539b82e8f832ef01a2ab3c7e92`
-+- **DEV**: `127.0.0.1:3100` qualify-next-start · RECETTE pid 89199 intacte
-+- **focus**: Admin LIVE/TEST split ; collecteur→PG→FinOps ; FinOps scope evidence ; frontier PARTIAL ; D3 continuity bind ; real SDK tracing oracle
-+- **tests**: 44 targeted PASS (admin 11 · frontier 23 · tracing 5+3 · PG 2)
-+- **gates_ouverts_restants**: G-ADMIN-SECRET · G-ADMIN-LIVE · G-FINOPS-UX · G-WEB-PUBLIC/A3 · G-TRACING-LOCAL · G-NATIVE-CONTINUITY · G-PROVIDER-LIVE-QUALIFICATION
-+- **gate_levé**: G-PROVIDER-SNAPSHOT-MIGRATION (DEV only)
++- **HEAD_initial**: `106c6392c39ff1741eea729fe594ae8d12cdc9d3`
++- **focus**: snapshot integrity ; provenance TEST/LIVE ; PG roles exercised ; envelope ; periodEqual COMPARABLE ; restore proof ; Admin LIVE dossier (not executed)
++- **migration**: `024_provider_admin_snapshot_provenance.sql` additive
++- **BUILD_ID**: `8eXiN6NO94261FxSLnuuj` · digest `2d613f2ddf83fc0747236ecd1a7822ddeb707ced89f43e1a046ca8d04ea3506c`
++- **DEV**: `127.0.0.1:3100` pid 11160 · RECETTE pid 89199 intacte
++- **tests**: 21 PASS (unit 13 · PG snapshots 2 · Admin/FinOps qual 6) · restore probe 44 tables
++- **gates**: G-ADMIN-SECRET proposable si readiness ; G-ADMIN-LIVE fermé ; G-FINOPS-UX fermé
 +- **web_live**: OFF · push projet NON · NO RELEASE · NOT ADOPTED
-+- **as_built**: `construction/convergence-openai-studio/as-built-macro-lot-1-20261126.md`
-+- **statut**: **MACRO-LOT 1 — OPERATIONAL DEV FOUNDATION PROVEN — GOVERNED LIVE QUALIFICATION GATES REMAIN**
++- **procedure**: `construction/convergence-openai-studio/procedure-admin-live-qualification-candidate.md`
++- **statut**: **ADMIN COLLECTOR — READY FOR SECURE PROVISIONING AND BOUNDED LIVE QUALIFICATION** (technique DEV ; LIVE non exécuté)
 +
- ## delivery_id: DELIV-2026-11-26-OPENAI-STUDIO-CONVERGENCE-ML1-CORRECTIVE
+ ## delivery_id: DELIV-2026-11-26-OPENAI-STUDIO-CONVERGENCE-ML1-OPERATIONAL
 
- - **date_utc**: 2026-11-26T20:30Z (approx)
+ - **date_utc**: 2026-11-26T20:30Z
 diff --git a/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md b/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
-index 041b5a70..18a320e8 100644
+index 18a320e8..99cfd171 100644
 --- a/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
 +++ b/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
 @@ -4,7 +4,7 @@
 
  | Champ | Valeur |
  |---|---|
--| Version | v0.16 candidate — 26 novembre 2026 : R5 frontière production documentaire (cognitive ≠ documentary continuity) + visionneuse candidat cohérent + activité LIVE sans N1 redondants — **DEV QUALIFIED / RECETTE UNCHANGED `e012401f` / `KotrF7y02wbZN79HDsjAb` — MORRIS RECETTE GO REQUIRED** ; v0.15 : Nora documentary autonomy + cutover RECETTE |
-+| Version | v0.17 candidate — 26 novembre 2026 : Macro-lot 1 convergence OpenAI operational DEV foundation (Admin TEST/LIVE split · PG snapshots 023 · FinOps evidence · frontier PARTIAL · D3 continuity bind · real SDK tracing oracle · BUILD `cUOHTek8qSni3vSYXOTWZ`) — **OPERATIONAL DEV FOUNDATION PROVEN / LIVE GATES REMAIN** ; v0.16 : R5 frontière production documentaire |
+-| Version | v0.17 candidate — 26 novembre 2026 : Macro-lot 1 convergence OpenAI operational DEV foundation (Admin TEST/LIVE split · PG snapshots 023 · FinOps evidence · frontier PARTIAL · D3 continuity bind · real SDK tracing oracle · BUILD `cUOHTek8qSni3vSYXOTWZ`) — **OPERATIONAL DEV FOUNDATION PROVEN / LIVE GATES REMAIN** ; v0.16 : R5 frontière production documentaire |
++| Version | v0.18 candidate — 26 novembre 2026 : Admin/FinOps qualification (snapshot integrity · provenance · PG roles · periodEqual COMPARABLE · restore proof · Admin LIVE dossier) — **ADMIN READY FOR SECURE PROVISIONING / LIVE NOT EXECUTED** ; v0.17 : operational DEV foundation |
  | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
  | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
  | Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |
 diff --git a/projects/sfia-studio-next/web/scripts/db-migrate.sh b/projects/sfia-studio-next/web/scripts/db-migrate.sh
-index 5f4bc78d..a0e8233e 100755
+index a0e8233e..40da8bbe 100755
 --- a/projects/sfia-studio-next/web/scripts/db-migrate.sh
 +++ b/projects/sfia-studio-next/web/scripts/db-migrate.sh
-@@ -40,4 +40,5 @@ apply "019_ml5_qualification_history.sql"
- apply "020_cognitive_work.sql"
+@@ -41,4 +41,5 @@ apply "020_cognitive_work.sql"
  apply "021_cognitive_contract_filiation.sql"
  apply "022_provider_usage_observations.sql"
--echo "db:migrate OK (001→022)"
-+apply "023_provider_admin_usage_snapshots.sql"
-+echo "db:migrate OK (001→023)"
+ apply "023_provider_admin_usage_snapshots.sql"
+-echo "db:migrate OK (001→023)"
++apply "024_provider_admin_snapshot_provenance.sql"
++echo "db:migrate OK (001→024)"
+\ No newline at end of file
 diff --git a/projects/sfia-studio-next/web/scripts/finops-admin-collect.mts b/projects/sfia-studio-next/web/scripts/finops-admin-collect.mts
-index d4dc3f81..75b033a6 100644
+index 75b033a6..d0d4fdfb 100644
 --- a/projects/sfia-studio-next/web/scripts/finops-admin-collect.mts
 +++ b/projects/sfia-studio-next/web/scripts/finops-admin-collect.mts
-@@ -3,14 +3,17 @@
-  *
-  * Run ONLY as a separate process:
-  *   SFIA_ADMIN_COLLECTOR_PROCESS=1 STUDIO_LANE=DEV \
-- *   OPENAI_ADMIN_KEY=… SFIA_ADMIN_USAGE_LIVE=1 \
-- *   npx tsx scripts/finops-admin-collect.mts --path /organization/costs --start-time <unix>
-+ *   npx tsx scripts/finops-admin-collect.mts --path /organization/costs --start-time <unix> --dry-substituted
-+ *
-+ * LIVE (requires separate G-ADMIN-LIVE + secret provisioned outside shell history):
-+ *   SFIA_ADMIN_USAGE_LIVE=1 + OPENAI_ADMIN_KEY in collector env only.
-  *
-- * Without SFIA_ADMIN_USAGE_LIVE=1 the script refuses LIVE HTTP (transport still constructible for dry-run with --dry-substituted).
-  * Never import this from Next.js / Nora routes.
-+ * Never pass the Admin key on the CLI argv.
-  */
-
- import {
-+  markSubstitutedAdminTransport,
-   resolveIsolatedAdminCollectorConfig,
-   runAdminCollection,
- } from "../src/domains/finops/provider-admin-usage-collector";
-@@ -27,13 +30,11 @@ function arg(name: string): string | null {
- }
-
- async function main(): Promise<void> {
--  const { key, limits } = loadIsolatedAdminApiKey(process.env);
--  if (!key) {
-+  if ((process.env.SFIA_ADMIN_COLLECTOR_PROCESS ?? "").trim() !== "1") {
-     console.log(
-       JSON.stringify({
--        status: "BLOCKED_NO_SECRET",
--        limits,
--        note: "Provision OPENAI_ADMIN_KEY in isolated env only — never chat/Git",
-+        status: "BLOCKED_NO_ISOLATION",
-+        limits: ["SFIA_ADMIN_COLLECTOR_PROCESS_REQUIRED"],
-       }),
-     );
-     process.exitCode = 2;
-@@ -50,6 +51,8 @@ async function main(): Promise<void> {
-
+@@ -52,6 +52,8 @@ async function main(): Promise<void> {
    const live = isAdminLiveAuthorized(process.env);
    const dry = process.argv.includes("--dry-substituted");
-+  const persist = !process.argv.includes("--no-persist");
-+
+   const persist = !process.argv.includes("--no-persist");
++  const end = arg("--end-time");
++  const projectId = arg("--project-id");
+
    if (!live && !dry) {
      console.log(
-       JSON.stringify({
-@@ -61,17 +64,74 @@ async function main(): Promise<void> {
+@@ -79,8 +81,9 @@ async function main(): Promise<void> {
+       path,
+       query: {
+         start_time: start,
++        ...(end ? { end_time: end } : {}),
+         bucket_width: arg("--bucket-width") ?? "1d",
+-        ...(arg("--project-id") ? { project_ids: arg("--project-id")! } : {}),
++        ...(projectId ? { project_ids: projectId } : {}),
+       },
+       persistToPg: persist,
+     });
+@@ -127,6 +130,29 @@ async function main(): Promise<void> {
      return;
    }
 
--  const transport = dry
--    ? async () => ({
--        status: 200,
--        json: { object: "page", data: [], has_more: false, next_page: null },
--      })
--    : createAdminHttpTransport();
-+  if (dry) {
-+    const transport = markSubstitutedAdminTransport(async () => ({
-+      status: 200,
-+      json: { object: "page", data: [], has_more: false, next_page: null },
-+    }));
-+    const result = await runAdminCollection({
-+      config: resolveIsolatedAdminCollectorConfig({
-+        adminApiKey: null,
-+        mode: "TEST_SUBSTITUTED",
-+        liveAuthorized: false,
-+        transport,
-+      }),
-+      path,
-+      query: {
-+        start_time: start,
-+        bucket_width: arg("--bucket-width") ?? "1d",
-+        ...(arg("--project-id") ? { project_ids: arg("--project-id")! } : {}),
-+      },
-+      persistToPg: persist,
-+    });
++  if (!end) {
 +    console.log(
 +      JSON.stringify({
-+        status: result.status,
-+        collectionId: result.collectionId,
-+        pagesFetched: result.pagesFetched,
-+        snapshotCount: result.snapshots.length,
-+        limits: result.limits,
-+        lastError: result.lastError,
-+        mode: "TEST_SUBSTITUTED",
-+        persisted: persist,
++        status: "ERROR",
++        lastError: "MISSING_END_TIME",
++        limits: ["LIVE_ENVELOPE_REQUIRES_END_TIME"],
 +      }),
 +    );
++    process.exitCode = 2;
 +    return;
 +  }
-+
-+  // LIVE path — key from isolated env only; never argv.
-+  const { key, limits } = loadIsolatedAdminApiKey(process.env);
-+  if (!key) {
++  if (!projectId) {
 +    console.log(
 +      JSON.stringify({
-+        status: "BLOCKED_NO_SECRET",
-+        limits,
-+        note: "Provision OPENAI_ADMIN_KEY in isolated env only — never chat/Git/CLI argv",
++        status: "ERROR",
++        lastError: "MISSING_PROJECT_ID",
++        limits: ["LIVE_ENVELOPE_REQUIRES_PROJECT_FILTER"],
 +      }),
 +    );
 +    process.exitCode = 2;
 +    return;
 +  }
 +
-+  let transport;
-+  try {
-+    transport = createAdminHttpTransport({ liveAuthorized: true });
-+  } catch (e) {
-+    console.log(
-+      JSON.stringify({
-+        status: "BLOCKED_NO_LIVE_GO",
-+        lastError: e instanceof Error ? e.message : String(e),
-+      }),
-+    );
-+    process.exitCode = 2;
-+    return;
-+  }
-
    const result = await runAdminCollection({
      config: resolveIsolatedAdminCollectorConfig({
        adminApiKey: key,
--      liveAuthorized: live || dry,
-+      mode: "LIVE",
-+      liveAuthorized: true,
-       transport,
-     }),
+@@ -137,10 +163,12 @@ async function main(): Promise<void> {
      path,
-@@ -80,9 +140,9 @@ async function main(): Promise<void> {
+     query: {
+       start_time: start,
++      end_time: end,
        bucket_width: arg("--bucket-width") ?? "1d",
-       ...(arg("--project-id") ? { project_ids: arg("--project-id")! } : {}),
+-      ...(arg("--project-id") ? { project_ids: arg("--project-id")! } : {}),
++      project_ids: projectId,
      },
-+    persistToPg: persist,
+     persistToPg: persist,
++    requireEndTime: true,
    });
 
--  // Never print the key. Snapshots may include project/api_key ids (non-secret).
    console.log(
-     JSON.stringify({
-       status: result.status,
-@@ -91,6 +151,8 @@ async function main(): Promise<void> {
-       snapshotCount: result.snapshots.length,
-       limits: result.limits,
-       lastError: result.lastError,
-+      mode: "LIVE",
-+      persisted: persist,
-     }),
-   );
-   if (result.status !== "READY" && result.status !== "PARTIAL") {
-diff --git a/projects/sfia-studio-next/web/src/db/migrations/023_provider_admin_usage_snapshots.sql b/projects/sfia-studio-next/web/src/db/migrations/023_provider_admin_usage_snapshots.sql
+diff --git a/projects/sfia-studio-next/web/src/db/migrations/024_provider_admin_snapshot_provenance.sql b/projects/sfia-studio-next/web/src/db/migrations/024_provider_admin_snapshot_provenance.sql
 new file mode 100644
-index 00000000..9144f5a8
+index 00000000..b212d7d9
 --- /dev/null
-+++ b/projects/sfia-studio-next/web/src/db/migrations/023_provider_admin_usage_snapshots.sql
-@@ -0,0 +1,83 @@
-+-- ML1 — provider Admin Usage/Costs snapshots (DEV additive).
-+-- Distinct from provider_usage_observations (Studio attribution ledger).
-+-- RECETTE/STABLE untouched. No DROP/purge.
++++ b/projects/sfia-studio-next/web/src/db/migrations/024_provider_admin_snapshot_provenance.sql
+@@ -0,0 +1,68 @@
++-- ML1 Admin/FinOps qualification — additive provenance + integrity helpers.
++-- Does NOT rewrite 023. No DROP/DELETE of snapshot rows.
++-- Existing 023 rows get provenance='UNKNOWN' (excluded from LIVE FinOps projections).
 +
-+CREATE TABLE IF NOT EXISTS provider_admin_collection_runs (
-+  collection_id text PRIMARY KEY,
-+  started_at timestamptz NOT NULL,
-+  finished_at timestamptz,
-+  status text NOT NULL,
-+  pages_fetched integer NOT NULL DEFAULT 0,
-+  path text NOT NULL,
-+  organization_scope text NOT NULL,
-+  limits_json jsonb NOT NULL DEFAULT '[]'::jsonb,
-+  last_error text
-+);
++ALTER TABLE provider_admin_collection_runs
++  ADD COLUMN IF NOT EXISTS collection_provenance text NOT NULL DEFAULT 'UNKNOWN';
 +
-+CREATE TABLE IF NOT EXISTS provider_admin_usage_snapshots (
-+  id uuid PRIMARY KEY,
-+  collected_at timestamptz NOT NULL,
-+  collection_id text NOT NULL REFERENCES provider_admin_collection_runs(collection_id),
-+  source_endpoint text NOT NULL,
-+  surface_object text NOT NULL,
-+  organization_scope text NOT NULL,
-+  interval_start_utc timestamptz NOT NULL,
-+  interval_end_utc timestamptz NOT NULL,
-+  CHECK (interval_end_utc > interval_start_utc),
-+  granularity text NOT NULL CHECK (granularity IN ('1m','1h','1d')),
-+  project_id text,
-+  api_key_id text,
-+  user_id text,
-+  model text,
-+  line_item text,
-+  api_source text,
-+  input_tokens bigint,
-+  output_tokens bigint,
-+  input_cached_tokens bigint,
-+  num_model_requests integer,
-+  num_requests integer,
-+  amount numeric(24, 10),
-+  currency text,
-+  completeness text NOT NULL CHECK (completeness IN ('complete','partial')),
-+  schema_version text NOT NULL DEFAULT '2'
-+);
++ALTER TABLE provider_admin_collection_runs
++  DROP CONSTRAINT IF EXISTS provider_admin_collection_runs_provenance_check;
 +
-+-- PG16: NULLS NOT DISTINCT so nullable dimension columns collide correctly.
-+CREATE UNIQUE INDEX IF NOT EXISTS provider_admin_usage_snapshots_canon_uidx
-+  ON provider_admin_usage_snapshots (
-+    source_endpoint,
-+    surface_object,
-+    organization_scope,
-+    interval_start_utc,
-+    interval_end_utc,
-+    granularity,
-+    project_id,
-+    api_key_id,
-+    user_id,
-+    model,
-+    line_item,
-+    api_source
-+  ) NULLS NOT DISTINCT;
++ALTER TABLE provider_admin_collection_runs
++  ADD CONSTRAINT provider_admin_collection_runs_provenance_check
++  CHECK (collection_provenance IN ('TEST_SUBSTITUTED', 'LIVE', 'UNKNOWN'));
 +
-+CREATE INDEX IF NOT EXISTS provider_admin_usage_snapshots_org_interval_idx
-+  ON provider_admin_usage_snapshots (organization_scope, interval_start_utc DESC);
++ALTER TABLE provider_admin_usage_snapshots
++  ADD COLUMN IF NOT EXISTS collection_provenance text NOT NULL DEFAULT 'UNKNOWN';
 +
-+CREATE INDEX IF NOT EXISTS provider_admin_usage_snapshots_collection_idx
-+  ON provider_admin_usage_snapshots (collection_id);
++ALTER TABLE provider_admin_usage_snapshots
++  DROP CONSTRAINT IF EXISTS provider_admin_usage_snapshots_provenance_check;
 +
-+-- DEV role intent (additive, NOLOGIN). Product uses existing sfia_next_dev.
-+-- Collector write vs FinOps read — no Admin OpenAI authority transferred.
++ALTER TABLE provider_admin_usage_snapshots
++  ADD CONSTRAINT provider_admin_usage_snapshots_provenance_check
++  CHECK (collection_provenance IN ('TEST_SUBSTITUTED', 'LIVE', 'UNKNOWN'));
++
++CREATE INDEX IF NOT EXISTS provider_admin_usage_snapshots_provenance_idx
++  ON provider_admin_usage_snapshots (collection_provenance, organization_scope);
++
++-- LOGIN roles for exercised permission proofs (DEV only). Passwords set by operator script.
 +DO $$
 +BEGIN
-+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_admin_collector') THEN
-+    CREATE ROLE sfia_admin_collector NOLOGIN;
++  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_admin_collector_login') THEN
++    CREATE ROLE sfia_admin_collector_login LOGIN PASSWORD 'sfia_dev_collector_only';
 +  END IF;
-+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_finops_reader') THEN
-+    CREATE ROLE sfia_finops_reader NOLOGIN;
++  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_finops_reader_login') THEN
++    CREATE ROLE sfia_finops_reader_login LOGIN PASSWORD 'sfia_dev_finops_read_only';
 +  END IF;
 +END$$;
 +
-+GRANT SELECT, INSERT, UPDATE ON provider_admin_collection_runs TO sfia_admin_collector;
-+GRANT SELECT, INSERT, UPDATE ON provider_admin_usage_snapshots TO sfia_admin_collector;
-+GRANT SELECT ON provider_admin_collection_runs TO sfia_finops_reader;
-+GRANT SELECT ON provider_admin_usage_snapshots TO sfia_finops_reader;
++GRANT sfia_admin_collector TO sfia_admin_collector_login;
++GRANT sfia_finops_reader TO sfia_finops_reader_login;
++GRANT USAGE ON SCHEMA public TO sfia_admin_collector_login;
++GRANT USAGE ON SCHEMA public TO sfia_finops_reader_login;
++-- CONNECT on current database only (DEV operator or e2e isolate).
++DO $$
++BEGIN
++  EXECUTE format(
++    'GRANT CONNECT ON DATABASE %I TO sfia_admin_collector_login',
++    current_database()
++  );
++  EXECUTE format(
++    'GRANT CONNECT ON DATABASE %I TO sfia_finops_reader_login',
++    current_database()
++  );
++END$$;
++
++-- Ensure collector cannot touch Studio attribution ledger / pilots.
++REVOKE ALL ON TABLE provider_usage_observations FROM sfia_admin_collector;
++REVOKE ALL ON TABLE provider_usage_observations FROM sfia_admin_collector_login;
++REVOKE ALL ON TABLE pilots FROM sfia_admin_collector;
++REVOKE ALL ON TABLE pilots FROM sfia_admin_collector_login;
++REVOKE ALL ON TABLE projects FROM sfia_admin_collector;
++REVOKE ALL ON TABLE projects FROM sfia_admin_collector_login;
++
++-- Reader cannot write snapshots.
++REVOKE INSERT, UPDATE, DELETE ON provider_admin_usage_snapshots FROM sfia_finops_reader;
++REVOKE INSERT, UPDATE, DELETE ON provider_admin_collection_runs FROM sfia_finops_reader;
++REVOKE INSERT, UPDATE, DELETE ON provider_admin_usage_snapshots FROM sfia_finops_reader_login;
++REVOKE INSERT, UPDATE, DELETE ON provider_admin_collection_runs FROM sfia_finops_reader_login;
 diff --git a/projects/sfia-studio-next/web/src/db/schema.ts b/projects/sfia-studio-next/web/src/db/schema.ts
-index c4dba968..c1990dc9 100644
+index c1990dc9..11070e9c 100644
 --- a/projects/sfia-studio-next/web/src/db/schema.ts
 +++ b/projects/sfia-studio-next/web/src/db/schema.ts
-@@ -1166,4 +1166,58 @@ export const providerUsageObservations = pgTable(
+@@ -1177,6 +1177,7 @@ export const providerAdminCollectionRuns = pgTable("provider_admin_collection_ru
+   organizationScope: text("organization_scope").notNull(),
+   limitsJson: jsonb("limits_json").$type<string[]>().notNull().default([]),
+   lastError: text("last_error"),
++  collectionProvenance: text("collection_provenance").notNull().default("UNKNOWN"),
+ });
+
+ export const providerAdminUsageSnapshots = pgTable(
+@@ -1210,6 +1211,9 @@ export const providerAdminUsageSnapshots = pgTable(
+     currency: text("currency"),
+     completeness: text("completeness").notNull(),
+     schemaVersion: text("schema_version").notNull().default("2"),
++    collectionProvenance: text("collection_provenance")
++      .notNull()
++      .default("UNKNOWN"),
+   },
+   (t) => [
+     index("provider_admin_usage_snapshots_org_interval_idx").on(
+@@ -1217,7 +1221,11 @@ export const providerAdminUsageSnapshots = pgTable(
+       t.intervalStartUtc,
+     ),
+     index("provider_admin_usage_snapshots_collection_idx").on(t.collectionId),
++    index("provider_admin_usage_snapshots_provenance_idx").on(
++      t.collectionProvenance,
++      t.organizationScope,
++    ),
    ],
  );
 
--export const schemaRevision = "022_provider_usage_observations";
-+/** ML1 — Admin Usage/Costs snapshots (reconciliation source; not attribution ledger). */
-+export const providerAdminCollectionRuns = pgTable("provider_admin_collection_runs", {
-+  collectionId: text("collection_id").primaryKey(),
-+  startedAt: timestamp("started_at", { withTimezone: true }).notNull(),
-+  finishedAt: timestamp("finished_at", { withTimezone: true }),
-+  status: text("status").notNull(),
-+  pagesFetched: integer("pages_fetched").notNull().default(0),
-+  path: text("path").notNull(),
-+  organizationScope: text("organization_scope").notNull(),
-+  limitsJson: jsonb("limits_json").$type<string[]>().notNull().default([]),
-+  lastError: text("last_error"),
-+});
-+
-+export const providerAdminUsageSnapshots = pgTable(
-+  "provider_admin_usage_snapshots",
-+  {
-+    id: uuid("id").primaryKey(),
-+    collectedAt: timestamp("collected_at", { withTimezone: true }).notNull(),
-+    collectionId: text("collection_id")
-+      .notNull()
-+      .references(() => providerAdminCollectionRuns.collectionId),
-+    sourceEndpoint: text("source_endpoint").notNull(),
-+    surfaceObject: text("surface_object").notNull(),
-+    organizationScope: text("organization_scope").notNull(),
-+    intervalStartUtc: timestamp("interval_start_utc", {
-+      withTimezone: true,
-+    }).notNull(),
-+    intervalEndUtc: timestamp("interval_end_utc", { withTimezone: true }).notNull(),
-+    granularity: text("granularity").notNull(),
-+    projectId: text("project_id"),
-+    apiKeyId: text("api_key_id"),
-+    userId: text("user_id"),
-+    model: text("model"),
-+    lineItem: text("line_item"),
-+    apiSource: text("api_source"),
-+    inputTokens: bigint("input_tokens", { mode: "number" }),
-+    outputTokens: bigint("output_tokens", { mode: "number" }),
-+    inputCachedTokens: bigint("input_cached_tokens", { mode: "number" }),
-+    numModelRequests: integer("num_model_requests"),
-+    numRequests: integer("num_requests"),
-+    amount: numeric("amount", { precision: 24, scale: 10 }).$type<string | null>(),
-+    currency: text("currency"),
-+    completeness: text("completeness").notNull(),
-+    schemaVersion: text("schema_version").notNull().default("2"),
-+  },
-+  (t) => [
-+    index("provider_admin_usage_snapshots_org_interval_idx").on(
-+      t.organizationScope,
-+      t.intervalStartUtc,
-+    ),
-+    index("provider_admin_usage_snapshots_collection_idx").on(t.collectionId),
-+  ],
-+);
-+
-+export const schemaRevision = "023_provider_admin_usage_snapshots";
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-index 88a2c177..4aedc701 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-@@ -29,9 +29,16 @@ import { extractProviderUsageFromRunResult } from "./provider-usage";
- import {
-   assertSdkInvocationAdmission,
-   attachConfiguredLiveCampaignFromEnv,
-+  bindProviderContinuityContext,
-   ensureFrontierOpenAIClientInstalled,
-   runWithProviderEmissionStoreAsync,
- } from "./provider-emission-frontier";
-+import {
-+  planProviderContinuity,
-+  resolveProviderContinuityMode,
-+  type ProviderChainRef,
-+  type StudioContinuitySnapshot,
-+} from "./provider-response-continuity";
- import { recordNoraProviderUsageWithHttpCorrelation } from "./usage-accounting";
- import {
-   NoraTurnQualificationAgentSchema,
-@@ -90,6 +97,12 @@ export type NoraGenerateInput = {
-   /** E03/E04 FinOps attribution when running inside a cognitive work segment. */
-   cognitiveWorkId?: string | null;
-   segmentIndex?: number | null;
-+  /**
-+   * D3 continuity snapshot owned by the cognitive conductor.
-+   * Bound into the provider frontier ALS; native chain stays OFF by default.
-+   */
-+  continuityStudio?: StudioContinuitySnapshot | null;
-+  continuityChain?: ProviderChainRef | null;
- };
-
- export type NoraAttemptRecord = {
-@@ -1977,6 +1990,36 @@ export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraG
-     return stampCkiDelivery(
-       await runWithProviderEmissionStoreAsync(() => {
-         attachConfiguredLiveCampaignFromEnv();
-+        // D3 remains SoT — bind work/checkpoint into frontier ALS.
-+        // Native previous_response_id stays OFF unless mode=native + compatible chain.
-+        const studio: StudioContinuitySnapshot | null =
-+          input.continuityStudio ??
-+          (input.cognitiveWorkId
-+            ? {
-+                workId: input.cognitiveWorkId,
-+                acquisFingerprint: null,
-+                sourceVersions: [],
-+                checkpointId: null,
-+                budgets: {
-+                  tokensConsumed: 0,
-+                  tokensBudget: null,
-+                  restitutionsRemaining: null,
-+                },
-+                rightsOk: true,
-+              }
-+            : null);
-+        const chain = input.continuityChain ?? null;
-+        bindProviderContinuityContext({ studio, chain });
-+        if (studio) {
-+          const plan = planProviderContinuity({
-+            mode: resolveProviderContinuityMode(),
-+            studio,
-+            chain,
-+            lane: (process.env.STUDIO_LANE ?? "UNKNOWN").trim().toUpperCase(),
-+          });
-+          // Mode OFF / incompatible ⇒ studio rebuild only; never force store=true.
-+          void plan;
-+        }
-         return runLiveWithTools(input, generationId, policy);
-       }),
-       input.ckiDelivery,
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts b/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts
-index bf6c3ff3..855aa472 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts
-@@ -96,7 +96,7 @@ export type CampaignEnvelope = {
-    * null when never measured (UNKNOWN — never ASSUMED_1).
-    */
-   hostedSearchesMeasured: number | null;
--  hostedSearchMeasureStatus: "NONE" | "MEASURED" | "UNKNOWN";
-+  hostedSearchMeasureStatus: "NONE" | "MEASURED" | "UNKNOWN" | "PARTIAL";
-   hostedSearchMeasureLimits: string[];
-   directOpensCommitted: number;
-   suspended: boolean;
-@@ -302,6 +302,20 @@ function emptyStore(): FrontierStore {
-   };
- }
-
-+/**
-+ * Merge per-attempt hosted-search measure into campaign aggregate.
-+ * UNKNOWN then MEASURED (or MEASURED then UNKNOWN) ⇒ PARTIAL — never erase unknowns.
-+ */
-+export function mergeHostedSearchMeasureStatus(
-+  prev: "NONE" | "MEASURED" | "UNKNOWN" | "PARTIAL",
-+  next: "MEASURED" | "UNKNOWN",
-+): "NONE" | "MEASURED" | "UNKNOWN" | "PARTIAL" {
-+  if (prev === "NONE") return next;
-+  if (prev === "PARTIAL") return "PARTIAL";
-+  if (prev === next) return prev;
-+  return "PARTIAL";
-+}
-+
- /** Bind D3 continuity snapshot + optional provider chain for this ALS turn. */
- export function bindProviderContinuityContext(input: {
-   studio: StudioContinuitySnapshot | null;
-@@ -1910,7 +1924,10 @@ export function createFrontierAwareFetch(
-           hostedLimits = ["STREAM_USAGE_UNKNOWN"];
-           hostedStatus = "UNKNOWN";
-           if (campaign) {
--            campaign.hostedSearchMeasureStatus = "UNKNOWN";
-+            campaign.hostedSearchMeasureStatus = mergeHostedSearchMeasureStatus(
-+              campaign.hostedSearchMeasureStatus,
-+              "UNKNOWN",
-+            );
-             campaign.hostedSearchMeasureLimits = [
-               ...new Set([
-                 ...campaign.hostedSearchMeasureLimits,
-@@ -1933,15 +1950,12 @@ export function createFrontierAwareFetch(
-             hostedStatus = reconciled.status;
-             hostedLimits = reconciled.limits;
-             if (campaign) {
--              // Never erase UNKNOWN/PARTIAL aggregate solely because a later
--              // attempt measured — promote to MEASURED only from NONE/UNKNOWN
--              // when this attempt is MEASURED; keep UNKNOWN if already UNKNOWN
--              // and this attempt is UNKNOWN.
--              if (reconciled.status === "MEASURED") {
--                campaign.hostedSearchMeasureStatus = "MEASURED";
--              } else if (campaign.hostedSearchMeasureStatus === "NONE") {
--                campaign.hostedSearchMeasureStatus = "UNKNOWN";
--              }
-+              // Aggregate status must not promote UNKNOWN→MEASURED when prior
-+              // attempts remain unknown. Mixed history ⇒ PARTIAL.
-+              campaign.hostedSearchMeasureStatus = mergeHostedSearchMeasureStatus(
-+                campaign.hostedSearchMeasureStatus,
-+                reconciled.status === "MEASURED" ? "MEASURED" : "UNKNOWN",
-+              );
-               campaign.hostedSearchMeasureLimits = [
-                 ...new Set([
-                   ...campaign.hostedSearchMeasureLimits,
-@@ -1966,9 +1980,10 @@ export function createFrontierAwareFetch(
-             hostedLimits = ["RESPONSE_BODY_PARSE_FAILED"];
-             hostedStatus = "UNKNOWN";
-             if (campaign) {
--              if (campaign.hostedSearchMeasureStatus === "NONE") {
--                campaign.hostedSearchMeasureStatus = "UNKNOWN";
--              }
-+              campaign.hostedSearchMeasureStatus = mergeHostedSearchMeasureStatus(
-+                campaign.hostedSearchMeasureStatus,
-+                "UNKNOWN",
-+              );
-               campaign.hostedSearchMeasureLimits = [
-                 ...new Set([
-                   ...campaign.hostedSearchMeasureLimits,
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts b/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
-index f6c85e9d..e150ac8f 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
-@@ -1514,6 +1514,21 @@ export async function runNoraCognitiveTurn(
-           policyOverride: policy,
-           cognitiveWorkId: work.id,
-           segmentIndex: workSegmentOrdinal,
-+          continuityStudio: {
-+            workId: work.id,
-+            acquisFingerprint: work.state.intentSummary
-+              ? `acq:${work.revision}:${work.state.intentSummary.slice(0, 64)}`
-+              : null,
-+            sourceVersions: [],
-+            checkpointId: `ckpt:${work.id}:r${work.revision}`,
-+            budgets: {
-+              tokensConsumed: 0,
-+              tokensBudget: null,
-+              restitutionsRemaining: null,
-+            },
-+            rightsOk: true,
-+          },
-+          continuityChain: null,
-           publicWebRegistry: {
-             topics: webRegistry.topics,
-             exactQueries: webRegistry.exactQueries,
+-export const schemaRevision = "023_provider_admin_usage_snapshots";
++export const schemaRevision = "024_provider_admin_snapshot_provenance";
+\ No newline at end of file
 diff --git a/projects/sfia-studio-next/web/src/domains/finops/provider-admin-http-transport.ts b/projects/sfia-studio-next/web/src/domains/finops/provider-admin-http-transport.ts
-index 7dc13ad7..f554dacf 100644
+index f554dacf..a2c12d4f 100644
 --- a/projects/sfia-studio-next/web/src/domains/finops/provider-admin-http-transport.ts
 +++ b/projects/sfia-studio-next/web/src/domains/finops/provider-admin-http-transport.ts
-@@ -4,48 +4,74 @@
-  * MUST only be constructed from an isolated collector process that already
-  * holds OPENAI_ADMIN_KEY. Never import this from Nora conversation paths.
-  *
-- * LIVE calls additionally require SFIA_ADMIN_USAGE_LIVE=1 + STUDIO_LANE=DEV.
-+ * LIVE calls additionally require SFIA_ADMIN_USAGE_LIVE=1 + STUDIO_LANE=DEV
-+ * + SFIA_ADMIN_COLLECTOR_PROCESS=1. Presence of a transport must never
-+ * authorize LIVE by itself.
-  */
-
- import {
-   ADMIN_USAGE_ALLOWED_PATHS,
-+  markLiveAdminTransport,
-   type AdminHttpTransport,
- } from "./provider-admin-usage-collector";
-
- const ALLOWED = new Set<string>(ADMIN_USAGE_ALLOWED_PATHS);
--const DEFAULT_BASE = "https://api.openai.com/v1";
-+/** Official Admin API origin — no arbitrary baseUrl in LIVE. */
-+export const ADMIN_LIVE_BASE_URL = "https://api.openai.com/v1";
-+const MAX_RESPONSE_BYTES = 2_000_000;
-
- export type AdminTransportOptions = {
--  baseUrl?: string;
-   timeoutMs?: number;
--  /** Injected fetch for tests — still subject to path allowlist. */
-+  /** Injected fetch for controlled tests of LIVE shape — still path/redirect gated. */
-   fetchImpl?: typeof fetch;
-   /** Max retries on 429/5xx (bounded). */
-   maxRetries?: number;
-+  /**
-+   * Must be true (and env LIVE GO must hold) to construct a LIVE transport.
-+   * A substituted transport must use markSubstitutedAdminTransport instead.
-+   */
-+  liveAuthorized: boolean;
- };
-
- function sanitizeErrorMessage(status: number, bodyText: string): string {
--  // Never echo Authorization or key material.
--  const clipped = bodyText.replace(/sk-[A-Za-z0-9_-]+/g, "[REDACTED]").slice(0, 200);
-+  const clipped = bodyText
-+    .replace(/sk-[A-Za-z0-9_-]+/g, "[REDACTED]")
-+    .replace(/Bearer\s+\S+/gi, "Bearer [REDACTED]")
-+    .slice(0, 200);
+@@ -41,6 +41,47 @@ function sanitizeErrorMessage(status: number, bodyText: string): string {
    return `ADMIN_HTTP_${status}:${clipped}`;
  }
 
-+/**
-+ * Construct LIVE Admin transport. Throws if LIVE GO is not proven.
-+ * Destination fixed to ADMIN_LIVE_BASE_URL; redirects refused.
-+ */
- export function createAdminHttpTransport(
--  opts: AdminTransportOptions = {},
-+  opts: AdminTransportOptions,
- ): AdminHttpTransport {
--  const base = (opts.baseUrl ?? DEFAULT_BASE).replace(/\/$/, "");
-+  if (!opts.liveAuthorized || !isAdminLiveAuthorized()) {
-+    throw new Error("BLOCKED_NO_LIVE_GO");
++/** Bound body while receiving — not only after full arrayBuffer(). */
++async function readBodyBounded(
++  res: Response,
++  maxBytes: number,
++): Promise<string> {
++  if (!res.body) {
++    const text = await res.text();
++    if (new TextEncoder().encode(text).byteLength > maxBytes) {
++      throw new Error("ADMIN_RESPONSE_TOO_LARGE");
++    }
++    return text;
 +  }
-+  const base = ADMIN_LIVE_BASE_URL;
-   const timeoutMs = Math.max(1_000, Math.min(60_000, opts.timeoutMs ?? 15_000));
-   const maxRetries = Math.max(0, Math.min(3, opts.maxRetries ?? 2));
-   const fetchImpl = opts.fetchImpl ?? fetch;
-
--  return async (input) => {
-+  const transport = async (input: {
-+    method: "GET";
-+    path: string;
-+    query: Record<string, string>;
-+    headers: Record<string, string>;
-+  }) => {
-+    // Gate again at emission — construction GO must not be stale-trusted alone.
-+    if (!isAdminLiveAuthorized()) {
-+      throw new Error("BLOCKED_NO_LIVE_GO");
++  const reader = res.body.getReader();
++  const chunks: Uint8Array[] = [];
++  let total = 0;
++  // eslint-disable-next-line no-constant-condition
++  while (true) {
++    const { done, value } = await reader.read();
++    if (done) break;
++    if (value) {
++      total += value.byteLength;
++      if (total > maxBytes) {
++        try {
++          await reader.cancel();
++        } catch {
++          /* ignore */
++        }
++        throw new Error("ADMIN_RESPONSE_TOO_LARGE");
++      }
++      chunks.push(value);
 +    }
-     if (input.method !== "GET") {
-       throw new Error("ADMIN_METHOD_NOT_ALLOWED");
-     }
-     if (!ALLOWED.has(input.path)) {
-       throw new Error(`ADMIN_PATH_NOT_ALLOWLISTED:${input.path}`);
-     }
--    // Strip any Authorization from caller logs by not re-exporting headers.
-     const auth = input.headers.Authorization;
-     if (!auth || !auth.startsWith("Bearer ")) {
-       throw new Error("ADMIN_AUTH_HEADER_REQUIRED");
-@@ -55,6 +81,9 @@ export function createAdminHttpTransport(
-     for (const [k, v] of Object.entries(input.query)) {
-       if (v != null && v !== "") url.searchParams.set(k, v);
-     }
-+    if (url.origin !== "https://api.openai.com") {
-+      throw new Error("ADMIN_DESTINATION_REFUSED");
-+    }
-
++  }
++  const merged = new Uint8Array(total);
++  let offset = 0;
++  for (const c of chunks) {
++    merged.set(c, offset);
++    offset += c.byteLength;
++  }
++  return new TextDecoder().decode(merged);
++}
++
+ /**
+  * Construct LIVE Admin transport. Throws if LIVE GO is not proven.
+  * Destination fixed to ADMIN_LIVE_BASE_URL; redirects refused.
+@@ -88,6 +129,10 @@ export function createAdminHttpTransport(
      let attempt = 0;
      // eslint-disable-next-line no-constant-condition
-@@ -70,24 +99,37 @@ export function createAdminHttpTransport(
-             Accept: "application/json",
-           },
+     while (true) {
++      // Re-check LIVE GO before every attempt including retries.
++      if (!isAdminLiveAuthorized()) {
++        throw new Error("BLOCKED_NO_LIVE_GO");
++      }
+       const ac = new AbortController();
+       const timer = setTimeout(() => ac.abort(), timeoutMs);
+       try {
+@@ -101,11 +146,7 @@ export function createAdminHttpTransport(
            signal: ac.signal,
-+          redirect: "error",
+           redirect: "error",
          });
--        const text = await res.text();
-+        const buf = await res.arrayBuffer();
-+        if (buf.byteLength > MAX_RESPONSE_BYTES) {
-+          throw new Error("ADMIN_RESPONSE_TOO_LARGE");
-+        }
-+        const text = new TextDecoder().decode(buf);
+-        const buf = await res.arrayBuffer();
+-        if (buf.byteLength > MAX_RESPONSE_BYTES) {
+-          throw new Error("ADMIN_RESPONSE_TOO_LARGE");
+-        }
+-        const text = new TextDecoder().decode(buf);
++        const text = await readBodyBounded(res, MAX_RESPONSE_BYTES);
          let json: unknown = null;
          try {
            json = text ? JSON.parse(text) : null;
-         } catch {
--          json = { parse_error: true, preview: text.slice(0, 80) };
-+          json = { parse_error: true };
-         }
--        const retryable = res.status === 429 || (res.status >= 500 && res.status <= 599);
-+        const retryable =
-+          res.status === 429 || (res.status >= 500 && res.status <= 599);
-         if (retryable && attempt < maxRetries) {
-           attempt += 1;
-           const ra = res.headers.get("retry-after");
--          const waitMs = ra && /^\d+$/.test(ra) ? Math.min(10_000, Number(ra) * 1000) : 250 * attempt;
-+          const waitMs =
-+            ra && /^\d+$/.test(ra)
-+              ? Math.min(10_000, Number(ra) * 1000)
-+              : 250 * attempt;
-           await new Promise((r) => setTimeout(r, waitMs));
-           continue;
-         }
--        if (!res.ok && res.status !== 401 && res.status !== 403 && res.status !== 429) {
--          // Surface sanitized message for non-standard failures; caller maps status.
-+        if (
-+          !res.ok &&
-+          res.status !== 401 &&
-+          res.status !== 403 &&
-+          res.status !== 429
-+        ) {
-           void sanitizeErrorMessage(res.status, text);
-         }
-         const headers: Record<string, string> = {};
-@@ -99,11 +141,13 @@ export function createAdminHttpTransport(
-       }
-     }
-   };
-+
-+  return markLiveAdminTransport(transport);
- }
-
- /**
-  * Load Admin key only when explicitly running as isolated collector.
-- * Returns null for product/Next contexts.
-+ * Returns null for product/Next contexts. Never logs the key.
-  */
- export function loadIsolatedAdminApiKey(env: NodeJS.ProcessEnv = process.env): {
-   key: string | null;
-@@ -118,7 +162,9 @@ export function loadIsolatedAdminApiKey(env: NodeJS.ProcessEnv = process.env): {
-   return { key, limits: [] };
- }
-
--export function isAdminLiveAuthorized(env: NodeJS.ProcessEnv = process.env): boolean {
-+export function isAdminLiveAuthorized(
-+  env: NodeJS.ProcessEnv = process.env,
-+): boolean {
-   return (
-     (env.SFIA_ADMIN_USAGE_LIVE ?? "").trim() === "1" &&
-     (env.STUDIO_LANE ?? "").trim().toUpperCase() === "DEV" &&
 diff --git a/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-collector.ts b/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-collector.ts
-index 74f2c16f..11569c02 100644
+index 11569c02..b042fedd 100644
 --- a/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-collector.ts
 +++ b/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-collector.ts
-@@ -75,7 +75,9 @@ export type AdminCollectionResult = {
-   lastError: string | null;
+@@ -63,6 +63,8 @@ export type AdminUsageSnapshot = {
+   completeness: "complete" | "partial";
+   collectedAtUtc: string;
+   collectionId: string;
++  /** Durable TEST vs LIVE separation — TEST never treated as real cost. */
++  collectionProvenance?: "TEST_SUBSTITUTED" | "LIVE" | "UNKNOWN";
  };
 
--export type AdminHttpTransport = (input: {
-+export type AdminTransportMode = "TEST_SUBSTITUTED" | "LIVE";
-+
-+export type AdminHttpTransportFn = (input: {
-   method: "GET";
-   path: string;
-   query: Record<string, string>;
-@@ -86,12 +88,48 @@ export type AdminHttpTransport = (input: {
-   headers?: Record<string, string>;
- }>;
+ export type AdminCollectionResult = {
+@@ -92,6 +94,10 @@ export type AdminHttpTransport = AdminHttpTransportFn & {
+   readonly __sfiaAdminMode: AdminTransportMode;
+ };
 
-+export type AdminHttpTransport = AdminHttpTransportFn & {
-+  readonly __sfiaAdminMode: AdminTransportMode;
-+};
++/** Runtime registry — property markers alone are not a security boundary. */
++const liveTransportRegistry = new WeakSet<object>();
++const substitutedTransportRegistry = new WeakSet<object>();
 +
-+export function markSubstitutedAdminTransport(
-+  fn: AdminHttpTransportFn,
-+): AdminHttpTransport {
-+  const t = fn as AdminHttpTransport;
-+  Object.defineProperty(t, "__sfiaAdminMode", {
-+    value: "TEST_SUBSTITUTED" as const,
-+    enumerable: false,
-+    configurable: false,
-+    writable: false,
-+  });
-+  return t;
+ export function markSubstitutedAdminTransport(
+   fn: AdminHttpTransportFn,
+ ): AdminHttpTransport {
+@@ -102,6 +108,7 @@ export function markSubstitutedAdminTransport(
+     configurable: false,
+     writable: false,
+   });
++  substitutedTransportRegistry.add(t);
+   return t;
+ }
+
+@@ -115,9 +122,22 @@ export function markLiveAdminTransport(
+     configurable: false,
+     writable: false,
+   });
++  liveTransportRegistry.add(t);
+   return t;
+ }
+
++export function isRegisteredLiveAdminTransport(
++  transport: AdminHttpTransportFn,
++): boolean {
++  return liveTransportRegistry.has(transport);
 +}
 +
-+export function markLiveAdminTransport(
-+  fn: AdminHttpTransportFn,
-+): AdminHttpTransport {
-+  const t = fn as AdminHttpTransport;
-+  Object.defineProperty(t, "__sfiaAdminMode", {
-+    value: "LIVE" as const,
-+    enumerable: false,
-+    configurable: false,
-+    writable: false,
-+  });
-+  return t;
++export function isRegisteredSubstitutedAdminTransport(
++  transport: AdminHttpTransportFn,
++): boolean {
++  return substitutedTransportRegistry.has(transport);
 +}
 +
  export type AdminCollectorConfig = {
--  /** Present only in isolated collector process — never in Nora/Next. */
-+  /**
-+   * LIVE requires a real Admin key in the isolated collector.
-+   * TEST_SUBSTITUTED never needs a real key (dummy/null accepted).
-+   */
-   adminApiKey: string | null;
-   organizationScope: string;
-+  /** Explicit mode — transport injection alone never authorizes LIVE. */
-+  mode: AdminTransportMode;
-+  /** LIVE GO — required when mode=LIVE; ignored for authorization of TEST. */
-   liveAdminCallsAuthorized: boolean;
--  transport?: AdminHttpTransport;
-+  transport: AdminHttpTransport;
- };
-
- /** Paths confirmed in openai@7.50 SDK admin.organization.usage.* */
-@@ -180,9 +218,10 @@ export function resolveProductAdminCollectorView(): {
-  */
- export function resolveIsolatedAdminCollectorConfig(input: {
-   adminApiKey: string | null;
-+  mode: AdminTransportMode;
-   liveAuthorized: boolean;
-   organizationScope?: string;
--  transport?: AdminHttpTransport;
-+  transport: AdminHttpTransport;
- }): AdminCollectorConfig {
-   return {
-     adminApiKey: input.adminApiKey,
-@@ -190,6 +229,7 @@ export function resolveIsolatedAdminCollectorConfig(input: {
-       input.organizationScope?.trim() ||
-       (process.env.SFIA_OPENAI_ORG_SCOPE ?? "org:unspecified").trim() ||
-       "org:unspecified",
-+    mode: input.mode,
-     liveAdminCallsAuthorized: input.liveAuthorized,
-     transport: input.transport,
-   };
-@@ -296,6 +336,11 @@ export function parseAdminUsagePage(input: {
-   if (body.object != null && body.object !== "page") {
-     limits.push("PAGE_OBJECT_UNEXPECTED");
-   }
-+  if (body.has_more === true) {
-+    if (typeof body.next_page !== "string" || !body.next_page.trim()) {
-+      limits.push("HAS_MORE_WITHOUT_CURSOR");
+   /**
+    * LIVE requires a real Admin key in the isolated collector.
+@@ -415,7 +435,16 @@ export function upsertAdminSnapshots(
+   for (const s of snapshots) {
+     const key = snapshotKey(s);
+     const prev = snapshotByKey.get(key);
+-    if (prev?.completeness === "complete" && s.completeness === "partial") {
++    if (!prev) {
++      snapshotByKey.set(key, s);
++      continue;
 +    }
-+  }
-   const data = Array.isArray(body.data) ? body.data : [];
-   const snapshots: AdminUsageSnapshot[] = [];
-
-@@ -383,6 +428,31 @@ function assertAllowedPath(path: string): void {
++    // Partial never degrades a complete snapshot.
++    if (prev.completeness === "complete" && s.completeness === "partial") {
++      continue;
++    }
++    // Older collect never replaces a newer one.
++    if (s.collectedAtUtc < prev.collectedAtUtc) {
+       continue;
+     }
+     snapshotByKey.set(key, s);
+@@ -438,21 +467,71 @@ function assertTransportGate(config: AdminCollectorConfig): void {
+     if (!config.adminApiKey) {
+       throw new Error("BLOCKED_NO_SECRET");
+     }
+-    if (!transport || marked !== "LIVE") {
++    // Registry + marker — forging __sfiaAdminMode alone is insufficient.
++    if (
++      !transport ||
++      marked !== "LIVE" ||
++      !isRegisteredLiveAdminTransport(transport)
++    ) {
+       throw new Error("BLOCKED_LIVE_TRANSPORT_REQUIRED");
+     }
+     return;
    }
+   if (config.mode === "TEST_SUBSTITUTED") {
+-    if (!transport || marked !== "TEST_SUBSTITUTED") {
++    if (config.adminApiKey) {
++      // TEST must never carry a real Admin key.
++      throw new Error("BLOCKED_TEST_MUST_NOT_HOLD_LIVE_KEY");
++    }
++    if (
++      !transport ||
++      marked !== "TEST_SUBSTITUTED" ||
++      !isRegisteredSubstitutedAdminTransport(transport)
++    ) {
+       throw new Error("BLOCKED_TEST_TRANSPORT_REQUIRED");
+     }
+-    // Real Admin key never required for TEST_SUBSTITUTED.
+     return;
+   }
+   throw new Error("BLOCKED_UNKNOWN_MODE");
  }
 
-+function assertTransportGate(config: AdminCollectorConfig): void {
-+  const transport = config.transport;
-+  const marked = transport?.__sfiaAdminMode;
-+  if (config.mode === "LIVE") {
-+    if (!config.liveAdminCallsAuthorized) {
-+      throw new Error("BLOCKED_NO_LIVE_GO");
-+    }
-+    if (!config.adminApiKey) {
-+      throw new Error("BLOCKED_NO_SECRET");
-+    }
-+    if (!transport || marked !== "LIVE") {
-+      throw new Error("BLOCKED_LIVE_TRANSPORT_REQUIRED");
-+    }
-+    return;
++/** Envelope bounds for Admin collection — refuse unbounded org sweeps. */
++export function assertAdminCollectionEnvelope(input: {
++  path: string;
++  query: Record<string, string>;
++  maxPages: number;
++}): void {
++  assertAllowedPath(input.path);
++  const start = input.query.start_time;
++  const end = input.query.end_time;
++  if (!start || !/^\d+$/.test(start)) {
++    throw new Error("ENVELOPE_START_TIME_REQUIRED");
 +  }
-+  if (config.mode === "TEST_SUBSTITUTED") {
-+    if (!transport || marked !== "TEST_SUBSTITUTED") {
-+      throw new Error("BLOCKED_TEST_TRANSPORT_REQUIRED");
-+    }
-+    // Real Admin key never required for TEST_SUBSTITUTED.
-+    return;
++  if (end != null && end !== "" && !/^\d+$/.test(end)) {
++    throw new Error("ENVELOPE_END_TIME_INVALID");
 +  }
-+  throw new Error("BLOCKED_UNKNOWN_MODE");
++  if (end && Number(end) <= Number(start)) {
++    throw new Error("ENVELOPE_END_BEFORE_START");
++  }
++  // Mandate: finished short window — end_time required for LIVE-shaped envelopes.
++  if ((input.query.require_end_time ?? "") === "1" && !end) {
++    throw new Error("ENVELOPE_END_TIME_REQUIRED");
++  }
++  const width = input.query.bucket_width;
++  if (width != null && width !== "" && width !== "1m" && width !== "1h" && width !== "1d") {
++    throw new Error("ENVELOPE_GRANULARITY_INVALID");
++  }
++  if (input.maxPages < 1 || input.maxPages > 20) {
++    throw new Error("ENVELOPE_MAX_PAGES_OUT_OF_BOUNDS");
++  }
++  // project_ids / group_by must be explicit strings when present (no open JSON).
++  for (const key of ["project_ids", "group_by", "api_key_ids", "models"]) {
++    const v = input.query[key];
++    if (v != null && v !== "" && typeof v !== "string") {
++      throw new Error(`ENVELOPE_PARAM_INVALID:${key}`);
++    }
++  }
 +}
 +
  export async function collectAdminUsagePage(input: {
    config: AdminCollectorConfig;
    path: string;
-@@ -394,19 +464,20 @@ export async function collectAdminUsagePage(input: {
-   limits: string[];
- }> {
-   assertAllowedPath(input.path);
--  if (!input.config.adminApiKey) throw new Error("BLOCKED_NO_SECRET");
--  if (!input.config.liveAdminCallsAuthorized && !input.config.transport) {
--    throw new Error("BLOCKED_NO_LIVE_GO");
--  }
-+  assertTransportGate(input.config);
-   const transport = input.config.transport;
--  if (!transport) throw new Error("BLOCKED_NO_TRANSPORT");
-+
-+  const bearer =
-+    input.config.mode === "LIVE"
-+      ? `Bearer ${input.config.adminApiKey}`
-+      : "Bearer test-substituted-not-a-secret";
-
-   const res = await transport({
-     method: "GET",
-     path: input.path,
-     query: input.query,
-     headers: {
--      Authorization: `Bearer ${input.config.adminApiKey}`,
-+      Authorization: bearer,
-       "Content-Type": "application/json",
-     },
-   });
-@@ -433,44 +504,40 @@ export async function runAdminCollection(input: {
-   path: string;
-   query: Record<string, string>;
+@@ -506,10 +585,14 @@ export async function runAdminCollection(input: {
    maxPages?: number;
-+  /** Persist to PostgreSQL (isolated collector / integration). */
-+  persistToPg?: boolean;
+   /** Persist to PostgreSQL (isolated collector / integration). */
+   persistToPg?: boolean;
++  /** Require end_time in query (LIVE envelope). */
++  requireEndTime?: boolean;
  }): Promise<AdminCollectionResult> {
-   const collectionId = `acol_${Date.now().toString(36)}`;
+-  const collectionId = `acol_${Date.now().toString(36)}`;
++  const { randomBytes } = await import("node:crypto");
++  const collectionId = `acol_${Date.now().toString(36)}_${randomBytes(4).toString("hex")}`;
    const collectedAtUtc = new Date().toISOString();
    const limits: string[] = [];
-
--  if (!input.config.adminApiKey) {
--    const r: AdminCollectionResult = {
--      status: "BLOCKED_NO_SECRET",
--      collectionId,
--      collectedAtUtc,
--      snapshots: [],
--      pagesFetched: 0,
--      limits: ["OPENAI_ADMIN_KEY_ABSENT"],
--      lastError: null,
--    };
--    lastAttempt = {
--      atUtc: collectedAtUtc,
--      collectionId,
--      status: r.status,
--      error: null,
--    };
--    return r;
--  }
--  if (!input.config.liveAdminCallsAuthorized && !input.config.transport) {
-+  try {
-+    assertTransportGate(input.config);
-+  } catch (e) {
-+    const msg = e instanceof Error ? e.message : String(e);
-+    const status: AdminCollectorStatus =
-+      msg === "BLOCKED_NO_SECRET"
-+        ? "BLOCKED_NO_SECRET"
-+        : msg === "BLOCKED_NO_LIVE_GO" ||
-+            msg === "BLOCKED_LIVE_TRANSPORT_REQUIRED" ||
-+            msg === "BLOCKED_TEST_TRANSPORT_REQUIRED" ||
-+            msg === "BLOCKED_UNKNOWN_MODE"
-+          ? "BLOCKED_NO_LIVE_GO"
-+          : "ERROR";
-     const r: AdminCollectionResult = {
--      status: "BLOCKED_NO_LIVE_GO",
-+      status,
-       collectionId,
-       collectedAtUtc,
-       snapshots: [],
-       pagesFetched: 0,
--      limits: ["SFIA_ADMIN_USAGE_LIVE_REQUIRED"],
--      lastError: null,
-+      limits: [msg],
-+      lastError: msg,
-     };
-     lastAttempt = {
-       atUtc: collectedAtUtc,
-       collectionId,
-       status: r.status,
--      error: null,
-+      error: msg,
-     };
-     return r;
-   }
-@@ -480,9 +547,24 @@ export async function runAdminCollection(input: {
-   let page: string | null = null;
-   let pagesFetched = 0;
-   let partial = false;
-+  const seenCursors = new Set<string>();
-+
-+  const persist =
-+    input.persistToPg === true
-+      ? await import("./provider-admin-usage-repository")
-+      : null;
++  const provenance = input.config.mode;
 
    try {
-     assertAllowedPath(input.path);
-+    if (persist) {
-+      await persist.insertAdminCollectionRun({
-+        collectionId,
-+        startedAtUtc: collectedAtUtc,
-+        status: "IDLE",
-+        path: input.path,
-+        organizationScope: input.config.organizationScope,
-+      });
-+    }
-     for (let i = 0; i < maxPages; i++) {
-       const query = { ...input.query };
-       if (page) query.page = page;
-@@ -495,7 +577,19 @@ export async function runAdminCollection(input: {
-       pagesFetched += 1;
-       all.push(...result.snapshots);
-       limits.push(...result.limits);
-+      if (result.limits.includes("HAS_MORE_WITHOUT_CURSOR")) {
-+        partial = true;
-+        break;
-+      }
-       page = result.nextPage;
-+      if (page) {
-+        if (seenCursors.has(page)) {
-+          limits.push("REPEATED_CURSOR");
-+          partial = true;
-+          break;
-+        }
-+        seenCursors.add(page);
-+      }
-       if (!page) break;
-       if (i === maxPages - 1 && page) {
-         partial = true;
-@@ -503,36 +597,43 @@ export async function runAdminCollection(input: {
-       }
-     }
-
-+    // Structural anomalies ⇒ never mark complete.
-+    if (
-+      limits.includes("PAGE_BODY_INVALID") ||
-+      limits.includes("BUCKET_INTERVAL_INVALID") ||
-+      limits.includes("RESULT_INVALID")
-+    ) {
-+      partial = true;
-+      limits.push("STRUCTURE_ANOMALY");
-+    }
-+
-+    const status: AdminCollectorStatus = partial ? "PARTIAL" : "READY";
-     if (partial) {
-       for (const s of all) s.completeness = "partial";
--      upsertAdminSnapshots(all);
--      lastAttempt = {
--        atUtc: collectedAtUtc,
--        collectionId,
--        status: "PARTIAL",
--        error: null,
--      };
--      return {
--        status: "PARTIAL",
-+    }
-+    upsertAdminSnapshots(all);
-+    if (persist) {
-+      await persist.upsertAdminSnapshotsPg(all);
-+      await persist.finishAdminCollectionRun({
-         collectionId,
--        collectedAtUtc,
--        snapshots: all,
-+        finishedAtUtc: new Date().toISOString(),
-+        status,
-         pagesFetched,
-         limits: [...new Set(limits)],
-         lastError: null,
--      };
-+      });
-     }
--
--    upsertAdminSnapshots(all);
-     lastAttempt = {
-       atUtc: collectedAtUtc,
-       collectionId,
--      status: "READY",
-+      status,
-       error: null,
-     };
--    lastCompleteSuccess = { atUtc: collectedAtUtc, collectionId };
-+    if (status === "READY") {
-+      lastCompleteSuccess = { atUtc: collectedAtUtc, collectionId };
-+    }
-     return {
--      status: "READY",
-+      status,
-       collectionId,
-       collectedAtUtc,
-       snapshots: all,
-@@ -545,7 +646,9 @@ export async function runAdminCollection(input: {
-     const status: AdminCollectorStatus =
-       msg === "BLOCKED_NO_SECRET"
-         ? "BLOCKED_NO_SECRET"
--        : msg === "BLOCKED_NO_LIVE_GO" || msg === "BLOCKED_NO_TRANSPORT"
-+        : msg === "BLOCKED_NO_LIVE_GO" ||
-+            msg === "BLOCKED_LIVE_TRANSPORT_REQUIRED" ||
-+            msg === "BLOCKED_TEST_TRANSPORT_REQUIRED"
+     assertTransportGate(input.config);
+@@ -521,6 +604,7 @@ export async function runAdminCollection(input: {
+         : msg === "BLOCKED_NO_LIVE_GO" ||
+             msg === "BLOCKED_LIVE_TRANSPORT_REQUIRED" ||
+             msg === "BLOCKED_TEST_TRANSPORT_REQUIRED" ||
++            msg === "BLOCKED_TEST_MUST_NOT_HOLD_LIVE_KEY" ||
+             msg === "BLOCKED_UNKNOWN_MODE"
            ? "BLOCKED_NO_LIVE_GO"
            : "ERROR";
-     lastAttempt = {
-@@ -554,6 +657,20 @@ export async function runAdminCollection(input: {
-       status,
-       error: msg,
-     };
-+    if (persist) {
-+      try {
-+        await persist.finishAdminCollectionRun({
-+          collectionId,
-+          finishedAtUtc: new Date().toISOString(),
-+          status,
-+          pagesFetched,
-+          limits,
-+          lastError: msg,
-+        });
-+      } catch {
-+        /* never mask primary error */
-+      }
-+    }
-     // Never wipe prior complete snapshots on error.
-     return {
-       status,
-@@ -568,12 +685,23 @@ export async function runAdminCollection(input: {
- }
+@@ -542,7 +626,7 @@ export async function runAdminCollection(input: {
+     return r;
+   }
 
- export type FinOpsScopeEvidence = {
-+  /** Verified org identity match — not merely a non-empty scope string. */
-   organizationMatches: boolean;
-+  organizationIdentityProven: boolean;
-   projectIdsOverlap: boolean;
-+  /** Studio project ↔ provider project mapping proven (not presence alone). */
-+  projectAttributionProven: boolean;
-   apiKeyIdsOverlap: boolean;
-   periodOverlap: boolean;
-+  /** Window equality proven — intersection alone is insufficient. */
-+  periodEqual: boolean;
-   currencyMatches: boolean;
-+  /** Currency observed on provider rows (null ⇒ unknown, never invent USD). */
-+  providerCurrency: string | null;
-   surfacesRequested: string[];
-+  groupingCompatible: boolean;
-+  coverageComplete: boolean;
-+  freshnessAcceptable: boolean;
-   /** Explicit evidence — never a lone config flag. */
+-  const maxPages = Math.max(1, Math.min(50, input.maxPages ?? 10));
++  const maxPages = Math.max(1, Math.min(20, input.maxPages ?? 10));
+   const all: AdminUsageSnapshot[] = [];
+   let page: string | null = null;
+   let pagesFetched = 0;
+@@ -555,7 +639,16 @@ export async function runAdminCollection(input: {
+       : null;
+
+   try {
+-    assertAllowedPath(input.path);
++    assertAdminCollectionEnvelope({
++      path: input.path,
++      query: {
++        ...input.query,
++        ...(input.requireEndTime || input.config.mode === "LIVE"
++          ? { require_end_time: "1" }
++          : {}),
++      },
++      maxPages,
++    });
+     if (persist) {
+       await persist.insertAdminCollectionRun({
+         collectionId,
+@@ -563,6 +656,7 @@ export async function runAdminCollection(input: {
+         status: "IDLE",
+         path: input.path,
+         organizationScope: input.config.organizationScope,
++        provenance,
+       });
+     }
+     for (let i = 0; i < maxPages; i++) {
+@@ -611,9 +705,12 @@ export async function runAdminCollection(input: {
+     if (partial) {
+       for (const s of all) s.completeness = "partial";
+     }
++    for (const s of all) {
++      s.collectionProvenance = provenance;
++    }
+     upsertAdminSnapshots(all);
+     if (persist) {
+-      await persist.upsertAdminSnapshotsPg(all);
++      await persist.upsertAdminSnapshotsPg(all, provenance);
+       await persist.finishAdminCollectionRun({
+         collectionId,
+         finishedAtUtc: new Date().toISOString(),
+@@ -706,6 +803,39 @@ export type FinOpsScopeEvidence = {
    evidenceNotes: string[];
  };
-@@ -586,34 +714,73 @@ export function assessFinOpsComparability(
-   limits: string[];
- } {
-   const limits: string[] = [...evidence.evidenceNotes];
--  if (!evidence.organizationMatches) limits.push("ORG_MISMATCH");
-+  if (!evidence.organizationIdentityProven || !evidence.organizationMatches) {
-+    limits.push("ORG_IDENTITY_UNPROVEN");
-+  }
-+  if (!evidence.periodEqual) limits.push("PERIOD_NOT_EQUAL");
-   if (!evidence.periodOverlap) limits.push("PERIOD_NO_OVERLAP");
-   if (!evidence.currencyMatches) limits.push("CURRENCY_MISMATCH");
-+  if (evidence.providerCurrency == null) limits.push("CURRENCY_ABSENT");
-+  if (!evidence.projectAttributionProven) {
-+    limits.push("PROJECT_ATTRIBUTION_UNPROVEN");
-+  }
-   if (!evidence.projectIdsOverlap && !evidence.apiKeyIdsOverlap) {
-     limits.push("PROJECT_OR_KEY_SCOPE_UNPROVEN");
-   }
-+  if (!evidence.groupingCompatible) limits.push("GROUPING_INCOMPATIBLE");
-+  if (!evidence.coverageComplete) limits.push("COVERAGE_PARTIAL");
-+  if (!evidence.freshnessAcceptable) limits.push("FRESHNESS_STALE");
-+
-   const hardFail =
-+    !evidence.organizationIdentityProven ||
-     !evidence.organizationMatches ||
--    !evidence.periodOverlap ||
-+    !evidence.periodEqual ||
-     !evidence.currencyMatches ||
--    (!evidence.projectIdsOverlap && !evidence.apiKeyIdsOverlap);
-+    evidence.providerCurrency == null ||
-+    !evidence.projectAttributionProven ||
-+    (!evidence.projectIdsOverlap && !evidence.apiKeyIdsOverlap) ||
-+    !evidence.groupingCompatible;
-   if (hardFail) {
-     return { comparable: false, status: "NON_COMPARABLE", limits };
-   }
-+  if (!evidence.coverageComplete || !evidence.freshnessAcceptable) {
-+    return { comparable: false, status: "PARTIAL", limits };
-+  }
-   return { comparable: true, status: "COMPARABLE", limits };
- }
 
 +/**
-+ * Sum measured costs only for an explicitly attributed provider projectId.
-+ * Refuses to sum org-wide aggregates when projectId is null/unproven —
-+ * that would leak organization totals into a Pilot gap calculation.
++ * Period equality: every attributed snapshot must share the exact compare window
++ * (interval start/end), not merely intersect it.
 + */
- export function sumMeasuredCostUsd(
-   snapshots: AdminUsageSnapshot[],
-   filter: {
-     intervalStartUtc?: string;
-     intervalEndUtc?: string;
--    projectId?: string | null;
-+    /** Required for Pilot-safe summation — null refuses org-wide totals. */
-+    projectId: string | null;
-+    requireProjectDimension?: boolean;
-   },
--): { total: string | null; counted: number; limits: string[] } {
-+): {
-+  total: string | null;
-+  counted: number;
-+  limits: string[];
-+  currency: string | null;
-+} {
-   const limits: string[] = [];
-+  if (!filter.projectId) {
-+    return {
-+      total: null,
-+      counted: 0,
-+      limits: ["ORG_AGGREGATE_SUM_REFUSED_WITHOUT_PROJECT"],
-+      currency: null,
-+    };
-+  }
-   let total: string | null = null;
-   let counted = 0;
-+  let currency: string | null = null;
-   for (const s of snapshots) {
-     if (s.surfaceObject !== "organization.costs.result") continue;
-     if (
-@@ -628,11 +795,8 @@ export function sumMeasuredCostUsd(
-     ) {
-       continue;
-     }
--    if (
--      filter.projectId &&
--      s.dimensions.project_id != null &&
--      s.dimensions.project_id !== filter.projectId
--    ) {
-+    // Require the result to be attributed to the requested provider project.
-+    if (s.dimensions.project_id !== filter.projectId) {
-       continue;
-     }
-     if (s.metrics.amount.presence !== "MEASURED" || !s.metrics.amount.value) {
-@@ -640,22 +804,26 @@ export function sumMeasuredCostUsd(
-       if (s.metrics.amount.presence === "INVALID") limits.push("COST_AMOUNT_INVALID");
-       continue;
-     }
--    if (
--      s.metrics.currency.presence === "MEASURED" &&
--      s.metrics.currency.value != null &&
--      s.metrics.currency.value !== "usd"
--    ) {
--      limits.push("NON_USD_CURRENCY_SKIPPED");
-+    if (s.metrics.currency.presence !== "MEASURED" || !s.metrics.currency.value) {
-+      limits.push("CURRENCY_ABSENT_ROW_SKIPPED");
-       continue;
-     }
--    total = total == null ? s.metrics.amount.value : decimalAdd(total, s.metrics.amount.value);
-+    if (currency == null) currency = s.metrics.currency.value;
-+    else if (currency !== s.metrics.currency.value) {
-+      limits.push("CURRENCY_MIXED");
-+      return { total: null, counted, limits: [...new Set(limits)], currency: null };
-+    }
-+    total =
-+      total == null
-+        ? s.metrics.amount.value
-+        : decimalAdd(total, s.metrics.amount.value);
-     if (total == null) {
-       limits.push("DECIMAL_ADD_FAILED");
--      return { total: null, counted, limits };
-+      return { total: null, counted, limits, currency: null };
-     }
-     counted += 1;
-   }
--  return { total, counted, limits: [...new Set(limits)] };
-+  return { total, counted, limits: [...new Set(limits)], currency };
- }
-
- export function reconcileFinOpsCosts(input: {
-diff --git a/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-repository.ts b/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-repository.ts
-new file mode 100644
-index 00000000..069f5bab
---- /dev/null
-+++ b/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-repository.ts
-@@ -0,0 +1,288 @@
-+/**
-+ * Admin Usage/Costs snapshot repository — PostgreSQL SoT for FinOps product reads.
-+ *
-+ * Product/Next: read-only against authorized snapshots (no Admin collection capability).
-+ * Isolated collector: write runs + upsert snapshots.
-+ * Distinct from provider_usage_observations (Studio attribution ledger).
-+ */
-+
-+import { randomUUID } from "node:crypto";
-+import { and, desc, eq, gte, lte, sql as dsql } from "drizzle-orm";
-+import { db, sql } from "@/db/client";
-+import {
-+  providerAdminCollectionRuns,
-+  providerAdminUsageSnapshots,
-+} from "@/db/schema";
-+import type {
-+  AdminCollectorStatus,
-+  AdminUsageSnapshot,
-+} from "./provider-admin-usage-collector";
-+
-+function metricToNumber(
-+  m: AdminUsageSnapshot["metrics"][keyof AdminUsageSnapshot["metrics"]],
-+): number | null {
-+  if (m.presence !== "MEASURED" || m.value == null) return null;
-+  const n = Number(m.value);
-+  return Number.isFinite(n) ? n : null;
-+}
-+
-+function metricFromDb(
-+  v: string | number | null | undefined,
-+  kind: "int" | "decimal" | "string" = "int",
-+): AdminUsageSnapshot["metrics"]["input_tokens"] {
-+  if (v == null) return { presence: "ABSENT", value: null };
-+  if (kind === "string") {
-+    return { presence: "MEASURED", value: String(v) };
-+  }
-+  const n = typeof v === "number" ? v : Number(v);
-+  if (!Number.isFinite(n)) return { presence: "INVALID", value: null };
-+  return {
-+    presence: "MEASURED",
-+    value: kind === "decimal" ? String(v) : String(Math.trunc(n)),
-+  };
-+}
-+
-+export async function insertAdminCollectionRun(input: {
-+  collectionId: string;
-+  startedAtUtc: string;
-+  status: AdminCollectorStatus;
-+  path: string;
-+  organizationScope: string;
-+  pagesFetched?: number;
-+  limits?: string[];
-+  lastError?: string | null;
-+}): Promise<void> {
-+  await db
-+    .insert(providerAdminCollectionRuns)
-+    .values({
-+      collectionId: input.collectionId,
-+      startedAt: new Date(input.startedAtUtc),
-+      finishedAt: null,
-+      status: input.status,
-+      pagesFetched: input.pagesFetched ?? 0,
-+      path: input.path,
-+      organizationScope: input.organizationScope,
-+      limitsJson: input.limits ?? [],
-+      lastError: input.lastError ?? null,
-+    })
-+    .onConflictDoUpdate({
-+      target: providerAdminCollectionRuns.collectionId,
-+      set: {
-+        status: input.status,
-+        pagesFetched: input.pagesFetched ?? 0,
-+        limitsJson: input.limits ?? [],
-+        lastError: input.lastError ?? null,
-+      },
-+    });
-+}
-+
-+export async function finishAdminCollectionRun(input: {
-+  collectionId: string;
-+  finishedAtUtc: string;
-+  status: AdminCollectorStatus;
-+  pagesFetched: number;
-+  limits: string[];
-+  lastError: string | null;
-+}): Promise<void> {
-+  await db
-+    .update(providerAdminCollectionRuns)
-+    .set({
-+      finishedAt: new Date(input.finishedAtUtc),
-+      status: input.status,
-+      pagesFetched: input.pagesFetched,
-+      limitsJson: input.limits,
-+      lastError: input.lastError,
-+    })
-+    .where(eq(providerAdminCollectionRuns.collectionId, input.collectionId));
-+}
-+
-+/**
-+ * Idempotent upsert via NULLS NOT DISTINCT unique index
-+ * (provider_admin_usage_snapshots_canon_uidx).
-+ */
-+export async function upsertAdminSnapshotsPg(
++export function assessPeriodEquality(
 +  snapshots: AdminUsageSnapshot[],
-+): Promise<number> {
-+  let written = 0;
-+  for (const s of snapshots) {
-+    const id = randomUUID();
-+    const amount =
-+      s.metrics.amount.presence === "MEASURED" && s.metrics.amount.value
-+        ? s.metrics.amount.value
-+        : null;
-+    const currency =
-+      s.metrics.currency.presence === "MEASURED"
-+        ? s.metrics.currency.value
-+        : null;
-+    await sql`
-+      INSERT INTO provider_admin_usage_snapshots (
-+        id, collected_at, collection_id, source_endpoint, surface_object,
-+        organization_scope, interval_start_utc, interval_end_utc, granularity,
-+        project_id, api_key_id, user_id, model, line_item, api_source,
-+        input_tokens, output_tokens, input_cached_tokens,
-+        num_model_requests, num_requests, amount, currency,
-+        completeness, schema_version
-+      ) VALUES (
-+        ${id}::uuid,
-+        ${s.collectedAtUtc}::timestamptz,
-+        ${s.collectionId},
-+        ${s.sourceEndpoint},
-+        ${s.surfaceObject},
-+        ${s.organizationScope},
-+        ${s.intervalStartUtc}::timestamptz,
-+        ${s.intervalEndUtc}::timestamptz,
-+        ${s.granularity},
-+        ${s.dimensions.project_id},
-+        ${s.dimensions.api_key_id},
-+        ${s.dimensions.user_id},
-+        ${s.dimensions.model},
-+        ${s.dimensions.line_item},
-+        ${s.dimensions.api_source},
-+        ${metricToNumber(s.metrics.input_tokens)},
-+        ${metricToNumber(s.metrics.output_tokens)},
-+        ${metricToNumber(s.metrics.input_cached_tokens)},
-+        ${metricToNumber(s.metrics.num_model_requests)},
-+        ${metricToNumber(s.metrics.num_requests)},
-+        ${amount},
-+        ${currency},
-+        ${s.completeness},
-+        ${"2"}
-+      )
-+      ON CONFLICT (
-+        source_endpoint, surface_object, organization_scope,
-+        interval_start_utc, interval_end_utc, granularity,
-+        project_id, api_key_id, user_id, model, line_item, api_source
-+      )
-+      DO UPDATE SET
-+        collected_at = EXCLUDED.collected_at,
-+        collection_id = EXCLUDED.collection_id,
-+        input_tokens = EXCLUDED.input_tokens,
-+        output_tokens = EXCLUDED.output_tokens,
-+        input_cached_tokens = EXCLUDED.input_cached_tokens,
-+        num_model_requests = EXCLUDED.num_model_requests,
-+        num_requests = EXCLUDED.num_requests,
-+        amount = EXCLUDED.amount,
-+        currency = EXCLUDED.currency,
-+        completeness = CASE
-+          WHEN provider_admin_usage_snapshots.completeness = 'complete'
-+            AND EXCLUDED.completeness = 'partial'
-+          THEN provider_admin_usage_snapshots.completeness
-+          ELSE EXCLUDED.completeness
-+        END,
-+        schema_version = EXCLUDED.schema_version
-+    `;
-+    written += 1;
++  window: { startUtc: string; endUtc: string },
++): { periodEqual: boolean; periodOverlap: boolean; limits: string[] } {
++  const limits: string[] = [];
++  if (!window.startUtc || !window.endUtc) {
++    return { periodEqual: false, periodOverlap: false, limits: ["PERIOD_WINDOW_ABSENT"] };
 +  }
-+  return written;
++  if (snapshots.length === 0) {
++    return { periodEqual: false, periodOverlap: false, limits: ["PERIOD_NO_SNAPSHOTS"] };
++  }
++  let overlap = false;
++  let allEqual = true;
++  for (const s of snapshots) {
++    if (s.intervalEndUtc > window.startUtc && s.intervalStartUtc < window.endUtc) {
++      overlap = true;
++    }
++    if (
++      s.intervalStartUtc !== window.startUtc ||
++      s.intervalEndUtc !== window.endUtc
++    ) {
++      allEqual = false;
++    }
++  }
++  if (!overlap) limits.push("PERIOD_NO_OVERLAP");
++  if (overlap && !allEqual) limits.push("PERIOD_OVERLAP_NOT_EQUAL");
++  return { periodEqual: overlap && allEqual, periodOverlap: overlap, limits };
 +}
 +
-+export async function listAdminSnapshotsFromPg(filter?: {
-+  organizationScope?: string;
-+  intervalStartUtc?: string;
-+  intervalEndUtc?: string;
-+  limit?: number;
-+}): Promise<AdminUsageSnapshot[]> {
-+  const clauses = [];
-+  if (filter?.organizationScope) {
+ export function assessFinOpsComparability(
+   evidence: FinOpsScopeEvidence,
+ ): {
+diff --git a/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-repository.ts b/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-repository.ts
+index 069f5bab..232af939 100644
+--- a/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-repository.ts
++++ b/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-repository.ts
+@@ -1,13 +1,13 @@
+ /**
+  * Admin Usage/Costs snapshot repository — PostgreSQL SoT for FinOps product reads.
+  *
+- * Product/Next: read-only against authorized snapshots (no Admin collection capability).
++ * Product/Next: read-only against authorized LIVE snapshots (no Admin collection).
+  * Isolated collector: write runs + upsert snapshots.
+  * Distinct from provider_usage_observations (Studio attribution ledger).
+  */
+
+ import { randomUUID } from "node:crypto";
+-import { and, desc, eq, gte, lte, sql as dsql } from "drizzle-orm";
++import { and, desc, eq, gte, inArray, lte, sql as dsql } from "drizzle-orm";
+ import { db, sql } from "@/db/client";
+ import {
+   providerAdminCollectionRuns,
+@@ -15,9 +15,12 @@ import {
+ } from "@/db/schema";
+ import type {
+   AdminCollectorStatus,
++  AdminTransportMode,
+   AdminUsageSnapshot,
+ } from "./provider-admin-usage-collector";
+
++export type CollectionProvenance = AdminTransportMode | "UNKNOWN";
++
+ function metricToNumber(
+   m: AdminUsageSnapshot["metrics"][keyof AdminUsageSnapshot["metrics"]],
+ ): number | null {
+@@ -48,6 +51,7 @@ export async function insertAdminCollectionRun(input: {
+   status: AdminCollectorStatus;
+   path: string;
+   organizationScope: string;
++  provenance: CollectionProvenance;
+   pagesFetched?: number;
+   limits?: string[];
+   lastError?: string | null;
+@@ -64,6 +68,7 @@ export async function insertAdminCollectionRun(input: {
+       organizationScope: input.organizationScope,
+       limitsJson: input.limits ?? [],
+       lastError: input.lastError ?? null,
++      collectionProvenance: input.provenance,
+     })
+     .onConflictDoUpdate({
+       target: providerAdminCollectionRuns.collectionId,
+@@ -72,6 +77,7 @@ export async function insertAdminCollectionRun(input: {
+         pagesFetched: input.pagesFetched ?? 0,
+         limitsJson: input.limits ?? [],
+         lastError: input.lastError ?? null,
++        collectionProvenance: input.provenance,
+       },
+     });
+ }
+@@ -97,82 +103,90 @@ export async function finishAdminCollectionRun(input: {
+ }
+
+ /**
+- * Idempotent upsert via NULLS NOT DISTINCT unique index
+- * (provider_admin_usage_snapshots_canon_uidx).
++ * Idempotent upsert with integrity:
++ * - partial never overwrites a complete row (metrics OR completeness);
++ * - older collected_at never replaces a newer row;
++ * - late complete revision (newer or equal ts) may upgrade partial.
+  */
+ export async function upsertAdminSnapshotsPg(
+   snapshots: AdminUsageSnapshot[],
++  provenance: CollectionProvenance,
+ ): Promise<number> {
+   let written = 0;
+-  for (const s of snapshots) {
+-    const id = randomUUID();
+-    const amount =
+-      s.metrics.amount.presence === "MEASURED" && s.metrics.amount.value
+-        ? s.metrics.amount.value
+-        : null;
+-    const currency =
+-      s.metrics.currency.presence === "MEASURED"
+-        ? s.metrics.currency.value
+-        : null;
+-    await sql`
+-      INSERT INTO provider_admin_usage_snapshots (
+-        id, collected_at, collection_id, source_endpoint, surface_object,
+-        organization_scope, interval_start_utc, interval_end_utc, granularity,
+-        project_id, api_key_id, user_id, model, line_item, api_source,
+-        input_tokens, output_tokens, input_cached_tokens,
+-        num_model_requests, num_requests, amount, currency,
+-        completeness, schema_version
+-      ) VALUES (
+-        ${id}::uuid,
+-        ${s.collectedAtUtc}::timestamptz,
+-        ${s.collectionId},
+-        ${s.sourceEndpoint},
+-        ${s.surfaceObject},
+-        ${s.organizationScope},
+-        ${s.intervalStartUtc}::timestamptz,
+-        ${s.intervalEndUtc}::timestamptz,
+-        ${s.granularity},
+-        ${s.dimensions.project_id},
+-        ${s.dimensions.api_key_id},
+-        ${s.dimensions.user_id},
+-        ${s.dimensions.model},
+-        ${s.dimensions.line_item},
+-        ${s.dimensions.api_source},
+-        ${metricToNumber(s.metrics.input_tokens)},
+-        ${metricToNumber(s.metrics.output_tokens)},
+-        ${metricToNumber(s.metrics.input_cached_tokens)},
+-        ${metricToNumber(s.metrics.num_model_requests)},
+-        ${metricToNumber(s.metrics.num_requests)},
+-        ${amount},
+-        ${currency},
+-        ${s.completeness},
+-        ${"2"}
+-      )
+-      ON CONFLICT (
+-        source_endpoint, surface_object, organization_scope,
+-        interval_start_utc, interval_end_utc, granularity,
+-        project_id, api_key_id, user_id, model, line_item, api_source
+-      )
+-      DO UPDATE SET
+-        collected_at = EXCLUDED.collected_at,
+-        collection_id = EXCLUDED.collection_id,
+-        input_tokens = EXCLUDED.input_tokens,
+-        output_tokens = EXCLUDED.output_tokens,
+-        input_cached_tokens = EXCLUDED.input_cached_tokens,
+-        num_model_requests = EXCLUDED.num_model_requests,
+-        num_requests = EXCLUDED.num_requests,
+-        amount = EXCLUDED.amount,
+-        currency = EXCLUDED.currency,
+-        completeness = CASE
+-          WHEN provider_admin_usage_snapshots.completeness = 'complete'
++  await sql.begin(async (tx) => {
++    for (const s of snapshots) {
++      const id = randomUUID();
++      const amount =
++        s.metrics.amount.presence === "MEASURED" && s.metrics.amount.value
++          ? s.metrics.amount.value
++          : null;
++      const currency =
++        s.metrics.currency.presence === "MEASURED"
++          ? s.metrics.currency.value
++          : null;
++      await tx`
++        INSERT INTO provider_admin_usage_snapshots (
++          id, collected_at, collection_id, source_endpoint, surface_object,
++          organization_scope, interval_start_utc, interval_end_utc, granularity,
++          project_id, api_key_id, user_id, model, line_item, api_source,
++          input_tokens, output_tokens, input_cached_tokens,
++          num_model_requests, num_requests, amount, currency,
++          completeness, schema_version, collection_provenance
++        ) VALUES (
++          ${id}::uuid,
++          ${s.collectedAtUtc}::timestamptz,
++          ${s.collectionId},
++          ${s.sourceEndpoint},
++          ${s.surfaceObject},
++          ${s.organizationScope},
++          ${s.intervalStartUtc}::timestamptz,
++          ${s.intervalEndUtc}::timestamptz,
++          ${s.granularity},
++          ${s.dimensions.project_id},
++          ${s.dimensions.api_key_id},
++          ${s.dimensions.user_id},
++          ${s.dimensions.model},
++          ${s.dimensions.line_item},
++          ${s.dimensions.api_source},
++          ${metricToNumber(s.metrics.input_tokens)},
++          ${metricToNumber(s.metrics.output_tokens)},
++          ${metricToNumber(s.metrics.input_cached_tokens)},
++          ${metricToNumber(s.metrics.num_model_requests)},
++          ${metricToNumber(s.metrics.num_requests)},
++          ${amount},
++          ${currency},
++          ${s.completeness},
++          ${"2"},
++          ${provenance}
++        )
++        ON CONFLICT (
++          source_endpoint, surface_object, organization_scope,
++          interval_start_utc, interval_end_utc, granularity,
++          project_id, api_key_id, user_id, model, line_item, api_source
++        )
++        DO UPDATE SET
++          collected_at = EXCLUDED.collected_at,
++          collection_id = EXCLUDED.collection_id,
++          input_tokens = EXCLUDED.input_tokens,
++          output_tokens = EXCLUDED.output_tokens,
++          input_cached_tokens = EXCLUDED.input_cached_tokens,
++          num_model_requests = EXCLUDED.num_model_requests,
++          num_requests = EXCLUDED.num_requests,
++          amount = EXCLUDED.amount,
++          currency = EXCLUDED.currency,
++          completeness = EXCLUDED.completeness,
++          schema_version = EXCLUDED.schema_version,
++          collection_provenance = EXCLUDED.collection_provenance
++        WHERE
++          NOT (
++            provider_admin_usage_snapshots.completeness = 'complete'
+             AND EXCLUDED.completeness = 'partial'
+-          THEN provider_admin_usage_snapshots.completeness
+-          ELSE EXCLUDED.completeness
+-        END,
+-        schema_version = EXCLUDED.schema_version
+-    `;
+-    written += 1;
+-  }
++          )
++          AND EXCLUDED.collected_at >= provider_admin_usage_snapshots.collected_at
++      `;
++      written += 1;
++    }
++  });
+   return written;
+ }
+
+@@ -180,6 +194,8 @@ export async function listAdminSnapshotsFromPg(filter?: {
+   organizationScope?: string;
+   intervalStartUtc?: string;
+   intervalEndUtc?: string;
++  /** Product projections: LIVE only. Tests may request TEST_SUBSTITUTED. */
++  provenance?: CollectionProvenance | CollectionProvenance[];
+   limit?: number;
+ }): Promise<AdminUsageSnapshot[]> {
+   const clauses = [];
+@@ -207,6 +223,14 @@ export async function listAdminSnapshotsFromPg(filter?: {
+       ),
+     );
+   }
++  if (filter?.provenance) {
++    const list = Array.isArray(filter.provenance)
++      ? filter.provenance
++      : [filter.provenance];
 +    clauses.push(
++      inArray(providerAdminUsageSnapshots.collectionProvenance, list),
++    );
++  }
+   const limit = Math.min(5_000, Math.max(1, filter?.limit ?? 2_000));
+   const rows = await db
+     .select()
+@@ -242,10 +266,16 @@ export async function listAdminSnapshotsFromPg(filter?: {
+     completeness: r.completeness as "complete" | "partial",
+     collectedAtUtc: r.collectedAt.toISOString(),
+     collectionId: r.collectionId,
++    collectionProvenance:
++      (r.collectionProvenance as CollectionProvenance) ?? "UNKNOWN",
+   }));
+ }
+
+-export async function getAdminCollectionFreshnessFromPg(): Promise<{
++export async function getAdminCollectionFreshnessFromPg(filter?: {
++  organizationScope?: string;
++  provenance?: CollectionProvenance;
++  projectId?: string | null;
++}): Promise<{
+   lastAttemptAtUtc: string | null;
+   lastSuccessAtUtc: string | null;
+   lastCollectionId: string | null;
+@@ -253,22 +283,67 @@ export async function getAdminCollectionFreshnessFromPg(): Promise<{
+   snapshotCount: number;
+   secretReadableByProduct: false;
+ }> {
++  const runClauses = [];
++  if (filter?.organizationScope) {
++    runClauses.push(
++      eq(
++        providerAdminCollectionRuns.organizationScope,
++        filter.organizationScope,
++      ),
++    );
++  }
++  if (filter?.provenance) {
++    runClauses.push(
++      eq(providerAdminCollectionRuns.collectionProvenance, filter.provenance),
++    );
++  }
++
+   const [latest] = await db
+     .select()
+     .from(providerAdminCollectionRuns)
++    .where(runClauses.length ? and(...runClauses) : undefined)
+     .orderBy(desc(providerAdminCollectionRuns.startedAt))
+     .limit(1);
++
++  const readyClauses = [
++    eq(providerAdminCollectionRuns.status, "READY"),
++    ...runClauses,
++  ];
+   const [latestOk] = await db
+     .select()
+     .from(providerAdminCollectionRuns)
+-    .where(eq(providerAdminCollectionRuns.status, "READY"))
++    .where(and(...readyClauses))
+     .orderBy(desc(providerAdminCollectionRuns.finishedAt))
+     .limit(1);
++
++  const snapClauses = [];
++  if (filter?.organizationScope) {
++    snapClauses.push(
 +      eq(
 +        providerAdminUsageSnapshots.organizationScope,
 +        filter.organizationScope,
 +      ),
 +    );
 +  }
-+  if (filter?.intervalStartUtc) {
-+    clauses.push(
-+      gte(
-+        providerAdminUsageSnapshots.intervalEndUtc,
-+        new Date(filter.intervalStartUtc),
++  if (filter?.provenance) {
++    snapClauses.push(
++      eq(
++        providerAdminUsageSnapshots.collectionProvenance,
++        filter.provenance,
 +      ),
 +    );
 +  }
-+  if (filter?.intervalEndUtc) {
-+    clauses.push(
-+      lte(
-+        providerAdminUsageSnapshots.intervalStartUtc,
-+        new Date(filter.intervalEndUtc),
-+      ),
++  if (filter?.projectId) {
++    snapClauses.push(
++      eq(providerAdminUsageSnapshots.projectId, filter.projectId),
 +    );
 +  }
-+  const limit = Math.min(5_000, Math.max(1, filter?.limit ?? 2_000));
-+  const rows = await db
-+    .select()
+   const [countRow] = await db
+     .select({
+       n: dsql<number>`count(*)::int`,
+     })
+-    .from(providerAdminUsageSnapshots);
 +    .from(providerAdminUsageSnapshots)
-+    .where(clauses.length ? and(...clauses) : undefined)
-+    .orderBy(desc(providerAdminUsageSnapshots.intervalStartUtc))
-+    .limit(limit);
++    .where(snapClauses.length ? and(...snapClauses) : undefined);
+
+   return {
+     lastAttemptAtUtc: latest?.startedAt?.toISOString() ?? null,
+@@ -286,3 +361,16 @@ export function isAdminSnapshotReadEnabled(
+ ): boolean {
+   return (env.SFIA_ADMIN_SNAPSHOT_READ ?? "1").trim() !== "0";
+ }
 +
-+  return rows.map((r) => ({
-+    sourceEndpoint: r.sourceEndpoint,
-+    surfaceObject: r.surfaceObject,
-+    organizationScope: r.organizationScope,
-+    intervalStartUtc: r.intervalStartUtc.toISOString(),
-+    intervalEndUtc: r.intervalEndUtc.toISOString(),
-+    granularity: r.granularity as "1m" | "1h" | "1d",
-+    dimensions: {
-+      project_id: r.projectId,
-+      api_key_id: r.apiKeyId,
-+      user_id: r.userId,
-+      model: r.model,
-+      line_item: r.lineItem,
-+      api_source: r.apiSource,
-+    },
-+    metrics: {
-+      input_tokens: metricFromDb(r.inputTokens),
-+      output_tokens: metricFromDb(r.outputTokens),
-+      input_cached_tokens: metricFromDb(r.inputCachedTokens),
-+      num_model_requests: metricFromDb(r.numModelRequests),
-+      num_requests: metricFromDb(r.numRequests),
-+      amount: metricFromDb(r.amount, "decimal"),
-+      currency: metricFromDb(r.currency, "string"),
-+    },
-+    completeness: r.completeness as "complete" | "partial",
-+    collectedAtUtc: r.collectedAt.toISOString(),
-+    collectionId: r.collectionId,
-+  }));
-+}
-+
-+export async function getAdminCollectionFreshnessFromPg(): Promise<{
-+  lastAttemptAtUtc: string | null;
-+  lastSuccessAtUtc: string | null;
-+  lastCollectionId: string | null;
-+  status: AdminCollectorStatus;
-+  snapshotCount: number;
-+  secretReadableByProduct: false;
-+}> {
-+  const [latest] = await db
-+    .select()
-+    .from(providerAdminCollectionRuns)
-+    .orderBy(desc(providerAdminCollectionRuns.startedAt))
-+    .limit(1);
-+  const [latestOk] = await db
-+    .select()
-+    .from(providerAdminCollectionRuns)
-+    .where(eq(providerAdminCollectionRuns.status, "READY"))
-+    .orderBy(desc(providerAdminCollectionRuns.finishedAt))
-+    .limit(1);
-+  const [countRow] = await db
-+    .select({
-+      n: dsql<number>`count(*)::int`,
-+    })
-+    .from(providerAdminUsageSnapshots);
-+
-+  return {
-+    lastAttemptAtUtc: latest?.startedAt?.toISOString() ?? null,
-+    lastSuccessAtUtc: latestOk?.finishedAt?.toISOString() ?? null,
-+    lastCollectionId: latestOk?.collectionId ?? latest?.collectionId ?? null,
-+    status: (latest?.status as AdminCollectorStatus) ?? "IDLE",
-+    snapshotCount: countRow?.n ?? 0,
-+    secretReadableByProduct: false,
-+  };
-+}
-+
-+/** Non-destructive product rollback: stop serving snapshot reads. */
-+export function isAdminSnapshotReadEnabled(
++/**
++ * Product path must not silently fall back to in-memory test maps.
++ * Only explicit test flag may enable memory reads.
++ */
++export function allowAdminSnapshotMemoryFallback(
 +  env: NodeJS.ProcessEnv = process.env,
 +): boolean {
-+  return (env.SFIA_ADMIN_SNAPSHOT_READ ?? "1").trim() !== "0";
++  return (
++    env.VITEST === "true" &&
++    (env.SFIA_ADMIN_SNAPSHOT_TEST_MEMORY ?? "").trim() === "1"
++  );
 +}
 diff --git a/projects/sfia-studio-next/web/src/domains/finops/usage-read-service.ts b/projects/sfia-studio-next/web/src/domains/finops/usage-read-service.ts
-index aeb8de77..500eb53b 100644
+index 500eb53b..3e234b95 100644
 --- a/projects/sfia-studio-next/web/src/domains/finops/usage-read-service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/finops/usage-read-service.ts
-@@ -282,7 +282,7 @@ export async function loadFinOpsSummary(
-     onlyWithObservedCost: true,
-   });
-
--  const providerReconciliation = buildProviderReconciliationDto(
-+  const providerReconciliation = await buildProviderReconciliationDto(
-     estimatedCostUsd,
-     input,
-   );
-@@ -308,19 +308,18 @@ export async function loadFinOpsSummary(
-   };
- }
-
--function buildProviderReconciliationDto(
-+async function buildProviderReconciliationDto(
+@@ -312,12 +312,16 @@ async function buildProviderReconciliationDto(
    estimatedCostUsd: MeasuredValue<number>,
    filter: FinOpsFilterInput,
--): FinOpsProviderReconciliationDto {
--  // Product path: never inspect OPENAI_ADMIN_KEY.
-+): Promise<FinOpsProviderReconciliationDto> {
-+  // Product path: never inspect OPENAI_ADMIN_KEY; read only authorized PG snapshots.
-+  const {
-+    getAdminCollectionFreshnessFromPg,
-+    isAdminSnapshotReadEnabled,
-+    listAdminSnapshotsFromPg,
-+  } = await import("./provider-admin-usage-repository");
+ ): Promise<FinOpsProviderReconciliationDto> {
+-  // Product path: never inspect OPENAI_ADMIN_KEY; read only authorized PG snapshots.
++  // Product path: never inspect OPENAI_ADMIN_KEY; read only authorized LIVE PG snapshots.
+   const {
++    allowAdminSnapshotMemoryFallback,
+     getAdminCollectionFreshnessFromPg,
+     isAdminSnapshotReadEnabled,
+     listAdminSnapshotsFromPg,
+   } = await import("./provider-admin-usage-repository");
++  const { assessPeriodEquality } = await import(
++    "./provider-admin-usage-collector"
++  );
    const productView = resolveProductAdminCollectorView();
--  const freshness = getAdminCollectorFreshness();
--  const snapshots = listAdminCollectorSnapshots().filter(
--    (s) =>
--      s.surfaceObject === "organization.costs.result" &&
--      s.completeness === "complete",
--  );
--  const limits: string[] = ["PROVIDER_SNAPSHOT_PG_MIGRATION_PENDING"];
-+  const limits: string[] = [];
+   const limits: string[] = [];
 
-   const studio =
-     estimatedCostUsd.kind === "known" || estimatedCostUsd.kind === "partial"
-@@ -328,6 +327,57 @@ function buildProviderReconciliationDto(
-       : null;
-   const studioDecimal =
-     studio != null ? decimalFromNumberLike(studio) : null;
-+  // Partial estimation stays partial after decimal conversion.
-+  const studioEstimationKind = estimatedCostUsd.kind;
-+
-+  if (!isAdminSnapshotReadEnabled()) {
-+    limits.push("ADMIN_SNAPSHOT_READ_DISABLED");
-+    return {
-+      studioEstimatedUsd: studio,
-+      studioEstimationKind,
-+      providerCostUsd: null,
-+      providerCurrency: null,
-+      deltaUsd: null,
-+      comparability: "UNAVAILABLE",
-+      freshness: {
-+        lastAttemptAtUtc: null,
-+        lastSuccessAtUtc: null,
-+        lastCollectionId: null,
-+        status: "IDLE",
-+        snapshotCount: 0,
-+        secretReadableByProduct: false as const,
-+      },
-+      limits,
-+      noraIndependent: true,
-+      studioEstimatedUsdDecimal: studioDecimal,
-+      providerCostUsdDecimal: null,
-+      deltaUsdDecimal: null,
-+    };
-+  }
-+
-+  let freshness;
-+  let snapshots;
-+  try {
-+    freshness = await getAdminCollectionFreshnessFromPg();
-+    snapshots = (
-+      await listAdminSnapshotsFromPg({
-+        organizationScope: productView.organizationScope,
-+      })
-+    ).filter(
-+      (s) =>
-+        s.surfaceObject === "organization.costs.result" &&
-+        s.completeness === "complete",
-+    );
-+  } catch {
-+    // Fall back to in-process memory only for deterministic unit paths.
-+    freshness = getAdminCollectorFreshness();
-+    snapshots = listAdminCollectorSnapshots().filter(
-+      (s) =>
-+        s.surfaceObject === "organization.costs.result" &&
-+        s.completeness === "complete",
-+    );
-+    limits.push("ADMIN_SNAPSHOT_PG_READ_FALLBACK_MEMORY");
-+  }
-
-   const freshnessDto = {
-     lastAttemptAtUtc: freshness.lastAttemptAtUtc,
-@@ -343,7 +393,7 @@ function buildProviderReconciliationDto(
-     limits.push("ADMIN_SECRET_STATUS_UNKNOWN_TO_PRODUCT");
-     return {
-       studioEstimatedUsd: studio,
--      studioEstimationKind: estimatedCostUsd.kind,
-+      studioEstimationKind,
-       providerCostUsd: null,
-       providerCurrency: null,
-       deltaUsd: null,
-@@ -358,35 +408,56 @@ function buildProviderReconciliationDto(
+@@ -358,25 +362,58 @@ async function buildProviderReconciliationDto(
+   let freshness;
+   let snapshots;
+   try {
+-    freshness = await getAdminCollectionFreshnessFromPg();
++    const configuredProjectPeek =
++      (process.env.SFIA_OPENAI_PROJECT_ID ?? "").trim() || null;
++    freshness = await getAdminCollectionFreshnessFromPg({
++      organizationScope: productView.organizationScope,
++      provenance: "LIVE",
++      projectId: configuredProjectPeek,
++    });
+     snapshots = (
+       await listAdminSnapshotsFromPg({
+         organizationScope: productView.organizationScope,
++        provenance: "LIVE",
+       })
+     ).filter(
+       (s) =>
+         s.surfaceObject === "organization.costs.result" &&
+-        s.completeness === "complete",
++        s.completeness === "complete" &&
++        s.collectionProvenance === "LIVE",
+     );
+   } catch {
+-    // Fall back to in-process memory only for deterministic unit paths.
++    if (!allowAdminSnapshotMemoryFallback()) {
++      limits.push("ADMIN_SNAPSHOT_PG_UNAVAILABLE");
++      return {
++        studioEstimatedUsd: studio,
++        studioEstimationKind,
++        providerCostUsd: null,
++        providerCurrency: null,
++        deltaUsd: null,
++        comparability: "UNAVAILABLE",
++        freshness: {
++          lastAttemptAtUtc: null,
++          lastSuccessAtUtc: null,
++          lastCollectionId: null,
++          status: "ERROR",
++          snapshotCount: 0,
++          secretReadableByProduct: false as const,
++        },
++        limits,
++        noraIndependent: true,
++        studioEstimatedUsdDecimal: studioDecimal,
++        providerCostUsdDecimal: null,
++        deltaUsdDecimal: null,
++      };
++    }
++    // Explicit test-only memory path — never silent product fallback.
+     freshness = getAdminCollectorFreshness();
+     snapshots = listAdminCollectorSnapshots().filter(
+       (s) =>
+         s.surfaceObject === "organization.costs.result" &&
+-        s.completeness === "complete",
++        s.completeness === "complete" &&
++        s.collectionProvenance === "LIVE",
+     );
+-    limits.push("ADMIN_SNAPSHOT_PG_READ_FALLBACK_MEMORY");
++    limits.push("ADMIN_SNAPSHOT_TEST_MEMORY");
    }
 
-   const since = periodStartDate(filter.periodDays ?? 30);
-+  const until = new Date();
-+  // Studio projectId alone never proves provider project attribution.
-+  const configuredProject =
-+    (process.env.SFIA_OPENAI_PROJECT_ID ?? "").trim() || null;
-+  const configuredKey =
-+    (process.env.SFIA_OPENAI_API_KEY_ID ?? "").trim() || null;
-+  const configuredOrg =
-+    (process.env.SFIA_OPENAI_ORG_ID ?? "").trim() || null;
-+  const scopeOrg = productView.organizationScope;
-+  const orgIdentityProven = Boolean(
-+    configuredOrg &&
-+      (scopeOrg === configuredOrg || scopeOrg === `org:${configuredOrg}`),
-+  );
+   const freshnessDto = {
+@@ -407,9 +444,12 @@ async function buildProviderReconciliationDto(
+     };
+   }
+
+-  const since = periodStartDate(filter.periodDays ?? 30);
+-  const until = new Date();
+-  // Studio projectId alone never proves provider project attribution.
++  // Explicit compare window (UTC) — required for periodEqual; else NON_COMPARABLE.
++  const windowStart =
++    (process.env.SFIA_FINOPS_COMPARE_WINDOW_START_UTC ?? "").trim() ||
++    periodStartDate(filter.periodDays ?? 30).toISOString();
++  const windowEnd =
++    (process.env.SFIA_FINOPS_COMPARE_WINDOW_END_UTC ?? "").trim() || null;
+   const configuredProject =
+     (process.env.SFIA_OPENAI_PROJECT_ID ?? "").trim() || null;
+   const configuredKey =
+@@ -422,54 +462,88 @@ async function buildProviderReconciliationDto(
+       (scopeOrg === configuredOrg || scopeOrg === `org:${configuredOrg}`),
+   );
+
++  const attributed = configuredProject
++    ? snapshots.filter((s) => s.dimensions.project_id === configuredProject)
++    : [];
 +
    const sum = sumMeasuredCostUsd(snapshots, {
-     intervalStartUtc: since.toISOString(),
--    intervalEndUtc: new Date().toISOString(),
--    projectId: null, // provider project mapping not proven from Studio projectId alone
-+    intervalEndUtc: until.toISOString(),
-+    projectId: configuredProject,
+-    intervalStartUtc: since.toISOString(),
+-    intervalEndUtc: until.toISOString(),
++    intervalStartUtc: windowStart,
++    intervalEndUtc: windowEnd ?? undefined,
+     projectId: configuredProject,
    });
    limits.push(...sum.limits);
 
--  const configuredProject =
--    (process.env.SFIA_OPENAI_PROJECT_ID ?? "").trim() || null;
--  const configuredKey =
--    (process.env.SFIA_OPENAI_API_KEY_ID ?? "").trim() || null;
++  const period = windowEnd
++    ? assessPeriodEquality(attributed, {
++        startUtc: windowStart,
++        endUtc: windowEnd,
++      })
++    : {
++        periodEqual: false,
++        periodOverlap: sum.counted > 0,
++        limits: ["PERIOD_WINDOW_END_ABSENT"],
++      };
++  limits.push(...period.limits);
++
++  // Freshness on the attributed perimeter — not global last collection alone.
++  const freshnessAcceptable =
++    freshness.status === "READY" &&
++    attributed.length > 0 &&
++    freshness.snapshotCount > 0;
++
    const evidence: FinOpsScopeEvidence = {
--    organizationMatches: Boolean(productView.organizationScope),
-+    organizationMatches: orgIdentityProven,
-+    organizationIdentityProven: orgIdentityProven,
-     projectIdsOverlap: Boolean(
-       configuredProject &&
-         snapshots.some((s) => s.dimensions.project_id === configuredProject),
-     ),
-+    projectAttributionProven: Boolean(configuredProject && sum.counted > 0),
+     organizationMatches: orgIdentityProven,
+     organizationIdentityProven: orgIdentityProven,
+-    projectIdsOverlap: Boolean(
+-      configuredProject &&
+-        snapshots.some((s) => s.dimensions.project_id === configuredProject),
+-    ),
++    projectIdsOverlap: attributed.length > 0,
+     projectAttributionProven: Boolean(configuredProject && sum.counted > 0),
      apiKeyIdsOverlap: Boolean(
        configuredKey &&
-         snapshots.some((s) => s.dimensions.api_key_id === configuredKey),
+-        snapshots.some((s) => s.dimensions.api_key_id === configuredKey),
++        attributed.some((s) => s.dimensions.api_key_id === configuredKey),
      ),
-     periodOverlap: sum.counted > 0,
--    currencyMatches: true,
-+    // Intersection alone is not equality — refuse COMPARABLE until proven.
-+    periodEqual: false,
-+    currencyMatches: sum.currency === "usd",
-+    providerCurrency: sum.currency,
+-    periodOverlap: sum.counted > 0,
+-    // Intersection alone is not equality — refuse COMPARABLE until proven.
+-    periodEqual: false,
++    periodOverlap: period.periodOverlap,
++    periodEqual: period.periodEqual,
+     currencyMatches: sum.currency === "usd",
+     providerCurrency: sum.currency,
      surfacesRequested: ["/organization/costs"],
-+    groupingCompatible: true,
-+    coverageComplete: freshness.status === "READY",
-+    freshnessAcceptable: freshness.status === "READY",
+     groupingCompatible: true,
+-    coverageComplete: freshness.status === "READY",
+-    freshnessAcceptable: freshness.status === "READY",
++    coverageComplete: freshness.status === "READY" && !sum.limits.includes("COST_AMOUNT_ABSENT"),
++    freshnessAcceptable,
      evidenceNotes: [
--      // Config flag alone is never sufficient evidence.
        (process.env.SFIA_FINOPS_SCOPE_COMPARABLE ?? "").trim() === "1"
          ? "SCOPE_FLAG_SET_BUT_EVIDENCE_REQUIRED"
          : "SCOPE_FLAG_UNSET",
-+      "PERIOD_EQUALITY_NOT_PROVEN",
-+      filter.projectId
-+        ? "STUDIO_PROJECT_FILTER_NOT_PROVIDER_PROJECT"
-+        : "NO_STUDIO_PROJECT_FILTER",
-     ],
+-      "PERIOD_EQUALITY_NOT_PROVEN",
++      "PROVENANCE_LIVE_ONLY",
+       filter.projectId
+         ? "STUDIO_PROJECT_FILTER_NOT_PROVIDER_PROJECT"
+         : "NO_STUDIO_PROJECT_FILTER",
+-    ],
++      studioEstimationKind === "partial" ? "STUDIO_ESTIMATION_PARTIAL" : "",
++    ].filter(Boolean),
    };
 
-@@ -397,25 +468,27 @@ function buildProviderReconciliationDto(
-   });
+-  const rec = reconcileFinOpsCosts({
+-    studioEstimatedUsd: studioDecimal,
+-    providerCostUsd: sum.total,
+-    scope: evidence,
+-  });
++  // Partial studio estimation cannot become COMPARABLE.
++  if (studioEstimationKind === "partial") {
++    limits.push("STUDIO_ESTIMATION_REMAINS_PARTIAL");
++  }
++
++  const rec =
++    studioEstimationKind === "partial"
++      ? {
++          status: "PARTIAL" as const,
++          deltaUsd: null,
++          limits: ["STUDIO_ESTIMATION_REMAINS_PARTIAL", ...evidence.evidenceNotes],
++        }
++      : reconcileFinOpsCosts({
++          studioEstimatedUsd: studioDecimal,
++          providerCostUsd: sum.total,
++          scope: evidence,
++        });
    limits.push(...rec.limits);
 
--  // Display numbers are derived from decimal strings only when present.
-+  // Never disclose org totals to unauthorized Pilot views.
-+  const discloseProvider = rec.status === "COMPARABLE" || rec.status === "PARTIAL";
+-  // Never disclose org totals to unauthorized Pilot views.
+-  const discloseProvider = rec.status === "COMPARABLE" || rec.status === "PARTIAL";
++  // Never disclose org totals / TEST / unauthorized Pilot views.
++  const discloseProvider =
++    (rec.status === "COMPARABLE" || rec.status === "PARTIAL") &&
++    orgIdentityProven &&
++    Boolean(configuredProject);
    const providerNum =
--    sum.total != null ? Number(sum.total) : null;
--  const deltaNum = rec.deltaUsd != null ? Number(rec.deltaUsd) : null;
-+    discloseProvider && sum.total != null ? Number(sum.total) : null;
-+  const deltaNum =
-+    discloseProvider && rec.deltaUsd != null ? Number(rec.deltaUsd) : null;
-
-   return {
-     studioEstimatedUsd: studio,
--    studioEstimationKind: estimatedCostUsd.kind,
-+    studioEstimationKind,
-     providerCostUsd:
-       providerNum != null && Number.isFinite(providerNum) ? providerNum : null,
--    providerCurrency: "usd",
-+    providerCurrency: discloseProvider ? sum.currency : null,
-     deltaUsd: deltaNum != null && Number.isFinite(deltaNum) ? deltaNum : null,
-     comparability: rec.status,
-     freshness: freshnessDto,
-     limits: [...new Set(limits)],
-     noraIndependent: true,
-     studioEstimatedUsdDecimal: studioDecimal,
--    providerCostUsdDecimal: sum.total,
--    deltaUsdDecimal: rec.deltaUsd,
-+    providerCostUsdDecimal: discloseProvider ? sum.total : null,
-+    deltaUsdDecimal: discloseProvider ? rec.deltaUsd : null,
-   };
- }
-
-diff --git a/projects/sfia-studio-next/web/tests/integration/ml5-admin-snapshots-pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml5-admin-snapshots-pg.test.ts
+     discloseProvider && sum.total != null ? Number(sum.total) : null;
+   const deltaNum =
+diff --git a/projects/sfia-studio-next/web/tests/integration/ml5-admin-finops-qualification.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml5-admin-finops-qualification.pg.test.ts
 new file mode 100644
-index 00000000..bd39aed5
+index 00000000..c1bc27fe
 --- /dev/null
-+++ b/projects/sfia-studio-next/web/tests/integration/ml5-admin-snapshots-pg.test.ts
-@@ -0,0 +1,113 @@
++++ b/projects/sfia-studio-next/web/tests/integration/ml5-admin-finops-qualification.pg.test.ts
+@@ -0,0 +1,282 @@
 +/**
-+ * Collecteur isolé (processus logique) → PostgreSQL DEV → lecture produit.
-+ * Uses TEST_SUBSTITUTED transport — no LIVE Admin.
++ * Admin/FinOps qualification — PG integrity, provenance, roles, restore probe.
 + */
 +import { afterAll, beforeAll, describe, expect, it } from "vitest";
++import postgres from "postgres";
 +import {
 +  markSubstitutedAdminTransport,
 +  resetAdminCollectorStateForTests,
 +  resolveIsolatedAdminCollectorConfig,
 +  runAdminCollection,
++  reconcileFinOpsCosts,
++  assessPeriodEquality,
 +} from "@/domains/finops/provider-admin-usage-collector";
 +import {
 +  getAdminCollectionFreshnessFromPg,
 +  listAdminSnapshotsFromPg,
++  upsertAdminSnapshotsPg,
++  insertAdminCollectionRun,
++  finishAdminCollectionRun,
 +} from "@/domains/finops/provider-admin-usage-repository";
++import type { AdminUsageSnapshot } from "@/domains/finops/provider-admin-usage-collector";
 +
-+const costsPage = {
++const costsPage = (amount: number, projectId: string) => ({
 +  object: "page",
 +  data: [
 +    {
@@ -2700,392 +1930,792 @@ index 00000000..bd39aed5
 +      results: [
 +        {
 +          object: "organization.costs.result",
-+          amount: { value: 1.25, currency: "usd" },
-+          project_id: "proj_pg_a",
++          amount: { value: amount, currency: "usd" },
++          project_id: projectId,
 +        },
 +      ],
 +    },
 +  ],
 +  has_more: false,
 +  next_page: null,
-+};
++});
 +
-+describe("admin snapshots PG persistence (DEV)", () => {
-+  beforeAll(() => {
-+    resetAdminCollectorStateForTests();
-+  });
-+  afterAll(() => {
-+    resetAdminCollectorStateForTests();
++function baseSnap(
++  overrides: Partial<AdminUsageSnapshot> & {
++    completeness: "complete" | "partial";
++    collectedAtUtc: string;
++    amount: string;
++  },
++): AdminUsageSnapshot {
++  return {
++    sourceEndpoint: "/organization/costs",
++    surfaceObject: "organization.costs.result",
++    organizationScope: "org:qual",
++    intervalStartUtc: "2023-11-14T22:13:20.000Z",
++    intervalEndUtc: "2023-11-15T22:13:20.000Z",
++    granularity: "1d",
++    dimensions: {
++      project_id: "proj_qual",
++      api_key_id: null,
++      user_id: null,
++      model: null,
++      line_item: null,
++      api_source: null,
++    },
++    metrics: {
++      input_tokens: { presence: "ABSENT", value: null },
++      output_tokens: { presence: "ABSENT", value: null },
++      input_cached_tokens: { presence: "ABSENT", value: null },
++      num_model_requests: { presence: "ABSENT", value: null },
++      num_requests: { presence: "ABSENT", value: null },
++      amount: { presence: "MEASURED", value: overrides.amount },
++      currency: { presence: "MEASURED", value: "usd" },
++    },
++    collectionId: overrides.collectionId ?? "acol_qual",
++    completeness: overrides.completeness,
++    collectedAtUtc: overrides.collectedAtUtc,
++    collectionProvenance: overrides.collectionProvenance,
++  };
++}
++
++describe("Admin/FinOps PG qualification", () => {
++  beforeAll(() => resetAdminCollectorStateForTests());
++  afterAll(() => resetAdminCollectorStateForTests());
++
++  it("partial collect does not overwrite complete snapshot metrics", async () => {
++    const runId = `acol_integrity_${Date.now()}`;
++    await insertAdminCollectionRun({
++      collectionId: runId,
++      startedAtUtc: "2026-11-26T10:00:00.000Z",
++      status: "READY",
++      path: "/organization/costs",
++      organizationScope: "org:qual",
++      provenance: "LIVE",
++    });
++    await finishAdminCollectionRun({
++      collectionId: runId,
++      finishedAtUtc: "2026-11-26T10:00:01.000Z",
++      status: "READY",
++      pagesFetched: 1,
++      limits: [],
++      lastError: null,
++    });
++
++    await upsertAdminSnapshotsPg(
++      [
++        baseSnap({
++          collectionId: runId,
++          completeness: "complete",
++          collectedAtUtc: "2026-11-26T10:00:00.000Z",
++          amount: "9.0000000000",
++        }),
++      ],
++      "LIVE",
++    );
++
++    const runPartial = `${runId}_p`;
++    await insertAdminCollectionRun({
++      collectionId: runPartial,
++      startedAtUtc: "2026-11-26T11:00:00.000Z",
++      status: "PARTIAL",
++      path: "/organization/costs",
++      organizationScope: "org:qual",
++      provenance: "LIVE",
++    });
++    await finishAdminCollectionRun({
++      collectionId: runPartial,
++      finishedAtUtc: "2026-11-26T11:00:01.000Z",
++      status: "PARTIAL",
++      pagesFetched: 1,
++      limits: [],
++      lastError: null,
++    });
++
++    await upsertAdminSnapshotsPg(
++      [
++        baseSnap({
++          collectionId: runPartial,
++          completeness: "partial",
++          collectedAtUtc: "2026-11-26T11:00:00.000Z",
++          amount: "0.0100000000",
++        }),
++      ],
++      "LIVE",
++    );
++
++    const rows = await listAdminSnapshotsFromPg({
++      organizationScope: "org:qual",
++      provenance: "LIVE",
++    });
++    const hit = rows.find((r) => r.dimensions.project_id === "proj_qual");
++    expect(hit?.completeness).toBe("complete");
++    expect(hit?.metrics.amount.value).toBe("9.0000000000");
 +  });
 +
-+  it("persists snapshots via collector and survives memory reset", async () => {
++  it("TEST provenance is excluded from LIVE product reads", async () => {
 +    const transport = markSubstitutedAdminTransport(async () => ({
 +      status: 200,
-+      json: costsPage,
++      json: costsPage(3.33, "proj_test_only"),
 +    }));
 +    const r = await runAdminCollection({
 +      config: resolveIsolatedAdminCollectorConfig({
 +        adminApiKey: null,
 +        mode: "TEST_SUBSTITUTED",
 +        liveAuthorized: false,
-+        organizationScope: "org:pg-dev-test",
++        organizationScope: "org:qual-test",
 +        transport,
 +      }),
 +      path: "/organization/costs",
-+      query: { start_time: "1700000000", bucket_width: "1d" },
++      query: { start_time: "1700000000" },
 +      persistToPg: true,
 +    });
 +    expect(r.status).toBe("READY");
-+    expect(r.snapshots.length).toBe(1);
 +
-+    // Simulate collector process exit — wipe in-memory SoT.
-+    resetAdminCollectorStateForTests();
-+
-+    const fromPg = await listAdminSnapshotsFromPg({
-+      organizationScope: "org:pg-dev-test",
++    const liveOnly = await listAdminSnapshotsFromPg({
++      organizationScope: "org:qual-test",
++      provenance: "LIVE",
 +    });
-+    expect(fromPg.some((s) => s.dimensions.project_id === "proj_pg_a")).toBe(
++    expect(liveOnly.some((s) => s.dimensions.project_id === "proj_test_only")).toBe(
++      false,
++    );
++    const testRows = await listAdminSnapshotsFromPg({
++      organizationScope: "org:qual-test",
++      provenance: "TEST_SUBSTITUTED",
++    });
++    expect(testRows.some((s) => s.dimensions.project_id === "proj_test_only")).toBe(
 +      true,
 +    );
-+    const freshness = await getAdminCollectionFreshnessFromPg();
-+    expect(freshness.snapshotCount).toBeGreaterThan(0);
-+    expect(freshness.status).toBe("READY");
 +  });
 +
-+  it("idempotent replay does not duplicate canonical rows", async () => {
-+    const transport = markSubstitutedAdminTransport(async () => ({
-+      status: 200,
-+      json: costsPage,
-+    }));
-+    const cfg = resolveIsolatedAdminCollectorConfig({
-+      adminApiKey: null,
-+      mode: "TEST_SUBSTITUTED",
-+      liveAuthorized: false,
-+      organizationScope: "org:pg-dev-test",
-+      transport,
-+    });
-+    await runAdminCollection({
-+      config: cfg,
-+      path: "/organization/costs",
-+      query: { start_time: "1700000000", bucket_width: "1d" },
-+      persistToPg: true,
-+    });
-+    await runAdminCollection({
-+      config: cfg,
-+      path: "/organization/costs",
-+      query: { start_time: "1700000000", bucket_width: "1d" },
-+      persistToPg: true,
-+    });
-+    const rows = await listAdminSnapshotsFromPg({
-+      organizationScope: "org:pg-dev-test",
-+    });
-+    const matches = rows.filter(
-+      (s) =>
-+        s.dimensions.project_id === "proj_pg_a" &&
-+        s.intervalStartUtc.startsWith("2023-11-14"),
-+    );
-+    expect(matches.length).toBe(1);
-+  });
-+});
-diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-agents-sdk-tracing-real-sdk.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-agents-sdk-tracing-real-sdk.test.ts
-new file mode 100644
-index 00000000..ed75e65c
---- /dev/null
-+++ b/projects/sfia-studio-next/web/tests/unit/ml5-agents-sdk-tracing-real-sdk.test.ts
-@@ -0,0 +1,112 @@
-+/**
-+ * Real @openai/agents SDK execution with substituted transport + network oracle.
-+ * Mocks of setTraceProcessors alone are insufficient — this file imports the real SDK.
-+ */
-+import { afterEach, describe, expect, it } from "vitest";
-+import {
-+  configureAgentsSdkTracing,
-+  getAgentsTracingConfigState,
-+  getAgentsTracingSinkRecords,
-+  resetAgentsTracingTestState,
-+  runWithAgentsTracingCorrelation,
-+  withAgentsTracingNetworkOracle,
-+} from "@/lib/agents-sdk-tracing";
-+
-+afterEach(() => {
-+  resetAgentsTracingTestState();
-+  delete process.env.SFIA_AGENTS_TRACING_MODE;
-+});
-+
-+describe("agents-sdk-tracing REAL SDK (substituted transport)", () => {
-+  it("OFF fail-closed: real SDK tracingDisabled after configure", async () => {
-+    process.env.SFIA_AGENTS_TRACING_MODE = "off";
-+    const r = await configureAgentsSdkTracing(process.env);
-+    expect(r.mode).toBe("off");
-+    expect(r.tracingDisabled).toBe(true);
-+    expect(getAgentsTracingConfigState().mode).toBe("off");
-+
-+    const agents = await import("@openai/agents");
-+    // Prove the SDK export exists and was addressed (not a mock-only path).
-+    expect(typeof agents.setTracingDisabled).toBe("function");
-+    expect(typeof agents.setTraceProcessors).toBe("function");
-+  });
-+
-+  it("LOCAL + network oracle: real Agent.run with zero remote trace export", async () => {
-+    process.env.SFIA_AGENTS_TRACING_MODE = "local";
-+    const cfg = await configureAgentsSdkTracing(process.env);
-+    // If processors cannot be proven replaced, mode must stay OFF.
-+    if (!cfg.processorsReplaced) {
-+      expect(cfg.mode).toBe("off");
-+      expect(cfg.tracingDisabled).toBe(true);
-+      return;
-+    }
-+    expect(cfg.mode).toBe("local");
-+
-+    const { Agent, run, setDefaultOpenAIClient } = await import("@openai/agents");
-+    // Substituted OpenAI client — no real network to api.openai.com.
-+    const fakeClient = {
-+      responses: {
-+        create: async () => ({
-+          id: "resp_fake",
-+          output_text: "ok",
-+          output: [
-+            {
-+              type: "message",
-+              role: "assistant",
-+              content: [{ type: "output_text", text: "ok" }],
-+            },
-+          ],
-+          usage: { input_tokens: 1, output_tokens: 1, total_tokens: 2 },
-+        }),
-+      },
++  it("positive COMPARABLE with exact period window", () => {
++    const window = {
++      startUtc: "2023-11-14T22:13:20.000Z",
++      endUtc: "2023-11-15T22:13:20.000Z",
 +    };
-+    if (typeof setDefaultOpenAIClient === "function") {
-+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-+      setDefaultOpenAIClient(fakeClient as any);
-+    }
-+
-+    const { result, traceExportUrls } = await withAgentsTracingNetworkOracle(
-+      async () =>
-+        runWithAgentsTracingCorrelation(
-+          {
-+            operationId: "op_real_sdk",
-+            generationId: "gen_real_sdk",
-+            attemptId: "att_real_sdk",
-+            workId: "work_real_sdk",
-+          },
-+          async () => {
-+            const agent = new Agent({
-+              name: "sfia_trace_probe",
-+              instructions: "Reply with ok.",
-+              model: "gpt-4.1-mini",
-+            });
-+            try {
-+              return await run(agent, "ping");
-+            } catch (e) {
-+              // Substituted client shape may not satisfy full SDK contract —
-+              // still prove SDK code path executed under the oracle.
-+              return { error: e instanceof Error ? e.message : String(e) };
-+            }
-+          },
-+        ),
-+    );
-+
-+    expect(traceExportUrls).toEqual([]);
-+    // Sink may be empty if SDK never emitted spans under substituted client —
-+    // but network oracle must have wrapped a real import/execution.
-+    expect(result).toBeDefined();
-+    void getAgentsTracingSinkRecords();
++    const rows = [
++      baseSnap({
++        completeness: "complete",
++        collectedAtUtc: "2026-11-26T10:00:00.000Z",
++        amount: "0.8600000000",
++        collectionProvenance: "LIVE",
++      }),
++    ];
++    const period = assessPeriodEquality(rows, window);
++    expect(period.periodEqual).toBe(true);
++    const rec = reconcileFinOpsCosts({
++      studioEstimatedUsd: "0.8000000000",
++      providerCostUsd: "0.8600000000",
++      scope: {
++        organizationMatches: true,
++        organizationIdentityProven: true,
++        projectIdsOverlap: true,
++        projectAttributionProven: true,
++        apiKeyIdsOverlap: false,
++        periodOverlap: true,
++        periodEqual: period.periodEqual,
++        currencyMatches: true,
++        providerCurrency: "usd",
++        surfacesRequested: ["/organization/costs"],
++        groupingCompatible: true,
++        coverageComplete: true,
++        freshnessAcceptable: true,
++        evidenceNotes: ["QUAL_POSITIVE_COMPARABLE"],
++      },
++    });
++    expect(rec.status).toBe("COMPARABLE");
++    expect(rec.deltaUsd).toBe("0.0600000000");
 +  });
 +
-+  it("LOCAL run recorded correlated sink under real SDK (no secret leakage)", async () => {
-+    process.env.SFIA_AGENTS_TRACING_MODE = "local";
-+    const cfg = await configureAgentsSdkTracing(process.env);
-+    if (!cfg.processorsReplaced) {
-+      expect(cfg.mode).toBe("off");
-+      return;
++  it("finops reader role cannot INSERT snapshots", async () => {
++    const url = process.env.DATABASE_URL;
++    if (!url) throw new Error("DATABASE_URL missing");
++    const u = new URL(url);
++    u.username = "sfia_finops_reader_login";
++    u.password = "sfia_dev_finops_read_only";
++    const reader = postgres(u.toString(), { max: 1 });
++    try {
++      let refused = false;
++      try {
++        await reader`
++          INSERT INTO provider_admin_collection_runs (
++            collection_id, started_at, status, path, organization_scope, collection_provenance
++          ) VALUES (
++            'acol_should_fail', now(), 'READY', '/organization/costs', 'org:x', 'LIVE'
++          )
++        `;
++      } catch {
++        refused = true;
++      }
++      expect(refused).toBe(true);
++    } finally {
++      await reader.end({ timeout: 1 });
 +    }
-+    const records = getAgentsTracingSinkRecords();
-+    // Prior test in this file may have populated the sink; ensure redaction.
-+    expect(JSON.stringify(records)).not.toMatch(/sk-[A-Za-z0-9]/);
++  });
++
++  it("collector role cannot SELECT pilots (business tables)", async () => {
++    const url = process.env.DATABASE_URL;
++    if (!url) throw new Error("DATABASE_URL missing");
++    const u = new URL(url);
++    u.username = "sfia_admin_collector_login";
++    u.password = "sfia_dev_collector_only";
++    const collector = postgres(u.toString(), { max: 1 });
++    try {
++      let refused = false;
++      try {
++        await collector`SELECT id FROM pilots LIMIT 1`;
++      } catch {
++        refused = true;
++      }
++      expect(refused).toBe(true);
++    } finally {
++      await collector.end({ timeout: 1 });
++    }
++  });
++
++  it("freshness scoped by provenance", async () => {
++    const f = await getAdminCollectionFreshnessFromPg({
++      organizationScope: "org:qual-test",
++      provenance: "TEST_SUBSTITUTED",
++    });
++    expect(f.snapshotCount).toBeGreaterThan(0);
 +  });
 +});
+diff --git a/projects/sfia-studio-next/web/tests/integration/ml5-admin-snapshots-pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml5-admin-snapshots-pg.test.ts
+index bd39aed5..6adbfb86 100644
+--- a/projects/sfia-studio-next/web/tests/integration/ml5-admin-snapshots-pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/ml5-admin-snapshots-pg.test.ts
+@@ -67,6 +67,7 @@ describe("admin snapshots PG persistence (DEV)", () => {
+
+     const fromPg = await listAdminSnapshotsFromPg({
+       organizationScope: "org:pg-dev-test",
++      provenance: "TEST_SUBSTITUTED",
+     });
+     expect(fromPg.some((s) => s.dimensions.project_id === "proj_pg_a")).toBe(
+       true,
+@@ -102,6 +103,7 @@ describe("admin snapshots PG persistence (DEV)", () => {
+     });
+     const rows = await listAdminSnapshotsFromPg({
+       organizationScope: "org:pg-dev-test",
++      provenance: "TEST_SUBSTITUTED",
+     });
+     const matches = rows.filter(
+       (s) =>
 diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-provider-admin-usage-collector.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-provider-admin-usage-collector.test.ts
-index f6973ce5..264191b1 100644
+index 264191b1..74a8b04d 100644
 --- a/projects/sfia-studio-next/web/tests/unit/ml5-provider-admin-usage-collector.test.ts
 +++ b/projects/sfia-studio-next/web/tests/unit/ml5-provider-admin-usage-collector.test.ts
-@@ -1,5 +1,6 @@
+@@ -1,5 +1,7 @@
  import { afterEach, describe, expect, it } from "vitest";
  import {
-+  markSubstitutedAdminTransport,
++  assertAdminCollectionEnvelope,
++  assessPeriodEquality,
+   markSubstitutedAdminTransport,
    parseAdminUsagePage,
    resetAdminCollectorStateForTests,
-   resolveIsolatedAdminCollectorConfig,
-@@ -75,7 +76,11 @@ function officialCompletionsPage() {
+@@ -9,11 +11,12 @@ import {
+   listAdminCollectorSnapshots,
+   reconcileFinOpsCosts,
+   sumMeasuredCostUsd,
++  upsertAdminSnapshots,
+   type AdminHttpTransport,
++  type AdminUsageSnapshot,
+ } from "@/domains/finops/provider-admin-usage-collector";
+ import { decimalAdd, decimalSub } from "@/domains/finops/decimal-money";
+
+-/** Official-shaped page: buckets with nested results (not flattened rows). */
+ function officialCostsPage(opts?: { hasMore?: boolean; next?: string | null }) {
+   return {
+     object: "page",
+@@ -27,8 +30,6 @@ function officialCostsPage(opts?: { hasMore?: boolean; next?: string | null }) {
+             object: "organization.costs.result",
+             amount: { value: 0.42, currency: "usd" },
+             project_id: "proj_a",
+-            api_key_id: null,
+-            line_item: null,
+           },
+           {
+             object: "organization.costs.result",
+@@ -44,48 +45,42 @@ function officialCostsPage(opts?: { hasMore?: boolean; next?: string | null }) {
    };
  }
 
--describe("provider-admin-usage-collector (corrective)", () => {
-+function sub(fn: AdminHttpTransport["__sfiaAdminMode"] extends never ? never : Parameters<typeof markSubstitutedAdminTransport>[0]) {
-+  return markSubstitutedAdminTransport(fn);
-+}
-+
-+describe("provider-admin-usage-collector (operational)", () => {
+-function officialCompletionsPage() {
++function snap(partial: Partial<AdminUsageSnapshot> & Pick<AdminUsageSnapshot, "completeness" | "collectedAtUtc">): AdminUsageSnapshot {
+   return {
+-    object: "page",
+-    data: [
+-      {
+-        object: "bucket",
+-        start_time: 1_700_000_000,
+-        end_time: 1_700_086_400,
+-        results: [
+-          {
+-            object: "organization.usage.completions.result",
+-            input_tokens: 100,
+-            output_tokens: 20,
+-            input_cached_tokens: 10,
+-            num_model_requests: 2,
+-            project_id: "proj_a",
+-            model: "gpt-x",
+-          },
+-        ],
+-      },
+-      {
+-        object: "bucket",
+-        start_time: 1_700_086_400,
+-        end_time: 1_700_172_800,
+-        results: [],
+-      },
+-    ],
+-    has_more: false,
+-    next_page: null,
++    sourceEndpoint: "/organization/costs",
++    surfaceObject: "organization.costs.result",
++    organizationScope: "org:test",
++    intervalStartUtc: "2023-11-14T22:13:20.000Z",
++    intervalEndUtc: "2023-11-15T22:13:20.000Z",
++    granularity: "1d",
++    dimensions: {
++      project_id: "proj_a",
++      api_key_id: null,
++      user_id: null,
++      model: null,
++      line_item: null,
++      api_source: null,
++    },
++    metrics: {
++      input_tokens: { presence: "ABSENT", value: null },
++      output_tokens: { presence: "ABSENT", value: null },
++      input_cached_tokens: { presence: "ABSENT", value: null },
++      num_model_requests: { presence: "ABSENT", value: null },
++      num_requests: { presence: "ABSENT", value: null },
++      amount: { presence: "MEASURED", value: "1.0000000000" },
++      currency: { presence: "MEASURED", value: "usd" },
++    },
++    collectionId: "acol_x",
++    ...partial,
+   };
+ }
+
+-function sub(fn: AdminHttpTransport["__sfiaAdminMode"] extends never ? never : Parameters<typeof markSubstitutedAdminTransport>[0]) {
+-  return markSubstitutedAdminTransport(fn);
+-}
+-
+-describe("provider-admin-usage-collector (operational)", () => {
++describe("provider-admin-usage-collector (Admin/FinOps qualification)", () => {
    afterEach(() => {
      resetAdminCollectorStateForTests();
    });
-@@ -98,6 +103,18 @@ describe("provider-admin-usage-collector (corrective)", () => {
-     expect(parsed.snapshots[1].dimensions.project_id).toBe("proj_b");
+
+-  it("parses nested bucket.results — multiple results per bucket", () => {
++  it("parses nested bucket.results", () => {
+     const parsed = parseAdminUsagePage({
+       path: "/organization/costs",
+       json: officialCostsPage(),
+@@ -95,15 +90,9 @@ describe("provider-admin-usage-collector (operational)", () => {
+       granularity: "1d",
+     });
+     expect(parsed.snapshots).toHaveLength(2);
+-    expect(parsed.snapshots[0].surfaceObject).toBe("organization.costs.result");
+-    expect(parsed.snapshots[0].metrics.amount).toEqual({
+-      presence: "MEASURED",
+-      value: "0.4200000000",
+-    });
+-    expect(parsed.snapshots[1].dimensions.project_id).toBe("proj_b");
    });
 
-+  it("flags has_more without cursor as anomaly", () => {
-+    const parsed = parseAdminUsagePage({
-+      path: "/organization/costs",
-+      json: officialCostsPage({ hasMore: true, next: null }),
-+      organizationScope: "org:test",
-+      collectionId: "acol_hm",
-+      collectedAtUtc: "2026-11-26T00:00:00.000Z",
-+      granularity: "1d",
-+    });
-+    expect(parsed.limits).toContain("HAS_MORE_WITHOUT_CURSOR");
+-  it("flags has_more without cursor as anomaly", () => {
++  it("flags has_more without cursor", () => {
+     const parsed = parseAdminUsagePage({
+       path: "/organization/costs",
+       json: officialCostsPage({ hasMore: true, next: null }),
+@@ -115,21 +104,69 @@ describe("provider-admin-usage-collector (operational)", () => {
+     expect(parsed.limits).toContain("HAS_MORE_WITHOUT_CURSOR");
+   });
+
+-  it("ABSENT metrics stay ABSENT — never ZERO", () => {
+-    const parsed = parseAdminUsagePage({
+-      path: "/organization/usage/completions",
+-      json: officialCompletionsPage(),
+-      organizationScope: "org:test",
+-      collectionId: "acol_2",
+-      collectedAtUtc: "2026-11-26T00:00:00.000Z",
+-      granularity: "1d",
+-    });
+-    expect(parsed.snapshots).toHaveLength(1);
+-    const m = parsed.snapshots[0].metrics;
+-    expect(m.input_tokens.presence).toBe("MEASURED");
+-    expect(m.num_requests.presence).toBe("ABSENT");
+-    expect(m.num_requests.value).toBeNull();
+-    expect(m.amount.presence).toBe("ABSENT");
++  it("memory upsert: partial never degrades complete metrics", () => {
++    const metrics9 = {
++      input_tokens: { presence: "ABSENT" as const, value: null },
++      output_tokens: { presence: "ABSENT" as const, value: null },
++      input_cached_tokens: { presence: "ABSENT" as const, value: null },
++      num_model_requests: { presence: "ABSENT" as const, value: null },
++      num_requests: { presence: "ABSENT" as const, value: null },
++      amount: { presence: "MEASURED" as const, value: "9.0000000000" },
++      currency: { presence: "MEASURED" as const, value: "usd" },
++    };
++    upsertAdminSnapshots([
++      snap({
++        completeness: "complete",
++        collectedAtUtc: "2026-11-26T10:00:00.000Z",
++        metrics: metrics9,
++      }),
++    ]);
++    upsertAdminSnapshots([
++      snap({
++        completeness: "partial",
++        collectedAtUtc: "2026-11-26T11:00:00.000Z",
++        metrics: {
++          ...metrics9,
++          amount: { presence: "MEASURED", value: "0.0100000000" },
++        },
++      }),
++    ]);
++    const rows = listAdminCollectorSnapshots();
++    expect(rows).toHaveLength(1);
++    expect(rows[0].completeness).toBe("complete");
++    expect(rows[0].metrics.amount.value).toBe("9.0000000000");
 +  });
 +
-   it("ABSENT metrics stay ABSENT — never ZERO", () => {
-     const parsed = parseAdminUsagePage({
-       path: "/organization/usage/completions",
-@@ -122,37 +139,75 @@ describe("provider-admin-usage-collector (corrective)", () => {
++  it("memory upsert: older collect does not replace newer", () => {
++    const metrics = {
++      input_tokens: { presence: "ABSENT" as const, value: null },
++      output_tokens: { presence: "ABSENT" as const, value: null },
++      input_cached_tokens: { presence: "ABSENT" as const, value: null },
++      num_model_requests: { presence: "ABSENT" as const, value: null },
++      num_requests: { presence: "ABSENT" as const, value: null },
++      amount: { presence: "MEASURED" as const, value: "5.0000000000" },
++      currency: { presence: "MEASURED" as const, value: "usd" },
++    };
++    upsertAdminSnapshots([
++      snap({
++        completeness: "complete",
++        collectedAtUtc: "2026-11-26T12:00:00.000Z",
++        metrics,
++      }),
++    ]);
++    upsertAdminSnapshots([
++      snap({
++        completeness: "complete",
++        collectedAtUtc: "2026-11-26T11:00:00.000Z",
++        metrics: {
++          ...metrics,
++          amount: { presence: "MEASURED", value: "1.0000000000" },
++        },
++      }),
++    ]);
++    expect(listAdminCollectorSnapshots()[0].metrics.amount.value).toBe(
++      "5.0000000000",
++    );
+   });
+
+   it("product view never loads Admin secret", () => {
+@@ -139,12 +176,11 @@ describe("provider-admin-usage-collector (operational)", () => {
      delete process.env.OPENAI_ADMIN_KEY;
    });
 
--  it("blocks without secret / without LIVE GO", async () => {
--    const a = await runAdminCollection({
+-  it("LIVE mode refuses without LIVE GO even with transport injection", async () => {
++  it("LIVE mode refuses without LIVE GO even with forged marker", async () => {
+     const transport = markSubstitutedAdminTransport(async () => ({
+       status: 200,
+       json: officialCostsPage(),
+     }));
+-    // Injected transport with wrong mode for LIVE ⇒ blocked.
+     const r = await runAdminCollection({
+       config: {
+         adminApiKey: "sk-admin-test",
+@@ -154,179 +190,151 @@ describe("provider-admin-usage-collector (operational)", () => {
+         transport: transport as unknown as AdminHttpTransport,
+       },
+       path: "/organization/costs",
+-      query: { start_time: "1" },
++      query: { start_time: "1700000000", end_time: "1700086400" },
+     });
+     expect(r.status).toBe("BLOCKED_NO_LIVE_GO");
+   });
+
+-  it("TEST_SUBSTITUTED works without real Admin key", async () => {
+-    const transport = sub(async () => ({
++  it("TEST_SUBSTITUTED refuses when a real key is attached", async () => {
++    const transport = markSubstitutedAdminTransport(async () => ({
+       status: 200,
+       json: officialCostsPage(),
+     }));
+-    const r = await runAdminCollection({
 -      config: resolveIsolatedAdminCollectorConfig({
 -        adminApiKey: null,
--        liveAuthorized: true,
+-        mode: "TEST_SUBSTITUTED",
+-        liveAuthorized: false,
+-        transport,
 -      }),
-+  it("LIVE mode refuses without LIVE GO even with transport injection", async () => {
-+    const transport = markSubstitutedAdminTransport(async () => ({
-+      status: 200,
-+      json: officialCostsPage(),
-+    }));
-+    // Injected transport with wrong mode for LIVE ⇒ blocked.
-+    const r = await runAdminCollection({
-+      config: {
-+        adminApiKey: "sk-admin-test",
-+        organizationScope: "org:t",
-+        mode: "LIVE",
-+        liveAdminCallsAuthorized: false,
-+        transport: transport as unknown as AdminHttpTransport,
-+      },
-       path: "/organization/costs",
-       query: { start_time: "1" },
-     });
--    expect(a.status).toBe("BLOCKED_NO_SECRET");
-+    expect(r.status).toBe("BLOCKED_NO_LIVE_GO");
-+  });
-
--    const b = await runAdminCollection({
-+  it("TEST_SUBSTITUTED works without real Admin key", async () => {
-+    const transport = sub(async () => ({
-+      status: 200,
-+      json: officialCostsPage(),
-+    }));
-+    const r = await runAdminCollection({
-       config: resolveIsolatedAdminCollectorConfig({
--        adminApiKey: "sk-admin-test",
-+        adminApiKey: null,
-+        mode: "TEST_SUBSTITUTED",
-         liveAuthorized: false,
-+        transport,
-       }),
-       path: "/organization/costs",
-       query: { start_time: "1" },
-     });
--    expect(b.status).toBe("BLOCKED_NO_LIVE_GO");
-+    expect(r.status).toBe("READY");
-+    expect(r.snapshots).toHaveLength(2);
-+  });
-+
-+  it("blocks unmarked transport on TEST mode", async () => {
-+    const raw = async () => ({
-+      status: 200,
-+      json: officialCostsPage(),
-+    });
-+    const r = await runAdminCollection({
-+      config: {
-+        adminApiKey: null,
-+        organizationScope: "org:t",
-+        mode: "TEST_SUBSTITUTED",
-+        liveAdminCallsAuthorized: false,
-+        transport: raw as unknown as AdminHttpTransport,
-+      },
-+      path: "/organization/costs",
-+      query: { start_time: "1" },
-+    });
-+    expect(r.status).toBe("BLOCKED_NO_LIVE_GO");
-+    expect(r.lastError).toContain("BLOCKED_TEST_TRANSPORT_REQUIRED");
-   });
-
-   it("refuses /organization/usage/responses (nonexistent)", async () => {
--    const transport: AdminHttpTransport = async () => ({
-+    const transport = sub(async () => ({
-       status: 200,
-       json: { object: "page", data: [] },
+-      path: "/organization/costs",
+-      query: { start_time: "1" },
 -    });
-+    }));
+-    expect(r.status).toBe("READY");
+-    expect(r.snapshots).toHaveLength(2);
+-  });
+-
+-  it("blocks unmarked transport on TEST mode", async () => {
+-    const raw = async () => ({
+-      status: 200,
+-      json: officialCostsPage(),
+-    });
      const r = await runAdminCollection({
        config: {
--        adminApiKey: "sk-admin-test",
-+        adminApiKey: null,
+-        adminApiKey: null,
++        adminApiKey: "sk-must-not-be-here",
          organizationScope: "org:t",
-+        mode: "TEST_SUBSTITUTED",
+         mode: "TEST_SUBSTITUTED",
          liveAdminCallsAuthorized: false,
-         transport,
+-        transport: raw as unknown as AdminHttpTransport,
++        transport,
        },
-@@ -163,9 +218,9 @@ describe("provider-admin-usage-collector (corrective)", () => {
-     expect(r.lastError).toContain("ADMIN_PATH_NOT_ALLOWLISTED");
+       path: "/organization/costs",
+-      query: { start_time: "1" },
++      query: { start_time: "1700000000" },
+     });
+     expect(r.status).toBe("BLOCKED_NO_LIVE_GO");
+-    expect(r.lastError).toContain("BLOCKED_TEST_TRANSPORT_REQUIRED");
++    expect(r.lastError).toContain("BLOCKED_TEST_MUST_NOT_HOLD_LIVE_KEY");
    });
 
--  it("paginates official-shaped costs and sums with decimal math", async () => {
-+  it("paginates official-shaped costs and sums only attributed project", async () => {
-     let calls = 0;
--    const transport: AdminHttpTransport = async ({ path }) => {
-+    const transport = sub(async ({ path }) => {
-       calls += 1;
-       expect(path).toBe("/organization/costs");
-       if (calls === 1) {
-@@ -196,12 +251,13 @@ describe("provider-admin-usage-collector (corrective)", () => {
-           next_page: null,
-         },
-       };
--    };
-+    });
-
+-  it("refuses /organization/usage/responses (nonexistent)", async () => {
+-    const transport = sub(async () => ({
++  it("TEST_SUBSTITUTED works without real Admin key", async () => {
++    const transport = markSubstitutedAdminTransport(async () => ({
+       status: 200,
+-      json: { object: "page", data: [] },
++      json: officialCostsPage(),
+     }));
      const r = await runAdminCollection({
+-      config: {
+-        adminApiKey: null,
+-        organizationScope: "org:t",
+-        mode: "TEST_SUBSTITUTED",
+-        liveAdminCallsAuthorized: false,
+-        transport,
+-      },
+-      path: "/organization/usage/responses",
+-      query: { start_time: "1" },
+-    });
+-    expect(r.status).toBe("ERROR");
+-    expect(r.lastError).toContain("ADMIN_PATH_NOT_ALLOWLISTED");
+-  });
+-
+-  it("paginates official-shaped costs and sums only attributed project", async () => {
+-    let calls = 0;
+-    const transport = sub(async ({ path }) => {
+-      calls += 1;
+-      expect(path).toBe("/organization/costs");
+-      if (calls === 1) {
+-        return {
+-          status: 200,
+-          json: officialCostsPage({ hasMore: true, next: "page_2" }),
+-        };
+-      }
+-      return {
+-        status: 200,
+-        json: {
+-          object: "page",
+-          data: [
+-            {
+-              object: "bucket",
+-              start_time: 1_700_086_400,
+-              end_time: 1_700_172_800,
+-              results: [
+-                {
+-                  object: "organization.costs.result",
+-                  amount: { value: 0.11, currency: "usd" },
+-                  project_id: "proj_a",
+-                },
+-              ],
+-            },
+-          ],
+-          has_more: false,
+-          next_page: null,
+-        },
+-      };
+-    });
+-
+-    const r = await runAdminCollection({
+-      config: {
++      config: resolveIsolatedAdminCollectorConfig({
+         adminApiKey: null,
+-        organizationScope: "org:test",
+         mode: "TEST_SUBSTITUTED",
+-        liveAdminCallsAuthorized: false,
++        liveAuthorized: false,
+         transport,
+-      },
++      }),
+       path: "/organization/costs",
+-      query: { start_time: "1700000000", bucket_width: "1d" },
++      query: { start_time: "1700000000" },
+     });
+     expect(r.status).toBe("READY");
+-    expect(r.pagesFetched).toBe(2);
+-    expect(listAdminCollectorSnapshots()).toHaveLength(3);
+-
+-    const refused = sumMeasuredCostUsd(listAdminCollectorSnapshots(), {
+-      projectId: null,
+-    });
+-    expect(refused.limits).toContain("ORG_AGGREGATE_SUM_REFUSED_WITHOUT_PROJECT");
+-    expect(refused.total).toBeNull();
++    expect(r.snapshots.every((s) => s.collectionProvenance === "TEST_SUBSTITUTED")).toBe(
++      true,
++    );
++  });
+
+-    const sum = sumMeasuredCostUsd(listAdminCollectorSnapshots(), {
+-      projectId: "proj_a",
+-    });
+-    expect(sum.total).toBe(decimalAdd("0.42", "0.11"));
+-    expect(sum.currency).toBe("usd");
++  it("envelope requires start_time and bounds maxPages", () => {
++    expect(() =>
++      assertAdminCollectionEnvelope({
++        path: "/organization/costs",
++        query: {},
++        maxPages: 5,
++      }),
++    ).toThrow(/ENVELOPE_START_TIME_REQUIRED/);
++    expect(() =>
++      assertAdminCollectionEnvelope({
++        path: "/organization/costs",
++        query: { start_time: "1", require_end_time: "1" },
++        maxPages: 5,
++      }),
++    ).toThrow(/ENVELOPE_END_TIME_REQUIRED/);
++    expect(() =>
++      assertAdminCollectionEnvelope({
++        path: "/organization/costs",
++        query: { start_time: "1" },
++        maxPages: 50,
++      }),
++    ).toThrow(/ENVELOPE_MAX_PAGES/);
+   });
+
+-  it("detects repeated cursor as PARTIAL anomaly", async () => {
+-    const transport = sub(async () => ({
++  it("sums only attributed project; refuses null projectId", () => {
++    const transport = markSubstitutedAdminTransport(async () => ({
+       status: 200,
+-      json: officialCostsPage({ hasMore: true, next: "same_page" }),
++      json: officialCostsPage(),
+     }));
+-    const r = await runAdminCollection({
++    return runAdminCollection({
        config: {
--        adminApiKey: "sk-admin-test",
-+        adminApiKey: null,
-         organizationScope: "org:test",
-+        mode: "TEST_SUBSTITUTED",
+         adminApiKey: null,
+-        organizationScope: "org:t",
++        organizationScope: "org:test",
+         mode: "TEST_SUBSTITUTED",
          liveAdminCallsAuthorized: false,
          transport,
        },
-@@ -212,21 +268,58 @@ describe("provider-admin-usage-collector (corrective)", () => {
-     expect(r.pagesFetched).toBe(2);
-     expect(listAdminCollectorSnapshots()).toHaveLength(3);
+       path: "/organization/costs",
+-      query: { start_time: "1" },
+-      maxPages: 5,
++      query: { start_time: "1700000000" },
++    }).then((r) => {
++      expect(r.status).toBe("READY");
++      const refused = sumMeasuredCostUsd(listAdminCollectorSnapshots(), {
++        projectId: null,
++      });
++      expect(refused.limits).toContain("ORG_AGGREGATE_SUM_REFUSED_WITHOUT_PROJECT");
++      const sum = sumMeasuredCostUsd(listAdminCollectorSnapshots(), {
++        projectId: "proj_a",
++      });
++      expect(sum.total).toBe("0.4200000000");
+     });
+-    expect(r.status).toBe("PARTIAL");
+-    expect(r.limits).toContain("REPEATED_CURSOR");
+   });
 
--    const sum = sumMeasuredCostUsd(listAdminCollectorSnapshots(), {});
--    expect(sum.total).toBe(decimalAdd(decimalAdd("0.42", "0.08")!, "0.11"));
-+    const refused = sumMeasuredCostUsd(listAdminCollectorSnapshots(), {
-+      projectId: null,
+-  it("reconcile requires full evidence — flag alone is insufficient", () => {
+-    const rec = reconcileFinOpsCosts({
++  it("period equality requires exact window match", () => {
++    const rows = [
++      snap({
++        completeness: "complete",
++        collectedAtUtc: "2026-11-26T00:00:00.000Z",
++        intervalStartUtc: "2023-11-14T22:13:20.000Z",
++        intervalEndUtc: "2023-11-15T22:13:20.000Z",
++      }),
++    ];
++    const equal = assessPeriodEquality(rows, {
++      startUtc: "2023-11-14T22:13:20.000Z",
++      endUtc: "2023-11-15T22:13:20.000Z",
 +    });
-+    expect(refused.limits).toContain("ORG_AGGREGATE_SUM_REFUSED_WITHOUT_PROJECT");
-+    expect(refused.total).toBeNull();
-+
-+    const sum = sumMeasuredCostUsd(listAdminCollectorSnapshots(), {
-+      projectId: "proj_a",
++    expect(equal.periodEqual).toBe(true);
++    const overlapOnly = assessPeriodEquality(rows, {
++      startUtc: "2023-11-14T00:00:00.000Z",
++      endUtc: "2023-11-16T00:00:00.000Z",
 +    });
-+    expect(sum.total).toBe(decimalAdd("0.42", "0.11"));
-+    expect(sum.currency).toBe("usd");
++    expect(overlapOnly.periodEqual).toBe(false);
++    expect(overlapOnly.periodOverlap).toBe(true);
 +  });
 +
-+  it("detects repeated cursor as PARTIAL anomaly", async () => {
-+    const transport = sub(async () => ({
++  it("COMPARABLE when full evidence including periodEqual", () => {
++    const ok = reconcileFinOpsCosts({
+       studioEstimatedUsd: "0.80",
+       providerCostUsd: "0.86",
+       scope: {
+         organizationMatches: true,
+         organizationIdentityProven: true,
+-        projectIdsOverlap: false,
+-        projectAttributionProven: false,
++        projectIdsOverlap: true,
++        projectAttributionProven: true,
+         apiKeyIdsOverlap: false,
+         periodOverlap: true,
+-        periodEqual: false,
++        periodEqual: true,
+         currencyMatches: true,
+         providerCurrency: "usd",
+         surfacesRequested: ["/organization/costs"],
+         groupingCompatible: true,
+         coverageComplete: true,
+         freshnessAcceptable: true,
+-        evidenceNotes: ["SCOPE_FLAG_SET_BUT_EVIDENCE_REQUIRED"],
++        evidenceNotes: [],
+       },
+     });
+-    expect(rec.status).toBe("NON_COMPARABLE");
+-    expect(rec.deltaUsd).toBeNull();
++    expect(ok.status).toBe("COMPARABLE");
++    expect(ok.deltaUsd).toBe(decimalSub("0.86", "0.80"));
+
+-    const ok = reconcileFinOpsCosts({
++    const bad = reconcileFinOpsCosts({
+       studioEstimatedUsd: "0.80",
+       providerCostUsd: "0.86",
+       scope: {
+@@ -336,7 +344,7 @@ describe("provider-admin-usage-collector (operational)", () => {
+         projectAttributionProven: true,
+         apiKeyIdsOverlap: false,
+         periodOverlap: true,
+-        periodEqual: true,
++        periodEqual: false,
+         currencyMatches: true,
+         providerCurrency: "usd",
+         surfacesRequested: ["/organization/costs"],
+@@ -346,7 +354,28 @@ describe("provider-admin-usage-collector (operational)", () => {
+         evidenceNotes: [],
+       },
+     });
+-    expect(ok.status).toBe("COMPARABLE");
+-    expect(ok.deltaUsd).toBe(decimalSub("0.86", "0.80"));
++    expect(bad.status).toBe("NON_COMPARABLE");
++    expect(bad.deltaUsd).toBeNull();
++  });
++
++  it("detects repeated cursor as PARTIAL", async () => {
++    const transport = markSubstitutedAdminTransport(async () => ({
 +      status: 200,
 +      json: officialCostsPage({ hasMore: true, next: "same_page" }),
 +    }));
@@ -3104,116 +2734,6 @@ index f6973ce5..264191b1 100644
 +    expect(r.status).toBe("PARTIAL");
 +    expect(r.limits).toContain("REPEATED_CURSOR");
    });
-
--  it("reconcile requires evidence — flag alone is insufficient", () => {
-+  it("reconcile requires full evidence — flag alone is insufficient", () => {
-     const rec = reconcileFinOpsCosts({
-       studioEstimatedUsd: "0.80",
-       providerCostUsd: "0.86",
-       scope: {
-         organizationMatches: true,
-+        organizationIdentityProven: true,
-         projectIdsOverlap: false,
-+        projectAttributionProven: false,
-         apiKeyIdsOverlap: false,
-         periodOverlap: true,
-+        periodEqual: false,
-         currencyMatches: true,
-+        providerCurrency: "usd",
-         surfacesRequested: ["/organization/costs"],
-+        groupingCompatible: true,
-+        coverageComplete: true,
-+        freshnessAcceptable: true,
-         evidenceNotes: ["SCOPE_FLAG_SET_BUT_EVIDENCE_REQUIRED"],
-       },
-     });
-@@ -238,11 +331,18 @@ describe("provider-admin-usage-collector (corrective)", () => {
-       providerCostUsd: "0.86",
-       scope: {
-         organizationMatches: true,
-+        organizationIdentityProven: true,
-         projectIdsOverlap: true,
-+        projectAttributionProven: true,
-         apiKeyIdsOverlap: false,
-         periodOverlap: true,
-+        periodEqual: true,
-         currencyMatches: true,
-+        providerCurrency: "usd",
-         surfacesRequested: ["/organization/costs"],
-+        groupingCompatible: true,
-+        coverageComplete: true,
-+        freshnessAcceptable: true,
-         evidenceNotes: [],
-       },
-     });
-diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-provider-emission-frontier.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-provider-emission-frontier.test.ts
-index 7590f647..2cf14300 100644
---- a/projects/sfia-studio-next/web/tests/unit/ml5-provider-emission-frontier.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/ml5-provider-emission-frontier.test.ts
-@@ -605,6 +605,64 @@ describe("S2/A — HTTP provider emission frontier", () => {
-     });
-   });
-
-+  it("UNKNOWN then MEASURED yields PARTIAL aggregate (never silent promote)", async () => {
-+    await runWithProviderEmissionStoreAsync(async () => {
-+      beginCampaignEnvelope({
-+        maxHttpAttempts: 4,
-+        maxHostedSearches: 5,
-+        required: true,
-+      });
-+      let call = 0;
-+      const fakeFetch = (async () => {
-+        call += 1;
-+        if (call === 1) {
-+          // No tool_usage ⇒ UNKNOWN
-+          return new Response(JSON.stringify({ id: "r1" }), {
-+            status: 200,
-+            headers: { "content-type": "application/json" },
-+          });
-+        }
-+        return new Response(
-+          JSON.stringify({
-+            id: "r2",
-+            tool_usage: { web_search: { num_requests: 1 } },
-+          }),
-+          { status: 200, headers: { "content-type": "application/json" } },
-+        );
-+      }) as typeof fetch;
-+      const gated = createFrontierAwareFetch(fakeFetch);
-+      await withLaneEnv(async () => {
-+        assertSdkInvocationAdmission({
-+          kind: "nora.generate_reply",
-+          modelId: "gpt-6.1-terra",
-+          effort: "medium",
-+          env: process.env,
-+        });
-+        const body = JSON.stringify({
-+          model: "gpt-6.1-terra",
-+          max_output_tokens: 50,
-+          reasoning: { effort: "medium" },
-+          tools: [{ type: "web_search" }],
-+          max_tool_calls: 1,
-+        });
-+        await gated("https://api.openai.com/v1/responses", {
-+          method: "POST",
-+          body,
-+        });
-+        expect(getActiveCampaignEnvelope()?.hostedSearchMeasureStatus).toBe(
-+          "UNKNOWN",
-+        );
-+        await gated("https://api.openai.com/v1/responses", {
-+          method: "POST",
-+          body,
-+        });
-+        expect(getActiveCampaignEnvelope()?.hostedSearchMeasureStatus).toBe(
-+          "PARTIAL",
-+        );
-+      });
-+    });
-+  });
-+
-   it("commits hosted searches from tool_usage.num_requests when present", async () => {
-     await runWithProviderEmissionStoreAsync(async () => {
-       beginCampaignEnvelope({
+ });
 
 ```
