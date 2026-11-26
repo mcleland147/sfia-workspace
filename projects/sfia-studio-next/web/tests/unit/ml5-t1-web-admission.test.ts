@@ -3,8 +3,10 @@ import {
   admitNoraProposedPublicQuery,
   composePilotPublicSearchQuery,
   detectPublicResearchIntent,
+  extractPilotAuthorizedExactQueries,
   extractPilotProvidedPublicUrls,
   resolvePublicWebRegistry,
+  stageNoraProposedPublicQuery,
   PILOT_PUBLIC_QUERY_REF,
 } from "@/domains/conversation/public-web-registry";
 import { authorizePublicWebQuery } from "@/domains/conversation/web-search-authorize";
@@ -121,6 +123,40 @@ describe("T1.2 — no haystack fallback for pilot provenance", () => {
     expect(r.topics[PILOT_PUBLIC_QUERY_REF]).toBeUndefined();
     expect(r.limits).toContain("STALE_PILOT_PUBLIC_QUERY_STRIPPED");
     expect(r.topics["node-lts"]).toBeTruthy();
+  });
+});
+
+describe("Option B — Pilote exact authorization persistence", () => {
+  it("stages Nora proposal without egress grant", () => {
+    const staged = stageNoraProposedPublicQuery({
+      proposedQuery: "HTTP/3 site:datatracker.ietf.org",
+    });
+    expect(staged.ok).toBe(true);
+    if (!staged.ok) throw new Error(staged.reason);
+    expect(staged.pending).toBe(true);
+  });
+
+  it("extracts AUTHORIZE_PUBLIC_QUERY markers from Pilote text", () => {
+    const qs = extractPilotAuthorizedExactQueries(
+      'OK. AUTHORIZE_PUBLIC_QUERY: "HTTP/3 site:datatracker.ietf.org"',
+    );
+    expect(qs).toEqual(["HTTP/3 site:datatracker.ietf.org"]);
+  });
+
+  it("persists Pilote exact into registry for subsequent admission", () => {
+    const r = resolvePublicWebRegistry({
+      pilotText:
+        'Autoriser la recherche publique exacte : « HTTP/3 site:datatracker.ietf.org »',
+      haystack: "suite",
+      env: { STUDIO_LANE: "DEV", SFIA_PUBLIC_WEB_CATALOG_DEFAULT: "0" },
+    });
+    expect(r.exactQueries).toContain("HTTP/3 site:datatracker.ietf.org");
+    expect(r.limits).toContain("PILOT_EXACT_AUTHORIZED");
+    const admitted = admitNoraProposedPublicQuery({
+      proposedQuery: "HTTP/3 site:datatracker.ietf.org",
+      registeredPublicQueries: r.exactQueries,
+    });
+    expect(admitted.ok).toBe(true);
   });
 });
 

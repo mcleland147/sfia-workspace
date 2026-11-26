@@ -76,6 +76,8 @@ export type NoraGenerateInput = {
     exactQueries?: string[];
     facts?: string[];
     pilotProvidedUrls?: string[];
+    /** Mutable — Nora-staged proposals awaiting Pilote exact auth. */
+    pendingProposals?: string[];
   };
   /** E03/E04 FinOps attribution when running inside a cognitive work segment. */
   cognitiveWorkId?: string | null;
@@ -973,6 +975,8 @@ async function runLiveWithTools(
         input.toolScope.operationId,
         input.toolScope.attemptId,
       ].filter((v): v is string => Boolean(v && String(v).trim()));
+      const pendingPublicWebProposals =
+        input.publicWebRegistry?.pendingProposals ?? [];
       const webTools = await buildPublicWebFrontierTools({
         sourceJournal,
         budget: sharedToolBudget,
@@ -981,6 +985,7 @@ async function runLiveWithTools(
         turnPublicFacts: input.publicWebRegistry?.facts,
         turnAuthorizedExactQueries: input.publicWebRegistry?.exactQueries,
         pilotProvidedUrls: input.publicWebRegistry?.pilotProvidedUrls,
+        pendingPublicWebProposals,
         // T1.2 — explicit this-turn Pilote text only (never haystack/objective).
         pilotText: input.userText,
         finops: {

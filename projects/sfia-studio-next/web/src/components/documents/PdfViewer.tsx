@@ -8,13 +8,41 @@
 import { useEffect, useRef, useState } from "react";
 
 export type PdfViewerProps = {
-  /** Base64-encoded PDF bytes (authorized). */
-  base64: string;
+  /**
+   * Base64-encoded PDF bytes from an already-authorized Studio path (Git/D4).
+   * Prefer `viewerToken` for WEB sessions so cognitive payloads never carry bytes.
+   */
+  base64?: string;
+  /** Opaque token from public WEB open — fetches bytes via authorized viewer API. */
+  viewerToken?: string;
   title?: string;
   /** 1-based initial page when citing. */
   initialPage?: number;
   className?: string;
 };
+
+async function resolvePdfBytes(props: PdfViewerProps): Promise<Uint8Array> {
+  if (props.viewerToken?.trim()) {
+    const res = await fetch(
+      `/api/web/pdf-viewer/${encodeURIComponent(props.viewerToken.trim())}`,
+      { credentials: "same-origin", cache: "no-store" },
+    );
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(
+        typeof err?.error === "string" ? err.error : `VIEWER_HTTP_${res.status}`,
+      );
+    }
+    return new Uint8Array(await res.arrayBuffer());
+  }
+  if (!props.base64?.trim()) {
+    throw new Error("PDF_SOURCE_MISSING");
+  }
+  const raw = atob(props.base64);
+  const bytes = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+  return bytes;
+}
 
 export function PdfViewer(props: PdfViewerProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -29,17 +57,25 @@ export function PdfViewer(props: PdfViewerProps) {
     doc: any;
     destroy: () => Promise<void>;
   } | null>(null);
+  const renderGen = useRef(0);
+  const sourceKey = props.viewerToken
+    ? `token:${props.viewerToken}`
+    : `b64:${props.base64?.slice(0, 64) ?? ""}`;
 
   useEffect(() => {
     let cancelled = false;
+    const gen = ++renderGen.current;
     (async () => {
       try {
         setError(null);
+        setPageCount(0);
         const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
-        // In-process only — never fetch a CDN worker or document-triggered URLs.
-        const raw = atob(props.base64);
-        const bytes = new Uint8Array(raw.length);
-        for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+        // Local same-origin worker only — never a CDN. Served from /public.
+        if (!pdfjs.GlobalWorkerOptions.workerSrc) {
+          pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
+        }
+        const bytes = await resolvePdfBytes(props);
+        if (cancelled || gen !== renderGen.current) return;
         // In-process parse — useWorkerFetch false avoids CDN/font network from document.
         const loadingTask = pdfjs.getDocument({
           data: bytes,
@@ -49,15 +85,18 @@ export function PdfViewer(props: PdfViewerProps) {
           useWorkerFetch: false,
         });
         const doc = await loadingTask.promise;
-        if (cancelled) {
+        if (cancelled || gen !== renderGen.current) {
           await doc.destroy();
           return;
         }
+        const prev = pdfRef.current;
         pdfRef.current = { doc, destroy: () => doc.destroy() };
+        void prev?.destroy();
         setPageCount(doc.numPages);
-        setPage((p) => Math.min(Math.max(1, p), doc.numPages));
+        const initial = Math.max(1, props.initialPage ?? 1);
+        setPage(Math.min(initial, doc.numPages));
       } catch (e) {
-        if (!cancelled) {
+        if (!cancelled && gen === renderGen.current) {
           setError(String((e as Error)?.message ?? e).slice(0, 200));
         }
       }
@@ -68,7 +107,15 @@ export function PdfViewer(props: PdfViewerProps) {
       pdfRef.current = null;
       void cur?.destroy();
     };
-  }, [props.base64]);
+    // sourceKey captures token/base64 identity; initialPage applied on load.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sourceKey]);
+
+  useEffect(() => {
+    if (props.initialPage && pageCount > 0) {
+      setPage(Math.min(Math.max(1, props.initialPage), pageCount));
+    }
+  }, [props.initialPage, pageCount]);
 
   useEffect(() => {
     const cur = pdfRef.current;
@@ -133,10 +180,11 @@ export function PdfViewer(props: PdfViewerProps) {
           className="git-btn-secondary"
           disabled={page <= 1}
           onClick={() => setPage((p) => Math.max(1, p - 1))}
+          aria-label="Page précédente"
         >
           Précédente
         </button>
-        <span data-testid="pdf-page-indicator">
+        <span data-testid="pdf-page-indicator" aria-live="polite">
           Page {page} / {pageCount || "…"}
         </span>
         <button
@@ -144,6 +192,7 @@ export function PdfViewer(props: PdfViewerProps) {
           className="git-btn-secondary"
           disabled={pageCount > 0 && page >= pageCount}
           onClick={() => setPage((p) => Math.min(pageCount || p + 1, p + 1))}
+          aria-label="Page suivante"
         >
           Suivante
         </button>
@@ -151,14 +200,18 @@ export function PdfViewer(props: PdfViewerProps) {
           type="button"
           className="git-btn-secondary"
           onClick={() => setZoom((z) => Math.max(0.5, Number((z - 0.25).toFixed(2))))}
+          aria-label="Réduire le zoom"
         >
           −
         </button>
-        <span>{Math.round(zoom * 100)}%</span>
+        <span aria-label={`Zoom ${Math.round(zoom * 100)} pour cent`}>
+          {Math.round(zoom * 100)}%
+        </span>
         <button
           type="button"
           className="git-btn-secondary"
           onClick={() => setZoom((z) => Math.min(2.5, Number((z + 0.25).toFixed(2))))}
+          aria-label="Augmenter le zoom"
         >
           +
         </button>
@@ -168,14 +221,33 @@ export function PdfViewer(props: PdfViewerProps) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           data-testid="pdf-search-input"
+          aria-label="Rechercher dans le PDF"
         />
-        <button type="button" className="git-btn-secondary" onClick={() => void runSearch()}>
+        <button
+          type="button"
+          className="git-btn-secondary"
+          onClick={() => void runSearch()}
+          aria-label="Lancer la recherche"
+        >
           Chercher
         </button>
-        {hitNote ? <span data-testid="pdf-search-hit">{hitNote}</span> : null}
+        {hitNote ? (
+          <span data-testid="pdf-search-hit" role="status">
+            {hitNote}
+          </span>
+        ) : null}
       </div>
       <div className="overflow-auto border border-neutral-200 bg-neutral-50">
-        <canvas ref={canvasRef} data-testid="pdf-canvas" />
+        <canvas
+          ref={canvasRef}
+          data-testid="pdf-canvas"
+          role="img"
+          aria-label={
+            props.title
+              ? `Page ${page} du document ${props.title}`
+              : `Page ${page} du PDF`
+          }
+        />
       </div>
     </div>
   );

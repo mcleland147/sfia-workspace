@@ -3,28 +3,39 @@ import {
   __resetWebPageSessionsForTests,
   putWebPageSession,
   readWebPageProgressive,
+  readWebPdfPages,
   searchWebPageSession,
+  getWebPageSessionByViewerToken,
+  unionCoverageChars,
 } from "@/domains/conversation/public-web-page-session";
 import { confrontWebSources } from "@/domains/conversation/public-web-search-frontier";
 import { estimateCostUsd, resolveTariffModel } from "@/domains/conversation/usage-accounting";
+
+const SCOPE = {
+  lane: "DEV",
+  projectId: "proj-qual-1",
+  cognitiveWorkId: "work-1",
+  ownerPilotId: "pilot-1",
+};
 
 describe("ML5 progressive WEB page session", () => {
   beforeEach(() => {
     __resetWebPageSessionsForTests();
   });
 
-  it("reads HTML progressively and searches", () => {
+  it("reads HTML progressively and searches with scoped identity", () => {
     const text = "alpha ".repeat(500) + "FINDME " + "beta ".repeat(200);
-    putWebPageSession("work-1", {
+    putWebPageSession({
+      scope: SCOPE,
       url: "https://example.com/doc",
       kind: "html",
       text,
       contentFingerprint: "fp1",
-      openedAt: new Date().toISOString(),
       limits: ["TEST"],
+      bytesObtained: Buffer.byteLength(text, "utf8"),
     });
     const first = readWebPageProgressive({
-      workId: "work-1",
+      scope: SCOPE,
       url: "https://example.com/doc",
       from: 0,
       maxChars: 200,
@@ -33,9 +44,10 @@ describe("ML5 progressive WEB page session", () => {
     if (!first.ok) return;
     expect(first.coverage).toBe("PARTIAL");
     expect(first.excerpt.length).toBeLessThanOrEqual(200);
+    expect(first.viewerToken).toBeTruthy();
 
     const found = searchWebPageSession({
-      workId: "work-1",
+      scope: SCOPE,
       url: "https://example.com/doc",
       query: "FINDME",
     });
@@ -44,30 +56,157 @@ describe("ML5 progressive WEB page session", () => {
     expect(found.hits.length).toBeGreaterThan(0);
   });
 
-  it("detects content fingerprint change", () => {
-    putWebPageSession("work-1", {
+  it("refuses ambiguous anon scope and isolates works", () => {
+    expect(() =>
+      putWebPageSession({
+        scope: {
+          lane: "DEV",
+          projectId: "p1",
+          cognitiveWorkId: "",
+        },
+        url: "https://example.com/x",
+        kind: "html",
+        text: "x",
+        contentFingerprint: "a",
+        limits: [],
+      }),
+    ).toThrow(/SESSION_SCOPE_WORK_REQUIRED/);
+
+    putWebPageSession({
+      scope: SCOPE,
+      url: "https://example.com/shared",
+      kind: "html",
+      text: "secret-for-work-1",
+      contentFingerprint: "a",
+      limits: [],
+    });
+    const other = readWebPageProgressive({
+      scope: { ...SCOPE, cognitiveWorkId: "work-2" },
+      url: "https://example.com/shared",
+      maxChars: 50,
+    });
+    expect(other.ok).toBe(false);
+    if (!other.ok) expect(other.reason).toBe("NO_OPEN_SESSION");
+  });
+
+  it("detects content fingerprint change and resets coverage", () => {
+    putWebPageSession({
+      scope: SCOPE,
       url: "https://example.com/a",
       kind: "html",
       text: "v1",
       contentFingerprint: "aaa",
-      openedAt: new Date().toISOString(),
       limits: [],
     });
     readWebPageProgressive({
-      workId: "work-1",
+      scope: SCOPE,
       url: "https://example.com/a",
       maxChars: 10,
     });
-    const next = putWebPageSession("work-1", {
+    const next = putWebPageSession({
+      scope: SCOPE,
       url: "https://example.com/a",
       kind: "html",
       text: "v2 changed",
       contentFingerprint: "bbb",
-      openedAt: new Date().toISOString(),
       limits: [],
     });
     expect(next.limits).toContain("SOURCE_MODIFIED_SINCE_PRIOR_OPEN");
     expect(next.charOffset).toBe(0);
+  });
+
+  it("computes honest union coverage — mid-doc end is not COMPLETE", () => {
+    const cov = unionCoverageChars(
+      [
+        { from: 100, to: 200 },
+        { from: 150, to: 300 },
+      ],
+      300,
+    );
+    expect(cov.coveredChars).toBe(200);
+    expect(cov.coverage).toBe("PARTIAL");
+
+    const full = unionCoverageChars([{ from: 0, to: 100 }], 100);
+    expect(full.coverage).toBe("COMPLETE");
+  });
+
+  it("reads PDF pages beyond initial range without claiming absence from first pages", async () => {
+    const pages = Array.from({ length: 8 }, (_, i) => ({
+      pageNumber: i + 1,
+      text:
+        i === 5
+          ? "DETERMINANT_TOKEN_PAGE_SIX unique marker"
+          : `filler page ${i + 1}`,
+    }));
+    const session = putWebPageSession({
+      scope: SCOPE,
+      url: "https://example.com/doc.pdf",
+      kind: "pdf",
+      text: pages.slice(0, 5).map((p) => p.text).join("\n"),
+      pages: pages.slice(0, 5),
+      pageCount: 8,
+      contentFingerprint: "pdf-fp",
+      limits: ["INITIAL_PAGES_1_5"],
+    });
+    // Simulate full preload remaining pages (SCRIPTED progressive store).
+    session.pages = pages;
+    session.extractedPages = [1, 2, 3, 4, 5];
+    session.consultedPages = [1, 2, 3, 4, 5];
+
+    const early = searchWebPageSession({
+      scope: SCOPE,
+      url: "https://example.com/doc.pdf",
+      query: "DETERMINANT_TOKEN_PAGE_SIX",
+    });
+    expect(early.ok).toBe(true);
+    if (!early.ok) return;
+    // Only extracted pages searched — honesty flags when not found in extracted set.
+    expect(early.hits.length).toBe(0);
+    expect(early.limits).toContain("SEARCH_LIMITED_TO_EXTRACTED_PAGES");
+    expect(early.limits.some((l) => l.includes("NOT_FULLY") || l.includes("EXTRACTED"))).toBe(
+      true,
+    );
+
+    const later = await readWebPdfPages({
+      scope: SCOPE,
+      url: "https://example.com/doc.pdf",
+      pageFrom: 6,
+      pageTo: 6,
+      searchQuery: "DETERMINANT_TOKEN_PAGE_SIX",
+    });
+    expect(later.ok).toBe(true);
+    if (!later.ok) return;
+    expect(later.pages[0]?.pageNumber).toBe(6);
+    expect(later.searchHits?.length).toBeGreaterThan(0);
+    expect(later.coverage).toBe("PARTIAL");
+    expect(later.limits).toContain("NOT_FULLY_CONSULTED");
+    expect(getWebPageSessionByViewerToken(later.viewerToken)?.pdfBytes).toBeUndefined();
+  });
+
+  it("expires sessions and refuses expired reads", () => {
+    process.env.SFIA_WEB_PAGE_SESSION_TTL_MS = "1";
+    putWebPageSession({
+      scope: SCOPE,
+      url: "https://example.com/ttl",
+      kind: "html",
+      text: "ephemeral",
+      contentFingerprint: "ttl",
+      limits: [],
+    });
+    const start = Date.now();
+    while (Date.now() - start < 5) {
+      /* spin */
+    }
+    const read = readWebPageProgressive({
+      scope: SCOPE,
+      url: "https://example.com/ttl",
+      maxChars: 10,
+    });
+    delete process.env.SFIA_WEB_PAGE_SESSION_TTL_MS;
+    expect(read.ok).toBe(false);
+    if (!read.ok) {
+      expect(["SESSION_EXPIRED", "NO_OPEN_SESSION"]).toContain(read.reason);
+    }
   });
 });
 

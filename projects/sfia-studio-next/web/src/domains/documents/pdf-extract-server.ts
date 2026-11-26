@@ -86,8 +86,10 @@ export async function extractPdfText(
     };
   }
 
+  // Copy — pdf.js may transfer/detach the caller's ArrayBuffer.
+  const data = new Uint8Array(input.bytes);
   const loadingTask = pdfjs.getDocument({
-    data: input.bytes,
+    data,
     isEvalSupported: false,
     useSystemFonts: true,
     useWorkerFetch: false,

@@ -676,7 +676,14 @@ export function projectMissionHeadline(
     .find((e) => {
       const s = (e.summary || "").trim();
       if (/^Comparaison documentaire\b/i.test(s)) return true;
-      if (/source\./i.test(e.phase || "") && s && !looksTechnical(s) && !isGenericOrientationSummary(s)) {
+      // Never promote a single Git file consultation into the mission title.
+      if (/^Consultation Git\b/i.test(s)) return false;
+      if (
+        /source\./i.test(e.phase || "") &&
+        s &&
+        !looksTechnical(s) &&
+        !isGenericOrientationSummary(s)
+      ) {
         return e.nature === "OBSERVED" || e.nature === "COMPLETED";
       }
       return false;

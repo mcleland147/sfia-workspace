@@ -98,6 +98,59 @@ const DEFAULT_DEV_CATALOG: PublicTopicCatalogEntry[] = [
 export const PILOT_PUBLIC_QUERY_REF = "pilot-public-query";
 
 /**
+ * Explicit Pilote authorization of an exact public query (Option B).
+ * Lexical free-form research phrasing does NOT authorize — only these markers.
+ * Patterns (case-insensitive):
+ *   AUTHORIZE_PUBLIC_QUERY: "exact query"
+ *   Autoriser la recherche publique exacte : « exact query »
+ *   Autoriser la recherche publique exacte: "exact query"
+ */
+export function extractPilotAuthorizedExactQueries(pilotText: string): string[] {
+  const text = pilotText || "";
+  if (!text.trim()) return [];
+  const out: string[] = [];
+  const patterns = [
+    /AUTHORIZE_PUBLIC_QUERY\s*:\s*[«"']([^»"']+)[»"']/gi,
+    /Autoriser\s+la\s+recherche\s+publique\s+exacte\s*:\s*[«"']([^»"']+)[»"']/gi,
+  ];
+  for (const re of patterns) {
+    let m: RegExpExecArray | null;
+    while ((m = re.exec(text)) !== null) {
+      const q = (m[1] || "").replace(/\s+/g, " ").trim();
+      if (q.length >= 3) out.push(q);
+    }
+  }
+  return [...new Set(out)].slice(0, 8);
+}
+
+/**
+ * Stage a Nora-proposed public query for Pilote admission (no egress).
+ * Sanitize + private-marker checks only — never auto-authorizes.
+ */
+export function stageNoraProposedPublicQuery(input: {
+  proposedQuery: string;
+  privateMarkers?: string[];
+}):
+  | { ok: true; query: string; pending: true }
+  | { ok: false; reason: string } {
+  const raw = (input.proposedQuery || "").replace(/\s+/g, " ").trim();
+  if (!raw || raw.length < 3) {
+    return { ok: false, reason: "PROPOSED_QUERY_EMPTY" };
+  }
+  const markers = (input.privateMarkers ?? []).filter((m) => m.trim().length >= 4);
+  for (const m of markers) {
+    if (raw.toLowerCase().includes(m.toLowerCase())) {
+      return { ok: false, reason: "PRIVATE_MARKER_IN_PROPOSED_QUERY" };
+    }
+  }
+  const sanitized = sanitizePublicWebQuery(raw);
+  if (!sanitized.ok) {
+    return { ok: false, reason: sanitized.blockedReason ?? "SANITIZE_BLOCKED" };
+  }
+  return { ok: true, query: sanitized.query, pending: true };
+}
+
+/**
  * Extract public https URL candidates from an explicit Pilote-only string.
  * Parsing only — does not create open authorization.
  */
@@ -300,12 +353,29 @@ export function resolvePublicWebRegistry(input: {
       limits.push(`PILOT_URL_CANDIDATES:${pilotProvidedUrls.length}`);
       limits.push("PILOT_URL_NOT_AUTO_AUTHORIZED");
     }
+    // Option B — explicit exact authorization markers from this-turn Pilote only.
+    const pilotExact = extractPilotAuthorizedExactQueries(input.pilotText);
+    for (const q of pilotExact) {
+      if (markers.some((m) => q.toLowerCase().includes(m.toLowerCase()))) {
+        limits.push("PILOT_EXACT_SKIP_PRIVATE_MARKER");
+        continue;
+      }
+      const sanitized = sanitizePublicWebQuery(q);
+      if (!sanitized.ok) {
+        limits.push(`PILOT_EXACT_SANITIZE_BLOCKED:${sanitized.blockedReason ?? "BLOCKED"}`);
+        continue;
+      }
+      if (!exact.has(sanitized.query)) {
+        exact.add(sanitized.query);
+        limits.push("PILOT_EXACT_AUTHORIZED");
+      }
+    }
   } else {
     limits.push("PILOT_TEXT_ABSENT_URL_EXTRACTION_CLOSED");
   }
 
   // Lexical free-form registration removed (T1.1). Nora must propose via tool;
-  // server admits with admitNoraProposedPublicQuery.
+  // server admits with admitNoraProposedPublicQuery after Pilote exact auth or catalog.
   limits.push("LEXICAL_PILOT_QUERY_REGISTRATION_DISABLED");
 
   if (

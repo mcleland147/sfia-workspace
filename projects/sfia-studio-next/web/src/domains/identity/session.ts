@@ -247,7 +247,9 @@ function assertDevTestLoginAllowed(gate: DevLoginGateInput) {
 export function isDevListenConfined(
   env: NodeJS.ProcessEnv | Record<string, string | undefined> = process.env,
 ): boolean {
-  const bind = (env.STUDIO_DEV_BIND ?? env.HOSTNAME ?? "").trim().toLowerCase();
+  // CP-02 — require explicit STUDIO_DEV_BIND. HOSTNAME alone is not confinement proof
+  // (Next may set HOSTNAME independently of listen bind).
+  const bind = (env.STUDIO_DEV_BIND ?? "").trim().toLowerCase();
   if (!bind) return false;
   // Exact bind host only — no ports here (ports are in STUDIO_PORT).
   return (

@@ -1371,6 +1371,10 @@ export async function runNoraCognitiveTurn(
         ].join("\n"),
       });
 
+      // Option B — mutable staging buffer shared with WEB tools (no egress).
+      const pendingWebProposals = [
+        ...(work.state.pendingPublicWebProposals ?? []),
+      ];
       let reply: NoraGenerateResult;
       if (probeReply && segmentIndex === 0 && !probeConsumed && !hasPriorAcquis) {
         probeConsumed = true;
@@ -1412,6 +1416,7 @@ export async function runNoraCognitiveTurn(
             exactQueries: webRegistry.exactQueries,
             facts: webRegistry.facts,
             pilotProvidedUrls: webRegistry.pilotProvidedUrls,
+            pendingProposals: pendingWebProposals,
           },
         });
       }
@@ -1434,6 +1439,18 @@ export async function runNoraCognitiveTurn(
           ...webRegistry.exactQueries,
         ]),
       ];
+      // Option B — retain staged proposals; drop those now exact-authorized.
+      const authorizedSet = new Set(
+        (investigation.authorizedExactWebQueries ?? []).map((q) =>
+          q.replace(/\s+/g, " ").trim().toLowerCase(),
+        ),
+      );
+      investigation.pendingPublicWebProposals = [
+        ...new Set(pendingWebProposals),
+      ].filter(
+        (q) =>
+          !authorizedSet.has(q.replace(/\s+/g, " ").trim().toLowerCase()),
+      );
       investigation.registeredPublicFacts = [
         ...new Set([
           ...(investigation.registeredPublicFacts ?? []),

@@ -90,6 +90,31 @@ function canEmit(reserve = 1): boolean {
   return true;
 }
 
+/**
+ * Reserve provider attempt slots BEFORE emission (retries/segments included).
+ * Reconcile afterward with observed provider_requests — never under-count.
+ */
+function reserveBeforeEmit(slots: number): boolean {
+  if (!canEmit(slots)) return false;
+  ledger.responsesAttempted += slots;
+  return true;
+}
+
+function reconcileAfterEmit(reserved: number, observedRequests: number) {
+  const actual = Math.max(1, observedRequests || 1);
+  const delta = actual - reserved;
+  if (delta > 0) {
+    if (!canEmit(delta)) {
+      ledger.stopReason =
+        ledger.stopReason || `ENVELOPE_EXCEEDED_AFTER_EMIT +${delta}`;
+    }
+    ledger.responsesAttempted += delta;
+  } else if (delta < 0) {
+    // Release unused reservation.
+    ledger.responsesAttempted = Math.max(0, ledger.responsesAttempted + delta);
+  }
+}
+
 const jar = { cookie: "" };
 async function api(
   p: string,
@@ -232,11 +257,12 @@ async function postPrepMessage(input: {
   cognitiveWorkId?: string | null;
   forceNew?: boolean;
 }): Promise<Record<string, unknown> | null> {
-  if (!canEmit(1)) {
+  // Conservative pre-emission reservation (conductor segments + tool fan-out).
+  const RESERVE_SLOTS = 6;
+  if (!reserveBeforeEmit(RESERVE_SLOTS)) {
     ledger.stopReason = ledger.stopReason || `ENVELOPE_BEFORE ${input.label}`;
     return null;
   }
-  ledger.responsesAttempted += 1;
   const before = Date.now();
   const body: Record<string, unknown> = {
     content: input.content,
@@ -261,11 +287,7 @@ async function postPrepMessage(input: {
     String((r.json as { content?: string }).content || "");
 
   const usage = accumulateUsage(workId);
-  if (usage.reqs > 1) {
-    const extra = usage.reqs - 1;
-    if (!canEmit(extra)) ledger.stopReason = `ENVELOPE_AFTER_MULTI ${input.label}`;
-    ledger.responsesAttempted += extra;
-  }
+  reconcileAfterEmit(RESERVE_SLOTS, usage.reqs || 1);
   ledger.inputTokens += usage.inTok;
   ledger.outputTokens += usage.outTok;
   ledger.estimatedCostUsd += usage.cost;
@@ -312,8 +334,8 @@ async function adapterCompare(input: {
   effort: "medium" | "high";
   text: string;
 }) {
-  if (ledger.stopReason || !canEmit(1)) return;
-  ledger.responsesAttempted += 1;
+  const ADAPTER_RESERVE = 3;
+  if (ledger.stopReason || !reserveBeforeEmit(ADAPTER_RESERVE)) return;
   const prevMode = process.env.SFIA_COGNITIVE_ADMISSION_MODE;
   process.env.SFIA_COGNITIVE_ADMISSION_MODE = "calibration";
   const { buildCognitivePolicy } = await import(
@@ -344,9 +366,10 @@ async function adapterCompare(input: {
     const inTok = result.usage?.inputTokens ?? 0;
     const outTok = result.usage?.outputTokens ?? 0;
     const reqs = result.usage?.providerRequests ?? 1;
-    if (typeof reqs === "number" && reqs > 1) {
-      ledger.responsesAttempted += Math.max(0, reqs - 1);
-    }
+    reconcileAfterEmit(
+      ADAPTER_RESERVE,
+      typeof reqs === "number" ? reqs : 1,
+    );
     ledger.inputTokens += inTok;
     ledger.outputTokens += outTok;
     const e = estimateCostUsd(
@@ -463,149 +486,185 @@ async function main() {
     process.exit(2);
   }
 
-  const prep = await api("/api/preparations", { method: "POST", body: {} });
-  const preparationId = (prep.json as { preparationId: string }).preparationId;
-  let g = await api(`/api/preparations/${preparationId}`);
-  let rev = (g.json as { preparation: { creationRevision: number } }).preparation
-    .creationRevision;
-  await api(`/api/preparations/${preparationId}`, {
-    method: "PATCH",
-    body: {
-      previewName: "ML5-Doc-RoomBooking",
-      previewSummary:
-        "RoomBooking — inventaire documentaire, contradictions calendrier/budget, synthèse sourcée. Corpus Git borné. Pas de web.",
-      expectedCreationRevision: rev,
-    },
-  });
-  g = await api(`/api/preparations/${preparationId}`);
-  rev = (g.json as { preparation: { creationRevision: number } }).preparation
-    .creationRevision;
-  const created = await api(`/api/preparations/${preparationId}/create-project`, {
-    method: "POST",
-    body: {
-      expectedCreationRevision: rev,
-      projectName: "ML5-Doc-RoomBooking",
-      idempotencyKey: `doc-rb-${Date.now()}`,
-      previewSummary:
-        "Investigation documentaire RoomBooking RB-27..31 — corpus borné, pas de web.",
-    },
-  });
-  const projectId = (created.json as { projectId?: string }).projectId;
-  if (!projectId) {
-    ledger.stopReason = "PROJECT_CREATE_FAIL";
-    ledger.scenarios.push({ create: created });
+  // --- S3 corpus (must exist before LIVE spend) ---
+  const RB_PROJECT_ID =
+    process.env.SFIA_QUAL_RB_PROJECT_ID ||
+    "proj_896d204b-2f6f-4dd2-b4ff-1727469d0e52";
+  const RB_PREP_ID =
+    process.env.SFIA_QUAL_RB_PREP_ID ||
+    "prep_0e1c005b-c62c-4e5f-9ede-884b837b407e";
+  const ST_PROJECT_ID =
+    process.env.SFIA_QUAL_ST_PROJECT_ID ||
+    "proj_64691238-7d32-40e3-8e6f-bcd31363287e";
+  const ST_PREP_ID =
+    process.env.SFIA_QUAL_ST_PREP_ID ||
+    "prep_11f71e3d-d053-4b9e-a62b-3ddd3ec1acfd";
+  const ST_DOC_ID =
+    process.env.SFIA_QUAL_ST_DOC_ID ||
+    "doc_65200758-7b3c-40a8-9998-3d373b3aacc9";
+  const GIT_PDF_PATH = "Diagramme BPMN_BatiNova.pdf";
+  const GIT_REPO = "mcleland147/chantiers360";
+  const GIT_COMMIT = "8c398c494dd918272aab5b2653777c6c21d2e76e";
+
+  // Preflight: Git attach on RB project
+  const rbGit = pgJson(
+    `SELECT row_to_json(t) FROM (SELECT gl.status, ar.full_name FROM project_git_links gl JOIN authorized_repositories ar ON ar.id=gl.repository_id WHERE gl.project_id='${RB_PROJECT_ID}' AND gl.status='ATTACHED' LIMIT 1) t;`,
+  ) as { status?: string; full_name?: string } | null;
+  const stDoc = pgJson(
+    `SELECT row_to_json(t) FROM (SELECT d.id, d.title, length(r.content_markdown) AS chars, (r.content_markdown ILIKE '%RM-02%' AND r.content_markdown ILIKE '%REC-03%') AS oracle_ok FROM documents d JOIN document_revisions r ON r.document_id=d.id WHERE d.id='${ST_DOC_ID}' AND r.status='AVAILABLE' ORDER BY r.revision_number DESC LIMIT 1) t;`,
+  ) as { oracle_ok?: boolean; title?: string; chars?: number } | null;
+
+  ledger.preconditions = {
+    ...ledger.preconditions,
+    rbProjectId: RB_PROJECT_ID,
+    rbPrepId: RB_PREP_ID,
+    rbGit,
+    stProjectId: ST_PROJECT_ID,
+    stPrepId: ST_PREP_ID,
+    stDocId: ST_DOC_ID,
+    stDoc,
+    gitPdfPath: GIT_PDF_PATH,
+    gitRepo: GIT_REPO,
+    gitCommit: GIT_COMMIT,
+  };
+  save();
+
+  if (!rbGit || rbGit.status !== "ATTACHED" || rbGit.full_name !== GIT_REPO) {
+    ledger.stopReason = "RB_GIT_CORPUS_MISSING";
     save();
     process.exit(2);
   }
-  const iq = await waitIq(projectId);
-  ledger.scenarios.push({ id: "RB-iq", iq });
+  if (!stDoc?.oracle_ok) {
+    ledger.stopReason = "STOCKTRACK_V1_CORPUS_MISSING";
+    save();
+    process.exit(2);
+  }
 
+  const preparationId = RB_PREP_ID;
+  const projectId = RB_PROJECT_ID;
+
+  // RB-27/28 — real Git investigation (planning conflicts), not a hypothetical plan.
   let workId: string | null = null;
   if (!ledger.stopReason) {
     const a = await postPrepMessage({
       preparationId,
-      label: "RB27-inventory-plan",
+      label: "RB27-git-planning-investigation",
       forceNew: true,
-      content:
-        "RoomBooking RB-27 à RB-31 (borné): prépare un plan d'investigation documentaire. Inventorie les types de sources nécessaires (cadrage, contraintes, contradictions), les faits déterminants attendus, et les critères de suffisance — sans web, sans inventer de fichiers Git absents. Si aucun dépôt n'est attaché, dis-le et propose le corpus minimal.",
+      content: [
+        "Approfondis les conflits de planning dans le dépôt Git déjà attaché (lecture seule).",
+        "Lis réellement : evolutions/EVOL-002-planning-ouvriers.md,",
+        "backend/src/common/rules/planning-conflicts.rules.ts et sa spec,",
+        "backend/src/planning/planning.service.ts, planning.controller.ts,",
+        "backend/prisma/migrations/0004_worker_planning/migration.sql,",
+        "backend/test/planning.api.spec.ts et e2e/tests/recette/evol-002-planning.spec.ts.",
+        "Consolide les conclusions sur chevauchement, 409, index vs exclusion, check-then-insert.",
+        "Ne modifie aucun document. Pas de web. Cite chemins et commit consultés.",
+      ].join(" "),
     });
     workId = (a?.workId as string) || null;
   }
 
-  if (!ledger.stopReason && canEmit(1)) {
+  // RB-28 — reprise utile after first pass.
+  if (!ledger.stopReason && canEmit(6)) {
     await postPrepMessage({
       preparationId,
-      label: "RB28-progressive-read",
+      label: "RB28-resume-from-acquis",
       cognitiveWorkId: workId,
-      content:
-        "Poursuis: pour chaque source critique hypothétique, indique comment tu lirais progressivement (extrait → ciblage → consolidation) et ce qui resterait non consulté. Pas de web.",
+      content: [
+        "Reprise : à partir des acquis déjà obtenus, complète uniquement le travail restant utile",
+        "(tests d'intégration concurrent, garantie au point d'écriture). Ne relis pas à l'aveugle",
+        "les sources déjà CONSULTED. Pas de mutation documentaire. Pas de web.",
+      ].join(" "),
     });
   }
 
-  if (!ledger.stopReason && canEmit(1)) {
+  // RB-29 — intention shift to read-only Git (viewer may stay open).
+  if (!ledger.stopReason && canEmit(6)) {
     await postPrepMessage({
       preparationId,
-      label: "RB29-31-synthesis",
+      label: "RB29-intention-git-readonly",
       cognitiveWorkId: workId,
-      content:
-        "Consolide une synthèse sourcée des contradictions budget / calendrier / audiovisuel pour RoomBooking, avec reprises possibles et réallocation modèle/effort si le besoin change. Cite uniquement ce que tu as réellement acquis. Pas de web.",
+      content: [
+        "Changement d'intention : consultation Git lecture seule uniquement.",
+        "Identifie deux inspirations proportionnées dans le dépôt pour une note technique future,",
+        "sans préparer de révision documentaire et sans mutation D4. Pas de web.",
+      ].join(" "),
     });
   }
 
-  // PDF cognitive via adapter with fixture text injected as context (honest fixture path).
-  const pdfOracle =
-    "Document PDF fixture (3 pages): p1 inventory alpha; p2 contradiction beta; p3 consolidation gamma.";
-  await adapterCompare({
-    id: "PDF-cog-terra-medium",
-    model: "gpt-6.1-terra",
-    effort: "medium",
-    text: `${pdfOracle}\n\nQuelles pages faut-il lire pour trancher la contradiction, et que reste-t-il non consulté si tu ne lis que p1 et p2 ? Cite les pages.`,
-  });
-  await adapterCompare({
-    id: "PDF-cog-terra-high",
-    model: "gpt-6.1-terra",
-    effort: "high",
-    text: `${pdfOracle}\n\nAnalyse multi-pages: relie inventory (p1), contradiction (p2) et consolidation (p3). Qualifie les limites si OCR était nécessaire.`,
-  });
-  await adapterCompare({
-    id: "PDF-cog-sol-medium",
-    model: "gpt-6.2-sol",
-    effort: "medium",
-    text: `${pdfOracle}\n\nMême analyse multi-pages (inventory / contradiction / consolidation) avec citations de pages.`,
-  });
-
-  // StockTrack IT-06 — targeted revise instruction (no real doc mutation without auth).
-  if (!ledger.stopReason && canEmit(1)) {
-    const prep2 = await api("/api/preparations", { method: "POST", body: {} });
-    const preparationId2 = (prep2.json as { preparationId: string }).preparationId;
-    let g2 = await api(`/api/preparations/${preparationId2}`);
-    let rev2 = (g2.json as { preparation: { creationRevision: number } }).preparation
-      .creationRevision;
-    await api(`/api/preparations/${preparationId2}`, {
-      method: "PATCH",
-      body: {
-        previewName: "ML5-Doc-StockTrack-IT06",
-        previewSummary:
-          "StockTrack IT-06 — révision ciblée: modifier uniquement les incohérences listées; conserver le reste; un candidat; inspection avant conservation.",
-        expectedCreationRevision: rev2,
-      },
+  // RB-30/31 — produce distinct technical note from acquis.
+  if (!ledger.stopReason && canEmit(6)) {
+    await postPrepMessage({
+      preparationId,
+      label: "RB31-technical-note-from-acquis",
+      cognitiveWorkId: workId,
+      content: [
+        "À partir de l'analyse de conflits de planning déjà réalisée, produis une courte note technique",
+        "distincte (nouveau document) : références Git exactes, recommandations distinguées des décisions,",
+        "limites. Présente le candidat pour inspection avant conservation. Pas de web.",
+      ].join(" "),
     });
-    g2 = await api(`/api/preparations/${preparationId2}`);
-    rev2 = (g2.json as { preparation: { creationRevision: number } }).preparation
-      .creationRevision;
-    const created2 = await api(
-      `/api/preparations/${preparationId2}/create-project`,
-      {
-        method: "POST",
-        body: {
-          expectedCreationRevision: rev2,
-          projectName: "ML5-Doc-StockTrack-IT06",
-          idempotencyKey: `doc-it06-${Date.now()}`,
-          previewSummary: "IT-06 revise oracle — pas de mutation métier réelle.",
-        },
-      },
-    );
-    const projectId2 = (created2.json as { projectId?: string }).projectId;
-    if (projectId2) {
-      await waitIq(projectId2);
-      await postPrepMessage({
-        preparationId: preparationId2,
-        label: "IT06-revise-plan",
-        forceNew: true,
-        content:
-          "StockTrack IT-06: décris le protocole de révision ciblée — modifications exactes demandées, conservation stricte du reste, identification des incohérences résiduelles, candidat unique, inspection avant conservation, APPEND vs SUPERSEDE, V1 historique / V2 courante après décision explicite. N'applique aucune modification sur un document réel. Pas de web.",
-      });
-    } else {
-      ledger.scenarios.push({
-        id: "IT06-project-create",
-        status: "FAILED",
-        create: created2,
-      });
-    }
+  }
+
+  // Git PDF REAL — Nora via Git tools on authorized PDF (oracle independent of prompt).
+  if (!ledger.stopReason && canEmit(6)) {
+    await postPrepMessage({
+      preparationId,
+      label: "GIT-PDF-BPMN-read",
+      forceNew: true,
+      content: [
+        `Dans le dépôt Git attaché (${GIT_REPO} @ ${GIT_COMMIT}), ouvre le PDF`,
+        `"${GIT_PDF_PATH}". Extrais plusieurs pages, recherche un élément déterminant du diagramme,`,
+        "cite la page réellement consultée, et indique le commit. Ne me donne pas le contenu attendu",
+        "inventé : utilise les outils Git PDF. Pas de web.",
+      ].join(" "),
+    });
+  }
+
+  // StockTrack IT-06 — real revise on seeded V1 (inspection before conserve).
+  if (!ledger.stopReason && canEmit(6)) {
+    await postPrepMessage({
+      preparationId: ST_PREP_ID,
+      label: "IT06-revise-rm02-rec03",
+      forceNew: true,
+      content: [
+        "Repars de la version V1 actuellement conservée du document de conception fonctionnelle de StockTrack,",
+        "sans réutiliser les propositions précédentes. Je souhaite que la référence d'un article comporte",
+        "au minimum trois caractères. Modifie uniquement la règle RM-02 et le scénario REC-03 pour intégrer",
+        "cette exigence et vérifier qu'une référence de deux caractères est refusée. Conserve strictement",
+        "tout le reste du document à l'identique. Compare ta proposition avec la V1 et présente-moi le",
+        "document révisé complet pour inspection avant conservation. Pas de web.",
+      ].join(" "),
+    });
+  }
+
+  // Terra High vs Medium — only if envelope remains (discriminant on RB acquis reuse).
+  if (!ledger.stopReason && canEmit(3)) {
+    await adapterCompare({
+      id: "ALLOC-terra-high-rb-synthesis",
+      model: "gpt-6.1-terra",
+      effort: "high",
+      text: [
+        "À partir d'une investigation Git planning déjà faite (chevauchement strict, 409, index non exclusif,",
+        "check-then-insert), rédige une synthèse courte avec recommandations vs décisions et limites.",
+        "N'invente pas de chemins non fournis.",
+      ].join(" "),
+    });
+  }
+  if (!ledger.stopReason && canEmit(3)) {
+    await adapterCompare({
+      id: "ALLOC-terra-medium-rb-synthesis",
+      model: "gpt-6.1-terra",
+      effort: "medium",
+      text: [
+        "Même consigne de synthèse planning Git (chevauchement, 409, index, check-then-insert) —",
+        "recommandations vs décisions, limites. N'invente pas de chemins.",
+      ].join(" "),
+    });
   }
 
   ledger.finishedAt = new Date().toISOString();
-  if (!ledger.stopReason) ledger.stopReason = "COMPLETED_PLAN";
+  if (!ledger.stopReason) ledger.stopReason = "COMPLETED_DOCUMENTARY_LIVE";
   save();
   writeFileSync(
     path.join(OUT, "qualification-summary.json"),
@@ -621,8 +680,11 @@ async function main() {
         projectId,
         preparationId,
         workId,
+        stockTrackProjectId: ST_PROJECT_ID,
+        stockTrackDocId: ST_DOC_ID,
+        gitPdf: { repo: GIT_REPO, commit: GIT_COMMIT, path: GIT_PDF_PATH },
         note:
-          "PDF fixture proves extract runtime; Git PDF LIVE frontier requires authorized attached repo PDF",
+          "RoomBooking uses attached chantiers360; StockTrack uses seeded V1; Git PDF = Diagramme BPMN_BatiNova.pdf",
       },
       null,
       2,

@@ -5,7 +5,7 @@
 | Date | 2026-11-26 |
 | Branche | `sfia/next-ml5-integrated-delivery-20261123` |
 | Gate | **G-WEB-PUBLIC** (public-only ; distinct de G-WEB-MIXED) |
-| État lane | **WEB LIVE = 0 / disabled** (`SFIA_WEB_SEARCH_*` et flags associés **non consommés** par Morris) |
+| État lane | **WEB LIVE = 0 / disabled** en fin de cycle (campagne G-WEB-PUBLIC consommée puis OFF) |
 | Release | **NO RELEASE** · **NOT ADOPTED** · STABLE NOT AVAILABLE |
 | Push produit | **INTERDIT** dans ce cycle documentaire |
 
@@ -21,7 +21,7 @@ Dossier de décision Morris pour l’admission **publique** de la frontière B1 
 | WEB LIVE open | **0** — gated |
 | Hosted `webSearchTool` Nora privée | **détaché** |
 | Worker recherche | **query-only** (agent jetable isolé) |
-| Campagne LIVE bornée documentée ci-dessous | **NON EXÉCUTÉE** dans ce lot (scénarios proposés uniquement) |
+| Campagne LIVE bornée documentée ci-dessous | **EXÉCUTÉE** 2026-11-26 — search+admission+open HTML/PDF ; LIVE forcé 0 |
 
 ## Readiness checklist (déterministe / documentation)
 
@@ -32,15 +32,17 @@ Lecture pour décision ; les cases reflètent l’état **DEV qualifié par test
 | R1 | Admission **Option B** (Nora propose ; Pilote admet ; pas d’auto-autorisation URL/sujet libre) | ☑ | Aligné `admitNoraProposedPublicQuery` / registre vide = deny |
 | R2 | Worker recherche **query-only** (pas de contexte conversationnel / privé dans l’agent isolé) | ☑ | `executeIsolatedLiveWebSearch` |
 | R3 | Modèle catalogue défaut **`gpt-6.1-terra`** — **pas** `gpt-4.1-mini` sur le chemin catalogue/admission WEB | ☑ | Politique cognitive provisoire + admission serveur |
-| R4 | **DNS + pin** pour **ouverture** Studio (`executePublicWebOpenPage`) | ☑ | Preuve SCRIPTED MDN ; pin opposable côté open |
+| R4 | **DNS + pin** pour **ouverture** Studio (`executePublicWebOpenPage`) | ☑ | LIVE pin après fix lookup `options.all` ; unit `ml5-web-egress-lookup` |
 | R5 | Recherche : **DNS hébergé fournisseur**, **non** pin Studio | ☑ | Hosted search détaché ; **gap** = preuve LIVE fournisseur non rejouée Morris (pas inversion d’architecture) |
-| R6 | Lecture **HTML progressive** (session outil, pages/chunks bornés) | ☑ | Outils WEB progressifs ML5 finalisation |
-| R7 | **PDF** traité via **B1** (bytes déjà autorisés — pas de fetch réseau parser) | ☑ | Voir `ml5-pdf-capability-choice-20261126.md` |
-| R8 | **FinOps** : attribution par requête ; marqueur **`UNCERTAIN`** si persistance observation échoue | ☑ | Fail-closed comptable sans faux précis |
+| R6 | Lecture **HTML progressive** (session outil, pages/chunks bornés) | ☑ | Sessions scopées lane/project/work ; TTL/éviction ; couverture union |
+| R7 | **PDF** traité via **B1** (bytes déjà autorisés — pas de fetch réseau parser) | ☑ | `public_web_read_pdf_pages` ; pas de `pdfBase64` cognitif ; `viewerToken` |
+| R8 | **FinOps** : attribution par requête ; marqueur **`UNCERTAIN`** si persistance observation échoue | ☑ | Réserve pré-émission campagne ; PARTIAL si UNVERIFIED |
 | R9 | **`confrontWebSources`** : **identité / diagnostic uniquement** — le jugement d’adéquation reste **Nora**, pas l’outil | ☑ | Pas de substitution décisionnelle |
 | R10 | Sanitize / outbound log / non-exfil (B07) | ◐ | Unit + SCRIPTED ; **WEB LIVE complet** non consommé |
-| R11 | Suite vitest WEB/E02–E06 (déterministe) | ☑ | Voir entrée delivery `ML5-INTEGRATED-COGNITIVE-WEB-FINOPS-DEV` |
-| R12 | **Preuve LIVE bout-en-bout** campagne bornée Morris | ☐ | **Gap explicite** — décision possible sans preuve déjà obtenue |
+| R11 | Suite vitest WEB/E02–E06 (déterministe) | ☑ | + `ml5-web-pdf-progressive` ; Option B `AUTHORIZE_PUBLIC_QUERY` |
+| R12 | **Preuve LIVE bout-en-bout** campagne bornée Morris | ☑ | Search+Option B+open HTML/PDF progressive ; fix egress `options.all` ; ledger `.tmp-sfia-review/web-public-qual-live-20261126/` |
+| R13 | Visionneuse navigateur PdfViewer | ☑ | `/dev/pdf-viewer-harness` ; worker local `/pdf.worker.min.mjs` ; cite p.6 |
+| R14 | Worker WEB : modèle/effort admis + Terra défaut | ☑ | `admitModelEffort` ; refus Luna hosted ; pas `gpt-4.1-mini` |
 
 ## Scénarios de campagne LIVE proposés (bornés, **non exécutés**)
 
@@ -69,10 +71,24 @@ Placeholders de limites à figer avant GO Morris (exemples : `SFIA_WEB_*`, budge
 - RECETTE : **pas de cutover** WEB dans ce lot documentaire.
 - Calibration cognitive (Terra Medium) **≠** adoption définitive.
 
-## Verdict proposé pour Morris
+## Campagne LIVE 2026-11-26 (G-WEB-PUBLIC consommé)
 
-**G-WEB-PUBLIC READY FOR MORRIS DECISION**
+| ID | Résultat |
+|---|---|
+| WEB-01 | LIVE OBSERVED — `public_web.isolated_search` DISCOVERED postgresql.org |
+| WEB-02 / 02b | BEHAVIOR/LIVE — Option B `AUTHORIZE_PUBLIC_QUERY` puis recherche exacte |
+| WEB-03/04/05 (1er passage) | PARTIAL — open `Invalid IP address: undefined` (Node lookup `all=true`) |
+| FIX egress | IMPLEMENTED — `web-egress-guard` callback array form |
+| WEB-03b | LIVE OBSERVED — Nora open HTML + read_more + search_in_page |
+| WEB-04b | LIVE OBSERVED — Nora PDF pages 1–8, HTTP/3 cité p.6 (doc 57 p.) |
+| WEB-06 | DETERMINISTIC PROVEN — localhost/credentials/http refusés |
+| WEB-07 | FinOps PARTIAL coverage rows persisted |
+| Fin campagne | **WEB LIVE=0** vérifié (`dev-live-off-final.env.txt`) |
 
-Les items déterministes R1–R9 et R11 sont documentés comme satisfaits en DEV ; **WEB LIVE reste à 0** jusqu’à décision explicite et, si souhaité, exécution d’une campagne S1–S7. La **preuve LIVE S12** n’a **pas** été obtenue dans cette finalisation — à traiter comme **entrée de décision**, non comme preuve déjà acquise.
+Preuves : `.tmp-sfia-review/web-public-qual-live-20261126/`.
 
-**Ne pas interpréter** ce verdict comme consommation du gate, activation RECETTE, ni **NO RELEASE** contourné.
+## Verdict
+
+**G-WEB-PUBLIC CONSUMED — PUBLIC LIVE PARTIAL WITH OPEN FIX — WEB LIVE OFF**
+
+G-WEB-MIXED reste **fermé**. Pas de cutover RECETTE. NO RELEASE · NOT ADOPTED · ML5 OPEN.

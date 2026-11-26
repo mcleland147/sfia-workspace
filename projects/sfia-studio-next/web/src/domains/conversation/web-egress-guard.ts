@@ -120,27 +120,52 @@ export async function fetchPublicHttpsPinned(input: {
           ...(input.headers ?? {}),
         },
         // Pin connection to asserted public IPs only.
+        // Node ≥18 often calls lookup with options.all=true; the callback then expects
+        // (err, [{address,family}]) — returning (err, address, family) yields
+        // "Invalid IP address: undefined" and breaks LIVE opens.
         lookup: (hostname, options, callback) => {
-          const cb = callback as (
+          type LookupCb = (
             err: NodeJS.ErrnoException | null,
-            address: string,
-            family: number,
+            address: string | Array<{ address: string; family: number }>,
+            family?: number,
           ) => void;
+          const cb: LookupCb =
+            typeof options === "function" ? (options as LookupCb) : (callback as LookupCb);
+          const opts =
+            typeof options === "function"
+              ? undefined
+              : (options as { all?: boolean } | undefined);
           const first = [...allow][0]!;
           if (!allow.has(first)) {
-            cb(Object.assign(new Error("EGRESS_LOOKUP_REFUSED"), { code: "EGRESS_LOOKUP_REFUSED" }), "", 4);
+            cb(
+              Object.assign(new Error("EGRESS_LOOKUP_REFUSED"), {
+                code: "EGRESS_LOOKUP_REFUSED",
+              }),
+              "",
+              4,
+            );
             return;
           }
           // Prefer IPv4 when present.
           const v4 = [...allow].find((a) => isIP(a) === 4);
           const chosen = v4 ?? first;
           if (isPrivateOrLocalIp(chosen) || !allow.has(chosen)) {
-            cb(Object.assign(new Error("EGRESS_PRIVATE_REFUSED"), { code: "EGRESS_PRIVATE_REFUSED" }), "", 4);
+            cb(
+              Object.assign(new Error("EGRESS_PRIVATE_REFUSED"), {
+                code: "EGRESS_PRIVATE_REFUSED",
+              }),
+              "",
+              4,
+            );
             return;
           }
-          cb(null, chosen, isIP(chosen) === 6 ? 6 : 4);
+          const family = isIP(chosen) === 6 ? 6 : 4;
+          if (opts?.all) {
+            cb(null, [{ address: chosen, family }]);
+          } else {
+            cb(null, chosen, family);
+          }
           void hostname;
-          void options;
         },
       },
       (res) => {

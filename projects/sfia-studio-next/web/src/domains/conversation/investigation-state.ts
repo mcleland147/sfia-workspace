@@ -133,6 +133,11 @@ export type InvestigationState = {
   registeredPublicTopics?: Record<string, string>;
   /** Exact public queries explicitly authorized for this turn. */
   authorizedExactWebQueries?: string[];
+  /**
+   * Nora-proposed public queries awaiting explicit Pilote authorization (Option B).
+   * Never grants egress alone — must match AUTHORIZE_PUBLIC_QUERY / exact marker.
+   */
+  pendingPublicWebProposals?: string[];
   /** Public facts already registered for composition. */
   registeredPublicFacts?: string[];
   /**

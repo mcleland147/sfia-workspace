@@ -388,9 +388,12 @@ async function executeIsolatedLiveWebSearch(
   const catalog = await import("./cognitive-resources/resource-catalog");
   const modelInCatalog = (v: string) =>
     catalog.COGNITIVE_RESOURCE_CATALOG.some((e) => e.modelId === v);
-  // Catalog-only default — never inherit gpt-4.1-mini outside the trio.
+  // Catalog + provisional policy admission — never inherit gpt-4.1-mini.
   const modelRequested = (
     process.env.SFIA_WEB_SEARCH_MODEL || "gpt-6.1-terra"
+  ).trim();
+  const effortRequested = (
+    process.env.SFIA_WEB_SEARCH_EFFORT || "medium"
   ).trim();
   if (!modelInCatalog(modelRequested)) {
     return {
@@ -398,6 +401,50 @@ async function executeIsolatedLiveWebSearch(
       items: [],
       limits: [
         "WEB_SEARCH_MODEL_NOT_IN_CATALOG",
+        `MODEL_${modelRequested}`,
+        "WEB_LIVE_SEARCH_BLOCKED",
+      ],
+    };
+  }
+  const { admitModelEffort } = await import(
+    "./cognitive-resources/resource-admission"
+  );
+  const { isCognitiveEffort, isCognitiveModelId } = await import(
+    "./cognitive-resources/resource-catalog"
+  );
+  if (!isCognitiveModelId(modelRequested) || !isCognitiveEffort(effortRequested)) {
+    return {
+      status: "ERROR",
+      items: [],
+      limits: [
+        "WEB_SEARCH_MODEL_EFFORT_INVALID",
+        `MODEL_${modelRequested}`,
+        `EFFORT_${effortRequested}`,
+        "WEB_LIVE_SEARCH_BLOCKED",
+      ],
+    };
+  }
+  const admission = admitModelEffort(modelRequested, effortRequested, "operational");
+  if (!admission.admitted) {
+    return {
+      status: "ERROR",
+      items: [],
+      limits: [
+        "WEB_SEARCH_MODEL_EFFORT_NOT_ADMITTED",
+        admission.reasonCode,
+        `MODEL_${modelRequested}`,
+        `EFFORT_${effortRequested}`,
+        "WEB_LIVE_SEARCH_BLOCKED",
+      ],
+    };
+  }
+  // Hosted webSearchTool compatibility: Terra/Sol catalogued models only (no Luna hosted search claim).
+  if (modelRequested === "gpt-6-luna") {
+    return {
+      status: "ERROR",
+      items: [],
+      limits: [
+        "WEB_SEARCH_HOSTED_TOOL_INCOMPATIBLE_MODEL",
         `MODEL_${modelRequested}`,
         "WEB_LIVE_SEARCH_BLOCKED",
       ],
@@ -420,6 +467,9 @@ async function executeIsolatedLiveWebSearch(
       ].join(" "),
       tools: [webSearchTool({ searchContextSize: "medium" })],
       model: modelRequested,
+      modelSettings: {
+        reasoning: { effort: effortRequested as "low" | "medium" | "high" },
+      },
     });
     // CRITICAL isolation: only the sanitized public query is the user message.
     result = await run(agent, query, { maxTurns: 6 });
@@ -690,13 +740,32 @@ export type PublicOpenResult = {
   contentKind?: "html" | "pdf";
   pageCount?: number;
   pagesAvailable?: number[];
-  /** Base64 PDF bytes when contentKind=pdf and body was authorized (viewer). */
-  pdfBase64?: string;
+  /** Opaque viewer token — never PDF bytes in Nora cognitive payload. */
+  viewerToken?: string;
   sessionId?: string;
   contentFingerprint?: string;
   /** B04 — structured citation when a page was opened. */
   citation?: import("./web-source-citation").WebSourceCitation;
 };
+
+function resolveOpenSessionScope(input: {
+  cognitiveWorkId?: string | null;
+  projectId?: string | null;
+  ownerPilotId?: string | null;
+  env?: NodeJS.ProcessEnv | Record<string, string | undefined>;
+}): import("./public-web-page-session").WebPageSessionScope | null {
+  const env = input.env ?? process.env;
+  const lane = String(env.STUDIO_LANE || "").trim();
+  const projectId = (input.projectId || "").trim();
+  const cognitiveWorkId = (input.cognitiveWorkId || "").trim();
+  if (!lane || lane === "UNKNOWN" || !projectId || !cognitiveWorkId) return null;
+  return {
+    lane,
+    projectId,
+    cognitiveWorkId,
+    ownerPilotId: input.ownerPilotId ?? null,
+  };
+}
 
 export async function executePublicWebOpenPage(input: {
   url: string;
@@ -710,6 +779,8 @@ export async function executePublicWebOpenPage(input: {
   explicitlyAuthorized?: boolean;
   /** Cognitive work id for progressive session binding. */
   cognitiveWorkId?: string | null;
+  projectId?: string | null;
+  ownerPilotId?: string | null;
 }): Promise<PublicOpenResult> {
   const env = input.env ?? process.env;
   const mode = webMode(env);
@@ -764,81 +835,122 @@ export async function executePublicWebOpenPage(input: {
     const { buildWebSourceCitation } = await import("./web-source-citation");
     const { putWebPageSession } = await import("./public-web-page-session");
     const { createHash } = await import("node:crypto");
+    const scope = resolveOpenSessionScope(input);
     const isPdf = /\.pdf($|\?)/i.test(url);
     if (isPdf) {
-      const scriptedText =
-        "Scripted PDF page 1 alpha. Scripted PDF page 2 beta contradiction. Scripted PDF page 3 gamma.";
+      const pages = [
+        { pageNumber: 1, text: "Scripted PDF page 1 alpha." },
+        { pageNumber: 2, text: "Scripted PDF page 2 beta contradiction." },
+        { pageNumber: 3, text: "Scripted PDF page 3 gamma." },
+        { pageNumber: 4, text: "Scripted PDF page 4 intermediate." },
+        { pageNumber: 5, text: "Scripted PDF page 5 bridge." },
+        { pageNumber: 6, text: "Scripted PDF page 6 determinant SECRET_MARKER_P6." },
+        { pageNumber: 7, text: "Scripted PDF page 7 trailing." },
+        { pageNumber: 8, text: "Scripted PDF page 8 end." },
+      ];
+      const scriptedText = pages.map((p) => p.text).join(" ");
       const fp = createHash("sha256").update(scriptedText).digest("hex").slice(0, 16);
-      const session = putWebPageSession(input.cognitiveWorkId, {
-        url,
-        kind: "pdf",
-        text: scriptedText,
-        pages: [
-          { pageNumber: 1, text: "Scripted PDF page 1 alpha." },
-          { pageNumber: 2, text: "Scripted PDF page 2 beta contradiction." },
-          { pageNumber: 3, text: "Scripted PDF page 3 gamma." },
-        ],
-        pageCount: 3,
-        contentFingerprint: fp,
-        openedAt: new Date().toISOString(),
-        limits: ["SCRIPTED_WEB_PDF", "UNTRUSTED_WEB_CONTENT", "FIXTURE_NOT_LIVE_BYTES"],
-      });
+      const initialPages = pages.slice(0, 5);
+      const limits = [
+        "SCRIPTED_WEB_PDF",
+        "UNTRUSTED_WEB_CONTENT",
+        "FIXTURE_NOT_LIVE_BYTES",
+        "INITIAL_PAGES_1_5",
+        "NOT_FULLY_CONSULTED",
+      ];
+      let sessionId: string | undefined;
+      let viewerToken: string | undefined;
+      if (scope) {
+        const session = putWebPageSession({
+          scope,
+          url,
+          kind: "pdf",
+          text: initialPages.map((p) => p.text).join("\n"),
+          // Full page texts preloaded for SCRIPTED progressive reads (no fake PDF bytes).
+          pages,
+          pageCount: pages.length,
+          contentFingerprint: fp,
+          limits,
+          bytesObtained: Buffer.byteLength(scriptedText, "utf8"),
+          sourceTruncated: false,
+        });
+        session.extractedPages = initialPages.map((p) => p.pageNumber);
+        session.consultedPages = initialPages.map((p) => p.pageNumber);
+        sessionId = session.sessionId;
+        viewerToken = session.viewerToken;
+      } else {
+        limits.push("SESSION_SCOPE_MISSING");
+      }
       const citation = buildWebSourceCitation({
         url,
         establishedUrl: url,
         title: `Scripted PDF ${new URL(url).hostname}`,
         coverage: "PARTIAL",
-        excerpt: scriptedText.slice(0, 400),
-        limits: session.limits,
+        excerpt: initialPages.map((p) => `[p${p.pageNumber}] ${p.text}`).join("\n"),
+        limits,
       });
       return {
         status: "AVAILABLE",
         coverage: "PARTIAL",
         url,
         excerpt: citation.excerpt ?? "",
-        limits: session.limits,
+        limits,
         mode: "SCRIPTED",
         contentKind: "pdf",
-        pageCount: 3,
-        pagesAvailable: [1, 2, 3],
-        sessionId: session.sessionId,
+        pageCount: pages.length,
+        pagesAvailable: initialPages.map((p) => p.pageNumber),
+        sessionId,
+        viewerToken,
         contentFingerprint: fp,
         citation,
       };
     }
     const excerpt = `Scripted page body for ${url} — FAKE excerpt, not a LIVE fetch. `.repeat(40);
     const fp = createHash("sha256").update(excerpt).digest("hex").slice(0, 16);
-    const session = putWebPageSession(input.cognitiveWorkId, {
-      url,
-      kind: "html",
-      text: excerpt,
-      contentFingerprint: fp,
-      openedAt: new Date().toISOString(),
-      limits: ["SCRIPTED_WEB_OPEN", "UNTRUSTED_WEB_CONTENT"],
-    });
+    const limits = ["SCRIPTED_WEB_OPEN", "UNTRUSTED_WEB_CONTENT", "NOT_FULLY_CONSULTED"];
+    let sessionId: string | undefined;
+    let viewerToken: string | undefined;
+    if (scope) {
+      const session = putWebPageSession({
+        scope,
+        url,
+        kind: "html",
+        text: excerpt,
+        contentFingerprint: fp,
+        limits,
+        bytesObtained: Buffer.byteLength(excerpt, "utf8"),
+        sourceTruncated: false,
+      });
+      sessionId = session.sessionId;
+      viewerToken = session.viewerToken;
+    } else {
+      limits.push("SESSION_SCOPE_MISSING");
+    }
     const citation = buildWebSourceCitation({
       url,
       establishedUrl: url,
       title: `Scripted page ${new URL(url).hostname}`,
       coverage: "OPENED",
       excerpt: excerpt.slice(0, 800),
-      limits: session.limits,
+      limits,
     });
     return {
       status: "AVAILABLE",
       coverage: "PAGE_OPENED",
       url,
       excerpt: citation.excerpt ?? "",
-      limits: citation.limits,
+      limits,
       mode: "SCRIPTED",
       contentKind: "html",
-      sessionId: session.sessionId,
+      sessionId,
+      viewerToken,
       contentFingerprint: fp,
       citation,
     };
   }
 
   // LIVE open — DNS + pinned connect + timeout through body read; no cookies/auth.
+  const scope = resolveOpenSessionScope(input);
   try {
     const {
       assertPublicDnsEgress,
@@ -926,8 +1038,10 @@ export async function executePublicWebOpenPage(input: {
         const { extractPdfText } = await import(
           "@/domains/documents/pdf-extract-server"
         );
+        // Retain an independent copy before pdf.js may detach the fetch buffer.
+        const retainedPdfBytes = new Uint8Array(bounded.bytes);
         const pdf = await extractPdfText({
-          bytes: bounded.bytes,
+          bytes: new Uint8Array(retainedPdfBytes),
           identity: {
             provenance: "WEB",
             sourceRef: url,
@@ -938,7 +1052,7 @@ export async function executePublicWebOpenPage(input: {
           pageTo: 5,
         });
         const fp = createHash("sha256")
-          .update(bounded.bytes)
+          .update(retainedPdfBytes)
           .digest("hex")
           .slice(0, 32);
         if (!pdf.ok) {
@@ -958,20 +1072,42 @@ export async function executePublicWebOpenPage(input: {
             contentFingerprint: fp,
           };
         }
-        const session = putWebPageSession(input.cognitiveWorkId, {
+        if (!scope) {
+          return {
+            status: "ERROR",
+            coverage: "PARTIAL",
+            url,
+            excerpt: "",
+            limits: [
+              "SESSION_SCOPE_MISSING",
+              "WEB_LIVE_PDF",
+              "EGRESS_DNS_CHECKED",
+              "EGRESS_PINNED_CONNECT",
+            ],
+            mode: "LIVE",
+            contentKind: "pdf",
+            contentFingerprint: fp,
+          };
+        }
+        const session = putWebPageSession({
+          scope,
           url,
           kind: "pdf",
           text: pdf.pages.map((p) => p.text).join("\n"),
           pages: pdf.pages,
           pageCount: pdf.pageCount,
           contentFingerprint: fp,
-          openedAt: new Date().toISOString(),
           limits: [
             "WEB_LIVE_PDF",
             "UNTRUSTED_WEB_CONTENT",
             ...pdf.limits,
             `PINNED_${pinned.pinnedAddress}`,
           ],
+          bytesObtained: retainedPdfBytes.byteLength,
+          sourceTruncated: Boolean(bounded.truncated),
+          // Bytes stay server-side for progressive page reads + viewerToken path.
+          // Never returned as base64 into Nora cognitive payloads.
+          pdfBytes: retainedPdfBytes,
         });
         const excerpt = pdf.pages
           .map((p) => `[p${p.pageNumber}] ${p.text}`)
@@ -995,8 +1131,8 @@ export async function executePublicWebOpenPage(input: {
           contentKind: "pdf",
           pageCount: pdf.pageCount,
           pagesAvailable: pdf.pagesAvailable,
-          pdfBase64: Buffer.from(bounded.bytes).toString("base64"),
           sessionId: session.sessionId,
+          viewerToken: session.viewerToken,
           contentFingerprint: fp,
           citation,
         };
@@ -1013,12 +1149,29 @@ export async function executePublicWebOpenPage(input: {
       );
       const text = bounded.text;
       const fp = createHash("sha256").update(text).digest("hex").slice(0, 16);
-      const session = putWebPageSession(input.cognitiveWorkId, {
+      if (!scope) {
+        return {
+          status: "ERROR",
+          coverage: "PARTIAL",
+          url,
+          excerpt: "",
+          limits: [
+            "SESSION_SCOPE_MISSING",
+            "WEB_LIVE_FETCH",
+            "EGRESS_DNS_CHECKED",
+            "EGRESS_PINNED_CONNECT",
+          ],
+          mode: "LIVE",
+          contentKind: "html",
+          contentFingerprint: fp,
+        };
+      }
+      const session = putWebPageSession({
+        scope,
         url,
         kind: "html",
         text,
         contentFingerprint: fp,
-        openedAt: new Date().toISOString(),
         limits: [
           "WEB_LIVE_FETCH",
           "UNTRUSTED_WEB_CONTENT",
@@ -1029,6 +1182,8 @@ export async function executePublicWebOpenPage(input: {
           bounded.truncated ? "EXCERPT_TRUNCATED" : "EXCERPT_BOUNDED",
           "PAGE_NOT_FULLY_CONSULTED",
         ],
+        bytesObtained: Buffer.byteLength(text, "utf8"),
+        sourceTruncated: Boolean(bounded.truncated),
       });
       const citation = buildWebSourceCitation({
         url,
@@ -1047,6 +1202,7 @@ export async function executePublicWebOpenPage(input: {
         mode: "LIVE",
         contentKind: "html",
         sessionId: session.sessionId,
+        viewerToken: session.viewerToken,
         contentFingerprint: fp,
         citation,
       };
@@ -1086,6 +1242,11 @@ export async function buildPublicWebFrontierTools(input: {
   pilotProvidedUrls?: string[];
   /** Explicit this-turn Pilote text for provenance checks (never haystack). */
   pilotText?: string | null;
+  /**
+   * Mutable list of Nora-proposed queries awaiting Pilote exact authorization.
+   * Server stages here; never egress until registered as exact.
+   */
+  pendingPublicWebProposals?: string[];
   /** FinOps attribution for LIVE isolated search worker (optional). */
   finops?: {
     cognitiveWorkId?: string | null;
@@ -1098,15 +1259,18 @@ export async function buildPublicWebFrontierTools(input: {
 }) {
   const { tool } = await import("@openai/agents");
   const { z } = await import("zod");
-  const { admitNoraProposedPublicQuery, PILOT_PUBLIC_QUERY_REF } = await import(
-    "./public-web-registry"
-  );
+  const {
+    admitNoraProposedPublicQuery,
+    stageNoraProposedPublicQuery,
+    PILOT_PUBLIC_QUERY_REF,
+  } = await import("./public-web-registry");
   const markers = (input.privateContextMarkers ?? []).filter(Boolean);
   /** Mutable registries for this tool session (Nora proposals admitted by server). */
   const turnTopics: Record<string, string> = { ...(input.turnPublicTopics ?? {}) };
   const turnExact = new Set(
     (input.turnAuthorizedExactQueries ?? []).map((q) => q.replace(/\s+/g, " ").trim()).filter(Boolean),
   );
+  const pendingProposals = input.pendingPublicWebProposals ?? [];
   const pilotUrlCandidates = new Set(
     (input.pilotProvidedUrls ?? [])
       .map((u) => normalizeDiscoveredWebUrl(u))
@@ -1172,6 +1336,7 @@ export async function buildPublicWebFrontierTools(input: {
         }
         // T1.1 / Option B — Nora proposes; server admits only against already
         // registered public queries (catalog / exact). Sanitize alone ≠ authorize.
+        // Unknown public subjects are staged for explicit Pilote exact admission.
         if (args.proposedPublicQuery?.trim()) {
           const registeredPublicQueries = [
             ...Object.values(turnTopics),
@@ -1183,12 +1348,38 @@ export async function buildPublicWebFrontierTools(input: {
             registeredPublicQueries,
           });
           if (!admitted.ok) {
+            const staged = stageNoraProposedPublicQuery({
+              proposedQuery: args.proposedPublicQuery,
+              privateMarkers: markers,
+            });
+            if (staged.ok) {
+              if (!pendingProposals.includes(staged.query)) {
+                pendingProposals.push(staged.query);
+              }
+              return {
+                status: "PENDING_PILOT_AUTHORIZATION",
+                coverage: "DENIED",
+                query: staged.query,
+                items: [],
+                limits: [
+                  admitted.reason,
+                  "PROPOSED_QUERY_STAGED_FOR_PILOT",
+                  "NO_EGRESS_UNTIL_EXACT_AUTHORIZATION",
+                  'Ask Pilote: AUTHORIZE_PUBLIC_QUERY: "' + staged.query + '"',
+                ],
+                mode: webMode(),
+              };
+            }
             return {
               status: "DENIED",
               coverage: "DENIED",
               query: "",
               items: [],
-              limits: [admitted.reason, "PROPOSED_QUERY_NOT_ADMITTED"],
+              limits: [
+                admitted.reason,
+                staged.reason,
+                "PROPOSED_QUERY_NOT_ADMITTED",
+              ],
               mode: webMode(),
             };
           }
@@ -1311,6 +1502,8 @@ export async function buildPublicWebFrontierTools(input: {
           url: args.url,
           allowedUrls: [...discoveredUrls],
           cognitiveWorkId: input.finops?.cognitiveWorkId ?? null,
+          projectId: input.finops?.projectId ?? null,
+          ownerPilotId: input.finops?.ownerPilotId ?? null,
         });
         if (result.status === "AVAILABLE") {
           recordToolSource(input.sourceJournal, {
@@ -1330,7 +1523,7 @@ export async function buildPublicWebFrontierTools(input: {
     tool({
       name: "public_web_read_more",
       description:
-        "Continue reading an already-opened public HTML page (progressive). Requires a prior public_web_open_page session. Does not re-fetch unless no session exists (then DENIED).",
+        "Continue reading an already-opened public HTML page (progressive). For PDF sessions use public_web_read_pdf_pages instead. Requires a prior public_web_open_page session.",
       parameters: z.object({
         url: z.string().min(8).max(2000),
         from: z.number().int().min(0).nullable().optional(),
@@ -1348,12 +1541,24 @@ export async function buildPublicWebFrontierTools(input: {
             limits: ["URL_NOT_IN_AUTHORIZED_DISCOVERY"],
           };
         }
+        const scope = resolveOpenSessionScope({
+          cognitiveWorkId: input.finops?.cognitiveWorkId,
+          projectId: input.finops?.projectId,
+          ownerPilotId: input.finops?.ownerPilotId,
+        });
+        if (!scope) {
+          return {
+            status: "DENIED",
+            coverage: "DENIED",
+            limits: ["SESSION_SCOPE_MISSING"],
+          };
+        }
         input.budget.remainingCalls -= 1;
         const { readWebPageProgressive } = await import(
           "./public-web-page-session"
         );
         const read = readWebPageProgressive({
-          workId: input.finops?.cognitiveWorkId,
+          scope,
           url: preview,
           from: args.from,
           maxChars: args.maxChars,
@@ -1380,8 +1585,88 @@ export async function buildPublicWebFrontierTools(input: {
           from: read.from,
           to: read.to,
           totalChars: read.totalChars,
+          coveredChars: read.coveredChars,
+          sourceTruncated: read.sourceTruncated,
           sessionId: read.sessionId,
+          viewerToken: read.viewerToken,
           contentFingerprint: read.contentFingerprint,
+          limits: read.limits,
+          mode: webMode(),
+        };
+      },
+    }),
+    tool({
+      name: "public_web_read_pdf_pages",
+      description:
+        "Read additional PDF page ranges from an already-opened public PDF session. Initial open returns only the first pages; use this to consult pages beyond that range before concluding absence. Returns text/metadata only — never PDF bytes.",
+      parameters: z.object({
+        url: z.string().min(8).max(2000),
+        pageFrom: z.number().int().min(1).max(80),
+        pageTo: z.number().int().min(1).max(80),
+        searchQuery: z.string().min(1).max(200).nullable().optional(),
+      }),
+      execute: async (args) => {
+        if (input.budget.remainingCalls <= 0) {
+          return { status: "DENIED", reason: "BUDGET_EXHAUSTED" };
+        }
+        const preview = normalizeDiscoveredWebUrl(args.url);
+        if (!preview || !discoveredUrls.has(preview)) {
+          return {
+            status: "DENIED",
+            coverage: "DENIED",
+            limits: ["URL_NOT_IN_AUTHORIZED_DISCOVERY"],
+          };
+        }
+        const scope = resolveOpenSessionScope({
+          cognitiveWorkId: input.finops?.cognitiveWorkId,
+          projectId: input.finops?.projectId,
+          ownerPilotId: input.finops?.ownerPilotId,
+        });
+        if (!scope) {
+          return {
+            status: "DENIED",
+            coverage: "DENIED",
+            limits: ["SESSION_SCOPE_MISSING"],
+          };
+        }
+        input.budget.remainingCalls -= 1;
+        const { readWebPdfPages } = await import("./public-web-page-session");
+        const pageFrom = Math.min(args.pageFrom, args.pageTo);
+        const pageTo = Math.max(args.pageFrom, args.pageTo);
+        const read = await readWebPdfPages({
+          scope,
+          url: preview,
+          pageFrom,
+          pageTo,
+          searchQuery: args.searchQuery,
+        });
+        if (!read.ok) {
+          return {
+            status: "DENIED",
+            coverage: "DENIED",
+            limits: [read.reason, ...(read.limits ?? [])],
+          };
+        }
+        recordToolSource(input.sourceJournal, {
+          kind: "WEB",
+          ref: preview,
+          title: preview,
+          coverage: read.coverage === "COMPLETE" ? "CONSULTED" : "PARTIAL",
+          notes: `public_web_read_pdf_pages:${pageFrom}-${pageTo}`,
+        });
+        return {
+          status: "AVAILABLE",
+          coverage: read.coverage,
+          url: preview,
+          pageCount: read.pageCount,
+          pages: read.pages,
+          pagesAvailable: read.pagesAvailable,
+          consultedPages: read.consultedPages,
+          searchHits: read.searchHits,
+          sessionId: read.sessionId,
+          viewerToken: read.viewerToken,
+          contentFingerprint: read.contentFingerprint,
+          sourceTruncated: read.sourceTruncated,
           limits: read.limits,
           mode: webMode(),
         };
@@ -1390,7 +1675,7 @@ export async function buildPublicWebFrontierTools(input: {
     tool({
       name: "public_web_search_in_page",
       description:
-        "Search text within an already-opened public page (HTML or PDF session). Retrieval only — Nora judges relevance.",
+        "Search text within already-extracted content of an opened public page. For PDF, only pages already extracted are searched — expand with public_web_read_pdf_pages before concluding absence.",
       parameters: z.object({
         url: z.string().min(8).max(2000),
         query: z.string().min(1).max(200),
@@ -1407,12 +1692,24 @@ export async function buildPublicWebFrontierTools(input: {
             limits: ["URL_NOT_IN_AUTHORIZED_DISCOVERY"],
           };
         }
+        const scope = resolveOpenSessionScope({
+          cognitiveWorkId: input.finops?.cognitiveWorkId,
+          projectId: input.finops?.projectId,
+          ownerPilotId: input.finops?.ownerPilotId,
+        });
+        if (!scope) {
+          return {
+            status: "DENIED",
+            coverage: "DENIED",
+            limits: ["SESSION_SCOPE_MISSING"],
+          };
+        }
         input.budget.remainingCalls -= 1;
         const { searchWebPageSession } = await import(
           "./public-web-page-session"
         );
         const found = searchWebPageSession({
-          workId: input.finops?.cognitiveWorkId,
+          scope,
           url: preview,
           query: args.query,
         });
@@ -1435,6 +1732,9 @@ export async function buildPublicWebFrontierTools(input: {
           coverage: "PARTIAL",
           url: preview,
           hits: found.hits,
+          searchScope: found.searchScope,
+          extractedPages: found.extractedPages,
+          pageCount: found.pageCount,
           limits: found.limits,
           mode: webMode(),
         };

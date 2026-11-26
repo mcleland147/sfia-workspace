@@ -154,6 +154,23 @@ export const COGNITIVE_RESOURCE_CATALOG: readonly CognitiveResourceCatalogEntry[
     },
   ];
 
+export function isCognitiveModelId(v: string): v is CognitiveModelId {
+  return (
+    v === "gpt-6-luna" || v === "gpt-6.1-terra" || v === "gpt-6.2-sol"
+  );
+}
+
+export function isCognitiveEffort(v: string): v is CognitiveEffort {
+  return (
+    v === "none" ||
+    v === "low" ||
+    v === "medium" ||
+    v === "high" ||
+    v === "xhigh" ||
+    v === "max"
+  );
+}
+
 export function getResourceCatalogEntry(
   modelId: CognitiveModelId,
 ): CognitiveResourceCatalogEntry | undefined {

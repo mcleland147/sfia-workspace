@@ -3,6 +3,20 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-26-ML5-DOC-WEB-INTEGRATED-QUALIFICATION
+
+- **date_utc**: 2026-11-26
+- **lane**: DEV — finalisation résiduelle WEB/PDF + qualification documentaire LIVE + G-WEB-PUBLIC bornée
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **base_head**: `912ef30b40f2447a925f4182bc4961560eca810e` (arbre dirty post-corrections — rebuild cutover non fait)
+- **focus**: Progressive PDF sans `pdfBase64` cognitif ; sessions WEB TTL ; egress lookup `options.all` ; IT-06 conserve V2 ; RB-27–31 Git REAL ; WEB LIVE public puis OFF
+- **web_live**: **0 / disabled** en fin de cycle — G-WEB-PUBLIC consommé (search+open HTML/PDF) · G-WEB-MIXED fermé
+- **documentary**: RB `cgw_912cf02a…` · Git PDF blocked scanné · IT-06 `doc_65200758` V2 `drev_1d9fed9c` / V1 intacte · FinOps ~USD 0.55 cumul travaux documentaires observés
+- **web_public**: projet `proj_1d58b9a2…` · works `cgw_c07e5b0a…` / `cgw_c1f67b96…` / `cgw_cb316320…` · fix `web-egress-guard` · ledger `.tmp-sfia-review/web-public-qual-live-20261126/`
+- **artefacts**: `ml5-qual-corpus-inventory-20261126.md` · `ml5-recette-manifest-candidate-20261126.md` · dossier WEB actualisé
+- **release**: **NO RELEASE** · **NOT ADOPTED** · ML5 OPEN · R5 IN PROGRESS · G-RECETTE non consommé · livraison 2 non engagée
+- **statut**: **ML5 DOCUMENTARY AND PUBLIC WEB LIVE QUALIFICATION COMPLETED — INTEGRATED ACCEPTANCE REVIEW REQUIRED** (réserves : Git PDF text corpus ; WEB-05 confrontation ; arbre dirty)
+
 ## delivery_id: DELIV-2026-11-26-ML5-WEB-PDF-FINALISATION
 
 - **date_utc**: 2026-11-26
