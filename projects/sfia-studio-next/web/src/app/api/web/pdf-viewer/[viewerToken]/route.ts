@@ -30,12 +30,30 @@ export async function GET(
     if (page.kind !== "pdf") {
       return NextResponse.json({ error: "VIEWER_NOT_PDF" }, { status: 415 });
     }
-    // Owner check when known — prevents cross-pilot token reuse.
-    if (
-      page.scope.ownerPilotId &&
-      page.scope.ownerPilotId !== session.pilotId
-    ) {
+    // ViewerToken alone is not authority — owner + lane + project must be opposable.
+    const owner = (page.scope.ownerPilotId || "").trim();
+    if (!owner) {
+      return NextResponse.json(
+        { error: "VIEWER_OWNER_REQUIRED", limits: ["VIEWER_TOKEN_NOT_SUFFICIENT"] },
+        { status: 403 },
+      );
+    }
+    if (owner !== session.pilotId) {
       return NextResponse.json({ error: "VIEWER_OWNER_MISMATCH" }, { status: 403 });
+    }
+    const lane = (page.scope.lane || "").trim();
+    const processLane = (process.env.STUDIO_LANE || "").trim();
+    if (!lane || lane === "UNKNOWN" || (processLane && lane !== processLane)) {
+      return NextResponse.json(
+        { error: "VIEWER_LANE_MISMATCH", limits: ["VIEWER_TOKEN_NOT_SUFFICIENT"] },
+        { status: 403 },
+      );
+    }
+    if (!(page.scope.projectId || "").trim()) {
+      return NextResponse.json(
+        { error: "VIEWER_PROJECT_REQUIRED", limits: ["VIEWER_TOKEN_NOT_SUFFICIENT"] },
+        { status: 403 },
+      );
     }
     if (!page.pdfBytes || page.pdfBytes.byteLength < 5) {
       return NextResponse.json(

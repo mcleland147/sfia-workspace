@@ -5039,3 +5039,22 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | Migration | NONE |
 | Réserves | RoomBooking/StockTrack IT-06 différés enveloppe ; F2 visuelle ; WEB LIVE ; Luna Low non admis opérationnellement ; modelApplied souvent UNVERIFIED |
 | Statut | DEV CANDIDATE — PROVISIONAL POLICY ACTIVE — INTEGRATED REVIEW REQUIRED |
+
+
+## 2026-11-26 — ML5 consolidation cognitive transverse finale + préparation RECETTE (Cycle 8 Delivery / DEV)
+
+| Champ | Valeur |
+|---|---|
+| Delivery ID | `next-ml5-cognitive-consolidation-finale-recette-prep-20261126` |
+| Date | 2026-11-26 |
+| Macro-lot | ML5 livraison 1 — consolidation transverse finale |
+| Type | EVOL · Critical · Cycle 8 Delivery |
+| GO Morris | 26/11 — intégrer réserves documentaires/WEB + revue architecturale ChatGPT ; préparation candidat RECETTE ; pas de cutover |
+| Base tip | `8c82b6c18f64af873ea780e692beb816d9d9f36e` |
+| Contenu | Frontière fournisseur commune + enveloppe campagne ; suspend allocation sans substitution ; FinOps observation≠estimation ; autorité WEB D6 (parse≠authority) ; PDF viewerToken rotation + auth owner/lane/project ; manifeste RECETTE |
+| Migration | NONE |
+| LIVE | Non rejoué (S1 démontré déterministe ; preuves LIVE antérieures réutilisées) · WEB OFF |
+| Compatibilité | NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN · R5 IN PROGRESS · R6 NOT STARTED · NOT ADOPTED · G-WEB-MIXED fermé · G-RECETTE non consommé |
+| Contrôles | Vitest unit ml5* 337 PASS (dont frontier, authority, FinOps, sessions) |
+| Réserves | Git PDF text B ; WEB-05 C ; F2 C ; kind D6 dédié D |
+| Statut | DEV CANDIDATE — COGNITIVE CONSOLIDATION — RECETTE SCOPE DECISION REQUIRED |

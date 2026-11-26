@@ -143,17 +143,26 @@ describe("Option B — Pilote exact authorization persistence", () => {
     expect(qs).toEqual(["HTTP/3 site:datatracker.ietf.org"]);
   });
 
-  it("persists Pilote exact into registry for subsequent admission", () => {
-    const r = resolvePublicWebRegistry({
-      pilotText:
-        'Autoriser la recherche publique exacte : « HTTP/3 site:datatracker.ietf.org »',
+  it("observes Pilote exact parse without promoting until D6-bound", () => {
+    const q = "HTTP/3 site:datatracker.ietf.org";
+    const parsedOnly = resolvePublicWebRegistry({
+      pilotText: `Autoriser la recherche publique exacte : « ${q} »`,
       haystack: "suite",
       env: { STUDIO_LANE: "DEV", SFIA_PUBLIC_WEB_CATALOG_DEFAULT: "0" },
     });
-    expect(r.exactQueries).toContain("HTTP/3 site:datatracker.ietf.org");
-    expect(r.limits).toContain("PILOT_EXACT_AUTHORIZED");
+    expect(parsedOnly.exactQueries).not.toContain(q);
+    expect(parsedOnly.limits).toContain("PARSE_NOT_D6_AUTHORITY");
+
+    const r = resolvePublicWebRegistry({
+      pilotText: `Autoriser la recherche publique exacte : « ${q} »`,
+      d6BoundExactQueries: [q],
+      haystack: "suite",
+      env: { STUDIO_LANE: "DEV", SFIA_PUBLIC_WEB_CATALOG_DEFAULT: "0" },
+    });
+    expect(r.exactQueries).toContain(q);
+    expect(r.limits).toContain("PILOT_EXACT_AUTHORIZED_D6");
     const admitted = admitNoraProposedPublicQuery({
-      proposedQuery: "HTTP/3 site:datatracker.ietf.org",
+      proposedQuery: q,
       registeredPublicQueries: r.exactQueries,
     });
     expect(admitted.ok).toBe(true);

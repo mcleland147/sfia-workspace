@@ -99,28 +99,64 @@ export const PILOT_PUBLIC_QUERY_REF = "pilot-public-query";
 
 /**
  * Explicit Pilote authorization of an exact public query (Option B).
- * Lexical free-form research phrasing does NOT authorize — only these markers.
- * Patterns (case-insensitive):
- *   AUTHORIZE_PUBLIC_QUERY: "exact query"
- *   Autoriser la recherche publique exacte : « exact query »
- *   Autoriser la recherche publique exacte: "exact query"
+ *
+ * Regex parsing is a technical extractor only — NOT D6 authority by itself.
+ * Guards against citation / negation / example / embedded narrative:
+ * - Marker must be a dedicated act (message primarily the authorize line), OR
+ * - An established HumanDecision id may be supplied by the caller separately.
+ * Free-form research phrasing never authorizes.
  */
 export function extractPilotAuthorizedExactQueries(pilotText: string): string[] {
-  const text = pilotText || "";
-  if (!text.trim()) return [];
-  const out: string[] = [];
-  const patterns = [
-    /AUTHORIZE_PUBLIC_QUERY\s*:\s*[«"']([^»"']+)[»"']/gi,
-    /Autoriser\s+la\s+recherche\s+publique\s+exacte\s*:\s*[«"']([^»"']+)[»"']/gi,
+  const text = (pilotText || "").replace(/\s+/g, " ").trim();
+  if (!text) return [];
+
+  // Reject negation / example / quotation framing around the command.
+  const lower = text.toLowerCase();
+  const poison = [
+    "ne pas autoriser",
+    "n'autorise pas",
+    "do not authorize",
+    "don't authorize",
+    "exemple",
+    "example",
+    "par exemple",
+    "for example",
+    "citation",
+    "sans autoriser",
+    "sans autorisation",
   ];
+  if (poison.some((p) => lower.includes(p))) return [];
+
+  const patterns = [
+    /AUTHORIZE_PUBLIC_QUERY\s*:\s*[«"']([^»"']+)[»"']/i,
+    /Autoriser\s+la\s+recherche\s+publique\s+exacte\s*:\s*[«"']([^»"']+)[»"']/i,
+  ];
+
+  const out: string[] = [];
   for (const re of patterns) {
-    let m: RegExpExecArray | null;
-    while ((m = re.exec(text)) !== null) {
-      const q = (m[1] || "").replace(/\s+/g, " ").trim();
-      if (q.length >= 3) out.push(q);
-    }
+    const m = re.exec(text);
+    if (!m) continue;
+    const q = (m[1] || "").replace(/\s+/g, " ").trim();
+    if (q.length < 3) continue;
+    // Dedicated act: authorize line must dominate the message (≤ 2 short sentences).
+    const remainder = text.replace(m[0], "").replace(/\s+/g, " ").trim();
+    const remainderOk =
+      remainder.length === 0 ||
+      remainder.length <= 80 ||
+      /^(ok|oui|go|valide|validé|autorise|autorisé)[.!]?\s*$/i.test(remainder);
+    if (!remainderOk) continue;
+    out.push(q);
   }
-  return [...new Set(out)].slice(0, 8);
+  return [...new Set(out)].slice(0, 4);
+}
+
+/**
+ * Whether pilot text is a dedicated AUTHORIZE_PUBLIC_QUERY act (technical parse).
+ * Callers must still bind D6 HumanDecision / inspectable authority when required —
+ * this helper never grants egress alone.
+ */
+export function isDedicatedAuthorizePublicQueryAct(pilotText: string): boolean {
+  return extractPilotAuthorizedExactQueries(pilotText).length > 0;
 }
 
 /**
@@ -296,6 +332,11 @@ export function resolvePublicWebRegistry(input: {
    * Absence ⇒ fail closed for pilot-originated URL extraction.
    */
   pilotText?: string | null;
+  /**
+   * Exact queries already bound by D6 HumanDecision (or prior admitted state).
+   * AUTHORIZE_PUBLIC_QUERY parse alone never populates exactQueries.
+   */
+  d6BoundExactQueries?: string[] | null;
   privateMarkers?: string[];
   env?: Record<string, string | undefined>;
 }): PublicWebRegistry {
@@ -312,7 +353,11 @@ export function resolvePublicWebRegistry(input: {
 
   const topics: Record<string, string> = { ...priorTopicsRaw };
   const exact = new Set(
-    [...(input.priorExactQueries ?? []), ...(input.explicitExactQueries ?? [])]
+    [
+      ...(input.priorExactQueries ?? []),
+      ...(input.explicitExactQueries ?? []),
+      ...(input.d6BoundExactQueries ?? []),
+    ]
       .map((q) => q.replace(/\s+/g, " ").trim())
       .filter(Boolean)
       // Drop exacts that only existed for a prior pilot-public-query value.
@@ -321,6 +366,9 @@ export function resolvePublicWebRegistry(input: {
         return !priorPilot || normalize(q) !== normalize(priorPilot);
       }),
   );
+  if ((input.d6BoundExactQueries ?? []).length > 0) {
+    limits.push("PILOT_EXACT_AUTHORIZED_D6");
+  }
   const facts = [...new Set((input.priorFacts ?? []).map((f) => f.trim()).filter(Boolean))];
 
   const catalog = loadPublicTopicCatalog(input.env ?? process.env);
@@ -353,8 +401,15 @@ export function resolvePublicWebRegistry(input: {
       limits.push(`PILOT_URL_CANDIDATES:${pilotProvidedUrls.length}`);
       limits.push("PILOT_URL_NOT_AUTO_AUTHORIZED");
     }
-    // Option B — explicit exact authorization markers from this-turn Pilote only.
+    // Option B — technical parse of AUTHORIZE_PUBLIC_QUERY (≠ D6 authority).
+    // Parsed queries are observed for staging / inspectable act preparation only;
+    // they are NOT promoted into exactQueries unless already present via
+    // d6BoundExactQueries / explicitExactQueries / priorExactQueries.
     const pilotExact = extractPilotAuthorizedExactQueries(input.pilotText);
+    if (pilotExact.length === 0 && /AUTHORIZE_PUBLIC_QUERY/i.test(input.pilotText)) {
+      limits.push("PILOT_EXACT_PARSE_REJECTED");
+      limits.push("PARSE_NOT_D6_AUTHORITY");
+    }
     for (const q of pilotExact) {
       if (markers.some((m) => q.toLowerCase().includes(m.toLowerCase()))) {
         limits.push("PILOT_EXACT_SKIP_PRIVATE_MARKER");
@@ -365,9 +420,12 @@ export function resolvePublicWebRegistry(input: {
         limits.push(`PILOT_EXACT_SANITIZE_BLOCKED:${sanitized.blockedReason ?? "BLOCKED"}`);
         continue;
       }
-      if (!exact.has(sanitized.query)) {
-        exact.add(sanitized.query);
-        limits.push("PILOT_EXACT_AUTHORIZED");
+      limits.push("PILOT_EXACT_PARSE_OBSERVED");
+      limits.push("PARSE_NOT_D6_AUTHORITY");
+      if (exact.has(sanitized.query)) {
+        limits.push("PILOT_EXACT_ALREADY_BOUND");
+      } else {
+        limits.push("PILOT_EXACT_AWAITING_D6_DECISION");
       }
     }
   } else {

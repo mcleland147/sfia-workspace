@@ -183,59 +183,91 @@ export function putWebPageSession(input: {
 
   const now = new Date();
   const expiresAt = new Date(now.getTime() + ttlMs()).toISOString();
-  const viewerToken =
-    existing?.viewerToken ?? randomBytes(24).toString("base64url");
-  const extractedPages = [
-    ...new Set([
-      ...(existing?.extractedPages ?? []),
-      ...(input.pages ?? []).map((p) => p.pageNumber),
-    ]),
-  ].sort((a, b) => a - b);
+  const fingerprintChanged =
+    Boolean(existing) &&
+    existing!.contentFingerprint !== input.contentFingerprint;
+
+  // Citation fidelity: never reuse a viewerToken across content versions.
+  // Old token is revoked so citations of the prior fingerprint cannot serve new bytes.
+  const viewerToken = fingerprintChanged
+    ? randomBytes(24).toString("base64url")
+    : (existing?.viewerToken ?? randomBytes(24).toString("base64url"));
+
+  const extractedPages = fingerprintChanged
+    ? (input.pages ?? []).map((p) => p.pageNumber)
+    : [
+        ...new Set([
+          ...(existing?.extractedPages ?? []),
+          ...(input.pages ?? []).map((p) => p.pageNumber),
+        ]),
+      ].sort((a, b) => a - b);
 
   // Copy PDF bytes — pdf.js getDocument may detach the caller's ArrayBuffer.
+  // After fingerprint change, never keep prior bytes under a new fingerprint.
   const incomingPdf =
     input.pdfBytes && input.pdfBytes.byteLength > 0
       ? new Uint8Array(input.pdfBytes)
       : undefined;
-  const retainedPdf =
-    incomingPdf ??
-    (existing?.pdfBytes && existing.pdfBytes.byteLength > 0
-      ? existing.pdfBytes
-      : undefined);
+  const retainedPdf = fingerprintChanged
+    ? incomingPdf
+    : incomingPdf ??
+      (existing?.pdfBytes && existing.pdfBytes.byteLength > 0
+        ? existing.pdfBytes
+        : undefined);
+
+  // Enforce memory limits also when enriching an existing session.
+  const nextFootprint =
+    (retainedPdf?.byteLength ?? 0) +
+    Buffer.byteLength(input.text, "utf8") +
+    (input.pages ?? []).reduce((n, p) => n + Buffer.byteLength(p.text, "utf8"), 0);
+  if (existing) {
+    // Temporarily remove existing from accounting for eviction sizing.
+    sessions.delete(k);
+    if (existing.viewerToken) byViewerToken.delete(existing.viewerToken);
+    evictOldestUntilFit(nextFootprint + 4096);
+  }
 
   const next: WebPageSession = {
-    sessionId:
-      existing?.sessionId ??
-      createHash("sha256").update(k).digest("hex").slice(0, 16),
+    sessionId: fingerprintChanged
+      ? createHash("sha256")
+          .update(`${k}::${input.contentFingerprint}`)
+          .digest("hex")
+          .slice(0, 16)
+      : (existing?.sessionId ??
+        createHash("sha256").update(k).digest("hex").slice(0, 16)),
     viewerToken,
     scope,
     url: input.url,
     kind: input.kind,
     text: input.text,
-    pages: input.pages ?? existing?.pages,
-    pageCount: input.pageCount ?? existing?.pageCount,
+    pages: fingerprintChanged
+      ? input.pages
+      : (input.pages ?? existing?.pages),
+    pageCount: fingerprintChanged
+      ? input.pageCount
+      : (input.pageCount ?? existing?.pageCount),
     extractedPages,
-    consultedPages: existing?.consultedPages ?? [],
+    consultedPages: fingerprintChanged ? [] : (existing?.consultedPages ?? []),
     contentFingerprint: input.contentFingerprint,
-    openedAt: input.openedAt ?? now.toISOString(),
+    openedAt: fingerprintChanged
+      ? now.toISOString()
+      : (input.openedAt ?? existing?.openedAt ?? now.toISOString()),
     expiresAt,
-    charOffset: existing?.charOffset ?? 0,
-    consultedRanges: existing?.consultedRanges ?? [],
-    bytesObtained: input.bytesObtained ?? existing?.bytesObtained ?? 0,
-    sourceTruncated: Boolean(input.sourceTruncated ?? existing?.sourceTruncated),
+    charOffset: fingerprintChanged ? 0 : (existing?.charOffset ?? 0),
+    consultedRanges: fingerprintChanged ? [] : (existing?.consultedRanges ?? []),
+    bytesObtained: fingerprintChanged
+      ? (input.bytesObtained ?? retainedPdf?.byteLength ?? 0)
+      : (input.bytesObtained ?? existing?.bytesObtained ?? 0),
+    sourceTruncated: Boolean(
+      input.sourceTruncated ??
+        (fingerprintChanged ? false : existing?.sourceTruncated),
+    ),
     pdfBytes: retainedPdf,
-    limits: [...input.limits],
+    limits: fingerprintChanged
+      ? [...input.limits, "SOURCE_MODIFIED_SINCE_PRIOR_OPEN", "VIEWER_TOKEN_ROTATED"]
+      : [...input.limits],
   };
 
-  if (existing && existing.contentFingerprint !== next.contentFingerprint) {
-    next.limits = [...next.limits, "SOURCE_MODIFIED_SINCE_PRIOR_OPEN"];
-    next.charOffset = 0;
-    next.consultedRanges = [];
-    next.consultedPages = [];
-    next.extractedPages = (input.pages ?? []).map((p) => p.pageNumber);
-  }
-
-  if (existing) byViewerToken.delete(existing.viewerToken);
   sessions.set(k, next);
   byViewerToken.set(viewerToken, k);
   return next;
@@ -306,7 +338,12 @@ export function readWebPageProgressive(input: {
   const cov = unionCoverageChars(session.consultedRanges, session.text.length);
   const limits = [...session.limits];
   if (session.sourceTruncated) limits.push("SOURCE_BYTES_TRUNCATED");
-  if (cov.coverage !== "COMPLETE") limits.push("NOT_FULLY_CONSULTED");
+  // Truncated source body can never be COMPLETE — available text ≠ full document.
+  const coverage =
+    session.sourceTruncated && cov.coverage === "COMPLETE"
+      ? ("PARTIAL" as const)
+      : cov.coverage;
+  if (coverage !== "COMPLETE") limits.push("NOT_FULLY_CONSULTED");
   sessions.set(mapKey(session.scope, session.url), session);
   return {
     ok: true,
@@ -316,7 +353,7 @@ export function readWebPageProgressive(input: {
     to,
     totalChars: session.text.length,
     coveredChars: cov.coveredChars,
-    coverage: cov.coverage,
+    coverage,
     sourceTruncated: session.sourceTruncated,
     bytesObtained: session.bytesObtained,
     limits,
@@ -460,6 +497,23 @@ export async function readWebPdfPages(input: {
   ];
   if (!allConsulted) limits.push("NOT_FULLY_CONSULTED");
   if (session.sourceTruncated) limits.push("SOURCE_BYTES_TRUNCATED");
+  // Partial page extracts / truncated binary ⇒ never claim full-document COMPLETE.
+  const pagePartial = extractLimits.some(
+    (l) =>
+      l.includes("TRUNC") ||
+      l.includes("PARTIAL") ||
+      l.includes("CHAR_LIMIT") ||
+      l.includes("SCANNED"),
+  );
+  const coverage =
+    allConsulted && !session.sourceTruncated && !pagePartial
+      ? ("COMPLETE" as const)
+      : returned.length
+        ? ("PARTIAL" as const)
+        : ("EMPTY" as const);
+  if (coverage !== "COMPLETE") {
+    if (!limits.includes("NOT_FULLY_CONSULTED")) limits.push("NOT_FULLY_CONSULTED");
+  }
 
   return {
     ok: true,
@@ -469,7 +523,7 @@ export async function readWebPdfPages(input: {
     pagesAvailable,
     consultedPages: session.consultedPages,
     searchHits,
-    coverage: allConsulted ? "COMPLETE" : returned.length ? "PARTIAL" : "EMPTY",
+    coverage,
     limits,
     contentFingerprint: session.contentFingerprint,
     viewerToken: session.viewerToken,

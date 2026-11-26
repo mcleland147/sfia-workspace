@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   aggregateEstimatedCost,
   aggregateTokenTotal,
+  computeEstimationCompletenessPercent,
   computeMeasureCoveragePercent,
   formatMeasuredUsd,
   finOpsDailyChartYTicks,
@@ -67,6 +68,22 @@ describe("ML5 E06 — FinOps usage projection", () => {
     ]);
     expect(mixed.kind).toBe("partial");
     if (mixed.kind === "partial") expect(mixed.value).toBe(100);
+  });
+
+  it("estimation completeness excludes PARTIAL from fully-known rate", () => {
+    const obs = computeMeasureCoveragePercent([
+      { costCoverage: "KNOWN", providerRequests: 2 },
+      { costCoverage: "PARTIAL", providerRequests: 2 },
+    ]);
+    expect(obs.kind).toBe("known");
+    if (obs.kind === "known") expect(obs.value).toBe(100);
+
+    const fin = computeEstimationCompletenessPercent([
+      { costCoverage: "KNOWN", providerRequests: 2 },
+      { costCoverage: "PARTIAL", providerRequests: 2 },
+    ]);
+    expect(fin.kind).toBe("partial");
+    if (fin.kind === "partial") expect(fin.value).toBe(50);
   });
 
   it("resolvePersonalSettingsActive maps settings routes", () => {

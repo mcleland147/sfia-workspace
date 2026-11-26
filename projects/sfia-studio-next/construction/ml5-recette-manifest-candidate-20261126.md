@@ -4,46 +4,65 @@
 |---|---|
 | Date | 2026-11-26 |
 | Branche produit | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD base rapportée | `912ef30b40f2447a925f4182bc4961560eca810e` |
-| Tree base | `6d0e6255a59139647fa8b2381571524d53a73b51` |
-| Web tree base | `02cf48bbcc984cdbe2300b180cf899ae20f348a6` |
-| BUILD_ID observé (runtime) | `bP8batKL2XqD6iDGGw_Iy` (arbre dirty — rebuild requis avant cutover) |
+| HEAD (à confirmer post-commit) | voir tip local après consolidation |
 | Classe | **NO RELEASE** |
 | STABLE | NOT AVAILABLE |
 | Cutover | **NON APPLIQUÉ** |
+| G-RECETTE | **NON CONSOMMÉ** |
+| G-WEB-MIXED | **FERMÉ** |
+| WEB LIVE défaut | **OFF** |
 
-## Capacités qualifiées (DEV)
+## Capacités qualifiées
 
-| Capacité | État |
-|---|---|
-| Politique cognitive v0.2 | PRÉSERVÉE (Terra Medium défaut ; Luna Low/Med expérimental DEV ; rollback `legacy_sol`) |
-| PDF transverse + progressive | IMPLEMENTED + COVERAGE VERIFIED (fixture) ; viewer browser PASS |
-| Sessions WEB TTL/éviction | IMPLEMENTED + unit PASS |
-| Admission Option B | BEHAVIOR PROVEN LIVE |
-| Worker WEB query-only Terra | LIVE OBSERVED |
-| Egress DNS pin open | LIVE OBSERVED après fix `options.all` |
-| RoomBooking RB-27–31 | LIVE OBSERVED (Git REAL chantiers360) |
-| StockTrack IT-06 | LIVE OBSERVED + V2 conservée (rev2) ; V1 intacte |
-| Git PDF REAL text | **BLOCKED CORPUS MISSING** (PDF scanné 1 page, SCANNED_NO_TEXT) |
-| WEB LIVE public | LIVE OBSERVED (search+open HTML/PDF) puis **OFF** |
-| FinOps | Réconcilié PARTIAL (cost_coverage PARTIAL fréquent) |
+| Capacité | État | Preuve |
+|---|---|---|
+| Frontière fournisseur commune + enveloppe campagne | DETERMINISTIC PROVEN | `ml5-provider-emission-frontier` · wired Nora + WEB worker |
+| Allocation sans substitution silencieuse | DETERMINISTIC PROVEN | `RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION` |
+| FinOps observation vs estimation | DETERMINISTIC PROVEN | `computeMeasureCoveragePercent` + `computeEstimationCompletenessPercent` |
+| Autorité WEB D6 (parse ≠ authority) | DETERMINISTIC PROVEN | `web-public-query-authority` · registry no auto-promote |
+| PDF viewerToken rotation + auth owner/lane/project | DETERMINISTIC PROVEN | session + route tests |
+| Politique cognitive v0.2 DEV | PRÉSERVÉE | Terra Medium ; Luna L/M expérimental ; rollback `legacy_sol` |
+| StockTrack IT-06 V2 conserve | REUSED (prior LIVE) | tip antérieur `8c82b6c1` — retest déterministe préféré |
+| RoomBooking investigation longue | REUSED | pas de replay 71 req ; corrections via unit/intégration |
+| PDF Git REAL textuel | **BLOCKED CORPUS MISSING** | BPMN scanné SCANNED_NO_TEXT |
+| WEB LIVE public | PRIOR LIVE OBSERVED puis **OFF** | retest autorité D6 LIVE conditionnel §12.2 |
+| WEB-05 confrontation | PARTIAL | classe C — vérifiable en recette / retest ciblé |
 
-## Configuration future candidat RECETTE (décision Morris requise)
+## Configuration proposée RECETTE (décision Morris distincte)
 
+- Politique cognitive : **ne pas** activer automatiquement v0.2 expérimentale (Luna) ; soumettre couples admissibles à Morris
+- Ressource initiale suggérée si GO : Terra Medium (ou Sol historique si rollback `legacy_sol`)
 - `SFIA_WEB_SEARCH_LIVE=0` / `SFIA_WEB_SEARCH_ENABLED=0` par défaut
-- Ne pas appliquer automatiquement la politique expérimentale DEV (Luna) à RECETTE
-- Clés OpenAI lane-isolées déjà séparées — préserver
-- Rebuild + BUILD_ID fresh sur arbre clean avant cutover
-- Procédure retour arrière : revert cutover config ; WEB LIVE reste 0
+- Qualification WEB utilisateur : projet public dédié + HumanDecision RECORD_DECISION + enveloppe §12.2
+- Isolation fournisseur : fingerprints lane déjà séparés — préserver
+- Capacités accessibles : cognition D3, FinOps page 13, PDF viewer, Git RO, WEB OFF
+- Rollback : tip précédent + flags WEB 0 + politique `legacy_sol` si requis
 
-## Réserves bloquant READY FOR RECETTE
+## Réserves classées A/B/C/D
 
-1. Arbre produit **DIRTY** — commit local + rebuild requis
-2. Git PDF text REAL non démontrable (corpus scanné)
-3. WEB-05 confrontation sources versionnées : PARTIAL (opens échoués avant fix ; non rejoué post-fix)
-4. Enveloppe documentaire Responses cumulées > 40 sur travaux RB étendus — tracer honest overshoot
-5. F2 visuelle exhaustive différée
+| Id | Classe | Justification |
+|---|---|---|
+| R-GIT-PDF-TEXT | B | Capacité Git PDF text isolable ; scanné déjà prouvé comme limite |
+| R-WEB05 | C | Confrontation sources — socle sûr ; qualité intellectuelle en recette |
+| R-D6-WEB-KIND | D | Kind dédié optionnel ; RECORD_DECISION lie déjà le payload |
+| R-F2 | C | Recette visuelle Morris |
+| R-EFFICIENCE-RB | C | Dette efficience RoomBooking — non critique sécurité |
+| R-LIVE-REENVELOPPE | B | Tout retest LIVE doit réutiliser frontière S1 |
+
+**Aucune réserve A** (bloquante mise à disposition) identifiée sur le socle sécurité / autorité / enveloppe après consolidation — sous réserve du rebuild clean + revue ChatGPT + GO Morris cutover.
+
+## Smoke tests cutover (non exécutés)
+
+1. Health DEV/RECETTE isolation ports 3100/3200/5433
+2. Session Pilote + FinOps summary KPI
+3. Tour Nora simple Terra medium (WEB OFF)
+4. Viewer PDF fixture owner match / cross-owner 403
+5. Flags WEB = 0 sur processus actif
+
+## Rollback
+
+Revert tip consolidation ; WEB OFF ; politique `legacy_sol` si besoin ; aucune migration à annuler.
 
 ## Verdict manifeste
 
-**NOT READY FOR RECETTE** — candidat instruit pour revue ; G-RECETTE non consommé.
+**CANDIDATE INSTRUCTED FOR G-RECETTE — CUTOVER NOT APPLIED — MORRIS GO REQUIRED.**

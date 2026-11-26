@@ -92,3 +92,11 @@ Preuves : `.tmp-sfia-review/web-public-qual-live-20261126/`.
 **G-WEB-PUBLIC CONSUMED — PUBLIC LIVE PARTIAL WITH OPEN FIX — WEB LIVE OFF**
 
 G-WEB-MIXED reste **fermé**. Pas de cutover RECETTE. NO RELEASE · NOT ADOPTED · ML5 OPEN.
+
+## Addendum 2026-11-26 — Autorité D6
+
+`AUTHORIZE_PUBLIC_QUERY` reste un extracteur technique. La promotion en `exactQueries`
+exige une HumanDecision `RECORD_DECISION` liée au fingerprint payload (`web-public-query-authority`)
+ou une provenance déjà admise (catalogue / prior exact). Parse seul ≠ egress.
+WEB LIVE rétabli OFF après consolidation.
+

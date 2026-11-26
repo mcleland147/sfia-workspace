@@ -26,6 +26,10 @@ import { isStudioError } from "@/lib/http-errors";
 import { fixtureSemanticQualify } from "./fixture-semantic-qualify";
 import { resolveProviderSimulatedQualification } from "./provider-simulated-qualification";
 import { extractProviderUsageFromRunResult } from "./provider-usage";
+import {
+  commitProviderEmission,
+  reserveProviderEmission,
+} from "./provider-emission-frontier";
 import { recordNoraProviderUsageFromRunResult } from "./usage-accounting";
 import {
   NoraTurnQualificationAgentSchema,
@@ -1188,7 +1192,45 @@ async function runLiveWithTools(
   let providerUsage = extractProviderUsageFromRunResult(null);
 
   try {
-    const attemptId = newAttemptId();
+    // S1 — reserve at the common emission frontier before any provider contact.
+    const reservation = reserveProviderEmission({
+      kind: "nora.generate_reply",
+      modelId: policy.modelRequested,
+      effort: policy.effortRequested,
+    });
+    if (!reservation.ok) {
+      clearTimeout(wallTimer);
+      return {
+        generationId,
+        mode: "openai-agents-sdk-live",
+        status: "FAILED",
+        streamingProvisional: false,
+        streamingAttempted: false,
+        streamingDelivered: false,
+        streamingNotes: `PROVIDER_EMISSION_REFUSED:${reservation.reasonCode}`,
+        content: `Nora LIVE refusée avant émission fournisseur (${reservation.reasonCode}). Aucun contact réseau tenté.`,
+        policy,
+        modelRequested: policy.modelRequested,
+        modelApplied: null,
+        effortRequested: policy.effortRequested,
+        effortApplied: null,
+        attempts: [
+          {
+            attemptId: newAttemptId(),
+            kind: "non_stream",
+            outcome: "FAILED",
+            notes: `PROVIDER_EMISSION_REFUSED:${reservation.reasonCode}:${reservation.reason}`,
+            providerContacted: "NO",
+          },
+        ],
+        toolCallsObserved: 0,
+        d4CharsReturned: 0,
+        qualification: unavailableQualification(
+          `PROVIDER_EMISSION_REFUSED_${reservation.reasonCode}`,
+        ),
+      };
+    }
+    const attemptId = reservation.attemptId;
     // Structured qualification never surfaces provisional JSON to the Pilote (A3).
     // Non-stream avoids Agents SDK stream_drain REDACTED schema failures (fp d57214)
     // observed on tool-heavy investigation turns (CampusNova 2026-11-19).
@@ -1209,12 +1251,14 @@ async function runLiveWithTools(
         model_requested: policy.modelRequested,
         max_turns_note: "maxTurns≠maxProviderCalls",
         live_output_schema: "plain_omit_visual",
+        campaign_id: reservation.campaignId,
       },
     });
 
     try {
       // Invoking run() → provider contact becomes at least UNCERTAIN.
       providerContacted = "UNCERTAIN";
+      commitProviderEmission(reservation);
       const result = await run(agent, prompt, {
         maxTurns,
         stream: false,

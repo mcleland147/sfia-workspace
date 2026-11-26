@@ -295,6 +295,15 @@ export async function runCognitiveConductor(
       };
     }
 
+    // S2 — refused resource proposal without silent substitution → honest SUSPEND.
+    const resourceSuspend = (segment.resourcesDelta?.limits ?? []).includes(
+      "RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION",
+    );
+    if (resourceSuspend) {
+      suspended = true;
+      suspendReason = "RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION";
+    }
+
     const nextProgressKey = progressFingerprint(investigation);
     if (nextProgressKey === lastProgressKey && segment.continueWork) {
       stagnantSegments += 1;
@@ -308,11 +317,16 @@ export async function runCognitiveConductor(
       workId: work.id,
       ownerToken,
       expectedRevision: revision,
-      cause: segment.continueWork ? "SEGMENT_CONTINUE" : "SEGMENT_COMPLETE",
+      cause: resourceSuspend
+        ? "BUDGET"
+        : segment.continueWork
+          ? "SEGMENT_CONTINUE"
+          : "SEGMENT_COMPLETE",
       state: investigation,
       resources,
       production,
-      status: "RUNNING",
+      status: resourceSuspend ? "SUSPENDED" : "RUNNING",
+      interruptCause: resourceSuspend ? suspendReason : null,
       turnCommandId: input.turnCommandId,
       generationId: segment.generationId,
       objective: investigation.intentSummary || work.objective,
@@ -373,7 +387,7 @@ export async function runCognitiveConductor(
       }
     }
 
-    if (!segment.continueWork) {
+    if (!segment.continueWork || resourceSuspend) {
       break;
     }
 

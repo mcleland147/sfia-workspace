@@ -636,10 +636,25 @@ export function resolveContinuityCognitivePolicy(input: {
   }
 
   // No compatible hold — do not invent cognitive equivalence with another model.
-  // Fall through to the explicit operational default and mark the proposal unsatisfied.
+  // Explicit proposals that cannot be admitted must not silently run on an unrelated
+  // operational default as if cognitively equivalent. Mark SUSPEND so the conductor
+  // can return the refusal to the Pilote / re-propose with technical reason.
   const policy = buildCognitivePolicy(input.seed, input.overrideType, {
     profileHint: input.profileHint,
   });
+  if (hasExplicitProposal) {
+    return {
+      ...policy,
+      reasonCodes: [
+        ...policy.reasonCodes,
+        `RESOURCE_REFUSED_${direct.reasonCode}`,
+        "RESOURCE_CONTINUITY_PROPOSAL_UNSATISFIED_NO_HOLD",
+        "RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION",
+        `REQUESTED_MODEL_${requestedModel}`,
+        `REQUESTED_EFFORT_${requestedEffort}`,
+      ],
+    };
+  }
   return {
     ...policy,
     reasonCodes: [

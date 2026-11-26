@@ -408,4 +408,21 @@ describe("ML5 S3 — resolveContinuityCognitivePolicy", () => {
       "RESOURCE_REFUSED_PROVISIONAL_CANDIDATE_NOT_ADMITTED",
     );
   });
+
+  it("suspends without silent substitution when refused proposal has no hold", () => {
+    process.env.SFIA_COGNITIVE_ADMISSION_MODE = "operational";
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.2";
+    const p = resolveContinuityCognitivePolicy({
+      seed: "refuse-no-hold",
+      overrideType: "TEST_BOUNDARY",
+      proposal: { modelId: "gpt-6-luna", effort: "high" },
+      held: null,
+    });
+    expect(p.reasonCodes).toContain(
+      "RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION",
+    );
+    expect(p.reasonCodes).toContain(
+      "RESOURCE_CONTINUITY_PROPOSAL_UNSATISFIED_NO_HOLD",
+    );
+  });
 });

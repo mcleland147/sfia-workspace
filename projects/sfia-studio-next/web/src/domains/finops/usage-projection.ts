@@ -103,12 +103,55 @@ export function aggregateTokenTotal(rows: TokenRow[]): MeasuredValue<number> {
   return { kind: "known", value: sum };
 }
 
+/**
+ * Observation coverage: share of provider requests that have *some* cost
+ * observation (KNOWN or PARTIAL). PARTIAL still counts as observed — not as
+ * financially complete.
+ */
 export function computeMeasureCoveragePercent(
   rows: Array<{ costCoverage: string; providerRequests: number | null }>,
 ): MeasuredValue<number> {
   if (rows.length === 0) return { kind: "empty" };
   let totalReq = 0;
-  let measuredReq = 0;
+  let observedReq = 0;
+  let missingRequestCounts = false;
+  for (const r of rows) {
+    if (r.providerRequests == null || !Number.isFinite(r.providerRequests)) {
+      missingRequestCounts = true;
+      continue;
+    }
+    totalReq += r.providerRequests;
+    if (r.costCoverage === "KNOWN" || r.costCoverage === "PARTIAL") {
+      observedReq += r.providerRequests;
+    }
+  }
+  if (missingRequestCounts && totalReq <= 0) {
+    return { kind: "unknown", reason: "Requêtes non observées" };
+  }
+  if (totalReq <= 0) return { kind: "unknown", reason: "Requêtes non observées" };
+  const pct = Math.round((observedReq / totalReq) * 100);
+  const value = Math.min(100, Math.max(0, pct));
+  if (missingRequestCounts) {
+    return {
+      kind: "partial",
+      value,
+      note: "Certaines lignes sans nombre de requêtes",
+    };
+  }
+  return { kind: "known", value };
+}
+
+/**
+ * Estimation completeness: only KNOWN rows contribute. PARTIAL never inflates
+ * this toward a fully-known financial picture.
+ */
+export function computeEstimationCompletenessPercent(
+  rows: Array<{ costCoverage: string; providerRequests: number | null }>,
+): MeasuredValue<number> {
+  if (rows.length === 0) return { kind: "empty" };
+  let totalReq = 0;
+  let knownReq = 0;
+  let hasPartial = false;
   let missingRequestCounts = false;
   for (const r of rows) {
     if (r.providerRequests == null || !Number.isFinite(r.providerRequests)) {
@@ -117,22 +160,24 @@ export function computeMeasureCoveragePercent(
     }
     totalReq += r.providerRequests;
     if (r.costCoverage === "KNOWN") {
-      measuredReq += r.providerRequests;
+      knownReq += r.providerRequests;
     } else if (r.costCoverage === "PARTIAL") {
-      measuredReq += r.providerRequests;
+      hasPartial = true;
     }
   }
   if (missingRequestCounts && totalReq <= 0) {
     return { kind: "unknown", reason: "Requêtes non observées" };
   }
   if (totalReq <= 0) return { kind: "unknown", reason: "Requêtes non observées" };
-  const pct = Math.round((measuredReq / totalReq) * 100);
+  const pct = Math.round((knownReq / totalReq) * 100);
   const value = Math.min(100, Math.max(0, pct));
-  if (missingRequestCounts) {
+  if (missingRequestCounts || hasPartial) {
     return {
       kind: "partial",
       value,
-      note: "Certaines lignes sans nombre de requêtes",
+      note: hasPartial
+        ? "Mesures PARTIAL exclues de la complétude financière"
+        : "Certaines lignes sans nombre de requêtes",
     };
   }
   return { kind: "known", value };

@@ -450,7 +450,27 @@ async function executeIsolatedLiveWebSearch(
       ],
     };
   }
-  const attemptId = `web-search-${randomUUID()}`;
+  const { reserveProviderEmission, commitProviderEmission } = await import(
+    "./provider-emission-frontier"
+  );
+  const reservation = reserveProviderEmission({
+    kind: "public_web.isolated_search",
+    modelId: modelRequested,
+    effort: effortRequested,
+  });
+  if (!reservation.ok) {
+    return {
+      status: "ERROR",
+      items: [],
+      limits: [
+        "WEB_SEARCH_PROVIDER_EMISSION_REFUSED",
+        reservation.reasonCode,
+        reservation.reason.slice(0, 120),
+        "WEB_LIVE_SEARCH_BLOCKED",
+      ],
+    };
+  }
+  const attemptId = reservation.attemptId;
   const generationId = `web-gen-${randomUUID()}`;
   const started = Date.now();
   let result: unknown;
@@ -472,6 +492,8 @@ async function executeIsolatedLiveWebSearch(
       },
     });
     // CRITICAL isolation: only the sanitized public query is the user message.
+    // S1 — commit reservation at the common frontier before contacting the provider.
+    commitProviderEmission(reservation);
     result = await run(agent, query, { maxTurns: 6 });
   } catch (e) {
     // FinOps — record failed attempt (uncertain usage when SDK has none).

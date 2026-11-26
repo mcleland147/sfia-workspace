@@ -115,6 +115,37 @@ describe("ML5 progressive WEB page session", () => {
     expect(next.charOffset).toBe(0);
   });
 
+  it("rotates viewerToken on fingerprint change and revokes the old token", () => {
+    const first = putWebPageSession({
+      scope: SCOPE,
+      url: "https://example.com/doc.pdf",
+      kind: "pdf",
+      text: "page1",
+      contentFingerprint: "fp-v1",
+      pdfBytes: new Uint8Array([0x25, 0x50, 0x44, 0x46, 0x2d]),
+      limits: [],
+    });
+    const oldToken = first.viewerToken;
+    expect(getWebPageSessionByViewerToken(oldToken)?.contentFingerprint).toBe(
+      "fp-v1",
+    );
+
+    const second = putWebPageSession({
+      scope: SCOPE,
+      url: "https://example.com/doc.pdf",
+      kind: "pdf",
+      text: "page1-revised",
+      contentFingerprint: "fp-v2",
+      pdfBytes: new Uint8Array([0x25, 0x50, 0x44, 0x46, 0x2d, 0x31]),
+      limits: [],
+    });
+    expect(second.viewerToken).not.toBe(oldToken);
+    expect(getWebPageSessionByViewerToken(oldToken)).toBeNull();
+    expect(
+      getWebPageSessionByViewerToken(second.viewerToken)?.contentFingerprint,
+    ).toBe("fp-v2");
+  });
+
   it("computes honest union coverage — mid-doc end is not COMPLETE", () => {
     const cov = unionCoverageChars(
       [

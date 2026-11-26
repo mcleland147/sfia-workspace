@@ -9,6 +9,7 @@ import { StudioError } from "@/lib/http-errors";
 import {
   aggregateEstimatedCost,
   aggregateTokenTotal,
+  computeEstimationCompletenessPercent,
   computeMeasureCoveragePercent,
   mapCognitiveWorkStatusLabel,
   parseFinOpsPeriodDays,
@@ -119,6 +120,8 @@ export type FinOpsSummaryDto = {
     totalTokens: MeasuredValue<number>;
     completedWorks: MeasuredValue<number>;
     measureCoveragePercent: MeasuredValue<number>;
+    /** Financial estimation completeness — PARTIAL excluded from the numerator. */
+    estimationCompletenessPercent: MeasuredValue<number>;
     costPerCompletedWorkUsd: MeasuredValue<number>;
     measuredRequests: number;
     totalRequests: number;
@@ -195,6 +198,8 @@ export async function loadFinOpsSummary(
   const estimatedCostUsd = aggregateEstimatedCost(rows);
   const totalTokens = aggregateTokenTotal(rows);
   const measureCoveragePercent = computeMeasureCoveragePercent(rows);
+  const estimationCompletenessPercent =
+    computeEstimationCompletenessPercent(rows);
 
   const workIds = [
     ...new Set(rows.map((r) => r.cognitiveWorkId).filter((id): id is string => Boolean(id))),
@@ -252,6 +257,7 @@ export async function loadFinOpsSummary(
       totalTokens,
       completedWorks,
       measureCoveragePercent,
+      estimationCompletenessPercent,
       costPerCompletedWorkUsd,
       measuredRequests,
       totalRequests,

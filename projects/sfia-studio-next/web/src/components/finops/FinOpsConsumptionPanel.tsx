@@ -50,7 +50,13 @@ function kpiSubCompleted(
 
 function kpiSubCoverage(kpis: FinOpsSummaryDto["kpis"]): string {
   if (kpis.totalRequests <= 0) return "Requêtes non recensées";
-  return `${formatIntegerFr(kpis.measuredRequests)} / ${formatIntegerFr(kpis.totalRequests)} requêtes recensées`;
+  const observed = `${formatIntegerFr(kpis.measuredRequests)} / ${formatIntegerFr(kpis.totalRequests)} requêtes recensées`;
+  const est = kpis.estimationCompletenessPercent;
+  if (!est) return observed;
+  if (est.kind === "known" || est.kind === "partial") {
+    return `${observed} · estimation connue ${est.value} %`;
+  }
+  return observed;
 }
 
 function cellTokens(metric: FinOpsWorkListItem["tokens"]): string {

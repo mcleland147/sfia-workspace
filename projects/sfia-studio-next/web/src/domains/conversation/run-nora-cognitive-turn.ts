@@ -1357,11 +1357,35 @@ export async function runNoraCognitiveTurn(
         input.conversationId ?? "",
         work.id,
       ].filter((m) => m.trim().length >= 4);
+      // S4 — AUTHORIZE_PUBLIC_QUERY parse ≠ D6; bind exceptional auth via HumanDecision.
+      let d6BoundExactQueries: string[] = [];
+      try {
+        const { evaluateWebPublicQueryAuthority } = await import(
+          "./web-public-query-authority"
+        );
+        const { isDedicatedAuthorizePublicQueryAct } = await import(
+          "./public-web-registry"
+        );
+        if (isDedicatedAuthorizePublicQueryAct(input.userText)) {
+          const auth = await evaluateWebPublicQueryAuthority({
+            pilotText: input.userText,
+            projectId: input.projectId,
+            pilotId: input.pilotId,
+            policyVersion: policy.policyVersion,
+          });
+          if (auth.allowed) {
+            d6BoundExactQueries = [auth.query];
+          }
+        }
+      } catch {
+        /* authority lookup failure ⇒ no exceptional promotion */
+      }
       const webRegistry = resolvePublicWebRegistry({
         priorTopics: work.state.registeredPublicTopics,
         priorExactQueries: work.state.authorizedExactWebQueries,
         priorFacts: work.state.registeredPublicFacts,
         pilotText: input.userText,
+        d6BoundExactQueries,
         privateMarkers,
         haystack: [
           input.userText,
@@ -1376,6 +1400,44 @@ export async function runNoraCognitiveTurn(
         ...(work.state.pendingPublicWebProposals ?? []),
       ];
       let reply: NoraGenerateResult;
+      // S2 — refused explicit proposal without compatible hold: do not silently emit
+      // on an unrelated operational default as if cognitively admitted.
+      if (
+        policy.reasonCodes.includes(
+          "RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION",
+        )
+      ) {
+        const refusedModel =
+          work.state.proposedCognitiveModel ?? policy.modelRequested;
+        const refusedEffort =
+          work.state.proposedCognitiveEffort ?? policy.effortRequested;
+        return {
+          replyText:
+            `Je ne peux pas appliquer silencieusement une autre ressource cognitive : la proposition ` +
+            `${refusedModel}@${refusedEffort} n'est pas admise dans la politique active et aucune ressource ` +
+            `déjà admise n'est disponible pour la maintenir. Indique une autre allocation (modèle/effort) ` +
+            `compatible, ou demande le maintien d'une ressource déjà qualifiée.`,
+          qualification: null,
+          investigation: {
+            ...work.state,
+            remainingWork: [
+              ...work.state.remainingWork,
+              `Allocation refusée sans substitution silencieuse: ${refusedModel}@${refusedEffort}`,
+            ].slice(0, 12),
+            contractReady: false,
+            contractReadyBlockedReason:
+              "RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION",
+          },
+          generationId: null,
+          continueWork: false,
+          resourcesDelta: {
+            limits: [
+              "RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION",
+              "PROVIDER_NOT_CONTACTED",
+            ],
+          },
+        };
+      }
       if (probeReply && segmentIndex === 0 && !probeConsumed && !hasPriorAcquis) {
         probeConsumed = true;
         reply = probeReply;
