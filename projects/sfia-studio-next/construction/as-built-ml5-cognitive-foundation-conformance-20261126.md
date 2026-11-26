@@ -75,3 +75,25 @@ Classe : **NO RELEASE** · Lane : **DEV** · Cutover RECETTE : **NON APPLIQUÉ**
 - G-WEB-PUBLIC : non consommé (hosted ASSUMED_1)
 - G-WEB-MIXED : fermé
 - G-RECETTE : non consommé
+
+
+## Convergence qualification (2026-11-26 evening)
+
+### P1
+- Input: estimate body (`len/3`) for reservation only; never treat campaign ceiling as demonstrable max; INPUT_UNBOUNDED if neither.
+- Campaign restart: `.sfia-evidence/live-campaign-state.json` pid latch → `CAMPAIGN_INVALIDATED_RESTART`.
+- Agents SDK tool-loop integration test (multi Responses) PASS.
+- Direct opens: slot consumed before egress (failures count).
+
+### P3
+- HTTP correlation rows: `providerRequests: null` + `HTTP_ATTEMPT_CORRELATION_ONLY`.
+- Aggregations via `filterBillableFinOpsRows` / `sumBillableProviderRequests`.
+- Real APIs: `/api/finops/summary`, `/api/finops/works`, `/api/finops/works/[workId]`; UI `/settings/consumption`.
+
+### P2 LIVE
+- Chantiers360 `proj_fdd9b064…` / `prep_85f051f7…` — investigation PASS (tools=2, oracle 3/3) + note technique.
+- BUILD_ID `XGqFqt2I6aCNTZLjirvtW`.
+
+### P4
+- G-WEB-PUBLIC closed — hosted arbitration dossier.
+- Browser smokes 200 on login, FinOps, PDF harness, project page.

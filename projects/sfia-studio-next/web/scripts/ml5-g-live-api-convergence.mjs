@@ -12,6 +12,8 @@ const OUT =
 const PROJECT_ID =
   process.env.SFIA_LIVE_PROJECT_ID ||
   "proj_fdd9b064-a8a4-4296-bb6b-e8b64ebe914d";
+/** Product posts Nora turns via preparation messages (project page uses prep link). */
+let PREPARATION_ID = process.env.SFIA_LIVE_PREPARATION_ID || "";
 mkdirSync(OUT, { recursive: true });
 
 const jar = { cookie: "" };
@@ -155,6 +157,20 @@ try {
   );
   if (!hasGit) throw new Error("BLOCKED — corpus Git missing for investigation");
 
+  if (!PREPARATION_ID) {
+    PREPARATION_ID =
+      pg(
+        `SELECT preparation_id FROM preparation_project_links WHERE project_id='${PROJECT_ID}' LIMIT 1;`,
+      ) || "";
+  }
+  save("02b-preparation", { preparationId: PREPARATION_ID });
+  recordCriterion(
+    "PRE-PREPARATION",
+    PREPARATION_ID ? "PASS" : "BLOCKED",
+    PREPARATION_ID || "no preparation_project_links row",
+  );
+  if (!PREPARATION_ID) throw new Error("BLOCKED — preparation link missing");
+
   // P2 investigation — real planning question (not "describe Nora")
   const question = [
     "Investigation planning / RoomBooking (qualification ML5) :",
@@ -166,11 +182,12 @@ try {
   ].join(" ");
 
   const t0 = Date.now();
-  const inv = await api(`/api/projects/${PROJECT_ID}/messages`, {
+  const inv = await api(`/api/preparations/${PREPARATION_ID}/messages`, {
     method: "POST",
     body: {
       content: question,
       clientTurnKey: `ctk_inv_${randomUUID()}`,
+      forceNewCognitiveWork: true,
     },
   });
   save("03-investigation", inv);
@@ -228,12 +245,13 @@ try {
   );
 
   // Reprise + note technique
-  const noteReq = await api(`/api/projects/${PROJECT_ID}/messages`, {
+  const noteReq = await api(`/api/preparations/${PREPARATION_ID}/messages`, {
     method: "POST",
     body: {
       content:
         "À partir uniquement des acquis de l'investigation précédente sur les conflits de réservation, produis une note technique distincte (12 lignes max) : faits sourcés, limites, recommandations. Pas de nouvelle exploration exhaustive si les acquis suffisent.",
       clientTurnKey: `ctk_note_${randomUUID()}`,
+      ...(workId ? { cognitiveWorkId: workId } : {}),
     },
   });
   save("04-note", noteReq);

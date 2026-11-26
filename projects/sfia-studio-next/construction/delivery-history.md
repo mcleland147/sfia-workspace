@@ -3,6 +3,22 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-26-ML5-CONVERGENCE-QUALIFICATION
+
+- **date_utc**: 2026-11-26T17:55Z
+- **lane**: DEV — qualification de convergence P1–P4 + G-LIVE-API Chantiers360
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_initial**: `f27e01025f920db3fa61a4bb66cc05085981ca95`
+- **HEAD_code**: `f77a42e434dd1af883b9b43ecc73e022f4757b94`
+- **BUILD_ID**: `XGqFqt2I6aCNTZLjirvtW`
+- **focus**: borne entrée estimate≠ceiling ; latch restart campagne ; FinOps sans double-count HTTP ; Agents SDK tool-loop ; investigation LIVE réelle ; FinOps API/UI ; dossier hosted WEB
+- **G-LIVE-API**: PASS critères individuels — projet `proj_fdd9b064…` / prep `prep_85f051f7…` / Git `mcleland147/chantiers360` · tools=2 · note technique produite · ledger `/tmp/sfia-ml5-g-live-api-convergence-20261126/`
+- **G-WEB-PUBLIC**: FERMÉ — dossier `ml5-g-web-public-hosted-bound-arbitration-20261126.md`
+- **web_live**: OFF · G-WEB-MIXED fermé · RECETTE intacte
+- **release**: NO RELEASE · NOT ADOPTED · ML5 OPEN · R5 IN PROGRESS · G-RECETTE non consommé · livraison 2 non engagée
+- **statut**: **ML5 CONVERGENCE QUALIFIED WITH EXPLICIT CAPABILITY RESERVES — RECETTE SCOPE DECISION REQUIRED**
+
+
 ## delivery_id: DELIV-2026-11-26-ML5-FOUNDATION-CONFORMANCE-LIVE
 
 - **date_utc**: 2026-11-26T16:30Z (approx)
