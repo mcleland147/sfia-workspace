@@ -185,6 +185,8 @@ export function estimateCostUsd(
     !applyLongContextTier &&
     inputTokens > LONG_CONTEXT_INPUT_THRESHOLD_TOKENS
   ) {
+    // Aggregate used short-context rates while per-request tiers are unknown —
+    // never present the dollar figure as fully KNOWN.
     limits.push("LONG_CONTEXT_TIER_SUPPRESSED_AGGREGATE");
   }
 
@@ -201,6 +203,10 @@ export function estimateCostUsd(
     if (cachedInputTokens > inputTokens) {
       limits.push("CACHED_INPUT_EXCEEDS_INPUT_CLAMPED");
     }
+  }
+
+  if (limits.includes("LONG_CONTEXT_TIER_SUPPRESSED_AGGREGATE")) {
+    costCoverage = "PARTIAL";
   }
 
   if (modelAppliedUnverified && costCoverage === "KNOWN") {
@@ -334,7 +340,8 @@ export async function recordProviderUsageObservation(
   if (inserted.length > 0) {
     return { inserted: true, id: inserted[0]!.id };
   }
-  return { inserted: false, id };
+  // Conflict / no-op: never return a fabricated UUID that was not persisted.
+  return { inserted: false, id: "" };
 }
 
 export type NoraProviderUsageHookInput = {
@@ -412,9 +419,12 @@ async function recordPerRequestUsages(
     inserted: false,
     id: "",
   };
+  // callOrdinal is a base offset for the batch — never collapse distinct entries
+  // onto the same ordinal when an explicit base is provided (`x ?? i` collision).
+  const baseOrdinal = input.callOrdinal ?? 0;
   for (let i = 0; i < entries.length; i++) {
     const entry = entries[i]!;
-    const callOrdinal = input.callOrdinal ?? i;
+    const callOrdinal = baseOrdinal + i;
     const idempotencyKey = buildIdempotencyKey({
       ...scope,
       granularity: "REQUEST",
@@ -452,21 +462,44 @@ export async function recordNoraProviderUsageFromRunResult(
   const forcedGranularity = input.granularity;
 
   const perRequest = snapshot.requestUsageEntries;
-  if (perRequest && perRequest.length > 0 && forcedGranularity !== "GENERATION_AGGREGATE") {
+  const requestCount = snapshot.providerRequests;
+  const perRequestIncomplete =
+    perRequest != null &&
+    perRequest.length > 0 &&
+    requestCount != null &&
+    perRequest.length < requestCount;
+
+  if (
+    perRequest &&
+    perRequest.length > 0 &&
+    forcedGranularity !== "GENERATION_AGGREGATE" &&
+    !perRequestIncomplete
+  ) {
     return recordPerRequestUsages(input, perRequest, baseLimits);
   }
 
   const multiRequestWithoutBreakdown =
-    (snapshot.providerRequests ?? 0) > 1 && (!perRequest || perRequest.length === 0);
+    (requestCount ?? 0) > 1 && (!perRequest || perRequest.length === 0);
+  // Unknown request count must not be auto-classified as a single REQUEST.
+  const requestCountUnknown =
+    requestCount == null && (!perRequest || perRequest.length === 0);
   const granularity: ProviderUsageGranularity =
     forcedGranularity ??
-    (multiRequestWithoutBreakdown ? "GENERATION_AGGREGATE" : "REQUEST");
+    (multiRequestWithoutBreakdown || requestCountUnknown || perRequestIncomplete
+      ? "GENERATION_AGGREGATE"
+      : "REQUEST");
 
   const aggregateLimits = [...baseLimits];
   if (granularity === "GENERATION_AGGREGATE") {
     aggregateLimits.push("MULTI_REQUEST_AGGREGATE_ONLY");
-    if ((snapshot.providerRequests ?? 0) > 1) {
+    if ((requestCount ?? 0) > 1 && (!perRequest || perRequest.length === 0)) {
       aggregateLimits.push("PER_REQUEST_USAGE_UNAVAILABLE");
+    }
+    if (requestCountUnknown) {
+      aggregateLimits.push("REQUEST_COUNT_UNKNOWN");
+    }
+    if (perRequestIncomplete) {
+      aggregateLimits.push("PER_REQUEST_USAGE_INCOMPLETE");
     }
   }
 

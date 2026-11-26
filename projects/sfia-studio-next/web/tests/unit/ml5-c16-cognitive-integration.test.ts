@@ -1,7 +1,7 @@
 /**
  * C16 — conductor continuation semantics, READY positive, DRAFT criteria, WEB pin.
  */
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createEmptyInvestigation,
   evaluateContractReadiness,
@@ -135,6 +135,194 @@ describe("ML5 C16 — integrated cognitive conductor", () => {
     expect(policies[0]!.effort).toBe("low");
     expect(policies[1]!.effort).toBe("high");
     expect(policies[0]!.effort).not.toBe(policies[1]!.effort);
+  });
+
+  describe("S3 continuity of allocation via real conductor", () => {
+    const prevMode = process.env.SFIA_COGNITIVE_ADMISSION_MODE;
+    const prevLane = process.env.STUDIO_LANE;
+    const prevCog = process.env.SFIA_COG_PROFILE_TYPE;
+
+    beforeEach(() => {
+      process.env.STUDIO_LANE = "DEV";
+      process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
+    });
+
+    afterEach(() => {
+      if (prevMode === undefined) delete process.env.SFIA_COGNITIVE_ADMISSION_MODE;
+      else process.env.SFIA_COGNITIVE_ADMISSION_MODE = prevMode;
+      if (prevLane === undefined) delete process.env.STUDIO_LANE;
+      else process.env.STUDIO_LANE = prevLane;
+      if (prevCog === undefined) delete process.env.SFIA_COG_PROFILE_TYPE;
+      else process.env.SFIA_COG_PROFILE_TYPE = prevCog;
+    });
+
+    async function runTwoSegmentContinuity(input: {
+      admissionMode: "calibration" | "operational";
+      firstPolicy: {
+        modelHint: string;
+        effortHint: "none" | "low" | "medium" | "high" | "xhigh" | "max";
+      };
+      /** Proposal emitted by segment 0 qualification → applied on segment 1. */
+      nextProposal: {
+        model?: "gpt-6-luna" | "gpt-6.1-terra" | "gpt-6.2-sol";
+        effort?: "none" | "low" | "medium" | "high" | "xhigh" | "max";
+      } | null;
+    }) {
+      process.env.SFIA_COGNITIVE_ADMISSION_MODE = input.admissionMode;
+      const { runCognitiveConductor } = await import(
+        "@/domains/conversation/cognitive-conductor"
+      );
+      const { buildCognitivePolicy, resolveContinuityCognitivePolicy } =
+        await import("@/domains/conversation/cognitive-policy");
+      const applied: Array<{
+        segmentIndex: number;
+        model: string;
+        effort: string;
+        reasons: string[];
+      }> = [];
+      const result = await runCognitiveConductor({
+        pilotId: "pilot",
+        preparationId: "prep",
+        objective: "allocation continuity",
+        maxSegmentsThisInvocation: 2,
+        resolvePolicy: (work, segmentIndex) => {
+          const policy =
+            segmentIndex === 0
+              ? buildCognitivePolicy("allocation continuity", "TEST_BOUNDARY", {
+                  modelHint: input.firstPolicy.modelHint,
+                  effortHint: input.firstPolicy.effortHint,
+                })
+              : resolveContinuityCognitivePolicy({
+                  seed: "allocation continuity",
+                  overrideType: "TEST_BOUNDARY",
+                  proposal: {
+                    modelId: work.state.proposedCognitiveModel ?? null,
+                    effort: work.state.proposedCognitiveEffort ?? null,
+                  },
+                  held: {
+                    modelId: work.resources.modelRequested ?? null,
+                    effort: work.resources.effortRequested ?? null,
+                  },
+                });
+          applied.push({
+            segmentIndex,
+            model: policy.modelRequested,
+            effort: policy.effortRequested,
+            reasons: policy.reasonCodes,
+          });
+          return policy;
+        },
+        runSegment: async ({ segmentIndex, policy }) => ({
+          replyText: `seg-${segmentIndex}`,
+          qualification: null,
+          investigation: {
+            ...createEmptyInvestigation("allocation continuity"),
+            remainingWork: segmentIndex === 0 ? ["more"] : [],
+            proposedCognitiveModel:
+              segmentIndex === 0 ? (input.nextProposal?.model ?? null) : null,
+            proposedCognitiveEffort:
+              segmentIndex === 0 ? (input.nextProposal?.effort ?? null) : null,
+          },
+          continueWork: segmentIndex === 0,
+          resourcesDelta: {
+            modelRequested: policy.modelRequested,
+            effortRequested: policy.effortRequested,
+          },
+        }),
+      });
+      return { result, applied };
+    }
+
+    it("Luna → Terra model change keeps workId", async () => {
+      const { result, applied } = await runTwoSegmentContinuity({
+        admissionMode: "calibration",
+        firstPolicy: { modelHint: "gpt-6-luna", effortHint: "medium" },
+        nextProposal: { model: "gpt-6.1-terra", effort: "medium" },
+      });
+      expect(result.work.id).toBe("cgw_test");
+      expect(result.segmentsRun).toBe(2);
+      expect(applied[0]).toMatchObject({
+        model: "gpt-6-luna",
+        effort: "medium",
+      });
+      expect(applied[1]).toMatchObject({
+        model: "gpt-6.1-terra",
+        effort: "medium",
+      });
+      expect(applied[1]!.reasons).toContain("RESOURCE_CONTINUITY_MODEL_CHANGE");
+    });
+
+    it("Terra → Sol model change keeps workId", async () => {
+      const { result, applied } = await runTwoSegmentContinuity({
+        admissionMode: "calibration",
+        firstPolicy: { modelHint: "gpt-6.1-terra", effortHint: "medium" },
+        nextProposal: { model: "gpt-6.2-sol", effort: "high" },
+      });
+      expect(result.work.id).toBe("cgw_test");
+      expect(applied[0]!.model).toBe("gpt-6.1-terra");
+      expect(applied[1]).toMatchObject({
+        model: "gpt-6.2-sol",
+        effort: "high",
+      });
+    });
+
+    it("descalades Sol → Luna across segments", async () => {
+      const { applied } = await runTwoSegmentContinuity({
+        admissionMode: "calibration",
+        firstPolicy: { modelHint: "gpt-6.2-sol", effortHint: "high" },
+        nextProposal: { model: "gpt-6-luna", effort: "low" },
+      });
+      expect(applied[0]).toMatchObject({ model: "gpt-6.2-sol", effort: "high" });
+      expect(applied[1]).toMatchObject({ model: "gpt-6-luna", effort: "low" });
+    });
+
+    it("holds model when next segment has no proposal", async () => {
+      const { applied } = await runTwoSegmentContinuity({
+        admissionMode: "calibration",
+        firstPolicy: { modelHint: "gpt-6.1-terra", effortHint: "high" },
+        nextProposal: null,
+      });
+      expect(applied[0]!.model).toBe("gpt-6.1-terra");
+      expect(applied[1]).toMatchObject({
+        model: "gpt-6.1-terra",
+        effort: "high",
+      });
+      expect(applied[1]!.reasons).toContain("RESOURCE_CONTINUITY_HOLD");
+    });
+
+    it("changes effort independently on the held model", async () => {
+      const { applied } = await runTwoSegmentContinuity({
+        admissionMode: "calibration",
+        firstPolicy: { modelHint: "gpt-6.1-terra", effortHint: "medium" },
+        nextProposal: { effort: "xhigh" },
+      });
+      expect(applied[0]).toMatchObject({
+        model: "gpt-6.1-terra",
+        effort: "medium",
+      });
+      expect(applied[1]).toMatchObject({
+        model: "gpt-6.1-terra",
+        effort: "xhigh",
+      });
+      expect(applied[1]!.reasons).toContain("RESOURCE_CONTINUITY_EFFORT_CHANGE");
+    });
+
+    it("refuses incompatible Luna and holds Sol without dropping workId", async () => {
+      const { result, applied } = await runTwoSegmentContinuity({
+        admissionMode: "operational",
+        firstPolicy: { modelHint: "gpt-6.2-sol", effortHint: "medium" },
+        nextProposal: { model: "gpt-6-luna", effort: "medium" },
+      });
+      expect(result.work.id).toBe("cgw_test");
+      expect(applied[0]!.model).toBe("gpt-6.2-sol");
+      expect(applied[1]!.model).toBe("gpt-6.2-sol");
+      expect(applied[1]!.reasons).toContain(
+        "RESOURCE_CONTINUITY_HOLD_AFTER_REFUSAL",
+      );
+      expect(
+        applied[1]!.reasons.some((c) => c.startsWith("RESOURCE_REFUSED_")),
+      ).toBe(true);
+    });
   });
 
   it("completes when segment signals no continuation", async () => {

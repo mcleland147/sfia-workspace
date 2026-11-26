@@ -133,6 +133,8 @@ describe("ML5 E03 — estimateCostUsd", () => {
     expect(mistakenAggregateTier.estimatedCostUsd!).toBeGreaterThan(perRequestTotal);
     expect(safeAggregate.estimatedCostUsd!).toBeCloseTo(perRequestTotal, 4);
     expect(safeAggregate.limits).toContain("LONG_CONTEXT_TIER_SUPPRESSED_AGGREGATE");
+    // Short-rate estimate may exist, but coverage must not claim fully KNOWN.
+    expect(safeAggregate.costCoverage).toBe("PARTIAL");
   });
 
   it("extracts per-request usage entries from Agents SDK shape", () => {
@@ -179,6 +181,33 @@ describe("ML5 E03 — estimateCostUsd", () => {
         "gpt-6.1-terra",
       ).estimatedCostUsd!,
     );
+  });
+
+  it("marks REQUEST_COUNT_UNKNOWN when SDK omits requests and has no per-request entries", () => {
+    const snap = extractProviderUsageFromRunResult({
+      state: {
+        usage: {
+          inputTokens: 100,
+          outputTokens: 20,
+        },
+      },
+    });
+    expect(snap.providerRequests).toBeNull();
+    expect(snap.limits).toContain("REQUEST_COUNT_UNKNOWN");
+  });
+
+  it("distinct callOrdinals produce distinct idempotency keys (no ?? collision)", () => {
+    const base = {
+      granularity: "REQUEST" as const,
+      operation: "op",
+      attemptId: "att",
+      generationId: "gen",
+      segmentIndex: 0,
+    };
+    // Simulates fixed baseOrdinal + i for two entries when input.callOrdinal === 0
+    const k0 = buildIdempotencyKey({ ...base, callOrdinal: 0 });
+    const k1 = buildIdempotencyKey({ ...base, callOrdinal: 1 });
+    expect(k0).not.toBe(k1);
   });
 
   it("applies long-context tier from input token threshold on a single request", () => {

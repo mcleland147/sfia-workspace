@@ -87,6 +87,19 @@ export type InvestigationState = {
   constraints: string[];
   risks: string[];
   profileHint: "simple" | "analyse" | "investigation";
+  /**
+   * Next-segment resource proposal from the last structured qualification.
+   * Server admits; omission means hold the couple already on resources.
+   */
+  proposedCognitiveModel?: "gpt-6-luna" | "gpt-6.1-terra" | "gpt-6.2-sol" | null;
+  proposedCognitiveEffort?:
+    | "none"
+    | "low"
+    | "medium"
+    | "high"
+    | "xhigh"
+    | "max"
+    | null;
   questions: DeterminingQuestion[];
   sources: InvestigationSourceRef[];
   contradictions: Array<{ a: string; b: string; detail: string }>;

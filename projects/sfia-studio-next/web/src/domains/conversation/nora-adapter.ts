@@ -1036,6 +1036,13 @@ async function runLiveWithTools(
       tools = [...tools, ...d8Tools];
     }
     // Hosted OpenAI webSearchTool remains detached — see public-web-search-frontier.
+    if (policy.toolAllowlist.includes("consult_cognitive_guidance")) {
+      const { buildCognitiveGuidanceTools } = await import(
+        "./cognitive-guidance-tools"
+      );
+      const guidanceTools = await buildCognitiveGuidanceTools();
+      tools = [...tools, ...guidanceTools];
+    }
   }
 
   const QUALIFICATION_INSTRUCTIONS = [
@@ -1090,6 +1097,7 @@ async function runLiveWithTools(
     "  • determiningQuestions[] avec id stable, status OPEN/ANSWERED, answerSummary + sourceRefs si résolu — jamais résoudre une question sans réponse explicite.",
     "  • remainingWorkItems[] versionnés (OPEN/RESOLVED/OBSOLETE/…) — ≠ acceptanceCriteria.",
     "  • cognitiveProfileHint=simple|analyse|investigation pour adapter les moyens (selon le sens — jamais la longueur seule).",
+    "  • proposedCognitiveModel=gpt-6-luna|gpt-6.1-terra|gpt-6.2-sol et/ou proposedCognitiveEffort=none|low|medium|high|xhigh|max pour le SEGMENT SUIVANT (admission serveur). Omettre = maintenir le couple déjà admis. Escalade/désescalade uniquement sur besoin restant utile — pas de mot-clé ni de longueur.",
     "  • investigationMode=TARGETED|EXHAUSTIVE|OPEN selon le périmètre sémantique (pas un mot-clé ni un nombre isolé).",
     "  • investigationSufficiency=SUFFICIENT|INSUFFICIENT|UNKNOWN — SUFFICIENT quand l'objectif est atteignable avec les acquis (arrêter les lectures inutiles, restituer).",
     "  • contradictions[] / restrictions[] si découverts.",
@@ -1608,6 +1616,7 @@ function minimalBoundaryPolicy(reasonCode: string): CognitivePolicy {
     profile: "simple",
     modelRequested: NORA_STUDY_MODEL,
     effortRequested: "low",
+    effortBudgetBand: "low",
     toolAllowlist: [],
     budgets: {
       maxProviderCalls: 0,

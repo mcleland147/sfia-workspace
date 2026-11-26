@@ -362,6 +362,20 @@ export const NoraTurnQualificationSchema = z.object({
   /** Semantic profile hint for adaptive policy — server may apply; never length-based. */
   cognitiveProfileHint: z.enum(["simple", "analyse", "investigation"]).optional(),
   /**
+   * Next-segment cognitive model proposal (Nora). Server admits via catalogue;
+   * omission = hold the last admitted model on this work.
+   */
+  proposedCognitiveModel: z
+    .enum(["gpt-6-luna", "gpt-6.1-terra", "gpt-6.2-sol"])
+    .optional(),
+  /**
+   * Next-segment provider effort proposal (Nora). Distinct from profile.
+   * Omission = hold the last admitted effort (or profile default on first segment).
+   */
+  proposedCognitiveEffort: z
+    .enum(["none", "low", "medium", "high", "xhigh", "max"])
+    .optional(),
+  /**
    * Investigation breadth as determined by Nora (semantic) — never by keyword density.
    * TARGETED = finite known set; EXHAUSTIVE = declared perimeter must be covered;
    * OPEN = discover and deepen as needed.

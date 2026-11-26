@@ -12,6 +12,7 @@ describe("FIX-SDK / SDK-RETRY — no automatic second run()", () => {
   const prevE2e = process.env.STUDIO_E2E;
   const prevForce = process.env.STUDIO_FORCE_NORA_FIXTURE;
   const prevKey = process.env.OPENAI_API_KEY;
+  const prevExpectedFp = process.env.SFIA_OPENAI_EXPECTED_KEY_FP;
   const prevCog = process.env.SFIA_COG_PROFILE_TYPE;
 
   afterEach(() => {
@@ -26,6 +27,8 @@ describe("FIX-SDK / SDK-RETRY — no automatic second run()", () => {
     else process.env.STUDIO_FORCE_NORA_FIXTURE = prevForce;
     if (prevKey === undefined) delete process.env.OPENAI_API_KEY;
     else process.env.OPENAI_API_KEY = prevKey;
+    if (prevExpectedFp === undefined) delete process.env.SFIA_OPENAI_EXPECTED_KEY_FP;
+    else process.env.SFIA_OPENAI_EXPECTED_KEY_FP = prevExpectedFp;
     if (prevCog === undefined) delete process.env.SFIA_COG_PROFILE_TYPE;
     else process.env.SFIA_COG_PROFILE_TYPE = prevCog;
   });
@@ -105,6 +108,10 @@ describe("FIX-SDK / SDK-RETRY — no automatic second run()", () => {
     delete process.env.STUDIO_E2E;
     delete process.env.STUDIO_FORCE_NORA_FIXTURE;
     process.env.OPENAI_API_KEY = "sk-test-not-real-but-present";
+    const { openAiKeyFingerprint } = await import("@/lib/openai-lane-guard");
+    process.env.SFIA_OPENAI_EXPECTED_KEY_FP = openAiKeyFingerprint(
+      process.env.OPENAI_API_KEY,
+    );
     process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
 
     const runMock = vi.fn(async () => {

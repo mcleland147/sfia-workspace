@@ -8,7 +8,10 @@ import {
   runCognitiveConductor,
   type ConductorRunResult,
 } from "./cognitive-conductor";
-import { buildCognitivePolicy } from "./cognitive-policy";
+import {
+  buildCognitivePolicy,
+  resolveContinuityCognitivePolicy,
+} from "./cognitive-policy";
 import {
   cognitiveEnvelopeLimits,
   getCognitiveWork,
@@ -283,6 +286,17 @@ export function mergeInvestigationFromReply(
         ? "analyse"
         : prior.profileHint);
 
+  // S3 — next-segment resource proposal. Present → admit on next resolvePolicy;
+  // omitted on a real qualification → clear (hold last applied couple on resources).
+  const proposedCognitiveModel =
+    !q || q.status === "UNAVAILABLE"
+      ? (prior.proposedCognitiveModel ?? null)
+      : (q.proposedCognitiveModel ?? null);
+  const proposedCognitiveEffort =
+    !q || q.status === "UNAVAILABLE"
+      ? (prior.proposedCognitiveEffort ?? null)
+      : (q.proposedCognitiveEffort ?? null);
+
   const desiredOutcome = outcome || desiredFromTool || prior.desiredOutcome || "";
 
   // RB-30 — capitalize answered determinant questions + explicit findings as conclusions.
@@ -408,6 +422,8 @@ export function mergeInvestigationFromReply(
     contradictions,
     constraints,
     profileHint,
+    proposedCognitiveModel,
+    proposedCognitiveEffort,
     productionInstruction,
     acceptanceCriteria,
     conclusions: conclusions.slice(-24),
@@ -1129,23 +1145,49 @@ export async function runNoraCognitiveTurn(
         reevalActive ||
         work.state.sufficiency === "SUFFICIENT" ||
         (work.resources.limits ?? []).includes("RESTITUTION_PHASE");
-      let base = restitutionPhase
-        ? buildCognitivePolicy(seed, undefined, {
-            profileHint: hint === "simple" ? "simple" : "analyse",
-            effortHint: "medium",
-          })
-        : segmentIndex > 0 && hint === "investigation"
-          ? buildCognitivePolicy(seed, undefined, {
-              profileHint: "investigation",
-              effortHint: "high",
-            })
-          : hint === "simple"
-            ? buildCognitivePolicy(seed, undefined, {
-                profileHint: "simple",
-                effortHint: "low",
+      // S3 — qualification proposal → admission → hold/change for next segment.
+      // policyOverride forces the first segment only; continuity still admits later.
+      const proposal = {
+        modelId: work.state.proposedCognitiveModel ?? null,
+        effort: work.state.proposedCognitiveEffort ?? null,
+      };
+      const held = {
+        modelId: work.resources.modelRequested ?? null,
+        effort: work.resources.effortRequested ?? null,
+      };
+      let base =
+        segmentIndex === 0 && input.policyOverride
+          ? input.policyOverride
+          : restitutionPhase
+            ? resolveContinuityCognitivePolicy({
+                seed,
+                profileHint: hint === "simple" ? "simple" : "analyse",
+                effortHint: "medium",
+                proposal,
+                held,
               })
-            : (input.policyOverride ??
-              buildCognitivePolicy(seed, undefined, { profileHint: hint }));
+            : segmentIndex > 0 && hint === "investigation"
+              ? resolveContinuityCognitivePolicy({
+                  seed,
+                  profileHint: "investigation",
+                  effortHint: proposal.effort || "high",
+                  proposal,
+                  held,
+                })
+              : hint === "simple"
+                ? resolveContinuityCognitivePolicy({
+                    seed,
+                    profileHint: "simple",
+                    effortHint: proposal.effort || "low",
+                    proposal,
+                    held,
+                  })
+                : resolveContinuityCognitivePolicy({
+                    seed,
+                    profileHint: hint,
+                    proposal,
+                    held,
+                  });
       if (reevalActive) {
         base = {
           ...base,

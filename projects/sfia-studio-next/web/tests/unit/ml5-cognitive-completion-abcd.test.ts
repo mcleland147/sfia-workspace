@@ -50,6 +50,29 @@ function reply(
 }
 
 describe("A — semantic qualification (no lexical mission routing)", () => {
+  it("persists next-segment resource proposals for continuity admission", () => {
+    const userText = "Poursuis l'analyse avec une ressource adaptée.";
+    const merged = mergeInvestigationFromReply(
+      createEmptyInvestigation(userText),
+      reply({
+        workDisposition: "CONTINUE",
+        proposedCognitiveModel: "gpt-6.1-terra",
+        proposedCognitiveEffort: "high",
+      }),
+      userText,
+    );
+    expect(merged.proposedCognitiveModel).toBe("gpt-6.1-terra");
+    expect(merged.proposedCognitiveEffort).toBe("high");
+
+    const held = mergeInvestigationFromReply(
+      merged,
+      reply({ workDisposition: "CONTINUE" }),
+      userText,
+    );
+    expect(held.proposedCognitiveModel).toBeNull();
+    expect(held.proposedCognitiveEffort).toBeNull();
+  });
+
   it("does not invent EXHAUSTIVE mode from the digit 50 alone", () => {
     const userText =
       "Le ticket #50 mentionne une règle de gouvernance; résume-la brièvement.";

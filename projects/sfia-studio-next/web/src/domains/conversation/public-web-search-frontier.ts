@@ -352,6 +352,20 @@ async function executeIsolatedLiveWebSearch(query: string): Promise<{
   items: PublicSearchResult["items"];
   limits: string[];
 }> {
+  // ENV-01 — same fail-closed OpenAI lane binding as Nora LIVE (all LIVE paths).
+  const { assertOpenAiKeyForLane } = await import("@/lib/openai-lane-guard");
+  const laneGuard = assertOpenAiKeyForLane();
+  if (!laneGuard.ok) {
+    return {
+      status: "ERROR",
+      items: [],
+      limits: [
+        "WEB_LIVE_OPENAI_LANE_GUARD",
+        laneGuard.reasonCode,
+      ],
+    };
+  }
+
   const { Agent, run, webSearchTool } = await import("@openai/agents");
   const agent = new Agent({
     name: "sfia-public-web-isolated",

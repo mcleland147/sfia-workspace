@@ -3,6 +3,9 @@
  *
  * Never log or return the raw key. Fingerprints are SHA-256 hex truncated to 16 chars.
  * A missing critical config refuses the LIVE path — no cross-lane fallback.
+ *
+ * LIVE OpenAI requires an explicit expected fingerprint binding. An env value alone
+ * is not proof of project association; EXPECTED must be set and must match.
  */
 
 import { createHash } from "node:crypto";
@@ -15,6 +18,7 @@ export type OpenAiLaneGuardResult =
       reasonCode:
         | "STUDIO_LANE_MISSING"
         | "OPENAI_KEY_MISSING"
+        | "OPENAI_EXPECTED_FP_MISSING"
         | "OPENAI_KEY_FINGERPRINT_MISMATCH"
         | "OPENAI_KEY_FORBIDDEN_PEER"
         | "OPENAI_KEY_EMPTY";
@@ -34,7 +38,7 @@ function studioLane(env: NodeJS.ProcessEnv = process.env): string {
  * Assert the process OpenAI key belongs to this lane.
  *
  * Env (non-secret):
- * - `SFIA_OPENAI_EXPECTED_KEY_FP` — must match current key fingerprint when set
+ * - `SFIA_OPENAI_EXPECTED_KEY_FP` — **required** for LIVE admission; must match key FP
  * - `SFIA_OPENAI_FORBIDDEN_KEY_FP` — comma-separated peer fingerprints that must NOT match
  *   (e.g. RECETTE forbids the DEV key fingerprint once a distinct RECETTE key is in place)
  */
@@ -72,7 +76,15 @@ export function assertOpenAiKeyForLane(
   }
 
   const expected = (env.SFIA_OPENAI_EXPECTED_KEY_FP ?? "").trim().toLowerCase();
-  if (expected && expected !== keyFingerprint) {
+  if (!expected) {
+    return {
+      ok: false,
+      lane,
+      reasonCode: "OPENAI_EXPECTED_FP_MISSING",
+      reason: `SFIA_OPENAI_EXPECTED_KEY_FP requis pour OpenAI LIVE sur lane ${lane} (fail-closed)`,
+    };
+  }
+  if (expected !== keyFingerprint) {
     return {
       ok: false,
       lane,

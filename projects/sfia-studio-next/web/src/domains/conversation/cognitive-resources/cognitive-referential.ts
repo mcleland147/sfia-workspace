@@ -521,7 +521,7 @@ export function buildCognitiveGuidanceCatalogBlurb(): string {
     models,
     `- Référentiel élémentaire : ${COGNITIVE_REFERENTIAL_ROW_COUNT} lignes CF §4.1–4.5 (guidance seulement, pas un moteur de routage).`,
     "- Tu peux t'en inspirer pour cognitiveProfileHint / effort; Nora peut s'écarter si le contexte l'exige.",
-    "- Ne demande pas la matrice complète dans replyDraft : le détail d'une ligne est disponible côté serveur (getCognitiveGuidanceById / résumé compact à la demande du conducteur).",
+    "- Ne demande pas la matrice complète dans replyDraft : pour une ligne, appelle l'outil consult_cognitive_guidance(guidanceId) ; pour l'index compact, consult_cognitive_guidance(compactIndex=true).",
     "- Défaut opérationnel pré-calibration : Sol medium si le couple proposé n'est pas admis.",
   ].join("\n");
 }

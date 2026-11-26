@@ -3,6 +3,7 @@ import {
   NORA_STUDY_MODEL,
   buildCognitivePolicy,
   resolveAdmittedResource,
+  resolveContinuityCognitivePolicy,
 } from "@/domains/conversation/cognitive-policy";
 import {
   COGNITIVE_GUIDANCE_ROWS,
@@ -73,10 +74,31 @@ describe("ML5 E02 — cognitive referential (51 guidance rows)", () => {
   it("catalog blurb stays bounded and does not embed 51 matrix lines", () => {
     const blurb = buildCognitiveGuidanceCatalogBlurb();
     expect(blurb.length).toBeLessThanOrEqual(COGNITIVE_GUIDANCE_CATALOG_BLURB_MAX_CHARS);
-    expect(blurb).toMatch(/getCognitiveGuidanceById/);
+    expect(blurb).toMatch(/consult_cognitive_guidance/);
     expect(blurb.split("\n").length).toBeLessThan(20);
     for (const line of COGNITIVE_REFERENTIAL_COMPACT_SUMMARY) {
       expect(blurb).not.toContain(line);
+    }
+  });
+
+  it("consult_cognitive_guidance tool resolves a row and compact index", async () => {
+    const {
+      buildCognitiveGuidanceTools,
+      consultCognitiveGuidance,
+    } = await import("@/domains/conversation/cognitive-guidance-tools");
+    const tools = await buildCognitiveGuidanceTools();
+    expect(tools).toHaveLength(1);
+    expect((tools[0] as { name: string }).name).toBe("consult_cognitive_guidance");
+    const row = consultCognitiveGuidance({ guidanceId: "cog-4.1-06" });
+    expect(row.status).toBe("OK");
+    if (row.status === "OK" && row.kind === "ROW") {
+      expect(row.row.id).toBe("cog-4.1-06");
+    }
+    const idx = consultCognitiveGuidance({ compactIndex: true });
+    expect(idx.status).toBe("OK");
+    if (idx.status === "OK" && idx.kind === "COMPACT_INDEX") {
+      expect(idx.rowCount).toBe(51);
+      expect(idx.lines.length).toBe(51);
     }
   });
 });
@@ -189,7 +211,118 @@ describe("ML5 E02 — resolveAdmittedResource", () => {
     });
     expect(p.modelRequested).toBe("gpt-6.2-sol");
     expect(p.effortRequested).toBe("high");
+    expect(p.effortBudgetBand).toBe("high");
     expect(p.reasonCodes.some((c) => c.startsWith("RESOURCE_REFUSED_"))).toBe(true);
     expect(p.reasonCodes).toContain("RESOURCE_FALLBACK_EFFORT_DOWNGRADE");
+  });
+
+  it("preserves admitted provider effort (xhigh) distinct from budget band", () => {
+    process.env.SFIA_COGNITIVE_ADMISSION_MODE = "calibration";
+    const p = buildCognitivePolicy("calibrate", "TEST_BOUNDARY", {
+      modelHint: "gpt-6-luna",
+      effortHint: "xhigh",
+    });
+    expect(p.modelRequested).toBe("gpt-6-luna");
+    expect(p.effortRequested).toBe("xhigh");
+    expect(p.effortBudgetBand).toBe("high");
+    expect(p.reasonCodes).toContain("EFFORT_BUDGET_BAND_high");
+  });
+
+  it("preserves admitted none effort without collapsing to low for the API", () => {
+    process.env.SFIA_COGNITIVE_ADMISSION_MODE = "calibration";
+    const p = buildCognitivePolicy("calibrate", "TEST_BOUNDARY", {
+      modelHint: "gpt-6-luna",
+      effortHint: "none",
+    });
+    expect(p.effortRequested).toBe("none");
+    expect(p.effortBudgetBand).toBe("low");
+  });
+});
+
+describe("ML5 S3 — resolveContinuityCognitivePolicy", () => {
+  const prevMode = process.env.SFIA_COGNITIVE_ADMISSION_MODE;
+
+  afterEach(() => {
+    if (prevMode === undefined) delete process.env.SFIA_COGNITIVE_ADMISSION_MODE;
+    else process.env.SFIA_COGNITIVE_ADMISSION_MODE = prevMode;
+  });
+
+  it("admits Luna → Terra model change under calibration", () => {
+    process.env.SFIA_COGNITIVE_ADMISSION_MODE = "calibration";
+    const p = resolveContinuityCognitivePolicy({
+      seed: "continue",
+      overrideType: "TEST_BOUNDARY",
+      proposal: { modelId: "gpt-6.1-terra", effort: "medium" },
+      held: { modelId: "gpt-6-luna", effort: "medium" },
+    });
+    expect(p.modelRequested).toBe("gpt-6.1-terra");
+    expect(p.effortRequested).toBe("medium");
+    expect(p.reasonCodes).toContain("RESOURCE_CONTINUITY_MODEL_CHANGE");
+  });
+
+  it("admits Terra → Sol model change under calibration", () => {
+    process.env.SFIA_COGNITIVE_ADMISSION_MODE = "calibration";
+    const p = resolveContinuityCognitivePolicy({
+      seed: "continue",
+      overrideType: "TEST_BOUNDARY",
+      proposal: { modelId: "gpt-6.2-sol", effort: "high" },
+      held: { modelId: "gpt-6.1-terra", effort: "medium" },
+    });
+    expect(p.modelRequested).toBe("gpt-6.2-sol");
+    expect(p.effortRequested).toBe("high");
+    expect(p.reasonCodes).toContain("RESOURCE_CONTINUITY_MODEL_CHANGE");
+  });
+
+  it("descalades Sol high → Luna medium under calibration", () => {
+    process.env.SFIA_COGNITIVE_ADMISSION_MODE = "calibration";
+    const p = resolveContinuityCognitivePolicy({
+      seed: "restitution",
+      overrideType: "TEST_BOUNDARY",
+      proposal: { modelId: "gpt-6-luna", effort: "medium" },
+      held: { modelId: "gpt-6.2-sol", effort: "high" },
+    });
+    expect(p.modelRequested).toBe("gpt-6-luna");
+    expect(p.effortRequested).toBe("medium");
+  });
+
+  it("holds model when proposal is absent", () => {
+    process.env.SFIA_COGNITIVE_ADMISSION_MODE = "calibration";
+    const p = resolveContinuityCognitivePolicy({
+      seed: "hold",
+      overrideType: "TEST_BOUNDARY",
+      proposal: null,
+      held: { modelId: "gpt-6.1-terra", effort: "high" },
+    });
+    expect(p.modelRequested).toBe("gpt-6.1-terra");
+    expect(p.effortRequested).toBe("high");
+    expect(p.reasonCodes).toContain("RESOURCE_CONTINUITY_HOLD");
+  });
+
+  it("changes effort independently while holding model", () => {
+    process.env.SFIA_COGNITIVE_ADMISSION_MODE = "calibration";
+    const p = resolveContinuityCognitivePolicy({
+      seed: "effort",
+      overrideType: "TEST_BOUNDARY",
+      proposal: { effort: "xhigh" },
+      held: { modelId: "gpt-6.1-terra", effort: "medium" },
+    });
+    expect(p.modelRequested).toBe("gpt-6.1-terra");
+    expect(p.effortRequested).toBe("xhigh");
+    expect(p.effortBudgetBand).toBe("high");
+    expect(p.reasonCodes).toContain("RESOURCE_CONTINUITY_EFFORT_CHANGE");
+  });
+
+  it("refuses incompatible Luna in operational mode and holds Terra", () => {
+    process.env.SFIA_COGNITIVE_ADMISSION_MODE = "operational";
+    const p = resolveContinuityCognitivePolicy({
+      seed: "refuse",
+      overrideType: "TEST_BOUNDARY",
+      proposal: { modelId: "gpt-6-luna", effort: "medium" },
+      held: { modelId: "gpt-6.2-sol", effort: "medium" },
+    });
+    expect(p.modelRequested).toBe("gpt-6.2-sol");
+    expect(p.effortRequested).toBe("medium");
+    expect(p.reasonCodes).toContain("RESOURCE_CONTINUITY_HOLD_AFTER_REFUSAL");
+    expect(p.reasonCodes.some((c) => c.startsWith("RESOURCE_REFUSED_"))).toBe(true);
   });
 });

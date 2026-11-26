@@ -3,6 +3,20 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-26-ML5-FINAL-CONSOLIDATION-LIVE-CALIBRATION
+
+- **date_utc**: 2026-11-26
+- **lane**: DEV construction + G-RECETTE-SECRET (config OpenAI only) + G-LIVE-API (DEV calibration)
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **base_candidate**: `722368d5564ba0d2818f09f5dabbe78c9dfb1409`
+- **focus**: Isolation OpenAI DEV/RECETTE; FinOps residual; effort API découplé des budgets; outil `consult_cognitive_guidance`; calibration LIVE Luna/Terra/Sol
+- **isolation**: DEV_FP `ab6bbec84ba272ed` ≠ REC_FP `f27d814e9c682020`; RECETTE EXPECTED/FORBIDDEN bound; candidat RECETTE figé `a150926c` préservé
+- **calibration**: 19 Responses adapter + Phase D product (2 tours, même workId); ~141k in / ~8.5k out; coût estimé ~0.13 USD Standard court; efforts medium/high transmis sans collapse
+- **recommendation**: Terra Medium candidat initial opérationnel (qualité suffisante sur corpus); Luna Low/Medium pour usages simples démontrés; Sol Medium référence / cas discriminants — **décision Morris requise avant admission opérationnelle**
+- **gates_consumed**: Construction DEV; G-RECETTE-SECRET; G-LIVE-API
+- **gates_pending**: G-WEB-*; G-RECETTE cutover candidat; politique cognitive validée Morris; F2 visuelle
+- **release**: NO RELEASE / NOT ADOPTED / R5 IN PROGRESS / ML5 OPEN / WEB LIVE BLOCKED
+
 ## delivery_id: DELIV-2026-11-26-ML5-CONTINUATION-PRE-CALIBRATION
 
 - **date_utc**: 2026-11-26

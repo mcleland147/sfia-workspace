@@ -231,7 +231,16 @@ export type CognitivePolicy = {
   profileType: PolicyProfileType;
   profile: CognitiveProfile;
   modelRequested: CognitiveModelId;
-  effortRequested: ReasoningEffort;
+  /**
+   * Provider effort admitted for the API call — full CognitiveEffort band
+   * (none|low|medium|high|xhigh|max). Must NOT be collapsed to budget bands.
+   */
+  effortRequested: CognitiveEffort;
+  /**
+   * Technical segment sizing band (low|medium|high) derived from admitted effort.
+   * Used only for historical budget tables — never sent as the provider effort.
+   */
+  effortBudgetBand: ReasoningEffort;
   toolAllowlist: Array<
     | "search_project_resources"
     | "read_project_document_revision"
@@ -254,6 +263,7 @@ export type CognitivePolicy = {
     | "read_evidence_capture_meta"
     | "public_web_search"
     | "public_web_open_page"
+    | "consult_cognitive_guidance"
   >;
   budgets: BudgetLimits;
   reasonCodes: string[];
@@ -415,8 +425,9 @@ export function buildCognitivePolicy(
     modelId: opts?.modelHint ?? OPERATIONAL_DEFAULT_RESOURCE.modelId,
     effort: effortHint,
   });
-  // Profile budgets still keyed on low|medium|high; map extended efforts up.
-  const effortForBudgets: ReasoningEffort =
+  // Profile budgets still keyed on low|medium|high; map extended efforts for
+  // sizing only — never rewrite the provider effort sent to the API.
+  const effortBudgetBand: ReasoningEffort =
     admitted.effort === "low" || admitted.effort === "none"
       ? "low"
       : admitted.effort === "medium"
@@ -451,6 +462,7 @@ export function buildCognitivePolicy(
     "read_evidence_capture_meta",
     "public_web_search",
     "public_web_open_page",
+    "consult_cognitive_guidance",
   ];
 
   const reasonCodes = [
@@ -458,6 +470,7 @@ export function buildCognitivePolicy(
     `PROFILE_TYPE_${profileType}`,
     `LANE_${studioLane()}`,
     ...admitted.reasonCodes,
+    `EFFORT_BUDGET_BAND_${effortBudgetBand}`,
   ];
   if (opts?.profileHint) reasonCodes.push(`PROFILE_HINT_${opts.profileHint}`);
   if (opts?.effortHint) reasonCodes.push(`EFFORT_HINT_${opts.effortHint}`);
@@ -468,9 +481,9 @@ export function buildCognitivePolicy(
     profileType,
     profile,
     modelRequested: admitted.modelId,
-    // Store admitted effort narrowed to ReasoningEffort for SDK path when in band;
-    // high covers xhigh/max until calibration expands RuntimeEffort type on adapter.
-    effortRequested: effortForBudgets,
+    // Full admitted provider effort (none/xhigh/max preserved when admitted).
+    effortRequested: admitted.effort,
+    effortBudgetBand,
     toolAllowlist,
     budgets,
     reasonCodes,
@@ -485,4 +498,131 @@ export function buildCognitivePolicy(
 export function maxTurnsForPolicy(policy: CognitivePolicy): number {
   // Always allow at least one tool loop for authorized read capabilities.
   return Math.max(2, policy.budgets.maxProviderCalls);
+}
+
+export type ContinuityResourceHeld = {
+  modelId?: string | null;
+  effort?: string | null;
+};
+
+export type ContinuityResourceProposal = {
+  modelId?: string | null;
+  effort?: string | null;
+};
+
+/**
+ * S3 — resolve next-segment policy from structured proposal + held couple.
+ * - Explicit proposal → admit; on refusal prefer holding the current couple
+ *   (never treat Sol medium as the sole answer to every refusal).
+ * - No proposal → hold last admitted model/effort when present.
+ * - First segment without hold → operational/calibration default via buildCognitivePolicy.
+ */
+export function resolveContinuityCognitivePolicy(input: {
+  seed: string;
+  overrideType?: PolicyProfileType;
+  profileHint?: CognitiveProfile;
+  /** Forced effort (e.g. restitution / investigation segment rules). */
+  effortHint?: ReasoningEffort | CognitiveEffort;
+  proposal?: ContinuityResourceProposal | null;
+  held?: ContinuityResourceHeld | null;
+}): CognitivePolicy {
+  const mode = admissionModeFromEnv();
+  const profile =
+    input.profileHint ?? qualifyCognitiveProfile(input.seed).profile;
+  const proposedModel = (input.proposal?.modelId ?? "").trim() || null;
+  const proposedEffort = (input.proposal?.effort ?? "").trim() || null;
+  const heldModel = (input.held?.modelId ?? "").trim() || null;
+  const heldEffort = (input.held?.effort ?? "").trim() || null;
+  const hasExplicitProposal = Boolean(proposedModel || proposedEffort);
+
+  const requestedModel =
+    proposedModel || heldModel || OPERATIONAL_DEFAULT_RESOURCE.modelId;
+  const requestedEffort =
+    input.effortHint ||
+    proposedEffort ||
+    heldEffort ||
+    defaultEffortForProfile(profile);
+
+  const direct = admitModelEffort(
+    requestedModel as CognitiveModelId,
+    requestedEffort as CognitiveEffort,
+    mode,
+  );
+
+  if (direct.admitted) {
+    const policy = buildCognitivePolicy(input.seed, input.overrideType, {
+      profileHint: input.profileHint,
+      modelHint: direct.modelId,
+      effortHint: direct.effort,
+    });
+    const decisions: string[] = [];
+    if (!hasExplicitProposal) {
+      decisions.push(heldModel ? "RESOURCE_CONTINUITY_HOLD" : "RESOURCE_CONTINUITY_DEFAULT");
+    } else {
+      decisions.push("RESOURCE_CONTINUITY_ADMITTED");
+      if (proposedModel && heldModel && proposedModel !== heldModel) {
+        decisions.push("RESOURCE_CONTINUITY_MODEL_CHANGE");
+      }
+      if (
+        proposedEffort &&
+        heldEffort &&
+        proposedEffort !== heldEffort &&
+        (!proposedModel || proposedModel === heldModel || proposedModel === direct.modelId)
+      ) {
+        decisions.push("RESOURCE_CONTINUITY_EFFORT_CHANGE");
+      }
+      if (heldModel && !proposedModel && proposedEffort) {
+        decisions.push("RESOURCE_CONTINUITY_EFFORT_CHANGE");
+      }
+      if (!heldModel && proposedModel) {
+        decisions.push("RESOURCE_CONTINUITY_MODEL_CHANGE");
+      }
+    }
+    return {
+      ...policy,
+      reasonCodes: [...policy.reasonCodes, ...decisions],
+    };
+  }
+
+  // Refused proposal/request — prefer holding the already-admitted couple.
+  if (heldModel && heldEffort) {
+    const hold = admitModelEffort(
+      heldModel as CognitiveModelId,
+      heldEffort as CognitiveEffort,
+      mode,
+    );
+    if (hold.admitted) {
+      const policy = buildCognitivePolicy(input.seed, input.overrideType, {
+        profileHint: input.profileHint,
+        modelHint: hold.modelId,
+        effortHint: hold.effort,
+      });
+      return {
+        ...policy,
+        reasonCodes: [
+          ...policy.reasonCodes,
+          `RESOURCE_REFUSED_${direct.reasonCode}`,
+          "RESOURCE_CONTINUITY_HOLD_AFTER_REFUSAL",
+          `REQUESTED_MODEL_${requestedModel}`,
+          `REQUESTED_EFFORT_${requestedEffort}`,
+        ],
+      };
+    }
+  }
+
+  // No compatible hold — fall through to catalogue fallback (explicit codes).
+  const policy = buildCognitivePolicy(input.seed, input.overrideType, {
+    profileHint: input.profileHint,
+    modelHint: requestedModel as CognitiveModelId,
+    effortHint: requestedEffort as CognitiveEffort,
+  });
+  return {
+    ...policy,
+    reasonCodes: [
+      ...policy.reasonCodes,
+      "RESOURCE_CONTINUITY_FALLBACK_AFTER_REFUSAL",
+      `REQUESTED_MODEL_${requestedModel}`,
+      `REQUESTED_EFFORT_${requestedEffort}`,
+    ],
+  };
 }

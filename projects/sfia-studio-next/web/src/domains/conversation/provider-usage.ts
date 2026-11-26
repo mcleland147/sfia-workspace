@@ -73,7 +73,24 @@ function readRequestUsageEntries(usage: unknown): ProviderRequestUsageEntry[] | 
   const parsed = raw
     .map((e) => normalizeRequestUsageEntry(e))
     .filter((e): e is ProviderRequestUsageEntry => e != null);
-  return parsed.length > 0 ? parsed : null;
+  if (parsed.length === 0) return null;
+  return parsed;
+}
+
+/** Number of raw requestUsageEntries that failed normalization (silent-loss guard). */
+export function countUnparsedRequestUsageEntries(usage: unknown): number {
+  const rec = usageRecord(usage);
+  if (!rec) return 0;
+  const raw =
+    rec.requestUsageEntries ??
+    rec.request_usage_entries ??
+    (usage as { requestUsageEntries?: unknown })?.requestUsageEntries;
+  if (!Array.isArray(raw) || raw.length === 0) return 0;
+  let dropped = 0;
+  for (const e of raw) {
+    if (normalizeRequestUsageEntry(e) == null) dropped += 1;
+  }
+  return dropped;
 }
 
 function sumDetailField(
@@ -128,6 +145,7 @@ export function extractProviderUsageFromRunResult(
 
     const usageObj = usage as Record<string, unknown>;
     const requestUsageEntries = readRequestUsageEntries(usage);
+    const droppedRequestEntries = countUnparsedRequestUsageEntries(usage);
 
     const inputTokens = num(usageObj.inputTokens ?? usageObj.input_tokens);
     const outputTokens = num(usageObj.outputTokens ?? usageObj.output_tokens);
@@ -148,6 +166,15 @@ export function extractProviderUsageFromRunResult(
     }
     if (cachedInputTokens == null) limits.push("CACHED_INPUT_TOKENS_UNVERIFIED");
     if (reasoningTokens == null) limits.push("REASONING_TOKENS_UNVERIFIED");
+    if (droppedRequestEntries > 0) {
+      limits.push("REQUEST_USAGE_ENTRIES_DROPPED");
+    }
+    if (
+      providerRequests == null &&
+      (!requestUsageEntries || requestUsageEntries.length === 0)
+    ) {
+      limits.push("REQUEST_COUNT_UNKNOWN");
+    }
 
     return {
       inputTokens,
