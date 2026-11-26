@@ -972,10 +972,10 @@ index cea4d63e..68d3d3fc 100644
 +| G-RECETTE | **NON CONSOMMÉ** |
 +| G-WEB-MIXED | **FERMÉ** |
 +| WEB LIVE défaut | **OFF** |
- 
+
 -## Capacités qualifiées (DEV)
 +## Capacités qualifiées
- 
+
 -| Capacité | État |
 -|---|---|
 -| Politique cognitive v0.2 | PRÉSERVÉE (Terra Medium défaut ; Luna Low/Med expérimental DEV ; rollback `legacy_sol`) |
@@ -1006,7 +1006,7 @@ index cea4d63e..68d3d3fc 100644
 +| WEB-05 confrontation | PARTIAL | classe C — vérifiable en recette / retest ciblé |
 +
 +## Configuration proposée RECETTE (décision Morris distincte)
- 
+
 +- Politique cognitive : **ne pas** activer automatiquement v0.2 expérimentale (Luna) ; soumettre couples admissibles à Morris
 +- Ressource initiale suggérée si GO : Terra Medium (ou Sol historique si rollback `legacy_sol`)
  - `SFIA_WEB_SEARCH_LIVE=0` / `SFIA_WEB_SEARCH_ENABLED=0` par défaut
@@ -1039,19 +1039,19 @@ index cea4d63e..68d3d3fc 100644
 +3. Tour Nora simple Terra medium (WEB OFF)
 +4. Viewer PDF fixture owner match / cross-owner 403
 +5. Flags WEB = 0 sur processus actif
- 
+
 -## Réserves bloquant READY FOR RECETTE
 +## Rollback
- 
+
 -1. Arbre produit **DIRTY** — commit local + rebuild requis
 -2. Git PDF text REAL non démontrable (corpus scanné)
 -3. WEB-05 confrontation sources versionnées : PARTIAL (opens échoués avant fix ; non rejoué post-fix)
 -4. Enveloppe documentaire Responses cumulées > 40 sur travaux RB étendus — tracer honest overshoot
 -5. F2 visuelle exhaustive différée
 +Revert tip consolidation ; WEB OFF ; politique `legacy_sol` si besoin ; aucune migration à annuler.
- 
+
  ## Verdict manifeste
- 
+
 -**NOT READY FOR RECETTE** — candidat instruit pour revue ; G-RECETTE non consommé.
 +**CANDIDATE INSTRUCTED FOR G-RECETTE — CUTOVER NOT APPLIED — MORRIS GO REQUIRED.**
 diff --git a/projects/sfia-studio-next/web/src/app/api/web/pdf-viewer/[viewerToken]/route.ts b/projects/sfia-studio-next/web/src/app/api/web/pdf-viewer/[viewerToken]/route.ts
@@ -1100,7 +1100,7 @@ index e2ee84c7..4727b5e9 100644
 --- a/projects/sfia-studio-next/web/src/components/finops/FinOpsConsumptionPanel.tsx
 +++ b/projects/sfia-studio-next/web/src/components/finops/FinOpsConsumptionPanel.tsx
 @@ -50,7 +50,13 @@ function kpiSubCompleted(
- 
+
  function kpiSubCoverage(kpis: FinOpsSummaryDto["kpis"]): string {
    if (kpis.totalRequests <= 0) return "Requêtes non recensées";
 -  return `${formatIntegerFr(kpis.measuredRequests)} / ${formatIntegerFr(kpis.totalRequests)} requêtes recensées`;
@@ -1112,7 +1112,7 @@ index e2ee84c7..4727b5e9 100644
 +  }
 +  return observed;
  }
- 
+
  function cellTokens(metric: FinOpsWorkListItem["tokens"]): string {
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts
 index 7dfb1ef8..cbf0cf46 100644
@@ -1121,7 +1121,7 @@ index 7dfb1ef8..cbf0cf46 100644
 @@ -295,6 +295,15 @@ export async function runCognitiveConductor(
        };
      }
- 
+
 +    // S2 — refused resource proposal without silent substitution → honest SUSPEND.
 +    const resourceSuspend = (segment.resourcesDelta?.limits ?? []).includes(
 +      "RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION",
@@ -1156,19 +1156,19 @@ index 7dfb1ef8..cbf0cf46 100644
 @@ -373,7 +387,7 @@ export async function runCognitiveConductor(
        }
      }
- 
+
 -    if (!segment.continueWork) {
 +    if (!segment.continueWork || resourceSuspend) {
        break;
      }
- 
+
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
 index 1c5bfd40..d71ca781 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
 @@ -636,10 +636,25 @@ export function resolveContinuityCognitivePolicy(input: {
    }
- 
+
    // No compatible hold — do not invent cognitive equivalence with another model.
 -  // Fall through to the explicit operational default and mark the proposal unsatisfied.
 +  // Explicit proposals that cannot be admitted must not silently run on an unrelated
@@ -1210,7 +1210,7 @@ index cdf7afc5..147c2eb8 100644
    NoraTurnQualificationAgentSchema,
 @@ -1188,7 +1192,45 @@ async function runLiveWithTools(
    let providerUsage = extractProviderUsageFromRunResult(null);
- 
+
    try {
 -    const attemptId = newAttemptId();
 +    // S1 — reserve at the common emission frontier before any provider contact.
@@ -1262,7 +1262,7 @@ index cdf7afc5..147c2eb8 100644
 +        campaign_id: reservation.campaignId,
        },
      });
- 
+
      try {
        // Invoking run() → provider contact becomes at least UNCERTAIN.
        providerContacted = "UNCERTAIN";
@@ -1275,7 +1275,7 @@ index a2006aa1..0d2d3cc8 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/public-web-page-session.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/public-web-page-session.ts
 @@ -183,59 +183,91 @@ export function putWebPageSession(input: {
- 
+
    const now = new Date();
    const expiresAt = new Date(now.getTime() + ttlMs()).toISOString();
 -  const viewerToken =
@@ -1304,7 +1304,7 @@ index a2006aa1..0d2d3cc8 100644
 +          ...(input.pages ?? []).map((p) => p.pageNumber),
 +        ]),
 +      ].sort((a, b) => a - b);
- 
+
    // Copy PDF bytes — pdf.js getDocument may detach the caller's ArrayBuffer.
 +  // After fingerprint change, never keep prior bytes under a new fingerprint.
    const incomingPdf =
@@ -1334,7 +1334,7 @@ index a2006aa1..0d2d3cc8 100644
 +    if (existing.viewerToken) byViewerToken.delete(existing.viewerToken);
 +    evictOldestUntilFit(nextFootprint + 4096);
 +  }
- 
+
    const next: WebPageSession = {
 -    sessionId:
 -      existing?.sessionId ??
@@ -1387,7 +1387,7 @@ index a2006aa1..0d2d3cc8 100644
 +      ? [...input.limits, "SOURCE_MODIFIED_SINCE_PRIOR_OPEN", "VIEWER_TOKEN_ROTATED"]
 +      : [...input.limits],
    };
- 
+
 -  if (existing && existing.contentFingerprint !== next.contentFingerprint) {
 -    next.limits = [...next.limits, "SOURCE_MODIFIED_SINCE_PRIOR_OPEN"];
 -    next.charOffset = 0;
@@ -1444,7 +1444,7 @@ index a2006aa1..0d2d3cc8 100644
 +  if (coverage !== "COMPLETE") {
 +    if (!limits.includes("NOT_FULLY_CONSULTED")) limits.push("NOT_FULLY_CONSULTED");
 +  }
- 
+
    return {
      ok: true,
 @@ -469,7 +523,7 @@ export async function readWebPdfPages(input: {
@@ -1461,7 +1461,7 @@ index 5c8ba58b..c3792d1e 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/public-web-registry.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/public-web-registry.ts
 @@ -99,28 +99,64 @@ export const PILOT_PUBLIC_QUERY_REF = "pilot-public-query";
- 
+
  /**
   * Explicit Pilote authorization of an exact public query (Option B).
 - * Lexical free-form research phrasing does NOT authorize — only these markers.
@@ -1539,7 +1539,7 @@ index 5c8ba58b..c3792d1e 100644
 +export function isDedicatedAuthorizePublicQueryAct(pilotText: string): boolean {
 +  return extractPilotAuthorizedExactQueries(pilotText).length > 0;
  }
- 
+
  /**
 @@ -296,6 +332,11 @@ export function resolvePublicWebRegistry(input: {
     * Absence ⇒ fail closed for pilot-originated URL extraction.
@@ -1554,7 +1554,7 @@ index 5c8ba58b..c3792d1e 100644
    env?: Record<string, string | undefined>;
  }): PublicWebRegistry {
 @@ -312,7 +353,11 @@ export function resolvePublicWebRegistry(input: {
- 
+
    const topics: Record<string, string> = { ...priorTopicsRaw };
    const exact = new Set(
 -    [...(input.priorExactQueries ?? []), ...(input.explicitExactQueries ?? [])]
@@ -1574,7 +1574,7 @@ index 5c8ba58b..c3792d1e 100644
 +    limits.push("PILOT_EXACT_AUTHORIZED_D6");
 +  }
    const facts = [...new Set((input.priorFacts ?? []).map((f) => f.trim()).filter(Boolean))];
- 
+
    const catalog = loadPublicTopicCatalog(input.env ?? process.env);
 @@ -353,8 +401,15 @@ export function resolvePublicWebRegistry(input: {
        limits.push(`PILOT_URL_CANDIDATES:${pilotProvidedUrls.length}`);
@@ -1743,7 +1743,7 @@ index 4b134354..bb118465 100644
 @@ -103,12 +103,17 @@ export function aggregateTokenTotal(rows: TokenRow[]): MeasuredValue<number> {
    return { kind: "known", value: sum };
  }
- 
+
 +/**
 + * Observation coverage: share of provider requests that have *some* cost
 + * observation (KNOWN or PARTIAL). PARTIAL still counts as observed — not as
@@ -1783,7 +1783,7 @@ index 4b134354..bb118465 100644
 @@ -138,6 +141,48 @@ export function computeMeasureCoveragePercent(
    return { kind: "known", value };
  }
- 
+
 +/**
 + * Estimation completeness: only KNOWN rows contribute. PARTIAL never inflates
 + * this toward a fully-known financial picture.
@@ -1856,7 +1856,7 @@ index fcadef88..ddf6f2f2 100644
    const measureCoveragePercent = computeMeasureCoveragePercent(rows);
 +  const estimationCompletenessPercent =
 +    computeEstimationCompletenessPercent(rows);
- 
+
    const workIds = [
      ...new Set(rows.map((r) => r.cognitiveWorkId).filter((id): id is string => Boolean(id))),
 @@ -252,6 +257,7 @@ export async function loadFinOpsSummary(
