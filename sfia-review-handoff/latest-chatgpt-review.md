@@ -1,1780 +1,2794 @@
-# SFIA Review Pack FULL — ML5 Cognitive Foundation Conformance
+# SFIA Review Pack FULL — ML5 Integrated Foundation Conformance + LIVE
 
-## Meta
+- **Generated_utc**: 2026-11-26T16:32:10.155739+00:00
+- **Cycle**: R5 Construction · ML5 · Type 8 Delivery · Profile CRITICAL · Typologie EVOL
+- **Product branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_initial**: `b69451e3f473fe4c742fe7375e5c250cb386a9e4`
+- **HEAD_final**: `f27e01025f920db3fa61a4bb66cc05085981ca95`
+- **Tree**: `32718db62c7b212375977b0d4bf7f0ed381c59b5`
+- **Web tree**: `24d8f65820c5ea6956085c9d56bd7ecddbeb3389`
+- **Merge-base main**: `997897fd7cf914771e7d08e8030dc7123fab7d25`
+- **BUILD_ID_final**: `emfz_yP5MBF9GxQRrnJGP`
+- **BUILD_ID_reconcile**: prior cycle artefacts `lWULvFGVIPoO-2VwA9M49` / `X94NdR5lxD655tzAciId3` ≠ final; intermediate rebuilds discarded
+- **Lane**: DEV :3100 · PG :5433 · RECETTE :3200 protected (`a150926c`) — no cutover
+- **ENV-01**: ENV ROUTING COMPLETE
+- **Product versioning**: NO RELEASE · STABLE NOT AVAILABLE
+- **WEB**: `SFIA_WEB_SEARCH_LIVE=0` · `SFIA_WEB_SEARCH_ENABLED=0` · G-WEB-MIXED closed
+- **SDK lock**: `@openai/agents@0.21.0` · `openai@7.50.0` · `pdfjs-dist@4.10.38`
+- **Schema**: `022_provider_usage_observations` (attempt_id present; **no migration applied**)
+- **Tests**: vitest `tests/unit/ml5-*` → **381 PASS** · production build EXIT 0
+- **Verdict**: **ML5 COGNITIVE FOUNDATION CONFORMANCE AND LIVE BEHAVIOR VERIFIED — INTEGRATED CANDIDATE READY FOR MORRIS REVIEW**
+- **Handoff**: REQUIRED / PUBLISH-IN-CYCLE
 
-| Field | Value |
-|---|---|
-| Date UTC | 2026-11-26T15:50:19Z |
-| Cycle | 8 — Delivery / implémentation |
-| Profile | CRITICAL |
-| Macro-lot | ML5 livraison 1 — foundation conformance |
-| Project branch | sfia/next-ml5-integrated-delivery-20261123 |
-| HEAD initial | ee6c170e46b8b995e30c78c90231a0fa1e2110a0 |
-| HEAD final | b69451e3f473fe4c742fe7375e5c250cb386a9e4 |
-| Tree | 0cb9f3d014d248c05b317a3d3e8684d583fa656d |
-| Web tree | 86f9f03fb801b64509c928b2300d2c9c8b38f2fa |
-| Merge-base main | 997897fd7cf914771e7d08e8030dc7123fab7d25 |
-| BUILD_ID | lWULvFGVIPoO-2VwA9M49 |
-| BUILD_ID sha256 | ee6e1ea412bf451c16d4396340d6a3594b81db6fe0cc45d88bafa9d2655c4f08 |
-| Class | NO RELEASE |
-| ENV | DEV — RECETTE protected — STABLE N/A |
-| WEB LIVE | OFF (SFIA_WEB_SEARCH_LIVE=0, SFIA_WEB_SEARCH_ENABLED=0) |
-| G-WEB-MIXED | CLOSED |
-| LIVE §12.1/12.2 | NOT CONSUMED |
-| Review Pack | FULL |
-| Review Handoff | REQUIRED / PUBLISH-IN-CYCLE |
-
-## Git Truth
+## 1. Git Truth
 
 ```
-## sfia/next-ml5-integrated-delivery-20261123
- M .tmp-sfia-review/chatgpt-review.md
-```
+branch: sfia/next-ml5-integrated-delivery-20261123
+HEAD_initial: b69451e3f473fe4c742fe7375e5c250cb386a9e4
+HEAD_final: f27e01025f920db3fa61a4bb66cc05085981ca95
+tree: 32718db62c7b212375977b0d4bf7f0ed381c59b5
+web_tree: 24d8f65820c5ea6956085c9d56bd7ecddbeb3389
+merge_base_main: 997897fd7cf914771e7d08e8030dc7123fab7d25
+commits:
+4bfc1c1e fix(next): allow LIVE campaign per-request token ceilings when SDK omits bounds
+8474916b fix(next): ML5 integrated foundation — ALS frontier, envelopes, FinOps correlation, LIVE campaign attach
 
-Staged: none at pack time (working tree only .tmp review).
-No reset/stash/clean/rebase. Merge-base == main tip reported.
-
-## Verdict candidate
-
-**ML5 FOUNDATION QUALIFIED WITH EXPLICIT CAPABILITY RESERVES — MORRIS SCOPE DECISION REQUIRED.**
-
-R5 IN PROGRESS · ML5 OPEN · R6 NOT STARTED · NO RELEASE · NOT ADOPTED · RECETTE protected · WEB OFF · livraison 2 non engagée.
-
-## Sequence results
-
-| Seq | Result |
-|---|---|
-| S1 Build | PASS — root cause NODE_ENV=development; lock production; BUILD_ID lWULvFGVIPoO-2VwA9M49 |
-| S2 Provider frontier | PASS deterministic substituted fetch — HTTP≠SDK; N+1 refused; latch; wired Nora+WEB |
-| S3 Allocation | PASS — suspend + Pilote message sans admin modèles |
-| S4 FinOps | PASS — coverage/estimation partial without emission census |
-| S5 WEB D6 | PASS — effectConditions + decisionId + egress proof |
-| S6 PDF | PASS — habilitation DB + lane + work binding |
-| S7 Qual | PASS unit ml5* 356; LIVE not re-run |
-| S8 Integrate | PASS candidate committed + manifeste updated |
-
-## Reserves A/B/C/D
-
-| Id | Class | Note |
-|---|---|---|
-| R-BUILD-404 | A LEVÉE | NODE_ENV fix |
-| R-GIT-PDF-TEXT | B | corpus missing |
-| R-LIVE-HTTP-SDK | B | §12.1 not consumed — multi-Responses LIVE under campaign |
-| R-WEB05 | C | intellectual confrontation |
-| R-F2 | C | visual |
-| R-EFFICIENCE-RB | C | RoomBooking efficiency |
-| R-D6-WEB-KIND | D | optional dedicated kind |
-
-## Fake/Real Qualification
-
-- Deterministic HTTP frontier proven via substituted fetch oracle.
-- Real product modules exercised (conductor, authority, PDF auth, FinOps projections).
-- LIVE envelopes not consumed; G-WEB-MIXED closed.
-- DETERMINISTIC PROVEN ≠ READY FOR REAL ≠ READY FOR RECETTE.
-
-## Validations
+diffstat:
+ .../web/scripts/ml5-g-live-api-bounded.mjs         | 319 ++++++++++++
+ .../domains/conversation/cognitive-conductor.ts    |   7 +-
+ .../web/src/domains/conversation/nora-adapter.ts   |  18 +-
+ .../conversation/provider-emission-frontier.ts     | 561 +++++++++++++++++----
+ .../conversation/public-web-page-session.ts        |  10 +-
+ .../conversation/public-web-search-frontier.ts     |  83 ++-
+ .../src/domains/conversation/usage-accounting.ts   |  84 +++
+ .../domains/documents/pdf-viewer-authorization.ts  |  10 +-
+ .../tests/unit/ml5-c14-semantic-routing.test.ts    |   1 +
+ .../web/tests/unit/ml5-c19-invariants.test.ts      |   1 +
+ .../unit/ml5-c2-c4-restitution-conductor.test.ts   | 225 +++++++++
+ .../ml5-http-attempt-finops-correlation.test.ts    | 181 +++++++
+ .../unit/ml5-pdf-viewer-authorization.test.ts      |  23 +-
+ .../unit/ml5-provider-emission-frontier.test.ts    | 406 +++++++++++----
+ .../ml5-provider-sdk-frontier.integration.test.ts  | 183 +++++++
+ .../web/tests/unit/ml5-public-web-frontier.test.ts | 123 ++++-
+ .../web/tests/unit/ml5-web-page-session.test.ts    | 131 +++++
+ .../tests/unit/ml5-web-search-authorize.test.ts    |   2 +
+ 18 files changed, 2147 insertions(+), 221 deletions(-)
 
 ```
-npx vitest run tests/unit/ml5- → 59 files / 356 tests PASS
-NODE_ENV=production next build → EXIT 0 BUILD_ID=lWULvFGVIPoO-2VwA9M49
-```
 
-## Files created (complete)
+No project push. No PR. No merge. No RECETTE mutation.
 
-### `projects/sfia-studio-next/web/src/domains/documents/pdf-viewer-authorization.ts`
+## 2. Sources & authorizations
 
-```
-/**
- * PDF viewer authorization — viewerToken is transport only, never authority.
- * Re-checks authenticated identity, lane, project habilitation, and cognitive-work
- * binding on every byte delivery.
- */
+Consulted per mandate §4 (SFIA v2.6 routing Next §4.3.0b, governance ENV-01/product-versioning, allocation/conductor/OBS/D6 contracts, handoff `541ec56f` capitalisation). Vision schemas: not claimed read unless opened this cycle (CKC synthetic map guidance only).
 
-import { and, eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import { cognitiveWorks, projects } from "@/db/schema";
-import type { WebPageSession } from "@/domains/conversation/public-web-page-session";
-import type { StudioSession } from "@/domains/identity/session";
+Authorizations exercised: DEV corrections/tests/restart; non-secret config; local commits; G-LIVE-API bounded; Review Handoff L3 only.
 
-export type PdfViewerHabilitation = {
-  projectId: string;
-  cognitiveWorkId: string;
-  workProjectId: string | null;
-  workStatus: string;
-};
+## 3. Root-cause analysis (A–F)
 
-export type PdfViewerAccessFailure = {
-  ok: false;
-  status: number;
-  error: string;
-  limits: string[];
-};
+### A — Provider frontier / ALS / SDK
+- **Cause**: `store() ?? emptyStore()` lost effortHint; fake 50k/4k; retry tests called wrapper twice; campaign lost ⇒ unlimited risk.
+- **Fix**: require ALS; process campaign registry; real SDK client+fetch; payload model/effort checks; strict hosts; per-request ceilings + inject `max_output_tokens`.
+- **Proof**: unit frontier; `ml5-provider-sdk-frontier.integration` A-03/A-04; LIVE-01 ALS path COMPLETE.
 
-export type PdfViewerAccessSuccess = {
-  ok: true;
-  limits: string[];
-  contentFingerprint: string;
-  sessionId: string;
-};
+### B — Opposable envelopes
+- **Cause**: default reservations ≠ demonstrable bounds; hosted/direct counters unwired.
+- **Fix**: refuse unbounded without ceiling; ceilings as RESERVATION; hosted ASSUMED_1; direct opens guarded.
+- **Residual**: hosted multi-search inside one Responses not fully countable → blocks G-WEB-PUBLIC.
 
-export type PdfViewerAccessResult = PdfViewerAccessFailure | PdfViewerAccessSuccess;
+### C — Cognition / restitution
+- **Cause**: soft-stop always entered RESTITUTION_PHASE; message-only change previously.
+- **Fix**: restitution only with acquis; adaptive reserve 24k when investigating.
+- **Proof**: `ml5-c2-c4-restitution-conductor` 4/4; LIVE-03 note from thread acquis.
 
-const TOKEN_NOT_AUTH = "VIEWER_TOKEN_NOT_SUFFICIENT" as const;
+### D — FinOps / OBS
+- **Cause**: HTTP attempts ALS-only; usage tied to SDK attemptId.
+- **Fix**: snapshot HTTP attempts; correlate into `provider_usage_observations.attempt_id` + HTTP_ATTEMPT markers; no second ledger; no migration.
+- **Proof**: correlation unit tests; LIVE-04 25 PG rows PARTIAL REQUEST.
 
-function normalizeLane(lane: string | null | undefined): string {
-  return (lane || "").trim().toUpperCase();
-}
+### E — WEB authority
+- **Cause**: `if (projectId && pilotId && !catalog)` skipped D6.
+- **Fix**: missing identity/project/policy/decision ⇒ DENY; catalog via turnPublicTopics only.
+- **Proof**: web authorize / public frontier tests.
 
-/**
- * Pure access assessment — inject `habilitation` from DB in production/tests.
- */
-export function assessPdfViewerAccess(input: {
-  session: Pick<StudioSession, "pilotId" | "sessionId">;
-  page: WebPageSession;
-  processLane?: string | null;
-  habilitation?: PdfViewerHabilitation | null;
-  now?: number;
-}): PdfViewerAccessResult {
-  const limits: string[] = [];
-  const now = input.now ?? Date.now();
+### F — PDF / sessions
+- **Cause**: missing workProjectId accepted; enrich footprint incomplete.
+- **Fix**: require workProjectId for project-scoped viewer; session footprint includes PDF bytes/pages/text.
+- **Proof**: pdf-viewer-authorization + web-page-session tests; harness 200.
+- **LIVE-06**: BLOCKED CORPUS MISSING (authorized Git PDF text).
 
-  if (Date.parse(input.page.expiresAt) <= now) {
-    return {
-      ok: false,
-      status: 410,
-      error: "VIEWER_SESSION_EXPIRED",
-      limits: [TOKEN_NOT_AUTH],
-    };
-  }
-  if (input.page.kind !== "pdf") {
-    return {
-      ok: false,
-      status: 415,
-      error: "VIEWER_NOT_PDF",
-      limits: [],
-    };
-  }
+## 4. Coverage matrix
 
-  const owner = (input.page.scope.ownerPilotId || "").trim();
-  if (!owner) {
-    return {
-      ok: false,
-      status: 403,
-      error: "VIEWER_OWNER_REQUIRED",
-      limits: [TOKEN_NOT_AUTH, "OPPOSABLE_OWNER_REQUIRED"],
-    };
-  }
-  if (owner !== input.session.pilotId) {
-    return {
-      ok: false,
-      status: 403,
-      error: "VIEWER_OWNER_MISMATCH",
-      limits: [TOKEN_NOT_AUTH],
-    };
-  }
+| Contract | Exigence | Test | Niveau | Oracle | Résultat | Limite | Verdict |
+|---|---|---|---|---|---|---|---|
+| A-01 | Nominal sans campagne | LIVE-01 + unit | LIVE+DET | reply COMPLETE | PASS | — | PASS |
+| A-03 | Retry SDK réel | integration | DET+SDK | substituted transport 2+ GETs | PASS | — | PASS |
+| A-04 | N+1 refuse | integration | DET+SDK | cause chain refuse | PASS | — | PASS |
+| A-08 | Perte campagne | unit latch | DET | refuse | PASS | — | PASS |
+| B | Bornes opposables | frontier unit + LIVE | DET+LIVE | no unbounded under campaign | PASS | hosted ASSUMED_1 | PASS w/ residual |
+| C-04 | Restitution | conductor unit | DET | RESTITUTION_PHASE iff acquis | PASS | — | PASS |
+| D | Corrélation HTTP | correlation + LIVE-04 | DET+LIVE | PG attempt_id / markers | PASS | PARTIAL cost | PASS |
+| E | D6 no bypass | web tests | DET | DENY sans identité | PASS | — | PASS |
+| F | PDF rights | pdf auth unit | DET | workProjectId | PASS | Git LIVE corpus | PASS det / LIVE blocked |
+| LIVE-01..04 | G-LIVE-API | script | LIVE | PG+replies | PASS | envelope not exhausted | PASS |
+| G-WEB-PUBLIC | §12.3 | — | — | — | BLOCKED | hosted bound | BLOCKED |
+| LIVE-06 | Git PDF | — | — | — | BLOCKED | corpus | BLOCKED |
 
-  const scopeLane = normalizeLane(input.page.scope.lane);
-  const processLane = normalizeLane(input.processLane ?? process.env.STUDIO_LANE);
-  if (!scopeLane || scopeLane === "UNKNOWN") {
-    return {
-      ok: false,
-      status: 403,
-      error: "VIEWER_LANE_UNKNOWN",
-      limits: [TOKEN_NOT_AUTH, "SCOPE_LANE_REQUIRED"],
-    };
-  }
-  if (!processLane || processLane === "UNKNOWN") {
-    return {
-      ok: false,
-      status: 403,
-      error: "PROCESS_LANE_UNKNOWN",
-      limits: [TOKEN_NOT_AUTH, "STUDIO_LANE_REQUIRED"],
-    };
-  }
-  if (scopeLane !== processLane) {
-    return {
-      ok: false,
-      status: 403,
-      error: "VIEWER_LANE_MISMATCH",
-      limits: [TOKEN_NOT_AUTH],
-    };
-  }
+## 5. LIVE campaign report (full JSON)
 
-  const projectId = (input.page.scope.projectId || "").trim();
-  const cognitiveWorkId = (input.page.scope.cognitiveWorkId || "").trim();
-  if (!projectId) {
-    return {
-      ok: false,
-      status: 403,
-      error: "VIEWER_PROJECT_REQUIRED",
-      limits: [TOKEN_NOT_AUTH, "OPPOSABLE_PROJECT_REQUIRED"],
-    };
-  }
-  if (!cognitiveWorkId) {
-    return {
-      ok: false,
-      status: 403,
-      error: "VIEWER_WORK_SCOPE_REQUIRED",
-      limits: [TOKEN_NOT_AUTH, "COGNITIVE_WORK_SCOPE_REQUIRED"],
-    };
-  }
-
-  const hab = input.habilitation;
-  if (hab === undefined) {
-    return {
-      ok: false,
-      status: 503,
-      error: "VIEWER_HABILITATION_UNCHECKED",
-      limits: ["HABILITATION_RESOLUTION_REQUIRED"],
-    };
-  }
-  if (!hab) {
-    return {
-      ok: false,
-      status: 403,
-      error: "VIEWER_PROJECT_ACCESS_DENIED",
-      limits: [TOKEN_NOT_AUTH, "PROJECT_HABILITATION_WITHDRAWN"],
-    };
-  }
-  if (hab.projectId !== projectId) {
-    return {
-      ok: false,
-      status: 403,
-      error: "VIEWER_PROJECT_MISMATCH",
-      limits: [TOKEN_NOT_AUTH],
-    };
-  }
-  if (hab.cognitiveWorkId !== cognitiveWorkId) {
-    return {
-      ok: false,
-      status: 403,
-      error: "VIEWER_WORK_MISMATCH",
-      limits: [TOKEN_NOT_AUTH],
-    };
-  }
-  if (hab.workProjectId && hab.workProjectId !== projectId) {
-    return {
-      ok: false,
-      status: 403,
-      error: "VIEWER_WORK_PROJECT_MISMATCH",
-      limits: [TOKEN_NOT_AUTH, "WORK_PROJECT_BINDING"],
-    };
-  }
-
-  if (!(input.page.contentFingerprint || "").trim()) {
-    return {
-      ok: false,
-      status: 403,
-      error: "VIEWER_VERSION_UNKNOWN",
-      limits: [TOKEN_NOT_AUTH, "CONTENT_FINGERPRINT_REQUIRED"],
-    };
-  }
-
-  if (!input.page.pdfBytes || input.page.pdfBytes.byteLength < 5) {
-    limits.push("VIEWER_BYTES_SERVER_ONLY_WHEN_PRESENT");
-    return {
-      ok: false,
-      status: 404,
-      error: "PDF_BYTES_UNAVAILABLE",
-      limits,
-    };
-  }
-
-  limits.push("PROJECT_HABILITATION_VERIFIED");
-  limits.push(`CONTENT_FP_${input.page.contentFingerprint}`);
-  return {
-    ok: true,
-    limits,
-    contentFingerprint: input.page.contentFingerprint,
-    sessionId: input.page.sessionId,
-  };
-}
-
-export async function resolvePdfViewerHabilitation(input: {
-  pilotId: string;
-  projectId: string;
-  cognitiveWorkId: string;
-}): Promise<PdfViewerHabilitation | null> {
-  const project = (
-    await db
-      .select({ id: projects.id })
-      .from(projects)
-      .where(
-        and(eq(projects.id, input.projectId), eq(projects.ownerPilotId, input.pilotId)),
-      )
-      .limit(1)
-  )[0];
-  if (!project) return null;
-
-  const work = (
-    await db
-      .select({
-        id: cognitiveWorks.id,
-        projectId: cognitiveWorks.projectId,
-        status: cognitiveWorks.status,
-        ownerPilotId: cognitiveWorks.ownerPilotId,
-      })
-      .from(cognitiveWorks)
-      .where(eq(cognitiveWorks.id, input.cognitiveWorkId))
-      .limit(1)
-  )[0];
-  if (!work || work.ownerPilotId !== input.pilotId) return null;
-
-  return {
-    projectId: project.id,
-    cognitiveWorkId: work.id,
-    workProjectId: work.projectId ?? null,
-    workStatus: work.status,
-  };
-}
-
-export async function assertPdfViewerAccess(input: {
-  session: StudioSession;
-  page: WebPageSession;
-  processLane?: string | null;
-  now?: number;
-  resolveHabilitation?: typeof resolvePdfViewerHabilitation;
-}): Promise<PdfViewerAccessResult> {
-  const resolve = input.resolveHabilitation ?? resolvePdfViewerHabilitation;
-  const projectId = (input.page.scope.projectId || "").trim();
-  const cognitiveWorkId = (input.page.scope.cognitiveWorkId || "").trim();
-  let habilitation: PdfViewerHabilitation | null = null;
-  if (projectId && cognitiveWorkId) {
-    habilitation = await resolve({
-      pilotId: input.session.pilotId,
-      projectId,
-      cognitiveWorkId,
-    });
-  }
-  return assessPdfViewerAccess({
-    session: input.session,
-    page: input.page,
-    processLane: input.processLane,
-    habilitation,
-    now: input.now,
-  });
-}```
-
-### `projects/sfia-studio-next/web/tests/unit/ml5-pdf-viewer-authorization.test.ts`
-
-```
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import {
-  __resetWebPageSessionsForTests,
-  getWebPageSessionByViewerToken,
-  putWebPageSession,
-} from "@/domains/conversation/public-web-page-session";
-import {
-  assessPdfViewerAccess,
-  assertPdfViewerAccess,
-  type PdfViewerHabilitation,
-} from "@/domains/documents/pdf-viewer-authorization";
-const PDF_BYTES = new Uint8Array([0x25, 0x50, 0x44, 0x46, 0x2d, 0x31, 0x2e, 0x34]);
-const SCOPE = {
-  lane: "DEV",
-  projectId: "proj-auth-1",
-  cognitiveWorkId: "cgw-auth-1",
-  ownerPilotId: "pilot-owner",
-};
-
-const HAB: PdfViewerHabilitation = {
-  projectId: SCOPE.projectId,
-  cognitiveWorkId: SCOPE.cognitiveWorkId,
-  workProjectId: SCOPE.projectId,
-  workStatus: "RUNNING",
-};
-
-function seedPdfSession(fingerprint = "fp-v1") {
-  return putWebPageSession({
-    scope: SCOPE,
-    url: "https://example.com/doc.pdf",
-    kind: "pdf",
-    text: "page1",
-    pageCount: 1,
-    contentFingerprint: fingerprint,
-    pdfBytes: PDF_BYTES,
-    limits: ["TEST"],
-  });
-}
-
-vi.mock("@/domains/identity/session", () => ({
-  requireStudioSession: vi.fn(),
-}));
-
-vi.mock("@/db/client", () => ({
-  db: {
-    select: vi.fn(),
-  },
-}));
-
-import { requireStudioSession } from "@/domains/identity/session";
-import { db } from "@/db/client";
-import { GET } from "@/app/api/web/pdf-viewer/[viewerToken]/route";
-
-function mockHabilitationDb(rows: Array<unknown[]>) {
-  let n = 0;
-  const chain = () => {
-    const c = {
-      from: () => c,
-      where: () => c,
-      limit: () => Promise.resolve(rows[n++] ?? []),
-    };
-    return c;
-  };
-  vi.mocked(db.select).mockImplementation(() => chain() as never);
-}
-
-describe("ML5 pdf-viewer authorization (assess)", () => {
-  beforeEach(() => {
-    __resetWebPageSessionsForTests();
-    process.env.STUDIO_LANE = "DEV";
-  });
-
-  it("allows authorized owner with concordant lane and habilitation", () => {
-    const page = seedPdfSession();
-    const r = assessPdfViewerAccess({
-      session: { pilotId: SCOPE.ownerPilotId, sessionId: "sess-1" },
-      page,
-      processLane: "DEV",
-      habilitation: HAB,
-    });
-    expect(r.ok).toBe(true);
-    if (r.ok) {
-      expect(r.limits).toContain("PROJECT_HABILITATION_VERIFIED");
-      expect(r.contentFingerprint).toBe("fp-v1");
+### 00-report.json
+```json
+{
+  "startedAt": "2026-11-26T16:28:29.837Z",
+  "base": "http://127.0.0.1:3100",
+  "campaign": "g-live-api-20261126",
+  "gate": "G-LIVE-API",
+  "web": "OFF",
+  "steps": [
+    {
+      "name": "health",
+      "at": "2026-11-26T16:28:29.855Z",
+      "status": 200
+    },
+    {
+      "name": "LIVE-01",
+      "at": "2026-11-26T16:28:40.365Z",
+      "status": 200,
+      "ms": 10478,
+      "workId": "cgw_3c14caed-0913-4032-aede-18453e8a3727",
+      "noraStatus": "COMPLETE",
+      "attemptNotes": "structured_non_stream_finalOutput",
+      "replyChars": 41,
+      "replyPreview": "Je suis Nora et le socle cognitif répond."
+    },
+    {
+      "name": "LIVE-02",
+      "at": "2026-11-26T16:29:07.808Z",
+      "status": 200,
+      "noraStatus": "COMPLETE",
+      "attemptNotes": "structured_non_stream_finalOutput",
+      "replyChars": 551,
+      "workId": "cgw_8abfe82e-aec6-4ac8-b69f-8445d9a600be",
+      "replyPreview": "- **Nora** accompagne le Pilote pour comprendre, explorer et produire, sans décider à sa place.\n- **Allocation cognitive** : elle peut recommander un modèle et un effort adaptés ; Studio décide de l’admission effective.\n- **Conducteur** : elle indique l’avancement et le travail r"
+    },
+    {
+      "name": "LIVE-03",
+      "at": "2026-11-26T16:29:51.633Z",
+      "status": 200,
+      "noraStatus": "COMPLETE",
+      "attemptNotes": "structured_non_stream_finalOutput",
+      "replyChars": 1355,
+      "replyPreview": "### Note technique\n- Nora accompagne le Pilote pour comprendre, explorer et produire, sans décider à sa place. - Elle peut recommander un modèle et un effort ; Studio décide de leur admission. - Le socle cognitif a répondu au contrôle indiqué dans ce fil. - D4 CREATE est confirmé `AVAILABLE` ; la révision indiquée est la n° 1 (`doc_360f85f5-2062-4747-8125-b9b9158d381f`, `drev_39eca353-139c-4d2e-b6"
+    },
+    {
+      "name": "LIVE-04",
+      "at": "2026-11-26T16:29:51.881Z",
+      "observations": 25,
+      "attempts": 18,
+      "sumIn": 130813,
+      "sumOut": 3655,
+      "cost": 0.04141
     }
-  });
-
-  it("refuses other pilot even with valid viewerToken lookup", () => {
-    const page = seedPdfSession();
-    const r = assessPdfViewerAccess({
-      session: { pilotId: "pilot-other", sessionId: "sess-2" },
-      page,
-      processLane: "DEV",
-      habilitation: HAB,
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) {
-      expect(r.error).toBe("VIEWER_OWNER_MISMATCH");
-      expect(r.limits).toContain("VIEWER_TOKEN_NOT_SUFFICIENT");
-    }
-  });
-
-  it("refuses other project habilitation (withdrawn after token creation)", () => {
-    const page = seedPdfSession();
-    const r = assessPdfViewerAccess({
-      session: { pilotId: SCOPE.ownerPilotId, sessionId: "sess-1" },
-      page,
-      processLane: "DEV",
-      habilitation: null,
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) {
-      expect(r.error).toBe("VIEWER_PROJECT_ACCESS_DENIED");
-      expect(r.limits).toContain("PROJECT_HABILITATION_WITHDRAWN");
-    }
-  });
-
-  it("refuses unknown or absent lane", () => {
-    const page = seedPdfSession();
-    const unknownScope = { ...page, scope: { ...SCOPE, lane: "UNKNOWN" } };
-    const r1 = assessPdfViewerAccess({
-      session: { pilotId: SCOPE.ownerPilotId, sessionId: "sess-1" },
-      page: unknownScope,
-      processLane: "DEV",
-      habilitation: HAB,
-    });
-    expect(r1.ok).toBe(false);
-    if (!r1.ok) expect(r1.error).toBe("VIEWER_LANE_UNKNOWN");
-
-    const r2 = assessPdfViewerAccess({
-      session: { pilotId: SCOPE.ownerPilotId, sessionId: "sess-1" },
-      page,
-      processLane: "UNKNOWN",
-      habilitation: HAB,
-    });
-    expect(r2.ok).toBe(false);
-    if (!r2.ok) expect(r2.error).toBe("PROCESS_LANE_UNKNOWN");
-
-    const r3 = assessPdfViewerAccess({
-      session: { pilotId: SCOPE.ownerPilotId, sessionId: "sess-1" },
-      page,
-      processLane: "RECETTE",
-      habilitation: HAB,
-    });
-    expect(r3.ok).toBe(false);
-    if (!r3.ok) expect(r3.error).toBe("VIEWER_LANE_MISMATCH");
-  });
-
-  it("refuses expired session and revoked token after fingerprint change", () => {
-    const page = seedPdfSession("fp-old");
-    const expired = { ...page, expiresAt: new Date(Date.now() - 60_000).toISOString() };
-    const r = assessPdfViewerAccess({
-      session: { pilotId: SCOPE.ownerPilotId, sessionId: "sess-1" },
-      page: expired,
-      processLane: "DEV",
-      habilitation: HAB,
-      now: Date.now(),
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.error).toBe("VIEWER_SESSION_EXPIRED");
-
-    const rotated = putWebPageSession({
-      scope: SCOPE,
-      url: "https://example.com/doc.pdf",
-      kind: "pdf",
-      text: "page1-rev",
-      pageCount: 1,
-      contentFingerprint: "fp-new",
-      pdfBytes: new Uint8Array([...PDF_BYTES, 0x39]),
-      limits: [],
-    });
-    expect(getWebPageSessionByViewerToken(page.viewerToken)).toBeNull();
-    expect(rotated.viewerToken).not.toBe(page.viewerToken);
-  });
-
-  it("refuses work bound to a different project", () => {
-    const page = seedPdfSession();
-    const r = assessPdfViewerAccess({
-      session: { pilotId: SCOPE.ownerPilotId, sessionId: "sess-1" },
-      page,
-      processLane: "DEV",
-      habilitation: {
-        ...HAB,
-        workProjectId: "proj-other",
-      },
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.error).toBe("VIEWER_WORK_PROJECT_MISMATCH");
-  });
-
-  it("refuses missing project scope (no opposable contract)", () => {
-    const page = seedPdfSession();
-    const noProject = { ...page, scope: { ...SCOPE, projectId: "" } };
-    const r = assessPdfViewerAccess({
-      session: { pilotId: SCOPE.ownerPilotId, sessionId: "sess-1" },
-      page: noProject,
-      processLane: "DEV",
-      habilitation: HAB,
-    });
-    expect(r.ok).toBe(false);
-    if (!r.ok) {
-      expect(r.error).toBe("VIEWER_PROJECT_REQUIRED");
-      expect(r.limits).toContain("OPPOSABLE_PROJECT_REQUIRED");
-    }
-  });
-});
-
-describe("ML5 pdf-viewer API route", () => {
-  beforeEach(() => {
-    __resetWebPageSessionsForTests();
-    process.env.STUDIO_LANE = "DEV";
-    vi.mocked(requireStudioSession).mockReset();
-    vi.mocked(db.select).mockReset();
-    mockHabilitationDb([]);
-  });
-
-  it("GET 200 with bytes when habilitation resolves", async () => {
-    const page = seedPdfSession();
-    vi.mocked(requireStudioSession).mockResolvedValue({
-      pilotId: SCOPE.ownerPilotId,
-      displayName: "Owner",
-      sessionId: "studio-sess",
-      authMode: "dev-test-login",
-    });
-    mockHabilitationDb([
-      [{ id: SCOPE.projectId }],
-      [
+  ],
+  "scenarios": {
+    "LIVE01": {
+      "status": 200,
+      "ms": 10478,
+      "workId": "cgw_3c14caed-0913-4032-aede-18453e8a3727",
+      "noraStatus": "COMPLETE",
+      "attempts": [
         {
-          id: SCOPE.cognitiveWorkId,
-          projectId: SCOPE.projectId,
-          status: "RUNNING",
-          ownerPilotId: SCOPE.ownerPilotId,
-        },
+          "attemptId": "att_acd6272a55530ae9",
+          "kind": "non_stream",
+          "outcome": "SUCCESS",
+          "notes": "structured_non_stream_finalOutput",
+          "providerContacted": "YES"
+        }
       ],
-    ]);
-    const res = await GET(new Request("http://test"), {
-      params: Promise.resolve({ viewerToken: page.viewerToken }),
-    });
-    expect(res.status).toBe(200);
-    expect(res.headers.get("X-Content-Fingerprint")).toBe("fp-v1");
-    const buf = new Uint8Array(await res.arrayBuffer());
-    expect(buf.byteLength).toBe(PDF_BYTES.byteLength);
-  });
-
-  it("GET 403 when project habilitation withdrawn after token issuance", async () => {
-    const page = seedPdfSession();
-    vi.mocked(requireStudioSession).mockResolvedValue({
-      pilotId: SCOPE.ownerPilotId,
-      displayName: "Owner",
-      sessionId: "studio-sess",
-      authMode: "dev-test-login",
-    });
-    mockHabilitationDb([[]]);
-    const res = await GET(new Request("http://test"), {
-      params: Promise.resolve({ viewerToken: page.viewerToken }),
-    });
-    expect(res.status).toBe(403);
-    const denied = await res.json();
-    expect(denied.error).toBe("VIEWER_PROJECT_ACCESS_DENIED");
-  });
-
-  it("GET 403 owner mismatch via injected habilitation in assertPdfViewerAccess", async () => {
-    const page = seedPdfSession();
-    vi.mocked(requireStudioSession).mockResolvedValue({
-      pilotId: "pilot-intruder",
-      displayName: "Other",
-      sessionId: "studio-sess-2",
-      authMode: "dev-test-login",
-    });
-    const res = await GET(new Request("http://test"), {
-      params: Promise.resolve({ viewerToken: page.viewerToken }),
-    });
-    const body = await res.json();
-    expect(res.status).toBe(403);
-    expect(body.error).toBe("VIEWER_OWNER_MISMATCH");
-  });
-
-  it("assertPdfViewerAccess honors injectable habilitation resolver", async () => {
-    const page = seedPdfSession();
-    const ok = await assertPdfViewerAccess({
-      session: {
-        pilotId: SCOPE.ownerPilotId,
-        displayName: "Owner",
-        sessionId: "s",
-        authMode: "dev-test-login",
+      "generationId": "gen_a982ab38-c871-4828-9e8f-9d10b4ad628c",
+      "reply": "Je suis Nora et le socle cognitif répond."
+    },
+    "LIVE02": {
+      "status": 200,
+      "workId": "cgw_8abfe82e-aec6-4ac8-b69f-8445d9a600be",
+      "noraStatus": "COMPLETE",
+      "attempts": [
+        {
+          "attemptId": "att_9b63c16ab266600b",
+          "kind": "non_stream",
+          "outcome": "SUCCESS",
+          "notes": "structured_non_stream_finalOutput",
+          "providerContacted": "YES"
+        }
+      ],
+      "generationId": "gen_d6c18b53-a41a-4541-b1db-92e0f5735c16",
+      "reply": "- **Nora** accompagne le Pilote pour comprendre, explorer et produire, sans décider à sa place.\n- **Allocation cognitive** : elle peut recommander un modèle et un effort adaptés ; Studio décide de l’admission effective.\n- **Conducteur** : elle indique l’avancement et le travail restant pour faciliter la continuité entre segments.\n- **FinOps** : elle vise des moyens proportionnés au besoin ; les mécanismes de suivi des coûts ne sont pas précisés ici.\n- Aucun acquis pertinent n’a été trouvé dans la recherche ciblée ; cette synthèse reste générale."
+    },
+    "LIVE03": {
+      "status": 200,
+      "noraStatus": "COMPLETE",
+      "attempts": [
+        {
+          "attemptId": "att_13f32b5b7b8015ec",
+          "kind": "non_stream",
+          "outcome": "SUCCESS",
+          "notes": "structured_non_stream_finalOutput",
+          "providerContacted": "YES"
+        }
+      ],
+      "generationId": "gen_160f37b9-458c-4de1-89fe-8c500709b69e",
+      "reply": "### Note technique\n- Nora accompagne le Pilote pour comprendre, explorer et produire, sans décider à sa place. - Elle peut recommander un modèle et un effort ; Studio décide de leur admission. - Le socle cognitif a répondu au contrôle indiqué dans ce fil. - D4 CREATE est confirmé `AVAILABLE` ; la révision indiquée est la n° 1 (`doc_360f85f5-2062-4747-8125-b9b9158d381f`, `drev_39eca353-139c-4d2e-b653-ae91f0f8dfe1`). - L’extrait fourni ne permet pas de préciser les rôles du conducteur et du FinOps.\n\n```sfia-document title-b64=Tm90ZSB0ZWNobmlxdWUg4oCUIE5vcmEgZXQgU3R1ZGlvIE5leHQ chars=534 pair-sha256=8ee0196ebf86973768fd21f41c7b3fd341d6a87a53bc0d256fa2342c601717af\n# Note technique — Nora et Studio Next\n- Le socle cognitif a répondu au test LIVE-01.\n- Nora accompagne le Pilote pour comprendre, explorer et produire, sans décider à sa place.\n- Allocation cognitive : Nora peut recommander modèle et effort ; Studio décide de leur admission.\n- Conducteur : Nora indique l’avancement et le travail restant pour assurer la continuité entre segments.\n- FinOps : les moyens visent à être proportionnés ; le suivi des coûts n’est pas précisé dans ce fil.\n- Source : échanges LIVE-01 et LIVE-02 de ce fil.\n```\n\n---\n### Résultat d'enregistrement\n\nNouvelle version disponible : v1.\n\nL'enregistrement est confirmé. Les versions antérieures restent inchangées.\n"
+    },
+    "LIVE04": {
+      "pgObservations": 25,
+      "finopsApiStatus": 404
+    }
+  },
+  "finops": {
+    "observationCount": 25,
+    "distinctAttemptIds": 18,
+    "attemptIds": [
+      "att_6748a7910b91bc0b",
+      "att_fbc654fa434489ce",
+      "att_8b8f39136a7d0f16",
+      "att_42937e5e2ea25074",
+      "att_9fd2ad97994b9454",
+      "att_e638a7515bda62a8",
+      "att_9b63c16ab266600b",
+      "att_088bf2a313b4fb8b",
+      "att_e809964843299ead",
+      "att_250d2d00292dd094",
+      "att_7fd83002653aebbd",
+      "att_dc35d5f3e4f298a7",
+      "att_cec6b6ce8347ded5",
+      "att_13f32b5b7b8015ec",
+      "att_eea220ceccba5f1a",
+      "att_c0f57a35362b146a",
+      "att_3a2ce76228e219c9",
+      "att_6afede605ebd809b"
+    ],
+    "httpMarkers": [
+      "HTTP_ATTEMPT:att_6748a7910b91bc0b",
+      "HTTP_ATTEMPT:att_fbc654fa434489ce",
+      "HTTP_ATTEMPT:att_42937e5e2ea25074",
+      "HTTP_ATTEMPT:att_9fd2ad97994b9454",
+      "HTTP_ATTEMPT:att_e638a7515bda62a8",
+      "HTTP_ATTEMPT:att_42937e5e2ea25074",
+      "HTTP_ATTEMPT:att_9fd2ad97994b9454",
+      "HTTP_ATTEMPT:att_e638a7515bda62a8",
+      "HTTP_ATTEMPT:att_42937e5e2ea25074",
+      "HTTP_ATTEMPT:att_9fd2ad97994b9454",
+      "HTTP_ATTEMPT:att_e638a7515bda62a8",
+      "HTTP_ATTEMPT_USAGE_UNKNOWN",
+      "HTTP_ATTEMPT:att_42937e5e2ea25074",
+      "HTTP_ATTEMPT_USAGE_UNKNOWN",
+      "HTTP_ATTEMPT:att_9fd2ad97994b9454",
+      "HTTP_ATTEMPT_USAGE_UNKNOWN",
+      "HTTP_ATTEMPT:att_e638a7515bda62a8",
+      "HTTP_ATTEMPT:att_088bf2a313b4fb8b",
+      "HTTP_ATTEMPT:att_e809964843299ead",
+      "HTTP_ATTEMPT:att_088bf2a313b4fb8b",
+      "HTTP_ATTEMPT:att_e809964843299ead",
+      "HTTP_ATTEMPT_USAGE_UNKNOWN",
+      "HTTP_ATTEMPT:att_088bf2a313b4fb8b",
+      "HTTP_ATTEMPT_USAGE_UNKNOWN",
+      "HTTP_ATTEMPT:att_e809964843299ead",
+      "HTTP_ATTEMPT:att_7fd83002653aebbd",
+      "HTTP_ATTEMPT:att_dc35d5f3e4f298a7",
+      "HTTP_ATTEMPT:att_cec6b6ce8347ded5",
+      "HTTP_ATTEMPT:att_7fd83002653aebbd",
+      "HTTP_ATTEMPT:att_dc35d5f3e4f298a7",
+      "HTTP_ATTEMPT:att_cec6b6ce8347ded5",
+      "HTTP_ATTEMPT:att_7fd83002653aebbd",
+      "HTTP_ATTEMPT:att_dc35d5f3e4f298a7",
+      "HTTP_ATTEMPT:att_cec6b6ce8347ded5",
+      "HTTP_ATTEMPT_USAGE_UNKNOWN",
+      "HTTP_ATTEMPT:att_7fd83002653aebbd",
+      "HTTP_ATTEMPT_USAGE_UNKNOWN",
+      "HTTP_ATTEMPT:att_dc35d5f3e4f298a7",
+      "HTTP_ATTEMPT_USAGE_UNKNOWN",
+      "HTTP_ATTEMPT:att_cec6b6ce8347ded5"
+    ],
+    "sumInputTokens": 130813,
+    "sumOutputTokens": 3655,
+    "estimatedCostUsdSum": 0.04141,
+    "coverages": [
+      "PARTIAL"
+    ],
+    "granularities": [
+      "REQUEST"
+    ],
+    "rows": [
+      {
+        "id": "49009b89-1949-4113-8bb4-bf9f875c54de",
+        "attempt_id": "att_6748a7910b91bc0b",
+        "generation_id": "gen_8ad325f8-f600-4af2-a437-edf86f82d9f5",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": 8495,
+        "out": 148,
+        "cost": 0.009235,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "HTTP_ATTEMPT:att_6748a7910b91bc0b",
+          "SDK_ATTEMPT:att_a9d2925d3f9044c2",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
       },
-      processLane: "DEV",
-      page,
-      resolveHabilitation: async () => HAB,
-    });
-    expect(ok.ok).toBe(true);
-
-    const withdrawn = await assertPdfViewerAccess({
-      session: {
-        pilotId: SCOPE.ownerPilotId,
-        displayName: "Owner",
-        sessionId: "s",
-        authMode: "dev-test-login",
+      {
+        "id": "08cdcea4-1168-44b2-bea4-c8a319985a4d",
+        "attempt_id": "att_fbc654fa434489ce",
+        "generation_id": "gen_a982ab38-c871-4828-9e8f-9d10b4ad628c",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": 8875,
+        "out": 194,
+        "cost": 0.0021728,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "HTTP_ATTEMPT:att_fbc654fa434489ce",
+          "SDK_ATTEMPT:att_acd6272a55530ae9",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
       },
-      processLane: "DEV",
-      page,
-      resolveHabilitation: async () => null,
-    });
-    expect(withdrawn.ok).toBe(false);
-    if (!withdrawn.ok) expect(withdrawn.error).toBe("VIEWER_PROJECT_ACCESS_DENIED");
-  });
-});```
+      {
+        "id": "626b7dd5-0982-40d1-9448-8df6f4d307dd",
+        "attempt_id": "att_8b8f39136a7d0f16",
+        "generation_id": "gen_f6dc0834-84f2-43b3-96d9-97a379086a17",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": 8664,
+        "out": 109,
+        "cost": 0.0015368,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "MULTI_HTTP_ATTEMPT_AGGREGATE",
+          "HTTP_ATTEMPT:att_42937e5e2ea25074",
+          "HTTP_ATTEMPT:att_9fd2ad97994b9454",
+          "HTTP_ATTEMPT:att_e638a7515bda62a8",
+          "SDK_ATTEMPT:att_8b8f39136a7d0f16",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "97afe9b8-95e1-479e-b307-f62b5688b7bb",
+        "attempt_id": "att_8b8f39136a7d0f16",
+        "generation_id": "gen_f6dc0834-84f2-43b3-96d9-97a379086a17",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": 9333,
+        "out": 55,
+        "cost": 0.00138005,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "MULTI_HTTP_ATTEMPT_AGGREGATE",
+          "HTTP_ATTEMPT:att_42937e5e2ea25074",
+          "HTTP_ATTEMPT:att_9fd2ad97994b9454",
+          "HTTP_ATTEMPT:att_e638a7515bda62a8",
+          "SDK_ATTEMPT:att_8b8f39136a7d0f16",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "f292f3de-c092-426e-b6a7-34f351e3c8a2",
+        "attempt_id": "att_8b8f39136a7d0f16",
+        "generation_id": "gen_f6dc0834-84f2-43b3-96d9-97a379086a17",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": 9476,
+        "out": 336,
+        "cost": 0.0022925,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "MULTI_HTTP_ATTEMPT_AGGREGATE",
+          "HTTP_ATTEMPT:att_42937e5e2ea25074",
+          "HTTP_ATTEMPT:att_9fd2ad97994b9454",
+          "HTTP_ATTEMPT:att_e638a7515bda62a8",
+          "SDK_ATTEMPT:att_8b8f39136a7d0f16",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "6773c508-691c-4176-9dfb-a249688ac911",
+        "attempt_id": "att_42937e5e2ea25074",
+        "generation_id": "gen_f6dc0834-84f2-43b3-96d9-97a379086a17",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": null,
+        "out": null,
+        "cost": null,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "HTTP_ATTEMPT_USAGE_UNKNOWN",
+          "HTTP_ATTEMPT:att_42937e5e2ea25074",
+          "SDK_ATTEMPT:att_8b8f39136a7d0f16",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "8daeca82-8d5e-424f-b0e7-a98d4c9f919c",
+        "attempt_id": "att_9fd2ad97994b9454",
+        "generation_id": "gen_f6dc0834-84f2-43b3-96d9-97a379086a17",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": null,
+        "out": null,
+        "cost": null,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "HTTP_ATTEMPT_USAGE_UNKNOWN",
+          "HTTP_ATTEMPT:att_9fd2ad97994b9454",
+          "SDK_ATTEMPT:att_8b8f39136a7d0f16",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "c8b61238-7a18-4b15-9216-c651ade20884",
+        "attempt_id": "att_e638a7515bda62a8",
+        "generation_id": "gen_f6dc0834-84f2-43b3-96d9-97a379086a17",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": null,
+        "out": null,
+        "cost": null,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "HTTP_ATTEMPT_USAGE_UNKNOWN",
+          "HTTP_ATTEMPT:att_e638a7515bda62a8",
+          "SDK_ATTEMPT:att_8b8f39136a7d0f16",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "61c22823-17b7-48ed-b184-9548de20dca1",
+        "attempt_id": "att_9b63c16ab266600b",
+        "generation_id": "gen_d6c18b53-a41a-4541-b1db-92e0f5735c16",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": 9081,
+        "out": 115,
+        "cost": 0.0019838,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "MULTI_HTTP_ATTEMPT_AGGREGATE",
+          "HTTP_ATTEMPT:att_088bf2a313b4fb8b",
+          "HTTP_ATTEMPT:att_e809964843299ead",
+          "SDK_ATTEMPT:att_9b63c16ab266600b",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "78fa0f16-8eb8-420c-adf6-50e3f03a011f",
+        "attempt_id": "att_9b63c16ab266600b",
+        "generation_id": "gen_d6c18b53-a41a-4541-b1db-92e0f5735c16",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": 9756,
+        "out": 394,
+        "cost": 0.0031019,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "MULTI_HTTP_ATTEMPT_AGGREGATE",
+          "HTTP_ATTEMPT:att_088bf2a313b4fb8b",
+          "HTTP_ATTEMPT:att_e809964843299ead",
+          "SDK_ATTEMPT:att_9b63c16ab266600b",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "4aef96f2-b5a2-4f32-b864-cfafe3243119",
+        "attempt_id": "att_088bf2a313b4fb8b",
+        "generation_id": "gen_d6c18b53-a41a-4541-b1db-92e0f5735c16",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": null,
+        "out": null,
+        "cost": null,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "HTTP_ATTEMPT_USAGE_UNKNOWN",
+          "HTTP_ATTEMPT:att_088bf2a313b4fb8b",
+          "SDK_ATTEMPT:att_9b63c16ab266600b",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "fc039475-6dcf-4bfa-b73e-a3a2e808e7f9",
+        "attempt_id": "att_e809964843299ead",
+        "generation_id": "gen_d6c18b53-a41a-4541-b1db-92e0f5735c16",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": null,
+        "out": null,
+        "cost": null,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "HTTP_ATTEMPT_USAGE_UNKNOWN",
+          "HTTP_ATTEMPT:att_e809964843299ead",
+          "SDK_ATTEMPT:att_9b63c16ab266600b",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "434e2034-b72c-433c-9653-4c94b59cbdd9",
+        "attempt_id": "att_250d2d00292dd094",
+        "generation_id": "gen_51a3f4ce-09a5-43ca-b0fd-8bc06a768f50",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": 8811,
+        "out": 81,
+        "cost": 0.0015438,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "MULTI_HTTP_ATTEMPT_AGGREGATE",
+          "HTTP_ATTEMPT:att_7fd83002653aebbd",
+          "HTTP_ATTEMPT:att_dc35d5f3e4f298a7",
+          "HTTP_ATTEMPT:att_cec6b6ce8347ded5",
+          "SDK_ATTEMPT:att_250d2d00292dd094",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "b1b37b98-71c7-4e23-8767-46810b876739",
+        "attempt_id": "att_250d2d00292dd094",
+        "generation_id": "gen_51a3f4ce-09a5-43ca-b0fd-8bc06a768f50",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": 9697,
+        "out": 80,
+        "cost": 0.0017294,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "MULTI_HTTP_ATTEMPT_AGGREGATE",
+          "HTTP_ATTEMPT:att_7fd83002653aebbd",
+          "HTTP_ATTEMPT:att_dc35d5f3e4f298a7",
+          "HTTP_ATTEMPT:att_cec6b6ce8347ded5",
+          "SDK_ATTEMPT:att_250d2d00292dd094",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "1e61fb2c-0951-4cdf-8f27-10fe452055ba",
+        "attempt_id": "att_250d2d00292dd094",
+        "generation_id": "gen_51a3f4ce-09a5-43ca-b0fd-8bc06a768f50",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": 10292,
+        "out": 612,
+        "cost": 0.0041427,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "MULTI_HTTP_ATTEMPT_AGGREGATE",
+          "HTTP_ATTEMPT:att_7fd83002653aebbd",
+          "HTTP_ATTEMPT:att_dc35d5f3e4f298a7",
+          "HTTP_ATTEMPT:att_cec6b6ce8347ded5",
+          "SDK_ATTEMPT:att_250d2d00292dd094",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "eba2fed7-bb75-4e67-ba7a-0c5c3be3cc52",
+        "attempt_id": "att_7fd83002653aebbd",
+        "generation_id": "gen_51a3f4ce-09a5-43ca-b0fd-8bc06a768f50",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": null,
+        "out": null,
+        "cost": null,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "HTTP_ATTEMPT_USAGE_UNKNOWN",
+          "HTTP_ATTEMPT:att_7fd83002653aebbd",
+          "SDK_ATTEMPT:att_250d2d00292dd094",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "2687a429-c2cd-418e-8837-86067b6ce58f",
+        "attempt_id": "att_dc35d5f3e4f298a7",
+        "generation_id": "gen_51a3f4ce-09a5-43ca-b0fd-8bc06a768f50",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": null,
+        "out": null,
+        "cost": null,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "HTTP_ATTEMPT_USAGE_UNKNOWN",
+          "HTTP_ATTEMPT:att_dc35d5f3e4f298a7",
+          "SDK_ATTEMPT:att_250d2d00292dd094",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "62f7f929-ade7-4d9d-b9ae-1f079c6aa340",
+        "attempt_id": "att_cec6b6ce8347ded5",
+        "generation_id": "gen_51a3f4ce-09a5-43ca-b0fd-8bc06a768f50",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": null,
+        "out": null,
+        "cost": null,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "HTTP_ATTEMPT_USAGE_UNKNOWN",
+          "HTTP_ATTEMPT:att_cec6b6ce8347ded5",
+          "SDK_ATTEMPT:att_250d2d00292dd094",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "62c3c003-a7a6-48b1-95d9-d05c65c7b341",
+        "attempt_id": "att_13f32b5b7b8015ec",
+        "generation_id": "gen_160f37b9-458c-4de1-89fe-8c500709b69e",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": 9202,
+        "out": 115,
+        "cost": 0.0021048,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "MULTI_HTTP_ATTEMPT_AGGREGATE",
+          "HTTP_ATTEMPT:att_eea220ceccba5f1a",
+          "HTTP_ATTEMPT:att_c0f57a35362b146a",
+          "HTTP_ATTEMPT:att_3a2ce76228e219c9",
+          "SDK_ATTEMPT:att_13f32b5b7b8015ec",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "f7bce929-e76d-4ecb-b8e2-fe4b5ea0bf9b",
+        "attempt_id": "att_13f32b5b7b8015ec",
+        "generation_id": "gen_160f37b9-458c-4de1-89fe-8c500709b69e",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": 10122,
+        "out": 56,
+        "cost": 0.00166295,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "MULTI_HTTP_ATTEMPT_AGGREGATE",
+          "HTTP_ATTEMPT:att_eea220ceccba5f1a",
+          "HTTP_ATTEMPT:att_c0f57a35362b146a",
+          "HTTP_ATTEMPT:att_3a2ce76228e219c9",
+          "SDK_ATTEMPT:att_13f32b5b7b8015ec",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "3a957525-bd58-45ca-891d-d2c3f78e8d08",
+        "attempt_id": "att_13f32b5b7b8015ec",
+        "generation_id": "gen_160f37b9-458c-4de1-89fe-8c500709b69e",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": 10506,
+        "out": 664,
+        "cost": 0.00421295,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "MULTI_HTTP_ATTEMPT_AGGREGATE",
+          "HTTP_ATTEMPT:att_eea220ceccba5f1a",
+          "HTTP_ATTEMPT:att_c0f57a35362b146a",
+          "HTTP_ATTEMPT:att_3a2ce76228e219c9",
+          "SDK_ATTEMPT:att_13f32b5b7b8015ec",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "a890cf08-93fa-419c-a2a2-e6f10945cf82",
+        "attempt_id": "att_eea220ceccba5f1a",
+        "generation_id": "gen_160f37b9-458c-4de1-89fe-8c500709b69e",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": null,
+        "out": null,
+        "cost": null,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "HTTP_ATTEMPT_USAGE_UNKNOWN",
+          "HTTP_ATTEMPT:att_eea220ceccba5f1a",
+          "SDK_ATTEMPT:att_13f32b5b7b8015ec",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "92505618-f458-4056-92e5-6d5816eda137",
+        "attempt_id": "att_c0f57a35362b146a",
+        "generation_id": "gen_160f37b9-458c-4de1-89fe-8c500709b69e",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": null,
+        "out": null,
+        "cost": null,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "HTTP_ATTEMPT_USAGE_UNKNOWN",
+          "HTTP_ATTEMPT:att_c0f57a35362b146a",
+          "SDK_ATTEMPT:att_13f32b5b7b8015ec",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "30da5d9d-a75d-499b-acaa-34dbd12f0874",
+        "attempt_id": "att_3a2ce76228e219c9",
+        "generation_id": "gen_160f37b9-458c-4de1-89fe-8c500709b69e",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": null,
+        "out": null,
+        "cost": null,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "HTTP_ATTEMPT_USAGE_UNKNOWN",
+          "HTTP_ATTEMPT:att_3a2ce76228e219c9",
+          "SDK_ATTEMPT:att_13f32b5b7b8015ec",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      },
+      {
+        "id": "4e89fe06-1f44-42b3-8e3b-d355be785ee9",
+        "attempt_id": "att_6afede605ebd809b",
+        "generation_id": "gen_c75a3551-ab6f-4e8d-b279-06cd97797736",
+        "operation": "nora.generate_reply",
+        "model": "gpt-6.1-terra",
+        "effort": "medium",
+        "in": 8503,
+        "out": 696,
+        "cost": 0.0043108,
+        "coverage": "PARTIAL",
+        "granularity": "REQUEST",
+        "limits": [
+          "HTTP_ATTEMPT:att_6afede605ebd809b",
+          "SDK_ATTEMPT:att_c2feb17bce258591",
+          "MODEL_APPLIED_UNVERIFIED"
+        ]
+      }
+    ]
+  },
+  "verdict": "G-LIVE-API LIVE-01..04 EXERCISED — OBSERVATIONS PERSISTED",
+  "endedAt": "2026-11-26T16:29:51.887Z"
+}
+```
 
-### `projects/sfia-studio-next/web/tests/unit/ml5-cognitive-resource-suspend-turn.test.ts`
+### 05-finops.json
+```json
+{
+  "observationCount": 25,
+  "distinctAttemptIds": 18,
+  "attemptIds": [
+    "att_6748a7910b91bc0b",
+    "att_fbc654fa434489ce",
+    "att_8b8f39136a7d0f16",
+    "att_42937e5e2ea25074",
+    "att_9fd2ad97994b9454",
+    "att_e638a7515bda62a8",
+    "att_9b63c16ab266600b",
+    "att_088bf2a313b4fb8b",
+    "att_e809964843299ead",
+    "att_250d2d00292dd094",
+    "att_7fd83002653aebbd",
+    "att_dc35d5f3e4f298a7",
+    "att_cec6b6ce8347ded5",
+    "att_13f32b5b7b8015ec",
+    "att_eea220ceccba5f1a",
+    "att_c0f57a35362b146a",
+    "att_3a2ce76228e219c9",
+    "att_6afede605ebd809b"
+  ],
+  "httpMarkers": [
+    "HTTP_ATTEMPT:att_6748a7910b91bc0b",
+    "HTTP_ATTEMPT:att_fbc654fa434489ce",
+    "HTTP_ATTEMPT:att_42937e5e2ea25074",
+    "HTTP_ATTEMPT:att_9fd2ad97994b9454",
+    "HTTP_ATTEMPT:att_e638a7515bda62a8",
+    "HTTP_ATTEMPT:att_42937e5e2ea25074",
+    "HTTP_ATTEMPT:att_9fd2ad97994b9454",
+    "HTTP_ATTEMPT:att_e638a7515bda62a8",
+    "HTTP_ATTEMPT:att_42937e5e2ea25074",
+    "HTTP_ATTEMPT:att_9fd2ad97994b9454",
+    "HTTP_ATTEMPT:att_e638a7515bda62a8",
+    "HTTP_ATTEMPT_USAGE_UNKNOWN",
+    "HTTP_ATTEMPT:att_42937e5e2ea25074",
+    "HTTP_ATTEMPT_USAGE_UNKNOWN",
+    "HTTP_ATTEMPT:att_9fd2ad97994b9454",
+    "HTTP_ATTEMPT_USAGE_UNKNOWN",
+    "HTTP_ATTEMPT:att_e638a7515bda62a8",
+    "HTTP_ATTEMPT:att_088bf2a313b4fb8b",
+    "HTTP_ATTEMPT:att_e809964843299ead",
+    "HTTP_ATTEMPT:att_088bf2a313b4fb8b",
+    "HTTP_ATTEMPT:att_e809964843299ead",
+    "HTTP_ATTEMPT_USAGE_UNKNOWN",
+    "HTTP_ATTEMPT:att_088bf2a313b4fb8b",
+    "HTTP_ATTEMPT_USAGE_UNKNOWN",
+    "HTTP_ATTEMPT:att_e809964843299ead",
+    "HTTP_ATTEMPT:att_7fd83002653aebbd",
+    "HTTP_ATTEMPT:att_dc35d5f3e4f298a7",
+    "HTTP_ATTEMPT:att_cec6b6ce8347ded5",
+    "HTTP_ATTEMPT:att_7fd83002653aebbd",
+    "HTTP_ATTEMPT:att_dc35d5f3e4f298a7",
+    "HTTP_ATTEMPT:att_cec6b6ce8347ded5",
+    "HTTP_ATTEMPT:att_7fd83002653aebbd",
+    "HTTP_ATTEMPT:att_dc35d5f3e4f298a7",
+    "HTTP_ATTEMPT:att_cec6b6ce8347ded5",
+    "HTTP_ATTEMPT_USAGE_UNKNOWN",
+    "HTTP_ATTEMPT:att_7fd83002653aebbd",
+    "HTTP_ATTEMPT_USAGE_UNKNOWN",
+    "HTTP_ATTEMPT:att_dc35d5f3e4f298a7",
+    "HTTP_ATTEMPT_USAGE_UNKNOWN",
+    "HTTP_ATTEMPT:att_cec6b6ce8347ded5"
+  ],
+  "sumInputTokens": 130813,
+  "sumOutputTokens": 3655,
+  "estimatedCostUsdSum": 0.04141,
+  "coverages": [
+    "PARTIAL"
+  ],
+  "granularities": [
+    "REQUEST"
+  ],
+  "rows": [
+    {
+      "id": "49009b89-1949-4113-8bb4-bf9f875c54de",
+      "attempt_id": "att_6748a7910b91bc0b",
+      "generation_id": "gen_8ad325f8-f600-4af2-a437-edf86f82d9f5",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": 8495,
+      "out": 148,
+      "cost": 0.009235,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "HTTP_ATTEMPT:att_6748a7910b91bc0b",
+        "SDK_ATTEMPT:att_a9d2925d3f9044c2",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "08cdcea4-1168-44b2-bea4-c8a319985a4d",
+      "attempt_id": "att_fbc654fa434489ce",
+      "generation_id": "gen_a982ab38-c871-4828-9e8f-9d10b4ad628c",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": 8875,
+      "out": 194,
+      "cost": 0.0021728,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "HTTP_ATTEMPT:att_fbc654fa434489ce",
+        "SDK_ATTEMPT:att_acd6272a55530ae9",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "626b7dd5-0982-40d1-9448-8df6f4d307dd",
+      "attempt_id": "att_8b8f39136a7d0f16",
+      "generation_id": "gen_f6dc0834-84f2-43b3-96d9-97a379086a17",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": 8664,
+      "out": 109,
+      "cost": 0.0015368,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "MULTI_HTTP_ATTEMPT_AGGREGATE",
+        "HTTP_ATTEMPT:att_42937e5e2ea25074",
+        "HTTP_ATTEMPT:att_9fd2ad97994b9454",
+        "HTTP_ATTEMPT:att_e638a7515bda62a8",
+        "SDK_ATTEMPT:att_8b8f39136a7d0f16",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "97afe9b8-95e1-479e-b307-f62b5688b7bb",
+      "attempt_id": "att_8b8f39136a7d0f16",
+      "generation_id": "gen_f6dc0834-84f2-43b3-96d9-97a379086a17",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": 9333,
+      "out": 55,
+      "cost": 0.00138005,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "MULTI_HTTP_ATTEMPT_AGGREGATE",
+        "HTTP_ATTEMPT:att_42937e5e2ea25074",
+        "HTTP_ATTEMPT:att_9fd2ad97994b9454",
+        "HTTP_ATTEMPT:att_e638a7515bda62a8",
+        "SDK_ATTEMPT:att_8b8f39136a7d0f16",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "f292f3de-c092-426e-b6a7-34f351e3c8a2",
+      "attempt_id": "att_8b8f39136a7d0f16",
+      "generation_id": "gen_f6dc0834-84f2-43b3-96d9-97a379086a17",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": 9476,
+      "out": 336,
+      "cost": 0.0022925,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "MULTI_HTTP_ATTEMPT_AGGREGATE",
+        "HTTP_ATTEMPT:att_42937e5e2ea25074",
+        "HTTP_ATTEMPT:att_9fd2ad97994b9454",
+        "HTTP_ATTEMPT:att_e638a7515bda62a8",
+        "SDK_ATTEMPT:att_8b8f39136a7d0f16",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "6773c508-691c-4176-9dfb-a249688ac911",
+      "attempt_id": "att_42937e5e2ea25074",
+      "generation_id": "gen_f6dc0834-84f2-43b3-96d9-97a379086a17",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": null,
+      "out": null,
+      "cost": null,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "HTTP_ATTEMPT_USAGE_UNKNOWN",
+        "HTTP_ATTEMPT:att_42937e5e2ea25074",
+        "SDK_ATTEMPT:att_8b8f39136a7d0f16",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "8daeca82-8d5e-424f-b0e7-a98d4c9f919c",
+      "attempt_id": "att_9fd2ad97994b9454",
+      "generation_id": "gen_f6dc0834-84f2-43b3-96d9-97a379086a17",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": null,
+      "out": null,
+      "cost": null,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "HTTP_ATTEMPT_USAGE_UNKNOWN",
+        "HTTP_ATTEMPT:att_9fd2ad97994b9454",
+        "SDK_ATTEMPT:att_8b8f39136a7d0f16",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "c8b61238-7a18-4b15-9216-c651ade20884",
+      "attempt_id": "att_e638a7515bda62a8",
+      "generation_id": "gen_f6dc0834-84f2-43b3-96d9-97a379086a17",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": null,
+      "out": null,
+      "cost": null,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "HTTP_ATTEMPT_USAGE_UNKNOWN",
+        "HTTP_ATTEMPT:att_e638a7515bda62a8",
+        "SDK_ATTEMPT:att_8b8f39136a7d0f16",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "61c22823-17b7-48ed-b184-9548de20dca1",
+      "attempt_id": "att_9b63c16ab266600b",
+      "generation_id": "gen_d6c18b53-a41a-4541-b1db-92e0f5735c16",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": 9081,
+      "out": 115,
+      "cost": 0.0019838,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "MULTI_HTTP_ATTEMPT_AGGREGATE",
+        "HTTP_ATTEMPT:att_088bf2a313b4fb8b",
+        "HTTP_ATTEMPT:att_e809964843299ead",
+        "SDK_ATTEMPT:att_9b63c16ab266600b",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "78fa0f16-8eb8-420c-adf6-50e3f03a011f",
+      "attempt_id": "att_9b63c16ab266600b",
+      "generation_id": "gen_d6c18b53-a41a-4541-b1db-92e0f5735c16",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": 9756,
+      "out": 394,
+      "cost": 0.0031019,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "MULTI_HTTP_ATTEMPT_AGGREGATE",
+        "HTTP_ATTEMPT:att_088bf2a313b4fb8b",
+        "HTTP_ATTEMPT:att_e809964843299ead",
+        "SDK_ATTEMPT:att_9b63c16ab266600b",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "4aef96f2-b5a2-4f32-b864-cfafe3243119",
+      "attempt_id": "att_088bf2a313b4fb8b",
+      "generation_id": "gen_d6c18b53-a41a-4541-b1db-92e0f5735c16",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": null,
+      "out": null,
+      "cost": null,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "HTTP_ATTEMPT_USAGE_UNKNOWN",
+        "HTTP_ATTEMPT:att_088bf2a313b4fb8b",
+        "SDK_ATTEMPT:att_9b63c16ab266600b",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "fc039475-6dcf-4bfa-b73e-a3a2e808e7f9",
+      "attempt_id": "att_e809964843299ead",
+      "generation_id": "gen_d6c18b53-a41a-4541-b1db-92e0f5735c16",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": null,
+      "out": null,
+      "cost": null,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "HTTP_ATTEMPT_USAGE_UNKNOWN",
+        "HTTP_ATTEMPT:att_e809964843299ead",
+        "SDK_ATTEMPT:att_9b63c16ab266600b",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "434e2034-b72c-433c-9653-4c94b59cbdd9",
+      "attempt_id": "att_250d2d00292dd094",
+      "generation_id": "gen_51a3f4ce-09a5-43ca-b0fd-8bc06a768f50",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": 8811,
+      "out": 81,
+      "cost": 0.0015438,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "MULTI_HTTP_ATTEMPT_AGGREGATE",
+        "HTTP_ATTEMPT:att_7fd83002653aebbd",
+        "HTTP_ATTEMPT:att_dc35d5f3e4f298a7",
+        "HTTP_ATTEMPT:att_cec6b6ce8347ded5",
+        "SDK_ATTEMPT:att_250d2d00292dd094",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "b1b37b98-71c7-4e23-8767-46810b876739",
+      "attempt_id": "att_250d2d00292dd094",
+      "generation_id": "gen_51a3f4ce-09a5-43ca-b0fd-8bc06a768f50",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": 9697,
+      "out": 80,
+      "cost": 0.0017294,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "MULTI_HTTP_ATTEMPT_AGGREGATE",
+        "HTTP_ATTEMPT:att_7fd83002653aebbd",
+        "HTTP_ATTEMPT:att_dc35d5f3e4f298a7",
+        "HTTP_ATTEMPT:att_cec6b6ce8347ded5",
+        "SDK_ATTEMPT:att_250d2d00292dd094",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "1e61fb2c-0951-4cdf-8f27-10fe452055ba",
+      "attempt_id": "att_250d2d00292dd094",
+      "generation_id": "gen_51a3f4ce-09a5-43ca-b0fd-8bc06a768f50",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": 10292,
+      "out": 612,
+      "cost": 0.0041427,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "MULTI_HTTP_ATTEMPT_AGGREGATE",
+        "HTTP_ATTEMPT:att_7fd83002653aebbd",
+        "HTTP_ATTEMPT:att_dc35d5f3e4f298a7",
+        "HTTP_ATTEMPT:att_cec6b6ce8347ded5",
+        "SDK_ATTEMPT:att_250d2d00292dd094",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "eba2fed7-bb75-4e67-ba7a-0c5c3be3cc52",
+      "attempt_id": "att_7fd83002653aebbd",
+      "generation_id": "gen_51a3f4ce-09a5-43ca-b0fd-8bc06a768f50",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": null,
+      "out": null,
+      "cost": null,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "HTTP_ATTEMPT_USAGE_UNKNOWN",
+        "HTTP_ATTEMPT:att_7fd83002653aebbd",
+        "SDK_ATTEMPT:att_250d2d00292dd094",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "2687a429-c2cd-418e-8837-86067b6ce58f",
+      "attempt_id": "att_dc35d5f3e4f298a7",
+      "generation_id": "gen_51a3f4ce-09a5-43ca-b0fd-8bc06a768f50",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": null,
+      "out": null,
+      "cost": null,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "HTTP_ATTEMPT_USAGE_UNKNOWN",
+        "HTTP_ATTEMPT:att_dc35d5f3e4f298a7",
+        "SDK_ATTEMPT:att_250d2d00292dd094",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "62f7f929-ade7-4d9d-b9ae-1f079c6aa340",
+      "attempt_id": "att_cec6b6ce8347ded5",
+      "generation_id": "gen_51a3f4ce-09a5-43ca-b0fd-8bc06a768f50",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": null,
+      "out": null,
+      "cost": null,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "HTTP_ATTEMPT_USAGE_UNKNOWN",
+        "HTTP_ATTEMPT:att_cec6b6ce8347ded5",
+        "SDK_ATTEMPT:att_250d2d00292dd094",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "62c3c003-a7a6-48b1-95d9-d05c65c7b341",
+      "attempt_id": "att_13f32b5b7b8015ec",
+      "generation_id": "gen_160f37b9-458c-4de1-89fe-8c500709b69e",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": 9202,
+      "out": 115,
+      "cost": 0.0021048,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "MULTI_HTTP_ATTEMPT_AGGREGATE",
+        "HTTP_ATTEMPT:att_eea220ceccba5f1a",
+        "HTTP_ATTEMPT:att_c0f57a35362b146a",
+        "HTTP_ATTEMPT:att_3a2ce76228e219c9",
+        "SDK_ATTEMPT:att_13f32b5b7b8015ec",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "f7bce929-e76d-4ecb-b8e2-fe4b5ea0bf9b",
+      "attempt_id": "att_13f32b5b7b8015ec",
+      "generation_id": "gen_160f37b9-458c-4de1-89fe-8c500709b69e",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": 10122,
+      "out": 56,
+      "cost": 0.00166295,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "MULTI_HTTP_ATTEMPT_AGGREGATE",
+        "HTTP_ATTEMPT:att_eea220ceccba5f1a",
+        "HTTP_ATTEMPT:att_c0f57a35362b146a",
+        "HTTP_ATTEMPT:att_3a2ce76228e219c9",
+        "SDK_ATTEMPT:att_13f32b5b7b8015ec",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "3a957525-bd58-45ca-891d-d2c3f78e8d08",
+      "attempt_id": "att_13f32b5b7b8015ec",
+      "generation_id": "gen_160f37b9-458c-4de1-89fe-8c500709b69e",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": 10506,
+      "out": 664,
+      "cost": 0.00421295,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "MULTI_HTTP_ATTEMPT_AGGREGATE",
+        "HTTP_ATTEMPT:att_eea220ceccba5f1a",
+        "HTTP_ATTEMPT:att_c0f57a35362b146a",
+        "HTTP_ATTEMPT:att_3a2ce76228e219c9",
+        "SDK_ATTEMPT:att_13f32b5b7b8015ec",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "a890cf08-93fa-419c-a2a2-e6f10945cf82",
+      "attempt_id": "att_eea220ceccba5f1a",
+      "generation_id": "gen_160f37b9-458c-4de1-89fe-8c500709b69e",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": null,
+      "out": null,
+      "cost": null,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "HTTP_ATTEMPT_USAGE_UNKNOWN",
+        "HTTP_ATTEMPT:att_eea220ceccba5f1a",
+        "SDK_ATTEMPT:att_13f32b5b7b8015ec",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "92505618-f458-4056-92e5-6d5816eda137",
+      "attempt_id": "att_c0f57a35362b146a",
+      "generation_id": "gen_160f37b9-458c-4de1-89fe-8c500709b69e",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": null,
+      "out": null,
+      "cost": null,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "HTTP_ATTEMPT_USAGE_UNKNOWN",
+        "HTTP_ATTEMPT:att_c0f57a35362b146a",
+        "SDK_ATTEMPT:att_13f32b5b7b8015ec",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "30da5d9d-a75d-499b-acaa-34dbd12f0874",
+      "attempt_id": "att_3a2ce76228e219c9",
+      "generation_id": "gen_160f37b9-458c-4de1-89fe-8c500709b69e",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": null,
+      "out": null,
+      "cost": null,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "HTTP_ATTEMPT_USAGE_UNKNOWN",
+        "HTTP_ATTEMPT:att_3a2ce76228e219c9",
+        "SDK_ATTEMPT:att_13f32b5b7b8015ec",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    },
+    {
+      "id": "4e89fe06-1f44-42b3-8e3b-d355be785ee9",
+      "attempt_id": "att_6afede605ebd809b",
+      "generation_id": "gen_c75a3551-ab6f-4e8d-b279-06cd97797736",
+      "operation": "nora.generate_reply",
+      "model": "gpt-6.1-terra",
+      "effort": "medium",
+      "in": 8503,
+      "out": 696,
+      "cost": 0.0043108,
+      "coverage": "PARTIAL",
+      "granularity": "REQUEST",
+      "limits": [
+        "HTTP_ATTEMPT:att_6afede605ebd809b",
+        "SDK_ATTEMPT:att_c2feb17bce258591",
+        "MODEL_APPLIED_UNVERIFIED"
+      ]
+    }
+  ]
+}
+```
 
+### LIVE-01 response excerpt (redacted structure)
+```json
+{
+  "status": 200,
+  "json": {
+    "userMessageId": "msg_4d049c17-6b83-4440-8f2d-9a933a06baac",
+    "assistantMessageId": "msg_f248ce48-530d-4fd8-bd36-7f987224c55c",
+    "operationId": "op_e3abd140-3e63-4ca1-b5b7-71f3b10bbb65",
+    "requestId": "req_7694db09-9a98-4356-bb05-4c91d058eaba",
+    "turnCommandId": "tcmd_d95d2c77-b731-44d4-b748-bafb1c5ac72e",
+    "preparedContract": null,
+    "cognitiveWork": {
+      "workId": "cgw_3c14caed-0913-4032-aede-18453e8a3727",
+      "revision": 3,
+      "segmentsRun": 1,
+      "resumed": false,
+      "suspended": false,
+      "suspendReason": null
+    },
+    "noraMode": "openai-agents-sdk-live",
+    "status": "COMPLETE",
+    "generationId": "gen_a982ab38-c871-4828-9e8f-9d10b4ad628c",
+    "policy": {
+      "version": "ml5-cog-policy-v5-provisional-v0.2-20261126",
+      "profileType": "OPERATIONAL_PROVISIONAL",
+      "profile": "analyse",
+      "modelRequested": "gpt-6.1-terra",
+      "modelApplied": "UNVERIFIED",
+      "effortRequested": "medium",
+      "effortApplied": "UNVERIFIED",
+      "reasonCodes": [
+        "BUDGET_DEFAULT_ANALYSE_NO_LENGTH_ROUTING",
+        "PROFILE_TYPE_OPERATIONAL_PROVISIONAL",
+        "LANE_DEV",
+        "RESOURCE_ADMITTED_OPERATIONAL",
+        "MODEL_gpt-6.1-terra",
+        "EFFORT_medium",
+        "COG_POLICY_PROVISIONAL_ml5-cog-provisional-policy-v0.2-20261126",
+        "COG_POLICY_VERSION_v0.2",
+        "LANE_DEV",
+        "EFFORT_BUDGET_BAND_medium",
+        "PROFILE_HINT_analyse",
+        "EFFORT_HINT_medium",
+        "MODEL_HINT_gpt-6.1-terra",
+        "RESOURCE_CONTINUITY_DEFAULT"
+      ]
+    },
+    "attempts": [
+      {
+        "attemptId": "att_acd6272a55530ae9",
+        "kind": "non_stream",
+        "outcome": "SUCCESS",
+        "notes": "structured_non_stream_finalOutput",
+        "providerContacted": "YES"
+      }
+    ],
+    "toolCallsObserved": 0,
+    "d4CharsReturned": 0,
+    "streaming": {
+      "attempted": true,
+      "delivered": true,
+      "notes": "structured_non_stream_finalOutput"
+    },
+    "knowledgeSelection": {
+      "subjects": 0,
+      "acquisCurrent": 0,
+      "openPoints": 0,
+      "reactivatedOpenPoints": 0,
+      "selectionMethod": "bounded-resource-listing",
+      "selectionLimit": "RG-KNOW-011 + J-C04: réactivation contextuelle des points ouverts projet, puis ids préférés / listing borné — pas de clôture par silence.",
+      "role": "pre_generation_context",
+      "selectedAcquisIds": [],
+      "selectedOpenPointIds": []
+    },
+    "knowledgeResumeHints": null,
+    "capitalisation": [],
+    "capitalisationAttempted": [],
+    "capitalisationLimit": "Aucune proposition d4.record_knowledge — zéro écriture D4",
+    "documentSave": null,
+    "pendingDocumentCandidate": null,
+    "historicalAuthorization": null,
+    "idempotentReplay": false,
+    "humanDecisionCreated": false,
+    "pilotageEffect": null,
+    "missionProjection": null,
+    "nextTurnKind": "DIALOGUE_INDEPENDANT",
+    "pendingEffectBlocked": false,
+    "unresolvedPendingClientTurnKey": null,
+    "semanticQualificationStatus": "QUALIFIED",
+    "preparationProjection": {
+      "status": "APPLIED",
+      "revision": 2
+    },
+    "turnProjection": {
+      "schemaVersion": "e05-turn-projection-v1",
+      "messageId": "msg_f248ce48-530d-4fd8-bd36-7f987224c55c",
+      "turnCommandId": "tcmd_d95d2c77-b731-44d4-b748-bafb1c5ac72e",
+      "finalized": true,
+      "status": "COMPLETE",
+      "choices": [],
+      "references": [],
+      "activity": null
+    },
+    "messages": [
+      {
+        "id": "msg_4d049c17-6b83-4440-8f2d-9a933a06baac",
+        "conversationId": "conv_eed30893-666d-4f23-998c-a7ff8aba290a",
+        "role": "user",
+        "content": "LIVE-01 118f5bc7: en une phrase, confirme que tu es Nora et que le socle cognitif répond. Aucune recherche web. Aucun outil Git.",
+        "status": "COMPLETE",
+        "generationId": null,
+        "ordinal": 1,
+        "createdAt": "2026-11-26T16:28:29.900Z"
+      },
+      {
+        "id": "msg_f248ce48-530d-4fd8-bd36-7f987224c55c",
+        "conversationId": "conv_eed30893-666d-4f23-998c-a7ff8aba290a",
+        "role": "assistant",
+        "content": "Je suis Nora et le socle cognitif répond.",
+        "status": "COMPLETE",
+        "generationId": "gen_a982ab38-c871-4828-9e8f-9d10b4ad628c",
+        "ordinal": 2,
+        "createdAt": "2026-11-26T16:28:40.337Z"
+      }
+    ]
+  }
+}
+```
+
+## 6. Created files (complete)
+
+### `projects/sfia-studio-next/web/tests/unit/ml5-c2-c4-restitution-conductor.test.ts`
 ```
 /**
- * S2 — refused allocation without hold: Pilote sees explicit suspend copy from runNoraCognitiveTurn.
+ * C2/C4 — soft-stop with acquis enters RESTITUTION_PHASE (reserve ~24k) instead of
+ * discarding restitution headroom; without acquis, soft-stop suspends.
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { createEmptyInvestigation } from "@/domains/conversation/investigation-state";
+import { evaluateGlobalResourceEnvelope } from "@/domains/conversation/cognitive-work";
+import { buildResourceContinuitySuspendMessage } from "@/domains/conversation/cognitive-policy";
+import {
+  createEmptyInvestigation,
+  evaluateContractReadiness,
+} from "@/domains/conversation/investigation-state";
 
 const openOrResumeCognitiveWork = vi.fn();
 const heartbeatCognitiveWork = vi.fn();
 const checkpointCognitiveWork = vi.fn();
 const releaseCognitiveWorkLease = vi.fn();
-const listCognitiveWorksForPreparation = vi.fn();
-const generateNoraReply = vi.fn();
 
 vi.mock("@/domains/conversation/cognitive-work", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@/domains/conversation/cognitive-work")>();
   return {
     ...actual,
-    openOrResumeCognitiveWork: (...args: unknown[]) =>
-      openOrResumeCognitiveWork(...args),
+    openOrResumeCognitiveWork: (...args: unknown[]) => openOrResumeCognitiveWork(...args),
     heartbeatCognitiveWork: (...args: unknown[]) => heartbeatCognitiveWork(...args),
     checkpointCognitiveWork: (...args: unknown[]) => checkpointCognitiveWork(...args),
-    releaseCognitiveWorkLease: (...args: unknown[]) =>
-      releaseCognitiveWorkLease(...args),
-    listCognitiveWorksForPreparation: (...args: unknown[]) =>
-      listCognitiveWorksForPreparation(...args),
+    releaseCognitiveWorkLease: (...args: unknown[]) => releaseCognitiveWorkLease(...args),
   };
 });
 
-vi.mock("@/domains/conversation/nora-adapter", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@/domains/conversation/nora-adapter")>();
-  return {
-    ...actual,
-    generateNoraReply: (...args: unknown[]) => generateNoraReply(...args),
-  };
-});
+const ENVELOPE_ENV = {
+  SFIA_COGNITIVE_MAX_TOKENS: "100000",
+  SFIA_COGNITIVE_REEVAL_TOKENS: "500000",
+  SFIA_COGNITIVE_MAX_SEGMENTS: "120",
+} as const;
 
-describe("runNoraCognitiveTurn — RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION", () => {
-  const prevMode = process.env.SFIA_COGNITIVE_ADMISSION_MODE;
-  const prevProv = process.env.SFIA_COG_PROVISIONAL_POLICY;
-  const prevLane = process.env.STUDIO_LANE;
-  const prevCog = process.env.SFIA_COG_PROFILE_TYPE;
+const NEAR_LIMIT_INVESTIGATION_TOKENS = { inputTokens: 76_000, outputTokens: 0 };
+
+function investigationWithAcquis() {
+  return evaluateContractReadiness({
+    ...createEmptyInvestigation("synthèse métier"),
+    desiredOutcome: "livrable argumenté",
+    sources: [{ kind: "D4", ref: "spec-tva", coverage: "CONSULTED" }],
+    conclusions: ["TVA export 0% — base documentée spec-tva"],
+    remainingWork: ["Approfondir périmètre export"],
+  });
+}
+
+describe("ML5 C2/C4 — restitution phase conductor", () => {
+  const prevMaxTokens = process.env.SFIA_COGNITIVE_MAX_TOKENS;
+  const prevReeval = process.env.SFIA_COGNITIVE_REEVAL_TOKENS;
+  const prevSeg = process.env.SFIA_COGNITIVE_MAX_SEGMENTS;
 
   beforeEach(() => {
     vi.clearAllMocks();
-    process.env.STUDIO_LANE = "DEV";
-    process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
-    process.env.SFIA_COGNITIVE_ADMISSION_MODE = "operational";
-    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.2";
+    process.env.SFIA_COGNITIVE_MAX_TOKENS = ENVELOPE_ENV.SFIA_COGNITIVE_MAX_TOKENS;
+    process.env.SFIA_COGNITIVE_REEVAL_TOKENS = ENVELOPE_ENV.SFIA_COGNITIVE_REEVAL_TOKENS;
+    process.env.SFIA_COGNITIVE_MAX_SEGMENTS = ENVELOPE_ENV.SFIA_COGNITIVE_MAX_SEGMENTS;
 
-    listCognitiveWorksForPreparation.mockResolvedValue([]);
-    heartbeatCognitiveWork.mockResolvedValue(true);
-    releaseCognitiveWorkLease.mockResolvedValue(undefined);
-    generateNoraReply.mockRejectedValue(
-      new Error("generateNoraReply must not run on resource suspend"),
-    );
-
-    let revision = 2;
-    const investigation = createEmptyInvestigation("allocation suspend");
-    investigation.proposedCognitiveModel = "gpt-6-luna";
-    investigation.proposedCognitiveEffort = "high";
-
+    let revision = 1;
     const baseWork = {
-      id: "cgw_suspend",
+      id: "cgw_restitution",
       ownerPilotId: "pilot",
       preparationId: "prep",
       projectId: null as string | null,
       conversationId: null as string | null,
       status: "RUNNING" as const,
-      revision,
+      revision: 1,
       ownerToken: "tok",
       leaseUntil: new Date(Date.now() + 60_000),
-      objective: "allocation suspend",
-      expectedOutcome: "result",
-      state: investigation,
-      resources: { segmentCalls: 0 },
+      objective: "synthèse métier",
+      expectedOutcome: "livrable",
+      state: investigationWithAcquis(),
+      resources: { segmentCalls: 0, limits: [] as string[] },
       production: { kind: "NONE" as const, status: "IDLE" as const, parts: [] },
       interruptCause: null as string | null,
     };
-
     openOrResumeCognitiveWork.mockImplementation(async () => ({
       work: { ...baseWork, revision },
-      resumed: true,
+      resumed: false,
       ownerToken: "tok",
     }));
-
+    heartbeatCognitiveWork.mockResolvedValue(true);
     checkpointCognitiveWork.mockImplementation(
-      async (input: { expectedRevision: number; state: unknown; resources: unknown }) => {
+      async (input: {
+        expectedRevision: number;
+        state: unknown;
+        resources: unknown;
+        production: unknown;
+        status?: string;
+      }) => {
         revision = input.expectedRevision + 1;
         return {
           ...baseWork,
           revision,
-          status: "SUSPENDED" as const,
+          status: input.status ?? "RUNNING",
           state: input.state,
           resources: input.resources,
+          production: input.production,
         };
       },
     );
+    releaseCognitiveWorkLease.mockResolvedValue(undefined);
   });
 
   afterEach(() => {
-    if (prevMode === undefined) delete process.env.SFIA_COGNITIVE_ADMISSION_MODE;
-    else process.env.SFIA_COGNITIVE_ADMISSION_MODE = prevMode;
-    if (prevProv === undefined) delete process.env.SFIA_COG_PROVISIONAL_POLICY;
-    else process.env.SFIA_COG_PROVISIONAL_POLICY = prevProv;
-    if (prevLane === undefined) delete process.env.STUDIO_LANE;
-    else process.env.STUDIO_LANE = prevLane;
-    if (prevCog === undefined) delete process.env.SFIA_COG_PROFILE_TYPE;
-    else process.env.SFIA_COG_PROFILE_TYPE = prevCog;
+    if (prevMaxTokens === undefined) delete process.env.SFIA_COGNITIVE_MAX_TOKENS;
+    else process.env.SFIA_COGNITIVE_MAX_TOKENS = prevMaxTokens;
+    if (prevReeval === undefined) delete process.env.SFIA_COGNITIVE_REEVAL_TOKENS;
+    else process.env.SFIA_COGNITIVE_REEVAL_TOKENS = prevReeval;
+    if (prevSeg === undefined) delete process.env.SFIA_COGNITIVE_MAX_SEGMENTS;
+    else process.env.SFIA_COGNITIVE_MAX_SEGMENTS = prevSeg;
   });
 
-  it("returns suspend copy without asking the Pilote to pick model/effort", async () => {
-    const { runNoraCognitiveTurn } = await import(
-      "@/domains/conversation/run-nora-cognitive-turn"
+  it("envelope: reserve 24k soft-stops investigation projection but restitution segment stays admissible", () => {
+    const base = {
+      segmentCalls: 2,
+      webCalls: 0,
+      durationMs: 1,
+      limits: [] as string[],
+      ...NEAR_LIMIT_INVESTIGATION_TOKENS,
+    };
+    const investigationNext = evaluateGlobalResourceEnvelope(base, ENVELOPE_ENV, {
+      reserveForRestitution: 24_000,
+      projectedNextSegmentTokens: 30_000,
+    });
+    expect(investigationNext.ok).toBe(false);
+    expect(investigationNext.softStop).toBe(true);
+
+    const restitutionNext = evaluateGlobalResourceEnvelope(
+      { ...base, limits: ["RESTITUTION_PHASE"] },
+      ENVELOPE_ENV,
+      { reserveForRestitution: 0, projectedNextSegmentTokens: 12_000 },
+    );
+    expect(restitutionNext.ok).toBe(true);
+  });
+
+  it("after investigation soft-stop with acquis, conductor enters RESTITUTION_PHASE and runs restitution", async () => {
+    const { runCognitiveConductor } = await import(
+      "@/domains/conversation/cognitive-conductor"
     );
 
-    const result = await runNoraCognitiveTurn({
+    const result = await runCognitiveConductor({
       pilotId: "pilot",
       preparationId: "prep",
-      workId: "cgw_suspend",
-      userText: "Poursuis le travail avec la ressource proposée.",
-      contextSnippets: [],
-      knowledgeSnippets: [],
-      pilotageSnippets: [],
-      maxSegmentsThisInvocation: 1,
+      objective: "synthèse métier",
+      maxSegmentsThisInvocation: 4,
+      runSegment: async ({ segmentIndex }) => {
+        const investigation =
+          segmentIndex === 0
+            ? investigationWithAcquis()
+            : evaluateContractReadiness({
+                ...investigationWithAcquis(),
+                remainingWork: [
+                  "Restitution — produire la synthèse finale avec références et limites explicites",
+                ],
+              });
+        return {
+          replyText: segmentIndex === 0 ? "investigation" : "synthèse finale",
+          qualification: null,
+          investigation,
+          continueWork: segmentIndex === 0,
+          resourcesDelta:
+            segmentIndex === 0
+              ? { ...NEAR_LIMIT_INVESTIGATION_TOKENS, segmentCalls: 1 }
+              : { inputTokens: 8_000, outputTokens: 4_000, segmentCalls: 1 },
+        };
+      },
     });
 
-    expect(generateNoraReply).not.toHaveBeenCalled();
-    expect(result.conductor?.suspended).toBe(true);
-    expect(result.conductor?.suspendReason).toBe(
-      "RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION",
-    );
-    expect(result.content).toContain("sans obligation d'administrer les modèles");
-    expect(result.content).toContain("Besoin restant");
-    expect(result.content).toContain("substitution silencieuse");
-    expect(result.content).not.toContain("Indique une autre allocation");
-    expect(result.content).not.toMatch(/Indique.*(modèle|allocation)/i);
+    expect(result.segmentsRun).toBeGreaterThanOrEqual(2);
+    expect(result.work.resources.limits ?? []).toContain("RESTITUTION_PHASE");
+    expect(result.suspended).toBe(false);
+    expect(result.replyText).toBe("synthèse finale");
   });
-});```
 
-### `projects/sfia-studio-next/construction/as-built-ml5-cognitive-foundation-conformance-20261126.md`
+  it("soft-stop without acquis suspends without RESTITUTION_PHASE", async () => {
+    openOrResumeCognitiveWork.mockImplementation(async () => ({
+      work: {
+        id: "cgw_no_acquis",
+        ownerPilotId: "pilot",
+        preparationId: "prep",
+        projectId: null,
+        conversationId: null,
+        status: "RUNNING" as const,
+        revision: 2,
+        ownerToken: "tok",
+        leaseUntil: new Date(Date.now() + 60_000),
+        objective: "vide",
+        expectedOutcome: null,
+        state: createEmptyInvestigation("vide"),
+        resources: { segmentCalls: 0, limits: [] as string[] },
+        production: { kind: "NONE" as const, status: "IDLE" as const, parts: [] },
+        interruptCause: null,
+      },
+      resumed: true,
+      ownerToken: "tok",
+    }));
+
+    const { runCognitiveConductor } = await import(
+      "@/domains/conversation/cognitive-conductor"
+    );
+    const result = await runCognitiveConductor({
+      pilotId: "pilot",
+      preparationId: "prep",
+      objective: "vide",
+      workId: "cgw_no_acquis",
+      maxSegmentsThisInvocation: 3,
+      runSegment: async () => ({
+        replyText: "pas d'acquis",
+        qualification: null,
+        investigation: createEmptyInvestigation("vide"),
+        continueWork: true,
+        resourcesDelta: { ...NEAR_LIMIT_INVESTIGATION_TOKENS, segmentCalls: 1 },
+      }),
+    });
+
+    expect(result.segmentsRun).toBeGreaterThanOrEqual(1);
+    expect(result.suspended).toBe(true);
+    expect(result.work.resources.limits ?? []).not.toContain("RESTITUTION_PHASE");
+  });
+
+  it("Pilote suspend message still states sans obligation d'administrer les modèles", () => {
+    const msg = buildResourceContinuitySuspendMessage("gpt-6-luna", "high");
+    expect(msg).toContain("sans obligation d'administrer les modèles");
+  });
+});
 
 ```
-# As-built — ML5 cognitive foundation conformance (2026-11-26)
 
-Classe : **NO RELEASE** · Lane : **DEV** · Cutover RECETTE : **NON APPLIQUÉ** · Livraison 2 : **NON ENGAGÉE**
+### `projects/sfia-studio-next/web/tests/unit/ml5-http-attempt-finops-correlation.test.ts`
+```
+import { createHash } from "node:crypto";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import {
+  beginCampaignEnvelope,
+  commitProviderEmission,
+  getHttpAttemptsSnapshot,
+  reserveHttpEmission,
+  runWithProviderEmissionStore,
+  __resetProviderEmissionFrontierForTests,
+} from "@/domains/conversation/provider-emission-frontier";
 
-## S1 — Build `/404`
+const TEST_KEY = "sk-[REDACTED]";
+const TEST_FP = createHash("sha256").update(TEST_KEY, "utf8").digest("hex").slice(0, 16);
 
-- **Cause racine** : `NODE_ENV=development` dans le shell cassait le prerender Next (`Html should not be imported outside of pages/_document`). Les pages `not-found`/`global-error` n'étaient pas la cause.
-- **Correction** : `package.json` `"build": "NODE_ENV=production next build"`.
-- **Artefact** : BUILD_ID `X94NdR5lxD655tzAciId3` — EXIT 0.
+const insertCalls: Array<{ attemptId?: string | null; limits?: string[]; granularity?: string }> =
+  [];
 
-## S2 — Frontière fournisseur HTTP
+vi.mock("@/db/client", () => ({
+  db: {
+    insert: () => ({
+      values: (row: {
+        attemptId?: string | null;
+        limitsJson?: string[];
+        granularity?: string;
+      }) => {
+        insertCalls.push({
+          attemptId: row.attemptId,
+          limits: row.limitsJson,
+          granularity: row.granularity,
+        });
+        return {
+          onConflictDoNothing: () => ({
+            returning: () => Promise.resolve([{ id: `obs-${insertCalls.length}` }]),
+          }),
+        };
+      },
+    }),
+  },
+}));
 
-- `provider-emission-frontier.ts` distingue **SDK invocation** (`assertSdkInvocationAdmission`) et **tentative HTTP** (`createFrontierAwareFetch` / `reserveHttpEmission`).
-- Client OpenAI process-wide via `ensureFrontierOpenAIClientInstalled` + `setDefaultOpenAIClient` (fetch frontier-aware ; retries = tentatives distinctes).
-- Enveloppe campagne ALS + latch process si campagne `required` (perte ALS ≠ illimité).
-- Pas de défaut silencieux Terra/medium : effort requis (payload, hint SDK, ou refuse).
-- Oracle indépendant : corps/URLs reçus par fetch substitué (N vs N+1).
-- Nora + worker WEB : admission SDK puis HTTP au fetch — plus de comptage `run()` comme HTTP.
+describe("ML5 Contract D — HTTP attempt FinOps correlation", () => {
+  afterEach(() => {
+    __resetProviderEmissionFrontierForTests();
+    insertCalls.length = 0;
+    vi.clearAllMocks();
+  });
 
-## S3 — Allocation / budgets
+  it("exports committed/uncertain HTTP attempts without prompt bodies", () => {
+    runWithProviderEmissionStore(() => {
+      beginCampaignEnvelope({ campaignId: "c1", maxHttpAttempts: 3, required: true });
+      const a = reserveHttpEmission({
+        url: "https://api.openai.com/v1/responses",
+        body: JSON.stringify({
+          model: "gpt-6.1-terra",
+          max_output_tokens: 10,
+          reasoning: { effort: "medium" },
+          sfia_estimated_input_tokens: 50,
+        }),
+        effort: "medium",
+        env: {
+          STUDIO_LANE: "DEV",
+          OPENAI_API_KEY: TEST_KEY,
+          SFIA_OPENAI_EXPECTED_KEY_FP: TEST_FP,
+        } as NodeJS.ProcessEnv,
+      });
+      expect(a.ok).toBe(true);
+      if (!a.ok) throw new Error("reserve");
+      expect(getHttpAttemptsSnapshot()).toHaveLength(0);
+      commitProviderEmission(a);
+      const snap = getHttpAttemptsSnapshot();
+      expect(snap).toHaveLength(1);
+      expect(snap[0]).toEqual({
+        attemptId: a.attemptId,
+        state: "COMMITTED",
+        campaignId: "c1",
+        modelHint: "gpt-6.1-terra",
+        urlHost: "api.openai.com",
+      });
+      expect(Object.keys(snap[0]!)).not.toContain("reservedInputTokens");
+    });
+  });
 
-- Suspend sans substitution silencieuse conservé.
-- Message Pilote : besoin / contrainte / conséquence — **sans obligation d'administrer les modèles** (`buildResourceContinuitySuspendMessage`).
-- Budgets 2M / 1M / 120 segments inchangés.
-- Conducteur D3 unique conservé.
+  it("single HTTP attempt aligns FinOps attemptId and markers", async () => {
+    const { createHash } = await import("node:crypto");
+    const key = "sk-[REDACTED]";
+    const fp = createHash("sha256").update(key, "utf8").digest("hex").slice(0, 16);
+  const env = {
+      STUDIO_LANE: "DEV",
+      OPENAI_API_KEY: key,
+      SFIA_OPENAI_EXPECTED_KEY_FP: fp,
+    } as NodeJS.ProcessEnv;
 
-## S4 — FinOps
+    const { runWithProviderEmissionStoreAsync } = await import(
+      "@/domains/conversation/provider-emission-frontier"
+    );
+    await runWithProviderEmissionStoreAsync(async () => {
+      beginCampaignEnvelope({ maxHttpAttempts: 2, required: true });
+      const http = reserveHttpEmission({
+        url: "https://api.openai.com/v1/responses",
+        body: JSON.stringify({
+          model: "gpt-6.1-terra",
+          max_output_tokens: 20,
+          reasoning: { effort: "medium" },
+          sfia_estimated_input_tokens: 100,
+        }),
+        effort: "medium",
+        env,
+      });
+      expect(http.ok).toBe(true);
+      if (!http.ok) throw new Error("http");
+      commitProviderEmission(http);
 
-- Couverture / complétude restent relatives à l'ensemble d'**observations recensées**.
-- Sans recensement d'émissions HTTP indépendant → `kind: "partial"` (pas de 100 % « known » trompeur).
-- Source unique : `provider_usage_observations`.
+      const { recordNoraProviderUsageWithHttpCorrelation } = await import(
+        "@/domains/conversation/usage-accounting"
+      );
+      await recordNoraProviderUsageWithHttpCorrelation({
+        runResult: {
+          usage: { inputTokens: 10, outputTokens: 5, totalTokens: 15 },
+        },
+        status: "succeeded",
+        operation: "nora.generate_reply",
+        attemptId: "sdk_att_only",
+        generationId: "gen-single",
+        modelRequested: "gpt-6.1-terra",
+      });
+      expect(insertCalls.some((c) => c.attemptId === http.attemptId)).toBe(true);
+      expect(insertCalls[0]?.limits).toContain(`HTTP_ATTEMPT:${http.attemptId}`);
+      expect(insertCalls[0]?.limits).toContain("SDK_ATTEMPT:sdk_att_only");
+    });
+  });
 
-## S5 — Autorité WEB D6
+  it("multiple HTTP attempts add per-attempt PARTIAL rows without invented tokens", async () => {
+    const { createHash } = await import("node:crypto");
+    const key = "sk-[REDACTED]";
+    const fp = createHash("sha256").update(key, "utf8").digest("hex").slice(0, 16);
+    const env = {
+      STUDIO_LANE: "DEV",
+      OPENAI_API_KEY: key,
+      SFIA_OPENAI_EXPECTED_KEY_FP: fp,
+    } as NodeJS.ProcessEnv;
+    const body = JSON.stringify({
+      model: "gpt-6.1-terra",
+      max_output_tokens: 20,
+      reasoning: { effort: "medium" },
+      sfia_estimated_input_tokens: 100,
+    });
 
-- `effectConditions` obligatoires et parsées fail-closed.
-- Contrôle kind=`RECORD_DECISION`, state=`APPLICABLE`, query/destination/purpose/policyVersion/pilot/project.
-- `authorizedExactWebQueryBindings` + `reverifyWebPublicQueryAuthorityAtEgress` (decisionId requis).
-- `priorExactQueries` seules n'admettent plus l'egress exceptionnel.
-- Preuve de révocation au dernier mile.
+    const { runWithProviderEmissionStoreAsync } = await import(
+      "@/domains/conversation/provider-emission-frontier"
+    );
+    await runWithProviderEmissionStoreAsync(async () => {
+      beginCampaignEnvelope({ maxHttpAttempts: 3, required: true });
+      const h1 = reserveHttpEmission({ url: "https://api.openai.com/v1/responses", body, effort: "medium", env });
+      const h2 = reserveHttpEmission({ url: "https://api.openai.com/v1/responses", body, effort: "medium", env });
+      if (!h1.ok || !h2.ok) throw new Error("reserve");
+      commitProviderEmission(h1);
+      commitProviderEmission(h2);
 
-## S6 — PDF
-
-- `pdf-viewer-authorization.ts` : session, owner, lane connue+concordante, habilitation projet DB, binding cognitive work, expiry, fingerprint.
-- `viewerToken` ≠ autorité.
-- Lane absente/inconnue refusée.
-
-## WEB LIVE
-
-`SFIA_WEB_SEARCH_LIVE=0` · `SFIA_WEB_SEARCH_ENABLED=0` · G-WEB-MIXED fermé · enveloppes §12.1/12.2 **non consommées** (S2 déterministe satisfait ; LIVE discriminant optionnel en réserve B).
+      const { recordNoraProviderUsageWithHttpCorrelation } = await import(
+        "@/domains/conversation/usage-accounting"
+      );
+      await recordNoraProviderUsageWithHttpCorrelation({
+        runResult: { usage: { inputTokens: 50, outputTokens: 20, totalTokens: 70 } },
+        status: "succeeded",
+        operation: "nora.generate_reply",
+        attemptId: "sdk_multi",
+        generationId: "gen-multi",
+        modelRequested: "gpt-6.1-terra",
+      });
+      expect(insertCalls.length).toBe(3);
+      expect(insertCalls[0]?.limits).toContain("MULTI_HTTP_ATTEMPT_AGGREGATE");
+      const partialRows = insertCalls.filter(
+        (c) => c.granularity === "REQUEST" && c.attemptId !== "sdk_multi",
+      );
+      expect(partialRows.length).toBe(2);
+      expect(partialRows.every((r) => r.limits?.includes("HTTP_ATTEMPT_USAGE_UNKNOWN"))).toBe(
+        true,
+      );
+    });
+  });
+});
 ```
 
-## Diffs modified (complete vs ee6c170e parent of conformance commit)
+### `projects/sfia-studio-next/web/tests/unit/ml5-provider-sdk-frontier.integration.test.ts`
+```
+/**
+ * A-03 / A-04 — real `openai` SDK (locked 7.50) with substituted fetch.
+ * Does NOT call gated() twice artificially — the SDK's own retry path must emit.
+ */
+import { createHash } from "node:crypto";
+import { afterEach, describe, expect, it } from "vitest";
+import {
+  assertSdkInvocationAdmission,
+  beginCampaignEnvelope,
+  createFrontierAwareFetch,
+  enableHttpMetaCaptureForTests,
+  ensureFrontierOpenAIClientInstalled,
+  getEmissionsObservedForTests,
+  getHttpBodiesObservedForTests,
+  ProviderEmissionRefusedError,
+  runWithProviderEmissionStoreAsync,
+  __resetFrontierOpenAIClientInstallForTests,
+  __resetProviderEmissionFrontierForTests,
+} from "@/domains/conversation/provider-emission-frontier";
 
+const TEST_KEY = "sk-[REDACTED]";
+const TEST_FP = createHash("sha256").update(TEST_KEY, "utf8").digest("hex").slice(0, 16);
+
+describe("A — real OpenAI SDK through frontier fetch", () => {
+  afterEach(() => {
+    __resetProviderEmissionFrontierForTests();
+    __resetFrontierOpenAIClientInstallForTests();
+  });
+
+  it("A-03: SDK maxRetries triggers a second HTTP attempt counted by frontier", async () => {
+    await runWithProviderEmissionStoreAsync(async () => {
+      beginCampaignEnvelope({ maxHttpAttempts: 3, required: true });
+      enableHttpMetaCaptureForTests();
+      const prev = { ...process.env };
+      Object.assign(process.env, {
+        STUDIO_LANE: "DEV",
+        OPENAI_API_KEY: TEST_KEY,
+        SFIA_OPENAI_EXPECTED_KEY_FP: TEST_FP,
+      });
+      try {
+        assertSdkInvocationAdmission({
+          kind: "campaign.probe",
+          modelId: "gpt-6.1-terra",
+          effort: "medium",
+          env: process.env,
+        });
+        let n = 0;
+        const transport = (async () => {
+          n += 1;
+          if (n === 1) {
+            return new Response("temporary", { status: 500 });
+          }
+          // Minimal Responses-like success body
+          return new Response(
+            JSON.stringify({
+              id: "resp_test",
+              object: "response",
+              status: "completed",
+              model: "gpt-6.1-terra",
+              output: [],
+              usage: { input_tokens: 10, output_tokens: 5 },
+            }),
+            { status: 200, headers: { "content-type": "application/json" } },
+          );
+        }) as typeof fetch;
+
+        await ensureFrontierOpenAIClientInstalled({
+          forceReinstall: true,
+          fetch: transport,
+          maxRetries: 2,
+        });
+
+        const OpenAI = (await import("openai")).default;
+        // Use the same frontier-aware fetch the install registered conceptually —
+        // construct a client explicitly so we exercise openai package retry.
+        const client = new OpenAI({
+          apiKey: TEST_KEY,
+          fetch: createFrontierAwareFetch(transport),
+          maxRetries: 2,
+        });
+
+        // responses.create retries on 5xx via SDK — each attempt hits frontier.
+        await client.responses.create({
+          model: "gpt-6.1-terra",
+          input: "ping",
+          max_output_tokens: 32,
+          // @ts-expect-error reasoning shape accepted by API
+          reasoning: { effort: "medium" },
+        } as never);
+
+        expect(n).toBeGreaterThanOrEqual(2);
+        expect(getEmissionsObservedForTests()).toBeGreaterThanOrEqual(2);
+        expect(getHttpBodiesObservedForTests().length).toBeGreaterThanOrEqual(2);
+      } finally {
+        for (const k of ["STUDIO_LANE", "OPENAI_API_KEY", "SFIA_OPENAI_EXPECTED_KEY_FP"]) {
+          if (prev[k] === undefined) delete process.env[k];
+          else process.env[k] = prev[k]!;
+        }
+      }
+    });
+  }, 20_000);
+
+  it("A-04: campaign N=1 refuses SDK second attempt after first commit", async () => {
+    await runWithProviderEmissionStoreAsync(async () => {
+      beginCampaignEnvelope({ maxHttpAttempts: 1, required: true });
+      const prev = { ...process.env };
+      Object.assign(process.env, {
+        STUDIO_LANE: "DEV",
+        OPENAI_API_KEY: TEST_KEY,
+        SFIA_OPENAI_EXPECTED_KEY_FP: TEST_FP,
+      });
+      try {
+        assertSdkInvocationAdmission({
+          kind: "campaign.probe",
+          modelId: "gpt-6.1-terra",
+          effort: "medium",
+          env: process.env,
+        });
+        let n = 0;
+        const transport = (async () => {
+          n += 1;
+          return new Response(
+            JSON.stringify({
+              id: `resp_${n}`,
+              object: "response",
+              status: "completed",
+              output: [],
+              usage: { input_tokens: 3, output_tokens: 1 },
+            }),
+            { status: 200, headers: { "content-type": "application/json" } },
+          );
+        }) as typeof fetch;
+        const client = new (await import("openai")).default({
+          apiKey: TEST_KEY,
+          fetch: createFrontierAwareFetch(transport),
+          maxRetries: 0,
+        });
+        await client.responses.create({
+          model: "gpt-6.1-terra",
+          input: "one",
+          max_output_tokens: 16,
+          reasoning: { effort: "medium" },
+        } as never);
+        let secondErr: unknown;
+        try {
+          await client.responses.create({
+            model: "gpt-6.1-terra",
+            input: "two",
+            max_output_tokens: 16,
+            reasoning: { effort: "medium" },
+          } as never);
+        } catch (e) {
+          secondErr = e;
+        }
+        expect(secondErr).toBeTruthy();
+        // openai package may wrap ProviderEmissionRefusedError as APIConnectionError
+        const chain: unknown[] = [];
+        let cur: unknown = secondErr;
+        for (let i = 0; i < 5 && cur; i++) {
+          chain.push(cur);
+          cur =
+            cur && typeof cur === "object" && "cause" in cur
+              ? (cur as { cause: unknown }).cause
+              : null;
+        }
+        const refused = chain.some(
+          (e) =>
+            e instanceof ProviderEmissionRefusedError ||
+            (e instanceof Error &&
+              /CAMPAIGN_ENVELOPE_EXHAUSTED|CAMPAIGN_HTTP_ATTEMPTS/.test(e.message)),
+        );
+        expect(refused).toBe(true);
+        expect(n).toBe(1);
+        expect(getEmissionsObservedForTests()).toBe(1);
+      } finally {
+        for (const k of ["STUDIO_LANE", "OPENAI_API_KEY", "SFIA_OPENAI_EXPECTED_KEY_FP"]) {
+          if (prev[k] === undefined) delete process.env[k];
+          else process.env[k] = prev[k]!;
+        }
+      }
+    });
+  }, 20_000);
+});
+
+```
+
+### `projects/sfia-studio-next/web/scripts/ml5-g-live-api-bounded.mjs`
+```
+/**
+ * G-LIVE-API bounded campaign — LIVE-01..04 against DEV :3100 (WEB OFF).
+ * Preconditions: qualify server with SFIA_G_LIVE_API=1, WEB flags 0, STUDIO_LANE=DEV.
+ * Does not touch RECETTE :3200. Stops when oracle is sufficient — does not burn envelope.
+ */
+import { writeFileSync, mkdirSync } from "node:fs";
+import { randomUUID } from "node:crypto";
+import { execSync } from "node:child_process";
+
+const BASE = process.env.SFIA_LIVE_BASE || "http://127.0.0.1:3100";
+const OUT =
+  process.env.SFIA_LIVE_OUT ||
+  "/tmp/sfia-ml5-g-live-api-20261126";
+mkdirSync(OUT, { recursive: true });
+
+const jar = { cookie: "" };
+
+async function api(path, { method = "GET", body, timeoutMs = 900_000 } = {}) {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), timeoutMs);
+  try {
+    const res = await fetch(`${BASE}${path}`, {
+      method,
+      headers: {
+        ...(body ? { "content-type": "application/json" } : {}),
+        ...(jar.cookie ? { cookie: jar.cookie } : {}),
+      },
+      body: body ? JSON.stringify(body) : undefined,
+      signal: ctrl.signal,
+    });
+    const set = res.headers.getSetCookie?.() || [];
+    for (const c of set) {
+      const part = c.split(";")[0];
+      jar.cookie = jar.cookie ? `${jar.cookie}; ${part}` : part;
+    }
+    const text = await res.text();
+    let json = null;
+    try {
+      json = JSON.parse(text);
+    } catch {
+      json = { _raw: text.slice(0, 4000) };
+    }
+    return { status: res.status, json };
+  } finally {
+    clearTimeout(t);
+  }
+}
+
+function save(name, data) {
+  writeFileSync(`${OUT}/${name}.json`, JSON.stringify(data, null, 2));
+}
+
+function pg(sql) {
+  const oneLine = sql.replace(/\s+/g, " ").trim();
+  return execSync(
+    `docker exec sfia-next-dev-pg psql -U sfia_next_dev -d sfia_next_dev -t -A -c ${JSON.stringify(oneLine)}`,
+    { encoding: "utf8", maxBuffer: 20_000_000 },
+  ).trim();
+}
+
+function pgJson(sql) {
+  const raw = pg(sql);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return raw;
+  }
+}
+
+const report = {
+  startedAt: new Date().toISOString(),
+  base: BASE,
+  campaign: "g-live-api-20261126",
+  gate: "G-LIVE-API",
+  web: "OFF",
+  steps: [],
+  scenarios: {},
+  finops: null,
+  verdict: null,
+};
+
+function step(name, data) {
+  report.steps.push({ name, at: new Date().toISOString(), ...data });
+  console.log(`[${name}]`, JSON.stringify(data).slice(0, 600));
+}
+
+async function turn(target, content, extra = {}) {
+  const path = target.preparationId
+    ? `/api/preparations/${target.preparationId}/messages`
+    : `/api/projects/${target.projectId}/messages`;
+  return api(path, {
+    method: "POST",
+    body: {
+      content,
+      clientTurnKey: extra.clientTurnKey || `ctk_${randomUUID()}`,
+      ...extra,
+    },
+    timeoutMs: 900_000,
+  });
+}
+
+function extractReply(json) {
+  if (!json || typeof json !== "object") return "";
+  if (typeof json.content === "string" && json.content.trim()) return json.content;
+  if (typeof json.reply === "string" && json.reply.trim()) return json.reply;
+  const msgs = Array.isArray(json.messages) ? json.messages : [];
+  for (let i = msgs.length - 1; i >= 0; i--) {
+    const m = msgs[i];
+    if (
+      m &&
+      (m.role === "assistant" || m.author === "assistant" || m.kind === "assistant") &&
+      typeof m.content === "string" &&
+      m.content.trim()
+    ) {
+      return m.content;
+    }
+  }
+  const am = json.assistantMessage;
+  if (am && typeof am.content === "string") return am.content;
+  return "";
+}
+
+function extractWorkId(json) {
+  return (
+    json?.cognitiveWork?.workId ||
+    json?.cognitiveWorkId ||
+    json?.workId ||
+    null
+  );
+}
+
+try {
+  const health = await api("/login");
+  step("health", { status: health.status });
+  if (health.status !== 200 && health.status !== 307 && health.status !== 302) {
+    throw new Error(`DEV :3100 not ready status=${health.status}`);
+  }
+
+  await api("/api/dev/auto-session", { method: "POST" });
+  const runId = randomUUID().slice(0, 8);
+
+  // LIVE-01 — nominal simple turn
+  const prep = await api("/api/preparations", { method: "POST", body: {} });
+  save("01-prep", prep);
+  const preparationId = prep.json?.preparationId;
+  if (!preparationId) throw new Error("no preparationId");
+
+  const t0 = Date.now();
+  const live01 = await turn(
+    { preparationId },
+    `LIVE-01 ${runId}: en une phrase, confirme que tu es Nora et que le socle cognitif répond. Aucune recherche web. Aucun outil Git.`,
+  );
+  save("02-live01", live01);
+  const reply01 = extractReply(live01.json);
+  const workId01 = extractWorkId(live01.json);
+  step("LIVE-01", {
+    status: live01.status,
+    ms: Date.now() - t0,
+    workId: workId01,
+    noraStatus: live01.json?.status,
+    attemptNotes: live01.json?.attempts?.[0]?.notes ?? null,
+    replyChars: String(reply01).length,
+    replyPreview: String(reply01).slice(0, 280),
+  });
+  report.scenarios.LIVE01 = {
+    status: live01.status,
+    ms: Date.now() - t0,
+    workId: workId01,
+    noraStatus: live01.json?.status,
+    attempts: live01.json?.attempts ?? [],
+    generationId: live01.json?.generationId ?? null,
+    reply: String(reply01).slice(0, 4000),
+  };
+  if (live01.status < 200 || live01.status >= 300) {
+    throw new Error(`LIVE-01 HTTP ${live01.status}`);
+  }
+
+  // LIVE-02 — light tool-using investigation on local/public docs if work exists
+  const live02 = await turn(
+    { preparationId },
+    `LIVE-02 ${runId}: sans recherche web, résume en 5 lignes maximum le rôle de Nora dans Studio Next (allocation cognitive, conducteur, FinOps). Si des acquis existent déjà, mobilise-les. Ne relance pas une investigation exhaustive.`,
+  );
+  save("03-live02", live02);
+  const reply02 = extractReply(live02.json);
+  const workId02 = extractWorkId(live02.json) || workId01;
+  step("LIVE-02", {
+    status: live02.status,
+    noraStatus: live02.json?.status,
+    attemptNotes: live02.json?.attempts?.[0]?.notes ?? null,
+    replyChars: String(reply02).length,
+    workId: workId02,
+    replyPreview: String(reply02).slice(0, 280),
+  });
+  report.scenarios.LIVE02 = {
+    status: live02.status,
+    workId: workId02,
+    noraStatus: live02.json?.status,
+    attempts: live02.json?.attempts ?? [],
+    generationId: live02.json?.generationId ?? null,
+    reply: String(reply02).slice(0, 4000),
+  };
+
+  // LIVE-03 — restitution / note from acquis
+  const live03 = await turn(
+    { preparationId },
+    `LIVE-03 ${runId}: produis une courte note technique (8 lignes max) consolidant les acquis de ce fil. Pas de nouvelle investigation. Cite uniquement ce qui est déjà établi.`,
+  );
+  save("04-live03", live03);
+  const reply03 = extractReply(live03.json);
+  step("LIVE-03", {
+    status: live03.status,
+    noraStatus: live03.json?.status,
+    attemptNotes: live03.json?.attempts?.[0]?.notes ?? null,
+    replyChars: String(reply03).length,
+    replyPreview: String(reply03).slice(0, 400),
+  });
+  report.scenarios.LIVE03 = {
+    status: live03.status,
+    noraStatus: live03.json?.status,
+    attempts: live03.json?.attempts ?? [],
+    generationId: live03.json?.generationId ?? null,
+    reply: String(reply03).slice(0, 4000),
+  };
+
+  // LIVE-04 — FinOps reconciliation from PostgreSQL (no extra LIVE burn)
+  const since = report.startedAt;
+  const usage = pgJson(
+    `SELECT COALESCE(json_agg(row_to_json(t) ORDER BY created_at), '[]'::json) FROM (
+      SELECT id, created_at, cognitive_work_id, generation_id, attempt_id, operation,
+             model_requested, model_applied, effort_requested, effort_applied,
+             input_tokens, output_tokens, total_tokens, provider_requests,
+             estimated_cost_usd, cost_coverage, status, granularity,
+             provider_response_id, limits_json, error_category
+      FROM provider_usage_observations
+      WHERE created_at >= '${since}'::timestamptz
+      ORDER BY created_at
+      LIMIT 80
+    ) t;`,
+  );
+  const usageRows = Array.isArray(usage) ? usage : [];
+  const sumIn = usageRows.reduce((a, r) => a + (Number(r.input_tokens) || 0), 0);
+  const sumOut = usageRows.reduce((a, r) => a + (Number(r.output_tokens) || 0), 0);
+  const costs = usageRows
+    .map((r) => Number(r.estimated_cost_usd))
+    .filter((n) => Number.isFinite(n));
+  const sumCost = costs.reduce((a, b) => a + b, 0);
+  const attemptIds = [
+    ...new Set(usageRows.map((r) => r.attempt_id).filter(Boolean)),
+  ];
+  const httpMarkers = usageRows.flatMap((r) =>
+    Array.isArray(r.limits_json)
+      ? r.limits_json.filter((x) => String(x).startsWith("HTTP_ATTEMPT"))
+      : [],
+  );
+  report.finops = {
+    observationCount: usageRows.length,
+    distinctAttemptIds: attemptIds.length,
+    attemptIds,
+    httpMarkers: httpMarkers.slice(0, 40),
+    sumInputTokens: sumIn,
+    sumOutputTokens: sumOut,
+    estimatedCostUsdSum: Number(sumCost.toFixed(6)),
+    coverages: [...new Set(usageRows.map((r) => r.cost_coverage))],
+    granularities: [...new Set(usageRows.map((r) => r.granularity))],
+    rows: usageRows.map((r) => ({
+      id: r.id,
+      attempt_id: r.attempt_id,
+      generation_id: r.generation_id,
+      operation: r.operation,
+      model: r.model_applied || r.model_requested,
+      effort: r.effort_applied || r.effort_requested,
+      in: r.input_tokens,
+      out: r.output_tokens,
+      cost: r.estimated_cost_usd,
+      coverage: r.cost_coverage,
+      granularity: r.granularity,
+      limits: r.limits_json,
+    })),
+  };
+  save("05-finops", report.finops);
+  step("LIVE-04", {
+    observations: usageRows.length,
+    attempts: attemptIds.length,
+    sumIn,
+    sumOut,
+    cost: report.finops.estimatedCostUsdSum,
+  });
+
+  const finopsApi = await api("/api/settings/consumption").catch((e) => ({
+    status: 0,
+    json: { error: String(e) },
+  }));
+  save("06-finops-api", finopsApi);
+  report.scenarios.LIVE04 = {
+    pgObservations: usageRows.length,
+    finopsApiStatus: finopsApi.status,
+  };
+
+  const ok =
+    report.scenarios.LIVE01.status === 200 &&
+    report.scenarios.LIVE01.noraStatus === "COMPLETE" &&
+    String(report.scenarios.LIVE01.reply || "").length > 20 &&
+    usageRows.length >= 1;
+  report.verdict = ok
+    ? "G-LIVE-API LIVE-01..04 EXERCISED — OBSERVATIONS PERSISTED"
+    : "G-LIVE-API PARTIAL — REVIEW SCENARIOS";
+  report.endedAt = new Date().toISOString();
+  save("00-report", report);
+  console.log(JSON.stringify({ verdict: report.verdict, out: OUT }, null, 2));
+  process.exit(ok ? 0 : 2);
+} catch (e) {
+  report.verdict = "G-LIVE-API FAILED";
+  report.error = String(e?.stack || e);
+  report.endedAt = new Date().toISOString();
+  save("00-report", report);
+  console.error(report.error);
+  process.exit(1);
+}
+
+```
+
+## 7. Key production diffs (b69451e3..HEAD)
+
+### `projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts`
 ```diff
- ...l5-cognitive-foundation-conformance-20261126.md |  49 ++
- .../construction/delivery-history.md               |  21 +
- .../ml5-recette-manifest-candidate-20261126.md     |  40 +-
- projects/sfia-studio-next/web/package.json         |   2 +-
- .../app/api/web/pdf-viewer/[viewerToken]/route.ts  |  75 +-
- .../web/src/components/documents/PdfViewer.tsx     |   7 +-
- .../src/domains/conversation/cognitive-policy.ts   |  15 +
- .../domains/conversation/investigation-state.ts    |   5 +
- .../web/src/domains/conversation/nora-adapter.ts   |  31 +-
- .../conversation/provider-emission-frontier.ts     | 813 +++++++++++++++++++--
- .../domains/conversation/public-web-registry.ts    |   7 +-
- .../conversation/public-web-search-frontier.ts     |  86 ++-
- .../conversation/run-nora-cognitive-turn.ts        | 107 ++-
- .../conversation/web-public-query-authority.ts     | 498 ++++++++++---
- .../src/domains/documents/pdf-extract-server.ts    |   1 +
- .../web/src/domains/documents/pdf-read-contract.ts |   5 +
- .../domains/documents/pdf-viewer-authorization.ts  | 270 +++++++
- .../web/src/domains/finops/usage-projection.ts     |  27 +-
- .../ml5-cognitive-resource-suspend-turn.test.ts    | 138 ++++
- .../web/tests/unit/ml5-cognitive-resources.test.ts |   9 +
- .../tests/unit/ml5-finops-usage-projection.test.ts |  15 +-
- .../unit/ml5-pdf-viewer-authorization.test.ts      | 307 ++++++++
- .../unit/ml5-provider-emission-frontier.test.ts    | 255 +++++--
- .../web/tests/unit/ml5-web-page-session.test.ts    |  39 +
- .../web/tests/unit/ml5-web-query-authority.test.ts | 103 ++-
- .../web/tests/unit/nora-adapter-corrective.test.ts |   6 +
- 26 files changed, 2567 insertions(+), 364 deletions(-)
-```
-
-```diff
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 13d5f716..edabd7ee 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -5058,3 +5058,24 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
- | Contrôles | Vitest unit ml5* 337 PASS (dont frontier, authority, FinOps, sessions) |
- | Réserves | Git PDF text B ; WEB-05 C ; F2 C ; kind D6 dédié D |
- | Statut | DEV CANDIDATE — COGNITIVE CONSOLIDATION — RECETTE SCOPE DECISION REQUIRED |
-+
-+
-+## 2026-11-26 — ML5 cognitive foundation conformance + integrated qualification (Cycle 8 Delivery / DEV)
-+
-+| Champ | Valeur |
-+|---|---|
-+| Delivery ID | `next-ml5-cognitive-foundation-conformance-20261126` |
-+| Date | 2026-11-26 |
-+| Macro-lot | ML5 livraison 1 — mise en conformité transverse du socle cognitif (pas livraison 2) |
-+| Type | EVOL · Critical · Cycle 8 Delivery |
-+| GO Morris | 26/11 — qualité du socle > rapidité RECETTE ; traiter causes racines ; pas de faux READY FOR RECETTE |
-+| Base tip | `ee6c170e46b8b995e30c78c90231a0fa1e2110a0` |
-+| Contenu | Build NODE_ENV=production ; frontière HTTP réelle (fetch) vs SDK invocation ; latch campagne ; allocation message Pilote ; FinOps couverture honnête ; D6 WEB effectConditions+decisionId+egress ; PDF habilitation DB |
-+| BUILD_ID | `X94NdR5lxD655tzAciId3` |
-+| Migration | NONE |
-+| LIVE §12.1/12.2 | **NON CONSOMMÉES** (S2 déterministe transport substitué satisfait) |
-+| WEB | OFF · G-WEB-MIXED fermé |
-+| Compatibilité | NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN · R5 IN PROGRESS · R6 NOT STARTED · NOT ADOPTED · G-RECETTE non consommé |
-+| Contrôles | Vitest unit ml5* 356 PASS · next build EXIT 0 |
-+| Réserves | B: GIT PDF text corpus · LIVE SDK multi-req ; C: WEB-05 · F2 · efficience RB ; D: kind WEB optionnel ; A build LEVÉE |
-+| Statut | DEV CANDIDATE — FOUNDATION CONFORMANCE — MORRIS REVIEW REQUIRED — NOT ADOPTED |
-diff --git a/projects/sfia-studio-next/construction/ml5-recette-manifest-candidate-20261126.md b/projects/sfia-studio-next/construction/ml5-recette-manifest-candidate-20261126.md
-index 941e16bc..8d74d2dc 100644
---- a/projects/sfia-studio-next/construction/ml5-recette-manifest-candidate-20261126.md
-+++ b/projects/sfia-studio-next/construction/ml5-recette-manifest-candidate-20261126.md
-@@ -4,29 +4,34 @@
- |---|---|
- | Date | 2026-11-26 |
- | Branche produit | `sfia/next-ml5-integrated-delivery-20261123` |
--| HEAD | `c46a8a9ab8b7ea90e423a2e8f237d580ce82908f` |
-+| HEAD (pré-commit tip de travail) | voir commit local de conformité fondation |
-+| BUILD_ID | `X94NdR5lxD655tzAciId3` |
- | Classe | **NO RELEASE** |
- | STABLE | NOT AVAILABLE |
- | Cutover | **NON APPLIQUÉ** |
- | G-RECETTE | **NON CONSOMMÉ** |
- | G-WEB-MIXED | **FERMÉ** |
- | WEB LIVE défaut | **OFF** |
-+| Politique cognitive DEV | v0.2 provisoire (Terra Medium ; Luna L/M expérimental ; Sol historique ; rollback `legacy_sol`) |
-+| Extension v0.2 → RECETTE | **Décision Morris distincte — non activée** |
-
- ## Capacités qualifiées
-
- | Capacité | État | Preuve |
- |---|---|---|
--| Frontière fournisseur commune + enveloppe campagne | DETERMINISTIC PROVEN | `ml5-provider-emission-frontier` · wired Nora + WEB worker |
--| Allocation sans substitution silencieuse | DETERMINISTIC PROVEN | `RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION` |
--| FinOps observation vs estimation | DETERMINISTIC PROVEN | `computeMeasureCoveragePercent` + `computeEstimationCompletenessPercent` |
--| Autorité WEB D6 (parse ≠ authority) | DETERMINISTIC PROVEN | `web-public-query-authority` · registry no auto-promote |
--| PDF viewerToken rotation + auth owner/lane/project | DETERMINISTIC PROVEN | session + route tests |
--| Politique cognitive v0.2 DEV | PRÉSERVÉE | Terra Medium ; Luna L/M expérimental ; rollback `legacy_sol` |
--| StockTrack IT-06 V2 conserve | REUSED (prior LIVE) | tip antérieur `8c82b6c1` — retest déterministe préféré |
--| RoomBooking investigation longue | REUSED | pas de replay 71 req ; corrections via unit/intégration |
-+| Build production Next | DETERMINISTIC PROVEN | `NODE_ENV=production` lock · BUILD_ID `X94NdR5lxD655tzAciId3` |
-+| Frontière HTTP fournisseur + enveloppe | DETERMINISTIC PROVEN (transport substitué) | `createFrontierAwareFetch` · N+1 refuse · latch ALS · wired Nora + WEB |
-+| Allocation sans substitution + message Pilote | DETERMINISTIC PROVEN | `RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION` · `buildResourceContinuitySuspendMessage` |
-+| FinOps couverture honnête | DETERMINISTIC PROVEN | observation vs estimation · partial sans census émissions |
-+| Autorité WEB D6 (parse ≠ authority) | DETERMINISTIC PROVEN | effectConditions fail-closed · decisionId · egress re-proof |
-+| PDF viewer auth réelle | DETERMINISTIC PROVEN | `assertPdfViewerAccess` · habilitation DB · lane |
-+| Politique cognitive v0.2 DEV | PRÉSERVÉE | non étendue à RECETTE |
-+| StockTrack IT-06 V2 conserve | REUSED (prior LIVE) | retest déterministe préféré ; frontière HTTP modifiée ⇒ LIVE optionnel |
-+| RoomBooking investigation longue | REUSED | pas de replay 71 req |
- | PDF Git REAL textuel | **BLOCKED CORPUS MISSING** | BPMN scanné SCANNED_NO_TEXT |
--| WEB LIVE public | PRIOR LIVE OBSERVED puis **OFF** | retest autorité D6 LIVE conditionnel §12.2 |
--| WEB-05 confrontation | PARTIAL | classe C — vérifiable en recette / retest ciblé |
-+| Passage LIVE SDK multi-requête sous campagne | B — non consommé §12.1 | préconditions S2 déterministes OK |
-+| WEB LIVE public / WEB-05 | B/C | OFF ; confrontation intellectuelle en recette |
-+| F2 visuelle | C | décision Morris |
-
- ## Configuration proposée RECETTE (décision Morris distincte)
-
-@@ -42,28 +47,27 @@
-
- | Id | Classe | Justification |
- |---|---|---|
--| R-BUILD-404 | A | `next build` échoue prerender /404 Html (Next 15.5.29) — artefact RECETTE non reproductible |
- | R-GIT-PDF-TEXT | B | Capacité Git PDF text isolable ; scanné déjà prouvé comme limite |
-+| R-LIVE-HTTP-SDK | B | Retest LIVE discriminant multi-Responses sous campagne (§12.1) non consommé — frontier déterministe OK |
- | R-WEB05 | C | Confrontation sources — socle sûr ; qualité intellectuelle en recette |
- | R-D6-WEB-KIND | D | Kind dédié optionnel ; RECORD_DECISION lie déjà le payload |
- | R-F2 | C | Recette visuelle Morris |
- | R-EFFICIENCE-RB | C | Dette efficience RoomBooking — non critique sécurité |
--| R-LIVE-REENVELOPPE | B | Tout retest LIVE doit réutiliser frontière S1 |
-
--**Réserve A** : build production Next `/404` — bloque cutover jusqu'à correction. Socle S1–S5 déterministe OK. Revue ChatGPT + GO Morris cutover requis.
-+**Réserve A build `/404` : LEVÉE** (cause `NODE_ENV` ; BUILD_ID valide).
-
- ## Smoke tests cutover (non exécutés)
-
- 1. Health DEV/RECETTE isolation ports 3100/3200/5433
--2. Session Pilote + FinOps summary KPI
-+2. Session Pilote + FinOps summary KPI (couverture PARTIAL attendue sans census)
- 3. Tour Nora simple Terra medium (WEB OFF)
--4. Viewer PDF fixture owner match / cross-owner 403
-+4. Viewer PDF fixture owner match / cross-owner 403 / habilitation withdrawn
- 5. Flags WEB = 0 sur processus actif
-
- ## Rollback
-
--Revert tip consolidation ; WEB OFF ; politique `legacy_sol` si besoin ; aucune migration à annuler.
-+Revert tip conformité fondation ; WEB OFF ; politique `legacy_sol` si besoin ; aucune migration à annuler.
-
- ## Verdict manifeste
-
--**CANDIDATE INSTRUCTED FOR G-RECETTE — CUTOVER NOT APPLIED — MORRIS GO REQUIRED.**
-+**CANDIDATE PREPARED FOR MORRIS REVIEW — CUTOVER NOT APPLIED — G-RECETTE NOT CONSUMED — FOUNDATION QUALIFIED WITH EXPLICIT CAPABILITY RESERVES.**
-diff --git a/projects/sfia-studio-next/web/package.json b/projects/sfia-studio-next/web/package.json
-index 8427cfdc..2a146741 100644
---- a/projects/sfia-studio-next/web/package.json
-+++ b/projects/sfia-studio-next/web/package.json
-@@ -4,7 +4,7 @@
-   "private": true,
-   "scripts": {
-     "dev": "next dev --turbopack -p 3100 -H 127.0.0.1",
--    "build": "next build",
-+    "build": "NODE_ENV=production next build",
-     "start": "next start -p 3100 -H 127.0.0.1",
-     "lint": "next lint",
-     "db:migrate": "bash scripts/db-migrate.sh",
-diff --git a/projects/sfia-studio-next/web/src/app/api/web/pdf-viewer/[viewerToken]/route.ts b/projects/sfia-studio-next/web/src/app/api/web/pdf-viewer/[viewerToken]/route.ts
-index 95a2e1ef..4a58568d 100644
---- a/projects/sfia-studio-next/web/src/app/api/web/pdf-viewer/[viewerToken]/route.ts
-+++ b/projects/sfia-studio-next/web/src/app/api/web/pdf-viewer/[viewerToken]/route.ts
-@@ -1,12 +1,13 @@
- import { NextResponse } from "next/server";
-+import { getWebPageSessionByViewerToken } from "@/domains/conversation/public-web-page-session";
-+import { assertPdfViewerAccess } from "@/domains/documents/pdf-viewer-authorization";
- import { requireStudioSession } from "@/domains/identity/session";
- import { studioErrorResponse } from "@/lib/http-errors";
--import { getWebPageSessionByViewerToken } from "@/domains/conversation/public-web-page-session";
-
- /**
-  * Authorized PDF bytes for the in-app viewer — distinct from Nora cognitive payloads.
-- * Re-checks session expiry, fingerprint, and PDF kind on every consultation.
-- * Never returns content into LLM prompts/checkpoints.
-+ * Re-checks project habilitation, identity, lane, work scope, expiry, and version on every GET.
-+ * viewerToken alone is never sufficient authority.
-  */
- export async function GET(
-   _req: Request,
-@@ -24,62 +25,38 @@ export async function GET(
-     if (!page) {
-       return NextResponse.json({ error: "VIEWER_SESSION_NOT_FOUND" }, { status: 404 });
-     }
--    if (Date.parse(page.expiresAt) <= Date.now()) {
--      return NextResponse.json({ error: "VIEWER_SESSION_EXPIRED" }, { status: 410 });
--    }
--    if (page.kind !== "pdf") {
--      return NextResponse.json({ error: "VIEWER_NOT_PDF" }, { status: 415 });
--    }
--    // ViewerToken alone is not authority — owner + lane + project must be opposable.
--    const owner = (page.scope.ownerPilotId || "").trim();
--    if (!owner) {
--      return NextResponse.json(
--        { error: "VIEWER_OWNER_REQUIRED", limits: ["VIEWER_TOKEN_NOT_SUFFICIENT"] },
--        { status: 403 },
--      );
--    }
--    if (owner !== session.pilotId) {
--      return NextResponse.json({ error: "VIEWER_OWNER_MISMATCH" }, { status: 403 });
--    }
--    const lane = (page.scope.lane || "").trim();
--    const processLane = (process.env.STUDIO_LANE || "").trim();
--    if (!lane || lane === "UNKNOWN" || (processLane && lane !== processLane)) {
--      return NextResponse.json(
--        { error: "VIEWER_LANE_MISMATCH", limits: ["VIEWER_TOKEN_NOT_SUFFICIENT"] },
--        { status: 403 },
--      );
--    }
--    if (!(page.scope.projectId || "").trim()) {
--      return NextResponse.json(
--        { error: "VIEWER_PROJECT_REQUIRED", limits: ["VIEWER_TOKEN_NOT_SUFFICIENT"] },
--        { status: 403 },
--      );
--    }
--    if (!page.pdfBytes || page.pdfBytes.byteLength < 5) {
--      return NextResponse.json(
--        {
--          error: "PDF_BYTES_UNAVAILABLE",
--          contentFingerprint: page.contentFingerprint,
--          pageCount: page.pageCount ?? null,
--          limits: [...page.limits, "VIEWER_BYTES_SERVER_ONLY_WHEN_PRESENT"],
--        },
--        { status: 404 },
--      );
-+
-+    const access = await assertPdfViewerAccess({
-+      session,
-+      page,
-+      processLane: process.env.STUDIO_LANE,
-+    });
-+    if (!access.ok) {
-+      const body: Record<string, unknown> = {
-+        error: access.error,
-+        limits: access.limits,
-+      };
-+      if (access.error === "PDF_BYTES_UNAVAILABLE") {
-+        body.contentFingerprint = page.contentFingerprint;
-+        body.pageCount = page.pageCount ?? null;
-+      }
-+      return NextResponse.json(body, { status: access.status });
-     }
-
--    return new NextResponse(Buffer.from(page.pdfBytes), {
-+    const pdfBytes = page.pdfBytes!;
-+    return new NextResponse(Buffer.from(pdfBytes), {
-       status: 200,
-       headers: {
-         "Content-Type": "application/pdf",
--        "Content-Length": String(page.pdfBytes.byteLength),
-+        "Content-Length": String(pdfBytes.byteLength),
-         "Cache-Control": "no-store",
--        "X-Content-Fingerprint": page.contentFingerprint,
-+        "X-Content-Fingerprint": access.contentFingerprint,
-         "X-Pdf-Page-Count": String(page.pageCount ?? ""),
--        "X-Viewer-Session-Id": page.sessionId,
-+        "X-Viewer-Session-Id": access.sessionId,
-       },
-     });
-   } catch (e) {
-     const mapped = studioErrorResponse(e);
-     return NextResponse.json(mapped.body, { status: mapped.status });
-   }
--}
-+}
-\ No newline at end of file
-diff --git a/projects/sfia-studio-next/web/src/components/documents/PdfViewer.tsx b/projects/sfia-studio-next/web/src/components/documents/PdfViewer.tsx
-index bb3f0514..29ddeb6f 100644
---- a/projects/sfia-studio-next/web/src/components/documents/PdfViewer.tsx
-+++ b/projects/sfia-studio-next/web/src/components/documents/PdfViewer.tsx
-@@ -10,10 +10,13 @@ import { useEffect, useRef, useState } from "react";
- export type PdfViewerProps = {
-   /**
-    * Base64-encoded PDF bytes from an already-authorized Studio path (Git/D4).
--   * Prefer `viewerToken` for WEB sessions so cognitive payloads never carry bytes.
-+   * Requires an opposable server contract — never use for ad-hoc URLs.
-    */
-   base64?: string;
--  /** Opaque token from public WEB open — fetches bytes via authorized viewer API. */
-+  /**
-+   * Opaque WEB session handle — not authorization.
-+   * `/api/web/pdf-viewer/*` re-checks session, project habilitation, lane, and work scope.
-+   */
-   viewerToken?: string;
-   title?: string;
-   /** 1-based initial page when citing. */
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
-index d71ca781..728f7bdd 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
-@@ -533,6 +533,21 @@ export type ContinuityResourceProposal = {
-   effort?: string | null;
- };
-
-+/** Pilote-facing suspend copy — need/constraint/consequence; no model admin duty. */
-+export function buildResourceContinuitySuspendMessage(
-+  refusedModel: string,
-+  refusedEffort: string,
-+): string {
-+  return (
-+    `Je ne peux pas poursuivre avec la ressource proposée (${refusedModel}@${refusedEffort}) : ` +
-+    `elle n'est pas admise dans la politique active, et aucune ressource déjà admise n'est disponible ` +
-+    `pour maintenir le travail sans substitution silencieuse. ` +
-+    `Besoin restant : poursuivre avec une capacité compatible avec la politique en vigueur. ` +
-+    `Conséquence : le travail est suspendu jusqu'à réévaluation de la stratégie ou arbitrage ` +
-+    `métier/politique si une exception est nécessaire — sans obligation d'administrer les modèles.`
-+  );
-+}
-+
- /**
-  * S3 — resolve next-segment policy from structured proposal + held couple.
-  * - Explicit proposal → admit; on refusal prefer holding the current couple
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts b/projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts
-index 00f5a786..6103bc0c 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/investigation-state.ts
-@@ -133,6 +133,11 @@ export type InvestigationState = {
-   registeredPublicTopics?: Record<string, string>;
-   /** Exact public queries explicitly authorized for this turn. */
-   authorizedExactWebQueries?: string[];
-+  /**
-+   * S5 — exceptional exact queries bound to durable HumanDecision ids.
-+   * Re-verified each turn; plain `authorizedExactWebQueries` alone does not re-admit.
-+   */
-+  authorizedExactWebQueryBindings?: Array<{ query: string; decisionId: string }>;
-   /**
-    * Nora-proposed public queries awaiting explicit Pilote authorization (Option B).
-    * Never grants egress alone — must match AUTHORIZE_PUBLIC_QUERY / exact marker.
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-index 147c2eb8..5f12ecf4 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-@@ -27,8 +27,8 @@ import { fixtureSemanticQualify } from "./fixture-semantic-qualify";
- import { resolveProviderSimulatedQualification } from "./provider-simulated-qualification";
- import { extractProviderUsageFromRunResult } from "./provider-usage";
- import {
--  commitProviderEmission,
--  reserveProviderEmission,
-+  assertSdkInvocationAdmission,
-+  ensureFrontierOpenAIClientInstalled,
- } from "./provider-emission-frontier";
- import { recordNoraProviderUsageFromRunResult } from "./usage-accounting";
- import {
-@@ -82,6 +82,8 @@ export type NoraGenerateInput = {
-     pilotProvidedUrls?: string[];
-     /** Mutable — Nora-staged proposals awaiting Pilote exact auth. */
-     pendingProposals?: string[];
-+    /** S5 — normalized exact query → durable HumanDecision id (egress proof). */
-+    exactQueryDecisionIds?: Record<string, string>;
-   };
-   /** E03/E04 FinOps attribution when running inside a cognitive work segment. */
-   cognitiveWorkId?: string | null;
-@@ -988,6 +990,8 @@ async function runLiveWithTools(
-         turnPublicTopics: input.publicWebRegistry?.topics,
-         turnPublicFacts: input.publicWebRegistry?.facts,
-         turnAuthorizedExactQueries: input.publicWebRegistry?.exactQueries,
-+        turnExactQueryDecisionIds: input.publicWebRegistry?.exactQueryDecisionIds,
-+        policyVersion: policy.policyVersion,
-         pilotProvidedUrls: input.publicWebRegistry?.pilotProvidedUrls,
-         pendingPublicWebProposals,
-         // T1.2 — explicit this-turn Pilote text only (never haystack/objective).
-@@ -1192,13 +1196,15 @@ async function runLiveWithTools(
-   let providerUsage = extractProviderUsageFromRunResult(null);
-
-   try {
--    // S1 — reserve at the common emission frontier before any provider contact.
--    const reservation = reserveProviderEmission({
-+    // HTTP attempts are gated by the frontier-aware OpenAI client fetch.
-+    // This precheck only admits the SDK invocation (lane + model/effort) — not an HTTP slot.
-+    await ensureFrontierOpenAIClientInstalled();
-+    const admission = assertSdkInvocationAdmission({
-       kind: "nora.generate_reply",
-       modelId: policy.modelRequested,
-       effort: policy.effortRequested,
-     });
--    if (!reservation.ok) {
-+    if (!admission.ok) {
-       clearTimeout(wallTimer);
-       return {
-         generationId,
-@@ -1207,8 +1213,8 @@ async function runLiveWithTools(
-         streamingProvisional: false,
-         streamingAttempted: false,
-         streamingDelivered: false,
--        streamingNotes: `PROVIDER_EMISSION_REFUSED:${reservation.reasonCode}`,
--        content: `Nora LIVE refusée avant émission fournisseur (${reservation.reasonCode}). Aucun contact réseau tenté.`,
-+        streamingNotes: `PROVIDER_EMISSION_REFUSED:${admission.reasonCode}`,
-+        content: `Nora LIVE refusée avant émission fournisseur (${admission.reasonCode}). Aucun contact réseau tenté.`,
-         policy,
-         modelRequested: policy.modelRequested,
-         modelApplied: null,
-@@ -1219,18 +1225,18 @@ async function runLiveWithTools(
-             attemptId: newAttemptId(),
-             kind: "non_stream",
-             outcome: "FAILED",
--            notes: `PROVIDER_EMISSION_REFUSED:${reservation.reasonCode}:${reservation.reason}`,
-+            notes: `PROVIDER_EMISSION_REFUSED:${admission.reasonCode}:${admission.reason}`,
-             providerContacted: "NO",
-           },
-         ],
-         toolCallsObserved: 0,
-         d4CharsReturned: 0,
-         qualification: unavailableQualification(
--          `PROVIDER_EMISSION_REFUSED_${reservation.reasonCode}`,
-+          `PROVIDER_EMISSION_REFUSED_${admission.reasonCode}`,
-         ),
-       };
-     }
--    const attemptId = reservation.attemptId;
-+    const attemptId = admission.attemptId;
-     // Structured qualification never surfaces provisional JSON to the Pilote (A3).
-     // Non-stream avoids Agents SDK stream_drain REDACTED schema failures (fp d57214)
-     // observed on tool-heavy investigation turns (CampusNova 2026-11-19).
-@@ -1251,14 +1257,15 @@ async function runLiveWithTools(
-         model_requested: policy.modelRequested,
-         max_turns_note: "maxTurns≠maxProviderCalls",
-         live_output_schema: "plain_omit_visual",
--        campaign_id: reservation.campaignId,
-+        campaign_id: admission.campaignId,
-+        frontier_layer: admission.layer,
-       },
-     });
-
-     try {
-       // Invoking run() → provider contact becomes at least UNCERTAIN.
-+      // Real HTTP attempts (incl. retries) are reserved/committed in frontier fetch.
-       providerContacted = "UNCERTAIN";
--      commitProviderEmission(reservation);
-       const result = await run(agent, prompt, {
-         maxTurns,
-         stream: false,
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts b/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts
-index 0a9f774e..dc596496 100644
+index dc596496..cab2afe0 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts
-@@ -1,11 +1,12 @@
- /**
-- * S1 — Common provider emission frontier (technical controls only).
-+ * Common provider emission frontier — technical controls only.
-  *
-- * Not an orchestrator / not cognitive strategy / not D6 authority / not B1 admission.
-- * Applies: lane identity, model/effort admission checks, campaign envelope reservation,
-- * attempt identity, and post-emission reconciliation hooks.
-+ * Distinguishes:
-+ * - SDK invocation (run()) — admission / lane precheck, not an HTTP attempt.
-+ * - HTTP attempt — each network contact (incl. SDK retries) via custom fetch.
-  *
-- * Campaign envelopes are explicit and isolated — never confused with D3 budgets or FinOps caps.
-+ * Campaign envelopes are explicit ALS contexts. Missing required campaign ⇒ fail-closed.
-+ * Not an orchestrator / not cognitive strategy / not D6 / not B1 admission owner.
-  */
-
- import { AsyncLocalStorage } from "node:async_hooks";
-@@ -31,49 +32,128 @@ export type EmissionAttemptKind =
-   | "public_web.isolated_search"
-   | "internal.qualification"
-   | "campaign.probe"
-+  | "http.responses"
-+  | "http.other"
-   | "other";
-
-+export type HttpAttemptState =
-+  | "RESERVED"
-+  | "COMMITTED"
-+  | "RELEASED"
-+  | "UNCERTAIN";
-+
- export type CampaignEnvelope = {
-   campaignId: string;
--  /** Max real provider emission attempts (retries included). */
--  maxAttempts: number;
--  attemptsReserved: number;
--  attemptsCommitted: number;
--  attemptsReleased: number;
-+  /** Require this ALS campaign for every HTTP emission (fail-closed if absent). */
-+  required: boolean;
-+  maxHttpAttempts: number;
-+  maxInputTokens: number | null;
-+  maxOutputTokens: number | null;
-+  maxInputTokensPerRequest: number | null;
-+  maxOutputTokensPerRequest: number | null;
-+  maxHostedSearches: number | null;
-+  maxDirectOpens: number | null;
-+  httpAttemptsReserved: number;
-+  httpAttemptsCommitted: number;
-+  httpAttemptsReleased: number;
-+  inputTokensReserved: number;
-+  inputTokensCommitted: number;
-+  outputTokensReserved: number;
-+  outputTokensCommitted: number;
-+  hostedSearchesCommitted: number;
-+  directOpensCommitted: number;
-   suspended: boolean;
-   suspendReason: string | null;
- };
-
-+export type HttpAttemptRecord = {
-+  attemptId: string;
-+  campaignId: string | null;
-+  state: HttpAttemptState;
-+  kind: EmissionAttemptKind;
-+  reservedSlots: number;
-+  reservedInputTokens: number;
-+  reservedOutputTokens: number;
-+  urlHost: string;
-+  modelHint: string | null;
-+  createdAtMs: number;
-+};
-+
- export type EmissionReservation =
-   | {
-       ok: true;
-       attemptId: string;
-       campaignId: string | null;
-       reservedSlots: number;
-+      reservedInputTokens: number;
-+      reservedOutputTokens: number;
-       keyFingerprint: string;
-       lane: string;
-+      layer: "http" | "sdk_invocation";
-     }
-   | {
-       ok: false;
-       reasonCode:
-         | "LANE_GUARD_FAILED"
-         | "MODEL_EFFORT_NOT_ADMITTED"
-+        | "CAMPAIGN_REQUIRED_MISSING"
+@@ -100,7 +100,8 @@ export type EmissionReservation =
          | "CAMPAIGN_ENVELOPE_EXHAUSTED"
          | "CAMPAIGN_SUSPENDED"
-+        | "ATTEMPT_STATE_INVALID"
-         | "INVALID_REQUEST";
+         | "ATTEMPT_STATE_INVALID"
+-        | "INVALID_REQUEST";
++        | "INVALID_REQUEST"
++        | "ALS_CONTEXT_REQUIRED";
        reason: string;
      };
 
- type FrontierStore = {
-   campaign: CampaignEnvelope | null;
--  /** Test oracle — counts true emit calls that passed reserve. */
--  emissionsObserved: number;
-+  attempts: Map<string, HttpAttemptRecord>;
-+  /** Independent oracle: HTTP attempts that reached commit/uncertain. */
-+  httpEmissionsObserved: number;
-+  /** SDK run() prechecks that passed (not HTTP). */
-+  sdkInvocationsObserved: number;
-+  /** Captured request bodies for substituted-transport tests. */
-+  httpBodiesObserved: Array<{
-+    attemptId: string;
-+    url: string;
-+    method: string;
-+    bodyPreview: string;
-+  }>;
-+  /** Effort admitted at SDK layer — reused for HTTP body admission (no silent medium). */
-+  effortHint: string | null;
+@@ -111,20 +112,30 @@ type FrontierStore = {
+   httpEmissionsObserved: number;
+   /** SDK run() prechecks that passed (not HTTP). */
+   sdkInvocationsObserved: number;
+-  /** Captured request bodies for substituted-transport tests. */
++  /**
++   * Test-only oracle metadata (no prompt bodies in production).
++   * captureBodies must be explicitly enabled for substituted-transport tests.
++   */
+   httpBodiesObserved: Array<{
+     attemptId: string;
+     url: string;
+     method: string;
+-    bodyPreview: string;
++    model: string | null;
++    effort: string | null;
++    maxOutputTokens: number | null;
+   }>;
+   /** Effort admitted at SDK layer — reused for HTTP body admission (no silent medium). */
+   effortHint: string | null;
++  /** Model admitted at SDK layer — compared to final HTTP payload. */
++  modelHint: string | null;
++  /** When true, record non-body metadata for substituted-transport oracles. */
++  captureHttpMeta: boolean;
  };
 
  const als = new AsyncLocalStorage<FrontierStore>();
 
-+let clientInstallPromise: Promise<void> | null = null;
-+
+ let clientInstallPromise: Promise<void> | null = null;
++let installedClientKeyFp: string | null = null;
+
+ /**
+  * Process-level latch: once a required campaign starts, OpenAI HTTP outside an
+@@ -136,6 +147,13 @@ let requiredCampaignLatch: {
+   active: boolean;
+ } | null = null;
+
 +/**
-+ * Process-level latch: once a required campaign starts, OpenAI HTTP outside an
-+ * ALS store that still holds that campaign fails closed (ALS loss ≠ unlimited).
-+ * Cleared only by explicit suspend/end or test reset — not by ALS exit alone.
++ * Process-level campaign registry — counters survive ALS request boundaries.
++ * LIVE qualification (G-LIVE-API / G-WEB-PUBLIC) re-attaches the same envelope
++ * on each request; lost ALS must never invent a fresh unlimited campaign.
 + */
-+let requiredCampaignLatch: {
-+  campaignId: string;
-+  active: boolean;
-+} | null = null;
++const processCampaignRegistry = new Map<string, CampaignEnvelope>();
 +
-+function emptyStore(): FrontierStore {
-+  return {
-+    campaign: null,
-+    attempts: new Map(),
-+    httpEmissionsObserved: 0,
-+    sdkInvocationsObserved: 0,
-+    httpBodiesObserved: [],
-+    effortHint: null,
-+  };
+ function emptyStore(): FrontierStore {
+   return {
+     campaign: null,
+@@ -144,11 +162,25 @@ function emptyStore(): FrontierStore {
+     sdkInvocationsObserved: 0,
+     httpBodiesObserved: [],
+     effortHint: null,
++    modelHint: null,
++    captureHttpMeta: false,
+   };
+ }
+
++/** Active ALS store or null — never invent an ephemeral store for mutations. */
++export function getFrontierAlsStore(): FrontierStore | null {
++  return als.getStore() ?? null;
 +}
 +
  function store(): FrontierStore {
--  return als.getStore() ?? { campaign: null, emissionsObserved: 0 };
-+  return als.getStore() ?? emptyStore();
-+}
-+
-+/** Clear the required-campaign latch (end of script / campaign close). */
-+export function endRequiredCampaignLatch(): void {
-+  requiredCampaignLatch = null;
+-  return als.getStore() ?? emptyStore();
++  const s = als.getStore();
++  if (!s) {
++    throw new ProviderEmissionRefusedError(
++      "ALS_CONTEXT_REQUIRED",
++      "Provider frontier mutations require runWithProviderEmissionStore* (ephemeral emptyStore is forbidden)",
++    );
++  }
++  return s;
  }
 
- export function newAttemptId(): string {
-@@ -82,19 +162,70 @@ export function newAttemptId(): string {
+ /** Clear the required-campaign latch (end of script / campaign close). */
+@@ -156,6 +188,10 @@ export function endRequiredCampaignLatch(): void {
+   requiredCampaignLatch = null;
+ }
 
- export function beginCampaignEnvelope(input: {
-   campaignId?: string;
--  maxAttempts: number;
-+  /** @deprecated use maxHttpAttempts */
-+  maxAttempts?: number;
-+  maxHttpAttempts?: number;
-+  maxInputTokens?: number | null;
-+  maxOutputTokens?: number | null;
-+  maxInputTokensPerRequest?: number | null;
-+  maxOutputTokensPerRequest?: number | null;
-+  maxHostedSearches?: number | null;
-+  maxDirectOpens?: number | null;
-+  required?: boolean;
++export function enableHttpMetaCaptureForTests(): void {
++  store().captureHttpMeta = true;
++}
++
+ export function newAttemptId(): string {
+   return `att_${randomBytes(8).toString("hex")}`;
+ }
+@@ -173,12 +209,24 @@ export function beginCampaignEnvelope(input: {
+   maxDirectOpens?: number | null;
+   required?: boolean;
  }): CampaignEnvelope {
-+  const maxHttp = Math.max(
-+    0,
-+    Math.floor(input.maxHttpAttempts ?? input.maxAttempts ?? 0),
-+  );
++  const cur = store();
++  const campaignId =
++    input.campaignId?.trim() || `camp_${randomBytes(6).toString("hex")}`;
++  const existing = processCampaignRegistry.get(campaignId);
++  if (existing) {
++    // Re-attach the same process counters across ALS request boundaries.
++    cur.campaign = existing;
++    if (existing.required && !existing.suspended) {
++      requiredCampaignLatch = { campaignId: existing.campaignId, active: true };
++    }
++    return existing;
++  }
+   const maxHttp = Math.max(
+     0,
+     Math.floor(input.maxHttpAttempts ?? input.maxAttempts ?? 0),
+   );
    const campaign: CampaignEnvelope = {
-     campaignId: input.campaignId ?? `camp_${randomBytes(6).toString("hex")}`,
--    maxAttempts: Math.max(0, Math.floor(input.maxAttempts)),
--    attemptsReserved: 0,
--    attemptsCommitted: 0,
--    attemptsReleased: 0,
-+    required: input.required !== false,
-+    maxHttpAttempts: maxHttp,
-+    maxInputTokens:
-+      input.maxInputTokens == null ? null : Math.max(0, Math.floor(input.maxInputTokens)),
-+    maxOutputTokens:
-+      input.maxOutputTokens == null
-+        ? null
-+        : Math.max(0, Math.floor(input.maxOutputTokens)),
-+    maxInputTokensPerRequest:
-+      input.maxInputTokensPerRequest == null
-+        ? null
-+        : Math.max(0, Math.floor(input.maxInputTokensPerRequest)),
-+    maxOutputTokensPerRequest:
-+      input.maxOutputTokensPerRequest == null
-+        ? null
-+        : Math.max(0, Math.floor(input.maxOutputTokensPerRequest)),
-+    maxHostedSearches:
-+      input.maxHostedSearches == null
-+        ? null
-+        : Math.max(0, Math.floor(input.maxHostedSearches)),
-+    maxDirectOpens:
-+      input.maxDirectOpens == null
-+        ? null
-+        : Math.max(0, Math.floor(input.maxDirectOpens)),
-+    httpAttemptsReserved: 0,
-+    httpAttemptsCommitted: 0,
-+    httpAttemptsReleased: 0,
-+    inputTokensReserved: 0,
-+    inputTokensCommitted: 0,
-+    outputTokensReserved: 0,
-+    outputTokensCommitted: 0,
-+    hostedSearchesCommitted: 0,
-+    directOpensCommitted: 0,
+-    campaignId: input.campaignId ?? `camp_${randomBytes(6).toString("hex")}`,
++    campaignId,
+     required: input.required !== false,
+     maxHttpAttempts: maxHttp,
+     maxInputTokens:
+@@ -215,13 +263,7 @@ export function beginCampaignEnvelope(input: {
      suspended: false,
      suspendReason: null,
    };
-   const cur = store();
-+  if (!als.getStore()) {
-+    throw new ProviderEmissionRefusedError(
-+      "CAMPAIGN_REQUIRED_MISSING",
-+      "beginCampaignEnvelope requires an active ALS store (runWithProviderEmissionStore*)",
-+    );
-+  }
+-  const cur = store();
+-  if (!als.getStore()) {
+-    throw new ProviderEmissionRefusedError(
+-      "CAMPAIGN_REQUIRED_MISSING",
+-      "beginCampaignEnvelope requires an active ALS store (runWithProviderEmissionStore*)",
+-    );
+-  }
++  processCampaignRegistry.set(campaignId, campaign);
    cur.campaign = campaign;
-+  if (campaign.required) {
-+    requiredCampaignLatch = { campaignId: campaign.campaignId, active: true };
-+  }
+   if (campaign.required) {
+     requiredCampaignLatch = { campaignId: campaign.campaignId, active: true };
+@@ -229,8 +271,67 @@ export function beginCampaignEnvelope(input: {
    return campaign;
  }
 
-@@ -107,29 +238,137 @@ export function suspendCampaignEnvelope(reason: string): void {
-   if (!c) return;
-   c.suspended = true;
-   c.suspendReason = reason.slice(0, 200);
-+  if (requiredCampaignLatch?.campaignId === c.campaignId) {
-+    requiredCampaignLatch.active = false;
++/**
++ * Attach G-LIVE-API / G-WEB-PUBLIC envelope from process env (qualify DEV only).
++ * Operational Studio without these flags keeps unlimited-by-campaign behavior.
++ * Returns null when no LIVE campaign is configured.
++ */
++export function attachConfiguredLiveCampaignFromEnv(
++  env: NodeJS.ProcessEnv = process.env,
++): CampaignEnvelope | null {
++  const gate =
++    (env.SFIA_G_LIVE_API || "").trim() === "1" ||
++    (env.SFIA_G_WEB_PUBLIC || "").trim() === "1";
++  if (!gate) return null;
++  if ((env.STUDIO_LANE || "").trim().toUpperCase() !== "DEV") {
++    throw new ProviderEmissionRefusedError(
++      "CAMPAIGN_REQUIRED_MISSING",
++      "LIVE campaign gates are DEV-only",
++    );
 +  }
++  const web = (env.SFIA_G_WEB_PUBLIC || "").trim() === "1";
++  const campaignId =
++    (env.SFIA_LIVE_CAMPAIGN_ID || "").trim() ||
++    (web ? "g-web-public-20261126" : "g-live-api-20261126");
++  const num = (k: string, fallback: number): number => {
++    const raw = Number((env[k] || "").trim());
++    return Number.isFinite(raw) && raw >= 0 ? Math.floor(raw) : fallback;
++  };
++  // §12.2 G-LIVE-API defaults; §12.3 G-WEB-PUBLIC when that gate is set.
++  return beginCampaignEnvelope({
++    campaignId,
++    required: true,
++    maxHttpAttempts: num("SFIA_LIVE_MAX_HTTP_ATTEMPTS", web ? 20 : 40),
++    maxInputTokens: num("SFIA_LIVE_MAX_INPUT_TOKENS", web ? 500_000 : 2_000_000),
++    maxOutputTokens: num("SFIA_LIVE_MAX_OUTPUT_TOKENS", web ? 100_000 : 200_000),
++    maxInputTokensPerRequest: num("SFIA_LIVE_MAX_INPUT_TOKENS_PER_REQ", 100_000),
++    maxOutputTokensPerRequest: num("SFIA_LIVE_MAX_OUTPUT_TOKENS_PER_REQ", 10_000),
++    maxHostedSearches: web
++      ? num("SFIA_LIVE_MAX_HOSTED_SEARCHES", 5)
++      : null,
++    maxDirectOpens: web ? num("SFIA_LIVE_MAX_DIRECT_OPENS", 10) : null,
++  });
++}
++
++/** End process-level LIVE campaign (qualify close / test reset). */
++export function endProcessCampaign(campaignId?: string): void {
++  if (campaignId) {
++    processCampaignRegistry.delete(campaignId);
++    if (requiredCampaignLatch?.campaignId === campaignId) {
++      requiredCampaignLatch = null;
++    }
++    const s = getFrontierAlsStore();
++    if (s?.campaign?.campaignId === campaignId) s.campaign = null;
++    return;
++  }
++  processCampaignRegistry.clear();
++  requiredCampaignLatch = null;
++  const s = getFrontierAlsStore();
++  if (s) s.campaign = null;
++}
++
+ export function getActiveCampaignEnvelope(): CampaignEnvelope | null {
+-  return store().campaign;
++  return getFrontierAlsStore()?.campaign ?? null;
  }
 
--export function campaignSlotsRemaining(c: CampaignEnvelope | null = store().campaign): number {
-+export function campaignHttpSlotsRemaining(
-+  c: CampaignEnvelope | null = store().campaign,
-+): number {
+ export function suspendCampaignEnvelope(reason: string): void {
+@@ -244,7 +345,7 @@ export function suspendCampaignEnvelope(reason: string): void {
+ }
+
+ export function campaignHttpSlotsRemaining(
+-  c: CampaignEnvelope | null = store().campaign,
++  c: CampaignEnvelope | null = getFrontierAlsStore()?.campaign ?? null,
+ ): number {
    if (!c) return Number.POSITIVE_INFINITY;
    if (c.suspended) return 0;
--  return Math.max(0, c.maxAttempts - c.attemptsReserved);
-+  return Math.max(0, c.maxHttpAttempts - c.httpAttemptsReserved);
-+}
-+
-+/** @deprecated alias — HTTP slots remaining */
-+export function campaignSlotsRemaining(
-+  c: CampaignEnvelope | null = store().campaign,
-+): number {
-+  return campaignHttpSlotsRemaining(c);
-+}
-+
-+function parseJsonBody(body: BodyInit | null | undefined): Record<string, unknown> | null {
-+  if (body == null) return null;
-+  if (typeof body === "string") {
-+    try {
-+      return JSON.parse(body) as Record<string, unknown>;
-+    } catch {
-+      return null;
-+    }
+@@ -270,25 +371,30 @@ function parseJsonBody(body: BodyInit | null | undefined): Record<string, unknow
+   return null;
+ }
+
+-function estimateInputTokensFromBody(body: Record<string, unknown> | null): number {
+-  if (!body) return 8_000; // conservative unknown
+-  const maxOut = Number(body.max_output_tokens ?? body.max_tokens ?? 0);
+-  // Prefer explicit conservative bound if present; else fixed conservative reserve.
++/**
++ * Demonstrable input bound — never a fake guarantee.
++ * Returns null when only an estimate would be invented.
++ */
++function demonstrableInputTokenBound(
++  body: Record<string, unknown> | null,
++): number | null {
++  if (!body) return null;
+   const inputHint = Number(
+     (body as { sfia_estimated_input_tokens?: unknown }).sfia_estimated_input_tokens ??
+       0,
+   );
+   if (Number.isFinite(inputHint) && inputHint > 0) return Math.floor(inputHint);
+-  // Without reliable estimate, reserve a conservative chunk so envelopes still bind.
+-  void maxOut;
+-  return 50_000;
++  return null;
+ }
+
+-function estimateOutputTokensFromBody(body: Record<string, unknown> | null): number {
+-  if (!body) return 4_000;
++/** Output bound from the actual emission parameter (max_output_tokens). */
++function demonstrableOutputTokenBound(
++  body: Record<string, unknown> | null,
++): number | null {
++  if (!body) return null;
+   const maxOut = Number(body.max_output_tokens ?? body.max_tokens ?? 0);
+   if (Number.isFinite(maxOut) && maxOut > 0) return Math.floor(maxOut);
+-  return 4_000;
++  return null;
+ }
+
+ function modelFromBody(body: Record<string, unknown> | null): string | null {
+@@ -296,6 +402,126 @@ function modelFromBody(body: Record<string, unknown> | null): string | null {
+   return typeof m === "string" && m.trim() ? m.trim() : null;
+ }
+
++function effortFromBody(body: Record<string, unknown> | null): string | null {
++  if (!body) return null;
++  const reasoning = body.reasoning;
++  if (reasoning && typeof reasoning === "object") {
++    const effort = (reasoning as { effort?: unknown }).effort;
++    if (typeof effort === "string" && effort.trim()) return effort.trim();
 +  }
++  const top = body.reasoning_effort;
++  if (typeof top === "string" && top.trim()) return top.trim();
 +  return null;
 +}
 +
-+function estimateInputTokensFromBody(body: Record<string, unknown> | null): number {
-+  if (!body) return 8_000; // conservative unknown
-+  const maxOut = Number(body.max_output_tokens ?? body.max_tokens ?? 0);
-+  // Prefer explicit conservative bound if present; else fixed conservative reserve.
-+  const inputHint = Number(
-+    (body as { sfia_estimated_input_tokens?: unknown }).sfia_estimated_input_tokens ??
-+      0,
-+  );
-+  if (Number.isFinite(inputHint) && inputHint > 0) return Math.floor(inputHint);
-+  // Without reliable estimate, reserve a conservative chunk so envelopes still bind.
-+  void maxOut;
-+  return 50_000;
++function bodyContainsHostedWebSearchTool(
++  body: Record<string, unknown> | null,
++): boolean {
++  if (!body) return false;
++  const tools = body.tools;
++  if (Array.isArray(tools)) {
++    for (const t of tools) {
++      if (!t || typeof t !== "object") continue;
++      const type = String((t as { type?: unknown }).type ?? "").trim();
++      if (type === "web_search" || type === "web_search_preview") return true;
++    }
++  }
++  const input = body.input;
++  if (Array.isArray(input)) {
++    for (const item of input) {
++      if (!item || typeof item !== "object") continue;
++      const type = String((item as { type?: unknown }).type ?? "").trim();
++      if (type === "web_search" || type === "web_search_preview") return true;
++    }
++  }
++  return false;
 +}
 +
-+function estimateOutputTokensFromBody(body: Record<string, unknown> | null): number {
-+  if (!body) return 4_000;
-+  const maxOut = Number(body.max_output_tokens ?? body.max_tokens ?? 0);
-+  if (Number.isFinite(maxOut) && maxOut > 0) return Math.floor(maxOut);
-+  return 4_000;
-+}
-+
-+function modelFromBody(body: Record<string, unknown> | null): string | null {
-+  const m = body?.model;
-+  return typeof m === "string" && m.trim() ? m.trim() : null;
- }
-
- /**
-- * Reserve before contacting the provider. A scenario counter or maxTurns is NOT sufficient —
-- * callers must reserve here for every real emission (including retries and worker calls).
-+ * SDK invocation precheck — NOT an HTTP attempt.
-+ * Validates lane + model/effort admission before run().
-  */
--export function reserveProviderEmission(input: {
-+export function assertSdkInvocationAdmission(input: {
-   kind: EmissionAttemptKind;
-   modelId?: string | null;
-   effort?: string | null;
--  /** Slots to reserve (default 1). Retries that will re-contact must reserve again. */
--  slots?: number;
--  /** When true, skip model admission (deterministic fixture / no provider). */
-+  env?: NodeJS.ProcessEnv;
-+}): EmissionReservation {
-+  const env = input.env ?? process.env;
-+  const laneGuard = assertOpenAiKeyForLane(env);
-+  if (!laneGuard.ok) {
-+    return {
-+      ok: false,
-+      reasonCode: "LANE_GUARD_FAILED",
-+      reason: `${laneGuard.reasonCode}:${laneGuard.reason}`,
-+    };
-+  }
-+  const modelRaw = (input.modelId ?? "").trim();
-+  const effortRaw = (input.effort ?? "").trim();
-+  if (!modelRaw || !effortRaw) {
-+    return {
-+      ok: false,
-+      reasonCode: "INVALID_REQUEST",
-+      reason: "modelId and effort required for SDK admission (no silent default)",
-+    };
-+  }
-+  const admission = admitModelEffort(
-+    modelRaw as CognitiveModelId,
-+    effortRaw as CognitiveEffort,
-+    admissionModeFromEnv(env),
-+  );
-+  if (!admission.admitted) {
-+    return {
-+      ok: false,
-+      reasonCode: "MODEL_EFFORT_NOT_ADMITTED",
-+      reason: admission.reasonCode,
-+    };
-+  }
-+  const s = store();
-+  s.sdkInvocationsObserved += 1;
-+  s.effortHint = effortRaw;
-+  return {
-+    ok: true,
-+    attemptId: newAttemptId(),
-+    campaignId: s.campaign?.campaignId ?? null,
-+    reservedSlots: 0,
-+    reservedInputTokens: 0,
-+    reservedOutputTokens: 0,
-+    keyFingerprint: laneGuard.keyFingerprint,
-+    lane: laneGuard.lane,
-+    layer: "sdk_invocation",
-+  };
-+}
++/** One assumed hosted search per Responses body carrying web_search tools. */
++export const HOSTED_SEARCH_PER_RESPONSE_ASSUMED_1 =
++  "HOSTED_SEARCH_PER_RESPONSE_ASSUMED_1" as const;
 +
 +/**
-+ * Reserve one HTTP emission attempt before network contact.
-+ * Prefer calling via createFrontierAwareFetch — do not count run() as HTTP.
++ * Fail-closed hosted search accounting: reserve one hosted search per Responses
++ * emission when OpenAI web_search tools appear (engine may run more — {@link HOSTED_SEARCH_PER_RESPONSE_ASSUMED_1}).
 + */
-+export function reserveHttpEmission(input: {
-+  kind?: EmissionAttemptKind;
-+  url: string;
-+  method?: string;
-+  body?: BodyInit | null;
-+  modelId?: string | null;
-+  effort?: string | null;
-+  /** Fixture-only: skip model admission (never for real provider contact). */
-   skipModelAdmission?: boolean;
-   env?: NodeJS.ProcessEnv;
-+  /** Hosted web_search tool call accounting (optional explicit). */
-+  hostedSearchDelta?: number;
- }): EmissionReservation {
--  const slots = Math.max(1, Math.floor(input.slots ?? 1));
-   const env = input.env ?? process.env;
-   const laneGuard = assertOpenAiKeyForLane(env);
-   if (!laneGuard.ok) {
-@@ -140,10 +379,35 @@ export function reserveProviderEmission(input: {
-     };
-   }
-
-+  const bodyJson = parseJsonBody(input.body ?? null);
-+  const model =
-+    (input.modelId ?? "").trim() || modelFromBody(bodyJson) || "";
-+  const effortFromInput = (input.effort ?? "").trim();
-+  const effortFromStore = (store().effortHint ?? "").trim();
-+  // Never invent medium/Terra — only reuse explicit input or SDK-admitted hint.
-+  const effort = effortFromInput || effortFromStore;
++function inferHostedSearchDeltaFromBody(
++  body: Record<string, unknown> | null,
++  campaign: CampaignEnvelope | null,
++): number {
++  if (!campaign || campaign.maxHostedSearches == null) return 0;
++  if (!bodyContainsHostedWebSearchTool(body)) return 0;
++  return 1;
++}
 +
-   if (!input.skipModelAdmission) {
--    const model = ((input.modelId ?? "").trim() || "gpt-6.1-terra") as CognitiveModelId;
--    const effort = ((input.effort ?? "").trim() || "medium") as CognitiveEffort;
--    const admission = admitModelEffort(model, effort, admissionModeFromEnv(env));
-+    if (!model) {
-+      return {
-+        ok: false,
-+        reasonCode: "INVALID_REQUEST",
-+        reason: "HTTP emission model unknown — refuse (no silent Terra default)",
-+      };
-+    }
-+    if (!effort) {
-+      return {
-+        ok: false,
-+        reasonCode: "INVALID_REQUEST",
-+        reason:
-+          "HTTP emission effort unknown — refuse (no silent medium default; admit via SDK first or pass effortHint)",
-+      };
-+    }
-+    const admission = admitModelEffort(
-+      model as CognitiveModelId,
-+      effort as CognitiveEffort,
-+      admissionModeFromEnv(env),
-+    );
-     if (!admission.admitted) {
-       return {
-         ok: false,
-@@ -154,98 +418,499 @@ export function reserveProviderEmission(input: {
-   }
-
-   const campaign = store().campaign;
--  if (campaign) {
--    if (campaign.suspended) {
--      return {
--        ok: false,
--        reasonCode: "CAMPAIGN_SUSPENDED",
--        reason: campaign.suspendReason ?? "CAMPAIGN_SUSPENDED",
--      };
--    }
--    if (campaign.attemptsReserved + slots > campaign.maxAttempts) {
--      campaign.suspended = true;
--      campaign.suspendReason = "CAMPAIGN_ENVELOPE_EXHAUSTED";
-+  if (!campaign) {
-+    // Required campaign latch active but ALS lost / wrong store → fail-closed.
-+    if (requiredCampaignLatch?.active) {
-       return {
-         ok: false,
--        reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
--        reason: `reserved=${campaign.attemptsReserved}+${slots} max=${campaign.maxAttempts}`,
-+        reasonCode: "CAMPAIGN_REQUIRED_MISSING",
-+        reason: `required campaign ${requiredCampaignLatch.campaignId} latch active but ALS campaign absent`,
-       };
-     }
--    campaign.attemptsReserved += slots;
-+    // Operational path without campaign: allow HTTP but still track attempt locally.
-+    const attemptId = newAttemptId();
-+    const reservedInput = estimateInputTokensFromBody(bodyJson);
-+    const reservedOutput = estimateOutputTokensFromBody(bodyJson);
-+    store().attempts.set(attemptId, {
-+      attemptId,
-+      campaignId: null,
-+      state: "RESERVED",
-+      kind: input.kind ?? "http.responses",
-+      reservedSlots: 1,
-+      reservedInputTokens: reservedInput,
-+      reservedOutputTokens: reservedOutput,
-+      urlHost: safeHost(input.url),
-+      modelHint: model || null,
-+      createdAtMs: Date.now(),
++export type HttpAttemptSnapshot = {
++  attemptId: string;
++  state: HttpAttemptState;
++  campaignId: string | null;
++  modelHint: string | null;
++  urlHost: string;
++};
++
++/** Read-only ALS view of HTTP attempts that reached commit or uncertain (no bodies). */
++export function getHttpAttemptsSnapshot(): HttpAttemptSnapshot[] {
++  const s = getFrontierAlsStore();
++  if (!s) return [];
++  const out: HttpAttemptSnapshot[] = [];
++  for (const rec of s.attempts.values()) {
++    if (rec.state !== "COMMITTED" && rec.state !== "UNCERTAIN") continue;
++    out.push({
++      attemptId: rec.attemptId,
++      state: rec.state,
++      campaignId: rec.campaignId,
++      modelHint: rec.modelHint,
++      urlHost: rec.urlHost,
 +    });
-+    return {
-+      ok: true,
-+      attemptId,
-+      campaignId: null,
-+      reservedSlots: 1,
-+      reservedInputTokens: reservedInput,
-+      reservedOutputTokens: reservedOutput,
-+      keyFingerprint: laneGuard.keyFingerprint,
-+      lane: laneGuard.lane,
-+      layer: "http",
-+    };
 +  }
++  return out;
++}
 +
-+  if (campaign.required === false && campaign.maxHttpAttempts === 0) {
-+    // Explicit unlimited test campaign — still track.
-   }
-
++export type DirectOpenGuard =
++  | { ok: true }
++  | {
++      ok: false;
++      reasonCode:
++        | "CAMPAIGN_ENVELOPE_EXHAUSTED"
++        | "CAMPAIGN_SUSPENDED"
++        | "ALS_CONTEXT_REQUIRED";
++      reason: string;
++    };
++
++export function assertDirectOpenAllowed(): DirectOpenGuard {
++  const s = getFrontierAlsStore();
++  if (!s?.campaign) return { ok: true };
++  const campaign = s.campaign;
 +  if (campaign.suspended) {
 +    return {
 +      ok: false,
@@ -1782,1680 +2796,1893 @@ index 0a9f774e..dc596496 100644
 +      reason: campaign.suspendReason ?? "CAMPAIGN_SUSPENDED",
 +    };
 +  }
++  if (campaign.maxDirectOpens == null) return { ok: true };
++  if (campaign.directOpensCommitted >= campaign.maxDirectOpens) {
++    campaign.suspended = true;
++    campaign.suspendReason = "CAMPAIGN_DIRECT_OPENS_EXHAUSTED";
++    return {
++      ok: false,
++      reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
++      reason: `directOpensCommitted=${campaign.directOpensCommitted} max=${campaign.maxDirectOpens}`,
++    };
++  }
++  return { ok: true };
++}
 +
-+  const reservedInput = estimateInputTokensFromBody(bodyJson);
-+  const reservedOutput = estimateOutputTokensFromBody(bodyJson);
++/** Count one successful public page open against the active campaign envelope. */
++export function commitDirectOpen(): void {
++  const campaign = getFrontierAlsStore()?.campaign;
++  if (!campaign) return;
++  campaign.directOpensCommitted += 1;
++}
 +
-+  if (
-+    campaign.maxInputTokensPerRequest != null &&
-+    reservedInput > campaign.maxInputTokensPerRequest
-+  ) {
-+    campaign.suspended = true;
-+    campaign.suspendReason = "INPUT_TOKENS_PER_REQUEST_EXCEEDED";
+ /**
+  * SDK invocation precheck — NOT an HTTP attempt.
+  * Validates lane + model/effort admission before run().
+@@ -306,6 +532,13 @@ export function assertSdkInvocationAdmission(input: {
+   effort?: string | null;
+   env?: NodeJS.ProcessEnv;
+ }): EmissionReservation {
++  if (!als.getStore()) {
 +    return {
 +      ok: false,
-+      reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
-+      reason: `inputPerReq=${reservedInput} max=${campaign.maxInputTokensPerRequest}`,
++      reasonCode: "ALS_CONTEXT_REQUIRED",
++      reason: "SDK admission requires frontier ALS context",
 +    };
 +  }
-+  if (
-+    campaign.maxOutputTokensPerRequest != null &&
-+    reservedOutput > campaign.maxOutputTokensPerRequest
-+  ) {
-+    campaign.suspended = true;
-+    campaign.suspendReason = "OUTPUT_TOKENS_PER_REQUEST_EXCEEDED";
-+    return {
-+      ok: false,
-+      reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
-+      reason: `outputPerReq=${reservedOutput} max=${campaign.maxOutputTokensPerRequest}`,
-+    };
-+  }
-+  if (campaign.httpAttemptsReserved + 1 > campaign.maxHttpAttempts) {
-+    campaign.suspended = true;
-+    campaign.suspendReason = "CAMPAIGN_HTTP_ATTEMPTS_EXHAUSTED";
-+    return {
-+      ok: false,
-+      reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
-+      reason: `httpReserved=${campaign.httpAttemptsReserved}+1 max=${campaign.maxHttpAttempts}`,
-+    };
-+  }
-+  if (
-+    campaign.maxInputTokens != null &&
-+    campaign.inputTokensReserved + reservedInput > campaign.maxInputTokens
-+  ) {
-+    campaign.suspended = true;
-+    campaign.suspendReason = "CAMPAIGN_INPUT_TOKENS_EXHAUSTED";
-+    return {
-+      ok: false,
-+      reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
-+      reason: `inputReserved=${campaign.inputTokensReserved}+${reservedInput} max=${campaign.maxInputTokens}`,
-+    };
-+  }
-+  if (
-+    campaign.maxOutputTokens != null &&
-+    campaign.outputTokensReserved + reservedOutput > campaign.maxOutputTokens
-+  ) {
-+    campaign.suspended = true;
-+    campaign.suspendReason = "CAMPAIGN_OUTPUT_TOKENS_EXHAUSTED";
-+    return {
-+      ok: false,
-+      reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
-+      reason: `outputReserved=${campaign.outputTokensReserved}+${reservedOutput} max=${campaign.maxOutputTokens}`,
-+    };
-+  }
-+  const hostedDelta = Math.max(0, Math.floor(input.hostedSearchDelta ?? 0));
-+  if (
-+    hostedDelta > 0 &&
-+    campaign.maxHostedSearches != null &&
-+    campaign.hostedSearchesCommitted + hostedDelta > campaign.maxHostedSearches
-+  ) {
-+    campaign.suspended = true;
-+    campaign.suspendReason = "CAMPAIGN_HOSTED_SEARCHES_EXHAUSTED";
-+    return {
-+      ok: false,
-+      reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
-+      reason: `hosted=${campaign.hostedSearchesCommitted}+${hostedDelta} max=${campaign.maxHostedSearches}`,
-+    };
-+  }
-+
-+  campaign.httpAttemptsReserved += 1;
-+  campaign.inputTokensReserved += reservedInput;
-+  campaign.outputTokensReserved += reservedOutput;
-+
-   const attemptId = newAttemptId();
-+  store().attempts.set(attemptId, {
-+    attemptId,
-+    campaignId: campaign.campaignId,
-+    state: "RESERVED",
-+    kind: input.kind ?? "http.responses",
-+    reservedSlots: 1,
-+    reservedInputTokens: reservedInput,
-+    reservedOutputTokens: reservedOutput,
-+    urlHost: safeHost(input.url),
-+    modelHint: model || null,
-+    createdAtMs: Date.now(),
-+  });
-+
+   const env = input.env ?? process.env;
+   const laneGuard = assertOpenAiKeyForLane(env);
+   if (!laneGuard.ok) {
+@@ -339,6 +572,7 @@ export function assertSdkInvocationAdmission(input: {
+   const s = store();
+   s.sdkInvocationsObserved += 1;
+   s.effortHint = effortRaw;
++  s.modelHint = modelRaw;
    return {
      ok: true,
+     attemptId: newAttemptId(),
+@@ -369,6 +603,20 @@ export function reserveHttpEmission(input: {
+   /** Hosted web_search tool call accounting (optional explicit). */
+   hostedSearchDelta?: number;
+ }): EmissionReservation {
++  if (!als.getStore()) {
++    if (requiredCampaignLatch?.active) {
++      return {
++        ok: false,
++        reasonCode: "CAMPAIGN_REQUIRED_MISSING",
++        reason: `required campaign ${requiredCampaignLatch.campaignId} latch active but ALS absent`,
++      };
++    }
++    return {
++      ok: false,
++      reasonCode: "ALS_CONTEXT_REQUIRED",
++      reason: "HTTP reserve requires frontier ALS context",
++    };
++  }
+   const env = input.env ?? process.env;
+   const laneGuard = assertOpenAiKeyForLane(env);
+   if (!laneGuard.ok) {
+@@ -380,12 +628,37 @@ export function reserveHttpEmission(input: {
+   }
+
+   const bodyJson = parseJsonBody(input.body ?? null);
++  const modelFromPayload = modelFromBody(bodyJson);
+   const model =
+-    (input.modelId ?? "").trim() || modelFromBody(bodyJson) || "";
++    (input.modelId ?? "").trim() || modelFromPayload || "";
++  const effortFromPayload = effortFromBody(bodyJson);
+   const effortFromInput = (input.effort ?? "").trim();
+   const effortFromStore = (store().effortHint ?? "").trim();
+-  // Never invent medium/Terra — only reuse explicit input or SDK-admitted hint.
+-  const effort = effortFromInput || effortFromStore;
++  // Final payload effort wins; never invent medium/Terra.
++  const effort = (effortFromPayload || effortFromInput || effortFromStore).trim();
++  const modelHint = (store().modelHint ?? "").trim();
++  if (modelFromPayload && modelHint && modelFromPayload !== modelHint) {
++    return {
++      ok: false,
++      reasonCode: "MODEL_EFFORT_NOT_ADMITTED",
++      reason: `HTTP payload model ${modelFromPayload} ≠ SDK-admitted ${modelHint}`,
++    };
++  }
++  if (effortFromPayload && effortFromStore && effortFromPayload !== effortFromStore) {
++    // Payload override must itself be admitted — do not silently keep the hint.
++    const overrideAdmit = admitModelEffort(
++      (model || modelHint) as CognitiveModelId,
++      effortFromPayload as CognitiveEffort,
++      admissionModeFromEnv(env),
++    );
++    if (!overrideAdmit.admitted) {
++      return {
++        ok: false,
++        reasonCode: "MODEL_EFFORT_NOT_ADMITTED",
++        reason: `payload effort ${effortFromPayload} not admitted (${overrideAdmit.reasonCode})`,
++      };
++    }
++  }
+
+   if (!input.skipModelAdmission) {
+     if (!model) {
+@@ -427,10 +700,10 @@ export function reserveHttpEmission(input: {
+         reason: `required campaign ${requiredCampaignLatch.campaignId} latch active but ALS campaign absent`,
+       };
+     }
+-    // Operational path without campaign: allow HTTP but still track attempt locally.
++    // Operational path without campaign: track attempt; token fields are estimates only.
+     const attemptId = newAttemptId();
+-    const reservedInput = estimateInputTokensFromBody(bodyJson);
+-    const reservedOutput = estimateOutputTokensFromBody(bodyJson);
++    const reservedInput = demonstrableInputTokenBound(bodyJson) ?? 0;
++    const reservedOutput = demonstrableOutputTokenBound(bodyJson) ?? 0;
+     store().attempts.set(attemptId, {
+       attemptId,
+       campaignId: null,
+@@ -468,31 +741,71 @@ export function reserveHttpEmission(input: {
+     };
+   }
+
+-  const reservedInput = estimateInputTokensFromBody(bodyJson);
+-  const reservedOutput = estimateOutputTokensFromBody(bodyJson);
++  // Campaign token limits require an opposable reservation before contact.
++  // Demonstrable payload bounds preferred; otherwise the campaign per-request
++  // ceiling may be used as a RESERVATION (worst-case charge) — never as a
++  // measured usage claim. Output still must be injected onto the wire payload
++  // by createFrontierAwareFetch when the SDK omits max_output_tokens.
++  let reservedInput = demonstrableInputTokenBound(bodyJson);
++  let reservedOutput = demonstrableOutputTokenBound(bodyJson);
++
++  if (
++    reservedInput == null &&
++    (campaign.maxInputTokens != null || campaign.maxInputTokensPerRequest != null)
++  ) {
++    if (campaign.maxInputTokensPerRequest != null) {
++      reservedInput = campaign.maxInputTokensPerRequest;
++    } else {
++      return {
++        ok: false,
++        reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
++        reason:
++          "INPUT_UNBOUNDED — campaign input limit set but no per-request ceiling or demonstrable bound",
++      };
++    }
++  }
++  if (
++    reservedOutput == null &&
++    (campaign.maxOutputTokens != null ||
++      campaign.maxOutputTokensPerRequest != null)
++  ) {
++    if (campaign.maxOutputTokensPerRequest != null) {
++      reservedOutput = campaign.maxOutputTokensPerRequest;
++    } else {
++      return {
++        ok: false,
++        reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
++        reason:
++          "OUTPUT_UNBOUNDED — campaign output limit set but no per-request ceiling or max_output_tokens",
++      };
++    }
++  }
++
++  const inTok = reservedInput ?? 0;
++  const outTok = reservedOutput ?? 0;
+
+   if (
+     campaign.maxInputTokensPerRequest != null &&
+-    reservedInput > campaign.maxInputTokensPerRequest
++    inTok > campaign.maxInputTokensPerRequest
+   ) {
+     campaign.suspended = true;
+     campaign.suspendReason = "INPUT_TOKENS_PER_REQUEST_EXCEEDED";
+     return {
+       ok: false,
+       reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
+-      reason: `inputPerReq=${reservedInput} max=${campaign.maxInputTokensPerRequest}`,
++      reason: `inputPerReq=${inTok} max=${campaign.maxInputTokensPerRequest}`,
+     };
+   }
+   if (
+     campaign.maxOutputTokensPerRequest != null &&
+-    reservedOutput > campaign.maxOutputTokensPerRequest
++    outTok > campaign.maxOutputTokensPerRequest
+   ) {
+     campaign.suspended = true;
+     campaign.suspendReason = "OUTPUT_TOKENS_PER_REQUEST_EXCEEDED";
+     return {
+       ok: false,
+       reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
+-      reason: `outputPerReq=${reservedOutput} max=${campaign.maxOutputTokensPerRequest}`,
++      reason: `outputPerReq=${outTok} max=${campaign.maxOutputTokensPerRequest}`,
+     };
+   }
+   if (campaign.httpAttemptsReserved + 1 > campaign.maxHttpAttempts) {
+@@ -506,29 +819,32 @@ export function reserveHttpEmission(input: {
+   }
+   if (
+     campaign.maxInputTokens != null &&
+-    campaign.inputTokensReserved + reservedInput > campaign.maxInputTokens
++    campaign.inputTokensReserved + inTok > campaign.maxInputTokens
+   ) {
+     campaign.suspended = true;
+     campaign.suspendReason = "CAMPAIGN_INPUT_TOKENS_EXHAUSTED";
+     return {
+       ok: false,
+       reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
+-      reason: `inputReserved=${campaign.inputTokensReserved}+${reservedInput} max=${campaign.maxInputTokens}`,
++      reason: `inputReserved=${campaign.inputTokensReserved}+${inTok} max=${campaign.maxInputTokens}`,
+     };
+   }
+   if (
+     campaign.maxOutputTokens != null &&
+-    campaign.outputTokensReserved + reservedOutput > campaign.maxOutputTokens
++    campaign.outputTokensReserved + outTok > campaign.maxOutputTokens
+   ) {
+     campaign.suspended = true;
+     campaign.suspendReason = "CAMPAIGN_OUTPUT_TOKENS_EXHAUSTED";
+     return {
+       ok: false,
+       reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
+-      reason: `outputReserved=${campaign.outputTokensReserved}+${reservedOutput} max=${campaign.maxOutputTokens}`,
++      reason: `outputReserved=${campaign.outputTokensReserved}+${outTok} max=${campaign.maxOutputTokens}`,
+     };
+   }
+-  const hostedDelta = Math.max(0, Math.floor(input.hostedSearchDelta ?? 0));
++  const hostedDelta = Math.max(
++    Math.max(0, Math.floor(input.hostedSearchDelta ?? 0)),
++    inferHostedSearchDeltaFromBody(bodyJson, campaign),
++  );
+   if (
+     hostedDelta > 0 &&
+     campaign.maxHostedSearches != null &&
+@@ -544,8 +860,8 @@ export function reserveHttpEmission(input: {
+   }
+
+   campaign.httpAttemptsReserved += 1;
+-  campaign.inputTokensReserved += reservedInput;
+-  campaign.outputTokensReserved += reservedOutput;
++  campaign.inputTokensReserved += inTok;
++  campaign.outputTokensReserved += outTok;
+
+   const attemptId = newAttemptId();
+   store().attempts.set(attemptId, {
+@@ -554,8 +870,8 @@ export function reserveHttpEmission(input: {
+     state: "RESERVED",
+     kind: input.kind ?? "http.responses",
+     reservedSlots: 1,
+-    reservedInputTokens: reservedInput,
+-    reservedOutputTokens: reservedOutput,
++    reservedInputTokens: inTok,
++    reservedOutputTokens: outTok,
+     urlHost: safeHost(input.url),
+     modelHint: model || null,
+     createdAtMs: Date.now(),
+@@ -566,8 +882,8 @@ export function reserveHttpEmission(input: {
      attemptId,
--    campaignId: campaign?.campaignId ?? null,
--    reservedSlots: slots,
-+    campaignId: campaign.campaignId,
-+    reservedSlots: 1,
-+    reservedInputTokens: reservedInput,
-+    reservedOutputTokens: reservedOutput,
+     campaignId: campaign.campaignId,
+     reservedSlots: 1,
+-    reservedInputTokens: reservedInput,
+-    reservedOutputTokens: reservedOutput,
++    reservedInputTokens: inTok,
++    reservedOutputTokens: outTok,
      keyFingerprint: laneGuard.keyFingerprint,
      lane: laneGuard.lane,
-+    layer: "http",
-   };
+     layer: "http",
+@@ -708,39 +1024,48 @@ export function markProviderEmissionUncertain(reservation: {
  }
 
--/** Mark that a reserved emission actually contacted the provider (or attempted to). */
-+/**
-+ * Backward-compatible name used by prior wiring.
-+ * Defaults to HTTP reservation semantics when slots>0; SDK admission when slots===0.
-+ */
-+export function reserveProviderEmission(input: {
-+  kind: EmissionAttemptKind;
-+  modelId?: string | null;
-+  effort?: string | null;
-+  slots?: number;
-+  skipModelAdmission?: boolean;
-+  env?: NodeJS.ProcessEnv;
-+  url?: string;
-+  body?: BodyInit | null;
-+}): EmissionReservation {
-+  const slots = Math.max(0, Math.floor(input.slots ?? 1));
-+  if (slots === 0) {
-+    return assertSdkInvocationAdmission({
-+      kind: input.kind,
-+      modelId: input.modelId,
-+      effort: input.effort,
-+      env: input.env,
-+    });
-+  }
-+  return reserveHttpEmission({
-+    kind: input.kind,
-+    url: input.url ?? "https://api.openai.com/v1/responses",
-+    body: input.body ?? null,
-+    modelId: input.modelId,
-+    effort: input.effort,
-+    skipModelAdmission: input.skipModelAdmission,
-+    env: input.env,
-+  });
-+}
-+
- export function commitProviderEmission(reservation: {
-   attemptId: string;
-   reservedSlots: number;
-+  reservedInputTokens?: number;
-+  reservedOutputTokens?: number;
-+  measuredInputTokens?: number | null;
-+  measuredOutputTokens?: number | null;
-+  hostedSearchDelta?: number;
- }): void {
--  const campaign = store().campaign;
--  if (campaign) {
--    campaign.attemptsCommitted += reservation.reservedSlots;
--  }
-   const s = store();
--  s.emissionsObserved += reservation.reservedSlots;
--  void reservation.attemptId;
-+  const rec = s.attempts.get(reservation.attemptId);
-+  if (!rec) {
-+    // Legacy path without attempt registry entry (sdk_invocation).
-+    s.httpEmissionsObserved += Math.max(0, reservation.reservedSlots);
-+    return;
-+  }
-+  if (rec.state === "COMMITTED" || rec.state === "UNCERTAIN") {
-+    return; // idempotent
-+  }
-+  if (rec.state === "RELEASED") {
-+    return;
-+  }
-+  rec.state = "COMMITTED";
-+  const campaign = s.campaign;
-+  if (campaign && rec.campaignId === campaign.campaignId) {
-+    campaign.httpAttemptsCommitted += 1;
-+    const inTok =
-+      reservation.measuredInputTokens != null &&
-+      Number.isFinite(reservation.measuredInputTokens)
-+        ? Math.max(0, Math.floor(reservation.measuredInputTokens))
-+        : rec.reservedInputTokens;
-+    const outTok =
-+      reservation.measuredOutputTokens != null &&
-+      Number.isFinite(reservation.measuredOutputTokens)
-+        ? Math.max(0, Math.floor(reservation.measuredOutputTokens))
-+        : rec.reservedOutputTokens;
-+    campaign.inputTokensCommitted += inTok;
-+    campaign.outputTokensCommitted += outTok;
-+    // Reconcile reservation overshoot: keep reserved >= committed.
-+    campaign.inputTokensReserved = Math.max(
-+      campaign.inputTokensReserved,
-+      campaign.inputTokensCommitted,
-+    );
-+    campaign.outputTokensReserved = Math.max(
-+      campaign.outputTokensReserved,
-+      campaign.outputTokensCommitted,
-+    );
-+    const hosted = Math.max(0, Math.floor(reservation.hostedSearchDelta ?? 0));
-+    if (hosted > 0) campaign.hostedSearchesCommitted += hosted;
-+  }
-+  s.httpEmissionsObserved += 1;
- }
-
--/** Release unused reservation (failed before contact). Does not free committed attempts. */
- export function releaseProviderEmission(reservation: {
-   attemptId: string;
-   reservedSlots: number;
-   contacted: boolean;
- }): void {
--  const campaign = store().campaign;
--  if (!campaign) return;
-+  const s = store();
-+  const rec = s.attempts.get(reservation.attemptId);
-   if (reservation.contacted) {
--    campaign.attemptsCommitted += reservation.reservedSlots;
--    store().emissionsObserved += reservation.reservedSlots;
-+    commitProviderEmission(reservation);
-     return;
-   }
--  // Before contact: release reservation so the slot can be reused only if not already counted.
--  campaign.attemptsReserved = Math.max(
--    0,
--    campaign.attemptsReserved - reservation.reservedSlots,
--  );
--  campaign.attemptsReleased += reservation.reservedSlots;
--  void reservation.attemptId;
-+  if (!rec) return;
-+  if (rec.state !== "RESERVED") return; // cannot release consumed
-+  rec.state = "RELEASED";
-+  const campaign = s.campaign;
-+  if (campaign && rec.campaignId === campaign.campaignId) {
-+    campaign.httpAttemptsReserved = Math.max(0, campaign.httpAttemptsReserved - 1);
-+    campaign.httpAttemptsReleased += 1;
-+    campaign.inputTokensReserved = Math.max(
-+      0,
-+      campaign.inputTokensReserved - rec.reservedInputTokens,
-+    );
-+    campaign.outputTokensReserved = Math.max(
-+      0,
-+      campaign.outputTokensReserved - rec.reservedOutputTokens,
-+    );
-+  }
-+}
-+
-+export function markProviderEmissionUncertain(reservation: {
-+  attemptId: string;
-+}): void {
-+  const s = store();
-+  const rec = s.attempts.get(reservation.attemptId);
-+  if (!rec) return;
-+  if (rec.state === "COMMITTED" || rec.state === "UNCERTAIN") return;
-+  if (rec.state === "RELEASED") return;
-+  rec.state = "UNCERTAIN";
-+  const campaign = s.campaign;
-+  if (campaign && rec.campaignId === campaign.campaignId) {
-+    // Unknown consumption ≠ free — keep reservation, count as observed emission.
-+    campaign.httpAttemptsCommitted += 1;
-+  }
-+  s.httpEmissionsObserved += 1;
-+}
-+
-+export function getHttpAttempt(attemptId: string): HttpAttemptRecord | null {
-+  return store().attempts.get(attemptId) ?? null;
+ export function getHttpAttempt(attemptId: string): HttpAttemptRecord | null {
+-  return store().attempts.get(attemptId) ?? null;
++  return getFrontierAlsStore()?.attempts.get(attemptId) ?? null;
  }
 
  export function getEmissionsObservedForTests(): number {
--  return store().emissionsObserved;
-+  return store().httpEmissionsObserved;
-+}
-+
-+export function getSdkInvocationsObservedForTests(): number {
-+  return store().sdkInvocationsObserved;
-+}
-+
-+export function getHttpBodiesObservedForTests(): FrontierStore["httpBodiesObserved"] {
-+  return store().httpBodiesObserved.slice();
+-  return store().httpEmissionsObserved;
++  return getFrontierAlsStore()?.httpEmissionsObserved ?? 0;
+ }
+
+ export function getSdkInvocationsObservedForTests(): number {
+-  return store().sdkInvocationsObserved;
++  return getFrontierAlsStore()?.sdkInvocationsObserved ?? 0;
+ }
+
+ export function getHttpBodiesObservedForTests(): FrontierStore["httpBodiesObserved"] {
+-  return store().httpBodiesObserved.slice();
++  return getFrontierAlsStore()?.httpBodiesObserved.slice() ?? [];
  }
 
  export function __resetProviderEmissionFrontierForTests(): void {
-   const s = store();
-   s.campaign = null;
--  s.emissionsObserved = 0;
-+  s.attempts.clear();
-+  s.httpEmissionsObserved = 0;
-+  s.sdkInvocationsObserved = 0;
-+  s.httpBodiesObserved = [];
-+  s.effortHint = null;
-+  requiredCampaignLatch = null;
+-  const s = store();
+-  s.campaign = null;
+-  s.attempts.clear();
+-  s.httpEmissionsObserved = 0;
+-  s.sdkInvocationsObserved = 0;
+-  s.httpBodiesObserved = [];
+-  s.effortHint = null;
++  const s = getFrontierAlsStore();
++  if (s) {
++    s.campaign = null;
++    s.attempts.clear();
++    s.httpEmissionsObserved = 0;
++    s.sdkInvocationsObserved = 0;
++    s.httpBodiesObserved = [];
++    s.effortHint = null;
++    s.modelHint = null;
++    s.captureHttpMeta = false;
++  }
++  processCampaignRegistry.clear();
+   requiredCampaignLatch = null;
++  installedClientKeyFp = null;
  }
 
--/**
-- * Run work inside an isolated frontier store (campaign + oracle counters).
-- * Production request handlers may call this once per campaign script.
-- */
++/** Nest-safe: reuse existing ALS store when already inside one. */
  export function runWithProviderEmissionStore<T>(fn: () => T): T {
--  return als.run({ campaign: null, emissionsObserved: 0 }, fn);
-+  return als.run(emptyStore(), fn);
++  if (als.getStore()) return fn();
+   return als.run(emptyStore(), fn);
  }
 
  export async function runWithProviderEmissionStoreAsync<T>(
    fn: () => Promise<T>,
  ): Promise<T> {
--  return als.run({ campaign: null, emissionsObserved: 0 }, fn);
-+  return als.run(emptyStore(), fn);
-+}
-+
-+export function requireCampaignContextOrThrow(): void {
-+  const c = store().campaign;
-+  if (!c || c.required) {
-+    if (!c) {
-+      throw new ProviderEmissionRefusedError(
-+        "CAMPAIGN_REQUIRED_MISSING",
-+        "HTTP emission requires an active campaign envelope",
-+      );
-+    }
-+  }
-+}
-+
-+export class ProviderEmissionRefusedError extends Error {
-+  readonly reasonCode: string;
-+  constructor(reasonCode: string, message: string) {
-+    super(`${reasonCode}: ${message}`);
-+    this.name = "ProviderEmissionRefusedError";
-+    this.reasonCode = reasonCode;
-+  }
-+}
-+
-+function safeHost(url: string): string {
-+  try {
-+    return new URL(url).host;
-+  } catch {
-+    return "invalid-url";
-+  }
-+}
-+
-+function isOpenAiApiUrl(url: string): boolean {
-+  try {
-+    const u = new URL(url);
-+    const host = u.hostname.toLowerCase();
-+    return (
-+      host === "api.openai.com" ||
-+      host.endsWith(".openai.com") ||
-+      host === "api.openai.azure.com" ||
-+      host.includes("openai.azure.com")
-+    );
-+  } catch {
-+    return false;
-+  }
-+}
-+
-+/**
-+ * Custom fetch that intercepts OpenAI HTTP emissions for campaign control.
-+ * Substitutable in tests by wrapping a fake transport.
-+ */
-+export function createFrontierAwareFetch(
-+  baseFetch: typeof fetch = globalThis.fetch.bind(globalThis),
-+  opts?: {
-+    /** When true, refuse OpenAI HTTP if no ALS campaign is active. */
-+    requireCampaign?: boolean;
-+    effortHint?: string | null;
-+  },
-+): typeof fetch {
-+  const requireCampaign = opts?.requireCampaign === true;
-+  return (async (input: RequestInfo | URL, init?: RequestInit) => {
-+    const url =
-+      typeof input === "string"
-+        ? input
-+        : input instanceof URL
-+          ? input.toString()
-+          : input.url;
-+    if (!isOpenAiApiUrl(url)) {
-+      return baseFetch(input, init);
-+    }
-+
-+    if (requireCampaign && !store().campaign) {
-+      throw new ProviderEmissionRefusedError(
-+        "CAMPAIGN_REQUIRED_MISSING",
-+        "OpenAI HTTP refused — campaign envelope required",
-+      );
-+    }
-+
-+    const method = (init?.method ?? "POST").toUpperCase();
-+    const body = init?.body ?? null;
-+    // Propagate explicit effort hint into ALS for this emission when provided.
-+    if (opts?.effortHint && als.getStore()) {
-+      store().effortHint = opts.effortHint;
-+    }
-+    const reservation = reserveHttpEmission({
-+      kind: "http.responses",
-+      url,
-+      method,
-+      body,
-+      effort: opts?.effortHint ?? store().effortHint,
-+      skipModelAdmission: false,
-+    });
-+    if (!reservation.ok) {
-+      throw new ProviderEmissionRefusedError(
-+        reservation.reasonCode,
-+        reservation.reason,
-+      );
-+    }
-+
-+    const bodyPreview =
-+      typeof body === "string" ? body.slice(0, 400) : body ? "[non-string-body]" : "";
-+    store().httpBodiesObserved.push({
-+      attemptId: reservation.attemptId,
-+      url,
-+      method,
-+      bodyPreview,
-+    });
-+
-+    try {
-+      const res = await baseFetch(input, init);
-+      // Contact established (response received). Usage may be unknown.
-+      commitProviderEmission({
-+        attemptId: reservation.attemptId,
-+        reservedSlots: reservation.reservedSlots,
-+        reservedInputTokens: reservation.reservedInputTokens,
-+        reservedOutputTokens: reservation.reservedOutputTokens,
-+      });
-+      return res;
-+    } catch (e) {
-+      markProviderEmissionUncertain({ attemptId: reservation.attemptId });
-+      throw e;
-+    }
-+  }) as typeof fetch;
-+}
-+
-+/**
-+ * Install a process-wide Agents SDK OpenAI client whose fetch is frontier-aware.
-+ * Idempotent. Call before any LIVE run().
-+ */
-+export async function ensureFrontierOpenAIClientInstalled(input?: {
-+  requireCampaign?: boolean;
-+  effortHint?: string | null;
-+  maxRetries?: number;
-+}): Promise<void> {
-+  if (clientInstallPromise) return clientInstallPromise;
-+  clientInstallPromise = (async () => {
-+    const [{ setDefaultOpenAIClient }, OpenAIMod] = await Promise.all([
-+      import("@openai/agents"),
-+      import("openai"),
-+    ]);
-+    const OpenAI = OpenAIMod.default;
-+    const key = process.env.OPENAI_API_KEY?.trim();
-+    if (!key) {
-+      // No key — leave default unset; LIVE paths already fail closed.
-+      return;
-+    }
-+    const client = new OpenAI({
-+      apiKey: key,
-+      fetch: createFrontierAwareFetch(globalThis.fetch.bind(globalThis), {
-+        requireCampaign: input?.requireCampaign === true,
-+        effortHint: input?.effortHint,
-+      }),
-+      // Retries still go through fetch and are counted as distinct HTTP attempts.
-+      maxRetries: input?.maxRetries ?? 2,
-+    });
-+    setDefaultOpenAIClient(client as never);
-+  })();
-+  try {
-+    await clientInstallPromise;
-+  } catch (e) {
-+    clientInstallPromise = null;
-+    throw e;
-+  }
-+}
-+
-+/** Test helper — reset install latch. */
-+export function __resetFrontierOpenAIClientInstallForTests(): void {
-+  clientInstallPromise = null;
++  if (als.getStore()) return fn();
+   return als.run(emptyStore(), fn);
  }
 
--/** Stable fingerprint of payload fields that must not mutate after authorization. */
- export function canonicalPayloadFingerprint(fields: Record<string, string>): string {
-   const keys = Object.keys(fields).sort();
-   const blob = keys.map((k) => `${k}=${fields[k]}`).join("\n");
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/public-web-registry.ts b/projects/sfia-studio-next/web/src/domains/conversation/public-web-registry.ts
-index c3792d1e..2b4838c4 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/public-web-registry.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/public-web-registry.ts
-@@ -352,9 +352,12 @@ export function resolvePublicWebRegistry(input: {
-   }
+@@ -777,11 +1102,11 @@ function isOpenAiApiUrl(url: string): boolean {
+   try {
+     const u = new URL(url);
+     const host = u.hostname.toLowerCase();
++    // Exact destinations only — no approximate hostname matching.
+     return (
+       host === "api.openai.com" ||
+-      host.endsWith(".openai.com") ||
+       host === "api.openai.azure.com" ||
+-      host.includes("openai.azure.com")
++      /^[a-z0-9-]+\.openai\.azure\.com$/.test(host)
+     );
+   } catch {
+     return false;
+@@ -797,10 +1122,9 @@ export function createFrontierAwareFetch(
+   opts?: {
+     /** When true, refuse OpenAI HTTP if no ALS campaign is active. */
+     requireCampaign?: boolean;
+-    effortHint?: string | null;
+   },
+ ): typeof fetch {
+-  const requireCampaign = opts?.requireCampaign === true;
++  const requireCampaignOpt = opts?.requireCampaign === true;
+   return (async (input: RequestInfo | URL, init?: RequestInit) => {
+     const url =
+       typeof input === "string"
+@@ -812,7 +1136,24 @@ export function createFrontierAwareFetch(
+       return baseFetch(input, init);
+     }
 
-   const topics: Record<string, string> = { ...priorTopicsRaw };
-+  if ((input.priorExactQueries ?? []).length > 0) {
-+    limits.push("PRIOR_EXACT_STRINGS_IGNORED_WITHOUT_D6_BINDING");
-+  }
-+
-   const exact = new Set(
-     [
--      ...(input.priorExactQueries ?? []),
-       ...(input.explicitExactQueries ?? []),
-       ...(input.d6BoundExactQueries ?? []),
-     ]
-@@ -404,7 +407,7 @@ export function resolvePublicWebRegistry(input: {
-     // Option B — technical parse of AUTHORIZE_PUBLIC_QUERY (≠ D6 authority).
-     // Parsed queries are observed for staging / inspectable act preparation only;
-     // they are NOT promoted into exactQueries unless already present via
--    // d6BoundExactQueries / explicitExactQueries / priorExactQueries.
-+    // d6BoundExactQueries / explicitExactQueries (priorExactQueries strings alone are not admitted).
-     const pilotExact = extractPilotAuthorizedExactQueries(input.pilotText);
-     if (pilotExact.length === 0 && /AUTHORIZE_PUBLIC_QUERY/i.test(input.pilotText)) {
-       limits.push("PILOT_EXACT_PARSE_REJECTED");
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts b/projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts
-index 2dec60d4..1bac7ea2 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts
-@@ -236,6 +236,10 @@ export async function executePublicWebSearch(input: {
-   turnPublicTopics?: Record<string, string>;
-   explicitlyAuthorizedExactQuery?: string;
-   turnAuthorizedExactQueries?: string[];
-+  /** S5 — durable decisionId per exceptional exact query (egress re-proof). */
-+  turnExactQueryDecisionIds?: Record<string, string> | null;
-+  /** Active cognitive policy version for D6 effectConditions match at egress. */
-+  policyVersion?: string;
-   privateContextMarkers?: string[];
-   /** Optional FinOps attribution for LIVE isolated search worker. */
-   finops?: {
-@@ -283,6 +287,61 @@ export async function executePublicWebSearch(input: {
-       mode,
-     };
-   }
-+
-+  // S5 — last egress gate for exceptional D6-bound exact queries (catalog exempt).
-+  if (auth.provenance === "EXPLICIT_AUTHORIZED_EXACT") {
-+    const projectId = (input.finops?.projectId ?? "").trim();
-+    const pilotId = (input.finops?.ownerPilotId ?? "").trim();
-+    const catalogValues = new Set(
-+      Object.values(input.turnPublicTopics ?? {})
-+        .map((q) => q.replace(/\s+/g, " ").trim().toLowerCase())
-+        .filter(Boolean),
-+    );
-+    const exactNorm = auth.authorizedQuery.replace(/\s+/g, " ").trim().toLowerCase();
-+    const catalogBound = catalogValues.has(exactNorm);
-+    if (projectId && pilotId && !catalogBound) {
-+      try {
-+        const { reverifyWebPublicQueryAuthorityAtEgress } = await import(
-+          "./web-public-query-authority"
-+        );
-+        const decisionId =
-+          input.turnExactQueryDecisionIds?.[exactNorm] ??
-+          input.turnExactQueryDecisionIds?.[auth.authorizedQuery] ??
-+          null;
-+        const egressAuth = await reverifyWebPublicQueryAuthorityAtEgress({
-+          query: auth.authorizedQuery,
-+          projectId,
-+          pilotId,
-+          policyVersion: input.policyVersion,
-+          decisionId,
-+        });
-+        if (!egressAuth.allowed) {
-+          return {
-+            status: "DENIED",
-+            coverage: "DENIED",
-+            query: "",
-+            items: [],
-+            limits: [
-+              "WEB_QUERY_EGRESS_D6_DENIED",
-+              egressAuth.reasonCode,
-+              ...auth.redactions,
-+            ],
-+            mode,
-+          };
-+        }
-+      } catch {
-+        return {
-+          status: "DENIED",
-+          coverage: "DENIED",
-+          query: "",
-+          items: [],
-+          limits: ["WEB_QUERY_EGRESS_AUTHORITY_LOOKUP_FAILED"],
-+          mode,
-+        };
-+      }
+-    if (requireCampaign && !store().campaign) {
++    const alsStore = als.getStore();
++    if (!alsStore) {
++      throw new ProviderEmissionRefusedError(
++        "ALS_CONTEXT_REQUIRED",
++        "OpenAI HTTP refused — no frontier ALS context (wrap LIVE paths)",
++      );
 +    }
-+  }
-+
-   const outboundFields = { q: auth.authorizedQuery, provenance: auth.provenance };
-   const leakCheck = assertOutboundHasNoPrivateLeak(
-     outboundFields,
-@@ -450,27 +509,29 @@ async function executeIsolatedLiveWebSearch(
-       ],
-     };
-   }
--  const { reserveProviderEmission, commitProviderEmission } = await import(
--    "./provider-emission-frontier"
--  );
--  const reservation = reserveProviderEmission({
-+  const {
-+    assertSdkInvocationAdmission,
-+    ensureFrontierOpenAIClientInstalled,
-+  } = await import("./provider-emission-frontier");
-+  await ensureFrontierOpenAIClientInstalled();
-+  const sdkAdmission = assertSdkInvocationAdmission({
-     kind: "public_web.isolated_search",
-     modelId: modelRequested,
-     effort: effortRequested,
-   });
--  if (!reservation.ok) {
-+  if (!sdkAdmission.ok) {
-     return {
-       status: "ERROR",
-       items: [],
-       limits: [
-         "WEB_SEARCH_PROVIDER_EMISSION_REFUSED",
--        reservation.reasonCode,
--        reservation.reason.slice(0, 120),
-+        sdkAdmission.reasonCode,
-+        sdkAdmission.reason.slice(0, 120),
-         "WEB_LIVE_SEARCH_BLOCKED",
-       ],
-     };
-   }
--  const attemptId = reservation.attemptId;
-+  const attemptId = sdkAdmission.attemptId;
-   const generationId = `web-gen-${randomUUID()}`;
-   const started = Date.now();
-   let result: unknown;
-@@ -492,8 +553,7 @@ async function executeIsolatedLiveWebSearch(
-       },
-     });
-     // CRITICAL isolation: only the sanitized public query is the user message.
--    // S1 — commit reservation at the common frontier before contacting the provider.
--    commitProviderEmission(reservation);
-+    // Real HTTP attempts (incl. retries / hosted tool) pass the frontier fetch.
-     result = await run(agent, query, { maxTurns: 6 });
-   } catch (e) {
-     // FinOps — record failed attempt (uncertain usage when SDK has none).
-@@ -1257,6 +1317,10 @@ export async function buildPublicWebFrontierTools(input: {
-   turnPublicTopics?: Record<string, string>;
-   /** C22 — exact queries explicitly authorized for this turn. */
-   turnAuthorizedExactQueries?: string[];
-+  /** S5 — durable decisionId per exceptional exact query (egress re-proof). */
-+  turnExactQueryDecisionIds?: Record<string, string> | null;
-+  /** Active cognitive policy version for D6 effectConditions match at egress. */
-+  policyVersion?: string;
-   /**
-    * URL candidates parsed from this-turn Pilote text (not auto-authorized).
-    * Nora must still propose open; mention alone never grants discovery.
-@@ -1439,6 +1503,8 @@ export async function buildPublicWebFrontierTools(input: {
-           turnPublicFacts: input.turnPublicFacts,
-           turnPublicTopics: turnTopics,
-           turnAuthorizedExactQueries: [...turnExact],
-+          turnExactQueryDecisionIds: input.turnExactQueryDecisionIds,
-+          policyVersion: input.policyVersion,
-           privateContextMarkers: markers,
-           finops: input.finops,
-         });
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts b/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
-index 723fd045..f6c85e9d 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
-@@ -10,6 +10,7 @@ import {
- } from "./cognitive-conductor";
- import {
-   buildCognitivePolicy,
-+  buildResourceContinuitySuspendMessage,
-   resolveContinuityCognitivePolicy,
- } from "./cognitive-policy";
- import {
-@@ -1357,26 +1358,47 @@ export async function runNoraCognitiveTurn(
-         input.conversationId ?? "",
-         work.id,
-       ].filter((m) => m.trim().length >= 4);
--      // S4 — AUTHORIZE_PUBLIC_QUERY parse ≠ D6; bind exceptional auth via HumanDecision.
-+      // S5 — AUTHORIZE_PUBLIC_QUERY parse ≠ D6; bind exceptional auth via HumanDecision.
-       let d6BoundExactQueries: string[] = [];
-+      const d6BindingByQuery = new Map<string, string>();
-       try {
--        const { evaluateWebPublicQueryAuthority } = await import(
--          "./web-public-query-authority"
--        );
-+        const {
-+          evaluateWebPublicQueryAuthority,
-+          reverifyWebPublicQueryAuthorityAtEgress,
-+        } = await import("./web-public-query-authority");
-         const { isDedicatedAuthorizePublicQueryAct } = await import(
-           "./public-web-registry"
-         );
-+        const projectIdForWeb = (input.projectId ?? "").trim();
-+        for (const prior of work.state.authorizedExactWebQueryBindings ?? []) {
-+          const q = prior.query.replace(/\s+/g, " ").trim();
-+          const decisionId = prior.decisionId.trim();
-+          if (!q || !decisionId || !projectIdForWeb) continue;
-+          const auth = await reverifyWebPublicQueryAuthorityAtEgress({
-+            query: q,
-+            projectId: projectIdForWeb,
-+            pilotId: input.pilotId,
-+            policyVersion: policy.policyVersion,
-+            decisionId,
-+          });
-+          if (auth.allowed) {
-+            d6BoundExactQueries.push(auth.query);
-+            d6BindingByQuery.set(auth.query.toLowerCase(), auth.decisionId);
-+          }
-+        }
-         if (isDedicatedAuthorizePublicQueryAct(input.userText)) {
-           const auth = await evaluateWebPublicQueryAuthority({
-             pilotText: input.userText,
--            projectId: input.projectId,
-+            projectId: projectIdForWeb || null,
-             pilotId: input.pilotId,
-             policyVersion: policy.policyVersion,
-           });
-           if (auth.allowed) {
--            d6BoundExactQueries = [auth.query];
-+            d6BoundExactQueries.push(auth.query);
-+            d6BindingByQuery.set(auth.query.toLowerCase(), auth.decisionId);
-           }
-         }
-+        d6BoundExactQueries = [...new Set(d6BoundExactQueries)];
-       } catch {
-         /* authority lookup failure ⇒ no exceptional promotion */
-       }
-@@ -1411,13 +1433,32 @@ export async function runNoraCognitiveTurn(
-           work.state.proposedCognitiveModel ?? policy.modelRequested;
-         const refusedEffort =
-           work.state.proposedCognitiveEffort ?? policy.effortRequested;
-+        const suspendReplyText = buildResourceContinuitySuspendMessage(
-+          refusedModel,
-+          refusedEffort,
-+        );
-+        const suspendQualification = unavailableQualification(
-+          "RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION",
-+        );
-+        segmentBox.reply = {
-+          content: suspendReplyText,
-+          status: "INTERRUPTED",
-+          generationId: `suspend_${work.id}`,
-+          mode: "deterministic-fixture",
-+          policy,
-+          modelRequested: refusedModel,
-+          modelApplied: null,
-+          effortRequested: refusedEffort,
-+          effortApplied: null,
-+          attempts: [],
-+          toolCallsObserved: 0,
-+          d4CharsReturned: 0,
-+          observedToolSources: [],
-+          qualification: suspendQualification,
-+        };
-         return {
--          replyText:
--            `Je ne peux pas appliquer silencieusement une autre ressource cognitive : la proposition ` +
--            `${refusedModel}@${refusedEffort} n'est pas admise dans la politique active et aucune ressource ` +
--            `déjà admise n'est disponible pour la maintenir. Indique une autre allocation (modèle/effort) ` +
--            `compatible, ou demande le maintien d'une ressource déjà qualifiée.`,
--          qualification: null,
-+          replyText: suspendReplyText,
-+          qualification: suspendQualification,
-           investigation: {
-             ...work.state,
-             remainingWork: [
-@@ -1479,6 +1520,7 @@ export async function runNoraCognitiveTurn(
-             facts: webRegistry.facts,
-             pilotProvidedUrls: webRegistry.pilotProvidedUrls,
-             pendingProposals: pendingWebProposals,
-+            exactQueryDecisionIds: Object.fromEntries(d6BindingByQuery),
-           },
-         });
-       }
-@@ -1501,6 +1543,16 @@ export async function runNoraCognitiveTurn(
-           ...webRegistry.exactQueries,
-         ]),
-       ];
-+      const nextBindings = [
-+        ...(investigation.authorizedExactWebQueryBindings ?? []),
-+      ];
-+      for (const q of webRegistry.exactQueries) {
-+        const decisionId = d6BindingByQuery.get(q.toLowerCase());
-+        if (!decisionId) continue;
-+        if (nextBindings.some((b) => b.decisionId === decisionId)) continue;
-+        nextBindings.push({ query: q, decisionId });
-+      }
-+      investigation.authorizedExactWebQueryBindings = nextBindings;
-       // Option B — retain staged proposals; drop those now exact-authorized.
-       const authorizedSet = new Set(
-         (investigation.authorizedExactWebQueries ?? []).map((q) =>
-@@ -1621,17 +1673,26 @@ export async function runNoraCognitiveTurn(
-
-   let content = conductor.replyText || lastReply.content;
-   if (conductor.suspended) {
--    // A4 — restitution from durable acquis, not last provider fragment alone.
--    content = composeInvestigationPartialRestitution({
--      state: {
--        ...conductor.investigation,
--        cognitiveWorkId: conductor.work.id,
--        cognitiveRevision: conductor.work.revision,
--      },
--      production: conductor.production,
--      suspendReason: conductor.suspendReason,
--      sourceFallback: lastReply.observedToolSources,
--    });
++    // Lost required campaign must never degrade to unlimited operational.
++    if (requiredCampaignLatch?.active && !alsStore.campaign) {
++      throw new ProviderEmissionRefusedError(
++        "CAMPAIGN_REQUIRED_MISSING",
++        `required campaign ${requiredCampaignLatch.campaignId} latch active but ALS campaign absent`,
++      );
++    }
 +    if (
-+      conductor.suspendReason ===
-+        "RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION" &&
-+      conductor.replyText.trim().length > 0
++      (requireCampaignOpt || requiredCampaignLatch?.active) &&
++      !alsStore.campaign
 +    ) {
-+      // S2 — explicit refusal/restitution; do not bury under generic partial template.
-+      content = conductor.replyText;
-+    } else {
-+      // A4 — restitution from durable acquis, not last provider fragment alone.
-+      content = composeInvestigationPartialRestitution({
-+        state: {
-+          ...conductor.investigation,
-+          cognitiveWorkId: conductor.work.id,
-+          cognitiveRevision: conductor.work.revision,
-+        },
-+        production: conductor.production,
-+        suspendReason: conductor.suspendReason,
-+        sourceFallback: lastReply.observedToolSources,
+       throw new ProviderEmissionRefusedError(
+         "CAMPAIGN_REQUIRED_MISSING",
+         "OpenAI HTTP refused — campaign envelope required",
+@@ -820,18 +1161,34 @@ export function createFrontierAwareFetch(
+     }
+
+     const method = (init?.method ?? "POST").toUpperCase();
+-    const body = init?.body ?? null;
+-    // Propagate explicit effort hint into ALS for this emission when provided.
+-    if (opts?.effortHint && als.getStore()) {
+-      store().effortHint = opts.effortHint;
++    let body = init?.body ?? null;
++    let bodyJson = parseJsonBody(body);
++    const campaign = alsStore.campaign;
++    // Inject opposable max_output_tokens onto the real provider payload when the
++    // campaign sets a per-request ceiling and the SDK omitted the field.
++    if (
++      campaign?.maxOutputTokensPerRequest != null &&
++      bodyJson &&
++      demonstrableOutputTokenBound(bodyJson) == null
++    ) {
++      bodyJson = {
++        ...bodyJson,
++        max_output_tokens: campaign.maxOutputTokensPerRequest,
++      };
++      body = JSON.stringify(bodyJson);
+     }
++    const hostedSearchDelta = inferHostedSearchDeltaFromBody(
++      bodyJson,
++      campaign,
++    );
+     const reservation = reserveHttpEmission({
+       kind: "http.responses",
+       url,
+       method,
+       body,
+-      effort: opts?.effortHint ?? store().effortHint,
++      effort: alsStore.effortHint,
+       skipModelAdmission: false,
++      hostedSearchDelta,
+     });
+     if (!reservation.ok) {
+       throw new ProviderEmissionRefusedError(
+@@ -840,23 +1197,29 @@ export function createFrontierAwareFetch(
+       );
+     }
+
+-    const bodyPreview =
+-      typeof body === "string" ? body.slice(0, 400) : body ? "[non-string-body]" : "";
+-    store().httpBodiesObserved.push({
+-      attemptId: reservation.attemptId,
+-      url,
+-      method,
+-      bodyPreview,
+-    });
++    if (alsStore.captureHttpMeta) {
++      alsStore.httpBodiesObserved.push({
++        attemptId: reservation.attemptId,
++        url,
++        method,
++        model: modelFromBody(bodyJson),
++        effort: effortFromBody(bodyJson),
++        maxOutputTokens: demonstrableOutputTokenBound(bodyJson),
 +      });
 +    }
-   }
 
-   const reply: NoraGenerateResult = {
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/web-public-query-authority.ts b/projects/sfia-studio-next/web/src/domains/conversation/web-public-query-authority.ts
-index 5cf4148d..e0c2d892 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/web-public-query-authority.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/web-public-query-authority.ts
-@@ -1,5 +1,5 @@
++    const nextInit =
++      body === init?.body || init == null
++        ? init
++        : { ...init, body };
+     try {
+-      const res = await baseFetch(input, init);
+-      // Contact established (response received). Usage may be unknown.
++      const res = await baseFetch(input, nextInit);
+       commitProviderEmission({
+         attemptId: reservation.attemptId,
+         reservedSlots: reservation.reservedSlots,
+         reservedInputTokens: reservation.reservedInputTokens,
+         reservedOutputTokens: reservation.reservedOutputTokens,
++        hostedSearchDelta,
+       });
+       return res;
+     } catch (e) {
+@@ -867,48 +1230,70 @@ export function createFrontierAwareFetch(
+ }
+
  /**
-- * S4 — Exceptional public WEB query authority binding (D6 owner).
-+ * S5 — Exceptional public WEB query authority binding (D6 owner).
-  *
-  * Regex AUTHORIZE_PUBLIC_QUERY parse is a technical extractor only.
-  * Egress admission for non-catalog queries requires an inspectable authority
-@@ -19,22 +19,27 @@ import {
- } from "./public-web-registry";
+- * Install a process-wide Agents SDK OpenAI client whose fetch is frontier-aware.
+- * Idempotent. Call before any LIVE run().
++ * Install Agents SDK OpenAI client whose fetch is frontier-aware.
++ * Reinstall when key fingerprint changes or forceReinstall is set (tests).
+  */
+ export async function ensureFrontierOpenAIClientInstalled(input?: {
+   requireCampaign?: boolean;
+-  effortHint?: string | null;
+   maxRetries?: number;
+-}): Promise<void> {
+-  if (clientInstallPromise) return clientInstallPromise;
++  forceReinstall?: boolean;
++  /** Substituted transport for deterministic SDK tests — never for production LIVE. */
++  fetch?: typeof fetch;
++}): Promise<{ keyFingerprint: string | null }> {
++  const key = process.env.OPENAI_API_KEY?.trim() ?? "";
++  const fp = key
++    ? createHash("sha256").update(key, "utf8").digest("hex").slice(0, 16)
++    : null;
++  if (
++    clientInstallPromise &&
++    !input?.forceReinstall &&
++    fp &&
++    installedClientKeyFp === fp &&
++    !input?.fetch
++  ) {
++    await clientInstallPromise;
++    return { keyFingerprint: installedClientKeyFp };
++  }
+   clientInstallPromise = (async () => {
+     const [{ setDefaultOpenAIClient }, OpenAIMod] = await Promise.all([
+       import("@openai/agents"),
+       import("openai"),
+     ]);
+     const OpenAI = OpenAIMod.default;
+-    const key = process.env.OPENAI_API_KEY?.trim();
+     if (!key) {
+-      // No key — leave default unset; LIVE paths already fail closed.
++      installedClientKeyFp = null;
+       return;
+     }
++    const baseFetch =
++      input?.fetch ?? globalThis.fetch.bind(globalThis);
+     const client = new OpenAI({
+       apiKey: key,
+-      fetch: createFrontierAwareFetch(globalThis.fetch.bind(globalThis), {
++      fetch: createFrontierAwareFetch(baseFetch, {
+         requireCampaign: input?.requireCampaign === true,
+-        effortHint: input?.effortHint,
+       }),
+-      // Retries still go through fetch and are counted as distinct HTTP attempts.
+       maxRetries: input?.maxRetries ?? 2,
+     });
+     setDefaultOpenAIClient(client as never);
++    installedClientKeyFp = fp;
+   })();
+   try {
+     await clientInstallPromise;
++    return { keyFingerprint: installedClientKeyFp };
+   } catch (e) {
+     clientInstallPromise = null;
++    installedClientKeyFp = null;
+     throw e;
+   }
+ }
 
- export const WEB_PUBLIC_QUERY_OBJECT_PREFIX = "web.public_query:" as const;
-+export const WEB_PUBLIC_QUERY_DESTINATION = "public_web_search" as const;
++export function getInstalledFrontierClientKeyFp(): string | null {
++  return installedClientKeyFp;
++}
++
+ /** Test helper — reset install latch. */
+ export function __resetFrontierOpenAIClientInstallForTests(): void {
+   clientInstallPromise = null;
++  installedClientKeyFp = null;
+ }
 
- export type WebPublicQueryAuthorityPayload = {
-   query: string;
--  destination: "public_web_search";
-+  destination: typeof WEB_PUBLIC_QUERY_DESTINATION;
-   purpose: string;
-   projectId: string;
-   pilotId: string;
-   policyVersion: string;
+ export function canonicalPayloadFingerprint(fields: Record<string, string>): string {
+
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/usage-accounting.ts`
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/usage-accounting.ts b/projects/sfia-studio-next/web/src/domains/conversation/usage-accounting.ts
+index 70fb7aef..bc2203ed 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/usage-accounting.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/usage-accounting.ts
+@@ -8,12 +8,17 @@ import {
+   effectiveTariffRates,
+   getTariffEntry,
+ } from "./cognitive-resources/tariff-catalog";
++import { getHttpAttemptsSnapshot } from "./provider-emission-frontier";
+ import {
+   extractProviderUsageFromRunResult,
+   type ProviderRequestUsageEntry,
+   type ProviderUsageSnapshot,
+ } from "./provider-usage";
+
++function httpAttemptLimitMarker(attemptId: string): string {
++  return `HTTP_ATTEMPT:${attemptId}`;
++}
++
+ export type CostCoverage = "KNOWN" | "PARTIAL" | "UNKNOWN";
+
+ export type ProviderUsageObservationStatus =
+@@ -387,6 +392,8 @@ export type NoraProviderUsageHookInput = {
+   providerResponseId?: string | null;
+   callOrdinal?: number | null;
+   errorCategory?: string | null;
++  /** FinOps limits merged before HTTP attempt correlation. */
++  correlationLimits?: string[];
  };
 
-+export function normalizeWebPublicQuery(query: string): string {
-+  return query.replace(/\s+/g, " ").trim();
-+}
-+
- export function buildWebPublicQueryObjectRef(
-   payload: Pick<WebPublicQueryAuthorityPayload, "query" | "projectId">,
- ): string {
-   const fp = canonicalPayloadFingerprint({
--    query: payload.query.replace(/\s+/g, " ").trim(),
--    destination: "public_web_search",
-+    query: normalizeWebPublicQuery(payload.query),
-+    destination: WEB_PUBLIC_QUERY_DESTINATION,
-     projectId: payload.projectId,
-   });
-   return `${WEB_PUBLIC_QUERY_OBJECT_PREFIX}${fp}`;
-@@ -44,7 +49,7 @@ export function buildWebPublicQueryEffectConditions(
-   payload: WebPublicQueryAuthorityPayload,
- ): string {
-   const canonical = {
--    query: payload.query.replace(/\s+/g, " ").trim(),
-+    query: normalizeWebPublicQuery(payload.query),
-     destination: payload.destination,
-     purpose: payload.purpose.slice(0, 200),
-     projectId: payload.projectId,
-@@ -54,6 +59,69 @@ export function buildWebPublicQueryEffectConditions(
-   return JSON.stringify(canonical);
- }
-
-+export type ParseEffectConditionsResult =
-+  | { ok: true; payload: WebPublicQueryAuthorityPayload }
-+  | { ok: false; reasonCode: "EFFECT_CONDITIONS_MISSING" | "EFFECT_CONDITIONS_MALFORMED" | "EFFECT_CONDITIONS_INCOMPLETE" };
-+
-+/** Fail closed on missing/malformed effectConditions (discriminant, no DB). */
-+export function parseWebPublicQueryEffectConditions(
-+  raw: string | null | undefined,
-+): ParseEffectConditionsResult {
-+  const text = (raw ?? "").trim();
-+  if (!text) {
-+    return { ok: false, reasonCode: "EFFECT_CONDITIONS_MISSING" };
-+  }
-+  let parsed: unknown;
-+  try {
-+    parsed = JSON.parse(text);
-+  } catch {
-+    return { ok: false, reasonCode: "EFFECT_CONDITIONS_MALFORMED" };
-+  }
-+  if (!parsed || typeof parsed !== "object") {
-+    return { ok: false, reasonCode: "EFFECT_CONDITIONS_MALFORMED" };
-+  }
-+  const o = parsed as Record<string, unknown>;
-+  const query =
-+    typeof o.query === "string" ? normalizeWebPublicQuery(o.query) : "";
-+  const destination = o.destination;
-+  const purpose = typeof o.purpose === "string" ? o.purpose.trim() : "";
-+  const projectId = typeof o.projectId === "string" ? o.projectId.trim() : "";
-+  const pilotId = typeof o.pilotId === "string" ? o.pilotId.trim() : "";
-+  const policyVersion =
-+    typeof o.policyVersion === "string" ? o.policyVersion.trim() : "";
-+  if (
-+    !query ||
-+    query.length < 3 ||
-+    destination !== WEB_PUBLIC_QUERY_DESTINATION ||
-+    !purpose ||
-+    !projectId ||
-+    !pilotId ||
-+    !policyVersion
-+  ) {
-+    return { ok: false, reasonCode: "EFFECT_CONDITIONS_INCOMPLETE" };
-+  }
-+  return {
-+    ok: true,
-+    payload: {
-+      query,
-+      destination: WEB_PUBLIC_QUERY_DESTINATION,
-+      purpose: purpose.slice(0, 200),
-+      projectId,
-+      pilotId,
-+      policyVersion,
-+    },
-+  };
-+}
-+
-+type DecisionRow = {
-+  id: string;
-+  pilotId: string;
-+  kind: string;
-+  objectRef: string;
-+  state: string;
-+  effectConditions: string | null;
-+};
-+
- export type WebQueryAuthorityVerdict =
-   | {
-       allowed: true;
-@@ -72,65 +140,202 @@ export type WebQueryAuthorityVerdict =
-         | "DECISION_NOT_APPLICABLE"
-         | "PAYLOAD_MISMATCH"
-         | "PILOT_MISMATCH"
-+        | "POLICY_VERSION_MISMATCH"
-+        | "EFFECT_CONDITIONS_INVALID"
-+        | "KIND_MISMATCH"
-         | "REVOKED_OR_SUPERSEDED";
-       reason: string;
-       parsedQuery?: string;
-       objectRef?: string;
-     };
-
--/**
-- * Technical parse alone never grants egress. When projectId is present,
-- * require an APPLICABLE HumanDecision RECORD_DECISION bound to the payload.
-- */
--export async function evaluateWebPublicQueryAuthority(input: {
--  pilotText: string;
--  projectId: string | null | undefined;
--  pilotId: string;
--  /** Optional explicit decision id (inspectable act already recorded). */
--  decisionId?: string | null;
--  policyVersion?: string;
--}): Promise<WebQueryAuthorityVerdict> {
--  const projectId = (input.projectId ?? "").trim();
--  const parsed = extractPilotAuthorizedExactQueries(input.pilotText);
--  const dedicated = isDedicatedAuthorizePublicQueryAct(input.pilotText);
-+export function validateWebPublicQueryDecisionRow(
-+  row: DecisionRow,
-+  expected: {
-+    query: string;
-+    projectId: string;
-+    pilotId: string;
-+    policyVersion?: string;
-+    objectRef: string;
-+  },
-+): WebQueryAuthorityVerdict {
-+  const query = normalizeWebPublicQuery(expected.query);
-
--  if (!dedicated || parsed.length === 0) {
-+  if (row.kind !== "RECORD_DECISION") {
-     return {
-       allowed: false,
--      reasonCode: "POISON_OR_NON_DEDICATED",
--      reason: "AUTHORIZE_PUBLIC_QUERY must be a dedicated Pilote act (parse ≠ D6)",
-+      reasonCode: "KIND_MISMATCH",
-+      reason: `decision kind=${row.kind} (expected RECORD_DECISION)`,
-+      parsedQuery: query,
-+      objectRef: expected.objectRef,
-     };
-   }
-
--  const query = parsed[0]!;
--  if (!projectId) {
--    // Without project scope, D6 HumanDecision cannot bind — refuse exceptional auth.
--    // Catalog / independently admitted provenance remains the nominal path.
-+  if (row.state !== "APPLICABLE") {
-     return {
-       allowed: false,
--      reasonCode: "PROJECT_REQUIRED",
--      reason:
--        "Exceptional WEB authorization requires project-scoped HumanDecision (D6)",
-+      reasonCode: "DECISION_NOT_APPLICABLE",
-+      reason: `decision state=${row.state}`,
-       parsedQuery: query,
-+      objectRef: expected.objectRef,
-     };
-   }
-
--  const objectRef = buildWebPublicQueryObjectRef({ query, projectId });
--  const decisionId = (input.decisionId ?? "").trim();
-+  if (row.pilotId !== expected.pilotId) {
-+    return {
-+      allowed: false,
-+      reasonCode: "PILOT_MISMATCH",
-+      reason: "Decision pilot does not match requesting pilot",
-+      parsedQuery: query,
-+      objectRef: expected.objectRef,
-+    };
-+  }
-+
-+  if (row.objectRef !== expected.objectRef) {
-+    return {
-+      allowed: false,
-+      reasonCode: "PAYLOAD_MISMATCH",
-+      reason: "Decision objectRef fingerprint does not match query payload",
-+      parsedQuery: query,
-+      objectRef: expected.objectRef,
-+    };
-+  }
-+
-+  const ec = parseWebPublicQueryEffectConditions(row.effectConditions);
-+  if (!ec.ok) {
-+    return {
-+      allowed: false,
-+      reasonCode: "EFFECT_CONDITIONS_INVALID",
-+      reason: ec.reasonCode,
-+      parsedQuery: query,
-+      objectRef: expected.objectRef,
-+    };
-+  }
-+
-+  if (ec.payload.projectId !== expected.projectId) {
-+    return {
-+      allowed: false,
-+      reasonCode: "PAYLOAD_MISMATCH",
-+      reason: "effectConditions.projectId does not match scope",
-+      parsedQuery: query,
-+      objectRef: expected.objectRef,
-+    };
-+  }
-+
-+  if (ec.payload.pilotId !== expected.pilotId) {
-+    return {
-+      allowed: false,
-+      reasonCode: "PILOT_MISMATCH",
-+      reason: "effectConditions.pilotId does not match requesting pilot",
-+      parsedQuery: query,
-+      objectRef: expected.objectRef,
-+    };
-+  }
-+
-+  if (ec.payload.query !== query) {
-+    return {
-+      allowed: false,
-+      reasonCode: "PAYLOAD_MISMATCH",
-+      reason: "effectConditions.query does not match authorized query",
-+      parsedQuery: query,
-+      objectRef: expected.objectRef,
-+    };
-+  }
-+
-+  if (ec.payload.destination !== WEB_PUBLIC_QUERY_DESTINATION) {
-+    return {
-+      allowed: false,
-+      reasonCode: "PAYLOAD_MISMATCH",
-+      reason: "effectConditions.destination is not public_web_search",
-+      parsedQuery: query,
-+      objectRef: expected.objectRef,
-+    };
-+  }
-+
-+  const expectedPolicy = (expected.policyVersion ?? "").trim();
-+  if (expectedPolicy && ec.payload.policyVersion !== expectedPolicy) {
-+    return {
-+      allowed: false,
-+      reasonCode: "POLICY_VERSION_MISMATCH",
-+      reason: "effectConditions.policyVersion does not match active policy",
-+      parsedQuery: query,
-+      objectRef: expected.objectRef,
-+    };
-+  }
-+
-+  if (!ec.payload.purpose.trim()) {
-+    return {
-+      allowed: false,
-+      reasonCode: "EFFECT_CONDITIONS_INVALID",
-+      reason: "effectConditions.purpose missing",
-+      parsedQuery: query,
-+      objectRef: expected.objectRef,
-+    };
-+  }
-+
-+  return {
-+    allowed: true,
-+    decisionId: row.id,
-+    objectRef: expected.objectRef,
-+    query,
-+    source: "HUMAN_DECISION_RECORD",
-+  };
-+}
-+
-+/** Last-mile revocation / supersession proof before network egress. */
-+export async function assertWebPublicQueryDecisionEgressProof(
-+  decisionId: string,
-+  projectId: string,
-+): Promise<"ok" | "revoked_or_stale"> {
-+  const fresh = (
-+    await db
-+      .select({
-+        id: humanDecisions.id,
-+        state: humanDecisions.state,
-+        kind: humanDecisions.kind,
-+      })
-+      .from(humanDecisions)
-+      .where(
-+        and(
-+          eq(humanDecisions.id, decisionId),
-+          eq(humanDecisions.projectId, projectId),
-+        ),
-+      )
-+      .limit(1)
-+  )[0];
-+  if (!fresh || fresh.kind !== "RECORD_DECISION" || fresh.state !== "APPLICABLE") {
-+    return "revoked_or_stale";
-+  }
-+
-+  const revoke = (
-+    await db
-+      .select({ id: humanDecisions.id })
-+      .from(humanDecisions)
-+      .where(
-+        and(
-+          eq(humanDecisions.projectId, projectId),
-+          eq(humanDecisions.state, "APPLICABLE"),
-+          eq(humanDecisions.kind, "REVOKE_DECISION"),
-+          eq(humanDecisions.revokesDecisionId, decisionId),
-+        ),
-+      )
-+      .limit(1)
-+  )[0];
-+  if (revoke) {
-+    return "revoked_or_stale";
-+  }
-+
-+  return "ok";
-+}
-
--  let row:
--    | {
--        id: string;
--        pilotId: string;
--        kind: string;
--        objectRef: string;
--        state: string;
--        effectConditions: string | null;
--      }
--    | undefined;
--
--  if (decisionId) {
--    row = (
-+async function loadWebPublicQueryDecisionRow(input: {
-+  projectId: string;
-+  pilotId: string;
-+  objectRef: string;
-+  decisionId?: string;
-+}): Promise<DecisionRow | undefined> {
-+  if (input.decisionId) {
-+    return (
-       await db
-         .select({
-           id: humanDecisions.id,
-@@ -143,35 +348,79 @@ export async function evaluateWebPublicQueryAuthority(input: {
-         .from(humanDecisions)
-         .where(
-           and(
--            eq(humanDecisions.id, decisionId),
--            eq(humanDecisions.projectId, projectId),
-+            eq(humanDecisions.id, input.decisionId),
-+            eq(humanDecisions.projectId, input.projectId),
-           ),
-         )
-         .limit(1)
-     )[0];
--  } else {
--    // Lookup latest APPLICABLE RECORD_DECISION for this objectRef + pilot.
--    const rows = await db
--      .select({
--        id: humanDecisions.id,
--        pilotId: humanDecisions.pilotId,
--        kind: humanDecisions.kind,
--        objectRef: humanDecisions.objectRef,
--        state: humanDecisions.state,
--        effectConditions: humanDecisions.effectConditions,
--      })
--      .from(humanDecisions)
--      .where(
--        and(
--          eq(humanDecisions.projectId, projectId),
--          eq(humanDecisions.objectRef, objectRef),
--          eq(humanDecisions.state, "APPLICABLE"),
--        ),
--      )
--      .limit(8);
--    row = rows.find((r) => r.pilotId === input.pilotId && r.kind === "RECORD_DECISION");
-   }
-
-+  const rows = await db
-+    .select({
-+      id: humanDecisions.id,
-+      pilotId: humanDecisions.pilotId,
-+      kind: humanDecisions.kind,
-+      objectRef: humanDecisions.objectRef,
-+      state: humanDecisions.state,
-+      effectConditions: humanDecisions.effectConditions,
-+    })
-+    .from(humanDecisions)
-+    .where(
-+      and(
-+        eq(humanDecisions.projectId, input.projectId),
-+        eq(humanDecisions.objectRef, input.objectRef),
-+        eq(humanDecisions.kind, "RECORD_DECISION"),
-+        eq(humanDecisions.state, "APPLICABLE"),
-+      ),
-+    )
-+    .limit(8);
-+
-+  return rows.find((r) => r.pilotId === input.pilotId);
-+}
-+
-+/**
-+ * Re-verify a prior or explicit binding without re-parsing pilot AUTHORIZE text.
-+ * `decisionId` is required when reusing authority across turns.
-+ */
-+export async function reverifyWebPublicQueryAuthorityAtEgress(input: {
-+  query: string;
-+  projectId: string;
-+  pilotId: string;
-+  policyVersion?: string;
-+  decisionId?: string | null;
-+}): Promise<WebQueryAuthorityVerdict> {
-+  const projectId = input.projectId.trim();
-+  const query = normalizeWebPublicQuery(input.query);
-+  if (!projectId || !query) {
-+    return {
-+      allowed: false,
-+      reasonCode: "PROJECT_REQUIRED",
-+      reason: "Exceptional WEB authorization requires project-scoped HumanDecision (D6)",
-+      parsedQuery: query,
-+    };
-+  }
-+
-+  const objectRef = buildWebPublicQueryObjectRef({ query, projectId });
-+  const decisionId = (input.decisionId ?? "").trim();
-+  if (!decisionId) {
-+    return {
-+      allowed: false,
-+      reasonCode: "DECISION_NOT_FOUND",
-+      reason:
-+        "Exceptional WEB egress requires durable decisionId reference (priorExactQueries alone insufficient)",
-+      parsedQuery: query,
-+      objectRef,
-+    };
-+  }
-+
-+  const row = await loadWebPublicQueryDecisionRow({
-+    projectId,
-+    pilotId: input.pilotId,
-+    objectRef,
-+    decisionId,
-+  });
-+
-   if (!row) {
-     return {
-       allowed: false,
-@@ -183,61 +432,108 @@ export async function evaluateWebPublicQueryAuthority(input: {
-     };
-   }
-
--  if (row.state !== "APPLICABLE") {
-+  const verdict = validateWebPublicQueryDecisionRow(row, {
-+    query,
-+    projectId,
-+    pilotId: input.pilotId,
-+    policyVersion: input.policyVersion,
-+    objectRef,
-+  });
-+  if (!verdict.allowed) {
-+    return verdict;
-+  }
-+
-+  const egress = await assertWebPublicQueryDecisionEgressProof(verdict.decisionId, projectId);
-+  if (egress !== "ok") {
-     return {
-       allowed: false,
-       reasonCode: "REVOKED_OR_SUPERSEDED",
--      reason: `decision state=${row.state}`,
-+      reason: "HumanDecision revoked or no longer APPLICABLE at egress",
-       parsedQuery: query,
-       objectRef,
-     };
-   }
-
--  if (row.pilotId !== input.pilotId) {
-+  return verdict;
-+}
-+
-+/**
-+ * Technical parse alone never grants egress. When projectId is present,
-+ * require an APPLICABLE HumanDecision RECORD_DECISION bound to the payload.
-+ */
-+export async function evaluateWebPublicQueryAuthority(input: {
-+  pilotText: string;
-+  projectId: string | null | undefined;
-+  pilotId: string;
-+  /** Optional explicit decision id (inspectable act already recorded). */
-+  decisionId?: string | null;
-+  policyVersion?: string;
-+}): Promise<WebQueryAuthorityVerdict> {
-+  const projectId = (input.projectId ?? "").trim();
-+  const parsed = extractPilotAuthorizedExactQueries(input.pilotText);
-+  const dedicated = isDedicatedAuthorizePublicQueryAct(input.pilotText);
-+
-+  if (!dedicated || parsed.length === 0) {
-+    return {
-+      allowed: false,
-+      reasonCode: "POISON_OR_NON_DEDICATED",
-+      reason: "AUTHORIZE_PUBLIC_QUERY must be a dedicated Pilote act (parse ≠ D6)",
-+    };
-+  }
-+
-+  const query = parsed[0]!;
-+  if (!projectId) {
-     return {
-       allowed: false,
--      reasonCode: "PILOT_MISMATCH",
--      reason: "Decision pilot does not match requesting pilot",
-+      reasonCode: "PROJECT_REQUIRED",
-+      reason:
-+        "Exceptional WEB authorization requires project-scoped HumanDecision (D6)",
-       parsedQuery: query,
--      objectRef,
-     };
-   }
-
--  if (row.objectRef !== objectRef) {
-+  const objectRef = buildWebPublicQueryObjectRef({ query, projectId });
-+  const row = await loadWebPublicQueryDecisionRow({
-+    projectId,
-+    pilotId: input.pilotId,
-+    objectRef,
-+    decisionId: (input.decisionId ?? "").trim() || undefined,
-+  });
-+
-+  if (!row) {
-     return {
-       allowed: false,
--      reasonCode: "PAYLOAD_MISMATCH",
--      reason: "Decision objectRef fingerprint does not match query payload",
-+      reasonCode: "DECISION_NOT_FOUND",
-+      reason:
-+        "No APPLICABLE HumanDecision RECORD_DECISION for exact public query payload",
-       parsedQuery: query,
-       objectRef,
-     };
-   }
-
--  if (row.effectConditions) {
--    try {
--      const parsedEc = JSON.parse(row.effectConditions) as { query?: string };
--      const ecQuery = (parsedEc.query ?? "").replace(/\s+/g, " ").trim();
--      if (ecQuery && ecQuery !== query.replace(/\s+/g, " ").trim()) {
--        return {
--          allowed: false,
--          reasonCode: "PAYLOAD_MISMATCH",
--          reason: "effectConditions.query does not match authorized query",
--          parsedQuery: query,
--          objectRef,
--        };
--      }
--    } catch {
--      /* effectConditions optional parse — objectRef remains binding */
--    }
-+  const verdict = validateWebPublicQueryDecisionRow(row, {
-+    query,
-+    projectId,
-+    pilotId: input.pilotId,
-+    policyVersion: input.policyVersion,
-+    objectRef,
-+  });
-+  if (!verdict.allowed) {
-+    return verdict;
-   }
-
--  return {
--    allowed: true,
--    decisionId: row.id,
--    objectRef,
--    query,
--    source: "HUMAN_DECISION_RECORD",
--  };
-+  const egress = await assertWebPublicQueryDecisionEgressProof(verdict.decisionId, projectId);
-+  if (egress !== "ok") {
-+    return {
-+      allowed: false,
-+      reasonCode: "REVOKED_OR_SUPERSEDED",
-+      reason: "HumanDecision revoked or no longer APPLICABLE",
-+      parsedQuery: query,
-+      objectRef,
-+    };
-+  }
-+
-+  return verdict;
- }
-
  /**
-@@ -276,4 +572,4 @@ export function promoteExactQueriesFromAuthority(input: {
-   limits.push("PILOT_EXACT_PARSE_NOT_PROMOTED");
-   limits.push(input.authority?.reasonCode ?? "PARSE_NOT_AUTHORITY");
-   return { exactQueries: [], limits };
--}
+@@ -477,6 +484,7 @@ export async function recordNoraProviderUsageFromRunResult(
+   const snapshot = extractProviderUsageFromRunResult(input.runResult);
+   const baseLimits = [
+     ...snapshot.limits,
++    ...(input.correlationLimits ?? []),
+     ...(snapshot.provenance === "UNAVAILABLE" ? ["PROVIDER_USAGE_UNAVAILABLE"] : []),
+   ];
+   const forcedGranularity = input.granularity;
+@@ -547,4 +555,80 @@ export async function recordNoraProviderUsageFromRunResult(
+     idempotencyKey,
+     limits: aggregateLimits,
+   });
 +}
++
++/**
++ * Nora FinOps row(s) correlated to frontier HTTP attempts in the same ALS window.
++ * Does not invent per-HTTP token splits when only the SDK aggregate is known.
++ */
++export async function recordNoraProviderUsageWithHttpCorrelation(
++  input: NoraProviderUsageHookInput,
++): Promise<RecordProviderUsageObservationResult> {
++  const httpAttempts = getHttpAttemptsSnapshot();
++  const sdkAttemptId = input.attemptId?.trim() ?? "";
++
++  if (httpAttempts.length === 0) {
++    return recordNoraProviderUsageFromRunResult(input);
++  }
++
++  if (httpAttempts.length === 1) {
++    const http = httpAttempts[0]!;
++    const correlationLimits = [httpAttemptLimitMarker(http.attemptId)];
++    if (sdkAttemptId && sdkAttemptId !== http.attemptId) {
++      correlationLimits.push(`SDK_ATTEMPT:${sdkAttemptId}`);
++    }
++    return recordNoraProviderUsageFromRunResult({
++      ...input,
++      attemptId: http.attemptId,
++      correlationLimits,
++    });
++  }
++
++  const correlationLimits = [
++    "MULTI_HTTP_ATTEMPT_AGGREGATE",
++    ...httpAttempts.map((h) => httpAttemptLimitMarker(h.attemptId)),
++  ];
++  if (sdkAttemptId) correlationLimits.push(`SDK_ATTEMPT:${sdkAttemptId}`);
++
++  const primary = await recordNoraProviderUsageFromRunResult({
++    ...input,
++    correlationLimits,
++  });
++
++  const scope = idempotencyScope(input);
++  for (let i = 0; i < httpAttempts.length; i++) {
++    const http = httpAttempts[i]!;
++    const idempotencyKey = buildIdempotencyKey({
++      ...scope,
++      granularity: "REQUEST",
++      operation: input.operation,
++      attemptId: http.attemptId,
++      generationId: input.generationId,
++      segmentIndex: input.segmentIndex,
++      providerResponseId: input.providerResponseId,
++      callOrdinal: 900 + i,
++    });
++    await recordProviderUsageObservation({
++      ...observationCommon(input),
++      attemptId: http.attemptId,
++      granularity: "REQUEST",
++      status: input.status,
++      inputTokens: null,
++      outputTokens: null,
++      totalTokens: null,
++      cachedInputTokens: null,
++      reasoningTokens: null,
++      providerRequests: 1,
++      costCoverage: "PARTIAL",
++      estimatedCostUsd: null,
++      idempotencyKey,
++      limits: [
++        "HTTP_ATTEMPT_USAGE_UNKNOWN",
++        httpAttemptLimitMarker(http.attemptId),
++        ...(sdkAttemptId ? [`SDK_ATTEMPT:${sdkAttemptId}`] : []),
++      ],
++    });
++  }
++
++  return primary;
+ }
 \ No newline at end of file
-diff --git a/projects/sfia-studio-next/web/src/domains/documents/pdf-extract-server.ts b/projects/sfia-studio-next/web/src/domains/documents/pdf-extract-server.ts
-index d68403e1..4fbd8d0b 100644
---- a/projects/sfia-studio-next/web/src/domains/documents/pdf-extract-server.ts
-+++ b/projects/sfia-studio-next/web/src/domains/documents/pdf-extract-server.ts
-@@ -1,6 +1,7 @@
- /**
-  * Server-side PDF text extraction (pdfjs-dist).
-  * Input bytes must already be authorized by the owning domain (B1/D9/D4).
-+ * Never call from the PDF viewer API — authorization and bytes delivery are separate.
-  * No network I/O — disable worker and external font fetches.
-  */
 
-diff --git a/projects/sfia-studio-next/web/src/domains/documents/pdf-read-contract.ts b/projects/sfia-studio-next/web/src/domains/documents/pdf-read-contract.ts
-index 8d7fbacf..c1a02d55 100644
---- a/projects/sfia-studio-next/web/src/domains/documents/pdf-read-contract.ts
-+++ b/projects/sfia-studio-next/web/src/domains/documents/pdf-read-contract.ts
-@@ -1,6 +1,11 @@
- /**
-  * Shared PDF read contract — bytes already authorized by B1 / D9 / D4 owner.
-  * The PDF processor never resolves access rights.
-+ *
-+ * Opposable access before parse:
-+ * - WEB viewerToken path: `pdf-viewer-authorization` + authenticated Studio session
-+ * - Git base64 in UI: authorized via D9 read_git_* gates before bytes reach the client
-+ * - D4 / FIXTURE: explicit server-side contract only — never inferred from MIME/path alone
-  */
+```
 
- export type PdfProvenance = "WEB" | "GIT" | "D4" | "FIXTURE";
-diff --git a/projects/sfia-studio-next/web/src/domains/finops/usage-projection.ts b/projects/sfia-studio-next/web/src/domains/finops/usage-projection.ts
-index bb118465..edabe059 100644
---- a/projects/sfia-studio-next/web/src/domains/finops/usage-projection.ts
-+++ b/projects/sfia-studio-next/web/src/domains/finops/usage-projection.ts
-@@ -104,12 +104,17 @@ export function aggregateTokenTotal(rows: TokenRow[]): MeasuredValue<number> {
- }
+### `projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts`
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts
+index cbf0cf46..af939582 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-conductor.ts
+@@ -462,7 +462,12 @@ export async function runCognitiveConductor(
+           ),
+     });
+     if (!again.ok) {
+-      if (again.softStop && !restitutionPhase) {
++      const hasAcquisAfter =
++        investigation.sources.some((s) =>
++          ["CONSULTED", "VERIFIED", "PARTIAL"].includes(s.coverage),
++        ) || (investigation.conclusions?.length ?? 0) > 0;
++      // Soft-stop enters restitution only when acquis exist — otherwise suspend honestly.
++      if (again.softStop && !restitutionPhase && hasAcquisAfter) {
+         restitutionPhase = true;
+         resources = {
+           ...resources,
 
- /**
-- * Observation coverage: share of provider requests that have *some* cost
-- * observation (KNOWN or PARTIAL). PARTIAL still counts as observed — not as
-+ * Observation coverage: share of *recorded* provider requests that have *some*
-+ * cost observation (KNOWN or PARTIAL). PARTIAL still counts as observed — not as
-  * financially complete.
-+ *
-+ * The denominator is the observation set, not a proven complete HTTP-emission
-+ * census. Without an independent emission census, never present coverage as a
-+ * fully-known 100% of all real emissions (mandate S4 — honest coverage).
-  */
- export function computeMeasureCoveragePercent(
-   rows: Array<{ costCoverage: string; providerRequests: number | null }>,
-+  opts?: { emissionCensusComplete?: boolean },
- ): MeasuredValue<number> {
-   if (rows.length === 0) return { kind: "empty" };
-   let totalReq = 0;
-@@ -131,11 +136,14 @@ export function computeMeasureCoveragePercent(
-   if (totalReq <= 0) return { kind: "unknown", reason: "Requêtes non observées" };
-   const pct = Math.round((observedReq / totalReq) * 100);
-   const value = Math.min(100, Math.max(0, pct));
--  if (missingRequestCounts) {
-+  const censusComplete = opts?.emissionCensusComplete === true;
-+  if (missingRequestCounts || !censusComplete) {
-     return {
-       kind: "partial",
-       value,
--      note: "Certaines lignes sans nombre de requêtes",
-+      note: missingRequestCounts
-+        ? "Certaines lignes sans nombre de requêtes"
-+        : "Couverture sur observations recensées — population d'émissions HTTP non établie indépendamment",
-     };
-   }
-   return { kind: "known", value };
-@@ -143,10 +151,12 @@ export function computeMeasureCoveragePercent(
+```
 
- /**
-  * Estimation completeness: only KNOWN rows contribute. PARTIAL never inflates
-- * this toward a fully-known financial picture.
-+ * this toward a fully-known financial picture. Completeness is always relative
-+ * to the recorded observation set unless an emission census is proven complete.
-  */
- export function computeEstimationCompletenessPercent(
-   rows: Array<{ costCoverage: string; providerRequests: number | null }>,
-+  opts?: { emissionCensusComplete?: boolean },
- ): MeasuredValue<number> {
-   if (rows.length === 0) return { kind: "empty" };
-   let totalReq = 0;
-@@ -171,13 +181,16 @@ export function computeEstimationCompletenessPercent(
-   if (totalReq <= 0) return { kind: "unknown", reason: "Requêtes non observées" };
-   const pct = Math.round((knownReq / totalReq) * 100);
-   const value = Math.min(100, Math.max(0, pct));
--  if (missingRequestCounts || hasPartial) {
-+  const censusComplete = opts?.emissionCensusComplete === true;
-+  if (missingRequestCounts || hasPartial || !censusComplete) {
-     return {
-       kind: "partial",
-       value,
-       note: hasPartial
-         ? "Mesures PARTIAL exclues de la complétude financière"
--        : "Certaines lignes sans nombre de requêtes",
-+        : missingRequestCounts
-+          ? "Certaines lignes sans nombre de requêtes"
-+          : "Complétude sur observations recensées — population d'émissions HTTP non établie indépendamment",
-     };
-   }
-   return { kind: "known", value };
-diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-cognitive-resources.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-cognitive-resources.test.ts
-index 0d8d33f5..e28aa34d 100644
---- a/projects/sfia-studio-next/web/tests/unit/ml5-cognitive-resources.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/ml5-cognitive-resources.test.ts
-@@ -3,6 +3,7 @@ import {
-   NORA_STUDY_MODEL,
-   buildCognitivePolicy,
-   resolveAdmittedResource,
-+  buildResourceContinuitySuspendMessage,
-   resolveContinuityCognitivePolicy,
- } from "@/domains/conversation/cognitive-policy";
+### `projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts`
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+index 5f12ecf4..e94c35b2 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+@@ -28,9 +28,11 @@ import { resolveProviderSimulatedQualification } from "./provider-simulated-qual
+ import { extractProviderUsageFromRunResult } from "./provider-usage";
  import {
-@@ -425,4 +426,12 @@ describe("ML5 S3 — resolveContinuityCognitivePolicy", () => {
-       "RESOURCE_CONTINUITY_PROPOSAL_UNSATISFIED_NO_HOLD",
+   assertSdkInvocationAdmission,
++  attachConfiguredLiveCampaignFromEnv,
+   ensureFrontierOpenAIClientInstalled,
++  runWithProviderEmissionStoreAsync,
+ } from "./provider-emission-frontier";
+-import { recordNoraProviderUsageFromRunResult } from "./usage-accounting";
++import { recordNoraProviderUsageWithHttpCorrelation } from "./usage-accounting";
+ import {
+   NoraTurnQualificationAgentSchema,
+   NoraTurnQualificationLiveOutputSchema,
+@@ -1274,7 +1276,7 @@ async function runLiveWithTools(
+
+       providerUsage = extractProviderUsageFromRunResult(result);
+       // E03/E04 — durable FinOps observation (idempotent; never invents zeros).
+-      void recordNoraProviderUsageFromRunResult({
++      void recordNoraProviderUsageWithHttpCorrelation({
+         runResult: result,
+         status: "succeeded",
+         operation: "nora.generate_reply",
+@@ -1949,7 +1951,17 @@ export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraG
+   }
+
+   try {
+-    return stampCkiDelivery(await runLiveWithTools(input, generationId, policy), input.ckiDelivery, true);
++    // ALS wraps the whole LIVE path so SDK admission effort/model hints reach HTTP fetch.
++    // When SFIA_G_LIVE_API / SFIA_G_WEB_PUBLIC is set (DEV qualify), attach the process
++    // campaign envelope so multi-request LIVE stays under opposable §12 limits.
++    return stampCkiDelivery(
++      await runWithProviderEmissionStoreAsync(() => {
++        attachConfiguredLiveCampaignFromEnv();
++        return runLiveWithTools(input, generationId, policy);
++      }),
++      input.ckiDelivery,
++      true,
++    );
+   } catch (e) {
+     const cat = categorizeProviderError(e);
+     return stampCkiDelivery({
+
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts`
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts b/projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts
+index 1bac7ea2..2726edbc 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/public-web-search-frontier.ts
+@@ -13,6 +13,10 @@
+  */
+
+ import type { CognitivePolicy } from "./cognitive-policy";
++import {
++  assertDirectOpenAllowed,
++  commitDirectOpen,
++} from "./provider-emission-frontier";
+ import { authorizePublicWebQuery } from "./web-search-authorize";
+ import type { ToolSourceJournal } from "./tool-source-journal";
+ import { recordToolSource } from "./tool-source-journal";
+@@ -290,16 +294,38 @@ export async function executePublicWebSearch(input: {
+
+   // S5 — last egress gate for exceptional D6-bound exact queries (catalog exempt).
+   if (auth.provenance === "EXPLICIT_AUTHORIZED_EXACT") {
+-    const projectId = (input.finops?.projectId ?? "").trim();
+-    const pilotId = (input.finops?.ownerPilotId ?? "").trim();
++    const exactNorm = auth.authorizedQuery.replace(/\s+/g, " ").trim().toLowerCase();
+     const catalogValues = new Set(
+       Object.values(input.turnPublicTopics ?? {})
+         .map((q) => q.replace(/\s+/g, " ").trim().toLowerCase())
+         .filter(Boolean),
      );
-   });
+-    const exactNorm = auth.authorizedQuery.replace(/\s+/g, " ").trim().toLowerCase();
+     const catalogBound = catalogValues.has(exactNorm);
+-    if (projectId && pilotId && !catalogBound) {
 +
-+  it("Pilote suspend message states need/consequence without model-admin duty", () => {
++    if (!catalogBound) {
++      const projectId = (input.finops?.projectId ?? "").trim();
++      const pilotId = (input.finops?.ownerPilotId ?? "").trim();
++      const policyVersion = (input.policyVersion ?? "").trim();
++
++      const denyD6 = (reasonCode: string): PublicSearchResult => ({
++        status: "DENIED",
++        coverage: "DENIED",
++        query: "",
++        items: [],
++        limits: ["WEB_QUERY_EGRESS_D6_DENIED", reasonCode, ...auth.redactions],
++        mode,
++      });
++
++      if (!projectId) {
++        return denyD6("PROJECT_REQUIRED");
++      }
++      if (!pilotId) {
++        return denyD6("PILOT_REQUIRED");
++      }
++      if (!policyVersion) {
++        return denyD6("POLICY_VERSION_REQUIRED");
++      }
++
+       try {
+         const { reverifyWebPublicQueryAuthorityAtEgress } = await import(
+           "./web-public-query-authority"
+@@ -312,22 +338,11 @@ export async function executePublicWebSearch(input: {
+           query: auth.authorizedQuery,
+           projectId,
+           pilotId,
+-          policyVersion: input.policyVersion,
++          policyVersion,
+           decisionId,
+         });
+         if (!egressAuth.allowed) {
+-          return {
+-            status: "DENIED",
+-            coverage: "DENIED",
+-            query: "",
+-            items: [],
+-            limits: [
+-              "WEB_QUERY_EGRESS_D6_DENIED",
+-              egressAuth.reasonCode,
+-              ...auth.redactions,
+-            ],
+-            mode,
+-          };
++          return denyD6(egressAuth.reasonCode);
+         }
+       } catch {
+         return {
+@@ -335,7 +350,7 @@ export async function executePublicWebSearch(input: {
+           coverage: "DENIED",
+           query: "",
+           items: [],
+-          limits: ["WEB_QUERY_EGRESS_AUTHORITY_LOOKUP_FAILED"],
++          limits: ["WEB_QUERY_EGRESS_AUTHORITY_LOOKUP_FAILED", ...auth.redactions],
+           mode,
+         };
+       }
+@@ -385,7 +400,14 @@ export async function executePublicWebSearch(input: {
+   // LIVE — isolated public search: ONLY the authorized public query leaves this frontier.
+   // Never attach private D3/D4/Git context. Hosted webSearchTool stays off the main Nora agent.
+   try {
+-    const live = await executeIsolatedLiveWebSearch(auth.authorizedQuery, input.finops);
++    const {
++      runWithProviderEmissionStoreAsync,
++      attachConfiguredLiveCampaignFromEnv,
++    } = await import("./provider-emission-frontier");
++    const live = await runWithProviderEmissionStoreAsync(() => {
++      attachConfiguredLiveCampaignFromEnv();
++      return executeIsolatedLiveWebSearch(auth.authorizedQuery, input.finops);
++    });
+     return {
+       status: live.status,
+       coverage: live.items.length ? "DISCOVERED" : "UNKNOWN",
+@@ -605,10 +627,10 @@ async function executeIsolatedLiveWebSearch(
+   // FinOps — attribute isolated worker consumption; surface persistence failure.
+   let finopsPersisted = false;
+   try {
+-    const { recordNoraProviderUsageFromRunResult } = await import(
++    const { recordNoraProviderUsageWithHttpCorrelation } = await import(
+       "./usage-accounting"
+     );
+-    await recordNoraProviderUsageFromRunResult({
++    await recordNoraProviderUsageWithHttpCorrelation({
+       runResult: result,
+       status: "succeeded",
+       operation: "public_web.isolated_search",
+@@ -906,6 +928,21 @@ export async function executePublicWebOpenPage(input: {
+       };
+     }
+   }
++  const directOpenGuard = assertDirectOpenAllowed();
++  if (!directOpenGuard.ok) {
++    return {
++      status: "DENIED",
++      coverage: "DENIED",
++      url: "",
++      excerpt: "",
++      limits: [
++        "CAMPAIGN_DIRECT_OPEN_REFUSED",
++        directOpenGuard.reasonCode,
++        directOpenGuard.reason.slice(0, 120),
++      ],
++      mode,
++    };
++  }
+   // C20: journal outbound only after authorization — never before.
+   outboundLog.push({
+     at: new Date().toISOString(),
+@@ -971,6 +1008,7 @@ export async function executePublicWebOpenPage(input: {
+         excerpt: initialPages.map((p) => `[p${p.pageNumber}] ${p.text}`).join("\n"),
+         limits,
+       });
++      commitDirectOpen();
+       return {
+         status: "AVAILABLE",
+         coverage: "PARTIAL",
+@@ -1016,6 +1054,7 @@ export async function executePublicWebOpenPage(input: {
+       excerpt: excerpt.slice(0, 800),
+       limits,
+     });
++    commitDirectOpen();
+     return {
+       status: "AVAILABLE",
+       coverage: "PAGE_OPENED",
+@@ -1203,6 +1242,7 @@ export async function executePublicWebOpenPage(input: {
+           excerpt,
+           limits: session.limits,
+         });
++        commitDirectOpen();
+         return {
+           status: "AVAILABLE",
+           coverage: "PARTIAL",
+@@ -1275,6 +1315,7 @@ export async function executePublicWebOpenPage(input: {
+         excerpt: text.slice(0, 8_000),
+         limits: session.limits,
+       });
++      commitDirectOpen();
+       return {
+         status: "AVAILABLE",
+         coverage: bounded.truncated ? "PARTIAL" : "PAGE_OPENED",
+
+```
+
+### `projects/sfia-studio-next/web/src/domains/conversation/public-web-page-session.ts`
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/public-web-page-session.ts b/projects/sfia-studio-next/web/src/domains/conversation/public-web-page-session.ts
+index 0d2d3cc8..d7e163d1 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/public-web-page-session.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/public-web-page-session.ts
+@@ -215,11 +215,15 @@ export function putWebPageSession(input: {
+         ? existing.pdfBytes
+         : undefined);
+
++  const pagesForSession = fingerprintChanged
++    ? input.pages
++    : (input.pages ?? existing?.pages);
++
+   // Enforce memory limits also when enriching an existing session.
+   const nextFootprint =
+     (retainedPdf?.byteLength ?? 0) +
+     Buffer.byteLength(input.text, "utf8") +
+-    (input.pages ?? []).reduce((n, p) => n + Buffer.byteLength(p.text, "utf8"), 0);
++    (pagesForSession ?? []).reduce((n, p) => n + Buffer.byteLength(p.text, "utf8"), 0);
+   if (existing) {
+     // Temporarily remove existing from accounting for eviction sizing.
+     sessions.delete(k);
+@@ -240,9 +244,7 @@ export function putWebPageSession(input: {
+     url: input.url,
+     kind: input.kind,
+     text: input.text,
+-    pages: fingerprintChanged
+-      ? input.pages
+-      : (input.pages ?? existing?.pages),
++    pages: pagesForSession,
+     pageCount: fingerprintChanged
+       ? input.pageCount
+       : (input.pageCount ?? existing?.pageCount),
+
+```
+
+### `projects/sfia-studio-next/web/src/domains/documents/pdf-viewer-authorization.ts`
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/documents/pdf-viewer-authorization.ts b/projects/sfia-studio-next/web/src/domains/documents/pdf-viewer-authorization.ts
+index e4267b9c..fc7fce98 100644
+--- a/projects/sfia-studio-next/web/src/domains/documents/pdf-viewer-authorization.ts
++++ b/projects/sfia-studio-next/web/src/domains/documents/pdf-viewer-authorization.ts
+@@ -166,7 +166,15 @@ export function assessPdfViewerAccess(input: {
+       limits: [TOKEN_NOT_AUTH],
+     };
+   }
+-  if (hab.workProjectId && hab.workProjectId !== projectId) {
++  if (!hab.workProjectId) {
++    return {
++      ok: false,
++      status: 403,
++      error: "VIEWER_WORK_PROJECT_REQUIRED",
++      limits: [TOKEN_NOT_AUTH, "WORK_PROJECT_BINDING"],
++    };
++  }
++  if (hab.workProjectId !== projectId) {
+     return {
+       ok: false,
+       status: 403,
+
+```
+
+## 8. Test diffs
+```diff
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-c14-semantic-routing.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-c14-semantic-routing.test.ts
+index ba148505..3a0d961e 100644
+--- a/projects/sfia-studio-next/web/tests/unit/ml5-c14-semantic-routing.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/ml5-c14-semantic-routing.test.ts
+@@ -125,6 +125,7 @@ describe("ML5 C14 semantic routing (no lexical decision)", () => {
+     const r = await executePublicWebSearch({
+       explicitlyAuthorizedExactQuery: exact,
+       turnAuthorizedExactQueries: [exact],
++      turnPublicTopics: { typescript_handbook: exact },
+       privateContextMarkers: markers,
+       env: {
+         SFIA_WEB_SEARCH_ENABLED: "1",
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-c19-invariants.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-c19-invariants.test.ts
+index e76da4ef..210a1300 100644
+--- a/projects/sfia-studio-next/web/tests/unit/ml5-c19-invariants.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/ml5-c19-invariants.test.ts
+@@ -40,6 +40,7 @@ describe("C19 I3 WEB sanitize / egress confidentiality", () => {
+       const r = await executePublicWebSearch({
+         explicitlyAuthorizedExactQuery: exact,
+         turnAuthorizedExactQueries: [exact],
++        turnPublicTopics: { markdown_spec: exact },
+         privateContextMarkers: ["proj_should_not_appear_zzzzzzzz"],
+       });
+       expect(r.status).toBe("AVAILABLE");
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-c2-c4-restitution-conductor.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-c2-c4-restitution-conductor.test.ts
+new file mode 100644
+index 00000000..43034757
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/unit/ml5-c2-c4-restitution-conductor.test.ts
+@@ -0,0 +1,225 @@
++/**
++ * C2/C4 — soft-stop with acquis enters RESTITUTION_PHASE (reserve ~24k) instead of
++ * discarding restitution headroom; without acquis, soft-stop suspends.
++ */
++import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
++import { evaluateGlobalResourceEnvelope } from "@/domains/conversation/cognitive-work";
++import { buildResourceContinuitySuspendMessage } from "@/domains/conversation/cognitive-policy";
++import {
++  createEmptyInvestigation,
++  evaluateContractReadiness,
++} from "@/domains/conversation/investigation-state";
++
++const openOrResumeCognitiveWork = vi.fn();
++const heartbeatCognitiveWork = vi.fn();
++const checkpointCognitiveWork = vi.fn();
++const releaseCognitiveWorkLease = vi.fn();
++
++vi.mock("@/domains/conversation/cognitive-work", async (importOriginal) => {
++  const actual = await importOriginal<typeof import("@/domains/conversation/cognitive-work")>();
++  return {
++    ...actual,
++    openOrResumeCognitiveWork: (...args: unknown[]) => openOrResumeCognitiveWork(...args),
++    heartbeatCognitiveWork: (...args: unknown[]) => heartbeatCognitiveWork(...args),
++    checkpointCognitiveWork: (...args: unknown[]) => checkpointCognitiveWork(...args),
++    releaseCognitiveWorkLease: (...args: unknown[]) => releaseCognitiveWorkLease(...args),
++  };
++});
++
++const ENVELOPE_ENV = {
++  SFIA_COGNITIVE_MAX_TOKENS: "100000",
++  SFIA_COGNITIVE_REEVAL_TOKENS: "500000",
++  SFIA_COGNITIVE_MAX_SEGMENTS: "120",
++} as const;
++
++const NEAR_LIMIT_INVESTIGATION_TOKENS = { inputTokens: 76_000, outputTokens: 0 };
++
++function investigationWithAcquis() {
++  return evaluateContractReadiness({
++    ...createEmptyInvestigation("synthèse métier"),
++    desiredOutcome: "livrable argumenté",
++    sources: [{ kind: "D4", ref: "spec-tva", coverage: "CONSULTED" }],
++    conclusions: ["TVA export 0% — base documentée spec-tva"],
++    remainingWork: ["Approfondir périmètre export"],
++  });
++}
++
++describe("ML5 C2/C4 — restitution phase conductor", () => {
++  const prevMaxTokens = process.env.SFIA_COGNITIVE_MAX_TOKENS;
++  const prevReeval = process.env.SFIA_COGNITIVE_REEVAL_TOKENS;
++  const prevSeg = process.env.SFIA_COGNITIVE_MAX_SEGMENTS;
++
++  beforeEach(() => {
++    vi.clearAllMocks();
++    process.env.SFIA_COGNITIVE_MAX_TOKENS = ENVELOPE_ENV.SFIA_COGNITIVE_MAX_TOKENS;
++    process.env.SFIA_COGNITIVE_REEVAL_TOKENS = ENVELOPE_ENV.SFIA_COGNITIVE_REEVAL_TOKENS;
++    process.env.SFIA_COGNITIVE_MAX_SEGMENTS = ENVELOPE_ENV.SFIA_COGNITIVE_MAX_SEGMENTS;
++
++    let revision = 1;
++    const baseWork = {
++      id: "cgw_restitution",
++      ownerPilotId: "pilot",
++      preparationId: "prep",
++      projectId: null as string | null,
++      conversationId: null as string | null,
++      status: "RUNNING" as const,
++      revision: 1,
++      ownerToken: "tok",
++      leaseUntil: new Date(Date.now() + 60_000),
++      objective: "synthèse métier",
++      expectedOutcome: "livrable",
++      state: investigationWithAcquis(),
++      resources: { segmentCalls: 0, limits: [] as string[] },
++      production: { kind: "NONE" as const, status: "IDLE" as const, parts: [] },
++      interruptCause: null as string | null,
++    };
++    openOrResumeCognitiveWork.mockImplementation(async () => ({
++      work: { ...baseWork, revision },
++      resumed: false,
++      ownerToken: "tok",
++    }));
++    heartbeatCognitiveWork.mockResolvedValue(true);
++    checkpointCognitiveWork.mockImplementation(
++      async (input: {
++        expectedRevision: number;
++        state: unknown;
++        resources: unknown;
++        production: unknown;
++        status?: string;
++      }) => {
++        revision = input.expectedRevision + 1;
++        return {
++          ...baseWork,
++          revision,
++          status: input.status ?? "RUNNING",
++          state: input.state,
++          resources: input.resources,
++          production: input.production,
++        };
++      },
++    );
++    releaseCognitiveWorkLease.mockResolvedValue(undefined);
++  });
++
++  afterEach(() => {
++    if (prevMaxTokens === undefined) delete process.env.SFIA_COGNITIVE_MAX_TOKENS;
++    else process.env.SFIA_COGNITIVE_MAX_TOKENS = prevMaxTokens;
++    if (prevReeval === undefined) delete process.env.SFIA_COGNITIVE_REEVAL_TOKENS;
++    else process.env.SFIA_COGNITIVE_REEVAL_TOKENS = prevReeval;
++    if (prevSeg === undefined) delete process.env.SFIA_COGNITIVE_MAX_SEGMENTS;
++    else process.env.SFIA_COGNITIVE_MAX_SEGMENTS = prevSeg;
++  });
++
++  it("envelope: reserve 24k soft-stops investigation projection but restitution segment stays admissible", () => {
++    const base = {
++      segmentCalls: 2,
++      webCalls: 0,
++      durationMs: 1,
++      limits: [] as string[],
++      ...NEAR_LIMIT_INVESTIGATION_TOKENS,
++    };
++    const investigationNext = evaluateGlobalResourceEnvelope(base, ENVELOPE_ENV, {
++      reserveForRestitution: 24_000,
++      projectedNextSegmentTokens: 30_000,
++    });
++    expect(investigationNext.ok).toBe(false);
++    expect(investigationNext.softStop).toBe(true);
++
++    const restitutionNext = evaluateGlobalResourceEnvelope(
++      { ...base, limits: ["RESTITUTION_PHASE"] },
++      ENVELOPE_ENV,
++      { reserveForRestitution: 0, projectedNextSegmentTokens: 12_000 },
++    );
++    expect(restitutionNext.ok).toBe(true);
++  });
++
++  it("after investigation soft-stop with acquis, conductor enters RESTITUTION_PHASE and runs restitution", async () => {
++    const { runCognitiveConductor } = await import(
++      "@/domains/conversation/cognitive-conductor"
++    );
++
++    const result = await runCognitiveConductor({
++      pilotId: "pilot",
++      preparationId: "prep",
++      objective: "synthèse métier",
++      maxSegmentsThisInvocation: 4,
++      runSegment: async ({ segmentIndex }) => {
++        const investigation =
++          segmentIndex === 0
++            ? investigationWithAcquis()
++            : evaluateContractReadiness({
++                ...investigationWithAcquis(),
++                remainingWork: [
++                  "Restitution — produire la synthèse finale avec références et limites explicites",
++                ],
++              });
++        return {
++          replyText: segmentIndex === 0 ? "investigation" : "synthèse finale",
++          qualification: null,
++          investigation,
++          continueWork: segmentIndex === 0,
++          resourcesDelta:
++            segmentIndex === 0
++              ? { ...NEAR_LIMIT_INVESTIGATION_TOKENS, segmentCalls: 1 }
++              : { inputTokens: 8_000, outputTokens: 4_000, segmentCalls: 1 },
++        };
++      },
++    });
++
++    expect(result.segmentsRun).toBeGreaterThanOrEqual(2);
++    expect(result.work.resources.limits ?? []).toContain("RESTITUTION_PHASE");
++    expect(result.suspended).toBe(false);
++    expect(result.replyText).toBe("synthèse finale");
++  });
++
++  it("soft-stop without acquis suspends without RESTITUTION_PHASE", async () => {
++    openOrResumeCognitiveWork.mockImplementation(async () => ({
++      work: {
++        id: "cgw_no_acquis",
++        ownerPilotId: "pilot",
++        preparationId: "prep",
++        projectId: null,
++        conversationId: null,
++        status: "RUNNING" as const,
++        revision: 2,
++        ownerToken: "tok",
++        leaseUntil: new Date(Date.now() + 60_000),
++        objective: "vide",
++        expectedOutcome: null,
++        state: createEmptyInvestigation("vide"),
++        resources: { segmentCalls: 0, limits: [] as string[] },
++        production: { kind: "NONE" as const, status: "IDLE" as const, parts: [] },
++        interruptCause: null,
++      },
++      resumed: true,
++      ownerToken: "tok",
++    }));
++
++    const { runCognitiveConductor } = await import(
++      "@/domains/conversation/cognitive-conductor"
++    );
++    const result = await runCognitiveConductor({
++      pilotId: "pilot",
++      preparationId: "prep",
++      objective: "vide",
++      workId: "cgw_no_acquis",
++      maxSegmentsThisInvocation: 3,
++      runSegment: async () => ({
++        replyText: "pas d'acquis",
++        qualification: null,
++        investigation: createEmptyInvestigation("vide"),
++        continueWork: true,
++        resourcesDelta: { ...NEAR_LIMIT_INVESTIGATION_TOKENS, segmentCalls: 1 },
++      }),
++    });
++
++    expect(result.segmentsRun).toBeGreaterThanOrEqual(1);
++    expect(result.suspended).toBe(true);
++    expect(result.work.resources.limits ?? []).not.toContain("RESTITUTION_PHASE");
++  });
++
++  it("Pilote suspend message still states sans obligation d'administrer les modèles", () => {
 +    const msg = buildResourceContinuitySuspendMessage("gpt-6-luna", "high");
 +    expect(msg).toContain("sans obligation d'administrer les modèles");
-+    expect(msg).toContain("Besoin restant");
-+    expect(msg).toContain("Conséquence");
-+    expect(msg).not.toContain("Indique une autre allocation");
 +  });
- });
++});
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-http-attempt-finops-correlation.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-http-attempt-finops-correlation.test.ts
+new file mode 100644
+index 00000000..11324a4e
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/unit/ml5-http-attempt-finops-correlation.test.ts
+@@ -0,0 +1,181 @@
++import { createHash } from "node:crypto";
++import { afterEach, describe, expect, it, vi } from "vitest";
++import {
++  beginCampaignEnvelope,
++  commitProviderEmission,
++  getHttpAttemptsSnapshot,
++  reserveHttpEmission,
++  runWithProviderEmissionStore,
++  __resetProviderEmissionFrontierForTests,
++} from "@/domains/conversation/provider-emission-frontier";
++
++const TEST_KEY = "sk-[REDACTED]";
++const TEST_FP = createHash("sha256").update(TEST_KEY, "utf8").digest("hex").slice(0, 16);
++
++const insertCalls: Array<{ attemptId?: string | null; limits?: string[]; granularity?: string }> =
++  [];
++
++vi.mock("@/db/client", () => ({
++  db: {
++    insert: () => ({
++      values: (row: {
++        attemptId?: string | null;
++        limitsJson?: string[];
++        granularity?: string;
++      }) => {
++        insertCalls.push({
++          attemptId: row.attemptId,
++          limits: row.limitsJson,
++          granularity: row.granularity,
++        });
++        return {
++          onConflictDoNothing: () => ({
++            returning: () => Promise.resolve([{ id: `obs-${insertCalls.length}` }]),
++          }),
++        };
++      },
++    }),
++  },
++}));
++
++describe("ML5 Contract D — HTTP attempt FinOps correlation", () => {
++  afterEach(() => {
++    __resetProviderEmissionFrontierForTests();
++    insertCalls.length = 0;
++    vi.clearAllMocks();
++  });
++
++  it("exports committed/uncertain HTTP attempts without prompt bodies", () => {
++    runWithProviderEmissionStore(() => {
++      beginCampaignEnvelope({ campaignId: "c1", maxHttpAttempts: 3, required: true });
++      const a = reserveHttpEmission({
++        url: "https://api.openai.com/v1/responses",
++        body: JSON.stringify({
++          model: "gpt-6.1-terra",
++          max_output_tokens: 10,
++          reasoning: { effort: "medium" },
++          sfia_estimated_input_tokens: 50,
++        }),
++        effort: "medium",
++        env: {
++          STUDIO_LANE: "DEV",
++          OPENAI_API_KEY: TEST_KEY,
++          SFIA_OPENAI_EXPECTED_KEY_FP: TEST_FP,
++        } as NodeJS.ProcessEnv,
++      });
++      expect(a.ok).toBe(true);
++      if (!a.ok) throw new Error("reserve");
++      expect(getHttpAttemptsSnapshot()).toHaveLength(0);
++      commitProviderEmission(a);
++      const snap = getHttpAttemptsSnapshot();
++      expect(snap).toHaveLength(1);
++      expect(snap[0]).toEqual({
++        attemptId: a.attemptId,
++        state: "COMMITTED",
++        campaignId: "c1",
++        modelHint: "gpt-6.1-terra",
++        urlHost: "api.openai.com",
++      });
++      expect(Object.keys(snap[0]!)).not.toContain("reservedInputTokens");
++    });
++  });
++
++  it("single HTTP attempt aligns FinOps attemptId and markers", async () => {
++    const { createHash } = await import("node:crypto");
++    const key = "sk-[REDACTED]";
++    const fp = createHash("sha256").update(key, "utf8").digest("hex").slice(0, 16);
++  const env = {
++      STUDIO_LANE: "DEV",
++      OPENAI_API_KEY: key,
++      SFIA_OPENAI_EXPECTED_KEY_FP: fp,
++    } as NodeJS.ProcessEnv;
++
++    const { runWithProviderEmissionStoreAsync } = await import(
++      "@/domains/conversation/provider-emission-frontier"
++    );
++    await runWithProviderEmissionStoreAsync(async () => {
++      beginCampaignEnvelope({ maxHttpAttempts: 2, required: true });
++      const http = reserveHttpEmission({
++        url: "https://api.openai.com/v1/responses",
++        body: JSON.stringify({
++          model: "gpt-6.1-terra",
++          max_output_tokens: 20,
++          reasoning: { effort: "medium" },
++          sfia_estimated_input_tokens: 100,
++        }),
++        effort: "medium",
++        env,
++      });
++      expect(http.ok).toBe(true);
++      if (!http.ok) throw new Error("http");
++      commitProviderEmission(http);
++
++      const { recordNoraProviderUsageWithHttpCorrelation } = await import(
++        "@/domains/conversation/usage-accounting"
++      );
++      await recordNoraProviderUsageWithHttpCorrelation({
++        runResult: {
++          usage: { inputTokens: 10, outputTokens: 5, totalTokens: 15 },
++        },
++        status: "succeeded",
++        operation: "nora.generate_reply",
++        attemptId: "sdk_att_only",
++        generationId: "gen-single",
++        modelRequested: "gpt-6.1-terra",
++      });
++      expect(insertCalls.some((c) => c.attemptId === http.attemptId)).toBe(true);
++      expect(insertCalls[0]?.limits).toContain(`HTTP_ATTEMPT:${http.attemptId}`);
++      expect(insertCalls[0]?.limits).toContain("SDK_ATTEMPT:sdk_att_only");
++    });
++  });
++
++  it("multiple HTTP attempts add per-attempt PARTIAL rows without invented tokens", async () => {
++    const { createHash } = await import("node:crypto");
++    const key = "sk-[REDACTED]";
++    const fp = createHash("sha256").update(key, "utf8").digest("hex").slice(0, 16);
++    const env = {
++      STUDIO_LANE: "DEV",
++      OPENAI_API_KEY: key,
++      SFIA_OPENAI_EXPECTED_KEY_FP: fp,
++    } as NodeJS.ProcessEnv;
++    const body = JSON.stringify({
++      model: "gpt-6.1-terra",
++      max_output_tokens: 20,
++      reasoning: { effort: "medium" },
++      sfia_estimated_input_tokens: 100,
++    });
++
++    const { runWithProviderEmissionStoreAsync } = await import(
++      "@/domains/conversation/provider-emission-frontier"
++    );
++    await runWithProviderEmissionStoreAsync(async () => {
++      beginCampaignEnvelope({ maxHttpAttempts: 3, required: true });
++      const h1 = reserveHttpEmission({ url: "https://api.openai.com/v1/responses", body, effort: "medium", env });
++      const h2 = reserveHttpEmission({ url: "https://api.openai.com/v1/responses", body, effort: "medium", env });
++      if (!h1.ok || !h2.ok) throw new Error("reserve");
++      commitProviderEmission(h1);
++      commitProviderEmission(h2);
++
++      const { recordNoraProviderUsageWithHttpCorrelation } = await import(
++        "@/domains/conversation/usage-accounting"
++      );
++      await recordNoraProviderUsageWithHttpCorrelation({
++        runResult: { usage: { inputTokens: 50, outputTokens: 20, totalTokens: 70 } },
++        status: "succeeded",
++        operation: "nora.generate_reply",
++        attemptId: "sdk_multi",
++        generationId: "gen-multi",
++        modelRequested: "gpt-6.1-terra",
++      });
++      expect(insertCalls.length).toBe(3);
++      expect(insertCalls[0]?.limits).toContain("MULTI_HTTP_ATTEMPT_AGGREGATE");
++      const partialRows = insertCalls.filter(
++        (c) => c.granularity === "REQUEST" && c.attemptId !== "sdk_multi",
++      );
++      expect(partialRows.length).toBe(2);
++      expect(partialRows.every((r) => r.limits?.includes("HTTP_ATTEMPT_USAGE_UNKNOWN"))).toBe(
++        true,
++      );
++    });
++  });
++});
 \ No newline at end of file
-diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-finops-usage-projection.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-finops-usage-projection.test.ts
-index a36eb494..3aade74a 100644
---- a/projects/sfia-studio-next/web/tests/unit/ml5-finops-usage-projection.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/ml5-finops-usage-projection.test.ts
-@@ -71,12 +71,23 @@ describe("ML5 E06 — FinOps usage projection", () => {
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-pdf-viewer-authorization.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-pdf-viewer-authorization.test.ts
+index 3c03b094..65ed5b9d 100644
+--- a/projects/sfia-studio-next/web/tests/unit/ml5-pdf-viewer-authorization.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/ml5-pdf-viewer-authorization.test.ts
+@@ -185,7 +185,28 @@ describe("ML5 pdf-viewer authorization (assess)", () => {
+       },
+     });
+     expect(r.ok).toBe(false);
+-    if (!r.ok) expect(r.error).toBe("VIEWER_WORK_PROJECT_MISMATCH");
++    if (!r.ok) {
++      expect(r.error).toBe("VIEWER_WORK_PROJECT_MISMATCH");
++      expect(r.limits).toContain("WORK_PROJECT_BINDING");
++    }
++  });
++
++  it("refuses project-scoped session when work has no project binding", () => {
++    const page = seedPdfSession();
++    const r = assessPdfViewerAccess({
++      session: { pilotId: SCOPE.ownerPilotId, sessionId: "sess-1" },
++      page,
++      processLane: "DEV",
++      habilitation: {
++        ...HAB,
++        workProjectId: null,
++      },
++    });
++    expect(r.ok).toBe(false);
++    if (!r.ok) {
++      expect(r.error).toBe("VIEWER_WORK_PROJECT_REQUIRED");
++      expect(r.limits).toContain("WORK_PROJECT_BINDING");
++    }
    });
 
-   it("estimation completeness excludes PARTIAL from fully-known rate", () => {
-+    // Without independent emission census, observation coverage stays PARTIAL.
-     const obs = computeMeasureCoveragePercent([
-       { costCoverage: "KNOWN", providerRequests: 2 },
-       { costCoverage: "PARTIAL", providerRequests: 2 },
-     ]);
--    expect(obs.kind).toBe("known");
--    if (obs.kind === "known") expect(obs.value).toBe(100);
-+    expect(obs.kind).toBe("partial");
-+    if (obs.kind === "partial") expect(obs.value).toBe(100);
-+
-+    const obsCensus = computeMeasureCoveragePercent(
-+      [
-+        { costCoverage: "KNOWN", providerRequests: 2 },
-+        { costCoverage: "PARTIAL", providerRequests: 2 },
-+      ],
-+      { emissionCensusComplete: true },
-+    );
-+    expect(obsCensus.kind).toBe("known");
-+    if (obsCensus.kind === "known") expect(obsCensus.value).toBe(100);
-
-     const fin = computeEstimationCompletenessPercent([
-       { costCoverage: "KNOWN", providerRequests: 2 },
+   it("refuses missing project scope (no opposable contract)", () => {
 diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-provider-emission-frontier.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-provider-emission-frontier.test.ts
-index f7bf1278..153f4525 100644
+index 153f4525..5cd5cf61 100644
 --- a/projects/sfia-studio-next/web/tests/unit/ml5-provider-emission-frontier.test.ts
 +++ b/projects/sfia-studio-next/web/tests/unit/ml5-provider-emission-frontier.test.ts
-@@ -2,14 +2,20 @@ import { createHash } from "node:crypto";
+@@ -1,10 +1,14 @@
+ import { createHash } from "node:crypto";
  import { afterEach, describe, expect, it } from "vitest";
  import {
++  assertSdkInvocationAdmission,
    beginCampaignEnvelope,
--  campaignSlotsRemaining,
-+  campaignHttpSlotsRemaining,
+   campaignHttpSlotsRemaining,
++  assertDirectOpenAllowed,
++  commitDirectOpen,
    commitProviderEmission,
-+  createFrontierAwareFetch,
+   createFrontierAwareFetch,
++  enableHttpMetaCaptureForTests,
    getActiveCampaignEnvelope,
    getEmissionsObservedForTests,
-+  getHttpAttempt,
-+  getHttpBodiesObservedForTests,
-+  ProviderEmissionRefusedError,
-   releaseProviderEmission,
--  reserveProviderEmission,
-+  reserveHttpEmission,
-   runWithProviderEmissionStore,
-+  runWithProviderEmissionStoreAsync,
-   suspendCampaignEnvelope,
-+  __resetFrontierOpenAIClientInstallForTests,
-   __resetProviderEmissionFrontierForTests,
- } from "@/domains/conversation/provider-emission-frontier";
-
-@@ -21,89 +27,175 @@ const laneEnv = {
+   getHttpAttempt,
+@@ -27,7 +31,21 @@ const laneEnv = {
    SFIA_OPENAI_EXPECTED_KEY_FP: TEST_FP,
  } as unknown as NodeJS.ProcessEnv;
 
--function reserve(kind: Parameters<typeof reserveProviderEmission>[0]["kind"]) {
--  return reserveProviderEmission({
--    kind,
--    skipModelAdmission: true,
--    env: laneEnv,
--  });
--}
--
--describe("S1 — provider emission frontier / campaign envelope", () => {
-+describe("S2 — HTTP provider emission frontier", () => {
+-describe("S2 — HTTP provider emission frontier", () => {
++function withLaneEnv(fn: () => void | Promise<void>) {
++  const prev: Record<string, string | undefined> = {};
++  for (const k of Object.keys(laneEnv)) {
++    prev[k] = process.env[k];
++    process.env[k] = laneEnv[k as keyof typeof laneEnv] as string;
++  }
++  return Promise.resolve(fn()).finally(() => {
++    for (const k of Object.keys(laneEnv)) {
++      if (prev[k] === undefined) delete process.env[k];
++      else process.env[k] = prev[k]!;
++    }
++  });
++}
++
++describe("S2/A — HTTP provider emission frontier", () => {
    afterEach(() => {
      __resetProviderEmissionFrontierForTests();
-+    __resetFrontierOpenAIClientInstallForTests();
-   });
-
--  it("refuses N+1 emission when campaign max is N", () => {
--    runWithProviderEmissionStore(() => {
--      beginCampaignEnvelope({ campaignId: "camp-test", maxAttempts: 2 });
--      const a = reserve("campaign.probe");
--      expect(a.ok).toBe(true);
--      if (!a.ok) throw new Error("a");
--      commitProviderEmission(a);
-+  it("refuses N+1 HTTP emission when campaign max is N (oracle = substituted fetch)", async () => {
-+    await runWithProviderEmissionStoreAsync(async () => {
-+      beginCampaignEnvelope({ campaignId: "camp-http", maxHttpAttempts: 2, required: true });
-+      const calls: string[] = [];
-+      const fakeFetch = (async (input: RequestInfo | URL) => {
-+        const url = String(input);
-+        calls.push(url);
-+        return new Response(JSON.stringify({ id: "resp", output: [] }), {
-+          status: 200,
-+          headers: { "content-type": "application/json" },
-+        });
-+      }) as typeof fetch;
-+      const gated = createFrontierAwareFetch(fakeFetch);
-
--      const b = reserve("campaign.probe");
--      expect(b.ok).toBe(true);
--      if (!b.ok) throw new Error("b");
--      commitProviderEmission(b);
-+      // Inject lane env for reserve path via process — temporarily.
-+      const prev = { ...process.env };
-+      Object.assign(process.env, laneEnv);
-+      try {
+     __resetFrontierOpenAIClientInstallForTests();
+@@ -36,107 +54,165 @@ describe("S2 — HTTP provider emission frontier", () => {
+   it("refuses N+1 HTTP emission when campaign max is N (oracle = substituted fetch)", async () => {
+     await runWithProviderEmissionStoreAsync(async () => {
+       beginCampaignEnvelope({ campaignId: "camp-http", maxHttpAttempts: 2, required: true });
++      enableHttpMetaCaptureForTests();
+       const calls: string[] = [];
+       const fakeFetch = (async (input: RequestInfo | URL) => {
+-        const url = String(input);
+-        calls.push(url);
++        calls.push(String(input));
+         return new Response(JSON.stringify({ id: "resp", output: [] }), {
+           status: 200,
+           headers: { "content-type": "application/json" },
+         });
+       }) as typeof fetch;
+       const gated = createFrontierAwareFetch(fakeFetch);
+-
+-      // Inject lane env for reserve path via process — temporarily.
+-      const prev = { ...process.env };
+-      Object.assign(process.env, laneEnv);
+-      try {
+-        const body = JSON.stringify({
+-          model: "gpt-6.1-terra",
+-          max_output_tokens: 100,
+-          reasoning: { effort: "medium" },
+-        });
+-        // Seed effort via SDK admission path equivalent
+-        const { assertSdkInvocationAdmission } = await import(
+-          "@/domains/conversation/provider-emission-frontier"
+-        );
++      await withLaneEnv(async () => {
+         assertSdkInvocationAdmission({
+           kind: "nora.generate_reply",
+           modelId: "gpt-6.1-terra",
+           effort: "medium",
+           env: process.env,
+         });
 +        const body = JSON.stringify({
 +          model: "gpt-6.1-terra",
 +          max_output_tokens: 100,
 +          reasoning: { effort: "medium" },
++          sfia_estimated_input_tokens: 1000,
 +        });
-+        // Seed effort via SDK admission path equivalent
-+        const { assertSdkInvocationAdmission } = await import(
-+          "@/domains/conversation/provider-emission-frontier"
-+        );
+         await gated("https://api.openai.com/v1/responses", { method: "POST", body });
+         await gated("https://api.openai.com/v1/responses", { method: "POST", body });
+         await expect(
+           gated("https://api.openai.com/v1/responses", { method: "POST", body }),
+         ).rejects.toBeInstanceOf(ProviderEmissionRefusedError);
+-      } finally {
+-        for (const k of Object.keys(laneEnv)) {
+-          if (prev[k] === undefined) delete process.env[k];
+-          else process.env[k] = prev[k]!;
+-        }
+-      }
+-
++      });
+       expect(calls).toHaveLength(2);
+       expect(getEmissionsObservedForTests()).toBe(2);
+       expect(campaignHttpSlotsRemaining()).toBe(0);
+       expect(getHttpBodiesObservedForTests()).toHaveLength(2);
++      expect(getHttpBodiesObservedForTests()[0]?.model).toBe("gpt-6.1-terra");
++    });
++  });
++
++  it("propagates SDK effort hint across ALS to HTTP (no ephemeral store loss)", async () => {
++    await runWithProviderEmissionStoreAsync(async () => {
++      beginCampaignEnvelope({ maxHttpAttempts: 1, required: true });
++      await withLaneEnv(async () => {
++        assertSdkInvocationAdmission({
++          kind: "nora.generate_reply",
++          modelId: "gpt-6.1-terra",
++          effort: "medium",
++          env: process.env,
++        });
++        // Body without effort — must reuse ALS hint
++        const r = reserveHttpEmission({
++          url: "https://api.openai.com/v1/responses",
++          body: JSON.stringify({
++            model: "gpt-6.1-terra",
++            max_output_tokens: 50,
++            sfia_estimated_input_tokens: 500,
++          }),
++        });
++        expect(r.ok).toBe(true);
++      });
+     });
+   });
+
+-  it("counts SDK retries as distinct HTTP attempts through fetch", async () => {
++  it("refuses payload effort that differs from admitted when not itself admitted", async () => {
+     await runWithProviderEmissionStoreAsync(async () => {
+       beginCampaignEnvelope({ maxHttpAttempts: 2, required: true });
+-      let n = 0;
+-      const fakeFetch = (async () => {
+-        n += 1;
+-        if (n === 1) {
+-          return new Response("temporary", { status: 500 });
+-        }
+-        return new Response(JSON.stringify({ ok: true }), { status: 200 });
+-      }) as typeof fetch;
+-      const gated = createFrontierAwareFetch(fakeFetch);
+-      const prev = { ...process.env };
+-      Object.assign(process.env, laneEnv);
+-      try {
+-        const { assertSdkInvocationAdmission } = await import(
+-          "@/domains/conversation/provider-emission-frontier"
+-        );
++      await withLaneEnv(async () => {
++        assertSdkInvocationAdmission({
++          kind: "nora.generate_reply",
++          modelId: "gpt-6.1-terra",
++          effort: "medium",
++          env: process.env,
++        });
++        const r = reserveHttpEmission({
++          url: "https://api.openai.com/v1/responses",
++          body: JSON.stringify({
++            model: "gpt-6.1-terra",
++            max_output_tokens: 50,
++            reasoning: { effort: "xhigh" },
++            sfia_estimated_input_tokens: 500,
++          }),
++        });
++        expect(r.ok).toBe(false);
++        if (r.ok) throw new Error("r");
++        expect(r.reasonCode).toBe("MODEL_EFFORT_NOT_ADMITTED");
++      });
++    });
++  });
++
++  it("refuses campaign emission when output is unbounded without per-request ceiling", async () => {
++    await runWithProviderEmissionStoreAsync(async () => {
++      beginCampaignEnvelope({
++        maxHttpAttempts: 5,
++        maxOutputTokens: 50_000,
++        // no maxOutputTokensPerRequest → cannot reserve without payload bound
++        required: true,
++      });
++      await withLaneEnv(async () => {
+         assertSdkInvocationAdmission({
+           kind: "campaign.probe",
+           modelId: "gpt-6.1-terra",
+           effort: "medium",
+           env: process.env,
+         });
+-        const body = JSON.stringify({
+-          model: "gpt-6.1-terra",
+-          max_output_tokens: 50,
++        const r = reserveHttpEmission({
++          url: "https://api.openai.com/v1/responses",
++          body: JSON.stringify({
++            model: "gpt-6.1-terra",
++            reasoning: { effort: "medium" },
++            sfia_estimated_input_tokens: 100,
++          }),
++          effort: "medium",
+         });
+-        await gated("https://api.openai.com/v1/responses", { method: "POST", body });
+-        await gated("https://api.openai.com/v1/responses", { method: "POST", body });
+-        await expect(
+-          gated("https://api.openai.com/v1/responses", { method: "POST", body }),
+-        ).rejects.toBeInstanceOf(ProviderEmissionRefusedError);
+-      } finally {
+-        for (const k of Object.keys(laneEnv)) {
+-          if (prev[k] === undefined) delete process.env[k];
+-          else process.env[k] = prev[k]!;
+-        }
+-      }
+-      expect(getEmissionsObservedForTests()).toBe(2);
++        expect(r.ok).toBe(false);
++        if (r.ok) throw new Error("r");
++        expect(r.reason).toContain("OUTPUT_UNBOUNDED");
++      });
+     });
+   });
+
+-  it("releases unused reservation so a later attempt can proceed", () => {
+-    runWithProviderEmissionStore(() => {
++  it("reserves using campaign per-request output ceiling when payload omits max_output_tokens", async () => {
++    await runWithProviderEmissionStoreAsync(async () => {
++      beginCampaignEnvelope({
++        maxHttpAttempts: 5,
++        maxOutputTokensPerRequest: 1000,
++        required: true,
++      });
++      await withLaneEnv(async () => {
++        assertSdkInvocationAdmission({
++          kind: "campaign.probe",
++          modelId: "gpt-6.1-terra",
++          effort: "medium",
++          env: process.env,
++        });
++        const r = reserveHttpEmission({
++          url: "https://api.openai.com/v1/responses",
++          body: JSON.stringify({
++            model: "gpt-6.1-terra",
++            reasoning: { effort: "medium" },
++            sfia_estimated_input_tokens: 100,
++          }),
++          effort: "medium",
++        });
++        expect(r.ok).toBe(true);
++        if (!r.ok) throw new Error("r");
++        expect(r.reservedOutputTokens).toBe(1000);
++      });
++    });
++  });
++
++  it("releases unused reservation so a later attempt can proceed", async () => {
++    await runWithProviderEmissionStoreAsync(async () => {
+       beginCampaignEnvelope({ maxHttpAttempts: 1, required: true });
+-      const prev = { ...process.env };
+-      Object.assign(process.env, laneEnv);
+-      try {
++      await withLaneEnv(() => {
+         const a = reserveHttpEmission({
+           url: "https://api.openai.com/v1/responses",
+-          body: JSON.stringify({ model: "gpt-6.1-terra", max_output_tokens: 10 }),
++          body: JSON.stringify({
++            model: "gpt-6.1-terra",
++            max_output_tokens: 10,
++            sfia_estimated_input_tokens: 100,
++          }),
+           effort: "medium",
+         });
+         expect(a.ok).toBe(true);
+@@ -146,47 +222,42 @@ describe("S2 — HTTP provider emission frontier", () => {
+         expect(campaignHttpSlotsRemaining()).toBe(1);
+         const b = reserveHttpEmission({
+           url: "https://api.openai.com/v1/responses",
+-          body: JSON.stringify({ model: "gpt-6.1-terra", max_output_tokens: 10 }),
++          body: JSON.stringify({
++            model: "gpt-6.1-terra",
++            max_output_tokens: 10,
++            sfia_estimated_input_tokens: 100,
++          }),
+           effort: "medium",
+         });
+         expect(b.ok).toBe(true);
+         if (!b.ok) throw new Error("b");
+         commitProviderEmission(b);
+         expect(getEmissionsObservedForTests()).toBe(1);
+-        // Cannot release after commit
+         releaseProviderEmission({ ...b, contacted: false });
+         expect(getHttpAttempt(b.attemptId)?.state).toBe("COMMITTED");
+-      } finally {
+-        for (const k of Object.keys(laneEnv)) {
+-          if (prev[k] === undefined) delete process.env[k];
+-          else process.env[k] = prev[k]!;
+-        }
+-      }
++      });
+     });
+   });
+
+-  it("blocks after suspend even if slots remain", () => {
+-    runWithProviderEmissionStore(() => {
++  it("blocks after suspend even if slots remain", async () => {
++    await runWithProviderEmissionStoreAsync(async () => {
+       beginCampaignEnvelope({ maxHttpAttempts: 5, required: true });
+       suspendCampaignEnvelope("TEST_SUSPEND");
+-      const prev = { ...process.env };
+-      Object.assign(process.env, laneEnv);
+-      try {
++      await withLaneEnv(() => {
+         const r = reserveHttpEmission({
+           url: "https://api.openai.com/v1/responses",
+-          body: JSON.stringify({ model: "gpt-6.1-terra", max_output_tokens: 10 }),
++          body: JSON.stringify({
++            model: "gpt-6.1-terra",
++            max_output_tokens: 10,
++            sfia_estimated_input_tokens: 100,
++          }),
+           effort: "medium",
+         });
+         expect(r.ok).toBe(false);
+         if (r.ok) throw new Error("r");
+         expect(r.reasonCode).toBe("CAMPAIGN_SUSPENDED");
+         expect(getActiveCampaignEnvelope()?.suspendReason).toBe("TEST_SUSPEND");
+-      } finally {
+-        for (const k of Object.keys(laneEnv)) {
+-          if (prev[k] === undefined) delete process.env[k];
+-          else process.env[k] = prev[k]!;
+-        }
+-      }
++      });
+     });
+   });
+
+@@ -194,7 +265,7 @@ describe("S2 — HTTP provider emission frontier", () => {
+     runWithProviderEmissionStore(() => {
+       const r = reserveHttpEmission({
+         url: "https://api.openai.com/v1/responses",
+-        body: JSON.stringify({ model: "gpt-6.1-terra" }),
++        body: JSON.stringify({ model: "gpt-6.1-terra", max_output_tokens: 10 }),
+         effort: "medium",
+         env: { STUDIO_LANE: "DEV" } as unknown as NodeJS.ProcessEnv,
+       });
+@@ -208,25 +279,17 @@ describe("S2 — HTTP provider emission frontier", () => {
+     runWithProviderEmissionStore(() => {
+       beginCampaignEnvelope({ campaignId: "camp-latch", maxHttpAttempts: 3, required: true });
+     });
+-    // Outside ALS — latch still active from required campaign
+-    const prev = { ...process.env };
+-    Object.assign(process.env, laneEnv);
+-    try {
+-      const r = reserveHttpEmission({
+-        url: "https://api.openai.com/v1/responses",
+-        body: JSON.stringify({ model: "gpt-6.1-terra", max_output_tokens: 10 }),
+-        effort: "medium",
+-      });
+-      expect(r.ok).toBe(false);
+-      if (r.ok) throw new Error("r");
+-      expect(r.reasonCode).toBe("CAMPAIGN_REQUIRED_MISSING");
+-    } finally {
+-      for (const k of Object.keys(laneEnv)) {
+-        if (prev[k] === undefined) delete process.env[k];
+-        else process.env[k] = prev[k]!;
+-      }
+-      __resetProviderEmissionFrontierForTests();
+-    }
++    // Outside ALS — latch still active
++    const r = reserveHttpEmission({
++      url: "https://api.openai.com/v1/responses",
++      body: JSON.stringify({ model: "gpt-6.1-terra", max_output_tokens: 10 }),
++      effort: "medium",
++      env: laneEnv,
++    });
++    expect(r.ok).toBe(false);
++    if (r.ok) throw new Error("r");
++    expect(r.reasonCode).toBe("CAMPAIGN_REQUIRED_MISSING");
++    __resetProviderEmissionFrontierForTests();
+   });
+
+   it("does not treat non-OpenAI URLs as provider emissions", async () => {
+@@ -244,4 +307,145 @@ describe("S2 — HTTP provider emission frontier", () => {
+       expect(campaignHttpSlotsRemaining()).toBe(1);
+     });
+   });
++
++  it("enforces maxDirectOpens on campaign and commits successful opens", () => {
++    runWithProviderEmissionStore(() => {
++      beginCampaignEnvelope({ maxDirectOpens: 1, required: true });
++      expect(assertDirectOpenAllowed().ok).toBe(true);
++      commitDirectOpen();
++      expect(getActiveCampaignEnvelope()?.directOpensCommitted).toBe(1);
++      const blocked = assertDirectOpenAllowed();
++      expect(blocked.ok).toBe(false);
++      if (blocked.ok) throw new Error("blocked");
++      expect(blocked.reasonCode).toBe("CAMPAIGN_ENVELOPE_EXHAUSTED");
++    });
++  });
++
++  it("reserves hosted search when web_search tool appears and maxHostedSearches is set", async () => {
++    const { createHash } = await import("node:crypto");
++    const key = "sk-[REDACTED]";
++    const fp = createHash("sha256").update(key, "utf8").digest("hex").slice(0, 16);
++    await runWithProviderEmissionStoreAsync(async () => {
++      beginCampaignEnvelope({
++        maxHttpAttempts: 2,
++        maxHostedSearches: 1,
++        required: true,
++      });
++      enableHttpMetaCaptureForTests();
++      const body = JSON.stringify({
++        model: "gpt-6.1-terra",
++        max_output_tokens: 50,
++        reasoning: { effort: "medium" },
++        sfia_estimated_input_tokens: 100,
++        tools: [{ type: "web_search" }],
++      });
++      const fakeFetch = (async () =>
++        new Response(JSON.stringify({ id: "r" }), {
++          status: 200,
++          headers: { "content-type": "application/json" },
++        })) as typeof fetch;
++      const gated = createFrontierAwareFetch(fakeFetch);
++      await withLaneEnv(async () => {
 +        assertSdkInvocationAdmission({
 +          kind: "nora.generate_reply",
 +          modelId: "gpt-6.1-terra",
@@ -3463,208 +4690,15 @@ index f7bf1278..153f4525 100644
 +          env: process.env,
 +        });
 +        await gated("https://api.openai.com/v1/responses", { method: "POST", body });
-+        await gated("https://api.openai.com/v1/responses", { method: "POST", body });
++        expect(getActiveCampaignEnvelope()?.hostedSearchesCommitted).toBe(1);
 +        await expect(
 +          gated("https://api.openai.com/v1/responses", { method: "POST", body }),
 +        ).rejects.toBeInstanceOf(ProviderEmissionRefusedError);
-+      } finally {
-+        for (const k of Object.keys(laneEnv)) {
-+          if (prev[k] === undefined) delete process.env[k];
-+          else process.env[k] = prev[k]!;
-+        }
-+      }
-
--      const c = reserve("campaign.probe");
--      expect(c.ok).toBe(false);
--      if (c.ok) throw new Error("c");
--      expect(c.reasonCode).toBe("CAMPAIGN_ENVELOPE_EXHAUSTED");
-+      expect(calls).toHaveLength(2);
-       expect(getEmissionsObservedForTests()).toBe(2);
--      expect(campaignSlotsRemaining()).toBe(0);
-+      expect(campaignHttpSlotsRemaining()).toBe(0);
-+      expect(getHttpBodiesObservedForTests()).toHaveLength(2);
-     });
-   });
-
--  it("releases unused reservation so a later attempt can proceed", () => {
--    runWithProviderEmissionStore(() => {
--      beginCampaignEnvelope({ maxAttempts: 1 });
--      const a = reserve("nora.generate_reply");
--      expect(a.ok).toBe(true);
--      if (!a.ok) throw new Error("a");
--      releaseProviderEmission({ ...a, contacted: false });
--      expect(campaignSlotsRemaining()).toBe(1);
--      const b = reserve("nora.generate_reply");
--      expect(b.ok).toBe(true);
--      if (!b.ok) throw new Error("b");
--      commitProviderEmission(b);
--      expect(getEmissionsObservedForTests()).toBe(1);
-+  it("counts SDK retries as distinct HTTP attempts through fetch", async () => {
-+    await runWithProviderEmissionStoreAsync(async () => {
-+      beginCampaignEnvelope({ maxHttpAttempts: 2, required: true });
-+      let n = 0;
-+      const fakeFetch = (async () => {
-+        n += 1;
-+        if (n === 1) {
-+          return new Response("temporary", { status: 500 });
-+        }
-+        return new Response(JSON.stringify({ ok: true }), { status: 200 });
-+      }) as typeof fetch;
-+      const gated = createFrontierAwareFetch(fakeFetch);
-+      const prev = { ...process.env };
-+      Object.assign(process.env, laneEnv);
-+      try {
-+        const { assertSdkInvocationAdmission } = await import(
-+          "@/domains/conversation/provider-emission-frontier"
-+        );
-+        assertSdkInvocationAdmission({
-+          kind: "campaign.probe",
-+          modelId: "gpt-6.1-terra",
-+          effort: "medium",
-+          env: process.env,
-+        });
-+        const body = JSON.stringify({
-+          model: "gpt-6.1-terra",
-+          max_output_tokens: 50,
-+        });
-+        await gated("https://api.openai.com/v1/responses", { method: "POST", body });
-+        await gated("https://api.openai.com/v1/responses", { method: "POST", body });
-+        await expect(
-+          gated("https://api.openai.com/v1/responses", { method: "POST", body }),
-+        ).rejects.toBeInstanceOf(ProviderEmissionRefusedError);
-+      } finally {
-+        for (const k of Object.keys(laneEnv)) {
-+          if (prev[k] === undefined) delete process.env[k];
-+          else process.env[k] = prev[k]!;
-+        }
-+      }
-+      expect(getEmissionsObservedForTests()).toBe(2);
-     });
-   });
-
--  it("blocks after suspend even if slots remain", () => {
-+  it("releases unused reservation so a later attempt can proceed", () => {
-     runWithProviderEmissionStore(() => {
--      beginCampaignEnvelope({ maxAttempts: 5 });
--      suspendCampaignEnvelope("TEST_SUSPEND");
--      const r = reserve("public_web.isolated_search");
--      expect(r.ok).toBe(false);
--      if (r.ok) throw new Error("r");
--      expect(r.reasonCode).toBe("CAMPAIGN_SUSPENDED");
--      expect(getActiveCampaignEnvelope()?.suspendReason).toBe("TEST_SUSPEND");
-+      beginCampaignEnvelope({ maxHttpAttempts: 1, required: true });
-+      const prev = { ...process.env };
-+      Object.assign(process.env, laneEnv);
-+      try {
-+        const a = reserveHttpEmission({
-+          url: "https://api.openai.com/v1/responses",
-+          body: JSON.stringify({ model: "gpt-6.1-terra", max_output_tokens: 10 }),
-+          effort: "medium",
-+        });
-+        expect(a.ok).toBe(true);
-+        if (!a.ok) throw new Error("a");
-+        releaseProviderEmission({ ...a, contacted: false });
-+        expect(getHttpAttempt(a.attemptId)?.state).toBe("RELEASED");
-+        expect(campaignHttpSlotsRemaining()).toBe(1);
-+        const b = reserveHttpEmission({
-+          url: "https://api.openai.com/v1/responses",
-+          body: JSON.stringify({ model: "gpt-6.1-terra", max_output_tokens: 10 }),
-+          effort: "medium",
-+        });
-+        expect(b.ok).toBe(true);
-+        if (!b.ok) throw new Error("b");
-+        commitProviderEmission(b);
-+        expect(getEmissionsObservedForTests()).toBe(1);
-+        // Cannot release after commit
-+        releaseProviderEmission({ ...b, contacted: false });
-+        expect(getHttpAttempt(b.attemptId)?.state).toBe("COMMITTED");
-+      } finally {
-+        for (const k of Object.keys(laneEnv)) {
-+          if (prev[k] === undefined) delete process.env[k];
-+          else process.env[k] = prev[k]!;
-+        }
-+      }
-     });
-   });
-
--  it("oracle counts committed emissions, not maxTurns", () => {
-+  it("blocks after suspend even if slots remain", () => {
-     runWithProviderEmissionStore(() => {
--      beginCampaignEnvelope({ maxAttempts: 3 });
--      for (let i = 0; i < 3; i++) {
--        const r = reserve("other");
--        expect(r.ok).toBe(true);
--        if (!r.ok) throw new Error("r");
--        commitProviderEmission(r);
-+      beginCampaignEnvelope({ maxHttpAttempts: 5, required: true });
-+      suspendCampaignEnvelope("TEST_SUSPEND");
-+      const prev = { ...process.env };
-+      Object.assign(process.env, laneEnv);
-+      try {
-+        const r = reserveHttpEmission({
-+          url: "https://api.openai.com/v1/responses",
-+          body: JSON.stringify({ model: "gpt-6.1-terra", max_output_tokens: 10 }),
-+          effort: "medium",
-+        });
-+        expect(r.ok).toBe(false);
-+        if (r.ok) throw new Error("r");
-+        expect(r.reasonCode).toBe("CAMPAIGN_SUSPENDED");
-+        expect(getActiveCampaignEnvelope()?.suspendReason).toBe("TEST_SUSPEND");
-+      } finally {
-+        for (const k of Object.keys(laneEnv)) {
-+          if (prev[k] === undefined) delete process.env[k];
-+          else process.env[k] = prev[k]!;
-+        }
-       }
--      expect(getEmissionsObservedForTests()).toBe(3);
--      const blocked = reserve("other");
--      expect(blocked.ok).toBe(false);
-     });
-   });
-
-   it("refuses incorrect lane configuration before emission", () => {
-     runWithProviderEmissionStore(() => {
--      const r = reserveProviderEmission({
--        kind: "nora.generate_reply",
--        skipModelAdmission: true,
-+      const r = reserveHttpEmission({
-+        url: "https://api.openai.com/v1/responses",
-+        body: JSON.stringify({ model: "gpt-6.1-terra" }),
-+        effort: "medium",
-         env: { STUDIO_LANE: "DEV" } as unknown as NodeJS.ProcessEnv,
-       });
-       expect(r.ok).toBe(false);
-@@ -111,4 +203,45 @@ describe("S1 — provider emission frontier / campaign envelope", () => {
-       expect(r.reasonCode).toBe("LANE_GUARD_FAILED");
-     });
-   });
-+
-+  it("fails closed when required campaign latch is active but ALS campaign is absent", () => {
-+    runWithProviderEmissionStore(() => {
-+      beginCampaignEnvelope({ campaignId: "camp-latch", maxHttpAttempts: 3, required: true });
-+    });
-+    // Outside ALS — latch still active from required campaign
-+    const prev = { ...process.env };
-+    Object.assign(process.env, laneEnv);
-+    try {
-+      const r = reserveHttpEmission({
-+        url: "https://api.openai.com/v1/responses",
-+        body: JSON.stringify({ model: "gpt-6.1-terra", max_output_tokens: 10 }),
-+        effort: "medium",
 +      });
-+      expect(r.ok).toBe(false);
-+      if (r.ok) throw new Error("r");
-+      expect(r.reasonCode).toBe("CAMPAIGN_REQUIRED_MISSING");
-+    } finally {
-+      for (const k of Object.keys(laneEnv)) {
-+        if (prev[k] === undefined) delete process.env[k];
-+        else process.env[k] = prev[k]!;
-+      }
-+      __resetProviderEmissionFrontierForTests();
-+    }
++    });
 +  });
 +
-+  it("does not treat non-OpenAI URLs as provider emissions", async () => {
++  it("refuses approximate openai hostname (no fuzzy host match)", async () => {
 +    await runWithProviderEmissionStoreAsync(async () => {
 +      beginCampaignEnvelope({ maxHttpAttempts: 1, required: true });
 +      let hit = 0;
@@ -3673,242 +4707,645 @@ index f7bf1278..153f4525 100644
 +        return new Response("ok");
 +      }) as typeof fetch;
 +      const gated = createFrontierAwareFetch(fakeFetch);
-+      await gated("https://example.com/public");
++      await gated("https://evil-openai.com/v1/responses", {
++        method: "POST",
++        body: JSON.stringify({ model: "gpt-6.1-terra" }),
++      });
 +      expect(hit).toBe(1);
 +      expect(getEmissionsObservedForTests()).toBe(0);
-+      expect(campaignHttpSlotsRemaining()).toBe(1);
 +    });
 +  });
++});
++
++describe("process-level LIVE campaign attach", () => {
++  it("reattaches the same counters across ALS boundaries", async () => {
++    const {
++      runWithProviderEmissionStore,
++      beginCampaignEnvelope,
++      getActiveCampaignEnvelope,
++      reserveHttpEmission,
++      commitProviderEmission,
++      endProcessCampaign,
++      attachConfiguredLiveCampaignFromEnv,
++      __resetProviderEmissionFrontierForTests,
++    } = await import(
++      "@/domains/conversation/provider-emission-frontier"
++    );
++    __resetProviderEmissionFrontierForTests();
++    endProcessCampaign();
++    runWithProviderEmissionStore(() => {
++      const c = beginCampaignEnvelope({
++        campaignId: "camp-reattach-test",
++        maxHttpAttempts: 5,
++        required: true,
++      });
++      const r = reserveHttpEmission({
++        url: "https://api.openai.com/v1/responses",
++        body: JSON.stringify({
++          model: "gpt-5.1",
++          max_output_tokens: 100,
++          sfia_estimated_input_tokens: 50,
++        }),
++        skipModelAdmission: true,
++      });
++      expect(r.ok).toBe(true);
++      if (r.ok) commitProviderEmission(r);
++      expect(c.httpAttemptsCommitted).toBe(1);
++    });
++    // New ALS — same campaignId must reuse counters.
++    runWithProviderEmissionStore(() => {
++      const c = beginCampaignEnvelope({
++        campaignId: "camp-reattach-test",
++        maxHttpAttempts: 5,
++        required: true,
++      });
++      expect(c.httpAttemptsCommitted).toBe(1);
++      expect(getActiveCampaignEnvelope()?.campaignId).toBe("camp-reattach-test");
++    });
++    const prev = process.env.SFIA_G_LIVE_API;
++    const prevLane = process.env.STUDIO_LANE;
++    process.env.SFIA_G_LIVE_API = "1";
++    process.env.STUDIO_LANE = "DEV";
++    process.env.SFIA_LIVE_CAMPAIGN_ID = "g-live-env-test";
++    process.env.SFIA_LIVE_MAX_HTTP_ATTEMPTS = "3";
++    try {
++      runWithProviderEmissionStore(() => {
++        const c = attachConfiguredLiveCampaignFromEnv();
++        expect(c?.campaignId).toBe("g-live-env-test");
++        expect(c?.maxHttpAttempts).toBe(3);
++      });
++    } finally {
++      if (prev === undefined) delete process.env.SFIA_G_LIVE_API;
++      else process.env.SFIA_G_LIVE_API = prev;
++      if (prevLane === undefined) delete process.env.STUDIO_LANE;
++      else process.env.STUDIO_LANE = prevLane;
++      delete process.env.SFIA_LIVE_CAMPAIGN_ID;
++      delete process.env.SFIA_LIVE_MAX_HTTP_ATTEMPTS;
++      endProcessCampaign();
++      __resetProviderEmissionFrontierForTests();
++    }
++  });
  });
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-provider-sdk-frontier.integration.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-provider-sdk-frontier.integration.test.ts
+new file mode 100644
+index 00000000..91b56b46
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/unit/ml5-provider-sdk-frontier.integration.test.ts
+@@ -0,0 +1,183 @@
++/**
++ * A-03 / A-04 — real `openai` SDK (locked 7.50) with substituted fetch.
++ * Does NOT call gated() twice artificially — the SDK's own retry path must emit.
++ */
++import { createHash } from "node:crypto";
++import { afterEach, describe, expect, it } from "vitest";
++import {
++  assertSdkInvocationAdmission,
++  beginCampaignEnvelope,
++  createFrontierAwareFetch,
++  enableHttpMetaCaptureForTests,
++  ensureFrontierOpenAIClientInstalled,
++  getEmissionsObservedForTests,
++  getHttpBodiesObservedForTests,
++  ProviderEmissionRefusedError,
++  runWithProviderEmissionStoreAsync,
++  __resetFrontierOpenAIClientInstallForTests,
++  __resetProviderEmissionFrontierForTests,
++} from "@/domains/conversation/provider-emission-frontier";
++
++const TEST_KEY = "sk-[REDACTED]";
++const TEST_FP = createHash("sha256").update(TEST_KEY, "utf8").digest("hex").slice(0, 16);
++
++describe("A — real OpenAI SDK through frontier fetch", () => {
++  afterEach(() => {
++    __resetProviderEmissionFrontierForTests();
++    __resetFrontierOpenAIClientInstallForTests();
++  });
++
++  it("A-03: SDK maxRetries triggers a second HTTP attempt counted by frontier", async () => {
++    await runWithProviderEmissionStoreAsync(async () => {
++      beginCampaignEnvelope({ maxHttpAttempts: 3, required: true });
++      enableHttpMetaCaptureForTests();
++      const prev = { ...process.env };
++      Object.assign(process.env, {
++        STUDIO_LANE: "DEV",
++        OPENAI_API_KEY: TEST_KEY,
++        SFIA_OPENAI_EXPECTED_KEY_FP: TEST_FP,
++      });
++      try {
++        assertSdkInvocationAdmission({
++          kind: "campaign.probe",
++          modelId: "gpt-6.1-terra",
++          effort: "medium",
++          env: process.env,
++        });
++        let n = 0;
++        const transport = (async () => {
++          n += 1;
++          if (n === 1) {
++            return new Response("temporary", { status: 500 });
++          }
++          // Minimal Responses-like success body
++          return new Response(
++            JSON.stringify({
++              id: "resp_test",
++              object: "response",
++              status: "completed",
++              model: "gpt-6.1-terra",
++              output: [],
++              usage: { input_tokens: 10, output_tokens: 5 },
++            }),
++            { status: 200, headers: { "content-type": "application/json" } },
++          );
++        }) as typeof fetch;
++
++        await ensureFrontierOpenAIClientInstalled({
++          forceReinstall: true,
++          fetch: transport,
++          maxRetries: 2,
++        });
++
++        const OpenAI = (await import("openai")).default;
++        // Use the same frontier-aware fetch the install registered conceptually —
++        // construct a client explicitly so we exercise openai package retry.
++        const client = new OpenAI({
++          apiKey: TEST_KEY,
++          fetch: createFrontierAwareFetch(transport),
++          maxRetries: 2,
++        });
++
++        // responses.create retries on 5xx via SDK — each attempt hits frontier.
++        await client.responses.create({
++          model: "gpt-6.1-terra",
++          input: "ping",
++          max_output_tokens: 32,
++          // @ts-expect-error reasoning shape accepted by API
++          reasoning: { effort: "medium" },
++        } as never);
++
++        expect(n).toBeGreaterThanOrEqual(2);
++        expect(getEmissionsObservedForTests()).toBeGreaterThanOrEqual(2);
++        expect(getHttpBodiesObservedForTests().length).toBeGreaterThanOrEqual(2);
++      } finally {
++        for (const k of ["STUDIO_LANE", "OPENAI_API_KEY", "SFIA_OPENAI_EXPECTED_KEY_FP"]) {
++          if (prev[k] === undefined) delete process.env[k];
++          else process.env[k] = prev[k]!;
++        }
++      }
++    });
++  }, 20_000);
++
++  it("A-04: campaign N=1 refuses SDK second attempt after first commit", async () => {
++    await runWithProviderEmissionStoreAsync(async () => {
++      beginCampaignEnvelope({ maxHttpAttempts: 1, required: true });
++      const prev = { ...process.env };
++      Object.assign(process.env, {
++        STUDIO_LANE: "DEV",
++        OPENAI_API_KEY: TEST_KEY,
++        SFIA_OPENAI_EXPECTED_KEY_FP: TEST_FP,
++      });
++      try {
++        assertSdkInvocationAdmission({
++          kind: "campaign.probe",
++          modelId: "gpt-6.1-terra",
++          effort: "medium",
++          env: process.env,
++        });
++        let n = 0;
++        const transport = (async () => {
++          n += 1;
++          return new Response(
++            JSON.stringify({
++              id: `resp_${n}`,
++              object: "response",
++              status: "completed",
++              output: [],
++              usage: { input_tokens: 3, output_tokens: 1 },
++            }),
++            { status: 200, headers: { "content-type": "application/json" } },
++          );
++        }) as typeof fetch;
++        const client = new (await import("openai")).default({
++          apiKey: TEST_KEY,
++          fetch: createFrontierAwareFetch(transport),
++          maxRetries: 0,
++        });
++        await client.responses.create({
++          model: "gpt-6.1-terra",
++          input: "one",
++          max_output_tokens: 16,
++          reasoning: { effort: "medium" },
++        } as never);
++        let secondErr: unknown;
++        try {
++          await client.responses.create({
++            model: "gpt-6.1-terra",
++            input: "two",
++            max_output_tokens: 16,
++            reasoning: { effort: "medium" },
++          } as never);
++        } catch (e) {
++          secondErr = e;
++        }
++        expect(secondErr).toBeTruthy();
++        // openai package may wrap ProviderEmissionRefusedError as APIConnectionError
++        const chain: unknown[] = [];
++        let cur: unknown = secondErr;
++        for (let i = 0; i < 5 && cur; i++) {
++          chain.push(cur);
++          cur =
++            cur && typeof cur === "object" && "cause" in cur
++              ? (cur as { cause: unknown }).cause
++              : null;
++        }
++        const refused = chain.some(
++          (e) =>
++            e instanceof ProviderEmissionRefusedError ||
++            (e instanceof Error &&
++              /CAMPAIGN_ENVELOPE_EXHAUSTED|CAMPAIGN_HTTP_ATTEMPTS/.test(e.message)),
++        );
++        expect(refused).toBe(true);
++        expect(n).toBe(1);
++        expect(getEmissionsObservedForTests()).toBe(1);
++      } finally {
++        for (const k of ["STUDIO_LANE", "OPENAI_API_KEY", "SFIA_OPENAI_EXPECTED_KEY_FP"]) {
++          if (prev[k] === undefined) delete process.env[k];
++          else process.env[k] = prev[k]!;
++        }
++      }
++    });
++  }, 20_000);
++});
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-public-web-frontier.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-public-web-frontier.test.ts
+index f20731e8..895e9b1e 100644
+--- a/projects/sfia-studio-next/web/tests/unit/ml5-public-web-frontier.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/ml5-public-web-frontier.test.ts
+@@ -1,4 +1,8 @@
+-import { afterEach, describe, expect, it } from "vitest";
++import { afterEach, describe, expect, it, vi } from "vitest";
++
++vi.mock("@/domains/conversation/web-public-query-authority", () => ({
++  reverifyWebPublicQueryAuthorityAtEgress: vi.fn(),
++}));
+ import {
+   __getPublicWebOutboundLogForTests,
+   __resetPublicWebOutboundLogForTests,
+@@ -24,6 +28,7 @@ function env(partial: Record<string, string>): NodeJS.ProcessEnv {
+
+ afterEach(() => {
+   __resetPublicWebOutboundLogForTests();
++  vi.clearAllMocks();
+ });
+
+ describe("ML5 B1 public web frontier", () => {
+@@ -49,6 +54,7 @@ describe("ML5 B1 public web frontier", () => {
+     const r = await executePublicWebSearch({
+       explicitlyAuthorizedExactQuery: exact,
+       turnAuthorizedExactQueries: [exact],
++      turnPublicTopics: { rfc9110: exact },
+       privateContextMarkers: [secret, "/Users/morris/secret"],
+       env: env({ SFIA_WEB_SEARCH_ENABLED: "1" }),
+     });
+@@ -120,6 +126,25 @@ describe("ML5 B1 public web frontier", () => {
+     expect(__getPublicWebOutboundLogForTests()).toHaveLength(0);
+   });
+
++  it("refuses open_page when campaign maxDirectOpens is exhausted", async () => {
++    const {
++      beginCampaignEnvelope,
++      runWithProviderEmissionStoreAsync,
++      __resetProviderEmissionFrontierForTests,
++    } = await import("@/domains/conversation/provider-emission-frontier");
++    await runWithProviderEmissionStoreAsync(async () => {
++      beginCampaignEnvelope({ maxDirectOpens: 0, required: true });
++      const r = await executePublicWebOpenPage({
++        url: "https://example.invalid/doc",
++        env: env({ SFIA_WEB_SEARCH_ENABLED: "1" }),
++        allowedUrls: ["https://example.invalid/doc"],
++      });
++      expect(r.status).toBe("DENIED");
++      expect(r.limits).toContain("CAMPAIGN_DIRECT_OPEN_REFUSED");
++    });
++    __resetProviderEmissionFrontierForTests();
++  });
++
+   it("C20 open_page refuses URL outside authorized discovery before egress", async () => {
+     const r = await executePublicWebOpenPage({
+       url: "https://example.invalid/not-discovered",
+@@ -159,6 +184,102 @@ describe("ML5 B1 public web frontier", () => {
+     expect(c.notes.some((n) => n.startsWith("YEAR_TOKENS_DIVERGE_HINT:"))).toBe(true);
+   });
+
++  describe("S5 — EXPLICIT_AUTHORIZED_EXACT D6 egress (non-catalog)", () => {
++    const exact = "HTTP/3 site:datatracker.ietf.org";
++    const enabled = env({ SFIA_WEB_SEARCH_ENABLED: "1" });
++    const finops = {
++      projectId: "prj_test",
++      ownerPilotId: "pilot_a",
++    };
++
++    it("denies without projectId — no outbound", async () => {
++      const r = await executePublicWebSearch({
++        explicitlyAuthorizedExactQuery: exact,
++        turnAuthorizedExactQueries: [exact],
++        policyVersion: "pol_v3",
++        finops: { ownerPilotId: "pilot_a" },
++        env: enabled,
++      });
++      expect(r.status).toBe("DENIED");
++      expect(r.limits).toContain("WEB_QUERY_EGRESS_D6_DENIED");
++      expect(r.limits).toContain("PROJECT_REQUIRED");
++      expect(__getPublicWebOutboundLogForTests()).toHaveLength(0);
++    });
++
++    it("denies without policyVersion — no outbound", async () => {
++      const r = await executePublicWebSearch({
++        explicitlyAuthorizedExactQuery: exact,
++        turnAuthorizedExactQueries: [exact],
++        finops,
++        env: enabled,
++      });
++      expect(r.status).toBe("DENIED");
++      expect(r.limits).toContain("WEB_QUERY_EGRESS_D6_DENIED");
++      expect(r.limits).toContain("POLICY_VERSION_REQUIRED");
++      expect(__getPublicWebOutboundLogForTests()).toHaveLength(0);
++    });
++
++    it("denies without pilotId — no outbound", async () => {
++      const r = await executePublicWebSearch({
++        explicitlyAuthorizedExactQuery: exact,
++        turnAuthorizedExactQueries: [exact],
++        policyVersion: "pol_v3",
++        finops: { projectId: "prj_test" },
++        env: enabled,
++      });
++      expect(r.status).toBe("DENIED");
++      expect(r.limits).toContain("WEB_QUERY_EGRESS_D6_DENIED");
++      expect(r.limits).toContain("PILOT_REQUIRED");
++      expect(__getPublicWebOutboundLogForTests()).toHaveLength(0);
++    });
++
++    it("turnAuthorizedExactQueries alone do not catalog-bind (D6 still required)", async () => {
++      const { reverifyWebPublicQueryAuthorityAtEgress } = await import(
++        "@/domains/conversation/web-public-query-authority"
++      );
++      vi.mocked(reverifyWebPublicQueryAuthorityAtEgress).mockResolvedValue({
++        allowed: false,
++        reasonCode: "DECISION_NOT_FOUND",
++        reason: "missing",
++      });
++      const r = await executePublicWebSearch({
++        explicitlyAuthorizedExactQuery: exact,
++        turnAuthorizedExactQueries: [exact],
++        policyVersion: "pol_v3",
++        finops,
++        env: enabled,
++      });
++      expect(r.status).toBe("DENIED");
++      expect(r.limits).toContain("WEB_QUERY_EGRESS_D6_DENIED");
++      expect(vi.mocked(reverifyWebPublicQueryAuthorityAtEgress)).toHaveBeenCalled();
++    });
++
++    it("allows egress when D6 reverify passes (mocked)", async () => {
++      const { reverifyWebPublicQueryAuthorityAtEgress } = await import(
++        "@/domains/conversation/web-public-query-authority"
++      );
++      vi.mocked(reverifyWebPublicQueryAuthorityAtEgress).mockResolvedValue({
++        allowed: true,
++        decisionId: "dec_abc",
++        objectRef: "web.public_query:abc",
++        query: exact,
++        source: "HUMAN_DECISION_RECORD",
++      });
++      const r = await executePublicWebSearch({
++        explicitlyAuthorizedExactQuery: exact,
++        turnAuthorizedExactQueries: [exact],
++        turnExactQueryDecisionIds: {
++          [exact.toLowerCase()]: "dec_abc",
++        },
++        policyVersion: "pol_v3",
++        finops,
++        env: enabled,
++      });
++      expect(r.status).toBe("AVAILABLE");
++      expect(__getPublicWebOutboundLogForTests()).toHaveLength(1);
++    });
++  });
++
+   it("never treats ISOLATION_PROVEN env as attaching hosted tool", async () => {
+     const { canAttachWebSearchTool, buildPublicWebSearchTool } = await import(
+       "@/domains/conversation/web-search-tools"
 diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-web-page-session.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-web-page-session.test.ts
-index 7ff0e613..85222358 100644
+index 85222358..8a85cfb0 100644
 --- a/projects/sfia-studio-next/web/tests/unit/ml5-web-page-session.test.ts
 +++ b/projects/sfia-studio-next/web/tests/unit/ml5-web-page-session.test.ts
-@@ -1,6 +1,7 @@
- import { describe, expect, it, beforeEach } from "vitest";
- import {
-   __resetWebPageSessionsForTests,
-+  __webPageSessionStatsForTests,
-   putWebPageSession,
+@@ -6,6 +6,7 @@ import {
    readWebPageProgressive,
    readWebPdfPages,
-@@ -214,6 +215,44 @@ describe("ML5 progressive WEB page session", () => {
+   searchWebPageSession,
++  getWebPageSession,
+   getWebPageSessionByViewerToken,
+   unionCoverageChars,
+ } from "@/domains/conversation/public-web-page-session";
+@@ -215,6 +216,136 @@ describe("ML5 progressive WEB page session", () => {
      expect(getWebPageSessionByViewerToken(later.viewerToken)?.pdfBytes).toBeUndefined();
    });
 
-+  it("evicts oldest sessions when session cap is exceeded", () => {
-+    process.env.SFIA_WEB_PAGE_SESSION_MAX = "2";
-+    process.env.SFIA_WEB_PAGE_SESSION_MAX_BYTES = "200000";
-+    const big = new Uint8Array(50);
++  it("enrich footprint counts retained pdf bytes and prior pages", () => {
++    const pdfBytes = new Uint8Array(24_000);
++    const firstPages = [
++      { pageNumber: 1, text: "alpha ".repeat(400) },
++      { pageNumber: 2, text: "beta ".repeat(400) },
++    ];
 +    putWebPageSession({
 +      scope: SCOPE,
-+      url: "https://example.com/a.pdf",
++      url: "https://example.com/enrich-footprint.pdf",
 +      kind: "pdf",
-+      text: "a",
-+      contentFingerprint: "a",
-+      pdfBytes: big,
-+      limits: [],
++      text: firstPages.map((p) => p.text).join("\n"),
++      pages: firstPages,
++      pageCount: 4,
++      contentFingerprint: "fp-enrich",
++      pdfBytes,
++      limits: ["INITIAL"],
 +    });
++
++    const enrichedPages = [
++      ...firstPages,
++      { pageNumber: 3, text: "gamma ".repeat(600) },
++    ];
 +    putWebPageSession({
 +      scope: SCOPE,
-+      url: "https://example.com/b.pdf",
++      url: "https://example.com/enrich-footprint.pdf",
 +      kind: "pdf",
-+      text: "b",
-+      contentFingerprint: "b",
-+      pdfBytes: big,
-+      limits: [],
++      text: enrichedPages.map((p) => p.text).join("\n"),
++      pages: enrichedPages,
++      pageCount: 4,
++      contentFingerprint: "fp-enrich",
++      limits: ["ENRICHED"],
 +    });
-+    expect(__webPageSessionStatsForTests().count).toBe(2);
-+    putWebPageSession({
-+      scope: SCOPE,
-+      url: "https://example.com/c.pdf",
-+      kind: "pdf",
-+      text: "c",
-+      contentFingerprint: "c",
-+      pdfBytes: big,
-+      limits: [],
-+    });
++
 +    const stats = __webPageSessionStatsForTests();
-+    expect(stats.count).toBeLessThanOrEqual(2);
-+    delete process.env.SFIA_WEB_PAGE_SESSION_MAX;
++    expect(stats.count).toBe(1);
++    expect(stats.memoryBytes).toBeGreaterThanOrEqual(
++      pdfBytes.byteLength +
++        enrichedPages.reduce(
++          (n, p) => n + Buffer.byteLength(p.text, "utf8"),
++          0,
++        ),
++    );
++
++    process.env.SFIA_WEB_PAGE_SESSION_MAX_BYTES = String(
++      pdfBytes.byteLength + 4_000,
++    );
++    putWebPageSession({
++      scope: SCOPE,
++      url: "https://example.com/anchor.pdf",
++      kind: "pdf",
++      text: "anchor",
++      contentFingerprint: "anchor",
++      pdfBytes: new Uint8Array(8_000),
++      limits: [],
++    });
++    expect(
++      getWebPageSession(SCOPE, "https://example.com/enrich-footprint.pdf"),
++    ).toBeNull();
++    expect(
++      getWebPageSession(SCOPE, "https://example.com/anchor.pdf")?.pdfBytes
++        ?.byteLength,
++    ).toBe(8_000);
 +    delete process.env.SFIA_WEB_PAGE_SESSION_MAX_BYTES;
 +  });
 +
-   it("expires sessions and refuses expired reads", () => {
-     process.env.SFIA_WEB_PAGE_SESSION_TTL_MS = "1";
-     putWebPageSession({
-diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-web-query-authority.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-web-query-authority.test.ts
-index 2a5c8c69..32a655fd 100644
---- a/projects/sfia-studio-next/web/tests/unit/ml5-web-query-authority.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/ml5-web-query-authority.test.ts
-@@ -1,14 +1,27 @@
- import { describe, expect, it } from "vitest";
- import {
-+  buildWebPublicQueryEffectConditions,
-   buildWebPublicQueryObjectRef,
-+  parseWebPublicQueryEffectConditions,
-   promoteExactQueriesFromAuthority,
-+  validateWebPublicQueryDecisionRow,
-+  WEB_PUBLIC_QUERY_DESTINATION,
- } from "@/domains/conversation/web-public-query-authority";
- import {
-   extractPilotAuthorizedExactQueries,
-   resolvePublicWebRegistry,
- } from "@/domains/conversation/public-web-registry";
-
--describe("S4 — WEB public query authority (parse ≠ D6)", () => {
-+const basePayload = {
-+  query: "HTTP/3 site:datatracker.ietf.org",
-+  destination: WEB_PUBLIC_QUERY_DESTINATION,
-+  purpose: "public protocol documentation research",
-+  projectId: "prj_test",
-+  pilotId: "pilot_a",
-+  policyVersion: "pol_v3",
-+};
-+
-+describe("S5 — WEB public query authority (parse ≠ D6)", () => {
-   it("rejects negation / example framing around AUTHORIZE", () => {
-     expect(
-       extractPilotAuthorizedExactQueries(
-@@ -35,6 +48,18 @@ describe("S4 — WEB public query authority (parse ≠ D6)", () => {
-     expect(r.limits).toContain("PILOT_EXACT_AWAITING_D6_DECISION");
-   });
-
-+  it("ignores priorExactQueries strings without d6 binding", () => {
-+    const q = "HTTP/3 site:datatracker.ietf.org";
-+    const r = resolvePublicWebRegistry({
-+      pilotText: "bonjour",
-+      priorExactQueries: [q],
-+      haystack: "suite",
-+      env: { STUDIO_LANE: "DEV", SFIA_PUBLIC_WEB_CATALOG_DEFAULT: "0" },
++  it("enrich text-only update keeps prior pages in eviction sizing", () => {
++    const pdfBytes = new Uint8Array(12_000);
++    const pages = [{ pageNumber: 1, text: "hold ".repeat(800) }];
++    const url = "https://example.com/text-only-enrich.pdf";
++    putWebPageSession({
++      scope: SCOPE,
++      url,
++      kind: "pdf",
++      text: pages[0]!.text,
++      pages,
++      pageCount: 1,
++      contentFingerprint: "fp-text-enrich",
++      pdfBytes,
++      limits: [],
 +    });
-+    expect(r.exactQueries).not.toContain(q);
-+    expect(r.limits).toContain("PRIOR_EXACT_STRINGS_IGNORED_WITHOUT_D6_BINDING");
++    putWebPageSession({
++      scope: SCOPE,
++      url,
++      kind: "pdf",
++      text: `${pages[0]!.text}\nconsulted overlay`,
++      contentFingerprint: "fp-text-enrich",
++      limits: ["READ_PROGRESS"],
++    });
++    const stats = __webPageSessionStatsForTests();
++    expect(stats.memoryBytes).toBeGreaterThanOrEqual(
++      pdfBytes.byteLength + Buffer.byteLength(pages[0]!.text, "utf8"),
++    );
++    expect(getWebPageSession(SCOPE, url)?.pages?.length).toBe(1);
++    expect(getWebPageSession(SCOPE, url)?.pdfBytes?.byteLength).toBe(
++      pdfBytes.byteLength,
++    );
 +  });
 +
-   it("promotes only when d6BoundExactQueries supplied", () => {
-     const q = "HTTP/3 site:datatracker.ietf.org";
-     const r = resolvePublicWebRegistry({
-@@ -72,4 +97,78 @@ describe("S4 — WEB public query authority (parse ≠ D6)", () => {
-     expect(r.exactQueries).toEqual([]);
-     expect(r.limits).toContain("PILOT_EXACT_PARSE_NOT_PROMOTED");
-   });
--});
-+
-+  it("parseWebPublicQueryEffectConditions fails closed on missing/malformed", () => {
-+    expect(parseWebPublicQueryEffectConditions(null).ok).toBe(false);
-+    expect(parseWebPublicQueryEffectConditions("not-json").ok).toBe(false);
-+    expect(parseWebPublicQueryEffectConditions("{}").ok).toBe(false);
-+    const valid = parseWebPublicQueryEffectConditions(
-+      buildWebPublicQueryEffectConditions(basePayload),
-+    );
-+    expect(valid.ok).toBe(true);
-+    if (!valid.ok) throw new Error("expected ok");
-+    expect(valid.payload.policyVersion).toBe("pol_v3");
-+    expect(valid.payload.destination).toBe(WEB_PUBLIC_QUERY_DESTINATION);
++  it("enrich without new pdfBytes retains server-side bytes", () => {
++    const pdfBytes = new Uint8Array([0x25, 0x50, 0x44, 0x46, 0x2d, 0x31]);
++    const url = "https://example.com/retain-bytes.pdf";
++    const first = putWebPageSession({
++      scope: SCOPE,
++      url,
++      kind: "pdf",
++      text: "page one",
++      pages: [{ pageNumber: 1, text: "page one" }],
++      pageCount: 2,
++      contentFingerprint: "fp-retain",
++      pdfBytes,
++      limits: [],
++    });
++    const second = putWebPageSession({
++      scope: SCOPE,
++      url,
++      kind: "pdf",
++      text: "page one\npage two expanded",
++      pages: [
++        { pageNumber: 1, text: "page one" },
++        { pageNumber: 2, text: "page two expanded" },
++      ],
++      pageCount: 2,
++      contentFingerprint: "fp-retain",
++      limits: ["TEXT_ENRICHED"],
++    });
++    expect(second.viewerToken).toBe(first.viewerToken);
++    expect(second.pdfBytes?.byteLength).toBe(pdfBytes.byteLength);
++    expect(second.pages?.map((p) => p.pageNumber)).toEqual([1, 2]);
 +  });
 +
-+  it("validateWebPublicQueryDecisionRow enforces kind, state, policy, payload", () => {
-+    const objectRef = buildWebPublicQueryObjectRef(basePayload);
-+    const ec = buildWebPublicQueryEffectConditions(basePayload);
-+    const row = {
-+      id: "dec_abc",
-+      pilotId: basePayload.pilotId,
-+      kind: "RECORD_DECISION",
-+      objectRef,
-+      state: "APPLICABLE",
-+      effectConditions: ec,
-+    };
-+
-+    const ok = validateWebPublicQueryDecisionRow(row, {
-+      query: basePayload.query,
-+      projectId: basePayload.projectId,
-+      pilotId: basePayload.pilotId,
-+      policyVersion: basePayload.policyVersion,
-+      objectRef,
-+    });
-+    expect(ok.allowed).toBe(true);
-+
-+    const wrongKind = validateWebPublicQueryDecisionRow(
-+      { ...row, kind: "OPEN_CYCLE" },
-+      {
-+        query: basePayload.query,
-+        projectId: basePayload.projectId,
-+        pilotId: basePayload.pilotId,
-+        policyVersion: basePayload.policyVersion,
-+        objectRef,
-+      },
-+    );
-+    expect(wrongKind.allowed).toBe(false);
-+    if (wrongKind.allowed) throw new Error("expected deny");
-+    expect(wrongKind.reasonCode).toBe("KIND_MISMATCH");
-+
-+    const wrongPolicy = validateWebPublicQueryDecisionRow(row, {
-+      query: basePayload.query,
-+      projectId: basePayload.projectId,
-+      pilotId: basePayload.pilotId,
-+      policyVersion: "pol_other",
-+      objectRef,
-+    });
-+    expect(wrongPolicy.allowed).toBe(false);
-+    if (wrongPolicy.allowed) throw new Error("expected deny");
-+    expect(wrongPolicy.reasonCode).toBe("POLICY_VERSION_MISMATCH");
-+
-+    const noEc = validateWebPublicQueryDecisionRow(
-+      { ...row, effectConditions: null },
-+      {
-+        query: basePayload.query,
-+        projectId: basePayload.projectId,
-+        pilotId: basePayload.pilotId,
-+        policyVersion: basePayload.policyVersion,
-+        objectRef,
-+      },
-+    );
-+    expect(noEc.allowed).toBe(false);
-+    if (noEc.allowed) throw new Error("expected deny");
-+    expect(noEc.reasonCode).toBe("EFFECT_CONDITIONS_INVALID");
-+  });
-+});
-\ No newline at end of file
-diff --git a/projects/sfia-studio-next/web/tests/unit/nora-adapter-corrective.test.ts b/projects/sfia-studio-next/web/tests/unit/nora-adapter-corrective.test.ts
-index 71782e22..25c04aeb 100644
---- a/projects/sfia-studio-next/web/tests/unit/nora-adapter-corrective.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/nora-adapter-corrective.test.ts
-@@ -125,8 +125,14 @@ describe("FIX-SDK / SDK-RETRY — no automatic second run()", () => {
-       },
-       run: runMock,
-       setTracingDisabled: vi.fn(),
-+      setDefaultOpenAIClient: vi.fn(),
-       tool: vi.fn(),
-     }));
-+    vi.doMock("openai", () => ({
-+      default: class {
-+        constructor(_opts: unknown) {}
-+      },
-+    }));
+   it("evicts oldest sessions when session cap is exceeded", () => {
+     process.env.SFIA_WEB_PAGE_SESSION_MAX = "2";
+     process.env.SFIA_WEB_PAGE_SESSION_MAX_BYTES = "200000";
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-web-search-authorize.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-web-search-authorize.test.ts
+index 4ab9172d..3ff27943 100644
+--- a/projects/sfia-studio-next/web/tests/unit/ml5-web-search-authorize.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/ml5-web-search-authorize.test.ts
+@@ -75,6 +75,8 @@ describe("C22 WEB query provenance authorization", () => {
+     const r = await executePublicWebSearch({
+       explicitlyAuthorizedExactQuery: exact,
+       turnAuthorizedExactQueries: [exact],
++      // Independent public topic catalog — not Nora-fed priorExactQueries alone.
++      turnPublicTopics: { owasp_ssrf: exact },
+       privateContextMarkers: [privateFact],
+       env: { ...process.env, SFIA_WEB_SEARCH_ENABLED: "1", SFIA_WEB_SEARCH_LIVE: "0" },
+     });
 
-     const { generateNoraReply: gen } = await import("@/domains/conversation/nora-adapter");
-     const policy = buildCognitivePolicy("Compare option A et B", "TEST_BOUNDARY");
 ```
 
-## Coverage matrix (files)
+## 9. Gates
 
-| File | Role |
+| Gate | Status |
 |---|---|
-| provider-emission-frontier.ts | HTTP frontier + campaign |
-| nora-adapter.ts / public-web-search-frontier.ts | Emit wiring |
-| web-public-query-authority.ts | D6 WEB |
-| pdf-viewer-authorization.ts | PDF access |
-| usage-projection.ts | FinOps honesty |
-| cognitive-policy.ts | Suspend message |
-| package.json | Build NODE_ENV |
+| ENV-01 | COMPLETE (DEV) |
+| G-LIVE-API | CONSUMED (bounded LIVE-01..04) |
+| G-WEB-PUBLIC | NOT CONSUMED — BLOCKED HOSTED_SEARCH_PER_RESPONSE_ASSUMED_1 |
+| G-WEB-MIXED | CLOSED |
+| G-RECETTE | NOT CONSUMED |
+| Review Handoff L3 | IN PROGRESS → publish |
 
-## Morris decisions required
+## 10. Réserves A/B/C/D
 
-1. Scope of capability reserves B/C before any G-RECETTE.
-2. Whether to consume §12.1 LIVE multi-Responses campaign retest.
-3. Whether to extend provisional policy v0.2 into RECETTE (not activated).
-4. F2 visual qualification timing.
-5. Git PDF text corpus authorization if needed.
+- **A**: none open on final candidate
+- **B**: R-G-WEB-PUBLIC-HOSTED ; R-GIT-PDF-TEXT
+- **C**: R-MODEL-APPLIED-UNVERIFIED ; R-WEB05 ; R-F2 ; R-EFFICIENCE-RB
+- **D**: optional dedicated D6 kind
 
-## END OF REVIEW PACK
+## 11. Décisions Morris requises
+
+1. Revue handoff + verdict conformité
+2. GO/NOGO cutover RECETTE (G-RECETTE) — non demandé ici
+3. GO G-WEB-PUBLIC si borne hosted acceptée ASSUMED_1 ou renforcement
+4. Corpus Git PDF textuel autorisé pour LIVE-06
+5. F2 visuelle
+6. Extension politique v0.2 → RECETTE (distincte)
+
+## 12. Fake/Real Qualification
+
+- DETERMINISTIC PROVEN (A–F paths with real SDK/conductor/authority/PG where applicable)
+- LIVE PROVEN (G-LIVE-API WEB OFF)
+- NOT READY FOR REAL permanent WEB
+- NOT ADOPTED · NO RELEASE · R6 NOT STARTED · Livraison 2 non engagée
+
+## 13. Manifeste / delivery-history / as-built
+
+Updated in-tree:
+- `construction/ml5-recette-manifest-candidate-20261126.md`
+- `construction/delivery-history.md` entry DELIV-2026-11-26-ML5-FOUNDATION-CONFORMANCE-LIVE
+- `construction/as-built-ml5-cognitive-foundation-conformance-20261126.md`
+
+## 14. Completeness
+
+REVIEW PACK FULL — modified content included (created files complete; key diffs complete; test diffs; LIVE JSON). Secrets redacted if present. No stub.
+
+
+## 15. Post-docs commit
+
+HEAD after docs capitalisation: `f27e01025f920db3fa61a4bb66cc05085981ca95` · tree `32718db62c7b212375977b0d4bf7f0ed381c59b5` · web `24d8f65820c5ea6956085c9d56bd7ecddbeb3389`.
+Code candidate BUILD_ID remains `emfz_yP5MBF9GxQRrnJGP` (built from `4bfc1c1e`; docs-only tip does not require rebuild for cognitive behavior).
