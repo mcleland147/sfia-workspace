@@ -4,7 +4,7 @@
 |---|---|
 | Date | 2026-11-26 |
 | Branche produit | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD (à confirmer post-commit) | voir tip local après consolidation |
+| HEAD | `c46a8a9ab8b7ea90e423a2e8f237d580ce82908f` |
 | Classe | **NO RELEASE** |
 | STABLE | NOT AVAILABLE |
 | Cutover | **NON APPLIQUÉ** |
@@ -42,6 +42,7 @@
 
 | Id | Classe | Justification |
 |---|---|---|
+| R-BUILD-404 | A | `next build` échoue prerender /404 Html (Next 15.5.29) — artefact RECETTE non reproductible |
 | R-GIT-PDF-TEXT | B | Capacité Git PDF text isolable ; scanné déjà prouvé comme limite |
 | R-WEB05 | C | Confrontation sources — socle sûr ; qualité intellectuelle en recette |
 | R-D6-WEB-KIND | D | Kind dédié optionnel ; RECORD_DECISION lie déjà le payload |
@@ -49,7 +50,7 @@
 | R-EFFICIENCE-RB | C | Dette efficience RoomBooking — non critique sécurité |
 | R-LIVE-REENVELOPPE | B | Tout retest LIVE doit réutiliser frontière S1 |
 
-**Aucune réserve A** (bloquante mise à disposition) identifiée sur le socle sécurité / autorité / enveloppe après consolidation — sous réserve du rebuild clean + revue ChatGPT + GO Morris cutover.
+**Réserve A** : build production Next `/404` — bloque cutover jusqu'à correction. Socle S1–S5 déterministe OK. Revue ChatGPT + GO Morris cutover requis.
 
 ## Smoke tests cutover (non exécutés)
 
