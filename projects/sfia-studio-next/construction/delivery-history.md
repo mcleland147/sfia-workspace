@@ -12,7 +12,7 @@ Append-only logical journal of Cursor product deliveries.
 | Type | INC Critical · cutover RECETTE · **NO RELEASE** · **NO PR/MERGE/STABLE** |
 | Branche source | `sfia/next-ml5-integrated-delivery-20261123` |
 | Candidate SHA **servi** | `1633c86b0330265436a1d73a7762de6562867bac` |
-| Tree / web tree | *(commit tree)* / `e972dc0437033c4e463ac8f51519285927b1f45c` |
+| Tree / web tree | `85c53fd4110da42e69df49625d3e3b5a773de624` / `e972dc0437033c4e463ac8f51519285927b1f45c` |
 | Worktree RECETTE | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-1633c86b0330` |
 | BUILD_ID RECETTE | `g91mwyAgMId3zEUm7CcLq` · digest `1a4da02684294f08a528bb32281362a6fa925099a9a890213fd5201572a5e43a` |
 | URL | `http://127.0.0.1:3200` · PG `:5434` · base `sfia_next_recette_ml4` |
