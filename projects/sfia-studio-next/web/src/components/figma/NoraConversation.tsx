@@ -207,7 +207,7 @@ export function NoraConversation(props: {
           onScroll={onScroll}
         >
           {n === 0 ? (
-            <div className="fig-msg fig-msg-nora text-sm" data-testid="nora-first-empty">
+            <div className="fig-msg fig-msg-nora" data-testid="nora-first-empty">
               <div className="fig-msg-meta">
                 <span className="fig-msg-avatar" aria-hidden>
                   N

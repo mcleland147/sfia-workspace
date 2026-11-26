@@ -302,7 +302,7 @@
 }
 
 .fig-msg-body {
-  /* IT-05 — conversation body ~12px; hierarchy kept on role/meta/activity titles. */
+  /* IT-05 — conversation body 12px; hierarchy kept on role/meta/activity titles. */
   font-size: 12px;
   line-height: 1.5;
   color: #f4f6fc;
@@ -312,12 +312,38 @@
   word-break: break-word;
 }
 
-.fig-msg-body .safe-md,
-.fig-msg-body pre,
-.fig-msg-body code {
+/*
+ * SafeMarkdown ships with Tailwind `text-sm` (~0.875rem / 14px). Beat that utility
+ * only inside the conversation thread so Pilote/Nora body text is effectively 12px.
+ * Document viewer and other SafeMarkdown surfaces stay untouched.
+ */
+.fig-msg-body .safe-md {
+  font-size: 12px;
+  line-height: 1.5;
   max-width: 100%;
   overflow-x: auto;
 }
+
+.fig-msg-body .safe-md p,
+.fig-msg-body .safe-md li,
+.fig-msg-body .safe-md td,
+.fig-msg-body .safe-md th,
+.fig-msg-body .safe-md a,
+.fig-msg-body .safe-md strong,
+.fig-msg-body .safe-md em {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.fig-msg-body .safe-md pre,
+.fig-msg-body .safe-md code {
+  max-width: 100%;
+  overflow-x: auto;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+/* Headings keep rem-based hierarchy from globals.css (root-relative). */
 
 /* IT-04 — keep markdown table cells readable (no vertical letter stacking). */
 .fig-msg-body .safe-md table,
