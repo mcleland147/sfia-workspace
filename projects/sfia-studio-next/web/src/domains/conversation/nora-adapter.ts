@@ -28,9 +28,11 @@ import { resolveProviderSimulatedQualification } from "./provider-simulated-qual
 import { extractProviderUsageFromRunResult } from "./provider-usage";
 import {
   assertSdkInvocationAdmission,
+  attachConfiguredLiveCampaignFromEnv,
   ensureFrontierOpenAIClientInstalled,
+  runWithProviderEmissionStoreAsync,
 } from "./provider-emission-frontier";
-import { recordNoraProviderUsageFromRunResult } from "./usage-accounting";
+import { recordNoraProviderUsageWithHttpCorrelation } from "./usage-accounting";
 import {
   NoraTurnQualificationAgentSchema,
   NoraTurnQualificationLiveOutputSchema,
@@ -1274,7 +1276,7 @@ async function runLiveWithTools(
 
       providerUsage = extractProviderUsageFromRunResult(result);
       // E03/E04 — durable FinOps observation (idempotent; never invents zeros).
-      void recordNoraProviderUsageFromRunResult({
+      void recordNoraProviderUsageWithHttpCorrelation({
         runResult: result,
         status: "succeeded",
         operation: "nora.generate_reply",
@@ -1949,7 +1951,17 @@ export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraG
   }
 
   try {
-    return stampCkiDelivery(await runLiveWithTools(input, generationId, policy), input.ckiDelivery, true);
+    // ALS wraps the whole LIVE path so SDK admission effort/model hints reach HTTP fetch.
+    // When SFIA_G_LIVE_API / SFIA_G_WEB_PUBLIC is set (DEV qualify), attach the process
+    // campaign envelope so multi-request LIVE stays under opposable §12 limits.
+    return stampCkiDelivery(
+      await runWithProviderEmissionStoreAsync(() => {
+        attachConfiguredLiveCampaignFromEnv();
+        return runLiveWithTools(input, generationId, policy);
+      }),
+      input.ckiDelivery,
+      true,
+    );
   } catch (e) {
     const cat = categorizeProviderError(e);
     return stampCkiDelivery({

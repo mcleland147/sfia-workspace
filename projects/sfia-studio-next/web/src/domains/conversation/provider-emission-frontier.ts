@@ -100,7 +100,8 @@ export type EmissionReservation =
         | "CAMPAIGN_ENVELOPE_EXHAUSTED"
         | "CAMPAIGN_SUSPENDED"
         | "ATTEMPT_STATE_INVALID"
-        | "INVALID_REQUEST";
+        | "INVALID_REQUEST"
+        | "ALS_CONTEXT_REQUIRED";
       reason: string;
     };
 
@@ -111,20 +112,30 @@ type FrontierStore = {
   httpEmissionsObserved: number;
   /** SDK run() prechecks that passed (not HTTP). */
   sdkInvocationsObserved: number;
-  /** Captured request bodies for substituted-transport tests. */
+  /**
+   * Test-only oracle metadata (no prompt bodies in production).
+   * captureBodies must be explicitly enabled for substituted-transport tests.
+   */
   httpBodiesObserved: Array<{
     attemptId: string;
     url: string;
     method: string;
-    bodyPreview: string;
+    model: string | null;
+    effort: string | null;
+    maxOutputTokens: number | null;
   }>;
   /** Effort admitted at SDK layer — reused for HTTP body admission (no silent medium). */
   effortHint: string | null;
+  /** Model admitted at SDK layer — compared to final HTTP payload. */
+  modelHint: string | null;
+  /** When true, record non-body metadata for substituted-transport oracles. */
+  captureHttpMeta: boolean;
 };
 
 const als = new AsyncLocalStorage<FrontierStore>();
 
 let clientInstallPromise: Promise<void> | null = null;
+let installedClientKeyFp: string | null = null;
 
 /**
  * Process-level latch: once a required campaign starts, OpenAI HTTP outside an
@@ -136,6 +147,13 @@ let requiredCampaignLatch: {
   active: boolean;
 } | null = null;
 
+/**
+ * Process-level campaign registry — counters survive ALS request boundaries.
+ * LIVE qualification (G-LIVE-API / G-WEB-PUBLIC) re-attaches the same envelope
+ * on each request; lost ALS must never invent a fresh unlimited campaign.
+ */
+const processCampaignRegistry = new Map<string, CampaignEnvelope>();
+
 function emptyStore(): FrontierStore {
   return {
     campaign: null,
@@ -144,16 +162,34 @@ function emptyStore(): FrontierStore {
     sdkInvocationsObserved: 0,
     httpBodiesObserved: [],
     effortHint: null,
+    modelHint: null,
+    captureHttpMeta: false,
   };
 }
 
+/** Active ALS store or null — never invent an ephemeral store for mutations. */
+export function getFrontierAlsStore(): FrontierStore | null {
+  return als.getStore() ?? null;
+}
+
 function store(): FrontierStore {
-  return als.getStore() ?? emptyStore();
+  const s = als.getStore();
+  if (!s) {
+    throw new ProviderEmissionRefusedError(
+      "ALS_CONTEXT_REQUIRED",
+      "Provider frontier mutations require runWithProviderEmissionStore* (ephemeral emptyStore is forbidden)",
+    );
+  }
+  return s;
 }
 
 /** Clear the required-campaign latch (end of script / campaign close). */
 export function endRequiredCampaignLatch(): void {
   requiredCampaignLatch = null;
+}
+
+export function enableHttpMetaCaptureForTests(): void {
+  store().captureHttpMeta = true;
 }
 
 export function newAttemptId(): string {
@@ -173,12 +209,24 @@ export function beginCampaignEnvelope(input: {
   maxDirectOpens?: number | null;
   required?: boolean;
 }): CampaignEnvelope {
+  const cur = store();
+  const campaignId =
+    input.campaignId?.trim() || `camp_${randomBytes(6).toString("hex")}`;
+  const existing = processCampaignRegistry.get(campaignId);
+  if (existing) {
+    // Re-attach the same process counters across ALS request boundaries.
+    cur.campaign = existing;
+    if (existing.required && !existing.suspended) {
+      requiredCampaignLatch = { campaignId: existing.campaignId, active: true };
+    }
+    return existing;
+  }
   const maxHttp = Math.max(
     0,
     Math.floor(input.maxHttpAttempts ?? input.maxAttempts ?? 0),
   );
   const campaign: CampaignEnvelope = {
-    campaignId: input.campaignId ?? `camp_${randomBytes(6).toString("hex")}`,
+    campaignId,
     required: input.required !== false,
     maxHttpAttempts: maxHttp,
     maxInputTokens:
@@ -215,13 +263,7 @@ export function beginCampaignEnvelope(input: {
     suspended: false,
     suspendReason: null,
   };
-  const cur = store();
-  if (!als.getStore()) {
-    throw new ProviderEmissionRefusedError(
-      "CAMPAIGN_REQUIRED_MISSING",
-      "beginCampaignEnvelope requires an active ALS store (runWithProviderEmissionStore*)",
-    );
-  }
+  processCampaignRegistry.set(campaignId, campaign);
   cur.campaign = campaign;
   if (campaign.required) {
     requiredCampaignLatch = { campaignId: campaign.campaignId, active: true };
@@ -229,8 +271,67 @@ export function beginCampaignEnvelope(input: {
   return campaign;
 }
 
+/**
+ * Attach G-LIVE-API / G-WEB-PUBLIC envelope from process env (qualify DEV only).
+ * Operational Studio without these flags keeps unlimited-by-campaign behavior.
+ * Returns null when no LIVE campaign is configured.
+ */
+export function attachConfiguredLiveCampaignFromEnv(
+  env: NodeJS.ProcessEnv = process.env,
+): CampaignEnvelope | null {
+  const gate =
+    (env.SFIA_G_LIVE_API || "").trim() === "1" ||
+    (env.SFIA_G_WEB_PUBLIC || "").trim() === "1";
+  if (!gate) return null;
+  if ((env.STUDIO_LANE || "").trim().toUpperCase() !== "DEV") {
+    throw new ProviderEmissionRefusedError(
+      "CAMPAIGN_REQUIRED_MISSING",
+      "LIVE campaign gates are DEV-only",
+    );
+  }
+  const web = (env.SFIA_G_WEB_PUBLIC || "").trim() === "1";
+  const campaignId =
+    (env.SFIA_LIVE_CAMPAIGN_ID || "").trim() ||
+    (web ? "g-web-public-20261126" : "g-live-api-20261126");
+  const num = (k: string, fallback: number): number => {
+    const raw = Number((env[k] || "").trim());
+    return Number.isFinite(raw) && raw >= 0 ? Math.floor(raw) : fallback;
+  };
+  // §12.2 G-LIVE-API defaults; §12.3 G-WEB-PUBLIC when that gate is set.
+  return beginCampaignEnvelope({
+    campaignId,
+    required: true,
+    maxHttpAttempts: num("SFIA_LIVE_MAX_HTTP_ATTEMPTS", web ? 20 : 40),
+    maxInputTokens: num("SFIA_LIVE_MAX_INPUT_TOKENS", web ? 500_000 : 2_000_000),
+    maxOutputTokens: num("SFIA_LIVE_MAX_OUTPUT_TOKENS", web ? 100_000 : 200_000),
+    maxInputTokensPerRequest: num("SFIA_LIVE_MAX_INPUT_TOKENS_PER_REQ", 100_000),
+    maxOutputTokensPerRequest: num("SFIA_LIVE_MAX_OUTPUT_TOKENS_PER_REQ", 10_000),
+    maxHostedSearches: web
+      ? num("SFIA_LIVE_MAX_HOSTED_SEARCHES", 5)
+      : null,
+    maxDirectOpens: web ? num("SFIA_LIVE_MAX_DIRECT_OPENS", 10) : null,
+  });
+}
+
+/** End process-level LIVE campaign (qualify close / test reset). */
+export function endProcessCampaign(campaignId?: string): void {
+  if (campaignId) {
+    processCampaignRegistry.delete(campaignId);
+    if (requiredCampaignLatch?.campaignId === campaignId) {
+      requiredCampaignLatch = null;
+    }
+    const s = getFrontierAlsStore();
+    if (s?.campaign?.campaignId === campaignId) s.campaign = null;
+    return;
+  }
+  processCampaignRegistry.clear();
+  requiredCampaignLatch = null;
+  const s = getFrontierAlsStore();
+  if (s) s.campaign = null;
+}
+
 export function getActiveCampaignEnvelope(): CampaignEnvelope | null {
-  return store().campaign;
+  return getFrontierAlsStore()?.campaign ?? null;
 }
 
 export function suspendCampaignEnvelope(reason: string): void {
@@ -244,7 +345,7 @@ export function suspendCampaignEnvelope(reason: string): void {
 }
 
 export function campaignHttpSlotsRemaining(
-  c: CampaignEnvelope | null = store().campaign,
+  c: CampaignEnvelope | null = getFrontierAlsStore()?.campaign ?? null,
 ): number {
   if (!c) return Number.POSITIVE_INFINITY;
   if (c.suspended) return 0;
@@ -270,30 +371,155 @@ function parseJsonBody(body: BodyInit | null | undefined): Record<string, unknow
   return null;
 }
 
-function estimateInputTokensFromBody(body: Record<string, unknown> | null): number {
-  if (!body) return 8_000; // conservative unknown
-  const maxOut = Number(body.max_output_tokens ?? body.max_tokens ?? 0);
-  // Prefer explicit conservative bound if present; else fixed conservative reserve.
+/**
+ * Demonstrable input bound — never a fake guarantee.
+ * Returns null when only an estimate would be invented.
+ */
+function demonstrableInputTokenBound(
+  body: Record<string, unknown> | null,
+): number | null {
+  if (!body) return null;
   const inputHint = Number(
     (body as { sfia_estimated_input_tokens?: unknown }).sfia_estimated_input_tokens ??
       0,
   );
   if (Number.isFinite(inputHint) && inputHint > 0) return Math.floor(inputHint);
-  // Without reliable estimate, reserve a conservative chunk so envelopes still bind.
-  void maxOut;
-  return 50_000;
+  return null;
 }
 
-function estimateOutputTokensFromBody(body: Record<string, unknown> | null): number {
-  if (!body) return 4_000;
+/** Output bound from the actual emission parameter (max_output_tokens). */
+function demonstrableOutputTokenBound(
+  body: Record<string, unknown> | null,
+): number | null {
+  if (!body) return null;
   const maxOut = Number(body.max_output_tokens ?? body.max_tokens ?? 0);
   if (Number.isFinite(maxOut) && maxOut > 0) return Math.floor(maxOut);
-  return 4_000;
+  return null;
 }
 
 function modelFromBody(body: Record<string, unknown> | null): string | null {
   const m = body?.model;
   return typeof m === "string" && m.trim() ? m.trim() : null;
+}
+
+function effortFromBody(body: Record<string, unknown> | null): string | null {
+  if (!body) return null;
+  const reasoning = body.reasoning;
+  if (reasoning && typeof reasoning === "object") {
+    const effort = (reasoning as { effort?: unknown }).effort;
+    if (typeof effort === "string" && effort.trim()) return effort.trim();
+  }
+  const top = body.reasoning_effort;
+  if (typeof top === "string" && top.trim()) return top.trim();
+  return null;
+}
+
+function bodyContainsHostedWebSearchTool(
+  body: Record<string, unknown> | null,
+): boolean {
+  if (!body) return false;
+  const tools = body.tools;
+  if (Array.isArray(tools)) {
+    for (const t of tools) {
+      if (!t || typeof t !== "object") continue;
+      const type = String((t as { type?: unknown }).type ?? "").trim();
+      if (type === "web_search" || type === "web_search_preview") return true;
+    }
+  }
+  const input = body.input;
+  if (Array.isArray(input)) {
+    for (const item of input) {
+      if (!item || typeof item !== "object") continue;
+      const type = String((item as { type?: unknown }).type ?? "").trim();
+      if (type === "web_search" || type === "web_search_preview") return true;
+    }
+  }
+  return false;
+}
+
+/** One assumed hosted search per Responses body carrying web_search tools. */
+export const HOSTED_SEARCH_PER_RESPONSE_ASSUMED_1 =
+  "HOSTED_SEARCH_PER_RESPONSE_ASSUMED_1" as const;
+
+/**
+ * Fail-closed hosted search accounting: reserve one hosted search per Responses
+ * emission when OpenAI web_search tools appear (engine may run more — {@link HOSTED_SEARCH_PER_RESPONSE_ASSUMED_1}).
+ */
+function inferHostedSearchDeltaFromBody(
+  body: Record<string, unknown> | null,
+  campaign: CampaignEnvelope | null,
+): number {
+  if (!campaign || campaign.maxHostedSearches == null) return 0;
+  if (!bodyContainsHostedWebSearchTool(body)) return 0;
+  return 1;
+}
+
+export type HttpAttemptSnapshot = {
+  attemptId: string;
+  state: HttpAttemptState;
+  campaignId: string | null;
+  modelHint: string | null;
+  urlHost: string;
+};
+
+/** Read-only ALS view of HTTP attempts that reached commit or uncertain (no bodies). */
+export function getHttpAttemptsSnapshot(): HttpAttemptSnapshot[] {
+  const s = getFrontierAlsStore();
+  if (!s) return [];
+  const out: HttpAttemptSnapshot[] = [];
+  for (const rec of s.attempts.values()) {
+    if (rec.state !== "COMMITTED" && rec.state !== "UNCERTAIN") continue;
+    out.push({
+      attemptId: rec.attemptId,
+      state: rec.state,
+      campaignId: rec.campaignId,
+      modelHint: rec.modelHint,
+      urlHost: rec.urlHost,
+    });
+  }
+  return out;
+}
+
+export type DirectOpenGuard =
+  | { ok: true }
+  | {
+      ok: false;
+      reasonCode:
+        | "CAMPAIGN_ENVELOPE_EXHAUSTED"
+        | "CAMPAIGN_SUSPENDED"
+        | "ALS_CONTEXT_REQUIRED";
+      reason: string;
+    };
+
+export function assertDirectOpenAllowed(): DirectOpenGuard {
+  const s = getFrontierAlsStore();
+  if (!s?.campaign) return { ok: true };
+  const campaign = s.campaign;
+  if (campaign.suspended) {
+    return {
+      ok: false,
+      reasonCode: "CAMPAIGN_SUSPENDED",
+      reason: campaign.suspendReason ?? "CAMPAIGN_SUSPENDED",
+    };
+  }
+  if (campaign.maxDirectOpens == null) return { ok: true };
+  if (campaign.directOpensCommitted >= campaign.maxDirectOpens) {
+    campaign.suspended = true;
+    campaign.suspendReason = "CAMPAIGN_DIRECT_OPENS_EXHAUSTED";
+    return {
+      ok: false,
+      reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
+      reason: `directOpensCommitted=${campaign.directOpensCommitted} max=${campaign.maxDirectOpens}`,
+    };
+  }
+  return { ok: true };
+}
+
+/** Count one successful public page open against the active campaign envelope. */
+export function commitDirectOpen(): void {
+  const campaign = getFrontierAlsStore()?.campaign;
+  if (!campaign) return;
+  campaign.directOpensCommitted += 1;
 }
 
 /**
@@ -306,6 +532,13 @@ export function assertSdkInvocationAdmission(input: {
   effort?: string | null;
   env?: NodeJS.ProcessEnv;
 }): EmissionReservation {
+  if (!als.getStore()) {
+    return {
+      ok: false,
+      reasonCode: "ALS_CONTEXT_REQUIRED",
+      reason: "SDK admission requires frontier ALS context",
+    };
+  }
   const env = input.env ?? process.env;
   const laneGuard = assertOpenAiKeyForLane(env);
   if (!laneGuard.ok) {
@@ -339,6 +572,7 @@ export function assertSdkInvocationAdmission(input: {
   const s = store();
   s.sdkInvocationsObserved += 1;
   s.effortHint = effortRaw;
+  s.modelHint = modelRaw;
   return {
     ok: true,
     attemptId: newAttemptId(),
@@ -369,6 +603,20 @@ export function reserveHttpEmission(input: {
   /** Hosted web_search tool call accounting (optional explicit). */
   hostedSearchDelta?: number;
 }): EmissionReservation {
+  if (!als.getStore()) {
+    if (requiredCampaignLatch?.active) {
+      return {
+        ok: false,
+        reasonCode: "CAMPAIGN_REQUIRED_MISSING",
+        reason: `required campaign ${requiredCampaignLatch.campaignId} latch active but ALS absent`,
+      };
+    }
+    return {
+      ok: false,
+      reasonCode: "ALS_CONTEXT_REQUIRED",
+      reason: "HTTP reserve requires frontier ALS context",
+    };
+  }
   const env = input.env ?? process.env;
   const laneGuard = assertOpenAiKeyForLane(env);
   if (!laneGuard.ok) {
@@ -380,12 +628,37 @@ export function reserveHttpEmission(input: {
   }
 
   const bodyJson = parseJsonBody(input.body ?? null);
+  const modelFromPayload = modelFromBody(bodyJson);
   const model =
-    (input.modelId ?? "").trim() || modelFromBody(bodyJson) || "";
+    (input.modelId ?? "").trim() || modelFromPayload || "";
+  const effortFromPayload = effortFromBody(bodyJson);
   const effortFromInput = (input.effort ?? "").trim();
   const effortFromStore = (store().effortHint ?? "").trim();
-  // Never invent medium/Terra — only reuse explicit input or SDK-admitted hint.
-  const effort = effortFromInput || effortFromStore;
+  // Final payload effort wins; never invent medium/Terra.
+  const effort = (effortFromPayload || effortFromInput || effortFromStore).trim();
+  const modelHint = (store().modelHint ?? "").trim();
+  if (modelFromPayload && modelHint && modelFromPayload !== modelHint) {
+    return {
+      ok: false,
+      reasonCode: "MODEL_EFFORT_NOT_ADMITTED",
+      reason: `HTTP payload model ${modelFromPayload} ≠ SDK-admitted ${modelHint}`,
+    };
+  }
+  if (effortFromPayload && effortFromStore && effortFromPayload !== effortFromStore) {
+    // Payload override must itself be admitted — do not silently keep the hint.
+    const overrideAdmit = admitModelEffort(
+      (model || modelHint) as CognitiveModelId,
+      effortFromPayload as CognitiveEffort,
+      admissionModeFromEnv(env),
+    );
+    if (!overrideAdmit.admitted) {
+      return {
+        ok: false,
+        reasonCode: "MODEL_EFFORT_NOT_ADMITTED",
+        reason: `payload effort ${effortFromPayload} not admitted (${overrideAdmit.reasonCode})`,
+      };
+    }
+  }
 
   if (!input.skipModelAdmission) {
     if (!model) {
@@ -427,10 +700,10 @@ export function reserveHttpEmission(input: {
         reason: `required campaign ${requiredCampaignLatch.campaignId} latch active but ALS campaign absent`,
       };
     }
-    // Operational path without campaign: allow HTTP but still track attempt locally.
+    // Operational path without campaign: track attempt; token fields are estimates only.
     const attemptId = newAttemptId();
-    const reservedInput = estimateInputTokensFromBody(bodyJson);
-    const reservedOutput = estimateOutputTokensFromBody(bodyJson);
+    const reservedInput = demonstrableInputTokenBound(bodyJson) ?? 0;
+    const reservedOutput = demonstrableOutputTokenBound(bodyJson) ?? 0;
     store().attempts.set(attemptId, {
       attemptId,
       campaignId: null,
@@ -468,31 +741,59 @@ export function reserveHttpEmission(input: {
     };
   }
 
-  const reservedInput = estimateInputTokensFromBody(bodyJson);
-  const reservedOutput = estimateOutputTokensFromBody(bodyJson);
+  // Campaign token limits require demonstrable bounds — estimates ≠ guarantees.
+  const reservedInput = demonstrableInputTokenBound(bodyJson);
+  const reservedOutput = demonstrableOutputTokenBound(bodyJson);
+
+  if (
+    (campaign.maxInputTokens != null || campaign.maxInputTokensPerRequest != null) &&
+    reservedInput == null
+  ) {
+    return {
+      ok: false,
+      reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
+      reason:
+        "INPUT_UNBOUNDED — campaign input limit set but no demonstrable input bound on emission",
+    };
+  }
+  if (
+    (campaign.maxOutputTokens != null ||
+      campaign.maxOutputTokensPerRequest != null) &&
+    reservedOutput == null
+  ) {
+    return {
+      ok: false,
+      reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
+      reason:
+        "OUTPUT_UNBOUNDED — campaign output limit set but max_output_tokens missing on emission",
+    };
+  }
+
+  const inTok = reservedInput ?? 0;
+  const outTok = reservedOutput ?? 0;
 
   if (
     campaign.maxInputTokensPerRequest != null &&
-    reservedInput > campaign.maxInputTokensPerRequest
+    inTok > campaign.maxInputTokensPerRequest
   ) {
     campaign.suspended = true;
     campaign.suspendReason = "INPUT_TOKENS_PER_REQUEST_EXCEEDED";
     return {
       ok: false,
       reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
-      reason: `inputPerReq=${reservedInput} max=${campaign.maxInputTokensPerRequest}`,
+      reason: `inputPerReq=${inTok} max=${campaign.maxInputTokensPerRequest}`,
     };
   }
   if (
     campaign.maxOutputTokensPerRequest != null &&
-    reservedOutput > campaign.maxOutputTokensPerRequest
+    outTok > campaign.maxOutputTokensPerRequest
   ) {
     campaign.suspended = true;
     campaign.suspendReason = "OUTPUT_TOKENS_PER_REQUEST_EXCEEDED";
     return {
       ok: false,
       reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
-      reason: `outputPerReq=${reservedOutput} max=${campaign.maxOutputTokensPerRequest}`,
+      reason: `outputPerReq=${outTok} max=${campaign.maxOutputTokensPerRequest}`,
     };
   }
   if (campaign.httpAttemptsReserved + 1 > campaign.maxHttpAttempts) {
@@ -506,29 +807,32 @@ export function reserveHttpEmission(input: {
   }
   if (
     campaign.maxInputTokens != null &&
-    campaign.inputTokensReserved + reservedInput > campaign.maxInputTokens
+    campaign.inputTokensReserved + inTok > campaign.maxInputTokens
   ) {
     campaign.suspended = true;
     campaign.suspendReason = "CAMPAIGN_INPUT_TOKENS_EXHAUSTED";
     return {
       ok: false,
       reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
-      reason: `inputReserved=${campaign.inputTokensReserved}+${reservedInput} max=${campaign.maxInputTokens}`,
+      reason: `inputReserved=${campaign.inputTokensReserved}+${inTok} max=${campaign.maxInputTokens}`,
     };
   }
   if (
     campaign.maxOutputTokens != null &&
-    campaign.outputTokensReserved + reservedOutput > campaign.maxOutputTokens
+    campaign.outputTokensReserved + outTok > campaign.maxOutputTokens
   ) {
     campaign.suspended = true;
     campaign.suspendReason = "CAMPAIGN_OUTPUT_TOKENS_EXHAUSTED";
     return {
       ok: false,
       reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
-      reason: `outputReserved=${campaign.outputTokensReserved}+${reservedOutput} max=${campaign.maxOutputTokens}`,
+      reason: `outputReserved=${campaign.outputTokensReserved}+${outTok} max=${campaign.maxOutputTokens}`,
     };
   }
-  const hostedDelta = Math.max(0, Math.floor(input.hostedSearchDelta ?? 0));
+  const hostedDelta = Math.max(
+    Math.max(0, Math.floor(input.hostedSearchDelta ?? 0)),
+    inferHostedSearchDeltaFromBody(bodyJson, campaign),
+  );
   if (
     hostedDelta > 0 &&
     campaign.maxHostedSearches != null &&
@@ -544,8 +848,8 @@ export function reserveHttpEmission(input: {
   }
 
   campaign.httpAttemptsReserved += 1;
-  campaign.inputTokensReserved += reservedInput;
-  campaign.outputTokensReserved += reservedOutput;
+  campaign.inputTokensReserved += inTok;
+  campaign.outputTokensReserved += outTok;
 
   const attemptId = newAttemptId();
   store().attempts.set(attemptId, {
@@ -554,8 +858,8 @@ export function reserveHttpEmission(input: {
     state: "RESERVED",
     kind: input.kind ?? "http.responses",
     reservedSlots: 1,
-    reservedInputTokens: reservedInput,
-    reservedOutputTokens: reservedOutput,
+    reservedInputTokens: inTok,
+    reservedOutputTokens: outTok,
     urlHost: safeHost(input.url),
     modelHint: model || null,
     createdAtMs: Date.now(),
@@ -566,8 +870,8 @@ export function reserveHttpEmission(input: {
     attemptId,
     campaignId: campaign.campaignId,
     reservedSlots: 1,
-    reservedInputTokens: reservedInput,
-    reservedOutputTokens: reservedOutput,
+    reservedInputTokens: inTok,
+    reservedOutputTokens: outTok,
     keyFingerprint: laneGuard.keyFingerprint,
     lane: laneGuard.lane,
     layer: "http",
@@ -708,39 +1012,48 @@ export function markProviderEmissionUncertain(reservation: {
 }
 
 export function getHttpAttempt(attemptId: string): HttpAttemptRecord | null {
-  return store().attempts.get(attemptId) ?? null;
+  return getFrontierAlsStore()?.attempts.get(attemptId) ?? null;
 }
 
 export function getEmissionsObservedForTests(): number {
-  return store().httpEmissionsObserved;
+  return getFrontierAlsStore()?.httpEmissionsObserved ?? 0;
 }
 
 export function getSdkInvocationsObservedForTests(): number {
-  return store().sdkInvocationsObserved;
+  return getFrontierAlsStore()?.sdkInvocationsObserved ?? 0;
 }
 
 export function getHttpBodiesObservedForTests(): FrontierStore["httpBodiesObserved"] {
-  return store().httpBodiesObserved.slice();
+  return getFrontierAlsStore()?.httpBodiesObserved.slice() ?? [];
 }
 
 export function __resetProviderEmissionFrontierForTests(): void {
-  const s = store();
-  s.campaign = null;
-  s.attempts.clear();
-  s.httpEmissionsObserved = 0;
-  s.sdkInvocationsObserved = 0;
-  s.httpBodiesObserved = [];
-  s.effortHint = null;
+  const s = getFrontierAlsStore();
+  if (s) {
+    s.campaign = null;
+    s.attempts.clear();
+    s.httpEmissionsObserved = 0;
+    s.sdkInvocationsObserved = 0;
+    s.httpBodiesObserved = [];
+    s.effortHint = null;
+    s.modelHint = null;
+    s.captureHttpMeta = false;
+  }
+  processCampaignRegistry.clear();
   requiredCampaignLatch = null;
+  installedClientKeyFp = null;
 }
 
+/** Nest-safe: reuse existing ALS store when already inside one. */
 export function runWithProviderEmissionStore<T>(fn: () => T): T {
+  if (als.getStore()) return fn();
   return als.run(emptyStore(), fn);
 }
 
 export async function runWithProviderEmissionStoreAsync<T>(
   fn: () => Promise<T>,
 ): Promise<T> {
+  if (als.getStore()) return fn();
   return als.run(emptyStore(), fn);
 }
 
@@ -777,11 +1090,11 @@ function isOpenAiApiUrl(url: string): boolean {
   try {
     const u = new URL(url);
     const host = u.hostname.toLowerCase();
+    // Exact destinations only — no approximate hostname matching.
     return (
       host === "api.openai.com" ||
-      host.endsWith(".openai.com") ||
       host === "api.openai.azure.com" ||
-      host.includes("openai.azure.com")
+      /^[a-z0-9-]+\.openai\.azure\.com$/.test(host)
     );
   } catch {
     return false;
@@ -797,10 +1110,9 @@ export function createFrontierAwareFetch(
   opts?: {
     /** When true, refuse OpenAI HTTP if no ALS campaign is active. */
     requireCampaign?: boolean;
-    effortHint?: string | null;
   },
 ): typeof fetch {
-  const requireCampaign = opts?.requireCampaign === true;
+  const requireCampaignOpt = opts?.requireCampaign === true;
   return (async (input: RequestInfo | URL, init?: RequestInit) => {
     const url =
       typeof input === "string"
@@ -812,7 +1124,24 @@ export function createFrontierAwareFetch(
       return baseFetch(input, init);
     }
 
-    if (requireCampaign && !store().campaign) {
+    const alsStore = als.getStore();
+    if (!alsStore) {
+      throw new ProviderEmissionRefusedError(
+        "ALS_CONTEXT_REQUIRED",
+        "OpenAI HTTP refused — no frontier ALS context (wrap LIVE paths)",
+      );
+    }
+    // Lost required campaign must never degrade to unlimited operational.
+    if (requiredCampaignLatch?.active && !alsStore.campaign) {
+      throw new ProviderEmissionRefusedError(
+        "CAMPAIGN_REQUIRED_MISSING",
+        `required campaign ${requiredCampaignLatch.campaignId} latch active but ALS campaign absent`,
+      );
+    }
+    if (
+      (requireCampaignOpt || requiredCampaignLatch?.active) &&
+      !alsStore.campaign
+    ) {
       throw new ProviderEmissionRefusedError(
         "CAMPAIGN_REQUIRED_MISSING",
         "OpenAI HTTP refused — campaign envelope required",
@@ -821,17 +1150,19 @@ export function createFrontierAwareFetch(
 
     const method = (init?.method ?? "POST").toUpperCase();
     const body = init?.body ?? null;
-    // Propagate explicit effort hint into ALS for this emission when provided.
-    if (opts?.effortHint && als.getStore()) {
-      store().effortHint = opts.effortHint;
-    }
+    const bodyJson = parseJsonBody(body);
+    const hostedSearchDelta = inferHostedSearchDeltaFromBody(
+      bodyJson,
+      alsStore.campaign,
+    );
     const reservation = reserveHttpEmission({
       kind: "http.responses",
       url,
       method,
       body,
-      effort: opts?.effortHint ?? store().effortHint,
+      effort: alsStore.effortHint,
       skipModelAdmission: false,
+      hostedSearchDelta,
     });
     if (!reservation.ok) {
       throw new ProviderEmissionRefusedError(
@@ -840,23 +1171,26 @@ export function createFrontierAwareFetch(
       );
     }
 
-    const bodyPreview =
-      typeof body === "string" ? body.slice(0, 400) : body ? "[non-string-body]" : "";
-    store().httpBodiesObserved.push({
-      attemptId: reservation.attemptId,
-      url,
-      method,
-      bodyPreview,
-    });
+    if (alsStore.captureHttpMeta) {
+      const parsed = parseJsonBody(body);
+      alsStore.httpBodiesObserved.push({
+        attemptId: reservation.attemptId,
+        url,
+        method,
+        model: modelFromBody(parsed),
+        effort: effortFromBody(parsed),
+        maxOutputTokens: demonstrableOutputTokenBound(parsed),
+      });
+    }
 
     try {
       const res = await baseFetch(input, init);
-      // Contact established (response received). Usage may be unknown.
       commitProviderEmission({
         attemptId: reservation.attemptId,
         reservedSlots: reservation.reservedSlots,
         reservedInputTokens: reservation.reservedInputTokens,
         reservedOutputTokens: reservation.reservedOutputTokens,
+        hostedSearchDelta,
       });
       return res;
     } catch (e) {
@@ -867,48 +1201,70 @@ export function createFrontierAwareFetch(
 }
 
 /**
- * Install a process-wide Agents SDK OpenAI client whose fetch is frontier-aware.
- * Idempotent. Call before any LIVE run().
+ * Install Agents SDK OpenAI client whose fetch is frontier-aware.
+ * Reinstall when key fingerprint changes or forceReinstall is set (tests).
  */
 export async function ensureFrontierOpenAIClientInstalled(input?: {
   requireCampaign?: boolean;
-  effortHint?: string | null;
   maxRetries?: number;
-}): Promise<void> {
-  if (clientInstallPromise) return clientInstallPromise;
+  forceReinstall?: boolean;
+  /** Substituted transport for deterministic SDK tests — never for production LIVE. */
+  fetch?: typeof fetch;
+}): Promise<{ keyFingerprint: string | null }> {
+  const key = process.env.OPENAI_API_KEY?.trim() ?? "";
+  const fp = key
+    ? createHash("sha256").update(key, "utf8").digest("hex").slice(0, 16)
+    : null;
+  if (
+    clientInstallPromise &&
+    !input?.forceReinstall &&
+    fp &&
+    installedClientKeyFp === fp &&
+    !input?.fetch
+  ) {
+    await clientInstallPromise;
+    return { keyFingerprint: installedClientKeyFp };
+  }
   clientInstallPromise = (async () => {
     const [{ setDefaultOpenAIClient }, OpenAIMod] = await Promise.all([
       import("@openai/agents"),
       import("openai"),
     ]);
     const OpenAI = OpenAIMod.default;
-    const key = process.env.OPENAI_API_KEY?.trim();
     if (!key) {
-      // No key — leave default unset; LIVE paths already fail closed.
+      installedClientKeyFp = null;
       return;
     }
+    const baseFetch =
+      input?.fetch ?? globalThis.fetch.bind(globalThis);
     const client = new OpenAI({
       apiKey: key,
-      fetch: createFrontierAwareFetch(globalThis.fetch.bind(globalThis), {
+      fetch: createFrontierAwareFetch(baseFetch, {
         requireCampaign: input?.requireCampaign === true,
-        effortHint: input?.effortHint,
       }),
-      // Retries still go through fetch and are counted as distinct HTTP attempts.
       maxRetries: input?.maxRetries ?? 2,
     });
     setDefaultOpenAIClient(client as never);
+    installedClientKeyFp = fp;
   })();
   try {
     await clientInstallPromise;
+    return { keyFingerprint: installedClientKeyFp };
   } catch (e) {
     clientInstallPromise = null;
+    installedClientKeyFp = null;
     throw e;
   }
+}
+
+export function getInstalledFrontierClientKeyFp(): string | null {
+  return installedClientKeyFp;
 }
 
 /** Test helper — reset install latch. */
 export function __resetFrontierOpenAIClientInstallForTests(): void {
   clientInstallPromise = null;
+  installedClientKeyFp = null;
 }
 
 export function canonicalPayloadFingerprint(fields: Record<string, string>): string {

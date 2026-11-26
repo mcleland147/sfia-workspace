@@ -125,6 +125,7 @@ describe("ML5 C14 semantic routing (no lexical decision)", () => {
     const r = await executePublicWebSearch({
       explicitlyAuthorizedExactQuery: exact,
       turnAuthorizedExactQueries: [exact],
+      turnPublicTopics: { typescript_handbook: exact },
       privateContextMarkers: markers,
       env: {
         SFIA_WEB_SEARCH_ENABLED: "1",

@@ -1,10 +1,14 @@
 import { createHash } from "node:crypto";
 import { afterEach, describe, expect, it } from "vitest";
 import {
+  assertSdkInvocationAdmission,
   beginCampaignEnvelope,
   campaignHttpSlotsRemaining,
+  assertDirectOpenAllowed,
+  commitDirectOpen,
   commitProviderEmission,
   createFrontierAwareFetch,
+  enableHttpMetaCaptureForTests,
   getActiveCampaignEnvelope,
   getEmissionsObservedForTests,
   getHttpAttempt,
@@ -27,7 +31,21 @@ const laneEnv = {
   SFIA_OPENAI_EXPECTED_KEY_FP: TEST_FP,
 } as unknown as NodeJS.ProcessEnv;
 
-describe("S2 — HTTP provider emission frontier", () => {
+function withLaneEnv(fn: () => void | Promise<void>) {
+  const prev: Record<string, string | undefined> = {};
+  for (const k of Object.keys(laneEnv)) {
+    prev[k] = process.env[k];
+    process.env[k] = laneEnv[k as keyof typeof laneEnv] as string;
+  }
+  return Promise.resolve(fn()).finally(() => {
+    for (const k of Object.keys(laneEnv)) {
+      if (prev[k] === undefined) delete process.env[k];
+      else process.env[k] = prev[k]!;
+    }
+  });
+}
+
+describe("S2/A — HTTP provider emission frontier", () => {
   afterEach(() => {
     __resetProviderEmissionFrontierForTests();
     __resetFrontierOpenAIClientInstallForTests();
@@ -36,107 +54,134 @@ describe("S2 — HTTP provider emission frontier", () => {
   it("refuses N+1 HTTP emission when campaign max is N (oracle = substituted fetch)", async () => {
     await runWithProviderEmissionStoreAsync(async () => {
       beginCampaignEnvelope({ campaignId: "camp-http", maxHttpAttempts: 2, required: true });
+      enableHttpMetaCaptureForTests();
       const calls: string[] = [];
       const fakeFetch = (async (input: RequestInfo | URL) => {
-        const url = String(input);
-        calls.push(url);
+        calls.push(String(input));
         return new Response(JSON.stringify({ id: "resp", output: [] }), {
           status: 200,
           headers: { "content-type": "application/json" },
         });
       }) as typeof fetch;
       const gated = createFrontierAwareFetch(fakeFetch);
-
-      // Inject lane env for reserve path via process — temporarily.
-      const prev = { ...process.env };
-      Object.assign(process.env, laneEnv);
-      try {
-        const body = JSON.stringify({
-          model: "gpt-6.1-terra",
-          max_output_tokens: 100,
-          reasoning: { effort: "medium" },
-        });
-        // Seed effort via SDK admission path equivalent
-        const { assertSdkInvocationAdmission } = await import(
-          "@/domains/conversation/provider-emission-frontier"
-        );
+      await withLaneEnv(async () => {
         assertSdkInvocationAdmission({
           kind: "nora.generate_reply",
           modelId: "gpt-6.1-terra",
           effort: "medium",
           env: process.env,
         });
+        const body = JSON.stringify({
+          model: "gpt-6.1-terra",
+          max_output_tokens: 100,
+          reasoning: { effort: "medium" },
+          sfia_estimated_input_tokens: 1000,
+        });
         await gated("https://api.openai.com/v1/responses", { method: "POST", body });
         await gated("https://api.openai.com/v1/responses", { method: "POST", body });
         await expect(
           gated("https://api.openai.com/v1/responses", { method: "POST", body }),
         ).rejects.toBeInstanceOf(ProviderEmissionRefusedError);
-      } finally {
-        for (const k of Object.keys(laneEnv)) {
-          if (prev[k] === undefined) delete process.env[k];
-          else process.env[k] = prev[k]!;
-        }
-      }
-
+      });
       expect(calls).toHaveLength(2);
       expect(getEmissionsObservedForTests()).toBe(2);
       expect(campaignHttpSlotsRemaining()).toBe(0);
       expect(getHttpBodiesObservedForTests()).toHaveLength(2);
+      expect(getHttpBodiesObservedForTests()[0]?.model).toBe("gpt-6.1-terra");
     });
   });
 
-  it("counts SDK retries as distinct HTTP attempts through fetch", async () => {
+  it("propagates SDK effort hint across ALS to HTTP (no ephemeral store loss)", async () => {
+    await runWithProviderEmissionStoreAsync(async () => {
+      beginCampaignEnvelope({ maxHttpAttempts: 1, required: true });
+      await withLaneEnv(async () => {
+        assertSdkInvocationAdmission({
+          kind: "nora.generate_reply",
+          modelId: "gpt-6.1-terra",
+          effort: "medium",
+          env: process.env,
+        });
+        // Body without effort — must reuse ALS hint
+        const r = reserveHttpEmission({
+          url: "https://api.openai.com/v1/responses",
+          body: JSON.stringify({
+            model: "gpt-6.1-terra",
+            max_output_tokens: 50,
+            sfia_estimated_input_tokens: 500,
+          }),
+        });
+        expect(r.ok).toBe(true);
+      });
+    });
+  });
+
+  it("refuses payload effort that differs from admitted when not itself admitted", async () => {
     await runWithProviderEmissionStoreAsync(async () => {
       beginCampaignEnvelope({ maxHttpAttempts: 2, required: true });
-      let n = 0;
-      const fakeFetch = (async () => {
-        n += 1;
-        if (n === 1) {
-          return new Response("temporary", { status: 500 });
-        }
-        return new Response(JSON.stringify({ ok: true }), { status: 200 });
-      }) as typeof fetch;
-      const gated = createFrontierAwareFetch(fakeFetch);
-      const prev = { ...process.env };
-      Object.assign(process.env, laneEnv);
-      try {
-        const { assertSdkInvocationAdmission } = await import(
-          "@/domains/conversation/provider-emission-frontier"
-        );
+      await withLaneEnv(async () => {
+        assertSdkInvocationAdmission({
+          kind: "nora.generate_reply",
+          modelId: "gpt-6.1-terra",
+          effort: "medium",
+          env: process.env,
+        });
+        const r = reserveHttpEmission({
+          url: "https://api.openai.com/v1/responses",
+          body: JSON.stringify({
+            model: "gpt-6.1-terra",
+            max_output_tokens: 50,
+            reasoning: { effort: "xhigh" },
+            sfia_estimated_input_tokens: 500,
+          }),
+        });
+        expect(r.ok).toBe(false);
+        if (r.ok) throw new Error("r");
+        expect(r.reasonCode).toBe("MODEL_EFFORT_NOT_ADMITTED");
+      });
+    });
+  });
+
+  it("refuses campaign emission when output is unbounded (no fake 4k guarantee)", async () => {
+    await runWithProviderEmissionStoreAsync(async () => {
+      beginCampaignEnvelope({
+        maxHttpAttempts: 5,
+        maxOutputTokensPerRequest: 1000,
+        required: true,
+      });
+      await withLaneEnv(async () => {
         assertSdkInvocationAdmission({
           kind: "campaign.probe",
           modelId: "gpt-6.1-terra",
           effort: "medium",
           env: process.env,
         });
-        const body = JSON.stringify({
-          model: "gpt-6.1-terra",
-          max_output_tokens: 50,
+        const r = reserveHttpEmission({
+          url: "https://api.openai.com/v1/responses",
+          body: JSON.stringify({
+            model: "gpt-6.1-terra",
+            reasoning: { effort: "medium" },
+            sfia_estimated_input_tokens: 100,
+          }),
+          effort: "medium",
         });
-        await gated("https://api.openai.com/v1/responses", { method: "POST", body });
-        await gated("https://api.openai.com/v1/responses", { method: "POST", body });
-        await expect(
-          gated("https://api.openai.com/v1/responses", { method: "POST", body }),
-        ).rejects.toBeInstanceOf(ProviderEmissionRefusedError);
-      } finally {
-        for (const k of Object.keys(laneEnv)) {
-          if (prev[k] === undefined) delete process.env[k];
-          else process.env[k] = prev[k]!;
-        }
-      }
-      expect(getEmissionsObservedForTests()).toBe(2);
+        expect(r.ok).toBe(false);
+        if (r.ok) throw new Error("r");
+        expect(r.reason).toContain("OUTPUT_UNBOUNDED");
+      });
     });
   });
 
-  it("releases unused reservation so a later attempt can proceed", () => {
-    runWithProviderEmissionStore(() => {
+  it("releases unused reservation so a later attempt can proceed", async () => {
+    await runWithProviderEmissionStoreAsync(async () => {
       beginCampaignEnvelope({ maxHttpAttempts: 1, required: true });
-      const prev = { ...process.env };
-      Object.assign(process.env, laneEnv);
-      try {
+      await withLaneEnv(() => {
         const a = reserveHttpEmission({
           url: "https://api.openai.com/v1/responses",
-          body: JSON.stringify({ model: "gpt-6.1-terra", max_output_tokens: 10 }),
+          body: JSON.stringify({
+            model: "gpt-6.1-terra",
+            max_output_tokens: 10,
+            sfia_estimated_input_tokens: 100,
+          }),
           effort: "medium",
         });
         expect(a.ok).toBe(true);
@@ -146,47 +191,42 @@ describe("S2 — HTTP provider emission frontier", () => {
         expect(campaignHttpSlotsRemaining()).toBe(1);
         const b = reserveHttpEmission({
           url: "https://api.openai.com/v1/responses",
-          body: JSON.stringify({ model: "gpt-6.1-terra", max_output_tokens: 10 }),
+          body: JSON.stringify({
+            model: "gpt-6.1-terra",
+            max_output_tokens: 10,
+            sfia_estimated_input_tokens: 100,
+          }),
           effort: "medium",
         });
         expect(b.ok).toBe(true);
         if (!b.ok) throw new Error("b");
         commitProviderEmission(b);
         expect(getEmissionsObservedForTests()).toBe(1);
-        // Cannot release after commit
         releaseProviderEmission({ ...b, contacted: false });
         expect(getHttpAttempt(b.attemptId)?.state).toBe("COMMITTED");
-      } finally {
-        for (const k of Object.keys(laneEnv)) {
-          if (prev[k] === undefined) delete process.env[k];
-          else process.env[k] = prev[k]!;
-        }
-      }
+      });
     });
   });
 
-  it("blocks after suspend even if slots remain", () => {
-    runWithProviderEmissionStore(() => {
+  it("blocks after suspend even if slots remain", async () => {
+    await runWithProviderEmissionStoreAsync(async () => {
       beginCampaignEnvelope({ maxHttpAttempts: 5, required: true });
       suspendCampaignEnvelope("TEST_SUSPEND");
-      const prev = { ...process.env };
-      Object.assign(process.env, laneEnv);
-      try {
+      await withLaneEnv(() => {
         const r = reserveHttpEmission({
           url: "https://api.openai.com/v1/responses",
-          body: JSON.stringify({ model: "gpt-6.1-terra", max_output_tokens: 10 }),
+          body: JSON.stringify({
+            model: "gpt-6.1-terra",
+            max_output_tokens: 10,
+            sfia_estimated_input_tokens: 100,
+          }),
           effort: "medium",
         });
         expect(r.ok).toBe(false);
         if (r.ok) throw new Error("r");
         expect(r.reasonCode).toBe("CAMPAIGN_SUSPENDED");
         expect(getActiveCampaignEnvelope()?.suspendReason).toBe("TEST_SUSPEND");
-      } finally {
-        for (const k of Object.keys(laneEnv)) {
-          if (prev[k] === undefined) delete process.env[k];
-          else process.env[k] = prev[k]!;
-        }
-      }
+      });
     });
   });
 
@@ -194,7 +234,7 @@ describe("S2 — HTTP provider emission frontier", () => {
     runWithProviderEmissionStore(() => {
       const r = reserveHttpEmission({
         url: "https://api.openai.com/v1/responses",
-        body: JSON.stringify({ model: "gpt-6.1-terra" }),
+        body: JSON.stringify({ model: "gpt-6.1-terra", max_output_tokens: 10 }),
         effort: "medium",
         env: { STUDIO_LANE: "DEV" } as unknown as NodeJS.ProcessEnv,
       });
@@ -208,25 +248,17 @@ describe("S2 — HTTP provider emission frontier", () => {
     runWithProviderEmissionStore(() => {
       beginCampaignEnvelope({ campaignId: "camp-latch", maxHttpAttempts: 3, required: true });
     });
-    // Outside ALS — latch still active from required campaign
-    const prev = { ...process.env };
-    Object.assign(process.env, laneEnv);
-    try {
-      const r = reserveHttpEmission({
-        url: "https://api.openai.com/v1/responses",
-        body: JSON.stringify({ model: "gpt-6.1-terra", max_output_tokens: 10 }),
-        effort: "medium",
-      });
-      expect(r.ok).toBe(false);
-      if (r.ok) throw new Error("r");
-      expect(r.reasonCode).toBe("CAMPAIGN_REQUIRED_MISSING");
-    } finally {
-      for (const k of Object.keys(laneEnv)) {
-        if (prev[k] === undefined) delete process.env[k];
-        else process.env[k] = prev[k]!;
-      }
-      __resetProviderEmissionFrontierForTests();
-    }
+    // Outside ALS — latch still active
+    const r = reserveHttpEmission({
+      url: "https://api.openai.com/v1/responses",
+      body: JSON.stringify({ model: "gpt-6.1-terra", max_output_tokens: 10 }),
+      effort: "medium",
+      env: laneEnv,
+    });
+    expect(r.ok).toBe(false);
+    if (r.ok) throw new Error("r");
+    expect(r.reasonCode).toBe("CAMPAIGN_REQUIRED_MISSING");
+    __resetProviderEmissionFrontierForTests();
   });
 
   it("does not treat non-OpenAI URLs as provider emissions", async () => {
@@ -243,5 +275,146 @@ describe("S2 — HTTP provider emission frontier", () => {
       expect(getEmissionsObservedForTests()).toBe(0);
       expect(campaignHttpSlotsRemaining()).toBe(1);
     });
+  });
+
+  it("enforces maxDirectOpens on campaign and commits successful opens", () => {
+    runWithProviderEmissionStore(() => {
+      beginCampaignEnvelope({ maxDirectOpens: 1, required: true });
+      expect(assertDirectOpenAllowed().ok).toBe(true);
+      commitDirectOpen();
+      expect(getActiveCampaignEnvelope()?.directOpensCommitted).toBe(1);
+      const blocked = assertDirectOpenAllowed();
+      expect(blocked.ok).toBe(false);
+      if (blocked.ok) throw new Error("blocked");
+      expect(blocked.reasonCode).toBe("CAMPAIGN_ENVELOPE_EXHAUSTED");
+    });
+  });
+
+  it("reserves hosted search when web_search tool appears and maxHostedSearches is set", async () => {
+    const { createHash } = await import("node:crypto");
+    const key = "sk-test-frontier-aaaaaaaaaaaaaaaa";
+    const fp = createHash("sha256").update(key, "utf8").digest("hex").slice(0, 16);
+    await runWithProviderEmissionStoreAsync(async () => {
+      beginCampaignEnvelope({
+        maxHttpAttempts: 2,
+        maxHostedSearches: 1,
+        required: true,
+      });
+      enableHttpMetaCaptureForTests();
+      const body = JSON.stringify({
+        model: "gpt-6.1-terra",
+        max_output_tokens: 50,
+        reasoning: { effort: "medium" },
+        sfia_estimated_input_tokens: 100,
+        tools: [{ type: "web_search" }],
+      });
+      const fakeFetch = (async () =>
+        new Response(JSON.stringify({ id: "r" }), {
+          status: 200,
+          headers: { "content-type": "application/json" },
+        })) as typeof fetch;
+      const gated = createFrontierAwareFetch(fakeFetch);
+      await withLaneEnv(async () => {
+        assertSdkInvocationAdmission({
+          kind: "nora.generate_reply",
+          modelId: "gpt-6.1-terra",
+          effort: "medium",
+          env: process.env,
+        });
+        await gated("https://api.openai.com/v1/responses", { method: "POST", body });
+        expect(getActiveCampaignEnvelope()?.hostedSearchesCommitted).toBe(1);
+        await expect(
+          gated("https://api.openai.com/v1/responses", { method: "POST", body }),
+        ).rejects.toBeInstanceOf(ProviderEmissionRefusedError);
+      });
+    });
+  });
+
+  it("refuses approximate openai hostname (no fuzzy host match)", async () => {
+    await runWithProviderEmissionStoreAsync(async () => {
+      beginCampaignEnvelope({ maxHttpAttempts: 1, required: true });
+      let hit = 0;
+      const fakeFetch = (async () => {
+        hit += 1;
+        return new Response("ok");
+      }) as typeof fetch;
+      const gated = createFrontierAwareFetch(fakeFetch);
+      await gated("https://evil-openai.com/v1/responses", {
+        method: "POST",
+        body: JSON.stringify({ model: "gpt-6.1-terra" }),
+      });
+      expect(hit).toBe(1);
+      expect(getEmissionsObservedForTests()).toBe(0);
+    });
+  });
+});
+
+describe("process-level LIVE campaign attach", () => {
+  it("reattaches the same counters across ALS boundaries", async () => {
+    const {
+      runWithProviderEmissionStore,
+      beginCampaignEnvelope,
+      getActiveCampaignEnvelope,
+      reserveHttpEmission,
+      commitProviderEmission,
+      endProcessCampaign,
+      attachConfiguredLiveCampaignFromEnv,
+      __resetProviderEmissionFrontierForTests,
+    } = await import(
+      "@/domains/conversation/provider-emission-frontier"
+    );
+    __resetProviderEmissionFrontierForTests();
+    endProcessCampaign();
+    runWithProviderEmissionStore(() => {
+      const c = beginCampaignEnvelope({
+        campaignId: "camp-reattach-test",
+        maxHttpAttempts: 5,
+        required: true,
+      });
+      const r = reserveHttpEmission({
+        url: "https://api.openai.com/v1/responses",
+        body: JSON.stringify({
+          model: "gpt-5.1",
+          max_output_tokens: 100,
+          sfia_estimated_input_tokens: 50,
+        }),
+        skipModelAdmission: true,
+      });
+      expect(r.ok).toBe(true);
+      if (r.ok) commitProviderEmission(r);
+      expect(c.httpAttemptsCommitted).toBe(1);
+    });
+    // New ALS — same campaignId must reuse counters.
+    runWithProviderEmissionStore(() => {
+      const c = beginCampaignEnvelope({
+        campaignId: "camp-reattach-test",
+        maxHttpAttempts: 5,
+        required: true,
+      });
+      expect(c.httpAttemptsCommitted).toBe(1);
+      expect(getActiveCampaignEnvelope()?.campaignId).toBe("camp-reattach-test");
+    });
+    const prev = process.env.SFIA_G_LIVE_API;
+    const prevLane = process.env.STUDIO_LANE;
+    process.env.SFIA_G_LIVE_API = "1";
+    process.env.STUDIO_LANE = "DEV";
+    process.env.SFIA_LIVE_CAMPAIGN_ID = "g-live-env-test";
+    process.env.SFIA_LIVE_MAX_HTTP_ATTEMPTS = "3";
+    try {
+      runWithProviderEmissionStore(() => {
+        const c = attachConfiguredLiveCampaignFromEnv();
+        expect(c?.campaignId).toBe("g-live-env-test");
+        expect(c?.maxHttpAttempts).toBe(3);
+      });
+    } finally {
+      if (prev === undefined) delete process.env.SFIA_G_LIVE_API;
+      else process.env.SFIA_G_LIVE_API = prev;
+      if (prevLane === undefined) delete process.env.STUDIO_LANE;
+      else process.env.STUDIO_LANE = prevLane;
+      delete process.env.SFIA_LIVE_CAMPAIGN_ID;
+      delete process.env.SFIA_LIVE_MAX_HTTP_ATTEMPTS;
+      endProcessCampaign();
+      __resetProviderEmissionFrontierForTests();
+    }
   });
 });

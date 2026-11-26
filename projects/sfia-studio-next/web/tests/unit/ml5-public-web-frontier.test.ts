@@ -1,4 +1,8 @@
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
+
+vi.mock("@/domains/conversation/web-public-query-authority", () => ({
+  reverifyWebPublicQueryAuthorityAtEgress: vi.fn(),
+}));
 import {
   __getPublicWebOutboundLogForTests,
   __resetPublicWebOutboundLogForTests,
@@ -24,6 +28,7 @@ function env(partial: Record<string, string>): NodeJS.ProcessEnv {
 
 afterEach(() => {
   __resetPublicWebOutboundLogForTests();
+  vi.clearAllMocks();
 });
 
 describe("ML5 B1 public web frontier", () => {
@@ -49,6 +54,7 @@ describe("ML5 B1 public web frontier", () => {
     const r = await executePublicWebSearch({
       explicitlyAuthorizedExactQuery: exact,
       turnAuthorizedExactQueries: [exact],
+      turnPublicTopics: { rfc9110: exact },
       privateContextMarkers: [secret, "/Users/morris/secret"],
       env: env({ SFIA_WEB_SEARCH_ENABLED: "1" }),
     });
@@ -120,6 +126,25 @@ describe("ML5 B1 public web frontier", () => {
     expect(__getPublicWebOutboundLogForTests()).toHaveLength(0);
   });
 
+  it("refuses open_page when campaign maxDirectOpens is exhausted", async () => {
+    const {
+      beginCampaignEnvelope,
+      runWithProviderEmissionStoreAsync,
+      __resetProviderEmissionFrontierForTests,
+    } = await import("@/domains/conversation/provider-emission-frontier");
+    await runWithProviderEmissionStoreAsync(async () => {
+      beginCampaignEnvelope({ maxDirectOpens: 0, required: true });
+      const r = await executePublicWebOpenPage({
+        url: "https://example.invalid/doc",
+        env: env({ SFIA_WEB_SEARCH_ENABLED: "1" }),
+        allowedUrls: ["https://example.invalid/doc"],
+      });
+      expect(r.status).toBe("DENIED");
+      expect(r.limits).toContain("CAMPAIGN_DIRECT_OPEN_REFUSED");
+    });
+    __resetProviderEmissionFrontierForTests();
+  });
+
   it("C20 open_page refuses URL outside authorized discovery before egress", async () => {
     const r = await executePublicWebOpenPage({
       url: "https://example.invalid/not-discovered",
@@ -157,6 +182,102 @@ describe("ML5 B1 public web frontier", () => {
     expect(c.contradictions).toEqual([]);
     expect(c.notes).toContain("NORA_JUDGES_SEMANTICS");
     expect(c.notes.some((n) => n.startsWith("YEAR_TOKENS_DIVERGE_HINT:"))).toBe(true);
+  });
+
+  describe("S5 — EXPLICIT_AUTHORIZED_EXACT D6 egress (non-catalog)", () => {
+    const exact = "HTTP/3 site:datatracker.ietf.org";
+    const enabled = env({ SFIA_WEB_SEARCH_ENABLED: "1" });
+    const finops = {
+      projectId: "prj_test",
+      ownerPilotId: "pilot_a",
+    };
+
+    it("denies without projectId — no outbound", async () => {
+      const r = await executePublicWebSearch({
+        explicitlyAuthorizedExactQuery: exact,
+        turnAuthorizedExactQueries: [exact],
+        policyVersion: "pol_v3",
+        finops: { ownerPilotId: "pilot_a" },
+        env: enabled,
+      });
+      expect(r.status).toBe("DENIED");
+      expect(r.limits).toContain("WEB_QUERY_EGRESS_D6_DENIED");
+      expect(r.limits).toContain("PROJECT_REQUIRED");
+      expect(__getPublicWebOutboundLogForTests()).toHaveLength(0);
+    });
+
+    it("denies without policyVersion — no outbound", async () => {
+      const r = await executePublicWebSearch({
+        explicitlyAuthorizedExactQuery: exact,
+        turnAuthorizedExactQueries: [exact],
+        finops,
+        env: enabled,
+      });
+      expect(r.status).toBe("DENIED");
+      expect(r.limits).toContain("WEB_QUERY_EGRESS_D6_DENIED");
+      expect(r.limits).toContain("POLICY_VERSION_REQUIRED");
+      expect(__getPublicWebOutboundLogForTests()).toHaveLength(0);
+    });
+
+    it("denies without pilotId — no outbound", async () => {
+      const r = await executePublicWebSearch({
+        explicitlyAuthorizedExactQuery: exact,
+        turnAuthorizedExactQueries: [exact],
+        policyVersion: "pol_v3",
+        finops: { projectId: "prj_test" },
+        env: enabled,
+      });
+      expect(r.status).toBe("DENIED");
+      expect(r.limits).toContain("WEB_QUERY_EGRESS_D6_DENIED");
+      expect(r.limits).toContain("PILOT_REQUIRED");
+      expect(__getPublicWebOutboundLogForTests()).toHaveLength(0);
+    });
+
+    it("turnAuthorizedExactQueries alone do not catalog-bind (D6 still required)", async () => {
+      const { reverifyWebPublicQueryAuthorityAtEgress } = await import(
+        "@/domains/conversation/web-public-query-authority"
+      );
+      vi.mocked(reverifyWebPublicQueryAuthorityAtEgress).mockResolvedValue({
+        allowed: false,
+        reasonCode: "DECISION_NOT_FOUND",
+        reason: "missing",
+      });
+      const r = await executePublicWebSearch({
+        explicitlyAuthorizedExactQuery: exact,
+        turnAuthorizedExactQueries: [exact],
+        policyVersion: "pol_v3",
+        finops,
+        env: enabled,
+      });
+      expect(r.status).toBe("DENIED");
+      expect(r.limits).toContain("WEB_QUERY_EGRESS_D6_DENIED");
+      expect(vi.mocked(reverifyWebPublicQueryAuthorityAtEgress)).toHaveBeenCalled();
+    });
+
+    it("allows egress when D6 reverify passes (mocked)", async () => {
+      const { reverifyWebPublicQueryAuthorityAtEgress } = await import(
+        "@/domains/conversation/web-public-query-authority"
+      );
+      vi.mocked(reverifyWebPublicQueryAuthorityAtEgress).mockResolvedValue({
+        allowed: true,
+        decisionId: "dec_abc",
+        objectRef: "web.public_query:abc",
+        query: exact,
+        source: "HUMAN_DECISION_RECORD",
+      });
+      const r = await executePublicWebSearch({
+        explicitlyAuthorizedExactQuery: exact,
+        turnAuthorizedExactQueries: [exact],
+        turnExactQueryDecisionIds: {
+          [exact.toLowerCase()]: "dec_abc",
+        },
+        policyVersion: "pol_v3",
+        finops,
+        env: enabled,
+      });
+      expect(r.status).toBe("AVAILABLE");
+      expect(__getPublicWebOutboundLogForTests()).toHaveLength(1);
+    });
   });
 
   it("never treats ISOLATION_PROVEN env as attaching hosted tool", async () => {

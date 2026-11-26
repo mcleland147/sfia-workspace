@@ -6,6 +6,7 @@ import {
   readWebPageProgressive,
   readWebPdfPages,
   searchWebPageSession,
+  getWebPageSession,
   getWebPageSessionByViewerToken,
   unionCoverageChars,
 } from "@/domains/conversation/public-web-page-session";
@@ -213,6 +214,136 @@ describe("ML5 progressive WEB page session", () => {
     expect(later.coverage).toBe("PARTIAL");
     expect(later.limits).toContain("NOT_FULLY_CONSULTED");
     expect(getWebPageSessionByViewerToken(later.viewerToken)?.pdfBytes).toBeUndefined();
+  });
+
+  it("enrich footprint counts retained pdf bytes and prior pages", () => {
+    const pdfBytes = new Uint8Array(24_000);
+    const firstPages = [
+      { pageNumber: 1, text: "alpha ".repeat(400) },
+      { pageNumber: 2, text: "beta ".repeat(400) },
+    ];
+    putWebPageSession({
+      scope: SCOPE,
+      url: "https://example.com/enrich-footprint.pdf",
+      kind: "pdf",
+      text: firstPages.map((p) => p.text).join("\n"),
+      pages: firstPages,
+      pageCount: 4,
+      contentFingerprint: "fp-enrich",
+      pdfBytes,
+      limits: ["INITIAL"],
+    });
+
+    const enrichedPages = [
+      ...firstPages,
+      { pageNumber: 3, text: "gamma ".repeat(600) },
+    ];
+    putWebPageSession({
+      scope: SCOPE,
+      url: "https://example.com/enrich-footprint.pdf",
+      kind: "pdf",
+      text: enrichedPages.map((p) => p.text).join("\n"),
+      pages: enrichedPages,
+      pageCount: 4,
+      contentFingerprint: "fp-enrich",
+      limits: ["ENRICHED"],
+    });
+
+    const stats = __webPageSessionStatsForTests();
+    expect(stats.count).toBe(1);
+    expect(stats.memoryBytes).toBeGreaterThanOrEqual(
+      pdfBytes.byteLength +
+        enrichedPages.reduce(
+          (n, p) => n + Buffer.byteLength(p.text, "utf8"),
+          0,
+        ),
+    );
+
+    process.env.SFIA_WEB_PAGE_SESSION_MAX_BYTES = String(
+      pdfBytes.byteLength + 4_000,
+    );
+    putWebPageSession({
+      scope: SCOPE,
+      url: "https://example.com/anchor.pdf",
+      kind: "pdf",
+      text: "anchor",
+      contentFingerprint: "anchor",
+      pdfBytes: new Uint8Array(8_000),
+      limits: [],
+    });
+    expect(
+      getWebPageSession(SCOPE, "https://example.com/enrich-footprint.pdf"),
+    ).toBeNull();
+    expect(
+      getWebPageSession(SCOPE, "https://example.com/anchor.pdf")?.pdfBytes
+        ?.byteLength,
+    ).toBe(8_000);
+    delete process.env.SFIA_WEB_PAGE_SESSION_MAX_BYTES;
+  });
+
+  it("enrich text-only update keeps prior pages in eviction sizing", () => {
+    const pdfBytes = new Uint8Array(12_000);
+    const pages = [{ pageNumber: 1, text: "hold ".repeat(800) }];
+    const url = "https://example.com/text-only-enrich.pdf";
+    putWebPageSession({
+      scope: SCOPE,
+      url,
+      kind: "pdf",
+      text: pages[0]!.text,
+      pages,
+      pageCount: 1,
+      contentFingerprint: "fp-text-enrich",
+      pdfBytes,
+      limits: [],
+    });
+    putWebPageSession({
+      scope: SCOPE,
+      url,
+      kind: "pdf",
+      text: `${pages[0]!.text}\nconsulted overlay`,
+      contentFingerprint: "fp-text-enrich",
+      limits: ["READ_PROGRESS"],
+    });
+    const stats = __webPageSessionStatsForTests();
+    expect(stats.memoryBytes).toBeGreaterThanOrEqual(
+      pdfBytes.byteLength + Buffer.byteLength(pages[0]!.text, "utf8"),
+    );
+    expect(getWebPageSession(SCOPE, url)?.pages?.length).toBe(1);
+    expect(getWebPageSession(SCOPE, url)?.pdfBytes?.byteLength).toBe(
+      pdfBytes.byteLength,
+    );
+  });
+
+  it("enrich without new pdfBytes retains server-side bytes", () => {
+    const pdfBytes = new Uint8Array([0x25, 0x50, 0x44, 0x46, 0x2d, 0x31]);
+    const url = "https://example.com/retain-bytes.pdf";
+    const first = putWebPageSession({
+      scope: SCOPE,
+      url,
+      kind: "pdf",
+      text: "page one",
+      pages: [{ pageNumber: 1, text: "page one" }],
+      pageCount: 2,
+      contentFingerprint: "fp-retain",
+      pdfBytes,
+      limits: [],
+    });
+    const second = putWebPageSession({
+      scope: SCOPE,
+      url,
+      kind: "pdf",
+      text: "page one\npage two expanded",
+      pages: [
+        { pageNumber: 1, text: "page one" },
+        { pageNumber: 2, text: "page two expanded" },
+      ],
+      pageCount: 2,
+      contentFingerprint: "fp-retain",
+      limits: ["TEXT_ENRICHED"],
+    });
+    expect(second.viewerToken).toBe(first.viewerToken);
+    expect(second.pdfBytes?.byteLength).toBe(pdfBytes.byteLength);
+    expect(second.pages?.map((p) => p.pageNumber)).toEqual([1, 2]);
   });
 
   it("evicts oldest sessions when session cap is exceeded", () => {

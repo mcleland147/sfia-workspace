@@ -13,6 +13,10 @@
  */
 
 import type { CognitivePolicy } from "./cognitive-policy";
+import {
+  assertDirectOpenAllowed,
+  commitDirectOpen,
+} from "./provider-emission-frontier";
 import { authorizePublicWebQuery } from "./web-search-authorize";
 import type { ToolSourceJournal } from "./tool-source-journal";
 import { recordToolSource } from "./tool-source-journal";
@@ -290,16 +294,38 @@ export async function executePublicWebSearch(input: {
 
   // S5 — last egress gate for exceptional D6-bound exact queries (catalog exempt).
   if (auth.provenance === "EXPLICIT_AUTHORIZED_EXACT") {
-    const projectId = (input.finops?.projectId ?? "").trim();
-    const pilotId = (input.finops?.ownerPilotId ?? "").trim();
+    const exactNorm = auth.authorizedQuery.replace(/\s+/g, " ").trim().toLowerCase();
     const catalogValues = new Set(
       Object.values(input.turnPublicTopics ?? {})
         .map((q) => q.replace(/\s+/g, " ").trim().toLowerCase())
         .filter(Boolean),
     );
-    const exactNorm = auth.authorizedQuery.replace(/\s+/g, " ").trim().toLowerCase();
     const catalogBound = catalogValues.has(exactNorm);
-    if (projectId && pilotId && !catalogBound) {
+
+    if (!catalogBound) {
+      const projectId = (input.finops?.projectId ?? "").trim();
+      const pilotId = (input.finops?.ownerPilotId ?? "").trim();
+      const policyVersion = (input.policyVersion ?? "").trim();
+
+      const denyD6 = (reasonCode: string): PublicSearchResult => ({
+        status: "DENIED",
+        coverage: "DENIED",
+        query: "",
+        items: [],
+        limits: ["WEB_QUERY_EGRESS_D6_DENIED", reasonCode, ...auth.redactions],
+        mode,
+      });
+
+      if (!projectId) {
+        return denyD6("PROJECT_REQUIRED");
+      }
+      if (!pilotId) {
+        return denyD6("PILOT_REQUIRED");
+      }
+      if (!policyVersion) {
+        return denyD6("POLICY_VERSION_REQUIRED");
+      }
+
       try {
         const { reverifyWebPublicQueryAuthorityAtEgress } = await import(
           "./web-public-query-authority"
@@ -312,22 +338,11 @@ export async function executePublicWebSearch(input: {
           query: auth.authorizedQuery,
           projectId,
           pilotId,
-          policyVersion: input.policyVersion,
+          policyVersion,
           decisionId,
         });
         if (!egressAuth.allowed) {
-          return {
-            status: "DENIED",
-            coverage: "DENIED",
-            query: "",
-            items: [],
-            limits: [
-              "WEB_QUERY_EGRESS_D6_DENIED",
-              egressAuth.reasonCode,
-              ...auth.redactions,
-            ],
-            mode,
-          };
+          return denyD6(egressAuth.reasonCode);
         }
       } catch {
         return {
@@ -335,7 +350,7 @@ export async function executePublicWebSearch(input: {
           coverage: "DENIED",
           query: "",
           items: [],
-          limits: ["WEB_QUERY_EGRESS_AUTHORITY_LOOKUP_FAILED"],
+          limits: ["WEB_QUERY_EGRESS_AUTHORITY_LOOKUP_FAILED", ...auth.redactions],
           mode,
         };
       }
@@ -385,7 +400,14 @@ export async function executePublicWebSearch(input: {
   // LIVE — isolated public search: ONLY the authorized public query leaves this frontier.
   // Never attach private D3/D4/Git context. Hosted webSearchTool stays off the main Nora agent.
   try {
-    const live = await executeIsolatedLiveWebSearch(auth.authorizedQuery, input.finops);
+    const {
+      runWithProviderEmissionStoreAsync,
+      attachConfiguredLiveCampaignFromEnv,
+    } = await import("./provider-emission-frontier");
+    const live = await runWithProviderEmissionStoreAsync(() => {
+      attachConfiguredLiveCampaignFromEnv();
+      return executeIsolatedLiveWebSearch(auth.authorizedQuery, input.finops);
+    });
     return {
       status: live.status,
       coverage: live.items.length ? "DISCOVERED" : "UNKNOWN",
@@ -605,10 +627,10 @@ async function executeIsolatedLiveWebSearch(
   // FinOps — attribute isolated worker consumption; surface persistence failure.
   let finopsPersisted = false;
   try {
-    const { recordNoraProviderUsageFromRunResult } = await import(
+    const { recordNoraProviderUsageWithHttpCorrelation } = await import(
       "./usage-accounting"
     );
-    await recordNoraProviderUsageFromRunResult({
+    await recordNoraProviderUsageWithHttpCorrelation({
       runResult: result,
       status: "succeeded",
       operation: "public_web.isolated_search",
@@ -906,6 +928,21 @@ export async function executePublicWebOpenPage(input: {
       };
     }
   }
+  const directOpenGuard = assertDirectOpenAllowed();
+  if (!directOpenGuard.ok) {
+    return {
+      status: "DENIED",
+      coverage: "DENIED",
+      url: "",
+      excerpt: "",
+      limits: [
+        "CAMPAIGN_DIRECT_OPEN_REFUSED",
+        directOpenGuard.reasonCode,
+        directOpenGuard.reason.slice(0, 120),
+      ],
+      mode,
+    };
+  }
   // C20: journal outbound only after authorization — never before.
   outboundLog.push({
     at: new Date().toISOString(),
@@ -971,6 +1008,7 @@ export async function executePublicWebOpenPage(input: {
         excerpt: initialPages.map((p) => `[p${p.pageNumber}] ${p.text}`).join("\n"),
         limits,
       });
+      commitDirectOpen();
       return {
         status: "AVAILABLE",
         coverage: "PARTIAL",
@@ -1016,6 +1054,7 @@ export async function executePublicWebOpenPage(input: {
       excerpt: excerpt.slice(0, 800),
       limits,
     });
+    commitDirectOpen();
     return {
       status: "AVAILABLE",
       coverage: "PAGE_OPENED",
@@ -1203,6 +1242,7 @@ export async function executePublicWebOpenPage(input: {
           excerpt,
           limits: session.limits,
         });
+        commitDirectOpen();
         return {
           status: "AVAILABLE",
           coverage: "PARTIAL",
@@ -1275,6 +1315,7 @@ export async function executePublicWebOpenPage(input: {
         excerpt: text.slice(0, 8_000),
         limits: session.limits,
       });
+      commitDirectOpen();
       return {
         status: "AVAILABLE",
         coverage: bounded.truncated ? "PARTIAL" : "PAGE_OPENED",

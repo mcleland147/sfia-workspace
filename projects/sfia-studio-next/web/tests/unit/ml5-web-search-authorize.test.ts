@@ -75,6 +75,8 @@ describe("C22 WEB query provenance authorization", () => {
     const r = await executePublicWebSearch({
       explicitlyAuthorizedExactQuery: exact,
       turnAuthorizedExactQueries: [exact],
+      // Independent public topic catalog — not Nora-fed priorExactQueries alone.
+      turnPublicTopics: { owasp_ssrf: exact },
       privateContextMarkers: [privateFact],
       env: { ...process.env, SFIA_WEB_SEARCH_ENABLED: "1", SFIA_WEB_SEARCH_LIVE: "0" },
     });

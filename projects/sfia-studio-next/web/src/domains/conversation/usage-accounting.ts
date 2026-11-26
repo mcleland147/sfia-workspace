@@ -8,11 +8,16 @@ import {
   effectiveTariffRates,
   getTariffEntry,
 } from "./cognitive-resources/tariff-catalog";
+import { getHttpAttemptsSnapshot } from "./provider-emission-frontier";
 import {
   extractProviderUsageFromRunResult,
   type ProviderRequestUsageEntry,
   type ProviderUsageSnapshot,
 } from "./provider-usage";
+
+function httpAttemptLimitMarker(attemptId: string): string {
+  return `HTTP_ATTEMPT:${attemptId}`;
+}
 
 export type CostCoverage = "KNOWN" | "PARTIAL" | "UNKNOWN";
 
@@ -387,6 +392,8 @@ export type NoraProviderUsageHookInput = {
   providerResponseId?: string | null;
   callOrdinal?: number | null;
   errorCategory?: string | null;
+  /** FinOps limits merged before HTTP attempt correlation. */
+  correlationLimits?: string[];
 };
 
 /**
@@ -477,6 +484,7 @@ export async function recordNoraProviderUsageFromRunResult(
   const snapshot = extractProviderUsageFromRunResult(input.runResult);
   const baseLimits = [
     ...snapshot.limits,
+    ...(input.correlationLimits ?? []),
     ...(snapshot.provenance === "UNAVAILABLE" ? ["PROVIDER_USAGE_UNAVAILABLE"] : []),
   ];
   const forcedGranularity = input.granularity;
@@ -547,4 +555,80 @@ export async function recordNoraProviderUsageFromRunResult(
     idempotencyKey,
     limits: aggregateLimits,
   });
+}
+
+/**
+ * Nora FinOps row(s) correlated to frontier HTTP attempts in the same ALS window.
+ * Does not invent per-HTTP token splits when only the SDK aggregate is known.
+ */
+export async function recordNoraProviderUsageWithHttpCorrelation(
+  input: NoraProviderUsageHookInput,
+): Promise<RecordProviderUsageObservationResult> {
+  const httpAttempts = getHttpAttemptsSnapshot();
+  const sdkAttemptId = input.attemptId?.trim() ?? "";
+
+  if (httpAttempts.length === 0) {
+    return recordNoraProviderUsageFromRunResult(input);
+  }
+
+  if (httpAttempts.length === 1) {
+    const http = httpAttempts[0]!;
+    const correlationLimits = [httpAttemptLimitMarker(http.attemptId)];
+    if (sdkAttemptId && sdkAttemptId !== http.attemptId) {
+      correlationLimits.push(`SDK_ATTEMPT:${sdkAttemptId}`);
+    }
+    return recordNoraProviderUsageFromRunResult({
+      ...input,
+      attemptId: http.attemptId,
+      correlationLimits,
+    });
+  }
+
+  const correlationLimits = [
+    "MULTI_HTTP_ATTEMPT_AGGREGATE",
+    ...httpAttempts.map((h) => httpAttemptLimitMarker(h.attemptId)),
+  ];
+  if (sdkAttemptId) correlationLimits.push(`SDK_ATTEMPT:${sdkAttemptId}`);
+
+  const primary = await recordNoraProviderUsageFromRunResult({
+    ...input,
+    correlationLimits,
+  });
+
+  const scope = idempotencyScope(input);
+  for (let i = 0; i < httpAttempts.length; i++) {
+    const http = httpAttempts[i]!;
+    const idempotencyKey = buildIdempotencyKey({
+      ...scope,
+      granularity: "REQUEST",
+      operation: input.operation,
+      attemptId: http.attemptId,
+      generationId: input.generationId,
+      segmentIndex: input.segmentIndex,
+      providerResponseId: input.providerResponseId,
+      callOrdinal: 900 + i,
+    });
+    await recordProviderUsageObservation({
+      ...observationCommon(input),
+      attemptId: http.attemptId,
+      granularity: "REQUEST",
+      status: input.status,
+      inputTokens: null,
+      outputTokens: null,
+      totalTokens: null,
+      cachedInputTokens: null,
+      reasoningTokens: null,
+      providerRequests: 1,
+      costCoverage: "PARTIAL",
+      estimatedCostUsd: null,
+      idempotencyKey,
+      limits: [
+        "HTTP_ATTEMPT_USAGE_UNKNOWN",
+        httpAttemptLimitMarker(http.attemptId),
+        ...(sdkAttemptId ? [`SDK_ATTEMPT:${sdkAttemptId}`] : []),
+      ],
+    });
+  }
+
+  return primary;
 }

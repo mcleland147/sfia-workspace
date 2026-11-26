@@ -40,6 +40,7 @@ describe("C19 I3 WEB sanitize / egress confidentiality", () => {
       const r = await executePublicWebSearch({
         explicitlyAuthorizedExactQuery: exact,
         turnAuthorizedExactQueries: [exact],
+        turnPublicTopics: { markdown_spec: exact },
         privateContextMarkers: ["proj_should_not_appear_zzzzzzzz"],
       });
       expect(r.status).toBe("AVAILABLE");

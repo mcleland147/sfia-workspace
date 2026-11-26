@@ -185,7 +185,28 @@ describe("ML5 pdf-viewer authorization (assess)", () => {
       },
     });
     expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.error).toBe("VIEWER_WORK_PROJECT_MISMATCH");
+    if (!r.ok) {
+      expect(r.error).toBe("VIEWER_WORK_PROJECT_MISMATCH");
+      expect(r.limits).toContain("WORK_PROJECT_BINDING");
+    }
+  });
+
+  it("refuses project-scoped session when work has no project binding", () => {
+    const page = seedPdfSession();
+    const r = assessPdfViewerAccess({
+      session: { pilotId: SCOPE.ownerPilotId, sessionId: "sess-1" },
+      page,
+      processLane: "DEV",
+      habilitation: {
+        ...HAB,
+        workProjectId: null,
+      },
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) {
+      expect(r.error).toBe("VIEWER_WORK_PROJECT_REQUIRED");
+      expect(r.limits).toContain("WORK_PROJECT_BINDING");
+    }
   });
 
   it("refuses missing project scope (no opposable contract)", () => {

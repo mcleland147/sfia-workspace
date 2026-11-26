@@ -166,7 +166,15 @@ export function assessPdfViewerAccess(input: {
       limits: [TOKEN_NOT_AUTH],
     };
   }
-  if (hab.workProjectId && hab.workProjectId !== projectId) {
+  if (!hab.workProjectId) {
+    return {
+      ok: false,
+      status: 403,
+      error: "VIEWER_WORK_PROJECT_REQUIRED",
+      limits: [TOKEN_NOT_AUTH, "WORK_PROJECT_BINDING"],
+    };
+  }
+  if (hab.workProjectId !== projectId) {
     return {
       ok: false,
       status: 403,

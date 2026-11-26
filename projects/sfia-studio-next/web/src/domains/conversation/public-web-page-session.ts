@@ -215,11 +215,15 @@ export function putWebPageSession(input: {
         ? existing.pdfBytes
         : undefined);
 
+  const pagesForSession = fingerprintChanged
+    ? input.pages
+    : (input.pages ?? existing?.pages);
+
   // Enforce memory limits also when enriching an existing session.
   const nextFootprint =
     (retainedPdf?.byteLength ?? 0) +
     Buffer.byteLength(input.text, "utf8") +
-    (input.pages ?? []).reduce((n, p) => n + Buffer.byteLength(p.text, "utf8"), 0);
+    (pagesForSession ?? []).reduce((n, p) => n + Buffer.byteLength(p.text, "utf8"), 0);
   if (existing) {
     // Temporarily remove existing from accounting for eviction sizing.
     sessions.delete(k);
@@ -240,9 +244,7 @@ export function putWebPageSession(input: {
     url: input.url,
     kind: input.kind,
     text: input.text,
-    pages: fingerprintChanged
-      ? input.pages
-      : (input.pages ?? existing?.pages),
+    pages: pagesForSession,
     pageCount: fingerprintChanged
       ? input.pageCount
       : (input.pageCount ?? existing?.pageCount),

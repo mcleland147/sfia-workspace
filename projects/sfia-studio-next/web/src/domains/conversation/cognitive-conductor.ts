@@ -462,7 +462,12 @@ export async function runCognitiveConductor(
           ),
     });
     if (!again.ok) {
-      if (again.softStop && !restitutionPhase) {
+      const hasAcquisAfter =
+        investigation.sources.some((s) =>
+          ["CONSULTED", "VERIFIED", "PARTIAL"].includes(s.coverage),
+        ) || (investigation.conclusions?.length ?? 0) > 0;
+      // Soft-stop enters restitution only when acquis exist — otherwise suspend honestly.
+      if (again.softStop && !restitutionPhase && hasAcquisAfter) {
         restitutionPhase = true;
         resources = {
           ...resources,
