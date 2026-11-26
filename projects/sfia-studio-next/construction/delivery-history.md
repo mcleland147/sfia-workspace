@@ -3,6 +3,32 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-26-ML5-DOCUMENTARY-BOUNDARY-RECETTE-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-26 (Europe/Paris) |
+| Macro-lot | ML5 R5 — mise à disposition RECETTE du correctif frontière documentaire |
+| Type | INC Critical · cutover RECETTE · **NO RELEASE** · **NO PR/MERGE/STABLE** |
+| Branche source | `sfia/next-ml5-integrated-delivery-20261123` |
+| Candidate SHA **servi** | `70cf3e4aa09a8bc35be5bd967b6b016ecb2b779a` |
+| Tree / web tree | `87598f3b9d9615d7976d21e2393fa6adfd666722` / `9169c0c0a17ee6555e43dc4b14810b2d2e7ec2c1` |
+| Worktree RECETTE | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-70cf3e4aa09a` |
+| BUILD_ID RECETTE | `m5QcOrvjUz8vVAidDKxOZ` · digest `4cbf3c8da39a34e15d59da93d76b5d6bd10987f54ef36c0c36a485f43afe3de7` |
+| URL | `http://127.0.0.1:3200` · PG `:5434` · base `sfia_next_recette_ml4` |
+| Cognition effective | OPERATIONAL_PROVISIONAL · **2M / 1M / 120** |
+| WEB LIVE | **BLOQUÉ** (0/0/0) |
+| Contenu | Bascule technique du candidat DEV frontière production documentaire + visionneuse + activité LIVE ; **aucun correctif nouveau** ; smoke technique uniquement |
+| Preuves | login 200 · portfolio 401 · auto-session 403 · BUILD HTML `m5QcOrvjUz8vVAidDKxOZ` · counts Δ=0 · DEV préservé `:3100`/`bRStInNJBp4q4p6qIzcK3` |
+| Données AVANT/APRÈS | projects=31 documents=123 revisions=194 conversations=210 messages=818 pilots=170 cog_works=22 ckpts=163 activity=240 preparations=210 (**Δ=0**) |
+| Sauvegarde | `/Users/morris/Projects/sfia-recette-backups/ml5-20261126T055559Z-pre-70cf3e4a-from-e012401f.sql.gz` · sha256 `c76d8187691189f6ffca1215f82e1c9d016e04be33a9f233393c99622b5acced` |
+| Rollback code | worktree `…-e012401f6af4` · build `KotrF7y02wbZN79HDsjAb` · plist bak `…20261126T055700Z.pre-boundary-cutover-e012401f6af4.bak` · start `start-recette-ml5-KotrF7y02wbZN79HDsjAb.sh` |
+| DEV | **préservé** `:3100` / `:5433` · build `bRStInNJBp4q4p6qIzcK3` · tip local `70cf3e4a` |
+| Push produit | **NONE** |
+| Réserves UAT Morris | hors-périmètre documentaire ; V2 après conservation ; V1 historique ; candidat sans focus ; activité LIVE lisibilité/historique ; animation SAS ; IT-01 ouverte ; IT-06 à accepter en UAT ; limites DEV qualif / échecs préexistants |
+| Concordance | Build DEV qualifié `bRStInNJBp4q4p6qIzcK3` réalisé **avant** commit final ; sources produit testées = fichiers du commit `70cf3e4a` (web tree `9169c0c0…`) ; RECETTE reconstruite **exclusivement** depuis ce SHA figé |
+| Verdict | **ML5 DOCUMENTARY CORRECTIVE CANDIDATE — RECETTE AVAILABLE WITH EXPLICIT RESERVES — READY FOR MORRIS UAT** |
+
 ## delivery_id: DELIV-2026-11-26-ML5-DOCUMENTARY-PRODUCTION-BOUNDARY-DEV
 
 | Field | Value |
