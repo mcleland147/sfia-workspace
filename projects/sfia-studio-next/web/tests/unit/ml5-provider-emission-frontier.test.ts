@@ -141,7 +141,38 @@ describe("S2/A — HTTP provider emission frontier", () => {
     });
   });
 
-  it("refuses campaign emission when output is unbounded (no fake 4k guarantee)", async () => {
+  it("refuses campaign emission when output is unbounded without per-request ceiling", async () => {
+    await runWithProviderEmissionStoreAsync(async () => {
+      beginCampaignEnvelope({
+        maxHttpAttempts: 5,
+        maxOutputTokens: 50_000,
+        // no maxOutputTokensPerRequest → cannot reserve without payload bound
+        required: true,
+      });
+      await withLaneEnv(async () => {
+        assertSdkInvocationAdmission({
+          kind: "campaign.probe",
+          modelId: "gpt-6.1-terra",
+          effort: "medium",
+          env: process.env,
+        });
+        const r = reserveHttpEmission({
+          url: "https://api.openai.com/v1/responses",
+          body: JSON.stringify({
+            model: "gpt-6.1-terra",
+            reasoning: { effort: "medium" },
+            sfia_estimated_input_tokens: 100,
+          }),
+          effort: "medium",
+        });
+        expect(r.ok).toBe(false);
+        if (r.ok) throw new Error("r");
+        expect(r.reason).toContain("OUTPUT_UNBOUNDED");
+      });
+    });
+  });
+
+  it("reserves using campaign per-request output ceiling when payload omits max_output_tokens", async () => {
     await runWithProviderEmissionStoreAsync(async () => {
       beginCampaignEnvelope({
         maxHttpAttempts: 5,
@@ -164,9 +195,9 @@ describe("S2/A — HTTP provider emission frontier", () => {
           }),
           effort: "medium",
         });
-        expect(r.ok).toBe(false);
-        if (r.ok) throw new Error("r");
-        expect(r.reason).toContain("OUTPUT_UNBOUNDED");
+        expect(r.ok).toBe(true);
+        if (!r.ok) throw new Error("r");
+        expect(r.reservedOutputTokens).toBe(1000);
       });
     });
   });

@@ -100,6 +100,36 @@ async function turn(target, content, extra = {}) {
   });
 }
 
+function extractReply(json) {
+  if (!json || typeof json !== "object") return "";
+  if (typeof json.content === "string" && json.content.trim()) return json.content;
+  if (typeof json.reply === "string" && json.reply.trim()) return json.reply;
+  const msgs = Array.isArray(json.messages) ? json.messages : [];
+  for (let i = msgs.length - 1; i >= 0; i--) {
+    const m = msgs[i];
+    if (
+      m &&
+      (m.role === "assistant" || m.author === "assistant" || m.kind === "assistant") &&
+      typeof m.content === "string" &&
+      m.content.trim()
+    ) {
+      return m.content;
+    }
+  }
+  const am = json.assistantMessage;
+  if (am && typeof am.content === "string") return am.content;
+  return "";
+}
+
+function extractWorkId(json) {
+  return (
+    json?.cognitiveWork?.workId ||
+    json?.cognitiveWorkId ||
+    json?.workId ||
+    null
+  );
+}
+
 try {
   const health = await api("/login");
   step("health", { status: health.status });
@@ -122,21 +152,14 @@ try {
     `LIVE-01 ${runId}: en une phrase, confirme que tu es Nora et que le socle cognitif répond. Aucune recherche web. Aucun outil Git.`,
   );
   save("02-live01", live01);
-  const reply01 =
-    live01.json?.assistantMessage?.content ||
-    live01.json?.message?.content ||
-    live01.json?.reply ||
-    live01.json?._raw ||
-    "";
-  const workId01 =
-    live01.json?.cognitiveWorkId ||
-    live01.json?.workId ||
-    live01.json?.assistantMessage?.cognitiveWorkId ||
-    null;
+  const reply01 = extractReply(live01.json);
+  const workId01 = extractWorkId(live01.json);
   step("LIVE-01", {
     status: live01.status,
     ms: Date.now() - t0,
     workId: workId01,
+    noraStatus: live01.json?.status,
+    attemptNotes: live01.json?.attempts?.[0]?.notes ?? null,
     replyChars: String(reply01).length,
     replyPreview: String(reply01).slice(0, 280),
   });
@@ -144,7 +167,10 @@ try {
     status: live01.status,
     ms: Date.now() - t0,
     workId: workId01,
-    reply: String(reply01).slice(0, 2000),
+    noraStatus: live01.json?.status,
+    attempts: live01.json?.attempts ?? [],
+    generationId: live01.json?.generationId ?? null,
+    reply: String(reply01).slice(0, 4000),
   };
   if (live01.status < 200 || live01.status >= 300) {
     throw new Error(`LIVE-01 HTTP ${live01.status}`);
@@ -156,18 +182,12 @@ try {
     `LIVE-02 ${runId}: sans recherche web, résume en 5 lignes maximum le rôle de Nora dans Studio Next (allocation cognitive, conducteur, FinOps). Si des acquis existent déjà, mobilise-les. Ne relance pas une investigation exhaustive.`,
   );
   save("03-live02", live02);
-  const reply02 =
-    live02.json?.assistantMessage?.content ||
-    live02.json?.message?.content ||
-    live02.json?.reply ||
-    "";
-  const workId02 =
-    live02.json?.cognitiveWorkId ||
-    live02.json?.workId ||
-    live02.json?.assistantMessage?.cognitiveWorkId ||
-    workId01;
+  const reply02 = extractReply(live02.json);
+  const workId02 = extractWorkId(live02.json) || workId01;
   step("LIVE-02", {
     status: live02.status,
+    noraStatus: live02.json?.status,
+    attemptNotes: live02.json?.attempts?.[0]?.notes ?? null,
     replyChars: String(reply02).length,
     workId: workId02,
     replyPreview: String(reply02).slice(0, 280),
@@ -175,6 +195,9 @@ try {
   report.scenarios.LIVE02 = {
     status: live02.status,
     workId: workId02,
+    noraStatus: live02.json?.status,
+    attempts: live02.json?.attempts ?? [],
+    generationId: live02.json?.generationId ?? null,
     reply: String(reply02).slice(0, 4000),
   };
 
@@ -184,18 +207,19 @@ try {
     `LIVE-03 ${runId}: produis une courte note technique (8 lignes max) consolidant les acquis de ce fil. Pas de nouvelle investigation. Cite uniquement ce qui est déjà établi.`,
   );
   save("04-live03", live03);
-  const reply03 =
-    live03.json?.assistantMessage?.content ||
-    live03.json?.message?.content ||
-    live03.json?.reply ||
-    "";
+  const reply03 = extractReply(live03.json);
   step("LIVE-03", {
     status: live03.status,
+    noraStatus: live03.json?.status,
+    attemptNotes: live03.json?.attempts?.[0]?.notes ?? null,
     replyChars: String(reply03).length,
     replyPreview: String(reply03).slice(0, 400),
   });
   report.scenarios.LIVE03 = {
     status: live03.status,
+    noraStatus: live03.json?.status,
+    attempts: live03.json?.attempts ?? [],
+    generationId: live03.json?.generationId ?? null,
     reply: String(reply03).slice(0, 4000),
   };
 
@@ -275,6 +299,7 @@ try {
 
   const ok =
     report.scenarios.LIVE01.status === 200 &&
+    report.scenarios.LIVE01.noraStatus === "COMPLETE" &&
     String(report.scenarios.LIVE01.reply || "").length > 20 &&
     usageRows.length >= 1;
   report.verdict = ok

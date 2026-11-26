@@ -741,32 +741,44 @@ export function reserveHttpEmission(input: {
     };
   }
 
-  // Campaign token limits require demonstrable bounds — estimates ≠ guarantees.
-  const reservedInput = demonstrableInputTokenBound(bodyJson);
-  const reservedOutput = demonstrableOutputTokenBound(bodyJson);
+  // Campaign token limits require an opposable reservation before contact.
+  // Demonstrable payload bounds preferred; otherwise the campaign per-request
+  // ceiling may be used as a RESERVATION (worst-case charge) — never as a
+  // measured usage claim. Output still must be injected onto the wire payload
+  // by createFrontierAwareFetch when the SDK omits max_output_tokens.
+  let reservedInput = demonstrableInputTokenBound(bodyJson);
+  let reservedOutput = demonstrableOutputTokenBound(bodyJson);
 
   if (
-    (campaign.maxInputTokens != null || campaign.maxInputTokensPerRequest != null) &&
-    reservedInput == null
+    reservedInput == null &&
+    (campaign.maxInputTokens != null || campaign.maxInputTokensPerRequest != null)
   ) {
-    return {
-      ok: false,
-      reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
-      reason:
-        "INPUT_UNBOUNDED — campaign input limit set but no demonstrable input bound on emission",
-    };
+    if (campaign.maxInputTokensPerRequest != null) {
+      reservedInput = campaign.maxInputTokensPerRequest;
+    } else {
+      return {
+        ok: false,
+        reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
+        reason:
+          "INPUT_UNBOUNDED — campaign input limit set but no per-request ceiling or demonstrable bound",
+      };
+    }
   }
   if (
+    reservedOutput == null &&
     (campaign.maxOutputTokens != null ||
-      campaign.maxOutputTokensPerRequest != null) &&
-    reservedOutput == null
+      campaign.maxOutputTokensPerRequest != null)
   ) {
-    return {
-      ok: false,
-      reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
-      reason:
-        "OUTPUT_UNBOUNDED — campaign output limit set but max_output_tokens missing on emission",
-    };
+    if (campaign.maxOutputTokensPerRequest != null) {
+      reservedOutput = campaign.maxOutputTokensPerRequest;
+    } else {
+      return {
+        ok: false,
+        reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
+        reason:
+          "OUTPUT_UNBOUNDED — campaign output limit set but no per-request ceiling or max_output_tokens",
+      };
+    }
   }
 
   const inTok = reservedInput ?? 0;
@@ -1149,11 +1161,25 @@ export function createFrontierAwareFetch(
     }
 
     const method = (init?.method ?? "POST").toUpperCase();
-    const body = init?.body ?? null;
-    const bodyJson = parseJsonBody(body);
+    let body = init?.body ?? null;
+    let bodyJson = parseJsonBody(body);
+    const campaign = alsStore.campaign;
+    // Inject opposable max_output_tokens onto the real provider payload when the
+    // campaign sets a per-request ceiling and the SDK omitted the field.
+    if (
+      campaign?.maxOutputTokensPerRequest != null &&
+      bodyJson &&
+      demonstrableOutputTokenBound(bodyJson) == null
+    ) {
+      bodyJson = {
+        ...bodyJson,
+        max_output_tokens: campaign.maxOutputTokensPerRequest,
+      };
+      body = JSON.stringify(bodyJson);
+    }
     const hostedSearchDelta = inferHostedSearchDeltaFromBody(
       bodyJson,
-      alsStore.campaign,
+      campaign,
     );
     const reservation = reserveHttpEmission({
       kind: "http.responses",
@@ -1172,19 +1198,22 @@ export function createFrontierAwareFetch(
     }
 
     if (alsStore.captureHttpMeta) {
-      const parsed = parseJsonBody(body);
       alsStore.httpBodiesObserved.push({
         attemptId: reservation.attemptId,
         url,
         method,
-        model: modelFromBody(parsed),
-        effort: effortFromBody(parsed),
-        maxOutputTokens: demonstrableOutputTokenBound(parsed),
+        model: modelFromBody(bodyJson),
+        effort: effortFromBody(bodyJson),
+        maxOutputTokens: demonstrableOutputTokenBound(bodyJson),
       });
     }
 
+    const nextInit =
+      body === init?.body || init == null
+        ? init
+        : { ...init, body };
     try {
-      const res = await baseFetch(input, init);
+      const res = await baseFetch(input, nextInit);
       commitProviderEmission({
         attemptId: reservation.attemptId,
         reservedSlots: reservation.reservedSlots,
