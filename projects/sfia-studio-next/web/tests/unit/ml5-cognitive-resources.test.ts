@@ -36,9 +36,31 @@ describe("ML5 E02 — cognitive resource catalog", () => {
     expect(luna?.documentedEfforts).toContain("none");
   });
 
-  it("keeps Sol medium as operational default aligned with study model", () => {
-    expect(OPERATIONAL_DEFAULT_RESOURCE.modelId).toBe(NORA_STUDY_MODEL);
+  it("uses Terra medium as provisional operational default; Sol remains study/rollback", () => {
+    expect(OPERATIONAL_DEFAULT_RESOURCE.modelId).toBe("gpt-6.1-terra");
     expect(OPERATIONAL_DEFAULT_RESOURCE.effort).toBe("medium");
+    expect(NORA_STUDY_MODEL).toBe("gpt-6.2-sol");
+  });
+
+  it("legacy_sol restores Sol medium default without structural rewrite", async () => {
+    const prev = process.env.SFIA_COG_PROVISIONAL_POLICY;
+    try {
+      process.env.SFIA_COG_PROVISIONAL_POLICY = "legacy_sol";
+      const { resolveOperationalDefaultResource, activeProvisionalPolicyId } =
+        await import("@/domains/conversation/cognitive-resources");
+      expect(activeProvisionalPolicyId()).toBe("legacy_sol");
+      expect(resolveOperationalDefaultResource()).toEqual({
+        modelId: "gpt-6.2-sol",
+        effort: "medium",
+      });
+      const p = buildCognitivePolicy("Bonjour", "TEST_BOUNDARY");
+      expect(p.modelRequested).toBe("gpt-6.2-sol");
+      expect(p.effortRequested).toBe("medium");
+      expect(p.reasonCodes).toContain("COG_POLICY_LEGACY_SOL");
+    } finally {
+      if (prev === undefined) delete process.env.SFIA_COG_PROVISIONAL_POLICY;
+      else process.env.SFIA_COG_PROVISIONAL_POLICY = prev;
+    }
   });
 });
 
@@ -146,11 +168,27 @@ describe("ML5 E02 — resource admission", () => {
     );
   });
 
-  it("operational rejects uncalibrated Luna/Terra couples", () => {
+  it("provisional v0.1 admits Terra medium and Luna medium; candidates stay refused", () => {
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.1";
+    expect(admitModelEffort("gpt-6.1-terra", "medium", "operational").admitted).toBe(
+      true,
+    );
+    expect(admitModelEffort("gpt-6-luna", "medium", "operational").admitted).toBe(
+      true,
+    );
+    expect(admitModelEffort("gpt-6.1-terra", "high", "operational").admitted).toBe(
+      false,
+    );
+    expect(admitModelEffort("gpt-6-luna", "low", "operational").admitted).toBe(false);
+    expect(admitModelEffort("gpt-6-luna", "high", "operational").admitted).toBe(false);
+  });
+
+  it("legacy_sol policy refuses Luna/Terra operational couples", () => {
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "legacy_sol";
     expect(admitModelEffort("gpt-6-luna", "medium", "operational").admitted).toBe(
       false,
     );
-    expect(admitModelEffort("gpt-6.1-terra", "high", "operational").admitted).toBe(
+    expect(admitModelEffort("gpt-6.1-terra", "medium", "operational").admitted).toBe(
       false,
     );
   });
@@ -175,13 +213,24 @@ describe("ML5 E02 — resolveAdmittedResource", () => {
     else process.env.SFIA_COGNITIVE_ADMISSION_MODE = prevMode;
   });
 
-  it("operational refuses Luna with explicit fallback codes", () => {
+  it("provisional v0.1 admits Luna medium without Sol fallback", () => {
     process.env.SFIA_COGNITIVE_ADMISSION_MODE = "operational";
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.1";
     const r = resolveAdmittedResource({ modelId: "gpt-6-luna", effort: "medium" });
-    expect(r.modelId).toBe("gpt-6.2-sol");
+    expect(r.modelId).toBe("gpt-6-luna");
     expect(r.effort).toBe("medium");
-    expect(r.reasonCodes).toContain("RESOURCE_REFUSED_UNCALIBRATED_MODEL_OPERATIONAL");
-    expect(r.reasonCodes).toContain("RESOURCE_FALLBACK_OPERATIONAL_DEFAULT");
+    expect(r.reasonCodes).toContain("RESOURCE_ADMITTED_OPERATIONAL");
+  });
+
+  it("provisional candidate Luna low preserves effort via Sol historical path", () => {
+    process.env.SFIA_COGNITIVE_ADMISSION_MODE = "operational";
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.1";
+    const r = resolveAdmittedResource({ modelId: "gpt-6-luna", effort: "low" });
+    // Luna low candidate → same-model downgrade none admitted at low → Sol@low.
+    expect(r.modelId).toBe("gpt-6.2-sol");
+    expect(r.effort).toBe("low");
+    expect(r.reasonCodes).toContain("RESOURCE_REFUSED_PROVISIONAL_CANDIDATE_NOT_ADMITTED");
+    expect(r.reasonCodes).toContain("RESOURCE_FALLBACK_SOL_SAME_EFFORT");
   });
 
   it("calibration admits Luna operational couple", () => {
@@ -312,17 +361,20 @@ describe("ML5 S3 — resolveContinuityCognitivePolicy", () => {
     expect(p.reasonCodes).toContain("RESOURCE_CONTINUITY_EFFORT_CHANGE");
   });
 
-  it("refuses incompatible Luna in operational mode and holds Terra", () => {
+  it("refuses provisional candidate Luna high and holds Sol", () => {
     process.env.SFIA_COGNITIVE_ADMISSION_MODE = "operational";
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.1";
     const p = resolveContinuityCognitivePolicy({
       seed: "refuse",
       overrideType: "TEST_BOUNDARY",
-      proposal: { modelId: "gpt-6-luna", effort: "medium" },
+      proposal: { modelId: "gpt-6-luna", effort: "high" },
       held: { modelId: "gpt-6.2-sol", effort: "medium" },
     });
     expect(p.modelRequested).toBe("gpt-6.2-sol");
     expect(p.effortRequested).toBe("medium");
     expect(p.reasonCodes).toContain("RESOURCE_CONTINUITY_HOLD_AFTER_REFUSAL");
-    expect(p.reasonCodes.some((c) => c.startsWith("RESOURCE_REFUSED_"))).toBe(true);
+    expect(p.reasonCodes).toContain(
+      "RESOURCE_REFUSED_PROVISIONAL_CANDIDATE_NOT_ADMITTED",
+    );
   });
 });

@@ -1155,6 +1155,23 @@ export async function runNoraCognitiveTurn(
         modelId: work.resources.modelRequested ?? null,
         effort: work.resources.effortRequested ?? null,
       };
+      const asEffortHint = (
+        value: string | null | undefined,
+        fallback: "low" | "medium" | "high",
+      ): "low" | "medium" | "high" | "none" | "xhigh" | "max" => {
+        const v = (value || "").trim();
+        if (
+          v === "none" ||
+          v === "low" ||
+          v === "medium" ||
+          v === "high" ||
+          v === "xhigh" ||
+          v === "max"
+        ) {
+          return v;
+        }
+        return fallback;
+      };
       let base =
         segmentIndex === 0 && input.policyOverride
           ? input.policyOverride
@@ -1162,7 +1179,11 @@ export async function runNoraCognitiveTurn(
             ? resolveContinuityCognitivePolicy({
                 seed,
                 profileHint: hint === "simple" ? "simple" : "analyse",
-                effortHint: "medium",
+                // Prefer Nora proposal / held couple; medium only as technical default.
+                effortHint: asEffortHint(
+                  proposal.effort || held.effort,
+                  "medium",
+                ),
                 proposal,
                 held,
               })
@@ -1170,7 +1191,10 @@ export async function runNoraCognitiveTurn(
               ? resolveContinuityCognitivePolicy({
                   seed,
                   profileHint: "investigation",
-                  effortHint: proposal.effort || "high",
+                  effortHint: asEffortHint(
+                    proposal.effort || held.effort,
+                    "high",
+                  ),
                   proposal,
                   held,
                 })
@@ -1178,7 +1202,10 @@ export async function runNoraCognitiveTurn(
                 ? resolveContinuityCognitivePolicy({
                     seed,
                     profileHint: "simple",
-                    effortHint: proposal.effort || "low",
+                    effortHint: asEffortHint(
+                      proposal.effort || held.effort,
+                      "low",
+                    ),
                     proposal,
                     held,
                   })
@@ -1188,6 +1215,15 @@ export async function runNoraCognitiveTurn(
                     proposal,
                     held,
                   });
+      if (restitutionPhase && !proposal.effort && !held.effort) {
+        base = {
+          ...base,
+          reasonCodes: [
+            ...base.reasonCodes,
+            "TECHNICAL_EFFORT_DEFAULT_MEDIUM_RESTITUTION",
+          ],
+        };
+      }
       if (reevalActive) {
         base = {
           ...base,

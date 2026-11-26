@@ -1,6 +1,6 @@
 /**
  * ML5 E02 — server-side admission of model×effort couples (fail-closed).
- * Does not judge semantic adequacy; enforces catalog, calibration and Sol `none` rule.
+ * Does not judge semantic adequacy; enforces catalog, provisional policy and Sol `none` rule.
  */
 
 import {
@@ -9,6 +9,11 @@ import {
   getResourceCatalogEntry,
   isDocumentedEffortForModel,
 } from "./resource-catalog";
+import {
+  activeProvisionalPolicyId,
+  isProvisionalV01AdmittedCouple,
+  isProvisionalV01CandidateCouple,
+} from "./provisional-cognitive-policy";
 
 export type ResourceAdmissionMode = "operational" | "calibration";
 
@@ -34,7 +39,8 @@ export type ResourceAdmissionResult =
         | "SOL_NONE_REJECTED"
         | "UNCALIBRATED_MODEL_OPERATIONAL"
         | "EFFORT_NOT_OPERATIONALLY_ADMITTED"
-        | "SOL_EFFORT_NOT_OPERATIONAL_BAND";
+        | "SOL_EFFORT_NOT_OPERATIONAL_BAND"
+        | "PROVISIONAL_CANDIDATE_NOT_ADMITTED";
       reason: string;
     };
 
@@ -71,14 +77,41 @@ export function admitModelEffort(
     };
   }
 
-  if (mode === "operational") {
+  if (mode === "calibration") {
     if (entry.admissionStatus === "documented_candidate") {
+      return { admitted: true, modelId, effort, mode };
+    }
+    if (modelId === "gpt-6.2-sol") {
+      return { admitted: true, modelId, effort, mode };
+    }
+  }
+
+  if (mode === "operational") {
+    const policyId = activeProvisionalPolicyId();
+
+    // Provisional v0.1 — admit Morris-validated couples without promoting catalog status.
+    if (
+      policyId === "v0.1" &&
+      isProvisionalV01AdmittedCouple(modelId, effort)
+    ) {
+      return { admitted: true, modelId, effort, mode };
+    }
+
+    if (
+      policyId === "v0.1" &&
+      isProvisionalV01CandidateCouple(modelId, effort)
+    ) {
       return {
         admitted: false,
         mode,
-        reasonCode: "UNCALIBRATED_MODEL_OPERATIONAL",
-        reason: `${modelId} est candidat documenté — admission opérationnelle après calibration`,
+        reasonCode: "PROVISIONAL_CANDIDATE_NOT_ADMITTED",
+        reason: `${modelId}@${effort} est candidat provisoire — qualification Morris requise avant admission`,
       };
+    }
+
+    // Legacy Sol-only operational band (rollback) or Sol historical path.
+    if (modelId === "gpt-6.2-sol" && OPERATIONAL_SOL_EFFORTS.has(effort)) {
+      return { admitted: true, modelId, effort, mode };
     }
     if (modelId === "gpt-6.2-sol" && !OPERATIONAL_SOL_EFFORTS.has(effort)) {
       return {
@@ -86,21 +119,18 @@ export function admitModelEffort(
         mode,
         reasonCode: "SOL_EFFORT_NOT_OPERATIONAL_BAND",
         reason:
-          "Pré-calibration : seuls low|medium|high sont admis en opérationnel pour Sol",
+          "Seuls low|medium|high sont admis en opérationnel pour Sol",
       };
     }
-  }
 
-  if (mode === "calibration" && entry.admissionStatus === "documented_candidate") {
-    return { admitted: true, modelId, effort, mode };
-  }
-
-  if (mode === "calibration" && modelId === "gpt-6.2-sol") {
-    return { admitted: true, modelId, effort, mode };
-  }
-
-  if (mode === "operational" && modelId === "gpt-6.2-sol") {
-    return { admitted: true, modelId, effort, mode };
+    if (entry.admissionStatus === "documented_candidate") {
+      return {
+        admitted: false,
+        mode,
+        reasonCode: "UNCALIBRATED_MODEL_OPERATIONAL",
+        reason: `${modelId}@${effort} non admis sous politique ${policyId}`,
+      };
+    }
   }
 
   return {

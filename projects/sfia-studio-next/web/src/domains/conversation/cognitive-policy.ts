@@ -11,7 +11,10 @@ import {
   getResourceCatalogEntry,
   type CognitiveEffort,
   type CognitiveModelId,
-  OPERATIONAL_DEFAULT_RESOURCE,
+  NORA_STUDY_MODEL_HISTORICAL,
+  resolveOperationalDefaultResource,
+  provisionalPolicyReasonCodes,
+  activeProvisionalPolicyId,
 } from "./cognitive-resources";
 
 const EFFORT_RANK: Record<CognitiveEffort, number> = {
@@ -28,7 +31,9 @@ function effortDowngradeCandidates(
   fromEffort: CognitiveEffort,
 ): CognitiveEffort[] {
   const entry = getResourceCatalogEntry(modelId);
-  if (!entry || entry.admissionStatus !== "operational") return [];
+  // Downgrade across catalogued efforts regardless of catalog admissionStatus —
+  // provisional policy (not catalog status) decides which lowered couple admits.
+  if (!entry) return [];
   const fromRank = EFFORT_RANK[fromEffort] ?? -1;
   const candidates: CognitiveEffort[] = [];
   for (const effort of entry.documentedEfforts) {
@@ -49,12 +54,11 @@ export type ReasoningEffort = "low" | "medium" | "high";
 
 /** Traces RECETTE operational-provisional allowance without rewriting historical meta. */
 export const COGNITIVE_POLICY_VERSION =
-  "ml5-cog-policy-v4-adaptive-resources-20261126" as const;
+  "ml5-cog-policy-v5-provisional-v0.1-20261126" as const;
 /**
- * Historical study reference (Sol). Runtime model is resolved via catalog + admission;
- * this constant remains the operational default identity alias.
+ * Historical study reference (Sol). Runtime default may be Terra under provisional v0.1.
  */
-export const NORA_STUDY_MODEL = OPERATIONAL_DEFAULT_RESOURCE.modelId;
+export const NORA_STUDY_MODEL = NORA_STUDY_MODEL_HISTORICAL;
 
 function admissionModeFromEnv(): "operational" | "calibration" {
   const raw = (process.env.SFIA_COGNITIVE_ADMISSION_MODE ?? "operational")
@@ -66,7 +70,7 @@ function admissionModeFromEnv(): "operational" | "calibration" {
 /**
  * Admit a model×effort couple for the next segment. Fail-closed: unknown or
  * uncalibrated couples fall back with explicit reason codes. On the operational
- * model, refused efforts step down (e.g. xhigh → high) before Sol medium default.
+ * model, refused efforts step down (e.g. xhigh → high) before the active default.
  */
 export function resolveAdmittedResource(input?: {
   modelId?: string | null;
@@ -77,10 +81,12 @@ export function resolveAdmittedResource(input?: {
   reasonCodes: string[];
 } {
   const mode = admissionModeFromEnv();
+  const operationalDefault = resolveOperationalDefaultResource();
   const requestedModelId = ((input?.modelId ?? "").trim() ||
-    OPERATIONAL_DEFAULT_RESOURCE.modelId) as CognitiveModelId;
+    operationalDefault.modelId) as CognitiveModelId;
   const requestedEffort = ((input?.effort ?? "").trim() ||
-    OPERATIONAL_DEFAULT_RESOURCE.effort) as CognitiveEffort;
+    operationalDefault.effort) as CognitiveEffort;
+  const policyCodes = provisionalPolicyReasonCodes();
   const admission = admitModelEffort(requestedModelId, requestedEffort, mode);
   if (admission.admitted) {
     return {
@@ -90,38 +96,69 @@ export function resolveAdmittedResource(input?: {
         `RESOURCE_ADMITTED_${mode.toUpperCase()}`,
         `MODEL_${admission.modelId}`,
         `EFFORT_${admission.effort}`,
+        ...policyCodes,
       ],
     };
   }
 
-  if (getResourceCatalogEntry(requestedModelId)?.admissionStatus === "operational") {
-    for (const lowered of effortDowngradeCandidates(requestedModelId, requestedEffort)) {
-      const retry = admitModelEffort(requestedModelId, lowered, mode);
-      if (retry.admitted) {
-        return {
-          modelId: retry.modelId,
-          effort: retry.effort,
-          reasonCodes: [
-            `RESOURCE_REFUSED_${admission.reasonCode}`,
-            "RESOURCE_FALLBACK_EFFORT_DOWNGRADE",
-            `REQUESTED_EFFORT_${requestedEffort}`,
-            `MODEL_${retry.modelId}`,
-            `EFFORT_${retry.effort}`,
-          ],
-        };
-      }
+  // Same-model effort downgrade before switching models (covers provisional
+  // candidates e.g. Terra high → Terra medium).
+  for (const lowered of effortDowngradeCandidates(
+    requestedModelId,
+    requestedEffort,
+  )) {
+    const retry = admitModelEffort(requestedModelId, lowered, mode);
+    if (retry.admitted) {
+      return {
+        modelId: retry.modelId,
+        effort: retry.effort,
+        reasonCodes: [
+          `RESOURCE_REFUSED_${admission.reasonCode}`,
+          "RESOURCE_FALLBACK_EFFORT_DOWNGRADE",
+          `REQUESTED_EFFORT_${requestedEffort}`,
+          `MODEL_${retry.modelId}`,
+          `EFFORT_${retry.effort}`,
+          ...policyCodes,
+        ],
+      };
+    }
+  }
+
+  // Preserve requested effort on Sol historical path when the provisional
+  // couple is not admitted (e.g. Terra low → Sol low). Do not escalate
+  // silently to a different effort when same-effort Sol remains available.
+  if (requestedModelId !== "gpt-6.2-sol") {
+    const solSameEffort = admitModelEffort(
+      "gpt-6.2-sol",
+      requestedEffort,
+      mode,
+    );
+    if (solSameEffort.admitted) {
+      return {
+        modelId: solSameEffort.modelId,
+        effort: solSameEffort.effort,
+        reasonCodes: [
+          `RESOURCE_REFUSED_${admission.reasonCode}`,
+          "RESOURCE_FALLBACK_SOL_SAME_EFFORT",
+          `REQUESTED_MODEL_${requestedModelId}`,
+          `REQUESTED_EFFORT_${requestedEffort}`,
+          `MODEL_${solSameEffort.modelId}`,
+          `EFFORT_${solSameEffort.effort}`,
+          ...policyCodes,
+        ],
+      };
     }
   }
 
   const fallback = admitModelEffort(
-    OPERATIONAL_DEFAULT_RESOURCE.modelId,
-    OPERATIONAL_DEFAULT_RESOURCE.effort,
+    operationalDefault.modelId,
+    operationalDefault.effort,
     "operational",
   );
   if (!fallback.admitted) {
     throw new StudioError(
       "INVALID_REQUEST",
-      "Catalogue cognitif: défaut Sol medium non admis",
+      `Catalogue cognitif: défaut opérationnel ${operationalDefault.modelId}@${operationalDefault.effort} non admis`,
       { httpStatus: 500 },
     );
   }
@@ -131,8 +168,12 @@ export function resolveAdmittedResource(input?: {
     reasonCodes: [
       `RESOURCE_REFUSED_${admission.reasonCode}`,
       "RESOURCE_FALLBACK_OPERATIONAL_DEFAULT",
+      `REQUESTED_MODEL_${requestedModelId}`,
+      `REQUESTED_EFFORT_${requestedEffort}`,
       `MODEL_${fallback.modelId}`,
       `EFFORT_${fallback.effort}`,
+      `PROVISIONAL_POLICY_${activeProvisionalPolicyId()}`,
+      ...policyCodes,
     ],
   };
 }
@@ -422,7 +463,7 @@ export function buildCognitivePolicy(
     opts?.effortHint ??
     (opts?.profileHint ? defaultEffortForProfile(profile) : q.effort);
   const admitted = resolveAdmittedResource({
-    modelId: opts?.modelHint ?? OPERATIONAL_DEFAULT_RESOURCE.modelId,
+    modelId: opts?.modelHint ?? resolveOperationalDefaultResource().modelId,
     effort: effortHint,
   });
   // Profile budgets still keyed on low|medium|high; map extended efforts for
@@ -536,7 +577,9 @@ export function resolveContinuityCognitivePolicy(input: {
   const hasExplicitProposal = Boolean(proposedModel || proposedEffort);
 
   const requestedModel =
-    proposedModel || heldModel || OPERATIONAL_DEFAULT_RESOURCE.modelId;
+    proposedModel ||
+    heldModel ||
+    resolveOperationalDefaultResource().modelId;
   const requestedEffort =
     input.effortHint ||
     proposedEffort ||

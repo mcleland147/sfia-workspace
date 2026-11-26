@@ -983,6 +983,17 @@ async function runLiveWithTools(
         pilotProvidedUrls: input.publicWebRegistry?.pilotProvidedUrls,
         // T1.2 — explicit this-turn Pilote text only (never haystack/objective).
         pilotText: input.userText,
+        finops: {
+          cognitiveWorkId: input.cognitiveWorkId ?? null,
+          projectId: input.toolScope?.projectId ?? null,
+          preparationId: input.toolScope?.preparationId ?? null,
+          conversationId: input.toolScope?.activityContext?.conversationId ?? null,
+          ownerPilotId:
+            input.toolScope?.pilotId ??
+            input.toolScope?.activityContext?.ownerPilotId ??
+            null,
+          segmentIndex: input.segmentIndex ?? null,
+        },
       });
       tools = [...tools, ...webTools];
     }

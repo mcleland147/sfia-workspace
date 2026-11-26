@@ -22,7 +22,7 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
     const s = buildCognitivePolicy("C'est quoi un sas ?", "TEST_BOUNDARY");
     expect(s.profile).toBe("analyse");
     expect(s.effortRequested).toBe("medium");
-    expect(s.modelRequested).toBe("gpt-6.2-sol");
+    expect(s.modelRequested).toBe("gpt-6.1-terra");
     expect(s.toolAllowlist.length).toBeGreaterThan(0);
     expect(s.budgets.maxD4ToolCalls).toBeGreaterThan(0);
 
@@ -43,7 +43,10 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
       profileHint: "investigation",
     });
     expect(hinted.profile).toBe("investigation");
-    expect(hinted.effortRequested).toBe("high");
+    // Provisional v0.1: Terra high is candidate-only → same-model downgrade to medium.
+    expect(hinted.modelRequested).toBe("gpt-6.1-terra");
+    expect(hinted.effortRequested).toBe("medium");
+    expect(hinted.reasonCodes).toContain("RESOURCE_FALLBACK_EFFORT_DOWNGRADE");
   });
 
   it("TEST_BOUNDARY budgets stay artificial and distinct from OPERATIONAL_PROVISIONAL", () => {
@@ -113,15 +116,20 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
 
   it("maxTurns follows policy budget without silent hard cap of 12", () => {
     const prevLane = process.env.STUDIO_LANE;
+    const prevPolicy = process.env.SFIA_COG_PROVISIONAL_POLICY;
     try {
       process.env.STUDIO_LANE = "DEV";
+      process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.1";
       // TEST_BOUNDARY investigation budget is 12 — maxTurns must match, not silently lower.
+      // Terra high is candidate-only under provisional v0.1 → same-model downgrade to Terra medium.
       const p = buildCognitivePolicy("x".repeat(601), "TEST_BOUNDARY", {
         profileHint: "investigation",
         effortHint: "high",
       });
       expect(p.profile).toBe("investigation");
-      expect(p.modelRequested).toBe("gpt-6.2-sol");
+      expect(p.modelRequested).toBe("gpt-6.1-terra");
+      expect(p.effortRequested).toBe("medium");
+      expect(p.reasonCodes).toContain("RESOURCE_FALLBACK_EFFORT_DOWNGRADE");
       expect(maxTurnsForPolicy(p)).toBe(p.budgets.maxProviderCalls);
       expect(maxTurnsForPolicy(p)).toBe(12);
       // Lot D5: short messages keep analyse tools — never tool-less maxTurns=1.
@@ -132,6 +140,8 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
     } finally {
       if (prevLane === undefined) delete process.env.STUDIO_LANE;
       else process.env.STUDIO_LANE = prevLane;
+      if (prevPolicy === undefined) delete process.env.SFIA_COG_PROVISIONAL_POLICY;
+      else process.env.SFIA_COG_PROVISIONAL_POLICY = prevPolicy;
     }
   });
 });

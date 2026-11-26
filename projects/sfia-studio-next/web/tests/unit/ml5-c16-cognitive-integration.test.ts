@@ -132,8 +132,10 @@ describe("ML5 C16 — integrated cognitive conductor", () => {
     });
     expect(result.work.id).toBe("cgw_test");
     expect(policies).toHaveLength(2);
+    // Provisional v0.1: Terra low not admitted → Sol low (same-effort historical).
+    // Terra high candidate → Terra medium (same-model downgrade).
     expect(policies[0]!.effort).toBe("low");
-    expect(policies[1]!.effort).toBe("high");
+    expect(policies[1]!.effort).toBe("medium");
     expect(policies[0]!.effort).not.toBe(policies[1]!.effort);
   });
 
@@ -307,11 +309,11 @@ describe("ML5 C16 — integrated cognitive conductor", () => {
       expect(applied[1]!.reasons).toContain("RESOURCE_CONTINUITY_EFFORT_CHANGE");
     });
 
-    it("refuses incompatible Luna and holds Sol without dropping workId", async () => {
+    it("refuses provisional candidate Luna high and holds Sol without dropping workId", async () => {
       const { result, applied } = await runTwoSegmentContinuity({
         admissionMode: "operational",
         firstPolicy: { modelHint: "gpt-6.2-sol", effortHint: "medium" },
-        nextProposal: { model: "gpt-6-luna", effort: "medium" },
+        nextProposal: { model: "gpt-6-luna", effort: "high" },
       });
       expect(result.work.id).toBe("cgw_test");
       expect(applied[0]!.model).toBe("gpt-6.2-sol");
@@ -319,9 +321,9 @@ describe("ML5 C16 — integrated cognitive conductor", () => {
       expect(applied[1]!.reasons).toContain(
         "RESOURCE_CONTINUITY_HOLD_AFTER_REFUSAL",
       );
-      expect(
-        applied[1]!.reasons.some((c) => c.startsWith("RESOURCE_REFUSED_")),
-      ).toBe(true);
+      expect(applied[1]!.reasons).toContain(
+        "RESOURCE_REFUSED_PROVISIONAL_CANDIDATE_NOT_ADMITTED",
+      );
     });
   });
 

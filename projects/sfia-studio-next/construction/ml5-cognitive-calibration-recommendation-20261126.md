@@ -1,9 +1,11 @@
 # ML5 — Recommandation de politique cognitive (post-calibration LIVE)
 
 **Date:** 2026-11-26  
-**Statut:** PROPOSITION — non adoptée — décision Morris requise  
-**Lane calibration:** DEV  
-**Admission runtime restaurée:** `operational` (Luna/Terra non promues automatiquement)
+**Statut:** POLITIQUE PROVISOIRE VALIDÉE EN DEV (Morris 26/11) — réversible — NON RECETTE / NON STABLE / NOT ADOPTED  
+**Lane:** DEV  
+**Politique active:** `SFIA_COG_PROVISIONAL_POLICY=v0.1` (`ml5-cog-provisional-policy-v0.1-20261126`)  
+**Rollback:** `SFIA_COG_PROVISIONAL_POLICY=legacy_sol` (défaut Sol Medium historique, sans réécriture structurante)  
+**Admission runtime:** `operational` sous politique provisoire (pas de promotion catalogue permanente)
 
 ## 1. Ressource initiale recommandée
 
@@ -65,9 +67,36 @@ Qualité: aucun FAIL critique silencieux sur le corpus; Sol n’a pas démontré
 - Mesure `modelApplied`/`effortApplied` lorsque le SDK les expose.
 - Campagne visuelle F2 + cutover RECETTE du candidat (hors scope présent).
 
-## 8. Décision demandée à Morris
+## 8. Décision Morris 26/11 (contenu validé — DEV uniquement)
 
-1. Adopter Terra Medium comme défaut opérationnel provisoire ?  
-2. Admettre Luna Low/Medium pour usages simples démontrés ?  
-3. Conserver Sol Medium comme référence / filet ?  
-4. Reporter toute promotion jusqu’à essais additionnels ?
+| Couple | Décision |
+|---|---|
+| Terra Medium | **Admis provisoirement** — ressource initiale DEV |
+| Luna Medium | **Admis expérimentalement** — besoins proportionnés |
+| Luna Low | **Candidat** — qualification ciblée préalable |
+| Terra High | **Candidat d’approfondissement** — à qualifier sur parcours |
+| Sol Low / Medium / High | **Admission historique conservée** |
+| Luna High / autres | **Non admis** opérationnellement avant qualification |
+
+Cette validation est **provisoire, réversible et limitée à DEV**. Elle ne constitue ni une adoption définitive, ni une promotion RECETTE/STABLE.
+
+### Implémentation
+
+- Module `provisional-cognitive-policy.ts` + admission serveur fail-closed.
+- Défaut runtime: Terra Medium ; Sol conservé comme référence et retour arrière.
+- Candidats refusés avec `PROVISIONAL_CANDIDATE_NOT_ADMITTED` ; fallback effort same-model puis Sol same-effort, jamais escalade Sol silencieuse systématique.
+- Version politique identifiable dans `reasonCodes` (`COG_POLICY_VERSION_v0.1`).
+
+### Preuves
+
+- Calibration A–C: 19 Responses, 141 088 in / 8 488 out, ~0,128 USD (Phase D séparée).
+- Requalification contenu: 18 PASS / 1 PARTIAL (voir `.tmp-sfia-review/calibration-live/requalification-A-C*.json|md`).
+- Qualification intégrée parcours produit: en cours sous enveloppe G-LIVE-API (≤40 Responses).
+
+### Limites / nouvelles recommandations
+
+- Luna Low / Terra High / Luna High: ne pas admettre automatiquement après un seul essai.
+- Réallocation LIVE autonome: encore à démontrer sur parcours E (pas forcée).
+- WEB LIVE: gates G-WEB-PUBLIC / G-WEB-MIXED non consommés.
+- F2 visuelle: différée RECETTE Morris.
+- Persister les réponses intégrales des campagnes suivantes (previews ≤400 car. au cycle A–C).

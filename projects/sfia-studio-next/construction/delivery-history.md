@@ -4989,3 +4989,24 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | Preuves clés | proj `proj_154814aa…` · IQ PROPOSED CONCEPTION→DELIVERY→QA · doc V1→V2 `drev_a7124a79…` · note `doc_7a640d03…` · activity git 6 events |
 | Réserves | Rebuild DEV nécessaire pour string tutoiement conserve après fix source ; activité historique UI reste compacte (carte hiérarchique prouvée LIVE events + DETERMINISTIC 45-ops) ; F2 globale / WEB LIVE non revendiqués |
 | Statut | DEV CANDIDATE — INTEGRATED CORRECTIVE — READY FOR CHATGPT REVIEW — NOT ADOPTED — NO RECETTE CUTOVER |
+
+
+## 2026-11-26 — ML5 provisional cognitive policy v0.1 + integrated qualification (Cycle 8 Delivery / DEV)
+
+| Champ | Valeur |
+|---|---|
+| Delivery ID | `next-ml5-provisional-policy-integrated-qualification-20261126` |
+| Date | 2026-11-26 |
+| Macro-lot | ML5 — Convergence cognitive transverse (politique provisoire + qualification intégrée) |
+| Type | EVOL · Critical · Cycle 8 Delivery |
+| GO Morris | 26/11 — Terra Medium initial ; Luna Medium expérimental ; Luna Low/Terra High candidats ; Sol L/M/H historiques ; DEV only |
+| Base tip | `4f1bb0f2cd7ad1e9b46444c6f0de4d2c761bfce3` |
+| Politique | `SFIA_COG_PROVISIONAL_POLICY=v0.1` (`ml5-cog-provisional-policy-v0.1-20261126`) ; rollback `legacy_sol` |
+| Build DEV | BUILD_ID `-8zagoVhrLvhtuKL7ThVc` · digest `5137d2b0…` · working tree dirty at build (identity demonstrated, not immutable HEAD alone) |
+| LIVE work | `cgw_cd9955c5-b2c9-48ba-a1bc-80ae7c03d1ad` · Terra medium → Sol medium observé |
+| Consommation campagne | product ~132k in / 4.3k out / ~0.131 USD · adapter Luna 22k/0.9k · Responses product providerRequestsSum=12 + adapter 3 |
+| WEB | G-WEB-PUBLIC / G-WEB-MIXED NOT CONSUMED · dossier `.tmp-sfia-review/web-gate-decision-dossier.md` |
+| Compatibilité | NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN · R5 IN PROGRESS · R6 NOT STARTED · NOT ADOPTED |
+| Migration | NONE |
+| Réserves | RoomBooking/StockTrack IT-06 différés enveloppe ; F2 visuelle ; WEB LIVE ; Luna Low non admis opérationnellement ; modelApplied souvent UNVERIFIED |
+| Statut | DEV CANDIDATE — PROVISIONAL POLICY ACTIVE — INTEGRATED REVIEW REQUIRED |

@@ -22,14 +22,21 @@ export type ResourceCatalogAdmissionStatus =
   | "operational"
   | "documented_candidate";
 
-/** Pre-calibration default — Sol medium (historical study reference, contract §5.2). */
+/**
+ * Provisional DEV default — Terra medium (Morris 2026-11-26).
+ * Historical Sol medium remains available via SFIA_COG_PROVISIONAL_POLICY=legacy_sol
+ * and HISTORICAL_SOL_DEFAULT_RESOURCE — not silently deleted.
+ */
 export const OPERATIONAL_DEFAULT_RESOURCE = {
-  modelId: "gpt-6.2-sol",
+  modelId: "gpt-6.1-terra",
   effort: "medium",
 } as const satisfies {
   modelId: CognitiveModelId;
   effort: CognitiveEffort;
 };
+
+/** Historical study / rollback identity (Sol). */
+export const NORA_STUDY_MODEL_HISTORICAL = "gpt-6.2-sol" as const;
 
 export const COGNITIVE_RESOURCE_CATALOG_VERSION =
   "ml5-cognitive-resource-catalog-v1-2026-11-26" as const;

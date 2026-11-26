@@ -28,8 +28,18 @@ if (!key) {
   process.exit(2);
 }
 const fp = createHash("sha256").update(key, "utf8").digest("hex").slice(0, 16);
-process.env.SFIA_OPENAI_EXPECTED_KEY_FP =
-  process.env.SFIA_OPENAI_EXPECTED_KEY_FP || fp;
+// EXPECTED fingerprint must come from independent qualified config — never derived from the loaded key.
+const expectedFp = (process.env.SFIA_OPENAI_EXPECTED_KEY_FP || "").trim().toLowerCase();
+if (!expectedFp) {
+  console.error(
+    "STOP: SFIA_OPENAI_EXPECTED_KEY_FP missing — refuse to invent identity from OPENAI_API_KEY",
+  );
+  process.exit(2);
+}
+if (expectedFp !== fp) {
+  console.error("STOP: OPENAI key fingerprint mismatch vs SFIA_OPENAI_EXPECTED_KEY_FP");
+  process.exit(2);
+}
 
 const OUT =
   process.env.SFIA_CALIBRATION_OUT ||
@@ -63,6 +73,8 @@ type ScenarioResult = {
   costCoverage: string | null;
   durationMs: number;
   contentPreview: string;
+  /** Full reply when available (bounded campaigns); never log secrets. */
+  contentFull: string | null;
 };
 
 const ledger: {
@@ -93,10 +105,13 @@ const ledger: {
   stopReason: null,
 };
 
-function withinEnvelope(nextIn = 0, nextOut = 0): boolean {
-  if (ledger.responsesAttempted >= ENVELOPE.maxResponses) return false;
-  if (ledger.inputTokens + nextIn > ENVELOPE.maxInputTokens) return false;
-  if (ledger.outputTokens + nextOut > ENVELOPE.maxOutputTokens) return false;
+/** Pre-flight envelope check — must pass before emitting any provider request. */
+function canEmitProviderAttempt(reserveSlots = 1): boolean {
+  if (ledger.responsesAttempted + reserveSlots > ENVELOPE.maxResponses) {
+    return false;
+  }
+  if (ledger.inputTokens >= ENVELOPE.maxInputTokens) return false;
+  if (ledger.outputTokens >= ENVELOPE.maxOutputTokens) return false;
   return true;
 }
 
@@ -148,7 +163,8 @@ async function runCase(input: {
   effort: "none" | "low" | "medium" | "high" | "xhigh" | "max";
   userText: string;
 }): Promise<ScenarioResult | null> {
-  if (!withinEnvelope()) {
+  // Reserve at least one Responses slot before any provider contact.
+  if (!canEmitProviderAttempt(1)) {
     ledger.stopReason = "ENVELOPE_EXHAUSTED_BEFORE_CASE";
     return null;
   }
@@ -167,7 +183,8 @@ async function runCase(input: {
   });
 
   const started = Date.now();
-  ledger.responsesAttempted += 1; // count attempt even if SDK loops further
+  // Count the attempt before emission (retries/SDK loops accounted after when observed).
+  ledger.responsesAttempted += 1;
   let result;
   try {
     result = await generateNoraReply({
@@ -198,6 +215,7 @@ async function runCase(input: {
       costCoverage: null,
       durationMs: Date.now() - started,
       contentPreview: "",
+      contentFull: null,
     };
     ledger.scenarios.push(row);
     save();
@@ -205,19 +223,23 @@ async function runCase(input: {
   }
 
   const usage = result.usage;
-  const inTok = usage?.inputTokens ?? 0;
-  const outTok = usage?.outputTokens ?? 0;
-  // Approximate additional SDK requests from providerRequests when available
-  const reqs = usage?.providerRequests ?? 1;
-  if (typeof reqs === "number" && reqs > 1) {
-    ledger.responsesAttempted += reqs - 1;
+  const inTok = usage?.inputTokens ?? null;
+  const outTok = usage?.outputTokens ?? null;
+  // Additional SDK/HTTP attempts when the SDK exposes request count; UNKNOWN stays null.
+  const reqs = usage?.providerRequests ?? null;
+  if (typeof reqs === "number" && Number.isFinite(reqs) && reqs > 1) {
+    const extra = Math.max(0, Math.floor(reqs) - 1);
+    if (!canEmitProviderAttempt(extra)) {
+      ledger.stopReason = `ENVELOPE_WOULD_EXCEED_AFTER_MULTI_REQUEST id=${input.id}`;
+    }
+    ledger.responsesAttempted += extra;
   }
-  ledger.inputTokens += inTok || 0;
-  ledger.outputTokens += outTok || 0;
+  if (typeof inTok === "number") ledger.inputTokens += inTok;
+  if (typeof outTok === "number") ledger.outputTokens += outTok;
 
   if (
-    (inTok || 0) > ENVELOPE.maxInputPerRequest ||
-    (outTok || 0) > ENVELOPE.maxOutputPerRequest
+    (inTok ?? 0) > ENVELOPE.maxInputPerRequest ||
+    (outTok ?? 0) > ENVELOPE.maxOutputPerRequest
   ) {
     ledger.stopReason = `PER_REQUEST_CAP id=${input.id}`;
   }
@@ -247,6 +269,7 @@ async function runCase(input: {
     costCoverage: null,
     durationMs: Date.now() - started,
     contentPreview: (result.content || "").slice(0, 400),
+    contentFull: (result.content || "").slice(0, 20_000) || null,
   };
 
   // Estimate cost via accounting helper when possible
@@ -286,7 +309,9 @@ async function runCase(input: {
   ) {
     ledger.stopReason = `PROVIDER_PERMANENT id=${input.id}`;
   }
-  if (!withinEnvelope()) ledger.stopReason = ledger.stopReason || "ENVELOPE_REACHED";
+  if (!canEmitProviderAttempt(1)) {
+    ledger.stopReason = ledger.stopReason || "ENVELOPE_REACHED";
+  }
   return row;
 }
 

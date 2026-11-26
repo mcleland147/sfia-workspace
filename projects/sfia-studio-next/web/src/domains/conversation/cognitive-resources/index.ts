@@ -9,9 +9,22 @@ export {
   COGNITIVE_RESOURCE_CATALOG_VERSION,
   COGNITIVE_RESOURCE_PROVENANCE,
   OPERATIONAL_DEFAULT_RESOURCE,
+  NORA_STUDY_MODEL_HISTORICAL,
   getResourceCatalogEntry,
   isDocumentedEffortForModel,
 } from "./resource-catalog";
+
+export {
+  PROVISIONAL_COGNITIVE_POLICY_VERSION,
+  HISTORICAL_SOL_DEFAULT_RESOURCE,
+  PROVISIONAL_V01_DEFAULT_RESOURCE,
+  activeProvisionalPolicyId,
+  resolveOperationalDefaultResource,
+  isProvisionalV01AdmittedCouple,
+  isProvisionalV01CandidateCouple,
+  provisionalPolicyReasonCodes,
+  type ProvisionalPolicyId,
+} from "./provisional-cognitive-policy";
 
 export {
   type CognitiveGuidanceRow,
