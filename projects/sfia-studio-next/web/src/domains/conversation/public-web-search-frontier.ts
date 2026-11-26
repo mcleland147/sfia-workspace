@@ -236,6 +236,10 @@ export async function executePublicWebSearch(input: {
   turnPublicTopics?: Record<string, string>;
   explicitlyAuthorizedExactQuery?: string;
   turnAuthorizedExactQueries?: string[];
+  /** S5 — durable decisionId per exceptional exact query (egress re-proof). */
+  turnExactQueryDecisionIds?: Record<string, string> | null;
+  /** Active cognitive policy version for D6 effectConditions match at egress. */
+  policyVersion?: string;
   privateContextMarkers?: string[];
   /** Optional FinOps attribution for LIVE isolated search worker. */
   finops?: {
@@ -283,6 +287,61 @@ export async function executePublicWebSearch(input: {
       mode,
     };
   }
+
+  // S5 — last egress gate for exceptional D6-bound exact queries (catalog exempt).
+  if (auth.provenance === "EXPLICIT_AUTHORIZED_EXACT") {
+    const projectId = (input.finops?.projectId ?? "").trim();
+    const pilotId = (input.finops?.ownerPilotId ?? "").trim();
+    const catalogValues = new Set(
+      Object.values(input.turnPublicTopics ?? {})
+        .map((q) => q.replace(/\s+/g, " ").trim().toLowerCase())
+        .filter(Boolean),
+    );
+    const exactNorm = auth.authorizedQuery.replace(/\s+/g, " ").trim().toLowerCase();
+    const catalogBound = catalogValues.has(exactNorm);
+    if (projectId && pilotId && !catalogBound) {
+      try {
+        const { reverifyWebPublicQueryAuthorityAtEgress } = await import(
+          "./web-public-query-authority"
+        );
+        const decisionId =
+          input.turnExactQueryDecisionIds?.[exactNorm] ??
+          input.turnExactQueryDecisionIds?.[auth.authorizedQuery] ??
+          null;
+        const egressAuth = await reverifyWebPublicQueryAuthorityAtEgress({
+          query: auth.authorizedQuery,
+          projectId,
+          pilotId,
+          policyVersion: input.policyVersion,
+          decisionId,
+        });
+        if (!egressAuth.allowed) {
+          return {
+            status: "DENIED",
+            coverage: "DENIED",
+            query: "",
+            items: [],
+            limits: [
+              "WEB_QUERY_EGRESS_D6_DENIED",
+              egressAuth.reasonCode,
+              ...auth.redactions,
+            ],
+            mode,
+          };
+        }
+      } catch {
+        return {
+          status: "DENIED",
+          coverage: "DENIED",
+          query: "",
+          items: [],
+          limits: ["WEB_QUERY_EGRESS_AUTHORITY_LOOKUP_FAILED"],
+          mode,
+        };
+      }
+    }
+  }
+
   const outboundFields = { q: auth.authorizedQuery, provenance: auth.provenance };
   const leakCheck = assertOutboundHasNoPrivateLeak(
     outboundFields,
@@ -450,27 +509,29 @@ async function executeIsolatedLiveWebSearch(
       ],
     };
   }
-  const { reserveProviderEmission, commitProviderEmission } = await import(
-    "./provider-emission-frontier"
-  );
-  const reservation = reserveProviderEmission({
+  const {
+    assertSdkInvocationAdmission,
+    ensureFrontierOpenAIClientInstalled,
+  } = await import("./provider-emission-frontier");
+  await ensureFrontierOpenAIClientInstalled();
+  const sdkAdmission = assertSdkInvocationAdmission({
     kind: "public_web.isolated_search",
     modelId: modelRequested,
     effort: effortRequested,
   });
-  if (!reservation.ok) {
+  if (!sdkAdmission.ok) {
     return {
       status: "ERROR",
       items: [],
       limits: [
         "WEB_SEARCH_PROVIDER_EMISSION_REFUSED",
-        reservation.reasonCode,
-        reservation.reason.slice(0, 120),
+        sdkAdmission.reasonCode,
+        sdkAdmission.reason.slice(0, 120),
         "WEB_LIVE_SEARCH_BLOCKED",
       ],
     };
   }
-  const attemptId = reservation.attemptId;
+  const attemptId = sdkAdmission.attemptId;
   const generationId = `web-gen-${randomUUID()}`;
   const started = Date.now();
   let result: unknown;
@@ -492,8 +553,7 @@ async function executeIsolatedLiveWebSearch(
       },
     });
     // CRITICAL isolation: only the sanitized public query is the user message.
-    // S1 — commit reservation at the common frontier before contacting the provider.
-    commitProviderEmission(reservation);
+    // Real HTTP attempts (incl. retries / hosted tool) pass the frontier fetch.
     result = await run(agent, query, { maxTurns: 6 });
   } catch (e) {
     // FinOps — record failed attempt (uncertain usage when SDK has none).
@@ -1257,6 +1317,10 @@ export async function buildPublicWebFrontierTools(input: {
   turnPublicTopics?: Record<string, string>;
   /** C22 — exact queries explicitly authorized for this turn. */
   turnAuthorizedExactQueries?: string[];
+  /** S5 — durable decisionId per exceptional exact query (egress re-proof). */
+  turnExactQueryDecisionIds?: Record<string, string> | null;
+  /** Active cognitive policy version for D6 effectConditions match at egress. */
+  policyVersion?: string;
   /**
    * URL candidates parsed from this-turn Pilote text (not auto-authorized).
    * Nora must still propose open; mention alone never grants discovery.
@@ -1439,6 +1503,8 @@ export async function buildPublicWebFrontierTools(input: {
           turnPublicFacts: input.turnPublicFacts,
           turnPublicTopics: turnTopics,
           turnAuthorizedExactQueries: [...turnExact],
+          turnExactQueryDecisionIds: input.turnExactQueryDecisionIds,
+          policyVersion: input.policyVersion,
           privateContextMarkers: markers,
           finops: input.finops,
         });

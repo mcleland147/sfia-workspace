@@ -1,6 +1,11 @@
 /**
  * Shared PDF read contract — bytes already authorized by B1 / D9 / D4 owner.
  * The PDF processor never resolves access rights.
+ *
+ * Opposable access before parse:
+ * - WEB viewerToken path: `pdf-viewer-authorization` + authenticated Studio session
+ * - Git base64 in UI: authorized via D9 read_git_* gates before bytes reach the client
+ * - D4 / FIXTURE: explicit server-side contract only — never inferred from MIME/path alone
  */
 
 export type PdfProvenance = "WEB" | "GIT" | "D4" | "FIXTURE";

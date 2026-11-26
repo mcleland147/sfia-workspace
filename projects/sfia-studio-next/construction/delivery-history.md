@@ -5058,3 +5058,24 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | Contrôles | Vitest unit ml5* 337 PASS (dont frontier, authority, FinOps, sessions) |
 | Réserves | Git PDF text B ; WEB-05 C ; F2 C ; kind D6 dédié D |
 | Statut | DEV CANDIDATE — COGNITIVE CONSOLIDATION — RECETTE SCOPE DECISION REQUIRED |
+
+
+## 2026-11-26 — ML5 cognitive foundation conformance + integrated qualification (Cycle 8 Delivery / DEV)
+
+| Champ | Valeur |
+|---|---|
+| Delivery ID | `next-ml5-cognitive-foundation-conformance-20261126` |
+| Date | 2026-11-26 |
+| Macro-lot | ML5 livraison 1 — mise en conformité transverse du socle cognitif (pas livraison 2) |
+| Type | EVOL · Critical · Cycle 8 Delivery |
+| GO Morris | 26/11 — qualité du socle > rapidité RECETTE ; traiter causes racines ; pas de faux READY FOR RECETTE |
+| Base tip | `ee6c170e46b8b995e30c78c90231a0fa1e2110a0` |
+| Contenu | Build NODE_ENV=production ; frontière HTTP réelle (fetch) vs SDK invocation ; latch campagne ; allocation message Pilote ; FinOps couverture honnête ; D6 WEB effectConditions+decisionId+egress ; PDF habilitation DB |
+| BUILD_ID | `X94NdR5lxD655tzAciId3` |
+| Migration | NONE |
+| LIVE §12.1/12.2 | **NON CONSOMMÉES** (S2 déterministe transport substitué satisfait) |
+| WEB | OFF · G-WEB-MIXED fermé |
+| Compatibilité | NO RELEASE · STABLE NOT AVAILABLE · ML5 OPEN · R5 IN PROGRESS · R6 NOT STARTED · NOT ADOPTED · G-RECETTE non consommé |
+| Contrôles | Vitest unit ml5* 356 PASS · next build EXIT 0 |
+| Réserves | B: GIT PDF text corpus · LIVE SDK multi-req ; C: WEB-05 · F2 · efficience RB ; D: kind WEB optionnel ; A build LEVÉE |
+| Statut | DEV CANDIDATE — FOUNDATION CONFORMANCE — MORRIS REVIEW REQUIRED — NOT ADOPTED |

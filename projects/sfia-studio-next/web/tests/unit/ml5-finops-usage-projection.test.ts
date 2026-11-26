@@ -71,12 +71,23 @@ describe("ML5 E06 — FinOps usage projection", () => {
   });
 
   it("estimation completeness excludes PARTIAL from fully-known rate", () => {
+    // Without independent emission census, observation coverage stays PARTIAL.
     const obs = computeMeasureCoveragePercent([
       { costCoverage: "KNOWN", providerRequests: 2 },
       { costCoverage: "PARTIAL", providerRequests: 2 },
     ]);
-    expect(obs.kind).toBe("known");
-    if (obs.kind === "known") expect(obs.value).toBe(100);
+    expect(obs.kind).toBe("partial");
+    if (obs.kind === "partial") expect(obs.value).toBe(100);
+
+    const obsCensus = computeMeasureCoveragePercent(
+      [
+        { costCoverage: "KNOWN", providerRequests: 2 },
+        { costCoverage: "PARTIAL", providerRequests: 2 },
+      ],
+      { emissionCensusComplete: true },
+    );
+    expect(obsCensus.kind).toBe("known");
+    if (obsCensus.kind === "known") expect(obsCensus.value).toBe(100);
 
     const fin = computeEstimationCompletenessPercent([
       { costCoverage: "KNOWN", providerRequests: 2 },

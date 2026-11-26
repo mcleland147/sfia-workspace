@@ -10,6 +10,7 @@ import {
 } from "./cognitive-conductor";
 import {
   buildCognitivePolicy,
+  buildResourceContinuitySuspendMessage,
   resolveContinuityCognitivePolicy,
 } from "./cognitive-policy";
 import {
@@ -1357,26 +1358,47 @@ export async function runNoraCognitiveTurn(
         input.conversationId ?? "",
         work.id,
       ].filter((m) => m.trim().length >= 4);
-      // S4 — AUTHORIZE_PUBLIC_QUERY parse ≠ D6; bind exceptional auth via HumanDecision.
+      // S5 — AUTHORIZE_PUBLIC_QUERY parse ≠ D6; bind exceptional auth via HumanDecision.
       let d6BoundExactQueries: string[] = [];
+      const d6BindingByQuery = new Map<string, string>();
       try {
-        const { evaluateWebPublicQueryAuthority } = await import(
-          "./web-public-query-authority"
-        );
+        const {
+          evaluateWebPublicQueryAuthority,
+          reverifyWebPublicQueryAuthorityAtEgress,
+        } = await import("./web-public-query-authority");
         const { isDedicatedAuthorizePublicQueryAct } = await import(
           "./public-web-registry"
         );
+        const projectIdForWeb = (input.projectId ?? "").trim();
+        for (const prior of work.state.authorizedExactWebQueryBindings ?? []) {
+          const q = prior.query.replace(/\s+/g, " ").trim();
+          const decisionId = prior.decisionId.trim();
+          if (!q || !decisionId || !projectIdForWeb) continue;
+          const auth = await reverifyWebPublicQueryAuthorityAtEgress({
+            query: q,
+            projectId: projectIdForWeb,
+            pilotId: input.pilotId,
+            policyVersion: policy.policyVersion,
+            decisionId,
+          });
+          if (auth.allowed) {
+            d6BoundExactQueries.push(auth.query);
+            d6BindingByQuery.set(auth.query.toLowerCase(), auth.decisionId);
+          }
+        }
         if (isDedicatedAuthorizePublicQueryAct(input.userText)) {
           const auth = await evaluateWebPublicQueryAuthority({
             pilotText: input.userText,
-            projectId: input.projectId,
+            projectId: projectIdForWeb || null,
             pilotId: input.pilotId,
             policyVersion: policy.policyVersion,
           });
           if (auth.allowed) {
-            d6BoundExactQueries = [auth.query];
+            d6BoundExactQueries.push(auth.query);
+            d6BindingByQuery.set(auth.query.toLowerCase(), auth.decisionId);
           }
         }
+        d6BoundExactQueries = [...new Set(d6BoundExactQueries)];
       } catch {
         /* authority lookup failure ⇒ no exceptional promotion */
       }
@@ -1411,13 +1433,32 @@ export async function runNoraCognitiveTurn(
           work.state.proposedCognitiveModel ?? policy.modelRequested;
         const refusedEffort =
           work.state.proposedCognitiveEffort ?? policy.effortRequested;
+        const suspendReplyText = buildResourceContinuitySuspendMessage(
+          refusedModel,
+          refusedEffort,
+        );
+        const suspendQualification = unavailableQualification(
+          "RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION",
+        );
+        segmentBox.reply = {
+          content: suspendReplyText,
+          status: "INTERRUPTED",
+          generationId: `suspend_${work.id}`,
+          mode: "deterministic-fixture",
+          policy,
+          modelRequested: refusedModel,
+          modelApplied: null,
+          effortRequested: refusedEffort,
+          effortApplied: null,
+          attempts: [],
+          toolCallsObserved: 0,
+          d4CharsReturned: 0,
+          observedToolSources: [],
+          qualification: suspendQualification,
+        };
         return {
-          replyText:
-            `Je ne peux pas appliquer silencieusement une autre ressource cognitive : la proposition ` +
-            `${refusedModel}@${refusedEffort} n'est pas admise dans la politique active et aucune ressource ` +
-            `déjà admise n'est disponible pour la maintenir. Indique une autre allocation (modèle/effort) ` +
-            `compatible, ou demande le maintien d'une ressource déjà qualifiée.`,
-          qualification: null,
+          replyText: suspendReplyText,
+          qualification: suspendQualification,
           investigation: {
             ...work.state,
             remainingWork: [
@@ -1479,6 +1520,7 @@ export async function runNoraCognitiveTurn(
             facts: webRegistry.facts,
             pilotProvidedUrls: webRegistry.pilotProvidedUrls,
             pendingProposals: pendingWebProposals,
+            exactQueryDecisionIds: Object.fromEntries(d6BindingByQuery),
           },
         });
       }
@@ -1501,6 +1543,16 @@ export async function runNoraCognitiveTurn(
           ...webRegistry.exactQueries,
         ]),
       ];
+      const nextBindings = [
+        ...(investigation.authorizedExactWebQueryBindings ?? []),
+      ];
+      for (const q of webRegistry.exactQueries) {
+        const decisionId = d6BindingByQuery.get(q.toLowerCase());
+        if (!decisionId) continue;
+        if (nextBindings.some((b) => b.decisionId === decisionId)) continue;
+        nextBindings.push({ query: q, decisionId });
+      }
+      investigation.authorizedExactWebQueryBindings = nextBindings;
       // Option B — retain staged proposals; drop those now exact-authorized.
       const authorizedSet = new Set(
         (investigation.authorizedExactWebQueries ?? []).map((q) =>
@@ -1621,17 +1673,26 @@ export async function runNoraCognitiveTurn(
 
   let content = conductor.replyText || lastReply.content;
   if (conductor.suspended) {
-    // A4 — restitution from durable acquis, not last provider fragment alone.
-    content = composeInvestigationPartialRestitution({
-      state: {
-        ...conductor.investigation,
-        cognitiveWorkId: conductor.work.id,
-        cognitiveRevision: conductor.work.revision,
-      },
-      production: conductor.production,
-      suspendReason: conductor.suspendReason,
-      sourceFallback: lastReply.observedToolSources,
-    });
+    if (
+      conductor.suspendReason ===
+        "RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION" &&
+      conductor.replyText.trim().length > 0
+    ) {
+      // S2 — explicit refusal/restitution; do not bury under generic partial template.
+      content = conductor.replyText;
+    } else {
+      // A4 — restitution from durable acquis, not last provider fragment alone.
+      content = composeInvestigationPartialRestitution({
+        state: {
+          ...conductor.investigation,
+          cognitiveWorkId: conductor.work.id,
+          cognitiveRevision: conductor.work.revision,
+        },
+        production: conductor.production,
+        suspendReason: conductor.suspendReason,
+        sourceFallback: lastReply.observedToolSources,
+      });
+    }
   }
 
   const reply: NoraGenerateResult = {

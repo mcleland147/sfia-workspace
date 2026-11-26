@@ -3,6 +3,7 @@ import {
   NORA_STUDY_MODEL,
   buildCognitivePolicy,
   resolveAdmittedResource,
+  buildResourceContinuitySuspendMessage,
   resolveContinuityCognitivePolicy,
 } from "@/domains/conversation/cognitive-policy";
 import {
@@ -424,5 +425,13 @@ describe("ML5 S3 — resolveContinuityCognitivePolicy", () => {
     expect(p.reasonCodes).toContain(
       "RESOURCE_CONTINUITY_PROPOSAL_UNSATISFIED_NO_HOLD",
     );
+  });
+
+  it("Pilote suspend message states need/consequence without model-admin duty", () => {
+    const msg = buildResourceContinuitySuspendMessage("gpt-6-luna", "high");
+    expect(msg).toContain("sans obligation d'administrer les modèles");
+    expect(msg).toContain("Besoin restant");
+    expect(msg).toContain("Conséquence");
+    expect(msg).not.toContain("Indique une autre allocation");
   });
 });

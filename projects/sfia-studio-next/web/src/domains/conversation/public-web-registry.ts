@@ -352,9 +352,12 @@ export function resolvePublicWebRegistry(input: {
   }
 
   const topics: Record<string, string> = { ...priorTopicsRaw };
+  if ((input.priorExactQueries ?? []).length > 0) {
+    limits.push("PRIOR_EXACT_STRINGS_IGNORED_WITHOUT_D6_BINDING");
+  }
+
   const exact = new Set(
     [
-      ...(input.priorExactQueries ?? []),
       ...(input.explicitExactQueries ?? []),
       ...(input.d6BoundExactQueries ?? []),
     ]
@@ -404,7 +407,7 @@ export function resolvePublicWebRegistry(input: {
     // Option B — technical parse of AUTHORIZE_PUBLIC_QUERY (≠ D6 authority).
     // Parsed queries are observed for staging / inspectable act preparation only;
     // they are NOT promoted into exactQueries unless already present via
-    // d6BoundExactQueries / explicitExactQueries / priorExactQueries.
+    // d6BoundExactQueries / explicitExactQueries (priorExactQueries strings alone are not admitted).
     const pilotExact = extractPilotAuthorizedExactQueries(input.pilotText);
     if (pilotExact.length === 0 && /AUTHORIZE_PUBLIC_QUERY/i.test(input.pilotText)) {
       limits.push("PILOT_EXACT_PARSE_REJECTED");

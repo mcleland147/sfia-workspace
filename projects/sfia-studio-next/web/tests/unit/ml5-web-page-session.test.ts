@@ -1,6 +1,7 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import {
   __resetWebPageSessionsForTests,
+  __webPageSessionStatsForTests,
   putWebPageSession,
   readWebPageProgressive,
   readWebPdfPages,
@@ -212,6 +213,44 @@ describe("ML5 progressive WEB page session", () => {
     expect(later.coverage).toBe("PARTIAL");
     expect(later.limits).toContain("NOT_FULLY_CONSULTED");
     expect(getWebPageSessionByViewerToken(later.viewerToken)?.pdfBytes).toBeUndefined();
+  });
+
+  it("evicts oldest sessions when session cap is exceeded", () => {
+    process.env.SFIA_WEB_PAGE_SESSION_MAX = "2";
+    process.env.SFIA_WEB_PAGE_SESSION_MAX_BYTES = "200000";
+    const big = new Uint8Array(50);
+    putWebPageSession({
+      scope: SCOPE,
+      url: "https://example.com/a.pdf",
+      kind: "pdf",
+      text: "a",
+      contentFingerprint: "a",
+      pdfBytes: big,
+      limits: [],
+    });
+    putWebPageSession({
+      scope: SCOPE,
+      url: "https://example.com/b.pdf",
+      kind: "pdf",
+      text: "b",
+      contentFingerprint: "b",
+      pdfBytes: big,
+      limits: [],
+    });
+    expect(__webPageSessionStatsForTests().count).toBe(2);
+    putWebPageSession({
+      scope: SCOPE,
+      url: "https://example.com/c.pdf",
+      kind: "pdf",
+      text: "c",
+      contentFingerprint: "c",
+      pdfBytes: big,
+      limits: [],
+    });
+    const stats = __webPageSessionStatsForTests();
+    expect(stats.count).toBeLessThanOrEqual(2);
+    delete process.env.SFIA_WEB_PAGE_SESSION_MAX;
+    delete process.env.SFIA_WEB_PAGE_SESSION_MAX_BYTES;
   });
 
   it("expires sessions and refuses expired reads", () => {

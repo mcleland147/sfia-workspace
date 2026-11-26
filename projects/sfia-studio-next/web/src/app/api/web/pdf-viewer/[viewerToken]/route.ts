@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
+import { getWebPageSessionByViewerToken } from "@/domains/conversation/public-web-page-session";
+import { assertPdfViewerAccess } from "@/domains/documents/pdf-viewer-authorization";
 import { requireStudioSession } from "@/domains/identity/session";
 import { studioErrorResponse } from "@/lib/http-errors";
-import { getWebPageSessionByViewerToken } from "@/domains/conversation/public-web-page-session";
 
 /**
  * Authorized PDF bytes for the in-app viewer — distinct from Nora cognitive payloads.
- * Re-checks session expiry, fingerprint, and PDF kind on every consultation.
- * Never returns content into LLM prompts/checkpoints.
+ * Re-checks project habilitation, identity, lane, work scope, expiry, and version on every GET.
+ * viewerToken alone is never sufficient authority.
  */
 export async function GET(
   _req: Request,
@@ -24,58 +25,34 @@ export async function GET(
     if (!page) {
       return NextResponse.json({ error: "VIEWER_SESSION_NOT_FOUND" }, { status: 404 });
     }
-    if (Date.parse(page.expiresAt) <= Date.now()) {
-      return NextResponse.json({ error: "VIEWER_SESSION_EXPIRED" }, { status: 410 });
-    }
-    if (page.kind !== "pdf") {
-      return NextResponse.json({ error: "VIEWER_NOT_PDF" }, { status: 415 });
-    }
-    // ViewerToken alone is not authority — owner + lane + project must be opposable.
-    const owner = (page.scope.ownerPilotId || "").trim();
-    if (!owner) {
-      return NextResponse.json(
-        { error: "VIEWER_OWNER_REQUIRED", limits: ["VIEWER_TOKEN_NOT_SUFFICIENT"] },
-        { status: 403 },
-      );
-    }
-    if (owner !== session.pilotId) {
-      return NextResponse.json({ error: "VIEWER_OWNER_MISMATCH" }, { status: 403 });
-    }
-    const lane = (page.scope.lane || "").trim();
-    const processLane = (process.env.STUDIO_LANE || "").trim();
-    if (!lane || lane === "UNKNOWN" || (processLane && lane !== processLane)) {
-      return NextResponse.json(
-        { error: "VIEWER_LANE_MISMATCH", limits: ["VIEWER_TOKEN_NOT_SUFFICIENT"] },
-        { status: 403 },
-      );
-    }
-    if (!(page.scope.projectId || "").trim()) {
-      return NextResponse.json(
-        { error: "VIEWER_PROJECT_REQUIRED", limits: ["VIEWER_TOKEN_NOT_SUFFICIENT"] },
-        { status: 403 },
-      );
-    }
-    if (!page.pdfBytes || page.pdfBytes.byteLength < 5) {
-      return NextResponse.json(
-        {
-          error: "PDF_BYTES_UNAVAILABLE",
-          contentFingerprint: page.contentFingerprint,
-          pageCount: page.pageCount ?? null,
-          limits: [...page.limits, "VIEWER_BYTES_SERVER_ONLY_WHEN_PRESENT"],
-        },
-        { status: 404 },
-      );
+
+    const access = await assertPdfViewerAccess({
+      session,
+      page,
+      processLane: process.env.STUDIO_LANE,
+    });
+    if (!access.ok) {
+      const body: Record<string, unknown> = {
+        error: access.error,
+        limits: access.limits,
+      };
+      if (access.error === "PDF_BYTES_UNAVAILABLE") {
+        body.contentFingerprint = page.contentFingerprint;
+        body.pageCount = page.pageCount ?? null;
+      }
+      return NextResponse.json(body, { status: access.status });
     }
 
-    return new NextResponse(Buffer.from(page.pdfBytes), {
+    const pdfBytes = page.pdfBytes!;
+    return new NextResponse(Buffer.from(pdfBytes), {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Length": String(page.pdfBytes.byteLength),
+        "Content-Length": String(pdfBytes.byteLength),
         "Cache-Control": "no-store",
-        "X-Content-Fingerprint": page.contentFingerprint,
+        "X-Content-Fingerprint": access.contentFingerprint,
         "X-Pdf-Page-Count": String(page.pageCount ?? ""),
-        "X-Viewer-Session-Id": page.sessionId,
+        "X-Viewer-Session-Id": access.sessionId,
       },
     });
   } catch (e) {

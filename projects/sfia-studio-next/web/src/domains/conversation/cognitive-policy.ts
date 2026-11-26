@@ -533,6 +533,21 @@ export type ContinuityResourceProposal = {
   effort?: string | null;
 };
 
+/** Pilote-facing suspend copy — need/constraint/consequence; no model admin duty. */
+export function buildResourceContinuitySuspendMessage(
+  refusedModel: string,
+  refusedEffort: string,
+): string {
+  return (
+    `Je ne peux pas poursuivre avec la ressource proposée (${refusedModel}@${refusedEffort}) : ` +
+    `elle n'est pas admise dans la politique active, et aucune ressource déjà admise n'est disponible ` +
+    `pour maintenir le travail sans substitution silencieuse. ` +
+    `Besoin restant : poursuivre avec une capacité compatible avec la politique en vigueur. ` +
+    `Conséquence : le travail est suspendu jusqu'à réévaluation de la stratégie ou arbitrage ` +
+    `métier/politique si une exception est nécessaire — sans obligation d'administrer les modèles.`
+  );
+}
+
 /**
  * S3 — resolve next-segment policy from structured proposal + held couple.
  * - Explicit proposal → admit; on refusal prefer holding the current couple

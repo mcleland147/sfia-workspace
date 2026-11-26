@@ -1,6 +1,7 @@
 /**
  * Server-side PDF text extraction (pdfjs-dist).
  * Input bytes must already be authorized by the owning domain (B1/D9/D4).
+ * Never call from the PDF viewer API — authorization and bytes delivery are separate.
  * No network I/O — disable worker and external font fetches.
  */
 

@@ -134,6 +134,11 @@ export type InvestigationState = {
   /** Exact public queries explicitly authorized for this turn. */
   authorizedExactWebQueries?: string[];
   /**
+   * S5 — exceptional exact queries bound to durable HumanDecision ids.
+   * Re-verified each turn; plain `authorizedExactWebQueries` alone does not re-admit.
+   */
+  authorizedExactWebQueryBindings?: Array<{ query: string; decisionId: string }>;
+  /**
    * Nora-proposed public queries awaiting explicit Pilote authorization (Option B).
    * Never grants egress alone — must match AUTHORIZE_PUBLIC_QUERY / exact marker.
    */

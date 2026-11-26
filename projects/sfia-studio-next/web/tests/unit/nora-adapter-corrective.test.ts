@@ -125,7 +125,13 @@ describe("FIX-SDK / SDK-RETRY — no automatic second run()", () => {
       },
       run: runMock,
       setTracingDisabled: vi.fn(),
+      setDefaultOpenAIClient: vi.fn(),
       tool: vi.fn(),
+    }));
+    vi.doMock("openai", () => ({
+      default: class {
+        constructor(_opts: unknown) {}
+      },
     }));
 
     const { generateNoraReply: gen } = await import("@/domains/conversation/nora-adapter");

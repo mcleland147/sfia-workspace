@@ -27,8 +27,8 @@ import { fixtureSemanticQualify } from "./fixture-semantic-qualify";
 import { resolveProviderSimulatedQualification } from "./provider-simulated-qualification";
 import { extractProviderUsageFromRunResult } from "./provider-usage";
 import {
-  commitProviderEmission,
-  reserveProviderEmission,
+  assertSdkInvocationAdmission,
+  ensureFrontierOpenAIClientInstalled,
 } from "./provider-emission-frontier";
 import { recordNoraProviderUsageFromRunResult } from "./usage-accounting";
 import {
@@ -82,6 +82,8 @@ export type NoraGenerateInput = {
     pilotProvidedUrls?: string[];
     /** Mutable — Nora-staged proposals awaiting Pilote exact auth. */
     pendingProposals?: string[];
+    /** S5 — normalized exact query → durable HumanDecision id (egress proof). */
+    exactQueryDecisionIds?: Record<string, string>;
   };
   /** E03/E04 FinOps attribution when running inside a cognitive work segment. */
   cognitiveWorkId?: string | null;
@@ -988,6 +990,8 @@ async function runLiveWithTools(
         turnPublicTopics: input.publicWebRegistry?.topics,
         turnPublicFacts: input.publicWebRegistry?.facts,
         turnAuthorizedExactQueries: input.publicWebRegistry?.exactQueries,
+        turnExactQueryDecisionIds: input.publicWebRegistry?.exactQueryDecisionIds,
+        policyVersion: policy.policyVersion,
         pilotProvidedUrls: input.publicWebRegistry?.pilotProvidedUrls,
         pendingPublicWebProposals,
         // T1.2 — explicit this-turn Pilote text only (never haystack/objective).
@@ -1192,13 +1196,15 @@ async function runLiveWithTools(
   let providerUsage = extractProviderUsageFromRunResult(null);
 
   try {
-    // S1 — reserve at the common emission frontier before any provider contact.
-    const reservation = reserveProviderEmission({
+    // HTTP attempts are gated by the frontier-aware OpenAI client fetch.
+    // This precheck only admits the SDK invocation (lane + model/effort) — not an HTTP slot.
+    await ensureFrontierOpenAIClientInstalled();
+    const admission = assertSdkInvocationAdmission({
       kind: "nora.generate_reply",
       modelId: policy.modelRequested,
       effort: policy.effortRequested,
     });
-    if (!reservation.ok) {
+    if (!admission.ok) {
       clearTimeout(wallTimer);
       return {
         generationId,
@@ -1207,8 +1213,8 @@ async function runLiveWithTools(
         streamingProvisional: false,
         streamingAttempted: false,
         streamingDelivered: false,
-        streamingNotes: `PROVIDER_EMISSION_REFUSED:${reservation.reasonCode}`,
-        content: `Nora LIVE refusée avant émission fournisseur (${reservation.reasonCode}). Aucun contact réseau tenté.`,
+        streamingNotes: `PROVIDER_EMISSION_REFUSED:${admission.reasonCode}`,
+        content: `Nora LIVE refusée avant émission fournisseur (${admission.reasonCode}). Aucun contact réseau tenté.`,
         policy,
         modelRequested: policy.modelRequested,
         modelApplied: null,
@@ -1219,18 +1225,18 @@ async function runLiveWithTools(
             attemptId: newAttemptId(),
             kind: "non_stream",
             outcome: "FAILED",
-            notes: `PROVIDER_EMISSION_REFUSED:${reservation.reasonCode}:${reservation.reason}`,
+            notes: `PROVIDER_EMISSION_REFUSED:${admission.reasonCode}:${admission.reason}`,
             providerContacted: "NO",
           },
         ],
         toolCallsObserved: 0,
         d4CharsReturned: 0,
         qualification: unavailableQualification(
-          `PROVIDER_EMISSION_REFUSED_${reservation.reasonCode}`,
+          `PROVIDER_EMISSION_REFUSED_${admission.reasonCode}`,
         ),
       };
     }
-    const attemptId = reservation.attemptId;
+    const attemptId = admission.attemptId;
     // Structured qualification never surfaces provisional JSON to the Pilote (A3).
     // Non-stream avoids Agents SDK stream_drain REDACTED schema failures (fp d57214)
     // observed on tool-heavy investigation turns (CampusNova 2026-11-19).
@@ -1251,14 +1257,15 @@ async function runLiveWithTools(
         model_requested: policy.modelRequested,
         max_turns_note: "maxTurns≠maxProviderCalls",
         live_output_schema: "plain_omit_visual",
-        campaign_id: reservation.campaignId,
+        campaign_id: admission.campaignId,
+        frontier_layer: admission.layer,
       },
     });
 
     try {
       // Invoking run() → provider contact becomes at least UNCERTAIN.
+      // Real HTTP attempts (incl. retries) are reserved/committed in frontier fetch.
       providerContacted = "UNCERTAIN";
-      commitProviderEmission(reservation);
       const result = await run(agent, prompt, {
         maxTurns,
         stream: false,

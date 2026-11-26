@@ -104,12 +104,17 @@ export function aggregateTokenTotal(rows: TokenRow[]): MeasuredValue<number> {
 }
 
 /**
- * Observation coverage: share of provider requests that have *some* cost
- * observation (KNOWN or PARTIAL). PARTIAL still counts as observed — not as
+ * Observation coverage: share of *recorded* provider requests that have *some*
+ * cost observation (KNOWN or PARTIAL). PARTIAL still counts as observed — not as
  * financially complete.
+ *
+ * The denominator is the observation set, not a proven complete HTTP-emission
+ * census. Without an independent emission census, never present coverage as a
+ * fully-known 100% of all real emissions (mandate S4 — honest coverage).
  */
 export function computeMeasureCoveragePercent(
   rows: Array<{ costCoverage: string; providerRequests: number | null }>,
+  opts?: { emissionCensusComplete?: boolean },
 ): MeasuredValue<number> {
   if (rows.length === 0) return { kind: "empty" };
   let totalReq = 0;
@@ -131,11 +136,14 @@ export function computeMeasureCoveragePercent(
   if (totalReq <= 0) return { kind: "unknown", reason: "Requêtes non observées" };
   const pct = Math.round((observedReq / totalReq) * 100);
   const value = Math.min(100, Math.max(0, pct));
-  if (missingRequestCounts) {
+  const censusComplete = opts?.emissionCensusComplete === true;
+  if (missingRequestCounts || !censusComplete) {
     return {
       kind: "partial",
       value,
-      note: "Certaines lignes sans nombre de requêtes",
+      note: missingRequestCounts
+        ? "Certaines lignes sans nombre de requêtes"
+        : "Couverture sur observations recensées — population d'émissions HTTP non établie indépendamment",
     };
   }
   return { kind: "known", value };
@@ -143,10 +151,12 @@ export function computeMeasureCoveragePercent(
 
 /**
  * Estimation completeness: only KNOWN rows contribute. PARTIAL never inflates
- * this toward a fully-known financial picture.
+ * this toward a fully-known financial picture. Completeness is always relative
+ * to the recorded observation set unless an emission census is proven complete.
  */
 export function computeEstimationCompletenessPercent(
   rows: Array<{ costCoverage: string; providerRequests: number | null }>,
+  opts?: { emissionCensusComplete?: boolean },
 ): MeasuredValue<number> {
   if (rows.length === 0) return { kind: "empty" };
   let totalReq = 0;
@@ -171,13 +181,16 @@ export function computeEstimationCompletenessPercent(
   if (totalReq <= 0) return { kind: "unknown", reason: "Requêtes non observées" };
   const pct = Math.round((knownReq / totalReq) * 100);
   const value = Math.min(100, Math.max(0, pct));
-  if (missingRequestCounts || hasPartial) {
+  const censusComplete = opts?.emissionCensusComplete === true;
+  if (missingRequestCounts || hasPartial || !censusComplete) {
     return {
       kind: "partial",
       value,
       note: hasPartial
         ? "Mesures PARTIAL exclues de la complétude financière"
-        : "Certaines lignes sans nombre de requêtes",
+        : missingRequestCounts
+          ? "Certaines lignes sans nombre de requêtes"
+          : "Complétude sur observations recensées — population d'émissions HTTP non établie indépendamment",
     };
   }
   return { kind: "known", value };

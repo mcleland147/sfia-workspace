@@ -4,29 +4,34 @@
 |---|---|
 | Date | 2026-11-26 |
 | Branche produit | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD | `c46a8a9ab8b7ea90e423a2e8f237d580ce82908f` |
+| HEAD (pré-commit tip de travail) | voir commit local de conformité fondation |
+| BUILD_ID | `X94NdR5lxD655tzAciId3` |
 | Classe | **NO RELEASE** |
 | STABLE | NOT AVAILABLE |
 | Cutover | **NON APPLIQUÉ** |
 | G-RECETTE | **NON CONSOMMÉ** |
 | G-WEB-MIXED | **FERMÉ** |
 | WEB LIVE défaut | **OFF** |
+| Politique cognitive DEV | v0.2 provisoire (Terra Medium ; Luna L/M expérimental ; Sol historique ; rollback `legacy_sol`) |
+| Extension v0.2 → RECETTE | **Décision Morris distincte — non activée** |
 
 ## Capacités qualifiées
 
 | Capacité | État | Preuve |
 |---|---|---|
-| Frontière fournisseur commune + enveloppe campagne | DETERMINISTIC PROVEN | `ml5-provider-emission-frontier` · wired Nora + WEB worker |
-| Allocation sans substitution silencieuse | DETERMINISTIC PROVEN | `RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION` |
-| FinOps observation vs estimation | DETERMINISTIC PROVEN | `computeMeasureCoveragePercent` + `computeEstimationCompletenessPercent` |
-| Autorité WEB D6 (parse ≠ authority) | DETERMINISTIC PROVEN | `web-public-query-authority` · registry no auto-promote |
-| PDF viewerToken rotation + auth owner/lane/project | DETERMINISTIC PROVEN | session + route tests |
-| Politique cognitive v0.2 DEV | PRÉSERVÉE | Terra Medium ; Luna L/M expérimental ; rollback `legacy_sol` |
-| StockTrack IT-06 V2 conserve | REUSED (prior LIVE) | tip antérieur `8c82b6c1` — retest déterministe préféré |
-| RoomBooking investigation longue | REUSED | pas de replay 71 req ; corrections via unit/intégration |
+| Build production Next | DETERMINISTIC PROVEN | `NODE_ENV=production` lock · BUILD_ID `X94NdR5lxD655tzAciId3` |
+| Frontière HTTP fournisseur + enveloppe | DETERMINISTIC PROVEN (transport substitué) | `createFrontierAwareFetch` · N+1 refuse · latch ALS · wired Nora + WEB |
+| Allocation sans substitution + message Pilote | DETERMINISTIC PROVEN | `RESOURCE_CONTINUITY_SUSPEND_NO_SILENT_SUBSTITUTION` · `buildResourceContinuitySuspendMessage` |
+| FinOps couverture honnête | DETERMINISTIC PROVEN | observation vs estimation · partial sans census émissions |
+| Autorité WEB D6 (parse ≠ authority) | DETERMINISTIC PROVEN | effectConditions fail-closed · decisionId · egress re-proof |
+| PDF viewer auth réelle | DETERMINISTIC PROVEN | `assertPdfViewerAccess` · habilitation DB · lane |
+| Politique cognitive v0.2 DEV | PRÉSERVÉE | non étendue à RECETTE |
+| StockTrack IT-06 V2 conserve | REUSED (prior LIVE) | retest déterministe préféré ; frontière HTTP modifiée ⇒ LIVE optionnel |
+| RoomBooking investigation longue | REUSED | pas de replay 71 req |
 | PDF Git REAL textuel | **BLOCKED CORPUS MISSING** | BPMN scanné SCANNED_NO_TEXT |
-| WEB LIVE public | PRIOR LIVE OBSERVED puis **OFF** | retest autorité D6 LIVE conditionnel §12.2 |
-| WEB-05 confrontation | PARTIAL | classe C — vérifiable en recette / retest ciblé |
+| Passage LIVE SDK multi-requête sous campagne | B — non consommé §12.1 | préconditions S2 déterministes OK |
+| WEB LIVE public / WEB-05 | B/C | OFF ; confrontation intellectuelle en recette |
+| F2 visuelle | C | décision Morris |
 
 ## Configuration proposée RECETTE (décision Morris distincte)
 
@@ -42,28 +47,27 @@
 
 | Id | Classe | Justification |
 |---|---|---|
-| R-BUILD-404 | A | `next build` échoue prerender /404 Html (Next 15.5.29) — artefact RECETTE non reproductible |
 | R-GIT-PDF-TEXT | B | Capacité Git PDF text isolable ; scanné déjà prouvé comme limite |
+| R-LIVE-HTTP-SDK | B | Retest LIVE discriminant multi-Responses sous campagne (§12.1) non consommé — frontier déterministe OK |
 | R-WEB05 | C | Confrontation sources — socle sûr ; qualité intellectuelle en recette |
 | R-D6-WEB-KIND | D | Kind dédié optionnel ; RECORD_DECISION lie déjà le payload |
 | R-F2 | C | Recette visuelle Morris |
 | R-EFFICIENCE-RB | C | Dette efficience RoomBooking — non critique sécurité |
-| R-LIVE-REENVELOPPE | B | Tout retest LIVE doit réutiliser frontière S1 |
 
-**Réserve A** : build production Next `/404` — bloque cutover jusqu'à correction. Socle S1–S5 déterministe OK. Revue ChatGPT + GO Morris cutover requis.
+**Réserve A build `/404` : LEVÉE** (cause `NODE_ENV` ; BUILD_ID valide).
 
 ## Smoke tests cutover (non exécutés)
 
 1. Health DEV/RECETTE isolation ports 3100/3200/5433
-2. Session Pilote + FinOps summary KPI
+2. Session Pilote + FinOps summary KPI (couverture PARTIAL attendue sans census)
 3. Tour Nora simple Terra medium (WEB OFF)
-4. Viewer PDF fixture owner match / cross-owner 403
+4. Viewer PDF fixture owner match / cross-owner 403 / habilitation withdrawn
 5. Flags WEB = 0 sur processus actif
 
 ## Rollback
 
-Revert tip consolidation ; WEB OFF ; politique `legacy_sol` si besoin ; aucune migration à annuler.
+Revert tip conformité fondation ; WEB OFF ; politique `legacy_sol` si besoin ; aucune migration à annuler.
 
 ## Verdict manifeste
 
-**CANDIDATE INSTRUCTED FOR G-RECETTE — CUTOVER NOT APPLIED — MORRIS GO REQUIRED.**
+**CANDIDATE PREPARED FOR MORRIS REVIEW — CUTOVER NOT APPLIED — G-RECETTE NOT CONSUMED — FOUNDATION QUALIFIED WITH EXPLICIT CAPABILITY RESERVES.**

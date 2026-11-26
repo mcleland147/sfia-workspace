@@ -10,10 +10,13 @@ import { useEffect, useRef, useState } from "react";
 export type PdfViewerProps = {
   /**
    * Base64-encoded PDF bytes from an already-authorized Studio path (Git/D4).
-   * Prefer `viewerToken` for WEB sessions so cognitive payloads never carry bytes.
+   * Requires an opposable server contract — never use for ad-hoc URLs.
    */
   base64?: string;
-  /** Opaque token from public WEB open — fetches bytes via authorized viewer API. */
+  /**
+   * Opaque WEB session handle — not authorization.
+   * `/api/web/pdf-viewer/*` re-checks session, project habilitation, lane, and work scope.
+   */
   viewerToken?: string;
   title?: string;
   /** 1-based initial page when citing. */
