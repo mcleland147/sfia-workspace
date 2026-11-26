@@ -3,6 +3,26 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-26-ML5-DOCUMENTARY-PRODUCTION-BOUNDARY-DEV
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-26 (Europe/Paris) |
+| Macro-lot | ML5 R5 — frontière production documentaire + visionneuse + activité LIVE · **DEV only** |
+| Type | INC Critical · correctif intégré · **NO RELEASE** · **NO RECETTE CUTOVER** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD doc baseline | `42b8ee2e5542f0221d30dac92db3ab774b1fb349` |
+| Merge-base origin/main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
+| Runtime DEV testé | `http://127.0.0.1:3100` · PG `:5433` / `sfia_next_dev` · BUILD_ID `bRStInNJBp4q4p6qIzcK3` |
+| Contenu | (A) `resolveDocumentaryProductionBoundary` — pas d'APPEND V1→REVISE ; (B) visionneuse candidat cohérent sans focus préalable ; (C) contrat Nora SUPERSEDE + compare honnête ; (D) activité LIVE sans niveaux N1 redondants ; (E) qualification navigateur DEV |
+| Preuves | unit boundary 5 + viewer 2 + activity-labels ; PG LIVE create→revise→conserve PASS (~85s) ; Playwright DOC-BOUNDARY+DOC-VIEWER PASS (~2.3m) ; SAS-ANIM transformChanged+reducedHonored PASS |
+| Browser project | `proj_9e5c4aae-e9cb-4a81-bec9-5eb42bbe603a` / BoundTrack mwx4d3bw-rbzzq · viewerHasLieu=true · orientBlurbCount=0 |
+| PG LIVE ids | doc `doc_72c2caee-…` · V1 `drev_d99808d2-…` · pending `pdoc_aa01e6d7-…` sha `a6847041…` · V2 `drev_bbace1d1-…` |
+| RECETTE | **inchangée** · SHA `e012401f6af438df2168f3efb069bbabd03e80c0` · BUILD `KotrF7y02wbZN79HDsjAb` · `:3200` / `:5434` |
+| Push produit | **NONE** |
+| Handoff L3 | `docs(review-handoff): verify documentary production boundaries and browser behavior in DEV` |
+| Verdict | **DOCUMENTARY PRODUCTION AND VIEWER — CORRECTIVE DELIVERY VERIFIED IN DEV — BROWSER AND LIVE BEHAVIOR PROVEN — RECETTE UNCHANGED — READY FOR CHATGPT REVIEW — MORRIS RECETTE GO REQUIRED** |
+
 ## delivery_id: DELIV-2026-11-25-ML5-NORA-DOCUMENTARY-AUTONOMY-RECETTE
 
 | Field | Value |

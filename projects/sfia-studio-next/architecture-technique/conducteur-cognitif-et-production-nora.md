@@ -235,3 +235,20 @@ Review Pack complet mono-cycle, contenu créé intégral, modifications par sect
 | Réserves | LIVE E2E product path (Next :3100) non rejoué dans C16 ; boot resume serveur non démontré bout-en-bout ; production documentaire multi-segments D4 PARTIAL |
 
 Aucun nouvel arbitrage B/C/C. Aucune release.
+
+## As-built ML5 R5 — frontière production documentaire (2026-11-26)
+
+| Champ | Valeur |
+|---|---|
+| Date | 26 novembre 2026 |
+| Cycle | ML5 R5 / Cycle 8 INC Critical — DEV qualification only |
+| Principe | Continuité cognitive ≠ continuité de production documentaire |
+| Frontière | `resolveDocumentaryProductionBoundary` — REVISE/CREATE après DOCUMENT COMPLETE/PARTIAL/FAILED → `startNew` + merge SUPERSEDE avec `prevDoc=""` ; mid-work IN_PROGRESS reste APPEND |
+| C20 | Ne pas écraser une proposition REVISE Nora par une consolidation APPEND provenant d'une production antérieure (`DOCUMENTARY_PRODUCTION_NEW:*`) |
+| Visionneuse | Objet `pendingProposal` unique ; badge Candidate seulement si `viewer.markdown === pendingProposal.contentMarkdown` |
+| Activité | GROUP_META sans descriptions N1 redondantes ; compare projeté si outil réellement exécuté |
+| Preuves DEV | unit boundary + viewer ; PG LIVE create→revise→conserve ; Playwright DOC-BOUNDARY + DOC-VIEWER + SAS-ANIM |
+| RECETTE | **inchangée** (`e012401f` / `KotrF7y02wbZN79HDsjAb`) — aucun cutover |
+| Verdict local | Correctif + preuves navigateur DEV — **GO Morris requis** avant RECETTE |
+
+Aucune release. Aucune migration. Aucune refonte du conducteur.

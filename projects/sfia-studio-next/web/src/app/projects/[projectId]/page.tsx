@@ -349,15 +349,20 @@ export default function ProjectPage() {
   const [compareError, setCompareError] = useState<string | null>(null);
   const [originOpen, setOriginOpen] = useState(false);
   const [documentFocus, setDocumentFocus] = useState<DocumentFocus | null>(null);
-  /** R3 — proposal prepared under Documents focus, awaiting explicit conserve. */
-  const [pendingDocumentProposal, setPendingDocumentProposal] = useState(false);
+  /**
+   * Single coherent pending-candidate view (identity + markdown + revision hint).
+   * Never activate a Candidate badge without this object's contentMarkdown.
+   */
+  const [pendingProposal, setPendingProposal] = useState<{
+    candidateId: string;
+    contentSha256: string;
+    documentId: string;
+    title: string;
+    contentMarkdown: string;
+    sourceRevisionId?: string | null;
+    revisionNumberHint?: number | null;
+  } | null>(null);
   const [readingProvenanceJson, setReadingProvenanceJson] = useState<string | null>(null);
-  const [proposalCandidateMarkdown, setProposalCandidateMarkdown] = useState<string | null>(
-    null,
-  );
-  const [proposalCandidateRevisionHint, setProposalCandidateRevisionHint] = useState<
-    number | null
-  >(null);
   const [unresolvedPending, setUnresolvedPending] = useState<ThreadPendingTurn | null>(null);
   const draftVersionRef = useRef(0);
   const pilotIdRef = useRef<string | null>(null);
@@ -1396,9 +1401,7 @@ export default function ProjectPage() {
       return;
     }
     const historical = input.sourceRevisionId !== head.id;
-    setPendingDocumentProposal(false);
-    setProposalCandidateMarkdown(null);
-    setProposalCandidateRevisionHint(null);
+    setPendingProposal(null);
     applyDocumentFocus({
       documentId: input.doc.document.id,
       sourceRevisionId: input.sourceRevisionId,
@@ -1997,9 +2000,7 @@ export default function ProjectPage() {
                   };
                   if (!cres.ok || cj.status !== "PENDING" || !cj.candidate?.contentMarkdown) {
                     // SUPERSEDED / denied / missing — clear pending UI, keep focus identities for requalify.
-                    setPendingDocumentProposal(false);
-                    setProposalCandidateMarkdown(null);
-                    setProposalCandidateRevisionHint(null);
+                    setPendingProposal(null);
                     const curFocus = documentFocusRef.current;
                     if (
                       curFocus &&
@@ -2025,9 +2026,16 @@ export default function ProjectPage() {
                     return;
                   }
                   const headNum = restored.observedHeadRevisionNumber ?? null;
-                  setPendingDocumentProposal(true);
-                  setProposalCandidateMarkdown(cj.candidate.contentMarkdown);
-                  setProposalCandidateRevisionHint(headNum != null ? headNum + 1 : null);
+                  const md = cj.candidate.contentMarkdown;
+                  setPendingProposal({
+                    candidateId: restored.pendingCandidateId!,
+                    contentSha256: cj.candidate.contentSha256 ?? restored.pendingCandidateContentSha256 ?? "",
+                    documentId: restored.documentId,
+                    title: cj.candidate.title ?? "Document",
+                    contentMarkdown: md,
+                    sourceRevisionId: restored.sourceRevisionId,
+                    revisionNumberHint: headNum != null ? headNum + 1 : null,
+                  });
                   setStatusHint("Examiner une proposition de Nora");
                   setViewer({
                     kind: "document",
@@ -2036,7 +2044,7 @@ export default function ProjectPage() {
                     revisionId: restored.sourceRevisionId,
                     revisionNumber: headNum != null ? headNum + 1 : null,
                     versionSource: "exact",
-                    markdown: cj.candidate.contentMarkdown,
+                    markdown: md,
                     available: true,
                   });
                   // Re-bind focus with server hash; never set conserveProposal.
@@ -2046,8 +2054,7 @@ export default function ProjectPage() {
                     conserveProposal: false,
                   });
                 } catch {
-                  setPendingDocumentProposal(false);
-                  setProposalCandidateMarkdown(null);
+                  setPendingProposal(null);
                 }
               })();
             }
@@ -2704,6 +2711,9 @@ export default function ProjectPage() {
               contentSha256?: string;
               contentMarkdown?: string;
               title?: string;
+              documentId?: string;
+              sourceRevisionId?: string;
+              observedHeadRevisionId?: string;
             }
           | null
           | undefined;
@@ -2748,11 +2758,35 @@ export default function ProjectPage() {
             }
           }
         }
-        if (save?.reason === "PROPOSAL_PENDING_CONSERVATION" && pendingCand?.candidateId) {
-          setPendingDocumentProposal(true);
-          setProposalCandidateMarkdown(pendingCand.contentMarkdown ?? null);
-          const headNum = documentFocusRef.current?.observedHeadRevisionNumber ?? null;
-          setProposalCandidateRevisionHint(headNum != null ? headNum + 1 : null);
+        if (
+          save?.reason === "PROPOSAL_PENDING_CONSERVATION" &&
+          pendingCand?.candidateId &&
+          typeof pendingCand.contentMarkdown === "string" &&
+          pendingCand.contentMarkdown.length > 0
+        ) {
+          const headNum =
+            documentFocusRef.current?.observedHeadRevisionNumber ??
+            documentsRef.current.find((d) => d.document.id === (pendingCand.documentId || save.documentId))
+              ?.latestRevision?.revisionNumber ??
+            null;
+          const docId =
+            pendingCand.documentId ||
+            save.documentId ||
+            documentFocusRef.current?.documentId ||
+            "";
+          const match = documentsRef.current.find((d) => d.document.id === docId);
+          const title = pendingCand.title || match?.document.title || "Document";
+          const revisionHint = headNum != null ? headNum + 1 : null;
+          // Single coherent object — Candidate badge only with this exact markdown.
+          setPendingProposal({
+            candidateId: pendingCand.candidateId,
+            contentSha256: pendingCand.contentSha256 || "",
+            documentId: docId,
+            title,
+            contentMarkdown: pendingCand.contentMarkdown,
+            sourceRevisionId: documentFocusRef.current?.sourceRevisionId ?? null,
+            revisionNumberHint: revisionHint,
+          });
           if (documentFocusRef.current) {
             applyDocumentFocus({
               ...documentFocusRef.current,
@@ -2760,40 +2794,34 @@ export default function ProjectPage() {
               pendingCandidateId: pendingCand.candidateId,
               pendingCandidateContentSha256: pendingCand.contentSha256,
             });
-          }
-          // F5 / UAT-15 — visionneuse shows exact candidate (merged section), not head v1.
-          if (pendingCand.contentMarkdown && documentFocusRef.current) {
-            const focus = documentFocusRef.current;
-            const match = documentsRef.current.find((d) => d.document.id === focus.documentId);
-            setViewer((prev) => {
-              const base =
-                prev && prev.kind === "document"
-                  ? prev
-                  : {
-                      kind: "document" as const,
-                      documentId: focus.documentId,
-                      title: match?.document.title ?? "Document",
-                      revisionId: null,
-                      revisionNumber: headNum != null ? headNum + 1 : null,
-                      versionSource: "exact" as const,
-                      markdown: null,
-                      available: false,
-                    };
-              return {
-                ...base,
-                markdown: pendingCand.contentMarkdown ?? base.markdown,
-                available: Boolean(pendingCand.contentMarkdown),
-                unavailableReason: undefined,
-                revisionNumber: headNum != null ? headNum + 1 : base.revisionNumber,
-                versionSource: "exact",
-              };
+          } else if (docId) {
+            // No prior focus — still bind identities so conserve / reopen stay coherent.
+            const head = match?.latestRevision;
+            applyDocumentFocus({
+              documentId: docId,
+              sourceRevisionId: head?.id ?? docId,
+              sourceRevisionNumber: head?.revisionNumber,
+              observedHeadRevisionId: head?.id ?? docId,
+              observedHeadRevisionNumber: head?.revisionNumber,
+              conserveProposal: false,
+              pendingCandidateId: pendingCand.candidateId,
+              pendingCandidateContentSha256: pendingCand.contentSha256,
             });
           }
+          // Always project the candidate body — never leave V1 under a Candidate badge.
+          setViewer({
+            kind: "document",
+            documentId: docId || match?.document.id || "document",
+            title,
+            revisionId: documentFocusRef.current?.sourceRevisionId ?? match?.latestRevision?.id ?? null,
+            revisionNumber: revisionHint,
+            versionSource: "exact",
+            markdown: pendingCand.contentMarkdown,
+            available: true,
+          });
           setStatusHint("Examiner une proposition de Nora");
         } else if (save?.status === "AVAILABLE") {
-          setPendingDocumentProposal(false);
-          setProposalCandidateMarkdown(null);
-          setProposalCandidateRevisionHint(null);
+          setPendingProposal(null);
           if (documentFocusRef.current) {
             applyDocumentFocus({
               ...documentFocusRef.current,
@@ -3018,11 +3046,14 @@ export default function ProjectPage() {
                 sub: "Deux documents côte à côte, avec un résumé des différences en lecture seule.",
               };
 
-  const travailDocumentFocusBanner = pendingDocumentProposal
-    ? ("proposal" as const)
-    : viewer?.kind === "document" && viewer.versionSource === "exact"
-      ? ("historical" as const)
-      : null;
+  const travailDocumentFocusBanner =
+    pendingProposal &&
+    viewer?.kind === "document" &&
+    viewer.markdown === pendingProposal.contentMarkdown
+      ? ("proposal" as const)
+      : viewer?.kind === "document" && viewer.versionSource === "exact"
+        ? ("historical" as const)
+        : null;
 
   const qualificationLockActive =
     initialQualification?.status === "PENDING" ||
@@ -3044,7 +3075,7 @@ export default function ProjectPage() {
               title: "Nora prépare votre trajectoire",
               sub: "Le compositeur est temporairement indisponible pendant la qualification initiale.",
             }
-          : pendingDocumentProposal
+          : pendingProposal
             ? {
                 kicker: "ESPACE PROJET  /  TRAVAIL AVEC NORA",
                 title: "Examiner une proposition de Nora",

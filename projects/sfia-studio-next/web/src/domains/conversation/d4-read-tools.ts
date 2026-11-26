@@ -725,6 +725,16 @@ export async function compareDocumentProposal(
     note: "Comparaison objective ligne à ligne — Nora interprète le sens métier ; Studio ne reconstruit pas le document.",
   };
   const charsCharged = chargeBudget(scope, payload);
+  const coverage = diff.degraded ? ("PARTIAL" as ToolCoverage) : ("COMPLETE" as ToolCoverage);
+  const changed = diff.added.length + diff.removed.length;
+  recordToolSource(scope.sourceJournal, {
+    kind: "D4",
+    ref: `document:${owned.id}/revision:${rev.id}#compare`,
+    title: owned.title,
+    versionOrSha: `v${rev.revisionNumber}`,
+    coverage,
+    notes: `compare_document_proposal — added:${diff.added.length} removed:${diff.removed.length} unchanged:${diff.unchangedCount}${diff.degraded ? " degraded" : ""}`,
+  });
   emitObs({
     event_name: "d4.tool.compare_document_proposal",
     component: "d4.read_tools",
@@ -736,10 +746,11 @@ export async function compareDocumentProposal(
       base_revision_id: rev.id,
       added: diff.added.length,
       removed: diff.removed.length,
+      changed,
       degraded: Boolean(diff.degraded),
     },
   });
-  return { ...payload, charsCharged, coverage: diff.degraded ? ("PARTIAL" as ToolCoverage) : ("COMPLETE" as ToolCoverage) };
+  return { ...payload, charsCharged, coverage };
 }
 
 /** Build Agents SDK tool() definitions with server-closed-over scope. */

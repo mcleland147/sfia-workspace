@@ -1258,33 +1258,49 @@ export async function postUserMessageAndNora(
       }
       reply = turn;
       // C20 / ML5 Option B: consolidated cognitive DOCUMENT body is the canonical
-      // content when present. Title must stay métier — never document-part-N.
+      // content when it belongs to the *current* documentary production.
+      // Never silently replace a revise/create proposal with an APPEND that still
+      // carries a prior completed document from the same cognitive work.
       const consolidated = turn.conductor.production;
       if (
         consolidated?.kind === "DOCUMENT" &&
         consolidated.contentMarkdown?.trim() &&
         reply.qualification
       ) {
-        const fromProposal = reply.qualification.documentProposal?.title?.trim() || "";
-        const fromPart = consolidated.parts[0]?.title?.trim() || "";
-        const partIsSynthetic = /^document-part-\d+$/i.test(fromPart);
-        const h1 =
-          /^#\s+(.+?)(?:\r?\n|$)/.exec(consolidated.contentMarkdown)?.[1]?.trim() || "";
-        const title =
-          (fromProposal && !/^document-part-\d+$/i.test(fromProposal) ? fromProposal : "") ||
-          h1 ||
-          (!partIsSynthetic ? fromPart : "") ||
-          "Document";
-        reply = {
-          ...reply,
-          qualification: {
-            ...reply.qualification,
-            documentProposal: {
-              title,
-              contentMarkdown: consolidated.contentMarkdown,
+        const limits = consolidated.limits ?? [];
+        const appendFromPrior =
+          limits.includes("MERGE_MODE_APPEND") &&
+          !limits.some((l) => String(l).startsWith("DOCUMENTARY_PRODUCTION_NEW:"));
+        const noraBody = reply.qualification.documentProposal?.contentMarkdown?.trim() || "";
+        const isRevise = (reply.qualification.intents ?? []).some(
+          (i) => i.capabilityId === "d4.revise_document",
+        );
+        const preferNoraProposal = Boolean(noraBody) && isRevise && appendFromPrior;
+        if (!preferNoraProposal) {
+          const fromProposal = reply.qualification.documentProposal?.title?.trim() || "";
+          const fromPart = consolidated.parts[0]?.title?.trim() || "";
+          const partIsSynthetic = /^document-part-\d+$/i.test(fromPart);
+          const h1 =
+            /^#\s+(.+?)(?:\r?\n|$)/.exec(consolidated.contentMarkdown)?.[1]?.trim() || "";
+          const title =
+            (fromProposal && !/^document-part-\d+$/i.test(fromProposal) ? fromProposal : "") ||
+            h1 ||
+            (!partIsSynthetic ? fromPart : "") ||
+            "Document";
+          reply = {
+            ...reply,
+            qualification: {
+              ...reply.qualification,
+              documentProposal: {
+                title,
+                contentMarkdown: consolidated.contentMarkdown,
+                ...(reply.qualification.documentProposal?.mergeMode
+                  ? { mergeMode: reply.qualification.documentProposal.mergeMode }
+                  : {}),
+              },
             },
-          },
-        };
+          };
+        }
       }
       cognitiveWorkMeta = turn.conductor.workId
         ? {

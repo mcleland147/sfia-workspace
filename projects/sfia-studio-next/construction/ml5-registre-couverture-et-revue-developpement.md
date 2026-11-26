@@ -4,7 +4,7 @@
 
 | Champ | Valeur |
 |---|---|
-| Version | v0.15 candidate — 25 novembre 2026 : Nora documentary autonomy (seal full proposal, no fragment/section rewrite ; compare_document_proposal ; exact conserve) + LIVE/UX IT-01…05 + cutover RECETTE `e012401f` / `KotrF7y02wbZN79HDsjAb` — **RECETTE AVAILABLE WITH EXPLICIT RESERVES** |
+| Version | v0.16 candidate — 26 novembre 2026 : R5 frontière production documentaire (cognitive ≠ documentary continuity) + visionneuse candidat cohérent + activité LIVE sans N1 redondants — **DEV QUALIFIED / RECETTE UNCHANGED `e012401f` / `KotrF7y02wbZN79HDsjAb` — MORRIS RECETTE GO REQUIRED** ; v0.15 : Nora documentary autonomy + cutover RECETTE |
 | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
 | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
 | Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |

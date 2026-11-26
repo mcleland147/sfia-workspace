@@ -86,18 +86,39 @@ export function formatSourceActivitySummary(entry: {
                 ? `Consultation Git — ${title}`
                 : "Consultation Git";
   } else if (kind === "D4") {
-    human =
-      cov === "DISCOVERED"
+    const notes = (entry.notes || "").trim();
+    if (/^compare_document_proposal\b/i.test(notes)) {
+      const added = /added:(\d+)/i.exec(notes);
+      const removed = /removed:(\d+)/i.exec(notes);
+      const a = added ? Number(added[1]) : 0;
+      const r = removed ? Number(removed[1]) : 0;
+      const changed = a + r;
+      const degraded = /\bdegraded\b/i.test(notes);
+      human = degraded
         ? title
-          ? `Document identifié — ${title}`
-          : "Document identifié"
-        : cov === "DENIED"
+          ? `Comparaison documentaire partielle — ${title}`
+          : "Comparaison documentaire partielle"
+        : changed > 0
           ? title
-            ? `Document non accessible — ${title}`
-            : "Document non accessible"
+            ? `Comparaison documentaire — ${changed} modification${changed > 1 ? "s" : ""} — ${title}`
+            : `Comparaison documentaire — ${changed} modification${changed > 1 ? "s" : ""}`
           : title
-            ? `Document consulté — ${title}`
-            : "Document consulté";
+            ? `Comparaison documentaire — aucune différence — ${title}`
+            : "Comparaison documentaire — aucune différence";
+    } else {
+      human =
+        cov === "DISCOVERED"
+          ? title
+            ? `Document identifié — ${title}`
+            : "Document identifié"
+          : cov === "DENIED"
+            ? title
+              ? `Document non accessible — ${title}`
+              : "Document non accessible"
+            : title
+              ? `Document consulté — ${title}`
+              : "Document consulté";
+    }
   } else if (kind === "HISTORY") {
     human = "Historique conversationnel consulté";
   } else {
@@ -434,29 +455,42 @@ function groupKeyForPhase(phase: string): string {
   return "work";
 }
 
-/** Structural fallback labels — overridden by contextual event summaries when present. */
+/** Structural fallback labels — overridden by contextual event summaries when present.
+ * Descriptions stay empty when they would only repeat the group title (IT-01). */
 const GROUP_META: Record<string, { title: string; description: string }> = {
   understand: {
-    title: "Compréhension du besoin",
-    description: "Orientation du travail à partir de la demande du Pilote.",
+    title: "Orientation du travail",
+    description: "",
   },
   sources: {
     title: "Consultation des sources",
-    description: "Documents, Git et historiques réellement mobilisés.",
+    description: "",
   },
   produce: {
     title: "Production et validation",
-    description: "Préparation documentaire, candidat ou enregistrement.",
+    description: "",
   },
   restitute: {
     title: "Restitution",
-    description: "Consolidation de la réponse pour le Pilote.",
+    description: "",
   },
   work: {
     title: "Travail en cours",
-    description: "Opérations observées pendant le tour.",
+    description: "",
   },
 };
+
+/** Generic orientation blurbs — durable events may keep them; UI must not echo them. */
+function isGenericOrientationSummary(summary: string | null | undefined): boolean {
+  const s = (summary || "").trim();
+  if (!s) return true;
+  return (
+    /^Orientation du travail\b/i.test(s) ||
+    /^Orientation du travail à partir de la demande du Pilote\.?$/i.test(s) ||
+    /^Orientation du travail terminée\.?$/i.test(s) ||
+    /^Compréhension du besoin\.?$/i.test(s)
+  );
+}
 
 function contextualGroupTitle(
   key: string,
@@ -537,8 +571,12 @@ export function buildActivityGroups(
         coverage: s.coverage,
         kind: s.kind,
       }));
+    } else if (key === "understand") {
+      // IT-01 — keep a single group title; do not echo ANNOUNCED/COMPLETED orientation blurbs.
+      resultSummary = null;
+      details = [];
     } else {
-      const steps = buildActivitySteps(list);
+      const steps = buildActivitySteps(list).filter((s) => !isGenericOrientationSummary(s.label));
       resultSummary =
         steps.length > 1 ? `${steps.length} opérations observées` : steps[0]?.label || null;
       details = steps.map((s) => ({
@@ -548,9 +586,10 @@ export function buildActivityGroups(
         kind: "STEP",
       }));
     }
+    const title = key === "understand" ? meta.title : contextualGroupTitle(key, list, meta.title);
     groups.push({
       key,
-      title: contextualGroupTitle(key, list, meta.title),
+      title,
       description: meta.description,
       state: worst,
       resultSummary,
@@ -575,12 +614,19 @@ export function projectMissionHeadline(
     );
   if (objective) {
     const o = detailString(objective.detail, "objective") || objective.summary;
-    if (o && !looksTechnical(o) && !/^Prise en charge/i.test(o)) return o.slice(0, 160);
+    if (o && !looksTechnical(o) && !/^Prise en charge/i.test(o)) {
+      // Collapse generic orientation blurbs to the stable group title (IT-01).
+      if (isGenericOrientationSummary(o)) return "Orientation du travail";
+      return o.slice(0, 160);
+    }
   }
   const last = events[events.length - 1];
   if (last) {
     const headline = projectActivityLabel(last).slice(0, 160);
-    if (headline && !/Consultation Git —/i.test(headline)) return headline;
+    if (headline && !/Consultation Git —/i.test(headline)) {
+      if (isGenericOrientationSummary(headline)) return "Orientation du travail";
+      return headline;
+    }
   }
   return "Activité Nora";
 }

@@ -85,10 +85,15 @@ export function NoraLiveActivity(props: {
         ? "Partiel"
         : "En cours";
 
-  const lead =
+  // IT-01 — never echo a group description that only repeats the title / orientation blurbs.
+  const leadCandidate =
     groups.find((g) => g.state === "current")?.description ||
     groups[0]?.description ||
-    (active ? "Les opérations réellement engagées sont présentées au fil du travail." : null);
+    null;
+  const lead =
+    leadCandidate && leadCandidate.trim() && leadCandidate.trim() !== headline.trim()
+      ? leadCandidate
+      : null;
 
   return (
     <div

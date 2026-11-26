@@ -1,8 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
+  buildActivityGroups,
   buildActivitySteps,
   compactActivitySummary,
+  formatSourceActivitySummary,
   projectActivityLabel,
+  projectMissionHeadline,
 } from "@/domains/conversation/activity-labels";
 
 describe("activity-labels functional completion", () => {
@@ -104,5 +107,54 @@ describe("activity-labels functional completion", () => {
     ]);
     expect(headline).not.toMatch(/ANNOUNCED:/);
     expect(headline).not.toMatch(/^COMPLETE:/);
+  });
+
+  it("IT-01 — orientation group does not echo ANNOUNCED/COMPLETED blurbs", () => {
+    const events = [
+      {
+        sequence: 1,
+        nature: "ANNOUNCED",
+        status: "RUNNING",
+        phase: "nora.objective",
+        summary: "Orientation du travail à partir de la demande du Pilote",
+        detail: { objective: "Orientation du travail à partir de la demande du Pilote" },
+      },
+      {
+        sequence: 2,
+        nature: "OBSERVED",
+        status: "COMPLETED",
+        phase: "nora.source.d4",
+        summary: "Document consulté — StockTrack",
+        sourceRef: "document:doc_x",
+        detail: { kind: "D4", coverage: "CONSULTED", title: "StockTrack" },
+      },
+      {
+        sequence: 3,
+        nature: "COMPLETED",
+        status: "COMPLETED",
+        phase: "nora.objective",
+        summary: "Orientation du travail terminée",
+      },
+    ];
+    const groups = buildActivityGroups(events);
+    const understand = groups.find((g) => g.key === "understand");
+    expect(understand?.title).toBe("Orientation du travail");
+    expect(understand?.description).toBe("");
+    expect(understand?.details).toEqual([]);
+    expect(understand?.resultSummary).toBeNull();
+    const sources = groups.find((g) => g.key === "sources");
+    expect(sources?.resultSummary).toMatch(/consultée/i);
+    expect(projectMissionHeadline(events)).toBe("Orientation du travail");
+  });
+
+  it("projects compare_document_proposal as comparison activity copy", () => {
+    expect(
+      formatSourceActivitySummary({
+        kind: "D4",
+        coverage: "COMPLETE",
+        title: "StockTrack — Conception fonctionnelle V1",
+        notes: "compare_document_proposal — added:2 removed:2 unchanged:46",
+      }),
+    ).toMatch(/Comparaison documentaire — 4 modifications/);
   });
 });

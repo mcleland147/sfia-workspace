@@ -8,7 +8,6 @@ import { pilots, preparations } from "@/db/schema";
 import { newId } from "@/lib/ids";
 import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
 import { eq } from "drizzle-orm";
-import { preparations } from "@/db/schema";
 import { createProjectCommand } from "@/domains/preparation/create-project";
 import { listDocuments, getDocumentRevision, listDocumentRevisions } from "@/domains/document/service";
 import { postUserMessageAndNora } from "@/domains/conversation/service";
@@ -123,6 +122,18 @@ describe("ML5 LIVE documentary autonomy (DEV bounded)", () => {
         );
         expect(conserve.documentSave?.status).toBe("AVAILABLE");
         expect(conserve.documentSave?.revisionNumber).toBe(2);
+        // Discriminant oracle — not merely V2 == candidate.
+        const candBody = cand.contentMarkdown ?? "";
+        expect(candBody.length).toBeGreaterThan(0);
+        expect(candBody).not.toBe(v1Content);
+        // Anti-concat: revised body must not start with a full V1 prefix then a second H1.
+        if (candBody.startsWith(v1Content)) {
+          const rest = candBody.slice(v1Content.length).trimStart();
+          expect(rest.startsWith("#")).toBe(false);
+        }
+        expect(candBody).toMatch(/lieu/i);
+        const h1Count = (candBody.match(/^# /gm) || []).length;
+        expect(h1Count).toBe(1);
         const v2 = await getDocumentRevision(
           pilotId,
           prep.id,
@@ -131,7 +142,7 @@ describe("ML5 LIVE documentary autonomy (DEV bounded)", () => {
         );
         expect(v2.status).toBe("AVAILABLE");
         if (v2.status !== "AVAILABLE") return;
-        expect(v2.revision.contentMarkdown).toBe(cand.contentMarkdown);
+        expect(v2.revision.contentMarkdown).toBe(candBody);
         const stillV1 = await getDocumentRevision(pilotId, prep.id, documentId, v1Id);
         expect(stillV1.status).toBe("AVAILABLE");
         if (stillV1.status === "AVAILABLE") {

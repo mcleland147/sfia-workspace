@@ -809,6 +809,38 @@ export function mergeDocumentProductionBody(input: {
   };
 }
 
+/**
+ * Cognitive work continuity ≠ documentary production continuity.
+ * A completed DOCUMENT body must not be concatenated into a later CREATE/REVISE
+ * proposal in the same cognitive work. Mid-work IN_PROGRESS segments still APPEND.
+ * Never inferred from heading count — driven by capability intents + prior status.
+ */
+export function resolveDocumentaryProductionBoundary(input: {
+  previous: Pick<CognitiveProductionState, "kind" | "status" | "contentMarkdown"> | null | undefined;
+  capabilityIds?: string[] | null;
+  explicitMergeMode?: "APPEND" | "CORRECT" | "SUPERSEDE" | null;
+}): { startNew: boolean; reason: string } {
+  const prev = input.previous;
+  const prevHasBody = Boolean(prev?.contentMarkdown?.trim());
+  const prevClosedDoc =
+    prev?.kind === "DOCUMENT" &&
+    prevHasBody &&
+    (prev.status === "COMPLETE" || prev.status === "PARTIAL" || prev.status === "FAILED");
+  const caps = new Set((input.capabilityIds ?? []).map((c) => c.trim()).filter(Boolean));
+  const isRevise = caps.has("d4.revise_document");
+  const isCreate = caps.has("d4.create_document");
+  if (input.explicitMergeMode === "SUPERSEDE" && prevHasBody) {
+    return { startNew: true, reason: "EXPLICIT_SUPERSEDE" };
+  }
+  if (prevClosedDoc && isRevise) {
+    return { startNew: true, reason: "REVISE_AFTER_PRIOR_DOCUMENT" };
+  }
+  if (prevClosedDoc && isCreate) {
+    return { startNew: true, reason: "CREATE_AFTER_PRIOR_DOCUMENT" };
+  }
+  return { startNew: false, reason: "CONTINUE_SAME_PRODUCTION" };
+}
+
 function documentProductionFromReply(
   work: CognitiveWorkRow,
   reply: NoraGenerateResult,
@@ -837,24 +869,49 @@ function documentProductionFromReply(
 
   const proposal = reply.qualification?.documentProposal;
   if (proposal?.contentMarkdown?.trim()) {
+    const capabilityIds = (reply.qualification?.intents ?? [])
+      .map((i) => String(i.capabilityId || ""))
+      .filter((id) => id.length > 0);
+    const boundary = resolveDocumentaryProductionBoundary({
+      previous: work.production,
+      capabilityIds,
+      explicitMergeMode: proposal.mergeMode ?? null,
+    });
+    const mergeMode =
+      proposal.mergeMode ??
+      (boundary.startNew ? ("SUPERSEDE" as const) : null);
     const merged = mergeDocumentProductionBody({
-      prevDoc,
+      prevDoc: boundary.startNew ? "" : prevDoc,
       incoming: proposal.contentMarkdown,
-      mergeMode: proposal.mergeMode ?? null,
+      mergeMode,
       workDisposition: reply.qualification?.workDisposition ?? null,
       continueWork,
     });
+    // Empty-prev merge reports IDENTITY; stamp SUPERSEDE when we intentionally
+    // opened a new documentary production so C20 / observability stay honest.
+    const appliedMode =
+      boundary.startNew && merged.appliedMode === "IDENTITY"
+        ? ("SUPERSEDE" as const)
+        : merged.appliedMode;
+    const partTitle =
+      proposal.title || `document-part-${work.production.parts.length + 1}`;
+    const parts = boundary.startNew
+      ? [{ id: partId, title: partTitle, complete: !continueWork }]
+      : appendPart(work.production.parts, partTitle, !continueWork);
     return {
       kind: "DOCUMENT",
       status: continueWork ? "IN_PROGRESS" : "COMPLETE",
-      objectRef: work.production.objectRef || reply.generationId,
-      parts: appendPart(
-        work.production.parts,
-        proposal.title || `document-part-${work.production.parts.length + 1}`,
-        !continueWork,
-      ),
+      objectRef: boundary.startNew
+        ? reply.generationId
+        : work.production.objectRef || reply.generationId,
+      parts,
       contentMarkdown: merged.contentMarkdown,
-      limits: [`MERGE_MODE_${merged.appliedMode}`],
+      limits: [
+        `MERGE_MODE_${appliedMode}`,
+        ...(boundary.startNew
+          ? [`DOCUMENTARY_PRODUCTION_NEW:${boundary.reason}`]
+          : [`DOCUMENTARY_PRODUCTION:${boundary.reason}`]),
+      ],
     } as CognitiveProductionState;
   }
   // C19: Markdown fence is transport/legacy only — never authority that replaces
