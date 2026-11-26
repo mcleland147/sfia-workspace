@@ -6,6 +6,7 @@ import {
   formatSourceActivitySummary,
   projectActivityLabel,
   projectMissionHeadline,
+  resolveActivityDisplayHeadline,
 } from "@/domains/conversation/activity-labels";
 
 describe("activity-labels functional completion", () => {
@@ -144,10 +145,11 @@ describe("activity-labels functional completion", () => {
     expect(understand?.resultSummary).toBeNull();
     const sources = groups.find((g) => g.key === "sources");
     expect(sources?.resultSummary).toMatch(/consultée/i);
-    expect(projectMissionHeadline(events)).toBe("Orientation du travail");
+    // Prefer significant source activity over repeating orientation.
+    expect(projectMissionHeadline(events)).toMatch(/Document consulté|StockTrack/i);
   });
 
-  it("projects compare_document_proposal as comparison activity copy", () => {
+  it("projects compare_document_proposal with +/− line counters", () => {
     expect(
       formatSourceActivitySummary({
         kind: "D4",
@@ -155,6 +157,79 @@ describe("activity-labels functional completion", () => {
         title: "StockTrack — Conception fonctionnelle V1",
         notes: "compare_document_proposal — added:2 removed:2 unchanged:46",
       }),
-    ).toMatch(/Comparaison documentaire — 4 modifications/);
+    ).toMatch(/Comparaison documentaire — \+2 lignes \/ −2 lignes/);
+    expect(
+      formatSourceActivitySummary({
+        kind: "D4",
+        coverage: "COMPLETE",
+        title: "StockTrack — Conception fonctionnelle V1",
+        notes: "compare_document_proposal — added:2 removed:2 unchanged:46",
+      }),
+    ).not.toMatch(/4 modifications/);
+  });
+
+  it("IT-01 — unique source vs multiple consultations counters", () => {
+    const events = [
+      {
+        sequence: 1,
+        nature: "OBSERVED" as const,
+        status: "COMPLETED",
+        phase: "nora.source.d4",
+        summary: "Document consulté — StockTrack",
+        sourceRef: "document:doc_x/revision:drev_1",
+        detail: { kind: "D4", coverage: "CONSULTED", title: "StockTrack" },
+      },
+      {
+        sequence: 2,
+        nature: "OBSERVED" as const,
+        status: "COMPLETED",
+        phase: "nora.source.d4",
+        summary: "Document consulté — StockTrack",
+        sourceRef: "document:doc_x/revision:drev_1",
+        detail: { kind: "D4", coverage: "CONSULTED", title: "StockTrack" },
+      },
+      {
+        sequence: 3,
+        nature: "OBSERVED" as const,
+        status: "COMPLETED",
+        phase: "nora.source.d4",
+        summary: "Comparaison documentaire — +2 lignes / −2 lignes — StockTrack",
+        sourceRef: "document:doc_x/revision:drev_1#compare",
+        detail: {
+          kind: "D4",
+          coverage: "COMPLETE",
+          title: "StockTrack",
+          notes: "compare_document_proposal — added:2 removed:2 unchanged:46",
+        },
+      },
+    ];
+    const groups = buildActivityGroups(events);
+    const sources = groups.find((g) => g.key === "sources");
+    expect(sources?.title).toBe("Consultation des sources");
+    expect(sources?.resultSummary).toMatch(/Comparaison documentaire/);
+    expect(sources?.resultSummary).toMatch(/\+2 lignes \/ −2 lignes/);
+    expect(sources?.resultSummary).toMatch(/1 source/);
+    expect(sources?.resultSummary).toMatch(/consultation/i);
+  });
+
+  it("IT-01 — idle headline drops redundant orientation", () => {
+    const events = [
+      {
+        sequence: 1,
+        nature: "COMPLETED" as const,
+        status: "COMPLETED",
+        phase: "nora.objective",
+        summary: "Orientation du travail terminée",
+      },
+    ];
+    const groups = buildActivityGroups(events);
+    expect(
+      resolveActivityDisplayHeadline({
+        active: false,
+        propsHeadline: "Orientation du travail terminée",
+        events,
+        groupTitles: groups.map((g) => g.title),
+      }),
+    ).toBeNull();
   });
 });

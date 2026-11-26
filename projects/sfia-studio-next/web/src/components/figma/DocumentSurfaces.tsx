@@ -885,17 +885,24 @@ export function DocumentCompareSurface(props: {
           non exhaustif. {props.comparison?.note ?? ""}
         </div>
       ) : null}
+      <p className="text-sm muted" data-testid="document-compare-sense">
+        Sens de lecture : la colonne de gauche est la référence comparée ; la colonne de droite
+        est la version opposée. Les lignes retirées / ajoutées suivent ce sens, même si
+        l’ordre des versions est inversé.
+      </p>
       <div className="doc-compare-columns">
         <section className="doc-panel doc-compare-col">
           <p className="doc-aside-kicker">
-            VERSION {left?.revisionNumber ?? "?"}
+            RÉVISION {left?.revisionNumber ?? "?"}
             {"   ·   "}
             {left
               ? revisionCurrencyLabel(left.revisionNumber, props.headRevisionNumber).toUpperCase()
               : ""}
+            {"   ·   RÉFÉRENCE"}
           </p>
           <div className="doc-aside-divider" />
           <h3 className="doc-compare-doc-title">{props.documentTitle}</h3>
+          <p className="doc-diff-panel-kicker">Titre métier (inchangé)</p>
           <div className="doc-read-body">
             {props.leftMarkdown != null ? (
               <SafeMarkdown content={props.leftMarkdown} />
@@ -905,22 +912,27 @@ export function DocumentCompareSurface(props: {
           </div>
           {removed.length > 0 ? (
             <div className="doc-diff-removed" data-testid="document-diff-removed">
+              <p className="doc-diff-panel-kicker">Retiré par rapport à la référence</p>
               {removed.slice(0, 8).map((line, i) => (
-                <p key={`rm-${i}`}>{line || " "}</p>
+                <div key={`rm-${i}`} className="doc-diff-line">
+                  <SafeMarkdown content={line || " "} />
+                </div>
               ))}
             </div>
           ) : null}
         </section>
         <section className="doc-panel doc-compare-col">
           <p className="doc-aside-kicker">
-            VERSION {right?.revisionNumber ?? "?"}
+            RÉVISION {right?.revisionNumber ?? "?"}
             {"   ·   "}
             {right
               ? revisionCurrencyLabel(right.revisionNumber, props.headRevisionNumber).toUpperCase()
               : ""}
+            {"   ·   COMPARÉE"}
           </p>
           <div className="doc-aside-divider" />
           <h3 className="doc-compare-doc-title">{props.documentTitle}</h3>
+          <p className="doc-diff-panel-kicker">Titre métier (inchangé)</p>
           <div className="doc-read-body">
             {props.rightMarkdown != null ? (
               <SafeMarkdown content={props.rightMarkdown} />
@@ -930,8 +942,11 @@ export function DocumentCompareSurface(props: {
           </div>
           {added.length > 0 ? (
             <div className="doc-diff-added" data-testid="document-diff-added">
+              <p className="doc-diff-panel-kicker">Ajouté dans la version comparée</p>
               {added.slice(0, 8).map((line, i) => (
-                <p key={`ad-${i}`}>{line || " "}</p>
+                <div key={`ad-${i}`} className="doc-diff-line">
+                  <SafeMarkdown content={line || " "} />
+                </div>
               ))}
             </div>
           ) : null}
@@ -942,7 +957,7 @@ export function DocumentCompareSurface(props: {
         <p className="text-sm muted">
           {degraded
             ? "Différentiel exhaustif indisponible — voir l’avertissement ci-dessus."
-            : `+ ${added.length} ligne(s)  ·  − ${removed.length} ligne(s)  ·  Versions historiques conservées`}
+            : `+${added.length} ligne${added.length > 1 ? "s" : ""} / −${removed.length} ligne${removed.length > 1 ? "s" : ""} · Révisions distinctes du titre métier`}
         </p>
       </div>
     </div>

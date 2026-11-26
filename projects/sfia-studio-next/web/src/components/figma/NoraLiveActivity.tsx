@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import {
   buildActivityGroups,
-  projectMissionHeadline,
+  resolveActivityDisplayHeadline,
   type ActivityLabelInput,
 } from "@/domains/conversation/activity-labels";
 
@@ -62,9 +62,12 @@ export function NoraLiveActivity(props: {
     if (!richHistory && groups.length < 2) return null;
   }
 
-  const headline =
-    props.headline ||
-    (events.length ? projectMissionHeadline(events) : active ? "Activité en cours" : "Activité");
+  const headline = resolveActivityDisplayHeadline({
+    active,
+    propsHeadline: props.headline,
+    events,
+    groupTitles: groups.map((g) => g.title),
+  });
   const last = events.length ? events[events.length - 1]! : null;
   const anyFailed = groups.some((g) => g.state === "failed");
   const anyLimited = groups.some((g) => g.state === "limited");
@@ -91,7 +94,9 @@ export function NoraLiveActivity(props: {
     groups[0]?.description ||
     null;
   const lead =
-    leadCandidate && leadCandidate.trim() && leadCandidate.trim() !== headline.trim()
+    leadCandidate &&
+    leadCandidate.trim() &&
+    (!headline || leadCandidate.trim() !== headline.trim())
       ? leadCandidate
       : null;
 
@@ -117,9 +122,11 @@ export function NoraLiveActivity(props: {
           {badge}
         </span>
       </div>
-      <p className="fig-nora-live-activity-headline" data-testid="nora-live-activity-headline">
-        {headline}
-      </p>
+      {headline ? (
+        <p className="fig-nora-live-activity-headline" data-testid="nora-live-activity-headline">
+          {headline}
+        </p>
+      ) : null}
       {lead ? <p className="fig-nora-live-activity-lead">{lead}</p> : null}
       {groups.length > 0 ? (
         <ul className="fig-nora-live-activity-groups" data-testid="nora-live-activity-groups">
@@ -146,28 +153,52 @@ export function NoraLiveActivity(props: {
                 data-state={g.state}
                 data-testid={`nora-live-activity-group-${g.key}`}
               >
-                <button
-                  type="button"
-                  className="fig-nora-live-activity-group-toggle"
-                  aria-expanded={expanded}
-                  data-testid={`nora-live-activity-toggle-${g.key}`}
-                  onClick={() => setOpen((prev) => ({ ...prev, [g.key]: !expanded }))}
-                >
-                  <span className="fig-nora-live-activity-mark" aria-hidden>
-                    {mark}
-                  </span>
-                  <span className="fig-nora-live-activity-group-main">
-                    <span className="fig-nora-live-activity-group-title">{g.title}</span>
-                    {g.resultSummary ? (
-                      <span className="fig-nora-live-activity-group-result">{g.resultSummary}</span>
-                    ) : (
-                      <span className="fig-nora-live-activity-group-result">{g.description}</span>
-                    )}
-                  </span>
-                  <span className="fig-nora-live-activity-chevron" aria-hidden>
-                    {expanded ? "▾" : "▸"}
-                  </span>
-                </button>
+                {g.details.length > 0 ? (
+                  <button
+                    type="button"
+                    className="fig-nora-live-activity-group-toggle"
+                    aria-expanded={expanded}
+                    data-testid={`nora-live-activity-toggle-${g.key}`}
+                    onClick={() => setOpen((prev) => ({ ...prev, [g.key]: !expanded }))}
+                  >
+                    <span className="fig-nora-live-activity-mark" aria-hidden>
+                      {mark}
+                    </span>
+                    <span className="fig-nora-live-activity-group-main">
+                      <span className="fig-nora-live-activity-group-title">{g.title}</span>
+                      {g.resultSummary ? (
+                        <span className="fig-nora-live-activity-group-result">
+                          {g.resultSummary}
+                        </span>
+                      ) : g.description ? (
+                        <span className="fig-nora-live-activity-group-result">
+                          {g.description}
+                        </span>
+                      ) : null}
+                    </span>
+                    <span className="fig-nora-live-activity-chevron" aria-hidden>
+                      {expanded ? "▾" : "▸"}
+                    </span>
+                  </button>
+                ) : (
+                  <div
+                    className="fig-nora-live-activity-group-toggle"
+                    data-testid={`nora-live-activity-toggle-${g.key}`}
+                    data-static="1"
+                  >
+                    <span className="fig-nora-live-activity-mark" aria-hidden>
+                      {mark}
+                    </span>
+                    <span className="fig-nora-live-activity-group-main">
+                      <span className="fig-nora-live-activity-group-title">{g.title}</span>
+                      {g.resultSummary ? (
+                        <span className="fig-nora-live-activity-group-result">
+                          {g.resultSummary}
+                        </span>
+                      ) : null}
+                    </span>
+                  </div>
+                )}
                 {expanded && g.details.length > 0 ? (
                   <ul
                     className="fig-nora-live-activity-details"

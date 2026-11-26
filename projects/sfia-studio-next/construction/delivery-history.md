@@ -3,6 +3,21 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-26-ML5-RESIDUAL-UX-REFINEMENTS-DEV
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-26 (Europe/Paris) |
+| Macro-lot | ML5 R5 — finitions UX résiduelles (IT-01/02/04/05 + comparateur) · clôture présentation livraison 1 |
+| Type | INC Standard · **NO RELEASE** · **RECETTE UNCHANGED** |
+| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| Contenu | Typo fil 12px ; activité sans headline redondant ; sources uniques vs consultations ; compare +N/−M lignes ; tableaux min-width ; comparateur Markdown + sens de lecture ; SAS non-régression |
+| Preuves | activity-labels 9 PASS ; Playwright UX-TYPO+UX-SAS PASS · body 12px · headline 15px · group 12px · td nowrap |
+| DEV build | `qWUDds50AUSup8n2GqNTC` · `:3100` |
+| RECETTE | **inchangée** · `70cf3e4a` / `m5QcOrvjUz8vVAidDKxOZ` · `:3200` |
+| Push produit | **NONE** |
+| Verdict | **ML5 RESIDUAL UX REFINEMENTS — DEV DELIVERY VERIFIED — DOCUMENTARY BEHAVIOR PRESERVED — RECETTE UNCHANGED — READY FOR TARGETED USER REVIEW** |
+
 ## delivery_id: DELIV-2026-11-26-ML5-DOCUMENTARY-BOUNDARY-RECETTE-CUTOVER
 
 | Field | Value |

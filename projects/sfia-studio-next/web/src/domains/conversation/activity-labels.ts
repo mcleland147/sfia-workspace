@@ -92,19 +92,19 @@ export function formatSourceActivitySummary(entry: {
       const removed = /removed:(\d+)/i.exec(notes);
       const a = added ? Number(added[1]) : 0;
       const r = removed ? Number(removed[1]) : 0;
-      const changed = a + r;
       const degraded = /\bdegraded\b/i.test(notes);
+      // IT-01 — use established line counters, not added+removed as « modifications ».
+      const tally =
+        a > 0 || r > 0
+          ? `+${a} ligne${a > 1 ? "s" : ""} / −${r} ligne${r > 1 ? "s" : ""}`
+          : "aucune différence";
       human = degraded
         ? title
           ? `Comparaison documentaire partielle — ${title}`
           : "Comparaison documentaire partielle"
-        : changed > 0
-          ? title
-            ? `Comparaison documentaire — ${changed} modification${changed > 1 ? "s" : ""} — ${title}`
-            : `Comparaison documentaire — ${changed} modification${changed > 1 ? "s" : ""}`
-          : title
-            ? `Comparaison documentaire — aucune différence — ${title}`
-            : "Comparaison documentaire — aucune différence";
+        : title
+          ? `Comparaison documentaire — ${tally} — ${title}`
+          : `Comparaison documentaire — ${tally}`;
     } else {
       human =
         cov === "DISCOVERED"
@@ -331,6 +331,18 @@ export type ActivitySourceView = {
 };
 
 /**
+ * Stable source identity: same document across revisions counts as one source.
+ * Revision / fragment suffixes stay available on the raw ref for details.
+ */
+export function normalizeSourceIdentityRef(ref: string): string {
+  return ref
+    .trim()
+    .replace(/\/revision:[^/#?]+/gi, "")
+    .replace(/#.*$/, "")
+    .replace(/\?.*$/, "");
+}
+
+/**
  * Unique sources consulted/discovered — independent of operation step count (RB-23).
  */
 export function buildActivitySources(
@@ -342,7 +354,7 @@ export function buildActivitySources(
     const kind = (kindFromDetail(ev.detail) || "OTHER").toUpperCase();
     const ref = (ev.sourceRef || detailString(ev.detail, "ref") || "").trim();
     if (!ref) continue;
-    const key = `${kind}:${ref}`;
+    const key = `${kind}:${normalizeSourceIdentityRef(ref)}`;
     const title =
       humanTitle(ev) ||
       stripCoveragePrefix((ev.summary || "").trim()) ||
@@ -371,6 +383,22 @@ export function buildActivitySources(
   }
   // No hard drop of known sources — UI folds the list; counters stay truthful.
   return [...byRef.values()];
+}
+
+/** Count distinct consultation operations (not unique sources). */
+export function countSourceConsultations(
+  events: Array<ActivityLabelInput & { sequence: number; nature: string }>,
+): number {
+  const ops = new Set<string>();
+  for (const ev of events) {
+    if (!/source\./i.test(ev.phase || "")) continue;
+    if (ev.nature !== "OBSERVED" && ev.nature !== "COMPLETED") continue;
+    const coverage = coverageFrom(ev);
+    // DISCOVERED alone is not a consultation.
+    if (coverage === "DISCOVERED") continue;
+    ops.add(identityKey(ev));
+  }
+  return ops.size;
 }
 
 /**
@@ -558,19 +586,50 @@ export function buildActivityGroups(
       const partial = sources.filter((s) => s.coverage === "PARTIAL").length;
       const denied = sources.filter((s) => s.coverage === "DENIED").length;
       const discovered = sources.filter((s) => s.coverage === "DISCOVERED").length;
+      const consultations = countSourceConsultations(list);
       const bits: string[] = [];
       if (sources.length) bits.push(`${sources.length} source${sources.length > 1 ? "s" : ""}`);
-      if (consulted) bits.push(`${consulted} consultée${consulted > 1 ? "s" : ""}`);
+      // IT-01 — distinguish unique sources from consultation operations.
+      if (consultations > 0 && consultations !== consulted) {
+        bits.push(
+          `${consultations} consultation${consultations > 1 ? "s" : ""}`,
+        );
+      } else if (consulted) {
+        bits.push(`${consulted} consultée${consulted > 1 ? "s" : ""}`);
+      }
       if (partial) bits.push(`${partial} partielle${partial > 1 ? "s" : ""}`);
       if (denied) bits.push(`${denied} inaccessible${denied > 1 ? "s" : ""}`);
-      if (discovered && !consulted) bits.push(`${discovered} identifiée${discovered > 1 ? "s" : ""}`);
-      resultSummary = bits.join(", ") || null;
+      if (discovered && !consulted && consultations === 0) {
+        bits.push(`${discovered} identifiée${discovered > 1 ? "s" : ""}`);
+      }
+      const compareLabel = [...list]
+        .reverse()
+        .map((e) => (e.summary || "").trim())
+        .find((s) => /^Comparaison documentaire\b/i.test(s) && !looksTechnical(s));
+      const bitsLine = bits.join(" · ");
+      resultSummary = compareLabel
+        ? [compareLabel.slice(0, 110), bitsLine].filter(Boolean).join(" · ")
+        : bitsLine || null;
       details = sources.map((s) => ({
         key: s.key,
         title: s.title,
         coverage: s.coverage,
         kind: s.kind,
       }));
+      // Keep each consultation operation visible when multiple reads of one source.
+      if (consultations > sources.length) {
+        const steps = buildActivitySteps(list).filter(
+          (s) => !isGenericOrientationSummary(s.label),
+        );
+        if (steps.length > details.length) {
+          details = steps.map((s) => ({
+            key: s.key,
+            title: s.label,
+            coverage: s.state.toUpperCase(),
+            kind: "STEP",
+          }));
+        }
+      }
     } else if (key === "understand") {
       // IT-01 — keep a single group title; do not echo ANNOUNCED/COMPLETED orientation blurbs.
       resultSummary = null;
@@ -586,7 +645,12 @@ export function buildActivityGroups(
         kind: "STEP",
       }));
     }
-    const title = key === "understand" ? meta.title : contextualGroupTitle(key, list, meta.title);
+    const title =
+      key === "understand"
+        ? meta.title
+        : key === "sources" && resultSummary && /^Comparaison documentaire\b/i.test(resultSummary)
+          ? meta.title
+          : contextualGroupTitle(key, list, meta.title);
     groups.push({
       key,
       title,
@@ -601,10 +665,25 @@ export function buildActivityGroups(
 
 /**
  * Mission-level headline: prefer objective events; never last filename alone.
+ * When richer source/compare activity exists, prefer it over generic orientation
+ * so the LIVE card does not only repeat « Orientation du travail ».
  */
 export function projectMissionHeadline(
   events: Array<ActivityLabelInput & { sequence: number; nature: string }>,
 ): string {
+  const compareOrSource = [...events]
+    .reverse()
+    .find((e) => {
+      const s = (e.summary || "").trim();
+      if (/^Comparaison documentaire\b/i.test(s)) return true;
+      if (/source\./i.test(e.phase || "") && s && !looksTechnical(s) && !isGenericOrientationSummary(s)) {
+        return e.nature === "OBSERVED" || e.nature === "COMPLETED";
+      }
+      return false;
+    });
+  if (compareOrSource?.summary && !looksTechnical(compareOrSource.summary)) {
+    return compareOrSource.summary.slice(0, 160);
+  }
   const objective = [...events]
     .reverse()
     .find(
@@ -629,4 +708,34 @@ export function projectMissionHeadline(
     }
   }
   return "Activité Nora";
+}
+
+/** Idle card: drop headline when it only repeats a group title or orientation blurb. */
+export function resolveActivityDisplayHeadline(input: {
+  active: boolean;
+  propsHeadline?: string | null;
+  events: Array<ActivityLabelInput & { sequence: number; nature: string }>;
+  groupTitles: string[];
+}): string | null {
+  const fromProps = (input.propsHeadline || "").trim();
+  const fromMission = input.events.length
+    ? projectMissionHeadline(input.events)
+    : input.active
+      ? "Activité en cours"
+      : "Activité";
+  let headline = fromProps || fromMission;
+  if (fromProps && isGenericOrientationSummary(fromProps)) {
+    headline = fromMission;
+  }
+  if (!input.active) {
+    if (isGenericOrientationSummary(headline) || headline === "Orientation du travail") {
+      const richer = input.groupTitles.find(
+        (t) => t && t !== "Orientation du travail" && !isGenericOrientationSummary(t),
+      );
+      if (richer) return richer.slice(0, 160);
+      return null;
+    }
+    if (input.groupTitles.some((t) => t === headline)) return null;
+  }
+  return headline || null;
 }
