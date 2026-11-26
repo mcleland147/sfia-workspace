@@ -3,6 +3,19 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-26-ML5-INTEGRATED-COGNITIVE-WEB-FINOPS-DEV
+
+- **date_utc**: 2026-11-26
+- **lane**: DEV only (RECETTE not cut over; G-RECETTE not consumed)
+- **candidate_sha**: `9678b8b31ae8296469e51f4b10b1ec4189defb45`
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **migration**: `022_provider_usage_observations.sql` applied on DEV :5433 after backup `/tmp/sfia_next_dev_pre_022_20261126T111343.sql`
+- **capabilities**: catalogue Luna/Terra/Sol + admission; référentiel 51; tarifs versionnés; ledger FinOps; API/UI page 13; WEB Option B provenance; D3 model from admitted policy
+- **tests**: vitest unit suites E02/E03/E04/E05/E06 + C15/C16/C24/WEB — PASS (deterministic)
+- **gates_pending**: G-LIVE-API (calibration), G-WEB-PUBLIC, G-WEB-MIXED, G-RECETTE
+- **reserves**: Luna/Terra not operationally admitted pre-calibration; OpenAI key fingerprint shared DEV/RECETTE; Figma F2 browser not fully measured; compact guidance not yet injected every turn
+- **release**: NO RELEASE / NOT ADOPTED / R5 IN PROGRESS / ML5 OPEN
+
 ## delivery_id: DELIV-2026-11-26-ML5-TYPO-12PX-SAFE-MD-RECETTE-CUTOVER
 
 | Field | Value |
