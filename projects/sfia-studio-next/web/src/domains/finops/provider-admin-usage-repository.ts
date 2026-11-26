@@ -1,13 +1,13 @@
 /**
  * Admin Usage/Costs snapshot repository — PostgreSQL SoT for FinOps product reads.
  *
- * Product/Next: read-only against authorized snapshots (no Admin collection capability).
+ * Product/Next: read-only against authorized LIVE snapshots (no Admin collection).
  * Isolated collector: write runs + upsert snapshots.
  * Distinct from provider_usage_observations (Studio attribution ledger).
  */
 
 import { randomUUID } from "node:crypto";
-import { and, desc, eq, gte, lte, sql as dsql } from "drizzle-orm";
+import { and, desc, eq, gte, inArray, lte, sql as dsql } from "drizzle-orm";
 import { db, sql } from "@/db/client";
 import {
   providerAdminCollectionRuns,
@@ -15,8 +15,11 @@ import {
 } from "@/db/schema";
 import type {
   AdminCollectorStatus,
+  AdminTransportMode,
   AdminUsageSnapshot,
 } from "./provider-admin-usage-collector";
+
+export type CollectionProvenance = AdminTransportMode | "UNKNOWN";
 
 function metricToNumber(
   m: AdminUsageSnapshot["metrics"][keyof AdminUsageSnapshot["metrics"]],
@@ -48,6 +51,7 @@ export async function insertAdminCollectionRun(input: {
   status: AdminCollectorStatus;
   path: string;
   organizationScope: string;
+  provenance: CollectionProvenance;
   pagesFetched?: number;
   limits?: string[];
   lastError?: string | null;
@@ -64,6 +68,7 @@ export async function insertAdminCollectionRun(input: {
       organizationScope: input.organizationScope,
       limitsJson: input.limits ?? [],
       lastError: input.lastError ?? null,
+      collectionProvenance: input.provenance,
     })
     .onConflictDoUpdate({
       target: providerAdminCollectionRuns.collectionId,
@@ -72,6 +77,7 @@ export async function insertAdminCollectionRun(input: {
         pagesFetched: input.pagesFetched ?? 0,
         limitsJson: input.limits ?? [],
         lastError: input.lastError ?? null,
+        collectionProvenance: input.provenance,
       },
     });
 }
@@ -97,82 +103,90 @@ export async function finishAdminCollectionRun(input: {
 }
 
 /**
- * Idempotent upsert via NULLS NOT DISTINCT unique index
- * (provider_admin_usage_snapshots_canon_uidx).
+ * Idempotent upsert with integrity:
+ * - partial never overwrites a complete row (metrics OR completeness);
+ * - older collected_at never replaces a newer row;
+ * - late complete revision (newer or equal ts) may upgrade partial.
  */
 export async function upsertAdminSnapshotsPg(
   snapshots: AdminUsageSnapshot[],
+  provenance: CollectionProvenance,
 ): Promise<number> {
   let written = 0;
-  for (const s of snapshots) {
-    const id = randomUUID();
-    const amount =
-      s.metrics.amount.presence === "MEASURED" && s.metrics.amount.value
-        ? s.metrics.amount.value
-        : null;
-    const currency =
-      s.metrics.currency.presence === "MEASURED"
-        ? s.metrics.currency.value
-        : null;
-    await sql`
-      INSERT INTO provider_admin_usage_snapshots (
-        id, collected_at, collection_id, source_endpoint, surface_object,
-        organization_scope, interval_start_utc, interval_end_utc, granularity,
-        project_id, api_key_id, user_id, model, line_item, api_source,
-        input_tokens, output_tokens, input_cached_tokens,
-        num_model_requests, num_requests, amount, currency,
-        completeness, schema_version
-      ) VALUES (
-        ${id}::uuid,
-        ${s.collectedAtUtc}::timestamptz,
-        ${s.collectionId},
-        ${s.sourceEndpoint},
-        ${s.surfaceObject},
-        ${s.organizationScope},
-        ${s.intervalStartUtc}::timestamptz,
-        ${s.intervalEndUtc}::timestamptz,
-        ${s.granularity},
-        ${s.dimensions.project_id},
-        ${s.dimensions.api_key_id},
-        ${s.dimensions.user_id},
-        ${s.dimensions.model},
-        ${s.dimensions.line_item},
-        ${s.dimensions.api_source},
-        ${metricToNumber(s.metrics.input_tokens)},
-        ${metricToNumber(s.metrics.output_tokens)},
-        ${metricToNumber(s.metrics.input_cached_tokens)},
-        ${metricToNumber(s.metrics.num_model_requests)},
-        ${metricToNumber(s.metrics.num_requests)},
-        ${amount},
-        ${currency},
-        ${s.completeness},
-        ${"2"}
-      )
-      ON CONFLICT (
-        source_endpoint, surface_object, organization_scope,
-        interval_start_utc, interval_end_utc, granularity,
-        project_id, api_key_id, user_id, model, line_item, api_source
-      )
-      DO UPDATE SET
-        collected_at = EXCLUDED.collected_at,
-        collection_id = EXCLUDED.collection_id,
-        input_tokens = EXCLUDED.input_tokens,
-        output_tokens = EXCLUDED.output_tokens,
-        input_cached_tokens = EXCLUDED.input_cached_tokens,
-        num_model_requests = EXCLUDED.num_model_requests,
-        num_requests = EXCLUDED.num_requests,
-        amount = EXCLUDED.amount,
-        currency = EXCLUDED.currency,
-        completeness = CASE
-          WHEN provider_admin_usage_snapshots.completeness = 'complete'
+  await sql.begin(async (tx) => {
+    for (const s of snapshots) {
+      const id = randomUUID();
+      const amount =
+        s.metrics.amount.presence === "MEASURED" && s.metrics.amount.value
+          ? s.metrics.amount.value
+          : null;
+      const currency =
+        s.metrics.currency.presence === "MEASURED"
+          ? s.metrics.currency.value
+          : null;
+      await tx`
+        INSERT INTO provider_admin_usage_snapshots (
+          id, collected_at, collection_id, source_endpoint, surface_object,
+          organization_scope, interval_start_utc, interval_end_utc, granularity,
+          project_id, api_key_id, user_id, model, line_item, api_source,
+          input_tokens, output_tokens, input_cached_tokens,
+          num_model_requests, num_requests, amount, currency,
+          completeness, schema_version, collection_provenance
+        ) VALUES (
+          ${id}::uuid,
+          ${s.collectedAtUtc}::timestamptz,
+          ${s.collectionId},
+          ${s.sourceEndpoint},
+          ${s.surfaceObject},
+          ${s.organizationScope},
+          ${s.intervalStartUtc}::timestamptz,
+          ${s.intervalEndUtc}::timestamptz,
+          ${s.granularity},
+          ${s.dimensions.project_id},
+          ${s.dimensions.api_key_id},
+          ${s.dimensions.user_id},
+          ${s.dimensions.model},
+          ${s.dimensions.line_item},
+          ${s.dimensions.api_source},
+          ${metricToNumber(s.metrics.input_tokens)},
+          ${metricToNumber(s.metrics.output_tokens)},
+          ${metricToNumber(s.metrics.input_cached_tokens)},
+          ${metricToNumber(s.metrics.num_model_requests)},
+          ${metricToNumber(s.metrics.num_requests)},
+          ${amount},
+          ${currency},
+          ${s.completeness},
+          ${"2"},
+          ${provenance}
+        )
+        ON CONFLICT (
+          source_endpoint, surface_object, organization_scope,
+          interval_start_utc, interval_end_utc, granularity,
+          project_id, api_key_id, user_id, model, line_item, api_source
+        )
+        DO UPDATE SET
+          collected_at = EXCLUDED.collected_at,
+          collection_id = EXCLUDED.collection_id,
+          input_tokens = EXCLUDED.input_tokens,
+          output_tokens = EXCLUDED.output_tokens,
+          input_cached_tokens = EXCLUDED.input_cached_tokens,
+          num_model_requests = EXCLUDED.num_model_requests,
+          num_requests = EXCLUDED.num_requests,
+          amount = EXCLUDED.amount,
+          currency = EXCLUDED.currency,
+          completeness = EXCLUDED.completeness,
+          schema_version = EXCLUDED.schema_version,
+          collection_provenance = EXCLUDED.collection_provenance
+        WHERE
+          NOT (
+            provider_admin_usage_snapshots.completeness = 'complete'
             AND EXCLUDED.completeness = 'partial'
-          THEN provider_admin_usage_snapshots.completeness
-          ELSE EXCLUDED.completeness
-        END,
-        schema_version = EXCLUDED.schema_version
-    `;
-    written += 1;
-  }
+          )
+          AND EXCLUDED.collected_at >= provider_admin_usage_snapshots.collected_at
+      `;
+      written += 1;
+    }
+  });
   return written;
 }
 
@@ -180,6 +194,8 @@ export async function listAdminSnapshotsFromPg(filter?: {
   organizationScope?: string;
   intervalStartUtc?: string;
   intervalEndUtc?: string;
+  /** Product projections: LIVE only. Tests may request TEST_SUBSTITUTED. */
+  provenance?: CollectionProvenance | CollectionProvenance[];
   limit?: number;
 }): Promise<AdminUsageSnapshot[]> {
   const clauses = [];
@@ -205,6 +221,14 @@ export async function listAdminSnapshotsFromPg(filter?: {
         providerAdminUsageSnapshots.intervalStartUtc,
         new Date(filter.intervalEndUtc),
       ),
+    );
+  }
+  if (filter?.provenance) {
+    const list = Array.isArray(filter.provenance)
+      ? filter.provenance
+      : [filter.provenance];
+    clauses.push(
+      inArray(providerAdminUsageSnapshots.collectionProvenance, list),
     );
   }
   const limit = Math.min(5_000, Math.max(1, filter?.limit ?? 2_000));
@@ -242,10 +266,16 @@ export async function listAdminSnapshotsFromPg(filter?: {
     completeness: r.completeness as "complete" | "partial",
     collectedAtUtc: r.collectedAt.toISOString(),
     collectionId: r.collectionId,
+    collectionProvenance:
+      (r.collectionProvenance as CollectionProvenance) ?? "UNKNOWN",
   }));
 }
 
-export async function getAdminCollectionFreshnessFromPg(): Promise<{
+export async function getAdminCollectionFreshnessFromPg(filter?: {
+  organizationScope?: string;
+  provenance?: CollectionProvenance;
+  projectId?: string | null;
+}): Promise<{
   lastAttemptAtUtc: string | null;
   lastSuccessAtUtc: string | null;
   lastCollectionId: string | null;
@@ -253,22 +283,67 @@ export async function getAdminCollectionFreshnessFromPg(): Promise<{
   snapshotCount: number;
   secretReadableByProduct: false;
 }> {
+  const runClauses = [];
+  if (filter?.organizationScope) {
+    runClauses.push(
+      eq(
+        providerAdminCollectionRuns.organizationScope,
+        filter.organizationScope,
+      ),
+    );
+  }
+  if (filter?.provenance) {
+    runClauses.push(
+      eq(providerAdminCollectionRuns.collectionProvenance, filter.provenance),
+    );
+  }
+
   const [latest] = await db
     .select()
     .from(providerAdminCollectionRuns)
+    .where(runClauses.length ? and(...runClauses) : undefined)
     .orderBy(desc(providerAdminCollectionRuns.startedAt))
     .limit(1);
+
+  const readyClauses = [
+    eq(providerAdminCollectionRuns.status, "READY"),
+    ...runClauses,
+  ];
   const [latestOk] = await db
     .select()
     .from(providerAdminCollectionRuns)
-    .where(eq(providerAdminCollectionRuns.status, "READY"))
+    .where(and(...readyClauses))
     .orderBy(desc(providerAdminCollectionRuns.finishedAt))
     .limit(1);
+
+  const snapClauses = [];
+  if (filter?.organizationScope) {
+    snapClauses.push(
+      eq(
+        providerAdminUsageSnapshots.organizationScope,
+        filter.organizationScope,
+      ),
+    );
+  }
+  if (filter?.provenance) {
+    snapClauses.push(
+      eq(
+        providerAdminUsageSnapshots.collectionProvenance,
+        filter.provenance,
+      ),
+    );
+  }
+  if (filter?.projectId) {
+    snapClauses.push(
+      eq(providerAdminUsageSnapshots.projectId, filter.projectId),
+    );
+  }
   const [countRow] = await db
     .select({
       n: dsql<number>`count(*)::int`,
     })
-    .from(providerAdminUsageSnapshots);
+    .from(providerAdminUsageSnapshots)
+    .where(snapClauses.length ? and(...snapClauses) : undefined);
 
   return {
     lastAttemptAtUtc: latest?.startedAt?.toISOString() ?? null,
@@ -285,4 +360,17 @@ export function isAdminSnapshotReadEnabled(
   env: NodeJS.ProcessEnv = process.env,
 ): boolean {
   return (env.SFIA_ADMIN_SNAPSHOT_READ ?? "1").trim() !== "0";
+}
+
+/**
+ * Product path must not silently fall back to in-memory test maps.
+ * Only explicit test flag may enable memory reads.
+ */
+export function allowAdminSnapshotMemoryFallback(
+  env: NodeJS.ProcessEnv = process.env,
+): boolean {
+  return (
+    env.VITEST === "true" &&
+    (env.SFIA_ADMIN_SNAPSHOT_TEST_MEMORY ?? "").trim() === "1"
+  );
 }

@@ -3,6 +3,22 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-26-OPENAI-STUDIO-CONVERGENCE-ML1-ADMIN-FINOPS-QUAL
+
+- **date_utc**: 2026-11-26T21:45Z
+- **lane**: DEV — Admin & FinOps qualification
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_initial**: `106c6392c39ff1741eea729fe594ae8d12cdc9d3`
+- **focus**: snapshot integrity ; provenance TEST/LIVE ; PG roles exercised ; envelope ; periodEqual COMPARABLE ; restore proof ; Admin LIVE dossier (not executed)
+- **migration**: `024_provider_admin_snapshot_provenance.sql` additive
+- **BUILD_ID**: `8eXiN6NO94261FxSLnuuj` · digest `2d613f2ddf83fc0747236ecd1a7822ddeb707ced89f43e1a046ca8d04ea3506c`
+- **DEV**: `127.0.0.1:3100` pid 11160 · RECETTE pid 89199 intacte
+- **tests**: 21 PASS (unit 13 · PG snapshots 2 · Admin/FinOps qual 6) · restore probe 44 tables
+- **gates**: G-ADMIN-SECRET proposable si readiness ; G-ADMIN-LIVE fermé ; G-FINOPS-UX fermé
+- **web_live**: OFF · push projet NON · NO RELEASE · NOT ADOPTED
+- **procedure**: `construction/convergence-openai-studio/procedure-admin-live-qualification-candidate.md`
+- **statut**: **ADMIN COLLECTOR — READY FOR SECURE PROVISIONING AND BOUNDED LIVE QUALIFICATION** (technique DEV ; LIVE non exécuté)
+
 ## delivery_id: DELIV-2026-11-26-OPENAI-STUDIO-CONVERGENCE-ML1-OPERATIONAL
 
 - **date_utc**: 2026-11-26T20:30Z

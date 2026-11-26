@@ -4,7 +4,7 @@
 
 | Champ | Valeur |
 |---|---|
-| Version | v0.17 candidate — 26 novembre 2026 : Macro-lot 1 convergence OpenAI operational DEV foundation (Admin TEST/LIVE split · PG snapshots 023 · FinOps evidence · frontier PARTIAL · D3 continuity bind · real SDK tracing oracle · BUILD `cUOHTek8qSni3vSYXOTWZ`) — **OPERATIONAL DEV FOUNDATION PROVEN / LIVE GATES REMAIN** ; v0.16 : R5 frontière production documentaire |
+| Version | v0.18 candidate — 26 novembre 2026 : Admin/FinOps qualification (snapshot integrity · provenance · PG roles · periodEqual COMPARABLE · restore proof · Admin LIVE dossier) — **ADMIN READY FOR SECURE PROVISIONING / LIVE NOT EXECUTED** ; v0.17 : operational DEV foundation |
 | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
 | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
 | Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |

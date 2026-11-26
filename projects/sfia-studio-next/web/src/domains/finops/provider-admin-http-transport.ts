@@ -41,6 +41,47 @@ function sanitizeErrorMessage(status: number, bodyText: string): string {
   return `ADMIN_HTTP_${status}:${clipped}`;
 }
 
+/** Bound body while receiving — not only after full arrayBuffer(). */
+async function readBodyBounded(
+  res: Response,
+  maxBytes: number,
+): Promise<string> {
+  if (!res.body) {
+    const text = await res.text();
+    if (new TextEncoder().encode(text).byteLength > maxBytes) {
+      throw new Error("ADMIN_RESPONSE_TOO_LARGE");
+    }
+    return text;
+  }
+  const reader = res.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    if (value) {
+      total += value.byteLength;
+      if (total > maxBytes) {
+        try {
+          await reader.cancel();
+        } catch {
+          /* ignore */
+        }
+        throw new Error("ADMIN_RESPONSE_TOO_LARGE");
+      }
+      chunks.push(value);
+    }
+  }
+  const merged = new Uint8Array(total);
+  let offset = 0;
+  for (const c of chunks) {
+    merged.set(c, offset);
+    offset += c.byteLength;
+  }
+  return new TextDecoder().decode(merged);
+}
+
 /**
  * Construct LIVE Admin transport. Throws if LIVE GO is not proven.
  * Destination fixed to ADMIN_LIVE_BASE_URL; redirects refused.
@@ -88,6 +129,10 @@ export function createAdminHttpTransport(
     let attempt = 0;
     // eslint-disable-next-line no-constant-condition
     while (true) {
+      // Re-check LIVE GO before every attempt including retries.
+      if (!isAdminLiveAuthorized()) {
+        throw new Error("BLOCKED_NO_LIVE_GO");
+      }
       const ac = new AbortController();
       const timer = setTimeout(() => ac.abort(), timeoutMs);
       try {
@@ -101,11 +146,7 @@ export function createAdminHttpTransport(
           signal: ac.signal,
           redirect: "error",
         });
-        const buf = await res.arrayBuffer();
-        if (buf.byteLength > MAX_RESPONSE_BYTES) {
-          throw new Error("ADMIN_RESPONSE_TOO_LARGE");
-        }
-        const text = new TextDecoder().decode(buf);
+        const text = await readBodyBounded(res, MAX_RESPONSE_BYTES);
         let json: unknown = null;
         try {
           json = text ? JSON.parse(text) : null;

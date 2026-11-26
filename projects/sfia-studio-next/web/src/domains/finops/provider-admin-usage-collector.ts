@@ -63,6 +63,8 @@ export type AdminUsageSnapshot = {
   completeness: "complete" | "partial";
   collectedAtUtc: string;
   collectionId: string;
+  /** Durable TEST vs LIVE separation — TEST never treated as real cost. */
+  collectionProvenance?: "TEST_SUBSTITUTED" | "LIVE" | "UNKNOWN";
 };
 
 export type AdminCollectionResult = {
@@ -92,6 +94,10 @@ export type AdminHttpTransport = AdminHttpTransportFn & {
   readonly __sfiaAdminMode: AdminTransportMode;
 };
 
+/** Runtime registry — property markers alone are not a security boundary. */
+const liveTransportRegistry = new WeakSet<object>();
+const substitutedTransportRegistry = new WeakSet<object>();
+
 export function markSubstitutedAdminTransport(
   fn: AdminHttpTransportFn,
 ): AdminHttpTransport {
@@ -102,6 +108,7 @@ export function markSubstitutedAdminTransport(
     configurable: false,
     writable: false,
   });
+  substitutedTransportRegistry.add(t);
   return t;
 }
 
@@ -115,7 +122,20 @@ export function markLiveAdminTransport(
     configurable: false,
     writable: false,
   });
+  liveTransportRegistry.add(t);
   return t;
+}
+
+export function isRegisteredLiveAdminTransport(
+  transport: AdminHttpTransportFn,
+): boolean {
+  return liveTransportRegistry.has(transport);
+}
+
+export function isRegisteredSubstitutedAdminTransport(
+  transport: AdminHttpTransportFn,
+): boolean {
+  return substitutedTransportRegistry.has(transport);
 }
 
 export type AdminCollectorConfig = {
@@ -415,7 +435,16 @@ export function upsertAdminSnapshots(
   for (const s of snapshots) {
     const key = snapshotKey(s);
     const prev = snapshotByKey.get(key);
-    if (prev?.completeness === "complete" && s.completeness === "partial") {
+    if (!prev) {
+      snapshotByKey.set(key, s);
+      continue;
+    }
+    // Partial never degrades a complete snapshot.
+    if (prev.completeness === "complete" && s.completeness === "partial") {
+      continue;
+    }
+    // Older collect never replaces a newer one.
+    if (s.collectedAtUtc < prev.collectedAtUtc) {
       continue;
     }
     snapshotByKey.set(key, s);
@@ -438,19 +467,69 @@ function assertTransportGate(config: AdminCollectorConfig): void {
     if (!config.adminApiKey) {
       throw new Error("BLOCKED_NO_SECRET");
     }
-    if (!transport || marked !== "LIVE") {
+    // Registry + marker — forging __sfiaAdminMode alone is insufficient.
+    if (
+      !transport ||
+      marked !== "LIVE" ||
+      !isRegisteredLiveAdminTransport(transport)
+    ) {
       throw new Error("BLOCKED_LIVE_TRANSPORT_REQUIRED");
     }
     return;
   }
   if (config.mode === "TEST_SUBSTITUTED") {
-    if (!transport || marked !== "TEST_SUBSTITUTED") {
+    if (config.adminApiKey) {
+      // TEST must never carry a real Admin key.
+      throw new Error("BLOCKED_TEST_MUST_NOT_HOLD_LIVE_KEY");
+    }
+    if (
+      !transport ||
+      marked !== "TEST_SUBSTITUTED" ||
+      !isRegisteredSubstitutedAdminTransport(transport)
+    ) {
       throw new Error("BLOCKED_TEST_TRANSPORT_REQUIRED");
     }
-    // Real Admin key never required for TEST_SUBSTITUTED.
     return;
   }
   throw new Error("BLOCKED_UNKNOWN_MODE");
+}
+
+/** Envelope bounds for Admin collection — refuse unbounded org sweeps. */
+export function assertAdminCollectionEnvelope(input: {
+  path: string;
+  query: Record<string, string>;
+  maxPages: number;
+}): void {
+  assertAllowedPath(input.path);
+  const start = input.query.start_time;
+  const end = input.query.end_time;
+  if (!start || !/^\d+$/.test(start)) {
+    throw new Error("ENVELOPE_START_TIME_REQUIRED");
+  }
+  if (end != null && end !== "" && !/^\d+$/.test(end)) {
+    throw new Error("ENVELOPE_END_TIME_INVALID");
+  }
+  if (end && Number(end) <= Number(start)) {
+    throw new Error("ENVELOPE_END_BEFORE_START");
+  }
+  // Mandate: finished short window — end_time required for LIVE-shaped envelopes.
+  if ((input.query.require_end_time ?? "") === "1" && !end) {
+    throw new Error("ENVELOPE_END_TIME_REQUIRED");
+  }
+  const width = input.query.bucket_width;
+  if (width != null && width !== "" && width !== "1m" && width !== "1h" && width !== "1d") {
+    throw new Error("ENVELOPE_GRANULARITY_INVALID");
+  }
+  if (input.maxPages < 1 || input.maxPages > 20) {
+    throw new Error("ENVELOPE_MAX_PAGES_OUT_OF_BOUNDS");
+  }
+  // project_ids / group_by must be explicit strings when present (no open JSON).
+  for (const key of ["project_ids", "group_by", "api_key_ids", "models"]) {
+    const v = input.query[key];
+    if (v != null && v !== "" && typeof v !== "string") {
+      throw new Error(`ENVELOPE_PARAM_INVALID:${key}`);
+    }
+  }
 }
 
 export async function collectAdminUsagePage(input: {
@@ -506,10 +585,14 @@ export async function runAdminCollection(input: {
   maxPages?: number;
   /** Persist to PostgreSQL (isolated collector / integration). */
   persistToPg?: boolean;
+  /** Require end_time in query (LIVE envelope). */
+  requireEndTime?: boolean;
 }): Promise<AdminCollectionResult> {
-  const collectionId = `acol_${Date.now().toString(36)}`;
+  const { randomBytes } = await import("node:crypto");
+  const collectionId = `acol_${Date.now().toString(36)}_${randomBytes(4).toString("hex")}`;
   const collectedAtUtc = new Date().toISOString();
   const limits: string[] = [];
+  const provenance = input.config.mode;
 
   try {
     assertTransportGate(input.config);
@@ -521,6 +604,7 @@ export async function runAdminCollection(input: {
         : msg === "BLOCKED_NO_LIVE_GO" ||
             msg === "BLOCKED_LIVE_TRANSPORT_REQUIRED" ||
             msg === "BLOCKED_TEST_TRANSPORT_REQUIRED" ||
+            msg === "BLOCKED_TEST_MUST_NOT_HOLD_LIVE_KEY" ||
             msg === "BLOCKED_UNKNOWN_MODE"
           ? "BLOCKED_NO_LIVE_GO"
           : "ERROR";
@@ -542,7 +626,7 @@ export async function runAdminCollection(input: {
     return r;
   }
 
-  const maxPages = Math.max(1, Math.min(50, input.maxPages ?? 10));
+  const maxPages = Math.max(1, Math.min(20, input.maxPages ?? 10));
   const all: AdminUsageSnapshot[] = [];
   let page: string | null = null;
   let pagesFetched = 0;
@@ -555,7 +639,16 @@ export async function runAdminCollection(input: {
       : null;
 
   try {
-    assertAllowedPath(input.path);
+    assertAdminCollectionEnvelope({
+      path: input.path,
+      query: {
+        ...input.query,
+        ...(input.requireEndTime || input.config.mode === "LIVE"
+          ? { require_end_time: "1" }
+          : {}),
+      },
+      maxPages,
+    });
     if (persist) {
       await persist.insertAdminCollectionRun({
         collectionId,
@@ -563,6 +656,7 @@ export async function runAdminCollection(input: {
         status: "IDLE",
         path: input.path,
         organizationScope: input.config.organizationScope,
+        provenance,
       });
     }
     for (let i = 0; i < maxPages; i++) {
@@ -611,9 +705,12 @@ export async function runAdminCollection(input: {
     if (partial) {
       for (const s of all) s.completeness = "partial";
     }
+    for (const s of all) {
+      s.collectionProvenance = provenance;
+    }
     upsertAdminSnapshots(all);
     if (persist) {
-      await persist.upsertAdminSnapshotsPg(all);
+      await persist.upsertAdminSnapshotsPg(all, provenance);
       await persist.finishAdminCollectionRun({
         collectionId,
         finishedAtUtc: new Date().toISOString(),
@@ -705,6 +802,39 @@ export type FinOpsScopeEvidence = {
   /** Explicit evidence — never a lone config flag. */
   evidenceNotes: string[];
 };
+
+/**
+ * Period equality: every attributed snapshot must share the exact compare window
+ * (interval start/end), not merely intersect it.
+ */
+export function assessPeriodEquality(
+  snapshots: AdminUsageSnapshot[],
+  window: { startUtc: string; endUtc: string },
+): { periodEqual: boolean; periodOverlap: boolean; limits: string[] } {
+  const limits: string[] = [];
+  if (!window.startUtc || !window.endUtc) {
+    return { periodEqual: false, periodOverlap: false, limits: ["PERIOD_WINDOW_ABSENT"] };
+  }
+  if (snapshots.length === 0) {
+    return { periodEqual: false, periodOverlap: false, limits: ["PERIOD_NO_SNAPSHOTS"] };
+  }
+  let overlap = false;
+  let allEqual = true;
+  for (const s of snapshots) {
+    if (s.intervalEndUtc > window.startUtc && s.intervalStartUtc < window.endUtc) {
+      overlap = true;
+    }
+    if (
+      s.intervalStartUtc !== window.startUtc ||
+      s.intervalEndUtc !== window.endUtc
+    ) {
+      allEqual = false;
+    }
+  }
+  if (!overlap) limits.push("PERIOD_NO_OVERLAP");
+  if (overlap && !allEqual) limits.push("PERIOD_OVERLAP_NOT_EQUAL");
+  return { periodEqual: overlap && allEqual, periodOverlap: overlap, limits };
+}
 
 export function assessFinOpsComparability(
   evidence: FinOpsScopeEvidence,

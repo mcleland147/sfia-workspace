@@ -52,6 +52,8 @@ async function main(): Promise<void> {
   const live = isAdminLiveAuthorized(process.env);
   const dry = process.argv.includes("--dry-substituted");
   const persist = !process.argv.includes("--no-persist");
+  const end = arg("--end-time");
+  const projectId = arg("--project-id");
 
   if (!live && !dry) {
     console.log(
@@ -79,8 +81,9 @@ async function main(): Promise<void> {
       path,
       query: {
         start_time: start,
+        ...(end ? { end_time: end } : {}),
         bucket_width: arg("--bucket-width") ?? "1d",
-        ...(arg("--project-id") ? { project_ids: arg("--project-id")! } : {}),
+        ...(projectId ? { project_ids: projectId } : {}),
       },
       persistToPg: persist,
     });
@@ -127,6 +130,29 @@ async function main(): Promise<void> {
     return;
   }
 
+  if (!end) {
+    console.log(
+      JSON.stringify({
+        status: "ERROR",
+        lastError: "MISSING_END_TIME",
+        limits: ["LIVE_ENVELOPE_REQUIRES_END_TIME"],
+      }),
+    );
+    process.exitCode = 2;
+    return;
+  }
+  if (!projectId) {
+    console.log(
+      JSON.stringify({
+        status: "ERROR",
+        lastError: "MISSING_PROJECT_ID",
+        limits: ["LIVE_ENVELOPE_REQUIRES_PROJECT_FILTER"],
+      }),
+    );
+    process.exitCode = 2;
+    return;
+  }
+
   const result = await runAdminCollection({
     config: resolveIsolatedAdminCollectorConfig({
       adminApiKey: key,
@@ -137,10 +163,12 @@ async function main(): Promise<void> {
     path,
     query: {
       start_time: start,
+      end_time: end,
       bucket_width: arg("--bucket-width") ?? "1d",
-      ...(arg("--project-id") ? { project_ids: arg("--project-id")! } : {}),
+      project_ids: projectId,
     },
     persistToPg: persist,
+    requireEndTime: true,
   });
 
   console.log(

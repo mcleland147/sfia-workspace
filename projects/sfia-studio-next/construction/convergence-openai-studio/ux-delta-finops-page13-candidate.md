@@ -3,20 +3,39 @@
 | Champ | Valeur |
 |---|---|
 | Référence | https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1332-2305 |
-| Statut | **CANDIDATE — NOT APPLIED** (mandat §10.7 : validation Morris avant code UI) |
-| Backend | `providerReconciliation` déjà exposé dans `/api/finops/summary` |
+| Statut | **CANDIDATE — NOT APPLIED** · **G-FINOPS-UX fermé** |
+| Backend | `providerReconciliation` via `/api/finops/summary` |
+| Inspection Figma | Non rejouée dans ce cycle — limite documentée ; pas d’invention visuelle |
 
-## Proposition de restitution
+## Orientation Morris (conservée)
 
-Conserver la page 13 existante. Ajouter une section secondaire (hors hero) :
+Préserver rail, composants, hiérarchie et conventions de la cible validée.
+Aucun nouveau cockpit financier. Aucun plafond / crédit / rechargement.
 
-1. **Estimation Studio** (inchangé) — travaux / tokens / USD estimés.
-2. **Coût fournisseur** — montant agrégé + devise + période, ou état `Indisponible`.
-3. **Écart** — uniquement si `comparability=COMPARABLE` ; sinon libellé `Non comparable` + limite.
-4. **Fraîcheur** — dernière collecte réussie / partielle / bloquée (pas de secret).
-5. **États d’erreur** — `OPENAI_ADMIN_KEY_ABSENT`, sync partielle, mapping lane non prouvé.
+## Mapping états → restitution
 
-Aucune fausse précision. Aucun plafond monétaire produit. Pas de second écran FinOps.
+| Zone | Données | États |
+|---|---|---|
+| Estimation Studio | `studioEstimatedUsd` / kind | known · partial · empty · unknown |
+| Coût fournisseur agrégé | `providerCostUsd` + `providerCurrency` | montant LIVE autorisé · Indisponible · Non autorisé |
+| Période | fenêtre UTC de comparaison | affichée seulement si `periodEqual` ou fenêtre explicite |
+| Fraîcheur | `freshness` scoped au périmètre | READY · PARTIAL · IDLE · ERROR |
+| Comparabilité | `comparability` | COMPARABLE · NON_COMPARABLE · PARTIAL · UNAVAILABLE |
+| Écart | `deltaUsd` | **uniquement** si COMPARABLE |
+| Partiel / indisponible | `limits[]` sanitised | libellés métier, jamais secrets |
+
+## Hiérarchie proposée (secondaire, hors hero)
+
+1. Estimation Studio (existant)
+2. Coût fournisseur agrégé autorisé (nouveau bloc secondaire)
+3. Période + fraîcheur
+4. Comparabilité / écart conditionnel
+5. Message données partielles ou indisponibles
+
+## Non-régression
+
+Interface actuelle conservée tant que G-FINOPS-UX n’est pas levé.
+Smoke HTTP `/settings/consumption` = 200 sur le build courant.
 
 ## GO demandé
 

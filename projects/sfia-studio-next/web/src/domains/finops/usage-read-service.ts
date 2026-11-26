@@ -312,12 +312,16 @@ async function buildProviderReconciliationDto(
   estimatedCostUsd: MeasuredValue<number>,
   filter: FinOpsFilterInput,
 ): Promise<FinOpsProviderReconciliationDto> {
-  // Product path: never inspect OPENAI_ADMIN_KEY; read only authorized PG snapshots.
+  // Product path: never inspect OPENAI_ADMIN_KEY; read only authorized LIVE PG snapshots.
   const {
+    allowAdminSnapshotMemoryFallback,
     getAdminCollectionFreshnessFromPg,
     isAdminSnapshotReadEnabled,
     listAdminSnapshotsFromPg,
   } = await import("./provider-admin-usage-repository");
+  const { assessPeriodEquality } = await import(
+    "./provider-admin-usage-collector"
+  );
   const productView = resolveProductAdminCollectorView();
   const limits: string[] = [];
 
@@ -358,25 +362,58 @@ async function buildProviderReconciliationDto(
   let freshness;
   let snapshots;
   try {
-    freshness = await getAdminCollectionFreshnessFromPg();
+    const configuredProjectPeek =
+      (process.env.SFIA_OPENAI_PROJECT_ID ?? "").trim() || null;
+    freshness = await getAdminCollectionFreshnessFromPg({
+      organizationScope: productView.organizationScope,
+      provenance: "LIVE",
+      projectId: configuredProjectPeek,
+    });
     snapshots = (
       await listAdminSnapshotsFromPg({
         organizationScope: productView.organizationScope,
+        provenance: "LIVE",
       })
     ).filter(
       (s) =>
         s.surfaceObject === "organization.costs.result" &&
-        s.completeness === "complete",
+        s.completeness === "complete" &&
+        s.collectionProvenance === "LIVE",
     );
   } catch {
-    // Fall back to in-process memory only for deterministic unit paths.
+    if (!allowAdminSnapshotMemoryFallback()) {
+      limits.push("ADMIN_SNAPSHOT_PG_UNAVAILABLE");
+      return {
+        studioEstimatedUsd: studio,
+        studioEstimationKind,
+        providerCostUsd: null,
+        providerCurrency: null,
+        deltaUsd: null,
+        comparability: "UNAVAILABLE",
+        freshness: {
+          lastAttemptAtUtc: null,
+          lastSuccessAtUtc: null,
+          lastCollectionId: null,
+          status: "ERROR",
+          snapshotCount: 0,
+          secretReadableByProduct: false as const,
+        },
+        limits,
+        noraIndependent: true,
+        studioEstimatedUsdDecimal: studioDecimal,
+        providerCostUsdDecimal: null,
+        deltaUsdDecimal: null,
+      };
+    }
+    // Explicit test-only memory path — never silent product fallback.
     freshness = getAdminCollectorFreshness();
     snapshots = listAdminCollectorSnapshots().filter(
       (s) =>
         s.surfaceObject === "organization.costs.result" &&
-        s.completeness === "complete",
+        s.completeness === "complete" &&
+        s.collectionProvenance === "LIVE",
     );
-    limits.push("ADMIN_SNAPSHOT_PG_READ_FALLBACK_MEMORY");
+    limits.push("ADMIN_SNAPSHOT_TEST_MEMORY");
   }
 
   const freshnessDto = {
@@ -407,9 +444,12 @@ async function buildProviderReconciliationDto(
     };
   }
 
-  const since = periodStartDate(filter.periodDays ?? 30);
-  const until = new Date();
-  // Studio projectId alone never proves provider project attribution.
+  // Explicit compare window (UTC) — required for periodEqual; else NON_COMPARABLE.
+  const windowStart =
+    (process.env.SFIA_FINOPS_COMPARE_WINDOW_START_UTC ?? "").trim() ||
+    periodStartDate(filter.periodDays ?? 30).toISOString();
+  const windowEnd =
+    (process.env.SFIA_FINOPS_COMPARE_WINDOW_END_UTC ?? "").trim() || null;
   const configuredProject =
     (process.env.SFIA_OPENAI_PROJECT_ID ?? "").trim() || null;
   const configuredKey =
@@ -422,54 +462,88 @@ async function buildProviderReconciliationDto(
       (scopeOrg === configuredOrg || scopeOrg === `org:${configuredOrg}`),
   );
 
+  const attributed = configuredProject
+    ? snapshots.filter((s) => s.dimensions.project_id === configuredProject)
+    : [];
+
   const sum = sumMeasuredCostUsd(snapshots, {
-    intervalStartUtc: since.toISOString(),
-    intervalEndUtc: until.toISOString(),
+    intervalStartUtc: windowStart,
+    intervalEndUtc: windowEnd ?? undefined,
     projectId: configuredProject,
   });
   limits.push(...sum.limits);
 
+  const period = windowEnd
+    ? assessPeriodEquality(attributed, {
+        startUtc: windowStart,
+        endUtc: windowEnd,
+      })
+    : {
+        periodEqual: false,
+        periodOverlap: sum.counted > 0,
+        limits: ["PERIOD_WINDOW_END_ABSENT"],
+      };
+  limits.push(...period.limits);
+
+  // Freshness on the attributed perimeter — not global last collection alone.
+  const freshnessAcceptable =
+    freshness.status === "READY" &&
+    attributed.length > 0 &&
+    freshness.snapshotCount > 0;
+
   const evidence: FinOpsScopeEvidence = {
     organizationMatches: orgIdentityProven,
     organizationIdentityProven: orgIdentityProven,
-    projectIdsOverlap: Boolean(
-      configuredProject &&
-        snapshots.some((s) => s.dimensions.project_id === configuredProject),
-    ),
+    projectIdsOverlap: attributed.length > 0,
     projectAttributionProven: Boolean(configuredProject && sum.counted > 0),
     apiKeyIdsOverlap: Boolean(
       configuredKey &&
-        snapshots.some((s) => s.dimensions.api_key_id === configuredKey),
+        attributed.some((s) => s.dimensions.api_key_id === configuredKey),
     ),
-    periodOverlap: sum.counted > 0,
-    // Intersection alone is not equality — refuse COMPARABLE until proven.
-    periodEqual: false,
+    periodOverlap: period.periodOverlap,
+    periodEqual: period.periodEqual,
     currencyMatches: sum.currency === "usd",
     providerCurrency: sum.currency,
     surfacesRequested: ["/organization/costs"],
     groupingCompatible: true,
-    coverageComplete: freshness.status === "READY",
-    freshnessAcceptable: freshness.status === "READY",
+    coverageComplete: freshness.status === "READY" && !sum.limits.includes("COST_AMOUNT_ABSENT"),
+    freshnessAcceptable,
     evidenceNotes: [
       (process.env.SFIA_FINOPS_SCOPE_COMPARABLE ?? "").trim() === "1"
         ? "SCOPE_FLAG_SET_BUT_EVIDENCE_REQUIRED"
         : "SCOPE_FLAG_UNSET",
-      "PERIOD_EQUALITY_NOT_PROVEN",
+      "PROVENANCE_LIVE_ONLY",
       filter.projectId
         ? "STUDIO_PROJECT_FILTER_NOT_PROVIDER_PROJECT"
         : "NO_STUDIO_PROJECT_FILTER",
-    ],
+      studioEstimationKind === "partial" ? "STUDIO_ESTIMATION_PARTIAL" : "",
+    ].filter(Boolean),
   };
 
-  const rec = reconcileFinOpsCosts({
-    studioEstimatedUsd: studioDecimal,
-    providerCostUsd: sum.total,
-    scope: evidence,
-  });
+  // Partial studio estimation cannot become COMPARABLE.
+  if (studioEstimationKind === "partial") {
+    limits.push("STUDIO_ESTIMATION_REMAINS_PARTIAL");
+  }
+
+  const rec =
+    studioEstimationKind === "partial"
+      ? {
+          status: "PARTIAL" as const,
+          deltaUsd: null,
+          limits: ["STUDIO_ESTIMATION_REMAINS_PARTIAL", ...evidence.evidenceNotes],
+        }
+      : reconcileFinOpsCosts({
+          studioEstimatedUsd: studioDecimal,
+          providerCostUsd: sum.total,
+          scope: evidence,
+        });
   limits.push(...rec.limits);
 
-  // Never disclose org totals to unauthorized Pilot views.
-  const discloseProvider = rec.status === "COMPARABLE" || rec.status === "PARTIAL";
+  // Never disclose org totals / TEST / unauthorized Pilot views.
+  const discloseProvider =
+    (rec.status === "COMPARABLE" || rec.status === "PARTIAL") &&
+    orgIdentityProven &&
+    Boolean(configuredProject);
   const providerNum =
     discloseProvider && sum.total != null ? Number(sum.total) : null;
   const deltaNum =

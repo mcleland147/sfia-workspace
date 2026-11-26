@@ -1177,6 +1177,7 @@ export const providerAdminCollectionRuns = pgTable("provider_admin_collection_ru
   organizationScope: text("organization_scope").notNull(),
   limitsJson: jsonb("limits_json").$type<string[]>().notNull().default([]),
   lastError: text("last_error"),
+  collectionProvenance: text("collection_provenance").notNull().default("UNKNOWN"),
 });
 
 export const providerAdminUsageSnapshots = pgTable(
@@ -1210,6 +1211,9 @@ export const providerAdminUsageSnapshots = pgTable(
     currency: text("currency"),
     completeness: text("completeness").notNull(),
     schemaVersion: text("schema_version").notNull().default("2"),
+    collectionProvenance: text("collection_provenance")
+      .notNull()
+      .default("UNKNOWN"),
   },
   (t) => [
     index("provider_admin_usage_snapshots_org_interval_idx").on(
@@ -1217,7 +1221,11 @@ export const providerAdminUsageSnapshots = pgTable(
       t.intervalStartUtc,
     ),
     index("provider_admin_usage_snapshots_collection_idx").on(t.collectionId),
+    index("provider_admin_usage_snapshots_provenance_idx").on(
+      t.collectionProvenance,
+      t.organizationScope,
+    ),
   ],
 );
 
-export const schemaRevision = "023_provider_admin_usage_snapshots";
+export const schemaRevision = "024_provider_admin_snapshot_provenance";

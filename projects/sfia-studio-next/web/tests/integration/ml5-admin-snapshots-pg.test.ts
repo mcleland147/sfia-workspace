@@ -67,6 +67,7 @@ describe("admin snapshots PG persistence (DEV)", () => {
 
     const fromPg = await listAdminSnapshotsFromPg({
       organizationScope: "org:pg-dev-test",
+      provenance: "TEST_SUBSTITUTED",
     });
     expect(fromPg.some((s) => s.dimensions.project_id === "proj_pg_a")).toBe(
       true,
@@ -102,6 +103,7 @@ describe("admin snapshots PG persistence (DEV)", () => {
     });
     const rows = await listAdminSnapshotsFromPg({
       organizationScope: "org:pg-dev-test",
+      provenance: "TEST_SUBSTITUTED",
     });
     const matches = rows.filter(
       (s) =>
