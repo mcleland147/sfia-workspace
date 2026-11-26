@@ -345,26 +345,29 @@
 
 /* Headings keep rem-based hierarchy from globals.css (root-relative). */
 
-/* IT-04 — keep markdown table cells readable (no vertical letter stacking). */
+/*
+ * Conversation tables: fit entirely inside Nora/Pilote message width.
+ * Prefer cell wrap over horizontal scroll / clipping (IT-04 revised).
+ * SAS preparation thread keeps the same presentable fit.
+ */
 .fig-msg-body .safe-md table,
 .sas-msg-body .safe-md table {
-  display: block;
-  width: max-content;
+  display: table;
+  width: 100%;
   max-width: 100%;
-  overflow-x: auto;
   border-collapse: collapse;
-  table-layout: auto;
-  -webkit-overflow-scrolling: touch;
+  table-layout: fixed;
+  overflow-x: visible;
 }
 
 .fig-msg-body .safe-md th,
 .fig-msg-body .safe-md td,
 .sas-msg-body .safe-md th,
 .sas-msg-body .safe-md td {
-  white-space: nowrap;
-  overflow-wrap: normal;
+  white-space: normal;
+  overflow-wrap: break-word;
   word-break: normal;
-  min-width: 4.5rem;
+  min-width: 0;
   padding: 0.35em 0.65em;
   vertical-align: top;
 }
