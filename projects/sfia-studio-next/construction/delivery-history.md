@@ -3,6 +3,28 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-26-ML5-FOUNDATION-CONFORMANCE-LIVE
+
+- **date_utc**: 2026-11-26T16:30Z (approx)
+- **lane**: DEV — conformité intégrée A–F + G-LIVE-API bornée (WEB OFF)
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_initial**: `b69451e3f473fe4c742fe7375e5c250cb386a9e4`
+- **HEAD_final**: `4bfc1c1ed0861a1d8f5f4405ccb8cee487b8984d`
+- **tree**: `23f32fec5d5203455eb6fad013d4046f499d36d4`
+- **web_tree**: `24d8f65820c5ea6956085c9d56bd7ecddbeb3389`
+- **merge_base_main**: `997897fd7cf914771e7d08e8030dc7123fab7d25`
+- **BUILD_ID_final**: `emfz_yP5MBF9GxQRrnJGP` (candidat démarré DEV :3100)
+- **BUILD_ID_reconcile**: antérieurs rapportés `lWULvFGVIPoO-2VwA9M49` / `X94NdR5lxD655tzAciId3` = artefacts de cycles précédents ; digests intermédiaires de rebuild (`VnAjL3vk2kg9w-3rf3Tx3`, `gW4y8KKgEMsamzP5D5-ED`, `5paFsZ-vuB2y9MYEIoQjh`) non candidats finaux
+- **focus**: ALS fail-closed ; enveloppes opposables ; SDK réel+retry ; restitution ; FinOps HTTP↔attempt_id ; D6 WEB sans bypass identité ; PDF workProjectId ; campagne process-level G-LIVE-API
+- **tests**: vitest `ml5-*` **381** PASS ; production build EXIT 0
+- **G-LIVE-API**: LIVE-01..04 EXERCISED — 25 observations PG · ~130813 in / 3655 out · ~USD 0.041 · ledger `/tmp/sfia-ml5-g-live-api-20261126/`
+- **G-WEB-PUBLIC**: **NON CONSOMMÉ** — BLOCKED `HOSTED_SEARCH_PER_RESPONSE_ASSUMED_1` (borne hosted non garantie multi-search moteur)
+- **LIVE-06 Git PDF**: **BLOCKED CORPUS MISSING** (fixtures locales ≠ corpus Git projet autorisé)
+- **web_live**: **0 / disabled** fin de cycle · G-WEB-MIXED fermé · RECETTE :3200 non mutée (`a150926c`)
+- **release**: **NO RELEASE** · **NOT ADOPTED** · ML5 OPEN · R5 IN PROGRESS · G-RECETTE non consommé · livraison 2 non engagée
+- **statut**: **ML5 COGNITIVE FOUNDATION CONFORMANCE AND LIVE BEHAVIOR VERIFIED — INTEGRATED CANDIDATE READY FOR MORRIS REVIEW** (réserves B: G-WEB-PUBLIC hosted ; Git PDF text corpus)
+
+
 ## delivery_id: DELIV-2026-11-26-ML5-DOC-WEB-INTEGRATED-QUALIFICATION
 
 - **date_utc**: 2026-11-26

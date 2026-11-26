@@ -47,3 +47,31 @@ Classe : **NO RELEASE** · Lane : **DEV** · Cutover RECETTE : **NON APPLIQUÉ**
 ## WEB LIVE
 
 `SFIA_WEB_SEARCH_LIVE=0` · `SFIA_WEB_SEARCH_ENABLED=0` · G-WEB-MIXED fermé · enveloppes §12.1/12.2 **non consommées** (S2 déterministe satisfait ; LIVE discriminant optionnel en réserve B).
+
+
+## Cycle conformité intégrée + LIVE (suite — 2026-11-26 soir)
+
+### Corrections racines
+
+- ALS : `store()` refuse `emptyStore()` éphémère ; LIVE Nora/WEB wrappent `runWithProviderEmissionStoreAsync`.
+- Campagne process-level : `processCampaignRegistry` + `attachConfiguredLiveCampaignFromEnv` (G-LIVE-API / G-WEB-PUBLIC).
+- Bornes : plus de réservation forfaitaire 50k/4k ; ceilings per-request + injection `max_output_tokens` sur le wire.
+- SDK réel : tests A-03 retry / A-04 N+1 avec `@openai/agents@0.21` + `openai@7.50` transport substitué.
+- Restitution : soft-stop post-segment n’entre en `RESTITUTION_PHASE` que s’il existe des acquis.
+- FinOps : `getHttpAttemptsSnapshot` + `recordNoraProviderUsageWithHttpCorrelation` (pas de 2e ledger ; pas de migration).
+- WEB D6 : absence projectId/pilotId ⇒ DENY pour exceptionnel non catalogué.
+- PDF : `workProjectId` requis pour scope projet ; footprint enrichissement session.
+
+### LIVE G-LIVE-API
+
+- BUILD_ID démarré : `emfz_yP5MBF9GxQRrnJGP`
+- LIVE-01 reply : « Je suis Nora et le socle cognitif répond. »
+- Observations : 25 · attempts distincts 18 · ~130813 / 3655 tokens · ~USD 0.041 · coverage PARTIAL
+- WEB OFF · RECETTE intacte
+
+### Gates
+
+- G-LIVE-API : consommé (borné)
+- G-WEB-PUBLIC : non consommé (hosted ASSUMED_1)
+- G-WEB-MIXED : fermé
+- G-RECETTE : non consommé
