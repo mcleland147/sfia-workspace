@@ -41,6 +41,7 @@ export type EmissionAttemptKind =
   | "internal.qualification"
   | "campaign.probe"
   | "http.responses"
+  | "http.input_tokens_count"
   | "http.other"
   | "other";
 
@@ -55,15 +56,25 @@ export type CampaignEnvelope = {
   /** Require this ALS campaign for every HTTP emission (fail-closed if absent). */
   required: boolean;
   maxHttpAttempts: number;
+  /** Distinct envelope for POST /v1/responses/input_tokens (not Responses generation). */
+  maxInputTokenCountAttempts: number | null;
   maxInputTokens: number | null;
   maxOutputTokens: number | null;
   maxInputTokensPerRequest: number | null;
   maxOutputTokensPerRequest: number | null;
   maxHostedSearches: number | null;
   maxDirectOpens: number | null;
+  /**
+   * When true, campaign input limits require a provider-native input_tokens count
+   * before Responses emission. Body-length estimates are never a strict guarantee.
+   */
+  requireNativeInputBound: boolean;
   httpAttemptsReserved: number;
   httpAttemptsCommitted: number;
   httpAttemptsReleased: number;
+  inputTokenCountAttemptsReserved: number;
+  inputTokenCountAttemptsCommitted: number;
+  inputTokenCountAttemptsReleased: number;
   inputTokensReserved: number;
   inputTokensCommitted: number;
   outputTokensReserved: number;
@@ -74,7 +85,7 @@ export type CampaignEnvelope = {
   suspendReason: string | null;
 };
 
-export type InputBoundKind = "demonstrable" | "estimate" | null;
+export type InputBoundKind = "native" | "demonstrable" | "estimate" | null;
 
 export type HttpAttemptRecord = {
   attemptId: string;
@@ -135,6 +146,8 @@ type FrontierStore = {
     model: string | null;
     effort: string | null;
     maxOutputTokens: number | null;
+    maxToolCalls: number | null;
+    kind: EmissionAttemptKind | null;
   }>;
   /** Effort admitted at SDK layer — reused for HTTP body admission (no silent medium). */
   effortHint: string | null;
@@ -142,6 +155,15 @@ type FrontierStore = {
   modelHint: string | null;
   /** When true, record non-body metadata for substituted-transport oracles. */
   captureHttpMeta: boolean;
+  /**
+   * Last native input_tokens count for the current ALS turn, keyed by payload fingerprint.
+   * Used so Responses emission can reserve against a provider count without re-counting.
+   */
+  nativeInputCount: {
+    fingerprint: string;
+    inputTokens: number;
+    countedAtMs: number;
+  } | null;
 };
 
 const als = new AsyncLocalStorage<FrontierStore>();
@@ -240,6 +262,7 @@ function emptyStore(): FrontierStore {
     effortHint: null,
     modelHint: null,
     captureHttpMeta: false,
+    nativeInputCount: null,
   };
 }
 
@@ -277,12 +300,15 @@ export function beginCampaignEnvelope(input: {
   /** @deprecated use maxHttpAttempts */
   maxAttempts?: number;
   maxHttpAttempts?: number;
+  maxInputTokenCountAttempts?: number | null;
   maxInputTokens?: number | null;
   maxOutputTokens?: number | null;
   maxInputTokensPerRequest?: number | null;
   maxOutputTokensPerRequest?: number | null;
   maxHostedSearches?: number | null;
   maxDirectOpens?: number | null;
+  /** Default true when any input token campaign limit is set. */
+  requireNativeInputBound?: boolean;
   required?: boolean;
 }): CampaignEnvelope {
   const cur = store();
@@ -302,10 +328,20 @@ export function beginCampaignEnvelope(input: {
     0,
     Math.floor(input.maxHttpAttempts ?? input.maxAttempts ?? 0),
   );
+  const hasInputLimit =
+    input.maxInputTokens != null || input.maxInputTokensPerRequest != null;
+  const requireNative =
+    input.requireNativeInputBound ?? hasInputLimit;
   const campaign: CampaignEnvelope = {
     campaignId,
     required: input.required !== false,
     maxHttpAttempts: maxHttp,
+    maxInputTokenCountAttempts:
+      input.maxInputTokenCountAttempts == null
+        ? requireNative
+          ? Math.max(1, maxHttp * 2)
+          : null
+        : Math.max(0, Math.floor(input.maxInputTokenCountAttempts)),
     maxInputTokens:
       input.maxInputTokens == null ? null : Math.max(0, Math.floor(input.maxInputTokens)),
     maxOutputTokens:
@@ -328,9 +364,13 @@ export function beginCampaignEnvelope(input: {
       input.maxDirectOpens == null
         ? null
         : Math.max(0, Math.floor(input.maxDirectOpens)),
+    requireNativeInputBound: requireNative,
     httpAttemptsReserved: 0,
     httpAttemptsCommitted: 0,
     httpAttemptsReleased: 0,
+    inputTokenCountAttemptsReserved: 0,
+    inputTokenCountAttemptsCommitted: 0,
+    inputTokenCountAttemptsReleased: 0,
     inputTokensReserved: 0,
     inputTokensCommitted: 0,
     outputTokensReserved: 0,
@@ -379,13 +419,18 @@ export function attachConfiguredLiveCampaignFromEnv(
     const raw = Number((env[k] || "").trim());
     return Number.isFinite(raw) && raw >= 0 ? Math.floor(raw) : fallback;
   };
-  // §12.2 G-LIVE-API defaults; §12.3 G-WEB-PUBLIC when that gate is set.
+  // §13.2 G-LIVE-API defaults; §13.3 G-WEB-PUBLIC when that gate is set.
   return beginCampaignEnvelope({
     campaignId,
     required: true,
-    maxHttpAttempts: num("SFIA_LIVE_MAX_HTTP_ATTEMPTS", web ? 20 : 40),
-    maxInputTokens: num("SFIA_LIVE_MAX_INPUT_TOKENS", web ? 500_000 : 2_000_000),
-    maxOutputTokens: num("SFIA_LIVE_MAX_OUTPUT_TOKENS", web ? 100_000 : 200_000),
+    requireNativeInputBound: true,
+    maxHttpAttempts: num("SFIA_LIVE_MAX_HTTP_ATTEMPTS", web ? 12 : 12),
+    maxInputTokenCountAttempts: num(
+      "SFIA_LIVE_MAX_INPUT_TOKEN_COUNT_ATTEMPTS",
+      24,
+    ),
+    maxInputTokens: num("SFIA_LIVE_MAX_INPUT_TOKENS", web ? 500_000 : 600_000),
+    maxOutputTokens: num("SFIA_LIVE_MAX_OUTPUT_TOKENS", web ? 100_000 : 60_000),
     maxInputTokensPerRequest: num("SFIA_LIVE_MAX_INPUT_TOKENS_PER_REQ", 100_000),
     maxOutputTokensPerRequest: num("SFIA_LIVE_MAX_OUTPUT_TOKENS_PER_REQ", 10_000),
     maxHostedSearches: web
@@ -459,13 +504,17 @@ function parseJsonBody(body: BodyInit | null | undefined): Record<string, unknow
 }
 
 /**
- * Demonstrable input bound — never a fake guarantee.
- * Returns null when only an estimate would be invented.
+ * Optional local hint only — never a provider-native guarantee.
+ * Prefer {@link resolveNativeOrDemonstrableInputBound} for campaign envelopes.
  */
 function demonstrableInputTokenBound(
   body: Record<string, unknown> | null,
 ): number | null {
   if (!body) return null;
+  const nativeHint = Number(
+    (body as { sfia_native_input_tokens?: unknown }).sfia_native_input_tokens ?? 0,
+  );
+  if (Number.isFinite(nativeHint) && nativeHint > 0) return Math.floor(nativeHint);
   const inputHint = Number(
     (body as { sfia_estimated_input_tokens?: unknown }).sfia_estimated_input_tokens ??
       0,
@@ -475,8 +524,8 @@ function demonstrableInputTokenBound(
 }
 
 /**
- * Conservative reservation estimate from serialized body size — NOT a usage guarantee.
- * For campaign accounting only when no demonstrable sfia_estimated_input_tokens exists.
+ * Conservative body-size indication — NOT a strict envelope guarantee.
+ * Retained for diagnostics / operational hints only.
  */
 export function conservativeBodyTokenEstimate(
   body: Record<string, unknown> | null,
@@ -492,6 +541,155 @@ export function conservativeBodyTokenEstimate(
   const len = serialized.length;
   if (len <= 0) return null;
   return Math.ceil(len / 3);
+}
+
+/** Fields accepted by openai@7.50 `responses.inputTokens.count` / InputTokenCountParams. */
+const INPUT_TOKEN_COUNT_KEYS = [
+  "conversation",
+  "input",
+  "instructions",
+  "model",
+  "parallel_tool_calls",
+  "personality",
+  "previous_response_id",
+  "reasoning",
+  "text",
+  "tool_choice",
+  "tools",
+  "truncation",
+] as const;
+
+/**
+ * Transform a Responses create body into the supported input_tokens count payload.
+ * Drops unsupported fields (e.g. max_output_tokens, max_tool_calls, stream).
+ */
+export function buildInputTokenCountPayload(
+  body: Record<string, unknown> | null,
+): Record<string, unknown> | null {
+  if (!body) return null;
+  const out: Record<string, unknown> = {};
+  for (const key of INPUT_TOKEN_COUNT_KEYS) {
+    if (Object.prototype.hasOwnProperty.call(body, key) && body[key] !== undefined) {
+      out[key] = body[key];
+    }
+  }
+  if (Object.keys(out).length === 0) return null;
+  return out;
+}
+
+/** Stable fingerprint of the count-relevant payload (must match emission context). */
+export function inputCountPayloadFingerprint(
+  body: Record<string, unknown> | null,
+): string | null {
+  const payload = buildInputTokenCountPayload(body);
+  if (!payload) return null;
+  let serialized: string;
+  try {
+    serialized = JSON.stringify(payload);
+  } catch {
+    return null;
+  }
+  return createHash("sha256").update(serialized, "utf8").digest("hex").slice(0, 32);
+}
+
+export function isResponsesInputTokensCountUrl(url: string): boolean {
+  try {
+    const u = new URL(url);
+    if (!isOpenAiApiUrl(url)) return false;
+    const path = u.pathname.replace(/\/+$/, "");
+    return (
+      path === "/v1/responses/input_tokens" ||
+      path.endsWith("/responses/input_tokens")
+    );
+  } catch {
+    return false;
+  }
+}
+
+export function isResponsesCreateUrl(url: string): boolean {
+  try {
+    const u = new URL(url);
+    if (!isOpenAiApiUrl(url)) return false;
+    const path = u.pathname.replace(/\/+$/, "");
+    return path === "/v1/responses" || path.endsWith("/responses");
+  } catch {
+    return false;
+  }
+}
+
+function deriveInputTokensCountUrl(responsesUrl: string): string {
+  try {
+    const u = new URL(responsesUrl);
+    const path = u.pathname.replace(/\/+$/, "");
+    if (path.endsWith("/responses")) {
+      u.pathname = `${path}/input_tokens`;
+    } else {
+      u.pathname = "/v1/responses/input_tokens";
+    }
+    u.search = "";
+    u.hash = "";
+    return u.toString();
+  } catch {
+    return "https://api.openai.com/v1/responses/input_tokens";
+  }
+}
+
+/**
+ * Resolve input reservation for a campaign:
+ * - native ALS count matching fingerprint → kind "native"
+ * - body sfia_native_input_tokens → kind "native"
+ * - body sfia_estimated_input_tokens only when native not required → "demonstrable"
+ * - never body-length estimate as a strict campaign guarantee
+ */
+function resolveCampaignInputReservation(
+  body: Record<string, unknown> | null,
+  campaign: CampaignEnvelope,
+  alsNative: FrontierStore["nativeInputCount"],
+): { tokens: number; kind: InputBoundKind } | { tokens: null; kind: null; reason: string } {
+  const fingerprint = inputCountPayloadFingerprint(body);
+  if (
+    alsNative &&
+    fingerprint &&
+    alsNative.fingerprint === fingerprint &&
+    Number.isFinite(alsNative.inputTokens) &&
+    alsNative.inputTokens > 0
+  ) {
+    return { tokens: Math.floor(alsNative.inputTokens), kind: "native" };
+  }
+  if (body) {
+    const nativeHint = Number(
+      (body as { sfia_native_input_tokens?: unknown }).sfia_native_input_tokens ?? 0,
+    );
+    const bodyFp = String(
+      (body as { sfia_input_count_fingerprint?: unknown }).sfia_input_count_fingerprint ??
+        "",
+    ).trim();
+    if (
+      Number.isFinite(nativeHint) &&
+      nativeHint > 0 &&
+      (!fingerprint || !bodyFp || bodyFp === fingerprint)
+    ) {
+      return { tokens: Math.floor(nativeHint), kind: "native" };
+    }
+  }
+  if (campaign.requireNativeInputBound) {
+    return {
+      tokens: null,
+      kind: null,
+      reason:
+        "INPUT_UNBOUNDED — campaign requires provider-native input_tokens count before Responses emission",
+    };
+  }
+  const demo = demonstrableInputTokenBound(body);
+  if (demo != null) {
+    return { tokens: demo, kind: "demonstrable" };
+  }
+  return {
+    tokens: null,
+    kind: null,
+    reason:
+      "INPUT_UNBOUNDED — campaign input limit set but no native or demonstrable input bound",
+  };
 }
 
 /** Output bound from the actual emission parameter (max_output_tokens). */
@@ -544,13 +742,21 @@ function bodyContainsHostedWebSearchTool(
   return false;
 }
 
-/** One assumed hosted search per Responses body carrying web_search tools. */
+/**
+ * Legacy marker — assumed 1 hosted search per Responses is NOT an opposable bound.
+ * Prefer injected {@link max_tool_calls} as a built-in tool-call ceiling (still ≠ billed search units).
+ */
 export const HOSTED_SEARCH_PER_RESPONSE_ASSUMED_1 =
   "HOSTED_SEARCH_PER_RESPONSE_ASSUMED_1" as const;
 
+export const HOSTED_BOUND_REQUIRES_MAX_TOOL_CALLS =
+  "HOSTED_BOUND_REQUIRES_MAX_TOOL_CALLS" as const;
+
 /**
- * Fail-closed hosted search accounting: reserve one hosted search per Responses
- * emission when OpenAI web_search tools appear (engine may run more — {@link HOSTED_SEARCH_PER_RESPONSE_ASSUMED_1}).
+ * Hosted / built-in tool-call reservation for campaign envelopes.
+ * Uses body.max_tool_calls when present (provider-supported Responses field).
+ * Without max_tool_calls, returns 0 and callers must fail-closed for web campaigns
+ * rather than assuming 1 search ≡ 1 billed unit.
  */
 function inferHostedSearchDeltaFromBody(
   body: Record<string, unknown> | null,
@@ -558,7 +764,36 @@ function inferHostedSearchDeltaFromBody(
 ): number {
   if (!campaign || campaign.maxHostedSearches == null) return 0;
   if (!bodyContainsHostedWebSearchTool(body)) return 0;
-  return 1;
+  const maxToolCalls = Number(body?.max_tool_calls ?? 0);
+  if (Number.isFinite(maxToolCalls) && maxToolCalls > 0) {
+    return Math.floor(maxToolCalls);
+  }
+  // No ASSUMED_1 reservation — require explicit max_tool_calls injection.
+  return 0;
+}
+
+/**
+ * Inject max_tool_calls when a hosted web_search tool is present and the campaign
+ * budgets hosted tool calls. Does not claim equality with billed search queries.
+ */
+export function injectMaxToolCallsForHostedCampaign(
+  body: Record<string, unknown>,
+  campaign: CampaignEnvelope | null,
+  hostedBudgetForThisResponse = 1,
+): Record<string, unknown> {
+  if (!campaign || campaign.maxHostedSearches == null) return body;
+  if (!bodyContainsHostedWebSearchTool(body)) return body;
+  const existing = Number(body.max_tool_calls ?? 0);
+  if (Number.isFinite(existing) && existing > 0) return body;
+  const remaining = Math.max(
+    0,
+    campaign.maxHostedSearches - campaign.hostedSearchesCommitted,
+  );
+  const inject = Math.max(
+    1,
+    Math.min(hostedBudgetForThisResponse, remaining || hostedBudgetForThisResponse),
+  );
+  return { ...body, max_tool_calls: inject };
 }
 
 export type HttpAttemptSnapshot = {
@@ -856,29 +1091,102 @@ export function reserveHttpEmission(input: {
     };
   }
 
+  const emissionKind = input.kind ?? "http.responses";
+
+  // Native input_tokens count — separate envelope; not a Responses generation.
+  if (emissionKind === "http.input_tokens_count") {
+    if (
+      campaign.maxInputTokenCountAttempts != null &&
+      campaign.inputTokenCountAttemptsReserved + 1 >
+        campaign.maxInputTokenCountAttempts
+    ) {
+      campaign.suspended = true;
+      campaign.suspendReason = "CAMPAIGN_INPUT_TOKEN_COUNT_ATTEMPTS_EXHAUSTED";
+      return {
+        ok: false,
+        reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
+        reason: `inputTokenCountReserved=${campaign.inputTokenCountAttemptsReserved}+1 max=${campaign.maxInputTokenCountAttempts}`,
+      };
+    }
+    campaign.inputTokenCountAttemptsReserved += 1;
+    const attemptId = newAttemptId();
+    store().attempts.set(attemptId, {
+      attemptId,
+      campaignId: campaign.campaignId,
+      state: "RESERVED",
+      kind: "http.input_tokens_count",
+      reservedSlots: 1,
+      reservedInputTokens: 0,
+      reservedOutputTokens: 0,
+      inputBoundKind: null,
+      urlHost: safeHost(input.url),
+      modelHint: model || null,
+      createdAtMs: Date.now(),
+    });
+    return {
+      ok: true,
+      attemptId,
+      campaignId: campaign.campaignId,
+      reservedSlots: 1,
+      reservedInputTokens: 0,
+      reservedOutputTokens: 0,
+      keyFingerprint: laneGuard.keyFingerprint,
+      lane: laneGuard.lane,
+      layer: "http",
+    };
+  }
+
   // Campaign token limits require an opposable reservation before contact.
-  // Input: demonstrable sfia_estimated_input_tokens, else conservative body
-  // estimate — never the per-request ceiling as a faux measured bound. Output
-  // still may use per-request ceiling for reservation and wire injection.
-  let reservedInput = demonstrableInputTokenBound(bodyJson);
-  let inputBoundKind: InputBoundKind =
-    reservedInput != null ? "demonstrable" : null;
+  // Input: provider-native input_tokens count (or explicit native hint) —
+  // never campaign ceiling and never body-length estimate as a strict guarantee.
+  // Output still may use per-request ceiling for reservation and wire injection.
+  let reservedInput: number | null = null;
+  let inputBoundKind: InputBoundKind = null;
   let reservedOutput = demonstrableOutputTokenBound(bodyJson);
 
   if (
-    reservedInput == null &&
-    (campaign.maxInputTokens != null || campaign.maxInputTokensPerRequest != null)
+    campaign.maxInputTokens != null ||
+    campaign.maxInputTokensPerRequest != null
   ) {
-    const estimate = conservativeBodyTokenEstimate(bodyJson);
-    if (estimate != null) {
-      reservedInput = estimate;
-      inputBoundKind = "estimate";
-    } else {
+    const resolved = resolveCampaignInputReservation(
+      bodyJson,
+      campaign,
+      als.getStore()?.nativeInputCount ?? null,
+    );
+    if (resolved.tokens == null) {
       return {
         ok: false,
         reasonCode: "INPUT_UNBOUNDED",
-        reason:
-          "INPUT_UNBOUNDED — campaign input limit set but no demonstrable bound or body estimate",
+        reason: resolved.reason,
+      };
+    }
+    reservedInput = resolved.tokens;
+    inputBoundKind = resolved.kind;
+  } else {
+    reservedInput = demonstrableInputTokenBound(bodyJson);
+    if (reservedInput != null) {
+      inputBoundKind =
+        bodyJson &&
+        Number(
+          (bodyJson as { sfia_native_input_tokens?: unknown })
+            .sfia_native_input_tokens ?? 0,
+        ) > 0
+          ? "native"
+          : "demonstrable";
+    }
+  }
+
+  // Hosted web campaign: require max_tool_calls on the wire — no ASSUMED_1.
+  if (
+    campaign.maxHostedSearches != null &&
+    bodyContainsHostedWebSearchTool(bodyJson)
+  ) {
+    const maxToolCalls = Number(bodyJson?.max_tool_calls ?? 0);
+    if (!Number.isFinite(maxToolCalls) || maxToolCalls <= 0) {
+      return {
+        ok: false,
+        reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
+        reason: HOSTED_BOUND_REQUIRES_MAX_TOOL_CALLS,
       };
     }
   }
@@ -986,7 +1294,7 @@ export function reserveHttpEmission(input: {
     attemptId,
     campaignId: campaign.campaignId,
     state: "RESERVED",
-    kind: input.kind ?? "http.responses",
+    kind: emissionKind,
     reservedSlots: 1,
     reservedInputTokens: inTok,
     reservedOutputTokens: outTok,
@@ -1068,30 +1376,35 @@ export function commitProviderEmission(reservation: {
   rec.state = "COMMITTED";
   const campaign = s.campaign;
   if (campaign && rec.campaignId === campaign.campaignId) {
-    campaign.httpAttemptsCommitted += 1;
-    const inTok =
-      reservation.measuredInputTokens != null &&
-      Number.isFinite(reservation.measuredInputTokens)
-        ? Math.max(0, Math.floor(reservation.measuredInputTokens))
-        : rec.reservedInputTokens;
-    const outTok =
-      reservation.measuredOutputTokens != null &&
-      Number.isFinite(reservation.measuredOutputTokens)
-        ? Math.max(0, Math.floor(reservation.measuredOutputTokens))
-        : rec.reservedOutputTokens;
-    campaign.inputTokensCommitted += inTok;
-    campaign.outputTokensCommitted += outTok;
-    // Reconcile reservation overshoot: keep reserved >= committed.
-    campaign.inputTokensReserved = Math.max(
-      campaign.inputTokensReserved,
-      campaign.inputTokensCommitted,
-    );
-    campaign.outputTokensReserved = Math.max(
-      campaign.outputTokensReserved,
-      campaign.outputTokensCommitted,
-    );
-    const hosted = Math.max(0, Math.floor(reservation.hostedSearchDelta ?? 0));
-    if (hosted > 0) campaign.hostedSearchesCommitted += hosted;
+    if (rec.kind === "http.input_tokens_count") {
+      campaign.inputTokenCountAttemptsCommitted += 1;
+      // Counting is not Responses generation — do not attribute generation tokens/cost.
+    } else {
+      campaign.httpAttemptsCommitted += 1;
+      const inTok =
+        reservation.measuredInputTokens != null &&
+        Number.isFinite(reservation.measuredInputTokens)
+          ? Math.max(0, Math.floor(reservation.measuredInputTokens))
+          : rec.reservedInputTokens;
+      const outTok =
+        reservation.measuredOutputTokens != null &&
+        Number.isFinite(reservation.measuredOutputTokens)
+          ? Math.max(0, Math.floor(reservation.measuredOutputTokens))
+          : rec.reservedOutputTokens;
+      campaign.inputTokensCommitted += inTok;
+      campaign.outputTokensCommitted += outTok;
+      // Reconcile reservation overshoot: keep reserved >= committed.
+      campaign.inputTokensReserved = Math.max(
+        campaign.inputTokensReserved,
+        campaign.inputTokensCommitted,
+      );
+      campaign.outputTokensReserved = Math.max(
+        campaign.outputTokensReserved,
+        campaign.outputTokensCommitted,
+      );
+      const hosted = Math.max(0, Math.floor(reservation.hostedSearchDelta ?? 0));
+      if (hosted > 0) campaign.hostedSearchesCommitted += hosted;
+    }
   }
   s.httpEmissionsObserved += 1;
 }
@@ -1112,16 +1425,27 @@ export function releaseProviderEmission(reservation: {
   rec.state = "RELEASED";
   const campaign = s.campaign;
   if (campaign && rec.campaignId === campaign.campaignId) {
-    campaign.httpAttemptsReserved = Math.max(0, campaign.httpAttemptsReserved - 1);
-    campaign.httpAttemptsReleased += 1;
-    campaign.inputTokensReserved = Math.max(
-      0,
-      campaign.inputTokensReserved - rec.reservedInputTokens,
-    );
-    campaign.outputTokensReserved = Math.max(
-      0,
-      campaign.outputTokensReserved - rec.reservedOutputTokens,
-    );
+    if (rec.kind === "http.input_tokens_count") {
+      campaign.inputTokenCountAttemptsReserved = Math.max(
+        0,
+        campaign.inputTokenCountAttemptsReserved - 1,
+      );
+      campaign.inputTokenCountAttemptsReleased += 1;
+    } else {
+      campaign.httpAttemptsReserved = Math.max(
+        0,
+        campaign.httpAttemptsReserved - 1,
+      );
+      campaign.httpAttemptsReleased += 1;
+      campaign.inputTokensReserved = Math.max(
+        0,
+        campaign.inputTokensReserved - rec.reservedInputTokens,
+      );
+      campaign.outputTokensReserved = Math.max(
+        0,
+        campaign.outputTokensReserved - rec.reservedOutputTokens,
+      );
+    }
   }
 }
 
@@ -1137,7 +1461,11 @@ export function markProviderEmissionUncertain(reservation: {
   const campaign = s.campaign;
   if (campaign && rec.campaignId === campaign.campaignId) {
     // Unknown consumption ≠ free — keep reservation, count as observed emission.
-    campaign.httpAttemptsCommitted += 1;
+    if (rec.kind === "http.input_tokens_count") {
+      campaign.inputTokenCountAttemptsCommitted += 1;
+    } else {
+      campaign.httpAttemptsCommitted += 1;
+    }
   }
   s.httpEmissionsObserved += 1;
 }
@@ -1169,6 +1497,7 @@ export function __resetProviderEmissionFrontierForTests(): void {
     s.effortHint = null;
     s.modelHint = null;
     s.captureHttpMeta = false;
+    s.nativeInputCount = null;
   }
   processCampaignRegistry.clear();
   deleteLiveCampaignStateFile();
@@ -1236,6 +1565,10 @@ function isOpenAiApiUrl(url: string): boolean {
 /**
  * Custom fetch that intercepts OpenAI HTTP emissions for campaign control.
  * Substitutable in tests by wrapping a fake transport.
+ *
+ * Distinguishes:
+ * - POST …/responses/input_tokens → count attempt (not generation)
+ * - POST …/responses → generation (may native-count first when campaign requires it)
  */
 export function createFrontierAwareFetch(
   baseFetch: typeof fetch = globalThis.fetch.bind(globalThis),
@@ -1245,7 +1578,11 @@ export function createFrontierAwareFetch(
   },
 ): typeof fetch {
   const requireCampaignOpt = opts?.requireCampaign === true;
-  return (async (input: RequestInfo | URL, init?: RequestInit) => {
+
+  const frontierFetch = (async (
+    input: RequestInfo | URL,
+    init?: RequestInit,
+  ): Promise<Response> => {
     const url =
       typeof input === "string"
         ? input
@@ -1284,8 +1621,142 @@ export function createFrontierAwareFetch(
     let body = init?.body ?? null;
     let bodyJson = parseJsonBody(body);
     const campaign = alsStore.campaign;
+
+    // —— Native input_tokens count path (no recursion into Responses generation) ——
+    if (isResponsesInputTokensCountUrl(url)) {
+      const countPayload = buildInputTokenCountPayload(bodyJson) ?? bodyJson;
+      const fingerprint = inputCountPayloadFingerprint(countPayload);
+      body = countPayload ? JSON.stringify(countPayload) : body;
+      bodyJson = countPayload;
+      const reservation = reserveHttpEmission({
+        kind: "http.input_tokens_count",
+        url,
+        method,
+        body,
+        effort: alsStore.effortHint,
+        skipModelAdmission: true,
+      });
+      if (!reservation.ok) {
+        throw new ProviderEmissionRefusedError(
+          reservation.reasonCode,
+          reservation.reason,
+        );
+      }
+      if (alsStore.captureHttpMeta) {
+        alsStore.httpBodiesObserved.push({
+          attemptId: reservation.attemptId,
+          url,
+          method,
+          model: modelFromBody(bodyJson),
+          effort: effortFromBody(bodyJson),
+          maxOutputTokens: null,
+          maxToolCalls: null,
+          kind: "http.input_tokens_count",
+        });
+      }
+      const nextInit =
+        body === init?.body || init == null ? init : { ...init, body };
+      try {
+        const res = await baseFetch(input, nextInit);
+        let parsed: { input_tokens?: unknown; object?: unknown } | null = null;
+        try {
+          parsed = (await res.clone().json()) as {
+            input_tokens?: unknown;
+            object?: unknown;
+          };
+        } catch {
+          parsed = null;
+        }
+        const tokens = Number(parsed?.input_tokens ?? NaN);
+        if (
+          res.ok &&
+          fingerprint &&
+          Number.isFinite(tokens) &&
+          tokens > 0 &&
+          parsed?.object === "response.input_tokens"
+        ) {
+          alsStore.nativeInputCount = {
+            fingerprint,
+            inputTokens: Math.floor(tokens),
+            countedAtMs: Date.now(),
+          };
+        } else if (!res.ok || !Number.isFinite(tokens) || tokens <= 0) {
+          // Malformed / failed count — clear stale native binding for this fingerprint.
+          if (alsStore.nativeInputCount?.fingerprint === fingerprint) {
+            alsStore.nativeInputCount = null;
+          }
+        }
+        commitProviderEmission({
+          attemptId: reservation.attemptId,
+          reservedSlots: reservation.reservedSlots,
+        });
+        return res;
+      } catch (e) {
+        markProviderEmissionUncertain({ attemptId: reservation.attemptId });
+        throw e;
+      }
+    }
+
+    // —— Responses generation path ——
+    // Inject max_tool_calls for hosted web campaigns before counting / reserve.
+    if (bodyJson && campaign) {
+      bodyJson = injectMaxToolCallsForHostedCampaign(bodyJson, campaign, 1);
+      body = JSON.stringify(bodyJson);
+    }
+
+    // When a strict campaign requires a native input bound, count first via the
+    // same frontier (count URL path above) — never via an unbounded side channel.
+    if (
+      campaign?.requireNativeInputBound &&
+      (campaign.maxInputTokens != null ||
+        campaign.maxInputTokensPerRequest != null) &&
+      isResponsesCreateUrl(url) &&
+      method === "POST"
+    ) {
+      const fingerprint = inputCountPayloadFingerprint(bodyJson);
+      const haveNative =
+        fingerprint &&
+        alsStore.nativeInputCount?.fingerprint === fingerprint &&
+        alsStore.nativeInputCount.inputTokens > 0;
+      const bodyNative = Number(
+        (bodyJson as { sfia_native_input_tokens?: unknown } | null)
+          ?.sfia_native_input_tokens ?? 0,
+      );
+      if (!haveNative && !(Number.isFinite(bodyNative) && bodyNative > 0)) {
+        const countPayload = buildInputTokenCountPayload(bodyJson);
+        if (!countPayload) {
+          throw new ProviderEmissionRefusedError(
+            "INPUT_UNBOUNDED",
+            "INPUT_UNBOUNDED — cannot build input_tokens count payload from Responses body",
+          );
+        }
+        const countUrl = deriveInputTokensCountUrl(url);
+        const countRes = await frontierFetch(countUrl, {
+          method: "POST",
+          headers: init?.headers,
+          body: JSON.stringify(countPayload),
+        });
+        if (!countRes.ok) {
+          throw new ProviderEmissionRefusedError(
+            "INPUT_UNBOUNDED",
+            `INPUT_UNBOUNDED — native input_tokens count HTTP ${countRes.status}`,
+          );
+        }
+        if (
+          !alsStore.nativeInputCount ||
+          alsStore.nativeInputCount.fingerprint !== fingerprint
+        ) {
+          throw new ProviderEmissionRefusedError(
+            "INPUT_UNBOUNDED",
+            "INPUT_UNBOUNDED — native input_tokens count missing or fingerprint mismatch after count",
+          );
+        }
+      }
+    }
+
     // Inject opposable max_output_tokens onto the real provider payload when the
     // campaign sets a per-request ceiling and the SDK omitted the field.
+    // Safe after count: max_output_tokens is not part of InputTokenCountParams.
     if (
       campaign?.maxOutputTokensPerRequest != null &&
       bodyJson &&
@@ -1297,6 +1768,23 @@ export function createFrontierAwareFetch(
       };
       body = JSON.stringify(bodyJson);
     }
+
+    // Strip Studio-only hints before wire emission.
+    if (bodyJson) {
+      const {
+        sfia_estimated_input_tokens: _est,
+        sfia_native_input_tokens: _nat,
+        sfia_input_count_fingerprint: _fp,
+        ...wireBody
+      } = bodyJson as Record<string, unknown> & {
+        sfia_estimated_input_tokens?: unknown;
+        sfia_native_input_tokens?: unknown;
+        sfia_input_count_fingerprint?: unknown;
+      };
+      bodyJson = wireBody;
+      body = JSON.stringify(wireBody);
+    }
+
     const hostedSearchDelta = inferHostedSearchDeltaFromBody(
       bodyJson,
       campaign,
@@ -1325,13 +1813,13 @@ export function createFrontierAwareFetch(
         model: modelFromBody(bodyJson),
         effort: effortFromBody(bodyJson),
         maxOutputTokens: demonstrableOutputTokenBound(bodyJson),
+        maxToolCalls: Number(bodyJson?.max_tool_calls ?? 0) || null,
+        kind: "http.responses",
       });
     }
 
     const nextInit =
-      body === init?.body || init == null
-        ? init
-        : { ...init, body };
+      body === init?.body || init == null ? init : { ...init, body };
     try {
       const res = await baseFetch(input, nextInit);
       commitProviderEmission({
@@ -1347,6 +1835,8 @@ export function createFrontierAwareFetch(
       throw e;
     }
   }) as typeof fetch;
+
+  return frontierFetch;
 }
 
 /**

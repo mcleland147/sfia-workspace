@@ -1,7 +1,15 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { describe, expect, it } from "vitest";
-import { extractPdfText, isPdfPathOrMime } from "@/domains/documents/pdf-extract-server";
+import { beforeEach, describe, expect, it } from "vitest";
+import {
+  __resetPdfExtractConcurrencyForTests,
+  extractPdfText,
+  isPdfPathOrMime,
+} from "@/domains/documents/pdf-extract-server";
+import {
+  DEFAULT_PDF_READ_LIMITS,
+  resolvePdfReadLimits,
+} from "@/domains/documents/pdf-read-contract";
 
 function fixturePdfBytes(): Uint8Array {
   return new Uint8Array(
@@ -12,11 +20,28 @@ function fixturePdfBytes(): Uint8Array {
 }
 
 describe("ML5 PDF extract server", () => {
+  beforeEach(() => {
+    __resetPdfExtractConcurrencyForTests();
+  });
+
   it("detects pdf path and mime", () => {
     expect(isPdfPathOrMime("docs/a.pdf")).toBe(true);
     expect(isPdfPathOrMime("https://ex.invalid/x.PDF?x=1")).toBe(true);
     expect(isPdfPathOrMime("readme.md")).toBe(false);
     expect(isPdfPathOrMime("x", "application/pdf")).toBe(true);
+  });
+
+  it("exposes size/pages/chars/time/concurrency/decompress/render limits", () => {
+    const lim = resolvePdfReadLimits({});
+    expect(lim.maxBytes).toBe(DEFAULT_PDF_READ_LIMITS.maxBytes);
+    expect(lim.maxPages).toBe(DEFAULT_PDF_READ_LIMITS.maxPages);
+    expect(lim.maxTextChars).toBe(DEFAULT_PDF_READ_LIMITS.maxTextChars);
+    expect(lim.timeoutMs).toBe(DEFAULT_PDF_READ_LIMITS.timeoutMs);
+    expect(lim.maxConcurrency).toBe(DEFAULT_PDF_READ_LIMITS.maxConcurrency);
+    expect(lim.maxDecompressBytes).toBe(
+      DEFAULT_PDF_READ_LIMITS.maxDecompressBytes,
+    );
+    expect(lim.maxRenderPixels).toBe(DEFAULT_PDF_READ_LIMITS.maxRenderPixels);
   });
 
   it("extracts text from the multi-page fixture PDF", async () => {
@@ -71,6 +96,61 @@ describe("ML5 PDF extract server", () => {
     } finally {
       if (prev === undefined) delete process.env.SFIA_PDF_MAX_BYTES;
       else process.env.SFIA_PDF_MAX_BYTES = prev;
+    }
+  });
+
+  it("blocks active content markers", async () => {
+    const header = "%PDF-1.4\n";
+    const body = "/JavaScript (app.alert('x'))\n/OpenAction << /S /JavaScript >>\n";
+    const bytes = new TextEncoder().encode(header + body);
+    const result = await extractPdfText({
+      bytes,
+      identity: {
+        provenance: "FIXTURE",
+        sourceRef: "fixture:js",
+        versionToken: null,
+        mimeClaimed: "application/pdf",
+      },
+    });
+    expect(result.ok).toBe(false);
+    if (!result.ok) expect(result.reasonCode).toBe("ACTIVE_CONTENT_BLOCKED");
+  });
+
+  it("honours abort signal (cancel)", async () => {
+    const ac = new AbortController();
+    ac.abort();
+    const result = await extractPdfText({
+      bytes: fixturePdfBytes(),
+      identity: {
+        provenance: "FIXTURE",
+        sourceRef: "fixture:cancel",
+        versionToken: null,
+        mimeClaimed: "application/pdf",
+      },
+      signal: ac.signal,
+    });
+    expect(result.ok).toBe(false);
+    if (!result.ok) expect(result.reasonCode).toBe("CANCELLED");
+  });
+
+  it("refuses when decompress budget is tiny", async () => {
+    const prev = process.env.SFIA_PDF_MAX_DECOMPRESS_BYTES;
+    process.env.SFIA_PDF_MAX_DECOMPRESS_BYTES = "8";
+    try {
+      const result = await extractPdfText({
+        bytes: fixturePdfBytes(),
+        identity: {
+          provenance: "FIXTURE",
+          sourceRef: "fixture:inflate",
+          versionToken: null,
+          mimeClaimed: "application/pdf",
+        },
+      });
+      expect(result.ok).toBe(false);
+      if (!result.ok) expect(result.reasonCode).toBe("DECOMPRESS_BUDGET_EXCEEDED");
+    } finally {
+      if (prev === undefined) delete process.env.SFIA_PDF_MAX_DECOMPRESS_BYTES;
+      else process.env.SFIA_PDF_MAX_DECOMPRESS_BYTES = prev;
     }
   });
 });

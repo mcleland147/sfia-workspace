@@ -129,12 +129,32 @@ export function PdfViewer(props: PdfViewerProps) {
       try {
         const pdfPage = await cur.doc.getPage(page);
         if (cancelled) return;
-        const viewport = pdfPage.getViewport({ scale: zoom });
+        // Client render dim cap — mirrors SFIA_PDF_MAX_RENDER_PIXELS default (8MP).
+        // Path cannot be secured unbounded under mandate → refuse explicitly.
+        const maxRenderPixels = 8_000_000;
+        let viewport = pdfPage.getViewport({ scale: zoom });
+        const product = viewport.width * viewport.height;
+        if (product > maxRenderPixels) {
+          const factor = Math.sqrt(maxRenderPixels / product);
+          viewport = pdfPage.getViewport({ scale: zoom * factor });
+          if (viewport.width * viewport.height > maxRenderPixels) {
+            setError("RENDER_DIMS_EXCEEDED");
+            return;
+          }
+        }
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
         canvas.width = viewport.width;
         canvas.height = viewport.height;
-        await pdfPage.render({ canvasContext: ctx, viewport }).promise;
+        const task = pdfPage.render({ canvasContext: ctx, viewport });
+        await task.promise;
+        if (cancelled) {
+          try {
+            task.cancel();
+          } catch {
+            /* best effort */
+          }
+        }
       } catch (e) {
         if (!cancelled) setError(String((e as Error)?.message ?? e).slice(0, 200));
       }

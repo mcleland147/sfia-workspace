@@ -274,7 +274,7 @@ try {
     `chars=${replyNote.length}`,
   );
 
-  // FinOps real API
+  // FinOps real API — period=7 summary is pilot/period scope, NOT campaign scope.
   const finopsSummary = await api("/api/finops/summary?period=7");
   save("05-finops-summary", finopsSummary);
   recordCriterion(
@@ -283,7 +283,9 @@ try {
     `status=${finopsSummary.status}`,
   );
 
-  const finopsWorks = await api("/api/finops/works?period=7");
+  const finopsWorks = await api(
+    `/api/finops/works?period=7&projectId=${encodeURIComponent(PROJECT_ID)}`,
+  );
   save("06-finops-works", finopsWorks);
   recordCriterion(
     "P3-FINOPS-WORKS",
@@ -291,8 +293,9 @@ try {
     `status=${finopsWorks.status}`,
   );
 
+  let finopsWork = null;
   if (workId) {
-    const finopsWork = await api(
+    finopsWork = await api(
       `/api/finops/works/${encodeURIComponent(workId)}?period=7`,
     );
     save("07-finops-work", finopsWork);
@@ -309,29 +312,35 @@ try {
   recordCriterion(
     "P3-FINOPS-UI",
     ui.status === 200 ? "PASS" : "FAIL",
-    `status=${ui.status}`,
+    `status=${ui.status} (HTTP shell only — browser UI not exercised here)`,
   );
 
-  const since = report.startedAt;
+  // Same-scope reconciliation: PG rows for THIS workId vs work-detail API KPIs.
+  // Never compare campaign-local billable sum against period=7 pilot totalRequests.
+  const usageScopeSql = workId
+    ? `cognitive_work_id='${workId.replace(/'/g, "''")}'`
+    : `created_at >= '${sinceSafe(report.startedAt)}'::timestamptz`;
   const usage = pgJson(
     `SELECT COALESCE(json_agg(row_to_json(t) ORDER BY created_at), '[]'::json) FROM (
       SELECT id, created_at, cognitive_work_id, generation_id, attempt_id, operation,
-             input_tokens, output_tokens, provider_requests, estimated_cost_usd,
+             input_tokens, output_tokens, total_tokens, provider_requests, estimated_cost_usd,
              cost_coverage, granularity, limits_json
       FROM provider_usage_observations
-      WHERE created_at >= '${since}'::timestamptz
-      ORDER BY created_at LIMIT 120
+      WHERE ${usageScopeSql}
+      ORDER BY created_at LIMIT 500
     ) t;`,
   );
   const rows = Array.isArray(usage) ? usage : [];
-  const billable = rows.filter(
-    (r) =>
-      !(Array.isArray(r.limits_json) &&
-        r.limits_json.some((l) =>
-          String(l).includes("HTTP_ATTEMPT_USAGE_UNKNOWN") ||
-          String(l).includes("HTTP_ATTEMPT_CORRELATION_ONLY"),
-        )),
-  );
+  const isCorrOnly = (r) =>
+    Array.isArray(r.limits_json) &&
+    r.limits_json.some(
+      (l) =>
+        String(l) === "HTTP_ATTEMPT_USAGE_UNKNOWN" ||
+        String(l) === "HTTP_ATTEMPT_CORRELATION_ONLY" ||
+        String(l).includes("HTTP_ATTEMPT_USAGE_UNKNOWN") ||
+        String(l).includes("HTTP_ATTEMPT_CORRELATION_ONLY"),
+    );
+  const billable = rows.filter((r) => !isCorrOnly(r));
   const corrOnly = rows.length - billable.length;
   const sumReq = billable.reduce(
     (a, r) => a + (Number(r.provider_requests) || 0),
@@ -342,43 +351,129 @@ try {
     (a, r) => a + (Number(r.output_tokens) || 0),
     0,
   );
+  const sumCost = billable.reduce(
+    (a, r) => a + (Number(r.estimated_cost_usd) || 0),
+    0,
+  );
+  const apiWorkKpis = finopsWork?.json?.kpis ?? null;
+  const apiProviderRequests =
+    apiWorkKpis?.providerRequests?.kind === "known" ||
+    apiWorkKpis?.providerRequests?.kind === "partial"
+      ? Number(apiWorkKpis.providerRequests.value)
+      : null;
+  const apiTokens =
+    apiWorkKpis?.totalTokens?.kind === "known" ||
+    apiWorkKpis?.totalTokens?.kind === "partial"
+      ? Number(apiWorkKpis.totalTokens.value)
+      : null;
+  const apiCost =
+    apiWorkKpis?.estimatedCostUsd?.kind === "known" ||
+    apiWorkKpis?.estimatedCostUsd?.kind === "partial"
+      ? Number(apiWorkKpis.estimatedCostUsd.value)
+      : null;
+  const period7PilotTotal =
+    finopsSummary.json?.summary?.kpis?.totalRequests ?? null;
+
   report.finops = {
+    scope: workId ? { kind: "cognitiveWorkId", cognitiveWorkId: workId } : { kind: "campaignWindow", since: report.startedAt },
     observationCount: rows.length,
     billableCount: billable.length,
     correlationOnlyCount: corrOnly,
     sumProviderRequestsBillable: sumReq,
     sumInputTokens: sumIn,
     sumOutputTokens: sumOut,
-    summaryKpis: finopsSummary.json?.summary?.kpis ?? null,
+    sumEstimatedCostUsdBillable: sumCost,
+    workDetailKpis: apiWorkKpis,
+    /** Informative only — pilot/period scope; must not gate work-scope double-count. */
+    period7PilotTotalRequests: period7PilotTotal,
+    note: "Compare PG billable provider_requests for workId to GET /api/finops/works/:id providerRequests; do not compare campaign rows to period=7 pilot totals.",
   };
   save("08-finops-pg", report.finops);
-  recordCriterion(
-    "P3-NO-DOUBLE-COUNT-HINT",
-    corrOnly === 0 ||
-      (finopsSummary.json?.summary?.kpis?.totalRequests ?? 0) <= sumReq + 1
-      ? "PASS"
-      : "PARTIAL",
-    `corrOnly=${corrOnly} apiTotalReq=${finopsSummary.json?.summary?.kpis?.totalRequests} billableSumReq=${sumReq}`,
-  );
-  recordCriterion(
-    "P3-PG-OBSERVATIONS",
-    billable.length >= 1 ? "PASS" : "FAIL",
-    `billable=${billable.length} totalRows=${rows.length}`,
-  );
+
+  if (!workId) {
+    recordCriterion(
+      "P3-NO-DOUBLE-COUNT-HINT",
+      "NOT RUN",
+      "no workId — cannot reconcile PG vs work-detail API on same scope",
+    );
+    recordCriterion(
+      "P3-PG-OBSERVATIONS",
+      "NOT RUN",
+      "no workId — campaign-window PG alone is not FinOps work-scope proof",
+    );
+  } else if (finopsWork?.status !== 200 || apiProviderRequests == null) {
+    recordCriterion(
+      "P3-NO-DOUBLE-COUNT-HINT",
+      "BLOCKED",
+      `work detail unavailable status=${finopsWork?.status} apiProviderRequests=${apiProviderRequests}`,
+    );
+    recordCriterion(
+      "P3-PG-OBSERVATIONS",
+      billable.length >= 1 ? "PARTIAL" : "FAIL",
+      `billable=${billable.length} totalRows=${rows.length} (API work KPIs missing)`,
+    );
+  } else {
+    const reqMatch = apiProviderRequests === sumReq;
+    const tokensMatch =
+      apiTokens == null ||
+      apiTokens ===
+        billable.reduce(
+          (a, r) =>
+            a +
+            (Number(r.total_tokens) ||
+              (Number(r.input_tokens) || 0) + (Number(r.output_tokens) || 0)),
+          0,
+        );
+    const costMatch =
+      apiCost == null || Math.abs(apiCost - sumCost) < 1e-6;
+    recordCriterion(
+      "P3-NO-DOUBLE-COUNT-HINT",
+      reqMatch && tokensMatch && costMatch ? "PASS" : "FAIL",
+      `workId=${workId} pgBillableReq=${sumReq} apiWorkReq=${apiProviderRequests} corrOnly=${corrOnly} timelineRows=${rows.length} period7PilotTotalReq=${period7PilotTotal} (pilot total is out of scope)`,
+    );
+    recordCriterion(
+      "P3-PG-OBSERVATIONS",
+      billable.length >= 1 ? "PASS" : "FAIL",
+      `billable=${billable.length} corrOnly=${corrOnly} totalRows=${rows.length}`,
+    );
+  }
 
   report.criteria = criteria;
   const failed = criteria.filter((c) => c.status === "FAIL");
   const blocked = criteria.filter((c) => c.status === "BLOCKED");
-  report.verdict =
-    failed.length === 0 && blocked.length === 0
-      ? "G-LIVE-API CONVERGENCE PASS — ALL MANDATORY CRITERIA"
-      : failed.length
-        ? "G-LIVE-API CONVERGENCE FAIL — SEE CRITERIA"
-        : "G-LIVE-API CONVERGENCE BLOCKED — SEE CRITERIA";
+  const partial = criteria.filter((c) => c.status === "PARTIAL");
+  const notRun = criteria.filter((c) => c.status === "NOT RUN");
+  // Mandatory criteria PARTIAL / BLOCKED / NOT RUN must never yield ALL PASS.
+  if (failed.length > 0) {
+    report.verdict = "G-LIVE-API CONVERGENCE FAIL — SEE CRITERIA";
+  } else if (blocked.length > 0) {
+    report.verdict = "G-LIVE-API CONVERGENCE BLOCKED — SEE CRITERIA";
+  } else if (partial.length > 0) {
+    report.verdict = "G-LIVE-API CONVERGENCE PARTIAL — SEE CRITERIA";
+  } else if (notRun.length > 0) {
+    report.verdict = "G-LIVE-API CONVERGENCE INCOMPLETE — MANDATORY CRITERIA NOT RUN";
+  } else {
+    report.verdict = "G-LIVE-API CONVERGENCE PASS — ALL MANDATORY CRITERIA";
+  }
   report.endedAt = new Date().toISOString();
   save("00-report", report);
-  console.log(JSON.stringify({ verdict: report.verdict, out: OUT, failed: failed.length }, null, 2));
-  process.exit(failed.length || blocked.length ? 2 : 0);
+  console.log(
+    JSON.stringify(
+      {
+        verdict: report.verdict,
+        out: OUT,
+        failed: failed.length,
+        blocked: blocked.length,
+        partial: partial.length,
+        notRun: notRun.length,
+      },
+      null,
+      2,
+    ),
+  );
+  process.exit(
+    failed.length || blocked.length || partial.length || notRun.length ? 2 : 0,
+  );
 } catch (e) {
   report.criteria = criteria;
   report.verdict = "G-LIVE-API CONVERGENCE ERROR";
@@ -387,4 +482,8 @@ try {
   save("00-report", report);
   console.error(report.error);
   process.exit(1);
+}
+
+function sinceSafe(iso) {
+  return String(iso || new Date().toISOString()).replace(/'/g, "''");
 }

@@ -3,6 +3,10 @@
  * Input bytes must already be authorized by the owning domain (B1/D9/D4).
  * Never call from the PDF viewer API — authorization and bytes delivery are separate.
  * No network I/O — disable worker and external font fetches.
+ *
+ * Robustness (Sequence D): size / pages / chars / time / concurrency / cancel
+ * are fail-closed here. Decompress RSS is not oracled by pdfjs — we refuse when
+ * Length hints or inflate ratios exceed maxDecompressBytes (see pdf-read-contract).
  */
 
 import { createHash } from "node:crypto";
@@ -26,6 +30,71 @@ function looksLikePdf(bytes: Uint8Array): boolean {
   );
 }
 
+/** Heuristic active-content / JS action markers — fail closed, no execution. */
+function detectActiveContent(bytes: Uint8Array): boolean {
+  const sample = Buffer.from(
+    bytes.subarray(0, Math.min(bytes.byteLength, 2_000_000)),
+  ).toString("latin1");
+  return (
+    /\/JavaScript\b/i.test(sample) ||
+    /\/JS\s*\(/i.test(sample) ||
+    /\/OpenAction\b/i.test(sample) ||
+    /\/AA\s*<</i.test(sample) ||
+    /\/Launch\b/i.test(sample) ||
+    /\/EmbeddedFile\b/i.test(sample)
+  );
+}
+
+/**
+ * Scan stream Length dictionaries for inflate blow-up hints.
+ * Not a perfect RSS oracle — residual RSS remains B-reserve R-PDF-RSS-ORACLE.
+ */
+function estimateDecompressBudget(bytes: Uint8Array): number {
+  const sample = Buffer.from(
+    bytes.subarray(0, Math.min(bytes.byteLength, 4_000_000)),
+  ).toString("latin1");
+  let sum = bytes.byteLength;
+  const re = /\/Length\s+(\d+)/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(sample))) {
+    const n = Number(m[1]);
+    if (Number.isFinite(n) && n > 0) sum += n;
+  }
+  // Conservative inflate factor when FlateDecode appears without Length sum.
+  if (/\/FlateDecode/i.test(sample)) {
+    sum = Math.max(sum, bytes.byteLength * 4);
+  }
+  return sum;
+}
+
+let activeExtracts = 0;
+const extractWaiters: Array<() => void> = [];
+
+async function acquireExtractSlot(maxConcurrency: number): Promise<boolean> {
+  if (activeExtracts < maxConcurrency) {
+    activeExtracts += 1;
+    return true;
+  }
+  return new Promise((resolve) => {
+    extractWaiters.push(() => {
+      activeExtracts += 1;
+      resolve(true);
+    });
+  });
+}
+
+function releaseExtractSlot(): void {
+  activeExtracts = Math.max(0, activeExtracts - 1);
+  const next = extractWaiters.shift();
+  if (next) next();
+}
+
+/** Test-only — reset concurrency gate between cases. */
+export function __resetPdfExtractConcurrencyForTests(): void {
+  activeExtracts = 0;
+  extractWaiters.length = 0;
+}
+
 export type ExtractPdfInput = {
   bytes: Uint8Array;
   identity: Omit<PdfSourceIdentity, "byteLength"> & { byteLength?: number };
@@ -35,6 +104,8 @@ export type ExtractPdfInput = {
   /** Optional case-insensitive search after extraction. */
   searchQuery?: string | null;
   maxSearchHits?: number;
+  /** Cancel in-flight extract (destroys loadingTask). */
+  signal?: AbortSignal;
 };
 
 export async function extractPdfText(
@@ -46,6 +117,17 @@ export async function extractPdfText(
     ...input.identity,
     byteLength,
   };
+
+  if (input.signal?.aborted) {
+    return {
+      ok: false,
+      identity,
+      coverage: "UNAVAILABLE",
+      reasonCode: "CANCELLED",
+      message: "PDF extraction cancelled before start",
+      limits: ["ABORT_SIGNAL"],
+    };
+  }
 
   if (byteLength > limits.maxBytes) {
     return {
@@ -68,6 +150,46 @@ export async function extractPdfText(
     };
   }
 
+  if (detectActiveContent(input.bytes)) {
+    return {
+      ok: false,
+      identity,
+      coverage: "UNAVAILABLE",
+      reasonCode: "ACTIVE_CONTENT_BLOCKED",
+      message: "PDF active content / embedded actions are blocked",
+      limits: ["ACTIVE_CONTENT_BLOCKED", "NO_JS_NO_LAUNCH"],
+    };
+  }
+
+  const decompressEstimate = estimateDecompressBudget(input.bytes);
+  if (decompressEstimate > limits.maxDecompressBytes) {
+    return {
+      ok: false,
+      identity,
+      coverage: "UNAVAILABLE",
+      reasonCode: "DECOMPRESS_BUDGET_EXCEEDED",
+      message: `PDF decompress budget exceeded (est ${decompressEstimate} > ${limits.maxDecompressBytes})`,
+      limits: [
+        `MAX_DECOMPRESS_${limits.maxDecompressBytes}`,
+        "RSS_ORACLE_NOT_AVAILABLE",
+      ],
+    };
+  }
+
+  // Non-blocking concurrency refuse when saturated (no unbounded queue growth).
+  if (activeExtracts >= limits.maxConcurrency && extractWaiters.length >= 4) {
+    return {
+      ok: false,
+      identity,
+      coverage: "UNAVAILABLE",
+      reasonCode: "CONCURRENCY_LIMIT",
+      message: `PDF extract concurrency saturated (max ${limits.maxConcurrency})`,
+      limits: [`MAX_CONCURRENCY_${limits.maxConcurrency}`],
+    };
+  }
+
+  await acquireExtractSlot(limits.maxConcurrency);
+
   const fingerprint = createHash("sha256")
     .update(input.bytes)
     .digest("hex")
@@ -77,6 +199,7 @@ export async function extractPdfText(
   try {
     pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
   } catch {
+    releaseExtractSlot();
     return {
       ok: false,
       identity,
@@ -101,6 +224,7 @@ export async function extractPdfText(
 
   const timeoutMs = limits.timeoutMs;
   let timedOut = false;
+  let cancelled = false;
   const timer = setTimeout(() => {
     timedOut = true;
     try {
@@ -110,8 +234,40 @@ export async function extractPdfText(
     }
   }, timeoutMs);
 
+  const onAbort = () => {
+    cancelled = true;
+    try {
+      void loadingTask.destroy();
+    } catch {
+      /* best effort */
+    }
+  };
+  input.signal?.addEventListener("abort", onAbort, { once: true });
+
   try {
+    if (cancelled || input.signal?.aborted) {
+      return {
+        ok: false,
+        identity,
+        coverage: "UNAVAILABLE",
+        reasonCode: "CANCELLED",
+        message: "PDF extraction cancelled",
+        limits: ["ABORT_SIGNAL"],
+      };
+    }
+
     const doc = await loadingTask.promise;
+    if (cancelled || input.signal?.aborted) {
+      await doc.destroy();
+      return {
+        ok: false,
+        identity,
+        coverage: "UNAVAILABLE",
+        reasonCode: "CANCELLED",
+        message: "PDF extraction cancelled after open",
+        limits: ["ABORT_SIGNAL"],
+      };
+    }
     if (timedOut) {
       return {
         ok: false,
@@ -143,7 +299,7 @@ export async function extractPdfText(
     const limitCodes: string[] = [];
 
     for (let p = from; p <= to; p++) {
-      if (timedOut) break;
+      if (timedOut || cancelled || input.signal?.aborted) break;
       if (textChars >= limits.maxTextChars) {
         limitCodes.push("TEXT_BUDGET_EXHAUSTED");
         break;
@@ -169,6 +325,17 @@ export async function extractPdfText(
     }
 
     await doc.destroy();
+
+    if (cancelled || input.signal?.aborted) {
+      return {
+        ok: false,
+        identity,
+        coverage: "UNAVAILABLE",
+        reasonCode: "CANCELLED",
+        message: "PDF extraction cancelled during page read",
+        limits: ["ABORT_SIGNAL", ...limitCodes],
+      };
+    }
 
     if (pages.length === 0) {
       return {
@@ -235,11 +402,22 @@ export async function extractPdfText(
         ...limitCodes,
         `PAGES_${from}_${to}`,
         `PAGE_COUNT_${pageCount}`,
+        `DECOMPRESS_EST_${decompressEstimate}`,
       ],
       fingerprint,
     };
   } catch (e) {
     const msg = String((e as Error)?.message ?? e);
+    if (cancelled || input.signal?.aborted) {
+      return {
+        ok: false,
+        identity,
+        coverage: "UNAVAILABLE",
+        reasonCode: "CANCELLED",
+        message: "PDF extraction cancelled",
+        limits: ["ABORT_SIGNAL"],
+      };
+    }
     if (/password|encrypt/i.test(msg)) {
       return {
         ok: false,
@@ -270,6 +448,8 @@ export async function extractPdfText(
     };
   } finally {
     clearTimeout(timer);
+    input.signal?.removeEventListener("abort", onAbort);
+    releaseExtractSlot();
   }
 }
 

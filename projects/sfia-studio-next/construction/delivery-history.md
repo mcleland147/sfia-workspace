@@ -5117,3 +5117,16 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 | Contrôles | Vitest unit ml5* 356 PASS · next build EXIT 0 |
 | Réserves | B: GIT PDF text corpus · LIVE SDK multi-req ; C: WEB-05 · F2 · efficience RB ; D: kind WEB optionnel ; A build LEVÉE |
 | Statut | DEV CANDIDATE — FOUNDATION CONFORMANCE — MORRIS REVIEW REQUIRED — NOT ADOPTED |
+
+## DELIV-2026-11-26-ML5-PROVIDER-NATIVE-BOUNDS-AND-RECETTE-PREP
+
+- **Cycle**: R5 / ML5 · CRITICAL · Type 8
+- **UTC**: 2026-11-26T17:23:23.209314+00:00
+- **Focus**: Comptage natif `responses.inputTokens.count` ; `max_tool_calls` hosted ; FinOps même périmètre PG/API/UI ; D6/PDF résiduels ; LIVE count ciblé
+- **Code tip (pré-docs)**: à figer au commit
+- **LIVE native count**: PASS — count=28 ≡ usage.input_tokens=28 (`/tmp/sfia-ml5-g-live-native-count-20261126`)
+- **FinOps reconcile**: work `cgw_b20fcbe3…` PG billableReq=8 ≡ API/UI 8 ; tokens 123377 ; pas de double comptage
+- **G-WEB-PUBLIC**: toujours FERMÉ — `max_tool_calls` borne built-in tool calls ≠ unité facturée hosted (arbitrage actualisé)
+- **WEB**: OFF
+- **NO RELEASE** · RECETTE protégée · livraison 2 non engagée
+

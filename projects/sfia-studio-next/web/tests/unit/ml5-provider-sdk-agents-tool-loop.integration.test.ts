@@ -67,16 +67,29 @@ describe("P1.4 — Agents SDK tool loop through frontier", () => {
         });
 
         let httpN = 0;
-        const transport = (async (_input: RequestInfo | URL, init?: RequestInit) => {
+        let responsesN = 0;
+        const transport = (async (input: RequestInfo | URL, init?: RequestInit) => {
           httpN += 1;
+          const url = String(input);
           const bodyStr =
             typeof init?.body === "string"
               ? init.body
               : init?.body
                 ? String(init.body)
                 : "";
+          // Native input_tokens count — not a Responses generation.
+          if (url.includes("/input_tokens")) {
+            return new Response(
+              JSON.stringify({
+                object: "response.input_tokens",
+                input_tokens: 240,
+              }),
+              { status: 200, headers: { "content-type": "application/json" } },
+            );
+          }
+          responsesN += 1;
           // First Responses call: ask for a function tool.
-          if (httpN === 1) {
+          if (responsesN === 1) {
             return new Response(
               responsesBody({
                 id: "resp_tool_call",
@@ -156,13 +169,17 @@ describe("P1.4 — Agents SDK tool loop through frontier", () => {
           maxTurns: 4,
         } as never);
 
-        expect(httpN).toBeGreaterThanOrEqual(2);
+        expect(responsesN).toBeGreaterThanOrEqual(2);
+        expect(httpN).toBeGreaterThanOrEqual(responsesN);
         expect(getEmissionsObservedForTests()).toBeGreaterThanOrEqual(2);
         const bodies = getHttpBodiesObservedForTests();
         expect(bodies.length).toBeGreaterThanOrEqual(2);
-        for (const b of bodies) {
+        const responseBodies = bodies.filter((b) => b.kind === "http.responses");
+        expect(responseBodies.length).toBeGreaterThanOrEqual(2);
+        for (const b of responseBodies) {
           expect(b.maxOutputTokens).toBe(512);
         }
+        expect(bodies.some((b) => b.kind === "http.input_tokens_count")).toBe(true);
         // Independent oracle: transport call count, not only frontier counter.
         expect(httpN).toBe(getEmissionsObservedForTests());
         expect(String((result as { finalOutput?: unknown }).finalOutput ?? result)).toBeTruthy();
