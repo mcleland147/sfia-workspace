@@ -3,6 +3,32 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-26-ML5-RESIDUAL-UX-RECETTE-CUTOVER
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-26 (Europe/Paris) |
+| Macro-lot | ML5 R5 — mise à disposition RECETTE des finitions UX résiduelles |
+| Type | INC Critical · cutover RECETTE · **NO RELEASE** · **NO PR/MERGE/STABLE** |
+| Branche source | `sfia/next-ml5-integrated-delivery-20261123` |
+| Candidate SHA **servi** | `1633c86b0330265436a1d73a7762de6562867bac` |
+| Tree / web tree | *(commit tree)* / `e972dc0437033c4e463ac8f51519285927b1f45c` |
+| Worktree RECETTE | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-1633c86b0330` |
+| BUILD_ID RECETTE | `g91mwyAgMId3zEUm7CcLq` · digest `1a4da02684294f08a528bb32281362a6fa925099a9a890213fd5201572a5e43a` |
+| URL | `http://127.0.0.1:3200` · PG `:5434` · base `sfia_next_recette_ml4` |
+| Cognition effective | OPERATIONAL_PROVISIONAL · **2M / 1M / 120** |
+| WEB LIVE | **BLOQUÉ** (0/0/0) |
+| Contenu | Bascule technique du candidat DEV finitions UX (IT-01/02/04/05 + comparateur) ; **aucun correctif nouveau** ; smoke technique uniquement |
+| Preuves | login 200 · portfolio 401 · auto-session 403 · BUILD HTML `g91mwyAgMId3zEUm7CcLq` · counts Δ=0 · DEV préservé `:3100`/`qWUDds50AUSup8n2GqNTC` · StockTrack V1 titre + 2 révisions |
+| Données AVANT/APRÈS | projects=31 documents=123 revisions=195 conversations=210 messages=822 pilots=170 cog_works=23 ckpts=165 activity=248 preparations=210 (**Δ=0**) |
+| Sauvegarde | `/Users/morris/Projects/sfia-recette-backups/ml5-20261126T071803Z-pre-1633c86b-from-70cf3e4a.sql.gz` · sha256 `855fd76f48b46fee8464600169e0b56734f31ae86e0502d0244e0d52e5f78de2` |
+| Rollback code | worktree `…-70cf3e4aa09a` · build `m5QcOrvjUz8vVAidDKxOZ` · plist bak `…20261126T072011Z.pre-ux-cutover-70cf3e4aa09a.bak` · start `start-recette-ml5-m5QcOrvjUz8vVAidDKxOZ.sh` |
+| DEV | **préservé** `:3100` / `:5433` · build `qWUDds50AUSup8n2GqNTC` · tip local `1633c86b` |
+| Push produit | **NONE** |
+| Réserves UAT Morris | typo densité ; activité LIVE/historique ; tableaux naturels Nora ; comparateur lisibilité ; animation SAS utilisateur ; normalisation URL sources → lot WEB |
+| Concordance | Build RECETTE depuis SHA figé `1633c86b` (web tree `e972dc04…`) ; BUILD_ID distinct du DEV `qWUDds50AUSup8n2GqNTC` |
+| Verdict | **ML5 RESIDUAL UX REFINEMENTS — RECETTE CUTOVER VERIFIED — READY FOR MORRIS UAT** |
+
 ## delivery_id: DELIV-2026-11-26-ML5-RESIDUAL-UX-REFINEMENTS-DEV
 
 | Field | Value |
