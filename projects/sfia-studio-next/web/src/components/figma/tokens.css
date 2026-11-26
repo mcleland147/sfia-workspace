@@ -480,7 +480,8 @@
   background: transparent;
   color: #f4f6fc;
   font: inherit;
-  font-size: 15px;
+  /* Match conversation thread body (IT-05 / 11px). */
+  font-size: 11px;
   line-height: 1.45;
   padding: 6px 0;
   flex: 1 1 auto;
@@ -1301,7 +1302,8 @@
   background: transparent;
   color: var(--fig-ink);
   font-family: inherit;
-  font-size: 14px;
+  /* Match SAS / conversation body (11px). */
+  font-size: 11px;
   line-height: 1.35;
   padding: 0;
   outline: none;
