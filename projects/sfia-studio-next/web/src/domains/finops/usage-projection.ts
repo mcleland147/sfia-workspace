@@ -24,15 +24,65 @@ export function periodStartDate(periodDays: FinOpsPeriodDays, now = new Date()):
   return d;
 }
 
+export const HTTP_ATTEMPT_USAGE_UNKNOWN = "HTTP_ATTEMPT_USAGE_UNKNOWN";
+export const HTTP_ATTEMPT_CORRELATION_ONLY = "HTTP_ATTEMPT_CORRELATION_ONLY";
+
+/** HTTP attempt companion rows are correlation markers, not billable request increments. */
+export function limitsJsonMarksHttpAttemptCorrelationOnly(
+  limits: string[] | null | undefined,
+): boolean {
+  if (!limits?.length) return false;
+  return limits.some(
+    (l) => l === HTTP_ATTEMPT_USAGE_UNKNOWN || l === HTTP_ATTEMPT_CORRELATION_ONLY,
+  );
+}
+
+export function isBillableFinOpsObservationRow(row: {
+  limitsJson?: string[] | null;
+}): boolean {
+  return !limitsJsonMarksHttpAttemptCorrelationOnly(row.limitsJson);
+}
+
+export function filterBillableFinOpsRows<T extends { limitsJson?: string[] | null }>(
+  rows: T[],
+): T[] {
+  return rows.filter(isBillableFinOpsObservationRow);
+}
+
+export function sumBillableProviderRequests(
+  rows: Array<{
+    providerRequests: number | null;
+    limitsJson?: string[] | null;
+    costCoverage?: string;
+  }>,
+  opts?: { onlyWithObservedCost?: boolean },
+): number {
+  return rows.reduce((acc, r) => {
+    if (!isBillableFinOpsObservationRow(r)) return acc;
+    if (
+      opts?.onlyWithObservedCost &&
+      r.costCoverage !== "KNOWN" &&
+      r.costCoverage !== "PARTIAL"
+    ) {
+      return acc;
+    }
+    const pr = r.providerRequests;
+    if (pr == null || !Number.isFinite(pr)) return acc;
+    return acc + pr;
+  }, 0);
+}
+
 export type CostRow = {
   estimatedCostUsd: string | null;
   costCoverage: string;
+  limitsJson?: string[] | null;
 };
 
 export type TokenRow = {
   totalTokens: number | null;
   inputTokens: number | null;
   outputTokens: number | null;
+  limitsJson?: string[] | null;
 };
 
 export function tokenTotalForRow(row: TokenRow): number | null {
@@ -48,12 +98,13 @@ export function tokenTotalForRow(row: TokenRow): number | null {
 }
 
 export function aggregateEstimatedCost(rows: CostRow[]): MeasuredValue<number> {
-  if (rows.length === 0) return { kind: "empty" };
+  const billable = filterBillableFinOpsRows(rows);
+  if (billable.length === 0) return { kind: "empty" };
   let sum = 0;
   let hasKnown = false;
   let hasUnknown = false;
   let hasPartial = false;
-  for (const r of rows) {
+  for (const r of billable) {
     if (r.costCoverage === "UNKNOWN" || r.estimatedCostUsd == null) {
       hasUnknown = true;
       continue;
@@ -83,10 +134,11 @@ export function aggregateEstimatedCost(rows: CostRow[]): MeasuredValue<number> {
 }
 
 export function aggregateTokenTotal(rows: TokenRow[]): MeasuredValue<number> {
-  if (rows.length === 0) return { kind: "empty" };
+  const billable = filterBillableFinOpsRows(rows);
+  if (billable.length === 0) return { kind: "empty" };
   let sum = 0;
   let hasUnknown = false;
-  for (const r of rows) {
+  for (const r of billable) {
     const t = tokenTotalForRow(r);
     if (t == null) {
       hasUnknown = true;
@@ -94,7 +146,7 @@ export function aggregateTokenTotal(rows: TokenRow[]): MeasuredValue<number> {
     }
     sum += t;
   }
-  if (sum === 0 && hasUnknown && rows.length > 0) {
+  if (sum === 0 && hasUnknown && billable.length > 0) {
     return { kind: "unknown", reason: "Tokens non recensés" };
   }
   if (hasUnknown) {
@@ -113,14 +165,19 @@ export function aggregateTokenTotal(rows: TokenRow[]): MeasuredValue<number> {
  * fully-known 100% of all real emissions (mandate S4 — honest coverage).
  */
 export function computeMeasureCoveragePercent(
-  rows: Array<{ costCoverage: string; providerRequests: number | null }>,
+  rows: Array<{
+    costCoverage: string;
+    providerRequests: number | null;
+    limitsJson?: string[] | null;
+  }>,
   opts?: { emissionCensusComplete?: boolean },
 ): MeasuredValue<number> {
-  if (rows.length === 0) return { kind: "empty" };
+  const billable = filterBillableFinOpsRows(rows);
+  if (billable.length === 0) return rows.length === 0 ? { kind: "empty" } : { kind: "unknown", reason: "Requêtes non observées" };
   let totalReq = 0;
   let observedReq = 0;
   let missingRequestCounts = false;
-  for (const r of rows) {
+  for (const r of billable) {
     if (r.providerRequests == null || !Number.isFinite(r.providerRequests)) {
       missingRequestCounts = true;
       continue;
@@ -155,15 +212,20 @@ export function computeMeasureCoveragePercent(
  * to the recorded observation set unless an emission census is proven complete.
  */
 export function computeEstimationCompletenessPercent(
-  rows: Array<{ costCoverage: string; providerRequests: number | null }>,
+  rows: Array<{
+    costCoverage: string;
+    providerRequests: number | null;
+    limitsJson?: string[] | null;
+  }>,
   opts?: { emissionCensusComplete?: boolean },
 ): MeasuredValue<number> {
-  if (rows.length === 0) return { kind: "empty" };
+  const billable = filterBillableFinOpsRows(rows);
+  if (billable.length === 0) return rows.length === 0 ? { kind: "empty" } : { kind: "unknown", reason: "Requêtes non observées" };
   let totalReq = 0;
   let knownReq = 0;
   let hasPartial = false;
   let missingRequestCounts = false;
-  for (const r of rows) {
+  for (const r of billable) {
     if (r.providerRequests == null || !Number.isFinite(r.providerRequests)) {
       missingRequestCounts = true;
       continue;

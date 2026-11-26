@@ -4,6 +4,7 @@ import {
   aggregateTokenTotal,
   computeEstimationCompletenessPercent,
   computeMeasureCoveragePercent,
+  sumBillableProviderRequests,
   formatMeasuredUsd,
   finOpsDailyChartYTicks,
   finOpsDailyXAxisLabels,
@@ -121,5 +122,49 @@ describe("ML5 E06 — FinOps usage projection", () => {
   it("formatModelBreakdownCost never shows zero for unknown coverage", () => {
     expect(formatModelBreakdownCost({ costUsd: null, coverage: "UNKNOWN" })).toBe("Inconnu");
     expect(formatModelBreakdownCost({ costUsd: 1.2, coverage: "PARTIAL" })).toContain("1,20");
+  });
+
+  it("excludes HTTP attempt correlation rows from cost and request totals", () => {
+    const rows = [
+      {
+        estimatedCostUsd: "2.00",
+        costCoverage: "KNOWN",
+        totalTokens: 100,
+        inputTokens: 60,
+        outputTokens: 40,
+        providerRequests: 1,
+        limitsJson: ["MULTI_HTTP_ATTEMPT_AGGREGATE"],
+      },
+      {
+        estimatedCostUsd: null,
+        costCoverage: "PARTIAL",
+        totalTokens: null,
+        inputTokens: null,
+        outputTokens: null,
+        providerRequests: null,
+        limitsJson: ["HTTP_ATTEMPT_CORRELATION_ONLY", "HTTP_ATTEMPT_USAGE_UNKNOWN"],
+      },
+      {
+        estimatedCostUsd: null,
+        costCoverage: "PARTIAL",
+        totalTokens: null,
+        inputTokens: null,
+        outputTokens: null,
+        providerRequests: 1,
+        limitsJson: ["HTTP_ATTEMPT_USAGE_UNKNOWN"],
+      },
+    ];
+    const cost = aggregateEstimatedCost(rows);
+    expect(cost.kind).toBe("known");
+    if (cost.kind === "known") expect(cost.value).toBeCloseTo(2);
+    const tokens = aggregateTokenTotal(rows);
+    expect(tokens.kind).toBe("known");
+    if (tokens.kind === "known") expect(tokens.value).toBe(100);
+    expect(sumBillableProviderRequests(rows)).toBe(1);
+    expect(
+      computeMeasureCoveragePercent(rows).kind === "known" ||
+        computeMeasureCoveragePercent(rows).kind === "partial",
+    ).toBe(true);
+    expect(sumBillableProviderRequests(rows, { onlyWithObservedCost: true })).toBe(1);
   });
 });

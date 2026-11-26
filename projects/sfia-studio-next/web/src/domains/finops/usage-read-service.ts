@@ -11,6 +11,7 @@ import {
   aggregateTokenTotal,
   computeEstimationCompletenessPercent,
   computeMeasureCoveragePercent,
+  sumBillableProviderRequests,
   mapCognitiveWorkStatusLabel,
   parseFinOpsPeriodDays,
   periodStartDate,
@@ -239,13 +240,10 @@ export async function loadFinOpsSummary(
     costPerCompletedWorkUsd = { kind: "unknown", reason: "Aucun travail abouti" };
   }
 
-  const totalRequests = rows.reduce((acc, r) => acc + (r.providerRequests ?? 1), 0);
-  const measuredRequests = rows.reduce((acc, r) => {
-    if (r.costCoverage === "KNOWN" || r.costCoverage === "PARTIAL") {
-      return acc + (r.providerRequests ?? 1);
-    }
-    return acc;
-  }, 0);
+  const totalRequests = sumBillableProviderRequests(rows);
+  const measuredRequests = sumBillableProviderRequests(rows, {
+    onlyWithObservedCost: true,
+  });
 
   return {
     periodDays,
@@ -460,7 +458,7 @@ export async function loadFinOpsWorkDetail(
       };
     });
 
-  const providerRequestsTotal = rows.reduce((acc, r) => acc + (r.providerRequests ?? 0), 0);
+  const providerRequestsTotal = sumBillableProviderRequests(rows);
   const providerRequests: MeasuredValue<number> =
     rows.length === 0
       ? { kind: "empty" }

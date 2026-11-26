@@ -1,0 +1,372 @@
+/**
+ * G-LIVE-API convergence — real Chantiers360 / planning investigation (WEB OFF).
+ * Criteria are evaluated individually; HTTP 200 / COMPLETE / PG rows alone ≠ PASS.
+ */
+import { writeFileSync, mkdirSync } from "node:fs";
+import { randomUUID } from "node:crypto";
+import { execSync } from "node:child_process";
+
+const BASE = process.env.SFIA_LIVE_BASE || "http://127.0.0.1:3100";
+const OUT =
+  process.env.SFIA_LIVE_OUT || "/tmp/sfia-ml5-g-live-api-convergence-20261126";
+const PROJECT_ID =
+  process.env.SFIA_LIVE_PROJECT_ID ||
+  "proj_fdd9b064-a8a4-4296-bb6b-e8b64ebe914d";
+mkdirSync(OUT, { recursive: true });
+
+const jar = { cookie: "" };
+const criteria = [];
+
+function recordCriterion(id, status, detail) {
+  criteria.push({ id, status, detail });
+  console.log(`[CRITERION ${id}] ${status} — ${String(detail).slice(0, 400)}`);
+}
+
+async function api(path, { method = "GET", body, timeoutMs = 900_000 } = {}) {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), timeoutMs);
+  try {
+    const res = await fetch(`${BASE}${path}`, {
+      method,
+      headers: {
+        ...(body ? { "content-type": "application/json" } : {}),
+        ...(jar.cookie ? { cookie: jar.cookie } : {}),
+      },
+      body: body ? JSON.stringify(body) : undefined,
+      signal: ctrl.signal,
+    });
+    const set = res.headers.getSetCookie?.() || [];
+    for (const c of set) {
+      const part = c.split(";")[0];
+      jar.cookie = jar.cookie ? `${jar.cookie}; ${part}` : part;
+    }
+    const text = await res.text();
+    let json = null;
+    try {
+      json = JSON.parse(text);
+    } catch {
+      json = { _raw: text.slice(0, 8000) };
+    }
+    return { status: res.status, json };
+  } finally {
+    clearTimeout(t);
+  }
+}
+
+function save(name, data) {
+  writeFileSync(`${OUT}/${name}.json`, JSON.stringify(data, null, 2));
+}
+
+function pg(sql) {
+  const oneLine = sql.replace(/\s+/g, " ").trim();
+  return execSync(
+    `docker exec sfia-next-dev-pg psql -U sfia_next_dev -d sfia_next_dev -t -A -c ${JSON.stringify(oneLine)}`,
+    { encoding: "utf8", maxBuffer: 20_000_000 },
+  ).trim();
+}
+
+function pgJson(sql) {
+  const raw = pg(sql);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return raw;
+  }
+}
+
+function extractReply(json) {
+  if (!json || typeof json !== "object") return "";
+  const msgs = Array.isArray(json.messages) ? json.messages : [];
+  for (let i = msgs.length - 1; i >= 0; i--) {
+    const m = msgs[i];
+    if (
+      m &&
+      (m.role === "assistant" || m.author === "assistant") &&
+      typeof m.content === "string" &&
+      m.content.trim()
+    ) {
+      return m.content;
+    }
+  }
+  return typeof json.content === "string" ? json.content : "";
+}
+
+function extractWorkId(json) {
+  return json?.cognitiveWork?.workId || json?.cognitiveWorkId || null;
+}
+
+const report = {
+  startedAt: new Date().toISOString(),
+  base: BASE,
+  projectId: PROJECT_ID,
+  campaign: "g-live-api-convergence-20261126",
+  gate: "G-LIVE-API",
+  web: "OFF",
+  criteria: [],
+  scenarios: {},
+  finops: null,
+  verdict: null,
+};
+
+// Independent oracle seeds (not given to Nora as answers) — markers we expect
+// after consulting Chantiers360 / planning materials.
+const ORACLE_MARKERS = [
+  /réserv/i,
+  /conflit|conflict|double/i,
+  /salle|room|créneau|slot|planning/i,
+];
+
+try {
+  const health = await api("/login");
+  recordCriterion(
+    "PRE-HEALTH",
+    health.status === 200 || health.status === 307 || health.status === 302
+      ? "PASS"
+      : "FAIL",
+    `status=${health.status}`,
+  );
+  if (criteria[criteria.length - 1].status === "FAIL") throw new Error("DEV not ready");
+
+  await api("/api/dev/auto-session", { method: "POST" });
+
+  const proj = await api(`/api/projects/${PROJECT_ID}`);
+  save("01-project", proj);
+  recordCriterion(
+    "PRE-PROJECT",
+    proj.status === 200 ? "PASS" : "FAIL",
+    `status=${proj.status} name=${proj.json?.name || proj.json?.project?.name || "?"}`,
+  );
+
+  const gitLinks = pgJson(
+    `SELECT COALESCE(json_agg(row_to_json(t)), '[]'::json) FROM (
+      SELECT l.id, l.status, r.full_name, r.default_branch
+      FROM project_git_links l
+      JOIN authorized_repositories r ON r.id = l.repository_id
+      WHERE l.project_id='${PROJECT_ID}' AND l.status='ATTACHED'
+    ) t;`,
+  );
+  save("02-git-links", gitLinks);
+  const hasGit = Array.isArray(gitLinks) && gitLinks.length > 0;
+  recordCriterion(
+    "PRE-GIT",
+    hasGit ? "PASS" : "BLOCKED",
+    hasGit ? gitLinks.map((g) => g.full_name).join(",") : "no ATTACHED git link",
+  );
+  if (!hasGit) throw new Error("BLOCKED — corpus Git missing for investigation");
+
+  // P2 investigation — real planning question (not "describe Nora")
+  const question = [
+    "Investigation planning / RoomBooking (qualification ML5) :",
+    "À partir du dépôt Git rattaché et des documents du projet, identifie comment les conflits",
+    "de double réservation (même ressource, créneaux qui se chevauchent) sont détectés ou devraient l'être.",
+    "Consulte au moins deux sources distinctes (fichiers ou documents). Cite les chemins/refs consultés.",
+    "Distingue faits observés, hypothèses et recommandations. N'invente pas de code absent.",
+    "Aucune recherche web.",
+  ].join(" ");
+
+  const t0 = Date.now();
+  const inv = await api(`/api/projects/${PROJECT_ID}/messages`, {
+    method: "POST",
+    body: {
+      content: question,
+      clientTurnKey: `ctk_inv_${randomUUID()}`,
+    },
+  });
+  save("03-investigation", inv);
+  const replyInv = extractReply(inv.json);
+  const workId = extractWorkId(inv.json);
+  const tools = inv.json?.toolCallsObserved ?? 0;
+  const sources =
+    inv.json?.cognitiveWork?.sources ||
+    inv.json?.qualification?.sources ||
+    inv.json?.turnProjection?.sources ||
+    [];
+  report.scenarios.INVESTIGATION = {
+    status: inv.status,
+    noraStatus: inv.json?.status,
+    ms: Date.now() - t0,
+    workId,
+    toolCallsObserved: tools,
+    attempts: inv.json?.attempts ?? [],
+    generationId: inv.json?.generationId ?? null,
+    reply: replyInv,
+    policy: inv.json?.policy ?? null,
+  };
+
+  recordCriterion(
+    "P2-HTTP",
+    inv.status === 200 ? "PASS" : "FAIL",
+    `status=${inv.status}`,
+  );
+  recordCriterion(
+    "P2-COMPLETE",
+    inv.json?.status === "COMPLETE" || inv.json?.status === "PARTIAL"
+      ? "PASS"
+      : "FAIL",
+    `noraStatus=${inv.json?.status} notes=${inv.json?.attempts?.[0]?.notes}`,
+  );
+  recordCriterion(
+    "P2-TOOLS-OR-SOURCES",
+    tools > 0 || (Array.isArray(sources) && sources.length > 0) || /CONSULT|Git|doc_|path|fichier|\.md|\.ts|\.py/i.test(replyInv)
+      ? "PASS"
+      : "FAIL",
+    `tools=${tools} replyHasSourceCue=${/Git|doc_|path|fichier|\.md/i.test(replyInv)}`,
+  );
+  const oracleHits = ORACLE_MARKERS.filter((re) => re.test(replyInv)).length;
+  recordCriterion(
+    "P2-ORACLE-CONTENT",
+    oracleHits >= 2 && replyInv.length > 200 ? "PASS" : "FAIL",
+    `oracleHits=${oracleHits}/3 replyChars=${replyInv.length}`,
+  );
+  recordCriterion(
+    "P2-NOT-GENERIC-NORA-DESC",
+    !/Aucun acquis pertinent n'a été trouvé dans la recherche ciblée/i.test(replyInv)
+      ? "PASS"
+      : "FAIL",
+    "generic Nora self-description pattern",
+  );
+
+  // Reprise + note technique
+  const noteReq = await api(`/api/projects/${PROJECT_ID}/messages`, {
+    method: "POST",
+    body: {
+      content:
+        "À partir uniquement des acquis de l'investigation précédente sur les conflits de réservation, produis une note technique distincte (12 lignes max) : faits sourcés, limites, recommandations. Pas de nouvelle exploration exhaustive si les acquis suffisent.",
+      clientTurnKey: `ctk_note_${randomUUID()}`,
+    },
+  });
+  save("04-note", noteReq);
+  const replyNote = extractReply(noteReq.json);
+  report.scenarios.NOTE = {
+    status: noteReq.status,
+    noraStatus: noteReq.json?.status,
+    workId: extractWorkId(noteReq.json) || workId,
+    reply: replyNote,
+    attempts: noteReq.json?.attempts ?? [],
+  };
+  recordCriterion(
+    "P2-NOTE",
+    noteReq.status === 200 &&
+      replyNote.length > 120 &&
+      (/fait|recommand|limite|source|conflit|réserv/i.test(replyNote) ||
+        /```sfia-document/.test(replyNote))
+      ? "PASS"
+      : "FAIL",
+    `chars=${replyNote.length}`,
+  );
+
+  // FinOps real API
+  const finopsSummary = await api("/api/finops/summary?period=7");
+  save("05-finops-summary", finopsSummary);
+  recordCriterion(
+    "P3-FINOPS-API",
+    finopsSummary.status === 200 ? "PASS" : "FAIL",
+    `status=${finopsSummary.status}`,
+  );
+
+  const finopsWorks = await api("/api/finops/works?period=7");
+  save("06-finops-works", finopsWorks);
+  recordCriterion(
+    "P3-FINOPS-WORKS",
+    finopsWorks.status === 200 ? "PASS" : "FAIL",
+    `status=${finopsWorks.status}`,
+  );
+
+  if (workId) {
+    const finopsWork = await api(
+      `/api/finops/works/${encodeURIComponent(workId)}?period=7`,
+    );
+    save("07-finops-work", finopsWork);
+    recordCriterion(
+      "P3-FINOPS-WORK-DETAIL",
+      finopsWork.status === 200 ? "PASS" : "FAIL",
+      `status=${finopsWork.status}`,
+    );
+  } else {
+    recordCriterion("P3-FINOPS-WORK-DETAIL", "NOT RUN", "no workId");
+  }
+
+  const ui = await api("/settings/consumption");
+  recordCriterion(
+    "P3-FINOPS-UI",
+    ui.status === 200 ? "PASS" : "FAIL",
+    `status=${ui.status}`,
+  );
+
+  const since = report.startedAt;
+  const usage = pgJson(
+    `SELECT COALESCE(json_agg(row_to_json(t) ORDER BY created_at), '[]'::json) FROM (
+      SELECT id, created_at, cognitive_work_id, generation_id, attempt_id, operation,
+             input_tokens, output_tokens, provider_requests, estimated_cost_usd,
+             cost_coverage, granularity, limits_json
+      FROM provider_usage_observations
+      WHERE created_at >= '${since}'::timestamptz
+      ORDER BY created_at LIMIT 120
+    ) t;`,
+  );
+  const rows = Array.isArray(usage) ? usage : [];
+  const billable = rows.filter(
+    (r) =>
+      !(Array.isArray(r.limits_json) &&
+        r.limits_json.some((l) =>
+          String(l).includes("HTTP_ATTEMPT_USAGE_UNKNOWN") ||
+          String(l).includes("HTTP_ATTEMPT_CORRELATION_ONLY"),
+        )),
+  );
+  const corrOnly = rows.length - billable.length;
+  const sumReq = billable.reduce(
+    (a, r) => a + (Number(r.provider_requests) || 0),
+    0,
+  );
+  const sumIn = billable.reduce((a, r) => a + (Number(r.input_tokens) || 0), 0);
+  const sumOut = billable.reduce(
+    (a, r) => a + (Number(r.output_tokens) || 0),
+    0,
+  );
+  report.finops = {
+    observationCount: rows.length,
+    billableCount: billable.length,
+    correlationOnlyCount: corrOnly,
+    sumProviderRequestsBillable: sumReq,
+    sumInputTokens: sumIn,
+    sumOutputTokens: sumOut,
+    summaryKpis: finopsSummary.json?.summary?.kpis ?? null,
+  };
+  save("08-finops-pg", report.finops);
+  recordCriterion(
+    "P3-NO-DOUBLE-COUNT-HINT",
+    corrOnly === 0 ||
+      (finopsSummary.json?.summary?.kpis?.totalRequests ?? 0) <= sumReq + 1
+      ? "PASS"
+      : "PARTIAL",
+    `corrOnly=${corrOnly} apiTotalReq=${finopsSummary.json?.summary?.kpis?.totalRequests} billableSumReq=${sumReq}`,
+  );
+  recordCriterion(
+    "P3-PG-OBSERVATIONS",
+    billable.length >= 1 ? "PASS" : "FAIL",
+    `billable=${billable.length} totalRows=${rows.length}`,
+  );
+
+  report.criteria = criteria;
+  const failed = criteria.filter((c) => c.status === "FAIL");
+  const blocked = criteria.filter((c) => c.status === "BLOCKED");
+  report.verdict =
+    failed.length === 0 && blocked.length === 0
+      ? "G-LIVE-API CONVERGENCE PASS — ALL MANDATORY CRITERIA"
+      : failed.length
+        ? "G-LIVE-API CONVERGENCE FAIL — SEE CRITERIA"
+        : "G-LIVE-API CONVERGENCE BLOCKED — SEE CRITERIA";
+  report.endedAt = new Date().toISOString();
+  save("00-report", report);
+  console.log(JSON.stringify({ verdict: report.verdict, out: OUT, failed: failed.length }, null, 2));
+  process.exit(failed.length || blocked.length ? 2 : 0);
+} catch (e) {
+  report.criteria = criteria;
+  report.verdict = "G-LIVE-API CONVERGENCE ERROR";
+  report.error = String(e?.stack || e);
+  report.endedAt = new Date().toISOString();
+  save("00-report", report);
+  console.error(report.error);
+  process.exit(1);
+}

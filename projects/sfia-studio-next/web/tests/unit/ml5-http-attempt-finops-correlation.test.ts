@@ -12,8 +12,16 @@ import {
 const TEST_KEY = "sk-test-frontier-aaaaaaaaaaaaaaaa";
 const TEST_FP = createHash("sha256").update(TEST_KEY, "utf8").digest("hex").slice(0, 16);
 
-const insertCalls: Array<{ attemptId?: string | null; limits?: string[]; granularity?: string }> =
-  [];
+const insertCalls: Array<{
+  attemptId?: string | null;
+  limits?: string[];
+  granularity?: string;
+  providerRequests?: number | null;
+  estimatedCostUsd?: string | null;
+  costCoverage?: string;
+  inputTokens?: number | null;
+  totalTokens?: number | null;
+}> = [];
 
 vi.mock("@/db/client", () => ({
   db: {
@@ -22,11 +30,21 @@ vi.mock("@/db/client", () => ({
         attemptId?: string | null;
         limitsJson?: string[];
         granularity?: string;
+        providerRequests?: number | null;
+        estimatedCostUsd?: string | null;
+        costCoverage?: string;
+        inputTokens?: number | null;
+        totalTokens?: number | null;
       }) => {
         insertCalls.push({
           attemptId: row.attemptId,
           limits: row.limitsJson,
           granularity: row.granularity,
+          providerRequests: row.providerRequests,
+          estimatedCostUsd: row.estimatedCostUsd,
+          costCoverage: row.costCoverage,
+          inputTokens: row.inputTokens,
+          totalTokens: row.totalTokens,
         });
         return {
           onConflictDoNothing: () => ({
@@ -160,7 +178,14 @@ describe("ML5 Contract D — HTTP attempt FinOps correlation", () => {
         "@/domains/conversation/usage-accounting"
       );
       await recordNoraProviderUsageWithHttpCorrelation({
-        runResult: { usage: { inputTokens: 50, outputTokens: 20, totalTokens: 70 } },
+        runResult: {
+          usage: {
+            inputTokens: 50,
+            outputTokens: 20,
+            totalTokens: 70,
+            requests: 1,
+          },
+        },
         status: "succeeded",
         operation: "nora.generate_reply",
         attemptId: "sdk_multi",
@@ -176,6 +201,29 @@ describe("ML5 Contract D — HTTP attempt FinOps correlation", () => {
       expect(partialRows.every((r) => r.limits?.includes("HTTP_ATTEMPT_USAGE_UNKNOWN"))).toBe(
         true,
       );
+      expect(partialRows.every((r) => r.limits?.includes("HTTP_ATTEMPT_CORRELATION_ONLY"))).toBe(
+        true,
+      );
+      expect(partialRows.every((r) => r.providerRequests == null)).toBe(true);
+
+      const { aggregateTokenTotal, sumBillableProviderRequests } = await import(
+        "@/domains/finops/usage-projection"
+      );
+      const projectionRows = insertCalls.map((c) => ({
+        estimatedCostUsd: c.estimatedCostUsd ?? null,
+        costCoverage: c.costCoverage ?? "UNKNOWN",
+        totalTokens: c.totalTokens ?? null,
+        inputTokens: c.inputTokens ?? null,
+        outputTokens: null,
+        providerRequests: c.providerRequests ?? null,
+        limitsJson: c.limits ?? [],
+      }));
+      expect(sumBillableProviderRequests(projectionRows)).toBe(1);
+      const tokens = aggregateTokenTotal(projectionRows);
+      expect(tokens.kind).toBe("known");
+      if (tokens.kind === "known") expect(tokens.value).toBe(70);
+      // Prior bug: each companion row used providerRequests: 1 → total 3 with primary.
+      expect(sumBillableProviderRequests(projectionRows)).toBeLessThan(3);
     });
   });
 });

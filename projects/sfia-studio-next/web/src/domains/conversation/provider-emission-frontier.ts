@@ -11,6 +11,14 @@
 
 import { AsyncLocalStorage } from "node:async_hooks";
 import { createHash, randomBytes } from "node:crypto";
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  unlinkSync,
+  writeFileSync,
+} from "node:fs";
+import { join } from "node:path";
 import { assertOpenAiKeyForLane } from "@/lib/openai-lane-guard";
 import {
   admitModelEffort,
@@ -66,6 +74,8 @@ export type CampaignEnvelope = {
   suspendReason: string | null;
 };
 
+export type InputBoundKind = "demonstrable" | "estimate" | null;
+
 export type HttpAttemptRecord = {
   attemptId: string;
   campaignId: string | null;
@@ -74,6 +84,7 @@ export type HttpAttemptRecord = {
   reservedSlots: number;
   reservedInputTokens: number;
   reservedOutputTokens: number;
+  inputBoundKind: InputBoundKind;
   urlHost: string;
   modelHint: string | null;
   createdAtMs: number;
@@ -101,6 +112,7 @@ export type EmissionReservation =
         | "CAMPAIGN_SUSPENDED"
         | "ATTEMPT_STATE_INVALID"
         | "INVALID_REQUEST"
+        | "INPUT_UNBOUNDED"
         | "ALS_CONTEXT_REQUIRED";
       reason: string;
     };
@@ -153,6 +165,70 @@ let requiredCampaignLatch: {
  * on each request; lost ALS must never invent a fresh unlimited campaign.
  */
 const processCampaignRegistry = new Map<string, CampaignEnvelope>();
+
+type LiveCampaignStateEntry = {
+  campaignId: string;
+  pid: number;
+  createdAtMs: number;
+};
+
+function liveCampaignStatePath(): string {
+  return join(process.cwd(), ".sfia-evidence", "live-campaign-state.json");
+}
+
+function readLiveCampaignStateFile(): LiveCampaignStateEntry | null {
+  const p = liveCampaignStatePath();
+  if (!existsSync(p)) return null;
+  try {
+    const raw = readFileSync(p, "utf8");
+    const parsed = JSON.parse(raw) as LiveCampaignStateEntry;
+    if (
+      typeof parsed?.campaignId === "string" &&
+      typeof parsed?.pid === "number" &&
+      typeof parsed?.createdAtMs === "number"
+    ) {
+      return parsed;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function writeLiveCampaignStateEntry(entry: LiveCampaignStateEntry): void {
+  const p = liveCampaignStatePath();
+  mkdirSync(join(process.cwd(), ".sfia-evidence"), { recursive: true });
+  writeFileSync(p, JSON.stringify(entry, null, 2), "utf8");
+}
+
+function deleteLiveCampaignStateFile(): void {
+  const p = liveCampaignStatePath();
+  if (existsSync(p)) {
+    try {
+      unlinkSync(p);
+    } catch {
+      /* best-effort */
+    }
+  }
+}
+
+/**
+ * Refuse when a prior process left campaign state for the same campaignId
+ * (process restart must not auto-renew counters).
+ */
+export function invalidateCampaignOnProcessRestartCheck(
+  campaignId: string,
+): void {
+  const persisted = readLiveCampaignStateFile();
+  if (!persisted) return;
+  if (persisted.campaignId !== campaignId) return;
+  if (persisted.pid !== process.pid) {
+    throw new ProviderEmissionRefusedError(
+      "CAMPAIGN_INVALIDATED_RESTART",
+      `campaign ${campaignId} was bound to pid ${persisted.pid}; current pid ${process.pid}`,
+    );
+  }
+}
 
 function emptyStore(): FrontierStore {
   return {
@@ -221,6 +297,7 @@ export function beginCampaignEnvelope(input: {
     }
     return existing;
   }
+  invalidateCampaignOnProcessRestartCheck(campaignId);
   const maxHttp = Math.max(
     0,
     Math.floor(input.maxHttpAttempts ?? input.maxAttempts ?? 0),
@@ -264,6 +341,11 @@ export function beginCampaignEnvelope(input: {
     suspendReason: null,
   };
   processCampaignRegistry.set(campaignId, campaign);
+  writeLiveCampaignStateEntry({
+    campaignId,
+    pid: process.pid,
+    createdAtMs: Date.now(),
+  });
   cur.campaign = campaign;
   if (campaign.required) {
     requiredCampaignLatch = { campaignId: campaign.campaignId, active: true };
@@ -317,6 +399,10 @@ export function attachConfiguredLiveCampaignFromEnv(
 export function endProcessCampaign(campaignId?: string): void {
   if (campaignId) {
     processCampaignRegistry.delete(campaignId);
+    const persisted = readLiveCampaignStateFile();
+    if (persisted?.campaignId === campaignId) {
+      deleteLiveCampaignStateFile();
+    }
     if (requiredCampaignLatch?.campaignId === campaignId) {
       requiredCampaignLatch = null;
     }
@@ -325,6 +411,7 @@ export function endProcessCampaign(campaignId?: string): void {
     return;
   }
   processCampaignRegistry.clear();
+  deleteLiveCampaignStateFile();
   requiredCampaignLatch = null;
   const s = getFrontierAlsStore();
   if (s) s.campaign = null;
@@ -385,6 +472,26 @@ function demonstrableInputTokenBound(
   );
   if (Number.isFinite(inputHint) && inputHint > 0) return Math.floor(inputHint);
   return null;
+}
+
+/**
+ * Conservative reservation estimate from serialized body size — NOT a usage guarantee.
+ * For campaign accounting only when no demonstrable sfia_estimated_input_tokens exists.
+ */
+export function conservativeBodyTokenEstimate(
+  body: Record<string, unknown> | null,
+): number | null {
+  if (!body) return null;
+  let serialized: string;
+  try {
+    serialized = JSON.stringify(body);
+  } catch {
+    return null;
+  }
+  if (!serialized || serialized === "{}" || serialized === "null") return null;
+  const len = serialized.length;
+  if (len <= 0) return null;
+  return Math.ceil(len / 3);
 }
 
 /** Output bound from the actual emission parameter (max_output_tokens). */
@@ -491,6 +598,10 @@ export type DirectOpenGuard =
       reason: string;
     };
 
+/**
+ * Reserve one direct-open attempt before any network effect (success or failure).
+ * Failed opens still consume the campaign slot — do not count only successes.
+ */
 export function assertDirectOpenAllowed(): DirectOpenGuard {
   const s = getFrontierAlsStore();
   if (!s?.campaign) return { ok: true };
@@ -512,14 +623,17 @@ export function assertDirectOpenAllowed(): DirectOpenGuard {
       reason: `directOpensCommitted=${campaign.directOpensCommitted} max=${campaign.maxDirectOpens}`,
     };
   }
+  // Count the attempt at reservation time (before egress), including later failures.
+  campaign.directOpensCommitted += 1;
   return { ok: true };
 }
 
-/** Count one successful public page open against the active campaign envelope. */
+/**
+ * @deprecated Prefer assertDirectOpenAllowed() which already consumes the slot.
+ * Kept as a no-op for call sites that still invoke it after a successful open.
+ */
 export function commitDirectOpen(): void {
-  const campaign = getFrontierAlsStore()?.campaign;
-  if (!campaign) return;
-  campaign.directOpensCommitted += 1;
+  // Slot already reserved in assertDirectOpenAllowed — do not double-count.
 }
 
 /**
@@ -712,6 +826,7 @@ export function reserveHttpEmission(input: {
       reservedSlots: 1,
       reservedInputTokens: reservedInput,
       reservedOutputTokens: reservedOutput,
+      inputBoundKind: reservedInput > 0 ? "demonstrable" : null,
       urlHost: safeHost(input.url),
       modelHint: model || null,
       createdAtMs: Date.now(),
@@ -742,25 +857,28 @@ export function reserveHttpEmission(input: {
   }
 
   // Campaign token limits require an opposable reservation before contact.
-  // Demonstrable payload bounds preferred; otherwise the campaign per-request
-  // ceiling may be used as a RESERVATION (worst-case charge) — never as a
-  // measured usage claim. Output still must be injected onto the wire payload
-  // by createFrontierAwareFetch when the SDK omits max_output_tokens.
+  // Input: demonstrable sfia_estimated_input_tokens, else conservative body
+  // estimate — never the per-request ceiling as a faux measured bound. Output
+  // still may use per-request ceiling for reservation and wire injection.
   let reservedInput = demonstrableInputTokenBound(bodyJson);
+  let inputBoundKind: InputBoundKind =
+    reservedInput != null ? "demonstrable" : null;
   let reservedOutput = demonstrableOutputTokenBound(bodyJson);
 
   if (
     reservedInput == null &&
     (campaign.maxInputTokens != null || campaign.maxInputTokensPerRequest != null)
   ) {
-    if (campaign.maxInputTokensPerRequest != null) {
-      reservedInput = campaign.maxInputTokensPerRequest;
+    const estimate = conservativeBodyTokenEstimate(bodyJson);
+    if (estimate != null) {
+      reservedInput = estimate;
+      inputBoundKind = "estimate";
     } else {
       return {
         ok: false,
-        reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
+        reasonCode: "INPUT_UNBOUNDED",
         reason:
-          "INPUT_UNBOUNDED — campaign input limit set but no per-request ceiling or demonstrable bound",
+          "INPUT_UNBOUNDED — campaign input limit set but no demonstrable bound or body estimate",
       };
     }
   }
@@ -872,6 +990,7 @@ export function reserveHttpEmission(input: {
     reservedSlots: 1,
     reservedInputTokens: inTok,
     reservedOutputTokens: outTok,
+    inputBoundKind,
     urlHost: safeHost(input.url),
     modelHint: model || null,
     createdAtMs: Date.now(),
@@ -1052,6 +1171,7 @@ export function __resetProviderEmissionFrontierForTests(): void {
     s.captureHttpMeta = false;
   }
   processCampaignRegistry.clear();
+  deleteLiveCampaignStateFile();
   requiredCampaignLatch = null;
   installedClientKeyFp = null;
 }

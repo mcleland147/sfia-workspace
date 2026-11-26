@@ -596,6 +596,7 @@ export async function recordNoraProviderUsageWithHttpCorrelation(
   });
 
   const scope = idempotencyScope(input);
+  // Per-HTTP companion rows are correlation markers only — not billable request increments.
   for (let i = 0; i < httpAttempts.length; i++) {
     const http = httpAttempts[i]!;
     const idempotencyKey = buildIdempotencyKey({
@@ -618,11 +619,12 @@ export async function recordNoraProviderUsageWithHttpCorrelation(
       totalTokens: null,
       cachedInputTokens: null,
       reasoningTokens: null,
-      providerRequests: 1,
+      providerRequests: null,
       costCoverage: "PARTIAL",
       estimatedCostUsd: null,
       idempotencyKey,
       limits: [
+        "HTTP_ATTEMPT_CORRELATION_ONLY",
         "HTTP_ATTEMPT_USAGE_UNKNOWN",
         httpAttemptLimitMarker(http.attemptId),
         ...(sdkAttemptId ? [`SDK_ATTEMPT:${sdkAttemptId}`] : []),
