@@ -7,9 +7,9 @@
 | Profile | CRITICAL · EVOL |
 | Branch | `sfia/next-ml5-integrated-delivery-20261123` |
 | HEAD initial | `8c82b6c18f64af873ea780e692beb816d9d9f36e` |
-| HEAD final | `c46a8a9ab8b7ea90e423a2e8f237d580ce82908f` |
-| Tree | `3ddc652c13e3b9f5704b3d7d92f74368c18639ff` |
-| Web tree | `ccf0e5a515c81e5656265252763443b5af45c915` |
+| HEAD final | `9bfe5ff53cac5300f53f0d722cf426f5486d2450` |
+| Tree | `62bcea126d70e8ca623145503bcc62c91496cb58` |
+| Web tree | `074ab6994e4d5cf283f501778175da40618209c3` |
 | origin/main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
 | merge-base | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
 | BUILD_ID | `BlQ4awCt8jljVHRfu433p` (prerender /404 FAIL — see reserves) |
@@ -1867,3 +1867,32 @@ index fcadef88..ddf6f2f2 100644
        costPerCompletedWorkUsd,
        measuredRequests,
        totalRequests,
+
+## Coverage matrix (created / modified)
+
+| Path | Action | Sequence |
+|---|---|---|
+| `provider-emission-frontier.ts` | CREATE | S1 |
+| `web-public-query-authority.ts` | CREATE | S4 |
+| `nora-adapter.ts` | MODIFY | S1 |
+| `public-web-search-frontier.ts` | MODIFY | S1 |
+| `cognitive-policy.ts` | MODIFY | S2 |
+| `run-nora-cognitive-turn.ts` | MODIFY | S2/S4 |
+| `cognitive-conductor.ts` | MODIFY | S2 |
+| `usage-projection.ts` / `usage-read-service.ts` / FinOps panel | MODIFY | S3 |
+| `public-web-registry.ts` | MODIFY | S4 |
+| `public-web-page-session.ts` / pdf-viewer route | MODIFY | S5 |
+| `not-found.tsx` / `global-error.tsx` | CREATE | S6/S7 |
+| tests unit frontier/authority/session/finops/t1/cognitive | MODIFY/CREATE | S6 |
+| manifeste + as-built + delivery-history + web dossier | MODIFY/CREATE | S7/S14 |
+
+## Morris decisions required
+
+1. GO/NO-GO cutover RECETTE after ChatGPT review (blocked by R-BUILD-404 until build fixed).
+2. Politique cognitive RECETTE (v0.2 DEV-only vs Terra-only / legacy_sol).
+3. Optional dedicated D6 kind for WEB vs RECORD_DECISION.
+4. Provide textual PDF corpus for Git REAL if required for UAT.
+
+## Review Pack completeness
+
+FULL mono-cycle contents included for created modules and useful diffs of modified cognitive/WEB/FinOps paths. Prior LIVE scripts/proofs referenced by SHA `8c82b6c1` / handoff `99dad916` — not reconstituted fictively.
