@@ -894,6 +894,25 @@ async function runLiveWithTools(
   policy: CognitivePolicy,
 ): Promise<NoraGenerateResult> {
   await configureSdkTracingSafe();
+  const { runWithAgentsTracingCorrelation } = await import(
+    "@/lib/agents-sdk-tracing"
+  );
+  return runWithAgentsTracingCorrelation(
+    {
+      operationId: input.toolScope?.operationId ?? null,
+      generationId,
+      attemptId: input.toolScope?.attemptId ?? null,
+      workId: input.cognitiveWorkId ?? null,
+    },
+    () => runLiveWithToolsInner(input, generationId, policy),
+  );
+}
+
+async function runLiveWithToolsInner(
+  input: NoraGenerateInput,
+  generationId: string,
+  policy: CognitivePolicy,
+): Promise<NoraGenerateResult> {
   const { Agent, run } = await import("@openai/agents");
 
   const attempts: NoraAttemptRecord[] = [];

@@ -3,6 +3,18 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-26-OPENAI-STUDIO-CONVERGENCE-ML1-CORRECTIVE
+
+- **date_utc**: 2026-11-26T20:30Z (approx)
+- **lane**: DEV — Macro-lot 1 corrective intégrée
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_initial**: `5794584a4dfae97dd78c5493946d9251b7847d65`
+- **focus**: parsing Admin buckets→results ; transport isolé ; décimal FinOps ; tracing ALS + oracle réseau ; continuité raccordée OFF ; dossier A3
+- **gates**: G-ADMIN-* · G-PROVIDER-SNAPSHOT-MIGRATION · G-FINOPS-UX · G-WEB-PUBLIC/A3 · G-TRACING-LOCAL · G-NATIVE-CONTINUITY
+- **web_live**: OFF · RECETTE intacte · push projet NON
+- **release**: NO RELEASE · NOT ADOPTED
+- **statut**: **MACRO-LOT 1 — TECHNICAL READINESS ESTABLISHED — GOVERNED QUALIFICATION GATES REMAIN**
+
 ## delivery_id: DELIV-2026-11-26-OPENAI-STUDIO-CONVERGENCE-ML1
 
 - **date_utc**: 2026-11-26T20:00Z (approx)
@@ -16,7 +28,7 @@ Append-only logical journal of Cursor product deliveries.
 - **web_live**: OFF · G-WEB-MIXED fermé · RECETTE intacte
 - **release**: NO RELEASE · NOT ADOPTED · ML5 OPEN · R5 IN PROGRESS · livraison 2 non engagée
 - **as_built**: `construction/convergence-openai-studio/as-built-macro-lot-1-20261126.md`
-- **statut**: **MACRO-LOT 1 — READY FOR INDEPENDENT REVIEW** (avec blockers gouvernés Admin/migration/WEB/UX)
+- **statut**: **MACRO-LOT 1 — READY FOR INDEPENDENT REVIEW** (avec blockers gouvernés Admin/migration/WEB/UX) — *supersédé par corrective*
 
 ## delivery_id: DELIV-2026-11-26-ML5-CONVERGENCE-QUALIFICATION
 

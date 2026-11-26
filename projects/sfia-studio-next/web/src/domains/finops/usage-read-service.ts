@@ -21,9 +21,13 @@ import {
 } from "./usage-projection";
 import {
   getAdminCollectorFreshness,
-  listAdminCollectorBuckets,
+  listAdminCollectorSnapshots,
   reconcileFinOpsCosts,
+  resolveProductAdminCollectorView,
+  sumMeasuredCostUsd,
+  type FinOpsScopeEvidence,
 } from "./provider-admin-usage-collector";
+import { decimalFromNumberLike } from "./decimal-money";
 
 function studioLane(): string {
   return process.env.STUDIO_LANE?.trim().toUpperCase() || "UNKNOWN";
@@ -126,14 +130,20 @@ export type FinOpsProviderReconciliationDto = {
   deltaUsd: number | null;
   comparability: "COMPARABLE" | "NON_COMPARABLE" | "PARTIAL" | "UNAVAILABLE";
   freshness: {
+    lastAttemptAtUtc: string | null;
     lastSuccessAtUtc: string | null;
     lastCollectionId: string | null;
     status: string;
-    bucketCount: number;
+    snapshotCount: number;
+    secretReadableByProduct: false;
   };
   limits: string[];
   /** Explicit: Admin collection never blocks Nora. */
   noraIndependent: true;
+  /** Decimal strings for financial reference (UI may coerce for display). */
+  studioEstimatedUsdDecimal: string | null;
+  providerCostUsdDecimal: string | null;
+  deltaUsdDecimal: string | null;
 };
 
 export type FinOpsSummaryDto = {
@@ -272,7 +282,10 @@ export async function loadFinOpsSummary(
     onlyWithObservedCost: true,
   });
 
-  const providerReconciliation = buildProviderReconciliationDto(estimatedCostUsd);
+  const providerReconciliation = buildProviderReconciliationDto(
+    estimatedCostUsd,
+    input,
+  );
 
   return {
     periodDays,
@@ -297,101 +310,112 @@ export async function loadFinOpsSummary(
 
 function buildProviderReconciliationDto(
   estimatedCostUsd: MeasuredValue<number>,
+  filter: FinOpsFilterInput,
 ): FinOpsProviderReconciliationDto {
+  // Product path: never inspect OPENAI_ADMIN_KEY.
+  const productView = resolveProductAdminCollectorView();
   const freshness = getAdminCollectorFreshness();
-  const costBuckets = listAdminCollectorBuckets().filter(
-    (b) => b.source === "openai.organization.costs" && b.completeness === "complete",
+  const snapshots = listAdminCollectorSnapshots().filter(
+    (s) =>
+      s.surfaceObject === "organization.costs.result" &&
+      s.completeness === "complete",
   );
-  const limits: string[] = [];
-
-  if (freshness.status === "IDLE" || freshness.bucketCount === 0) {
-    limits.push("ADMIN_COLLECTION_UNAVAILABLE");
-    if (!process.env.OPENAI_ADMIN_KEY?.trim()) {
-      limits.push("OPENAI_ADMIN_KEY_ABSENT");
-    }
-    if (process.env.SFIA_ADMIN_USAGE_LIVE?.trim() !== "1") {
-      limits.push("SFIA_ADMIN_USAGE_LIVE_REQUIRED");
-    }
-    limits.push("PROVIDER_SNAPSHOT_PG_MIGRATION_PENDING");
-    return {
-      studioEstimatedUsd:
-        estimatedCostUsd.kind === "known" || estimatedCostUsd.kind === "partial"
-          ? estimatedCostUsd.value
-          : null,
-      studioEstimationKind: estimatedCostUsd.kind,
-      providerCostUsd: null,
-      providerCurrency: null,
-      deltaUsd: null,
-      comparability: "UNAVAILABLE",
-      freshness: {
-        lastSuccessAtUtc: freshness.lastSuccessAtUtc,
-        lastCollectionId: freshness.lastCollectionId,
-        status: freshness.status,
-        bucketCount: freshness.bucketCount,
-      },
-      limits,
-      noraIndependent: true,
-    };
-  }
-
-  // Sum complete cost buckets — do not invent project/work attribution.
-  let providerSum = 0;
-  let currency: string | null = null;
-  for (const b of costBuckets) {
-    const n = Number(b.value);
-    if (!Number.isFinite(n)) {
-      limits.push("PROVIDER_COST_PARSE_PARTIAL");
-      continue;
-    }
-    providerSum += n;
-    currency = b.currency ?? currency;
-  }
+  const limits: string[] = ["PROVIDER_SNAPSHOT_PG_MIGRATION_PENDING"];
 
   const studio =
     estimatedCostUsd.kind === "known" || estimatedCostUsd.kind === "partial"
       ? estimatedCostUsd.value
       : null;
+  const studioDecimal =
+    studio != null ? decimalFromNumberLike(studio) : null;
 
-  // Without a proven lane↔project↔key mapping, org aggregates are NON_COMPARABLE
-  // to Studio pilot estimates (ENV-01 / mandate §10.6).
-  const mappingProven =
-    (process.env.SFIA_FINOPS_SCOPE_COMPARABLE ?? "").trim() === "1";
-  if (!mappingProven) {
-    limits.push("LANE_PROJECT_KEY_MAPPING_UNPROVEN");
+  const freshnessDto = {
+    lastAttemptAtUtc: freshness.lastAttemptAtUtc,
+    lastSuccessAtUtc: freshness.lastSuccessAtUtc,
+    lastCollectionId: freshness.lastCollectionId,
+    status: freshness.status,
+    snapshotCount: freshness.snapshotCount,
+    secretReadableByProduct: false as const,
+  };
+
+  if (freshness.status === "IDLE" || freshness.snapshotCount === 0) {
+    limits.push("ADMIN_COLLECTION_UNAVAILABLE");
+    limits.push("ADMIN_SECRET_STATUS_UNKNOWN_TO_PRODUCT");
+    return {
+      studioEstimatedUsd: studio,
+      studioEstimationKind: estimatedCostUsd.kind,
+      providerCostUsd: null,
+      providerCurrency: null,
+      deltaUsd: null,
+      comparability: "UNAVAILABLE",
+      freshness: freshnessDto,
+      limits,
+      noraIndependent: true,
+      studioEstimatedUsdDecimal: studioDecimal,
+      providerCostUsdDecimal: null,
+      deltaUsdDecimal: null,
+    };
   }
 
+  const since = periodStartDate(filter.periodDays ?? 30);
+  const sum = sumMeasuredCostUsd(snapshots, {
+    intervalStartUtc: since.toISOString(),
+    intervalEndUtc: new Date().toISOString(),
+    projectId: null, // provider project mapping not proven from Studio projectId alone
+  });
+  limits.push(...sum.limits);
+
+  const configuredProject =
+    (process.env.SFIA_OPENAI_PROJECT_ID ?? "").trim() || null;
+  const configuredKey =
+    (process.env.SFIA_OPENAI_API_KEY_ID ?? "").trim() || null;
+  const evidence: FinOpsScopeEvidence = {
+    organizationMatches: Boolean(productView.organizationScope),
+    projectIdsOverlap: Boolean(
+      configuredProject &&
+        snapshots.some((s) => s.dimensions.project_id === configuredProject),
+    ),
+    apiKeyIdsOverlap: Boolean(
+      configuredKey &&
+        snapshots.some((s) => s.dimensions.api_key_id === configuredKey),
+    ),
+    periodOverlap: sum.counted > 0,
+    currencyMatches: true,
+    surfacesRequested: ["/organization/costs"],
+    evidenceNotes: [
+      // Config flag alone is never sufficient evidence.
+      (process.env.SFIA_FINOPS_SCOPE_COMPARABLE ?? "").trim() === "1"
+        ? "SCOPE_FLAG_SET_BUT_EVIDENCE_REQUIRED"
+        : "SCOPE_FLAG_UNSET",
+    ],
+  };
+
   const rec = reconcileFinOpsCosts({
-    studioEstimatedUsd: studio != null ? String(studio) : "0",
-    providerCostUsd: costBuckets.length > 0 ? String(providerSum) : null,
-    comparable: mappingProven && studio != null && costBuckets.length > 0,
-    reasonIfNot: mappingProven
-      ? "STUDIO_OR_PROVIDER_ABSENT"
-      : "LANE_PROJECT_KEY_MAPPING_UNPROVEN",
+    studioEstimatedUsd: studioDecimal,
+    providerCostUsd: sum.total,
+    scope: evidence,
   });
   limits.push(...rec.limits);
+
+  // Display numbers are derived from decimal strings only when present.
+  const providerNum =
+    sum.total != null ? Number(sum.total) : null;
+  const deltaNum = rec.deltaUsd != null ? Number(rec.deltaUsd) : null;
 
   return {
     studioEstimatedUsd: studio,
     studioEstimationKind: estimatedCostUsd.kind,
-    providerCostUsd: costBuckets.length > 0 ? providerSum : null,
-    providerCurrency: currency,
-    deltaUsd: rec.deltaUsd != null ? Number(rec.deltaUsd) : null,
-    comparability:
-      rec.status === "COMPARABLE"
-        ? "COMPARABLE"
-        : rec.status === "PARTIAL"
-          ? "PARTIAL"
-          : costBuckets.length === 0
-            ? "UNAVAILABLE"
-            : "NON_COMPARABLE",
-    freshness: {
-      lastSuccessAtUtc: freshness.lastSuccessAtUtc,
-      lastCollectionId: freshness.lastCollectionId,
-      status: freshness.status,
-      bucketCount: freshness.bucketCount,
-    },
-    limits,
+    providerCostUsd:
+      providerNum != null && Number.isFinite(providerNum) ? providerNum : null,
+    providerCurrency: "usd",
+    deltaUsd: deltaNum != null && Number.isFinite(deltaNum) ? deltaNum : null,
+    comparability: rec.status,
+    freshness: freshnessDto,
+    limits: [...new Set(limits)],
     noraIndependent: true,
+    studioEstimatedUsdDecimal: studioDecimal,
+    providerCostUsdDecimal: sum.total,
+    deltaUsdDecimal: rec.deltaUsd,
   };
 }
 

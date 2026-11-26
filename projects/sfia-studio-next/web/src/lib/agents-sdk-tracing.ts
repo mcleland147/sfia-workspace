@@ -1,18 +1,23 @@
 /**
- * Macro-lot 1 — Agents SDK tracing under Studio control.
+ * Agents SDK tracing under Studio control (corrective).
  *
- * Modes (SFIA_AGENTS_TRACING_MODE):
- * - off   → setTracingDisabled(true)  [default / rollback]
- * - local → setTracingDisabled(false) + setTraceProcessors([StudioLocalTraceProcessor])
- *
- * NEVER registers a remote OpenAI exporter. Default SDK ConsoleSpanExporter is replaced.
- * Sensitive model/tool payloads are stripped before any local sink.
- * A processor failure must not throw into Nora run paths.
+ * - Correlation via AsyncLocalStorage (no mutable global for concurrent works).
+ * - setTraceProcessors([...]) replaces defaults; failure ⇒ tracing OFF.
+ * - StudioLocalTraceProcessor: redacted OBS + in-memory sink; no HTTP.
+ * - Independent network oracle: wrap fetch around real SDK runs.
  */
 
+import { AsyncLocalStorage } from "node:async_hooks";
 import { emitObs } from "@/lib/observability";
 
 export type AgentsTracingMode = "off" | "local";
+
+export type StudioTracingCorrelation = {
+  operationId: string | null;
+  generationId: string | null;
+  attemptId: string | null;
+  workId: string | null;
+};
 
 export type StudioTraceSinkRecord = {
   kind: "trace" | "span";
@@ -21,92 +26,39 @@ export type StudioTraceSinkRecord = {
   spanId: string | null;
   status: string | null;
   durationMs: number | null;
-  /** Always redacted — presence proves filter ran. */
   dataRedacted: true;
-  correlation: {
-    operationId: string | null;
-    generationId: string | null;
-    attemptId: string | null;
-    workId: string | null;
-  };
+  correlation: StudioTracingCorrelation;
   atMs: number;
 };
 
-/** Loose structural reads — SDK Span uses string timestamps; we accept both. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TraceLike = any;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SpanLike = any;
 
-export type StudioTracingCorrelation = {
-  operationId?: string | null;
-  generationId?: string | null;
-  attemptId?: string | null;
-  workId?: string | null;
-};
+const correlationAls = new AsyncLocalStorage<StudioTracingCorrelation>();
 
-let correlation: StudioTracingCorrelation = {};
 let configured = false;
 let lastMode: AgentsTracingMode = "off";
+let processorsActuallyReplaced = false;
 
-/** Test / egress oracle — in-memory only; never leaves process. */
 const sinkRecords: StudioTraceSinkRecord[] = [];
-let egressProbeHooks: Array<(url: string) => void> = [];
+const networkHits: string[] = [];
 
 export function resetAgentsTracingTestState(): void {
   sinkRecords.length = 0;
-  egressProbeHooks = [];
-  correlation = {};
+  networkHits.length = 0;
   configured = false;
   lastMode = "off";
+  processorsActuallyReplaced = false;
 }
 
 export function getAgentsTracingSinkRecords(): readonly StudioTraceSinkRecord[] {
   return sinkRecords;
 }
 
-/** Independent egress observation: any processor HTTP would call this. */
-export function installAgentsTracingEgressProbe(
-  hook: (url: string) => void,
-): () => void {
-  egressProbeHooks.push(hook);
-  return () => {
-    egressProbeHooks = egressProbeHooks.filter((h) => h !== hook);
-  };
-}
-
-function noteEgress(url: string): void {
-  for (const h of egressProbeHooks) {
-    try {
-      h(url);
-    } catch {
-      /* probe must not break tracing */
-    }
-  }
-}
-
-/**
- * Deliberately unused by StudioLocalTraceProcessor — present so tests can assert
- * that enabling local mode never routes through a remote export helper.
- */
-export function __forbiddenRemoteTraceExport(url: string, _body: unknown): void {
-  noteEgress(url);
-  throw new Error("FORBIDDEN_REMOTE_TRACE_EXPORT");
-}
-
-export function setAgentsTracingCorrelation(
-  next: StudioTracingCorrelation,
-): void {
-  correlation = {
-    operationId: next.operationId ?? null,
-    generationId: next.generationId ?? null,
-    attemptId: next.attemptId ?? null,
-    workId: next.workId ?? null,
-  };
-}
-
-export function clearAgentsTracingCorrelation(): void {
-  correlation = {};
+export function getAgentsTracingNetworkHits(): readonly string[] {
+  return networkHits;
 }
 
 export function resolveAgentsTracingMode(
@@ -114,6 +66,48 @@ export function resolveAgentsTracingMode(
 ): AgentsTracingMode {
   const raw = (env.SFIA_AGENTS_TRACING_MODE ?? "off").trim().toLowerCase();
   return raw === "local" ? "local" : "off";
+}
+
+export async function runWithAgentsTracingCorrelation<T>(
+  corr: StudioTracingCorrelation,
+  fn: () => Promise<T>,
+): Promise<T> {
+  return correlationAls.run(
+    {
+      operationId: corr.operationId ?? null,
+      generationId: corr.generationId ?? null,
+      attemptId: corr.attemptId ?? null,
+      workId: corr.workId ?? null,
+    },
+    fn,
+  );
+}
+
+export function getAgentsTracingCorrelation(): StudioTracingCorrelation {
+  return (
+    correlationAls.getStore() ?? {
+      operationId: null,
+      generationId: null,
+      attemptId: null,
+      workId: null,
+    }
+  );
+}
+
+/** @deprecated mutable global — kept as no-op wrapper for callers; use ALS. */
+export function setAgentsTracingCorrelation(
+  next: Partial<StudioTracingCorrelation>,
+): void {
+  const cur = correlationAls.getStore();
+  if (!cur) return;
+  cur.operationId = next.operationId ?? cur.operationId;
+  cur.generationId = next.generationId ?? cur.generationId;
+  cur.attemptId = next.attemptId ?? cur.attemptId;
+  cur.workId = next.workId ?? cur.workId;
+}
+
+export function clearAgentsTracingCorrelation(): void {
+  /* ALS exits clear scope; no global to clear */
 }
 
 function spanName(span: SpanLike): string {
@@ -162,7 +156,6 @@ function recordLocal(item: StudioTraceSinkRecord): void {
       generation_id: item.correlation.generationId ?? undefined,
       attempt_id: item.correlation.attemptId ?? undefined,
       duration_ms: item.durationMs ?? undefined,
-      // Only allowlisted meta keys (see observability.ts META_ALLOWLIST).
       meta: {
         kind: item.kind,
         status: item.status,
@@ -170,34 +163,24 @@ function recordLocal(item: StudioTraceSinkRecord): void {
       },
     });
   } catch {
-    /* OBS failure must not break Nora */
+    /* never break Nora */
   }
 }
 
-/**
- * Local-only TracingProcessor: no HTTP, no model/tool payloads, OBS + in-memory sink.
- */
 export class StudioLocalTraceProcessor {
-  async onTraceStart(_trace: TraceLike): Promise<void> {
-    /* start is noisy; we record on end */
-  }
+  async onTraceStart(_trace: TraceLike): Promise<void> {}
 
   async onTraceEnd(trace: TraceLike): Promise<void> {
     try {
       recordLocal({
         kind: "trace",
-        name: typeof trace.name === "string" ? trace.name : "trace",
-        traceId: typeof trace.traceId === "string" ? trace.traceId : null,
+        name: typeof trace?.name === "string" ? trace.name : "trace",
+        traceId: typeof trace?.traceId === "string" ? trace.traceId : null,
         spanId: null,
         status: "ok",
         durationMs: null,
         dataRedacted: true,
-        correlation: {
-          operationId: correlation.operationId ?? null,
-          generationId: correlation.generationId ?? null,
-          attemptId: correlation.attemptId ?? null,
-          workId: correlation.workId ?? null,
-        },
+        correlation: getAgentsTracingCorrelation(),
         atMs: Date.now(),
       });
     } catch {
@@ -205,26 +188,19 @@ export class StudioLocalTraceProcessor {
     }
   }
 
-  async onSpanStart(_span: SpanLike): Promise<void> {
-    /* record on end */
-  }
+  async onSpanStart(_span: SpanLike): Promise<void> {}
 
   async onSpanEnd(span: SpanLike): Promise<void> {
     try {
       recordLocal({
         kind: "span",
         name: spanName(span),
-        traceId: typeof span.traceId === "string" ? span.traceId : null,
-        spanId: typeof span.spanId === "string" ? span.spanId : null,
+        traceId: typeof span?.traceId === "string" ? span.traceId : null,
+        spanId: typeof span?.spanId === "string" ? span.spanId : null,
         status: statusOf(span),
         durationMs: durationMs(span),
         dataRedacted: true,
-        correlation: {
-          operationId: correlation.operationId ?? null,
-          generationId: correlation.generationId ?? null,
-          attemptId: correlation.attemptId ?? null,
-          workId: correlation.workId ?? null,
-        },
+        correlation: getAgentsTracingCorrelation(),
         atMs: Date.now(),
       });
     } catch {
@@ -232,12 +208,55 @@ export class StudioLocalTraceProcessor {
     }
   }
 
-  async forceFlush(): Promise<void> {
-    /* no remote buffer */
-  }
+  async forceFlush(): Promise<void> {}
+  async shutdown(): Promise<void> {}
+}
 
-  async shutdown(): Promise<void> {
-    /* no-op */
+function urlOf(input: RequestInfo | URL): string {
+  if (typeof input === "string") return input;
+  if (input instanceof URL) return input.toString();
+  try {
+    return String((input as Request).url ?? "");
+  } catch {
+    return "";
+  }
+}
+
+function isTraceExportUrl(url: string): boolean {
+  const u = url.toLowerCase();
+  return (
+    u.includes("/traces") ||
+    u.includes("traces.ingest") ||
+    u.includes("api.openai.com/v1/traces")
+  );
+}
+
+/**
+ * Independent network oracle: wrap global fetch for the duration of fn.
+ * Records any URL that looks like a traces export endpoint.
+ */
+export async function withAgentsTracingNetworkOracle<T>(
+  fn: () => Promise<T>,
+): Promise<{ result: T; traceExportUrls: string[] }> {
+  const hits: string[] = [];
+  const prev = globalThis.fetch;
+  globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
+    const url = urlOf(input);
+    if (isTraceExportUrl(url)) {
+      hits.push(url);
+      networkHits.push(url);
+      return new Response(JSON.stringify({ refused: "TRACE_EXPORT_BLOCKED" }), {
+        status: 599,
+        headers: { "content-type": "application/json" },
+      });
+    }
+    return prev(input, init);
+  }) as typeof fetch;
+  try {
+    const result = await fn();
+    return { result, traceExportUrls: hits };
+  } finally {
+    globalThis.fetch = prev;
   }
 }
 
@@ -248,18 +267,13 @@ export type ConfigureAgentsTracingResult = {
   sensitiveLoggingForcedOff: boolean;
 };
 
-/**
- * Idempotent configuration. Safe to call before every LIVE Agents run.
- */
 export async function configureAgentsSdkTracing(
   env: NodeJS.ProcessEnv = process.env,
 ): Promise<ConfigureAgentsTracingResult> {
   const mode = resolveAgentsTracingMode(env);
-  const agents = await import("@openai/agents");
-
-  // Always force sensitive logging OFF for the product path (DEV ephemeral
-  // diagnostics remain a separate opt-in in nora-adapter, after this call).
   let sensitiveLoggingForcedOff = false;
+  let processorsReplaced = false;
+
   try {
     const core = await import("@openai/agents-core");
     if (typeof core.setSensitiveDataLoggingEnabled === "function") {
@@ -270,44 +284,79 @@ export async function configureAgentsSdkTracing(
     sensitiveLoggingForcedOff = false;
   }
 
-  if (mode === "off") {
+  try {
+    const agents = await import("@openai/agents");
+    if (mode === "off") {
+      if (typeof agents.setTraceProcessors === "function") {
+        agents.setTraceProcessors([]);
+        processorsReplaced = true;
+      }
+      if (typeof agents.setTracingDisabled === "function") {
+        agents.setTracingDisabled(true);
+      }
+      lastMode = "off";
+      configured = true;
+      processorsActuallyReplaced = processorsReplaced;
+      return {
+        mode: "off",
+        tracingDisabled: true,
+        processorsReplaced,
+        sensitiveLoggingForcedOff,
+      };
+    }
+
+    if (typeof agents.setTraceProcessors !== "function") {
+      // Cannot prove replacement — fail closed to OFF.
+      if (typeof agents.setTracingDisabled === "function") {
+        agents.setTracingDisabled(true);
+      }
+      lastMode = "off";
+      configured = true;
+      processorsActuallyReplaced = false;
+      return {
+        mode: "off",
+        tracingDisabled: true,
+        processorsReplaced: false,
+        sensitiveLoggingForcedOff,
+      };
+    }
+
+    agents.setTraceProcessors([new StudioLocalTraceProcessor()]);
+    processorsReplaced = true;
     if (typeof agents.setTracingDisabled === "function") {
-      agents.setTracingDisabled(true);
+      agents.setTracingDisabled(false);
     }
-    // Replace any processors so a later enable cannot inherit a prior remote exporter.
-    if (typeof agents.setTraceProcessors === "function") {
-      agents.setTraceProcessors([]);
-    }
-    lastMode = "off";
+    lastMode = "local";
     configured = true;
+    processorsActuallyReplaced = true;
     return {
-      mode: "off",
-      tracingDisabled: true,
+      mode: "local",
+      tracingDisabled: false,
       processorsReplaced: true,
       sensitiveLoggingForcedOff,
     };
+  } catch {
+    // Configuration failure ⇒ OFF
+    lastMode = "off";
+    configured = true;
+    processorsActuallyReplaced = false;
+    return {
+      mode: "off",
+      tracingDisabled: true,
+      processorsReplaced: false,
+      sensitiveLoggingForcedOff,
+    };
   }
-
-  // local mode
-  if (typeof agents.setTraceProcessors === "function") {
-    agents.setTraceProcessors([new StudioLocalTraceProcessor()]);
-  }
-  if (typeof agents.setTracingDisabled === "function") {
-    agents.setTracingDisabled(false);
-  }
-  lastMode = "local";
-  configured = true;
-  return {
-    mode: "local",
-    tracingDisabled: false,
-    processorsReplaced: true,
-    sensitiveLoggingForcedOff,
-  };
 }
 
 export function getAgentsTracingConfigState(): {
   configured: boolean;
   mode: AgentsTracingMode;
+  processorsReplaced: boolean;
 } {
-  return { configured, mode: lastMode };
+  return {
+    configured,
+    mode: lastMode,
+    processorsReplaced: processorsActuallyReplaced,
+  };
 }

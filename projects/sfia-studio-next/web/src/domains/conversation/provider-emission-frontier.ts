@@ -25,6 +25,13 @@ import {
   reconcileHostedSearchUsage,
 } from "./provider-response-usage";
 import {
+  applyContinuityToResponsesBody,
+  planProviderContinuity,
+  resolveProviderContinuityMode,
+  type ProviderChainRef,
+  type StudioContinuitySnapshot,
+} from "./provider-response-continuity";
+import {
   admitModelEffort,
   type CognitiveEffort,
   type CognitiveModelId,
@@ -183,6 +190,14 @@ type FrontierStore = {
     hostedStatus: "MEASURED" | "UNKNOWN" | "RESERVED_ONLY";
     limits: string[];
   }>;
+  /**
+   * Optional native continuity binding for this ALS turn (D3-owned snapshot).
+   * Mode remains off unless SFIA_PROVIDER_CONTINUITY_MODE=native.
+   */
+  continuity: {
+    studio: StudioContinuitySnapshot | null;
+    chain: ProviderChainRef | null;
+  };
 };
 
 const als = new AsyncLocalStorage<FrontierStore>();
@@ -283,6 +298,20 @@ function emptyStore(): FrontierStore {
     captureHttpMeta: false,
     nativeInputCount: null,
     responseUsageObserved: [],
+    continuity: { studio: null, chain: null },
+  };
+}
+
+/** Bind D3 continuity snapshot + optional provider chain for this ALS turn. */
+export function bindProviderContinuityContext(input: {
+  studio: StudioContinuitySnapshot | null;
+  chain: ProviderChainRef | null;
+}): void {
+  const s = als.getStore();
+  if (!s) return;
+  s.continuity = {
+    studio: input.studio,
+    chain: input.chain,
   };
 }
 
@@ -1804,8 +1833,28 @@ export function createFrontierAwareFetch(
         sfia_native_input_tokens?: unknown;
         sfia_input_count_fingerprint?: unknown;
       };
-      bodyJson = wireBody;
-      body = JSON.stringify(wireBody);
+      // Continuity: attach previous_response_id only when mode=native and plan allows.
+      // Default OFF — D3 remains SoT; prior tokens remain billable when attached.
+      const continuityMode = resolveProviderContinuityMode();
+      const plan = planProviderContinuity({
+        mode: continuityMode,
+        studio: alsStore.continuity.studio ?? {
+          workId: "",
+          acquisFingerprint: null,
+          sourceVersions: [],
+          checkpointId: null,
+          budgets: {
+            tokensConsumed: 0,
+            tokensBudget: null,
+            restitutionsRemaining: null,
+          },
+          rightsOk: false,
+        },
+        chain: alsStore.continuity.chain,
+        lane: (process.env.STUDIO_LANE ?? "UNKNOWN").trim().toUpperCase(),
+      });
+      bodyJson = applyContinuityToResponsesBody(wireBody, plan);
+      body = JSON.stringify(bodyJson);
     }
 
     const hostedSearchDelta = inferHostedSearchDeltaFromBody(
@@ -1853,56 +1902,80 @@ export function createFrontierAwareFetch(
       let hostedLimits: string[] = [];
       let responseId: string | null = null;
       if (res.ok && isResponsesCreateUrl(url)) {
-        try {
-          const parsed = (await res.clone().json()) as unknown;
-          const native = extractResponseNativeUsage(parsed);
-          responseId = native.responseId;
-          const reconciled = reconcileHostedSearchUsage({
-            reservedMaxToolCalls: hostedSearchDelta,
-            observed: native.hostedWebSearch,
-            alreadyCommitted: campaign?.hostedSearchesCommitted ?? 0,
-            maxHostedSearches: campaign?.maxHostedSearches ?? null,
-          });
-          measuredHostedDelta = reconciled.commitDelta;
-          hostedStatus = reconciled.status;
-          hostedLimits = reconciled.limits;
-          if (campaign) {
-            campaign.hostedSearchMeasureStatus =
-              reconciled.status === "MEASURED"
-                ? "MEASURED"
-                : reconciled.status === "UNKNOWN"
-                  ? "UNKNOWN"
-                  : campaign.hostedSearchMeasureStatus;
-            campaign.hostedSearchMeasureLimits = [
-              ...new Set([
-                ...campaign.hostedSearchMeasureLimits,
-                ...reconciled.limits,
-              ]),
-            ];
-            if (
-              reconciled.status === "MEASURED" &&
-              reconciled.measured != null
-            ) {
-              campaign.hostedSearchesMeasured =
-                (campaign.hostedSearchesMeasured ?? 0) + reconciled.measured;
-            }
-            if (reconciled.suspend) {
-              campaign.suspended = true;
-              campaign.suspendReason =
-                reconciled.suspendReason ?? "CAMPAIGN_HOSTED_SEARCHES_EXHAUSTED";
-            }
-          }
-        } catch {
-          hostedLimits = ["RESPONSE_BODY_PARSE_FAILED"];
+        const ct = (res.headers.get("content-type") ?? "").toLowerCase();
+        const isEventStream =
+          ct.includes("text/event-stream") || ct.includes("application/x-ndjson");
+        if (isEventStream) {
+          // Do not consume an unbounded SSE body for observability.
+          hostedLimits = ["STREAM_USAGE_UNKNOWN"];
           hostedStatus = "UNKNOWN";
           if (campaign) {
             campaign.hostedSearchMeasureStatus = "UNKNOWN";
             campaign.hostedSearchMeasureLimits = [
               ...new Set([
                 ...campaign.hostedSearchMeasureLimits,
-                "RESPONSE_BODY_PARSE_FAILED",
+                "STREAM_USAGE_UNKNOWN",
               ]),
             ];
+          }
+        } else {
+          try {
+            const parsed = (await res.clone().json()) as unknown;
+            const native = extractResponseNativeUsage(parsed);
+            responseId = native.responseId;
+            const reconciled = reconcileHostedSearchUsage({
+              reservedMaxToolCalls: hostedSearchDelta,
+              observed: native.hostedWebSearch,
+              alreadyCommitted: campaign?.hostedSearchesCommitted ?? 0,
+              maxHostedSearches: campaign?.maxHostedSearches ?? null,
+            });
+            measuredHostedDelta = reconciled.commitDelta;
+            hostedStatus = reconciled.status;
+            hostedLimits = reconciled.limits;
+            if (campaign) {
+              // Never erase UNKNOWN/PARTIAL aggregate solely because a later
+              // attempt measured — promote to MEASURED only from NONE/UNKNOWN
+              // when this attempt is MEASURED; keep UNKNOWN if already UNKNOWN
+              // and this attempt is UNKNOWN.
+              if (reconciled.status === "MEASURED") {
+                campaign.hostedSearchMeasureStatus = "MEASURED";
+              } else if (campaign.hostedSearchMeasureStatus === "NONE") {
+                campaign.hostedSearchMeasureStatus = "UNKNOWN";
+              }
+              campaign.hostedSearchMeasureLimits = [
+                ...new Set([
+                  ...campaign.hostedSearchMeasureLimits,
+                  ...reconciled.limits,
+                ]),
+              ];
+              if (
+                reconciled.status === "MEASURED" &&
+                reconciled.measured != null
+              ) {
+                campaign.hostedSearchesMeasured =
+                  (campaign.hostedSearchesMeasured ?? 0) + reconciled.measured;
+              }
+              if (reconciled.suspend) {
+                campaign.suspended = true;
+                campaign.suspendReason =
+                  reconciled.suspendReason ??
+                  "CAMPAIGN_HOSTED_SEARCHES_EXHAUSTED";
+              }
+            }
+          } catch {
+            hostedLimits = ["RESPONSE_BODY_PARSE_FAILED"];
+            hostedStatus = "UNKNOWN";
+            if (campaign) {
+              if (campaign.hostedSearchMeasureStatus === "NONE") {
+                campaign.hostedSearchMeasureStatus = "UNKNOWN";
+              }
+              campaign.hostedSearchMeasureLimits = [
+                ...new Set([
+                  ...campaign.hostedSearchMeasureLimits,
+                  "RESPONSE_BODY_PARSE_FAILED",
+                ]),
+              ];
+            }
           }
         }
       }

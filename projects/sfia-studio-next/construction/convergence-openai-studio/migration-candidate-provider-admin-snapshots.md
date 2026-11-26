@@ -1,51 +1,66 @@
-# Migration candidate — provider Admin Usage/Costs snapshots
+# Migration candidate — provider Admin Usage/Costs snapshots (corrigée)
 
 | Champ | Valeur |
 |---|---|
 | Statut | **CANDIDATE — NOT APPLIED** |
-| Gate | GO Morris migration structurante (mandat §5 / §10.5) |
-| Motif | Persistance idempotente des agrégats fournisseur pour rapprochement FinOps |
+| Gate | **G-PROVIDER-SNAPSHOT-MIGRATION — MORRIS GO REQUIRED** |
+| Motif | Persistance idempotente des *results* fournisseur (pas un second ledger métier) |
 
-## Besoin
+## Contrat de données
 
-Le collecteur Admin (`provider-admin-usage-collector.ts`) maintient aujourd’hui une vue **in-process** pour tests et readiness. Une représentation PostgreSQL distincte du ledger `provider_usage_observations` est nécessaire pour :
+Réponse Usage/Costs = `page.data[]` buckets `{start_time,end_time,results[]}`.
+Chaque **result** devient une ligne snapshot (surface = `result.object`).
 
-- survie au redémarrage ;
-- fraîcheur consultable par l’UI FinOps ;
-- idempotence multi-collecte.
-
-Ce n’est **pas** un second ledger métier.
-
-## Schéma minimal proposé
+## Schéma SQL proposé (additif DEV)
 
 ```sql
 -- CANDIDATE ONLY — do not apply without GO.
+-- Number/name must follow next available migration in web/src/db/migrations/.
+
 CREATE TABLE IF NOT EXISTS provider_admin_usage_snapshots (
   id uuid PRIMARY KEY,
   collected_at timestamptz NOT NULL,
   collection_id text NOT NULL,
-  source text NOT NULL, -- openai.organization.usage | openai.organization.costs
+  source_endpoint text NOT NULL,
+  surface_object text NOT NULL,
   organization_scope text NOT NULL,
   interval_start_utc timestamptz NOT NULL,
   interval_end_utc timestamptz NOT NULL,
-  granularity text NOT NULL, -- hour | day
-  dimensions_json jsonb NOT NULL DEFAULT '{}'::jsonb,
-  unit text NOT NULL,
+  CHECK (interval_end_utc > interval_start_utc),
+  granularity text NOT NULL CHECK (granularity IN ('1m','1h','1d')),
+  project_id text,
+  api_key_id text,
+  user_id text,
+  model text,
+  line_item text,
+  api_source text,
+  input_tokens bigint,
+  output_tokens bigint,
+  input_cached_tokens bigint,
+  num_model_requests integer,
+  num_requests integer,
+  amount numeric(24, 10),
   currency text,
-  value numeric(24, 10) NOT NULL,
-  completeness text NOT NULL, -- complete | partial
-  schema_version text NOT NULL DEFAULT '1',
-  UNIQUE (
-    source,
+  completeness text NOT NULL CHECK (completeness IN ('complete','partial')),
+  schema_version text NOT NULL DEFAULT '2'
+);
+
+-- Idempotent uniqueness: NULLS NOT DISTINCT (PG 15+) so nullable dims collide correctly.
+CREATE UNIQUE INDEX IF NOT EXISTS provider_admin_usage_snapshots_canon_uidx
+  ON provider_admin_usage_snapshots (
+    source_endpoint,
+    surface_object,
     organization_scope,
     interval_start_utc,
     interval_end_utc,
     granularity,
-    unit,
-    currency,
-    dimensions_json
-  )
-);
+    project_id,
+    api_key_id,
+    user_id,
+    model,
+    line_item,
+    api_source
+  ) NULLS NOT DISTINCT;
 
 CREATE TABLE IF NOT EXISTS provider_admin_collection_runs (
   collection_id text PRIMARY KEY,
@@ -53,15 +68,23 @@ CREATE TABLE IF NOT EXISTS provider_admin_collection_runs (
   finished_at timestamptz,
   status text NOT NULL,
   pages_fetched integer NOT NULL DEFAULT 0,
+  path text NOT NULL,
   limits_json jsonb NOT NULL DEFAULT '[]'::jsonb,
   last_error text
 );
+
+-- Access: revoke from app role used by Nora; grant only to collector role (DEV).
 ```
 
-## Transition
+## Rollback privilégié
 
-1. GO migration DEV only.
-2. Apply additive migration.
-3. Brancher repository PG derrière le collecteur.
-4. Ne pas backfill inventé.
-5. Rollback = stop collect + drop tables si jamais écrites en RECETTE (RECETTE non touchée ici).
+1. Arrêt du collecteur isolé.
+2. Désactivation de la lecture snapshots dans FinOps.
+3. **Pas de DROP TABLE** automatique sur RECETTE/STABLE.
+
+## Justification vs v1
+
+- surface_endpoint + surface_object dans la clé ;
+- dimensions nullables avec `NULLS NOT DISTINCT` ;
+- métriques absentes = NULL (jamais 0 inventé) ;
+- costs amount en `numeric`, pas float.

@@ -1,17 +1,24 @@
 /**
- * Macro-lot 1 — independent OpenAI Admin Usage & Costs collector.
+ * Provider Admin Usage & Costs collector — isolated from Nora.
  *
- * Isolated from Nora runtime:
- * - Separate secret env: OPENAI_ADMIN_KEY (never project key / never browser)
- * - Read-only GET allowlist only
- * - Failure never blocks cognitive operations
+ * Contract (openai@7.50 / Admin Usage API):
+ *   page.data[] = buckets { object:"bucket", start_time, end_time, results[] }
+ *   each result has object:"organization.usage.*.result" | "organization.costs.result"
  *
- * Without secret or without GO for LIVE Admin calls:
- *   status = BLOCKED / NOT_LIVE_PROVEN
+ * Paths (SDK):
+ *   GET /organization/usage/completions|embeddings|…|web_search_calls|decisions
+ *   GET /organization/costs
+ *   NO /organization/usage/responses
  *
- * Persistence of provider snapshots requires a migration GO (see as-built).
- * This module keeps an in-process idempotent view for tests + readiness.
+ * Secret: never read by Next/Nora product paths. Only the isolated collector
+ * process may load OPENAI_ADMIN_KEY (see provider-admin-http-transport.ts).
  */
+
+import {
+  decimalAdd,
+  decimalFromNumberLike,
+  decimalSub,
+} from "./decimal-money";
 
 export type AdminCollectorStatus =
   | "READY"
@@ -21,17 +28,38 @@ export type AdminCollectorStatus =
   | "ERROR"
   | "IDLE";
 
-export type AdminUsageBucket = {
-  /** Stable reconciliation key components */
-  source: "openai.organization.usage" | "openai.organization.costs";
+export type AdminMetricPresence = "MEASURED" | "ABSENT" | "INVALID";
+
+export type AdminMetric = {
+  presence: AdminMetricPresence;
+  /** Decimal/integer string when MEASURED; never invent "0" for ABSENT. */
+  value: string | null;
+};
+
+export type AdminUsageSnapshot = {
+  sourceEndpoint: string;
+  surfaceObject: string;
   organizationScope: string;
   intervalStartUtc: string;
   intervalEndUtc: string;
-  granularity: "hour" | "day";
-  dimensions: Record<string, string | null>;
-  unit: string;
-  currency: string | null;
-  value: string; // decimal string — never float money math at boundaries
+  granularity: "1m" | "1h" | "1d";
+  dimensions: {
+    project_id: string | null;
+    api_key_id: string | null;
+    user_id: string | null;
+    model: string | null;
+    line_item: string | null;
+    api_source: string | null;
+  };
+  metrics: {
+    input_tokens: AdminMetric;
+    output_tokens: AdminMetric;
+    input_cached_tokens: AdminMetric;
+    num_model_requests: AdminMetric;
+    num_requests: AdminMetric;
+    amount: AdminMetric;
+    currency: AdminMetric;
+  };
   completeness: "complete" | "partial";
   collectedAtUtc: string;
   collectionId: string;
@@ -41,7 +69,7 @@ export type AdminCollectionResult = {
   status: AdminCollectorStatus;
   collectionId: string;
   collectedAtUtc: string;
-  buckets: AdminUsageBucket[];
+  snapshots: AdminUsageSnapshot[];
   pagesFetched: number;
   limits: string[];
   lastError: string | null;
@@ -59,121 +87,319 @@ export type AdminHttpTransport = (input: {
 }>;
 
 export type AdminCollectorConfig = {
-  /** Never log this value. */
+  /** Present only in isolated collector process — never in Nora/Next. */
   adminApiKey: string | null;
   organizationScope: string;
-  /** Explicit LIVE gate — false under initial GO. */
   liveAdminCallsAuthorized: boolean;
   transport?: AdminHttpTransport;
 };
 
-const ALLOWED_PATHS = new Set([
-  "/v1/organization/usage/completions",
-  "/v1/organization/usage/responses",
-  "/v1/organization/usage/embeddings",
-  "/v1/organization/usage/audio_speeches",
-  "/v1/organization/usage/audio_transcriptions",
-  "/v1/organization/usage/vector_stores",
-  "/v1/organization/usage/moderations",
-  "/v1/organization/usage/images",
-  "/v1/organization/costs",
-]);
+/** Paths confirmed in openai@7.50 SDK admin.organization.usage.* */
+export const ADMIN_USAGE_ALLOWED_PATHS = Object.freeze([
+  "/organization/usage/completions",
+  "/organization/usage/embeddings",
+  "/organization/usage/moderations",
+  "/organization/usage/images",
+  "/organization/usage/audio_speeches",
+  "/organization/usage/audio_transcriptions",
+  "/organization/usage/vector_stores",
+  "/organization/usage/code_interpreter_sessions",
+  "/organization/usage/file_search_calls",
+  "/organization/usage/web_search_calls",
+  "/organization/usage/decisions",
+  "/organization/costs",
+] as const);
 
-/** In-process snapshot store — NOT a second ledger. Product PG requires migration GO. */
-const snapshotByKey = new Map<string, AdminUsageBucket>();
-let lastSuccessfulCollection: {
+const ALLOWED = new Set<string>(ADMIN_USAGE_ALLOWED_PATHS);
+
+const snapshotByKey = new Map<string, AdminUsageSnapshot>();
+let lastAttempt: {
   atUtc: string;
   collectionId: string;
   status: AdminCollectorStatus;
+  error: string | null;
+} | null = null;
+let lastCompleteSuccess: {
+  atUtc: string;
+  collectionId: string;
 } | null = null;
 
 export function resetAdminCollectorStateForTests(): void {
   snapshotByKey.clear();
-  lastSuccessfulCollection = null;
+  lastAttempt = null;
+  lastCompleteSuccess = null;
 }
 
 export function getAdminCollectorFreshness(): {
+  lastAttemptAtUtc: string | null;
   lastSuccessAtUtc: string | null;
   lastCollectionId: string | null;
   status: AdminCollectorStatus;
-  bucketCount: number;
+  snapshotCount: number;
+  /** Product-safe: never exposes whether a secret exists in process env. */
+  secretReadableByProduct: false;
 } {
   return {
-    lastSuccessAtUtc: lastSuccessfulCollection?.atUtc ?? null,
-    lastCollectionId: lastSuccessfulCollection?.collectionId ?? null,
-    status: lastSuccessfulCollection?.status ?? "IDLE",
-    bucketCount: snapshotByKey.size,
+    lastAttemptAtUtc: lastAttempt?.atUtc ?? null,
+    lastSuccessAtUtc: lastCompleteSuccess?.atUtc ?? null,
+    lastCollectionId:
+      lastCompleteSuccess?.collectionId ?? lastAttempt?.collectionId ?? null,
+    status: lastAttempt?.status ?? "IDLE",
+    snapshotCount: snapshotByKey.size,
+    secretReadableByProduct: false,
   };
 }
 
-export function listAdminCollectorBuckets(): AdminUsageBucket[] {
+export function listAdminCollectorSnapshots(): AdminUsageSnapshot[] {
   return [...snapshotByKey.values()];
 }
 
-export function resolveAdminCollectorConfig(
-  env: NodeJS.ProcessEnv = process.env,
-): AdminCollectorConfig {
-  const key = (env.OPENAI_ADMIN_KEY ?? "").trim() || null;
-  const live =
-    (env.SFIA_ADMIN_USAGE_LIVE ?? "").trim() === "1" &&
-    (env.STUDIO_LANE ?? "").trim().toUpperCase() === "DEV";
+/** @deprecated alias — prefer listAdminCollectorSnapshots */
+export function listAdminCollectorBuckets(): AdminUsageSnapshot[] {
+  return listAdminCollectorSnapshots();
+}
+
+/**
+ * Product/Next must call this — never loads OPENAI_ADMIN_KEY.
+ * Secret presence is unknown to the product runtime.
+ */
+export function resolveProductAdminCollectorView(): {
+  organizationScope: string;
+  freshness: ReturnType<typeof getAdminCollectorFreshness>;
+} {
   return {
-    adminApiKey: key,
     organizationScope:
-      (env.SFIA_OPENAI_ORG_SCOPE ?? "org:unspecified").trim() ||
+      (process.env.SFIA_OPENAI_ORG_SCOPE ?? "org:unspecified").trim() ||
       "org:unspecified",
-    liveAdminCallsAuthorized: live,
+    freshness: getAdminCollectorFreshness(),
   };
 }
 
-function bucketKey(b: AdminUsageBucket): string {
-  const dims = Object.keys(b.dimensions)
-    .sort()
-    .map((k) => `${k}=${b.dimensions[k] ?? ""}`)
-    .join("&");
+/**
+ * Isolated collector process only. Must not be imported by Nora routes.
+ */
+export function resolveIsolatedAdminCollectorConfig(input: {
+  adminApiKey: string | null;
+  liveAuthorized: boolean;
+  organizationScope?: string;
+  transport?: AdminHttpTransport;
+}): AdminCollectorConfig {
+  return {
+    adminApiKey: input.adminApiKey,
+    organizationScope:
+      input.organizationScope?.trim() ||
+      (process.env.SFIA_OPENAI_ORG_SCOPE ?? "org:unspecified").trim() ||
+      "org:unspecified",
+    liveAdminCallsAuthorized: input.liveAuthorized,
+    transport: input.transport,
+  };
+}
+
+function metricFromUnknown(v: unknown): AdminMetric {
+  if (v === undefined || v === null) {
+    return { presence: "ABSENT", value: null };
+  }
+  if (typeof v === "number") {
+    if (!Number.isFinite(v)) return { presence: "INVALID", value: null };
+    return { presence: "MEASURED", value: String(Math.trunc(v)) };
+  }
+  if (typeof v === "string") {
+    const d = decimalFromNumberLike(v);
+    if (d == null) return { presence: "INVALID", value: null };
+    return { presence: "MEASURED", value: d };
+  }
+  return { presence: "INVALID", value: null };
+}
+
+function amountMetric(result: Record<string, unknown>): {
+  amount: AdminMetric;
+  currency: AdminMetric;
+} {
+  const amountObj =
+    result.amount && typeof result.amount === "object"
+      ? (result.amount as Record<string, unknown>)
+      : null;
+  if (!amountObj) {
+    return {
+      amount: { presence: "ABSENT", value: null },
+      currency: { presence: "ABSENT", value: null },
+    };
+  }
+  const value = decimalFromNumberLike(amountObj.value);
+  const currency =
+    typeof amountObj.currency === "string" ? amountObj.currency.toLowerCase() : null;
+  return {
+    amount:
+      value != null
+        ? { presence: "MEASURED", value }
+        : amountObj.value === undefined || amountObj.value === null
+          ? { presence: "ABSENT", value: null }
+          : { presence: "INVALID", value: null },
+    currency:
+      currency != null
+        ? { presence: "MEASURED", value: currency }
+        : { presence: "ABSENT", value: null },
+  };
+}
+
+function dim(v: unknown): string | null {
+  if (v === undefined || v === null) return null;
+  if (typeof v === "string") return v;
+  return null;
+}
+
+export function snapshotKey(s: AdminUsageSnapshot): string {
+  const d = s.dimensions;
   return [
-    b.source,
-    b.organizationScope,
-    b.intervalStartUtc,
-    b.intervalEndUtc,
-    b.granularity,
-    b.unit,
-    b.currency ?? "",
-    dims,
+    s.sourceEndpoint,
+    s.surfaceObject,
+    s.organizationScope,
+    s.intervalStartUtc,
+    s.intervalEndUtc,
+    s.granularity,
+    d.project_id ?? "∅",
+    d.api_key_id ?? "∅",
+    d.user_id ?? "∅",
+    d.model ?? "∅",
+    d.line_item ?? "∅",
+    d.api_source ?? "∅",
   ].join("|");
 }
 
+function granularityFromQuery(q: Record<string, string>): "1m" | "1h" | "1d" {
+  const w = q.bucket_width;
+  if (w === "1m" || w === "1h" || w === "1d") return w;
+  return "1d";
+}
+
+/**
+ * Parse official page shape: data[] buckets with nested results[].
+ */
+export function parseAdminUsagePage(input: {
+  path: string;
+  json: unknown;
+  organizationScope: string;
+  collectionId: string;
+  collectedAtUtc: string;
+  granularity: "1m" | "1h" | "1d";
+}): { snapshots: AdminUsageSnapshot[]; nextPage: string | null; limits: string[] } {
+  const limits: string[] = [];
+  const body = input.json as {
+    object?: string;
+    data?: unknown[];
+    has_more?: boolean;
+    next_page?: string | null;
+  } | null;
+  if (!body || typeof body !== "object") {
+    return { snapshots: [], nextPage: null, limits: ["PAGE_BODY_INVALID"] };
+  }
+  if (body.object != null && body.object !== "page") {
+    limits.push("PAGE_OBJECT_UNEXPECTED");
+  }
+  const data = Array.isArray(body.data) ? body.data : [];
+  const snapshots: AdminUsageSnapshot[] = [];
+
+  for (const bucket of data) {
+    if (!bucket || typeof bucket !== "object") {
+      limits.push("BUCKET_INVALID");
+      continue;
+    }
+    const b = bucket as Record<string, unknown>;
+    if (b.object != null && b.object !== "bucket") {
+      limits.push("BUCKET_OBJECT_UNEXPECTED");
+    }
+    if (typeof b.start_time !== "number" || typeof b.end_time !== "number") {
+      limits.push("BUCKET_INTERVAL_INVALID");
+      continue;
+    }
+    const intervalStartUtc = new Date(b.start_time * 1000).toISOString();
+    const intervalEndUtc = new Date(b.end_time * 1000).toISOString();
+    const results = Array.isArray(b.results) ? b.results : [];
+    if (results.length === 0) {
+      // Empty bucket is valid — no invented zeros.
+      continue;
+    }
+    for (const result of results) {
+      if (!result || typeof result !== "object") {
+        limits.push("RESULT_INVALID");
+        continue;
+      }
+      const r = result as Record<string, unknown>;
+      const surfaceObject =
+        typeof r.object === "string" ? r.object : "unknown.result";
+      const { amount, currency } = amountMetric(r);
+      snapshots.push({
+        sourceEndpoint: input.path,
+        surfaceObject,
+        organizationScope: input.organizationScope,
+        intervalStartUtc,
+        intervalEndUtc,
+        granularity: input.granularity,
+        dimensions: {
+          project_id: dim(r.project_id),
+          api_key_id: dim(r.api_key_id),
+          user_id: dim(r.user_id),
+          model: dim(r.model),
+          line_item: dim(r.line_item),
+          api_source: dim(r.api_source),
+        },
+        metrics: {
+          input_tokens: metricFromUnknown(r.input_tokens),
+          output_tokens: metricFromUnknown(r.output_tokens),
+          input_cached_tokens: metricFromUnknown(r.input_cached_tokens),
+          num_model_requests: metricFromUnknown(r.num_model_requests),
+          num_requests: metricFromUnknown(r.num_requests),
+          amount,
+          currency,
+        },
+        completeness: "complete",
+        collectedAtUtc: input.collectedAtUtc,
+        collectionId: input.collectionId,
+      });
+    }
+  }
+
+  const nextPage =
+    body.has_more && typeof body.next_page === "string" ? body.next_page : null;
+  return { snapshots, nextPage, limits };
+}
+
+export function upsertAdminSnapshots(
+  snapshots: AdminUsageSnapshot[],
+): void {
+  for (const s of snapshots) {
+    const key = snapshotKey(s);
+    const prev = snapshotByKey.get(key);
+    if (prev?.completeness === "complete" && s.completeness === "partial") {
+      continue;
+    }
+    snapshotByKey.set(key, s);
+  }
+}
+
 function assertAllowedPath(path: string): void {
-  if (!ALLOWED_PATHS.has(path)) {
+  if (!ALLOWED.has(path)) {
     throw new Error(`ADMIN_PATH_NOT_ALLOWLISTED:${path}`);
   }
 }
 
-/**
- * Substituted-transport page reader — representative of Usage/Costs pagination.
- * Real HTTP transport is only used when secret + LIVE GO present.
- */
 export async function collectAdminUsagePage(input: {
   config: AdminCollectorConfig;
   path: string;
   query: Record<string, string>;
   collectionId: string;
 }): Promise<{
-  buckets: AdminUsageBucket[];
+  snapshots: AdminUsageSnapshot[];
   nextPage: string | null;
-  partial: boolean;
+  limits: string[];
 }> {
   assertAllowedPath(input.path);
-  if (!input.config.adminApiKey) {
-    throw new Error("BLOCKED_NO_SECRET");
-  }
+  if (!input.config.adminApiKey) throw new Error("BLOCKED_NO_SECRET");
   if (!input.config.liveAdminCallsAuthorized && !input.config.transport) {
     throw new Error("BLOCKED_NO_LIVE_GO");
   }
   const transport = input.config.transport;
-  if (!transport) {
-    throw new Error("BLOCKED_NO_TRANSPORT");
-  }
+  if (!transport) throw new Error("BLOCKED_NO_TRANSPORT");
 
   const res = await transport({
     method: "GET",
@@ -184,132 +410,22 @@ export async function collectAdminUsagePage(input: {
       "Content-Type": "application/json",
     },
   });
-
-  if (res.status === 429) {
-    throw new Error("RATE_LIMITED");
-  }
+  if (res.status === 429) throw new Error("RATE_LIMITED");
   if (res.status === 401 || res.status === 403) {
     throw new Error("ADMIN_PERMISSION_DENIED");
   }
   if (res.status < 200 || res.status >= 300) {
     throw new Error(`ADMIN_HTTP_${res.status}`);
   }
-
-  const body = (res.json ?? {}) as {
-    data?: unknown[];
-    has_more?: boolean;
-    next_page?: string | null;
-  };
-  const rows = Array.isArray(body.data) ? body.data : [];
   const collectedAtUtc = new Date().toISOString();
-  const source =
-    input.path.endsWith("/costs")
-      ? ("openai.organization.costs" as const)
-      : ("openai.organization.usage" as const);
-
-  const buckets: AdminUsageBucket[] = [];
-  for (const row of rows) {
-    if (!row || typeof row !== "object") continue;
-    const r = row as Record<string, unknown>;
-    const start =
-      typeof r.start_time === "number"
-        ? new Date(r.start_time * 1000).toISOString()
-        : typeof r.start_time === "string"
-          ? r.start_time
-          : input.query.start_time
-            ? new Date(Number(input.query.start_time) * 1000).toISOString()
-            : collectedAtUtc;
-    const end =
-      typeof r.end_time === "number"
-        ? new Date(r.end_time * 1000).toISOString()
-        : typeof r.end_time === "string"
-          ? r.end_time
-          : start;
-    const amount =
-      r.amount && typeof r.amount === "object"
-        ? (r.amount as Record<string, unknown>)
-        : null;
-    const valueRaw =
-      amount?.value ?? r.value ?? r.input_tokens ?? r.num_model_requests ?? 0;
-    const value =
-      typeof valueRaw === "number" || typeof valueRaw === "string"
-        ? String(valueRaw)
-        : "0";
-    const currency =
-      typeof amount?.currency === "string"
-        ? amount.currency
-        : source === "openai.organization.costs"
-          ? "usd"
-          : null;
-    buckets.push({
-      source,
-      organizationScope: input.config.organizationScope,
-      intervalStartUtc: start,
-      intervalEndUtc: end,
-      granularity: input.query.bucket_width === "1h" ? "hour" : "day",
-      dimensions: {
-        project_id:
-          typeof r.project_id === "string"
-            ? r.project_id
-            : typeof (r.project_id as { value?: string } | null)?.value ===
-                "string"
-              ? (r.project_id as { value: string }).value
-              : null,
-        api_key_id:
-          typeof r.api_key_id === "string"
-            ? r.api_key_id
-            : typeof (r.api_key_id as { value?: string } | null)?.value ===
-                "string"
-              ? (r.api_key_id as { value: string }).value
-              : null,
-        model: typeof r.model === "string" ? r.model : null,
-      },
-      unit:
-        source === "openai.organization.costs"
-          ? "currency"
-          : typeof r.usage_type === "string"
-            ? r.usage_type
-            : "tokens",
-      currency,
-      value,
-      completeness: "complete",
-      collectedAtUtc,
-      collectionId: input.collectionId,
-    });
-  }
-
-  return {
-    buckets,
-    nextPage:
-      body.has_more && typeof body.next_page === "string"
-        ? body.next_page
-        : null,
-    partial: false,
-  };
-}
-
-/**
- * Idempotent upsert: same bucket key replaces (does not add).
- * Partial collections must not wipe prior complete buckets.
- */
-export function upsertAdminBuckets(
-  buckets: AdminUsageBucket[],
-  opts?: { replaceIncompleteOnly?: boolean },
-): void {
-  for (const b of buckets) {
-    const key = bucketKey(b);
-    const prev = snapshotByKey.get(key);
-    if (
-      prev &&
-      prev.completeness === "complete" &&
-      b.completeness === "partial" &&
-      opts?.replaceIncompleteOnly !== false
-    ) {
-      // Do not overwrite complete with partial.
-      continue;
-    }
-    snapshotByKey.set(key, b);
-  }
+  return parseAdminUsagePage({
+    path: input.path,
+    json: res.json,
+    organizationScope: input.config.organizationScope,
+    collectionId: input.collectionId,
+    collectedAtUtc,
+    granularity: granularityFromQuery(input.query),
+  });
 }
 
 export async function runAdminCollection(input: {
@@ -323,30 +439,44 @@ export async function runAdminCollection(input: {
   const limits: string[] = [];
 
   if (!input.config.adminApiKey) {
-    return {
+    const r: AdminCollectionResult = {
       status: "BLOCKED_NO_SECRET",
       collectionId,
       collectedAtUtc,
-      buckets: [],
+      snapshots: [],
       pagesFetched: 0,
       limits: ["OPENAI_ADMIN_KEY_ABSENT"],
       lastError: null,
     };
+    lastAttempt = {
+      atUtc: collectedAtUtc,
+      collectionId,
+      status: r.status,
+      error: null,
+    };
+    return r;
   }
   if (!input.config.liveAdminCallsAuthorized && !input.config.transport) {
-    return {
+    const r: AdminCollectionResult = {
       status: "BLOCKED_NO_LIVE_GO",
       collectionId,
       collectedAtUtc,
-      buckets: [],
+      snapshots: [],
       pagesFetched: 0,
       limits: ["SFIA_ADMIN_USAGE_LIVE_REQUIRED"],
       lastError: null,
     };
+    lastAttempt = {
+      atUtc: collectedAtUtc,
+      collectionId,
+      status: r.status,
+      error: null,
+    };
+    return r;
   }
 
   const maxPages = Math.max(1, Math.min(50, input.maxPages ?? 10));
-  const all: AdminUsageBucket[] = [];
+  const all: AdminUsageSnapshot[] = [];
   let page: string | null = null;
   let pagesFetched = 0;
   let partial = false;
@@ -363,8 +493,8 @@ export async function runAdminCollection(input: {
         collectionId,
       });
       pagesFetched += 1;
-      all.push(...result.buckets);
-      if (result.partial) partial = true;
+      all.push(...result.snapshots);
+      limits.push(...result.limits);
       page = result.nextPage;
       if (!page) break;
       if (i === maxPages - 1 && page) {
@@ -374,70 +504,62 @@ export async function runAdminCollection(input: {
     }
 
     if (partial) {
-      for (const b of all) b.completeness = "partial";
-      // Upsert partials without wiping prior completes for same keys.
-      upsertAdminBuckets(all);
-      lastSuccessfulCollection = {
+      for (const s of all) s.completeness = "partial";
+      upsertAdminSnapshots(all);
+      lastAttempt = {
         atUtc: collectedAtUtc,
         collectionId,
         status: "PARTIAL",
+        error: null,
       };
       return {
         status: "PARTIAL",
         collectionId,
         collectedAtUtc,
-        buckets: all,
+        snapshots: all,
         pagesFetched,
-        limits,
+        limits: [...new Set(limits)],
         lastError: null,
       };
     }
 
-    upsertAdminBuckets(all);
-    lastSuccessfulCollection = {
+    upsertAdminSnapshots(all);
+    lastAttempt = {
       atUtc: collectedAtUtc,
       collectionId,
       status: "READY",
+      error: null,
     };
+    lastCompleteSuccess = { atUtc: collectedAtUtc, collectionId };
     return {
       status: "READY",
       collectionId,
       collectedAtUtc,
-      buckets: all,
+      snapshots: all,
       pagesFetched,
-      limits,
+      limits: [...new Set(limits)],
       lastError: null,
     };
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);
-    if (msg === "BLOCKED_NO_SECRET") {
-      return {
-        status: "BLOCKED_NO_SECRET",
-        collectionId,
-        collectedAtUtc,
-        buckets: [],
-        pagesFetched,
-        limits,
-        lastError: msg,
-      };
-    }
-    if (msg === "BLOCKED_NO_LIVE_GO" || msg === "BLOCKED_NO_TRANSPORT") {
-      return {
-        status: "BLOCKED_NO_LIVE_GO",
-        collectionId,
-        collectedAtUtc,
-        buckets: [],
-        pagesFetched,
-        limits,
-        lastError: msg,
-      };
-    }
-    // Error must not erase prior complete snapshots.
+    const status: AdminCollectorStatus =
+      msg === "BLOCKED_NO_SECRET"
+        ? "BLOCKED_NO_SECRET"
+        : msg === "BLOCKED_NO_LIVE_GO" || msg === "BLOCKED_NO_TRANSPORT"
+          ? "BLOCKED_NO_LIVE_GO"
+          : "ERROR";
+    lastAttempt = {
+      atUtc: collectedAtUtc,
+      collectionId,
+      status,
+      error: msg,
+    };
+    // Never wipe prior complete snapshots on error.
     return {
-      status: "ERROR",
+      status,
       collectionId,
       collectedAtUtc,
-      buckets: [],
+      snapshots: [],
       pagesFetched,
       limits,
       lastError: msg,
@@ -445,37 +567,128 @@ export async function runAdminCollection(input: {
   }
 }
 
-/**
- * Compare Studio estimated USD (decimal string) to provider cost aggregate
- * only when scopes are comparable.
- */
-export function reconcileFinOpsCosts(input: {
-  studioEstimatedUsd: string;
-  providerCostUsd: string | null;
+export type FinOpsScopeEvidence = {
+  organizationMatches: boolean;
+  projectIdsOverlap: boolean;
+  apiKeyIdsOverlap: boolean;
+  periodOverlap: boolean;
+  currencyMatches: boolean;
+  surfacesRequested: string[];
+  /** Explicit evidence — never a lone config flag. */
+  evidenceNotes: string[];
+};
+
+export function assessFinOpsComparability(
+  evidence: FinOpsScopeEvidence,
+): {
   comparable: boolean;
-  reasonIfNot?: string;
-}): {
   status: "COMPARABLE" | "NON_COMPARABLE" | "PARTIAL";
+  limits: string[];
+} {
+  const limits: string[] = [...evidence.evidenceNotes];
+  if (!evidence.organizationMatches) limits.push("ORG_MISMATCH");
+  if (!evidence.periodOverlap) limits.push("PERIOD_NO_OVERLAP");
+  if (!evidence.currencyMatches) limits.push("CURRENCY_MISMATCH");
+  if (!evidence.projectIdsOverlap && !evidence.apiKeyIdsOverlap) {
+    limits.push("PROJECT_OR_KEY_SCOPE_UNPROVEN");
+  }
+  const hardFail =
+    !evidence.organizationMatches ||
+    !evidence.periodOverlap ||
+    !evidence.currencyMatches ||
+    (!evidence.projectIdsOverlap && !evidence.apiKeyIdsOverlap);
+  if (hardFail) {
+    return { comparable: false, status: "NON_COMPARABLE", limits };
+  }
+  return { comparable: true, status: "COMPARABLE", limits };
+}
+
+export function sumMeasuredCostUsd(
+  snapshots: AdminUsageSnapshot[],
+  filter: {
+    intervalStartUtc?: string;
+    intervalEndUtc?: string;
+    projectId?: string | null;
+  },
+): { total: string | null; counted: number; limits: string[] } {
+  const limits: string[] = [];
+  let total: string | null = null;
+  let counted = 0;
+  for (const s of snapshots) {
+    if (s.surfaceObject !== "organization.costs.result") continue;
+    if (
+      filter.intervalStartUtc &&
+      s.intervalEndUtc <= filter.intervalStartUtc
+    ) {
+      continue;
+    }
+    if (
+      filter.intervalEndUtc &&
+      s.intervalStartUtc >= filter.intervalEndUtc
+    ) {
+      continue;
+    }
+    if (
+      filter.projectId &&
+      s.dimensions.project_id != null &&
+      s.dimensions.project_id !== filter.projectId
+    ) {
+      continue;
+    }
+    if (s.metrics.amount.presence !== "MEASURED" || !s.metrics.amount.value) {
+      if (s.metrics.amount.presence === "ABSENT") limits.push("COST_AMOUNT_ABSENT");
+      if (s.metrics.amount.presence === "INVALID") limits.push("COST_AMOUNT_INVALID");
+      continue;
+    }
+    if (
+      s.metrics.currency.presence === "MEASURED" &&
+      s.metrics.currency.value != null &&
+      s.metrics.currency.value !== "usd"
+    ) {
+      limits.push("NON_USD_CURRENCY_SKIPPED");
+      continue;
+    }
+    total = total == null ? s.metrics.amount.value : decimalAdd(total, s.metrics.amount.value);
+    if (total == null) {
+      limits.push("DECIMAL_ADD_FAILED");
+      return { total: null, counted, limits };
+    }
+    counted += 1;
+  }
+  return { total, counted, limits: [...new Set(limits)] };
+}
+
+export function reconcileFinOpsCosts(input: {
+  studioEstimatedUsd: string | null;
+  providerCostUsd: string | null;
+  scope: FinOpsScopeEvidence;
+}): {
+  status: "COMPARABLE" | "NON_COMPARABLE" | "PARTIAL" | "UNAVAILABLE";
   deltaUsd: string | null;
   limits: string[];
 } {
-  if (!input.comparable || input.providerCostUsd == null) {
+  if (input.studioEstimatedUsd == null || input.providerCostUsd == null) {
+    return {
+      status: "UNAVAILABLE",
+      deltaUsd: null,
+      limits: ["STUDIO_OR_PROVIDER_ABSENT"],
+    };
+  }
+  const scope = assessFinOpsComparability(input.scope);
+  if (!scope.comparable) {
     return {
       status: "NON_COMPARABLE",
       deltaUsd: null,
-      limits: [input.reasonIfNot ?? "SCOPE_NOT_COMPARABLE"],
+      limits: scope.limits,
     };
   }
-  const a = Number(input.studioEstimatedUsd);
-  const b = Number(input.providerCostUsd);
-  if (!Number.isFinite(a) || !Number.isFinite(b)) {
+  const delta = decimalSub(input.providerCostUsd, input.studioEstimatedUsd);
+  if (delta == null) {
     return {
       status: "PARTIAL",
       deltaUsd: null,
-      limits: ["DECIMAL_PARSE_FAILED"],
+      limits: ["DECIMAL_PARSE_FAILED", ...scope.limits],
     };
   }
-  // Fixed 10 dp string — display layer; not exact work attribution.
-  const delta = (b - a).toFixed(10);
-  return { status: "COMPARABLE", deltaUsd: delta, limits: [] };
+  return { status: "COMPARABLE", deltaUsd: delta, limits: scope.limits };
 }

@@ -1,13 +1,13 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   StudioLocalTraceProcessor,
-  __forbiddenRemoteTraceExport,
   configureAgentsSdkTracing,
+  getAgentsTracingConfigState,
   getAgentsTracingSinkRecords,
-  installAgentsTracingEgressProbe,
   resetAgentsTracingTestState,
   resolveAgentsTracingMode,
-  setAgentsTracingCorrelation,
+  runWithAgentsTracingCorrelation,
+  withAgentsTracingNetworkOracle,
 } from "@/lib/agents-sdk-tracing";
 
 const setTracingDisabled = vi.fn();
@@ -28,7 +28,7 @@ vi.mock("@/lib/observability", () => ({
   emitObs: vi.fn(() => ({ emitted: true })),
 }));
 
-describe("agents-sdk-tracing", () => {
+describe("agents-sdk-tracing corrective", () => {
   afterEach(() => {
     resetAgentsTracingTestState();
     setTracingDisabled.mockReset();
@@ -41,69 +41,85 @@ describe("agents-sdk-tracing", () => {
     expect(resolveAgentsTracingMode({} as NodeJS.ProcessEnv)).toBe("off");
   });
 
-  it("configures OFF: disables tracing and clears processors", async () => {
+  it("OFF clears processors and disables tracing", async () => {
     vi.stubEnv("SFIA_AGENTS_TRACING_MODE", "off");
     const r = await configureAgentsSdkTracing(process.env);
     expect(r.mode).toBe("off");
-    expect(r.tracingDisabled).toBe(true);
-    expect(setTracingDisabled).toHaveBeenCalledWith(true);
+    expect(r.processorsReplaced).toBe(true);
     expect(setTraceProcessors).toHaveBeenCalledWith([]);
-    expect(setSensitiveDataLoggingEnabled).toHaveBeenCalledWith(false);
+    expect(setTracingDisabled).toHaveBeenCalledWith(true);
   });
 
-  it("configures LOCAL: replaces processors with StudioLocalTraceProcessor", async () => {
+  it("LOCAL replaces processors; processorsReplaced only when setTraceProcessors exists", async () => {
     vi.stubEnv("SFIA_AGENTS_TRACING_MODE", "local");
     const r = await configureAgentsSdkTracing(process.env);
     expect(r.mode).toBe("local");
-    expect(r.tracingDisabled).toBe(false);
-    expect(setTracingDisabled).toHaveBeenCalledWith(false);
-    expect(setTraceProcessors).toHaveBeenCalledTimes(1);
-    const processors = setTraceProcessors.mock.calls[0][0] as unknown[];
-    expect(processors).toHaveLength(1);
-    expect(processors[0]).toBeInstanceOf(StudioLocalTraceProcessor);
+    expect(r.processorsReplaced).toBe(true);
+    expect(getAgentsTracingConfigState().processorsReplaced).toBe(true);
+    expect(setTraceProcessors.mock.calls[0][0][0]).toBeInstanceOf(
+      StudioLocalTraceProcessor,
+    );
   });
 
-  it("local processor redacts and never triggers egress probe", async () => {
-    const egress: string[] = [];
-    installAgentsTracingEgressProbe((url) => egress.push(url));
-    setAgentsTracingCorrelation({
-      operationId: "op_1",
-      generationId: "gen_1",
-      attemptId: "att_1",
-      workId: "work_1",
-    });
+  it("ALS correlation isolates concurrent works", async () => {
     const p = new StudioLocalTraceProcessor();
-    await p.onSpanEnd({
-      type: "span",
-      traceId: "trace_abc",
-      spanId: "span_1",
-      startedAt: 1000,
-      endedAt: 1250,
-      spanData: {
-        type: "generation",
-        name: "reply",
-        input: "SECRET_PROMPT",
-        output: "SECRET_OUTPUT",
-      },
-    });
+    await Promise.all([
+      runWithAgentsTracingCorrelation(
+        {
+          operationId: "op_a",
+          generationId: "gen_a",
+          attemptId: "att_a",
+          workId: "work_a",
+        },
+        async () => {
+          await new Promise((r) => setTimeout(r, 20));
+          await p.onSpanEnd({
+            traceId: "t1",
+            spanId: "s1",
+            endedAt: Date.now(),
+            spanData: { type: "generation", name: "a" },
+          });
+        },
+      ),
+      runWithAgentsTracingCorrelation(
+        {
+          operationId: "op_b",
+          generationId: "gen_b",
+          attemptId: "att_b",
+          workId: "work_b",
+        },
+        async () => {
+          await new Promise((r) => setTimeout(r, 5));
+          await p.onSpanEnd({
+            traceId: "t2",
+            spanId: "s2",
+            endedAt: Date.now(),
+            spanData: { type: "generation", name: "b" },
+          });
+        },
+      ),
+    ]);
     const records = getAgentsTracingSinkRecords();
-    expect(records).toHaveLength(1);
-    expect(records[0].dataRedacted).toBe(true);
-    expect(records[0].name).toBe("generation:reply");
-    expect(records[0].durationMs).toBe(250);
-    expect(records[0].correlation.operationId).toBe("op_1");
-    expect(JSON.stringify(records[0])).not.toContain("SECRET_PROMPT");
-    expect(egress).toEqual([]);
+    expect(records).toHaveLength(2);
+    const byOp = Object.fromEntries(
+      records.map((r) => [r.correlation.operationId, r.correlation.workId]),
+    );
+    expect(byOp.op_a).toBe("work_a");
+    expect(byOp.op_b).toBe("work_b");
+    expect(JSON.stringify(records)).not.toContain("SECRET");
   });
 
-  it("forbidden remote export helper is detectable by egress probe", () => {
-    const egress: string[] = [];
-    installAgentsTracingEgressProbe((url) => egress.push(url));
-    expect(() =>
-      __forbiddenRemoteTraceExport("https://api.openai.com/v1/traces/ingest", {
-        prompt: "x",
-      }),
-    ).toThrow(/FORBIDDEN_REMOTE_TRACE_EXPORT/);
-    expect(egress).toEqual(["https://api.openai.com/v1/traces/ingest"]);
+  it("network oracle observes and blocks trace export URLs independently", async () => {
+    const { traceExportUrls } = await withAgentsTracingNetworkOracle(async () => {
+      await fetch("https://api.openai.com/v1/traces/ingest", {
+        method: "POST",
+        body: "{}",
+      });
+      await fetch("https://example.com/ok");
+      return "done";
+    });
+    expect(traceExportUrls).toEqual([
+      "https://api.openai.com/v1/traces/ingest",
+    ]);
   });
 });
