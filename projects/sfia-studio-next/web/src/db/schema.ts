@@ -8,6 +8,9 @@ import {
   index,
   boolean,
   jsonb,
+  uuid,
+  bigint,
+  numeric,
 } from "drizzle-orm/pg-core";
 
 /** D1 — Studio pilot identity (internal stable id). */
@@ -1110,4 +1113,57 @@ export const cognitiveWorkCheckpoints = pgTable(
   ],
 );
 
-export const schemaRevision = "020_cognitive_work";
+/** E03 — durable FinOps provider usage observations (not cognitive_work operational rollup). */
+export const providerUsageObservations = pgTable(
+  "provider_usage_observations",
+  {
+    id: uuid("id").primaryKey(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    lane: text("lane"),
+    scopeId: text("scope_id"),
+    ownerPilotId: text("owner_pilot_id").references(() => pilots.id),
+    projectId: text("project_id").references(() => projects.id),
+    preparationId: text("preparation_id").references(() => preparations.id),
+    conversationId: text("conversation_id").references(() => conversations.id),
+    turnId: text("turn_id").references(() => conversationTurnCommands.id),
+    cognitiveWorkId: text("cognitive_work_id").references(() => cognitiveWorks.id),
+    segmentIndex: integer("segment_index"),
+    generationId: text("generation_id"),
+    operation: text("operation"),
+    attemptId: text("attempt_id"),
+    modelRequested: text("model_requested"),
+    modelApplied: text("model_applied"),
+    effortRequested: text("effort_requested"),
+    effortApplied: text("effort_applied"),
+    inputTokens: bigint("input_tokens", { mode: "number" }),
+    cachedInputTokens: bigint("cached_input_tokens", { mode: "number" }),
+    outputTokens: bigint("output_tokens", { mode: "number" }),
+    reasoningTokens: bigint("reasoning_tokens", { mode: "number" }),
+    totalTokens: bigint("total_tokens", { mode: "number" }),
+    providerRequests: integer("provider_requests"),
+    durationMs: integer("duration_ms"),
+    tariffVersion: text("tariff_version").notNull(),
+    estimatedCostUsd: numeric("estimated_cost_usd", { precision: 20, scale: 10 }).$type<
+      string | null
+    >(),
+    costCoverage: text("cost_coverage").notNull(),
+    status: text("status").notNull(),
+    granularity: text("granularity").notNull(),
+    providerResponseId: text("provider_response_id"),
+    idempotencyKey: text("idempotency_key").notNull(),
+    errorCategory: text("error_category"),
+    limitsJson: jsonb("limits_json").$type<string[]>().notNull().default([]),
+  },
+  (t) => [
+    uniqueIndex("provider_usage_observations_idempotency_uidx").on(t.idempotencyKey),
+    index("provider_usage_observations_scope_created_idx").on(
+      t.lane,
+      t.scopeId,
+      t.createdAt,
+    ),
+    index("provider_usage_observations_cognitive_work_idx").on(t.cognitiveWorkId),
+    index("provider_usage_observations_project_created_idx").on(t.projectId, t.createdAt),
+  ],
+);
+
+export const schemaRevision = "022_provider_usage_observations";

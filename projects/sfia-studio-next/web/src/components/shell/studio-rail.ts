@@ -279,6 +279,7 @@ export function resolvePersonalBreadcrumb(
   if (path.startsWith("/dev/sas-visual/resume")) return "Préparation reprise";
   if (path.startsWith("/dev/sas-visual/")) return "Nouvelle préparation";
   if (path.startsWith("/settings/integrations")) return "Intégrations";
+  if (path.startsWith("/settings/consumption")) return "Consommation et coûts";
   if (path.startsWith("/settings")) return "Paramètres";
   return null;
 }

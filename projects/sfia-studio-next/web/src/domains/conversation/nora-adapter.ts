@@ -25,6 +25,7 @@ import { isStudioError } from "@/lib/http-errors";
 import { fixtureSemanticQualify } from "./fixture-semantic-qualify";
 import { resolveProviderSimulatedQualification } from "./provider-simulated-qualification";
 import { extractProviderUsageFromRunResult } from "./provider-usage";
+import { recordNoraProviderUsageFromRunResult } from "./usage-accounting";
 import {
   NoraTurnQualificationAgentSchema,
   NoraTurnQualificationLiveOutputSchema,
@@ -75,6 +76,9 @@ export type NoraGenerateInput = {
     facts?: string[];
     pilotProvidedUrls?: string[];
   };
+  /** E03/E04 FinOps attribution when running inside a cognitive work segment. */
+  cognitiveWorkId?: string | null;
+  segmentIndex?: number | null;
 };
 
 export type NoraAttemptRecord = {
@@ -1127,7 +1131,8 @@ async function runLiveWithTools(
   const agent = new Agent({
     name: "Nora",
     instructions: QUALIFICATION_INSTRUCTIONS,
-    model: NORA_STUDY_MODEL,
+    // Model from admitted policy (catalog + admission) — not a second conductor.
+    model: policy.modelRequested,
     modelSettings: {
       reasoning: { effort: policy.effortRequested },
     },
@@ -1172,7 +1177,7 @@ async function runLiveWithTools(
       meta: {
         kind: "non_stream",
         maxTurns,
-        model_requested: NORA_STUDY_MODEL,
+        model_requested: policy.modelRequested,
         max_turns_note: "maxTurns≠maxProviderCalls",
         live_output_schema: "plain_omit_visual",
       },
@@ -1188,6 +1193,28 @@ async function runLiveWithTools(
       } as unknown as Parameters<typeof run>[2]);
 
       providerUsage = extractProviderUsageFromRunResult(result);
+      // E03/E04 — durable FinOps observation (idempotent; never invents zeros).
+      void recordNoraProviderUsageFromRunResult({
+        runResult: result,
+        status: "succeeded",
+        operation: "nora.generate_reply",
+        attemptId,
+        generationId,
+        cognitiveWorkId: input.cognitiveWorkId ?? null,
+        segmentIndex: input.segmentIndex ?? null,
+        conversationId: input.toolScope?.activityContext?.conversationId ?? null,
+        projectId: input.toolScope?.projectId ?? null,
+        preparationId: input.toolScope?.preparationId ?? null,
+        ownerPilotId:
+          input.toolScope?.pilotId ??
+          input.toolScope?.activityContext?.ownerPilotId ??
+          null,
+        modelRequested: policy.modelRequested,
+        effortRequested: policy.effortRequested,
+        callOrdinal: 0,
+      }).catch(() => {
+        /* persistence failure must not break cognitive path; coverage=uncertain via OBS */
+      });
 
       const maybeResult = result as {
         toTextStream?: (opts?: { compatibleWithNodeStreams?: boolean }) => AsyncIterable<string>;
@@ -1318,7 +1345,7 @@ async function runLiveWithTools(
           policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
         meta: {
           kind: "non_stream",
-          model_requested: NORA_STUDY_MODEL,
+          model_requested: policy.modelRequested,
           provider_contacted: contact,
           error_name: diag.error_name,
           error_name_stable: diag.error_name_stable,

@@ -1323,6 +1323,8 @@ export async function runNoraCognitiveTurn(
           onProvisionalChunk: input.onProvisionalChunk,
           toolScope: input.toolScope,
           policyOverride: policy,
+          cognitiveWorkId: work.id,
+          segmentIndex,
           publicWebRegistry: {
             topics: webRegistry.topics,
             exactQueries: webRegistry.exactQueries,

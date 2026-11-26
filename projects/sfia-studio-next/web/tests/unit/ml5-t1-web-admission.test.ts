@@ -39,8 +39,10 @@ describe("T1.1 — lexical intent does not authorize", () => {
   });
 
   it("Nora proposed public query can be admitted then authorized", () => {
+    const registered = ["HTTP/3 site:datatracker.ietf.org"];
     const admitted = admitNoraProposedPublicQuery({
       proposedQuery: "HTTP/3 site:datatracker.ietf.org",
+      registeredPublicQueries: registered,
     });
     expect(admitted.ok).toBe(true);
     if (!admitted.ok) throw new Error(admitted.reason);
@@ -55,10 +57,20 @@ describe("T1.1 — lexical intent does not authorize", () => {
     );
   });
 
+  it("Nora free-form proposal without registered provenance is refused", () => {
+    const admitted = admitNoraProposedPublicQuery({
+      proposedQuery: "HTTP/3 site:datatracker.ietf.org",
+    });
+    expect(admitted.ok).toBe(false);
+    if (admitted.ok) throw new Error("expected deny");
+    expect(admitted.reason).toBe("PUBLIC_PROVENANCE_REQUIRED");
+  });
+
   it("proposed query with private marker is refused", () => {
     const admitted = admitNoraProposedPublicQuery({
       proposedQuery: "architecture prep_abc123xyz confidential",
       privateMarkers: ["prep_abc123xyz"],
+      registeredPublicQueries: ["architecture prep_abc123xyz confidential"],
     });
     expect(admitted.ok).toBe(false);
   });
@@ -66,6 +78,7 @@ describe("T1.1 — lexical intent does not authorize", () => {
   it("proposed confidential business cue is refused by sanitize", () => {
     const admitted = admitNoraProposedPublicQuery({
       proposedQuery: "notre budget interne vs postgresql docs",
+      registeredPublicQueries: ["notre budget interne vs postgresql docs"],
     });
     expect(admitted.ok).toBe(false);
   });

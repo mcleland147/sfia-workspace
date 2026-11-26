@@ -119,14 +119,22 @@ function normalize(s: string): string {
 }
 
 /**
- * Server admission of a Nora-proposed public-only query.
- * Semantic need is Nora's; permission is the server's after sanitize + markers.
+ * Server admission of a Nora-proposed public-only query (Option B).
+ * Semantic need is Nora's; permission is the server's.
+ * Sanitize + private-marker checks are necessary but NOT sufficient:
+ * the exact query must already appear in a server-owned registered public set
+ * (catalog topic queries and/or explicit exact allowlist for the turn).
  * Does not invent a third provenance mode — caller registers then uses
  * EXPLICIT_AUTHORIZED_EXACT / REGISTERED_PUBLIC_COMPOSITION via authorizePublicWebQuery.
  */
 export function admitNoraProposedPublicQuery(input: {
   proposedQuery: string;
   privateMarkers?: string[];
+  /**
+   * Server-owned public queries already registered for this turn
+   * (catalog compositions + explicit exacts). Required for admission.
+   */
+  registeredPublicQueries?: string[] | null;
 }):
   | { ok: true; query: string; ref: typeof PILOT_PUBLIC_QUERY_REF }
   | { ok: false; reason: string } {
@@ -144,9 +152,21 @@ export function admitNoraProposedPublicQuery(input: {
   if (!sanitized.ok) {
     return { ok: false, reason: sanitized.blockedReason ?? "SANITIZE_BLOCKED" };
   }
+  const registered = (input.registeredPublicQueries ?? [])
+    .map((q) => q.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+  if (registered.length === 0) {
+    return { ok: false, reason: "PUBLIC_PROVENANCE_REQUIRED" };
+  }
+  const hit = registered.find(
+    (q) => q.toLowerCase() === sanitized.query.toLowerCase(),
+  );
+  if (!hit) {
+    return { ok: false, reason: "PROPOSED_QUERY_NOT_IN_REGISTERED_PUBLIC_SET" };
+  }
   return {
     ok: true,
-    query: sanitized.query,
+    query: hit,
     ref: PILOT_PUBLIC_QUERY_REF,
   };
 }

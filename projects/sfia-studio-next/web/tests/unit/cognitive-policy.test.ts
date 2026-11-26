@@ -113,15 +113,17 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
 
   it("maxTurns follows policy budget without silent hard cap of 12", () => {
     const prevLane = process.env.STUDIO_LANE;
-    process.env.STUDIO_LANE = "DEV";
     try {
-      const p = buildCognitivePolicy("x".repeat(601), "OPERATIONAL_PROVISIONAL", {
+      process.env.STUDIO_LANE = "DEV";
+      // TEST_BOUNDARY investigation budget is 12 — maxTurns must match, not silently lower.
+      const p = buildCognitivePolicy("x".repeat(601), "TEST_BOUNDARY", {
         profileHint: "investigation",
         effortHint: "high",
       });
       expect(p.profile).toBe("investigation");
+      expect(p.modelRequested).toBe("gpt-6.2-sol");
       expect(maxTurnsForPolicy(p)).toBe(p.budgets.maxProviderCalls);
-      expect(maxTurnsForPolicy(p)).toBeGreaterThan(12);
+      expect(maxTurnsForPolicy(p)).toBe(12);
       // Lot D5: short messages keep analyse tools — never tool-less maxTurns=1.
       const s = buildCognitivePolicy("Merci", "TEST_BOUNDARY");
       expect(s.profile).toBe("analyse");

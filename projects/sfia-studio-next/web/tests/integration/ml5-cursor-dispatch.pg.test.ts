@@ -104,7 +104,7 @@ describe("PostgreSQL ML5 Cursor dispatch concurrency (SCRIPTED)", () => {
   });
 
   it("schema revision includes 019", () => {
-    expect(schemaRevision).toMatch(/020_cognitive_work|019_ml5/);
+    expect(schemaRevision).toMatch(/022_provider_usage|020_cognitive_work|019_ml5/);
   });
 
   it("persists reversibilityLimits round-trip and DRAFT≠READY without markReady", async () => {

@@ -6,19 +6,92 @@
  */
 
 import { StudioError } from "@/lib/http-errors";
+import {
+  admitModelEffort,
+  type CognitiveEffort,
+  type CognitiveModelId,
+  OPERATIONAL_DEFAULT_RESOURCE,
+} from "./cognitive-resources";
 
 export type CognitiveProfile = "simple" | "analyse" | "investigation";
 export type PolicyProfileType =
   | "TEST_BOUNDARY"
   | "OPERATIONAL_PROVISIONAL"
   | "OPERATIONAL_VALIDATED";
+/** Operational band retained for profiles; extended efforts go through admission. */
 export type ReasoningEffort = "low" | "medium" | "high";
 
 /** Traces RECETTE operational-provisional allowance without rewriting historical meta. */
 export const COGNITIVE_POLICY_VERSION =
-  "ml5-cog-policy-v3-recette-operational-provisional" as const;
-/** Study model — C23: all active Nora refs use GPT-6.2 Sol (Morris). */
-export const NORA_STUDY_MODEL = "gpt-6.2-sol" as const;
+  "ml5-cog-policy-v4-adaptive-resources-20261126" as const;
+/**
+ * Historical study reference (Sol). Runtime model is resolved via catalog + admission;
+ * this constant remains the operational default identity alias.
+ */
+export const NORA_STUDY_MODEL = OPERATIONAL_DEFAULT_RESOURCE.modelId;
+
+function admissionModeFromEnv(): "operational" | "calibration" {
+  const raw = (process.env.SFIA_COGNITIVE_ADMISSION_MODE ?? "operational")
+    .trim()
+    .toLowerCase();
+  return raw === "calibration" ? "calibration" : "operational";
+}
+
+/**
+ * Admit a model×effort couple for the next segment. Fail-closed: unknown or
+ * uncalibrated couples fall back to the operational default (Sol medium) with
+ * an explicit reason — never silent Sol fallback without a code.
+ */
+export function resolveAdmittedResource(input?: {
+  modelId?: string | null;
+  effort?: string | null;
+}): {
+  modelId: CognitiveModelId;
+  effort: CognitiveEffort;
+  reasonCodes: string[];
+} {
+  const mode = admissionModeFromEnv();
+  const requestedModel = (input?.modelId ?? "").trim() || OPERATIONAL_DEFAULT_RESOURCE.modelId;
+  const requestedEffort = (input?.effort ?? "").trim() || OPERATIONAL_DEFAULT_RESOURCE.effort;
+  const admission = admitModelEffort(
+    requestedModel as CognitiveModelId,
+    requestedEffort as CognitiveEffort,
+    mode,
+  );
+  if (admission.admitted) {
+    return {
+      modelId: admission.modelId,
+      effort: admission.effort,
+      reasonCodes: [
+        `RESOURCE_ADMITTED_${mode.toUpperCase()}`,
+        `MODEL_${admission.modelId}`,
+        `EFFORT_${admission.effort}`,
+      ],
+    };
+  }
+  const fallback = admitModelEffort(
+    OPERATIONAL_DEFAULT_RESOURCE.modelId,
+    OPERATIONAL_DEFAULT_RESOURCE.effort,
+    "operational",
+  );
+  if (!fallback.admitted) {
+    throw new StudioError(
+      "INVALID_REQUEST",
+      "Catalogue cognitif: défaut Sol medium non admis",
+      { httpStatus: 500 },
+    );
+  }
+  return {
+    modelId: fallback.modelId,
+    effort: fallback.effort,
+    reasonCodes: [
+      `RESOURCE_REFUSED_${admission.reasonCode}`,
+      "RESOURCE_FALLBACK_OPERATIONAL_DEFAULT",
+      `MODEL_${fallback.modelId}`,
+      `EFFORT_${fallback.effort}`,
+    ],
+  };
+}
 
 /** Default effort for a profile when no semantic effortHint is provided. */
 export function defaultEffortForProfile(
@@ -113,7 +186,7 @@ export type CognitivePolicy = {
   policyVersion: typeof COGNITIVE_POLICY_VERSION;
   profileType: PolicyProfileType;
   profile: CognitiveProfile;
-  modelRequested: typeof NORA_STUDY_MODEL;
+  modelRequested: CognitiveModelId;
   effortRequested: ReasoningEffort;
   toolAllowlist: Array<
     | "search_project_resources"
@@ -280,7 +353,9 @@ export function buildCognitivePolicy(
   opts?: {
     /** C18 — semantic profile from consolidated investigation / qualification. */
     profileHint?: CognitiveProfile;
-    effortHint?: ReasoningEffort;
+    effortHint?: ReasoningEffort | CognitiveEffort;
+    /** Optional next-segment resource proposal (admitted server-side). */
+    modelHint?: CognitiveModelId | string | null;
   },
 ): CognitivePolicy {
   const profileType = resolveProfileType(overrideType);
@@ -289,9 +364,20 @@ export function buildCognitivePolicy(
   // Profile (nature of work) ≠ effort (mobilized depth). When only a profile
   // hint is set, derive a proportional effort default — never leave
   // investigation stuck on medium by accident.
-  const effort =
+  const effortHint =
     opts?.effortHint ??
     (opts?.profileHint ? defaultEffortForProfile(profile) : q.effort);
+  const admitted = resolveAdmittedResource({
+    modelId: opts?.modelHint ?? OPERATIONAL_DEFAULT_RESOURCE.modelId,
+    effort: effortHint,
+  });
+  // Profile budgets still keyed on low|medium|high; map extended efforts up.
+  const effortForBudgets: ReasoningEffort =
+    admitted.effort === "low" || admitted.effort === "none"
+      ? "low"
+      : admitted.effort === "medium"
+        ? "medium"
+        : "high";
   const budgets =
     profileType === "TEST_BOUNDARY"
       ? TEST_BOUNDARY_BUDGETS[profile]
@@ -327,16 +413,20 @@ export function buildCognitivePolicy(
     ...q.reasonCodes,
     `PROFILE_TYPE_${profileType}`,
     `LANE_${studioLane()}`,
+    ...admitted.reasonCodes,
   ];
   if (opts?.profileHint) reasonCodes.push(`PROFILE_HINT_${opts.profileHint}`);
   if (opts?.effortHint) reasonCodes.push(`EFFORT_HINT_${opts.effortHint}`);
+  if (opts?.modelHint) reasonCodes.push(`MODEL_HINT_${opts.modelHint}`);
 
   return {
     policyVersion: COGNITIVE_POLICY_VERSION,
     profileType,
     profile,
-    modelRequested: NORA_STUDY_MODEL,
-    effortRequested: effort,
+    modelRequested: admitted.modelId,
+    // Store admitted effort narrowed to ReasoningEffort for SDK path when in band;
+    // high covers xhigh/max until calibration expands RuntimeEffort type on adapter.
+    effortRequested: effortForBudgets,
     toolAllowlist,
     budgets,
     reasonCodes,

@@ -183,7 +183,8 @@ test.describe("UX-004 portfolio shell", () => {
       /SFIA Studio\s+\/\s+Portefeuille/,
     );
 
-    await page.getByTestId("nav-account").click();
+    await page.getByTestId("rail-settings-trigger").click();
+    await page.getByTestId("rail-settings-integrations").click();
     await page.waitForURL("**/settings/integrations");
     await expect(page.getByTestId("studio-rail")).toBeVisible();
     await expect(page.getByTestId("studio-shell-breadcrumb")).toHaveText(
@@ -409,9 +410,9 @@ test.describe("UX-004 portfolio shell", () => {
     await page.getByTestId("portfolio-new-prep").focus();
     await expect(page.getByTestId("portfolio-new-prep")).toBeFocused();
     await page.keyboard.press("Tab");
-    // Tab moves within page; ensure rail account remains keyboard reachable
-    await page.getByTestId("nav-account").focus();
-    await expect(page.getByTestId("nav-account")).toBeFocused();
+    // Tab moves within page; ensure rail settings trigger remains keyboard reachable
+    await page.getByTestId("rail-settings-trigger").focus();
+    await expect(page.getByTestId("rail-settings-trigger")).toBeFocused();
   });
 
   test("network error portfolio shows retry", async ({ page }) => {

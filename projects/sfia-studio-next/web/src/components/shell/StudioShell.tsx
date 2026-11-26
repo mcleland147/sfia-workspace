@@ -20,10 +20,11 @@ import {
   resolvePersonalBreadcrumb,
   resolveRailVariant,
 } from "./studio-rail";
+import {
+  PersonalRailSettingsMenu,
+  SETTINGS_INTEGRATIONS_HREF,
+} from "./PersonalRailSettingsMenu";
 import "./studio-shell.css";
-
-/** Existing real account destination — integrations settings (no invented account hub). */
-const ACCOUNT_HREF = "/settings/integrations";
 
 /** Figma 652:* rail glyphs — decorative, paired with visible labels. */
 function railNavGlyph(key: string): string {
@@ -77,7 +78,9 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
   const inProductSpace = Boolean(projectId || preparationId);
   const personalSpace = !inProductSpace;
   const portfolioActive = pathname.startsWith("/portfolio") || pathname === "/";
-  const accountActive = pathname.startsWith("/settings");
+  const accountActive =
+    pathname.startsWith("/settings/integrations") ||
+    pathname.startsWith("/settings/consumption");
   const breadcrumb = resolvePersonalBreadcrumb(pathname, searchParams);
   const onSasVisual = pathname.startsWith("/dev/sas-visual/");
   const onSasPreparation = Boolean(preparationId) || onSasVisual;
@@ -324,22 +327,6 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
               </p>
             ) : null}
 
-            {personalSpace ? (
-              <div className="mt-2">
-                <div className="studio-rail-section mb-1">Accès</div>
-                <Link
-                  href={ACCOUNT_HREF}
-                  className={`studio-rail-nav-item ${
-                    pathname.startsWith("/settings/integrations") ? "is-active" : ""
-                  }`}
-                  aria-current={pathname.startsWith("/settings/integrations") ? "page" : undefined}
-                  data-testid="nav-integrations"
-                >
-                  <span>Intégrations</span>
-                </Link>
-              </div>
-            ) : null}
-
             {projectId && projectSpaceReady ? (
               <div className="mt-1 space-y-0.5" data-testid="rail-acces-directs">
                 <div className="studio-rail-rule" aria-hidden />
@@ -403,12 +390,7 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
           </nav>
 
           <div className="studio-shell-rail-foot" data-testid="studio-rail-account">
-            <Link
-              href={ACCOUNT_HREF}
-              className="studio-account-link"
-              data-testid="nav-account"
-              aria-label="Compte — Intégrations"
-            >
+            <div className="studio-account-row">
               <span
                 aria-hidden
                 className="inline-flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold shrink-0"
@@ -416,14 +398,14 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
               >
                 P
               </span>
-              <div className="text-xs min-w-0">
+              <div className="text-xs min-w-0 flex-1">
                 <div className="font-semibold text-[14px]">Pilote</div>
                 <div className="muted">{inProductSpace ? "Connecté" : "Espace personnel"}</div>
               </div>
-              <span aria-hidden className="muted ml-auto text-lg leading-none">
-                ⌄
-              </span>
-            </Link>
+              {personalSpace ? (
+                <PersonalRailSettingsMenu pathname={pathname} />
+              ) : null}
+            </div>
           </div>
         </div>
       </aside>
@@ -457,11 +439,10 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
                 PROJET NON CRÉÉ
               </span>
             ) : (
-              <Link
-                href={ACCOUNT_HREF}
+              <div
                 className="studio-account-link shrink-0"
                 data-testid="nav-account-top"
-                aria-label="Compte — Intégrations"
+                aria-label="Pilote"
               >
                 <span
                   aria-hidden
@@ -471,7 +452,7 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
                   P
                 </span>
                 <span className="hidden sm:inline text-[13px] text-[var(--muted)]">Pilote</span>
-              </Link>
+              </div>
             )}
           </header>
         ) : (
@@ -573,7 +554,7 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
               {openingPrep ? "…" : "Créer"}
             </button>
             <Link
-              href={ACCOUNT_HREF}
+              href={SETTINGS_INTEGRATIONS_HREF}
               className={accountActive ? "is-active" : ""}
               aria-current={accountActive ? "page" : undefined}
               data-testid="mobile-nav-account"

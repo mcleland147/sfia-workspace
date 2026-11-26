@@ -831,11 +831,17 @@ export async function buildPublicWebFrontierTools(input: {
         if (input.budget.remainingCalls <= 0) {
           return { status: "DENIED", reason: "BUDGET_EXHAUSTED" };
         }
-        // T1.1 — Nora proposes; server admits into registry before authorize.
+        // T1.1 / Option B — Nora proposes; server admits only against already
+        // registered public queries (catalog / exact). Sanitize alone ≠ authorize.
         if (args.proposedPublicQuery?.trim()) {
+          const registeredPublicQueries = [
+            ...Object.values(turnTopics),
+            ...turnExact,
+          ];
           const admitted = admitNoraProposedPublicQuery({
             proposedQuery: args.proposedPublicQuery,
             privateMarkers: markers,
+            registeredPublicQueries,
           });
           if (!admitted.ok) {
             return {

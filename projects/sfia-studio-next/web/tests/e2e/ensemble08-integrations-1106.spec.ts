@@ -33,7 +33,8 @@ test.describe("E08 Intégrations 11.06 (SCRIPTED DEV)", () => {
     await loginPilotA(page);
     await ensureConnected(page);
 
-    await expect(page.getByTestId("nav-integrations")).toHaveClass(/is-active/);
+    await page.getByTestId("rail-settings-trigger").click();
+    await expect(page.getByTestId("rail-settings-integrations")).toHaveClass(/is-active/);
     await expect(page.getByTestId("integrations-status-banner")).toContainText(
       /Votre compte GitHub est connecté/i,
     );
@@ -97,6 +98,7 @@ test.describe("E08 Intégrations 11.06 (SCRIPTED DEV)", () => {
       await page.screenshot({ path: shot, fullPage: false });
 
       if (vp.w === 1680) {
+        await page.getByTestId("rail-settings-trigger").click();
         const panel = page.getByTestId("integrations-panel");
         const layout = page.getByTestId("integrations-layout-1106");
         const banner = page.getByTestId("integrations-status-banner");
@@ -105,7 +107,7 @@ test.describe("E08 Intégrations 11.06 (SCRIPTED DEV)", () => {
         const refresh = page.getByTestId("refresh-repos");
         const disconnect = page.getByTestId("disconnect-github");
         const rail = page.getByTestId("studio-rail");
-        const nav = page.getByTestId("nav-integrations");
+        const nav = page.getByTestId("rail-settings-integrations");
 
         const boxes = {
           rail: await rail.boundingBox(),

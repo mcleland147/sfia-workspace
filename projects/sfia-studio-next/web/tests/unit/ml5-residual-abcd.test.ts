@@ -104,8 +104,10 @@ describe("B/C — WEB admission (post T1 regularization)", () => {
   });
 
   it("Nora proposal + server admit enables authorize under B1 modes", () => {
+    const registered = ["QUIC protocol site:datatracker.ietf.org"];
     const admitted = admitNoraProposedPublicQuery({
       proposedQuery: "QUIC protocol site:datatracker.ietf.org",
+      registeredPublicQueries: registered,
     });
     expect(admitted.ok).toBe(true);
     if (!admitted.ok) throw new Error(admitted.reason);

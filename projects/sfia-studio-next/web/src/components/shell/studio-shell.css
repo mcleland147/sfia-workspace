@@ -44,6 +44,90 @@ html.studio-shell-lock body {
   border-top: 1px solid var(--line);
 }
 
+.studio-account-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.studio-rail-settings-wrap {
+  position: relative;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.studio-rail-settings-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #2a3448;
+  background: #121826;
+  color: #b8c2d6;
+  cursor: pointer;
+}
+
+.studio-rail-settings-trigger:hover,
+.studio-rail-settings-trigger.is-open {
+  color: #f3f5ff;
+  border-color: #4b5678;
+}
+
+.studio-rail-settings-popover {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid #2a3448;
+  background: #0f1520;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  z-index: 20;
+}
+
+.studio-rail-settings-tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #1a2130;
+  border: 1px solid #2a3448;
+  font-size: 11px;
+  color: #d8def0;
+  pointer-events: none;
+}
+
+.studio-rail-settings-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid #252d3f;
+  color: #c5cce6;
+  text-decoration: none;
+  background: #121826;
+}
+
+.studio-rail-settings-icon:hover {
+  color: #f3f5ff;
+  border-color: #6570e1;
+}
+
+.studio-rail-settings-icon.is-active {
+  border-color: #6570e1;
+  background: rgba(101, 111, 225, 0.15);
+  color: #f3f5ff;
+}
+
 .studio-shell-column {
   flex: 1 1 auto;
   min-width: 0;

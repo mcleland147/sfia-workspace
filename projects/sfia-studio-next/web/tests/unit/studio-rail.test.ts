@@ -83,6 +83,7 @@ describe("B1 shell navigation", () => {
   it("resolves personal breadcrumb for known routes only", () => {
     expect(resolvePersonalBreadcrumb("/portfolio")).toBe("Portefeuille");
     expect(resolvePersonalBreadcrumb("/settings/integrations")).toBe("Intégrations");
+    expect(resolvePersonalBreadcrumb("/settings/consumption")).toBe("Consommation et coûts");
     expect(resolvePersonalBreadcrumb("/settings")).toBe("Paramètres");
     expect(resolvePersonalBreadcrumb("/preparations/prep-1")).toBe("Nouvelle préparation");
     expect(
