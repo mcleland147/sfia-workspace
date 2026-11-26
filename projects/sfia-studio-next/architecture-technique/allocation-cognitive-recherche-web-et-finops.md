@@ -55,6 +55,23 @@ Morris vérifie, pour DEV d'abord, OpenAI Platform → Settings → Projects →
 
 Avec mandat réseau read-only spécifique, `models.list()` via la clé DEV existante peut inventorier les références exposées, sans générer de réponse IA. Ce résultat ne prouve ni les efforts ni le tool calling, ni tous les droits effectifs ; une absence doit être diagnostiquée, pas contournée. Tests Responses courts, au coût mesuré, uniquement sous GO facturable DEV distinct. Classer : modèle indisponible, accès refusé, paramètre invalide, quota/rate limit, solde ou dépendance indisponible selon réponse réelle ; ne pas relancer sur erreur permanente. Ne pas révéler l'en-tête Authorization, les clés ou réponses d'erreur brutes sensibles. Ne pas effectuer ces appels dans le présent mandat documentaire.
 
+### 2.2.1 Observation complémentaire — Project Settings / Limits, DEV, 26/11/2026
+
+Source : capture d'écran fournie par Morris lors de la revue du contrat technique. Transcription factuelle minimisée ; aucune copie de capture, clé, identifiant personnel ou identifiant fournisseur dans Git.
+
+| Rubrique | Observation directe | Portée |
+|---|---|---|
+| Projet | SFIA Studio Next — DEV ; Project Settings / Limits | DEV uniquement, pas RECETTE |
+| Spend | `No spend limit set` ; bouton Set spend limit | Aucun plafond de dépenses propre au projet affiché ; limites éventuelles d'organisation et solde non observés |
+| Model usage / Allow or block models | Bouton `Select models` ; aucune restriction spécifique affichée sur la vue fermée | Contenu du sélecteur non observé : ne pas conclure à une allowlist vide ni à un accès effectif aux trois modèles |
+| Rate limits | L'interface indique que les limites sont héritées de l'organisation sauf surcharge ; bouton `Select models` | Valeurs et surcharges détaillées non observées ; pas de quota illimité présumé |
+
+Cette observation complète §2.1 (permissions Responses read/write et List models suffisantes en principe). Aucune modification préventive de clé, de plafond, de rate limit ou de restriction projet n'est recommandée. Le contrôle du sélecteur est possible sans sauvegarde. Au pré-check Cursor, si le mandat autorise explicitement le réseau read-only vers OpenAI, inventorier via `GET /v1/models` avec la clé DEV existante les trois identifiants attendus. Un inventaire positif ne prouve pas un appel Responses réussi ni l'effort, les outils ou la disponibilité effective à la génération : les essais courts facturables restent soumis au gate DEV de §8. Si un modèle est indisponible ou bloqué, produire le diagnostic et demander uniquement la modification minimale nécessaire à Morris. Ne pas modifier le projet fournisseur de sa propre initiative. RECETTE sera contrôlé au gate dédié.
+
+Référence fournisseur vérifiée le 26/11 : [Gestion des projets API — configuration des accès aux modèles, limites de débit et dépenses](https://help.openai.com/en/articles/9186755-managing-projects-in-the-api-platform). L'absence de plafond DEV affiché ne prouve ni l'absence de limite d'organisation ni la capacité de dépenser sans limite. L'administration financière demeure côté OpenAI ; aucun plafond monétaire à ajouter dans Studio.
+
+Traçabilité : complément factuel autorisé par Morris sur ce seul contrat, branche documentaire `docs/next-ml5-uat-consolidation-20261124`, base `67d06e55f1899d5ef99d3ee03034dbc9cce99e5f`. Aucune modification de conception, de permission, de configuration locale ou distante, ni appel fournisseur.
+
 ### 2.3 Données, tracing et contrôles de rétention
 
 Vérifier la configuration réelle Responses : `store`, éventuelle stateful continuation, IDs de réponses, tracing SDK, export et contenu sensible. Ne pas présumer que `store:false` exclut toutes les formes de rétention fournisseur. Maintenir DATA-01, minimisation et restrictions de contexte ; aucune nouvelle persistance fournisseur ni export de traces privées sans arbitrage. Réutiliser les checkpoints D3 comme continuité contrôlée, et non une conversation fournisseur partagée entre modèles/lane. WEB B1 reste soumis à ses propres restrictions indépendamment des garanties de l'API cognitive.
