@@ -167,7 +167,14 @@ function bucketModelBreakdown(rows: ObservationRow[]): FinOpsSummaryDto["modelBr
       return {
         model,
         costUsd: agg.kind === "known" || agg.kind === "partial" ? agg.value : null,
-        coverage: agg.kind === "unknown" ? "UNKNOWN" : agg.kind === "empty" ? "EMPTY" : "KNOWN",
+        coverage:
+          agg.kind === "unknown"
+            ? "UNKNOWN"
+            : agg.kind === "empty"
+              ? "EMPTY"
+              : agg.kind === "partial"
+                ? "PARTIAL"
+                : "KNOWN",
       };
     })
     .sort((a, b) => (b.costUsd ?? -1) - (a.costUsd ?? -1));

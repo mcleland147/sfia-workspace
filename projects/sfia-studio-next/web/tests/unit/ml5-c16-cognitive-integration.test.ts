@@ -99,6 +99,44 @@ describe("ML5 C16 — integrated cognitive conductor", () => {
     expect(result.work.status).toBe("SUSPENDED");
   });
 
+  it("resolvePolicy can vary effort across segments without changing workId", async () => {
+    const { runCognitiveConductor } = await import(
+      "@/domains/conversation/cognitive-conductor"
+    );
+    const { buildCognitivePolicy } = await import(
+      "@/domains/conversation/cognitive-policy"
+    );
+    const policies: Array<{ effort: string; segmentIndex: number }> = [];
+    const result = await runCognitiveConductor({
+      pilotId: "pilot",
+      preparationId: "prep",
+      objective: "adaptive effort",
+      maxSegmentsThisInvocation: 2,
+      resolvePolicy: (_work, segmentIndex) => {
+        const policy = buildCognitivePolicy("adaptive effort", "TEST_BOUNDARY", {
+          effortHint: segmentIndex === 0 ? "low" : "high",
+        });
+        policies.push({ effort: policy.effortRequested, segmentIndex });
+        return policy;
+      },
+      runSegment: async ({ segmentIndex }) => ({
+        replyText: `seg-${segmentIndex}`,
+        qualification: null,
+        investigation: {
+          ...createEmptyInvestigation("adaptive effort"),
+          remainingWork: segmentIndex === 0 ? ["more"] : [],
+        },
+        continueWork: segmentIndex === 0,
+        resourcesDelta: {},
+      }),
+    });
+    expect(result.work.id).toBe("cgw_test");
+    expect(policies).toHaveLength(2);
+    expect(policies[0]!.effort).toBe("low");
+    expect(policies[1]!.effort).toBe("high");
+    expect(policies[0]!.effort).not.toBe(policies[1]!.effort);
+  });
+
   it("completes when segment signals no continuation", async () => {
     const { runCognitiveConductor } = await import(
       "@/domains/conversation/cognitive-conductor"

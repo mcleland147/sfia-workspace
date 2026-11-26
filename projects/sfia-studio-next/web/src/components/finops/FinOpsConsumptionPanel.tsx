@@ -5,10 +5,15 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FinOpsSummaryDto, FinOpsWorkListItem } from "@/domains/finops/usage-read-service";
 import {
   FINOPS_PERIOD_OPTIONS,
+  finOpsDailyChartScaleMax,
+  finOpsDailyChartYTicks,
+  finOpsDailyXAxisLabels,
+  formatModelBreakdownCost,
   formatMeasuredPercent,
   formatMeasuredTokens,
   formatMeasuredUsd,
   formatIntegerFr,
+  formatUsdAxisFr,
   displayModelShort,
 } from "@/domains/finops/usage-projection";
 import "./finops-consumption.css";
@@ -108,8 +113,12 @@ export function FinOpsConsumptionPanel() {
     void refresh();
   }, [refresh]);
 
-  const maxDaily =
-    summary?.dailyCosts.reduce((m, d) => Math.max(m, d.costUsd ?? 0), 0) ?? 1;
+  const dailyScaleMax = summary
+    ? finOpsDailyChartScaleMax(summary.dailyCosts.map((d) => d.costUsd))
+    : 1;
+  const dailyYTicks = finOpsDailyChartYTicks(dailyScaleMax);
+  const dailyChartTop = dailyYTicks[0] ?? dailyScaleMax;
+  const dailyXLabels = finOpsDailyXAxisLabels(summary?.periodDays ?? Number(period));
   const maxModel =
     summary?.modelBreakdown.reduce((m, d) => Math.max(m, d.costUsd ?? 0), 0) ?? 1;
 
@@ -236,24 +245,47 @@ export function FinOpsConsumptionPanel() {
             </div>
 
             <div className="finops-1306-charts">
-              <section className="finops-1306-panel">
-                <h2>Évolution des dépenses</h2>
-                <div className="finops-1306-bars" data-testid="finops-daily-chart">
-                  {summary.dailyCosts.map((d) => {
-                    const h =
-                      d.costUsd != null && maxDaily > 0
-                        ? Math.max(4, Math.round((d.costUsd / maxDaily) * 130))
-                        : d.hasData
-                          ? 4
-                          : 2;
-                    return (
-                      <div
-                        key={d.day}
-                        className={`finops-1306-bar ${d.costUsd == null && !d.hasData ? "is-empty" : ""}`}
-                        style={{ height: `${h}px` }}
-                      />
-                    );
-                  })}
+              <section className="finops-1306-panel finops-1306-daily-panel">
+                <div className="finops-1306-panel-head">
+                  <h2>Évolution des dépenses</h2>
+                  <span className="finops-1306-chart-meta">
+                    USD · {summary.periodDays} jours
+                  </span>
+                </div>
+                <div className="finops-1306-daily-chart" data-testid="finops-daily-chart">
+                  <ul className="finops-1306-chart-y" aria-hidden>
+                    {dailyYTicks.map((tick) => (
+                      <li key={tick}>{formatUsdAxisFr(tick)}</li>
+                    ))}
+                  </ul>
+                  <div className="finops-1306-bars">
+                    {summary.dailyCosts.map((d) => {
+                      const h =
+                        d.costUsd != null && dailyChartTop > 0
+                          ? Math.max(4, Math.round((d.costUsd / dailyChartTop) * 130))
+                          : d.hasData
+                            ? 4
+                            : 2;
+                      const title =
+                        d.costUsd != null
+                          ? `${d.day} · ${formatMeasuredUsd({ kind: "known", value: d.costUsd })}`
+                          : d.hasData
+                            ? `${d.day} · coût inconnu`
+                            : d.day;
+                      return (
+                        <div
+                          key={d.day}
+                          className={`finops-1306-bar ${d.costUsd == null ? "is-unknown" : ""} ${!d.hasData ? "is-empty" : ""}`}
+                          style={{ height: `${h}px` }}
+                          title={title}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="finops-1306-daily-x" aria-hidden>
+                  <span>{dailyXLabels.start}</span>
+                  <span>{dailyXLabels.end}</span>
                 </div>
               </section>
               <section className="finops-1306-panel">
@@ -266,18 +298,14 @@ export function FinOpsConsumptionPanel() {
                     const width =
                       row.costUsd != null && maxModel > 0
                         ? `${Math.round((row.costUsd / maxModel) * 100)}%`
-                        : "0%";
+                        : undefined;
                     return (
                       <div key={row.model} className="finops-1306-model-row">
                         <span>{label}</span>
                         <div className="finops-1306-model-bar">
-                          <span style={{ width }} />
+                          {width ? <span style={{ width }} /> : null}
                         </div>
-                        <span>
-                          {row.costUsd != null
-                            ? formatMeasuredUsd({ kind: "known", value: row.costUsd })
-                            : "Inconnu"}
-                        </span>
+                        <span>{formatModelBreakdownCost(row)}</span>
                       </div>
                     );
                   })

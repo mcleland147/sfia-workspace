@@ -3,12 +3,14 @@ import { db } from "@/db/client";
 import { providerUsageObservations } from "@/db/schema";
 import type { CognitiveModelId } from "./cognitive-resources/resource-catalog";
 import {
+  LONG_CONTEXT_INPUT_THRESHOLD_TOKENS,
   TARIFF_CATALOG_VERSION,
   effectiveTariffRates,
   getTariffEntry,
 } from "./cognitive-resources/tariff-catalog";
 import {
   extractProviderUsageFromRunResult,
+  type ProviderRequestUsageEntry,
   type ProviderUsageSnapshot,
 } from "./provider-usage";
 
@@ -67,6 +69,11 @@ export type CostEstimate = {
 
 export type IdempotencyKeyInput = {
   granularity: ProviderUsageGranularity;
+  lane?: string | null;
+  scopeId?: string | null;
+  projectId?: string | null;
+  preparationId?: string | null;
+  cognitiveWorkId?: string | null;
   operation?: string | null;
   attemptId?: string | null;
   generationId?: string | null;
@@ -79,8 +86,13 @@ export type IdempotencyKeyInput = {
 /** Stable dedupe key for durable FinOps rows — distinct from business command idempotency. */
 export function buildIdempotencyKey(input: IdempotencyKeyInput): string {
   const canonical = [
-    "finops-obs-v1",
+    "finops-obs-v2",
     input.granularity,
+    input.lane?.trim() ?? "",
+    input.scopeId?.trim() ?? "",
+    input.projectId?.trim() ?? "",
+    input.preparationId?.trim() ?? "",
+    input.cognitiveWorkId?.trim() ?? "",
     input.operation?.trim() ?? "",
     input.attemptId?.trim() ?? "",
     input.generationId?.trim() ?? "",
@@ -99,6 +111,24 @@ function usdPerMillion(tokens: number, rateUsdPerMillion: number): number {
   return (tokens / 1_000_000) * rateUsdPerMillion;
 }
 
+export type EstimateCostUsdOptions = {
+  tariffVersion?: string;
+  /**
+   * When false, long-context multipliers are never applied (multi-request run aggregate).
+   * Default true — tier follows this row's input token count as a single provider request.
+   */
+  applyLongContextTier?: boolean;
+  /** Model used for tariff was requested but applied model is unverified. */
+  modelAppliedUnverified?: boolean;
+};
+
+function normalizeEstimateOptions(
+  options?: EstimateCostUsdOptions | string,
+): EstimateCostUsdOptions {
+  if (typeof options === "string") return { tariffVersion: options };
+  return options ?? {};
+}
+
 /**
  * Tariff estimate from observed token fields only — never coerces null → 0 for usage inputs.
  * Missing required token aggregates ⇒ UNKNOWN cost.
@@ -109,15 +139,23 @@ export function estimateCostUsd(
     "inputTokens" | "outputTokens" | "cachedInputTokens"
   >,
   model: string | null | undefined,
-  tariffVersion: string = TARIFF_CATALOG_VERSION,
+  options?: EstimateCostUsdOptions | string,
 ): CostEstimate {
+  const {
+    tariffVersion = TARIFF_CATALOG_VERSION,
+    applyLongContextTier = true,
+    modelAppliedUnverified = false,
+  } = normalizeEstimateOptions(options);
   const limits: string[] = [];
+  if (modelAppliedUnverified) {
+    limits.push("MODEL_APPLIED_UNVERIFIED");
+  }
   if (!model || !isCognitiveModelId(model)) {
     return {
       estimatedCostUsd: null,
       costCoverage: "UNKNOWN",
       tariffVersion,
-      limits: ["MODEL_TARIFF_UNKNOWN"],
+      limits: [...limits, "MODEL_TARIFF_UNKNOWN"],
     };
   }
   const { inputTokens, outputTokens, cachedInputTokens } = usage;
@@ -126,18 +164,28 @@ export function estimateCostUsd(
       estimatedCostUsd: null,
       costCoverage: "UNKNOWN",
       tariffVersion,
-      limits: ["TOKEN_AGGREGATES_INCOMPLETE"],
+      limits: [...limits, "TOKEN_AGGREGATES_INCOMPLETE"],
     };
   }
 
-  const rates = effectiveTariffRates(model, inputTokens);
+  const entry = getTariffEntry(model);
+  const rates =
+    applyLongContextTier
+      ? effectiveTariffRates(model, inputTokens)
+      : entry?.shortContextStandard;
   if (!rates) {
     return {
       estimatedCostUsd: null,
       costCoverage: "UNKNOWN",
       tariffVersion,
-      limits: ["TARIFF_RATES_UNAVAILABLE"],
+      limits: [...limits, "TARIFF_RATES_UNAVAILABLE"],
     };
+  }
+  if (
+    !applyLongContextTier &&
+    inputTokens > LONG_CONTEXT_INPUT_THRESHOLD_TOKENS
+  ) {
+    limits.push("LONG_CONTEXT_TIER_SUPPRESSED_AGGREGATE");
   }
 
   let costCoverage: CostCoverage = "KNOWN";
@@ -155,6 +203,10 @@ export function estimateCostUsd(
     }
   }
 
+  if (modelAppliedUnverified && costCoverage === "KNOWN") {
+    costCoverage = "PARTIAL";
+  }
+
   const estimatedCostUsd =
     usdPerMillion(uncached, rates.inputUncachedUsdPerMillion) +
     usdPerMillion(cached, rates.inputCachedReadUsdPerMillion) +
@@ -166,6 +218,28 @@ export function estimateCostUsd(
     tariffVersion,
     limits,
   };
+}
+
+function resolveTariffModel(input: Pick<
+  ProviderUsageObservationInput,
+  "modelApplied" | "modelRequested"
+>): { model: string | null; modelAppliedUnverified: boolean } {
+  if (input.modelApplied?.trim()) {
+    return { model: input.modelApplied.trim(), modelAppliedUnverified: false };
+  }
+  if (input.modelRequested?.trim()) {
+    return { model: input.modelRequested.trim(), modelAppliedUnverified: true };
+  }
+  return { model: null, modelAppliedUnverified: false };
+}
+
+function mergeCostCoverage(
+  a: CostCoverage,
+  b: CostCoverage,
+): CostCoverage {
+  if (a === "UNKNOWN" || b === "UNKNOWN") return "UNKNOWN";
+  if (a === "PARTIAL" || b === "PARTIAL") return "PARTIAL";
+  return "KNOWN";
 }
 
 function nullableTokenField(value: number | null | undefined): number | null | undefined {
@@ -183,22 +257,32 @@ export type RecordProviderUsageObservationResult = {
 export async function recordProviderUsageObservation(
   input: ProviderUsageObservationInput,
 ): Promise<RecordProviderUsageObservationResult> {
-  const modelForTariff = input.modelApplied ?? input.modelRequested ?? null;
+  const { model: modelForTariff, modelAppliedUnverified } = resolveTariffModel(input);
   const usageSlice = {
     inputTokens: input.inputTokens ?? null,
     outputTokens: input.outputTokens ?? null,
     cachedInputTokens: input.cachedInputTokens ?? null,
   };
-  const tariffVersion = input.tariffVersion ?? TARIFF_CATALOG_VERSION;
+  const estimateOpts: EstimateCostUsdOptions = {
+    tariffVersion: input.tariffVersion ?? TARIFF_CATALOG_VERSION,
+    modelAppliedUnverified,
+    applyLongContextTier: input.granularity !== "GENERATION_AGGREGATE",
+  };
   const cost =
     input.costCoverage != null && input.estimatedCostUsd !== undefined
       ? {
           estimatedCostUsd: input.estimatedCostUsd,
-          costCoverage: input.costCoverage,
-          tariffVersion,
-          limits: input.limits ?? [],
+          costCoverage: mergeCostCoverage(
+            input.costCoverage,
+            modelAppliedUnverified ? "PARTIAL" : input.costCoverage,
+          ),
+          tariffVersion: estimateOpts.tariffVersion ?? TARIFF_CATALOG_VERSION,
+          limits: [
+            ...(input.limits ?? []),
+            ...(modelAppliedUnverified ? ["MODEL_APPLIED_UNVERIFIED"] : []),
+          ],
         }
-      : estimateCostUsd(usageSlice, modelForTariff, tariffVersion);
+      : estimateCostUsd(usageSlice, modelForTariff, estimateOpts);
 
   const mergedLimits = [...new Set([...(input.limits ?? []), ...cost.limits])];
   const id = randomUUID();
@@ -282,22 +366,20 @@ export type NoraProviderUsageHookInput = {
  * E04 wiring entrypoint — map Agents SDK run result → durable FinOps row (idempotent).
  * Safe to call from nora-adapter / run-nora-cognitive-turn once per provider invocation.
  */
-export async function recordNoraProviderUsageFromRunResult(
-  input: NoraProviderUsageHookInput,
-): Promise<RecordProviderUsageObservationResult> {
-  const snapshot = extractProviderUsageFromRunResult(input.runResult);
-  const granularity = input.granularity ?? "REQUEST";
-  const idempotencyKey = buildIdempotencyKey({
-    granularity,
-    operation: input.operation,
-    attemptId: input.attemptId,
-    generationId: input.generationId,
-    segmentIndex: input.segmentIndex,
-    providerResponseId: input.providerResponseId,
-    callOrdinal: input.callOrdinal,
-  });
+function idempotencyScope(input: NoraProviderUsageHookInput) {
+  const lane =
+    process.env.STUDIO_LANE?.trim().toUpperCase() || "UNKNOWN";
+  return {
+    lane,
+    scopeId: input.scopeId,
+    projectId: input.projectId,
+    preparationId: input.preparationId,
+    cognitiveWorkId: input.cognitiveWorkId,
+  };
+}
 
-  return recordProviderUsageObservation({
+function observationCommon(input: NoraProviderUsageHookInput) {
+  return {
     scopeId: input.scopeId,
     ownerPilotId: input.ownerPilotId,
     projectId: input.projectId,
@@ -313,18 +395,103 @@ export async function recordNoraProviderUsageFromRunResult(
     modelApplied: input.modelApplied,
     effortRequested: input.effortRequested,
     effortApplied: input.effortApplied,
+    durationMs: input.durationMs,
+    status: input.status,
+    providerResponseId: input.providerResponseId,
+    errorCategory: input.errorCategory,
+  };
+}
+
+async function recordPerRequestUsages(
+  input: NoraProviderUsageHookInput,
+  entries: ProviderRequestUsageEntry[],
+  baseLimits: string[],
+): Promise<RecordProviderUsageObservationResult> {
+  const scope = idempotencyScope(input);
+  let last: RecordProviderUsageObservationResult = {
+    inserted: false,
+    id: "",
+  };
+  for (let i = 0; i < entries.length; i++) {
+    const entry = entries[i]!;
+    const callOrdinal = input.callOrdinal ?? i;
+    const idempotencyKey = buildIdempotencyKey({
+      ...scope,
+      granularity: "REQUEST",
+      operation: input.operation,
+      attemptId: input.attemptId,
+      generationId: input.generationId,
+      segmentIndex: input.segmentIndex,
+      providerResponseId: input.providerResponseId,
+      callOrdinal,
+    });
+    last = await recordProviderUsageObservation({
+      ...observationCommon(input),
+      inputTokens: entry.inputTokens,
+      outputTokens: entry.outputTokens,
+      totalTokens: entry.totalTokens,
+      cachedInputTokens: entry.cachedInputTokens,
+      reasoningTokens: entry.reasoningTokens,
+      providerRequests: 1,
+      granularity: "REQUEST",
+      idempotencyKey,
+      limits: baseLimits,
+    });
+  }
+  return last;
+}
+
+export async function recordNoraProviderUsageFromRunResult(
+  input: NoraProviderUsageHookInput,
+): Promise<RecordProviderUsageObservationResult> {
+  const snapshot = extractProviderUsageFromRunResult(input.runResult);
+  const baseLimits = [
+    ...snapshot.limits,
+    ...(snapshot.provenance === "UNAVAILABLE" ? ["PROVIDER_USAGE_UNAVAILABLE"] : []),
+  ];
+  const forcedGranularity = input.granularity;
+
+  const perRequest = snapshot.requestUsageEntries;
+  if (perRequest && perRequest.length > 0 && forcedGranularity !== "GENERATION_AGGREGATE") {
+    return recordPerRequestUsages(input, perRequest, baseLimits);
+  }
+
+  const multiRequestWithoutBreakdown =
+    (snapshot.providerRequests ?? 0) > 1 && (!perRequest || perRequest.length === 0);
+  const granularity: ProviderUsageGranularity =
+    forcedGranularity ??
+    (multiRequestWithoutBreakdown ? "GENERATION_AGGREGATE" : "REQUEST");
+
+  const aggregateLimits = [...baseLimits];
+  if (granularity === "GENERATION_AGGREGATE") {
+    aggregateLimits.push("MULTI_REQUEST_AGGREGATE_ONLY");
+    if ((snapshot.providerRequests ?? 0) > 1) {
+      aggregateLimits.push("PER_REQUEST_USAGE_UNAVAILABLE");
+    }
+  }
+
+  const scope = idempotencyScope(input);
+  const idempotencyKey = buildIdempotencyKey({
+    ...scope,
+    granularity,
+    operation: input.operation,
+    attemptId: input.attemptId,
+    generationId: input.generationId,
+    segmentIndex: input.segmentIndex,
+    providerResponseId: input.providerResponseId,
+    callOrdinal: input.callOrdinal,
+  });
+
+  return recordProviderUsageObservation({
+    ...observationCommon(input),
     inputTokens: snapshot.inputTokens,
     outputTokens: snapshot.outputTokens,
     totalTokens: snapshot.totalTokens,
     cachedInputTokens: snapshot.cachedInputTokens,
     reasoningTokens: snapshot.reasoningTokens,
     providerRequests: snapshot.providerRequests,
-    durationMs: input.durationMs,
-    status: input.status,
     granularity,
-    providerResponseId: input.providerResponseId,
-    errorCategory: input.errorCategory,
     idempotencyKey,
-    limits: [...snapshot.limits, ...(snapshot.provenance === "UNAVAILABLE" ? ["PROVIDER_USAGE_UNAVAILABLE"] : [])],
+    limits: aggregateLimits,
   });
 }

@@ -3,6 +3,7 @@ import {
   buildIdempotencyKey,
   estimateCostUsd,
 } from "@/domains/conversation/usage-accounting";
+import { extractProviderUsageFromRunResult } from "@/domains/conversation/provider-usage";
 
 describe("ML5 E03 — buildIdempotencyKey", () => {
   it("is stable for the same logical provider call", () => {
@@ -43,6 +44,20 @@ describe("ML5 E03 — buildIdempotencyKey", () => {
     const req = buildIdempotencyKey({ ...parts, granularity: "REQUEST" });
     const agg = buildIdempotencyKey({ ...parts, granularity: "GENERATION_AGGREGATE" });
     expect(req).not.toBe(agg);
+  });
+
+  it("differs across project scope (finops-obs-v2)", () => {
+    const base = {
+      granularity: "REQUEST" as const,
+      operation: "nora.generate_reply",
+      attemptId: "att-1",
+      generationId: "gen-1",
+      lane: "DEV",
+      projectId: "proj-a",
+    };
+    expect(buildIdempotencyKey(base)).not.toBe(
+      buildIdempotencyKey({ ...base, projectId: "proj-b" }),
+    );
   });
 });
 
@@ -85,6 +100,85 @@ describe("ML5 E03 — estimateCostUsd", () => {
     expect(r.limits).toContain("CACHED_INPUT_TOKENS_UNVERIFIED");
     // All input treated as uncached: 100k @ $0.1/M + 10k out @ $0.5/M
     expect(r.estimatedCostUsd).toBeCloseTo(0.01 + 0.005, 5);
+  });
+
+  it("marks PARTIAL when tariff uses modelRequested only", () => {
+    const r = estimateCostUsd(
+      { inputTokens: 1_000, outputTokens: 100, cachedInputTokens: 0 },
+      "gpt-6-luna",
+      { modelAppliedUnverified: true },
+    );
+    expect(r.costCoverage).toBe("PARTIAL");
+    expect(r.limits).toContain("MODEL_APPLIED_UNVERIFIED");
+  });
+
+  it("two 150k-input requests must not imply long-context on a 300k aggregate", () => {
+    const oneRequest = (inputTokens: number, outputTokens: number) =>
+      estimateCostUsd(
+        { inputTokens, outputTokens, cachedInputTokens: 0 },
+        "gpt-6.1-terra",
+      );
+    const perRequestTotal =
+      oneRequest(150_000, 500).estimatedCostUsd! +
+      oneRequest(150_000, 500).estimatedCostUsd!;
+    const mistakenAggregateTier = estimateCostUsd(
+      { inputTokens: 300_000, outputTokens: 1_000, cachedInputTokens: 0 },
+      "gpt-6.1-terra",
+    );
+    const safeAggregate = estimateCostUsd(
+      { inputTokens: 300_000, outputTokens: 1_000, cachedInputTokens: 0 },
+      "gpt-6.1-terra",
+      { applyLongContextTier: false },
+    );
+    expect(mistakenAggregateTier.estimatedCostUsd!).toBeGreaterThan(perRequestTotal);
+    expect(safeAggregate.estimatedCostUsd!).toBeCloseTo(perRequestTotal, 4);
+    expect(safeAggregate.limits).toContain("LONG_CONTEXT_TIER_SUPPRESSED_AGGREGATE");
+  });
+
+  it("extracts per-request usage entries from Agents SDK shape", () => {
+    const snap = extractProviderUsageFromRunResult({
+      state: {
+        usage: {
+          requests: 2,
+          inputTokens: 300_000,
+          outputTokens: 2_000,
+          requestUsageEntries: [
+            {
+              inputTokens: 150_000,
+              outputTokens: 1_000,
+              cachedInputTokens: 0,
+              inputTokensDetails: [{ cached_tokens: 0 }],
+            },
+            {
+              inputTokens: 150_000,
+              outputTokens: 1_000,
+              inputTokensDetails: [{ cached_tokens: 0 }],
+            },
+          ],
+        },
+      },
+    });
+    expect(snap.requestUsageEntries).toHaveLength(2);
+    expect(snap.requestUsageEntries![0]!.inputTokens).toBe(150_000);
+    const tiered = snap.requestUsageEntries!.map((e) =>
+      estimateCostUsd(
+        {
+          inputTokens: e.inputTokens,
+          outputTokens: e.outputTokens,
+          cachedInputTokens: e.cachedInputTokens,
+        },
+        "gpt-6.1-terra",
+      ),
+    );
+    expect(tiered.every((t) => t.costCoverage === "KNOWN")).toBe(true);
+    expect(
+      tiered[0]!.estimatedCostUsd! + tiered[1]!.estimatedCostUsd!,
+    ).toBeLessThan(
+      estimateCostUsd(
+        { inputTokens: 300_000, outputTokens: 2_000, cachedInputTokens: 0 },
+        "gpt-6.1-terra",
+      ).estimatedCostUsd!,
+    );
   });
 
   it("applies long-context tier from input token threshold on a single request", () => {

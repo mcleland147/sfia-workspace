@@ -3,6 +3,16 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 describe("Personal rail settings menu (Figma 13.02)", () => {
+  it("consumption menu closes on escape and links to /settings/consumption", () => {
+    const menu = readFileSync(
+      resolve(process.cwd(), "src/components/shell/PersonalRailSettingsMenu.tsx"),
+      "utf8",
+    );
+    expect(menu).toContain('if (e.key === "Escape") close()');
+    expect(menu).toContain('document.addEventListener("mousedown", onPointer)');
+    expect(menu).toContain('const SETTINGS_CONSUMPTION_HREF = "/settings/consumption"');
+  });
+
   it("exposes gear popover with integrations and consumption destinations", () => {
     const css = readFileSync(
       resolve(process.cwd(), "src/components/shell/studio-shell.css"),

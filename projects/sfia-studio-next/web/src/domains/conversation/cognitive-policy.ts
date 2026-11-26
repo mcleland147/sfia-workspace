@@ -8,10 +8,36 @@
 import { StudioError } from "@/lib/http-errors";
 import {
   admitModelEffort,
+  getResourceCatalogEntry,
   type CognitiveEffort,
   type CognitiveModelId,
   OPERATIONAL_DEFAULT_RESOURCE,
 } from "./cognitive-resources";
+
+const EFFORT_RANK: Record<CognitiveEffort, number> = {
+  none: 0,
+  low: 1,
+  medium: 2,
+  high: 3,
+  xhigh: 4,
+  max: 5,
+};
+
+function effortDowngradeCandidates(
+  modelId: CognitiveModelId,
+  fromEffort: CognitiveEffort,
+): CognitiveEffort[] {
+  const entry = getResourceCatalogEntry(modelId);
+  if (!entry || entry.admissionStatus !== "operational") return [];
+  const fromRank = EFFORT_RANK[fromEffort] ?? -1;
+  const candidates: CognitiveEffort[] = [];
+  for (const effort of entry.documentedEfforts) {
+    const rank = EFFORT_RANK[effort];
+    if (rank < fromRank) candidates.push(effort);
+  }
+  candidates.sort((a, b) => EFFORT_RANK[b]! - EFFORT_RANK[a]!);
+  return candidates;
+}
 
 export type CognitiveProfile = "simple" | "analyse" | "investigation";
 export type PolicyProfileType =
@@ -39,8 +65,8 @@ function admissionModeFromEnv(): "operational" | "calibration" {
 
 /**
  * Admit a model×effort couple for the next segment. Fail-closed: unknown or
- * uncalibrated couples fall back to the operational default (Sol medium) with
- * an explicit reason — never silent Sol fallback without a code.
+ * uncalibrated couples fall back with explicit reason codes. On the operational
+ * model, refused efforts step down (e.g. xhigh → high) before Sol medium default.
  */
 export function resolveAdmittedResource(input?: {
   modelId?: string | null;
@@ -51,13 +77,11 @@ export function resolveAdmittedResource(input?: {
   reasonCodes: string[];
 } {
   const mode = admissionModeFromEnv();
-  const requestedModel = (input?.modelId ?? "").trim() || OPERATIONAL_DEFAULT_RESOURCE.modelId;
-  const requestedEffort = (input?.effort ?? "").trim() || OPERATIONAL_DEFAULT_RESOURCE.effort;
-  const admission = admitModelEffort(
-    requestedModel as CognitiveModelId,
-    requestedEffort as CognitiveEffort,
-    mode,
-  );
+  const requestedModelId = ((input?.modelId ?? "").trim() ||
+    OPERATIONAL_DEFAULT_RESOURCE.modelId) as CognitiveModelId;
+  const requestedEffort = ((input?.effort ?? "").trim() ||
+    OPERATIONAL_DEFAULT_RESOURCE.effort) as CognitiveEffort;
+  const admission = admitModelEffort(requestedModelId, requestedEffort, mode);
   if (admission.admitted) {
     return {
       modelId: admission.modelId,
@@ -69,6 +93,26 @@ export function resolveAdmittedResource(input?: {
       ],
     };
   }
+
+  if (getResourceCatalogEntry(requestedModelId)?.admissionStatus === "operational") {
+    for (const lowered of effortDowngradeCandidates(requestedModelId, requestedEffort)) {
+      const retry = admitModelEffort(requestedModelId, lowered, mode);
+      if (retry.admitted) {
+        return {
+          modelId: retry.modelId,
+          effort: retry.effort,
+          reasonCodes: [
+            `RESOURCE_REFUSED_${admission.reasonCode}`,
+            "RESOURCE_FALLBACK_EFFORT_DOWNGRADE",
+            `REQUESTED_EFFORT_${requestedEffort}`,
+            `MODEL_${retry.modelId}`,
+            `EFFORT_${retry.effort}`,
+          ],
+        };
+      }
+    }
+  }
+
   const fallback = admitModelEffort(
     OPERATIONAL_DEFAULT_RESOURCE.modelId,
     OPERATIONAL_DEFAULT_RESOURCE.effort,

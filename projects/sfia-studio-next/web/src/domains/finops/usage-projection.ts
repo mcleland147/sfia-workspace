@@ -52,10 +52,14 @@ export function aggregateEstimatedCost(rows: CostRow[]): MeasuredValue<number> {
   let sum = 0;
   let hasKnown = false;
   let hasUnknown = false;
+  let hasPartial = false;
   for (const r of rows) {
     if (r.costCoverage === "UNKNOWN" || r.estimatedCostUsd == null) {
       hasUnknown = true;
       continue;
+    }
+    if (r.costCoverage === "PARTIAL") {
+      hasPartial = true;
     }
     const n = Number(r.estimatedCostUsd);
     if (!Number.isFinite(n)) {
@@ -66,11 +70,13 @@ export function aggregateEstimatedCost(rows: CostRow[]): MeasuredValue<number> {
     hasKnown = true;
   }
   if (!hasKnown) return { kind: "unknown", reason: "Aucun coût mesuré" };
-  if (hasUnknown) {
+  if (hasUnknown || hasPartial) {
     return {
       kind: "partial",
       value: sum,
-      note: "Certains coûts restent inconnus",
+      note: hasUnknown
+        ? "Certains coûts restent inconnus"
+        : "Certains coûts sont partiels",
     };
   }
   return { kind: "known", value: sum };
@@ -101,16 +107,35 @@ export function computeMeasureCoveragePercent(
   rows: Array<{ costCoverage: string; providerRequests: number | null }>,
 ): MeasuredValue<number> {
   if (rows.length === 0) return { kind: "empty" };
-  const totalReq = rows.reduce((acc, r) => acc + (r.providerRequests ?? 1), 0);
-  const measuredReq = rows.reduce((acc, r) => {
-    if (r.costCoverage === "KNOWN" || r.costCoverage === "PARTIAL") {
-      return acc + (r.providerRequests ?? 1);
+  let totalReq = 0;
+  let measuredReq = 0;
+  let missingRequestCounts = false;
+  for (const r of rows) {
+    if (r.providerRequests == null || !Number.isFinite(r.providerRequests)) {
+      missingRequestCounts = true;
+      continue;
     }
-    return acc;
-  }, 0);
+    totalReq += r.providerRequests;
+    if (r.costCoverage === "KNOWN") {
+      measuredReq += r.providerRequests;
+    } else if (r.costCoverage === "PARTIAL") {
+      measuredReq += r.providerRequests;
+    }
+  }
+  if (missingRequestCounts && totalReq <= 0) {
+    return { kind: "unknown", reason: "Requêtes non observées" };
+  }
   if (totalReq <= 0) return { kind: "unknown", reason: "Requêtes non observées" };
   const pct = Math.round((measuredReq / totalReq) * 100);
-  return { kind: "known", value: Math.min(100, Math.max(0, pct)) };
+  const value = Math.min(100, Math.max(0, pct));
+  if (missingRequestCounts) {
+    return {
+      kind: "partial",
+      value,
+      note: "Certaines lignes sans nombre de requêtes",
+    };
+  }
+  return { kind: "known", value };
 }
 
 export function formatUsdFr(value: number): string {
@@ -119,6 +144,75 @@ export function formatUsdFr(value: number): string {
     maximumFractionDigits: 2,
   });
   return `${s} $`;
+}
+
+/** Compact USD for chart Y-axis (Figma 13.03). */
+export function formatUsdAxisFr(value: number): string {
+  const s = value.toLocaleString("fr-FR", {
+    minimumFractionDigits: value > 0 && value < 1 ? 1 : 0,
+    maximumFractionDigits: value > 0 && value < 1 ? 2 : 0,
+  });
+  return `${s} $`;
+}
+
+export function finOpsDailyChartScaleMax(costs: Array<number | null>): number {
+  let max = 0;
+  for (const c of costs) {
+    if (c != null && Number.isFinite(c) && c > max) max = c;
+  }
+  return max > 0 ? max : 1;
+}
+
+function finOpsNiceChartTop(max: number): number {
+  if (max <= 1) return 1;
+  if (max <= 3) return 3;
+  if (max <= 6) return 6;
+  if (max <= 10) return 10;
+  const mag = 10 ** Math.floor(Math.log10(max));
+  return Math.ceil(max / mag) * mag;
+}
+
+/** Descending USD ticks for a daily spend chart (top → 0). */
+export function finOpsDailyChartYTicks(scaleMax: number): number[] {
+  const top = finOpsNiceChartTop(scaleMax);
+  const steps = top <= 1 ? 2 : 3;
+  const step = top / steps;
+  const ticks: number[] = [];
+  for (let i = steps; i >= 0; i--) {
+    ticks.push(Math.round(step * i * 1000) / 1000);
+  }
+  return ticks;
+}
+
+export function finOpsDailyXAxisLabels(periodDays: number): { start: string; end: string } {
+  const span = Math.max(1, periodDays);
+  return { start: `J-${span - 1}`, end: "Aujourd'hui" };
+}
+
+export function formatModelBreakdownCost(row: {
+  costUsd: number | null;
+  coverage: string;
+}): string {
+  if (row.costUsd == null || row.coverage === "UNKNOWN") {
+    return "Inconnu";
+  }
+  if (row.coverage === "PARTIAL") {
+    return formatMeasuredUsd({ kind: "partial", value: row.costUsd });
+  }
+  return formatMeasuredUsd({ kind: "known", value: row.costUsd });
+}
+
+export function mapCostCoverageLabel(coverage: string): string {
+  switch ((coverage ?? "").toUpperCase()) {
+    case "KNOWN":
+      return "Mesuré";
+    case "PARTIAL":
+      return "Partiel";
+    case "UNKNOWN":
+      return "Inconnu";
+    default:
+      return coverage || "—";
+  }
 }
 
 export function formatTokenCountFr(value: number): string {

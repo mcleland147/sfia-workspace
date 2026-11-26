@@ -3,6 +3,15 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-26-ML5-CONTINUATION-PRE-CALIBRATION
+
+- **date_utc**: 2026-11-26
+- **lane**: DEV corrections; RECETTE isolation intervention prepared (not applied)
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **focus**: OpenAI lane guard; FinOps per-request/aggregate; allocation guidance blurb; UX FinOps axes/timeline; residual-abcd test alignment
+- **gates_pending**: G-LIVE-API, G-WEB-*, G-RECETTE, RECETTE secret GO
+- **release**: NO RELEASE / NOT ADOPTED
+
 ## delivery_id: DELIV-2026-11-26-ML5-INTEGRATED-COGNITIVE-WEB-FINOPS-DEV
 
 - **date_utc**: 2026-11-26

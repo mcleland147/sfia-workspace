@@ -14,6 +14,7 @@ import {
   type CognitivePolicy,
   NORA_STUDY_MODEL,
 } from "./cognitive-policy";
+import { buildCognitiveGuidanceCatalogBlurb } from "./cognitive-resources";
 import {
   buildNoraD4Tools,
   searchProjectResources,
@@ -202,6 +203,8 @@ const SYSTEM_INSTRUCTIONS = [
  * Nouvelles réponses LIVE: replyDraft Markdown uniquement — pas de visualComposition.
  */
 export const E05_VISUAL_COMPOSITION_FROZEN = true as const;
+
+const COGNITIVE_GUIDANCE_CATALOG_BLURB = buildCognitiveGuidanceCatalogBlurb();
 
 export function stripVisualCompositionForFrozenReplies(raw: unknown): unknown {
   if (!E05_VISUAL_COMPOSITION_FROZEN) return raw;
@@ -1038,6 +1041,8 @@ async function runLiveWithTools(
   const QUALIFICATION_INSTRUCTIONS = [
     SYSTEM_INSTRUCTIONS,
     "",
+    COGNITIVE_GUIDANCE_CATALOG_BLURB,
+    "",
     "SORTIE STRUCTURÉE OBLIGATOIRE (qualification sémantique) :",
     "- Remplis l'enveloppe typée (schemaVersion ml4c-sem-qual-v1).",
     "- replyDraft = texte destiné au Pilote (français, Markdown utile). Vise la concision utile (souvent ≤8k) ; plafond technique 20000. GEL E05 (19/11/2026) : n'émets PAS visualComposition — toute la substance dans replyDraft (titres, listes, tableaux Markdown si utiles). Structure textuelle libre et proportionnée à la question — pas un transcript.",
@@ -1834,6 +1839,37 @@ export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraG
       );
     }
     return stampCkiDelivery(await fixtureReply(input, generationId, policy), input.ckiDelivery, true);
+  }
+
+  // ENV-01 — refuse LIVE when key fingerprint violates lane policy (no cross-lane fallback).
+  const { assertOpenAiKeyForLane } = await import("@/lib/openai-lane-guard");
+  const laneGuard = assertOpenAiKeyForLane();
+  if (!laneGuard.ok) {
+    emitObs({
+      event_name: "d3.nora.provider_attempt",
+      component: "d3.nora_adapter",
+      operation_id: input.toolScope?.operationId,
+      generation_id: generationId,
+      outcome: "FAILED",
+      error_category: laneGuard.reasonCode,
+      policy_version: policy.policyVersion,
+      profile_type:
+        policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
+      meta: {
+        kind: "lane_guard",
+        lane: laneGuard.lane,
+        reason_code: laneGuard.reasonCode,
+      },
+    });
+    return stampCkiDelivery(
+      boundaryFail(
+        generationId,
+        `NORA_OPENAI_LANE_GUARD (${laneGuard.reasonCode}) — aucun fallback inter-lanes`,
+        policy,
+      ),
+      input.ckiDelivery,
+      false,
+    );
   }
 
   try {

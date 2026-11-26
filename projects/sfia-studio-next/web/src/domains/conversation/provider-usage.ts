@@ -3,6 +3,14 @@
  * UNVERIFIED / null when the SDK shape does not expose a field.
  */
 
+export type ProviderRequestUsageEntry = {
+  inputTokens: number | null;
+  outputTokens: number | null;
+  totalTokens: number | null;
+  reasoningTokens: number | null;
+  cachedInputTokens: number | null;
+};
+
 export type ProviderUsageSnapshot = {
   inputTokens: number | null;
   outputTokens: number | null;
@@ -10,10 +18,63 @@ export type ProviderUsageSnapshot = {
   reasoningTokens: number | null;
   cachedInputTokens: number | null;
   providerRequests: number | null;
+  /** Per-request usage when the SDK exposes `requestUsageEntries`. */
+  requestUsageEntries: ProviderRequestUsageEntry[] | null;
   /** Provenance label — never claim values absent from the SDK. */
   provenance: "AGENTS_SDK_RUN_STATE" | "UNAVAILABLE";
   limits: string[];
 };
+
+function num(v: unknown): number | null {
+  return typeof v === "number" && Number.isFinite(v) ? v : null;
+}
+
+function usageRecord(usage: unknown): Record<string, unknown> | null {
+  if (!usage || typeof usage !== "object") return null;
+  return usage as Record<string, unknown>;
+}
+
+function normalizeRequestUsageEntry(raw: unknown): ProviderRequestUsageEntry | null {
+  if (!raw || typeof raw !== "object") return null;
+  const rec = raw as Record<string, unknown>;
+  const inputTokens = num(rec.inputTokens ?? rec.input_tokens);
+  const outputTokens = num(rec.outputTokens ?? rec.output_tokens);
+  const totalTokens =
+    num(rec.totalTokens ?? rec.total_tokens) ??
+    (inputTokens != null && outputTokens != null
+      ? inputTokens + outputTokens
+      : null);
+  const cachedInputTokens = sumDetailField(
+    rec.inputTokensDetails ?? rec.input_tokens_details,
+    ["cached_tokens", "cachedTokens", "input_cached_tokens"],
+  );
+  const reasoningTokens = sumDetailField(
+    rec.outputTokensDetails ?? rec.output_tokens_details,
+    ["reasoning_tokens", "reasoningTokens"],
+  );
+  if (inputTokens == null && outputTokens == null) return null;
+  return {
+    inputTokens,
+    outputTokens,
+    totalTokens,
+    reasoningTokens,
+    cachedInputTokens,
+  };
+}
+
+function readRequestUsageEntries(usage: unknown): ProviderRequestUsageEntry[] | null {
+  const rec = usageRecord(usage);
+  if (!rec) return null;
+  const raw =
+    rec.requestUsageEntries ??
+    rec.request_usage_entries ??
+    (usage as { requestUsageEntries?: unknown })?.requestUsageEntries;
+  if (!Array.isArray(raw) || raw.length === 0) return null;
+  const parsed = raw
+    .map((e) => normalizeRequestUsageEntry(e))
+    .filter((e): e is ProviderRequestUsageEntry => e != null);
+  return parsed.length > 0 ? parsed : null;
+}
 
 function sumDetailField(
   details: unknown,
@@ -59,25 +120,26 @@ export function extractProviderUsageFromRunResult(
         reasoningTokens: null,
         cachedInputTokens: null,
         providerRequests: null,
+        requestUsageEntries: null,
         provenance: "UNAVAILABLE",
         limits: ["PROVIDER_USAGE_ABSENT"],
       };
     }
 
-    const num = (v: unknown): number | null =>
-      typeof v === "number" && Number.isFinite(v) ? v : null;
+    const usageObj = usage as Record<string, unknown>;
+    const requestUsageEntries = readRequestUsageEntries(usage);
 
-    const inputTokens = num(usage.inputTokens ?? usage.input_tokens);
-    const outputTokens = num(usage.outputTokens ?? usage.output_tokens);
-    const totalTokens = num(usage.totalTokens ?? usage.total_tokens);
-    const providerRequests = num(usage.requests);
+    const inputTokens = num(usageObj.inputTokens ?? usageObj.input_tokens);
+    const outputTokens = num(usageObj.outputTokens ?? usageObj.output_tokens);
+    const totalTokens = num(usageObj.totalTokens ?? usageObj.total_tokens);
+    const providerRequests = num(usageObj.requests);
 
     const cachedInputTokens = sumDetailField(
-      usage.inputTokensDetails ?? usage.input_tokens_details,
+      usageObj.inputTokensDetails ?? usageObj.input_tokens_details,
       ["cached_tokens", "cachedTokens", "input_cached_tokens"],
     );
     const reasoningTokens = sumDetailField(
-      usage.outputTokensDetails ?? usage.output_tokens_details,
+      usageObj.outputTokensDetails ?? usageObj.output_tokens_details,
       ["reasoning_tokens", "reasoningTokens"],
     );
 
@@ -98,6 +160,7 @@ export function extractProviderUsageFromRunResult(
       reasoningTokens,
       cachedInputTokens,
       providerRequests,
+      requestUsageEntries,
       provenance: "AGENTS_SDK_RUN_STATE",
       limits,
     };
@@ -109,8 +172,25 @@ export function extractProviderUsageFromRunResult(
       reasoningTokens: null,
       cachedInputTokens: null,
       providerRequests: null,
+      requestUsageEntries: null,
       provenance: "UNAVAILABLE",
       limits: ["PROVIDER_USAGE_EXTRACT_ERROR"],
     };
+  }
+}
+
+/** Prefer SDK per-request usage for tariff (long-context is per request, not summed). */
+export function extractRequestUsageEntriesFromRunResult(
+  result: unknown,
+): ProviderRequestUsageEntry[] | null {
+  try {
+    const r = result as {
+      state?: { usage?: unknown };
+      usage?: unknown;
+    };
+    const usage = r?.state?.usage ?? r?.usage ?? null;
+    return readRequestUsageEntries(usage);
+  } catch {
+    return null;
   }
 }

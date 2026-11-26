@@ -4,6 +4,10 @@ import {
   aggregateTokenTotal,
   computeMeasureCoveragePercent,
   formatMeasuredUsd,
+  finOpsDailyChartYTicks,
+  finOpsDailyXAxisLabels,
+  formatModelBreakdownCost,
+  formatUsdAxisFr,
   parseFinOpsPeriodDays,
   resolvePersonalSettingsActive,
   tokenTotalForRow,
@@ -14,6 +18,15 @@ describe("ML5 E06 — FinOps usage projection", () => {
     expect(parseFinOpsPeriodDays(null)).toBe(30);
     expect(parseFinOpsPeriodDays("7")).toBe(7);
     expect(parseFinOpsPeriodDays("999")).toBe(30);
+  });
+
+  it("aggregateEstimatedCost returns partial when any row is PARTIAL", () => {
+    const r = aggregateEstimatedCost([
+      { estimatedCostUsd: "1.5", costCoverage: "KNOWN" },
+      { estimatedCostUsd: "0.5", costCoverage: "PARTIAL" },
+    ]);
+    expect(r.kind).toBe("partial");
+    if (r.kind === "partial") expect(r.value).toBeCloseTo(2);
   });
 
   it("aggregateEstimatedCost never invents zero when all costs unknown", () => {
@@ -43,9 +56,42 @@ describe("ML5 E06 — FinOps usage projection", () => {
     expect(computeMeasureCoveragePercent([]).kind).toBe("empty");
   });
 
+  it("computeMeasureCoveragePercent does not assume request count 1", () => {
+    const unknown = computeMeasureCoveragePercent([
+      { costCoverage: "KNOWN", providerRequests: null },
+    ]);
+    expect(unknown.kind).toBe("unknown");
+    const mixed = computeMeasureCoveragePercent([
+      { costCoverage: "KNOWN", providerRequests: 2 },
+      { costCoverage: "UNKNOWN", providerRequests: null },
+    ]);
+    expect(mixed.kind).toBe("partial");
+    if (mixed.kind === "partial") expect(mixed.value).toBe(100);
+  });
+
   it("resolvePersonalSettingsActive maps settings routes", () => {
     expect(resolvePersonalSettingsActive("/settings/integrations")).toBe("integrations");
     expect(resolvePersonalSettingsActive("/settings/consumption/travaux/x")).toBe("consumption");
     expect(resolvePersonalSettingsActive("/portfolio")).toBeNull();
+  });
+
+  it("formatUsdAxisFr uses compact dollars for chart ticks", () => {
+    expect(formatUsdAxisFr(3)).toBe("3 $");
+    expect(formatUsdAxisFr(0)).toBe("0 $");
+  });
+
+  it("finOpsDailyXAxisLabels matches Figma J-29 / Aujourd'hui", () => {
+    expect(finOpsDailyXAxisLabels(30)).toEqual({ start: "J-29", end: "Aujourd'hui" });
+  });
+
+  it("finOpsDailyChartYTicks descends from scale max", () => {
+    const ticks = finOpsDailyChartYTicks(2.4);
+    expect(ticks[0]).toBe(3);
+    expect(ticks[ticks.length - 1]).toBe(0);
+  });
+
+  it("formatModelBreakdownCost never shows zero for unknown coverage", () => {
+    expect(formatModelBreakdownCost({ costUsd: null, coverage: "UNKNOWN" })).toBe("Inconnu");
+    expect(formatModelBreakdownCost({ costUsd: 1.2, coverage: "PARTIAL" })).toContain("1,20");
   });
 });

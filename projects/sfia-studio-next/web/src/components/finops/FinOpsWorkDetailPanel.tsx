@@ -8,6 +8,7 @@ import {
   formatIntegerFr,
   formatMeasuredTokens,
   formatMeasuredUsd,
+  mapCostCoverageLabel,
 } from "@/domains/finops/usage-projection";
 import "./finops-consumption.css";
 
@@ -46,6 +47,21 @@ export function FinOpsWorkDetailPanel({ workId }: { workId: string }) {
     detail?.kpis.segmentCount.kind === "known"
       ? formatIntegerFr(detail.kpis.segmentCount.value)
       : "—";
+
+  const timelineChrono = detail
+    ? [...detail.timeline].sort(
+        (a, b) => new Date(a.at).getTime() - new Date(b.at).getTime(),
+      )
+    : [];
+
+  function formatTimelineAt(iso: string): string {
+    return new Date(iso).toLocaleString("fr-FR", {
+      day: "2-digit",
+      month: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
 
   return (
     <div className="finops-1306-page" data-testid="finops-work-detail-page">
@@ -140,6 +156,32 @@ export function FinOpsWorkDetailPanel({ workId }: { workId: string }) {
                   Tarif de référence : {detail.tariffVersion}
                 </p>
               ) : null}
+            </section>
+
+            <section className="finops-1306-panel" data-testid="finops-timeline">
+              <h2>Chronologie des observations</h2>
+              {timelineChrono.length === 0 ? (
+                <p className="finops-1306-state">Aucune observation datée pour ce travail.</p>
+              ) : (
+                <div className="finops-1306-timeline">
+                  {timelineChrono.map((ev) => (
+                    <div
+                      key={ev.id}
+                      className="finops-1306-timeline-row"
+                      data-testid={`finops-timeline-${ev.id}`}
+                    >
+                      <span className="finops-1306-timeline-at">{formatTimelineAt(ev.at)}</span>
+                      <span className="finops-1306-timeline-op">
+                        {ev.operation?.trim() || "Observation fournisseur"}
+                      </span>
+                      <span>{displayModelShort(ev.model) ?? "—"}</span>
+                      <span className="finops-1306-timeline-coverage">
+                        {mapCostCoverageLabel(ev.costCoverage)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </section>
           </>
         ) : null}

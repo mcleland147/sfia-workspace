@@ -1,7 +1,12 @@
-import { describe, expect, it } from "vitest";
-import { NORA_STUDY_MODEL } from "@/domains/conversation/cognitive-policy";
+import { afterEach, describe, expect, it } from "vitest";
+import {
+  NORA_STUDY_MODEL,
+  buildCognitivePolicy,
+  resolveAdmittedResource,
+} from "@/domains/conversation/cognitive-policy";
 import {
   COGNITIVE_GUIDANCE_ROWS,
+  COGNITIVE_GUIDANCE_CATALOG_BLURB_MAX_CHARS,
   COGNITIVE_REFERENTIAL_COMPACT_SUMMARY,
   COGNITIVE_REFERENTIAL_ROW_COUNT,
   COGNITIVE_RESOURCE_CATALOG,
@@ -12,6 +17,7 @@ import {
   TARIFF_PROVENANCE,
   admitModelEffort,
   applyLongContextMultipliers,
+  buildCognitiveGuidanceCatalogBlurb,
   effectiveTariffRates,
   getCognitiveGuidanceById,
   getTariffEntry,
@@ -54,6 +60,24 @@ describe("ML5 E02 — cognitive referential (51 guidance rows)", () => {
   it("compact summary matches row count", () => {
     expect(COGNITIVE_REFERENTIAL_COMPACT_SUMMARY.length).toBe(51);
     expect(COGNITIVE_REFERENTIAL_COMPACT_SUMMARY[0]).toMatch(/^cog-4\.1-01\|/);
+  });
+
+  it("CF §4.1–4.5 section counts sum to 51", () => {
+    const counts = { "4.1": 0, "4.2": 0, "4.3": 0, "4.4": 0, "4.5": 0 };
+    for (const row of COGNITIVE_GUIDANCE_ROWS) {
+      counts[row.section] += 1;
+    }
+    expect(counts).toEqual({ "4.1": 9, "4.2": 10, "4.3": 9, "4.4": 11, "4.5": 12 });
+  });
+
+  it("catalog blurb stays bounded and does not embed 51 matrix lines", () => {
+    const blurb = buildCognitiveGuidanceCatalogBlurb();
+    expect(blurb.length).toBeLessThanOrEqual(COGNITIVE_GUIDANCE_CATALOG_BLURB_MAX_CHARS);
+    expect(blurb).toMatch(/getCognitiveGuidanceById/);
+    expect(blurb.split("\n").length).toBeLessThan(20);
+    for (const line of COGNITIVE_REFERENTIAL_COMPACT_SUMMARY) {
+      expect(blurb).not.toContain(line);
+    }
   });
 });
 
@@ -118,5 +142,54 @@ describe("ML5 E02 — resource admission", () => {
     expect(admitModelEffort("gpt-6.2-sol", "none", "calibration").admitted).toBe(
       false,
     );
+  });
+});
+
+describe("ML5 E02 — resolveAdmittedResource", () => {
+  const prevMode = process.env.SFIA_COGNITIVE_ADMISSION_MODE;
+
+  afterEach(() => {
+    if (prevMode === undefined) delete process.env.SFIA_COGNITIVE_ADMISSION_MODE;
+    else process.env.SFIA_COGNITIVE_ADMISSION_MODE = prevMode;
+  });
+
+  it("operational refuses Luna with explicit fallback codes", () => {
+    process.env.SFIA_COGNITIVE_ADMISSION_MODE = "operational";
+    const r = resolveAdmittedResource({ modelId: "gpt-6-luna", effort: "medium" });
+    expect(r.modelId).toBe("gpt-6.2-sol");
+    expect(r.effort).toBe("medium");
+    expect(r.reasonCodes).toContain("RESOURCE_REFUSED_UNCALIBRATED_MODEL_OPERATIONAL");
+    expect(r.reasonCodes).toContain("RESOURCE_FALLBACK_OPERATIONAL_DEFAULT");
+  });
+
+  it("calibration admits Luna operational couple", () => {
+    process.env.SFIA_COGNITIVE_ADMISSION_MODE = "calibration";
+    const r = resolveAdmittedResource({ modelId: "gpt-6-luna", effort: "low" });
+    expect(r.modelId).toBe("gpt-6-luna");
+    expect(r.effort).toBe("low");
+    expect(r.reasonCodes).toContain("RESOURCE_ADMITTED_CALIBRATION");
+  });
+
+  it("downgrades Sol xhigh to high before Sol medium default", () => {
+    process.env.SFIA_COGNITIVE_ADMISSION_MODE = "operational";
+    const r = resolveAdmittedResource({ modelId: "gpt-6.2-sol", effort: "xhigh" });
+    expect(r.modelId).toBe("gpt-6.2-sol");
+    expect(r.effort).toBe("high");
+    expect(r.reasonCodes).toContain("RESOURCE_REFUSED_SOL_EFFORT_NOT_OPERATIONAL_BAND");
+    expect(r.reasonCodes).toContain("RESOURCE_FALLBACK_EFFORT_DOWNGRADE");
+    expect(r.reasonCodes).toContain("REQUESTED_EFFORT_xhigh");
+    expect(r.reasonCodes).not.toContain("RESOURCE_FALLBACK_OPERATIONAL_DEFAULT");
+  });
+
+  it("buildCognitivePolicy propagates admission reason codes", () => {
+    process.env.SFIA_COGNITIVE_ADMISSION_MODE = "operational";
+    const p = buildCognitivePolicy("test", "TEST_BOUNDARY", {
+      modelHint: "gpt-6.2-sol",
+      effortHint: "max",
+    });
+    expect(p.modelRequested).toBe("gpt-6.2-sol");
+    expect(p.effortRequested).toBe("high");
+    expect(p.reasonCodes.some((c) => c.startsWith("RESOURCE_REFUSED_"))).toBe(true);
+    expect(p.reasonCodes).toContain("RESOURCE_FALLBACK_EFFORT_DOWNGRADE");
   });
 });

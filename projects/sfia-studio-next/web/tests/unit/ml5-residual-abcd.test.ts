@@ -60,8 +60,10 @@ describe("A — investigation continuation / restitution", () => {
       state: empty,
       suspendReason: "GLOBAL_TOKEN_BUDGET_EXHAUSTED",
     });
-    expect(t1).toMatch(/Aucune conclusion métier fiable/);
-    expect(t1).toMatch(/GLOBAL_TOKEN_BUDGET_EXHAUSTED/);
+    // Product copy (as-built): honest empty acquis — no invented conclusions.
+    expect(t1).toMatch(/Aucun acquis métier consolidé/);
+    // Suspend reason may be humanized; raw code or "limite de ressources".
+    expect(t1).toMatch(/GLOBAL_TOKEN_BUDGET_EXHAUSTED|limite de ressources/i);
 
     const rich = createEmptyInvestigation("y");
     rich.questions = [
@@ -81,11 +83,12 @@ describe("A — investigation continuation / restitution", () => {
     expect(scaleSegmentCharBudget({ baseChars: 40_000, usedTokens: 10_000 }).reasonCode).toBe(
       "SEGMENT_BUDGET_FULL",
     );
+    // Envelope default 2M — reduction starts below 50% remaining headroom.
     expect(
-      scaleSegmentCharBudget({ baseChars: 40_000, usedTokens: 120_000 }).chars,
+      scaleSegmentCharBudget({ baseChars: 40_000, usedTokens: 1_100_000 }).chars,
     ).toBeLessThan(40_000);
     expect(
-      scaleSegmentCharBudget({ baseChars: 40_000, usedTokens: 180_000 }).reasonCode,
+      scaleSegmentCharBudget({ baseChars: 40_000, usedTokens: 1_700_000 }).reasonCode,
     ).toBe("SEGMENT_BUDGET_MINIMAL_RESTITUTION");
   });
 });

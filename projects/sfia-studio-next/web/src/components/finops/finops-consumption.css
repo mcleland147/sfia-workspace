@@ -131,12 +131,61 @@
   font-weight: 600;
 }
 
+.finops-1306-panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.finops-1306-panel-head h2 {
+  margin: 0;
+}
+
+.finops-1306-chart-meta {
+  font-size: 11px;
+  color: #7d8aa3;
+  white-space: nowrap;
+}
+
+.finops-1306-daily-chart {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.finops-1306-chart-y {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 2.75rem;
+  height: 150px;
+  font-size: 10px;
+  color: #7d8aa3;
+  text-align: right;
+}
+
+.finops-1306-daily-x {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  padding-left: calc(2.75rem + 10px);
+  font-size: 10px;
+  color: #7d8aa3;
+}
+
 .finops-1306-bars {
   display: flex;
   align-items: flex-end;
   gap: 3px;
   height: 150px;
   padding-top: 8px;
+  border-bottom: 1px solid #252d3f;
 }
 
 .finops-1306-bar {
@@ -150,6 +199,11 @@
 .finops-1306-bar.is-empty {
   opacity: 0.15;
   background: #3a4258;
+}
+
+.finops-1306-bar.is-unknown:not(.is-empty) {
+  opacity: 0.45;
+  background: #4a5270;
 }
 
 .finops-1306-model-row {
@@ -270,6 +324,38 @@
   font-size: 13px;
 }
 
+.finops-1306-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.finops-1306-timeline-row {
+  display: grid;
+  grid-template-columns: 7rem 1fr 5rem 5rem;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid #1f2738;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #b8c2d6;
+}
+
+.finops-1306-timeline-at {
+  color: #7d8aa3;
+  font-variant-numeric: tabular-nums;
+}
+
+.finops-1306-timeline-op {
+  color: #e8ecfa;
+}
+
+.finops-1306-timeline-coverage {
+  text-align: right;
+  color: #94a2bb;
+}
+
 .finops-1306-state {
   padding: 32px 0;
   text-align: center;
@@ -286,5 +372,11 @@
   }
   .finops-1306-segment-row {
     grid-template-columns: 1fr;
+  }
+  .finops-1306-timeline-row {
+    grid-template-columns: 1fr;
+  }
+  .finops-1306-daily-x {
+    padding-left: 0;
   }
 }

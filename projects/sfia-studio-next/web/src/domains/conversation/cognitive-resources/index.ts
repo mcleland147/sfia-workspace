@@ -21,6 +21,8 @@ export {
   COGNITIVE_REFERENTIAL_ROW_COUNT,
   COGNITIVE_REFERENTIAL_VERSION,
   buildCognitiveReferentialCompactSummary,
+  buildCognitiveGuidanceCatalogBlurb,
+  COGNITIVE_GUIDANCE_CATALOG_BLURB_MAX_CHARS,
   getCognitiveGuidanceById,
 } from "./cognitive-referential";
 

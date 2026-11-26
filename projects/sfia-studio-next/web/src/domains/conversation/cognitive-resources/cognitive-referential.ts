@@ -3,9 +3,10 @@
  * CF-allocation.md §4.1–4.5 — 51 elementary work rows; Nora may depart when context warrants.
  */
 
-import type {
-  CognitiveEffort,
-  CognitiveModelFamily,
+import {
+  COGNITIVE_RESOURCE_CATALOG,
+  type CognitiveEffort,
+  type CognitiveModelFamily,
 } from "./resource-catalog";
 
 export const COGNITIVE_REFERENTIAL_VERSION =
@@ -499,3 +500,28 @@ export function buildCognitiveReferentialCompactSummary(): readonly string[] {
 
 export const COGNITIVE_REFERENTIAL_COMPACT_SUMMARY =
   buildCognitiveReferentialCompactSummary();
+
+/** Max injected catalog blurb (chars) — full matrix is never inlined in prompts. */
+export const COGNITIVE_GUIDANCE_CATALOG_BLURB_MAX_CHARS = 2_400 as const;
+
+/**
+ * Short Nora-facing catalog + constraints (not the 51-row matrix).
+ * Detailed per-row guidance: server referential by id; compact lines on demand only.
+ */
+export function buildCognitiveGuidanceCatalogBlurb(): string {
+  const models = COGNITIVE_RESOURCE_CATALOG.map((e) => {
+    const band =
+      e.modelId === "gpt-6.2-sol"
+        ? "efforts opérationnels admis: low|medium|high (pré-calibration)"
+        : "candidat documenté — admission opérationnelle après calibration Morris";
+    return `- ${e.modelId} (${e.family}): ${e.positioning}; ${band}.`;
+  }).join("\n");
+  return [
+    "RESSOURCES COGNITIVES (indicatif — Studio tranche réellement l'admission) :",
+    models,
+    `- Référentiel élémentaire : ${COGNITIVE_REFERENTIAL_ROW_COUNT} lignes CF §4.1–4.5 (guidance seulement, pas un moteur de routage).`,
+    "- Tu peux t'en inspirer pour cognitiveProfileHint / effort; Nora peut s'écarter si le contexte l'exige.",
+    "- Ne demande pas la matrice complète dans replyDraft : le détail d'une ligne est disponible côté serveur (getCognitiveGuidanceById / résumé compact à la demande du conducteur).",
+    "- Défaut opérationnel pré-calibration : Sol medium si le couple proposé n'est pas admis.",
+  ].join("\n");
+}
