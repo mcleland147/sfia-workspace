@@ -121,4 +121,64 @@ Pistes vérifiées dans le handoff 69d3d3e1 (pas causes établies du nouveau KO)
 - Le test LIVE vérifie candidat = V2 et V1 intacte ; branche alternative accepte une écriture directe ; il n'exige pas les deux modifications ni le hors-scope strict ni l'affichage navigateur. Les tests unitaires de chaînes ne démontrent pas le chemin D3→D4. Expliquer le PASS vs UAT KO.
 - LIVE : vérifier duplication projection N1/groupe/description/détail, historique du tour et producteurs D4 comparateur, état final ; CSS animation : DOM réellement rendu, classe et keyframes, style calculé/reduced-motion. Ne pas reconstruire les acquis.
 
-**Verdict : ML5 DELIVERY 1 — UAT NOT ACCEPTED — STOCKTRACK CLEAN-PROJECT REPRODUCTION CONFIRMED — TARGETED DIAGNOSIS REQUIRED.** Guidance et création satisfaisantes sur ces parcours ; révision KO sur deux bases ; activité LIVE partielle. Aucune nouvelle campagne, aucune correction avant revue du diagnostic. R5 IN PROGRESS / ML5 OPEN / R6 NOT STARTED / NO RELEASE / NOT ADOPTED. Suite inchangée : correctif discriminant puis recette, FinOps et livraison 2. 
+**Verdict : ML5 DELIVERY 1 — UAT NOT ACCEPTED — STOCKTRACK CLEAN-PROJECT REPRODUCTION CONFIRMED — TARGETED DIAGNOSIS REQUIRED.** Guidance et création satisfaisantes sur ces parcours ; révision KO sur deux bases ; activité LIVE partielle. Aucune nouvelle campagne, aucune correction avant revue du diagnostic. R5 IN PROGRESS / ML5 OPEN / R6 NOT STARTED / NO RELEASE / NOT ADOPTED. Suite inchangée : correctif discriminant puis recette, FinOps et livraison 2.
+
+---
+
+## 9. Addendum — recette de révision et conservation StockTrack, 26/11/2026
+
+**BEHAVIOR PROVEN — UAT PASS sur le parcours documentaire StockTrack testé ; IT-06 acceptée sur ce périmètre.** Morris confirme la réussite de l'inspection, puis transmet les captures de conservation et d'historique. GO conversationnel « ok go » après la recommandation ChatGPT de consigner le résultat et d'avancer. Ce constat ne vaut ni clôture globale ML5, ni adoption, ni qualification exhaustive D4.
+
+### 9.1 Candidat et preuves amont
+
+- [Diagnostic causal résiduel](https://github.com/mcleland147/sfia-workspace/blob/d1a5667b42d341d0637f34a9fa399665bf59bb24/sfia-review-handoff/latest-chatgpt-review.md) : StockTrack, reprise CREATE→REVISE du même travail cognitif, consolidation APPEND puis écrasement C20, concaténation V1 + révisé ; InterventionTrack, candidat correct en base mais divergence de projection probable. Causes distinctes ; ancien historique non nécessaire au défaut.
+- [Delivery DEV](https://github.com/mcleland147/sfia-workspace/blob/5f196792633d5fd358fbc027c1427d813bbac68a/sfia-review-handoff/latest-chatgpt-review.md) : frontière de production documentaire, SUPERSEDE pour nouvelle production complète, APPEND conservé au sein d'une production, C20 corrigé, objet candidat unique, contrat Nora aligné, réduction redondances LIVE, animation contrôlée. Preuves DEV PG LIVE et navigateur ; réserves sur oracle métier intégral, historique navigateur, cas sans focus préalable et échecs de fixtures préexistants.
+- [Bascule RECETTE autorisée par Morris avec réserves](https://github.com/mcleland147/sfia-workspace/blob/eb81bffda66bbbd255a6885b483334db23d383a5/sfia-review-handoff/latest-chatgpt-review.md), blob `1044311b236135dc36ed287c6f59ce4733bac5e1`. Code servi `70cf3e4aa09a8bc35be5bd967b6b016ecb2b779a`, tree Next `87598f3b9d9615d7976d21e2393fa6adfd666722`, web tree `9169c0c0a17ee6555e43dc4b14810b2d2e7ec2c1`, BUILD_ID `m5QcOrvjUz8vVAidDKxOZ`, digest `4cbf3c8da39a34e15d59da93d76b5d6bd10987f54ef36c0c36a485f43afe3de7`. Tip documentaire local rapporté `9f18a8f2627e9b0a57b0c3305fcb26559a1e6f9a`. RECETTE :3200 / PG :5434 ; DEV préservé :3100 / PG :5433, build `bRStInNJBp4q4p6qIzcK3`. Login 200, portfolio 401, auto-session 403, WEB LIVE bloqué, comptages avant/après identiques ; OAuth complet non rejoué. Rollback `e012401f` / `KotrF7y02wbZN79HDsjAb`.
+- Preuves UAT : captures et retour Morris dans la conversation (non versés à Git). Local, runtime et empreintes DB NON OBSERVÉS directement par ChatGPT. Pas de preuve cryptographique indépendante de l'identité du corps complet candidat/V2 ni de l'intégrité historique intégrale.
+
+### 9.2 Tour 1 — révision sur StockTrack existant
+
+Demande : « Repars de la version V1 actuellement conservée du document de conception fonctionnelle de StockTrack, sans réutiliser les propositions précédentes. Je souhaite que la référence d'un article comporte au minimum trois caractères. Modifie uniquement la règle RM-02 et le scénario REC-03 pour intégrer cette exigence et vérifier qu'une référence de deux caractères est refusée. Conserve strictement tout le reste du document à l'identique. Compare ta proposition avec la V1 et présente-moi le document révisé complet pour inspection avant conservation. »
+
+- Nora annonce deux lignes modifiées et 46 autres identiques ; distingue résultat attendu et scénario exécuté.
+- Visionneuse : PROPOSITION / Version 2 · Candidate, RM-02 et REC-03 effectivement modifiés. Documents : v1 · Courante, deux lignes initiales toujours présentes. Proposition non enregistrée, conservation à l'initiative du Pilote.
+- RM-02 candidate : « Une référence d’au moins trois caractères et un libellé non vide sont obligatoires. Une même référence ne peut désigner qu’un seul article. »
+- REC-03 candidat : « Tenter de créer un article sans référence, sans libellé, avec une référence déjà utilisée, puis avec la référence de deux caractères AB, inutilisée, et le libellé “Carton moyen” : chaque tentative est refusée et aucun article n’est ajouté. » (transcription du rendu, hors marqueurs Markdown).
+- Aucun symptôme de concaténation ni de substitution V1 constaté dans les portions inspectées. Le reste visible est cohérent avec V1 ; comparaison intégrale corroborée au tour suivant par l'écran de différences.
+- LIVE : consultation réelle projetée et comparaison documentaire annoncée dans l'activité (« 4 modifications »). Orientation plus compacte, pas de résumé du prompt répété. Deux consultations du même document affichées comme deux sources ; historique terminal visible réduit à Orientation du travail. Morris juge l'expérience améliorée et demande une réduction supplémentaire de la police du fil de discussion.
+- Verdict : UAT PASS — préparation et inspection du candidat, autorité de conservation respectée.
+
+### 9.3 Tour 2 — conservation explicite, historique et comparaison
+
+Action : bouton « Conserver comme nouvelle version » ; message Pilote visible « Conserver comme nouvelle version la proposition documentaire préparée. ».
+
+Captures du 26/11/2026 07:14:49 à 07:16:08 Europe/Paris :
+
+| Contrôle | Observation | Verdict |
+|---|---|---|
+| Confirmation | Nora annonce révision 2 disponible ; résultat d'enregistrement v2 confirmé ; bouton de conservation désactivé, propositions expirées en consultation seule. | PASS |
+| Version courante | Documents affiche v2 · Courante, visionneuse Travail version 2 (préfixe `drev_405…`). | PASS |
+| RM-02 | V2 contient le minimum de trois caractères, obligation du libellé et unicité. | PASS |
+| REC-03 | V2 contient l'essai AB inutilisé avec libellé valide, refus sans ajout ; trois cas antérieurs préservés. | PASS |
+| Version historique | Documents affiche v1 · Historique ; RM-02 et REC-03 conservent les formulations initiales. | PASS sur contenu observé |
+| Hors-périmètre | Comparateur V2 courante / V1 historique affiche exactement les lignes RM-02 et REC-03, résumé +2 lignes / −2 lignes ; passages visibles identiques ailleurs. | PASS au niveau UAT ; diff intégral brut et empreintes non vérifiés indépendamment |
+| Identité documentaire | V1 et V2 accessibles via l'historique du même document StockTrack. | PASS sur parcours ; comptage global après conservation non observé |
+
+La preuve utilisateur complète le précédent test DEV : les modifications attendues sont réellement visibles avant et après conservation, et non seulement un statut ou une égalité entre deux objets stockés. L'ancienne V1 reste accessible. Le comparateur montre deux remplacements de lignes, ce qui explique possiblement les quatre opérations de diff affichées pendant l'activité ; ne pas confondre nombre d'opérations et nombre de modifications métier.
+
+### 9.4 Registre résiduel et suites
+
+| ID | Statut après UAT |
+|---|---|
+| IT-01 | OPEN — non bloquante pour ce parcours. Amélioration jugée satisfaisante pour poursuivre ; réduire les répétitions résiduelles, distinguer sources uniques et consultations, restituer les activités utiles dans l'historique. |
+| IT-02 | PASS navigateur DEV ; non rejoué par Morris sur le dernier candidat RECETTE. Réserve maintenue. |
+| IT-03 | Non reproduite dans les derniers rejeux ; ne pas rouvrir sans preuve. Pas de clôture exhaustive. |
+| IT-04 | Cas discriminant de tableau conversationnel à colonne écrasée non rejoué ; réserve maintenue. |
+| IT-05 | Amélioration observée ; demande Morris de réduire encore localement la police du fil de discussion (titres d'activité inclus dans la proposition ChatGPT). Réserve UX. |
+| IT-06 | **UAT PASS — BEHAVIOR PROVEN / clôture fonctionnelle sur le parcours StockTrack testé, acceptée par Morris.** Ne pas étendre à tous les parcours D4, à la révision multi-segments, à InterventionTrack non rejoué ou à la conservation par langage naturel non testée séparément. |
+
+Autres finitions proposées par ChatGPT, non arbitrées en tant que nouveau lot : comparateur affichant les lignes en Markdown brut ; couleurs de diff V2 rouge/V1 vert contre-intuitives dans le sens de lecture courant ; titre documentaire contenant « V1 » alors que la version courante est v2 (distinguer titre métier et numéro de révision). À traiter de façon proportionnée, pas de refonte ni de cycle autonome imposé.
+
+**Verdict courant : DOCUMENTARY REVISION — UAT PASS (StockTrack) / ML5 DELIVERY 1 — parcours documentaire bloquant levé sur périmètre testé, réserves reportées ; clôture globale et adoption non prononcées.** R5 IN PROGRESS / ML5 OPEN / R6 NOT STARTED / NO RELEASE / NOT ADOPTED. Maintenir les P0 WEB LIVE bloqué et qualification indépendante D8 non acquise, et autres réserves CA/T/Q/PF existantes.
+
+Suite selon la [Roadmap §Suivi courant ML5 du 25/11](../governance/roadmap.md) : instruire le macro-lot [Allocation cognitive adaptative et FinOps](allocation-cognitive-adaptative-et-finops.md), puis livraison 2 réalisation gouvernée/résultats, puis qualification intégrée. Le présent addendum ne constitue pas un GO de construction FinOps, ni une modification normative de la Roadmap. Aucun changement du produit, de l'environnement, PR, merge ou STABLE autorisé par ce constat.
