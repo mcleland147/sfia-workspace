@@ -72,6 +72,12 @@ Référence fournisseur vérifiée le 26/11 : [Gestion des projets API — confi
 
 Traçabilité : complément factuel autorisé par Morris sur ce seul contrat, branche documentaire `docs/next-ml5-uat-consolidation-20261124`, base `67d06e55f1899d5ef99d3ee03034dbc9cce99e5f`. Aucune modification de conception, de permission, de configuration locale ou distante, ni appel fournisseur.
 
+### 2.2.2 Confirmation du sélecteur Model usage — DEV, 26/11/2026
+
+Seconde capture fournie par Morris : option « Autoriser tous les modèles » sélectionnée ; `gpt-6-luna`, `gpt-6.1-terra` et `gpt-6.2-sol` portent chacun le statut « Autorisé ». Aucune modification enregistrée. Le constat §2.2.1 sur le sélecteur fermé est historique et est complété par cette observation : **absence de restriction projet DEV pour le trio confirmé visuellement**. Les restrictions organisation/système, rate limits détaillées et accès effectif via Responses restent non observés. Ne pas élargir les permissions ni recréer de clé ; le catalogue Studio reste strictement limité au trio, indépendamment du catalogue fournisseur. Vérification `GET /v1/models` sous mandat réseau read-only et tests Responses bornés sous GO facturable distinct ; RECETTE à vérifier à son gate.
+
+Revue ChatGPT du 26/11 : DESIGN REVIEW ACCEPTED WITH EXPLICIT RESERVES ; contrat fonctionnel validé en contenu, orientations techniques validées, Figma page 13 validée visuellement. GO Morris pour synchronisation documentaire et préparation du mandat Cursor intégré ; aucune autorisation implicite de migration, appel facturable, WEB LIVE, push projet ou cutover.
+
 ### 2.3 Données, tracing et contrôles de rétention
 
 Vérifier la configuration réelle Responses : `store`, éventuelle stateful continuation, IDs de réponses, tracing SDK, export et contenu sensible. Ne pas présumer que `store:false` exclut toutes les formes de rétention fournisseur. Maintenir DATA-01, minimisation et restrictions de contexte ; aucune nouvelle persistance fournisseur ni export de traces privées sans arbitrage. Réutiliser les checkpoints D3 comme continuité contrôlée, et non une conversation fournisseur partagée entre modèles/lane. WEB B1 reste soumis à ses propres restrictions indépendamment des garanties de l'API cognitive.
