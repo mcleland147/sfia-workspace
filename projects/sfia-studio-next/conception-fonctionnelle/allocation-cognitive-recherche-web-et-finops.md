@@ -5,8 +5,8 @@
 | Champ | Valeur |
 |---|---|
 | Version | 0.1 — 26 novembre 2026 |
-| Statut | **CANDIDATE / DOCUMENTED — REVIEW MORRIS REQUIRED** |
-| Autorité | Orientations Morris des 25–26/11 ; détails proposés par ChatGPT, à valider |
+| Statut | **VALIDATED SPEC — contenu approuvé par Morris le 26/11/2026 ; calibration et réalisation non prouvées** |
+| Autorité | Validation intégrale explicite par Morris le 26/11/2026 du contenu publié à `b66b4c47` (blob `d47565df805805a65e2af00c8383306e94c4645c`) ; choix candidats de calibration toujours à éprouver |
 | Mandat | GO explicite Morris : étude, rédaction et publication de ce seul document candidat sur la branche documentaire ML5, **avant revue de contenu**, pour permettre cette revue sur Git |
 | Portée Git | `mcleland147/sfia-workspace` ; `docs/next-ml5-uat-consolidation-20261124` ; base documentaire `c601efa188ba4a09bb9a688d79dd1cf4371cb914` |
 | Main observé | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
@@ -373,6 +373,6 @@ Séquence interne : (a) valider ce contenu et les réserves de conception ; (b) 
 | Sources historiques et Roadmap | Écarts identifiés ; synchroniser après validation sous mandat, conserver historique |
 | Git direct Cursor décision du 23/11 | Réconciliation locale/documentaire requise, aucun arbitrage rouvert |
 
-**Gate immédiat : revue et validation Morris du contenu de ce contrat candidat, y compris le référentiel et le protocole de calibration.** La validation de conception ne vaut pas compatibilité ni preuve LIVE. Avant tout prompt Cursor : pre-check Next et SFIA v2.6 sur références Git réelles, qualification du lot, contraintes SDK, architecture/contrats et autorisations spécifiques (migrations, tests LIVE/facturables, WEB public, etc.). Pas de GO technique, PR, merge, push produit ou cutover implicite. Aucune publication de code, modification Figma ni changement runtime effectués dans cette contribution documentaire.
+**Gate de contenu : SATISFAIT le 26/11/2026 — validation intégrale Morris du contrat fonctionnel, y compris le référentiel indicatif et le protocole de calibration. Gate suivant : préparation du mandat de construction intégré, puis autorisations d'effet adaptées.** La validation de conception ne vaut pas compatibilité ni preuve LIVE. Avant tout prompt Cursor : pre-check Next et SFIA v2.6 sur références Git réelles, qualification du lot, contraintes SDK, architecture/contrats et autorisations spécifiques (migrations, tests LIVE/facturables, WEB public, etc.). Pas de GO technique, PR, merge, push produit ou cutover implicite. Aucune publication de code, modification Figma ni changement runtime effectués dans cette contribution documentaire.
 
-**Verdict de ce document : FUNCTIONAL DESIGN CANDIDATE — READY FOR MORRIS REVIEW — DELIVERY NOT AUTHORIZED.**
+**Verdict de ce document : FUNCTIONAL DESIGN VALIDATED IN CONTENT — READY FOR BOUNDED DELIVERY CONTRACT PREPARATION — NO RUNTIME EFFECT.**
