@@ -21,6 +21,10 @@ import {
 import { join } from "node:path";
 import { assertOpenAiKeyForLane } from "@/lib/openai-lane-guard";
 import {
+  extractResponseNativeUsage,
+  reconcileHostedSearchUsage,
+} from "./provider-response-usage";
+import {
   admitModelEffort,
   type CognitiveEffort,
   type CognitiveModelId,
@@ -80,6 +84,13 @@ export type CampaignEnvelope = {
   outputTokensReserved: number;
   outputTokensCommitted: number;
   hostedSearchesCommitted: number;
+  /**
+   * A-posteriori billable hosted searches from tool_usage.web_search.num_requests.
+   * null when never measured (UNKNOWN — never ASSUMED_1).
+   */
+  hostedSearchesMeasured: number | null;
+  hostedSearchMeasureStatus: "NONE" | "MEASURED" | "UNKNOWN";
+  hostedSearchMeasureLimits: string[];
   directOpensCommitted: number;
   suspended: boolean;
   suspendReason: string | null;
@@ -164,6 +175,14 @@ type FrontierStore = {
     inputTokens: number;
     countedAtMs: number;
   } | null;
+  /** Test oracle: response-side tool_usage observations (no prompt bodies). */
+  responseUsageObserved: Array<{
+    attemptId: string;
+    responseId: string | null;
+    hostedNumRequests: number | null;
+    hostedStatus: "MEASURED" | "UNKNOWN" | "RESERVED_ONLY";
+    limits: string[];
+  }>;
 };
 
 const als = new AsyncLocalStorage<FrontierStore>();
@@ -263,6 +282,7 @@ function emptyStore(): FrontierStore {
     modelHint: null,
     captureHttpMeta: false,
     nativeInputCount: null,
+    responseUsageObserved: [],
   };
 }
 
@@ -376,6 +396,9 @@ export function beginCampaignEnvelope(input: {
     outputTokensReserved: 0,
     outputTokensCommitted: 0,
     hostedSearchesCommitted: 0,
+    hostedSearchesMeasured: null,
+    hostedSearchMeasureStatus: "NONE",
+    hostedSearchMeasureLimits: [],
     directOpensCommitted: 0,
     suspended: false,
     suspendReason: null,
@@ -1822,13 +1845,93 @@ export function createFrontierAwareFetch(
       body === init?.body || init == null ? init : { ...init, body };
     try {
       const res = await baseFetch(input, nextInit);
+      // A-posteriori tool_usage.web_search.num_requests when present.
+      // max_tool_calls remains the a-priori built-in call bound — never a billable guarantee.
+      let measuredHostedDelta = 0;
+      let hostedStatus: "MEASURED" | "UNKNOWN" | "RESERVED_ONLY" =
+        hostedSearchDelta > 0 ? "RESERVED_ONLY" : "UNKNOWN";
+      let hostedLimits: string[] = [];
+      let responseId: string | null = null;
+      if (res.ok && isResponsesCreateUrl(url)) {
+        try {
+          const parsed = (await res.clone().json()) as unknown;
+          const native = extractResponseNativeUsage(parsed);
+          responseId = native.responseId;
+          const reconciled = reconcileHostedSearchUsage({
+            reservedMaxToolCalls: hostedSearchDelta,
+            observed: native.hostedWebSearch,
+            alreadyCommitted: campaign?.hostedSearchesCommitted ?? 0,
+            maxHostedSearches: campaign?.maxHostedSearches ?? null,
+          });
+          measuredHostedDelta = reconciled.commitDelta;
+          hostedStatus = reconciled.status;
+          hostedLimits = reconciled.limits;
+          if (campaign) {
+            campaign.hostedSearchMeasureStatus =
+              reconciled.status === "MEASURED"
+                ? "MEASURED"
+                : reconciled.status === "UNKNOWN"
+                  ? "UNKNOWN"
+                  : campaign.hostedSearchMeasureStatus;
+            campaign.hostedSearchMeasureLimits = [
+              ...new Set([
+                ...campaign.hostedSearchMeasureLimits,
+                ...reconciled.limits,
+              ]),
+            ];
+            if (
+              reconciled.status === "MEASURED" &&
+              reconciled.measured != null
+            ) {
+              campaign.hostedSearchesMeasured =
+                (campaign.hostedSearchesMeasured ?? 0) + reconciled.measured;
+            }
+            if (reconciled.suspend) {
+              campaign.suspended = true;
+              campaign.suspendReason =
+                reconciled.suspendReason ?? "CAMPAIGN_HOSTED_SEARCHES_EXHAUSTED";
+            }
+          }
+        } catch {
+          hostedLimits = ["RESPONSE_BODY_PARSE_FAILED"];
+          hostedStatus = "UNKNOWN";
+          if (campaign) {
+            campaign.hostedSearchMeasureStatus = "UNKNOWN";
+            campaign.hostedSearchMeasureLimits = [
+              ...new Set([
+                ...campaign.hostedSearchMeasureLimits,
+                "RESPONSE_BODY_PARSE_FAILED",
+              ]),
+            ];
+          }
+        }
+      }
+      // Envelope pressure: max_tool_calls bound is consumed even when billable
+      // num_requests is UNKNOWN — never claim ASSUMED_1 as a billable guarantee.
+      // FinOps billable figure lives in hostedSearchesMeasured when MEASURED.
+      const envelopeHostedDelta =
+        hostedStatus === "MEASURED"
+          ? measuredHostedDelta
+          : hostedSearchDelta > 0
+            ? hostedSearchDelta
+            : 0;
       commitProviderEmission({
         attemptId: reservation.attemptId,
         reservedSlots: reservation.reservedSlots,
         reservedInputTokens: reservation.reservedInputTokens,
         reservedOutputTokens: reservation.reservedOutputTokens,
-        hostedSearchDelta,
+        hostedSearchDelta: envelopeHostedDelta,
       });
+      if (alsStore.captureHttpMeta || alsStore.responseUsageObserved) {
+        alsStore.responseUsageObserved.push({
+          attemptId: reservation.attemptId,
+          responseId,
+          hostedNumRequests:
+            hostedStatus === "MEASURED" ? measuredHostedDelta : null,
+          hostedStatus,
+          limits: hostedLimits,
+        });
+      }
       return res;
     } catch (e) {
       markProviderEmissionUncertain({ attemptId: reservation.attemptId });

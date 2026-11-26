@@ -16,6 +16,7 @@ import {
   endProcessCampaign,
   getActiveCampaignEnvelope,
   getEmissionsObservedForTests,
+  getFrontierAlsStore,
   getHttpAttempt,
   getHttpBodiesObservedForTests,
   HOSTED_BOUND_REQUIRES_MAX_TOOL_CALLS,
@@ -590,11 +591,64 @@ describe("S2/A — HTTP provider emission frontier", () => {
           }),
         });
         expect(wireBody?.max_tool_calls).toBe(1);
+        // Envelope consumes max_tool_calls; billable measure remains UNKNOWN (not ASSUMED_1).
         expect(getActiveCampaignEnvelope()?.hostedSearchesCommitted).toBe(1);
+        expect(getActiveCampaignEnvelope()?.hostedSearchesMeasured).toBeNull();
+        expect(getActiveCampaignEnvelope()?.hostedSearchMeasureStatus).toBe(
+          "UNKNOWN",
+        );
         const meta = getHttpBodiesObservedForTests().find(
           (b) => b.kind === "http.responses",
         );
         expect(meta?.maxToolCalls).toBe(1);
+      });
+    });
+  });
+
+  it("commits hosted searches from tool_usage.num_requests when present", async () => {
+    await runWithProviderEmissionStoreAsync(async () => {
+      beginCampaignEnvelope({
+        maxHttpAttempts: 2,
+        maxHostedSearches: 5,
+        required: true,
+      });
+      enableHttpMetaCaptureForTests();
+      const fakeFetch = (async (_input: RequestInfo | URL, init?: RequestInit) => {
+        return new Response(
+          JSON.stringify({
+            id: "resp_measured",
+            tool_usage: { web_search: { num_requests: 2 } },
+            usage: { input_tokens: 10, output_tokens: 3, total_tokens: 13 },
+          }),
+          { status: 200, headers: { "content-type": "application/json" } },
+        );
+      }) as typeof fetch;
+      const gated = createFrontierAwareFetch(fakeFetch);
+      await withLaneEnv(async () => {
+        assertSdkInvocationAdmission({
+          kind: "nora.generate_reply",
+          modelId: "gpt-6.1-terra",
+          effort: "medium",
+          env: process.env,
+        });
+        await gated("https://api.openai.com/v1/responses", {
+          method: "POST",
+          body: JSON.stringify({
+            model: "gpt-6.1-terra",
+            max_output_tokens: 50,
+            reasoning: { effort: "medium" },
+            tools: [{ type: "web_search" }],
+            max_tool_calls: 2,
+          }),
+        });
+        const camp = getActiveCampaignEnvelope();
+        expect(camp?.hostedSearchesCommitted).toBe(2);
+        expect(camp?.hostedSearchesMeasured).toBe(2);
+        expect(camp?.hostedSearchMeasureStatus).toBe("MEASURED");
+        const obs = getFrontierAlsStore()?.responseUsageObserved ?? [];
+        expect(obs.some((o) => o.hostedStatus === "MEASURED" && o.hostedNumRequests === 2)).toBe(
+          true,
+        );
       });
     });
   });

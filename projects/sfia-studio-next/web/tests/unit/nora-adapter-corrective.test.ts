@@ -125,8 +125,12 @@ describe("FIX-SDK / SDK-RETRY — no automatic second run()", () => {
       },
       run: runMock,
       setTracingDisabled: vi.fn(),
+      setTraceProcessors: vi.fn(),
       setDefaultOpenAIClient: vi.fn(),
       tool: vi.fn(),
+    }));
+    vi.doMock("@openai/agents-core", () => ({
+      setSensitiveDataLoggingEnabled: vi.fn(),
     }));
     vi.doMock("openai", () => ({
       default: class {

@@ -867,13 +867,14 @@ function buildPrompt(input: NoraGenerateInput, policy: CognitivePolicy): string 
 }
 
 async function configureSdkTracingSafe(): Promise<void> {
-  const agents = await import("@openai/agents");
-  if (typeof agents.setTracingDisabled === "function") {
-    agents.setTracingDisabled(true);
-  }
+  // Macro-lot 1: local filtered processors (or OFF). Never leave default exporters
+  // that could print model/tool payloads; never register a remote OpenAI exporter.
+  const { configureAgentsSdkTracing } = await import("@/lib/agents-sdk-tracing");
+  await configureAgentsSdkTracing();
   // DEV forensic only: Agents SDK redacts Zod details by default (dontLogModelData=true).
   // Enabling sensitive logging surfaces schema paths into ModelBehaviorError messages —
   // still scrubbed before OBS/handoff; ephemeral dump captures them locally.
+  // Applied AFTER configureAgentsSdkTracing (which forces sensitive logging OFF).
   const lane = (process.env.STUDIO_LANE ?? "").trim().toUpperCase();
   if (process.env.STUDIO_NORA_DIAG_EPHEMERAL === "1" && lane === "DEV") {
     try {

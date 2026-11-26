@@ -464,6 +464,9 @@ async function executeIsolatedLiveWebSearch(
     };
   }
 
+  // Macro-lot 1: same tracing policy as Nora (local filtered or OFF; no remote export).
+  const { configureAgentsSdkTracing } = await import("@/lib/agents-sdk-tracing");
+  await configureAgentsSdkTracing();
   const { Agent, run, webSearchTool } = await import("@openai/agents");
   const { randomUUID } = await import("node:crypto");
   const catalog = await import("./cognitive-resources/resource-catalog");

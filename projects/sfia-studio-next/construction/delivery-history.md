@@ -3,6 +3,21 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-26-OPENAI-STUDIO-CONVERGENCE-ML1
+
+- **date_utc**: 2026-11-26T20:00Z (approx)
+- **lane**: DEV — Macro-lot 1 socle fournisseur natif et observabilité
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_initial_GO**: `ae4aff22b023fea00be5ae1ec98c903d5fbbf145`
+- **candidat_code_preserved**: `c574d262` · web tip pré-lot `5a1289fc`
+- **contrats**: raccordés @ `1e2e188d` (blobs cadrage/fonctionnel/technique exacts)
+- **focus**: tracing local filtré ; tool_usage.num_requests ; collecteur Admin (transport substitué) ; continuité native OFF ; WEB OFF
+- **gates_ouverts**: Admin LIVE · migration PG snapshots · G-WEB-PUBLIC · UX Figma p.13 · push projet
+- **web_live**: OFF · G-WEB-MIXED fermé · RECETTE intacte
+- **release**: NO RELEASE · NOT ADOPTED · ML5 OPEN · R5 IN PROGRESS · livraison 2 non engagée
+- **as_built**: `construction/convergence-openai-studio/as-built-macro-lot-1-20261126.md`
+- **statut**: **MACRO-LOT 1 — READY FOR INDEPENDENT REVIEW** (avec blockers gouvernés Admin/migration/WEB/UX)
+
 ## delivery_id: DELIV-2026-11-26-ML5-CONVERGENCE-QUALIFICATION
 
 - **date_utc**: 2026-11-26T17:55Z

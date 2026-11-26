@@ -19,6 +19,11 @@ import {
   type FinOpsPeriodDays,
   type MeasuredValue,
 } from "./usage-projection";
+import {
+  getAdminCollectorFreshness,
+  listAdminCollectorBuckets,
+  reconcileFinOpsCosts,
+} from "./provider-admin-usage-collector";
 
 function studioLane(): string {
   return process.env.STUDIO_LANE?.trim().toUpperCase() || "UNKNOWN";
@@ -111,6 +116,26 @@ export async function loadFinOpsFilterOptions(pilotId: string) {
   };
 }
 
+export type FinOpsProviderReconciliationDto = {
+  /** Operational Studio estimates remain the attribution ledger. */
+  studioEstimatedUsd: number | null;
+  studioEstimationKind: MeasuredValue<number>["kind"];
+  /** Provider Costs aggregate when a successful Admin collection exists. */
+  providerCostUsd: number | null;
+  providerCurrency: string | null;
+  deltaUsd: number | null;
+  comparability: "COMPARABLE" | "NON_COMPARABLE" | "PARTIAL" | "UNAVAILABLE";
+  freshness: {
+    lastSuccessAtUtc: string | null;
+    lastCollectionId: string | null;
+    status: string;
+    bucketCount: number;
+  };
+  limits: string[];
+  /** Explicit: Admin collection never blocks Nora. */
+  noraIndependent: true;
+};
+
 export type FinOpsSummaryDto = {
   periodDays: FinOpsPeriodDays;
   projectId: string | null;
@@ -129,6 +154,8 @@ export type FinOpsSummaryDto = {
   };
   dailyCosts: Array<{ day: string; costUsd: number | null; hasData: boolean }>;
   modelBreakdown: Array<{ model: string; costUsd: number | null; coverage: string }>;
+  /** Macro-lot 1 — Usage & Costs rapprochement (honest; may be UNAVAILABLE). */
+  providerReconciliation: FinOpsProviderReconciliationDto;
 };
 
 function bucketDailyCosts(rows: ObservationRow[], periodDays: FinOpsPeriodDays): FinOpsSummaryDto["dailyCosts"] {
@@ -245,6 +272,8 @@ export async function loadFinOpsSummary(
     onlyWithObservedCost: true,
   });
 
+  const providerReconciliation = buildProviderReconciliationDto(estimatedCostUsd);
+
   return {
     periodDays,
     projectId: input.projectId ?? null,
@@ -262,6 +291,107 @@ export async function loadFinOpsSummary(
     },
     dailyCosts: bucketDailyCosts(rows, periodDays),
     modelBreakdown: bucketModelBreakdown(rows),
+    providerReconciliation,
+  };
+}
+
+function buildProviderReconciliationDto(
+  estimatedCostUsd: MeasuredValue<number>,
+): FinOpsProviderReconciliationDto {
+  const freshness = getAdminCollectorFreshness();
+  const costBuckets = listAdminCollectorBuckets().filter(
+    (b) => b.source === "openai.organization.costs" && b.completeness === "complete",
+  );
+  const limits: string[] = [];
+
+  if (freshness.status === "IDLE" || freshness.bucketCount === 0) {
+    limits.push("ADMIN_COLLECTION_UNAVAILABLE");
+    if (!process.env.OPENAI_ADMIN_KEY?.trim()) {
+      limits.push("OPENAI_ADMIN_KEY_ABSENT");
+    }
+    if (process.env.SFIA_ADMIN_USAGE_LIVE?.trim() !== "1") {
+      limits.push("SFIA_ADMIN_USAGE_LIVE_REQUIRED");
+    }
+    limits.push("PROVIDER_SNAPSHOT_PG_MIGRATION_PENDING");
+    return {
+      studioEstimatedUsd:
+        estimatedCostUsd.kind === "known" || estimatedCostUsd.kind === "partial"
+          ? estimatedCostUsd.value
+          : null,
+      studioEstimationKind: estimatedCostUsd.kind,
+      providerCostUsd: null,
+      providerCurrency: null,
+      deltaUsd: null,
+      comparability: "UNAVAILABLE",
+      freshness: {
+        lastSuccessAtUtc: freshness.lastSuccessAtUtc,
+        lastCollectionId: freshness.lastCollectionId,
+        status: freshness.status,
+        bucketCount: freshness.bucketCount,
+      },
+      limits,
+      noraIndependent: true,
+    };
+  }
+
+  // Sum complete cost buckets — do not invent project/work attribution.
+  let providerSum = 0;
+  let currency: string | null = null;
+  for (const b of costBuckets) {
+    const n = Number(b.value);
+    if (!Number.isFinite(n)) {
+      limits.push("PROVIDER_COST_PARSE_PARTIAL");
+      continue;
+    }
+    providerSum += n;
+    currency = b.currency ?? currency;
+  }
+
+  const studio =
+    estimatedCostUsd.kind === "known" || estimatedCostUsd.kind === "partial"
+      ? estimatedCostUsd.value
+      : null;
+
+  // Without a proven lane↔project↔key mapping, org aggregates are NON_COMPARABLE
+  // to Studio pilot estimates (ENV-01 / mandate §10.6).
+  const mappingProven =
+    (process.env.SFIA_FINOPS_SCOPE_COMPARABLE ?? "").trim() === "1";
+  if (!mappingProven) {
+    limits.push("LANE_PROJECT_KEY_MAPPING_UNPROVEN");
+  }
+
+  const rec = reconcileFinOpsCosts({
+    studioEstimatedUsd: studio != null ? String(studio) : "0",
+    providerCostUsd: costBuckets.length > 0 ? String(providerSum) : null,
+    comparable: mappingProven && studio != null && costBuckets.length > 0,
+    reasonIfNot: mappingProven
+      ? "STUDIO_OR_PROVIDER_ABSENT"
+      : "LANE_PROJECT_KEY_MAPPING_UNPROVEN",
+  });
+  limits.push(...rec.limits);
+
+  return {
+    studioEstimatedUsd: studio,
+    studioEstimationKind: estimatedCostUsd.kind,
+    providerCostUsd: costBuckets.length > 0 ? providerSum : null,
+    providerCurrency: currency,
+    deltaUsd: rec.deltaUsd != null ? Number(rec.deltaUsd) : null,
+    comparability:
+      rec.status === "COMPARABLE"
+        ? "COMPARABLE"
+        : rec.status === "PARTIAL"
+          ? "PARTIAL"
+          : costBuckets.length === 0
+            ? "UNAVAILABLE"
+            : "NON_COMPARABLE",
+    freshness: {
+      lastSuccessAtUtc: freshness.lastSuccessAtUtc,
+      lastCollectionId: freshness.lastCollectionId,
+      status: freshness.status,
+      bucketCount: freshness.bucketCount,
+    },
+    limits,
+    noraIndependent: true,
   };
 }
 
