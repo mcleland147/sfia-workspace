@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it } from "vitest";
 import {
+  markSubstitutedAdminTransport,
   parseAdminUsagePage,
   resetAdminCollectorStateForTests,
   resolveIsolatedAdminCollectorConfig,
@@ -75,7 +76,11 @@ function officialCompletionsPage() {
   };
 }
 
-describe("provider-admin-usage-collector (corrective)", () => {
+function sub(fn: AdminHttpTransport["__sfiaAdminMode"] extends never ? never : Parameters<typeof markSubstitutedAdminTransport>[0]) {
+  return markSubstitutedAdminTransport(fn);
+}
+
+describe("provider-admin-usage-collector (operational)", () => {
   afterEach(() => {
     resetAdminCollectorStateForTests();
   });
@@ -96,6 +101,18 @@ describe("provider-admin-usage-collector (corrective)", () => {
       value: "0.4200000000",
     });
     expect(parsed.snapshots[1].dimensions.project_id).toBe("proj_b");
+  });
+
+  it("flags has_more without cursor as anomaly", () => {
+    const parsed = parseAdminUsagePage({
+      path: "/organization/costs",
+      json: officialCostsPage({ hasMore: true, next: null }),
+      organizationScope: "org:test",
+      collectionId: "acol_hm",
+      collectedAtUtc: "2026-11-26T00:00:00.000Z",
+      granularity: "1d",
+    });
+    expect(parsed.limits).toContain("HAS_MORE_WITHOUT_CURSOR");
   });
 
   it("ABSENT metrics stay ABSENT — never ZERO", () => {
@@ -122,37 +139,75 @@ describe("provider-admin-usage-collector (corrective)", () => {
     delete process.env.OPENAI_ADMIN_KEY;
   });
 
-  it("blocks without secret / without LIVE GO", async () => {
-    const a = await runAdminCollection({
-      config: resolveIsolatedAdminCollectorConfig({
-        adminApiKey: null,
-        liveAuthorized: true,
-      }),
-      path: "/organization/costs",
-      query: { start_time: "1" },
-    });
-    expect(a.status).toBe("BLOCKED_NO_SECRET");
-
-    const b = await runAdminCollection({
-      config: resolveIsolatedAdminCollectorConfig({
-        adminApiKey: "sk-admin-test",
-        liveAuthorized: false,
-      }),
-      path: "/organization/costs",
-      query: { start_time: "1" },
-    });
-    expect(b.status).toBe("BLOCKED_NO_LIVE_GO");
-  });
-
-  it("refuses /organization/usage/responses (nonexistent)", async () => {
-    const transport: AdminHttpTransport = async () => ({
+  it("LIVE mode refuses without LIVE GO even with transport injection", async () => {
+    const transport = markSubstitutedAdminTransport(async () => ({
       status: 200,
-      json: { object: "page", data: [] },
-    });
+      json: officialCostsPage(),
+    }));
+    // Injected transport with wrong mode for LIVE ⇒ blocked.
     const r = await runAdminCollection({
       config: {
         adminApiKey: "sk-admin-test",
         organizationScope: "org:t",
+        mode: "LIVE",
+        liveAdminCallsAuthorized: false,
+        transport: transport as unknown as AdminHttpTransport,
+      },
+      path: "/organization/costs",
+      query: { start_time: "1" },
+    });
+    expect(r.status).toBe("BLOCKED_NO_LIVE_GO");
+  });
+
+  it("TEST_SUBSTITUTED works without real Admin key", async () => {
+    const transport = sub(async () => ({
+      status: 200,
+      json: officialCostsPage(),
+    }));
+    const r = await runAdminCollection({
+      config: resolveIsolatedAdminCollectorConfig({
+        adminApiKey: null,
+        mode: "TEST_SUBSTITUTED",
+        liveAuthorized: false,
+        transport,
+      }),
+      path: "/organization/costs",
+      query: { start_time: "1" },
+    });
+    expect(r.status).toBe("READY");
+    expect(r.snapshots).toHaveLength(2);
+  });
+
+  it("blocks unmarked transport on TEST mode", async () => {
+    const raw = async () => ({
+      status: 200,
+      json: officialCostsPage(),
+    });
+    const r = await runAdminCollection({
+      config: {
+        adminApiKey: null,
+        organizationScope: "org:t",
+        mode: "TEST_SUBSTITUTED",
+        liveAdminCallsAuthorized: false,
+        transport: raw as unknown as AdminHttpTransport,
+      },
+      path: "/organization/costs",
+      query: { start_time: "1" },
+    });
+    expect(r.status).toBe("BLOCKED_NO_LIVE_GO");
+    expect(r.lastError).toContain("BLOCKED_TEST_TRANSPORT_REQUIRED");
+  });
+
+  it("refuses /organization/usage/responses (nonexistent)", async () => {
+    const transport = sub(async () => ({
+      status: 200,
+      json: { object: "page", data: [] },
+    }));
+    const r = await runAdminCollection({
+      config: {
+        adminApiKey: null,
+        organizationScope: "org:t",
+        mode: "TEST_SUBSTITUTED",
         liveAdminCallsAuthorized: false,
         transport,
       },
@@ -163,9 +218,9 @@ describe("provider-admin-usage-collector (corrective)", () => {
     expect(r.lastError).toContain("ADMIN_PATH_NOT_ALLOWLISTED");
   });
 
-  it("paginates official-shaped costs and sums with decimal math", async () => {
+  it("paginates official-shaped costs and sums only attributed project", async () => {
     let calls = 0;
-    const transport: AdminHttpTransport = async ({ path }) => {
+    const transport = sub(async ({ path }) => {
       calls += 1;
       expect(path).toBe("/organization/costs");
       if (calls === 1) {
@@ -196,12 +251,13 @@ describe("provider-admin-usage-collector (corrective)", () => {
           next_page: null,
         },
       };
-    };
+    });
 
     const r = await runAdminCollection({
       config: {
-        adminApiKey: "sk-admin-test",
+        adminApiKey: null,
         organizationScope: "org:test",
+        mode: "TEST_SUBSTITUTED",
         liveAdminCallsAuthorized: false,
         transport,
       },
@@ -212,21 +268,58 @@ describe("provider-admin-usage-collector (corrective)", () => {
     expect(r.pagesFetched).toBe(2);
     expect(listAdminCollectorSnapshots()).toHaveLength(3);
 
-    const sum = sumMeasuredCostUsd(listAdminCollectorSnapshots(), {});
-    expect(sum.total).toBe(decimalAdd(decimalAdd("0.42", "0.08")!, "0.11"));
+    const refused = sumMeasuredCostUsd(listAdminCollectorSnapshots(), {
+      projectId: null,
+    });
+    expect(refused.limits).toContain("ORG_AGGREGATE_SUM_REFUSED_WITHOUT_PROJECT");
+    expect(refused.total).toBeNull();
+
+    const sum = sumMeasuredCostUsd(listAdminCollectorSnapshots(), {
+      projectId: "proj_a",
+    });
+    expect(sum.total).toBe(decimalAdd("0.42", "0.11"));
+    expect(sum.currency).toBe("usd");
   });
 
-  it("reconcile requires evidence — flag alone is insufficient", () => {
+  it("detects repeated cursor as PARTIAL anomaly", async () => {
+    const transport = sub(async () => ({
+      status: 200,
+      json: officialCostsPage({ hasMore: true, next: "same_page" }),
+    }));
+    const r = await runAdminCollection({
+      config: {
+        adminApiKey: null,
+        organizationScope: "org:t",
+        mode: "TEST_SUBSTITUTED",
+        liveAdminCallsAuthorized: false,
+        transport,
+      },
+      path: "/organization/costs",
+      query: { start_time: "1" },
+      maxPages: 5,
+    });
+    expect(r.status).toBe("PARTIAL");
+    expect(r.limits).toContain("REPEATED_CURSOR");
+  });
+
+  it("reconcile requires full evidence — flag alone is insufficient", () => {
     const rec = reconcileFinOpsCosts({
       studioEstimatedUsd: "0.80",
       providerCostUsd: "0.86",
       scope: {
         organizationMatches: true,
+        organizationIdentityProven: true,
         projectIdsOverlap: false,
+        projectAttributionProven: false,
         apiKeyIdsOverlap: false,
         periodOverlap: true,
+        periodEqual: false,
         currencyMatches: true,
+        providerCurrency: "usd",
         surfacesRequested: ["/organization/costs"],
+        groupingCompatible: true,
+        coverageComplete: true,
+        freshnessAcceptable: true,
         evidenceNotes: ["SCOPE_FLAG_SET_BUT_EVIDENCE_REQUIRED"],
       },
     });
@@ -238,11 +331,18 @@ describe("provider-admin-usage-collector (corrective)", () => {
       providerCostUsd: "0.86",
       scope: {
         organizationMatches: true,
+        organizationIdentityProven: true,
         projectIdsOverlap: true,
+        projectAttributionProven: true,
         apiKeyIdsOverlap: false,
         periodOverlap: true,
+        periodEqual: true,
         currencyMatches: true,
+        providerCurrency: "usd",
         surfacesRequested: ["/organization/costs"],
+        groupingCompatible: true,
+        coverageComplete: true,
+        freshnessAcceptable: true,
         evidenceNotes: [],
       },
     });

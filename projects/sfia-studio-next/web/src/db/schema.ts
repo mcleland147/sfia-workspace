@@ -1166,4 +1166,58 @@ export const providerUsageObservations = pgTable(
   ],
 );
 
-export const schemaRevision = "022_provider_usage_observations";
+/** ML1 — Admin Usage/Costs snapshots (reconciliation source; not attribution ledger). */
+export const providerAdminCollectionRuns = pgTable("provider_admin_collection_runs", {
+  collectionId: text("collection_id").primaryKey(),
+  startedAt: timestamp("started_at", { withTimezone: true }).notNull(),
+  finishedAt: timestamp("finished_at", { withTimezone: true }),
+  status: text("status").notNull(),
+  pagesFetched: integer("pages_fetched").notNull().default(0),
+  path: text("path").notNull(),
+  organizationScope: text("organization_scope").notNull(),
+  limitsJson: jsonb("limits_json").$type<string[]>().notNull().default([]),
+  lastError: text("last_error"),
+});
+
+export const providerAdminUsageSnapshots = pgTable(
+  "provider_admin_usage_snapshots",
+  {
+    id: uuid("id").primaryKey(),
+    collectedAt: timestamp("collected_at", { withTimezone: true }).notNull(),
+    collectionId: text("collection_id")
+      .notNull()
+      .references(() => providerAdminCollectionRuns.collectionId),
+    sourceEndpoint: text("source_endpoint").notNull(),
+    surfaceObject: text("surface_object").notNull(),
+    organizationScope: text("organization_scope").notNull(),
+    intervalStartUtc: timestamp("interval_start_utc", {
+      withTimezone: true,
+    }).notNull(),
+    intervalEndUtc: timestamp("interval_end_utc", { withTimezone: true }).notNull(),
+    granularity: text("granularity").notNull(),
+    projectId: text("project_id"),
+    apiKeyId: text("api_key_id"),
+    userId: text("user_id"),
+    model: text("model"),
+    lineItem: text("line_item"),
+    apiSource: text("api_source"),
+    inputTokens: bigint("input_tokens", { mode: "number" }),
+    outputTokens: bigint("output_tokens", { mode: "number" }),
+    inputCachedTokens: bigint("input_cached_tokens", { mode: "number" }),
+    numModelRequests: integer("num_model_requests"),
+    numRequests: integer("num_requests"),
+    amount: numeric("amount", { precision: 24, scale: 10 }).$type<string | null>(),
+    currency: text("currency"),
+    completeness: text("completeness").notNull(),
+    schemaVersion: text("schema_version").notNull().default("2"),
+  },
+  (t) => [
+    index("provider_admin_usage_snapshots_org_interval_idx").on(
+      t.organizationScope,
+      t.intervalStartUtc,
+    ),
+    index("provider_admin_usage_snapshots_collection_idx").on(t.collectionId),
+  ],
+);
+
+export const schemaRevision = "023_provider_admin_usage_snapshots";

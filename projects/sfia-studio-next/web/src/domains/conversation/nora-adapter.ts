@@ -29,9 +29,16 @@ import { extractProviderUsageFromRunResult } from "./provider-usage";
 import {
   assertSdkInvocationAdmission,
   attachConfiguredLiveCampaignFromEnv,
+  bindProviderContinuityContext,
   ensureFrontierOpenAIClientInstalled,
   runWithProviderEmissionStoreAsync,
 } from "./provider-emission-frontier";
+import {
+  planProviderContinuity,
+  resolveProviderContinuityMode,
+  type ProviderChainRef,
+  type StudioContinuitySnapshot,
+} from "./provider-response-continuity";
 import { recordNoraProviderUsageWithHttpCorrelation } from "./usage-accounting";
 import {
   NoraTurnQualificationAgentSchema,
@@ -90,6 +97,12 @@ export type NoraGenerateInput = {
   /** E03/E04 FinOps attribution when running inside a cognitive work segment. */
   cognitiveWorkId?: string | null;
   segmentIndex?: number | null;
+  /**
+   * D3 continuity snapshot owned by the cognitive conductor.
+   * Bound into the provider frontier ALS; native chain stays OFF by default.
+   */
+  continuityStudio?: StudioContinuitySnapshot | null;
+  continuityChain?: ProviderChainRef | null;
 };
 
 export type NoraAttemptRecord = {
@@ -1977,6 +1990,36 @@ export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraG
     return stampCkiDelivery(
       await runWithProviderEmissionStoreAsync(() => {
         attachConfiguredLiveCampaignFromEnv();
+        // D3 remains SoT — bind work/checkpoint into frontier ALS.
+        // Native previous_response_id stays OFF unless mode=native + compatible chain.
+        const studio: StudioContinuitySnapshot | null =
+          input.continuityStudio ??
+          (input.cognitiveWorkId
+            ? {
+                workId: input.cognitiveWorkId,
+                acquisFingerprint: null,
+                sourceVersions: [],
+                checkpointId: null,
+                budgets: {
+                  tokensConsumed: 0,
+                  tokensBudget: null,
+                  restitutionsRemaining: null,
+                },
+                rightsOk: true,
+              }
+            : null);
+        const chain = input.continuityChain ?? null;
+        bindProviderContinuityContext({ studio, chain });
+        if (studio) {
+          const plan = planProviderContinuity({
+            mode: resolveProviderContinuityMode(),
+            studio,
+            chain,
+            lane: (process.env.STUDIO_LANE ?? "UNKNOWN").trim().toUpperCase(),
+          });
+          // Mode OFF / incompatible ⇒ studio rebuild only; never force store=true.
+          void plan;
+        }
         return runLiveWithTools(input, generationId, policy);
       }),
       input.ckiDelivery,

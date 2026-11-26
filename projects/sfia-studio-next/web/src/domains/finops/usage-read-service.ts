@@ -282,7 +282,7 @@ export async function loadFinOpsSummary(
     onlyWithObservedCost: true,
   });
 
-  const providerReconciliation = buildProviderReconciliationDto(
+  const providerReconciliation = await buildProviderReconciliationDto(
     estimatedCostUsd,
     input,
   );
@@ -308,19 +308,18 @@ export async function loadFinOpsSummary(
   };
 }
 
-function buildProviderReconciliationDto(
+async function buildProviderReconciliationDto(
   estimatedCostUsd: MeasuredValue<number>,
   filter: FinOpsFilterInput,
-): FinOpsProviderReconciliationDto {
-  // Product path: never inspect OPENAI_ADMIN_KEY.
+): Promise<FinOpsProviderReconciliationDto> {
+  // Product path: never inspect OPENAI_ADMIN_KEY; read only authorized PG snapshots.
+  const {
+    getAdminCollectionFreshnessFromPg,
+    isAdminSnapshotReadEnabled,
+    listAdminSnapshotsFromPg,
+  } = await import("./provider-admin-usage-repository");
   const productView = resolveProductAdminCollectorView();
-  const freshness = getAdminCollectorFreshness();
-  const snapshots = listAdminCollectorSnapshots().filter(
-    (s) =>
-      s.surfaceObject === "organization.costs.result" &&
-      s.completeness === "complete",
-  );
-  const limits: string[] = ["PROVIDER_SNAPSHOT_PG_MIGRATION_PENDING"];
+  const limits: string[] = [];
 
   const studio =
     estimatedCostUsd.kind === "known" || estimatedCostUsd.kind === "partial"
@@ -328,6 +327,57 @@ function buildProviderReconciliationDto(
       : null;
   const studioDecimal =
     studio != null ? decimalFromNumberLike(studio) : null;
+  // Partial estimation stays partial after decimal conversion.
+  const studioEstimationKind = estimatedCostUsd.kind;
+
+  if (!isAdminSnapshotReadEnabled()) {
+    limits.push("ADMIN_SNAPSHOT_READ_DISABLED");
+    return {
+      studioEstimatedUsd: studio,
+      studioEstimationKind,
+      providerCostUsd: null,
+      providerCurrency: null,
+      deltaUsd: null,
+      comparability: "UNAVAILABLE",
+      freshness: {
+        lastAttemptAtUtc: null,
+        lastSuccessAtUtc: null,
+        lastCollectionId: null,
+        status: "IDLE",
+        snapshotCount: 0,
+        secretReadableByProduct: false as const,
+      },
+      limits,
+      noraIndependent: true,
+      studioEstimatedUsdDecimal: studioDecimal,
+      providerCostUsdDecimal: null,
+      deltaUsdDecimal: null,
+    };
+  }
+
+  let freshness;
+  let snapshots;
+  try {
+    freshness = await getAdminCollectionFreshnessFromPg();
+    snapshots = (
+      await listAdminSnapshotsFromPg({
+        organizationScope: productView.organizationScope,
+      })
+    ).filter(
+      (s) =>
+        s.surfaceObject === "organization.costs.result" &&
+        s.completeness === "complete",
+    );
+  } catch {
+    // Fall back to in-process memory only for deterministic unit paths.
+    freshness = getAdminCollectorFreshness();
+    snapshots = listAdminCollectorSnapshots().filter(
+      (s) =>
+        s.surfaceObject === "organization.costs.result" &&
+        s.completeness === "complete",
+    );
+    limits.push("ADMIN_SNAPSHOT_PG_READ_FALLBACK_MEMORY");
+  }
 
   const freshnessDto = {
     lastAttemptAtUtc: freshness.lastAttemptAtUtc,
@@ -343,7 +393,7 @@ function buildProviderReconciliationDto(
     limits.push("ADMIN_SECRET_STATUS_UNKNOWN_TO_PRODUCT");
     return {
       studioEstimatedUsd: studio,
-      studioEstimationKind: estimatedCostUsd.kind,
+      studioEstimationKind,
       providerCostUsd: null,
       providerCurrency: null,
       deltaUsd: null,
@@ -358,35 +408,56 @@ function buildProviderReconciliationDto(
   }
 
   const since = periodStartDate(filter.periodDays ?? 30);
-  const sum = sumMeasuredCostUsd(snapshots, {
-    intervalStartUtc: since.toISOString(),
-    intervalEndUtc: new Date().toISOString(),
-    projectId: null, // provider project mapping not proven from Studio projectId alone
-  });
-  limits.push(...sum.limits);
-
+  const until = new Date();
+  // Studio projectId alone never proves provider project attribution.
   const configuredProject =
     (process.env.SFIA_OPENAI_PROJECT_ID ?? "").trim() || null;
   const configuredKey =
     (process.env.SFIA_OPENAI_API_KEY_ID ?? "").trim() || null;
+  const configuredOrg =
+    (process.env.SFIA_OPENAI_ORG_ID ?? "").trim() || null;
+  const scopeOrg = productView.organizationScope;
+  const orgIdentityProven = Boolean(
+    configuredOrg &&
+      (scopeOrg === configuredOrg || scopeOrg === `org:${configuredOrg}`),
+  );
+
+  const sum = sumMeasuredCostUsd(snapshots, {
+    intervalStartUtc: since.toISOString(),
+    intervalEndUtc: until.toISOString(),
+    projectId: configuredProject,
+  });
+  limits.push(...sum.limits);
+
   const evidence: FinOpsScopeEvidence = {
-    organizationMatches: Boolean(productView.organizationScope),
+    organizationMatches: orgIdentityProven,
+    organizationIdentityProven: orgIdentityProven,
     projectIdsOverlap: Boolean(
       configuredProject &&
         snapshots.some((s) => s.dimensions.project_id === configuredProject),
     ),
+    projectAttributionProven: Boolean(configuredProject && sum.counted > 0),
     apiKeyIdsOverlap: Boolean(
       configuredKey &&
         snapshots.some((s) => s.dimensions.api_key_id === configuredKey),
     ),
     periodOverlap: sum.counted > 0,
-    currencyMatches: true,
+    // Intersection alone is not equality — refuse COMPARABLE until proven.
+    periodEqual: false,
+    currencyMatches: sum.currency === "usd",
+    providerCurrency: sum.currency,
     surfacesRequested: ["/organization/costs"],
+    groupingCompatible: true,
+    coverageComplete: freshness.status === "READY",
+    freshnessAcceptable: freshness.status === "READY",
     evidenceNotes: [
-      // Config flag alone is never sufficient evidence.
       (process.env.SFIA_FINOPS_SCOPE_COMPARABLE ?? "").trim() === "1"
         ? "SCOPE_FLAG_SET_BUT_EVIDENCE_REQUIRED"
         : "SCOPE_FLAG_UNSET",
+      "PERIOD_EQUALITY_NOT_PROVEN",
+      filter.projectId
+        ? "STUDIO_PROJECT_FILTER_NOT_PROVIDER_PROJECT"
+        : "NO_STUDIO_PROJECT_FILTER",
     ],
   };
 
@@ -397,25 +468,27 @@ function buildProviderReconciliationDto(
   });
   limits.push(...rec.limits);
 
-  // Display numbers are derived from decimal strings only when present.
+  // Never disclose org totals to unauthorized Pilot views.
+  const discloseProvider = rec.status === "COMPARABLE" || rec.status === "PARTIAL";
   const providerNum =
-    sum.total != null ? Number(sum.total) : null;
-  const deltaNum = rec.deltaUsd != null ? Number(rec.deltaUsd) : null;
+    discloseProvider && sum.total != null ? Number(sum.total) : null;
+  const deltaNum =
+    discloseProvider && rec.deltaUsd != null ? Number(rec.deltaUsd) : null;
 
   return {
     studioEstimatedUsd: studio,
-    studioEstimationKind: estimatedCostUsd.kind,
+    studioEstimationKind,
     providerCostUsd:
       providerNum != null && Number.isFinite(providerNum) ? providerNum : null,
-    providerCurrency: "usd",
+    providerCurrency: discloseProvider ? sum.currency : null,
     deltaUsd: deltaNum != null && Number.isFinite(deltaNum) ? deltaNum : null,
     comparability: rec.status,
     freshness: freshnessDto,
     limits: [...new Set(limits)],
     noraIndependent: true,
     studioEstimatedUsdDecimal: studioDecimal,
-    providerCostUsdDecimal: sum.total,
-    deltaUsdDecimal: rec.deltaUsd,
+    providerCostUsdDecimal: discloseProvider ? sum.total : null,
+    deltaUsdDecimal: discloseProvider ? rec.deltaUsd : null,
   };
 }
 

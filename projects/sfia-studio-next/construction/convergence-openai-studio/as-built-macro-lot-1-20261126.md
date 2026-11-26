@@ -1,62 +1,64 @@
-# Convergence OpenAI–Studio — As-built Macro-lot 1 (corrective)
+# Convergence OpenAI–Studio — As-built Macro-lot 1 (operational completion)
 
 | Champ | Valeur |
 |---|---|
-| Date | 2026-11-26 (corrective) |
-| Statut | CORRECTIVE INTEGRATED (périmètre autorisé) — **NOT ADOPTED** · **NO RELEASE** |
-| HEAD entrée corrective | `5794584a` |
+| Date | 2026-11-26 (operational completion) |
+| Statut | OPERATIONAL DEV FOUNDATION — **NOT ADOPTED** · **NO RELEASE** |
+| HEAD entrée | `a095171e` |
 | Contrats | `1e2e188d` blobs exacts |
-| Hors GO | Admin LIVE · migration PG · WEB LIVE · UX Figma apply · continuité native ON · push projet |
+| Migration DEV | `023_provider_admin_usage_snapshots.sql` appliquée (PG 16.16) |
+| BUILD_ID | `cUOHTek8qSni3vSYXOTWZ` |
+| Hors GO | Admin LIVE · WEB LIVE · UX Figma apply · tracing/continuité ON opérationnel · push projet · RECETTE |
 
 ## Cartographie KEEP / ADAPT / REPLACE / BUILD / DEFER
 
-| Domaine | Classe | État corrective |
+| Domaine | Classe | État opérationnel |
 |---|---|---|
-| Tracing | ADAPT | ALS corrélation ; `processorsReplaced` honnête ; oracle réseau fetch indépendant |
+| Tracing | ADAPT | ALS ; fail-closed OFF ; **vrai SDK** + oracle réseau (0 export distant) |
 | OBS | KEEP | Causalité métier |
-| Frontier | ADAPT | tool_usage + stream UNKNOWN ; continuité branchée (mode OFF) |
-| Collecteur Admin | BUILD/ADAPT | Parsing buckets→results officiel ; paths SDK ; transport isolé ; secret hors Next |
-| FinOps | ADAPT | Décimal string ; comparabilité par évidence (pas flag seul) |
-| Continuité | ADAPT | Raccord frontier ALS ; runtime OFF |
+| Frontier | ADAPT | Agrégat PARTIAL si UNKNOWN↔MEASURED ; stream UNKNOWN |
+| Collecteur Admin | BUILD | Modes `TEST_SUBSTITUTED` / `LIVE` séparés ; gate LIVE à l'émission ; transport officiel HTTPS |
+| Persistance | BUILD | Collecteur isolé → PG DEV → repository → FinOps API |
+| FinOps | ADAPT | Somme org refusée sans projet attribué ; devise non inventée ; évidence complète |
+| Continuité | ADAPT | `bindProviderContinuityContext` appelé depuis Nora LIVE + conducteur D3 ; mode OFF |
 | WEB | KEEP OFF | Dossier A3 |
-| Decisions / retrieval / audio / L2 | DEFER | Lots suivants |
+| Decisions / retrieval / audio / L2 | DEFER | Macro-lots 2/3 |
 
-## Readiness Admin
+## Flux démontré
 
-Critères locaux satisfaits pour demander G-ADMIN-SECRET / G-ADMIN-LIVE **après revue** :
+```
+Collecteur isolé (SFIA_ADMIN_COLLECTOR_PROCESS=1)
+  → transport TEST_SUBSTITUTED | LIVE(gated)
+  → provider_admin_collection_runs + provider_admin_usage_snapshots (PG DEV)
+  → provider-admin-usage-repository (lecture produit)
+  → usage-read-service / API FinOps
+  → UI consommation existante (non-régression)
+```
 
-- Parsing conforme page/bucket/results
-- Transport GET allowlist + retries bornés
-- Isolation process (`SFIA_ADMIN_COLLECTOR_PROCESS=1`)
-- Produit ne lit pas `OPENAI_ADMIN_KEY`
-- Erreurs/pagination/idempotence testées
+## Sécurité Admin
 
-**ADMIN COLLECTOR — READY FOR BOUNDED LIVE QUALIFICATION** (technique locale) — activation LIVE toujours gate Morris.
+- Présence d'un transport **ne** lève **pas** le GO LIVE.
+- `TEST_SUBSTITUTED` : transport marqué ; aucune clé Admin réelle requise.
+- `LIVE` : `liveAdminCallsAuthorized` + clé + transport `markLiveAdminTransport` + destination `https://api.openai.com/v1` + `redirect:error`.
+- Produit Next ne charge jamais `OPENAI_ADMIN_KEY`.
+- Rollback non destructif : `SFIA_ADMIN_SNAPSHOT_READ=0`.
 
-## Gates restants
+## Migration DEV
 
-1. G-PROVIDER-SNAPSHOT-MIGRATION  
-2. G-ADMIN-SECRET  
-3. G-ADMIN-LIVE  
-4. G-FINOPS-UX  
-5. G-WEB-PUBLIC / A3  
-6. G-TRACING-LOCAL  
-7. G-NATIVE-CONTINUITY  
-8. G-PROVIDER-LIVE-QUALIFICATION  
+- Backup : `.tmp-sfia-review/pg-backup/sfia_next_dev_pre_023.dump` (pg_dump -Fc, listable).
+- Additive exclusively ; ledger `provider_usage_observations` préservé.
+- UNIQUE NULLS NOT DISTINCT sur identité canonique snapshot.
+- Rôles NOLOGIN : `sfia_admin_collector` (écriture), `sfia_finops_reader` (lecture).
 
-## Provisionnement Admin (hors chat)
+## Gates
 
-1. Morris crée la clé sur https://platform.openai.com/settings/organization/admin-keys  
-2. Provisionne uniquement dans l’env isolé du process collecteur (`OPENAI_ADMIN_KEY`)  
-3. `SFIA_ADMIN_COLLECTOR_PROCESS=1` · `STUDIO_LANE=DEV` · `SFIA_ADMIN_USAGE_LIVE=1` après GO  
-4. Jamais dans Next, Nora, navigateur, Git, chat, pack  
+**Levé (DEV only) :** G-PROVIDER-SNAPSHOT-MIGRATION
 
-## Fichiers clés corrective
+**Fermés :** G-ADMIN-SECRET · G-ADMIN-LIVE · G-FINOPS-UX · G-WEB-PUBLIC/A3 · G-TRACING-LOCAL · G-NATIVE-CONTINUITY · G-PROVIDER-LIVE-QUALIFICATION · RECETTE/promotions
 
-- `provider-admin-usage-collector.ts` (rewrite)
-- `provider-admin-http-transport.ts`
-- `decimal-money.ts`
-- `scripts/finops-admin-collect.mts`
-- `agents-sdk-tracing.ts` (ALS + network oracle)
-- frontier continuity bind + stream usage
-- dossiers migration / A3 / UX candidats
+## Preuves clés
+
+- 44 tests unit/intégration ciblés PASS (admin, frontier, tracing mock+real SDK, PG snapshots).
+- Collecteur dry-substituted → row `provider_admin_collection_runs` en DEV.
+- DEV runtime : `127.0.0.1:3100` BUILD_ID `cUOHTek8qSni3vSYXOTWZ` pid qualify.
+- RECETTE : pid inchangé, worktree figé distinct.

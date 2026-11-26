@@ -2,9 +2,10 @@
 
 | Champ | Valeur |
 |---|---|
-| Statut | **CANDIDATE — NOT APPLIED** |
-| Gate | **G-PROVIDER-SNAPSHOT-MIGRATION — MORRIS GO REQUIRED** |
+| Statut | **APPLIED DEV ONLY** — `023_provider_admin_usage_snapshots.sql` · PG 16.16 |
+| Gate | **G-PROVIDER-SNAPSHOT-MIGRATION — LEVÉ DEV** (RECETTE/STABLE non touchés) |
 | Motif | Persistance idempotente des *results* fournisseur (pas un second ledger métier) |
+| Backup | `.tmp-sfia-review/pg-backup/sfia_next_dev_pre_023.dump` |
 
 ## Contrat de données
 

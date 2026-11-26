@@ -3,6 +3,24 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-26-OPENAI-STUDIO-CONVERGENCE-ML1-OPERATIONAL
+
+- **date_utc**: 2026-11-26T20:30Z
+- **lane**: DEV — Macro-lot 1 operational completion + additive PG migration
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_initial**: `a095171e00db281d741010f2d04918e8c79af25c`
+- **web_tree_initial**: `188c998ccb722d0a6810c97abf00a1475ad7fc1d`
+- **migration**: `023_provider_admin_usage_snapshots.sql` · PG 16.16 · backup `.tmp-sfia-review/pg-backup/sfia_next_dev_pre_023.dump`
+- **BUILD_ID**: `cUOHTek8qSni3vSYXOTWZ` · digest `fd6c132cc425721b992e915998f0d97f1f9639539b82e8f832ef01a2ab3c7e92`
+- **DEV**: `127.0.0.1:3100` qualify-next-start · RECETTE pid 89199 intacte
+- **focus**: Admin LIVE/TEST split ; collecteur→PG→FinOps ; FinOps scope evidence ; frontier PARTIAL ; D3 continuity bind ; real SDK tracing oracle
+- **tests**: 44 targeted PASS (admin 11 · frontier 23 · tracing 5+3 · PG 2)
+- **gates_ouverts_restants**: G-ADMIN-SECRET · G-ADMIN-LIVE · G-FINOPS-UX · G-WEB-PUBLIC/A3 · G-TRACING-LOCAL · G-NATIVE-CONTINUITY · G-PROVIDER-LIVE-QUALIFICATION
+- **gate_levé**: G-PROVIDER-SNAPSHOT-MIGRATION (DEV only)
+- **web_live**: OFF · push projet NON · NO RELEASE · NOT ADOPTED
+- **as_built**: `construction/convergence-openai-studio/as-built-macro-lot-1-20261126.md`
+- **statut**: **MACRO-LOT 1 — OPERATIONAL DEV FOUNDATION PROVEN — GOVERNED LIVE QUALIFICATION GATES REMAIN**
+
 ## delivery_id: DELIV-2026-11-26-OPENAI-STUDIO-CONVERGENCE-ML1-CORRECTIVE
 
 - **date_utc**: 2026-11-26T20:30Z (approx)

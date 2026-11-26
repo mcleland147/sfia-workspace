@@ -13,6 +13,8 @@
 | `max_tool_calls` | Borne a priori des appels built-in | Injection frontier + tests |
 | `tool_usage.web_search.num_requests` | Mesure a posteriori facturable si présente | Parse + reconcile |
 | Absent `tool_usage` | **UNKNOWN** (jamais ASSUMED_1) | Tests |
+| UNKNOWN puis MEASURED | Agrégat campagne **PARTIAL** (jamais promote silencieux) | Tests frontier |
+| Stream SSE | UNKNOWN borné — pas de buffer illimité | Code frontier |
 | Pression d’enveloppe | Consomme `max_tool_calls` même si billable UNKNOWN | Tests envelope |
 
 ## Option A3 (candidate)

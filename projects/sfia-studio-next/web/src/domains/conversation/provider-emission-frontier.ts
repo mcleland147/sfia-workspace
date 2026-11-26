@@ -96,7 +96,7 @@ export type CampaignEnvelope = {
    * null when never measured (UNKNOWN — never ASSUMED_1).
    */
   hostedSearchesMeasured: number | null;
-  hostedSearchMeasureStatus: "NONE" | "MEASURED" | "UNKNOWN";
+  hostedSearchMeasureStatus: "NONE" | "MEASURED" | "UNKNOWN" | "PARTIAL";
   hostedSearchMeasureLimits: string[];
   directOpensCommitted: number;
   suspended: boolean;
@@ -300,6 +300,20 @@ function emptyStore(): FrontierStore {
     responseUsageObserved: [],
     continuity: { studio: null, chain: null },
   };
+}
+
+/**
+ * Merge per-attempt hosted-search measure into campaign aggregate.
+ * UNKNOWN then MEASURED (or MEASURED then UNKNOWN) ⇒ PARTIAL — never erase unknowns.
+ */
+export function mergeHostedSearchMeasureStatus(
+  prev: "NONE" | "MEASURED" | "UNKNOWN" | "PARTIAL",
+  next: "MEASURED" | "UNKNOWN",
+): "NONE" | "MEASURED" | "UNKNOWN" | "PARTIAL" {
+  if (prev === "NONE") return next;
+  if (prev === "PARTIAL") return "PARTIAL";
+  if (prev === next) return prev;
+  return "PARTIAL";
 }
 
 /** Bind D3 continuity snapshot + optional provider chain for this ALS turn. */
@@ -1910,7 +1924,10 @@ export function createFrontierAwareFetch(
           hostedLimits = ["STREAM_USAGE_UNKNOWN"];
           hostedStatus = "UNKNOWN";
           if (campaign) {
-            campaign.hostedSearchMeasureStatus = "UNKNOWN";
+            campaign.hostedSearchMeasureStatus = mergeHostedSearchMeasureStatus(
+              campaign.hostedSearchMeasureStatus,
+              "UNKNOWN",
+            );
             campaign.hostedSearchMeasureLimits = [
               ...new Set([
                 ...campaign.hostedSearchMeasureLimits,
@@ -1933,15 +1950,12 @@ export function createFrontierAwareFetch(
             hostedStatus = reconciled.status;
             hostedLimits = reconciled.limits;
             if (campaign) {
-              // Never erase UNKNOWN/PARTIAL aggregate solely because a later
-              // attempt measured — promote to MEASURED only from NONE/UNKNOWN
-              // when this attempt is MEASURED; keep UNKNOWN if already UNKNOWN
-              // and this attempt is UNKNOWN.
-              if (reconciled.status === "MEASURED") {
-                campaign.hostedSearchMeasureStatus = "MEASURED";
-              } else if (campaign.hostedSearchMeasureStatus === "NONE") {
-                campaign.hostedSearchMeasureStatus = "UNKNOWN";
-              }
+              // Aggregate status must not promote UNKNOWN→MEASURED when prior
+              // attempts remain unknown. Mixed history ⇒ PARTIAL.
+              campaign.hostedSearchMeasureStatus = mergeHostedSearchMeasureStatus(
+                campaign.hostedSearchMeasureStatus,
+                reconciled.status === "MEASURED" ? "MEASURED" : "UNKNOWN",
+              );
               campaign.hostedSearchMeasureLimits = [
                 ...new Set([
                   ...campaign.hostedSearchMeasureLimits,
@@ -1966,9 +1980,10 @@ export function createFrontierAwareFetch(
             hostedLimits = ["RESPONSE_BODY_PARSE_FAILED"];
             hostedStatus = "UNKNOWN";
             if (campaign) {
-              if (campaign.hostedSearchMeasureStatus === "NONE") {
-                campaign.hostedSearchMeasureStatus = "UNKNOWN";
-              }
+              campaign.hostedSearchMeasureStatus = mergeHostedSearchMeasureStatus(
+                campaign.hostedSearchMeasureStatus,
+                "UNKNOWN",
+              );
               campaign.hostedSearchMeasureLimits = [
                 ...new Set([
                   ...campaign.hostedSearchMeasureLimits,

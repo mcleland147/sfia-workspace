@@ -75,7 +75,9 @@ export type AdminCollectionResult = {
   lastError: string | null;
 };
 
-export type AdminHttpTransport = (input: {
+export type AdminTransportMode = "TEST_SUBSTITUTED" | "LIVE";
+
+export type AdminHttpTransportFn = (input: {
   method: "GET";
   path: string;
   query: Record<string, string>;
@@ -86,12 +88,48 @@ export type AdminHttpTransport = (input: {
   headers?: Record<string, string>;
 }>;
 
+export type AdminHttpTransport = AdminHttpTransportFn & {
+  readonly __sfiaAdminMode: AdminTransportMode;
+};
+
+export function markSubstitutedAdminTransport(
+  fn: AdminHttpTransportFn,
+): AdminHttpTransport {
+  const t = fn as AdminHttpTransport;
+  Object.defineProperty(t, "__sfiaAdminMode", {
+    value: "TEST_SUBSTITUTED" as const,
+    enumerable: false,
+    configurable: false,
+    writable: false,
+  });
+  return t;
+}
+
+export function markLiveAdminTransport(
+  fn: AdminHttpTransportFn,
+): AdminHttpTransport {
+  const t = fn as AdminHttpTransport;
+  Object.defineProperty(t, "__sfiaAdminMode", {
+    value: "LIVE" as const,
+    enumerable: false,
+    configurable: false,
+    writable: false,
+  });
+  return t;
+}
+
 export type AdminCollectorConfig = {
-  /** Present only in isolated collector process — never in Nora/Next. */
+  /**
+   * LIVE requires a real Admin key in the isolated collector.
+   * TEST_SUBSTITUTED never needs a real key (dummy/null accepted).
+   */
   adminApiKey: string | null;
   organizationScope: string;
+  /** Explicit mode — transport injection alone never authorizes LIVE. */
+  mode: AdminTransportMode;
+  /** LIVE GO — required when mode=LIVE; ignored for authorization of TEST. */
   liveAdminCallsAuthorized: boolean;
-  transport?: AdminHttpTransport;
+  transport: AdminHttpTransport;
 };
 
 /** Paths confirmed in openai@7.50 SDK admin.organization.usage.* */
@@ -180,9 +218,10 @@ export function resolveProductAdminCollectorView(): {
  */
 export function resolveIsolatedAdminCollectorConfig(input: {
   adminApiKey: string | null;
+  mode: AdminTransportMode;
   liveAuthorized: boolean;
   organizationScope?: string;
-  transport?: AdminHttpTransport;
+  transport: AdminHttpTransport;
 }): AdminCollectorConfig {
   return {
     adminApiKey: input.adminApiKey,
@@ -190,6 +229,7 @@ export function resolveIsolatedAdminCollectorConfig(input: {
       input.organizationScope?.trim() ||
       (process.env.SFIA_OPENAI_ORG_SCOPE ?? "org:unspecified").trim() ||
       "org:unspecified",
+    mode: input.mode,
     liveAdminCallsAuthorized: input.liveAuthorized,
     transport: input.transport,
   };
@@ -296,6 +336,11 @@ export function parseAdminUsagePage(input: {
   if (body.object != null && body.object !== "page") {
     limits.push("PAGE_OBJECT_UNEXPECTED");
   }
+  if (body.has_more === true) {
+    if (typeof body.next_page !== "string" || !body.next_page.trim()) {
+      limits.push("HAS_MORE_WITHOUT_CURSOR");
+    }
+  }
   const data = Array.isArray(body.data) ? body.data : [];
   const snapshots: AdminUsageSnapshot[] = [];
 
@@ -383,6 +428,31 @@ function assertAllowedPath(path: string): void {
   }
 }
 
+function assertTransportGate(config: AdminCollectorConfig): void {
+  const transport = config.transport;
+  const marked = transport?.__sfiaAdminMode;
+  if (config.mode === "LIVE") {
+    if (!config.liveAdminCallsAuthorized) {
+      throw new Error("BLOCKED_NO_LIVE_GO");
+    }
+    if (!config.adminApiKey) {
+      throw new Error("BLOCKED_NO_SECRET");
+    }
+    if (!transport || marked !== "LIVE") {
+      throw new Error("BLOCKED_LIVE_TRANSPORT_REQUIRED");
+    }
+    return;
+  }
+  if (config.mode === "TEST_SUBSTITUTED") {
+    if (!transport || marked !== "TEST_SUBSTITUTED") {
+      throw new Error("BLOCKED_TEST_TRANSPORT_REQUIRED");
+    }
+    // Real Admin key never required for TEST_SUBSTITUTED.
+    return;
+  }
+  throw new Error("BLOCKED_UNKNOWN_MODE");
+}
+
 export async function collectAdminUsagePage(input: {
   config: AdminCollectorConfig;
   path: string;
@@ -394,19 +464,20 @@ export async function collectAdminUsagePage(input: {
   limits: string[];
 }> {
   assertAllowedPath(input.path);
-  if (!input.config.adminApiKey) throw new Error("BLOCKED_NO_SECRET");
-  if (!input.config.liveAdminCallsAuthorized && !input.config.transport) {
-    throw new Error("BLOCKED_NO_LIVE_GO");
-  }
+  assertTransportGate(input.config);
   const transport = input.config.transport;
-  if (!transport) throw new Error("BLOCKED_NO_TRANSPORT");
+
+  const bearer =
+    input.config.mode === "LIVE"
+      ? `Bearer ${input.config.adminApiKey}`
+      : "Bearer test-substituted-not-a-secret";
 
   const res = await transport({
     method: "GET",
     path: input.path,
     query: input.query,
     headers: {
-      Authorization: `Bearer ${input.config.adminApiKey}`,
+      Authorization: bearer,
       "Content-Type": "application/json",
     },
   });
@@ -433,44 +504,40 @@ export async function runAdminCollection(input: {
   path: string;
   query: Record<string, string>;
   maxPages?: number;
+  /** Persist to PostgreSQL (isolated collector / integration). */
+  persistToPg?: boolean;
 }): Promise<AdminCollectionResult> {
   const collectionId = `acol_${Date.now().toString(36)}`;
   const collectedAtUtc = new Date().toISOString();
   const limits: string[] = [];
 
-  if (!input.config.adminApiKey) {
+  try {
+    assertTransportGate(input.config);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    const status: AdminCollectorStatus =
+      msg === "BLOCKED_NO_SECRET"
+        ? "BLOCKED_NO_SECRET"
+        : msg === "BLOCKED_NO_LIVE_GO" ||
+            msg === "BLOCKED_LIVE_TRANSPORT_REQUIRED" ||
+            msg === "BLOCKED_TEST_TRANSPORT_REQUIRED" ||
+            msg === "BLOCKED_UNKNOWN_MODE"
+          ? "BLOCKED_NO_LIVE_GO"
+          : "ERROR";
     const r: AdminCollectionResult = {
-      status: "BLOCKED_NO_SECRET",
+      status,
       collectionId,
       collectedAtUtc,
       snapshots: [],
       pagesFetched: 0,
-      limits: ["OPENAI_ADMIN_KEY_ABSENT"],
-      lastError: null,
+      limits: [msg],
+      lastError: msg,
     };
     lastAttempt = {
       atUtc: collectedAtUtc,
       collectionId,
       status: r.status,
-      error: null,
-    };
-    return r;
-  }
-  if (!input.config.liveAdminCallsAuthorized && !input.config.transport) {
-    const r: AdminCollectionResult = {
-      status: "BLOCKED_NO_LIVE_GO",
-      collectionId,
-      collectedAtUtc,
-      snapshots: [],
-      pagesFetched: 0,
-      limits: ["SFIA_ADMIN_USAGE_LIVE_REQUIRED"],
-      lastError: null,
-    };
-    lastAttempt = {
-      atUtc: collectedAtUtc,
-      collectionId,
-      status: r.status,
-      error: null,
+      error: msg,
     };
     return r;
   }
@@ -480,9 +547,24 @@ export async function runAdminCollection(input: {
   let page: string | null = null;
   let pagesFetched = 0;
   let partial = false;
+  const seenCursors = new Set<string>();
+
+  const persist =
+    input.persistToPg === true
+      ? await import("./provider-admin-usage-repository")
+      : null;
 
   try {
     assertAllowedPath(input.path);
+    if (persist) {
+      await persist.insertAdminCollectionRun({
+        collectionId,
+        startedAtUtc: collectedAtUtc,
+        status: "IDLE",
+        path: input.path,
+        organizationScope: input.config.organizationScope,
+      });
+    }
     for (let i = 0; i < maxPages; i++) {
       const query = { ...input.query };
       if (page) query.page = page;
@@ -495,7 +577,19 @@ export async function runAdminCollection(input: {
       pagesFetched += 1;
       all.push(...result.snapshots);
       limits.push(...result.limits);
+      if (result.limits.includes("HAS_MORE_WITHOUT_CURSOR")) {
+        partial = true;
+        break;
+      }
       page = result.nextPage;
+      if (page) {
+        if (seenCursors.has(page)) {
+          limits.push("REPEATED_CURSOR");
+          partial = true;
+          break;
+        }
+        seenCursors.add(page);
+      }
       if (!page) break;
       if (i === maxPages - 1 && page) {
         partial = true;
@@ -503,36 +597,43 @@ export async function runAdminCollection(input: {
       }
     }
 
+    // Structural anomalies ⇒ never mark complete.
+    if (
+      limits.includes("PAGE_BODY_INVALID") ||
+      limits.includes("BUCKET_INTERVAL_INVALID") ||
+      limits.includes("RESULT_INVALID")
+    ) {
+      partial = true;
+      limits.push("STRUCTURE_ANOMALY");
+    }
+
+    const status: AdminCollectorStatus = partial ? "PARTIAL" : "READY";
     if (partial) {
       for (const s of all) s.completeness = "partial";
-      upsertAdminSnapshots(all);
-      lastAttempt = {
-        atUtc: collectedAtUtc,
+    }
+    upsertAdminSnapshots(all);
+    if (persist) {
+      await persist.upsertAdminSnapshotsPg(all);
+      await persist.finishAdminCollectionRun({
         collectionId,
-        status: "PARTIAL",
-        error: null,
-      };
-      return {
-        status: "PARTIAL",
-        collectionId,
-        collectedAtUtc,
-        snapshots: all,
+        finishedAtUtc: new Date().toISOString(),
+        status,
         pagesFetched,
         limits: [...new Set(limits)],
         lastError: null,
-      };
+      });
     }
-
-    upsertAdminSnapshots(all);
     lastAttempt = {
       atUtc: collectedAtUtc,
       collectionId,
-      status: "READY",
+      status,
       error: null,
     };
-    lastCompleteSuccess = { atUtc: collectedAtUtc, collectionId };
+    if (status === "READY") {
+      lastCompleteSuccess = { atUtc: collectedAtUtc, collectionId };
+    }
     return {
-      status: "READY",
+      status,
       collectionId,
       collectedAtUtc,
       snapshots: all,
@@ -545,7 +646,9 @@ export async function runAdminCollection(input: {
     const status: AdminCollectorStatus =
       msg === "BLOCKED_NO_SECRET"
         ? "BLOCKED_NO_SECRET"
-        : msg === "BLOCKED_NO_LIVE_GO" || msg === "BLOCKED_NO_TRANSPORT"
+        : msg === "BLOCKED_NO_LIVE_GO" ||
+            msg === "BLOCKED_LIVE_TRANSPORT_REQUIRED" ||
+            msg === "BLOCKED_TEST_TRANSPORT_REQUIRED"
           ? "BLOCKED_NO_LIVE_GO"
           : "ERROR";
     lastAttempt = {
@@ -554,6 +657,20 @@ export async function runAdminCollection(input: {
       status,
       error: msg,
     };
+    if (persist) {
+      try {
+        await persist.finishAdminCollectionRun({
+          collectionId,
+          finishedAtUtc: new Date().toISOString(),
+          status,
+          pagesFetched,
+          limits,
+          lastError: msg,
+        });
+      } catch {
+        /* never mask primary error */
+      }
+    }
     // Never wipe prior complete snapshots on error.
     return {
       status,
@@ -568,12 +685,23 @@ export async function runAdminCollection(input: {
 }
 
 export type FinOpsScopeEvidence = {
+  /** Verified org identity match — not merely a non-empty scope string. */
   organizationMatches: boolean;
+  organizationIdentityProven: boolean;
   projectIdsOverlap: boolean;
+  /** Studio project ↔ provider project mapping proven (not presence alone). */
+  projectAttributionProven: boolean;
   apiKeyIdsOverlap: boolean;
   periodOverlap: boolean;
+  /** Window equality proven — intersection alone is insufficient. */
+  periodEqual: boolean;
   currencyMatches: boolean;
+  /** Currency observed on provider rows (null ⇒ unknown, never invent USD). */
+  providerCurrency: string | null;
   surfacesRequested: string[];
+  groupingCompatible: boolean;
+  coverageComplete: boolean;
+  freshnessAcceptable: boolean;
   /** Explicit evidence — never a lone config flag. */
   evidenceNotes: string[];
 };
@@ -586,34 +714,73 @@ export function assessFinOpsComparability(
   limits: string[];
 } {
   const limits: string[] = [...evidence.evidenceNotes];
-  if (!evidence.organizationMatches) limits.push("ORG_MISMATCH");
+  if (!evidence.organizationIdentityProven || !evidence.organizationMatches) {
+    limits.push("ORG_IDENTITY_UNPROVEN");
+  }
+  if (!evidence.periodEqual) limits.push("PERIOD_NOT_EQUAL");
   if (!evidence.periodOverlap) limits.push("PERIOD_NO_OVERLAP");
   if (!evidence.currencyMatches) limits.push("CURRENCY_MISMATCH");
+  if (evidence.providerCurrency == null) limits.push("CURRENCY_ABSENT");
+  if (!evidence.projectAttributionProven) {
+    limits.push("PROJECT_ATTRIBUTION_UNPROVEN");
+  }
   if (!evidence.projectIdsOverlap && !evidence.apiKeyIdsOverlap) {
     limits.push("PROJECT_OR_KEY_SCOPE_UNPROVEN");
   }
+  if (!evidence.groupingCompatible) limits.push("GROUPING_INCOMPATIBLE");
+  if (!evidence.coverageComplete) limits.push("COVERAGE_PARTIAL");
+  if (!evidence.freshnessAcceptable) limits.push("FRESHNESS_STALE");
+
   const hardFail =
+    !evidence.organizationIdentityProven ||
     !evidence.organizationMatches ||
-    !evidence.periodOverlap ||
+    !evidence.periodEqual ||
     !evidence.currencyMatches ||
-    (!evidence.projectIdsOverlap && !evidence.apiKeyIdsOverlap);
+    evidence.providerCurrency == null ||
+    !evidence.projectAttributionProven ||
+    (!evidence.projectIdsOverlap && !evidence.apiKeyIdsOverlap) ||
+    !evidence.groupingCompatible;
   if (hardFail) {
     return { comparable: false, status: "NON_COMPARABLE", limits };
+  }
+  if (!evidence.coverageComplete || !evidence.freshnessAcceptable) {
+    return { comparable: false, status: "PARTIAL", limits };
   }
   return { comparable: true, status: "COMPARABLE", limits };
 }
 
+/**
+ * Sum measured costs only for an explicitly attributed provider projectId.
+ * Refuses to sum org-wide aggregates when projectId is null/unproven —
+ * that would leak organization totals into a Pilot gap calculation.
+ */
 export function sumMeasuredCostUsd(
   snapshots: AdminUsageSnapshot[],
   filter: {
     intervalStartUtc?: string;
     intervalEndUtc?: string;
-    projectId?: string | null;
+    /** Required for Pilot-safe summation — null refuses org-wide totals. */
+    projectId: string | null;
+    requireProjectDimension?: boolean;
   },
-): { total: string | null; counted: number; limits: string[] } {
+): {
+  total: string | null;
+  counted: number;
+  limits: string[];
+  currency: string | null;
+} {
   const limits: string[] = [];
+  if (!filter.projectId) {
+    return {
+      total: null,
+      counted: 0,
+      limits: ["ORG_AGGREGATE_SUM_REFUSED_WITHOUT_PROJECT"],
+      currency: null,
+    };
+  }
   let total: string | null = null;
   let counted = 0;
+  let currency: string | null = null;
   for (const s of snapshots) {
     if (s.surfaceObject !== "organization.costs.result") continue;
     if (
@@ -628,11 +795,8 @@ export function sumMeasuredCostUsd(
     ) {
       continue;
     }
-    if (
-      filter.projectId &&
-      s.dimensions.project_id != null &&
-      s.dimensions.project_id !== filter.projectId
-    ) {
+    // Require the result to be attributed to the requested provider project.
+    if (s.dimensions.project_id !== filter.projectId) {
       continue;
     }
     if (s.metrics.amount.presence !== "MEASURED" || !s.metrics.amount.value) {
@@ -640,22 +804,26 @@ export function sumMeasuredCostUsd(
       if (s.metrics.amount.presence === "INVALID") limits.push("COST_AMOUNT_INVALID");
       continue;
     }
-    if (
-      s.metrics.currency.presence === "MEASURED" &&
-      s.metrics.currency.value != null &&
-      s.metrics.currency.value !== "usd"
-    ) {
-      limits.push("NON_USD_CURRENCY_SKIPPED");
+    if (s.metrics.currency.presence !== "MEASURED" || !s.metrics.currency.value) {
+      limits.push("CURRENCY_ABSENT_ROW_SKIPPED");
       continue;
     }
-    total = total == null ? s.metrics.amount.value : decimalAdd(total, s.metrics.amount.value);
+    if (currency == null) currency = s.metrics.currency.value;
+    else if (currency !== s.metrics.currency.value) {
+      limits.push("CURRENCY_MIXED");
+      return { total: null, counted, limits: [...new Set(limits)], currency: null };
+    }
+    total =
+      total == null
+        ? s.metrics.amount.value
+        : decimalAdd(total, s.metrics.amount.value);
     if (total == null) {
       limits.push("DECIMAL_ADD_FAILED");
-      return { total: null, counted, limits };
+      return { total: null, counted, limits, currency: null };
     }
     counted += 1;
   }
-  return { total, counted, limits: [...new Set(limits)] };
+  return { total, counted, limits: [...new Set(limits)], currency };
 }
 
 export function reconcileFinOpsCosts(input: {

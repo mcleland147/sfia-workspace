@@ -605,6 +605,64 @@ describe("S2/A — HTTP provider emission frontier", () => {
     });
   });
 
+  it("UNKNOWN then MEASURED yields PARTIAL aggregate (never silent promote)", async () => {
+    await runWithProviderEmissionStoreAsync(async () => {
+      beginCampaignEnvelope({
+        maxHttpAttempts: 4,
+        maxHostedSearches: 5,
+        required: true,
+      });
+      let call = 0;
+      const fakeFetch = (async () => {
+        call += 1;
+        if (call === 1) {
+          // No tool_usage ⇒ UNKNOWN
+          return new Response(JSON.stringify({ id: "r1" }), {
+            status: 200,
+            headers: { "content-type": "application/json" },
+          });
+        }
+        return new Response(
+          JSON.stringify({
+            id: "r2",
+            tool_usage: { web_search: { num_requests: 1 } },
+          }),
+          { status: 200, headers: { "content-type": "application/json" } },
+        );
+      }) as typeof fetch;
+      const gated = createFrontierAwareFetch(fakeFetch);
+      await withLaneEnv(async () => {
+        assertSdkInvocationAdmission({
+          kind: "nora.generate_reply",
+          modelId: "gpt-6.1-terra",
+          effort: "medium",
+          env: process.env,
+        });
+        const body = JSON.stringify({
+          model: "gpt-6.1-terra",
+          max_output_tokens: 50,
+          reasoning: { effort: "medium" },
+          tools: [{ type: "web_search" }],
+          max_tool_calls: 1,
+        });
+        await gated("https://api.openai.com/v1/responses", {
+          method: "POST",
+          body,
+        });
+        expect(getActiveCampaignEnvelope()?.hostedSearchMeasureStatus).toBe(
+          "UNKNOWN",
+        );
+        await gated("https://api.openai.com/v1/responses", {
+          method: "POST",
+          body,
+        });
+        expect(getActiveCampaignEnvelope()?.hostedSearchMeasureStatus).toBe(
+          "PARTIAL",
+        );
+      });
+    });
+  });
+
   it("commits hosted searches from tool_usage.num_requests when present", async () => {
     await runWithProviderEmissionStoreAsync(async () => {
       beginCampaignEnvelope({
