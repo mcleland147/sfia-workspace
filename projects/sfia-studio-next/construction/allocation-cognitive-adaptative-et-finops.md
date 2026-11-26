@@ -2,6 +2,10 @@
 
 **Statut : DOCUMENTED — orientation et séquencement validés par Morris le 25/11/2026 ; conception détaillée, calibration, implémentation et recette à réaliser.** Ce document de cadrage du lot n'est ni une nouvelle doctrine normative ni un ADR adopté. R5 / ML5 OPEN ; NO RELEASE ; NOT ADOPTED.
 
+## Actualisation de trajectoire — 26/11/2026 (arbitrages Morris acquis)
+
+Le cadrage initial du 25/11 reste conservé comme historique. Pour le périmètre courant, les arbitrages du 26/11 prévalent sur ses exclusions/hypothèses antérieures : **un seul macro-lot interne ML5** réunissant WEB sécurisé (B1, P0 et gates spécifiques), allocation multi-modèles/effort et FinOps ; aucun plafond financier interne, gestion financière chez OpenAI ; page 13 Figma validée sans extension UX ; qualification sémantique par Nora, guidance indicative, calibration comparative avant admission opérationnelle. Le contrat fonctionnel a été intégralement validé par Morris et les orientations techniques ont été validées. Voir [contrat fonctionnel](../conception-fonctionnelle/allocation-cognitive-recherche-web-et-finops.md), [contrat technique](../architecture-technique/allocation-cognitive-recherche-web-et-finops.md), [préflight 67ce2a6e](https://github.com/mcleland147/sfia-workspace/blob/67ce2a6ebd1e68466bda8dd5b9108812125f153b/sfia-review-handoff/latest-chatgpt-review.md). Accès projet DEV aux trois modèles confirmé visuellement, disponibilité runtime non prouvée. Mesure avant calibration ; WEB LIVE bloqué jusqu'aux preuves et GO ; livraison 2 demeure la capacité suivante. R5 IN PROGRESS / ML5 OPEN / R6 NOT STARTED / NO RELEASE / NOT ADOPTED. Aucune clôture livraison 1 ni autorisation d'effet déduite.
+
 ## 1. Décision de trajectoire et résultat utilisateur
 
 Morris valide l'orientation multi-modèles proposée par ChatGPT : distinguer charge de travail et difficulté intellectuelle, sélectionner le modèle et l'effort de raisonnement selon la tâche, pouvoir réévaluer cette allocation pendant le même travail cognitif et **faire de l'observabilité de la consommation et des coûts une capacité centrale, non une annexe**.
