@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
+import { PdfViewer } from "@/components/documents/PdfViewer";
 import { GitFileInfoPopover } from "@/components/integrations/GitFileInfoPopover";
 import { GitPreviewUnavailable } from "@/components/integrations/GitPreviewUnavailable";
 import type {
@@ -83,6 +84,8 @@ function parseFileResponse(
             ? "FICHIER TROP VOLUMINEUX"
             : "FICHIER BINAIRE",
       };
+    } else if (contentKind === "pdf" || /\.pdf$/i.test(path)) {
+      preview = { available: true, renderer: "pdf" };
     } else {
       preview = {
         available: true,
@@ -140,6 +143,9 @@ function previewBody(file: FileView) {
   if (!file.preview.available) {
     return <GitPreviewUnavailable preview={file.preview} openUrl={file.openUrl} />;
   }
+  if (file.preview.renderer === "pdf" || /\.pdf$/i.test(file.path)) {
+    return <PdfViewer base64={file.content} title={file.path} />;
+  }
   if (file.preview.renderer === "markdown" || /\.md$/i.test(file.path)) {
     return <SafeMarkdown content={file.content} />;
   }
@@ -149,6 +155,9 @@ function previewBody(file: FileView) {
 function previewKicker(file: FileView): string {
   if (!file.preview.available) {
     return `${file.preview.formatLabel} · LECTURE SEULE`;
+  }
+  if (file.preview.renderer === "pdf" || /\.pdf$/i.test(file.path)) {
+    return "DOCUMENT PDF · LECTURE SEULE";
   }
   if (file.preview.renderer === "markdown" || /\.md$/i.test(file.path)) {
     return "DOCUMENT MARKDOWN · LECTURE SEULE";

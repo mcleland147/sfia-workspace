@@ -1376,6 +1376,9 @@ export async function runNoraCognitiveTurn(
         probeConsumed = true;
         reply = probeReply;
       } else {
+        // FinOps / reallocation trace: use work-level ordinal (segmentCalls), not the
+        // per-invocation local segmentIndex which resets to 0 on each product turn.
+        const workSegmentOrdinal = work.resources.segmentCalls ?? 0;
         reply = await generateNoraReply({
           userText: !useContinuation
               ? input.userText
@@ -1393,6 +1396,7 @@ export async function runNoraCognitiveTurn(
             ...(webRegistry.limits.length
               ? [`publicWebRegistry=${webRegistry.limits.join(",")}`]
               : []),
+            `allocationTrace=prev:${work.resources.modelRequested ?? "none"}@${work.resources.effortRequested ?? "none"};proposed:${work.state.proposedCognitiveModel ?? "none"}@${work.state.proposedCognitiveEffort ?? "none"};admitted:${policy.modelRequested}@${policy.effortRequested};codes:${policy.reasonCodes.slice(-8).join("|")}`,
           ],
           knowledgeSnippets: input.knowledgeSnippets,
           pilotageSnippets: input.pilotageSnippets,
@@ -1402,7 +1406,7 @@ export async function runNoraCognitiveTurn(
           toolScope: input.toolScope,
           policyOverride: policy,
           cognitiveWorkId: work.id,
-          segmentIndex,
+          segmentIndex: workSegmentOrdinal,
           publicWebRegistry: {
             topics: webRegistry.topics,
             exactQueries: webRegistry.exactQueries,

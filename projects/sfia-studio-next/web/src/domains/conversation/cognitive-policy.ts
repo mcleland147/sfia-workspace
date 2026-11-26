@@ -54,7 +54,7 @@ export type ReasoningEffort = "low" | "medium" | "high";
 
 /** Traces RECETTE operational-provisional allowance without rewriting historical meta. */
 export const COGNITIVE_POLICY_VERSION =
-  "ml5-cog-policy-v5-provisional-v0.1-20261126" as const;
+  "ml5-cog-policy-v5-provisional-v0.2-20261126" as const;
 /**
  * Historical study reference (Sol). Runtime default may be Terra under provisional v0.1.
  */
@@ -124,32 +124,9 @@ export function resolveAdmittedResource(input?: {
     }
   }
 
-  // Preserve requested effort on Sol historical path when the provisional
-  // couple is not admitted (e.g. Terra low → Sol low). Do not escalate
-  // silently to a different effort when same-effort Sol remains available.
-  if (requestedModelId !== "gpt-6.2-sol") {
-    const solSameEffort = admitModelEffort(
-      "gpt-6.2-sol",
-      requestedEffort,
-      mode,
-    );
-    if (solSameEffort.admitted) {
-      return {
-        modelId: solSameEffort.modelId,
-        effort: solSameEffort.effort,
-        reasonCodes: [
-          `RESOURCE_REFUSED_${admission.reasonCode}`,
-          "RESOURCE_FALLBACK_SOL_SAME_EFFORT",
-          `REQUESTED_MODEL_${requestedModelId}`,
-          `REQUESTED_EFFORT_${requestedEffort}`,
-          `MODEL_${solSameEffort.modelId}`,
-          `EFFORT_${solSameEffort.effort}`,
-          ...policyCodes,
-        ],
-      };
-    }
-  }
-
+  // No automatic Sol same-effort switch: technical compatibility ≠ cognitive fit.
+  // Continuity path holds the admitted couple after refusal; first-segment path
+  // falls through to the explicit operational default (Terra under v0.2 / Sol legacy).
   const fallback = admitModelEffort(
     operationalDefault.modelId,
     operationalDefault.effort,
@@ -162,12 +139,17 @@ export function resolveAdmittedResource(input?: {
       { httpStatus: 500 },
     );
   }
+  const sameAsRequested =
+    fallback.modelId === requestedModelId &&
+    fallback.effort === requestedEffort;
   return {
     modelId: fallback.modelId,
     effort: fallback.effort,
     reasonCodes: [
       `RESOURCE_REFUSED_${admission.reasonCode}`,
-      "RESOURCE_FALLBACK_OPERATIONAL_DEFAULT",
+      sameAsRequested
+        ? "RESOURCE_FALLBACK_OPERATIONAL_DEFAULT"
+        : "RESOURCE_FALLBACK_OPERATIONAL_DEFAULT_NOT_EQUIVALENT",
       `REQUESTED_MODEL_${requestedModelId}`,
       `REQUESTED_EFFORT_${requestedEffort}`,
       `MODEL_${fallback.modelId}`,
@@ -653,17 +635,18 @@ export function resolveContinuityCognitivePolicy(input: {
     }
   }
 
-  // No compatible hold — fall through to catalogue fallback (explicit codes).
+  // No compatible hold — do not invent cognitive equivalence with another model.
+  // Fall through to the explicit operational default and mark the proposal unsatisfied.
   const policy = buildCognitivePolicy(input.seed, input.overrideType, {
     profileHint: input.profileHint,
-    modelHint: requestedModel as CognitiveModelId,
-    effortHint: requestedEffort as CognitiveEffort,
   });
   return {
     ...policy,
     reasonCodes: [
       ...policy.reasonCodes,
-      "RESOURCE_CONTINUITY_FALLBACK_AFTER_REFUSAL",
+      `RESOURCE_REFUSED_${direct.reasonCode}`,
+      "RESOURCE_CONTINUITY_PROPOSAL_UNSATISFIED_NO_HOLD",
+      "RESOURCE_CONTINUITY_FALLBACK_OPERATIONAL_DEFAULT",
       `REQUESTED_MODEL_${requestedModel}`,
       `REQUESTED_EFFORT_${requestedEffort}`,
     ],

@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
    * `*.js.LICENSE.txt` as modules ("Unknown module type") and breaks
    * realization/attempts routes on surface=execution.
    */
-  serverExternalPackages: ["@cursor/sdk"],
+  serverExternalPackages: ["@cursor/sdk", "pdfjs-dist"],
 };
 
 export default nextConfig;

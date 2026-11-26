@@ -226,15 +226,35 @@ export function estimateCostUsd(
   };
 }
 
-function resolveTariffModel(input: Pick<
+const UNVERIFIED_MODEL_SENTINELS = new Set([
+  "unverified",
+  "provider-simulated",
+  "deterministic-fixture",
+  "unknown",
+  "n/a",
+  "na",
+]);
+
+/** Exported for FinOps unit tests — tariff identity resolution. */
+export function resolveTariffModel(input: Pick<
   ProviderUsageObservationInput,
   "modelApplied" | "modelRequested"
 >): { model: string | null; modelAppliedUnverified: boolean } {
-  if (input.modelApplied?.trim()) {
-    return { model: input.modelApplied.trim(), modelAppliedUnverified: false };
+  const applied = input.modelApplied?.trim() || "";
+  const requested = input.modelRequested?.trim() || "";
+  // SDK may report modelApplied as the sentinel "UNVERIFIED" — never tariff that string.
+  if (applied && !UNVERIFIED_MODEL_SENTINELS.has(applied.toLowerCase())) {
+    if (isCognitiveModelId(applied)) {
+      return { model: applied, modelAppliedUnverified: false };
+    }
+    // Applied value present but not in catalog — fall back to requested with PARTIAL.
+    if (requested && isCognitiveModelId(requested)) {
+      return { model: requested, modelAppliedUnverified: true };
+    }
+    return { model: applied, modelAppliedUnverified: true };
   }
-  if (input.modelRequested?.trim()) {
-    return { model: input.modelRequested.trim(), modelAppliedUnverified: true };
+  if (requested) {
+    return { model: requested, modelAppliedUnverified: true };
   }
   return { model: null, modelAppliedUnverified: false };
 }

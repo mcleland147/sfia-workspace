@@ -11,8 +11,9 @@ import {
 } from "./resource-catalog";
 import {
   activeProvisionalPolicyId,
-  isProvisionalV01AdmittedCouple,
-  isProvisionalV01CandidateCouple,
+  isProvisionalAdmittedCouple,
+  isProvisionalCandidateCouple,
+  isProvisionalPolicyActive,
 } from "./provisional-cognitive-policy";
 
 export type ResourceAdmissionMode = "operational" | "calibration";
@@ -88,28 +89,23 @@ export function admitModelEffort(
 
   if (mode === "operational") {
     const policyId = activeProvisionalPolicyId();
+    const provisionalOn = isProvisionalPolicyActive();
 
-    // Provisional v0.1 — admit Morris-validated couples without promoting catalog status.
-    if (
-      policyId === "v0.1" &&
-      isProvisionalV01AdmittedCouple(modelId, effort)
-    ) {
+    // Explicit provisional policy on DEV — Morris-validated couples only.
+    if (provisionalOn && isProvisionalAdmittedCouple(modelId, effort)) {
       return { admitted: true, modelId, effort, mode };
     }
 
-    if (
-      policyId === "v0.1" &&
-      isProvisionalV01CandidateCouple(modelId, effort)
-    ) {
+    if (provisionalOn && isProvisionalCandidateCouple(modelId, effort)) {
       return {
         admitted: false,
         mode,
         reasonCode: "PROVISIONAL_CANDIDATE_NOT_ADMITTED",
-        reason: `${modelId}@${effort} est candidat provisoire — qualification Morris requise avant admission`,
+        reason: `${modelId}@${effort} est candidat provisoire (${policyId}) — qualification Morris requise avant admission`,
       };
     }
 
-    // Legacy Sol-only operational band (rollback) or Sol historical path.
+    // Sol historical band always available (rollback + comparison).
     if (modelId === "gpt-6.2-sol" && OPERATIONAL_SOL_EFFORTS.has(effort)) {
       return { admitted: true, modelId, effort, mode };
     }

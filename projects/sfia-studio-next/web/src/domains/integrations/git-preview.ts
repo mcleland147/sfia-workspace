@@ -10,7 +10,7 @@ export type GitPreviewUnavailableReason =
 
 export type GitPreviewAvailable = {
   available: true;
-  renderer: "markdown" | "text";
+  renderer: "markdown" | "text" | "pdf";
 };
 
 export type GitPreviewUnavailable = {
@@ -90,11 +90,16 @@ export function buildPreviewUnavailable(
 }
 
 export function buildPreviewAvailable(
-  contentKind: "markdown" | "text",
+  contentKind: "markdown" | "text" | "pdf",
 ): GitPreviewAvailable {
   return {
     available: true,
-    renderer: contentKind === "markdown" ? "markdown" : "text",
+    renderer:
+      contentKind === "markdown"
+        ? "markdown"
+        : contentKind === "pdf"
+          ? "pdf"
+          : "text",
   };
 }
 

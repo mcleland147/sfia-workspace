@@ -522,7 +522,7 @@ export function buildCognitiveGuidanceCatalogBlurb(): string {
     `- Référentiel élémentaire : ${COGNITIVE_REFERENTIAL_ROW_COUNT} lignes CF §4.1–4.5 (guidance seulement, pas un moteur de routage).`,
     "- Tu peux t'en inspirer pour cognitiveProfileHint / effort; Nora peut s'écarter si le contexte l'exige.",
     "- Ne demande pas la matrice complète dans replyDraft : pour une ligne, appelle l'outil consult_cognitive_guidance(guidanceId) ; pour l'index compact, consult_cognitive_guidance(compactIndex=true).",
-    "- Défaut provisoire DEV (v0.1) : Terra medium ; Sol medium reste référence / retour arrière (SFIA_COG_PROVISIONAL_POLICY=legacy_sol).",
+    "- Défaut provisoire DEV (v0.2 explicite) : Terra medium ; Luna low/medium expérimentaux ; Sol référence / retour arrière (absent|legacy_sol).",
     "- Luna medium admis expérimentalement ; Luna low/high et Terra high restent candidats jusqu'à qualification Morris.",
   ].join("\n");
 }

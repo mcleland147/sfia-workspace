@@ -267,3 +267,79 @@ export async function readBoundedResponseText(
   }
   return { text, bytesRead, truncated };
 }
+
+/**
+ * Read raw bytes with hard cap — for authorized PDF open after B1 egress.
+ * Does not strip markup; caller runs pdf extract.
+ */
+export async function readBoundedResponseBytes(
+  res: {
+    body: ReadableStream<Uint8Array> | null;
+    arrayBuffer?: () => Promise<ArrayBuffer>;
+    headers: Headers;
+  },
+  opts?: { maxBytes?: number; signal?: AbortSignal },
+): Promise<{ bytes: Uint8Array; bytesRead: number; truncated: boolean }> {
+  const maxBytes = opts?.maxBytes ?? 8_000_000;
+  const cl = res.headers.get("content-length");
+  if (cl && Number(cl) > maxBytes) {
+    return { bytes: new Uint8Array(), bytesRead: 0, truncated: true };
+  }
+  if (!res.body) {
+    const buf = Buffer.from(
+      await (res.arrayBuffer?.() ?? Promise.resolve(new ArrayBuffer(0))),
+    );
+    const slice = buf.subarray(0, maxBytes);
+    return {
+      bytes: new Uint8Array(slice),
+      bytesRead: slice.length,
+      truncated: buf.length > maxBytes,
+    };
+  }
+  const reader = res.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let bytesRead = 0;
+  let truncated = false;
+  while (true) {
+    if (opts?.signal?.aborted) {
+      try {
+        await reader.cancel("WEB_TIMEOUT");
+      } catch {
+        /* ignore */
+      }
+      throw new Error("EGRESS_ABORTED");
+    }
+    const { done, value } = await reader.read();
+    if (done) break;
+    if (!value) continue;
+    const remain = maxBytes - bytesRead;
+    if (remain <= 0) {
+      truncated = true;
+      try {
+        await reader.cancel("WEB_BYTE_BUDGET");
+      } catch {
+        /* ignore */
+      }
+      break;
+    }
+    if (value.byteLength > remain) {
+      chunks.push(value.subarray(0, remain));
+      bytesRead += remain;
+      truncated = true;
+      try {
+        await reader.cancel("WEB_BYTE_BUDGET");
+      } catch {
+        /* ignore */
+      }
+      break;
+    }
+    chunks.push(value);
+    bytesRead += value.byteLength;
+  }
+  const buf = Buffer.concat(chunks.map((c) => Buffer.from(c)));
+  return {
+    bytes: new Uint8Array(buf),
+    bytesRead,
+    truncated,
+  };
+}

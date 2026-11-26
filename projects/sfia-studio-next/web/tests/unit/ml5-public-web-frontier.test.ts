@@ -148,12 +148,15 @@ describe("ML5 B1 public web frontier", () => {
     expect(nav[0]!.url).toMatch(/^https:\/\/developer\.mozilla\.org\//);
   });
 
-  it("confrontWebSources flags opposing year claims", () => {
+  it("confrontWebSources leaves semantic judgment to Nora", () => {
     const c = confrontWebSources([
       { url: "https://a.example/x", title: "Spec 2019", snippet: "deprecated in practice" },
       { url: "https://b.example/y", title: "Guide 2024", snippet: "recommended current approach" },
     ]);
-    expect(c.contradictions.length).toBeGreaterThan(0);
+    expect(c.judgmentAuthority).toBe("NORA");
+    expect(c.contradictions).toEqual([]);
+    expect(c.notes).toContain("NORA_JUDGES_SEMANTICS");
+    expect(c.notes.some((n) => n.startsWith("YEAR_TOKENS_DIVERGE_HINT:"))).toBe(true);
   });
 
   it("never treats ISOLATION_PROVEN env as attaching hosted tool", async () => {

@@ -323,6 +323,7 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
               message: result.preview.message,
               motifLabel: result.preview.motifLabel,
               openUrl,
+              contentKind: result.contentKind,
               provenance: {
                 owner: prov.owner,
                 fullName: prov.fullName,
@@ -371,10 +372,117 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
             });
             return payload;
           }
+          // PDF: never treat base64 as prose — extract bounded text via shared contract.
+          if (result.contentKind === "pdf") {
+            const { extractPdfText } = await import(
+              "@/domains/documents/pdf-extract-server"
+            );
+            const bytes = Buffer.from(result.content, "base64");
+            const pdf = await extractPdfText({
+              bytes: new Uint8Array(bytes),
+              identity: {
+                provenance: "GIT",
+                sourceRef: `git:${prov.fullName}:${prov.path}@${prov.blobSha}`,
+                versionToken: prov.commitShaVerified ? prov.commitSha : prov.blobSha,
+                mimeClaimed: "application/pdf",
+              },
+              pageFrom: 1,
+              pageTo: 5,
+            });
+            const payload = pdf.ok
+              ? {
+                  status: "AVAILABLE" as const,
+                  contentKind: "pdf" as const,
+                  pageCount: pdf.pageCount,
+                  pagesAvailable: pdf.pagesAvailable,
+                  pages: pdf.pages.map((p) => ({
+                    pageNumber: p.pageNumber,
+                    text: p.text.slice(0, Math.min(4000, scope.budget.remainingChars)),
+                    charCount: p.charCount,
+                  })),
+                  coverage: (pdf.coverage === "PARTIAL" ||
+                  pdf.pagesAvailable.length < pdf.pageCount
+                    ? "PARTIAL"
+                    : "COMPLETE") as ToolCoverage,
+                  limits: pdf.limits,
+                  fingerprint: pdf.fingerprint,
+                  guidance:
+                    "PDF text extract only — cite page numbers; unread pages are not consulted. Use read_git_pdf for further pages/search.",
+                  provenance: {
+                    owner: prov.owner,
+                    fullName: prov.fullName,
+                    path: prov.path,
+                    requestedRef: prov.requestedRef,
+                    blobSha: prov.blobSha,
+                    commitSha: prov.commitSha,
+                    commitShaVerified: prov.commitShaVerified,
+                    permalink: prov.permalink,
+                    identities: {
+                      blobSha: { value: prov.blobSha, kind: "blob_content" as const },
+                      commitSha: {
+                        value: prov.commitSha,
+                        kind: "commit_revision" as const,
+                        verified: prov.commitShaVerified,
+                      },
+                    },
+                    warning:
+                      "blobSha is a content object id — never use it in /blob/{sha}/path as if it were a commit.",
+                  },
+                  authorityReminder: result.authorityReminder,
+                  openUrl,
+                }
+              : {
+                  status: "UNAVAILABLE" as const,
+                  contentKind: "pdf" as const,
+                  reason: pdf.reasonCode,
+                  message: pdf.message,
+                  coverage: "PARTIAL" as ToolCoverage,
+                  limits: pdf.limits,
+                  guidance:
+                    "PDF identified but text extraction failed — do not invent page content. OCR/scans are out of scope.",
+                  provenance: {
+                    owner: prov.owner,
+                    fullName: prov.fullName,
+                    path: prov.path,
+                    requestedRef: prov.requestedRef,
+                    blobSha: prov.blobSha,
+                    commitSha: prov.commitSha,
+                    commitShaVerified: prov.commitShaVerified,
+                    permalink: prov.permalink,
+                  },
+                  authorityReminder: result.authorityReminder,
+                  openUrl,
+                };
+            const charsCharged = chargeBudget(scope, payload);
+            noteGitToolSource(scope, {
+              operation: "read_git_file",
+              ref: `git-pdf:${args.repositoryId}:${args.path}@${args.ref}`,
+              coverage: payload.coverage,
+              path: args.path,
+              sha: prov.commitSha,
+              notes: pdf.ok ? `pdf pages ${pdf.pagesAvailable.join(",")}` : pdf.reasonCode,
+            });
+            emitObs({
+              event_name: "d3.tool.read_git_file",
+              component: "git.read_tools",
+              operation_id: scope.operationId,
+              generation_id: scope.generationId,
+              outcome: "SUCCESS",
+              meta: {
+                status: payload.status,
+                content_kind: "pdf",
+                commit_sha_verified: prov.commitShaVerified,
+                chars_charged: charsCharged,
+              },
+            });
+            return { ...payload, charsCharged };
+          }
+
           const max = Math.min(8000, scope.budget.remainingChars);
           const excerpt = result.content.slice(0, max);
           const payload = {
             status: "AVAILABLE" as const,
+            contentKind: result.contentKind,
             excerpt,
             provenance: {
               owner: prov.owner,
@@ -456,6 +564,143 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
             },
           });
           return payload;
+        }
+      },
+    }),
+    tool({
+      name: "read_git_pdf",
+      description:
+        "Read or search an authorized Git PDF (D9 gates). Prefer after read_git_file identifies contentKind=pdf. " +
+        "Provide pageFrom/pageTo (1-based) and/or searchQuery. Never invent unread pages. OCR/scans out of scope.",
+      parameters: z.object({
+        repositoryId: z.string(),
+        path: z.string(),
+        ref: z.string(),
+        pageFrom: z.number().int().min(1).nullable().optional(),
+        pageTo: z.number().int().min(1).nullable().optional(),
+        searchQuery: z.string().max(200).nullable().optional(),
+      }),
+      execute: async (args) => {
+        if (gitCallsRemaining(scope) <= 0) {
+          return budgetExhaustedPayload();
+        }
+        consumeGitCall(scope);
+        try {
+          const result = await readGitFile({
+            pilotId: scope.pilotId,
+            projectId: scope.projectId,
+            repositoryId: args.repositoryId,
+            path: args.path,
+            ref: args.ref,
+          });
+          const prov = result.provenance;
+          if (result.contentKind !== "pdf" || !result.preview.available) {
+            return {
+              status: "INVALID_REQUEST" as const,
+              reason:
+                result.contentKind === "pdf"
+                  ? "PDF_NOT_PREVIEWABLE"
+                  : "NOT_A_PDF",
+              coverage: "DENIED" as ToolCoverage,
+              guidance:
+                "read_git_pdf requires an authorized PDF path — use read_git_file for text/markdown.",
+              charsCharged: 0,
+            };
+          }
+          const { extractPdfText } = await import(
+            "@/domains/documents/pdf-extract-server"
+          );
+          const bytes = new Uint8Array(Buffer.from(result.content, "base64"));
+          const pdf = await extractPdfText({
+            bytes,
+            identity: {
+              provenance: "GIT",
+              sourceRef: `git:${prov.fullName}:${prov.path}@${prov.blobSha}`,
+              versionToken: prov.commitShaVerified ? prov.commitSha : prov.blobSha,
+              mimeClaimed: "application/pdf",
+            },
+            pageFrom: args.pageFrom ?? 1,
+            pageTo: args.pageTo ?? (args.pageFrom ?? 1) + 4,
+            searchQuery: args.searchQuery ?? null,
+          });
+          const payload = pdf.ok
+            ? {
+                status: "AVAILABLE" as const,
+                contentKind: "pdf" as const,
+                pageCount: pdf.pageCount,
+                pagesAvailable: pdf.pagesAvailable,
+                pages: pdf.pages,
+                searchHits: pdf.searchHits ?? [],
+                coverage: "PARTIAL" as ToolCoverage,
+                limits: pdf.limits,
+                fingerprint: pdf.fingerprint,
+                citationHint: {
+                  path: prov.path,
+                  blobSha: prov.blobSha,
+                  commitSha: prov.commitSha,
+                  pages: pdf.pagesAvailable,
+                },
+                provenance: {
+                  owner: prov.owner,
+                  fullName: prov.fullName,
+                  path: prov.path,
+                  requestedRef: prov.requestedRef,
+                  blobSha: prov.blobSha,
+                  commitSha: prov.commitSha,
+                  commitShaVerified: prov.commitShaVerified,
+                  permalink: prov.permalink,
+                },
+                authorityReminder: result.authorityReminder,
+              }
+            : {
+                status: "UNAVAILABLE" as const,
+                contentKind: "pdf" as const,
+                reason: pdf.reasonCode,
+                message: pdf.message,
+                coverage: "PARTIAL" as ToolCoverage,
+                limits: pdf.limits,
+                guidance:
+                  "Extraction failed — do not invent page text. Scanned PDFs need OCR (out of scope).",
+                provenance: {
+                  path: prov.path,
+                  blobSha: prov.blobSha,
+                  commitSha: prov.commitSha,
+                },
+                authorityReminder: result.authorityReminder,
+              };
+          const charsCharged = chargeBudget(scope, payload);
+          noteGitToolSource(scope, {
+            operation: "read_git_pdf",
+            ref: `git-pdf:${args.repositoryId}:${args.path}@${args.ref}`,
+            coverage: payload.coverage,
+            path: args.path,
+            sha: prov.commitSha,
+            notes: pdf.ok
+              ? `pages ${pdf.pagesAvailable.join(",")}`
+              : pdf.reasonCode,
+          });
+          emitObs({
+            event_name: "d3.tool.read_git_pdf",
+            component: "git.read_tools",
+            operation_id: scope.operationId,
+            generation_id: scope.generationId,
+            outcome: "SUCCESS",
+            meta: {
+              status: payload.status,
+              chars_charged: charsCharged,
+            },
+          });
+          return { ...payload, charsCharged };
+        } catch (e) {
+          const classified = classifyReadGitFileFailure(e);
+          return {
+            status: classified.status,
+            reason: classified.reason,
+            code: classified.code,
+            coverage: classified.coverage,
+            guidance: classified.guidance,
+            charsCharged: 0,
+          };
         }
       },
     }),

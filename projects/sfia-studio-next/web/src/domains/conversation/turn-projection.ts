@@ -34,6 +34,8 @@ export type TurnReference = {
   commit?: string;
   href?: string;
   available?: boolean;
+  /** 1-based PDF page when citing an authorized PDF source. */
+  page?: number;
   /** Contract identity (when kind=contract). */
   fingerprint?: string;
 };

@@ -501,3 +501,13 @@ Chaque réserve transférée comporte **propriétaire, impact, preuve attendue, 
 **Acquis observés (non-régression qualitative) :** quatre échanges cognitifs satisfaisants dans le sas ; clarification et proposition évolutive ; création explicite du projet ; historique du sas retrouvé dans Travail ; recommandation argumentée après relance ; capitalisation du contexte métier ; restitution fonctionnelle de l'activité encore partielle.
 
 **Diagnostic trajectoire (hypothèse de travail, non verdict de correction) :** `BEHAVIOR DIFFERENCE — ROOT CAUSE NOT ESTABLISHED` possible combinaison CONFIGURATION GAP + HISTORICAL GAP (E07) ; à confirmer en RECETTE sans refonte cognitive dans le cycle de cutover.
+
+## 10. Addendum — finalisation WEB + PDF (2026-11-26)
+
+Addendum **append-only** ; n’altère pas les cycles ni verdicts antérieurs du registre.
+
+| Sujet | Observation |
+|---|---|
+| PDF | Choix technique **`pdfjs-dist@4.x`** retenu pour extraction serveur + rendu visionneuse (`ml5-pdf-capability-choice-20261126.md`) ; compatibilité D4 future sous réserve bytes+provenance (`ml5-pdf-d4-compatibility-20261126.md`) ; **aucun** nouvel import path D4 dans ce lot |
+| Politique cognitive | **v0.2** rendue explicite en construction (succession documentée de v0.1 provisoire) ; admission Terra catalogue WEB alignée `gpt-6.1-terra` — **sans** activation WEB LIVE |
+| WEB | Outils **progressifs** HTML session + dossier gate **`ml5-web-gate-public-dossier-20261126.md`** ; **WEB LIVE=0** ; G-WEB-PUBLIC prêt pour **décision Morris** ; campagne LIVE bornée **proposée, non exécutée** |

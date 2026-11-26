@@ -289,7 +289,11 @@ export async function readGitFile(input: {
     freshnessLimitAt: freshness.toISOString(),
     // Binary / too_large: file exists but body is not rendered — PARTIAL coverage.
     coverage:
-      contentKind === "binary" || contentKind === "too_large" ? "PARTIAL" : "COMPLETE",
+      contentKind === "binary" || contentKind === "too_large"
+        ? "PARTIAL"
+        : contentKind === "pdf"
+          ? "PARTIAL"
+          : "COMPLETE",
   };
   const openUrl: GitFileOpenUrl = resolveGitFileOpenUrl({
     fullName: repo.fullName,
@@ -304,7 +308,11 @@ export async function readGitFile(input: {
     preview = buildPreviewUnavailable(safePath, "BINARY_CONTENT");
   } else if (contentKind === "too_large") {
     preview = buildPreviewUnavailable(safePath, "FILE_TOO_LARGE");
-  } else if (contentKind === "markdown" || contentKind === "text") {
+  } else if (
+    contentKind === "markdown" ||
+    contentKind === "text" ||
+    contentKind === "pdf"
+  ) {
     preview = buildPreviewAvailable(contentKind);
   } else {
     // Defensive: unknown kind must not invent a renderer.

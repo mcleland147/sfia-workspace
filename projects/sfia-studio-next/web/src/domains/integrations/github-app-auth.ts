@@ -469,7 +469,7 @@ export async function fetchFileContentUtf8(
   sha: string;
   content: string;
   encoding: "utf-8" | "binary";
-  contentKind: "markdown" | "text" | "binary" | "too_large";
+  contentKind: "markdown" | "text" | "binary" | "too_large" | "pdf";
 }> {
   const { owner, name } = parseFullName(fullName);
   const q = new URLSearchParams({ ref });
@@ -487,10 +487,18 @@ export async function fetchFileContentUtf8(
     throw new StudioError("AMBIGUOUS", "Contenu fichier GitHub non qualificable", { httpStatus: 409 });
   }
   const buf = Buffer.from(raw.content.replace(/\n/g, ""), "base64");
-  const MAX_READ_BYTES = 512 * 1024;
+  const resolvedPath = raw.path ?? path;
+  const isPdf = /\.pdf$/i.test(resolvedPath);
+  // PDF may be larger than text previews; still hard-capped (SFIA_PDF_MAX_BYTES default 8MiB).
+  const MAX_READ_BYTES = isPdf
+    ? Math.min(
+        Number(process.env.SFIA_PDF_MAX_BYTES || 8_000_000) || 8_000_000,
+        8_000_000,
+      )
+    : 512 * 1024;
   if (buf.length > MAX_READ_BYTES) {
     return {
-      path: raw.path ?? path,
+      path: resolvedPath,
       ref,
       sha: raw.sha,
       content: "",
@@ -498,10 +506,21 @@ export async function fetchFileContentUtf8(
       contentKind: "too_large" as const,
     };
   }
+  // Authorized PDF bytes — return base64 for shared extract/viewer (never as UTF-8 prose).
+  if (isPdf) {
+    return {
+      path: resolvedPath,
+      ref,
+      sha: raw.sha,
+      content: buf.toString("base64"),
+      encoding: "binary" as const,
+      contentKind: "pdf" as const,
+    };
+  }
   // NUL or high ratio of non-text bytes ⇒ binary — never decode as Markdown/UTF-8 prose.
   if (buf.includes(0)) {
     return {
-      path: raw.path ?? path,
+      path: resolvedPath,
       ref,
       sha: raw.sha,
       content: "",

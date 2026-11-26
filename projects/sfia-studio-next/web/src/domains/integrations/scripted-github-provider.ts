@@ -380,6 +380,22 @@ class ScriptedGitHubProvider implements GitHubProvider {
         contentKind: "binary",
       };
     }
+    // PDF fixture: "PDF_BASE64:<base64>" or path ending in .pdf with raw base64 body.
+    if (content.startsWith("PDF_BASE64:") || /\.pdf$/i.test(path)) {
+      const b64 = content.startsWith("PDF_BASE64:")
+        ? content.slice("PDF_BASE64:".length)
+        : content;
+      const buf = Buffer.from(b64, "base64");
+      const blobSha = sha(`blob ${buf.byteLength}\0${buf.toString("binary")}`);
+      return {
+        path,
+        ref,
+        sha: blobSha,
+        content: b64,
+        encoding: "binary",
+        contentKind: "pdf",
+      };
+    }
     const blobSha = sha(`blob ${Buffer.byteLength(content, "utf8")}\0${content}`);
     const contentKind = /\.md$/i.test(path) ? "markdown" : "text";
     return { path, ref, sha: blobSha, content, encoding: "utf-8", contentKind };

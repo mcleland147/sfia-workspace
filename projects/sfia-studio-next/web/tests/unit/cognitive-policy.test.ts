@@ -19,34 +19,42 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
   });
 
   it("C14/C23: length must NOT route profile; tools stay available (Lot D5)", () => {
-    const s = buildCognitivePolicy("C'est quoi un sas ?", "TEST_BOUNDARY");
-    expect(s.profile).toBe("analyse");
-    expect(s.effortRequested).toBe("medium");
-    expect(s.modelRequested).toBe("gpt-6.1-terra");
-    expect(s.toolAllowlist.length).toBeGreaterThan(0);
-    expect(s.budgets.maxD4ToolCalls).toBeGreaterThan(0);
+    const prevPolicy = process.env.SFIA_COG_PROVISIONAL_POLICY;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.2";
+    try {
+      const s = buildCognitivePolicy("C'est quoi un sas ?", "TEST_BOUNDARY");
+      expect(s.profile).toBe("analyse");
+      expect(s.effortRequested).toBe("medium");
+      expect(s.modelRequested).toBe("gpt-6.1-terra");
+      expect(s.toolAllowlist.length).toBeGreaterThan(0);
+      expect(s.budgets.maxD4ToolCalls).toBeGreaterThan(0);
 
-    const mid =
-      "Voici un énoncé volontairement plus long afin d'exercer le budget analyse sans aucun verbe métier déclencheur, uniquement par longueur de texte utilisateur. ";
-    const a = buildCognitivePolicy(mid, "TEST_BOUNDARY");
-    expect(a.profile).toBe("analyse");
-    expect(a.effortRequested).toBe("medium");
-    expect(a.toolAllowlist.length).toBeGreaterThan(0);
+      const mid =
+        "Voici un énoncé volontairement plus long afin d'exercer le budget analyse sans aucun verbe métier déclencheur, uniquement par longueur de texte utilisateur. ";
+      const a = buildCognitivePolicy(mid, "TEST_BOUNDARY");
+      expect(a.profile).toBe("analyse");
+      expect(a.effortRequested).toBe("medium");
+      expect(a.toolAllowlist.length).toBeGreaterThan(0);
 
-    // C14 Morris: message length ≠ investigation/high. Semantic hints do.
-    const long = "x".repeat(601);
-    const i = buildCognitivePolicy(long, "TEST_BOUNDARY");
-    expect(i.profile).toBe("analyse");
-    expect(i.effortRequested).toBe("medium");
+      // C14 Morris: message length ≠ investigation/high. Semantic hints do.
+      const long = "x".repeat(601);
+      const i = buildCognitivePolicy(long, "TEST_BOUNDARY");
+      expect(i.profile).toBe("analyse");
+      expect(i.effortRequested).toBe("medium");
 
-    const hinted = buildCognitivePolicy(long, "TEST_BOUNDARY", {
-      profileHint: "investigation",
-    });
-    expect(hinted.profile).toBe("investigation");
-    // Provisional v0.1: Terra high is candidate-only → same-model downgrade to medium.
-    expect(hinted.modelRequested).toBe("gpt-6.1-terra");
-    expect(hinted.effortRequested).toBe("medium");
-    expect(hinted.reasonCodes).toContain("RESOURCE_FALLBACK_EFFORT_DOWNGRADE");
+      const hinted = buildCognitivePolicy(long, "TEST_BOUNDARY", {
+        profileHint: "investigation",
+      });
+      expect(hinted.profile).toBe("investigation");
+      // Provisional v0.2: Terra high is candidate-only → same-model downgrade to medium.
+      expect(hinted.modelRequested).toBe("gpt-6.1-terra");
+      expect(hinted.effortRequested).toBe("medium");
+      expect(hinted.reasonCodes).toContain("RESOURCE_FALLBACK_EFFORT_DOWNGRADE");
+    } finally {
+      if (prevPolicy === undefined) delete process.env.SFIA_COG_PROVISIONAL_POLICY;
+      else process.env.SFIA_COG_PROVISIONAL_POLICY = prevPolicy;
+    }
   });
 
   it("TEST_BOUNDARY budgets stay artificial and distinct from OPERATIONAL_PROVISIONAL", () => {
@@ -119,9 +127,9 @@ describe("cognitive policy — TEST vs OPERATIONAL separation", () => {
     const prevPolicy = process.env.SFIA_COG_PROVISIONAL_POLICY;
     try {
       process.env.STUDIO_LANE = "DEV";
-      process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.1";
+      process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.2";
       // TEST_BOUNDARY investigation budget is 12 — maxTurns must match, not silently lower.
-      // Terra high is candidate-only under provisional v0.1 → same-model downgrade to Terra medium.
+      // Terra high is candidate-only under provisional v0.2 → same-model downgrade to Terra medium.
       const p = buildCognitivePolicy("x".repeat(601), "TEST_BOUNDARY", {
         profileHint: "investigation",
         effortHint: "high",

@@ -3,6 +3,21 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-26-ML5-WEB-PDF-FINALISATION
+
+- **date_utc**: 2026-11-26
+- **lane**: DEV construction — WEB déterministe + PDF transverse + qualification documentaire LIVE bornée (pas de cutover RECETTE)
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **base**: `a0ee7564efc52b0b42909c61056b61508d06a577`
+- **focus**: Politique **v0.2** explicite (Luna Low expérimental DEV) ; FinOps UNVERIFIED→requested PARTIAL ; `pdfjs-dist` extract+viewer ; Git/WEB PDF ; progressive HTML ; dossier G-WEB-PUBLIC
+- **web_live**: **0 / disabled** — G-WEB-PUBLIC READY FOR MORRIS DECISION (dossier) · G-WEB-MIXED non consommé
+- **pdf**: capacité transverse runtime ; D4 sans nouvel import ; fixture `tests/fixtures/ml5-sample.pdf` (pas seule frontière Git LIVE)
+- **build_dev**: `.next/BUILD_ID=bP8batKL2XqD6iDGGw_Iy` (obs runtime peut encore porter un BUILD_ID env distinct — documenter les deux)
+- **LIVE documentary**: work `cgw_f3a959ec…` · IT06 `cgw_b3222991…` · 20 Responses · ~210k in / ~10.5k out · ~0.130 USD · Terra M/H + Sol M PDF compare · WEB LIVE OFF
+- **artefacts**: `ml5-web-gate-public-dossier-20261126.md` · `ml5-pdf-capability-choice-20261126.md` · `ml5-pdf-d4-compatibility-20261126.md` · ledger `.tmp-sfia-review/documentary-qual-live-20261126/`
+- **release**: **NO RELEASE** · **NOT ADOPTED** · ML5 OPEN · R5 IN PROGRESS · livraison 2 non engagée
+- **statut**: **ML5 WEB AND TRANSVERSE PDF FUNCTIONAL COMPLETION — DOCUMENTARY QUALIFICATION REVIEW REQUIRED**
+
 ## delivery_id: DELIV-2026-11-26-ML5-FINAL-CONSOLIDATION-LIVE-CALIBRATION
 
 - **date_utc**: 2026-11-26

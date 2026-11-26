@@ -1047,8 +1047,14 @@ export default function ProjectPage() {
         const res = await fetch(`/api/projects/${params.projectId}/git/file?${q.toString()}`);
         const j = (await res.json().catch(() => ({}))) as {
           content?: string;
+          contentKind?: string;
           provenance?: { commitSha?: string | null; permalink?: string | null };
-          preview?: { available?: boolean; message?: string; title?: string };
+          preview?: {
+            available?: boolean;
+            message?: string;
+            title?: string;
+            renderer?: string;
+          };
           openUrl?: { href?: string | null };
           error?: string;
           errorCategory?: string;
@@ -1094,6 +1100,10 @@ export default function ProjectPage() {
           );
         } else {
           const content = typeof j.content === "string" ? j.content : null;
+          const isPdf =
+            j.contentKind === "pdf" ||
+            j.preview?.renderer === "pdf" ||
+            /\.pdf$/i.test(ref.path);
           applyViewerIfCurrent(
             seq,
             {
@@ -1103,6 +1113,9 @@ export default function ProjectPage() {
               ref: ref.ref,
               commit: prov?.commitSha ?? ref.commit ?? null,
               content,
+              contentKind: isPdf ? "pdf" : j.contentKind === "markdown" ? "markdown" : "text",
+              initialPage:
+                typeof ref.page === "number" && ref.page > 0 ? ref.page : null,
               available: Boolean(content),
               unavailableReason: content
                 ? undefined

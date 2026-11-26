@@ -1,6 +1,7 @@
 "use client";
 
 import { SafeMarkdown } from "@/components/SafeMarkdown";
+import { PdfViewer } from "@/components/documents/PdfViewer";
 
 export type TravailViewerResource =
   | {
@@ -22,6 +23,10 @@ export type TravailViewerResource =
       ref?: string | null;
       commit?: string | null;
       content: string | null;
+      /** When "pdf", content is base64 of authorized bytes. */
+      contentKind?: "text" | "markdown" | "pdf" | "binary" | null;
+      /** 1-based page when opening from a Nora citation. */
+      initialPage?: number | null;
       available: boolean;
       unavailableReason?: string;
       href?: string | null;
@@ -32,6 +37,9 @@ export type TravailViewerResource =
       title: string;
       href?: string | null;
       content: string | null;
+      /** When "pdf", content is base64 of authorized bytes. */
+      contentKind?: "text" | "html" | "pdf" | null;
+      initialPage?: number | null;
       available: boolean;
       unavailableReason?: string;
       consulted?: boolean;
@@ -54,12 +62,19 @@ export function TravailViewer(props: {
       : resource.kind === "web"
         ? resource.title || "Source web"
         : resource.title || "Source Git";
+  const isPdf =
+    (resource.kind === "git" || resource.kind === "web") &&
+    resource.contentKind === "pdf";
   const kicker =
     resource.kind === "document"
       ? "VISIONNEUSE  /  LECTURE SEULE"
       : resource.kind === "web"
-        ? "VISIONNEUSE  /  SOURCE WEB"
-        : "VISIONNEUSE  /  SOURCE GIT";
+        ? isPdf
+          ? "VISIONNEUSE  /  SOURCE WEB PDF"
+          : "VISIONNEUSE  /  SOURCE WEB"
+        : isPdf
+          ? "VISIONNEUSE  /  SOURCE GIT PDF"
+          : "VISIONNEUSE  /  SOURCE GIT";
   const currencyBadge =
     resource.kind === "document"
       ? props.documentFocusBanner === "proposal"
@@ -96,6 +111,7 @@ export function TravailViewer(props: {
       className="fig-travail-viewer"
       data-testid="travail-viewer"
       data-viewer-kind={resource.kind}
+      data-viewer-pdf={isPdf ? "1" : "0"}
       data-viewer-enlarged={props.enlarged ? "1" : "0"}
       data-focus-banner={props.documentFocusBanner ?? ""}
     >
@@ -209,6 +225,12 @@ export function TravailViewer(props: {
           ) : (
             <p className="fig-inspector-card-body">Document sans contenu lisible.</p>
           )
+        ) : isPdf && resource.content ? (
+          <PdfViewer
+            base64={resource.content}
+            title={title}
+            initialPage={resource.initialPage ?? undefined}
+          />
         ) : resource.kind === "web" ? (
           resource.content ? (
             <SafeMarkdown content={resource.content} />

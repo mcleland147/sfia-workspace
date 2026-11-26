@@ -29,7 +29,12 @@ export type ListRefsResult = {
   matchedCount: number;
 };
 
-export type FileContentKind = "markdown" | "text" | "binary" | "too_large";
+export type FileContentKind =
+  | "markdown"
+  | "text"
+  | "binary"
+  | "too_large"
+  | "pdf";
 
 export type FileContentResult = {
   path: string;
@@ -38,7 +43,10 @@ export type FileContentResult = {
    * Blob object SHA (GitHub Contents API). Must not be treated as a commit SHA.
    */
   sha: string;
-  /** Empty when contentKind is binary or too_large — never invent fallback text. */
+  /**
+   * Empty when contentKind is binary or too_large — never invent fallback text.
+   * For `pdf`, content is base64 of the authorized bytes (encoding=binary).
+   */
   content: string;
   encoding: "utf-8" | "binary";
   contentKind: FileContentKind;

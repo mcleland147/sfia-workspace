@@ -18,12 +18,18 @@ export {
   PROVISIONAL_COGNITIVE_POLICY_VERSION,
   HISTORICAL_SOL_DEFAULT_RESOURCE,
   PROVISIONAL_V01_DEFAULT_RESOURCE,
+  PROVISIONAL_V02_DEFAULT_RESOURCE,
   activeProvisionalPolicyId,
+  resolveProvisionalPolicy,
   resolveOperationalDefaultResource,
+  isProvisionalPolicyActive,
+  isProvisionalAdmittedCouple,
+  isProvisionalCandidateCouple,
   isProvisionalV01AdmittedCouple,
   isProvisionalV01CandidateCouple,
   provisionalPolicyReasonCodes,
   type ProvisionalPolicyId,
+  type ProvisionalPolicyResolution,
 } from "./provisional-cognitive-policy";
 
 export {

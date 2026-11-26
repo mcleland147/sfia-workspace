@@ -168,19 +168,48 @@ describe("ML5 E02 — resource admission", () => {
     );
   });
 
-  it("provisional v0.1 admits Terra medium and Luna medium; candidates stay refused", () => {
-    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.1";
+  it("provisional v0.2 admits Terra medium, Luna low/medium; candidates stay refused", () => {
+    process.env.STUDIO_LANE = "DEV";
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.2";
     expect(admitModelEffort("gpt-6.1-terra", "medium", "operational").admitted).toBe(
       true,
     );
     expect(admitModelEffort("gpt-6-luna", "medium", "operational").admitted).toBe(
       true,
     );
+    expect(admitModelEffort("gpt-6-luna", "low", "operational").admitted).toBe(true);
     expect(admitModelEffort("gpt-6.1-terra", "high", "operational").admitted).toBe(
       false,
     );
-    expect(admitModelEffort("gpt-6-luna", "low", "operational").admitted).toBe(false);
     expect(admitModelEffort("gpt-6-luna", "high", "operational").admitted).toBe(false);
+  });
+
+  it("absent or unknown policy falls back to legacy_sol without provisional admission", () => {
+    process.env.STUDIO_LANE = "DEV";
+    delete process.env.SFIA_COG_PROVISIONAL_POLICY;
+    expect(admitModelEffort("gpt-6-luna", "low", "operational").admitted).toBe(false);
+    expect(admitModelEffort("gpt-6.1-terra", "medium", "operational").admitted).toBe(
+      false,
+    );
+    expect(admitModelEffort("gpt-6.2-sol", "medium", "operational").admitted).toBe(
+      true,
+    );
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "not-a-policy";
+    expect(admitModelEffort("gpt-6-luna", "medium", "operational").admitted).toBe(
+      false,
+    );
+  });
+
+  it("v0.2 on non-DEV lane refuses provisional couples", () => {
+    process.env.STUDIO_LANE = "RECETTE";
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.2";
+    expect(admitModelEffort("gpt-6-luna", "low", "operational").admitted).toBe(false);
+    expect(admitModelEffort("gpt-6.1-terra", "medium", "operational").admitted).toBe(
+      false,
+    );
+    expect(admitModelEffort("gpt-6.2-sol", "medium", "operational").admitted).toBe(
+      true,
+    );
   });
 
   it("legacy_sol policy refuses Luna/Terra operational couples", () => {
@@ -213,24 +242,26 @@ describe("ML5 E02 — resolveAdmittedResource", () => {
     else process.env.SFIA_COGNITIVE_ADMISSION_MODE = prevMode;
   });
 
-  it("provisional v0.1 admits Luna medium without Sol fallback", () => {
+  it("provisional v0.2 admits Luna medium without Sol fallback", () => {
+    process.env.STUDIO_LANE = "DEV";
     process.env.SFIA_COGNITIVE_ADMISSION_MODE = "operational";
-    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.1";
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.2";
     const r = resolveAdmittedResource({ modelId: "gpt-6-luna", effort: "medium" });
     expect(r.modelId).toBe("gpt-6-luna");
     expect(r.effort).toBe("medium");
     expect(r.reasonCodes).toContain("RESOURCE_ADMITTED_OPERATIONAL");
   });
 
-  it("provisional candidate Luna low preserves effort via Sol historical path", () => {
+  it("provisional candidate Luna high falls back to operational default without Sol swap", () => {
+    process.env.STUDIO_LANE = "DEV";
     process.env.SFIA_COGNITIVE_ADMISSION_MODE = "operational";
-    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.1";
-    const r = resolveAdmittedResource({ modelId: "gpt-6-luna", effort: "low" });
-    // Luna low candidate → same-model downgrade none admitted at low → Sol@low.
-    expect(r.modelId).toBe("gpt-6.2-sol");
-    expect(r.effort).toBe("low");
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.2";
+    const r = resolveAdmittedResource({ modelId: "gpt-6-luna", effort: "high" });
+    // Luna high candidate → same-model downgrade to Luna medium (admitted experimental).
+    expect(r.modelId).toBe("gpt-6-luna");
+    expect(r.effort).toBe("medium");
     expect(r.reasonCodes).toContain("RESOURCE_REFUSED_PROVISIONAL_CANDIDATE_NOT_ADMITTED");
-    expect(r.reasonCodes).toContain("RESOURCE_FALLBACK_SOL_SAME_EFFORT");
+    expect(r.reasonCodes).toContain("RESOURCE_FALLBACK_EFFORT_DOWNGRADE");
   });
 
   it("calibration admits Luna operational couple", () => {

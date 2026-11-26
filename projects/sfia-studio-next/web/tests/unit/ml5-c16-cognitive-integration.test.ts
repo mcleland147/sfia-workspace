@@ -114,6 +114,8 @@ describe("ML5 C16 — integrated cognitive conductor", () => {
       maxSegmentsThisInvocation: 2,
       resolvePolicy: (_work, segmentIndex) => {
         const policy = buildCognitivePolicy("adaptive effort", "TEST_BOUNDARY", {
+          // v0.2: Luna low experimental; Terra high → Terra medium downgrade.
+          modelHint: segmentIndex === 0 ? "gpt-6-luna" : "gpt-6.1-terra",
           effortHint: segmentIndex === 0 ? "low" : "high",
         });
         policies.push({ effort: policy.effortRequested, segmentIndex });
@@ -132,8 +134,6 @@ describe("ML5 C16 — integrated cognitive conductor", () => {
     });
     expect(result.work.id).toBe("cgw_test");
     expect(policies).toHaveLength(2);
-    // Provisional v0.1: Terra low not admitted → Sol low (same-effort historical).
-    // Terra high candidate → Terra medium (same-model downgrade).
     expect(policies[0]!.effort).toBe("low");
     expect(policies[1]!.effort).toBe("medium");
     expect(policies[0]!.effort).not.toBe(policies[1]!.effort);
