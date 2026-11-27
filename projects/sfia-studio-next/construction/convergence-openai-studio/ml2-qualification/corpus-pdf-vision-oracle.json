@@ -1,16 +1,17 @@
 {
-  "corpusId": "ml2-pdf-vision-oracle-v1",
+  "corpusId": "ml2-pdf-vision-oracle-v2",
   "batiNova": {
     "used": false,
-    "reason": "No DATA GO — synthetic substitute only"
+    "reason": "No DATA GO — synthetic artefacts only"
   },
+  "artefactsManifest": "web/.sfia-evidence/document-intelligence/artefacts/artefacts-manifest.json",
   "cases": [
     {
       "id": "P-TXT-01",
       "nature": "textual_pdf",
-      "description": "PDF textuel avec paragraphe sur capacité salle Orion = 12",
+      "artefact": "artefacts/P-TXT-01-orion-capacity.pdf",
       "oracle": {
-        "facts": ["Orion capacity 12"],
+        "facts": ["Orion capacity 12", "room.orion.capacity=12"],
         "pages": [1],
         "extractLocalExpected": "SUCCESS",
         "visionRequired": false
@@ -19,7 +20,8 @@
     {
       "id": "P-SCN-01",
       "nature": "scanned_pdf",
-      "description": "Scan sans couche texte — schéma réseau",
+      "artefact": "artefacts/P-SCN-01-network-scan.pdf",
+      "png": "artefacts/P-SCN-01-network-scan.png",
       "oracle": {
         "facts": ["router R1 connects to switch S2"],
         "pages": [1],
@@ -31,17 +33,19 @@
     {
       "id": "P-DIA-01",
       "nature": "architecture_diagram",
-      "description": "Schéma boîtes D3-D4-D6",
+      "artefact": "artefacts/P-DIA-01-architecture.pdf",
+      "png": "artefacts/P-DIA-01-architecture.png",
       "oracle": {
         "relations": ["D3->D4 read", "D6 authority only"],
-        "extractLocalExpected": "PARTIAL_OR_EMPTY",
+        "extractLocalExpected": "SCANNED_NO_TEXT",
         "visionRequired": true
       }
     },
     {
       "id": "P-BPMN-01",
       "nature": "bpmn",
-      "description": "Diagramme BPMN investigation→note→inspection",
+      "artefact": "artefacts/P-BPMN-01-flow.pdf",
+      "png": "artefacts/P-BPMN-01-flow.png",
       "oracle": {
         "relations": ["investigation precedes note", "inspection after note"],
         "visionRequired": true
@@ -50,18 +54,26 @@
     {
       "id": "P-TBL-01",
       "nature": "complex_table",
-      "description": "Tableau tarifs modèles × efforts",
+      "artefact": "artefacts/P-TBL-01-tariff-table.pdf",
       "oracle": {
-        "cells": [{ "row": "gpt-6-luna", "col": "medium", "value": "documented_candidate" }],
-        "extractLocalExpected": "PARTIAL",
+        "cells": [
+          {
+            "row": "gpt-6-luna",
+            "col": "medium",
+            "value": "documented_candidate"
+          }
+        ],
+        "extractLocalExpected": "SUCCESS",
         "visionRequired": "optional"
       }
     },
     {
       "id": "P-ILLEG-01",
       "nature": "illegible_zones",
-      "description": "Zone floue coin bas-droit",
+      "artefact": "artefacts/P-ILLEG-01-partial.pdf",
+      "png": "artefacts/P-ILLEG-01-partial.png",
       "oracle": {
+        "readableFacts": ["warehouse code WH-77"],
         "undeterminable": ["bottom-right stamp text"],
         "mustNotInvent": true,
         "coverageMustMarkUnread": true

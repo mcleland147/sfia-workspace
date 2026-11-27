@@ -53,8 +53,28 @@ export type EmissionAttemptKind =
   | "campaign.probe"
   | "http.responses"
   | "http.input_tokens_count"
+  | "http.decisions"
+  | "http.embeddings"
+  | "http.vector_stores"
+  | "http.files"
   | "http.other"
   | "other";
+
+/** Non-transferable HTTP sub-envelopes within one cumulative campaign. */
+export type EmissionHttpFamily =
+  | "responses"
+  | "decisions"
+  | "embeddings"
+  | "vector_stores"
+  | "files"
+  | "other";
+
+export type FamilyHttpBudget = {
+  maxHttpAttempts: number;
+  reserved: number;
+  committed: number;
+  released: number;
+};
 
 export type HttpAttemptState =
   | "RESERVED"
@@ -78,8 +98,14 @@ export type CampaignEnvelope = {
   /**
    * When true, campaign input limits require a provider-native input_tokens count
    * before Responses emission. Body-length estimates are never a strict guarantee.
+   * Non-Responses families use payload/contact limits instead (see familyHttp).
    */
   requireNativeInputBound: boolean;
+  /**
+   * Optional per-family HTTP budgets. Null = global maxHttpAttempts only.
+   * Families are not transferable without explicit arbitration.
+   */
+  familyHttp: Partial<Record<EmissionHttpFamily, FamilyHttpBudget>> | null;
   httpAttemptsReserved: number;
   httpAttemptsCommitted: number;
   httpAttemptsReleased: number;
@@ -296,7 +322,10 @@ export function restoreCampaignEnvelopeAfterRestart(
       `campaign ${campaignId} was bound to pid ${persisted.pid} without restorable counters; current pid ${process.pid}`,
     );
   }
-  const restored: CampaignEnvelope = { ...persisted.envelope };
+  const restored: CampaignEnvelope = {
+    ...persisted.envelope,
+    familyHttp: persisted.envelope.familyHttp ?? null,
+  };
   processCampaignRegistry.set(campaignId, restored);
   persistCampaignEnvelope(restored);
   return restored;
@@ -337,6 +366,7 @@ export function getCampaignEnvelopeMetrics(
     maxHttpAttempts: c.maxHttpAttempts,
     maxInputTokens: c.maxInputTokens,
     maxOutputTokens: c.maxOutputTokens,
+    familyHttp: c.familyHttp,
   };
 }
 
@@ -426,6 +456,8 @@ export function beginCampaignEnvelope(input: {
   maxDirectOpens?: number | null;
   /** Default true when any input token campaign limit is set. */
   requireNativeInputBound?: boolean;
+  /** Optional non-transferable per-family HTTP caps (ML2 document intelligence). */
+  familyHttpLimits?: Partial<Record<EmissionHttpFamily, number>> | null;
   required?: boolean;
 }): CampaignEnvelope {
   const cur = store();
@@ -496,6 +528,21 @@ export function beginCampaignEnvelope(input: {
         ? null
         : Math.max(0, Math.floor(input.maxDirectOpens)),
     requireNativeInputBound: requireNative,
+    familyHttp: (() => {
+      const raw = input.familyHttpLimits;
+      if (!raw) return null;
+      const out: Partial<Record<EmissionHttpFamily, FamilyHttpBudget>> = {};
+      for (const [k, v] of Object.entries(raw)) {
+        if (v == null) continue;
+        out[k as EmissionHttpFamily] = {
+          maxHttpAttempts: Math.max(0, Math.floor(v)),
+          reserved: 0,
+          committed: 0,
+          released: 0,
+        };
+      }
+      return Object.keys(out).length > 0 ? out : null;
+    })(),
     httpAttemptsReserved: 0,
     httpAttemptsCommitted: 0,
     httpAttemptsReleased: 0,
@@ -754,6 +801,85 @@ export function isResponsesCreateUrl(url: string): boolean {
     return path === "/v1/responses" || path.endsWith("/responses");
   } catch {
     return false;
+  }
+}
+
+/** Exact OpenAI path → emission family (no approximate matching). */
+export function classifyOpenAiHttpFamily(url: string): EmissionHttpFamily {
+  try {
+    const u = new URL(url);
+    if (!isOpenAiApiUrl(url)) return "other";
+    const path = u.pathname.replace(/\/+$/, "");
+    if (
+      path === "/v1/responses" ||
+      path.endsWith("/responses") ||
+      path === "/v1/responses/input_tokens" ||
+      path.endsWith("/responses/input_tokens")
+    ) {
+      return "responses";
+    }
+    if (path === "/v1/decisions" || path.endsWith("/decisions")) {
+      return "decisions";
+    }
+    if (path === "/v1/embeddings" || path.endsWith("/embeddings")) {
+      return "embeddings";
+    }
+    if (
+      path === "/v1/vector_stores" ||
+      path.startsWith("/v1/vector_stores/") ||
+      path.includes("/vector_stores/")
+    ) {
+      return "vector_stores";
+    }
+    if (
+      path === "/v1/files" ||
+      path.startsWith("/v1/files/") ||
+      path.includes("/files/")
+    ) {
+      return "files";
+    }
+    return "other";
+  } catch {
+    return "other";
+  }
+}
+
+export function emissionKindForHttpFamily(
+  family: EmissionHttpFamily,
+): EmissionAttemptKind {
+  switch (family) {
+    case "responses":
+      return "http.responses";
+    case "decisions":
+      return "http.decisions";
+    case "embeddings":
+      return "http.embeddings";
+    case "vector_stores":
+      return "http.vector_stores";
+    case "files":
+      return "http.files";
+    default:
+      return "http.other";
+  }
+}
+
+export function familyFromEmissionKind(
+  kind: EmissionAttemptKind,
+): EmissionHttpFamily {
+  switch (kind) {
+    case "http.responses":
+    case "http.input_tokens_count":
+      return "responses";
+    case "http.decisions":
+      return "decisions";
+    case "http.embeddings":
+      return "embeddings";
+    case "http.vector_stores":
+      return "vector_stores";
+    case "http.files":
+      return "files";
+    default:
+      return "other";
   }
 }
 
@@ -1279,16 +1405,21 @@ export function reserveHttpEmission(input: {
   }
 
   // Campaign token limits require an opposable reservation before contact.
-  // Input: provider-native input_tokens count (or explicit native hint) —
+  // Responses: provider-native input_tokens count (or explicit native hint) —
   // never campaign ceiling and never body-length estimate as a strict guarantee.
+  // Decisions/embeddings/files/VS: no Responses native count — demonstrable
+  // payload bounds (sfia_estimated_input_tokens) + family HTTP caps.
   // Output still may use per-request ceiling for reservation and wire injection.
+  const family = familyFromEmissionKind(emissionKind);
+  const isResponsesGeneration = emissionKind === "http.responses";
   let reservedInput: number | null = null;
   let inputBoundKind: InputBoundKind = null;
   let reservedOutput = demonstrableOutputTokenBound(bodyJson);
 
   if (
-    campaign.maxInputTokens != null ||
-    campaign.maxInputTokensPerRequest != null
+    isResponsesGeneration &&
+    (campaign.maxInputTokens != null ||
+      campaign.maxInputTokensPerRequest != null)
   ) {
     const resolved = resolveCampaignInputReservation(
       bodyJson,
@@ -1315,6 +1446,18 @@ export function reserveHttpEmission(input: {
         ) > 0
           ? "native"
           : "demonstrable";
+    }
+    if (
+      !isResponsesGeneration &&
+      (campaign.maxInputTokens != null ||
+        campaign.maxInputTokensPerRequest != null) &&
+      reservedInput == null
+    ) {
+      return {
+        ok: false,
+        reasonCode: "INPUT_UNBOUNDED",
+        reason: `family=${family} requires demonstrable sfia_estimated_input_tokens (no Responses native count)`,
+      };
     }
   }
 
@@ -1388,6 +1531,18 @@ export function reserveHttpEmission(input: {
       reason: `httpReserved=${campaign.httpAttemptsReserved}+1 max=${campaign.maxHttpAttempts}`,
     };
   }
+  const familyBudget = campaign.familyHttp?.[family];
+  if (familyBudget && familyBudget.reserved + 1 > familyBudget.maxHttpAttempts) {
+    // Family exhausted — do not silently borrow another family's budget.
+    campaign.suspended = true;
+    campaign.suspendReason = `CAMPAIGN_FAMILY_HTTP_EXHAUSTED:${family}`;
+    persistCampaignEnvelope(campaign);
+    return {
+      ok: false,
+      reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
+      reason: `family=${family} reserved=${familyBudget.reserved}+1 max=${familyBudget.maxHttpAttempts}`,
+    };
+  }
   if (
     campaign.maxInputTokens != null &&
     campaign.inputTokensReserved + inTok > campaign.maxInputTokens
@@ -1434,6 +1589,9 @@ export function reserveHttpEmission(input: {
   }
 
   campaign.httpAttemptsReserved += 1;
+  if (familyBudget) {
+    familyBudget.reserved += 1;
+  }
   campaign.inputTokensReserved += inTok;
   campaign.outputTokensReserved += outTok;
   persistCampaignEnvelope(campaign);
@@ -1530,6 +1688,9 @@ export function commitProviderEmission(reservation: {
       // Counting is not Responses generation — do not attribute generation tokens/cost.
     } else {
       campaign.httpAttemptsCommitted += 1;
+      const fam = familyFromEmissionKind(rec.kind);
+      const famBudget = campaign.familyHttp?.[fam];
+      if (famBudget) famBudget.committed += 1;
       const inTok =
         reservation.measuredInputTokens != null &&
         Number.isFinite(reservation.measuredInputTokens)
@@ -1587,6 +1748,12 @@ export function releaseProviderEmission(reservation: {
         campaign.httpAttemptsReserved - 1,
       );
       campaign.httpAttemptsReleased += 1;
+      const fam = familyFromEmissionKind(rec.kind);
+      const famBudget = campaign.familyHttp?.[fam];
+      if (famBudget) {
+        famBudget.reserved = Math.max(0, famBudget.reserved - 1);
+        famBudget.released += 1;
+      }
       campaign.inputTokensReserved = Math.max(
         0,
         campaign.inputTokensReserved - rec.reservedInputTokens,
@@ -1617,6 +1784,9 @@ export function markProviderEmissionUncertain(reservation: {
       campaign.inputTokenCountAttemptsCommitted += 1;
     } else {
       campaign.httpAttemptsCommitted += 1;
+      const fam = familyFromEmissionKind(rec.kind);
+      const famBudget = campaign.familyHttp?.[fam];
+      if (famBudget) famBudget.committed += 1;
     }
     persistCampaignEnvelope(campaign);
   }
@@ -1864,7 +2034,8 @@ export function createFrontierAwareFetch(
       (campaign.maxInputTokens != null ||
         campaign.maxInputTokensPerRequest != null) &&
       isResponsesCreateUrl(url) &&
-      method === "POST"
+      method === "POST" &&
+      classifyOpenAiHttpFamily(url) === "responses"
     ) {
       const fingerprint = inputCountPayloadFingerprint(bodyJson);
       const haveNative =
@@ -1922,6 +2093,9 @@ export function createFrontierAwareFetch(
       body = JSON.stringify(bodyJson);
     }
 
+    const httpFamily = classifyOpenAiHttpFamily(url);
+    const emissionKind = emissionKindForHttpFamily(httpFamily);
+
     // Strip Studio-only hints before wire emission.
     if (bodyJson) {
       const {
@@ -1934,41 +2108,46 @@ export function createFrontierAwareFetch(
         sfia_native_input_tokens?: unknown;
         sfia_input_count_fingerprint?: unknown;
       };
-      // Continuity: attach previous_response_id only when mode=native and plan allows.
-      // Default OFF — D3 remains SoT; prior tokens remain billable when attached.
-      const continuityMode = resolveProviderContinuityMode();
-      const plan = planProviderContinuity({
-        mode: continuityMode,
-        studio: alsStore.continuity.studio ?? {
-          workId: "",
-          acquisFingerprint: null,
-          sourceVersions: [],
-          checkpointId: null,
-          budgets: {
-            tokensConsumed: 0,
-            tokensBudget: null,
-            restitutionsRemaining: null,
+      if (httpFamily === "responses") {
+        // Continuity: attach previous_response_id only when mode=native and plan allows.
+        // Default OFF — D3 remains SoT; prior tokens remain billable when attached.
+        const continuityMode = resolveProviderContinuityMode();
+        const plan = planProviderContinuity({
+          mode: continuityMode,
+          studio: alsStore.continuity.studio ?? {
+            workId: "",
+            acquisFingerprint: null,
+            sourceVersions: [],
+            checkpointId: null,
+            budgets: {
+              tokensConsumed: 0,
+              tokensBudget: null,
+              restitutionsRemaining: null,
+            },
+            rightsOk: false,
           },
-          rightsOk: false,
-        },
-        chain: alsStore.continuity.chain,
-        lane: (process.env.STUDIO_LANE ?? "UNKNOWN").trim().toUpperCase(),
-      });
-      bodyJson = applyContinuityToResponsesBody(wireBody, plan);
+          chain: alsStore.continuity.chain,
+          lane: (process.env.STUDIO_LANE ?? "UNKNOWN").trim().toUpperCase(),
+        });
+        bodyJson = applyContinuityToResponsesBody(wireBody, plan);
+      } else {
+        bodyJson = wireBody;
+      }
       body = JSON.stringify(bodyJson);
     }
 
-    const hostedSearchDelta = inferHostedSearchDeltaFromBody(
-      bodyJson,
-      campaign,
-    );
+    const hostedSearchDelta =
+      httpFamily === "responses"
+        ? inferHostedSearchDeltaFromBody(bodyJson, campaign)
+        : 0;
     const reservation = reserveHttpEmission({
-      kind: "http.responses",
+      kind: emissionKind,
       url,
       method,
       body,
       effort: alsStore.effortHint,
-      skipModelAdmission: false,
+      // Decisions/embeddings/VS/files are not Nora model×effort admissions.
+      skipModelAdmission: httpFamily !== "responses",
       hostedSearchDelta,
     });
     if (!reservation.ok) {
@@ -1987,7 +2166,7 @@ export function createFrontierAwareFetch(
         effort: effortFromBody(bodyJson),
         maxOutputTokens: demonstrableOutputTokenBound(bodyJson),
         maxToolCalls: Number(bodyJson?.max_tool_calls ?? 0) || null,
-        kind: "http.responses",
+        kind: emissionKind,
       });
     }
 

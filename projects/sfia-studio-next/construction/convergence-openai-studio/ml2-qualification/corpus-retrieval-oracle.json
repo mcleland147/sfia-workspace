@@ -1,10 +1,16 @@
 {
-  "corpusId": "ml2-retrieval-oracle-v1",
+  "corpusId": "ml2-retrieval-oracle-v2",
+  "notes": [
+    "Logical corpus for comparative retrieval. Product baseline must use real searchJournalSubjects / D4 owners on isolated DEV synthetic rows — not the simplified script engine.",
+    "Isolation product proof ≠ simplified script isolation.",
+    "syn-auth-v1 stale hit is a protocol/version-selection issue to deepen on the real path, not alone a product disclosure proof."
+  ],
   "documents": [
     {
       "sourceId": "syn-auth-v1",
       "projectId": "proj-synthetic-a",
       "version": "1",
+      "revoked": true,
       "title": "AUTH-TOKEN TTL",
       "text": "Le jeton d'accès AUTH-TOKEN expire après quinze minutes. Identifiant technique: tok.access.ttl=15m."
     },
@@ -12,6 +18,7 @@
       "sourceId": "syn-auth-v2",
       "projectId": "proj-synthetic-a",
       "version": "2",
+      "revoked": false,
       "title": "AUTH-TOKEN TTL",
       "text": "Le jeton d'accès AUTH-TOKEN expire après trente minutes. Identifiant technique: tok.access.ttl=30m. Remplace v1."
     },
@@ -19,20 +26,31 @@
       "sourceId": "syn-billing",
       "projectId": "proj-synthetic-a",
       "version": "1",
+      "revoked": false,
       "title": "FinOps alertes",
       "text": "Seuil d'alerte consommation cognitive à 80 pour cent du budget mensuel."
     },
     {
-      "sourceId": "syn-homonym",
+      "sourceId": "syn-homonym-cafe",
       "projectId": "proj-synthetic-a",
       "version": "1",
+      "revoked": false,
       "title": "Java plantation",
       "text": "La culture du café Java nécessite un climat humide. Sans rapport avec le langage de programmation."
+    },
+    {
+      "sourceId": "syn-homonym-lang",
+      "projectId": "proj-synthetic-a",
+      "version": "1",
+      "revoked": false,
+      "title": "Java runtime notes",
+      "text": "Le runtime Java 21 gère les virtual threads. Identifiant: lang.java.runtime=21."
     },
     {
       "sourceId": "syn-other-project",
       "projectId": "proj-synthetic-b",
       "version": "1",
+      "revoked": false,
       "title": "Secret autre projet",
       "text": "Clé interne projet B: MUST_NOT_LEAK_CROSS_PROJECT."
     },
@@ -40,8 +58,25 @@
       "sourceId": "syn-absent-only",
       "projectId": "proj-synthetic-a",
       "version": "1",
+      "revoked": false,
       "title": "Inventaire salles",
       "text": "Salle Orion capacité 12. Aucune mention de TTL."
+    },
+    {
+      "sourceId": "syn-contradict-a",
+      "projectId": "proj-synthetic-a",
+      "version": "1",
+      "revoked": false,
+      "title": "Capacité Orion A",
+      "text": "Orion capacity is 12."
+    },
+    {
+      "sourceId": "syn-contradict-b",
+      "projectId": "proj-synthetic-a",
+      "version": "1",
+      "revoked": false,
+      "title": "Capacité Orion B",
+      "text": "Orion capacity is 24. Conflicts with note A."
     }
   ],
   "queries": [
@@ -52,7 +87,7 @@
       "authorizedProjectId": "proj-synthetic-a",
       "relevantSourceIds": ["syn-auth-v2"],
       "forbiddenSourceIds": ["syn-other-project"],
-      "notes": "Identifiant exact — lexical doit réussir"
+      "revokedMustNotMobilize": ["syn-auth-v1"]
     },
     {
       "id": "Q-PARA-01",
@@ -60,33 +95,48 @@
       "query": "combien de temps avant expiration du token d'accès",
       "authorizedProjectId": "proj-synthetic-a",
       "relevantSourceIds": ["syn-auth-v2"],
-      "forbiddenSourceIds": ["syn-other-project"],
-      "notes": "Paraphrase — lexical probablement faible"
+      "revokedMustNotMobilize": ["syn-auth-v1"]
     },
     {
       "id": "Q-SYN-01",
       "type": "synonym",
       "query": "durée de validité du bearer",
       "authorizedProjectId": "proj-synthetic-a",
-      "relevantSourceIds": ["syn-auth-v2"],
-      "forbiddenSourceIds": ["syn-other-project"]
+      "relevantSourceIds": ["syn-auth-v2"]
     },
     {
       "id": "Q-HOM-01",
-      "type": "homonym",
+      "type": "homonym_ambiguous",
       "query": "Java",
       "authorizedProjectId": "proj-synthetic-a",
-      "relevantSourceIds": ["syn-homonym"],
-      "irrelevantIfRetrievedFor": "programming language TTL"
+      "relevantSourceIds": ["syn-homonym-cafe", "syn-homonym-lang"],
+      "notes": "Ambiguïté réelle — les deux peuvent être pertinents selon intention; mesurer ranking/diversité, pas un unique hit forcé."
+    },
+    {
+      "id": "Q-HOM-02",
+      "type": "homonym_disambiguated",
+      "query": "café Java climat",
+      "authorizedProjectId": "proj-synthetic-a",
+      "relevantSourceIds": ["syn-homonym-cafe"],
+      "irrelevantSourceIds": ["syn-homonym-lang"]
     },
     {
       "id": "Q-VER-01",
-      "type": "version",
+      "type": "version_current",
       "query": "TTL AUTH-TOKEN version courante",
       "authorizedProjectId": "proj-synthetic-a",
       "relevantSourceIds": ["syn-auth-v2"],
       "staleSourceIds": ["syn-auth-v1"],
-      "notes": "v1 ne doit plus être mobilisée si révoquée"
+      "revokedMustNotMobilize": ["syn-auth-v1"]
+    },
+    {
+      "id": "Q-REV-01",
+      "type": "revocation",
+      "query": "tok.access.ttl=15m",
+      "authorizedProjectId": "proj-synthetic-a",
+      "relevantSourceIds": [],
+      "revokedMustNotMobilize": ["syn-auth-v1"],
+      "notes": "Ancienne version révoquée — abstention ou redirection vers v2 selon politique; ne pas mobiliser v1."
     },
     {
       "id": "Q-ABS-01",
@@ -94,7 +144,24 @@
       "query": "politique de rétention Zero Data Retention Studio",
       "authorizedProjectId": "proj-synthetic-a",
       "relevantSourceIds": [],
-      "notes": "Passage absent — ne pas inventer"
+      "abstentionExpected": true,
+      "notes": "Ne pas compter l'absence comme recall succès ordinaire; mesurer abstention."
+    },
+    {
+      "id": "Q-NEG-01",
+      "type": "negative",
+      "query": "documents qui ne parlent PAS de TTL",
+      "authorizedProjectId": "proj-synthetic-a",
+      "relevantSourceIds": ["syn-billing", "syn-absent-only", "syn-homonym-cafe", "syn-homonym-lang", "syn-contradict-a", "syn-contradict-b"],
+      "notes": "Requête négative — évaluation séparée; lexical naïf peut échouer."
+    },
+    {
+      "id": "Q-CON-01",
+      "type": "contradiction",
+      "query": "capacité salle Orion",
+      "authorizedProjectId": "proj-synthetic-a",
+      "relevantSourceIds": ["syn-contradict-a", "syn-contradict-b", "syn-absent-only"],
+      "notes": "Contradiction A/B — ranking doit surface both; mobilization must not pick one silently as sole fact."
     },
     {
       "id": "Q-ISO-01",
@@ -103,7 +170,17 @@
       "authorizedProjectId": "proj-synthetic-a",
       "relevantSourceIds": [],
       "forbiddenSourceIds": ["syn-other-project"],
-      "notes": "Fuite inter-projets = échec critique"
+      "abstentionExpected": true
+    },
+    {
+      "id": "Q-DEL-01",
+      "type": "deleted_source",
+      "query": "tok.access.ttl=30m après suppression logique v2",
+      "authorizedProjectId": "proj-synthetic-a",
+      "relevantSourceIds": [],
+      "simulateDeleted": ["syn-auth-v2"],
+      "abstentionExpected": true,
+      "notes": "Après suppression/révocation v2, absention attendue même si index distant stale."
     }
   ]
 }

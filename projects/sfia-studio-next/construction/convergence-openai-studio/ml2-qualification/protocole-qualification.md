@@ -1,6 +1,7 @@
-# Protocole de qualification ML2 — Intervention 1
+# Protocole de qualification ML2 — Intervention 2
 
-Statut : CANDIDATE PROTOCOL · pas de LIVE sans checkpoint Morris.
+Statut : PROTOCOL CORRIGÉ · LIVE interdit tant que manifeste non GO Morris.
+Baseline produit : `searchJournalSubjects` réel + corpus synthétique DEV — pas le moteur script v1.
 
 ## Principes
 

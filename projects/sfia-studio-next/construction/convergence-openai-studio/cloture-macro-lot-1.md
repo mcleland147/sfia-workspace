@@ -4,7 +4,7 @@
 |---|---|
 | Date | 27 novembre 2026 (Europe/Paris) |
 | Autorité | Morris — acceptation explicite des réserves et GO documentaire en conversation |
-| Statut | ACCEPTATION MORRIS AVEC RÉSERVES — fin de construction du périmètre ML1 ; régularisation documentaire du Handoff technique restant à effectuer |
+| Statut | ACCEPTATION MORRIS AVEC RÉSERVES — fin de construction du périmètre ML1 ; régularisation documentaire du Handoff technique **effectuée** (réf. immuable ci-dessous) |
 | Périmètre | R5 / ML5 / Livraison 1 — macro-lot 1 de convergence, pas le jalon historique R5/ML1 |
 | Nature | Trace factuelle de la décision et bilan as-built de synthèse ; ne remplace ni les contrats ni les preuves primaires |
 | Mandat | D1 documentaire borné aux documents de convergence sur la branche dédiée existante ; aucun code, PR, merge, promotion, release, activation ou ADOPTED |
@@ -66,7 +66,14 @@ Sources de preuve principales (liens immuables) :
 
 Candidat produit rapporté (NON OBSERVÉ directement) : branche sfia/next-ml5-integrated-delivery-20261123, HEAD 4a4ff3f1e56f0dc6806dde68dc8ce2292ddef56d, tree web cddf6e8d65c1b677baef77d40a2f499a8b32180d, BUILD_ID gBK_bNHmcAc2_20h5VGPd, digest dfeef73455073700bdee8af2e6662772874cdc4034c2f2eb867d689ef27f545e. DEV :3100 / PG :5433 migration 026 ; RECETTE :3200 PID 89199 intacte selon rapport. Aucun push produit ; mergeabilité NON OBSERVÉE. Tracing, WEB LIVE et continuité native OFF selon pack.
 
-Review ChatGPT : REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING. Le pack de finition ne contient pas tous les diffs déclarés (collecteur, script campagne, documents et certains tests) ; la référence de publication interne est intermédiaire. Régularisation attendue par Cursor sur le même cycle technique, uniquement avec contenu existant, sans nouveau développement ni appel LIVE. L'identité du pack local n'est pas vérifiable par ChatGPT ; le blob distant l'est. La décision Morris ne dispense pas de cette obligation. Ne pas publier un verdict de readiness technique complet avant régularisation. Les as-built, registre de couverture et delivery-history locaux ne sont pas écrasés ni réputés synchronisés par cette publication distante.
+Handoff de finition initial : `8dc9eab24a589398ebf90a6a561024ffd081889e` (blob `904dd5e46aee2406aaad691edfd613f12b65a4a8`) — pack incomplet (diffs manquants déclarés).
+
+**Régularisation FULL effectuée** (pas de nouveau développement LIVE, ne rouvre pas ML1) :
+- SHA immuable : [`8e1d82dc119e63ec326b1d708c66522b5faf6d83`](https://github.com/mcleland147/sfia-workspace/blob/8e1d82dc119e63ec326b1d708c66522b5faf6d83/sfia-review-handoff/latest-chatgpt-review.md)
+- Blob : `57bea22ba201fcb02062edc2071cd66767909e82`
+- Trace locale : [handoff-ml1-regularization-immutable.md](handoff-ml1-regularization-immutable.md)
+
+Les réserves techniques acceptées (§4) restent inchangées. Les as-built, registre de couverture et delivery-history locaux ne sont pas écrasés par cette régularisation.
 
 ## 6. Suite autorisée
 
