@@ -3,7 +3,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date / version | 27 novembre 2026 — v0.4, gate E1 validé Morris / GO E2 (27/11) |
+| Date / version | 27 novembre 2026 — v0.5, revue E2 du handoff 80cdef6c |
 | Nature | Suivi opérationnel documentaire D1, non normatif, non mergé ; ne remplace ni Roadmap, ni registre de couverture ML5, ni Delivery History, ni contrats |
 | Mandat | GO explicite Morris du 27/11 pour créer ce document sur Git et le maintenir à chaque revue Cursor ; cinq ensembles et revues intermédiaires approuvés |
 | Autorités | Morris arbitre les réserves et gates ; ChatGPT tient ce suivi et revoit ; Cursor construit et fournit les preuves |
@@ -11,7 +11,7 @@
 | Git | main `997897fd7cf914771e7d08e8030dc7123fab7d25` ; branche documentaire candidate `docs/next-openai-studio-convergence-20261126`, base avant création `f6cfd5ac01f848f6708501e1a390f37243721ab9` |
 | DEV | Branche locale rapportée `sfia/next-ml5-integrated-delivery-20261123` @ `58ca9486003805f74e69a0842f2c0792a7184437`, worktree dirty rapporté ; état local NON OBSERVÉ directement par ChatGPT ; :3100 / PG :5433 rapportés |
 | RECETTE protégée | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` / BUILD `rpEczSp61evIZ7d6fnIWR` / PG :5434 schéma 027, :3200 ; MaintiPlan suspendu après T08 ; WEB et Admin OFF |
-| Gate courant | Sortie construction E1 VALIDÉE MORRIS avec reports de preuves et reliquats affectés (§11) ; GO E2 Critical DEV uniquement, exécution non observée. NOT READY pour qualification LIVE globale. Aucun GO commit projet, LIVE, cutover, PR, merge ou adoption |
+| Gate courant | Sortie construction E1 VALIDÉE MORRIS avec reports de preuves et reliquats affectés (§11) ; E2 revu PARTIEL / NOT READY pour passage E3 ; complément ciblé recommandé sous GO Morris. NOT READY pour qualification LIVE globale. Aucun GO commit projet, LIVE, cutover, PR, merge ou adoption |
 
 ## 1. Objectif et sources
 
@@ -34,7 +34,7 @@ Les états ci-dessous sont des états de suivi, non des statuts de maturité SEF
 | Ensemble | Périmètre et résultat | État au 27/11 | Dépendances / sortie |
 | --- | --- | --- | --- |
 | E1 Continuité cognitive et fonctionnelle | B.1–B.8 ; D3/D4/D5/D6, données/projections ; Journal et réutilisation | SORTIE CONSTRUCTION VALIDÉE MORRIS AVEC RÉSERVES | §10–11 ; reports recette acceptés, reliquats E2/E3/E5 suivis ; aucune clôture RECETTE |
-| E2 Garanties cognitives résiduelles | A.1–A.7, intégration multi-intentions, reprise, recherche hybride, OBS/FinOps | GO MORRIS — mandat E2 à exécuter, lancement non observé | Interfaces E1 ; régularisation documentaire au pré-check ; pas de LIVE |
+| E2 Garanties cognitives résiduelles | A.1–A.7, intégration multi-intentions, reprise, recherche hybride, OBS/FinOps | REVU — PARTIEL, complément ciblé recommandé | §12 ; régularisation E1 obtenue ; pas de LIVE ; gate Morris avant E3 |
 | E3 Conformité UX et panneau droit | D.1–D.6 ; projections et accès directs ; Figma | À FAIRE | Données E1, états E2 ; navigateur réel DEV simulé fournisseur |
 | E4 Audio et compositeur | C.1–C.5 | À FAIRE | Interfaces E2/E3 ; transport et robustesse DET ; dictée LIVE gate |
 | E5 Qualification intégrée et exit | Candidat unique, suites applicables, 25 parcours, 18 oracles, docs/pack, mandat LIVE borné | À FAIRE | E1–E4 revus ; aucun GO LIVE avant décision Morris |
@@ -45,13 +45,13 @@ Séquence approuvée ; parallélisme uniquement après qualification explicite d
 
 | ID | Responsable | Acquis rapporté / preuve publiée | Reliquat obligatoire |
 | --- | --- | --- | --- |
-| A.1 | E2 | Option C, qualified exact, tests ciblés | Cohérence politique/qualification modèle-effort-lane, fallback, droits, calibrage ; LIVE séparé |
-| A.2 | E2 | listPilotageEffectBindings, guidance typée | Négations, ambiguïtés, langues, multi-intentions naturelles ; pas de lexique |
-| A.3 | E2 | Deux D5 appliqués PG, agrégat et ownership | Dépendances inter-capacités (notamment D4), refus partiels, reprise/idempotence, résultat de chaque effet |
-| A.4 | E2 | Trim contexte, régression revision>0 corrigée (4 PG PASS) | Fraîcheur, reprise froide, non-régression connaissance, lectures et mesure T08 |
-| A.5 | E2 | Helper terminal, IDLE corrigé après assemblage | Vérifier états/effets réels et travail restant, tests finaux et diff exact |
-| A.6 | E2 | Restitution améliorée, PARTIAL déclaré | Corrélation message/travail/segment/requête/capacité/effet/usage ; activité spécifique réelle |
-| A.7 | E2 | Filtre billable, attribution et couverture | Calculs/populations, estimations vs facturation, cache, finalisation, attribution projet, réconciliation fournisseur LIVE |
+| A.1 | E2 | Stamp effectif version, UNVERIFIED, token versionné et tests unit | PARTIEL : bare qualified admet encore v0.1/v0.2 ; contrôle version strict ou compatibilité explicitement arbitrée ; propagation applied/effort et tarifs à vérifier, calibration réelle séparée |
+| A.2 | E2 | Guidance structurée et inspection absence routeur lexical primary | PARTIEL : guidance interdit dependsOn inter-capacité ; restaurer expression fidèle des dépendances ; vérifier aucun fallback métier actif/dormant contrairement SEM-02 ; naturel en recette |
+| A.3 | E2 | D5/D6 nominal antérieur PG, fail-closed cross-cap et SKIPPED ownership | PARTIEL : dépendances valides D4→D5 non exécutables, ordre propriétaire et C02 replay multi-effets incomplet ; préserver autorité, reprise et résultats exacts |
+| A.4 | E2 | Trim revision>1 conservé, projectId ajouté aux resume hints ; test file-index isolé corrigé | PARTIEL : PG runtime et semanticHits non exercés, vérifier chemin existant PG avec client substitué ; audit concret lectures/réinjections et instrumentation T08, frais/reprise ; mesure réelle reportable |
+| A.5 | E2 | CONTINUE→OPEN + cause CONTINUE unit, IDLE et stale clarifications préservés | ACQUIS CIBLÉ : vérifier intégration awaitPilot/CONTINUE, effets pending/refus et état durable ; preuve naturelle en recette |
+| A.6 | E2 | OBS refus/ownership SKIPPED et présence d'usage billable | PARTIEL : chaîne message→work→segment→émission→outil/lecture→effet→usage à vérifier ; données d'activité spécifiques et métriques T08 avant E3 ; pas de pensée privée |
+| A.7 | E2 | resolveObservedProjectId univoque, labels demandé/appliqué, billable hasData | PARTIEL : OR projet direct/work peut compter même ligne dans 2 projets si contradiction ; fallback sur slice filtrée et catégories inconnues ; couverture/compteurs et estimation UNVERIFIED à réconcilier en PG ciblé ; facture non disponible Admin OFF |
 | B.1 | E1 | Extraction sélective et chemin Pilote/Nora→D4 inspectés, tests ciblés antérieurs conservés | Construction revue ; R-REC-E1-01 : autonomie et provenance réelle des contributions, zéro mutation inutile |
 | B.2 | E1 | Batch parent/enfant ; rename/reparent/merge/split/detach raccordés ; fusion réparent enfants ACTIVE, refus ancêtre→descendant, fencing ; PG ciblés PASS | Construction revue, intégrité nominale et négatifs ciblés acquis ; R-REC-E1-01 pertinence des réorganisations ; E2 concurrence transverse si impact |
 | B.3 | E1 | Chemins synthèse/capitalisation/supersede inspectés ; ciblage invalide et conflit id/titre refusés ; tests ciblés | Construction revue ; R-REC-E1-01 consolidation CampusNova-like, contradictions, historique et références exactes |
@@ -87,14 +87,14 @@ Tous OPEN en RECETTE. État de construction/probatoire seulement, priorités du 
 | 06 Dictée | E4 | GATE LIVE + DET PARTIEL | Transport, erreurs, reprise ; Realtime distinct |
 | 07 Onde audio | E4 | ACQUIS CIBLÉ unit | Préserver et vérifier signal réel |
 | 08 Panneau droit | E3 | MANQUANT/PARTIEL | Récents multitypes, accès direct/version/droits, Figma ; E1 données points |
-| 09 Multi-intentions | E2 | PARTIEL | PG nominal acquis, négatifs/dépendances/reprise ; LIVE naturel |
+| 09 Multi-intentions | E2 | PARTIEL — sécurité fail-closed renforcée | Dépendances valides inter-capacités et C02 multi-replay ; preuve naturelle recette |
 | 10 Continuité | E1 | CONSTRUCTION REVUE — arborescence et réorganisation raccordées | R-REC-E1-01 capitalisation/consolidation/réutilisation naturelles ; E2 recherche hybride |
-| 11 Restitution/activité | E2 | PARTIEL | OBS réelle ; E3 restitution UX |
+| 11 Restitution/activité | E2 | PARTIEL — OBS de refus enrichie | Corrélation et données d'activité réelles ; E3 présentation |
 | 12 Trajectoire | E1 | CONSTRUCTION REVUE — forecast durable, retain et admission sécurisés | R-REC-E1-01 évolution naturelle et projections |
 | 13 Compteurs | E1 | CONSTRUCTION REVUE — PG et inspection | R-REC-E1-02 V1→V2 et PG→API→DOM, 4 surfaces |
-| 14 Performance | E2 | GATE LIVE + DET à vérifier | T08 909844 tokens / 6 segments / 13m33 ; 40 observations ≠ 40 HTTP ; qualité comparable |
-| 15 Allocation | E2 | GATE LIVE | Admission DET acquise ciblée, calibration et politique |
-| 16 FinOps | E2 | GATE LIVE + DET à vérifier | Calculs/attribution, coût estimé ≠ facturé |
+| 14 Performance | E2 | PARTIEL + PREUVE RÉELLE | T08 909844 tokens / 6 segments / 13m33 ; audit lectures, PG hybrid, instrumentation ; comparaison qualité équivalente |
+| 15 Allocation | E2 | PARTIEL + GATE CALIBRATION | Version d'admission, propagation demandée/appliquée ; calibration et choix naturel |
+| 16 FinOps | E2 | PARTIEL — unit ciblé | Cohérence scopes, populations/mesures et estimations ; réconciliation fournisseur distincte |
 | 17 Paramètres | E3 | PARTIEL | Montage acquis, parcours toutes variantes |
 
 Exigences complémentaires non négociables : arborescence dynamique, qualification des résultats Nora, réutilisation et trajectoire vivante (E1) ; compositeur partagé (E4) ; pied de rail commun et cinq récents (E3) ; compteur bibliothèque (E1). Préserver MP et exigences même si déjà implémentées : démontrer sans réécriture inutile.
@@ -194,7 +194,7 @@ Réserves historiques ENV-01 cookies/PG localhost trust et identité org/projet 
 | 27/11 | 108044ef | Neuf reliquats repris, 51 PASS (19 PG) rapportés ; GO Morris qualification proportionnée et sécurisation finale ciblée |
 | 27/11 | 41087f1b | Deux risques confirmés et corrigés, 38 PASS dont 5 nouveaux ; recommandation ChatGPT sortie construction E1 sous gate, réserves non acceptées |
 
-Prochaine action : E2 sous GO Morris (§11), Cycle 8 Critical DEV. Préserver les acquis DET ; ne pas relancer E1 pour les preuves utilisateur reportées. Aucun GO LIVE, candidat RECETTE, reprise T09 ou acceptation Livraison 1 implicite.
+Prochaine action recommandée : complément ciblé E2 (§12) sous GO Morris ; préserver E1 et les acquis A ; pas de nouveau mandat général. Aucun GO LIVE, candidat RECETTE, reprise T09 ou acceptation Livraison 1 implicite.
 
 Trajectoire finale : E1→E2→E3→E4→E5 (revues intermédiaires) → arbitrage réserves et GO LIVE borné → qualification LIVE → GO candidat et cutover RECETTE distincts → rejeu ciblé 17 MP → reprise T09 jusqu'au seuil de réalisation → gate Livraison 1 → Livraison 2 sous mandat distinct.
 
@@ -306,3 +306,27 @@ Décision exprimée en conversation : « ok go », en réponse à la proposition
 | E2 | GO construction Critical DEV uniquement ; A.1–A.7, MP09/11/14/15/16 et interfaces directes ; E1 préservé ; E3–E5 non engagés |
 
 Le GO ne couvre aucune émission LIVE, aucune mutation RECETTE, aucune promotion, aucun commit/push projet, aucune PR/merge, aucune décision d'architecture nouvelle. Les 17 MP restent OPEN RECETTE. Livraison 1 NOT ACCEPTED. Le macro-lot reste ouvert. E2 sera revu avant passage E3. Le travail de construction reste à réaliser par Cursor sous contrat SFIA v2.6. Aucune affirmation d'exécution ou de résultat E2 à ce stade.
+
+
+## 12. Revue indépendante E2 — 27/11/2026
+
+[Handoff E2](https://github.com/mcleland147/sfia-workspace/blob/80cdef6ce151e0414b9aafb952bfa276966fc06c/sfia-review-handoff/latest-chatgpt-review.md), blob `981a26d5878db22fe0348762f5f714d72a2f2d71`, 2448 lignes. Main 997897fd, branche docs 6c10079c et tip handoff vérifiés. Worktree exact NON OBSERVÉ. 91 PASS unit sur 8 fichiers rapportés, exit 0 ; git diff --check ciblé clean. Aucun PG E2, tsc/lint non rejoués, build non exécuté. DEV HTTP500, RECETTE préservée selon Cursor ; aucun LIVE ni commit projet. Ne pas additionner aux tests historiques comme tests uniques. As-built E1 complet §15 et oracle RETAIN §4 : R-E1-PACK régularisée ; pas de nouveau cycle E1. R-E1-HYBRID cause de fixture isolée, pas preuve PG opérationnel. R-E1-VALID demeure suivi.
+
+### 12.1 Actions résiduelles recommandées (complément E2, pas nouvelle architecture)
+
+| ID | Constat / source | Action / exit |
+| --- | --- | --- |
+| E2-REL-01 Allocation versionnée | §15 provisional-cognitive-policy et tests : `return raw === "qualified"` accepte toute version active ; LEGACY_UNVERSIONED trace mais ne bloque pas. v0.1 et v0.2 ont couples distincts. A.1 stamp corrigé. | Recommander admission RECETTE liée explicitement à la politique calibrée ; traiter compatibilité non versionnée sous arbitrage Morris, pas activation. Vérifier modèle/effort proposés/admis/demandés/appliqués, UNKNOWN sans invention, tarifs et propagation aux frontières. Tests mismatch et fallback. Calibration LIVE ultérieure. |
+| E2-REL-02 Orchestration/reprise | §15 helper et guidance : cross-cap fail-closed, Nora instruite de limiter dependsOn à D5/D6 ; sécurité améliorée mais demande légitime D4→D5 bloquée. §12 C02 multi-replay incomplet. | Préserver fail-closed si précondition réellement inconnue ; exploiter ordre et résultats propriétaires existants pour satisfaire dépendance valide ; ne pas masquer une dépendance dans la qualification. Récupérer résultats de toutes intentions durables, aucune duplication après reprise UNKNOWN. Vérifier aussi ordre, cycles, effet non exécuté et terminalisation réelle (CONTINUE ≠ AWAIT_PILOT sans justification). Quelques PG intégrés discriminants et régression E1/MP09/S08/S05 selon impact. Si changement structurant requis, arbitrage ciblé. |
+| E2-REL-03 Contexte/hybrid/efficience | §15 seul ajout projectId au resume ; test file-index épingle backend=file et flag ON, correction légitime de fixture mais ne prouve pas PG; aucun audit de lectures exactes ou correction redondance nouvelle publié. | Vérifier chemin PG réellement sélectionné, semanticHits, identité/ranking/droits et fallback avec adaptateur existant, sans fournisseur ; pas de nouveau moteur ni réindexation massive. Examiner concrètement les lectures et réinjections, réutilisation et fraîcheur ; corriger seulement redondances démontrées. Comparaison réelle T08 et qualité en recette. |
+| E2-REL-04 OBS/activité | §15 événements D5/D6 et billable hasData ; pas de cartographie ni preuve suffisante de corrélation complète, lecture/version, latences par frontière, requêtes distinctes. | Réconcilier événements existants et lacunes concrètes, instrumenter minimalement opérations réelles manquantes nécessaires à E3 et mesure T08 ; préserver distinction émission/observation/segment, inconnues, sécurité. Pas de console supplémentaire ni raisonnement privé. |
+| E2-REL-05 FinOps | §15 usage-read-service : filtre OR direct projectId ou work.projectId, sans condition de conflit ; fallback resolveObservedProjectId sur slice déjà filtrée potentiellement masque multi-projet. Cas p1 work / p2 observation peut être inclus dans deux filtres d'un même Pilote ; risque à reproduire, pas incident constaté. Helpers labels/hasData acquis. Test attribution antérieur regex (14177ee1) ne prouve pas SQL. | Définir règle propriétaire cohérente scope direct/work/hors projet/incohérent, ne pas réattribuer historique massivement ; vérifier requêtes/observations facturables inconnues, cache et tarifs UNVERIFIED, couvertures, filtres, agrégats/détail, coûts moyens et attribution sas→projet. PG ciblé/service réel avec données contrôlées ; pas de facture inventée, Admin OFF. UX headline E3. |
+| E2-REL-06 Dossier/qualité | 91 unit ciblés sans PG, pas de tsc/lint/build ; matrice MP §8 intervertit MP11/15, livraison écrit READY WITH RESERVES (ChatGPT) avant revue ; pack ne fournit pas Git Review Index ni preuve exhaustive SEM-02. | Corriger traçabilité, vérifier code/contrats effectifs et absence de fallback lexical métier, publier sections réellement modifiées, tsc/lint delta/build applicable et tests utiles. E5 intégration globale, report DOM accepté E1 mais E3 doit traiter preuve UX. Pas de cycle documentaire autonome. |
+
+### 12.2 Arbitrage des réserves E2
+
+R-E2-01 calibration : report légitime sous gate ultérieur, distinct des règles d'admission. R-E2-02 comparaison T08 : report légitime pour mesure réelle uniquement, instrumentation et audit structurel E2. R-E2-03 C02 multi-replay : non recommandé au report sans garantie de reprise ; R-E2-04 cross-cap : fail-closed légitime, insuffisant pour traiter demande valide ; ne pas interdire l'expression sémantique du besoin. R-E2-05 navigateur : preuve reportable à E3/recette, pas de refonte tooling E2. R-E2-06 applied fournisseur : inconnue légitime tant que signal absent ; vérifier extraction si SDK l'expose, pas d'inférence. R-E2-07 hybrid PG : preuve runtime avec fournisseur distincte ; mécanisme PG à vérifier en DET proportionné. Facturation : indisponible Admin OFF, pas d'activation implicite ; aucune réserve E2 acceptée par Morris à ce stade.
+
+### 12.3 Gate et suite
+
+E2 PARTIEL — NOT READY pour passage E3. Acquis à conserver ; complément ciblé en trois blocs cohérents (allocation/orchestration et reprise ; contexte/OBS ; FinOps et intégration documentaire). Contrôles critiques avant recette ; pas de simulation exhaustive, pas de nouveau LIVE, pas de mutation RECETTE. E1 construction validée avec réserves selon §11 ; E3/E4/E5 à faire. Les 17 MP restent OPEN RECETTE. R5 IN PROGRESS, ML5 OPEN, Livraison 1 NOT ACCEPTED, T09 NOT SENT, NO RELEASE, NOT ADOPTED.
