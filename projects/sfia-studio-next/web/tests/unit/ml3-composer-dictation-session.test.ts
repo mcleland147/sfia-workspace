@@ -646,4 +646,146 @@ describe("ml3 composer dictation session (substituted transport)", () => {
     expect(fin.transcript).toContain("segment B");
     expect(created.session.status).toBe("completed");
   });
+
+  it("finalize timeout with unacked commit marks partial not complete", async () => {
+    process.env.SFIA_COMPOSER_DICTATION = "1";
+    process.env.STUDIO_LANE = "DEV";
+    let handler: ((ev: Record<string, unknown>) => void) | null = null;
+    const transport: RealtimeTransport = {
+      send: (p) => {
+        if (p.type === "session.update") {
+          queueMicrotask(() => handler?.({ type: "session.updated" }));
+        }
+        if (p.type === "input_audio_buffer.commit") {
+          /* deliberate: no input_audio_buffer.committed ack */
+        }
+      },
+      close: () => undefined,
+      onEvent: (h) => {
+        handler = h;
+      },
+    };
+    const created = await createDictationSession({
+      pilotId: "pilot-1",
+      projectId: "proj-1",
+      conversationKey: "proj-1",
+      baselineDraft: "",
+      transportFactory: async () => transport,
+      limits: { finalizeTimeoutMs: 80 },
+    });
+    if (!created.ok) throw new Error("create failed");
+    const sid = created.session.sessionId;
+    const pcm = Buffer.alloc(320, 1).toString("base64");
+    appendDictationAudio({
+      sessionId: sid,
+      pilotId: "pilot-1",
+      projectId: "proj-1",
+      pcmBase64: pcm,
+    });
+    handler?.({
+      type: "conversation.item.input_audio_transcription.completed",
+      item_id: "orphan_item",
+      transcript: "fragment",
+    });
+    const fin = await finalizeDictationSession({
+      sessionId: sid,
+      pilotId: "pilot-1",
+      projectId: "proj-1",
+    });
+    expect(fin.ok).toBe(true);
+    if (!fin.ok) return;
+    expect(fin.partial).toBe(true);
+    expect(fin.transcript).toContain("fragment");
+  });
+
+  it("failed final commit with buffered pcm finalizes partial", async () => {
+    process.env.SFIA_COMPOSER_DICTATION = "1";
+    process.env.STUDIO_LANE = "DEV";
+    let finalizePhase = false;
+    let handler: ((ev: Record<string, unknown>) => void) | null = null;
+    const transport: RealtimeTransport = {
+      send: (p) => {
+        if (p.type === "session.update") {
+          queueMicrotask(() => handler?.({ type: "session.updated" }));
+        }
+        if (p.type === "input_audio_buffer.commit") {
+          if (finalizePhase) {
+            throw new Error("commit refused");
+          }
+          queueMicrotask(() => {
+            handler?.({
+              type: "input_audio_buffer.committed",
+              item_id: "item_early",
+            });
+          });
+        }
+      },
+      close: () => undefined,
+      onEvent: (h) => {
+        handler = h;
+      },
+    };
+    const created = await createDictationSession({
+      pilotId: "pilot-1",
+      projectId: "proj-1",
+      conversationKey: "proj-1",
+      baselineDraft: "",
+      transportFactory: async () => transport,
+      limits: { finalizeTimeoutMs: 80 },
+    });
+    if (!created.ok) throw new Error("create failed");
+    const sid = created.session.sessionId;
+    const pcm = Buffer.alloc(320, 1).toString("base64");
+    appendDictationAudio({
+      sessionId: sid,
+      pilotId: "pilot-1",
+      projectId: "proj-1",
+      pcmBase64: pcm,
+    });
+    handler?.({
+      type: "conversation.item.input_audio_transcription.completed",
+      item_id: "item_early",
+      transcript: "partie connue",
+    });
+    appendDictationAudio({
+      sessionId: sid,
+      pilotId: "pilot-1",
+      projectId: "proj-1",
+      pcmBase64: pcm,
+    });
+    finalizePhase = true;
+    const finPromise = finalizeDictationSession({
+      sessionId: sid,
+      pilotId: "pilot-1",
+      projectId: "proj-1",
+    });
+    const fin = await finPromise;
+    expect(fin.ok).toBe(true);
+    if (!fin.ok) return;
+    expect(fin.partial).toBe(true);
+    expect(fin.transcript).toContain("partie connue");
+  });
+
+  it("incoherent transport env fails closed without implicit live", async () => {
+    process.env.SFIA_COMPOSER_DICTATION = "1";
+    process.env.STUDIO_LANE = "DEV";
+    process.env.SFIA_DICTATION_TRANSPORT = "bogus";
+    process.env.OPENAI_API_KEY = "sk-should-not-be-used";
+    const admission = admitDictationProviderEmission({
+      projectId: "p",
+      pilotId: "p",
+    });
+    expect(admission.ok).toBe(false);
+    if (admission.ok) return;
+    expect(admission.code).toBe("TRANSPORT_UNKNOWN");
+    const created = await createDictationSession({
+      pilotId: "p",
+      projectId: "x",
+      conversationKey: "x",
+      baselineDraft: "",
+    });
+    expect(created.ok).toBe(false);
+    if (created.ok) return;
+    expect(created.code).toBe("TRANSPORT_UNKNOWN");
+  });
 });

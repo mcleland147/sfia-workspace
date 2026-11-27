@@ -34,6 +34,14 @@ export function admitDictationProviderEmission(input: {
   const lane = (env.STUDIO_LANE ?? "").trim().toUpperCase() || "UNKNOWN";
   const transportKind = (env.SFIA_DICTATION_TRANSPORT || "").trim();
 
+  if (transportKind !== "" && transportKind !== "fixture" && transportKind !== "live") {
+    return {
+      ok: false,
+      code: "TRANSPORT_UNKNOWN",
+      message: `Unknown SFIA_DICTATION_TRANSPORT value (use empty/live for provider or fixture).`,
+    };
+  }
+
   if (transportKind === "fixture") {
     const vitest = env.VITEST === "true";
     const substitutedQual =

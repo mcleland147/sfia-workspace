@@ -458,6 +458,9 @@ function maybeCompleteFinalization(session: DictationSessionRecord): void {
   if (Object.keys(session.draft.provisionalByItem).length > 0) {
     return;
   }
+  if (session.pcmBytesSinceLastCommit > 0) {
+    return;
+  }
   completeFinalization(session, { partial: false });
 }
 
@@ -502,7 +505,11 @@ function completeFinalization(
   }
   const transcript = assembleDictationTranscript(session.draft);
   const hasFinal = Object.keys(session.draft.finalByItem).length > 0;
-  const partial = input.partial || !hasFinal;
+  const partial =
+    input.partial ||
+    !hasFinal ||
+    session.commitsAwaitingAck > 0 ||
+    session.pcmBytesSinceLastCommit > 0;
   const mergeMode = partial ? "partial" : "finalize";
   session.status = "completed";
   const merged = mergeDictationIntoDraft(session.draft, mergeMode);
