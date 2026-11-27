@@ -1,265 +1,604 @@
-# SFIA REVIEW PACK — FULL / Critical
-# Cycle 8 — Admin & FinOps DEV Qualification
-# Date: 2026-11-26
-# Repo: mcleland147/sfia-workspace
-# Branch: sfia/next-ml5-integrated-delivery-20261123
-# Handoff message: docs(review-handoff): publish admin and finops qualification
+# SFIA Review Pack — FULL — Macro-lot 1 Integrated Foundation Completion
 
-## 1. Git Truth
-
-| Field | Value |
+| Champ | Valeur |
 |---|---|
-| HEAD initial | `106c6392c39ff1741eea729fe594ae8d12cdc9d3` |
-| web tree initial | `d8eb399ef34904932d5621ef7e451afb2cdfb63b` |
-| merge-base main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
-| handoff entry | `f29914515350ceb3594fd638223008c509b367d4` / blob `52c19a21…` |
-| HEAD final | `348cf6bd1f55c2f84ebcc079b7e8c10acb276d47` |
-| web tree final | `54863eda3c7311e51d36237d59d3b7c078baad0a` |
-| Commit | `348cf6bd` fix(finops): harden Admin snapshot integrity and FinOps qualification |
-| Dirty | pack only |
+| Date/heure | 2026-11-27 02:51:07 +0100 |
+| Profil | Critical / EVOL / Cycle 8 Delivery |
+| Mandat | Intervention 1 — integrated completion (two-intervention exit) |
+| Repo | mcleland147/sfia-workspace |
+| Branche projet | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD initial | `348cf6bd1f55c2f84ebcc079b7e8c10acb276d47` |
+| Tree web initial | `54863eda3c7311e51d36237d59d3b7c078baad0a` |
+| HEAD final | `59893c814808fcf32501f32a34a379d7d85346e9` |
+| Tree web final | `b76e2e6017ec371246b45b3de6f7bedf6a08c304` |
+| Base main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
+| Handoff entrée | `ab96273eb80a32ff4cfaff59f40cea6cfeb4ddaf` |
+| BUILD_ID | `0VeseCyhfyZnoVBm1JG42` |
+| digest | `7673fffb47a48f7b45bf78c890df8bd94068032db7abccd84e4bafb7f5c6e0a1` |
+| DEV | `127.0.0.1:3100` pid listen 38942 / qualify 38906 |
+| RECETTE | `127.0.0.1:3200` pid **89199** intact |
+| PG DEV | sfia-next-dev-pg :5433 · schema 025 |
+| Review pack | Réinitialisé au début · mono-cycle · FULL |
+| Secrets | **Aucun secret** dans ce pack · occultation documentée |
 
-Git Truth entry: **CONCORDANT**. No push projet.
+## 1. Git Truth Check
 
-## 2. Sources consultées
+- Branche : `sfia/next-ml5-integrated-delivery-20261123` — conforme
+- HEAD entrée attendu `348cf6bd…` observé — conforme
+- Tree web entrée `54863eda…` observé — conforme
+- Fetch non destructif : non requis (état local aligné)
+- Staged/unstaged entrée : Review Pack seul modifié historiquement ; cycle a produit commit local `59893c814808fcf32501f32a34a379d7d85346e9`
+- Isolation ENV : DEV :3100/5433 · RECETTE :3200/5434 séparés — **NEXT ENVIRONMENT GATE PASSED**
+- Push projet : **NON**
 
-- Template §9.1 · routing guide (réf.)
-- ENV-01 / Product Versioning blobs main
-- convergence-openai-studio/* (cadrage, contrats, as-built, migration 023/024, UX delta, procédure Admin)
-- delivery-history · registre couverture
-- Code Admin/FinOps/repository/transport/usage-read
-- Contrats OpenAI Usage/Costs (SDK paths allowlistés) — permissions compte **non** déduites
+## 2. Sources réellement lues
 
-## 3. ENV isolation
+- method/sfia-fast-track/core/sfia-cycle-routing-guide.md (routing)
+- prompts/templates/sfia-cycle-execution-template.md v2.6 §7.10 / §9.1
+- construction/convergence-openai-studio/* (cadrage, contrats, as-built, A3, UX, procédures)
+- governance ENV-01 / product-versioning (références)
+- Code : finops, provider-admin-*, frontier, continuity, agents-sdk-tracing, run-nora, migrations 024/025
+- Figma RO : fileKey `itgvCulInEnFY6DvgIegvP` node `1332:2305` (screenshot+metadata)
+- Handoffs antérieurs référencés : 44db96d6 · 7505551f · f2991451 · ab96273e
 
-| | Preuve |
-|---|---|
-| DEV | `:3100` BUILD_ID=`8eXiN6NO94261FxSLnuuj` pid=11160 |
-| DEV PG | `sfia-next-dev-pg` `:5433` PG 16.16 · migrations 023+024 |
-| RECETTE | pid **89199** inchangé · `:3200` |
-| Restore | `pg_restore` → `sfia_next_dev_restore_probe` (44 tables) puis DROP — operator/RECETTE intacts |
+## 3. Actions réalisées (A–F)
 
-**NEXT ENVIRONMENT GATE**: PASS
+### A Admin / persistance
+- Identifiants LOGIN traités comme compromis → `ALTER … NOLOGIN` (025) ; auth refuse prouvée
+- 024 courant : plus aucun `PASSWORD '…'` ; nouveaux installs ne réintroduisent pas de secrets
+- Provenance dans index unique NULLS NOT DISTINCT
+- Rôles exercés via SET ROLE + SQLSTATE 42501 (+ grant positif)
+- Transport/envelope/parsing préservés
 
-## 4. Correctifs clés
+### B FinOps / UX
+- `evaluateFinOpsReconciliation` partagé service-path
+- COMPARABLE positif + refus Pilot + TEST exclu + partial
+- Figma page 13 inspectée ; proposition visuelle candidate (NOT APPLIED)
 
-1. **Upsert integrity** — partial never updates complete row metrics; older collected_at skipped
-2. **Provenance** — TEST_SUBSTITUTED | LIVE | UNKNOWN; TEST excluded from LIVE projections
-3. **No silent memory fallback** — PG down ⇒ UNAVAILABLE
-4. **Transport** — WeakSet registry; GO re-check before retry; bounded streaming body read
-5. **Envelope** — start required; LIVE requires end_time + project_ids; maxPages≤20
-6. **FinOps** — assessPeriodEquality; positive COMPARABLE proven; scoped freshness
-7. **PG roles** — reader INSERT refused; collector SELECT pilots refused
+### C Tracing
+- Real `@openai/agents` Agent.run + tool loop + spans corrélés + export distant = []
+- OFF fail-closed ; oracle positif
 
-## 5. Tests exacts
+### D Frontier / WEB
+- UNKNOWN→MEASURED = PARTIAL (campagne + unit)
+- Dossier A3 Option 1 vs 2 (recommandation Option 2)
+- WEB OFF
 
-```
-npx vitest run tests/unit/ml5-provider-admin-usage-collector.test.ts \
-  tests/integration/ml5-admin-snapshots-pg.test.ts \
-  tests/integration/ml5-admin-finops-qualification.pg.test.ts
-→ 3 files · 21 tests PASS
-```
+### E Continuité D3
+- `buildStudioContinuityFromWork` remplace placeholders
+- continuityChain null ; OFF
 
-## 6. Readiness Admin (10/10 technique DEV)
+### F Intégration
+- Campagne substituée PG PASS
+- qualify:build + start BUILD_ID `0VeseCyhfyZnoVBm1JG42`
+- Docs + dossier gates consolidé
+- Commit local borné (pas de push projet)
 
-All ten criteria PASS. G-ADMIN-SECRET proposable. G-ADMIN-LIVE **not executed**.
+## 4. Fichiers créés (intégralité)
 
-## 7. Fake/Real
+### 4.1 `projects/sfia-studio-next/web/src/db/migrations/025_provider_admin_security_and_canon.sql`
 
-REAL: PG DEV, roles, restore probe, API/runtime smoke.
-SUBSTITUTED: OpenAI Usage/Costs.
-DETERMINISTIC PROVEN ≠ READY FOR REAL.
+```sql
+-- ML1 integrated completion — security remédiation + provenance in canonical identity.
+-- Additive DEV only. No DROP of data rows. No RECETTE touch.
+--
+-- SECURITY: LOGIN roles created by 024 with hardcoded passwords are treated as
+-- compromised. This migration forces NOLOGIN (invalidates password auth) and
+-- removes any requirement for secrets in SQL. Operator may later enable LOGIN
+-- via a non-git local script reading secrets from the OS keychain / env — never
+-- from migration files.
+--
+-- Note: historical 024 file is also corrected so NEW installs never reintroduce
+-- hardcoded passwords. Applied 024 environments are remediated here.
 
-## 8. Gates
-
-Fermés: G-ADMIN-SECRET (proposable) · G-ADMIN-LIVE · G-FINOPS-UX · G-TRACING-LOCAL · G-WEB-PUBLIC/A3 · G-NATIVE-CONTINUITY · G-PROVIDER-LIVE-QUALIFICATION · RECETTE
-Levé DEV: G-PROVIDER-SNAPSHOT-MIGRATION
-
-## 9. Décisions Morris
-
-1. Revue readiness → éventuel GO G-ADMIN-SECRET
-2. Validation delta UX FinOps (G-FINOPS-UX)
-3. Ne pas engager Lots 2/3 / LIVE / RECETTE
-
-## 10. Verdict
-
-**ADMIN COLLECTOR — READY FOR SECURE PROVISIONING AND BOUNDED LIVE QUALIFICATION**
-
-R5 IN PROGRESS · ML5 OPEN · Lots 2/3 non engagés · RECETTE protégée · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED
-
-## 11. Commit metadata
-
-```
-commit 348cf6bd1f55c2f84ebcc079b7e8c10acb276d47
-Author:     Morris Cleland <morris@macbook-air.home>
-AuthorDate: Thu Nov 26 21:45:04 2026 +0100
-Commit:     Morris Cleland <morris@macbook-air.home>
-CommitDate: Thu Nov 26 21:45:04 2026 +0100
-
-    fix(finops): harden Admin snapshot integrity and FinOps qualification
-
-    Prevent partial overwrites of complete snapshots, persist TEST/LIVE provenance,
-    exercise PG role refusals, bound LIVE envelopes, and enable demonstrable
-    period-equal COMPARABLE reconciliation without executing Admin LIVE.
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
- .../as-built-macro-lot-1-20261126.md               |  79 ++---
- ...procedure-admin-live-qualification-candidate.md |  56 +++
- .../ux-delta-finops-page13-candidate.md            |  39 ++-
- .../construction/delivery-history.md               |  16 +
- ...5-registre-couverture-et-revue-developpement.md |   2 +-
- .../sfia-studio-next/web/scripts/db-migrate.sh     |   3 +-
- .../web/scripts/finops-admin-collect.mts           |  32 +-
- .../024_provider_admin_snapshot_provenance.sql     |  68 ++++
- projects/sfia-studio-next/web/src/db/schema.ts     |  10 +-
- .../finops/provider-admin-http-transport.ts        |  51 ++-
- .../finops/provider-admin-usage-collector.ts       | 146 +++++++-
- .../finops/provider-admin-usage-repository.ts      | 238 +++++++++----
- .../web/src/domains/finops/usage-read-service.ts   | 134 +++++--
- .../ml5-admin-finops-qualification.pg.test.ts      | 282 +++++++++++++++
- .../integration/ml5-admin-snapshots-pg.test.ts     |   2 +
- .../ml5-provider-admin-usage-collector.test.ts     | 387 +++++++++++----------
- 16 files changed, 1183 insertions(+), 362 deletions(-)
-
-```
-
-## 12. Fichiers créés (intégralité)
-
-### CREATED `projects/sfia-studio-next/web/src/db/migrations/024_provider_admin_snapshot_provenance.sql`
-
-```
--- ML1 Admin/FinOps qualification — additive provenance + integrity helpers.
--- Does NOT rewrite 023. No DROP/DELETE of snapshot rows.
--- Existing 023 rows get provenance='UNKNOWN' (excluded from LIVE FinOps projections).
-
-ALTER TABLE provider_admin_collection_runs
-  ADD COLUMN IF NOT EXISTS collection_provenance text NOT NULL DEFAULT 'UNKNOWN';
-
-ALTER TABLE provider_admin_collection_runs
-  DROP CONSTRAINT IF EXISTS provider_admin_collection_runs_provenance_check;
-
-ALTER TABLE provider_admin_collection_runs
-  ADD CONSTRAINT provider_admin_collection_runs_provenance_check
-  CHECK (collection_provenance IN ('TEST_SUBSTITUTED', 'LIVE', 'UNKNOWN'));
-
-ALTER TABLE provider_admin_usage_snapshots
-  ADD COLUMN IF NOT EXISTS collection_provenance text NOT NULL DEFAULT 'UNKNOWN';
-
-ALTER TABLE provider_admin_usage_snapshots
-  DROP CONSTRAINT IF EXISTS provider_admin_usage_snapshots_provenance_check;
-
-ALTER TABLE provider_admin_usage_snapshots
-  ADD CONSTRAINT provider_admin_usage_snapshots_provenance_check
-  CHECK (collection_provenance IN ('TEST_SUBSTITUTED', 'LIVE', 'UNKNOWN'));
-
-CREATE INDEX IF NOT EXISTS provider_admin_usage_snapshots_provenance_idx
-  ON provider_admin_usage_snapshots (collection_provenance, organization_scope);
-
--- LOGIN roles for exercised permission proofs (DEV only). Passwords set by operator script.
+-- 1) Invalidate compromised LOGIN capability (password auth no longer usable).
 DO $$
 BEGIN
-  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_admin_collector_login') THEN
-    CREATE ROLE sfia_admin_collector_login LOGIN PASSWORD 'sfia_dev_collector_only';
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_admin_collector_login') THEN
+    ALTER ROLE sfia_admin_collector_login WITH NOLOGIN;
   END IF;
-  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_finops_reader_login') THEN
-    CREATE ROLE sfia_finops_reader_login LOGIN PASSWORD 'sfia_dev_finops_read_only';
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_finops_reader_login') THEN
+    ALTER ROLE sfia_finops_reader_login WITH NOLOGIN;
   END IF;
 END$$;
 
-GRANT sfia_admin_collector TO sfia_admin_collector_login;
-GRANT sfia_finops_reader TO sfia_finops_reader_login;
-GRANT USAGE ON SCHEMA public TO sfia_admin_collector_login;
-GRANT USAGE ON SCHEMA public TO sfia_finops_reader_login;
--- CONNECT on current database only (DEV operator or e2e isolate).
+-- Prefer NOLOGIN role objects for grant tests (SET ROLE as superuser/owner).
+-- Keep named group roles; login clones stay NOLOGIN until operator re-enables safely.
 DO $$
 BEGIN
-  EXECUTE format(
-    'GRANT CONNECT ON DATABASE %I TO sfia_admin_collector_login',
-    current_database()
-  );
-  EXECUTE format(
-    'GRANT CONNECT ON DATABASE %I TO sfia_finops_reader_login',
-    current_database()
-  );
+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_admin_collector') THEN
+    CREATE ROLE sfia_admin_collector NOLOGIN;
+  END IF;
+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_finops_reader') THEN
+    CREATE ROLE sfia_finops_reader NOLOGIN;
+  END IF;
 END$$;
 
--- Ensure collector cannot touch Studio attribution ledger / pilots.
+-- 2) Canonical uniqueness MUST include provenance so TEST/LIVE/UNKNOWN never collide.
+DROP INDEX IF EXISTS provider_admin_usage_snapshots_canon_uidx;
+
+CREATE UNIQUE INDEX provider_admin_usage_snapshots_canon_uidx
+  ON provider_admin_usage_snapshots (
+    source_endpoint,
+    surface_object,
+    organization_scope,
+    interval_start_utc,
+    interval_end_utc,
+    granularity,
+    project_id,
+    api_key_id,
+    user_id,
+    model,
+    line_item,
+    api_source,
+    collection_provenance
+  ) NULLS NOT DISTINCT;
+
+-- Re-assert least privilege (idempotent).
+GRANT SELECT, INSERT, UPDATE ON provider_admin_collection_runs TO sfia_admin_collector;
+GRANT SELECT, INSERT, UPDATE ON provider_admin_usage_snapshots TO sfia_admin_collector;
+GRANT SELECT ON provider_admin_collection_runs TO sfia_finops_reader;
+GRANT SELECT ON provider_admin_usage_snapshots TO sfia_finops_reader;
 REVOKE ALL ON TABLE provider_usage_observations FROM sfia_admin_collector;
-REVOKE ALL ON TABLE provider_usage_observations FROM sfia_admin_collector_login;
 REVOKE ALL ON TABLE pilots FROM sfia_admin_collector;
-REVOKE ALL ON TABLE pilots FROM sfia_admin_collector_login;
 REVOKE ALL ON TABLE projects FROM sfia_admin_collector;
-REVOKE ALL ON TABLE projects FROM sfia_admin_collector_login;
-
--- Reader cannot write snapshots.
 REVOKE INSERT, UPDATE, DELETE ON provider_admin_usage_snapshots FROM sfia_finops_reader;
 REVOKE INSERT, UPDATE, DELETE ON provider_admin_collection_runs FROM sfia_finops_reader;
-REVOKE INSERT, UPDATE, DELETE ON provider_admin_usage_snapshots FROM sfia_finops_reader_login;
-REVOKE INSERT, UPDATE, DELETE ON provider_admin_collection_runs FROM sfia_finops_reader_login;
 
 ```
 
-### CREATED `projects/sfia-studio-next/web/tests/integration/ml5-admin-finops-qualification.pg.test.ts`
+### 4.2 `projects/sfia-studio-next/web/src/domains/finops/finops-reconciliation.ts`
 
-```
+```ts
 /**
- * Admin/FinOps qualification — PG integrity, provenance, roles, restore probe.
+ * FinOps reconciliation helpers used by the product service path.
+ * Separated so tests can exercise the same logic without mocking private methods.
  */
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import postgres from "postgres";
+
 import {
-  markSubstitutedAdminTransport,
-  resetAdminCollectorStateForTests,
-  resolveIsolatedAdminCollectorConfig,
-  runAdminCollection,
-  reconcileFinOpsCosts,
   assessPeriodEquality,
-} from "@/domains/finops/provider-admin-usage-collector";
-import {
-  getAdminCollectionFreshnessFromPg,
-  listAdminSnapshotsFromPg,
-  upsertAdminSnapshotsPg,
-  insertAdminCollectionRun,
-  finishAdminCollectionRun,
-} from "@/domains/finops/provider-admin-usage-repository";
+  reconcileFinOpsCosts,
+  sumMeasuredCostUsd,
+  type AdminUsageSnapshot,
+  type FinOpsScopeEvidence,
+} from "./provider-admin-usage-collector";
+import { decimalFromNumberLike } from "./decimal-money";
+
+export type FinOpsReconciliationInput = {
+  studioEstimatedUsd: number | null;
+  studioEstimationKind: "known" | "partial" | "empty" | "unknown" | string;
+  snapshots: AdminUsageSnapshot[];
+  windowStartUtc: string;
+  windowEndUtc: string;
+  organizationScope: string;
+  configuredOrgId: string | null;
+  configuredProjectId: string | null;
+  configuredApiKeyId: string | null;
+  pilotAuthorized: boolean;
+  freshnessStatus: string;
+  freshnessSnapshotCount: number;
+};
+
+export type FinOpsReconciliationResult = {
+  comparability: "COMPARABLE" | "NON_COMPARABLE" | "PARTIAL" | "UNAVAILABLE";
+  providerCostUsd: string | null;
+  providerCurrency: string | null;
+  deltaUsd: string | null;
+  limits: string[];
+  disclosed: boolean;
+};
+
+/**
+ * Establish COMPARABLE only when identity, window equality, provenance LIVE,
+ * and Pilot authorization are all proven — same path as product service.
+ */
+export function evaluateFinOpsReconciliation(
+  input: FinOpsReconciliationInput,
+): FinOpsReconciliationResult {
+  const limits: string[] = [];
+  if (!input.pilotAuthorized) {
+    return {
+      comparability: "UNAVAILABLE",
+      providerCostUsd: null,
+      providerCurrency: null,
+      deltaUsd: null,
+      limits: ["PILOT_NOT_AUTHORIZED_FOR_PROVIDER_COSTS"],
+      disclosed: false,
+    };
+  }
+
+  const liveComplete = input.snapshots.filter(
+    (s) =>
+      s.surfaceObject === "organization.costs.result" &&
+      s.completeness === "complete" &&
+      (s.collectionProvenance === "LIVE" ||
+        // Qualification-only: allow TEST when explicitly tagged for isolated DB proofs.
+        s.collectionProvenance === "TEST_SUBSTITUTED" &&
+          (process.env.SFIA_FINOPS_ALLOW_TEST_PROVENANCE ?? "").trim() === "1"),
+  );
+
+  // Default product path: LIVE only.
+  const usable =
+    (process.env.SFIA_FINOPS_ALLOW_TEST_PROVENANCE ?? "").trim() === "1"
+      ? liveComplete
+      : liveComplete.filter((s) => s.collectionProvenance === "LIVE");
+
+  if (usable.length === 0) {
+    return {
+      comparability: "UNAVAILABLE",
+      providerCostUsd: null,
+      providerCurrency: null,
+      deltaUsd: null,
+      limits: ["NO_LIVE_COMPLETE_SNAPSHOTS"],
+      disclosed: false,
+    };
+  }
+
+  const orgIdentityProven = Boolean(
+    input.configuredOrgId &&
+      (input.organizationScope === input.configuredOrgId ||
+        input.organizationScope === `org:${input.configuredOrgId}`),
+  );
+  if (!orgIdentityProven) limits.push("ORG_IDENTITY_UNPROVEN");
+
+  const attributed = input.configuredProjectId
+    ? usable.filter((s) => s.dimensions.project_id === input.configuredProjectId)
+    : [];
+
+  const sum = sumMeasuredCostUsd(usable, {
+    intervalStartUtc: input.windowStartUtc,
+    intervalEndUtc: input.windowEndUtc,
+    projectId: input.configuredProjectId,
+  });
+  limits.push(...sum.limits);
+
+  const period = assessPeriodEquality(attributed, {
+    startUtc: input.windowStartUtc,
+    endUtc: input.windowEndUtc,
+  });
+  limits.push(...period.limits);
+
+  const freshnessAcceptable =
+    input.freshnessStatus === "READY" &&
+    attributed.length > 0 &&
+    input.freshnessSnapshotCount > 0;
+
+  const evidence: FinOpsScopeEvidence = {
+    organizationMatches: orgIdentityProven,
+    organizationIdentityProven: orgIdentityProven,
+    projectIdsOverlap: attributed.length > 0,
+    projectAttributionProven: Boolean(
+      input.configuredProjectId && sum.counted > 0,
+    ),
+    apiKeyIdsOverlap: Boolean(
+      input.configuredApiKeyId &&
+        attributed.some(
+          (s) => s.dimensions.api_key_id === input.configuredApiKeyId,
+        ),
+    ),
+    periodOverlap: period.periodOverlap,
+    periodEqual: period.periodEqual,
+    currencyMatches: sum.currency === "usd",
+    providerCurrency: sum.currency,
+    surfacesRequested: ["/organization/costs"],
+    groupingCompatible: true,
+    coverageComplete:
+      input.freshnessStatus === "READY" &&
+      !sum.limits.includes("COST_AMOUNT_ABSENT"),
+    freshnessAcceptable,
+    evidenceNotes: ["SERVICE_PATH_EVALUATOR"],
+  };
+
+  const studioDecimal =
+    input.studioEstimatedUsd != null
+      ? decimalFromNumberLike(input.studioEstimatedUsd)
+      : null;
+
+  if (input.studioEstimationKind === "partial") {
+    return {
+      comparability: "PARTIAL",
+      providerCostUsd: null,
+      providerCurrency: null,
+      deltaUsd: null,
+      limits: [...limits, "STUDIO_ESTIMATION_REMAINS_PARTIAL"],
+      disclosed: false,
+    };
+  }
+
+  const rec = reconcileFinOpsCosts({
+    studioEstimatedUsd: studioDecimal,
+    providerCostUsd: sum.total,
+    scope: evidence,
+  });
+  limits.push(...rec.limits);
+
+  const disclosed =
+    (rec.status === "COMPARABLE" || rec.status === "PARTIAL") &&
+    orgIdentityProven &&
+    Boolean(input.configuredProjectId) &&
+    input.pilotAuthorized;
+
+  return {
+    comparability: rec.status,
+    providerCostUsd: disclosed ? sum.total : null,
+    providerCurrency: disclosed ? sum.currency : null,
+    deltaUsd: disclosed ? rec.deltaUsd : null,
+    limits: [...new Set(limits)],
+    disclosed,
+  };
+}
+
+```
+
+### 4.3 `projects/sfia-studio-next/construction/convergence-openai-studio/dossier-gates-morris-consolide-ml1-20261127.md`
+
+```md
+# Dossier unique des gates Morris — Macro-lot 1 (Intervention 1)
+
+| Champ | Valeur |
+|---|---|
+| Date | 2026-11-27 |
+| Cycle | Integrated foundation completion |
+| Verdict candidat | **READY FOR CONSOLIDATED MORRIS GATES** (technique DEV ; LIVE non exécuté) |
+| Autorité | Morris uniquement pour chaque gate |
+| NO RELEASE · NOT ADOPTED · RECETTE hors GO | |
+
+---
+
+## G-PROVIDER-SNAPSHOT-MIGRATION
+
+| | |
+|---|---|
+| Objet | Migrations DEV 023–025 (snapshots Admin + provenance + canon + security) |
+| Prérequis | Isolation DEV :5433 |
+| Preuves | Index canon inclut `collection_provenance` ; schéma 025 ; upsert ON CONFLICT |
+| Options | Maintenir GO DEV (recommandé) |
+| Recommandation | Maintenu |
+| Risque résiduel | Lignes UNKNOWN historiques exclues des projections |
+| Enveloppe | DEV only |
+| Rollback | Pas de DROP métier ; index recréable |
+| Action Morris | Aucune nouvelle — GO DEV déjà en vigueur |
+| Statut | **LEVÉ DEV** |
+
+## G-ADMIN-SECRET
+
+| | |
+|---|---|
+| Objet | Provisionnement sécurisé clé Admin OpenAI (hors Git) |
+| Prérequis | Identifiants PG compromis invalidés (NOLOGIN) ; transport TEST/LIVE séparés ; procédure candidate |
+| Preuves | LOGIN roles `rolcanlogin=f` ; auth refuse ; mots de passe retirés des sources courantes 024/025 ; SET ROLE proofs SQLSTATE 42501 |
+| Options | (A) Provisionner via secret manager OS / env local non-git (B) Reporter |
+| Recommandation | A — après revue readiness |
+| Risque résiduel | Historique Git distant conserve d’anciennes valeurs — traiter comme compromises |
+| Enveloppe | Clé Admin lecture Usage/Costs uniquement ; jamais dans Git |
+| Rollback | Révoquer clé côté OpenAI |
+| Action Morris | Créer/placer secret Admin ; **ne pas** coller dans chat/Git |
+| Statut | **PROPOSABLE** — pas de clé demandée avant GO |
+
+## G-ADMIN-LIVE
+
+| | |
+|---|---|
+| Objet | Première collecte LIVE bornée Usage + Costs |
+| Prérequis | G-ADMIN-SECRET levé ; `SFIA_ADMIN_LIVE_GO=1` ; projet DEV autorisé ; fenêtre UTC |
+| Preuves | Enveloppe code : start/end_time, maxPages≤20, redirects interdits, body borné |
+| Options | GET `/organization/costs` (+ usage si nécessaire) · 1 org · 1 project_ids · ≤3 pages · STOP sur ERROR/PARTIAL |
+| Recommandation | Après G-ADMIN-SECRET ; fenêtre ≤ 24h UTC ; group_by=project_id |
+| Risque résiduel | Permissions compte OpenAI non prouvées ici |
+| Enveloppe | Voir `procedure-admin-live-qualification-candidate.md` |
+| Rollback | Désactiver LIVE_GO ; conserver TEST_SUBSTITUTED |
+| Action Morris | Autoriser enveloppe exacte + STOP |
+| Statut | **FERMÉ** — NOT RUN |
+
+## G-FINOPS-UX
+
+| | |
+|---|---|
+| Objet | Valider proposition visuelle page 13 (Figma inspectée RO) |
+| Prérequis | Backend `providerReconciliation` service-path COMPARABLE |
+| Preuves | Screenshot + metadata Figma `1332:2305` ; mapping états → composants ; UX actuelle non régressive |
+| Options | (A) Valider delta secondaire (B) Reporter (C) Ajuster mapping |
+| Recommandation | A — bloc secondaire sous KPIs existants (13.03) |
+| Risque résiduel | Transposition code non faite |
+| Enveloppe | Aucun nouvel écran ; aucun plafond monétaire |
+| Rollback | UI actuelle inchangée |
+| Action Morris | Valider `ux-delta-finops-page13-candidate.md` |
+| Statut | **PROPOSABLE** — NOT APPLIED |
+
+## G-TRACING-LOCAL
+
+| | |
+|---|---|
+| Objet | Activer tracing Agents SDK LOCAL sans export distant |
+| Prérequis | Preuve SDK réelle + oracle réseau ; OFF fail-closed |
+| Preuves | `ml5-agents-sdk-tracing-real-sdk.test.ts` : Agent.run + tool loop + spans corrélés + export=[] |
+| Options | (A) LOCAL ON DEV (B) rester OFF |
+| Recommandation | A en DEV uniquement après revue |
+| Risque résiduel | Métadonnées allowlist — pas de prompts |
+| Enveloppe | `SFIA_AGENTS_TRACING_MODE=local` ; processors locaux |
+| Rollback | MODE=off |
+| Action Morris | Autoriser activation locale |
+| Statut | **PROPOSABLE** — opérationnel OFF |
+
+## G-WEB-PUBLIC / A3
+
+| | |
+|---|---|
+| Objet | Niveau d’enveloppe hosted WEB avant campagne LIVE bornée |
+| Prérequis | F15 déterministe ; WEB OFF exploit |
+| Preuves | Frontier UNKNOWN→MEASURED=PARTIAL ; max_tool_calls injection ; dossier A3 |
+| Options | Voir `dossier-g-web-public-a3-20261127.md` Option 1 vs 2 |
+| Recommandation | Option 2 (pré-réserve contrôlable + mesure a posteriori + risque explicite) |
+| Risque résiduel | Destinations hosted ≠ egress B1 |
+| Enveloppe | Requêtes publiques non sensibles ; STOP documenté |
+| Rollback | WEB OFF |
+| Action Morris | Choisir option + accepter risque résiduel |
+| Statut | **FERMÉ** |
+
+## G-NATIVE-CONTINUITY
+
+| | |
+|---|---|
+| Objet | Autoriser variantes native (`previous_response_id` / cache / compaction) vs reconstruction Studio |
+| Prérequis | Données D3 réelles raccordées ; DATA-01 ; pas de store=true sans arbitrage |
+| Preuves | `buildStudioContinuityFromWork` ; continuityChain null ; OFF ; tests unit + campagne |
+| Options | (A) Comparatif substitué puis LIVE borné (B) rester reconstruction (C) pivot DATA-01 |
+| Recommandation | A — comparer sans adopter tous les mécanismes |
+| Risque résiduel | Rétention fournisseur / permissions non prouvées |
+| Enveloppe | Intervention 2 après GO |
+| Rollback | Reconstruction Studio |
+| Action Morris | Autoriser campagne comparative |
+| Statut | **PROPOSABLE** — opérationnel OFF |
+
+## G-PROVIDER-LIVE-QUALIFICATION
+
+| | |
+|---|---|
+| Objet | Campagne intégrée DEV avec effets fournisseur réels |
+| Prérequis | Gates Admin/Tracing/WEB/Continuity selon dépendances |
+| Preuves | Campagne substituée Intervention 1 PASS |
+| Options | Reporter jusqu’aux gates amont |
+| Recommandation | Intervention 2 uniquement |
+| Risque résiduel | Coût/latence réels |
+| Enveloppe | Corpus, modèles, STOP — à figer au GO |
+| Rollback | Couper clés / modes OFF |
+| Action Morris | GO Intervention 2 distinct |
+| Statut | **FERMÉ** |
+
+## RECETTE / promotions
+
+**HORS AUTORISATION** — worktree figé, port 3200, PG 5434 non touchés.
+
+---
+
+## Chemin critique Intervention 2 (après gates)
+
+1. Morris lève G-ADMIN-SECRET (secret hors Git).
+2. Morris lève G-ADMIN-LIVE (enveloppe exacte).
+3. Collecte LIVE bornée → PG LIVE provenance.
+4. FinOps COMPARABLE sur données LIVE (si droits Pilote).
+5. Optionnel : G-TRACING-LOCAL ON DEV.
+6. Morris tranche G-WEB-PUBLIC/A3 → scénario LIVE public borné.
+7. Morris autorise G-NATIVE-CONTINUITY comparative.
+8. G-PROVIDER-LIVE-QUALIFICATION — scénario intégré réel.
+9. Preuves → revue → **pas** de RECETTE/STABLE sans GO distinct.
+
+Rollback global : tous modes OFF ; clés révoquables ; DEV isolé.
+
+```
+
+### 4.4 `projects/sfia-studio-next/construction/convergence-openai-studio/dossier-g-web-public-a3-20261127.md`
+
+```md
+# Dossier d’arbitrage — G-WEB-PUBLIC / A3 (Intervention 1)
+
+| Champ | Valeur |
+|---|---|
+| Gate | **G-WEB-PUBLIC / A3 — MORRIS DECISION REQUIRED** |
+| Statut | WEB OFF · MIXED CLOSED · aucune campagne LIVE |
+| Date | 2026-11-27 |
+| Remplace | synthèse 2026-11-26 (conservée historiquement) |
+
+## Distinctions démontrées (déterministe + campagne substituée)
+
+| Dimension | Sémantique | Preuve |
+|---|---|---|
+| `max_tool_calls` | Borne a priori des appels built-in | Injection frontier + tests |
+| `tool_usage.web_search.num_requests` | Mesure a posteriori facturable si présente | Parse + reconcile |
+| Absent `tool_usage` | **UNKNOWN** (jamais ASSUMED_1) | Tests |
+| UNKNOWN puis MEASURED | Agrégat campagne **PARTIAL** | Tests + campagne ML1 intégrée |
+| Stream SSE | UNKNOWN borné — pas de buffer illimité | Code frontier |
+| Pression d’enveloppe | Consomme `max_tool_calls` même si billable UNKNOWN | Tests envelope |
+
+**`max_tool_calls` n’est pas une garantie du nombre maximal de recherches facturables** sans preuve `num_requests`.
+
+---
+
+## Option 1 — Enveloppe stricte démontrable avant émission
+
+| | |
+|---|---|
+| Contrôlé | Admission D6/B1 ; MIXED CLOSED ; max_tool_calls sur le wire ; slots HTTP ; tokens réservés |
+| Mesuré | Uniquement si le fournisseur expose `num_requests` **avant** ou **au** point d’émission (non démontré aujourd’hui pour hosted) |
+| Risque restant | Hosted web_search destinations hors egress B1 ; facturation peut diverger de max_tool_calls |
+| Dépassement | Refus d’émission si enveloppe locale saturée ; suspension campagne |
+| Rollback | WEB OFF |
+| Faisabilité | **Partielle** — borne stricte facturable **non** démontrable a priori sur hosted |
+| Recommandation | Ne pas présenter comme garantie facturable |
+
+## Option 2 — Enveloppe sur dimensions contrôlables + mesure a posteriori (recommandée)
+
+| | |
+|---|---|
+| Contrôlé | `max_tool_calls`, tokens, slots HTTP, admission, corpus public non sensible |
+| Mesuré | `num_requests` a posteriori lorsque fourni ; sinon UNKNOWN/PARTIAL |
+| Risque restant | Écart possible borne vs facturable ; destinations hosted ≠ B1 |
+| Dépassement | Suspendre si mesure > enveloppe ; jamais ASSUMED_1 |
+| Rollback | WEB OFF |
+| Recommandation | **Retenir Option 2** avec acceptation explicite du risque résiduel |
+
+---
+
+## Scénario LIVE public borné (préparé, NOT RUN)
+
+1. Corpus : pages de référence publiques (ex. MDN / docs OpenAI publiques).
+2. Limites : max_tool_calls=1 ; maxHttpAttempts≤3 ; tokens bornés.
+3. Oracle restitution : citations attendues / absence de contenu privé.
+4. STOP : ERROR, dépassement mesure, MIXED, fuite hors allowlist.
+5. Preuve : frontier PARTIAL/MEASURED + ledger usage ; pas de second ledger.
+
+## Rollback
+
+WEB OFF. Jamais ASSUMED_1 comme garantie billable.
+
+```
+
+### 4.5 `projects/sfia-studio-next/construction/convergence-openai-studio/roadmap-delta-ml1-candidate-20261127.md`
+
+```md
+# Proposition de delta Roadmap — Macro-lot 1 (NON APPLIQUÉE)
+
+| Champ | Valeur |
+|---|---|
+| Date | 2026-11-27 |
+| Statut | **CANDIDATE — NOT APPLIED** · pas de modification de `governance/roadmap.md` |
+| Autorité | Morris (D2) |
+
+## Delta proposé (texte candidat)
+
+Sous R5 / ML5 / Convergence OpenAI–Studio :
+
+- Macro-lot 1 — Socle fournisseur natif et observabilité : **construction DEV complétée** ; qualification LIVE gouvernée **en attente des gates consolidés** (Intervention 2).
+- Gates regroupés : G-ADMIN-SECRET · G-ADMIN-LIVE · G-FINOPS-UX · G-TRACING-LOCAL · G-WEB-PUBLIC/A3 · G-NATIVE-CONTINUITY · G-PROVIDER-LIVE-QUALIFICATION.
+- Macro-lots 2/3 : **non engagés**.
+- RECETTE / STABLE / ADOPTED : inchangés.
+- Version produit : **NO RELEASE** · STABLE NOT AVAILABLE.
+
+## Condition
+
+N’appliquer qu’après revue Morris du dossier gates et verdict ChatGPT.
+
+```
+
+### 4.6 Tests unitaires créés
+
+#### `projects/sfia-studio-next/web/tests/unit/ml5-finops-reconciliation-service-path.test.ts`
+
+```ts
+import { describe, expect, it } from "vitest";
+import { evaluateFinOpsReconciliation } from "@/domains/finops/finops-reconciliation";
 import type { AdminUsageSnapshot } from "@/domains/finops/provider-admin-usage-collector";
 
-const costsPage = (amount: number, projectId: string) => ({
-  object: "page",
-  data: [
-    {
-      object: "bucket",
-      start_time: 1_700_000_000,
-      end_time: 1_700_086_400,
-      results: [
-        {
-          object: "organization.costs.result",
-          amount: { value: amount, currency: "usd" },
-          project_id: projectId,
-        },
-      ],
-    },
-  ],
-  has_more: false,
-  next_page: null,
-});
-
-function baseSnap(
-  overrides: Partial<AdminUsageSnapshot> & {
-    completeness: "complete" | "partial";
-    collectedAtUtc: string;
-    amount: string;
-  },
-): AdminUsageSnapshot {
+function liveSnap(amount: string): AdminUsageSnapshot {
   return {
     sourceEndpoint: "/organization/costs",
     surfaceObject: "organization.costs.result",
-    organizationScope: "org:qual",
+    organizationScope: "org:demo",
     intervalStartUtc: "2023-11-14T22:13:20.000Z",
     intervalEndUtc: "2023-11-15T22:13:20.000Z",
     granularity: "1d",
     dimensions: {
-      project_id: "proj_qual",
+      project_id: "proj_demo",
       api_key_id: null,
       user_id: null,
       model: null,
@@ -272,1655 +611,1887 @@ function baseSnap(
       input_cached_tokens: { presence: "ABSENT", value: null },
       num_model_requests: { presence: "ABSENT", value: null },
       num_requests: { presence: "ABSENT", value: null },
-      amount: { presence: "MEASURED", value: overrides.amount },
+      amount: { presence: "MEASURED", value: amount },
       currency: { presence: "MEASURED", value: "usd" },
     },
-    collectionId: overrides.collectionId ?? "acol_qual",
-    completeness: overrides.completeness,
-    collectedAtUtc: overrides.collectedAtUtc,
-    collectionProvenance: overrides.collectionProvenance,
+    completeness: "complete",
+    collectedAtUtc: "2026-11-26T12:00:00.000Z",
+    collectionId: "acol_svc",
+    collectionProvenance: "LIVE",
   };
 }
 
-describe("Admin/FinOps PG qualification", () => {
-  beforeAll(() => resetAdminCollectorStateForTests());
-  afterAll(() => resetAdminCollectorStateForTests());
-
-  it("partial collect does not overwrite complete snapshot metrics", async () => {
-    const runId = `acol_integrity_${Date.now()}`;
-    await insertAdminCollectionRun({
-      collectionId: runId,
-      startedAtUtc: "2026-11-26T10:00:00.000Z",
-      status: "READY",
-      path: "/organization/costs",
-      organizationScope: "org:qual",
-      provenance: "LIVE",
+describe("FinOps service-path reconciliation", () => {
+  it("establishes COMPARABLE when window/org/project/provenance/rights align", () => {
+    const r = evaluateFinOpsReconciliation({
+      studioEstimatedUsd: 0.8,
+      studioEstimationKind: "known",
+      snapshots: [liveSnap("0.8600000000")],
+      windowStartUtc: "2023-11-14T22:13:20.000Z",
+      windowEndUtc: "2023-11-15T22:13:20.000Z",
+      organizationScope: "org:demo",
+      configuredOrgId: "demo",
+      configuredProjectId: "proj_demo",
+      configuredApiKeyId: null,
+      pilotAuthorized: true,
+      freshnessStatus: "READY",
+      freshnessSnapshotCount: 1,
     });
-    await finishAdminCollectionRun({
-      collectionId: runId,
-      finishedAtUtc: "2026-11-26T10:00:01.000Z",
-      status: "READY",
-      pagesFetched: 1,
-      limits: [],
-      lastError: null,
-    });
-
-    await upsertAdminSnapshotsPg(
-      [
-        baseSnap({
-          collectionId: runId,
-          completeness: "complete",
-          collectedAtUtc: "2026-11-26T10:00:00.000Z",
-          amount: "9.0000000000",
-        }),
-      ],
-      "LIVE",
-    );
-
-    const runPartial = `${runId}_p`;
-    await insertAdminCollectionRun({
-      collectionId: runPartial,
-      startedAtUtc: "2026-11-26T11:00:00.000Z",
-      status: "PARTIAL",
-      path: "/organization/costs",
-      organizationScope: "org:qual",
-      provenance: "LIVE",
-    });
-    await finishAdminCollectionRun({
-      collectionId: runPartial,
-      finishedAtUtc: "2026-11-26T11:00:01.000Z",
-      status: "PARTIAL",
-      pagesFetched: 1,
-      limits: [],
-      lastError: null,
-    });
-
-    await upsertAdminSnapshotsPg(
-      [
-        baseSnap({
-          collectionId: runPartial,
-          completeness: "partial",
-          collectedAtUtc: "2026-11-26T11:00:00.000Z",
-          amount: "0.0100000000",
-        }),
-      ],
-      "LIVE",
-    );
-
-    const rows = await listAdminSnapshotsFromPg({
-      organizationScope: "org:qual",
-      provenance: "LIVE",
-    });
-    const hit = rows.find((r) => r.dimensions.project_id === "proj_qual");
-    expect(hit?.completeness).toBe("complete");
-    expect(hit?.metrics.amount.value).toBe("9.0000000000");
+    expect(r.comparability).toBe("COMPARABLE");
+    expect(r.disclosed).toBe(true);
+    expect(r.deltaUsd).toBe("0.0600000000");
   });
 
-  it("TEST provenance is excluded from LIVE product reads", async () => {
-    const transport = markSubstitutedAdminTransport(async () => ({
-      status: 200,
-      json: costsPage(3.33, "proj_test_only"),
-    }));
-    const r = await runAdminCollection({
-      config: resolveIsolatedAdminCollectorConfig({
-        adminApiKey: null,
-        mode: "TEST_SUBSTITUTED",
-        liveAuthorized: false,
-        organizationScope: "org:qual-test",
-        transport,
-      }),
-      path: "/organization/costs",
-      query: { start_time: "1700000000" },
-      persistToPg: true,
+  it("refuses disclosure when pilot unauthorized even if math would COMPARABLE", () => {
+    const r = evaluateFinOpsReconciliation({
+      studioEstimatedUsd: 0.8,
+      studioEstimationKind: "known",
+      snapshots: [liveSnap("0.8600000000")],
+      windowStartUtc: "2023-11-14T22:13:20.000Z",
+      windowEndUtc: "2023-11-15T22:13:20.000Z",
+      organizationScope: "org:demo",
+      configuredOrgId: "demo",
+      configuredProjectId: "proj_demo",
+      configuredApiKeyId: null,
+      pilotAuthorized: false,
+      freshnessStatus: "READY",
+      freshnessSnapshotCount: 1,
     });
-    expect(r.status).toBe("READY");
-
-    const liveOnly = await listAdminSnapshotsFromPg({
-      organizationScope: "org:qual-test",
-      provenance: "LIVE",
-    });
-    expect(liveOnly.some((s) => s.dimensions.project_id === "proj_test_only")).toBe(
-      false,
-    );
-    const testRows = await listAdminSnapshotsFromPg({
-      organizationScope: "org:qual-test",
-      provenance: "TEST_SUBSTITUTED",
-    });
-    expect(testRows.some((s) => s.dimensions.project_id === "proj_test_only")).toBe(
-      true,
-    );
+    expect(r.comparability).toBe("UNAVAILABLE");
+    expect(r.disclosed).toBe(false);
+    expect(r.providerCostUsd).toBeNull();
   });
 
-  it("positive COMPARABLE with exact period window", () => {
-    const window = {
-      startUtc: "2023-11-14T22:13:20.000Z",
-      endUtc: "2023-11-15T22:13:20.000Z",
-    };
-    const rows = [
-      baseSnap({
-        completeness: "complete",
-        collectedAtUtc: "2026-11-26T10:00:00.000Z",
-        amount: "0.8600000000",
-        collectionProvenance: "LIVE",
-      }),
-    ];
-    const period = assessPeriodEquality(rows, window);
-    expect(period.periodEqual).toBe(true);
-    const rec = reconcileFinOpsCosts({
-      studioEstimatedUsd: "0.8000000000",
-      providerCostUsd: "0.8600000000",
-      scope: {
-        organizationMatches: true,
-        organizationIdentityProven: true,
-        projectIdsOverlap: true,
-        projectAttributionProven: true,
-        apiKeyIdsOverlap: false,
-        periodOverlap: true,
-        periodEqual: period.periodEqual,
-        currencyMatches: true,
-        providerCurrency: "usd",
-        surfacesRequested: ["/organization/costs"],
-        groupingCompatible: true,
-        coverageComplete: true,
-        freshnessAcceptable: true,
-        evidenceNotes: ["QUAL_POSITIVE_COMPARABLE"],
-      },
+  it("TEST provenance excluded by default", () => {
+    const snap = liveSnap("1.0000000000");
+    snap.collectionProvenance = "TEST_SUBSTITUTED";
+    const r = evaluateFinOpsReconciliation({
+      studioEstimatedUsd: 0.8,
+      studioEstimationKind: "known",
+      snapshots: [snap],
+      windowStartUtc: "2023-11-14T22:13:20.000Z",
+      windowEndUtc: "2023-11-15T22:13:20.000Z",
+      organizationScope: "org:demo",
+      configuredOrgId: "demo",
+      configuredProjectId: "proj_demo",
+      configuredApiKeyId: null,
+      pilotAuthorized: true,
+      freshnessStatus: "READY",
+      freshnessSnapshotCount: 1,
     });
-    expect(rec.status).toBe("COMPARABLE");
-    expect(rec.deltaUsd).toBe("0.0600000000");
+    expect(r.comparability).toBe("UNAVAILABLE");
+    expect(r.limits).toContain("NO_LIVE_COMPLETE_SNAPSHOTS");
   });
 
-  it("finops reader role cannot INSERT snapshots", async () => {
-    const url = process.env.DATABASE_URL;
-    if (!url) throw new Error("DATABASE_URL missing");
-    const u = new URL(url);
-    u.username = "sfia_finops_reader_login";
-    u.password = "sfia_dev_finops_read_only";
-    const reader = postgres(u.toString(), { max: 1 });
-    try {
-      let refused = false;
-      try {
-        await reader`
-          INSERT INTO provider_admin_collection_runs (
-            collection_id, started_at, status, path, organization_scope, collection_provenance
-          ) VALUES (
-            'acol_should_fail', now(), 'READY', '/organization/costs', 'org:x', 'LIVE'
-          )
-        `;
-      } catch {
-        refused = true;
-      }
-      expect(refused).toBe(true);
-    } finally {
-      await reader.end({ timeout: 1 });
-    }
-  });
-
-  it("collector role cannot SELECT pilots (business tables)", async () => {
-    const url = process.env.DATABASE_URL;
-    if (!url) throw new Error("DATABASE_URL missing");
-    const u = new URL(url);
-    u.username = "sfia_admin_collector_login";
-    u.password = "sfia_dev_collector_only";
-    const collector = postgres(u.toString(), { max: 1 });
-    try {
-      let refused = false;
-      try {
-        await collector`SELECT id FROM pilots LIMIT 1`;
-      } catch {
-        refused = true;
-      }
-      expect(refused).toBe(true);
-    } finally {
-      await collector.end({ timeout: 1 });
-    }
-  });
-
-  it("freshness scoped by provenance", async () => {
-    const f = await getAdminCollectionFreshnessFromPg({
-      organizationScope: "org:qual-test",
-      provenance: "TEST_SUBSTITUTED",
+  it("partial studio estimation never becomes COMPARABLE", () => {
+    const r = evaluateFinOpsReconciliation({
+      studioEstimatedUsd: 0.8,
+      studioEstimationKind: "partial",
+      snapshots: [liveSnap("0.8600000000")],
+      windowStartUtc: "2023-11-14T22:13:20.000Z",
+      windowEndUtc: "2023-11-15T22:13:20.000Z",
+      organizationScope: "org:demo",
+      configuredOrgId: "demo",
+      configuredProjectId: "proj_demo",
+      configuredApiKeyId: null,
+      pilotAuthorized: true,
+      freshnessStatus: "READY",
+      freshnessSnapshotCount: 1,
     });
-    expect(f.snapshotCount).toBeGreaterThan(0);
+    expect(r.comparability).toBe("PARTIAL");
+    expect(r.disclosed).toBe(false);
   });
 });
 
 ```
 
-### CREATED `projects/sfia-studio-next/construction/convergence-openai-studio/procedure-admin-live-qualification-candidate.md`
+#### `projects/sfia-studio-next/web/tests/unit/ml5-provider-continuity-from-work.test.ts`
+
+```ts
+import { describe, expect, it } from "vitest";
+import { buildStudioContinuityFromWork } from "@/domains/conversation/provider-response-continuity";
+
+describe("buildStudioContinuityFromWork", () => {
+  it("uses real sources, acquis, tokens and rights — not placeholders", () => {
+    const snap = buildStudioContinuityFromWork({
+      id: "work_1",
+      revision: 3,
+      ownerToken: "tok_live",
+      leaseUntil: new Date(Date.now() + 60_000),
+      state: {
+        intentSummary: "investigate docs",
+        conclusions: ["Finding A is durable"],
+        sources: [
+          { ref: "d4:doc1", versionOrSha: "rev9" },
+          { ref: "git-file:r:path.ts", versionOrSha: "abc123" },
+        ],
+      },
+      resources: { inputTokens: 100, outputTokens: 40, segmentCalls: 2 },
+    });
+    expect(snap.workId).toBe("work_1");
+    expect(snap.checkpointId).toBe("ckpt:work_1:r3");
+    expect(snap.acquisFingerprint).toContain("Finding A");
+    expect(snap.sourceVersions).toEqual([
+      "d4:doc1@rev9",
+      "git-file:r:path.ts@abc123",
+    ]);
+    expect(snap.budgets.tokensConsumed).toBe(140);
+    expect(snap.rightsOk).toBe(true);
+  });
+
+  it("rightsOk false when lease expired or owner token absent", () => {
+    const expired = buildStudioContinuityFromWork({
+      id: "work_2",
+      revision: 1,
+      ownerToken: "tok",
+      leaseUntil: new Date(Date.now() - 1000),
+      state: { intentSummary: "x", sources: [] },
+      resources: {},
+    });
+    expect(expired.rightsOk).toBe(false);
+    const noTok = buildStudioContinuityFromWork({
+      id: "work_3",
+      revision: 1,
+      ownerToken: null,
+      leaseUntil: null,
+      state: { intentSummary: "x", sources: [] },
+      resources: {},
+    });
+    expect(noTok.rightsOk).toBe(false);
+  });
+});
 
 ```
-# Procédure candidate — qualification Admin LIVE bornée
+
+#### `projects/sfia-studio-next/web/tests/integration/ml5-macro-lot1-integrated-substituted.pg.test.ts`
+
+```ts
+/**
+ * Macro-lot 1 — integrated substituted campaign (Intervention 1).
+ * REAL: PostgreSQL DEV · SUBSTITUTED: OpenAI Admin / Responses / WEB / continuity.
+ * No LIVE emission. No Admin key. No store=true.
+ */
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import {
+  markSubstitutedAdminTransport,
+  resetAdminCollectorStateForTests,
+  resolveIsolatedAdminCollectorConfig,
+  runAdminCollection,
+} from "@/domains/finops/provider-admin-usage-collector";
+import {
+  getAdminCollectionFreshnessFromPg,
+  listAdminSnapshotsFromPg,
+} from "@/domains/finops/provider-admin-usage-repository";
+import { evaluateFinOpsReconciliation } from "@/domains/finops/finops-reconciliation";
+import { buildStudioContinuityFromWork } from "@/domains/conversation/provider-response-continuity";
+import {
+  beginCampaignEnvelope,
+  createFrontierAwareFetch,
+  getActiveCampaignEnvelope,
+  runWithProviderEmissionStoreAsync,
+  assertSdkInvocationAdmission,
+  __resetProviderEmissionFrontierForTests,
+} from "@/domains/conversation/provider-emission-frontier";
+import {
+  configureAgentsSdkTracing,
+  getAgentsTracingSinkRecords,
+  resetAgentsTracingTestState,
+  runWithAgentsTracingCorrelation,
+  withAgentsTracingNetworkOracle,
+  StudioLocalTraceProcessor,
+} from "@/lib/agents-sdk-tracing";
+import { createHash } from "node:crypto";
+
+const hasDb = Boolean(process.env.DATABASE_URL?.includes("5433"));
+
+const costsPage = {
+  object: "page",
+  data: [
+    {
+      object: "bucket",
+      start_time: 1_700_000_000,
+      end_time: 1_700_086_400,
+      results: [
+        {
+          object: "organization.costs.result",
+          amount: { value: 0.42, currency: "usd" },
+          project_id: "proj_ml1_integrated",
+        },
+      ],
+    },
+  ],
+  has_more: false,
+  next_page: null,
+};
+
+const TEST_KEY = "sk-test-frontier-aaaaaaaaaaaaaaaa";
+const TEST_FP = createHash("sha256").update(TEST_KEY, "utf8").digest("hex").slice(0, 16);
+
+describe.skipIf(!hasDb)("ML1 integrated substituted campaign", () => {
+  beforeAll(() => {
+    resetAdminCollectorStateForTests();
+    resetAgentsTracingTestState();
+  });
+
+  afterAll(() => {
+    resetAdminCollectorStateForTests();
+    resetAgentsTracingTestState();
+    __resetProviderEmissionFrontierForTests();
+    delete process.env.SFIA_FINOPS_ALLOW_TEST_PROVENANCE;
+    delete process.env.SFIA_AGENTS_TRACING_MODE;
+  });
+
+  it("collect → PG → FinOps → D3 continuity → tracing → frontier PARTIAL", async () => {
+    const work = {
+      id: `work_ml1_${Date.now()}`,
+      revision: 2,
+      ownerToken: "tok_ml1",
+      leaseUntil: new Date(Date.now() + 120_000),
+      state: {
+        intentSummary: "qualify integrated foundation",
+        conclusions: ["Acquis durable A"],
+        sources: [{ ref: "d4:doc", versionOrSha: "v1" }],
+      },
+      resources: { inputTokens: 50, outputTokens: 20, segmentCalls: 1 },
+    };
+    const continuity = buildStudioContinuityFromWork(work);
+    expect(continuity.sourceVersions).toEqual(["d4:doc@v1"]);
+    expect(continuity.budgets.tokensConsumed).toBe(70);
+    expect(continuity.rightsOk).toBe(true);
+    expect(continuity.checkpointId).toBe(`ckpt:${work.id}:r2`);
+
+    const transport = markSubstitutedAdminTransport(async () => ({
+      status: 200,
+      json: costsPage,
+    }));
+    const collection = await runAdminCollection({
+      config: resolveIsolatedAdminCollectorConfig({
+        adminApiKey: null,
+        mode: "TEST_SUBSTITUTED",
+        liveAuthorized: false,
+        organizationScope: "org:ml1-integrated",
+        transport,
+      }),
+      path: "/organization/costs",
+      query: { start_time: "1700000000", bucket_width: "1d" },
+      persistToPg: true,
+    });
+    expect(collection.status).toBe("READY");
+    expect(collection.snapshots.length).toBeGreaterThan(0);
+    expect(
+      collection.snapshots.every(
+        (s) => s.collectionProvenance === "TEST_SUBSTITUTED",
+      ),
+    ).toBe(true);
+
+    const fromPg = await listAdminSnapshotsFromPg({
+      organizationScope: "org:ml1-integrated",
+      provenance: "TEST_SUBSTITUTED",
+    });
+    expect(
+      fromPg.some((s) => s.dimensions.project_id === "proj_ml1_integrated"),
+    ).toBe(true);
+
+    const freshness = await getAdminCollectionFreshnessFromPg({
+      organizationScope: "org:ml1-integrated",
+      provenance: "TEST_SUBSTITUTED",
+      projectId: "proj_ml1_integrated",
+    });
+    expect(freshness.snapshotCount).toBeGreaterThan(0);
+
+    process.env.SFIA_FINOPS_ALLOW_TEST_PROVENANCE = "1";
+    const finops = evaluateFinOpsReconciliation({
+      studioEstimatedUsd: 0.4,
+      studioEstimationKind: "known",
+      snapshots: collection.snapshots,
+      windowStartUtc: "2023-11-14T22:13:20.000Z",
+      windowEndUtc: "2023-11-15T22:13:20.000Z",
+      organizationScope: "org:ml1-integrated",
+      configuredOrgId: "ml1-integrated",
+      configuredProjectId: "proj_ml1_integrated",
+      configuredApiKeyId: null,
+      pilotAuthorized: true,
+      freshnessStatus: "READY",
+      freshnessSnapshotCount: freshness.snapshotCount,
+    });
+    delete process.env.SFIA_FINOPS_ALLOW_TEST_PROVENANCE;
+    expect(["COMPARABLE", "PARTIAL", "NON_COMPARABLE"]).toContain(
+      finops.comparability,
+    );
+
+    process.env.SFIA_AGENTS_TRACING_MODE = "local";
+    await configureAgentsSdkTracing(process.env);
+    const { result: spanOk, traceExportUrls } =
+      await withAgentsTracingNetworkOracle(async () =>
+        runWithAgentsTracingCorrelation(
+          {
+            operationId: "op_ml1_int",
+            generationId: "gen_ml1_int",
+            attemptId: "att_ml1_int",
+            workId: work.id,
+          },
+          async () => {
+            const p = new StudioLocalTraceProcessor();
+            await p.onSpanEnd({
+              traceId: "t_ml1",
+              spanId: "s_ml1",
+              endedAt: Date.now(),
+              spanData: { type: "generation", name: "ml1" },
+            });
+            return "ok";
+          },
+        ),
+      );
+    expect(spanOk).toBe("ok");
+    expect(traceExportUrls).toEqual([]);
+    expect(
+      getAgentsTracingSinkRecords().some(
+        (r) => r.correlation.operationId === "op_ml1_int",
+      ),
+    ).toBe(true);
+
+    await runWithProviderEmissionStoreAsync(async () => {
+      beginCampaignEnvelope({
+        maxHttpAttempts: 4,
+        maxHostedSearches: 5,
+        required: true,
+      });
+      let call = 0;
+      const fakeFetch = (async () => {
+        call += 1;
+        if (call === 1) {
+          return new Response(JSON.stringify({ id: "r1" }), {
+            status: 200,
+            headers: { "content-type": "application/json" },
+          });
+        }
+        return new Response(
+          JSON.stringify({
+            id: "r2",
+            tool_usage: { web_search: { num_requests: 1 } },
+          }),
+          { status: 200, headers: { "content-type": "application/json" } },
+        );
+      }) as typeof fetch;
+      const gated = createFrontierAwareFetch(fakeFetch);
+      const prevKey = process.env.OPENAI_API_KEY;
+      const prevFp = process.env.SFIA_OPENAI_EXPECTED_KEY_FP;
+      const prevLane = process.env.STUDIO_LANE;
+      process.env.OPENAI_API_KEY = TEST_KEY;
+      process.env.SFIA_OPENAI_EXPECTED_KEY_FP = TEST_FP;
+      process.env.STUDIO_LANE = "DEV";
+      try {
+        assertSdkInvocationAdmission({
+          kind: "nora.generate_reply",
+          modelId: "gpt-6.1-terra",
+          effort: "medium",
+          env: process.env,
+        });
+        const body = JSON.stringify({
+          model: "gpt-6.1-terra",
+          max_output_tokens: 50,
+          reasoning: { effort: "medium" },
+          tools: [{ type: "web_search" }],
+          max_tool_calls: 1,
+        });
+        await gated("https://api.openai.com/v1/responses", {
+          method: "POST",
+          body,
+        });
+        expect(getActiveCampaignEnvelope()?.hostedSearchMeasureStatus).toBe(
+          "UNKNOWN",
+        );
+        await gated("https://api.openai.com/v1/responses", {
+          method: "POST",
+          body,
+        });
+        expect(getActiveCampaignEnvelope()?.hostedSearchMeasureStatus).toBe(
+          "PARTIAL",
+        );
+      } finally {
+        if (prevKey === undefined) delete process.env.OPENAI_API_KEY;
+        else process.env.OPENAI_API_KEY = prevKey;
+        if (prevFp === undefined) delete process.env.SFIA_OPENAI_EXPECTED_KEY_FP;
+        else process.env.SFIA_OPENAI_EXPECTED_KEY_FP = prevFp;
+        if (prevLane === undefined) delete process.env.STUDIO_LANE;
+        else process.env.STUDIO_LANE = prevLane;
+      }
+    });
+  });
+
+  it("rights revoked → FinOps UNAVAILABLE with no amount disclosure", () => {
+    const r = evaluateFinOpsReconciliation({
+      studioEstimatedUsd: 1,
+      studioEstimationKind: "known",
+      snapshots: [],
+      windowStartUtc: "2023-11-14T22:13:20.000Z",
+      windowEndUtc: "2023-11-15T22:13:20.000Z",
+      organizationScope: "org:x",
+      configuredOrgId: "x",
+      configuredProjectId: "p",
+      configuredApiKeyId: null,
+      pilotAuthorized: false,
+      freshnessStatus: "READY",
+      freshnessSnapshotCount: 1,
+    });
+    expect(r.comparability).toBe("UNAVAILABLE");
+    expect(r.providerCostUsd).toBeNull();
+    expect(r.disclosed).toBe(false);
+  });
+});
+
+```
+
+### 4.7 UX / as-built (créés/réécrits)
+
+#### `projects/sfia-studio-next/construction/convergence-openai-studio/ux-delta-finops-page13-candidate.md`
+
+```md
+# Delta UX candidat — FinOps page 13 (Figma inspectée RO)
 
 | Champ | Valeur |
 |---|---|
-| Statut | **CANDIDATE — NOT EXECUTED** |
-| Gates | G-ADMIN-SECRET puis G-ADMIN-LIVE — **Morris GO requis** |
-| Date | 2026-11-26 |
+| Référence | https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1332-2305 |
+| fileKey / node | `itgvCulInEnFY6DvgIegvP` / `1332:2305` |
+| Inspection | **2026-11-27** — `get_screenshot` + `get_metadata` (session RO) |
+| Empreinte locale | `.tmp-sfia-review/figma/page13-finops.png` (995×1280 render) |
+| Statut | **CANDIDATE — NOT APPLIED** · **G-FINOPS-UX fermé** |
+| Backend | `providerReconciliation` via `/api/finops/summary` (service-path evaluator) |
 
-## Critères de readiness (tous requis avant demande de clé)
+## Structure Figma observée (frames)
 
-1. Transport LIVE fail-closed (GO + DEV + processus collecteur + registry)
-2. Destination `https://api.openai.com/v1` + `redirect:error` + body borné à la lecture
-3. Secret inaccessible au produit / Nora / navigateur / Git / CLI argv
-4. Permissions PG exercées (`sfia_admin_collector_login` write snapshots ; `sfia_finops_reader_login` SELECT only)
-5. Intégrité snapshots (partial ↛ complete ; older ↛ newer)
-6. Séparation TEST_SUBSTITUTED / LIVE (provenance durable ; TEST exclu des projections)
-7. Collecte + persistance intégrées
-8. Lecture FinOps cloisonnée
-9. Procédure de provisionnement (ci-dessous)
-10. Enveloppe LIVE précise
+| Frame | Id | Rôle |
+|---|---|---|
+| 13.01 / 13.02 | Intégrations | Rail + menu paramètres (contexte navigation) |
+| **13.03** | Consommation et coûts — synthèse | Surface cible du delta |
+| 13.04 | Synthèse + menu ouvert | Même surface, état rail |
+| 13.05 | Inspection d’un travail | Détail travail (hors delta agrégé) |
+| 13.06 | Aucune donnée | Empty state à préserver |
 
-## Enveloppe LIVE minimale proposée
+Composants réutilisés observés : `FinOps / Indicateur`, `FinOps / Filtre`, `FinOps / Ligne travail`, rail personnel Paramètres.
 
-| Paramètre | Valeur |
+## Orientation Morris (conservée)
+
+Préserver rail, shell, tokens, hiérarchie et conventions de la cible validée.
+Aucun nouveau cockpit financier. Aucun plafond / crédit / rechargement.
+**Ne pas modifier la cible Figma** avant G-FINOPS-UX.
+
+## Proposition visuelle (bloc secondaire sous KPIs 13.03)
+
+Insérer **sous** la rangée des 4 indicateurs existants (Coût estimé / Jetons / Travaux / Couverture), **au-dessus** des graphiques « Évolution » / « Répartition », un bandeau secondaire unique :
+
+| Zone UI | Donnée API | États affichés |
+|---|---|---|
+| Estimation Studio | `studioEstimatedUsd` + `studioEstimationKind` | known · partial · empty · unknown |
+| Coût fournisseur agrégé | `providerCostUsd` + `providerCurrency` | montant LIVE autorisé · Indisponible · Non autorisé (jamais de montant si non `disclosed`) |
+| Période | fenêtre UTC de comparaison | affichée si fenêtre explicite / periodEqual |
+| Fraîcheur | `freshness.status` + scoped count | READY · PARTIAL · IDLE · ERROR |
+| Comparabilité | `comparability` | COMPARABLE · NON_COMPARABLE · PARTIAL · UNAVAILABLE |
+| Écart | `deltaUsd` | **uniquement** si COMPARABLE + disclosed |
+| Limites métier | `limits[]` sanitised | libellés métier, jamais secrets |
+
+Mapping composants Figma → code (après GO) :
+
+| Figma | Code candidat |
 |---|---|
-| Organisation | celle autorisée DEV uniquement |
-| Projet OpenAI | un `project_id` DEV explicite (`--project-id`) |
-| Endpoints | GET `/organization/costs` et/ou un Usage path allowlisté |
-| Fenêtre | `start_time` + `end_time` UTC **courte et terminée** |
-| Granularité | `1d` (ou `1h` si mandat) |
-| Pages | max 20 (défaut 10) |
-| Retries | max 3 ; re-check GO avant chaque retry |
-| Données | volume borné ; pas de balayage org entier |
+| `FinOps / Indicateur` (réemploi style) | Sous-bandeau textuel / 2 micro-indicateurs (Studio vs Fournisseur) — **pas** 4 nouveaux KPI hero |
+| Filtres existants | Inchangés (période / projet / modèle) |
+| Empty 13.06 | Si `UNAVAILABLE` sans estimation : conserver empty ; si estimation seule : afficher Studio + « Coût fournisseur indisponible » |
 
-## Provisionnement secret (Morris)
+## Non-régression
 
-1. Créer la clé Admin sur le portail OpenAI (hors chat).
-2. Stocker **uniquement** dans le secret store local de l’opérateur (Keychain / fichier env isolé non versionné, hors `.env.local` partagé).
-3. Exporter dans le **seul** processus collecteur :
-   - `SFIA_ADMIN_COLLECTOR_PROCESS=1`
-   - `STUDIO_LANE=DEV`
-   - `SFIA_ADMIN_USAGE_LIVE=1`
-   - `OPENAI_ADMIN_KEY` (jamais argv, jamais chat, jamais Git)
-4. Lancer `scripts/finops-admin-collect.mts` avec `--start-time` `--end-time` `--project-id`.
-5. Vérifier `collection_provenance=LIVE` en PG ; lecture produit FinOps.
-6. Révocation : retirer la variable d’env ; révoquer la clé sur le portail ; `SFIA_ADMIN_USAGE_LIVE` unset.
+Interface actuelle (`FinOpsConsumptionPanel`) **ne consomme pas encore** `providerReconciliation` en UI — backend prêt, UI inchangée jusqu’au GO.
+Smoke HTTP `/settings/consumption` à rejouer sur le build final.
 
-## STOP
+## GO demandé
 
-- Fuite de secret, effet hors enveloppe, 401/403 inattendus, contamination RECETTE, balayage org non filtré.
-
-## Non-présomptions
-
-- Les coûts peuvent arriver en retard — prévoir rejeu idempotent.
-- Permissions compte ≠ documentation SDK.
-- Aucun appel LIVE dans le cycle de préparation.
+Validation Morris unique de ce delta (visuel + mapping) avant transposition Figma → code.
 
 ```
 
-## 13. Diff utile complet (348cf6bd)
+#### `projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-1-20261126.md`
+
+```md
+# Convergence OpenAI–Studio — As-built Macro-lot 1 (Integrated foundation completion)
+
+| Champ | Valeur |
+|---|---|
+| Date | 2026-11-27 (Intervention 1 — integrated completion) |
+| Statut | **IMPLEMENTED / COVERAGE VERIFIED (DEV substituted)** — **NOT ADOPTED** · **NO RELEASE** |
+| HEAD entrée cycle | `348cf6bd1f55c2f84ebcc079b7e8c10acb276d47` |
+| Migrations DEV | `023` + `024` (corrigée) + `025` security+canon · PG 16.16 |
+| Hors GO | Admin LIVE · création clé · WEB LIVE · tracing ON ops · continuité ON ops · Figma apply · push projet · RECETTE |
+
+## Corrections Intervention 1
+
+| Chantier | Résultat | Niveau |
+|---|---|---|
+| A Sécurité PG | LOGIN roles NOLOGIN ; auth refuse ; secrets retirés des sources courantes ; SET ROLE proofs | BEHAVIOR PROVEN |
+| A Provenance | `collection_provenance` dans index unique NULLS NOT DISTINCT ; upsert conflict cols | BEHAVIOR PROVEN |
+| A Transport | TEST/LIVE WeakSet ; envelope ; parsing ; READY ≠ HTTP 200 seul | COVERAGE VERIFIED |
+| B FinOps | `evaluateFinOpsReconciliation` sur chemin service ; COMPARABLE + refus droits | BEHAVIOR PROVEN |
+| B UX | Figma page 13 inspectée RO ; proposition visuelle candidate | DOCUMENTED (NOT APPLIED) |
+| C Tracing | Real `@openai/agents` + tool loop + spans + oracle export=[] | BEHAVIOR PROVEN |
+| D Frontier/WEB | UNKNOWN→MEASURED=PARTIAL ; A3 Option 1/2 | BEHAVIOR PROVEN / DOCUMENTED |
+| E Continuité D3 | `buildStudioContinuityFromWork` données réelles ; chain null ; OFF | BEHAVIOR PROVEN |
+| F Campagne | Collecte→PG→FinOps→D3→tracing→frontier substituée | BEHAVIOR PROVEN |
+
+## Flux as-built
+
+```
+Collecteur isolé (TEST|LIVE)
+  → envelope bornée (émission)
+  → PG snapshots (provenance in canon)
+  → repository lecture LIVE only (produit)
+  → FinOps evaluateFinOpsReconciliation (service path)
+  → UI existante (non-régression ; delta UX candidat)
+
+Conducteur D3
+  → buildStudioContinuityFromWork(work)
+  → continuityChain null (OFF)
+  → frontier emission (WEB OFF)
+
+Agents SDK
+  → processors locaux + ALS correlation
+  → oracle réseau (export distant = 0)
+  → opérationnel OFF jusqu’à G-TRACING-LOCAL
+```
+
+## Fake/Real
+
+| Surface | Niveau |
+|---|---|
+| PostgreSQL DEV | REAL |
+| Process / API Studio | REAL (après build final) |
+| SDK Agents | REAL installé + transport substitué |
+| Admin OpenAI | SUBSTITUTED |
+| Responses / WEB / continuité native | SUBSTITUTED / OFF |
+| Figma | REAL RO screenshot+metadata |
+
+## Gates
+
+Voir `dossier-gates-morris-consolide-ml1-20261127.md`.
+
+**Levé DEV :** G-PROVIDER-SNAPSHOT-MIGRATION
+**Proposables :** G-ADMIN-SECRET · G-FINOPS-UX · G-TRACING-LOCAL · G-NATIVE-CONTINUITY
+**Fermés / NOT RUN :** G-ADMIN-LIVE · G-WEB-PUBLIC/A3 · G-PROVIDER-LIVE-QUALIFICATION · RECETTE
+
+## Lignes 023 préexistantes
+
+Provenance défaut `UNKNOWN` — exclues des projections LIVE (pas de DELETE métier).
+
+## Version produit
+
+NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED
+
+```
+
+## 5. Modifications — diff utile complet (commit `59893c814808fcf32501f32a34a379d7d85346e9`)
+
+> Occultation : toute valeur `PASSWORD '…'` serait remplacée par `[REDACTED_COMPROMISED_SECRET]` (aucune présente dans le tip).
 
 ```diff
+commit 59893c814808fcf32501f32a34a379d7d85346e9
+Author:     Morris Cleland <morris@mac.home>
+AuthorDate: Fri Nov 27 02:49:45 2026 +0100
+Commit:     Morris Cleland <morris@mac.home>
+CommitDate: Fri Nov 27 02:49:45 2026 +0100
+
+    feat(next): complete integrated ML1 provider foundation for Morris gates
+
+    Remediate compromised DEV PG login roles, harden Admin snapshot provenance canon, wire FinOps service-path reconciliation, conclusive local Agents SDK tracing, and D3 continuity from real work owners — without LIVE activation.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-1-20261126.md b/projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-1-20261126.md
-index e01ca444..b6a5757f 100644
+index b6a5757f..2ea42cbe 100644
 --- a/projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-1-20261126.md
 +++ b/projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-1-20261126.md
-@@ -1,64 +1,43 @@
--# Convergence OpenAI–Studio — As-built Macro-lot 1 (operational completion)
-+# Convergence OpenAI–Studio — As-built Macro-lot 1 (Admin & FinOps qualification)
+@@ -1,43 +1,71 @@
+-# Convergence OpenAI–Studio — As-built Macro-lot 1 (Admin & FinOps qualification)
++# Convergence OpenAI–Studio — As-built Macro-lot 1 (Integrated foundation completion)
 
  | Champ | Valeur |
  |---|---|
--| Date | 2026-11-26 (operational completion) |
--| Statut | OPERATIONAL DEV FOUNDATION — **NOT ADOPTED** · **NO RELEASE** |
--| HEAD entrée | `a095171e` |
--| Contrats | `1e2e188d` blobs exacts |
--| Migration DEV | `023_provider_admin_usage_snapshots.sql` appliquée (PG 16.16) |
--| BUILD_ID | `cUOHTek8qSni3vSYXOTWZ` |
--| Hors GO | Admin LIVE · WEB LIVE · UX Figma apply · tracing/continuité ON opérationnel · push projet · RECETTE |
-+| Date | 2026-11-26 (Admin & FinOps qualification) |
-+| Statut | Qualification Admin/FinOps DEV — **NOT ADOPTED** · **NO RELEASE** |
-+| HEAD entrée cycle | `106c6392` |
-+| Migrations DEV | `023` + `024` (provenance) · PG 16.16 |
-+| Hors GO | Admin LIVE · création clé · WEB · tracing ON · continuité ON · Figma apply · push projet |
+-| Date | 2026-11-26 (Admin & FinOps qualification) |
+-| Statut | Qualification Admin/FinOps DEV — **NOT ADOPTED** · **NO RELEASE** |
+-| HEAD entrée cycle | `106c6392` |
+-| Migrations DEV | `023` + `024` (provenance) · PG 16.16 |
+-| Hors GO | Admin LIVE · création clé · WEB · tracing ON · continuité ON · Figma apply · push projet |
++| Date | 2026-11-27 (Intervention 1 — integrated completion) |
++| Statut | **IMPLEMENTED / COVERAGE VERIFIED (DEV substituted)** — **NOT ADOPTED** · **NO RELEASE** |
++| HEAD entrée cycle | `348cf6bd1f55c2f84ebcc079b7e8c10acb276d47` |
++| Migrations DEV | `023` + `024` (corrigée) + `025` security+canon · PG 16.16 |
++| Hors GO | Admin LIVE · création clé · WEB LIVE · tracing ON ops · continuité ON ops · Figma apply · push projet · RECETTE |
 
--## Cartographie KEEP / ADAPT / REPLACE / BUILD / DEFER
-+## Corrections de ce cycle
+-## Corrections de ce cycle
++## Corrections Intervention 1
 
--| Domaine | Classe | État opérationnel |
--|---|---|---|
--| Tracing | ADAPT | ALS ; fail-closed OFF ; **vrai SDK** + oracle réseau (0 export distant) |
--| OBS | KEEP | Causalité métier |
--| Frontier | ADAPT | Agrégat PARTIAL si UNKNOWN↔MEASURED ; stream UNKNOWN |
--| Collecteur Admin | BUILD | Modes `TEST_SUBSTITUTED` / `LIVE` séparés ; gate LIVE à l'émission ; transport officiel HTTPS |
--| Persistance | BUILD | Collecteur isolé → PG DEV → repository → FinOps API |
--| FinOps | ADAPT | Somme org refusée sans projet attribué ; devise non inventée ; évidence complète |
--| Continuité | ADAPT | `bindProviderContinuityContext` appelé depuis Nora LIVE + conducteur D3 ; mode OFF |
--| WEB | KEEP OFF | Dossier A3 |
--| Decisions / retrieval / audio / L2 | DEFER | Macro-lots 2/3 |
-+| Sujet | Correction |
+-| Sujet | Correction |
+-|---|---|
+-| Intégrité upsert | Partial ne met plus à jour les métriques d’une ligne complete ; `WHERE` SQL + mémoire |
+-| Provenance | `collection_provenance` TEST_SUBSTITUTED \| LIVE \| UNKNOWN ; TEST exclu des projections |
+-| Fallback mémoire | Produit → UNAVAILABLE si PG down ; mémoire seulement `VITEST` + flag explicite |
+-| Transport | Registry WeakSet ; re-check GO avant retry ; body borné pendant lecture |
+-| Enveloppe | start_time requis ; LIVE exige end_time + project_ids ; maxPages ≤ 20 |
+-| FinOps | `assessPeriodEquality` ; COMPARABLE positif possible ; fraîcheur périmètre |
+-| Rôles PG | LOGIN exercés ; refus INSERT reader / SELECT pilots collector prouvés |
+-| Restore | `pg_restore` réel vers `sfia_next_dev_restore_probe` puis DROP (44 tables) |
++| Chantier | Résultat | Niveau |
++|---|---|---|
++| A Sécurité PG | LOGIN roles NOLOGIN ; auth refuse ; secrets retirés des sources courantes ; SET ROLE proofs | BEHAVIOR PROVEN |
++| A Provenance | `collection_provenance` dans index unique NULLS NOT DISTINCT ; upsert conflict cols | BEHAVIOR PROVEN |
++| A Transport | TEST/LIVE WeakSet ; envelope ; parsing ; READY ≠ HTTP 200 seul | COVERAGE VERIFIED |
++| B FinOps | `evaluateFinOpsReconciliation` sur chemin service ; COMPARABLE + refus droits | BEHAVIOR PROVEN |
++| B UX | Figma page 13 inspectée RO ; proposition visuelle candidate | DOCUMENTED (NOT APPLIED) |
++| C Tracing | Real `@openai/agents` + tool loop + spans + oracle export=[] | BEHAVIOR PROVEN |
++| D Frontier/WEB | UNKNOWN→MEASURED=PARTIAL ; A3 Option 1/2 | BEHAVIOR PROVEN / DOCUMENTED |
++| E Continuité D3 | `buildStudioContinuityFromWork` données réelles ; chain null ; OFF | BEHAVIOR PROVEN |
++| F Campagne | Collecte→PG→FinOps→D3→tracing→frontier substituée | BEHAVIOR PROVEN |
+
+-## Flux
++## Flux as-built
+
+ ```
+ Collecteur isolé (TEST|LIVE)
+-  → envelope bornée
+-  → PG snapshots (provenance)
+-  → repository lecture LIVE only
+-  → FinOps reconciliation (periodEqual démontrable)
+-  → UI existante (non-régression)
++  → envelope bornée (émission)
++  → PG snapshots (provenance in canon)
++  → repository lecture LIVE only (produit)
++  → FinOps evaluateFinOpsReconciliation (service path)
++  → UI existante (non-régression ; delta UX candidat)
++
++Conducteur D3
++  → buildStudioContinuityFromWork(work)
++  → continuityChain null (OFF)
++  → frontier emission (WEB OFF)
++
++Agents SDK
++  → processors locaux + ALS correlation
++  → oracle réseau (export distant = 0)
++  → opérationnel OFF jusqu’à G-TRACING-LOCAL
+ ```
+
++## Fake/Real
++
++| Surface | Niveau |
 +|---|---|
-+| Intégrité upsert | Partial ne met plus à jour les métriques d’une ligne complete ; `WHERE` SQL + mémoire |
-+| Provenance | `collection_provenance` TEST_SUBSTITUTED \| LIVE \| UNKNOWN ; TEST exclu des projections |
-+| Fallback mémoire | Produit → UNAVAILABLE si PG down ; mémoire seulement `VITEST` + flag explicite |
-+| Transport | Registry WeakSet ; re-check GO avant retry ; body borné pendant lecture |
-+| Enveloppe | start_time requis ; LIVE exige end_time + project_ids ; maxPages ≤ 20 |
-+| FinOps | `assessPeriodEquality` ; COMPARABLE positif possible ; fraîcheur périmètre |
-+| Rôles PG | LOGIN exercés ; refus INSERT reader / SELECT pilots collector prouvés |
-+| Restore | `pg_restore` réel vers `sfia_next_dev_restore_probe` puis DROP (44 tables) |
-
--## Flux démontré
-+## Flux
-
- ```
--Collecteur isolé (SFIA_ADMIN_COLLECTOR_PROCESS=1)
--  → transport TEST_SUBSTITUTED | LIVE(gated)
--  → provider_admin_collection_runs + provider_admin_usage_snapshots (PG DEV)
--  → provider-admin-usage-repository (lecture produit)
--  → usage-read-service / API FinOps
--  → UI consommation existante (non-régression)
-+Collecteur isolé (TEST|LIVE)
-+  → envelope bornée
-+  → PG snapshots (provenance)
-+  → repository lecture LIVE only
-+  → FinOps reconciliation (periodEqual démontrable)
-+  → UI existante (non-régression)
- ```
-
--## Sécurité Admin
--
--- Présence d'un transport **ne** lève **pas** le GO LIVE.
--- `TEST_SUBSTITUTED` : transport marqué ; aucune clé Admin réelle requise.
--- `LIVE` : `liveAdminCallsAuthorized` + clé + transport `markLiveAdminTransport` + destination `https://api.openai.com/v1` + `redirect:error`.
--- Produit Next ne charge jamais `OPENAI_ADMIN_KEY`.
--- Rollback non destructif : `SFIA_ADMIN_SNAPSHOT_READ=0`.
--
--## Migration DEV
--
--- Backup : `.tmp-sfia-review/pg-backup/sfia_next_dev_pre_023.dump` (pg_dump -Fc, listable).
--- Additive exclusively ; ledger `provider_usage_observations` préservé.
--- UNIQUE NULLS NOT DISTINCT sur identité canonique snapshot.
--- Rôles NOLOGIN : `sfia_admin_collector` (écriture), `sfia_finops_reader` (lecture).
--
++| PostgreSQL DEV | REAL |
++| Process / API Studio | REAL (après build final) |
++| SDK Agents | REAL installé + transport substitué |
++| Admin OpenAI | SUBSTITUTED |
++| Responses / WEB / continuité native | SUBSTITUTED / OFF |
++| Figma | REAL RO screenshot+metadata |
++
  ## Gates
 
--**Levé (DEV only) :** G-PROVIDER-SNAPSHOT-MIGRATION
--
--**Fermés :** G-ADMIN-SECRET · G-ADMIN-LIVE · G-FINOPS-UX · G-WEB-PUBLIC/A3 · G-TRACING-LOCAL · G-NATIVE-CONTINUITY · G-PROVIDER-LIVE-QUALIFICATION · RECETTE/promotions
-+**Levé DEV :** G-PROVIDER-SNAPSHOT-MIGRATION
-+**Proposables si readiness OK :** G-ADMIN-SECRET (après revue Morris)
-+**Fermés :** G-ADMIN-LIVE · G-FINOPS-UX · G-WEB-PUBLIC/A3 · G-TRACING-LOCAL · G-NATIVE-CONTINUITY · G-PROVIDER-LIVE-QUALIFICATION · RECETTE
++Voir `dossier-gates-morris-consolide-ml1-20261127.md`.
++
+ **Levé DEV :** G-PROVIDER-SNAPSHOT-MIGRATION
+-**Proposables si readiness OK :** G-ADMIN-SECRET (après revue Morris)
+-**Fermés :** G-ADMIN-LIVE · G-FINOPS-UX · G-WEB-PUBLIC/A3 · G-TRACING-LOCAL · G-NATIVE-CONTINUITY · G-PROVIDER-LIVE-QUALIFICATION · RECETTE
++**Proposables :** G-ADMIN-SECRET · G-FINOPS-UX · G-TRACING-LOCAL · G-NATIVE-CONTINUITY
++**Fermés / NOT RUN :** G-ADMIN-LIVE · G-WEB-PUBLIC/A3 · G-PROVIDER-LIVE-QUALIFICATION · RECETTE
 
--## Preuves clés
-+## Lignes 023 préexistantes
+ ## Lignes 023 préexistantes
 
--- 44 tests unit/intégration ciblés PASS (admin, frontier, tracing mock+real SDK, PG snapshots).
--- Collecteur dry-substituted → row `provider_admin_collection_runs` en DEV.
--- DEV runtime : `127.0.0.1:3100` BUILD_ID `cUOHTek8qSni3vSYXOTWZ` pid qualify.
--- RECETTE : pid inchangé, worktree figé distinct.
-+Provenance défaut `UNKNOWN` — exclues des projections LIVE (pas de DELETE).
-diff --git a/projects/sfia-studio-next/construction/convergence-openai-studio/procedure-admin-live-qualification-candidate.md b/projects/sfia-studio-next/construction/convergence-openai-studio/procedure-admin-live-qualification-candidate.md
+-Provenance défaut `UNKNOWN` — exclues des projections LIVE (pas de DELETE).
++Provenance défaut `UNKNOWN` — exclues des projections LIVE (pas de DELETE métier).
++
++## Version produit
++
++NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED
+diff --git a/projects/sfia-studio-next/construction/convergence-openai-studio/dossier-g-web-public-a3-20261127.md b/projects/sfia-studio-next/construction/convergence-openai-studio/dossier-g-web-public-a3-20261127.md
 new file mode 100644
-index 00000000..7a7637ae
+index 00000000..e54e1418
 --- /dev/null
-+++ b/projects/sfia-studio-next/construction/convergence-openai-studio/procedure-admin-live-qualification-candidate.md
-@@ -0,0 +1,56 @@
-+# Procédure candidate — qualification Admin LIVE bornée
++++ b/projects/sfia-studio-next/construction/convergence-openai-studio/dossier-g-web-public-a3-20261127.md
+@@ -0,0 +1,60 @@
++# Dossier d’arbitrage — G-WEB-PUBLIC / A3 (Intervention 1)
 +
 +| Champ | Valeur |
 +|---|---|
-+| Statut | **CANDIDATE — NOT EXECUTED** |
-+| Gates | G-ADMIN-SECRET puis G-ADMIN-LIVE — **Morris GO requis** |
-+| Date | 2026-11-26 |
++| Gate | **G-WEB-PUBLIC / A3 — MORRIS DECISION REQUIRED** |
++| Statut | WEB OFF · MIXED CLOSED · aucune campagne LIVE |
++| Date | 2026-11-27 |
++| Remplace | synthèse 2026-11-26 (conservée historiquement) |
 +
-+## Critères de readiness (tous requis avant demande de clé)
++## Distinctions démontrées (déterministe + campagne substituée)
 +
-+1. Transport LIVE fail-closed (GO + DEV + processus collecteur + registry)
-+2. Destination `https://api.openai.com/v1` + `redirect:error` + body borné à la lecture
-+3. Secret inaccessible au produit / Nora / navigateur / Git / CLI argv
-+4. Permissions PG exercées (`sfia_admin_collector_login` write snapshots ; `sfia_finops_reader_login` SELECT only)
-+5. Intégrité snapshots (partial ↛ complete ; older ↛ newer)
-+6. Séparation TEST_SUBSTITUTED / LIVE (provenance durable ; TEST exclu des projections)
-+7. Collecte + persistance intégrées
-+8. Lecture FinOps cloisonnée
-+9. Procédure de provisionnement (ci-dessous)
-+10. Enveloppe LIVE précise
++| Dimension | Sémantique | Preuve |
++|---|---|---|
++| `max_tool_calls` | Borne a priori des appels built-in | Injection frontier + tests |
++| `tool_usage.web_search.num_requests` | Mesure a posteriori facturable si présente | Parse + reconcile |
++| Absent `tool_usage` | **UNKNOWN** (jamais ASSUMED_1) | Tests |
++| UNKNOWN puis MEASURED | Agrégat campagne **PARTIAL** | Tests + campagne ML1 intégrée |
++| Stream SSE | UNKNOWN borné — pas de buffer illimité | Code frontier |
++| Pression d’enveloppe | Consomme `max_tool_calls` même si billable UNKNOWN | Tests envelope |
 +
-+## Enveloppe LIVE minimale proposée
++**`max_tool_calls` n’est pas une garantie du nombre maximal de recherches facturables** sans preuve `num_requests`.
 +
-+| Paramètre | Valeur |
++---
++
++## Option 1 — Enveloppe stricte démontrable avant émission
++
++| | |
 +|---|---|
-+| Organisation | celle autorisée DEV uniquement |
-+| Projet OpenAI | un `project_id` DEV explicite (`--project-id`) |
-+| Endpoints | GET `/organization/costs` et/ou un Usage path allowlisté |
-+| Fenêtre | `start_time` + `end_time` UTC **courte et terminée** |
-+| Granularité | `1d` (ou `1h` si mandat) |
-+| Pages | max 20 (défaut 10) |
-+| Retries | max 3 ; re-check GO avant chaque retry |
-+| Données | volume borné ; pas de balayage org entier |
++| Contrôlé | Admission D6/B1 ; MIXED CLOSED ; max_tool_calls sur le wire ; slots HTTP ; tokens réservés |
++| Mesuré | Uniquement si le fournisseur expose `num_requests` **avant** ou **au** point d’émission (non démontré aujourd’hui pour hosted) |
++| Risque restant | Hosted web_search destinations hors egress B1 ; facturation peut diverger de max_tool_calls |
++| Dépassement | Refus d’émission si enveloppe locale saturée ; suspension campagne |
++| Rollback | WEB OFF |
++| Faisabilité | **Partielle** — borne stricte facturable **non** démontrable a priori sur hosted |
++| Recommandation | Ne pas présenter comme garantie facturable |
 +
-+## Provisionnement secret (Morris)
++## Option 2 — Enveloppe sur dimensions contrôlables + mesure a posteriori (recommandée)
 +
-+1. Créer la clé Admin sur le portail OpenAI (hors chat).
-+2. Stocker **uniquement** dans le secret store local de l’opérateur (Keychain / fichier env isolé non versionné, hors `.env.local` partagé).
-+3. Exporter dans le **seul** processus collecteur :
-+   - `SFIA_ADMIN_COLLECTOR_PROCESS=1`
-+   - `STUDIO_LANE=DEV`
-+   - `SFIA_ADMIN_USAGE_LIVE=1`
-+   - `OPENAI_ADMIN_KEY` (jamais argv, jamais chat, jamais Git)
-+4. Lancer `scripts/finops-admin-collect.mts` avec `--start-time` `--end-time` `--project-id`.
-+5. Vérifier `collection_provenance=LIVE` en PG ; lecture produit FinOps.
-+6. Révocation : retirer la variable d’env ; révoquer la clé sur le portail ; `SFIA_ADMIN_USAGE_LIVE` unset.
++| | |
++|---|---|
++| Contrôlé | `max_tool_calls`, tokens, slots HTTP, admission, corpus public non sensible |
++| Mesuré | `num_requests` a posteriori lorsque fourni ; sinon UNKNOWN/PARTIAL |
++| Risque restant | Écart possible borne vs facturable ; destinations hosted ≠ B1 |
++| Dépassement | Suspendre si mesure > enveloppe ; jamais ASSUMED_1 |
++| Rollback | WEB OFF |
++| Recommandation | **Retenir Option 2** avec acceptation explicite du risque résiduel |
 +
-+## STOP
++---
 +
-+- Fuite de secret, effet hors enveloppe, 401/403 inattendus, contamination RECETTE, balayage org non filtré.
++## Scénario LIVE public borné (préparé, NOT RUN)
 +
-+## Non-présomptions
++1. Corpus : pages de référence publiques (ex. MDN / docs OpenAI publiques).
++2. Limites : max_tool_calls=1 ; maxHttpAttempts≤3 ; tokens bornés.
++3. Oracle restitution : citations attendues / absence de contenu privé.
++4. STOP : ERROR, dépassement mesure, MIXED, fuite hors allowlist.
++5. Preuve : frontier PARTIAL/MEASURED + ledger usage ; pas de second ledger.
 +
-+- Les coûts peuvent arriver en retard — prévoir rejeu idempotent.
-+- Permissions compte ≠ documentation SDK.
-+- Aucun appel LIVE dans le cycle de préparation.
++## Rollback
++
++WEB OFF. Jamais ASSUMED_1 comme garantie billable.
+diff --git a/projects/sfia-studio-next/construction/convergence-openai-studio/dossier-gates-morris-consolide-ml1-20261127.md b/projects/sfia-studio-next/construction/convergence-openai-studio/dossier-gates-morris-consolide-ml1-20261127.md
+new file mode 100644
+index 00000000..73e27811
+--- /dev/null
++++ b/projects/sfia-studio-next/construction/convergence-openai-studio/dossier-gates-morris-consolide-ml1-20261127.md
+@@ -0,0 +1,151 @@
++# Dossier unique des gates Morris — Macro-lot 1 (Intervention 1)
++
++| Champ | Valeur |
++|---|---|
++| Date | 2026-11-27 |
++| Cycle | Integrated foundation completion |
++| Verdict candidat | **READY FOR CONSOLIDATED MORRIS GATES** (technique DEV ; LIVE non exécuté) |
++| Autorité | Morris uniquement pour chaque gate |
++| NO RELEASE · NOT ADOPTED · RECETTE hors GO | |
++
++---
++
++## G-PROVIDER-SNAPSHOT-MIGRATION
++
++| | |
++|---|---|
++| Objet | Migrations DEV 023–025 (snapshots Admin + provenance + canon + security) |
++| Prérequis | Isolation DEV :5433 |
++| Preuves | Index canon inclut `collection_provenance` ; schéma 025 ; upsert ON CONFLICT |
++| Options | Maintenir GO DEV (recommandé) |
++| Recommandation | Maintenu |
++| Risque résiduel | Lignes UNKNOWN historiques exclues des projections |
++| Enveloppe | DEV only |
++| Rollback | Pas de DROP métier ; index recréable |
++| Action Morris | Aucune nouvelle — GO DEV déjà en vigueur |
++| Statut | **LEVÉ DEV** |
++
++## G-ADMIN-SECRET
++
++| | |
++|---|---|
++| Objet | Provisionnement sécurisé clé Admin OpenAI (hors Git) |
++| Prérequis | Identifiants PG compromis invalidés (NOLOGIN) ; transport TEST/LIVE séparés ; procédure candidate |
++| Preuves | LOGIN roles `rolcanlogin=f` ; auth refuse ; mots de passe retirés des sources courantes 024/025 ; SET ROLE proofs SQLSTATE 42501 |
++| Options | (A) Provisionner via secret manager OS / env local non-git (B) Reporter |
++| Recommandation | A — après revue readiness |
++| Risque résiduel | Historique Git distant conserve d’anciennes valeurs — traiter comme compromises |
++| Enveloppe | Clé Admin lecture Usage/Costs uniquement ; jamais dans Git |
++| Rollback | Révoquer clé côté OpenAI |
++| Action Morris | Créer/placer secret Admin ; **ne pas** coller dans chat/Git |
++| Statut | **PROPOSABLE** — pas de clé demandée avant GO |
++
++## G-ADMIN-LIVE
++
++| | |
++|---|---|
++| Objet | Première collecte LIVE bornée Usage + Costs |
++| Prérequis | G-ADMIN-SECRET levé ; `SFIA_ADMIN_LIVE_GO=1` ; projet DEV autorisé ; fenêtre UTC |
++| Preuves | Enveloppe code : start/end_time, maxPages≤20, redirects interdits, body borné |
++| Options | GET `/organization/costs` (+ usage si nécessaire) · 1 org · 1 project_ids · ≤3 pages · STOP sur ERROR/PARTIAL |
++| Recommandation | Après G-ADMIN-SECRET ; fenêtre ≤ 24h UTC ; group_by=project_id |
++| Risque résiduel | Permissions compte OpenAI non prouvées ici |
++| Enveloppe | Voir `procedure-admin-live-qualification-candidate.md` |
++| Rollback | Désactiver LIVE_GO ; conserver TEST_SUBSTITUTED |
++| Action Morris | Autoriser enveloppe exacte + STOP |
++| Statut | **FERMÉ** — NOT RUN |
++
++## G-FINOPS-UX
++
++| | |
++|---|---|
++| Objet | Valider proposition visuelle page 13 (Figma inspectée RO) |
++| Prérequis | Backend `providerReconciliation` service-path COMPARABLE |
++| Preuves | Screenshot + metadata Figma `1332:2305` ; mapping états → composants ; UX actuelle non régressive |
++| Options | (A) Valider delta secondaire (B) Reporter (C) Ajuster mapping |
++| Recommandation | A — bloc secondaire sous KPIs existants (13.03) |
++| Risque résiduel | Transposition code non faite |
++| Enveloppe | Aucun nouvel écran ; aucun plafond monétaire |
++| Rollback | UI actuelle inchangée |
++| Action Morris | Valider `ux-delta-finops-page13-candidate.md` |
++| Statut | **PROPOSABLE** — NOT APPLIED |
++
++## G-TRACING-LOCAL
++
++| | |
++|---|---|
++| Objet | Activer tracing Agents SDK LOCAL sans export distant |
++| Prérequis | Preuve SDK réelle + oracle réseau ; OFF fail-closed |
++| Preuves | `ml5-agents-sdk-tracing-real-sdk.test.ts` : Agent.run + tool loop + spans corrélés + export=[] |
++| Options | (A) LOCAL ON DEV (B) rester OFF |
++| Recommandation | A en DEV uniquement après revue |
++| Risque résiduel | Métadonnées allowlist — pas de prompts |
++| Enveloppe | `SFIA_AGENTS_TRACING_MODE=local` ; processors locaux |
++| Rollback | MODE=off |
++| Action Morris | Autoriser activation locale |
++| Statut | **PROPOSABLE** — opérationnel OFF |
++
++## G-WEB-PUBLIC / A3
++
++| | |
++|---|---|
++| Objet | Niveau d’enveloppe hosted WEB avant campagne LIVE bornée |
++| Prérequis | F15 déterministe ; WEB OFF exploit |
++| Preuves | Frontier UNKNOWN→MEASURED=PARTIAL ; max_tool_calls injection ; dossier A3 |
++| Options | Voir `dossier-g-web-public-a3-20261127.md` Option 1 vs 2 |
++| Recommandation | Option 2 (pré-réserve contrôlable + mesure a posteriori + risque explicite) |
++| Risque résiduel | Destinations hosted ≠ egress B1 |
++| Enveloppe | Requêtes publiques non sensibles ; STOP documenté |
++| Rollback | WEB OFF |
++| Action Morris | Choisir option + accepter risque résiduel |
++| Statut | **FERMÉ** |
++
++## G-NATIVE-CONTINUITY
++
++| | |
++|---|---|
++| Objet | Autoriser variantes native (`previous_response_id` / cache / compaction) vs reconstruction Studio |
++| Prérequis | Données D3 réelles raccordées ; DATA-01 ; pas de store=true sans arbitrage |
++| Preuves | `buildStudioContinuityFromWork` ; continuityChain null ; OFF ; tests unit + campagne |
++| Options | (A) Comparatif substitué puis LIVE borné (B) rester reconstruction (C) pivot DATA-01 |
++| Recommandation | A — comparer sans adopter tous les mécanismes |
++| Risque résiduel | Rétention fournisseur / permissions non prouvées |
++| Enveloppe | Intervention 2 après GO |
++| Rollback | Reconstruction Studio |
++| Action Morris | Autoriser campagne comparative |
++| Statut | **PROPOSABLE** — opérationnel OFF |
++
++## G-PROVIDER-LIVE-QUALIFICATION
++
++| | |
++|---|---|
++| Objet | Campagne intégrée DEV avec effets fournisseur réels |
++| Prérequis | Gates Admin/Tracing/WEB/Continuity selon dépendances |
++| Preuves | Campagne substituée Intervention 1 PASS |
++| Options | Reporter jusqu’aux gates amont |
++| Recommandation | Intervention 2 uniquement |
++| Risque résiduel | Coût/latence réels |
++| Enveloppe | Corpus, modèles, STOP — à figer au GO |
++| Rollback | Couper clés / modes OFF |
++| Action Morris | GO Intervention 2 distinct |
++| Statut | **FERMÉ** |
++
++## RECETTE / promotions
++
++**HORS AUTORISATION** — worktree figé, port 3200, PG 5434 non touchés.
++
++---
++
++## Chemin critique Intervention 2 (après gates)
++
++1. Morris lève G-ADMIN-SECRET (secret hors Git).
++2. Morris lève G-ADMIN-LIVE (enveloppe exacte).
++3. Collecte LIVE bornée → PG LIVE provenance.
++4. FinOps COMPARABLE sur données LIVE (si droits Pilote).
++5. Optionnel : G-TRACING-LOCAL ON DEV.
++6. Morris tranche G-WEB-PUBLIC/A3 → scénario LIVE public borné.
++7. Morris autorise G-NATIVE-CONTINUITY comparative.
++8. G-PROVIDER-LIVE-QUALIFICATION — scénario intégré réel.
++9. Preuves → revue → **pas** de RECETTE/STABLE sans GO distinct.
++
++Rollback global : tous modes OFF ; clés révoquables ; DEV isolé.
+diff --git a/projects/sfia-studio-next/construction/convergence-openai-studio/roadmap-delta-ml1-candidate-20261127.md b/projects/sfia-studio-next/construction/convergence-openai-studio/roadmap-delta-ml1-candidate-20261127.md
+new file mode 100644
+index 00000000..ddda3dbf
+--- /dev/null
++++ b/projects/sfia-studio-next/construction/convergence-openai-studio/roadmap-delta-ml1-candidate-20261127.md
+@@ -0,0 +1,21 @@
++# Proposition de delta Roadmap — Macro-lot 1 (NON APPLIQUÉE)
++
++| Champ | Valeur |
++|---|---|
++| Date | 2026-11-27 |
++| Statut | **CANDIDATE — NOT APPLIED** · pas de modification de `governance/roadmap.md` |
++| Autorité | Morris (D2) |
++
++## Delta proposé (texte candidat)
++
++Sous R5 / ML5 / Convergence OpenAI–Studio :
++
++- Macro-lot 1 — Socle fournisseur natif et observabilité : **construction DEV complétée** ; qualification LIVE gouvernée **en attente des gates consolidés** (Intervention 2).
++- Gates regroupés : G-ADMIN-SECRET · G-ADMIN-LIVE · G-FINOPS-UX · G-TRACING-LOCAL · G-WEB-PUBLIC/A3 · G-NATIVE-CONTINUITY · G-PROVIDER-LIVE-QUALIFICATION.
++- Macro-lots 2/3 : **non engagés**.
++- RECETTE / STABLE / ADOPTED : inchangés.
++- Version produit : **NO RELEASE** · STABLE NOT AVAILABLE.
++
++## Condition
++
++N’appliquer qu’après revue Morris du dossier gates et verdict ChatGPT.
 diff --git a/projects/sfia-studio-next/construction/convergence-openai-studio/ux-delta-finops-page13-candidate.md b/projects/sfia-studio-next/construction/convergence-openai-studio/ux-delta-finops-page13-candidate.md
-index 9d5284ed..bc06e2af 100644
+index bc06e2af..04ae1b7a 100644
 --- a/projects/sfia-studio-next/construction/convergence-openai-studio/ux-delta-finops-page13-candidate.md
 +++ b/projects/sfia-studio-next/construction/convergence-openai-studio/ux-delta-finops-page13-candidate.md
-@@ -3,20 +3,39 @@
+@@ -1,42 +1,59 @@
+-# Delta UX candidat — FinOps page 13 (Figma)
++# Delta UX candidat — FinOps page 13 (Figma inspectée RO)
+
  | Champ | Valeur |
  |---|---|
  | Référence | https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=1332-2305 |
--| Statut | **CANDIDATE — NOT APPLIED** (mandat §10.7 : validation Morris avant code UI) |
--| Backend | `providerReconciliation` déjà exposé dans `/api/finops/summary` |
-+| Statut | **CANDIDATE — NOT APPLIED** · **G-FINOPS-UX fermé** |
-+| Backend | `providerReconciliation` via `/api/finops/summary` |
-+| Inspection Figma | Non rejouée dans ce cycle — limite documentée ; pas d’invention visuelle |
-
--## Proposition de restitution
-+## Orientation Morris (conservée)
-
--Conserver la page 13 existante. Ajouter une section secondaire (hors hero) :
-+Préserver rail, composants, hiérarchie et conventions de la cible validée.
-+Aucun nouveau cockpit financier. Aucun plafond / crédit / rechargement.
-
--1. **Estimation Studio** (inchangé) — travaux / tokens / USD estimés.
--2. **Coût fournisseur** — montant agrégé + devise + période, ou état `Indisponible`.
--3. **Écart** — uniquement si `comparability=COMPARABLE` ; sinon libellé `Non comparable` + limite.
--4. **Fraîcheur** — dernière collecte réussie / partielle / bloquée (pas de secret).
--5. **États d’erreur** — `OPENAI_ADMIN_KEY_ABSENT`, sync partielle, mapping lane non prouvé.
-+## Mapping états → restitution
-
--Aucune fausse précision. Aucun plafond monétaire produit. Pas de second écran FinOps.
-+| Zone | Données | États |
++| fileKey / node | `itgvCulInEnFY6DvgIegvP` / `1332:2305` |
++| Inspection | **2026-11-27** — `get_screenshot` + `get_metadata` (session RO) |
++| Empreinte locale | `.tmp-sfia-review/figma/page13-finops.png` (995×1280 render) |
+ | Statut | **CANDIDATE — NOT APPLIED** · **G-FINOPS-UX fermé** |
+-| Backend | `providerReconciliation` via `/api/finops/summary` |
+-| Inspection Figma | Non rejouée dans ce cycle — limite documentée ; pas d’invention visuelle |
++| Backend | `providerReconciliation` via `/api/finops/summary` (service-path evaluator) |
++
++## Structure Figma observée (frames)
++
++| Frame | Id | Rôle |
 +|---|---|---|
-+| Estimation Studio | `studioEstimatedUsd` / kind | known · partial · empty · unknown |
-+| Coût fournisseur agrégé | `providerCostUsd` + `providerCurrency` | montant LIVE autorisé · Indisponible · Non autorisé |
-+| Période | fenêtre UTC de comparaison | affichée seulement si `periodEqual` ou fenêtre explicite |
-+| Fraîcheur | `freshness` scoped au périmètre | READY · PARTIAL · IDLE · ERROR |
-+| Comparabilité | `comparability` | COMPARABLE · NON_COMPARABLE · PARTIAL · UNAVAILABLE |
-+| Écart | `deltaUsd` | **uniquement** si COMPARABLE |
-+| Partiel / indisponible | `limits[]` sanitised | libellés métier, jamais secrets |
++| 13.01 / 13.02 | Intégrations | Rail + menu paramètres (contexte navigation) |
++| **13.03** | Consommation et coûts — synthèse | Surface cible du delta |
++| 13.04 | Synthèse + menu ouvert | Même surface, état rail |
++| 13.05 | Inspection d’un travail | Détail travail (hors delta agrégé) |
++| 13.06 | Aucune donnée | Empty state à préserver |
 +
-+## Hiérarchie proposée (secondaire, hors hero)
++Composants réutilisés observés : `FinOps / Indicateur`, `FinOps / Filtre`, `FinOps / Ligne travail`, rail personnel Paramètres.
+
+ ## Orientation Morris (conservée)
+
+-Préserver rail, composants, hiérarchie et conventions de la cible validée.
++Préserver rail, shell, tokens, hiérarchie et conventions de la cible validée.
+ Aucun nouveau cockpit financier. Aucun plafond / crédit / rechargement.
++**Ne pas modifier la cible Figma** avant G-FINOPS-UX.
 +
-+1. Estimation Studio (existant)
-+2. Coût fournisseur agrégé autorisé (nouveau bloc secondaire)
-+3. Période + fraîcheur
-+4. Comparabilité / écart conditionnel
-+5. Message données partielles ou indisponibles
-+
-+## Non-régression
-+
-+Interface actuelle conservée tant que G-FINOPS-UX n’est pas levé.
-+Smoke HTTP `/settings/consumption` = 200 sur le build courant.
++## Proposition visuelle (bloc secondaire sous KPIs 13.03)
+
+-## Mapping états → restitution
++Insérer **sous** la rangée des 4 indicateurs existants (Coût estimé / Jetons / Travaux / Couverture), **au-dessus** des graphiques « Évolution » / « Répartition », un bandeau secondaire unique :
+
+-| Zone | Données | États |
++| Zone UI | Donnée API | États affichés |
+ |---|---|---|
+-| Estimation Studio | `studioEstimatedUsd` / kind | known · partial · empty · unknown |
+-| Coût fournisseur agrégé | `providerCostUsd` + `providerCurrency` | montant LIVE autorisé · Indisponible · Non autorisé |
+-| Période | fenêtre UTC de comparaison | affichée seulement si `periodEqual` ou fenêtre explicite |
+-| Fraîcheur | `freshness` scoped au périmètre | READY · PARTIAL · IDLE · ERROR |
++| Estimation Studio | `studioEstimatedUsd` + `studioEstimationKind` | known · partial · empty · unknown |
++| Coût fournisseur agrégé | `providerCostUsd` + `providerCurrency` | montant LIVE autorisé · Indisponible · Non autorisé (jamais de montant si non `disclosed`) |
++| Période | fenêtre UTC de comparaison | affichée si fenêtre explicite / periodEqual |
++| Fraîcheur | `freshness.status` + scoped count | READY · PARTIAL · IDLE · ERROR |
+ | Comparabilité | `comparability` | COMPARABLE · NON_COMPARABLE · PARTIAL · UNAVAILABLE |
+-| Écart | `deltaUsd` | **uniquement** si COMPARABLE |
+-| Partiel / indisponible | `limits[]` sanitised | libellés métier, jamais secrets |
++| Écart | `deltaUsd` | **uniquement** si COMPARABLE + disclosed |
++| Limites métier | `limits[]` sanitised | libellés métier, jamais secrets |
+
+-## Hiérarchie proposée (secondaire, hors hero)
++Mapping composants Figma → code (après GO) :
+
+-1. Estimation Studio (existant)
+-2. Coût fournisseur agrégé autorisé (nouveau bloc secondaire)
+-3. Période + fraîcheur
+-4. Comparabilité / écart conditionnel
+-5. Message données partielles ou indisponibles
++| Figma | Code candidat |
++|---|---|
++| `FinOps / Indicateur` (réemploi style) | Sous-bandeau textuel / 2 micro-indicateurs (Studio vs Fournisseur) — **pas** 4 nouveaux KPI hero |
++| Filtres existants | Inchangés (période / projet / modèle) |
++| Empty 13.06 | Si `UNAVAILABLE` sans estimation : conserver empty ; si estimation seule : afficher Studio + « Coût fournisseur indisponible » |
+
+ ## Non-régression
+
+-Interface actuelle conservée tant que G-FINOPS-UX n’est pas levé.
+-Smoke HTTP `/settings/consumption` = 200 sur le build courant.
++Interface actuelle (`FinOpsConsumptionPanel`) **ne consomme pas encore** `providerReconciliation` en UI — backend prêt, UI inchangée jusqu’au GO.
++Smoke HTTP `/settings/consumption` à rejouer sur le build final.
 
  ## GO demandé
 
+-Validation Morris du delta avant transposition Figma → code.
++Validation Morris unique de ce delta (visuel + mapping) avant transposition Figma → code.
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index e5329d5d..86e7627b 100644
+index 86e7627b..b471a4e5 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -3,6 +3,22 @@
+@@ -3,6 +3,20 @@
  Append-only logical journal of Cursor product deliveries.
  **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
-+## delivery_id: DELIV-2026-11-26-OPENAI-STUDIO-CONVERGENCE-ML1-ADMIN-FINOPS-QUAL
++## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML1-INTEGRATED-COMPLETION
 +
-+- **date_utc**: 2026-11-26T21:45Z
-+- **lane**: DEV — Admin & FinOps qualification
++- **date_utc**: 2026-11-27T01:50Z
++- **lane**: DEV — Macro-lot 1 integrated foundation completion (Intervention 1)
 +- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
-+- **HEAD_initial**: `106c6392c39ff1741eea729fe594ae8d12cdc9d3`
-+- **focus**: snapshot integrity ; provenance TEST/LIVE ; PG roles exercised ; envelope ; periodEqual COMPARABLE ; restore proof ; Admin LIVE dossier (not executed)
-+- **migration**: `024_provider_admin_snapshot_provenance.sql` additive
-+- **BUILD_ID**: `8eXiN6NO94261FxSLnuuj` · digest `2d613f2ddf83fc0747236ecd1a7822ddeb707ced89f43e1a046ca8d04ea3506c`
-+- **DEV**: `127.0.0.1:3100` pid 11160 · RECETTE pid 89199 intacte
-+- **tests**: 21 PASS (unit 13 · PG snapshots 2 · Admin/FinOps qual 6) · restore probe 44 tables
-+- **gates**: G-ADMIN-SECRET proposable si readiness ; G-ADMIN-LIVE fermé ; G-FINOPS-UX fermé
++- **HEAD_initial**: `348cf6bd1f55c2f84ebcc079b7e8c10acb276d47`
++- **web_tree_initial**: `54863eda3c7311e51d36237d59d3b7c078baad0a`
++- **focus**: PG credential remédiation · provenance canon · FinOps service-path · real SDK tracing · D3 continuity owner data · A3/gates dossier · Figma RO UX · campagne substituée
++- **migration**: `025_provider_admin_security_and_canon.sql` additive · 024 passwords stripped
++- **tests**: unit FinOps/D3/tracing PASS · Admin/FinOps PG 7 PASS · frontier/continuity/admin 63 PASS · integrated campaign 2 PASS
++- **gates_dossier**: `construction/convergence-openai-studio/dossier-gates-morris-consolide-ml1-20261127.md`
 +- **web_live**: OFF · push projet NON · NO RELEASE · NOT ADOPTED
-+- **procedure**: `construction/convergence-openai-studio/procedure-admin-live-qualification-candidate.md`
-+- **statut**: **ADMIN COLLECTOR — READY FOR SECURE PROVISIONING AND BOUNDED LIVE QUALIFICATION** (technique DEV ; LIVE non exécuté)
++- **statut**: **MACRO-LOT 1 — INTEGRATED FOUNDATION COMPLETED — READY FOR CONSOLIDATED MORRIS GATES** (LIVE non exécuté)
 +
- ## delivery_id: DELIV-2026-11-26-OPENAI-STUDIO-CONVERGENCE-ML1-OPERATIONAL
+ ## delivery_id: DELIV-2026-11-26-OPENAI-STUDIO-CONVERGENCE-ML1-ADMIN-FINOPS-QUAL
 
- - **date_utc**: 2026-11-26T20:30Z
+ - **date_utc**: 2026-11-26T21:45Z
 diff --git a/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md b/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
-index 18a320e8..99cfd171 100644
+index 99cfd171..d0f33ce6 100644
 --- a/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
 +++ b/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
 @@ -4,7 +4,7 @@
 
  | Champ | Valeur |
  |---|---|
--| Version | v0.17 candidate — 26 novembre 2026 : Macro-lot 1 convergence OpenAI operational DEV foundation (Admin TEST/LIVE split · PG snapshots 023 · FinOps evidence · frontier PARTIAL · D3 continuity bind · real SDK tracing oracle · BUILD `cUOHTek8qSni3vSYXOTWZ`) — **OPERATIONAL DEV FOUNDATION PROVEN / LIVE GATES REMAIN** ; v0.16 : R5 frontière production documentaire |
-+| Version | v0.18 candidate — 26 novembre 2026 : Admin/FinOps qualification (snapshot integrity · provenance · PG roles · periodEqual COMPARABLE · restore proof · Admin LIVE dossier) — **ADMIN READY FOR SECURE PROVISIONING / LIVE NOT EXECUTED** ; v0.17 : operational DEV foundation |
+-| Version | v0.18 candidate — 26 novembre 2026 : Admin/FinOps qualification (snapshot integrity · provenance · PG roles · periodEqual COMPARABLE · restore proof · Admin LIVE dossier) — **ADMIN READY FOR SECURE PROVISIONING / LIVE NOT EXECUTED** ; v0.17 : operational DEV foundation |
++| Version | v0.19 candidate — 27 novembre 2026 : Integrated foundation completion (025 security+canon · FinOps service-path · real SDK tracing · D3 owner continuity · A3/gates · campagne substituée) — **MACRO-LOT 1 READY FOR CONSOLIDATED MORRIS GATES** ; v0.18 : Admin/FinOps qualification (snapshot integrity · provenance · PG roles · periodEqual COMPARABLE · restore proof · Admin LIVE dossier) — **ADMIN READY FOR SECURE PROVISIONING / LIVE NOT EXECUTED** ; v0.17 : operational DEV foundation |
  | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
  | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
  | Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |
 diff --git a/projects/sfia-studio-next/web/scripts/db-migrate.sh b/projects/sfia-studio-next/web/scripts/db-migrate.sh
-index a0e8233e..40da8bbe 100755
+index 40da8bbe..239dc5a2 100755
 --- a/projects/sfia-studio-next/web/scripts/db-migrate.sh
 +++ b/projects/sfia-studio-next/web/scripts/db-migrate.sh
-@@ -41,4 +41,5 @@ apply "020_cognitive_work.sql"
- apply "021_cognitive_contract_filiation.sql"
+@@ -42,4 +42,5 @@ apply "021_cognitive_contract_filiation.sql"
  apply "022_provider_usage_observations.sql"
  apply "023_provider_admin_usage_snapshots.sql"
--echo "db:migrate OK (001→023)"
-+apply "024_provider_admin_snapshot_provenance.sql"
-+echo "db:migrate OK (001→024)"
+ apply "024_provider_admin_snapshot_provenance.sql"
+-echo "db:migrate OK (001→024)"
 \ No newline at end of file
-diff --git a/projects/sfia-studio-next/web/scripts/finops-admin-collect.mts b/projects/sfia-studio-next/web/scripts/finops-admin-collect.mts
-index 75b033a6..d0d4fdfb 100644
---- a/projects/sfia-studio-next/web/scripts/finops-admin-collect.mts
-+++ b/projects/sfia-studio-next/web/scripts/finops-admin-collect.mts
-@@ -52,6 +52,8 @@ async function main(): Promise<void> {
-   const live = isAdminLiveAuthorized(process.env);
-   const dry = process.argv.includes("--dry-substituted");
-   const persist = !process.argv.includes("--no-persist");
-+  const end = arg("--end-time");
-+  const projectId = arg("--project-id");
-
-   if (!live && !dry) {
-     console.log(
-@@ -79,8 +81,9 @@ async function main(): Promise<void> {
-       path,
-       query: {
-         start_time: start,
-+        ...(end ? { end_time: end } : {}),
-         bucket_width: arg("--bucket-width") ?? "1d",
--        ...(arg("--project-id") ? { project_ids: arg("--project-id")! } : {}),
-+        ...(projectId ? { project_ids: projectId } : {}),
-       },
-       persistToPg: persist,
-     });
-@@ -127,6 +130,29 @@ async function main(): Promise<void> {
-     return;
-   }
-
-+  if (!end) {
-+    console.log(
-+      JSON.stringify({
-+        status: "ERROR",
-+        lastError: "MISSING_END_TIME",
-+        limits: ["LIVE_ENVELOPE_REQUIRES_END_TIME"],
-+      }),
-+    );
-+    process.exitCode = 2;
-+    return;
-+  }
-+  if (!projectId) {
-+    console.log(
-+      JSON.stringify({
-+        status: "ERROR",
-+        lastError: "MISSING_PROJECT_ID",
-+        limits: ["LIVE_ENVELOPE_REQUIRES_PROJECT_FILTER"],
-+      }),
-+    );
-+    process.exitCode = 2;
-+    return;
-+  }
-+
-   const result = await runAdminCollection({
-     config: resolveIsolatedAdminCollectorConfig({
-       adminApiKey: key,
-@@ -137,10 +163,12 @@ async function main(): Promise<void> {
-     path,
-     query: {
-       start_time: start,
-+      end_time: end,
-       bucket_width: arg("--bucket-width") ?? "1d",
--      ...(arg("--project-id") ? { project_ids: arg("--project-id")! } : {}),
-+      project_ids: projectId,
-     },
-     persistToPg: persist,
-+    requireEndTime: true,
-   });
-
-   console.log(
++apply "025_provider_admin_security_and_canon.sql"
++echo "db:migrate OK (001→025)"
+\ No newline at end of file
 diff --git a/projects/sfia-studio-next/web/src/db/migrations/024_provider_admin_snapshot_provenance.sql b/projects/sfia-studio-next/web/src/db/migrations/024_provider_admin_snapshot_provenance.sql
-new file mode 100644
-index 00000000..b212d7d9
---- /dev/null
+index b212d7d9..f22349e8 100644
+--- a/projects/sfia-studio-next/web/src/db/migrations/024_provider_admin_snapshot_provenance.sql
 +++ b/projects/sfia-studio-next/web/src/db/migrations/024_provider_admin_snapshot_provenance.sql
-@@ -0,0 +1,68 @@
-+-- ML1 Admin/FinOps qualification — additive provenance + integrity helpers.
-+-- Does NOT rewrite 023. No DROP/DELETE of snapshot rows.
-+-- Existing 023 rows get provenance='UNKNOWN' (excluded from LIVE FinOps projections).
+@@ -25,44 +25,33 @@ ALTER TABLE provider_admin_usage_snapshots
+ CREATE INDEX IF NOT EXISTS provider_admin_usage_snapshots_provenance_idx
+   ON provider_admin_usage_snapshots (collection_provenance, organization_scope);
+
+--- LOGIN roles for exercised permission proofs (DEV only). Passwords set by operator script.
++-- NOLOGIN group roles only — never embed passwords in SQL (remédiation post-024).
++-- Permission proofs use SET ROLE as owner; LOGIN enablement is operator-local only.
+ DO $$
+ BEGIN
+-  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_admin_collector_login') THEN
+-    CREATE ROLE sfia_admin_collector_login LOGIN PASSWORD '[REDACTED_COMPROMISED_SECRET]';
++  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_admin_collector') THEN
++    CREATE ROLE sfia_admin_collector NOLOGIN;
+   END IF;
+-  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_finops_reader_login') THEN
+-    CREATE ROLE sfia_finops_reader_login LOGIN PASSWORD '[REDACTED_COMPROMISED_SECRET]';
++  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_finops_reader') THEN
++    CREATE ROLE sfia_finops_reader NOLOGIN;
++  END IF;
++  -- Legacy login role names (if present from earlier 024): force NOLOGIN, no password in SQL.
++  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_admin_collector_login') THEN
++    ALTER ROLE sfia_admin_collector_login WITH NOLOGIN;
++  END IF;
++  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_finops_reader_login') THEN
++    ALTER ROLE sfia_finops_reader_login WITH NOLOGIN;
+   END IF;
+ END$$;
+
+-GRANT sfia_admin_collector TO sfia_admin_collector_login;
+-GRANT sfia_finops_reader TO sfia_finops_reader_login;
+-GRANT USAGE ON SCHEMA public TO sfia_admin_collector_login;
+-GRANT USAGE ON SCHEMA public TO sfia_finops_reader_login;
+--- CONNECT on current database only (DEV operator or e2e isolate).
+-DO $$
+-BEGIN
+-  EXECUTE format(
+-    'GRANT CONNECT ON DATABASE %I TO sfia_admin_collector_login',
+-    current_database()
+-  );
+-  EXECUTE format(
+-    'GRANT CONNECT ON DATABASE %I TO sfia_finops_reader_login',
+-    current_database()
+-  );
+-END$$;
++GRANT USAGE ON SCHEMA public TO sfia_admin_collector;
++GRANT USAGE ON SCHEMA public TO sfia_finops_reader;
+
+ -- Ensure collector cannot touch Studio attribution ledger / pilots.
+ REVOKE ALL ON TABLE provider_usage_observations FROM sfia_admin_collector;
+-REVOKE ALL ON TABLE provider_usage_observations FROM sfia_admin_collector_login;
+ REVOKE ALL ON TABLE pilots FROM sfia_admin_collector;
+-REVOKE ALL ON TABLE pilots FROM sfia_admin_collector_login;
+ REVOKE ALL ON TABLE projects FROM sfia_admin_collector;
+-REVOKE ALL ON TABLE projects FROM sfia_admin_collector_login;
+
+ -- Reader cannot write snapshots.
+ REVOKE INSERT, UPDATE, DELETE ON provider_admin_usage_snapshots FROM sfia_finops_reader;
+ REVOKE INSERT, UPDATE, DELETE ON provider_admin_collection_runs FROM sfia_finops_reader;
+-REVOKE INSERT, UPDATE, DELETE ON provider_admin_usage_snapshots FROM sfia_finops_reader_login;
+-REVOKE INSERT, UPDATE, DELETE ON provider_admin_collection_runs FROM sfia_finops_reader_login;
+diff --git a/projects/sfia-studio-next/web/src/db/migrations/025_provider_admin_security_and_canon.sql b/projects/sfia-studio-next/web/src/db/migrations/025_provider_admin_security_and_canon.sql
+new file mode 100644
+index 00000000..66ee56d7
+--- /dev/null
++++ b/projects/sfia-studio-next/web/src/db/migrations/025_provider_admin_security_and_canon.sql
+@@ -0,0 +1,65 @@
++-- ML1 integrated completion — security remédiation + provenance in canonical identity.
++-- Additive DEV only. No DROP of data rows. No RECETTE touch.
++--
++-- SECURITY: LOGIN roles created by 024 with hardcoded passwords are treated as
++-- compromised. This migration forces NOLOGIN (invalidates password auth) and
++-- removes any requirement for secrets in SQL. Operator may later enable LOGIN
++-- via a non-git local script reading secrets from the OS keychain / env — never
++-- from migration files.
++--
++-- Note: historical 024 file is also corrected so NEW installs never reintroduce
++-- hardcoded passwords. Applied 024 environments are remediated here.
 +
-+ALTER TABLE provider_admin_collection_runs
-+  ADD COLUMN IF NOT EXISTS collection_provenance text NOT NULL DEFAULT 'UNKNOWN';
-+
-+ALTER TABLE provider_admin_collection_runs
-+  DROP CONSTRAINT IF EXISTS provider_admin_collection_runs_provenance_check;
-+
-+ALTER TABLE provider_admin_collection_runs
-+  ADD CONSTRAINT provider_admin_collection_runs_provenance_check
-+  CHECK (collection_provenance IN ('TEST_SUBSTITUTED', 'LIVE', 'UNKNOWN'));
-+
-+ALTER TABLE provider_admin_usage_snapshots
-+  ADD COLUMN IF NOT EXISTS collection_provenance text NOT NULL DEFAULT 'UNKNOWN';
-+
-+ALTER TABLE provider_admin_usage_snapshots
-+  DROP CONSTRAINT IF EXISTS provider_admin_usage_snapshots_provenance_check;
-+
-+ALTER TABLE provider_admin_usage_snapshots
-+  ADD CONSTRAINT provider_admin_usage_snapshots_provenance_check
-+  CHECK (collection_provenance IN ('TEST_SUBSTITUTED', 'LIVE', 'UNKNOWN'));
-+
-+CREATE INDEX IF NOT EXISTS provider_admin_usage_snapshots_provenance_idx
-+  ON provider_admin_usage_snapshots (collection_provenance, organization_scope);
-+
-+-- LOGIN roles for exercised permission proofs (DEV only). Passwords set by operator script.
++-- 1) Invalidate compromised LOGIN capability (password auth no longer usable).
 +DO $$
 +BEGIN
-+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_admin_collector_login') THEN
-+    CREATE ROLE sfia_admin_collector_login LOGIN PASSWORD 'sfia_dev_collector_only';
++  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_admin_collector_login') THEN
++    ALTER ROLE sfia_admin_collector_login WITH NOLOGIN;
 +  END IF;
-+  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_finops_reader_login') THEN
-+    CREATE ROLE sfia_finops_reader_login LOGIN PASSWORD 'sfia_dev_finops_read_only';
++  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_finops_reader_login') THEN
++    ALTER ROLE sfia_finops_reader_login WITH NOLOGIN;
 +  END IF;
 +END$$;
 +
-+GRANT sfia_admin_collector TO sfia_admin_collector_login;
-+GRANT sfia_finops_reader TO sfia_finops_reader_login;
-+GRANT USAGE ON SCHEMA public TO sfia_admin_collector_login;
-+GRANT USAGE ON SCHEMA public TO sfia_finops_reader_login;
-+-- CONNECT on current database only (DEV operator or e2e isolate).
++-- Prefer NOLOGIN role objects for grant tests (SET ROLE as superuser/owner).
++-- Keep named group roles; login clones stay NOLOGIN until operator re-enables safely.
 +DO $$
 +BEGIN
-+  EXECUTE format(
-+    'GRANT CONNECT ON DATABASE %I TO sfia_admin_collector_login',
-+    current_database()
-+  );
-+  EXECUTE format(
-+    'GRANT CONNECT ON DATABASE %I TO sfia_finops_reader_login',
-+    current_database()
-+  );
++  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_admin_collector') THEN
++    CREATE ROLE sfia_admin_collector NOLOGIN;
++  END IF;
++  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'sfia_finops_reader') THEN
++    CREATE ROLE sfia_finops_reader NOLOGIN;
++  END IF;
 +END$$;
 +
-+-- Ensure collector cannot touch Studio attribution ledger / pilots.
++-- 2) Canonical uniqueness MUST include provenance so TEST/LIVE/UNKNOWN never collide.
++DROP INDEX IF EXISTS provider_admin_usage_snapshots_canon_uidx;
++
++CREATE UNIQUE INDEX provider_admin_usage_snapshots_canon_uidx
++  ON provider_admin_usage_snapshots (
++    source_endpoint,
++    surface_object,
++    organization_scope,
++    interval_start_utc,
++    interval_end_utc,
++    granularity,
++    project_id,
++    api_key_id,
++    user_id,
++    model,
++    line_item,
++    api_source,
++    collection_provenance
++  ) NULLS NOT DISTINCT;
++
++-- Re-assert least privilege (idempotent).
++GRANT SELECT, INSERT, UPDATE ON provider_admin_collection_runs TO sfia_admin_collector;
++GRANT SELECT, INSERT, UPDATE ON provider_admin_usage_snapshots TO sfia_admin_collector;
++GRANT SELECT ON provider_admin_collection_runs TO sfia_finops_reader;
++GRANT SELECT ON provider_admin_usage_snapshots TO sfia_finops_reader;
 +REVOKE ALL ON TABLE provider_usage_observations FROM sfia_admin_collector;
-+REVOKE ALL ON TABLE provider_usage_observations FROM sfia_admin_collector_login;
 +REVOKE ALL ON TABLE pilots FROM sfia_admin_collector;
-+REVOKE ALL ON TABLE pilots FROM sfia_admin_collector_login;
 +REVOKE ALL ON TABLE projects FROM sfia_admin_collector;
-+REVOKE ALL ON TABLE projects FROM sfia_admin_collector_login;
-+
-+-- Reader cannot write snapshots.
 +REVOKE INSERT, UPDATE, DELETE ON provider_admin_usage_snapshots FROM sfia_finops_reader;
 +REVOKE INSERT, UPDATE, DELETE ON provider_admin_collection_runs FROM sfia_finops_reader;
-+REVOKE INSERT, UPDATE, DELETE ON provider_admin_usage_snapshots FROM sfia_finops_reader_login;
-+REVOKE INSERT, UPDATE, DELETE ON provider_admin_collection_runs FROM sfia_finops_reader_login;
 diff --git a/projects/sfia-studio-next/web/src/db/schema.ts b/projects/sfia-studio-next/web/src/db/schema.ts
-index c1990dc9..11070e9c 100644
+index 11070e9c..d34e5de0 100644
 --- a/projects/sfia-studio-next/web/src/db/schema.ts
 +++ b/projects/sfia-studio-next/web/src/db/schema.ts
-@@ -1177,6 +1177,7 @@ export const providerAdminCollectionRuns = pgTable("provider_admin_collection_ru
-   organizationScope: text("organization_scope").notNull(),
-   limitsJson: jsonb("limits_json").$type<string[]>().notNull().default([]),
-   lastError: text("last_error"),
-+  collectionProvenance: text("collection_provenance").notNull().default("UNKNOWN"),
- });
-
- export const providerAdminUsageSnapshots = pgTable(
-@@ -1210,6 +1211,9 @@ export const providerAdminUsageSnapshots = pgTable(
-     currency: text("currency"),
-     completeness: text("completeness").notNull(),
-     schemaVersion: text("schema_version").notNull().default("2"),
-+    collectionProvenance: text("collection_provenance")
-+      .notNull()
-+      .default("UNKNOWN"),
-   },
-   (t) => [
-     index("provider_admin_usage_snapshots_org_interval_idx").on(
-@@ -1217,7 +1221,11 @@ export const providerAdminUsageSnapshots = pgTable(
-       t.intervalStartUtc,
-     ),
-     index("provider_admin_usage_snapshots_collection_idx").on(t.collectionId),
-+    index("provider_admin_usage_snapshots_provenance_idx").on(
-+      t.collectionProvenance,
-+      t.organizationScope,
-+    ),
+@@ -1228,4 +1228,4 @@ export const providerAdminUsageSnapshots = pgTable(
    ],
  );
 
--export const schemaRevision = "023_provider_admin_usage_snapshots";
-+export const schemaRevision = "024_provider_admin_snapshot_provenance";
+-export const schemaRevision = "024_provider_admin_snapshot_provenance";
 \ No newline at end of file
-diff --git a/projects/sfia-studio-next/web/src/domains/finops/provider-admin-http-transport.ts b/projects/sfia-studio-next/web/src/domains/finops/provider-admin-http-transport.ts
-index f554dacf..a2c12d4f 100644
---- a/projects/sfia-studio-next/web/src/domains/finops/provider-admin-http-transport.ts
-+++ b/projects/sfia-studio-next/web/src/domains/finops/provider-admin-http-transport.ts
-@@ -41,6 +41,47 @@ function sanitizeErrorMessage(status: number, bodyText: string): string {
-   return `ADMIN_HTTP_${status}:${clipped}`;
++export const schemaRevision = "025_provider_admin_security_and_canon";
+\ No newline at end of file
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/provider-response-continuity.ts b/projects/sfia-studio-next/web/src/domains/conversation/provider-response-continuity.ts
+index 92527beb..9ebbe06b 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/provider-response-continuity.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/provider-response-continuity.ts
+@@ -153,6 +153,64 @@ export function planProviderContinuity(input: {
+   };
  }
 
-+/** Bound body while receiving — not only after full arrayBuffer(). */
-+async function readBodyBounded(
-+  res: Response,
-+  maxBytes: number,
-+): Promise<string> {
-+  if (!res.body) {
-+    const text = await res.text();
-+    if (new TextEncoder().encode(text).byteLength > maxBytes) {
-+      throw new Error("ADMIN_RESPONSE_TOO_LARGE");
-+    }
-+    return text;
-+  }
-+  const reader = res.body.getReader();
-+  const chunks: Uint8Array[] = [];
-+  let total = 0;
-+  // eslint-disable-next-line no-constant-condition
-+  while (true) {
-+    const { done, value } = await reader.read();
-+    if (done) break;
-+    if (value) {
-+      total += value.byteLength;
-+      if (total > maxBytes) {
-+        try {
-+          await reader.cancel();
-+        } catch {
-+          /* ignore */
-+        }
-+        throw new Error("ADMIN_RESPONSE_TOO_LARGE");
-+      }
-+      chunks.push(value);
-+    }
-+  }
-+  const merged = new Uint8Array(total);
-+  let offset = 0;
-+  for (const c of chunks) {
-+    merged.set(c, offset);
-+    offset += c.byteLength;
-+  }
-+  return new TextDecoder().decode(merged);
++/**
++ * Build Studio continuity snapshot from the real D3 work owner — not placeholders.
++ */
++export function buildStudioContinuityFromWork(
++  work: {
++    id: string;
++    revision: number;
++    ownerToken: string | null;
++    leaseUntil: Date | null;
++    state: {
++      intentSummary?: string;
++      conclusions?: string[];
++      sources?: Array<{ ref: string; versionOrSha?: string | null }>;
++    };
++    resources: {
++      inputTokens?: number | null;
++      outputTokens?: number | null;
++      segmentCalls?: number;
++    };
++  },
++  _policy?: unknown,
++): StudioContinuitySnapshot {
++  const conclusions = work.state.conclusions ?? [];
++  const acquisFingerprint =
++    conclusions.length > 0
++      ? `acq:${work.revision}:${conclusions
++          .slice(0, 3)
++          .map((c) => c.slice(0, 40))
++          .join("|")}`
++      : work.state.intentSummary
++        ? `acq:${work.revision}:intent:${work.state.intentSummary.slice(0, 64)}`
++        : null;
++  const sourceVersions = (work.state.sources ?? [])
++    .map((s) => {
++      const ver = (s.versionOrSha ?? "").trim();
++      return ver ? `${s.ref}@${ver}` : s.ref;
++    })
++    .filter(Boolean)
++    .slice(0, 64);
++  const tokensIn = Math.max(0, Number(work.resources.inputTokens ?? 0) || 0);
++  const tokensOut = Math.max(0, Number(work.resources.outputTokens ?? 0) || 0);
++  const leaseOk =
++    work.leaseUntil == null || work.leaseUntil.getTime() > Date.now();
++  const rightsOk = Boolean(work.ownerToken) && leaseOk;
++  return {
++    workId: work.id,
++    acquisFingerprint,
++    sourceVersions,
++    checkpointId: `ckpt:${work.id}:r${work.revision}`,
++    budgets: {
++      tokensConsumed: tokensIn + tokensOut,
++      tokensBudget: null,
++      restitutionsRemaining: null,
++    },
++    rightsOk,
++  };
 +}
 +
  /**
-  * Construct LIVE Admin transport. Throws if LIVE GO is not proven.
-  * Destination fixed to ADMIN_LIVE_BASE_URL; redirects refused.
-@@ -88,6 +129,10 @@ export function createAdminHttpTransport(
-     let attempt = 0;
-     // eslint-disable-next-line no-constant-condition
-     while (true) {
-+      // Re-check LIVE GO before every attempt including retries.
-+      if (!isAdminLiveAuthorized()) {
-+        throw new Error("BLOCKED_NO_LIVE_GO");
-+      }
-       const ac = new AbortController();
-       const timer = setTimeout(() => ac.abort(), timeoutMs);
-       try {
-@@ -101,11 +146,7 @@ export function createAdminHttpTransport(
-           signal: ac.signal,
-           redirect: "error",
-         });
--        const buf = await res.arrayBuffer();
--        if (buf.byteLength > MAX_RESPONSE_BYTES) {
--          throw new Error("ADMIN_RESPONSE_TOO_LARGE");
--        }
--        const text = new TextDecoder().decode(buf);
-+        const text = await readBodyBounded(res, MAX_RESPONSE_BYTES);
-         let json: unknown = null;
-         try {
-           json = text ? JSON.parse(text) : null;
-diff --git a/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-collector.ts b/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-collector.ts
-index 11569c02..b042fedd 100644
---- a/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-collector.ts
-+++ b/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-collector.ts
-@@ -63,6 +63,8 @@ export type AdminUsageSnapshot = {
-   completeness: "complete" | "partial";
-   collectedAtUtc: string;
-   collectionId: string;
-+  /** Durable TEST vs LIVE separation — TEST never treated as real cost. */
-+  collectionProvenance?: "TEST_SUBSTITUTED" | "LIVE" | "UNKNOWN";
- };
-
- export type AdminCollectionResult = {
-@@ -92,6 +94,10 @@ export type AdminHttpTransport = AdminHttpTransportFn & {
-   readonly __sfiaAdminMode: AdminTransportMode;
- };
-
-+/** Runtime registry — property markers alone are not a security boundary. */
-+const liveTransportRegistry = new WeakSet<object>();
-+const substitutedTransportRegistry = new WeakSet<object>();
-+
- export function markSubstitutedAdminTransport(
-   fn: AdminHttpTransportFn,
- ): AdminHttpTransport {
-@@ -102,6 +108,7 @@ export function markSubstitutedAdminTransport(
-     configurable: false,
-     writable: false,
-   });
-+  substitutedTransportRegistry.add(t);
-   return t;
- }
-
-@@ -115,9 +122,22 @@ export function markLiveAdminTransport(
-     configurable: false,
-     writable: false,
-   });
-+  liveTransportRegistry.add(t);
-   return t;
- }
-
-+export function isRegisteredLiveAdminTransport(
-+  transport: AdminHttpTransportFn,
-+): boolean {
-+  return liveTransportRegistry.has(transport);
-+}
-+
-+export function isRegisteredSubstitutedAdminTransport(
-+  transport: AdminHttpTransportFn,
-+): boolean {
-+  return substitutedTransportRegistry.has(transport);
-+}
-+
- export type AdminCollectorConfig = {
-   /**
-    * LIVE requires a real Admin key in the isolated collector.
-@@ -415,7 +435,16 @@ export function upsertAdminSnapshots(
-   for (const s of snapshots) {
-     const key = snapshotKey(s);
-     const prev = snapshotByKey.get(key);
--    if (prev?.completeness === "complete" && s.completeness === "partial") {
-+    if (!prev) {
-+      snapshotByKey.set(key, s);
-+      continue;
-+    }
-+    // Partial never degrades a complete snapshot.
-+    if (prev.completeness === "complete" && s.completeness === "partial") {
-+      continue;
-+    }
-+    // Older collect never replaces a newer one.
-+    if (s.collectedAtUtc < prev.collectedAtUtc) {
-       continue;
-     }
-     snapshotByKey.set(key, s);
-@@ -438,21 +467,71 @@ function assertTransportGate(config: AdminCollectorConfig): void {
-     if (!config.adminApiKey) {
-       throw new Error("BLOCKED_NO_SECRET");
-     }
--    if (!transport || marked !== "LIVE") {
-+    // Registry + marker — forging __sfiaAdminMode alone is insufficient.
-+    if (
-+      !transport ||
-+      marked !== "LIVE" ||
-+      !isRegisteredLiveAdminTransport(transport)
-+    ) {
-       throw new Error("BLOCKED_LIVE_TRANSPORT_REQUIRED");
-     }
-     return;
-   }
-   if (config.mode === "TEST_SUBSTITUTED") {
--    if (!transport || marked !== "TEST_SUBSTITUTED") {
-+    if (config.adminApiKey) {
-+      // TEST must never carry a real Admin key.
-+      throw new Error("BLOCKED_TEST_MUST_NOT_HOLD_LIVE_KEY");
-+    }
-+    if (
-+      !transport ||
-+      marked !== "TEST_SUBSTITUTED" ||
-+      !isRegisteredSubstitutedAdminTransport(transport)
-+    ) {
-       throw new Error("BLOCKED_TEST_TRANSPORT_REQUIRED");
-     }
--    // Real Admin key never required for TEST_SUBSTITUTED.
-     return;
-   }
-   throw new Error("BLOCKED_UNKNOWN_MODE");
- }
-
-+/** Envelope bounds for Admin collection — refuse unbounded org sweeps. */
-+export function assertAdminCollectionEnvelope(input: {
-+  path: string;
-+  query: Record<string, string>;
-+  maxPages: number;
-+}): void {
-+  assertAllowedPath(input.path);
-+  const start = input.query.start_time;
-+  const end = input.query.end_time;
-+  if (!start || !/^\d+$/.test(start)) {
-+    throw new Error("ENVELOPE_START_TIME_REQUIRED");
-+  }
-+  if (end != null && end !== "" && !/^\d+$/.test(end)) {
-+    throw new Error("ENVELOPE_END_TIME_INVALID");
-+  }
-+  if (end && Number(end) <= Number(start)) {
-+    throw new Error("ENVELOPE_END_BEFORE_START");
-+  }
-+  // Mandate: finished short window — end_time required for LIVE-shaped envelopes.
-+  if ((input.query.require_end_time ?? "") === "1" && !end) {
-+    throw new Error("ENVELOPE_END_TIME_REQUIRED");
-+  }
-+  const width = input.query.bucket_width;
-+  if (width != null && width !== "" && width !== "1m" && width !== "1h" && width !== "1d") {
-+    throw new Error("ENVELOPE_GRANULARITY_INVALID");
-+  }
-+  if (input.maxPages < 1 || input.maxPages > 20) {
-+    throw new Error("ENVELOPE_MAX_PAGES_OUT_OF_BOUNDS");
-+  }
-+  // project_ids / group_by must be explicit strings when present (no open JSON).
-+  for (const key of ["project_ids", "group_by", "api_key_ids", "models"]) {
-+    const v = input.query[key];
-+    if (v != null && v !== "" && typeof v !== "string") {
-+      throw new Error(`ENVELOPE_PARAM_INVALID:${key}`);
-+    }
-+  }
-+}
-+
- export async function collectAdminUsagePage(input: {
-   config: AdminCollectorConfig;
-   path: string;
-@@ -506,10 +585,14 @@ export async function runAdminCollection(input: {
-   maxPages?: number;
-   /** Persist to PostgreSQL (isolated collector / integration). */
-   persistToPg?: boolean;
-+  /** Require end_time in query (LIVE envelope). */
-+  requireEndTime?: boolean;
- }): Promise<AdminCollectionResult> {
--  const collectionId = `acol_${Date.now().toString(36)}`;
-+  const { randomBytes } = await import("node:crypto");
-+  const collectionId = `acol_${Date.now().toString(36)}_${randomBytes(4).toString("hex")}`;
-   const collectedAtUtc = new Date().toISOString();
-   const limits: string[] = [];
-+  const provenance = input.config.mode;
-
-   try {
-     assertTransportGate(input.config);
-@@ -521,6 +604,7 @@ export async function runAdminCollection(input: {
-         : msg === "BLOCKED_NO_LIVE_GO" ||
-             msg === "BLOCKED_LIVE_TRANSPORT_REQUIRED" ||
-             msg === "BLOCKED_TEST_TRANSPORT_REQUIRED" ||
-+            msg === "BLOCKED_TEST_MUST_NOT_HOLD_LIVE_KEY" ||
-             msg === "BLOCKED_UNKNOWN_MODE"
-           ? "BLOCKED_NO_LIVE_GO"
-           : "ERROR";
-@@ -542,7 +626,7 @@ export async function runAdminCollection(input: {
-     return r;
-   }
-
--  const maxPages = Math.max(1, Math.min(50, input.maxPages ?? 10));
-+  const maxPages = Math.max(1, Math.min(20, input.maxPages ?? 10));
-   const all: AdminUsageSnapshot[] = [];
-   let page: string | null = null;
-   let pagesFetched = 0;
-@@ -555,7 +639,16 @@ export async function runAdminCollection(input: {
-       : null;
-
-   try {
--    assertAllowedPath(input.path);
-+    assertAdminCollectionEnvelope({
-+      path: input.path,
-+      query: {
-+        ...input.query,
-+        ...(input.requireEndTime || input.config.mode === "LIVE"
-+          ? { require_end_time: "1" }
-+          : {}),
-+      },
-+      maxPages,
-+    });
-     if (persist) {
-       await persist.insertAdminCollectionRun({
-         collectionId,
-@@ -563,6 +656,7 @@ export async function runAdminCollection(input: {
-         status: "IDLE",
-         path: input.path,
-         organizationScope: input.config.organizationScope,
-+        provenance,
-       });
-     }
-     for (let i = 0; i < maxPages; i++) {
-@@ -611,9 +705,12 @@ export async function runAdminCollection(input: {
-     if (partial) {
-       for (const s of all) s.completeness = "partial";
-     }
-+    for (const s of all) {
-+      s.collectionProvenance = provenance;
-+    }
-     upsertAdminSnapshots(all);
-     if (persist) {
--      await persist.upsertAdminSnapshotsPg(all);
-+      await persist.upsertAdminSnapshotsPg(all, provenance);
-       await persist.finishAdminCollectionRun({
-         collectionId,
-         finishedAtUtc: new Date().toISOString(),
-@@ -706,6 +803,39 @@ export type FinOpsScopeEvidence = {
-   evidenceNotes: string[];
- };
-
+  * Attach previous_response_id only when plan allows. Never invent store=true
+  * or Conversations persistence here.
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts b/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
+index e150ac8f..074a825e 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/run-nora-cognitive-turn.ts
+@@ -33,6 +33,7 @@ import {
+   type NoraGenerateInput,
+   type NoraGenerateResult,
+ } from "./nora-adapter";
++import { buildStudioContinuityFromWork } from "./provider-response-continuity";
+ import { resolvePublicWebRegistry } from "./public-web-registry";
+ import {
+   composeInvestigationPartialRestitution,
+@@ -1514,20 +1515,7 @@ export async function runNoraCognitiveTurn(
+           policyOverride: policy,
+           cognitiveWorkId: work.id,
+           segmentIndex: workSegmentOrdinal,
+-          continuityStudio: {
+-            workId: work.id,
+-            acquisFingerprint: work.state.intentSummary
+-              ? `acq:${work.revision}:${work.state.intentSummary.slice(0, 64)}`
+-              : null,
+-            sourceVersions: [],
+-            checkpointId: `ckpt:${work.id}:r${work.revision}`,
+-            budgets: {
+-              tokensConsumed: 0,
+-              tokensBudget: null,
+-              restitutionsRemaining: null,
+-            },
+-            rightsOk: true,
+-          },
++          continuityStudio: buildStudioContinuityFromWork(work, policy),
+           continuityChain: null,
+           publicWebRegistry: {
+             topics: webRegistry.topics,
+diff --git a/projects/sfia-studio-next/web/src/domains/finops/finops-reconciliation.ts b/projects/sfia-studio-next/web/src/domains/finops/finops-reconciliation.ts
+new file mode 100644
+index 00000000..b8f79ecc
+--- /dev/null
++++ b/projects/sfia-studio-next/web/src/domains/finops/finops-reconciliation.ts
+@@ -0,0 +1,177 @@
 +/**
-+ * Period equality: every attributed snapshot must share the exact compare window
-+ * (interval start/end), not merely intersect it.
++ * FinOps reconciliation helpers used by the product service path.
++ * Separated so tests can exercise the same logic without mocking private methods.
 + */
-+export function assessPeriodEquality(
-+  snapshots: AdminUsageSnapshot[],
-+  window: { startUtc: string; endUtc: string },
-+): { periodEqual: boolean; periodOverlap: boolean; limits: string[] } {
-+  const limits: string[] = [];
-+  if (!window.startUtc || !window.endUtc) {
-+    return { periodEqual: false, periodOverlap: false, limits: ["PERIOD_WINDOW_ABSENT"] };
-+  }
-+  if (snapshots.length === 0) {
-+    return { periodEqual: false, periodOverlap: false, limits: ["PERIOD_NO_SNAPSHOTS"] };
-+  }
-+  let overlap = false;
-+  let allEqual = true;
-+  for (const s of snapshots) {
-+    if (s.intervalEndUtc > window.startUtc && s.intervalStartUtc < window.endUtc) {
-+      overlap = true;
-+    }
-+    if (
-+      s.intervalStartUtc !== window.startUtc ||
-+      s.intervalEndUtc !== window.endUtc
-+    ) {
-+      allEqual = false;
-+    }
-+  }
-+  if (!overlap) limits.push("PERIOD_NO_OVERLAP");
-+  if (overlap && !allEqual) limits.push("PERIOD_OVERLAP_NOT_EQUAL");
-+  return { periodEqual: overlap && allEqual, periodOverlap: overlap, limits };
-+}
 +
- export function assessFinOpsComparability(
-   evidence: FinOpsScopeEvidence,
- ): {
++import {
++  assessPeriodEquality,
++  reconcileFinOpsCosts,
++  sumMeasuredCostUsd,
++  type AdminUsageSnapshot,
++  type FinOpsScopeEvidence,
++} from "./provider-admin-usage-collector";
++import { decimalFromNumberLike } from "./decimal-money";
++
++export type FinOpsReconciliationInput = {
++  studioEstimatedUsd: number | null;
++  studioEstimationKind: "known" | "partial" | "empty" | "unknown" | string;
++  snapshots: AdminUsageSnapshot[];
++  windowStartUtc: string;
++  windowEndUtc: string;
++  organizationScope: string;
++  configuredOrgId: string | null;
++  configuredProjectId: string | null;
++  configuredApiKeyId: string | null;
++  pilotAuthorized: boolean;
++  freshnessStatus: string;
++  freshnessSnapshotCount: number;
++};
++
++export type FinOpsReconciliationResult = {
++  comparability: "COMPARABLE" | "NON_COMPARABLE" | "PARTIAL" | "UNAVAILABLE";
++  providerCostUsd: string | null;
++  providerCurrency: string | null;
++  deltaUsd: string | null;
++  limits: string[];
++  disclosed: boolean;
++};
++
++/**
++ * Establish COMPARABLE only when identity, window equality, provenance LIVE,
++ * and Pilot authorization are all proven — same path as product service.
++ */
++export function evaluateFinOpsReconciliation(
++  input: FinOpsReconciliationInput,
++): FinOpsReconciliationResult {
++  const limits: string[] = [];
++  if (!input.pilotAuthorized) {
++    return {
++      comparability: "UNAVAILABLE",
++      providerCostUsd: null,
++      providerCurrency: null,
++      deltaUsd: null,
++      limits: ["PILOT_NOT_AUTHORIZED_FOR_PROVIDER_COSTS"],
++      disclosed: false,
++    };
++  }
++
++  const liveComplete = input.snapshots.filter(
++    (s) =>
++      s.surfaceObject === "organization.costs.result" &&
++      s.completeness === "complete" &&
++      (s.collectionProvenance === "LIVE" ||
++        // Qualification-only: allow TEST when explicitly tagged for isolated DB proofs.
++        s.collectionProvenance === "TEST_SUBSTITUTED" &&
++          (process.env.SFIA_FINOPS_ALLOW_TEST_PROVENANCE ?? "").trim() === "1"),
++  );
++
++  // Default product path: LIVE only.
++  const usable =
++    (process.env.SFIA_FINOPS_ALLOW_TEST_PROVENANCE ?? "").trim() === "1"
++      ? liveComplete
++      : liveComplete.filter((s) => s.collectionProvenance === "LIVE");
++
++  if (usable.length === 0) {
++    return {
++      comparability: "UNAVAILABLE",
++      providerCostUsd: null,
++      providerCurrency: null,
++      deltaUsd: null,
++      limits: ["NO_LIVE_COMPLETE_SNAPSHOTS"],
++      disclosed: false,
++    };
++  }
++
++  const orgIdentityProven = Boolean(
++    input.configuredOrgId &&
++      (input.organizationScope === input.configuredOrgId ||
++        input.organizationScope === `org:${input.configuredOrgId}`),
++  );
++  if (!orgIdentityProven) limits.push("ORG_IDENTITY_UNPROVEN");
++
++  const attributed = input.configuredProjectId
++    ? usable.filter((s) => s.dimensions.project_id === input.configuredProjectId)
++    : [];
++
++  const sum = sumMeasuredCostUsd(usable, {
++    intervalStartUtc: input.windowStartUtc,
++    intervalEndUtc: input.windowEndUtc,
++    projectId: input.configuredProjectId,
++  });
++  limits.push(...sum.limits);
++
++  const period = assessPeriodEquality(attributed, {
++    startUtc: input.windowStartUtc,
++    endUtc: input.windowEndUtc,
++  });
++  limits.push(...period.limits);
++
++  const freshnessAcceptable =
++    input.freshnessStatus === "READY" &&
++    attributed.length > 0 &&
++    input.freshnessSnapshotCount > 0;
++
++  const evidence: FinOpsScopeEvidence = {
++    organizationMatches: orgIdentityProven,
++    organizationIdentityProven: orgIdentityProven,
++    projectIdsOverlap: attributed.length > 0,
++    projectAttributionProven: Boolean(
++      input.configuredProjectId && sum.counted > 0,
++    ),
++    apiKeyIdsOverlap: Boolean(
++      input.configuredApiKeyId &&
++        attributed.some(
++          (s) => s.dimensions.api_key_id === input.configuredApiKeyId,
++        ),
++    ),
++    periodOverlap: period.periodOverlap,
++    periodEqual: period.periodEqual,
++    currencyMatches: sum.currency === "usd",
++    providerCurrency: sum.currency,
++    surfacesRequested: ["/organization/costs"],
++    groupingCompatible: true,
++    coverageComplete:
++      input.freshnessStatus === "READY" &&
++      !sum.limits.includes("COST_AMOUNT_ABSENT"),
++    freshnessAcceptable,
++    evidenceNotes: ["SERVICE_PATH_EVALUATOR"],
++  };
++
++  const studioDecimal =
++    input.studioEstimatedUsd != null
++      ? decimalFromNumberLike(input.studioEstimatedUsd)
++      : null;
++
++  if (input.studioEstimationKind === "partial") {
++    return {
++      comparability: "PARTIAL",
++      providerCostUsd: null,
++      providerCurrency: null,
++      deltaUsd: null,
++      limits: [...limits, "STUDIO_ESTIMATION_REMAINS_PARTIAL"],
++      disclosed: false,
++    };
++  }
++
++  const rec = reconcileFinOpsCosts({
++    studioEstimatedUsd: studioDecimal,
++    providerCostUsd: sum.total,
++    scope: evidence,
++  });
++  limits.push(...rec.limits);
++
++  const disclosed =
++    (rec.status === "COMPARABLE" || rec.status === "PARTIAL") &&
++    orgIdentityProven &&
++    Boolean(input.configuredProjectId) &&
++    input.pilotAuthorized;
++
++  return {
++    comparability: rec.status,
++    providerCostUsd: disclosed ? sum.total : null,
++    providerCurrency: disclosed ? sum.currency : null,
++    deltaUsd: disclosed ? rec.deltaUsd : null,
++    limits: [...new Set(limits)],
++    disclosed,
++  };
++}
 diff --git a/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-repository.ts b/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-repository.ts
-index 069f5bab..232af939 100644
+index 232af939..5d27b112 100644
 --- a/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-repository.ts
 +++ b/projects/sfia-studio-next/web/src/domains/finops/provider-admin-usage-repository.ts
-@@ -1,13 +1,13 @@
- /**
-  * Admin Usage/Costs snapshot repository — PostgreSQL SoT for FinOps product reads.
-  *
-- * Product/Next: read-only against authorized snapshots (no Admin collection capability).
-+ * Product/Next: read-only against authorized LIVE snapshots (no Admin collection).
-  * Isolated collector: write runs + upsert snapshots.
-  * Distinct from provider_usage_observations (Studio attribution ledger).
-  */
-
- import { randomUUID } from "node:crypto";
--import { and, desc, eq, gte, lte, sql as dsql } from "drizzle-orm";
-+import { and, desc, eq, gte, inArray, lte, sql as dsql } from "drizzle-orm";
- import { db, sql } from "@/db/client";
- import {
-   providerAdminCollectionRuns,
-@@ -15,9 +15,12 @@ import {
- } from "@/db/schema";
- import type {
-   AdminCollectorStatus,
-+  AdminTransportMode,
-   AdminUsageSnapshot,
- } from "./provider-admin-usage-collector";
-
-+export type CollectionProvenance = AdminTransportMode | "UNKNOWN";
-+
- function metricToNumber(
-   m: AdminUsageSnapshot["metrics"][keyof AdminUsageSnapshot["metrics"]],
- ): number | null {
-@@ -48,6 +51,7 @@ export async function insertAdminCollectionRun(input: {
-   status: AdminCollectorStatus;
-   path: string;
-   organizationScope: string;
-+  provenance: CollectionProvenance;
-   pagesFetched?: number;
-   limits?: string[];
-   lastError?: string | null;
-@@ -64,6 +68,7 @@ export async function insertAdminCollectionRun(input: {
-       organizationScope: input.organizationScope,
-       limitsJson: input.limits ?? [],
-       lastError: input.lastError ?? null,
-+      collectionProvenance: input.provenance,
-     })
-     .onConflictDoUpdate({
-       target: providerAdminCollectionRuns.collectionId,
-@@ -72,6 +77,7 @@ export async function insertAdminCollectionRun(input: {
-         pagesFetched: input.pagesFetched ?? 0,
-         limitsJson: input.limits ?? [],
-         lastError: input.lastError ?? null,
-+        collectionProvenance: input.provenance,
-       },
-     });
- }
-@@ -97,82 +103,90 @@ export async function finishAdminCollectionRun(input: {
- }
-
- /**
-- * Idempotent upsert via NULLS NOT DISTINCT unique index
-- * (provider_admin_usage_snapshots_canon_uidx).
-+ * Idempotent upsert with integrity:
-+ * - partial never overwrites a complete row (metrics OR completeness);
-+ * - older collected_at never replaces a newer row;
-+ * - late complete revision (newer or equal ts) may upgrade partial.
-  */
- export async function upsertAdminSnapshotsPg(
-   snapshots: AdminUsageSnapshot[],
-+  provenance: CollectionProvenance,
- ): Promise<number> {
-   let written = 0;
--  for (const s of snapshots) {
--    const id = randomUUID();
--    const amount =
--      s.metrics.amount.presence === "MEASURED" && s.metrics.amount.value
--        ? s.metrics.amount.value
--        : null;
--    const currency =
--      s.metrics.currency.presence === "MEASURED"
--        ? s.metrics.currency.value
--        : null;
--    await sql`
--      INSERT INTO provider_admin_usage_snapshots (
--        id, collected_at, collection_id, source_endpoint, surface_object,
--        organization_scope, interval_start_utc, interval_end_utc, granularity,
--        project_id, api_key_id, user_id, model, line_item, api_source,
--        input_tokens, output_tokens, input_cached_tokens,
--        num_model_requests, num_requests, amount, currency,
--        completeness, schema_version
--      ) VALUES (
--        ${id}::uuid,
--        ${s.collectedAtUtc}::timestamptz,
--        ${s.collectionId},
--        ${s.sourceEndpoint},
--        ${s.surfaceObject},
--        ${s.organizationScope},
--        ${s.intervalStartUtc}::timestamptz,
--        ${s.intervalEndUtc}::timestamptz,
--        ${s.granularity},
--        ${s.dimensions.project_id},
--        ${s.dimensions.api_key_id},
--        ${s.dimensions.user_id},
--        ${s.dimensions.model},
--        ${s.dimensions.line_item},
--        ${s.dimensions.api_source},
--        ${metricToNumber(s.metrics.input_tokens)},
--        ${metricToNumber(s.metrics.output_tokens)},
--        ${metricToNumber(s.metrics.input_cached_tokens)},
--        ${metricToNumber(s.metrics.num_model_requests)},
--        ${metricToNumber(s.metrics.num_requests)},
--        ${amount},
--        ${currency},
--        ${s.completeness},
--        ${"2"}
--      )
--      ON CONFLICT (
--        source_endpoint, surface_object, organization_scope,
--        interval_start_utc, interval_end_utc, granularity,
--        project_id, api_key_id, user_id, model, line_item, api_source
--      )
--      DO UPDATE SET
--        collected_at = EXCLUDED.collected_at,
--        collection_id = EXCLUDED.collection_id,
--        input_tokens = EXCLUDED.input_tokens,
--        output_tokens = EXCLUDED.output_tokens,
--        input_cached_tokens = EXCLUDED.input_cached_tokens,
--        num_model_requests = EXCLUDED.num_model_requests,
--        num_requests = EXCLUDED.num_requests,
--        amount = EXCLUDED.amount,
--        currency = EXCLUDED.currency,
--        completeness = CASE
--          WHEN provider_admin_usage_snapshots.completeness = 'complete'
-+  await sql.begin(async (tx) => {
-+    for (const s of snapshots) {
-+      const id = randomUUID();
-+      const amount =
-+        s.metrics.amount.presence === "MEASURED" && s.metrics.amount.value
-+          ? s.metrics.amount.value
-+          : null;
-+      const currency =
-+        s.metrics.currency.presence === "MEASURED"
-+          ? s.metrics.currency.value
-+          : null;
-+      await tx`
-+        INSERT INTO provider_admin_usage_snapshots (
-+          id, collected_at, collection_id, source_endpoint, surface_object,
-+          organization_scope, interval_start_utc, interval_end_utc, granularity,
+@@ -162,7 +162,8 @@ export async function upsertAdminSnapshotsPg(
+         ON CONFLICT (
+           source_endpoint, surface_object, organization_scope,
+           interval_start_utc, interval_end_utc, granularity,
+-          project_id, api_key_id, user_id, model, line_item, api_source
 +          project_id, api_key_id, user_id, model, line_item, api_source,
-+          input_tokens, output_tokens, input_cached_tokens,
-+          num_model_requests, num_requests, amount, currency,
-+          completeness, schema_version, collection_provenance
-+        ) VALUES (
-+          ${id}::uuid,
-+          ${s.collectedAtUtc}::timestamptz,
-+          ${s.collectionId},
-+          ${s.sourceEndpoint},
-+          ${s.surfaceObject},
-+          ${s.organizationScope},
-+          ${s.intervalStartUtc}::timestamptz,
-+          ${s.intervalEndUtc}::timestamptz,
-+          ${s.granularity},
-+          ${s.dimensions.project_id},
-+          ${s.dimensions.api_key_id},
-+          ${s.dimensions.user_id},
-+          ${s.dimensions.model},
-+          ${s.dimensions.line_item},
-+          ${s.dimensions.api_source},
-+          ${metricToNumber(s.metrics.input_tokens)},
-+          ${metricToNumber(s.metrics.output_tokens)},
-+          ${metricToNumber(s.metrics.input_cached_tokens)},
-+          ${metricToNumber(s.metrics.num_model_requests)},
-+          ${metricToNumber(s.metrics.num_requests)},
-+          ${amount},
-+          ${currency},
-+          ${s.completeness},
-+          ${"2"},
-+          ${provenance}
-+        )
-+        ON CONFLICT (
-+          source_endpoint, surface_object, organization_scope,
-+          interval_start_utc, interval_end_utc, granularity,
-+          project_id, api_key_id, user_id, model, line_item, api_source
-+        )
-+        DO UPDATE SET
-+          collected_at = EXCLUDED.collected_at,
-+          collection_id = EXCLUDED.collection_id,
-+          input_tokens = EXCLUDED.input_tokens,
-+          output_tokens = EXCLUDED.output_tokens,
-+          input_cached_tokens = EXCLUDED.input_cached_tokens,
-+          num_model_requests = EXCLUDED.num_model_requests,
-+          num_requests = EXCLUDED.num_requests,
-+          amount = EXCLUDED.amount,
-+          currency = EXCLUDED.currency,
-+          completeness = EXCLUDED.completeness,
-+          schema_version = EXCLUDED.schema_version,
-+          collection_provenance = EXCLUDED.collection_provenance
-+        WHERE
-+          NOT (
-+            provider_admin_usage_snapshots.completeness = 'complete'
-             AND EXCLUDED.completeness = 'partial'
--          THEN provider_admin_usage_snapshots.completeness
--          ELSE EXCLUDED.completeness
--        END,
--        schema_version = EXCLUDED.schema_version
--    `;
--    written += 1;
--  }
-+          )
-+          AND EXCLUDED.collected_at >= provider_admin_usage_snapshots.collected_at
-+      `;
-+      written += 1;
-+    }
-+  });
-   return written;
- }
-
-@@ -180,6 +194,8 @@ export async function listAdminSnapshotsFromPg(filter?: {
-   organizationScope?: string;
-   intervalStartUtc?: string;
-   intervalEndUtc?: string;
-+  /** Product projections: LIVE only. Tests may request TEST_SUBSTITUTED. */
-+  provenance?: CollectionProvenance | CollectionProvenance[];
-   limit?: number;
- }): Promise<AdminUsageSnapshot[]> {
-   const clauses = [];
-@@ -207,6 +223,14 @@ export async function listAdminSnapshotsFromPg(filter?: {
-       ),
-     );
-   }
-+  if (filter?.provenance) {
-+    const list = Array.isArray(filter.provenance)
-+      ? filter.provenance
-+      : [filter.provenance];
-+    clauses.push(
-+      inArray(providerAdminUsageSnapshots.collectionProvenance, list),
-+    );
-+  }
-   const limit = Math.min(5_000, Math.max(1, filter?.limit ?? 2_000));
-   const rows = await db
-     .select()
-@@ -242,10 +266,16 @@ export async function listAdminSnapshotsFromPg(filter?: {
-     completeness: r.completeness as "complete" | "partial",
-     collectedAtUtc: r.collectedAt.toISOString(),
-     collectionId: r.collectionId,
-+    collectionProvenance:
-+      (r.collectionProvenance as CollectionProvenance) ?? "UNKNOWN",
-   }));
- }
-
--export async function getAdminCollectionFreshnessFromPg(): Promise<{
-+export async function getAdminCollectionFreshnessFromPg(filter?: {
-+  organizationScope?: string;
-+  provenance?: CollectionProvenance;
-+  projectId?: string | null;
-+}): Promise<{
-   lastAttemptAtUtc: string | null;
-   lastSuccessAtUtc: string | null;
-   lastCollectionId: string | null;
-@@ -253,22 +283,67 @@ export async function getAdminCollectionFreshnessFromPg(): Promise<{
-   snapshotCount: number;
-   secretReadableByProduct: false;
- }> {
-+  const runClauses = [];
-+  if (filter?.organizationScope) {
-+    runClauses.push(
-+      eq(
-+        providerAdminCollectionRuns.organizationScope,
-+        filter.organizationScope,
-+      ),
-+    );
-+  }
-+  if (filter?.provenance) {
-+    runClauses.push(
-+      eq(providerAdminCollectionRuns.collectionProvenance, filter.provenance),
-+    );
-+  }
-+
-   const [latest] = await db
-     .select()
-     .from(providerAdminCollectionRuns)
-+    .where(runClauses.length ? and(...runClauses) : undefined)
-     .orderBy(desc(providerAdminCollectionRuns.startedAt))
-     .limit(1);
-+
-+  const readyClauses = [
-+    eq(providerAdminCollectionRuns.status, "READY"),
-+    ...runClauses,
-+  ];
-   const [latestOk] = await db
-     .select()
-     .from(providerAdminCollectionRuns)
--    .where(eq(providerAdminCollectionRuns.status, "READY"))
-+    .where(and(...readyClauses))
-     .orderBy(desc(providerAdminCollectionRuns.finishedAt))
-     .limit(1);
-+
-+  const snapClauses = [];
-+  if (filter?.organizationScope) {
-+    snapClauses.push(
-+      eq(
-+        providerAdminUsageSnapshots.organizationScope,
-+        filter.organizationScope,
-+      ),
-+    );
-+  }
-+  if (filter?.provenance) {
-+    snapClauses.push(
-+      eq(
-+        providerAdminUsageSnapshots.collectionProvenance,
-+        filter.provenance,
-+      ),
-+    );
-+  }
-+  if (filter?.projectId) {
-+    snapClauses.push(
-+      eq(providerAdminUsageSnapshots.projectId, filter.projectId),
-+    );
-+  }
-   const [countRow] = await db
-     .select({
-       n: dsql<number>`count(*)::int`,
-     })
--    .from(providerAdminUsageSnapshots);
-+    .from(providerAdminUsageSnapshots)
-+    .where(snapClauses.length ? and(...snapClauses) : undefined);
-
-   return {
-     lastAttemptAtUtc: latest?.startedAt?.toISOString() ?? null,
-@@ -286,3 +361,16 @@ export function isAdminSnapshotReadEnabled(
- ): boolean {
-   return (env.SFIA_ADMIN_SNAPSHOT_READ ?? "1").trim() !== "0";
- }
-+
-+/**
-+ * Product path must not silently fall back to in-memory test maps.
-+ * Only explicit test flag may enable memory reads.
-+ */
-+export function allowAdminSnapshotMemoryFallback(
-+  env: NodeJS.ProcessEnv = process.env,
-+): boolean {
-+  return (
-+    env.VITEST === "true" &&
-+    (env.SFIA_ADMIN_SNAPSHOT_TEST_MEMORY ?? "").trim() === "1"
-+  );
-+}
++          collection_provenance
+         )
+         DO UPDATE SET
+           collected_at = EXCLUDED.collected_at,
+@@ -175,8 +176,7 @@ export async function upsertAdminSnapshotsPg(
+           amount = EXCLUDED.amount,
+           currency = EXCLUDED.currency,
+           completeness = EXCLUDED.completeness,
+-          schema_version = EXCLUDED.schema_version,
+-          collection_provenance = EXCLUDED.collection_provenance
++          schema_version = EXCLUDED.schema_version
+         WHERE
+           NOT (
+             provider_admin_usage_snapshots.completeness = 'complete'
 diff --git a/projects/sfia-studio-next/web/src/domains/finops/usage-read-service.ts b/projects/sfia-studio-next/web/src/domains/finops/usage-read-service.ts
-index 500eb53b..3e234b95 100644
+index 3e234b95..f4237656 100644
 --- a/projects/sfia-studio-next/web/src/domains/finops/usage-read-service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/finops/usage-read-service.ts
-@@ -312,12 +312,16 @@ async function buildProviderReconciliationDto(
-   estimatedCostUsd: MeasuredValue<number>,
-   filter: FinOpsFilterInput,
- ): Promise<FinOpsProviderReconciliationDto> {
--  // Product path: never inspect OPENAI_ADMIN_KEY; read only authorized PG snapshots.
-+  // Product path: never inspect OPENAI_ADMIN_KEY; read only authorized LIVE PG snapshots.
-   const {
-+    allowAdminSnapshotMemoryFallback,
-     getAdminCollectionFreshnessFromPg,
+@@ -22,12 +22,10 @@ import {
+ import {
+   getAdminCollectorFreshness,
+   listAdminCollectorSnapshots,
+-  reconcileFinOpsCosts,
+   resolveProductAdminCollectorView,
+-  sumMeasuredCostUsd,
+-  type FinOpsScopeEvidence,
+ } from "./provider-admin-usage-collector";
+ import { decimalFromNumberLike } from "./decimal-money";
++import { evaluateFinOpsReconciliation } from "./finops-reconciliation";
+
+ function studioLane(): string {
+   return process.env.STUDIO_LANE?.trim().toUpperCase() || "UNKNOWN";
+@@ -319,9 +317,6 @@ async function buildProviderReconciliationDto(
      isAdminSnapshotReadEnabled,
      listAdminSnapshotsFromPg,
    } = await import("./provider-admin-usage-repository");
-+  const { assessPeriodEquality } = await import(
-+    "./provider-admin-usage-collector"
-+  );
+-  const { assessPeriodEquality } = await import(
+-    "./provider-admin-usage-collector"
+-  );
    const productView = resolveProductAdminCollectorView();
    const limits: string[] = [];
 
-@@ -358,25 +362,58 @@ async function buildProviderReconciliationDto(
-   let freshness;
-   let snapshots;
-   try {
--    freshness = await getAdminCollectionFreshnessFromPg();
-+    const configuredProjectPeek =
-+      (process.env.SFIA_OPENAI_PROJECT_ID ?? "").trim() || null;
-+    freshness = await getAdminCollectionFreshnessFromPg({
-+      organizationScope: productView.organizationScope,
-+      provenance: "LIVE",
-+      projectId: configuredProjectPeek,
-+    });
-     snapshots = (
-       await listAdminSnapshotsFromPg({
-         organizationScope: productView.organizationScope,
-+        provenance: "LIVE",
-       })
-     ).filter(
-       (s) =>
-         s.surfaceObject === "organization.costs.result" &&
--        s.completeness === "complete",
-+        s.completeness === "complete" &&
-+        s.collectionProvenance === "LIVE",
-     );
-   } catch {
--    // Fall back to in-process memory only for deterministic unit paths.
-+    if (!allowAdminSnapshotMemoryFallback()) {
-+      limits.push("ADMIN_SNAPSHOT_PG_UNAVAILABLE");
-+      return {
-+        studioEstimatedUsd: studio,
-+        studioEstimationKind,
-+        providerCostUsd: null,
-+        providerCurrency: null,
-+        deltaUsd: null,
-+        comparability: "UNAVAILABLE",
-+        freshness: {
-+          lastAttemptAtUtc: null,
-+          lastSuccessAtUtc: null,
-+          lastCollectionId: null,
-+          status: "ERROR",
-+          snapshotCount: 0,
-+          secretReadableByProduct: false as const,
-+        },
-+        limits,
-+        noraIndependent: true,
-+        studioEstimatedUsdDecimal: studioDecimal,
-+        providerCostUsdDecimal: null,
-+        deltaUsdDecimal: null,
-+      };
-+    }
-+    // Explicit test-only memory path — never silent product fallback.
-     freshness = getAdminCollectorFreshness();
-     snapshots = listAdminCollectorSnapshots().filter(
-       (s) =>
-         s.surfaceObject === "organization.costs.result" &&
--        s.completeness === "complete",
-+        s.completeness === "complete" &&
-+        s.collectionProvenance === "LIVE",
-     );
--    limits.push("ADMIN_SNAPSHOT_PG_READ_FALLBACK_MEMORY");
-+    limits.push("ADMIN_SNAPSHOT_TEST_MEMORY");
-   }
+@@ -456,114 +451,73 @@ async function buildProviderReconciliationDto(
+     (process.env.SFIA_OPENAI_API_KEY_ID ?? "").trim() || null;
+   const configuredOrg =
+     (process.env.SFIA_OPENAI_ORG_ID ?? "").trim() || null;
+-  const scopeOrg = productView.organizationScope;
+-  const orgIdentityProven = Boolean(
+-    configuredOrg &&
+-      (scopeOrg === configuredOrg || scopeOrg === `org:${configuredOrg}`),
+-  );
 
-   const freshnessDto = {
-@@ -407,9 +444,12 @@ async function buildProviderReconciliationDto(
-     };
-   }
-
--  const since = periodStartDate(filter.periodDays ?? 30);
--  const until = new Date();
--  // Studio projectId alone never proves provider project attribution.
-+  // Explicit compare window (UTC) — required for periodEqual; else NON_COMPARABLE.
-+  const windowStart =
-+    (process.env.SFIA_FINOPS_COMPARE_WINDOW_START_UTC ?? "").trim() ||
-+    periodStartDate(filter.periodDays ?? 30).toISOString();
-+  const windowEnd =
-+    (process.env.SFIA_FINOPS_COMPARE_WINDOW_END_UTC ?? "").trim() || null;
-   const configuredProject =
-     (process.env.SFIA_OPENAI_PROJECT_ID ?? "").trim() || null;
-   const configuredKey =
-@@ -422,54 +462,88 @@ async function buildProviderReconciliationDto(
-       (scopeOrg === configuredOrg || scopeOrg === `org:${configuredOrg}`),
-   );
-
-+  const attributed = configuredProject
-+    ? snapshots.filter((s) => s.dimensions.project_id === configuredProject)
-+    : [];
-+
-   const sum = sumMeasuredCostUsd(snapshots, {
--    intervalStartUtc: since.toISOString(),
--    intervalEndUtc: until.toISOString(),
-+    intervalStartUtc: windowStart,
-+    intervalEndUtc: windowEnd ?? undefined,
-     projectId: configuredProject,
-   });
-   limits.push(...sum.limits);
-
-+  const period = windowEnd
-+    ? assessPeriodEquality(attributed, {
-+        startUtc: windowStart,
-+        endUtc: windowEnd,
-+      })
-+    : {
-+        periodEqual: false,
-+        periodOverlap: sum.counted > 0,
-+        limits: ["PERIOD_WINDOW_END_ABSENT"],
-+      };
-+  limits.push(...period.limits);
-+
-+  // Freshness on the attributed perimeter — not global last collection alone.
-+  const freshnessAcceptable =
-+    freshness.status === "READY" &&
-+    attributed.length > 0 &&
-+    freshness.snapshotCount > 0;
-+
-   const evidence: FinOpsScopeEvidence = {
-     organizationMatches: orgIdentityProven,
-     organizationIdentityProven: orgIdentityProven,
--    projectIdsOverlap: Boolean(
--      configuredProject &&
--        snapshots.some((s) => s.dimensions.project_id === configuredProject),
--    ),
-+    projectIdsOverlap: attributed.length > 0,
-     projectAttributionProven: Boolean(configuredProject && sum.counted > 0),
-     apiKeyIdsOverlap: Boolean(
-       configuredKey &&
--        snapshots.some((s) => s.dimensions.api_key_id === configuredKey),
-+        attributed.some((s) => s.dimensions.api_key_id === configuredKey),
-     ),
--    periodOverlap: sum.counted > 0,
--    // Intersection alone is not equality — refuse COMPARABLE until proven.
--    periodEqual: false,
-+    periodOverlap: period.periodOverlap,
-+    periodEqual: period.periodEqual,
-     currencyMatches: sum.currency === "usd",
-     providerCurrency: sum.currency,
-     surfacesRequested: ["/organization/costs"],
-     groupingCompatible: true,
--    coverageComplete: freshness.status === "READY",
--    freshnessAcceptable: freshness.status === "READY",
-+    coverageComplete: freshness.status === "READY" && !sum.limits.includes("COST_AMOUNT_ABSENT"),
-+    freshnessAcceptable,
-     evidenceNotes: [
-       (process.env.SFIA_FINOPS_SCOPE_COMPARABLE ?? "").trim() === "1"
-         ? "SCOPE_FLAG_SET_BUT_EVIDENCE_REQUIRED"
-         : "SCOPE_FLAG_UNSET",
--      "PERIOD_EQUALITY_NOT_PROVEN",
-+      "PROVENANCE_LIVE_ONLY",
-       filter.projectId
-         ? "STUDIO_PROJECT_FILTER_NOT_PROVIDER_PROJECT"
-         : "NO_STUDIO_PROJECT_FILTER",
--    ],
-+      studioEstimationKind === "partial" ? "STUDIO_ESTIMATION_PARTIAL" : "",
-+    ].filter(Boolean),
-   };
-
--  const rec = reconcileFinOpsCosts({
--    studioEstimatedUsd: studioDecimal,
--    providerCostUsd: sum.total,
--    scope: evidence,
+-  const attributed = configuredProject
+-    ? snapshots.filter((s) => s.dimensions.project_id === configuredProject)
+-    : [];
+-
+-  const sum = sumMeasuredCostUsd(snapshots, {
+-    intervalStartUtc: windowStart,
+-    intervalEndUtc: windowEnd ?? undefined,
+-    projectId: configuredProject,
 -  });
-+  // Partial studio estimation cannot become COMPARABLE.
-+  if (studioEstimationKind === "partial") {
-+    limits.push("STUDIO_ESTIMATION_REMAINS_PARTIAL");
+-  limits.push(...sum.limits);
++  if (!windowEnd) {
++    limits.push("PERIOD_WINDOW_END_ABSENT");
++    return {
++      studioEstimatedUsd: studio,
++      studioEstimationKind,
++      providerCostUsd: null,
++      providerCurrency: null,
++      deltaUsd: null,
++      comparability: "NON_COMPARABLE",
++      freshness: freshnessDto,
++      limits: [...new Set(limits)],
++      noraIndependent: true,
++      studioEstimatedUsdDecimal: studioDecimal,
++      providerCostUsdDecimal: null,
++      deltaUsdDecimal: null,
++    };
 +  }
-+
-+  const rec =
-+    studioEstimationKind === "partial"
-+      ? {
-+          status: "PARTIAL" as const,
-+          deltaUsd: null,
-+          limits: ["STUDIO_ESTIMATION_REMAINS_PARTIAL", ...evidence.evidenceNotes],
-+        }
-+      : reconcileFinOpsCosts({
-+          studioEstimatedUsd: studioDecimal,
-+          providerCostUsd: sum.total,
-+          scope: evidence,
-+        });
-   limits.push(...rec.limits);
 
--  // Never disclose org totals to unauthorized Pilot views.
--  const discloseProvider = rec.status === "COMPARABLE" || rec.status === "PARTIAL";
-+  // Never disclose org totals / TEST / unauthorized Pilot views.
-+  const discloseProvider =
-+    (rec.status === "COMPARABLE" || rec.status === "PARTIAL") &&
-+    orgIdentityProven &&
-+    Boolean(configuredProject);
+-  const period = windowEnd
+-    ? assessPeriodEquality(attributed, {
+-        startUtc: windowStart,
+-        endUtc: windowEnd,
+-      })
+-    : {
+-        periodEqual: false,
+-        periodOverlap: sum.counted > 0,
+-        limits: ["PERIOD_WINDOW_END_ABSENT"],
+-      };
+-  limits.push(...period.limits);
+-
+-  // Freshness on the attributed perimeter — not global last collection alone.
+-  const freshnessAcceptable =
+-    freshness.status === "READY" &&
+-    attributed.length > 0 &&
+-    freshness.snapshotCount > 0;
+-
+-  const evidence: FinOpsScopeEvidence = {
+-    organizationMatches: orgIdentityProven,
+-    organizationIdentityProven: orgIdentityProven,
+-    projectIdsOverlap: attributed.length > 0,
+-    projectAttributionProven: Boolean(configuredProject && sum.counted > 0),
+-    apiKeyIdsOverlap: Boolean(
+-      configuredKey &&
+-        attributed.some((s) => s.dimensions.api_key_id === configuredKey),
+-    ),
+-    periodOverlap: period.periodOverlap,
+-    periodEqual: period.periodEqual,
+-    currencyMatches: sum.currency === "usd",
+-    providerCurrency: sum.currency,
+-    surfacesRequested: ["/organization/costs"],
+-    groupingCompatible: true,
+-    coverageComplete: freshness.status === "READY" && !sum.limits.includes("COST_AMOUNT_ABSENT"),
+-    freshnessAcceptable,
+-    evidenceNotes: [
+-      (process.env.SFIA_FINOPS_SCOPE_COMPARABLE ?? "").trim() === "1"
+-        ? "SCOPE_FLAG_SET_BUT_EVIDENCE_REQUIRED"
+-        : "SCOPE_FLAG_UNSET",
+-      "PROVENANCE_LIVE_ONLY",
+-      filter.projectId
+-        ? "STUDIO_PROJECT_FILTER_NOT_PROVIDER_PROJECT"
+-        : "NO_STUDIO_PROJECT_FILTER",
+-      studioEstimationKind === "partial" ? "STUDIO_ESTIMATION_PARTIAL" : "",
+-    ].filter(Boolean),
+-  };
++  // Pilot authorization: owner of FinOps summary path is already authenticated;
++  // revoke via SFIA_FINOPS_PROVIDER_DISCLOSE=0 for tests / emergency.
++  const pilotAuthorized =
++    (process.env.SFIA_FINOPS_PROVIDER_DISCLOSE ?? "1").trim() !== "0";
+
+-  // Partial studio estimation cannot become COMPARABLE.
+-  if (studioEstimationKind === "partial") {
+-    limits.push("STUDIO_ESTIMATION_REMAINS_PARTIAL");
+-  }
++  const evaluated = evaluateFinOpsReconciliation({
++    studioEstimatedUsd: studio,
++    studioEstimationKind,
++    snapshots,
++    windowStartUtc: windowStart,
++    windowEndUtc: windowEnd,
++    organizationScope: productView.organizationScope,
++    configuredOrgId: configuredOrg,
++    configuredProjectId: configuredProject,
++    configuredApiKeyId: configuredKey,
++    pilotAuthorized,
++    freshnessStatus: freshness.status,
++    freshnessSnapshotCount: freshness.snapshotCount,
++  });
++  limits.push(...evaluated.limits);
+
+-  const rec =
+-    studioEstimationKind === "partial"
+-      ? {
+-          status: "PARTIAL" as const,
+-          deltaUsd: null,
+-          limits: ["STUDIO_ESTIMATION_REMAINS_PARTIAL", ...evidence.evidenceNotes],
+-        }
+-      : reconcileFinOpsCosts({
+-          studioEstimatedUsd: studioDecimal,
+-          providerCostUsd: sum.total,
+-          scope: evidence,
+-        });
+-  limits.push(...rec.limits);
+-
+-  // Never disclose org totals / TEST / unauthorized Pilot views.
+-  const discloseProvider =
+-    (rec.status === "COMPARABLE" || rec.status === "PARTIAL") &&
+-    orgIdentityProven &&
+-    Boolean(configuredProject);
    const providerNum =
-     discloseProvider && sum.total != null ? Number(sum.total) : null;
+-    discloseProvider && sum.total != null ? Number(sum.total) : null;
++    evaluated.disclosed && evaluated.providerCostUsd != null
++      ? Number(evaluated.providerCostUsd)
++      : null;
    const deltaNum =
+-    discloseProvider && rec.deltaUsd != null ? Number(rec.deltaUsd) : null;
++    evaluated.disclosed && evaluated.deltaUsd != null
++      ? Number(evaluated.deltaUsd)
++      : null;
+
+   return {
+     studioEstimatedUsd: studio,
+     studioEstimationKind,
+     providerCostUsd:
+       providerNum != null && Number.isFinite(providerNum) ? providerNum : null,
+-    providerCurrency: discloseProvider ? sum.currency : null,
++    providerCurrency: evaluated.disclosed ? evaluated.providerCurrency : null,
+     deltaUsd: deltaNum != null && Number.isFinite(deltaNum) ? deltaNum : null,
+-    comparability: rec.status,
++    comparability: evaluated.comparability,
+     freshness: freshnessDto,
+     limits: [...new Set(limits)],
+     noraIndependent: true,
+     studioEstimatedUsdDecimal: studioDecimal,
+-    providerCostUsdDecimal: discloseProvider ? sum.total : null,
+-    deltaUsdDecimal: discloseProvider ? rec.deltaUsd : null,
++    providerCostUsdDecimal: evaluated.disclosed
++      ? evaluated.providerCostUsd
++      : null,
++    deltaUsdDecimal: evaluated.disclosed ? evaluated.deltaUsd : null,
+   };
++
+ }
+
+ export type FinOpsWorkListItem = {
 diff --git a/projects/sfia-studio-next/web/tests/integration/ml5-admin-finops-qualification.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml5-admin-finops-qualification.pg.test.ts
-new file mode 100644
-index 00000000..c1bc27fe
---- /dev/null
+index c1bc27fe..b6e996d3 100644
+--- a/projects/sfia-studio-next/web/tests/integration/ml5-admin-finops-qualification.pg.test.ts
 +++ b/projects/sfia-studio-next/web/tests/integration/ml5-admin-finops-qualification.pg.test.ts
-@@ -0,0 +1,282 @@
+@@ -226,49 +226,80 @@ describe("Admin/FinOps PG qualification", () => {
+     expect(rec.deltaUsd).toBe("0.0600000000");
+   });
+
+-  it("finops reader role cannot INSERT snapshots", async () => {
++  it("finops reader role cannot INSERT snapshots (SET ROLE, no password)", async () => {
+     const url = process.env.DATABASE_URL;
+     if (!url) throw new Error("DATABASE_URL missing");
+-    const u = new URL(url);
+-    u.username = "sfia_finops_reader_login";
+-    u.password = "sfia_dev_finops_read_only";
+-    const reader = postgres(u.toString(), { max: 1 });
++    const sql = postgres(url, { max: 1 });
+     try {
+-      let refused = false;
++      await sql`SET ROLE sfia_finops_reader`;
++      let sqlstate: string | null = null;
+       try {
+-        await reader`
++        await sql`
+           INSERT INTO provider_admin_collection_runs (
+             collection_id, started_at, status, path, organization_scope, collection_provenance
+           ) VALUES (
+             'acol_should_fail', now(), 'READY', '/organization/costs', 'org:x', 'LIVE'
+           )
+         `;
+-      } catch {
+-        refused = true;
++      } catch (e: unknown) {
++        sqlstate =
++          e && typeof e === "object" && "code" in e
++            ? String((e as { code: string }).code)
++            : "ERR";
+       }
+-      expect(refused).toBe(true);
++      await sql`RESET ROLE`;
++      // 42501 insufficient_privilege
++      expect(sqlstate).toBe("42501");
+     } finally {
+-      await reader.end({ timeout: 1 });
++      await sql.end({ timeout: 1 });
+     }
+   });
+
+-  it("collector role cannot SELECT pilots (business tables)", async () => {
++  it("collector role cannot SELECT pilots (SET ROLE, no password)", async () => {
+     const url = process.env.DATABASE_URL;
+     if (!url) throw new Error("DATABASE_URL missing");
+-    const u = new URL(url);
+-    u.username = "sfia_admin_collector_login";
+-    u.password = "sfia_dev_collector_only";
+-    const collector = postgres(u.toString(), { max: 1 });
++    const sql = postgres(url, { max: 1 });
+     try {
+-      let refused = false;
++      await sql`SET ROLE sfia_admin_collector`;
++      let sqlstate: string | null = null;
+       try {
+-        await collector`SELECT id FROM pilots LIMIT 1`;
+-      } catch {
+-        refused = true;
++        await sql`SELECT id FROM pilots LIMIT 1`;
++      } catch (e: unknown) {
++        sqlstate =
++          e && typeof e === "object" && "code" in e
++            ? String((e as { code: string }).code)
++            : "ERR";
+       }
+-      expect(refused).toBe(true);
++      await sql`RESET ROLE`;
++      expect(sqlstate).toBe("42501");
+     } finally {
+-      await collector.end({ timeout: 1 });
++      await sql.end({ timeout: 1 });
++    }
++  });
++
++  it("collector role CAN insert snapshot then reader CAN select (positive grant)", async () => {
++    const url = process.env.DATABASE_URL;
++    if (!url) throw new Error("DATABASE_URL missing");
++    const sql = postgres(url, { max: 1 });
++    const cid = `acol_role_ok_${Date.now()}`;
++    try {
++      await sql`SET ROLE sfia_admin_collector`;
++      await sql`
++        INSERT INTO provider_admin_collection_runs (
++          collection_id, started_at, status, path, organization_scope, collection_provenance
++        ) VALUES (
++          ${cid}, now(), 'READY', '/organization/costs', 'org:role-ok', 'TEST_SUBSTITUTED'
++        )
++      `;
++      await sql`RESET ROLE`;
++      await sql`SET ROLE sfia_finops_reader`;
++      const rows = await sql`
++        SELECT collection_id FROM provider_admin_collection_runs WHERE collection_id = ${cid}
++      `;
++      await sql`RESET ROLE`;
++      expect(rows.length).toBe(1);
++    } finally {
++      await sql.end({ timeout: 1 });
+     }
+   });
+
+diff --git a/projects/sfia-studio-next/web/tests/integration/ml5-macro-lot1-integrated-substituted.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml5-macro-lot1-integrated-substituted.pg.test.ts
+new file mode 100644
+index 00000000..96dc93c3
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/integration/ml5-macro-lot1-integrated-substituted.pg.test.ts
+@@ -0,0 +1,273 @@
 +/**
-+ * Admin/FinOps qualification — PG integrity, provenance, roles, restore probe.
++ * Macro-lot 1 — integrated substituted campaign (Intervention 1).
++ * REAL: PostgreSQL DEV · SUBSTITUTED: OpenAI Admin / Responses / WEB / continuity.
++ * No LIVE emission. No Admin key. No store=true.
 + */
 +import { afterAll, beforeAll, describe, expect, it } from "vitest";
-+import postgres from "postgres";
 +import {
 +  markSubstitutedAdminTransport,
 +  resetAdminCollectorStateForTests,
 +  resolveIsolatedAdminCollectorConfig,
 +  runAdminCollection,
-+  reconcileFinOpsCosts,
-+  assessPeriodEquality,
 +} from "@/domains/finops/provider-admin-usage-collector";
 +import {
 +  getAdminCollectionFreshnessFromPg,
 +  listAdminSnapshotsFromPg,
-+  upsertAdminSnapshotsPg,
-+  insertAdminCollectionRun,
-+  finishAdminCollectionRun,
 +} from "@/domains/finops/provider-admin-usage-repository";
-+import type { AdminUsageSnapshot } from "@/domains/finops/provider-admin-usage-collector";
++import { evaluateFinOpsReconciliation } from "@/domains/finops/finops-reconciliation";
++import { buildStudioContinuityFromWork } from "@/domains/conversation/provider-response-continuity";
++import {
++  beginCampaignEnvelope,
++  createFrontierAwareFetch,
++  getActiveCampaignEnvelope,
++  runWithProviderEmissionStoreAsync,
++  assertSdkInvocationAdmission,
++  __resetProviderEmissionFrontierForTests,
++} from "@/domains/conversation/provider-emission-frontier";
++import {
++  configureAgentsSdkTracing,
++  getAgentsTracingSinkRecords,
++  resetAgentsTracingTestState,
++  runWithAgentsTracingCorrelation,
++  withAgentsTracingNetworkOracle,
++  StudioLocalTraceProcessor,
++} from "@/lib/agents-sdk-tracing";
++import { createHash } from "node:crypto";
 +
-+const costsPage = (amount: number, projectId: string) => ({
++const hasDb = Boolean(process.env.DATABASE_URL?.includes("5433"));
++
++const costsPage = {
 +  object: "page",
 +  data: [
 +    {
@@ -1930,32 +2501,492 @@ index 00000000..c1bc27fe
 +      results: [
 +        {
 +          object: "organization.costs.result",
-+          amount: { value: amount, currency: "usd" },
-+          project_id: projectId,
++          amount: { value: 0.42, currency: "usd" },
++          project_id: "proj_ml1_integrated",
 +        },
 +      ],
 +    },
 +  ],
 +  has_more: false,
 +  next_page: null,
++};
++
++const TEST_KEY = "sk-test-frontier-aaaaaaaaaaaaaaaa";
++const TEST_FP = createHash("sha256").update(TEST_KEY, "utf8").digest("hex").slice(0, 16);
++
++describe.skipIf(!hasDb)("ML1 integrated substituted campaign", () => {
++  beforeAll(() => {
++    resetAdminCollectorStateForTests();
++    resetAgentsTracingTestState();
++  });
++
++  afterAll(() => {
++    resetAdminCollectorStateForTests();
++    resetAgentsTracingTestState();
++    __resetProviderEmissionFrontierForTests();
++    delete process.env.SFIA_FINOPS_ALLOW_TEST_PROVENANCE;
++    delete process.env.SFIA_AGENTS_TRACING_MODE;
++  });
++
++  it("collect → PG → FinOps → D3 continuity → tracing → frontier PARTIAL", async () => {
++    const work = {
++      id: `work_ml1_${Date.now()}`,
++      revision: 2,
++      ownerToken: "tok_ml1",
++      leaseUntil: new Date(Date.now() + 120_000),
++      state: {
++        intentSummary: "qualify integrated foundation",
++        conclusions: ["Acquis durable A"],
++        sources: [{ ref: "d4:doc", versionOrSha: "v1" }],
++      },
++      resources: { inputTokens: 50, outputTokens: 20, segmentCalls: 1 },
++    };
++    const continuity = buildStudioContinuityFromWork(work);
++    expect(continuity.sourceVersions).toEqual(["d4:doc@v1"]);
++    expect(continuity.budgets.tokensConsumed).toBe(70);
++    expect(continuity.rightsOk).toBe(true);
++    expect(continuity.checkpointId).toBe(`ckpt:${work.id}:r2`);
++
++    const transport = markSubstitutedAdminTransport(async () => ({
++      status: 200,
++      json: costsPage,
++    }));
++    const collection = await runAdminCollection({
++      config: resolveIsolatedAdminCollectorConfig({
++        adminApiKey: null,
++        mode: "TEST_SUBSTITUTED",
++        liveAuthorized: false,
++        organizationScope: "org:ml1-integrated",
++        transport,
++      }),
++      path: "/organization/costs",
++      query: { start_time: "1700000000", bucket_width: "1d" },
++      persistToPg: true,
++    });
++    expect(collection.status).toBe("READY");
++    expect(collection.snapshots.length).toBeGreaterThan(0);
++    expect(
++      collection.snapshots.every(
++        (s) => s.collectionProvenance === "TEST_SUBSTITUTED",
++      ),
++    ).toBe(true);
++
++    const fromPg = await listAdminSnapshotsFromPg({
++      organizationScope: "org:ml1-integrated",
++      provenance: "TEST_SUBSTITUTED",
++    });
++    expect(
++      fromPg.some((s) => s.dimensions.project_id === "proj_ml1_integrated"),
++    ).toBe(true);
++
++    const freshness = await getAdminCollectionFreshnessFromPg({
++      organizationScope: "org:ml1-integrated",
++      provenance: "TEST_SUBSTITUTED",
++      projectId: "proj_ml1_integrated",
++    });
++    expect(freshness.snapshotCount).toBeGreaterThan(0);
++
++    process.env.SFIA_FINOPS_ALLOW_TEST_PROVENANCE = "1";
++    const finops = evaluateFinOpsReconciliation({
++      studioEstimatedUsd: 0.4,
++      studioEstimationKind: "known",
++      snapshots: collection.snapshots,
++      windowStartUtc: "2023-11-14T22:13:20.000Z",
++      windowEndUtc: "2023-11-15T22:13:20.000Z",
++      organizationScope: "org:ml1-integrated",
++      configuredOrgId: "ml1-integrated",
++      configuredProjectId: "proj_ml1_integrated",
++      configuredApiKeyId: null,
++      pilotAuthorized: true,
++      freshnessStatus: "READY",
++      freshnessSnapshotCount: freshness.snapshotCount,
++    });
++    delete process.env.SFIA_FINOPS_ALLOW_TEST_PROVENANCE;
++    expect(["COMPARABLE", "PARTIAL", "NON_COMPARABLE"]).toContain(
++      finops.comparability,
++    );
++
++    process.env.SFIA_AGENTS_TRACING_MODE = "local";
++    await configureAgentsSdkTracing(process.env);
++    const { result: spanOk, traceExportUrls } =
++      await withAgentsTracingNetworkOracle(async () =>
++        runWithAgentsTracingCorrelation(
++          {
++            operationId: "op_ml1_int",
++            generationId: "gen_ml1_int",
++            attemptId: "att_ml1_int",
++            workId: work.id,
++          },
++          async () => {
++            const p = new StudioLocalTraceProcessor();
++            await p.onSpanEnd({
++              traceId: "t_ml1",
++              spanId: "s_ml1",
++              endedAt: Date.now(),
++              spanData: { type: "generation", name: "ml1" },
++            });
++            return "ok";
++          },
++        ),
++      );
++    expect(spanOk).toBe("ok");
++    expect(traceExportUrls).toEqual([]);
++    expect(
++      getAgentsTracingSinkRecords().some(
++        (r) => r.correlation.operationId === "op_ml1_int",
++      ),
++    ).toBe(true);
++
++    await runWithProviderEmissionStoreAsync(async () => {
++      beginCampaignEnvelope({
++        maxHttpAttempts: 4,
++        maxHostedSearches: 5,
++        required: true,
++      });
++      let call = 0;
++      const fakeFetch = (async () => {
++        call += 1;
++        if (call === 1) {
++          return new Response(JSON.stringify({ id: "r1" }), {
++            status: 200,
++            headers: { "content-type": "application/json" },
++          });
++        }
++        return new Response(
++          JSON.stringify({
++            id: "r2",
++            tool_usage: { web_search: { num_requests: 1 } },
++          }),
++          { status: 200, headers: { "content-type": "application/json" } },
++        );
++      }) as typeof fetch;
++      const gated = createFrontierAwareFetch(fakeFetch);
++      const prevKey = process.env.OPENAI_API_KEY;
++      const prevFp = process.env.SFIA_OPENAI_EXPECTED_KEY_FP;
++      const prevLane = process.env.STUDIO_LANE;
++      process.env.OPENAI_API_KEY = TEST_KEY;
++      process.env.SFIA_OPENAI_EXPECTED_KEY_FP = TEST_FP;
++      process.env.STUDIO_LANE = "DEV";
++      try {
++        assertSdkInvocationAdmission({
++          kind: "nora.generate_reply",
++          modelId: "gpt-6.1-terra",
++          effort: "medium",
++          env: process.env,
++        });
++        const body = JSON.stringify({
++          model: "gpt-6.1-terra",
++          max_output_tokens: 50,
++          reasoning: { effort: "medium" },
++          tools: [{ type: "web_search" }],
++          max_tool_calls: 1,
++        });
++        await gated("https://api.openai.com/v1/responses", {
++          method: "POST",
++          body,
++        });
++        expect(getActiveCampaignEnvelope()?.hostedSearchMeasureStatus).toBe(
++          "UNKNOWN",
++        );
++        await gated("https://api.openai.com/v1/responses", {
++          method: "POST",
++          body,
++        });
++        expect(getActiveCampaignEnvelope()?.hostedSearchMeasureStatus).toBe(
++          "PARTIAL",
++        );
++      } finally {
++        if (prevKey === undefined) delete process.env.OPENAI_API_KEY;
++        else process.env.OPENAI_API_KEY = prevKey;
++        if (prevFp === undefined) delete process.env.SFIA_OPENAI_EXPECTED_KEY_FP;
++        else process.env.SFIA_OPENAI_EXPECTED_KEY_FP = prevFp;
++        if (prevLane === undefined) delete process.env.STUDIO_LANE;
++        else process.env.STUDIO_LANE = prevLane;
++      }
++    });
++  });
++
++  it("rights revoked → FinOps UNAVAILABLE with no amount disclosure", () => {
++    const r = evaluateFinOpsReconciliation({
++      studioEstimatedUsd: 1,
++      studioEstimationKind: "known",
++      snapshots: [],
++      windowStartUtc: "2023-11-14T22:13:20.000Z",
++      windowEndUtc: "2023-11-15T22:13:20.000Z",
++      organizationScope: "org:x",
++      configuredOrgId: "x",
++      configuredProjectId: "p",
++      configuredApiKeyId: null,
++      pilotAuthorized: false,
++      freshnessStatus: "READY",
++      freshnessSnapshotCount: 1,
++    });
++    expect(r.comparability).toBe("UNAVAILABLE");
++    expect(r.providerCostUsd).toBeNull();
++    expect(r.disclosed).toBe(false);
++  });
++});
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-agents-sdk-tracing-real-sdk.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-agents-sdk-tracing-real-sdk.test.ts
+index ed75e65c..7053297e 100644
+--- a/projects/sfia-studio-next/web/tests/unit/ml5-agents-sdk-tracing-real-sdk.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/ml5-agents-sdk-tracing-real-sdk.test.ts
+@@ -1,8 +1,8 @@
+ /**
+  * Real @openai/agents SDK execution with substituted transport + network oracle.
+- * Mocks of setTraceProcessors alone are insufficient — this file imports the real SDK.
++ * Requires simultaneous: successful generation, expected result, spans, correlation, zero export.
+  */
+-import { afterEach, describe, expect, it } from "vitest";
++import { afterEach, beforeEach, describe, expect, it } from "vitest";
+ import {
+   configureAgentsSdkTracing,
+   getAgentsTracingConfigState,
+@@ -12,6 +12,10 @@ import {
+   withAgentsTracingNetworkOracle,
+ } from "@/lib/agents-sdk-tracing";
+
++beforeEach(() => {
++  resetAgentsTracingTestState();
 +});
 +
-+function baseSnap(
-+  overrides: Partial<AdminUsageSnapshot> & {
-+    completeness: "complete" | "partial";
-+    collectedAtUtc: string;
-+    amount: string;
-+  },
-+): AdminUsageSnapshot {
+ afterEach(() => {
+   resetAgentsTracingTestState();
+   delete process.env.SFIA_AGENTS_TRACING_MODE;
+@@ -24,46 +28,83 @@ describe("agents-sdk-tracing REAL SDK (substituted transport)", () => {
+     expect(r.mode).toBe("off");
+     expect(r.tracingDisabled).toBe(true);
+     expect(getAgentsTracingConfigState().mode).toBe("off");
+-
+     const agents = await import("@openai/agents");
+-    // Prove the SDK export exists and was addressed (not a mock-only path).
+     expect(typeof agents.setTracingDisabled).toBe("function");
+     expect(typeof agents.setTraceProcessors).toBe("function");
+   });
+
+-  it("LOCAL + network oracle: real Agent.run with zero remote trace export", async () => {
++  it("oracle positive control detects trace export URLs", async () => {
++    const { traceExportUrls } = await withAgentsTracingNetworkOracle(async () => {
++      await fetch("https://api.openai.com/v1/traces", { method: "POST", body: "{}" });
++      return "ok";
++    });
++    expect(traceExportUrls.length).toBeGreaterThan(0);
++  });
++
++  it("LOCAL: successful Agent.run produces correlated spans and zero remote export", async () => {
+     process.env.SFIA_AGENTS_TRACING_MODE = "local";
+     const cfg = await configureAgentsSdkTracing(process.env);
+-    // If processors cannot be proven replaced, mode must stay OFF.
+-    if (!cfg.processorsReplaced) {
+-      expect(cfg.mode).toBe("off");
+-      expect(cfg.tracingDisabled).toBe(true);
+-      return;
+-    }
++    expect(cfg.processorsReplaced).toBe(true);
+     expect(cfg.mode).toBe("local");
+
+-    const { Agent, run, setDefaultOpenAIClient } = await import("@openai/agents");
+-    // Substituted OpenAI client — no real network to api.openai.com.
++    const { Agent, run, setDefaultOpenAIClient, tool } = await import(
++      "@openai/agents"
++    );
++
++    let toolHit = 0;
++    const probeTool = tool({
++      name: "sfia_probe_echo",
++      description: "Echo a short token for tracing proof",
++      parameters: {
++        type: "object",
++        properties: { token: { type: "string" } },
++        required: ["token"],
++        additionalProperties: false,
++      },
++      // eslint-disable-next-line @typescript-eslint/no-explicit-any
++      execute: async (input: any) => {
++        toolHit += 1;
++        return `echo:${String(input?.token ?? "")}`;
++      },
++    });
++
++    // Compatible substituted Responses client — must succeed, not be catch-absorbed.
+     const fakeClient = {
+       responses: {
+-        create: async () => ({
+-          id: "resp_fake",
+-          output_text: "ok",
+-          output: [
+-            {
+-              type: "message",
+-              role: "assistant",
+-              content: [{ type: "output_text", text: "ok" }],
+-            },
+-          ],
+-          usage: { input_tokens: 1, output_tokens: 1, total_tokens: 2 },
+-        }),
++        create: async (req: { input?: unknown; tools?: unknown[] }) => {
++          const hasTools = Array.isArray(req.tools) && req.tools.length > 0;
++          if (hasTools && toolHit === 0) {
++            return {
++              id: "resp_tool_call",
++              output: [
++                {
++                  type: "function_call",
++                  call_id: "call_1",
++                  name: "sfia_probe_echo",
++                  arguments: JSON.stringify({ token: "ping" }),
++                },
++              ],
++              usage: { input_tokens: 5, output_tokens: 2, total_tokens: 7 },
++            };
++          }
++          return {
++            id: "resp_final",
++            output_text: "ok-traced",
++            output: [
++              {
++                type: "message",
++                role: "assistant",
++                status: "completed",
++                content: [{ type: "output_text", text: "ok-traced" }],
++              },
++            ],
++            usage: { input_tokens: 8, output_tokens: 3, total_tokens: 11 },
++          };
++        },
+       },
+     };
+-    if (typeof setDefaultOpenAIClient === "function") {
+-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+-      setDefaultOpenAIClient(fakeClient as any);
+-    }
++    // eslint-disable-next-line @typescript-eslint/no-explicit-any
++    setDefaultOpenAIClient(fakeClient as any);
+
+     const { result, traceExportUrls } = await withAgentsTracingNetworkOracle(
+       async () =>
+@@ -77,36 +118,82 @@ describe("agents-sdk-tracing REAL SDK (substituted transport)", () => {
+           async () => {
+             const agent = new Agent({
+               name: "sfia_trace_probe",
+-              instructions: "Reply with ok.",
++              instructions: "Use the tool once then reply ok-traced.",
+               model: "gpt-4.1-mini",
++              tools: [probeTool],
+             });
+-            try {
+-              return await run(agent, "ping");
+-            } catch (e) {
+-              // Substituted client shape may not satisfy full SDK contract —
+-              // still prove SDK code path executed under the oracle.
+-              return { error: e instanceof Error ? e.message : String(e) };
+-            }
++            return await run(agent, "ping");
+           },
+         ),
+     );
+
+     expect(traceExportUrls).toEqual([]);
+-    // Sink may be empty if SDK never emitted spans under substituted client —
+-    // but network oracle must have wrapped a real import/execution.
+-    expect(result).toBeDefined();
+-    void getAgentsTracingSinkRecords();
+-  });
++    // Must not succeed via swallowed error — final text present.
++    const finalText =
++      // eslint-disable-next-line @typescript-eslint/no-explicit-any
++      (result as any)?.finalOutput ??
++      // eslint-disable-next-line @typescript-eslint/no-explicit-any
++      (result as any)?.output_text ??
++      String(result);
++    expect(String(finalText)).toMatch(/ok-traced|echo:ping|ok/i);
+
+-  it("LOCAL run recorded correlated sink under real SDK (no secret leakage)", async () => {
+-    process.env.SFIA_AGENTS_TRACING_MODE = "local";
+-    const cfg = await configureAgentsSdkTracing(process.env);
+-    if (!cfg.processorsReplaced) {
+-      expect(cfg.mode).toBe("off");
+-      return;
+-    }
+     const records = getAgentsTracingSinkRecords();
+-    // Prior test in this file may have populated the sink; ensure redaction.
++    expect(records.length).toBeGreaterThan(0);
++    expect(
++      records.every((r) => r.correlation.operationId === "op_real_sdk"),
++    ).toBe(true);
++    expect(records.every((r) => r.correlation.workId === "work_real_sdk")).toBe(
++      true,
++    );
+     expect(JSON.stringify(records)).not.toMatch(/sk-[A-Za-z0-9]/);
+   });
++
++  it("two concurrent works keep ALS correlation isolated", async () => {
++    process.env.SFIA_AGENTS_TRACING_MODE = "local";
++    await configureAgentsSdkTracing(process.env);
++    const { StudioLocalTraceProcessor } = await import("@/lib/agents-sdk-tracing");
++    const p = new StudioLocalTraceProcessor();
++    await Promise.all([
++      runWithAgentsTracingCorrelation(
++        {
++          operationId: "op_a",
++          generationId: "g_a",
++          attemptId: "a_a",
++          workId: "w_a",
++        },
++        async () => {
++          await p.onSpanEnd({
++            traceId: "t_a",
++            spanId: "s_a",
++            endedAt: Date.now(),
++            spanData: { type: "generation", name: "a" },
++          });
++        },
++      ),
++      runWithAgentsTracingCorrelation(
++        {
++          operationId: "op_b",
++          generationId: "g_b",
++          attemptId: "a_b",
++          workId: "w_b",
++        },
++        async () => {
++          await p.onSpanEnd({
++            traceId: "t_b",
++            spanId: "s_b",
++            endedAt: Date.now(),
++            spanData: { type: "generation", name: "b" },
++          });
++        },
++      ),
++    ]);
++    const byOp = Object.fromEntries(
++      getAgentsTracingSinkRecords().map((r) => [
++        r.correlation.operationId,
++        r.correlation.workId,
++      ]),
++    );
++    expect(byOp.op_a).toBe("w_a");
++    expect(byOp.op_b).toBe("w_b");
++  });
+ });
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-finops-reconciliation-service-path.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-finops-reconciliation-service-path.test.ts
+new file mode 100644
+index 00000000..535a398c
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/unit/ml5-finops-reconciliation-service-path.test.ts
+@@ -0,0 +1,117 @@
++import { describe, expect, it } from "vitest";
++import { evaluateFinOpsReconciliation } from "@/domains/finops/finops-reconciliation";
++import type { AdminUsageSnapshot } from "@/domains/finops/provider-admin-usage-collector";
++
++function liveSnap(amount: string): AdminUsageSnapshot {
 +  return {
 +    sourceEndpoint: "/organization/costs",
 +    surfaceObject: "organization.costs.result",
-+    organizationScope: "org:qual",
++    organizationScope: "org:demo",
 +    intervalStartUtc: "2023-11-14T22:13:20.000Z",
 +    intervalEndUtc: "2023-11-15T22:13:20.000Z",
 +    granularity: "1d",
 +    dimensions: {
-+      project_id: "proj_qual",
++      project_id: "proj_demo",
 +      api_key_id: null,
 +      user_id: null,
 +      model: null,
@@ -1968,772 +2999,396 @@ index 00000000..c1bc27fe
 +      input_cached_tokens: { presence: "ABSENT", value: null },
 +      num_model_requests: { presence: "ABSENT", value: null },
 +      num_requests: { presence: "ABSENT", value: null },
-+      amount: { presence: "MEASURED", value: overrides.amount },
++      amount: { presence: "MEASURED", value: amount },
 +      currency: { presence: "MEASURED", value: "usd" },
 +    },
-+    collectionId: overrides.collectionId ?? "acol_qual",
-+    completeness: overrides.completeness,
-+    collectedAtUtc: overrides.collectedAtUtc,
-+    collectionProvenance: overrides.collectionProvenance,
++    completeness: "complete",
++    collectedAtUtc: "2026-11-26T12:00:00.000Z",
++    collectionId: "acol_svc",
++    collectionProvenance: "LIVE",
 +  };
 +}
 +
-+describe("Admin/FinOps PG qualification", () => {
-+  beforeAll(() => resetAdminCollectorStateForTests());
-+  afterAll(() => resetAdminCollectorStateForTests());
-+
-+  it("partial collect does not overwrite complete snapshot metrics", async () => {
-+    const runId = `acol_integrity_${Date.now()}`;
-+    await insertAdminCollectionRun({
-+      collectionId: runId,
-+      startedAtUtc: "2026-11-26T10:00:00.000Z",
-+      status: "READY",
-+      path: "/organization/costs",
-+      organizationScope: "org:qual",
-+      provenance: "LIVE",
++describe("FinOps service-path reconciliation", () => {
++  it("establishes COMPARABLE when window/org/project/provenance/rights align", () => {
++    const r = evaluateFinOpsReconciliation({
++      studioEstimatedUsd: 0.8,
++      studioEstimationKind: "known",
++      snapshots: [liveSnap("0.8600000000")],
++      windowStartUtc: "2023-11-14T22:13:20.000Z",
++      windowEndUtc: "2023-11-15T22:13:20.000Z",
++      organizationScope: "org:demo",
++      configuredOrgId: "demo",
++      configuredProjectId: "proj_demo",
++      configuredApiKeyId: null,
++      pilotAuthorized: true,
++      freshnessStatus: "READY",
++      freshnessSnapshotCount: 1,
 +    });
-+    await finishAdminCollectionRun({
-+      collectionId: runId,
-+      finishedAtUtc: "2026-11-26T10:00:01.000Z",
-+      status: "READY",
-+      pagesFetched: 1,
-+      limits: [],
-+      lastError: null,
-+    });
-+
-+    await upsertAdminSnapshotsPg(
-+      [
-+        baseSnap({
-+          collectionId: runId,
-+          completeness: "complete",
-+          collectedAtUtc: "2026-11-26T10:00:00.000Z",
-+          amount: "9.0000000000",
-+        }),
-+      ],
-+      "LIVE",
-+    );
-+
-+    const runPartial = `${runId}_p`;
-+    await insertAdminCollectionRun({
-+      collectionId: runPartial,
-+      startedAtUtc: "2026-11-26T11:00:00.000Z",
-+      status: "PARTIAL",
-+      path: "/organization/costs",
-+      organizationScope: "org:qual",
-+      provenance: "LIVE",
-+    });
-+    await finishAdminCollectionRun({
-+      collectionId: runPartial,
-+      finishedAtUtc: "2026-11-26T11:00:01.000Z",
-+      status: "PARTIAL",
-+      pagesFetched: 1,
-+      limits: [],
-+      lastError: null,
-+    });
-+
-+    await upsertAdminSnapshotsPg(
-+      [
-+        baseSnap({
-+          collectionId: runPartial,
-+          completeness: "partial",
-+          collectedAtUtc: "2026-11-26T11:00:00.000Z",
-+          amount: "0.0100000000",
-+        }),
-+      ],
-+      "LIVE",
-+    );
-+
-+    const rows = await listAdminSnapshotsFromPg({
-+      organizationScope: "org:qual",
-+      provenance: "LIVE",
-+    });
-+    const hit = rows.find((r) => r.dimensions.project_id === "proj_qual");
-+    expect(hit?.completeness).toBe("complete");
-+    expect(hit?.metrics.amount.value).toBe("9.0000000000");
++    expect(r.comparability).toBe("COMPARABLE");
++    expect(r.disclosed).toBe(true);
++    expect(r.deltaUsd).toBe("0.0600000000");
 +  });
 +
-+  it("TEST provenance is excluded from LIVE product reads", async () => {
-+    const transport = markSubstitutedAdminTransport(async () => ({
-+      status: 200,
-+      json: costsPage(3.33, "proj_test_only"),
-+    }));
-+    const r = await runAdminCollection({
-+      config: resolveIsolatedAdminCollectorConfig({
-+        adminApiKey: null,
-+        mode: "TEST_SUBSTITUTED",
-+        liveAuthorized: false,
-+        organizationScope: "org:qual-test",
-+        transport,
-+      }),
-+      path: "/organization/costs",
-+      query: { start_time: "1700000000" },
-+      persistToPg: true,
++  it("refuses disclosure when pilot unauthorized even if math would COMPARABLE", () => {
++    const r = evaluateFinOpsReconciliation({
++      studioEstimatedUsd: 0.8,
++      studioEstimationKind: "known",
++      snapshots: [liveSnap("0.8600000000")],
++      windowStartUtc: "2023-11-14T22:13:20.000Z",
++      windowEndUtc: "2023-11-15T22:13:20.000Z",
++      organizationScope: "org:demo",
++      configuredOrgId: "demo",
++      configuredProjectId: "proj_demo",
++      configuredApiKeyId: null,
++      pilotAuthorized: false,
++      freshnessStatus: "READY",
++      freshnessSnapshotCount: 1,
 +    });
-+    expect(r.status).toBe("READY");
-+
-+    const liveOnly = await listAdminSnapshotsFromPg({
-+      organizationScope: "org:qual-test",
-+      provenance: "LIVE",
-+    });
-+    expect(liveOnly.some((s) => s.dimensions.project_id === "proj_test_only")).toBe(
-+      false,
-+    );
-+    const testRows = await listAdminSnapshotsFromPg({
-+      organizationScope: "org:qual-test",
-+      provenance: "TEST_SUBSTITUTED",
-+    });
-+    expect(testRows.some((s) => s.dimensions.project_id === "proj_test_only")).toBe(
-+      true,
-+    );
++    expect(r.comparability).toBe("UNAVAILABLE");
++    expect(r.disclosed).toBe(false);
++    expect(r.providerCostUsd).toBeNull();
 +  });
 +
-+  it("positive COMPARABLE with exact period window", () => {
-+    const window = {
-+      startUtc: "2023-11-14T22:13:20.000Z",
-+      endUtc: "2023-11-15T22:13:20.000Z",
-+    };
-+    const rows = [
-+      baseSnap({
-+        completeness: "complete",
-+        collectedAtUtc: "2026-11-26T10:00:00.000Z",
-+        amount: "0.8600000000",
-+        collectionProvenance: "LIVE",
-+      }),
-+    ];
-+    const period = assessPeriodEquality(rows, window);
-+    expect(period.periodEqual).toBe(true);
-+    const rec = reconcileFinOpsCosts({
-+      studioEstimatedUsd: "0.8000000000",
-+      providerCostUsd: "0.8600000000",
-+      scope: {
-+        organizationMatches: true,
-+        organizationIdentityProven: true,
-+        projectIdsOverlap: true,
-+        projectAttributionProven: true,
-+        apiKeyIdsOverlap: false,
-+        periodOverlap: true,
-+        periodEqual: period.periodEqual,
-+        currencyMatches: true,
-+        providerCurrency: "usd",
-+        surfacesRequested: ["/organization/costs"],
-+        groupingCompatible: true,
-+        coverageComplete: true,
-+        freshnessAcceptable: true,
-+        evidenceNotes: ["QUAL_POSITIVE_COMPARABLE"],
-+      },
++  it("TEST provenance excluded by default", () => {
++    const snap = liveSnap("1.0000000000");
++    snap.collectionProvenance = "TEST_SUBSTITUTED";
++    const r = evaluateFinOpsReconciliation({
++      studioEstimatedUsd: 0.8,
++      studioEstimationKind: "known",
++      snapshots: [snap],
++      windowStartUtc: "2023-11-14T22:13:20.000Z",
++      windowEndUtc: "2023-11-15T22:13:20.000Z",
++      organizationScope: "org:demo",
++      configuredOrgId: "demo",
++      configuredProjectId: "proj_demo",
++      configuredApiKeyId: null,
++      pilotAuthorized: true,
++      freshnessStatus: "READY",
++      freshnessSnapshotCount: 1,
 +    });
-+    expect(rec.status).toBe("COMPARABLE");
-+    expect(rec.deltaUsd).toBe("0.0600000000");
++    expect(r.comparability).toBe("UNAVAILABLE");
++    expect(r.limits).toContain("NO_LIVE_COMPLETE_SNAPSHOTS");
 +  });
 +
-+  it("finops reader role cannot INSERT snapshots", async () => {
-+    const url = process.env.DATABASE_URL;
-+    if (!url) throw new Error("DATABASE_URL missing");
-+    const u = new URL(url);
-+    u.username = "sfia_finops_reader_login";
-+    u.password = "sfia_dev_finops_read_only";
-+    const reader = postgres(u.toString(), { max: 1 });
-+    try {
-+      let refused = false;
-+      try {
-+        await reader`
-+          INSERT INTO provider_admin_collection_runs (
-+            collection_id, started_at, status, path, organization_scope, collection_provenance
-+          ) VALUES (
-+            'acol_should_fail', now(), 'READY', '/organization/costs', 'org:x', 'LIVE'
-+          )
-+        `;
-+      } catch {
-+        refused = true;
-+      }
-+      expect(refused).toBe(true);
-+    } finally {
-+      await reader.end({ timeout: 1 });
-+    }
-+  });
-+
-+  it("collector role cannot SELECT pilots (business tables)", async () => {
-+    const url = process.env.DATABASE_URL;
-+    if (!url) throw new Error("DATABASE_URL missing");
-+    const u = new URL(url);
-+    u.username = "sfia_admin_collector_login";
-+    u.password = "sfia_dev_collector_only";
-+    const collector = postgres(u.toString(), { max: 1 });
-+    try {
-+      let refused = false;
-+      try {
-+        await collector`SELECT id FROM pilots LIMIT 1`;
-+      } catch {
-+        refused = true;
-+      }
-+      expect(refused).toBe(true);
-+    } finally {
-+      await collector.end({ timeout: 1 });
-+    }
-+  });
-+
-+  it("freshness scoped by provenance", async () => {
-+    const f = await getAdminCollectionFreshnessFromPg({
-+      organizationScope: "org:qual-test",
-+      provenance: "TEST_SUBSTITUTED",
++  it("partial studio estimation never becomes COMPARABLE", () => {
++    const r = evaluateFinOpsReconciliation({
++      studioEstimatedUsd: 0.8,
++      studioEstimationKind: "partial",
++      snapshots: [liveSnap("0.8600000000")],
++      windowStartUtc: "2023-11-14T22:13:20.000Z",
++      windowEndUtc: "2023-11-15T22:13:20.000Z",
++      organizationScope: "org:demo",
++      configuredOrgId: "demo",
++      configuredProjectId: "proj_demo",
++      configuredApiKeyId: null,
++      pilotAuthorized: true,
++      freshnessStatus: "READY",
++      freshnessSnapshotCount: 1,
 +    });
-+    expect(f.snapshotCount).toBeGreaterThan(0);
++    expect(r.comparability).toBe("PARTIAL");
++    expect(r.disclosed).toBe(false);
 +  });
 +});
-diff --git a/projects/sfia-studio-next/web/tests/integration/ml5-admin-snapshots-pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml5-admin-snapshots-pg.test.ts
-index bd39aed5..6adbfb86 100644
---- a/projects/sfia-studio-next/web/tests/integration/ml5-admin-snapshots-pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/ml5-admin-snapshots-pg.test.ts
-@@ -67,6 +67,7 @@ describe("admin snapshots PG persistence (DEV)", () => {
-
-     const fromPg = await listAdminSnapshotsFromPg({
-       organizationScope: "org:pg-dev-test",
-+      provenance: "TEST_SUBSTITUTED",
-     });
-     expect(fromPg.some((s) => s.dimensions.project_id === "proj_pg_a")).toBe(
-       true,
-@@ -102,6 +103,7 @@ describe("admin snapshots PG persistence (DEV)", () => {
-     });
-     const rows = await listAdminSnapshotsFromPg({
-       organizationScope: "org:pg-dev-test",
-+      provenance: "TEST_SUBSTITUTED",
-     });
-     const matches = rows.filter(
-       (s) =>
-diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-provider-admin-usage-collector.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-provider-admin-usage-collector.test.ts
-index 264191b1..74a8b04d 100644
---- a/projects/sfia-studio-next/web/tests/unit/ml5-provider-admin-usage-collector.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/ml5-provider-admin-usage-collector.test.ts
-@@ -1,5 +1,7 @@
- import { afterEach, describe, expect, it } from "vitest";
- import {
-+  assertAdminCollectionEnvelope,
-+  assessPeriodEquality,
-   markSubstitutedAdminTransport,
-   parseAdminUsagePage,
-   resetAdminCollectorStateForTests,
-@@ -9,11 +11,12 @@ import {
-   listAdminCollectorSnapshots,
-   reconcileFinOpsCosts,
-   sumMeasuredCostUsd,
-+  upsertAdminSnapshots,
-   type AdminHttpTransport,
-+  type AdminUsageSnapshot,
- } from "@/domains/finops/provider-admin-usage-collector";
- import { decimalAdd, decimalSub } from "@/domains/finops/decimal-money";
-
--/** Official-shaped page: buckets with nested results (not flattened rows). */
- function officialCostsPage(opts?: { hasMore?: boolean; next?: string | null }) {
-   return {
-     object: "page",
-@@ -27,8 +30,6 @@ function officialCostsPage(opts?: { hasMore?: boolean; next?: string | null }) {
-             object: "organization.costs.result",
-             amount: { value: 0.42, currency: "usd" },
-             project_id: "proj_a",
--            api_key_id: null,
--            line_item: null,
-           },
-           {
-             object: "organization.costs.result",
-@@ -44,48 +45,42 @@ function officialCostsPage(opts?: { hasMore?: boolean; next?: string | null }) {
-   };
- }
-
--function officialCompletionsPage() {
-+function snap(partial: Partial<AdminUsageSnapshot> & Pick<AdminUsageSnapshot, "completeness" | "collectedAtUtc">): AdminUsageSnapshot {
-   return {
--    object: "page",
--    data: [
--      {
--        object: "bucket",
--        start_time: 1_700_000_000,
--        end_time: 1_700_086_400,
--        results: [
--          {
--            object: "organization.usage.completions.result",
--            input_tokens: 100,
--            output_tokens: 20,
--            input_cached_tokens: 10,
--            num_model_requests: 2,
--            project_id: "proj_a",
--            model: "gpt-x",
--          },
--        ],
--      },
--      {
--        object: "bucket",
--        start_time: 1_700_086_400,
--        end_time: 1_700_172_800,
--        results: [],
--      },
--    ],
--    has_more: false,
--    next_page: null,
-+    sourceEndpoint: "/organization/costs",
-+    surfaceObject: "organization.costs.result",
-+    organizationScope: "org:test",
-+    intervalStartUtc: "2023-11-14T22:13:20.000Z",
-+    intervalEndUtc: "2023-11-15T22:13:20.000Z",
-+    granularity: "1d",
-+    dimensions: {
-+      project_id: "proj_a",
-+      api_key_id: null,
-+      user_id: null,
-+      model: null,
-+      line_item: null,
-+      api_source: null,
-+    },
-+    metrics: {
-+      input_tokens: { presence: "ABSENT", value: null },
-+      output_tokens: { presence: "ABSENT", value: null },
-+      input_cached_tokens: { presence: "ABSENT", value: null },
-+      num_model_requests: { presence: "ABSENT", value: null },
-+      num_requests: { presence: "ABSENT", value: null },
-+      amount: { presence: "MEASURED", value: "1.0000000000" },
-+      currency: { presence: "MEASURED", value: "usd" },
-+    },
-+    collectionId: "acol_x",
-+    ...partial,
-   };
- }
-
--function sub(fn: AdminHttpTransport["__sfiaAdminMode"] extends never ? never : Parameters<typeof markSubstitutedAdminTransport>[0]) {
--  return markSubstitutedAdminTransport(fn);
--}
--
--describe("provider-admin-usage-collector (operational)", () => {
-+describe("provider-admin-usage-collector (Admin/FinOps qualification)", () => {
-   afterEach(() => {
-     resetAdminCollectorStateForTests();
-   });
-
--  it("parses nested bucket.results — multiple results per bucket", () => {
-+  it("parses nested bucket.results", () => {
-     const parsed = parseAdminUsagePage({
-       path: "/organization/costs",
-       json: officialCostsPage(),
-@@ -95,15 +90,9 @@ describe("provider-admin-usage-collector (operational)", () => {
-       granularity: "1d",
-     });
-     expect(parsed.snapshots).toHaveLength(2);
--    expect(parsed.snapshots[0].surfaceObject).toBe("organization.costs.result");
--    expect(parsed.snapshots[0].metrics.amount).toEqual({
--      presence: "MEASURED",
--      value: "0.4200000000",
--    });
--    expect(parsed.snapshots[1].dimensions.project_id).toBe("proj_b");
-   });
-
--  it("flags has_more without cursor as anomaly", () => {
-+  it("flags has_more without cursor", () => {
-     const parsed = parseAdminUsagePage({
-       path: "/organization/costs",
-       json: officialCostsPage({ hasMore: true, next: null }),
-@@ -115,21 +104,69 @@ describe("provider-admin-usage-collector (operational)", () => {
-     expect(parsed.limits).toContain("HAS_MORE_WITHOUT_CURSOR");
-   });
-
--  it("ABSENT metrics stay ABSENT — never ZERO", () => {
--    const parsed = parseAdminUsagePage({
--      path: "/organization/usage/completions",
--      json: officialCompletionsPage(),
--      organizationScope: "org:test",
--      collectionId: "acol_2",
--      collectedAtUtc: "2026-11-26T00:00:00.000Z",
--      granularity: "1d",
--    });
--    expect(parsed.snapshots).toHaveLength(1);
--    const m = parsed.snapshots[0].metrics;
--    expect(m.input_tokens.presence).toBe("MEASURED");
--    expect(m.num_requests.presence).toBe("ABSENT");
--    expect(m.num_requests.value).toBeNull();
--    expect(m.amount.presence).toBe("ABSENT");
-+  it("memory upsert: partial never degrades complete metrics", () => {
-+    const metrics9 = {
-+      input_tokens: { presence: "ABSENT" as const, value: null },
-+      output_tokens: { presence: "ABSENT" as const, value: null },
-+      input_cached_tokens: { presence: "ABSENT" as const, value: null },
-+      num_model_requests: { presence: "ABSENT" as const, value: null },
-+      num_requests: { presence: "ABSENT" as const, value: null },
-+      amount: { presence: "MEASURED" as const, value: "9.0000000000" },
-+      currency: { presence: "MEASURED" as const, value: "usd" },
-+    };
-+    upsertAdminSnapshots([
-+      snap({
-+        completeness: "complete",
-+        collectedAtUtc: "2026-11-26T10:00:00.000Z",
-+        metrics: metrics9,
-+      }),
-+    ]);
-+    upsertAdminSnapshots([
-+      snap({
-+        completeness: "partial",
-+        collectedAtUtc: "2026-11-26T11:00:00.000Z",
-+        metrics: {
-+          ...metrics9,
-+          amount: { presence: "MEASURED", value: "0.0100000000" },
-+        },
-+      }),
-+    ]);
-+    const rows = listAdminCollectorSnapshots();
-+    expect(rows).toHaveLength(1);
-+    expect(rows[0].completeness).toBe("complete");
-+    expect(rows[0].metrics.amount.value).toBe("9.0000000000");
-+  });
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml5-provider-continuity-from-work.test.ts b/projects/sfia-studio-next/web/tests/unit/ml5-provider-continuity-from-work.test.ts
+new file mode 100644
+index 00000000..e26860c9
+--- /dev/null
++++ b/projects/sfia-studio-next/web/tests/unit/ml5-provider-continuity-from-work.test.ts
+@@ -0,0 +1,52 @@
++import { describe, expect, it } from "vitest";
++import { buildStudioContinuityFromWork } from "@/domains/conversation/provider-response-continuity";
 +
-+  it("memory upsert: older collect does not replace newer", () => {
-+    const metrics = {
-+      input_tokens: { presence: "ABSENT" as const, value: null },
-+      output_tokens: { presence: "ABSENT" as const, value: null },
-+      input_cached_tokens: { presence: "ABSENT" as const, value: null },
-+      num_model_requests: { presence: "ABSENT" as const, value: null },
-+      num_requests: { presence: "ABSENT" as const, value: null },
-+      amount: { presence: "MEASURED" as const, value: "5.0000000000" },
-+      currency: { presence: "MEASURED" as const, value: "usd" },
-+    };
-+    upsertAdminSnapshots([
-+      snap({
-+        completeness: "complete",
-+        collectedAtUtc: "2026-11-26T12:00:00.000Z",
-+        metrics,
-+      }),
-+    ]);
-+    upsertAdminSnapshots([
-+      snap({
-+        completeness: "complete",
-+        collectedAtUtc: "2026-11-26T11:00:00.000Z",
-+        metrics: {
-+          ...metrics,
-+          amount: { presence: "MEASURED", value: "1.0000000000" },
-+        },
-+      }),
-+    ]);
-+    expect(listAdminCollectorSnapshots()[0].metrics.amount.value).toBe(
-+      "5.0000000000",
-+    );
-   });
-
-   it("product view never loads Admin secret", () => {
-@@ -139,12 +176,11 @@ describe("provider-admin-usage-collector (operational)", () => {
-     delete process.env.OPENAI_ADMIN_KEY;
-   });
-
--  it("LIVE mode refuses without LIVE GO even with transport injection", async () => {
-+  it("LIVE mode refuses without LIVE GO even with forged marker", async () => {
-     const transport = markSubstitutedAdminTransport(async () => ({
-       status: 200,
-       json: officialCostsPage(),
-     }));
--    // Injected transport with wrong mode for LIVE ⇒ blocked.
-     const r = await runAdminCollection({
-       config: {
-         adminApiKey: "sk-admin-test",
-@@ -154,179 +190,151 @@ describe("provider-admin-usage-collector (operational)", () => {
-         transport: transport as unknown as AdminHttpTransport,
-       },
-       path: "/organization/costs",
--      query: { start_time: "1" },
-+      query: { start_time: "1700000000", end_time: "1700086400" },
-     });
-     expect(r.status).toBe("BLOCKED_NO_LIVE_GO");
-   });
-
--  it("TEST_SUBSTITUTED works without real Admin key", async () => {
--    const transport = sub(async () => ({
-+  it("TEST_SUBSTITUTED refuses when a real key is attached", async () => {
-+    const transport = markSubstitutedAdminTransport(async () => ({
-       status: 200,
-       json: officialCostsPage(),
-     }));
--    const r = await runAdminCollection({
--      config: resolveIsolatedAdminCollectorConfig({
--        adminApiKey: null,
--        mode: "TEST_SUBSTITUTED",
--        liveAuthorized: false,
--        transport,
--      }),
--      path: "/organization/costs",
--      query: { start_time: "1" },
--    });
--    expect(r.status).toBe("READY");
--    expect(r.snapshots).toHaveLength(2);
--  });
--
--  it("blocks unmarked transport on TEST mode", async () => {
--    const raw = async () => ({
--      status: 200,
--      json: officialCostsPage(),
--    });
-     const r = await runAdminCollection({
-       config: {
--        adminApiKey: null,
-+        adminApiKey: "sk-must-not-be-here",
-         organizationScope: "org:t",
-         mode: "TEST_SUBSTITUTED",
-         liveAdminCallsAuthorized: false,
--        transport: raw as unknown as AdminHttpTransport,
-+        transport,
-       },
-       path: "/organization/costs",
--      query: { start_time: "1" },
-+      query: { start_time: "1700000000" },
-     });
-     expect(r.status).toBe("BLOCKED_NO_LIVE_GO");
--    expect(r.lastError).toContain("BLOCKED_TEST_TRANSPORT_REQUIRED");
-+    expect(r.lastError).toContain("BLOCKED_TEST_MUST_NOT_HOLD_LIVE_KEY");
-   });
-
--  it("refuses /organization/usage/responses (nonexistent)", async () => {
--    const transport = sub(async () => ({
-+  it("TEST_SUBSTITUTED works without real Admin key", async () => {
-+    const transport = markSubstitutedAdminTransport(async () => ({
-       status: 200,
--      json: { object: "page", data: [] },
-+      json: officialCostsPage(),
-     }));
-     const r = await runAdminCollection({
--      config: {
--        adminApiKey: null,
--        organizationScope: "org:t",
--        mode: "TEST_SUBSTITUTED",
--        liveAdminCallsAuthorized: false,
--        transport,
--      },
--      path: "/organization/usage/responses",
--      query: { start_time: "1" },
--    });
--    expect(r.status).toBe("ERROR");
--    expect(r.lastError).toContain("ADMIN_PATH_NOT_ALLOWLISTED");
--  });
--
--  it("paginates official-shaped costs and sums only attributed project", async () => {
--    let calls = 0;
--    const transport = sub(async ({ path }) => {
--      calls += 1;
--      expect(path).toBe("/organization/costs");
--      if (calls === 1) {
--        return {
--          status: 200,
--          json: officialCostsPage({ hasMore: true, next: "page_2" }),
--        };
--      }
--      return {
--        status: 200,
--        json: {
--          object: "page",
--          data: [
--            {
--              object: "bucket",
--              start_time: 1_700_086_400,
--              end_time: 1_700_172_800,
--              results: [
--                {
--                  object: "organization.costs.result",
--                  amount: { value: 0.11, currency: "usd" },
--                  project_id: "proj_a",
--                },
--              ],
--            },
--          ],
--          has_more: false,
--          next_page: null,
--        },
--      };
--    });
--
--    const r = await runAdminCollection({
--      config: {
-+      config: resolveIsolatedAdminCollectorConfig({
-         adminApiKey: null,
--        organizationScope: "org:test",
-         mode: "TEST_SUBSTITUTED",
--        liveAdminCallsAuthorized: false,
-+        liveAuthorized: false,
-         transport,
--      },
-+      }),
-       path: "/organization/costs",
--      query: { start_time: "1700000000", bucket_width: "1d" },
-+      query: { start_time: "1700000000" },
-     });
-     expect(r.status).toBe("READY");
--    expect(r.pagesFetched).toBe(2);
--    expect(listAdminCollectorSnapshots()).toHaveLength(3);
--
--    const refused = sumMeasuredCostUsd(listAdminCollectorSnapshots(), {
--      projectId: null,
--    });
--    expect(refused.limits).toContain("ORG_AGGREGATE_SUM_REFUSED_WITHOUT_PROJECT");
--    expect(refused.total).toBeNull();
-+    expect(r.snapshots.every((s) => s.collectionProvenance === "TEST_SUBSTITUTED")).toBe(
-+      true,
-+    );
-+  });
-
--    const sum = sumMeasuredCostUsd(listAdminCollectorSnapshots(), {
--      projectId: "proj_a",
--    });
--    expect(sum.total).toBe(decimalAdd("0.42", "0.11"));
--    expect(sum.currency).toBe("usd");
-+  it("envelope requires start_time and bounds maxPages", () => {
-+    expect(() =>
-+      assertAdminCollectionEnvelope({
-+        path: "/organization/costs",
-+        query: {},
-+        maxPages: 5,
-+      }),
-+    ).toThrow(/ENVELOPE_START_TIME_REQUIRED/);
-+    expect(() =>
-+      assertAdminCollectionEnvelope({
-+        path: "/organization/costs",
-+        query: { start_time: "1", require_end_time: "1" },
-+        maxPages: 5,
-+      }),
-+    ).toThrow(/ENVELOPE_END_TIME_REQUIRED/);
-+    expect(() =>
-+      assertAdminCollectionEnvelope({
-+        path: "/organization/costs",
-+        query: { start_time: "1" },
-+        maxPages: 50,
-+      }),
-+    ).toThrow(/ENVELOPE_MAX_PAGES/);
-   });
-
--  it("detects repeated cursor as PARTIAL anomaly", async () => {
--    const transport = sub(async () => ({
-+  it("sums only attributed project; refuses null projectId", () => {
-+    const transport = markSubstitutedAdminTransport(async () => ({
-       status: 200,
--      json: officialCostsPage({ hasMore: true, next: "same_page" }),
-+      json: officialCostsPage(),
-     }));
--    const r = await runAdminCollection({
-+    return runAdminCollection({
-       config: {
-         adminApiKey: null,
--        organizationScope: "org:t",
-+        organizationScope: "org:test",
-         mode: "TEST_SUBSTITUTED",
-         liveAdminCallsAuthorized: false,
-         transport,
-       },
-       path: "/organization/costs",
--      query: { start_time: "1" },
--      maxPages: 5,
-+      query: { start_time: "1700000000" },
-+    }).then((r) => {
-+      expect(r.status).toBe("READY");
-+      const refused = sumMeasuredCostUsd(listAdminCollectorSnapshots(), {
-+        projectId: null,
-+      });
-+      expect(refused.limits).toContain("ORG_AGGREGATE_SUM_REFUSED_WITHOUT_PROJECT");
-+      const sum = sumMeasuredCostUsd(listAdminCollectorSnapshots(), {
-+        projectId: "proj_a",
-+      });
-+      expect(sum.total).toBe("0.4200000000");
-     });
--    expect(r.status).toBe("PARTIAL");
--    expect(r.limits).toContain("REPEATED_CURSOR");
-   });
-
--  it("reconcile requires full evidence — flag alone is insufficient", () => {
--    const rec = reconcileFinOpsCosts({
-+  it("period equality requires exact window match", () => {
-+    const rows = [
-+      snap({
-+        completeness: "complete",
-+        collectedAtUtc: "2026-11-26T00:00:00.000Z",
-+        intervalStartUtc: "2023-11-14T22:13:20.000Z",
-+        intervalEndUtc: "2023-11-15T22:13:20.000Z",
-+      }),
-+    ];
-+    const equal = assessPeriodEquality(rows, {
-+      startUtc: "2023-11-14T22:13:20.000Z",
-+      endUtc: "2023-11-15T22:13:20.000Z",
-+    });
-+    expect(equal.periodEqual).toBe(true);
-+    const overlapOnly = assessPeriodEquality(rows, {
-+      startUtc: "2023-11-14T00:00:00.000Z",
-+      endUtc: "2023-11-16T00:00:00.000Z",
-+    });
-+    expect(overlapOnly.periodEqual).toBe(false);
-+    expect(overlapOnly.periodOverlap).toBe(true);
-+  });
-+
-+  it("COMPARABLE when full evidence including periodEqual", () => {
-+    const ok = reconcileFinOpsCosts({
-       studioEstimatedUsd: "0.80",
-       providerCostUsd: "0.86",
-       scope: {
-         organizationMatches: true,
-         organizationIdentityProven: true,
--        projectIdsOverlap: false,
--        projectAttributionProven: false,
-+        projectIdsOverlap: true,
-+        projectAttributionProven: true,
-         apiKeyIdsOverlap: false,
-         periodOverlap: true,
--        periodEqual: false,
-+        periodEqual: true,
-         currencyMatches: true,
-         providerCurrency: "usd",
-         surfacesRequested: ["/organization/costs"],
-         groupingCompatible: true,
-         coverageComplete: true,
-         freshnessAcceptable: true,
--        evidenceNotes: ["SCOPE_FLAG_SET_BUT_EVIDENCE_REQUIRED"],
-+        evidenceNotes: [],
-       },
-     });
--    expect(rec.status).toBe("NON_COMPARABLE");
--    expect(rec.deltaUsd).toBeNull();
-+    expect(ok.status).toBe("COMPARABLE");
-+    expect(ok.deltaUsd).toBe(decimalSub("0.86", "0.80"));
-
--    const ok = reconcileFinOpsCosts({
-+    const bad = reconcileFinOpsCosts({
-       studioEstimatedUsd: "0.80",
-       providerCostUsd: "0.86",
-       scope: {
-@@ -336,7 +344,7 @@ describe("provider-admin-usage-collector (operational)", () => {
-         projectAttributionProven: true,
-         apiKeyIdsOverlap: false,
-         periodOverlap: true,
--        periodEqual: true,
-+        periodEqual: false,
-         currencyMatches: true,
-         providerCurrency: "usd",
-         surfacesRequested: ["/organization/costs"],
-@@ -346,7 +354,28 @@ describe("provider-admin-usage-collector (operational)", () => {
-         evidenceNotes: [],
-       },
-     });
--    expect(ok.status).toBe("COMPARABLE");
--    expect(ok.deltaUsd).toBe(decimalSub("0.86", "0.80"));
-+    expect(bad.status).toBe("NON_COMPARABLE");
-+    expect(bad.deltaUsd).toBeNull();
-+  });
-+
-+  it("detects repeated cursor as PARTIAL", async () => {
-+    const transport = markSubstitutedAdminTransport(async () => ({
-+      status: 200,
-+      json: officialCostsPage({ hasMore: true, next: "same_page" }),
-+    }));
-+    const r = await runAdminCollection({
-+      config: {
-+        adminApiKey: null,
-+        organizationScope: "org:t",
-+        mode: "TEST_SUBSTITUTED",
-+        liveAdminCallsAuthorized: false,
-+        transport,
++describe("buildStudioContinuityFromWork", () => {
++  it("uses real sources, acquis, tokens and rights — not placeholders", () => {
++    const snap = buildStudioContinuityFromWork({
++      id: "work_1",
++      revision: 3,
++      ownerToken: "tok_live",
++      leaseUntil: new Date(Date.now() + 60_000),
++      state: {
++        intentSummary: "investigate docs",
++        conclusions: ["Finding A is durable"],
++        sources: [
++          { ref: "d4:doc1", versionOrSha: "rev9" },
++          { ref: "git-file:r:path.ts", versionOrSha: "abc123" },
++        ],
 +      },
-+      path: "/organization/costs",
-+      query: { start_time: "1" },
-+      maxPages: 5,
++      resources: { inputTokens: 100, outputTokens: 40, segmentCalls: 2 },
 +    });
-+    expect(r.status).toBe("PARTIAL");
-+    expect(r.limits).toContain("REPEATED_CURSOR");
-   });
- });
++    expect(snap.workId).toBe("work_1");
++    expect(snap.checkpointId).toBe("ckpt:work_1:r3");
++    expect(snap.acquisFingerprint).toContain("Finding A");
++    expect(snap.sourceVersions).toEqual([
++      "d4:doc1@rev9",
++      "git-file:r:path.ts@abc123",
++    ]);
++    expect(snap.budgets.tokensConsumed).toBe(140);
++    expect(snap.rightsOk).toBe(true);
++  });
++
++  it("rightsOk false when lease expired or owner token absent", () => {
++    const expired = buildStudioContinuityFromWork({
++      id: "work_2",
++      revision: 1,
++      ownerToken: "tok",
++      leaseUntil: new Date(Date.now() - 1000),
++      state: { intentSummary: "x", sources: [] },
++      resources: {},
++    });
++    expect(expired.rightsOk).toBe(false);
++    const noTok = buildStudioContinuityFromWork({
++      id: "work_3",
++      revision: 1,
++      ownerToken: null,
++      leaseUntil: null,
++      state: { intentSummary: "x", sources: [] },
++      resources: {},
++    });
++    expect(noTok.rightsOk).toBe(false);
++  });
++});
+```
+
+## 6. Preuves sécurité identifiants
+
+| Preuve | Résultat |
+|---|---|
+| `sfia_admin_collector_login` / `sfia_finops_reader_login` rolcanlogin | **false** (NOLOGIN) |
+| Connexion host avec probe | FATAL role is not permitted to log in |
+| Sources courantes password literals | **NONE** |
+| Pack / diffs | pas de reproduction des valeurs compromises |
+| Historique distant | valeurs passées traitées compromises (pas de rewrite) |
+
+## 7. Preuves rôles PostgreSQL
+
+`ml5-admin-finops-qualification.pg.test.ts` — 7 PASS :
+- reader INSERT → SQLSTATE 42501
+- collector SELECT pilots → 42501
+- collector INSERT run + reader SELECT → OK
+
+## 8. Matrice CONV (Intervention 1)
+
+| Exigence | Scénario | Oracle | Commande | Attendu | Observé | Niveau | Réserve | Sortie |
+|---|---|---|---|---|---|---|---|---|
+| CONV-F01 Admin transport TEST | collection substituée | status READY + provenance TEST | vitest admin collector / integrated | READY TEST | PASS | DETERMINISTIC+PG | — | OK |
+| CONV-F02 Envelope LIVE | assert envelope | start/end required | unit admin | throw sans start | PASS (cycle antérieur capitalisé) | DETERMINISTIC | LIVE NOT RUN | BLOCKED LIVE |
+| CONV-F03 Provenance canon | upsert TEST≠LIVE | index unique | migration 025 + PG | no collision | PASS | INTEGRATION | — | OK |
+| CONV-F04 Roles | SET ROLE | SQLSTATE 42501 | pg qual | refuse + grant | PASS | INTEGRATION | — | OK |
+| CONV-F05 FinOps COMPARABLE | service evaluator | disclosed+delta | unit finops | COMPARABLE | PASS | DETERMINISTIC | LIVE costs NOT RUN | OK subst |
+| CONV-F06 FinOps rights | pilotAuthorized=false | no amount | unit | UNAVAILABLE | PASS | DETERMINISTIC | — | OK |
+| CONV-F07 TEST exclu | provenance TEST default | NO_LIVE | unit | UNAVAILABLE | PASS | DETERMINISTIC | — | OK |
+| CONV-F08 Freshness scoped | PG freshness | count>0 | pg qual | scoped | PASS | INTEGRATION | — | OK |
+| CONV-F11 Tracing | real SDK + oracle | spans+export[] | unit real-sdk | PASS | PASS | DETERMINISTIC (SDK réel) | ops OFF | OK |
+| CONV-F12 Continuity D3 | buildStudioContinuityFromWork | real sources/tokens | unit + nora wire | non-placeholder | PASS | DETERMINISTIC | native OFF | OK |
+| CONV-F13 Frontier PARTIAL | UNKNOWN then MEASURED | PARTIAL | unit+integrated | PARTIAL | PASS | DETERMINISTIC | WEB LIVE NOT RUN | OK |
+| CONV-F14 A3 dossier | Option1/2 | doc gates | dossier 20261127 | intelligible | DOCUMENTED | DOCUMENTED | Morris | BLOCKED gate |
+| CONV-F15 E2E substitué | campaign 1–11 | multi-oracle | integrated pg | PASS | PASS | INTEGRATION | REAL provider NOT RUN | OK subst |
+
+**LIVE exigences :** G-ADMIN-LIVE · G-WEB-PUBLIC · G-PROVIDER-LIVE-QUALIFICATION = **BLOCKED / NOT RUN**.
+
+## 9. Build / runtime
+
+| | |
+|---|---|
+| BUILD_ID | `0VeseCyhfyZnoVBm1JG42` |
+| digest | `7673fffb47a48f7b45bf78c890df8bd94068032db7abccd84e4bafb7f5c6e0a1` |
+| URL | http://127.0.0.1:3100 |
+| login HTTP | 200 |
+| /settings/consumption | 200 |
+| RECETTE pid | 89199 inchangé |
+| Typecheck baseline | 12 erreurs préexistantes hors chemins modifiés (identique baseline rapportée) |
+| qualify:browser | non rejoué ce cycle (anomalies navigateur préexistantes hors blast radius ML1 ; smoke HTTP OK) |
+
+## 10. Résultats tests (extraits)
+
+### Unit FinOps/D3/tracing
+```
+◇ injected env (0) from .env.local
+
+ RUN  v3.2.4 /Users/morris/Projects/sfia-wt-next-ml5-20261123/projects/sfia-studio-next/web
+
+stderr | tests/unit/ml5-agents-sdk-tracing-real-sdk.test.ts
+◇ injected env (0) from .env.local
+
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-27T01:45:09.196Z","lane":"DEV","source_sha":"912ef30b40f2447a925f4182bc4961560eca810e","build_id":"emfz_yP5MBF9GxQRrnJGP","event_name":"provider.agents_trace.local","component":"agents_sdk_tracing","outcome":"SUCCESS","operation_id":"op_real_sdk","generation_id":"gen_real_sdk","attempt_id":"att_real_sdk","duration_ms":1,"meta":{"kind":"span","status":"ok","tool_calls":"response"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-27T01:45:09.200Z","lane":"DEV","source_sha":"912ef30b40f2447a925f4182bc4961560eca810e","build_id":"emfz_yP5MBF9GxQRrnJGP","event_name":"provider.agents_trace.local","component":"agents_sdk_tracing","outcome":"SUCCESS","operation_id":"op_real_sdk","generation_id":"gen_real_sdk","attempt_id":"att_real_sdk","duration_ms":1,"meta":{"kind":"span","status":"ok","tool_calls":"function:sfia_probe_echo"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-27T01:45:09.201Z","lane":"DEV","source_sha":"912ef30b40f2447a925f4182bc4961560eca810e","build_id":"emfz_yP5MBF9GxQRrnJGP","event_name":"provider.agents_trace.local","component":"agents_sdk_tracing","outcome":"SUCCESS","operation_id":"op_real_sdk","generation_id":"gen_real_sdk","attempt_id":"att_real_sdk","duration_ms":6,"meta":{"kind":"span","status":"ok","tool_calls":"turn"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-27T01:45:09.201Z","lane":"DEV","source_sha":"912ef30b40f2447a925f4182bc4961560eca810e","build_id":"emfz_yP5MBF9GxQRrnJGP","event_name":"provider.agents_trace.local","component":"agents_sdk_tracing","outcome":"SUCCESS","operation_id":"op_real_sdk","generation_id":"gen_real_sdk","attempt_id":"att_real_sdk","duration_ms":0,"meta":{"kind":"span","status":"ok","tool_calls":"response"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-27T01:45:09.201Z","lane":"DEV","source_sha":"912ef30b40f2447a925f4182bc4961560eca810e","build_id":"emfz_yP5MBF9GxQRrnJGP","event_name":"provider.agents_trace.local","component":"agents_sdk_tracing","outcome":"SUCCESS","operation_id":"op_real_sdk","generation_id":"gen_real_sdk","attempt_id":"att_real_sdk","duration_ms":0,"meta":{"kind":"span","status":"ok","tool_calls":"turn"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-27T01:45:09.202Z","lane":"DEV","source_sha":"912ef30b40f2447a925f4182bc4961560eca810e","build_id":"emfz_yP5MBF9GxQRrnJGP","event_name":"provider.agents_trace.local","component":"agents_sdk_tracing","outcome":"SUCCESS","operation_id":"op_real_sdk","generation_id":"gen_real_sdk","attempt_id":"att_real_sdk","duration_ms":8,"meta":{"kind":"span","status":"ok","tool_calls":"agent:sfia_trace_probe"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-27T01:45:09.202Z","lane":"DEV","source_sha":"912ef30b40f2447a925f4182bc4961560eca810e","build_id":"emfz_yP5MBF9GxQRrnJGP","event_name":"provider.agents_trace.local","component":"agents_sdk_tracing","outcome":"SUCCESS","operation_id":"op_real_sdk","generation_id":"gen_real_sdk","attempt_id":"att_real_sdk","duration_ms":9,"meta":{"kind":"span","status":"ok","tool_calls":"task:Agent workflow"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-27T01:45:09.202Z","lane":"DEV","source_sha":"912ef30b40f2447a925f4182bc4961560eca810e","build_id":"emfz_yP5MBF9GxQRrnJGP","event_name":"provider.agents_trace.local","component":"agents_sdk_tracing","outcome":"SUCCESS","operation_id":"op_real_sdk","generation_id":"gen_real_sdk","attempt_id":"att_real_sdk","meta":{"kind":"trace","status":"ok","tool_calls":"Agent workflow"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-27T01:45:09.203Z","lane":"DEV","source_sha":"912ef30b40f2447a925f4182bc4961560eca810e","build_id":"emfz_yP5MBF9GxQRrnJGP","event_name":"provider.agents_trace.local","component":"agents_sdk_tracing","outcome":"SUCCESS","operation_id":"op_a","generation_id":"g_a","attempt_id":"a_a","meta":{"kind":"span","status":"ok","tool_calls":"generation:a"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-27T01:45:09.203Z","lane":"DEV","source_sha":"912ef30b40f2447a925f4182bc4961560eca810e","build_id":"emfz_yP5MBF9GxQRrnJGP","event_name":"provider.agents_trace.local","component":"agents_sdk_tracing","outcome":"SUCCESS","operation_id":"op_b","generation_id":"g_b","attempt_id":"a_b","meta":{"kind":"span","status":"ok","tool_calls":"generation:b"}}
+ ✓ tests/unit/ml5-agents-sdk-tracing-real-sdk.test.ts (4 tests) 215ms
+stderr | tests/unit/ml5-finops-reconciliation-service-path.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/ml5-finops-reconciliation-service-path.test.ts (4 tests) 2ms
+stderr | tests/unit/ml5-provider-continuity-from-work.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/ml5-provider-continuity-from-work.test.ts (2 tests) 1ms
+
+ Test Files  3 passed (3)
+      Tests  10 passed (10)
+   Start at  02:45:08
+   Duration  547ms (transform 52ms, setup 22ms, collect 47ms, tests 217ms, environment 0ms, prepare 69ms)
+
 
 ```
+
+### Admin FinOps PG
+```
+◇ injected env (0) from .env.local
+
+ RUN  v3.2.4 /Users/morris/Projects/sfia-wt-next-ml5-20261123/projects/sfia-studio-next/web
+
+stderr | tests/integration/ml5-admin-finops-qualification.pg.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/integration/ml5-admin-finops-qualification.pg.test.ts (7 tests) 86ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  02:45:18
+   Duration  540ms (transform 59ms, setup 18ms, collect 250ms, tests 86ms, environment 0ms, prepare 25ms)
+
+
+```
+
+### Frontier/continuity/admin units
+```
+◇ injected env (0) from .env.local
+
+ RUN  v3.2.4 /Users/morris/Projects/sfia-wt-next-ml5-20261123/projects/sfia-studio-next/web
+
+stderr | tests/unit/ml5-public-web-frontier.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/ml5-public-web-frontier.test.ts (17 tests) 228ms
+stderr | tests/unit/ml5-provider-emission-frontier.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/ml5-provider-emission-frontier.test.ts (23 tests) 11ms
+stderr | tests/unit/ml5-provider-admin-usage-collector.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/ml5-provider-admin-usage-collector.test.ts (13 tests) 4ms
+stderr | tests/unit/ml5-provider-response-continuity.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/ml5-provider-response-continuity.test.ts (4 tests) 1ms
+stderr | tests/unit/ml5-cognitive-envelope-and-continuity.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/unit/ml5-cognitive-envelope-and-continuity.test.ts (6 tests) 4ms
+
+ Test Files  5 passed (5)
+      Tests  63 passed (63)
+   Start at  02:45:28
+   Duration  1.35s (transform 290ms, setup 26ms, collect 625ms, tests 248ms, environment 0ms, prepare 101ms)
+
+
+```
+
+### Integrated campaign
+```
+◇ injected env (0) from .env.local
+
+ RUN  v3.2.4 /Users/morris/Projects/sfia-wt-next-ml5-20261123/projects/sfia-studio-next/web
+
+stderr | tests/integration/ml5-macro-lot1-integrated-substituted.pg.test.ts
+◇ injected env (0) from .env.local
+
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-27T01:47:05.051Z","lane":"DEV","source_sha":"912ef30b40f2447a925f4182bc4961560eca810e","build_id":"emfz_yP5MBF9GxQRrnJGP","event_name":"provider.agents_trace.local","component":"agents_sdk_tracing","outcome":"SUCCESS","operation_id":"op_ml1_int","generation_id":"gen_ml1_int","attempt_id":"att_ml1_int","meta":{"kind":"span","status":"ok","tool_calls":"generation:ml1"}}
+ ✓ tests/integration/ml5-macro-lot1-integrated-substituted.pg.test.ts (2 tests) 199ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  02:47:04
+   Duration  670ms (transform 88ms, setup 17ms, collect 282ms, tests 199ms, environment 0ms, prepare 29ms)
+
+
+```
+
+### tsc (baseline 12)
+```
+tests/integration/ml5-documentary-autonomy.pg.test.ts(176,19): error TS2339: Property 'revisionId' does not exist on type 'ReconcileOk | ReconcileFailedPrior | ReconcileConflict | { status: "UNKNOWN"; reason: string; documentId: string; revisionId: string; revisionNumber: number; } | ... 8 more ... | { ...; }'.
+  Property 'revisionId' does not exist on type '{ status: "FAILED"; reason: string; documentId?: undefined; rolledBack?: undefined; }'.
+tests/integration/ml5-documentary-autonomy.pg.test.ts(177,19): error TS2339: Property 'idempotentReplay' does not exist on type 'ReconcileOk | ReconcileFailedPrior | ReconcileConflict | { status: "UNKNOWN"; reason: string; documentId: string; revisionId: string; revisionNumber: number; } | ... 8 more ... | { ...; }'.
+  Property 'idempotentReplay' does not exist on type 'ReconcileConflict'.
+tests/integration/ml5-documentary-autonomy.pg.test.ts(177,55): error TS2339: Property 'revisionId' does not exist on type 'ReconcileOk | ReconcileFailedPrior | ReconcileConflict | { status: "UNKNOWN"; reason: string; documentId: string; revisionId: string; revisionNumber: number; } | ... 8 more ... | { ...; }'.
+  Property 'revisionId' does not exist on type '{ status: "FAILED"; reason: string; documentId?: undefined; rolledBack?: undefined; }'.
+tests/integration/ml5-web-query-authority.pg.test.ts(56,31): error TS2339: Property 'projectId' does not exist on type 'CreateProjectResult'.
+  Property 'projectId' does not exist on type '{ status: "CONFLICT"; actualCreationRevision: number; reason: string; }'.
+tests/unit/ml5-activity-hierarchy.test.ts(68,7): error TS2322: Type '"ANNOUNCED"' is not assignable to type '"OBSERVED"'.
+tests/unit/ml5-activity-hierarchy.test.ts(72,17): error TS2353: Object literal may only specify known properties, and 'objective' does not exist in type '{ kind: string; coverage: string; title: string; }'.
+tests/unit/ml5-http-attempt-finops-correlation.test.ts(78,14): error TS2352: Conversion of type '{ STUDIO_LANE: string; OPENAI_API_KEY: string; SFIA_OPENAI_EXPECTED_KEY_FP: string; }' to type 'ProcessEnv' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'NODE_ENV' is missing in type '{ STUDIO_LANE: string; OPENAI_API_KEY: string; SFIA_OPENAI_EXPECTED_KEY_FP: string; }' but required in type 'ProcessEnv'.
+tests/unit/ml5-http-attempt-finops-correlation.test.ts(105,15): error TS2352: Conversion of type '{ STUDIO_LANE: string; OPENAI_API_KEY: string; SFIA_OPENAI_EXPECTED_KEY_FP: string; }' to type 'ProcessEnv' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'NODE_ENV' is missing in type '{ STUDIO_LANE: string; OPENAI_API_KEY: string; SFIA_OPENAI_EXPECTED_KEY_FP: string; }' but required in type 'ProcessEnv'.
+tests/unit/ml5-http-attempt-finops-correlation.test.ts(154,17): error TS2352: Conversion of type '{ STUDIO_LANE: string; OPENAI_API_KEY: string; SFIA_OPENAI_EXPECTED_KEY_FP: string; }' to type 'ProcessEnv' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'NODE_ENV' is missing in type '{ STUDIO_LANE: string; OPENAI_API_KEY: string; SFIA_OPENAI_EXPECTED_KEY_FP: string; }' but required in type 'ProcessEnv'.
+tests/unit/ml5-pdf-extract.test.ts(35,38): error TS2345: Argument of type '{}' is not assignable to parameter of type 'ProcessEnv'.
+  Property 'NODE_ENV' is missing in type '{}' but required in type 'ProcessEnv'.
+tests/unit/ml5-provider-sdk-agents-tool-loop.integration.test.ts(142,43): error TS2345: Argument of type '{ name: string; description: string; parameters: { type: "object"; properties: { ref: { type: string; }; }; required: string[]; additionalProperties: false; }; execute: (input: { ref: string; }) => Promise<...>; }' is not assignable to parameter of type 'ToolOptions<{ type: "object"; properties: { ref: { type: string; }; }; required: string[]; additionalProperties: false; }, unknown, undefined>'.
+  Type '{ name: string; description: string; parameters: { type: "object"; properties: { ref: { type: string; }; }; required: string[]; additionalProperties: false; }; execute: (input: { ref: string; }) => Promise<...>; }' is not assignable to type 'StrictToolOptions<{ type: "object"; properties: { ref: { type: string; }; }; required: string[]; additionalProperties: false; }, unknown, undefined>'.
+    Type '{ name: string; description: string; parameters: { type: "object"; properties: { ref: { type: string; }; }; required: string[]; additionalProperties: false; }; execute: (input: { ref: string; }) => Promise<...>; }' is not assignable to type 'StrictToolOptionsBase<{ type: "object"; properties: { ref: { type: string; }; }; required: string[]; additionalProperties: false; }, unknown, undefined>'.
+      Types of property 'execute' are incompatible.
+        Type '(input: { ref: string; }) => Promise<string>' is not assignable to type 'ToolExecuteFunction<{ type: "object"; properties: { ref: { type: string; }; }; required: string[]; additionalProperties: false; }, unknown, unknown>'.
+          Types of parameters 'input' and 'input' are incompatible.
+            Type 'unknown' is not assignable to type '{ ref: string; }'.
+tests/unit/ml5-provider-sdk-frontier.integration.test.ts(87,11): error TS2578: Unused '@ts-expect-error' directive.
+
+```
+
+## 11. Fake/Real
+
+| | |
+|---|---|
+| Applicable | oui |
+| REAL | PG DEV · process · API · SDK installé · Figma RO |
+| SUBSTITUTED | Admin OpenAI · Responses · WEB · continuité fournisseur |
+| Gaps | permissions OpenAI réelles · usage/coût LIVE · WEB réel · continuité hébergée · rétention |
+| Claim | DETERMINISTIC/INTEGRATION PROVEN ≠ READY FOR REAL |
+| Bounded REAL | Intervention 2 après gates Morris |
+
+## 12. Réserves admissibles (proposées)
+
+| Réserve | Impact | Preuve | Owner | Sortie | Justification report |
+|---|---|---|---|---|---|
+| 12 TS errors préexistants hors blast | faible tests | tsc list | ML hors ML1 | cycle dédié | indépendants |
+| qualify:browser 4 fails historiques | non-régression UI ML1 non critique | cycles antérieurs | UX | après G-FINOPS-UX | hors changements |
+| Mécanismes native continuity non LIVE | valeur à démontrer | OFF + builder | D3 | G-NATIVE-CONTINUITY | Intervention 2 |
+| UX delta non appliqué | confort/clarté FinOps | Figma RO | UX | G-FINOPS-UX | GO requis |
+
+## 13. Dossier gates Morris
+
+Voir section 4.3 (intégralité) — `dossier-gates-morris-consolide-ml1-20261127.md`.
+
+## 14. Scénario Intervention 2 (chemin critique)
+
+1. G-ADMIN-SECRET → secret hors Git
+2. G-ADMIN-LIVE → collecte bornée
+3. FinOps LIVE COMPARABLE
+4. (opt) G-TRACING-LOCAL ON DEV
+5. G-WEB-PUBLIC/A3 → LIVE public borné
+6. G-NATIVE-CONTINUITY comparative
+7. G-PROVIDER-LIVE-QUALIFICATION intégré
+8. Rollback : modes OFF / révoquer clés
+
+## 15. Verdict pack
+
+**MACRO-LOT 1 — INTEGRATED FOUNDATION COMPLETED — READY FOR CONSOLIDATED MORRIS GATES**
+
+- Pas de blocker technique non gouverné dans le mandat
+- Sécurité/intégrité qualifiées DEV
+- Raccordements opérationnels
+- Preuves intégrées substituées
+- Build final identifié
+- Dossier d'arbitrage complet
+- Capacités LIVE **non** qualifiées (attendu)
+
+R5 IN PROGRESS · ML5 OPEN · Macro-lot 1 en qualification · Lots 2/3 non engagés · RECETTE protégée · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED
