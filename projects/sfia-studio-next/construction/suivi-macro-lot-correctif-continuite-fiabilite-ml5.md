@@ -3,15 +3,15 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date / version | 27 novembre 2026 — v0.16, revue de fin de construction E4 et préparation gate E5 |
+| Date / version | 27 novembre 2026 — v0.17, GO Morris qualification intégrée E5 |
 | Nature | Suivi opérationnel documentaire D1, non normatif, non mergé ; ne remplace ni Roadmap, ni registre de couverture ML5, ni Delivery History, ni contrats |
 | Mandat | GO explicite Morris du 27/11 pour créer ce document sur Git et le maintenir à chaque revue Cursor ; cinq ensembles et revues intermédiaires approuvés |
 | Autorités | Morris arbitre les réserves et gates ; ChatGPT tient ce suivi et revoit ; Cursor construit et fournit les preuves |
 | Programme | R5 IN PROGRESS / ML5 OPEN / LIVRAISON 1 NOT ACCEPTED / 17 MP OPEN EN RECETTE / T09 NOT SENT / R6 NOT STARTED / NO RELEASE / STABLE NOT AVAILABLE / NOT ADOPTED |
 | Git | main `997897fd7cf914771e7d08e8030dc7123fab7d25` ; branche documentaire candidate `docs/next-openai-studio-convergence-20261126`, base avant création `f6cfd5ac01f848f6708501e1a390f37243721ab9` |
-| DEV | Branche `sfia/next-ml5-integrated-delivery-20261123` publiée @ `5f2ecad185b9784bc3956477601fe6a722459467`, tree `bdc37515a4bd0d21cecb4274943dde2858b200a3` rapporté ; commit et contenu Git vérifiés, état local NON OBSERVÉ ; :3100 / PG :5433 rapportés |
+| DEV | Branche `sfia/next-ml5-integrated-delivery-20261123` publiée @ `a3305a42b3fd0f24b2a16bca825fc14eb37e84e6`, tree `72405eddfdd10deea324a5c0dd01a073b30c5f85` vérifié dans la revue §23 ; BUILD `NfeXL_KgIuqKGCdf0k4gh` rapporté ; état local NON OBSERVÉ ; :3100 / PG :5433 rapportés |
 | RECETTE protégée | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` / BUILD `rpEczSp61evIZ7d6fnIWR` / PG :5434 schéma 027, :3200 ; MaintiPlan suspendu après T08 ; WEB et Admin OFF |
-| Gate courant | E1 sortie construction VALIDÉE MORRIS (§11). E2/E3/E4 candidat intégré publié a3305a42 et revu (§23). Avis favorable à engagement E5 avec contrôles/corrections bornés des écarts confirmés avant promotion ; aucune clôture anticipée E2/E3/E4 ni réserve nouvelle acceptée. GO publication consommé ; aucun nouveau GO E5, push projet, LIVE, PR, merge, cutover ou adoption. |
+| Gate courant | E1 sortie construction VALIDÉE MORRIS (§11). E2/E3/E4 candidat d'entrée qualification revu (§23), sans clôture anticipée. GO Morris E5 (§24) : qualification intégrée DEV/E2E et correction locale des défauts confirmés, sans nouvelle architecture. Aucun GO publication projet supplémentaire, cutover, LIVE, PR, merge, promotion, clôture ML5 ou adoption. |
 
 ## 1. Objectif et sources
 
@@ -37,7 +37,7 @@ Les états ci-dessous sont des états de suivi, non des statuts de maturité SEF
 | E2 Garanties cognitives résiduelles | A.1–A.7, intégration multi-intentions, reprise, recherche hybride, OBS/FinOps | REVU — architecture achevée, DET ciblé | §23 : reprise sans projection à vérifier/corriger en E5 ; gate Morris |
 | E3 Conformité UX et panneau droit | D.1–D.6 | REVU — construction avancée, accès/droits et preuves nominales partiels | §23 : E5 contrôle/correction bornés avant promotion ; gate Morris |
 | E4 Audio et compositeur | C.1–C.5 | REVU — IMPLEMENTED + DET ciblé | §23 : sas/handshake/usage E5, LIVE distinct ; gate Morris |
-| E5 Qualification intégrée et exit | Candidat unique, suites applicables, 25 parcours, 18 oracles, docs/pack, mandat LIVE borné | À FAIRE | E1–E4 revus ; aucun GO LIVE avant décision Morris |
+| E5 Qualification intégrée et exit | Candidat unique, suites applicables, 25 parcours, 18 oracles, docs/pack, mandat LIVE borné | GO MORRIS — qualification intégrée et corrections locales bornées | §23–24 ; gate distinct publication éventuelle, cutover et LIVE |
 
 Séquence approuvée ; parallélisme uniquement après qualification explicite des interfaces/fichiers, intégrateur et tests communs. Revue ChatGPT après chaque ensemble avant de poursuivre le suivant dépendant. Pas de nouveau mandat général de rattrapage par défaut. Un blocage propriétaire partagé est instruit au plus tôt, pas repoussé mécaniquement.
 
@@ -551,3 +551,12 @@ E3 page.tsx L3450–3550 commit Git préféré, focalisation attempt, point id r
 ### 23.3 Avis et gate
 
 Favorable à engager E5 comme qualification intégrée et correction des anomalies confirmées dans le même mandat (pas de cycle autonome de construction). E2/E3/E4 READY WITH RESERVES au sens candidat d'entrée qualification, pas de validation exhaustive de construction ni READY FOR REAL. Aucune clôture anticipée des écarts §23.1–2. Préparer matrice des 26 sous-ensembles et 17 MP, contrôles transverses, suite globale unit/PG/navigateur, tsc/lint/build avec vrais exits, correction/rerun proportionnés, dossier de candidat et plan LIVE borné actualisé, sans émission ni mutation RECETTE. Publication projet éventuelle sous nouveau GO explicite. Gate Morris avant E5, puis gate distinct de cutover/recette LIVE. R-REC-E1-01/02 déjà acceptées ; reports naturels E2/E4 à arbitrer. R5 IN PROGRESS, ML5 OPEN, 17 MP OPEN RECETTE, Livraison 1 NOT ACCEPTED, T09 NOT SENT, R6 NOT STARTED, NO RELEASE, NOT ADOPTED.
+
+
+## 24. GO Morris — E5 qualification intégrée et exit technique — 27/11/2026
+
+Morris valide par « ok go » la recommandation §23.3. Qualification Cycle 9 QA/validation, Critical (autorité, persistance, isolation, transport audio et gate avant recette). CKC Cycle 9 candidate v0.1.0, guidance seulement. Candidat d'entrée a3305a42b3fd0f24b2a16bca825fc14eb37e84e6 / tree 72405eddfdd10deea324a5c0dd01a073b30c5f85 ; handoff 12244641cd379bf71854b3d174b17fa645f3d75e / blob b2f3449347deb346f3c5ada640700ba55d7b938c. Main 997897fd inchangé, branche documentaire candidate distincte. Pré-check Git et sources applicables reconsultés ; état local NON OBSERVÉ.
+
+- E5 : réconcilier 26 sous-ensembles (A.1–A.7, B.1–B.8, C.1–C.5, D.1–D.6), 17 MP, 18 oracles de continuité et 25 parcours transverses avec les preuves exactes encore applicables. Exécuter les suites finales utiles (unit, PG isolé, navigateur, typecheck, lint, build), sans duplication de campagnes ni PASS fictif. Vérifier les écarts §23.1–2 : readiness/cancel/erreur audio pré-ready et vérité modèle/usage ; sas nominal et brouillon ; reprise D4 JSON absent/partiel ; droits avant exposition et accès exact multitypes/proof, panneau réellement peuplé, rail et F1/F2 appariés ; projections E1, activité/FinOps. Corriger localement les défauts confirmés dans les frontières propriétaires existantes et rejouer les validations impactées. Pas de nouveau cycle autonome E2/E3/E4, pas de redesign ni nouvelle architecture. Si limite structurante, STOP et arbitrage Morris.
+- Préparer manifeste du candidat à proposer à RECETTE (identité source/build/digest, schéma/compatibilité, isolation et rollback, contrôles et plan de rejeu MaintiPlan). Si delta local, distinguer strictement snapshot publié d'entrée et candidat local testé ; nouveau GO commit/push projet nécessaire. Sans delta, réutiliser SHA publié. Préparer plan LIVE borné (allocation versionnée, dictée, continuité naturelle, T05/T06, T08 comparable, T09 après gate), sans l'exécuter. Ne pas confondre préparation cutover et autorisation de mutation RECETTE.
+- R-REC-E1-01/02 déjà acceptées ; autres reports restent proposés, à arbitrer à la revue. Un seul Full Review Pack mono-cycle et handoff L3 distant selon SFIA v2.6. Aucun LIVE, aucun nouveau commit/push projet par ce GO, aucune CI distante, aucune PR/merge, aucune mutation RECETTE. E5 ne vaut ni acceptation de Livraison 1 ni clôture ML5. R5 IN PROGRESS, 17 MP OPEN RECETTE, T09 NOT SENT, R6 NOT STARTED, NO RELEASE, NOT ADOPTED.
