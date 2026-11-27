@@ -3,7 +3,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date / version | 27 novembre 2026 — v0.3, revue des compléments E1 (108044ef / 41087f1b) |
+| Date / version | 27 novembre 2026 — v0.4, gate E1 validé Morris / GO E2 (27/11) |
 | Nature | Suivi opérationnel documentaire D1, non normatif, non mergé ; ne remplace ni Roadmap, ni registre de couverture ML5, ni Delivery History, ni contrats |
 | Mandat | GO explicite Morris du 27/11 pour créer ce document sur Git et le maintenir à chaque revue Cursor ; cinq ensembles et revues intermédiaires approuvés |
 | Autorités | Morris arbitre les réserves et gates ; ChatGPT tient ce suivi et revoit ; Cursor construit et fournit les preuves |
@@ -11,7 +11,7 @@
 | Git | main `997897fd7cf914771e7d08e8030dc7123fab7d25` ; branche documentaire candidate `docs/next-openai-studio-convergence-20261126`, base avant création `f6cfd5ac01f848f6708501e1a390f37243721ab9` |
 | DEV | Branche locale rapportée `sfia/next-ml5-integrated-delivery-20261123` @ `58ca9486003805f74e69a0842f2c0792a7184437`, worktree dirty rapporté ; état local NON OBSERVÉ directement par ChatGPT ; :3100 / PG :5433 rapportés |
 | RECETTE protégée | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` / BUILD `rpEczSp61evIZ7d6fnIWR` / PG :5434 schéma 027, :3200 ; MaintiPlan suspendu après T08 ; WEB et Admin OFF |
-| Gate courant | Sortie construction E1 recommandée avec réserves proposées de preuve et traçabilité ; gate Morris requis avant E2. NOT READY pour qualification LIVE globale ; E2 non engagé. Aucun GO commit projet, LIVE, cutover, PR, merge ou adoption |
+| Gate courant | Sortie construction E1 VALIDÉE MORRIS avec reports de preuves et reliquats affectés (§11) ; GO E2 Critical DEV uniquement, exécution non observée. NOT READY pour qualification LIVE globale. Aucun GO commit projet, LIVE, cutover, PR, merge ou adoption |
 
 ## 1. Objectif et sources
 
@@ -33,8 +33,8 @@ Les états ci-dessous sont des états de suivi, non des statuts de maturité SEF
 
 | Ensemble | Périmètre et résultat | État au 27/11 | Dépendances / sortie |
 | --- | --- | --- | --- |
-| E1 Continuité cognitive et fonctionnelle | B.1–B.8 ; D3/D4/D5/D6, données/projections ; Journal et réutilisation | REVU — construction favorable, preuve DET ciblée et inspection ; gate Morris attendu | §10 ; reports recette et régularisation documentaire proposés ; E2 après GO |
-| E2 Garanties cognitives résiduelles | A.1–A.7, intégration multi-intentions, reprise, recherche hybride, OBS/FinOps | À FAIRE (acquis antérieurs conservés) | Interfaces E1 ; risques d'autorité critiques signalés immédiatement ; calibration préparée, pas de LIVE |
+| E1 Continuité cognitive et fonctionnelle | B.1–B.8 ; D3/D4/D5/D6, données/projections ; Journal et réutilisation | SORTIE CONSTRUCTION VALIDÉE MORRIS AVEC RÉSERVES | §10–11 ; reports recette acceptés, reliquats E2/E3/E5 suivis ; aucune clôture RECETTE |
+| E2 Garanties cognitives résiduelles | A.1–A.7, intégration multi-intentions, reprise, recherche hybride, OBS/FinOps | GO MORRIS — mandat E2 à exécuter, lancement non observé | Interfaces E1 ; régularisation documentaire au pré-check ; pas de LIVE |
 | E3 Conformité UX et panneau droit | D.1–D.6 ; projections et accès directs ; Figma | À FAIRE | Données E1, états E2 ; navigateur réel DEV simulé fournisseur |
 | E4 Audio et compositeur | C.1–C.5 | À FAIRE | Interfaces E2/E3 ; transport et robustesse DET ; dictée LIVE gate |
 | E5 Qualification intégrée et exit | Candidat unique, suites applicables, 25 parcours, 18 oracles, docs/pack, mandat LIVE borné | À FAIRE | E1–E4 revus ; aucun GO LIVE avant décision Morris |
@@ -194,7 +194,7 @@ Réserves historiques ENV-01 cookies/PG localhost trust et identité org/projet 
 | 27/11 | 108044ef | Neuf reliquats repris, 51 PASS (19 PG) rapportés ; GO Morris qualification proportionnée et sécurisation finale ciblée |
 | 27/11 | 41087f1b | Deux risques confirmés et corrigés, 38 PASS dont 5 nouveaux ; recommandation ChatGPT sortie construction E1 sous gate, réserves non acceptées |
 
-Prochaine action recommandée : arbitrage Morris de sortie construction E1 (§10), puis E2 sous mandat distinct. Préserver les acquis DET ; ne pas relancer E1 pour les preuves utilisateur reportables. Aucun GO LIVE, candidat RECETTE, reprise T09 ou acceptation Livraison 1 implicite.
+Prochaine action : E2 sous GO Morris (§11), Cycle 8 Critical DEV. Préserver les acquis DET ; ne pas relancer E1 pour les preuves utilisateur reportées. Aucun GO LIVE, candidat RECETTE, reprise T09 ou acceptation Livraison 1 implicite.
 
 Trajectoire finale : E1→E2→E3→E4→E5 (revues intermédiaires) → arbitrage réserves et GO LIVE borné → qualification LIVE → GO candidat et cutover RECETTE distincts → rejeu ciblé 17 MP → reprise T09 jusqu'au seuil de réalisation → gate Livraison 1 → Livraison 2 sous mandat distinct.
 
@@ -231,7 +231,7 @@ Morris décide ; ChatGPT prépare, revoit et tient le suivi ; Cursor exécute ; 
 Verdict indépendant : acquis DET ciblés, E1 PARTIEL / NOT READY pour passage E2. Toutes réserves non acceptées à cette date. Aucun nouveau gate produit. Recommandation : un complément E1 borné aux neuf reliquats ci-dessus, sous GO Morris ; pas de réécriture des 58 tests ni de réouverture des autres axes. E2/E3/E4/E5 restent À FAIRE.
 
 
-## 10. Revue consolidée des compléments E1 — 27/11/2026
+## 10. Revue consolidée des compléments E1 — 27/11/2026 (avis avant gate, décision §11)
 
 [Complément neuf reliquats](https://github.com/mcleland147/sfia-workspace/blob/108044efaefa80ebb09c6a21153e7d68d4ac53c8/sfia-review-handoff/latest-chatgpt-review.md), blob `95ef9e14c6e451a2ef417120cb49da8615f76507` (2151 lignes). [Sécurisation finale](https://github.com/mcleland147/sfia-workspace/blob/41087f1b36c6943070513c45c2ff61db40483b25/sfia-review-handoff/latest-chatgpt-review.md), blob `6e5326dba91b77758f80f736e6b60f025f809ec3` (1769 lignes). Tips et blobs vérifiés, main inchangé. Worktree exact NON OBSERVÉ ; tests et ENV locaux rapportés par Cursor. Pas de LIVE, pas de mutation RECETTE rapportée, aucun commit projet. Les tests de passages différents se recouvrent, ne pas sommer les PASS comme tests distincts.
 
@@ -288,3 +288,21 @@ Validations finales rapportées : e1-final-safeguards 5/5, e1-reliquats 5/5, e1-
 Verdict indépendant : favorable à sortie construction E1 avec réserves proposées (READY WITH RESERVES pour gate de construction, pas READY FOR REAL). Aucun nouveau cycle E1 autonome recommandé ; confirmer gate Morris, report des preuves et régularisation documentaire au démarrage E2. E2 non engagé, E3/E4/E5 à faire. 17 MP OPEN RECETTE, R5 IN PROGRESS, ML5 OPEN, Livraison 1 NOT ACCEPTED, T09 NOT SENT, NO RELEASE, NOT ADOPTED.
 
 Prochain mandat E2 : A.1–A.7, intégrer acquis option C/MP09/S08/A.5 ; instruire dépendances inter-capacités, reprises/refus, recherche hybride, contexte, OBS et FinOps ; préparer preuves réelles proportionnées, pas de LIVE sans GO. Préserver E1, régulariser traces avant modifications. Ne pas rouvrir E1 sauf défaut critique démontré.
+
+
+## 11. Gate Morris — sortie construction E1 et GO E2 — 27/11/2026
+
+Décision exprimée en conversation : « ok go », en réponse à la proposition explicite de valider conjointement la sortie de construction E1, le report des preuves cognitives naturelles et DOM en recette, le transfert des reliquats E2/E3/E5 et le lancement E2 Critical DEV. Référence de revue : handoff `41087f1b36c6943070513c45c2ff61db40483b25` / blob `6e5326dba91b77758f80f736e6b60f025f809ec3`, suivi v0.3 commit `696516d98f4bfa02aa9080e42a259d9b7a19be1e`.
+
+| Réserve / gate | Arbitrage Morris et condition de sortie |
+| --- | --- |
+| E1 construction | Sortie de construction acceptée avec preuves ciblées et réserves ; pas BEHAVIOR PROVEN global ni clôture MP |
+| R-REC-E1-01 / R-E1-LIVE | Report accepté en recette naturelle ; examiner capitalisation USER/Nora, arborescence et réorganisation, consolidation, points ouverts, décisions, trajectoire, réutilisation et provenance |
+| R-REC-E1-02 / R-E1-DOM | Report accepté en recette ; E3/E5 préparent parcours, état réel et rétablissement DEV si nécessaire ; DOM non prouvé |
+| R-E1-HYBRID | Reliquat affecté E2 : cause derivedUsed=false, correction si défaut, preuve proportionnée et mesure T08 ultérieure |
+| R-E1-E3 | Reliquat affecté E3 : panneau, accès précis, fidélité UX |
+| R-E1-PACK | Régularisation au pré-check E2 avant nouvelles modifications : publier delta as-built final et test RETAIN exact, ou démontrer absence de delta ; ne pas rouvrir E1 entier |
+| R-E1-VALID | Réconcilier tsc/lint/build/diff-check selon delta en E2 et intégration E5 ; aucune preuve acquise par report |
+| E2 | GO construction Critical DEV uniquement ; A.1–A.7, MP09/11/14/15/16 et interfaces directes ; E1 préservé ; E3–E5 non engagés |
+
+Le GO ne couvre aucune émission LIVE, aucune mutation RECETTE, aucune promotion, aucun commit/push projet, aucune PR/merge, aucune décision d'architecture nouvelle. Les 17 MP restent OPEN RECETTE. Livraison 1 NOT ACCEPTED. Le macro-lot reste ouvert. E2 sera revu avant passage E3. Le travail de construction reste à réaliser par Cursor sous contrat SFIA v2.6. Aucune affirmation d'exécution ou de résultat E2 à ce stade.
