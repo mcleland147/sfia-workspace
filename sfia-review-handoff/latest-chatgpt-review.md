@@ -7,10 +7,10 @@
 - **HEAD final:** `87ce2c51c482d6b55e995dc0c39318837e600988`
 - **Tree web:** `7cdfc3ac4ff87e0b53e43b4e6d2e8a998d5819b1`
 - **BUILD_ID:** `getLIoygkylG4wh_cfvdf`
-- **Digest:** `unknown`
+- **Digest:** `84b6d8e400eaeb4b86f2b4b24b155369a8a9b54e25bb24c09e0674b4f5ec9250`
 - **Identity:**
 ```json
-n/a
+{"pid":73525,"port":3100,"host":"127.0.0.1","buildId":"getLIoygkylG4wh_cfvdf","contentDigest":"84b6d8e400eaeb4b86f2b4b24b155369a8a9b54e25bb24c09e0674b4f5ec9250","sessionFingerprint":"e4829b8bd74645b3df79713af1f7d8fcc9d3fc6268c5b59a2bc75f9a1c53a6c4","workspaceRoot":"/tmp/sfia-c12-cursor-live-ws","effectMode":"LIVE","startedAt":"2026-11-27T07:43:47Z","mode":"qualify-next-start"}
 ```
 - **Schema:** 027 · flags SEARCH/JUDGMENT/VISION OFF · `SFIA_COMPOSER_DICTATION` default OFF · WEB OFF · RECETTE protected
 - **Verdict:** MACRO-LOT 3 — IMPLEMENTATION COMPLETE — ENGINEERING QUALIFICATION COMPLETE — ML2 RESIDUAL GAPS RESOLVED — INTEGRATED CONVERGENCE CONSTRUCTION COMPLETE — FUNCTIONAL RECETTE QUALIFICATION PENDING — MORRIS EXIT ACCEPTANCE PROPOSED
@@ -2690,7 +2690,7 @@ DERIVED_HIT[${h.sourceId}/${h.channel}] ${h.snippet.slice(0, 200)} | indexRef=${
 ml3 reducer/session + ml2 rights/journal — PASS (substituted transport).
 
 ### Build DEV
-BUILD_ID `getLIoygkylG4wh_cfvdf` digest `unknown` port 3100.
+BUILD_ID `getLIoygkylG4wh_cfvdf` digest `84b6d8e400eaeb4b86f2b4b24b155369a8a9b54e25bb24c09e0674b4f5ec9250` port 3100.
 
 ### LIVE audio
 Plan `ml3-audio-live-proof-plan-20261127.md` — **NOT EXECUTED**.
@@ -2716,7 +2716,7 @@ Conducteur unique · D6 inchangé · pas de registre FinOps concurrent.
 ## 11. Instruction ChatGPT
 
 1. Lire ce Handoff distant complet (pas les stubs antérieurs).
-2. Croiser HEAD `87ce2c51c482d6b55e995dc0c39318837e600988` · tree `7cdfc3ac4ff87e0b53e43b4e6d2e8a998d5819b1` · BUILD `getLIoygkylG4wh_cfvdf` · digest `unknown`.
+2. Croiser HEAD `87ce2c51c482d6b55e995dc0c39318837e600988` · tree `7cdfc3ac4ff87e0b53e43b4e6d2e8a998d5819b1` · BUILD `getLIoygkylG4wh_cfvdf` · digest `84b6d8e400eaeb4b86f2b4b24b155369a8a9b54e25bb24c09e0674b4f5ec9250`.
 3. Vérifier code ML3 créé + corrections ML2 (sections 5–7).
 4. Confirmer LIVE audio non exécuté; plan présent.
 5. Apprécier proposition EXIT construction convergence.
