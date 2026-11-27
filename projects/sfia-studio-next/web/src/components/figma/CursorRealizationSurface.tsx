@@ -78,6 +78,8 @@ export function CursorRealizationSurface(props: {
     attemptId: string;
     title: string;
     refLabel?: string | null;
+    resourceKey?: string | null;
+    resultId?: string | null;
   }) => void;
 }) {
   const mode = props.mode ?? "execution";
@@ -495,6 +497,8 @@ export function CursorRealizationSurface(props: {
         attemptId: attempt.attemptId,
         title: `Tentative ${attempt.attemptId.slice(0, 12)}`,
         refLabel: j.qualification!.verdict?.slice(0, 40) ?? attempt.status,
+        resourceKey: mode === "results" ? "bilan" : "result",
+        resultId: j.qualification!.verdict?.slice(0, 64) ?? null,
       });
     } finally {
       setBusy(false);

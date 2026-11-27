@@ -1,5 +1,37 @@
 ## delivery_id: DELIV-2026-11-27-ML5-INTEGRATED-CONTINUITY-RELIABILITY-DEV
 
+### E5 — Finalisation + publication candidat + mise à disposition RECETTE (2026-11-27 Cycle 11)
+
+- **cycle**: R5 / ML5 · Cycle 11 Déploiement/release · Critical · **NO RELEASE**
+- **GO**: suivi ML5 v0.18 §25–26 · commit doc `09f66cf0` · blob `59ce363b`
+- **corrections finales bloquantes**:
+  - droits récents fail-closed (Nora / Git / exécution / résultat / bilan / preuve) + revalidation clic (`page.tsx`, `project-recent-items.ts`, `project-recent-consultation.ts`, `CursorRealizationSurface.tsx`)
+  - preuve individuelle `kind:attemptId:resourceKey`
+  - D4 reprise : `attempted` uniquement si capitalisation réellement tentée (`service.ts`)
+  - dictée : `session.updated` → `modelApplied` ou `UNVERIFIED` (pas d'invention)
+- **validations proportionnées**: unit ciblés 33 PASS · PG dictation+E2 17 PASS · lint EXIT 0 · `npm run build` EXIT 0 · `git diff --check` clean · tsc tests préexistants hors delta
+- **PG historiques**: ~22 FAIL préexistants réconciliés — réserve `R-E5-PG-HIST` non bloquante (voir `evidence/ml5-e5-20261127/pg-historical-failures-reconciliation.md`)
+- **Gate A**: TECHNICAL CANDIDATE GATE — PASS
+- **publication**: branche `sfia/next-ml5-integrated-delivery-20261123` · message `fix(next): finalize integrated ML5 corrective candidate for recette` · **sans CI** (workflows `push` → `main` only) · sans PR · main inchangé
+- **RECETTE**: build immuable depuis SHA publié · cutover :3200 · ancien `e8e6e069` / `rpEczSp61evIZ7d6fnIWR` conservé · schéma 027 · MaintiPlan préservé · **aucun LIVE** pendant smoke
+- **classe**: NO RELEASE · LIVRAISON 1 NOT ACCEPTED · T09 NOT SENT · NOT ADOPTED
+
+### E5 — Qualification intégrée et exit technique (2026-11-27T22:23 Europe/Paris)
+
+- **cycle**: R5 / ML5 · Ensemble E5 · Cycle 9 QA/validation · Critical
+- **PUBLISHED INPUT SNAPSHOT**: `a3305a42b3fd0f24b2a16bca825fc14eb37e84e6` / tree `72405ed…`
+- **LOCAL QUALIFIED CANDIDATE**: delta local non publié — sha256 `e41e2a5a84f94de21928df2ba4bb1eb47730d636b33dad8e8ec05b037f2c1d17`
+- **BUILD_ID DEV qualify**: `y06_YWoJEwb4zZZwRW26H` (digest `8380c0cd…`)
+- **ENV-01**: DEV :3100/:5433 OK · RECETTE :3200 préservée · aucun LIVE OpenAI
+- **corrections locales**:
+  - E2: recovery `knowledgeEffects` read-path (`service.ts`)
+  - E3: droits panneau récents (`projectLoadState==="ready"`) + identité consultation attempt ; rail `padding-bottom: 4.5rem` (hit-test 1280×720 PASS)
+  - E4: readiness `session.updated` only ; pre-ready PROVIDER_ERROR reject ; completed-before-committed finalize (no hang)
+- **validations**: unit 1531 PASS · lint EXIT 0 · qualify:build EXIT 0 · dictation PG 8 PASS · E2 NR 13 PASS · browser E5 3 PASS + 5 prior qualify PASS
+- **17 MP**: remain OPEN RECETTE (construction/DET traced ; no fictitious RECETTE close)
+- **classe**: NO RELEASE · RECETTE DEPLOYMENT CANDIDATE PENDING GO · no project commit/push
+- **verdict Cursor**: READY WITH RESERVES — gate Morris (publication projet / mise à disposition RECETTE / LIVE)
+
 - **date_local**: 2026-11-27 (Europe/Paris)
 - **lane**: DEV only — macro-lot correctif intégré (17 MP + continuité Morris)
 - **branch**: `sfia/next-ml5-integrated-delivery-20261123`

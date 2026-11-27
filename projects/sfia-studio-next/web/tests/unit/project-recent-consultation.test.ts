@@ -88,7 +88,17 @@ describe("B.8 — pilot consultation identities (MP-08)", () => {
       title: "Exécution att_1",
       refLabel: "RUNNING",
       attemptId: "att_1",
+      resultId: null,
     });
+    expect(
+      recentItemFromAttemptConsultation({
+        kind: "proof",
+        attemptId: "att_1",
+        title: "Preuve A",
+        resourceKey: "cap_a",
+        resultId: "cap_a",
+      }).id,
+    ).toBe("proof:att_1:cap_a");
   });
 
   it("isolates recent lists per canonical id (project A vs B)", () => {

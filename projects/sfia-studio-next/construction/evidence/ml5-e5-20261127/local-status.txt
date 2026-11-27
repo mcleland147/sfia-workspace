@@ -1,0 +1,11 @@
+ M projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+ M projects/sfia-studio-next/web/src/components/shell/studio-shell.css
+ M projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-session.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/service.ts
+ M projects/sfia-studio-next/web/tests/integration/ml3-composer-dictation-integrated.pg.test.ts
+ M projects/sfia-studio-next/web/tests/unit/ml3-composer-dictation-session.test.ts
+?? .tmp-sfia-review/
+?? projects/sfia-studio-next/construction/evidence/ml5-e5-20261127/
+?? projects/sfia-studio-next/web/.tmp-sfia-review/
+?? projects/sfia-studio-next/web/tests/qualify/ml5-e5-discriminating-browser.spec.ts
+?? projects/sfia-studio-next/web/tests/unit/e5-knowledge-recovery-ids.test.ts

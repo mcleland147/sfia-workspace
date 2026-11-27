@@ -59,6 +59,8 @@ export type DictationSessionRecord = {
   /** Next expected client audio chunk sequence (0-based). */
   nextAudioSeq: number;
   onProviderSessionReady: (() => void) | null;
+  /** Reject open-wait when provider errors before ready (E5 handshake). */
+  onProviderSessionReadyReject: ((err: Error) => void) | null;
   /** Committed item_ids not yet completed — finalize waits until empty. */
   awaitingFinalItemIds: Set<string>;
   /** Commits sent to provider, not yet acknowledged via input_audio_buffer.committed. */
@@ -302,6 +304,7 @@ export async function createDictationSession(input: {
     errorCode: null,
     nextAudioSeq: 0,
     onProviderSessionReady: null,
+    onProviderSessionReadyReject: null,
     awaitingFinalItemIds: new Set(),
     commitsAwaitingAck: 0,
     pcmBytesSinceLastCommit: 0,
@@ -350,6 +353,7 @@ export async function createDictationSession(input: {
     const sessionReady = new Promise<void>((resolve, reject) => {
       const t = setTimeout(() => {
         record.onProviderSessionReady = null;
+        record.onProviderSessionReadyReject = null;
         reject(new Error("SESSION_OPEN_TIMEOUT"));
       }, SESSION_OPEN_TIMEOUT_MS);
       record.onProviderSessionReady = () => {
@@ -357,7 +361,16 @@ export async function createDictationSession(input: {
         providerReady = true;
         clearTimeout(t);
         record.onProviderSessionReady = null;
+        record.onProviderSessionReadyReject = null;
         resolve();
+      };
+      record.onProviderSessionReadyReject = (err) => {
+        if (providerReady) return;
+        providerReady = true;
+        clearTimeout(t);
+        record.onProviderSessionReady = null;
+        record.onProviderSessionReadyReject = null;
+        reject(err);
       };
     });
     transport.send({
@@ -378,17 +391,35 @@ export async function createDictationSession(input: {
       },
     });
     await sessionReady;
+    // Terminal wins: cancel/fail during wait must not reopen as open.
+    if (isTerminalStatus(record.status)) {
+      return {
+        ok: false,
+        code: record.errorCode ?? "TRANSPORT_OPEN_FAILED",
+        message: "Dictation session terminated before open acknowledgement.",
+      };
+    }
     record.status = "open";
-    record.modelApplied = COMPOSER_DICTATION_MODEL;
+    // modelApplied set from session.updated payload when present; else UNVERIFIED.
+    if (!record.modelApplied) {
+      record.modelApplied = "UNVERIFIED";
+    }
     emit(record, { type: "session.open", sessionId });
     return { ok: true, session: record };
   } catch (e) {
     const rawMessage =
       e instanceof Error ? e.message.slice(0, 240) : "TRANSPORT_OPEN_FAILED";
     const timedOut = rawMessage === "SESSION_OPEN_TIMEOUT";
-    const code = timedOut ? "SESSION_OPEN_TIMEOUT" : "TRANSPORT_OPEN_FAILED";
-    record.status = "failed";
-    record.errorCode = code;
+    const providerErr = rawMessage === "PROVIDER_ERROR" || rawMessage.startsWith("PROVIDER_ERROR");
+    const code = timedOut
+      ? "SESSION_OPEN_TIMEOUT"
+      : providerErr
+        ? "PROVIDER_ERROR"
+        : "TRANSPORT_OPEN_FAILED";
+    if (!isTerminalStatus(record.status)) {
+      record.status = "failed";
+      record.errorCode = code;
+    }
     try {
       record.transport?.close();
     } catch {
@@ -396,6 +427,7 @@ export async function createDictationSession(input: {
     }
     record.transport = null;
     record.onProviderSessionReady = null;
+    record.onProviderSessionReadyReject = null;
     emit(record, {
       type: "session.error",
       sessionId,
@@ -415,8 +447,34 @@ function handleProviderEvent(
   const type = String(event.type || "");
   touch(session);
 
-  if (type === "session.updated" || type === "session.created") {
+  // E5 — only session.updated acknowledges applied transcription config.
+  // session.created alone must not open the session as ready.
+  if (type === "session.updated") {
+    const sessObj =
+      event.session && typeof event.session === "object"
+        ? (event.session as Record<string, unknown>)
+        : null;
+    const nested =
+      sessObj?.audio && typeof sessObj.audio === "object"
+        ? (sessObj.audio as Record<string, unknown>)
+        : null;
+    const input =
+      nested?.input && typeof nested.input === "object"
+        ? (nested.input as Record<string, unknown>)
+        : null;
+    const transcription =
+      input?.transcription && typeof input.transcription === "object"
+        ? (input.transcription as Record<string, unknown>)
+        : null;
+    const reported = String(
+      sessObj?.model ?? transcription?.model ?? "",
+    ).trim();
+    // Ack without model field → UNVERIFIED (never invent applied = requested).
+    session.modelApplied = reported || "UNVERIFIED";
     session.onProviderSessionReady?.();
+    return;
+  }
+  if (type === "session.created") {
     return;
   }
 
@@ -425,7 +483,11 @@ function handleProviderEvent(
     const itemId = String(event.item_id || "");
     if (itemId) {
       session.pendingItemId = itemId;
-      session.awaitingFinalItemIds.add(itemId);
+      // Completed may race ahead of committed (fixture delay / provider reorder).
+      // Never re-arm awaiting for an item already finalized in the draft.
+      if (!Object.prototype.hasOwnProperty.call(session.draft.finalByItem, itemId)) {
+        session.awaitingFinalItemIds.add(itemId);
+      }
     }
     if (session.status === "finalizing") {
       maybeCompleteFinalization(session);
@@ -479,14 +541,25 @@ function handleProviderEvent(
     return;
   }
   if (type === "error" || type === "conversation.item.input_audio_transcription.failed") {
+    // Never reopen / overwrite a terminal cancel/complete/expire with failed.
+    if (isTerminalStatus(session.status)) {
+      return;
+    }
+    const message = String(
+      event.error ?? event.message ?? "transcription failed",
+    ).slice(0, 240);
+    const stillOpening = session.status === "pending";
     session.status = "failed";
     session.errorCode = "PROVIDER_ERROR";
     emit(session, {
       type: "session.error",
       sessionId: session.sessionId,
       code: "PROVIDER_ERROR",
-      message: String(event.error ?? event.message ?? "transcription failed").slice(0, 240),
+      message,
     });
+    if (stillOpening && session.onProviderSessionReadyReject) {
+      session.onProviderSessionReadyReject(new Error("PROVIDER_ERROR"));
+    }
     try {
       session.transport?.close();
     } catch {

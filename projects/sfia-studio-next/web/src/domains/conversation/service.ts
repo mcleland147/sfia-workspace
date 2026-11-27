@@ -587,6 +587,15 @@ export async function lookupDurableTurnByClientKey(
     }),
   });
 
+  const knowledgeEffects = await recoverKnowledgeEffectsForReadPath({
+    pilotId,
+    preparationId,
+    generationId: row.generationId,
+    userMessageId: row.userMessageId,
+    resultJson: row.resultJson,
+    fromJsonEffects: fromJsonKnowledgeEffects,
+  });
+
   return {
     found: true,
     turnCommandId: row.id,
@@ -597,7 +606,7 @@ export async function lookupDurableTurnByClientKey(
     assistantMessageId: row.assistantMessageId,
     pilotageEffect: resolved.pilotageEffect,
     pilotageEffects: resolved.pilotageEffects,
-    knowledgeEffects: fromJsonKnowledgeEffects,
+    knowledgeEffects,
     idempotentReplay: true,
     noraMode: "durable-lookup",
   };
@@ -905,6 +914,140 @@ type KnowledgeCapRow = {
   id?: string;
   reason?: string;
 };
+
+/**
+ * E5 — durable knowledge intent ids from effect projections ∪ qualification stash.
+ * Never invents effects; only surfaces known d4.record_knowledge intents for recovery.
+ */
+export function extractDurableKnowledgeIntentIds(input: {
+  fromJsonEffects?: TurnKnowledgeEffect[] | null;
+  resultJson?: string | null;
+}): string[] {
+  const ids = new Set<string>();
+  for (const e of input.fromJsonEffects ?? []) {
+    const t = e.semanticIntentId?.trim() || "";
+    if (t) ids.add(t);
+  }
+  const raw = input.resultJson?.trim();
+  if (raw) {
+    try {
+      const parsed = JSON.parse(raw) as {
+        knowledgeEffects?: TurnKnowledgeEffect[];
+        semanticQualification?: NoraTurnQualification;
+        capitalisationAttempted?: KnowledgeCapRow[];
+      };
+      for (const e of parsed.knowledgeEffects ?? []) {
+        const t = e.semanticIntentId?.trim() || "";
+        if (t) ids.add(t);
+      }
+      for (const row of parsed.capitalisationAttempted ?? []) {
+        const t = row.intentId?.trim() || "";
+        if (t) ids.add(t);
+      }
+      for (const i of parsed.semanticQualification?.intents ?? []) {
+        if (
+          i.mode === "REQUEST_EFFECT" &&
+          i.capabilityId === "d4.record_knowledge"
+        ) {
+          const t = i.id.trim();
+          if (t) ids.add(t);
+        }
+      }
+    } catch {
+      /* ignore malformed stash */
+    }
+  }
+  return [...ids];
+}
+
+/**
+ * E5 read-path recovery — promote/reconcile knowledgeEffects from durable info.
+ * Lookup/replay never mutate; UNKNOWN when intent known but outcome indeterminate.
+ */
+export async function recoverKnowledgeEffectsForReadPath(input: {
+  pilotId: string;
+  preparationId: string;
+  generationId?: string | null;
+  userMessageId?: string | null;
+  resultJson?: string | null;
+  fromJsonEffects?: TurnKnowledgeEffect[] | null;
+}): Promise<TurnKnowledgeEffect[] | undefined> {
+  let fromJson = input.fromJsonEffects;
+  let capRows: KnowledgeCapRow[] = [];
+  if (input.resultJson?.trim()) {
+    try {
+      const parsed = JSON.parse(input.resultJson) as {
+        knowledgeEffects?: TurnKnowledgeEffect[];
+        capitalisationAttempted?: KnowledgeCapRow[];
+      };
+      if (fromJson === undefined && Array.isArray(parsed.knowledgeEffects)) {
+        fromJson = parsed.knowledgeEffects;
+      }
+      if (Array.isArray(parsed.capitalisationAttempted)) {
+        capRows = parsed.capitalisationAttempted;
+      }
+    } catch {
+      /* ignore */
+    }
+  }
+  const intentIds = extractDurableKnowledgeIntentIds({
+    fromJsonEffects: fromJson,
+    resultJson: input.resultJson,
+  });
+  const reconstituted = await reconstituteConfirmedD4Effects(
+    input.pilotId,
+    input.preparationId,
+    {
+      generationId: input.generationId,
+      userMessageId: input.userMessageId,
+    },
+  );
+  const seeded: TurnKnowledgeEffect[] = [...(fromJson ?? [])];
+  const capIntentIds = new Set(
+    capRows.map((r) => (r.intentId || "").trim()).filter(Boolean),
+  );
+  for (const intentId of intentIds) {
+    if (seeded.some((e) => e.semanticIntentId === intentId)) continue;
+    // Intent in semantic stash alone ≠ proprietary call attempted.
+    // Only capitalisationAttempted (or later reconstitution) proves an attempt path.
+    const attempted = capIntentIds.has(intentId);
+    seeded.push(
+      knowledgeEffectFromCapitalisation({
+        intentId,
+        status: "UNKNOWN",
+        attempted,
+        reason: attempted
+          ? "Issue D4 à confirmer — capitalisation durable connue, résultat projection absent ou partiel."
+          : "Intention D4 durable connue sans preuve d'appel propriétaire — résultat indéterminé.",
+        reasonCode: "RECOVERY_INDETERMINATE",
+      }),
+    );
+  }
+  if (seeded.length === 0 && reconstituted.capitalisation.length === 0) {
+    return fromJson ?? undefined;
+  }
+  const reconciled = reconcileKnowledgeEffectsFromDurableInfo({
+    effects: seeded,
+    capitalisationRows: capRows.length
+      ? capRows
+      : seeded
+          .filter((e) => e.semanticIntentId && e.ownerRef)
+          .map((e) => ({
+            intentId: e.semanticIntentId,
+            status: e.status,
+            kind: e.proposalKind ?? undefined,
+            id: e.ownerRef ?? undefined,
+            reason: e.reason ?? undefined,
+          })),
+    reconstituted: reconstituted.capitalisation.map((c) => ({
+      id: c.id,
+      kind: c.kind,
+      status: c.status,
+    })),
+  });
+  if (reconciled.length > 0) return reconciled;
+  return fromJson ?? undefined;
+}
 
 /**
  * E2 residual fidelity (§21.1) — reconcile knowledgeEffects on UNKNOWN / ownership-loss
@@ -1345,6 +1488,14 @@ export async function postUserMessageAndNora(
           resultJson: reserved.resultJson,
         }),
       });
+      const knowledgeEffects = await recoverKnowledgeEffectsForReadPath({
+        pilotId,
+        preparationId,
+        generationId: reserved.generationId,
+        userMessageId: reserved.userMessageId,
+        resultJson: reserved.resultJson,
+        fromJsonEffects: replayKnowledgeEffects,
+      });
       return {
         operationId: reserved.operationId,
         requestId,
@@ -1361,7 +1512,7 @@ export async function postUserMessageAndNora(
         capitalisation: reconstituted.capitalisation,
         capitalisationLimit: reconstituted.capitalisationLimit,
         documentSave: reconstituted.documentSave,
-        knowledgeEffects: replayKnowledgeEffects,
+        knowledgeEffects,
       };
     }
     return {

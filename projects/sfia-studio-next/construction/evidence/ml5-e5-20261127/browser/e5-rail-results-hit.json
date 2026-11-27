@@ -1,0 +1,22 @@
+{
+  "box": {
+    "x": 16,
+    "y": 534.765625,
+    "width": 213,
+    "height": 34
+  },
+  "hit": {
+    "ok": true,
+    "cx": 122.5,
+    "cy": 551.765625,
+    "topTag": "SPAN",
+    "paddingBottom": "72px",
+    "scrollPaddingBottom": "72px",
+    "navScrollTop": 120,
+    "navScrollHeight": 544,
+    "inViewport": true,
+    "clearOfFoot": true,
+    "footTop": 651,
+    "resultsBottom": 568.765625
+  }
+}

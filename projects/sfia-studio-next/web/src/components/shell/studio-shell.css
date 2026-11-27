@@ -40,6 +40,10 @@ html.studio-shell-lock body {
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
+  /* Keep last Accès directs items clear of pinned foot at 1280×720 (E5).
+     scroll-padding alone does not create scroll range — real padding required. */
+  padding-bottom: 4.5rem;
+  scroll-padding-bottom: 4.5rem;
 }
 
 .studio-shell-rail-foot {

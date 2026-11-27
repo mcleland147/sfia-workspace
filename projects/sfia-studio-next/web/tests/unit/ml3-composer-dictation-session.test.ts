@@ -810,7 +810,7 @@ describe("ml3 composer dictation session (substituted transport)", () => {
     let closed = false;
     let handler: ((ev: Record<string, unknown>) => void) | null = null;
     const silentTransport: RealtimeTransport = {
-      // Opens but never emits session.updated / session.created (mic-OK then ~10s hang).
+      // Opens but never emits session.updated (mic-OK then ~10s hang).
       send: () => undefined,
       close: () => {
         closed = true;
@@ -834,6 +834,129 @@ describe("ml3 composer dictation session (substituted transport)", () => {
     expect(created.message).toBe("SESSION_OPEN_TIMEOUT");
     expect(closed).toBe(true);
   }, 15_000);
+
+  it("E5: provider error before session.updated rejects open wait (no hang)", async () => {
+    process.env.SFIA_COMPOSER_DICTATION = "1";
+    process.env.STUDIO_LANE = "DEV";
+    let handler: ((ev: Record<string, unknown>) => void) | null = null;
+    const transport: RealtimeTransport = {
+      send: (p) => {
+        if (p.type === "session.update") {
+          queueMicrotask(() => handler?.({ type: "error", message: "handshake rejected" }));
+        }
+      },
+      close: () => undefined,
+      onEvent: (h) => {
+        handler = h;
+      },
+    };
+    const created = await createDictationSession({
+      pilotId: "pilot-pre-ready-err",
+      projectId: "proj-pre-ready-err",
+      conversationKey: "proj-pre-ready-err",
+      baselineDraft: "",
+      transportFactory: async () => transport,
+      limits: { maxDurationMs: 60_000 },
+    });
+    expect(created.ok).toBe(false);
+    if (created.ok) return;
+    expect(created.code).toBe("PROVIDER_ERROR");
+  }, 5_000);
+
+  it("E5: session.created alone does not open; session.updated required", async () => {
+    process.env.SFIA_COMPOSER_DICTATION = "1";
+    process.env.STUDIO_LANE = "DEV";
+    const handlerRef: {
+      current: ((ev: Record<string, unknown>) => void) | null;
+    } = { current: null };
+    const transport: RealtimeTransport = {
+      send: (p) => {
+        if (p.type === "session.update") {
+          queueMicrotask(() => handlerRef.current?.({ type: "session.created" }));
+        }
+      },
+      close: () => undefined,
+      onEvent: (h) => {
+        handlerRef.current = h;
+      },
+    };
+    const createdPromise = createDictationSession({
+      pilotId: "pilot-created-only",
+      projectId: "proj-created-only",
+      conversationKey: "proj-created-only",
+      baselineDraft: "",
+      transportFactory: async () => transport,
+      limits: { finalizeTimeoutMs: 80 },
+    });
+    await new Promise((r) => setTimeout(r, 30));
+    // Still waiting — inject updated to complete successfully after created ignored.
+    handlerRef.current?.({ type: "session.updated" });
+    const created = await createdPromise;
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    expect(created.session.status).toBe("open");
+    expect(created.session.modelApplied).toBe("UNVERIFIED");
+  }, 5_000);
+
+  it("E5: completed before committed during finalize does not hang awaiting", async () => {
+    process.env.SFIA_COMPOSER_DICTATION = "1";
+    process.env.STUDIO_LANE = "DEV";
+    const handlerRef: {
+      current: ((ev: Record<string, unknown>) => void) | null;
+    } = { current: null };
+    const transport: RealtimeTransport = {
+      send: (p) => {
+        if (p.type === "session.update") {
+          queueMicrotask(() => handlerRef.current?.({ type: "session.updated" }));
+        }
+        if (p.type === "input_audio_buffer.commit") {
+          // Delay committed past an early completed (qualify fixture race).
+          setTimeout(() => {
+            handlerRef.current?.({
+              type: "input_audio_buffer.committed",
+              item_id: "early_item",
+            });
+          }, 40);
+        }
+      },
+      close: () => undefined,
+      onEvent: (h) => {
+        handlerRef.current = h;
+      },
+    };
+    const created = await createDictationSession({
+      pilotId: "pilot-early-complete",
+      projectId: "proj-early-complete",
+      conversationKey: "proj-early-complete",
+      baselineDraft: "Base",
+      transportFactory: async () => transport,
+      limits: { finalizeTimeoutMs: 500 },
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    appendDictationAudio({
+      sessionId: created.session.sessionId,
+      pilotId: "pilot-early-complete",
+      projectId: "proj-early-complete",
+      pcmBase64: Buffer.alloc(320, 1).toString("base64"),
+      seq: 0,
+    });
+    const finPromise = finalizeDictationSession({
+      sessionId: created.session.sessionId,
+      pilotId: "pilot-early-complete",
+      projectId: "proj-early-complete",
+    });
+    await new Promise((r) => setTimeout(r, 5));
+    handlerRef.current?.({
+      type: "conversation.item.input_audio_transcription.completed",
+      item_id: "early_item",
+      transcript: "précoce",
+    });
+    const fin = await finPromise;
+    expect(fin.ok).toBe(true);
+    if (!fin.ok) return;
+    expect(fin.transcript).toContain("précoce");
+  }, 5_000);
 
   it("fixture transport recovers ready ack queued before onEvent (MP-06 DET)", async () => {
     process.env.SFIA_COMPOSER_DICTATION = "1";

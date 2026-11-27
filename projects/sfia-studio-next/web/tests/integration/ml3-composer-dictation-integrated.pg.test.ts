@@ -13,6 +13,10 @@ const devSessionRef = vi.hoisted(() => {
   process.env.SFIA_DICTATION_SUBSTITUTED = "1";
   process.env.VITEST = "true";
   process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
+  // Isolate from qualify shell leaks (COMMIT_DELAY=80 races T02/T11 finalize).
+  delete process.env.SFIA_DICTATION_FIXTURE_COMMIT_DELAY_MS;
+  delete process.env.SFIA_DICTATION_FIXTURE_COMPLETE_DELAY_MS;
+  delete process.env.SFIA_DICTATION_FIXTURE_AUTO_TRANSCRIPT;
   delete process.env.OPENAI_API_KEY;
   return { token: "", pilotId: "" };
 });

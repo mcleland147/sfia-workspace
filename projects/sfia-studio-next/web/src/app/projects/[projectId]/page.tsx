@@ -77,11 +77,13 @@ import {
   type StudioSurface,
 } from "@/components/shell/studio-rail";
 import {
+  filterProjectRecentItemsForExposure,
   readProjectRecentItems,
   recordProjectRecentItem,
   type ProjectRecentItem,
 } from "@/lib/project-recent-items";
 import {
+  recentItemFromAttemptConsultation,
   recentItemFromDocumentConsultation,
   recentItemFromTurnReference,
 } from "@/lib/project-recent-consultation";
@@ -299,6 +301,12 @@ export default function ProjectPage() {
   const [loadEpoch, setLoadEpoch] = useState(0);
   /** Observable end of project load + surface URL sync (e2e / anti-race proof). */
   const [projectLoadState, setProjectLoadState] = useState<"loading" | "ready">("loading");
+  /** Fail-closed allowlists for recent-item exposure (not localStorage authority). */
+  const [recentAccessLists, setRecentAccessLists] = useState<{
+    ready: boolean;
+    repositoryIds: string[];
+    attemptIds: string[];
+  }>({ ready: false, repositoryIds: [], attemptIds: [] });
   const [surface, setSurface] = useState<Surface>(() => parseSurface(searchParams.get("surface")) ?? "travail");
   const [draft, setDraft] = useState("");
   /** Figma 12.09 — durable retirable D8 dossier ref (survives draft edits). */
@@ -451,16 +459,74 @@ export default function ProjectPage() {
       return;
     }
     const stored = readProjectRecentItems(pilotId, params.projectId);
-    // Drop Nora docs no longer present in the authorized library (rights/access).
     const docIds = new Set(documents.map((d) => d.document.id));
     setRecentItems(
-      stored.filter((item) => {
-        if (item.kind !== "document_nora") return true;
-        const id = item.documentId ?? item.id.replace(/^doc:/, "").replace(/:rev:.*$/, "");
-        return !id || docIds.size === 0 || docIds.has(id);
+      filterProjectRecentItemsForExposure(stored, {
+        loadReady: projectLoadState === "ready",
+        documentIds: docIds,
+        repositoryIds: new Set(recentAccessLists.repositoryIds),
+        attemptIds: new Set(recentAccessLists.attemptIds),
+        accessListsReady: recentAccessLists.ready,
       }),
     );
-  }, [pilotId, params.projectId, documents]);
+  }, [
+    pilotId,
+    params.projectId,
+    documents,
+    projectLoadState,
+    recentAccessLists,
+  ]);
+
+  useEffect(() => {
+    if (projectLoadState !== "ready" || !params.projectId) {
+      setRecentAccessLists({ ready: false, repositoryIds: [], attemptIds: [] });
+      return;
+    }
+    let cancelled = false;
+    void (async () => {
+      try {
+        const [linksRes, attemptsRes] = await Promise.all([
+          fetch(`/api/projects/${params.projectId}/git/links`),
+          fetch(`/api/projects/${params.projectId}/realization/attempts`),
+        ]);
+        const repoIds: string[] = [];
+        const attemptIds: string[] = [];
+        if (linksRes.ok) {
+          const lj = (await linksRes.json()) as {
+            links?: Array<{ repositoryId?: string }>;
+          };
+          for (const link of lj.links ?? []) {
+            const id = link.repositoryId?.trim();
+            if (id) repoIds.push(id);
+          }
+        }
+        if (attemptsRes.ok) {
+          const aj = (await attemptsRes.json()) as {
+            attempts?: Array<{ attemptId?: string }>;
+          };
+          for (const a of aj.attempts ?? []) {
+            const id = a.attemptId?.trim();
+            if (id) attemptIds.push(id);
+          }
+        }
+        if (!cancelled) {
+          // Lists ready even if empty — empty means no authorized exposure, not "allow all".
+          setRecentAccessLists({
+            ready: true,
+            repositoryIds: repoIds,
+            attemptIds,
+          });
+        }
+      } catch {
+        if (!cancelled) {
+          setRecentAccessLists({ ready: false, repositoryIds: [], attemptIds: [] });
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [projectLoadState, params.projectId]);
 
   useEffect(() => {
     if (surface !== "travail") return;
@@ -3824,13 +3890,23 @@ export default function ProjectPage() {
               selectSurface("travail");
             }}
             onPilotConsulted={(item) => {
-              notePilotConsultation({
-                id: `exec:${item.attemptId}`,
-                kind: item.kind,
-                title: item.title,
-                refLabel: item.refLabel ?? null,
-                attemptId: item.attemptId,
-              });
+              const kind =
+                item.kind === "execution" ||
+                item.kind === "result" ||
+                item.kind === "bilan" ||
+                item.kind === "proof"
+                  ? item.kind
+                  : "execution";
+              notePilotConsultation(
+                recentItemFromAttemptConsultation({
+                  kind,
+                  attemptId: item.attemptId,
+                  title: item.title,
+                  refLabel: item.refLabel ?? null,
+                  resourceKey: item.resourceKey ?? null,
+                  resultId: item.resultId ?? null,
+                }),
+              );
             }}
           />
         </div>
@@ -3847,13 +3923,23 @@ export default function ProjectPage() {
               selectSurface("travail");
             }}
             onPilotConsulted={(item) => {
-              notePilotConsultation({
-                id: `${item.kind}:${item.attemptId}`,
-                kind: item.kind,
-                title: item.title,
-                refLabel: item.refLabel ?? null,
-                attemptId: item.attemptId,
-              });
+              const kind =
+                item.kind === "execution" ||
+                item.kind === "result" ||
+                item.kind === "bilan" ||
+                item.kind === "proof"
+                  ? item.kind
+                  : "result";
+              notePilotConsultation(
+                recentItemFromAttemptConsultation({
+                  kind,
+                  attemptId: item.attemptId,
+                  title: item.title,
+                  refLabel: item.refLabel ?? null,
+                  resourceKey: item.resourceKey ?? null,
+                  resultId: item.resultId ?? null,
+                }),
+              );
             }}
           />
         </div>

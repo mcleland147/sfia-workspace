@@ -1,0 +1,7 @@
+ .../web/src/app/projects/[projectId]/page.tsx      |  55 +++++---
+ .../web/src/components/shell/studio-shell.css      |   4 +
+ .../conversation/composer-dictation-session.ts     |  62 ++++++++-
+ .../web/src/domains/conversation/service.ts        | 148 ++++++++++++++++++++-
+ .../ml3-composer-dictation-integrated.pg.test.ts   |   4 +
+ .../unit/ml3-composer-dictation-session.test.ts    | 120 ++++++++++++++++-
+ 6 files changed, 367 insertions(+), 26 deletions(-)

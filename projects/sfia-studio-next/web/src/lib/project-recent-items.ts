@@ -130,3 +130,53 @@ export function clearProjectRecentItems(pilotId: string, projectId: string): voi
     /* ignore */
   }
 }
+
+export type ProjectRecentExposureAllowlist = {
+  /** Project load finished — fail-closed before this. */
+  loadReady: boolean;
+  /** Nora document ids currently visible to the pilot in this project. */
+  documentIds: ReadonlySet<string>;
+  /** Git repositories linked to this project (local binding — not LIVE content ACL). */
+  repositoryIds: ReadonlySet<string>;
+  /** Realization attempt ids owned by this pilot/project. */
+  attemptIds: ReadonlySet<string>;
+  /**
+   * When false, allowlists for git/attempts are not yet known → hide those kinds.
+   * Documents still use documentIds once loadReady.
+   */
+  accessListsReady: boolean;
+};
+
+/**
+ * Fail-closed exposure filter before rendering recent titles/refs.
+ * localStorage is not an authority — membership in project-scoped allowlists is required.
+ */
+export function filterProjectRecentItemsForExposure(
+  items: ProjectRecentItem[],
+  allow: ProjectRecentExposureAllowlist,
+): ProjectRecentItem[] {
+  if (!allow.loadReady) return [];
+  return items.filter((item) => {
+    if (item.kind === "document_nora") {
+      const id =
+        item.documentId ??
+        item.id.replace(/^doc:/, "").replace(/:rev:.*$/, "");
+      return Boolean(id) && allow.documentIds.has(id);
+    }
+    if (!allow.accessListsReady) return false;
+    if (item.kind === "file_git" || item.kind === "document_git") {
+      const repo = item.repositoryId?.trim() || "";
+      return Boolean(repo) && allow.repositoryIds.has(repo);
+    }
+    if (
+      item.kind === "execution" ||
+      item.kind === "result" ||
+      item.kind === "bilan" ||
+      item.kind === "proof"
+    ) {
+      const attempt = item.attemptId?.trim() || "";
+      return Boolean(attempt) && allow.attemptIds.has(attempt);
+    }
+    return false;
+  });
+}

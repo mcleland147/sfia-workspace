@@ -62,13 +62,23 @@ export function recentItemFromAttemptConsultation(input: {
   attemptId: string;
   title: string;
   refLabel?: string | null;
-}): Pick<ProjectRecentItem, "id" | "kind" | "title" | "refLabel" | "attemptId"> {
+  /** Distinguishes multiple proofs/results under the same attempt when known. */
+  resourceKey?: string | null;
+  resultId?: string | null;
+}): Pick<
+  ProjectRecentItem,
+  "id" | "kind" | "title" | "refLabel" | "attemptId" | "resultId"
+> {
+  const resource = input.resourceKey?.trim() || input.resultId?.trim() || "";
   return {
-    id: `${input.kind}:${input.attemptId}`,
+    id: resource
+      ? `${input.kind}:${input.attemptId}:${resource}`
+      : `${input.kind}:${input.attemptId}`,
     kind: input.kind,
     title: input.title.slice(0, 160),
     refLabel: input.refLabel ?? null,
     attemptId: input.attemptId,
+    resultId: input.resultId ?? null,
   };
 }
 
