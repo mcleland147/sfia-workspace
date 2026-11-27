@@ -1,719 +1,672 @@
-# SFIA Review Pack — RECETTE OPERATIONAL ACTIVATION — 2026-11-27
+# SFIA Review Pack — ML5 MaintiPlan Integrated Root Cause Diagnostic — 2026-11-27
 
-**Cycle :** 11 — Déploiement / release · Critical · RUN/CAPA · NO RELEASE  
-**Jalon :** R5 / ML5 / Livraison 1  
-**Décision :** required · publish-in-cycle L3  
-**Date UTC :** 2026-11-27T09:55Z
+**Date UTC :** 2026-11-27T12:35Z
+**Mandat :** GO Morris — ML5 MAINTIPLAN INTEGRATED ROOT CAUSE DIAGNOSTIC — CRITICAL — READ ONLY
+**Cycle :** 9 — QA / validation · RUN / DIAGNOSTIC / READ ONLY
+**Profil :** CRITICAL
+**CKC Cycle 9 :** PRESENT — `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md` — status `candidate` — **CANDIDATE GUIDANCE ONLY** (aucune autorité autonome)
+**Classe produit :** NO RELEASE
 
----
-
-## 0. Anti-stub
-
-REVIEW PACK COMPLETE — modified product docs reproduced in full below; operational evidence JSON included; secrets redacted; no DSN/password/key material.
+**Anti-stub :** REVIEW PACK COMPLETE — causes avec preuves code SHA `e8e6e069` + PG READ ONLY + PV `8acc3074` — pas de mutation produit.
 
 ---
 
-## 1. Git Truth
+## 1. Git Truth Check
 
-| Item | Value |
+| Item | Valeur |
 |---|---|
-| Repo | mcleland147/sfia-workspace |
-| Workspace DEV | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
+| Workspace | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
+| Remote | `origin` → `https://github.com/mcleland147/sfia-workspace.git` |
 | Branche | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD docs local (entrée activation) | `05e53f622038a3276ef2590037a6aa74341c4e68` |
-| Candidat figé | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` |
-| Tree web | `03c30e4cdb2dbb443a05a052757b3846199c8d34` |
-| BUILD | `rpEczSp61evIZ7d6fnIWR` |
-| Digest | `18e014c1ead6e050cf1aca4e4910dd8904722bd3e0e7753d25b189c03fd50535` |
-| main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
-| Handoff précédent | `81addad74818e1e23006125ab4f19f020a9c5f36` · blob `4685277c…` |
-| Staged inattendu | **aucun** (docs activation only) |
-| Runtime worktree | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-e8e6e06961fa` |
-| PID :3200 | `22935` (post-restart) |
-| ENV-01 | COMPLETE — DEV :3100/5433 protégé · RECETTE :3200/5434 · STABLE non touchée |
+| HEAD initial=final | `58ca9486003805f74e69a0842f2c0792a7184437` |
+| origin/main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
+| docs convergence (distant) | `8acc3074fba244d217b0249d5839ef2ea0321402` |
+| review-handoff avant | `9ec930e2cbee09f1fcc3384753eafbf64d97251c` |
+| Candidat | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` |
+| Tree repo / web | `30c12ad9…` / `03c30e4c…` |
+| Relation | candidat **ancêtre** de HEAD docs ; HEAD n’est pas ancêtre du candidat (docs-only tip) |
+| Dirty entrée | `.tmp-sfia-review/chatgpt-review.md` seul (pack) — **préservé / réinitialisé** pour ce cycle |
+| Staged | aucun |
+| Worktree RECETTE | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-e8e6e06961fa` |
 
-### 1.1 Divergence HEAD docs (rapport vs handoff)
-
-| Référence | SHA | Explication |
-|---|---|---|
-| Rapport Cursor / tip branche local | `05e53f62…` | Commit docs cutover **effectif** sur `sfia/next-ml5-integrated-delivery-20261123` (10:35:07 +0100) |
-| Handoff distant « HEAD sortie docs » | `4d490431…` | Commit **frère** quasi-identique (même message, 10:34:57) — diff = 2 lignes dans `.tmp-sfia-review/chatgpt-review.md` uniquement |
-| Relation | ni ancêtre l’un de l’autre | Double commit local pendant la finalisation cutover ; le tip de branche est `05e53f62` ; `4d490431` n’est **pas** le HEAD de la branche projet |
-| Verdict | **RÉCONCILIÉ** | Vérité locale = `05e53f62`. Le handoff cutover a consignié à tort `4d490431` comme sortie docs. |
+**Verdict Git :** cohérent — STOP non déclenché.
 
 ---
 
-## 2. Rotation PostgreSQL (A2)
+## 2. ENV-01
 
 | Contrôle | Résultat |
 |---|---|
-| Rôle | `sfia_next_recette_ml4` (container `sfia-next-recette-pg`) |
-| Isolation | Conteneur/port/rôle distincts de DEV (`sfia_next_dev` · :5433) |
-| Consommateurs | `~/.config/sfia-studio-next/recette/.env.local` (+ start script source) |
-| Hash SCRAM | **changé** (préfixe `SCRAM-SHA-25…` avant/après distincts) |
-| SCRAM via bridge IP | **nouveau OK** · **ancien REJECTED** · wrong REJECTED |
-| Localhost `pg_hba` | `trust` pour 127.0.0.1 — password non exigé en local TCP ; SCRAM applicable hors localhost |
-| DEV | trust OK · 208 projects · password RECETTE non applicable |
-| Secrets | jamais affichés · backups `env.local.pre-pg-rotate-*` + marqueurs OBSOLETE mode 600 |
-| Rollback règle | restaurer non-secrets · **garder nouveau mot de passe** |
+| URL / BUILD | `:3200` · `<!--rpEczSp61evIZ7d6fnIWR-->` · digest `18e014c1…` |
+| PID / cwd | `22935` · worktree e8e6e069…/web — **non redémarré** par ce cycle |
+| Lane | `STUDIO_LANE=RECETTE` |
+| PG | `sfia_next_recette_ml4` · :5434 · rôle isolé · schéma 027 (`derived_embedding_chunks`) |
+| Flags | DICTATION=1 live · JUDGMENT=1 · EMBED pg+search · VISION=1 · WEB=0 · Admin OFF · fixtures unset |
+| Cognitive ceilings | 120 / 1M / 2M — **non modifiés** |
+| OpenAI fp | expected `f27d814e…` · forbidden `ab6bbec8…` |
+| Org/projet fournisseur | **NON VÉRIFIÉ** (réserve connue) |
+| DEV | :3100 non servi · :5433 distinct |
+| Mutations ce cycle | **aucune** (SELECT READ ONLY only) |
+
+**Verdict ENV :** ENV ROUTING COMPLETE
+
+**Product Versioning :** NO RELEASE — inchangé.
 
 ---
 
-## 3. Configuration non secrète effective
+## 3. Sources consultées (effectives)
 
-### 3.1 start-recette-ml5.sh (contenu complet)
+- PV MaintiPlan : `origin/docs/…@8acc3074` → `construction/recette-utilisateur-ml5-maintiplan-20261127.md`
+- Handoff activation `9ec930e2` (réf.)
+- Code candidat `e8e6e069` : `cognitive-policy.ts`, `provisional-cognitive-policy.ts`, `resource-admission.ts`, `resource-catalog.ts`, `run-nora-cognitive-turn.ts`, `nora-adapter.ts`, `intent-conduction.ts`, `semantic-qualification.ts`, `s05-pending-policy.ts`, `composer-dictation-*`, `PreparationConversation.tsx`, `ComposerDictationControl.tsx`, `project-context.ts`, `ProjectOverview.tsx`, `PersonalRailSettingsMenu.tsx`, `StudioShell.tsx`
+- PG RECETTE READ ONLY : projects, conversations, messages, cognitive_works, provider_usage_observations, human_decisions, knowledge_*, documents/revisions, business_commands, project_cycles
+- CKC pilot 04-qa-validation.md (candidate)
+- Contrats cités dans le mandat : lus sélectivement selon dépendance causale (allocation, conducteur, D4/D5/D6)
+- Figma : **non mesuré F2** ce cycle — références PV/contrats seulement
 
-```bash
-#!/bin/bash
-set -euo pipefail
-cd "/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-e8e6e06961fa/projects/sfia-studio-next/web"
-set -a
-source "$HOME/.config/sfia-studio-next/recette/.env.local"
-set +a
-export STUDIO_LANE=RECETTE STUDIO_PORT=3200 NODE_ENV=production PORT=3200 HOSTNAME=127.0.0.1
-export SFIA_SOURCE_SHA=e8e6e06961fa0a7224db3badb3b591b8be8046ac
-export SFIA_WEB_SEARCH_LIVE=0 SFIA_WEB_SEARCH_ENABLED=0 STUDIO_DEV_TEST_LOGIN=0
-# Operational activation — LIVE capabilities (overrides must match admitted product values)
-export SFIA_COMPOSER_DICTATION=1
-export SFIA_DICTATION_TRANSPORT=live
-export SFIA_BOUNDED_JUDGMENT=1
-export SFIA_DERIVED_EMBEDDING_BACKEND=pg
-export SFIA_DERIVED_EMBEDDING_SEARCH=1
-export SFIA_DOCUMENT_VISION_PUNCTUAL=1
-# Refuse fixtures / DEV auto-session / substituted dictation
-unset STUDIO_FORCE_NORA_FIXTURE SFIA_DICTATION_SUBSTITUTED STUDIO_E2E STUDIO_DEV_AUTO_SESSION || true
-export SFIA_BUILD_ID=$(cat .next/BUILD_ID 2>/dev/null || true)
-exec npx next start -H 127.0.0.1 -p 3200
+---
+
+## 4. L1 — Cartographie as-built Nora (candidat e8e6e069)
+
+### 4.1 Flux nominal
 
 ```
+USER message
+ → conversation/service.ts (turn)
+ → cognitive work create/attach (cognitive-work.ts)
+ → semantic qualification (semantic-qualification.ts) [intents ≤12]
+ → cognitive policy resolve (cognitive-policy.ts)
+      ← resolveOperationalDefaultResource() [provisional-cognitive-policy.ts]
+      ← admitModelEffort() [resource-admission.ts]
+ → run-nora-cognitive-turn / nora-adapter (Responses + tools)
+ → Frontier HTTP gate (provider-emission-frontier.ts) + usage-accounting
+ → mobilizeCapability / owner effects (intent-conduction.ts → D2/D4/D5/D6/D9)
+ → S05 pending sibling policy (s05-pending-policy.ts)
+ → checkpoints / production_json / reply persist
+ → activity projection + FinOps observations
+```
 
-### 3.2 Variables non secrètes (env + overrides)
+### 4.2 Politique modèle effective RECETTE
 
-| Variable | Valeur |
+Fichier `cognitive-resources/provisional-cognitive-policy.ts` (extrait discriminant) :
+
+- Absent/`legacy_sol` → défaut **gpt-6.2-sol @ medium**
+- `v0.2` **refusé si `STUDIO_LANE !== DEV`** → `COG_POLICY_V02_REFUSED_NON_DEV_LANE` + fallback legacy_sol
+- Luna/Terra : `admissionStatus: documented_candidate` ; admis seulement si `provisionalActive`
+
+Fichier `resource-admission.ts` mode operational :
+
+- Si provisional OFF : seul **Sol low|medium|high** admis
+- Luna/Terra → `UNCALIBRATED_MODEL_OPERATIONAL`
+
+`SFIA_COG_PROFILE_TYPE=OPERATIONAL_PROVISIONAL` active les **budgets** profil sur DEV|RECETTE, **pas** le catalogue multi-modèles provisoire.
+
+**Chemin nominal RECETTE :** Sol medium fixe (legacy).
+**Chemin alternatif DEV :** Terra medium défaut + Luna low/medium si `SFIA_COG_PROVISIONAL_POLICY=v0.2`.
+**Présent non raccordé en RECETTE :** catalogue Luna/Terra + guidance 51 rows (consultative).
+
+### 4.3 Dictée
+
+- API/projet : `/api/projects/{id}/dictation/*` + `ComposerDictationControl` sur `projects/[projectId]/page.tsx`
+- Sas : `PreparationConversation.tsx` — **textarea rows=2, aucun micro**
+- Open timeout : `SESSION_OPEN_TIMEOUT_MS = 10000` → catch `TRANSPORT_OPEN_FAILED`
+
+---
+
+## 5. L2 — Matrice T01–T08 (IDs réels)
+
+**Identités communes**
+
+| Objet | ID |
 |---|---|
-| STUDIO_LANE | RECETTE |
-| STUDIO_PORT / PORT | 3200 |
-| SFIA_SOURCE_SHA | e8e6e069… |
-| SFIA_COMPOSER_DICTATION | 1 |
-| SFIA_DICTATION_TRANSPORT | live |
-| SFIA_BOUNDED_JUDGMENT | 1 |
-| SFIA_DERIVED_EMBEDDING_BACKEND | pg |
-| SFIA_DERIVED_EMBEDDING_SEARCH | 1 |
-| SFIA_DOCUMENT_VISION_PUNCTUAL | 1 |
-| SFIA_COGNITIVE_MAX_SEGMENTS | 120 |
-| SFIA_COGNITIVE_REEVAL_TOKENS | 1000000 |
-| SFIA_COGNITIVE_MAX_TOKENS | 2000000 |
-| SFIA_WEB_SEARCH_LIVE | 0 |
-| SFIA_WEB_SEARCH_ENABLED | 0 |
-| STUDIO_DEV_TEST_LOGIN | 0 |
-| SFIA_OPENAI_EXPECTED_KEY_FP | f27d814e… (match) |
-| SFIA_OPENAI_FORBIDDEN_KEY_FP | ab6bbec8… |
-| OpenAI org/projet | **NON VÉRIFIÉ** (pas de GO Admin) |
+| projectId | `proj_ab07878d-d690-4fa4-8530-536f4bb9aca1` |
+| preparationId | `prep_0733165c-88d8-403c-9b91-20dcd952c3f5` |
+| pilotId | `pilot_98a7a89e-ba00-42c6-84d5-680eff67b73c` |
+| conversationId | `conv_852cc53c-2b18-4a08-9267-c3bb8f0e9ece` |
+| project created_utc | 2026-11-27 10:11:32Z |
+| conv created_utc | 2026-11-27 10:00:04Z (sas→projet même conv) |
 
----
-
-## 4. Capacités et admissions
-
-```json
-{
-  "at": "2026-11-27T09:52:44.297Z",
-  "laneGuard": {
-    "ok": true,
-    "lane": "RECETTE",
-    "keyFpPrefix": "f27d814e"
-  },
-  "keyFpPrefix": "f27d814e",
-  "flags": {
-    "composerDictationEnabled": true,
-    "dictationTransport": "live",
-    "boundedJudgment": true,
-    "visionPunctual": true,
-    "embeddingSearch": true,
-    "embeddingBackend": "pg",
-    "webLive": "0",
-    "webEnabled": "0",
-    "devTestLogin": "0",
-    "forceNoraFixture": null,
-    "dictationSubstituted": null
-  },
-  "dictationAdmission": {
-    "ok": true,
-    "mode": "live",
-    "effectClass": "provider_live",
-    "keyFpPrefix": "f27d814e"
-  },
-  "cognitive": {
-    "maxSegments": 120,
-    "maxTokens": 2000000,
-    "reevalTokens": 1000000,
-    "defaults": {
-      "maxSegments": 120,
-      "maxTokens": 2000000,
-      "reeval": 1000000
-    },
-    "notRoomBookingProvisional24_200k": true
-  }
-}
-
-```
-
-| Capacité | CONFIGURED | ADMITTED | AVAILABLE | LIVE EXERCISED | USER QUALIFIED |
+| Tour | USER msg / time UTC | Work | Allocation observée | Effets durables | Écarts |
 |---|---|---|---|---|---|
-| Nora / Responses | oui | lane OK | oui | non | non |
-| Allocation cognitive | oui | 120/1M/2M | oui | non | non |
-| Decisions | oui | flag | oui | non | non |
-| Embeddings hybrid PG | oui | oui | oui | **oui** rebuild | non |
-| Vision punctuelle | oui | flag | oui | non | non |
-| Dictée Realtime | oui | LIVE OK | oui + mic | non | non |
-| FinOps local | oui | — | /settings/consumption 200 | observations rebuild | non |
-| Admin collect | OFF | — | — | — | — |
-| WEB LIVE | OFF | — | — | — | — |
+| T01 | msg_645f0667 · 10:00:10 | (usage sans work_id agrégé sas) | Sol | dialogue | MP-01 |
+| T02 | msg_82ed7118 · 10:05:00 | idem | Sol | règles verbalisées | MP-01/02/03 |
+| T03 | **clic création** · projet 10:11:32 | — | — | `PROPOSE_TRAJECTORY` APPLIED 10:12:01 · msg_iq… trajectoire | MP-04/05 |
+| T04 | msg_b2c7a116 · 10:20:16 + **dictée** | `cgw_b7d276ba` COMPLETE | Sol medium · 3 req · 33066 tok | reply QA | MP-06/07 ; audio 4× failed 10:21–10:23 |
+| T05 | msg_f157e534 · 10:32:35 | `cgw_0cc13526` **OPEN** | Sol medium · 2 req · ~24726 | **REPLY only** — **pas** OPEN_CYCLE | MP-08/09/10 |
+| T06 | msg_6031cf94 · 10:38:36 « dans un premier tu peux ouvrir… » | même work mis à jour 10:39:02 | Sol | `OPEN_CYCLE` APPLIED + `dec_26e38829` APPLICABLE · cycle=1 | MP-09/11/12 |
+| T07 | msg_9f632694 · 10:50:32 | `cgw_defeabc1` **OPEN** | Sol medium · 6 req · ~50071 | doc V1 AVAILABLE · **4 acquis CURRENT** · 0 subjects/open_pts | MP-03/10/11/13 |
+| T08 | msg_b985e4ef · 11:12:34 | `cgw_3074f47d` COMPLETE 11:27:49 | Sol medium | analyse Git aboutie | MP-14/15/16/17 |
+| T09 | NON ENVOYÉ | — | — | — | — |
+
+**Audio T04 :** 4 observations `audio.composer_dictation` status=failed, model=`gpt-live-transcribe`, error_category vide — **sans workId**.
 
 ---
 
-## 5. Indexation bornée
+## 6. L4 — Allocation (MP-15) — PRIORITAIRE
 
-### 5.1 Estimation (avant émission)
+### Hypothèses
 
-```
-index estimate RECETTE op activation 2026-11-27
-model=text-embedding-3-small
-projects=proj_7514cdde (RoomBooking/chantiers360) + proj_04441200 (Pilotage 360)
-admissible_sources=4 CURRENT acquis (0 open points, 0 subjects)
-RoomBooking_chars=248 est_tokens~62
-Pilotage360_chars=253 est_tokens~64
-total_est_tokens~126
-cost_est_usd~0.00000252
-cahier_note=authorized DEV id proj_896d204b absent in RECETTE; using RECETTE RoomBooking proj_7514cdde attached to mcleland147/chantiers360 (not fake proj_f57bca43)
-decision=PROCEED_BOUNDED
+| ID | Hypothèse | Verdict | Preuve |
+|---|---|---|---|
+| H1 | Modèle fixe historique | **CONFIRMED** (RECETTE) | défaut `HISTORICAL_SOL_DEFAULT_RESOURCE` ; tous works `modelRequested=gpt-6.2-sol` |
+| H2 | Catalogue multi-modèles non raccordé RECETTE | **CONFIRMED** | provisional Active exige DEV |
+| H3 | Qualification adaptative non mobilisée certains travaux | **PARTIALLY** | effort medium constant ; pas de proposition Luna/Terra persistée |
+| H4 | Luna/Terra refusés admission | **CONFIRMED** si proposés | `UNCALIBRATED_MODEL_OPERATIONAL` hors provisional |
+| H5 | Fallback Sol | **CONFIRMED** mécanisme | `resolveOperationalDefaultResource` → Sol |
+| H6 | Override env | **CONFIRMED** | `SFIA_COG_PROVISIONAL_POLICY` **absent** → legacy_sol ; même v0.2 refusé RECETTE |
+| H7 | Réallocation non déclenchée | **CONFIRMED** sur traces | effortApplied=`UNVERIFIED` ; pas de changement modèle |
+| H8 | FinOps mal attribue modèle | **REFUTED** | model_requested cohérent Sol partout |
+| H9 | Sol pertinent | **UNRESOLVED** qualité | cognition jugée favorable par Morris — choix Sol non invalidé qualitativement |
+| H10 | Autre | — | droits org OpenAI **NON VÉRIFIÉS** ce cycle |
 
-```
-
-### 5.2 Résultat
-
-```json
-{
-  "at": "2026-11-27T09:51:28.457Z",
-  "lane": "RECETTE",
-  "campaignId": "recette-op-activation-index-20261127",
-  "keyFpPrefix": "f27d814e",
-  "envelope": {
-    "campaignId": "recette-op-activation-index-20261127",
-    "suspended": false,
-    "suspendReason": null,
-    "httpAttemptsReserved": 2,
-    "httpAttemptsCommitted": 2,
-    "httpAttemptsReleased": 0,
-    "inputTokenCountAttemptsReserved": 0,
-    "inputTokenCountAttemptsCommitted": 0,
-    "inputTokensReserved": 376,
-    "inputTokensCommitted": 341,
-    "outputTokensReserved": 0,
-    "outputTokensCommitted": 0,
-    "hostedSearchesCommitted": 0,
-    "hostedSearchesMeasured": null,
-    "hostedSearchMeasureStatus": "NONE",
-    "requireNativeInputBound": true,
-    "maxHttpAttempts": 8,
-    "maxInputTokens": 5000,
-    "maxOutputTokens": 1000,
-    "familyHttp": {
-      "embeddings": {
-        "maxHttpAttempts": 6,
-        "reserved": 2,
-        "committed": 2,
-        "released": 0
-      },
-      "responses": {
-        "maxHttpAttempts": 0,
-        "reserved": 0,
-        "committed": 0,
-        "released": 0
-      },
-      "decisions": {
-        "maxHttpAttempts": 0,
-        "reserved": 0,
-        "committed": 0,
-        "released": 0
-      },
-      "vector_stores": {
-        "maxHttpAttempts": 0,
-        "reserved": 0,
-        "committed": 0,
-        "released": 0
-      },
-      "files": {
-        "maxHttpAttempts": 0,
-        "reserved": 0,
-        "committed": 0,
-        "released": 0
-      }
-    }
-  },
-  "results": [
-    {
-      "label": "RoomBooking",
-      "projectId": "proj_7514cdde-42e1-4626-8806-3903373d7f69",
-      "ok": true,
-      "entryCount": 4,
-      "tokens": 145,
-      "skippedNonAdmissible": 0,
-      "backend": "pg",
-      "backendEffective": "pg"
-    },
-    {
-      "label": "Pilotage360",
-      "projectId": "proj_04441200-60c4-4b0d-8da8-db51a61936e9",
-      "ok": true,
-      "entryCount": 6,
-      "tokens": 196,
-      "skippedNonAdmissible": 0,
-      "backend": "pg",
-      "backendEffective": "pg"
-    }
-  ]
-}
-
-```
-
-| Projet | Chunks | Tokens | Backend |
-|---|---:|---:|---|
-| RoomBooking `proj_7514cdde…` | 4 | 145 | pg |
-| Pilotage 360 `proj_04441200…` | 6 | 196 | pg |
-| **Total** | **10** | **341** | pg |
-
-Contrôles PG : 0 revoked/deleted · fingerprints distincts · unique (project_id, source_id, content_fingerprint, model) · owner_pilot attribué · pas de copie index DEV · pas de Vector Store.
+**Écart contrat 26/11 :** allocation adaptative Luna/Terra/Sol **construite mais gated DEV** ; RECETTE activation A3 a ouvert les capacités flags sans activer la politique provisoire multi-modèles.
 
 ---
 
-## 6. Effets LIVE exercés
+## 7. L5 — Latences / volumes T08 (MP-14)
 
-| Effet | Exercé ? | Détail |
+| Métrique | Valeur primaire |
+|---|---|
+| Work | `cgw_3074f47d` OPEN→COMPLETE |
+| Wall-clock | 11:14:16Z → 11:27:49Z ≈ **13,5 min** (perception ~15 min) |
+| Tokens | input 884132 + output 25712 = **909844** |
+| Cached input cumulé | **514456** |
+| Segments émetteurs | indices **0,2,3,5,7,8** (6) — absents 1,4,6 |
+| Rows usage | 80 · dont **40 nonzero** (= « 40 requêtes » UI) |
+| Resources work | `PROVIDER_REQUESTS:6` (segments Agents SDK) |
+| Modèle/effort | Sol medium toutes lignes |
+
+**Causes démontrées de volume :** boucles multi-segments investigation Git ; réinjection contexte (cached élevé mais input brut reste massif) ; nombreux tool-observations à 0 tokens par segment.
+**Non démontré sans traces outil :** nombre exact de fichiers uniques vs relus ; stubs progress (vigilance PV) ≠ hallucination prouvée.
+**Plafonds 120/1M/2M :** non atteints comme cause d’arrêt (work COMPLETE).
+
+---
+
+## 8. L6 — FinOps (MP-16)
+
+| Observation PV | Réconciliation |
+|---|---|
+| 909844 / 40 req / 6 segments / 1,05 USD | **CONFIRMÉ** côté tokens/segments/40 nonzero |
+| Travaux « En cours » après effet | `cgw_0cc13526` et `cgw_defeabc1` status **OPEN** alors production COMPLETE / effets visibles — **finalisation work ≠ effet métier** |
+| QA abouti sans projet | `cgw_b7d276ba` COMPLETE · `project_id` NULL (pré-rattachement) |
+| Small 341 tok | activation embeddings (hors MaintiPlan works) — **CONFIRMÉ** hypothèse PV |
+| cost_coverage PARTIAL / estimation 0 % | `model_applied` vide · effortApplied UNVERIFIED · tarifs PARTIAL |
+| 100 % couverture requêtes | numérateur observations vs dénominateur interne — exact mais **mal expliqué** vs estimation |
+
+Chaîne : Tour→Work→segment_index→usage rows→projection FinOps.
+Admin OFF : normal.
+
+---
+
+## 9. L7a — Audio (MP-01/02/06/07)
+
+| MP | Cause | Statut |
 |---|---|---|
-| Embeddings rebuild borné | **oui** | 2 HTTP · 341 tokens · campaign `recette-op-activation-index-20261127` |
-| Nora Responses | non | réservé Morris |
-| Dictée micro | non | AVAILABLE seulement |
-| Vision | non | — |
-| Decisions | non | — |
-| WEB | non | OFF |
-| Admin collect | non | OFF |
-| Mutation Git | non | — |
+| MP-01 | `PreparationConversation.tsx` : pas de `ComposerDictationControl` ; micro uniquement projet via capability API | **CAUSE CONFIRMED** |
+| MP-02 | Sas `textarea rows={2}` fixe ; Travail auto-extensible (démontré T05) | **CAUSE CONFIRMED** (implémentation sas) |
+| MP-06 | 4× `audio.composer_dictation` failed 10:21:16–10:23:12Z ; timeout open 10s ; catch `TRANSPORT_OPEN_FAILED` (message peut être `SESSION_OPEN_TIMEOUT`) ; UI a phase error mais retour perçu silencieux | **PARTIALLY EXPLAINED** — échec transport/open **confirmé en ledger** ; cause fournisseur/réseau exacte **EVIDENCE MISSING** (pas de log error_category ; pas de rejou LIVE) |
+| MP-07 | `getUserMedia` puis phase `requesting` ; `AnalyserNode` sur stream mic → onde possible **avant** `session.open` | **CAUSE CONFIRMED** (prématurité structurelle) |
 
 ---
 
-## 7. Contrôles runtime
+## 10. L7b — Connaissance / projections (MP-03/09/10/11/12/13)
 
-| Contrôle | Résultat |
+**Données PG après T07/T08**
+
+- acquis CURRENT : **4** (arbitrages métier T07)
+- subjects : **0** · open_points : **0**
+- human_decisions : **1** `OPEN_CYCLE` APPLICABLE (`dec_26e38829`)
+- documents : **1** titre cadrage · révision 1 **AVAILABLE**
+- cycles : **1**
+- business_commands : `PROPOSE_TRAJECTORY`@10:12 · `OPEN_CYCLE`@10:39 seulement
+
+**MP-09 T05 vs T06**
+
+- T05 work objective = ouverture **+** conception ; `production_json.kind=REPLY` ; **aucun** `OPEN_CYCLE` command
+- T06 message simple → `OPEN_CYCLE` APPLIED + décision
+- **CAUSE CONFIRMED (effet) :** multi-intention combinée n’a pas produit l’effet D5 ; intention unique courte l’a produit
+- **CAUSE RACINE orchestration :** PARTIALLY — qualification multi-intent possible (`intents[]`) mais enchaînement effet T05 non matérialisé ; S05/pending peut bloquer siblings ; preuve discriminante du JSON de qualification T05 **EVIDENCE MISSING** (non persisté en clair dans tables inspectées)
+
+**MP-10 / MP-03**
+
+- Capitalisation **partielle** : acquis écrits ; sujets/points ouverts **non créés** malgré matière
+- Aperçu sas « aucun point ouvert » : cohérent avec 0 open_points
+- **PARTIALLY EXPLAINED** — pas absence totale de D4 ; trou subjects/open_points + projection
+
+**MP-13**
+
+- `documentsInProgress` = status **SAVING** only → 0 avec V1 AVAILABLE est **exact** (contrat code `project-context.ts` FIX-11) → **CONTRACT AMBIGUITY / UX**
+- `applicableDecisions` devrait compter OPEN_CYCLE APPLICABLE (=1) ; observation utilisateur 0 → **PARTIALLY EXPLAINED** (filtre code vs observation ; éventuel refresh/surface) — rejouer lecture API Projet
+
+**MP-11**
+
+- Message T06 contient « Je transmets à Studio » — restitution outil/effet dans reply (`pilotage-effect-restitution` / patterns nora-adapter)
+- **CAUSE CONFIRMED (symptôme code path)** — design actuel expose pont Studio ; pas un second agent
+
+**MP-12**
+
+- Finalité générique / enum CONCEPTION_FONCTIONNELLE : données trajectoire vs libellés UX — **HYPOTHESIS ONLY** sans dump complet trajectory state
+
+---
+
+## 11. L7c — UX shell (MP-04/05/08/17)
+
+| MP | Diagnostic |
 |---|---|
-| login :3200 | 200 |
-| BUILD marker | `<!--rpEczSp61evIZ7d6fnIWR-->` |
-| cwd | worktree e8e6e069…/web |
-| FinOps page | 200 |
-| Microphone | Micro MacBook Air Input Channels=1 |
-| WEB OFF | confirmed flags |
-| Fixtures | unset |
-| DEV :3100 | down (protégé) |
-| Product versioning | NO RELEASE (product-version.ts) |
+| MP-04 | Spinner sas : composant `SasCreateProgressPopup` — animation/reduced-motion **non requalifiés runtime** ce cycle → **HYPOTHESIS ONLY** |
+| MP-05 | Densité conversation / SafeMarkdown — **HYPOTHESIS ONLY** (pas de capture F2) |
+| MP-08 | Panneau droit responsabilités — **CONTRACT AMBIGUITY** vs souhait Morris objets récents ; pas de preuve code d’erreur unique |
+| MP-17 | `PersonalRailSettingsMenu` monté dans `StudioShell` rail **personnel** ; absent rail projet — **CAUSE CONFIRMED** |
 
 ---
 
-## 8. Documents produit modifiés
+## 12. L3 — Matrice 17 MP (synthèse statut)
 
-### 8.1 Manifeste (contenu complet)
+| MP | Prio PV | Statut diagnostic | Cause immédiate |
+|---|---|---|---|
+| MP-01 | H | **CAUSE CONFIRMED** | Micro non branché sas |
+| MP-02 | M | **CAUSE CONFIRMED** | Composer sas non auto-grow |
+| MP-03 | H | **PARTIALLY EXPLAINED** | 0 open_points réels ; acquis existent |
+| MP-04 | M | **HYPOTHESIS ONLY** | Spinner / motion |
+| MP-05 | H | **HYPOTHESIS ONLY** | Typo/Markdown |
+| MP-06 | C | **PARTIALLY EXPLAINED** | Transport/open failed (ledger) ; détail fournisseur manquant |
+| MP-07 | M | **CAUSE CONFIRMED** | Wave sur mic stream en phase connexion |
+| MP-08 | H | **CONTRACT AMBIGUITY** | Rail droit / objets utiles |
+| MP-09 | H | **CAUSE CONFIRMED** (effet) / **PARTIAL** (racine ordo) | T05 sans OPEN_CYCLE ; T06 OK |
+| MP-10 | H | **PARTIALLY EXPLAINED** | Acquis oui ; subjects/OP non |
+| MP-11 | H | **CAUSE CONFIRMED** | Restitution « Studio » + activité générique |
+| MP-12 | M | **HYPOTHESIS ONLY** | Libellés trajectoire |
+| MP-13 | H | **PARTIALLY EXPLAINED** | « en cours »=SAVING exact ; décisions compteur à rejouer |
+| MP-14 | H | **PARTIALLY EXPLAINED** | Multi-segment Git + contexte ; ~13.5 min / 909k tok |
+| MP-15 | H | **CAUSE CONFIRMED** | Politique provisoire multi-modèles **DEV-only** → Sol legacy RECETTE |
+| MP-16 | H | **CAUSE CONFIRMED** | Works OPEN post-effet ; PARTIAL tariff ; 40=nonzero rows |
+| MP-17 | M | **CAUSE CONFIRMED** | Settings menu rail personnel only |
 
-# Manifeste RECETTE — Cutover + activation opérationnelle — 2026-11-27
+**Comptes :** CONFIRMED 8 · PARTIALLY 6 · HYPOTHESIS 3 · (ambiguïté contrat incluse dans PARTIAL/AMBIGUITY)
 
-| Champ | Valeur |
+Récurrences UAT/RB : capitalisation/projections et panneau droit déjà vus en recettes antérieures — **non fusionnés** ; traiter comme causes communes de projection/D4.
+
+---
+
+## 13. L8 — Plan de correction intégré (proposition — NON AUTORISÉ à exécuter)
+
+### Orientation composants
+
+| Composant | Orientation |
 |---|---|
-| Lane | RECETTE |
-| URL | http://127.0.0.1:3200 |
-| Classe | NO RELEASE |
-| Candidat SHA | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` |
-| Tree repo | `30c12ad9eb48959c0326df9f7629471e8ec847a3` |
-| Tree web | `03c30e4cdb2dbb443a05a052757b3846199c8d34` |
-| BUILD_ID | `rpEczSp61evIZ7d6fnIWR` |
-| Digest | `18e014c1ead6e050cf1aca4e4910dd8904722bd3e0e7753d25b189c03fd50535` |
-| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-e8e6e06961fa` |
-| LaunchAgent | `com.sfia.studio.next.recette.ml4d-ux004` |
-| Base main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
-| Ancien runtime servi (pré-cutover) | SHA `a150926cc78fdc04522565eb198ed9f91a612142` · BUILD `6kswoj2a2VHXCLsFYcoim` |
-| PostgreSQL | `sfia_next_recette_ml4` · :5434 · rôle `sfia_next_recette_ml4` |
-| Schéma | **027** (`derived_embedding_chunks` présent) |
-| Config | `~/.config/sfia-studio-next/recette/.env.local` + surcharges `start-recette-ml5.sh` |
-| OpenAI clé | Empreinte RECETTE `f27d814e…` · forbidden DEV `ab6bbec8…` · match local **OK** |
-| OpenAI org/projet fournisseur | **NON VÉRIFIÉ** (pas de clé Admin / pas de GO vérification projet) |
-| Admin collector | OFF · non injecté · pas de nouvelle clé Admin |
-| WEB LIVE | OFF (`SFIA_WEB_SEARCH_LIVE=0` · `SFIA_WEB_SEARCH_ENABLED=0`) |
-| Auto-session DEV | refusé |
-| Fixtures | absentes (`STUDIO_FORCE_NORA_FIXTURE` / `SFIA_DICTATION_SUBSTITUTED` unset) |
-| Dataset | projects=31 · documents=123 (inchangé hors index) |
-| Index borné | RoomBooking `proj_7514cdde…` (4 chunks) + Pilotage 360 `proj_04441200…` (6 chunks) · backend **pg** |
-| Consommation index | 341 tokens embeddings (`text-embedding-3-small`) · 2 HTTP Frontier · campaign `recette-op-activation-index-20261127` |
-| Microphone hôte | Micro MacBook Air présent (Input Channels: 1) |
-| DEV | :3100 down · PG :5433 / `sfia_next_dev` inchangé |
+| Conducteur D3 unique | **KEEP** |
+| Qualification sémantique multi-intents | **KEEP** + **ADAPT** orchestration effets |
+| Catalogue Luna/Terra/Sol | **KEEP** |
+| Provisional policy DEV-only gate | **ADAPT** (politique RECETTE explicite Morris) — **pas** forcer Luna |
+| Frontier / usage accounting | **KEEP** + **ADAPT** finalisation work + model_applied |
+| Dictation transport | **KEEP** + **ADAPT** erreurs UI + wave gating |
+| Compositeur sas | **ADAPT** (mutualiser grow + micro sous droits) |
+| D4 capitalisation | **ADAPT** subjects/OP sélectifs |
+| ProjectOverview compteurs | **ADAPT** sémantique « documents disponibles » |
+| Rail settings | **ADAPT** accès global cohérent F1/F2 |
+| WEB / Admin | **KEEP** OFF |
 
-## Activation opérationnelle (A1–A6) — 2026-11-27
+### Macro-lot correctif recommandé (un lot intégré, sous-gates)
 
-| Arbitrage | Statut |
+**ML5-L1-CORR-A — Conduite · allocation · finalisation · effets**
+Couvre MP-09,11,14,15,16 (+ transverse 10)
+IN : orchestration multi-intent→effets ; finalisation cognitive_works ; politique allocation RECETTE (GO modèle) ; FinOps model_applied/statuts ; réduction redondance contexte investigation **sans** baisser qualité
+OUT : nouveau moteur ; routeur lexical ; hausse plafonds ; Admin ; WEB
+
+**ML5-L1-CORR-B — D4/D5/D6 projections**
+MP-03,10,12,13
+IN : capitalisation sélective subjects/OP ; sémantique compteurs ; libellés trajectoire
+OUT : fabriquer des sujets artificiels
+
+**ML5-L1-CORR-C — Audio + compositeur**
+MP-01,02,06,07
+IN : micro sas ; grow ; wave only listening ; erreurs visibles ; protocole LIVE qualify séparé
+OUT : second pipeline
+
+**ML5-L1-CORR-D — UX shell**
+MP-04,05,08,17
+IN : spinner ; typo ; panneau objets récents borné ; settings
+OUT : second shell
+
+**Ordre :** A (bloquant allocation/effets/coût) → C (critique dictée) → B → D
+**Gates :** preuves déterministes DEV → navigateur → LIVE borné dictée/allocation sous GO → cutover RECETTE nouveau candidat → rejeu 17 MP → reprise T09.
+
+**Interdits rappelés :** forcer Luna ; supprimer Sol ; budgets cosmétiques ; faux progrès ; fermeture artificielle works sans vérité ; masquer erreurs fournisseur.
+
+---
+
+## 14. Fake / Real Qualification
+
+| Capacité | Niveau |
 |---|---|
-| A1 Cutover accepté avec réserves | Conservé |
-| A2 Rotation mot de passe PostgreSQL RECETTE | **EFFECTIVE** — hash SCRAM changé · ancien rejeté via bridge SCRAM · nouveau OK · localhost `pg_hba` reste `trust` · backups `.env` antérieurs = secret obsolète |
-| A3 Capacités OpenAI | Flags LIVE activés (voir tableau) |
-| A4 Indexation bornée | **FAITE** (2 projets · 10 chunks · pas de sweep 31) |
-| A5 Collecte Admin | **DIFFÉRÉE / OFF** |
-| A6 WEB LIVE | **OFF** |
+| Code RECETTE figé | IMPLEMENTED (e8e6e069) |
+| PG MaintiPlan | LIVE EXERCISED (historique) — inspecté READ ONLY |
+| OpenAI Responses MaintiPlan | LIVE EXERCISED (historique Sol) |
+| Allocation multi-modèles RECETTE | **NOT PROVEN** (gated) |
+| Dictée LIVE | LIVE EXERCISED **FAILED** (4) — NOT PROVEN success |
+| Figma F2 | NOT PROVEN ce cycle |
 
-### Configuration non secrète effective (runtime via start script)
-
-- `STUDIO_LANE=RECETTE` · `PORT=3200` · `SFIA_SOURCE_SHA=e8e6e069…`
-- `SFIA_COMPOSER_DICTATION=1` · `SFIA_DICTATION_TRANSPORT=live`
-- `SFIA_BOUNDED_JUDGMENT=1`
-- `SFIA_DERIVED_EMBEDDING_BACKEND=pg` · `SFIA_DERIVED_EMBEDDING_SEARCH=1`
-- `SFIA_DOCUMENT_VISION_PUNCTUAL=1`
-- Cognitive : `MAX_SEGMENTS=120` · `REEVAL=1000000` · `MAX_TOKENS=2000000` (pas 24/200k RoomBooking provisoire)
-- Start script **ne force plus** `SFIA_COMPOSER_DICTATION=0`
-
-### Capacités — statuts disciplinés
-
-| Capacité | CONFIGURED | ADMITTED | AVAILABLE | LIVE EXERCISED | USER QUALIFIED |
-|---|---|---|---|---|---|
-| Nora / Responses API | oui | lane guard OK | oui (runtime) | **non** (parcours Morris) | **non** |
-| Allocation cognitive adaptative | oui (120 / 1M / 2M) | oui | oui | **non** | **non** |
-| Decisions ciblées | oui (`BOUNDED_JUDGMENT=1`) | flag ON | oui | **non** | **non** |
-| Embeddings + hybrid PG | oui | oui | oui (10 chunks) | **oui** (rebuild borné) | **non** |
-| Vision documentaire ponctuelle | oui | flag ON | oui | **non** | **non** |
-| Dictée Realtime | oui | admission LIVE OK | oui (micro hôte) | **non** | **non** |
-| FinOps local | oui | — | page `/settings/consumption` 200 | observations rebuild persistées | **non** |
-| Collecte Admin | OFF | — | — | — | — |
-| WEB LIVE | OFF | — | — | — | — |
-
-## Corpus indexé (réserve d’identité)
-
-- Cahier cite `proj_896d204b…` (DEV) — **absent** de la base RECETTE.
-- RECETTE : `proj_7514cdde…` **RoomBooking** attaché à `mcleland147/chantiers360` (pas le faux `proj_f57bca43…`).
-- `proj_04441200…` **Pilotage 360** — projet historique R05.
-- Projet synthétique dédié : **non constitué** — hors scope automatique.
-
-## Rollback activation
-
-1. Restaurer paramètres non secrets depuis `.env.local.bak-pre-op-activation-*` / start-script antérieur.
-2. **Conserver le nouveau mot de passe PostgreSQL** (ne pas réimporter un `.env` avec l’ancien secret).
-3. Ne pas réimporter une ancienne base uniquement pour annuler l’activation.
-4. Cutover code : retarget worktree `a150926c` si besoin (voir cutover) — schéma 027 non retiré automatiquement.
-
-## Réserves
-
-- Org/projet OpenAI fournisseur non prouvé (deux clés ≠ deux projets).
-- Dictée / Nora / Vision / Decisions : **AVAILABLE** mais **pas LIVE EXERCISED** ni **USER QUALIFIED**.
-- Index : seuls 2 projets ; le reste reste à l’indexation au fil de l’usage.
-- FinOps historique éventuellement imputé DEV : non réécrit.
-- Documents root RECETTE vide (0 fichiers) — inchangé.
-- `pg_hba` localhost `trust` : la rotation protège surtout les chemins SCRAM non-localhost.
-
-
-### 8.2 Cahier R01–R08 (contenu complet)
-
-# SFIA Studio Next — Cahier de recette intégrée ML5 convergence
-
-**Version :** 0.2 — activation opérationnelle A1–A6  
-**Date :** 27 novembre 2026  
-**Statut :** **RECETTE OPERATIONAL ACTIVATION COMPLETE — MORRIS FUNCTIONAL QUALIFICATION READY — USER ACCEPTANCE PENDING**  
-**Programme :** R5 — convergence OpenAI Studio intégrée (macro-lots 1–3)  
-**Responsable de la réception :** Morris  
-**Périmètre :** Cutover + activation RECETTE `e8e6e069` · schéma **027** · capacités LIVE bornées  
-**Classe :** NO RELEASE · STABLE NOT AVAILABLE
+Claims interdits respectés : pas READY FOR REAL / pas LIVRAISON 1 ACCEPTED.
 
 ---
 
-## 1. Objet
+## 15. Risques et réserves
 
-Ce cahier organise la **recette utilisateur** du candidat RECETTE issu de la convergence intégrée ML1–ML3, sans rejouer les 56 scénarios Q du contrat ML5 ni les 61 cas ML4C. Il regroupe **huit familles R01–R08** couvrant non-régression, parcours projet, Nora, documents, intelligence documentaire, dictée, FinOps et UX shell.
-
-**Règle :** aucun verdict **PASS** n'est prérempli pour les essais Morris. Les contrôles HTTP/smoke post-cutover (login, portefeuille, intégrations, marqueur build) ne valent pas acceptation fonctionnelle.
-
----
-
-## 2. Identité du candidat RECETTE
-
-| Élément | Référence |
-|---|---|
-| URL | http://127.0.0.1:3200 |
-| SHA candidat | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` |
-| Tree repo | `30c12ad9eb48959c0326df9f7629471e8ec847a3` |
-| Tree web | `03c30e4cdb2dbb443a05a052757b3846199c8d34` |
-| BUILD_ID | `rpEczSp61evIZ7d6fnIWR` |
-| Digest | `18e014c1ead6e050cf1aca4e4910dd8904722bd3e0e7753d25b189c03fd50535` |
-| Worktree servi | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-e8e6e06961fa` |
-| LaunchAgent | `com.sfia.studio.next.recette.ml4d-ux004` |
-| PostgreSQL | `sfia_next_recette_ml4` — port **5434** |
-| Schéma | **027** (migrations 022–027 après preuve restore isolée) |
-| Branche source DEV | `sfia/next-ml5-integrated-delivery-20261123` |
-| Ancien runtime réellement servi | `a150926c…` / BUILD `6kswoj2a2VHXCLsFYcoim` |
-| SHA documenté historique (non servi) | `2a024b1c…` |
-| Dataset | projects=31 · messages=824 · documents=123 · pilots=170 · conversations=210 · cognitive_works=24 |
-| OpenAI clé RECETTE | empreinte `f27d814e…` — **≠** DEV `ab6bbec8…` (forbidden) · org/projet fournisseur **non vérifié** |
-| Dictée produit | `SFIA_COMPOSER_DICTATION=1` · `SFIA_DICTATION_TRANSPORT=live` — **AVAILABLE** · micro hôte présent · **USER QUALIFIED** à faire |
-| Judgment / embeddings / vision | flags ON · backend PG · index borné RoomBooking+Pilotage360 |
-| WEB LIVE | **OFF** |
-| Collecte Admin | **OFF** |
-| Config | `~/.config/sfia-studio-next/recette/.env.local` + surcharges `start-recette-ml5.sh` |
-
-Manifeste détaillé : [`ml5-recette-cutover-manifest-20261127.md`](./ml5-recette-cutover-manifest-20261127.md).
+1. Org/projet OpenAI non vérifiés.
+2. Qualification JSON T05 non récupérée → racine multi-intent partielle.
+3. Logs dictation error_category vides.
+4. Compteur décisions UI vs PG à rejouer.
+5. Stubs progress Chantiers360 : vigilance fidélité, pas MP nouveau.
+6. FinOps historique cross-lane.
+7. localhost PG trust.
 
 ---
 
-## 3. Préconditions et règles
+## 16. Décisions Morris requises
 
-- Profil navigateur **distinct** de DEV (ENV-01 cookies sur `127.0.0.1`).
-- Vérifier le marqueur HTML `<!--rpEczSp61evIZ7d6fnIWR-->` sur la page d'accueil ou login.
-- Ne pas activer `STUDIO_DEV_AUTO_SESSION`, fixtures Nora, WEB LIVE ni collecte Admin sans **GO Morris distinct**.
-- **GO A1–A6 2026-11-27** : capacités retenues **activées** en RECETTE ; indexation bornée effectuée ; parcours utilisateur LIVE = qualification Morris (pas de campagne Cursor).
-- **RoomBooking RECETTE** : `proj_7514cdde…` attaché `mcleland147/chantiers360` (ID DEV `proj_896d204b…` absent ici) — **ne pas** utiliser le faux `proj_f57bca43…`.
-- **Pilotage360 / Chantiers360** : investigations historiques RB-27–31 (planning/conflits) et qualification trajectoire restent des **oracles de non-régression** à réemployer selon impact, pas des replays systématiques de 40+ scénarios.
-- Préserver les données RECETTE ; rollback code documenté sans rollback automatique des migrations 022–027.
+1. Arbitrer **activation politique allocation RECETTE** (garder Sol-only / étendre provisional / autre) **sans** sacrifier qualité.
+2. Arbitrer **macro-lot correctif** A→C→B→D vs scission.
+3. Autoriser ultérieurement : GO correction DEV ; GO LIVE dictée diagnostic ; GO cutover ; reprise T09.
+4. Trancher sémantique compteurs Projet (documents en cours vs disponibles).
+5. Trancher panneau droit objets récents (évolution UX).
 
 ---
 
-## 4. Format de preuve (Morris)
+## 17. Contrôles finaux
 
-| Champ | Contenu |
-|---|---|
-| ID | Rxx-yy |
-| Date / Pilote | Session |
-| BUILD / SHA | Version testée |
-| Projet / ressource | ID non secret |
-| Action | Geste ou prompt |
-| Attendu | Comportement contractuel |
-| Observé | Fait réel |
-| Preuve | Capture, extrait, work id, révision — **sans secrets** |
-| Verdict | PASS / FAIL / BLOCKED / NOT RUN — **à remplir par Morris uniquement** |
+- Candidat/build/runtime inchangés (PID 22935).
+- Aucune mutation PG/code/config/OpenAI/audio.
+- Pack FULL mono-cycle.
+- 8 tours + 17 MP traités.
+- Handoff L3 à publier.
 
 ---
 
-## R01 — Non-régression portefeuille, session et données héritées
+## 18. Verdict
 
-**Objectif :** après cutover schéma 027, retrouver l'univers RECETTE ML4 existant sans perte comptable ni régression d'accès.
+**MAINTIPLAN INTEGRATED DIAGNOSTIC COMPLETE WITH EVIDENCE RESERVES — MORRIS ARBITRATION REQUIRED**
 
-| ID | Scénario | Résultat attendu | Verdict Morris |
-|---|---|---|---|
-| R01-01 | Connexion GitHub OAuth — session Pilote Morris | 200 · identité connue · pas de contournement | **NOT RUN** |
-| R01-02 | Portefeuille — 31 projets · préparations connues | Liste cohérente avec comptages pré-cutover | **NOT RUN** (smoke HTTP 200 seul) |
-| R01-03 | Ouvrir **Intervencia** ou projet de référence ML4C — fil messages | Historique retrouvable · pas de vidage | **NOT RUN** |
-| R01-04 | Documents existants — lecture d'une révision **AVAILABLE** | Inspection D4 fonctionnelle | **NOT RUN** |
-| R01-05 | Intégrations / paramètres — page charge | 200 · pas d'exposition clés | **NOT RUN** (smoke 200) |
-| R01-06 | Rafraîchissement navigateur sur projet ouvert | Contexte projet conservé | **NOT RUN** |
-| R01-07 | Réserve ML4C héritée — position fil Travail après refresh (`S07-06-R01`) | À requalifier sur ce build : retour en tête de fil ? | **NOT RUN** |
-| R01-08 | Auto-session DEV sur RECETTE | Refus 403 (prouvé post-cutover) | **AUTOMATED PASS** (smoke) — pas substitut R01-01 |
+**Statut SFIA (diagnostic) :** READY WITH RESERVES
 
-**Observations capitalisées (sans multiplier les cas) :** comptages PG post-migrate identiques au manifeste ; tables FinOps (`provider_usage_observations`) et embeddings (`derived_embedding_chunks`) présentes sans reindex DEV copié.
+**État programme inchangé :**
+R5 IN PROGRESS · ML5 OPEN · LIVRAISON 1 NOT ACCEPTED · MAINTIPLAN SUSPENDED · T09 NOT SENT · 17 MP OPEN · NO CORRECTION AUTHORIZED · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED
 
 ---
 
-## R02 — Nouveau projet et sas de création
+## 19. Anti-stub final
 
-**Objectif :** créer ou reprendre un projet sans doublon ni perte de préparation (héritage ML4C S02, sans rejouer les 8 scénarios S02).
-
-| ID | Scénario | Résultat attendu | Verdict Morris |
-|---|---|---|---|
-| R02-01 | Nouvelle préparation — décrire le besoin à Nora (LIVE si GO) | Intention persistée · pas de création prématurée | **PENDING GO LIVE** |
-| R02-02 | Créer le projet depuis le sas · rouvrir après refresh | Un seul projet · fil initial visible | **NOT RUN** |
-| R02-03 | Réserve historique `S02-04-R01` — proposition rev.2 après création | À vérifier si toujours pertinente | **NOT RUN** |
-| R02-04 | Projet synthétique dédié recette ML5 (non production) | Isolation des essais mutatifs | **NOT RUN** |
+REVIEW PACK COMPLETE — MODIFIED CONTENT PRESENT — CODE EXCERPTS + PG CORRELATION + MP MATRIX — NO SECRETS — READY FOR HANDOFF L3
 
 ---
 
-## R03 — Nora — Travail, continuité et frontières
+## Annexe A — Extraits code candidat e8e6e069 (discriminants)
 
-**Objectif :** dialogue Nora sur surface Travail avec continuité provider RECETTE (sans fixture forcée).
+### `provisional-cognitive-policy.ts` L1-12
 
-| ID | Scénario | Résultat attendu | Verdict Morris |
-|---|---|---|---|
-| R03-01 | Message texte simple — réponse Nora LIVE | Réponse complète · statuts cohérents | **READY — USER QUALIFICATION** |
-| R03-02 | Conversation longue — compositeur visible en bas | Champ + Envoyer accessibles (requalifier `ML4C-A-003`) | **NOT RUN** |
-| R03-03 | Demande hors périmètre / cible inconnue | Refus ou `UNKNOWN` sémantiquement correct · pas d'effet silencieux | **NOT RUN** (rapprocher `S02-06-R01`) |
-| R03-04 | Capitalisation contexte métier (projet existant) | Pas de fuite cross-pilote | **NOT RUN** |
-| R03-05 | Allocation cognitive / adaptive (120 / 1M / 2M actifs) | Comportement conforme au contrat ML5 si sollicité | **READY — USER QUALIFICATION** |
-
-**Observations RoomBooking :** preuve DEV RB-27 (`cgw_912cf02a…`) — 9 fichiers CONSULTED, reprise suspendue ; **ne pas extrapoler PASS RECETTE** sans GO campagne sur `proj_896d204b…`.
-
----
-
-## R04 — Documents (D4), révisions et inspection
-
-| ID | Scénario | Résultat attendu | Verdict Morris |
-|---|---|---|---|
-| R04-01 | Bibliothèque — liste documents projet | Révisions **AVAILABLE** listées | **NOT RUN** |
-| R04-02 | Inspection longue — panneau latéral | Lecture intégrale possible | **NOT RUN** (réserve `S03-02-R01` ergonomie) |
-| R04-03 | Révision ciblée sans effet non demandé | V1/V2 distinctes · pas de perte | **PENDING GO** si création LIVE |
-| R04-04 | Root documents RECETTE vide (0 fichiers racine) | Inchangé — pas de régression attendue sur cutover | **NOT RUN** |
-
----
-
-## R05 — Intelligence documentaire (embeddings, hybrid, vision, PDF)
-
-**Objectif :** qualifier les apports macro-lot 2 sans rejouer l'intégralité des oracles Gate B DEV.
-
-| ID | Scénario | Résultat attendu | Verdict Morris |
-|---|---|---|---|
-| R05-01 | Recherche hybride sur corpus connu (RoomBooking / Pilotage360 indexés) | Résultats pertinents · citations traçables | **READY — USER QUALIFICATION** (10 chunks PG) |
-| R05-02 | Question lexicale exacte vs paraphrase (oracle CONV-F22) | Comportement comparable au DEV qualifié | **PENDING GO LIVE** |
-| R05-03 | PDF Git `Diagramme BPMN_BatiNova.pdf` | Identification OK · limite scan **SCANNED_NO_TEXT** connue | **PENDING GO** Git read |
-| R05-04 | Vision punctuelle sur image autorisée | Lecture bornée si GO vision | **PENDING GO** |
-| R05-05 | StockTrack IT-06 (qual corpus) | Ne pas confondre avec BoundTrack ; V1/V2 intactes si sollicité | **NOT RUN** |
-
-**Observations :** schéma 027 · index borné post-activation : RoomBooking 4 chunks · Pilotage360 6 chunks · tokens 341 · **pas** de copie d'index DEV.
-
----
-
-## R06 — Dictée composer (micro)
-
-**Objectif :** CONV-F31–F34 — **activée** en RECETTE (A3) · qualification utilisateur restante.
-
-| ID | Scénario | Résultat attendu | Verdict Morris |
-|---|---|---|---|
-| R06-01 | Capability API — flag ON | `enabled: true` · admission LIVE | **READY — USER QUALIFICATION** (admission locale OK) |
-| R06-02 | Permission micro — transcription FR LIVE | Texte éditable · envoi manuel unique | **READY — USER QUALIFICATION** |
-| R06-03 | Annulation / refuse permission / navigation | Fail-closed · brouillon clavier préservé | **READY — USER QUALIFICATION** |
-| R06-04 | Réserves techniques A–D (finalize partial, TRANSPORT_UNKNOWN) | Comportement fail-closed en anomalie env | **DEV PROVEN** — à confirmer en parcours Morris |
-
-**Protections conservées :** durée, concurrence, droits, admission, fermeture de session · pas de fixture · pas de substitution.
-
----
-
-## R07 — FinOps et consommation (affichage local)
-
-| ID | Scénario | Résultat attendu | Verdict Morris |
-|---|---|---|---|
-| R07-01 | Panneau consommation / settings — chargement | Données locales ou vide explicite · pas d'appel Admin nouveau | **NOT RUN** |
-| R07-02 | Observations usage post-Nora LIVE (si campagne) | Corrélation work/attempt sans double comptage | **PENDING GO LIVE** |
-| R07-03 | Historique attribué projet DEV dans RECETTE | Non réécrit — attribution peut rester ambiguë | **NOT RUN** (réserve manifeste) |
-| R07-04 | Collecte Admin snapshot | Architecture hors runtime · pas de nouvelle clé Admin injectée | **BLOCKED** sans GO Admin distinct |
-
----
-
-## R08 — UX shell, intégrations et convergence visuelle
-
-| ID | Scénario | Résultat attendu | Verdict Morris |
-|---|---|---|---|
-| R08-01 | Navigation surfaces Projet (Travail, Documents, Journal, …) | Transitions sans erreur bloquante | **NOT RUN** |
-| R08-02 | Typographie SafeMarkdown / conversation 12px | Lisibilité acceptable | **NOT RUN** |
-| R08-03 | Menu rail personnel — entrée consommation | Route accessible si droits | **NOT RUN** |
-| R08-04 | Comparaison Figma mobile / visionneuse | Reporté — pas gate cutover | **DEFERRED** |
-| R08-05 | Erreurs globales (404 / error boundary) | Messages distincts session vs technique | **NOT RUN** |
-
-**Observations Pilotage360 :** touchpoints `forecast-builder` / trajectoire — requalifier uniquement si parcours Pilote sollicité ; pas d'extension de campagne ici.
-
----
-
-## 9. Synthèse de campagne (à compléter)
-
-| Famille | NOT RUN | PENDING GO | AUTOMATED only | PASS Morris |
-|---|---:|---:|---:|---:|
-| R01 | 7 | 0 | 1 | 0 |
-| R02 | 3 | 1 | 0 | 0 |
-| R03 | 3 | 2 | 0 | 0 |
-| R04 | 3 | 1 | 0 | 0 |
-| R05 | 1 | 4 | 0 | 0 |
-| R06 | 1 | 3 | 0 | 0 |
-| R07 | 2 | 1 | 0 | 0 |
-| R08 | 4 | 0 | 0 | 0 |
-
-**Verdict global proposé (Cursor, pré Morris) :** **RECETTE OPERATIONAL ACTIVATION COMPLETE — INTEGRATED CONVERGENCE CAPABILITIES AVAILABLE — MORRIS FUNCTIONAL QUALIFICATION READY — USER ACCEPTANCE PENDING**
-
----
-
-## 10. Rollback (rappel)
-
-1. Arrêt LaunchAgent · restaurer paramètres **non secrets** depuis bak pre-op-activation · **garder le mot de passe PostgreSQL actuel**.  
-2. Cutover code : retarget plist/script vers worktree `a150926c` si besoin.  
-3. **Attention :** schéma 027 non retiré automatiquement ; ne pas réimporter une base uniquement pour annuler l’activation config.
-
-Preuves cutover : `…/web/.sfia-evidence/recette-cutover-20261127/` (gitignored).  
-Preuves activation : `…-recette-build-e8e6e06961fa/…/web/.sfia-evidence/recette-op-activation-20261127/` (gitignored).
-
-### 8.3 delivery-history (entrée activation)
-
-## delivery_id: DELIV-2026-11-27-ML5-RECETTE-OPERATIONAL-ACTIVATION
-
-- **date_utc**: 2026-11-27T10:00Z
-- **lane**: RECETTE — activation opérationnelle A1–A6 (pas de construction)
-- **branche DEV docs**: `sfia/next-ml5-integrated-delivery-20261123`
-- **SHA candidat inchangé**: `e8e6e069` · BUILD `rpEczSp61evIZ7d6fnIWR` · digest `18e014c1…`
-- **A2**: rotation mot de passe rôle `sfia_next_recette_ml4` · ancien rejeté SCRAM · DEV :5433 inchangé
-- **A3**: flags LIVE — dictation/live · judgment · embeddings pg+search · vision · cognitive 120/1M/2M
-- **A4**: index borné RoomBooking `proj_7514cdde` (4) + Pilotage360 `proj_04441200` (6) · 341 tokens · 2 HTTP
-- **A5**: Admin collect OFF · **A6**: WEB LIVE OFF
-- **classe**: NO RELEASE · pas de recompilation · pas de migration
-- **statut proposé**: RECETTE OPERATIONAL ACTIVATION COMPLETE — INTEGRATED CONVERGENCE CAPABILITIES AVAILABLE — MORRIS FUNCTIONAL QUALIFICATION READY — USER ACCEPTANCE PENDING
-
-
-
-### 8.4 Registre (ligne Version)
-
-| Version | v0.29 candidate — 27 novembre 2026 : **RECETTE operational activation A1–A6** (`e8e6e069` · BUILD `rpEczSp61evIZ7d6fnIWR` · PG password rotated · flags LIVE · index borné 10 chunks · WEB/Admin OFF) — **RECETTE OPERATIONAL ACTIVATION COMPLETE — MORRIS FUNCTIONAL QUALIFICATION READY — USER ACCEPTANCE PENDING** ; v0.28 : cutover ; v0.27 : dictation nominal path final DEV ; … |
-
----
-
-## 9. Annexe — régularisation preuves cutover / audio / protections
-
-### 9.1 Identité build cutover (référence immuable)
-
-```json
-{"buildId":"rpEczSp61evIZ7d6fnIWR","contentDigest":"18e014c1ead6e050cf1aca4e4910dd8904722bd3e0e7753d25b189c03fd50535","sourceSha":"e8e6e06961fa0a7224db3badb3b591b8be8046ac","lane":"RECETTE","tree":"30c12ad9eb48959c0326df9f7629471e8ec847a3","webTree":"03c30e4cdb2dbb443a05a052757b3846199c8d34","at":"2026-11-27T09:29:54Z"}
-
+```ts
+1|/**
+2| * ML5 provisional cognitive policy — DEV only (Morris 2026-11-26).
+3| *
+4| * v0.2 (explicit): Terra medium default; Luna low/medium experimental;
+5| * Sol L/M/H historical; Terra high / Luna high candidates.
+6| *
+7| * Activation is NEVER implicit: absent or unknown SFIA_COG_PROVISIONAL_POLICY
+8| * resolves to legacy_sol (safe historical default). Provisional couples require
+9| * explicit `v0.2` (or deprecated `v0.1`) AND STUDIO_LANE=DEV.
+10| *
+11| * Rollback: `legacy_sol` | `off` | `0` — no structural rewrite.
+12| */
 ```
 
-### 9.2 Audio cutover (état figé candidat)
+### `provisional-cognitive-policy.ts` L84-140
 
-- Réserves A–B landées dans `e8e6e069` (finalize acks · Frontier admission).
-- Sur candidat : PCM non finalisé → finalize **partial** possible ; `TRANSPORT_UNKNOWN` fail-closed.
-- Activation : dictation **AVAILABLE** (flag+admission+mic) · **pas** LIVE EXERCISED ce cycle.
+```ts
+84|/**
+85| * Resolve active policy — fail closed to legacy_sol unless explicitly activated on DEV.
+86| */
+87|export function resolveProvisionalPolicy(
+88|  env: NodeJS.ProcessEnv = process.env,
+89|): ProvisionalPolicyResolution {
+90|  const raw = (env.SFIA_COG_PROVISIONAL_POLICY ?? "").trim().toLowerCase();
+91|  const lane = studioLane(env);
+92|  const codes: string[] = [];
+93|
+94|  if (!raw) {
+95|    return {
+96|      id: "legacy_sol",
+97|      provisionalActive: false,
+98|      reasonCodes: [
+99|        "COG_POLICY_ABSENT_FALLBACK_LEGACY_SOL",
+100|        "COG_POLICY_VERSION_legacy_sol",
+101|      ],
+102|    };
+103|  }
+104|
+105|  if (
+106|    raw === "off" ||
+107|    raw === "0" ||
+108|    raw === "legacy" ||
+109|    raw === "legacy_sol" ||
+110|    raw === "sol"
+111|  ) {
+112|    return {
+113|      id: "legacy_sol",
+114|      provisionalActive: false,
+115|      reasonCodes: ["COG_POLICY_LEGACY_SOL", "COG_POLICY_VERSION_legacy_sol"],
+116|    };
+117|  }
+118|
+119|  if (raw === "v0.2" || raw === "0.2" || raw === "v2") {
+120|    if (lane !== "DEV") {
+121|      return {
+122|        id: "legacy_sol",
+123|        provisionalActive: false,
+124|        reasonCodes: [
+125|          "COG_POLICY_V02_REFUSED_NON_DEV_LANE",
+126|          `LANE_${lane || "UNKNOWN"}`,
+127|          "COG_POLICY_VERSION_legacy_sol",
+128|        ],
+129|      };
+130|    }
+131|    return {
+132|      id: "v0.2",
+133|      provisionalActive: true,
+134|      reasonCodes: [
+135|        `COG_POLICY_PROVISIONAL_${PROVISIONAL_COGNITIVE_POLICY_VERSION}`,
+136|        "COG_POLICY_VERSION_v0.2",
+137|        "LANE_DEV",
+138|      ],
+139|    };
+140|  }
+```
 
-### 9.3 Protections fournisseur
+### `provisional-cognitive-policy.ts` L191-199
 
-- Lane guard RECETTE fp `f27d814e…` · forbidden DEV `ab6bbec8…`.
-- Frontier ALS obligatoire pour HTTP OpenAI produit.
-- WEB LIVE OFF · Admin hors Nora · HumanDecision sous Pilote · gates Cursor/D8 conservés.
+```ts
+191|export function resolveOperationalDefaultResource(
+192|  env: NodeJS.ProcessEnv = process.env,
+193|): { modelId: CognitiveModelId; effort: CognitiveEffort } {
+194|  const resolved = resolveProvisionalPolicy(env);
+195|  if (!resolved.provisionalActive) {
+196|    return { ...HISTORICAL_SOL_DEFAULT_RESOURCE };
+197|  }
+198|  return { ...PROVISIONAL_V02_DEFAULT_RESOURCE };
+199|}
+```
 
-### 9.4 Handoffs de référence (SHA only — non recopiés)
+### `resource-admission.ts` L90-128
 
-- `81addad74818e1e23006125ab4f19f020a9c5f36` cutover
-- `a1cc1452961dadf166795e158915308dccab2673`
-- `f992d73f8514d282cd63565c9c3e33204ced04a5`
+```ts
+90|  if (mode === "operational") {
+91|    const policyId = activeProvisionalPolicyId();
+92|    const provisionalOn = isProvisionalPolicyActive();
+93|
+94|    // Explicit provisional policy on DEV — Morris-validated couples only.
+95|    if (provisionalOn && isProvisionalAdmittedCouple(modelId, effort)) {
+96|      return { admitted: true, modelId, effort, mode };
+97|    }
+98|
+99|    if (provisionalOn && isProvisionalCandidateCouple(modelId, effort)) {
+100|      return {
+101|        admitted: false,
+102|        mode,
+103|        reasonCode: "PROVISIONAL_CANDIDATE_NOT_ADMITTED",
+104|        reason: `${modelId}@${effort} est candidat provisoire (${policyId}) — qualification Morris requise avant admission`,
+105|      };
+106|    }
+107|
+108|    // Sol historical band always available (rollback + comparison).
+109|    if (modelId === "gpt-6.2-sol" && OPERATIONAL_SOL_EFFORTS.has(effort)) {
+110|      return { admitted: true, modelId, effort, mode };
+111|    }
+112|    if (modelId === "gpt-6.2-sol" && !OPERATIONAL_SOL_EFFORTS.has(effort)) {
+113|      return {
+114|        admitted: false,
+115|        mode,
+116|        reasonCode: "SOL_EFFORT_NOT_OPERATIONAL_BAND",
+117|        reason:
+118|          "Seuls low|medium|high sont admis en opérationnel pour Sol",
+119|      };
+120|    }
+121|
+122|    if (entry.admissionStatus === "documented_candidate") {
+123|      return {
+124|        admitted: false,
+125|        mode,
+126|        reasonCode: "UNCALIBRATED_MODEL_OPERATIONAL",
+127|        reason: `${modelId}@${effort} non admis sous politique ${policyId}`,
+128|      };
+```
 
----
+### `project-context.ts` L93-119
 
-## 10. Rollback
+```ts
+93|  const applicableDecisions = decisionRows.filter(
+94|    (d) => d.state === "APPLICABLE" && !supersededIds.has(d.id),
+95|  );
+96|
+97|  const openSubjects = knowledge.subjects.filter((s) => s.status === "ACTIVE");
+98|  const openPoints = knowledge.openPoints.filter((o) => o.status === "OPEN");
+99|  // FIX-11 — "en cours" = actively writing (SAVING), not FAILED/UNKNOWN/AVAILABLE.
+100|  const docsInProgress = documents.filter((d) => d.latestRevision?.status === "SAVING");
+101|
+102|  const activity = {
+103|    openSubjects: {
+104|      count: openSubjects.length,
+105|      examples: openSubjects.slice(0, 2).map((s) => ({ id: s.id, title: s.title })),
+106|    },
+107|    applicableDecisions: {
+108|      count: applicableDecisions.length,
+109|      examples: applicableDecisions.slice(0, 2).map((d) => ({ id: d.id, statement: d.statement })),
+110|    },
+111|    documentsInProgress: {
+112|      count: docsInProgress.length,
+113|      examples: docsInProgress.slice(0, 2).map((d) => ({
+114|        id: d.document.id,
+115|        title: d.document.title,
+116|      })),
+117|    },
+118|    openPointsCount: openPoints.length,
+119|  };
+```
 
-1. Restaurer `.env.local.bak-pre-op-activation-*` **sans** réintroduire l’ancien mot de passe PG.  
-2. Restaurer start-script forçant `SFIA_COMPOSER_DICTATION=0` si retrait d’activation.  
-3. Index : chunks restent (idempotents) ; pas de DROP 027.  
-4. Cutover code : retarget `a150926c` worktree si nécessaire.
+### `PreparationConversation.tsx` L130-160
 
----
+```ts
+130|      </div>
+131|
+132|      <div className="sas-composer" data-testid="prep-composer">
+133|        <textarea
+134|          className="sas-composer-input"
+135|          value={props.draft}
+136|          onChange={(e) => props.onDraftChange(e.target.value)}
+137|          placeholder="Décrivez votre idée, une question ou une hésitation…"
+138|          aria-label="Message à Nora"
+139|          data-testid="prep-draft"
+140|          rows={2}
+141|          disabled={props.busy}
+142|          onKeyDown={(e) => {
+143|            if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !props.busy) {
+144|              e.preventDefault();
+145|              props.onSend();
+146|            }
+147|          }}
+148|        />
+149|        <div className="sas-composer-bar" aria-hidden={!props.draft.trim()}>
+150|          <span className="sas-composer-hint">
+151|            <span className="sas-composer-plus" aria-hidden>
+152|              ＋
+153|            </span>
+154|            Échanger librement avec Nora
+155|          </span>
+156|          <button
+157|            type="button"
+158|            className="sas-composer-send"
+159|            disabled={props.busy || !props.draft.trim()}
+160|            onClick={props.onSend}
+```
 
-## 11. Réserves
+### `composer-dictation-session.ts` L79-79
 
-1. Org/projet OpenAI fournisseur **non vérifié**.  
-2. Capacités Nora/dictée/vision/decisions : AVAILABLE ≠ USER QUALIFIED.  
-3. Index limité à 2 projets ; `proj_896d204b` DEV absent.  
-4. `pg_hba` localhost trust.  
-5. Documents root RECETTE vide.  
-6. FinOps historique cross-lane non réécrit.  
-7. Livraison 1 **NOT ACCEPTED GLOBALLY**.
+```ts
+79|const SESSION_OPEN_TIMEOUT_MS = 10_000;
+```
 
----
+### `composer-dictation-session.ts` L310-355
 
-## 12. Verdict proposé
+```ts
+310|    const sessionReady = new Promise<void>((resolve, reject) => {
+311|      const t = setTimeout(() => {
+312|        record.onProviderSessionReady = null;
+313|        reject(new Error("SESSION_OPEN_TIMEOUT"));
+314|      }, SESSION_OPEN_TIMEOUT_MS);
+315|      record.onProviderSessionReady = () => {
+316|        clearTimeout(t);
+317|        record.onProviderSessionReady = null;
+318|        resolve();
+319|      };
+320|    });
+321|    transport.send({
+322|      type: "session.update",
+323|      session: {
+324|        type: "transcription",
+325|        audio: {
+326|          input: {
+327|            format: { type: "audio/pcm", rate: COMPOSER_DICTATION_PCM_RATE },
+328|            transcription: {
+329|              model: COMPOSER_DICTATION_MODEL,
+330|              languages: ["fr"],
+331|              prompt: DICTATION_VOCAB_HINT,
+332|            },
+333|            turn_detection: null,
+334|          },
+335|        },
+336|      },
+337|    });
+338|    await sessionReady;
+339|    record.status = "open";
+340|    record.modelApplied = COMPOSER_DICTATION_MODEL;
+341|    emit(record, { type: "session.open", sessionId });
+342|    return { ok: true, session: record };
+343|  } catch (e) {
+344|    record.status = "failed";
+345|    record.errorCode = "TRANSPORT_OPEN_FAILED";
+346|    const message = e instanceof Error ? e.message.slice(0, 240) : "TRANSPORT_OPEN_FAILED";
+347|    emit(record, {
+348|      type: "session.error",
+349|      sessionId,
+350|      code: "TRANSPORT_OPEN_FAILED",
+351|      message,
+352|    });
+353|    void recordDictationFinops(record, "failed");
+354|    return { ok: false, code: "TRANSPORT_OPEN_FAILED", message };
+355|  }
+```
 
-**RECETTE OPERATIONAL ACTIVATION COMPLETE — INTEGRATED CONVERGENCE CAPABILITIES AVAILABLE — MORRIS FUNCTIONAL QUALIFICATION READY — USER ACCEPTANCE PENDING**
+### SHA fichier (candidat)
 
-**Statut SFIA :** READY FOR REVIEW  
+Tous extraits lus depuis worktree `…-recette-build-e8e6e06961fa` = tree web `03c30e4c…`.
 
-**Programme :** R5 IN PROGRESS · ML5 OPEN · LIVRAISON 1 NOT ACCEPTED · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED
+## Anti-stub final (réaffirmé)
 
----
-
-## 13. Anti-stub final
-
-REVIEW PACK COMPLETE — MODIFIED CONTENT PRESENT — NO SECRETS — READY FOR HANDOFF L3
+REVIEW PACK COMPLETE — ANNEXE CODE INCLUSE — NO SECRETS
