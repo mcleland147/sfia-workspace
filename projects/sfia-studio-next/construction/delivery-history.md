@@ -1,3 +1,21 @@
+## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-INTEGRATED-EXIT
+
+- **date_utc**: 2026-11-27T08:15Z
+- **lane**: DEV — finalisation intégrée ML1–ML3 construction exit
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_entrée**: `87ce2c51`
+- **classe**: NO RELEASE
+- **A1–A6**: ownership `assertOwnedProject` · GC 5s · `languages:["fr"]` · session.updated gate · seq audio · FinOps PCM · cancel races
+- **B Figma**: morph in-place 05.18/05.21 · fixture `/dev/dictation-visual/*` · FIGMA TO RUNTIME ALIGNED (rectangles stables)
+- **C ML2**: behavioral guarantees + journal identity · sourceKind · queryVector reuse
+- **BUILD_ID**: `GzJ4dM0QxarVz9dpovqQz`
+- **digest**: `c5fd99c8480b9b184f148ece2a77fc5058daba53d7b183d49f36f61cff758f0b`
+- **pid**: 2016 · workspace `/Users/morris/Projects/sfia-wt-next-ml5-20261123` · effectMode LIVE ≠ OpenAI LIVE
+- **schema**: 027 DEV · RECETTE :5434 protected
+- **flags**: SEARCH/JUDGMENT/VISION/DICTATION OFF by default · WEB LIVE OFF
+- **LIVE audio**: NOT EXECUTED
+- **statut proposé**: MACRO-LOTS 1–3 — INTEGRATED CONVERGENCE IMPLEMENTATION COMPLETE — ENGINEERING QUALIFICATION COMPLETE — FUNCTIONAL RECETTE QUALIFICATION PENDING — MORRIS CONSTRUCTION EXIT ACCEPTANCE PROPOSED
+
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML3-AUDIO-AND-ML2-RESIDUAL
 
 - **date_utc**: 2026-11-27T08:45Z
@@ -8,10 +26,10 @@
 - **model**: gpt-live-transcribe
 - **ML2 residuals**: rights/fp · journal identity · queryVector reuse · FinOps emission attemptIds
 - **LIVE audio**: plan prepared — NOT EXECUTED
-- **BUILD_ID**: 
-- **digest**: 
+- **BUILD_ID**: `getLIoygkylG4wh_cfvdf`
+- **digest**: `84b6d8e400eaeb4b86f2b4b24b155369a8a9b54e25bb24c09e0674b4f5ec9250`
 - **flag**: SFIA_COMPOSER_DICTATION default OFF
-- **RECETTE**: protected · WEB OFF · Macro-lots 1–3 construction complete (pending Morris)
+- **RECETTE**: protected · WEB OFF · superseded by INTEGRATED-EXIT delivery
 
 # SFIA Studio Next — Delivery history
 
