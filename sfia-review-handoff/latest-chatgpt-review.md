@@ -1,16 +1,17 @@
 # SFIA REVIEW PACK — FULL
-# MACRO-LOT 2 — FINAL LIVE NORA QUALIFICATION + CYCLE CLOSURE
+# CONVERGENCE OPENAI–STUDIO — ML1/ML2 CONSOLIDATION
+# PRODUCT COMPLETENESS & ENGINEERING QUALIFICATION
 
-- **Generated (UTC):** 2026-11-27T06:17:12Z
-- **Objective:** Morris GO FINAL LIVE Nora (≤18 HTTP / ≤38k tokens) + Review Pack FULL cycle since e784232b.
-- **Prior handoffs:** bcbb897c · blob e48bb39c · (product qualification) · 4d92cc70 (Gate A+B)
-- **Campaign:** ml2-i2-docintel-20261127 — **no renew** · WEB OFF · Admin unused
-- **Local HEAD:** `9321bcf73d95cdcbba76bb3f6e33b17ed8163afe`
-- **Tree web:** `3af82abd0ed3e1b9734b9c45e1eb99a554ba02c9`
-- **BUILD_ID:** `nzwWNOfltBjOBpaSmv5_q` · digest `37fc26536b425f5e798eee6be1445be1ae598bb732fe7e47cc4a041a5572513f` · pid `77388`
-- **Schema:** 027 APPLIED DEV · lane DEV · RECETTE :3200 protected
-- **Verdict:** MACRO-LOT 2 — PRODUCT QUALIFICATION COMPLETE WITH RESERVES — LIVE NORA PARTIAL — MORRIS EXIT ACCEPTANCE PROPOSED
-- **Fake/Real:** REAL LIVE Nora (D4 search+read) + REAL PG hybrid/docs/work + REAL Chromium smoke prior + UNIT ; spoon-fed answers: **NO**
+- **Generated (UTC):** 2026-11-27T06:53:56Z
+- **Cycle:** 8 Delivery / Critical / INC-EVOL
+- **HEAD entrée:** `9321bcf73d95cdcbba76bb3f6e33b17ed8163afe`
+- **HEAD final:** `8a6eef972e42a6bf2cca4e89f90ce5682654c7a6`
+- **Tree web:** `8a278531c65add03f4e310a8184a19a393ca391a`
+- **BUILD_ID:** `hGsURunVLzPVZv105HFHX` · digest `62617bb4c5da6283da5227ae06916a727aa2c939327010a285613520bb4e89b4` · pid from identity below
+- **Schema:** 027 APPLIED DEV · flags OFF · WEB OFF · RECETTE protected
+- **Verdict:** MACRO-LOT 2 — IMPLEMENTATION COMPLETE — ENGINEERING QUALIFICATION COMPLETE — FUNCTIONAL RECETTE QUALIFICATION PENDING — MORRIS EXIT ACCEPTANCE PROPOSED
+- **SFIA status:** READY WITH RESERVES
+- **Fake/Real:** DETERMINISTIC/UNIT + REAL PG wiring proofs · **no new LIVE** · historical LIVE capitalized with limits
 
 ---
 
@@ -18,15 +19,340 @@
 
 | Field | Value |
 |---|---|
+| Workspace | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
 | Branch | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD | `9321bcf73d95cdcbba76bb3f6e33b17ed8163afe` |
-| Baseline | `e784232b` |
-| Tree web | `3af82abd0ed3e1b9734b9c45e1eb99a554ba02c9` |
+| HEAD final | `8a6eef972e42a6bf2cca4e89f90ce5682654c7a6` |
+| Baseline ML2 delivery | `e784232b` |
+| origin/main | `997897fd` |
 | Project push | **NONE** |
-| Flags after | SEARCH/JUDGMENT/VISION **OFF** · BACKEND=pg |
-| WEB | OFF |
+| Staged unexpected | none |
+| ENV | DEV :3100 · PG :5433 · RECETTE :3200 untouched |
 
-### Commits e784..HEAD
+### Runtime identity
+```json
+{"pid":20350,"port":3100,"host":"127.0.0.1","buildId":"hGsURunVLzPVZv105HFHX","contentDigest":"62617bb4c5da6283da5227ae06916a727aa2c939327010a285613520bb4e89b4","sessionFingerprint":"e4829b8bd74645b3df79713af1f7d8fcc9d3fc6268c5b59a2bc75f9a1c53a6c4","workspaceRoot":"/tmp/sfia-c12-cursor-live-ws","effectMode":"LIVE","startedAt":"2026-11-27T06:53:00Z","mode":"qualify-next-start"}
+```
+
+### Commits this consolidation (9321bcf7..HEAD)
+```text
+8a6eef97 fix(ml2): complete derived-index product lifecycle and ML1/ML2 consolidation
+```
+
+### Diffstat consolidation
+```text
+ .../as-built-macro-lot-2-20261127.md               |   4 +-
+ .../completeness-cartography-20261127.md           |  46 +++++++++
+ .../recette-qualification-backlog-20261127.md      |  24 +++++
+ .../construction/delivery-history.md               |  12 +++
+ ...5-registre-couverture-et-revue-developpement.md |   2 +-
+ .../conversation/provider-emission-frontier.ts     |  21 ++--
+ .../src/domains/knowledge/derived-embedding-pg.ts  |  67 +++++++++++++
+ .../domains/knowledge/derived-embedding-service.ts | 111 ++++++++++++++++++++-
+ .../web/src/domains/knowledge/service.ts           |  64 +++++++++++-
+ .../unit/ml2-derived-lifecycle-upsert.test.ts      |  46 +++++++++
+ .../web/tests/unit/ml2-product-wiring.test.ts      |   3 +-
+ 11 files changed, 385 insertions(+), 15 deletions(-)
+```
+
+---
+
+## A. Delivery courant — consolidation
+
+### Objectif
+Revue de complétude ML1/ML2, corrections réelles, qualification engineering proportionnée, backlog RECETTE, **pas** de campagne LIVE, **pas** ML3.
+
+### Corrections effectuées (défauts A)
+
+1. **LIFECYCLE-01** — Index dérivé seulement via scripts → **upsert produit**
+   - `upsertDerivedAdmissibleSource` + `upsertDerivedChunkPg` (sans wipe projet)
+   - Wiring `capitalizeAcquis` / `openPoint` + revoke supersede
+2. **CONTEXT-01** — `selectRelevantKnowledgeContext` sans hybrid → supplément `DERIVED_HIT` si flag ON
+3. **FINOPS-IDEM-01** — `Date.now()` ordinal rebuild → ordinal stable fingerprint
+
+### Non-modifications justifiées (KEEP)
+
+- Architecture E (lexical+embeddings PG) · VS DEFER
+- D3 V1 · D6 human authority · Decisions ≠ D6
+- Cognitive product limits 1M/2M/120 séparés des caps campagne
+- Flags OFF défaut · WEB OFF
+- Pas de pivot / migration / Admin / LIVE
+
+### Incident LIVE historique (acquis, non réécrit)
+
+HTTP +7/18 WITHIN · tokens +82417/38000 EXCEEDED · emb family 12/12.
+Cause produit vs expérimental : familyHttp + search D4 sous flag = campagne ; reserved→committed si mesure absente.
+**Aucune nouvelle campagne.** Protections produit non asservies aux quotas expérimentaux hors `SFIA_G_LIVE_API`.
+
+### Tests
+
+| Suite | Résultat |
+|---|---|
+| ml2 unit (7 files) | **28 PASS** |
+| lifecycle upsert wiring | **4 PASS** |
+| build DEV | BUILD `hGsURunVLzPVZv105HFHX` |
+| smoke login | 200 + BUILD_ID HTML |
+| LIVE | **NONE** this delivery |
+
+### Code créé/modifié (extraits)
+
+#### upsertDerivedAdmissibleSource
+```typescript
+export async function upsertDerivedAdmissibleSource(input: {
+  pilotId: string;
+  projectId: string;
+  preparationId: string;
+  sourceId: string;
+  sourceKind: DerivedSourceKind;
+  text: string;
+  versionLabel?: string | null;
+  client?: EmbedClient | null;
+}): Promise<{ ok: boolean; reason?: string; tokens?: number }> {
+  if (!derivedEmbeddingSearchEnabled()) {
+    return { ok: false, reason: "FLAG_OFF" };
+  }
+  const text = input.text.trim();
+  if (!text || !input.sourceId.trim()) {
+    return { ok: false, reason: "EMPTY" };
+  }
+  const client = input.client ?? (await defaultEmbedClient());
+  if (!client) return { ok: false, reason: "NO_OPENAI_CLIENT" };
+  const emb = await client.embeddings.create({
+    model: DERIVED_EMBEDDING_MODEL,
+    input: text,
+  });
+  const vector = emb.data[0]?.embedding;
+  if (!vector?.length) return { ok: false, reason: "NO_VECTOR" };
+  const fp = contentFingerprint(text);
+  const entry: DerivedIndexEntry = {
+    sourceId: input.sourceId,
+    sourceKind: input.sourceKind,
+    projectId: input.projectId,
+    preparationId: input.preparationId,
+    contentFingerprint: fp,
+    model: DERIVED_EMBEDDING_MODEL,
+    dims: vector.length,
+    revoked: false,
+    deleted: false,
+    versionLabel: input.versionLabel ?? null,
+    indexRef: makeIndexRef({
+      projectId: input.projectId,
+      sourceId: input.sourceId,
+      contentFingerprint: fp,
+    }),
+    updatedAt: new Date().toISOString(),
+    text,
+  };
+  if (derivedEmbeddingBackend() === "pg") {
+    await upsertDerivedChunkPg({
+      projectId: input.projectId,
+      preparationId: input.preparationId,
+      ownerPilotId: input.pilotId,
+      entry,
+      vector,
+    });
+  } else {
+    // File backend (unit tests): single-entry write — not product ops path.
+    writeDerivedIndex({
+      projectId: input.projectId,
+      entries: [entry],
+      vectors: new Map([[input.sourceId, vector]]),
+    });
+  }
+  try {
+    const { recordProviderUsageObservation, buildIdempotencyKey } = await import(
+      "@/domains/conversation/usage-accounting"
+    );
+    await recordProviderUsageObservation({
+      operation: "embeddings.derived_index_upsert",
+      modelRequested: DERIVED_EMBEDDING_MODEL,
+      modelApplied: DERIVED_EMBEDDING_MODEL,
+      inputTokens: emb.usage?.total_tokens ?? null,
+      outputTokens: 0,
+      status: "succeeded",
+      granularity: "REQUEST",
+      costCoverage: "PARTIAL",
+      projectId: input.projectId,
+      ownerPilotId: input.pilotId,
+      preparationId: input.preparationId,
+      idempotencyKey: buildIdempotencyKey({
+        granularity: "REQUEST",
+        lane: process.env.STUDIO_LANE || "DEV",
+        operation: "embeddings.derived_index_upsert",
+        projectId: input.projectId,
+        preparationId: input.preparationId,
+        callOrdinal: Number.parseInt(fp.slice(0, 8), 16) % 100000,
+      }),
+      limits: [
+        "DERIVED_INDEX_UPSERT",
+        "ADMISSIBLE_SOURCE",
+        `BACKEND_${derivedEmbeddingBackend().toUpperCase()}`,
+        `FP_${fp.slice(0, 12)}`,
+      ],
+    });
+  } catch {
+    /* FinOps best-effort */
+  }
+  return {
+    ok: true,
+    tokens: emb.usage?.total_tokens ?? 0,
+  };
+}
+
+
+```
+
+#### upsertDerivedChunkPg
+```typescript
+export async function upsertDerivedChunkPg(input: {
+  projectId: string;
+  preparationId: string;
+  ownerPilotId: string;
+  entry: DerivedIndexEntry;
+  vector: number[];
+}): Promise<boolean> {
+  if (!pgDerivedStoreActive()) {
+    throw new Error("PG_DERIVED_STORE_INACTIVE");
+  }
+  const e = input.entry;
+  const id = `${input.projectId}:${e.sourceId}:${e.contentFingerprint}:${e.model}`;
+  const vectorJson = JSON.stringify(input.vector);
+  await pg.unsafe(
+    `INSERT INTO derived_embedding_chunks (
+      id, project_id, preparation_id, owner_pilot_id,
+      source_id, source_kind, content_fingerprint, model, dims,
+      vector_json, text_excerpt, revoked, deleted, version_label, index_ref, updated_at
+    ) VALUES (
+      $1,$2,$3,$4,$5,$6,$7,$8,$9,$10::jsonb,$11,$12,$13,$14,$15,now()
+    )
+    ON CONFLICT (project_id, source_id, content_fingerprint, model)
+    DO UPDATE SET
+      vector_json = EXCLUDED.vector_json,
+      text_excerpt = EXCLUDED.text_excerpt,
+      revoked = false,
+      deleted = false,
+      version_label = EXCLUDED.version_label,
+      index_ref = EXCLUDED.index_ref,
+      updated_at = now(),
+      preparation_id = EXCLUDED.preparation_id,
+      owner_pilot_id = EXCLUDED.owner_pilot_id,
+      dims = EXCLUDED.dims`,
+    [
+      id,
+      input.projectId,
+      input.preparationId,
+      input.ownerPilotId,
+      e.sourceId,
+      e.sourceKind,
+      e.contentFingerprint,
+      e.model,
+      e.dims,
+      vectorJson,
+      (e.text ?? "").slice(0, 480),
+      false,
+      false,
+      e.versionLabel,
+      e.indexRef,
+    ],
+  );
+  // Revoke prior fingerprints for same sourceId (content change, same id).
+  await pg`
+    UPDATE derived_embedding_chunks
+    SET revoked = true, updated_at = now()
+    WHERE project_id = ${input.projectId}
+      AND source_id = ${e.sourceId}
+      AND content_fingerprint <> ${e.contentFingerprint}
+      AND revoked = false
+  `;
+  return true;
+}
+
+/** Mark revoked/deleted idempotently. */
+
+```
+
+### Cartographie de complétude
+# Cartographie de complétude ML1/ML2 — consolidation 2026-11-27
+
+| Capacité | Contrat | Implémentation | Consommateurs réels | Cycle de vie | Niveau | Écart | Action |
+|---|---|---|---|---|---|---|---|
+| Decisions bornés | CF §4 / CT | `bounded-judgment.ts` | D8 `d8-cognitive-criterion-eval` | flag OFF défaut | wired / available | C/F RECETTE pertinence | KEEP |
+| Fallback Responses | CF | dans `runBoundedJudgment` | D8 | — | wired | — | KEEP |
+| Embeddings + hybrid | Arch E lock | `derived-embedding-*` + `hybrid-knowledge-search` | `d4-read-tools.searchProjectResources` · `journal/search` · `selectRelevantKnowledgeContext` (supplément) | **upsert produit** capitalize/openPoint + revoke supersede · rebuild scripts | available (flag) | B→corrigé lifecycle | ADAPT done |
+| Index PG 027 | GO A | `derived_embedding_chunks` | search PG | reconstructible | available | — | KEEP |
+| Droits/fingerprint | F23 | hybrid re-read + fp filter | hybridSearch | concurrent revoke | unit+parcours | — | KEEP |
+| Vision ponctuelle | CF | `document-vision-punctual.ts` | `git-read-tools.read_git_pdf` | flag OFF | wired | F RECETTE schémas | KEEP |
+| Frontier commun | CT | `createFrontierBoundOpenAIClient` | judgment · embeddings · vision · Nora | campaign only if `SFIA_G_LIVE_API` | available | expérimentale ≠ produit | KEEP |
+| Allocation cognitive | ML1 | policy + admitModelEffort | Nora adapter | — | available | F RECETTE | KEEP |
+| Conducteur D3 V1 | ML1 | cognitive-conductor / work | postUserMessageAndNora | lease/CAS | available | F RECETTE | KEEP |
+| FinOps usages | CT | usage-accounting | rebuild/upsert/judgment/vision | PARTIAL tariff | available | C Admin reserve | KEEP |
+| WEB | ML1 | public-web | Nora | LIVE OFF | preserved | — | KEEP |
+| VS / File Search | DEFER | — | — | — | deferred | — | DEFER |
+| Audio ML3 | OUT | — | — | — | not started | — | OUT |
+
+## Écarts classés (mandat §6)
+
+| Id | Classe | Description | Traitement |
+|---|---|---|---|
+| LIFECYCLE-01 | A défaut réel | Rebuild index uniquement via scripts ; capitalize ne faisait que revoke | **Corrigé** : `upsertDerivedAdmissibleSource` + wiring capitalize/openPoint |
+| CONTEXT-01 | B couverture | `selectRelevantKnowledgeContext` sans canal hybrid | **Corrigé** : supplément DERIVED_HIT si flag ON |
+| FINOPS-IDEM-01 | B | `callOrdinal: Date.now()` sur rebuild | **Corrigé** : ordinal stable fingerprint |
+| EXP-TOKENS-01 | E tooling | Campagne LIVE tokens reserved→committed sans mesure | Documenté ; Frontier commentaire clarifié ; **pas** de nouvelle campagne |
+| EXP-EMB-FAM-01 | E/D | Famille embeddings 12/12 saturée sous flag search + multi-tool D4 | Limite **expérimentale** ; produit sans campaign familyHttp |
+| F25-REST-01 | F RECETTE | Restitution Nora COMPLETE non obtenue en DEV LIVE | QUALIFICATION RECETTE REQUIRED |
+| TYPECHECK-BASELINE | E | Erreurs tsc historiques hors ML2 | non bloquant delivery ; pas de remédiation générale |
+
+## Protections produit vs campagne
+
+| Mécanisme | Produit | Campagne expérimentale |
+|---|---|---|
+| Cognitive max tokens / reeval / segments | `cognitiveEnvelopeLimits` 2M / 1M / 120 | non |
+| Frontier campaign envelope | seulement si `SFIA_G_LIVE_API` ou WEB gate | oui |
+| familyHttp | null hors campagne | oui (ML2 LIVE) |
+| Flags SEARCH/JUDGMENT/VISION | OFF défaut | ON temporaire qualify |
+
+## Dépendances ML3 (préparation, non engagement)
+
+- Frontier + Responses path stable
+- D3 continuity V1
+- D4/D9 rights
+- FinOps attribution
+- Pas d’audio/Realtime dans ce delivery
+
+
+### Backlog RECETTE
+# Qualifications à reporter en RECETTE — post consolidation ML2
+
+Statut factuel : **QUALIFICATION RECETTE REQUIRED** pour les propriétés ci-dessous.
+Ne masque pas un défaut d’implémentation.
+
+| Exigence | Comportement attendu | Preuve DEV déjà dispo | Propriété restante | Raison report | Environnement | Clôture |
+|---|---|---|---|---|---|---|
+| Allocation cognitive | pertinence modèle/effort selon demande | policy + admission unit | pertinence Pilote | F usage réel | RECETTE | GO Morris post-ML3 |
+| Autonomie Nora | investigation sans spoon-feed | LIVE PARTIAL F25 | restitution COMPLETE longue | D/F tokens+emb | RECETTE | scénario Pilote |
+| Recherche sémantique | paraphrase / homonymes | hybrid unit + parcours PG | pertinence ranking | F | RECETTE | corpus projet synthétique |
+| Sources contradictoires | signaler contradictions | corpus syn-contradict | arbitrage Pilote | F | RECETTE | |
+| Schémas / tableaux | Vision utile | LIVE Vision Gate B | docs mixtes texte+schéma | F | RECETTE | |
+| Investigation longue | reprise / stagnation | D3 limits 1M/2M/120 | expérience continue | F | RECETTE | |
+| Note→révision | versions D9 | PG parcours + LIVE note 3 revs | qualité contenu | F | RECETTE | |
+| FinOps UX | intelligibilité conso | ledger + UI existante | perception Pilote | F | RECETTE | |
+| WEB | discovery/open | ML1 reserves | — | WEB OFF preserved | ultérieur | hors ce lot |
+
+## Non reportables (doivent rester techniques)
+
+- Droits / isolation inter-projets
+- Fingerprint / revoke pendant search
+- Frontier refuse avant émission (déterministe / substitué)
+- Cycle de vie index upsert (corrigé ce delivery)
+- Pas de D6 remplacé par Decisions
+
+
+---
+
+## B. Annexe — régularisation documentaire macro-lot 2 (e784232b → 9321bcf7)
+
+Couverture des livraisons déjà réalisées mais partiellement absentes des Handoffs distants antérieurs. **Pas** de réexécution des travaux.
+
+### Commits e784..9321bcf7 (historique)
 ```text
 9321bcf7 feat(ml2): execute final LIVE Nora qualification under Morris GO caps
 ae435d41 feat(ml2): qualify integrated product parcours and harden Frontier/rights
@@ -39,26 +365,22 @@ be7c2a87 fix(ml2): harden rights, judgment, Frontier protect; finalize 027 check
 70291410 feat(ml2): frontier family envelopes, corrected corpora, LIVE manifesto preflight
 ```
 
-### Diffstat (tail)
+### Capacités livrées dans cette fenêtre (capitalisées)
+
+| Thème | Preuve / artifact |
+|---|---|
+| Migration 027 APPLIED | `027_derived_embedding_chunks.sql` + db-migrate |
+| Product wiring hybrid/D4/journal/D8/Vision | as-built ML2 · unit wiring |
+| Frontier familyHttp + metrics clone | gate-b-frontier-reconciliation |
+| Gate A+B LIVE | handoffs 4d92cc70 · Δ9 |
+| Product qualification PG/API + Playwright smoke | handoff bcbb897c |
+| FINAL LIVE Nora PARTIAL | handoff 3b500995 · consolidated JSON |
+| Rights fingerprint revalidation | derived-embedding-service |
+
+### Diffstat cycle complet (tail)
 ```text
- .../architecture-selection-locked-20261127.md      |  60 ++
- ...ast-radius-inventory-final-delivery-20261127.md |  47 +
- .../ml2-qualification/corpus-decisions-labels.json |  71 +-
- .../corpus-pdf-vision-oracle.json                  |  36 +-
- .../ml2-qualification/corpus-retrieval-oracle.json | 105 ++-
- .../finops-reconcile-audit-20261127.md             |  27 +
- .../gate-b-frontier-reconciliation-20261127.md     |  42 +
- .../live-campaign-manifest-candidate.md            | 103 +++
- .../live-campaign-manifest-final.md                | 186 ++++
- .../live-campaign-remainder-20261127.md            |  32 +
- .../live-checkpoint-post-gate-b-20261127.md        |  66 ++
- .../live-gate-b-emission-plan-20261127.md          |  55 ++
- .../ml2-qualification/migration-027-candidate.md   |  41 +
- .../morris-checkpoint-027-and-live-20261127.md     | 115 +++
- .../product-consumer-cartography-20261127.md       |  32 +
- .../ml2-qualification/protocole-qualification.md   |   5 +-
  .../selection-checkpoint-ml2-i2-20261127.md        |  82 ++
- .../construction/delivery-history.md               |  65 ++
+ .../construction/delivery-history.md               |  77 ++
  ...5-registre-couverture-et-revue-developpement.md |   2 +-
  projects/sfia-studio-next/web/.gitignore           |   3 +
  .../sfia-studio-next/web/scripts/db-migrate.sh     |   3 +-
@@ -80,232 +402,95 @@ be7c2a87 fix(ml2): harden rights, judgment, Frontier protect; finalize 027 check
  .../src/domains/conversation/bounded-judgment.ts   | 527 +++++++++++
  .../web/src/domains/conversation/d4-read-tools.ts  |  89 ++
  .../web/src/domains/conversation/git-read-tools.ts |  82 +-
- .../conversation/provider-emission-frontier.ts     | 441 ++++++++--
+ .../conversation/provider-emission-frontier.ts     | 462 ++++++++--
  .../domains/documents/document-vision-punctual.ts  | 126 +++
  .../domains/knowledge/derived-embedding-index.ts   | 248 ++++++
- .../src/domains/knowledge/derived-embedding-pg.ts  | 173 ++++
- .../domains/knowledge/derived-embedding-service.ts | 409 +++++++++
+ .../src/domains/knowledge/derived-embedding-pg.ts  | 240 +++++
+ .../domains/knowledge/derived-embedding-service.ts | 518 +++++++++++
  .../domains/knowledge/hybrid-knowledge-search.ts   | 150 ++++
  .../web/src/domains/knowledge/journal.ts           |  51 +-
- .../web/src/domains/knowledge/service.ts           |  13 +
+ .../web/src/domains/knowledge/service.ts           |  71 ++
  .../domains/proofs/d8-cognitive-criterion-eval.ts  |  76 ++
  .../qualify/ml2-product-browser-smoke.spec.ts      |  95 ++
  .../web/tests/unit/ml2-bounded-judgment.test.ts    |  79 ++
  .../tests/unit/ml2-derived-embedding-index.test.ts | 169 ++++
+ .../unit/ml2-derived-lifecycle-upsert.test.ts      |  46 +
  .../tests/unit/ml2-derived-rights-rebuild.test.ts  |  65 ++
  .../tests/unit/ml2-frontier-metrics-clone.test.ts  |  39 +
- .../web/tests/unit/ml2-product-wiring.test.ts      |  96 ++
- 59 files changed, 8564 insertions(+), 124 deletions(-)
+ .../web/tests/unit/ml2-product-wiring.test.ts      |  97 ++
+ 62 files changed, 8942 insertions(+), 132 deletions(-)
 ```
 
-### Candidat runtime
-```json
-{"pid":77388,"port":3100,"host":"127.0.0.1","buildId":"nzwWNOfltBjOBpaSmv5_q","contentDigest":"37fc26536b425f5e798eee6be1445be1ae598bb732fe7e47cc4a041a5572513f","sessionFingerprint":"e4829b8bd74645b3df79713af1f7d8fcc9d3fc6268c5b59a2bc75f9a1c53a6c4","workspaceRoot":"/tmp/sfia-c12-cursor-live-ws","effectMode":"LIVE","startedAt":"2026-11-27T06:04:37Z","mode":"qualify-next-start"}
-```
+Fichiers volumineux historiques (scripts LIVE, bounded-judgment 527L, frontier) : chemins déjà sur HEAD ; revue via as-built + tests + handoffs immuables cités — pas de recopie intégrale.
 
 ---
 
-## 1. Morris GO FINAL LIVE — autorisation & préflight
+## Synthèse produit (mandat §28)
 
-| Cap GO | Valeur |
+| Lettre | Contenu |
 |---|---|
-| HTTP additionnels | ≤18 |
-| Tokens cumulés additionnels | ≤38 000 |
-| Coût estimé accepté | 0,15–0,60 USD |
-| Campagne | ml2-i2-docintel-20261127 (existante) |
-| Lane | DEV synthétique · WEB OFF |
+| A Déjà correct | Architecture E · Frontier commun · D3 V1 · Decisions/D8 · Vision gate · 027 PG · droits/fp |
+| B Corrigé | Lifecycle index upsert · context hybrid · FinOps idempotency rebuild |
+| C Complété | Cartographie · backlog RECETTE · docs as-built/registre |
+| D Vérifié engineering | Units · build · smoke · ENV isolation |
+| E RECETTE pending | Voir backlog (pertinence cognitive, restitution longue, ranking, schémas mixtes, UX FinOps) |
+| F Bloquant ML3 ? | **Non** pour engagement technique ML3 audio — dépendances communes stables ; GO Morris distinct requis |
+| G Dépendances ML3 | Frontier/Responses · D3 continuity · D4/D9 rights · FinOps · **pas** audio ici |
 
-Préflight démontré avant émission: protectPersisted=true · HTTP SoT 99 · embRemain 4 · respRemain 88 · hardMaxHttp 117.
+### Réserves
 
----
-
-## 2. Résultat LIVE consolidé
-
-```json
-{
-  "campaignId": "ml2-i2-docintel-20261127",
-  "morrisGo": "2026-11-27-final-live-nora-qualification",
-  "caps": {
-    "http": 18,
-    "tokensCumulative": 38000,
-    "costUsd": "0.15-0.60"
-  },
-  "baselineBeforeGo": {
-    "http": 99,
-    "tokensInOut": 74037
-  },
-  "afterGo": {
-    "http": 106,
-    "tokensInOut": 156454,
-    "family": {
-      "decisions": 14,
-      "embeddings": 12,
-      "responses": 27,
-      "vector_stores": 29,
-      "files": 12
-    }
-  },
-  "delta": {
-    "http": 7,
-    "tokens": 82417
-  },
-  "withinHttp": true,
-  "withinTokens": false,
-  "stopReason": "CAMPAIGN_FAMILY_HTTP_EXHAUSTED:embeddings + TOKEN_GO_EXCEEDED — no further LIVE",
-  "artefacts": {
-    "workId": "cgw_5ce99393-e0bd-4bc8-a3d9-07d0e687ca92",
-    "documentId": "doc_30e2913e-c777-462e-aded-e1836d03969e",
-    "documentRevisions": 3
-  },
-  "phase1": {
-    "verdict": "FINAL_LIVE_NORA_PARTIAL_WITHIN_GO",
-    "httpDelta": 2,
-    "tokenDelta": 14110
-  },
-  "phase2": {
-    "verdict": "FINAL_LIVE_NORA_BUDGET_FAIL",
-    "httpDeltaFromGoStart": 7,
-    "tokenDeltaFromGoStart": 82417
-  },
-  "quality": {
-    "d4Search": true,
-    "d4DocumentRead": true,
-    "hybridRightsRevalidated": true,
-    "noraCompleteRestitution": false,
-    "noteConservedAndRevised": true,
-    "spoonFedAnswers": false
-  },
-  "verdict": "FINAL_LIVE_NORA_PARTIAL — HTTP_WITHIN_GO / TOKENS_EXCEEDED / EMBEDDINGS_FAMILY_EXHAUSTED"
-}
-```
-
-| Mesure | Résultat |
-|---|---|
-| HTTP | **+7 / 18** (99→106) — **WITHIN** |
-| Tokens | **+82417 / 38000** — **EXCEEDED** |
-| Familles Δ | emb 8→12 (MAX) · resp 24→27 · others inchangés |
-| Stop | `CAMPAIGN_FAMILY_HTTP_EXHAUSTED:embeddings` puis **STOP** nouvelle émission |
-| Coût | non inventé — observation Frontier ; fourchette GO dépassée côté tokens |
-
-**Cause technique primaire du stop:** avec `SFIA_DERIVED_EMBEDDING_SEARCH=1`, les outils D4 `search_project_resources` consomment la famille embeddings jusqu'au plafond 12/12, refusant la poursuite du tour Nora avant restitution COMPLETE.
-
-**Cause secondaire / gouvernance:** dépassement du plafond tokens GO (comptabilisation Frontier in+out après tours partiels). Aucune émission supplémentaire après constat.
+| Réserve | Gravité | Impact | Owner | Vérif | Bloquant trajectoire ML3 ? |
+|---|---|---|---|---|---|
+| F25 restitution COMPLETE LIVE DEV | moyenne | preuve cognitive partielle | Morris/RECETTE | RECETTE | Non |
+| Tokens campagne EXCEEDED (historique) | basse produit | tooling expérimental | Cursor docs | déjà STOP | Non |
+| Emb family 12 expérimentale | basse produit | N/A hors campagne | — | — | Non |
+| Typecheck baseline hors ML2 | basse | CI noise | ultérieur | hors périmètre | Non |
+| Flags OFF | info | capacités gated | Morris | activation distincte | Non |
+| Admin FinOps org identity | ML1 reserve | cloisonnement | Morris | keep | Non |
 
 ---
 
-## 3. Parcours Studio exercé (véritable)
+## Fake/Real Qualification
 
-| Étape | Résultat | Fake/Real |
-|---|---|---|
-| Investigation Nora | work `cgw_5ce99393-e0bd-4bc8-a3d9-07d0e687ca92` · segments + reprise | REAL LIVE |
-| Recherche connaissances | hybrid 8 hits · rightsRevalidated · journal | REAL PG + 1 LIVE embed |
-| Consultation sources | D4 search + **read** 2 documents CONSULTED | REAL LIVE tools |
-| Production documentaire | note markdown depuis restitution partielle | REAL PG |
-| Conservation | `doc_30e2913e-c777-462e-aded-e1836d03969e` AVAILABLE | REAL PG |
-| Révision | 3 révisions | REAL PG |
-| Restitution COMPLETE | **NON** — PARTIAL / UNKNOWN provider refuse mid-loop | — |
+| Frontière | Mode | Preuve | Gap |
+|---|---|---|---|
+| OpenAI | historique LIVE only | Gate B / FINAL PARTIAL | no new LIVE |
+| PostgreSQL | REAL DEV | 027 · parcours prior | — |
+| API Studio | REAL/wiring | consumers verified | — |
+| Navigateur | REAL smoke prior | 2/2 | no LIVE browser |
+| Substituted | unit Frontier/rights | refuse N+1 etc. | — |
 
-### Phase 1 knowledgeSearch
-- derivedUsed=True rightsRevalidated=True hits=8
-- sourceIds sample: ['subj_97b30cf9-248d-4a1d-a675-fd6028b8ef74', 'subj_92234688-3728-48a1-9fd1-9077f157357d', 'acq_ff17101c-43f7-4532-9247-21034b77361a', 'subj_70aedb56-4391-4c30-8e2a-cc705f595c57', 'acq_36b7251d-2711-4722-aa64-6756bb15ebce', 'acq_f931324b-c44e-4db4-8c17-07eae34523b4']
-
-### Phase 1 Nora preview
-```text
-J’ai avancé sur ce travail, mais je n’ai pas pu livrer une restitution complète et fiable sur ce tour.
-Sources découvertes non ouvertes :
-• Document · DISCOVERED — Capacité Orion B [syn-contradict-b]
-• Document · DISCOVERED — Capacité Orion A [syn-contradict-a]
-• Document · DISCOVERED — AUTH-TOKEN TTL [syn-auth-v2]
-• Document · DISCOVERED — Note qualification Orion (synthétique)
-Aucune conclusion métier n’est affirmée au-delà de ces acquis observés.
-Votre message est conservé. Vous pouvez me demander de reprendre — aucune relance automatique.
-```
-
-### Phase 2 Nora preview (après lectures)
-```text
-J’ai avancé sur ce travail, mais je n’ai pas pu livrer une restitution complète et fiable sur ce tour.
-Lectures effectuées :
-• Document · CONSULTED — Note qualification Orion (synthétique)
-• Document · CONSULTED — Note qualification finale Orion (LIVE Nora)
-Sources découvertes non ouvertes :
-• Document · DISCOVERED — Capacité Orion B [syn-contradict-b]
-• Document · DISCOVERED — Capacité Orion A [syn-contradict-a]
-• Document · DISCOVERED — AUTH-TOKEN TTL [syn-auth-v2]
-• Document · DISCOVERED — acquis:acq_5338c606-cc95-457d-b572-33926a1b174e
-Aucune conclusion métier n’est affirmée au-delà de ces acquis observés.
-Votre message est conservé. Vous pouvez me demander de reprendre — aucune relance automatique.
-```
-
-Sources outils (phase 2 count=11): lectures CONSULTED de notes synthétiques ; acquis Capacité Orion A/B et AUTH-TOKEN encore DISCOVERED non ouverts au moment du refus.
-
-**Aucune réponse attendue fournie artificiellement dans le prompt Pilote.**
+DETERMINISTIC PROVEN ≠ READY FOR REAL cognitive.
+REAL PG ≠ investigation COMPLETE.
 
 ---
 
-## 4. Cycle complet depuis e784232b (capitalisation)
+## ENV-01 / Versioning
 
-1. Architecture lock E + migration 027 candidate → **GO A APPLIED**
-2. Product-wide wiring hybrid/Decisions/Vision + Frontier families
-3. Gate B LIVE Δ9 ≤30 · reconcile familyHttp clone
-4. Product qualification PG/API + Playwright smoke + LIVE checkpoint
-5. **GO FINAL LIVE Nora** (ce Delivery) — PARTIAL
-
-CONV-F21…F26: F21–F24/F26 conservés ; **F25 PARTIAL_LIVE**.
+- ENV ROUTING COMPLETE · DEV only · RECETTE/STABLE untouched
+- NO RELEASE · STABLE NOT AVAILABLE · product-version.ts source unique
+- delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML1-ML2-CONSOLIDATION
 
 ---
 
-## 5. Tests / non-régression (inchangés + scripts)
-
-| Item | Statut |
-|---|---|
-| Unit ml2 prior | 51 PASS (cycle qualification) |
-| Playwright smoke | 2/2 PASS prior |
-| Parcours PG/API | PASS prior |
-| FINAL LIVE scripts | exécutés · consolidated report |
-| Flags OFF | démontré `.env.local` |
-| RECETTE | non modifiée |
-
----
-
-## 6. Décisions & réserves (Exit)
-
-1. HTTP GO respecté (+7≤18) — **OK**
-2. Tokens GO **non respecté** (+82417>38000) — réserve majeure / STOP
-3. Famille embeddings saturée — réserve produit (budget famille trop serré pour search sémantique D4 sous flag ON)
-4. Restitution Nora COMPLETE non livrée — F25 PARTIAL
-5. Flags OFF · 027 intact · Macro-lot 3 **non engagé**
-6. NO RELEASE / NOT ADOPTED / R6 NOT STARTED / R5 IN PROGRESS / ML5 OPEN
-
----
-
-## 7. Fake / Real matrix (LIVE GO)
-
-| Capacité | Mode |
-|---|---|
-| Hybrid search | REAL LIVE embed + REAL PG |
-| Nora cognitive turn | REAL LIVE Responses + D4 tools |
-| Document conserve/revise | REAL PG (no provider) |
-| Vision this GO | NOT RUN (skipped on continue) |
-| Spoon-fed oracle answers | **NO** |
-
----
-
-## 8. ChatGPT mandatory instruction (§9.1 Critical)
+## Instruction ChatGPT obligatoire (§9.1)
 
 ChatGPT doit:
 
-1. Vérifier handoff SHA/blob vs HEAD `9321bcf7` / tree `3af82abd` / BUILD `nzwWNOfltBjOBpaSmv5_q`
-2. Qualifier HTTP WITHIN vs TOKENS EXCEEDED — ne pas fusionner les deux plafonds
-3. Confirmer STOP après emb family exhaust — pas de poursuite implicite
-4. Qualifier F25 PARTIAL (lectures D4 + note 3 revs, restitution incomplete)
-5. Trancher acceptation sortie **avec réserves** vs exiger nouveau GO tokens/emb élargi
-6. Confirmer NO RELEASE · Macro-lot 3 OUT · flags OFF
-7. Contrôler Frontier préflight + clone metrics + protectPersisted
+1. Lire le Handoff distant complet (SHA/blob) et croiser HEAD `8a6eef97` / tree `8a278531` / BUILD `hGsURunVLzPVZv105HFHX`
+2. Vérifier distinction **Delivery A** vs **Annexe B** (régularisation, pas rejeu)
+3. Contrôler que LIFECYCLE-01 est un vrai fix produit (upsert non-wipe) et non un script-only
+4. Confirmer **aucune** nouvelle campagne LIVE ni mutation RECETTE
+5. Qualifier le backlog RECETTE comme F (pas masquer A)
+6. Trancher acceptation fin de construction ML2 + GO distinct ML3
+7. Refuser READY si couverture code/preuves insuffisante dans le pack
 
 ---
 
-## 9. Verdict
+## Verdict
 
-**MACRO-LOT 2 — PRODUCT QUALIFICATION COMPLETE WITH RESERVES — LIVE NORA PARTIAL — MORRIS EXIT ACCEPTANCE PROPOSED**
+**MACRO-LOT 2 — IMPLEMENTATION COMPLETE — ENGINEERING QUALIFICATION COMPLETE — FUNCTIONAL RECETTE QUALIFICATION PENDING — MORRIS EXIT ACCEPTANCE PROPOSED**
 
-R5 IN PROGRESS / ML5 OPEN. R6 NOT STARTED. Macro-lot 3 non engagé. NO RELEASE / NOT ADOPTED.
+READY WITH RESERVES.
+
+R5 IN PROGRESS · ML5 OPEN · Livraison 1 NOT ACCEPTED GLOBALLY · MACRO-LOT 3 NOT STARTED · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED.
