@@ -94,6 +94,8 @@ La transmission ponctuelle et l'indexation permanente sont des opérations disti
 
 ### 4.4 Acceptation lot 2
 
+Architecture verrouillée (GO Morris 2026-11-27) : KEEP Responses + `semantic-qualification` ; ADAPT Decisions bornés avec incertitude + fallback Responses ; **E = lexical + embeddings** (index local dérivé fichier) ; DEFER Vector Stores / File Search / fileId durable ; ADAPT Vision ponctuelle ; KEEP extract PDF, visionneuse, D3 V1, HumanDecision D6. OpenAI Decisions ≠ D6. Migration PG 027 candidate documentée, **non appliquée** sans GO explicite.
+
 | ID | Parcours / oracle |
 |---|---|
 | CONV-F21 | Comparaison Decisions / Responses sur jugements bornés labellisés indépendamment ; qualité au moins équivalente sur les cas remplacés, erreurs et incertitude explicites ; aucun effet D6 |

@@ -3,6 +3,18 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML2-PRODUCT-WIDE-INTEGRATION
+
+- **date_utc**: 2026-11-27T05:25Z
+- **lane**: DEV — Macro-lot 2 product-wide integration
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_baseline**: `e784232b` · prior HEAD `56572cf8` + dirty delivery worktree committed this delivery
+- **focus**: cartographie consommateurs · hybrid search D4/Journal · Decisions D8 · Vision Git PDF · Frontier LIVE protect · migration 027 candidate (not applied)
+- **campaign**: `ml2-i2-docintel-20261127` remainder HTTP 90/236 · Nora ~38/40 — no new LIVE emission
+- **flags**: OFF by default
+- **RECETTE**: protected · WEB OFF · NO RELEASE · NOT ADOPTED
+- **statut**: **MACRO-LOT 2 — PRODUCT-WIDE INTEGRATION QUALIFIED — MORRIS EXIT ACCEPTANCE PROPOSED** (with explicit reserves)
+
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML1-TARGETED-EXIT
 
 - **date_utc**: 2026-11-27T03:15Z

@@ -623,6 +623,52 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
             pageTo: args.pageTo ?? (args.pageFrom ?? 1) + 4,
             searchQuery: args.searchQuery ?? null,
           });
+          let visionPunctual: Record<string, unknown> | null = null;
+          if (
+            !pdf.ok &&
+            (pdf.reasonCode === "SCANNED_NO_TEXT" ||
+              pdf.reasonCode === "NO_EXTRACTABLE_TEXT")
+          ) {
+            try {
+              const {
+                documentVisionPunctualEnabled,
+                runDocumentVisionPunctual,
+              } = await import("@/domains/documents/document-vision-punctual");
+              if (documentVisionPunctualEnabled()) {
+                const { ensureFrontierOpenAIClientInstalled } = await import(
+                  "@/domains/conversation/provider-emission-frontier"
+                );
+                await ensureFrontierOpenAIClientInstalled({ maxRetries: 0 });
+                const OpenAI = (await import("openai")).default;
+                const key = (process.env.OPENAI_API_KEY || "").trim();
+                if (key) {
+                  const client = new OpenAI({ apiKey: key, maxRetries: 0 });
+                  const vis = await runDocumentVisionPunctual({
+                    client: client as never,
+                    request: {
+                      mode: "pdf_bytes",
+                      bytes: Buffer.from(bytes),
+                      filename: prov.path.split("/").pop() || "document.pdf",
+                      ask: "Describe visible structure only. JSON {summary:string,uncertainty:bool,pagesConsulted:number}. Do not invent unread text.",
+                    },
+                  });
+                  visionPunctual = {
+                    ok: vis.ok,
+                    text: vis.text.slice(0, 2000),
+                    parsed: vis.parsed,
+                    limits: vis.limits,
+                    usage: vis.usage,
+                    reason: vis.reason ?? null,
+                  };
+                }
+              }
+            } catch (e) {
+              visionPunctual = {
+                ok: false,
+                reason: e instanceof Error ? e.message.slice(0, 160) : "VISION_ERROR",
+              };
+            }
+          }
           const payload = pdf.ok
             ? {
                 status: "AVAILABLE" as const,
@@ -651,6 +697,7 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
                   permalink: prov.permalink,
                 },
                 authorityReminder: result.authorityReminder,
+                visionPunctual: null,
               }
             : {
                 status: "UNAVAILABLE" as const,
@@ -659,14 +706,16 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
                 message: pdf.message,
                 coverage: "PARTIAL" as ToolCoverage,
                 limits: pdf.limits,
-                guidance:
-                  "Extraction failed — do not invent page text. Scanned PDFs need OCR (out of scope).",
+                guidance: visionPunctual?.ok
+                  ? "Text extract empty — punctual Vision supplement present; treat as uncertain, not OCR."
+                  : "Extraction failed — do not invent page text. Scanned PDFs need OCR (out of scope) unless Vision punctual flag provided a bounded supplement.",
                 provenance: {
                   path: prov.path,
                   blobSha: prov.blobSha,
                   commitSha: prov.commitSha,
                 },
                 authorityReminder: result.authorityReminder,
+                visionPunctual,
               };
           const charsCharged = chargeBudget(scope, payload);
           noteGitToolSource(scope, {

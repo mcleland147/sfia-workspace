@@ -873,7 +873,12 @@ export async function searchJournalSubjects(
   pilotId: string,
   projectId: string,
   query: string,
-  opts?: { openPointsOnly?: boolean; limit?: number },
+  opts?: {
+    openPointsOnly?: boolean;
+    limit?: number;
+    /** Optional query embedding for ML2 hybrid E (flag SFIA_DERIVED_EMBEDDING_SEARCH=1). */
+    queryVector?: number[] | null;
+  },
 ) {
   const q = query.trim().toLowerCase();
   const limit = opts?.limit ?? 24;
@@ -971,9 +976,51 @@ export async function searchJournalSubjects(
     }
   }
 
+  const lexicalResults = hits.slice(0, limit);
+
+  // ML2 E: optional derived-embedding channel — never replaces lexical; filters apply.
+  if (opts?.queryVector && opts.queryVector.length > 0) {
+    const { mergeLexicalAndDerived } = await import(
+      "@/domains/knowledge/hybrid-knowledge-search"
+    );
+    const lexical = lexicalResults.map((h) => ({
+      sourceId: h.subjectId,
+      title: h.title,
+      snippet: h.snippet,
+      matchKind: h.matchKind,
+      channel: "lexical" as const,
+    }));
+    const snippets = new Map<string, string>();
+    for (const h of lexicalResults) snippets.set(h.subjectId, h.snippet);
+    const merged = mergeLexicalAndDerived({
+      projectId,
+      lexical,
+      queryVector: opts.queryVector,
+      limit,
+      snippets,
+    });
+    return {
+      status: "AVAILABLE" as const,
+      results: merged.hits.map((h) => ({
+        subjectId: h.sourceId,
+        title: h.title ?? h.sourceId,
+        path: subjectPathTitles(h.sourceId, byId),
+        matchKind: h.matchKind as Hit["matchKind"],
+        snippet: h.snippet,
+        channel: h.channel,
+        score: h.score,
+        indexRef: h.indexRef,
+      })),
+      coverage:
+        merged.hits.length === 0 ? ("NONE" as const) : ("PARTIAL" as const),
+      derivedUsed: merged.derivedUsed,
+      derivedSkippedReason: merged.derivedSkippedReason,
+    };
+  }
+
   return {
     status: "AVAILABLE" as const,
-    results: hits.slice(0, limit),
+    results: lexicalResults,
     coverage: hits.length === 0 ? ("NONE" as const) : ("PARTIAL" as const),
   };
 }

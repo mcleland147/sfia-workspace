@@ -174,6 +174,81 @@ export async function runLiveCognitiveCriterionAssessments(input: {
   if (input.acceptanceCriteria.length === 0) {
     return { assessments: [], limits: ["D8_COGNITIVE_LIVE_NO_CRITERIA"] };
   }
+  // ML2 ADAPT: optional bounded Decisions pre-pass (flag OFF by default).
+  // Never a D6 HumanDecision. Falls through to Nora when incomplete/uncertain.
+  try {
+    const { boundedJudgmentEnabled, runBoundedJudgment } = await import(
+      "@/domains/conversation/bounded-judgment"
+    );
+    if (boundedJudgmentEnabled() && input.acceptanceCriteria.length <= 8) {
+      const key = (process.env.OPENAI_API_KEY || "").trim();
+      if (key) {
+        const OpenAI = (await import("openai")).default;
+        const client = new OpenAI({ apiKey: key, maxRetries: 0 });
+        const judgments: CognitiveCriterionEvalResult["assessments"] = [];
+        let allConfident = true;
+        for (const c of input.acceptanceCriteria) {
+          const ev = input.criterionEvidence[c];
+          const evidence = [
+            `criterion: ${c}`,
+            `refs: ${(ev?.refs ?? []).join(",") || "none"}`,
+            `verified_technical: ${ev?.verified ?? false}`,
+            `note: ${ev?.note ?? ""}`,
+            `report_excerpt: ${input.reportExcerpt.slice(0, 800)}`,
+          ].join("\n");
+          const bj = await runBoundedJudgment({
+            client: client as never,
+            request: {
+              kind: "choice",
+              name: `d8_${input.attemptId}_${judgments.length}`,
+              question:
+                "Choose the judgment for this acceptance criterion given only the evidence.",
+              evidence,
+              choices: [
+                "SUPPORTS",
+                "INSUFFICIENT",
+                "CONTRADICTS",
+                "INDETERMINATE",
+              ],
+            },
+          });
+          if (bj.abstain || bj.uncertain || bj.value == null) {
+            allConfident = false;
+            break;
+          }
+          const judgment = String(bj.value);
+          if (
+            !["SUPPORTS", "INSUFFICIENT", "CONTRADICTS", "INDETERMINATE"].includes(
+              judgment,
+            )
+          ) {
+            allConfident = false;
+            break;
+          }
+          judgments.push({
+            criterion: c,
+            judgment: judgment as
+              | "SUPPORTS"
+              | "INSUFFICIENT"
+              | "CONTRADICTS"
+              | "INDETERMINATE",
+            rationale: `bounded_judgment:${bj.source}`,
+            piecesConsulted: ev?.refs ?? [],
+            provenance: "D3_STRUCTURED",
+          });
+        }
+        if (allConfident && judgments.length === input.acceptanceCriteria.length) {
+          return {
+            assessments: judgments,
+            limits: ["D8_BOUNDED_JUDGMENT_PASS", "NOT_D6_HUMAN_DECISION"],
+          };
+        }
+        limits.push("D8_BOUNDED_JUDGMENT_FALLTHROUGH_NORA");
+      }
+    }
+  } catch {
+    limits.push("D8_BOUNDED_JUDGMENT_ERROR");
+  }
   try {
     const { runNoraCognitiveTurn } = await import(
       "@/domains/conversation/run-nora-cognitive-turn"

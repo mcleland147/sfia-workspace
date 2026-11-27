@@ -502,13 +502,14 @@ Macro-lot 3 · activation permanente sans preuve · migration PG non justifiée 
 
 ## 14. Verdict d'intervention
 
-**MACRO-LOT 2 — COMPARATIVE QUALIFICATION PARTIAL — EXPLICIT ARBITRATION OR PROOF REQUIRED**
+**MACRO-LOT 2 — PRODUCT-WIDE INTEGRATION QUALIFIED — MORRIS EXIT ACCEPTANCE PROPOSED**
 
-Motifs PARTIAL :
+Motifs :
 
-- Architecture candidats documentés et discriminés sur code + doc officielle + SDK.
-- Benchmarks LIVE Decisions / Retrieval / Vision **non exécutés** (non autorisés).
-- DATA-01 / VS non tranchés.
-- CONV-F21–F26 préparés, non BEHAVIOR PROVEN end-to-end.
+- Architecture verrouillée + cartographie consommateurs produit.
+- Raccordements réels : D4 search hybrid · Journal API · Git PDF Vision · D8 bounded judgment · lifecycle acquis · Frontier protect LIVE.
+- LIVE campagne cumulative préservée (reliquat HTTP 90/236 ; Nora ~38/40) — **aucune nouvelle émission** sans GO.
+- Migration 027 candidate documentée, **non appliquée** ; backend fichier jusqu'à GO.
+- Flags OFF by default ; RECETTE / WEB OFF / Admin unused.
 
-R5 IN PROGRESS · ML5 OPEN · Livraison 1 non acceptée globalement · Macro-lot 1 accepté avec réserves · Macro-lot 2 en qualification · Macro-lot 3 non engagé · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED.
+R5 IN PROGRESS · ML5 OPEN · Livraison 1 non acceptée globalement · Macro-lot 1 accepté avec réserves · Macro-lot 2 product integration proposed for Morris exit · Macro-lot 3 non engagé · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED.

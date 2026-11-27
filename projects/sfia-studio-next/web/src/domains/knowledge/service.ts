@@ -216,6 +216,19 @@ export async function capitalizeAcquis(
   if (write.status === "OWNERSHIP_LOST") {
     return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
   }
+  // ML2 derived-index lifecycle (best-effort; flag OFF → no-op).
+  try {
+    const { revokeDerivedSource, derivedEmbeddingSearchEnabled } = await import(
+      "@/domains/knowledge/derived-embedding-service"
+    );
+    if (derivedEmbeddingSearchEnabled() && ctx.project?.id) {
+      if (input.supersedesAcquisId) {
+        revokeDerivedSource(ctx.project.id, input.supersedesAcquisId);
+      }
+    }
+  } catch {
+    /* index lifecycle never blocks capitalisation */
+  }
   return { status: "AVAILABLE" as const, acquisId: id, kind };
 }
 

@@ -328,6 +328,93 @@ export async function searchProjectResources(scope: D4ToolScope, input: SearchPr
     coverage = "PARTIAL";
   }
 
+  // ML2 hybrid supplement (flag OFF by default) — never replaces lexical page.
+  let semanticSupplement: Array<Record<string, unknown>> = [];
+  let derivedMeta: {
+    derivedUsed: boolean;
+    derivedSkippedReason: string | null;
+  } = { derivedUsed: false, derivedSkippedReason: "NOT_ATTEMPTED" };
+  if (q && page.length >= 0) {
+    try {
+      const {
+        derivedEmbeddingSearchEnabled,
+        hybridSearchProjectKnowledge,
+      } = await import("@/domains/knowledge/derived-embedding-service");
+      if (derivedEmbeddingSearchEnabled()) {
+        const projectId =
+          (
+            await db
+              .select({ projectId: documents.projectId })
+              .from(documents)
+              .where(eq(documents.preparationId, scope.preparationId))
+              .limit(1)
+          )[0]?.projectId ?? null;
+        // Prefer preparation→project link when documents empty.
+        let resolvedProjectId = projectId;
+        if (!resolvedProjectId) {
+          const { preparationProjectLinks } = await import("@/db/schema");
+          const link = (
+            await db
+              .select({ projectId: preparationProjectLinks.projectId })
+              .from(preparationProjectLinks)
+              .where(eq(preparationProjectLinks.preparationId, scope.preparationId))
+              .limit(1)
+          )[0];
+          resolvedProjectId = link?.projectId ?? null;
+        }
+        if (resolvedProjectId) {
+          const lexical = page.map((it) => ({
+            sourceId: String(it.id ?? ""),
+            title: typeof it.title === "string" ? it.title : undefined,
+            snippet: String(it.preview ?? it.title ?? it.id ?? "").slice(0, 280),
+            matchKind: String(it.type ?? "resource"),
+            channel: "lexical" as const,
+          }));
+          const hybrid = await hybridSearchProjectKnowledge({
+            pilotId: scope.pilotId,
+            projectId: resolvedProjectId,
+            query: q,
+            lexical,
+            limit: Math.min(limit, 12),
+          });
+          derivedMeta = {
+            derivedUsed: hybrid.derivedUsed,
+            derivedSkippedReason: hybrid.derivedSkippedReason,
+          };
+          const lexicalIds = new Set(page.map((it) => String(it.id ?? "")));
+          for (const h of hybrid.hits) {
+            if (lexicalIds.has(h.sourceId)) continue;
+            if (h.channel === "lexical") continue;
+            semanticSupplement.push({
+              type: h.matchKind,
+              id: h.sourceId,
+              preview: h.snippet,
+              resource_ref: `${h.matchKind}:${h.sourceId}`,
+              channel: h.channel,
+              score: h.score,
+              indexRef: h.indexRef,
+              versionLabel: h.versionLabel,
+              note: "Derived embedding hit — exact lexical title may be absent; verify before authority.",
+            });
+          }
+        } else {
+          derivedMeta = {
+            derivedUsed: false,
+            derivedSkippedReason: "PROJECT_UNRESOLVED",
+          };
+        }
+      } else {
+        derivedMeta = { derivedUsed: false, derivedSkippedReason: "FLAG_OFF" };
+      }
+    } catch (e) {
+      derivedMeta = {
+        derivedUsed: false,
+        derivedSkippedReason:
+          e instanceof Error ? e.message.slice(0, 120) : "HYBRID_ERROR",
+      };
+    }
+  }
+
   const payload = {
     status: "AVAILABLE" as const,
     coverage,
@@ -341,6 +428,8 @@ export async function searchProjectResources(scope: D4ToolScope, input: SearchPr
     offset,
     limit,
     items: page,
+    semanticSupplement,
+    derivedSearch: derivedMeta,
     authority: {
       pilotIdBound: true,
       preparationIdBound: true,

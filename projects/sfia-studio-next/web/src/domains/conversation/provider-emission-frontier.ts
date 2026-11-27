@@ -626,12 +626,24 @@ export function attachConfiguredLiveCampaignFromEnv(
   });
 }
 
+function isProtectedLiveCampaignId(campaignId: string | null | undefined): boolean {
+  const id = (campaignId ?? "").trim();
+  if (!id) return false;
+  if (id === "ml2-i2-docintel-20261127") return true;
+  const envId = (process.env.SFIA_LIVE_CAMPAIGN_ID || "").trim();
+  return envId !== "" && id === envId;
+}
+
 /** End process-level LIVE campaign (qualify close / test reset). */
 export function endProcessCampaign(campaignId?: string): void {
   if (campaignId) {
     processCampaignRegistry.delete(campaignId);
     const persisted = readLiveCampaignStateFile();
-    if (persisted?.campaignId === campaignId) {
+    // Never delete definitive LIVE cumulative envelope from test/qualify teardown.
+    if (
+      persisted?.campaignId === campaignId &&
+      !isProtectedLiveCampaignId(campaignId)
+    ) {
       deleteLiveCampaignStateFile();
     }
     if (requiredCampaignLatch?.campaignId === campaignId) {
@@ -642,7 +654,10 @@ export function endProcessCampaign(campaignId?: string): void {
     return;
   }
   processCampaignRegistry.clear();
-  deleteLiveCampaignStateFile();
+  const persisted = readLiveCampaignStateFile();
+  if (!isProtectedLiveCampaignId(persisted?.campaignId)) {
+    deleteLiveCampaignStateFile();
+  }
   requiredCampaignLatch = null;
   const s = getFrontierAlsStore();
   if (s) s.campaign = null;
@@ -1252,30 +1267,31 @@ export function reserveHttpEmission(input: {
   // Final payload effort wins; never invent medium/Terra.
   const effort = (effortFromPayload || effortFromInput || effortFromStore).trim();
   const modelHint = (store().modelHint ?? "").trim();
-  if (modelFromPayload && modelHint && modelFromPayload !== modelHint) {
-    return {
-      ok: false,
-      reasonCode: "MODEL_EFFORT_NOT_ADMITTED",
-      reason: `HTTP payload model ${modelFromPayload} ≠ SDK-admitted ${modelHint}`,
-    };
-  }
-  if (effortFromPayload && effortFromStore && effortFromPayload !== effortFromStore) {
-    // Payload override must itself be admitted — do not silently keep the hint.
-    const overrideAdmit = admitModelEffort(
-      (model || modelHint) as CognitiveModelId,
-      effortFromPayload as CognitiveEffort,
-      admissionModeFromEnv(env),
-    );
-    if (!overrideAdmit.admitted) {
+  // Decisions/embeddings/VS/files skip Nora model×effort admission — do not
+  // enforce residual SDK hints from a prior Responses turn against them.
+  if (!input.skipModelAdmission) {
+    if (modelFromPayload && modelHint && modelFromPayload !== modelHint) {
       return {
         ok: false,
         reasonCode: "MODEL_EFFORT_NOT_ADMITTED",
-        reason: `payload effort ${effortFromPayload} not admitted (${overrideAdmit.reasonCode})`,
+        reason: `HTTP payload model ${modelFromPayload} ≠ SDK-admitted ${modelHint}`,
       };
     }
-  }
-
-  if (!input.skipModelAdmission) {
+    if (effortFromPayload && effortFromStore && effortFromPayload !== effortFromStore) {
+      // Payload override must itself be admitted — do not silently keep the hint.
+      const overrideAdmit = admitModelEffort(
+        (model || modelHint) as CognitiveModelId,
+        effortFromPayload as CognitiveEffort,
+        admissionModeFromEnv(env),
+      );
+      if (!overrideAdmit.admitted) {
+        return {
+          ok: false,
+          reasonCode: "MODEL_EFFORT_NOT_ADMITTED",
+          reason: `payload effort ${effortFromPayload} not admitted (${overrideAdmit.reasonCode})`,
+        };
+      }
+    }
     if (!model) {
       return {
         ok: false,
@@ -1453,11 +1469,18 @@ export function reserveHttpEmission(input: {
         campaign.maxInputTokensPerRequest != null) &&
       reservedInput == null
     ) {
-      return {
-        ok: false,
-        reasonCode: "INPUT_UNBOUNDED",
-        reason: `family=${family} requires demonstrable sfia_estimated_input_tokens (no Responses native count)`,
-      };
+      // Vector store / files ops are contact-bounded, not token-native.
+      // Decisions/embeddings must still carry sfia_estimated_input_tokens.
+      if (family === "vector_stores" || family === "files") {
+        reservedInput = 0;
+        inputBoundKind = null;
+      } else {
+        return {
+          ok: false,
+          reasonCode: "INPUT_UNBOUNDED",
+          reason: `family=${family} requires demonstrable sfia_estimated_input_tokens (no Responses native count)`,
+        };
+      }
     }
   }
 
@@ -1823,7 +1846,16 @@ export function __resetProviderEmissionFrontierForTests(): void {
     s.nativeInputCount = null;
   }
   processCampaignRegistry.clear();
-  deleteLiveCampaignStateFile();
+  // Never wipe a definitive LIVE campaign envelope from unit-test resets.
+  const persisted = readLiveCampaignStateFile();
+  const protectLive =
+    persisted?.campaignId === "ml2-i2-docintel-20261127" ||
+    ((process.env.SFIA_LIVE_CAMPAIGN_ID || "").trim() !== "" &&
+      persisted?.campaignId ===
+        (process.env.SFIA_LIVE_CAMPAIGN_ID || "").trim());
+  if (!protectLive) {
+    deleteLiveCampaignStateFile();
+  }
   requiredCampaignLatch = null;
   installedClientKeyFp = null;
 }
@@ -2078,10 +2110,15 @@ export function createFrontierAwareFetch(
       }
     }
 
-    // Inject opposable max_output_tokens onto the real provider payload when the
-    // campaign sets a per-request ceiling and the SDK omitted the field.
+    const httpFamily = classifyOpenAiHttpFamily(url);
+    const emissionKind = emissionKindForHttpFamily(httpFamily);
+
+    // Inject opposable max_output_tokens onto Responses payloads only — Decisions /
+    // embeddings / files / vector_stores reject unknown max_output_tokens.
     // Safe after count: max_output_tokens is not part of InputTokenCountParams.
+    // Non-Responses families still reserve via campaign.maxOutputTokensPerRequest.
     if (
+      httpFamily === "responses" &&
       campaign?.maxOutputTokensPerRequest != null &&
       bodyJson &&
       demonstrableOutputTokenBound(bodyJson) == null
@@ -2093,16 +2130,18 @@ export function createFrontierAwareFetch(
       body = JSON.stringify(bodyJson);
     }
 
-    const httpFamily = classifyOpenAiHttpFamily(url);
-    const emissionKind = emissionKindForHttpFamily(httpFamily);
+    // Reserve against the Studio body (hints intact). Strip only for the wire.
+    const reserveBody = body;
+    const reserveBodyJson = bodyJson;
 
-    // Strip Studio-only hints before wire emission.
+    let wireBodyJson = bodyJson;
+    let wireBody = body;
     if (bodyJson) {
       const {
         sfia_estimated_input_tokens: _est,
         sfia_native_input_tokens: _nat,
         sfia_input_count_fingerprint: _fp,
-        ...wireBody
+        ...stripped
       } = bodyJson as Record<string, unknown> & {
         sfia_estimated_input_tokens?: unknown;
         sfia_native_input_tokens?: unknown;
@@ -2129,22 +2168,22 @@ export function createFrontierAwareFetch(
           chain: alsStore.continuity.chain,
           lane: (process.env.STUDIO_LANE ?? "UNKNOWN").trim().toUpperCase(),
         });
-        bodyJson = applyContinuityToResponsesBody(wireBody, plan);
+        wireBodyJson = applyContinuityToResponsesBody(stripped, plan);
       } else {
-        bodyJson = wireBody;
+        wireBodyJson = stripped;
       }
-      body = JSON.stringify(bodyJson);
+      wireBody = JSON.stringify(wireBodyJson);
     }
 
     const hostedSearchDelta =
       httpFamily === "responses"
-        ? inferHostedSearchDeltaFromBody(bodyJson, campaign)
+        ? inferHostedSearchDeltaFromBody(reserveBodyJson, campaign)
         : 0;
     const reservation = reserveHttpEmission({
       kind: emissionKind,
       url,
       method,
-      body,
+      body: reserveBody,
       effort: alsStore.effortHint,
       // Decisions/embeddings/VS/files are not Nora model×effort admissions.
       skipModelAdmission: httpFamily !== "responses",
@@ -2162,16 +2201,18 @@ export function createFrontierAwareFetch(
         attemptId: reservation.attemptId,
         url,
         method,
-        model: modelFromBody(bodyJson),
-        effort: effortFromBody(bodyJson),
-        maxOutputTokens: demonstrableOutputTokenBound(bodyJson),
-        maxToolCalls: Number(bodyJson?.max_tool_calls ?? 0) || null,
+        model: modelFromBody(wireBodyJson),
+        effort: effortFromBody(wireBodyJson),
+        maxOutputTokens: demonstrableOutputTokenBound(wireBodyJson),
+        maxToolCalls: Number(wireBodyJson?.max_tool_calls ?? 0) || null,
         kind: emissionKind,
       });
     }
 
     const nextInit =
-      body === init?.body || init == null ? init : { ...init, body };
+      wireBody === init?.body || init == null
+        ? init
+        : { ...init, body: wireBody };
     try {
       const res = await baseFetch(input, nextInit);
       // A-posteriori tool_usage.web_search.num_requests when present.

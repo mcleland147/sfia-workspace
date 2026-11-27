@@ -19,8 +19,22 @@ export async function GET(req: Request, ctx: { params: Promise<{ projectId: stri
       const result = await searchJournalDecisions(session.pilotId, projectId, q);
       return NextResponse.json(result);
     }
+    let queryVector: number[] | null = null;
+    try {
+      const {
+        derivedEmbeddingSearchEnabled,
+        embedQueryText,
+      } = await import("@/domains/knowledge/derived-embedding-service");
+      if (derivedEmbeddingSearchEnabled() && q.trim()) {
+        const emb = await embedQueryText(q);
+        queryVector = emb?.vector ?? null;
+      }
+    } catch {
+      queryVector = null;
+    }
     const result = await searchJournalSubjects(session.pilotId, projectId, q, {
       openPointsOnly,
+      queryVector,
     });
     return NextResponse.json(result);
   } catch (e) {
