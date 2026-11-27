@@ -26,6 +26,10 @@ export type HybridHit = {
   score?: number;
   versionLabel?: string | null;
   indexRef?: string;
+  /** Owning subject when sourceId is acquis/open_point (journal projection). */
+  subjectId?: string | null;
+  openPointId?: string | null;
+  sourceKind?: string | null;
 };
 
 /**
@@ -58,8 +62,9 @@ export function mergeLexicalAndDerived(input: {
   const byId = new Map<string, HybridHit>();
   const allowed = input.allowedSourceIds ?? null;
 
+  // Lexical channel keeps its own authorized hits. allowedSourceIds constrains
+  // the derived/semantic channel only — never silently drops lexical results.
   for (const L of input.lexical) {
-    if (allowed && !allowed.has(L.sourceId)) continue;
     byId.set(L.sourceId, {
       sourceId: L.sourceId,
       title: L.title,

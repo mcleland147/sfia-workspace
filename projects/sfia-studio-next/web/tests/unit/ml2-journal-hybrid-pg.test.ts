@@ -77,10 +77,9 @@ describe("ml2 journal semantic uses hybridSearch (PG-safe)", () => {
       ),
       "utf8",
     );
-    expect(emb).toMatch(/const attemptId = randomUUID\(\)/);
+    expect(emb).toMatch(/attemptId.*randomUUID\(\)/);
     expect(bj).toMatch(/const attemptId = randomUUID\(\)/);
     expect(vis).toMatch(/const attemptId = randomUUID\(\)/);
-    expect(emb).toMatch(/attemptId,/);
     expect(bj).toMatch(/attemptId,/);
     expect(vis).toMatch(/attemptId,/);
     expect(emb).not.toMatch(

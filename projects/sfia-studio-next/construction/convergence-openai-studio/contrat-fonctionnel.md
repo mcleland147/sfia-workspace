@@ -111,7 +111,7 @@ Le composer offre une action micro accessible. L'enregistrement commence sur act
 
 L'envoi explicite crée le même message USER authentifié que la saisie clavier ; les règles habituelles d'inspection et d'autorité restent inchangées. Une transcription ou un clic micro ne vaut pas HumanDecision. Une permission refusée, un réseau perdu, un fichier non supporté ou une interruption laisse le composer utilisable au clavier et préserve le brouillon. L'audio brut n'est pas conservé par défaut au-delà de la nécessité de traitement ; les modalités fournisseur restent à qualifier. Les consommations audio sont visibles même sans travail cognitif (transcription annulée ou non envoyée si elle a effectivement consommé).
 
-Le mode fichier est le premier parcours ; qualifier Realtime dans le même lot et retenir son intégration si l'amélioration de l'expérience et les garanties sont établies. La voix bidirectionnelle autonome est hors lot.
+Arbitrage Morris 2026-11-27 : la transcription progressive (Realtime / gpt-live-transcribe) est la cible fonctionnelle principale. Le mode fichier devient une alternative conditionnelle, non une deuxième architecture par défaut. La voix bidirectionnelle autonome reste hors lot.
 
 | ID | Parcours / oracle |
 |---|---|

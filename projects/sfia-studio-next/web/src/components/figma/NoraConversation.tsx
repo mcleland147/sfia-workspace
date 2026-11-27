@@ -15,6 +15,7 @@ import {
   compositionAnchorsReferences,
 } from "@/domains/conversation/visual-composition";
 import { NoraLiveActivity } from "@/components/figma/NoraLiveActivity";
+import { ComposerDictationControl } from "@/components/figma/ComposerDictationControl";
 
 export type NoraMsg = {
   id: string;
@@ -72,6 +73,10 @@ export function NoraConversation(props: {
     verdictD8?: string | null;
   } | null;
   onRemoveDossierAttachment?: () => void;
+  /** ML3 — project id for dictation session admission. */
+  projectId?: string;
+  /** ML3 — SFIA_COMPOSER_DICTATION mirrored from server (optional). */
+  dictationEnabled?: boolean;
 }) {
   const n = props.messages.length;
   const frame = n === 0 ? "161:216" : n <= 2 ? "161:288" : "94:214";
@@ -548,6 +553,15 @@ export function NoraConversation(props: {
                 }
               }}
             />
+            {props.projectId ? (
+              <ComposerDictationControl
+                projectId={props.projectId}
+                draft={props.draft}
+                onDraft={props.onDraft}
+                disabled={composerLocked || props.busy}
+                enabled={props.dictationEnabled !== false}
+              />
+            ) : null}
             <button
               type="button"
               className="fig-travail-composer-send"

@@ -23,9 +23,13 @@
 | LIFECYCLE-01 | A défaut réel | Rebuild index uniquement via scripts ; capitalize ne faisait que revoke | **Corrigé** : `upsertDerivedAdmissibleSource` + wiring capitalize/openPoint |
 | CONTEXT-01 | B couverture | `selectRelevantKnowledgeContext` sans canal hybrid | **Corrigé** : supplément DERIVED_HIT si flag ON |
 | FINOPS-IDEM-01 | B | `callOrdinal: Date.now()` sur rebuild | **Corrigé** : ordinal stable fingerprint |
-| JOURNAL-PG-01 | A défaut réel | Journal `mergeLexicalAndDerived` sans semanticHits → PG no-op + embed gaspillé | **Corrigé** : `hybridSearchProjectKnowledge` + stub queryVector |
+| JOURNAL-PG-01 | A défaut réel | Journal `mergeLexicalAndDerived` sans semanticHits → PG no-op + embed gaspillé | **Corrigé** : `hybridSearchProjectKnowledge` + `queryVector` reuse |
 | FRONTIER-MEAS-01 | A défaut réel | Commit sans measured ; emb réserve maxOutputTokensPerRequest | **Corrigé** : measured pass-through ; output reserve Responses-only |
 | FINOPS-ML2-01 | B | Ledger manquant query/judgment/vision | **Corrigé** : observations best-effort |
+| RIGHTS-FP-01 | A | Lexical élargissait admissible/freshIds ; indexRef sans FP admis | **Corrigé** ML3 delivery : sémantique strict FP ; lexical non élargi |
+| JOURNAL-ID-01 | A | `subjectId: h.sourceId` écrasait acquis/open_point | **Corrigé** : subjectId / sourceId / openPointId distincts |
+| VECTOR-REUSE-01 | A | Stub client → FinOps fantôme | **Corrigé** : `queryVector` sans émission |
+| FINOPS-EMIT-01 | B | rebuild/upsert identity contenu | **Corrigé** : `*EmissionAttemptId` UUID par émission |
 | EXP-TOKENS-01 | E tooling | Campagne LIVE tokens reserved→committed (historique) | Cause produit corrigée ; **pas** de nouvelle campagne |
 | EXP-EMB-FAM-01 | E/D | Famille embeddings 12/12 saturée sous flag search + multi-tool D4 | Limite **expérimentale** ; produit sans campaign familyHttp |
 | F25-REST-01 | F RECETTE | Restitution Nora COMPLETE non obtenue en DEV LIVE | QUALIFICATION RECETTE REQUIRED |

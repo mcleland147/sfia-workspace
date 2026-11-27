@@ -1,0 +1,62 @@
+import { requireStudioSession } from "@/domains/identity/session";
+import {
+  getDictationSession,
+  subscribeDictationSession,
+} from "@/domains/conversation/composer-dictation-session";
+
+/** SSE stream of dictation events for the authenticated owner. */
+export async function GET(
+  _req: Request,
+  ctx: { params: Promise<{ projectId: string; sessionId: string }> },
+) {
+  const session = await requireStudioSession();
+  const { projectId, sessionId } = await ctx.params;
+  const rec = getDictationSession(sessionId);
+  if (!rec || rec.pilotId !== session.pilotId || rec.projectId !== projectId) {
+    return new Response(JSON.stringify({ ok: false, code: "NOT_FOUND" }), {
+      status: 404,
+      headers: { "content-type": "application/json" },
+    });
+  }
+
+  const encoder = new TextEncoder();
+  let unsubscribe: (() => void) | null = null;
+  const stream = new ReadableStream({
+    start(controller) {
+      const send = (data: unknown) => {
+        controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
+      };
+      send({ type: "sse.open", sessionId, status: rec.status });
+      unsubscribe = subscribeDictationSession(sessionId, session.pilotId, (ev) => {
+        send(ev);
+        if (
+          ev.type === "session.finalized" ||
+          ev.type === "session.cancelled" ||
+          ev.type === "session.error" ||
+          ev.type === "session.expired"
+        ) {
+          try {
+            controller.close();
+          } catch {
+            /* */
+          }
+        }
+      });
+      if (!unsubscribe) {
+        send({ type: "session.error", code: "SUBSCRIBE_FAILED", sessionId });
+        controller.close();
+      }
+    },
+    cancel() {
+      unsubscribe?.();
+    },
+  });
+
+  return new Response(stream, {
+    headers: {
+      "content-type": "text/event-stream; charset=utf-8",
+      "cache-control": "no-cache, no-transform",
+      connection: "keep-alive",
+    },
+  });
+}

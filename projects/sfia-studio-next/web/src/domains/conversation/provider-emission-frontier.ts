@@ -878,6 +878,16 @@ export function classifyOpenAiHttpFamily(url: string): EmissionHttpFamily {
       return "embeddings";
     }
     if (
+      path === "/v1/realtime" ||
+      path.endsWith("/realtime") ||
+      path.includes("/realtime?") ||
+      path.startsWith("/v1/audio/")
+    ) {
+      // ML3 audio / Realtime transcription — contact family "other" until a
+      // dedicated familyHttp budget is productized (session-duration FinOps).
+      return "other";
+    }
+    if (
       path === "/v1/vector_stores" ||
       path.startsWith("/v1/vector_stores/") ||
       path.includes("/vector_stores/")

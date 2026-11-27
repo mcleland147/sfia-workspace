@@ -978,8 +978,8 @@ export async function searchJournalSubjects(
 
   const lexicalResults = hits.slice(0, limit);
 
-  // ML2 E: hybrid via product service (PG semanticHits + rights/fp). Never bare
-  // mergeLexicalAndDerived({ queryVector }) — that yields SEMANTIC_HITS_REQUIRED_FOR_PG.
+  // ML2 E: hybrid via product service. Reuse precomputed queryVector — no second
+  // embed HTTP and no phantom FinOps (queryVector path skips emission).
   if (opts?.queryVector && opts.queryVector.length > 0) {
     const { hybridSearchProjectKnowledge } = await import(
       "@/domains/knowledge/derived-embedding-service"
@@ -991,36 +991,40 @@ export async function searchJournalSubjects(
       matchKind: h.matchKind,
       channel: "lexical" as const,
     }));
-    // Client stub: reuse precomputed queryVector — avoid a second embeddings HTTP.
-    const stubClient = {
-      embeddings: {
-        create: async () => ({
-          data: [{ embedding: opts.queryVector as number[] }],
-          usage: { total_tokens: 0 },
-        }),
-      },
-    };
     const merged = await hybridSearchProjectKnowledge({
       pilotId,
       projectId,
       query,
       lexical,
       limit,
-      client: stubClient,
       openPointsOnly: opts.openPointsOnly,
+      queryVector: opts.queryVector,
     });
     return {
       status: "AVAILABLE" as const,
-      results: merged.hits.map((h) => ({
-        subjectId: h.sourceId,
-        title: h.title ?? h.sourceId,
-        path: subjectPathTitles(h.sourceId, byId),
-        matchKind: (h.matchKind as Hit["matchKind"]) ?? "acquis",
-        snippet: h.snippet,
-        channel: h.channel,
-        score: h.score,
-        indexRef: h.indexRef,
-      })),
+      results: merged.hits.map((h) => {
+        const subjectId =
+          (h as { subjectId?: string | null }).subjectId ??
+          (byId.has(h.sourceId) ? h.sourceId : h.sourceId);
+        const resolvedSubject = byId.has(subjectId!)
+          ? subjectId!
+          : byId.has(h.sourceId)
+            ? h.sourceId
+            : subjectId || h.sourceId;
+        return {
+          subjectId: resolvedSubject,
+          sourceId: h.sourceId,
+          sourceKind: (h as { sourceKind?: string }).sourceKind ?? null,
+          openPointId: (h as { openPointId?: string | null }).openPointId ?? undefined,
+          title: h.title ?? resolvedSubject,
+          path: subjectPathTitles(resolvedSubject, byId),
+          matchKind: (h.matchKind as Hit["matchKind"]) ?? "acquis",
+          snippet: h.snippet,
+          channel: h.channel,
+          score: h.score,
+          indexRef: h.indexRef,
+        };
+      }),
       coverage:
         merged.hits.length === 0 ? ("NONE" as const) : ("PARTIAL" as const),
       derivedUsed: merged.derivedUsed,

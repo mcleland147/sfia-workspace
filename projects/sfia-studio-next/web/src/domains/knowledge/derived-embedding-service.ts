@@ -60,6 +60,14 @@ async function defaultEmbedClient(): Promise<EmbedClient | null> {
 export async function embedQueryText(
   text: string,
   client?: EmbedClient | null,
+  opts?: {
+    /** When false, skip ledger write (reuse / substituted / already recorded). */
+    recordUsage?: boolean;
+    /** Stable attempt id when recording a real emission (caller-owned). */
+    attemptId?: string;
+    projectId?: string | null;
+    ownerPilotId?: string | null;
+  },
 ): Promise<{ vector: number[]; tokens: number } | null> {
   const c = client ?? (await defaultEmbedClient());
   if (!c) return null;
@@ -72,14 +80,17 @@ export async function embedQueryText(
   const vector = res.data[0]?.embedding;
   if (!vector?.length) return null;
   const tokens = res.usage?.total_tokens ?? 0;
+  if (opts?.recordUsage === false) {
+    return { vector, tokens };
+  }
   try {
     const { randomUUID } = await import("node:crypto");
     const { recordProviderUsageObservation, buildIdempotencyKey } = await import(
       "@/domains/conversation/usage-accounting"
     );
     const fp = contentFingerprint(q).slice(0, 12);
-    // Distinct HTTP consumption ⇒ distinct attemptId (content FP alone must not dedupe).
-    const attemptId = randomUUID();
+    // Distinct HTTP consumption ⇒ caller attemptId or fresh UUID (not content FP).
+    const attemptId = opts?.attemptId?.trim() || randomUUID();
     await recordProviderUsageObservation({
       operation: "embeddings.derived_query",
       modelRequested: DERIVED_EMBEDDING_MODEL,
@@ -89,10 +100,13 @@ export async function embedQueryText(
       status: "succeeded",
       granularity: "REQUEST",
       costCoverage: "PARTIAL",
+      projectId: opts?.projectId ?? null,
+      ownerPilotId: opts?.ownerPilotId ?? null,
       idempotencyKey: buildIdempotencyKey({
         granularity: "REQUEST",
         lane: process.env.STUDIO_LANE || "DEV",
         operation: "embeddings.derived_query",
+        projectId: opts?.projectId ?? undefined,
         attemptId,
         callOrdinal: 0,
       }),
@@ -258,6 +272,8 @@ export async function rebuildDerivedIndexFromProjectKnowledge(input: {
     entries,
     vectors,
   });
+  const { randomUUID: rebuildRandomUUID } = await import("node:crypto");
+  const rebuildEmissionAttemptId = rebuildRandomUUID();
   try {
     const { recordProviderUsageObservation, buildIdempotencyKey } = await import(
       "@/domains/conversation/usage-accounting"
@@ -280,10 +296,9 @@ export async function rebuildDerivedIndexFromProjectKnowledge(input: {
         operation: "embeddings.derived_index_rebuild",
         projectId: input.projectId,
         preparationId: input.preparationId,
-        // Stable ordinal from admissible set size + first fingerprint — not wall-clock.
-        callOrdinal: (sources.length * 1000 + (entries[0]?.contentFingerprint
-          ? Number.parseInt(entries[0].contentFingerprint.slice(0, 4), 16)
-          : 0)) % 100000,
+        // Emission identity (not content size) — distinct rebuild HTTP ⇒ new attemptId.
+        attemptId: rebuildEmissionAttemptId,
+        callOrdinal: 0,
       }),
       limits: [
         "DERIVED_INDEX_PG",
@@ -312,6 +327,11 @@ export async function hybridSearchProjectKnowledge(input: {
   limit?: number;
   client?: EmbedClient | null;
   openPointsOnly?: boolean;
+  /**
+   * Reuse a query embedding already obtained (e.g. journal route).
+   * Skips provider emission and FinOps — local search only.
+   */
+  queryVector?: number[] | null;
 }): Promise<{
   hits: HybridHit[];
   derivedUsed: boolean;
@@ -338,20 +358,26 @@ export async function hybridSearchProjectKnowledge(input: {
       if (!op || op.status !== "OPEN") admissible.delete(id);
     }
   }
-  for (const l of input.lexical) admissible.add(l.sourceId);
+  // Lexical subjectIds must NOT widen the semantic admissibility set (CONV-F06/F23).
 
-  const emb = await embedQueryText(input.query, input.client);
-  if (!emb) {
-    return {
-      hits: input.lexical
-        .filter((l) => admissible.has(l.sourceId))
-        .map((l) => ({ ...l, channel: "lexical" as const })),
-      derivedUsed: false,
-      derivedSkippedReason: "EMBED_UNAVAILABLE",
-      rightsRevalidated: true,
-      backend: derivedEmbeddingBackend(),
-    };
+  let queryVector = input.queryVector ?? null;
+  if (!queryVector || queryVector.length === 0) {
+    const emb = await embedQueryText(input.query, input.client, {
+      projectId: input.projectId,
+      ownerPilotId: input.pilotId,
+    });
+    if (!emb) {
+      return {
+        hits: input.lexical.map((l) => ({ ...l, channel: "lexical" as const })),
+        derivedUsed: false,
+        derivedSkippedReason: "EMBED_UNAVAILABLE",
+        rightsRevalidated: true,
+        backend: derivedEmbeddingBackend(),
+      };
+    }
+    queryVector = emb.vector;
   }
+
   const snippets = new Map<string, string>();
   for (const l of input.lexical) snippets.set(l.sourceId, l.snippet);
 
@@ -359,48 +385,70 @@ export async function hybridSearchProjectKnowledge(input: {
     derivedEmbeddingBackend() === "pg"
       ? await searchDerivedChunksPg({
           projectId: input.projectId,
-          queryVector: emb.vector,
+          queryVector,
           limit: Math.max((input.limit ?? 12) * 2, 16),
         })
       : searchDerivedIndex({
           projectId: input.projectId,
-          queryVector: emb.vector,
+          queryVector,
           limit: Math.max((input.limit ?? 12) * 2, 16),
           snippets,
         });
-  // Attach snippets for PG hits when available from lexical map.
   semanticHits = semanticHits.map((h) => ({
     ...h,
     snippet: h.snippet || snippets.get(h.sourceId) || "",
   }));
 
-  // Concurrent revoke / content change (same sourceId, new fingerprint):
-  // re-read D4 admissible set and drop stale index refs before merge.
+  // Concurrent revoke / content change: re-read D4 admissible + fingerprint.
   const freshBundle = await listProjectKnowledge(input.pilotId, input.projectId);
   const freshSources = collectAdmissibleKnowledgeSources(freshBundle);
   const freshFp = new Map(
     freshSources.map((s) => [s.sourceId, contentFingerprint(s.text)]),
   );
-  const freshIds = new Set(freshFp.keys());
-  for (const l of input.lexical) freshIds.add(l.sourceId);
+  const subjectBySource = new Map<string, string | null>();
+  const openPointBySource = new Map<string, string | null>();
+  for (const a of freshBundle.acquis) {
+    if (a.status === "CURRENT") subjectBySource.set(a.id, a.subjectId);
+  }
+  for (const o of freshBundle.openPoints) {
+    if (o.status === "OPEN") {
+      subjectBySource.set(o.id, o.subjectId);
+      openPointBySource.set(o.id, o.id);
+    }
+  }
+  for (const s of freshBundle.subjects) {
+    subjectBySource.set(s.id, s.id);
+  }
+
+  // Semantic: only CURRENT/OPEN with matching FP. Missing indexRef ⇒ exclude.
   semanticHits = semanticHits.filter((h) => {
     if (!freshFp.has(h.sourceId)) return false;
     const m = /@([a-f0-9]+)$/i.exec(h.indexRef || "");
-    if (!m) return true;
+    if (!m) return false;
     return m[1] === freshFp.get(h.sourceId);
   });
+  const semanticAllowed = new Set(
+    [...semanticHits.map((h) => h.sourceId)].filter((id) => freshFp.has(id)),
+  );
 
   const merged = mergeLexicalAndDerived({
     projectId: input.projectId,
-    lexical: input.lexical.filter((l) => freshIds.has(l.sourceId)),
-    queryVector: emb.vector,
+    lexical: input.lexical,
+    queryVector,
     limit: input.limit,
     snippets,
-    allowedSourceIds: freshIds,
+    allowedSourceIds: semanticAllowed,
     semanticHits,
   });
   return {
-    ...merged,
+    hits: merged.hits.map((h) => ({
+      ...h,
+      subjectId: subjectBySource.get(h.sourceId) ?? null,
+      openPointId: openPointBySource.get(h.sourceId) ?? null,
+      sourceKind: (h as { sourceKind?: DerivedSourceKind }).sourceKind,
+    })),
+    derivedUsed: merged.derivedUsed,
+    derivedSkippedReason: merged.derivedSkippedReason,
     rightsRevalidated: true,
     backend: derivedEmbeddingBackend(),
   };
@@ -471,6 +519,8 @@ export async function upsertDerivedAdmissibleSource(input: {
       vectors: new Map([[input.sourceId, vector]]),
     });
   }
+  const { randomUUID: upsertRandomUUID } = await import("node:crypto");
+  const upsertEmissionAttemptId = upsertRandomUUID();
   try {
     const { recordProviderUsageObservation, buildIdempotencyKey } = await import(
       "@/domains/conversation/usage-accounting"
@@ -493,8 +543,8 @@ export async function upsertDerivedAdmissibleSource(input: {
         operation: "embeddings.derived_index_upsert",
         projectId: input.projectId,
         preparationId: input.preparationId,
-        // sourceId+fp identify the indexed content; attemptId distinguishes re-emissions.
-        attemptId: `${input.sourceId}:${fp}`,
+        // Distinct HTTP emission ⇒ distinct attemptId. Content FP stays in limits.
+        attemptId: upsertEmissionAttemptId,
         callOrdinal: 0,
       }),
       limits: [

@@ -1,3 +1,16 @@
+## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML3-AUDIO-AND-ML2-RESIDUAL
+
+- **date_utc**: 2026-11-27T08:45Z
+- **lane**: DEV — Macro-lot 3 dictation + ML2 residual gaps
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_entrée**: `66650834`
+- **transport**: Studio-controlled Realtime transcription WS + SSE
+- **model**: gpt-live-transcribe
+- **ML2 residuals**: rights/fp · journal identity · queryVector reuse · FinOps emission attemptIds
+- **LIVE audio**: plan prepared — NOT EXECUTED
+- **flag**: SFIA_COMPOSER_DICTATION default OFF
+- **RECETTE**: protected · WEB OFF · Macro-lots 1–3 construction complete (pending Morris)
+
 # SFIA Studio Next — Delivery history
 
 Append-only logical journal of Cursor product deliveries.

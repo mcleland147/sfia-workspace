@@ -1,0 +1,634 @@
+/**
+ * In-memory dictation sessions — Studio-controlled Realtime transcription.
+ * No durable audio storage. No D3 work creation.
+ */
+import { randomUUID } from "node:crypto";
+import {
+  COMPOSER_DICTATION_MODEL,
+  COMPOSER_DICTATION_PCM_RATE,
+  COMPOSER_DICTATION_SCHEMA,
+  DEFAULT_DICTATION_LIMITS,
+  DICTATION_VOCAB_HINT,
+  composerDictationEnabled,
+  type DictationClientEvent,
+  type DictationDraftSnapshot,
+  type DictationLimits,
+  type DictationSessionStatus,
+} from "./composer-dictation-types";
+import {
+  applyTranscriptCompleted,
+  applyTranscriptDelta,
+  assembleDictationTranscript,
+  createDictationDraftSnapshot,
+  mergeDictationIntoDraft,
+} from "./composer-dictation-reducer";
+
+export type RealtimeTransport = {
+  send: (payload: Record<string, unknown>) => void;
+  close: () => void;
+  /** Register handler for provider JSON events. */
+  onEvent: (handler: (event: Record<string, unknown>) => void) => void;
+};
+
+export type RealtimeTransportFactory = (input: {
+  sessionId: string;
+  model: string;
+  apiKey: string;
+}) => Promise<RealtimeTransport>;
+
+export type DictationSessionRecord = {
+  sessionId: string;
+  schema: typeof COMPOSER_DICTATION_SCHEMA;
+  pilotId: string;
+  projectId: string;
+  conversationKey: string;
+  status: DictationSessionStatus;
+  modelRequested: string;
+  modelApplied: string | null;
+  createdAtMs: number;
+  lastActivityAtMs: number;
+  pcmBytes: number;
+  draft: DictationDraftSnapshot;
+  emissionAttemptId: string;
+  finopsRecorded: boolean;
+  listeners: Set<(ev: DictationClientEvent) => void>;
+  transport: RealtimeTransport | null;
+  pendingItemId: string | null;
+  limits: DictationLimits;
+  errorCode: string | null;
+};
+
+const sessions = new Map<string, DictationSessionRecord>();
+
+export function _resetDictationSessionsForTests(): void {
+  for (const s of sessions.values()) {
+    try {
+      s.transport?.close();
+    } catch {
+      /* ignore */
+    }
+  }
+  sessions.clear();
+}
+
+export function getDictationSession(sessionId: string): DictationSessionRecord | null {
+  return sessions.get(sessionId) ?? null;
+}
+
+function emit(session: DictationSessionRecord, ev: DictationClientEvent): void {
+  for (const l of session.listeners) {
+    try {
+      l(ev);
+    } catch {
+      /* listener isolation */
+    }
+  }
+}
+
+function touch(session: DictationSessionRecord): void {
+  session.lastActivityAtMs = Date.now();
+}
+
+function expireIfNeeded(session: DictationSessionRecord, now = Date.now()): boolean {
+  if (
+    session.status === "cancelled" ||
+    session.status === "completed" ||
+    session.status === "failed" ||
+    session.status === "expired"
+  ) {
+    return false;
+  }
+  const age = now - session.createdAtMs;
+  const idle = now - session.lastActivityAtMs;
+  if (age > session.limits.maxDurationMs || idle > session.limits.maxInactivityMs) {
+    session.status = "expired";
+    try {
+      session.transport?.close();
+    } catch {
+      /* */
+    }
+    session.transport = null;
+    emit(session, { type: "session.expired", sessionId: session.sessionId });
+    return true;
+  }
+  return false;
+}
+
+export async function createDictationSession(input: {
+  pilotId: string;
+  projectId: string;
+  conversationKey: string;
+  baselineDraft: string;
+  insertOffset?: number | null;
+  transportFactory?: RealtimeTransportFactory;
+  limits?: Partial<DictationLimits>;
+  env?: NodeJS.ProcessEnv;
+}): Promise<
+  | { ok: true; session: DictationSessionRecord }
+  | { ok: false; code: string; message: string }
+> {
+  const env = input.env ?? process.env;
+  if (!composerDictationEnabled(env)) {
+    return {
+      ok: false,
+      code: "FLAG_OFF",
+      message: "Composer dictation is not enabled (SFIA_COMPOSER_DICTATION).",
+    };
+  }
+  const lane = (env.STUDIO_LANE || "").trim().toUpperCase();
+  if (lane && lane !== "DEV") {
+    return {
+      ok: false,
+      code: "LANE_REFUSED",
+      message: `Dictation admission refused for lane ${lane}`,
+    };
+  }
+  const apiKey = (env.OPENAI_API_KEY || "").trim();
+  const factory = input.transportFactory;
+  if (!factory && !apiKey) {
+    return {
+      ok: false,
+      code: "NO_PROVIDER_KEY",
+      message: "OpenAI API key unavailable for transcription session.",
+    };
+  }
+
+  const limits = { ...DEFAULT_DICTATION_LIMITS, ...input.limits };
+  let openCount = 0;
+  for (const s of sessions.values()) {
+    if (
+      s.pilotId === input.pilotId &&
+      (s.status === "pending" || s.status === "open" || s.status === "finalizing")
+    ) {
+      openCount += 1;
+    }
+  }
+  if (openCount >= limits.maxConcurrentSessionsPerPilot) {
+    return {
+      ok: false,
+      code: "CONCURRENCY_LIMIT",
+      message: "A dictation session is already active.",
+    };
+  }
+
+  const sessionId = randomUUID();
+  const emissionAttemptId = randomUUID();
+  const now = Date.now();
+  const record: DictationSessionRecord = {
+    sessionId,
+    schema: COMPOSER_DICTATION_SCHEMA,
+    pilotId: input.pilotId,
+    projectId: input.projectId,
+    conversationKey: input.conversationKey,
+    status: "pending",
+    modelRequested: COMPOSER_DICTATION_MODEL,
+    modelApplied: null,
+    createdAtMs: now,
+    lastActivityAtMs: now,
+    pcmBytes: 0,
+    draft: createDictationDraftSnapshot({
+      baselineDraft: input.baselineDraft,
+      insertOffset: input.insertOffset,
+    }),
+    emissionAttemptId,
+    finopsRecorded: false,
+    listeners: new Set(),
+    transport: null,
+    pendingItemId: null,
+    limits,
+    errorCode: null,
+  };
+  sessions.set(sessionId, record);
+  emit(record, {
+    type: "session.created",
+    sessionId,
+    model: COMPOSER_DICTATION_MODEL,
+  });
+
+  try {
+    const transport = factory
+      ? await factory({
+          sessionId,
+          model: COMPOSER_DICTATION_MODEL,
+          apiKey: apiKey || "test-key",
+        })
+      : await openOpenAiTranscriptionTransport({
+          sessionId,
+          model: COMPOSER_DICTATION_MODEL,
+          apiKey,
+        });
+    record.transport = transport;
+    transport.onEvent((event) => handleProviderEvent(record, event));
+    transport.send({
+      type: "session.update",
+      session: {
+        type: "transcription",
+        audio: {
+          input: {
+            format: { type: "audio/pcm", rate: COMPOSER_DICTATION_PCM_RATE },
+            transcription: {
+              model: COMPOSER_DICTATION_MODEL,
+              language: "fr",
+              prompt: DICTATION_VOCAB_HINT,
+            },
+            turn_detection: null,
+          },
+        },
+      },
+    });
+    record.status = "open";
+    record.modelApplied = COMPOSER_DICTATION_MODEL;
+    emit(record, { type: "session.open", sessionId });
+    return { ok: true, session: record };
+  } catch (e) {
+    record.status = "failed";
+    record.errorCode = "TRANSPORT_OPEN_FAILED";
+    const message = e instanceof Error ? e.message.slice(0, 240) : "TRANSPORT_OPEN_FAILED";
+    emit(record, {
+      type: "session.error",
+      sessionId,
+      code: "TRANSPORT_OPEN_FAILED",
+      message,
+    });
+    return { ok: false, code: "TRANSPORT_OPEN_FAILED", message };
+  }
+}
+
+function handleProviderEvent(
+  session: DictationSessionRecord,
+  event: Record<string, unknown>,
+): void {
+  if (expireIfNeeded(session)) return;
+  const type = String(event.type || "");
+  touch(session);
+
+  if (type === "input_audio_buffer.committed") {
+    const itemId = String(event.item_id || "");
+    if (itemId) session.pendingItemId = itemId;
+    return;
+  }
+  if (type === "conversation.item.input_audio_transcription.delta") {
+    const itemId = String(event.item_id || session.pendingItemId || "");
+    const delta = String(event.delta || "");
+    if (!itemId || !delta) return;
+    if (
+      session.status === "cancelled" ||
+      session.status === "completed" ||
+      session.status === "failed" ||
+      session.status === "expired"
+    ) {
+      return;
+    }
+    session.draft = applyTranscriptDelta(session.draft, itemId, delta);
+    emit(session, {
+      type: "transcript.delta",
+      sessionId: session.sessionId,
+      itemId,
+      delta,
+    });
+    return;
+  }
+  if (type === "conversation.item.input_audio_transcription.completed") {
+    const itemId = String(event.item_id || "");
+    const transcript = String(event.transcript || "");
+    if (!itemId) return;
+    if (
+      session.status === "cancelled" ||
+      session.status === "completed" ||
+      session.status === "failed" ||
+      session.status === "expired"
+    ) {
+      return;
+    }
+    session.draft = applyTranscriptCompleted(session.draft, itemId, transcript);
+    emit(session, {
+      type: "transcript.completed",
+      sessionId: session.sessionId,
+      itemId,
+      transcript,
+    });
+    if (session.status === "finalizing") {
+      maybeCompleteFinalization(session);
+    }
+    return;
+  }
+  if (type === "error" || type === "conversation.item.input_audio_transcription.failed") {
+    session.status = "failed";
+    session.errorCode = "PROVIDER_ERROR";
+    emit(session, {
+      type: "session.error",
+      sessionId: session.sessionId,
+      code: "PROVIDER_ERROR",
+      message: String(event.error ?? event.message ?? "transcription failed").slice(0, 240),
+    });
+    try {
+      session.transport?.close();
+    } catch {
+      /* */
+    }
+    session.transport = null;
+  }
+}
+
+function maybeCompleteFinalization(session: DictationSessionRecord): void {
+  const transcript = assembleDictationTranscript(session.draft);
+  // Prefer completed items; if still provisional after commit, mark partial.
+  const hasFinal = Object.keys(session.draft.finalByItem).length > 0;
+  const hasProv = Object.keys(session.draft.provisionalByItem).length > 0;
+  if (!hasFinal && hasProv) {
+    // Still waiting — finalize timeout owns partial completion.
+    return;
+  }
+  session.status = "completed";
+  const merged = mergeDictationIntoDraft(
+    session.draft,
+    hasFinal ? "finalize" : "partial",
+  );
+  emit(session, {
+    type: "session.finalized",
+    sessionId: session.sessionId,
+    transcript: merged.transcript || transcript,
+    partial: !hasFinal,
+  });
+  try {
+    session.transport?.close();
+  } catch {
+    /* */
+  }
+  session.transport = null;
+  void recordDictationFinops(session, "succeeded");
+}
+
+export function appendDictationAudio(input: {
+  sessionId: string;
+  pilotId: string;
+  projectId: string;
+  pcmBase64: string;
+}): { ok: true } | { ok: false; code: string } {
+  const session = sessions.get(input.sessionId);
+  if (!session) return { ok: false, code: "NOT_FOUND" };
+  if (session.pilotId !== input.pilotId || session.projectId !== input.projectId) {
+    return { ok: false, code: "FORBIDDEN" };
+  }
+  if (expireIfNeeded(session)) return { ok: false, code: "EXPIRED" };
+  if (session.status !== "open") return { ok: false, code: "NOT_OPEN" };
+  const raw = Buffer.from(input.pcmBase64, "base64");
+  if (raw.length === 0 || raw.length % 2 !== 0) {
+    return { ok: false, code: "INVALID_PCM" };
+  }
+  if (session.pcmBytes + raw.length > session.limits.maxPcmBytes) {
+    return { ok: false, code: "BUFFER_LIMIT" };
+  }
+  session.pcmBytes += raw.length;
+  touch(session);
+  session.transport?.send({
+    type: "input_audio_buffer.append",
+    audio: input.pcmBase64,
+  });
+  return { ok: true };
+}
+
+export function setDictationHidden(input: {
+  sessionId: string;
+  pilotId: string;
+  hidden: boolean;
+}): { ok: true; textHidden: boolean } | { ok: false; code: string } {
+  const session = sessions.get(input.sessionId);
+  if (!session) return { ok: false, code: "NOT_FOUND" };
+  if (session.pilotId !== input.pilotId) return { ok: false, code: "FORBIDDEN" };
+  session.draft = { ...session.draft, textHidden: input.hidden };
+  return { ok: true, textHidden: session.draft.textHidden };
+}
+
+export async function finalizeDictationSession(input: {
+  sessionId: string;
+  pilotId: string;
+  projectId: string;
+}): Promise<
+  | { ok: true; draft: string; transcript: string; partial: boolean }
+  | { ok: false; code: string; draft?: string }
+> {
+  const session = sessions.get(input.sessionId);
+  if (!session) return { ok: false, code: "NOT_FOUND" };
+  if (session.pilotId !== input.pilotId || session.projectId !== input.projectId) {
+    return { ok: false, code: "FORBIDDEN" };
+  }
+  if (
+    session.status === "cancelled" ||
+    session.status === "completed" ||
+    session.status === "failed" ||
+    session.status === "expired"
+  ) {
+    const merged = mergeDictationIntoDraft(session.draft, "finalize");
+    return {
+      ok: session.status === "completed",
+      code: session.status.toUpperCase(),
+      draft: merged.draft,
+    } as { ok: false; code: string; draft: string };
+  }
+  session.status = "finalizing";
+  touch(session);
+  try {
+    session.transport?.send({ type: "input_audio_buffer.commit" });
+  } catch {
+    /* */
+  }
+
+  const result = await waitForFinalization(session);
+  const merged = mergeDictationIntoDraft(
+    session.draft,
+    result.partial ? "partial" : "finalize",
+  );
+  const statusNow = session.status as DictationSessionStatus;
+  if (statusNow !== "completed" && statusNow !== "failed") {
+    session.status = "completed";
+    emit(session, {
+      type: "session.finalized",
+      sessionId: session.sessionId,
+      transcript: merged.transcript,
+      partial: result.partial,
+    });
+    try {
+      session.transport?.close();
+    } catch {
+      /* */
+    }
+    session.transport = null;
+    void recordDictationFinops(session, result.partial ? "partial" : "succeeded");
+  }
+  return {
+    ok: true,
+    draft: merged.draft,
+    transcript: merged.transcript,
+    partial: result.partial,
+  };
+}
+
+function waitForFinalization(
+  session: DictationSessionRecord,
+): Promise<{ partial: boolean }> {
+  return new Promise((resolve) => {
+    const timeout = setTimeout(() => {
+      cleanup();
+      resolve({ partial: true });
+    }, session.limits.finalizeTimeoutMs);
+
+    const onEv = (ev: DictationClientEvent) => {
+      if (ev.type === "session.finalized") {
+        cleanup();
+        resolve({ partial: ev.partial });
+      }
+      if (ev.type === "session.error" || ev.type === "session.expired") {
+        cleanup();
+        resolve({ partial: true });
+      }
+    };
+    const cleanup = () => {
+      clearTimeout(timeout);
+      session.listeners.delete(onEv);
+    };
+    session.listeners.add(onEv);
+    // If already completed via provider events:
+    if (Object.keys(session.draft.finalByItem).length > 0) {
+      maybeCompleteFinalization(session);
+    }
+  });
+}
+
+export function cancelDictationSession(input: {
+  sessionId: string;
+  pilotId: string;
+  projectId: string;
+}): { ok: true; draft: string } | { ok: false; code: string } {
+  const session = sessions.get(input.sessionId);
+  if (!session) return { ok: false, code: "NOT_FOUND" };
+  if (session.pilotId !== input.pilotId || session.projectId !== input.projectId) {
+    return { ok: false, code: "FORBIDDEN" };
+  }
+  session.status = "cancelled";
+  try {
+    session.transport?.close();
+  } catch {
+    /* */
+  }
+  session.transport = null;
+  const merged = mergeDictationIntoDraft(session.draft, "cancel");
+  emit(session, { type: "session.cancelled", sessionId: session.sessionId });
+  void recordDictationFinops(session, "cancelled");
+  return { ok: true, draft: merged.draft };
+}
+
+export function subscribeDictationSession(
+  sessionId: string,
+  pilotId: string,
+  listener: (ev: DictationClientEvent) => void,
+): (() => void) | null {
+  const session = sessions.get(sessionId);
+  if (!session || session.pilotId !== pilotId) return null;
+  session.listeners.add(listener);
+  return () => session.listeners.delete(listener);
+}
+
+async function recordDictationFinops(
+  session: DictationSessionRecord,
+  status: "succeeded" | "cancelled" | "partial" | "failed",
+): Promise<void> {
+  if (session.finopsRecorded) return;
+  session.finopsRecorded = true;
+  try {
+    const { recordProviderUsageObservation, buildIdempotencyKey } = await import(
+      "@/domains/conversation/usage-accounting"
+    );
+    const durationMs = Math.max(0, Date.now() - session.createdAtMs);
+    const durationMinutes = durationMs / 60_000;
+    // Public tariff verified at cadrage: 0.017 USD/min — estimate only.
+    const estimatedUsd =
+      status === "cancelled" && session.pcmBytes === 0
+        ? null
+        : Math.round(durationMinutes * 0.017 * 1_000_000) / 1_000_000;
+    await recordProviderUsageObservation({
+      operation: "audio.composer_dictation",
+      modelRequested: session.modelRequested,
+      modelApplied: session.modelApplied,
+      inputTokens: null,
+      outputTokens: null,
+      status: status === "failed" ? "failed" : "succeeded",
+      granularity: "REQUEST",
+      costCoverage: estimatedUsd == null ? "UNKNOWN" : "PARTIAL",
+      projectId: session.projectId,
+      ownerPilotId: session.pilotId,
+      estimatedCostUsd: estimatedUsd,
+      idempotencyKey: buildIdempotencyKey({
+        granularity: "REQUEST",
+        lane: process.env.STUDIO_LANE || "DEV",
+        operation: "audio.composer_dictation",
+        projectId: session.projectId,
+        attemptId: session.emissionAttemptId,
+        callOrdinal: 0,
+      }),
+      limits: [
+        "NO_DURABLE_AUDIO",
+        "NO_D3_BEFORE_SEND",
+        "TRANSCRIPTION_ONLY",
+        `DURATION_MS_${durationMs}`,
+        `PCM_BYTES_${session.pcmBytes}`,
+        `STATUS_${status}`,
+        "TARIFF_GPT_LIVE_TRANSCRIBE_ESTIMATED",
+      ],
+    });
+  } catch {
+    /* best-effort */
+  }
+}
+
+async function openOpenAiTranscriptionTransport(input: {
+  sessionId: string;
+  model: string;
+  apiKey: string;
+}): Promise<RealtimeTransport> {
+  const { default: WebSocket } = await import("ws");
+  const url = "wss://api.openai.com/v1/realtime?intent=transcription";
+  const ws = new WebSocket(url, {
+    headers: {
+      Authorization: `Bearer ${input.apiKey}`,
+      "OpenAI-Beta": "realtime=v1",
+    },
+  });
+  await new Promise<void>((resolve, reject) => {
+    const t = setTimeout(() => reject(new Error("REALTIME_OPEN_TIMEOUT")), 15_000);
+    ws.once("open", () => {
+      clearTimeout(t);
+      resolve();
+    });
+    ws.once("error", (err) => {
+      clearTimeout(t);
+      reject(err);
+    });
+  });
+  let handler: ((event: Record<string, unknown>) => void) | null = null;
+  ws.on("message", (data) => {
+    try {
+      const parsed = JSON.parse(String(data)) as Record<string, unknown>;
+      handler?.(parsed);
+    } catch {
+      /* ignore malformed */
+    }
+  });
+  return {
+    send: (payload) => {
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify(payload));
+      }
+    },
+    close: () => {
+      try {
+        ws.close();
+      } catch {
+        /* */
+      }
+    },
+    onEvent: (h) => {
+      handler = h;
+    },
+  };
+}

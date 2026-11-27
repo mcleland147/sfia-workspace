@@ -536,6 +536,127 @@
   margin-bottom: 2px;
 }
 
+/* ML3 — composer dictation (mic left of Envoyer; tokens align with composer). */
+.fig-dictation {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.fig-travail-composer-mic {
+  width: 35px;
+  height: 35px;
+  border: 1px solid #272e49;
+  border-radius: 10px;
+  background: #1a2233;
+  color: #94a2bb;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fig-travail-composer-mic:hover:not(:disabled) {
+  color: #f4f6fc;
+  border-color: #656fe1;
+}
+
+.fig-travail-composer-mic:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.fig-travail-composer-mic:focus-visible {
+  outline: 2px solid var(--fig-accent);
+  outline-offset: 2px;
+}
+
+.fig-travail-composer-mic[aria-pressed="true"] {
+  color: #f4f6fc;
+  border-color: #656fe1;
+  background: #232b44;
+}
+
+.fig-dictation-active {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  width: min(320px, 70vw);
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #272e49;
+  background: #151c29;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  z-index: 20;
+}
+
+.fig-dictation-wave {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 28px;
+  margin-bottom: 8px;
+}
+
+.fig-dictation-bar {
+  display: inline-block;
+  width: 3px;
+  height: 100%;
+  border-radius: 2px;
+  background: #656fe1;
+  transform-origin: bottom center;
+  transition: transform 80ms linear;
+}
+
+.fig-dictation-provisional {
+  margin: 0 0 8px;
+  color: #c5cee0;
+  font-size: 11px;
+  line-height: 1.4;
+  max-height: 4.5em;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+.fig-dictation-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.fig-dictation-toggle-text,
+.fig-dictation-stop,
+.fig-dictation-cancel {
+  border: 1px solid #272e49;
+  border-radius: 8px;
+  background: #1a2233;
+  color: #f4f6fc;
+  font-size: 11px;
+  line-height: 1.2;
+  padding: 5px 8px;
+  cursor: pointer;
+}
+
+.fig-dictation-stop {
+  background: #656fe1;
+  border-color: #656fe1;
+}
+
+.fig-dictation-error {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 6px);
+  margin: 0;
+  max-width: 220px;
+  color: #f0a8a8;
+  font-size: 11px;
+  line-height: 1.3;
+}
+
 /* Ensemble 05 — choices, activity, viewer */
 .fig-nora-choices {
   display: flex;

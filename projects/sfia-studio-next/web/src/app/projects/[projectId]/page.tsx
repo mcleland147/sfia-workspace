@@ -3170,6 +3170,7 @@ export default function ProjectPage() {
             setDraft(v);
             persistDraft(v);
           }}
+          projectId={params.projectId}
           dossierAttachment={dossierAttachment}
           onRemoveDossierAttachment={() => setDossierAttachment(null)}
           onSend={() => void sendMessage()}
