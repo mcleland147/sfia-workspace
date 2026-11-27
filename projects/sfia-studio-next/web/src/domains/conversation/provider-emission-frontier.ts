@@ -1536,7 +1536,13 @@ export function reserveHttpEmission(input: {
       };
     }
   }
-  if (
+  // Output reservation ceiling applies to Responses generations only.
+  // Embeddings / decisions / files / VS have no meaningful output-token wire
+  // ceiling — applying maxOutputTokensPerRequest here inflated campaign
+  // committed tokens (FINAL LIVE +40 960 on 5 non-measured commits).
+  if (!isResponsesGeneration) {
+    reservedOutput = reservedOutput ?? 0;
+  } else if (
     reservedOutput == null &&
     (campaign.maxOutputTokens != null ||
       campaign.maxOutputTokensPerRequest != null)
@@ -2261,6 +2267,8 @@ export function createFrontierAwareFetch(
         hostedSearchDelta > 0 ? "RESERVED_ONLY" : "UNKNOWN";
       let hostedLimits: string[] = [];
       let responseId: string | null = null;
+      let measuredInputTokens: number | null = null;
+      let measuredOutputTokens: number | null = null;
       if (res.ok && isResponsesCreateUrl(url)) {
         const ct = (res.headers.get("content-type") ?? "").toLowerCase();
         const isEventStream =
@@ -2286,6 +2294,8 @@ export function createFrontierAwareFetch(
             const parsed = (await res.clone().json()) as unknown;
             const native = extractResponseNativeUsage(parsed);
             responseId = native.responseId;
+            measuredInputTokens = native.inputTokens;
+            measuredOutputTokens = native.outputTokens;
             const reconciled = reconcileHostedSearchUsage({
               reservedMaxToolCalls: hostedSearchDelta,
               observed: native.hostedWebSearch,
@@ -2339,6 +2349,31 @@ export function createFrontierAwareFetch(
             }
           }
         }
+      } else if (res.ok) {
+        // Non-Responses families (embeddings/decisions/files/VS): parse usage when present.
+        try {
+          const parsed = (await res.clone().json()) as unknown;
+          const native = extractResponseNativeUsage(parsed);
+          if (native.inputTokens != null) measuredInputTokens = native.inputTokens;
+          if (native.outputTokens != null) measuredOutputTokens = native.outputTokens;
+          // Embeddings often expose usage.total_tokens only.
+          if (
+            measuredInputTokens == null &&
+            typeof (parsed as { usage?: { total_tokens?: number } })?.usage
+              ?.total_tokens === "number"
+          ) {
+            measuredInputTokens = Math.max(
+              0,
+              Math.floor(
+                (parsed as { usage: { total_tokens: number } }).usage
+                  .total_tokens,
+              ),
+            );
+            measuredOutputTokens = 0;
+          }
+        } catch {
+          /* measured stays null → commit falls back to reserved */
+        }
       }
       // Envelope pressure: max_tool_calls bound is consumed even when billable
       // num_requests is UNKNOWN — never claim ASSUMED_1 as a billable guarantee.
@@ -2354,6 +2389,8 @@ export function createFrontierAwareFetch(
         reservedSlots: reservation.reservedSlots,
         reservedInputTokens: reservation.reservedInputTokens,
         reservedOutputTokens: reservation.reservedOutputTokens,
+        measuredInputTokens,
+        measuredOutputTokens,
         hostedSearchDelta: envelopeHostedDelta,
       });
       if (alsStore.captureHttpMeta || alsStore.responseUsageObserved) {

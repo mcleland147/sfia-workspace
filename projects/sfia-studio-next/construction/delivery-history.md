@@ -3,6 +3,16 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML1-ML2-CONSOLIDATION-FOLLOWUP
+
+- **date_utc**: 2026-11-27T07:56Z
+- **lane**: DEV — follow-up P0/P1 from completeness + incident analyses
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_entrée**: `8a6eef97`
+- **corrections**: JOURNAL-PG-01 · FRONTIER-MEAS-01 · FINOPS-ML2-01
+- **tests**: journal-hybrid + frontier + judgment units PASS
+- **statut**: consolidation engineering gaps closed · RECETTE backlog unchanged · no LIVE
+
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML1-ML2-CONSOLIDATION
 
 - **date_utc**: 2026-11-27T07:55Z

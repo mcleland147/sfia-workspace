@@ -71,7 +71,33 @@ export async function embedQueryText(
   });
   const vector = res.data[0]?.embedding;
   if (!vector?.length) return null;
-  return { vector, tokens: res.usage?.total_tokens ?? 0 };
+  const tokens = res.usage?.total_tokens ?? 0;
+  try {
+    const { recordProviderUsageObservation, buildIdempotencyKey } = await import(
+      "@/domains/conversation/usage-accounting"
+    );
+    const fp = contentFingerprint(q).slice(0, 12);
+    await recordProviderUsageObservation({
+      operation: "embeddings.derived_query",
+      modelRequested: DERIVED_EMBEDDING_MODEL,
+      modelApplied: DERIVED_EMBEDDING_MODEL,
+      inputTokens: tokens || null,
+      outputTokens: 0,
+      status: "succeeded",
+      granularity: "REQUEST",
+      costCoverage: "PARTIAL",
+      idempotencyKey: buildIdempotencyKey({
+        granularity: "REQUEST",
+        lane: process.env.STUDIO_LANE || "DEV",
+        operation: "embeddings.derived_query",
+        callOrdinal: Number.parseInt(fp.slice(0, 8), 16) % 100000,
+      }),
+      limits: ["DERIVED_QUERY_EMBED", "EMBEDDING_TARIFF_PARTIAL", `FP_${fp}`],
+    });
+  } catch {
+    /* FinOps best-effort */
+  }
+  return { vector, tokens };
 }
 
 export function collectAdmissibleKnowledgeSources(bundle: Awaited<

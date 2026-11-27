@@ -978,10 +978,11 @@ export async function searchJournalSubjects(
 
   const lexicalResults = hits.slice(0, limit);
 
-  // ML2 E: optional derived-embedding channel — never replaces lexical; filters apply.
+  // ML2 E: hybrid via product service (PG semanticHits + rights/fp). Never bare
+  // mergeLexicalAndDerived({ queryVector }) — that yields SEMANTIC_HITS_REQUIRED_FOR_PG.
   if (opts?.queryVector && opts.queryVector.length > 0) {
-    const { mergeLexicalAndDerived } = await import(
-      "@/domains/knowledge/hybrid-knowledge-search"
+    const { hybridSearchProjectKnowledge } = await import(
+      "@/domains/knowledge/derived-embedding-service"
     );
     const lexical = lexicalResults.map((h) => ({
       sourceId: h.subjectId,
@@ -990,14 +991,23 @@ export async function searchJournalSubjects(
       matchKind: h.matchKind,
       channel: "lexical" as const,
     }));
-    const snippets = new Map<string, string>();
-    for (const h of lexicalResults) snippets.set(h.subjectId, h.snippet);
-    const merged = mergeLexicalAndDerived({
+    // Client stub: reuse precomputed queryVector — avoid a second embeddings HTTP.
+    const stubClient = {
+      embeddings: {
+        create: async () => ({
+          data: [{ embedding: opts.queryVector as number[] }],
+          usage: { total_tokens: 0 },
+        }),
+      },
+    };
+    const merged = await hybridSearchProjectKnowledge({
+      pilotId,
       projectId,
+      query,
       lexical,
-      queryVector: opts.queryVector,
       limit,
-      snippets,
+      client: stubClient,
+      openPointsOnly: opts.openPointsOnly,
     });
     return {
       status: "AVAILABLE" as const,
@@ -1005,7 +1015,7 @@ export async function searchJournalSubjects(
         subjectId: h.sourceId,
         title: h.title ?? h.sourceId,
         path: subjectPathTitles(h.sourceId, byId),
-        matchKind: h.matchKind as Hit["matchKind"],
+        matchKind: (h.matchKind as Hit["matchKind"]) ?? "acquis",
         snippet: h.snippet,
         channel: h.channel,
         score: h.score,
@@ -1015,6 +1025,7 @@ export async function searchJournalSubjects(
         merged.hits.length === 0 ? ("NONE" as const) : ("PARTIAL" as const),
       derivedUsed: merged.derivedUsed,
       derivedSkippedReason: merged.derivedSkippedReason,
+      rightsRevalidated: merged.rightsRevalidated,
     };
   }
 

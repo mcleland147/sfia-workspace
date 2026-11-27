@@ -379,6 +379,7 @@ export async function runBoundedJudgment(input: {
         kind: req.kind,
       })
     ) {
+      await recordBoundedJudgmentFinops(decisionsResult);
       return decisionsResult;
     }
   } catch (e) {
@@ -477,7 +478,7 @@ For predicate, value must be boolean true/false — never the strings "true"/"fa
         },
       };
     }
-    return {
+    const fallbackResult: BoundedJudgmentResult = {
       schema: BOUNDED_JUDGMENT_SCHEMA,
       name: req.name,
       kind: req.kind,
@@ -495,6 +496,8 @@ For predicate, value must be boolean true/false — never the strings "true"/"fa
         model: input.modelResponses ?? "gpt-6-luna",
       },
     };
+    await recordBoundedJudgmentFinops(fallbackResult);
+    return fallbackResult;
   } catch (e) {
     return {
       schema: BOUNDED_JUDGMENT_SCHEMA,
@@ -507,6 +510,45 @@ For predicate, value must be boolean true/false — never the strings "true"/"fa
       abstain: true,
       reason: e instanceof Error ? e.message.slice(0, 200) : "FALLBACK_ERROR",
     };
+  }
+}
+
+async function recordBoundedJudgmentFinops(
+  result: BoundedJudgmentResult,
+): Promise<void> {
+  try {
+    const { recordProviderUsageObservation, buildIdempotencyKey } = await import(
+      "@/domains/conversation/usage-accounting"
+    );
+    await recordProviderUsageObservation({
+      operation:
+        result.source === "decisions"
+          ? "bounded_judgment.decisions"
+          : "bounded_judgment.responses_fallback",
+      modelRequested: result.usage?.model ?? null,
+      modelApplied: result.usage?.model ?? null,
+      inputTokens: result.usage?.inputTokens ?? null,
+      outputTokens: result.usage?.outputTokens ?? null,
+      status: "succeeded",
+      granularity: "REQUEST",
+      costCoverage: "PARTIAL",
+      idempotencyKey: buildIdempotencyKey({
+        granularity: "REQUEST",
+        lane: process.env.STUDIO_LANE || "DEV",
+        operation: `bounded_judgment.${result.source}`,
+        callOrdinal:
+          Number.parseInt(
+            createHash("sha256")
+              .update(`${result.name}:${result.source}`)
+              .digest("hex")
+              .slice(0, 8),
+            16,
+          ) % 100000,
+      }),
+      limits: ["NOT_D6_HUMAN_DECISION", "BOUNDED_JUDGMENT", result.source],
+    });
+  } catch {
+    /* FinOps best-effort */
   }
 }
 

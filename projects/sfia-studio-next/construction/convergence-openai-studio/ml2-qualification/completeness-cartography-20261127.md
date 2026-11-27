@@ -23,7 +23,10 @@
 | LIFECYCLE-01 | A défaut réel | Rebuild index uniquement via scripts ; capitalize ne faisait que revoke | **Corrigé** : `upsertDerivedAdmissibleSource` + wiring capitalize/openPoint |
 | CONTEXT-01 | B couverture | `selectRelevantKnowledgeContext` sans canal hybrid | **Corrigé** : supplément DERIVED_HIT si flag ON |
 | FINOPS-IDEM-01 | B | `callOrdinal: Date.now()` sur rebuild | **Corrigé** : ordinal stable fingerprint |
-| EXP-TOKENS-01 | E tooling | Campagne LIVE tokens reserved→committed sans mesure | Documenté ; Frontier commentaire clarifié ; **pas** de nouvelle campagne |
+| JOURNAL-PG-01 | A défaut réel | Journal `mergeLexicalAndDerived` sans semanticHits → PG no-op + embed gaspillé | **Corrigé** : `hybridSearchProjectKnowledge` + stub queryVector |
+| FRONTIER-MEAS-01 | A défaut réel | Commit sans measured ; emb réserve maxOutputTokensPerRequest | **Corrigé** : measured pass-through ; output reserve Responses-only |
+| FINOPS-ML2-01 | B | Ledger manquant query/judgment/vision | **Corrigé** : observations best-effort |
+| EXP-TOKENS-01 | E tooling | Campagne LIVE tokens reserved→committed (historique) | Cause produit corrigée ; **pas** de nouvelle campagne |
 | EXP-EMB-FAM-01 | E/D | Famille embeddings 12/12 saturée sous flag search + multi-tool D4 | Limite **expérimentale** ; produit sans campaign familyHttp |
 | F25-REST-01 | F RECETTE | Restitution Nora COMPLETE non obtenue en DEV LIVE | QUALIFICATION RECETTE REQUIRED |
 | TYPECHECK-BASELINE | E | Erreurs tsc historiques hors ML2 | non bloquant delivery ; pas de remédiation générale |

@@ -97,17 +97,42 @@ export async function runDocumentVisionPunctual(input: {
     } catch {
       parsed = null;
     }
+    const usage = {
+      inputTokens: resp.usage?.input_tokens,
+      outputTokens: resp.usage?.output_tokens,
+      model: input.model ?? "gpt-6.1-terra",
+    };
+    try {
+      const { recordProviderUsageObservation, buildIdempotencyKey } =
+        await import("@/domains/conversation/usage-accounting");
+      const fp = visionBytesFingerprint(req.bytes);
+      await recordProviderUsageObservation({
+        operation: "vision.punctual",
+        modelRequested: usage.model,
+        modelApplied: usage.model,
+        inputTokens: usage.inputTokens ?? null,
+        outputTokens: usage.outputTokens ?? null,
+        status: text.trim().length > 0 ? "succeeded" : "failed",
+        granularity: "REQUEST",
+        costCoverage: "PARTIAL",
+        idempotencyKey: buildIdempotencyKey({
+          granularity: "REQUEST",
+          lane: process.env.STUDIO_LANE || "DEV",
+          operation: "vision.punctual",
+          callOrdinal: Number.parseInt(fp.slice(0, 8), 16) % 100000,
+        }),
+        limits: [...limits, `BYTES_FP_${fp}`],
+      });
+    } catch {
+      /* FinOps best-effort */
+    }
     return {
       schema: DOCUMENT_VISION_SCHEMA,
       ok: text.trim().length > 0,
       text,
       parsed,
       limits,
-      usage: {
-        inputTokens: resp.usage?.input_tokens,
-        outputTokens: resp.usage?.output_tokens,
-        model: input.model ?? "gpt-6.1-terra",
-      },
+      usage,
     };
   } catch (e) {
     return {
