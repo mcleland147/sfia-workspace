@@ -4447,3 +4447,24 @@ Cette synchronisation ne modifie ni code ni RECETTE/STABLE, ne clôt pas les ré
 [Journal UAT](./recette-utilisateur-ml5-pilotage-360-20261124.md). C24 DEV build aXcIQCDMIigpelfT-Jvr5 [handoff](https://github.com/mcleland147/sfia-workspace/blob/0ea7e6cff6e2e0d9f705c7c4f4908a1f1dc40c4d/sfia-review-handoff/latest-chatgpt-review.md) ; cutover 8410906d/e0XwSWvjujz-xaHfXsrQK TEST_BOUNDARY FAKE [handoff](https://github.com/mcleland147/sfia-workspace/blob/d165c53076bc69f8c16051226d42df08ed02ff5a/sfia-review-handoff/latest-chatgpt-review.md) ; parité 7f48daa2/_ZDI1cWa1hscluvBhaiA4 OPERATIONAL_PROVISIONAL Cursor LIVE [handoff](https://github.com/mcleland147/sfia-workspace/blob/e497030bde17dd28ed5e17116b398b578d68f2f0/sfia-review-handoff/latest-chatgpt-review.md), 26 projets préservés. S01–18/UAT01–30 : SDK LIVE et rapport reçu, D8 PARTIAL, prototype non réalisé selon rapport, avis LIVE absent, rapport inaccessible Nora. GO documentaire seulement. Entrée de suivi et non livraison technique ; aucune modification code, CI ou candidat servi.
 
 **ML5 PRIMARY FLOW PARTIALLY OBSERVED — BUSINESS END-TO-END NOT ACHIEVED; OPEN / NO RELEASE / NOT ADOPTED.**
+
+
+## Suivi documentaire — DELIV-2026-11-27-ML5-OPENAI-STUDIO-CONVERGENCE-RECETTE-CHECKPOINT
+
+**Nature :** append-only factuel D1, capitalisation ChatGPT sous GO Morris ; pas une nouvelle livraison de code. [Bilan intégré](convergence-openai-studio/bilan-integre-20261127.md), [PV MaintiPlan](recette-utilisateur-ml5-maintiplan-20261127.md), [manifeste](ml5-recette-cutover-manifest-20261127.md), [cahier](cahier-recette-integree-ml5-convergence-20261127.md).
+
+| Étape historique | HEAD local rapporté | Handoff distant immuable |
+|---|---|---|
+| ML1 socle accepté DEV avec réserves | 4a4ff3f1 | [8e1d82dc](https://github.com/mcleland147/sfia-workspace/blob/8e1d82dc119e63ec326b1d708c66522b5faf6d83/sfia-review-handoff/latest-chatgpt-review.md) |
+| ML2 étude comparative | e784232b | [64977d30](https://github.com/mcleland147/sfia-workspace/blob/64977d300f3322f67e5320f06f30a83f2638d691/sfia-review-handoff/latest-chatgpt-review.md) |
+| ML2 consolidation PG/Frontier | 66650834 | [f992d73f](https://github.com/mcleland147/sfia-workspace/blob/f992d73f8514d282cd63565c9c3e33204ced04a5/sfia-review-handoff/latest-chatgpt-review.md) |
+| ML3 audio + résiduels ML2 | 87ce2c51 | [48971173](https://github.com/mcleland147/sfia-workspace/blob/4897117348a18656c0bc28b8db920aca7378d715/sfia-review-handoff/latest-chatgpt-review.md) |
+| Finalisation intégrée | 9c2afa5e | [dbe155cf](https://github.com/mcleland147/sfia-workspace/blob/dbe155cf18a4bc73a3f6390fddb3fd1a8eb0b438/sfia-review-handoff/latest-chatgpt-review.md) |
+| Correctifs intégration | f0c905e7 | [5bd6bb28](https://github.com/mcleland147/sfia-workspace/blob/5bd6bb2821f2bfa4688b6d8038ab9dfc7ef4385f/sfia-review-handoff/latest-chatgpt-review.md) |
+| Nominal dictée (substitué) | 8e54d7fe | [a1cc1452](https://github.com/mcleland147/sfia-workspace/blob/a1cc1452961dadf166795e158915308dccab2673/sfia-review-handoff/latest-chatgpt-review.md) |
+| Cutover (022–027, données conservées) | e8e6e069 ; docs 05e53f62 | [81addad7](https://github.com/mcleland147/sfia-workspace/blob/81addad74818e1e23006125ab4f19f020a9c5f36/sfia-review-handoff/latest-chatgpt-review.md) |
+| Activation A1–A6 | candidat identique ; docs 58ca9486 | [9ec930e2](https://github.com/mcleland147/sfia-workspace/blob/9ec930e2cbee09f1fcc3384753eafbf64d97251c/sfia-review-handoff/latest-chatgpt-review.md) |
+
+Candidat RECETTE e8e6e069 / BUILD rpEczSp61evIZ7d6fnIWR / digest 18e014c1ead6e050cf1aca4e4910dd8904722bd3e0e7753d25b189c03fd50535 / PG027. Ancien réellement servi a150926c et non 2a024b1c. Activation index 10 chunks, 341 tokens/2 HTTP ; Admin/WEB OFF. Rotation PG, localhost trust et mapping OpenAI non vérifié. Les commits locaux ne sont pas certifiés à distance ; les Handoffs sont sources de provenance, non substituts au code.
+
+**UAT MaintiPlan :** T01–08 observés ; création projet/cycle simple/V1/Git et navigation positives, dictée LIVE FAIL, MP-01–17 OPEN, T08 Sol medium 909844 tokens/40 requêtes/6 segments/1,05 USD estimé/~15 min, allocation adaptative non démontrée. Morris suspend et demande diagnostic/corrections, T09 NON ENVOYÉ. Aucune nouvelle livraison ni modification runtime dans ce commit. R5 IN PROGRESS / ML5 OPEN / LIVRAISON 1 NOT ACCEPTED / R6 NOT STARTED / NO RELEASE / STABLE NOT AVAILABLE / NOT ADOPTED.

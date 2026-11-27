@@ -1,5 +1,7 @@
 # SFIA Studio Next — Contrat d'acceptation intégré : cognition et réalisation gouvernée
 
+> **Checkpoint factuel 27/11 — recette MaintiPlan suspendue après T08 :** [PV et couverture R01–R08](recette-utilisateur-ml5-maintiplan-20261127.md), [bilan convergence](convergence-openai-studio/bilan-integre-20261127.md). CA-01/03/09/10 partiels ; CA-02 WEB OFF, CA-04–08 réalisation non exercée dans MaintiPlan. 17 MP ouverts ; la V1 nominale et investigation Git ne démontrent ni D7/D8 ni tous les 99 IDs/T/Q/PF. Les critères et réserves précédents restent inchangés. Aucun GO exécution, R6, acceptation ou ADOPTED.
+
 > **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](./recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
 
 
