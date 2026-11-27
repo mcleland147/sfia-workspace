@@ -3,7 +3,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date / version | 27 novembre 2026 — v0.12, publication Option B et revue de réconciliation E2 |
+| Date / version | 27 novembre 2026 — v0.13, GO Morris mandat intégré E2 résiduel + E3 |
 | Nature | Suivi opérationnel documentaire D1, non normatif, non mergé ; ne remplace ni Roadmap, ni registre de couverture ML5, ni Delivery History, ni contrats |
 | Mandat | GO explicite Morris du 27/11 pour créer ce document sur Git et le maintenir à chaque revue Cursor ; cinq ensembles et revues intermédiaires approuvés |
 | Autorités | Morris arbitre les réserves et gates ; ChatGPT tient ce suivi et revoit ; Cursor construit et fournit les preuves |
@@ -11,7 +11,7 @@
 | Git | main `997897fd7cf914771e7d08e8030dc7123fab7d25` ; branche documentaire candidate `docs/next-openai-studio-convergence-20261126`, base avant création `f6cfd5ac01f848f6708501e1a390f37243721ab9` |
 | DEV | Branche `sfia/next-ml5-integrated-delivery-20261123` publiée @ `3fe91745fc58ba6bf3e1d9d1cbc4dd427bbd1f51`, tree `9468026544719c877e74626040d1832a4b914f97` vérifiés ; état local NON OBSERVÉ (delta réconciliation et tmp dirty rapportés) ; :3100 / PG :5433 rapportés |
 | RECETTE protégée | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` / BUILD `rpEczSp61evIZ7d6fnIWR` / PG :5434 schéma 027, :3200 ; MaintiPlan suspendu après T08 ; WEB et Admin OFF |
-| Gate courant | Sortie construction E1 VALIDÉE MORRIS avec reports de preuves et reliquats affectés (§11) ; E2 revu — acquis DET ciblés, contrôles C02/FinOps favorables ; option B de conduite D3 VALIDÉE MORRIS et IMPLEMENTED + DET ciblé (§17–18) ; architecture Option B achevée ; sortie E2 conditionnée au raccordement lecture/reprise des états D4 et à l'arbitrage des réserves §19 ; gate E3 non acquis. GO ponctuel snapshot consommé ; aucun nouveau GO commit/push projet, LIVE, cutover, PR, merge ou adoption. NOT READY pour qualification LIVE globale |
+| Gate courant | Sortie construction E1 VALIDÉE MORRIS avec reports de preuves et reliquats affectés (§11) ; E2 revu — acquis DET ciblés, contrôles C02/FinOps favorables ; option B de conduite D3 VALIDÉE MORRIS et IMPLEMENTED + DET ciblé (§17–18) ; architecture Option B achevée ; sortie E2 conditionnée au raccordement lecture/reprise des états D4 et à l'arbitrage des réserves §19 ; GO construction E3 concomitante (§20), gates de sortie E2/E3 distincts non acquis. GO ponctuel snapshot consommé ; aucun nouveau GO commit/push projet, LIVE, cutover, PR, merge ou adoption. NOT READY pour qualification LIVE globale |
 
 ## 1. Objectif et sources
 
@@ -35,7 +35,7 @@ Les états ci-dessous sont des états de suivi, non des statuts de maturité SEF
 | --- | --- | --- | --- |
 | E1 Continuité cognitive et fonctionnelle | B.1–B.8 ; D3/D4/D5/D6, données/projections ; Journal et réutilisation | SORTIE CONSTRUCTION VALIDÉE MORRIS AVEC RÉSERVES | §10–11 ; reports recette acceptés, reliquats E2/E3/E5 suivis ; aucune clôture RECETTE |
 | E2 Garanties cognitives résiduelles | A.1–A.7, intégration multi-intentions, reprise, recherche hybride, OBS/FinOps | REVU — Option B publiée, construction architecturale achevée, DET ciblé favorable | §19 ; raccordement lecture/reprise D4 et réserves bornées ; gate Morris distinct |
-| E3 Conformité UX et panneau droit | D.1–D.6 ; projections et accès directs ; Figma | À FAIRE | Données E1, états E2 ; navigateur réel DEV simulé fournisseur |
+| E3 Conformité UX et panneau droit | D.1–D.6 ; projections et accès directs ; Figma | GO MORRIS — construction concomitante E2 résiduel | §20 ; dépendance D.3 aux états E2, intégrateur unique et preuve navigateur |
 | E4 Audio et compositeur | C.1–C.5 | À FAIRE | Interfaces E2/E3 ; transport et robustesse DET ; dictée LIVE gate |
 | E5 Qualification intégrée et exit | Candidat unique, suites applicables, 25 parcours, 18 oracles, docs/pack, mandat LIVE borné | À FAIRE | E1–E4 revus ; aucun GO LIVE avant décision Morris |
 
@@ -194,7 +194,7 @@ Réserves historiques ENV-01 cookies/PG localhost trust et identité org/projet 
 | 27/11 | 108044ef | Neuf reliquats repris, 51 PASS (19 PG) rapportés ; GO Morris qualification proportionnée et sécurisation finale ciblée |
 | 27/11 | 41087f1b | Deux risques confirmés et corrigés, 38 PASS dont 5 nouveaux ; recommandation ChatGPT sortie construction E1 sous gate, réserves non acceptées |
 
-Prochaine action recommandée : raccorder les nouveaux états D4 aux lectures/reprises et publier le delta final sous GO spécifique, sans nouvelle campagne générale ; gate E2 puis E3 distinct ; préserver E1 et acquis A ; pas de reprise générale ni nouveau cycle correctif sans arbitrage. Aucun GO LIVE, candidat RECETTE, reprise T09 ou acceptation Livraison 1 implicite.
+Prochaine action : mandat intégré E2 résiduel + E3 (§20) sous GO Morris ; une publication finale DEV sans CI, un handoff et revue commune avec verdicts E2/E3 distincts ; E4/E5 non engagés. Aucun GO LIVE, candidat RECETTE, reprise T09 ou acceptation Livraison 1 implicite.
 
 Trajectoire finale : E1→E2→E3→E4→E5 (revues intermédiaires) → arbitrage réserves et GO LIVE borné → qualification LIVE → GO candidat et cutover RECETTE distincts → rejeu ciblé 17 MP → reprise T09 jusqu'au seuil de réalisation → gate Livraison 1 → Livraison 2 sous mandat distinct.
 
@@ -490,3 +490,14 @@ Exit minimal : raccorder knowledgeEffects existant aux chemins de lecture/lookup
 ### 19.3 Recommandation
 
 Conserver architecture, C02/FinOps acquis, parent/enfant et protections refs. Ne pas engager un nouveau cycle général E2. Un raccordement technique ciblé des états D4 et une publication finale dans le même mandat suffisent comme prochaine action ; E3 préparé mais non exécuté avant gate Morris. Réserve fraîcheur sémantique générale / continuation naturelle explicitement à arbitrer, avec scénario recette (effet préalable modifiant hypothèse, cible ou version ; aucun effet obsolète ; reprise utile), non une preuve DET acquise. Reports E2 §15.3 inchangés ; R-REC-E1-01/02 déjà acceptées. R5 IN PROGRESS, ML5 OPEN, 17 MP OPEN RECETTE, Livraison 1 NOT ACCEPTED, E3/E4/E5 non engagés, T09 NOT SENT, NO RELEASE, NOT ADOPTED.
+
+
+## 20. GO Morris — mandat intégré E2 résiduel + E3 — 27/11/2026
+
+Morris propose de traiter simultanément le dernier raccordement E2 et E3 afin d'éviter les micro-cycles, puis valide par « ok go » la proposition de mandat intégré, avec parallélisme borné, commit/push final DEV sans CI, sans PR/merge ni mutation RECETTE. SEF-08 applicable. Aucun gate de sortie E2/E3 anticipé, aucune nouvelle architecture, aucune acceptation implicite des réserves de recette §19.3.
+
+- Volet A : §19.2, raccordement lecture/reprise D4, fidélité des états ownership/exception et non-duplication, sans rouvrir le planificateur. Delta local de réconciliation entrant à préserver (handoff ce332f16, base publiée 3fe91745).
+- Volet B : D.1–D.6 au complet ; D.1/D.2/D.5 et D.4 sur interfaces stabilisées en parallèle de A ; D.3 intégré après contrat d'états D4 ; D.6 après intégration. Préserver E1 projections, droits/version exacts et contrats UX/Figma. Aucun nouveau design, E4 audio/compositeur exclu hors non-régression.
+- Intégrateur unique, inventaire de fichiers exclusifs avant intervention ; page projet, types/projections partagés, docs et tests intégrés sous responsabilité unique ; pas de concurrence sur mêmes fichiers. Pas de branches distantes supplémentaires ni commits/push intermédiaires imposés.
+- Un cycle Cycle 8 Critical (intégrité/reprise/droits, UI), qualification navigateur DEV isolée sans LIVE, publication finale du delta intégré sur sfia/next-ml5-integrated-delivery-20261123 sous GO ponctuel, sans déclenchement CI, puis Full handoff SFIA v2.6. Références Git pour revue, preuves et contenu modifié conformément au template ; pas de changement permanent de gouvernance.
+- Revue commune avec verdicts distincts E2/E3, puis arbitrage Morris des sorties et suite E4. R5 IN PROGRESS, ML5 OPEN, 17 MP OPEN RECETTE, Livraison 1 NOT ACCEPTED, R6 NOT STARTED, T09 NOT SENT, NO RELEASE, NOT ADOPTED.
