@@ -3,7 +3,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date / version | 27 novembre 2026 — v0.9, snapshot DEV publié et arbitrage D3 instruit depuis le code |
+| Date / version | 27 novembre 2026 — v0.10, arbitrage Morris de conduite D3 validé |
 | Nature | Suivi opérationnel documentaire D1, non normatif, non mergé ; ne remplace ni Roadmap, ni registre de couverture ML5, ni Delivery History, ni contrats |
 | Mandat | GO explicite Morris du 27/11 pour créer ce document sur Git et le maintenir à chaque revue Cursor ; cinq ensembles et revues intermédiaires approuvés |
 | Autorités | Morris arbitre les réserves et gates ; ChatGPT tient ce suivi et revoit ; Cursor construit et fournit les preuves |
@@ -11,7 +11,7 @@
 | Git | main `997897fd7cf914771e7d08e8030dc7123fab7d25` ; branche documentaire candidate `docs/next-openai-studio-convergence-20261126`, base avant création `f6cfd5ac01f848f6708501e1a390f37243721ab9` |
 | DEV | Branche `sfia/next-ml5-integrated-delivery-20261123` publiée @ `53b9d452ab73732eef82677ab9a90529ccd973c8`, tree `18e8fd99a88396fed7041f146c46bd54f1f75658` vérifiés ; état local NON OBSERVÉ (deux chemins tmp dirty rapportés) ; :3100 / PG :5433 rapportés |
 | RECETTE protégée | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` / BUILD `rpEczSp61evIZ7d6fnIWR` / PG :5434 schéma 027, :3200 ; MaintiPlan suspendu après T08 ; WEB et Admin OFF |
-| Gate courant | Sortie construction E1 VALIDÉE MORRIS avec reports de preuves et reliquats affectés (§11) ; E2 revu — acquis DET ciblés, contrôles C02/FinOps favorables ; gate E3 conditionné à un arbitrage ciblé du séquencement D3 (§15–16), sans reprise générale. GO ponctuel snapshot consommé ; aucun nouveau GO commit/push projet, LIVE, cutover, PR, merge ou adoption. NOT READY pour qualification LIVE globale |
+| Gate courant | Sortie construction E1 VALIDÉE MORRIS avec reports de preuves et reliquats affectés (§11) ; E2 revu — acquis DET ciblés, contrôles C02/FinOps favorables ; option B de conduite D3 VALIDÉE MORRIS (§17), GO construction bornée ; gate E3 non acquis. GO ponctuel snapshot consommé ; aucun nouveau GO commit/push projet, LIVE, cutover, PR, merge ou adoption. NOT READY pour qualification LIVE globale |
 
 ## 1. Objectif et sources
 
@@ -34,7 +34,7 @@ Les états ci-dessous sont des états de suivi, non des statuts de maturité SEF
 | Ensemble | Périmètre et résultat | État au 27/11 | Dépendances / sortie |
 | --- | --- | --- | --- |
 | E1 Continuité cognitive et fonctionnelle | B.1–B.8 ; D3/D4/D5/D6, données/projections ; Journal et réutilisation | SORTIE CONSTRUCTION VALIDÉE MORRIS AVEC RÉSERVES | §10–11 ; reports recette acceptés, reliquats E2/E3/E5 suivis ; aucune clôture RECETTE |
-| E2 Garanties cognitives résiduelles | A.1–A.7, intégration multi-intentions, reprise, recherche hybride, OBS/FinOps | REVU — acquis DET ciblés, arbitrage D3 requis | §15–16 ; snapshot vérifié, conduite uniforme proposée à arbitrage Morris ; préserver C02/FinOps/D4 acquis ; aucune reprise générale |
+| E2 Garanties cognitives résiduelles | A.1–A.7, intégration multi-intentions, reprise, recherche hybride, OBS/FinOps | GO MORRIS — conduite uniforme D3, construction non observée | §17 ; préserver C02/FinOps/D4 acquis ; gate E3 distinct ; aucune reprise générale |
 | E3 Conformité UX et panneau droit | D.1–D.6 ; projections et accès directs ; Figma | À FAIRE | Données E1, états E2 ; navigateur réel DEV simulé fournisseur |
 | E4 Audio et compositeur | C.1–C.5 | À FAIRE | Interfaces E2/E3 ; transport et robustesse DET ; dictée LIVE gate |
 | E5 Qualification intégrée et exit | Candidat unique, suites applicables, 25 parcours, 18 oracles, docs/pack, mandat LIVE borné | À FAIRE | E1–E4 revus ; aucun GO LIVE avant décision Morris |
@@ -194,7 +194,7 @@ Réserves historiques ENV-01 cookies/PG localhost trust et identité org/projet 
 | 27/11 | 108044ef | Neuf reliquats repris, 51 PASS (19 PG) rapportés ; GO Morris qualification proportionnée et sécurisation finale ciblée |
 | 27/11 | 41087f1b | Deux risques confirmés et corrigés, 38 PASS dont 5 nouveaux ; recommandation ChatGPT sortie construction E1 sous gate, réserves non acceptées |
 
-Prochaine action recommandée : arbitrage Morris de la conduite uniforme des effets D3 (§16) avant mandat technique puis gate E3 ; préserver E1 et acquis A ; pas de reprise générale ni nouveau cycle correctif sans arbitrage. Aucun GO LIVE, candidat RECETTE, reprise T09 ou acceptation Livraison 1 implicite.
+Prochaine action : construction bornée de la conduite uniforme D3 (§17), revue puis gate E3 ; préserver E1 et acquis A ; pas de reprise générale ni nouveau cycle correctif sans arbitrage. Aucun GO LIVE, candidat RECETTE, reprise T09 ou acceptation Livraison 1 implicite.
 
 Trajectoire finale : E1→E2→E3→E4→E5 (revues intermédiaires) → arbitrage réserves et GO LIVE borné → qualification LIVE → GO candidat et cutover RECETTE distincts → rejeu ciblé 17 MP → reprise T09 jusqu'au seuil de réalisation → gate Livraison 1 → Livraison 2 sous mandat distinct.
 
@@ -433,3 +433,20 @@ Chemins relatifs à web/src/domains/ du snapshot.
 Recommandation : supprimer les exceptions early/remaining pour la conduite des effets D4 connaissance / D5 / D6 et appliquer, dans D3 existant, un seul séquencement déterministe par intentions déjà qualifiées, dépendances et résultats propriétaires. Réutiliser la validation de graphe existante, stash, clés, fencing, résultats et C02 ; pas de nouveau moteur, stockage, agent, autorité ou appel IA systématique. Exécuter uniquement les intentions prêtes, grouper les propositions D4 compatibles en conservant les références parent/enfant et règles E1 ; vérifier toutes les préconditions avant mutation, y compris D4. Résultat PARTIAL/FAILED/UNKNOWN non satisfaisant par défaut, dépendances terminales explicitement non exécutées ; indépendantes poursuivent si ownership/autorité le permettent. Préserver la distinction entre dépendance technique et autorisation métier ; si résultat change le contenu nécessaire, continuation cognitive existante et requalification ciblée si requise, pas exécution aveugle du contenu préconstruit. Aucun basculement de D4 documentaire, D2, D7, D8/D9 ou publication/merge vers une nouvelle orchestration dans ce lot ; dépendances hors propriétaires intégrés non satisfaites sans preuve effective du résultat, limites explicites. Qualifier les interfaces avec ces chemins avant modification, pas de prétention à couverture globale.
 
 Alternative A : conserver les trois phases et compléter les gardes D4 restantes ; réduit le risque de mutation prématurée mais conserve la limite d'ordre alterné. Non recommandé comme cible. Alternative B (recommandée) : conduite uniforme bornée dans D3, sans réécriture du moteur cognitif. Alternative C : orchestrateur générique/persistant tous domaines, non justifié par preuves actuelles, OUT. Blast radius B : conversation/service, qualification/bindings/agrégation et interfaces D4/D5/D6, checkpoint/replay, provenance, restitution et tests ; aucun changement de schéma attendu, pas de modification de politique allocation/FinOps/UX. Sortie : ordre alterné valide D6→D4→D5 (autorité et résultat exact), négatif D5/D6 refusé→D4 bloquée sans bloquer indépendante, batch E1 + replay déjà acquis préservés, preuve ciblée PostgreSQL isolée, diff et docs synchronisés. Pas de LIVE. Pas de nouveau mandat Cursor tant que Morris n'a pas arbitré cette orientation ; tout commit/push suivant exige GO distinct. Gate E2 non acquis ; E3 non engagé. Réserves de preuve §15.3 inchangées.
+
+
+## 17. Arbitrage Morris — conduite uniforme D3 — 27/11/2026
+
+Décision exprimée en conversation : « ok go », en réponse aux cinq orientations et à l'option B proposées après revue directe du snapshot 53b9d452 (§16). Validation de contenu et GO de construction bornée, pas de validation d'implémentation.
+
+| Orientation | Décision validée |
+| --- | --- |
+| ARCH-01 | D3 reste le conducteur unique. |
+| ARCH-02 | Remplacer le séquencement fixe des effets D4 connaissance / D5 / D6 par un séquencement fondé sur les dépendances et résultats propriétaires réels. |
+| ARCH-03 | Réutiliser qualification, validation des dépendances, stash, persistance, clés, fencing et reprise existants. |
+| ARCH-04 | Aucun nouvel orchestrateur générique, agent, registre d'autorité ni pivot de persistance. |
+| ARCH-05 | Préserver E1/E2, limiter la qualification aux garanties impactées et préparer le gate de sortie E2. |
+
+Périmètre et exit : §16.2. D4 documentaire et autres capacités hors intégration, préserver leurs contrats et vérifier les interfaces ; aucun effet dépendant non justifié. Si un résultat préalable modifie matériellement le contenu à appliquer, utiliser la continuation/requalification existante lorsque nécessaire ; à défaut état explicite et reprise gouvernée, pas d'effet sur proposition devenue obsolète. Pas de nouvel appel IA systématique. Aucune migration attendue ; STOP pour arbitrage si changement structurant requis au-delà de cette orientation.
+
+Le mandat n'autorise pas de modification normative des sources validées, ni de nouveau commit/push projet (GO snapshot précédent consommé), CI distante, LIVE, RECETTE, PR, merge, promotion ou adoption. La synchronisation as-built et construction est attendue dans le lot. Publication handoff L3 selon SFIA v2.6. Une éventuelle publication du nouveau snapshot requiert GO spécifique. R5 IN PROGRESS, ML5 OPEN, 17 MP OPEN RECETTE, Livraison 1 NOT ACCEPTED, E2 construction non soldée, E3 non engagé. Réserves de preuve proposées §15.3 non encore arbitrées. E1 gate §11 inchangé.
