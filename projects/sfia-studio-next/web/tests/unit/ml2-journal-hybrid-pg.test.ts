@@ -57,4 +57,45 @@ describe("ml2 journal semantic uses hybridSearch (PG-safe)", () => {
     expect(bj).toContain("recordBoundedJudgmentFinops");
     expect(vis).toContain('operation: "vision.punctual"');
   });
+
+  it("FinOps keys use attemptId (not content-only ordinal)", () => {
+    const emb = readFileSync(
+      join(
+        __dirname,
+        "../../src/domains/knowledge/derived-embedding-service.ts",
+      ),
+      "utf8",
+    );
+    const bj = readFileSync(
+      join(__dirname, "../../src/domains/conversation/bounded-judgment.ts"),
+      "utf8",
+    );
+    const vis = readFileSync(
+      join(
+        __dirname,
+        "../../src/domains/documents/document-vision-punctual.ts",
+      ),
+      "utf8",
+    );
+    expect(emb).toMatch(/const attemptId = randomUUID\(\)/);
+    expect(bj).toMatch(/const attemptId = randomUUID\(\)/);
+    expect(vis).toMatch(/const attemptId = randomUUID\(\)/);
+    expect(emb).toMatch(/attemptId,/);
+    expect(bj).toMatch(/attemptId,/);
+    expect(vis).toMatch(/attemptId,/);
+    expect(emb).not.toMatch(
+      /callOrdinal:\s*Number\.parseInt\(fp\.slice\(0,\s*8\)/,
+    );
+  });
+
+  it("upsertDerivedChunkPg serializes concurrent source updates", () => {
+    const src = readFileSync(
+      join(__dirname, "../../src/domains/knowledge/derived-embedding-pg.ts"),
+      "utf8",
+    );
+    expect(src).toContain("pg_advisory_xact_lock");
+    expect(src).toContain("pg.begin");
+    expect(src).toContain("hashtext(${input.projectId})");
+    expect(src).toContain("hashtext(${e.sourceId})");
+  });
 });

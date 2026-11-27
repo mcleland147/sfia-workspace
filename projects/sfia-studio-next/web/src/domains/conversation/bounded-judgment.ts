@@ -517,9 +517,11 @@ async function recordBoundedJudgmentFinops(
   result: BoundedJudgmentResult,
 ): Promise<void> {
   try {
+    const { randomUUID } = await import("node:crypto");
     const { recordProviderUsageObservation, buildIdempotencyKey } = await import(
       "@/domains/conversation/usage-accounting"
     );
+    const attemptId = randomUUID();
     await recordProviderUsageObservation({
       operation:
         result.source === "decisions"
@@ -536,16 +538,15 @@ async function recordBoundedJudgmentFinops(
         granularity: "REQUEST",
         lane: process.env.STUDIO_LANE || "DEV",
         operation: `bounded_judgment.${result.source}`,
-        callOrdinal:
-          Number.parseInt(
-            createHash("sha256")
-              .update(`${result.name}:${result.source}`)
-              .digest("hex")
-              .slice(0, 8),
-            16,
-          ) % 100000,
+        attemptId,
+        callOrdinal: 0,
       }),
-      limits: ["NOT_D6_HUMAN_DECISION", "BOUNDED_JUDGMENT", result.source],
+      limits: [
+        "NOT_D6_HUMAN_DECISION",
+        "BOUNDED_JUDGMENT",
+        result.source,
+        `NAME_${result.name.slice(0, 40)}`,
+      ],
     });
   } catch {
     /* FinOps best-effort */

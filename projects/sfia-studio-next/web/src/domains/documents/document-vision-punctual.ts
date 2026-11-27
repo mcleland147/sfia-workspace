@@ -103,9 +103,11 @@ export async function runDocumentVisionPunctual(input: {
       model: input.model ?? "gpt-6.1-terra",
     };
     try {
+      const { randomUUID } = await import("node:crypto");
       const { recordProviderUsageObservation, buildIdempotencyKey } =
         await import("@/domains/conversation/usage-accounting");
       const fp = visionBytesFingerprint(req.bytes);
+      const attemptId = randomUUID();
       await recordProviderUsageObservation({
         operation: "vision.punctual",
         modelRequested: usage.model,
@@ -119,7 +121,8 @@ export async function runDocumentVisionPunctual(input: {
           granularity: "REQUEST",
           lane: process.env.STUDIO_LANE || "DEV",
           operation: "vision.punctual",
-          callOrdinal: Number.parseInt(fp.slice(0, 8), 16) % 100000,
+          attemptId,
+          callOrdinal: 0,
         }),
         limits: [...limits, `BYTES_FP_${fp}`],
       });

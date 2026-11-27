@@ -97,6 +97,10 @@ export async function replaceDerivedChunksPg(input: {
 /**
  * Upsert a single chunk without wiping the project projection.
  * Used by product lifecycle (capitalize / open-point), not full rebuild.
+ *
+ * Concurrent upserts for the same (projectId, sourceId) are serialized via
+ * pg_advisory_xact_lock so two distinct fingerprints cannot both remain active
+ * (insert+revoke race).
  */
 export async function upsertDerivedChunkPg(input: {
   projectId: string;
@@ -111,53 +115,62 @@ export async function upsertDerivedChunkPg(input: {
   const e = input.entry;
   const id = `${input.projectId}:${e.sourceId}:${e.contentFingerprint}:${e.model}`;
   const vectorJson = JSON.stringify(input.vector);
-  await pg.unsafe(
-    `INSERT INTO derived_embedding_chunks (
-      id, project_id, preparation_id, owner_pilot_id,
-      source_id, source_kind, content_fingerprint, model, dims,
-      vector_json, text_excerpt, revoked, deleted, version_label, index_ref, updated_at
-    ) VALUES (
-      $1,$2,$3,$4,$5,$6,$7,$8,$9,$10::jsonb,$11,$12,$13,$14,$15,now()
-    )
-    ON CONFLICT (project_id, source_id, content_fingerprint, model)
-    DO UPDATE SET
-      vector_json = EXCLUDED.vector_json,
-      text_excerpt = EXCLUDED.text_excerpt,
-      revoked = false,
-      deleted = false,
-      version_label = EXCLUDED.version_label,
-      index_ref = EXCLUDED.index_ref,
-      updated_at = now(),
-      preparation_id = EXCLUDED.preparation_id,
-      owner_pilot_id = EXCLUDED.owner_pilot_id,
-      dims = EXCLUDED.dims`,
-    [
-      id,
-      input.projectId,
-      input.preparationId,
-      input.ownerPilotId,
-      e.sourceId,
-      e.sourceKind,
-      e.contentFingerprint,
-      e.model,
-      e.dims,
-      vectorJson,
-      (e.text ?? "").slice(0, 480),
-      false,
-      false,
-      e.versionLabel,
-      e.indexRef,
-    ],
-  );
-  // Revoke prior fingerprints for same sourceId (content change, same id).
-  await pg`
-    UPDATE derived_embedding_chunks
-    SET revoked = true, updated_at = now()
-    WHERE project_id = ${input.projectId}
-      AND source_id = ${e.sourceId}
-      AND content_fingerprint <> ${e.contentFingerprint}
-      AND revoked = false
-  `;
+  await pg.begin(async (tx) => {
+    // Transaction-scoped advisory lock keyed by project + source.
+    await tx`
+      SELECT pg_advisory_xact_lock(
+        hashtext(${input.projectId}),
+        hashtext(${e.sourceId})
+      )
+    `;
+    await tx.unsafe(
+      `INSERT INTO derived_embedding_chunks (
+        id, project_id, preparation_id, owner_pilot_id,
+        source_id, source_kind, content_fingerprint, model, dims,
+        vector_json, text_excerpt, revoked, deleted, version_label, index_ref, updated_at
+      ) VALUES (
+        $1,$2,$3,$4,$5,$6,$7,$8,$9,$10::jsonb,$11,$12,$13,$14,$15,now()
+      )
+      ON CONFLICT (project_id, source_id, content_fingerprint, model)
+      DO UPDATE SET
+        vector_json = EXCLUDED.vector_json,
+        text_excerpt = EXCLUDED.text_excerpt,
+        revoked = false,
+        deleted = false,
+        version_label = EXCLUDED.version_label,
+        index_ref = EXCLUDED.index_ref,
+        updated_at = now(),
+        preparation_id = EXCLUDED.preparation_id,
+        owner_pilot_id = EXCLUDED.owner_pilot_id,
+        dims = EXCLUDED.dims`,
+      [
+        id,
+        input.projectId,
+        input.preparationId,
+        input.ownerPilotId,
+        e.sourceId,
+        e.sourceKind,
+        e.contentFingerprint,
+        e.model,
+        e.dims,
+        vectorJson,
+        (e.text ?? "").slice(0, 480),
+        false,
+        false,
+        e.versionLabel,
+        e.indexRef,
+      ],
+    );
+    // Revoke prior fingerprints for same sourceId (content change, same id).
+    await tx`
+      UPDATE derived_embedding_chunks
+      SET revoked = true, updated_at = now()
+      WHERE project_id = ${input.projectId}
+        AND source_id = ${e.sourceId}
+        AND content_fingerprint <> ${e.contentFingerprint}
+        AND revoked = false
+    `;
+  });
   return true;
 }
 

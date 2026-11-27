@@ -73,10 +73,13 @@ export async function embedQueryText(
   if (!vector?.length) return null;
   const tokens = res.usage?.total_tokens ?? 0;
   try {
+    const { randomUUID } = await import("node:crypto");
     const { recordProviderUsageObservation, buildIdempotencyKey } = await import(
       "@/domains/conversation/usage-accounting"
     );
     const fp = contentFingerprint(q).slice(0, 12);
+    // Distinct HTTP consumption ⇒ distinct attemptId (content FP alone must not dedupe).
+    const attemptId = randomUUID();
     await recordProviderUsageObservation({
       operation: "embeddings.derived_query",
       modelRequested: DERIVED_EMBEDDING_MODEL,
@@ -90,7 +93,8 @@ export async function embedQueryText(
         granularity: "REQUEST",
         lane: process.env.STUDIO_LANE || "DEV",
         operation: "embeddings.derived_query",
-        callOrdinal: Number.parseInt(fp.slice(0, 8), 16) % 100000,
+        attemptId,
+        callOrdinal: 0,
       }),
       limits: ["DERIVED_QUERY_EMBED", "EMBEDDING_TARIFF_PARTIAL", `FP_${fp}`],
     });
@@ -489,13 +493,16 @@ export async function upsertDerivedAdmissibleSource(input: {
         operation: "embeddings.derived_index_upsert",
         projectId: input.projectId,
         preparationId: input.preparationId,
-        callOrdinal: Number.parseInt(fp.slice(0, 8), 16) % 100000,
+        // sourceId+fp identify the indexed content; attemptId distinguishes re-emissions.
+        attemptId: `${input.sourceId}:${fp}`,
+        callOrdinal: 0,
       }),
       limits: [
         "DERIVED_INDEX_UPSERT",
         "ADMISSIBLE_SOURCE",
         `BACKEND_${derivedEmbeddingBackend().toUpperCase()}`,
         `FP_${fp.slice(0, 12)}`,
+        `SOURCE_${input.sourceId.slice(0, 24)}`,
       ],
     });
   } catch {
