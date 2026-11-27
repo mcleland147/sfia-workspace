@@ -1,1891 +1,1333 @@
-# SFIA Review Pack FULL — Critical Cycle 8
-## ML5 Livraison 1 — E4 + reliquats E2/E3 (construction intégrée)
+# Review Pack FULL — E5 Qualification intégrée et exit technique
 
-| Champ | Valeur |
-|---|---|
-| Date/heure UTC | 2026-11-27T20:42:38Z |
-| Cycle | 8 — Delivery / EVOL Critical |
-| Mandat | E4 C.1–C.5 + §21.1 E2 + §21.2 E3 · GO Morris · 1 candidat DEV |
-| Repo | mcleland147/sfia-workspace |
-| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD base | `5f2ecad185b9784bc3956477601fe6a722459467` |
-| HEAD final | `a3305a42b3fd0f24b2a16bca825fc14eb37e84e6` |
-| Tree final | `72405eddfdd10deea324a5c0dd01a073b30c5f85` |
-| BUILD DEV | `NfeXL_KgIuqKGCdf0k4gh` |
-| Main | `997897fd7cf914771e7d08e8030dc7123fab7d25` (inchangé) |
-| Docs candidate | `18cff689` (suivi v0.15 — non modifié) |
-| CI | aucune (push ≠ main ; PR []) |
-| LIVE | aucun |
-| RECETTE | préservée (:3200) |
-| Classe | NO RELEASE · STABLE NOT AVAILABLE |
+**Date/heure**: 2026-11-27 22:24 CET (2026-11-27T21:24:28Z UTC)
+**Projet**: SFIA Studio Next · R5 IN PROGRESS · ML5 Livraison 1
+**Ensemble**: E5 — Qualification intégrée et exit technique
+**Cycle**: 9 — QA / validation · Profil Critical · EVOL/QA
+**GO Morris**: 27 nov 2026 — suivi v0.17 §24 (doc `70d32c52` / blob `d14b3d0c`)
+**Handoff entrant**: `12244641` blob `b2f34493`
 
----
+## 1. Mandat (résumé exécution)
 
-## 1. Mandat (résumé exécutable)
-
-Finaliser E4 (compositeur partagé, dictée, transport DET, états, robustesse, a11y) + reliquats bornés E2/E3 ; publier un candidat DEV cohérent sans CI ; Full pack + L3 handoff ; ne pas engager E5.
-
----
+Qualifier le candidat intégré E1–E4, corriger défauts résiduels confirmés dans frontières existantes, préparer candidat cohérent pour mise à disposition RECETTE.
+**Interdit**: commit/push projet, PR, merge, LIVE, mutation RECETTE, clôture fictive MP, R6.
 
 ## 2. Git Truth Check
 
-| Contrôle | Résultat |
-|---|---|
-| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD local = distant | `a3305a42b3fd0f24b2a16bca825fc14eb37e84e6` |
-| Tree | `72405eddfdd10deea324a5c0dd01a073b30c5f85` |
-| Delta depuis base | identifiable exactement `5f2ecad1..a3305a42` |
-| Staged inattendu | aucun au départ ; pack tmp retiré du suivi |
-| Main | inchangé |
-| PR active | [] |
-| Force/rebase/reset | non |
+| Champ | Valeur |
+| --- | --- |
+| pwd | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
+| remote | `origin` → `mcleland147/sfia-workspace` |
+| branche | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD | `a3305a42b3fd0f24b2a16bca825fc14eb37e84e6` |
+| origin/main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
+| staged | aucun staged inattendu |
+| `.tmp-sfia-review/chatgpt-review.md` | non suivi produit (pack local) |
 
-Artefact : `.tmp-sfia-review/chatgpt-review.md` **retiré de l'index Git** (fichier local conservé pour Review Pack).
+```
+M projects/sfia-studio-next/construction/delivery-history.md
+ M projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
+ M projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+ M projects/sfia-studio-next/web/src/components/shell/studio-shell.css
+ M projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-session.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/service.ts
+ M projects/sfia-studio-next/web/tests/integration/ml3-composer-dictation-integrated.pg.test.ts
+ M projects/sfia-studio-next/web/tests/unit/ml3-composer-dictation-session.test.ts
+?? .tmp-sfia-review/
+?? projects/sfia-studio-next/construction/evidence/ml5-e5-20261127/
+?? projects/sfia-studio-next/web/.tmp-sfia-review/
+?? projects/sfia-studio-next/web/tests/qualify/ml5-e5-discriminating-browser.spec.ts
+?? projects/sfia-studio-next/web/tests/unit/e5-knowledge-recovery-ids.test.ts
+```
+
+**ENV-01**: DEV :3100 / PG :5433 / `sfia_next_dev` · tests mutatifs `sfia_next_e2e` · RECETTE :3200 / :5434 préservée · **ENV ROUTING COMPLETE**.
+
+## 3. Identité candidat testé
+
+| Couche | Valeur |
+| --- | --- |
+| PUBLISHED INPUT SNAPSHOT | `a3305a42b3fd0f24b2a16bca825fc14eb37e84e6` / tree `72405ed…` |
+| LOCAL QUALIFIED CANDIDATE | delta sha256 `e41e2a5a84f94de21928df2ba4bb1eb47730d636b33dad8e8ec05b037f2c1d17` |
+| BUILD_ID | `y06_YWoJEwb4zZZwRW26H` |
+| digest | `8380c0cd4578a25f83ffcf5fd5e7e259dd9641ea8d6ab0fc4ddc4aec7da710f4` |
+| RECETTE DEPLOYMENT | PENDING GO (manifest ci-dessous) |
+
+## 4. Défauts confirmés et corrections
+
+| ID | Zone | Cause | Correction | Preuve |
+| --- | --- | --- | --- | --- |
+| E5-E2-01 | Reprise D4 knowledgeEffects | JSON absent → reconstruction incomplète | `recoverKnowledgeEffectsForReadPath` + intent ids durables | unit e5-knowledge + PG unified |
+| E5-E3-01 | Panneau droits | `docIds.size===0` autorisait récents | filtre si `projectLoadState==="ready"` | code + panel empty honest |
+| E5-E3-02 | Identité consultation | attempt ≠ preuve | `recentItemFromAttemptConsultation` | code page.tsx |
+| E5-E3-03 | Rail 1280×720 | dernier item sous foot | `padding-bottom/scroll-padding 4.5rem` | hit-test ok=true clearOfFoot |
+| E5-E4-01 | Handshake | created≠config applied ; pre-ready hang | ready=`session.updated` ; reject PROVIDER_ERROR | unit E5 |
+| E5-E4-02 | Finalize hang | completed avant committed + COMMIT_DELAY leak | ne pas ré-armer awaiting si final déjà présent ; unset delay en PG tests | PG T02/T11 PASS |
+
+## 5. Matrice de réconciliation (draft depuis suivi v0.17)
+
+# SFIA Studio Next ML5 — E5 Reconciliation Draft (read-only)
+
+**Source:** `suivi-macro-lot-correctif-continuite-fiabilite-ml5.md` v0.17 (`70d32c524d05…`)
+**Candidat:** DEV `a3305a42b3fd0f24b2a16bca825fc14eb37e84e6` / tree `72405eddfdd10deea324a5c0dd01a073b30c5f85`
+**Hypothèse implémentation:** E1–E4 livrés sur ce SHA ; delta E5 local non observé (suivi : état local NON OBSERVÉ).
+
+**Légende Preuve class (mandat E5 / échelle SFIA):**
+
+| Classe | Signification |
+| --- | --- |
+| 1 | Inspection / revue code-contrat |
+| 2 | Unit / DET déterministe |
+| 3 | PG / intégration service |
+| 4 | BROWSER / Playwright DEV |
+| 5 | F2 / mesures géométriques appariées |
+| 6 | LIVE SDK / fournisseur (hors mandat E5) |
+| 7 | REAL / recette naturelle MaintiPlan |
+
+**Niveaux suivi:** ACQUIS CIBLÉ · PARTIEL · IMPLEMENTED · DET ciblé · Construction revue · GATE LIVE · Manquant · OPEN RECETTE
 
 ---
 
-## 3. ENV-01
+## Référence rapide — §11 E1 reserves (Morris acceptées)
 
-| Lane | Port app | PG | DB | Verdict |
-|---|---|---|---|---|
-| DEV | 3100 | 5433 | sfia_next_dev | ROUTING COMPLETE |
-| Tests mutatifs | — | 5433 | sfia_next_e2e | utilisé Vitest PG |
-| RECETTE | 3200 | 5434 | sfia_next_recette_ml4 | non mutée |
-
-Qualify : `SFIA_DICTATION_TRANSPORT=fixture` + `SFIA_DICTATION_SUBSTITUTED=1` + `SFIA_DICTATION_FIXTURE_AUTO_TRANSCRIPT=1` — **aucun fallback LIVE**.
-
-**ENV ROUTING COMPLETE**
-
----
-
-## 4. Sources lues (sélection)
-
-- Suivi v0.15 §21–22 @ `18cff689` (non modifié)
-- Contrats audio CONV-F31…F34 ; as-built ML3 audio ; contrat visuel dictée
-- SEF-01/08 ; ENV-01 ; product-versioning
-- Code : NoraSharedComposer, ComposerDictationControl, composer-dictation-*, service.ts, page projet/sas, rail, recent consultation
-- Figma fileKey `itgvCulInEnFY6DvgIegvP` (lecture)
+| ID | Arbitrage Morris |
+| --- | --- |
+| E1 construction | Sortie construction acceptée ; pas BEHAVIOR PROVEN global |
+| R-REC-E1-01 / R-E1-LIVE | **Report accepté** — parcours naturels capitalisation, arbre, consolidation, points, décisions, trajectoire, réutilisation |
+| R-REC-E1-02 / R-E1-DOM | **Report accepté** — 4 surfaces, compteurs, V1→V2 ; DOM non prouvé |
+| R-E1-HYBRID | → E2 derivedUsed=false, T08 |
+| R-E1-E3 | → E3 panneau, accès, UX |
+| R-E1-PACK | Régularisation pré-check E2 (as-built / RETAIN) |
+| R-E1-VALID | tsc/lint/build → E2/E5 ; pas d’acquisition par report |
+| E2 GO | Construction Critical DEV A.1–A.7 uniquement |
 
 ---
 
-## 5. Répartition SEF-08
+## Référence rapide — §23 gaps discriminants (entrée E5)
 
-| Volet | Responsable | Fichiers |
+| Volet | Écart confirmé | Action E5 |
+| --- | --- | --- |
+| **E4 C.3** | Readiness `session.created/updated` ; erreur/cancel pré-ready ; sas nominal ≠ harness seul | Vérifier protocole ; pas LIVE |
+| **E4 C.1/C.2/C.5** | Sas scope, brouillon, late events, vérité usage | Exercer nominal + cleanup |
+| **E2 A.3** | Lookup JSON absent : pas reconstruction `knowledgeEffects` | Contrôle/correction bornée |
+| **E2 A.5** | Reprise sans projection | Vérifier/corriger |
+| **E3 D.4** | `proof` non câblé ; droits avant exposition partiels ; commit vs ref ; capture vide | Multitypes + droits + version exacte |
+| **E3 D.6** | Panneau récents **vide** (§23 vs compare « peuplé ») ; 6 consultations non jouées ; F2 global non revendiqué | Peupler nominal + 6 types + F1/F2 appariés |
+| **E3 D.5** | Accès Résultats après scroll à confirmer | Scroll/hit-test |
+| **Global** | 1451 PASS / 2 FAIL historiques ; lint/tsc suites finales non closes | Suites E5 réelles, exits honnêtes |
+
+---
+
+## Référence rapide — §24 mandat E5 (bullets)
+
+- Réconcilier **26 SE + 17 MP + 18 oracles + 25 parcours** avec preuves applicables ; pas de PASS fictif.
+- Suites **unit, PG, navigateur, tsc, lint, build** ; corrections locales §23.1–2 dans frontières existantes.
+- **Pas** de cycle autonome E2/E3/E4, pas de redesign ; STOP si limite structurante.
+- Manifeste candidat RECETTE ; distinguer SHA publié vs delta local ; **pas** de commit/push/LIVE/RECETTE par ce GO.
+- Plan LIVE borné **préparé**, non exécuté ; E5 ≠ Livraison 1 ≠ clôture ML5.
+- **17 MP OPEN RECETTE** ; T09 NOT SENT ; NO RELEASE.
+
+---
+
+## Preuves clés — `evidence/ml5-e3-20261127/`
+
+| Fichier | Rôle |
+| --- | --- |
+| `figma-runtime-compare.md` | Matrice Figma↔runtime (rail 246, typo, SAS, panneau PARTIEL) |
+| `f1-rail-project.json`, `f1-rail-personal.json` | F1 rail 246 px |
+| `typography-measures.json`, `01-typography-table.png` | D.1 body 12.5 / lh 1.65 |
+| `sas-nonreg.json` | D.2 animation SAS |
+| `runtime-travail-full.png`, `runtime-portfolio-rail.png`, `runtime-rail-settings.png` | Rail / settings |
+| `runtime-panel-recents.png` | Panneau (structure ; peuplage §23 contesté) |
+| `figma-700-39-travail.png`, `figma-1405-610-panel.png` | Refs Figma |
+
+## Preuves clés — `evidence/ml5-e4-20261127/`
+
+| Fichier | Rôle |
+| --- | --- |
+| `figma-runtime-compare.md` | Dictée page 05 + rail 1280×720 |
+| `composer-idle-mic.png`, `composer-short.png`, `composer-extended.png` | C.1 chrome compositeur |
+| `c01-during-dictation.png`, `ml3-dict-harness.png` | C.4 onde / harness (pas humain LIVE) |
+| `rail-1280x720-hit.json`, `rail-1280x720-overlap.json`, `rail-1280x720-detail.json` | D.5 chevauchement / hit-test |
+| `runtime-travail-1280x720.png`, `runtime-panel-recents.png` | Régression visuelle intégrée |
+| `f1-rail-project.json` | F1 246 px |
+
+---
+
+## Matrice A — 26 sous-ensembles (§3)
+
+| ID | Contrat | Implémentation (a3305a42 + E5 delta) | Preuve class | Niveau | Écart | Action |
+| --- | --- | --- | --- | --- | --- | --- |
+| A.1 | Admission versionnée / allocation | Stamp v0.x, bare qualified rejeté (E2) | 2–3 | ACQUIS CIBLÉ | Calibration réelle, choix naturel | Gate calibration ; E5 vérif signal |
+| A.2 | Qualification structurée, refs inter-vagues | Réécriture refs, garde refs locales | 2–3 | ACQUIS DET CIBLÉ | Fraîcheur / continuation naturelle | Recette / arbitrage §19 |
+| A.3 | Multi-intentions Option B | Lecture terminale, ownership amélioré | 2–3 | ACQUIS DET CIBLÉ | Lookup sans JSON : pas rebuild `knowledgeEffects` | **E5 contrôle intégré §23** |
+| A.4 | Recherche hybride | PG fake-embed 2 PASS, audit structurel | 3 | ACQUIS CIBLÉ PG | Droits, fraîcheur, T08 | Recette ; pas optimiser sans mesure |
+| A.5 | C02 / états terminaux | CAS/exception raccordés | 3 | ACQUIS CIBLÉ | **Reprise sans projection** | **E5 vérifier/corriger** |
+| A.6 | OBS / cartographie | Événements cartographiés | 1–2 | INSPECTION | Latences, corrélation E3 non exhaustives | E3 consomme ; T08 recette |
+| A.7 | FinOps conflits scope | PG 110/0/316, 7j, isolation Pilote | 3 | ACQUIS DET CIBLÉ | Présentation E3 ; coût facturé Admin OFF | E3/E5 présentation |
+| B.1 | Extraction sélective → D4 | Chemins inspectés, tests historiques | 2–3 | Construction revue | R-REC-E1-01 autonomie / zéro mutation | Recette naturelle |
+| B.2 | Arborescence batch / reparent | Merge/split/detach, fencing, PG PASS | 3 | Construction revue | Pertinence naturelle réorg | E2 concurrence si impact |
+| B.3 | Synthèse / capitalisation | Ciblage invalide refusé | 2–3 | Construction revue | Consolidation CampusNova-like LIVE | R-REC-E1-01 |
+| B.4 | Points ouverts | Titre canonique → shortTitle | 3 | Construction revue | Cycle naturel, accès E3 | E3 DOM/navigation |
+| B.5 | D6 record/revise/replay | 10 PG B.5/B.6 PASS | 3 | Acquis DET ciblés | T07 naturel, portée | Recette + E2 multi-effets |
+| B.6 | Forecast / RETAIN | Steps durables D5, garde USER_MESSAGE | 3 | Construction revue | Liens D4/CKI, finalité DOM | R-REC-E1-01 situation |
+| B.7 | Outils D4 réutilisation | PREFERRED+omit, PG | 3 | Construction revue | Fraîcheur, hybrid E2 | T08 / diagnostic |
+| B.8 | Compteurs / identité doc | PG + inspection | 3 | Construction revue | **DOM 4 surfaces, V1→V2** ; HTTP500 | E3 + recette R-REC-E1-02 |
+| C.1 | NoraSharedComposer partagé | Interactions communes, chrome distinct | 2–4 | IMPLEMENTED | **Sas nominal E5** | PW projet + sas |
+| C.2 | Brouillons / auto-grow | sessionStorage isolé | 2–4 | IMPLEMENTED | Navigation/resize/sas E5 | Qualifier nominal |
+| C.3 | Transport dictée | Timeout, fermeture transport | 2–3 | DET ciblé | **Handshake pré-ready ; MP06 LIVE ouvert** | **E5 §23.1** |
+| C.4 | Onde audio | Analyseur réel, fixture | 2–4 | DET ciblé | Parole humaine LIVE | Report LIVE |
+| C.5 | Partial/cancel/finalize | Unit/PW | 2–3 | DET ciblé | Sas, late events, usage | E5 + LIVE distinct |
+| D.1 | Typographie lisible | 12.5px, titres 15/12 | 4–5 | ACQUIS CIBLÉ | Comparaisons longueur non exhaustives | E5 intégré |
+| D.2 | Animation SAS | Transform entre sondes | 4 | ACQUIS CIBLÉ | Terminal/reduced motion | E4/E5 |
+| D.3 | Restitution D4 métier | Lignes métier, états exception | 1–2 | ACQUIS CIBLÉ | Activité/FinOps, reprise | E5 vérif états |
+| D.4 | Panneau doc/Git multitype | Commit, focus, callbacks exec/result/bilan | 1–4 | **PARTIEL** | **proof absent ; droits ; capture vide ; 6 consultations** | **E5 correction §23.2** |
+| D.5 | Rail scroll + foot pin | Plus de chevauchement 1280×720 | 4–5 | ACQUIS CIBLÉ | Résultats après scroll, clavier | E5 hit-test/scroll |
+| D.6 | F1/F2 rail + captures E4 | F1 246, hit-test | 4–5 | **PARTIEL** | **F2 global ; nominal multitype** | E5 apparié + peupler panel |
+| Exit | Qualification globale | 1451 PASS / 2 FAIL rapportés | — | EN COURS E5 | lint, tsc tests, pack LIVE | **Mandat §24** |
+
+---
+
+## Matrice B — 17 MP (tous **OPEN RECETTE**)
+
+| ID | Contrat | Implémentation | Preuve class | Niveau | Écart | Action |
+| --- | --- | --- | --- | --- | --- | --- |
+| MP01 | Micro sas | Navigateur ciblé | 4 | ACQUIS CIBLÉ | Compositeur commun a11y | E5 préserver + vérifier |
+| MP02 | Compositeur extensible | Mutualisation partielle | 2–4 | PARTIEL | Clavier, brouillons | E4/E5 sas+projet |
+| MP03 | Points ouverts | Titre canonique PG | 3 | CONSTRUCTION REVUE | DOM, accès direct | E1+R-REC-E1-01+E3 |
+| MP04 | Animation | SAS réelle | 4 | ACQUIS CIBLÉ | reduced motion | E4/E5 |
+| MP05 | Lisibilité | Typo partielle | 4–5 | PARTIEL | Avant/après exhaustif | E5 typo long/moyen/court |
+| MP06 | Dictée | Transport + DET partiel | 2–4 | **GATE LIVE + DET PARTIEL** | Realtime, reprise | **E5 handshake ; LIVE distinct** |
+| MP07 | Onde audio | Unit signal réel | 2 | ACQUIS CIBLÉ unit | Signal réel E5 | Préserver |
+| MP08 | Panneau droit | Doc/Git viewer partiel | 1–4 | PARTIEL | 4 types, droits, commit, vide | **§21/23 E5** |
+| MP09 | Multi-intentions | Option B + SC2 | 3 | Option B publiée | Projection absente ; naturel | Recette T05/T06 |
+| MP10 | Continuité | Arbre raccordé | 3 | CONSTRUCTION REVUE | Capitalisation naturelle | R-REC-E1-01 + hybrid E2 |
+| MP11 | Restitution/activité | OBS + D4 métier | 1–2 | Construit | Activité réelle E3 | E4/E5 intégré |
+| MP12 | Trajectoire | Forecast RETAIN | 3 | CONSTRUCTION REVUE | Projections naturelles | R-REC-E1-01 |
+| MP13 | Compteurs | PG + inspection | 3 | CONSTRUCTION REVUE | V1→V2 API→DOM | R-REC-E1-02 |
+| MP14 | Performance | PG hybrid + audit | 3 | ACQUIS CIBLÉ | T08 comparable | Qualifier métriques |
+| MP15 | Allocation | Admission stricte | 2–3 | ACQUIS CIBLÉ | Calibration GO | Observer applied |
+| MP16 | FinOps | Moteur 110/0/316 | 3 | ACQUIS DET CIBLÉ | Présentation E3 | E4/E5 Admin OFF |
+| MP17 | Paramètres | Rail/overlay | 4–5 | ACQUIS CIBLÉ | 720px variantes, focus | E4/E5 brouillon |
+
+---
+
+## Matrice C — 18 oracles §10 (§5 + §10.2)
+
+| ID | Contrat (titre) | Implémentation | Preuve class | Niveau | Écart | Action |
+| --- | --- | --- | --- | --- | --- | --- |
+| O1 | Exploration → création | Tests historiques | 2–3 | Partiel | Bout-en-bout naturel | R-REC-E1-01 / E5 |
+| O2 | Hiérarchie | Parent+enfant batch PG PASS | 3 | DET ciblé | LIVE fence naturel | Recette |
+| O3 | Réorganisation | Rename/reparent ; merge/split | 3 | Partiel | Merge/split LIVE | E5 si PG réutilisable |
+| O4 | Apport Pilote + Nora | Chaîne contributions | 2–3 | Partiel | Corrélation source→mutation | LIVE recette |
+| O5 | Correction acquis | Historique cité | 2 | Ouvert | Consolidation/historique | Recette |
+| O6 | Résolution question | PG résolution | 3 | Acquis ciblé | Négatifs, vues sync | E3 |
+| O7 | Arbitrage local vs durable | D6 PG | 3 | DET ciblé | T07, portée LIVE | E1/E2 recette |
+| O8 | Demande combinée | PG nominal E2 | 3 | Partiel | Dépendances, T05/T06 | E2 LIVE report |
+| O9 | Réorientation | Forecast conv. ; RETAIN incomplet | 3 | Partiel | Projection LIVE | E1 recette |
+| O10 | Finalité cycle | Objectif contextualisé | 3 | Partiel | D4/CKI DOM | E1+E3 |
+| O11 | Compteurs | PG ctx PASS | 3 | Partiel | V1→V2 API→DOM | E3 recette |
+| O12 | 5 consultations multitypes | — | — | **Manquant** | 6 ressources, droits, version | **E5 D.4 prioritaire** |
+| O13 | Points panneau | OPEN + identités | 3 | Acquis ciblé | Accès exact DOM | E3 |
+| O14 | Navigation / interruption | Partiel | 4 | Partiel | 4 surfaces, fraîcheur | E3/E5 |
+| O15 | Réutilisation longue | PREFERRED+omit | 3 | Partiel | Fraîcheur corpus LIVE | E2 recette |
+| O16 | V1→V2 MaintiPlan T09 | — | — | Ouvert | T09 non envoyé | E5 analogue DEV |
+| O17 | Échange sans apport | Zéro extraction PASS | 2 | DET ciblé | Pas d’appel superflu conducteur | E5 vérif |
+| O18 | Isolation / échec | Fencing PG | 3 | Partiel | Concurrence, reprise | E2/E5 |
+
+---
+
+## Matrice D — 25 parcours transverses (§6)
+
+| # | Contrat | Implémentation | Preuve class | Niveau | Écart | Action |
+| --- | --- | --- | --- | --- | --- | --- |
+| P1 | Préparation sas | Compositeur E4 | 2–4 | PARTIEL | Nominal sas E5 | §23.1 |
+| P2 | Compositeur partagé saisie longue | C.1/C.2 | 4 | IMPLEMENTED | Sas qualif | E5 |
+| P3 | Création préparation animée | D.2 + SAS | 4 | ACQUIS CIBLÉ | Nominal E5 | E3/E5 |
+| P4 | Qualification multi-intentions | A.3 E2 | 3 | DET ciblé | Lookup/reprise | E5 contrôle |
+| P5 | Ouverture cycle gouvernée | E1/E2 | 3 | Construction | Naturel reporté | R-REC-E1-01 |
+| P6 | Sujets / sous-sujets | B.2 | 3 | Construction revue | Naturel | Recette |
+| P7 | Enrichissement connaissance | B.3/B.7 | 3 | Construction revue | Capitalisation LIVE | E1 recette |
+| P8 | Décision durable / arbitrage | B.5/B.6 | 3 | DET ciblé | T07 | Recette |
+| P9 | Points ouverts / résolution | B.4 | 3 | Construction | DOM E3 | E3+E5 |
+| P10 | Production documentaire | B.3 + E5 | 2–3 | Construction | Provenance réelle | Recette |
+| P11 | Compteur documentaire | B.8 | 3 | Construction | DOM | R-REC-E1-02 |
+| P12 | Révision sans double comptage | B.8 | 3 | Ouvert | V1→V2 | E5 |
+| P13 | Six consultations | D.4 | — | **Manquant** | Non exercé §23 | **E5 blocker panneau** |
+| P14 | Cinq plus récentes | D.6 | 4 | PARTIEL | Liste vide observée §23 | Peupler + rejouer |
+| P15 | Revisite sans doublon | D.4 | — | Ouvert | Droits/version | E5 |
+| P16 | Réorientation trajectoire | B.6 | 3 | Construction | Naturel | Recette |
+| P17 | Navigation surfaces | E3/E1 | 4 | Partiel | 4 surfaces | E3/E5 |
+| P18 | Reprise sujet ancien | B.2 + E2 | 3 | Partiel | Reprise projection A.5 | E5 |
+| P19 | Exploitation connaissance | B.7/A.4 | 3 | Construction | T08/hybrid | E2 recette |
+| P20 | Paramètres globaux | MP17/D.5 | 4–5 | ACQUIS CIBLÉ | Variant/clavier | E5 |
+| P21 | Observabilité | A.6 | 1–2 | INSPECTION | Mesure réelle | E2/E3 |
+| P22 | FinOps | A.7/MP16 | 3 | DET ciblé | Admin OFF | Présentation E3 |
+| P23 | Isolation projets/Pilotes | B.2/A.7 | 3 | Partiel | LIVE concurrence | E5 transversal |
+| P24 | Erreurs / interruption / reprise | C.5 + E2 C02 | 2–4 | PARTIEL | Audio + D4 lookup | **E5 intégré** |
+| P25 | Non-régression capacités | Suites globales | 2–4 | Ouvert | 2 FAIL historiques ; lint | **E5 suites finales** |
+
+---
+
+## Synthèse conservative E5 (pour Review Pack)
+
+| Agrégat | READY construction | PREUVE intégrée E5 | LIVE |
+| --- | --- | --- | --- |
+| E1 B.1–B.8 | Oui (Morris §11) | DET/PG ; naturel/DOM reportés | Non |
+| E2 A.1–A.7 | Architecture REVU | DET/PG ; gaps §23 lookup/reprise | Non |
+| E3 D.1–D.6 | PARTIEL (D.4/D.6) | BROWSER/F1 partiels ; F2 global NON | Non |
+| E4 C.1–C.5 | IMPLEMENTED+DET | Harness > sas ; MP06 ouvert | **Non — GATE LIVE** |
+| 17 MP | OPEN RECETTE | Rejeu ciblé post-qualif | Surtout MP06 |
+| Gate produit | ML5 OPEN, L1 NOT ACCEPTED | Cycle 9 QA en cours | Aucun GO LIVE ce mandat |
+
+**Priorités E5 implicites dans les matrices:** (1) O12 / P13 six consultations + droits D.4 ; (2) C.3 / MP06 handshake sans LIVE ; (3) A.3/A.5 reprise D4 ; (4) P14 panneau peuplé vs vide §23 ; (5) P25 suites lint/tsc/build exits réels.
+
+### Note d'actualisation E5 sur le draft
+
+- Rail / sas / recovery / dictation DET : **PREUVE NOUVELLE E5** (classes 2–4 selon ligne).
+- 17 MP : **OPEN RECETTE** inchangé.
+- Panneau peuplé naturel : **classe 5** (fresh project vide — JSON ci-dessous).
+- LIVE dictée / T08 / allocation adaptative : **classe 5** reportées.
+
+## 6. Validations
+
+# E5 validations summary — 2026-11-27
+
+## Candidate identity
+- PUBLISHED INPUT SNAPSHOT: `a3305a42b3fd0f24b2a16bca825fc14eb37e84e6` / tree `72405eddfdd10deea324a5c0dd01a073b30c5f85`
+- LOCAL QUALIFIED CANDIDATE: uncommitted delta under `projects/sfia-studio-next/web` (+ evidence/docs)
+- local-delta.sha256: see sibling file
+- BUILD_ID (qualify after E5 CSS): `y06_YWoJEwb4zZZwRW26H`
+- digest: `8380c0cd4578a25f83ffcf5fd5e7e259dd9641ea8d6ab0fc4ddc4aec7da710f4`
+- Lane: DEV :3100 / PG :5433 — RECETTE :3200 untouched
+
+## Suites
+| Command | Result | Notes |
 |---|---|---|
-| A E4 | Intégrateur + agent dictation | NoraSharedComposer, ComposerDictationControl, dictation session/fixture/draft, tokens, tests |
-| B E2 | Intégrateur | service.ts (ownership/UNKNOWN/reconcile), restitution |
-| C E3 | Intégrateur | page projet, Journal, RealizationSurface, recent-consultation, studio-shell.css |
-| Docs/publish | Intégrateur | as-built, delivery-history, registre, evidence, handoff |
+| `npm run test:unit` | EXIT 0 · 1531 PASS / 214 files | includes E5 unit deltas |
+| `npm run lint` | EXIT 0 | pre-existing unused-var warnings only |
+| `npm run qualify:build` | EXIT 0 | BUILD `y06_YWoJEwb4zZZwRW26H` |
+| dictation PG integrated | EXIT 0 · 8 PASS | T02/T11 fixed (completed-before-committed) |
+| e2 unified + finops + e5-knowledge unit | EXIT 0 · 13 PASS | NR Option B / FinOps |
+| browser E5 discriminating | EXIT 0 · 3 PASS | sas mic, rail hit, panel empty honest |
+| browser prior (panel/rail/ux/sas/dict harness) | EXIT 0 · 5 PASS | re-used qualify specs |
 
-Aucun agent concurrent sur un même fichier en écriture finale.
+## Full integration suite
+Not re-run wholesale: historically ~22 FAIL pre-existing (schema 008/019 / ml4c). Targeted NR only.
 
----
+## LIVE / RECETTE
+None executed. RECETTE process on :3200 preserved.
 
-## 6. Blast radius
 
-- Conversation D3 terminal paths (ownership / reconstitution) — SC2 NR PASS
-- Compositeur sas+projet + dictation API (fixture)
-- Rail CSS layout 1280×720
-- Panneau récents / deep-links exécution
-- Prep draft sessionStorage
-- Docs construction + evidence PNG
+### Browser evidence JSON
 
-Hors scope : LIVE Realtime, TTS, pièces jointes, FinOps moteur, RECETTE, CI, PR.
-
----
-
-## 7. Delta E4 (C.1–C.5)
-
-### C.1 Mutualisation
-`NoraSharedComposer` : un chemin IME / croissance / lock dictée / admission envoi ; chrome prep vs travail préservé.
-
-### C.2 Croissance & brouillons
-Textarea overflowY auto + maxHeight ; prep drafts `sfia.prep.draft:v1` isolés des `sfia.travail.draft` ; sas branché persist/restore/clear.
-
-### C.3 Transport & MP-06 DET
-`SESSION_OPEN_TIMEOUT` vs `TRANSPORT_OPEN_FAILED` explicites ; cleanup transport on fail ; erreurs FR mappées UI ; **MP-06 LIVE non soldé** (DET only).
-
-### C.4 États & onde
-Analyseur / wave **après** phase `listening` ; pas d'onde fictive en connexion.
-
-### C.5 Robustesse
-Tests session partial/timeout/cancel ; fixture queueMicrotask fix ; FinOps substitué inchangé.
-
----
-
-## 8. Delta E2 §21.1
-
-- ownershipLost mid-wave : conserve capitalisations confirmées (`attempted:true`)
-- exception après owner call : UNKNOWN + attempted true
-- pending knowledge après perte ownership D5/D6 : SKIPPED explicite enregistré
-- terminal TX/CAS miss : `reconcileKnowledgeEffectsFromDurableInfo` (pas d'invention d'intent)
-
-SC2 PG : **4 PASS**.
-
----
-
-## 9. Delta E3 §21.2
-
-- Multitype : exécution/résultat/bilan via `?attempt=` + `onPilotConsulted` ; Git commit immuable
-- Points ouverts : `selectedOpenPointId` focus
-- Rail : nav scroll + foot pin ; hit-test 1280×720 sans chevauchement peint
-- Restitution : plus de plafond silencieux `slice(0,8)`
-
----
-
-## 10. Contrat Figma
-
-Voir `projects/sfia-studio-next/construction/evidence/ml5-e4-20261127/figma-runtime-compare.md`.
-Dictée : morph in-place (05.18/05.21). Rail F1 246 px. Aucune mutation Figma.
-
----
-
-## 11. Validations exactes
-
-| Commande | Env/DB | Portée | Résultat | Exit |
-|---|---|---|---|---|
-| `npx vitest run …nora-shared-composer…dictation-session…` | DEV unit | E4 | PASS 31 | 0 |
-| `npx vitest run tests/integration/e2-unified-intent-conduction.pg.test.ts` | sfia_next_e2e@:5433 | E2 SC2 | PASS 4 | 0 |
-| `npx vitest run …project-recent-consultation` | unit | E3 | PASS 4 | 0 |
-| `npm run qualify:build` | DEV | build | PASS BUILD `NfeXL_KgIuqKGCdf0k4gh` | 0 |
-| `playwright …ml3-dictation-nominal-path + integrated` | fixture :3100 | E4 | PASS 4 | 0 |
-| `playwright …ml5-e3-panel-rail-capture` | :3100 | E3 | PASS 1 | 0 |
-| hit-test rail 1280×720 | :3100 | E3 C-D | PASS (clip) | 0 |
-| `git diff --check` | — | delta | clean | 0 |
-
-Préexistants tsc hors delta (activity-hierarchy, etc.) non comptés comme PASS de ce cycle.
-
----
-
-## 12. Fake / Real
-
-| Fake | Frontière REAL | Parité | Gap |
-|---|---|---|---|
-| Transport fixture + auto-transcript | admission/session/SSE/UI | chemins API+UI | qualité FR LIVE, latence, MP-06 micro réel |
-| Force Nora fixture | restitution fil | — | comportement naturel Nora |
-| Audio synthétique analyseur | onde post-listening | analyseur réel | parole humaine |
-
-**DETERMINISTIC PROVEN ≠ READY FOR REAL.** MP-06 non soldé en recette.
-
----
-
-## 13. Documentation synchronisée
-
-- `as-built-macro-lot-3-audio-20261127.md` §E4
-- `delivery-history.md` jalon E4_audio_composer…
-- `ml5-registre…` ligne R-E4i
-- Evidence `construction/evidence/ml5-e4-20261127/`
-
----
-
-## 14. Git Review Index
-
-| Path | Action |
-|---|---|
-| `.tmp-sfia-review/chatgpt-review.md` | **untracked** (git rm --cached) |
-| `…/NoraSharedComposer.tsx` | modified |
-| `…/ComposerDictationControl.tsx` | modified |
-| `…/composer-dictation-session.ts` | modified |
-| `…/composer-dictation-transport-fixture.ts` | modified |
-| `…/composer-draft.ts` | modified |
-| `…/service.ts` | modified |
-| `…/knowledge-effect-restitution.ts` | modified |
-| `…/page.tsx` (projet + prep) | modified |
-| `…/route.ts` prep GET session | modified |
-| `…/ProjectJournal.tsx` | modified |
-| `…/CursorRealizationSurface.tsx` | modified |
-| `…/project-recent-consultation.ts` | modified |
-| `…/studio-shell.css` | modified |
-| `…/tokens.css` | modified |
-| tests unit/qualify | modified |
-| construction docs + evidence | modified/added |
-
-### Diffstat `5f2ecad1..a3305a42`
-
-```
- .tmp-sfia-review/chatgpt-review.md                 | 133 ---------
- .../as-built-macro-lot-3-audio-20261127.md         |  13 +
- .../construction/delivery-history.md               |   7 +
- .../ml5-e4-20261127/c01-during-dictation.png       | Bin 0 -> 132135 bytes
- .../evidence/ml5-e4-20261127/composer-extended.png | Bin 0 -> 199342 bytes
- .../evidence/ml5-e4-20261127/composer-idle-mic.png | Bin 0 -> 126341 bytes
- .../evidence/ml5-e4-20261127/composer-short.png    | Bin 0 -> 127080 bytes
- .../evidence/ml5-e4-20261127/f1-rail-project.json  |   6 +
- .../ml5-e4-20261127/figma-runtime-compare.md       |  23 ++
- .../evidence/ml5-e4-20261127/ml3-dict-harness.png  | Bin 0 -> 41351 bytes
- .../ml5-e4-20261127/rail-1280x720-detail.json      | 178 ++++++++++++
- .../ml5-e4-20261127/rail-1280x720-hit.json         |  57 ++++
- .../ml5-e4-20261127/rail-1280x720-measure.json     |  18 ++
- .../ml5-e4-20261127/rail-1280x720-overlap.json     |  26 ++
- .../ml5-e4-20261127/runtime-panel-recents.png      | Bin 0 -> 5308 bytes
- .../ml5-e4-20261127/runtime-travail-1280x720.png   | Bin 0 -> 124006 bytes
- .../ml5-e4-20261127/runtime-travail-full.png       | Bin 0 -> 124006 bytes
- ...5-registre-couverture-et-revue-developpement.md |   1 +
- .../app/api/preparations/[preparationId]/route.ts  |   1 +
- .../src/app/preparations/[preparationId]/page.tsx  |  54 +++-
- .../web/src/app/projects/[projectId]/page.tsx      |  73 ++++-
- .../components/figma/ComposerDictationControl.tsx  | 121 ++++++--
- .../components/figma/CursorRealizationSurface.tsx  |  32 ++-
- .../src/components/figma/NoraSharedComposer.tsx    | 123 ++++----
- .../web/src/components/figma/ProjectJournal.tsx    |  51 +++-
- .../web/src/components/figma/tokens.css            |   9 +
- .../web/src/components/shell/studio-shell.css      |  15 +-
- .../conversation/composer-dictation-session.ts     |  23 +-
- .../composer-dictation-transport-fixture.ts        |  21 +-
- .../web/src/domains/conversation/composer-draft.ts |  87 +++++-
- .../conversation/knowledge-effect-restitution.ts   |   3 +-
- .../web/src/domains/conversation/service.ts        | 309 +++++++++++++++++++--
- .../web/src/lib/project-recent-consultation.ts     |  16 ++
- .../qualify/ml5-e3-panel-rail-capture.spec.ts      |  18 +-
- .../unit/ml3-composer-dictation-session.test.ts    | 128 ++++++---
- .../web/tests/unit/nora-shared-composer.test.ts    |  61 ++++
- .../tests/unit/project-recent-consultation.test.ts |  18 ++
- 37 files changed, 1302 insertions(+), 323 deletions(-)
-
+**Sas**
+```json
+{
+  "url": "http://127.0.0.1:3100/preparations/prep_29e9be7b-f95e-4916-b5e5-6d3b70e309e3",
+  "prepDraftVisible": true,
+  "micVisible": true,
+  "micDisabled": false,
+  "harness": false
+}
 ```
 
-### Diff — NoraSharedComposer
+**Rail hit**
+```json
+{
+  "box": {
+    "x": 16,
+    "y": 534.765625,
+    "width": 213,
+    "height": 34
+  },
+  "hit": {
+    "ok": true,
+    "cx": 122.5,
+    "cy": 551.765625,
+    "topTag": "SPAN",
+    "paddingBottom": "72px",
+    "scrollPaddingBottom": "72px",
+    "navScrollTop": 120,
+    "navScrollHeight": 544,
+    "inViewport": true,
+    "clearOfFoot": true,
+    "footTop": 651,
+    "resultsBottom": 568.765625
+  }
+}
+```
+
+**Panel**
+```json
+{
+  "asidePresent": true,
+  "itemCount": 0,
+  "populated": false,
+  "note": "Panel empty on fresh project — not claimed as peuplé; natural peuplement remains RECETTE"
+}
+```
+
+Captures locales: `projects/sfia-studio-next/construction/evidence/ml5-e5-20261127/browser/*.png`
+
+## 7. Fake / Real
+
+| Frontière | Mode | Parité | Gap | Niveau |
+| --- | --- | --- | --- | --- |
+| Nora cognitive | fixture | structurel | autonomie naturelle | DET |
+| OpenAI Realtime | fixture transport | handshake/finalize | qualité FR LIVE | DET + browser mic |
+| PostgreSQL | REAL e2e DB | ownership | — | REAL |
+| Navigateur | REAL Chromium :3100 | UX rail/sas/panel | peuplement naturel | REAL borné |
+| Cursor / Responses LIVE | non exercé | — | — | hors scope E5 |
+
+## 8. Documentation synchronisée (local)
+
+- `construction/delivery-history.md` — section E5
+- `construction/ml5-registre-couverture-et-revue-developpement.md` — R-E5
+- evidence `ml5-e5-20261127/` (manifest, plan LIVE, validations, browser)
+
+Suivi indépendant ChatGPT **non modifié**.
+
+## 9. Manifeste candidat RECETTE
+
+# Manifeste candidat RECETTE — E5 (préparation uniquement)
+
+**Date UTC**: 2026-11-27T21:23:11Z
+**Classe**: NO RELEASE · RECETTE DEPLOYMENT CANDIDATE PENDING GO
+**Aucune mutation RECETTE dans E5.**
+
+## Identités
+
+| Couche | Valeur |
+| --- | --- |
+| Branche source | `sfia/next-ml5-integrated-delivery-20261123` |
+| PUBLISHED INPUT SNAPSHOT | `a3305a42b3fd0f24b2a16bca825fc14eb37e84e6` |
+| Tree publié | `72405eddfdd10deea324a5c0dd01a073b30c5f85` |
+| LOCAL QUALIFIED CANDIDATE | delta local non commité — sha256 `e41e2a5a84f94de21928df2ba4bb1eb47730d636b33dad8e8ec05b037f2c1d17` |
+| BUILD_ID DEV testé | `y06_YWoJEwb4zZZwRW26H` |
+| Content digest | `8380c0cd4578a25f83ffcf5fd5e7e259dd9641ea8d6ab0fc4ddc4aec7da710f4` |
+| Lane | DEV |
+| Schéma | 027 (inchangé) |
+| Compatibilité données | OK — aucune migration structurante |
+
+## RECETTE actuelle (à préserver)
+
+| Champ | Valeur |
+| --- | --- |
+| App | :3200 |
+| PG | :5434 / `sfia_next_recette_ml4` |
+| Candidat déployé | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` |
+| BUILD | `rpEczSp61evIZ7d6fnIWR` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-e8e6e06961fa` |
+
+## Conditions de basculement (GO Morris distinct)
+
+1. Publication projet éventuelle du LOCAL QUALIFIED CANDIDATE → SHA publié.
+2. Build immuable RECETTE depuis ce SHA.
+3. Secrets / volumes / sessions RECETTE distincts conservés.
+4. Smoke technique :3200 sans LIVE.
+5. Rollback = rebuild/repoint vers `e8e6e069` / `rpEczSp61evIZ7d6fnIWR`.
+
+## Capacités vérifiées (DEV)
+
+- Continuité Option B + recovery knowledgeEffects (DET/PG)
+- Panneau droits + rail 1280×720 hit-test
+- Dictation substituée (DET/PG + browser mic sas/travail)
+- Suites unit 1531 · lint · qualify build
+
+## Réserves bloquant « naturel »
+
+- 17 MP OPEN RECETTE
+- Dictée LIVE / allocation adaptative / T08 comparatif / autonomie sémantique
+- Panneau peuplé naturel (fresh project = vide — honnête)
+
+
+## 10. Plan LIVE / MaintiPlan
+
+# Plan de rejeu RECETTE / LIVE — E5 (non exécuté)
+
+Mutualiser les 17 MP — pas 17 campagnes.
+
+| MP / thème | Scénario | Attendu | Preuve | Priorité | Dépendance | Budget |
+| --- | --- | --- | --- | --- | --- | --- |
+| Continuité sujets | Travail MaintiPlan : sujets/sous-sujets naturels | Création sélective, hiérarchie, réutilisation Nora | Journal + conversation | P0 | Candidat RECETTE | — |
+| Points ouverts / décisions | Arbitrage local vs durable | Distinction observable | Surfaces Projet/Journal | P0 | idem | — |
+| Multi-intentions | Analogue T05/T06 sans corrompre MaintiPlan | Intention indépendante malgré refus | OBS + restitution | P1 | Option B | tokens |
+| Documents V2 | T09 révision (NON ENVOYÉ jusqu'à GO Pilote) | V1/V2 distincts, compteurs | Bibliothèque + viewer | P0 | préconditions T09 | — |
+| Dictée LIVE | Sas + Travail FR | Connexion, parole, edit, envoi explicite | SSE + FinOps audio | P0 | GO LIVE + plan ML3 audio | sessions max |
+| Allocation C | Admission `SFIA_COG_PROVISIONAL_RECETTE_ADMIT` + token `qualified-v0.x` | demandé≠appliqué explicite | OBS policy | P1 | GO admit | — |
+| T08 comparatif | Mission comparable (ne pas rejouer 909k en DEV) | Mesures tokens/req/latence/qualité | OBS + chronométrage | P1 | GO LIVE | élevé |
+| Audio MP-06 | Cause réelle timeout/open | Qualité FR + usage | LIVE Realtime | P0 | GO LIVE | sessions |
+| Droits panneau | Consultation + révocation | Aucune fuite | UI + API | P0 | données peuplées | — |
+| FinOps | demandé/appliqué/estimé/facturé | Inconnu explicite | UI consommation | P1 | LIVE usage | admin OFF |
+
+## Dictée LIVE — requalification (reprend plan ML3)
+
+- Environnement: RECETTE uniquement sous GO
+- Transport: Realtime transcription FR
+- Budget: **non réautorisé** par E5 — reprendre plafond historique et le confirmer
+- STOP: erreur auth, timeout répété, auto-send, fuite interprojet
+- Preuves: sas + travail ; silence ; parole ; arrêt ; édition ; envoi
+
+## T09
+
+NON ENVOYÉ. Préconditions: candidat RECETTE, docs préservés, contrôles prioritaires, réserves acceptées Morris, décision Pilote.
+
+
+## 11. Réserves (Cursor — acceptation Morris requise)
+
+| ID | Contrat | État | Risque | Report | Preuve nécessaire | Sortie | Gate |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| R-REC-E1-01/02 | E1 | acceptées Morris | — | conservées | — | — | — |
+| R-E5-LIVE-DICT | MP-06 / C.x | DET only | qualité FR | LIVE GO | Realtime sessions | PASS LIVE | Morris |
+| R-E5-ALLOC | A.1 Option C | DET | pertinence | RECETTE admit | OBS model applied | admit token | Morris |
+| R-E5-T08 | performance | non rejoué | comparabilité | RECETTE | mission comparable | mesures | Morris |
+| R-E5-T09 | docs V2 | NON ENVOYÉ | continuité MaintiPlan | Pilote | V2 + surfaces | envoi Pilote | Morris+Pilote |
+| R-E5-PANEL-POP | D.4/D.6 | empty fresh | UX | peuplement naturel | 6 consultations | UI peuplée | Morris |
+| R-E5-MP-OPEN | 17 MP | OPEN RECETTE | couverture | recette mutualisée | plan §10 | arbitration | Morris |
+| R-E5-LOCAL-DELTA | publication | uncommitted | drift | GO publication | SHA publié | publish | Morris |
+
+## 12. Verdict Cursor
+
+**READY WITH RESERVES**
+
+Candidat techniquement identifiable (publié + delta local fingerprinté). Aucun défaut critique d'intégrité/autorité/sécurité non traité dans le mandat. Naturel/LIVE explicitement reportés. Mise à disposition RECETTE = **décision Morris** (après publication éventuelle du delta).
+
+État programme préservé: R5 IN PROGRESS · ML5 OPEN · Livraison 1 NOT ACCEPTED · MaintiPlan suspended after T08 · T09 NOT SENT · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED.
+
+## 13. Review Pack Content Coverage
+
+- [x] mandat / sources / Git Truth / ENV-01
+- [x] matrices (draft suivi + notes E5)
+- [x] défauts + corrections
+- [x] diffs exploitables + fichiers nouveaux
+- [x] validations + exits
+- [x] captures/JSON browser
+- [x] Fake/Real
+- [x] identité candidat
+- [x] docs / manifeste / plan LIVE
+- [x] réserves / verdict
+
+## 14. Diffs des modifications (substance)
+
+### git diff (tracked)
 
 ```diff
-diff --git a/projects/sfia-studio-next/web/src/components/figma/NoraSharedComposer.tsx b/projects/sfia-studio-next/web/src/components/figma/NoraSharedComposer.tsx
-index 5c35d5e2..1e52b336 100644
---- a/projects/sfia-studio-next/web/src/components/figma/NoraSharedComposer.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/NoraSharedComposer.tsx
-@@ -1,6 +1,12 @@
- "use client";
-
--import { useEffect, useRef, useState } from "react";
-+import {
-+  useEffect,
-+  useRef,
-+  useState,
-+  type ChangeEvent,
-+  type KeyboardEvent,
-+} from "react";
- import { ComposerDictationControl } from "@/components/figma/ComposerDictationControl";
-
- export type NoraSharedComposerProps = {
-@@ -25,6 +31,10 @@ export type NoraSharedComposerProps = {
-   placeholder?: string;
- };
-
-+/**
-+ * Shared composer shell — prep vs travail keep contractual chrome/send rules,
-+ * but IME, growth, dictation lock, and send admission share one interaction path (E4 C.1).
-+ */
- export function NoraSharedComposer(props: NoraSharedComposerProps) {
-   const composerLocked = Boolean(props.composerLocked);
-   const hasDossier = Boolean(props.dossierAttachment?.attemptId);
-@@ -66,6 +76,36 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
-       ? "Décrivez votre idée, une question ou une hésitation…"
-       : "Écrire à Nora dans ce projet…");
-
-+  function canAdmitSend(): boolean {
-+    if (props.busy || composerLocked || dictationActive) return false;
-+    if (props.variant === "travail") return Boolean(props.draft.trim() || hasDossier);
-+    return Boolean(props.draft.trim());
-+  }
-+
-+  function onTextareaKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
-+    // During dictation: never send (Enter or shortcuts).
-+    if (composerLocked || dictationActive) {
-+      e.preventDefault();
-+      return;
-+    }
-+    if (imeComposing || e.nativeEvent.isComposing) return;
-+
-+    if (props.variant === "prep") {
-+      if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && canAdmitSend()) {
-+        e.preventDefault();
-+        props.onSend();
-+      }
-+      return;
-+    }
-+
-+    // Travail: Enter sends on desktop; Shift+Enter newline; mobile keeps Enter as newline.
-+    if (isMobile) return;
-+    if (e.key === "Enter" && !e.shiftKey && canAdmitSend()) {
-+      e.preventDefault();
-+      props.onSend();
-+    }
-+  }
-+
-   const dictationControl = dictationMount ? (
-     <ComposerDictationControl
-       projectId={dictationProjectId}
-@@ -78,11 +118,30 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
-     />
-   ) : null;
-
-+  const sharedTextareaProps = {
-+    ref: textareaRef,
-+    value: props.draft,
-+    onChange: (e: ChangeEvent<HTMLTextAreaElement>) => {
-+      if (composerLocked || dictationActive) return;
-+      props.onDraft(e.target.value);
-+    },
-+    placeholder,
-+    "aria-label": "Message à Nora" as const,
-+    rows: 1 as const,
-+    readOnly: composerLocked || dictationActive,
-+    "data-dictation-hide": dictationActive ? ("1" as const) : undefined,
-+    hidden: dictationActive,
-+    tabIndex: dictationActive ? -1 : 0,
-+    onCompositionStart: () => setImeComposing(true),
-+    onCompositionEnd: () => setImeComposing(false),
-+    onKeyDown: onTextareaKeyDown,
-+  };
-+
-   if (props.variant === "prep") {
-     const expanded = props.draft.includes("\n") || props.draft.length > 80;
-     return (
-       <div
--        className="sas-composer"
-+        className="sas-composer relative"
-         data-testid="prep-composer"
-         data-dictation-active={dictationActive ? "1" : "0"}
-         data-composer-expanded={expanded ? "1" : "0"}
-@@ -92,37 +151,16 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
-                 height: "auto",
-                 maxHeight: "min(36vh, 280px)",
-                 minHeight: "var(--sas-composer-h)",
-+                overflowY: "auto",
-               }
-             : undefined
-         }
-       >
-         <textarea
--          ref={textareaRef}
-+          {...sharedTextareaProps}
-           className="sas-composer-input"
--          value={props.draft}
--          onChange={(e) => props.onDraft(e.target.value)}
--          placeholder={placeholder}
--          aria-label="Message à Nora"
-           data-testid="prep-draft"
--          rows={1}
-           disabled={props.busy || composerLocked}
--          readOnly={composerLocked || dictationActive}
--          hidden={dictationActive}
--          tabIndex={dictationActive ? -1 : 0}
--          data-dictation-hide={dictationActive ? "1" : undefined}
--          onCompositionStart={() => setImeComposing(true)}
--          onCompositionEnd={() => setImeComposing(false)}
--          onKeyDown={(e) => {
--            if (composerLocked || dictationActive) {
--              e.preventDefault();
--              return;
--            }
--            if (imeComposing || e.nativeEvent.isComposing) return;
--            if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !props.busy) {
--              e.preventDefault();
--              if (props.draft.trim()) props.onSend();
--            }
--          }}
-         />
-         <div
-           className="sas-composer-bar"
-@@ -145,7 +183,9 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
-               type="button"
-               className="sas-composer-send"
-               disabled={sendDisabled}
--              onClick={props.onSend}
-+              onClick={() => {
-+                if (canAdmitSend()) props.onSend();
-+              }}
-               data-testid="prep-send"
-               aria-label="Envoyer le message"
-               data-dictation-hide={dictationActive ? "1" : undefined}
-@@ -251,41 +291,20 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
-           +
-         </span>
-         <textarea
--          ref={textareaRef}
-+          {...sharedTextareaProps}
-           className="fig-travail-composer-input"
--          value={props.draft}
--          onChange={(e) => props.onDraft(e.target.value)}
--          placeholder={placeholder}
--          aria-label="Message à Nora"
-           data-testid="thread-draft"
--          rows={1}
--          readOnly={composerLocked || dictationActive}
-           disabled={composerLocked}
-           aria-disabled={composerLocked || dictationActive}
--          data-dictation-hide={dictationActive ? "1" : undefined}
--          hidden={dictationActive}
--          tabIndex={dictationActive ? -1 : 0}
--          onCompositionStart={() => setImeComposing(true)}
--          onCompositionEnd={() => setImeComposing(false)}
--          onKeyDown={(e) => {
--            if (composerLocked || dictationActive) {
--              e.preventDefault();
--              return;
--            }
--            if (imeComposing || e.nativeEvent.isComposing) return;
--            if (isMobile) return;
--            if (e.key === "Enter" && !e.shiftKey && !props.busy) {
--              e.preventDefault();
--              if (props.draft.trim() || hasDossier) props.onSend();
--            }
--          }}
-         />
-         {dictationControl}
-         <button
-           type="button"
-           className="fig-travail-composer-send"
-           disabled={sendDisabled}
--          onClick={props.onSend}
-+          onClick={() => {
-+            if (canAdmitSend()) props.onSend();
-+          }}
-           data-testid="thread-send"
-           aria-label="Envoyer"
-           data-dictation-hide={dictationActive ? "1" : undefined}
-@@ -309,4 +328,4 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
-       ) : null}
-     </div>
-   );
--}
-\ No newline at end of file
-+}
-
-```
-
-### Diff — ComposerDictationControl
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/components/figma/ComposerDictationControl.tsx b/projects/sfia-studio-next/web/src/components/figma/ComposerDictationControl.tsx
-index 3816895e..ef08f4a2 100644
---- a/projects/sfia-studio-next/web/src/components/figma/ComposerDictationControl.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/ComposerDictationControl.tsx
-@@ -108,6 +108,38 @@ function figmaState(
-   return undefined;
- }
-
-+/** Map server/admission codes to explicit pilot-facing French errors (MP-06 DET). */
-+export function dictationClientErrorMessage(input: {
-+  code?: string | null;
-+  message?: string | null;
-+  fallback?: string;
-+}): string {
-+  const code = (input.code || "").trim();
-+  const raw = (input.message || "").trim();
-+  const fromCode =
-+    code === "SESSION_OPEN_TIMEOUT" || raw === "SESSION_OPEN_TIMEOUT"
-+      ? "Connexion dictée expirée — réessayez ou utilisez le clavier"
-+      : code === "TRANSPORT_OPEN_FAILED"
-+        ? "Transport dictée indisponible — réessayez ou utilisez le clavier"
-+        : code === "FLAG_OFF"
-+          ? "Dictée non activée sur cet environnement"
-+          : code === "CONCURRENCY_LIMIT"
-+            ? "Une dictée est déjà en cours"
-+            : code === "FIXTURE_NOT_ADMITTED" || code === "SUBSTITUTED_TRANSPORT_MISSING"
-+              ? "Dictée de test non admise sur cet environnement"
-+              : code === "TRANSPORT_UNKNOWN"
-+                ? "Configuration dictée incohérente"
-+                : code === "NO_PROVIDER_KEY" || code === "LANE_GUARD"
-+                  ? "Dictée indisponible (clé ou voie non admise)"
-+                  : code === "INVALID_SCOPE" || code === "FORBIDDEN"
-+                    ? "Dictée refusée pour ce contexte"
-+                    : "";
-+  if (fromCode) return fromCode;
-+  if (raw && raw !== code) return raw.slice(0, 160);
-+  if (code) return code.slice(0, 160);
-+  return input.fallback || "Impossible de démarrer la dictée";
-+}
-+
- export function ComposerDictationControl(props: ComposerDictationControlProps) {
-   const apiBase = useMemo(
-     () => dictationApiBase({ projectId: props.projectId, preparationId: props.preparationId }),
-@@ -184,7 +216,21 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
-     setBarHeights(Array.from({ length: WAVE_BARS }, () => 0.12));
-   }, []);
-
--  useEffect(() => () => stopMedia(), [stopMedia]);
-+  // C.5 — unmount isolates session: bump generation, cancel remote, free mic/AudioContext/SSE.
-+  useEffect(() => {
-+    return () => {
-+      generationRef.current += 1;
-+      const sid = sessionIdRef.current;
-+      sessionIdRef.current = null;
-+      stopMedia();
-+      if (sid && apiBase) {
-+        void fetch(`${apiBase}/sessions/${encodeURIComponent(sid)}/cancel`, {
-+          method: "POST",
-+          keepalive: true,
-+        }).catch(() => undefined);
-+      }
-+    };
-+  }, [apiBase, stopMedia]);
-
-   const drainUploads = useCallback(async () => {
-     await uploadChainRef.current;
-@@ -312,6 +358,7 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
-         if (early?.sessionId) {
-           void cancelSessionRemote(early.sessionId);
-         }
-+        setPhase("idle");
-         return;
-       }
-       const created = (await createRes.json()) as {
-@@ -323,12 +370,19 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
-       if (!createRes.ok || !created.ok || !created.sessionId) {
-         stopMedia();
-         setPhase("error");
--        setError(created.message || created.code || "Session refusée");
-+        setError(
-+          dictationClientErrorMessage({
-+            code: created.code,
-+            message: created.message,
-+            fallback: "Session refusée",
-+          }),
-+        );
-         return;
-       }
-       if (aborted()) {
-         stopMedia();
-         void cancelSessionRemote(created.sessionId);
-+        setPhase("idle");
-         return;
-       }
-       sessionIdRef.current = created.sessionId;
-@@ -338,6 +392,15 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
-         `${apiBase}/sessions/${encodeURIComponent(created.sessionId)}/events`,
-       );
-       esRef.current = es;
-+      es.onerror = () => {
-+        if (aborted() || captureStoppedRef.current) return;
-+        // EventSource also errors during reconnect — only fail when permanently closed.
-+        if (es.readyState !== EventSource.CLOSED) return;
-+        failCapture("Flux dictée interrompu — réessayez ou utilisez le clavier");
-+        stopMedia();
-+        void cancelSessionRemote(sessionIdRef.current);
-+        sessionIdRef.current = null;
-+      };
-       es.onmessage = (msg) => {
-         if (aborted()) return;
-         try {
-@@ -378,14 +441,20 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
-             );
-           }
-           if (ev.type === "session.error") {
--            setError(ev.message || ev.code || "Erreur de dictée");
-+            setError(
-+              dictationClientErrorMessage({
-+                code: ev.code,
-+                message: ev.message,
-+                fallback: "Erreur de dictée",
-+              }),
-+            );
-             setPhase("error");
-             stopMedia();
-             void cancelSessionRemote(sessionIdRef.current);
-             sessionIdRef.current = null;
-           }
-           if (ev.type === "session.expired") {
--            setError("Session expirée");
-+            setError("Session expirée — la dictée a été interrompue");
-             setPhase("error");
-             stopMedia();
-             sessionIdRef.current = null;
-@@ -401,6 +470,7 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
-         stopMedia();
-         void cancelSessionRemote(created.sessionId);
-         sessionIdRef.current = null;
-+        setPhase("idle");
-         return;
-       }
-       audioCtxRef.current = audioCtx;
-@@ -410,24 +480,6 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
-       analyserRef.current = analyser;
-       source.connect(analyser);
-
--      const freqData = new Uint8Array(analyser.frequencyBinCount);
--      const tick = () => {
--        if (aborted() || captureStoppedRef.current) return;
--        if (sessionStartRef.current != null) {
--          setElapsedMs(Date.now() - sessionStartRef.current);
--        }
--        analyser.getByteFrequencyData(freqData);
--        const nextBars: number[] = [];
--        const step = Math.max(1, Math.floor(freqData.length / WAVE_BARS));
--        for (let i = 0; i < WAVE_BARS; i++) {
--          const v = freqData[i * step] ?? 0;
--          nextBars.push(Math.max(0.12, (v / 255) * 1.15));
--        }
--        setBarHeights(nextBars);
--        rafRef.current = requestAnimationFrame(tick);
--      };
--      rafRef.current = requestAnimationFrame(tick);
--
-       const processor = audioCtx.createScriptProcessor(4096, 1, 1);
-       processorRef.current = processor;
-       const mute = audioCtx.createGain();
-@@ -447,11 +499,33 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
-         stopMedia();
-         void cancelSessionRemote(created.sessionId);
-         sessionIdRef.current = null;
-+        setPhase("idle");
-         return;
-       }
-+      // C.4 — analyser wave only after listening is established (not during connexion).
-       setPhase("listening");
-+      const freqData = new Uint8Array(analyser.frequencyBinCount);
-+      const tick = () => {
-+        if (aborted() || captureStoppedRef.current) return;
-+        if (sessionStartRef.current != null) {
-+          setElapsedMs(Date.now() - sessionStartRef.current);
-+        }
-+        analyser.getByteFrequencyData(freqData);
-+        const nextBars: number[] = [];
-+        const step = Math.max(1, Math.floor(freqData.length / WAVE_BARS));
-+        for (let i = 0; i < WAVE_BARS; i++) {
-+          const v = freqData[i * step] ?? 0;
-+          nextBars.push(Math.max(0.12, (v / 255) * 1.15));
-+        }
-+        setBarHeights(nextBars);
-+        rafRef.current = requestAnimationFrame(tick);
-+      };
-+      rafRef.current = requestAnimationFrame(tick);
-     } catch (e) {
--      if (aborted()) return;
-+      if (aborted()) {
-+        setPhase("idle");
-+        return;
-+      }
-       stopMedia();
-       setPhase("error");
-       setError(
-@@ -465,6 +539,7 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
-   }, [
-     cancelSessionRemote,
-     enqueueAudio,
-+    failCapture,
-     props.disabled,
-     props.enabled,
-     props.draft,
-
-```
-
-### Diff — dictation domain (session/draft/fixture)
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-session.ts b/projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-session.ts
-index 67c1755c..7e6838c9 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-session.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-session.ts
-@@ -346,12 +346,15 @@ export async function createDictationSession(input: {
-     }
-     record.transport = transport;
-     transport.onEvent((event) => handleProviderEvent(record, event));
-+    let providerReady = false;
-     const sessionReady = new Promise<void>((resolve, reject) => {
-       const t = setTimeout(() => {
-         record.onProviderSessionReady = null;
-         reject(new Error("SESSION_OPEN_TIMEOUT"));
-       }, SESSION_OPEN_TIMEOUT_MS);
-       record.onProviderSessionReady = () => {
-+        if (providerReady) return;
-+        providerReady = true;
-         clearTimeout(t);
-         record.onProviderSessionReady = null;
-         resolve();
-@@ -380,17 +383,27 @@ export async function createDictationSession(input: {
-     emit(record, { type: "session.open", sessionId });
-     return { ok: true, session: record };
-   } catch (e) {
-+    const rawMessage =
-+      e instanceof Error ? e.message.slice(0, 240) : "TRANSPORT_OPEN_FAILED";
-+    const timedOut = rawMessage === "SESSION_OPEN_TIMEOUT";
-+    const code = timedOut ? "SESSION_OPEN_TIMEOUT" : "TRANSPORT_OPEN_FAILED";
-     record.status = "failed";
--    record.errorCode = "TRANSPORT_OPEN_FAILED";
--    const message = e instanceof Error ? e.message.slice(0, 240) : "TRANSPORT_OPEN_FAILED";
-+    record.errorCode = code;
-+    try {
-+      record.transport?.close();
-+    } catch {
-+      /* */
-+    }
-+    record.transport = null;
-+    record.onProviderSessionReady = null;
-     emit(record, {
-       type: "session.error",
-       sessionId,
--      code: "TRANSPORT_OPEN_FAILED",
--      message,
-+      code,
-+      message: rawMessage,
-     });
-     void recordDictationFinops(record, "failed");
--    return { ok: false, code: "TRANSPORT_OPEN_FAILED", message };
-+    return { ok: false, code, message: rawMessage };
-   }
- }
-
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-transport-fixture.ts b/projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-transport-fixture.ts
-index 63da7f3e..98d58de5 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-transport-fixture.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-transport-fixture.ts
-@@ -42,18 +42,30 @@ export function _resetDictationFixtureRegistry(): void {
- export function createFixtureRealtimeTransport(sessionId: string): RealtimeTransport {
-   let handler: ((ev: Record<string, unknown>) => void) | null = null;
-   const sent: Record<string, unknown>[] = [];
-+  /** Queued until onEvent registers — avoids lost session.updated (MP-06 DET). */
-+  let pendingReady: Record<string, unknown> | null = null;
-   const handle: DictationFixtureHandle = {
-     sent,
-     push: (ev) => handler?.(ev),
-   };
-   fixtureRegistry.set(sessionId, handle);
-   let commitOrdinal = 0;
-+  const emitOrQueue = (ev: Record<string, unknown>) => {
-+    if (handler) {
-+      handler(ev);
-+      return;
-+    }
-+    if (ev.type === "session.updated" || ev.type === "session.created") {
-+      pendingReady = ev;
-+    }
-+  };
-   return {
-     send: (p) => {
-       sent.push(p);
-       if (p.type === "session.update") {
-+        // Deterministic ready ack — never rely on live provider timing in fixture.
-         queueMicrotask(() => {
--          handler?.({ type: "session.updated" });
-+          emitOrQueue({ type: "session.updated" });
-         });
-       }
-       // Simulate provider item creation after buffer commit (turn_detection: null).
-@@ -107,9 +119,16 @@ export function createFixtureRealtimeTransport(sessionId: string): RealtimeTrans
-     },
-     close: () => {
-       // Keep handle for DEV fixture-push (late events after cancel — C03).
-+      // Drop further ready acks; late commit/transcript still pushable via registry.
-+      pendingReady = null;
-     },
-     onEvent: (h) => {
-       handler = h;
-+      if (pendingReady) {
-+        const ready = pendingReady;
-+        pendingReady = null;
-+        queueMicrotask(() => handler?.(ready));
-+      }
-     },
-   };
- }
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/composer-draft.ts b/projects/sfia-studio-next/web/src/domains/conversation/composer-draft.ts
-index 38c50283..aa3e7848 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/composer-draft.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/composer-draft.ts
-@@ -1,6 +1,7 @@
- /**
-  * Ensemble 05 / M3 — composer draft in sessionStorage (tab-scoped).
-- * Partition: pilot + project + lane. No server sync. No cross-device recovery.
-+ * Partition: pilot + (project | preparation) + lane. No server sync. No cross-device recovery.
-+ * C.2 — project and prep drafts never share a key (isolation pilot/project/prep).
-  */
-
- export type ComposerDraftRecord = {
-@@ -16,6 +17,18 @@ export type ComposerDraftRecord = {
-   updatedAt: string;
- };
-
-+/** Prep (sas) draft — separate namespace from travail project drafts. */
-+export type PrepComposerDraftRecord = {
-+  schemaVersion: "e05-prep-composer-draft-v1";
-+  pilotId: string;
-+  preparationId: string;
-+  lane: string;
-+  text: string;
-+  version: number;
-+  sentVersion: number | null;
-+  updatedAt: string;
-+};
-+
- export function studioClientLane(): string {
-   if (typeof window === "undefined") return "ssr";
-   const port = window.location.port || (window.location.protocol === "https:" ? "443" : "80");
-@@ -32,6 +45,62 @@ export function composerDraftStorageKey(input: {
-   return `sfia.travail.draft:v1:${lane}:${input.pilotId}:${input.projectId}`;
- }
-
-+export function prepComposerDraftStorageKey(input: {
-+  pilotId: string;
-+  preparationId: string;
-+  lane?: string;
-+}): string {
-+  const lane = input.lane ?? studioClientLane();
-+  return `sfia.prep.draft:v1:${lane}:${input.pilotId}:${input.preparationId}`;
-+}
-+
-+export function readPrepComposerDraft(input: {
-+  pilotId: string;
-+  preparationId: string;
-+  lane?: string;
-+}): PrepComposerDraftRecord | null {
-+  if (typeof sessionStorage === "undefined") return null;
-+  if (!input.pilotId || !input.preparationId) return null;
-+  try {
-+    const raw = sessionStorage.getItem(prepComposerDraftStorageKey(input));
-+    if (!raw) return null;
-+    const parsed = JSON.parse(raw) as PrepComposerDraftRecord;
-+    if (parsed.schemaVersion !== "e05-prep-composer-draft-v1") return null;
-+    if (
-+      parsed.pilotId !== input.pilotId ||
-+      parsed.preparationId !== input.preparationId
-+    ) {
-+      return null;
-+    }
-+    const lane = input.lane ?? studioClientLane();
-+    if (parsed.lane !== lane) return null;
-+    return parsed;
-+  } catch {
-+    return null;
-+  }
-+}
-+
-+export function writePrepComposerDraft(record: PrepComposerDraftRecord): void {
-+  if (typeof sessionStorage === "undefined") return;
-+  sessionStorage.setItem(
-+    prepComposerDraftStorageKey({
-+      pilotId: record.pilotId,
-+      preparationId: record.preparationId,
-+      lane: record.lane,
-+    }),
-+    JSON.stringify(record),
-+  );
-+}
-+
-+export function clearPrepComposerDraft(input: {
-+  pilotId: string;
-+  preparationId: string;
-+  lane?: string;
-+}): void {
-+  if (typeof sessionStorage === "undefined") return;
-+  sessionStorage.removeItem(prepComposerDraftStorageKey(input));
-+}
-+
- export function readComposerDraft(input: {
-   pilotId: string;
-   projectId: string;
-@@ -92,27 +161,33 @@ export function clearDraftAfterAck(input: {
-
- export function purgeComposerDraftsForPilot(pilotId: string): void {
-   if (typeof sessionStorage === "undefined") return;
--  const prefix = "sfia.travail.draft:v1:";
-+  const prefixes = ["sfia.travail.draft:v1:", "sfia.prep.draft:v1:"];
-   const keys: string[] = [];
-   for (let i = 0; i < sessionStorage.length; i += 1) {
-     const k = sessionStorage.key(i);
--    if (k && k.startsWith(prefix) && k.includes(`:${pilotId}:`)) keys.push(k);
-+    if (
-+      k &&
-+      prefixes.some((p) => k.startsWith(p)) &&
-+      k.includes(`:${pilotId}:`)
-+    ) {
-+      keys.push(k);
-+    }
-   }
-   for (const k of keys) sessionStorage.removeItem(k);
- }
-
- /**
-  * C3 — explicit logout / identity switch in the same tab.
-- * Clears every Travail draft key in this tab's sessionStorage.
-+ * Clears every Travail + prep draft key in this tab's sessionStorage.
-  * Does not touch other origins or localStorage.
-  */
- export function purgeAllComposerDraftsInTab(): void {
-   if (typeof sessionStorage === "undefined") return;
--  const prefix = "sfia.travail.draft:v1:";
-+  const prefixes = ["sfia.travail.draft:v1:", "sfia.prep.draft:v1:"];
-   const keys: string[] = [];
-   for (let i = 0; i < sessionStorage.length; i += 1) {
-     const k = sessionStorage.key(i);
--    if (k && k.startsWith(prefix)) keys.push(k);
-+    if (k && prefixes.some((p) => k.startsWith(p))) keys.push(k);
-   }
-   for (const k of keys) sessionStorage.removeItem(k);
- }
-
-```
-
-### Diff — service.ts (E2 ownership / reconcile)
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index f3cb1f17..acef44f6 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -898,6 +898,155 @@ export function extractDurablePilotageIntentIds(input: {
-   return [...ids];
- }
-
-+type KnowledgeCapRow = {
-+  intentId?: string;
-+  status: string;
-+  kind?: string;
-+  id?: string;
-+  reason?: string;
-+};
-+
-+/**
-+ * E2 residual fidelity (§21.1) — reconcile knowledgeEffects on UNKNOWN / ownership-loss
-+ * paths from durable capitalisation rows + DB reconstitution. Never invents mutations:
-+ * upgrades false-negative SKIPPED/NOT_EXECUTED only when an owner row (or DB-confirmed
-+ * ownerRef) already exists; lookup/replay remain read-only callers.
-+ */
-+export function reconcileKnowledgeEffectsFromDurableInfo(input: {
-+  effects: TurnKnowledgeEffect[];
-+  capitalisationRows?: KnowledgeCapRow[] | null;
-+  reconstituted?: Array<{ id: string; kind?: string; status?: string }> | null;
-+}): TurnKnowledgeEffect[] {
-+  const byIntent = new Map<string, TurnKnowledgeEffect>();
-+  for (const e of input.effects) {
-+    const id = e.semanticIntentId?.trim();
-+    if (id) byIntent.set(id, { ...e });
-+  }
-+  const reconstitutedIds = new Set(
-+    (input.reconstituted ?? []).map((r) => r.id).filter(Boolean),
-+  );
-+
-+  const capRows = input.capitalisationRows ?? [];
-+  const intentIds = new Set<string>();
-+  for (const row of capRows) {
-+    const id = row.intentId?.trim();
-+    if (id) intentIds.add(id);
-+  }
-+
-+  const isOkStatus = (s: string) => {
-+    const u = (s ?? "").toUpperCase();
-+    return u === "AVAILABLE" || u === "OK" || u === "SUCCESS" || u === "APPLIED";
-+  };
-+
-+  for (const intentId of intentIds) {
-+    const related = capRows.filter((c) => c.intentId === intentId);
-+    if (related.length === 0) continue;
-+
-+    const outcome = crossCapOutcomeFromCapitalisations({
-+      intentId,
-+      capitalisations: related,
-+      hadProposal: true,
-+      ownershipLost: false,
-+    });
-+    const primary = related.find(
-+      (c) =>
-+        (c.kind === "subject" ||
-+          c.kind === "acquis" ||
-+          c.kind === "open_point" ||
-+          !c.kind) &&
-+        isOkStatus(c.status) &&
-+        typeof c.id === "string" &&
-+        c.id.length > 0,
-+    );
-+    const ownerRef =
-+      primary && typeof primary.id === "string"
-+        ? primary.id
-+        : related.find((c) => typeof c.id === "string" && c.id.length > 0)?.id ??
-+          null;
-+
-+    const dbConfirms =
-+      reconstitutedIds.size === 0 ||
-+      (ownerRef != null && reconstitutedIds.has(ownerRef)) ||
-+      related.some((r) => r.id != null && reconstitutedIds.has(r.id));
-+
-+    // Only materialise / upgrade when we have a real owner outcome — never invent APPLIED.
-+    const confirmed =
-+      (outcome === "APPLIED" || outcome === "PARTIAL") &&
-+      ownerRef != null &&
-+      dbConfirms;
-+    if (!confirmed && outcome !== "FAILED") continue;
-+    if (outcome === "FAILED" && !related.some((r) => isOkStatus(r.status))) {
-+      // FAILED without any success row: keep existing honest record; do not invent.
-+      continue;
-+    }
-+    if (!confirmed) continue;
-+
-+    const existing = byIntent.get(intentId);
-+    const existingStatus = (existing?.status ?? "").toUpperCase();
-+    const alreadyConfirmed =
-+      existing?.attempted === true &&
-+      (existingStatus === "APPLIED" ||
-+        existingStatus === "AVAILABLE" ||
-+        existingStatus === "OK" ||
-+        existingStatus === "PARTIAL");
-+    if (alreadyConfirmed) {
-+      if (existing && !existing.ownerRef && ownerRef) {
-+        byIntent.set(intentId, { ...existing, ownerRef });
-+      }
-+      continue;
-+    }
-+
-+    // Upgrade false-negative SKIPPED / NOT_EXECUTED / UNKNOWN when durable owner ref exists.
-+    byIntent.set(
-+      intentId,
-+      knowledgeEffectFromCapitalisation({
-+        intentId,
-+        status: outcome,
-+        proposalKind: existing?.proposalKind ?? null,
-+        ownerRef,
-+        reason:
-+          primary && typeof primary.reason === "string"
-+            ? primary.reason || null
-+            : (existing?.reason ?? null),
-+        reasonCode: existing?.reasonCode ?? null,
-+        attempted: true,
-+      }),
-+    );
-+  }
-+
-+  // OwnerRef already on an effect and present in DB reconstitution → promote attempted.
-+  if (reconstitutedIds.size > 0) {
-+    for (const [intentId, e] of byIntent) {
-+      if (!e.ownerRef || !reconstitutedIds.has(e.ownerRef)) continue;
-+      const st = (e.status ?? "").toUpperCase();
-+      if (
-+        e.attempted &&
-+        (st === "APPLIED" || st === "AVAILABLE" || st === "OK" || st === "PARTIAL")
-+      ) {
-+        continue;
-+      }
-+      if (
-+        !e.attempted ||
-+        st === "SKIPPED" ||
-+        st === "NOT_EXECUTED" ||
-+        st === "UNKNOWN"
-+      ) {
-+        byIntent.set(intentId, {
-+          ...e,
-+          attempted: true,
-+          status:
-+            st === "SKIPPED" || st === "NOT_EXECUTED" || st === "UNKNOWN"
-+              ? "APPLIED"
-+              : e.status,
-+          reasonCode: e.reasonCode === "OWNERSHIP_LOST" ? null : e.reasonCode,
-+        });
-+      }
-+    }
-+  }
-+
-+  return [...byIntent.values()];
-+}
-+
- async function resolvePilotageEffectForReplay(input: {
-   pilotId: string;
-   projectId: string | null | undefined;
-@@ -2324,22 +2473,69 @@ export async function postUserMessageAndNora(
-             };
-             if (step.ownershipLost) {
-               ownershipLostBeforeD4 = true;
-+              // Preserve confirmed D4 owner outcomes from this step; only mark
-+              // intents without a confirmed row as SKIPPED (E2 §21.1).
-               for (const id of runnableIds) {
--                ownerOutcomeByIntentId.set(id, "SKIPPED");
-                 pending.delete(id);
--                recordKnowledgeEffect(
--                  knowledgeEffectNotExecuted({
--                    intentId: id,
--                    status: "SKIPPED",
--                    reason:
--                      "Propriété du tour perdue pendant la capitalisation D4 — effet non exécuté.",
--                    reasonCode: "OWNERSHIP_LOST",
--                    proposalKind: proposalKindByIntentId.get(id) ?? null,
--                  }),
-+                const proposalsForIntent = proposalsForWave.filter(
-+                  (p) => p.intentId === id,
-+                );
-+                const primary = step.capitalisations.find(
-+                  (c) =>
-+                    c.intentId === id &&
-+                    (c.kind === "subject" ||
-+                      c.kind === "acquis" ||
-+                      c.kind === "open_point") &&
-+                    (c.status === "AVAILABLE" || c.status === "OK"),
-                 );
-+                if (primary) {
-+                  const outcome = crossCapOutcomeFromCapitalisations({
-+                    intentId: id,
-+                    capitalisations: step.capitalisations,
-+                    hadProposal: proposalsForIntent.length > 0,
-+                    ownershipLost: false,
-+                    proposalKind: proposalsForIntent[0]?.kind ?? null,
-+                  });
-+                  ownerOutcomeByIntentId.set(id, outcome);
-+                  recordKnowledgeEffect(
-+                    knowledgeEffectFromCapitalisation({
-+                      intentId: id,
-+                      status: outcome,
-+                      proposalKind: proposalsForIntent[0]?.kind ?? null,
-+                      ownerRef:
-+                        typeof primary.id === "string" ? primary.id : null,
-+                      reason:
-+                        "reason" in primary
-+                          ? String((primary as { reason?: string }).reason ?? "") ||
-+                            null
-+                          : null,
-+                      attempted: true,
-+                    }),
-+                  );
-+                  if (
-+                    primary.kind === "subject" &&
-+                    typeof primary.id === "string" &&
-+                    primary.id.startsWith("subj_")
-+                  ) {
-+                    createdSubjectByIntentId.set(id, primary.id);
-+                  }
-+                } else {
-+                  ownerOutcomeByIntentId.set(id, "SKIPPED");
-+                  recordKnowledgeEffect(
-+                    knowledgeEffectNotExecuted({
-+                      intentId: id,
-+                      status: "SKIPPED",
-+                      reason:
-+                        "Propriété du tour perdue pendant la capitalisation D4 — effet non exécuté.",
-+                      reasonCode: "OWNERSHIP_LOST",
-+                      proposalKind: proposalKindByIntentId.get(id) ?? null,
-+                    }),
-+                  );
-+                }
-               }
--              for (const id of pending) {
-+              for (const id of [...pending]) {
-                 ownerOutcomeByIntentId.set(id, "SKIPPED");
-+                pending.delete(id);
-                 const family = familyById.get(id);
-                 if (family === "pilotage") {
-                   const binding = bindingByIntentId.get(id);
-@@ -2431,17 +2627,33 @@ export async function postUserMessageAndNora(
-           capitalisationError = "CAPITALISATION_EXCEPTION";
-           for (const id of knowledgeIds) {
-             if (ownerOutcomeByIntentId.has(id)) continue;
--            ownerOutcomeByIntentId.set(id, "FAILED");
-+            // Owner call may already have started (knowledgeEffectsConducted) —
-+            // never claim attempted=false after a launched proprietary call.
-+            ownerOutcomeByIntentId.set(id, knowledgeEffectsConducted ? "UNKNOWN" : "FAILED");
-             pending.delete(id);
--            recordKnowledgeEffect(
--              knowledgeEffectNotExecuted({
--                intentId: id,
--                status: "FAILED",
--                reason: "Exception pendant la capitalisation D4.",
--                reasonCode: "CAPITALISATION_EXCEPTION",
--                proposalKind: proposalKindByIntentId.get(id) ?? null,
--              }),
--            );
-+            if (knowledgeEffectsConducted) {
-+              recordKnowledgeEffect(
-+                knowledgeEffectFromCapitalisation({
-+                  intentId: id,
-+                  status: "UNKNOWN",
-+                  attempted: true,
-+                  proposalKind: proposalKindByIntentId.get(id) ?? null,
-+                  reason:
-+                    "Exception après appel propriétaire D4 — résultat indéterminé.",
-+                  reasonCode: "CAPITALISATION_EXCEPTION",
-+                }),
-+              );
-+            } else {
-+              recordKnowledgeEffect(
-+                knowledgeEffectNotExecuted({
-+                  intentId: id,
-+                  status: "FAILED",
-+                  reason: "Exception pendant la capitalisation D4.",
-+                  reasonCode: "CAPITALISATION_EXCEPTION",
-+                  proposalKind: proposalKindByIntentId.get(id) ?? null,
-+                }),
-+              );
-+            }
-           }
-         }
-       }
-@@ -2627,6 +2839,18 @@ export async function postUserMessageAndNora(
-                     },
-                   });
-                 }
-+              } else if (family === "knowledge") {
-+                // Explicit D4 pending after mid-wave ownership loss (E2 §21.1).
-+                recordKnowledgeEffect(
-+                  knowledgeEffectNotExecuted({
-+                    intentId: remId,
-+                    status: "SKIPPED",
-+                    reason:
-+                      "Propriété du tour perdue après D5/D6 — effet D4 restant non exécuté.",
-+                    reasonCode: "OWNERSHIP_LOST",
-+                    proposalKind: proposalKindByIntentId.get(remId) ?? null,
-+                  }),
-+                );
-               }
-               pending.delete(remId);
-             }
-@@ -4884,6 +5108,24 @@ export async function postUserMessageAndNora(
-       generationId: reply.generationId,
-       userMessageId: reserved.userMessageId,
-     });
-+    // ConfirmedD4Effect has no intentId — promote attempted/ownerRef only; never invent intents.
-+    const reconciledKnowledge = reconcileKnowledgeEffectsFromDurableInfo({
-+      effects: resultPayload.knowledgeEffects ?? knowledgeEffectRecords,
-+      capitalisationRows: knowledgeEffectRecords
-+        .filter((e) => e.semanticIntentId && e.ownerRef)
-+        .map((e) => ({
-+          intentId: e.semanticIntentId,
-+          status: e.status,
-+          kind: e.proposalKind ?? undefined,
-+          id: e.ownerRef ?? undefined,
-+          reason: e.reason ?? undefined,
-+        })),
-+      reconstituted: reconstituted.capitalisation.map((c) => ({
-+        id: c.id,
-+        kind: c.kind,
-+        status: c.status,
-+      })),
-+    });
-     return {
-       ...resultPayload,
-       status: "UNKNOWN",
-@@ -4891,6 +5133,10 @@ export async function postUserMessageAndNora(
-       capitalisation: reconstituted.capitalisation,
-       capitalisationLimit: reconstituted.capitalisationLimit,
-       documentSave: reconstituted.documentSave,
-+      knowledgeEffects:
-+        reconciledKnowledge.length > 0
-+          ? reconciledKnowledge
-+          : resultPayload.knowledgeEffects,
-     };
-   }
-
-@@ -4909,6 +5155,23 @@ export async function postUserMessageAndNora(
-       generationId: reply.generationId,
-       userMessageId: reserved.userMessageId,
-     });
-+    const reconciledKnowledge = reconcileKnowledgeEffectsFromDurableInfo({
-+      effects: resultPayload.knowledgeEffects ?? knowledgeEffectRecords,
-+      capitalisationRows: knowledgeEffectRecords
-+        .filter((e) => e.semanticIntentId && e.ownerRef)
-+        .map((e) => ({
-+          intentId: e.semanticIntentId,
-+          status: e.status,
-+          kind: e.proposalKind ?? undefined,
-+          id: e.ownerRef ?? undefined,
-+          reason: e.reason ?? undefined,
-+        })),
-+      reconstituted: reconstituted.capitalisation.map((c) => ({
-+        id: c.id,
-+        kind: c.kind,
-+        status: c.status,
-+      })),
-+    });
-     return {
-       ...resultPayload,
-       status: "UNKNOWN",
-@@ -4916,6 +5179,10 @@ export async function postUserMessageAndNora(
-       capitalisation: reconstituted.capitalisation,
-       capitalisationLimit: reconstituted.capitalisationLimit,
-       documentSave: reconstituted.documentSave,
-+      knowledgeEffects:
-+        reconciledKnowledge.length > 0
-+          ? reconciledKnowledge
-+          : resultPayload.knowledgeEffects,
-       preparationProjection: { status: "SKIPPED_OWNERSHIP" },
-     };
-   }
-
-```
-
-### Diff — E3 workspace (pages/rail/journal/realization/recent)
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-index af02fe12..5017f2b4 100644
---- a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-+++ b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-@@ -23,6 +23,12 @@ import {
-   sasPresentationCopy,
- } from "@/components/figma/sas-presentation";
- import { projectActivityLabel } from "@/domains/conversation/activity-labels";
-+import {
-+  clearPrepComposerDraft,
-+  readPrepComposerDraft,
-+  studioClientLane,
-+  writePrepComposerDraft,
-+} from "@/domains/conversation/composer-draft";
-
- type Msg = { id: string; role: string; content: string; status: string };
- type Doc = {
-@@ -61,6 +67,8 @@ export default function PreparationPage() {
-   const [docs, setDocs] = useState<Doc[]>([]);
-   const [knowledge, setKnowledge] = useState<Knowledge | null>(null);
-   const [draft, setDraft] = useState("");
-+  const [pilotId, setPilotId] = useState<string | null>(null);
-+  const draftVersionRef = useRef(0);
-   const [docText, setDocText] = useState("# Notes du sas\n");
-   const [docId, setDocId] = useState<string | undefined>();
-   const [baseRevisionId, setBaseRevisionId] = useState<string | undefined>();
-@@ -299,6 +307,22 @@ export default function PreparationPage() {
-     }
-   }, [preparationId]);
-
-+  function persistPrepDraft(text: string) {
-+    if (!pilotId) return;
-+    draftVersionRef.current += 1;
-+    const prior = readPrepComposerDraft({ pilotId, preparationId });
-+    writePrepComposerDraft({
-+      schemaVersion: "e05-prep-composer-draft-v1",
-+      pilotId,
-+      preparationId,
-+      lane: studioClientLane(),
-+      text,
-+      version: draftVersionRef.current,
-+      sentVersion: prior?.sentVersion ?? null,
-+      updatedAt: new Date().toISOString(),
-+    });
-+  }
-+
-   const reload = useCallback(async () => {
-     const res = await fetch(`/api/preparations/${preparationId}`);
-     if (res.status === 401) {
-@@ -306,6 +330,27 @@ export default function PreparationPage() {
-       return;
-     }
-     const j = await res.json();
-+    const sessionPilotId =
-+      typeof j.session?.pilotId === "string" && j.session.pilotId.trim()
-+        ? String(j.session.pilotId)
-+        : null;
-+    setPilotId(sessionPilotId);
-+    if (sessionPilotId) {
-+      const record = readPrepComposerDraft({
-+        pilotId: sessionPilotId,
-+        preparationId,
-+      });
-+      if (record?.text && record.pilotId === sessionPilotId) {
-+        setDraft(record.text);
-+        draftVersionRef.current = record.version;
-+      } else {
-+        setDraft("");
-+        draftVersionRef.current = 0;
-+      }
-+    } else {
-+      setDraft("");
-+      draftVersionRef.current = 0;
-+    }
-     setMessages(j.messages ?? []);
-     setDocs(j.documents ?? []);
-     setPreviewName(j.preparation?.previewName ?? "");
-@@ -397,6 +442,10 @@ export default function PreparationPage() {
-       ];
-     });
-     setDraft("");
-+    if (pilotId) {
-+      clearPrepComposerDraft({ pilotId, preparationId });
-+      draftVersionRef.current = 0;
-+    }
-     let lastActivitySeq = 0;
-     let knownTurnCommandId: string | null = null;
-     const pollEpoch = ++activityPollEpochRef.current;
-@@ -1031,7 +1080,10 @@ export default function PreparationPage() {
-             draft={draft}
-             busy={busy}
-             noraActivity={noraActivity}
--            onDraftChange={setDraft}
-+            onDraftChange={(v) => {
-+              setDraft(v);
-+              persistPrepDraft(v);
-+            }}
-             onSend={() => void sendMessage()}
-             showResumeBanner={isResumedPrep}
-             liveActivityEvents={liveActivityEvents}
 diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index 905a45eb..e22b8e89 100644
+index e22b8e89..87d1a0e0 100644
 --- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
 +++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-@@ -450,8 +450,17 @@ export default function ProjectPage() {
-       setRecentItems([]);
+@@ -82,6 +82,7 @@ import {
+   type ProjectRecentItem,
+ } from "@/lib/project-recent-items";
+ import {
++  recentItemFromAttemptConsultation,
+   recentItemFromDocumentConsultation,
+   recentItemFromTurnReference,
+ } from "@/lib/project-recent-consultation";
+@@ -451,16 +452,20 @@ export default function ProjectPage() {
        return;
      }
--    setRecentItems(readProjectRecentItems(pilotId, params.projectId));
--  }, [pilotId, params.projectId]);
-+    const stored = readProjectRecentItems(pilotId, params.projectId);
-+    // Drop Nora docs no longer present in the authorized library (rights/access).
-+    const docIds = new Set(documents.map((d) => d.document.id));
-+    setRecentItems(
-+      stored.filter((item) => {
-+        if (item.kind !== "document_nora") return true;
-+        const id = item.documentId ?? item.id.replace(/^doc:/, "").replace(/:rev:.*$/, "");
-+        return !id || docIds.size === 0 || docIds.has(id);
-+      }),
-+    );
-+  }, [pilotId, params.projectId, documents]);
+     const stored = readProjectRecentItems(pilotId, params.projectId);
+-    // Drop Nora docs no longer present in the authorized library (rights/access).
++    // E5 — empty library after load is not an implicit allow for protected titles.
++    // Until project load is ready, keep non-document kinds; defer document filtering.
++    const libraryReady = projectLoadState === "ready";
+     const docIds = new Set(documents.map((d) => d.document.id));
+     setRecentItems(
+       stored.filter((item) => {
+         if (item.kind !== "document_nora") return true;
++        if (!libraryReady) return false;
+         const id = item.documentId ?? item.id.replace(/^doc:/, "").replace(/:rev:.*$/, "");
+-        return !id || docIds.size === 0 || docIds.has(id);
++        if (!id) return false;
++        return docIds.has(id);
+       }),
+     );
+-  }, [pilotId, params.projectId, documents]);
++  }, [pilotId, params.projectId, documents, projectLoadState]);
 
    useEffect(() => {
      if (surface !== "travail") return;
-@@ -1269,10 +1278,20 @@ export default function ProjectPage() {
-     );
-   }
-
--  function buildSurfaceUrl(next: Surface, documentId?: string | null) {
-+  function buildSurfaceUrl(
-+    next: Surface,
-+    documentId?: string | null,
-+    attemptId?: string | null,
-+  ) {
-     const q = new URLSearchParams();
-     q.set("surface", next);
-     if (next === "document" && documentId) q.set("documentId", documentId);
-+    if (
-+      (next === "execution" || next === "publication") &&
-+      attemptId
-+    ) {
-+      q.set("attempt", attemptId);
-+    }
-     return `/projects/${params.projectId}?${q.toString()}`;
-   }
-
-@@ -1281,12 +1300,24 @@ export default function ProjectPage() {
-     next: Surface,
-     documentId?: string | null,
-     mode: "push" | "replace" = "push",
-+    attemptId?: string | null,
-   ) {
--    const href = buildSurfaceUrl(next, documentId);
-+    const href = buildSurfaceUrl(next, documentId, attemptId);
-     if (mode === "replace") router.replace(href, { scroll: false });
-     else router.push(href, { scroll: false });
-   }
-
-+  function openRealizationFocus(
-+    next: "execution" | "publication",
-+    attemptId?: string | null,
-+  ) {
-+    surfaceNavGenRef.current += 1;
-+    pendingSurfaceRef.current = next;
-+    noteProjectSurfaceNavIntent(params.projectId, next as StudioSurface);
-+    setSurface(next);
-+    syncSurfaceUrl(next, null, "push", attemptId ?? null);
-+  }
-+
-   function resetDocumentBibliothequeState() {
-     setDocView("library");
-     setSelectedLibraryId(null);
-@@ -3486,22 +3517,23 @@ export default function ProjectPage() {
-                               if (
-                                 item.repositoryId &&
-                                 item.path &&
--                                item.gitRef
-+                                (item.commit || item.gitRef)
-                               ) {
-+                                // Prefer immutable commit when recorded; mutable ref is not a version claim.
-+                                const immutableRef = item.commit?.trim() || item.gitRef!;
-                                 void openTravailReference({
-                                   kind: "git",
-                                   label: item.title,
-                                   repositoryId: item.repositoryId,
-                                   path: item.path,
--                                  ref: item.gitRef,
-+                                  ref: immutableRef,
-                                   commit: item.commit ?? undefined,
-                                 });
-                               }
-                               return;
-                             }
-                             if (item.kind === "execution") {
--                              // Exact attempt reopen not yet wired as owner deep-link — surface only.
--                              selectSurface("execution");
-+                              openRealizationFocus("execution", item.attemptId ?? null);
-                               return;
-                             }
-                             if (
-@@ -3509,7 +3541,10 @@ export default function ProjectPage() {
-                               item.kind === "bilan" ||
-                               item.kind === "proof"
-                             ) {
--                              selectSurface("publication");
-+                              openRealizationFocus(
-+                                "publication",
-+                                item.attemptId ?? item.resultId ?? null,
-+                              );
-                             }
-                           }}
-                         >
-@@ -3552,6 +3587,7 @@ export default function ProjectPage() {
-                             search: "",
-                             openPointsOnly: true,
-                             selectedSubjectId: subjectId,
-+                            selectedOpenPointId: o.id,
-                             selectedDecisionId: null,
-                             layout: "full",
-                           });
-@@ -3578,6 +3614,7 @@ export default function ProjectPage() {
-                         search: "",
-                         openPointsOnly: true,
-                         selectedSubjectId: null,
-+                        selectedOpenPointId: null,
-                         selectedDecisionId: null,
-                         layout: "full",
-                       });
-@@ -3786,6 +3823,15 @@ export default function ProjectPage() {
-               // Keep composer free for the Pilote's next ask — dossier is a chip (12.09).
+@@ -3824,13 +3829,21 @@ export default function ProjectPage() {
                selectSurface("travail");
              }}
-+            onPilotConsulted={(item) => {
-+              notePilotConsultation({
-+                id: `exec:${item.attemptId}`,
-+                kind: item.kind,
-+                title: item.title,
-+                refLabel: item.refLabel ?? null,
-+                attemptId: item.attemptId,
-+              });
-+            }}
+             onPilotConsulted={(item) => {
+-              notePilotConsultation({
+-                id: `exec:${item.attemptId}`,
+-                kind: item.kind,
+-                title: item.title,
+-                refLabel: item.refLabel ?? null,
+-                attemptId: item.attemptId,
+-              });
++              const kind =
++                item.kind === "execution" ||
++                item.kind === "result" ||
++                item.kind === "bilan" ||
++                item.kind === "proof"
++                  ? item.kind
++                  : "execution";
++              notePilotConsultation(
++                recentItemFromAttemptConsultation({
++                  kind,
++                  attemptId: item.attemptId,
++                  title: item.title,
++                  refLabel: item.refLabel ?? null,
++                }),
++              );
+             }}
            />
          </div>
-       ) : null}
-@@ -3800,6 +3846,15 @@ export default function ProjectPage() {
-               setDossierAttachment(att);
+@@ -3847,13 +3860,21 @@ export default function ProjectPage() {
                selectSurface("travail");
              }}
-+            onPilotConsulted={(item) => {
-+              notePilotConsultation({
-+                id: `${item.kind}:${item.attemptId}`,
-+                kind: item.kind,
-+                title: item.title,
-+                refLabel: item.refLabel ?? null,
-+                attemptId: item.attemptId,
-+              });
-+            }}
+             onPilotConsulted={(item) => {
+-              notePilotConsultation({
+-                id: `${item.kind}:${item.attemptId}`,
+-                kind: item.kind,
+-                title: item.title,
+-                refLabel: item.refLabel ?? null,
+-                attemptId: item.attemptId,
+-              });
++              const kind =
++                item.kind === "execution" ||
++                item.kind === "result" ||
++                item.kind === "bilan" ||
++                item.kind === "proof"
++                  ? item.kind
++                  : "result";
++              notePilotConsultation(
++                recentItemFromAttemptConsultation({
++                  kind,
++                  attemptId: item.attemptId,
++                  title: item.title,
++                  refLabel: item.refLabel ?? null,
++                }),
++              );
+             }}
            />
          </div>
-       ) : null}
-diff --git a/projects/sfia-studio-next/web/src/components/figma/CursorRealizationSurface.tsx b/projects/sfia-studio-next/web/src/components/figma/CursorRealizationSurface.tsx
-index 23a5d794..cc18e927 100644
---- a/projects/sfia-studio-next/web/src/components/figma/CursorRealizationSurface.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/CursorRealizationSurface.tsx
-@@ -72,6 +72,13 @@ export function CursorRealizationSurface(props: {
-     fingerprint?: string | null;
-     pieces?: string[] | null;
-   }) => void;
-+  /** MP-08 — after a successful pilot consultation of attempt/bilan (no mutation). */
-+  onPilotConsulted?: (item: {
-+    kind: "execution" | "result" | "bilan" | "proof";
-+    attemptId: string;
-+    title: string;
-+    refLabel?: string | null;
-+  }) => void;
- }) {
-   const mode = props.mode ?? "execution";
-   const [contracts, setContracts] = useState<ContractRow[]>([]);
-@@ -119,17 +126,22 @@ export function CursorRealizationSurface(props: {
-     void reload();
-   }, [reload]);
-
--  // Deep-link from Exécution → Résultats (?attempt=) — one-shot per attempt id.
-+  // Deep-link ?attempt= — results opens bilan; execution selects the attempt row.
-   const deepLinkedAttemptRef = useRef<string | null>(null);
-   useEffect(() => {
--    if (mode !== "results" || typeof window === "undefined") return;
-+    if (typeof window === "undefined") return;
-     const id = new URLSearchParams(window.location.search).get("attempt");
-     if (!id || attempts.length === 0) return;
-     if (deepLinkedAttemptRef.current === id) return;
-     const hit = attempts.find((a) => a.attemptId === id);
-     if (!hit) return;
-     deepLinkedAttemptRef.current = id;
--    void openBilan(hit);
-+    if (mode === "results") {
-+      void openBilan(hit);
-+    } else {
-+      setSelectedAttempt(hit);
-+      setSelectedContract(null);
-+    }
-   }, [mode, attempts]);
-
-   /** C24 — resume AUTHORIZED Cursor attempts left after D6 Oui without dispatch (nav/crash). */
-@@ -478,6 +490,12 @@ export function CursorRealizationSurface(props: {
-         noraAnalysisKind: j.qualification!.noraAnalysisKind,
-         dossier: j.qualification!.dossier ?? null,
-       });
-+      props.onPilotConsulted?.({
-+        kind: mode === "results" ? "bilan" : "result",
-+        attemptId: attempt.attemptId,
-+        title: `Tentative ${attempt.attemptId.slice(0, 12)}`,
-+        refLabel: j.qualification!.verdict?.slice(0, 40) ?? attempt.status,
-+      });
-     } finally {
-       setBusy(false);
-     }
-@@ -696,6 +714,14 @@ export function CursorRealizationSurface(props: {
-                           setSelectedAttempt(a);
-                           setSelectedContract(null);
-                           setBilan(null);
-+                          if (mode === "execution") {
-+                            props.onPilotConsulted?.({
-+                              kind: "execution",
-+                              attemptId: a.attemptId,
-+                              title: `Exécution ${a.attemptId.slice(0, 12)}`,
-+                              refLabel: a.status,
-+                            });
-+                          }
-                         }}
-                       >
-                         <span className="fig-exec-card-kicker">
-diff --git a/projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx b/projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx
-index 90d7df81..12d8c064 100644
---- a/projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx
-+++ b/projects/sfia-studio-next/web/src/components/figma/ProjectJournal.tsx
-@@ -104,6 +104,8 @@ export type JournalNavState = {
-   search: string;
-   openPointsOnly: boolean;
-   selectedSubjectId: string | null;
-+  /** Exact OPEN point to focus when openPointsOnly (E3 C-C). */
-+  selectedOpenPointId?: string | null;
-   selectedDecisionId: string | null;
-   layout: "full" | "split" | "enlarged";
- };
-@@ -306,6 +308,9 @@ export function ProjectJournal(props: {
-   const [selectedSubjectId, setSelectedSubjectId] = useState<string | null>(
-     props.initialNav?.selectedSubjectId ?? null,
-   );
-+  const [selectedOpenPointId, setSelectedOpenPointId] = useState<string | null>(
-+    props.initialNav?.selectedOpenPointId ?? null,
-+  );
-   const [selectedDecisionId, setSelectedDecisionId] = useState<string | null>(
-     props.initialNav?.selectedDecisionId ?? null,
-   );
-@@ -323,12 +328,32 @@ export function ProjectJournal(props: {
-       search,
-       openPointsOnly,
-       selectedSubjectId,
-+      selectedOpenPointId,
-       selectedDecisionId,
-       layout,
-     });
-     // Intentionally sync outward on nav field changes only.
-     // eslint-disable-next-line react-hooks/exhaustive-deps
--  }, [tab, search, openPointsOnly, selectedSubjectId, selectedDecisionId, layout]);
-+  }, [
-+    tab,
-+    search,
-+    openPointsOnly,
-+    selectedSubjectId,
-+    selectedOpenPointId,
-+    selectedDecisionId,
-+    layout,
-+  ]);
-+
-+  useEffect(() => {
-+    if (!selectedOpenPointId || !openPointsOnly) return;
-+    const el = document.querySelector(
-+      `[data-testid="journal-open-point-row-${selectedOpenPointId}"]`,
-+    );
-+    if (el instanceof HTMLElement) {
-+      el.scrollIntoView({ block: "nearest", behavior: "smooth" });
-+      el.focus();
-+    }
-+  }, [selectedOpenPointId, openPointsOnly]);
-
-   const tree = useMemo(() => buildSubjectTree(props.subjects), [props.subjects]);
-   const byId = useMemo(
-@@ -626,8 +651,12 @@ export function ProjectJournal(props: {
-             <OpenPointsTransversalList
-               openPoints={openPoints}
-               byId={byId}
--              selectedId={selectedSubjectId}
--              onSelect={pickSubject}
-+              selectedSubjectId={selectedSubjectId}
-+              selectedOpenPointId={selectedOpenPointId}
-+              onSelect={(subjectId, openPointId) => {
-+                setSelectedOpenPointId(openPointId);
-+                if (subjectId) pickSubject(subjectId);
-+              }}
-             />
-           ) : search.trim().length > 0 ? (
-             <SubjectSearchResults
-@@ -1294,8 +1323,9 @@ function SubjectSearchResults(props: {
- function OpenPointsTransversalList(props: {
-   openPoints: JournalOpenPoint[];
-   byId: Map<string, JournalSubject>;
--  selectedId: string | null;
--  onSelect: (id: string) => void;
-+  selectedSubjectId: string | null;
-+  selectedOpenPointId: string | null;
-+  onSelect: (subjectId: string | null, openPointId: string) => void;
- }) {
-   if (props.openPoints.length === 0) {
-     return (
-@@ -1312,16 +1342,19 @@ function OpenPointsTransversalList(props: {
-       <ul className="journal-open-points-list" data-testid="journal-open-points-list">
-         {props.openPoints.map((o) => {
-           const subject = o.subjectId ? props.byId.get(o.subjectId) : null;
--          const selected = o.subjectId != null && props.selectedId === o.subjectId;
-+          const selected =
-+            props.selectedOpenPointId === o.id ||
-+            (props.selectedOpenPointId == null &&
-+              o.subjectId != null &&
-+              props.selectedSubjectId === o.subjectId);
-           return (
-             <li key={o.id}>
-               <button
-                 type="button"
-                 className={`journal-open-point-row${selected ? " is-selected" : ""}`}
-                 data-testid={`journal-open-point-row-${o.id}`}
--                onClick={() => {
--                  if (o.subjectId) props.onSelect(o.subjectId);
--                }}
-+                aria-current={selected ? "true" : undefined}
-+                onClick={() => props.onSelect(o.subjectId ?? null, o.id)}
-               >
-                 <span className="journal-card-kicker">{COPY.openPointQuestion}</span>
-                 <span className="journal-open-point-title">{o.statement}</span>
 diff --git a/projects/sfia-studio-next/web/src/components/shell/studio-shell.css b/projects/sfia-studio-next/web/src/components/shell/studio-shell.css
-index 3737f511..91f415f9 100644
+index 91f415f9..c4b691d3 100644
 --- a/projects/sfia-studio-next/web/src/components/shell/studio-shell.css
 +++ b/projects/sfia-studio-next/web/src/components/shell/studio-shell.css
-@@ -18,15 +18,17 @@ html.studio-shell-lock body {
-   flex-shrink: 0;
-   height: 100%;
-   max-height: 100dvh;
--  overflow-x: hidden;
--  overflow-y: auto;
-+  /* Foot stays pinned; nav scrolls — avoids overlap at 1280×720 (E3 C-D). */
-+  overflow: hidden;
+@@ -40,6 +40,10 @@ html.studio-shell-lock body {
+   overflow-x: hidden;
+   overflow-y: auto;
    overscroll-behavior: contain;
- }
-
- .studio-shell-rail-inner {
-   display: flex;
-   flex-direction: column;
--  min-height: 100%;
-+  height: 100%;
-+  max-height: 100%;
-+  min-height: 0;
-   gap: inherit;
- }
-
-@@ -35,13 +37,18 @@ html.studio-shell-lock body {
-   flex-direction: column;
-   flex: 1 1 auto;
-   min-height: 0;
-+  overflow-x: hidden;
-+  overflow-y: auto;
-+  overscroll-behavior: contain;
++  /* Keep last Accès directs items clear of pinned foot at 1280×720 (E5).
++     scroll-padding alone does not create scroll range — real padding required. */
++  padding-bottom: 4.5rem;
++  scroll-padding-bottom: 4.5rem;
  }
 
  .studio-shell-rail-foot {
--  margin-top: auto;
-+  margin-top: 0;
-   flex-shrink: 0;
-   padding-top: 1rem;
-   border-top: 1px solid var(--line);
-+  background: inherit;
-+  z-index: 1;
- }
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-session.ts b/projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-session.ts
+index 7e6838c9..b1809455 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-session.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-session.ts
+@@ -59,6 +59,8 @@ export type DictationSessionRecord = {
+   /** Next expected client audio chunk sequence (0-based). */
+   nextAudioSeq: number;
+   onProviderSessionReady: (() => void) | null;
++  /** Reject open-wait when provider errors before ready (E5 handshake). */
++  onProviderSessionReadyReject: ((err: Error) => void) | null;
+   /** Committed item_ids not yet completed — finalize waits until empty. */
+   awaitingFinalItemIds: Set<string>;
+   /** Commits sent to provider, not yet acknowledged via input_audio_buffer.committed. */
+@@ -302,6 +304,7 @@ export async function createDictationSession(input: {
+     errorCode: null,
+     nextAudioSeq: 0,
+     onProviderSessionReady: null,
++    onProviderSessionReadyReject: null,
+     awaitingFinalItemIds: new Set(),
+     commitsAwaitingAck: 0,
+     pcmBytesSinceLastCommit: 0,
+@@ -350,6 +353,7 @@ export async function createDictationSession(input: {
+     const sessionReady = new Promise<void>((resolve, reject) => {
+       const t = setTimeout(() => {
+         record.onProviderSessionReady = null;
++        record.onProviderSessionReadyReject = null;
+         reject(new Error("SESSION_OPEN_TIMEOUT"));
+       }, SESSION_OPEN_TIMEOUT_MS);
+       record.onProviderSessionReady = () => {
+@@ -357,8 +361,17 @@ export async function createDictationSession(input: {
+         providerReady = true;
+         clearTimeout(t);
+         record.onProviderSessionReady = null;
++        record.onProviderSessionReadyReject = null;
+         resolve();
+       };
++      record.onProviderSessionReadyReject = (err) => {
++        if (providerReady) return;
++        providerReady = true;
++        clearTimeout(t);
++        record.onProviderSessionReady = null;
++        record.onProviderSessionReadyReject = null;
++        reject(err);
++      };
+     });
+     transport.send({
+       type: "session.update",
+@@ -378,7 +391,16 @@ export async function createDictationSession(input: {
+       },
+     });
+     await sessionReady;
++    // Terminal wins: cancel/fail during wait must not reopen as open.
++    if (isTerminalStatus(record.status)) {
++      return {
++        ok: false,
++        code: record.errorCode ?? "TRANSPORT_OPEN_FAILED",
++        message: "Dictation session terminated before open acknowledgement.",
++      };
++    }
+     record.status = "open";
++    // session.created alone does not prove applied config — only mark requested model as applied when updated path ready.
+     record.modelApplied = COMPOSER_DICTATION_MODEL;
+     emit(record, { type: "session.open", sessionId });
+     return { ok: true, session: record };
+@@ -386,9 +408,16 @@ export async function createDictationSession(input: {
+     const rawMessage =
+       e instanceof Error ? e.message.slice(0, 240) : "TRANSPORT_OPEN_FAILED";
+     const timedOut = rawMessage === "SESSION_OPEN_TIMEOUT";
+-    const code = timedOut ? "SESSION_OPEN_TIMEOUT" : "TRANSPORT_OPEN_FAILED";
+-    record.status = "failed";
+-    record.errorCode = code;
++    const providerErr = rawMessage === "PROVIDER_ERROR" || rawMessage.startsWith("PROVIDER_ERROR");
++    const code = timedOut
++      ? "SESSION_OPEN_TIMEOUT"
++      : providerErr
++        ? "PROVIDER_ERROR"
++        : "TRANSPORT_OPEN_FAILED";
++    if (!isTerminalStatus(record.status)) {
++      record.status = "failed";
++      record.errorCode = code;
++    }
+     try {
+       record.transport?.close();
+     } catch {
+@@ -396,6 +425,7 @@ export async function createDictationSession(input: {
+     }
+     record.transport = null;
+     record.onProviderSessionReady = null;
++    record.onProviderSessionReadyReject = null;
+     emit(record, {
+       type: "session.error",
+       sessionId,
+@@ -415,17 +445,26 @@ function handleProviderEvent(
+   const type = String(event.type || "");
+   touch(session);
 
- .studio-account-row {
-diff --git a/projects/sfia-studio-next/web/src/lib/project-recent-consultation.ts b/projects/sfia-studio-next/web/src/lib/project-recent-consultation.ts
-index 00b117f8..78ba7988 100644
---- a/projects/sfia-studio-next/web/src/lib/project-recent-consultation.ts
-+++ b/projects/sfia-studio-next/web/src/lib/project-recent-consultation.ts
-@@ -56,6 +56,22 @@ export function recentItemFromGitConsultation(input: {
+-  if (type === "session.updated" || type === "session.created") {
++  // E5 — only session.updated acknowledges applied transcription config.
++  // session.created alone must not open the session as ready.
++  if (type === "session.updated") {
+     session.onProviderSessionReady?.();
+     return;
+   }
++  if (type === "session.created") {
++    return;
++  }
+
+   if (type === "input_audio_buffer.committed") {
+     session.commitsAwaitingAck = Math.max(0, session.commitsAwaitingAck - 1);
+     const itemId = String(event.item_id || "");
+     if (itemId) {
+       session.pendingItemId = itemId;
+-      session.awaitingFinalItemIds.add(itemId);
++      // Completed may race ahead of committed (fixture delay / provider reorder).
++      // Never re-arm awaiting for an item already finalized in the draft.
++      if (!Object.prototype.hasOwnProperty.call(session.draft.finalByItem, itemId)) {
++        session.awaitingFinalItemIds.add(itemId);
++      }
+     }
+     if (session.status === "finalizing") {
+       maybeCompleteFinalization(session);
+@@ -479,14 +518,25 @@ function handleProviderEvent(
+     return;
+   }
+   if (type === "error" || type === "conversation.item.input_audio_transcription.failed") {
++    // Never reopen / overwrite a terminal cancel/complete/expire with failed.
++    if (isTerminalStatus(session.status)) {
++      return;
++    }
++    const message = String(
++      event.error ?? event.message ?? "transcription failed",
++    ).slice(0, 240);
++    const stillOpening = session.status === "pending";
+     session.status = "failed";
+     session.errorCode = "PROVIDER_ERROR";
+     emit(session, {
+       type: "session.error",
+       sessionId: session.sessionId,
+       code: "PROVIDER_ERROR",
+-      message: String(event.error ?? event.message ?? "transcription failed").slice(0, 240),
++      message,
+     });
++    if (stillOpening && session.onProviderSessionReadyReject) {
++      session.onProviderSessionReadyReject(new Error("PROVIDER_ERROR"));
++    }
+     try {
+       session.transport?.close();
+     } catch {
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+index acef44f6..a49db78f 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+@@ -587,6 +587,15 @@ export async function lookupDurableTurnByClientKey(
+     }),
+   });
+
++  const knowledgeEffects = await recoverKnowledgeEffectsForReadPath({
++    pilotId,
++    preparationId,
++    generationId: row.generationId,
++    userMessageId: row.userMessageId,
++    resultJson: row.resultJson,
++    fromJsonEffects: fromJsonKnowledgeEffects,
++  });
++
+   return {
+     found: true,
+     turnCommandId: row.id,
+@@ -597,7 +606,7 @@ export async function lookupDurableTurnByClientKey(
+     assistantMessageId: row.assistantMessageId,
+     pilotageEffect: resolved.pilotageEffect,
+     pilotageEffects: resolved.pilotageEffects,
+-    knowledgeEffects: fromJsonKnowledgeEffects,
++    knowledgeEffects,
+     idempotentReplay: true,
+     noraMode: "durable-lookup",
    };
- }
+@@ -906,6 +915,133 @@ type KnowledgeCapRow = {
+   reason?: string;
+ };
 
-+/** Realization attempt / bilan / proof consultation (after successful open). */
-+export function recentItemFromAttemptConsultation(input: {
-+  kind: "execution" | "result" | "bilan" | "proof";
-+  attemptId: string;
-+  title: string;
-+  refLabel?: string | null;
-+}): Pick<ProjectRecentItem, "id" | "kind" | "title" | "refLabel" | "attemptId"> {
-+  return {
-+    id: `${input.kind}:${input.attemptId}`,
-+    kind: input.kind,
-+    title: input.title.slice(0, 160),
-+    refLabel: input.refLabel ?? null,
-+    attemptId: input.attemptId,
-+  };
++/**
++ * E5 — durable knowledge intent ids from effect projections ∪ qualification stash.
++ * Never invents effects; only surfaces known d4.record_knowledge intents for recovery.
++ */
++export function extractDurableKnowledgeIntentIds(input: {
++  fromJsonEffects?: TurnKnowledgeEffect[] | null;
++  resultJson?: string | null;
++}): string[] {
++  const ids = new Set<string>();
++  for (const e of input.fromJsonEffects ?? []) {
++    const t = e.semanticIntentId?.trim() || "";
++    if (t) ids.add(t);
++  }
++  const raw = input.resultJson?.trim();
++  if (raw) {
++    try {
++      const parsed = JSON.parse(raw) as {
++        knowledgeEffects?: TurnKnowledgeEffect[];
++        semanticQualification?: NoraTurnQualification;
++        capitalisationAttempted?: KnowledgeCapRow[];
++      };
++      for (const e of parsed.knowledgeEffects ?? []) {
++        const t = e.semanticIntentId?.trim() || "";
++        if (t) ids.add(t);
++      }
++      for (const row of parsed.capitalisationAttempted ?? []) {
++        const t = row.intentId?.trim() || "";
++        if (t) ids.add(t);
++      }
++      for (const i of parsed.semanticQualification?.intents ?? []) {
++        if (
++          i.mode === "REQUEST_EFFECT" &&
++          i.capabilityId === "d4.record_knowledge"
++        ) {
++          const t = i.id.trim();
++          if (t) ids.add(t);
++        }
++      }
++    } catch {
++      /* ignore malformed stash */
++    }
++  }
++  return [...ids];
 +}
 +
- /** Map Nora turn references opened in Travail viewer — null when identity incomplete. */
- export function recentItemFromTurnReference(
-   ref: TurnReference,
++/**
++ * E5 read-path recovery — promote/reconcile knowledgeEffects from durable info.
++ * Lookup/replay never mutate; UNKNOWN when intent known but outcome indeterminate.
++ */
++export async function recoverKnowledgeEffectsForReadPath(input: {
++  pilotId: string;
++  preparationId: string;
++  generationId?: string | null;
++  userMessageId?: string | null;
++  resultJson?: string | null;
++  fromJsonEffects?: TurnKnowledgeEffect[] | null;
++}): Promise<TurnKnowledgeEffect[] | undefined> {
++  let fromJson = input.fromJsonEffects;
++  let capRows: KnowledgeCapRow[] = [];
++  if (input.resultJson?.trim()) {
++    try {
++      const parsed = JSON.parse(input.resultJson) as {
++        knowledgeEffects?: TurnKnowledgeEffect[];
++        capitalisationAttempted?: KnowledgeCapRow[];
++      };
++      if (fromJson === undefined && Array.isArray(parsed.knowledgeEffects)) {
++        fromJson = parsed.knowledgeEffects;
++      }
++      if (Array.isArray(parsed.capitalisationAttempted)) {
++        capRows = parsed.capitalisationAttempted;
++      }
++    } catch {
++      /* ignore */
++    }
++  }
++  const intentIds = extractDurableKnowledgeIntentIds({
++    fromJsonEffects: fromJson,
++    resultJson: input.resultJson,
++  });
++  const reconstituted = await reconstituteConfirmedD4Effects(
++    input.pilotId,
++    input.preparationId,
++    {
++      generationId: input.generationId,
++      userMessageId: input.userMessageId,
++    },
++  );
++  const seeded: TurnKnowledgeEffect[] = [...(fromJson ?? [])];
++  for (const intentId of intentIds) {
++    if (seeded.some((e) => e.semanticIntentId === intentId)) continue;
++    seeded.push(
++      knowledgeEffectFromCapitalisation({
++        intentId,
++        status: "UNKNOWN",
++        attempted: true,
++        reason:
++          "Issue D4 à confirmer — intention durable connue, projection knowledgeEffects absente ou partielle.",
++        reasonCode: "RECOVERY_INDETERMINATE",
++      }),
++    );
++  }
++  if (seeded.length === 0 && reconstituted.capitalisation.length === 0) {
++    return fromJson ?? undefined;
++  }
++  const reconciled = reconcileKnowledgeEffectsFromDurableInfo({
++    effects: seeded,
++    capitalisationRows: capRows.length
++      ? capRows
++      : seeded
++          .filter((e) => e.semanticIntentId && e.ownerRef)
++          .map((e) => ({
++            intentId: e.semanticIntentId,
++            status: e.status,
++            kind: e.proposalKind ?? undefined,
++            id: e.ownerRef ?? undefined,
++            reason: e.reason ?? undefined,
++          })),
++    reconstituted: reconstituted.capitalisation.map((c) => ({
++      id: c.id,
++      kind: c.kind,
++      status: c.status,
++    })),
++  });
++  if (reconciled.length > 0) return reconciled;
++  return fromJson ?? undefined;
++}
++
+ /**
+  * E2 residual fidelity (§21.1) — reconcile knowledgeEffects on UNKNOWN / ownership-loss
+  * paths from durable capitalisation rows + DB reconstitution. Never invents mutations:
+@@ -1345,6 +1481,14 @@ export async function postUserMessageAndNora(
+           resultJson: reserved.resultJson,
+         }),
+       });
++      const knowledgeEffects = await recoverKnowledgeEffectsForReadPath({
++        pilotId,
++        preparationId,
++        generationId: reserved.generationId,
++        userMessageId: reserved.userMessageId,
++        resultJson: reserved.resultJson,
++        fromJsonEffects: replayKnowledgeEffects,
++      });
+       return {
+         operationId: reserved.operationId,
+         requestId,
+@@ -1361,7 +1505,7 @@ export async function postUserMessageAndNora(
+         capitalisation: reconstituted.capitalisation,
+         capitalisationLimit: reconstituted.capitalisationLimit,
+         documentSave: reconstituted.documentSave,
+-        knowledgeEffects: replayKnowledgeEffects,
++        knowledgeEffects,
+       };
+     }
+     return {
+diff --git a/projects/sfia-studio-next/web/tests/integration/ml3-composer-dictation-integrated.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml3-composer-dictation-integrated.pg.test.ts
+index b7569439..10ef4f88 100644
+--- a/projects/sfia-studio-next/web/tests/integration/ml3-composer-dictation-integrated.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/ml3-composer-dictation-integrated.pg.test.ts
+@@ -13,6 +13,10 @@ const devSessionRef = vi.hoisted(() => {
+   process.env.SFIA_DICTATION_SUBSTITUTED = "1";
+   process.env.VITEST = "true";
+   process.env.STUDIO_FORCE_NORA_FIXTURE = "1";
++  // Isolate from qualify shell leaks (COMMIT_DELAY=80 races T02/T11 finalize).
++  delete process.env.SFIA_DICTATION_FIXTURE_COMMIT_DELAY_MS;
++  delete process.env.SFIA_DICTATION_FIXTURE_COMPLETE_DELAY_MS;
++  delete process.env.SFIA_DICTATION_FIXTURE_AUTO_TRANSCRIPT;
+   delete process.env.OPENAI_API_KEY;
+   return { token: "", pilotId: "" };
+ });
+diff --git a/projects/sfia-studio-next/web/tests/unit/ml3-composer-dictation-session.test.ts b/projects/sfia-studio-next/web/tests/unit/ml3-composer-dictation-session.test.ts
+index 4c4239be..fdf82df4 100644
+--- a/projects/sfia-studio-next/web/tests/unit/ml3-composer-dictation-session.test.ts
++++ b/projects/sfia-studio-next/web/tests/unit/ml3-composer-dictation-session.test.ts
+@@ -810,7 +810,7 @@ describe("ml3 composer dictation session (substituted transport)", () => {
+     let closed = false;
+     let handler: ((ev: Record<string, unknown>) => void) | null = null;
+     const silentTransport: RealtimeTransport = {
+-      // Opens but never emits session.updated / session.created (mic-OK then ~10s hang).
++      // Opens but never emits session.updated (mic-OK then ~10s hang).
+       send: () => undefined,
+       close: () => {
+         closed = true;
+@@ -835,6 +835,124 @@ describe("ml3 composer dictation session (substituted transport)", () => {
+     expect(closed).toBe(true);
+   }, 15_000);
+
++  it("E5: provider error before session.updated rejects open wait (no hang)", async () => {
++    process.env.SFIA_COMPOSER_DICTATION = "1";
++    process.env.STUDIO_LANE = "DEV";
++    let handler: ((ev: Record<string, unknown>) => void) | null = null;
++    const transport: RealtimeTransport = {
++      send: (p) => {
++        if (p.type === "session.update") {
++          queueMicrotask(() => handler?.({ type: "error", message: "handshake rejected" }));
++        }
++      },
++      close: () => undefined,
++      onEvent: (h) => {
++        handler = h;
++      },
++    };
++    const created = await createDictationSession({
++      pilotId: "pilot-pre-ready-err",
++      projectId: "proj-pre-ready-err",
++      conversationKey: "proj-pre-ready-err",
++      baselineDraft: "",
++      transportFactory: async () => transport,
++      limits: { maxDurationMs: 60_000 },
++    });
++    expect(created.ok).toBe(false);
++    if (created.ok) return;
++    expect(created.code).toBe("PROVIDER_ERROR");
++  }, 5_000);
++
++  it("E5: session.created alone does not open; session.updated required", async () => {
++    process.env.SFIA_COMPOSER_DICTATION = "1";
++    process.env.STUDIO_LANE = "DEV";
++    let handler: ((ev: Record<string, unknown>) => void) | null = null;
++    const transport: RealtimeTransport = {
++      send: (p) => {
++        if (p.type === "session.update") {
++          queueMicrotask(() => handler?.({ type: "session.created" }));
++        }
++      },
++      close: () => undefined,
++      onEvent: (h) => {
++        handler = h;
++      },
++    };
++    const createdPromise = createDictationSession({
++      pilotId: "pilot-created-only",
++      projectId: "proj-created-only",
++      conversationKey: "proj-created-only",
++      baselineDraft: "",
++      transportFactory: async () => transport,
++      limits: { finalizeTimeoutMs: 80 },
++    });
++    await new Promise((r) => setTimeout(r, 30));
++    // Still waiting — inject updated to complete successfully after created ignored.
++    handler?.({ type: "session.updated" });
++    const created = await createdPromise;
++    expect(created.ok).toBe(true);
++    if (!created.ok) return;
++    expect(created.session.status).toBe("open");
++  }, 5_000);
++
++  it("E5: completed before committed during finalize does not hang awaiting", async () => {
++    process.env.SFIA_COMPOSER_DICTATION = "1";
++    process.env.STUDIO_LANE = "DEV";
++    let handler: ((ev: Record<string, unknown>) => void) | null = null;
++    const transport: RealtimeTransport = {
++      send: (p) => {
++        if (p.type === "session.update") {
++          queueMicrotask(() => handler?.({ type: "session.updated" }));
++        }
++        if (p.type === "input_audio_buffer.commit") {
++          // Delay committed past an early completed (qualify fixture race).
++          setTimeout(() => {
++            handler?.({
++              type: "input_audio_buffer.committed",
++              item_id: "early_item",
++            });
++          }, 40);
++        }
++      },
++      close: () => undefined,
++      onEvent: (h) => {
++        handler = h;
++      },
++    };
++    const created = await createDictationSession({
++      pilotId: "pilot-early-complete",
++      projectId: "proj-early-complete",
++      conversationKey: "proj-early-complete",
++      baselineDraft: "Base",
++      transportFactory: async () => transport,
++      limits: { finalizeTimeoutMs: 500 },
++    });
++    expect(created.ok).toBe(true);
++    if (!created.ok) return;
++    appendDictationAudio({
++      sessionId: created.session.sessionId,
++      pilotId: "pilot-early-complete",
++      projectId: "proj-early-complete",
++      pcmBase64: Buffer.alloc(320, 1).toString("base64"),
++      seq: 0,
++    });
++    const finPromise = finalizeDictationSession({
++      sessionId: created.session.sessionId,
++      pilotId: "pilot-early-complete",
++      projectId: "proj-early-complete",
++    });
++    await new Promise((r) => setTimeout(r, 5));
++    handler?.({
++      type: "conversation.item.input_audio_transcription.completed",
++      item_id: "early_item",
++      transcript: "précoce",
++    });
++    const fin = await finPromise;
++    expect(fin.ok).toBe(true);
++    if (!fin.ok) return;
++    expect(fin.transcript).toContain("précoce");
++  }, 5_000);
++
+   it("fixture transport recovers ready ack queued before onEvent (MP-06 DET)", async () => {
+     process.env.SFIA_COMPOSER_DICTATION = "1";
+     process.env.STUDIO_LANE = "DEV";
+```
+
+
+### NEW FILE: projects/sfia-studio-next/web/tests/unit/e5-knowledge-recovery-ids.test.ts
+
+```typescript
+import { describe, expect, it } from "vitest";
+import { extractDurableKnowledgeIntentIds } from "@/domains/conversation/service";
+
+describe("E5 knowledge recovery intent ids", () => {
+  it("unions knowledgeEffects, capitalisationAttempted and d4 stash intents", () => {
+    const ids = extractDurableKnowledgeIntentIds({
+      fromJsonEffects: [
+        {
+          attempted: false,
+          capabilityId: "d4.record_knowledge",
+          semanticIntentId: "from-json",
+          status: "SKIPPED",
+          reasonCode: null,
+          reason: null,
+          ownerRef: null,
+          proposalKind: null,
+        },
+      ],
+      resultJson: JSON.stringify({
+        capitalisationAttempted: [{ intentId: "from-cap", status: "AVAILABLE", id: "acq_1" }],
+        semanticQualification: {
+          status: "QUALIFIED",
+          intents: [
+            {
+              id: "from-stash",
+              mode: "REQUEST_EFFECT",
+              capabilityId: "d4.record_knowledge",
+            },
+            {
+              id: "pilotage-ignored",
+              mode: "REQUEST_EFFECT",
+              capabilityId: "d5.pilotage_command",
+            },
+          ],
+        },
+      }),
+    });
+    expect(ids.sort()).toEqual(["from-cap", "from-json", "from-stash"].sort());
+  });
+});
 
 ```
 
----
+### NEW FILE: projects/sfia-studio-next/web/tests/qualify/ml5-e5-discriminating-browser.spec.ts
 
-## 15. Publication
+```typescript
+/**
+ * E5 — discriminating browser proofs (fixture / substituted only).
+ * Sas page (not harness), rail reachability at 1280×720, panel state honesty.
+ */
+import { test, expect } from "@playwright/test";
+import fs from "node:fs";
+import path from "node:path";
+import {
+  openNewPreparation,
+  constituteAndCreateProject,
+} from "../e2e/helpers/g4-chat-first";
 
-| Item | Valeur |
-|---|---|
-| Commit message | `feat(next): complete shared composer audio and integrated workspace continuity` |
-| SHA | `a3305a42b3fd0f24b2a16bca825fc14eb37e84e6` |
-| Tree | `72405eddfdd10deea324a5c0dd01a073b30c5f85` |
-| Push | FF `origin/sfia/next-ml5-integrated-delivery-20261123` |
-| CI observée | aucune |
-| PR | aucune |
-| Main | inchangé |
-| Artefact tmp suivi | **absent** du tree |
+const EVIDENCE = path.resolve(
+  __dirname,
+  "../../../construction/evidence/ml5-e5-20261127/browser",
+);
 
----
+test.setTimeout(180_000);
 
-## 16. Réserves / reports (arbitrage Morris)
+async function ensurePortfolio(page: import("@playwright/test").Page) {
+  const auto = await page.request.post("/api/dev/auto-session");
+  expect(auto.ok()).toBeTruthy();
+  await page.goto("/portfolio", { waitUntil: "domcontentloaded" });
+  await page.waitForURL("**/portfolio**", { timeout: 60_000 });
+}
 
-Conservés : R-REC-E1-01/02 ; fraîcheur sémantique naturelle ; multi-cap naturelle ; allocation/calibration ; T08 ; hybrid pertinence ; dictée LIVE ; qualité FR ; latence ; coût facturé Admin OFF.
+test("E5 — sas préparation: shared composer present (not harness)", async ({
+  page,
+}) => {
+  fs.mkdirSync(EVIDENCE, { recursive: true });
+  await ensurePortfolio(page);
+  await openNewPreparation(page);
+  const draft = page.getByTestId("prep-draft");
+  await expect(draft).toBeVisible({ timeout: 30_000 });
+  const url = page.url();
+  expect(url).toContain("/preparations/");
+  expect(url).not.toContain("dictation-harness");
+  // Idle mic uses composer-mic; active shell uses composer-dictation.
+  const mic = page.getByTestId("composer-mic");
+  await expect(mic).toBeVisible({ timeout: 15_000 });
+  const micDisabled = await mic.isDisabled();
+  await page.screenshot({
+    path: path.join(EVIDENCE, "e5-sas-composer.png"),
+    fullPage: false,
+  });
+  fs.writeFileSync(
+    path.join(EVIDENCE, "e5-sas-composer.json"),
+    JSON.stringify(
+      {
+        url,
+        prepDraftVisible: true,
+        micVisible: true,
+        micDisabled,
+        harness: false,
+      },
+      null,
+      2,
+    ),
+  );
+  expect(micDisabled).toBe(false);
+});
 
-**Non reporté** : capacités DET construites (compositeur, ownership fidelity, multitype, rail).
+test("E5 — rail 1280×720: Résultats & preuves reachable after nav scroll", async ({
+  page,
+}) => {
+  fs.mkdirSync(EVIDENCE, { recursive: true });
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await ensurePortfolio(page);
+  await openNewPreparation(page);
+  await constituteAndCreateProject(page, {
+    name: "E5 rail",
+    summary: "E5 rail reachability",
+  });
+  await page.waitForTimeout(800);
 
----
+  const nav = page.locator(".studio-shell-rail-nav").first();
+  await expect(nav).toBeVisible({ timeout: 15_000 });
+  // Link (not button) — scroll nav range so last Accès directs clears the foot.
+  await nav.evaluate((el) => {
+    el.scrollTop = el.scrollHeight;
+  });
+  const results = page.getByTestId("nav-resultats");
+  await expect(results).toBeVisible({ timeout: 15_000 });
+  await results.scrollIntoViewIfNeeded();
+  const box = await results.boundingBox();
+  expect(box).toBeTruthy();
+  const hit = await page.evaluate(() => {
+    const el = document.querySelector('[data-testid="nav-resultats"]');
+    if (!el) return { ok: false, reason: "missing" as const };
+    const r = el.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    const top = document.elementFromPoint(cx, cy);
+    const navEl = document.querySelector(".studio-shell-rail-nav");
+    const foot = document.querySelector(".studio-shell-rail-foot");
+    const footTop = foot?.getBoundingClientRect().top ?? null;
+    return {
+      ok: !!top && (el === top || el.contains(top) || top.contains(el)),
+      cx,
+      cy,
+      topTag: top?.nodeName ?? null,
+      paddingBottom: navEl ? getComputedStyle(navEl).paddingBottom : null,
+      scrollPaddingBottom: navEl
+        ? getComputedStyle(navEl).scrollPaddingBottom
+        : null,
+      navScrollTop: navEl ? (navEl as HTMLElement).scrollTop : null,
+      navScrollHeight: navEl ? (navEl as HTMLElement).scrollHeight : null,
+      inViewport: r.bottom <= window.innerHeight && r.top >= 0,
+      clearOfFoot: footTop == null ? true : r.bottom <= footTop + 0.5,
+      footTop,
+      resultsBottom: r.bottom,
+    };
+  });
+  fs.writeFileSync(
+    path.join(EVIDENCE, "e5-rail-results-hit.json"),
+    JSON.stringify({ box, hit }, null, 2),
+  );
+  await page.screenshot({
+    path: path.join(EVIDENCE, "e5-rail-results-1280x720.png"),
+    fullPage: false,
+  });
+  expect(hit.clearOfFoot).toBeTruthy();
+  expect(hit.ok).toBeTruthy();
+});
 
-## 17. Tableau capacités
+test("E5 — panneau récents: record populated vs empty honestly", async ({
+  page,
+}) => {
+  fs.mkdirSync(EVIDENCE, { recursive: true });
+  await ensurePortfolio(page);
+  await openNewPreparation(page);
+  await constituteAndCreateProject(page, {
+    name: "E5 panel",
+    summary: "E5 panel state",
+  });
+  await page.waitForTimeout(1000);
+  const aside = page.locator('[data-testid="travail-aside-recents"]');
+  const present = (await aside.count()) > 0;
+  let itemCount = 0;
+  if (present) {
+    itemCount = await aside.locator('[data-testid="recent-item"]').count();
+    if (itemCount === 0) {
+      itemCount = await aside.locator("li, a, button").count();
+    }
+    await aside.screenshot({
+      path: path.join(EVIDENCE, "e5-panel-recents-state.png"),
+    });
+  }
+  const payload = {
+    asidePresent: present,
+    itemCount,
+    populated: itemCount > 0,
+    note:
+      itemCount > 0
+        ? "Panel shows items on this fresh DEV project"
+        : "Panel empty on fresh project — not claimed as peuplé; natural peuplement remains RECETTE",
+  };
+  fs.writeFileSync(
+    path.join(EVIDENCE, "e5-panel-recents-state.json"),
+    JSON.stringify(payload, null, 2),
+  );
+  expect(present).toBeTruthy();
+});
 
-| Ensemble | Capacité | Résultat | Preuve | Réserve |
-|---|---|---|---|---|
-| E4 | C.1 compositeur partagé | READY WITH RESERVES | unit + code | — |
-| E4 | C.2 croissance/brouillons | READY WITH RESERVES | unit isolation + captures | — |
-| E4 | C.3 transport/MP-06 | READY WITH RESERVES (DET) | PW C01–C03 ; erreurs explicites | MP-06 LIVE |
-| E4 | C.4 états/onde | READY WITH RESERVES | code + c01 capture | — |
-| E4 | C.5 robustesse/FinOps audio | READY WITH RESERVES | unit partial/timeout | Admin OFF |
-| E2 | ownership/attempted/UNKNOWN | READY WITH RESERVES | SC2 PG 4 | reprise utilisateur naturelle |
-| E2 | reconcile terminal | READY WITH RESERVES | code + SC2 | — |
-| E3 | multitype consultations | READY WITH RESERVES | code + panel capture | preuve/exécution owner gaps documentés si absents |
-| E3 | versions/droits Git | READY WITH RESERVES | commit immuable | — |
-| E3 | points ouverts | READY WITH RESERVES | Journal focus | — |
-| E3 | rail 1280×720 | READY WITH RESERVES | hit-test JSON | F2 global non revendiqué |
-| E3 | restitution | READY WITH RESERVES | no silent slice | — |
+```
 
----
 
-## 18. Verdicts construction (Cursor)
+## 15. Instruction ChatGPT
 
-| Ensemble | Verdict |
-|---|---|
-| **E2** | **READY WITH RESERVES** |
-| **E3** | **READY WITH RESERVES** |
-| **E4** | **READY WITH RESERVES** |
-| **Cycle intégré** | **READY WITH RESERVES** — candidat DEV cohérent pour revue sortie construction ; E5 = qualification globale ; gate Morris |
-
-Publication ≠ validation E2/E3/E4.
-
----
-
-## 19. Review Pack Content Coverage
-
-| Exigence §7.2 | Couvert |
-|---|---|
-| Mandat | oui |
-| Git Truth / ENV | oui |
-| Diffs exploitables créations/modifs | oui (sections 14) |
-| Docs modifiés | oui (as-built/delivery/registre + evidence compare) |
-| Validations commandes | oui |
-| Fake/Real | oui |
-| SHA/tree/build | oui |
-| Verdicts distincts | oui |
-| Preuves navigateur | chemins Git evidence/ml5-e4-20261127 |
-
----
-
-## 20. Instruction ChatGPT
-
-Relire snapshot `a3305a42b3fd0f24b2a16bca825fc14eb37e84e6` / tree `72405eddfdd10deea324a5c0dd01a073b30c5f85` ; diff depuis `5f2ecad185b9784bc3956477601fe6a722459467` ; handoff distant ; evidence navigateur ; vérifier mutualisation, transport DET, brouillons, fidélité D4, multitype, rail, Figma, sync docs. Actualiser suivi indépendant. Morris arbitre sorties E2/E3/E4 et engagement E5.
+Relire snapshot `a3305a42`, handoff `12244641`, delta local (sha256 ci-dessus), matrices, suites, browser JSON, manifeste, plan LIVE, réserves. Actualiser le suivi indépendant. Morris arbitre sortie E5 / publication / RECETTE / LIVE / MaintiPlan.
