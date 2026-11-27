@@ -302,9 +302,9 @@
 }
 
 .fig-msg-body {
-  /* IT-05 — conversation body 11px; hierarchy kept on role/meta/activity titles. */
-  font-size: 11px;
-  line-height: 1.5;
+  /* MP-05 — readable conversation body; hierarchy kept on role/meta/activity titles. */
+  font-size: 12.5px;
+  line-height: 1.65;
   color: #f4f6fc;
   font-weight: 400;
   min-width: 0;
@@ -313,13 +313,12 @@
 }
 
 /*
- * SafeMarkdown ships with Tailwind `text-sm` (~0.875rem / 14px). Beat that utility
- * only inside the conversation thread so Pilote/Nora body text is effectively 11px.
- * Document viewer and other SafeMarkdown surfaces stay untouched.
+ * SafeMarkdown ships with Tailwind `text-sm` (~0.875rem / 14px). Override only
+ * inside the conversation thread. Document viewer SafeMarkdown stays untouched.
  */
 .fig-msg-body .safe-md {
-  font-size: 11px;
-  line-height: 1.5;
+  font-size: 12.5px;
+  line-height: 1.65;
   max-width: 100%;
   overflow-x: auto;
 }
@@ -331,16 +330,53 @@
 .fig-msg-body .safe-md a,
 .fig-msg-body .safe-md strong,
 .fig-msg-body .safe-md em {
-  font-size: 11px;
-  line-height: 1.5;
+  font-size: 12.5px;
+  line-height: 1.65;
 }
 
 .fig-msg-body .safe-md pre,
 .fig-msg-body .safe-md code {
   max-width: 100%;
   overflow-x: auto;
-  font-size: 10px;
-  line-height: 1.45;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.fig-msg-body .safe-md h1,
+.fig-msg-body .safe-md h2,
+.fig-msg-body .safe-md h3,
+.fig-msg-body .safe-md h4 {
+  margin: 0.95em 0 0.4em;
+  line-height: 1.35;
+}
+
+.fig-msg-body .safe-md h1:first-child,
+.fig-msg-body .safe-md h2:first-child,
+.fig-msg-body .safe-md h3:first-child,
+.fig-msg-body .safe-md h4:first-child {
+  margin-top: 0;
+}
+
+.fig-msg-body .safe-md ul,
+.fig-msg-body .safe-md ol {
+  margin: 0.45em 0 0.75em;
+  padding-left: 1.35em;
+}
+
+.fig-msg-body .safe-md li {
+  margin: 0.28em 0;
+}
+
+.fig-msg-body .safe-md li + li {
+  margin-top: 0.35em;
+}
+
+.fig-msg-body .safe-md p {
+  margin: 0 0 0.75em;
+}
+
+.fig-msg-body .safe-md p:last-child {
+  margin-bottom: 0;
 }
 
 /* Headings keep rem-based hierarchy from globals.css (root-relative). */
@@ -348,7 +384,7 @@
 /*
  * Conversation tables: fit entirely inside Nora/Pilote message width.
  * Prefer cell wrap over horizontal scroll / clipping (IT-04 revised).
- * SAS preparation thread keeps the same presentable fit.
+ * Column widths follow content weight — not a forced 50/50 split.
  */
 .fig-msg-body .safe-md table,
 .sas-msg-body .safe-md table {
@@ -356,7 +392,7 @@
   width: 100%;
   max-width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
+  table-layout: auto;
   overflow-x: visible;
 }
 
@@ -368,12 +404,12 @@
   overflow-wrap: break-word;
   word-break: normal;
   min-width: 0;
-  padding: 0.35em 0.65em;
+  padding: 0.45em 0.75em;
   vertical-align: top;
 }
 
 .fig-msg-body p {
-  margin: 0 0 0.55em;
+  margin: 0 0 0.75em;
 }
 
 .fig-msg-body p:last-child {
@@ -1144,13 +1180,22 @@
 }
 
 .fig-sas-progress-ring-spin {
+  display: block;
   animation: fig-sas-progress-spin 1.1s linear infinite;
   transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+/* Terminal / pending steps must not keep a spinning indicator. */
+.fig-sas-progress-ring-spin[data-terminal="1"] {
+  animation: none;
+  will-change: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .fig-sas-progress-ring-spin {
     animation: none;
+    will-change: auto;
   }
 }
 
@@ -1498,7 +1543,7 @@
 
 .sas-msg-body {
   font-size: 13px;
-  line-height: 20px;
+  line-height: 1.65;
   color: var(--fig-ink);
   min-width: 0;
   overflow-wrap: anywhere;
@@ -1512,7 +1557,25 @@
   overflow-x: auto;
 }
 
-.sas-msg-body p { margin: 0 0 0.55rem; }
+.sas-msg-body .safe-md ul,
+.sas-msg-body .safe-md ol {
+  margin: 0.45em 0 0.75em;
+  padding-left: 1.35em;
+}
+
+.sas-msg-body .safe-md li {
+  margin: 0.28em 0;
+}
+
+.sas-msg-body .safe-md h1,
+.sas-msg-body .safe-md h2,
+.sas-msg-body .safe-md h3,
+.sas-msg-body .safe-md h4 {
+  margin: 0.9em 0 0.4em;
+  line-height: 1.35;
+}
+
+.sas-msg-body p { margin: 0 0 0.75rem; }
 .sas-msg-body p:last-child { margin-bottom: 0; }
 
 .sas-thread-status {

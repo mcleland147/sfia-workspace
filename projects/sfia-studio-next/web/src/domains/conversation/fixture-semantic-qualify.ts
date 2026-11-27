@@ -565,6 +565,41 @@ register(
   ]),
 );
 
+/** MP-09 T05 — open cadrage then transition to functional design (dual D5 REQUEST_EFFECT). */
+register(
+  "Ouvre le cycle cadrage puis passe en conception fonctionnelle.",
+  effect(
+    "MP-09 open + transition",
+    "J'ouvre le cycle de cadrage puis nous passons en conception fonctionnelle.",
+    [
+      {
+        id: "i-open",
+        capabilityId: "d5.pilotage_command",
+        mode: "REQUEST_EFFECT",
+        summary: "OPEN_CYCLE",
+        parameters: { pilotageOperation: "OPEN_CYCLE", cycleType: "CADRAGE" },
+        constraints: [],
+        dependsOn: [],
+        sourceEvidence: [],
+      },
+      {
+        id: "i-trans",
+        capabilityId: "d5.pilotage_command",
+        mode: "REQUEST_EFFECT",
+        summary: "TRANSITION_CYCLE",
+        parameters: {
+          pilotageOperation: "TRANSITION_CYCLE",
+          cycleType: "CADRAGE",
+          toCycleType: "CONCEPTION_FONCTIONNELLE",
+        },
+        constraints: [],
+        dependsOn: ["i-open"],
+        sourceEvidence: [],
+      },
+    ],
+  ),
+);
+
 register(
   "Je retiens cette trajectoire.",
   effect(
@@ -2221,9 +2256,18 @@ const COCKPIT_NAMED_RE =
 const E05_CITE_REVISION_RE =
   /^E05_CITE_REVISION documentId=(\S+) revisionId=(\S+)$/;
 
+/** Strip conductor continuation/restitution suffixes before exact scenario match. */
+function pilotUtteranceForFixtureLookup(userText: string): string {
+  const raw = userText ?? "";
+  const cut = raw.search(
+    /\n\s*\[(?:Continuation du même travail cognitif|Phase de restitution)\b/,
+  );
+  return normalizeUtterance(cut >= 0 ? raw.slice(0, cut) : raw);
+}
+
 export function fixtureSemanticQualify(userText: string): NoraTurnQualification {
   assertFixtureLane();
-  const text = normalizeUtterance(userText);
+  const text = pilotUtteranceForFixtureLookup(userText);
   if (!text) return unavailableQualification("EMPTY_USER_TEXT");
   const hit = SCENARIO_TABLE.get(text);
   if (hit) {

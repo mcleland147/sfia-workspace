@@ -1,12 +1,19 @@
 /**
- * ML5 provisional cognitive policy — DEV only (Morris 2026-11-26).
+ * ML5 provisional cognitive policy — Option C env-governed (Morris 2026-11-27).
  *
  * v0.2 (explicit): Terra medium default; Luna low/medium experimental;
  * Sol L/M/H historical; Terra high / Luna high candidates.
  *
  * Activation is NEVER implicit: absent or unknown SFIA_COG_PROVISIONAL_POLICY
- * resolves to legacy_sol (safe historical default). Provisional couples require
- * explicit `v0.2` (or deprecated `v0.1`) AND STUDIO_LANE=DEV.
+ * resolves to legacy_sol (safe historical default).
+ *
+ * Lane gates:
+ * - DEV: explicit `v0.2` | `v0.1` activates provisional couples.
+ * - RECETTE: same policy env is refused unless
+ *   `SFIA_COG_PROVISIONAL_RECETTE_ADMIT=qualified-v0.x` (version-scoped) after calibration.
+ * - Other / unknown lanes: refuse provisional (fail closed to legacy_sol).
+ *
+ * An unqualified policy must never become active in RECETTE by default.
  *
  * Rollback: `legacy_sol` | `off` | `0` — no structural rewrite.
  */
@@ -74,6 +81,64 @@ function studioLane(env: NodeJS.ProcessEnv): string {
   return (env.STUDIO_LANE ?? "").trim().toUpperCase();
 }
 
+/**
+ * Explicit post-calibration admit for RECETTE — never inferred.
+ * E2-REL-01: version-scoped ONLY — `qualified-v0.2` | `qualified-v0.1`
+ * (also `qualified:v0.x`). Bare `qualified` is NOT sufficient: v0.1 and v0.2
+ * admit distinct couples; an unversioned token must not activate either.
+ */
+export function isRecetteProvisionalQualified(
+  env: NodeJS.ProcessEnv = process.env,
+  policyId?: Exclude<ProvisionalPolicyId, "legacy_sol">,
+): boolean {
+  const raw = (env.SFIA_COG_PROVISIONAL_RECETTE_ADMIT ?? "").trim();
+  if (!raw || !policyId) return false;
+  return raw === `qualified-${policyId}` || raw === `qualified:${policyId}`;
+}
+
+function laneAllowsProvisional(
+  lane: string,
+  env: NodeJS.ProcessEnv,
+  policyId: Exclude<ProvisionalPolicyId, "legacy_sol">,
+): { allowed: boolean; reasonCodes: string[] } {
+  if (lane === "DEV") {
+    return { allowed: true, reasonCodes: ["LANE_DEV"] };
+  }
+  if (lane === "RECETTE") {
+    const raw = (env.SFIA_COG_PROVISIONAL_RECETTE_ADMIT ?? "").trim();
+    if (isRecetteProvisionalQualified(env, policyId)) {
+      return {
+        allowed: true,
+        reasonCodes: [
+          "LANE_RECETTE",
+          "COG_POLICY_RECETTE_ADMIT_QUALIFIED",
+          `COG_POLICY_RECETTE_ADMIT_VERSION_${policyId}`,
+        ],
+      };
+    }
+    const bareUnversioned = raw === "qualified";
+    return {
+      allowed: false,
+      reasonCodes: [
+        "COG_POLICY_REFUSED_RECETTE_UNQUALIFIED",
+        "LANE_RECETTE",
+        bareUnversioned
+          ? "COG_POLICY_REQUIRE_VERSIONED_ADMIT_qualified-vX"
+          : "COG_POLICY_REQUIRE_SFIA_COG_PROVISIONAL_RECETTE_ADMIT_qualified-vX",
+        `COG_POLICY_REQUIRE_ADMIT_FOR_${policyId}`,
+        ...(bareUnversioned ? ["COG_POLICY_RECETTE_ADMIT_BARE_QUALIFIED_REJECTED"] : []),
+      ],
+    };
+  }
+  return {
+    allowed: false,
+    reasonCodes: [
+      "COG_POLICY_REFUSED_NON_GOVERNED_LANE",
+      `LANE_${lane || "UNKNOWN"}`,
+    ],
+  };
+}
+
 export type ProvisionalPolicyResolution = {
   id: ProvisionalPolicyId;
   /** True when provisional experimental couples may be admitted. */
@@ -82,14 +147,14 @@ export type ProvisionalPolicyResolution = {
 };
 
 /**
- * Resolve active policy — fail closed to legacy_sol unless explicitly activated on DEV.
+ * Resolve active policy — fail closed to legacy_sol unless explicitly activated
+ * on an allowed lane (DEV, or RECETTE with qualified admit).
  */
 export function resolveProvisionalPolicy(
   env: NodeJS.ProcessEnv = process.env,
 ): ProvisionalPolicyResolution {
   const raw = (env.SFIA_COG_PROVISIONAL_POLICY ?? "").trim().toLowerCase();
   const lane = studioLane(env);
-  const codes: string[] = [];
 
   if (!raw) {
     return {
@@ -117,13 +182,14 @@ export function resolveProvisionalPolicy(
   }
 
   if (raw === "v0.2" || raw === "0.2" || raw === "v2") {
-    if (lane !== "DEV") {
+    const gate = laneAllowsProvisional(lane, env, "v0.2");
+    if (!gate.allowed) {
       return {
         id: "legacy_sol",
         provisionalActive: false,
         reasonCodes: [
-          "COG_POLICY_V02_REFUSED_NON_DEV_LANE",
-          `LANE_${lane || "UNKNOWN"}`,
+          "COG_POLICY_V02_REFUSED_LANE_GATE",
+          ...gate.reasonCodes,
           "COG_POLICY_VERSION_legacy_sol",
         ],
       };
@@ -134,19 +200,20 @@ export function resolveProvisionalPolicy(
       reasonCodes: [
         `COG_POLICY_PROVISIONAL_${PROVISIONAL_COGNITIVE_POLICY_VERSION}`,
         "COG_POLICY_VERSION_v0.2",
-        "LANE_DEV",
+        ...gate.reasonCodes,
       ],
     };
   }
 
   if (raw === "v0.1" || raw === "0.1" || raw === "v1") {
-    if (lane !== "DEV") {
+    const gate = laneAllowsProvisional(lane, env, "v0.1");
+    if (!gate.allowed) {
       return {
         id: "legacy_sol",
         provisionalActive: false,
         reasonCodes: [
-          "COG_POLICY_V01_REFUSED_NON_DEV_LANE",
-          `LANE_${lane || "UNKNOWN"}`,
+          "COG_POLICY_V01_REFUSED_LANE_GATE",
+          ...gate.reasonCodes,
           "COG_POLICY_VERSION_legacy_sol",
         ],
       };
@@ -158,7 +225,7 @@ export function resolveProvisionalPolicy(
         "COG_POLICY_PROVISIONAL_ml5-cog-provisional-policy-v0.1-20261126",
         "COG_POLICY_VERSION_v0.1",
         "COG_POLICY_V01_DEPRECATED_PREFER_V02",
-        "LANE_DEV",
+        ...gate.reasonCodes,
       ],
     };
   }

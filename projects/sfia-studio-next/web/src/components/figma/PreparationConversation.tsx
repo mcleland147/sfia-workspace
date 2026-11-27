@@ -2,6 +2,7 @@
 
 import { SafeMarkdown } from "@/components/SafeMarkdown";
 import { NoraLiveActivity } from "@/components/figma/NoraLiveActivity";
+import { NoraSharedComposer } from "@/components/figma/NoraSharedComposer";
 
 export type PrepMessage = {
   id: string;
@@ -33,6 +34,10 @@ export function PreparationConversation(props: {
   /** C1 / Figma 12.10 — mid-turn activity (same capability as Travail). */
   liveActivityEvents?: PrepLiveActivityEvent[];
   liveActivityHeadline?: string;
+  /** ML3 — optional linked project (dictation prefers project scope when set). */
+  projectId?: string | null;
+  preparationId?: string;
+  dictationEnabled?: boolean;
 }) {
   const empty = props.messages.length === 0;
   const liveEvents = props.liveActivityEvents ?? [];
@@ -129,42 +134,16 @@ export function PreparationConversation(props: {
         ) : null}
       </div>
 
-      <div className="sas-composer" data-testid="prep-composer">
-        <textarea
-          className="sas-composer-input"
-          value={props.draft}
-          onChange={(e) => props.onDraftChange(e.target.value)}
-          placeholder="Décrivez votre idée, une question ou une hésitation…"
-          aria-label="Message à Nora"
-          data-testid="prep-draft"
-          rows={2}
-          disabled={props.busy}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !props.busy) {
-              e.preventDefault();
-              props.onSend();
-            }
-          }}
-        />
-        <div className="sas-composer-bar" aria-hidden={!props.draft.trim()}>
-          <span className="sas-composer-hint">
-            <span className="sas-composer-plus" aria-hidden>
-              ＋
-            </span>
-            Échanger librement avec Nora
-          </span>
-          <button
-            type="button"
-            className="sas-composer-send"
-            disabled={props.busy || !props.draft.trim()}
-            onClick={props.onSend}
-            data-testid="prep-send"
-            aria-label="Envoyer le message"
-          >
-            <span aria-hidden>↑</span>
-          </button>
-        </div>
-      </div>
+      <NoraSharedComposer
+        variant="prep"
+        draft={props.draft}
+        onDraft={props.onDraftChange}
+        busy={props.busy}
+        onSend={props.onSend}
+        projectId={props.projectId ?? undefined}
+        preparationId={props.preparationId}
+        dictationEnabled={props.dictationEnabled}
+      />
       {props.footer}
     </section>
   );

@@ -10,7 +10,12 @@ import {
   finOpsDailyXAxisLabels,
   formatModelBreakdownCost,
   formatUsdAxisFr,
+  finOpsMeasureCoverageSubtext,
+  finOpsModelDisplayLabel,
+  effectiveFinOpsProjectId,
+  effectiveFinOpsProjectIdForWork,
   parseFinOpsPeriodDays,
+  resolveObservedProjectId,
   resolvePersonalSettingsActive,
   tokenTotalForRow,
 } from "@/domains/finops/usage-projection";
@@ -124,6 +129,16 @@ describe("ML5 E06 — FinOps usage projection", () => {
     expect(formatModelBreakdownCost({ costUsd: 1.2, coverage: "PARTIAL" })).toContain("1,20");
   });
 
+  it("finOpsMeasureCoverageSubtext explains zero KNOWN estimation with observed requests", () => {
+    const sub = finOpsMeasureCoverageSubtext({
+      totalRequests: 4,
+      measuredRequests: 4,
+      estimationCompletenessPercent: { kind: "partial", value: 0 },
+    });
+    expect(sub).toContain("PARTIAL ou inconnus");
+    expect(sub).not.toContain("estimation connue 0");
+  });
+
   it("excludes HTTP attempt correlation rows from cost and request totals", () => {
     const rows = [
       {
@@ -145,6 +160,7 @@ describe("ML5 E06 — FinOps usage projection", () => {
         limitsJson: ["HTTP_ATTEMPT_CORRELATION_ONLY", "HTTP_ATTEMPT_USAGE_UNKNOWN"],
       },
       {
+        // E2-REL-05 — USAGE_UNKNOWN alone is NOT a correlation companion; keep in request census.
         estimatedCostUsd: null,
         costCoverage: "PARTIAL",
         totalTokens: null,
@@ -155,16 +171,85 @@ describe("ML5 E06 — FinOps usage projection", () => {
       },
     ];
     const cost = aggregateEstimatedCost(rows);
-    expect(cost.kind).toBe("known");
-    if (cost.kind === "known") expect(cost.value).toBeCloseTo(2);
+    expect(cost.kind).toBe("partial");
+    if (cost.kind === "partial") expect(cost.value).toBeCloseTo(2);
     const tokens = aggregateTokenTotal(rows);
-    expect(tokens.kind).toBe("known");
-    if (tokens.kind === "known") expect(tokens.value).toBe(100);
-    expect(sumBillableProviderRequests(rows)).toBe(1);
+    expect(tokens.kind).not.toBe("known");
+    expect(sumBillableProviderRequests(rows)).toBe(2);
+    // PARTIAL+USAGE_UNKNOWN still has coverage class PARTIAL → counted in measured census.
+    expect(sumBillableProviderRequests(rows, { onlyWithObservedCost: true })).toBe(2);
     expect(
-      computeMeasureCoveragePercent(rows).kind === "known" ||
-        computeMeasureCoveragePercent(rows).kind === "partial",
-    ).toBe(true);
-    expect(sumBillableProviderRequests(rows, { onlyWithObservedCost: true })).toBe(1);
+      sumBillableProviderRequests(
+        rows.map((r) =>
+          r.limitsJson?.includes("HTTP_ATTEMPT_USAGE_UNKNOWN") &&
+          !r.limitsJson?.includes("HTTP_ATTEMPT_CORRELATION_ONLY")
+            ? { ...r, costCoverage: "UNKNOWN", providerRequests: 1 }
+            : r,
+        ),
+        { onlyWithObservedCost: true },
+      ),
+    ).toBe(1);
+  });
+
+  it("E2-REL-05 — effectiveFinOpsProjectId refuses obs≠work conflict", () => {
+    expect(
+      effectiveFinOpsProjectId({ observationProjectId: "pA", workProjectId: "pA" }),
+    ).toBe("pA");
+    expect(
+      effectiveFinOpsProjectId({ observationProjectId: null, workProjectId: "pA" }),
+    ).toBe("pA");
+    expect(
+      effectiveFinOpsProjectId({ observationProjectId: "pA", workProjectId: null }),
+    ).toBe("pA");
+    expect(
+      effectiveFinOpsProjectId({ observationProjectId: "pB", workProjectId: "pA" }),
+    ).toBeNull();
+  });
+
+  it("E2-REL-05 — effectiveFinOpsProjectIdForWork null on any conflicting row", () => {
+    expect(
+      effectiveFinOpsProjectIdForWork("pA", [
+        { projectId: "pA" },
+        { projectId: null },
+      ]),
+    ).toBe("pA");
+    expect(
+      effectiveFinOpsProjectIdForWork("pA", [
+        { projectId: "pA" },
+        { projectId: "pB" },
+      ]),
+    ).toBeNull();
+    expect(
+      effectiveFinOpsProjectIdForWork(null, [{ projectId: "pA" }, { projectId: "pB" }]),
+    ).toBeNull();
+  });
+
+  it("E2 A.7 — resolveObservedProjectId refuses multi-project attribution", () => {
+    expect(resolveObservedProjectId([])).toBeNull();
+    expect(resolveObservedProjectId([{ projectId: null }])).toBeNull();
+    expect(
+      resolveObservedProjectId([{ projectId: "p1" }, { projectId: "p1" }]),
+    ).toBe("p1");
+    expect(
+      resolveObservedProjectId([{ projectId: "p1" }, { projectId: "p2" }]),
+    ).toBeNull();
+  });
+
+  it("E2 A.7 — finOpsModelDisplayLabel never presents UNVERIFIED as applied", () => {
+    expect(
+      finOpsModelDisplayLabel({
+        modelApplied: "UNVERIFIED",
+        modelRequested: "gpt-6.2-sol",
+      }),
+    ).toBe("gpt-6.2-sol (demandé)");
+    expect(
+      finOpsModelDisplayLabel({
+        modelApplied: "gpt-6.1-terra",
+        modelRequested: "gpt-6.2-sol",
+      }),
+    ).toBe("gpt-6.1-terra");
+    expect(
+      finOpsModelDisplayLabel({ modelApplied: null, modelRequested: null }),
+    ).toBeNull();
   });
 });

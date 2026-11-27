@@ -3,6 +3,7 @@ import { requireStudioSession } from "@/domains/identity/session";
 import { studioErrorResponse } from "@/lib/http-errors";
 import { assertOwnedProject } from "@/domains/conversation/assert-owned-project";
 import {
+  dictationSessionMatchesScope,
   getDictationSession,
   subscribeDictationSession,
 } from "@/domains/conversation/composer-dictation-session";
@@ -17,7 +18,13 @@ export async function GET(
     const { projectId, sessionId } = await ctx.params;
     await assertOwnedProject(session.pilotId, projectId);
     const rec = getDictationSession(sessionId);
-    if (!rec || rec.pilotId !== session.pilotId || rec.projectId !== projectId) {
+    if (
+      !rec ||
+      !dictationSessionMatchesScope(rec, {
+        pilotId: session.pilotId,
+        projectId,
+      })
+    ) {
       return new Response(JSON.stringify({ ok: false, code: "NOT_FOUND" }), {
         status: 404,
         headers: { "content-type": "application/json" },

@@ -6,6 +6,8 @@ import {
   renameSubject,
   splitSubject,
 } from "@/domains/knowledge/service";
+import { reparentSubject } from "@/domains/knowledge/journal";
+import { getPreparationContext } from "@/domains/preparation/service";
 import { studioErrorResponse } from "@/lib/http-errors";
 
 export async function GET(_: Request, ctx: { params: Promise<{ preparationId: string }> }) {
@@ -25,11 +27,12 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
     const session = await requireStudioSession();
     const { preparationId } = await ctx.params;
     const body = (await req.json()) as {
-      action?: "rename" | "merge" | "split";
+      action?: "rename" | "merge" | "split" | "reparent";
       subjectId?: string;
       newTitle?: string;
       targetSubjectId?: string;
       sourceSubjectId?: string;
+      parentSubjectId?: string | null;
       acquisIds?: string[];
       openPointIds?: string[];
     };
@@ -58,6 +61,26 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
         acquisIds: body.acquisIds ?? [],
         openPointIds: body.openPointIds ?? [],
       });
+      return NextResponse.json(result);
+    }
+    // E1 B.2 — Pilote/UI reparent; Nora path uses d4.record_knowledge capitalisation.
+    if (body.action === "reparent" && body.subjectId) {
+      const ctxPrep = await getPreparationContext(session.pilotId, preparationId);
+      const projectId = ctxPrep.project?.id;
+      if (!projectId) {
+        return NextResponse.json(
+          { error: "PROJECT_REQUIRED", errorCategory: "INVALID_REQUEST" },
+          { status: 400 },
+        );
+      }
+      const parentSubjectId =
+        body.parentSubjectId === undefined ? null : body.parentSubjectId;
+      const result = await reparentSubject(
+        session.pilotId,
+        projectId,
+        body.subjectId,
+        parentSubjectId,
+      );
       return NextResponse.json(result);
     }
     return NextResponse.json(

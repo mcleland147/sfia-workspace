@@ -25,6 +25,11 @@ export type Provenance = {
   /** Extra constitutive message ids (Pilot/Nora) — never invent ids. */
   relatedMessageIds?: string[];
   contributionKind?: "pilot_fact" | "nora_analysis" | "pilot_confirmation" | "mixed";
+  /**
+   * E1-REL-04 — short canonical open-point title from Nora qualification.
+   * Display prefers this over editorial truncation of the statement.
+   */
+  canonicalTitle?: string;
 };
 
 export type KnowledgeKind = "FACT" | "HYPOTHESIS" | "RECOMMENDATION" | "LIMIT";
@@ -49,6 +54,11 @@ import {
   editorialCompactKnowledgeStatement,
   composeSubjectSummaryFromCurrentKnowledge,
 } from "./journal-editorial";
+import {
+  orderSubjectCreatesByDependency,
+  resolveBatchParentRef,
+  type SubjectCreateProposal,
+} from "./subject-proposal-batch";
 
 function provenanceString(p: Provenance): string {
   return JSON.stringify({ ...p, notedAt: p.notedAt ?? new Date().toISOString() });
@@ -97,6 +107,155 @@ async function assertSubjectRef(
   const row = await loadOwnedSubject(pilotId, preparationId, subjectId);
   if (!row) return { error: "SUBJECT_FOREIGN_OR_UNKNOWN" as const };
   return { subject: row };
+}
+
+/** Resolve an ACTIVE subject by exact title within the preparation (owner-scoped). */
+async function findActiveSubjectByTitle(
+  pilotId: string,
+  preparationId: string,
+  title: string,
+): Promise<{ id: string } | null> {
+  const cleaned = title.trim().slice(0, 200);
+  if (!cleaned) return null;
+  const rows = await db
+    .select({ id: knowledgeSubjects.id })
+    .from(knowledgeSubjects)
+    .where(
+      and(
+        eq(knowledgeSubjects.preparationId, preparationId),
+        eq(knowledgeSubjects.ownerPilotId, pilotId),
+        eq(knowledgeSubjects.title, cleaned),
+        eq(knowledgeSubjects.status, "ACTIVE"),
+      ),
+    )
+    .limit(2);
+  if (rows.length !== 1) return null;
+  return rows[0] ?? null;
+}
+
+async function precreateBatchSubjects(
+  pilotId: string,
+  preparationId: string,
+  proposals: Array<{
+    intentId: string;
+    kind: "ACQUIS" | "OPEN_POINT" | "SUBJECT";
+    statement: string;
+    subjectTitle?: string;
+    subjectId?: string;
+    parentSubjectId?: string;
+    subjectOrganization?: "MERGE" | "SPLIT" | "DETACH";
+  }>,
+  fence: TurnOwnershipFence | undefined,
+): Promise<{
+  createdByIntentId: Map<string, string>;
+  failedByIntentId: Map<string, string>;
+  ownershipLost: boolean;
+}> {
+  const createdByIntentId = new Map<string, string>();
+  const failedByIntentId = new Map<string, string>();
+  const specs: SubjectCreateProposal[] = [];
+
+  for (const p of proposals) {
+    if (p.kind !== "SUBJECT") continue;
+    if (p.subjectId?.trim()) {
+      const check = await assertSubjectRef(pilotId, preparationId, p.subjectId);
+      if (check?.subject) continue;
+      // E1-REL-02 — explicit unknown/foreign subjectId must not silently create another subject.
+      failedByIntentId.set(
+        p.intentId,
+        check && "error" in check ? check.error : "SUBJECT_FOREIGN_OR_UNKNOWN",
+      );
+      continue;
+    }
+    // Organization ops (MERGE/SPLIT/DETACH) require an existing subjectId — never precreate.
+    if (p.subjectOrganization) {
+      failedByIntentId.set(p.intentId, "SUBJECT_ORG_REQUIRES_SUBJECT_ID");
+      continue;
+    }
+    const title = (p.subjectTitle ?? p.statement).trim().slice(0, 120);
+    if (title.length < 3) continue;
+    const parentRef =
+      p.parentSubjectId && p.parentSubjectId !== p.subjectId
+        ? p.parentSubjectId.trim()
+        : undefined;
+    specs.push({ intentId: p.intentId, title, parentRef });
+  }
+
+  if (specs.length === 0) {
+    return { createdByIntentId, failedByIntentId, ownershipLost: false };
+  }
+
+  const ordering = orderSubjectCreatesByDependency(specs);
+  if (!("ordered" in ordering)) {
+    if (ordering.reason === "SUBJECT_BATCH_CYCLE") {
+      for (const s of specs) {
+        failedByIntentId.set(s.intentId, ordering.reason);
+      }
+    } else {
+      failedByIntentId.set(ordering.error, ordering.reason);
+    }
+    return { createdByIntentId, failedByIntentId, ownershipLost: false };
+  }
+
+  for (const spec of ordering.ordered) {
+    const parentResolved = spec.parentRef
+      ? resolveBatchParentRef(spec.parentRef, {
+          self: spec,
+          batch: ordering.ordered,
+          createdByIntentId,
+        })
+      : ({ kind: "root" } as const);
+
+    let parentSubjectId: string | null = null;
+    if (parentResolved.kind === "error") {
+      failedByIntentId.set(spec.intentId, parentResolved.reason);
+      continue;
+    }
+    if (parentResolved.kind === "pending_batch") {
+      failedByIntentId.set(spec.intentId, "SUBJECT_BATCH_ORDER");
+      continue;
+    }
+    if (parentResolved.kind === "resolved") {
+      parentSubjectId = parentResolved.parentSubjectId;
+      if (parentSubjectId.startsWith("subj_")) {
+        const check = await assertSubjectRef(pilotId, preparationId, parentSubjectId);
+        if (check && "error" in check) {
+          failedByIntentId.set(spec.intentId, check.error ?? "SUBJECT_FOREIGN_OR_UNKNOWN");
+          continue;
+        }
+      }
+    }
+    if (parentResolved.kind === "lookup_title") {
+      const found = await findActiveSubjectByTitle(
+        pilotId,
+        preparationId,
+        parentResolved.title,
+      );
+      if (!found) {
+        failedByIntentId.set(spec.intentId, "PARENT_NOT_FOUND");
+        continue;
+      }
+      parentSubjectId = found.id;
+    }
+
+    const s = await ensureSubject(
+      pilotId,
+      preparationId,
+      spec.title,
+      parentSubjectId,
+      fence,
+    );
+    if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
+      return { createdByIntentId, failedByIntentId, ownershipLost: true };
+    }
+    if (s.status === "AVAILABLE" && s.subjectId) {
+      createdByIntentId.set(spec.intentId, s.subjectId);
+    } else if (s.status === "FAILED" && "reason" in s) {
+      failedByIntentId.set(spec.intentId, String(s.reason));
+    }
+  }
+
+  return { createdByIntentId, failedByIntentId, ownershipLost: false };
 }
 
 /** Selective capitalisation — never invents D6 decisions. */
@@ -251,6 +410,8 @@ export async function openPoint(
     subjectId?: string | null;
     provenance: Provenance;
     turnFence?: TurnOwnershipFence;
+    /** Short canonical title (E1-REL-04) — stored in provenance, no schema migration. */
+    canonicalTitle?: string;
   },
 ) {
   const ctx = await assertPrep(pilotId, preparationId);
@@ -265,6 +426,7 @@ export async function openPoint(
       return { status: "FAILED" as const, reason: "SUBJECT_NOT_ACTIVE" };
     }
   }
+  const canonicalTitle = input.canonicalTitle?.trim().slice(0, 120) || undefined;
   const id = newId("opn");
   const write = await db.transaction(async (tx) => {
     if (input.turnFence) {
@@ -281,7 +443,10 @@ export async function openPoint(
       subjectId: input.subjectId ?? null,
       statement,
       status: "OPEN",
-      provenanceJson: provenanceString(input.provenance),
+      provenanceJson: provenanceString({
+        ...input.provenance,
+        ...(canonicalTitle ? { canonicalTitle } : {}),
+      }),
     });
     return { status: "OK" as const };
   });
@@ -301,7 +466,8 @@ export async function openPoint(
         preparationId,
         sourceId: id,
         sourceKind: "open_point",
-        text: `OPEN: ${statement}`,
+        // Fingerprint text must match collectAdmissibleKnowledgeSources (statement only).
+        text: statement,
         versionLabel: "OPEN",
       });
     }
@@ -400,6 +566,7 @@ export async function renameSubject(
   preparationId: string,
   subjectId: string,
   newTitle: string,
+  turnFence?: TurnOwnershipFence,
 ) {
   await assertPrep(pilotId, preparationId);
   const title = newTitle.trim().slice(0, 200);
@@ -407,6 +574,10 @@ export async function renameSubject(
 
   try {
     return await db.transaction(async (tx) => {
+      if (turnFence) {
+        const owned = await assertTurnFenceInTx(tx as Tx, turnFence);
+        if (!owned) return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
+      }
       await tx.execute(
         sql`select id from knowledge_subjects where id = ${subjectId} and owner_pilot_id = ${pilotId} and preparation_id = ${preparationId} for update`,
       );
@@ -436,13 +607,38 @@ export async function renameSubject(
   }
 }
 
+/**
+ * True when `maybeDescendantId` is the same as or under `ancestorId` in the
+ * ACTIVE parent chain (owner/prep scoped). Used to refuse ancestor→descendant merges.
+ */
+async function isSubjectUnderAncestor(
+  pilotId: string,
+  preparationId: string,
+  ancestorId: string,
+  maybeDescendantId: string,
+  tx: Tx,
+): Promise<boolean> {
+  if (ancestorId === maybeDescendantId) return true;
+  let current: string | null = maybeDescendantId;
+  const visited = new Set<string>();
+  while (current) {
+    if (current === ancestorId) return true;
+    if (visited.has(current)) return true;
+    visited.add(current);
+    const row = await loadOwnedSubject(pilotId, preparationId, current, tx);
+    if (!row) return true;
+    current = row.parentSubjectId;
+  }
+  return false;
+}
+
 /** Merge B into A — atomic; A remains ACTIVE; B marked MERGED with filiation. */
 export async function mergeSubjects(
   pilotId: string,
   preparationId: string,
   targetSubjectId: string,
   sourceSubjectId: string,
-  opts?: { injectFailureAfter?: "lock" | "move" },
+  opts?: { injectFailureAfter?: "lock" | "move"; turnFence?: TurnOwnershipFence },
 ) {
   await assertPrep(pilotId, preparationId);
   if (targetSubjectId === sourceSubjectId) {
@@ -451,7 +647,11 @@ export async function mergeSubjects(
 
   try {
     return await db.transaction(async (tx) => {
-      // Deterministic lock order to avoid deadlocks
+      if (opts?.turnFence) {
+        const owned = await assertTurnFenceInTx(tx as Tx, opts.turnFence);
+        if (!owned) return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
+      }
+      // Deterministic lock order to avoid deadlocks — lock source+target first, then children.
       const ids = [targetSubjectId, sourceSubjectId].sort();
       for (const id of ids) {
         await tx.execute(
@@ -477,6 +677,52 @@ export async function mergeSubjects(
       const source = rows.find((r) => r.id === sourceSubjectId)!;
       if (target.status !== "ACTIVE" || source.status !== "ACTIVE") {
         return { status: "CONFLICT" as const, reason: "SUBJECT_NOT_ACTIVE" };
+      }
+
+      // Refuse merging an ancestor into its descendant (cycle if children reparent to target).
+      if (
+        await isSubjectUnderAncestor(
+          pilotId,
+          preparationId,
+          sourceSubjectId,
+          targetSubjectId,
+          tx as Tx,
+        )
+      ) {
+        return { status: "FAILED" as const, reason: "CYCLE_OR_INVALID_TREE" };
+      }
+
+      // E1 final — reparent ACTIVE children of absorbed source onto target so they
+      // do not remain under a MERGED parent (invisible / orphaned in the living tree).
+      const children = await tx
+        .select({ id: knowledgeSubjects.id })
+        .from(knowledgeSubjects)
+        .where(
+          and(
+            eq(knowledgeSubjects.ownerPilotId, pilotId),
+            eq(knowledgeSubjects.preparationId, preparationId),
+            eq(knowledgeSubjects.parentSubjectId, sourceSubjectId),
+            eq(knowledgeSubjects.status, "ACTIVE"),
+          ),
+        );
+      const childIds = children.map((c) => c.id).sort();
+      for (const childId of childIds) {
+        await tx.execute(
+          sql`select id from knowledge_subjects where id = ${childId} and owner_pilot_id = ${pilotId} and preparation_id = ${preparationId} for update`,
+        );
+      }
+      if (childIds.length > 0) {
+        await tx
+          .update(knowledgeSubjects)
+          .set({ parentSubjectId: targetSubjectId, updatedAt: new Date() })
+          .where(
+            and(
+              eq(knowledgeSubjects.ownerPilotId, pilotId),
+              eq(knowledgeSubjects.preparationId, preparationId),
+              eq(knowledgeSubjects.parentSubjectId, sourceSubjectId),
+              eq(knowledgeSubjects.status, "ACTIVE"),
+            ),
+          );
       }
 
       await tx
@@ -516,9 +762,17 @@ export async function mergeSubjects(
         ownerPilotId: pilotId,
         subjectId: targetSubjectId,
         eventType: "MERGED",
-        payloadJson: JSON.stringify({ absorbed: sourceSubjectId }),
+        payloadJson: JSON.stringify({
+          absorbed: sourceSubjectId,
+          reparentedChildIds: childIds,
+        }),
       });
-      return { status: "AVAILABLE" as const, targetSubjectId, absorbedSubjectId: sourceSubjectId };
+      return {
+        status: "AVAILABLE" as const,
+        targetSubjectId,
+        absorbedSubjectId: sourceSubjectId,
+        reparentedChildIds: childIds,
+      };
     });
   } catch (e) {
     return {
@@ -542,7 +796,10 @@ export async function splitSubject(
     acquisIds: string[];
     openPointIds: string[];
   },
-  opts?: { injectFailureAfter?: "validate" | "create" | "move" },
+  opts?: {
+    injectFailureAfter?: "validate" | "create" | "move";
+    turnFence?: TurnOwnershipFence;
+  },
 ) {
   const ctx = await assertPrep(pilotId, preparationId);
   const newTitle = input.newTitle.trim().slice(0, 200);
@@ -553,6 +810,10 @@ export async function splitSubject(
 
   try {
     return await db.transaction(async (tx) => {
+      if (opts?.turnFence) {
+        const owned = await assertTurnFenceInTx(tx as Tx, opts.turnFence);
+        if (!owned) return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
+      }
       await tx.execute(
         sql`select id from knowledge_subjects where id = ${sourceSubjectId} and owner_pilot_id = ${pilotId} and preparation_id = ${preparationId} for update`,
       );
@@ -1165,9 +1426,16 @@ export async function maybeCapitalizeFromExchange(
       epistemic: "hypothesized" | "recommended" | "established" | "limited";
       subjectTitle?: string;
       subjectId?: string;
+      /** Existing parent subject for hierarchical SUBJECT creation. */
+      parentSubjectId?: string;
       continuityReason?: string;
       supersedesAcquisId?: string;
       resolvesOpenPointId?: string;
+      relevantAcquisIds?: string[];
+      relevantOpenPointIds?: string[];
+      openPointTitle?: string;
+      subjectOrganization?: "MERGE" | "SPLIT" | "DETACH";
+      mergeSourceSubjectId?: string;
     }>;
   },
 ) {
@@ -1177,6 +1445,8 @@ export async function maybeCapitalizeFromExchange(
     status: string;
     epistemicNote?: string;
     reason?: string;
+    /** Semantic intent id when known — enables D4→D5 same-turn precondition checks. */
+    intentId?: string;
   }> = [];
   const proposals = input.proposals ?? [];
   if (proposals.length === 0) {
@@ -1193,6 +1463,21 @@ export async function maybeCapitalizeFromExchange(
   let subjectId: string | null = null;
   const ctx = await assertPrep(pilotId, preparationId);
   const projectId = ctx.project?.id ?? null;
+  const batchSubjects = await precreateBatchSubjects(
+    pilotId,
+    preparationId,
+    proposals,
+    fence,
+  );
+  if (batchSubjects.ownershipLost) {
+    return {
+      capitalisations: results,
+      selectionMethod: "semantic-proposals" as const,
+      selectionLimit: "OWNERSHIP_LOST",
+      humanDecisionCreated: false as const,
+      ownershipLost: true as const,
+    };
+  }
   /** Subjects that already received an explicit SUBJECT summary this turn. */
   const subjectsWithExplicitSummary = new Set<string>();
   /** Subjects that gained significant CURRENT acquis this turn (may need synthesis). */
@@ -1203,6 +1488,7 @@ export async function maybeCapitalizeFromExchange(
     summaryMarkdown: string,
     titleNorm: string,
     p: {
+      intentId?: string;
       continuityReason?: string;
       epistemic: "hypothesized" | "recommended" | "established" | "limited";
     },
@@ -1231,6 +1517,7 @@ export async function maybeCapitalizeFromExchange(
       idempotencyKey: `subj-summary:${targetSubjectId}:${input.generationId}`,
     });
     results.push({
+      intentId: p.intentId,
       kind: "subject_summary",
       id: "revisionId" in syn ? syn.revisionId : undefined,
       status: syn.status,
@@ -1239,9 +1526,47 @@ export async function maybeCapitalizeFromExchange(
     });
   }
 
+  /** Map subjectTitle (normalized) → id for subjects created in this batch. */
+  const batchTitleToId = new Map<string, string>();
+  for (const p of proposals) {
+    if (p.kind !== "SUBJECT") continue;
+    const created = batchSubjects.createdByIntentId.get(p.intentId);
+    if (!created) continue;
+    const title = (p.subjectTitle ?? p.statement).trim().slice(0, 120);
+    if (title.length >= 3) {
+      batchTitleToId.set(title.trim().replace(/\s+/g, " ").toLowerCase(), created);
+    }
+  }
+
   for (const p of proposals) {
     if (p.kind === "SUBJECT") {
-      // Prefer explicit subjectId for synthesis revision on an existing subject.
+      const batchFailed = batchSubjects.failedByIntentId.get(p.intentId);
+      if (batchFailed) {
+        results.push({
+          intentId: p.intentId,
+          kind: "subject",
+          status: "FAILED",
+          reason: batchFailed,
+          epistemicNote: p.continuityReason,
+        });
+        continue;
+      }
+      const batchCreated = batchSubjects.createdByIntentId.get(p.intentId);
+      if (batchCreated) {
+        subjectId = batchCreated;
+        results.push({
+          intentId: p.intentId,
+          kind: "subject",
+          id: batchCreated,
+          status: "AVAILABLE",
+          epistemicNote: p.continuityReason,
+        });
+        const title = (p.subjectTitle ?? p.statement).trim().slice(0, 120);
+        await writeSubjectSummary(batchCreated, p.statement.trim(), title.trim(), p);
+        subjectsWithExplicitSummary.add(batchCreated);
+        continue;
+      }
+      // Prefer explicit subjectId for synthesis revision / reparent / org on an existing subject.
       if (p.subjectId) {
         const check = await assertSubjectRef(pilotId, preparationId, p.subjectId);
         if (check && "error" in check) {
@@ -1255,16 +1580,193 @@ export async function maybeCapitalizeFromExchange(
         }
         if (check?.subject) {
           subjectId = check.subject.id;
+          // E1-REL-01 — organization via existing D4 owners (no second engine).
+          if (p.subjectOrganization === "MERGE") {
+            const sourceId = p.mergeSourceSubjectId?.trim();
+            if (!sourceId) {
+              results.push({
+                kind: "subject_merge",
+                id: subjectId,
+                status: "FAILED",
+                reason: "MERGE_SOURCE_REQUIRED",
+                epistemicNote: p.continuityReason,
+                intentId: p.intentId,
+              });
+              continue;
+            }
+            const merged = await mergeSubjects(
+              pilotId,
+              preparationId,
+              subjectId,
+              sourceId,
+              { turnFence: fence },
+            );
+            results.push({
+              kind: "subject_merge",
+              id: subjectId,
+              status: merged.status,
+              reason: "reason" in merged ? String(merged.reason) : undefined,
+              epistemicNote: p.continuityReason,
+              intentId: p.intentId,
+            });
+            if (merged.status !== "AVAILABLE") continue;
+            await writeSubjectSummary(
+              subjectId,
+              p.statement.trim(),
+              (p.subjectTitle ?? check.subject.title).trim(),
+              p,
+            );
+            subjectsWithExplicitSummary.add(subjectId);
+            continue;
+          }
+          if (p.subjectOrganization === "SPLIT") {
+            const newTitle = (p.subjectTitle ?? "").trim();
+            if (newTitle.length < 3) {
+              results.push({
+                kind: "subject_split",
+                id: subjectId,
+                status: "FAILED",
+                reason: "SPLIT_TITLE_REQUIRED",
+                epistemicNote: p.continuityReason,
+                intentId: p.intentId,
+              });
+              continue;
+            }
+            const split = await splitSubject(
+              pilotId,
+              preparationId,
+              subjectId,
+              {
+                newTitle,
+                acquisIds: p.relevantAcquisIds ?? [],
+                openPointIds: p.relevantOpenPointIds ?? [],
+              },
+              { turnFence: fence },
+            );
+            results.push({
+              kind: "subject_split",
+              id: "newSubjectId" in split ? split.newSubjectId : subjectId,
+              status: split.status,
+              reason: "reason" in split ? String(split.reason) : undefined,
+              epistemicNote: p.continuityReason,
+              intentId: p.intentId,
+            });
+            if (split.status === "AVAILABLE" && "newSubjectId" in split && split.newSubjectId) {
+              subjectId = split.newSubjectId;
+              await writeSubjectSummary(split.newSubjectId, p.statement.trim(), newTitle, p);
+              subjectsWithExplicitSummary.add(split.newSubjectId);
+            }
+            continue;
+          }
+          if (p.subjectOrganization === "DETACH" && projectId) {
+            const { reparentSubject } = await import("@/domains/knowledge/journal");
+            const det = await reparentSubject(pilotId, projectId, subjectId, null, fence);
+            results.push({
+              kind: "subject_detach",
+              id: subjectId,
+              status: det.status,
+              reason: "reason" in det ? String(det.reason) : undefined,
+              epistemicNote: p.continuityReason,
+              intentId: p.intentId,
+            });
+            if (det.status !== "AVAILABLE") continue;
+          }
+          // B.2 — reparent when Nora cites an existing subject + new parent.
+          if (
+            projectId &&
+            p.subjectOrganization !== "DETACH" &&
+            p.parentSubjectId &&
+            p.parentSubjectId !== check.subject.id
+          ) {
+            let newParentId: string | null = p.parentSubjectId;
+            if (!p.parentSubjectId.startsWith("subj_")) {
+              const fromBatch = batchSubjects.createdByIntentId.get(p.parentSubjectId);
+              const byTitle =
+                fromBatch ??
+                batchTitleToId.get(
+                  p.parentSubjectId.trim().replace(/\s+/g, " ").toLowerCase(),
+                ) ??
+                (await findActiveSubjectByTitle(pilotId, preparationId, p.parentSubjectId))
+                  ?.id;
+              newParentId = byTitle ?? null;
+              if (!newParentId) {
+                results.push({
+                  kind: "subject",
+                  id: subjectId,
+                  status: "FAILED",
+                  reason: "PARENT_NOT_FOUND",
+                  epistemicNote: p.continuityReason,
+                });
+                continue;
+              }
+            } else {
+              const parentCheck = await assertSubjectRef(
+                pilotId,
+                preparationId,
+                p.parentSubjectId,
+              );
+              if (parentCheck && "error" in parentCheck) {
+                results.push({
+                  kind: "subject",
+                  id: subjectId,
+                  status: "FAILED",
+                  reason: parentCheck.error,
+                  epistemicNote: p.continuityReason,
+                });
+                continue;
+              }
+            }
+            if (newParentId && newParentId !== check.subject.parentSubjectId) {
+              const { reparentSubject } = await import("@/domains/knowledge/journal");
+              const rep = await reparentSubject(
+                pilotId,
+                projectId,
+                subjectId,
+                newParentId,
+                fence,
+              );
+              results.push({
+                kind: "subject_reparent",
+                id: subjectId,
+                status: rep.status,
+                reason: "reason" in rep ? String(rep.reason) : undefined,
+                epistemicNote: p.continuityReason,
+                intentId: p.intentId,
+              });
+              if (rep.status !== "AVAILABLE") continue;
+            }
+          }
+          // Optional rename when subjectTitle differs from current title.
+          if (p.subjectTitle && p.subjectTitle.trim() !== check.subject.title.trim()) {
+            const renamed = await renameSubject(
+              pilotId,
+              preparationId,
+              subjectId,
+              p.subjectTitle,
+              fence,
+            );
+            results.push({
+              kind: "subject_rename",
+              id: subjectId,
+              status: renamed.status,
+              reason: "reason" in renamed ? String(renamed.reason) : undefined,
+              epistemicNote: p.continuityReason,
+              intentId: p.intentId,
+            });
+            // E1-REL-02 — do not mask a failed rename with a subsequent AVAILABLE subject result.
+            if (renamed.status !== "AVAILABLE") continue;
+          }
           results.push({
             kind: "subject",
             id: subjectId,
             status: "AVAILABLE",
             epistemicNote: p.continuityReason,
+            intentId: p.intentId,
           });
           await writeSubjectSummary(
             subjectId,
             p.statement.trim(),
-            check.subject.title.trim(),
+            (p.subjectTitle ?? check.subject.title).trim(),
             p,
           );
           subjectsWithExplicitSummary.add(subjectId);
@@ -1273,9 +1775,20 @@ export async function maybeCapitalizeFromExchange(
       }
       const title = (p.subjectTitle ?? p.statement).trim().slice(0, 120);
       if (title.length < 3) continue;
-      const s = await ensureSubject(pilotId, preparationId, title, undefined, fence);
+      const parentForCreate =
+        p.parentSubjectId && p.parentSubjectId !== p.subjectId
+          ? p.parentSubjectId
+          : undefined;
+      const s = await ensureSubject(
+        pilotId,
+        preparationId,
+        title,
+        parentForCreate?.startsWith("subj_") ? parentForCreate : undefined,
+        fence,
+      );
       if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
         results.push({
+          intentId: p.intentId,
           kind: "subject",
           status: "FAILED",
           reason: "TURN_OWNERSHIP_LOST",
@@ -1292,6 +1805,7 @@ export async function maybeCapitalizeFromExchange(
       if (s.status === "AVAILABLE" && s.subjectId) {
         subjectId = s.subjectId;
         results.push({
+          intentId: p.intentId,
           kind: "subject",
           id: s.subjectId,
           status: s.status,
@@ -1303,44 +1817,120 @@ export async function maybeCapitalizeFromExchange(
       continue;
     }
 
-    if (p.subjectTitle) {
-      const title = p.subjectTitle.trim().slice(0, 120);
-      if (title.length >= 3) {
-        const s = await ensureSubject(pilotId, preparationId, title, undefined, fence);
-        if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
+    // Resolve subject for ACQUIS/OPEN_POINT: prefer batch ids, then subjectId, then title.
+    // E1-REL-02 — never silently inherit a prior loop subjectId when an explicit ref fails.
+    let recordSubjectId: string | null = null;
+    let subjectRefFailed = false;
+    if (p.subjectId) {
+      const check = await assertSubjectRef(pilotId, preparationId, p.subjectId);
+      if (check && "error" in check) {
+        results.push({
+          intentId: p.intentId,
+          kind: p.kind === "OPEN_POINT" ? "open_point" : "acquis",
+          status: "FAILED",
+          reason: check.error,
+          epistemicNote: p.continuityReason,
+        });
+        subjectRefFailed = true;
+      } else if (check?.subject) {
+        recordSubjectId = check.subject.id;
+        // Conflict: explicit subjectId + subjectTitle that does not match owned title.
+        if (
+          p.subjectTitle &&
+          p.subjectTitle.trim().toLowerCase() !== check.subject.title.trim().toLowerCase()
+        ) {
           results.push({
-            kind: "subject",
+            intentId: p.intentId,
+            kind: p.kind === "OPEN_POINT" ? "open_point" : "acquis",
             status: "FAILED",
-            reason: "TURN_OWNERSHIP_LOST",
+            reason: "SUBJECT_ID_TITLE_CONFLICT",
             epistemicNote: p.continuityReason,
           });
-          return {
-            capitalisations: results,
-            selectionMethod: "semantic-proposals" as const,
-            selectionLimit: "OWNERSHIP_LOST",
-            humanDecisionCreated: false as const,
-            ownershipLost: true as const,
-          };
-        }
-        if (s.status === "AVAILABLE" && s.subjectId) {
-          subjectId = s.subjectId;
-          results.push({
-            kind: "subject",
-            id: s.subjectId,
-            status: s.status,
-            epistemicNote: p.continuityReason,
-          });
+          subjectRefFailed = true;
         }
       }
     }
-
-    if (p.subjectId) subjectId = p.subjectId;
+    if (subjectRefFailed) continue;
+    if (!recordSubjectId && p.subjectTitle) {
+      const title = p.subjectTitle.trim().slice(0, 120);
+      const norm = title.replace(/\s+/g, " ").toLowerCase();
+      const fromBatch = batchTitleToId.get(norm);
+      if (fromBatch) {
+        recordSubjectId = fromBatch;
+      } else if (title.length >= 3) {
+        // Title-only: require unique ACTIVE match — never invent a target under ambiguous homonyms.
+        const unique = await findActiveSubjectByTitle(pilotId, preparationId, title);
+        if (unique) {
+          recordSubjectId = unique.id;
+        } else {
+          const existingHomonyms = (
+            await db
+              .select({ id: knowledgeSubjects.id })
+              .from(knowledgeSubjects)
+              .where(
+                and(
+                  eq(knowledgeSubjects.preparationId, preparationId),
+                  eq(knowledgeSubjects.ownerPilotId, pilotId),
+                  eq(knowledgeSubjects.title, title.trim().slice(0, 200)),
+                  eq(knowledgeSubjects.status, "ACTIVE"),
+                ),
+              )
+              .limit(2)
+          ).length;
+          if (existingHomonyms > 1) {
+            results.push({
+              intentId: p.intentId,
+              kind: p.kind === "OPEN_POINT" ? "open_point" : "acquis",
+              status: "FAILED",
+              reason: "SUBJECT_TITLE_AMBIGUOUS",
+              epistemicNote: p.continuityReason,
+            });
+            continue;
+          }
+          const s = await ensureSubject(pilotId, preparationId, title, undefined, fence);
+          if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
+            results.push({
+              intentId: p.intentId,
+              kind: "subject",
+              status: "FAILED",
+              reason: "TURN_OWNERSHIP_LOST",
+              epistemicNote: p.continuityReason,
+            });
+            return {
+              capitalisations: results,
+              selectionMethod: "semantic-proposals" as const,
+              selectionLimit: "OWNERSHIP_LOST",
+              humanDecisionCreated: false as const,
+              ownershipLost: true as const,
+            };
+          }
+          if (s.status === "AVAILABLE" && s.subjectId) {
+            recordSubjectId = s.subjectId;
+            // Side-effect subject for ACQUIS/OPEN_POINT — correlate to intent; primary
+            // effect row below remains the authoritative outcome for the proposal kind.
+            results.push({
+              intentId: p.intentId,
+              kind: "subject",
+              id: s.subjectId,
+              status: s.status,
+              epistemicNote: p.continuityReason,
+            });
+          }
+        }
+      }
+    }
+    if (!recordSubjectId && !p.subjectId && !p.subjectTitle) {
+      // Same-turn continuity: attach to last successfully resolved subject only when no explicit ref.
+      recordSubjectId = subjectId;
+    }
+    if (recordSubjectId) subjectId = recordSubjectId;
 
     if (p.kind === "OPEN_POINT") {
       const op = await openPoint(pilotId, preparationId, {
         statement: p.statement,
-        subjectId,
+        subjectId: recordSubjectId,
         turnFence: fence,
+        canonicalTitle: p.openPointTitle,
         provenance: buildExchangeProvenance({
           userMessageId: input.userMessageId,
           assistantMessageId: input.assistantMessageId,
@@ -1353,6 +1943,7 @@ export async function maybeCapitalizeFromExchange(
       });
       if (op.status === "FAILED" && "reason" in op && op.reason === "TURN_OWNERSHIP_LOST") {
         results.push({
+          intentId: p.intentId,
           kind: "open_point",
           status: "FAILED",
           reason: "TURN_OWNERSHIP_LOST",
@@ -1367,6 +1958,7 @@ export async function maybeCapitalizeFromExchange(
         };
       }
       results.push({
+        intentId: p.intentId,
         kind: "open_point",
         id: "openPointId" in op ? op.openPointId : undefined,
         status: op.status,
@@ -1396,7 +1988,7 @@ export async function maybeCapitalizeFromExchange(
       const cap = await capitalizeAcquis(pilotId, preparationId, {
         statement: p.statement,
         kind,
-        subjectId,
+        subjectId: recordSubjectId,
         supersedesAcquisId,
         turnFence: fence,
         provenance: buildExchangeProvenance({
@@ -1411,6 +2003,7 @@ export async function maybeCapitalizeFromExchange(
       });
       if (cap.status === "FAILED" && "reason" in cap && cap.reason === "TURN_OWNERSHIP_LOST") {
         results.push({
+          intentId: p.intentId,
           kind: "acquis",
           status: "FAILED",
           reason: "TURN_OWNERSHIP_LOST",
@@ -1425,6 +2018,7 @@ export async function maybeCapitalizeFromExchange(
         };
       }
       results.push({
+        intentId: p.intentId,
         kind: "acquis",
         id: "acquisId" in cap ? cap.acquisId : undefined,
         status: cap.status,
@@ -1436,8 +2030,8 @@ export async function maybeCapitalizeFromExchange(
               ? `SUPERSEDES:${supersedesAcquisId}`
               : undefined,
       });
-      if (cap.status === "AVAILABLE" && subjectId) {
-        subjectsTouchedByAcquis.add(subjectId);
+      if (cap.status === "AVAILABLE" && recordSubjectId) {
+        subjectsTouchedByAcquis.add(recordSubjectId);
       }
 
       if (p.resolvesOpenPointId && projectId && cap.status === "AVAILABLE") {
@@ -1462,15 +2056,27 @@ export async function maybeCapitalizeFromExchange(
           },
         );
         results.push({
+          intentId: p.intentId,
           kind: "open_point_resolve",
           id: p.resolvesOpenPointId,
           status: resolved.status,
           reason: "reason" in resolved ? String(resolved.reason) : undefined,
           epistemicNote: p.continuityReason,
         });
-        if (subjectId) subjectsTouchedByAcquis.add(subjectId);
+        if (recordSubjectId) subjectsTouchedByAcquis.add(recordSubjectId);
       }
+      continue;
     }
+
+    // Unreachable for normalized proposals — keep explicit so unknown kinds never
+    // look like silent success via a side-effect subject row alone.
+    results.push({
+      intentId: p.intentId,
+      kind: "acquis",
+      status: "FAILED",
+      reason: "UNKNOWN_KNOWLEDGE_PROPOSAL_KIND",
+      epistemicNote: p.continuityReason,
+    });
   }
 
   // Existing-subject enrichment often arrives as ACQUIS-only. Still re-evaluate synthesis

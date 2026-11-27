@@ -2,7 +2,10 @@ import { NextResponse } from "next/server";
 import { requireStudioSession } from "@/domains/identity/session";
 import { studioErrorResponse } from "@/lib/http-errors";
 import { assertOwnedProject } from "@/domains/conversation/assert-owned-project";
-import { getDictationSession } from "@/domains/conversation/composer-dictation-session";
+import {
+  dictationSessionMatchesScope,
+  getDictationSession,
+} from "@/domains/conversation/composer-dictation-session";
 import { getDictationFixtureTransport } from "@/domains/conversation/composer-dictation-transport-fixture";
 
 function dictationFixturePushAllowed(env: NodeJS.ProcessEnv = process.env): boolean {
@@ -37,7 +40,13 @@ export async function POST(
     await assertOwnedProject(session.pilotId, projectId);
 
     const rec = getDictationSession(sessionId);
-    if (!rec || rec.pilotId !== session.pilotId || rec.projectId !== projectId) {
+    if (
+      !rec ||
+      !dictationSessionMatchesScope(rec, {
+        pilotId: session.pilotId,
+        projectId,
+      })
+    ) {
       return NextResponse.json({ ok: false, code: "NOT_FOUND" }, { status: 404 });
     }
 

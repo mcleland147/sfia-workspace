@@ -25,6 +25,7 @@ import {
   type InvestigationState,
 } from "./investigation-state";
 import type { NoraTurnQualification } from "./semantic-qualification";
+import { resolveCognitiveWorkTerminalStatus } from "./cognitive-conductor-terminal";
 
 /** Fingerprint of measurable progress — sources, conclusions, remaining work, questions. */
 function progressFingerprint(state: InvestigationState): string {
@@ -551,32 +552,16 @@ export async function runCognitiveConductor(
     });
   }
 
-  // C18: AWAIT_PILOT / open determinant clarifications must leave an OPEN work —
-  // not a false COMPLETE — so the next pilot turn can resume without injecting workId.
-  const openDeterminantStructured = (qualification?.determiningQuestions ?? []).some(
-    (q) => q.importance === "DETERMINANT" && q.status === "OPEN",
-  );
-  const openClarifications = (qualification?.clarifications?.length ?? 0) > 0;
-  const awaitPilot =
-    qualification?.workDisposition === "AWAIT_PILOT" ||
-    qualification?.workDisposition === "SUSPEND" ||
-    qualification?.status === "NEEDS_CLARIFICATION" ||
-    openDeterminantStructured ||
-    openClarifications;
-  const terminalStatus = suspended
-    ? "SUSPENDED"
-    : production.status === "PARTIAL" || production.status === "FAILED"
-      ? "SUSPENDED"
-      : awaitPilot
-        ? "OPEN"
-        : "COMPLETE";
-  const terminalInterrupt =
-    suspendReason ??
-    (awaitPilot
-      ? qualification?.workDisposition === "SUSPEND"
-        ? "AWAIT_OR_SUSPEND"
-        : "AWAIT_PILOT"
-      : null);
+  const {
+    status: terminalStatus,
+    awaitPilot,
+    interruptCause: pilotInterrupt,
+  } = resolveCognitiveWorkTerminalStatus({
+    suspended,
+    production,
+    qualification,
+  });
+  const terminalInterrupt = suspendReason ?? pilotInterrupt;
 
   // Persist terminal investigation while ownership still holds (READY reads this state).
   work = await checkpointCognitiveWork({
@@ -584,7 +569,14 @@ export async function runCognitiveConductor(
     workId: work.id,
     ownerToken,
     expectedRevision: revision,
-    cause: suspended ? "BUDGET" : awaitPilot ? "AWAIT_PILOT" : "SEGMENT_COMPLETE",
+    // E2-REL-02 — CONTINUE is autonomous continuation, not AWAIT_PILOT.
+    cause: suspended
+      ? "BUDGET"
+      : pilotInterrupt === "CONTINUE"
+        ? "CONTINUE"
+        : awaitPilot
+          ? "AWAIT_PILOT"
+          : "SEGMENT_COMPLETE",
     state: investigation,
     resources,
     production,

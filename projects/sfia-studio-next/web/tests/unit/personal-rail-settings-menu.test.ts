@@ -31,4 +31,17 @@ describe("Personal rail settings menu (Figma 13.02)", () => {
     expect(shell).not.toContain('data-testid="nav-integrations"');
     expect(shell).not.toMatch(/personalSpace \? \([\s\S]*studio-rail-section mb-1">Accès/);
   });
+
+  it("MP-17 — settings menu mounts on shared rail foot without personalSpace gate", () => {
+    const shell = readFileSync(
+      resolve(process.cwd(), "src/components/shell/StudioShell.tsx"),
+      "utf8",
+    );
+    expect(shell).toMatch(
+      /studio-shell-rail-foot[\s\S]*PersonalRailSettingsMenu pathname=\{pathname\}/,
+    );
+    expect(shell).not.toMatch(
+      /personalSpace \? \(\s*<PersonalRailSettingsMenu/,
+    );
+  });
 });

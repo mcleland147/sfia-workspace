@@ -76,6 +76,23 @@ import {
   resolveProjectLoadSurface,
   type StudioSurface,
 } from "@/components/shell/studio-rail";
+import {
+  readProjectRecentItems,
+  recordProjectRecentItem,
+  type ProjectRecentItem,
+} from "@/lib/project-recent-items";
+import {
+  recentItemFromDocumentConsultation,
+  recentItemFromTurnReference,
+} from "@/lib/project-recent-consultation";
+import {
+  openPointShortTitle,
+  travailAsideOpenPoints,
+} from "@/domains/preparation/project-activity-projection";
+import {
+  CYCLE_TYPE_LABELS,
+  isCycleTypeLabelKey,
+} from "@/domains/pilotage/cycle-type-labels";
 
 type Msg = {
   id: string;
@@ -314,7 +331,9 @@ export default function ProjectPage() {
     }>
   >([]);
   const [liveActivityHeadline, setLiveActivityHeadline] = useState("");
-  const [dictationEnabled, setDictationEnabled] = useState(false);
+  /** Optimistic true so mic is usable; capability may demote to false. */
+  const [dictationEnabled, setDictationEnabled] = useState(true);
+  const [recentItems, setRecentItems] = useState<ProjectRecentItem[]>([]);
   const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
   const [status, setStatus] = useState("");
   const [pilotageStatus, setPilotageStatus] = useState("");
@@ -425,6 +444,14 @@ export default function ProjectPage() {
   useEffect(() => {
     pilotIdRef.current = pilotId;
   }, [pilotId]);
+
+  useEffect(() => {
+    if (!pilotId) {
+      setRecentItems([]);
+      return;
+    }
+    setRecentItems(readProjectRecentItems(pilotId, params.projectId));
+  }, [pilotId, params.projectId]);
 
   useEffect(() => {
     if (surface !== "travail") return;
@@ -603,7 +630,19 @@ export default function ProjectPage() {
     versionSource: "exact" | "current";
     seq: number;
     projectIdAtStart: string;
+    revisionNumber?: number | null;
   }) {
+    notePilotConsultation(
+      recentItemFromDocumentConsultation(
+        input.documentId,
+        input.titleHint,
+        input.revisionNumber != null
+          ? `v${input.revisionNumber}`
+          : input.revisionId
+            ? `rev:${input.revisionId.slice(0, 8)}`
+            : null,
+      ),
+    );
     const prepId = preparationIdRef.current;
     if (!prepId) {
       applyViewerIfCurrent(
@@ -807,6 +846,15 @@ export default function ProjectPage() {
       unavailableReason: "Vérification des droits et de la version courante…",
     });
     setViewerEnlarged(false);
+    notePilotConsultation(
+      recentItemFromDocumentConsultation(
+        doc.document.id,
+        doc.document.title,
+        doc.latestRevision?.revisionNumber != null
+          ? `v${doc.latestRevision.revisionNumber}`
+          : null,
+      ),
+    );
     void fetchDocumentViewerViaD4({
       documentId: doc.document.id,
       titleHint: doc.document.title,
@@ -815,6 +863,26 @@ export default function ProjectPage() {
       seq,
       projectIdAtStart,
     });
+  }
+
+  function cycleTypeDisplay(raw: string | null | undefined): string {
+    if (!raw) return "";
+    if (isCycleTypeLabelKey(raw)) return CYCLE_TYPE_LABELS[raw];
+    return raw.replace(/_/g, " ").toLowerCase();
+  }
+
+  /** MP-08 — Pilote consultation only (not Nora self-read). */
+  function notePilotConsultation(
+    item: Omit<ProjectRecentItem, "consultedAtMs"> & { consultedAtMs?: number },
+  ) {
+    if (!pilotId) return;
+    setRecentItems(
+      recordProjectRecentItem({
+        pilotId,
+        projectId: params.projectId,
+        item,
+      }),
+    );
   }
 
   async function refreshReadyContracts() {
@@ -1042,6 +1110,8 @@ export default function ProjectPage() {
       return;
     }
     if (ref.kind === "git") {
+      const recentGit = recentItemFromTurnReference(ref);
+      if (recentGit) notePilotConsultation(recentGit);
       if (!ref.repositoryId || !ref.path || !ref.ref) {
         applyViewerIfCurrent(
           seq,
@@ -3312,7 +3382,7 @@ export default function ProjectPage() {
                   ? "Contexte conservé"
                   : "Projet actif"}
               </span>
-              {/* RB-19 — cycle actif / trajectoire from durable pilotage, not stale copy. */}
+              {/* MP-08 / continuity §9 — identity, cycle, trajectory only. */}
               <div
                 className="fig-inspector-card mt-3"
                 data-testid="travail-aside-cycle"
@@ -3320,125 +3390,104 @@ export default function ProjectPage() {
                 <p className="fig-inspector-card-title">Cycle et trajectoire</p>
                 <p className="fig-inspector-card-body">
                   {pilotageProjection?.cycle
-                    ? `Cycle actif : ${String(pilotageProjection.cycle.cycleType).replace(/_/g, " ")} · ${pilotageProjection.cycle.status}`
+                    ? `Cycle actif : ${cycleTypeDisplay(String(pilotageProjection.cycle.cycleType))} · ${pilotageProjection.cycle.status}`
                     : "Aucun cycle ouvert pour le moment."}
                 </p>
-                {(
-                  pilotageProjection?.trajectory?.retained?.orientation ||
-                  pilotageProjection?.trajectory?.proposed?.orientation ||
-                  ""
-                ).trim() ? (
+                {pilotageProjection?.trajectory?.retained?.orientation?.trim() ? (
                   <p className="fig-inspector-card-body mt-1">
-                    {(
-                      pilotageProjection?.trajectory?.retained?.orientation ||
-                      pilotageProjection?.trajectory?.proposed?.orientation ||
-                      ""
-                    ).slice(0, 180)}
+                    Parcours retenu :{" "}
+                    {pilotageProjection.trajectory.retained.orientation.slice(0, 180)}
+                  </p>
+                ) : pilotageProjection?.trajectory?.proposed?.orientation?.trim() ? (
+                  <p className="fig-inspector-card-body mt-1">
+                    Parcours envisagé :{" "}
+                    {pilotageProjection.trajectory.proposed.orientation.slice(0, 180)}
                   </p>
                 ) : null}
               </div>
               <div className="fig-inspector-rule" aria-hidden />
               <p className="fig-inspector-section">Repères</p>
-              <div className="fig-inspector-card" data-testid="travail-aside-objets">
-                <p className="fig-inspector-card-title">Continuité</p>
-                <p className="fig-inspector-card-body">
-                  Fil de préparation et conversation consultables depuis Travail.
-                </p>
-              </div>
-              <div className="fig-inspector-card" data-testid="travail-aside-contracts">
-                <p className="fig-inspector-card-title">Contrats techniques</p>
-                <p className="fig-inspector-card-body">
-                  Visionneuse 50/50 — lecture intégrale puis D6 si READY.
-                </p>
-                <button
-                  type="button"
-                  className="btn secondary mt-2"
-                  data-testid="travail-refresh-contracts"
-                  onClick={() => void refreshReadyContracts()}
-                >
-                  Actualiser
-                </button>
-                {readyContracts.length === 0 ? (
-                  <p className="fig-travail-viewer-meta mt-2">Aucun contrat READY.</p>
+              <div className="fig-inspector-card" data-testid="travail-aside-recents">
+                <p className="fig-inspector-card-title">Éléments récents</p>
+                {recentItems.length === 0 ? (
+                  <p className="fig-inspector-card-body" data-testid="travail-aside-recents-empty">
+                    Aucun élément consulté récemment.
+                  </p>
                 ) : (
-                  <ul className="mt-2 space-y-1" data-testid="travail-ready-contracts">
-                    {readyContracts.map((c) => (
-                      <li key={c.id}>
+                  <ul className="mt-1 space-y-1" data-testid="travail-aside-recents-list">
+                    {recentItems.map((item) => (
+                      <li key={item.id}>
                         <button
                           type="button"
-                          className="btn secondary"
-                          data-testid={`travail-open-contract-${c.id}`}
-                          onClick={() => void openContractViewer(c.id)}
+                          className="fig-inspector-link"
+                          data-testid={`travail-recent-${item.id}`}
+                          onClick={() => {
+                            if (item.kind === "document_nora") {
+                              const docId = item.id.replace(/^doc:/, "");
+                              const doc = documents.find((d) => d.document.id === docId);
+                              if (doc) openTravailDocument(doc);
+                              return;
+                            }
+                            if (item.kind === "file_git" || item.kind === "document_git") {
+                              selectSurface("git");
+                              return;
+                            }
+                            if (item.kind === "execution") {
+                              selectSurface("execution");
+                              return;
+                            }
+                            if (
+                              item.kind === "result" ||
+                              item.kind === "bilan" ||
+                              item.kind === "proof"
+                            ) {
+                              selectSurface("publication");
+                            }
+                          }}
                         >
-                          {c.title} · v{c.version}
+                          {item.title}
+                          {item.refLabel ? ` · ${item.refLabel}` : ""}
                         </button>
                       </li>
                     ))}
                   </ul>
                 )}
               </div>
-              <div className="fig-inspector-card">
-                <p className="fig-inspector-card-title">Dossier du projet</p>
-                <p className="fig-inspector-card-body">
-                  {documents.length > 0
-                    ? `${documents.length} document${documents.length > 1 ? "s" : ""} Nora disponible${documents.length > 1 ? "s" : ""}.`
-                    : "Les objets et sources du projet restent distincts du dialogue."}
-                </p>
-                {documents.length > 0 ? (
-                  <div className="fig-inspector-links mt-2">
-                    {documents.map((d) => (
-                      <button
-                        key={d.document.id}
-                        type="button"
-                        className="fig-inspector-link"
-                        data-testid={`travail-consulter-${d.document.id}`}
-                        onClick={() => openTravailDocument(d)}
-                      >
-                        Consulter · {d.document.title}
-                      </button>
-                    ))}
-                  </div>
-                ) : null}
-                <div className="fig-inspector-links">
-                  <button
-                    type="button"
-                    className="fig-inspector-link"
-                    onClick={() => selectSurface("git")}
-                  >
-                    Sources Git
-                  </button>
-                  <button
-                    type="button"
-                    className="fig-inspector-link"
-                    onClick={() => selectSurface("execution")}
-                  >
-                    Exécution
-                  </button>
-                  <button
-                    type="button"
-                    className="fig-inspector-link"
-                    onClick={() => selectSurface("publication")}
-                  >
-                    Résultats & preuves
-                  </button>
-                </div>
-              </div>
               <div className="fig-inspector-rule" aria-hidden />
               <p className="fig-inspector-section">Points à clarifier</p>
               <div data-testid="travail-aside-clarifier">
-                {(knowledge?.openPoints ?? [])
-                  .filter((o) => o.status === "OPEN")
-                  .slice(0, 5)
-                  .map((o) => (
-                    <p key={o.id} className="fig-inspector-card-body mb-2">
-                      {o.statement}
-                    </p>
-                  ))}
+                {travailAsideOpenPoints(knowledge?.openPoints ?? [], 5).map((o) => {
+                    const short =
+                      "shortTitle" in o && typeof o.shortTitle === "string"
+                        ? o.shortTitle
+                        : openPointShortTitle(o.statement);
+                    return (
+                      <button
+                        key={o.id}
+                        type="button"
+                        className="fig-inspector-link mb-2 block text-left"
+                        data-testid={`travail-open-point-${o.id}`}
+                        onClick={() => selectSurface("journal")}
+                        title={o.statement}
+                      >
+                        {short}
+                      </button>
+                    );
+                  })}
                 {(knowledge?.openPoints ?? []).filter((o) => o.status === "OPEN").length === 0 ? (
                   <p className="fig-inspector-card-body">
-                    Seules les informations réellement connues seront affichées.
+                    Aucun point ouvert pour le moment.
                   </p>
-                ) : null}
+                ) : (
+                  <button
+                    type="button"
+                    className="fig-inspector-link mt-1"
+                    data-testid="travail-aside-all-open-points"
+                    onClick={() => selectSurface("journal")}
+                  >
+                    Voir tous les points ouverts
+                  </button>
+                )}
               </div>
             </div>
             )

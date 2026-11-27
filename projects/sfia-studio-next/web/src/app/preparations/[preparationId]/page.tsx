@@ -75,6 +75,8 @@ export default function PreparationPage() {
   const [status, setStatus] = useState("");
   const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
   const [busy, setBusy] = useState(false);
+  /** Optimistic true so sas mic is usable; capability may demote to false. */
+  const [dictationEnabled, setDictationEnabled] = useState(true);
   const [liveActivityEvents, setLiveActivityEvents] = useState<
     Array<{
       sequence: number;
@@ -345,6 +347,28 @@ export default function PreparationPage() {
     reload();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preparationId]);
+
+  useEffect(() => {
+    if (surface !== "travail") return;
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch(
+          `/api/preparations/${preparationId}/dictation/capability`,
+        );
+        if (!res.ok) return;
+        const data = (await res.json()) as { ok?: boolean; enabled?: boolean };
+        if (!cancelled && data.ok) {
+          setDictationEnabled(data.enabled === true);
+        }
+      } catch {
+        /* capability probe is best-effort */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [preparationId, surface]);
 
   async function sendMessage() {
     if (!draft.trim()) return;
@@ -1012,6 +1036,9 @@ export default function PreparationPage() {
             showResumeBanner={isResumedPrep}
             liveActivityEvents={liveActivityEvents}
             liveActivityHeadline={liveActivityHeadline}
+            preparationId={preparationId}
+            projectId={projectId}
+            dictationEnabled={dictationEnabled}
           />
           <PreparationProposal
             projectId={projectId}

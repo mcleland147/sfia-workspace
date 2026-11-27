@@ -766,6 +766,44 @@ describe("ml3 composer dictation session (substituted transport)", () => {
     expect(fin.transcript).toContain("partie connue");
   });
 
+  it("admits preparation-scoped sessions without project attribution", async () => {
+    process.env.SFIA_COMPOSER_DICTATION = "1";
+    process.env.STUDIO_LANE = "DEV";
+    const mock = mockTransport();
+    const created = await createDictationSession({
+      pilotId: "pilot-prep",
+      preparationId: "prep-1",
+      conversationKey: "prep-1",
+      baselineDraft: "",
+      transportFactory: async () => mock.transport,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    expect(created.session.projectId).toBeNull();
+    expect(created.session.preparationId).toBe("prep-1");
+    const pcm = Buffer.alloc(320, 1).toString("base64");
+    const appended = appendDictationAudio({
+      sessionId: created.session.sessionId,
+      pilotId: "pilot-prep",
+      preparationId: "prep-1",
+      pcmBase64: pcm,
+    });
+    expect(appended.ok).toBe(true);
+  });
+
+  it("rejects ambiguous dictation scope", async () => {
+    const created = await createDictationSession({
+      pilotId: "pilot-x",
+      projectId: "proj-x",
+      preparationId: "prep-x",
+      conversationKey: "x",
+      baselineDraft: "",
+    });
+    expect(created.ok).toBe(false);
+    if (created.ok) return;
+    expect(created.code).toBe("INVALID_SCOPE");
+  });
+
   it("incoherent transport env fails closed without implicit live", async () => {
     process.env.SFIA_COMPOSER_DICTATION = "1";
     process.env.STUDIO_LANE = "DEV";

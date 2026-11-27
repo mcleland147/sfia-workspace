@@ -1,3 +1,75 @@
+## delivery_id: DELIV-2026-11-27-ML5-INTEGRATED-CONTINUITY-RELIABILITY-DEV
+
+- **date_local**: 2026-11-27 (Europe/Paris)
+- **lane**: DEV only — macro-lot correctif intégré (17 MP + continuité Morris)
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_base**: `58ca9486003805f74e69a0842f2c0792a7184437`
+- **tree/diff**: worktree dirty (construction in progress) — NOT identical to HEAD commit
+- **schema_revision**: unchanged (no migration)
+- **build_DEV**: `next dev` :3100 (Turbopack) — not an immutable release build
+- **portée**: axes A–D — allocation Option C env-gated ; multi-intent command keys ; context efficiency ; work terminalisation ; FinOps projections ; parentSubjectId capitalisation ; shared composer + prep dictation ; panneau droit Repères ; rail settings ; restitution naturelle ; typographie ; spinner
+- **tests**: 88+ focused unit PASS (policy, FinOps, terminal, composer, dictation session, MP-09 keys/bindings, recent items, restitution, A.4)
+- **browser_DEV**: sas — Paramètres menu + mic « Dicter un message » visibles (auto-session)
+- **réserves**: LIVE OpenAI non autorisé (allocation réelle, dictée Realtime, autonomie hiérarchie naturelle, réutilisation cognitive LIVE) ; UX panneau → E3 ; transport audio → E4 ; RECETTE inchangée ; NO project commit
+- **classe**: NO RELEASE
+- **E2_périmètre** (2026-11-27, Ensemble 2 — garanties cognitives résiduelles A.1–A.7):
+  - A.1: stamp `policyVersion` = politique active ; RECETTE admit versionné (`qualified` / `qualified-v0.x`) + reason codes ; `modelApplied=UNVERIFIED` persisté (pas de copie silencieuse du demandé)
+  - A.2: SEM-02 lexical métier primary écarté (inspection) ; guidance dependsOn inter-capacité
+  - A.3: dependsOn hors D5/D6 → fail-closed ; ownership mid-loop → SKIPPED explicites restants
+  - A.4: resume `selectRelevantKnowledgeContext` + `projectId` ; hybrid `derivedUsed=false` instruit (FLAG_OFF / BACKEND=pg fixture) ; oracle file-index corrigé
+  - A.5: `workDisposition=CONTINUE` → OPEN / interrupt CONTINUE
+  - A.6/A.7: attribution projet multi-obs sans first-of-many ; labels modèle demandé vs appliqué ; `hasObservations`/`hasData` billable-only
+  - tests ciblés: **91 PASS** (mp09, A.5 terminal, FinOps projection, cognitive-resources, hybrid index, A.6 attribution, e1 B.7/B.8, hybrid guarantees)
+  - schéma: **027 inchangé** ; build DEV non figé ; NO RELEASE ; LIVE/RECETTE non mutés
+  - preuves reportées: calibration réelle ; T08 comparatif ; allocation adaptative naturelle ; coût facturé fournisseur ; DOM :3100
+- **E2_complément_reliquats** (2026-11-27, E2-REL-01…06 — même livraison, pas de nouvelle DELIV):
+  - E2-REL-01: admission RECETTE **versionnée uniquement** (`qualified-v0.1`/`qualified-v0.2`) ; bare `qualified` → REJECTED + reason codes
+  - E2-REL-02: D4 early capitalisation → `crossCapOutcomeByIntentId` ; dependsOn D4→D5/D6 vérifiable ; C02 replay multi-intent `pilotageEffects[]` ; CONTINUE ≠ AWAIT_PILOT (checkpoint cause CONTINUE)
+  - E2-REL-03: hybrid PG path DET (`e2-hybrid-pg-path.pg.test.ts` PASS) ; FP open_point aligné collectAdmissible ; efficience A.4 préservée (omit marker)
+  - E2-REL-04: cartographie OBS → pack (événements d3.* / FinOps / D4) ; E3 propriétaire présentation
+  - E2-REL-05: SQL attribution sans OR contaminateur ; `effectiveFinOpsProjectId` / `ForWork` ; billable = CORRELATION_ONLY only
+  - E2-REL-06: delivery-history + registre synchronisés ; verdict Cursor ≠ ChatGPT
+  - tests ciblés complément: **89+ PASS** unit/PG (cognitive-resources, mp09, FinOps, A.4/A.5/A.6, e2-hybrid-pg, mp09-multi-pilotage)
+  - schéma: **027 inchangé** ; LIVE/RECETTE non mutés ; NO RELEASE
+  - verdict Cursor (complément): READY WITH RESERVES — gate Morris avant E3 ; ChatGPT revue indépendante requise
+- **E2_sécurisation_finale** (2026-11-27, E2-FINAL-01…03 — même livraison, pas de nouvelle DELIV):
+  - E2-FINAL-01: corrélation capitalisation par `intentId` ; `crossCapOutcomeFromCapitalisations` (pas d'emprunt inter-intentions ; PRIMARY acquis/open_point) ; D4 early séquentiel + dependsOn propres ; `normalizeKnowledgeRecordKind(FACT→ACQUIS)` ; intentId sur résultats D4 manquants
+  - E2-FINAL-02: `extractDurablePilotageIntentIds` depuis stash `semanticQualification` (indépendant de `pilotageEffects`) ; `unknownPilotageEffectRecord` ; lookup/replay sans inventer de succès
+  - E2-FINAL-03: `isFinOpsWorkAttributionConflict` + `loadAttributionConflictWorkIds` **avant** filtre projet ; travail NULL+obs A+B exclu des filtres A/B ; global conserve
+  - tests ciblés FINAL: **16 PASS** (`e2-final-orchestration-c02` unit 11 + PG 3 ; FinOps PG 2) ; régression affectée **59 PASS** lot (FinOps projection, semantic, e1 B7/B8, FINAL)
+  - schéma: **027 inchangé** ; LIVE/RECETTE non mutés ; NO RELEASE ; E3 non engagé
+  - verdict Cursor (finale): READY WITH RESERVES — sortie construction E2 proposée ; gate Morris ; ChatGPT relit handoff distant
+- **E2_revue_intégration** (2026-11-27, E2-INT — même livraison, pas de nouvelle DELIV):
+  - Conducteur : D4 early **transitif** + **vagues batch** (préserve SUBJECT parent/enfant) ; branche remaining D4 confirmée locale (déjà présente) ; proposalKind→crossCap (subject-only ≠ APPLIED)
+  - C02 : union stash∪projection ; projection partielle complétée intention par intention (UNKNOWN si manquant)
+  - FinOps : conflit **sans** fenêtre temporelle ; liste travaux cohérente ; tokens exacts 110/0/316
+  - Base tests : vitest → `sfia_next_e2e` @ :5433 (isolation vérifiée)
+  - tests : **20 PASS** FINAL/INT (unit 12 + orch PG 5 + FinOps PG 3) ; lot affecté rejoué
+  - schéma **027** ; LIVE/RECETTE non mutés ; NO RELEASE ; E3 non engagé
+  - verdict Cursor (intégration): READY WITH RESERVES — sortie construction E2 proposée sous gate Morris
+- **E1_périmètre** (2026-11-27, ensemble Continuité cognitive B.1–B.8 uniquement):
+  - même tour parent+enfant (`subject-proposal-batch` + `precreateBatchSubjects`);
+  - reparent/rename via capitalisation SUBJECT existant;
+  - PROPOSE_TRAJECTORY USER_MESSAGE sans body objective (gate durable);
+  - compteurs décisions applicables (supersede uniquement si successeur APPLICABLE);
+  - `openPointShortTitle` pour E3; B.7 PREFERRED + omit marker;
+  - suite E1 focalisée: **52 PASS** (unit+PG B.1–B.8) puis **58 PASS** rapportés handoff `d08fc94e`
+- **E1_complément_reliquats** (2026-11-27, E1-REL-01…09 — même livraison, pas de nouvelle DELIV):
+  - E1-REL-01: merge/split/detach raccordés via `subjectOrganization` → propriétaires D4;
+  - E1-REL-02: refus subjectId invalide/étranger ; conflit id/titre ; fence rename/merge/split/reparent ; rename fail non masqué;
+  - E1-REL-04: `openPointTitle` → `provenance.canonicalTitle` + shortTitle projection;
+  - E1-REL-05: `forecastSteps` durable → ClassifiedCommand → PG ; RETAIN supersède PROPOSED (RETAIN_VIS);
+  - E1-REL-03/06/07/08: raccordements vérifiés ; preuves naturelles → registre recette ; DOM :3100 HTTP 500 tooling;
+  - E1-REL-09: as-built + registre + delivery-history synchronisés;
+  - tests complément: `e1-reliquats-integrity.pg.test.ts` **5 PASS** + non-régression B.5/B.6 (**10 PASS**) + B.7/B.8 PG (**3 PASS**) + units E1/projection;
+  - état testé: DETERMINISTIC PROVEN ciblé ; LIVE/navigateur NON PROUVÉS ; RECETTE préservée
+- **E1_final_safeguards** (2026-11-27, 3 contrôles — même livraison):
+  - merge: réparent enfants ACTIVE + refus cycle ancêtre→descendant ;
+  - forecast USER_MESSAGE: refuse body.forecastJson ; mutate ignore body hors chemins directs ;
+  - tests: `e1-final-safeguards.pg.test.ts` **5 PASS** + non-régression reliquats/ensemble/ml2-corrective (**38 PASS** lot) ;
+  - Review Pack régularisé (RETAIN + fichiers delta)
+- **statut**: E2 GARANTIES + REL + FINAL + **INT** DEV — Cursor READY WITH RESERVES (sortie construction E2 proposée ; gate Morris / revue ChatGPT avant E3); E1 CONSTRUCTION EXIT ACCEPTED WITH RESERVES; Livraison 1 NOT ACCEPTED; NO RELEASE
+
 ## delivery_id: DELIV-2026-11-27-ML5-RECETTE-OPERATIONAL-ACTIVATION
 
 - **date_utc**: 2026-11-27T10:00Z

@@ -7,6 +7,13 @@ import { listDocuments } from "@/domains/document/service";
 import { listProjectKnowledge } from "@/domains/knowledge/journal";
 import { getPilotageProjection } from "@/domains/pilotage/service";
 import { getPreparationContext } from "@/domains/preparation/service";
+import {
+  countOpenKnowledgePoints,
+  countProjectLibraryDocuments,
+  filterApplicableHumanDecisions,
+  openPointShortTitle,
+  projectLibraryDocumentExamples,
+} from "@/domains/preparation/project-activity-projection";
 
 /**
  * Owner-scoped project reopen: durable projectId → linked preparation + same thread + documents.
@@ -66,6 +73,9 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
     openPoints: knowledgeBundle.openPoints.map((o) => ({
       id: o.id,
       statement: o.statement,
+      shortTitle: openPointShortTitle(o.statement, 72, {
+        provenanceJson: o.provenanceJson,
+      }),
       status: o.status,
       subjectId: o.subjectId,
     })),
@@ -81,23 +91,17 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
       id: humanDecisions.id,
       statement: humanDecisions.statement,
       state: humanDecisions.state,
+      kind: humanDecisions.kind,
       supersedesDecisionId: humanDecisions.supersedesDecisionId,
     })
     .from(humanDecisions)
     .where(eq(humanDecisions.projectId, projectId))
     .orderBy(desc(humanDecisions.createdAt));
 
-  const supersededIds = new Set(
-    decisionRows.map((d) => d.supersedesDecisionId).filter(Boolean) as string[],
-  );
-  const applicableDecisions = decisionRows.filter(
-    (d) => d.state === "APPLICABLE" && !supersededIds.has(d.id),
-  );
+  const applicableDecisions = filterApplicableHumanDecisions(decisionRows);
 
   const openSubjects = knowledge.subjects.filter((s) => s.status === "ACTIVE");
-  const openPoints = knowledge.openPoints.filter((o) => o.status === "OPEN");
-  // FIX-11 — "en cours" = actively writing (SAVING), not FAILED/UNKNOWN/AVAILABLE.
-  const docsInProgress = documents.filter((d) => d.latestRevision?.status === "SAVING");
+  const openPointsCount = countOpenKnowledgePoints(knowledge.openPoints);
 
   const activity = {
     openSubjects: {
@@ -109,13 +113,10 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
       examples: applicableDecisions.slice(0, 2).map((d) => ({ id: d.id, statement: d.statement })),
     },
     documentsInProgress: {
-      count: docsInProgress.length,
-      examples: docsInProgress.slice(0, 2).map((d) => ({
-        id: d.document.id,
-        title: d.document.title,
-      })),
+      count: countProjectLibraryDocuments(documents),
+      examples: projectLibraryDocumentExamples(documents),
     },
-    openPointsCount: openPoints.length,
+    openPointsCount,
   };
 
   return {

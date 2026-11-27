@@ -41,6 +41,12 @@ import {
   scaleSegmentCharBudget,
 } from "./investigation-continuation";
 import {
+  partitionKnowledgeSnippets,
+  resolveContinuationContextSnippets,
+  resolveContinuationKnowledgeSnippets,
+} from "./segment-context-efficiency";
+import {
+  extractKnowledgeSelectionHints,
   SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
   unavailableQualification,
   type NoraTurnQualification,
@@ -1103,6 +1109,39 @@ export async function runNoraCognitiveTurn(
     };
   }
 
+  // A.4 / B.7 — after attachment probe, narrow journal listing to Nora-preferred ids for
+  // conductor segments (probe already ran with the pre-turn bounded listing).
+  let conductorKnowledgeSnippets = [...(input.knowledgeSnippets ?? [])];
+  const probeQual = probeReply?.qualification;
+  if (probeQual?.status === "QUALIFIED") {
+    const hints = extractKnowledgeSelectionHints(probeQual);
+    const hintCount =
+      hints.acquisIds.length + hints.openPointIds.length + hints.subjectIds.length;
+    if (hintCount > 0) {
+      try {
+        const { selectRelevantKnowledgeContext } = await import(
+          "@/domains/knowledge/service"
+        );
+        const hinted = await selectRelevantKnowledgeContext(
+          input.pilotId,
+          input.preparationId,
+          input.userText,
+          {
+            projectId: input.projectId ?? null,
+            preferredAcquisIds: hints.acquisIds,
+            preferredOpenPointIds: hints.openPointIds,
+            preferredSubjectIds: hints.subjectIds,
+            limit: 8,
+          },
+        );
+        const { auxiliary } = partitionKnowledgeSnippets(conductorKnowledgeSnippets);
+        conductorKnowledgeSnippets = [...hinted.snippets, ...auxiliary];
+      } catch {
+        /* keep pre-turn bounded listing */
+      }
+    }
+  }
+
   // Adaptive local segment budget — technical per-invocation cap, not global envelope.
   // A — profile / breadth from structured qualification only (never keyword "50"/exhausti).
   const semanticProfile =
@@ -1251,11 +1290,14 @@ export async function runNoraCognitiveTurn(
     runSegment: async ({ work, segmentIndex, policy }) => {
       // Compact acquis whenever prior checkpoint material exists — including
       // segmentIndex 0 of an auto-continued invocation (same work, new lease).
+      // Fresh creates start at revision 1 with empty state — that is NOT prior acquis
+      // (MP-09/S08: must reuse probe qualification so D5/D6 intents are not lost to
+      // a continuation-suffixed fixture miss).
       const hasPriorAcquis =
         work.state.sources.length > 0 ||
         (work.state.conclusions?.length ?? 0) > 0 ||
         work.state.remainingWork.length > 0 ||
-        work.revision > 0;
+        work.revision > 1;
       // B4 — new envelope from prior acquis: inject parent checkpoint context once.
       let parentAcquisBlock = "";
       if (
@@ -1487,17 +1529,25 @@ export async function runNoraCognitiveTurn(
         // FinOps / reallocation trace: use work-level ordinal (segmentCalls), not the
         // per-invocation local segmentIndex which resets to 0 on each product turn.
         const workSegmentOrdinal = work.resources.segmentCalls ?? 0;
+        const knowledgeForSegment = resolveContinuationKnowledgeSnippets(
+          conductorKnowledgeSnippets,
+          { useContinuation, hasPriorAcquis },
+        );
+        const recentContext = resolveContinuationContextSnippets(input.contextSnippets, {
+          useContinuation,
+          hasPriorAcquis,
+        });
         reply = await generateNoraReply({
           userText: !useContinuation
               ? input.userText
               : `${input.userText}${continuationHint}`,
           contextSnippets: [
-            ...input.contextSnippets,
+            ...recentContext,
             candidateSnippet,
             ...(useContinuation
               ? [
                   `Checkpoint cognitif ${work.id} r${work.revision}`,
-                  work.state.intentSummary || "",
+                  hasPriorAcquis ? "" : work.state.intentSummary || "",
                   `attachment=${attachment.reason}`,
                 ].filter(Boolean)
               : [`attachment=${attachment.reason}`]),
@@ -1506,7 +1556,7 @@ export async function runNoraCognitiveTurn(
               : []),
             `allocationTrace=prev:${work.resources.modelRequested ?? "none"}@${work.resources.effortRequested ?? "none"};proposed:${work.state.proposedCognitiveModel ?? "none"}@${work.state.proposedCognitiveEffort ?? "none"};admitted:${policy.modelRequested}@${policy.effortRequested};codes:${policy.reasonCodes.slice(-8).join("|")}`,
           ],
-          knowledgeSnippets: input.knowledgeSnippets,
+          knowledgeSnippets: knowledgeForSegment,
           pilotageSnippets: input.pilotageSnippets,
           levelASignals: input.levelASignals,
           ckiDelivery: input.ckiDelivery,

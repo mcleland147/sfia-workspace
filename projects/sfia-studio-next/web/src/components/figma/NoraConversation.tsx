@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
 import { NoraComposition } from "@/components/figma/NoraComposition";
 import { useNoraThreadScroll } from "@/hooks/useNoraThreadScroll";
@@ -15,7 +15,7 @@ import {
   compositionAnchorsReferences,
 } from "@/domains/conversation/visual-composition";
 import { NoraLiveActivity } from "@/components/figma/NoraLiveActivity";
-import { ComposerDictationControl } from "@/components/figma/ComposerDictationControl";
+import { NoraSharedComposer } from "@/components/figma/NoraSharedComposer";
 
 export type NoraMsg = {
   id: string;
@@ -84,15 +84,6 @@ export function NoraConversation(props: {
     n === 0 ? "Première conversation" : n <= 2 ? "Reprise contextualisée" : "Fil long";
   const embedded = Boolean(props.embeddedInStage);
   const composerLocked = Boolean(props.composerLocked);
-  const hasDossier = Boolean(props.dossierAttachment?.attemptId);
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const [imeComposing, setImeComposing] = useState(false);
-  const [dictationActive, setDictationActive] = useState(false);
-  const sendDisabled =
-    props.busy ||
-    dictationActive ||
-    (!props.draft.trim() && !hasDossier) ||
-    composerLocked;
   const lastMessageId = n > 0 ? props.messages[n - 1]!.id : null;
   const { threadRef, onScroll, scrollToBottom, newBelow } = useNoraThreadScroll({
     messageCount: n,
@@ -101,21 +92,6 @@ export function NoraConversation(props: {
     forceStickToken: props.forceStickToken ?? 0,
     focusMessageId: props.focusMessageId,
   });
-  const isMobile =
-    typeof window !== "undefined" &&
-    window.matchMedia &&
-    window.matchMedia("(max-width: 700px)").matches;
-
-  useEffect(() => {
-    const el = textareaRef.current;
-    if (!el) return;
-    el.style.height = "auto";
-    const max = Math.min(window.innerHeight * 0.36, 280);
-    const next = Math.min(Math.max(el.scrollHeight, 24), max);
-    el.style.height = `${next}px`;
-    el.style.overflowY = el.scrollHeight > max ? "auto" : "hidden";
-  }, [props.draft]);
-
   // Include message id order so Journal→Travail highlight rebinds after a same-length
   // setMessages remount (length-only deps lost data-journal-focus on replaced nodes).
   const messageIdsKey = props.messages.map((m) => m.id).join("\0");
@@ -442,163 +418,20 @@ export function NoraConversation(props: {
             </button>
           </div>
         ) : null}
-        <div
-          className="fig-composer fig-travail-composer relative"
-          data-testid="nora-composer"
-          data-composer-locked={composerLocked ? "1" : "0"}
-          data-composer-expanded={props.draft.includes("\n") || props.draft.length > 80 ? "1" : "0"}
-          data-dictation-active={dictationActive ? "1" : "0"}
-        >
-          {composerLocked ? (
-            <div
-              className="fig-travail-composer-lock absolute inset-0 z-10 flex items-center gap-3 rounded-xl px-4"
-              style={{ background: "rgba(12, 16, 28, 0.72)" }}
-              data-testid="composer-lock-overlay"
-            >
-              <svg
-                className="shrink-0 text-[#7477ed]"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                aria-hidden
-              >
-                <rect x="5" y="11" width="14" height="10" rx="2" />
-                <path d="M8 11V8a4 4 0 0 1 8 0v3" />
-              </svg>
-              <div className="min-w-0 flex-1 text-xs text-[#a3b0c7]">
-                <p className="font-semibold text-[#f3f5ff]" data-testid="composer-lock-title">
-                  Compositeur temporairement indisponible
-                </p>
-                <p data-testid="composer-lock-reason">
-                  {props.composerLockReason ||
-                    "Nora prépare la trajectoire — saisie et envoi désactivés jusqu'au résultat terminal."}
-                </p>
-              </div>
-              <button
-                type="button"
-                className="shrink-0 rounded border border-[#7477ed55] px-1.5 py-0.5 text-[#7477ed]"
-                title={
-                  props.composerLockReason ||
-                  "Compositeur temporairement indisponible pendant la qualification de trajectoire."
-                }
-                aria-label={
-                  props.composerLockReason ||
-                  "Compositeur temporairement indisponible pendant la qualification de trajectoire."
-                }
-                data-testid="composer-lock-info"
-              >
-                i
-              </button>
-            </div>
-          ) : null}
-          {props.dossierAttachment?.attemptId ? (
-            <div
-              className="fig-dossier-attachment"
-              data-testid="dossier-composer-attachment"
-            >
-              <div className="fig-dossier-attachment-body">
-                <p className="fig-dossier-attachment-label">Dossier D8 joint</p>
-                <p className="fig-dossier-attachment-meta">
-                  {props.dossierAttachment.attemptId}
-                  {props.dossierAttachment.dossierVersion != null
-                    ? ` · v${props.dossierAttachment.dossierVersion}`
-                    : ""}
-                  {props.dossierAttachment.verdictD8
-                    ? ` · ${props.dossierAttachment.verdictD8}`
-                    : ""}
-                </p>
-              </div>
-              <button
-                type="button"
-                className="fig-dossier-attachment-remove"
-                data-testid="dossier-composer-attachment-remove"
-                disabled={composerLocked || props.busy}
-                onClick={() => props.onRemoveDossierAttachment?.()}
-                aria-label="Retirer la référence du dossier D8"
-              >
-                Retirer
-              </button>
-            </div>
-          ) : null}
-          <div className="fig-travail-composer-row">
-            <span
-              className="fig-travail-composer-plus"
-              aria-hidden
-              data-dictation-hide={dictationActive ? "1" : undefined}
-            >
-              +
-            </span>
-            <textarea
-              ref={textareaRef}
-              className="fig-travail-composer-input"
-              value={props.draft}
-              onChange={(e) => props.onDraft(e.target.value)}
-              placeholder="Écrire à Nora dans ce projet…"
-              aria-label="Message à Nora"
-              data-testid="thread-draft"
-              rows={1}
-              readOnly={composerLocked || dictationActive}
-              disabled={composerLocked}
-              aria-disabled={composerLocked || dictationActive}
-              data-dictation-hide={dictationActive ? "1" : undefined}
-              hidden={dictationActive}
-              tabIndex={dictationActive ? -1 : 0}
-              onCompositionStart={() => setImeComposing(true)}
-              onCompositionEnd={() => setImeComposing(false)}
-              onKeyDown={(e) => {
-                if (composerLocked || dictationActive) {
-                  e.preventDefault();
-                  return;
-                }
-                if (imeComposing || e.nativeEvent.isComposing) return;
-                // Mobile: Enter = newline; send via button only.
-                if (isMobile) return;
-                if (e.key === "Enter" && !e.shiftKey && !props.busy) {
-                  e.preventDefault();
-                  if (props.draft.trim() || hasDossier) props.onSend();
-                }
-              }}
-            />
-            {props.projectId ? (
-              <ComposerDictationControl
-                projectId={props.projectId}
-                draft={props.draft}
-                onDraft={props.onDraft}
-                disabled={composerLocked || props.busy}
-                enabled={props.dictationEnabled === true}
-                onActiveChange={setDictationActive}
-              />
-            ) : null}
-            <button
-              type="button"
-              className="fig-travail-composer-send"
-              disabled={sendDisabled}
-              onClick={props.onSend}
-              data-testid="thread-send"
-              aria-label="Envoyer"
-              data-dictation-hide={dictationActive ? "1" : undefined}
-              hidden={dictationActive}
-              tabIndex={dictationActive ? -1 : 0}
-            >
-              <img
-                src="/figma-dictation/send.svg"
-                alt=""
-                width={20}
-                height={20}
-                aria-hidden
-                className="fig-travail-composer-send-icon"
-              />
-            </button>
-          </div>
-          {props.status ? (
-            <p className="sr-only" data-testid="thread-nora-status" role="status">
-              {props.status}
-            </p>
-          ) : null}
-        </div>
+        <NoraSharedComposer
+          variant="travail"
+          draft={props.draft}
+          onDraft={props.onDraft}
+          busy={props.busy}
+          onSend={props.onSend}
+          projectId={props.projectId}
+          dictationEnabled={props.dictationEnabled}
+          composerLocked={composerLocked}
+          composerLockReason={props.composerLockReason}
+          dossierAttachment={props.dossierAttachment}
+          onRemoveDossierAttachment={props.onRemoveDossierAttachment}
+          status={props.status}
+        />
       </div>
 
       {props.aside ? (

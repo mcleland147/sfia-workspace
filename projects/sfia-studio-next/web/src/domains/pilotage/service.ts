@@ -25,7 +25,10 @@ import { isCycleType, resolveForOpen, resolvePinnedCki, type CycleType } from "@
 import { loadCkiEditorialForPin } from "@/domains/pilotage/cki-editorial";
 import { persistableCycleObjective } from "@/domains/pilotage/cycle-objective-display";
 import { tryCanonicalCycleType } from "@/domains/pilotage/cycle-type-normalize";
-import { parseForecastJson } from "@/domains/pilotage/forecast-builder";
+import {
+  parseForecastJson,
+  type ForecastStep,
+} from "@/domains/pilotage/forecast-builder";
 import { getQualificationProjection } from "@/domains/pilotage/initial-qualification";
 import {
   buildSourceActionKey,
@@ -61,7 +64,36 @@ export const pilotageFault: { afterCloseBeforeOpen: null | (() => void) } = {
   afterCloseBeforeOpen: null,
 };
 
-type ClearIntent = Extract<IntentQualification, { clarity: "CLEAR" }>;
+type ClearIntent = Extract<IntentQualification, { clarity: "CLEAR" }> & {
+  /** Durable PROPOSE_TRAJECTORY forecast (E1-REL-05). */
+  forecastSteps?: ForecastStep[];
+};
+
+type DurablePilotageForecast = {
+  order?: number;
+  cycleType: string;
+  rationale?: string;
+  certainty?: "QUALIFIED" | "ENVISIONED" | "HYPOTHESIS";
+};
+
+function normalizeDurableForecastSteps(
+  steps: DurablePilotageForecast[] | undefined,
+): ForecastStep[] | undefined {
+  if (!steps || steps.length === 0) return undefined;
+  const out: ForecastStep[] = [];
+  for (let i = 0; i < steps.length; i++) {
+    const s = steps[i]!;
+    const cycleType = tryCanonicalCycleType(s.cycleType);
+    if (!cycleType || !isCycleType(cycleType)) continue;
+    out.push({
+      order: s.order && s.order >= 1 ? s.order : i + 1,
+      cycleType,
+      rationale: (s.rationale ?? "").trim().slice(0, 500) || `Étape ${cycleType}`,
+      certainty: s.certainty === "QUALIFIED" ? "QUALIFIED" : "ENVISIONED",
+    });
+  }
+  return out.length > 0 ? out : undefined;
+}
 
 function rejected(reasonCode: string, reason: string): MutateResult {
   return { kind: "REJECTED", reasonCode, reason, persist: true };
@@ -450,6 +482,11 @@ function fromClearIntent(
     actInstanceId: (body.actInstanceId ?? "").trim() || sourceRef,
     objectRef: (qualified.objectRef ?? (!fromDurable ? body.objectRef : undefined) ?? "").trim(),
     sourceActionKey: "",
+    forecastSteps: fromDurable
+      ? qualified.forecastSteps
+      : body.forecastJson && body.forecastJson.length > 0
+        ? body.forecastJson
+        : undefined,
   };
   if (
     (command.operation === "CHOOSE_METHOD" || command.operation === "REPLACE_METHOD") &&
@@ -467,6 +504,18 @@ function fromClearIntent(
   }
   if (command.operation === "TRANSITION_CYCLE" && (!command.cycleType || !command.toCycleType)) {
     return { ok: false, reasonCode: "INVALID", reason: "Transition incomplète", sourceActionKey: "REJECT|INVALID|transition" };
+  }
+  // E1 B.6 — USER_MESSAGE PROPOSE: orientation lives in durable qualification (summary/statement), not body.
+  if (command.operation === "PROPOSE_TRAJECTORY" && !command.orientation.trim()) {
+    command.orientation = (command.statement || command.objective || "").trim();
+  }
+  if (command.operation === "PROPOSE_TRAJECTORY" && !command.orientation.trim()) {
+    return {
+      ok: false,
+      reasonCode: "INVALID",
+      reason: "Orientation requise",
+      sourceActionKey: "REJECT|INVALID|propose",
+    };
   }
   command.sourceActionKey = buildSourceActionKey(command);
   return { ok: true, command };
@@ -559,6 +608,16 @@ async function classifyCommand(tx: DbTx, input: ClientEnvelope): Promise<Classif
           sourceActionKey: `REJECT|AMBIGUOUS|BODY_${name.toUpperCase()}`,
         };
       }
+    }
+    // E1 final — USER_MESSAGE must never admit client forecastJson (durable-only or absent).
+    if (body.forecastJson && body.forecastJson.length > 0) {
+      return {
+        ok: false,
+        reasonCode: "AMBIGUOUS",
+        reason:
+          "Champ forecastJson non issu de la qualification durable — refuse (pas de complément body)",
+        sourceActionKey: "REJECT|AMBIGUOUS|BODY_FORECASTJSON",
+      };
     }
 
     // Owner resolves durable targets first. body.decisionId / restrictionId may only echo.
@@ -655,6 +714,7 @@ async function classifyCommand(tx: DbTx, input: ClientEnvelope): Promise<Classif
       semanticSchemaVersion: matched.schemaVersion,
       cycleType: tryCanonicalCycleType(matched.cycleType),
       toCycleType: tryCanonicalCycleType(matched.toCycleType),
+      forecastSteps: normalizeDurableForecastSteps(matched.forecastSteps),
     };
     // Server-stable human-act identity: never accept client actInstanceId for USER_MESSAGE.
     // Same message + same intent ⇒ same act even if clientCommandKey / actInstanceId change.
@@ -776,6 +836,8 @@ async function classifyCommand(tx: DbTx, input: ClientEnvelope): Promise<Classif
     actInstanceId: (body.actInstanceId ?? "").trim(),
     objectRef: (body.objectRef ?? "").trim(),
     sourceActionKey: "",
+    forecastSteps:
+      body.forecastJson && body.forecastJson.length > 0 ? body.forecastJson : undefined,
   };
   command.sourceActionKey = buildSourceActionKey(command);
   return { ok: true, command };
@@ -795,10 +857,17 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
 
   if (command.operation === "PROPOSE_TRAJECTORY") {
     const id = newId("trj");
-    const forecastJson =
-      input.body.forecastJson && input.body.forecastJson.length > 0
+    // E1 final — USER_MESSAGE: durable ClassifiedCommand.forecastSteps only (null if absent/empty).
+    // Non-USER paths may still use body.forecastJson when command has no steps.
+    const forecastFromCommand =
+      command.forecastSteps && command.forecastSteps.length > 0 ? command.forecastSteps : null;
+    const forecastFromBody =
+      command.sourceKind !== "USER_MESSAGE" &&
+      input.body.forecastJson &&
+      input.body.forecastJson.length > 0
         ? input.body.forecastJson
         : null;
+    const forecastJson = forecastFromCommand ?? forecastFromBody;
     await tx.insert(trajectoryRevisions).values({
       id,
       projectId,
@@ -823,6 +892,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
   if (command.operation === "RETAIN_TRAJECTORY") {
     let orientation = command.orientation;
     let retainTargetId = command.trajectoryRevisionId;
+    let retainedForecast: unknown = null;
     if (retainTargetId) {
       const prior = (
         await tx
@@ -833,6 +903,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
       )[0];
       if (!prior) return rejected("INVALID_TARGET", "Trajectoire introuvable dans ce projet");
       orientation = orientation || prior.orientation;
+      retainedForecast = prior.forecastJson ?? null;
     } else if (!orientation.trim()) {
       // FIX-08 — conversational GO: resolve current PROPOSED when body has no target
       // (USER_MESSAGE must not carry trajectoryRevisionId / orientation from client).
@@ -852,6 +923,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
       if (!proposed) return rejected("INVALID_TARGET", "Aucune trajectoire PROPOSED à retenir");
       retainTargetId = proposed.id;
       orientation = proposed.orientation;
+      retainedForecast = proposed.forecastJson ?? null;
     }
     if (!orientation.trim()) return rejected("INVALID", "Orientation requise");
     const decisionId = await insertHumanDecision(tx, {
@@ -867,6 +939,16 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
       .update(trajectoryRevisions)
       .set({ status: "SUPERSEDED" })
       .where(and(eq(trajectoryRevisions.projectId, projectId), eq(trajectoryRevisions.status, "RETAINED")));
+    // E1-REL-05 R-E1-RETAIN-VIS — supersede PROPOSED source(s) so they do not remain concurrent.
+    await tx
+      .update(trajectoryRevisions)
+      .set({ status: "SUPERSEDED" })
+      .where(
+        and(
+          eq(trajectoryRevisions.projectId, projectId),
+          eq(trajectoryRevisions.status, "PROPOSED"),
+        ),
+      );
     const id = newId("trj");
     await tx.insert(trajectoryRevisions).values({
       id,
@@ -877,6 +959,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
       sourceKind: command.sourceKind,
       sourceRef: command.sourceRef,
       decisionId,
+      forecastJson: retainedForecast,
       createdAt: now,
     });
     const revision = await bumpRevision(tx, projectId, { id });

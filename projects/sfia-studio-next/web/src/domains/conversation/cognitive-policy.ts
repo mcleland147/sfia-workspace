@@ -52,9 +52,27 @@ export type PolicyProfileType =
 /** Operational band retained for profiles; extended efforts go through admission. */
 export type ReasoningEffort = "low" | "medium" | "high";
 
-/** Traces RECETTE operational-provisional allowance without rewriting historical meta. */
+/**
+ * Catalog / docs stamp for the ML5 cognitive policy family.
+ * Runtime OBS must use `resolveCognitivePolicyVersionStamp()` so an active
+ * provisional v0.1 is never logged as v0.2.
+ */
 export const COGNITIVE_POLICY_VERSION =
   "ml5-cog-policy-v5-provisional-v0.2-20261126" as const;
+
+/** Effective policy stamp for OBS / FinOps — reflects active provisional id. */
+export function resolveCognitivePolicyVersionStamp(
+  env: NodeJS.ProcessEnv = process.env,
+): string {
+  const id = activeProvisionalPolicyId(env);
+  if (id === "legacy_sol") {
+    return "ml5-cog-policy-v5-legacy_sol-20261126";
+  }
+  if (id === "v0.1") {
+    return "ml5-cog-policy-v5-provisional-v0.1-20261126";
+  }
+  return COGNITIVE_POLICY_VERSION;
+}
 /**
  * Historical study reference (Sol). Runtime default may be Terra under provisional v0.1.
  */
@@ -250,7 +268,8 @@ export const OPERATIONAL_BUDGETS_PROVISIONAL: Record<CognitiveProfile, BudgetLim
 };
 
 export type CognitivePolicy = {
-  policyVersion: typeof COGNITIVE_POLICY_VERSION;
+  /** Effective stamp — may differ from COGNITIVE_POLICY_VERSION when v0.1 / legacy_sol. */
+  policyVersion: string;
   profileType: PolicyProfileType;
   profile: CognitiveProfile;
   modelRequested: CognitiveModelId;
@@ -500,7 +519,7 @@ export function buildCognitivePolicy(
   if (opts?.modelHint) reasonCodes.push(`MODEL_HINT_${opts.modelHint}`);
 
   return {
-    policyVersion: COGNITIVE_POLICY_VERSION,
+    policyVersion: resolveCognitivePolicyVersionStamp(),
     profileType,
     profile,
     modelRequested: admitted.modelId,

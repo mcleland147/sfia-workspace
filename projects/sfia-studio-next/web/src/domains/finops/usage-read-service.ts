@@ -11,6 +11,11 @@ import {
   aggregateTokenTotal,
   computeEstimationCompletenessPercent,
   computeMeasureCoveragePercent,
+  effectiveFinOpsProjectId,
+  effectiveFinOpsProjectIdForWork,
+  filterBillableFinOpsRows,
+  finOpsModelDisplayLabel,
+  isFinOpsWorkAttributionConflict,
   sumBillableProviderRequests,
   mapCognitiveWorkStatusLabel,
   parseFinOpsPeriodDays,
@@ -37,7 +42,14 @@ export type FinOpsFilterInput = {
   model?: string | null;
 };
 
-function baseObservationWhere(pilotId: string, input: FinOpsFilterInput, since: Date) {
+function baseObservationWhere(
+  pilotId: string,
+  input: FinOpsFilterInput,
+  since: Date,
+  cognitiveWorkIdsOnProject?: string[],
+  /** Works with project_id NULL — may carry a direct observation.projectId. */
+  cognitiveWorkIdsHorsProjet?: string[],
+) {
   const lane = studioLane();
   const conditions = [
     eq(providerUsageObservations.ownerPilotId, pilotId),
@@ -45,7 +57,39 @@ function baseObservationWhere(pilotId: string, input: FinOpsFilterInput, since: 
     sql`(${providerUsageObservations.lane} IS NULL OR ${providerUsageObservations.lane} = ${lane})`,
   ];
   if (input.projectId) {
-    conditions.push(eq(providerUsageObservations.projectId, input.projectId));
+    // E2-REL-05 — do NOT OR direct projectId with foreign-work rows.
+    // Include:
+    //   (obs.projectId = A AND work not on another project)
+    //   OR (obs.projectId IS NULL AND work.projectId = A)
+    // Exclude conflict: obs.projectId = B ∧ work.projectId = A.
+    const worksOnA = cognitiveWorkIdsOnProject ?? [];
+    const worksNull = cognitiveWorkIdsHorsProjet ?? [];
+    const workOkForDirect =
+      worksOnA.length || worksNull.length
+        ? or(
+            sql`${providerUsageObservations.cognitiveWorkId} IS NULL`,
+            worksOnA.length
+              ? inArray(providerUsageObservations.cognitiveWorkId, worksOnA)
+              : sql`false`,
+            worksNull.length
+              ? inArray(providerUsageObservations.cognitiveWorkId, worksNull)
+              : sql`false`,
+          )
+        : sql`${providerUsageObservations.cognitiveWorkId} IS NULL`;
+    const directConcordant = and(
+      eq(providerUsageObservations.projectId, input.projectId),
+      workOkForDirect,
+    );
+    const viaWorkNullObs =
+      worksOnA.length > 0
+        ? and(
+            sql`${providerUsageObservations.projectId} IS NULL`,
+            inArray(providerUsageObservations.cognitiveWorkId, worksOnA),
+          )
+        : null;
+    conditions.push(
+      viaWorkNullObs ? or(directConcordant, viaWorkNullObs)! : directConcordant!,
+    );
   }
   if (input.model) {
     const pattern = `%${input.model}%`;
@@ -72,20 +116,100 @@ async function assertProjectOwned(pilotId: string, projectId: string) {
 
 type ObservationRow = typeof providerUsageObservations.$inferSelect;
 
+/**
+ * E2-FINAL-03 / E2-INT — work ids whose observation set is contradictory.
+ * Conflict detection is NOT narrowed by period/model filters: a presentation
+ * window must not fabricate a coherent attribution when a conflict exists.
+ */
+async function loadAttributionConflictWorkIds(
+  pilotId: string,
+  workProjectById: Map<string, string | null>,
+): Promise<Set<string>> {
+  const lane = studioLane();
+  const workIds = [...workProjectById.keys()];
+  if (workIds.length === 0) return new Set();
+  const obs = await db
+    .select({
+      cognitiveWorkId: providerUsageObservations.cognitiveWorkId,
+      projectId: providerUsageObservations.projectId,
+    })
+    .from(providerUsageObservations)
+    .where(
+      and(
+        eq(providerUsageObservations.ownerPilotId, pilotId),
+        sql`(${providerUsageObservations.lane} IS NULL OR ${providerUsageObservations.lane} = ${lane})`,
+        inArray(providerUsageObservations.cognitiveWorkId, workIds),
+      ),
+    );
+  const byWork = new Map<string, Array<{ projectId?: string | null }>>();
+  for (const r of obs) {
+    if (!r.cognitiveWorkId) continue;
+    const list = byWork.get(r.cognitiveWorkId) ?? [];
+    list.push({ projectId: r.projectId });
+    byWork.set(r.cognitiveWorkId, list);
+  }
+  const conflicts = new Set<string>();
+  for (const [wid, rows] of byWork) {
+    if (isFinOpsWorkAttributionConflict(workProjectById.get(wid) ?? null, rows)) {
+      conflicts.add(wid);
+    }
+  }
+  return conflicts;
+}
+
 async function loadObservations(
   pilotId: string,
   input: FinOpsFilterInput,
 ): Promise<ObservationRow[]> {
   const periodDays = input.periodDays ?? 30;
   const since = periodStartDate(periodDays);
+  let cognitiveWorkIdsOnProject: string[] | undefined;
+  let cognitiveWorkIdsHorsProjet: string[] | undefined;
+  let workProjectById = new Map<string, string | null>();
+  let conflictWorkIds = new Set<string>();
   if (input.projectId) {
     await assertProjectOwned(pilotId, input.projectId);
+    const workRows = await db
+      .select({ id: cognitiveWorks.id, projectId: cognitiveWorks.projectId })
+      .from(cognitiveWorks)
+      .where(eq(cognitiveWorks.ownerPilotId, pilotId));
+    workProjectById = new Map(workRows.map((w) => [w.id, w.projectId]));
+    // Resolve conflicts from the full observation set BEFORE project/period filtering.
+    conflictWorkIds = await loadAttributionConflictWorkIds(pilotId, workProjectById);
+    cognitiveWorkIdsOnProject = workRows
+      .filter((w) => w.projectId === input.projectId && !conflictWorkIds.has(w.id))
+      .map((w) => w.id);
+    cognitiveWorkIdsHorsProjet = workRows
+      .filter((w) => w.projectId == null && !conflictWorkIds.has(w.id))
+      .map((w) => w.id);
   }
-  return db
+  const rows = await db
     .select()
     .from(providerUsageObservations)
-    .where(baseObservationWhere(pilotId, { ...input, periodDays }, since))
+    .where(
+      baseObservationWhere(
+        pilotId,
+        { ...input, periodDays },
+        since,
+        cognitiveWorkIdsOnProject,
+        cognitiveWorkIdsHorsProjet,
+      ),
+    )
     .orderBy(desc(providerUsageObservations.createdAt));
+  if (!input.projectId) return rows;
+  // Defense in depth — drop residual conflicts (obs≠work) and multi-scope works.
+  return rows.filter((r) => {
+    if (r.cognitiveWorkId && conflictWorkIds.has(r.cognitiveWorkId)) return false;
+    const workPid = r.cognitiveWorkId
+      ? workProjectById.get(r.cognitiveWorkId) ?? null
+      : null;
+    return (
+      effectiveFinOpsProjectId({
+        observationProjectId: r.projectId,
+        workProjectId: workPid,
+      }) === input.projectId
+    );
+  });
 }
 
 export async function loadFinOpsFilterOptions(pilotId: string) {
@@ -188,7 +312,7 @@ function bucketDailyCosts(rows: ObservationRow[], periodDays: FinOpsPeriodDays):
     out.push({
       day: key,
       costUsd: agg.kind === "known" || agg.kind === "partial" ? agg.value : null,
-      hasData: slice.length > 0,
+      hasData: filterBillableFinOpsRows(slice).length > 0,
     });
   }
   return out;
@@ -197,8 +321,12 @@ function bucketDailyCosts(rows: ObservationRow[], periodDays: FinOpsPeriodDays):
 function bucketModelBreakdown(rows: ObservationRow[]): FinOpsSummaryDto["modelBreakdown"] {
   const byModel = new Map<string, ObservationRow[]>();
   for (const r of rows) {
+    // E2 A.7 — never bucket UNVERIFIED applied as if it were a real applied model.
     const m =
-      r.modelApplied ?? r.modelRequested ?? "inconnu";
+      finOpsModelDisplayLabel({
+        modelApplied: r.modelApplied,
+        modelRequested: r.modelRequested,
+      }) ?? "inconnu";
     const list = byModel.get(m) ?? [];
     list.push(r);
     byModel.set(m, list);
@@ -293,7 +421,7 @@ export async function loadFinOpsSummary(
     periodDays,
     projectId: input.projectId ?? null,
     model: input.model ?? null,
-    hasObservations: rows.length > 0,
+    hasObservations: filterBillableFinOpsRows(rows).length > 0,
     kpis: {
       estimatedCostUsd,
       totalTokens,
@@ -609,8 +737,19 @@ export async function loadFinOpsWorks(
       and(inArray(cognitiveWorks.id, workIds), eq(cognitiveWorks.ownerPilotId, pilotId)),
     );
 
+  // E2-INT — attribution coherence uses full history, not the period/model slice alone.
+  const workProjectById = new Map(works.map((w) => [w.id, w.projectId]));
+  const conflictWorkIds = await loadAttributionConflictWorkIds(pilotId, workProjectById);
+
   const projectIds = [
-    ...new Set(works.map((w) => w.projectId).filter((id): id is string => Boolean(id))),
+    ...new Set(
+      works.flatMap((w) => {
+        if (conflictWorkIds.has(w.id)) return [];
+        const slice = byWork.get(w.id) ?? [];
+        const eff = effectiveFinOpsProjectIdForWork(w.projectId, slice);
+        return eff ? [eff] : [];
+      }),
+    ),
   ];
   const projectNames = new Map<string, string>();
   if (projectIds.length > 0) {
@@ -624,15 +763,28 @@ export async function loadFinOpsWorks(
   const items: FinOpsWorkListItem[] = works.map((w) => {
     const slice = byWork.get(w.id) ?? [];
     const last = slice[0]?.createdAt ?? new Date();
+    // E2-REL-05 / E2-INT — conflict (full history) ⇒ null (never invent via period slice).
+    const effectiveProjectId = conflictWorkIds.has(w.id)
+      ? null
+      : effectiveFinOpsProjectIdForWork(w.projectId, slice);
     const title =
       (w.objective?.trim() || "Travail cognitif").slice(0, 120) +
       ((w.objective?.length ?? 0) > 120 ? "…" : "");
     return {
       cognitiveWorkId: w.id,
       title,
-      projectId: w.projectId,
-      projectName: w.projectId ? projectNames.get(w.projectId) ?? null : null,
-      modelsLabel: uniqueModelsLabel(slice.map((r) => r.modelApplied ?? r.modelRequested)),
+      projectId: effectiveProjectId,
+      projectName: effectiveProjectId
+        ? projectNames.get(effectiveProjectId) ?? null
+        : null,
+      modelsLabel: uniqueModelsLabel(
+        slice.map((r) =>
+          finOpsModelDisplayLabel({
+            modelApplied: r.modelApplied,
+            modelRequested: r.modelRequested,
+          }),
+        ),
+      ),
       tokens: aggregateTokenTotal(slice),
       estimatedCostUsd: aggregateEstimatedCost(slice),
       statusLabel: mapCognitiveWorkStatusLabel(w.status),
@@ -717,13 +869,16 @@ export async function loadFinOpsWorkDetail(
       desc(providerUsageObservations.createdAt),
     );
 
+  const billableRows = filterBillableFinOpsRows(rows);
+
   let projectName: string | null = null;
-  if (work.projectId) {
+  const effectiveProjectId = effectiveFinOpsProjectIdForWork(work.projectId, rows);
+  if (effectiveProjectId) {
     const p = (
       await db
         .select({ name: projects.name })
         .from(projects)
-        .where(and(eq(projects.id, work.projectId), eq(projects.ownerPilotId, pilotId)))
+        .where(and(eq(projects.id, effectiveProjectId), eq(projects.ownerPilotId, pilotId)))
         .limit(1)
     )[0];
     projectName = p?.name ?? null;
@@ -731,7 +886,7 @@ export async function loadFinOpsWorkDetail(
 
   const title = work.objective?.trim() || "Travail cognitif";
   const bySegment = new Map<number, ObservationRow[]>();
-  for (const r of rows) {
+  for (const r of billableRows) {
     const idx = r.segmentIndex ?? 0;
     const list = bySegment.get(idx) ?? [];
     list.push(r);
@@ -753,9 +908,9 @@ export async function loadFinOpsWorkDetail(
       };
     });
 
-  const providerRequestsTotal = sumBillableProviderRequests(rows);
+  const providerRequestsTotal = sumBillableProviderRequests(billableRows);
   const providerRequests: MeasuredValue<number> =
-    rows.length === 0
+    billableRows.length === 0
       ? { kind: "empty" }
       : providerRequestsTotal > 0
         ? { kind: "known", value: providerRequestsTotal }
@@ -764,28 +919,31 @@ export async function loadFinOpsWorkDetail(
   const segmentCount: MeasuredValue<number> =
     segments.length > 0
       ? { kind: "known", value: segments.length }
-      : rows.length > 0
+      : billableRows.length > 0
         ? { kind: "unknown", reason: "Segments non délimités" }
         : { kind: "empty" };
 
   return {
     cognitiveWorkId: work.id,
     title,
-    projectId: work.projectId,
+    projectId: effectiveProjectId,
     projectName,
     statusLabel: mapCognitiveWorkStatusLabel(work.status),
     kpis: {
-      estimatedCostUsd: aggregateEstimatedCost(rows),
-      totalTokens: aggregateTokenTotal(rows),
+      estimatedCostUsd: aggregateEstimatedCost(billableRows),
+      totalTokens: aggregateTokenTotal(billableRows),
       providerRequests,
       segmentCount,
     },
     segments,
-    timeline: rows.map((r) => ({
+    timeline: billableRows.map((r) => ({
       id: r.id,
       at: r.createdAt.toISOString(),
       operation: r.operation,
-      model: r.modelApplied ?? r.modelRequested,
+      model: finOpsModelDisplayLabel({
+        modelApplied: r.modelApplied,
+        modelRequested: r.modelRequested,
+      }),
       status: r.status,
       costCoverage: r.costCoverage,
     })),

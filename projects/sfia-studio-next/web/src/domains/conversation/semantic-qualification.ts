@@ -149,6 +149,15 @@ export const QualifiedIntentItemSchema = z.object({
       epistemic: KnowledgeEpistemicSchema.optional(),
       subjectTitle: z.string().max(120).optional(),
       subjectId: z.string().max(120).optional(),
+      /**
+       * Optional parent for SUBJECT hierarchy (sous-sujet).
+       * Accepted forms (Studio resolves, never invents ids):
+       * - existing subject id (subj_*) in the same preparation;
+       * - intent id of another SUBJECT proposal in the same qualification;
+       * - exact subjectTitle of a co-proposed or already ACTIVE parent.
+       * Same-turn parent+child is supported when both are proposed together.
+       */
+      parentSubjectId: z.string().max(120).optional(),
       /** Soft target ~240. */
       continuityReason: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
       /** Prefer these existing resources when selecting D4 context (Nora-chosen). */
@@ -159,6 +168,36 @@ export const QualifiedIntentItemSchema = z.object({
       supersedesAcquisId: z.string().max(120).optional(),
       /** When an ACQUIS factually closes an open point, Nora may cite its id. */
       resolvesOpenPointId: z.string().max(120).optional(),
+      /**
+       * E1-REL-04 — short canonical open-point title (métier), distinct from detailed statement.
+       * Studio persists it; display must not re-derive via LLM.
+       */
+      openPointTitle: z.string().max(120).optional(),
+      /**
+       * E1-REL-01 — organization op on SUBJECT (uses existing D4 merge/split/reparent owners).
+       * MERGE: subjectId=target, mergeSourceSubjectId=source.
+       * SPLIT: subjectId=source, subjectTitle=new title; optional relevantAcquisIds/openPointIds.
+       * DETACH: subjectId existing → parent cleared (root).
+       */
+      subjectOrganization: z.enum(["MERGE", "SPLIT", "DETACH"]).optional(),
+      mergeSourceSubjectId: z.string().max(120).optional(),
+      /**
+       * E1-REL-05 — structured trajectory forecast steps for PROPOSE_TRAJECTORY.
+       * Durable qualification only — never invented from free body.
+       */
+      forecastSteps: z
+        .array(
+          z
+            .object({
+              order: z.number().int().min(1).max(24).optional(),
+              cycleType: z.string().max(64),
+              rationale: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
+              certainty: z.enum(["QUALIFIED", "ENVISIONED", "HYPOTHESIS"]).optional(),
+            })
+            .strict(),
+        )
+        .max(12)
+        .optional(),
       /**
        * C18 — dedicated Cursor technical instruction on prepare_cursor_contract.
        * Prefer this over top-level productionInstruction when emitting the intent.
@@ -624,7 +663,86 @@ export type DurablePilotageBinding = {
   restrictionKindHint?: string;
   restrictionTargetRefHint?: string;
   objective?: string;
+  /** Structured forecast from durable qualification (PROPOSE_TRAJECTORY). */
+  forecastSteps?: Array<{
+    order?: number;
+    cycleType: string;
+    rationale?: string;
+    certainty?: "QUALIFIED" | "ENVISIONED" | "HYPOTHESIS";
+  }>;
 };
+
+function pilotageBindingFromIntent(
+  intent: QualifiedIntentItem,
+): DurablePilotageBinding | { ambiguous: true; reason: string } {
+  const operation = intent.parameters.pilotageOperation;
+  if (!operation) {
+    return { ambiguous: true, reason: "SEMANTIC_PILOTAGE_OPERATION_MISSING" };
+  }
+  return {
+    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+    intentId: intent.id,
+    capabilityId: intent.capabilityId as DurablePilotageBinding["capabilityId"],
+    operation,
+    cycleType: intent.parameters.cycleType,
+    toCycleType: intent.parameters.toCycleType,
+    methodRef: intent.parameters.methodRef,
+    methodVersion: intent.parameters.methodVersion,
+    decisionId: intent.parameters.decisionId,
+    objectRef: intent.parameters.objectRef,
+    statement: intent.parameters.statement,
+    restrictionKindHint: intent.parameters.restrictionKindHint,
+    restrictionTargetRefHint: intent.parameters.restrictionTargetRefHint,
+    objective: intent.summary,
+    forecastSteps: intent.parameters.forecastSteps,
+  };
+}
+
+/** Stable dependency order among pilotage REQUEST_EFFECT intents (dependsOn within subset). */
+export function orderPilotageEffectIntents(
+  q: NoraTurnQualification,
+  hits: QualifiedIntentItem[],
+): QualifiedIntentItem[] {
+  const subset = new Set(hits.map((h) => h.id));
+  const byId = new Map(q.intents.map((i) => [i.id, i] as const));
+  const visiting = new Set<string>();
+  const visited = new Set<string>();
+  const ordered: string[] = [];
+  const visit = (id: string) => {
+    if (!subset.has(id) || visited.has(id)) return;
+    if (visiting.has(id)) return;
+    visiting.add(id);
+    for (const dep of byId.get(id)?.dependsOn ?? []) {
+      if (subset.has(dep)) visit(dep);
+    }
+    visiting.delete(id);
+    visited.add(id);
+    ordered.push(id);
+  };
+  const stable = [...subset].sort();
+  for (const id of stable) visit(id);
+  return ordered.map((id) => hits.find((h) => h.id === id)!);
+}
+
+/**
+ * MP-09 — every admissible pilotage REQUEST_EFFECT intent on the turn, in dependsOn order.
+ * Never collapses to fail-closed AMBIGUOUS when multiple D5/D6 intents are present.
+ */
+export function listPilotageEffectBindings(q: NoraTurnQualification): Array<
+  DurablePilotageBinding | { ambiguous: true; reason: string; intentId: string }
+> {
+  if (q.status !== "QUALIFIED") return [];
+  const hits = effectIntents(q).filter((i) => PILOTAGE_CAPS.has(i.capabilityId));
+  if (hits.length === 0) return [];
+  const ordered = orderPilotageEffectIntents(q, hits);
+  return ordered.map((intent) => {
+    const binding = pilotageBindingFromIntent(intent);
+    if ("ambiguous" in binding) {
+      return { ...binding, intentId: intent.id };
+    }
+    return binding;
+  });
+}
 
 export function extractPilotageBinding(
   q: NoraTurnQualification,
@@ -653,27 +771,9 @@ export function extractPilotageBinding(
   if (hits.length > 1) {
     return { ambiguous: true, reason: "MULTIPLE_PILOTAGE_EFFECT_INTENTS" };
   }
-  const intent = hits[0]!;
-  const operation = intent.parameters.pilotageOperation;
-  if (!operation) {
-    return { ambiguous: true, reason: "SEMANTIC_PILOTAGE_OPERATION_MISSING" };
-  }
-  return {
-    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-    intentId: intent.id,
-    capabilityId: intent.capabilityId as DurablePilotageBinding["capabilityId"],
-    operation,
-    cycleType: intent.parameters.cycleType,
-    toCycleType: intent.parameters.toCycleType,
-    methodRef: intent.parameters.methodRef,
-    methodVersion: intent.parameters.methodVersion,
-    decisionId: intent.parameters.decisionId,
-    objectRef: intent.parameters.objectRef,
-    statement: intent.parameters.statement,
-    restrictionKindHint: intent.parameters.restrictionKindHint,
-    restrictionTargetRefHint: intent.parameters.restrictionTargetRefHint,
-    objective: intent.summary,
-  };
+  const binding = pilotageBindingFromIntent(hits[0]!);
+  if ("ambiguous" in binding) return binding;
+  return binding;
 }
 
 /** Match a requested operation against durable qualification (owner-side). */
@@ -919,10 +1019,15 @@ export type KnowledgeCapitalisationProposal = {
   epistemic: z.infer<typeof KnowledgeEpistemicSchema>;
   subjectTitle?: string;
   subjectId?: string;
+  parentSubjectId?: string;
   continuityReason?: string;
   supersedesAcquisId?: string;
   resolvesOpenPointId?: string;
   relevantAcquisIds?: string[];
+  relevantOpenPointIds?: string[];
+  openPointTitle?: string;
+  subjectOrganization?: "MERGE" | "SPLIT" | "DETACH";
+  mergeSourceSubjectId?: string;
 };
 
 /**
@@ -933,6 +1038,31 @@ export type KnowledgeCapitalisationProposal = {
  * Document/D6/Git REQUEST_EFFECT paths remain separate; this extractor never
  * loosens those capabilities.
  */
+/**
+ * Normalize legacy / acquis-kind aliases onto the D4 proposal enum.
+ * KnowledgeKind FACT|HYPOTHESIS|… is the *record* kind inside ACQUIS, not the proposal kind.
+ */
+export function normalizeKnowledgeRecordKind(
+  raw: string | undefined | null,
+): z.infer<typeof KnowledgeRecordKindSchema> | null {
+  if (!raw) return null;
+  const u = raw.trim().toUpperCase();
+  if (u === "ACQUIS" || u === "OPEN_POINT" || u === "SUBJECT") {
+    return u as z.infer<typeof KnowledgeRecordKindSchema>;
+  }
+  // Legacy / mistaken aliases for record_knowledge acquis proposals.
+  if (
+    u === "FACT" ||
+    u === "HYPOTHESIS" ||
+    u === "RECOMMENDATION" ||
+    u === "LIMIT" ||
+    u === "KNOWLEDGE"
+  ) {
+    return "ACQUIS";
+  }
+  return null;
+}
+
 export function extractKnowledgeProposals(
   q: NoraTurnQualification,
 ): KnowledgeCapitalisationProposal[] {
@@ -940,7 +1070,7 @@ export function extractKnowledgeProposals(
   const out: KnowledgeCapitalisationProposal[] = [];
   for (const intent of effectIntents(q)) {
     if (intent.capabilityId !== "d4.record_knowledge") continue;
-    const kind = intent.parameters.knowledgeKind;
+    const kind = normalizeKnowledgeRecordKind(intent.parameters.knowledgeKind);
     const statement = (intent.parameters.knowledgeStatement ?? intent.summary ?? "").trim();
     if (!kind || statement.length < 12) continue;
     out.push({
@@ -950,10 +1080,15 @@ export function extractKnowledgeProposals(
       epistemic: intent.parameters.epistemic ?? "hypothesized",
       subjectTitle: intent.parameters.subjectTitle?.trim() || undefined,
       subjectId: intent.parameters.subjectId?.trim() || undefined,
+      parentSubjectId: intent.parameters.parentSubjectId?.trim() || undefined,
       continuityReason: intent.parameters.continuityReason?.trim() || undefined,
       supersedesAcquisId: intent.parameters.supersedesAcquisId?.trim() || undefined,
       resolvesOpenPointId: intent.parameters.resolvesOpenPointId?.trim() || undefined,
       relevantAcquisIds: intent.parameters.relevantAcquisIds?.filter(Boolean),
+      relevantOpenPointIds: intent.parameters.relevantOpenPointIds?.filter(Boolean),
+      openPointTitle: intent.parameters.openPointTitle?.trim() || undefined,
+      subjectOrganization: intent.parameters.subjectOrganization,
+      mergeSourceSubjectId: intent.parameters.mergeSourceSubjectId?.trim() || undefined,
     });
   }
   return out;

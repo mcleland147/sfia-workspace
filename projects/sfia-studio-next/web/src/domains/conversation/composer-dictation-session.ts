@@ -39,7 +39,8 @@ export type DictationSessionRecord = {
   sessionId: string;
   schema: typeof COMPOSER_DICTATION_SCHEMA;
   pilotId: string;
-  projectId: string;
+  projectId: string | null;
+  preparationId: string | null;
   conversationKey: string;
   status: DictationSessionStatus;
   modelRequested: string;
@@ -136,6 +137,38 @@ export function getDictationSession(sessionId: string): DictationSessionRecord |
   return sessions.get(sessionId) ?? null;
 }
 
+export function dictationSessionMatchesScope(
+  session: DictationSessionRecord,
+  input: { pilotId: string; projectId?: string; preparationId?: string },
+): boolean {
+  if (session.pilotId !== input.pilotId) return false;
+  if (session.preparationId) {
+    return input.preparationId === session.preparationId;
+  }
+  if (session.projectId) {
+    return input.projectId === session.projectId;
+  }
+  return false;
+}
+
+function resolveDictationScope(input: {
+  projectId?: string;
+  preparationId?: string;
+}):
+  | { ok: true; projectId: string | null; preparationId: string | null }
+  | { ok: false; code: string; message: string } {
+  const projectId = (input.projectId || "").trim() || null;
+  const preparationId = (input.preparationId || "").trim() || null;
+  if (Boolean(projectId) === Boolean(preparationId)) {
+    return {
+      ok: false,
+      code: "INVALID_SCOPE",
+      message: "Exactly one of projectId or preparationId is required.",
+    };
+  }
+  return { ok: true, projectId, preparationId };
+}
+
 function emit(session: DictationSessionRecord, ev: DictationClientEvent): void {
   for (const l of session.listeners) {
     try {
@@ -178,7 +211,8 @@ function expireIfNeeded(session: DictationSessionRecord, now = Date.now()): bool
 
 export async function createDictationSession(input: {
   pilotId: string;
-  projectId: string;
+  projectId?: string;
+  preparationId?: string;
   conversationKey: string;
   baselineDraft: string;
   insertOffset?: number | null;
@@ -189,13 +223,17 @@ export async function createDictationSession(input: {
   | { ok: true; session: DictationSessionRecord }
   | { ok: false; code: string; message: string }
 > {
+  const scope = resolveDictationScope(input);
+  if (!scope.ok) {
+    return { ok: false, code: scope.code, message: scope.message };
+  }
   const env = input.env ?? process.env;
   const { admitDictationProviderEmission } = await import(
     "./composer-dictation-admission"
   );
   const admission = admitDictationProviderEmission({
     env,
-    projectId: input.projectId,
+    projectId: scope.projectId ?? "",
     pilotId: input.pilotId,
   });
   if (!admission.ok) {
@@ -242,7 +280,8 @@ export async function createDictationSession(input: {
     sessionId,
     schema: COMPOSER_DICTATION_SCHEMA,
     pilotId: input.pilotId,
-    projectId: input.projectId,
+    projectId: scope.projectId,
+    preparationId: scope.preparationId,
     conversationKey: input.conversationKey,
     status: "pending",
     modelRequested: COMPOSER_DICTATION_MODEL,
@@ -531,13 +570,14 @@ function completeFinalization(
 export function appendDictationAudio(input: {
   sessionId: string;
   pilotId: string;
-  projectId: string;
+  projectId?: string;
+  preparationId?: string;
   pcmBase64: string;
   seq?: number;
 }): { ok: true } | { ok: false; code: string } {
   const session = sessions.get(input.sessionId);
   if (!session) return { ok: false, code: "NOT_FOUND" };
-  if (session.pilotId !== input.pilotId || session.projectId !== input.projectId) {
+  if (!dictationSessionMatchesScope(session, input)) {
     return { ok: false, code: "FORBIDDEN" };
   }
   if (expireIfNeeded(session)) return { ok: false, code: "EXPIRED" };
@@ -588,14 +628,15 @@ export function setDictationHidden(input: {
 export async function finalizeDictationSession(input: {
   sessionId: string;
   pilotId: string;
-  projectId: string;
+  projectId?: string;
+  preparationId?: string;
 }): Promise<
   | { ok: true; draft: string; transcript: string; partial: boolean }
   | { ok: false; code: string; draft?: string }
 > {
   const session = sessions.get(input.sessionId);
   if (!session) return { ok: false, code: "NOT_FOUND" };
-  if (session.pilotId !== input.pilotId || session.projectId !== input.projectId) {
+  if (!dictationSessionMatchesScope(session, input)) {
     return { ok: false, code: "FORBIDDEN" };
   }
   if (isTerminalStatus(session.status)) {
@@ -691,11 +732,12 @@ function waitForFinalization(
 export function cancelDictationSession(input: {
   sessionId: string;
   pilotId: string;
-  projectId: string;
+  projectId?: string;
+  preparationId?: string;
 }): { ok: true; draft: string } | { ok: false; code: string } {
   const session = sessions.get(input.sessionId);
   if (!session) return { ok: false, code: "NOT_FOUND" };
-  if (session.pilotId !== input.pilotId || session.projectId !== input.projectId) {
+  if (!dictationSessionMatchesScope(session, input)) {
     return { ok: false, code: "FORBIDDEN" };
   }
   if (session.status === "completed") {
@@ -773,14 +815,16 @@ async function recordDictationFinops(
       status: observationStatus,
       granularity: "REQUEST",
       costCoverage,
-      projectId: session.projectId,
+      projectId: session.projectId ?? null,
+      preparationId: session.preparationId ?? null,
       ownerPilotId: session.pilotId,
       estimatedCostUsd: estimatedUsd,
       idempotencyKey: buildIdempotencyKey({
         granularity: "REQUEST",
         lane: process.env.STUDIO_LANE || "DEV",
         operation: "audio.composer_dictation",
-        projectId: session.projectId,
+        projectId: session.projectId ?? null,
+        preparationId: session.preparationId ?? null,
         attemptId: session.emissionAttemptId,
         callOrdinal: 0,
       }),

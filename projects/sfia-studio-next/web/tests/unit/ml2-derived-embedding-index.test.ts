@@ -21,13 +21,19 @@ import {
 
 const PROJECT = "proj_ml2_unit_test";
 
+const prevBackend = process.env.SFIA_DERIVED_EMBEDDING_BACKEND;
+const prevSearch = process.env.SFIA_DERIVED_EMBEDDING_SEARCH;
+
 afterEach(() => {
   try {
     rmSync(derivedIndexRoot(PROJECT), { recursive: true, force: true });
   } catch {
     /* ignore */
   }
-  delete process.env.SFIA_DERIVED_EMBEDDING_SEARCH;
+  if (prevSearch === undefined) delete process.env.SFIA_DERIVED_EMBEDDING_SEARCH;
+  else process.env.SFIA_DERIVED_EMBEDDING_SEARCH = prevSearch;
+  if (prevBackend === undefined) delete process.env.SFIA_DERIVED_EMBEDDING_BACKEND;
+  else process.env.SFIA_DERIVED_EMBEDDING_BACKEND = prevBackend;
 });
 
 function entry(
@@ -119,7 +125,14 @@ describe("ml2 derived embedding index", () => {
   });
 
   it("hybrid merge keeps lexical and tags both", () => {
+    // E2 A.4 — unit file-index path: pin backend=file so DEV .env BACKEND=pg
+    // does not yield derivedUsed=false / SEMANTIC_HITS_REQUIRED_FOR_PG.
+    const env = {
+      SFIA_DERIVED_EMBEDDING_SEARCH: "1",
+      SFIA_DERIVED_EMBEDDING_BACKEND: "file",
+    } as unknown as NodeJS.ProcessEnv;
     process.env.SFIA_DERIVED_EMBEDDING_SEARCH = "1";
+    process.env.SFIA_DERIVED_EMBEDDING_BACKEND = "file";
     const a = entry({ sourceId: "syn-a", text: "alpha" });
     writeDerivedIndex({
       projectId: PROJECT,
@@ -139,7 +152,9 @@ describe("ml2 derived embedding index", () => {
       ],
       queryVector: [1, 0, 0],
       limit: 5,
+      env,
     });
+    expect(merged.derivedSkippedReason).toBeNull();
     expect(merged.derivedUsed).toBe(true);
     expect(merged.hits[0]?.channel).toBe("both");
   });

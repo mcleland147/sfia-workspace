@@ -80,6 +80,18 @@ import {
   projectMetierMissionMessage,
 } from "@/domains/conversation/pilotage-effect-restitution";
 import {
+  ambiguousPilotageEffectRecord,
+  crossCapOutcomeFromCapitalisations,
+  dependencyBlockedPilotageEffectRecord,
+  dependencyPreconditionBlockReason,
+  intentIdsFromPilotageBindings,
+  ownershipLostPilotageEffectRecord,
+  pickPrimaryPilotageEffect,
+  pilotageEffectFromAuthority,
+  unknownPilotageEffectRecord,
+  type TurnPilotageEffect,
+} from "@/domains/conversation/pilotage-effect-aggregate";
+import {
   appendDocumentEffectAck,
   extractContractualDocumentProposal,
   resolveHistoricalConfirmation,
@@ -95,7 +107,7 @@ import {
   extractKnowledgeProposals,
   summarizeKnowledgeProposals,
   extractKnowledgeSelectionHints,
-  extractPilotageBinding,
+  listPilotageEffectBindings,
   projectStudioEffects,
   unavailableQualification,
   type NoraTurnQualification,
@@ -480,6 +492,7 @@ export async function lookupDurableTurnByClientKey(
   userMessageId: string | null;
   assistantMessageId: string | null;
   pilotageEffect: TurnResult["pilotageEffect"];
+  pilotageEffects?: TurnPilotageEffect[];
   idempotentReplay: true;
   noraMode: "durable-lookup";
 }> {
@@ -493,6 +506,7 @@ export async function lookupDurableTurnByClientKey(
     userMessageId: null,
     assistantMessageId: null,
     pilotageEffect: null,
+    pilotageEffects: undefined as TurnPilotageEffect[] | undefined,
     idempotentReplay: true as const,
     noraMode: "durable-lookup" as const,
   };
@@ -526,11 +540,13 @@ export async function lookupDurableTurnByClientKey(
   if (!row) return empty;
 
   let fromJson: TurnResult["pilotageEffect"] = null;
+  let fromJsonEffects: TurnResult["pilotageEffects"] = undefined;
   let humanDecisionCreated = false;
   if (row.resultJson) {
     try {
       const parsed = JSON.parse(row.resultJson) as TurnResult;
       fromJson = parsed.pilotageEffect ?? null;
+      fromJsonEffects = parsed.pilotageEffects;
       humanDecisionCreated = Boolean(parsed.humanDecisionCreated);
     } catch {
       /* ignore corrupt payload — status row still authoritative for D3 */
@@ -543,7 +559,13 @@ export async function lookupDurableTurnByClientKey(
     clientTurnKey: row.clientTurnKey,
     userMessageId: row.userMessageId,
     fromJson,
+    fromJsonEffects,
     humanDecisionCreated,
+    resultJson: row.resultJson,
+    semanticIntentIds: extractDurablePilotageIntentIds({
+      fromJsonEffects,
+      resultJson: row.resultJson,
+    }),
   });
 
   return {
@@ -555,6 +577,7 @@ export async function lookupDurableTurnByClientKey(
     userMessageId: row.userMessageId,
     assistantMessageId: row.assistantMessageId,
     pilotageEffect: resolved.pilotageEffect,
+    pilotageEffects: resolved.pilotageEffects,
     idempotentReplay: true,
     noraMode: "durable-lookup",
   };
@@ -750,21 +773,9 @@ export type TurnResult = {
    */
   humanDecisionCreated: boolean;
   /** Honest D5/D6 bridge outcome for this USER turn (absent when no project / no act). */
-  pilotageEffect?: {
-    attempted: boolean;
-    intentClarity: "CLEAR" | "AMBIGUOUS" | "NONE";
-    intentReason?: string;
-    operation?: string;
-    status?: string | null;
-    reasonCode?: string | null;
-    reason?: string | null;
-    commandId?: string | null;
-    decisionId?: string | null;
-    clarification?: string;
-    source: ConversationalAuthorityOutcome["source"];
-    clientCommandKey?: string;
-    effects?: Array<{ effectKind: string; targetRef: string }>;
-  } | null;
+  pilotageEffect?: TurnPilotageEffect | null;
+  /** MP-09 — every admissible binding outcome on the turn (primary kept in pilotageEffect). */
+  pilotageEffects?: TurnPilotageEffect[];
   reconciled?: boolean;
   /** Durable turn id — available for mid-turn activity polling (C01/C07). */
   turnCommandId?: string | null;
@@ -808,28 +819,51 @@ export type TurnResult = {
   turnProjection?: TurnProjection | null;
 };
 
-function pilotageEffectFromAuthority(
-  authority: ConversationalAuthorityOutcome | null,
-): TurnResult["pilotageEffect"] {
-  if (!authority) return null;
-  return {
-    attempted: authority.attempted,
-    intentClarity: authority.intentClarity,
-    intentReason: authority.intentReason,
-    operation: authority.operation,
-    status: authority.command?.status ?? null,
-    reasonCode: authority.command?.reasonCode ?? null,
-    reason: authority.command?.reason ?? authority.intentReason ?? null,
-    commandId: authority.command?.commandId ?? null,
-    decisionId: authority.decisionId,
-    clarification: authority.clarification,
-    source: authority.source,
-    clientCommandKey: authority.clientCommandKey,
-    effects: authority.command?.effects?.map((e) => ({
-      effectKind: e.effectKind,
-      targetRef: e.targetRef,
-    })),
-  };
+/**
+ * E2-FINAL-02 / E2-INT — durable pilotage intent ids.
+ * Union effect projections with qualification stash so a partial JSON list
+ * cannot hide remaining durable intents.
+ */
+export function extractDurablePilotageIntentIds(input: {
+  fromJsonEffects?: TurnResult["pilotageEffects"] | null;
+  resultJson?: string | null;
+  semanticIntentIds?: string[] | null;
+}): string[] {
+  const ids = new Set<string>();
+  for (const s of input.semanticIntentIds ?? []) {
+    const t = s.trim();
+    if (t) ids.add(t);
+  }
+  for (const e of input.fromJsonEffects ?? []) {
+    const t = e.semanticIntentId?.trim() || "";
+    if (t) ids.add(t);
+  }
+  const raw = input.resultJson?.trim();
+  if (raw) {
+    try {
+      const parsed = JSON.parse(raw) as {
+        pilotageEffects?: TurnPilotageEffect[];
+        semanticQualification?: NoraTurnQualification;
+      };
+      for (const e of parsed.pilotageEffects ?? []) {
+        const t = e.semanticIntentId?.trim() || "";
+        if (t) ids.add(t);
+      }
+      for (const i of parsed.semanticQualification?.intents ?? []) {
+        if (
+          i.mode === "REQUEST_EFFECT" &&
+          (i.capabilityId === "d5.pilotage_command" ||
+            i.capabilityId === "d6.human_decision")
+        ) {
+          const t = i.id.trim();
+          if (t) ids.add(t);
+        }
+      }
+    } catch {
+      /* ignore malformed stash */
+    }
+  }
+  return [...ids];
 }
 
 async function resolvePilotageEffectForReplay(input: {
@@ -838,16 +872,116 @@ async function resolvePilotageEffectForReplay(input: {
   clientTurnKey?: string | null;
   userMessageId?: string | null;
   fromJson: TurnResult["pilotageEffect"] | null | undefined;
+  /** E2-REL-02 — full multi-intent list from stored result_json when present. */
+  fromJsonEffects?: TurnResult["pilotageEffects"] | null | undefined;
   humanDecisionCreated: boolean;
-}): Promise<{ pilotageEffect: TurnResult["pilotageEffect"]; humanDecisionCreated: boolean }> {
-  if (input.fromJson?.attempted && input.fromJson.status) {
+  /** Semantic intent ids — preferably from durable qualification, not only result effects. */
+  semanticIntentIds?: string[] | null;
+  /** Raw turn resultJson (may carry semanticQualification stash without pilotageEffects). */
+  resultJson?: string | null;
+}): Promise<{
+  pilotageEffect: TurnResult["pilotageEffect"];
+  pilotageEffects?: TurnPilotageEffect[];
+  humanDecisionCreated: boolean;
+}> {
+  // E2-INT — durable intent set (qualification ∪ projections). A non-empty partial
+  // projection must not short-circuit completeness.
+  const durableIntentIds = extractDurablePilotageIntentIds({
+    fromJsonEffects: input.fromJsonEffects,
+    resultJson: input.resultJson,
+    semanticIntentIds: input.semanticIntentIds,
+  });
+  const projectedByIntent = new Map<string, TurnPilotageEffect>();
+  for (const e of input.fromJsonEffects ?? []) {
+    const id = e.semanticIntentId?.trim();
+    if (id) projectedByIntent.set(id, e);
+  }
+  if (
+    input.fromJson?.attempted &&
+    input.fromJson.status &&
+    input.fromJson.semanticIntentId?.trim()
+  ) {
+    const id = input.fromJson.semanticIntentId.trim();
+    if (!projectedByIntent.has(id)) projectedByIntent.set(id, input.fromJson);
+  }
+
+  const projectionComplete =
+    durableIntentIds.length > 0 &&
+    durableIntentIds.every((id) => projectedByIntent.has(id));
+
+  if (projectionComplete && projectedByIntent.size > 0) {
+    const effects = durableIntentIds.map((id) => projectedByIntent.get(id)!);
+    const primary =
+      effects.find((e) => e.attempted && e.status) ?? effects[0] ?? null;
+    return {
+      pilotageEffect: input.fromJson ?? primary,
+      pilotageEffects: effects,
+      humanDecisionCreated:
+        input.humanDecisionCreated || effects.some((e) => Boolean(e.decisionId)),
+    };
+  }
+
+  // Legacy singular projection with no durable multi-intent set.
+  if (
+    durableIntentIds.length === 0 &&
+    input.fromJson?.attempted &&
+    input.fromJson.status &&
+    projectedByIntent.size <= 1
+  ) {
     return {
       pilotageEffect: input.fromJson,
+      pilotageEffects: input.fromJson ? [input.fromJson] : undefined,
       humanDecisionCreated: input.humanDecisionCreated || Boolean(input.fromJson.decisionId),
     };
   }
+
   if (!input.projectId) {
-    return { pilotageEffect: input.fromJson ?? null, humanDecisionCreated: input.humanDecisionCreated };
+    return {
+      pilotageEffect: input.fromJson ?? null,
+      pilotageEffects:
+        projectedByIntent.size > 0 ? [...projectedByIntent.values()] : undefined,
+      humanDecisionCreated: input.humanDecisionCreated,
+    };
+  }
+
+  // Reconstitute missing durable intents individually (never invent success).
+  const intentIds =
+    durableIntentIds.length > 0
+      ? durableIntentIds
+      : [...projectedByIntent.keys()];
+  if (intentIds.length > 0 && input.clientTurnKey?.trim()) {
+    const effects: TurnPilotageEffect[] = [];
+    let human = input.humanDecisionCreated;
+    for (const semanticIntentId of intentIds) {
+      const projected = projectedByIntent.get(semanticIntentId);
+      if (projected) {
+        effects.push(projected);
+        human = human || Boolean(projected.decisionId);
+        continue;
+      }
+      const reconstituted = await reconstituteConversationalAuthority({
+        pilotId: input.pilotId,
+        projectId: input.projectId,
+        clientTurnKey: input.clientTurnKey,
+        userMessageId: input.userMessageId,
+        semanticIntentId,
+      });
+      if (!reconstituted) {
+        effects.push(unknownPilotageEffectRecord({ intentId: semanticIntentId }));
+        continue;
+      }
+      const effect = pilotageEffectFromAuthority(reconstituted, semanticIntentId);
+      if (effect) effects.push(effect);
+      else effects.push(unknownPilotageEffectRecord({ intentId: semanticIntentId }));
+      human = human || Boolean(reconstituted.humanDecisionCreated);
+    }
+    if (effects.length > 0) {
+      return {
+        pilotageEffect: pickPrimaryPilotageEffect(effects),
+        pilotageEffects: effects,
+        humanDecisionCreated: human,
+      };
+    }
   }
   const reconstituted = await reconstituteConversationalAuthority({
     pilotId: input.pilotId,
@@ -856,11 +990,15 @@ async function resolvePilotageEffectForReplay(input: {
     userMessageId: input.userMessageId,
   });
   if (!reconstituted) {
-    return { pilotageEffect: input.fromJson ?? null, humanDecisionCreated: input.humanDecisionCreated };
+    return {
+      pilotageEffect: input.fromJson ?? null,
+      humanDecisionCreated: input.humanDecisionCreated,
+    };
   }
   const effect = pilotageEffectFromAuthority(reconstituted);
   return {
     pilotageEffect: effect,
+    pilotageEffects: effect ? [effect] : undefined,
     humanDecisionCreated:
       input.humanDecisionCreated || Boolean(reconstituted.humanDecisionCreated),
   };
@@ -996,11 +1134,13 @@ export async function postUserMessageAndNora(
         userMessageId: reserved.userMessageId,
       });
       let replayPilotage: TurnResult["pilotageEffect"] = null;
+      let replayPilotageEffects: TurnResult["pilotageEffects"] = undefined;
       let replayDecision = false;
       if (reserved.resultJson) {
         try {
           const parsed = JSON.parse(reserved.resultJson) as TurnResult;
           replayPilotage = parsed.pilotageEffect ?? null;
+          replayPilotageEffects = parsed.pilotageEffects;
           replayDecision = Boolean(parsed.humanDecisionCreated);
         } catch {
           /* ignore */
@@ -1012,7 +1152,13 @@ export async function postUserMessageAndNora(
         clientTurnKey: reserved.clientTurnKey ?? clientTurnKey,
         userMessageId: reserved.userMessageId,
         fromJson: replayPilotage,
+        fromJsonEffects: replayPilotageEffects,
         humanDecisionCreated: replayDecision,
+        resultJson: reserved.resultJson,
+        semanticIntentIds: extractDurablePilotageIntentIds({
+          fromJsonEffects: replayPilotageEffects,
+          resultJson: reserved.resultJson,
+        }),
       });
       return {
         operationId: reserved.operationId,
@@ -1024,6 +1170,7 @@ export async function postUserMessageAndNora(
         assistantMessageId: reserved.assistantMessageId,
         humanDecisionCreated: resolved.humanDecisionCreated,
         pilotageEffect: resolved.pilotageEffect,
+        pilotageEffects: resolved.pilotageEffects,
         reconciled: reserved.reconciled,
         noraMode: "replay-terminal",
         capitalisation: reconstituted.capitalisation,
@@ -1065,6 +1212,8 @@ export async function postUserMessageAndNora(
 
   /** SEM/TV: D5/D6 after Nora semantic qualification — not before. */
   let authority: ConversationalAuthorityOutcome | null = null;
+  const pilotageEffectRecords: TurnPilotageEffect[] = [];
+  let conversationalHumanDecisionCreated = false;
 
   const existing = await listMessages(pilotId, preparationId);
   const contextSnippets = existing
@@ -1509,6 +1658,13 @@ export async function postUserMessageAndNora(
       outcome: "UNKNOWN",
       error_category: "PROVIDER_EXCEPTION",
     });
+    const unknownRow = (
+      await db
+        .select({ resultJson: conversationTurnCommands.resultJson })
+        .from(conversationTurnCommands)
+        .where(eq(conversationTurnCommands.id, reserved.commandId))
+        .limit(1)
+    )[0];
     const resolved = await resolvePilotageEffectForReplay({
       pilotId,
       projectId: ctx.project?.id,
@@ -1516,11 +1672,16 @@ export async function postUserMessageAndNora(
       userMessageId: reserved.userMessageId,
       fromJson: unknownPayload.pilotageEffect,
       humanDecisionCreated: unknownPayload.humanDecisionCreated,
+      resultJson: unknownRow?.resultJson,
+      semanticIntentIds: extractDurablePilotageIntentIds({
+        resultJson: unknownRow?.resultJson,
+      }),
     });
     return {
       ...unknownPayload,
       humanDecisionCreated: resolved.humanDecisionCreated,
       pilotageEffect: resolved.pilotageEffect,
+      pilotageEffects: resolved.pilotageEffects,
     };
   }
 
@@ -1649,14 +1810,16 @@ export async function postUserMessageAndNora(
     }
   }
 
-  const pilotageBinding = extractPilotageBinding(qualification);
+  const pilotageBindings = listPilotageEffectBindings(qualification);
   const knowledgeHints = extractKnowledgeSelectionHints(qualification);
   if (
     knowledgeHints.acquisIds.length ||
     knowledgeHints.openPointIds.length ||
     knowledgeHints.subjectIds.length
   ) {
+    // E2 A.4 — pass projectId so resume reactivation / DERIVED_HIT can run (mirror pre-Nora).
     knowledgeResumeHints = await selectRelevantKnowledgeContext(pilotId, preparationId, content, {
+      projectId: ctx.project?.id ?? null,
       preferredAcquisIds: knowledgeHints.acquisIds,
       preferredOpenPointIds: knowledgeHints.openPointIds,
       preferredSubjectIds: knowledgeHints.subjectIds,
@@ -1829,79 +1992,395 @@ export async function postUserMessageAndNora(
   }
   // DIALOGUE_INDEPENDANT may answer without métier mutations that bypass A.
 
-  // D5/D6 after semantic qualification — typed binding only (never parameters.notes).
+  let capitalisation: Awaited<ReturnType<typeof maybeCapitalizeFromExchange>> = {
+    capitalisations: [],
+    selectionMethod: "semantic-proposals",
+    selectionLimit:
+      "SEM-02: capitalisation depuis propositions Nora typées (d4.record_knowledge).",
+    humanDecisionCreated: false,
+    ownershipLost: false,
+  };
+  let capitalisationError: string | undefined;
+  let ownershipLostBeforeD4 = false;
+
+  // E2-REL-02 / E2-FINAL-01 — when D5/D6 dependsOn D4 knowledge intents, run
+  // capitalisation first so cross-cap preconditions can be satisfied (not permanently blocked).
+  const crossCapOutcomeByIntentId = new Map<string, string>();
+  let capitalisationRanBeforePilotage = false;
+  // Mint assistant id before early D4 so provenance can reference the future ASSISTANT message.
+  const earlyAssistantMessageId = newId("msg");
+  const pilotageIntentIdsEarly = intentIdsFromPilotageBindings(pilotageBindings);
+  const intentDependsOnEarly = new Map(
+    qualification.intents.map((i) => [i.id, i.dependsOn] as const),
+  );
+  const intentByIdEarly = new Map(qualification.intents.map((i) => [i.id, i] as const));
+  const d4DepsForPilotage = new Set<string>();
+  const isEarlyD4 = (dep: string) => {
+    if (pilotageIntentIdsEarly.has(dep)) return false;
+    const depIntent = intentByIdEarly.get(dep);
+    return (
+      depIntent?.capabilityId === "d4.record_knowledge" &&
+      depIntent.mode === "REQUEST_EFFECT"
+    );
+  };
+  for (const b of pilotageBindings) {
+    for (const dep of intentDependsOnEarly.get(b.intentId) ?? []) {
+      if (isEarlyD4(dep)) d4DepsForPilotage.add(dep);
+    }
+  }
+  // E2-INT — transitive D4 ancestors (D4-A → D4-B → D5) must join the early set.
+  {
+    let grew = true;
+    while (grew) {
+      grew = false;
+      for (const id of [...d4DepsForPilotage]) {
+        for (const dep of intentDependsOnEarly.get(id) ?? []) {
+          if (isEarlyD4(dep) && !d4DepsForPilotage.has(dep)) {
+            d4DepsForPilotage.add(dep);
+            grew = true;
+          }
+        }
+      }
+    }
+  }
   if (
     allowOwnerEffects &&
-    pilotageBinding &&
-    !("ambiguous" in pilotageBinding) &&
-    ctx.project?.id
+    d4DepsForPilotage.size > 0 &&
+    reply.status === "COMPLETE" &&
+    (await requireTurnOwnership(reserved.commandId, reserved.ownerToken))
   ) {
-    const stillOwned = await requireTurnOwnership(reserved.commandId, reserved.ownerToken);
-    if (stillOwned) {
-      const preQualified = {
-        clarity: "CLEAR" as const,
-        operation: pilotageBinding.operation,
-        objective: pilotageBinding.objective ?? content,
-        statement: pilotageBinding.statement,
-        objectRef: pilotageBinding.objectRef,
-        decisionId: pilotageBinding.decisionId,
-        methodRef: pilotageBinding.methodRef,
-        methodVersion: pilotageBinding.methodVersion,
-        restrictionKindHint: pilotageBinding.restrictionKindHint,
-        restrictionTargetRefHint: pilotageBinding.restrictionTargetRefHint,
-        cycleType: pilotageBinding.cycleType as import("@/domains/pilotage/cki-resolve").CycleType | undefined,
-        toCycleType: pilotageBinding.toCycleType as import("@/domains/pilotage/cki-resolve").CycleType | undefined,
-        semanticIntentId: pilotageBinding.intentId,
-        semanticSchemaVersion: pilotageBinding.schemaVersion,
+    try {
+      const allKnowledgeProposals = extractKnowledgeProposals(qualification);
+      // Topo-order early D4; detect cycles.
+      const visit = new Set<string>();
+      const visiting = new Set<string>();
+      const orderedAll: string[] = [];
+      const walk = (id: string) => {
+        if (!d4DepsForPilotage.has(id) || visit.has(id)) return;
+        if (visiting.has(id)) {
+          crossCapOutcomeByIntentId.set(id, "FAILED");
+          return;
+        }
+        visiting.add(id);
+        for (const d of intentDependsOnEarly.get(id) ?? []) {
+          if (d4DepsForPilotage.has(d)) walk(d);
+        }
+        visiting.delete(id);
+        visit.add(id);
+        orderedAll.push(id);
       };
-      authority = await applyConversationalAuthority({
-        pilotId,
-        projectId: ctx.project.id,
-        userMessageId: reserved.userMessageId,
-        content,
-        clientTurnKey,
-        preQualified,
-      });
+      for (const id of [...d4DepsForPilotage].sort()) walk(id);
+
+      const isSatisfied = (prior: string | undefined) => {
+        const u = (prior ?? "").toUpperCase();
+        return (
+          u === "APPLIED" ||
+          u === "AVAILABLE" ||
+          u === "OK" ||
+          u === "SUCCESS" ||
+          u === "ALREADY_APPLIED"
+        );
+      };
+
+      // Wave batching: peers without unmet D4 deps share one maybeCapitalize call
+      // so E1 parent/enfant SUBJECT batch stays coherent; waves respect dependsOn.
+      const pending = new Set(
+        orderedAll.filter((id) => crossCapOutcomeByIntentId.get(id) !== "FAILED"),
+      );
+      let writtenTotal = 0;
+      let ranAny = false;
+      while (pending.size > 0 && !ownershipLostBeforeD4) {
+        const wave: string[] = [];
+        for (const dep of orderedAll) {
+          if (!pending.has(dep)) continue;
+          const depsOfDep = intentDependsOnEarly.get(dep) ?? [];
+          let blocked: string | null = null;
+          let waiting = false;
+          for (const d of depsOfDep) {
+            if (pilotageIntentIdsEarly.has(d)) {
+              blocked = `D4 (${dep}) dépend d'un acte D5/D6 (${d}) non encore exécuté`;
+              break;
+            }
+            if (pending.has(d)) {
+              waiting = true;
+              break;
+            }
+            const prior = crossCapOutcomeByIntentId.get(d);
+            if (prior !== undefined) {
+              if (!isSatisfied(prior)) {
+                blocked = `D4 (${dep}) précondition (${d}) non satisfaite (${prior})`;
+                break;
+              }
+            } else if (d4DepsForPilotage.has(d)) {
+              waiting = true;
+              break;
+            } else {
+              blocked = `D4 (${dep}) précondition (${d}) non résolue`;
+              break;
+            }
+          }
+          if (blocked) {
+            crossCapOutcomeByIntentId.set(dep, "SKIPPED");
+            pending.delete(dep);
+            continue;
+          }
+          if (waiting) continue;
+          wave.push(dep);
+        }
+        if (wave.length === 0) {
+          for (const id of pending) {
+            crossCapOutcomeByIntentId.set(id, "FAILED");
+          }
+          pending.clear();
+          break;
+        }
+        const proposalsForWave = allKnowledgeProposals.filter((p) =>
+          wave.includes(p.intentId),
+        );
+        const step = await maybeCapitalizeFromExchange(pilotId, preparationId, {
+          userText: content,
+          assistantText: reply.content,
+          generationId: reply.generationId,
+          userMessageId: reserved.userMessageId,
+          assistantMessageId: earlyAssistantMessageId,
+          proposals: proposalsForWave,
+          turnFence: {
+            commandId: reserved.commandId,
+            ownerToken: reserved.ownerToken,
+            beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+          },
+        });
+        ranAny = true;
+        capitalisation = {
+          capitalisations: [
+            ...capitalisation.capitalisations,
+            ...step.capitalisations,
+          ],
+          selectionMethod: step.selectionMethod,
+          selectionLimit: step.selectionLimit,
+          humanDecisionCreated:
+            capitalisation.humanDecisionCreated || step.humanDecisionCreated,
+          ownershipLost: capitalisation.ownershipLost || step.ownershipLost,
+        };
+        if (step.ownershipLost) {
+          ownershipLostBeforeD4 = true;
+          for (const dep of wave) {
+            crossCapOutcomeByIntentId.set(dep, "SKIPPED");
+            pending.delete(dep);
+          }
+          break;
+        }
+        for (const dep of wave) {
+          const proposalsForIntent = proposalsForWave.filter((p) => p.intentId === dep);
+          const outcome = crossCapOutcomeFromCapitalisations({
+            intentId: dep,
+            capitalisations: step.capitalisations,
+            hadProposal: proposalsForIntent.length > 0,
+            ownershipLost: false,
+            proposalKind: proposalsForIntent[0]?.kind ?? null,
+          });
+          crossCapOutcomeByIntentId.set(dep, outcome);
+          pending.delete(dep);
+        }
+        writtenTotal += step.capitalisations.filter(
+          (c) => c.status === "AVAILABLE" || c.status === "OK",
+        ).length;
+      }
+      for (const dep of d4DepsForPilotage) {
+        if (!crossCapOutcomeByIntentId.has(dep)) {
+          crossCapOutcomeByIntentId.set(dep, ownershipLostBeforeD4 ? "SKIPPED" : "FAILED");
+        }
+      }
+      capitalisationRanBeforePilotage = ranAny || d4DepsForPilotage.size > 0;
       emitObs({
-        event_name: "d3.turn.conversational_authority",
+        event_name: "d3.turn.knowledge_capitalisation",
         component: "d3.conversation",
         request_id: requestId,
         operation_id: reserved.operationId,
-        outcome: authority.attempted
-          ? authority.command?.status === "APPLIED" || authority.command?.status === "ALREADY_APPLIED"
-            ? "SUCCESS"
-            : authority.command?.status === "UNKNOWN"
-              ? "UNKNOWN"
-              : "FAILED"
-          : "PARTIAL",
+        generation_id: reply.generationId,
+        outcome: "PARTIAL",
         meta: {
-          attempted: authority.attempted,
-          intent_clarity: authority.intentClarity,
-          operation: authority.operation ?? null,
-          command_status: authority.command?.status ?? null,
-          reason_code: authority.command?.reasonCode ?? null,
-          decision_id: authority.decisionId,
-          source: authority.source,
-          semantic_gate: true,
-          semantic_intent_id: pilotageBinding.intentId,
+          early_before_pilotage: true,
+          d4_deps: d4DepsForPilotage.size,
+          capitalisation_written: writtenTotal,
         },
       });
+    } catch {
+      capitalisationError = "CAPITALISATION_EXCEPTION";
+      for (const dep of d4DepsForPilotage) {
+        if (!crossCapOutcomeByIntentId.has(dep)) {
+          crossCapOutcomeByIntentId.set(dep, "FAILED");
+        }
+      }
     }
-  } else if (pilotageBinding && "ambiguous" in pilotageBinding) {
-    emitObs({
-      event_name: "d3.turn.conversational_authority",
-      component: "d3.conversation",
-      request_id: requestId,
-      operation_id: reserved.operationId,
-      outcome: "PARTIAL",
-      meta: {
-        attempted: false,
-        intent_clarity: "AMBIGUOUS",
-        semantic_gate: true,
-        reason: pilotageBinding.reason,
-      },
-    });
   }
+
+  // D5/D6 after semantic qualification — one apply per qualified REQUEST_EFFECT binding (MP-09).
+  if (allowOwnerEffects && pilotageBindings.length > 0 && ctx.project?.id && !ownershipLostBeforeD4) {
+    const stillOwned = await requireTurnOwnership(reserved.commandId, reserved.ownerToken);
+    if (stillOwned) {
+      const intentDependsOn = intentDependsOnEarly;
+      const pilotageIntentIds = pilotageIntentIdsEarly;
+      const outcomeByIntentId = new Map<string, string>();
+      for (let bindingIndex = 0; bindingIndex < pilotageBindings.length; bindingIndex++) {
+        const pilotageBinding = pilotageBindings[bindingIndex]!;
+        const intentId =
+          "ambiguous" in pilotageBinding ? pilotageBinding.intentId : pilotageBinding.intentId;
+        if ("ambiguous" in pilotageBinding) {
+          const ambiguousRecord = ambiguousPilotageEffectRecord({
+            intentId,
+            reason: pilotageBinding.reason,
+          });
+          pilotageEffectRecords.push(ambiguousRecord);
+          outcomeByIntentId.set(intentId, "AMBIGUOUS");
+          emitObs({
+            event_name: "d3.turn.conversational_authority",
+            component: "d3.conversation",
+            request_id: requestId,
+            operation_id: reserved.operationId,
+            outcome: "PARTIAL",
+            meta: {
+              attempted: false,
+              intent_clarity: "AMBIGUOUS",
+              semantic_gate: true,
+              reason: pilotageBinding.reason,
+              semantic_intent_id: intentId,
+            },
+          });
+          continue;
+        }
+        const blockReason = dependencyPreconditionBlockReason({
+          dependsOn: intentDependsOn.get(intentId) ?? [],
+          pilotageIntentIds,
+          outcomeByIntentId,
+          crossCapOutcomeByIntentId,
+        });
+        if (blockReason) {
+          const blockedRecord = dependencyBlockedPilotageEffectRecord({
+            binding: pilotageBinding,
+            blockReason,
+          });
+          pilotageEffectRecords.push(blockedRecord);
+          outcomeByIntentId.set(intentId, "SKIPPED");
+          emitObs({
+            event_name: "d3.turn.conversational_authority",
+            component: "d3.conversation",
+            request_id: requestId,
+            operation_id: reserved.operationId,
+            outcome: "PARTIAL",
+            meta: {
+              attempted: false,
+              intent_clarity: "CLEAR",
+              semantic_gate: true,
+              reason_code: "DEPENDENCY_PRECONDITION",
+              reason: blockReason,
+              semantic_intent_id: intentId,
+              operation: pilotageBinding.operation,
+              pilotage_bindings_total: pilotageBindings.length,
+            },
+          });
+          continue;
+        }
+        const preQualified = {
+          clarity: "CLEAR" as const,
+          operation: pilotageBinding.operation,
+          objective: pilotageBinding.objective ?? content,
+          statement: pilotageBinding.statement,
+          objectRef: pilotageBinding.objectRef,
+          decisionId: pilotageBinding.decisionId,
+          methodRef: pilotageBinding.methodRef,
+          methodVersion: pilotageBinding.methodVersion,
+          restrictionKindHint: pilotageBinding.restrictionKindHint,
+          restrictionTargetRefHint: pilotageBinding.restrictionTargetRefHint,
+          cycleType: pilotageBinding.cycleType as import("@/domains/pilotage/cki-resolve").CycleType | undefined,
+          toCycleType: pilotageBinding.toCycleType as import("@/domains/pilotage/cki-resolve").CycleType | undefined,
+          semanticIntentId: pilotageBinding.intentId,
+          semanticSchemaVersion: pilotageBinding.schemaVersion,
+        };
+        const outcome = await applyConversationalAuthority({
+          pilotId,
+          projectId: ctx.project.id,
+          userMessageId: reserved.userMessageId,
+          content,
+          clientTurnKey,
+          preQualified,
+        });
+        if (outcome.humanDecisionCreated) conversationalHumanDecisionCreated = true;
+        const effectRecord = pilotageEffectFromAuthority(outcome, pilotageBinding.intentId);
+        if (effectRecord) {
+          pilotageEffectRecords.push(effectRecord);
+        }
+        outcomeByIntentId.set(
+          intentId,
+          outcome.command?.status ?? (outcome.attempted ? "FAILED" : "NOT_ATTEMPTED"),
+        );
+        if (!authority?.attempted && outcome.attempted) {
+          authority = outcome;
+        } else if (!authority) {
+          authority = outcome;
+        }
+        emitObs({
+          event_name: "d3.turn.conversational_authority",
+          component: "d3.conversation",
+          request_id: requestId,
+          operation_id: reserved.operationId,
+          outcome: outcome.attempted
+            ? outcome.command?.status === "APPLIED" || outcome.command?.status === "ALREADY_APPLIED"
+              ? "SUCCESS"
+              : outcome.command?.status === "UNKNOWN"
+                ? "UNKNOWN"
+                : "FAILED"
+            : "PARTIAL",
+          meta: {
+            attempted: outcome.attempted,
+            intent_clarity: outcome.intentClarity,
+            operation: outcome.operation ?? null,
+            command_status: outcome.command?.status ?? null,
+            reason_code: outcome.command?.reasonCode ?? null,
+            decision_id: outcome.decisionId,
+            source: outcome.source,
+            semantic_gate: true,
+            semantic_intent_id: pilotageBinding.intentId,
+            pilotage_bindings_total: pilotageBindings.length,
+            pilotage_outcomes_serial: pilotageEffectRecords.length,
+          },
+        });
+        // Mid-loop ownership — stop further mutations if turn ownership was lost.
+        // E2 A.3 — remaining bindings must be explicit SKIPPED (no silent truncation).
+        if (!(await requireTurnOwnership(reserved.commandId, reserved.ownerToken))) {
+          for (let j = bindingIndex + 1; j < pilotageBindings.length; j++) {
+            const remaining = pilotageBindings[j]!;
+            const remainingId =
+              "ambiguous" in remaining ? remaining.intentId : remaining.intentId;
+            if (outcomeByIntentId.has(remainingId)) continue;
+            const skipped = ownershipLostPilotageEffectRecord({ binding: remaining });
+            pilotageEffectRecords.push(skipped);
+            outcomeByIntentId.set(remainingId, "SKIPPED");
+            emitObs({
+              event_name: "d3.turn.conversational_authority",
+              component: "d3.conversation",
+              request_id: requestId,
+              operation_id: reserved.operationId,
+              outcome: "UNKNOWN",
+              meta: {
+                attempted: false,
+                intent_clarity: "CLEAR",
+                semantic_gate: true,
+                reason_code: "OWNERSHIP_LOST",
+                semantic_intent_id: remainingId,
+                operation:
+                  "ambiguous" in remaining ? null : remaining.operation,
+                pilotage_bindings_total: pilotageBindings.length,
+              },
+            });
+          }
+          break;
+        }
+      }
+    }
+  }
+
+  const primaryPilotageEffect = pickPrimaryPilotageEffect(pilotageEffectRecords);
 
   // C02 fault injection — AFTER same-turn D5/D6 (SEM/TV order: Nora → qualify → authority).
   // Hook name is historical; it must not run before Nora anymore.
@@ -1916,8 +2395,9 @@ export async function postUserMessageAndNora(
         requestId,
         status: "UNKNOWN",
         idempotentReplay: false,
-        humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
-        pilotageEffect: pilotageEffectFromAuthority(authority),
+        humanDecisionCreated: conversationalHumanDecisionCreated,
+        pilotageEffect: primaryPilotageEffect ?? pilotageEffectFromAuthority(authority),
+        pilotageEffects: pilotageEffectRecords.length > 0 ? pilotageEffectRecords : undefined,
         noraMode: reply.mode,
       };
       try {
@@ -1938,33 +2418,45 @@ export async function postUserMessageAndNora(
         outcome: "UNKNOWN",
         error_category: "POST_AUTHORITY_FAULT",
       });
+      const faultRow = (
+        await db
+          .select({ resultJson: conversationTurnCommands.resultJson })
+          .from(conversationTurnCommands)
+          .where(eq(conversationTurnCommands.id, reserved.commandId))
+          .limit(1)
+      )[0];
       const resolved = await resolvePilotageEffectForReplay({
         pilotId,
         projectId: ctx.project?.id,
         clientTurnKey,
         userMessageId: reserved.userMessageId,
         fromJson: unknownPayload.pilotageEffect,
+        fromJsonEffects:
+          pilotageEffectRecords.length > 0 ? pilotageEffectRecords : undefined,
         humanDecisionCreated: unknownPayload.humanDecisionCreated,
+        resultJson: faultRow?.resultJson,
+        semanticIntentIds: extractDurablePilotageIntentIds({
+          fromJsonEffects:
+            pilotageEffectRecords.length > 0 ? pilotageEffectRecords : undefined,
+          resultJson: faultRow?.resultJson,
+        }),
       });
       return {
         ...unknownPayload,
         humanDecisionCreated: resolved.humanDecisionCreated,
         pilotageEffect: resolved.pilotageEffect,
+        pilotageEffects:
+          resolved.pilotageEffects ??
+          (pilotageEffectRecords.length > 0 ? pilotageEffectRecords : undefined),
       };
     }
   }
 
-  const assistantId = newId("msg");
+  // Reuse early-minted id when early D4 ran; otherwise mint now.
+  const assistantId = capitalisationRanBeforePilotage
+    ? earlyAssistantMessageId
+    : newId("msg");
 
-  let capitalisation: Awaited<ReturnType<typeof maybeCapitalizeFromExchange>> = {
-    capitalisations: [],
-    selectionMethod: "semantic-proposals",
-    selectionLimit:
-      "SEM-02: capitalisation depuis propositions Nora typées (d4.record_knowledge).",
-    humanDecisionCreated: false,
-    ownershipLost: false,
-  };
-  let capitalisationError: string | undefined;
   type DocumentSaveResult = {
     status: string;
     documentId?: string;
@@ -1977,7 +2469,6 @@ export async function postUserMessageAndNora(
   };
   let documentSave: DocumentSaveResult | null = null;
   let documentSaveUnknown = false;
-  let ownershipLostBeforeD4 = false;
   const documentAct = studioProjection.documentAct;
   const documentaryIntentSignal = documentAct.kind !== "NONE";
   const missionIntent = studioProjection.publication;
@@ -2048,6 +2539,58 @@ export async function postUserMessageAndNora(
     }
     if (!(await requireTurnOwnership(reserved.commandId, reserved.ownerToken))) {
       ownershipLostBeforeD4 = true;
+    } else if (capitalisationRanBeforePilotage) {
+      // Early path only wrote D4 intents required by D5/D6 — remaining D4 still apply once.
+      const allProposals = extractKnowledgeProposals(qualification);
+      const remaining = allProposals.filter((p) => !d4DepsForPilotage.has(p.intentId));
+      const proposalSummary = summarizeKnowledgeProposals(allProposals);
+      emitObs({
+        event_name: "d3.turn.knowledge_proposals",
+        component: "d3.conversation",
+        request_id: requestId,
+        operation_id: reserved.operationId,
+        generation_id: reply.generationId,
+        outcome: proposalSummary.proposal_present ? "PARTIAL" : "SUCCESS",
+        meta: {
+          qualification_status: qualification.status,
+          reply_status: reply.status,
+          proposal_present: proposalSummary.proposal_present,
+          proposal_count: proposalSummary.proposal_count,
+          early_before_pilotage: true,
+          remaining_d4: remaining.length,
+        },
+      });
+      if (remaining.length > 0 && !ownershipLostBeforeD4) {
+        try {
+          const step = await maybeCapitalizeFromExchange(pilotId, preparationId, {
+            userText: content,
+            assistantText: reply.content,
+            generationId: reply.generationId,
+            userMessageId: reserved.userMessageId,
+            assistantMessageId: assistantId,
+            proposals: remaining,
+            turnFence: {
+              commandId: reserved.commandId,
+              ownerToken: reserved.ownerToken,
+              beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+            },
+          });
+          capitalisation = {
+            capitalisations: [
+              ...capitalisation.capitalisations,
+              ...step.capitalisations,
+            ],
+            selectionMethod: step.selectionMethod,
+            selectionLimit: step.selectionLimit,
+            humanDecisionCreated:
+              capitalisation.humanDecisionCreated || step.humanDecisionCreated,
+            ownershipLost: capitalisation.ownershipLost || step.ownershipLost,
+          };
+          if (step.ownershipLost) ownershipLostBeforeD4 = true;
+        } catch {
+          capitalisationError = "CAPITALISATION_EXCEPTION";
+        }
+      }
     } else {
       try {
         const knowledgeProposals = extractKnowledgeProposals(qualification);
@@ -3911,10 +4454,14 @@ export async function postUserMessageAndNora(
   }
 
   // E07 — post-effect métier restitution: final assistant text must match Studio outcome.
-  if (!ownershipLostBeforeD4 && authority?.attempted) {
+  if (
+    !ownershipLostBeforeD4 &&
+    (pilotageEffectRecords.some((e) => e.attempted) || authority?.attempted)
+  ) {
     assistantBody = composePilotageEffectRestitution({
       priorContent: assistantBody,
-      effect: pilotageEffectFromAuthority(authority) ?? null,
+      effect: primaryPilotageEffect ?? pilotageEffectFromAuthority(authority) ?? null,
+      effects: pilotageEffectRecords.length > 0 ? pilotageEffectRecords : undefined,
     });
   }
 
@@ -4053,8 +4600,11 @@ export async function postUserMessageAndNora(
     historicalAuthorization: ownershipLostBeforeD4 ? null : historicalAuthorizationOut,
     idempotentReplay: false,
     humanDecisionCreated:
-      Boolean(authority?.humanDecisionCreated) || Boolean(publicationMandateDecisionId),
-    pilotageEffect: pilotageEffectFromAuthority(authority),
+      conversationalHumanDecisionCreated ||
+      Boolean(authority?.humanDecisionCreated) ||
+      Boolean(publicationMandateDecisionId),
+    pilotageEffect: primaryPilotageEffect ?? pilotageEffectFromAuthority(authority),
+    pilotageEffects: pilotageEffectRecords.length > 0 ? pilotageEffectRecords : undefined,
     missionProjection,
     nextTurnKind,
     pendingEffectBlocked,

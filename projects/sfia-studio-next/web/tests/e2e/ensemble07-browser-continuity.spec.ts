@@ -320,7 +320,9 @@ test.describe("Ensemble 07 BROWSER continuity (01–06)", () => {
     const lastAssistant = [...open.messages].reverse().find((m) => m.role === "assistant");
     expect(lastAssistant?.content ?? "").not.toMatch(/reste à confirmer par Studio/i);
     expect(lastAssistant?.content ?? "").toMatch(/appliquée|déjà appliquée/i);
-    await expect(page.getByText(/Résultat Studio/i).last()).toBeVisible({ timeout: 15000 });
+    await expect(
+      page.getByText(/cycle demandé est maintenant ouvert|déjà en place|pas pu appliquer|conflit d'état|encore en vérification/i).last(),
+    ).toBeVisible({ timeout: 15000 });
     await expect(page.getByText(/reste à confirmer par Studio/i)).toHaveCount(0);
 
     // Surfaces without F5 — wait for refreshed durable pilotage (not the static card shell).
@@ -373,7 +375,9 @@ test.describe("Ensemble 07 BROWSER continuity (01–06)", () => {
     );
 
     await openSurface(page, "travail");
-    await expect(page.getByText(/Résultat Studio/i).last()).toBeVisible({ timeout: 15000 });
+    await expect(
+      page.getByText(/cycle demandé est maintenant ouvert|déjà en place|pas pu appliquer|conflit d'état|encore en vérification/i).last(),
+    ).toBeVisible({ timeout: 15000 });
 
     // Refresh volontaire — CKI facts still match
     await page.reload();
@@ -407,7 +411,9 @@ test.describe("Ensemble 07 BROWSER continuity (01–06)", () => {
     await openSurface(page, "projet");
     await expect(page.getByTestId("project-overview-cycle-card")).toBeVisible({ timeout: 15000 });
     await openSurface(page, "travail");
-    await expect(page.getByText(/Résultat Studio/i).last()).toBeVisible({ timeout: 15000 });
+    await expect(
+      page.getByText(/cycle demandé est maintenant ouvert|déjà en place|pas pu appliquer|conflit d'état|encore en vérification/i).last(),
+    ).toBeVisible({ timeout: 15000 });
 
     // Voluntary refresh control — same durable facts
     await page.reload();
@@ -494,7 +500,11 @@ test.describe("Ensemble 07 BROWSER continuity (01–06)", () => {
     const snap = await getProjectSnap(page.request, projectId);
     const assistants = snap.messages.filter((m) => m.role === "assistant").map((m) => m.content ?? "");
     for (const c of assistants) {
-      if (/Résultat Studio/i.test(c) && /appliquée|refusée|conflit|vérification/i.test(c)) {
+      if (
+        /cycle demandé est maintenant ouvert|déjà en place|pas pu appliquer|conflit d'état|encore en vérification|Résultat Studio/i.test(
+          c,
+        )
+      ) {
         expect(c).not.toMatch(/reste à confirmer par Studio/i);
       }
     }
@@ -748,7 +758,9 @@ test.describe("Ensemble 07 BROWSER continuity (01–06)", () => {
 
     // Nora restitution for THIS assistant must not claim a fresh applied success as if first open.
     const assistantMsg = afterRepeat.messages.find((m) => m.id === corr.assistantId);
-    expect(assistantMsg?.content ?? "").toMatch(/Résultat Studio/i);
+    expect(assistantMsg?.content ?? "").toMatch(
+      /cycle demandé est maintenant ouvert|déjà en place|pas pu appliquer|conflit d'état|encore en vérification|Résultat Studio/i,
+    );
     expect(assistantMsg?.content ?? "").not.toMatch(/reste à confirmer par Studio/i);
 
     // Cross-project isolation: reject project still has no cycle

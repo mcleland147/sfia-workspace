@@ -46,6 +46,10 @@ function stripPreEffectHedges(text: string): string {
     .trim();
 }
 
+/**
+ * Natural métier restitution (MP-11 / Morris 2026-11-27).
+ * Confirm only after Studio owner outcome; avoid technical « Résultat Studio » blocks.
+ */
 function effectFactLines(effect: NonNullable<PilotageEffectView>): string[] {
   const op = operationLabel(effect.operation);
   const status = (effect.status ?? "").toUpperCase();
@@ -53,48 +57,71 @@ function effectFactLines(effect: NonNullable<PilotageEffectView>): string[] {
 
   switch (status) {
     case "APPLIED":
+      if (effect.operation === "OPEN_CYCLE") {
+        return [
+          `Le cycle demandé est maintenant ouvert (${op}).`,
+          "La guidance spécialisée associée est disponible sur Trajectoire / CKI. On peut enchaîner sur le fond du travail.",
+        ];
+      }
+      if (effect.operation === "CLOSE_CYCLE") {
+        return [
+          `Le cycle est maintenant clos.`,
+          "L'historique et la trajectoire conservent cet état. Dis-moi si tu veux ouvrir un cycle suivant.",
+        ];
+      }
+      if (effect.operation === "RETAIN_TRAJECTORY") {
+        return [
+          "L'orientation de trajectoire est retenue.",
+          "L'ouverture d'un cycle reste une décision distincte lorsque tu seras prêt.",
+        ];
+      }
+      if (effect.operation === "RECORD_DECISION" || effect.operation === "REVISE_DECISION") {
+        return [
+          `La décision a bien été enregistrée.`,
+          effect.decisionId
+            ? "Elle figure désormais dans le Journal (Décisions) avec sa portée et sa provenance."
+            : "Elle figure désormais dans le Journal avec sa portée et sa provenance.",
+        ];
+      }
       return [
-        `**Résultat Studio :** la ${op} a été **appliquée**.`,
-        effect.operation === "OPEN_CYCLE"
-          ? "Le cycle demandé est désormais actif ; la guidance spécialisée associée sera disponible sur Trajectoire / CKI."
-          : effect.operation === "RETAIN_TRAJECTORY"
-            ? "L'orientation est retenue. L'ouverture d'un cycle reste une décision distincte."
-            : "L'état du projet a été mis à jour en conséquence.",
+        `C'est fait : la ${op} a bien été prise en compte.`,
+        "L'état du projet a été mis à jour en conséquence.",
       ];
     case "ALREADY_APPLIED":
       return [
-        `**Résultat Studio :** cette ${op} était **déjà appliquée** — aucun nouvel effet n'a été créé.`,
+        `Cette ${op} était déjà en place — aucun nouvel effet n'a été créé.`,
       ];
     case "REJECTED":
       return [
-        `**Résultat Studio :** la ${op} a été **refusée**.`,
+        `Je n'ai pas pu appliquer la ${op}.`,
         reason
           ? `Motif : ${reason}.`
           : "Le contrôle d'autorité ou d'état n'a pas autorisé l'effet.",
-        "Aucun cycle ni décision n'a été créé par cette demande. Vous pouvez reformuler ou préciser le type de cycle reconnu.",
+        // Per-effect wording only — never deny sibling outcomes on the same turn (MP-09).
+        `Cet effet (${op}) n'a pas créé de cycle ni de décision. Tu peux reformuler ou préciser le type de cycle reconnu.`,
       ];
     case "CONFLICT":
       return [
-        `**Résultat Studio :** **conflit d'état** sur la ${op}.`,
-        reason ? `Détail : ${reason}.` : "Rechargez l'état du projet puis réessayez si pertinent.",
+        `Il y a un conflit d'état sur la ${op}.`,
+        reason ? `Détail : ${reason}.` : "Recharge l'état du projet puis réessaie si pertinent.",
       ];
     case "UNKNOWN":
       return [
-        `**Résultat Studio :** l'issue de la ${op} est **encore en vérification**.`,
-        "Je ne confirme ni le succès ni le refus définitif tant que Studio n'a pas consolidé l'état.",
+        `L'issue de la ${op} est encore en vérification.`,
+        "Je ne confirme ni le succès ni le refus tant que Studio n'a pas consolidé l'état.",
       ];
     default:
       if (effect.intentClarity === "AMBIGUOUS") {
         return [
-          "**Résultat Studio :** aucune commande n'a été exécutée — intention ambiguë.",
-          reason ? `Précision utile : ${reason}.` : "Pouvez-vous préciser le cycle et l'acte souhaités ?",
+          "Aucune commande n'a été exécutée — intention ambiguë.",
+          reason ? `Précision utile : ${reason}.` : "Peux-tu préciser le cycle et l'acte souhaités ?",
         ];
       }
       if (effect.attempted === false) {
         return [];
       }
       return [
-        `**Résultat Studio :** statut « ${status || "indéterminé"} » pour la ${op}.`,
+        `Statut « ${status || "indéterminé"} » pour la ${op}.`,
         reason ? `Information : ${reason}.` : "",
       ].filter(Boolean);
   }
@@ -106,17 +133,27 @@ function effectFactLines(effect: NonNullable<PilotageEffectView>): string[] {
  */
 export function composePilotageEffectRestitution(input: {
   priorContent: string;
-  effect: PilotageEffectView;
+  effect?: PilotageEffectView;
+  /** MP-09 — every binding outcome on the turn, in dependsOn order. */
+  effects?: PilotageEffectView[] | null;
 }): string {
   const prior = stripPreEffectHedges(input.priorContent ?? "");
-  const effect = input.effect;
-  if (!effect?.attempted) {
+  const ordered =
+    input.effects?.filter((e): e is NonNullable<PilotageEffectView> => Boolean(e?.attempted)) ??
+    (input.effect?.attempted ? [input.effect] : []);
+  if (ordered.length === 0) {
     return prior;
   }
-  const facts = effectFactLines(effect);
-  if (facts.length === 0) return prior;
-  const block = ["", "---", "", ...facts].join("\n");
-  if (!prior.trim()) return facts.join("\n");
+  const sections: string[] = [];
+  for (const effect of ordered) {
+    const facts = effectFactLines(effect);
+    if (facts.length > 0) {
+      sections.push(facts.join("\n\n"));
+    }
+  }
+  if (sections.length === 0) return prior;
+  const block = ["", sections.join("\n\n")].join("\n\n");
+  if (!prior.trim()) return sections.join("\n\n");
   return `${prior.trimEnd()}\n${block}`;
 }
 

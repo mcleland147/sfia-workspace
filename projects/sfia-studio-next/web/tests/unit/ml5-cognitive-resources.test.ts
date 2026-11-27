@@ -4,8 +4,13 @@ import {
   buildCognitivePolicy,
   resolveAdmittedResource,
   buildResourceContinuitySuspendMessage,
+  resolveCognitivePolicyVersionStamp,
   resolveContinuityCognitivePolicy,
 } from "@/domains/conversation/cognitive-policy";
+import {
+  isRecetteProvisionalQualified,
+  resolveProvisionalPolicy,
+} from "@/domains/conversation/cognitive-resources/provisional-cognitive-policy";
 import {
   COGNITIVE_GUIDANCE_ROWS,
   COGNITIVE_GUIDANCE_CATALOG_BLURB_MAX_CHARS,
@@ -169,6 +174,16 @@ describe("ML5 E02 — resource admission", () => {
     );
   });
 
+  it("provisional v0.1 does not admit v0.2-only Luna low couple", () => {
+    process.env.STUDIO_LANE = "DEV";
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.1";
+    expect(admitModelEffort("gpt-6-luna", "low", "operational").admitted).toBe(false);
+    expect(admitModelEffort("gpt-6-luna", "medium", "operational").admitted).toBe(true);
+    expect(admitModelEffort("gpt-6.1-terra", "medium", "operational").admitted).toBe(true);
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.2";
+    expect(admitModelEffort("gpt-6-luna", "low", "operational").admitted).toBe(true);
+  });
+
   it("provisional v0.2 admits Terra medium, Luna low/medium; candidates stay refused", () => {
     process.env.STUDIO_LANE = "DEV";
     process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.2";
@@ -201,15 +216,108 @@ describe("ML5 E02 — resource admission", () => {
     );
   });
 
-  it("v0.2 on non-DEV lane refuses provisional couples", () => {
+  it("v0.2 on RECETTE without qualified admit refuses provisional couples", () => {
     process.env.STUDIO_LANE = "RECETTE";
     process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.2";
+    delete process.env.SFIA_COG_PROVISIONAL_RECETTE_ADMIT;
     expect(admitModelEffort("gpt-6-luna", "low", "operational").admitted).toBe(false);
     expect(admitModelEffort("gpt-6.1-terra", "medium", "operational").admitted).toBe(
       false,
     );
     expect(admitModelEffort("gpt-6.2-sol", "medium", "operational").admitted).toBe(
       true,
+    );
+  });
+
+  it("v0.2 on RECETTE with SFIA_COG_PROVISIONAL_RECETTE_ADMIT=qualified-v0.2 admits couples", () => {
+    process.env.STUDIO_LANE = "RECETTE";
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.2";
+    process.env.SFIA_COG_PROVISIONAL_RECETTE_ADMIT = "qualified-v0.2";
+    expect(admitModelEffort("gpt-6-luna", "low", "operational").admitted).toBe(true);
+    expect(admitModelEffort("gpt-6.1-terra", "medium", "operational").admitted).toBe(
+      true,
+    );
+    delete process.env.SFIA_COG_PROVISIONAL_RECETTE_ADMIT;
+  });
+
+  it("E2-REL-01 — RECETTE admit requires version-scoped token", () => {
+    for (const bogus of ["", "1", "true", "yes", "QUALIFIED", "ok", "qualified", "qualified-v9"]) {
+      expect(
+        isRecetteProvisionalQualified(
+          { SFIA_COG_PROVISIONAL_RECETTE_ADMIT: bogus } as unknown as NodeJS.ProcessEnv,
+          "v0.2",
+        ),
+      ).toBe(false);
+    }
+    expect(
+      isRecetteProvisionalQualified(
+        { SFIA_COG_PROVISIONAL_RECETTE_ADMIT: "qualified-v0.2" } as unknown as NodeJS.ProcessEnv,
+        "v0.2",
+      ),
+    ).toBe(true);
+    expect(
+      isRecetteProvisionalQualified(
+        { SFIA_COG_PROVISIONAL_RECETTE_ADMIT: " qualified-v0.1 " } as unknown as NodeJS.ProcessEnv,
+        "v0.1",
+      ),
+    ).toBe(true);
+  });
+
+  it("E2-REL-01 — bare qualified refuses; mismatch v0.1 token ≠ v0.2 policy", () => {
+    const envVersioned = {
+      STUDIO_LANE: "RECETTE",
+      SFIA_COG_PROVISIONAL_POLICY: "v0.2",
+      SFIA_COG_PROVISIONAL_RECETTE_ADMIT: "qualified-v0.2",
+    } as unknown as NodeJS.ProcessEnv;
+    const r = resolveProvisionalPolicy(envVersioned);
+    expect(r.provisionalActive).toBe(true);
+    expect(r.reasonCodes).toContain("COG_POLICY_RECETTE_ADMIT_VERSION_v0.2");
+
+    const envBare = {
+      STUDIO_LANE: "RECETTE",
+      SFIA_COG_PROVISIONAL_POLICY: "v0.2",
+      SFIA_COG_PROVISIONAL_RECETTE_ADMIT: "qualified",
+    } as unknown as NodeJS.ProcessEnv;
+    const bare = resolveProvisionalPolicy(envBare);
+    expect(bare.provisionalActive).toBe(false);
+    expect(bare.reasonCodes).toContain("COG_POLICY_RECETTE_ADMIT_BARE_QUALIFIED_REJECTED");
+
+    const mismatch = resolveProvisionalPolicy({
+      STUDIO_LANE: "RECETTE",
+      SFIA_COG_PROVISIONAL_POLICY: "v0.2",
+      SFIA_COG_PROVISIONAL_RECETTE_ADMIT: "qualified-v0.1",
+    } as unknown as NodeJS.ProcessEnv);
+    expect(mismatch.provisionalActive).toBe(false);
+
+    expect(
+      isRecetteProvisionalQualified(
+        { SFIA_COG_PROVISIONAL_RECETTE_ADMIT: "qualified-v0.1" } as unknown as NodeJS.ProcessEnv,
+        "v0.1",
+      ),
+    ).toBe(true);
+    expect(
+      isRecetteProvisionalQualified(
+        { SFIA_COG_PROVISIONAL_RECETTE_ADMIT: "qualified-v0.1" } as unknown as NodeJS.ProcessEnv,
+        "v0.2",
+      ),
+    ).toBe(false);
+  });
+
+  it("E2 A.1 — policyVersion stamp follows active provisional id", () => {
+    process.env.STUDIO_LANE = "DEV";
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.1";
+    expect(resolveCognitivePolicyVersionStamp()).toContain("v0.1");
+    const p = buildCognitivePolicy("allocation", "OPERATIONAL_PROVISIONAL");
+    expect(p.policyVersion).toContain("v0.1");
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.2";
+    expect(resolveCognitivePolicyVersionStamp()).toContain("v0.2");
+  });
+
+  it("v0.2 on unknown lane refuses provisional couples (fail closed)", () => {
+    process.env.STUDIO_LANE = "STABLE";
+    process.env.SFIA_COG_PROVISIONAL_POLICY = "v0.2";
+    expect(admitModelEffort("gpt-6.1-terra", "medium", "operational").admitted).toBe(
+      false,
     );
   });
 

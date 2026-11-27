@@ -68,6 +68,16 @@ export function conversationalCommandKey(clientTurnKey: string): string {
   return conversationalClientCommandKey(clientTurnKey);
 }
 
+/** Per semantic intent when several pilotage acts share one clientTurnKey (MP-09). */
+export function conversationalCommandKeyForIntent(
+  clientTurnKey: string,
+  semanticIntentId?: string | null,
+): string {
+  const base = conversationalCommandKey(clientTurnKey);
+  const intentId = semanticIntentId?.trim();
+  return intentId ? `${base}:${intentId}` : base;
+}
+
 /** @deprecated retained for lexical helper tests only — authority path uses durable resolvers. */
 export async function loadDecisionBriefs(projectId: string): Promise<DecisionBrief[]> {
   const rows = await db
@@ -232,9 +242,11 @@ export async function reconstituteConversationalAuthority(input: {
   projectId: string;
   clientTurnKey?: string | null;
   userMessageId?: string | null;
+  /** When set, scopes C02 replay to one semantic pilotage intent (MP-09). */
+  semanticIntentId?: string | null;
 }): Promise<ConversationalAuthorityOutcome | null> {
   const key = input.clientTurnKey?.trim()
-    ? conversationalCommandKey(input.clientTurnKey)
+    ? conversationalCommandKeyForIntent(input.clientTurnKey, input.semanticIntentId)
     : null;
   if (key) {
     try {
@@ -251,6 +263,10 @@ export async function reconstituteConversationalAuthority(input: {
   }
   const messageId = input.userMessageId?.trim();
   if (!messageId) return null;
+  // MP-09 — multi-intent turns share one userMessageId; never replay sibling acts here.
+  if (input.semanticIntentId?.trim()) {
+    return null;
+  }
   const cmd = (
     await db
       .select()
@@ -297,7 +313,14 @@ export async function applyConversationalAuthority(input: {
   preQualified?: IntentQualification | null;
 }): Promise<ConversationalAuthorityOutcome> {
   const content = input.content.trim();
-  const clientCommandKey = conversationalCommandKey(input.clientTurnKey);
+  const preQualifiedSemanticIntentId =
+    input.preQualified?.clarity === "CLEAR"
+      ? input.preQualified.semanticIntentId
+      : undefined;
+  const clientCommandKey = conversationalCommandKeyForIntent(
+    input.clientTurnKey,
+    preQualifiedSemanticIntentId,
+  );
   const empty: ConversationalAuthorityOutcome = {
     attempted: false,
     intentClarity: "NONE",
@@ -315,6 +338,7 @@ export async function applyConversationalAuthority(input: {
     projectId: input.projectId,
     clientTurnKey: input.clientTurnKey,
     userMessageId: input.userMessageId,
+    semanticIntentId: preQualifiedSemanticIntentId,
   });
   if (prior?.attempted && prior.command) {
     return prior;
@@ -441,7 +465,7 @@ export async function applyConversationalAuthority(input: {
     return outcomeFromCommand(command, "LIFT_RESTRICTION", clientCommandKey);
   }
 
-  // FIX-08 — RETAIN: do not send orientation/trajectoryRevisionId on USER_MESSAGE body
+  // FIX-08 — RETAIN: do not send orientation/trajectoryRevisionId/objective on USER_MESSAGE body
   // (SEM rejects client-supplied D5 targets). mutateCommand resolves current PROPOSED.
   if (qualified.operation === "RETAIN_TRAJECTORY") {
     if (!projection.trajectory.proposed?.id) {
@@ -458,9 +482,18 @@ export async function applyConversationalAuthority(input: {
     const command = await executePilotageCommand(input.pilotId, input.projectId, {
       ...base,
       operation: "RETAIN_TRAJECTORY",
-      objective: qualified.objective,
     });
     return outcomeFromCommand(command, "RETAIN_TRAJECTORY", clientCommandKey);
+  }
+
+  // E1 B.6 — PROPOSE: orientation/statement come from durable qualification only.
+  // Never echo objective/orientation on the USER_MESSAGE body (clientSensitive gate).
+  if (qualified.operation === "PROPOSE_TRAJECTORY") {
+    const command = await executePilotageCommand(input.pilotId, input.projectId, {
+      ...base,
+      operation: "PROPOSE_TRAJECTORY",
+    });
+    return outcomeFromCommand(command, "PROPOSE_TRAJECTORY", clientCommandKey);
   }
 
   const command = await executePilotageCommand(input.pilotId, input.projectId, {

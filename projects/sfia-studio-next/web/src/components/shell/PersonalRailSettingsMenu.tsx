@@ -83,7 +83,7 @@ export function PersonalRailSettingsMenu({ pathname }: { pathname: string }) {
           id={menuId}
           className="studio-rail-settings-popover"
           role="menu"
-          aria-label="Paramètres personnels"
+          aria-label="Paramètres"
           data-testid="rail-settings-popover"
         >
           {tooltip ? (

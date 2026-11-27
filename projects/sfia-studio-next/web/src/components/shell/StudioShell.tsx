@@ -402,9 +402,8 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
                 <div className="font-semibold text-[14px]">Pilote</div>
                 <div className="muted">{inProductSpace ? "Connecté" : "Espace personnel"}</div>
               </div>
-              {personalSpace ? (
-                <PersonalRailSettingsMenu pathname={pathname} />
-              ) : null}
+              {/* ML5 MP-17 — settings foot on every authenticated rail variant */}
+              <PersonalRailSettingsMenu pathname={pathname} />
             </div>
           </div>
         </div>

@@ -220,7 +220,7 @@ export function ProjectOverview(props: {
           />
           <ActivityCard
             testId="project-activity-documents"
-            title="Documents en cours"
+            title="Documents du projet"
             source="Bibliothèque"
             count={activity?.documentsInProgress.count ?? 0}
             empty="Aucun document en cours de rédaction."

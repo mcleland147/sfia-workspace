@@ -3,25 +3,9 @@
  * Reuses CYCLE_TYPES / official labels — does not create a parallel catalogue.
  */
 import { CYCLE_TYPES, type CycleType, isCycleType } from "@/domains/pilotage/cki-resolve";
+import { CYCLE_TYPE_LABELS } from "@/domains/pilotage/cycle-type-labels";
 
-/** Official French / display labels (same vocabulary as forecast-builder). */
-export const CYCLE_TYPE_LABELS: Record<CycleType, string> = {
-  CADRAGE: "cadrage",
-  CONCEPTION_FONCTIONNELLE: "conception fonctionnelle",
-  ARCHITECTURE_FONCTIONNELLE: "architecture fonctionnelle",
-  UX_UI: "conception UX",
-  BACKLOG: "backlog",
-  ARCHITECTURE_TECHNIQUE: "architecture technique",
-  INTEGRATION_DEVOPS: "intégration DevOps",
-  DELIVERY: "delivery",
-  QA_VALIDATION: "validation qualité",
-  SECURITE: "sécurité",
-  DEPLOIEMENT_RELEASE: "déploiement release",
-  OBSERVABILITE: "observabilité",
-  PR_READINESS: "préparation PR",
-  POST_MERGE: "post-merge",
-  CAPITALISATION: "capitalisation",
-};
+export { CYCLE_TYPE_LABELS };
 
 /** Extra unambiguous aliases → canonical enum (never invent new cycle types). */
 const ALIASES: Record<string, CycleType> = {

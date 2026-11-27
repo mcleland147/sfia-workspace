@@ -9,6 +9,7 @@ import {
   deriveThreadTurnKind,
   effectIntents,
   extractPilotageBinding,
+  listPilotageEffectBindings,
   matchPilotageIntentInQualification,
   projectStudioEffects,
   validateNoraTurnQualification,
@@ -66,6 +67,51 @@ describe("semantic qualification envelope", () => {
       const binding = extractPilotageBinding(ok.value);
       expect(binding && !("ambiguous" in binding) && binding.operation).toBe("OPEN_CYCLE");
     }
+  });
+
+  it("MP-09: extractPilotageBinding fails closed on multiple pilotage REQUEST_EFFECT", () => {
+    const q = asNoraQualification({
+      status: "QUALIFIED",
+      goal: "two acts",
+      intents: [
+        {
+          id: "i-open",
+          capabilityId: "d5.pilotage_command",
+          mode: "REQUEST_EFFECT",
+          summary: "OPEN_CYCLE",
+          parameters: { pilotageOperation: "OPEN_CYCLE", cycleType: "CADRAGE" },
+          constraints: [],
+          dependsOn: [],
+          sourceEvidence: [],
+        },
+        {
+          id: "i-trans",
+          capabilityId: "d5.pilotage_command",
+          mode: "REQUEST_EFFECT",
+          summary: "TRANSITION_CYCLE",
+          parameters: {
+            pilotageOperation: "TRANSITION_CYCLE",
+            cycleType: "CADRAGE",
+            toCycleType: "CONCEPTION_FONCTIONNELLE",
+          },
+          constraints: [],
+          dependsOn: ["i-open"],
+          sourceEvidence: [],
+        },
+      ],
+      clarifications: [],
+      replyDraft: "deux actes",
+    });
+    expect(extractPilotageBinding(q)).toMatchObject({
+      ambiguous: true,
+      reason: "MULTIPLE_PILOTAGE_EFFECT_INTENTS",
+    });
+    const listed = listPilotageEffectBindings(q);
+    expect(listed).toHaveLength(2);
+    expect(listed.map((b) => ("ambiguous" in b ? null : b.operation))).toEqual([
+      "OPEN_CYCLE",
+      "TRANSITION_CYCLE",
+    ]);
   });
 
   it("matchPilotageIntent rejects substituted operation / intentId", () => {

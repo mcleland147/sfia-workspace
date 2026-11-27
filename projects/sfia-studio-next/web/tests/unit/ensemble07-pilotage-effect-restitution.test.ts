@@ -18,8 +18,8 @@ describe("E07 post-effect métier restitution", () => {
       },
     });
     expect(out).not.toMatch(/reste à confirmer par Studio/i);
-    expect(out).toMatch(/appliquée/i);
-    expect(out).toMatch(/cycle demandé est désormais actif/i);
+    expect(out).not.toMatch(/Résultat Studio/i);
+    expect(out).toMatch(/cycle demandé est maintenant ouvert/i);
   });
 
   it("REJECTED INVALID surfaces motif without false success", () => {
@@ -33,9 +33,10 @@ describe("E07 post-effect métier restitution", () => {
         reason: "Type de cycle requis",
       },
     });
-    expect(out).toMatch(/refusée/i);
+    expect(out).not.toMatch(/Résultat Studio/i);
+    expect(out).toMatch(/pas pu appliquer/i);
     expect(out).toMatch(/Type de cycle requis/);
-    expect(out).not.toMatch(/appliquée/i);
+    expect(out).not.toMatch(/maintenant ouvert/i);
   });
 
   it("ALREADY_APPLIED / CONFLICT / UNKNOWN each have distinct métier wording", () => {
@@ -44,7 +45,7 @@ describe("E07 post-effect métier restitution", () => {
         priorContent: "ok",
         effect: { attempted: true, operation: "RETAIN_TRAJECTORY", status: "ALREADY_APPLIED" },
       }),
-    ).toMatch(/déjà appliquée/i);
+    ).toMatch(/déjà en place/i);
 
     expect(
       composePilotageEffectRestitution({
@@ -69,6 +70,14 @@ describe("E07 post-effect métier restitution", () => {
         effect: { attempted: false },
       }),
     ).toBe(prior);
+  });
+
+  it("backward-compatible single effect via effect prop", () => {
+    const out = composePilotageEffectRestitution({
+      priorContent: "ok",
+      effect: { attempted: true, operation: "OPEN_CYCLE", status: "APPLIED" },
+    });
+    expect(out).toMatch(/cycle demandé est maintenant ouvert/i);
   });
 });
 

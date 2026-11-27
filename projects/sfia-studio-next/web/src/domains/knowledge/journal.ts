@@ -27,6 +27,7 @@ import {
   type ExtendedProvenance,
 } from "@/domains/knowledge/journal-cognition";
 import { extractSourcedMotivationFromMessage } from "@/domains/knowledge/journal-editorial";
+import { buildSupersededDecisionIds } from "@/domains/preparation/project-activity-projection";
 import { StudioError } from "@/lib/http-errors";
 import { newId } from "@/lib/ids";
 
@@ -805,6 +806,7 @@ export async function reparentSubject(
   projectId: string,
   subjectId: string,
   newParentSubjectId: string | null,
+  turnFence?: import("@/domains/conversation/turn-command").TurnOwnershipFence,
 ) {
   const subject = await loadOwnedSubjectForProject(pilotId, projectId, subjectId);
   if (!subject) return { status: "FAILED" as const, reason: "NOT_FOUND" };
@@ -824,6 +826,11 @@ export async function reparentSubject(
 
   try {
     return await db.transaction(async (tx) => {
+      if (turnFence) {
+        const { assertTurnFenceInTx } = await import("@/domains/conversation/turn-command");
+        const owned = await assertTurnFenceInTx(tx as Tx, turnFence);
+        if (!owned) return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
+      }
       await tx.execute(
         sql`select id from knowledge_subjects where id = ${subjectId} and owner_pilot_id = ${pilotId} for update`,
       );
@@ -1130,9 +1137,10 @@ export async function getJournalProjection(pilotId: string, projectId: string) {
     .where(eq(humanDecisions.projectId, projectId))
     .orderBy(desc(humanDecisions.createdAt));
 
+  const supersededDecisionIds = buildSupersededDecisionIds(decisionRows);
   const supersededBy = new Map<string, string>();
   for (const d of decisionRows) {
-    if (d.supersedesDecisionId) {
+    if (d.state === "APPLICABLE" && d.supersedesDecisionId) {
       supersededBy.set(d.supersedesDecisionId, d.id);
     }
   }
@@ -1140,7 +1148,7 @@ export async function getJournalProjection(pilotId: string, projectId: string) {
   const decisions = [];
   for (const d of decisionRows) {
     const expl = await getCurrentDecisionExplanation(pilotId, projectId, d.id);
-    const applicable = d.state === "APPLICABLE" && !supersededBy.has(d.id);
+    const applicable = d.state === "APPLICABLE" && !supersededDecisionIds.has(d.id);
     const originSources: Array<{
       ownerKind: "decision";
       ownerId: string;

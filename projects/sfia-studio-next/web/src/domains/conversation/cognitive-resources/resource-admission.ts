@@ -91,7 +91,8 @@ export function admitModelEffort(
     const policyId = activeProvisionalPolicyId();
     const provisionalOn = isProvisionalPolicyActive();
 
-    // Explicit provisional policy on DEV — Morris-validated couples only.
+    // Explicit provisional policy on DEV, or RECETTE with SFIA_COG_PROVISIONAL_RECETTE_ADMIT
+    // (qualified / qualified-v0.x) — Morris-validated couples only.
     if (provisionalOn && isProvisionalAdmittedCouple(modelId, effort)) {
       return { admitted: true, modelId, effort, mode };
     }

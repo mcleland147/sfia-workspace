@@ -408,6 +408,13 @@ export type ExplicitFixtureSpec =
       documentTitle: string;
       documentSummary: string;
     }
+  | {
+      kind: "d5_dual_open_transition";
+      /** OPEN_CYCLE source cycle (default CADRAGE). */
+      cycleType?: string;
+      /** TRANSITION_CYCLE target (default CONCEPTION_FONCTIONNELLE). */
+      toCycleType?: string;
+    }
   | { kind: "qualification"; q: NoraQualificationDraft };
 
 export function registerExplicitFixture(utterance: string, spec: ExplicitFixtureSpec): void {
@@ -487,6 +494,46 @@ export function registerExplicitFixture(utterance: string, spec: ExplicitFixture
           cycleType: spec.cycleType,
           documentTitle: spec.documentTitle,
           documentSummary: spec.documentSummary,
+        }),
+      );
+      return;
+    case "d5_dual_open_transition":
+      registerTypedScenario(
+        t,
+        asNoraQualification({
+          status: "QUALIFIED",
+          goal: "MP-09 open then transition",
+          intents: [
+            {
+              id: "i-open",
+              capabilityId: "d5.pilotage_command",
+              mode: "REQUEST_EFFECT",
+              summary: "OPEN_CYCLE",
+              parameters: {
+                pilotageOperation: "OPEN_CYCLE",
+                cycleType: spec.cycleType ?? "CADRAGE",
+              },
+              constraints: [],
+              dependsOn: [],
+              sourceEvidence: [],
+            },
+            {
+              id: "i-trans",
+              capabilityId: "d5.pilotage_command",
+              mode: "REQUEST_EFFECT",
+              summary: "TRANSITION_CYCLE",
+              parameters: {
+                pilotageOperation: "TRANSITION_CYCLE",
+                cycleType: spec.cycleType ?? "CADRAGE",
+                toCycleType: spec.toCycleType ?? "CONCEPTION_FONCTIONNELLE",
+              },
+              constraints: [],
+              dependsOn: ["i-open"],
+              sourceEvidence: [],
+            },
+          ],
+          clarifications: [],
+          replyDraft: "Cycle ouvert puis transition conception fonctionnelle.",
         }),
       );
       return;

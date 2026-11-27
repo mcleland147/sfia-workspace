@@ -4,7 +4,7 @@
 
 | Champ | Valeur |
 |---|---|
-| Version | v0.29 candidate — 27 novembre 2026 : **RECETTE operational activation A1–A6** (`e8e6e069` · BUILD `rpEczSp61evIZ7d6fnIWR` · PG password rotated · flags LIVE · index borné 10 chunks · WEB/Admin OFF) — **RECETTE OPERATIONAL ACTIVATION COMPLETE — MORRIS FUNCTIONAL QUALIFICATION READY — USER ACCEPTANCE PENDING** ; v0.28 : cutover ; v0.27 : dictation nominal path final DEV ; … |
+| Version | v0.33 candidate — 27 novembre 2026 : **E2-INT** (D4 remaining+transitif+batch ; C02 projection partielle ; FinOps conflit hors fenêtre) sur `sfia/next-ml5-integrated-delivery-20261123` @ `58ca9486…` dirty — **Cursor READY WITH RESERVES** (sortie E2 proposée ; ChatGPT + Morris gate) ; v0.32 : E2-FINAL ; v0.31 : E2c ; … |
 | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
 | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
 | Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |
@@ -428,6 +428,73 @@ Les cas **Q-01…Q-56** du contrat fonctionnel ML5 sont la matrice de comporteme
 | R-004 | 23/11/2026 | ML5 complétude — inventaire 99, P0 sendIntent, provenance sources, B1 frontier, synthèse≠Nora | même worktree DIRTY ; HEAD entrée `6cf33e99…` | Review Pack 4 → `sfia/review-handoff` | Impl **1/74/24** (réconcilié explore + cycle 4) ; T-01…T-12 corrigés | ML5 PARTIAL — GOVERNED GAPS ; unit 53 + PG 9 ; BROWSER/F2/LIVE ouverts |
 | R-PROV-01 | 26/11/2026 | ML5 politique cognitive provisoire v0.1 + qualification intégrée A/B/E/F LIVE | `sfia/next-ml5-integrated-delivery-20261123` · base `4f1bb0f2` · DEV build `-8zagoVhrLvhtuKL7ThVc` ; push produit **interdit** | Review Pack FULL → `sfia/review-handoff` (publish-in-cycle) | Politique v0.1 · FinOps WEB attribution · LIVE Terra→Sol · WEB gate dossier | DEV CANDIDATE — PROVISIONAL POLICY QUALIFIED IN DEV — WEB GATE PENDING — C/D différés |
 | R-AT-CAP | 25/11/2026 | ML5 Nora×Studio capability interactions — AssetTrack AT-01…13 (AT-10 retirée) · Option B+A+C | `sfia/next-ml5-integrated-delivery-20261123` · base `0d37b12a` · DEV build `BMd8qv-bn6m9Hj6YEtdee` ; push produit **interdit** | Review Pack FULL → `sfia/review-handoff` (publish-in-cycle) | AT-01…13 · PREPARE documentaire · forecast cognitif · LIVE activité · Git REAL RO | DEV CANDIDATE — INTEGRATED CORRECTIVE — READY FOR CHATGPT REVIEW ; RECETTE `ca0b114c` préservée |
+| R-E1 | 27/11/2026 | E1 Continuité cognitive B.1–B.8 (MP-03/10/12/13 + interfaces) — Critical Cycle 8 | `sfia/next-ml5-integrated-delivery-20261123` @ `58ca9486…` dirty ; no project commit | Review Pack E1 → `sfia/review-handoff` (publish-in-cycle) | B.1–B.8 · oracles 1–18 (E1 niveau) · suite 52 PASS unit/PG | E1 DETERMINISTIC PROVEN partiel ; autonomie LIVE NON PROUVÉE ; embedding residual → E2 ; UX panneau → E3 ; Livraison 1 NOT ACCEPTED |
+| R-E1r | 27/11/2026 | E1 complément neuf reliquats E1-REL-01…09 — Critical Cycle 8 | même branche @ `58ca9486…` dirty ; no project commit | Review Pack E1r → `sfia/review-handoff` (publish-in-cycle) | E1-REL-01…09 · e1-reliquats 5 PASS + non-régression B.5–B.8 | E1 COMPLÉMENT — DETERMINISTIC PROVEN ciblé ; preuves naturelles → recette ; LIVE/DOM NON PROUVÉS ; E2 non engagé |
+| R-E1f | 27/11/2026 | E1 sécurisation finale — merge enfants + forecast USER_MESSAGE + pack | même branche @ `58ca9486…` dirty ; no project commit | Review Pack E1f → `sfia/review-handoff` | merge reparent/cycle · BODY_FORECASTJSON refuse · e1-final-safeguards 5 PASS | E1 FINAL SAFEGUARDS — DET PROVEN ; R-REC-E1-01/02 conservés ; E2 non engagé |
+| R-E2 | 27/11/2026 | E2 garanties cognitives résiduelles A.1–A.7 — Critical Cycle 8 | même branche @ `58ca9486…` dirty ; no project commit | Review Pack E2 → `sfia/review-handoff` @`80cdef6c` | A.1–A.7 · 91 PASS unit ciblés · hybrid instruit | **Cursor** READY WITH RESERVES ; ChatGPT PARTIEL NOT READY E3 ; six reliquats → R-E2c |
+| R-E2c | 27/11/2026 | E2 complément six reliquats E2-REL-01…06 — Critical Cycle 8 | même branche @ `58ca9486…` dirty ; no project commit | Review Pack E2c → `sfia/review-handoff` | REL-01…06 · 89+ PASS unit/PG · hybrid PG DET | **Cursor** READY WITH RESERVES ; ChatGPT revue indépendante pending ; E3 non engagé |
+| R-E2f | 27/11/2026 | E2 sécurisation finale E2-FINAL-01…03 — Critical Cycle 8 | même branche @ `58ca9486…` dirty ; no project commit | Review Pack E2f → `sfia/review-handoff` | FINAL-01…03 · 16 PASS FINAL + 59 PASS lot affecté | **Cursor** READY WITH RESERVES — sortie construction E2 proposée ; ChatGPT + Morris gate ; E3 non engagé |
+| R-E2i | 27/11/2026 | E2 revue d'intégration — Critical Cycle 8 | même branche @ `58ca9486…` dirty ; no project commit | Review Pack E2i → `sfia/review-handoff` | INT D4/C02/FinOps · 20 PASS ; e2e DB vérifiée | **Cursor** READY WITH RESERVES — sortie E2 proposée ; ChatGPT + Morris gate ; E3 non engagé |
+
+### E2 — lignes de couverture (2026-11-27)
+
+| Capacité | Niveau E2 | Preuve | Reliquat |
+| --- | --- | --- | --- |
+| A.1 Allocation | RACCORDÉ DET + REL-01 | policy stamp ; **admit `qualified-v0.x` only** ; bare `qualified` rejected ; UNVERIFIED applied | Calibration réelle / choix adaptatif naturel → recette |
+| A.2 Qualification | VÉRIFIÉ INSPECTION | pas de routeur lexical métier primary ; tests SEM existants | Qualification multi-langues naturelle → recette |
+| A.3 Orchestration | RACCORDÉ DET + REL-02 + **FINAL-01** | early D4 séquentiel ; outcome par intentId ; FACT→ACQUIS ; PRIMARY acquis ; C02 multi-intent | Preuves naturelles multi-cap → recette ; D7 hors scope |
+| A.4 Contexte / hybrid | RACCORDÉ DET + REL-03 | resume+projectId ; **hybrid PG path PASS** (fake embed) ; omit marker A.4 ; open_point FP aligné | Mesure T08 ; embedding LIVE fournisseur |
+| A.5 Finalisation | RACCORDÉ DET | CONTINUE → OPEN / cause CONTINUE ≠ AWAIT_PILOT | Travaux OPEN naturels → recette |
+| A.6 Observabilité | RACCORDÉ DET + REL-04 | billable hasObservations/hasData ; cartographie événements → pack E3 | Libellés activité E3 ; corrélation LIVE |
+| A.7 FinOps | RACCORDÉ DET + REL-05 + **FINAL-03** | conflict work ids **avant** filtre projet ; effectiveFinOpsProjectId(+ForWork) | Coût facturé ; Admin OFF ; MP-06 audio interface only |
+
+### E2-FINAL — sécurisation technique (2026-11-27)
+
+| ID | Exigence | État | Validation | Preuve restante |
+| --- | --- | --- | --- | --- |
+| E2-FINAL-01 | Intégrité orchestration inter-cap | IMPLEMENTED + DET (PG) | e2-final-orchestration-c02 | Conversation naturelle multi-cap → recette |
+| E2-FINAL-02 | Reconstitution C02 sans resultJson effets | IMPLEMENTED + DET (PG) | stash semanticQualification + unknown effect | Reprise utilisateur réelle → recette |
+| E2-FINAL-03 | Cohérence attribution FinOps multi-vues | IMPLEMENTED + DET (PG) | e2-final-finops-attribution | Coût facturé ; Admin OFF |
+
+### E2-REL — matrice complément (2026-11-27)
+
+| ID | Exigence | État | Validation | Preuve restante |
+| --- | --- | --- | --- | --- |
+| E2-REL-01 | Admission versionnée | IMPLEMENTED + DET | ml5-cognitive-resources | Calibration LIVE → Morris GO |
+| E2-REL-02 | Orchestration/reprise/finalisation | IMPLEMENTED + DET | mp09 + conductor A.5 + early D4 | Conversation naturelle multi-cap → recette |
+| E2-REL-03 | Hybrid PG + efficience | IMPLEMENTED + DET (PG fake embed) | e2-hybrid-pg-path | Embedding LIVE ; pertinence cognitive → recette |
+| E2-REL-04 | Observabilité E3 | DOCUMENTED + INSPECTION | cartographie pack | Surface E3 ; latences non instrumentées |
+| E2-REL-05 | FinOps attribution | IMPLEMENTED + DET | FinOps projection + A.6 contract | Agrégats PG population ; Admin OFF |
+| E2-REL-06 | Dossier/qualité | SYNCHRONIZED | delivery-history + registre | Revue ChatGPT ; gate Morris |
+
+**MP mapping (OPEN RECETTE)** : MP-09→REL-02 ; MP-11→REL-04 ; MP-14→REL-03 ; MP-15→REL-01 ; MP-16→REL-05 ; MP-10 continuité interface ; MP-06 audio only.
+
+### E1 — lignes de couverture (2026-11-27)
+
+| Capacité | Niveau E1 | Preuve | Reliquat |
+| --- | --- | --- | --- |
+| B.1 Capitalisation sélective | RACCORDÉ DET | extractKnowledgeProposals + maybeCapitalize ; unit e1-b1 | Autonomie qualification LIVE |
+| B.2 Arborescence | RACCORDÉ DET | same-turn parent/child PG ; reparent capitalisation+API ; **merge/split/detach via subjectOrganization** (E1-REL-01) | Pertinence cognitive naturelle → recette |
+| B.3 Synthèses/acquis | EXISTANT+EXERCÉ | summarize/capitalize/supersede paths ; intégrité refs (E1-REL-02) | Consolidation CampusNova-like → recette |
+| B.4 Points ouverts | RACCORDÉ DET | open/resolve PG ; **canonicalTitle** + shortTitle (E1-REL-04) | Accès UX E3 |
+| B.5 Décisions durables | RACCORDÉ DET | e1-ensemble-b5-b6 PG (record/revise/revoke/négatifs) | Reconnaissance naturelle → recette |
+| B.6 Trajectoire vivante | RACCORDÉ DET | propose/retain/open ; **forecastSteps conversationnel + RETAIN_VIS** (E1-REL-05) | Orientation naturelle → recette |
+| B.7 Réutilisation | RACCORDÉ DET | PREFERRED + omit marker PG ; outils D4 exposés | Mesure T08 / hybrid embedding → E2+recette |
+| B.8 Projections | RACCORDÉ DET | filterApplicableDecisions + library identity + shortTitle | DOM :3100 HTTP 500 tooling ; E3 multi-types |
+
+### E1-REL — matrice complément (2026-11-27)
+
+| ID | Exigence | État | Validation | Preuve restante |
+| --- | --- | --- | --- | --- |
+| E1-REL-01 | Réorganisation complète | IMPLEMENTED + DET PROVEN (merge) | e1-reliquats merge | Pertinence naturelle merge/split → recette |
+| E1-REL-02 | Intégrité D4 | IMPLEMENTED + DET PROVEN | invalid id, conflict, fence | — |
+| E1-REL-03 | Capitalisation réelle | IMPLEMENTED + VERIFIED BY INSPECTION | chaîne extract→D4 ; tests E1 | Conversation réelle → recette |
+| E1-REL-04 | Titre point ouvert | IMPLEMENTED + DET PROVEN | canonicalTitle PG + unit | Affichage DOM → recette/E3 |
+| E1-REL-05 | Trajectoire forecast+retain | IMPLEMENTED + DET PROVEN | forecast USER_MESSAGE ; RETAIN_VIS | Réorientation naturelle → recette |
+| E1-REL-06 | D6 complémentaire | VERIFIED BY INSPECTION + DET antérieur | e1-ensemble-b5-b6 | Actes naturels T07 → recette |
+| E1-REL-07 | Réutilisation D4 tools | VERIFIED BY INSPECTION + DET B.7 | tools exposés ; PREFERRED | Sélection naturelle → recette |
+| E1-REL-08 | Projections | VERIFIED BY INSPECTION | counters/identity/shortTitle code | DOM DEV bloqué tooling |
+| E1-REL-09 | Documentation | IMPLEMENTED | as-built + delivery + registre | Review Pack L3 |
 
 Un **Review Pack SFIA v2.6 FULL** est attendu lorsque le profil Critical est justifié ; `.tmp-sfia-review/chatgpt-review.md` reste la source mono-cycle, avec Review Handoff L3 distinct de l'historique produit Studio. Ne jamais considérer un résumé seul comme contenu complet des fichiers modifiés.
 

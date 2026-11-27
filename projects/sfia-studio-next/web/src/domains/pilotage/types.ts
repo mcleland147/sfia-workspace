@@ -116,6 +116,8 @@ export type ClassifiedCommand = {
   balanceNote: string;
   actInstanceId: string;
   objectRef: string;
+  /** E1-REL-05 — structured forecast from durable qualification (USER_MESSAGE) or body. */
+  forecastSteps?: ForecastStep[];
 };
 
 export type TrajectoryView = {

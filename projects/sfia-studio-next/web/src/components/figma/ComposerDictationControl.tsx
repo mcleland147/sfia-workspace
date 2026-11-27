@@ -7,13 +7,32 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 export type ComposerDictationControlProps = {
-  projectId: string;
+  projectId?: string;
+  preparationId?: string;
   draft: string;
   onDraft: (next: string) => void;
   disabled?: boolean;
   enabled?: boolean;
   onActiveChange?: (active: boolean) => void;
 };
+
+/** Project dictation wins over preparation when both ids are present (shared composer). */
+export function dictationApiBase(input: {
+  projectId?: string;
+  preparationId?: string;
+}): string | null {
+  if (input.projectId) {
+    return `/api/projects/${encodeURIComponent(input.projectId)}/dictation`;
+  }
+  if (input.preparationId) {
+    return `/api/preparations/${encodeURIComponent(input.preparationId)}/dictation`;
+  }
+  return null;
+}
+
+function dictationConversationKey(props: ComposerDictationControlProps): string {
+  return (props.projectId || props.preparationId || "dictation").slice(0, 120);
+}
 
 type UiPhase = "idle" | "requesting" | "listening" | "finalizing" | "error";
 
@@ -90,6 +109,10 @@ function figmaState(
 }
 
 export function ComposerDictationControl(props: ComposerDictationControlProps) {
+  const apiBase = useMemo(
+    () => dictationApiBase({ projectId: props.projectId, preparationId: props.preparationId }),
+    [props.projectId, props.preparationId],
+  );
   const [phase, setPhase] = useState<UiPhase>("idle");
   const [error, setError] = useState<string | null>(null);
   const [provisional, setProvisional] = useState("");
@@ -170,7 +193,7 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
   const enqueueAudio = useCallback(
     (pcmBase64: string) => {
       const sid = sessionIdRef.current;
-      if (!sid || captureStoppedRef.current) return;
+      if (!sid || captureStoppedRef.current || !apiBase) return;
 
       if (pendingUploadsRef.current >= AUDIO_QUEUE_MAX) {
         pendingUploadsRef.current = 0;
@@ -180,7 +203,7 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
         const overflowSid = sessionIdRef.current;
         if (overflowSid) {
           void fetch(
-            `/api/projects/${encodeURIComponent(props.projectId)}/dictation/sessions/${encodeURIComponent(overflowSid)}/cancel`,
+            `${apiBase}/sessions/${encodeURIComponent(overflowSid)}/cancel`,
             { method: "POST" },
           ).catch(() => undefined);
           sessionIdRef.current = null;
@@ -197,7 +220,7 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
           if (!sessionIdRef.current) return;
           try {
             const res = await fetch(
-              `/api/projects/${encodeURIComponent(props.projectId)}/dictation/sessions/${encodeURIComponent(sid)}/audio`,
+              `${apiBase}/sessions/${encodeURIComponent(sid)}/audio`,
               {
                 method: "POST",
                 headers: { "content-type": "application/json" },
@@ -210,10 +233,9 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
               stopMedia();
               const badSid = sessionIdRef.current;
               if (badSid) {
-                await fetch(
-                  `/api/projects/${encodeURIComponent(props.projectId)}/dictation/sessions/${encodeURIComponent(badSid)}/cancel`,
-                  { method: "POST" },
-                ).catch(() => undefined);
+                await fetch(`${apiBase}/sessions/${encodeURIComponent(badSid)}/cancel`, {
+                  method: "POST",
+                }).catch(() => undefined);
                 sessionIdRef.current = null;
               }
             }
@@ -226,22 +248,21 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
         })
         .catch(() => undefined);
     },
-    [failCapture, props.projectId, stopMedia],
+    [apiBase, failCapture, stopMedia],
   );
 
   const cancelSessionRemote = useCallback(
     async (sid: string | null) => {
-      if (!sid) return;
-      await fetch(
-        `/api/projects/${encodeURIComponent(props.projectId)}/dictation/sessions/${encodeURIComponent(sid)}/cancel`,
-        { method: "POST" },
-      ).catch(() => undefined);
+      if (!sid || !apiBase) return;
+      await fetch(`${apiBase}/sessions/${encodeURIComponent(sid)}/cancel`, {
+        method: "POST",
+      }).catch(() => undefined);
     },
-    [props.projectId],
+    [apiBase],
   );
 
   const startListening = useCallback(async () => {
-    if (props.disabled || props.enabled === false) return;
+    if (props.disabled || props.enabled === false || !apiBase) return;
     const gen = ++generationRef.current;
     setError(null);
     setPhase("requesting");
@@ -274,18 +295,15 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
       }
       mediaRef.current = stream;
 
-      const createRes = await fetch(
-        `/api/projects/${encodeURIComponent(props.projectId)}/dictation/sessions`,
-        {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({
-            baselineDraft: props.draft,
-            insertOffset: props.draft.length,
-            conversationKey: props.projectId,
-          }),
-        },
-      );
+      const createRes = await fetch(`${apiBase}/sessions`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          baselineDraft: props.draft,
+          insertOffset: props.draft.length,
+          conversationKey: dictationConversationKey(props),
+        }),
+      });
       if (aborted()) {
         stopMedia();
         const early = (await createRes.json().catch(() => null)) as {
@@ -317,7 +335,7 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
       sessionStartRef.current = Date.now();
 
       const es = new EventSource(
-        `/api/projects/${encodeURIComponent(props.projectId)}/dictation/sessions/${encodeURIComponent(created.sessionId)}/events`,
+        `${apiBase}/sessions/${encodeURIComponent(created.sessionId)}/events`,
       );
       esRef.current = es;
       es.onmessage = (msg) => {
@@ -450,7 +468,7 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
     props.disabled,
     props.enabled,
     props.draft,
-    props.projectId,
+    apiBase,
     stopMedia,
   ]);
 
@@ -473,7 +491,7 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
 
   const finalize = useCallback(async () => {
     const sid = sessionIdRef.current;
-    if (!sid || phase === "finalizing") return;
+    if (!sid || phase === "finalizing" || !apiBase) return;
     const gen = generationRef.current;
     setPhase("finalizing");
     captureStoppedRef.current = true;
@@ -481,10 +499,9 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
     try {
       await drainUploads();
       if (generationRef.current !== gen) return;
-      const res = await fetch(
-        `/api/projects/${encodeURIComponent(props.projectId)}/dictation/sessions/${encodeURIComponent(sid)}/finalize`,
-        { method: "POST" },
-      );
+      const res = await fetch(`${apiBase}/sessions/${encodeURIComponent(sid)}/finalize`, {
+        method: "POST",
+      });
       if (generationRef.current !== gen) return;
       const body = (await res.json()) as {
         ok?: boolean;
@@ -515,10 +532,11 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
     setPhase("idle");
     sessionStartRef.current = null;
     setElapsedMs(0);
-  }, [drainUploads, phase, props, stopMedia]);
+  }, [apiBase, drainUploads, phase, props, stopMedia]);
 
   const hasBaseline = shellActive && baselineSnapshot.trim().length > 0;
   const showConnexion = phase === "requesting";
+  const showWave = phase === "listening";
 
   const dataFigmaState = useMemo(
     () => figmaState(phase, provisionalHidden),
@@ -595,15 +613,17 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
             <span className="fig-dictation-elapsed" data-testid="dictation-elapsed">
               {formatElapsed(elapsedMs)}
             </span>
-            <div className="fig-dictation-wave" data-testid="dictation-wave">
-              {barHeights.map((h, i) => (
-                <span
-                  key={i}
-                  className="fig-dictation-bar"
-                  style={{ transform: `scaleY(${h})` }}
-                />
-              ))}
-            </div>
+            {showWave ? (
+              <div className="fig-dictation-wave" data-testid="dictation-wave">
+                {barHeights.map((h, i) => (
+                  <span
+                    key={i}
+                    className="fig-dictation-bar"
+                    style={{ transform: `scaleY(${h})` }}
+                  />
+                ))}
+              </div>
+            ) : null}
           </div>
 
           <button

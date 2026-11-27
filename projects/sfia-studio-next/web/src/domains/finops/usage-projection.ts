@@ -27,14 +27,23 @@ export function periodStartDate(periodDays: FinOpsPeriodDays, now = new Date()):
 export const HTTP_ATTEMPT_USAGE_UNKNOWN = "HTTP_ATTEMPT_USAGE_UNKNOWN";
 export const HTTP_ATTEMPT_CORRELATION_ONLY = "HTTP_ATTEMPT_CORRELATION_ONLY";
 
-/** HTTP attempt companion rows are correlation markers, not billable request increments. */
+/**
+ * HTTP attempt companion rows are correlation markers, not billable request increments.
+ * E2-REL-05 — require CORRELATION_ONLY (not USAGE_UNKNOWN alone) so a billable row
+ * that incorrectly carries USAGE_UNKNOWN is not silently dropped from cost totals.
+ */
 export function limitsJsonMarksHttpAttemptCorrelationOnly(
   limits: string[] | null | undefined,
 ): boolean {
   if (!limits?.length) return false;
-  return limits.some(
-    (l) => l === HTTP_ATTEMPT_USAGE_UNKNOWN || l === HTTP_ATTEMPT_CORRELATION_ONLY,
-  );
+  return limits.some((l) => l === HTTP_ATTEMPT_CORRELATION_ONLY);
+}
+
+/** True when the row is a correlation companion (may also carry USAGE_UNKNOWN). */
+export function isHttpAttemptCorrelationCompanion(row: {
+  limitsJson?: string[] | null;
+}): boolean {
+  return limitsJsonMarksHttpAttemptCorrelationOnly(row.limitsJson);
 }
 
 export function isBillableFinOpsObservationRow(row: {
@@ -47,6 +56,103 @@ export function filterBillableFinOpsRows<T extends { limitsJson?: string[] | nul
   rows: T[],
 ): T[] {
   return rows.filter(isBillableFinOpsObservationRow);
+}
+
+/**
+ * E2-REL-05 — single-row effective project attribution.
+ * Concordant / one-sided → that id. Conflict obs≠work → null (never invent).
+ */
+export function effectiveFinOpsProjectId(input: {
+  observationProjectId?: string | null;
+  workProjectId?: string | null;
+}): string | null {
+  const obs = input.observationProjectId?.trim() || null;
+  const work = input.workProjectId?.trim() || null;
+  if (obs && work && obs !== work) return null;
+  return work ?? obs ?? null;
+}
+
+/**
+ * Work-level attribution across a slice of observations.
+ * Any obs≠work conflict ⇒ null (do not invent / do not pick first).
+ * Work NULL + multiple distinct observation projects ⇒ null (contradictory).
+ */
+export function effectiveFinOpsProjectIdForWork(
+  workProjectId: string | null | undefined,
+  rows: Array<{ projectId?: string | null }>,
+): string | null {
+  const work = workProjectId?.trim() || null;
+  for (const r of rows) {
+    const obs = r.projectId?.trim() || null;
+    if (obs && work && obs !== work) return null;
+  }
+  return effectiveFinOpsProjectId({
+    observationProjectId: resolveObservedProjectId(rows),
+    workProjectId: work,
+  });
+}
+
+/**
+ * E2-FINAL-03 — true when the full (unfiltered) observation set for a work
+ * cannot be attributed to a single project without inventing a choice.
+ */
+export function isFinOpsWorkAttributionConflict(
+  workProjectId: string | null | undefined,
+  rows: Array<{ projectId?: string | null }>,
+): boolean {
+  if (rows.length === 0) return false;
+  return effectiveFinOpsProjectIdForWork(workProjectId, rows) === null &&
+    rows.some((r) => Boolean(r.projectId?.trim()));
+}
+
+/**
+ * Resolve a single projectId from observation rows without inventing attribution.
+ * Prefer work.projectId (caller). When falling back to observations:
+ * - zero projectIds → null (legitimate hors-projet)
+ * - one distinct projectId → that id
+ * - multiple distinct → null (do NOT pick the first; avoids cross-project contamination)
+ */
+export function resolveObservedProjectId(
+  rows: Array<{ projectId?: string | null }>,
+): string | null {
+  const ids = new Set<string>();
+  for (const r of rows) {
+    const id = r.projectId?.trim();
+    if (id) ids.add(id);
+  }
+  if (ids.size === 1) return [...ids][0]!;
+  return null;
+}
+
+/** Display label: never present UNVERIFIED/null applied as if it were the requested model. */
+export function finOpsModelDisplayLabel(input: {
+  modelApplied?: string | null;
+  modelRequested?: string | null;
+}): string | null {
+  const applied = input.modelApplied?.trim() || null;
+  const requested = input.modelRequested?.trim() || null;
+  if (applied && applied !== "UNVERIFIED" && applied !== "inconnu") return applied;
+  if (requested) return `${requested} (demandé)`;
+  if (applied === "UNVERIFIED") return "non vérifié";
+  return null;
+}
+
+/** Subtext under « Couverture mesure » — avoids 100 % / 0 % estimation mismatch without lying. */
+export function finOpsMeasureCoverageSubtext(kpis: {
+  totalRequests: number;
+  measuredRequests: number;
+  estimationCompletenessPercent: MeasuredValue<number>;
+}): string {
+  if (kpis.totalRequests <= 0) return "Requêtes non recensées";
+  const observed = `${formatIntegerFr(kpis.measuredRequests)} / ${formatIntegerFr(kpis.totalRequests)} requêtes recensées`;
+  const est = kpis.estimationCompletenessPercent;
+  if (est.kind === "partial" && est.value === 0) {
+    return `${observed} · coûts entièrement PARTIAL ou inconnus`;
+  }
+  if (est.kind === "known" || est.kind === "partial") {
+    return `${observed} · estimation connue ${est.value} %`;
+  }
+  return observed;
 }
 
 export function sumBillableProviderRequests(
