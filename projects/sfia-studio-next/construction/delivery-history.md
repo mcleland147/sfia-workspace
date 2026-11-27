@@ -3,6 +3,17 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML1-ML2-HANDOFF-REGULARIZATION
+
+- **date_utc**: 2026-11-27T07:05Z
+- **lane**: DEV — Handoff FULL regularization (code + BUILD)
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD**: `14cfa4e2`
+- **BUILD_ID**: `kZ2BQGAn9NHhPNqh4kZnT`
+- **corrections**: CONCUR-01 advisory lock · FINOPS-KEY-01 attemptId UUID
+- **motif**: REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING
+- **statut**: FULL pack republished · no LIVE · RECETTE protected
+
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML1-ML2-CONSOLIDATION-FOLLOWUP
 
 - **date_utc**: 2026-11-27T07:56Z
