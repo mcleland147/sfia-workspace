@@ -3,7 +3,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date / version | 27 novembre 2026 — v0.1, état d'entrée après revue de la reprise |
+| Date / version | 27 novembre 2026 — v0.2, revue E1 du handoff d08fc94e |
 | Nature | Suivi opérationnel documentaire D1, non normatif, non mergé ; ne remplace ni Roadmap, ni registre de couverture ML5, ni Delivery History, ni contrats |
 | Mandat | GO explicite Morris du 27/11 pour créer ce document sur Git et le maintenir à chaque revue Cursor ; cinq ensembles et revues intermédiaires approuvés |
 | Autorités | Morris arbitre les réserves et gates ; ChatGPT tient ce suivi et revoit ; Cursor construit et fournit les preuves |
@@ -11,7 +11,7 @@
 | Git | main `997897fd7cf914771e7d08e8030dc7123fab7d25` ; branche documentaire candidate `docs/next-openai-studio-convergence-20261126`, base avant création `f6cfd5ac01f848f6708501e1a390f37243721ab9` |
 | DEV | Branche locale rapportée `sfia/next-ml5-integrated-delivery-20261123` @ `58ca9486003805f74e69a0842f2c0792a7184437`, worktree dirty rapporté ; état local NON OBSERVÉ directement par ChatGPT ; :3100 / PG :5433 rapportés |
 | RECETTE protégée | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` / BUILD `rpEczSp61evIZ7d6fnIWR` / PG :5434 schéma 027, :3200 ; MaintiPlan suspendu après T08 ; WEB et Admin OFF |
-| Gate courant | NOT READY pour qualification LIVE ; GO Morris ensemble 1 en DEV uniquement, sous contrat Cursor distinct. Aucun GO commit projet, LIVE, cutover, PR, merge ou adoption |
+| Gate courant | NOT READY pour qualification LIVE et exit E1 ; complément ciblé E1 recommandé, soumis à GO Morris ; E2 non engagé. Aucun GO commit projet, LIVE, cutover, PR, merge ou adoption |
 
 ## 1. Objectif et sources
 
@@ -33,7 +33,7 @@ Les états ci-dessous sont des états de suivi, non des statuts de maturité SEF
 
 | Ensemble | Périmètre et résultat | État au 27/11 | Dépendances / sortie |
 | --- | --- | --- | --- |
-| E1 Continuité cognitive et fonctionnelle | B.1–B.8 ; D3/D4/D5/D6, données/projections ; Journal et réutilisation | GO Morris, mandat à exécuter | Contrats propriétaires + socle A existant ; preuves déterministes et navigateur ciblées ; passage E2 après revue |
+| E1 Continuité cognitive et fonctionnelle | B.1–B.8 ; D3/D4/D5/D6, données/projections ; Journal et réutilisation | REVU — acquis DET ciblés, exit incomplet ; complément E1 recommandé | §9 ci-dessous ; passage E2 après revue et gate Morris |
 | E2 Garanties cognitives résiduelles | A.1–A.7, intégration multi-intentions, reprise, recherche hybride, OBS/FinOps | À FAIRE (acquis antérieurs conservés) | Interfaces E1 ; risques d'autorité critiques signalés immédiatement ; calibration préparée, pas de LIVE |
 | E3 Conformité UX et panneau droit | D.1–D.6 ; projections et accès directs ; Figma | À FAIRE | Données E1, états E2 ; navigateur réel DEV simulé fournisseur |
 | E4 Audio et compositeur | C.1–C.5 | À FAIRE | Interfaces E2/E3 ; transport et robustesse DET ; dictée LIVE gate |
@@ -41,7 +41,7 @@ Les états ci-dessous sont des états de suivi, non des statuts de maturité SEF
 
 Séquence approuvée ; parallélisme uniquement après qualification explicite des interfaces/fichiers, intégrateur et tests communs. Revue ChatGPT après chaque ensemble avant de poursuivre le suivant dépendant. Pas de nouveau mandat général de rattrapage par défaut. Un blocage propriétaire partagé est instruit au plus tôt, pas repoussé mécaniquement.
 
-## 3. Registre des 26 sous-ensembles (état indépendant initial)
+## 3. Registre des 26 sous-ensembles (état indépendant courant)
 
 | ID | Responsable | Acquis rapporté / preuve publiée | Reliquat obligatoire |
 | --- | --- | --- | --- |
@@ -52,14 +52,14 @@ Séquence approuvée ; parallélisme uniquement après qualification explicite d
 | A.5 | E2 | Helper terminal, IDLE corrigé après assemblage | Vérifier états/effets réels et travail restant, tests finaux et diff exact |
 | A.6 | E2 | Restitution améliorée, PARTIAL déclaré | Corrélation message/travail/segment/requête/capacité/effet/usage ; activité spécifique réelle |
 | A.7 | E2 | Filtre billable, attribution et couverture | Calculs/populations, estimations vs facturation, cache, finalisation, attribution projet, réconciliation fournisseur LIVE |
-| B.1 | E1 | maybeCapitalizeFromExchange et zéro proposition | Qualification apports Pilote ET résultats Nora, mutations sélectives, reprise et preuve source→effet |
-| B.2 | E1 | parentSubjectId, test PG enfant d'un parent précréé | Parent+enfant dans même travail, opérations de réorganisation accessibles à Nora, liens/provenance, invalides, autonomie LIVE |
-| B.3 | E1 | Structures et révisions existantes | Synthèses à jour, consolidation acquis, contradictions, historique/provenance, référence message exact, pas de faux fait |
-| B.4 | E1 | PG résolution factuelle + projection | Cycle de vie complet, rattachement, rapprochement, titre court canonique, refus de résolution gouvernée, historique |
-| B.5 | E1 | D6 existant, déclaré HORS P2 à tort | Arbitrage local/durable, GO, restriction/révocation, autorité, provenance, négatifs ; intégrer D6 sans dupliquer |
-| B.6 | E1 | Libellés améliorés, objectif displayable | Trajectoire envisagée/retenue évolutive, finalité contextualisée, liens acquis/points, CKI, enum résiduel, un cycle actif |
-| B.7 | E1 | Outils D4 et trim A.4 | Sélection/lecture et réutilisation réelle de sujets, références et versions ; fraîcheur/reprise ; trace et mesure LIVE |
-| B.8 | E1 | Compteur doc identité, points OPEN | Compteurs sujets/décisions/doc PG→API→DOM, cohérence 4 surfaces, rafraîchissement ; E3 propriétaire du panneau UX et consultations |
+| B.1 | E1 | 6 units extraction/sélectivité ; intégration appelle D4 directement | PARTIEL : résultat Nora réel du travail→qualification→mutation, messages/source réels, fence/reprise ; LIVE naturel distinct |
+| B.2 | E1 | Batch parent/enfant même tour par titre/intent ; PG isolation parent ; rename/reparent raccordés en code | PARTIEL : merge/split non raccordés, détachement racine à vérifier, tests réorganisation via capitalisation (test intégré appelle reparent direct), provenance, fence/concurrence et résolution de cibles non ambiguë ; LIVE |
+| B.3 | E1 | Création synthèse/acquis dans scénario PG | PARTIEL : pas de preuve discriminante consolidation/supersede/contradiction et accès message exact ; risque subjectId réutilisé après cible invalide ou titre contradictoire ; tests négatifs |
+| B.4 | E1 | PG ouverture/résolution directe et compteur ; shortTitle exposé | PARTIEL : shortTitle = editorialDisplayBullet(statement,72), pas de titre canonique qualifié ; raccord résolution depuis proposition, rapprochement, refus gouverné, source et rattachement exact ; E3 liens/UX |
+| B.5 | E1 | PG record, revise/replay, dialogue/recommandation et ambiguïté négatifs ; révocation propriétaire | ACQUIS DET CIBLÉ : compléter cas T07, arbitrage local utile, portée/restrictions/citation hostile et révocation conversationnelle si applicable ; LIVE compréhension |
+| B.6 | E1 | PROPOSE/RETAIN conversationnels, GO ouverture/finalité et Figma dialogue no-op PG | PARTIEL : forecastJson absent binding USER_MESSAGE, modification des étapes testée commande directe ; PROPOSED source encore courant après RETAIN ; liens D4/CKI et historique, projection ; LIVE naturel |
+| B.7 | E1 | PG sélection PREFERRED et omit marker + isolation ; fallback lexical flag OFF unit | PARTIEL : test n'exerce pas lecture D4 depuis conducteur, référence/version réelle, fraîcheur/reprise froide ; hybrid derivedUsed=false E2 ; LIVE pertinence/mesure |
+| B.8 | E1 | PG compteurs et Journal décisions, supersede APPLICABLE only | PARTIEL : PG→service, pas API→DOM ; vérifier portée/autorisations consommées/historique, V1→V2 réel, 4 surfaces ; DEV HTTP500, alternative qualify:start à exercer ; E3 visuel |
 | C.1 | E4 | NoraSharedComposer créé, sas/projet | Mutualisation réelle des interactions (deux branches textarea), contexte distinct |
 | C.2 | E4 | Saisie auto-grow et brouillons rapportés | Clavier, taille, navigation, isolation, mobile, pas d'envoi involontaire |
 | C.3 | E4 | Routes prep dictée, guards | Transport réel et diagnostic timeout LIVE ; droits/identité/finalisation DET |
@@ -81,17 +81,17 @@ Tous OPEN en RECETTE. État de construction/probatoire seulement, priorités du 
 | --- | --- | --- | --- |
 | 01 Micro sas | E4 | ACQUIS CIBLÉ navigateur | Préserver et vérifier compositeur commun et accessibilité |
 | 02 Compositeur extensible | E4 | PARTIEL | Mutualisation, clavier, brouillons |
-| 03 Points ouverts | E1 | PARTIEL | Cycle de vie et projections ; E3 accès directs |
+| 03 Points ouverts | E1 | PARTIEL — PG acquis ciblé | Raccord résolution, titre canonique, rattachement/rapprochement, projections ; E3 accès directs |
 | 04 Animation | E3 | PARTIEL | Preuve dynamique sur état final |
 | 05 Lisibilité | E3 | PARTIEL | Comparaisons avant/après, typographie |
 | 06 Dictée | E4 | GATE LIVE + DET PARTIEL | Transport, erreurs, reprise ; Realtime distinct |
 | 07 Onde audio | E4 | ACQUIS CIBLÉ unit | Préserver et vérifier signal réel |
 | 08 Panneau droit | E3 | MANQUANT/PARTIEL | Récents multitypes, accès direct/version/droits, Figma ; E1 données points |
 | 09 Multi-intentions | E2 | PARTIEL | PG nominal acquis, négatifs/dépendances/reprise ; LIVE naturel |
-| 10 Continuité | E1 | MANQUANT/PARTIEL | B.1–B.7, preuve autonome LIVE ultérieure |
+| 10 Continuité | E1 | PARTIEL — création hiérarchique PG acquise | B.1–B.7 résiduels §9 ; preuve autonome LIVE ultérieure |
 | 11 Restitution/activité | E2 | PARTIEL | OBS réelle ; E3 restitution UX |
-| 12 Trajectoire | E1 | MANQUANT/PARTIEL | Évolution D5 et finalité, projections |
-| 13 Compteurs | E1 | PARTIEL | Documents acquis ciblé, sujets/décisions + API/DOM |
+| 12 Trajectoire | E1 | PARTIEL — PROPOSE/RETAIN/OPEN PG acquis | Forecast conversationnel, projection retenu/proposé, liens D4/CKI, navigateur |
+| 13 Compteurs | E1 | PARTIEL — PG compteurs améliorés | Portée D6, V1→V2 et PG→API→DOM, 4 surfaces |
 | 14 Performance | E2 | GATE LIVE + DET à vérifier | T08 909844 tokens / 6 segments / 13m33 ; 40 observations ≠ 40 HTTP ; qualité comparable |
 | 15 Allocation | E2 | GATE LIVE | Admission DET acquise ciblée, calibration et politique |
 | 16 FinOps | E2 | GATE LIVE + DET à vérifier | Calculs/attribution, coût estimé ≠ facturé |
@@ -104,23 +104,23 @@ Exigences complémentaires non négociables : arborescence dynamique, qualificat
 | # | Oracle | Responsable / intégration | État initial / preuve restant à obtenir |
 | --- | --- | --- | --- |
 | 1 | Exploration → création | E1/E5 | Tests historiques ; identité/rattachement bout en bout |
-| 2 | Hiérarchie | E1 | PG parent précréé ; parent+enfant, reprise, LIVE naturel |
-| 3 | Réorganisation | E1 | reparent historique cité ; raccordement, invariants, provenance, LIVE |
-| 4 | Apport Pilote + investigation Nora | E1 | Partiel ; corrélation source→mutation et LIVE |
+| 2 | Hiérarchie | E1 | PG parent+enfant même batch PASS ; reprise/fence et LIVE naturel |
+| 3 | Réorganisation | E1 | Raccord rename/reparent code, test PG reparent direct ; merge/split et provenance/reprise à exercer, LIVE |
+| 4 | Apport Pilote + investigation Nora | E1 | Unit propositions injectées ; appel direct D4 intégré ; corrélation résultat réel/source→mutation non démontrée, LIVE |
 | 5 | Correction acquis | E1 | Tests historiques cités ; consolidation/version/historique à exercer |
 | 6 | Résolution question | E1/E3 | PG résolution acquis ciblé ; négatifs et vues synchronisées |
-| 7 | Arbitrage local vs durable | E1/E2 | D6 préservé mais couverture insuffisante ; actes et négatifs |
+| 7 | Arbitrage local vs durable | E1/E2 | D6 PG record/revise/replay/revoke et ambiguïté/dialogue ; cas T07 et portée/restrictions à compléter, LIVE |
 | 8 | Demande combinée | E2/E1 | PG nominal ; dépendances, reprise, LIVE T05/T06 |
-| 9 | Réorientation Figma | E1 | Partiel ; D5 persistant et négatifs, LIVE naturel |
-| 10 | Finalité cycle | E1 | Affichage partiel ; liens D4 et méthode |
-| 11 | Compteurs | E1 | Doc identité unit ; PG→API→DOM tous compteurs |
+| 9 | Réorientation Figma | E1 | PG orientation proposée, dialogue no-op ; forecast conversationnel et RETAIN projection incomplets, LIVE |
+| 10 | Finalité cycle | E1 | PG objectif contextualisé ; liens D4 et méthode/CKI non démontrés, DOM |
+| 11 | Compteurs | E1 | PG ctx + Journal décisions PASS ; V1→V2 et API→DOM à exercer |
 | 12 | 5 consultations multitypes | E3 | Manquant ; 6 ressources, revisite/version/droits/reprise |
-| 13 | Points panneau | E1/E3 | PG OPEN ; titre et lien exact, vue réactualisée |
+| 13 | Points panneau | E1/E3 | PG OPEN + identités ; titre dérivé éditorial ≠ titre canonique ; accès exact/DOM E3 |
 | 14 | Navigation et interruption | E1/E3/E5 | Partiel ; 4 surfaces, fraîcheur/reprise |
-| 15 | Réutilisation longue | E1/E2 | Trim unit ; lectures réelles, corpus comparable LIVE |
-| 16 | V1→V2 MaintiPlan T09 | E1/E2/E5 | T09 non envoyé ; DET analogue DEV puis GO RECETTE distinct |
-| 17 | Échange sans apport | E1 | Zéro proposition cité ; négatif et absence d'appel superflu |
-| 18 | Isolation / échec | E1/E2/E5 | Tests historiques ; droits, concurrence, reprise et effets non persistés |
+| 15 | Réutilisation longue | E1/E2 | PG PREFERRED+omit ; lecture réelle D4, sources/versions, fraîcheur, reprise ; corpus comparable LIVE |
+| 16 | V1→V2 MaintiPlan T09 | E1/E2/E5 | Compteur bibliothèque ≠ révision contextualisée ; analogue DEV à exercer, T09 non envoyé |
+| 17 | Échange sans apport | E1 | Extraction zéro et retour D4 vide PASS ciblés ; vérifier aucune écriture/appel superflu sur conducteur |
+| 18 | Isolation / échec | E1/E2/E5 | PG parent étranger et hints étrangers refusés ; cible sujet/acquis invalide, fence, concurrence, reprise à compléter |
 
 ## 6. Parcours transverses du mandat initial (25)
 
@@ -185,10 +185,41 @@ Réserves historiques ENV-01 cookies/PG localhost trust et identité org/projet 
 | 27/11 | Diagnostic f6999c97 | Causes partielles ; Option C et macro-lot intégré approuvés |
 | 27/11 | adad5b06 / cac70a87 / 9897b91d | Acquis initiaux ; NOT READY ; pack incomplet, S08/S05 à instruire ; GO reprise |
 | 27/11 | e6ab1ab2 / 14177ee1 | S08/S05 régression A.4 corrigée, PG nominal, build PASS rapporté ; revue indépendante NOT READY, continuité et UX incomplètes ; GO Morris cinq ensembles et suivi D1 |
-| 27/11 | Présent document | E1 à lancer sous Cycle 8 Critical DEV ; aucun nouveau statut de maturité |
+| 27/11 | 6a211aea | Création suivi v0.1 ; E1 lancé sous Cycle 8 Critical DEV |
+| 27/11 | a97145b1 / d08fc94e | E1 58 PASS ciblés (20 PG), 7 PG rejoués rapportés ; revue ChatGPT NOT READY exit E1 ; réserves non acceptées ; complément ciblé recommandé |
 
-Prochaine revue : E1 B.1–B.8. Vérifier code/propriétaires, 18 oracles concernés, preuves de raccordement et tests négatifs ; préserver l'existant ; aucune réécriture gratuite. Les exigences de réutilisation/hiérarchisation naturelle restent à qualifier LIVE mais leur raccordement déterministe doit être complet avant. E2 ensuite, selon revue et gate Morris. Aucun GO LIVE, candidat RECETTE, reprise T09 ou acceptation Livraison 1 implicite.
+Prochaine action recommandée : complément ciblé E1 (§9), sous GO Morris ; pas de troisième reprise générale. Préserver les acquis DET. E2 ensuite, selon revue et gate Morris. Aucun GO LIVE, candidat RECETTE, reprise T09 ou acceptation Livraison 1 implicite.
 
 Trajectoire finale : E1→E2→E3→E4→E5 (revues intermédiaires) → arbitrage réserves et GO LIVE borné → qualification LIVE → GO candidat et cutover RECETTE distincts → rejeu ciblé 17 MP → reprise T09 jusqu'au seuil de réalisation → gate Livraison 1 → Livraison 2 sous mandat distinct.
 
 Morris décide ; ChatGPT prépare, revoit et tient le suivi ; Cursor exécute ; Git trace.
+
+
+## 9. Revue indépendante E1 — 27/11/2026
+
+[Handoff final E1](https://github.com/mcleland147/sfia-workspace/blob/d08fc94e1619c5593fa65188e1e3dd091fa326ba/sfia-review-handoff/latest-chatgpt-review.md), blob `7c05e3d508b5cc35584433478dc7e0685ffb9029`, 3677 lignes. Handoff distant vérifié ; 58 tests ciblés sur 9 fichiers dont 20 PG, exit 0 rapporté (§17–18). Handoff §16 diff de référence mélange aussi des changements MP09 précédents ; état local intégral NON OBSERVÉ. Pas de nouveau build/lint final E1 publié ; tsc global non vert, caractère préexistant rapporté mais comparaison non fournie ; DEV :3100 HTTP500 ; RECETTE préservée selon Cursor. Dossier §22 annonce modifications registre/Delivery History dont le contenu exploitable n'apparaît pas dans §16 ; vérifier aussi contenu complet des nouveaux tests, delta final et empreinte. REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING pour les modifications documentaires non publiées. Nouveau as-built présent. Aucun nouveau commit projet ni effet LIVE autorisé.
+
+### 9.1 Reliquats E1 à traiter avant proposition de gate
+
+| Action | Constat et preuve | Exit attendu |
+| --- | --- | --- |
+| E1-REL-01 Réorganisation complète | §25 R-E1-MERGE : merge/split API UI seulement ; contrat §6.1 les prévoit pour Nora. Rename/reparent raccordés mais test intégré L~1058 appelle reparent direct. | Raccorder les opérations propriétaires compatibles, détachement racine si prévu ; preuves via qualification/capitalisation, conservation liens/historique/provenance, négatifs et reprise. Arbitrage seulement si véritable changement de modèle/autorité. |
+| E1-REL-02 Intégrité D4 | §16 knowledge/service.ts : precreateBatchSubjects continue si subjectId explicite invalide, peut créer un autre sujet ; parentRef=self filtré ; subjectId partagé entre propositions et échec assertSubjectRef non explicitement refusé pour ACQUIS/OPEN_POINT ; titre peut écraser id ; reparent/rename appels sans fence visible ; résultats succès après rename FAILED potentiels. Risques à confirmer, pas incidents observés. | Tests cible invalide/étrangère, titre ambigu/conflit id, échec parent, dépendances, perte ownership avant chaque effet, reprise et résultat exact ; corriger défauts confirmés sans pivot. |
+| E1-REL-03 Capitalisation et connaissance | §15/30 tests injectent propositions ou appellent propriétaire directement ; unit Nora result teste extraction epistemic ; scénario intégré utilise newId msg non créé dans test, pas de preuve message exact ni consolidation/supersede, pas de résolution via conducteur. | Parcours service D3 avec adapter déterministe contrôlé, résultats USER/Nora et références réellement persistées, zéro écriture, correction acquis/consolidation et résolution sourcée, historique et négatifs. |
+| E1-REL-04 Titre point ouvert | §15 openPointShortTitle = editorialDisplayBullet(statement,72) ; §6.2 contrat demande titre canonique, pas simple troncature. | Vérifier mécanisme éditorial réel, mobiliser titre court qualifié durable dans contrat existant, compatibilité historique ; E3 affiche/navigation. |
+| E1-REL-05 Trajectoire | R-E1-FORECAST-CONV : forecastJson absent du binding durable conversationnel. Test de future steps appelle executePilotageCommand direct. R-E1-RETAIN-VIS : test accepte PROPOSED source et RETAINED même orientation. | Préserver historique, une projection courante non ambiguë, nouvelle proposition distincte si évolution ; prévisions structurées issues de qualification durable, pas de body client libre ; test conversationnel PROPOSE→RETAIN→réorientation avec étapes, liens D4 et finalité/CKI ; soumettre arbitrage si changement normatif réel. |
+| E1-REL-06 D6 | PG record/revise/replay et négatifs ciblés acquis ; revoke direct ; T07 et portée/référence/restrictions non exhaustifs. | Compléter tests D6 applicables et D4 référence sans autorité concurrente ; compteur conforme états/portée. |
+| E1-REL-07 Réutilisation | §21/annexe PG sélection PREFERRED+omit et isolation, pas appel outil D4 via conducteur, pas preuve fraîcheur/reprise/version exacte. | Exercer lecture ciblée de connaissance et source/version/message exact, reprise et nouvel acquis sur chaîne DET ; hybrid diagnostic transverse E2, LIVE mesure séparée. |
+| E1-REL-08 Projections/qualité | PG→ctx acquis ; pas DOM, DEV 500 ; alternative qualify:start connue mais non exécutée. V1→V2 analogue non démontré. | Rétablir DEV par chemin existant autorisé, preuve E1 4 surfaces et compteurs V1/V2, refresh/reprise ; F2 général E3. Build/lint/tsc E1 et non-régression S08/S05/MP09 selon impact, résultats exacts. |
+| E1-REL-09 Dossier | §22/16 docs modifiés sans diff publié ; pack assemblage/delta final à réconcilier. | Diff documentaire et code complet E1, preuves et couverture par fichier, relecture distante ; préserver as-built et traces précédentes. |
+
+### 9.2 Réserves proposées et gate
+
+- R-E1-LIVE : légitime comme preuve hors mandat ; aucune autonomie Nora revendiquée. Réserve proposée, non acceptée.
+- R-E1-EMB : E2 pour recherche hybride/mesure T08 ; fallback flag OFF ne résout pas échec hybrid flag ON. Ne pas bloquer E1 si chemin propriétaire utilisable et prouvé. Non acceptée.
+- R-E1-NAV : HTTP500 n'est pas preuve DOM ; distinguer remise en service et parcours fonctionnels E1 de la qualification graphique E3. À traiter E1 dans la mesure autorisée, sinon arbitrage tooling documenté.
+- R-E1-MERGE, R-E1-FORECAST-CONV : fonctionnalités explicitement prévues ; pas des réserves LIVE. À compléter ou arbitrage technique précis si frontière réelle.
+- R-E1-RETAIN-VIS : préserver historique et distinguer projection actuelle/historique ; ne pas inventer état SUPERSEDED ni modifier D5 sans qualifier mécanisme existant. À traiter.
+- R-E1-TSC : tsc global FAIL ; preuve comparative manquante. E5 intégration globale, E1 vérifie son delta et les non-régressions directement affectées.
+
+Verdict indépendant : acquis DET ciblés, E1 PARTIEL / NOT READY pour passage E2. Toutes réserves non acceptées à cette date. Aucun nouveau gate produit. Recommandation : un complément E1 borné aux neuf reliquats ci-dessus, sous GO Morris ; pas de réécriture des 58 tests ni de réouverture des autres axes. E2/E3/E4/E5 restent À FAIRE.
