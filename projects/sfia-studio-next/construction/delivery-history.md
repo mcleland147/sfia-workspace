@@ -8,6 +8,8 @@
 - **model**: gpt-live-transcribe
 - **ML2 residuals**: rights/fp · journal identity · queryVector reuse · FinOps emission attemptIds
 - **LIVE audio**: plan prepared — NOT EXECUTED
+- **BUILD_ID**: 
+- **digest**: 
 - **flag**: SFIA_COMPOSER_DICTATION default OFF
 - **RECETTE**: protected · WEB OFF · Macro-lots 1–3 construction complete (pending Morris)
 
