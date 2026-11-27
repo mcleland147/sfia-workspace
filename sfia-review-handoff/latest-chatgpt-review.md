@@ -11,8 +11,9 @@
 **Classe produit:** NO RELEASE
 **Verdict (pack):** **READY WITH RESERVES** — construction DEV reprise complete at declared DET level; LIVE gates explicit.
 **Handoff publish:** **HANDOFF UPDATED — REMOTE VERIFIED**
-**Remote tip:** `d240b386e0d38bf3f37140225dd1c3bdad61ebcd`
-**Remote blob:** `59f29541ce3d968d6cbf0dbc8d65ebb933e56da9`
+**Remote branch:** `sfia/review-handoff`
+**Canonical file:** `sfia-review-handoff/latest-chatgpt-review.md`
+**ChatGPT must verify tip via `git ls-remote` / fetch — do not trust an embedded tip SHA that may lag one publish hop.**
 **Commit message:** `review(next): complete integrated corrective delivery and verification`
 
 ---
