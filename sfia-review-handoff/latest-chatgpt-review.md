@@ -2287,8 +2287,17 @@ R5 IN PROGRESS · ML5 OPEN · Lots 2/3 non engagés · RECETTE protégée · R6 
 
 ---
 
-## 14. Handoff publication (à compléter après push L3)
+## 14. Handoff publication
 
-Message: `docs(review-handoff): publish provider foundation exit completion`
-Branche: `sfia/review-handoff`
-Fichier: `sfia-review-handoff/latest-chatgpt-review.md`
+| Champ | Valeur |
+|---|---|
+| Message | `docs(review-handoff): publish provider foundation exit completion` |
+| Branche | `sfia/review-handoff` |
+| Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Handoff remote before | `1485aa9206d3d30fd7becc4f240f72a377e1aa2e` (puis correction `484f256c` erronée) |
+| Handoff remote after | `8b6b34a436ec07bc6d766dea6e5bdd8f9bd260d6` |
+| Contenu SHA256 | `522aaa301c294ba5e36dc22d80e4d478d57536d6fbe08b758261ec5e9f2d09a3` |
+| Push | done · fast-forward |
+| Remote verification | yes · identité contenu locale = distante |
+| Retour branche projet | yes · `sfia/next-ml5-integrated-delivery-20261123` @ `4a4ff3f1` |
+| Note | Première publication `484f256c` a poussé un fichier /tmp obsolète ; republication corrective `8b6b34a4` avec pack FULL 2294 lignes |
