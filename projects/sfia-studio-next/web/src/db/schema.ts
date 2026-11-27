@@ -1228,4 +1228,4 @@ export const providerAdminUsageSnapshots = pgTable(
   ],
 );
 
-export const schemaRevision = "024_provider_admin_snapshot_provenance";
+export const schemaRevision = "025_provider_admin_security_and_canon";

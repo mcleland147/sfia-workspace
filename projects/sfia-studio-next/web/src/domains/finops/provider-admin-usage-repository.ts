@@ -162,7 +162,8 @@ export async function upsertAdminSnapshotsPg(
         ON CONFLICT (
           source_endpoint, surface_object, organization_scope,
           interval_start_utc, interval_end_utc, granularity,
-          project_id, api_key_id, user_id, model, line_item, api_source
+          project_id, api_key_id, user_id, model, line_item, api_source,
+          collection_provenance
         )
         DO UPDATE SET
           collected_at = EXCLUDED.collected_at,
@@ -175,8 +176,7 @@ export async function upsertAdminSnapshotsPg(
           amount = EXCLUDED.amount,
           currency = EXCLUDED.currency,
           completeness = EXCLUDED.completeness,
-          schema_version = EXCLUDED.schema_version,
-          collection_provenance = EXCLUDED.collection_provenance
+          schema_version = EXCLUDED.schema_version
         WHERE
           NOT (
             provider_admin_usage_snapshots.completeness = 'complete'

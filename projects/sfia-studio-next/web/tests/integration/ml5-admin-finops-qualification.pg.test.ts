@@ -226,49 +226,80 @@ describe("Admin/FinOps PG qualification", () => {
     expect(rec.deltaUsd).toBe("0.0600000000");
   });
 
-  it("finops reader role cannot INSERT snapshots", async () => {
+  it("finops reader role cannot INSERT snapshots (SET ROLE, no password)", async () => {
     const url = process.env.DATABASE_URL;
     if (!url) throw new Error("DATABASE_URL missing");
-    const u = new URL(url);
-    u.username = "sfia_finops_reader_login";
-    u.password = "sfia_dev_finops_read_only";
-    const reader = postgres(u.toString(), { max: 1 });
+    const sql = postgres(url, { max: 1 });
     try {
-      let refused = false;
+      await sql`SET ROLE sfia_finops_reader`;
+      let sqlstate: string | null = null;
       try {
-        await reader`
+        await sql`
           INSERT INTO provider_admin_collection_runs (
             collection_id, started_at, status, path, organization_scope, collection_provenance
           ) VALUES (
             'acol_should_fail', now(), 'READY', '/organization/costs', 'org:x', 'LIVE'
           )
         `;
-      } catch {
-        refused = true;
+      } catch (e: unknown) {
+        sqlstate =
+          e && typeof e === "object" && "code" in e
+            ? String((e as { code: string }).code)
+            : "ERR";
       }
-      expect(refused).toBe(true);
+      await sql`RESET ROLE`;
+      // 42501 insufficient_privilege
+      expect(sqlstate).toBe("42501");
     } finally {
-      await reader.end({ timeout: 1 });
+      await sql.end({ timeout: 1 });
     }
   });
 
-  it("collector role cannot SELECT pilots (business tables)", async () => {
+  it("collector role cannot SELECT pilots (SET ROLE, no password)", async () => {
     const url = process.env.DATABASE_URL;
     if (!url) throw new Error("DATABASE_URL missing");
-    const u = new URL(url);
-    u.username = "sfia_admin_collector_login";
-    u.password = "sfia_dev_collector_only";
-    const collector = postgres(u.toString(), { max: 1 });
+    const sql = postgres(url, { max: 1 });
     try {
-      let refused = false;
+      await sql`SET ROLE sfia_admin_collector`;
+      let sqlstate: string | null = null;
       try {
-        await collector`SELECT id FROM pilots LIMIT 1`;
-      } catch {
-        refused = true;
+        await sql`SELECT id FROM pilots LIMIT 1`;
+      } catch (e: unknown) {
+        sqlstate =
+          e && typeof e === "object" && "code" in e
+            ? String((e as { code: string }).code)
+            : "ERR";
       }
-      expect(refused).toBe(true);
+      await sql`RESET ROLE`;
+      expect(sqlstate).toBe("42501");
     } finally {
-      await collector.end({ timeout: 1 });
+      await sql.end({ timeout: 1 });
+    }
+  });
+
+  it("collector role CAN insert snapshot then reader CAN select (positive grant)", async () => {
+    const url = process.env.DATABASE_URL;
+    if (!url) throw new Error("DATABASE_URL missing");
+    const sql = postgres(url, { max: 1 });
+    const cid = `acol_role_ok_${Date.now()}`;
+    try {
+      await sql`SET ROLE sfia_admin_collector`;
+      await sql`
+        INSERT INTO provider_admin_collection_runs (
+          collection_id, started_at, status, path, organization_scope, collection_provenance
+        ) VALUES (
+          ${cid}, now(), 'READY', '/organization/costs', 'org:role-ok', 'TEST_SUBSTITUTED'
+        )
+      `;
+      await sql`RESET ROLE`;
+      await sql`SET ROLE sfia_finops_reader`;
+      const rows = await sql`
+        SELECT collection_id FROM provider_admin_collection_runs WHERE collection_id = ${cid}
+      `;
+      await sql`RESET ROLE`;
+      expect(rows.length).toBe(1);
+    } finally {
+      await sql.end({ timeout: 1 });
     }
   });
 

@@ -33,6 +33,7 @@ import {
   type NoraGenerateInput,
   type NoraGenerateResult,
 } from "./nora-adapter";
+import { buildStudioContinuityFromWork } from "./provider-response-continuity";
 import { resolvePublicWebRegistry } from "./public-web-registry";
 import {
   composeInvestigationPartialRestitution,
@@ -1514,20 +1515,7 @@ export async function runNoraCognitiveTurn(
           policyOverride: policy,
           cognitiveWorkId: work.id,
           segmentIndex: workSegmentOrdinal,
-          continuityStudio: {
-            workId: work.id,
-            acquisFingerprint: work.state.intentSummary
-              ? `acq:${work.revision}:${work.state.intentSummary.slice(0, 64)}`
-              : null,
-            sourceVersions: [],
-            checkpointId: `ckpt:${work.id}:r${work.revision}`,
-            budgets: {
-              tokensConsumed: 0,
-              tokensBudget: null,
-              restitutionsRemaining: null,
-            },
-            rightsOk: true,
-          },
+          continuityStudio: buildStudioContinuityFromWork(work, policy),
           continuityChain: null,
           publicWebRegistry: {
             topics: webRegistry.topics,

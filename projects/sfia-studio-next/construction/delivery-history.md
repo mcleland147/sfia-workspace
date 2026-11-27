@@ -3,6 +3,20 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML1-INTEGRATED-COMPLETION
+
+- **date_utc**: 2026-11-27T01:50Z
+- **lane**: DEV — Macro-lot 1 integrated foundation completion (Intervention 1)
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_initial**: `348cf6bd1f55c2f84ebcc079b7e8c10acb276d47`
+- **web_tree_initial**: `54863eda3c7311e51d36237d59d3b7c078baad0a`
+- **focus**: PG credential remédiation · provenance canon · FinOps service-path · real SDK tracing · D3 continuity owner data · A3/gates dossier · Figma RO UX · campagne substituée
+- **migration**: `025_provider_admin_security_and_canon.sql` additive · 024 passwords stripped
+- **tests**: unit FinOps/D3/tracing PASS · Admin/FinOps PG 7 PASS · frontier/continuity/admin 63 PASS · integrated campaign 2 PASS
+- **gates_dossier**: `construction/convergence-openai-studio/dossier-gates-morris-consolide-ml1-20261127.md`
+- **web_live**: OFF · push projet NON · NO RELEASE · NOT ADOPTED
+- **statut**: **MACRO-LOT 1 — INTEGRATED FOUNDATION COMPLETED — READY FOR CONSOLIDATED MORRIS GATES** (LIVE non exécuté)
+
 ## delivery_id: DELIV-2026-11-26-OPENAI-STUDIO-CONVERGENCE-ML1-ADMIN-FINOPS-QUAL
 
 - **date_utc**: 2026-11-26T21:45Z

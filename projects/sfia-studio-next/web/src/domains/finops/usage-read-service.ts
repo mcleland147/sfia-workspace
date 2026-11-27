@@ -22,12 +22,10 @@ import {
 import {
   getAdminCollectorFreshness,
   listAdminCollectorSnapshots,
-  reconcileFinOpsCosts,
   resolveProductAdminCollectorView,
-  sumMeasuredCostUsd,
-  type FinOpsScopeEvidence,
 } from "./provider-admin-usage-collector";
 import { decimalFromNumberLike } from "./decimal-money";
+import { evaluateFinOpsReconciliation } from "./finops-reconciliation";
 
 function studioLane(): string {
   return process.env.STUDIO_LANE?.trim().toUpperCase() || "UNKNOWN";
@@ -319,9 +317,6 @@ async function buildProviderReconciliationDto(
     isAdminSnapshotReadEnabled,
     listAdminSnapshotsFromPg,
   } = await import("./provider-admin-usage-repository");
-  const { assessPeriodEquality } = await import(
-    "./provider-admin-usage-collector"
-  );
   const productView = resolveProductAdminCollectorView();
   const limits: string[] = [];
 
@@ -456,114 +451,73 @@ async function buildProviderReconciliationDto(
     (process.env.SFIA_OPENAI_API_KEY_ID ?? "").trim() || null;
   const configuredOrg =
     (process.env.SFIA_OPENAI_ORG_ID ?? "").trim() || null;
-  const scopeOrg = productView.organizationScope;
-  const orgIdentityProven = Boolean(
-    configuredOrg &&
-      (scopeOrg === configuredOrg || scopeOrg === `org:${configuredOrg}`),
-  );
 
-  const attributed = configuredProject
-    ? snapshots.filter((s) => s.dimensions.project_id === configuredProject)
-    : [];
-
-  const sum = sumMeasuredCostUsd(snapshots, {
-    intervalStartUtc: windowStart,
-    intervalEndUtc: windowEnd ?? undefined,
-    projectId: configuredProject,
-  });
-  limits.push(...sum.limits);
-
-  const period = windowEnd
-    ? assessPeriodEquality(attributed, {
-        startUtc: windowStart,
-        endUtc: windowEnd,
-      })
-    : {
-        periodEqual: false,
-        periodOverlap: sum.counted > 0,
-        limits: ["PERIOD_WINDOW_END_ABSENT"],
-      };
-  limits.push(...period.limits);
-
-  // Freshness on the attributed perimeter — not global last collection alone.
-  const freshnessAcceptable =
-    freshness.status === "READY" &&
-    attributed.length > 0 &&
-    freshness.snapshotCount > 0;
-
-  const evidence: FinOpsScopeEvidence = {
-    organizationMatches: orgIdentityProven,
-    organizationIdentityProven: orgIdentityProven,
-    projectIdsOverlap: attributed.length > 0,
-    projectAttributionProven: Boolean(configuredProject && sum.counted > 0),
-    apiKeyIdsOverlap: Boolean(
-      configuredKey &&
-        attributed.some((s) => s.dimensions.api_key_id === configuredKey),
-    ),
-    periodOverlap: period.periodOverlap,
-    periodEqual: period.periodEqual,
-    currencyMatches: sum.currency === "usd",
-    providerCurrency: sum.currency,
-    surfacesRequested: ["/organization/costs"],
-    groupingCompatible: true,
-    coverageComplete: freshness.status === "READY" && !sum.limits.includes("COST_AMOUNT_ABSENT"),
-    freshnessAcceptable,
-    evidenceNotes: [
-      (process.env.SFIA_FINOPS_SCOPE_COMPARABLE ?? "").trim() === "1"
-        ? "SCOPE_FLAG_SET_BUT_EVIDENCE_REQUIRED"
-        : "SCOPE_FLAG_UNSET",
-      "PROVENANCE_LIVE_ONLY",
-      filter.projectId
-        ? "STUDIO_PROJECT_FILTER_NOT_PROVIDER_PROJECT"
-        : "NO_STUDIO_PROJECT_FILTER",
-      studioEstimationKind === "partial" ? "STUDIO_ESTIMATION_PARTIAL" : "",
-    ].filter(Boolean),
-  };
-
-  // Partial studio estimation cannot become COMPARABLE.
-  if (studioEstimationKind === "partial") {
-    limits.push("STUDIO_ESTIMATION_REMAINS_PARTIAL");
+  if (!windowEnd) {
+    limits.push("PERIOD_WINDOW_END_ABSENT");
+    return {
+      studioEstimatedUsd: studio,
+      studioEstimationKind,
+      providerCostUsd: null,
+      providerCurrency: null,
+      deltaUsd: null,
+      comparability: "NON_COMPARABLE",
+      freshness: freshnessDto,
+      limits: [...new Set(limits)],
+      noraIndependent: true,
+      studioEstimatedUsdDecimal: studioDecimal,
+      providerCostUsdDecimal: null,
+      deltaUsdDecimal: null,
+    };
   }
 
-  const rec =
-    studioEstimationKind === "partial"
-      ? {
-          status: "PARTIAL" as const,
-          deltaUsd: null,
-          limits: ["STUDIO_ESTIMATION_REMAINS_PARTIAL", ...evidence.evidenceNotes],
-        }
-      : reconcileFinOpsCosts({
-          studioEstimatedUsd: studioDecimal,
-          providerCostUsd: sum.total,
-          scope: evidence,
-        });
-  limits.push(...rec.limits);
+  // Pilot authorization: owner of FinOps summary path is already authenticated;
+  // revoke via SFIA_FINOPS_PROVIDER_DISCLOSE=0 for tests / emergency.
+  const pilotAuthorized =
+    (process.env.SFIA_FINOPS_PROVIDER_DISCLOSE ?? "1").trim() !== "0";
 
-  // Never disclose org totals / TEST / unauthorized Pilot views.
-  const discloseProvider =
-    (rec.status === "COMPARABLE" || rec.status === "PARTIAL") &&
-    orgIdentityProven &&
-    Boolean(configuredProject);
+  const evaluated = evaluateFinOpsReconciliation({
+    studioEstimatedUsd: studio,
+    studioEstimationKind,
+    snapshots,
+    windowStartUtc: windowStart,
+    windowEndUtc: windowEnd,
+    organizationScope: productView.organizationScope,
+    configuredOrgId: configuredOrg,
+    configuredProjectId: configuredProject,
+    configuredApiKeyId: configuredKey,
+    pilotAuthorized,
+    freshnessStatus: freshness.status,
+    freshnessSnapshotCount: freshness.snapshotCount,
+  });
+  limits.push(...evaluated.limits);
+
   const providerNum =
-    discloseProvider && sum.total != null ? Number(sum.total) : null;
+    evaluated.disclosed && evaluated.providerCostUsd != null
+      ? Number(evaluated.providerCostUsd)
+      : null;
   const deltaNum =
-    discloseProvider && rec.deltaUsd != null ? Number(rec.deltaUsd) : null;
+    evaluated.disclosed && evaluated.deltaUsd != null
+      ? Number(evaluated.deltaUsd)
+      : null;
 
   return {
     studioEstimatedUsd: studio,
     studioEstimationKind,
     providerCostUsd:
       providerNum != null && Number.isFinite(providerNum) ? providerNum : null,
-    providerCurrency: discloseProvider ? sum.currency : null,
+    providerCurrency: evaluated.disclosed ? evaluated.providerCurrency : null,
     deltaUsd: deltaNum != null && Number.isFinite(deltaNum) ? deltaNum : null,
-    comparability: rec.status,
+    comparability: evaluated.comparability,
     freshness: freshnessDto,
     limits: [...new Set(limits)],
     noraIndependent: true,
     studioEstimatedUsdDecimal: studioDecimal,
-    providerCostUsdDecimal: discloseProvider ? sum.total : null,
-    deltaUsdDecimal: discloseProvider ? rec.deltaUsd : null,
+    providerCostUsdDecimal: evaluated.disclosed
+      ? evaluated.providerCostUsd
+      : null,
+    deltaUsdDecimal: evaluated.disclosed ? evaluated.deltaUsd : null,
   };
+
 }
 
 export type FinOpsWorkListItem = {

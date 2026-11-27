@@ -154,6 +154,64 @@ export function planProviderContinuity(input: {
 }
 
 /**
+ * Build Studio continuity snapshot from the real D3 work owner — not placeholders.
+ */
+export function buildStudioContinuityFromWork(
+  work: {
+    id: string;
+    revision: number;
+    ownerToken: string | null;
+    leaseUntil: Date | null;
+    state: {
+      intentSummary?: string;
+      conclusions?: string[];
+      sources?: Array<{ ref: string; versionOrSha?: string | null }>;
+    };
+    resources: {
+      inputTokens?: number | null;
+      outputTokens?: number | null;
+      segmentCalls?: number;
+    };
+  },
+  _policy?: unknown,
+): StudioContinuitySnapshot {
+  const conclusions = work.state.conclusions ?? [];
+  const acquisFingerprint =
+    conclusions.length > 0
+      ? `acq:${work.revision}:${conclusions
+          .slice(0, 3)
+          .map((c) => c.slice(0, 40))
+          .join("|")}`
+      : work.state.intentSummary
+        ? `acq:${work.revision}:intent:${work.state.intentSummary.slice(0, 64)}`
+        : null;
+  const sourceVersions = (work.state.sources ?? [])
+    .map((s) => {
+      const ver = (s.versionOrSha ?? "").trim();
+      return ver ? `${s.ref}@${ver}` : s.ref;
+    })
+    .filter(Boolean)
+    .slice(0, 64);
+  const tokensIn = Math.max(0, Number(work.resources.inputTokens ?? 0) || 0);
+  const tokensOut = Math.max(0, Number(work.resources.outputTokens ?? 0) || 0);
+  const leaseOk =
+    work.leaseUntil == null || work.leaseUntil.getTime() > Date.now();
+  const rightsOk = Boolean(work.ownerToken) && leaseOk;
+  return {
+    workId: work.id,
+    acquisFingerprint,
+    sourceVersions,
+    checkpointId: `ckpt:${work.id}:r${work.revision}`,
+    budgets: {
+      tokensConsumed: tokensIn + tokensOut,
+      tokensBudget: null,
+      restitutionsRemaining: null,
+    },
+    rightsOk,
+  };
+}
+
+/**
  * Attach previous_response_id only when plan allows. Never invent store=true
  * or Conversations persistence here.
  */
