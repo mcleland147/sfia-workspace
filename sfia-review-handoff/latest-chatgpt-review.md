@@ -1647,3 +1647,12 @@ Preuves: OBS traces, work ids, Journal tree screenshot, FinOps detail, dictation
 - Next Morris decisions: bounded LIVE GO; then RECETTE candidate/cutover; MP closure; Livraison 1 acceptance.
 
 Date: 2026-11-27 Europe/Paris
+
+---
+## 20. Post-handoff follow-up (MP-09 diagnosis)
+
+Diagnosis ([MP-09 residual](20658e40-e4d8-4a0e-85d8-64409a28e24d)) confirmed primary cause: extractPilotageBinding fail-closed on MULTIPLE_PILOTAGE_EFFECT_INTENTS → zero D5 apply. Fix already in service.ts loop + listPilotageEffectBindings + per-intent C02 keys.
+
+Residual follow-up applied: nora-adapter guidance for separate typed D5/D6 REQUEST_EFFECT intents on compound GO (no PREPARE demotion of explicit open).
+
+Still residual for LIVE/PG: postUserMessageAndNora oracle with DUAL_INTENT_QUAL (AUTH-R06 shape) under GO LIVE / PG campaign — unit coverage already present in semantic-qualification.test.ts.
