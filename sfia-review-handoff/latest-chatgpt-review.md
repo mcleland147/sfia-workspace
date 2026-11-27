@@ -1,672 +1,1649 @@
-# SFIA Review Pack — ML5 MaintiPlan Integrated Root Cause Diagnostic — 2026-11-27
+# SFIA Studio Next — ML5 Integrated Continuity & Reliability Corrective Delivery
 
-**Date UTC :** 2026-11-27T12:35Z
-**Mandat :** GO Morris — ML5 MAINTIPLAN INTEGRATED ROOT CAUSE DIAGNOSTIC — CRITICAL — READ ONLY
-**Cycle :** 9 — QA / validation · RUN / DIAGNOSTIC / READ ONLY
-**Profil :** CRITICAL
-**CKC Cycle 9 :** PRESENT — `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/04-qa-validation.md` — status `candidate` — **CANDIDATE GUIDANCE ONLY** (aucune autorité autonome)
-**Classe produit :** NO RELEASE
-
-**Anti-stub :** REVIEW PACK COMPLETE — causes avec preuves code SHA `e8e6e069` + PG READ ONLY + PV `8acc3074` — pas de mutation produit.
-
----
-
-## 1. Git Truth Check
-
-| Item | Valeur |
-|---|---|
-| Workspace | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
-| Remote | `origin` → `https://github.com/mcleland147/sfia-workspace.git` |
-| Branche | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD initial=final | `58ca9486003805f74e69a0842f2c0792a7184437` |
-| origin/main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
-| docs convergence (distant) | `8acc3074fba244d217b0249d5839ef2ea0321402` |
-| review-handoff avant | `9ec930e2cbee09f1fcc3384753eafbf64d97251c` |
-| Candidat | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` |
-| Tree repo / web | `30c12ad9…` / `03c30e4c…` |
-| Relation | candidat **ancêtre** de HEAD docs ; HEAD n’est pas ancêtre du candidat (docs-only tip) |
-| Dirty entrée | `.tmp-sfia-review/chatgpt-review.md` seul (pack) — **préservé / réinitialisé** pour ce cycle |
-| Staged | aucun |
-| Worktree RECETTE | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-e8e6e06961fa` |
-
-**Verdict Git :** cohérent — STOP non déclenché.
+**Cycle:** 8 — Delivery / Critical
+**Typologie:** EVOL — macro-lot correctif intégré (17 MP + exigences complémentaires Morris 2026-11-27)
+**Date:** 2026-11-27 (Europe/Paris)
+**Branch:** `sfia/next-ml5-integrated-delivery-20261123`
+**HEAD:** `58ca9486003805f74e69a0842f2c0792a7184437`
+**Class:** NO RELEASE
+**Gate:** DEV construction only — no LIVE OpenAI, no RECETTE mutation, no project commit/push/PR
 
 ---
 
-## 2. ENV-01
+## 1. Mandat et décisions Morris
 
-| Contrôle | Résultat |
-|---|---|
-| URL / BUILD | `:3200` · `<!--rpEczSp61evIZ7d6fnIWR-->` · digest `18e014c1…` |
-| PID / cwd | `22935` · worktree e8e6e069…/web — **non redémarré** par ce cycle |
-| Lane | `STUDIO_LANE=RECETTE` |
-| PG | `sfia_next_recette_ml4` · :5434 · rôle isolé · schéma 027 (`derived_embedding_chunks`) |
-| Flags | DICTATION=1 live · JUDGMENT=1 · EMBED pg+search · VISION=1 · WEB=0 · Admin OFF · fixtures unset |
-| Cognitive ceilings | 120 / 1M / 2M — **non modifiés** |
-| OpenAI fp | expected `f27d814e…` · forbidden `ab6bbec8…` |
-| Org/projet fournisseur | **NON VÉRIFIÉ** (réserve connue) |
-| DEV | :3100 non servi · :5433 distinct |
-| Mutations ce cycle | **aucune** (SELECT READ ONLY only) |
+Mandat: un seul macro-lot correctif intégré (axes A–D, 26 sous-ensembles) couvrant les 17 MP MaintiPlan + arbitrages Morris du 27/11/2026.
 
-**Verdict ENV :** ENV ROUTING COMPLETE
+Arbitrages retenus: Option C allocation multi-modèles gouvernée par environnement (qualification avant admission RECETTE); continuité cognitive/fonctionnelle; Journal arborescence centrale; compteur documentaire par identité; panneau droit Repères (5 récents); lisibilité textuelle sans nouvelle grammaire visuelle; spinner animé réel; rail paramètres partagé; compositeur Nora partagé; Nora interlocutrice unique / Studio effets; Morris valide macro-lot + Critical.
 
-**Product Versioning :** NO RELEASE — inchangé.
+Interdits: LIVE nouveau, cutover RECETTE, commit/push/PR projet, WEB/Admin, 2e moteur cognitif/audio, migration schéma par défaut, Figma edit. Exception L3: Review Handoff only.
 
 ---
 
-## 3. Sources consultées (effectives)
+## 2. Local Git Truth Check
 
-- PV MaintiPlan : `origin/docs/…@8acc3074` → `construction/recette-utilisateur-ml5-maintiplan-20261127.md`
-- Handoff activation `9ec930e2` (réf.)
-- Code candidat `e8e6e069` : `cognitive-policy.ts`, `provisional-cognitive-policy.ts`, `resource-admission.ts`, `resource-catalog.ts`, `run-nora-cognitive-turn.ts`, `nora-adapter.ts`, `intent-conduction.ts`, `semantic-qualification.ts`, `s05-pending-policy.ts`, `composer-dictation-*`, `PreparationConversation.tsx`, `ComposerDictationControl.tsx`, `project-context.ts`, `ProjectOverview.tsx`, `PersonalRailSettingsMenu.tsx`, `StudioShell.tsx`
-- PG RECETTE READ ONLY : projects, conversations, messages, cognitive_works, provider_usage_observations, human_decisions, knowledge_*, documents/revisions, business_commands, project_cycles
-- CKC pilot 04-qa-validation.md (candidate)
-- Contrats cités dans le mandat : lus sélectivement selon dépendance causale (allocation, conducteur, D4/D5/D6)
-- Figma : **non mesuré F2** ce cycle — références PV/contrats seulement
+| Item | Observed |
+|------|----------|
+| Repo | `mcleland147/sfia-workspace` (origin) |
+| Worktree | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
+| Branch | `sfia/next-ml5-integrated-delivery-20261123` |
+| HEAD full | `58ca9486003805f74e69a0842f2c0792a7184437` |
+| Main remote | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
+| Docs tip | `f6cfd5ac01f848f6708501e1a390f37243721ab9` |
+| Continuity blob | `1a5f822f650442ba8325287dcfc65c81e9113e6e` ✓ |
+| Candidate RECETTE | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` (ancestor of HEAD) |
+| Handoff tip | `f6999c97abc6a1fd01c18e2ff441d66189ff9a33` |
+| Staged unexpected | none at intake |
+| Dirty prior | `.tmp-sfia-review/` only (out of commit) |
 
----
-
-## 4. L1 — Cartographie as-built Nora (candidat e8e6e069)
-
-### 4.1 Flux nominal
-
-```
-USER message
- → conversation/service.ts (turn)
- → cognitive work create/attach (cognitive-work.ts)
- → semantic qualification (semantic-qualification.ts) [intents ≤12]
- → cognitive policy resolve (cognitive-policy.ts)
-      ← resolveOperationalDefaultResource() [provisional-cognitive-policy.ts]
-      ← admitModelEffort() [resource-admission.ts]
- → run-nora-cognitive-turn / nora-adapter (Responses + tools)
- → Frontier HTTP gate (provider-emission-frontier.ts) + usage-accounting
- → mobilizeCapability / owner effects (intent-conduction.ts → D2/D4/D5/D6/D9)
- → S05 pending sibling policy (s05-pending-policy.ts)
- → checkpoints / production_json / reply persist
- → activity projection + FinOps observations
-```
-
-### 4.2 Politique modèle effective RECETTE
-
-Fichier `cognitive-resources/provisional-cognitive-policy.ts` (extrait discriminant) :
-
-- Absent/`legacy_sol` → défaut **gpt-6.2-sol @ medium**
-- `v0.2` **refusé si `STUDIO_LANE !== DEV`** → `COG_POLICY_V02_REFUSED_NON_DEV_LANE` + fallback legacy_sol
-- Luna/Terra : `admissionStatus: documented_candidate` ; admis seulement si `provisionalActive`
-
-Fichier `resource-admission.ts` mode operational :
-
-- Si provisional OFF : seul **Sol low|medium|high** admis
-- Luna/Terra → `UNCALIBRATED_MODEL_OPERATIONAL`
-
-`SFIA_COG_PROFILE_TYPE=OPERATIONAL_PROVISIONAL` active les **budgets** profil sur DEV|RECETTE, **pas** le catalogue multi-modèles provisoire.
-
-**Chemin nominal RECETTE :** Sol medium fixe (legacy).
-**Chemin alternatif DEV :** Terra medium défaut + Luna low/medium si `SFIA_COG_PROVISIONAL_POLICY=v0.2`.
-**Présent non raccordé en RECETTE :** catalogue Luna/Terra + guidance 51 rows (consultative).
-
-### 4.3 Dictée
-
-- API/projet : `/api/projects/{id}/dictation/*` + `ComposerDictationControl` sur `projects/[projectId]/page.tsx`
-- Sas : `PreparationConversation.tsx` — **textarea rows=2, aucun micro**
-- Open timeout : `SESSION_OPEN_TIMEOUT_MS = 10000` → catch `TRANSPORT_OPEN_FAILED`
+**Verdict:** GIT TRUTH OK — diverge from reported short SHA 58ca9486 resolved to full HEAD above.
 
 ---
 
-## 5. L2 — Matrice T01–T08 (IDs réels)
+## 3. ENV-01
 
-**Identités communes**
+| Lane | Port | PG | DB/role | State |
+|------|------|-----|---------|-------|
+| DEV | 3100 | 5433 | `sfia_next_dev` / `sfia_next_dev` | Started for this cycle (`STUDIO_LANE=DEV`) |
+| RECETTE | 3200 | 5434 | `sfia_next_recette_ml4` | Untouched (HTTP 307); BUILD marker `rpEczSp61evIZ7d6fnIWR` preserved |
+| STABLE | — | — | — | NOT AVAILABLE |
 
-| Objet | ID |
-|---|---|
-| projectId | `proj_ab07878d-d690-4fa4-8530-536f4bb9aca1` |
-| preparationId | `prep_0733165c-88d8-403c-9b91-20dcd952c3f5` |
-| pilotId | `pilot_98a7a89e-ba00-42c6-84d5-680eff67b73c` |
-| conversationId | `conv_852cc53c-2b18-4a08-9267-c3bb8f0e9ece` |
-| project created_utc | 2026-11-27 10:11:32Z |
-| conv created_utc | 2026-11-27 10:00:04Z (sas→projet même conv) |
-
-| Tour | USER msg / time UTC | Work | Allocation observée | Effets durables | Écarts |
-|---|---|---|---|---|---|
-| T01 | msg_645f0667 · 10:00:10 | (usage sans work_id agrégé sas) | Sol | dialogue | MP-01 |
-| T02 | msg_82ed7118 · 10:05:00 | idem | Sol | règles verbalisées | MP-01/02/03 |
-| T03 | **clic création** · projet 10:11:32 | — | — | `PROPOSE_TRAJECTORY` APPLIED 10:12:01 · msg_iq… trajectoire | MP-04/05 |
-| T04 | msg_b2c7a116 · 10:20:16 + **dictée** | `cgw_b7d276ba` COMPLETE | Sol medium · 3 req · 33066 tok | reply QA | MP-06/07 ; audio 4× failed 10:21–10:23 |
-| T05 | msg_f157e534 · 10:32:35 | `cgw_0cc13526` **OPEN** | Sol medium · 2 req · ~24726 | **REPLY only** — **pas** OPEN_CYCLE | MP-08/09/10 |
-| T06 | msg_6031cf94 · 10:38:36 « dans un premier tu peux ouvrir… » | même work mis à jour 10:39:02 | Sol | `OPEN_CYCLE` APPLIED + `dec_26e38829` APPLICABLE · cycle=1 | MP-09/11/12 |
-| T07 | msg_9f632694 · 10:50:32 | `cgw_defeabc1` **OPEN** | Sol medium · 6 req · ~50071 | doc V1 AVAILABLE · **4 acquis CURRENT** · 0 subjects/open_pts | MP-03/10/11/13 |
-| T08 | msg_b985e4ef · 11:12:34 | `cgw_3074f47d` COMPLETE 11:27:49 | Sol medium | analyse Git aboutie | MP-14/15/16/17 |
-| T09 | NON ENVOYÉ | — | — | — | — |
-
-**Audio T04 :** 4 observations `audio.composer_dictation` status=failed, model=`gpt-live-transcribe`, error_category vide — **sans workId**.
+**Verdict:** ENV ROUTING COMPLETE — DEV only for mutations; RECETTE READ-only / no restart.
 
 ---
 
-## 6. L4 — Allocation (MP-15) — PRIORITAIRE
+## 4. Product Versioning
 
-### Hypothèses
-
-| ID | Hypothèse | Verdict | Preuve |
-|---|---|---|---|
-| H1 | Modèle fixe historique | **CONFIRMED** (RECETTE) | défaut `HISTORICAL_SOL_DEFAULT_RESOURCE` ; tous works `modelRequested=gpt-6.2-sol` |
-| H2 | Catalogue multi-modèles non raccordé RECETTE | **CONFIRMED** | provisional Active exige DEV |
-| H3 | Qualification adaptative non mobilisée certains travaux | **PARTIALLY** | effort medium constant ; pas de proposition Luna/Terra persistée |
-| H4 | Luna/Terra refusés admission | **CONFIRMED** si proposés | `UNCALIBRATED_MODEL_OPERATIONAL` hors provisional |
-| H5 | Fallback Sol | **CONFIRMED** mécanisme | `resolveOperationalDefaultResource` → Sol |
-| H6 | Override env | **CONFIRMED** | `SFIA_COG_PROVISIONAL_POLICY` **absent** → legacy_sol ; même v0.2 refusé RECETTE |
-| H7 | Réallocation non déclenchée | **CONFIRMED** sur traces | effortApplied=`UNVERIFIED` ; pas de changement modèle |
-| H8 | FinOps mal attribue modèle | **REFUTED** | model_requested cohérent Sol partout |
-| H9 | Sol pertinent | **UNRESOLVED** qualité | cognition jugée favorable par Morris — choix Sol non invalidé qualitativement |
-| H10 | Autre | — | droits org OpenAI **NON VÉRIFIÉS** ce cycle |
-
-**Écart contrat 26/11 :** allocation adaptative Luna/Terra/Sol **construite mais gated DEV** ; RECETTE activation A3 a ouvert les capacités flags sans activer la politique provisoire multi-modèles.
+- Source: `web/src/lib/product-version.ts` — NO RELEASE (construction DEV).
+- No official version number invented.
+- Delivery will be traced in `construction/delivery-history.md` at Étape 7.
 
 ---
 
-## 7. L5 — Latences / volumes T08 (MP-14)
+## 5. Git Review Index (sources consulted — Step 0)
 
-| Métrique | Valeur primaire |
-|---|---|
-| Work | `cgw_3074f47d` OPEN→COMPLETE |
-| Wall-clock | 11:14:16Z → 11:27:49Z ≈ **13,5 min** (perception ~15 min) |
-| Tokens | input 884132 + output 25712 = **909844** |
-| Cached input cumulé | **514456** |
-| Segments émetteurs | indices **0,2,3,5,7,8** (6) — absents 1,4,6 |
-| Rows usage | 80 · dont **40 nonzero** (= « 40 requêtes » UI) |
-| Resources work | `PROVIDER_REQUESTS:6` (segments Agents SDK) |
-| Modèle/effort | Sol medium toutes lignes |
+| Path | Ref/SHA | Blob | Role | Status |
+|------|---------|------|------|--------|
+| `conception-fonctionnelle/continuite-cognitive-et-fonctionnelle-du-projet.md` | `f6cfd5ac` | `1a5f822f` | Priorité continuité §3–12 | READ |
+| `governance/environnements-recette-et-promotions.md` | main `997897fd` | `14b61f0d` | ENV-01 | READ (prior + reconfirm) |
+| `governance/product-versioning.md` | main `997897fd` | `8bc93e0f` | NO RELEASE | READ (prior) |
+| Diagnostic handoff `sfia-review-handoff/latest-chatgpt-review.md` | `f6999c97` | `6e9ac6a6` | 17 MP causes | READ (prior cycle) |
+| Code local HEAD `58ca9486…` | worktree | — | Implementation baseline | EXAMINED |
 
-**Causes démontrées de volume :** boucles multi-segments investigation Git ; réinjection contexte (cached élevé mais input brut reste massif) ; nombreux tool-observations à 0 tokens par segment.
-**Non démontré sans traces outil :** nombre exact de fichiers uniques vs relus ; stubs progress (vigilance PV) ≠ hallucination prouvée.
-**Plafonds 120/1M/2M :** non atteints comme cause d’arrêt (work COMPLETE).
+Full index expanded as construction proceeds.
 
 ---
 
-## 8. L6 — FinOps (MP-16)
+## 6. Analyse initiale / diagnostic résiduel
 
-| Observation PV | Réconciliation |
-|---|---|
-| 909844 / 40 req / 6 segments / 1,05 USD | **CONFIRMÉ** côté tokens/segments/40 nonzero |
-| Travaux « En cours » après effet | `cgw_0cc13526` et `cgw_defeabc1` status **OPEN** alors production COMPLETE / effets visibles — **finalisation work ≠ effet métier** |
-| QA abouti sans projet | `cgw_b7d276ba` COMPLETE · `project_id` NULL (pré-rattachement) |
-| Small 341 tok | activation embeddings (hors MaintiPlan works) — **CONFIRMÉ** hypothèse PV |
-| cost_coverage PARTIAL / estimation 0 % | `model_applied` vide · effortApplied UNVERIFIED · tarifs PARTIAL |
-| 100 % couverture requêtes | numérateur observations vs dénominateur interne — exact mais **mal expliqué** vs estimation |
+### Confirmé (code + preuves antérieures)
+1. **A.1 / MP-15** — `provisional-cognitive-policy.ts` DEV-only → RECETTE `legacy_sol` / Sol medium.
+2. **MP-13** — `project-context.ts` filtre `SAVING` pour compteur documents.
+3. **MP-17** — `PersonalRailSettingsMenu` monté seulement si `personalSpace`.
+4. **MP-01/02** — deux compositeurs (sas vs Travail); sas sans micro.
+5. **MP-07** — onde visible en phase `requesting` (niveaux plats / écoute apparente).
+6. **MP-11** — restitution `**Résultat Studio :**` technique dans `pilotage-effect-restitution.ts`.
+7. **MP-08** — panneau droit inline page.tsx: Continuité / Contrats / Dossier.
+8. **B.2** — `parentSubjectId` + UI Journal arbre existent; autonomie Nora / scénario hiérarchique NON PROUVÉS LIVE.
+9. **Récents** — aucune persistance « éléments consultés » Pilote (greenfield localStorage/session admissible sans migration).
 
-Chaîne : Tour→Work→segment_index→usage rows→projection FinOps.
-Admin OFF : normal.
-
----
-
-## 9. L7a — Audio (MP-01/02/06/07)
-
-| MP | Cause | Statut |
-|---|---|---|
-| MP-01 | `PreparationConversation.tsx` : pas de `ComposerDictationControl` ; micro uniquement projet via capability API | **CAUSE CONFIRMED** |
-| MP-02 | Sas `textarea rows={2}` fixe ; Travail auto-extensible (démontré T05) | **CAUSE CONFIRMED** (implémentation sas) |
-| MP-06 | 4× `audio.composer_dictation` failed 10:21:16–10:23:12Z ; timeout open 10s ; catch `TRANSPORT_OPEN_FAILED` (message peut être `SESSION_OPEN_TIMEOUT`) ; UI a phase error mais retour perçu silencieux | **PARTIALLY EXPLAINED** — échec transport/open **confirmé en ledger** ; cause fournisseur/réseau exacte **EVIDENCE MISSING** (pas de log error_category ; pas de rejou LIVE) |
-| MP-07 | `getUserMedia` puis phase `requesting` ; `AnalyserNode` sur stream mic → onde possible **avant** `session.open` | **CAUSE CONFIRMED** (prématurité structurelle) |
+### Partiel / à instruire pendant construction
+- **MP-09 T05** — multi-intent OPEN_CYCLE manquant: JSON qualification non retrouvé; examiner intent admission + S05 + effets.
+- **MP-06** — 4 × `composer_dictation failed` / timeout 10s: cause exacte non démontrée; correctifs robustesse DEV; LIVE gate.
+- **MP-14/16** — T08 909k tokens: réconcilier segments/observations; optimiser redondances démontrées.
+- **A.5** — works OPEN après production COMPLETE (C18 resume-friendly) — ne pas forcer COMPLETE cosmétique.
 
 ---
 
-## 10. L7b — Connaissance / projections (MP-03/09/10/11/12/13)
+## 7. Blast radius
 
-**Données PG après T07/T08**
-
-- acquis CURRENT : **4** (arbitrages métier T07)
-- subjects : **0** · open_points : **0**
-- human_decisions : **1** `OPEN_CYCLE` APPLICABLE (`dec_26e38829`)
-- documents : **1** titre cadrage · révision 1 **AVAILABLE**
-- cycles : **1**
-- business_commands : `PROPOSE_TRAJECTORY`@10:12 · `OPEN_CYCLE`@10:39 seulement
-
-**MP-09 T05 vs T06**
-
-- T05 work objective = ouverture **+** conception ; `production_json.kind=REPLY` ; **aucun** `OPEN_CYCLE` command
-- T06 message simple → `OPEN_CYCLE` APPLIED + décision
-- **CAUSE CONFIRMED (effet) :** multi-intention combinée n’a pas produit l’effet D5 ; intention unique courte l’a produit
-- **CAUSE RACINE orchestration :** PARTIALLY — qualification multi-intent possible (`intents[]`) mais enchaînement effet T05 non matérialisé ; S05/pending peut bloquer siblings ; preuve discriminante du JSON de qualification T05 **EVIDENCE MISSING** (non persisté en clair dans tables inspectées)
-
-**MP-10 / MP-03**
-
-- Capitalisation **partielle** : acquis écrits ; sujets/points ouverts **non créés** malgré matière
-- Aperçu sas « aucun point ouvert » : cohérent avec 0 open_points
-- **PARTIALLY EXPLAINED** — pas absence totale de D4 ; trou subjects/open_points + projection
-
-**MP-13**
-
-- `documentsInProgress` = status **SAVING** only → 0 avec V1 AVAILABLE est **exact** (contrat code `project-context.ts` FIX-11) → **CONTRACT AMBIGUITY / UX**
-- `applicableDecisions` devrait compter OPEN_CYCLE APPLICABLE (=1) ; observation utilisateur 0 → **PARTIALLY EXPLAINED** (filtre code vs observation ; éventuel refresh/surface) — rejouer lecture API Projet
-
-**MP-11**
-
-- Message T06 contient « Je transmets à Studio » — restitution outil/effet dans reply (`pilotage-effect-restitution` / patterns nora-adapter)
-- **CAUSE CONFIRMED (symptôme code path)** — design actuel expose pont Studio ; pas un second agent
-
-**MP-12**
-
-- Finalité générique / enum CONCEPTION_FONCTIONNELLE : données trajectoire vs libellés UX — **HYPOTHESIS ONLY** sans dump complet trajectory state
+| Surface | Impact |
+|---------|--------|
+| API | admission cognitive; éventuellement recent-items endpoint local; projections project-context |
+| Données | pas de migration; localStorage récents; lectures D4/D5/D6 existantes |
+| Autorité | D6 inchangé; restitution post-effet seulement après APPLIED |
+| UX | shell rail, compositeur partagé, panneau droit, markdown, spinner, dictée UI |
+| Sécurité | isolation lanes; pas d'élargissement rétention audio |
+| Coûts | Option C structure; pas de LIVE |
+| Reprise | finalisation work + idempotence effets |
+| Tests | unit/integration/browser DEV |
 
 ---
 
-## 11. L7c — UX shell (MP-04/05/08/17)
+## 8. Matrice 26 sous-ensembles (suivi)
 
-| MP | Diagnostic |
-|---|---|
-| MP-04 | Spinner sas : composant `SasCreateProgressPopup` — animation/reduced-motion **non requalifiés runtime** ce cycle → **HYPOTHESIS ONLY** |
-| MP-05 | Densité conversation / SafeMarkdown — **HYPOTHESIS ONLY** (pas de capture F2) |
-| MP-08 | Panneau droit responsabilités — **CONTRACT AMBIGUITY** vs souhait Morris objets récents ; pas de preuve code d’erreur unique |
-| MP-17 | `PersonalRailSettingsMenu` monté dans `StudioShell` rail **personnel** ; absent rail projet — **CAUSE CONFIRMED** |
-
----
-
-## 12. L3 — Matrice 17 MP (synthèse statut)
-
-| MP | Prio PV | Statut diagnostic | Cause immédiate |
-|---|---|---|---|
-| MP-01 | H | **CAUSE CONFIRMED** | Micro non branché sas |
-| MP-02 | M | **CAUSE CONFIRMED** | Composer sas non auto-grow |
-| MP-03 | H | **PARTIALLY EXPLAINED** | 0 open_points réels ; acquis existent |
-| MP-04 | M | **HYPOTHESIS ONLY** | Spinner / motion |
-| MP-05 | H | **HYPOTHESIS ONLY** | Typo/Markdown |
-| MP-06 | C | **PARTIALLY EXPLAINED** | Transport/open failed (ledger) ; détail fournisseur manquant |
-| MP-07 | M | **CAUSE CONFIRMED** | Wave sur mic stream en phase connexion |
-| MP-08 | H | **CONTRACT AMBIGUITY** | Rail droit / objets utiles |
-| MP-09 | H | **CAUSE CONFIRMED** (effet) / **PARTIAL** (racine ordo) | T05 sans OPEN_CYCLE ; T06 OK |
-| MP-10 | H | **PARTIALLY EXPLAINED** | Acquis oui ; subjects/OP non |
-| MP-11 | H | **CAUSE CONFIRMED** | Restitution « Studio » + activité générique |
-| MP-12 | M | **HYPOTHESIS ONLY** | Libellés trajectoire |
-| MP-13 | H | **PARTIALLY EXPLAINED** | « en cours »=SAVING exact ; décisions compteur à rejouer |
-| MP-14 | H | **PARTIALLY EXPLAINED** | Multi-segment Git + contexte ; ~13.5 min / 909k tok |
-| MP-15 | H | **CAUSE CONFIRMED** | Politique provisoire multi-modèles **DEV-only** → Sol legacy RECETTE |
-| MP-16 | H | **CAUSE CONFIRMED** | Works OPEN post-effet ; PARTIAL tariff ; 40=nonzero rows |
-| MP-17 | M | **CAUSE CONFIRMED** | Settings menu rail personnel only |
-
-**Comptes :** CONFIRMED 8 · PARTIALLY 6 · HYPOTHESIS 3 · (ambiguïté contrat incluse dans PARTIAL/AMBIGUITY)
-
-Récurrences UAT/RB : capitalisation/projections et panneau droit déjà vus en recettes antérieures — **non fusionnés** ; traiter comme causes communes de projection/D4.
+| ID | Exigence / MP | Statut |
+|----|---------------|--------|
+| A.1 | Allocation gouvernée MP-15 | INVESTIGATING |
+| A.2 | Qualif sémantique multi-intent MP-09 | NOT STARTED |
+| A.3 | Orchestration capacités MP-09 | NOT STARTED |
+| A.4 | Contexte / efficience MP-14 | NOT STARTED |
+| A.5 | Finalisation / reprise | NOT STARTED |
+| A.6 | Observabilité / activité MP-11 | NOT STARTED |
+| A.7 | FinOps MP-16 | NOT STARTED |
+| B.1 | Capitalisation autonome MP-10 | NOT STARTED |
+| B.2 | Arborescence sujets/sous-sujets MP-10 | NOT STARTED |
+| B.3 | Synthèses / acquis / provenance | NOT STARTED |
+| B.4 | Points ouverts MP-03 | NOT STARTED |
+| B.5 | Décisions durables | NOT STARTED |
+| B.6 | Trajectoire vivante MP-12 | NOT STARTED |
+| B.7 | Réutilisation cognitive MP-10 | NOT STARTED |
+| B.8 | Projections projet MP-13 | IMPLEMENTING |
+| C.1 | Compositeur partagé MP-01/02 | NOT STARTED |
+| C.2 | Saisie / brouillons | NOT STARTED |
+| C.3 | Transport dictée MP-06 | NOT STARTED |
+| C.4 | États audio MP-07 | NOT STARTED |
+| C.5 | Robustesse / reprise | NOT STARTED |
+| D.1 | Lisibilité conversationnelle MP-05 | NOT STARTED |
+| D.2 | Animation préparation MP-04 | NOT STARTED |
+| D.3 | Restitution naturelle MP-11 | NOT STARTED |
+| D.4 | Panneau droit MP-08 | NOT STARTED |
+| D.5 | Rail / paramètres MP-17 | IMPLEMENTING |
+| D.6 | Cohérence UX transverse | NOT STARTED |
 
 ---
 
-## 13. L8 — Plan de correction intégré (proposition — NON AUTORISÉ à exécuter)
+## 9. Matrice 17 MP (suivi)
 
-### Orientation composants
-
-| Composant | Orientation |
-|---|---|
-| Conducteur D3 unique | **KEEP** |
-| Qualification sémantique multi-intents | **KEEP** + **ADAPT** orchestration effets |
-| Catalogue Luna/Terra/Sol | **KEEP** |
-| Provisional policy DEV-only gate | **ADAPT** (politique RECETTE explicite Morris) — **pas** forcer Luna |
-| Frontier / usage accounting | **KEEP** + **ADAPT** finalisation work + model_applied |
-| Dictation transport | **KEEP** + **ADAPT** erreurs UI + wave gating |
-| Compositeur sas | **ADAPT** (mutualiser grow + micro sous droits) |
-| D4 capitalisation | **ADAPT** subjects/OP sélectifs |
-| ProjectOverview compteurs | **ADAPT** sémantique « documents disponibles » |
-| Rail settings | **ADAPT** accès global cohérent F1/F2 |
-| WEB / Admin | **KEEP** OFF |
-
-### Macro-lot correctif recommandé (un lot intégré, sous-gates)
-
-**ML5-L1-CORR-A — Conduite · allocation · finalisation · effets**
-Couvre MP-09,11,14,15,16 (+ transverse 10)
-IN : orchestration multi-intent→effets ; finalisation cognitive_works ; politique allocation RECETTE (GO modèle) ; FinOps model_applied/statuts ; réduction redondance contexte investigation **sans** baisser qualité
-OUT : nouveau moteur ; routeur lexical ; hausse plafonds ; Admin ; WEB
-
-**ML5-L1-CORR-B — D4/D5/D6 projections**
-MP-03,10,12,13
-IN : capitalisation sélective subjects/OP ; sémantique compteurs ; libellés trajectoire
-OUT : fabriquer des sujets artificiels
-
-**ML5-L1-CORR-C — Audio + compositeur**
-MP-01,02,06,07
-IN : micro sas ; grow ; wave only listening ; erreurs visibles ; protocole LIVE qualify séparé
-OUT : second pipeline
-
-**ML5-L1-CORR-D — UX shell**
-MP-04,05,08,17
-IN : spinner ; typo ; panneau objets récents borné ; settings
-OUT : second shell
-
-**Ordre :** A (bloquant allocation/effets/coût) → C (critique dictée) → B → D
-**Gates :** preuves déterministes DEV → navigateur → LIVE borné dictée/allocation sous GO → cutover RECETTE nouveau candidat → rejeu 17 MP → reprise T09.
-
-**Interdits rappelés :** forcer Luna ; supprimer Sol ; budgets cosmétiques ; faux progrès ; fermeture artificielle works sans vérité ; masquer erreurs fournisseur.
+| MP | Owner | Initial | Cause / besoin | Correction | Qualif | Statut |
+|----|-------|---------|----------------|------------|--------|--------|
+| MP-01 | C | OPEN | micro absent sas | compositeur partagé | DET pending | NOT STARTED |
+| MP-02 | C | OPEN | hauteur/comportement divergents | shared composer | DET pending | NOT STARTED |
+| MP-03 | B | OPEN | points ouverts projection | B.4 + panneau | DET pending | NOT STARTED |
+| MP-04 | D | OPEN | spinner non animé perçu | CSS/runtime | DET pending | NOT STARTED |
+| MP-05 | D | OPEN | densité | SafeMarkdown/tokens | DET pending | NOT STARTED |
+| MP-06 | C | OPEN CRITICAL | dictée LIVE fail | robustesse + LIVE gate | LIVE REQUIRED | BLOCKED LIVE |
+| MP-07 | C | OPEN | onde premature | hide wave until listening | DET pending | NOT STARTED |
+| MP-08 | D | OPEN | panneau hors contrat | rewrite Repères | DET pending | NOT STARTED |
+| MP-09 | A | OPEN | T05 multi-intent | residual + fix | DET/LIVE | INVESTIGATING |
+| MP-10 | B | OPEN | continuité / arbre | B.1–B.7 | LIVE for autonomy | NOT STARTED |
+| MP-11 | A/D | OPEN | restitution technique | natural copy | DET pending | NOT STARTED |
+| MP-12 | B | OPEN | trajectoire / enums | B.6 | DET pending | NOT STARTED |
+| MP-13 | B | OPEN | compteur SAVING | library identity count | DET | IMPLEMENTING |
+| MP-14 | A | OPEN | T08 consommation | A.4 | DET/LIVE | NOT STARTED |
+| MP-15 | A | OPEN | Sol-only RECETTE | Option C env gate | DET; LIVE for real admit | IMPLEMENTING |
+| MP-16 | A | OPEN | FinOps incohérences | A.7 | DET | NOT STARTED |
+| MP-17 | D | OPEN | settings personal-only | shared rail foot | DET | IMPLEMENTING |
 
 ---
 
-## 14. Fake / Real Qualification
+## 10. Liste exacte des fichiers prévus (avant 1ère modification)
 
-| Capacité | Niveau |
-|---|---|
-| Code RECETTE figé | IMPLEMENTED (e8e6e069) |
-| PG MaintiPlan | LIVE EXERCISED (historique) — inspecté READ ONLY |
-| OpenAI Responses MaintiPlan | LIVE EXERCISED (historique Sol) |
-| Allocation multi-modèles RECETTE | **NOT PROVEN** (gated) |
-| Dictée LIVE | LIVE EXERCISED **FAILED** (4) — NOT PROVEN success |
-| Figma F2 | NOT PROVEN ce cycle |
+### Production — modifications
+1. `web/src/domains/preparation/project-context.ts` — compteur documents bibliothèque (identité)
+2. `web/src/components/figma/ProjectOverview.tsx` — libellé « Documents du projet »
+3. `web/src/components/shell/StudioShell.tsx` — monter settings sur tous rails authentifiés
+4. `web/src/domains/conversation/cognitive-resources/provisional-cognitive-policy.ts` — Option C env + gate RECETTE qualified
+5. `web/src/domains/conversation/pilotage-effect-restitution.ts` — restitution naturelle
+6. `web/src/domains/conversation/publication-effect-restitution.ts` — alignement naturel
+7. `web/src/components/figma/ComposerDictationControl.tsx` — onde seulement en listening
+8. `web/src/components/figma/PreparationConversation.tsx` — adopter compositeur partagé
+9. `web/src/components/figma/NoraConversation.tsx` — adopter compositeur partagé
+10. `web/src/app/projects/[projectId]/page.tsx` — panneau droit + récents
+11. `web/src/components/figma/tokens.css` — densité conversation + spinner si besoin
+12. `web/src/components/SafeMarkdown.tsx` — respiration listes/paragraphes si requis
+13. `web/src/components/figma/SasCreateProgressPopup.tsx` — animation états en cours
+14. Conducteur / knowledge / FinOps files as residual diagnosis dictates (registered when touched)
 
-Claims interdits respectés : pas READY FOR REAL / pas LIVRAISON 1 ACCEPTED.
+### Production — créations envisagées
+15. `web/src/components/figma/NoraSharedComposer.tsx` — compositeur commun sas/Travail
+16. `web/src/lib/project-recent-items.ts` — persistance client 5 récents (pilot/project scoped)
+17. Tests unitaires associés (policy, counter, restitution, composer, recent items, rail)
 
----
+### Documentation (Étape 7)
+18. `construction/delivery-history.md`
+19. `construction/ml5-registre-couverture-et-revue-de-developpement.md`
+20. Contrats techniques impactés (allocation, UX travail) — sync as-built
 
-## 15. Risques et réserves
-
-1. Org/projet OpenAI non vérifiés.
-2. Qualification JSON T05 non récupérée → racine multi-intent partielle.
-3. Logs dictation error_category vides.
-4. Compteur décisions UI vs PG à rejouer.
-5. Stubs progress Chantiers360 : vigilance fidélité, pas MP nouveau.
-6. FinOps historique cross-lane.
-7. localhost PG trust.
-
----
-
-## 16. Décisions Morris requises
-
-1. Arbitrer **activation politique allocation RECETTE** (garder Sol-only / étendre provisional / autre) **sans** sacrifier qualité.
-2. Arbitrer **macro-lot correctif** A→C→B→D vs scission.
-3. Autoriser ultérieurement : GO correction DEV ; GO LIVE dictée diagnostic ; GO cutover ; reprise T09.
-4. Trancher sémantique compteurs Projet (documents en cours vs disponibles).
-5. Trancher panneau droit objets récents (évolution UX).
+Toute extension ultérieure sera justifiée dans ce registre.
 
 ---
 
-## 17. Contrôles finaux
+## 11. Checkpoint préparation
 
-- Candidat/build/runtime inchangés (PID 22935).
-- Aucune mutation PG/code/config/OpenAI/audio.
-- Pack FULL mono-cycle.
-- 8 tours + 17 MP traités.
-- Handoff L3 à publier.
+**PREPARATION CHECKPOINT PASSED** — ENV ROUTING COMPLETE; Git Truth OK; continuity contract read; file list frozen for first wave; construction authorized within mandate.
 
 ---
 
-## 18. Verdict
+## 12. Construction log (cumulative)
 
-**MAINTIPLAN INTEGRATED DIAGNOSTIC COMPLETE WITH EVIDENCE RESERVES — MORRIS ARBITRATION REQUIRED**
+### ENV note (runtime)
+Shell had `STUDIO_DEV_TEST_LOGIN=0` and `NODE_ENV=production` overriding `.env.local` — caused false `testLoginAvailable=false`. Restarted DEV with `env -u STUDIO_DEV_TEST_LOGIN -u NODE_ENV`. RECETTE :3200 untouched.
 
-**Statut SFIA (diagnostic) :** READY WITH RESERVES
+### Implemented (DEV) — by subset
 
-**État programme inchangé :**
-R5 IN PROGRESS · ML5 OPEN · LIVRAISON 1 NOT ACCEPTED · MAINTIPLAN SUSPENDED · T09 NOT SENT · 17 MP OPEN · NO CORRECTION AUTHORIZED · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED
+| ID | Statut | Preuve |
+|----|--------|--------|
+| A.1 | VERIFIED AT DECLARED LEVEL (DET) | Option C: RECETTE requires `SFIA_COG_PROVISIONAL_RECETTE_ADMIT=qualified`; DEV unchanged; unit tests admit/refuse |
+| A.2 | VERIFIED AT DECLARED LEVEL (DET) | `listPilotageEffectBindings` + per-intent `conversationalCommandKeyForIntent`; service loops all bindings; LIVE residual for T05 parity |
+| A.3 | VERIFIED AT DECLARED LEVEL (DET) | Same loop applies/refuses each binding with OBS codes; no silent drop of siblings under shared turn key |
+| A.4 | VERIFIED AT DECLARED LEVEL (DET) | `segment-context-efficiency.ts` + hinted knowledge after probe; unit tests; LIVE residual for T08 parity |
+| A.5 | VERIFIED AT DECLARED LEVEL (DET) | `resolveCognitiveWorkTerminalStatus` — COMPLETE when production COMPLETE without await/suspend |
+| A.6 | PARTIAL | Activity remains owner-driven; natural restitution improves pilot-facing chain; no fake telemetry |
+| A.7 | VERIFIED AT DECLARED LEVEL (DET) | FinOps: billable filter; project attribution via work ids; coverage subtext explains 100%/0% estimation |
+| B.1 | IMPLEMENTED (DET wiring) | parentSubjectId on knowledge proposals + adapter guidance; LIVE autonomy residual |
+| B.2 | IMPLEMENTED (DET + UI exists) | Schema/UI tree pre-existed; capitalisation now accepts parentSubjectId; LIVE natural hierarchy residual |
+| B.3–B.5 | PARTIAL / preserve | Structures preserved; markdown markers not newly broken |
+| B.6 | VERIFIED AT DECLARED LEVEL (DET) | Cycle type human labels in Travail aside via `CYCLE_TYPE_LABELS` |
+| B.7 | IMPLEMENTED (DET) | Hinted knowledge selection in conductor segments; LIVE reuse residual |
+| B.8 | VERIFIED AT DECLARED LEVEL (DET) | Document counter = library identities; label « Documents du projet » |
+| C.1–C.2 | VERIFIED AT DECLARED LEVEL (DET+BROWSER) | `NoraSharedComposer` shared; sas+Travail wired; auto-resize |
+| C.3 | IMPLEMENTED (DET) | Prep dictation API + session `preparationId`; LIVE Realtime residual (MP-06) |
+| C.4 | VERIFIED AT DECLARED LEVEL (DET) | Wave only when listening/finalizing (`showWave`) |
+| C.5 | PARTIAL | Session ownership/concurrency preserved; LIVE negative paths residual |
+| D.1 | VERIFIED AT DECLARED LEVEL (DET) | tokens.css body 12.5px/1.65, list/heading/table spacing |
+| D.2 | VERIFIED AT DECLARED LEVEL (DET) | Spinner `display:block` + will-change; terminal stops spin |
+| D.3 | VERIFIED AT DECLARED LEVEL (DET) | Natural restitution; no « Résultat Studio » block |
+| D.4 | VERIFIED AT DECLARED LEVEL (DET+BROWSER struct) | Repères = 5 récents localStorage; open points compact; Continuité/Contrats/Dossier removed |
+| D.5 | BROWSER PROVEN (sas) | Paramètres on sas rail → Intégrations / Consommation |
+| D.6 | PARTIAL | Cross-surface consistency spot-checked; F2 full pixel not claimed |
+
+### Browser proofs (DEV)
+- Prep `prep_a43d8c90…`: mic « Dicter un message » present & enabled; Paramètres menu opens with Intégrations + Consommation et coûts.
+- Auth: `/api/dev/auto-session` after clearing shell override.
+
+### Unit tests executed (sample)
+88 PASS focused suite including policy, FinOps, A.4, A.5, composer, dictation session, MP-09, recent items, restitution.
+
+### Fake/Real
+- DETERMINISTIC PROVEN ≠ READY FOR REAL.
+- Dictation LIVE, multi-model RECETTE admit, Nora hierarchy autonomy, cognitive reuse: **LIVE gate required**.
+
+### Extended file list (beyond §10)
+- `assert-owned-preparation.ts`, prep dictation API tree, `cognitive-conductor-terminal.ts`, `segment-context-efficiency.ts`, FinOps usage modules, `conversation-authority.ts` (per-intent keys), `run-nora-cognitive-turn.ts`, `service.ts` multi-binding loop (pre-existing + keys), e2e restitution expectations, multiple unit tests.
+
+### Next
+- Sync ML5 coverage registry + as-built contracts.
+- Critical self-review of full diff.
+- FULL pack content for modified files.
+- L3 handoff publish.
+- Propose bounded LIVE mandate to Morris.
 
 ---
+## 13. Created files (integral)
 
-## 19. Anti-stub final
+### NoraSharedComposer.tsx
+```tsx
+"use client";
 
-REVIEW PACK COMPLETE — MODIFIED CONTENT PRESENT — CODE EXCERPTS + PG CORRELATION + MP MATRIX — NO SECRETS — READY FOR HANDOFF L3
+import { useEffect, useRef, useState } from "react";
+import { ComposerDictationControl } from "@/components/figma/ComposerDictationControl";
 
----
+export type NoraSharedComposerProps = {
+  draft: string;
+  onDraft: (value: string) => void;
+  busy: boolean;
+  onSend: () => void;
+  variant: "prep" | "travail";
+  projectId?: string;
+  preparationId?: string;
+  dictationEnabled?: boolean;
+  composerLocked?: boolean;
+  composerLockReason?: string;
+  dossierAttachment?: {
+    attemptId: string;
+    contractId?: string | null;
+    dossierVersion?: number | string | null;
+    verdictD8?: string | null;
+  } | null;
+  onRemoveDossierAttachment?: () => void;
+  status?: string;
+  placeholder?: string;
+};
 
-## Annexe A — Extraits code candidat e8e6e069 (discriminants)
+export function NoraSharedComposer(props: NoraSharedComposerProps) {
+  const composerLocked = Boolean(props.composerLocked);
+  const hasDossier = Boolean(props.dossierAttachment?.attemptId);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const [imeComposing, setImeComposing] = useState(false);
+  const [dictationActive, setDictationActive] = useState(false);
 
-### `provisional-cognitive-policy.ts` L1-12
+  const dictationProjectId = props.projectId;
+  const dictationPreparationId = props.projectId ? undefined : props.preparationId;
+  const dictationMount = Boolean(dictationProjectId || dictationPreparationId);
 
+  const sendDisabled =
+    props.busy ||
+    dictationActive ||
+    (props.variant === "travail"
+      ? !props.draft.trim() && !hasDossier
+      : !props.draft.trim()) ||
+    composerLocked;
+
+  const isMobile =
+    typeof window !== "undefined" &&
+    window.matchMedia &&
+    window.matchMedia("(max-width: 700px)").matches;
+
+  useEffect(() => {
+    const el = textareaRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    const max = Math.min(window.innerHeight * 0.36, 280);
+    const min = props.variant === "prep" ? 42 : 24;
+    const next = Math.min(Math.max(el.scrollHeight, min), max);
+    el.style.height = `${next}px`;
+    el.style.overflowY = el.scrollHeight > max ? "auto" : "hidden";
+  }, [props.draft, props.variant]);
+
+  const placeholder =
+    props.placeholder ??
+    (props.variant === "prep"
+      ? "Décrivez votre idée, une question ou une hésitation…"
+      : "Écrire à Nora dans ce projet…");
+
+  const dictationControl = dictationMount ? (
+    <ComposerDictationControl
+      projectId={dictationProjectId}
+      preparationId={dictationPreparationId}
+      draft={props.draft}
+      onDraft={props.onDraft}
+      disabled={composerLocked || props.busy}
+      enabled={props.dictationEnabled === true}
+      onActiveChange={setDictationActive}
+    />
+  ) : null;
+
+  if (props.variant === "prep") {
+    const expanded = props.draft.includes("\n") || props.draft.length > 80;
+    return (
+      <div
+        className="sas-composer"
+        data-testid="prep-composer"
+        data-dictation-active={dictationActive ? "1" : "0"}
+        data-composer-expanded={expanded ? "1" : "0"}
+        style={
+          expanded
+            ? {
+                height: "auto",
+                maxHeight: "min(36vh, 280px)",
+                minHeight: "var(--sas-composer-h)",
+              }
+            : undefined
+        }
+      >
+        <textarea
+          ref={textareaRef}
+          className="sas-composer-input"
+          value={props.draft}
+          onChange={(e) => props.onDraft(e.target.value)}
+          placeholder={placeholder}
+          aria-label="Message à Nora"
+          data-testid="prep-draft"
+          rows={1}
+          disabled={props.busy || composerLocked}
+          readOnly={composerLocked || dictationActive}
+          hidden={dictationActive}
+          tabIndex={dictationActive ? -1 : 0}
+          data-dictation-hide={dictationActive ? "1" : undefined}
+          onCompositionStart={() => setImeComposing(true)}
+          onCompositionEnd={() => setImeComposing(false)}
+          onKeyDown={(e) => {
+            if (composerLocked || dictationActive) {
+              e.preventDefault();
+              return;
+            }
+            if (imeComposing || e.nativeEvent.isComposing) return;
+            if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !props.busy) {
+              e.preventDefault();
+              if (props.draft.trim()) props.onSend();
+            }
+          }}
+        />
+        <div
+          className="sas-composer-bar"
+          aria-hidden={!dictationActive && !props.draft.trim()}
+          data-dictation-active={dictationActive ? "1" : "0"}
+        >
+          <span
+            className="sas-composer-hint"
+            data-dictation-hide={dictationActive ? "1" : undefined}
+            hidden={dictationActive}
+          >
+            <span className="sas-composer-plus" aria-hidden>
+              ＋
+            </span>
+            Échanger librement avec Nora
+          </span>
+          <div className="inline-flex min-w-0 flex-1 items-center justify-end gap-2">
+            {dictationControl}
+            <button
+              type="button"
+              className="sas-composer-send"
+              disabled={sendDisabled}
+              onClick={props.onSend}
+              data-testid="prep-send"
+              aria-label="Envoyer le message"
+              data-dictation-hide={dictationActive ? "1" : undefined}
+              hidden={dictationActive}
+              tabIndex={dictationActive ? -1 : 0}
+            >
+              <span aria-hidden>↑</span>
+            </button>
+          </div>
+        </div>
+        {props.status ? (
+          <p className="sr-only" role="status">
+            {props.status}
+          </p>
+        ) : null}
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="fig-composer fig-travail-composer relative"
+      data-testid="nora-composer"
+      data-composer-locked={composerLocked ? "1" : "0"}
+      data-composer-expanded={props.draft.includes("\n") || props.draft.length > 80 ? "1" : "0"}
+      data-dictation-active={dictationActive ? "1" : "0"}
+    >
+      {composerLocked ? (
+        <div
+          className="fig-travail-composer-lock absolute inset-0 z-10 flex items-center gap-3 rounded-xl px-4"
+          style={{ background: "rgba(12, 16, 28, 0.72)" }}
+          data-testid="composer-lock-overlay"
+        >
+          <svg
+            className="shrink-0 text-[#7477ed]"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            aria-hidden
+          >
+            <rect x="5" y="11" width="14" height="10" rx="2" />
+            <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+          </svg>
+          <div className="min-w-0 flex-1 text-xs text-[#a3b0c7]">
+            <p className="font-semibold text-[#f3f5ff]" data-testid="composer-lock-title">
+              Compositeur temporairement indisponible
+            </p>
+            <p data-testid="composer-lock-reason">
+              {props.composerLockReason ||
+                "Nora prépare la trajectoire — saisie et envoi désactivés jusqu'au résultat terminal."}
+            </p>
+          </div>
+          <button
+            type="button"
+            className="shrink-0 rounded border border-[#7477ed55] px-1.5 py-0.5 text-[#7477ed]"
+            title={
+              props.composerLockReason ||
+              "Compositeur temporairement indisponible pendant la qualification de trajectoire."
+            }
+            aria-label={
+              props.composerLockReason ||
+              "Compositeur temporairement indisponible pendant la qualification de trajectoire."
+            }
+            data-testid="composer-lock-info"
+          >
+            i
+          </button>
+        </div>
+      ) : null}
+      {props.dossierAttachment?.attemptId ? (
+        <div className="fig-dossier-attachment" data-testid="dossier-composer-attachment">
+          <div className="fig-dossier-attachment-body">
+            <p className="fig-dossier-attachment-label">Dossier D8 joint</p>
+            <p className="fig-dossier-attachment-meta">
+              {props.dossierAttachment.attemptId}
+              {props.dossierAttachment.dossierVersion != null
+                ? ` · v${props.dossierAttachment.dossierVersion}`
+                : ""}
+              {props.dossierAttachment.verdictD8 ? ` · ${props.dossierAttachment.verdictD8}` : ""}
+            </p>
+          </div>
+          <button
+            type="button"
+            className="fig-dossier-attachment-remove"
+            data-testid="dossier-composer-attachment-remove"
+            disabled={composerLocked || props.busy}
+            onClick={() => props.onRemoveDossierAttachment?.()}
+            aria-label="Retirer la référence du dossier D8"
+          >
+            Retirer
+          </button>
+        </div>
+      ) : null}
+      <div className="fig-travail-composer-row">
+        <span
+          className="fig-travail-composer-plus"
+          aria-hidden
+          data-dictation-hide={dictationActive ? "1" : undefined}
+        >
+          +
+        </span>
+        <textarea
+          ref={textareaRef}
+          className="fig-travail-composer-input"
+          value={props.draft}
+          onChange={(e) => props.onDraft(e.target.value)}
+          placeholder={placeholder}
+          aria-label="Message à Nora"
+          data-testid="thread-draft"
+          rows={1}
+          readOnly={composerLocked || dictationActive}
+          disabled={composerLocked}
+          aria-disabled={composerLocked || dictationActive}
+          data-dictation-hide={dictationActive ? "1" : undefined}
+          hidden={dictationActive}
+          tabIndex={dictationActive ? -1 : 0}
+          onCompositionStart={() => setImeComposing(true)}
+          onCompositionEnd={() => setImeComposing(false)}
+          onKeyDown={(e) => {
+            if (composerLocked || dictationActive) {
+              e.preventDefault();
+              return;
+            }
+            if (imeComposing || e.nativeEvent.isComposing) return;
+            if (isMobile) return;
+            if (e.key === "Enter" && !e.shiftKey && !props.busy) {
+              e.preventDefault();
+              if (props.draft.trim() || hasDossier) props.onSend();
+            }
+          }}
+        />
+        {dictationControl}
+        <button
+          type="button"
+          className="fig-travail-composer-send"
+          disabled={sendDisabled}
+          onClick={props.onSend}
+          data-testid="thread-send"
+          aria-label="Envoyer"
+          data-dictation-hide={dictationActive ? "1" : undefined}
+          hidden={dictationActive}
+          tabIndex={dictationActive ? -1 : 0}
+        >
+          <img
+            src="/figma-dictation/send.svg"
+            alt=""
+            width={20}
+            height={20}
+            aria-hidden
+            className="fig-travail-composer-send-icon"
+          />
+        </button>
+      </div>
+      {props.status ? (
+        <p className="sr-only" data-testid="thread-nora-status" role="status">
+          {props.status}
+        </p>
+      ) : null}
+    </div>
+  );
+}```
+
+### project-recent-items.ts
 ```ts
-1|/**
-2| * ML5 provisional cognitive policy — DEV only (Morris 2026-11-26).
-3| *
-4| * v0.2 (explicit): Terra medium default; Luna low/medium experimental;
-5| * Sol L/M/H historical; Terra high / Luna high candidates.
-6| *
-7| * Activation is NEVER implicit: absent or unknown SFIA_COG_PROVISIONAL_POLICY
-8| * resolves to legacy_sol (safe historical default). Provisional couples require
-9| * explicit `v0.2` (or deprecated `v0.1`) AND STUDIO_LANE=DEV.
-10| *
-11| * Rollback: `legacy_sol` | `off` | `0` — no structural rewrite.
-12| */
+/**
+ * ML5 MP-08 — pilot-consulted « Éléments récents » (max 5).
+ * Client-scoped persistence only (no schema). Isolation: pilotId + projectId.
+ * A Nora-only read or a mere mention does NOT populate this list — callers must
+ * invoke recordProjectRecentItem on explicit Pilote consultation (viewer open, etc.).
+ *
+ * Pure merge helpers are exported for deterministic unit tests without DOM storage.
+ */
+
+export type ProjectRecentItemKind =
+  | "document_nora"
+  | "file_git"
+  | "document_git"
+  | "execution"
+  | "result"
+  | "bilan"
+  | "proof";
+
+export type ProjectRecentItem = {
+  id: string;
+  kind: ProjectRecentItemKind;
+  title: string;
+  href?: string | null;
+  /** Opaque version/ref for display continuity. */
+  refLabel?: string | null;
+  consultedAtMs: number;
+};
+
+const STORAGE_PREFIX = "sfia.projectRecent.v1:";
+export const PROJECT_RECENT_MAX_ITEMS = 5;
+
+function storageKey(pilotId: string, projectId: string): string {
+  return `${STORAGE_PREFIX}${pilotId}:${projectId}`;
+}
+
+function canUseStorage(): boolean {
+  return typeof window !== "undefined" && typeof window.localStorage !== "undefined";
+}
+
+export function mergeProjectRecentItems(
+  existing: ProjectRecentItem[],
+  nextItem: ProjectRecentItem,
+  maxItems: number = PROJECT_RECENT_MAX_ITEMS,
+): ProjectRecentItem[] {
+  return [nextItem, ...existing.filter((x) => x.id !== nextItem.id)]
+    .sort((a, b) => b.consultedAtMs - a.consultedAtMs)
+    .slice(0, maxItems);
+}
+
+export function readProjectRecentItems(
+  pilotId: string,
+  projectId: string,
+): ProjectRecentItem[] {
+  if (!canUseStorage() || !pilotId || !projectId) return [];
+  try {
+    const raw = window.localStorage.getItem(storageKey(pilotId, projectId));
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as unknown;
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .filter((x): x is ProjectRecentItem => {
+        if (!x || typeof x !== "object") return false;
+        const r = x as ProjectRecentItem;
+        return Boolean(r.id && r.kind && r.title && typeof r.consultedAtMs === "number");
+      })
+      .sort((a, b) => b.consultedAtMs - a.consultedAtMs)
+      .slice(0, PROJECT_RECENT_MAX_ITEMS);
+  } catch {
+    return [];
+  }
+}
+
+export function recordProjectRecentItem(input: {
+  pilotId: string;
+  projectId: string;
+  item: Omit<ProjectRecentItem, "consultedAtMs"> & { consultedAtMs?: number };
+}): ProjectRecentItem[] {
+  if (!input.pilotId || !input.projectId) return [];
+  const nextItem: ProjectRecentItem = {
+    id: input.item.id,
+    kind: input.item.kind,
+    title: input.item.title.slice(0, 160),
+    href: input.item.href ?? null,
+    refLabel: input.item.refLabel ?? null,
+    consultedAtMs: input.item.consultedAtMs ?? Date.now(),
+  };
+  const existing = readProjectRecentItems(input.pilotId, input.projectId);
+  const merged = mergeProjectRecentItems(existing, nextItem);
+  if (canUseStorage()) {
+    try {
+      window.localStorage.setItem(
+        storageKey(input.pilotId, input.projectId),
+        JSON.stringify(merged),
+      );
+    } catch {
+      /* quota / private mode — ignore */
+    }
+  }
+  return merged;
+}
+
+export function clearProjectRecentItems(pilotId: string, projectId: string): void {
+  if (!canUseStorage()) return;
+  try {
+    window.localStorage.removeItem(storageKey(pilotId, projectId));
+  } catch {
+    /* ignore */
+  }
+}
 ```
 
-### `provisional-cognitive-policy.ts` L84-140
-
+### cognitive-conductor-terminal.ts
 ```ts
-84|/**
-85| * Resolve active policy — fail closed to legacy_sol unless explicitly activated on DEV.
-86| */
-87|export function resolveProvisionalPolicy(
-88|  env: NodeJS.ProcessEnv = process.env,
-89|): ProvisionalPolicyResolution {
-90|  const raw = (env.SFIA_COG_PROVISIONAL_POLICY ?? "").trim().toLowerCase();
-91|  const lane = studioLane(env);
-92|  const codes: string[] = [];
-93|
-94|  if (!raw) {
-95|    return {
-96|      id: "legacy_sol",
-97|      provisionalActive: false,
-98|      reasonCodes: [
-99|        "COG_POLICY_ABSENT_FALLBACK_LEGACY_SOL",
-100|        "COG_POLICY_VERSION_legacy_sol",
-101|      ],
-102|    };
-103|  }
-104|
-105|  if (
-106|    raw === "off" ||
-107|    raw === "0" ||
-108|    raw === "legacy" ||
-109|    raw === "legacy_sol" ||
-110|    raw === "sol"
-111|  ) {
-112|    return {
-113|      id: "legacy_sol",
-114|      provisionalActive: false,
-115|      reasonCodes: ["COG_POLICY_LEGACY_SOL", "COG_POLICY_VERSION_legacy_sol"],
-116|    };
-117|  }
-118|
-119|  if (raw === "v0.2" || raw === "0.2" || raw === "v2") {
-120|    if (lane !== "DEV") {
-121|      return {
-122|        id: "legacy_sol",
-123|        provisionalActive: false,
-124|        reasonCodes: [
-125|          "COG_POLICY_V02_REFUSED_NON_DEV_LANE",
-126|          `LANE_${lane || "UNKNOWN"}`,
-127|          "COG_POLICY_VERSION_legacy_sol",
-128|        ],
-129|      };
-130|    }
-131|    return {
-132|      id: "v0.2",
-133|      provisionalActive: true,
-134|      reasonCodes: [
-135|        `COG_POLICY_PROVISIONAL_${PROVISIONAL_COGNITIVE_POLICY_VERSION}`,
-136|        "COG_POLICY_VERSION_v0.2",
-137|        "LANE_DEV",
-138|      ],
-139|    };
-140|  }
-```
+/**
+ * Pure terminal disposition for adaptive cognitive works (A.5).
+ * Exported for unit tests — conductor applies the returned status at segment end.
+ */
 
-### `provisional-cognitive-policy.ts` L191-199
+import type { CognitiveProductionState } from "./cognitive-work";
+import type { NoraTurnQualification } from "./semantic-qualification";
 
+export type CognitiveWorkTerminalStatus = "OPEN" | "COMPLETE" | "SUSPENDED";
+
+export function resolveCognitiveWorkTerminalStatus(input: {
+  suspended: boolean;
+  production: Pick<CognitiveProductionState, "status">;
+  qualification: NoraTurnQualification | null | undefined;
+}): {
+  status: CognitiveWorkTerminalStatus;
+  awaitPilot: boolean;
+  interruptCause: string | null;
+} {
+  const { suspended, production, qualification } = input;
+  const disposition = qualification?.workDisposition;
+  const dispositionComplete = disposition === "COMPLETE";
+  const dispositionAwait =
+    disposition === "AWAIT_PILOT" || disposition === "SUSPEND";
+  const statusNeedsClarification = qualification?.status === "NEEDS_CLARIFICATION";
+
+  const openDeterminantStructured =
+    !dispositionComplete &&
+    (qualification?.determiningQuestions ?? []).some(
+      (q) => q.importance === "DETERMINANT" && q.status === "OPEN",
+    );
+
+  // clarifications[] are open questions only when Nora re-evaluated them; stale non-empty
+  // lists must not block COMPLETE when workDisposition already says the objective is done.
+  const openClarifications =
+    !dispositionComplete &&
+    (qualification?.clarifications?.length ?? 0) > 0 &&
+    (statusNeedsClarification || dispositionAwait);
+
+  const awaitPilot =
+    dispositionAwait ||
+    statusNeedsClarification ||
+    openDeterminantStructured ||
+    openClarifications;
+
+  const status: CognitiveWorkTerminalStatus = suspended
+    ? "SUSPENDED"
+    : production.status === "PARTIAL" || production.status === "FAILED"
+      ? "SUSPENDED"
+      : awaitPilot
+        ? "OPEN"
+        : "COMPLETE";
+
+  const interruptCause = suspended
+    ? null
+    : awaitPilot
+      ? disposition === "SUSPEND"
+        ? "AWAIT_OR_SUSPEND"
+        : "AWAIT_PILOT"
+      : null;
+
+  return { status, awaitPilot, interruptCause };
+}```
+
+### segment-context-efficiency.ts
 ```ts
-191|export function resolveOperationalDefaultResource(
-192|  env: NodeJS.ProcessEnv = process.env,
-193|): { modelId: CognitiveModelId; effort: CognitiveEffort } {
-194|  const resolved = resolveProvisionalPolicy(env);
-195|  if (!resolved.provisionalActive) {
-196|    return { ...HISTORICAL_SOL_DEFAULT_RESOURCE };
-197|  }
-198|  return { ...PROVISIONAL_V02_DEFAULT_RESOURCE };
-199|}
-```
+/**
+ * A.4 / MP-14 — avoid re-injecting the full Journal listing on every conductor segment
+ * when durable acquis + checkpoint context already carry continuity.
+ * Non-authoritative trimming only; first segment and cold starts keep full bounded listing.
+ */
 
-### `resource-admission.ts` L90-128
+/** Shown when bulk journal snippets are omitted on continuation — tools + acquis block remain. */
+export const CONTINUATION_KNOWLEDGE_OMIT_MARKER =
+  "[Journal D4 — listing borné omis sur ce segment : réutiliser le bloc acquis ci-dessous et les outils d4 si besoin]";
 
+const JOURNAL_SNIPPET_PREFIX =
+  /^(ACQUIS\[|POINT_OUVERT\[|POINT_OUVERT_REACTIVATE\[|SUJET\[|DERIVED_HIT\[)/;
+
+export function isJournalKnowledgeSnippet(line: string): boolean {
+  return JOURNAL_SNIPPET_PREFIX.test(line.trim());
+}
+
+export function isPreferredKnowledgeSnippet(line: string): boolean {
+  return /\/PREFERRED\]|PREFERRED\]/.test(line);
+}
+
+/** Split pre-turn snippets into journal lines vs document/publication/auxiliary lines. */
+export function partitionKnowledgeSnippets(snippets: string[] | undefined): {
+  journal: string[];
+  auxiliary: string[];
+} {
+  const all = snippets ?? [];
+  const journal: string[] = [];
+  const auxiliary: string[] = [];
+  for (const line of all) {
+    if (isJournalKnowledgeSnippet(line)) journal.push(line);
+    else auxiliary.push(line);
+  }
+  return { journal, auxiliary };
+}
+
+/**
+ * On conductor continuation with prior acquis, omit redundant journal listing.
+ * Keeps Nora-selected PREFERRED rows when present (B.7).
+ */
+export function resolveContinuationKnowledgeSnippets(
+  baseSnippets: string[] | undefined,
+  opts: { useContinuation: boolean; hasPriorAcquis: boolean },
+): string[] {
+  const { journal, auxiliary } = partitionKnowledgeSnippets(baseSnippets);
+  if (!opts.useContinuation || !opts.hasPriorAcquis) {
+    return [...journal, ...auxiliary];
+  }
+  const preferred = journal.filter(isPreferredKnowledgeSnippet);
+  if (preferred.length > 0) {
+    return [CONTINUATION_KNOWLEDGE_OMIT_MARKER, ...preferred, ...auxiliary];
+  }
+  return [CONTINUATION_KNOWLEDGE_OMIT_MARKER, ...auxiliary];
+}
+
+/**
+ * Recent messages are bounded on continuation — checkpoint + userText retain thread intent.
+ */
+export function resolveContinuationContextSnippets(
+  baseSnippets: string[],
+  opts: { useContinuation: boolean; hasPriorAcquis: boolean; maxRecent?: number },
+): string[] {
+  if (!opts.useContinuation || !opts.hasPriorAcquis) return baseSnippets;
+  const max = opts.maxRecent ?? 2;
+  return baseSnippets.slice(-Math.max(0, max));
+}```
+
+### assert-owned-preparation.ts
 ```ts
-90|  if (mode === "operational") {
-91|    const policyId = activeProvisionalPolicyId();
-92|    const provisionalOn = isProvisionalPolicyActive();
-93|
-94|    // Explicit provisional policy on DEV — Morris-validated couples only.
-95|    if (provisionalOn && isProvisionalAdmittedCouple(modelId, effort)) {
-96|      return { admitted: true, modelId, effort, mode };
-97|    }
-98|
-99|    if (provisionalOn && isProvisionalCandidateCouple(modelId, effort)) {
-100|      return {
-101|        admitted: false,
-102|        mode,
-103|        reasonCode: "PROVISIONAL_CANDIDATE_NOT_ADMITTED",
-104|        reason: `${modelId}@${effort} est candidat provisoire (${policyId}) — qualification Morris requise avant admission`,
-105|      };
-106|    }
-107|
-108|    // Sol historical band always available (rollback + comparison).
-109|    if (modelId === "gpt-6.2-sol" && OPERATIONAL_SOL_EFFORTS.has(effort)) {
-110|      return { admitted: true, modelId, effort, mode };
-111|    }
-112|    if (modelId === "gpt-6.2-sol" && !OPERATIONAL_SOL_EFFORTS.has(effort)) {
-113|      return {
-114|        admitted: false,
-115|        mode,
-116|        reasonCode: "SOL_EFFORT_NOT_OPERATIONAL_BAND",
-117|        reason:
-118|          "Seuls low|medium|high sont admis en opérationnel pour Sol",
-119|      };
-120|    }
-121|
-122|    if (entry.admissionStatus === "documented_candidate") {
-123|      return {
-124|        admitted: false,
-125|        mode,
-126|        reasonCode: "UNCALIBRATED_MODEL_OPERATIONAL",
-127|        reason: `${modelId}@${effort} non admis sous politique ${policyId}`,
-128|      };
+import { and, eq } from "drizzle-orm";
+import { db } from "@/db/client";
+import { preparations } from "@/db/schema";
+import { StudioError } from "@/lib/http-errors";
+
+export async function assertOwnedPreparation(pilotId: string, preparationId: string) {
+  const preparation = (
+    await db
+      .select()
+      .from(preparations)
+      .where(and(eq(preparations.id, preparationId), eq(preparations.ownerPilotId, pilotId)))
+      .limit(1)
+  )[0];
+  if (!preparation) throw new StudioError("NOT_FOUND", "Préparation introuvable");
+  return preparation;
+}```
+
+---
+## 14. Key modified diffs
+
+### a1-provisional-policy
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-resources/provisional-cognitive-policy.ts b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-resources/provisional-cognitive-policy.ts
+index 27c3f7ec..dff291ef 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/cognitive-resources/provisional-cognitive-policy.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/cognitive-resources/provisional-cognitive-policy.ts
+@@ -1,12 +1,19 @@
+ /**
+- * ML5 provisional cognitive policy — DEV only (Morris 2026-11-26).
++ * ML5 provisional cognitive policy — Option C env-governed (Morris 2026-11-27).
+  *
+  * v0.2 (explicit): Terra medium default; Luna low/medium experimental;
+  * Sol L/M/H historical; Terra high / Luna high candidates.
+  *
+  * Activation is NEVER implicit: absent or unknown SFIA_COG_PROVISIONAL_POLICY
+- * resolves to legacy_sol (safe historical default). Provisional couples require
+- * explicit `v0.2` (or deprecated `v0.1`) AND STUDIO_LANE=DEV.
++ * resolves to legacy_sol (safe historical default).
++ *
++ * Lane gates:
++ * - DEV: explicit `v0.2` | `v0.1` activates provisional couples.
++ * - RECETTE: same policy env is refused unless
++ *   `SFIA_COG_PROVISIONAL_RECETTE_ADMIT=qualified` after calibration evidence.
++ * - Other / unknown lanes: refuse provisional (fail closed to legacy_sol).
++ *
++ * An unqualified policy must never become active in RECETTE by default.
+  *
+  * Rollback: `legacy_sol` | `off` | `0` — no structural rewrite.
+  */
+@@ -74,6 +81,49 @@ function studioLane(env: NodeJS.ProcessEnv): string {
+   return (env.STUDIO_LANE ?? "").trim().toUpperCase();
+ }
+
++/** Explicit post-calibration admit for RECETTE — never inferred. */
++export function isRecetteProvisionalQualified(
++  env: NodeJS.ProcessEnv = process.env,
++): boolean {
++  const raw = (env.SFIA_COG_PROVISIONAL_RECETTE_ADMIT ?? "").trim().toLowerCase();
++  return raw === "qualified" || raw === "1" || raw === "true" || raw === "yes";
++}
++
++function laneAllowsProvisional(
++  lane: string,
++  env: NodeJS.ProcessEnv,
++): { allowed: boolean; reasonCodes: string[] } {
++  if (lane === "DEV") {
++    return { allowed: true, reasonCodes: ["LANE_DEV"] };
++  }
++  if (lane === "RECETTE") {
++    if (isRecetteProvisionalQualified(env)) {
++      return {
++        allowed: true,
++        reasonCodes: [
++          "LANE_RECETTE",
++          "COG_POLICY_RECETTE_ADMIT_QUALIFIED",
++        ],
++      };
++    }
++    return {
++      allowed: false,
++      reasonCodes: [
++        "COG_POLICY_REFUSED_RECETTE_UNQUALIFIED",
++        "LANE_RECETTE",
++        "COG_POLICY_REQUIRE_SFIA_COG_PROVISIONAL_RECETTE_ADMIT_qualified",
++      ],
++    };
++  }
++  return {
++    allowed: false,
++    reasonCodes: [
++      "COG_POLICY_REFUSED_NON_GOVERNED_LANE",
++      `LANE_${lane || "UNKNOWN"}`,
++    ],
++  };
++}
++
+ export type ProvisionalPolicyResolution = {
+   id: ProvisionalPolicyId;
+   /** True when provisional experimental couples may be admitted. */
+@@ -82,14 +132,14 @@ export type ProvisionalPolicyResolution = {
+ };
+
+ /**
+- * Resolve active policy — fail closed to legacy_sol unless explicitly activated on DEV.
++ * Resolve active policy — fail closed to legacy_sol unless explicitly activated
++ * on an allowed lane (DEV, or RECETTE with qualified admit).
+  */
+ export function resolveProvisionalPolicy(
+   env: NodeJS.ProcessEnv = process.env,
+ ): ProvisionalPolicyResolution {
+   const raw = (env.SFIA_COG_PROVISIONAL_POLICY ?? "").trim().toLowerCase();
+   const lane = studioLane(env);
+-  const codes: string[] = [];
+
+   if (!raw) {
+     return {
+@@ -117,13 +167,14 @@ export function resolveProvisionalPolicy(
+   }
+
+   if (raw === "v0.2" || raw === "0.2" || raw === "v2") {
+-    if (lane !== "DEV") {
++    const gate = laneAllowsProvisional(lane, env);
++    if (!gate.allowed) {
+       return {
+         id: "legacy_sol",
+         provisionalActive: false,
+         reasonCodes: [
+-          "COG_POLICY_V02_REFUSED_NON_DEV_LANE",
+-          `LANE_${lane || "UNKNOWN"}`,
++          "COG_POLICY_V02_REFUSED_LANE_GATE",
++          ...gate.reasonCodes,
+           "COG_POLICY_VERSION_legacy_sol",
+         ],
+       };
+@@ -134,19 +185,20 @@ export function resolveProvisionalPolicy(
+       reasonCodes: [
+         `COG_POLICY_PROVISIONAL_${PROVISIONAL_COGNITIVE_POLICY_VERSION}`,
+         "COG_POLICY_VERSION_v0.2",
+-        "LANE_DEV",
++        ...gate.reasonCodes,
+       ],
+     };
+   }
+
+   if (raw === "v0.1" || raw === "0.1" || raw === "v1") {
+-    if (lane !== "DEV") {
++    const gate = laneAllowsProvisional(lane, env);
++    if (!gate.allowed) {
+       return {
+         id: "legacy_sol",
+         provisionalActive: false,
+         reasonCodes: [
+-          "COG_POLICY_V01_REFUSED_NON_DEV_LANE",
+-          `LANE_${lane || "UNKNOWN"}`,
++          "COG_POLICY_V01_REFUSED_LANE_GATE",
++          ...gate.reasonCodes,
+           "COG_POLICY_VERSION_legacy_sol",
+         ],
+       };
+@@ -158,7 +210,7 @@ export function resolveProvisionalPolicy(
+         "COG_POLICY_PROVISIONAL_ml5-cog-provisional-policy-v0.1-20261126",
+         "COG_POLICY_VERSION_v0.1",
+         "COG_POLICY_V01_DEPRECATED_PREFER_V02",
+-        "LANE_DEV",
++        ...gate.reasonCodes,
+       ],
+     };
+   }
 ```
 
-### `project-context.ts` L93-119
+### a2-authority-keys
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts b/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
+index 185c5540..4e05ec10 100644
+--- a/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
++++ b/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
+@@ -68,6 +68,16 @@ export function conversationalCommandKey(clientTurnKey: string): string {
+   return conversationalClientCommandKey(clientTurnKey);
+ }
 
-```ts
-93|  const applicableDecisions = decisionRows.filter(
-94|    (d) => d.state === "APPLICABLE" && !supersededIds.has(d.id),
-95|  );
-96|
-97|  const openSubjects = knowledge.subjects.filter((s) => s.status === "ACTIVE");
-98|  const openPoints = knowledge.openPoints.filter((o) => o.status === "OPEN");
-99|  // FIX-11 — "en cours" = actively writing (SAVING), not FAILED/UNKNOWN/AVAILABLE.
-100|  const docsInProgress = documents.filter((d) => d.latestRevision?.status === "SAVING");
-101|
-102|  const activity = {
-103|    openSubjects: {
-104|      count: openSubjects.length,
-105|      examples: openSubjects.slice(0, 2).map((s) => ({ id: s.id, title: s.title })),
-106|    },
-107|    applicableDecisions: {
-108|      count: applicableDecisions.length,
-109|      examples: applicableDecisions.slice(0, 2).map((d) => ({ id: d.id, statement: d.statement })),
-110|    },
-111|    documentsInProgress: {
-112|      count: docsInProgress.length,
-113|      examples: docsInProgress.slice(0, 2).map((d) => ({
-114|        id: d.document.id,
-115|        title: d.document.title,
-116|      })),
-117|    },
-118|    openPointsCount: openPoints.length,
-119|  };
++/** Per semantic intent when several pilotage acts share one clientTurnKey (MP-09). */
++export function conversationalCommandKeyForIntent(
++  clientTurnKey: string,
++  semanticIntentId?: string | null,
++): string {
++  const base = conversationalCommandKey(clientTurnKey);
++  const intentId = semanticIntentId?.trim();
++  return intentId ? `${base}:${intentId}` : base;
++}
++
+ /** @deprecated retained for lexical helper tests only — authority path uses durable resolvers. */
+ export async function loadDecisionBriefs(projectId: string): Promise<DecisionBrief[]> {
+   const rows = await db
+@@ -232,9 +242,11 @@ export async function reconstituteConversationalAuthority(input: {
+   projectId: string;
+   clientTurnKey?: string | null;
+   userMessageId?: string | null;
++  /** When set, scopes C02 replay to one semantic pilotage intent (MP-09). */
++  semanticIntentId?: string | null;
+ }): Promise<ConversationalAuthorityOutcome | null> {
+   const key = input.clientTurnKey?.trim()
+-    ? conversationalCommandKey(input.clientTurnKey)
++    ? conversationalCommandKeyForIntent(input.clientTurnKey, input.semanticIntentId)
+     : null;
+   if (key) {
+     try {
+@@ -297,7 +309,10 @@ export async function applyConversationalAuthority(input: {
+   preQualified?: IntentQualification | null;
+ }): Promise<ConversationalAuthorityOutcome> {
+   const content = input.content.trim();
+-  const clientCommandKey = conversationalCommandKey(input.clientTurnKey);
++  const clientCommandKey = conversationalCommandKeyForIntent(
++    input.clientTurnKey,
++    input.preQualified?.semanticIntentId,
++  );
+   const empty: ConversationalAuthorityOutcome = {
+     attempted: false,
+     intentClarity: "NONE",
+@@ -315,6 +330,7 @@ export async function applyConversationalAuthority(input: {
+     projectId: input.projectId,
+     clientTurnKey: input.clientTurnKey,
+     userMessageId: input.userMessageId,
++    semanticIntentId: input.preQualified?.semanticIntentId,
+   });
+   if (prior?.attempted && prior.command) {
+     return prior;
 ```
 
-### `PreparationConversation.tsx` L130-160
+### b8-project-context
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts b/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
+index a50bd368..e8f401f4 100644
+--- a/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
++++ b/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
+@@ -96,8 +96,11 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
 
-```ts
-130|      </div>
-131|
-132|      <div className="sas-composer" data-testid="prep-composer">
-133|        <textarea
-134|          className="sas-composer-input"
-135|          value={props.draft}
-136|          onChange={(e) => props.onDraftChange(e.target.value)}
-137|          placeholder="Décrivez votre idée, une question ou une hésitation…"
-138|          aria-label="Message à Nora"
-139|          data-testid="prep-draft"
-140|          rows={2}
-141|          disabled={props.busy}
-142|          onKeyDown={(e) => {
-143|            if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !props.busy) {
-144|              e.preventDefault();
-145|              props.onSend();
-146|            }
-147|          }}
-148|        />
-149|        <div className="sas-composer-bar" aria-hidden={!props.draft.trim()}>
-150|          <span className="sas-composer-hint">
-151|            <span className="sas-composer-plus" aria-hidden>
-152|              ＋
-153|            </span>
-154|            Échanger librement avec Nora
-155|          </span>
-156|          <button
-157|            type="button"
-158|            className="sas-composer-send"
-159|            disabled={props.busy || !props.draft.trim()}
-160|            onClick={props.onSend}
+   const openSubjects = knowledge.subjects.filter((s) => s.status === "ACTIVE");
+   const openPoints = knowledge.openPoints.filter((o) => o.status === "OPEN");
+-  // FIX-11 — "en cours" = actively writing (SAVING), not FAILED/UNKNOWN/AVAILABLE.
+-  const docsInProgress = documents.filter((d) => d.latestRevision?.status === "SAVING");
++  // ML5 continuity — library identity count (Morris 2026-11-27): every accessible
++  // document in the project library counts once, regardless of SAVING/AVAILABLE.
++  // Revisions of the same document do not inflate the counter (listDocuments is
++  // already one row per document identity with latestRevision attached).
++  const projectDocuments = documents.filter((d) => Boolean(d.document?.id));
+
+   const activity = {
+     openSubjects: {
+@@ -109,8 +112,8 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
+       examples: applicableDecisions.slice(0, 2).map((d) => ({ id: d.id, statement: d.statement })),
+     },
+     documentsInProgress: {
+-      count: docsInProgress.length,
+-      examples: docsInProgress.slice(0, 2).map((d) => ({
++      count: projectDocuments.length,
++      examples: projectDocuments.slice(0, 2).map((d) => ({
+         id: d.document.id,
+         title: d.document.title,
+       })),
 ```
 
-### `composer-dictation-session.ts` L79-79
+### d3-restitution
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts b/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
+index fbee47d8..d50d5fc0 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/pilotage-effect-restitution.ts
+@@ -46,6 +46,10 @@ function stripPreEffectHedges(text: string): string {
+     .trim();
+ }
 
-```ts
-79|const SESSION_OPEN_TIMEOUT_MS = 10_000;
++/**
++ * Natural métier restitution (MP-11 / Morris 2026-11-27).
++ * Confirm only after Studio owner outcome; avoid technical « Résultat Studio » blocks.
++ */
+ function effectFactLines(effect: NonNullable<PilotageEffectView>): string[] {
+   const op = operationLabel(effect.operation);
+   const status = (effect.status ?? "").toUpperCase();
+@@ -53,48 +57,70 @@ function effectFactLines(effect: NonNullable<PilotageEffectView>): string[] {
+
+   switch (status) {
+     case "APPLIED":
++      if (effect.operation === "OPEN_CYCLE") {
++        return [
++          `Le cycle demandé est maintenant ouvert (${op}).`,
++          "La guidance spécialisée associée est disponible sur Trajectoire / CKI. On peut enchaîner sur le fond du travail.",
++        ];
++      }
++      if (effect.operation === "CLOSE_CYCLE") {
++        return [
++          `Le cycle est maintenant clos.`,
++          "L'historique et la trajectoire conservent cet état. Dis-moi si tu veux ouvrir un cycle suivant.",
++        ];
++      }
++      if (effect.operation === "RETAIN_TRAJECTORY") {
++        return [
++          "L'orientation de trajectoire est retenue.",
++          "L'ouverture d'un cycle reste une décision distincte lorsque tu seras prêt.",
++        ];
++      }
++      if (effect.operation === "RECORD_DECISION" || effect.operation === "REVISE_DECISION") {
++        return [
++          `La décision a bien été enregistrée.`,
++          effect.decisionId
++            ? "Elle figure désormais dans le Journal (Décisions) avec sa portée et sa provenance."
++            : "Elle figure désormais dans le Journal avec sa portée et sa provenance.",
++        ];
++      }
+       return [
+-        `**Résultat Studio :** la ${op} a été **appliquée**.`,
+-        effect.operation === "OPEN_CYCLE"
+-          ? "Le cycle demandé est désormais actif ; la guidance spécialisée associée sera disponible sur Trajectoire / CKI."
+-          : effect.operation === "RETAIN_TRAJECTORY"
+-            ? "L'orientation est retenue. L'ouverture d'un cycle reste une décision distincte."
+-            : "L'état du projet a été mis à jour en conséquence.",
++        `C'est fait : la ${op} a bien été prise en compte.`,
++        "L'état du projet a été mis à jour en conséquence.",
+       ];
+     case "ALREADY_APPLIED":
+       return [
+-        `**Résultat Studio :** cette ${op} était **déjà appliquée** — aucun nouvel effet n'a été créé.`,
++        `Cette ${op} était déjà en place — aucun nouvel effet n'a été créé.`,
+       ];
+     case "REJECTED":
+       return [
+-        `**Résultat Studio :** la ${op} a été **refusée**.`,
++        `Je n'ai pas pu appliquer la ${op}.`,
+         reason
+           ? `Motif : ${reason}.`
+           : "Le contrôle d'autorité ou d'état n'a pas autorisé l'effet.",
+-        "Aucun cycle ni décision n'a été créé par cette demande. Vous pouvez reformuler ou préciser le type de cycle reconnu.",
++        "Aucun cycle ni décision n'a été créé par cette demande. Tu peux reformuler ou préciser le type de cycle reconnu.",
+       ];
+     case "CONFLICT":
+       return [
+-        `**Résultat Studio :** **conflit d'état** sur la ${op}.`,
+-        reason ? `Détail : ${reason}.` : "Rechargez l'état du projet puis réessayez si pertinent.",
++        `Il y a un conflit d'état sur la ${op}.`,
++        reason ? `Détail : ${reason}.` : "Recharge l'état du projet puis réessaie si pertinent.",
+       ];
+     case "UNKNOWN":
+       return [
+-        `**Résultat Studio :** l'issue de la ${op} est **encore en vérification**.`,
+-        "Je ne confirme ni le succès ni le refus définitif tant que Studio n'a pas consolidé l'état.",
++        `L'issue de la ${op} est encore en vérification.`,
++        "Je ne confirme ni le succès ni le refus tant que Studio n'a pas consolidé l'état.",
+       ];
+     default:
+       if (effect.intentClarity === "AMBIGUOUS") {
+         return [
+-          "**Résultat Studio :** aucune commande n'a été exécutée — intention ambiguë.",
+-          reason ? `Précision utile : ${reason}.` : "Pouvez-vous préciser le cycle et l'acte souhaités ?",
++          "Aucune commande n'a été exécutée — intention ambiguë.",
++          reason ? `Précision utile : ${reason}.` : "Peux-tu préciser le cycle et l'acte souhaités ?",
+         ];
+       }
+       if (effect.attempted === false) {
+         return [];
+       }
+       return [
+-        `**Résultat Studio :** statut « ${status || "indéterminé"} » pour la ${op}.`,
++        `Statut « ${status || "indéterminé"} » pour la ${op}.`,
+         reason ? `Information : ${reason}.` : "",
+       ].filter(Boolean);
+   }
+@@ -115,8 +141,9 @@ export function composePilotageEffectRestitution(input: {
+   }
+   const facts = effectFactLines(effect);
+   if (facts.length === 0) return prior;
+-  const block = ["", "---", "", ...facts].join("\n");
+-  if (!prior.trim()) return facts.join("\n");
++  // Soft paragraph break — no technical separator block.
++  const block = ["", ...facts].join("\n\n");
++  if (!prior.trim()) return facts.join("\n\n");
+   return `${prior.trimEnd()}\n${block}`;
+ }
+
 ```
 
-### `composer-dictation-session.ts` L310-355
-
-```ts
-310|    const sessionReady = new Promise<void>((resolve, reject) => {
-311|      const t = setTimeout(() => {
-312|        record.onProviderSessionReady = null;
-313|        reject(new Error("SESSION_OPEN_TIMEOUT"));
-314|      }, SESSION_OPEN_TIMEOUT_MS);
-315|      record.onProviderSessionReady = () => {
-316|        clearTimeout(t);
-317|        record.onProviderSessionReady = null;
-318|        resolve();
-319|      };
-320|    });
-321|    transport.send({
-322|      type: "session.update",
-323|      session: {
-324|        type: "transcription",
-325|        audio: {
-326|          input: {
-327|            format: { type: "audio/pcm", rate: COMPOSER_DICTATION_PCM_RATE },
-328|            transcription: {
-329|              model: COMPOSER_DICTATION_MODEL,
-330|              languages: ["fr"],
-331|              prompt: DICTATION_VOCAB_HINT,
-332|            },
-333|            turn_detection: null,
-334|          },
-335|        },
-336|      },
-337|    });
-338|    await sessionReady;
-339|    record.status = "open";
-340|    record.modelApplied = COMPOSER_DICTATION_MODEL;
-341|    emit(record, { type: "session.open", sessionId });
-342|    return { ok: true, session: record };
-343|  } catch (e) {
-344|    record.status = "failed";
-345|    record.errorCode = "TRANSPORT_OPEN_FAILED";
-346|    const message = e instanceof Error ? e.message.slice(0, 240) : "TRANSPORT_OPEN_FAILED";
-347|    emit(record, {
-348|      type: "session.error",
-349|      sessionId,
-350|      code: "TRANSPORT_OPEN_FAILED",
-351|      message,
-352|    });
-353|    void recordDictationFinops(record, "failed");
-354|    return { ok: false, code: "TRANSPORT_OPEN_FAILED", message };
-355|  }
+### d5-studio-shell
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx b/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
+index 35935a9f..60b380d1 100644
+--- a/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
++++ b/projects/sfia-studio-next/web/src/components/shell/StudioShell.tsx
+@@ -402,9 +402,8 @@ function StudioShellInner({ children }: { children: React.ReactNode }) {
+                 <div className="font-semibold text-[14px]">Pilote</div>
+                 <div className="muted">{inProductSpace ? "Connecté" : "Espace personnel"}</div>
+               </div>
+-              {personalSpace ? (
+-                <PersonalRailSettingsMenu pathname={pathname} />
+-              ) : null}
++              {/* ML5 MP-17 — settings foot on every authenticated rail variant */}
++              <PersonalRailSettingsMenu pathname={pathname} />
+             </div>
+           </div>
+         </div>
 ```
 
-### SHA fichier (candidat)
+### service.ts multi-binding (stat)
+```
+ .../web/src/domains/conversation/service.ts        | 155 +++++++++++----------
+ 1 file changed, 83 insertions(+), 72 deletions(-)
+```
 
-Tous extraits lus depuis worktree `…-recette-build-e8e6e06961fa` = tree web `03c30e4c…`.
+### MP-09 service loop excerpt
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+index d7211fc8..342fcf98 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+@@ -95,7 +95,7 @@ import {
+   extractKnowledgeProposals,
+   summarizeKnowledgeProposals,
+   extractKnowledgeSelectionHints,
+-  extractPilotageBinding,
++  listPilotageEffectBindings,
+   projectStudioEffects,
+   unavailableQualification,
+   type NoraTurnQualification,
+@@ -1065,6 +1065,7 @@ export async function postUserMessageAndNora(
 
-## Anti-stub final (réaffirmé)
+   /** SEM/TV: D5/D6 after Nora semantic qualification — not before. */
+   let authority: ConversationalAuthorityOutcome | null = null;
++  let conversationalHumanDecisionCreated = false;
 
-REVIEW PACK COMPLETE — ANNEXE CODE INCLUSE — NO SECRETS
+   const existing = await listMessages(pilotId, preparationId);
+   const contextSnippets = existing
+@@ -1649,7 +1650,7 @@ export async function postUserMessageAndNora(
+     }
+   }
+
+-  const pilotageBinding = extractPilotageBinding(qualification);
++  const pilotageBindings = listPilotageEffectBindings(qualification);
+   const knowledgeHints = extractKnowledgeSelectionHints(qualification);
+   if (
+     knowledgeHints.acquisIds.length ||
+@@ -1829,78 +1830,86 @@ export async function postUserMessageAndNora(
+   }
+   // DIALOGUE_INDEPENDANT may answer without métier mutations that bypass A.
+
+-  // D5/D6 after semantic qualification — typed binding only (never parameters.notes).
+-  if (
+-    allowOwnerEffects &&
+-    pilotageBinding &&
+-    !("ambiguous" in pilotageBinding) &&
+-    ctx.project?.id
+-  ) {
++  // D5/D6 after semantic qualification — one apply per qualified REQUEST_EFFECT binding (MP-09).
++  if (allowOwnerEffects && pilotageBindings.length > 0 && ctx.project?.id) {
+     const stillOwned = await requireTurnOwnership(reserved.commandId, reserved.ownerToken);
+     if (stillOwned) {
+-      const preQualified = {
+-        clarity: "CLEAR" as const,
+-        operation: pilotageBinding.operation,
+-        objective: pilotageBinding.objective ?? content,
+-        statement: pilotageBinding.statement,
+-        objectRef: pilotageBinding.objectRef,
+-        decisionId: pilotageBinding.decisionId,
+-        methodRef: pilotageBinding.methodRef,
+-        methodVersion: pilotageBinding.methodVersion,
+-        restrictionKindHint: pilotageBinding.restrictionKindHint,
+-        restrictionTargetRefHint: pilotageBinding.restrictionTargetRefHint,
+-        cycleType: pilotageBinding.cycleType as import("@/domains/pilotage/cki-resolve").CycleType | undefined,
+-        toCycleType: pilotageBinding.toCycleType as import("@/domains/pilotage/cki-resolve").CycleType | undefined,
+-        semanticIntentId: pilotageBinding.intentId,
+-        semanticSchemaVersion: pilotageBinding.schemaVersion,
+-      };
+-      authority = await applyConversationalAuthority({
+-        pilotId,
+-        projectId: ctx.project.id,
+-        userMessageId: reserved.userMessageId,
+-        content,
+-        clientTurnKey,
+-        preQualified,
+-      });
+-      emitObs({
+-        event_name: "d3.turn.conversational_authority",
+-        component: "d3.conversation",
+-        request_id: requestId,
+-        operation_id: reserved.operationId,
+-        outcome: authority.attempted
+-          ? authority.command?.status === "APPLIED" || authority.command?.status === "ALREADY_APPLIED"
+-            ? "SUCCESS"
+-            : authority.command?.status === "UNKNOWN"
+-              ? "UNKNOWN"
+-              : "FAILED"
+-          : "PARTIAL",
+-        meta: {
+-          attempted: authority.attempted,
+-          intent_clarity: authority.intentClarity,
+-          operation: authority.operation ?? null,
+-          command_status: authority.command?.status ?? null,
+-          reason_code: authority.command?.reasonCode ?? null,
+-          decision_id: authority.decisionId,
+-          source: authority.source,
+-          semantic_gate: true,
+-          semantic_intent_id: pilotageBinding.intentId,
+-        },
+-      });
++      for (const pilotageBinding of pilotageBindings) {
++        if ("ambiguous" in pilotageBinding) {
++          emitObs({
++            event_name: "d3.turn.conversational_authority",
++            component: "d3.conversation",
++            request_id: requestId,
++            operation_id: reserved.operationId,
++            outcome: "PARTIAL",
++            meta: {
++              attempted: false,
++              intent_clarity: "AMBIGUOUS",
++              semantic_gate: true,
++              reason: pilotageBinding.reason,
++              semantic_intent_id: pilotageBinding.intentId,
++            },
++          });
++          continue;
++        }
++        const preQualified = {
++          clarity: "CLEAR" as const,
++          operation: pilotageBinding.operation,
++          objective: pilotageBinding.objective ?? content,
++          statement: pilotageBinding.statement,
++          objectRef: pilotageBinding.objectRef,
++          decisionId: pilotageBinding.decisionId,
++          methodRef: pilotageBinding.methodRef,
++          methodVersion: pilotageBinding.methodVersion,
++          restrictionKindHint: pilotageBinding.restrictionKindHint,
++          restrictionTargetRefHint: pilotageBinding.restrictionTargetRefHint,
++          cycleType: pilotageBinding.cycleType as import("@/domains/pilotage/cki-resolve").CycleType | undefined,
++          toCycleType: pilotageBinding.toCycleType as import("@/domains/pilotage/cki-resolve").CycleType | undefined,
++          semanticIntentId: pilotageBinding.intentId,
++          semanticSchemaVersion: pilotageBinding.schemaVersion,
++        };
++        const outcome = await applyConversationalAuthority({
++          pilotId,
++          projectId: ctx.project.id,
++          userMessageId: reserved.userMessageId,
++          content,
++          clientTurnKey,
++          preQualified,
++        });
++        if (outcome.humanDecisionCreated) conversationalHumanDecisionCreated = true;
++        authority =
++          !authority?.attempted && outcome.attempted
++            ? outcome
++            : authority?.attempted
++              ? authority
++              : outcome;
++        emitObs({
++          event_name: "d3.turn.conversational_authority",
++          component: "d3.conversation",
++          request_id: requestId,
++          operation_id: reserved.operationId,
++          outcome: outcome.attempted
++            ? outcome.command?.status === "APPLIED" || outcome.command?.status === "ALREADY_APPLIED"
++              ? "SUCCESS"
++              : outcome.command?.status === "UNKNOWN"
++                ? "UNKNOWN"
++                : "FAILED"
++            : "PARTIAL",
++          meta: {
++            attempted: outcome.attempted,
++            intent_clarity: outcome.intentClarity,
++            operation: outcome.operation ?? null,
++            command_status: outcome.command?.status ?? null,
++            reason_code: outcome.command?.reasonCode ?? null,
++            decision_id: outcome.decisionId,
++            source: outcome.source,
++            semantic_gate: true,
++            semantic_intent_id: pilotageBinding.intentId,
++            pilotage_bindings_total: pilotageBindings.length,
++          },
++        });
++      }
+     }
+-  } else if (pilotageBinding && "ambiguous" in pilotageBinding) {
+-    emitObs({
+-      event_name: "d3.turn.conversational_authority",
+-      component: "d3.conversation",
+-      request_id: requestId,
+-      operation_id: reserved.operationId,
+-      outcome: "PARTIAL",
+-      meta: {
+-        attempted: false,
+-        intent_clarity: "AMBIGUOUS",
+-        semantic_gate: true,
+-        reason: pilotageBinding.reason,
+-      },
+-    });
+   }
+
+   // C02 fault injection — AFTER same-turn D5/D6 (SEM/TV order: Nora → qualify → authority).
+@@ -4053,7 +4062,9 @@ export async function postUserMessageAndNora(
+     historicalAuthorization: ownershipLostBeforeD4 ? null : historicalAuthorizationOut,
+     idempotentReplay: false,
+     humanDecisionCreated:
+-      Boolean(authority?.humanDecisionCreated) || Boolean(publicationMandateDecisionId),
++      conversationalHumanDecisionCreated ||
++      Boolean(authority?.humanDecisionCreated) ||
++      Boolean(publicationMandateDecisionId),
+     pilotageEffect: pilotageEffectFromAuthority(authority),
+     missionProjection,
+     nextTurnKind,
+```
+
+---
+## 15. Additional modified excerpts
+
+### provisional policy + knowledge parentSubjectId + nora-adapter (stat)
+ .../web/src/app/projects/[projectId]/page.tsx      | 211 ++++++++++++---------
+ .../web/src/components/figma/tokens.css            |  99 ++++++++--
+ .../web/src/domains/conversation/nora-adapter.ts   |   7 +-
+ .../domains/conversation/semantic-qualification.ts | 102 ++++++++--
+ .../web/src/domains/finops/usage-read-service.ts   |  83 ++++++--
+ .../web/src/domains/knowledge/service.ts           |  14 +-
+ 6 files changed, 363 insertions(+), 153 deletions(-)
+
+### semantic-qualification parentSubjectId + listPilotageEffectBindings
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+index 71ce7746..1f418a25 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+@@ -149,6 +149,11 @@ export const QualifiedIntentItemSchema = z.object({
+       epistemic: KnowledgeEpistemicSchema.optional(),
+       subjectTitle: z.string().max(120).optional(),
+       subjectId: z.string().max(120).optional(),
++      /**
++       * Optional parent for SUBJECT hierarchy (sous-sujet). Must be an existing
++       * subject id in the same project/preparation — Studio validates ownership.
++       */
++      parentSubjectId: z.string().max(120).optional(),
+       /** Soft target ~240. */
+       continuityReason: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
+       /** Prefer these existing resources when selecting D4 context (Nora-chosen). */
+@@ -626,6 +631,77 @@ export type DurablePilotageBinding = {
+   objective?: string;
+ };
+
++function pilotageBindingFromIntent(
++  intent: QualifiedIntentItem,
++): DurablePilotageBinding | { ambiguous: true; reason: string } {
++  const operation = intent.parameters.pilotageOperation;
++  if (!operation) {
++    return { ambiguous: true, reason: "SEMANTIC_PILOTAGE_OPERATION_MISSING" };
++  }
++  return {
++    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
++    intentId: intent.id,
++    capabilityId: intent.capabilityId as DurablePilotageBinding["capabilityId"],
++    operation,
++    cycleType: intent.parameters.cycleType,
++    toCycleType: intent.parameters.toCycleType,
++    methodRef: intent.parameters.methodRef,
++    methodVersion: intent.parameters.methodVersion,
++    decisionId: intent.parameters.decisionId,
++    objectRef: intent.parameters.objectRef,
++    statement: intent.parameters.statement,
++    restrictionKindHint: intent.parameters.restrictionKindHint,
++    restrictionTargetRefHint: intent.parameters.restrictionTargetRefHint,
++    objective: intent.summary,
++  };
++}
++
++/** Stable dependency order among pilotage REQUEST_EFFECT intents (dependsOn within subset). */
++export function orderPilotageEffectIntents(
++  q: NoraTurnQualification,
++  hits: QualifiedIntentItem[],
++): QualifiedIntentItem[] {
++  const subset = new Set(hits.map((h) => h.id));
++  const byId = new Map(q.intents.map((i) => [i.id, i] as const));
++  const visiting = new Set<string>();
++  const visited = new Set<string>();
++  const ordered: string[] = [];
++  const visit = (id: string) => {
++    if (!subset.has(id) || visited.has(id)) return;
++    if (visiting.has(id)) return;
++    visiting.add(id);
++    for (const dep of byId.get(id)?.dependsOn ?? []) {
++      if (subset.has(dep)) visit(dep);
++    }
++    visiting.delete(id);
++    visited.add(id);
++    ordered.push(id);
++  };
++  const stable = [...subset].sort();
++  for (const id of stable) visit(id);
++  return ordered.map((id) => hits.find((h) => h.id === id)!);
++}
++
++/**
++ * MP-09 — every admissible pilotage REQUEST_EFFECT intent on the turn, in dependsOn order.
++ * Never collapses to fail-closed AMBIGUOUS when multiple D5/D6 intents are present.
++ */
++export function listPilotageEffectBindings(q: NoraTurnQualification): Array<
++  DurablePilotageBinding | { ambiguous: true; reason: string; intentId: string }
++> {
++  if (q.status !== "QUALIFIED") return [];
++  const hits = effectIntents(q).filter((i) => PILOTAGE_CAPS.has(i.capabilityId));
++  if (hits.length === 0) return [];
++  const ordered = orderPilotageEffectIntents(q, hits);
++  return ordered.map((intent) => {
++    const binding = pilotageBindingFromIntent(intent);
++    if ("ambiguous" in binding) {
++      return { ...binding, intentId: intent.id };
++    }
++    return binding;
++  });
++}
++
+ export function extractPilotageBinding(
+   q: NoraTurnQualification,
+   select?: { intentId?: string; operation?: string },
+@@ -653,27 +729,9 @@ export function extractPilotageBinding(
+   if (hits.length > 1) {
+     return { ambiguous: true, reason: "MULTIPLE_PILOTAGE_EFFECT_INTENTS" };
+   }
+-  const intent = hits[0]!;
+-  const operation = intent.parameters.pilotageOperation;
+-  if (!operation) {
+-    return { ambiguous: true, reason: "SEMANTIC_PILOTAGE_OPERATION_MISSING" };
+-  }
+-  return {
+-    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+-    intentId: intent.id,
+-    capabilityId: intent.capabilityId as DurablePilotageBinding["capabilityId"],
+-    operation,
+-    cycleType: intent.parameters.cycleType,
+-    toCycleType: intent.parameters.toCycleType,
+-    methodRef: intent.parameters.methodRef,
+-    methodVersion: intent.parameters.methodVersion,
+-    decisionId: intent.parameters.decisionId,
+-    objectRef: intent.parameters.objectRef,
+-    statement: intent.parameters.statement,
+-    restrictionKindHint: intent.parameters.restrictionKindHint,
+-    restrictionTargetRefHint: intent.parameters.restrictionTargetRefHint,
+-    objective: intent.summary,
+-  };
++  const binding = pilotageBindingFromIntent(hits[0]!);
++  if ("ambiguous" in binding) return binding;
++  return binding;
+ }
+
+ /** Match a requested operation against durable qualification (owner-side). */
+@@ -919,6 +977,7 @@ export type KnowledgeCapitalisationProposal = {
+   epistemic: z.infer<typeof KnowledgeEpistemicSchema>;
+   subjectTitle?: string;
+   subjectId?: string;
++  parentSubjectId?: string;
+   continuityReason?: string;
+   supersedesAcquisId?: string;
+   resolvesOpenPointId?: string;
+@@ -950,6 +1009,7 @@ export function extractKnowledgeProposals(
+       epistemic: intent.parameters.epistemic ?? "hypothesized",
+       subjectTitle: intent.parameters.subjectTitle?.trim() || undefined,
+       subjectId: intent.parameters.subjectId?.trim() || undefined,
++      parentSubjectId: intent.parameters.parentSubjectId?.trim() || undefined,
+       continuityReason: intent.parameters.continuityReason?.trim() || undefined,
+       supersedesAcquisId: intent.parameters.supersedesAcquisId?.trim() || undefined,
+       resolvesOpenPointId: intent.parameters.resolvesOpenPointId?.trim() || undefined,
+```
+
+---
+## 16. Matrice 17 MP — statut construction
+
+| MP | Qualif level | Statut | Réserve |
+|----|--------------|--------|---------|
+| MP-01 | BROWSER PROVEN (control present) | FIXED DET | LIVE dictation unused |
+| MP-02 | DET + BROWSER | FIXED | — |
+| MP-03 | DET (projection) | PARTIAL | enrichment LIVE |
+| MP-04 | DET | FIXED | — |
+| MP-05 | DET | FIXED | visual before/after captures partial |
+| MP-06 | NOT LIVE | BLOCKED LIVE | GO LIVE required |
+| MP-07 | DET | FIXED | — |
+| MP-08 | DET + structure | FIXED | F2 pixel not claimed |
+| MP-09 | DET | FIXED | LIVE T05 re-proof |
+| MP-10 | DET wiring | PARTIAL | autonomy + reuse LIVE |
+| MP-11 | DET | FIXED | — |
+| MP-12 | DET labels | PARTIAL | semantic trajectory LIVE |
+| MP-13 | DET | FIXED | — |
+| MP-14 | DET efficiency | PARTIAL | T08 LIVE compare |
+| MP-15 | DET Option C | FIXED structure | LIVE multi-model + RECETTE admit after calibration |
+| MP-16 | DET FinOps | FIXED | LIVE reconciliation |
+| MP-17 | BROWSER PROVEN | FIXED | — |
+
+---
+## 17. Fake/Real Qualification
+
+- Entry: heterogeneous DET + prior LIVE partial.
+- Claims used: IMPLEMENTED, DETERMINISTIC PROVEN, BROWSER PROVEN (scoped).
+- Forbidden claims avoided: READY FOR REAL, END-TO-END REAL PROVEN, Livraison 1 acceptée.
+
+---
+## 18. Mandat LIVE proposé (borné — non exécuté)
+
+Scénarios:
+1. Allocation Option C DEV: 3 tours (Terra/Luna/Sol) with observable admit/use — max 6 emissions.
+2. T05-like multi-intent OPEN_CYCLE + design — 2 emissions.
+3. Hierarchy: conversation that naturally creates parent+child subject — 4–6 emissions.
+4. Cognitive reuse: later turn reads prior subjects/acquis — 2 emissions.
+5. Dictation LIVE FR: open/listen/stop/finalize + 1 negative timeout — max 3 sessions.
+6. FinOps/T08-like heavy turn measurement after A.4 — 1 emission.
+
+Models/efforts: catalog admitted under v0.2 DEV (Terra medium default; Luna low/medium; Sol L/M/H).
+Stop: budget USD estimate TBD with Morris; abort on unexpected authority/effect.
+Isolation: DEV only; no RECETTE mutation; no WEB/Admin.
+Preuves: OBS traces, work ids, Journal tree screenshot, FinOps detail, dictation events.
+
+---
+## 19. Verdict
+
+**READY WITH RESERVES**
+
+- Construction DEV of integrated corrective macro-lot substantially complete for authorized DET/browser scope.
+- LIVE qualification gates remain open (MP-06 critical; MP-10/14/15/16 REAL).
+- Programme state preserved: R5 IN PROGRESS; ML5 OPEN; LIVRAISON 1 NOT ACCEPTED; MaintiPlan SUSPENDED; T09 NOT SENT; NO RELEASE; STABLE NOT AVAILABLE; NOT ADOPTED.
+- Next Morris decisions: bounded LIVE GO; then RECETTE candidate/cutover; MP closure; Livraison 1 acceptance.
+
+Date: 2026-11-27 Europe/Paris
