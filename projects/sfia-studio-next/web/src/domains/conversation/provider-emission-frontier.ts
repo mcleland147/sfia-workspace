@@ -2371,6 +2371,37 @@ export function createFrontierAwareFetch(
  * Reinstall when key fingerprint changes or forceReinstall is set (tests).
  */
 /**
+ * Inject demonstrable sfia_estimated_input_tokens for Decisions/Embeddings
+ * when the SDK body omits it (required under campaign envelopes).
+ */
+export function withFrontierInputEstimateInjection(
+  gatedFetch: typeof fetch,
+): typeof fetch {
+  return (async (input: RequestInfo | URL, init?: RequestInit) => {
+    const url = String(input);
+    let nextInit = init;
+    if (
+      (url.includes("/v1/decisions") || url.includes("/v1/embeddings")) &&
+      typeof init?.body === "string"
+    ) {
+      try {
+        const body = JSON.parse(init.body) as Record<string, unknown>;
+        if (body.sfia_estimated_input_tokens == null) {
+          body.sfia_estimated_input_tokens = Math.min(
+            8000,
+            Math.max(32, Math.ceil(init.body.length / 4)),
+          );
+          nextInit = { ...init, body: JSON.stringify(body) };
+        }
+      } catch {
+        /* leave body unchanged */
+      }
+    }
+    return gatedFetch(input, nextInit);
+  }) as typeof fetch;
+}
+
+/**
  * Construct an OpenAI SDK client whose transport is always Frontier-aware.
  * Prefer this over `new OpenAI({ apiKey })` for Decisions / Embeddings / Vision.
  */
@@ -2386,9 +2417,10 @@ export async function createFrontierBoundOpenAIClient(input?: {
   const requireCampaign =
     input?.requireCampaign === true || Boolean(als?.required) || als != null;
   const baseFetch = input?.fetch ?? globalThis.fetch.bind(globalThis);
+  const gated = createFrontierAwareFetch(baseFetch, { requireCampaign });
   return new OpenAI({
     apiKey: key,
-    fetch: createFrontierAwareFetch(baseFetch, { requireCampaign }),
+    fetch: withFrontierInputEstimateInjection(gated),
     maxRetries: input?.maxRetries ?? 0,
   });
 }

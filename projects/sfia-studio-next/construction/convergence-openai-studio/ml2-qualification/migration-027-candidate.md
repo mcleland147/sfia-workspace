@@ -2,7 +2,7 @@
 
 | Champ | Valeur |
 |---|---|
-| Statut | **CANDIDATE FINALISÉE — GO PRINCIPLE Morris — APPLY EN ATTENTE checkpoint A** |
+| Statut | **APPLIED ON DEV — Morris GO Checkpoint A 2026-11-27** |
 | Fichier | `web/src/db/migrations/candidates/027_derived_embedding_chunks.sql` |
 | Module runtime | `web/src/domains/knowledge/derived-embedding-pg.ts` (inactive tant que backend≠pg) |
 | db-migrate.sh | **ne l'inclut pas** jusqu'au GO apply |

@@ -7,6 +7,7 @@ import {
   searchDerivedIndex,
   type MobilizableHit,
 } from "@/domains/knowledge/derived-embedding-index";
+import { derivedEmbeddingBackend } from "@/domains/knowledge/derived-embedding-pg";
 
 export type LexicalHit = {
   sourceId: string;
@@ -43,6 +44,11 @@ export function mergeLexicalAndDerived(input: {
    * Exact lexical ids already authorized should be included by the caller.
    */
   allowedSourceIds?: Set<string> | null;
+  /**
+   * Precomputed semantic hits (PG ops path). When omitted and backend=file,
+   * falls back to local file search for unit tests only.
+   */
+  semanticHits?: MobilizableHit[] | null;
 }): {
   hits: HybridHit[];
   derivedUsed: boolean;
@@ -67,16 +73,26 @@ export function mergeLexicalAndDerived(input: {
   let derivedSkippedReason: string | null = null;
   if (!derivedEmbeddingSearchEnabled(input.env)) {
     derivedSkippedReason = "FLAG_OFF";
-  } else if (!input.queryVector || input.queryVector.length === 0) {
+  } else if (
+    !input.semanticHits &&
+    (!input.queryVector || input.queryVector.length === 0)
+  ) {
     derivedSkippedReason = "NO_QUERY_VECTOR";
   } else {
-    const semantic = searchDerivedIndex({
-      projectId: input.projectId,
-      queryVector: input.queryVector,
-      limit: Math.max(limit * 2, 16),
-      snippets: input.snippets,
-    });
-    derivedUsed = true;
+    const semantic =
+      input.semanticHits ??
+      (derivedEmbeddingBackend(input.env) === "file" && input.queryVector
+        ? searchDerivedIndex({
+            projectId: input.projectId,
+            queryVector: input.queryVector,
+            limit: Math.max(limit * 2, 16),
+            snippets: input.snippets,
+          })
+        : []);
+    if (!input.semanticHits && derivedEmbeddingBackend(input.env) !== "file") {
+      derivedSkippedReason = "SEMANTIC_HITS_REQUIRED_FOR_PG";
+    }
+    derivedUsed = semantic.length > 0 || input.semanticHits != null;
     for (const s of semantic) {
       if (allowed && !allowed.has(s.sourceId)) continue;
       const existing = byId.get(s.sourceId);

@@ -502,14 +502,13 @@ Macro-lot 3 · activation permanente sans preuve · migration PG non justifiée 
 
 ## 14. Verdict d'intervention
 
-**MACRO-LOT 2 — FINAL DELIVERY — STOP — MORRIS CHECKPOINT A+B REQUIRED**
+**MACRO-LOT 2 — PRODUCT-WIDE CAPABILITIES IMPLEMENTED AND BEHAVIOR PROVEN — MORRIS EXIT ACCEPTANCE PROPOSED**
 
 Motifs :
 
-- Corrections droits / rebuild admissible-only / judgment / Frontier générique / FinOps audit réalisées.
-- Migration 027 SQL définitive + module PG prêts — **apply en attente Gate A**.
-- Reliquat LIVE réconcilié (90/236 · Nora ~38/40) — **émission en attente Gate B** (≤30 HTTP proposés).
-- Pas de Handoff intermédiaire · verdict exit **non** prononcé tant que A/B + parcours LIVE incomplets.
-- Flags OFF · RECETTE / WEB OFF / Admin unused.
+- Gate A : migration 027 appliquée DEV · PG unique ops · backup/restore prouvés · 14 chunks synthétiques.
+- Gate B : LIVE ≤30 (delta **9** HTTP · 90→99) · rebuild/hybrid/revoke/judgment/vision/Nora+D4 tools · refus inter-projet.
+- Candidat : BUILD_ID `qvIWhDeJwvskHV5DSrfE8` · DEV :3100 pid 58000 · flags feature OFF · backend=pg.
+- WEB OFF · RECETTE intacte · pas de VS/fileId · D3 V1 · pas de D6 IA.
 
-R5 IN PROGRESS · ML5 OPEN · Livraison 1 non acceptée globalement · Macro-lot 1 accepté avec réserves · Macro-lot 2 checkpoint A+B · Macro-lot 3 non engagé · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED.
+R5 IN PROGRESS · ML5 OPEN · Livraison 1 non acceptée globalement · Macro-lot 1 accepté avec réserves · Macro-lot 2 exit proposed · Macro-lot 3 non engagé · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED.

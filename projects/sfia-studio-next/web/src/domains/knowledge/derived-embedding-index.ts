@@ -155,7 +155,11 @@ export function writeDerivedIndex(input: {
     projectId: input.projectId,
     model,
     updatedAt,
-    entries: input.entries.map(({ text: _t, ...meta }) => meta),
+    entries: input.entries.map((entry) => {
+      const { text: _omitText, ...meta } = entry;
+      void _omitText;
+      return meta;
+    }),
   };
   const tmpManifest = join(root, "manifest.json.tmp");
   const tmpVectors = join(root, "vectors.jsonl.tmp");

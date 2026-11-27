@@ -5,12 +5,14 @@
 | Campagne | `ml2-i2-docintel-20261127` (cumulative, non renouvelée) |
 | Architecture | [architecture-selection-locked-20261127.md](./ml2-qualification/architecture-selection-locked-20261127.md) |
 | Cartographie | [product-consumer-cartography-20261127.md](./ml2-qualification/product-consumer-cartography-20261127.md) |
-| Migration 027 | [migration-027-candidate.md](./ml2-qualification/migration-027-candidate.md) — GO principle · **APPLY en attente Gate A** |
-| Checkpoint | [morris-checkpoint-027-and-live-20261127.md](./ml2-qualification/morris-checkpoint-027-and-live-20261127.md) |
-| Reliquat LIVE | [live-campaign-remainder-20261127.md](./ml2-qualification/live-campaign-remainder-20261127.md) |
+| Migration 027 | **APPLIED DEV** — [migration-027-candidate.md](./ml2-qualification/migration-027-candidate.md) |
+| Checkpoint | [morris-checkpoint-027-and-live-20261127.md](./ml2-qualification/morris-checkpoint-027-and-live-20261127.md) · GO A+B exécuté |
+| Gate B plan/report | [live-gate-b-emission-plan-20261127.md](./ml2-qualification/live-gate-b-emission-plan-20261127.md) · evidence `gate-b-report.json` |
+| Reliquat LIVE | HTTP **99**/236 after Gate B (delta 9 ≤ 30) |
 | FinOps audit | [finops-reconcile-audit-20261127.md](./ml2-qualification/finops-reconcile-audit-20261127.md) |
 | WEB LIVE | OFF |
 | RECETTE | protégée |
+| Candidat | BUILD_ID `qvIWhDeJwvskHV5DSrfE8` · digest `4a08741c…` · DEV pid 58000 |
 
 ## Livrables code (product raccordements)
 
@@ -32,9 +34,10 @@
 
 ## Persistance
 
-- **Actuel (ops):** fichier `.sfia-derived/embedding-index/`  
-- **Cible (GO A):** PG `derived_embedding_chunks` — bascule unique, pas de dual-write  
+- **Ops unique:** PostgreSQL `derived_embedding_chunks` (`SFIA_DERIVED_EMBEDDING_BACKEND=pg`)
+- Fichier : hors chemin opérationnel (tests unitaires `BACKEND=file` seulement)
 - Index ≠ vérité métier · droits via D4/D9 revalidation
+- Backup pre-027 : `.sfia-evidence/db-backups/sfia_next_dev_pre_027_*.dump` · restore probe 194 projects
 
 ## CONV-F21…F26
 

@@ -223,7 +223,7 @@ export async function capitalizeAcquis(
     );
     if (derivedEmbeddingSearchEnabled() && ctx.project?.id) {
       if (input.supersedesAcquisId) {
-        revokeDerivedSource(ctx.project.id, input.supersedesAcquisId);
+        await revokeDerivedSource(ctx.project.id, input.supersedesAcquisId);
       }
     }
   } catch {

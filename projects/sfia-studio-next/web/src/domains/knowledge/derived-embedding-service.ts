@@ -1,7 +1,7 @@
 /**
  * Product service for ML2 derived embeddings.
- * Backend: file until Morris GO migration 027; then PG-only (no dual-write).
- * Index is never métier SoT — D4/D9 ownership + mobilization filters apply.
+ * Ops backend: PostgreSQL (Morris GO A). File helpers remain for unit tests
+ * when SFIA_DERIVED_EMBEDDING_BACKEND=file only — no dual-write.
  */
 import {
   contentFingerprint,
@@ -14,6 +14,12 @@ import {
   type DerivedIndexEntry,
   type DerivedSourceKind,
 } from "@/domains/knowledge/derived-embedding-index";
+import {
+  derivedEmbeddingBackend,
+  markDerivedChunkLifecyclePg,
+  replaceDerivedChunksPg,
+  searchDerivedChunksPg,
+} from "@/domains/knowledge/derived-embedding-pg";
 import {
   mergeLexicalAndDerived,
   type HybridHit,
@@ -33,10 +39,6 @@ export type EmbedClient = {
   };
 };
 
-/**
- * Frontier-bound embeddings client only — never raw fetch outside Frontier.
- * Requires ALS campaign when a required latch / active envelope is present.
- */
 async function defaultEmbedClient(): Promise<EmbedClient | null> {
   const key = (process.env.OPENAI_API_KEY || "").trim();
   if (!key) return null;
@@ -44,19 +46,10 @@ async function defaultEmbedClient(): Promise<EmbedClient | null> {
     const frontier = await import(
       "@/domains/conversation/provider-emission-frontier"
     );
-    const als = frontier.getActiveCampaignEnvelope?.() ?? null;
-    const requireCampaign = Boolean(als?.required) || als != null;
-    // Always wrap fetch — refuse silent bypass of Frontier accounting.
-    const fetchImpl = frontier.createFrontierAwareFetch(
-      globalThis.fetch.bind(globalThis),
-      { requireCampaign },
-    );
-    const OpenAI = (await import("openai")).default;
-    return new OpenAI({
-      apiKey: key,
-      fetch: fetchImpl,
+    const client = await frontier.createFrontierBoundOpenAIClient({
       maxRetries: 0,
-    }) as unknown as EmbedClient;
+    });
+    return client as unknown as EmbedClient | null;
   } catch {
     return null;
   }
@@ -79,7 +72,6 @@ export async function embedQueryText(
   return { vector, tokens: res.usage?.total_tokens ?? 0 };
 }
 
-/** Admissible D4 sources for index rebuild / mobilization (CURRENT/OPEN only). */
 export function collectAdmissibleKnowledgeSources(bundle: Awaited<
   ReturnType<typeof listProjectKnowledge>
 >): Array<{
@@ -124,9 +116,33 @@ export function collectAdmissibleKnowledgeSources(bundle: Awaited<
   return sources;
 }
 
+async function persistDerivedIndex(input: {
+  pilotId: string;
+  projectId: string;
+  preparationId: string;
+  entries: DerivedIndexEntry[];
+  vectors: Map<string, number[]>;
+}): Promise<void> {
+  if (derivedEmbeddingBackend() === "pg") {
+    await replaceDerivedChunksPg({
+      projectId: input.projectId,
+      preparationId: input.preparationId,
+      ownerPilotId: input.pilotId,
+      entries: input.entries,
+      vectors: input.vectors,
+    });
+    return;
+  }
+  // Test-only file backend — not an operational dual-write path.
+  writeDerivedIndex({
+    projectId: input.projectId,
+    entries: input.entries,
+    vectors: input.vectors,
+  });
+}
+
 /**
  * Rebuild derived index from CURRENT/OPEN admissible sources only.
- * Revoked / superseded / closed texts are never sent to Embeddings API.
  */
 export async function rebuildDerivedIndexFromProjectKnowledge(input: {
   pilotId: string;
@@ -139,6 +155,7 @@ export async function rebuildDerivedIndexFromProjectKnowledge(input: {
   tokens: number;
   reason?: string;
   skippedNonAdmissible?: number;
+  backend?: string;
 }> {
   if (!derivedEmbeddingSearchEnabled()) {
     return { ok: false, entryCount: 0, tokens: 0, reason: "FLAG_OFF" };
@@ -147,7 +164,6 @@ export async function rebuildDerivedIndexFromProjectKnowledge(input: {
   if (!client) {
     return { ok: false, entryCount: 0, tokens: 0, reason: "NO_OPENAI_CLIENT" };
   }
-  // Rights: listProjectKnowledge → assertOwnedProject (throws if foreign).
   const bundle = await listProjectKnowledge(input.pilotId, input.projectId);
   const nonAdmissible =
     bundle.acquis.filter((a) => a.status !== "CURRENT").length +
@@ -155,8 +171,10 @@ export async function rebuildDerivedIndexFromProjectKnowledge(input: {
     bundle.subjects.filter((s) => s.status === "ARCHIVED").length;
   const sources = collectAdmissibleKnowledgeSources(bundle);
   if (sources.length === 0) {
-    writeDerivedIndex({
+    await persistDerivedIndex({
+      pilotId: input.pilotId,
       projectId: input.projectId,
+      preparationId: input.preparationId,
       entries: [],
       vectors: new Map(),
     });
@@ -165,6 +183,7 @@ export async function rebuildDerivedIndexFromProjectKnowledge(input: {
       entryCount: 0,
       tokens: 0,
       skippedNonAdmissible: nonAdmissible,
+      backend: derivedEmbeddingBackend(),
     };
   }
   const texts = sources.map((s) => s.text);
@@ -200,8 +219,10 @@ export async function rebuildDerivedIndexFromProjectKnowledge(input: {
       text: src.text,
     });
   }
-  writeDerivedIndex({
+  await persistDerivedIndex({
+    pilotId: input.pilotId,
     projectId: input.projectId,
+    preparationId: input.preparationId,
     entries,
     vectors,
   });
@@ -230,10 +251,10 @@ export async function rebuildDerivedIndexFromProjectKnowledge(input: {
         callOrdinal: Date.now() % 100000,
       }),
       limits: [
-        "DERIVED_INDEX",
+        "DERIVED_INDEX_PG",
         "ADMISSIBLE_SOURCES_ONLY",
         "EMBEDDING_TARIFF_PARTIAL",
-        "AWAITING_MIGRATION_027_GO",
+        `BACKEND_${derivedEmbeddingBackend().toUpperCase()}`,
       ],
     });
   } catch {
@@ -244,13 +265,10 @@ export async function rebuildDerivedIndexFromProjectKnowledge(input: {
     entryCount: entries.length,
     tokens: emb.usage?.total_tokens ?? 0,
     skippedNonAdmissible: nonAdmissible,
+    backend: derivedEmbeddingBackend(),
   };
 }
 
-/**
- * Hybrid search with D4 rights revalidation before derived mobilization.
- * Foreign / revoked / non-current ids are stripped after merge.
- */
 export async function hybridSearchProjectKnowledge(input: {
   pilotId: string;
   projectId: string;
@@ -258,13 +276,13 @@ export async function hybridSearchProjectKnowledge(input: {
   lexical: LexicalHit[];
   limit?: number;
   client?: EmbedClient | null;
-  /** When true, only open points may appear in derived channel. */
   openPointsOnly?: boolean;
 }): Promise<{
   hits: HybridHit[];
   derivedUsed: boolean;
   derivedSkippedReason: string | null;
   rightsRevalidated: boolean;
+  backend?: string;
 }> {
   if (!derivedEmbeddingSearchEnabled()) {
     return {
@@ -272,9 +290,9 @@ export async function hybridSearchProjectKnowledge(input: {
       derivedUsed: false,
       derivedSkippedReason: "FLAG_OFF",
       rightsRevalidated: false,
+      backend: derivedEmbeddingBackend(),
     };
   }
-  // Revalidate ownership + current admissible set (throws NOT_FOUND if foreign).
   const bundle = await listProjectKnowledge(input.pilotId, input.projectId);
   const admissible = new Set(
     collectAdmissibleKnowledgeSources(bundle).map((s) => s.sourceId),
@@ -285,7 +303,6 @@ export async function hybridSearchProjectKnowledge(input: {
       if (!op || op.status !== "OPEN") admissible.delete(id);
     }
   }
-  // Lexical hits already came from authorized paths — keep their exact ids.
   for (const l of input.lexical) admissible.add(l.sourceId);
 
   const emb = await embedQueryText(input.query, input.client);
@@ -297,10 +314,31 @@ export async function hybridSearchProjectKnowledge(input: {
       derivedUsed: false,
       derivedSkippedReason: "EMBED_UNAVAILABLE",
       rightsRevalidated: true,
+      backend: derivedEmbeddingBackend(),
     };
   }
   const snippets = new Map<string, string>();
   for (const l of input.lexical) snippets.set(l.sourceId, l.snippet);
+
+  let semanticHits =
+    derivedEmbeddingBackend() === "pg"
+      ? await searchDerivedChunksPg({
+          projectId: input.projectId,
+          queryVector: emb.vector,
+          limit: Math.max((input.limit ?? 12) * 2, 16),
+        })
+      : searchDerivedIndex({
+          projectId: input.projectId,
+          queryVector: emb.vector,
+          limit: Math.max((input.limit ?? 12) * 2, 16),
+          snippets,
+        });
+  // Attach snippets for PG hits when available from lexical map.
+  semanticHits = semanticHits.map((h) => ({
+    ...h,
+    snippet: h.snippet || snippets.get(h.sourceId) || "",
+  }));
+
   const merged = mergeLexicalAndDerived({
     projectId: input.projectId,
     lexical: input.lexical.filter((l) => admissible.has(l.sourceId)),
@@ -308,22 +346,47 @@ export async function hybridSearchProjectKnowledge(input: {
     limit: input.limit,
     snippets,
     allowedSourceIds: admissible,
+    semanticHits,
   });
-  return { ...merged, rightsRevalidated: true };
+  return {
+    ...merged,
+    rightsRevalidated: true,
+    backend: derivedEmbeddingBackend(),
+  };
 }
 
-export function revokeDerivedSource(
+export async function revokeDerivedSource(
   projectId: string,
   sourceId: string,
-): boolean {
+): Promise<boolean> {
+  if (derivedEmbeddingBackend() === "pg") {
+    const n = await markDerivedChunkLifecyclePg({
+      projectId,
+      sourceId,
+      revoked: true,
+    });
+    return n > 0;
+  }
   return markSourceLifecycle(projectId, sourceId, { revoked: true });
 }
 
-export function deleteDerivedSource(
+export async function deleteDerivedSource(
   projectId: string,
   sourceId: string,
-): boolean {
+): Promise<boolean> {
+  if (derivedEmbeddingBackend() === "pg") {
+    const n = await markDerivedChunkLifecyclePg({
+      projectId,
+      sourceId,
+      deleted: true,
+    });
+    return n > 0;
+  }
   return markSourceLifecycle(projectId, sourceId, { deleted: true });
 }
 
-export { searchDerivedIndex, derivedEmbeddingSearchEnabled };
+export {
+  searchDerivedIndex,
+  derivedEmbeddingSearchEnabled,
+  derivedEmbeddingBackend,
+};

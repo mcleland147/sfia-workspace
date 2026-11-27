@@ -80,16 +80,16 @@ describe("ml2 product-wide wiring (substituted)", () => {
     expect(src).toContain("rightsRevalidated");
   });
 
-  it("migration 027 lives in candidates only", () => {
-    const cand = readFileSync(
-      join(process.cwd(), "src/db/migrations/candidates/027_derived_embedding_chunks.sql"),
+  it("migration 027 is official after Morris GO A", () => {
+    const mig = readFileSync(
+      join(process.cwd(), "src/db/migrations/027_derived_embedding_chunks.sql"),
       "utf8",
     );
-    expect(cand).toContain("derived_embedding_chunks");
+    expect(mig).toContain("derived_embedding_chunks");
     const migrate = readFileSync(
       join(process.cwd(), "scripts/db-migrate.sh"),
       "utf8",
     );
-    expect(migrate).not.toContain("027_derived_embedding_chunks");
+    expect(migrate).toContain("027_derived_embedding_chunks");
   });
 });

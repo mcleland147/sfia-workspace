@@ -329,7 +329,7 @@ export async function searchProjectResources(scope: D4ToolScope, input: SearchPr
   }
 
   // ML2 hybrid supplement (flag OFF by default) — never replaces lexical page.
-  let semanticSupplement: Array<Record<string, unknown>> = [];
+  const semanticSupplement: Array<Record<string, unknown>> = [];
   let derivedMeta: {
     derivedUsed: boolean;
     derivedSkippedReason: string | null;

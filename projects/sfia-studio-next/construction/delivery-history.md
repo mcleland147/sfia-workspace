@@ -3,6 +3,19 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML2-FINAL-PRODUCT
+
+- **date_utc**: 2026-11-27T05:50Z
+- **lane**: DEV — Macro-lot 2 final product delivery (GO A+B)
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_entrée**: `f372616e`
+- **Gate A**: 027 APPLIED DEV · backup+restore probe · PG sole derived ops · chunks 14
+- **Gate B**: LIVE delta **9**/30 · 90→99 HTTP · Nora+D4 tools COMPLETE · foreign deny · vision OK
+- **BUILD_ID**: `qvIWhDeJwvskHV5DSrfE8` · digest `4a08741ce51450cee8270d689f6523a908212b4f87eb611604fb0348390ffcf1` · pid 58000 :3100
+- **flags**: feature OFF · `SFIA_DERIVED_EMBEDDING_BACKEND=pg` durable
+- **RECETTE**: protected · WEB OFF · NO RELEASE · NOT ADOPTED
+- **statut**: **MACRO-LOT 2 — PRODUCT-WIDE CAPABILITIES IMPLEMENTED AND BEHAVIOR PROVEN — MORRIS EXIT ACCEPTANCE PROPOSED**
+
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML2-FINAL-CHECKPOINT
 
 - **date_utc**: 2026-11-27T05:35Z
@@ -13,7 +26,7 @@ Append-only logical journal of Cursor product deliveries.
 - **gates**: migration 027 APPLY **pending** · LIVE remainder **pending** — no intermediate handoff
 - **tests**: 46 targeted PASS (frontier+derived+wiring+judgment+rights)
 - **campaign**: `ml2-i2-docintel-20261127` HTTP 90/236 · Nora ~38/40 — no new LIVE
-- **statut**: **STOP — MORRIS CHECKPOINT A+B REQUIRED** (not READY FOR REVIEW exit)
+- **statut**: **STOP — MORRIS CHECKPOINT A+B REQUIRED** (superseded by FINAL-PRODUCT after GO)
 
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML2-PRODUCT-WIDE-INTEGRATION
 
