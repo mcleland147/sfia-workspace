@@ -1,1128 +1,750 @@
-# SFIA Studio Next — Review Pack E1 — Continuité cognitive et fonctionnelle
+# Review Pack FULL — SFIA Studio Next — E1 complément reliquats E1-REL-01…09
+
+## Meta
+- **date_local**: 2026-11-27T18:18:00+0100
+- **date_utc**: 2026-11-27T17:18:00Z
+- **cycle**: 8 — Delivery / Critical / EVOL complément E1
+- **profil**: Critical
+- **livraison**: DELIV-2026-11-27-ML5-INTEGRATED-CONTINUITY-RELIABILITY-DEV (même entrée — pas de nouvelle DELIV)
+- **mandat**: Macro-lot correctif Ensemble 1/5 — complément neuf reliquats ChatGPT revue E1
+- **acquis antérieurs**: handoff `d08fc94e` / blob `7c05e3d5` (58 PASS E1) — préservés
+- **E2**: NON ENGAGÉ
+- **classe**: NO RELEASE — STABLE NOT AVAILABLE — NOT ADOPTED
+- **commit projet**: INTERDIT — handoff L3 uniquement
+
+## 1. Git Truth Check
 
 | Champ | Valeur |
 | --- | --- |
-| Date/heure UTC | 2026-11-27T16:53Z |
-| Mandat | E1 only — B.1–B.8 + MP-03/10/12/13 + interfaces MP-08/09/11/14 |
-| Profil | Critical / Cycle 8 / EVOL |
-| Verdict proposé | **READY WITH RESERVES** — DETERMINISTIC PROVEN (E1) ; autonomie LIVE NON PROUVÉE ; gate Morris avant E2 |
-| Programme | R5 IN PROGRESS / ML5 OPEN / Livraison 1 NOT ACCEPTED / 17 MP OPEN RECETTE / T09 NOT SENT / NO RELEASE / NOT ADOPTED |
-| Handoff attendu | `review(next): complete project cognitive continuity capability` |
+| Repo | mcleland147/sfia-workspace |
+| Worktree DEV | /Users/morris/Projects/sfia-wt-next-ml5-20261123 |
+| Branche | sfia/next-ml5-integrated-delivery-20261123 |
+| HEAD local | 58ca9486003805f74e69a0842f2c0792a7184437 |
+| Main distant | 997897fd7cf914771e7d08e8030dc7123fab7d25 |
+| Docs tip | 0a877d62e2da8d927e61b4ff572c1f70ff893988 |
+| Handoff tip avant | d08fc94e1619c5593fa65188e1e3dd091fa326ba / blob 7c05e3d5 |
+| Staged | aucun staged inattendu |
+| Worktree | dirty (acquis E1 + complément) — expected |
+| RECETTE wt | /Users/morris/Projects/sfia-workspace-next-ml5-recette-build-e8e6e06961fa — préservé |
 
-## 1. Mandat E1
+**Verdict Git**: TRUTH OK — reprise sur dirty attendu ; delta complément distinct des acquis A–D/E1.
 
-Périmètre exclusif Ensemble 1 du macro-lot correctif ML5. OUT : E2–E5, LIVE, RECETTE mutation, commit projet, UX panneau, audio, FinOps refonte.
-Source fonctionnelle : `continuite-cognitive-et-fonctionnelle-du-projet.md` blob `1a5f822f…` (non modifié).
-Suivi indépendant ChatGPT : `suivi-macro-lot-correctif-continuite-fiabilite-ml5.md` blob `4fb8b75a…` (non modifié par Cursor).
+## 2. ENV-01
 
-## 2. Git Truth
-```
-DATE=2026-11-27T16:52Z
-BRANCH=sfia/next-ml5-integrated-delivery-20261123
-HEAD=58ca9486003805f74e69a0842f2c0792a7184437
-MAIN=997897fd7cf914771e7d08e8030dc7123fab7d25
-MERGE_BASE=997897fd7cf914771e7d08e8030dc7123fab7d25
-HANDOFF_TIP=14177ee1c672b9d4680487777bc296f706ab788f
-DOCS_TIP=6a211aea882fad885ab794afb119c346cc66710b
-RECETTE_HTTP=200
-DEV_HTTP=500
-```
-
-
-- Worktree dirty attendu (axes A/C/D préservés).
-- Empreinte entrée : `.tmp-sfia-review/e1-entry-status.txt` / `e1-entry-diffstat.txt`.
-- Aucun staged inattendu au démarrage E1.
-- STOP non déclenché (pas de collision concurrente, RECETTE préservée).
-
-## 3. ENV-01
-
-| Contrôle | Résultat |
+| Surface | État |
 | --- | --- |
+| DEV app :3100 | HTTP 500 (turbopack / tooling) — inchangé |
+| DEV PG :5433 | LISTEN |
+| RECETTE :3200 | HTTP 307 (préservée — aucune mutation) |
+| RECETTE PG :5434 | LISTEN |
 | STUDIO_LANE | DEV |
-| App DEV | :3100 — HTTP **500** sous `next dev` turbopack (tooling ; `@cursor/sdk` map parse historique) |
-| PG DEV | :5433 ; tests vitest → `sfia_next_e2e` |
-| RECETTE | :3200 HTTP 200 ; PG :5434 listen ; **aucune mutation** |
-| WEB/Admin | OFF |
-| LIVE OpenAI/embeddings/Realtime | aucune émission |
-| Verdict | **ENV ROUTING COMPLETE** (lane DEV, RECETTE intacte). Réserve tooling navigateur DEV. |
+| LIVE / WEB / embeddings | NON émis |
 
-## 4. Versioning
+**Verdict ENV**: ENV ROUTING COMPLETE — preuve DOM DEV reportée (tooling gap).
 
-`product-version.ts` : NO RELEASE / STABLE NOT AVAILABLE.
-Delivery History complété (même delivery_id DELIV-2026-11-27-ML5-INTEGRATED-CONTINUITY-RELIABILITY-DEV) avec périmètre E1 + 58 PASS suite.
-Aucune nouvelle livraison produit ; aucune promotion.
+## 3. Product versioning
 
-## 5. Git Review Index (sources lues / utilisées)
+- Classe: NO RELEASE
+- Entrée complétée: DELIV-2026-11-27-ML5-INTEGRATED-CONTINUITY-RELIABILITY-DEV
+- Section `E1_complément_reliquats` ajoutée (pas de nouvelle livraison)
+
+## 4. Sources (Git Review Index proportionné)
 
 | Source | Ref | Rôle | Statut |
 | --- | --- | --- | --- |
-| Continuity contract | blob `1a5f822f` | §4–12 oracles | LU — non modifié |
-| Suivi macro-lot | tip docs `6a211aea` / blob `4fb8b75a` | E1–E5 / MP / oracles | LU — non modifié |
-| Handoff reprise | `14177ee1` / blob `0235ea6d` | B.1–B.8 PARTIAL/RACCORDÉ | LU — point d'entrée |
-| SEF / ENV-01 / versioning | main `997897fd` | gates | LU |
-| Code D3/D4/D5/D6 | worktree dirty | mécanismes | EXAMINÉ + corrigé E1 |
+| suivi-macro-lot…md | 0a877d62 / blob 538071a9 §9.1 | 9 reliquats | LU — non modifié |
+| continuite-cognitive…md | blob 1a5f822f | Contrats | LU — non modifié |
+| handoff E1 | d08fc94e | Acquis | RÉFÉRENCÉ |
+| e1-continuite-cognitive-as-built.md | local | As-built | MIS À JOUR |
+| SEF / product-versioning / ENV-01 | main 997897fd | Gouvernance | LU |
 
-## 6. Cartographie initiale
-# E1 — Cartographie initiale (Étape 0) — 2026-11-27
+## 5. État d'entrée
 
-## Git / ENV (préalable)
+- E1 PARTIEL — NOT READY E2 (revue ChatGPT)
+- REVIEW HANDOFF INCOMPLETE docs (précédent) — régularisé ici
+- 9 reliquats ouverts §9.1
+- GO Morris complément DEV + qualification proportionnée
 
-| Contrôle | Résultat |
-| --- | --- |
-| Branche | `sfia/next-ml5-integrated-delivery-20261123` @ `58ca9486…` |
-| Worktree | dirty attendu (axes A/C/D préservés) ; staged inattendu : aucun |
-| Docs tip | `6a211aea…` / suivi blob `4fb8b75a…` |
-| Handoff tip entrée | `14177ee1…` / blob `0235ea6d…` |
-| DEV PG | `:5433` / rôle `sfia_next_dev` ; tests → `sfia_next_e2e` |
-| RECETTE | `:3200` / `:5434` préservée (pas de mutation) |
-| STUDIO_LANE | DEV |
-| Versioning | `NO RELEASE` / STABLE NOT AVAILABLE (`product-version.ts`) |
-| DEV HTTP :3100 | **500** au démarrage E1 (next dev turbopack) — tooling/runtime ; preuve navigateur à rejouer via qualify:start si besoin |
+## 6. Matrice E1-REL-01…09
 
-Verdict préalable : **ENV ROUTING COMPLETE** (lane DEV, RECETTE intacte). DEV app 500 = réserve tooling navigateur, pas contamination RECETTE.
-
-## Empreinte d'entrée
-
-- `.tmp-sfia-review/e1-entry-status.txt`
-- `.tmp-sfia-review/e1-entry-diffstat.txt`
-
-## Chaîne propriétaire (exigence → mécanisme)
-
-```
-message USER/Nora
-→ semantic qualification (QUALIFIED + REQUEST_EFFECT)
-→ extractKnowledgeProposals / pilotage bindings
-→ admission Studio (ownership fence)
-→ propriétaire D4/D5/D6
-→ persistance PG
-→ projection (project-context / Journal / Trajectoire / Travail)
-→ réutilisation (hints + D4 read tools + segment-context-efficiency)
-```
-
-| Exigence | Capacité propriétaire | Raccordement Nora | Persistance | Projection | Preuve entrée |
-| --- | --- | --- | --- | --- | --- |
-| B.1 Capitalisation | `maybeCapitalizeFromExchange` + `extractKnowledgeProposals` | `d4.record_knowledge` REQUEST_EFFECT ; service.ts après reply | D4 PG | Journal | Partiel — zéro proposition = no-op ; capitalisation résultats Nora via assistantMessageId + proposals |
-| B.2 Arborescence | `ensureSubject`, `reparentSubject`, `renameSubject`, `merge/split` | parentSubjectId ; **même tour** via `subject-proposal-batch` | `knowledge_subjects.parent_subject_id` | Journal arbre | Entrée : enfant d'un parent précréé seulement |
-| B.3 Synthèses/acquis | `appendSubjectSummaryRevision`, `capitalizeAcquis`, supersede | proposals ACQUIS/SUBJECT | révisions + acquis CURRENT | Journal | Structures EXISTANTES — couverture à exercer |
-| B.4 Points ouverts | `openPoint`, `resolveOpenPointFactually` | OPEN_POINT + resolvesOpenPointId | `knowledge_open_points` | activity.openPointsCount | PG résolution + retrait OPEN acquis |
-| B.5 Décisions | D6 `RECORD_DECISION` / conversation-authority | REQUEST_EFFECT D6 | `human_decisions` | applicableDecisions | À tort « HORS P2 » — à démontrer E1 |
-| B.6 Trajectoire | D5 propose/retain/open cycle | bindings D5 | `project_cycles` / forecast | PilotagePanel + labels | Labels acquis ≠ trajectoire vivante |
-| B.7 Réutilisation | D4 read tools, hints, segment-context-efficiency | tools + PREFERRED | lecture | contexte Nora | Trim ≠ reuse ; embedding residual → E2 si non bloquant |
-| B.8 Projections | `getOwnedProjectContext` + activity projection | N/A (Studio) | PG | 4 surfaces | Doc identité OK ; décisions/sujets à prouver PG→DOM |
-
-## Écarts prioritaires (sévérité)
-
-1. **B.2 même tour** — parentSubjectId exigeait un id préexistant → **en correction** (`subject-proposal-batch` + precreate).
-2. **B.2 réorg Nora** — `reparentSubject` existait sans raccord capitalisation → **en correction** (SUBJECT + subjectId + parentSubjectId).
-3. **B.5** — mobilisation D6 non prouvée dans continuité.
-4. **B.6** — évolution trajectoire / finalité contextualisée / états envisagé-retenu.
-5. **B.7** — chaîne reuse déterministe bout en bout.
-6. **B.8** — compteur décisions (défaut MaintiPlan) + cohérence 4 surfaces.
-7. **B.1** — capitalisation contribution Nora vs USER ; sélectivité ; reprise.
-8. **B.3/B.4** — titres courts points, consolidation acquis, provenance messages.
-9. **B.2 ops** — merge/split/rename API UI ; Nora via qualification (rename/reparent) ; merge/split non exposés au conducteur → documenter.
-10. **Navigateur DEV** — :3100 500 sous next dev ; qualify:start alternatif.
-
-## OUT E1 (rappel)
-
-E2 allocation/FinOps/hybrid residual ; E3 UX panneau ; E4 audio ; E5 exit ; LIVE ; commit projet.
-
-## 7. Écarts et causes (résumé)
-
-1. parentSubjectId exigeait un id préexistant → même tour impossible → **corrigé** (batch order + resolve title/intent).
-2. reparent existait sans raccord capitalisation/API → **corrigé**.
-3. B.5 à tort « HORS P2 » → **exercé** via D6 conversational authority.
-4. PROPOSE_TRAJECTORY échouait si body.objective ≠ durable → **corrigé** (pas d'echo body).
-5. Compteur décisions : supersede par lignes non-APPLICABLE → **corrigé**.
-6. B.7 trim ≠ reuse → **prouvé** PREFERRED + omit marker + tools path.
-7. shortTitle points → **dérivé éditorial** pour E3.
-
-## 8. Blast radius
-
-Fichiers E1 touchés : knowledge service/batch/journal ; conversation-authority ; semantic-qualification ; nora-adapter ; project-context ; project-activity-projection ; knowledge API reparent ; tests E1 ; delivery-history ; ml5-registre ; as-built E1.
-Hors scope préservé : audio/composer, FinOps, allocation, RECETTE, SEF, continuity contract, suivi ChatGPT.
-
-## 9. Contrats techniques retenus
-# E1 — Continuité cognitive as-built (DEV, 2026-11-27)
-
-Statut : DOCUMENTED as-built — NO RELEASE. Ne remplace pas le contrat fonctionnel
-`conception-fonctionnelle/continuite-cognitive-et-fonctionnelle-du-projet.md`.
-
-## Responsabilités
-
-| Domaine | Rôle |
-| --- | --- |
-| D3 | Qualification, extraction `d4.record_knowledge`, contexte, outils lecture |
-| D4 | Sujets, hiérarchie, synthèses, acquis, points ouverts, provenance |
-| D5 | Trajectoire (propose/retain), cycles, finalité |
-| D6 | Décisions humaines (RECORD/REVISE/REVOKE) — jamais dérivées d'une reco Nora seule |
-| Studio | Admission, fence, persistance PG, projections |
-
-## Mécanismes E1
-
-### B.1 Capitalisation
-
-- Gate : `QUALIFIED` + `REQUEST_EFFECT` + `d4.record_knowledge` → `extractKnowledgeProposals`.
-- Écriture : `maybeCapitalizeFromExchange` (zéro proposition = zéro mutation).
-- Provenance : message USER + message assistant (Nora) constitutifs lorsque fournis.
-- Epistemic `established` Nora → D4 refuse FACT sans source indépendante.
-
-### B.2 Arborescence
-
-- Module : `web/src/domains/knowledge/subject-proposal-batch.ts`
-  - `orderSubjectCreatesByDependency` — parents avant enfants ; détection de cycle.
-  - `resolveBatchParentRef` — `subj_*` | intent id | titre co-proposé | `lookup_title` DB.
-- `precreateBatchSubjects` dans `knowledge/service.ts` crée le batch avant le reste.
-- Reparent/rename : SUBJECT avec `subjectId` existant + `parentSubjectId` / `subjectTitle`.
-- API Pilote : `POST .../knowledge` action `reparent` (en plus rename/merge/split).
-- Nora : guidance adapter — parent+enfant même tour autorisé.
-
-### B.4 / B.8
-
-- `openPointShortTitle` (éditorial, pas de migration) exposé dans `getOwnedProjectContext`.
-- Décisions applicables : `filterApplicableHumanDecisions` — supersede uniquement si
-  successeur **APPLICABLE** (corrige compteur zéro MaintiPlan).
-
-### B.5 / B.6
-
-- `applyConversationalAuthority` : PROPOSE/RETAIN n'échouent plus le body objective/orientation
-  (champs issus uniquement de la qualification durable).
-- OPEN_CYCLE conserve l'objectif contextualisé via `persistableCycleObjective`.
-
-### B.7
-
-- Sélection : `selectRelevantKnowledgeContext` + preferred ids.
-- Continuation : `resolveContinuationKnowledgeSnippets` + marqueur d'omit — l'info reste
-  accessible via outils D4 (trim ≠ perte).
-
-## Limites
-
-- Autonomie sémantique LIVE : NON PROUVÉE (E1 = DET + injections).
-- Hybrid embedding `derivedUsed=false` : réserve E2 si impact mesure.
-- Merge/split : API UI, non mobilisés par le conducteur comme intents typés.
-- UX panneau / multi-types : E3.
-- Navigateur : `next dev` :3100 peut 500 (tooling) ; qualify:start alternatif.
-
-## Preuves
-
-Suite E1 focalisée (unit+PG) — voir Delivery History et Review Pack E1.
-
-## 10. Matrice B.1–B.8
-
-| Exigence | Source | Mécanisme | Écart initial | Modification | Raccordement | Persistance | Test | Résultat | Niveau | Réserve | Dep |
+| ID | Exigence | Entrée | Constat | Correction | Fichier clé | Mécanisme | Validation | Résultat | Preuve restante | Risque | Next |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| B.1 | §5 | extract+maybeCapitalize | Nora results / sélectivité | guidance+tests | service.ts post-reply | D4 | e1-b1 unit + integrated | PASS | RACCORDÉ DET | LIVE qual | — |
-| B.2 | §6.1 | batch+ensure+reparent | même tour / reorg Nora | subject-proposal-batch | d4.record_knowledge | PG parent_id | continuity+integrated PG | PASS | RACCORDÉ DET | LIVE pertinence ; merge/split Nora | — |
-| B.3 | §6.2 | summary/acquis/supersede | couverture | exercé integrated | capitalisation | PG | integrated | PASS | EXISTANT+EXERCÉ | consolidation LIVE | — |
-| B.4 | §6.3 | open/resolve | cycle vie | shortTitle | proposals | PG | continuity+integrated | PASS | RACCORDÉ DET | UX E3 | E3 |
-| B.5 | §7 | D6 authority | HORS P2 | tests+paths | REQUEST_EFFECT d6 | human_decisions | e1-b5-b6 | PASS | RACCORDÉ DET | LIVE naturel | — |
-| B.6 | §8.1 | D5 propose/retain/open | labels≠vivant | no body objective | conversational | trajectory/cycles | e1-b5-b6 | PASS | RACCORDÉ DET | LIVE orientation | — |
-| B.7 | §6.4 | select+omit+tools | trim≠reuse | preuves | PREFERRED | lecture | e1-b7-b8 | PASS | RACCORDÉ DET | embedding/T08 | E2 |
-| B.8 | §8.2–8.3 | project-context | compteur décisions | filterApplicable | API→projection | PG | e1-b7-b8+integrated | PASS | RACCORDÉ DET | DOM navigateur | E3 |
+| E1-REL-01 | Réorganisation | merge/split API only | OK | subjectOrganization→D4 owners | knowledge/service.ts | MERGE/SPLIT/DETACH | PG merge | DET PROVEN | pertinence naturelle | bas | recette |
+| E1-REL-02 | Intégrité D4 | risques revue | confirmés puis levés | fail invalid id; conflict; fence; no AVAILABLE mask | knowledge/service.ts journal.ts | assert+fence | PG négatifs | DET PROVEN | — | bas | — |
+| E1-REL-03 | Capitalisation | inject-only fear | chaîne extract→D4 réelle | champs étendus + path inspection | semantic-qualification + service | d4.record_knowledge | inspection+E1 | IMPLEMENTED | conversation réelle | moyen | recette |
+| E1-REL-04 | Titre OP | editorial trunc | gap | canonicalTitle provenance | project-activity-projection | openPointTitle | PG+unit | DET PROVEN | DOM | bas | recette/E3 |
+| E1-REL-05 | Trajectoire | forecastJson absent USER_MESSAGE; RETAIN_VIS | confirmé | forecastSteps durable; supersede PROPOSED | pilotage/service.ts types | ClassifiedCommand.forecastSteps | PG | DET PROVEN | réorientation naturelle | bas | recette |
+| E1-REL-06 | D6 | acquis record/revise/revoke | OK | pas de nouvelle autorité; non-régression | e1-ensemble-b5-b6 | D6 owner | PG 10 PASS | DET antérieur | T07 naturel | bas | recette |
+| E1-REL-07 | Réutilisation | PREFERRED+omit | OK | tools D4 exposés (inspection) | d4-read-tools | search/read | B.7 PG | VERIFIED | sélection naturelle; hybrid→E2 | moyen | recette/E2 |
+| E1-REL-08 | Projections | counters/identity | code OK; DOM 500 | shortTitle+identity vérifiés | project-context | projections | unit+inspection | VERIFIED | DOM tooling | moyen | recette |
+| E1-REL-09 | Docs | pack docs manquants | confirmé | as-built+delivery+registre+pack | construction/* as-built | sync | inspection | IMPLEMENTED | — | bas | L3 |
 
-## 11. Preuves de raccordement
+## 7. Fake / Real
 
-Chaîne exercée (DET) :
-qualification injectée → extractKnowledgeProposals / pilotage bindings → maybeCapitalizeFromExchange / applyConversationalAuthority → PG → getOwnedProjectContext / getPilotageProjection / listProjectKnowledge → sélection PREFERRED + omit.
-Parent+enfant même tour : intent id + title ref — 6/6 continuity PG + integrated PASS.
-
-## 12. Matrice MP-03/10/12/13
-
-| MP | État E1 | Preuve | RECETTE |
-| --- | --- | --- | --- |
-| MP-03 Points ouverts | RÉCONCILIÉ DET | open/resolve/shortTitle/projections | OPEN |
-| MP-10 Continuité | RÉCONCILIÉ DET (B.1–B.7) | suite E1 58 PASS | OPEN |
-| MP-12 Trajectoire | RÉCONCILIÉ DET | propose/retain/open/figma-no-op | OPEN |
-| MP-13 Compteurs | RÉCONCILIÉ DET | decisions/subjects/docs/points | OPEN |
-Aucun MP clôturé en RECETTE.
-
-## 13. Interfaces MP-08/09/11/14
-
-| Interface | Livrable E1 |
-| --- | --- |
-| MP-08 | openPoints + shortTitle + id + subjectId dans project-context |
-| MP-09 | préservé (multi-binding) ; non réouvert |
-| MP-11 | capitalisation obs events existants ; effets D5/D6 via command status |
-| MP-14 | PREFERRED hints + selectRelevantKnowledgeContext + omit marker |
-
-## 14. Matrice 18 oracles
-
-| # | Niveau E1 | Résultat | Test | Reliquat |
+| Fake | Real boundary | Parité | Gap | Exercé |
 | --- | --- | --- | --- | --- |
-| 1 Exploration→création | DET identité | PASS integrated | seed project | LIVE naturel |
-| 2 Hiérarchie | DET même tour | PASS | continuity+integrated | LIVE |
-| 3 Réorganisation | DET reparent | PASS integrated | merge/split Nora | LIVE |
-| 4 Pilote+Nora | DET dual proposals | PASS | capitalisation mixed | LIVE |
-| 5 Correction acquis | DET supersede path | EXISTANT+exercé | unit/historical | LIVE |
-| 6 Résolution question | DET | PASS | resolve+projection | — |
-| 7 Local vs durable | DET D6 | PASS e1-b5 | LIVE naturel | |
-| 8 Combiné T05/T06 | préservé | non régressé | E2 deepen | LIVE |
-| 9 Figma réorientation | DET no-op + propose | PASS | e1-b6 | LIVE |
-| 10 Finalité cycle | DET objective | PASS OPEN_CYCLE | — | |
-| 11 Compteurs | DET PG→ctx | PASS | B.8 | DOM browser |
-| 12 Multitypes | interface données | partial | E3 | E3 |
-| 13 Points panneau | shortTitle+ids | PASS données | E3 UX | E3 |
-| 14 Navigation/interruption | données+reprise | PASS omit/resume unit | E3/E5 | |
-| 15 Réutilisation longue | DET select | PASS B.7 | E2/LIVE mesure | |
-| 16 V1→V2 analogue | doc identity count | PASS library | T09 RECETTE | |
-| 17 Sans intérêt | zéro proposition | PASS | e1-b1+integrated | |
-| 18 Isolation/échec | DET foreign parent + iso project | PASS | continuity+integrated | E5 |
+| Qualification injectée | LIVE Nora | paramètres typés | autonomie sémantique | DET |
+| PG DEV/E2E | PG RECETTE | schéma | données métier | DET |
+| Navigateur | :3100 | — | HTTP 500 | NON |
 
-## 15. Fichiers créés (contenu)
+Claims: IMPLEMENTED / COVERAGE VERIFIED / DETERMINISTIC PROVEN ciblé.
+Interdits: READY FOR REAL / END-TO-END REAL / Livraison 1 acceptée / ADOPTED.
 
-### `projects/sfia-studio-next/web/src/domains/knowledge/subject-proposal-batch.ts`
-```typescript
-/**
- * E1 B.2 — order and resolve parent refs for SUBJECT proposals in one capitalisation batch.
- * parentSubjectId may be a persisted subj_* id, a co-proposal intent id, or a parent subjectTitle.
- */
+## 8. Preuves reportées en recette (obligatoire)
 
-export type SubjectCreateProposal = {
-  intentId: string;
-  title: string;
-  /** Raw parentSubjectId / parentRef from qualification — not necessarily a DB id. */
-  parentRef?: string;
-};
+### R-REC-E1-01 — Continuité conversationnelle naturelle
+- Exigences: E1-REL-03/01/04/05/06/07/08
+- Mécanismes disponibles: capitalisation, org, titre, forecast, D6, tools D4, projections
+- Vérif technique: DET PG + inspection raccordements
+- Raison report: pertinence cognitive non simulable utilement
+- Parcours: démarrer projet test → thèmes → sous-sujets → correction acquis → consolidation → merge/reorg → résoudre OP → décision → réorienter trajectoire → reprise → vérifier Journal/Projet/Trajectoire/Travail
+- Critère succès: Nora capitalise/sélectionne sans déclencheurs administratifs; Studio persiste; écrans cohérents
+- Critère échec: mutation absente/incorrecte; proposition concurrente après retain; titre OP absurde; fuite interprojet
+- Gate Morris: OUI avant acceptation Livraison 1
+- LIVE isolé: NON proposé (même preuve en recette)
 
-export function normalizeSubjectTitle(title: string): string {
-  return title.trim().replace(/\s+/g, " ").toLowerCase();
-}
+### R-REC-E1-02 — DOM DEV / surfaces
+- Exigence: E1-REL-08
+- Blocage: :3100 HTTP 500 tooling
+- Alternative: qualify:start si Morris le demande
+- Ne remplace pas cohérence code (corrigée)
 
-function looksLikePersistedSubjectId(ref: string): boolean {
-  return ref.startsWith("subj_");
-}
+## 9. Réserves
 
-export type ParentResolveInput = {
-  self: SubjectCreateProposal;
-  batch: SubjectCreateProposal[];
-  /** intentId → created subj_* id within this capitalisation turn */
-  createdByIntentId: ReadonlyMap<string, string>;
-};
+| ID | Classe | Cause | Impact | Action | Responsable | Exit |
+| --- | --- | --- | --- | --- | --- | --- |
+| R-E1-LIVE | C | autonomie LIVE non exercée | pas READY FOR REAL | recette naturelle | Morris/Pilote | conversation réussie |
+| R-E1-DOM | E | :3100 HTTP 500 | pas preuve DOM | tooling ou qualify:start | Cursor/Morris | HTTP 200 + parcours |
+| R-E1-HYBRID | D | derivedUsed=false | E2 | E2 | Cursor E2 | mesure E2 |
+| R-E1-E3 | D | panneau UX | E3 | E3 | Cursor E3 | F2 E3 |
 
-export type ParentResolveResult =
-  | { kind: "root" }
-  | { kind: "resolved"; parentSubjectId: string }
-  | { kind: "pending_batch"; parentIntentId: string }
-  /** Not in this batch — Studio looks up an existing ACTIVE subject by title. */
-  | { kind: "lookup_title"; title: string }
-  | { kind: "error"; reason: string };
+Aucune réserve acceptée par Cursor. GO proportionné ≠ acceptation.
 
-/**
- * Resolve a parent reference without DB access when possible.
- * `pending_batch` means the parent is another proposal in the same batch (not yet created).
- */
-export function resolveBatchParentRef(ref: string, input: ParentResolveInput): ParentResolveResult {
-  const trimmed = ref.trim();
-  if (!trimmed) return { kind: "root" };
+## 10. Validations exécutées (ce mandat)
 
-  if (trimmed === input.self.intentId) {
-    return { kind: "error", reason: "SUBJECT_SELF_PARENT" };
-  }
-  const selfNorm = normalizeSubjectTitle(input.self.title);
-  if (normalizeSubjectTitle(trimmed) === selfNorm) {
-    return { kind: "error", reason: "SUBJECT_SELF_PARENT" };
-  }
+| Commande | Env | Exit | Portée |
+| --- | --- | --- | --- |
+| vitest unit e1-b1 + e1-b5-b6 + e1-b7-b8 + project-activity-projection | DEV | 0 — 32 PASS | units |
+| vitest e1-reliquats-integrity.pg | DEV PG | 0 — 5 PASS | complément |
+| vitest e1-ensemble-b5-b6.pg | DEV PG | 0 — 10 PASS | non-régression D5/D6 |
+| vitest e1-continuity-b7-b8.pg | DEV PG | 0 — 3 PASS | non-régression |
+| vitest e1-continuity-integrated.pg | DEV PG | 0 — 1 PASS | chaîne |
+| tsc --noEmit | DEV | erreurs antérieures hors delta E1r | delta clean |
+| git diff --check (fichiers delta) | local | 0 | whitespace |
 
-  if (looksLikePersistedSubjectId(trimmed)) {
-    return { kind: "resolved", parentSubjectId: trimmed };
-  }
+## 11. Review Pack Content Coverage
 
-  const byIntent = input.batch.find((p) => p.intentId === trimmed);
-  if (byIntent) {
-    const created = input.createdByIntentId.get(trimmed);
-    if (created) return { kind: "resolved", parentSubjectId: created };
-    return { kind: "pending_batch", parentIntentId: trimmed };
-  }
-
-  const refNorm = normalizeSubjectTitle(trimmed);
-  const titleMatches = input.batch.filter(
-    (p) => p.intentId !== input.self.intentId && normalizeSubjectTitle(p.title) === refNorm,
-  );
-  if (titleMatches.length === 1) {
-    const parent = titleMatches[0]!;
-    const created = input.createdByIntentId.get(parent.intentId);
-    if (created) return { kind: "resolved", parentSubjectId: created };
-    return { kind: "pending_batch", parentIntentId: parent.intentId };
-  }
-  if (titleMatches.length > 1) {
-    return { kind: "error", reason: "AMBIGUOUS_PARENT_REF" };
-  }
-
-  // Title or opaque ref not found in batch — allow DB title lookup (same prep).
-  return { kind: "lookup_title", title: trimmed };
-}
-
-export type OrderSubjectsResult =
-  | { ordered: SubjectCreateProposal[] }
-  | { error: string; reason: string };
-
-/**
- * Topological order: parents before children. Detects cycles within the batch.
- */
-export function orderSubjectCreatesByDependency(
-  creates: SubjectCreateProposal[],
-): OrderSubjectsResult {
-  const byId = new Map(creates.map((c) => [c.intentId, c]));
-  const inBatchParent = new Map<string, string>();
-
-  for (const c of creates) {
-    if (!c.parentRef?.trim()) continue;
-    const trimmed = c.parentRef.trim();
-    if (looksLikePersistedSubjectId(trimmed)) continue;
-    if (trimmed === c.intentId) {
-      return { error: c.intentId, reason: "SUBJECT_SELF_PARENT" };
-    }
-    if (byId.has(trimmed)) {
-      inBatchParent.set(c.intentId, trimmed);
-      continue;
-    }
-    const refNorm = normalizeSubjectTitle(trimmed);
-    if (refNorm === normalizeSubjectTitle(c.title)) {
-      return { error: c.intentId, reason: "SUBJECT_SELF_PARENT" };
-    }
-    const titleMatches = creates.filter(
-      (p) => p.intentId !== c.intentId && normalizeSubjectTitle(p.title) === refNorm,
-    );
-    if (titleMatches.length > 1) {
-      return { error: c.intentId, reason: "AMBIGUOUS_PARENT_REF" };
-    }
-    if (titleMatches.length === 1) {
-      inBatchParent.set(c.intentId, titleMatches[0]!.intentId);
-    }
-  }
-
-  const pendingBatchParent = new Map(inBatchParent);
-  const ready = creates
-    .filter((c) => !pendingBatchParent.has(c.intentId))
-    .map((c) => c.intentId);
-
-  const ordered: SubjectCreateProposal[] = [];
-  while (ready.length > 0) {
-    const id = ready.shift()!;
-    const node = byId.get(id);
-    if (node) ordered.push(node);
-    for (const [childId, parentId] of [...pendingBatchParent]) {
-      if (parentId === id) {
-        pendingBatchParent.delete(childId);
-        ready.push(childId);
-      }
-    }
-  }
-
-  if (ordered.length !== creates.length) {
-    return { error: creates[0]?.intentId ?? "batch", reason: "SUBJECT_BATCH_CYCLE" };
-  }
-
-  return { ordered };
-}
-```
-
-
-### `projects/sfia-studio-next/web/src/domains/preparation/project-activity-projection.ts`
-```typescript
-/**
- * ML5 continuity (B.8) — deterministic activity counters for Travail/Projet.
- * One row per document identity; révisions do not inflate the library count.
- */
-
-import { editorialDisplayBullet } from "@/domains/knowledge/journal-editorial";
-
-export type DecisionProjectionRow = {
-  id: string;
-  state: string;
-  statement: string;
-  supersedesDecisionId?: string | null;
-  kind?: string;
-};
-
-/**
- * A decision is superseded only when an APPLICABLE successor carries supersedesDecisionId.
- * Non-APPLICABLE rows (REVISED / FAILED lineage) must not zero activity counters (MaintiPlan).
- */
-export function buildSupersededDecisionIds<T extends DecisionProjectionRow>(rows: T[]): Set<string> {
-  const out = new Set<string>();
-  for (const d of rows) {
-    if (d.state === "APPLICABLE" && d.supersedesDecisionId) {
-      out.add(d.supersedesDecisionId);
-    }
-  }
-  return out;
-}
-
-export function filterApplicableHumanDecisions<T extends DecisionProjectionRow>(
-  rows: T[],
-  opts?: { kinds?: string[] },
-): T[] {
-  const superseded = buildSupersededDecisionIds(rows);
-  return rows.filter((d) => {
-    if (d.state !== "APPLICABLE") return false;
-    if (superseded.has(d.id)) return false;
-    if (opts?.kinds?.length && d.kind && !opts.kinds.includes(d.kind)) return false;
-    return true;
-  });
-}
-
-/** E3-facing compact label — editorial, no schema migration. */
-export function openPointShortTitle(statement: string, maxLen = 72): string {
-  return editorialDisplayBullet(statement, maxLen);
-}
-
-export type DocumentListRow = {
-  document?: { id: string; title?: string } | null;
-};
-
-export function countProjectLibraryDocuments(documents: DocumentListRow[]): number {
-  const seen = new Set<string>();
-  for (const d of documents) {
-    const id = d.document?.id;
-    if (id) seen.add(id);
-  }
-  return seen.size;
-}
-
-export function projectLibraryDocumentExamples(
-  documents: DocumentListRow[],
-  limit = 2,
-): Array<{ id: string; title: string }> {
-  const seen = new Set<string>();
-  const out: Array<{ id: string; title: string }> = [];
-  for (const d of documents) {
-    const id = d.document?.id;
-    if (!id || seen.has(id)) continue;
-    seen.add(id);
-    out.push({ id, title: d.document!.title ?? "Sans titre" });
-    if (out.length >= limit) break;
-  }
-  return out;
-}
-
-export function openKnowledgePoints<T extends { status: string }>(points: T[]): T[] {
-  return points.filter((p) => p.status === "OPEN");
-}
-
-export function countOpenKnowledgePoints<T extends { status: string }>(points: T[]): number {
-  return openKnowledgePoints(points).length;
-}
-
-/** Travail aside — at most five compact titles, same OPEN population as Journal. */
-export function travailAsideOpenPoints<T extends { id: string; statement: string; status: string }>(
-  points: T[],
-  max = 5,
-): T[] {
-  return openKnowledgePoints(points).slice(0, max);
-}
-```
-
-
-### `projects/sfia-studio-next/architecture-technique/e1-continuite-cognitive-as-built.md`
-```typescript
-# E1 — Continuité cognitive as-built (DEV, 2026-11-27)
-
-Statut : DOCUMENTED as-built — NO RELEASE. Ne remplace pas le contrat fonctionnel
-`conception-fonctionnelle/continuite-cognitive-et-fonctionnelle-du-projet.md`.
-
-## Responsabilités
-
-| Domaine | Rôle |
+| Contenu | Présent |
 | --- | --- |
-| D3 | Qualification, extraction `d4.record_knowledge`, contexte, outils lecture |
-| D4 | Sujets, hiérarchie, synthèses, acquis, points ouverts, provenance |
-| D5 | Trajectoire (propose/retain), cycles, finalité |
-| D6 | Décisions humaines (RECORD/REVISE/REVOKE) — jamais dérivées d'une reco Nora seule |
-| Studio | Admission, fence, persistance PG, projections |
+| Diffs knowledge/service.ts | OUI §DIFFS |
+| Diffs semantic-qualification | OUI |
+| Diffs pilotage/service+types | OUI |
+| Diffs journal reparent fence | OUI |
+| Diffs project-activity-projection + project-context | OUI |
+| Diffs nora-adapter guidance | OUI |
+| Test e1-reliquats nouveau | OUI (fichier complet) |
+| Test e1-ensemble retain expectation | OUI |
+| Docs as-built / delivery / registre | OUI |
+| Matrice 9 reliquats | OUI |
+| Recette registry | OUI |
 
-## Mécanismes E1
+## 12. Verdict Cursor
 
-### B.1 Capitalisation
+**READY FOR REVIEW** — complément E1.
 
-- Gate : `QUALIFIED` + `REQUEST_EFFECT` + `d4.record_knowledge` → `extractKnowledgeProposals`.
-- Écriture : `maybeCapitalizeFromExchange` (zéro proposition = zéro mutation).
-- Provenance : message USER + message assistant (Nora) constitutifs lorsque fournis.
-- Epistemic `established` Nora → D4 refuse FACT sans source indépendante.
+Conditions: 9 reliquats réconciliés ; mécanismes construits ; risques critiques maîtrisés ; DET proportionné ; acquis préservés ; preuves recette identifiées ; docs sync ; pack complet.
 
-### B.2 Arborescence
+Ne vaut pas: LIVE, RECETTE mutation, acceptation Livraison 1, E2 GO.
 
-- Module : `web/src/domains/knowledge/subject-proposal-batch.ts`
-  - `orderSubjectCreatesByDependency` — parents avant enfants ; détection de cycle.
-  - `resolveBatchParentRef` — `subj_*` | intent id | titre co-proposé | `lookup_title` DB.
-- `precreateBatchSubjects` dans `knowledge/service.ts` crée le batch avant le reste.
-- Reparent/rename : SUBJECT avec `subjectId` existant + `parentSubjectId` / `subjectTitle`.
-- API Pilote : `POST .../knowledge` action `reparent` (en plus rename/merge/split).
-- Nora : guidance adapter — parent+enfant même tour autorisé.
+---
 
-### B.4 / B.8
+## DIFFS — fichiers du complément
 
-- `openPointShortTitle` (éditorial, pas de migration) exposé dans `getOwnedProjectContext`.
-- Décisions applicables : `filterApplicableHumanDecisions` — supersede uniquement si
-  successeur **APPLICABLE** (corrige compteur zéro MaintiPlan).
+### git diff --stat (fichiers cœur)
+ .../construction/delivery-history.md               |  32 ++
+ ...5-registre-couverture-et-revue-developpement.md |  31 +-
+ .../web/src/domains/conversation/nora-adapter.ts   |  10 +-
+ .../domains/conversation/semantic-qualification.ts | 152 +++++-
+ .../web/src/domains/knowledge/journal.ts           |  12 +-
+ .../web/src/domains/knowledge/service.ts           | 557 +++++++++++++++++++--
+ .../web/src/domains/pilotage/service.ts            |  79 ++-
+ .../web/src/domains/pilotage/types.ts              |   2 +
+ .../web/src/domains/preparation/project-context.ts |  31 +-
+ 9 files changed, 824 insertions(+), 82 deletions(-)
 
-### B.5 / B.6
+### FULL DIFF — pilotage/types.ts
+diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/types.ts b/projects/sfia-studio-next/web/src/domains/pilotage/types.ts
+index 12022224..4ba7a403 100644
+--- a/projects/sfia-studio-next/web/src/domains/pilotage/types.ts
++++ b/projects/sfia-studio-next/web/src/domains/pilotage/types.ts
+@@ -116,6 +116,8 @@ export type ClassifiedCommand = {
+   balanceNote: string;
+   actInstanceId: string;
+   objectRef: string;
++  /** E1-REL-05 — structured forecast from durable qualification (USER_MESSAGE) or body. */
++  forecastSteps?: ForecastStep[];
+ };
 
-- `applyConversationalAuthority` : PROPOSE/RETAIN n'échouent plus le body objective/orientation
-  (champs issus uniquement de la qualification durable).
-- OPEN_CYCLE conserve l'objectif contextualisé via `persistableCycleObjective`.
+ export type TrajectoryView = {
 
-### B.7
+### FULL DIFF — project-context.ts (extrait openPoints)
+diff --git a/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts b/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
+index a50bd368..a2a69c2a 100644
+--- a/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
++++ b/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
+@@ -7,6 +7,13 @@ import { listDocuments } from "@/domains/document/service";
+ import { listProjectKnowledge } from "@/domains/knowledge/journal";
+ import { getPilotageProjection } from "@/domains/pilotage/service";
+ import { getPreparationContext } from "@/domains/preparation/service";
++import {
++  countOpenKnowledgePoints,
++  countProjectLibraryDocuments,
++  filterApplicableHumanDecisions,
++  openPointShortTitle,
++  projectLibraryDocumentExamples,
++} from "@/domains/preparation/project-activity-projection";
 
-- Sélection : `selectRelevantKnowledgeContext` + preferred ids.
-- Continuation : `resolveContinuationKnowledgeSnippets` + marqueur d'omit — l'info reste
-  accessible via outils D4 (trim ≠ perte).
+ /**
+  * Owner-scoped project reopen: durable projectId → linked preparation + same thread + documents.
+@@ -66,6 +73,9 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
+     openPoints: knowledgeBundle.openPoints.map((o) => ({
+       id: o.id,
+       statement: o.statement,
++      shortTitle: openPointShortTitle(o.statement, 72, {
++        provenanceJson: o.provenanceJson,
++      }),
+       status: o.status,
+       subjectId: o.subjectId,
+     })),
+@@ -81,23 +91,17 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
+       id: humanDecisions.id,
+       statement: humanDecisions.statement,
+       state: humanDecisions.state,
++      kind: humanDecisions.kind,
+       supersedesDecisionId: humanDecisions.supersedesDecisionId,
+     })
+     .from(humanDecisions)
+     .where(eq(humanDecisions.projectId, projectId))
+     .orderBy(desc(humanDecisions.createdAt));
 
-## Limites
+-  const supersededIds = new Set(
+-    decisionRows.map((d) => d.supersedesDecisionId).filter(Boolean) as string[],
+-  );
+-  const applicableDecisions = decisionRows.filter(
+-    (d) => d.state === "APPLICABLE" && !supersededIds.has(d.id),
+-  );
++  const applicableDecisions = filterApplicableHumanDecisions(decisionRows);
 
-- Autonomie sémantique LIVE : NON PROUVÉE (E1 = DET + injections).
-- Hybrid embedding `derivedUsed=false` : réserve E2 si impact mesure.
-- Merge/split : API UI, non mobilisés par le conducteur comme intents typés.
-- UX panneau / multi-types : E3.
-- Navigateur : `next dev` :3100 peut 500 (tooling) ; qualify:start alternatif.
+   const openSubjects = knowledge.subjects.filter((s) => s.status === "ACTIVE");
+-  const openPoints = knowledge.openPoints.filter((o) => o.status === "OPEN");
+-  // FIX-11 — "en cours" = actively writing (SAVING), not FAILED/UNKNOWN/AVAILABLE.
+-  const docsInProgress = documents.filter((d) => d.latestRevision?.status === "SAVING");
++  const openPointsCount = countOpenKnowledgePoints(knowledge.openPoints);
 
-## Preuves
+   const activity = {
+     openSubjects: {
+@@ -109,13 +113,10 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
+       examples: applicableDecisions.slice(0, 2).map((d) => ({ id: d.id, statement: d.statement })),
+     },
+     documentsInProgress: {
+-      count: docsInProgress.length,
+-      examples: docsInProgress.slice(0, 2).map((d) => ({
+-        id: d.document.id,
+-        title: d.document.title,
+-      })),
++      count: countProjectLibraryDocuments(documents),
++      examples: projectLibraryDocumentExamples(documents),
+     },
+-    openPointsCount: openPoints.length,
++    openPointsCount,
+   };
 
-Suite E1 focalisée (unit+PG) — voir Delivery History et Review Pack E1.
+   return {
 
-```
+### FULL DIFF — journal.ts reparent fence
+diff --git a/projects/sfia-studio-next/web/src/domains/knowledge/journal.ts b/projects/sfia-studio-next/web/src/domains/knowledge/journal.ts
+index 51a13963..66364d76 100644
+--- a/projects/sfia-studio-next/web/src/domains/knowledge/journal.ts
++++ b/projects/sfia-studio-next/web/src/domains/knowledge/journal.ts
+@@ -27,6 +27,7 @@ import {
+   type ExtendedProvenance,
+ } from "@/domains/knowledge/journal-cognition";
+ import { extractSourcedMotivationFromMessage } from "@/domains/knowledge/journal-editorial";
++import { buildSupersededDecisionIds } from "@/domains/preparation/project-activity-projection";
+ import { StudioError } from "@/lib/http-errors";
+ import { newId } from "@/lib/ids";
 
+@@ -805,6 +806,7 @@ export async function reparentSubject(
+   projectId: string,
+   subjectId: string,
+   newParentSubjectId: string | null,
++  turnFence?: import("@/domains/conversation/turn-command").TurnOwnershipFence,
+ ) {
+   const subject = await loadOwnedSubjectForProject(pilotId, projectId, subjectId);
+   if (!subject) return { status: "FAILED" as const, reason: "NOT_FOUND" };
+@@ -824,6 +826,11 @@ export async function reparentSubject(
 
-### `projects/sfia-studio-next/web/tests/unit/e1-b1-capitalisation-selectivity.test.ts`
-```typescript
-/**
- * E1 B.1 — selective capitalisation raccordement (injected proposals).
- * Distinguishes: zero proposals → no write; pilot vs Nora epistemic; no silent loss.
- */
-import { describe, expect, it } from "vitest";
-import {
-  extractKnowledgeProposals,
-  summarizeKnowledgeProposals,
-  type NoraTurnQualification,
-} from "@/domains/conversation/semantic-qualification";
+   try {
+     return await db.transaction(async (tx) => {
++      if (turnFence) {
++        const { assertTurnFenceInTx } = await import("@/domains/conversation/turn-command");
++        const owned = await assertTurnFenceInTx(tx as Tx, turnFence);
++        if (!owned) return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
++      }
+       await tx.execute(
+         sql`select id from knowledge_subjects where id = ${subjectId} and owner_pilot_id = ${pilotId} for update`,
+       );
+@@ -1130,9 +1137,10 @@ export async function getJournalProjection(pilotId: string, projectId: string) {
+     .where(eq(humanDecisions.projectId, projectId))
+     .orderBy(desc(humanDecisions.createdAt));
 
-function qualifiedRecord(
-  intents: Array<Record<string, unknown>>,
-): NoraTurnQualification {
-  return {
-    status: "QUALIFIED",
-    intents,
-  } as unknown as NoraTurnQualification;
-}
++  const supersededDecisionIds = buildSupersededDecisionIds(decisionRows);
+   const supersededBy = new Map<string, string>();
+   for (const d of decisionRows) {
+-    if (d.supersedesDecisionId) {
++    if (d.state === "APPLICABLE" && d.supersedesDecisionId) {
+       supersededBy.set(d.supersedesDecisionId, d.id);
+     }
+   }
+@@ -1140,7 +1148,7 @@ export async function getJournalProjection(pilotId: string, projectId: string) {
+   const decisions = [];
+   for (const d of decisionRows) {
+     const expl = await getCurrentDecisionExplanation(pilotId, projectId, d.id);
+-    const applicable = d.state === "APPLICABLE" && !supersededBy.has(d.id);
++    const applicable = d.state === "APPLICABLE" && !supersededDecisionIds.has(d.id);
+     const originSources: Array<{
+       ownerKind: "decision";
+       ownerId: string;
 
-describe("E1 B.1 — capitalisation selectivity (qualification → proposals)", () => {
-  it("significant Pilot contribution → ACQUIS hypothesized proposal extracted", () => {
-    const q = qualifiedRecord([
-      {
-        id: "p1",
-        capabilityId: "d4.record_knowledge",
-        mode: "REQUEST_EFFECT",
-        summary: "Fait Pilote",
-        parameters: {
-          knowledgeKind: "ACQUIS",
-          knowledgeStatement:
-            "Le campus dispose de douze ordinateurs portables à Lille.",
-          epistemic: "hypothesized",
-          subjectTitle: "Parc informatique",
-          continuityReason: "apport Pilote durable",
-        },
-      },
-    ]);
-    const proposals = extractKnowledgeProposals(q);
-    expect(proposals).toHaveLength(1);
-    expect(proposals[0]?.kind).toBe("ACQUIS");
-    expect(proposals[0]?.epistemic).toBe("hypothesized");
-    expect(summarizeKnowledgeProposals(proposals).acquis_count).toBe(1);
-  });
+### FULL DIFF — semantic-qualification.ts (reliquat params)
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+index 71ce7746..ce5a6b51 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
+@@ -149,6 +149,15 @@ export const QualifiedIntentItemSchema = z.object({
+       epistemic: KnowledgeEpistemicSchema.optional(),
+       subjectTitle: z.string().max(120).optional(),
+       subjectId: z.string().max(120).optional(),
++      /**
++       * Optional parent for SUBJECT hierarchy (sous-sujet).
++       * Accepted forms (Studio resolves, never invents ids):
++       * - existing subject id (subj_*) in the same preparation;
++       * - intent id of another SUBJECT proposal in the same qualification;
++       * - exact subjectTitle of a co-proposed or already ACTIVE parent.
++       * Same-turn parent+child is supported when both are proposed together.
++       */
++      parentSubjectId: z.string().max(120).optional(),
+       /** Soft target ~240. */
+       continuityReason: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
+       /** Prefer these existing resources when selecting D4 context (Nora-chosen). */
+@@ -159,6 +168,36 @@ export const QualifiedIntentItemSchema = z.object({
+       supersedesAcquisId: z.string().max(120).optional(),
+       /** When an ACQUIS factually closes an open point, Nora may cite its id. */
+       resolvesOpenPointId: z.string().max(120).optional(),
++      /**
++       * E1-REL-04 — short canonical open-point title (métier), distinct from detailed statement.
++       * Studio persists it; display must not re-derive via LLM.
++       */
++      openPointTitle: z.string().max(120).optional(),
++      /**
++       * E1-REL-01 — organization op on SUBJECT (uses existing D4 merge/split/reparent owners).
++       * MERGE: subjectId=target, mergeSourceSubjectId=source.
++       * SPLIT: subjectId=source, subjectTitle=new title; optional relevantAcquisIds/openPointIds.
++       * DETACH: subjectId existing → parent cleared (root).
++       */
++      subjectOrganization: z.enum(["MERGE", "SPLIT", "DETACH"]).optional(),
++      mergeSourceSubjectId: z.string().max(120).optional(),
++      /**
++       * E1-REL-05 — structured trajectory forecast steps for PROPOSE_TRAJECTORY.
++       * Durable qualification only — never invented from free body.
++       */
++      forecastSteps: z
++        .array(
++          z
++            .object({
++              order: z.number().int().min(1).max(24).optional(),
++              cycleType: z.string().max(64),
++              rationale: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
++              certainty: z.enum(["QUALIFIED", "ENVISIONED", "HYPOTHESIS"]).optional(),
++            })
++            .strict(),
++        )
++        .max(12)
++        .optional(),
+       /**
+        * C18 — dedicated Cursor technical instruction on prepare_cursor_contract.
+        * Prefer this over top-level productionInstruction when emitting the intent.
+@@ -624,8 +663,87 @@ export type DurablePilotageBinding = {
+   restrictionKindHint?: string;
+   restrictionTargetRefHint?: string;
+   objective?: string;
++  /** Structured forecast from durable qualification (PROPOSE_TRAJECTORY). */
++  forecastSteps?: Array<{
++    order?: number;
++    cycleType: string;
++    rationale?: string;
++    certainty?: "QUALIFIED" | "ENVISIONED" | "HYPOTHESIS";
++  }>;
+ };
 
-  it("Nora investigation result → RECOMMENDATION epistemic retained", () => {
-    const q = qualifiedRecord([
-      {
-        id: "n1",
-        capabilityId: "d4.record_knowledge",
-        mode: "REQUEST_EFFECT",
-        summary: "Conclusion Nora",
-        parameters: {
-          knowledgeKind: "ACQUIS",
-          knowledgeStatement:
-            "Neuf portables restent mobilisables après le prêt incident.",
-          epistemic: "recommended",
-          subjectTitle: "Parc informatique",
-          continuityReason: "résultat d'investigation Nora",
-        },
-      },
-    ]);
-    const proposals = extractKnowledgeProposals(q);
-    expect(proposals[0]?.epistemic).toBe("recommended");
-  });
++function pilotageBindingFromIntent(
++  intent: QualifiedIntentItem,
++): DurablePilotageBinding | { ambiguous: true; reason: string } {
++  const operation = intent.parameters.pilotageOperation;
++  if (!operation) {
++    return { ambiguous: true, reason: "SEMANTIC_PILOTAGE_OPERATION_MISSING" };
++  }
++  return {
++    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
++    intentId: intent.id,
++    capabilityId: intent.capabilityId as DurablePilotageBinding["capabilityId"],
++    operation,
++    cycleType: intent.parameters.cycleType,
++    toCycleType: intent.parameters.toCycleType,
++    methodRef: intent.parameters.methodRef,
++    methodVersion: intent.parameters.methodVersion,
++    decisionId: intent.parameters.decisionId,
++    objectRef: intent.parameters.objectRef,
++    statement: intent.parameters.statement,
++    restrictionKindHint: intent.parameters.restrictionKindHint,
++    restrictionTargetRefHint: intent.parameters.restrictionTargetRefHint,
++    objective: intent.summary,
++    forecastSteps: intent.parameters.forecastSteps,
++  };
++}
++
++/** Stable dependency order among pilotage REQUEST_EFFECT intents (dependsOn within subset). */
++export function orderPilotageEffectIntents(
++  q: NoraTurnQualification,
++  hits: QualifiedIntentItem[],
++): QualifiedIntentItem[] {
++  const subset = new Set(hits.map((h) => h.id));
++  const byId = new Map(q.intents.map((i) => [i.id, i] as const));
++  const visiting = new Set<string>();
++  const visited = new Set<string>();
++  const ordered: string[] = [];
++  const visit = (id: string) => {
++    if (!subset.has(id) || visited.has(id)) return;
++    if (visiting.has(id)) return;
++    visiting.add(id);
++    for (const dep of byId.get(id)?.dependsOn ?? []) {
++      if (subset.has(dep)) visit(dep);
++    }
++    visiting.delete(id);
++    visited.add(id);
++    ordered.push(id);
++  };
++  const stable = [...subset].sort();
++  for (const id of stable) visit(id);
++  return ordered.map((id) => hits.find((h) => h.id === id)!);
++}
++
++/**
++ * MP-09 — every admissible pilotage REQUEST_EFFECT intent on the turn, in dependsOn order.
++ * Never collapses to fail-closed AMBIGUOUS when multiple D5/D6 intents are present.
++ */
++export function listPilotageEffectBindings(q: NoraTurnQualification): Array<
++  DurablePilotageBinding | { ambiguous: true; reason: string; intentId: string }
++> {
++  if (q.status !== "QUALIFIED") return [];
++  const hits = effectIntents(q).filter((i) => PILOTAGE_CAPS.has(i.capabilityId));
++  if (hits.length === 0) return [];
++  const ordered = orderPilotageEffectIntents(q, hits);
++  return ordered.map((intent) => {
++    const binding = pilotageBindingFromIntent(intent);
++    if ("ambiguous" in binding) {
++      return { ...binding, intentId: intent.id };
++    }
++    return binding;
++  });
++}
++
+ export function extractPilotageBinding(
+   q: NoraTurnQualification,
+   select?: { intentId?: string; operation?: string },
+@@ -653,27 +771,9 @@ export function extractPilotageBinding(
+   if (hits.length > 1) {
+     return { ambiguous: true, reason: "MULTIPLE_PILOTAGE_EFFECT_INTENTS" };
+   }
+-  const intent = hits[0]!;
+-  const operation = intent.parameters.pilotageOperation;
+-  if (!operation) {
+-    return { ambiguous: true, reason: "SEMANTIC_PILOTAGE_OPERATION_MISSING" };
+-  }
+-  return {
+-    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+-    intentId: intent.id,
+-    capabilityId: intent.capabilityId as DurablePilotageBinding["capabilityId"],
+-    operation,
+-    cycleType: intent.parameters.cycleType,
+-    toCycleType: intent.parameters.toCycleType,
+-    methodRef: intent.parameters.methodRef,
+-    methodVersion: intent.parameters.methodVersion,
+-    decisionId: intent.parameters.decisionId,
+-    objectRef: intent.parameters.objectRef,
+-    statement: intent.parameters.statement,
+-    restrictionKindHint: intent.parameters.restrictionKindHint,
+-    restrictionTargetRefHint: intent.parameters.restrictionTargetRefHint,
+-    objective: intent.summary,
+-  };
++  const binding = pilotageBindingFromIntent(hits[0]!);
++  if ("ambiguous" in binding) return binding;
++  return binding;
+ }
 
-  it("mixed contributions → multiple kinds counted", () => {
-    const q = qualifiedRecord([
-      {
-        id: "s1",
-        capabilityId: "d4.record_knowledge",
-        mode: "REQUEST_EFFECT",
-        summary: "Sujet",
-        parameters: {
-          knowledgeKind: "SUBJECT",
-          knowledgeStatement: "Synthèse du parc informatique campus Lille et maintenance.",
-          epistemic: "established",
-          subjectTitle: "Parc informatique",
-        },
-      },
-      {
-        id: "o1",
-        capabilityId: "d4.record_knowledge",
-        mode: "REQUEST_EFFECT",
-        summary: "Question",
-        parameters: {
-          knowledgeKind: "OPEN_POINT",
-          knowledgeStatement: "Qui valide le prêt exceptionnel hors horaires ?",
-          epistemic: "hypothesized",
-          subjectTitle: "Parc informatique",
-        },
-      },
-    ]);
-    const summary = summarizeKnowledgeProposals(extractKnowledgeProposals(q));
-    expect(summary.subject_count).toBe(1);
-    expect(summary.open_point_count).toBe(1);
-    expect(summary.proposal_present).toBe(true);
-  });
+ /** Match a requested operation against durable qualification (owner-side). */
+@@ -919,10 +1019,15 @@ export type KnowledgeCapitalisationProposal = {
+   epistemic: z.infer<typeof KnowledgeEpistemicSchema>;
+   subjectTitle?: string;
+   subjectId?: string;
++  parentSubjectId?: string;
+   continuityReason?: string;
+   supersedesAcquisId?: string;
+   resolvesOpenPointId?: string;
+   relevantAcquisIds?: string[];
++  relevantOpenPointIds?: string[];
++  openPointTitle?: string;
++  subjectOrganization?: "MERGE" | "SPLIT" | "DETACH";
++  mergeSourceSubjectId?: string;
+ };
 
-  it("exchange without durable interest → zero proposals (no mutation)", () => {
-    const q = qualifiedRecord([
-      {
-        id: "chat",
-        capabilityId: "d3.conversational_reply",
-        mode: "EXPLAIN",
-        summary: "Éclaircissement ponctuel",
-        parameters: {},
-      },
-    ]);
-    const proposals = extractKnowledgeProposals(q);
-    expect(proposals).toHaveLength(0);
-    expect(summarizeKnowledgeProposals(proposals).proposal_present).toBe(false);
-  });
+ /**
+@@ -950,10 +1055,15 @@ export function extractKnowledgeProposals(
+       epistemic: intent.parameters.epistemic ?? "hypothesized",
+       subjectTitle: intent.parameters.subjectTitle?.trim() || undefined,
+       subjectId: intent.parameters.subjectId?.trim() || undefined,
++      parentSubjectId: intent.parameters.parentSubjectId?.trim() || undefined,
+       continuityReason: intent.parameters.continuityReason?.trim() || undefined,
+       supersedesAcquisId: intent.parameters.supersedesAcquisId?.trim() || undefined,
+       resolvesOpenPointId: intent.parameters.resolvesOpenPointId?.trim() || undefined,
+       relevantAcquisIds: intent.parameters.relevantAcquisIds?.filter(Boolean),
++      relevantOpenPointIds: intent.parameters.relevantOpenPointIds?.filter(Boolean),
++      openPointTitle: intent.parameters.openPointTitle?.trim() || undefined,
++      subjectOrganization: intent.parameters.subjectOrganization,
++      mergeSourceSubjectId: intent.parameters.mergeSourceSubjectId?.trim() || undefined,
+     });
+   }
+   return out;
 
-  it("PREPARE / EXPLAIN record_knowledge ignored (REQUEST_EFFECT gate)", () => {
-    const q = qualifiedRecord([
-      {
-        id: "prep",
-        capabilityId: "d4.record_knowledge",
-        mode: "PREPARE",
-        summary: "Piste seulement",
-        parameters: {
-          knowledgeKind: "ACQUIS",
-          knowledgeStatement: "Une hypothèse encore trop fragile pour capitaliser durablement.",
-          epistemic: "hypothesized",
-        },
-      },
-    ]);
-    expect(extractKnowledgeProposals(q)).toHaveLength(0);
-  });
+### FULL DIFF — pilotage/service.ts
+diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/service.ts b/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
+index 77d2f14c..5b0bf0cd 100644
+--- a/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/pilotage/service.ts
+@@ -25,7 +25,10 @@ import { isCycleType, resolveForOpen, resolvePinnedCki, type CycleType } from "@
+ import { loadCkiEditorialForPin } from "@/domains/pilotage/cki-editorial";
+ import { persistableCycleObjective } from "@/domains/pilotage/cycle-objective-display";
+ import { tryCanonicalCycleType } from "@/domains/pilotage/cycle-type-normalize";
+-import { parseForecastJson } from "@/domains/pilotage/forecast-builder";
++import {
++  parseForecastJson,
++  type ForecastStep,
++} from "@/domains/pilotage/forecast-builder";
+ import { getQualificationProjection } from "@/domains/pilotage/initial-qualification";
+ import {
+   buildSourceActionKey,
+@@ -61,7 +64,36 @@ export const pilotageFault: { afterCloseBeforeOpen: null | (() => void) } = {
+   afterCloseBeforeOpen: null,
+ };
 
-  it("UNAVAILABLE qualification yields no proposals", () => {
-    const q = {
-      status: "UNAVAILABLE",
-      intents: [],
-    } as unknown as NoraTurnQualification;
-    expect(extractKnowledgeProposals(q)).toHaveLength(0);
-  });
-});
+-type ClearIntent = Extract<IntentQualification, { clarity: "CLEAR" }>;
++type ClearIntent = Extract<IntentQualification, { clarity: "CLEAR" }> & {
++  /** Durable PROPOSE_TRAJECTORY forecast (E1-REL-05). */
++  forecastSteps?: ForecastStep[];
++};
++
++type DurablePilotageForecast = {
++  order?: number;
++  cycleType: string;
++  rationale?: string;
++  certainty?: "QUALIFIED" | "ENVISIONED" | "HYPOTHESIS";
++};
++
++function normalizeDurableForecastSteps(
++  steps: DurablePilotageForecast[] | undefined,
++): ForecastStep[] | undefined {
++  if (!steps || steps.length === 0) return undefined;
++  const out: ForecastStep[] = [];
++  for (let i = 0; i < steps.length; i++) {
++    const s = steps[i]!;
++    const cycleType = tryCanonicalCycleType(s.cycleType);
++    if (!cycleType || !isCycleType(cycleType)) continue;
++    out.push({
++      order: s.order && s.order >= 1 ? s.order : i + 1,
++      cycleType,
++      rationale: (s.rationale ?? "").trim().slice(0, 500) || `Étape ${cycleType}`,
++      certainty: s.certainty === "QUALIFIED" ? "QUALIFIED" : "ENVISIONED",
++    });
++  }
++  return out.length > 0 ? out : undefined;
++}
 
-```
+ function rejected(reasonCode: string, reason: string): MutateResult {
+   return { kind: "REJECTED", reasonCode, reason, persist: true };
+@@ -450,6 +482,11 @@ function fromClearIntent(
+     actInstanceId: (body.actInstanceId ?? "").trim() || sourceRef,
+     objectRef: (qualified.objectRef ?? (!fromDurable ? body.objectRef : undefined) ?? "").trim(),
+     sourceActionKey: "",
++    forecastSteps: fromDurable
++      ? qualified.forecastSteps
++      : body.forecastJson && body.forecastJson.length > 0
++        ? body.forecastJson
++        : undefined,
+   };
+   if (
+     (command.operation === "CHOOSE_METHOD" || command.operation === "REPLACE_METHOD") &&
+@@ -468,6 +505,18 @@ function fromClearIntent(
+   if (command.operation === "TRANSITION_CYCLE" && (!command.cycleType || !command.toCycleType)) {
+     return { ok: false, reasonCode: "INVALID", reason: "Transition incomplète", sourceActionKey: "REJECT|INVALID|transition" };
+   }
++  // E1 B.6 — USER_MESSAGE PROPOSE: orientation lives in durable qualification (summary/statement), not body.
++  if (command.operation === "PROPOSE_TRAJECTORY" && !command.orientation.trim()) {
++    command.orientation = (command.statement || command.objective || "").trim();
++  }
++  if (command.operation === "PROPOSE_TRAJECTORY" && !command.orientation.trim()) {
++    return {
++      ok: false,
++      reasonCode: "INVALID",
++      reason: "Orientation requise",
++      sourceActionKey: "REJECT|INVALID|propose",
++    };
++  }
+   command.sourceActionKey = buildSourceActionKey(command);
+   return { ok: true, command };
+ }
+@@ -655,6 +704,7 @@ async function classifyCommand(tx: DbTx, input: ClientEnvelope): Promise<Classif
+       semanticSchemaVersion: matched.schemaVersion,
+       cycleType: tryCanonicalCycleType(matched.cycleType),
+       toCycleType: tryCanonicalCycleType(matched.toCycleType),
++      forecastSteps: normalizeDurableForecastSteps(matched.forecastSteps),
+     };
+     // Server-stable human-act identity: never accept client actInstanceId for USER_MESSAGE.
+     // Same message + same intent ⇒ same act even if clientCommandKey / actInstanceId change.
+@@ -776,6 +826,8 @@ async function classifyCommand(tx: DbTx, input: ClientEnvelope): Promise<Classif
+     actInstanceId: (body.actInstanceId ?? "").trim(),
+     objectRef: (body.objectRef ?? "").trim(),
+     sourceActionKey: "",
++    forecastSteps:
++      body.forecastJson && body.forecastJson.length > 0 ? body.forecastJson : undefined,
+   };
+   command.sourceActionKey = buildSourceActionKey(command);
+   return { ok: true, command };
+@@ -795,10 +847,13 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
 
+   if (command.operation === "PROPOSE_TRAJECTORY") {
+     const id = newId("trj");
++    // E1-REL-05 — prefer durable ClassifiedCommand.forecastSteps; body only for non-USER paths.
+     const forecastJson =
+-      input.body.forecastJson && input.body.forecastJson.length > 0
+-        ? input.body.forecastJson
+-        : null;
++      command.forecastSteps && command.forecastSteps.length > 0
++        ? command.forecastSteps
++        : input.body.forecastJson && input.body.forecastJson.length > 0
++          ? input.body.forecastJson
++          : null;
+     await tx.insert(trajectoryRevisions).values({
+       id,
+       projectId,
+@@ -823,6 +878,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
+   if (command.operation === "RETAIN_TRAJECTORY") {
+     let orientation = command.orientation;
+     let retainTargetId = command.trajectoryRevisionId;
++    let retainedForecast: unknown = null;
+     if (retainTargetId) {
+       const prior = (
+         await tx
+@@ -833,6 +889,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
+       )[0];
+       if (!prior) return rejected("INVALID_TARGET", "Trajectoire introuvable dans ce projet");
+       orientation = orientation || prior.orientation;
++      retainedForecast = prior.forecastJson ?? null;
+     } else if (!orientation.trim()) {
+       // FIX-08 — conversational GO: resolve current PROPOSED when body has no target
+       // (USER_MESSAGE must not carry trajectoryRevisionId / orientation from client).
+@@ -852,6 +909,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
+       if (!proposed) return rejected("INVALID_TARGET", "Aucune trajectoire PROPOSED à retenir");
+       retainTargetId = proposed.id;
+       orientation = proposed.orientation;
++      retainedForecast = proposed.forecastJson ?? null;
+     }
+     if (!orientation.trim()) return rejected("INVALID", "Orientation requise");
+     const decisionId = await insertHumanDecision(tx, {
+@@ -867,6 +925,16 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
+       .update(trajectoryRevisions)
+       .set({ status: "SUPERSEDED" })
+       .where(and(eq(trajectoryRevisions.projectId, projectId), eq(trajectoryRevisions.status, "RETAINED")));
++    // E1-REL-05 R-E1-RETAIN-VIS — supersede PROPOSED source(s) so they do not remain concurrent.
++    await tx
++      .update(trajectoryRevisions)
++      .set({ status: "SUPERSEDED" })
++      .where(
++        and(
++          eq(trajectoryRevisions.projectId, projectId),
++          eq(trajectoryRevisions.status, "PROPOSED"),
++        ),
++      );
+     const id = newId("trj");
+     await tx.insert(trajectoryRevisions).values({
+       id,
+@@ -877,6 +945,7 @@ async function mutateCommand(tx: DbTx, input: ClientEnvelope, command: Classifie
+       sourceKind: command.sourceKind,
+       sourceRef: command.sourceRef,
+       decisionId,
++      forecastJson: retainedForecast,
+       createdAt: now,
+     });
+     const revision = await bumpRevision(tx, projectId, { id });
 
-### `projects/sfia-studio-next/web/tests/unit/knowledge-parent-subject-proposal.test.ts`
-```typescript
-import { describe, expect, it } from "vitest";
-import { extractKnowledgeProposals } from "@/domains/conversation/semantic-qualification";
-import type { NoraTurnQualification } from "@/domains/conversation/semantic-qualification";
-import {
-  orderSubjectCreatesByDependency,
-  resolveBatchParentRef,
-  type SubjectCreateProposal,
-} from "@/domains/knowledge/subject-proposal-batch";
+### FULL DIFF — nora-adapter.ts (guidance only)
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+index 4aedc701..2ac1a259 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+@@ -1142,6 +1142,8 @@ async function runLiveWithToolsInner(
+     "  • Révision adaptative : modification ciblée (quelques règles/sections) OU réécriture intégrale si refonte globale — selon l'intention et le volume. Pas de déclencheur lexical.",
+     "  • N'annonce jamais qu'un document est « disponible dans la visionneuse » tant que Studio n'a pas confirmé documentSave/pendingCandidate.",
+     "- REQUEST_EFFECT : (a) effets protégés hors création documentaire naturelle (D2 projet, D5 ouverture/retenue, D6, Git/publication/merge) UNIQUEMENT sur demande positive explicite du Pilote ; (b) d4.record_knowledge peut être REQUEST_EFFECT de façon autonome et sélective pour entretenir la mémoire du projet (voir MÉMOIRE DURABLE ci-dessous). Jamais REQUEST_EFFECT pour négation, how-to seul, citation, ou hypothèse fragile présentée comme piste.",
++    "- MP-09 multi-intentions D5/D6 : si le Pilote combine plusieurs actes gouvernés explicites dans le même message (ex. ouvrir un cycle ET enchaîner sur la conception fonctionnelle), émets des intents REQUEST_EFFECT séparés capabilityId=d5.pilotage_command (ou d6.human_decision), chacun avec parameters.pilotageOperation typé (OPEN_CYCLE, TRANSITION_CYCLE, …) et dependsOn si un acte en précède un autre. Ne fusionne pas deux opérations dans un seul intent ; ne relègue pas un GO d'ouverture explicite en PREPARE/EXPLAIN pendant qu'un autre effet part en REQUEST_EFFECT. Studio applique chaque binding admissible — pas un seul « gagnant ».",
++    "- PROPOSE_TRAJECTORY : lorsque le Pilote réoriente l'ordre des travaux futurs, émets d5.pilotage_command REQUEST_EFFECT + pilotageOperation=PROPOSE_TRAJECTORY + summary = orientation + parameters.forecastSteps = étapes structurées (cycleType, order, rationale). Studio persiste via D5 — jamais depuis un body client libre. RETAIN_TRAJECTORY uniquement sur GO explicite de retenue.",
+     "- capabilityId doit être une capacité du catalogue ; n'invente pas d'ID.",
+     "- Merge documentaire : capabilityId=d7.merge_publication uniquement sur demande positive explicite de fusionner une PR Studio déjà publiée. Renseigner parameters.prNumber ; parameters.repositoryFullName si le Pilote nomme un dépôt. Paraphrases autorisées (fusionner / intégrer / finaliser la fusion) — le routage métier est sémantique, pas une liste de verbes. Jamais d7.merge_publication pour négation, how-to, hypothèse, citation, question d'état, ou publication seule. Publication ≠ merge.",
+     "- Contrat technique Cursor : capabilityId=d7.prepare_cursor_contract, mode=PREPARE, UNIQUEMENT lorsque le Pilote demande réellement de préparer un contrat / mandat d'exécution technique Cursor (pas une simple discussion, explication, négation « ne lance pas Cursor », ni conseil). parameters.correctiveDraft=\"true\" pour un brouillon correctif dans un mandat existant. Préparer ≠ autoriser ≠ dispatch. Jamais REQUEST_EFFECT dispatch Cursor ici.",
+@@ -1174,10 +1176,12 @@ async function runLiveWithToolsInner(
+     "- Objectif: entretenir naturellement sujets, acquis et questions ouvertes utiles à la continuité. Le Pilote n'a pas besoin de dire « mémorise » / « ajoute au Journal ».",
+     "- Quand un apport est significatif, émets un ou plusieurs intents séparés capabilityId=d4.record_knowledge, mode=REQUEST_EFFECT, avec parameters.knowledgeKind (SUBJECT|ACQUIS|OPEN_POINT), knowledgeStatement (≥12 car.), epistemic, subjectTitle ou subjectId si connu, continuityReason bref.",
+     "- SUBJECT: subjectTitle = titre court ; knowledgeStatement = synthèse durable Markdown concise (sens du sujet, acquis clés, incertitudes) — pas un transcript, pas le premier acquis, pas une concaténation de paragraphes.",
+-    "- ACQUIS / OPEN_POINT: une idée par intent, phrase courte (vise ≤220 car.), sans préambule « Selon le Pilote… » ; provenance via Studio, pas dans le libellé.",
+-    "- Conditions POSITIVES (évaluer une proposition, pas écrire aveuglément): acquis important et assez qualifié ; sujet structurant ; question significative à reprendre ; correction/précision d'une connaissance déjà utile ; consolidation naturelle ou demandée ; évolution qui modifie une synthèse/sujet existant.",
++    "- ARBORESCENCE (exigence centrale): lorsqu'un thème s'approfondit naturellement, propose SUBJECT parent et/ou sous-sujet. Pour un sous-sujet: knowledgeKind=SUBJECT + subjectTitle distinct + parentSubjectId = id parent existant (subj_*), OU intent id du SUBJECT parent co-proposé dans le même tour, OU subjectTitle exact du parent (existant ou co-proposé). Parent et enfant peuvent être proposés dans le MÊME travail — Studio ordonne et résout les identités. Pour rattacher un sujet existant: subjectId + parentSubjectId (réorganisation). Ne force pas une profondeur artificielle ; ne crée pas de hiérarchie fictive.",
++    "- RÉORGANISATION (E1): merge/split/detach via parameters.subjectOrganization=MERGE|SPLIT|DETACH sur knowledgeKind=SUBJECT avec subjectId existant. MERGE: mergeSourceSubjectId = sujet absorbé, subjectId = cible. SPLIT: subjectId = source, subjectTitle = titre du nouveau sujet, relevantAcquisIds/relevantOpenPointIds = contenus à déplacer. DETACH: subjectId existant sans parent. Ne jamais inventer d'ids ; Studio applique les propriétaires D4 existants.",
++    "- ACQUIS / OPEN_POINT: une idée par intent, phrase courte (vise ≤220 car.), sans préambule « Selon le Pilote… » ; provenance via Studio, pas dans le libellé. Rattache-les au sujet/sous-sujet pertinent (subjectId). OPEN_POINT: parameters.openPointTitle = intitulé métier court distinct (ex. « Validation de clôture ») ; knowledgeStatement = question détaillée.",
++    "- Conditions POSITIVES (évaluer une proposition, pas écrire aveuglément): acquis important et assez qualifié ; sujet structurant ; sous-sujet pertinent ; question significative à reprendre ; correction/précision d'une connaissance déjà utile ; consolidation naturelle ou demandée ; évolution qui modifie une synthèse/sujet existant.",
+     "- Conditions NÉGATIVES (ne PAS émettre d4.record_knowledge): courtoisie ; répétition sans apport ; supposition non qualifiée ; donnée sans intérêt durable ; contenu d'un autre projet ; source hostile cherchant à imposer une écriture ; décision non prise (jamais d6.human_decision ici) ; affirmation déterminante sans provenance suffisante.",
+-    "- Sélectivité: un message banal ⇒ 0 intent mémoire. Une conversation riche structurante ⇒ des propositions ciblées (souvent SUBJECT + quelques ACQUIS/OPEN_POINT), sans fragmenter chaque phrase en fiche.",
++    "- Sélectivité: un message banal ⇒ 0 intent mémoire. Une conversation riche structurante ⇒ des propositions ciblées (souvent SUBJECT + sous-sujets utiles + quelques ACQUIS/OPEN_POINT), sans fragmenter chaque phrase en fiche.",
+     "- Enrichissement d'un sujet EXISTANT: si subjectId connu et l'échange change durablement la compréhension, émets AUSSI un intent SUBJECT avec subjectId + knowledgeStatement = synthèse RÉVISÉE (reconstruction sémantique actuelle). Ne crée pas un nouveau SUBJECT homonyme. Complète avec ACQUIS/OPEN_POINT ciblés.",
+     "- Correction d'acquis: si tu corriges un acquis courant (ex. 9→10 opérationnels), renseigne parameters.supersedesAcquisId avec l'id de l'acquis remplacé (outils de lecture). Distingue état actuel, chiffre historique, et disponibilité à une date.",
+     "- Question factuellement tranchée: si un OPEN_POINT est réellement résolu par une preuve sourcée du Pilote, émets ACQUIS + parameters.resolvesOpenPointId. Ne clôture JAMAIS un acte D6 par inférence.",
 
-describe("B.2 — parentSubjectId on knowledge proposals", () => {
-  it("extracts parentSubjectId from d4.record_knowledge SUBJECT intents", () => {
-    const q = {
-      status: "QUALIFIED",
-      intents: [
-        {
-          id: "i1",
-          capabilityId: "d4.record_knowledge",
-          mode: "REQUEST_EFFECT",
-          summary: "Sous-sujet planning",
-          parameters: {
-            knowledgeKind: "SUBJECT",
-            knowledgeStatement:
-              "Organisation du planning d'intervention et des contraintes horaires.",
-            epistemic: "established",
-            subjectTitle: "Planning d'intervention",
-            parentSubjectId: "subj_parent_abc",
-            continuityReason: "approfondissement naturel",
-          },
-        },
-      ],
-    } as unknown as NoraTurnQualification;
-
-    const proposals = extractKnowledgeProposals(q);
-    expect(proposals).toHaveLength(1);
-    expect(proposals[0]?.kind).toBe("SUBJECT");
-    expect(proposals[0]?.parentSubjectId).toBe("subj_parent_abc");
-    expect(proposals[0]?.subjectTitle).toBe("Planning d'intervention");
-  });
-
-  it("orders parent before child when child references parent title", () => {
-    const batch: SubjectCreateProposal[] = [
-      { intentId: "child", title: "Créneaux terrain", parentRef: "Planning intervention" },
-      { intentId: "parent", title: "Planning intervention" },
-    ];
-    const ordered = orderSubjectCreatesByDependency(batch);
-    expect("ordered" in ordered).toBe(true);
-    if (!("ordered" in ordered)) return;
-    expect(ordered.ordered.map((s) => s.intentId)).toEqual(["parent", "child"]);
-  });
-
-  it("orders parent before child when child references parent intent id", () => {
-    const batch: SubjectCreateProposal[] = [
-      { intentId: "child", title: "Sous-thème", parentRef: "intent-parent" },
-      { intentId: "intent-parent", title: "Thème" },
-    ];
-    const ordered = orderSubjectCreatesByDependency(batch);
-    expect("ordered" in ordered).toBe(true);
-    if (!("ordered" in ordered)) return;
-    expect(ordered.ordered[0]?.intentId).toBe("intent-parent");
-  });
-
-  it("rejects self-parent by intent id", () => {
-    const batch: SubjectCreateProposal[] = [
-      { intentId: "loop", title: "Sujet", parentRef: "loop" },
-    ];
-    const ordered = orderSubjectCreatesByDependency(batch);
-    expect("ordered" in ordered).toBe(false);
-    if ("ordered" in ordered) return;
-    expect(ordered.reason).toBe("SUBJECT_SELF_PARENT");
-  });
-
-  it("rejects batch cycle", () => {
-    const batch: SubjectCreateProposal[] = [
-      { intentId: "a", title: "A", parentRef: "b" },
-      { intentId: "b", title: "B", parentRef: "a" },
-    ];
-    const ordered = orderSubjectCreatesByDependency(batch);
-    expect("ordered" in ordered).toBe(false);
-    if ("ordered" in ordered) return;
-    expect(ordered.reason).toBe("SUBJECT_BATCH_CYCLE");
-  });
-
-  it("resolveBatchParentRef maps intent id to created id", () => {
-    const batch: SubjectCreateProposal[] = [
-      { intentId: "parent", title: "Parent" },
-      { intentId: "child", title: "Child", parentRef: "parent" },
-    ];
-    const created = new Map([["parent", "subj_parent_1"]]);
-    const r = resolveBatchParentRef("parent", {
-      self: batch[1]!,
-      batch,
-      createdByIntentId: created,
-    });
-    expect(r).toEqual({ kind: "resolved", parentSubjectId: "subj_parent_1" });
-  });
-
-  it("resolveBatchParentRef yields lookup_title for unknown title outside batch", () => {
-    const batch: SubjectCreateProposal[] = [
-      { intentId: "child", title: "Child", parentRef: "Parent existant" },
-    ];
-    const r = resolveBatchParentRef("Parent existant", {
-      self: batch[0]!,
-      batch,
-      createdByIntentId: new Map(),
-    });
-    expect(r).toEqual({ kind: "lookup_title", title: "Parent existant" });
-  });
-});
-
-```
-
-
-### `projects/sfia-studio-next/web/tests/integration/e1-continuity-integrated.pg.test.ts`
-```typescript
-/**
- * E1 — integrated deterministic continuity chain (injected quals, no LIVE).
- */
-import { beforeAll, describe, expect, it } from "vitest";
-import { config } from "dotenv";
-config({ path: ".env.local" });
-
-import { eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import { pilots, preparations } from "@/db/schema";
-import { newId } from "@/lib/ids";
-import {
-  ensureSubject,
-  maybeCapitalizeFromExchange,
-  openPoint,
-} from "@/domains/knowledge/service";
-import { listProjectKnowledge, reparentSubject, resolveOpenPointFactually } from "@/domains/knowledge/journal";
-import { savePreparationDocument } from "@/domains/document/service";
-import { createProjectCommand } from "@/domains/preparation/create-project";
-import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
-import { getOwnedProjectContext } from "@/domains/preparation/project-context";
-import {
-  executePilotageCommand,
-  getPilotageProjection,
-  retainTrajectory,
-} from "@/domains/pilotage/service";
-import { applyConversationalAuthority } from "@/domains/pilotage/conversation-authority";
-import { reserveTurnCommand, stashTurnQualification } from "@/domains/conversation/turn-command";
-import { getPreparationContext } from "@/domains/preparation/service";
-import {
-  clearPilotagePreQualified,
-  d6DecisionEnvelope,
-} from "../helpers/semantic-fixture-envelopes";
-
-async function seedWorld(label: string) {
-  const pilotId = newId("pilot");
-  await db.insert(pilots).values({
-    id: pilotId,
-    displayName: label,
-    githubUserId: `gh-${pilotId}`,
-  });
-  const prep = await openOrCreatePreparation(pilotId);
-  await updatePreview(pilotId, prep.id, label, "e1-integrated");
-  const refreshed = (await db.select().from(preparations).where(eq(preparations.id, prep.id)))[0];
-  const created = await createProjectCommand({
-    pilotId,
-    preparationId: prep.id,
-    expectedCreationRevision: refreshed.creationRevision,
-    projectName: label,
-    previewSummary: "e1-integrated",
-    idempotencyKey: newId("idem"),
-  });
-  if (created.status !== "CREATED" && created.status !== "ALREADY_CREATED") {
-    throw new Error(`create failed: ${created.status}`);
-  }
-  const ctx = await getPreparationContext(pilotId, prep.id);
-  return {
-    pilotId,
-    preparationId: prep.id,
-    projectId: created.projectId!,
-    conversationId: ctx.conversation!.id,
-  };
-}
-
-describe("E1 integrated continuity chain (PG)", () => {
-  beforeAll(() => {
-    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-    expect(process.env.DATABASE_URL).toMatch(/\/sfia_next_e2e(?:\?|$)/);
-    delete process.env.OPENAI_API_KEY;
-    process.env.STUDIO_LANE = "DEV";
-    process.env.STUDIO_E2E = "1";
-  });
-
-  it("hierarchy → knowledge → decision → trajectory → projections → isolation", async () => {
-    const world = await seedWorld(`e1-int-${Date.now()}`);
-
-    // 1–2 Same-turn parent + child + acquis + open point
-    const cap = await maybeCapitalizeFromExchange(world.pilotId, world.preparationId, {
-      userText: "Structurons interventions et planification.",
-      assistantText: "Thème parent, sous-thème, acquis et question.",
-      generationId: newId("gen"),
-      userMessageId: newId("msg"),
-      assistantMessageId: newId("msg"),
-      proposals: [
-        {
-          intentId: "parent",
-          kind: "SUBJECT",
-          statement: "Organisation du cycle de vie des interventions terrain.",
-          epistemic: "established",
-          subjectTitle: "Gestion des interventions",
-          continuityReason: "thème structurant",
-        },
-        {
-          intentId: "child",
-          kind: "SUBJECT",
-          statement: "Règles de planification et conflits de créneaux.",
-          epistemic: "established",
-          subjectTitle: "Planification",
-          parentSubjectId: "parent",
-          continuityReason: "sous-thème",
-        },
-        {
-          intentId: "acq",
-          kind: "ACQUIS",
-          statement: "Une intervention confirmée ne peut être déplacée que par une autorité habilitée.",
-          epistemic: "hypothesized",
-          subjectTitle: "Planification",
-          continuityReason: "apport Pilote",
-        },
-        {
-          intentId: "op",
-          kind: "OPEN_POINT",
-          statement: "Qui valide une replanification urgente hors horaires ?",
-          epistemic: "hypothesized",
-          subjectTitle: "Planification",
-          continuityReason: "question ouverte",
-        },
-      ],
-    });
-    expect(cap.ownershipLost).toBe(false);
-    expect(cap.capitalisations.some((c) => c.status === "FAILED")).toBe(false);
-
-    let bundle = await listProjectKnowledge(world.pilotId, world.projectId);
-    const parent = bundle.subjects.find((s) => s.title === "Gestion des interventions");
-    const child = bundle.subjects.find((s) => s.title === "Planification");
-    expect(child?.parentSubjectId).toBe(parent?.id);
-    expect(bundle.openPoints.some((o) => o.status === "OPEN")).toBe(true);
-
-    // 3 Durable decision
-    const decisionStatement = "L'habilitation est obligatoire avant toute affectation terrain.";
-    const content = `Je décide que ${decisionStatement}`;
-    const qual = d6DecisionEnvelope({
-      operation: "RECORD_DECISION",
-      statement: decisionStatement,
-      objectRef: "habilitation",
-    });
-    const reserved = await reserveTurnCommand({
-      ownerPilotId: world.pilotId,
-      conversationId: world.conversationId,
-      clientTurnKey: `e1-int-${newId("ctk")}`,
-      content,
-    });
-    if (reserved.kind !== "fresh") throw new Error(`expected fresh turn: ${reserved.kind}`);
-    const stashed = await stashTurnQualification({
-      commandId: reserved.commandId,
-      ownerToken: reserved.ownerToken,
-      qualificationJson: JSON.stringify(qual),
-    });
-    if (!stashed.applied) throw new Error("qualification stash failed");
-    const decisionOutcome = await applyConversationalAuthority({
-      pilotId: world.pilotId,
-      projectId: world.projectId,
-      userMessageId: reserved.userMessageId,
-      content,
-      clientTurnKey: reserved.clientTurnKey,
-      preQualified: clearPilotagePreQualified({
-        operation: "RECORD_DECISION",
-        statement: decisionStatement,
-        objectRef: "habilitation",
-        semanticIntentId: qual.intents[0]!.id,
-      }),
-    });
-    expect(decisionOutcome.humanDecisionCreated).toBe(true);
-
-    // 4 Zero proposals → no mutation
-    const noop = await maybeCapitalizeFromExchange(world.pilotId, world.preparationId, {
-      userText: "Merci.",
-      assistantText: "De rien.",
-      generationId: newId("gen"),
-      userMessageId: newId("msg"),
-      proposals: [],
-    });
-    expect(noop.capitalisations).toHaveLength(0);
-
-    // 5 Resolve open point with verified document revision provenance
-    const openId = bundle.openPoints.find((o) => o.status === "OPEN")!.id;
-    const doc = await savePreparationDocument(
-      world.pilotId,
-      world.preparationId,
-      "Preuve habilitation",
-      "# Habilitation\nRègle documentée pour replanification.",
-      undefined,
-      { correlationKey: `e1-int-${openId}`, provenance: { sourceKind: "pilot" } },
-    );
-    expect(doc.status).toBe("AVAILABLE");
-    const revisionId = "revisionId" in doc ? String(doc.revisionId) : "";
-    const resolved = await resolveOpenPointFactually(world.pilotId, world.projectId, openId, {
-      reason: "Règle d'habilitation documentée",
-      provenance: { sourceKind: "revision", sourceId: revisionId, epistemic: "established" },
-      operationId: newId("resolve"),
-    });
-    expect(resolved.status).toBe("AVAILABLE");
-
-    // 6 Trajectory propose + retain + open cycle
-    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    const proposed = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: newId("ck"),
-      expectedRevision: rev,
-      sourceKind: "EXPLICIT_INTERACTION",
-      sourceRef: newId("src"),
-      operation: "PROPOSE_TRAJECTORY",
-      orientation: "Cadrage puis conception UX avant validation",
-    });
-    expect(proposed.status).toBe("APPLIED");
-    rev = proposed.revision ?? rev + 1;
-    const trajId = proposed.effects.find((e) => e.effectKind === "PROPOSE")?.targetRef;
-    const retained = await retainTrajectory(world.pilotId, world.projectId, {
-      clientCommandKey: newId("ck"),
-      expectedRevision: rev,
-      sourceRef: newId("src"),
-      trajectoryRevisionId: trajId,
-    });
-    expect(retained.status).toBe("APPLIED");
-    rev = retained.revision ?? rev + 1;
-    const opened = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: newId("ck"),
-      expectedRevision: rev,
-      sourceKind: "EXPLICIT_INTERACTION",
-      sourceRef: newId("src"),
-      operation: "OPEN_CYCLE",
-      cycleType: "CADRAGE",
-      objective: "Définir les règles de planification et d'affectation des interventions.",
-    });
-    expect(opened.status).toBe("APPLIED");
-
-    // 7 Reparent child under a new root sibling
-    const sibling = await ensureSubject(world.pilotId, world.preparationId, "Gestion des techniciens");
-    const rep = await reparentSubject(
-      world.pilotId,
-      world.projectId,
-      child!.id,
-      sibling.subjectId!,
-    );
-    expect(rep.status).toBe("AVAILABLE");
-
-    // 8 Projections
-    const ctx = await getOwnedProjectContext(world.pilotId, world.projectId);
-    expect(ctx.activity.openSubjects.count).toBeGreaterThanOrEqual(3);
-    expect(ctx.activity.applicableDecisions.count).toBeGreaterThanOrEqual(1);
-    expect(ctx.activity.openPointsCount).toBe(0);
-    expect(ctx.knowledge.openPoints.every((o) => o.shortTitle)).toBe(true);
-    const pilotage = await getPilotageProjection(world.pilotId, world.projectId);
-    expect(pilotage.cycle?.status).toBe("ACTIVE");
-    expect(pilotage.trajectory.retained?.status).toBe("RETAINED");
-
-    // 9 Isolation
-    const other = await seedWorld(`e1-iso-${Date.now()}`);
-    const otherBundle = await listProjectKnowledge(other.pilotId, other.projectId);
-    expect(otherBundle.subjects.find((s) => s.id === parent!.id)).toBeFalsy();
-    const otherCtx = await getOwnedProjectContext(other.pilotId, other.projectId);
-    expect(otherCtx.activity.applicableDecisions.count).toBe(0);
-  });
-});
-
-```
-
-## 16. Diffs E1 (fichiers modifiés clés)
-### Diffstat
-```
- .../construction/delivery-history.md               |  23 ++
- ...5-registre-couverture-et-revue-developpement.md |  16 +-
- .../[preparationId]/knowledge/route.ts             |  25 +-
- .../web/src/domains/conversation/nora-adapter.ts   |   8 +-
- .../domains/conversation/semantic-qualification.ts | 106 ++++++--
- .../web/src/domains/knowledge/journal.ts           |   6 +-
- .../web/src/domains/knowledge/service.ts           | 293 ++++++++++++++++++++-
- .../src/domains/pilotage/conversation-authority.ts |  41 ++-
- .../web/src/domains/preparation/project-context.ts |  29 +-
- 9 files changed, 494 insertions(+), 53 deletions(-)
-```
-
-
-### Diff — knowledge/service.ts
-```diff
+### FULL DIFF — knowledge/service.ts
 diff --git a/projects/sfia-studio-next/web/src/domains/knowledge/service.ts b/projects/sfia-studio-next/web/src/domains/knowledge/service.ts
-index 8e294388..cbd88bde 100644
+index 8e294388..00db250e 100644
 --- a/projects/sfia-studio-next/web/src/domains/knowledge/service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/knowledge/service.ts
-@@ -49,6 +49,11 @@ import {
+@@ -25,6 +25,11 @@ export type Provenance = {
+   /** Extra constitutive message ids (Pilot/Nora) — never invent ids. */
+   relatedMessageIds?: string[];
+   contributionKind?: "pilot_fact" | "nora_analysis" | "pilot_confirmation" | "mixed";
++  /**
++   * E1-REL-04 — short canonical open-point title from Nora qualification.
++   * Display prefers this over editorial truncation of the statement.
++   */
++  canonicalTitle?: string;
+ };
+
+ export type KnowledgeKind = "FACT" | "HYPOTHESIS" | "RECOMMENDATION" | "LIMIT";
+@@ -49,6 +54,11 @@ import {
    editorialCompactKnowledgeStatement,
    composeSubjectSummaryFromCurrentKnowledge,
  } from "./journal-editorial";
@@ -1134,7 +756,7 @@ index 8e294388..cbd88bde 100644
 
  function provenanceString(p: Provenance): string {
    return JSON.stringify({ ...p, notedAt: p.notedAt ?? new Date().toISOString() });
-@@ -99,6 +104,143 @@ async function assertSubjectRef(
+@@ -99,6 +109,155 @@ async function assertSubjectRef(
    return { subject: row };
  }
 
@@ -1172,6 +794,7 @@ index 8e294388..cbd88bde 100644
 +    subjectTitle?: string;
 +    subjectId?: string;
 +    parentSubjectId?: string;
++    subjectOrganization?: "MERGE" | "SPLIT" | "DETACH";
 +  }>,
 +  fence: TurnOwnershipFence | undefined,
 +): Promise<{
@@ -1188,6 +811,17 @@ index 8e294388..cbd88bde 100644
 +    if (p.subjectId?.trim()) {
 +      const check = await assertSubjectRef(pilotId, preparationId, p.subjectId);
 +      if (check?.subject) continue;
++      // E1-REL-02 — explicit unknown/foreign subjectId must not silently create another subject.
++      failedByIntentId.set(
++        p.intentId,
++        check && "error" in check ? check.error : "SUBJECT_FOREIGN_OR_UNKNOWN",
++      );
++      continue;
++    }
++    // Organization ops (MERGE/SPLIT/DETACH) require an existing subjectId — never precreate.
++    if (p.subjectOrganization) {
++      failedByIntentId.set(p.intentId, "SUBJECT_ORG_REQUIRES_SUBJECT_ID");
++      continue;
 +    }
 +    const title = (p.subjectTitle ?? p.statement).trim().slice(0, 120);
 +    if (title.length < 3) continue;
@@ -1278,7 +912,98 @@ index 8e294388..cbd88bde 100644
  /** Selective capitalisation — never invents D6 decisions. */
  export async function capitalizeAcquis(
    pilotId: string,
-@@ -1165,6 +1307,8 @@ export async function maybeCapitalizeFromExchange(
+@@ -251,6 +410,8 @@ export async function openPoint(
+     subjectId?: string | null;
+     provenance: Provenance;
+     turnFence?: TurnOwnershipFence;
++    /** Short canonical title (E1-REL-04) — stored in provenance, no schema migration. */
++    canonicalTitle?: string;
+   },
+ ) {
+   const ctx = await assertPrep(pilotId, preparationId);
+@@ -265,6 +426,7 @@ export async function openPoint(
+       return { status: "FAILED" as const, reason: "SUBJECT_NOT_ACTIVE" };
+     }
+   }
++  const canonicalTitle = input.canonicalTitle?.trim().slice(0, 120) || undefined;
+   const id = newId("opn");
+   const write = await db.transaction(async (tx) => {
+     if (input.turnFence) {
+@@ -281,7 +443,10 @@ export async function openPoint(
+       subjectId: input.subjectId ?? null,
+       statement,
+       status: "OPEN",
+-      provenanceJson: provenanceString(input.provenance),
++      provenanceJson: provenanceString({
++        ...input.provenance,
++        ...(canonicalTitle ? { canonicalTitle } : {}),
++      }),
+     });
+     return { status: "OK" as const };
+   });
+@@ -400,6 +565,7 @@ export async function renameSubject(
+   preparationId: string,
+   subjectId: string,
+   newTitle: string,
++  turnFence?: TurnOwnershipFence,
+ ) {
+   await assertPrep(pilotId, preparationId);
+   const title = newTitle.trim().slice(0, 200);
+@@ -407,6 +573,10 @@ export async function renameSubject(
+
+   try {
+     return await db.transaction(async (tx) => {
++      if (turnFence) {
++        const owned = await assertTurnFenceInTx(tx as Tx, turnFence);
++        if (!owned) return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
++      }
+       await tx.execute(
+         sql`select id from knowledge_subjects where id = ${subjectId} and owner_pilot_id = ${pilotId} and preparation_id = ${preparationId} for update`,
+       );
+@@ -442,7 +612,7 @@ export async function mergeSubjects(
+   preparationId: string,
+   targetSubjectId: string,
+   sourceSubjectId: string,
+-  opts?: { injectFailureAfter?: "lock" | "move" },
++  opts?: { injectFailureAfter?: "lock" | "move"; turnFence?: TurnOwnershipFence },
+ ) {
+   await assertPrep(pilotId, preparationId);
+   if (targetSubjectId === sourceSubjectId) {
+@@ -451,6 +621,10 @@ export async function mergeSubjects(
+
+   try {
+     return await db.transaction(async (tx) => {
++      if (opts?.turnFence) {
++        const owned = await assertTurnFenceInTx(tx as Tx, opts.turnFence);
++        if (!owned) return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
++      }
+       // Deterministic lock order to avoid deadlocks
+       const ids = [targetSubjectId, sourceSubjectId].sort();
+       for (const id of ids) {
+@@ -542,7 +716,10 @@ export async function splitSubject(
+     acquisIds: string[];
+     openPointIds: string[];
+   },
+-  opts?: { injectFailureAfter?: "validate" | "create" | "move" },
++  opts?: {
++    injectFailureAfter?: "validate" | "create" | "move";
++    turnFence?: TurnOwnershipFence;
++  },
+ ) {
+   const ctx = await assertPrep(pilotId, preparationId);
+   const newTitle = input.newTitle.trim().slice(0, 200);
+@@ -553,6 +730,10 @@ export async function splitSubject(
+
+   try {
+     return await db.transaction(async (tx) => {
++      if (opts?.turnFence) {
++        const owned = await assertTurnFenceInTx(tx as Tx, opts.turnFence);
++        if (!owned) return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
++      }
+       await tx.execute(
+         sql`select id from knowledge_subjects where id = ${sourceSubjectId} and owner_pilot_id = ${pilotId} and preparation_id = ${preparationId} for update`,
+       );
+@@ -1165,9 +1346,16 @@ export async function maybeCapitalizeFromExchange(
        epistemic: "hypothesized" | "recommended" | "established" | "limited";
        subjectTitle?: string;
        subjectId?: string;
@@ -1287,7 +1012,15 @@ index 8e294388..cbd88bde 100644
        continuityReason?: string;
        supersedesAcquisId?: string;
        resolvesOpenPointId?: string;
-@@ -1193,6 +1337,21 @@ export async function maybeCapitalizeFromExchange(
++      relevantAcquisIds?: string[];
++      relevantOpenPointIds?: string[];
++      openPointTitle?: string;
++      subjectOrganization?: "MERGE" | "SPLIT" | "DETACH";
++      mergeSourceSubjectId?: string;
+     }>;
+   },
+ ) {
+@@ -1193,6 +1381,21 @@ export async function maybeCapitalizeFromExchange(
    let subjectId: string | null = null;
    const ctx = await assertPrep(pilotId, preparationId);
    const projectId = ctx.project?.id ?? null;
@@ -1309,7 +1042,7 @@ index 8e294388..cbd88bde 100644
    /** Subjects that already received an explicit SUBJECT summary this turn. */
    const subjectsWithExplicitSummary = new Set<string>();
    /** Subjects that gained significant CURRENT acquis this turn (may need synthesis). */
-@@ -1239,9 +1398,45 @@ export async function maybeCapitalizeFromExchange(
+@@ -1239,9 +1442,45 @@ export async function maybeCapitalizeFromExchange(
      });
    }
 
@@ -1352,16 +1085,107 @@ index 8e294388..cbd88bde 100644
 +        subjectsWithExplicitSummary.add(batchCreated);
 +        continue;
 +      }
-+      // Prefer explicit subjectId for synthesis revision / reparent on an existing subject.
++      // Prefer explicit subjectId for synthesis revision / reparent / org on an existing subject.
        if (p.subjectId) {
          const check = await assertSubjectRef(pilotId, preparationId, p.subjectId);
          if (check && "error" in check) {
-@@ -1255,6 +1450,75 @@ export async function maybeCapitalizeFromExchange(
+@@ -1255,6 +1494,175 @@ export async function maybeCapitalizeFromExchange(
          }
          if (check?.subject) {
            subjectId = check.subject.id;
++          // E1-REL-01 — organization via existing D4 owners (no second engine).
++          if (p.subjectOrganization === "MERGE") {
++            const sourceId = p.mergeSourceSubjectId?.trim();
++            if (!sourceId) {
++              results.push({
++                kind: "subject_merge",
++                id: subjectId,
++                status: "FAILED",
++                reason: "MERGE_SOURCE_REQUIRED",
++                epistemicNote: p.continuityReason,
++              });
++              continue;
++            }
++            const merged = await mergeSubjects(
++              pilotId,
++              preparationId,
++              subjectId,
++              sourceId,
++              { turnFence: fence },
++            );
++            results.push({
++              kind: "subject_merge",
++              id: subjectId,
++              status: merged.status,
++              reason: "reason" in merged ? String(merged.reason) : undefined,
++              epistemicNote: p.continuityReason,
++            });
++            if (merged.status !== "AVAILABLE") continue;
++            await writeSubjectSummary(
++              subjectId,
++              p.statement.trim(),
++              (p.subjectTitle ?? check.subject.title).trim(),
++              p,
++            );
++            subjectsWithExplicitSummary.add(subjectId);
++            continue;
++          }
++          if (p.subjectOrganization === "SPLIT") {
++            const newTitle = (p.subjectTitle ?? "").trim();
++            if (newTitle.length < 3) {
++              results.push({
++                kind: "subject_split",
++                id: subjectId,
++                status: "FAILED",
++                reason: "SPLIT_TITLE_REQUIRED",
++                epistemicNote: p.continuityReason,
++              });
++              continue;
++            }
++            const split = await splitSubject(
++              pilotId,
++              preparationId,
++              subjectId,
++              {
++                newTitle,
++                acquisIds: p.relevantAcquisIds ?? [],
++                openPointIds: p.relevantOpenPointIds ?? [],
++              },
++              { turnFence: fence },
++            );
++            results.push({
++              kind: "subject_split",
++              id: "newSubjectId" in split ? split.newSubjectId : subjectId,
++              status: split.status,
++              reason: "reason" in split ? String(split.reason) : undefined,
++              epistemicNote: p.continuityReason,
++            });
++            if (split.status === "AVAILABLE" && "newSubjectId" in split && split.newSubjectId) {
++              subjectId = split.newSubjectId;
++              await writeSubjectSummary(split.newSubjectId, p.statement.trim(), newTitle, p);
++              subjectsWithExplicitSummary.add(split.newSubjectId);
++            }
++            continue;
++          }
++          if (p.subjectOrganization === "DETACH" && projectId) {
++            const { reparentSubject } = await import("@/domains/knowledge/journal");
++            const det = await reparentSubject(pilotId, projectId, subjectId, null, fence);
++            results.push({
++              kind: "subject_detach",
++              id: subjectId,
++              status: det.status,
++              reason: "reason" in det ? String(det.reason) : undefined,
++              epistemicNote: p.continuityReason,
++            });
++            if (det.status !== "AVAILABLE") continue;
++          }
 +          // B.2 — reparent when Nora cites an existing subject + new parent.
-+          if (projectId && p.parentSubjectId && p.parentSubjectId !== check.subject.id) {
++          if (
++            projectId &&
++            p.subjectOrganization !== "DETACH" &&
++            p.parentSubjectId &&
++            p.parentSubjectId !== check.subject.id
++          ) {
 +            let newParentId: string | null = p.parentSubjectId;
 +            if (!p.parentSubjectId.startsWith("subj_")) {
 +              const fromBatch = batchSubjects.createdByIntentId.get(p.parentSubjectId);
@@ -1402,7 +1226,13 @@ index 8e294388..cbd88bde 100644
 +            }
 +            if (newParentId && newParentId !== check.subject.parentSubjectId) {
 +              const { reparentSubject } = await import("@/domains/knowledge/journal");
-+              const rep = await reparentSubject(pilotId, projectId, subjectId, newParentId);
++              const rep = await reparentSubject(
++                pilotId,
++                projectId,
++                subjectId,
++                newParentId,
++                fence,
++              );
 +              results.push({
 +                kind: "subject_reparent",
 +                id: subjectId,
@@ -1420,6 +1250,7 @@ index 8e294388..cbd88bde 100644
 +              preparationId,
 +              subjectId,
 +              p.subjectTitle,
++              fence,
 +            );
 +            results.push({
 +              kind: "subject_rename",
@@ -1428,11 +1259,13 @@ index 8e294388..cbd88bde 100644
 +              reason: "reason" in renamed ? String(renamed.reason) : undefined,
 +              epistemicNote: p.continuityReason,
 +            });
++            // E1-REL-02 — do not mask a failed rename with a subsequent AVAILABLE subject result.
++            if (renamed.status !== "AVAILABLE") continue;
 +          }
            results.push({
              kind: "subject",
              id: subjectId,
-@@ -1264,7 +1528,7 @@ export async function maybeCapitalizeFromExchange(
+@@ -1264,7 +1672,7 @@ export async function maybeCapitalizeFromExchange(
            await writeSubjectSummary(
              subjectId,
              p.statement.trim(),
@@ -1441,7 +1274,7 @@ index 8e294388..cbd88bde 100644
              p,
            );
            subjectsWithExplicitSummary.add(subjectId);
-@@ -1273,7 +1537,17 @@ export async function maybeCapitalizeFromExchange(
+@@ -1273,7 +1681,17 @@ export async function maybeCapitalizeFromExchange(
        }
        const title = (p.subjectTitle ?? p.statement).trim().slice(0, 120);
        if (title.length < 3) continue;
@@ -1460,694 +1293,297 @@ index 8e294388..cbd88bde 100644
        if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
          results.push({
            kind: "subject",
-@@ -1303,9 +1577,18 @@ export async function maybeCapitalizeFromExchange(
+@@ -1303,44 +1721,113 @@ export async function maybeCapitalizeFromExchange(
        continue;
      }
 
+-    if (p.subjectTitle) {
+-      const title = p.subjectTitle.trim().slice(0, 120);
+-      if (title.length >= 3) {
+-        const s = await ensureSubject(pilotId, preparationId, title, undefined, fence);
+-        if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
 +    // Resolve subject for ACQUIS/OPEN_POINT: prefer batch ids, then subjectId, then title.
++    // E1-REL-02 — never silently inherit a prior loop subjectId when an explicit ref fails.
++    let recordSubjectId: string | null = null;
++    let subjectRefFailed = false;
 +    if (p.subjectId) {
 +      const check = await assertSubjectRef(pilotId, preparationId, p.subjectId);
-+      if (check?.subject) subjectId = check.subject.id;
++      if (check && "error" in check) {
++        results.push({
++          kind: p.kind === "OPEN_POINT" ? "open_point" : "acquis",
++          status: "FAILED",
++          reason: check.error,
++          epistemicNote: p.continuityReason,
++        });
++        subjectRefFailed = true;
++      } else if (check?.subject) {
++        recordSubjectId = check.subject.id;
++        // Conflict: explicit subjectId + subjectTitle that does not match owned title.
++        if (
++          p.subjectTitle &&
++          p.subjectTitle.trim().toLowerCase() !== check.subject.title.trim().toLowerCase()
++        ) {
+           results.push({
+-            kind: "subject",
++            kind: p.kind === "OPEN_POINT" ? "open_point" : "acquis",
+             status: "FAILED",
+-            reason: "TURN_OWNERSHIP_LOST",
++            reason: "SUBJECT_ID_TITLE_CONFLICT",
+             epistemicNote: p.continuityReason,
+           });
+-          return {
+-            capitalisations: results,
+-            selectionMethod: "semantic-proposals" as const,
+-            selectionLimit: "OWNERSHIP_LOST",
+-            humanDecisionCreated: false as const,
+-            ownershipLost: true as const,
+-          };
++          subjectRefFailed = true;
+         }
+-        if (s.status === "AVAILABLE" && s.subjectId) {
+-          subjectId = s.subjectId;
+-          results.push({
+-            kind: "subject",
+-            id: s.subjectId,
+-            status: s.status,
+-            epistemicNote: p.continuityReason,
+-          });
++      }
 +    }
-     if (p.subjectTitle) {
-       const title = p.subjectTitle.trim().slice(0, 120);
--      if (title.length >= 3) {
++    if (subjectRefFailed) continue;
++    if (!recordSubjectId && p.subjectTitle) {
++      const title = p.subjectTitle.trim().slice(0, 120);
 +      const norm = title.replace(/\s+/g, " ").toLowerCase();
 +      const fromBatch = batchTitleToId.get(norm);
 +      if (fromBatch) {
-+        subjectId = fromBatch;
++        recordSubjectId = fromBatch;
 +      } else if (title.length >= 3) {
-         const s = await ensureSubject(pilotId, preparationId, title, undefined, fence);
-         if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
-           results.push({
-@@ -1334,8 +1617,6 @@ export async function maybeCapitalizeFromExchange(
++        // Title-only: require unique ACTIVE match — never invent a target under ambiguous homonyms.
++        const unique = await findActiveSubjectByTitle(pilotId, preparationId, title);
++        if (unique) {
++          recordSubjectId = unique.id;
++        } else {
++          const existingHomonyms = (
++            await db
++              .select({ id: knowledgeSubjects.id })
++              .from(knowledgeSubjects)
++              .where(
++                and(
++                  eq(knowledgeSubjects.preparationId, preparationId),
++                  eq(knowledgeSubjects.ownerPilotId, pilotId),
++                  eq(knowledgeSubjects.title, title.trim().slice(0, 200)),
++                  eq(knowledgeSubjects.status, "ACTIVE"),
++                ),
++              )
++              .limit(2)
++          ).length;
++          if (existingHomonyms > 1) {
++            results.push({
++              kind: p.kind === "OPEN_POINT" ? "open_point" : "acquis",
++              status: "FAILED",
++              reason: "SUBJECT_TITLE_AMBIGUOUS",
++              epistemicNote: p.continuityReason,
++            });
++            continue;
++          }
++          const s = await ensureSubject(pilotId, preparationId, title, undefined, fence);
++          if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
++            results.push({
++              kind: "subject",
++              status: "FAILED",
++              reason: "TURN_OWNERSHIP_LOST",
++              epistemicNote: p.continuityReason,
++            });
++            return {
++              capitalisations: results,
++              selectionMethod: "semantic-proposals" as const,
++              selectionLimit: "OWNERSHIP_LOST",
++              humanDecisionCreated: false as const,
++              ownershipLost: true as const,
++            };
++          }
++          if (s.status === "AVAILABLE" && s.subjectId) {
++            recordSubjectId = s.subjectId;
++            results.push({
++              kind: "subject",
++              id: s.subjectId,
++              status: s.status,
++              epistemicNote: p.continuityReason,
++            });
++          }
+         }
        }
      }
-
--    if (p.subjectId) subjectId = p.subjectId;
 -
+-    if (p.subjectId) subjectId = p.subjectId;
++    if (!recordSubjectId && !p.subjectId && !p.subjectTitle) {
++      // Same-turn continuity: attach to last successfully resolved subject only when no explicit ref.
++      recordSubjectId = subjectId;
++    }
++    if (recordSubjectId) subjectId = recordSubjectId;
+
      if (p.kind === "OPEN_POINT") {
        const op = await openPoint(pilotId, preparationId, {
          statement: p.statement,
-
-```
-
-
-### Diff — conversation-authority.ts
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts b/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
-index 185c5540..08631798 100644
---- a/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
-+++ b/projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
-@@ -68,6 +68,16 @@ export function conversationalCommandKey(clientTurnKey: string): string {
-   return conversationalClientCommandKey(clientTurnKey);
- }
-
-+/** Per semantic intent when several pilotage acts share one clientTurnKey (MP-09). */
-+export function conversationalCommandKeyForIntent(
-+  clientTurnKey: string,
-+  semanticIntentId?: string | null,
-+): string {
-+  const base = conversationalCommandKey(clientTurnKey);
-+  const intentId = semanticIntentId?.trim();
-+  return intentId ? `${base}:${intentId}` : base;
-+}
-+
- /** @deprecated retained for lexical helper tests only — authority path uses durable resolvers. */
- export async function loadDecisionBriefs(projectId: string): Promise<DecisionBrief[]> {
-   const rows = await db
-@@ -232,9 +242,11 @@ export async function reconstituteConversationalAuthority(input: {
-   projectId: string;
-   clientTurnKey?: string | null;
-   userMessageId?: string | null;
-+  /** When set, scopes C02 replay to one semantic pilotage intent (MP-09). */
-+  semanticIntentId?: string | null;
- }): Promise<ConversationalAuthorityOutcome | null> {
-   const key = input.clientTurnKey?.trim()
--    ? conversationalCommandKey(input.clientTurnKey)
-+    ? conversationalCommandKeyForIntent(input.clientTurnKey, input.semanticIntentId)
-     : null;
-   if (key) {
-     try {
-@@ -251,6 +263,10 @@ export async function reconstituteConversationalAuthority(input: {
-   }
-   const messageId = input.userMessageId?.trim();
-   if (!messageId) return null;
-+  // MP-09 — multi-intent turns share one userMessageId; never replay sibling acts here.
-+  if (input.semanticIntentId?.trim()) {
-+    return null;
-+  }
-   const cmd = (
-     await db
-       .select()
-@@ -297,7 +313,14 @@ export async function applyConversationalAuthority(input: {
-   preQualified?: IntentQualification | null;
- }): Promise<ConversationalAuthorityOutcome> {
-   const content = input.content.trim();
--  const clientCommandKey = conversationalCommandKey(input.clientTurnKey);
-+  const preQualifiedSemanticIntentId =
-+    input.preQualified?.clarity === "CLEAR"
-+      ? input.preQualified.semanticIntentId
-+      : undefined;
-+  const clientCommandKey = conversationalCommandKeyForIntent(
-+    input.clientTurnKey,
-+    preQualifiedSemanticIntentId,
-+  );
-   const empty: ConversationalAuthorityOutcome = {
-     attempted: false,
-     intentClarity: "NONE",
-@@ -315,6 +338,7 @@ export async function applyConversationalAuthority(input: {
-     projectId: input.projectId,
-     clientTurnKey: input.clientTurnKey,
-     userMessageId: input.userMessageId,
-+    semanticIntentId: preQualifiedSemanticIntentId,
-   });
-   if (prior?.attempted && prior.command) {
-     return prior;
-@@ -441,7 +465,7 @@ export async function applyConversationalAuthority(input: {
-     return outcomeFromCommand(command, "LIFT_RESTRICTION", clientCommandKey);
-   }
-
--  // FIX-08 — RETAIN: do not send orientation/trajectoryRevisionId on USER_MESSAGE body
-+  // FIX-08 — RETAIN: do not send orientation/trajectoryRevisionId/objective on USER_MESSAGE body
-   // (SEM rejects client-supplied D5 targets). mutateCommand resolves current PROPOSED.
-   if (qualified.operation === "RETAIN_TRAJECTORY") {
-     if (!projection.trajectory.proposed?.id) {
-@@ -458,11 +482,20 @@ export async function applyConversationalAuthority(input: {
-     const command = await executePilotageCommand(input.pilotId, input.projectId, {
-       ...base,
-       operation: "RETAIN_TRAJECTORY",
--      objective: qualified.objective,
-     });
-     return outcomeFromCommand(command, "RETAIN_TRAJECTORY", clientCommandKey);
-   }
-
-+  // E1 B.6 — PROPOSE: orientation/statement come from durable qualification only.
-+  // Never echo objective/orientation on the USER_MESSAGE body (clientSensitive gate).
-+  if (qualified.operation === "PROPOSE_TRAJECTORY") {
-+    const command = await executePilotageCommand(input.pilotId, input.projectId, {
-+      ...base,
-+      operation: "PROPOSE_TRAJECTORY",
-+    });
-+    return outcomeFromCommand(command, "PROPOSE_TRAJECTORY", clientCommandKey);
-+  }
-+
-   const command = await executePilotageCommand(input.pilotId, input.projectId, {
-     ...base,
-     operation: qualified.operation,
-
-```
-
-
-### Diff — project-context.ts
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts b/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
-index a50bd368..460629f3 100644
---- a/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
-+++ b/projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
-@@ -7,6 +7,13 @@ import { listDocuments } from "@/domains/document/service";
- import { listProjectKnowledge } from "@/domains/knowledge/journal";
- import { getPilotageProjection } from "@/domains/pilotage/service";
- import { getPreparationContext } from "@/domains/preparation/service";
-+import {
-+  countOpenKnowledgePoints,
-+  countProjectLibraryDocuments,
-+  filterApplicableHumanDecisions,
-+  openPointShortTitle,
-+  projectLibraryDocumentExamples,
-+} from "@/domains/preparation/project-activity-projection";
-
- /**
-  * Owner-scoped project reopen: durable projectId → linked preparation + same thread + documents.
-@@ -66,6 +73,7 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
-     openPoints: knowledgeBundle.openPoints.map((o) => ({
-       id: o.id,
-       statement: o.statement,
-+      shortTitle: openPointShortTitle(o.statement),
-       status: o.status,
-       subjectId: o.subjectId,
-     })),
-@@ -81,23 +89,17 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
-       id: humanDecisions.id,
-       statement: humanDecisions.statement,
-       state: humanDecisions.state,
-+      kind: humanDecisions.kind,
-       supersedesDecisionId: humanDecisions.supersedesDecisionId,
-     })
-     .from(humanDecisions)
-     .where(eq(humanDecisions.projectId, projectId))
-     .orderBy(desc(humanDecisions.createdAt));
-
--  const supersededIds = new Set(
--    decisionRows.map((d) => d.supersedesDecisionId).filter(Boolean) as string[],
--  );
--  const applicableDecisions = decisionRows.filter(
--    (d) => d.state === "APPLICABLE" && !supersededIds.has(d.id),
--  );
-+  const applicableDecisions = filterApplicableHumanDecisions(decisionRows);
-
-   const openSubjects = knowledge.subjects.filter((s) => s.status === "ACTIVE");
--  const openPoints = knowledge.openPoints.filter((o) => o.status === "OPEN");
--  // FIX-11 — "en cours" = actively writing (SAVING), not FAILED/UNKNOWN/AVAILABLE.
--  const docsInProgress = documents.filter((d) => d.latestRevision?.status === "SAVING");
-+  const openPointsCount = countOpenKnowledgePoints(knowledge.openPoints);
-
-   const activity = {
-     openSubjects: {
-@@ -109,13 +111,10 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
-       examples: applicableDecisions.slice(0, 2).map((d) => ({ id: d.id, statement: d.statement })),
-     },
-     documentsInProgress: {
--      count: docsInProgress.length,
--      examples: docsInProgress.slice(0, 2).map((d) => ({
--        id: d.document.id,
--        title: d.document.title,
--      })),
-+      count: countProjectLibraryDocuments(documents),
-+      examples: projectLibraryDocumentExamples(documents),
-     },
--    openPointsCount: openPoints.length,
-+    openPointsCount,
-   };
-
-   return {
-
-```
-
-
-### Diff — journal.ts
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/knowledge/journal.ts b/projects/sfia-studio-next/web/src/domains/knowledge/journal.ts
-index 51a13963..d3a15270 100644
---- a/projects/sfia-studio-next/web/src/domains/knowledge/journal.ts
-+++ b/projects/sfia-studio-next/web/src/domains/knowledge/journal.ts
-@@ -27,6 +27,7 @@ import {
-   type ExtendedProvenance,
- } from "@/domains/knowledge/journal-cognition";
- import { extractSourcedMotivationFromMessage } from "@/domains/knowledge/journal-editorial";
-+import { buildSupersededDecisionIds } from "@/domains/preparation/project-activity-projection";
- import { StudioError } from "@/lib/http-errors";
- import { newId } from "@/lib/ids";
-
-@@ -1130,9 +1131,10 @@ export async function getJournalProjection(pilotId: string, projectId: string) {
-     .where(eq(humanDecisions.projectId, projectId))
-     .orderBy(desc(humanDecisions.createdAt));
-
-+  const supersededDecisionIds = buildSupersededDecisionIds(decisionRows);
-   const supersededBy = new Map<string, string>();
-   for (const d of decisionRows) {
--    if (d.supersedesDecisionId) {
-+    if (d.state === "APPLICABLE" && d.supersedesDecisionId) {
-       supersededBy.set(d.supersedesDecisionId, d.id);
-     }
-   }
-@@ -1140,7 +1142,7 @@ export async function getJournalProjection(pilotId: string, projectId: string) {
-   const decisions = [];
-   for (const d of decisionRows) {
-     const expl = await getCurrentDecisionExplanation(pilotId, projectId, d.id);
--    const applicable = d.state === "APPLICABLE" && !supersededBy.has(d.id);
-+    const applicable = d.state === "APPLICABLE" && !supersededDecisionIds.has(d.id);
-     const originSources: Array<{
-       ownerKind: "decision";
-       ownerId: string;
-
-```
-
-
-### Diff — knowledge route
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/knowledge/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/knowledge/route.ts
-index 996f1db9..bee1b096 100644
---- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/knowledge/route.ts
-+++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/knowledge/route.ts
-@@ -6,6 +6,8 @@ import {
-   renameSubject,
-   splitSubject,
- } from "@/domains/knowledge/service";
-+import { reparentSubject } from "@/domains/knowledge/journal";
-+import { getPreparationContext } from "@/domains/preparation/service";
- import { studioErrorResponse } from "@/lib/http-errors";
-
- export async function GET(_: Request, ctx: { params: Promise<{ preparationId: string }> }) {
-@@ -25,11 +27,12 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
-     const session = await requireStudioSession();
-     const { preparationId } = await ctx.params;
-     const body = (await req.json()) as {
--      action?: "rename" | "merge" | "split";
-+      action?: "rename" | "merge" | "split" | "reparent";
-       subjectId?: string;
-       newTitle?: string;
-       targetSubjectId?: string;
-       sourceSubjectId?: string;
-+      parentSubjectId?: string | null;
-       acquisIds?: string[];
-       openPointIds?: string[];
-     };
-@@ -60,6 +63,26 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
+-        subjectId,
++        subjectId: recordSubjectId,
+         turnFence: fence,
++        canonicalTitle: p.openPointTitle,
+         provenance: buildExchangeProvenance({
+           userMessageId: input.userMessageId,
+           assistantMessageId: input.assistantMessageId,
+@@ -1396,7 +1883,7 @@ export async function maybeCapitalizeFromExchange(
+       const cap = await capitalizeAcquis(pilotId, preparationId, {
+         statement: p.statement,
+         kind,
+-        subjectId,
++        subjectId: recordSubjectId,
+         supersedesAcquisId,
+         turnFence: fence,
+         provenance: buildExchangeProvenance({
+@@ -1436,8 +1923,8 @@ export async function maybeCapitalizeFromExchange(
+               ? `SUPERSEDES:${supersedesAcquisId}`
+               : undefined,
        });
-       return NextResponse.json(result);
+-      if (cap.status === "AVAILABLE" && subjectId) {
+-        subjectsTouchedByAcquis.add(subjectId);
++      if (cap.status === "AVAILABLE" && recordSubjectId) {
++        subjectsTouchedByAcquis.add(recordSubjectId);
+       }
+
+       if (p.resolvesOpenPointId && projectId && cap.status === "AVAILABLE") {
+@@ -1468,7 +1955,7 @@ export async function maybeCapitalizeFromExchange(
+           reason: "reason" in resolved ? String(resolved.reason) : undefined,
+           epistemicNote: p.continuityReason,
+         });
+-        if (subjectId) subjectsTouchedByAcquis.add(subjectId);
++        if (recordSubjectId) subjectsTouchedByAcquis.add(recordSubjectId);
+       }
      }
-+    // E1 B.2 — Pilote/UI reparent; Nora path uses d4.record_knowledge capitalisation.
-+    if (body.action === "reparent" && body.subjectId) {
-+      const ctxPrep = await getPreparationContext(session.pilotId, preparationId);
-+      const projectId = ctxPrep.project?.id;
-+      if (!projectId) {
-+        return NextResponse.json(
-+          { error: "PROJECT_REQUIRED", errorCategory: "INVALID_REQUEST" },
-+          { status: 400 },
-+        );
-+      }
-+      const parentSubjectId =
-+        body.parentSubjectId === undefined ? null : body.parentSubjectId;
-+      const result = await reparentSubject(
-+        session.pilotId,
-+        projectId,
-+        body.subjectId,
-+        parentSubjectId,
-+      );
-+      return NextResponse.json(result);
-+    }
-     return NextResponse.json(
-       { error: "INVALID_REQUEST", errorCategory: "INVALID_REQUEST" },
-       { status: 400 },
-
-```
-
-
-### Diff — nora-adapter (arborescence)
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-index 4aedc701..221f5da7 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-@@ -1142,6 +1142,7 @@ async function runLiveWithToolsInner(
-     "  • Révision adaptative : modification ciblée (quelques règles/sections) OU réécriture intégrale si refonte globale — selon l'intention et le volume. Pas de déclencheur lexical.",
-     "  • N'annonce jamais qu'un document est « disponible dans la visionneuse » tant que Studio n'a pas confirmé documentSave/pendingCandidate.",
-     "- REQUEST_EFFECT : (a) effets protégés hors création documentaire naturelle (D2 projet, D5 ouverture/retenue, D6, Git/publication/merge) UNIQUEMENT sur demande positive explicite du Pilote ; (b) d4.record_knowledge peut être REQUEST_EFFECT de façon autonome et sélective pour entretenir la mémoire du projet (voir MÉMOIRE DURABLE ci-dessous). Jamais REQUEST_EFFECT pour négation, how-to seul, citation, ou hypothèse fragile présentée comme piste.",
-+    "- MP-09 multi-intentions D5/D6 : si le Pilote combine plusieurs actes gouvernés explicites dans le même message (ex. ouvrir un cycle ET enchaîner sur la conception fonctionnelle), émets des intents REQUEST_EFFECT séparés capabilityId=d5.pilotage_command (ou d6.human_decision), chacun avec parameters.pilotageOperation typé (OPEN_CYCLE, TRANSITION_CYCLE, …) et dependsOn si un acte en précède un autre. Ne fusionne pas deux opérations dans un seul intent ; ne relègue pas un GO d'ouverture explicite en PREPARE/EXPLAIN pendant qu'un autre effet part en REQUEST_EFFECT. Studio applique chaque binding admissible — pas un seul « gagnant ».",
-     "- capabilityId doit être une capacité du catalogue ; n'invente pas d'ID.",
-     "- Merge documentaire : capabilityId=d7.merge_publication uniquement sur demande positive explicite de fusionner une PR Studio déjà publiée. Renseigner parameters.prNumber ; parameters.repositoryFullName si le Pilote nomme un dépôt. Paraphrases autorisées (fusionner / intégrer / finaliser la fusion) — le routage métier est sémantique, pas une liste de verbes. Jamais d7.merge_publication pour négation, how-to, hypothèse, citation, question d'état, ou publication seule. Publication ≠ merge.",
-     "- Contrat technique Cursor : capabilityId=d7.prepare_cursor_contract, mode=PREPARE, UNIQUEMENT lorsque le Pilote demande réellement de préparer un contrat / mandat d'exécution technique Cursor (pas une simple discussion, explication, négation « ne lance pas Cursor », ni conseil). parameters.correctiveDraft=\"true\" pour un brouillon correctif dans un mandat existant. Préparer ≠ autoriser ≠ dispatch. Jamais REQUEST_EFFECT dispatch Cursor ici.",
-@@ -1174,10 +1175,11 @@ async function runLiveWithToolsInner(
-     "- Objectif: entretenir naturellement sujets, acquis et questions ouvertes utiles à la continuité. Le Pilote n'a pas besoin de dire « mémorise » / « ajoute au Journal ».",
-     "- Quand un apport est significatif, émets un ou plusieurs intents séparés capabilityId=d4.record_knowledge, mode=REQUEST_EFFECT, avec parameters.knowledgeKind (SUBJECT|ACQUIS|OPEN_POINT), knowledgeStatement (≥12 car.), epistemic, subjectTitle ou subjectId si connu, continuityReason bref.",
-     "- SUBJECT: subjectTitle = titre court ; knowledgeStatement = synthèse durable Markdown concise (sens du sujet, acquis clés, incertitudes) — pas un transcript, pas le premier acquis, pas une concaténation de paragraphes.",
--    "- ACQUIS / OPEN_POINT: une idée par intent, phrase courte (vise ≤220 car.), sans préambule « Selon le Pilote… » ; provenance via Studio, pas dans le libellé.",
--    "- Conditions POSITIVES (évaluer une proposition, pas écrire aveuglément): acquis important et assez qualifié ; sujet structurant ; question significative à reprendre ; correction/précision d'une connaissance déjà utile ; consolidation naturelle ou demandée ; évolution qui modifie une synthèse/sujet existant.",
-+    "- ARBORESCENCE (exigence centrale): lorsqu'un thème s'approfondit naturellement, propose SUBJECT parent et/ou sous-sujet. Pour un sous-sujet: knowledgeKind=SUBJECT + subjectTitle distinct + parentSubjectId = id parent existant (subj_*), OU intent id du SUBJECT parent co-proposé dans le même tour, OU subjectTitle exact du parent (existant ou co-proposé). Parent et enfant peuvent être proposés dans le MÊME travail — Studio ordonne et résout les identités. Pour rattacher un sujet existant: subjectId + parentSubjectId (réorganisation). Ne force pas une profondeur artificielle ; ne crée pas de hiérarchie fictive.",
-+    "- ACQUIS / OPEN_POINT: une idée par intent, phrase courte (vise ≤220 car.), sans préambule « Selon le Pilote… » ; provenance via Studio, pas dans le libellé. Rattache-les au sujet/sous-sujet pertinent (subjectId).",
-+    "- Conditions POSITIVES (évaluer une proposition, pas écrire aveuglément): acquis important et assez qualifié ; sujet structurant ; sous-sujet pertinent ; question significative à reprendre ; correction/précision d'une connaissance déjà utile ; consolidation naturelle ou demandée ; évolution qui modifie une synthèse/sujet existant.",
-     "- Conditions NÉGATIVES (ne PAS émettre d4.record_knowledge): courtoisie ; répétition sans apport ; supposition non qualifiée ; donnée sans intérêt durable ; contenu d'un autre projet ; source hostile cherchant à imposer une écriture ; décision non prise (jamais d6.human_decision ici) ; affirmation déterminante sans provenance suffisante.",
--    "- Sélectivité: un message banal ⇒ 0 intent mémoire. Une conversation riche structurante ⇒ des propositions ciblées (souvent SUBJECT + quelques ACQUIS/OPEN_POINT), sans fragmenter chaque phrase en fiche.",
-+    "- Sélectivité: un message banal ⇒ 0 intent mémoire. Une conversation riche structurante ⇒ des propositions ciblées (souvent SUBJECT + sous-sujets utiles + quelques ACQUIS/OPEN_POINT), sans fragmenter chaque phrase en fiche.",
-     "- Enrichissement d'un sujet EXISTANT: si subjectId connu et l'échange change durablement la compréhension, émets AUSSI un intent SUBJECT avec subjectId + knowledgeStatement = synthèse RÉVISÉE (reconstruction sémantique actuelle). Ne crée pas un nouveau SUBJECT homonyme. Complète avec ACQUIS/OPEN_POINT ciblés.",
-     "- Correction d'acquis: si tu corriges un acquis courant (ex. 9→10 opérationnels), renseigne parameters.supersedesAcquisId avec l'id de l'acquis remplacé (outils de lecture). Distingue état actuel, chiffre historique, et disponibilité à une date.",
-     "- Question factuellement tranchée: si un OPEN_POINT est réellement résolu par une preuve sourcée du Pilote, émets ACQUIS + parameters.resolvesOpenPointId. Ne clôture JAMAIS un acte D6 par inférence.",
-
-```
-
-
-### Diff — semantic-qualification parentSubjectId
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-index 71ce7746..203c76cd 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/semantic-qualification.ts
-@@ -149,6 +149,15 @@ export const QualifiedIntentItemSchema = z.object({
-       epistemic: KnowledgeEpistemicSchema.optional(),
-       subjectTitle: z.string().max(120).optional(),
-       subjectId: z.string().max(120).optional(),
-+      /**
-+       * Optional parent for SUBJECT hierarchy (sous-sujet).
-+       * Accepted forms (Studio resolves, never invents ids):
-+       * - existing subject id (subj_*) in the same preparation;
-+       * - intent id of another SUBJECT proposal in the same qualification;
-+       * - exact subjectTitle of a co-proposed or already ACTIVE parent.
-+       * Same-turn parent+child is supported when both are proposed together.
-+       */
-+      parentSubjectId: z.string().max(120).optional(),
-       /** Soft target ~240. */
-       continuityReason: z.string().max(LIVE_PROSE_HARD_MAX).optional(),
-       /** Prefer these existing resources when selecting D4 context (Nora-chosen). */
-@@ -626,6 +635,77 @@ export type DurablePilotageBinding = {
-   objective?: string;
- };
-
-+function pilotageBindingFromIntent(
-+  intent: QualifiedIntentItem,
-+): DurablePilotageBinding | { ambiguous: true; reason: string } {
-+  const operation = intent.parameters.pilotageOperation;
-+  if (!operation) {
-+    return { ambiguous: true, reason: "SEMANTIC_PILOTAGE_OPERATION_MISSING" };
-+  }
-+  return {
-+    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-+    intentId: intent.id,
-+    capabilityId: intent.capabilityId as DurablePilotageBinding["capabilityId"],
-+    operation,
-+    cycleType: intent.parameters.cycleType,
-+    toCycleType: intent.parameters.toCycleType,
-+    methodRef: intent.parameters.methodRef,
-+    methodVersion: intent.parameters.methodVersion,
-+    decisionId: intent.parameters.decisionId,
-+    objectRef: intent.parameters.objectRef,
-+    statement: intent.parameters.statement,
-+    restrictionKindHint: intent.parameters.restrictionKindHint,
-+    restrictionTargetRefHint: intent.parameters.restrictionTargetRefHint,
-+    objective: intent.summary,
-+  };
-+}
-+
-+/** Stable dependency order among pilotage REQUEST_EFFECT intents (dependsOn within subset). */
-+export function orderPilotageEffectIntents(
-+  q: NoraTurnQualification,
-+  hits: QualifiedIntentItem[],
-+): QualifiedIntentItem[] {
-+  const subset = new Set(hits.map((h) => h.id));
-+  const byId = new Map(q.intents.map((i) => [i.id, i] as const));
-+  const visiting = new Set<string>();
-+  const visited = new Set<string>();
-+  const ordered: string[] = [];
-+  const visit = (id: string) => {
-+    if (!subset.has(id) || visited.has(id)) return;
-+    if (visiting.has(id)) return;
-+    visiting.add(id);
-+    for (const dep of byId.get(id)?.dependsOn ?? []) {
-+      if (subset.has(dep)) visit(dep);
-+    }
-+    visiting.delete(id);
-+    visited.add(id);
-+    ordered.push(id);
-+  };
-+  const stable = [...subset].sort();
-+  for (const id of stable) visit(id);
-+  return ordered.map((id) => hits.find((h) => h.id === id)!);
-+}
-+
-+/**
-+ * MP-09 — every admissible pilotage REQUEST_EFFECT intent on the turn, in dependsOn order.
-+ * Never collapses to fail-closed AMBIGUOUS when multiple D5/D6 intents are present.
-+ */
-+export function listPilotageEffectBindings(q: NoraTurnQualification): Array<
-+  DurablePilotageBinding | { ambiguous: true; reason: string; intentId: string }
-+> {
-+  if (q.status !== "QUALIFIED") return [];
-+  const hits = effectIntents(q).filter((i) => PILOTAGE_CAPS.has(i.capabilityId));
-+  if (hits.length === 0) return [];
-+  const ordered = orderPilotageEffectIntents(q, hits);
-+  return ordered.map((intent) => {
-+    const binding = pilotageBindingFromIntent(intent);
-+    if ("ambiguous" in binding) {
-+      return { ...binding, intentId: intent.id };
-+    }
-+    return binding;
-+  });
-+}
-+
- export function extractPilotageBinding(
-   q: NoraTurnQualification,
-   select?: { intentId?: string; operation?: string },
-@@ -653,27 +733,9 @@ export function extractPilotageBinding(
-   if (hits.length > 1) {
-     return { ambiguous: true, reason: "MULTIPLE_PILOTAGE_EFFECT_INTENTS" };
    }
--  const intent = hits[0]!;
--  const operation = intent.parameters.pilotageOperation;
--  if (!operation) {
--    return { ambiguous: true, reason: "SEMANTIC_PILOTAGE_OPERATION_MISSING" };
--  }
--  return {
--    schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
--    intentId: intent.id,
--    capabilityId: intent.capabilityId as DurablePilotageBinding["capabilityId"],
--    operation,
--    cycleType: intent.parameters.cycleType,
--    toCycleType: intent.parameters.toCycleType,
--    methodRef: intent.parameters.methodRef,
--    methodVersion: intent.parameters.methodVersion,
--    decisionId: intent.parameters.decisionId,
--    objectRef: intent.parameters.objectRef,
--    statement: intent.parameters.statement,
--    restrictionKindHint: intent.parameters.restrictionKindHint,
--    restrictionTargetRefHint: intent.parameters.restrictionTargetRefHint,
--    objective: intent.summary,
--  };
-+  const binding = pilotageBindingFromIntent(hits[0]!);
-+  if ("ambiguous" in binding) return binding;
-+  return binding;
- }
 
- /** Match a requested operation against durable qualification (owner-side). */
-@@ -919,6 +981,7 @@ export type KnowledgeCapitalisationProposal = {
-   epistemic: z.infer<typeof KnowledgeEpistemicSchema>;
-   subjectTitle?: string;
-   subjectId?: string;
-+  parentSubjectId?: string;
-   continuityReason?: string;
-   supersedesAcquisId?: string;
-   resolvesOpenPointId?: string;
-@@ -950,6 +1013,7 @@ export function extractKnowledgeProposals(
-       epistemic: intent.parameters.epistemic ?? "hypothesized",
-       subjectTitle: intent.parameters.subjectTitle?.trim() || undefined,
-       subjectId: intent.parameters.subjectId?.trim() || undefined,
-+      parentSubjectId: intent.parameters.parentSubjectId?.trim() || undefined,
-       continuityReason: intent.parameters.continuityReason?.trim() || undefined,
-       supersedesAcquisId: intent.parameters.supersedesAcquisId?.trim() || undefined,
-       resolvesOpenPointId: intent.parameters.resolvesOpenPointId?.trim() || undefined,
+### FULL DIFF — e1-ensemble retain expectation
 
-```
+### FULL DIFF — project-activity-projection unit
 
-## 17. Tests exécutés
-
-Commande :
-```
-npx vitest run tests/unit/e1-*.test.ts tests/unit/knowledge-parent-subject-proposal.test.ts \
-  tests/unit/project-activity-projection.test.ts \
-  tests/integration/ml5-continuity-raccordement.pg.test.ts \
-  tests/integration/e1-ensemble-b5-b6.pg.test.ts \
-  tests/integration/e1-continuity-b7-b8.pg.test.ts \
-  tests/integration/e1-continuity-integrated.pg.test.ts
-```
-Environnement : DEV / vitest → `sfia_next_e2e` / STUDIO_LANE=DEV / pas d'OPENAI_API_KEY
-Date : 2026-11-27
-Résultat : **9 files / 58 tests PASS** (exit 0)
-Preuve log : `/tmp/e1-full-suite.log` (local) — synthèse ci-dessous.
-
-```
-◇ injected env (0) from .env.local
-
- RUN  v3.2.4 /Users/morris/Projects/sfia-wt-next-ml5-20261123/projects/sfia-studio-next/web
-
-stderr | tests/integration/e1-ensemble-b5-b6.pg.test.ts
-◇ injected env (0) from .env.local
-
-stderr | tests/integration/e1-ensemble-b5-b6.pg.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/integration/e1-ensemble-b5-b6.pg.test.ts (10 tests) 428ms
-stderr | tests/integration/ml5-continuity-raccordement.pg.test.ts
-◇ injected env (0) from .env.local
-
-stderr | tests/integration/ml5-continuity-raccordement.pg.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/integration/ml5-continuity-raccordement.pg.test.ts (6 tests) 292ms
-stderr | tests/integration/e1-continuity-integrated.pg.test.ts
-◇ injected env (0) from .env.local
-
-stderr | tests/integration/e1-continuity-integrated.pg.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/integration/e1-continuity-integrated.pg.test.ts (1 test) 251ms
-stderr | tests/integration/e1-continuity-b7-b8.pg.test.ts
-◇ injected env (0) from .env.local
-
-stderr | tests/integration/e1-continuity-b7-b8.pg.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/integration/e1-continuity-b7-b8.pg.test.ts (3 tests) 161ms
-stderr | tests/unit/e1-ensemble-b5-b6.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/unit/e1-ensemble-b5-b6.test.ts (16 tests) 6ms
-stderr | tests/unit/e1-continuity-b7-b8.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/unit/e1-continuity-b7-b8.test.ts (4 tests) 4ms
-stderr | tests/unit/project-activity-projection.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/unit/project-activity-projection.test.ts (5 tests) 2ms
-stderr | tests/unit/knowledge-parent-subject-proposal.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/unit/knowledge-parent-subject-proposal.test.ts (7 tests) 2ms
-stderr | tests/unit/e1-b1-capitalisation-selectivity.test.ts
-◇ injected env (0) from .env.local
-
- ✓ tests/unit/e1-b1-capitalisation-selectivity.test.ts (6 tests) 1ms
-
- Test Files  9 passed (9)
-      Tests  58 passed (58)
-   Start at  17:51:42
-   Duration  3.74s (transform 430ms, setup 40ms, collect 1.78s, tests 1.15s, environment 0ms, prepare 166ms)
-
-```
-
-
-TypeScript : `tsc --noEmit` exit ≠0 — **erreurs préexistantes** hors E1 (ml3 dictation, ml5 activity, provider sdk, documentary autonomy). **Aucune erreur tsc restante sur fichiers E1** après correctifs unit.
-
-## 18. Preuves PostgreSQL
-
-- ml5-continuity-raccordement.pg.test.ts : 6 PASS (parent précréé, same-turn title, same-turn intent, interprojet refuse, open resolve)
-- e1-ensemble-b5-b6.pg.test.ts : 10 PASS (D6 record/revise/revoke/négatifs ; D5 propose/retain/figma-no-op/open/steps)
-- e1-continuity-b7-b8.pg.test.ts : 3 PASS (PREFERRED+omit, projections, isolation)
-- e1-continuity-integrated.pg.test.ts : 1 PASS (chaîne complète)
-
-## 19. Preuves navigateur
-
-NON EXERCÉES dans E1 suite finale : DEV `:3100` HTTP 500 sous next-dev turbopack (tooling gap déjà observé avec `@cursor/sdk` map).
-Alternative connue : `qualify:start` (next start) historiquement HTTP 200.
-Réserve : **preuve navigateur E1 bornée manquante** — ne pas équivaloir à PASS DOM. Données propriétaire prêtes pour E3/E5.
-
-## 20. Autorité et reprise
-
-- Zéro proposition → zéro écriture.
-- Foreign parent → FAILED / pas de sujet.
-- Ownership lost paths conservés dans maybeCapitalizeFromExchange.
-- D6 : recommandation/OK ambigu/dialogue → pas de HumanDecision.
-- Resolve factuel exige provenance vérifiée (revision) — source insuffisante refuse.
-
-## 21. Réutilisation déterministe
-
-B.7 PG : capitalise → PREFERRED selection method semantic-preferred-then-bounded → continuation omit marker conserve PREFERRED, omet bruit.
-Flag embedding OFF : derivedUsed=false ne bloque pas le listing lexical ; réserve E2 pour hybrid.
-
-## 22. Documentation synchronisée
-
-- delivery-history.md — E1 périmètre + 58 PASS + réserves
-- ml5-registre — ligne R-E1 + table B.1–B.8
-- architecture-technique/e1-continuite-cognitive-as-built.md (créé)
-- NON modifiés : continuity contract ; suivi ChatGPT indépendant ; SEF ; décisions Morris
-
-## 23. Revue critique
-
-Points cherchés activement :
-- Perte silencieuse de propositions : obs + results status FAILED explicites.
-- Double registre d'autorité : D4 n'écrit pas HumanDecision.
-- Cycle hiérarchique : détecté en batch.
-- Contamination interprojet : testé.
-Faiblesses restantes : merge/split non branchés au conducteur ; navigateur non rejoué ; LIVE non exercé.
-
-## 24. Fake/Real Qualification
-
-| Fake | REAL correspondant | Parité | Gap |
-| --- | --- | --- | --- |
-| Qualification injectée | Nora LIVE semantic | structure intents | autonomie |
-| maybeCapitalize proposals | d4.record_knowledge LIVE | write path | sélection naturelle |
-| applyConversationalAuthority preQualified | LIVE qualification | D5/D6 mutate | compréhension |
-| PREFERRED ids fixture | Nora hint LIVE | select path | pertinence |
-Claims autorisés : IMPLEMENTED / COVERAGE VERIFIED / DETERMINISTIC PROVEN.
-Interdits sans preuve : autonomie LIVE / READY FOR REAL / Livraison 1 acceptée / ADOPTED.
-
-## 25. Réserves (proposées — non acceptées)
-
-| ID | Exigence | Écart | Cause | Risque | Travail restant | Dep | Décision Morris |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| R-E1-LIVE | B.1–B.7 | autonomie non prouvée | hors mandat LIVE | qualité cognitive | campagne LIVE bornée | gate | |
-| R-E1-EMB | B.7 | derivedUsed=false | hybrid residual | mesure reuse | E2 local fix ou mesure | E2 | |
-| R-E1-NAV | B.8/oracles | DOM non exercé | next-dev 500 | projection UI | qualify:start / E3 | E3/E5 | |
-| R-E1-MERGE | B.2 | merge/split ≠ conducteur | API UI only | réorg complète Nora | intent typé ou outil | arbitrage | |
-| R-E1-RETAIN-VIS | B.6 | après RETAIN, la révision PROPOSED source reste visible à côté de RETAINED | projection D5 actuelle | ambiguïté envisagé/retenu UI | clarifier règle produit (SUPERSEDED?) | arbitrage | |
-| R-E1-FORECAST-CONV | B.6 | `forecastJson` absent des paramètres sémantiques USER_MESSAGE PROPOSE | binding durable sans steps | étapes futures via conversation | étendre paramètres/qualification | E2/arbitrage | |
-| R-E1-TSC | build hygiene | tsc fail tests hors E1 | préexistant | CI bruit | hors E1 | E5 | |
-
-
-### Addendum post-agents (2026-11-27T16:55Z)
-- Findings [B.2](local) « reparent/rename hors capitalisation » : **supersédé** — raccord SUBJECT+subjectId+parentSubjectId + API `reparent` présents dans l'état final testé.
-- Findings B.5/B.6 : réserves R-E1-RETAIN-VIS et R-E1-FORECAST-CONV ajoutées ci-dessus (pas de nouvelle implémentation structurante sans arbitrage).
-- Cartographie inspection initiale : certains écarts (reparent, shortTitle) sont résolus en construction E1 ; la matrice §10 et les réserves font foi.
-
-## 26. Dépendances E2/E3
-
-- E2 : hybrid embedding, allocation/FinOps residual, multi-intent négatifs, mesure T08, OBS.
-- E3 : panneau droit, multi-types, accès points, Figma fidelity, typographie générale.
-E1 fournit shortTitle/ids/compteurs cohérents.
-
-## 27. Scénarios LIVE proposés (post-GO)
-
-1. MaintiPlan-analogue DEV : conversation libre → arbre naturel → enrichissement → décision → réutilisation sans relecture totale.
-2. Mesurer lectures/volumes/latence vs T08.
-3. Aucune exécution dans ce cycle.
-
-## 28. Review Pack Content Coverage
-
-| Item obligatoire | Présent |
-| --- | --- |
-| 1–30 structure mandat | OUI |
-| Contenu fichiers créés | OUI (batch, activity-projection, as-built, tests) |
-| Diffs modifiés | OUI (service, authority, context, journal, route, adapter, sem-qual) |
-| Tests + logs | OUI |
-| Matrices B/MP/oracles | OUI |
-| Fake/Real + réserves | OUI |
-| Verdict | ci-dessous |
-
-## 29. Verdict
-
-**READY WITH RESERVES**
-
-E1 continuity cognitive/functional is **DETERMINISTIC PROVEN** on owner chain (qualification injectée → mutation → PG → projection → reuse DET).
-Not proven: Nora LIVE autonomy, browser DOM on current next-dev, hybrid embedding, RECETTE MP closure.
-Next: ChatGPT independent review of this handoff → Morris gate → E2 only if accepted.
-
-HANDOFF commit message: `review(next): complete project cognitive continuity capability`
-
-## 30. Annexes — autres tests E1 (chemins)
-
-### `projects/sfia-studio-next/web/tests/integration/e1-ensemble-b5-b6.pg.test.ts`
+### FULL FILE — project-activity-projection.ts (untracked / new in E1)
 ```typescript
 /**
- * E1 Ensemble Continuity — B.5 (D6) + B.6 (D5) PG proofs via conversational authority.
+ * ML5 continuity (B.8) — deterministic activity counters for Travail/Projet.
+ * One row per document identity; révisions do not inflate the library count.
+ */
+
+import { editorialDisplayBullet } from "@/domains/knowledge/journal-editorial";
+
+export type DecisionProjectionRow = {
+  id: string;
+  state: string;
+  statement: string;
+  supersedesDecisionId?: string | null;
+  kind?: string;
+};
+
+/**
+ * A decision is superseded only when an APPLICABLE successor carries supersedesDecisionId.
+ * Non-APPLICABLE rows (REVISED / FAILED lineage) must not zero activity counters (MaintiPlan).
+ */
+export function buildSupersededDecisionIds<T extends DecisionProjectionRow>(rows: T[]): Set<string> {
+  const out = new Set<string>();
+  for (const d of rows) {
+    if (d.state === "APPLICABLE" && d.supersedesDecisionId) {
+      out.add(d.supersedesDecisionId);
+    }
+  }
+  return out;
+}
+
+export function filterApplicableHumanDecisions<T extends DecisionProjectionRow>(
+  rows: T[],
+  opts?: { kinds?: string[] },
+): T[] {
+  const superseded = buildSupersededDecisionIds(rows);
+  return rows.filter((d) => {
+    if (d.state !== "APPLICABLE") return false;
+    if (superseded.has(d.id)) return false;
+    if (opts?.kinds?.length && d.kind && !opts.kinds.includes(d.kind)) return false;
+    return true;
+  });
+}
+
+/**
+ * E3-facing compact label — prefer Nora-qualified canonicalTitle from provenance
+ * (E1-REL-04). Fallback editorial truncation for historical rows without title.
+ * No LLM call; no schema migration.
+ */
+export function openPointShortTitle(
+  statement: string,
+  maxLen = 72,
+  opts?: { canonicalTitle?: string | null; provenanceJson?: string | null },
+): string {
+  const fromOpt = opts?.canonicalTitle?.trim();
+  if (fromOpt) return editorialDisplayBullet(fromOpt, maxLen);
+  if (opts?.provenanceJson?.trim()) {
+    try {
+      const parsed = JSON.parse(opts.provenanceJson) as { canonicalTitle?: unknown };
+      if (typeof parsed.canonicalTitle === "string" && parsed.canonicalTitle.trim()) {
+        return editorialDisplayBullet(parsed.canonicalTitle.trim(), maxLen);
+      }
+    } catch {
+      /* ignore malformed provenance */
+    }
+  }
+  return editorialDisplayBullet(statement, maxLen);
+}
+
+export type DocumentListRow = {
+  document?: { id: string; title?: string } | null;
+};
+
+export function countProjectLibraryDocuments(documents: DocumentListRow[]): number {
+  const seen = new Set<string>();
+  for (const d of documents) {
+    const id = d.document?.id;
+    if (id) seen.add(id);
+  }
+  return seen.size;
+}
+
+export function projectLibraryDocumentExamples(
+  documents: DocumentListRow[],
+  limit = 2,
+): Array<{ id: string; title: string }> {
+  const seen = new Set<string>();
+  const out: Array<{ id: string; title: string }> = [];
+  for (const d of documents) {
+    const id = d.document?.id;
+    if (!id || seen.has(id)) continue;
+    seen.add(id);
+    out.push({ id, title: d.document!.title ?? "Sans titre" });
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+export function openKnowledgePoints<T extends { status: string }>(points: T[]): T[] {
+  return points.filter((p) => p.status === "OPEN");
+}
+
+export function countOpenKnowledgePoints<T extends { status: string }>(points: T[]): number {
+  return openKnowledgePoints(points).length;
+}
+
+/** Travail aside — at most five compact titles, same OPEN population as Journal. */
+export function travailAsideOpenPoints<T extends { id: string; statement: string; status: string }>(
+  points: T[],
+  max = 5,
+): T[] {
+  return openKnowledgePoints(points).slice(0, max);
+}```
+
+### FULL FILE — e1-reliquats-integrity.pg.test.ts (nouveau)
+```typescript
+/**
+ * E1 complément — E1-REL-01/02/04/05 deterministic integrity proofs.
  */
 import { beforeAll, describe, expect, it } from "vitest";
 import { config } from "dotenv";
@@ -2158,35 +1594,38 @@ process.env.STUDIO_E2E = "1";
 
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db/client";
-import { businessCommands, humanDecisions, pilots, preparations, projectCycles } from "@/db/schema";
+import {
+  knowledgeAcquis,
+  knowledgeOpenPoints,
+  knowledgeSubjects,
+  pilots,
+  preparations,
+  trajectoryRevisions,
+} from "@/db/schema";
 import { newId } from "@/lib/ids";
 import {
-  getPreparationContext,
-  openOrCreatePreparation,
-  updatePreview,
-} from "@/domains/preparation/service";
+  capitalizeAcquis,
+  ensureSubject,
+  maybeCapitalizeFromExchange,
+  openPoint,
+} from "@/domains/knowledge/service";
+import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
 import { createProjectCommand } from "@/domains/preparation/create-project";
+import { getPreparationContext } from "@/domains/preparation/service";
+import { openPointShortTitle } from "@/domains/preparation/project-activity-projection";
+import { SEMANTIC_QUALIFICATION_SCHEMA_VERSION } from "@/domains/conversation/semantic-qualification";
 import {
   reserveTurnCommand,
   stashTurnQualification,
 } from "@/domains/conversation/turn-command";
-import { SEMANTIC_QUALIFICATION_SCHEMA_VERSION } from "@/domains/conversation/semantic-qualification";
 import { applyConversationalAuthority } from "@/domains/pilotage/conversation-authority";
 import {
-  executePilotageCommand,
   getPilotageProjection,
   retainTrajectory,
 } from "@/domains/pilotage/service";
-import { getOwnedProjectContext } from "@/domains/preparation/project-context";
-import { listDecisionJournal } from "@/domains/decisions/service";
-import { displayableCycleObjective } from "@/domains/pilotage/cycle-objective-display";
-import {
-  clearPilotagePreQualified,
-  d6DecisionEnvelope,
-  dialogueEnvelope,
-} from "../helpers/semantic-fixture-envelopes";
+import { clearPilotagePreQualified } from "../helpers/semantic-fixture-envelopes";
 
-async function seedOwnedProject(label: string) {
+async function seedWorld(label: string) {
   const pilotId = newId("pilot");
   await db.insert(pilots).values({
     id: pilotId,
@@ -2194,7 +1633,7 @@ async function seedOwnedProject(label: string) {
     githubUserId: `gh-${pilotId}`,
   });
   const prep = await openOrCreatePreparation(pilotId);
-  await updatePreview(pilotId, prep.id, label, "e1-b5-b6");
+  await updatePreview(pilotId, prep.id, label, "e1-reliquats");
   const refreshed = (
     await db.select().from(preparations).where(eq(preparations.id, prep.id))
   )[0];
@@ -2203,1474 +1642,509 @@ async function seedOwnedProject(label: string) {
     preparationId: prep.id,
     expectedCreationRevision: refreshed.creationRevision,
     projectName: label,
-    previewSummary: "e1-b5-b6",
+    previewSummary: "e1-reliquats",
     idempotencyKey: newId("idem"),
   });
   if (created.status !== "CREATED" && created.status !== "ALREADY_CREATED") {
-    throw new Error(`setup: createProject ${created.status}`);
+    throw new Error(`create failed: ${created.status}`);
   }
   const ctx = await getPreparationContext(pilotId, prep.id);
-  if (!ctx.project?.id || !ctx.conversation?.id) throw new Error("setup: missing project");
   return {
     pilotId,
     preparationId: prep.id,
     projectId: created.projectId!,
-    conversationId: ctx.conversation.id,
+    conversationId: ctx.conversation!.id,
   };
 }
 
-async function seedQualifiedMessage(
-  world: { pilotId: string; conversationId: string; projectId: string },
-  content: string,
-  qual: Record<string, unknown>,
-) {
-  const reserved = await reserveTurnCommand({
-    conversationId: world.conversationId,
-    ownerPilotId: world.pilotId,
-    clientTurnKey: `e1-${newId("ctk")}`,
-    content,
-  });
-  if (reserved.kind !== "fresh") throw new Error(`expected fresh turn: ${reserved.kind}`);
-  const stashed = await stashTurnQualification({
-    commandId: reserved.commandId,
-    ownerToken: reserved.ownerToken,
-    qualificationJson: JSON.stringify(qual),
-  });
-  if (!stashed.applied) throw new Error("qualification stash failed");
-  return {
-    userMessageId: reserved.userMessageId,
-    clientTurnKey: reserved.clientTurnKey,
-  };
-}
-
-async function countRecordDecisions(projectId: string, state?: string) {
-  const rows = await db
-    .select()
-    .from(humanDecisions)
-    .where(
-      state
-        ? and(
-            eq(humanDecisions.projectId, projectId),
-            eq(humanDecisions.kind, "RECORD_DECISION"),
-            eq(humanDecisions.state, state),
-          )
-        : and(eq(humanDecisions.projectId, projectId), eq(humanDecisions.kind, "RECORD_DECISION")),
-    );
-  return rows;
-}
-
-describe("E1 B.5/B.6 — ensemble continuity (PG)", () => {
+describe("E1 reliquats — D4 integrity + org + title + forecast", () => {
   beforeAll(() => {
-    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-    delete process.env.OPENAI_API_KEY;
-  });
-
-  it("B.5 durable human act → single APPLICABLE RECORD_DECISION", async () => {
-    const world = await seedOwnedProject(`e1-b5-record-${Date.now()}`);
-    const content = "Je décide que GitHub est obligatoire pour ce projet.";
-    const qual = d6DecisionEnvelope({
-      operation: "RECORD_DECISION",
-      statement: "GitHub est obligatoire pour ce projet.",
-      objectRef: "github",
-    });
-    const msg = await seedQualifiedMessage(world, content, qual);
-    const outcome = await applyConversationalAuthority({
-      pilotId: world.pilotId,
-      projectId: world.projectId,
-      userMessageId: msg.userMessageId,
-      content,
-      clientTurnKey: msg.clientTurnKey,
-      preQualified: clearPilotagePreQualified({
-        operation: "RECORD_DECISION",
-        statement: "GitHub est obligatoire pour ce projet.",
-        objectRef: "github",
-        semanticIntentId: qual.intents[0]!.id,
-      }),
-    });
-    expect(outcome.attempted).toBe(true);
-    expect(outcome.humanDecisionCreated).toBe(true);
-    expect(outcome.command?.status).toBe("APPLIED");
-    const applicable = await countRecordDecisions(world.projectId, "APPLICABLE");
-    expect(applicable).toHaveLength(1);
-    const ctx = await getOwnedProjectContext(world.pilotId, world.projectId);
-    expect(ctx.activity.applicableDecisions.count).toBeGreaterThanOrEqual(1);
-  });
-
-  it("B.5 dialogue-only recommendation → no HumanDecision", async () => {
-    const world = await seedOwnedProject(`e1-b5-norec-${Date.now()}`);
-    const content = "Explique les options sans décider pour moi.";
-    const qual = dialogueEnvelope(
-      content,
-      "Voici une recommandation conditionnelle — pas une décision.",
-      ["NO_EFFECT"],
-    );
-    const msg = await seedQualifiedMessage(world, content, qual);
-    const outcome = await applyConversationalAuthority({
-      pilotId: world.pilotId,
-      projectId: world.projectId,
-      userMessageId: msg.userMessageId,
-      content,
-      clientTurnKey: msg.clientTurnKey,
-      preQualified: { clarity: "NONE", reason: "NO_SEMANTIC_PILOTAGE_QUALIFICATION" },
-    });
-    expect(outcome.attempted).toBe(false);
-    expect(outcome.humanDecisionCreated).toBe(false);
-    expect(await countRecordDecisions(world.projectId)).toHaveLength(0);
-    const cmds = await db
-      .select()
-      .from(businessCommands)
-      .where(eq(businessCommands.projectId, world.projectId));
-    expect(cmds).toHaveLength(0);
-  });
-
-  it("B.5 ambiguous qualification → clarification_only, no decision", async () => {
-    const world = await seedOwnedProject(`e1-b5-ambig-${Date.now()}`);
-    const content = "OK";
-    const qual = {
-      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-      status: "NEEDS_CLARIFICATION" as const,
-      goal: "ok",
-      intents: [],
-      clarifications: ["OK seul — précisez l'acte attendu."],
-      replyDraft: "Que souhaitez-vous confirmer ?",
-    };
-    await seedQualifiedMessage(world, content, qual);
-    const outcome = await applyConversationalAuthority({
-      pilotId: world.pilotId,
-      projectId: world.projectId,
-      userMessageId: newId("msg"),
-      content,
-      clientTurnKey: `ambig-${Date.now()}`,
-      preQualified: { clarity: "AMBIGUOUS", reason: "OK_AMBIGUOUS" },
-    });
-    expect(outcome.attempted).toBe(false);
-    expect(outcome.intentClarity).toBe("AMBIGUOUS");
-    expect(outcome.source).toBe("clarification_only");
-    expect(await countRecordDecisions(world.projectId)).toHaveLength(0);
-  });
-
-  it("B.5 revise + replay preserves counters without duplicate applicable", async () => {
-    const world = await seedOwnedProject(`e1-b5-revise-${Date.now()}`);
-  let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    const recorded = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: newId("ck"),
-      expectedRevision: rev,
-      sourceKind: "EXPLICIT_INTERACTION",
-      sourceRef: newId("ui"),
-      operation: "RECORD_DECISION",
-      statement: "Standard A",
-      objectRef: "std-a",
-    });
-    expect(recorded.status).toBe("APPLIED");
-    rev = recorded.revision ?? rev + 1;
-    const targetId = recorded.decisionId!;
-    const content = "Je révise la décision Standard A.";
-    const qual = d6DecisionEnvelope({
-      operation: "REVISE_DECISION",
-      statement: "Standard B",
-      objectRef: "std-a",
-      decisionId: targetId,
-    });
-    const msg = await seedQualifiedMessage(world, content, qual);
-    const first = await applyConversationalAuthority({
-      pilotId: world.pilotId,
-      projectId: world.projectId,
-      userMessageId: msg.userMessageId,
-      content,
-      clientTurnKey: msg.clientTurnKey,
-      preQualified: clearPilotagePreQualified({
-        operation: "REVISE_DECISION",
-        decisionId: targetId,
-        statement: "Standard B",
-        objectRef: "std-a",
-        semanticIntentId: qual.intents[0]!.id,
-      }),
-    });
-    expect(first.command?.status).toBe("APPLIED");
-    const replay = await applyConversationalAuthority({
-      pilotId: world.pilotId,
-      projectId: world.projectId,
-      userMessageId: msg.userMessageId,
-      content,
-      clientTurnKey: msg.clientTurnKey,
-      preQualified: clearPilotagePreQualified({
-        operation: "REVISE_DECISION",
-        decisionId: targetId,
-        statement: "Standard B",
-        objectRef: "std-a",
-        semanticIntentId: qual.intents[0]!.id,
-      }),
-    });
-    expect(replay.command?.commandId).toBe(first.command?.commandId);
-    const applicable = await countRecordDecisions(world.projectId, "APPLICABLE");
-    expect(applicable).toHaveLength(1);
-    expect(applicable[0]!.statement).toContain("Standard B");
-    const original = (
-      await db.select().from(humanDecisions).where(eq(humanDecisions.id, targetId))
-    )[0];
-    expect(original?.state).toBe("REVISED");
-  });
-
-  it("B.5 revoke path preserves journal history", async () => {
-    const world = await seedOwnedProject(`e1-b5-revoke-${Date.now()}`);
-    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    const recorded = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: newId("ck"),
-      expectedRevision: rev,
-      sourceKind: "EXPLICIT_INTERACTION",
-      sourceRef: newId("ui"),
-      operation: "RECORD_DECISION",
-      statement: "Décision à révoquer",
-      objectRef: "revoke-me",
-    });
-    rev = recorded.revision ?? rev + 1;
-    const id = recorded.decisionId!;
-    const revoked = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: newId("ck"),
-      expectedRevision: rev,
-      sourceKind: "EXPLICIT_INTERACTION",
-      sourceRef: newId("ui"),
-      operation: "REVOKE_DECISION",
-      decisionId: id,
-    });
-    expect(revoked.status).toBe("APPLIED");
-    const journal = await listDecisionJournal(world.pilotId, world.projectId);
-    expect(journal.some((d) => d.id === id && d.state === "REVOKED")).toBe(true);
-    expect(await countRecordDecisions(world.projectId, "APPLICABLE")).toHaveLength(0);
-  });
-
-  it("B.6 propose via conversational qualification (orientation from durable binding)", async () => {
-    const world = await seedOwnedProject(`e1-b6-propose-${Date.now()}`);
-    const orientation =
-      "Insérer conception UX (écrans Figma) avant validation qualité";
-    const content =
-      "Proposons d'abord le cadrage, puis la conception UX avant les tests de validation.";
-    const qual = {
-      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-      status: "QUALIFIED" as const,
-      goal: "trajectoire",
-      intents: [
-        {
-          id: "i-propose",
-          capabilityId: "d5.pilotage_command" as const,
-          mode: "REQUEST_EFFECT" as const,
-          summary: orientation,
-          parameters: {
-            pilotageOperation: "PROPOSE_TRAJECTORY" as const,
-            statement: orientation,
-            relevantAcquisIds: ["acq-fixture"],
-          },
-          constraints: [] as string[],
-          dependsOn: [] as string[],
-          sourceEvidence: [] as string[],
-        },
-      ],
-      clarifications: [] as string[],
-      replyDraft: "Je formalise la proposition de trajectoire.",
-    };
-    const msg = await seedQualifiedMessage(world, content, qual);
-    const outcome = await applyConversationalAuthority({
-      pilotId: world.pilotId,
-      projectId: world.projectId,
-      userMessageId: msg.userMessageId,
-      content,
-      clientTurnKey: msg.clientTurnKey,
-      preQualified: clearPilotagePreQualified({
-        operation: "PROPOSE_TRAJECTORY",
-        objective: orientation,
-        statement: orientation,
-        semanticIntentId: "i-propose",
-      }),
-    });
-    expect(outcome.command?.status).toBe("APPLIED");
-    const proj = await getPilotageProjection(world.pilotId, world.projectId);
-    expect(proj.trajectory.proposed?.orientation).toMatch(/Figma|UX/i);
-    expect(proj.trajectory.retained).toBeNull();
-    expect(proj.cycle).toBeNull();
-  });
-
-  it("B.6 retain distinguishes envisaged vs retained", async () => {
-    const world = await seedOwnedProject(`e1-b6-retain-${Date.now()}`);
-    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    const proposed = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: newId("ck"),
-      expectedRevision: rev,
-      sourceKind: "COGNITIVE_PROPOSAL",
-      sourceRef: newId("src"),
-      operation: "PROPOSE_TRAJECTORY",
-      orientation: "Poursuivre le cadrage avant la conception",
-    });
-    rev = proposed.revision ?? rev + 1;
-    const mid = await getPilotageProjection(world.pilotId, world.projectId);
-    expect(mid.trajectory.proposed?.status).toBe("PROPOSED");
-    const content = "Je retiens cette trajectoire.";
-    const qual = {
-      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-      status: "QUALIFIED" as const,
-      goal: "retain",
-      intents: [
-        {
-          id: "i-retain",
-          capabilityId: "d5.pilotage_command" as const,
-          mode: "REQUEST_EFFECT" as const,
-          summary: "RETAIN_TRAJECTORY",
-          parameters: { pilotageOperation: "RETAIN_TRAJECTORY" as const },
-          constraints: [] as string[],
-          dependsOn: [] as string[],
-          sourceEvidence: [] as string[],
-        },
-      ],
-      clarifications: [] as string[],
-      replyDraft: "Trajectoire retenue.",
-    };
-    const msg = await seedQualifiedMessage(world, content, qual);
-    const outcome = await applyConversationalAuthority({
-      pilotId: world.pilotId,
-      projectId: world.projectId,
-      userMessageId: msg.userMessageId,
-      content,
-      clientTurnKey: msg.clientTurnKey,
-      preQualified: clearPilotagePreQualified({
-        operation: "RETAIN_TRAJECTORY",
-        objective: "RETAIN_TRAJECTORY",
-        semanticIntentId: "i-retain",
-      }),
-    });
-    expect(outcome.humanDecisionCreated).toBe(true);
-    const after = await getPilotageProjection(world.pilotId, world.projectId);
-    expect(after.trajectory.retained?.status).toBe("RETAINED");
-    // PROPOSED row may remain until superseded by a newer proposal (history preserved).
-    expect(after.trajectory.proposed?.status).toBe("PROPOSED");
-    expect(after.trajectory.retained?.orientation).toBe(after.trajectory.proposed?.orientation);
-  });
-
-  it("B.6 Figma mention dialogue does not open cycle", async () => {
-    const world = await seedOwnedProject(`e1-b6-figma-${Date.now()}`);
-    const content = "Je veux travailler les maquettes Figma avant les tests.";
-    const qual = dialogueEnvelope(
-      content,
-      "Nous pouvons explorer Figma — cela ne ouvre pas un cycle automatiquement.",
-      ["NO_EFFECT"],
-    );
-    await seedQualifiedMessage(world, content, qual);
-    const outcome = await applyConversationalAuthority({
-      pilotId: world.pilotId,
-      projectId: world.projectId,
-      userMessageId: newId("msg"),
-      content,
-      clientTurnKey: `figma-${Date.now()}`,
-      preQualified: { clarity: "NONE", reason: "NO_SEMANTIC_PILOTAGE_QUALIFICATION" },
-    });
-    expect(outcome.attempted).toBe(false);
-    const cycles = await db
-      .select()
-      .from(projectCycles)
-      .where(eq(projectCycles.projectId, world.projectId));
-    expect(cycles).toHaveLength(0);
-  });
-
-  it("B.6 explicit GO opens one ACTIVE cycle with contextual objective", async () => {
-    const world = await seedOwnedProject(`e1-b6-open-${Date.now()}`);
-    const content = "Ouvre le cycle cadrage pour clarifier le besoin terrain.";
-    const qual = {
-      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-      status: "QUALIFIED" as const,
-      goal: "open",
-      intents: [
-        {
-          id: "i-open",
-          capabilityId: "d5.pilotage_command" as const,
-          mode: "REQUEST_EFFECT" as const,
-          summary: "Clarifier le besoin terrain",
-          parameters: {
-            pilotageOperation: "OPEN_CYCLE" as const,
-            cycleType: "CADRAGE" as const,
-          },
-          constraints: [] as string[],
-          dependsOn: [] as string[],
-          sourceEvidence: [] as string[],
-        },
-      ],
-      clarifications: [] as string[],
-      replyDraft: "Ouverture du cadrage.",
-    };
-    const msg = await seedQualifiedMessage(world, content, qual);
-    const outcome = await applyConversationalAuthority({
-      pilotId: world.pilotId,
-      projectId: world.projectId,
-      userMessageId: msg.userMessageId,
-      content,
-      clientTurnKey: msg.clientTurnKey,
-      preQualified: clearPilotagePreQualified({
-        operation: "OPEN_CYCLE",
-        cycleType: "CADRAGE",
-        objective: "Clarifier le besoin terrain",
-        semanticIntentId: "i-open",
-      }),
-    });
-    expect(outcome.command?.status).toBe("APPLIED");
-    const proj = await getPilotageProjection(world.pilotId, world.projectId);
-    expect(proj.cycle?.status).toBe("ACTIVE");
-    expect(proj.cycle?.cycleType).toBe("CADRAGE");
-    expect(displayableCycleObjective(proj.cycle?.objective)).toBe("Clarifier le besoin terrain");
-    const active = await db
-      .select()
-      .from(projectCycles)
-      .where(
-        and(eq(projectCycles.projectId, world.projectId), eq(projectCycles.status, "ACTIVE")),
-      );
-    expect(active).toHaveLength(1);
-  });
-
-  it("B.6 modify future steps preserves prior retained history", async () => {
-    const world = await seedOwnedProject(`e1-b6-steps-${Date.now()}`);
-    let rev = (await getPilotageProjection(world.pilotId, world.projectId)).revision;
-    const stepsV1 = [
-      { order: 1, cycleType: "CADRAGE" as const, rationale: "Cadrer", certainty: "QUALIFIED" as const },
-      {
-        order: 2,
-        cycleType: "CONCEPTION_FONCTIONNELLE" as const,
-        rationale: "Concevoir",
-        certainty: "ENVISIONED" as const,
-      },
-    ];
-    const t1 = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: newId("ck"),
-      expectedRevision: rev,
-      sourceKind: "EXPLICIT_INTERACTION",
-      sourceRef: newId("src"),
-      operation: "PROPOSE_TRAJECTORY",
-      orientation: "Trajectoire v1",
-      forecastJson: stepsV1,
-    });
-    rev = t1.revision ?? rev + 1;
-    const retain = await retainTrajectory(world.pilotId, world.projectId, {
-      clientCommandKey: newId("ck"),
-      expectedRevision: rev,
-      sourceRef: newId("src"),
-      trajectoryRevisionId: t1.effects.find((e) => e.effectKind === "PROPOSE")?.targetRef,
-    });
-    rev = retain.revision ?? rev + 1;
-    const stepsV2 = [
-      { order: 1, cycleType: "CADRAGE" as const, rationale: "Cadrer", certainty: "QUALIFIED" as const },
-      { order: 2, cycleType: "UX_UI" as const, rationale: "Écrans Figma", certainty: "ENVISIONED" as const },
-      { order: 3, cycleType: "QA_VALIDATION" as const, rationale: "Tests", certainty: "ENVISIONED" as const },
-    ];
-    const t2 = await executePilotageCommand(world.pilotId, world.projectId, {
-      clientCommandKey: newId("ck"),
-      expectedRevision: rev,
-      sourceKind: "EXPLICIT_INTERACTION",
-      sourceRef: newId("src"),
-      operation: "PROPOSE_TRAJECTORY",
-      orientation: "Trajectoire v2 — Figma avant QA",
-      forecastJson: stepsV2,
-    });
-    expect(t2.status).toBe("APPLIED");
-    const proj = await getPilotageProjection(world.pilotId, world.projectId);
-    expect(proj.trajectory.retained?.orientation).toContain("v1");
-    expect(proj.trajectory.proposed?.forecastSteps?.map((s) => s.cycleType)).toEqual([
-      "CADRAGE",
-      "UX_UI",
-      "QA_VALIDATION",
-    ]);
-  });
-});
-```
-
-
-### `projects/sfia-studio-next/web/tests/integration/e1-continuity-b7-b8.pg.test.ts`
-```typescript
-/**
- * E1 B.7 cognitive reuse + B.8 owner projection coherence (PG).
- */
-import { beforeAll, describe, expect, it } from "vitest";
-import { config } from "dotenv";
-config({ path: ".env.local" });
-
-import { eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import { pilots } from "@/db/schema";
-import { newId } from "@/lib/ids";
-import {
-  capitalizeAcquis,
-  ensureSubject,
-  openPoint,
-  selectRelevantKnowledgeContext,
-} from "@/domains/knowledge/service";
-import { getJournalProjection } from "@/domains/knowledge/journal";
-import { savePreparationDocument } from "@/domains/document/service";
-import { createProjectCommand } from "@/domains/preparation/create-project";
-import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
-import { getOwnedProjectContext } from "@/domains/preparation/project-context";
-import { openKnowledgePoints } from "@/domains/preparation/project-activity-projection";
-import {
-  CONTINUATION_KNOWLEDGE_OMIT_MARKER,
-  resolveContinuationKnowledgeSnippets,
-} from "@/domains/conversation/segment-context-efficiency";
-import { insertHumanDecision, markDecisionState } from "@/domains/decisions/service";
-
-async function seedPilot(label: string) {
-  const id = newId("pilot");
-  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
-  return id;
-}
-
-async function seedLinkedProject(pilotId: string, name: string) {
-  const prep = await openOrCreatePreparation(pilotId);
-  await updatePreview(pilotId, prep.id, name, "e1-b7-b8");
-  const { preparations } = await import("@/db/schema");
-  const refreshed = (await db.select().from(preparations).where(eq(preparations.id, prep.id)))[0];
-  const created = await createProjectCommand({
-    pilotId,
-    preparationId: prep.id,
-    expectedCreationRevision: refreshed.creationRevision,
-    projectName: name,
-    previewSummary: "e1-b7-b8",
-    idempotencyKey: newId("idem"),
-  });
-  if (created.status !== "CREATED" && created.status !== "ALREADY_CREATED") {
-    throw new Error(`project create failed: ${created.status}`);
-  }
-  return { prep, projectId: created.projectId! };
-}
-
-describe("E1 B.7/B.8 continuity (PG)", () => {
-  beforeAll(() => {
-    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-    delete process.env.OPENAI_API_KEY;
-    process.env.STUDIO_LANE = "DEV";
-    process.env.STUDIO_E2E = "1";
-    delete process.env.SFIA_DERIVED_EMBEDDING_SEARCH;
-  });
-
-  it("B.7 — capitalise then PREFERRED selection + continuation omit without losing target", async () => {
-    const pilotId = await seedPilot("e1-b7-reuse");
-    const { prep, projectId } = await seedLinkedProject(pilotId, "Réutilisation cognitive");
-    const subj = await ensureSubject(pilotId, prep.id, "Intégration Git");
-    const acq = await capitalizeAcquis(pilotId, prep.id, {
-      statement:
-        "La connexion GitHub est obligatoire pour toute livraison sur le dépôt MaintiPlan.",
-      kind: "FACT",
-      subjectId: subj.subjectId,
-      provenance: { sourceKind: "pilot", sourceId: "b7-seed", epistemic: "established" },
-    });
-    expect(acq.status).toBe("AVAILABLE");
-    const pt = await openPoint(pilotId, prep.id, {
-      statement: "Quelle branche protégée pour la release MaintiPlan ?",
-      subjectId: subj.subjectId,
-      provenance: { sourceKind: "message", sourceId: "m-b7" },
-    });
-    expect(pt.status).toBe("AVAILABLE");
-
-    const selected = await selectRelevantKnowledgeContext(
-      pilotId,
-      prep.id,
-      "Je reprends le fil sur GitHub et la branche de release",
-      {
-        projectId,
-        preferredAcquisIds: [acq.acquisId!],
-        preferredOpenPointIds: [pt.openPointId!],
-        preferredSubjectIds: [subj.subjectId!],
-        limit: 8,
-      },
-    );
-    expect(
-      selected.selectionMethod === "semantic-preferred-then-bounded" ||
-        selected.selectionMethod === "reactivation-then-preferred-bounded",
-    ).toBe(true);
-    expect(
-      selected.snippets.some(
-        (s) => s.includes(acq.acquisId!) && s.includes("/PREFERRED]"),
-      ),
-    ).toBe(true);
-    expect(
-      selected.snippets.some(
-        (s) =>
-          s.includes(pt.openPointId!) &&
-          (s.includes("/PREFERRED]") || s.includes("POINT_OUVERT_REACTIVATE")),
-      ),
-    ).toBe(true);
-
-    const withBulkNoise = [
-      ...selected.snippets,
-      "ACQUIS[FACT/noise-acq/AVAILABLE] subject=∅: bruit journal non préféré",
-    ];
-    const continued = resolveContinuationKnowledgeSnippets(withBulkNoise, {
-      useContinuation: true,
-      hasPriorAcquis: true,
-    });
-    expect(continued[0]).toBe(CONTINUATION_KNOWLEDGE_OMIT_MARKER);
-    expect(continued.some((s) => s.includes(acq.acquisId!) && s.includes("PREFERRED"))).toBe(
-      true,
-    );
-    expect(continued.some((s) => s.includes("noise-acq"))).toBe(false);
-  });
-
-  it("B.7 — foreign preferred ids do not cross-project contaminate", async () => {
-    const pilotA = await seedPilot("e1-b7-iso-a");
-    const pilotB = await seedPilot("e1-b7-iso-b");
-    const worldA = await seedLinkedProject(pilotA, "Projet A");
-    const worldB = await seedLinkedProject(pilotB, "Projet B");
-    const acqB = await capitalizeAcquis(pilotB, worldB.prep.id, {
-      statement: "Secret projet B — token d'isolation cognitive e1-b7.",
-      provenance: { sourceKind: "pilot", sourceId: "iso" },
-    });
-    expect(acqB.status).toBe("AVAILABLE");
-
-    const selectedA = await selectRelevantKnowledgeContext(
-      pilotA,
-      worldA.prep.id,
-      "Rappelle le secret",
-      {
-        projectId: worldA.projectId,
-        preferredAcquisIds: [acqB.acquisId!],
-      },
-    );
-    expect(selectedA.snippets.some((s) => s.includes(acqB.acquisId!))).toBe(false);
-    expect(selectedA.selectedAcquisIds).not.toContain(acqB.acquisId);
-  });
-
-  it("B.8 — activity/Journal/Trajectoire share owner counts (decisions, docs, open points)", async () => {
-    const pilotId = await seedPilot("e1-b8-proj");
-    const { prep, projectId } = await seedLinkedProject(pilotId, "MaintiPlan projection");
-    const subj = await ensureSubject(pilotId, prep.id, "Dépôt");
-    await openPoint(pilotId, prep.id, {
-      statement: "Valider le workflow de release sur GitHub.",
-      subjectId: subj.subjectId,
-      provenance: { sourceKind: "pilot", sourceId: "b8" },
-    });
-    const doc = await savePreparationDocument(
-      pilotId,
-      prep.id,
-      "Guide release",
-      "# guide\nProcédure.",
-      undefined,
-      { correlationKey: `b8-${newId("doc")}`, provenance: { sourceKind: "pilot" } },
-    );
-    expect(doc.status).toBe("AVAILABLE");
-
-    const dApplicable = await db.transaction((tx) =>
-      insertHumanDecision(tx, {
-        projectId,
-        pilotId,
-        sourceKind: "message",
-        sourceRef: "m-b8",
-        kind: "RECORD_DECISION",
-        objectRef: "github",
-        statement: "GitHub est obligatoire pour MaintiPlan.",
-      }),
-    );
-    const dStaleLine = await db.transaction((tx) =>
-      insertHumanDecision(tx, {
-        projectId,
-        pilotId,
-        sourceKind: "message",
-        sourceRef: "m-b8-revise-fail",
-        kind: "RECORD_DECISION",
-        objectRef: "github",
-        statement: "Tentative révision non retenue",
-        supersedesDecisionId: dApplicable,
-      }),
-    );
-    await db.transaction((tx) => markDecisionState(tx, dStaleLine, "REVISED"));
-
-    const ctx = await getOwnedProjectContext(pilotId, projectId);
-    const journal = await getJournalProjection(pilotId, projectId);
-
-    expect(ctx.activity.applicableDecisions.count).toBe(1);
-    expect(ctx.activity.applicableDecisions.examples[0]?.id).toBe(dApplicable);
-    expect(ctx.activity.documentsInProgress.count).toBeGreaterThanOrEqual(1);
-    expect(ctx.activity.openPointsCount).toBe(1);
-    expect(ctx.knowledge.openPoints[0]?.shortTitle?.length).toBeGreaterThan(5);
-    expect(openKnowledgePoints(ctx.knowledge.openPoints)).toHaveLength(1);
-
-    const journalApplicable = journal.decisions.filter((d) => d.applicable);
-    expect(journalApplicable).toHaveLength(1);
-    expect(journalApplicable[0]?.id).toBe(dApplicable);
-  });
-});
-```
-
-
-### `projects/sfia-studio-next/web/tests/integration/ml5-continuity-raccordement.pg.test.ts`
-```typescript
-import { beforeAll, describe, expect, it } from "vitest";
-import { config } from "dotenv";
-config({ path: ".env.local" });
-
-import { eq } from "drizzle-orm";
-import { db } from "@/db/client";
-import { knowledgeOpenPoints, pilots, preparations } from "@/db/schema";
-import { newId } from "@/lib/ids";
-import {
-  ensureSubject,
-  maybeCapitalizeFromExchange,
-  openPoint,
-} from "@/domains/knowledge/service";
-import { listProjectKnowledge, resolveOpenPointFactually } from "@/domains/knowledge/journal";
-import { savePreparationDocument } from "@/domains/document/service";
-import { createProjectCommand } from "@/domains/preparation/create-project";
-import { openOrCreatePreparation, updatePreview } from "@/domains/preparation/service";
-import { getOwnedProjectContext } from "@/domains/preparation/project-context";
-import { openKnowledgePoints } from "@/domains/preparation/project-activity-projection";
-
-async function seedPilot(label: string) {
-  const id = newId("pilot");
-  await db.insert(pilots).values({ id, displayName: label, githubUserId: `gh-${id}` });
-  return id;
-}
-
-async function seedLinkedProject(pilotId: string, name: string) {
-  const prep = await openOrCreatePreparation(pilotId);
-  await updatePreview(pilotId, prep.id, name, "ML5 continuity");
-  const refreshed = (await db.select().from(preparations).where(eq(preparations.id, prep.id)))[0];
-  const created = await createProjectCommand({
-    pilotId,
-    preparationId: prep.id,
-    expectedCreationRevision: refreshed.creationRevision,
-    projectName: name,
-    previewSummary: "ML5 continuity",
-    idempotencyKey: newId("idem"),
-  });
-  if (created.status !== "CREATED" && created.status !== "ALREADY_CREATED") {
-    throw new Error(`project create failed: ${created.status}`);
-  }
-  return { prep, projectId: created.projectId! };
-}
-
-describe("ML5 continuity raccordement (PG)", () => {
-  beforeAll(() => {
-    if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
-    delete process.env.OPENAI_API_KEY;
-    process.env.STUDIO_LANE = "DEV";
-    process.env.STUDIO_E2E = "1";
-  });
-
-  it("B.2 — single capitalisation creates parent and child without pre-created parent", async () => {
-    const pilotId = await seedPilot("ML5-batch-parent-child");
-    const { prep, projectId } = await seedLinkedProject(pilotId, "Hiérarchie batch");
-
-    const gen = newId("gen");
-    const cap = await maybeCapitalizeFromExchange(pilotId, prep.id, {
-      userText: "On structure le planning et les créneaux.",
-      assistantText: "Je crée le thème parent et le sous-thème.",
-      generationId: gen,
-      userMessageId: newId("msg"),
-      proposals: [
-        {
-          intentId: "subj-parent-plan",
-          kind: "SUBJECT",
-          statement:
-            "Cadre de planification des interventions terrain, calendrier et priorités opérationnelles.",
-          epistemic: "established",
-          subjectTitle: "Planning intervention",
-          continuityReason: "nouveau thème",
-        },
-        {
-          intentId: "subj-child-slots",
-          kind: "SUBJECT",
-          statement:
-            "Organisation des créneaux horaires et contraintes de déplacement sur le terrain.",
-          epistemic: "established",
-          subjectTitle: "Créneaux terrain",
-          parentSubjectId: "Planning intervention",
-          continuityReason: "approfondissement naturel",
-        },
-      ],
-    });
-    expect(
-      cap.capitalisations.filter((c) => c.kind === "subject" && c.status === "AVAILABLE"),
-    ).toHaveLength(2);
-
-    const bundle = await listProjectKnowledge(pilotId, projectId);
-    const parent = bundle.subjects.find((s) => s.title === "Planning intervention");
-    const child = bundle.subjects.find((s) => s.title === "Créneaux terrain");
-    expect(parent?.id).toBeTruthy();
-    expect(child?.parentSubjectId).toBe(parent?.id);
-  });
-
-  it("B.2 — maybeCapitalizeFromExchange persists child subject with parentSubjectId", async () => {
-    const pilotId = await seedPilot("ML5-parent-cap");
-    const { prep, projectId } = await seedLinkedProject(pilotId, "Hiérarchie");
-    const parent = await ensureSubject(pilotId, prep.id, "Planning intervention");
-    expect(parent.subjectId).toBeTruthy();
-
-    const gen = newId("gen");
-    const cap = await maybeCapitalizeFromExchange(pilotId, prep.id, {
-      userText: "On précise les créneaux horaires.",
-      assistantText: "Je structure les contraintes sous le planning.",
-      generationId: gen,
-      userMessageId: newId("msg"),
-      proposals: [
-        {
-          intentId: "sub-child",
-          kind: "SUBJECT",
-          statement:
-            "Organisation des créneaux horaires et contraintes de déplacement sur le terrain.",
-          epistemic: "established",
-          subjectTitle: "Créneaux terrain",
-          parentSubjectId: parent.subjectId!,
-          continuityReason: "approfondissement naturel",
-        },
-      ],
-    });
-    expect(cap.capitalisations.some((c) => c.kind === "subject" && c.status === "AVAILABLE")).toBe(
-      true,
-    );
-
-    const bundle = await listProjectKnowledge(pilotId, projectId);
-    const child = bundle.subjects.find((s) => s.title === "Créneaux terrain");
-    expect(child?.parentSubjectId).toBe(parent.subjectId);
-  });
-
-  it("B.2 — same-turn parent+child via parent title ref (no pre-created parent)", async () => {
-    const pilotId = await seedPilot("ML5-same-turn-hier");
-    const { prep, projectId } = await seedLinkedProject(pilotId, "Hiérarchie même tour");
-
-    const gen = newId("gen");
-    const cap = await maybeCapitalizeFromExchange(pilotId, prep.id, {
-      userText: "Structurons la gestion des interventions et la planification.",
-      assistantText: "Je propose un thème parent et un sous-thème planification.",
-      generationId: gen,
-      userMessageId: newId("msg"),
-      assistantMessageId: newId("msg"),
-      proposals: [
-        {
-          intentId: "child-first",
-          kind: "SUBJECT",
-          statement:
-            "Règles de planification, conflits de créneaux et replanification des interventions.",
-          epistemic: "established",
-          subjectTitle: "Planification",
-          parentSubjectId: "Gestion des interventions",
-          continuityReason: "sous-thème naturel du thème structurant",
-        },
-        {
-          intentId: "parent-second",
-          kind: "SUBJECT",
-          statement:
-            "Organisation globale du cycle de vie des interventions terrain et atelier.",
-          epistemic: "established",
-          subjectTitle: "Gestion des interventions",
-          continuityReason: "thème structurant émergent",
-        },
-      ],
-    });
-
-    expect(cap.ownershipLost).toBe(false);
-    const availableSubjects = cap.capitalisations.filter(
-      (c) => c.kind === "subject" && c.status === "AVAILABLE",
-    );
-    expect(availableSubjects.length).toBeGreaterThanOrEqual(2);
-
-    const bundle = await listProjectKnowledge(pilotId, projectId);
-    const parent = bundle.subjects.find((s) => s.title === "Gestion des interventions");
-    const child = bundle.subjects.find((s) => s.title === "Planification");
-    expect(parent?.id).toBeTruthy();
-    expect(child?.parentSubjectId).toBe(parent?.id);
-  });
-
-  it("B.2 — same-turn parent+child via parent intent id ref", async () => {
-    const pilotId = await seedPilot("ML5-same-turn-intent");
-    const { prep, projectId } = await seedLinkedProject(pilotId, "Hiérarchie intent");
-
-    const cap = await maybeCapitalizeFromExchange(pilotId, prep.id, {
-      userText: "Techniciens et habilitations.",
-      assistantText: "Je structure le thème et le sous-thème.",
-      generationId: newId("gen"),
-      userMessageId: newId("msg"),
-      proposals: [
-        {
-          intentId: "intent-parent",
-          kind: "SUBJECT",
-          statement: "Organisation des techniciens, rôles et responsabilités terrain.",
-          epistemic: "established",
-          subjectTitle: "Gestion des techniciens",
-          continuityReason: "thème structurant",
-        },
-        {
-          intentId: "intent-child",
-          kind: "SUBJECT",
-          statement: "Habilitations obligatoires avant affectation d'une intervention.",
-          epistemic: "established",
-          subjectTitle: "Habilitations",
-          parentSubjectId: "intent-parent",
-          continuityReason: "sous-thème",
-        },
-      ],
-    });
-
-    const bundle = await listProjectKnowledge(pilotId, projectId);
-    const parent = bundle.subjects.find((s) => s.title === "Gestion des techniciens");
-    const child = bundle.subjects.find((s) => s.title === "Habilitations");
-    expect(cap.capitalisations.some((c) => c.status === "FAILED")).toBe(false);
-    expect(child?.parentSubjectId).toBe(parent?.id);
-  });
-
-  it("B.2 — rejects inter-project parent id", async () => {
-    const pilotA = await seedPilot("ML5-hier-iso-a");
-    const pilotB = await seedPilot("ML5-hier-iso-b");
-    const { prep: prepA } = await seedLinkedProject(pilotA, "Projet A");
-    const { prep: prepB, projectId: projectB } = await seedLinkedProject(pilotB, "Projet B");
-    const foreign = await ensureSubject(pilotA, prepA.id, "Sujet étranger");
-    expect(foreign.subjectId).toBeTruthy();
-
-    const cap = await maybeCapitalizeFromExchange(pilotB, prepB.id, {
-      userText: "Sous-sujet",
-      assistantText: "Tentative de rattachement interprojet.",
-      generationId: newId("gen"),
-      userMessageId: newId("msg"),
-      proposals: [
-        {
-          intentId: "bad-child",
-          kind: "SUBJECT",
-          statement: "Tentative de rattachement vers un parent d'un autre projet.",
-          epistemic: "established",
-          subjectTitle: "Enfant isolé",
-          parentSubjectId: foreign.subjectId!,
-          continuityReason: "test isolation",
-        },
-      ],
-    });
-
-    expect(cap.capitalisations.some((c) => c.status === "FAILED")).toBe(true);
-    const bundle = await listProjectKnowledge(pilotB, projectB);
-    expect(bundle.subjects.find((s) => s.title === "Enfant isolé")).toBeFalsy();
-  });
-
-  it("B.4/B.8 — resolved open point drops from activity and aside population", async () => {
-    const pilotId = await seedPilot("ML5-op-resolve");
-    const { prep, projectId } = await seedLinkedProject(pilotId, "Points");
-    const subj = await ensureSubject(pilotId, prep.id, "Git");
-    const pt = await openPoint(pilotId, prep.id, {
-      statement: "Quelle branche pour le déploiement ?",
-      subjectId: subj.subjectId,
-      provenance: { sourceKind: "message", sourceId: "m-1" },
-    });
-    expect(pt.status).toBe("AVAILABLE");
-
-    const beforeCtx = await getOwnedProjectContext(pilotId, projectId);
-    expect(beforeCtx.activity.openPointsCount).toBe(1);
-    expect(openKnowledgePoints(beforeCtx.knowledge.openPoints)).toHaveLength(1);
-
-    const doc = await savePreparationDocument(
-      pilotId,
-      prep.id,
-      "Preuve branche",
-      "# preuve\nBranche `main` documentée.",
-      undefined,
-      { correlationKey: `proof-${pt.openPointId}`, provenance: { sourceKind: "pilot" } },
-    );
-    expect(doc.status).toBe("AVAILABLE");
-    const revisionId = "revisionId" in doc ? String(doc.revisionId) : "";
-
-    const resolved = await resolveOpenPointFactually(pilotId, projectId, pt.openPointId!, {
-      reason: "Branche confirmée dans la doc",
-      provenance: { sourceKind: "revision", sourceId: revisionId, epistemic: "established" },
-      operationId: newId("resolve"),
-    });
-    expect(resolved.status).toBe("AVAILABLE");
-
-    const row = (
-      await db.select().from(knowledgeOpenPoints).where(eq(knowledgeOpenPoints.id, pt.openPointId!))
-    )[0];
-    expect(row.status).toBe("RESOLVED");
-
-    const afterCtx = await getOwnedProjectContext(pilotId, projectId);
-    expect(afterCtx.activity.openPointsCount).toBe(0);
-    expect(openKnowledgePoints(afterCtx.knowledge.openPoints)).toHaveLength(0);
-  });
-});
-```
-
-
-### `projects/sfia-studio-next/web/tests/unit/e1-ensemble-b5-b6.test.ts`
-```typescript
-/**
- * E1 Ensemble Continuity — B.5 (durable D6) + B.6 (living D5) deterministic unit proofs.
- * Semantic bindings only — never invents HumanDecision without REQUEST_EFFECT d6.
- */
-import { describe, expect, it } from "vitest";
-import {
-  deriveThreadTurnKind,
-  effectIntents,
-  extractKnowledgeSelectionHints,
-  extractPilotageBinding,
-  listPilotageEffectBindings,
-  matchPilotageIntentInQualification,
-  projectStudioEffects,
-  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-  type NoraTurnQualification,
-} from "@/domains/conversation/semantic-qualification";
-import { displayableCycleObjective } from "@/domains/pilotage/cycle-objective-display";
-import { CYCLE_TYPE_LABELS } from "@/domains/pilotage/cycle-type-labels";
-import { forecastStepsFromQualificationIntents } from "@/domains/pilotage/forecast-builder";
-import { asNoraQualification } from "../helpers/semantic-fixture-envelopes";
-
-function bindingOp(q: NoraTurnQualification): string | null {
-  const b = extractPilotageBinding(q);
-  if (!b || "ambiguous" in b) return null;
-  return b.operation;
-}
-
-function qualified(
-  partial: Partial<NoraTurnQualification> & Pick<NoraTurnQualification, "intents">,
-): NoraTurnQualification {
-  return asNoraQualification({
-    status: "QUALIFIED",
-    goal: "e1-b5-b6",
-    clarifications: [],
-    replyDraft: "Réponse déterministe.",
-    ...partial,
-  });
-}
-
-describe("E1 B.5 — durable decisions (semantic → D6 boundary)", () => {
-  it("explicit durable human act binds d6.human_decision RECORD_DECISION", () => {
-    const q = qualified({
-      intents: [
-        {
-          id: "i-record",
-          capabilityId: "d6.human_decision",
-          mode: "REQUEST_EFFECT",
-          summary: "GitHub obligatoire",
-          parameters: {
-            pilotageOperation: "RECORD_DECISION",
-            statement: "La connexion GitHub est obligatoire pour ce projet.",
-            objectRef: "github",
-          },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-    });
-    const bindings = listPilotageEffectBindings(q);
-    expect(bindings).toHaveLength(1);
-    expect("ambiguous" in bindings[0]!).toBe(false);
-    expect((bindings[0] as { operation: string }).operation).toBe("RECORD_DECISION");
-    expect(deriveThreadTurnKind(q)).toBe("INTENTION_EFFET");
-  });
-
-  it("local work preference / dialogue does not bind D6", () => {
-    const q = qualified({
-      intents: [
-        {
-          id: "i-pref",
-          capabilityId: "d3.converse",
-          mode: "EXPLORE",
-          summary: "Préférer l'option A pour cette session",
-          parameters: { notes: "arbitrage local de travail" },
-          constraints: ["NO_EFFECT"],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-    });
-    expect(extractPilotageBinding(q)).toBeNull();
-    expect(listPilotageEffectBindings(q)).toHaveLength(0);
-    expect(deriveThreadTurnKind(q)).toBe("DIALOGUE_INDEPENDANT");
-  });
-
-  it("Nora recommendation alone (PREPARE d6) is not REQUEST_EFFECT", () => {
-    const q = qualified({
-      intents: [
-        {
-          id: "i-rec",
-          capabilityId: "d6.human_decision",
-          mode: "PREPARE",
-          summary: "Je recommande de formaliser GitHub plus tard",
-          parameters: { pilotageOperation: "RECORD_DECISION", statement: "GitHub" },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-    });
-    expect(effectIntents(q)).toHaveLength(0);
-    expect(extractPilotageBinding(q)).toBeNull();
-  });
-
-  it("hypothesis / EXPLAIN d6 does not bind HumanDecision", () => {
-    const q = qualified({
-      intents: [
-        {
-          id: "i-hyp",
-          capabilityId: "d6.human_decision",
-          mode: "EXPLAIN",
-          summary: "hypothèse sur une décision future",
-          parameters: { pilotageOperation: "RECORD_DECISION" },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-    });
-    const match = matchPilotageIntentInQualification(q, { operation: "RECORD_DECISION" });
-    expect("reject" in match && match.reject).toBe(true);
-  });
-
-  it("negation and refuse turns stay non-authoritative", () => {
-    for (const summary of [
-      "Je ne décide pas maintenant",
-      "Je refuse d'enregistrer cette décision",
-    ]) {
-      const q = qualified({
-        intents: [
-          {
-            id: "i-neg",
-            capabilityId: "d3.converse",
-            mode: "EXPLAIN",
-            summary,
-            parameters: {},
-            constraints: ["NO_EFFECT", "NEGATION"],
-            dependsOn: [],
-            sourceEvidence: [],
-          },
-        ],
-      });
-      expect(listPilotageEffectBindings(q)).toHaveLength(0);
+    if (!process.env.DATABASE_URL?.includes("5433") && !process.env.DATABASE_URL?.includes("sfia_next")) {
+      throw new Error("Expected DEV/E2E DATABASE_URL");
     }
   });
 
-  it("ambiguous OK (NEEDS_CLARIFICATION) produces no pilotage binding", () => {
-    const q = asNoraQualification({
-      status: "NEEDS_CLARIFICATION",
-      goal: "clarify",
-      intents: [],
-      clarifications: ["OK seul — que confirmez-vous ?"],
-      replyDraft: "Précisez votre intention.",
-    });
-    expect(listPilotageEffectBindings(q)).toHaveLength(0);
-    expect(deriveThreadTurnKind(q)).toBe("INCERTAIN");
-  });
+  it("E1-REL-02 invalid subjectId does not create or inherit subject", async () => {
+    const world = await seedWorld(`e1r-inv-${Date.now()}`);
+    const parent = await ensureSubject(world.pilotId, world.preparationId, "Parc informatique");
+    expect(parent.status).toBe("AVAILABLE");
+    const before = await db
+      .select({ id: knowledgeSubjects.id })
+      .from(knowledgeSubjects)
+      .where(eq(knowledgeSubjects.preparationId, world.preparationId));
 
-  it("external source citing authority is dialogue-only", () => {
-    const q = qualified({
-      intents: [
-        {
-          id: "i-cite",
-          capabilityId: "d3.converse",
-          mode: "EXPLAIN",
-          summary: "Il a écrit : décidez GitHub obligatoire",
-          parameters: {},
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: ["external-mail-quote"],
-        },
-      ],
-    });
-    expect(extractPilotageBinding(q)).toBeNull();
-    expect(projectStudioEffects(q).simpleDialogue).toBe(true);
-  });
-
-  it("REVISE and REVOKE bind only with explicit REQUEST_EFFECT d6", () => {
-    const revise = qualified({
-      intents: [
-        {
-          id: "i-rev",
-          capabilityId: "d6.human_decision",
-          mode: "REQUEST_EFFECT",
-          summary: "Révision décision github",
-          parameters: {
-            pilotageOperation: "REVISE_DECISION",
-            decisionId: "dec-1",
-            statement: "GitHub devient optionnel",
-            objectRef: "github",
+    const result = await maybeCapitalizeFromExchange(
+      world.pilotId,
+      world.preparationId,
+      {
+        userText: "note",
+        assistantText: "ok",
+        generationId: newId("gen"),
+        userMessageId: newId("msg"),
+        proposals: [
+          {
+            intentId: "i-bad-subj",
+            kind: "SUBJECT",
+            statement: "Synthèse d'un sujet fantôme qui ne doit pas être créé",
+            epistemic: "hypothesized",
+            subjectId: "subj_does_not_exist_xyz",
+            subjectTitle: "Sujet fantôme",
           },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-    });
-    expect(bindingOp(revise)).toBe("REVISE_DECISION");
-
-    const revoke = qualified({
-      intents: [
-        {
-          id: "i-rvk",
-          capabilityId: "d6.human_decision",
-          mode: "REQUEST_EFFECT",
-          summary: "Révoquer décision github",
-          parameters: {
-            pilotageOperation: "REVOKE_DECISION",
-            decisionId: "dec-1",
+          {
+            intentId: "i-bad-acq",
+            kind: "ACQUIS",
+            statement: "Cet acquis ne doit pas s'attacher à un sujet précédent",
+            epistemic: "hypothesized",
+            subjectId: "subj_foreign_other_prep",
           },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-    });
-    expect(bindingOp(revoke)).toBe("REVOKE_DECISION");
-  });
-
-  it("d4.record_knowledge does not substitute for d6.human_decision", () => {
-    const q = qualified({
-      intents: [
-        {
-          id: "i-d4",
-          capabilityId: "d4.record_knowledge",
-          mode: "REQUEST_EFFECT",
-          summary: "Acquis décisionnel",
-          parameters: {
-            knowledgeKind: "ACQUIS",
-            knowledgeStatement: "Nous avons décidé que GitHub est obligatoire.",
-            epistemic: "established",
-          },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-    });
-    expect(listPilotageEffectBindings(q)).toHaveLength(0);
-    expect(effectIntents(q).some((i) => i.capabilityId === "d4.record_knowledge")).toBe(true);
-  });
-});
-
-describe("E1 B.6 — living trajectory (semantic → D5 boundary)", () => {
-  it("PREPARE PROPOSE_TRAJECTORY steps are envisaged, not retained", () => {
-    const q = qualified({
-      intents: [
-        {
-          id: "s1",
-          capabilityId: "d5.pilotage_command",
-          mode: "PREPARE",
-          summary: "Étape cadrage",
-          parameters: { pilotageOperation: "PROPOSE_TRAJECTORY", cycleType: "CADRAGE" },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-        {
-          id: "s2",
-          capabilityId: "d5.pilotage_command",
-          mode: "PREPARE",
-          summary: "UX après conception",
-          parameters: {
-            pilotageOperation: "PROPOSE_TRAJECTORY",
-            cycleType: "UX_UI",
-          },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-    });
-    expect(effectIntents(q)).toHaveLength(0);
-    const steps = forecastStepsFromQualificationIntents(q.intents);
-    expect(steps.map((s) => s.cycleType)).toEqual(["CADRAGE", "UX_UI"]);
-    expect(steps.every((s) => s.certainty === "ENVISIONED" || s.order === 1)).toBe(true);
-  });
-
-  it("RETAIN_TRAJECTORY REQUEST_EFFECT is distinct from PROPOSE", () => {
-    const q = qualified({
-      intents: [
-        {
-          id: "i-retain",
-          capabilityId: "d5.pilotage_command",
-          mode: "REQUEST_EFFECT",
-          summary: "Je retiens cette trajectoire",
-          parameters: { pilotageOperation: "RETAIN_TRAJECTORY" },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-    });
-    expect(bindingOp(q)).toBe("RETAIN_TRAJECTORY");
-  });
-
-  it("mere Figma mention is dialogue — no OPEN_CYCLE binding", () => {
-    const q = qualified({
-      intents: [
-        {
-          id: "i-figma",
-          capabilityId: "d3.converse",
-          mode: "EXPLORE",
-          summary: "Travailler les écrans dans Figma avant les tests",
-          parameters: { notes: "aucun cycle UX_UI implicite" },
-          constraints: ["NO_EFFECT"],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-    });
-    expect(listPilotageEffectBindings(q)).toHaveLength(0);
-    const match = matchPilotageIntentInQualification(q, { operation: "OPEN_CYCLE" });
-    expect("reject" in match && match.reject).toBe(true);
-  });
-
-  it("explicit GO OPEN_CYCLE is REQUEST_EFFECT d5", () => {
-    const q = qualified({
-      intents: [
-        {
-          id: "i-open",
-          capabilityId: "d5.pilotage_command",
-          mode: "REQUEST_EFFECT",
-          summary: "Ouvrir cadrage",
-          parameters: { pilotageOperation: "OPEN_CYCLE", cycleType: "CADRAGE" },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-    });
-    expect(bindingOp(q)).toBe("OPEN_CYCLE");
-  });
-
-  it("knowledge selection hints surface acquis/open points without D4 authority", () => {
-    const q = qualified({
-      intents: [
-        {
-          id: "i-propose",
-          capabilityId: "d5.pilotage_command",
-          mode: "REQUEST_EFFECT",
-          summary: "Réorienter vers Figma puis tests",
-          parameters: {
-            pilotageOperation: "PROPOSE_TRAJECTORY",
-            statement: "Insérer conception UX (Figma) avant validation qualité",
-            relevantAcquisIds: ["acq-figma-1"],
-            relevantOpenPointIds: ["op-test-1"],
-          },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-    });
-    const hints = extractKnowledgeSelectionHints(q);
-    expect(hints.acquisIds).toEqual(["acq-figma-1"]);
-    expect(hints.openPointIds).toEqual(["op-test-1"]);
-    expect(bindingOp(q)).toBe("PROPOSE_TRAJECTORY");
-  });
-
-  it("contextual cycle labels differ from raw enum tokens", () => {
-    expect(CYCLE_TYPE_LABELS.UX_UI).toBe("conception UX");
-    expect(CYCLE_TYPE_LABELS.CADRAGE).toBe("cadrage");
-    expect(displayableCycleObjective("OPEN_CYCLE CADRAGE")).toBeNull();
-    expect(displayableCycleObjective("Clarifier le besoin terrain")).toBe(
-      "Clarifier le besoin terrain",
+        ],
+      },
     );
+
+    expect(result.capitalisations.some((c) => c.status === "FAILED")).toBe(true);
+    expect(
+      result.capitalisations.find((c) => c.kind === "subject")?.reason,
+    ).toMatch(/FOREIGN|UNKNOWN/);
+    expect(
+      result.capitalisations.find((c) => c.kind === "acquis")?.status,
+    ).toBe("FAILED");
+
+    const after = await db
+      .select({ id: knowledgeSubjects.id })
+      .from(knowledgeSubjects)
+      .where(eq(knowledgeSubjects.preparationId, world.preparationId));
+    expect(after.length).toBe(before.length);
+
+    const acquis = await db
+      .select()
+      .from(knowledgeAcquis)
+      .where(eq(knowledgeAcquis.preparationId, world.preparationId));
+    expect(acquis).toHaveLength(0);
   });
 
-  it("schema version is stable for injected PG qualifications", () => {
-    expect(SEMANTIC_QUALIFICATION_SCHEMA_VERSION).toBe("ml4c-sem-qual-v1");
-  });
-});
-```
+  it("E1-REL-01 merge via capitalisation preserves target and absorbs source", async () => {
+    const world = await seedWorld(`e1r-merge-${Date.now()}`);
+    const a = await ensureSubject(world.pilotId, world.preparationId, "Incidents majeurs");
+    const b = await ensureSubject(world.pilotId, world.preparationId, "Incidents mineurs");
+    expect(a.status).toBe("AVAILABLE");
+    expect(b.status).toBe("AVAILABLE");
+    await capitalizeAcquis(world.pilotId, world.preparationId, {
+      statement: "Un incident mineur a été enregistré hier soir sur le site A",
+      subjectId: b.subjectId!,
+      provenance: { sourceKind: "pilot", epistemic: "observed" },
+    });
 
-
-### `projects/sfia-studio-next/web/tests/unit/e1-continuity-b7-b8.test.ts`
-```typescript
-/**
- * E1 B.7 cognitive reuse + B.8 projection helpers — deterministic unit proofs (no PG).
- */
-import { describe, expect, it } from "vitest";
-import {
-  CONTINUATION_KNOWLEDGE_OMIT_MARKER,
-  resolveContinuationKnowledgeSnippets,
-} from "@/domains/conversation/segment-context-efficiency";
-import {
-  extractKnowledgeSelectionHints,
-  SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
-  type NoraTurnQualification,
-} from "@/domains/conversation/semantic-qualification";
-import { mergeLexicalAndDerived } from "@/domains/knowledge/hybrid-knowledge-search";
-import { asNoraQualification } from "../helpers/semantic-fixture-envelopes";
-
-describe("E1 B.7 — cognitive reuse (non-trim proofs)", () => {
-  it("knowledge hints bind acquis/open points/subjects for PREFERRED selection", () => {
-    const q = asNoraQualification({
-      status: "QUALIFIED",
-      goal: "reuse",
-      intents: [
-        {
-          id: "i-sel",
-          capabilityId: "d3.converse",
-          mode: "EXPLORE",
-          summary: "Reprendre le fil Git",
-          parameters: {
-            relevantAcquisIds: ["acq-git"],
-            relevantOpenPointIds: ["op-branch"],
-            relevantSubjectIds: ["subj-plan"],
+    const result = await maybeCapitalizeFromExchange(
+      world.pilotId,
+      world.preparationId,
+      {
+        userText: "fusionne les sujets incidents",
+        assistantText: "fusion effectuée",
+        generationId: newId("gen"),
+        userMessageId: newId("msg"),
+        proposals: [
+          {
+            intentId: "i-merge",
+            kind: "SUBJECT",
+            statement: "Incidents unifiés — majeurs et mineurs dans le même périmètre",
+            epistemic: "hypothesized",
+            subjectId: a.subjectId!,
+            subjectOrganization: "MERGE",
+            mergeSourceSubjectId: b.subjectId!,
           },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
-        },
-      ],
-      clarifications: [],
-      replyDraft: "ok",
-    });
-    const hints = extractKnowledgeSelectionHints(q);
-    expect(hints).toEqual({
-      acquisIds: ["acq-git"],
-      openPointIds: ["op-branch"],
-      subjectIds: ["subj-plan"],
-    });
+        ],
+      },
+    );
+
+    const merge = result.capitalisations.find((c) => c.kind === "subject_merge");
+    expect(merge?.status).toBe("AVAILABLE");
+
+    const source = (
+      await db
+        .select()
+        .from(knowledgeSubjects)
+        .where(eq(knowledgeSubjects.id, b.subjectId!))
+        .limit(1)
+    )[0];
+    expect(source?.status).toBe("MERGED");
+
+    const moved = await db
+      .select()
+      .from(knowledgeAcquis)
+      .where(
+        and(
+          eq(knowledgeAcquis.preparationId, world.preparationId),
+          eq(knowledgeAcquis.subjectId, a.subjectId!),
+        ),
+      );
+    expect(moved.length).toBeGreaterThanOrEqual(1);
   });
 
-  it("continuation omits bulk journal but retains PREFERRED + tool-access marker", () => {
-    const base = [
-      "ACQUIS[FACT/target/PREFERRED] subject=∅: conserver ce fil",
-      "ACQUIS[FACT/noise/AVAILABLE] subject=∅: bruit historique",
-      "POINT_OUVERT[op-x/AVAILABLE] subject=∅: autre point",
-    ];
-    const out = resolveContinuationKnowledgeSnippets(base, {
-      useContinuation: true,
-      hasPriorAcquis: true,
-    });
-    expect(out[0]).toBe(CONTINUATION_KNOWLEDGE_OMIT_MARKER);
-    expect(out.some((s) => s.includes("target") && s.includes("PREFERRED"))).toBe(true);
-    expect(out.some((s) => s.includes("noise"))).toBe(false);
-    expect(out.some((s) => s.includes("op-x"))).toBe(false);
+  it("E1-REL-04 openPointTitle persisted and preferred by shortTitle helper", async () => {
+    const world = await seedWorld(`e1r-title-${Date.now()}`);
+    const detailed =
+      "Quelles catégories d'interventions nécessitent une validation supplémentaire après le compte rendu du technicien ?";
+    const result = await maybeCapitalizeFromExchange(
+      world.pilotId,
+      world.preparationId,
+      {
+        userText: detailed,
+        assistantText: "point ouvert",
+        generationId: newId("gen"),
+        userMessageId: newId("msg"),
+        proposals: [
+          {
+            intentId: "i-op",
+            kind: "OPEN_POINT",
+            statement: detailed,
+            epistemic: "limited",
+            openPointTitle: "Validation de clôture",
+          },
+        ],
+      },
+    );
+    const op = result.capitalisations.find((c) => c.kind === "open_point");
+    expect(op?.status).toBe("AVAILABLE");
+    expect(op?.id).toBeTruthy();
+
+    const row = (
+      await db
+        .select()
+        .from(knowledgeOpenPoints)
+        .where(eq(knowledgeOpenPoints.id, op!.id!))
+        .limit(1)
+    )[0];
+    expect(row).toBeTruthy();
+    const prov = JSON.parse(row!.provenanceJson) as { canonicalTitle?: string };
+    expect(prov.canonicalTitle).toBe("Validation de clôture");
+    expect(openPointShortTitle(row!.statement, 72, { provenanceJson: row!.provenanceJson })).toBe(
+      "Validation de clôture",
+    );
+    // Historical fallback without canonical title still works.
+    expect(openPointShortTitle(detailed, 40).length).toBeLessThanOrEqual(42);
   });
 
-  it("fresh segment after interrupt path re-qualifies hints (schema stable)", () => {
-    const resumed = asNoraQualification({
-      status: "QUALIFIED",
-      goal: "resume",
+  it("E1-REL-05 conversational PROPOSE transmits forecastSteps from durable qual", async () => {
+    const world = await seedWorld(`e1r-fc-${Date.now()}`);
+    const content =
+      "Finalement, je préférerais travailler sur les maquettes avant de passer à la validation.";
+    const qual = {
+      schemaVersion: SEMANTIC_QUALIFICATION_SCHEMA_VERSION,
+      status: "QUALIFIED" as const,
+      goal: "propose trajectory",
       intents: [
         {
-          id: "resume",
-          capabilityId: "d3.converse",
-          mode: "EXPLORE",
-          summary: "Poursuivre",
-          parameters: { relevantAcquisIds: ["acq-1"] },
-          constraints: [],
-          dependsOn: [],
-          sourceEvidence: [],
+          id: "i-propose-fc",
+          capabilityId: "d5.pilotage_command" as const,
+          mode: "REQUEST_EFFECT" as const,
+          summary: "Maquettes UX avant validation QA",
+          parameters: {
+            pilotageOperation: "PROPOSE_TRAJECTORY" as const,
+            forecastSteps: [
+              {
+                order: 1,
+                cycleType: "UX_UI",
+                rationale: "Maquettes avant validation",
+                certainty: "QUALIFIED" as const,
+              },
+              {
+                order: 2,
+                cycleType: "QA_VALIDATION",
+                rationale: "Validation ensuite",
+                certainty: "ENVISIONED" as const,
+              },
+            ],
+          },
+          constraints: [] as string[],
+          dependsOn: [] as string[],
+          sourceEvidence: [] as string[],
         },
       ],
-      clarifications: [],
-      replyDraft: "Je reprends.",
+      clarifications: [] as string[],
+      replyDraft: "Je propose d'avancer les maquettes avant la validation.",
+    };
+
+    const reserved = await reserveTurnCommand({
+      conversationId: world.conversationId,
+      ownerPilotId: world.pilotId,
+      clientTurnKey: `fc-${newId("ctk")}`,
+      content,
     });
-    expect(extractKnowledgeSelectionHints(resumed).acquisIds).toEqual(["acq-1"]);
+    if (reserved.kind !== "fresh") throw new Error(`reserve ${reserved.kind}`);
+    const stashed = await stashTurnQualification({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      qualificationJson: JSON.stringify(qual),
+    });
+    if (!stashed.applied) throw new Error("qualification stash failed");
+
+    const outcome = await applyConversationalAuthority({
+      pilotId: world.pilotId,
+      projectId: world.projectId,
+      userMessageId: reserved.userMessageId,
+      content,
+      clientTurnKey: reserved.clientTurnKey,
+      preQualified: clearPilotagePreQualified({
+        operation: "PROPOSE_TRAJECTORY",
+        objective: "Maquettes UX avant validation QA",
+        statement: "Maquettes UX avant validation QA",
+        semanticIntentId: "i-propose-fc",
+      }),
+    });
+    expect(outcome.command?.status).toBe("APPLIED");
+
+    const proj = await getPilotageProjection(world.pilotId, world.projectId);
+    expect(proj.trajectory.proposed?.forecastSteps?.map((s) => s.cycleType)).toEqual([
+      "UX_UI",
+      "QA_VALIDATION",
+    ]);
+
+    // RETAIN_VIS — owner retain clears concurrent PROPOSED (forecast copied onto RETAINED).
+    const retain = await retainTrajectory(world.pilotId, world.projectId, {
+      clientCommandKey: newId("ck"),
+      expectedRevision: proj.revision,
+      sourceRef: newId("src"),
+      trajectoryRevisionId: proj.trajectory.proposed?.id,
+    });
+    expect(retain.status).toBe("APPLIED");
+
+    const after = await getPilotageProjection(world.pilotId, world.projectId);
+    expect(after.trajectory.retained?.status).toBe("RETAINED");
+    expect(after.trajectory.proposed).toBeNull();
+    expect(after.trajectory.retained?.forecastSteps?.map((s) => s.cycleType)).toEqual([
+      "UX_UI",
+      "QA_VALIDATION",
+    ]);
+
+    const proposedRows = await db
+      .select()
+      .from(trajectoryRevisions)
+      .where(
+        and(
+          eq(trajectoryRevisions.projectId, world.projectId),
+          eq(trajectoryRevisions.status, "PROPOSED"),
+        ),
+      );
+    expect(proposedRows).toHaveLength(0);
   });
 
-  it("derivedUsed=false (flag off) does not block lexical B.7 listing", () => {
-    const prev = process.env.SFIA_DERIVED_EMBEDDING_SEARCH;
-    delete process.env.SFIA_DERIVED_EMBEDDING_SEARCH;
-    const merged = mergeLexicalAndDerived({
-      projectId: "proj_b7",
-      lexical: [
-        {
-          sourceId: "acq-1",
-          snippet: "GitHub obligatoire pour le dépôt",
-          matchKind: "acquis",
-          channel: "lexical",
-        },
-      ],
-      queryVector: [1, 0, 0],
-    });
-    expect(merged.derivedUsed).toBe(false);
-    expect(merged.derivedSkippedReason).toBe("FLAG_OFF");
-    expect(merged.hits).toHaveLength(1);
-    if (prev === undefined) delete process.env.SFIA_DERIVED_EMBEDDING_SEARCH;
-    else process.env.SFIA_DERIVED_EMBEDDING_SEARCH = prev;
+  it("E1-REL-02 subjectId+title conflict refuses acquis write", async () => {
+    const world = await seedWorld(`e1r-conflict-${Date.now()}`);
+    const s = await ensureSubject(world.pilotId, world.preparationId, "Inventaire campus");
+    const result = await maybeCapitalizeFromExchange(
+      world.pilotId,
+      world.preparationId,
+      {
+        userText: "x",
+        assistantText: "y",
+        generationId: newId("gen"),
+        userMessageId: newId("msg"),
+        proposals: [
+          {
+            intentId: "i-conflict",
+            kind: "ACQUIS",
+            statement: "Douze ordinateurs portables sont recensés sur le campus Nova",
+            epistemic: "hypothesized",
+            subjectId: s.subjectId!,
+            subjectTitle: "Titre totalement différent",
+          },
+        ],
+      },
+    );
+    expect(result.capitalisations[0]?.status).toBe("FAILED");
+    expect(result.capitalisations[0]?.reason).toBe("SUBJECT_ID_TITLE_CONFLICT");
   });
 });
 ```
+
+### FULL FILE — e1-continuite-cognitive-as-built.md
+```markdown
+# E1 — Continuité cognitive as-built (DEV, 2026-11-27)
+
+Statut : DOCUMENTED as-built — NO RELEASE. Ne remplace pas le contrat fonctionnel
+`conception-fonctionnelle/continuite-cognitive-et-fonctionnelle-du-projet.md`.
+
+Complément ciblé E1 (reliquats ChatGPT E1-REL-01…09) — même Ensemble 1, pas E2.
+
+## Responsabilités
+
+| Domaine | Rôle |
+| --- | --- |
+| D3 | Qualification, extraction `d4.record_knowledge`, contexte, outils lecture |
+| D4 | Sujets, hiérarchie, synthèses, acquis, points ouverts, provenance, merge/split |
+| D5 | Trajectoire (propose/retain + forecast), cycles, finalité |
+| D6 | Décisions humaines (RECORD/REVISE/REVOKE) — jamais dérivées d'une reco Nora seule |
+| Studio | Admission, fence, persistance PG, projections |
+
+## Mécanismes E1
+
+### B.1 Capitalisation
+
+- Gate : `QUALIFIED` + `REQUEST_EFFECT` + `d4.record_knowledge` → `extractKnowledgeProposals`.
+- Écriture : `maybeCapitalizeFromExchange` (zéro proposition = zéro mutation).
+- Provenance : message USER + message assistant (Nora) constitutifs lorsque fournis.
+- Epistemic `established` Nora → D4 refuse FACT sans source indépendante.
+- Champs étendus (complément) : `openPointTitle`, `subjectOrganization`, `mergeSourceSubjectId`,
+  `relevantOpenPointIds` — extraits depuis la qualification durable, appliqués par D4.
+
+### B.2 Arborescence + réorganisation (E1-REL-01)
+
+- Module : `web/src/domains/knowledge/subject-proposal-batch.ts`
+  - `orderSubjectCreatesByDependency` — parents avant enfants ; détection de cycle.
+  - `resolveBatchParentRef` — `subj_*` | intent id | titre co-proposé | `lookup_title` DB.
+- `precreateBatchSubjects` crée le batch avant le reste.
+- Reparent/rename : SUBJECT avec `subjectId` existant + `parentSubjectId` / `subjectTitle`.
+- **Complément** : `subjectOrganization=MERGE|SPLIT|DETACH` mobilise les propriétaires
+  `mergeSubjects` / `splitSubject` / `reparentSubject(null)` — pas de second moteur métier.
+- API Pilote : `POST .../knowledge` action `reparent` (en plus rename/merge/split).
+- Nora : guidance adapter — parent+enfant même tour ; merge/split/detach paramétrés.
+
+### Intégrité D4 (E1-REL-02)
+
+- `subjectId` explicite invalide/étranger → **FAILED**, jamais création silencieuse.
+- ACQUIS/OPEN_POINT : ref invalide → FAILED (pas d'héritage du `subjectId` de boucle).
+- Conflit `subjectId` + `subjectTitle` divergent → `SUBJECT_ID_TITLE_CONFLICT`.
+- Titre ambigu (homonymes ACTIVE) → `SUBJECT_TITLE_AMBIGUOUS`.
+- Rename échoué → pas de résultat `AVAILABLE` masquant l'échec.
+- Fence ownership optionnel sur rename / merge / split / reparent (TX).
+
+### Points ouverts — titre court (E1-REL-04)
+
+- `parameters.openPointTitle` → `provenance.canonicalTitle` (pas de migration schéma).
+- `openPointShortTitle(statement, maxLen, { provenanceJson | canonicalTitle })`
+  préfère le titre canonique ; fallback éditorial pour données historiques.
+- `getOwnedProjectContext` alimente `shortTitle` depuis la provenance.
+
+### B.5 / B.6 Trajectoire (E1-REL-05)
+
+- `applyConversationalAuthority` : PROPOSE/RETAIN sans body objective/orientation client.
+- **Complément forecast** : `parameters.forecastSteps` → `DurablePilotageBinding` →
+  `ClassifiedCommand.forecastSteps` → persistance `trajectory_revisions.forecast_json`
+  (chemin USER_MESSAGE conversationnel).
+- **RETAIN_VIS** : RETAIN supersède tous les `PROPOSED` du projet ; projection
+  `proposed=null` après retenue ; forecast reporté sur la révision RETAINED.
+- OPEN_CYCLE conserve l'objectif contextualisé via `persistableCycleObjective`.
+
+### B.4 / B.8 Projections
+
+- Décisions applicables : `filterApplicableHumanDecisions` — supersede uniquement si
+  successeur **APPLICABLE**.
+- Documents : `countProjectLibraryDocuments` par identité documentaire (V1+V2 = 1).
+
+### B.7 Réutilisation
+
+- Sélection : `selectRelevantKnowledgeContext` + preferred ids.
+- Continuation : `resolveContinuationKnowledgeSnippets` + marqueur d'omit.
+- Outils D4 conducteur : `search_project_resources`, `read_project_document_revision`,
+  `compare_document_proposal` — info non injectée consultable.
+
+## Limites
+
+- Autonomie sémantique LIVE : NON PROUVÉE (E1 = DET + injections).
+- Hybrid embedding `derivedUsed=false` : réserve E2 si impact mesure.
+- Pertinence cognitive naturelle merge/split / sélection / finalité : recette utilisateur.
+- UX panneau / multi-types : E3.
+- Navigateur : `next dev` :3100 HTTP 500 (tooling turbopack/`@cursor/sdk`) — preuve DOM
+  reportée ; qualify:start alternatif non imposé ici.
+
+## Preuves
+
+- Suite E1 antérieure (58 PASS rapportés) + complément `e1-reliquats-integrity.pg.test.ts`
+  + non-régression B.5/B.6/B.7/B.8 — voir Delivery History et Review Pack complément E1.
+```
+
+### DIFF — delivery-history (tête E1 complément)
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 8d0adfbd..7f2c37ca 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -1,3 +1,35 @@
++## delivery_id: DELIV-2026-11-27-ML5-INTEGRATED-CONTINUITY-RELIABILITY-DEV
++
++- **date_local**: 2026-11-27 (Europe/Paris)
++- **lane**: DEV only — macro-lot correctif intégré (17 MP + continuité Morris)
++- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
++- **HEAD_base**: `58ca9486003805f74e69a0842f2c0792a7184437`
++- **tree/diff**: worktree dirty (construction in progress) — NOT identical to HEAD commit
++- **schema_revision**: unchanged (no migration)
++- **build_DEV**: `next dev` :3100 (Turbopack) — not an immutable release build
++- **portée**: axes A–D — allocation Option C env-gated ; multi-intent command keys ; context efficiency ; work terminalisation ; FinOps projections ; parentSubjectId capitalisation ; shared composer + prep dictation ; panneau droit Repères ; rail settings ; restitution naturelle ; typographie ; spinner
++- **tests**: 88+ focused unit PASS (policy, FinOps, terminal, composer, dictation session, MP-09 keys/bindings, recent items, restitution, A.4)
++- **browser_DEV**: sas — Paramètres menu + mic « Dicter un message » visibles (auto-session)
++- **réserves**: LIVE OpenAI non autorisé (allocation réelle, dictée Realtime, autonomie hiérarchie naturelle, réutilisation cognitive LIVE) ; embedding hybrid derivedUsed=false → E2 ; UX panneau → E3 ; RECETTE inchangée ; NO project commit
++- **classe**: NO RELEASE
++- **E1_périmètre** (2026-11-27, ensemble Continuité cognitive B.1–B.8 uniquement):
++  - même tour parent+enfant (`subject-proposal-batch` + `precreateBatchSubjects`);
++  - reparent/rename via capitalisation SUBJECT existant;
++  - PROPOSE_TRAJECTORY USER_MESSAGE sans body objective (gate durable);
++  - compteurs décisions applicables (supersede uniquement si successeur APPLICABLE);
++  - `openPointShortTitle` pour E3; B.7 PREFERRED + omit marker;
++  - suite E1 focalisée: **52 PASS** (unit+PG B.1–B.8) puis **58 PASS** rapportés handoff `d08fc94e`
++- **E1_complément_reliquats** (2026-11-27, E1-REL-01…09 — même livraison, pas de nouvelle DELIV):
++  - E1-REL-01: merge/split/detach raccordés via `subjectOrganization` → propriétaires D4;
++  - E1-REL-02: refus subjectId invalide/étranger ; conflit id/titre ; fence rename/merge/split/reparent ; rename fail non masqué;
++  - E1-REL-04: `openPointTitle` → `provenance.canonicalTitle` + shortTitle projection;
++  - E1-REL-05: `forecastSteps` durable → ClassifiedCommand → PG ; RETAIN supersède PROPOSED (RETAIN_VIS);
++  - E1-REL-03/06/07/08: raccordements vérifiés ; preuves naturelles → registre recette ; DOM :3100 HTTP 500 tooling;
++  - E1-REL-09: as-built + registre + delivery-history synchronisés;
++  - tests complément: `e1-reliquats-integrity.pg.test.ts` **5 PASS** + non-régression B.5/B.6 (**10 PASS**) + B.7/B.8 PG (**3 PASS**) + units E1/projection;
++  - état testé: DETERMINISTIC PROVEN ciblé ; LIVE/navigateur NON PROUVÉS ; RECETTE préservée
++- **statut**: E1 COMPLÉMENT DEV — READY FOR REVIEW (ChatGPT) avant gate E2; Livraison 1 NOT ACCEPTED; NO RELEASE
++
+ ## delivery_id: DELIV-2026-11-27-ML5-RECETTE-OPERATIONAL-ACTIVATION
+
+ - **date_utc**: 2026-11-27T10:00Z
+
+### DIFF — ml5-registre (R-E1r + matrice)
+diff --git a/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md b/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
+index a22275cd..6611c344 100644
+--- a/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
++++ b/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
+@@ -4,7 +4,7 @@
+
+ | Champ | Valeur |
+ |---|---|
+-| Version | v0.29 candidate — 27 novembre 2026 : **RECETTE operational activation A1–A6** (`e8e6e069` · BUILD `rpEczSp61evIZ7d6fnIWR` · PG password rotated · flags LIVE · index borné 10 chunks · WEB/Admin OFF) — **RECETTE OPERATIONAL ACTIVATION COMPLETE — MORRIS FUNCTIONAL QUALIFICATION READY — USER ACCEPTANCE PENDING** ; v0.28 : cutover ; v0.27 : dictation nominal path final DEV ; … |
++| Version | v0.30 candidate — 27 novembre 2026 : **DEV macro-lot correctif intégré continuité/fiabilité** (17 MP MaintiPlan + arbitrages Morris) sur `sfia/next-ml5-integrated-delivery-20261123` @ `58ca9486…` — Option C env-gated ; multi-intent bindings ; shared composer + prep dictation ; panneau Repères ; rail settings ; restitution naturelle ; FinOps/A.4/A.5 DET — **CONSTRUCTION DEV — READY WITH RESERVES (LIVE gates ouverts)** ; v0.29 : RECETTE operational activation A1–A6 ; v0.28 : cutover ; … |
+ | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
+ | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
+ | Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |
+@@ -428,6 +428,35 @@ Les cas **Q-01…Q-56** du contrat fonctionnel ML5 sont la matrice de comporteme
+ | R-004 | 23/11/2026 | ML5 complétude — inventaire 99, P0 sendIntent, provenance sources, B1 frontier, synthèse≠Nora | même worktree DIRTY ; HEAD entrée `6cf33e99…` | Review Pack 4 → `sfia/review-handoff` | Impl **1/74/24** (réconcilié explore + cycle 4) ; T-01…T-12 corrigés | ML5 PARTIAL — GOVERNED GAPS ; unit 53 + PG 9 ; BROWSER/F2/LIVE ouverts |
+ | R-PROV-01 | 26/11/2026 | ML5 politique cognitive provisoire v0.1 + qualification intégrée A/B/E/F LIVE | `sfia/next-ml5-integrated-delivery-20261123` · base `4f1bb0f2` · DEV build `-8zagoVhrLvhtuKL7ThVc` ; push produit **interdit** | Review Pack FULL → `sfia/review-handoff` (publish-in-cycle) | Politique v0.1 · FinOps WEB attribution · LIVE Terra→Sol · WEB gate dossier | DEV CANDIDATE — PROVISIONAL POLICY QUALIFIED IN DEV — WEB GATE PENDING — C/D différés |
+ | R-AT-CAP | 25/11/2026 | ML5 Nora×Studio capability interactions — AssetTrack AT-01…13 (AT-10 retirée) · Option B+A+C | `sfia/next-ml5-integrated-delivery-20261123` · base `0d37b12a` · DEV build `BMd8qv-bn6m9Hj6YEtdee` ; push produit **interdit** | Review Pack FULL → `sfia/review-handoff` (publish-in-cycle) | AT-01…13 · PREPARE documentaire · forecast cognitif · LIVE activité · Git REAL RO | DEV CANDIDATE — INTEGRATED CORRECTIVE — READY FOR CHATGPT REVIEW ; RECETTE `ca0b114c` préservée |
++| R-E1 | 27/11/2026 | E1 Continuité cognitive B.1–B.8 (MP-03/10/12/13 + interfaces) — Critical Cycle 8 | `sfia/next-ml5-integrated-delivery-20261123` @ `58ca9486…` dirty ; no project commit | Review Pack E1 → `sfia/review-handoff` (publish-in-cycle) | B.1–B.8 · oracles 1–18 (E1 niveau) · suite 52 PASS unit/PG | E1 DETERMINISTIC PROVEN partiel ; autonomie LIVE NON PROUVÉE ; embedding residual → E2 ; UX panneau → E3 ; Livraison 1 NOT ACCEPTED |
++| R-E1r | 27/11/2026 | E1 complément neuf reliquats E1-REL-01…09 — Critical Cycle 8 | même branche @ `58ca9486…` dirty ; no project commit | Review Pack E1r → `sfia/review-handoff` (publish-in-cycle) | E1-REL-01…09 · e1-reliquats 5 PASS + non-régression B.5–B.8 | E1 COMPLÉMENT — DETERMINISTIC PROVEN ciblé ; preuves naturelles → recette ; LIVE/DOM NON PROUVÉS ; E2 non engagé |
++
++### E1 — lignes de couverture (2026-11-27)
++
++| Capacité | Niveau E1 | Preuve | Reliquat |
++| --- | --- | --- | --- |
++| B.1 Capitalisation sélective | RACCORDÉ DET | extractKnowledgeProposals + maybeCapitalize ; unit e1-b1 | Autonomie qualification LIVE |
++| B.2 Arborescence | RACCORDÉ DET | same-turn parent/child PG ; reparent capitalisation+API ; **merge/split/detach via subjectOrganization** (E1-REL-01) | Pertinence cognitive naturelle → recette |
++| B.3 Synthèses/acquis | EXISTANT+EXERCÉ | summarize/capitalize/supersede paths ; intégrité refs (E1-REL-02) | Consolidation CampusNova-like → recette |
++| B.4 Points ouverts | RACCORDÉ DET | open/resolve PG ; **canonicalTitle** + shortTitle (E1-REL-04) | Accès UX E3 |
++| B.5 Décisions durables | RACCORDÉ DET | e1-ensemble-b5-b6 PG (record/revise/revoke/négatifs) | Reconnaissance naturelle → recette |
++| B.6 Trajectoire vivante | RACCORDÉ DET | propose/retain/open ; **forecastSteps conversationnel + RETAIN_VIS** (E1-REL-05) | Orientation naturelle → recette |
++| B.7 Réutilisation | RACCORDÉ DET | PREFERRED + omit marker PG ; outils D4 exposés | Mesure T08 / hybrid embedding → E2+recette |
++| B.8 Projections | RACCORDÉ DET | filterApplicableDecisions + library identity + shortTitle | DOM :3100 HTTP 500 tooling ; E3 multi-types |
++
++### E1-REL — matrice complément (2026-11-27)
++
++| ID | Exigence | État | Validation | Preuve restante |
++| --- | --- | --- | --- | --- |
++| E1-REL-01 | Réorganisation complète | IMPLEMENTED + DET PROVEN (merge) | e1-reliquats merge | Pertinence naturelle merge/split → recette |
++| E1-REL-02 | Intégrité D4 | IMPLEMENTED + DET PROVEN | invalid id, conflict, fence | — |
++| E1-REL-03 | Capitalisation réelle | IMPLEMENTED + VERIFIED BY INSPECTION | chaîne extract→D4 ; tests E1 | Conversation réelle → recette |
++| E1-REL-04 | Titre point ouvert | IMPLEMENTED + DET PROVEN | canonicalTitle PG + unit | Affichage DOM → recette/E3 |
++| E1-REL-05 | Trajectoire forecast+retain | IMPLEMENTED + DET PROVEN | forecast USER_MESSAGE ; RETAIN_VIS | Réorientation naturelle → recette |
++| E1-REL-06 | D6 complémentaire | VERIFIED BY INSPECTION + DET antérieur | e1-ensemble-b5-b6 | Actes naturels T07 → recette |
++| E1-REL-07 | Réutilisation D4 tools | VERIFIED BY INSPECTION + DET B.7 | tools exposés ; PREFERRED | Sélection naturelle → recette |
++| E1-REL-08 | Projections | VERIFIED BY INSPECTION | counters/identity/shortTitle code | DOM DEV bloqué tooling |
++| E1-REL-09 | Documentation | IMPLEMENTED | as-built + delivery + registre | Review Pack L3 |
+
+ Un **Review Pack SFIA v2.6 FULL** est attendu lorsque le profil Critical est justifié ; `.tmp-sfia-review/chatgpt-review.md` reste la source mono-cycle, avec Review Handoff L3 distinct de l'historique produit Studio. Ne jamais considérer un résumé seul comme contenu complet des fichiers modifiés.
+
+
+## FIN Review Pack E1 complément
+Instruction ChatGPT: lire ce fichier sur sfia/review-handoff après publication L3.
