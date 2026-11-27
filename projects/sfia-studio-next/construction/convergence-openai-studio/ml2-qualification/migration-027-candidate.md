@@ -3,9 +3,9 @@
 | Champ | Valeur |
 |---|---|
 | Statut | **APPLIED ON DEV — Morris GO Checkpoint A 2026-11-27** |
-| Fichier | `web/src/db/migrations/candidates/027_derived_embedding_chunks.sql` |
-| Module runtime | `web/src/domains/knowledge/derived-embedding-pg.ts` (inactive tant que backend≠pg) |
-| db-migrate.sh | **ne l'inclut pas** jusqu'au GO apply |
+| Fichier | `web/src/db/migrations/027_derived_embedding_chunks.sql` (+ candidate archive) |
+| Module runtime | `web/src/domains/knowledge/derived-embedding-pg.ts` — ops default `BACKEND=pg` |
+| db-migrate.sh | **inclut 027** (appliqué DEV ; aucune migration supplémentaire sans GO) |
 
 ## Décision de principe Morris
 
@@ -36,6 +36,6 @@ Aucune seconde base. Pas de pgvector requis.
 DROP TABLE IF EXISTS derived_embedding_chunks;
 ```
 
-## GO apply requis
+## GO apply — exécuté
 
-Checkpoint consolidé : `morris-checkpoint-027-and-live-20261127.md` Gate A.
+Checkpoint consolidé : `morris-checkpoint-027-and-live-20261127.md` Gate A — **APPLIED**. Aucune migration 028+ sans nouveau GO.

@@ -3,6 +3,21 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML2-PRODUCT-QUALIFICATION
+
+- **date_utc**: 2026-11-27T06:05Z
+- **lane**: DEV — Macro-lot 2 final product qualification (integrated functional)
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_entrée**: `bca4a4e5`
+- **focus**: Frontier familyHttp clone reconcile · hybrid fingerprint revalidation · Playwright smoke unblock · PG/API parcours (journal/hybrid/work/doc/versions) · LIVE checkpoint ≤18 **no emit**
+- **Frontier**: SoT 99 HTTP ; familles 14/8/24/29/12 (somme 87 = Δ+9 Gate B) — alias metrics fixed
+- **Parcours**: `cgw_4dc5ec02…` · `doc_51e6a868…` 2 revs · hybrid rightsRevalidated · foreign deny — LIVE Nora loop **awaits GO**
+- **Playwright**: smoke 2/2 (1.2s) — full suite opt-in `QUALIFY_BROWSER_SUITE=all`
+- **BUILD_ID**: `nzwWNOfltBjOBpaSmv5_q` · digest `37fc26536b425f5e798eee6be1445be1ae598bb732fe7e47cc4a041a5572513f` · pid 77388 :3100
+- **flags**: feature OFF · `SFIA_DERIVED_EMBEDDING_BACKEND=pg` durable
+- **RECETTE**: protected · WEB OFF · NO RELEASE · NOT ADOPTED
+- **statut**: **MACRO-LOT 2 — PRODUCT QUALIFICATION INTEGRATED DEV PROVEN — LIVE NORA LOOP AWAITS GO — MORRIS EXIT ACCEPTANCE PROPOSED**
+
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML2-FINAL-PRODUCT
 
 - **date_utc**: 2026-11-27T05:50Z

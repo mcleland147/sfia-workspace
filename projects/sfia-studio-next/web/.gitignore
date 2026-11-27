@@ -55,3 +55,6 @@ next-env.d.ts
 
 # C24 DEV qualification evidence / HMAC secrets (never commit)
 .sfia-evidence/
+
+# ML2 derived embedding file backend (tests only — never commit)
+.sfia-derived/

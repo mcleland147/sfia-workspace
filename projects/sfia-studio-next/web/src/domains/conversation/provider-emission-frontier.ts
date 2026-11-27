@@ -374,6 +374,11 @@ export function getCampaignEnvelopeMetrics(
     ? processCampaignRegistry.get(campaignId) ?? null
     : getActiveCampaignEnvelope();
   if (!c) return null;
+  // Deep-clone familyHttp — returning the live object aliased Gate B
+  // envelopeBefore/After snapshots (primitives diverged; nested family did not).
+  const familyHttp = c.familyHttp
+    ? (JSON.parse(JSON.stringify(c.familyHttp)) as typeof c.familyHttp)
+    : null;
   return {
     campaignId: c.campaignId,
     suspended: c.suspended,
@@ -394,7 +399,7 @@ export function getCampaignEnvelopeMetrics(
     maxHttpAttempts: c.maxHttpAttempts,
     maxInputTokens: c.maxInputTokens,
     maxOutputTokens: c.maxOutputTokens,
-    familyHttp: c.familyHttp,
+    familyHttp,
   };
 }
 

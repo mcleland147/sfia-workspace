@@ -290,7 +290,20 @@ cmd_browser() {
     export SFIA_BUILD_ID
     SFIA_BUILD_ID="$(cat "${ROOT}/.next/BUILD_ID")"
   fi
-  npx playwright test -c playwright.qualify.config.ts "$@"
+  # Default: bounded ML2 smoke only (avoids full suite hang on WEB-OFF Nora LIVE).
+  # Full suite: QUALIFY_BROWSER_SUITE=all npm run qualify:browser
+  # Explicit file args still honored when provided after -- .
+  if [[ "$#" -eq 0 ]]; then
+    if [[ "${QUALIFY_BROWSER_SUITE:-smoke}" == "all" ]]; then
+      npx playwright test -c playwright.qualify.config.ts
+    else
+      echo "qualify: browser smoke suite (set QUALIFY_BROWSER_SUITE=all for full)" >&2
+      npx playwright test -c playwright.qualify.config.ts \
+        tests/qualify/ml2-product-browser-smoke.spec.ts
+    fi
+  else
+    npx playwright test -c playwright.qualify.config.ts "$@"
+  fi
 }
 
 cmd_all() {

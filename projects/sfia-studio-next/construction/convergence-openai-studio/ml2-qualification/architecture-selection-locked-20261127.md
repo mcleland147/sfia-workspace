@@ -29,51 +29,25 @@ Droits projet/préparation · révocation · fraîcheur de version · provenance
 
 ## Persistance locale — mécanisme physique
 
-### Retenu pour Delivery I2 (sans migration)
+### Ops (après GO A 2026-11-27) — PostgreSQL 027 APPLIED DEV
 
-**Index dérivé fichier**, reconstructible, hors PostgreSQL produit :
+**Index dérivé ops unique = table `derived_embedding_chunks`** (`SFIA_DERIVED_EMBEDDING_BACKEND=pg`).
 
 | Élément | Valeur |
 |---|---|
-| Racine | `web/.sfia-derived/embedding-index/<projectId>/` |
-| Manifeste | `manifest.json` — `sourceId`, `projectId`, `preparationId`, `contentFingerprint`, `model`, `dims`, `revoked`, `deleted`, `versionLabel`, `indexRef`, `updatedAt` |
-| Vecteurs | `vectors.jsonl` — une ligne `{ sourceId, vector[] }` (float64 JSON) |
-| Reconstruction | relecture D4 autorisée → re-embed → rewrite atomique (tmp + rename) |
-| Hors index | sources revoked / deleted / autre projet / droits insuffisants |
-| pgvector | **non utilisé** |
-| Hosted VS / fileId | **non** |
+| Store | PostgreSQL DEV :5433 · migration **027 APPLIED** |
+| Reconstruction | relecture D4 autorisée → re-embed → replace projection PG |
+| Hors index | sources revoked / deleted / autre projet / droits insuffisants / fingerprint stale |
+| pgvector | **non utilisé** (jsonb vectors) |
+| Hosted VS / fileId | **non** (DEFER) |
 
-Ce chemin satisfait CONV-F23 (reconstructible) sans extension PG ni nouvelle table.
+### Fichier — hors ops (tests unitaires seulement)
 
-### Candidat migration 027 — **NON appliqué** (attente GO explicite)
+`web/.sfia-derived/` lorsque `SFIA_DERIVED_EMBEDDING_BACKEND=file` — **pas** de dual-write ops.
 
-Si Morris autorise ultérieurement une table durable :
+### Migration 027 — APPLIED DEV (GO A)
 
-```sql
--- CANDIDATE ONLY — not applied
--- 027_derived_embedding_chunks.sql
-CREATE TABLE IF NOT EXISTS derived_embedding_chunks (
-  id text PRIMARY KEY,
-  project_id text NOT NULL REFERENCES projects(id),
-  preparation_id text NOT NULL,
-  source_id text NOT NULL,
-  source_kind text NOT NULL,
-  content_fingerprint text NOT NULL,
-  model text NOT NULL,
-  dims integer NOT NULL,
-  vector_json jsonb NOT NULL,
-  revoked boolean NOT NULL DEFAULT false,
-  deleted boolean NOT NULL DEFAULT false,
-  version_label text,
-  index_ref text NOT NULL,
-  updated_at timestamptz NOT NULL DEFAULT now(),
-  UNIQUE (project_id, source_id, content_fingerprint, model)
-);
-CREATE INDEX IF NOT EXISTS derived_embedding_chunks_project_idx
-  ON derived_embedding_chunks (project_id, revoked, deleted);
-```
-
-**Aucun `db:migrate` 027 dans ce Delivery.** Feature flag produit lit uniquement l'index fichier tant que GO migration absent.
+SQL appliqué via `db-migrate.sh` sous GO Morris A. Schema candidate historique conservée sous `candidates/` / `db/migrations/027_*.sql`. **Aucune migration supplémentaire** sans nouveau GO.
 
 ## Enveloppe cumulative préservée
 

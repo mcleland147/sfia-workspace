@@ -4,7 +4,7 @@
 
 | Champ | Valeur |
 |---|---|
-| Version | v0.23 candidate — 27 novembre 2026 : Macro-lot 2 final product (027 APPLIED · Gate B LIVE 9/30 · BUILD qvIWhDeJwvskHV5DSrfE8) — **ML2 PRODUCT-WIDE CAPABILITIES BEHAVIOR PROVEN — EXIT ACCEPTANCE PROPOSED** ; v0.22 : checkpoint A+B ; v0.21 : product-wide integration ; v0.20 : Intervention 2 LIVE qualification ML1 ; v0.19 : Integrated foundation completion ; v0.18 : Admin/FinOps ; v0.17 : operational DEV foundation |
+| Version | v0.24 candidate — 27 novembre 2026 : Macro-lot 2 **product qualification** (Frontier reconcile 90→99 / familles +9 · rights fingerprint · Playwright smoke · parcours PG/API work+doc · LIVE ckpt ≤18 attente GO · BUILD `nzwWNOfltBjOBpaSmv5_q`) — **ML2 PRODUCT QUALIFICATION INTEGRATED DEV — LIVE NORA LOOP AWAITS GO — EXIT ACCEPTANCE PROPOSED** ; v0.23 : final product GO A+B ; v0.22 : checkpoint A+B ; v0.21 : product-wide integration ; v0.20 : Intervention 2 LIVE qualification ML1 ; v0.19 : Integrated foundation completion ; v0.18 : Admin/FinOps ; v0.17 : operational DEV foundation |
 | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
 | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
 | Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |

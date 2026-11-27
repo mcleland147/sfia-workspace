@@ -76,8 +76,9 @@ describe("ml2 product-wide wiring (substituted)", () => {
     );
     expect(src).toContain("collectAdmissibleKnowledgeSources");
     expect(src).toContain("ADMISSIBLE_SOURCES_ONLY");
-    expect(src).toContain("createFrontierAwareFetch");
+    expect(src).toContain("createFrontierBoundOpenAIClient");
     expect(src).toContain("rightsRevalidated");
+    expect(src).toContain("freshFp");
   });
 
   it("migration 027 is official after Morris GO A", () => {

@@ -13,6 +13,7 @@ import {
   writeDerivedIndex,
   type DerivedIndexEntry,
   type DerivedSourceKind,
+  type MobilizableHit,
 } from "@/domains/knowledge/derived-embedding-index";
 import {
   derivedEmbeddingBackend,
@@ -320,7 +321,7 @@ export async function hybridSearchProjectKnowledge(input: {
   const snippets = new Map<string, string>();
   for (const l of input.lexical) snippets.set(l.sourceId, l.snippet);
 
-  let semanticHits =
+  let semanticHits: MobilizableHit[] =
     derivedEmbeddingBackend() === "pg"
       ? await searchDerivedChunksPg({
           projectId: input.projectId,
@@ -339,13 +340,29 @@ export async function hybridSearchProjectKnowledge(input: {
     snippet: h.snippet || snippets.get(h.sourceId) || "",
   }));
 
+  // Concurrent revoke / content change (same sourceId, new fingerprint):
+  // re-read D4 admissible set and drop stale index refs before merge.
+  const freshBundle = await listProjectKnowledge(input.pilotId, input.projectId);
+  const freshSources = collectAdmissibleKnowledgeSources(freshBundle);
+  const freshFp = new Map(
+    freshSources.map((s) => [s.sourceId, contentFingerprint(s.text)]),
+  );
+  const freshIds = new Set(freshFp.keys());
+  for (const l of input.lexical) freshIds.add(l.sourceId);
+  semanticHits = semanticHits.filter((h) => {
+    if (!freshFp.has(h.sourceId)) return false;
+    const m = /@([a-f0-9]+)$/i.exec(h.indexRef || "");
+    if (!m) return true;
+    return m[1] === freshFp.get(h.sourceId);
+  });
+
   const merged = mergeLexicalAndDerived({
     projectId: input.projectId,
-    lexical: input.lexical.filter((l) => admissible.has(l.sourceId)),
+    lexical: input.lexical.filter((l) => freshIds.has(l.sourceId)),
     queryVector: emb.vector,
     limit: input.limit,
     snippets,
-    allowedSourceIds: admissible,
+    allowedSourceIds: freshIds,
     semanticHits,
   });
   return {
