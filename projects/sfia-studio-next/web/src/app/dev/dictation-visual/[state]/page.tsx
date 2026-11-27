@@ -1,6 +1,9 @@
 "use client";
 
 /**
+ * VISUAL-LAYOUT ONLY — superseded for functional proof by `/dev/dictation-harness`
+ * (real ComposerDictationControl + API). Keep for L0 Figma geometry comparison.
+ *
  * DEV-only composer dictation visual harness — deterministic fixtures for Figma comparison.
  * No OpenAI, no mic, no API. Does not touch RECETTE.
  */

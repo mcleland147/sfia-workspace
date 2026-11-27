@@ -15,6 +15,32 @@ export function composerDictationEnabled(
   return (env.SFIA_COMPOSER_DICTATION || "").trim() === "1";
 }
 
+/**
+ * Studio gate before opening a live transcription WebSocket.
+ * Activation remains flag-based (not a permanent lane ban).
+ * Substituted transports skip this key check via factory path.
+ */
+export function assertDictationEmissionAllowed(
+  env: NodeJS.ProcessEnv = process.env,
+): { ok: true } | { ok: false; code: string; message: string } {
+  if (!composerDictationEnabled(env)) {
+    return {
+      ok: false,
+      code: "FLAG_OFF",
+      message: "Composer dictation is not enabled (SFIA_COMPOSER_DICTATION).",
+    };
+  }
+  const apiKey = (env.OPENAI_API_KEY || "").trim();
+  if (!apiKey) {
+    return {
+      ok: false,
+      code: "NO_PROVIDER_KEY",
+      message: "OpenAI API key unavailable for transcription session.",
+    };
+  }
+  return { ok: true };
+}
+
 export type DictationUiState =
   | "idle"
   | "initializing"

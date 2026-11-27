@@ -1,3 +1,23 @@
+## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-INTEGRATED-DICTATION-CORRECTIVE
+
+- **date_utc**: 2026-11-27T08:35Z
+- **lane**: DEV — targeted integration fix & construction exit
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_entrée**: `9c2afa5e`
+- **classe**: NO RELEASE
+- **A**: client/server seq 0-based (first fragment accepted) + regression
+- **B**: progressive item maps · auto-commit PCM · finalize waits awaiting/provisional
+- **C**: cancel during finalize stays terminal
+- **D**: FinOps status mapping cancelled/failed · fixture transport DEV/test · no RECETTE hard ban
+- **E**: real `ComposerDictationControl` harness + Playwright · Figma Δ0 on mic/cancel/stop
+- **F**: ML2 PG concurrency T13 PASS on e2e DB (+027 applied to e2e only)
+- **BUILD_ID**: `qhiWVOF0bQHF60ftGW_tF`
+- **digest**: `3f846bedfcf6856d6c6f6660b6bd6234ccf56a518b621992cc3a9cb700801bed`
+- **pid**: 33860 · workspace projet · effectMode LIVE ≠ OpenAI LIVE
+- **tests**: 11 session + 8 integrated API + 2 ML2 concurrency + 1 Playwright qualify
+- **LIVE audio**: NOT EXECUTED · flags restored OFF
+- **statut proposé**: MACRO-LOTS 1–3 — INTEGRATED CONVERGENCE CONSTRUCTION COMPLETE — PRODUCT DICTATION PATH TECHNICALLY PROVEN — FUNCTIONAL RECETTE QUALIFICATION PENDING — MORRIS EXIT ACCEPTANCE PROPOSED
+
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-INTEGRATED-EXIT
 
 - **date_utc**: 2026-11-27T08:15Z
@@ -14,7 +34,7 @@
 - **schema**: 027 DEV · RECETTE :5434 protected
 - **flags**: SEARCH/JUDGMENT/VISION/DICTATION OFF by default · WEB LIVE OFF
 - **LIVE audio**: NOT EXECUTED
-- **statut proposé**: MACRO-LOTS 1–3 — INTEGRATED CONVERGENCE IMPLEMENTATION COMPLETE — ENGINEERING QUALIFICATION COMPLETE — FUNCTIONAL RECETTE QUALIFICATION PENDING — MORRIS CONSTRUCTION EXIT ACCEPTANCE PROPOSED
+- **statut**: superseded by INTEGRATED-DICTATION-CORRECTIVE (seq defect + integrated path)
 
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML3-AUDIO-AND-ML2-RESIDUAL
 

@@ -206,7 +206,7 @@ describe("ml3 composer dictation session (substituted transport)", () => {
     expect(update?.session?.audio?.input?.transcription?.language).toBeUndefined();
   });
 
-  it("rejects out-of-order audio seq", async () => {
+  it("accepts 0-based audio seq and rejects skip", async () => {
     process.env.SFIA_COMPOSER_DICTATION = "1";
     process.env.STUDIO_LANE = "DEV";
     const mock = mockTransport();
@@ -226,9 +226,45 @@ describe("ml3 composer dictation session (substituted transport)", () => {
         pilotId: "pilot-1",
         projectId: "proj-1",
         pcmBase64: pcm,
-        seq: 1,
+        seq: 0,
+      }).ok,
+    ).toBe(true);
+    expect(
+      appendDictationAudio({
+        sessionId: sid,
+        pilotId: "pilot-1",
+        projectId: "proj-1",
+        pcmBase64: pcm,
+        seq: 2,
       }).code,
     ).toBe("SEQ_OUT_OF_ORDER");
+  });
+
+  it("accepts client enqueue order seq 0 then 1", async () => {
+    process.env.SFIA_COMPOSER_DICTATION = "1";
+    process.env.STUDIO_LANE = "DEV";
+    const mock = mockTransport();
+    const created = await createDictationSession({
+      pilotId: "pilot-1",
+      projectId: "proj-1",
+      conversationKey: "proj-1",
+      baselineDraft: "",
+      transportFactory: async () => mock.transport,
+    });
+    if (!created.ok) throw new Error("create failed");
+    const sid = created.session.sessionId;
+    const pcm = Buffer.alloc(320, 1).toString("base64");
+    for (const seq of [0, 1]) {
+      expect(
+        appendDictationAudio({
+          sessionId: sid,
+          pilotId: "pilot-1",
+          projectId: "proj-1",
+          pcmBase64: pcm,
+          seq,
+        }).ok,
+      ).toBe(true);
+    }
   });
 
   it("cancelled session cannot finalize to completed", async () => {
@@ -304,5 +340,98 @@ describe("ml3 composer dictation session (substituted transport)", () => {
     if (!fin.ok) return;
     expect(fin.transcript).toBe("segment deux segment un");
     expect(created.session.draft.itemOrder).toEqual(["item_2", "item_1"]);
+  });
+
+  it("cancel during finalizing keeps cancelled status", async () => {
+    process.env.SFIA_COMPOSER_DICTATION = "1";
+    process.env.STUDIO_LANE = "DEV";
+    const mock = mockTransport();
+    const created = await createDictationSession({
+      pilotId: "pilot-1",
+      projectId: "proj-1",
+      conversationKey: "proj-1",
+      baselineDraft: "base",
+      transportFactory: async () => mock.transport,
+    });
+    if (!created.ok) throw new Error("create failed");
+    const sid = created.session.sessionId;
+    mock.push({
+      type: "input_audio_buffer.committed",
+      item_id: "item_wait",
+    });
+    const finPromise = finalizeDictationSession({
+      sessionId: sid,
+      pilotId: "pilot-1",
+      projectId: "proj-1",
+    });
+    await new Promise((r) => setTimeout(r, 5));
+    expect(created.session.status).toBe("finalizing");
+    cancelDictationSession({
+      sessionId: sid,
+      pilotId: "pilot-1",
+      projectId: "proj-1",
+    });
+    const fin = await finPromise;
+    expect(fin.ok).toBe(false);
+    if (fin.ok) return;
+    expect(fin.code).toBe("CANCELLED");
+    expect(created.session.status).toBe("cancelled");
+    expect(fin.draft).toBe("base");
+  });
+
+  it("finalize waits for all provisionals before complete", async () => {
+    process.env.SFIA_COMPOSER_DICTATION = "1";
+    process.env.STUDIO_LANE = "DEV";
+    const mock = mockTransport();
+    const created = await createDictationSession({
+      pilotId: "pilot-1",
+      projectId: "proj-1",
+      conversationKey: "proj-1",
+      baselineDraft: "",
+      transportFactory: async () => mock.transport,
+    });
+    if (!created.ok) throw new Error("create failed");
+    const sid = created.session.sessionId;
+    mock.push({
+      type: "conversation.item.input_audio_transcription.delta",
+      item_id: "item_a",
+      delta: "en cours",
+    });
+    mock.push({
+      type: "input_audio_buffer.committed",
+      item_id: "item_a",
+    });
+    mock.push({
+      type: "conversation.item.input_audio_transcription.completed",
+      item_id: "item_a",
+      transcript: "segment A",
+    });
+    mock.push({
+      type: "input_audio_buffer.committed",
+      item_id: "item_b",
+    });
+    mock.push({
+      type: "conversation.item.input_audio_transcription.delta",
+      item_id: "item_b",
+      delta: "provisoire",
+    });
+    const finPromise = finalizeDictationSession({
+      sessionId: sid,
+      pilotId: "pilot-1",
+      projectId: "proj-1",
+    });
+    await new Promise((r) => setTimeout(r, 10));
+    expect(created.session.status).toBe("finalizing");
+    mock.push({
+      type: "conversation.item.input_audio_transcription.completed",
+      item_id: "item_b",
+      transcript: "segment B",
+    });
+    const fin = await finPromise;
+    expect(fin.ok).toBe(true);
+    if (!fin.ok) return;
+    expect(fin.transcript).toContain("segment A");
+    expect(fin.transcript).toContain("segment B");
+    expect(created.session.status).toBe("completed");
   });
 });

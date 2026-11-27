@@ -5,36 +5,36 @@
 | Date | 2026-11-27 |
 | Modèle | `gpt-live-transcribe` |
 | Transport | **Studio-controlled** Realtime WebSocket (`intent=transcription`) |
-| Client | PCM 24 kHz mono → HTTP append ordonné (`seq`) + SSE events |
-| Flag | `SFIA_COMPOSER_DICTATION=1` (défaut OFF) — pas d’interdiction DEV-only permanente |
-| Admission | `assertOwnedProject` avant ouverture / append / events / finalize / cancel |
-| LIVE fournisseur | **non déclenché** — plan borné conservé, GO distinct requis |
+| Client | PCM 24 kHz mono → HTTP append ordonné (`seq` **0-based**) + SSE |
+| Flag | `SFIA_COMPOSER_DICTATION=1` (défaut OFF) — pas d’interdiction lane permanente |
+| Admission | `assertOwnedProject` · `assertDictationEmissionAllowed` (live) · fixture DEV/test |
+| LIVE fournisseur | **non déclenché** |
 
 ## Flux
 
-Pilote → permission micro → `POST …/dictation/sessions` (droits projet) → attente `session.updated` → capture PCM séquentielle → `…/audio` → WS serveur → SSE deltas → Arrêter → drain uploads → `…/finalize` → brouillon → Envoyer USER existant.
+Pilote → micro → `POST …/sessions` → `session.updated` → PCM `seq=0,1,…` → auto-commit ~2 s → SSE deltas par item → Arrêter → drain → finalize (attend awaiting+provisional) → brouillon → Envoyer USER.
 
-Aucun travail D3. Annuler restaure le baseline. États terminaux stables. GC sessions 5 s.
+Aucun D3 pendant transcription. Cancel restaure baseline. Terminaux stables.
+
+## Correctif intégré (post dbe155cf)
+
+- Seq client/serveur alignés (premier fragment accepté)
+- Assemblage client par item (pas de remplacement global)
+- Cancel pendant finalize ≠ completed
+- FinOps : cancelled/failed observés comme failed
+- Harness réel `/dev/dictation-harness` (pas copie DOM)
 
 ## Modules
 
-- `assert-owned-project.ts`
-- `composer-dictation-types.ts` / `composer-dictation-reducer.ts` (`itemOrder`) / `composer-dictation-session.ts`
-- API `app/api/projects/[projectId]/dictation/sessions/**`
-- UI Figma morph : `ComposerDictationControl` + `NoraConversation` (`data-dictation-active`)
-- CSS `.fig-dictation-shell*` · icônes `/public/figma-dictation/*`
-- Fixture DEV `/dev/dictation-visual/[state]`
-- Contrats : `ux-ui/composer-dictation-visual-contract-20261127.md` · `ux-ui/figma-dictation-l0/`
-
-## OpenAI Realtime
-
-- `session.update` : `languages: ["fr"]` (pas `language`)
-- Ouverture effective après confirmation fournisseur
-- FinOps : estimation PCM `(bytes/(24000*2))/60 * 0.017` · skip cancelled sans audio · `attemptId` unique
+- `composer-dictation-{types,reducer,session,transport-fixture}.ts`
+- `ComposerDictationControl` / `NoraConversation`
+- API `dictation/sessions/**`
+- Tests : unit + `ml3-composer-dictation-integrated.pg` + Playwright qualify
 
 ## Preuves
 
-- Unit session/reducer (8+3) transport substitué
-- ML2 behavioral guarantees (6)
-- Figma vs Runtime : rectangles stables 0 Δ (micro 35, cmd 40×46, tokens)
-- BUILD `GzJ4dM0QxarVz9dpovqQz` · digest `c5fd99c8…`
+- Unit session 11 + seq contract 2 + reducer 3
+- Integration API 8 PASS
+- Playwright harness listening PASS
+- Figma vs **vrai** contrôle : mic/cancel/stop Δ0
+- BUILD `qhiWVOF0bQHF60ftGW_tF` · digest `3f846bed…`

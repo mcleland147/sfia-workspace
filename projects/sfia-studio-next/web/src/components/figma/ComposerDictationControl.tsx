@@ -59,6 +59,23 @@ function bufToBase64(buf: ArrayBuffer): string {
   return btoa(binary);
 }
 
+function assembleClientTranscript(input: {
+  itemOrder: string[];
+  finalByItem: Record<string, string>;
+  provisionalByItem: Record<string, string>;
+}): string {
+  const parts: string[] = [];
+  for (const id of input.itemOrder) {
+    const t = (
+      input.finalByItem[id] ||
+      input.provisionalByItem[id] ||
+      ""
+    ).trim();
+    if (t) parts.push(t);
+  }
+  return parts.join(" ");
+}
+
 function figmaState(
   phase: UiPhase,
   provisionalHidden: boolean,
@@ -91,7 +108,9 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
   const analyserRef = useRef<AnalyserNode | null>(null);
   const rafRef = useRef<number | null>(null);
   const esRef = useRef<EventSource | null>(null);
-  const provisionalAccRef = useRef("");
+  const provisionalByItemRef = useRef<Record<string, string>>({});
+  const finalByItemRef = useRef<Record<string, string>>({});
+  const itemOrderRef = useRef<string[]>([]);
   const sessionStartRef = useRef<number | null>(null);
   const captureStoppedRef = useRef(false);
 
@@ -169,8 +188,8 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
         return;
       }
 
-      seqRef.current += 1;
       const seq = seqRef.current;
+      seqRef.current += 1;
       pendingUploadsRef.current += 1;
 
       uploadChainRef.current = uploadChainRef.current
@@ -227,7 +246,9 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
     setError(null);
     setPhase("requesting");
     setProvisional("");
-    provisionalAccRef.current = "";
+    provisionalByItemRef.current = {};
+    finalByItemRef.current = {};
+    itemOrderRef.current = [];
     setProvisionalHidden(false);
     baselineRef.current = props.draft;
     setBaselineSnapshot(props.draft);
@@ -304,18 +325,39 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
         try {
           const ev = JSON.parse(msg.data) as {
             type?: string;
+            itemId?: string;
             delta?: string;
             transcript?: string;
             message?: string;
             code?: string;
           };
-          if (ev.type === "transcript.delta" && ev.delta) {
-            provisionalAccRef.current += ev.delta;
-            setProvisional(provisionalAccRef.current);
+          if (ev.type === "transcript.delta" && ev.delta && ev.itemId) {
+            if (!itemOrderRef.current.includes(ev.itemId)) {
+              itemOrderRef.current.push(ev.itemId);
+            }
+            provisionalByItemRef.current[ev.itemId] =
+              (provisionalByItemRef.current[ev.itemId] || "") + ev.delta;
+            setProvisional(
+              assembleClientTranscript({
+                itemOrder: itemOrderRef.current,
+                finalByItem: finalByItemRef.current,
+                provisionalByItem: provisionalByItemRef.current,
+              }),
+            );
           }
-          if (ev.type === "transcript.completed" && ev.transcript) {
-            provisionalAccRef.current = ev.transcript;
-            setProvisional(ev.transcript);
+          if (ev.type === "transcript.completed" && ev.transcript && ev.itemId) {
+            if (!itemOrderRef.current.includes(ev.itemId)) {
+              itemOrderRef.current.push(ev.itemId);
+            }
+            delete provisionalByItemRef.current[ev.itemId];
+            finalByItemRef.current[ev.itemId] = ev.transcript;
+            setProvisional(
+              assembleClientTranscript({
+                itemOrder: itemOrderRef.current,
+                finalByItem: finalByItemRef.current,
+                provisionalByItem: provisionalByItemRef.current,
+              }),
+            );
           }
           if (ev.type === "session.error") {
             setError(ev.message || ev.code || "Erreur de dictée");
@@ -420,7 +462,9 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
     props.onDraft(baselineRef.current);
     sessionIdRef.current = null;
     setProvisional("");
-    provisionalAccRef.current = "";
+    provisionalByItemRef.current = {};
+    finalByItemRef.current = {};
+    itemOrderRef.current = [];
     setPhase("idle");
     setError(null);
     sessionStartRef.current = null;
@@ -465,7 +509,9 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
     if (generationRef.current !== gen) return;
     sessionIdRef.current = null;
     setProvisional("");
-    provisionalAccRef.current = "";
+    provisionalByItemRef.current = {};
+    finalByItemRef.current = {};
+    itemOrderRef.current = [];
     setPhase("idle");
     sessionStartRef.current = null;
     setElapsedMs(0);
