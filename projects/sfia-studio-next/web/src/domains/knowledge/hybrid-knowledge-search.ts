@@ -38,6 +38,11 @@ export function mergeLexicalAndDerived(input: {
   limit?: number;
   snippets?: Map<string, string>;
   env?: NodeJS.ProcessEnv;
+  /**
+   * When set, only these source ids may leave the merge (post-rights filter).
+   * Exact lexical ids already authorized should be included by the caller.
+   */
+  allowedSourceIds?: Set<string> | null;
 }): {
   hits: HybridHit[];
   derivedUsed: boolean;
@@ -45,8 +50,10 @@ export function mergeLexicalAndDerived(input: {
 } {
   const limit = Math.min(Math.max(input.limit ?? 12, 1), 24);
   const byId = new Map<string, HybridHit>();
+  const allowed = input.allowedSourceIds ?? null;
 
   for (const L of input.lexical) {
+    if (allowed && !allowed.has(L.sourceId)) continue;
     byId.set(L.sourceId, {
       sourceId: L.sourceId,
       title: L.title,
@@ -66,13 +73,15 @@ export function mergeLexicalAndDerived(input: {
     const semantic = searchDerivedIndex({
       projectId: input.projectId,
       queryVector: input.queryVector,
-      limit,
+      limit: Math.max(limit * 2, 16),
       snippets: input.snippets,
     });
     derivedUsed = true;
     for (const s of semantic) {
+      if (allowed && !allowed.has(s.sourceId)) continue;
       const existing = byId.get(s.sourceId);
       if (existing) {
+        // Exact lexical identity wins channel tag; retain semantic score.
         existing.channel = "both";
         existing.score = s.score;
         existing.versionLabel = s.versionLabel;
@@ -93,9 +102,16 @@ export function mergeLexicalAndDerived(input: {
   }
 
   const hits = [...byId.values()];
+  // Prefer exact lexical / both over pure derived when scores tie.
   hits.sort((a, b) => {
-    const sa = a.score ?? (a.channel === "lexical" || a.channel === "both" ? 0.5 : 0);
-    const sb = b.score ?? (b.channel === "lexical" || b.channel === "both" ? 0.5 : 0);
+    const channelBoost = (c: HybridHit["channel"]) =>
+      c === "lexical" || c === "both" ? 0.05 : 0;
+    const sa =
+      (a.score ?? (a.channel === "lexical" || a.channel === "both" ? 0.5 : 0)) +
+      channelBoost(a.channel);
+    const sb =
+      (b.score ?? (b.channel === "lexical" || b.channel === "both" ? 0.5 : 0)) +
+      channelBoost(b.channel);
     if (sb !== sa) return sb - sa;
     return a.sourceId.localeCompare(b.sourceId);
   });

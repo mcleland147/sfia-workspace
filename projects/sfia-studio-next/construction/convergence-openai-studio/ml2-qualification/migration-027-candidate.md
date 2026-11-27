@@ -1,28 +1,34 @@
-# Migration 027 candidate — derived_embedding_chunks
+# Migration 027 — derived_embedding_chunks (checkpoint A)
 
 | Champ | Valeur |
 |---|---|
-| Statut | **CANDIDATE — AUCUN GO — NON APPLIQUÉE** |
+| Statut | **CANDIDATE FINALISÉE — GO PRINCIPLE Morris — APPLY EN ATTENTE checkpoint A** |
 | Fichier | `web/src/db/migrations/candidates/027_derived_embedding_chunks.sql` |
-| db-migrate.sh | **ne l'inclut pas** |
+| Module runtime | `web/src/domains/knowledge/derived-embedding-pg.ts` (inactive tant que backend≠pg) |
+| db-migrate.sh | **ne l'inclut pas** jusqu'au GO apply |
+
+## Décision de principe Morris
+
+Persistance cible = projection dérivée PostgreSQL (base existante DEV :5433).  
+Aucune seconde base. Pas de pgvector requis.
 
 ## Comparaison fichier vs PG
 
-| Critère | Fichier `.sfia-derived/` (actuel) | PG 027 (candidat) |
+| Critère | Fichier `.sfia-derived/` | PG 027 |
 |---|---|---|
-| Intérité transactionnelle | Faible (2 renames) | Forte (TX avec D4 writes) |
-| Concurrence | Non verrouillée | Isolée par DB |
-| Droits | Filtre app `projectId` | FK `projects` + `owner_pilot_id` |
-| Reconstruction | Rewrite fichier | UPSERT / rebuild SQL |
-| Sauvegarde | Hors backup PG | Inclus dump PG DEV/RECETTE |
-| Hébergement multi-instance | Non partagé | Partagé |
-| Complexité | Simple | Migration + dual-read |
+| Intérité transactionnelle | Faible (2 renames) | Forte |
+| Concurrence | Non verrouillée | Isolée DB |
+| Droits | Filtre app | FK + **revalidation D4/D9 obligatoire** (owner_pilot_id ≠ auth) |
+| Reconstruction | Rewrite fichier | UPSERT SQL |
+| Sauvegarde | Hors dump PG | Inclus dump |
+| Multi-instance | Non | Oui |
 
-**Recommandation produit :** adopter 027 dès GO Morris ; conserver file backend comme fallback jusqu'à apply.
+## Après apply (GO A)
 
-## Delta exact
-
-Voir SQL candidat (table + 2 indexes, **sans pgvector**).
+1. `SFIA_DERIVED_EMBEDDING_BACKEND=pg`
+2. Retirer le fichier du chemin **opérationnel** (pas de dual-read/write)
+3. Fallback fonctionnel = lexical exact autorisé
+4. Conserver preuves expérimentales fichier hors ops
 
 ## Rollback
 
@@ -30,10 +36,6 @@ Voir SQL candidat (table + 2 indexes, **sans pgvector**).
 DROP TABLE IF EXISTS derived_embedding_chunks;
 ```
 
-## Intérêt
+## GO apply requis
 
-Évite d'industrialiser un stockage fichier transitoire pour une capacité transverse multi-parcours.
-
-## GO requis
-
-Morris doit autoriser explicitement `db:migrate` 027 sur DEV avant tout apply. RECETTE/STABLE inchangés sans gates séparés.
+Checkpoint consolidé : `morris-checkpoint-027-and-live-20261127.md` Gate A.

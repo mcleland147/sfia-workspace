@@ -254,6 +254,12 @@ type LiveCampaignStateEntry = {
   createdAtMs: number;
   /** Full cumulative envelope — never zeroed on process restart. */
   envelope?: CampaignEnvelope;
+  /**
+   * Generic protect latch — when true, test/qualify resets must not wipe this
+   * cumulative envelope. Set via SFIA_LIVE_CAMPAIGN_ID match or
+   * SFIA_PROTECT_CAMPAIGN_ENVELOPE=1 — never a hardcoded campaignId exception.
+   */
+  protectPersisted?: boolean;
 };
 
 function liveCampaignStatePath(): string {
@@ -296,12 +302,34 @@ function deleteLiveCampaignStateFile(): void {
   }
 }
 
+function shouldProtectCampaignId(campaignId: string): boolean {
+  const id = campaignId.trim();
+  if (!id) return false;
+  const envId = (process.env.SFIA_LIVE_CAMPAIGN_ID || "").trim();
+  if (envId !== "" && envId === id) return true;
+  if ((process.env.SFIA_PROTECT_CAMPAIGN_ENVELOPE || "").trim() === "1") {
+    // Protect env-declared LIVE id when set; otherwise any persisted required
+    // envelope under the generic protect flag.
+    return envId === "" || envId === id;
+  }
+  return false;
+}
+
 function persistCampaignEnvelope(campaign: CampaignEnvelope): void {
+  const prev = readLiveCampaignStateFile();
+  const protect =
+    (prev?.campaignId === campaign.campaignId &&
+      prev.protectPersisted === true) ||
+    shouldProtectCampaignId(campaign.campaignId);
   writeLiveCampaignStateEntry({
     campaignId: campaign.campaignId,
     pid: process.pid,
-    createdAtMs: Date.now(),
+    createdAtMs:
+      prev?.campaignId === campaign.campaignId
+        ? prev.createdAtMs
+        : Date.now(),
     envelope: { ...campaign },
+    protectPersisted: protect,
   });
 }
 
@@ -626,12 +654,17 @@ export function attachConfiguredLiveCampaignFromEnv(
   });
 }
 
-function isProtectedLiveCampaignId(campaignId: string | null | undefined): boolean {
+/** Generic persisted-campaign protect — no hardcoded campaignId allowlist. */
+function isProtectedPersistedCampaign(
+  campaignId: string | null | undefined,
+): boolean {
   const id = (campaignId ?? "").trim();
   if (!id) return false;
-  if (id === "ml2-i2-docintel-20261127") return true;
-  const envId = (process.env.SFIA_LIVE_CAMPAIGN_ID || "").trim();
-  return envId !== "" && id === envId;
+  if (shouldProtectCampaignId(id)) return true;
+  const persisted = readLiveCampaignStateFile();
+  return (
+    persisted?.campaignId === id && persisted.protectPersisted === true
+  );
 }
 
 /** End process-level LIVE campaign (qualify close / test reset). */
@@ -639,10 +672,10 @@ export function endProcessCampaign(campaignId?: string): void {
   if (campaignId) {
     processCampaignRegistry.delete(campaignId);
     const persisted = readLiveCampaignStateFile();
-    // Never delete definitive LIVE cumulative envelope from test/qualify teardown.
+    // Never delete protected cumulative envelope from test/qualify teardown.
     if (
       persisted?.campaignId === campaignId &&
-      !isProtectedLiveCampaignId(campaignId)
+      !isProtectedPersistedCampaign(campaignId)
     ) {
       deleteLiveCampaignStateFile();
     }
@@ -655,7 +688,7 @@ export function endProcessCampaign(campaignId?: string): void {
   }
   processCampaignRegistry.clear();
   const persisted = readLiveCampaignStateFile();
-  if (!isProtectedLiveCampaignId(persisted?.campaignId)) {
+  if (!isProtectedPersistedCampaign(persisted?.campaignId)) {
     deleteLiveCampaignStateFile();
   }
   requiredCampaignLatch = null;
@@ -1846,14 +1879,10 @@ export function __resetProviderEmissionFrontierForTests(): void {
     s.nativeInputCount = null;
   }
   processCampaignRegistry.clear();
-  // Never wipe a definitive LIVE campaign envelope from unit-test resets.
+  // Never wipe a protected cumulative envelope from unit-test resets.
+  // Protection is env/flag based — not a hardcoded campaignId exception.
   const persisted = readLiveCampaignStateFile();
-  const protectLive =
-    persisted?.campaignId === "ml2-i2-docintel-20261127" ||
-    ((process.env.SFIA_LIVE_CAMPAIGN_ID || "").trim() !== "" &&
-      persisted?.campaignId ===
-        (process.env.SFIA_LIVE_CAMPAIGN_ID || "").trim());
-  if (!protectLive) {
+  if (!isProtectedPersistedCampaign(persisted?.campaignId)) {
     deleteLiveCampaignStateFile();
   }
   requiredCampaignLatch = null;
@@ -2341,6 +2370,29 @@ export function createFrontierAwareFetch(
  * Install Agents SDK OpenAI client whose fetch is frontier-aware.
  * Reinstall when key fingerprint changes or forceReinstall is set (tests).
  */
+/**
+ * Construct an OpenAI SDK client whose transport is always Frontier-aware.
+ * Prefer this over `new OpenAI({ apiKey })` for Decisions / Embeddings / Vision.
+ */
+export async function createFrontierBoundOpenAIClient(input?: {
+  requireCampaign?: boolean;
+  maxRetries?: number;
+  fetch?: typeof fetch;
+}): Promise<InstanceType<typeof import("openai").default> | null> {
+  const key = process.env.OPENAI_API_KEY?.trim() ?? "";
+  if (!key) return null;
+  const OpenAI = (await import("openai")).default;
+  const als = getActiveCampaignEnvelope();
+  const requireCampaign =
+    input?.requireCampaign === true || Boolean(als?.required) || als != null;
+  const baseFetch = input?.fetch ?? globalThis.fetch.bind(globalThis);
+  return new OpenAI({
+    apiKey: key,
+    fetch: createFrontierAwareFetch(baseFetch, { requireCampaign }),
+    maxRetries: input?.maxRetries ?? 0,
+  });
+}
+
 export async function ensureFrontierOpenAIClientInstalled(input?: {
   requireCampaign?: boolean;
   maxRetries?: number;

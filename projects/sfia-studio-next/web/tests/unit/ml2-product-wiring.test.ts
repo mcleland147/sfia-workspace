@@ -27,22 +27,25 @@ describe("ml2 product-wide wiring (substituted)", () => {
     expect(src).toContain("queryVector");
   });
 
-  it("git pdf offers punctual vision on scanned empty extract", () => {
+  it("git pdf offers punctual vision beyond scan-only cases", () => {
     const src = readFileSync(
       join(root, "domains/conversation/git-read-tools.ts"),
       "utf8",
     );
     expect(src).toContain("runDocumentVisionPunctual");
     expect(src).toContain("SCANNED_NO_TEXT");
+    expect(src).toContain("createFrontierBoundOpenAIClient");
+    expect(src).toContain("visionAssist");
   });
 
-  it("D8 can use bounded judgment before Nora", () => {
+  it("D8 can use bounded judgment before Nora via Frontier client", () => {
     const src = readFileSync(
       join(root, "domains/proofs/d8-cognitive-criterion-eval.ts"),
       "utf8",
     );
     expect(src).toContain("runBoundedJudgment");
     expect(src).toContain("NOT_D6_HUMAN_DECISION");
+    expect(src).toContain("createFrontierBoundOpenAIClient");
   });
 
   it("knowledge capitalize revokes superseded derived source", () => {
@@ -53,13 +56,28 @@ describe("ml2 product-wide wiring (substituted)", () => {
     expect(src).toContain("revokeDerivedSource");
   });
 
-  it("frontier protects LIVE campaign teardown", () => {
+  it("frontier protects persisted campaigns generically (no hardcoded id)", () => {
     const src = readFileSync(
       join(root, "domains/conversation/provider-emission-frontier.ts"),
       "utf8",
     );
-    expect(src).toContain("isProtectedLiveCampaignId");
-    expect(src).toContain("ml2-i2-docintel-20261127");
+    expect(src).toContain("isProtectedPersistedCampaign");
+    expect(src).toContain("protectPersisted");
+    expect(src).toContain("SFIA_PROTECT_CAMPAIGN_ENVELOPE");
+    expect(src).not.toMatch(
+      /if \(id === "ml2-i2-docintel-20261127"\) return true/,
+    );
+  });
+
+  it("derived rebuild excludes non-admissible sources before embed", () => {
+    const src = readFileSync(
+      join(root, "domains/knowledge/derived-embedding-service.ts"),
+      "utf8",
+    );
+    expect(src).toContain("collectAdmissibleKnowledgeSources");
+    expect(src).toContain("ADMISSIBLE_SOURCES_ONLY");
+    expect(src).toContain("createFrontierAwareFetch");
+    expect(src).toContain("rightsRevalidated");
   });
 
   it("migration 027 lives in candidates only", () => {

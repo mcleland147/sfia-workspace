@@ -1,7 +1,7 @@
 /**
  * ML2 ADAPT — OpenAI Decisions for bounded judgments (predicate/choice/score).
  * NOT HumanDecision D6. Explicit uncertainty + Responses fallback when
- * Decisions abstains / confidence is out of band / API unavailable.
+ * Decisions abstains / confidence is out of band / API unavailable / invalid.
  *
  * Gate: SFIA_BOUNDED_JUDGMENT=1 (OFF by default).
  */
@@ -54,17 +54,42 @@ export function assessUncertainty(
   return probability > band.lo && probability < band.hi;
 }
 
+/**
+ * p≈0 is NOT sufficient proof the proposition is false (may be AMB/INS collapse).
+ * Callers must not treat value=false at p=0 as authoritative without fallback.
+ */
+export function isOverconfidentFalseAtZero(result: {
+  kind: BoundedJudgmentKind;
+  value: unknown;
+  probability: number | null;
+}): boolean {
+  if (result.kind !== "predicate") return false;
+  if (result.value !== false) return false;
+  return result.probability === 0 || result.probability == null;
+}
+
 export function shouldFallbackToResponses(result: {
   uncertain: boolean;
   abstain: boolean;
   probability: number | null;
   value: unknown;
+  kind?: BoundedJudgmentKind;
+  reason?: string | null;
 }): boolean {
   if (result.abstain) return true;
   if (result.value == null && result.probability == null) return true;
-  // LIVE showed AMB/INS collapsed to ~0 — treat overconfident "false" on
-  // explicitly ambiguous prompts as fallback-eligible when flagged uncertain.
   if (result.uncertain) return true;
+  if (result.reason?.startsWith("INVALID_")) return true;
+  if (
+    result.kind === "predicate" &&
+    isOverconfidentFalseAtZero({
+      kind: "predicate",
+      value: result.value,
+      probability: result.probability,
+    })
+  ) {
+    return true;
+  }
   return false;
 }
 
@@ -119,6 +144,128 @@ function buildDecisionsQuestions(req: BoundedJudgmentRequest): unknown[] {
   ];
 }
 
+function parseStrictBoolean(raw: unknown): boolean | null {
+  if (typeof raw === "boolean") return raw;
+  // Never Boolean("false") === true
+  if (typeof raw === "string") {
+    const t = raw.trim().toLowerCase();
+    if (t === "true" || t === "yes" || t === "1") return true;
+    if (t === "false" || t === "no" || t === "0") return false;
+    return null;
+  }
+  if (typeof raw === "number" && Number.isFinite(raw)) {
+    if (raw === 1) return true;
+    if (raw === 0) return false;
+  }
+  return null;
+}
+
+export function validateDecisionsAnswer(input: {
+  kind: BoundedJudgmentKind;
+  answer: {
+    type: string;
+    probability?: number;
+    choice?: string;
+    score?: number;
+  } | null | undefined;
+  choices?: string[];
+  levels?: string[];
+}): {
+  ok: boolean;
+  value: boolean | string | number | null;
+  probability: number | null;
+  reason: string | null;
+} {
+  const a = input.answer;
+  if (!a) {
+    return {
+      ok: false,
+      value: null,
+      probability: null,
+      reason: "INVALID_MISSING_ANSWER",
+    };
+  }
+  if (a.type !== input.kind) {
+    return {
+      ok: false,
+      value: null,
+      probability: null,
+      reason: `INVALID_TYPE_MISMATCH:${a.type}`,
+    };
+  }
+  if (input.kind === "predicate") {
+    const probability =
+      typeof a.probability === "number" && Number.isFinite(a.probability)
+        ? a.probability
+        : null;
+    if (probability == null || probability < 0 || probability > 1) {
+      return {
+        ok: false,
+        value: null,
+        probability: null,
+        reason: "INVALID_PREDICATE_PROBABILITY",
+      };
+    }
+    // Threshold mapping is interpretive — p=0 must still be treated carefully
+    // by shouldFallbackToResponses (overconfident false).
+    return {
+      ok: true,
+      value: probability >= 0.5,
+      probability,
+      reason: null,
+    };
+  }
+  if (input.kind === "choice") {
+    const choice = a.choice != null ? String(a.choice) : null;
+    const allowed = input.choices ?? [];
+    if (!choice || (allowed.length > 0 && !allowed.includes(choice))) {
+      return {
+        ok: false,
+        value: null,
+        probability: null,
+        reason: "INVALID_CHOICE",
+      };
+    }
+    // Do NOT invent confidence=1 for choice answers.
+    return { ok: true, value: choice, probability: null, reason: null };
+  }
+  // score
+  const levels = input.levels ?? [];
+  if (typeof a.score === "number" && Number.isFinite(a.score)) {
+    if (levels.length > 0) {
+      const asLabel = String(a.score);
+      if (!levels.includes(asLabel) && a.choice == null) {
+        // numeric score without level labels — accept number, no fake p=1
+        return {
+          ok: true,
+          value: a.score,
+          probability: null,
+          reason: null,
+        };
+      }
+    }
+    return { ok: true, value: a.score, probability: null, reason: null };
+  }
+  if (a.choice != null) {
+    const label = String(a.choice);
+    if (levels.length > 0 && !levels.includes(label)) {
+      return {
+        ok: false,
+        value: null,
+        probability: null,
+        reason: "INVALID_SCORE_LEVEL",
+      };
+    }
+    return { ok: true, value: label, probability: null, reason: null };
+  }
+  return {
+    ok: false,
+    value: null,
+    probability: null,
+    reason: "INVALID_SCORE",
+  };
+}
+
 function parseResponsesJson(text: string): {
   value?: unknown;
   uncertainty?: boolean;
@@ -137,8 +284,41 @@ function parseResponsesJson(text: string): {
   }
 }
 
+function validateResponsesValue(
+  req: BoundedJudgmentRequest,
+  raw: unknown,
+): { ok: boolean; value: boolean | string | number | null; reason: string | null } {
+  if (req.kind === "predicate") {
+    const b = parseStrictBoolean(raw);
+    if (b == null) {
+      return { ok: false, value: null, reason: "INVALID_RESPONSES_PREDICATE" };
+    }
+    return { ok: true, value: b, reason: null };
+  }
+  if (req.kind === "choice") {
+    const choice = raw != null ? String(raw) : null;
+    const allowed = req.choices ?? [];
+    if (!choice || (allowed.length > 0 && !allowed.includes(choice))) {
+      return { ok: false, value: null, reason: "INVALID_RESPONSES_CHOICE" };
+    }
+    return { ok: true, value: choice, reason: null };
+  }
+  if (typeof raw === "number" && Number.isFinite(raw)) {
+    return { ok: true, value: raw, reason: null };
+  }
+  if (raw != null) {
+    const label = String(raw);
+    const levels = req.levels ?? [];
+    if (levels.length > 0 && !levels.includes(label)) {
+      return { ok: false, value: null, reason: "INVALID_RESPONSES_LEVEL" };
+    }
+    return { ok: true, value: label, reason: null };
+  }
+  return { ok: false, value: null, reason: "INVALID_RESPONSES_SCORE" };
+}
+
 /**
- * Run Decisions first; on uncertainty/abstain/error, Responses JSON fallback.
+ * Run Decisions first; on uncertainty/abstain/invalid/error, Responses JSON fallback.
  * Never records a HumanDecision — Studio admission remains separate (D6).
  */
 export async function runBoundedJudgment(input: {
@@ -162,43 +342,43 @@ export async function runBoundedJudgment(input: {
     const primary =
       (dec.answers ?? []).find((a) => a.name === req.name) ??
       (dec.answers ?? [])[0];
-    let value: boolean | string | number | null = null;
-    let probability: number | null = null;
-    if (primary?.type === "predicate") {
-      probability =
-        typeof primary.probability === "number" ? primary.probability : null;
-      value = probability != null ? probability >= 0.5 : null;
-    } else if (primary?.type === "choice") {
-      value = primary.choice != null ? String(primary.choice) : null;
-      probability = 1;
-    } else if (primary?.type === "score") {
-      value =
-        typeof primary.score === "number"
-          ? primary.score
-          : primary.choice != null
-            ? String(primary.choice)
-            : null;
-      probability = 1;
-    }
+    const validated = validateDecisionsAnswer({
+      kind: req.kind,
+      answer: primary,
+      choices: req.choices,
+      levels: req.levels,
+    });
     const uncertain =
-      req.kind === "predicate" ? assessUncertainty(probability, band) : false;
+      req.kind === "predicate"
+        ? assessUncertainty(validated.probability, band) ||
+          isOverconfidentFalseAtZero({
+            kind: "predicate",
+            value: validated.value,
+            probability: validated.probability,
+          })
+        : !validated.ok;
     decisionsResult = {
       schema: BOUNDED_JUDGMENT_SCHEMA,
       name: req.name,
       kind: req.kind,
       source: "decisions",
-      value,
-      probability,
+      value: validated.ok ? validated.value : null,
+      probability: validated.probability,
       uncertain,
-      abstain: value == null,
-      reason: uncertain ? "UNCERTAINTY_BAND" : null,
+      abstain: !validated.ok || validated.value == null,
+      reason: validated.reason ?? (uncertain ? "UNCERTAINTY_BAND" : null),
       usage: {
         inputTokens: dec.usage?.input_tokens,
         outputTokens: dec.usage?.output_tokens,
         model: input.modelDecisions ?? "gpt-6-luna",
       },
     };
-    if (!shouldFallbackToResponses(decisionsResult)) {
+    if (
+      !shouldFallbackToResponses({
+        ...decisionsResult,
+        kind: req.kind,
+      })
+    ) {
       return decisionsResult;
     }
   } catch (e) {
@@ -227,7 +407,8 @@ export async function runBoundedJudgment(input: {
     const prompt = `You are a bounded judgment helper. Evidence:\n${req.evidence}\n\nQuestion: ${req.question}\n${
       req.choices ? `Choices: ${req.choices.join(" | ")}\n` : ""
     }${req.levels ? `Levels: ${req.levels.join(" | ")}\n` : ""}
-Return ONLY JSON matching ${schemaHint}. If unsure set uncertainty=true and/or abstain=true.`;
+Return ONLY JSON matching ${schemaHint}. If unsure set uncertainty=true and/or abstain=true.
+For predicate, value must be boolean true/false — never the strings "true"/"false" without boolean type.`;
     const resp = await input.client.responses.create({
       model: input.modelResponses ?? "gpt-6-luna",
       store: false,
@@ -257,19 +438,54 @@ Return ONLY JSON matching ${schemaHint}. If unsure set uncertainty=true and/or a
         },
       };
     }
-    let value: boolean | string | number | null = null;
-    if (req.kind === "predicate") value = Boolean(parsed.value);
-    else if (typeof parsed.value === "number") value = parsed.value;
-    else value = parsed.value != null ? String(parsed.value) : null;
+    if (parsed.abstain) {
+      return {
+        schema: BOUNDED_JUDGMENT_SCHEMA,
+        name: req.name,
+        kind: req.kind,
+        source: "responses_fallback",
+        value: null,
+        probability: null,
+        uncertain: true,
+        abstain: true,
+        reason: decisionsResult?.reason
+          ? `FALLBACK_ABSTAIN_AFTER:${decisionsResult.reason}`
+          : "FALLBACK_ABSTAIN",
+        usage: {
+          inputTokens: resp.usage?.input_tokens,
+          outputTokens: resp.usage?.output_tokens,
+          model: input.modelResponses ?? "gpt-6-luna",
+        },
+      };
+    }
+    const validated = validateResponsesValue(req, parsed.value);
+    if (!validated.ok) {
+      return {
+        schema: BOUNDED_JUDGMENT_SCHEMA,
+        name: req.name,
+        kind: req.kind,
+        source: "refused",
+        value: null,
+        probability: null,
+        uncertain: true,
+        abstain: true,
+        reason: validated.reason,
+        usage: {
+          inputTokens: resp.usage?.input_tokens,
+          outputTokens: resp.usage?.output_tokens,
+          model: input.modelResponses ?? "gpt-6-luna",
+        },
+      };
+    }
     return {
       schema: BOUNDED_JUDGMENT_SCHEMA,
       name: req.name,
       kind: req.kind,
       source: "responses_fallback",
-      value: parsed.abstain ? null : value,
+      value: validated.value,
       probability: null,
-      uncertain: Boolean(parsed.uncertainty) || Boolean(parsed.abstain),
-      abstain: Boolean(parsed.abstain),
+      uncertain: Boolean(parsed.uncertainty),
+      abstain: false,
       reason: decisionsResult?.reason
         ? `FALLBACK_AFTER:${decisionsResult.reason}`
         : "FALLBACK",

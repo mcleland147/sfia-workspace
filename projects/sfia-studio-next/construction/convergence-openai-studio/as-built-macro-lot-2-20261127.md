@@ -5,8 +5,10 @@
 | Campagne | `ml2-i2-docintel-20261127` (cumulative, non renouvelée) |
 | Architecture | [architecture-selection-locked-20261127.md](./ml2-qualification/architecture-selection-locked-20261127.md) |
 | Cartographie | [product-consumer-cartography-20261127.md](./ml2-qualification/product-consumer-cartography-20261127.md) |
-| Migration 027 | [migration-027-candidate.md](./ml2-qualification/migration-027-candidate.md) — **NON appliquée** |
+| Migration 027 | [migration-027-candidate.md](./ml2-qualification/migration-027-candidate.md) — GO principle · **APPLY en attente Gate A** |
+| Checkpoint | [morris-checkpoint-027-and-live-20261127.md](./ml2-qualification/morris-checkpoint-027-and-live-20261127.md) |
 | Reliquat LIVE | [live-campaign-remainder-20261127.md](./ml2-qualification/live-campaign-remainder-20261127.md) |
+| FinOps audit | [finops-reconcile-audit-20261127.md](./ml2-qualification/finops-reconcile-audit-20261127.md) |
 | WEB LIVE | OFF |
 | RECETTE | protégée |
 
@@ -14,24 +16,25 @@
 
 | Module / surface | Rôle |
 |---|---|
-| `derived-embedding-index.ts` | Index fichier local + lifecycle |
-| `derived-embedding-service.ts` | Rebuild / hybrid / embed product service |
-| `hybrid-knowledge-search.ts` | Fusion lexical + embeddings mobilisables |
-| `bounded-judgment.ts` | Decisions + incertitude + fallback Responses |
+| `derived-embedding-index.ts` | Index fichier local + lifecycle (ops jusqu'à GO A) |
+| `derived-embedding-service.ts` | Rebuild **admissible-only** · hybrid + **rights revalidation** · Frontier fetch |
+| `derived-embedding-pg.ts` | Store PG inactif jusqu'à `BACKEND=pg` |
+| `hybrid-knowledge-search.ts` | Fusion + `allowedSourceIds` |
+| `bounded-judgment.ts` | Validation stricte type/choix · pas p=1 inventé · fallback p=0 |
 | `document-vision-punctual.ts` | Vision ponctuelle bytes locaux |
 | `d4-read-tools.searchProjectResources` | **ADAPT** semanticSupplement (flag) |
 | `journal/search` API | **ADAPT** queryVector embed (flag) |
 | `knowledge/service.capitalizeAcquis` | revoke superseded in derived index |
-| `git-read-tools.read_git_pdf` | Vision punctual if SCANNED_NO_TEXT (flag) |
-| `d8-cognitive-criterion-eval` | Bounded judgment optional pre-pass (flag) |
-| Frontier | protect LIVE campaign on reset/endProcessCampaign |
+| `git-read-tools.read_git_pdf` | Vision scan/sparse/schema + Frontier client |
+| `d8-cognitive-criterion-eval` | Bounded judgment via Frontier client |
+| Frontier | protect **générique** (`protectPersisted` / env) — pas d'id hardcodé |
 | Flags OFF by default | `SFIA_DERIVED_EMBEDDING_SEARCH`, `SFIA_BOUNDED_JUDGMENT`, `SFIA_DOCUMENT_VISION_PUNCTUAL` |
 
 ## Persistance
 
 - **Actuel (ops):** fichier `.sfia-derived/embedding-index/`  
-- **Cible (GO):** PG `derived_embedding_chunks` (027 candidate)  
-- Index ≠ vérité métier
+- **Cible (GO A):** PG `derived_embedding_chunks` — bascule unique, pas de dual-write  
+- Index ≠ vérité métier · droits via D4/D9 revalidation
 
 ## CONV-F21…F26
 

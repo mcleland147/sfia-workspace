@@ -3,6 +3,18 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML2-FINAL-CHECKPOINT
+
+- **date_utc**: 2026-11-27T05:35Z
+- **lane**: DEV — Macro-lot 2 final product delivery (pre-GO A/B)
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_entrée**: `8b75249a`
+- **focus**: rights revalidation · admissible-only rebuild · bounded-judgment harden · Frontier generic protect · FinOps audit · 027 SQL final · checkpoint A+B
+- **gates**: migration 027 APPLY **pending** · LIVE remainder **pending** — no intermediate handoff
+- **tests**: 46 targeted PASS (frontier+derived+wiring+judgment+rights)
+- **campaign**: `ml2-i2-docintel-20261127` HTTP 90/236 · Nora ~38/40 — no new LIVE
+- **statut**: **STOP — MORRIS CHECKPOINT A+B REQUIRED** (not READY FOR REVIEW exit)
+
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML2-PRODUCT-WIDE-INTEGRATION
 
 - **date_utc**: 2026-11-27T05:25Z
@@ -13,7 +25,7 @@ Append-only logical journal of Cursor product deliveries.
 - **campaign**: `ml2-i2-docintel-20261127` remainder HTTP 90/236 · Nora ~38/40 — no new LIVE emission
 - **flags**: OFF by default
 - **RECETTE**: protected · WEB OFF · NO RELEASE · NOT ADOPTED
-- **statut**: **MACRO-LOT 2 — PRODUCT-WIDE INTEGRATION QUALIFIED — MORRIS EXIT ACCEPTANCE PROPOSED** (with explicit reserves)
+- **statut**: **MACRO-LOT 2 — PRODUCT-WIDE INTEGRATION QUALIFIED — MORRIS EXIT ACCEPTANCE PROPOSED** (with explicit reserves) — superseded by final-checkpoint entry for apply/LIVE gates
 
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML1-TARGETED-EXIT
 

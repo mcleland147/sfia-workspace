@@ -571,7 +571,8 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
       name: "read_git_pdf",
       description:
         "Read or search an authorized Git PDF (D9 gates). Prefer after read_git_file identifies contentKind=pdf. " +
-        "Provide pageFrom/pageTo (1-based) and/or searchQuery. Never invent unread pages. OCR/scans out of scope.",
+        "Provide pageFrom/pageTo (1-based) and/or searchQuery. Never invent unread pages. " +
+        "When extract fails (scan) or schema/table/diagram is needed, set visionAssist=true (flag-gated punctual Vision; no durable fileId).",
       parameters: z.object({
         repositoryId: z.string(),
         path: z.string(),
@@ -579,6 +580,7 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
         pageFrom: z.number().int().min(1).nullable().optional(),
         pageTo: z.number().int().min(1).nullable().optional(),
         searchQuery: z.string().max(200).nullable().optional(),
+        visionAssist: z.boolean().nullable().optional(),
       }),
       execute: async (args) => {
         if (gitCallsRemaining(scope) <= 0) {
@@ -624,32 +626,50 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
             searchQuery: args.searchQuery ?? null,
           });
           let visionPunctual: Record<string, unknown> | null = null;
-          if (
-            !pdf.ok &&
-            (pdf.reasonCode === "SCANNED_NO_TEXT" ||
-              pdf.reasonCode === "NO_EXTRACTABLE_TEXT")
-          ) {
+          const visionAskHint = String(args.searchQuery ?? "").toLowerCase();
+          const sparseText =
+            pdf.ok &&
+            Array.isArray(pdf.pages) &&
+            pdf.pages.length > 0 &&
+            pdf.pages.every(
+              (p: { text?: string }) =>
+                !p.text || p.text.trim().length < 40,
+            );
+          const complexDocHint =
+            /\b(schema|diagram|table|tableau|figure|scan|schéma)\b/i.test(
+              visionAskHint,
+            ) || Boolean(args.visionAssist);
+          const needsVision =
+            (!pdf.ok &&
+              (pdf.reasonCode === "SCANNED_NO_TEXT" ||
+                pdf.reasonCode === "NO_EXTRACTABLE_TEXT")) ||
+            sparseText ||
+            (pdf.ok && complexDocHint);
+          if (needsVision) {
             try {
               const {
                 documentVisionPunctualEnabled,
                 runDocumentVisionPunctual,
               } = await import("@/domains/documents/document-vision-punctual");
               if (documentVisionPunctualEnabled()) {
-                const { ensureFrontierOpenAIClientInstalled } = await import(
+                const { createFrontierBoundOpenAIClient } = await import(
                   "@/domains/conversation/provider-emission-frontier"
                 );
-                await ensureFrontierOpenAIClientInstalled({ maxRetries: 0 });
-                const OpenAI = (await import("openai")).default;
-                const key = (process.env.OPENAI_API_KEY || "").trim();
-                if (key) {
-                  const client = new OpenAI({ apiKey: key, maxRetries: 0 });
+                const client = await createFrontierBoundOpenAIClient({
+                  maxRetries: 0,
+                });
+                if (client) {
                   const vis = await runDocumentVisionPunctual({
                     client: client as never,
                     request: {
                       mode: "pdf_bytes",
                       bytes: Buffer.from(bytes),
                       filename: prov.path.split("/").pop() || "document.pdf",
-                      ask: "Describe visible structure only. JSON {summary:string,uncertainty:bool,pagesConsulted:number}. Do not invent unread text.",
+                      ask:
+                        "Observe only what is visible. Return JSON " +
+                        "{observedFacts:string[],interpretation:string,uncertainty:boolean," +
+                        "pagesConsulted:number[],unreadZones:string[],exactRefs:string[]}. " +
+                        "Do not invent unread text. Prefer schemas/tables/figures when present.",
                     },
                   });
                   visionPunctual = {
@@ -659,6 +679,13 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
                     limits: vis.limits,
                     usage: vis.usage,
                     reason: vis.reason ?? null,
+                    trigger: sparseText
+                      ? "SPARSE_TEXT"
+                      : complexDocHint
+                        ? "COMPLEX_DOC_HINT"
+                        : !pdf.ok
+                          ? pdf.reasonCode
+                          : "VISION_ASSIST",
                   };
                 }
               }

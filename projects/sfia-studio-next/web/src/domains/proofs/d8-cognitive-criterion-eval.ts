@@ -181,10 +181,11 @@ export async function runLiveCognitiveCriterionAssessments(input: {
       "@/domains/conversation/bounded-judgment"
     );
     if (boundedJudgmentEnabled() && input.acceptanceCriteria.length <= 8) {
-      const key = (process.env.OPENAI_API_KEY || "").trim();
-      if (key) {
-        const OpenAI = (await import("openai")).default;
-        const client = new OpenAI({ apiKey: key, maxRetries: 0 });
+      const { createFrontierBoundOpenAIClient } = await import(
+        "@/domains/conversation/provider-emission-frontier"
+      );
+      const client = await createFrontierBoundOpenAIClient({ maxRetries: 0 });
+      if (client) {
         const judgments: CognitiveCriterionEvalResult["assessments"] = [];
         let allConfident = true;
         for (const c of input.acceptanceCriteria) {
@@ -232,7 +233,7 @@ export async function runLiveCognitiveCriterionAssessments(input: {
               | "INSUFFICIENT"
               | "CONTRADICTS"
               | "INDETERMINATE",
-            rationale: `bounded_judgment:${bj.source}`,
+            rationale: `bounded_judgment:${bj.source};usage_in=${bj.usage?.inputTokens ?? "?"};usage_out=${bj.usage?.outputTokens ?? "?"}`,
             piecesConsulted: ev?.refs ?? [],
             provenance: "D3_STRUCTURED",
           });
