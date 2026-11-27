@@ -1,0 +1,26 @@
+{
+  "results": {
+    "top": 655,
+    "bottom": 689,
+    "height": 34
+  },
+  "settings": {
+    "top": 668,
+    "bottom": 704,
+    "height": 36
+  },
+  "foot": {
+    "top": 651,
+    "bottom": 704,
+    "height": 53
+  },
+  "nav": {
+    "top": 217,
+    "bottom": 641,
+    "height": 424
+  },
+  "navOverflowY": "auto",
+  "overlapPx": 21,
+  "resultsInNav": true,
+  "settingsInFoot": true
+}

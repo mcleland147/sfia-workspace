@@ -23,6 +23,12 @@ import {
   sasPresentationCopy,
 } from "@/components/figma/sas-presentation";
 import { projectActivityLabel } from "@/domains/conversation/activity-labels";
+import {
+  clearPrepComposerDraft,
+  readPrepComposerDraft,
+  studioClientLane,
+  writePrepComposerDraft,
+} from "@/domains/conversation/composer-draft";
 
 type Msg = { id: string; role: string; content: string; status: string };
 type Doc = {
@@ -61,6 +67,8 @@ export default function PreparationPage() {
   const [docs, setDocs] = useState<Doc[]>([]);
   const [knowledge, setKnowledge] = useState<Knowledge | null>(null);
   const [draft, setDraft] = useState("");
+  const [pilotId, setPilotId] = useState<string | null>(null);
+  const draftVersionRef = useRef(0);
   const [docText, setDocText] = useState("# Notes du sas\n");
   const [docId, setDocId] = useState<string | undefined>();
   const [baseRevisionId, setBaseRevisionId] = useState<string | undefined>();
@@ -299,6 +307,22 @@ export default function PreparationPage() {
     }
   }, [preparationId]);
 
+  function persistPrepDraft(text: string) {
+    if (!pilotId) return;
+    draftVersionRef.current += 1;
+    const prior = readPrepComposerDraft({ pilotId, preparationId });
+    writePrepComposerDraft({
+      schemaVersion: "e05-prep-composer-draft-v1",
+      pilotId,
+      preparationId,
+      lane: studioClientLane(),
+      text,
+      version: draftVersionRef.current,
+      sentVersion: prior?.sentVersion ?? null,
+      updatedAt: new Date().toISOString(),
+    });
+  }
+
   const reload = useCallback(async () => {
     const res = await fetch(`/api/preparations/${preparationId}`);
     if (res.status === 401) {
@@ -306,6 +330,27 @@ export default function PreparationPage() {
       return;
     }
     const j = await res.json();
+    const sessionPilotId =
+      typeof j.session?.pilotId === "string" && j.session.pilotId.trim()
+        ? String(j.session.pilotId)
+        : null;
+    setPilotId(sessionPilotId);
+    if (sessionPilotId) {
+      const record = readPrepComposerDraft({
+        pilotId: sessionPilotId,
+        preparationId,
+      });
+      if (record?.text && record.pilotId === sessionPilotId) {
+        setDraft(record.text);
+        draftVersionRef.current = record.version;
+      } else {
+        setDraft("");
+        draftVersionRef.current = 0;
+      }
+    } else {
+      setDraft("");
+      draftVersionRef.current = 0;
+    }
     setMessages(j.messages ?? []);
     setDocs(j.documents ?? []);
     setPreviewName(j.preparation?.previewName ?? "");
@@ -397,6 +442,10 @@ export default function PreparationPage() {
       ];
     });
     setDraft("");
+    if (pilotId) {
+      clearPrepComposerDraft({ pilotId, preparationId });
+      draftVersionRef.current = 0;
+    }
     let lastActivitySeq = 0;
     let knownTurnCommandId: string | null = null;
     const pollEpoch = ++activityPollEpochRef.current;
@@ -1031,7 +1080,10 @@ export default function PreparationPage() {
             draft={draft}
             busy={busy}
             noraActivity={noraActivity}
-            onDraftChange={setDraft}
+            onDraftChange={(v) => {
+              setDraft(v);
+              persistPrepDraft(v);
+            }}
             onSend={() => void sendMessage()}
             showResumeBanner={isResumedPrep}
             liveActivityEvents={liveActivityEvents}

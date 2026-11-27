@@ -42,18 +42,30 @@ export function _resetDictationFixtureRegistry(): void {
 export function createFixtureRealtimeTransport(sessionId: string): RealtimeTransport {
   let handler: ((ev: Record<string, unknown>) => void) | null = null;
   const sent: Record<string, unknown>[] = [];
+  /** Queued until onEvent registers — avoids lost session.updated (MP-06 DET). */
+  let pendingReady: Record<string, unknown> | null = null;
   const handle: DictationFixtureHandle = {
     sent,
     push: (ev) => handler?.(ev),
   };
   fixtureRegistry.set(sessionId, handle);
   let commitOrdinal = 0;
+  const emitOrQueue = (ev: Record<string, unknown>) => {
+    if (handler) {
+      handler(ev);
+      return;
+    }
+    if (ev.type === "session.updated" || ev.type === "session.created") {
+      pendingReady = ev;
+    }
+  };
   return {
     send: (p) => {
       sent.push(p);
       if (p.type === "session.update") {
+        // Deterministic ready ack — never rely on live provider timing in fixture.
         queueMicrotask(() => {
-          handler?.({ type: "session.updated" });
+          emitOrQueue({ type: "session.updated" });
         });
       }
       // Simulate provider item creation after buffer commit (turn_detection: null).
@@ -107,9 +119,16 @@ export function createFixtureRealtimeTransport(sessionId: string): RealtimeTrans
     },
     close: () => {
       // Keep handle for DEV fixture-push (late events after cancel — C03).
+      // Drop further ready acks; late commit/transcript still pushable via registry.
+      pendingReady = null;
     },
     onEvent: (h) => {
       handler = h;
+      if (pendingReady) {
+        const ready = pendingReady;
+        pendingReady = null;
+        queueMicrotask(() => handler?.(ready));
+      }
     },
   };
 }

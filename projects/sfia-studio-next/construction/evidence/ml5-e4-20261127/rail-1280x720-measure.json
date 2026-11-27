@@ -1,0 +1,18 @@
+{
+  "viewport": {
+    "w": 1280,
+    "h": 720
+  },
+  "rail": {
+    "w": 246,
+    "overflow": "hidden"
+  },
+  "resultLink": null,
+  "settings": {
+    "top": 684,
+    "bottom": 720,
+    "height": 36
+  },
+  "foot": null,
+  "navOverflow": null
+}

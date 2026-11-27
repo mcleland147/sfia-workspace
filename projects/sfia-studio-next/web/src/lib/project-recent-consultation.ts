@@ -56,6 +56,22 @@ export function recentItemFromGitConsultation(input: {
   };
 }
 
+/** Realization attempt / bilan / proof consultation (after successful open). */
+export function recentItemFromAttemptConsultation(input: {
+  kind: "execution" | "result" | "bilan" | "proof";
+  attemptId: string;
+  title: string;
+  refLabel?: string | null;
+}): Pick<ProjectRecentItem, "id" | "kind" | "title" | "refLabel" | "attemptId"> {
+  return {
+    id: `${input.kind}:${input.attemptId}`,
+    kind: input.kind,
+    title: input.title.slice(0, 160),
+    refLabel: input.refLabel ?? null,
+    attemptId: input.attemptId,
+  };
+}
+
 /** Map Nora turn references opened in Travail viewer — null when identity incomplete. */
 export function recentItemFromTurnReference(
   ref: TurnReference,

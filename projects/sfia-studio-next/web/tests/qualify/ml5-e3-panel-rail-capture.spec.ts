@@ -11,21 +11,9 @@ test.setTimeout(120_000);
 
 test("E3 — rail F1 + panel/settings runtime captures", async ({ page }) => {
   fs.mkdirSync(EVIDENCE, { recursive: true });
-  await page.goto("/login", { waitUntil: "domcontentloaded" });
-  await page.waitForURL(/\/(portfolio|projects|preparations|login)/, {
-    timeout: 60_000,
-  });
-  if (page.url().includes("/login")) {
-    const testBtn = page.getByRole("button", {
-      name: /Pilote A|connexion de test|test login/i,
-    });
-    if (await testBtn.count()) await testBtn.first().click();
-    else {
-      const auto = await page.request.post("/api/dev/auto-session");
-      expect(auto.ok()).toBeTruthy();
-      await page.goto("/portfolio");
-    }
-  }
+  const auto = await page.request.post("/api/dev/auto-session");
+  expect(auto.ok()).toBeTruthy();
+  await page.goto("/portfolio", { waitUntil: "domcontentloaded" });
   await page.waitForURL("**/portfolio**", { timeout: 60_000 });
   await page.screenshot({
     path: path.join(EVIDENCE, "runtime-portfolio-rail.png"),

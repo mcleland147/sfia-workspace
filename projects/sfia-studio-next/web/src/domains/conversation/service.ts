@@ -898,6 +898,155 @@ export function extractDurablePilotageIntentIds(input: {
   return [...ids];
 }
 
+type KnowledgeCapRow = {
+  intentId?: string;
+  status: string;
+  kind?: string;
+  id?: string;
+  reason?: string;
+};
+
+/**
+ * E2 residual fidelity (§21.1) — reconcile knowledgeEffects on UNKNOWN / ownership-loss
+ * paths from durable capitalisation rows + DB reconstitution. Never invents mutations:
+ * upgrades false-negative SKIPPED/NOT_EXECUTED only when an owner row (or DB-confirmed
+ * ownerRef) already exists; lookup/replay remain read-only callers.
+ */
+export function reconcileKnowledgeEffectsFromDurableInfo(input: {
+  effects: TurnKnowledgeEffect[];
+  capitalisationRows?: KnowledgeCapRow[] | null;
+  reconstituted?: Array<{ id: string; kind?: string; status?: string }> | null;
+}): TurnKnowledgeEffect[] {
+  const byIntent = new Map<string, TurnKnowledgeEffect>();
+  for (const e of input.effects) {
+    const id = e.semanticIntentId?.trim();
+    if (id) byIntent.set(id, { ...e });
+  }
+  const reconstitutedIds = new Set(
+    (input.reconstituted ?? []).map((r) => r.id).filter(Boolean),
+  );
+
+  const capRows = input.capitalisationRows ?? [];
+  const intentIds = new Set<string>();
+  for (const row of capRows) {
+    const id = row.intentId?.trim();
+    if (id) intentIds.add(id);
+  }
+
+  const isOkStatus = (s: string) => {
+    const u = (s ?? "").toUpperCase();
+    return u === "AVAILABLE" || u === "OK" || u === "SUCCESS" || u === "APPLIED";
+  };
+
+  for (const intentId of intentIds) {
+    const related = capRows.filter((c) => c.intentId === intentId);
+    if (related.length === 0) continue;
+
+    const outcome = crossCapOutcomeFromCapitalisations({
+      intentId,
+      capitalisations: related,
+      hadProposal: true,
+      ownershipLost: false,
+    });
+    const primary = related.find(
+      (c) =>
+        (c.kind === "subject" ||
+          c.kind === "acquis" ||
+          c.kind === "open_point" ||
+          !c.kind) &&
+        isOkStatus(c.status) &&
+        typeof c.id === "string" &&
+        c.id.length > 0,
+    );
+    const ownerRef =
+      primary && typeof primary.id === "string"
+        ? primary.id
+        : related.find((c) => typeof c.id === "string" && c.id.length > 0)?.id ??
+          null;
+
+    const dbConfirms =
+      reconstitutedIds.size === 0 ||
+      (ownerRef != null && reconstitutedIds.has(ownerRef)) ||
+      related.some((r) => r.id != null && reconstitutedIds.has(r.id));
+
+    // Only materialise / upgrade when we have a real owner outcome — never invent APPLIED.
+    const confirmed =
+      (outcome === "APPLIED" || outcome === "PARTIAL") &&
+      ownerRef != null &&
+      dbConfirms;
+    if (!confirmed && outcome !== "FAILED") continue;
+    if (outcome === "FAILED" && !related.some((r) => isOkStatus(r.status))) {
+      // FAILED without any success row: keep existing honest record; do not invent.
+      continue;
+    }
+    if (!confirmed) continue;
+
+    const existing = byIntent.get(intentId);
+    const existingStatus = (existing?.status ?? "").toUpperCase();
+    const alreadyConfirmed =
+      existing?.attempted === true &&
+      (existingStatus === "APPLIED" ||
+        existingStatus === "AVAILABLE" ||
+        existingStatus === "OK" ||
+        existingStatus === "PARTIAL");
+    if (alreadyConfirmed) {
+      if (existing && !existing.ownerRef && ownerRef) {
+        byIntent.set(intentId, { ...existing, ownerRef });
+      }
+      continue;
+    }
+
+    // Upgrade false-negative SKIPPED / NOT_EXECUTED / UNKNOWN when durable owner ref exists.
+    byIntent.set(
+      intentId,
+      knowledgeEffectFromCapitalisation({
+        intentId,
+        status: outcome,
+        proposalKind: existing?.proposalKind ?? null,
+        ownerRef,
+        reason:
+          primary && typeof primary.reason === "string"
+            ? primary.reason || null
+            : (existing?.reason ?? null),
+        reasonCode: existing?.reasonCode ?? null,
+        attempted: true,
+      }),
+    );
+  }
+
+  // OwnerRef already on an effect and present in DB reconstitution → promote attempted.
+  if (reconstitutedIds.size > 0) {
+    for (const [intentId, e] of byIntent) {
+      if (!e.ownerRef || !reconstitutedIds.has(e.ownerRef)) continue;
+      const st = (e.status ?? "").toUpperCase();
+      if (
+        e.attempted &&
+        (st === "APPLIED" || st === "AVAILABLE" || st === "OK" || st === "PARTIAL")
+      ) {
+        continue;
+      }
+      if (
+        !e.attempted ||
+        st === "SKIPPED" ||
+        st === "NOT_EXECUTED" ||
+        st === "UNKNOWN"
+      ) {
+        byIntent.set(intentId, {
+          ...e,
+          attempted: true,
+          status:
+            st === "SKIPPED" || st === "NOT_EXECUTED" || st === "UNKNOWN"
+              ? "APPLIED"
+              : e.status,
+          reasonCode: e.reasonCode === "OWNERSHIP_LOST" ? null : e.reasonCode,
+        });
+      }
+    }
+  }
+
+  return [...byIntent.values()];
+}
+
 async function resolvePilotageEffectForReplay(input: {
   pilotId: string;
   projectId: string | null | undefined;
@@ -2324,22 +2473,69 @@ export async function postUserMessageAndNora(
             };
             if (step.ownershipLost) {
               ownershipLostBeforeD4 = true;
+              // Preserve confirmed D4 owner outcomes from this step; only mark
+              // intents without a confirmed row as SKIPPED (E2 §21.1).
               for (const id of runnableIds) {
+                pending.delete(id);
+                const proposalsForIntent = proposalsForWave.filter(
+                  (p) => p.intentId === id,
+                );
+                const primary = step.capitalisations.find(
+                  (c) =>
+                    c.intentId === id &&
+                    (c.kind === "subject" ||
+                      c.kind === "acquis" ||
+                      c.kind === "open_point") &&
+                    (c.status === "AVAILABLE" || c.status === "OK"),
+                );
+                if (primary) {
+                  const outcome = crossCapOutcomeFromCapitalisations({
+                    intentId: id,
+                    capitalisations: step.capitalisations,
+                    hadProposal: proposalsForIntent.length > 0,
+                    ownershipLost: false,
+                    proposalKind: proposalsForIntent[0]?.kind ?? null,
+                  });
+                  ownerOutcomeByIntentId.set(id, outcome);
+                  recordKnowledgeEffect(
+                    knowledgeEffectFromCapitalisation({
+                      intentId: id,
+                      status: outcome,
+                      proposalKind: proposalsForIntent[0]?.kind ?? null,
+                      ownerRef:
+                        typeof primary.id === "string" ? primary.id : null,
+                      reason:
+                        "reason" in primary
+                          ? String((primary as { reason?: string }).reason ?? "") ||
+                            null
+                          : null,
+                      attempted: true,
+                    }),
+                  );
+                  if (
+                    primary.kind === "subject" &&
+                    typeof primary.id === "string" &&
+                    primary.id.startsWith("subj_")
+                  ) {
+                    createdSubjectByIntentId.set(id, primary.id);
+                  }
+                } else {
+                  ownerOutcomeByIntentId.set(id, "SKIPPED");
+                  recordKnowledgeEffect(
+                    knowledgeEffectNotExecuted({
+                      intentId: id,
+                      status: "SKIPPED",
+                      reason:
+                        "Propriété du tour perdue pendant la capitalisation D4 — effet non exécuté.",
+                      reasonCode: "OWNERSHIP_LOST",
+                      proposalKind: proposalKindByIntentId.get(id) ?? null,
+                    }),
+                  );
+                }
+              }
+              for (const id of [...pending]) {
                 ownerOutcomeByIntentId.set(id, "SKIPPED");
                 pending.delete(id);
-                recordKnowledgeEffect(
-                  knowledgeEffectNotExecuted({
-                    intentId: id,
-                    status: "SKIPPED",
-                    reason:
-                      "Propriété du tour perdue pendant la capitalisation D4 — effet non exécuté.",
-                    reasonCode: "OWNERSHIP_LOST",
-                    proposalKind: proposalKindByIntentId.get(id) ?? null,
-                  }),
-                );
-              }
-              for (const id of pending) {
-                ownerOutcomeByIntentId.set(id, "SKIPPED");
                 const family = familyById.get(id);
                 if (family === "pilotage") {
                   const binding = bindingByIntentId.get(id);
@@ -2431,17 +2627,33 @@ export async function postUserMessageAndNora(
           capitalisationError = "CAPITALISATION_EXCEPTION";
           for (const id of knowledgeIds) {
             if (ownerOutcomeByIntentId.has(id)) continue;
-            ownerOutcomeByIntentId.set(id, "FAILED");
+            // Owner call may already have started (knowledgeEffectsConducted) —
+            // never claim attempted=false after a launched proprietary call.
+            ownerOutcomeByIntentId.set(id, knowledgeEffectsConducted ? "UNKNOWN" : "FAILED");
             pending.delete(id);
-            recordKnowledgeEffect(
-              knowledgeEffectNotExecuted({
-                intentId: id,
-                status: "FAILED",
-                reason: "Exception pendant la capitalisation D4.",
-                reasonCode: "CAPITALISATION_EXCEPTION",
-                proposalKind: proposalKindByIntentId.get(id) ?? null,
-              }),
-            );
+            if (knowledgeEffectsConducted) {
+              recordKnowledgeEffect(
+                knowledgeEffectFromCapitalisation({
+                  intentId: id,
+                  status: "UNKNOWN",
+                  attempted: true,
+                  proposalKind: proposalKindByIntentId.get(id) ?? null,
+                  reason:
+                    "Exception après appel propriétaire D4 — résultat indéterminé.",
+                  reasonCode: "CAPITALISATION_EXCEPTION",
+                }),
+              );
+            } else {
+              recordKnowledgeEffect(
+                knowledgeEffectNotExecuted({
+                  intentId: id,
+                  status: "FAILED",
+                  reason: "Exception pendant la capitalisation D4.",
+                  reasonCode: "CAPITALISATION_EXCEPTION",
+                  proposalKind: proposalKindByIntentId.get(id) ?? null,
+                }),
+              );
+            }
           }
         }
       }
@@ -2627,6 +2839,18 @@ export async function postUserMessageAndNora(
                     },
                   });
                 }
+              } else if (family === "knowledge") {
+                // Explicit D4 pending after mid-wave ownership loss (E2 §21.1).
+                recordKnowledgeEffect(
+                  knowledgeEffectNotExecuted({
+                    intentId: remId,
+                    status: "SKIPPED",
+                    reason:
+                      "Propriété du tour perdue après D5/D6 — effet D4 restant non exécuté.",
+                    reasonCode: "OWNERSHIP_LOST",
+                    proposalKind: proposalKindByIntentId.get(remId) ?? null,
+                  }),
+                );
               }
               pending.delete(remId);
             }
@@ -4884,6 +5108,24 @@ export async function postUserMessageAndNora(
       generationId: reply.generationId,
       userMessageId: reserved.userMessageId,
     });
+    // ConfirmedD4Effect has no intentId — promote attempted/ownerRef only; never invent intents.
+    const reconciledKnowledge = reconcileKnowledgeEffectsFromDurableInfo({
+      effects: resultPayload.knowledgeEffects ?? knowledgeEffectRecords,
+      capitalisationRows: knowledgeEffectRecords
+        .filter((e) => e.semanticIntentId && e.ownerRef)
+        .map((e) => ({
+          intentId: e.semanticIntentId,
+          status: e.status,
+          kind: e.proposalKind ?? undefined,
+          id: e.ownerRef ?? undefined,
+          reason: e.reason ?? undefined,
+        })),
+      reconstituted: reconstituted.capitalisation.map((c) => ({
+        id: c.id,
+        kind: c.kind,
+        status: c.status,
+      })),
+    });
     return {
       ...resultPayload,
       status: "UNKNOWN",
@@ -4891,6 +5133,10 @@ export async function postUserMessageAndNora(
       capitalisation: reconstituted.capitalisation,
       capitalisationLimit: reconstituted.capitalisationLimit,
       documentSave: reconstituted.documentSave,
+      knowledgeEffects:
+        reconciledKnowledge.length > 0
+          ? reconciledKnowledge
+          : resultPayload.knowledgeEffects,
     };
   }
 
@@ -4909,6 +5155,23 @@ export async function postUserMessageAndNora(
       generationId: reply.generationId,
       userMessageId: reserved.userMessageId,
     });
+    const reconciledKnowledge = reconcileKnowledgeEffectsFromDurableInfo({
+      effects: resultPayload.knowledgeEffects ?? knowledgeEffectRecords,
+      capitalisationRows: knowledgeEffectRecords
+        .filter((e) => e.semanticIntentId && e.ownerRef)
+        .map((e) => ({
+          intentId: e.semanticIntentId,
+          status: e.status,
+          kind: e.proposalKind ?? undefined,
+          id: e.ownerRef ?? undefined,
+          reason: e.reason ?? undefined,
+        })),
+      reconstituted: reconstituted.capitalisation.map((c) => ({
+        id: c.id,
+        kind: c.kind,
+        status: c.status,
+      })),
+    });
     return {
       ...resultPayload,
       status: "UNKNOWN",
@@ -4916,6 +5179,10 @@ export async function postUserMessageAndNora(
       capitalisation: reconstituted.capitalisation,
       capitalisationLimit: reconstituted.capitalisationLimit,
       documentSave: reconstituted.documentSave,
+      knowledgeEffects:
+        reconciledKnowledge.length > 0
+          ? reconciledKnowledge
+          : resultPayload.knowledgeEffects,
       preparationProjection: { status: "SKIPPED_OWNERSHIP" },
     };
   }

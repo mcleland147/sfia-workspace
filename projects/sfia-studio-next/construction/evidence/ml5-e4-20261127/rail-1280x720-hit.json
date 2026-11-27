@@ -1,0 +1,57 @@
+{
+  "samples": [
+    {
+      "y": 640,
+      "tag": "A",
+      "text": "▷Exécution",
+      "cls": "studio-rail-direct-link ",
+      "testid": "nav-execution"
+    },
+    {
+      "y": 650,
+      "tag": "DIV",
+      "text": "SSFIA StudioEspace actifAssistant de con",
+      "cls": "studio-shell-rail-inner",
+      "testid": null
+    },
+    {
+      "y": 660,
+      "tag": "DIV",
+      "text": "PPiloteConnecté",
+      "cls": "studio-shell-rail-foot",
+      "testid": "studio-rail-account"
+    },
+    {
+      "y": 670,
+      "tag": "DIV",
+      "text": "Pilote",
+      "cls": "font-semibold text-[14px]",
+      "testid": null
+    },
+    {
+      "y": 680,
+      "tag": "DIV",
+      "text": "Pilote",
+      "cls": "font-semibold text-[14px]",
+      "testid": null
+    },
+    {
+      "y": 690,
+      "tag": "DIV",
+      "text": "Connecté",
+      "cls": "muted",
+      "testid": null
+    },
+    {
+      "y": 700,
+      "tag": "DIV",
+      "text": "Connecté",
+      "cls": "muted",
+      "testid": null
+    }
+  ],
+  "resultsCenterHit": "Pilote",
+  "resultsCenterIsResults": false,
+  "resultsGeomClippedByNav": true,
+  "settingsTop": 668
+}

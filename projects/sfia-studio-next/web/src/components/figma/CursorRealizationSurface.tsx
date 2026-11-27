@@ -72,6 +72,13 @@ export function CursorRealizationSurface(props: {
     fingerprint?: string | null;
     pieces?: string[] | null;
   }) => void;
+  /** MP-08 — after a successful pilot consultation of attempt/bilan (no mutation). */
+  onPilotConsulted?: (item: {
+    kind: "execution" | "result" | "bilan" | "proof";
+    attemptId: string;
+    title: string;
+    refLabel?: string | null;
+  }) => void;
 }) {
   const mode = props.mode ?? "execution";
   const [contracts, setContracts] = useState<ContractRow[]>([]);
@@ -119,17 +126,22 @@ export function CursorRealizationSurface(props: {
     void reload();
   }, [reload]);
 
-  // Deep-link from Exécution → Résultats (?attempt=) — one-shot per attempt id.
+  // Deep-link ?attempt= — results opens bilan; execution selects the attempt row.
   const deepLinkedAttemptRef = useRef<string | null>(null);
   useEffect(() => {
-    if (mode !== "results" || typeof window === "undefined") return;
+    if (typeof window === "undefined") return;
     const id = new URLSearchParams(window.location.search).get("attempt");
     if (!id || attempts.length === 0) return;
     if (deepLinkedAttemptRef.current === id) return;
     const hit = attempts.find((a) => a.attemptId === id);
     if (!hit) return;
     deepLinkedAttemptRef.current = id;
-    void openBilan(hit);
+    if (mode === "results") {
+      void openBilan(hit);
+    } else {
+      setSelectedAttempt(hit);
+      setSelectedContract(null);
+    }
   }, [mode, attempts]);
 
   /** C24 — resume AUTHORIZED Cursor attempts left after D6 Oui without dispatch (nav/crash). */
@@ -478,6 +490,12 @@ export function CursorRealizationSurface(props: {
         noraAnalysisKind: j.qualification!.noraAnalysisKind,
         dossier: j.qualification!.dossier ?? null,
       });
+      props.onPilotConsulted?.({
+        kind: mode === "results" ? "bilan" : "result",
+        attemptId: attempt.attemptId,
+        title: `Tentative ${attempt.attemptId.slice(0, 12)}`,
+        refLabel: j.qualification!.verdict?.slice(0, 40) ?? attempt.status,
+      });
     } finally {
       setBusy(false);
     }
@@ -696,6 +714,14 @@ export function CursorRealizationSurface(props: {
                           setSelectedAttempt(a);
                           setSelectedContract(null);
                           setBilan(null);
+                          if (mode === "execution") {
+                            props.onPilotConsulted?.({
+                              kind: "execution",
+                              attemptId: a.attemptId,
+                              title: `Exécution ${a.attemptId.slice(0, 12)}`,
+                              refLabel: a.status,
+                            });
+                          }
                         }}
                       >
                         <span className="fig-exec-card-kicker">

@@ -1,0 +1,178 @@
+{
+  "texts": [
+    {
+      "t": "S",
+      "top": 22,
+      "bottom": 58,
+      "visible": true
+    },
+    {
+      "t": "←  Portefeuille",
+      "top": 217,
+      "bottom": 243,
+      "visible": true
+    },
+    {
+      "t": "◉Travail",
+      "top": 307,
+      "bottom": 349,
+      "visible": true
+    },
+    {
+      "t": "◉",
+      "top": 320,
+      "bottom": 336,
+      "visible": true
+    },
+    {
+      "t": "Travail",
+      "top": 318,
+      "bottom": 338,
+      "visible": true
+    },
+    {
+      "t": "▦Projet",
+      "top": 359,
+      "bottom": 401,
+      "visible": true
+    },
+    {
+      "t": "▦",
+      "top": 372,
+      "bottom": 388,
+      "visible": true
+    },
+    {
+      "t": "Projet",
+      "top": 370,
+      "bottom": 390,
+      "visible": true
+    },
+    {
+      "t": "▤Journal",
+      "top": 411,
+      "bottom": 453,
+      "visible": true
+    },
+    {
+      "t": "▤",
+      "top": 424,
+      "bottom": 440,
+      "visible": true
+    },
+    {
+      "t": "Journal",
+      "top": 422,
+      "bottom": 442,
+      "visible": true
+    },
+    {
+      "t": "◇Trajectoire",
+      "top": 463,
+      "bottom": 505,
+      "visible": true
+    },
+    {
+      "t": "◇",
+      "top": 476,
+      "bottom": 492,
+      "visible": true
+    },
+    {
+      "t": "Trajectoire",
+      "top": 474,
+      "bottom": 494,
+      "visible": true
+    },
+    {
+      "t": "▤Documents Nora",
+      "top": 547,
+      "bottom": 581,
+      "visible": true
+    },
+    {
+      "t": "▤",
+      "top": 557,
+      "bottom": 571,
+      "visible": true
+    },
+    {
+      "t": "Documents Nora",
+      "top": 554,
+      "bottom": 574,
+      "visible": true
+    },
+    {
+      "t": "◇Sources Git",
+      "top": 583,
+      "bottom": 617,
+      "visible": true
+    },
+    {
+      "t": "◇",
+      "top": 593,
+      "bottom": 607,
+      "visible": true
+    },
+    {
+      "t": "Sources Git",
+      "top": 590,
+      "bottom": 610,
+      "visible": true
+    },
+    {
+      "t": "▷Exécution",
+      "top": 619,
+      "bottom": 653,
+      "visible": true
+    },
+    {
+      "t": "▷",
+      "top": 629,
+      "bottom": 643,
+      "visible": true
+    },
+    {
+      "t": "Exécution",
+      "top": 626,
+      "bottom": 646,
+      "visible": true
+    },
+    {
+      "t": "▦Résultats & preuves",
+      "top": 655,
+      "bottom": 689,
+      "visible": true
+    },
+    {
+      "t": "▦",
+      "top": 665,
+      "bottom": 679,
+      "visible": true
+    },
+    {
+      "t": "Résultats & preuves",
+      "top": 662,
+      "bottom": 682,
+      "visible": true
+    },
+    {
+      "t": "P",
+      "top": 670,
+      "bottom": 702,
+      "visible": true
+    }
+  ],
+  "children": [
+    {
+      "cls": "studio-shell-rail-inner",
+      "testid": null,
+      "overflow": "visible",
+      "h": 682,
+      "top": 22,
+      "bottom": 704
+    }
+  ],
+  "railOverflow": "hidden",
+  "railH": 720
+}

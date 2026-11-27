@@ -88,6 +88,13 @@
   - schéma **027** ; LIVE/RECETTE non mutés ; CI non déclenchée (push branche DEV ≠ main) ; NO RELEASE ; E4/E5 non engagés
   - verdict Cursor construction : E2 / E3 distincts dans le Review Pack — gate Morris
 - **statut**: E2 résiduel + E3 UX intégrés sous GO — candidat DEV à publier ; ChatGPT revue ; Morris arbitre sorties E2/E3 ; Livraison 1 NOT ACCEPTED; NO RELEASE
+- **E4_audio_composer + reliquats_E2/E3** (2026-11-27 — GO Morris construction intégrée finale avant E5 ; **un seul snapshot DEV**):
+  - E4 C.1–C.5 : `NoraSharedComposer` mutualisé (IME/growth/dictation-lock/send) ; brouillons prep/projet isolés ; transport fixture + erreurs MP-06 DET explicites ; onde réelle post-écoute ; cleanup/annulation/partial
+  - E2 §21.1 : ownership mid-wave conserve effets confirmés ; exception propriétaire `attempted=true`+UNKNOWN ; pending D4 post D5/D6 explicite ; reconcile terminal via `reconcileKnowledgeEffectsFromDurableInfo`
+  - E3 §21.2 : consultations multitypes (exécution/résultat/bilan via deep-link + `onPilotConsulted`) ; Git commit immuable ; points ouverts focalisés ; rail 1280×720 sans chevauchement peint (nav scroll / foot pin) ; restitution sans plafond silencieux
+  - Validations : unit dictation/composer/recent ; SC2 PG 4 PASS ; PW dictation C01–C03+harness 4 PASS ; rail capture PASS ; BUILD `NfeXL_KgIuqKGCdf0k4gh`
+  - schéma **027** ; LIVE/RECETTE non mutés ; CI non déclenchée ; artefact `.tmp-sfia-review/chatgpt-review.md` retiré du suivi Git ; NO RELEASE ; E5 non engagé
+  - verdicts Cursor construction distincts E2/E3/E4 dans Review Pack — gate Morris
 
 ## delivery_id: DELIV-2026-11-27-ML5-RECETTE-OPERATIONAL-ACTIVATION
 

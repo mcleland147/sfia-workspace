@@ -450,8 +450,17 @@ export default function ProjectPage() {
       setRecentItems([]);
       return;
     }
-    setRecentItems(readProjectRecentItems(pilotId, params.projectId));
-  }, [pilotId, params.projectId]);
+    const stored = readProjectRecentItems(pilotId, params.projectId);
+    // Drop Nora docs no longer present in the authorized library (rights/access).
+    const docIds = new Set(documents.map((d) => d.document.id));
+    setRecentItems(
+      stored.filter((item) => {
+        if (item.kind !== "document_nora") return true;
+        const id = item.documentId ?? item.id.replace(/^doc:/, "").replace(/:rev:.*$/, "");
+        return !id || docIds.size === 0 || docIds.has(id);
+      }),
+    );
+  }, [pilotId, params.projectId, documents]);
 
   useEffect(() => {
     if (surface !== "travail") return;
@@ -1269,10 +1278,20 @@ export default function ProjectPage() {
     );
   }
 
-  function buildSurfaceUrl(next: Surface, documentId?: string | null) {
+  function buildSurfaceUrl(
+    next: Surface,
+    documentId?: string | null,
+    attemptId?: string | null,
+  ) {
     const q = new URLSearchParams();
     q.set("surface", next);
     if (next === "document" && documentId) q.set("documentId", documentId);
+    if (
+      (next === "execution" || next === "publication") &&
+      attemptId
+    ) {
+      q.set("attempt", attemptId);
+    }
     return `/projects/${params.projectId}?${q.toString()}`;
   }
 
@@ -1281,10 +1300,22 @@ export default function ProjectPage() {
     next: Surface,
     documentId?: string | null,
     mode: "push" | "replace" = "push",
+    attemptId?: string | null,
   ) {
-    const href = buildSurfaceUrl(next, documentId);
+    const href = buildSurfaceUrl(next, documentId, attemptId);
     if (mode === "replace") router.replace(href, { scroll: false });
     else router.push(href, { scroll: false });
+  }
+
+  function openRealizationFocus(
+    next: "execution" | "publication",
+    attemptId?: string | null,
+  ) {
+    surfaceNavGenRef.current += 1;
+    pendingSurfaceRef.current = next;
+    noteProjectSurfaceNavIntent(params.projectId, next as StudioSurface);
+    setSurface(next);
+    syncSurfaceUrl(next, null, "push", attemptId ?? null);
   }
 
   function resetDocumentBibliothequeState() {
@@ -3486,22 +3517,23 @@ export default function ProjectPage() {
                               if (
                                 item.repositoryId &&
                                 item.path &&
-                                item.gitRef
+                                (item.commit || item.gitRef)
                               ) {
+                                // Prefer immutable commit when recorded; mutable ref is not a version claim.
+                                const immutableRef = item.commit?.trim() || item.gitRef!;
                                 void openTravailReference({
                                   kind: "git",
                                   label: item.title,
                                   repositoryId: item.repositoryId,
                                   path: item.path,
-                                  ref: item.gitRef,
+                                  ref: immutableRef,
                                   commit: item.commit ?? undefined,
                                 });
                               }
                               return;
                             }
                             if (item.kind === "execution") {
-                              // Exact attempt reopen not yet wired as owner deep-link — surface only.
-                              selectSurface("execution");
+                              openRealizationFocus("execution", item.attemptId ?? null);
                               return;
                             }
                             if (
@@ -3509,7 +3541,10 @@ export default function ProjectPage() {
                               item.kind === "bilan" ||
                               item.kind === "proof"
                             ) {
-                              selectSurface("publication");
+                              openRealizationFocus(
+                                "publication",
+                                item.attemptId ?? item.resultId ?? null,
+                              );
                             }
                           }}
                         >
@@ -3552,6 +3587,7 @@ export default function ProjectPage() {
                             search: "",
                             openPointsOnly: true,
                             selectedSubjectId: subjectId,
+                            selectedOpenPointId: o.id,
                             selectedDecisionId: null,
                             layout: "full",
                           });
@@ -3578,6 +3614,7 @@ export default function ProjectPage() {
                         search: "",
                         openPointsOnly: true,
                         selectedSubjectId: null,
+                        selectedOpenPointId: null,
                         selectedDecisionId: null,
                         layout: "full",
                       });
@@ -3786,6 +3823,15 @@ export default function ProjectPage() {
               // Keep composer free for the Pilote's next ask — dossier is a chip (12.09).
               selectSurface("travail");
             }}
+            onPilotConsulted={(item) => {
+              notePilotConsultation({
+                id: `exec:${item.attemptId}`,
+                kind: item.kind,
+                title: item.title,
+                refLabel: item.refLabel ?? null,
+                attemptId: item.attemptId,
+              });
+            }}
           />
         </div>
       ) : null}
@@ -3799,6 +3845,15 @@ export default function ProjectPage() {
             onDiscussWithNora={(att) => {
               setDossierAttachment(att);
               selectSurface("travail");
+            }}
+            onPilotConsulted={(item) => {
+              notePilotConsultation({
+                id: `${item.kind}:${item.attemptId}`,
+                kind: item.kind,
+                title: item.title,
+                refLabel: item.refLabel ?? null,
+                attemptId: item.attemptId,
+              });
             }}
           />
         </div>

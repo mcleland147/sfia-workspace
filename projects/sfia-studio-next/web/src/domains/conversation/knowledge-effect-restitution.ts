@@ -30,7 +30,8 @@ export function knowledgeEffectFactLines(
   effects: TurnKnowledgeEffect[],
 ): string[] {
   const lines: string[] = [];
-  for (const k of effects.slice(0, 8)) {
+  // No hard drop of confirmed outcomes — structure/fold in UI if needed; keep all facts.
+  for (const k of effects) {
     const st = (k.status ?? "UNKNOWN").toUpperCase();
     const label = proposalLabel(k.proposalKind);
     const why = (k.reason ?? "").trim().slice(0, 220);

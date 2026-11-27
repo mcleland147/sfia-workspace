@@ -104,6 +104,8 @@ export type JournalNavState = {
   search: string;
   openPointsOnly: boolean;
   selectedSubjectId: string | null;
+  /** Exact OPEN point to focus when openPointsOnly (E3 C-C). */
+  selectedOpenPointId?: string | null;
   selectedDecisionId: string | null;
   layout: "full" | "split" | "enlarged";
 };
@@ -306,6 +308,9 @@ export function ProjectJournal(props: {
   const [selectedSubjectId, setSelectedSubjectId] = useState<string | null>(
     props.initialNav?.selectedSubjectId ?? null,
   );
+  const [selectedOpenPointId, setSelectedOpenPointId] = useState<string | null>(
+    props.initialNav?.selectedOpenPointId ?? null,
+  );
   const [selectedDecisionId, setSelectedDecisionId] = useState<string | null>(
     props.initialNav?.selectedDecisionId ?? null,
   );
@@ -323,12 +328,32 @@ export function ProjectJournal(props: {
       search,
       openPointsOnly,
       selectedSubjectId,
+      selectedOpenPointId,
       selectedDecisionId,
       layout,
     });
     // Intentionally sync outward on nav field changes only.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tab, search, openPointsOnly, selectedSubjectId, selectedDecisionId, layout]);
+  }, [
+    tab,
+    search,
+    openPointsOnly,
+    selectedSubjectId,
+    selectedOpenPointId,
+    selectedDecisionId,
+    layout,
+  ]);
+
+  useEffect(() => {
+    if (!selectedOpenPointId || !openPointsOnly) return;
+    const el = document.querySelector(
+      `[data-testid="journal-open-point-row-${selectedOpenPointId}"]`,
+    );
+    if (el instanceof HTMLElement) {
+      el.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      el.focus();
+    }
+  }, [selectedOpenPointId, openPointsOnly]);
 
   const tree = useMemo(() => buildSubjectTree(props.subjects), [props.subjects]);
   const byId = useMemo(
@@ -626,8 +651,12 @@ export function ProjectJournal(props: {
             <OpenPointsTransversalList
               openPoints={openPoints}
               byId={byId}
-              selectedId={selectedSubjectId}
-              onSelect={pickSubject}
+              selectedSubjectId={selectedSubjectId}
+              selectedOpenPointId={selectedOpenPointId}
+              onSelect={(subjectId, openPointId) => {
+                setSelectedOpenPointId(openPointId);
+                if (subjectId) pickSubject(subjectId);
+              }}
             />
           ) : search.trim().length > 0 ? (
             <SubjectSearchResults
@@ -1294,8 +1323,9 @@ function SubjectSearchResults(props: {
 function OpenPointsTransversalList(props: {
   openPoints: JournalOpenPoint[];
   byId: Map<string, JournalSubject>;
-  selectedId: string | null;
-  onSelect: (id: string) => void;
+  selectedSubjectId: string | null;
+  selectedOpenPointId: string | null;
+  onSelect: (subjectId: string | null, openPointId: string) => void;
 }) {
   if (props.openPoints.length === 0) {
     return (
@@ -1312,16 +1342,19 @@ function OpenPointsTransversalList(props: {
       <ul className="journal-open-points-list" data-testid="journal-open-points-list">
         {props.openPoints.map((o) => {
           const subject = o.subjectId ? props.byId.get(o.subjectId) : null;
-          const selected = o.subjectId != null && props.selectedId === o.subjectId;
+          const selected =
+            props.selectedOpenPointId === o.id ||
+            (props.selectedOpenPointId == null &&
+              o.subjectId != null &&
+              props.selectedSubjectId === o.subjectId);
           return (
             <li key={o.id}>
               <button
                 type="button"
                 className={`journal-open-point-row${selected ? " is-selected" : ""}`}
                 data-testid={`journal-open-point-row-${o.id}`}
-                onClick={() => {
-                  if (o.subjectId) props.onSelect(o.subjectId);
-                }}
+                aria-current={selected ? "true" : undefined}
+                onClick={() => props.onSelect(o.subjectId ?? null, o.id)}
               >
                 <span className="journal-card-kicker">{COPY.openPointQuestion}</span>
                 <span className="journal-open-point-title">{o.statement}</span>

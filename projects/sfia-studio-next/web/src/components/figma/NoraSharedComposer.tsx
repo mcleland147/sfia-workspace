@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type KeyboardEvent,
+} from "react";
 import { ComposerDictationControl } from "@/components/figma/ComposerDictationControl";
 
 export type NoraSharedComposerProps = {
@@ -25,6 +31,10 @@ export type NoraSharedComposerProps = {
   placeholder?: string;
 };
 
+/**
+ * Shared composer shell — prep vs travail keep contractual chrome/send rules,
+ * but IME, growth, dictation lock, and send admission share one interaction path (E4 C.1).
+ */
 export function NoraSharedComposer(props: NoraSharedComposerProps) {
   const composerLocked = Boolean(props.composerLocked);
   const hasDossier = Boolean(props.dossierAttachment?.attemptId);
@@ -66,6 +76,36 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
       ? "Décrivez votre idée, une question ou une hésitation…"
       : "Écrire à Nora dans ce projet…");
 
+  function canAdmitSend(): boolean {
+    if (props.busy || composerLocked || dictationActive) return false;
+    if (props.variant === "travail") return Boolean(props.draft.trim() || hasDossier);
+    return Boolean(props.draft.trim());
+  }
+
+  function onTextareaKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
+    // During dictation: never send (Enter or shortcuts).
+    if (composerLocked || dictationActive) {
+      e.preventDefault();
+      return;
+    }
+    if (imeComposing || e.nativeEvent.isComposing) return;
+
+    if (props.variant === "prep") {
+      if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && canAdmitSend()) {
+        e.preventDefault();
+        props.onSend();
+      }
+      return;
+    }
+
+    // Travail: Enter sends on desktop; Shift+Enter newline; mobile keeps Enter as newline.
+    if (isMobile) return;
+    if (e.key === "Enter" && !e.shiftKey && canAdmitSend()) {
+      e.preventDefault();
+      props.onSend();
+    }
+  }
+
   const dictationControl = dictationMount ? (
     <ComposerDictationControl
       projectId={dictationProjectId}
@@ -78,11 +118,30 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
     />
   ) : null;
 
+  const sharedTextareaProps = {
+    ref: textareaRef,
+    value: props.draft,
+    onChange: (e: ChangeEvent<HTMLTextAreaElement>) => {
+      if (composerLocked || dictationActive) return;
+      props.onDraft(e.target.value);
+    },
+    placeholder,
+    "aria-label": "Message à Nora" as const,
+    rows: 1 as const,
+    readOnly: composerLocked || dictationActive,
+    "data-dictation-hide": dictationActive ? ("1" as const) : undefined,
+    hidden: dictationActive,
+    tabIndex: dictationActive ? -1 : 0,
+    onCompositionStart: () => setImeComposing(true),
+    onCompositionEnd: () => setImeComposing(false),
+    onKeyDown: onTextareaKeyDown,
+  };
+
   if (props.variant === "prep") {
     const expanded = props.draft.includes("\n") || props.draft.length > 80;
     return (
       <div
-        className="sas-composer"
+        className="sas-composer relative"
         data-testid="prep-composer"
         data-dictation-active={dictationActive ? "1" : "0"}
         data-composer-expanded={expanded ? "1" : "0"}
@@ -92,37 +151,16 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
                 height: "auto",
                 maxHeight: "min(36vh, 280px)",
                 minHeight: "var(--sas-composer-h)",
+                overflowY: "auto",
               }
             : undefined
         }
       >
         <textarea
-          ref={textareaRef}
+          {...sharedTextareaProps}
           className="sas-composer-input"
-          value={props.draft}
-          onChange={(e) => props.onDraft(e.target.value)}
-          placeholder={placeholder}
-          aria-label="Message à Nora"
           data-testid="prep-draft"
-          rows={1}
           disabled={props.busy || composerLocked}
-          readOnly={composerLocked || dictationActive}
-          hidden={dictationActive}
-          tabIndex={dictationActive ? -1 : 0}
-          data-dictation-hide={dictationActive ? "1" : undefined}
-          onCompositionStart={() => setImeComposing(true)}
-          onCompositionEnd={() => setImeComposing(false)}
-          onKeyDown={(e) => {
-            if (composerLocked || dictationActive) {
-              e.preventDefault();
-              return;
-            }
-            if (imeComposing || e.nativeEvent.isComposing) return;
-            if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !props.busy) {
-              e.preventDefault();
-              if (props.draft.trim()) props.onSend();
-            }
-          }}
         />
         <div
           className="sas-composer-bar"
@@ -145,7 +183,9 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
               type="button"
               className="sas-composer-send"
               disabled={sendDisabled}
-              onClick={props.onSend}
+              onClick={() => {
+                if (canAdmitSend()) props.onSend();
+              }}
               data-testid="prep-send"
               aria-label="Envoyer le message"
               data-dictation-hide={dictationActive ? "1" : undefined}
@@ -251,41 +291,20 @@ export function NoraSharedComposer(props: NoraSharedComposerProps) {
           +
         </span>
         <textarea
-          ref={textareaRef}
+          {...sharedTextareaProps}
           className="fig-travail-composer-input"
-          value={props.draft}
-          onChange={(e) => props.onDraft(e.target.value)}
-          placeholder={placeholder}
-          aria-label="Message à Nora"
           data-testid="thread-draft"
-          rows={1}
-          readOnly={composerLocked || dictationActive}
           disabled={composerLocked}
           aria-disabled={composerLocked || dictationActive}
-          data-dictation-hide={dictationActive ? "1" : undefined}
-          hidden={dictationActive}
-          tabIndex={dictationActive ? -1 : 0}
-          onCompositionStart={() => setImeComposing(true)}
-          onCompositionEnd={() => setImeComposing(false)}
-          onKeyDown={(e) => {
-            if (composerLocked || dictationActive) {
-              e.preventDefault();
-              return;
-            }
-            if (imeComposing || e.nativeEvent.isComposing) return;
-            if (isMobile) return;
-            if (e.key === "Enter" && !e.shiftKey && !props.busy) {
-              e.preventDefault();
-              if (props.draft.trim() || hasDossier) props.onSend();
-            }
-          }}
         />
         {dictationControl}
         <button
           type="button"
           className="fig-travail-composer-send"
           disabled={sendDisabled}
-          onClick={props.onSend}
+          onClick={() => {
+            if (canAdmitSend()) props.onSend();
+          }}
           data-testid="thread-send"
           aria-label="Envoyer"
           data-dictation-hide={dictationActive ? "1" : undefined}

@@ -346,12 +346,15 @@ export async function createDictationSession(input: {
     }
     record.transport = transport;
     transport.onEvent((event) => handleProviderEvent(record, event));
+    let providerReady = false;
     const sessionReady = new Promise<void>((resolve, reject) => {
       const t = setTimeout(() => {
         record.onProviderSessionReady = null;
         reject(new Error("SESSION_OPEN_TIMEOUT"));
       }, SESSION_OPEN_TIMEOUT_MS);
       record.onProviderSessionReady = () => {
+        if (providerReady) return;
+        providerReady = true;
         clearTimeout(t);
         record.onProviderSessionReady = null;
         resolve();
@@ -380,17 +383,27 @@ export async function createDictationSession(input: {
     emit(record, { type: "session.open", sessionId });
     return { ok: true, session: record };
   } catch (e) {
+    const rawMessage =
+      e instanceof Error ? e.message.slice(0, 240) : "TRANSPORT_OPEN_FAILED";
+    const timedOut = rawMessage === "SESSION_OPEN_TIMEOUT";
+    const code = timedOut ? "SESSION_OPEN_TIMEOUT" : "TRANSPORT_OPEN_FAILED";
     record.status = "failed";
-    record.errorCode = "TRANSPORT_OPEN_FAILED";
-    const message = e instanceof Error ? e.message.slice(0, 240) : "TRANSPORT_OPEN_FAILED";
+    record.errorCode = code;
+    try {
+      record.transport?.close();
+    } catch {
+      /* */
+    }
+    record.transport = null;
+    record.onProviderSessionReady = null;
     emit(record, {
       type: "session.error",
       sessionId,
-      code: "TRANSPORT_OPEN_FAILED",
-      message,
+      code,
+      message: rawMessage,
     });
     void recordDictationFinops(record, "failed");
-    return { ok: false, code: "TRANSPORT_OPEN_FAILED", message };
+    return { ok: false, code, message: rawMessage };
   }
 }
 

@@ -650,27 +650,19 @@ describe("ml3 composer dictation session (substituted transport)", () => {
   it("finalize timeout with unacked commit marks partial not complete", async () => {
     process.env.SFIA_COMPOSER_DICTATION = "1";
     process.env.STUDIO_LANE = "DEV";
-    let handler: ((ev: Record<string, unknown>) => void) | null = null;
-    const transport: RealtimeTransport = {
-      send: (p) => {
-        if (p.type === "session.update") {
-          queueMicrotask(() => handler?.({ type: "session.updated" }));
-        }
-        if (p.type === "input_audio_buffer.commit") {
-          /* deliberate: no input_audio_buffer.committed ack */
-        }
-      },
-      close: () => undefined,
-      onEvent: (h) => {
-        handler = h;
-      },
+    const mock = delayedCommitTransport(10_000);
+    // Override commit ack: deliberate silence so finalize times out as partial.
+    const baseSend = mock.transport.send;
+    mock.transport.send = (p) => {
+      if (p.type === "input_audio_buffer.commit") return;
+      baseSend(p);
     };
     const created = await createDictationSession({
       pilotId: "pilot-1",
       projectId: "proj-1",
       conversationKey: "proj-1",
       baselineDraft: "",
-      transportFactory: async () => transport,
+      transportFactory: async () => mock.transport,
       limits: { finalizeTimeoutMs: 80 },
     });
     if (!created.ok) throw new Error("create failed");
@@ -682,7 +674,7 @@ describe("ml3 composer dictation session (substituted transport)", () => {
       projectId: "proj-1",
       pcmBase64: pcm,
     });
-    handler?.({
+    mock.push({
       type: "conversation.item.input_audio_transcription.completed",
       item_id: "orphan_item",
       transcript: "fragment",
@@ -702,35 +694,20 @@ describe("ml3 composer dictation session (substituted transport)", () => {
     process.env.SFIA_COMPOSER_DICTATION = "1";
     process.env.STUDIO_LANE = "DEV";
     let finalizePhase = false;
-    let handler: ((ev: Record<string, unknown>) => void) | null = null;
-    const transport: RealtimeTransport = {
-      send: (p) => {
-        if (p.type === "session.update") {
-          queueMicrotask(() => handler?.({ type: "session.updated" }));
-        }
-        if (p.type === "input_audio_buffer.commit") {
-          if (finalizePhase) {
-            throw new Error("commit refused");
-          }
-          queueMicrotask(() => {
-            handler?.({
-              type: "input_audio_buffer.committed",
-              item_id: "item_early",
-            });
-          });
-        }
-      },
-      close: () => undefined,
-      onEvent: (h) => {
-        handler = h;
-      },
+    const mock = delayedCommitTransport(50);
+    const baseSend = mock.transport.send;
+    mock.transport.send = (p) => {
+      if (p.type === "input_audio_buffer.commit" && finalizePhase) {
+        throw new Error("commit refused");
+      }
+      baseSend(p);
     };
     const created = await createDictationSession({
       pilotId: "pilot-1",
       projectId: "proj-1",
       conversationKey: "proj-1",
       baselineDraft: "",
-      transportFactory: async () => transport,
+      transportFactory: async () => mock.transport,
       limits: { finalizeTimeoutMs: 80 },
     });
     if (!created.ok) throw new Error("create failed");
@@ -742,7 +719,7 @@ describe("ml3 composer dictation session (substituted transport)", () => {
       projectId: "proj-1",
       pcmBase64: pcm,
     });
-    handler?.({
+    mock.push({
       type: "conversation.item.input_audio_transcription.completed",
       item_id: "item_early",
       transcript: "partie connue",
@@ -825,5 +802,76 @@ describe("ml3 composer dictation session (substituted transport)", () => {
     expect(created.ok).toBe(false);
     if (created.ok) return;
     expect(created.code).toBe("TRANSPORT_UNKNOWN");
+  });
+
+  it("MP-06 DET: silent provider ready → SESSION_OPEN_TIMEOUT, transport closed", async () => {
+    process.env.SFIA_COMPOSER_DICTATION = "1";
+    process.env.STUDIO_LANE = "DEV";
+    let closed = false;
+    let handler: ((ev: Record<string, unknown>) => void) | null = null;
+    const silentTransport: RealtimeTransport = {
+      // Opens but never emits session.updated / session.created (mic-OK then ~10s hang).
+      send: () => undefined,
+      close: () => {
+        closed = true;
+      },
+      onEvent: (h) => {
+        handler = h;
+      },
+    };
+    void handler;
+    const created = await createDictationSession({
+      pilotId: "pilot-timeout",
+      projectId: "proj-timeout",
+      conversationKey: "proj-timeout",
+      baselineDraft: "",
+      transportFactory: async () => silentTransport,
+      limits: { maxDurationMs: 60_000 },
+    });
+    expect(created.ok).toBe(false);
+    if (created.ok) return;
+    expect(created.code).toBe("SESSION_OPEN_TIMEOUT");
+    expect(created.message).toBe("SESSION_OPEN_TIMEOUT");
+    expect(closed).toBe(true);
+  }, 15_000);
+
+  it("fixture transport recovers ready ack queued before onEvent (MP-06 DET)", async () => {
+    process.env.SFIA_COMPOSER_DICTATION = "1";
+    process.env.STUDIO_LANE = "DEV";
+    process.env.SFIA_DICTATION_TRANSPORT = "fixture";
+    process.env.SFIA_DICTATION_SUBSTITUTED = "1";
+    const { createFixtureRealtimeTransport } = await import(
+      "@/domains/conversation/composer-dictation-transport-fixture"
+    );
+    // Simulate send-before-onEvent race: fixture must not drop session.updated.
+    const transport = createFixtureRealtimeTransport("fixture-race-sid");
+    transport.send({ type: "session.update", session: {} });
+    let sawReady = false;
+    await new Promise<void>((resolve) => {
+      transport.onEvent((ev) => {
+        if (ev.type === "session.updated") {
+          sawReady = true;
+          resolve();
+        }
+      });
+      // Fallback if already delivered synchronously via pending queue flush.
+      queueMicrotask(() => {
+        if (sawReady) resolve();
+      });
+      setTimeout(() => resolve(), 50);
+    });
+    expect(sawReady).toBe(true);
+
+    const created = await createDictationSession({
+      pilotId: "pilot-fix",
+      projectId: "proj-fix",
+      conversationKey: "proj-fix",
+      baselineDraft: "",
+      transportFactory: async ({ sessionId }) =>
+        createFixtureRealtimeTransport(sessionId),
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    expect(created.session.status).toBe("open");
   });
 });

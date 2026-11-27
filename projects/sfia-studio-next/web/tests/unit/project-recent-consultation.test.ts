@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  recentItemFromAttemptConsultation,
   recentItemFromDocumentConsultation,
   recentItemFromGitConsultation,
   recentItemFromTurnReference,
@@ -71,6 +72,23 @@ describe("B.8 — pilot consultation identities (MP-08)", () => {
     });
     expect(withBoth).toHaveLength(2);
     expect(withBoth[0]?.id).toBe("doc:doc_x:rev:rev_2");
+  });
+
+  it("builds attempt consultation ids for execution/bilan", () => {
+    expect(
+      recentItemFromAttemptConsultation({
+        kind: "execution",
+        attemptId: "att_1",
+        title: "Exécution att_1",
+        refLabel: "RUNNING",
+      }),
+    ).toEqual({
+      id: "execution:att_1",
+      kind: "execution",
+      title: "Exécution att_1",
+      refLabel: "RUNNING",
+      attemptId: "att_1",
+    });
   });
 
   it("isolates recent lists per canonical id (project A vs B)", () => {

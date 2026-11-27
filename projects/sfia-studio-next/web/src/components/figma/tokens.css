@@ -671,6 +671,15 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .fig-dictation-connexion-icon {
+    animation: none;
+  }
+  .fig-dictation-bar {
+    transition: none;
+  }
+}
+
 .fig-dictation-label {
   margin: 0;
   color: #9aa9c2;

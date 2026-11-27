@@ -30,6 +30,7 @@ export async function GET(_: Request, ctx: { params: Promise<{ preparationId: st
       documents: docs,
       knowledge,
       awaitingMission,
+      session: { pilotId: session.pilotId },
     });
   } catch (e) {
     const mapped = studioErrorResponse(e);

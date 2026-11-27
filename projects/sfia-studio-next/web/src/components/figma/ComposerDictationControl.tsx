@@ -108,6 +108,38 @@ function figmaState(
   return undefined;
 }
 
+/** Map server/admission codes to explicit pilot-facing French errors (MP-06 DET). */
+export function dictationClientErrorMessage(input: {
+  code?: string | null;
+  message?: string | null;
+  fallback?: string;
+}): string {
+  const code = (input.code || "").trim();
+  const raw = (input.message || "").trim();
+  const fromCode =
+    code === "SESSION_OPEN_TIMEOUT" || raw === "SESSION_OPEN_TIMEOUT"
+      ? "Connexion dictée expirée — réessayez ou utilisez le clavier"
+      : code === "TRANSPORT_OPEN_FAILED"
+        ? "Transport dictée indisponible — réessayez ou utilisez le clavier"
+        : code === "FLAG_OFF"
+          ? "Dictée non activée sur cet environnement"
+          : code === "CONCURRENCY_LIMIT"
+            ? "Une dictée est déjà en cours"
+            : code === "FIXTURE_NOT_ADMITTED" || code === "SUBSTITUTED_TRANSPORT_MISSING"
+              ? "Dictée de test non admise sur cet environnement"
+              : code === "TRANSPORT_UNKNOWN"
+                ? "Configuration dictée incohérente"
+                : code === "NO_PROVIDER_KEY" || code === "LANE_GUARD"
+                  ? "Dictée indisponible (clé ou voie non admise)"
+                  : code === "INVALID_SCOPE" || code === "FORBIDDEN"
+                    ? "Dictée refusée pour ce contexte"
+                    : "";
+  if (fromCode) return fromCode;
+  if (raw && raw !== code) return raw.slice(0, 160);
+  if (code) return code.slice(0, 160);
+  return input.fallback || "Impossible de démarrer la dictée";
+}
+
 export function ComposerDictationControl(props: ComposerDictationControlProps) {
   const apiBase = useMemo(
     () => dictationApiBase({ projectId: props.projectId, preparationId: props.preparationId }),
@@ -184,7 +216,21 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
     setBarHeights(Array.from({ length: WAVE_BARS }, () => 0.12));
   }, []);
 
-  useEffect(() => () => stopMedia(), [stopMedia]);
+  // C.5 — unmount isolates session: bump generation, cancel remote, free mic/AudioContext/SSE.
+  useEffect(() => {
+    return () => {
+      generationRef.current += 1;
+      const sid = sessionIdRef.current;
+      sessionIdRef.current = null;
+      stopMedia();
+      if (sid && apiBase) {
+        void fetch(`${apiBase}/sessions/${encodeURIComponent(sid)}/cancel`, {
+          method: "POST",
+          keepalive: true,
+        }).catch(() => undefined);
+      }
+    };
+  }, [apiBase, stopMedia]);
 
   const drainUploads = useCallback(async () => {
     await uploadChainRef.current;
@@ -312,6 +358,7 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
         if (early?.sessionId) {
           void cancelSessionRemote(early.sessionId);
         }
+        setPhase("idle");
         return;
       }
       const created = (await createRes.json()) as {
@@ -323,12 +370,19 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
       if (!createRes.ok || !created.ok || !created.sessionId) {
         stopMedia();
         setPhase("error");
-        setError(created.message || created.code || "Session refusée");
+        setError(
+          dictationClientErrorMessage({
+            code: created.code,
+            message: created.message,
+            fallback: "Session refusée",
+          }),
+        );
         return;
       }
       if (aborted()) {
         stopMedia();
         void cancelSessionRemote(created.sessionId);
+        setPhase("idle");
         return;
       }
       sessionIdRef.current = created.sessionId;
@@ -338,6 +392,15 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
         `${apiBase}/sessions/${encodeURIComponent(created.sessionId)}/events`,
       );
       esRef.current = es;
+      es.onerror = () => {
+        if (aborted() || captureStoppedRef.current) return;
+        // EventSource also errors during reconnect — only fail when permanently closed.
+        if (es.readyState !== EventSource.CLOSED) return;
+        failCapture("Flux dictée interrompu — réessayez ou utilisez le clavier");
+        stopMedia();
+        void cancelSessionRemote(sessionIdRef.current);
+        sessionIdRef.current = null;
+      };
       es.onmessage = (msg) => {
         if (aborted()) return;
         try {
@@ -378,14 +441,20 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
             );
           }
           if (ev.type === "session.error") {
-            setError(ev.message || ev.code || "Erreur de dictée");
+            setError(
+              dictationClientErrorMessage({
+                code: ev.code,
+                message: ev.message,
+                fallback: "Erreur de dictée",
+              }),
+            );
             setPhase("error");
             stopMedia();
             void cancelSessionRemote(sessionIdRef.current);
             sessionIdRef.current = null;
           }
           if (ev.type === "session.expired") {
-            setError("Session expirée");
+            setError("Session expirée — la dictée a été interrompue");
             setPhase("error");
             stopMedia();
             sessionIdRef.current = null;
@@ -401,6 +470,7 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
         stopMedia();
         void cancelSessionRemote(created.sessionId);
         sessionIdRef.current = null;
+        setPhase("idle");
         return;
       }
       audioCtxRef.current = audioCtx;
@@ -409,24 +479,6 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
       analyser.fftSize = 256;
       analyserRef.current = analyser;
       source.connect(analyser);
-
-      const freqData = new Uint8Array(analyser.frequencyBinCount);
-      const tick = () => {
-        if (aborted() || captureStoppedRef.current) return;
-        if (sessionStartRef.current != null) {
-          setElapsedMs(Date.now() - sessionStartRef.current);
-        }
-        analyser.getByteFrequencyData(freqData);
-        const nextBars: number[] = [];
-        const step = Math.max(1, Math.floor(freqData.length / WAVE_BARS));
-        for (let i = 0; i < WAVE_BARS; i++) {
-          const v = freqData[i * step] ?? 0;
-          nextBars.push(Math.max(0.12, (v / 255) * 1.15));
-        }
-        setBarHeights(nextBars);
-        rafRef.current = requestAnimationFrame(tick);
-      };
-      rafRef.current = requestAnimationFrame(tick);
 
       const processor = audioCtx.createScriptProcessor(4096, 1, 1);
       processorRef.current = processor;
@@ -447,11 +499,33 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
         stopMedia();
         void cancelSessionRemote(created.sessionId);
         sessionIdRef.current = null;
+        setPhase("idle");
         return;
       }
+      // C.4 — analyser wave only after listening is established (not during connexion).
       setPhase("listening");
+      const freqData = new Uint8Array(analyser.frequencyBinCount);
+      const tick = () => {
+        if (aborted() || captureStoppedRef.current) return;
+        if (sessionStartRef.current != null) {
+          setElapsedMs(Date.now() - sessionStartRef.current);
+        }
+        analyser.getByteFrequencyData(freqData);
+        const nextBars: number[] = [];
+        const step = Math.max(1, Math.floor(freqData.length / WAVE_BARS));
+        for (let i = 0; i < WAVE_BARS; i++) {
+          const v = freqData[i * step] ?? 0;
+          nextBars.push(Math.max(0.12, (v / 255) * 1.15));
+        }
+        setBarHeights(nextBars);
+        rafRef.current = requestAnimationFrame(tick);
+      };
+      rafRef.current = requestAnimationFrame(tick);
     } catch (e) {
-      if (aborted()) return;
+      if (aborted()) {
+        setPhase("idle");
+        return;
+      }
       stopMedia();
       setPhase("error");
       setError(
@@ -465,6 +539,7 @@ export function ComposerDictationControl(props: ComposerDictationControlProps) {
   }, [
     cancelSessionRemote,
     enqueueAudio,
+    failCapture,
     props.disabled,
     props.enabled,
     props.draft,
