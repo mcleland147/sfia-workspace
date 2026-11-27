@@ -114,6 +114,13 @@ import {
 } from "./semantic-qualification";
 import { loadLatestMissionsByIntentKey } from "./intent-conduction";
 import {
+  integratedEffectFamily,
+  listIntegratedEffectIntents,
+  orderIntegratedEffectIntents,
+  partitionWaveByFamily,
+  planIntegratedEffectWave,
+} from "./qualified-effect-conduction";
+import {
   buildTurnCorrelationKeys,
   evaluateS05SiblingPolicy,
   parseSiblingResultEvidence,
@@ -2003,265 +2010,83 @@ export async function postUserMessageAndNora(
   let capitalisationError: string | undefined;
   let ownershipLostBeforeD4 = false;
 
-  // E2-REL-02 / E2-FINAL-01 — when D5/D6 dependsOn D4 knowledge intents, run
-  // capitalisation first so cross-cap preconditions can be satisfied (not permanently blocked).
-  const crossCapOutcomeByIntentId = new Map<string, string>();
-  let capitalisationRanBeforePilotage = false;
-  // Mint assistant id before early D4 so provenance can reference the future ASSISTANT message.
-  const earlyAssistantMessageId = newId("msg");
-  const pilotageIntentIdsEarly = intentIdsFromPilotageBindings(pilotageBindings);
-  const intentDependsOnEarly = new Map(
+  // Option B (ARCH-01…05) — unified D3 conduction of qualified integrated effects
+  // (d4.record_knowledge / d5 / d6): dependency + owner-result waves, not fixed phases.
+  const ownerOutcomeByIntentId = new Map<string, string>();
+  /** @deprecated alias — kept for crossCapOutcomeFromCapitalisations call sites / OBS. */
+  const crossCapOutcomeByIntentId = ownerOutcomeByIntentId;
+  let knowledgeEffectsConducted = false;
+  // Mint assistant id before any D4 so provenance can reference the future ASSISTANT message.
+  const assistantMessageIdForEffects = newId("msg");
+  const pilotageIntentIds = intentIdsFromPilotageBindings(pilotageBindings);
+  const intentDependsOn = new Map(
     qualification.intents.map((i) => [i.id, i.dependsOn] as const),
   );
-  const intentByIdEarly = new Map(qualification.intents.map((i) => [i.id, i] as const));
-  const d4DepsForPilotage = new Set<string>();
-  const isEarlyD4 = (dep: string) => {
-    if (pilotageIntentIdsEarly.has(dep)) return false;
-    const depIntent = intentByIdEarly.get(dep);
-    return (
-      depIntent?.capabilityId === "d4.record_knowledge" &&
-      depIntent.mode === "REQUEST_EFFECT"
-    );
-  };
-  for (const b of pilotageBindings) {
-    for (const dep of intentDependsOnEarly.get(b.intentId) ?? []) {
-      if (isEarlyD4(dep)) d4DepsForPilotage.add(dep);
-    }
-  }
-  // E2-INT — transitive D4 ancestors (D4-A → D4-B → D5) must join the early set.
-  {
-    let grew = true;
-    while (grew) {
-      grew = false;
-      for (const id of [...d4DepsForPilotage]) {
-        for (const dep of intentDependsOnEarly.get(id) ?? []) {
-          if (isEarlyD4(dep) && !d4DepsForPilotage.has(dep)) {
-            d4DepsForPilotage.add(dep);
-            grew = true;
-          }
-        }
-      }
-    }
-  }
+  const bindingByIntentId = new Map(
+    pilotageBindings.map((b) => [b.intentId, b] as const),
+  );
+  const integratedHits = listIntegratedEffectIntents(qualification);
+  const integratedOrdered = orderIntegratedEffectIntents(qualification, integratedHits);
+  const integratedIds = new Set(integratedOrdered.map((i) => i.id));
+  const familyById = new Map(
+    integratedOrdered.map((i) => [i.id, integratedEffectFamily(i.capabilityId)!] as const),
+  );
+  const allKnowledgeProposals = extractKnowledgeProposals(qualification);
+  const interruptedWithDocumentEarly =
+    reply.status === "INTERRUPTED" &&
+    Boolean(cognitiveWorkMeta?.suspended) &&
+    extractContractualDocumentProposal(reply.content).ok;
+  const replyAllowsKnowledgeEffects =
+    reply.status === "COMPLETE" || interruptedWithDocumentEarly;
+
   if (
     allowOwnerEffects &&
-    d4DepsForPilotage.size > 0 &&
-    reply.status === "COMPLETE" &&
+    integratedOrdered.length > 0 &&
     (await requireTurnOwnership(reserved.commandId, reserved.ownerToken))
   ) {
-    try {
-      const allKnowledgeProposals = extractKnowledgeProposals(qualification);
-      // Topo-order early D4; detect cycles.
-      const visit = new Set<string>();
-      const visiting = new Set<string>();
-      const orderedAll: string[] = [];
-      const walk = (id: string) => {
-        if (!d4DepsForPilotage.has(id) || visit.has(id)) return;
-        if (visiting.has(id)) {
-          crossCapOutcomeByIntentId.set(id, "FAILED");
-          return;
-        }
-        visiting.add(id);
-        for (const d of intentDependsOnEarly.get(id) ?? []) {
-          if (d4DepsForPilotage.has(d)) walk(d);
-        }
-        visiting.delete(id);
-        visit.add(id);
-        orderedAll.push(id);
-      };
-      for (const id of [...d4DepsForPilotage].sort()) walk(id);
-
-      const isSatisfied = (prior: string | undefined) => {
-        const u = (prior ?? "").toUpperCase();
-        return (
-          u === "APPLIED" ||
-          u === "AVAILABLE" ||
-          u === "OK" ||
-          u === "SUCCESS" ||
-          u === "ALREADY_APPLIED"
-        );
-      };
-
-      // Wave batching: peers without unmet D4 deps share one maybeCapitalize call
-      // so E1 parent/enfant SUBJECT batch stays coherent; waves respect dependsOn.
-      const pending = new Set(
-        orderedAll.filter((id) => crossCapOutcomeByIntentId.get(id) !== "FAILED"),
-      );
-      let writtenTotal = 0;
-      let ranAny = false;
-      while (pending.size > 0 && !ownershipLostBeforeD4) {
-        const wave: string[] = [];
-        for (const dep of orderedAll) {
-          if (!pending.has(dep)) continue;
-          const depsOfDep = intentDependsOnEarly.get(dep) ?? [];
-          let blocked: string | null = null;
-          let waiting = false;
-          for (const d of depsOfDep) {
-            if (pilotageIntentIdsEarly.has(d)) {
-              blocked = `D4 (${dep}) dépend d'un acte D5/D6 (${d}) non encore exécuté`;
-              break;
-            }
-            if (pending.has(d)) {
-              waiting = true;
-              break;
-            }
-            const prior = crossCapOutcomeByIntentId.get(d);
-            if (prior !== undefined) {
-              if (!isSatisfied(prior)) {
-                blocked = `D4 (${dep}) précondition (${d}) non satisfaite (${prior})`;
-                break;
-              }
-            } else if (d4DepsForPilotage.has(d)) {
-              waiting = true;
-              break;
-            } else {
-              blocked = `D4 (${dep}) précondition (${d}) non résolue`;
-              break;
-            }
-          }
-          if (blocked) {
-            crossCapOutcomeByIntentId.set(dep, "SKIPPED");
-            pending.delete(dep);
-            continue;
-          }
-          if (waiting) continue;
-          wave.push(dep);
-        }
-        if (wave.length === 0) {
-          for (const id of pending) {
-            crossCapOutcomeByIntentId.set(id, "FAILED");
-          }
-          pending.clear();
-          break;
-        }
-        const proposalsForWave = allKnowledgeProposals.filter((p) =>
-          wave.includes(p.intentId),
-        );
-        const step = await maybeCapitalizeFromExchange(pilotId, preparationId, {
-          userText: content,
-          assistantText: reply.content,
-          generationId: reply.generationId,
-          userMessageId: reserved.userMessageId,
-          assistantMessageId: earlyAssistantMessageId,
-          proposals: proposalsForWave,
-          turnFence: {
-            commandId: reserved.commandId,
-            ownerToken: reserved.ownerToken,
-            beforeFenceCheck: turnRaceHooks.beforeD4Effect,
-          },
-        });
-        ranAny = true;
-        capitalisation = {
-          capitalisations: [
-            ...capitalisation.capitalisations,
-            ...step.capitalisations,
-          ],
-          selectionMethod: step.selectionMethod,
-          selectionLimit: step.selectionLimit,
-          humanDecisionCreated:
-            capitalisation.humanDecisionCreated || step.humanDecisionCreated,
-          ownershipLost: capitalisation.ownershipLost || step.ownershipLost,
-        };
-        if (step.ownershipLost) {
-          ownershipLostBeforeD4 = true;
-          for (const dep of wave) {
-            crossCapOutcomeByIntentId.set(dep, "SKIPPED");
-            pending.delete(dep);
-          }
-          break;
-        }
-        for (const dep of wave) {
-          const proposalsForIntent = proposalsForWave.filter((p) => p.intentId === dep);
-          const outcome = crossCapOutcomeFromCapitalisations({
-            intentId: dep,
-            capitalisations: step.capitalisations,
-            hadProposal: proposalsForIntent.length > 0,
-            ownershipLost: false,
-            proposalKind: proposalsForIntent[0]?.kind ?? null,
-          });
-          crossCapOutcomeByIntentId.set(dep, outcome);
-          pending.delete(dep);
-        }
-        writtenTotal += step.capitalisations.filter(
-          (c) => c.status === "AVAILABLE" || c.status === "OK",
-        ).length;
-      }
-      for (const dep of d4DepsForPilotage) {
-        if (!crossCapOutcomeByIntentId.has(dep)) {
-          crossCapOutcomeByIntentId.set(dep, ownershipLostBeforeD4 ? "SKIPPED" : "FAILED");
-        }
-      }
-      capitalisationRanBeforePilotage = ranAny || d4DepsForPilotage.size > 0;
-      emitObs({
-        event_name: "d3.turn.knowledge_capitalisation",
-        component: "d3.conversation",
-        request_id: requestId,
-        operation_id: reserved.operationId,
-        generation_id: reply.generationId,
-        outcome: "PARTIAL",
-        meta: {
-          early_before_pilotage: true,
-          d4_deps: d4DepsForPilotage.size,
-          capitalisation_written: writtenTotal,
-        },
-      });
-    } catch {
-      capitalisationError = "CAPITALISATION_EXCEPTION";
-      for (const dep of d4DepsForPilotage) {
-        if (!crossCapOutcomeByIntentId.has(dep)) {
-          crossCapOutcomeByIntentId.set(dep, "FAILED");
-        }
+    const pending = new Set<string>();
+    for (const intent of integratedOrdered) {
+      const family = familyById.get(intent.id);
+      if (family === "knowledge") {
+        if (replyAllowsKnowledgeEffects) pending.add(intent.id);
+      } else if (family === "pilotage") {
+        if (ctx.project?.id) pending.add(intent.id);
       }
     }
-  }
+    const orderedIds = integratedOrdered.map((i) => i.id);
+    let waveGuard = 0;
+    const maxWaves = pending.size + 2;
 
-  // D5/D6 after semantic qualification — one apply per qualified REQUEST_EFFECT binding (MP-09).
-  if (allowOwnerEffects && pilotageBindings.length > 0 && ctx.project?.id && !ownershipLostBeforeD4) {
-    const stillOwned = await requireTurnOwnership(reserved.commandId, reserved.ownerToken);
-    if (stillOwned) {
-      const intentDependsOn = intentDependsOnEarly;
-      const pilotageIntentIds = pilotageIntentIdsEarly;
-      const outcomeByIntentId = new Map<string, string>();
-      for (let bindingIndex = 0; bindingIndex < pilotageBindings.length; bindingIndex++) {
-        const pilotageBinding = pilotageBindings[bindingIndex]!;
-        const intentId =
-          "ambiguous" in pilotageBinding ? pilotageBinding.intentId : pilotageBinding.intentId;
-        if ("ambiguous" in pilotageBinding) {
-          const ambiguousRecord = ambiguousPilotageEffectRecord({
-            intentId,
-            reason: pilotageBinding.reason,
-          });
-          pilotageEffectRecords.push(ambiguousRecord);
-          outcomeByIntentId.set(intentId, "AMBIGUOUS");
-          emitObs({
-            event_name: "d3.turn.conversational_authority",
-            component: "d3.conversation",
-            request_id: requestId,
-            operation_id: reserved.operationId,
-            outcome: "PARTIAL",
-            meta: {
-              attempted: false,
-              intent_clarity: "AMBIGUOUS",
-              semantic_gate: true,
-              reason: pilotageBinding.reason,
-              semantic_intent_id: intentId,
-            },
-          });
-          continue;
-        }
-        const blockReason = dependencyPreconditionBlockReason({
-          dependsOn: intentDependsOn.get(intentId) ?? [],
-          pilotageIntentIds,
-          outcomeByIntentId,
-          crossCapOutcomeByIntentId,
-        });
-        if (blockReason) {
-          const blockedRecord = dependencyBlockedPilotageEffectRecord({
-            binding: pilotageBinding,
-            blockReason,
-          });
-          pilotageEffectRecords.push(blockedRecord);
-          outcomeByIntentId.set(intentId, "SKIPPED");
+    while (pending.size > 0 && !ownershipLostBeforeD4 && waveGuard < maxWaves) {
+      waveGuard += 1;
+      const plan = planIntegratedEffectWave({
+        pendingIds: pending,
+        orderedIds,
+        dependsOn: intentDependsOn,
+        outcomes: ownerOutcomeByIntentId,
+        integratedIds,
+      });
+      for (const b of plan.blocked) {
+        pending.delete(b.id);
+        const family = familyById.get(b.id);
+        if (family === "pilotage") {
+          const binding = bindingByIntentId.get(b.id);
+          if (binding && !("ambiguous" in binding)) {
+            pilotageEffectRecords.push(
+              dependencyBlockedPilotageEffectRecord({
+                binding,
+                blockReason: b.reason,
+              }),
+            );
+          } else if (binding && "ambiguous" in binding) {
+            pilotageEffectRecords.push(
+              ambiguousPilotageEffectRecord({
+                intentId: b.id,
+                reason: binding.reason,
+              }),
+            );
+          }
+          ownerOutcomeByIntentId.set(b.id, "SKIPPED");
           emitObs({
             event_name: "d3.turn.conversational_authority",
             component: "d3.conversation",
@@ -2273,110 +2098,368 @@ export async function postUserMessageAndNora(
               intent_clarity: "CLEAR",
               semantic_gate: true,
               reason_code: "DEPENDENCY_PRECONDITION",
-              reason: blockReason,
-              semantic_intent_id: intentId,
-              operation: pilotageBinding.operation,
+              reason: b.reason,
+              semantic_intent_id: b.id,
+              operation:
+                binding && !("ambiguous" in binding) ? binding.operation : null,
               pilotage_bindings_total: pilotageBindings.length,
+              unified_conduction: true,
             },
           });
-          continue;
+        } else {
+          ownerOutcomeByIntentId.set(b.id, "SKIPPED");
         }
-        const preQualified = {
-          clarity: "CLEAR" as const,
-          operation: pilotageBinding.operation,
-          objective: pilotageBinding.objective ?? content,
-          statement: pilotageBinding.statement,
-          objectRef: pilotageBinding.objectRef,
-          decisionId: pilotageBinding.decisionId,
-          methodRef: pilotageBinding.methodRef,
-          methodVersion: pilotageBinding.methodVersion,
-          restrictionKindHint: pilotageBinding.restrictionKindHint,
-          restrictionTargetRefHint: pilotageBinding.restrictionTargetRefHint,
-          cycleType: pilotageBinding.cycleType as import("@/domains/pilotage/cki-resolve").CycleType | undefined,
-          toCycleType: pilotageBinding.toCycleType as import("@/domains/pilotage/cki-resolve").CycleType | undefined,
-          semanticIntentId: pilotageBinding.intentId,
-          semanticSchemaVersion: pilotageBinding.schemaVersion,
-        };
-        const outcome = await applyConversationalAuthority({
-          pilotId,
-          projectId: ctx.project.id,
-          userMessageId: reserved.userMessageId,
-          content,
-          clientTurnKey,
-          preQualified,
-        });
-        if (outcome.humanDecisionCreated) conversationalHumanDecisionCreated = true;
-        const effectRecord = pilotageEffectFromAuthority(outcome, pilotageBinding.intentId);
-        if (effectRecord) {
-          pilotageEffectRecords.push(effectRecord);
+      }
+
+      if (plan.ready.length === 0) {
+        // No admissible progress — fail closed without inventing ownership loss.
+        for (const id of pending) {
+          ownerOutcomeByIntentId.set(id, "FAILED");
+          const family = familyById.get(id);
+          if (family === "pilotage") {
+            const binding = bindingByIntentId.get(id);
+            if (binding && !("ambiguous" in binding)) {
+              pilotageEffectRecords.push(
+                dependencyBlockedPilotageEffectRecord({
+                  binding,
+                  blockReason:
+                    "Aucune progression admissible restante — préconditions non satisfaites.",
+                }),
+              );
+            }
+          }
         }
-        outcomeByIntentId.set(
-          intentId,
-          outcome.command?.status ?? (outcome.attempted ? "FAILED" : "NOT_ATTEMPTED"),
-        );
-        if (!authority?.attempted && outcome.attempted) {
-          authority = outcome;
-        } else if (!authority) {
-          authority = outcome;
+        pending.clear();
+        break;
+      }
+
+      const { knowledgeIds, pilotageIds } = partitionWaveByFamily(
+        plan.ready,
+        familyById,
+      );
+
+      // D4 knowledge batch — peers ready together share one owner call (parent/enfant).
+      if (knowledgeIds.length > 0) {
+        try {
+          const proposalsForWave = allKnowledgeProposals.filter((p) =>
+            knowledgeIds.includes(p.intentId),
+          );
+          if (proposalsForWave.length === 0) {
+            for (const id of knowledgeIds) {
+              ownerOutcomeByIntentId.set(id, "SKIPPED");
+              pending.delete(id);
+            }
+          } else {
+            const step = await maybeCapitalizeFromExchange(pilotId, preparationId, {
+              userText: content,
+              assistantText: reply.content,
+              generationId: reply.generationId,
+              userMessageId: reserved.userMessageId,
+              assistantMessageId: assistantMessageIdForEffects,
+              proposals: proposalsForWave,
+              turnFence: {
+                commandId: reserved.commandId,
+                ownerToken: reserved.ownerToken,
+                beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+              },
+            });
+            knowledgeEffectsConducted = true;
+            capitalisation = {
+              capitalisations: [
+                ...capitalisation.capitalisations,
+                ...step.capitalisations,
+              ],
+              selectionMethod: step.selectionMethod,
+              selectionLimit: step.selectionLimit,
+              humanDecisionCreated:
+                capitalisation.humanDecisionCreated || step.humanDecisionCreated,
+              ownershipLost: capitalisation.ownershipLost || step.ownershipLost,
+            };
+            if (step.ownershipLost) {
+              ownershipLostBeforeD4 = true;
+              for (const id of knowledgeIds) {
+                ownerOutcomeByIntentId.set(id, "SKIPPED");
+                pending.delete(id);
+              }
+              for (const id of pending) {
+                ownerOutcomeByIntentId.set(id, "SKIPPED");
+                const family = familyById.get(id);
+                if (family === "pilotage") {
+                  const binding = bindingByIntentId.get(id);
+                  if (binding) {
+                    pilotageEffectRecords.push(
+                      ownershipLostPilotageEffectRecord({ binding }),
+                    );
+                  }
+                }
+              }
+              pending.clear();
+              break;
+            }
+            for (const id of knowledgeIds) {
+              const proposalsForIntent = proposalsForWave.filter(
+                (p) => p.intentId === id,
+              );
+              const outcome = crossCapOutcomeFromCapitalisations({
+                intentId: id,
+                capitalisations: step.capitalisations,
+                hadProposal: proposalsForIntent.length > 0,
+                ownershipLost: false,
+                proposalKind: proposalsForIntent[0]?.kind ?? null,
+              });
+              ownerOutcomeByIntentId.set(id, outcome);
+              pending.delete(id);
+            }
+            const written = step.capitalisations.filter(
+              (c) => c.status === "AVAILABLE" || c.status === "OK",
+            ).length;
+            emitObs({
+              event_name: "d3.turn.knowledge_capitalisation",
+              component: "d3.conversation",
+              request_id: requestId,
+              operation_id: reserved.operationId,
+              generation_id: reply.generationId,
+              outcome: written > 0 ? "SUCCESS" : "PARTIAL",
+              meta: {
+                unified_conduction: true,
+                wave_knowledge_intents: knowledgeIds.length,
+                capitalisation_written: written,
+              },
+            });
+          }
+        } catch {
+          capitalisationError = "CAPITALISATION_EXCEPTION";
+          for (const id of knowledgeIds) {
+            ownerOutcomeByIntentId.set(id, "FAILED");
+            pending.delete(id);
+          }
         }
-        emitObs({
-          event_name: "d3.turn.conversational_authority",
-          component: "d3.conversation",
-          request_id: requestId,
-          operation_id: reserved.operationId,
-          outcome: outcome.attempted
-            ? outcome.command?.status === "APPLIED" || outcome.command?.status === "ALREADY_APPLIED"
-              ? "SUCCESS"
-              : outcome.command?.status === "UNKNOWN"
-                ? "UNKNOWN"
-                : "FAILED"
-            : "PARTIAL",
-          meta: {
-            attempted: outcome.attempted,
-            intent_clarity: outcome.intentClarity,
-            operation: outcome.operation ?? null,
-            command_status: outcome.command?.status ?? null,
-            reason_code: outcome.command?.reasonCode ?? null,
-            decision_id: outcome.decisionId,
-            source: outcome.source,
-            semantic_gate: true,
-            semantic_intent_id: pilotageBinding.intentId,
-            pilotage_bindings_total: pilotageBindings.length,
-            pilotage_outcomes_serial: pilotageEffectRecords.length,
-          },
-        });
-        // Mid-loop ownership — stop further mutations if turn ownership was lost.
-        // E2 A.3 — remaining bindings must be explicit SKIPPED (no silent truncation).
-        if (!(await requireTurnOwnership(reserved.commandId, reserved.ownerToken))) {
-          for (let j = bindingIndex + 1; j < pilotageBindings.length; j++) {
-            const remaining = pilotageBindings[j]!;
-            const remainingId =
-              "ambiguous" in remaining ? remaining.intentId : remaining.intentId;
-            if (outcomeByIntentId.has(remainingId)) continue;
-            const skipped = ownershipLostPilotageEffectRecord({ binding: remaining });
-            pilotageEffectRecords.push(skipped);
-            outcomeByIntentId.set(remainingId, "SKIPPED");
+      }
+
+      // D5/D6 — sequential owner applies within the wave (MP-09 / concurrency rules).
+      if (
+        pilotageIds.length > 0 &&
+        ctx.project?.id &&
+        !ownershipLostBeforeD4 &&
+        (await requireTurnOwnership(reserved.commandId, reserved.ownerToken))
+      ) {
+        for (const intentId of pilotageIds) {
+          if (!pending.has(intentId)) continue;
+          const pilotageBinding = bindingByIntentId.get(intentId);
+          if (!pilotageBinding) {
+            ownerOutcomeByIntentId.set(intentId, "FAILED");
+            pending.delete(intentId);
+            continue;
+          }
+          if ("ambiguous" in pilotageBinding) {
+            const ambiguousRecord = ambiguousPilotageEffectRecord({
+              intentId,
+              reason: pilotageBinding.reason,
+            });
+            pilotageEffectRecords.push(ambiguousRecord);
+            ownerOutcomeByIntentId.set(intentId, "AMBIGUOUS");
+            pending.delete(intentId);
             emitObs({
               event_name: "d3.turn.conversational_authority",
               component: "d3.conversation",
               request_id: requestId,
               operation_id: reserved.operationId,
-              outcome: "UNKNOWN",
+              outcome: "PARTIAL",
+              meta: {
+                attempted: false,
+                intent_clarity: "AMBIGUOUS",
+                semantic_gate: true,
+                reason: pilotageBinding.reason,
+                semantic_intent_id: intentId,
+                unified_conduction: true,
+              },
+            });
+            continue;
+          }
+          // Re-check deps against live outcomes (defence in depth with planner).
+          const blockReason = dependencyPreconditionBlockReason({
+            dependsOn: intentDependsOn.get(intentId) ?? [],
+            pilotageIntentIds,
+            outcomeByIntentId: ownerOutcomeByIntentId,
+            crossCapOutcomeByIntentId,
+          });
+          if (blockReason) {
+            pilotageEffectRecords.push(
+              dependencyBlockedPilotageEffectRecord({
+                binding: pilotageBinding,
+                blockReason,
+              }),
+            );
+            ownerOutcomeByIntentId.set(intentId, "SKIPPED");
+            pending.delete(intentId);
+            emitObs({
+              event_name: "d3.turn.conversational_authority",
+              component: "d3.conversation",
+              request_id: requestId,
+              operation_id: reserved.operationId,
+              outcome: "PARTIAL",
               meta: {
                 attempted: false,
                 intent_clarity: "CLEAR",
                 semantic_gate: true,
-                reason_code: "OWNERSHIP_LOST",
-                semantic_intent_id: remainingId,
-                operation:
-                  "ambiguous" in remaining ? null : remaining.operation,
+                reason_code: "DEPENDENCY_PRECONDITION",
+                reason: blockReason,
+                semantic_intent_id: intentId,
+                operation: pilotageBinding.operation,
                 pilotage_bindings_total: pilotageBindings.length,
+                unified_conduction: true,
               },
             });
+            continue;
           }
-          break;
+          const preQualified = {
+            clarity: "CLEAR" as const,
+            operation: pilotageBinding.operation,
+            objective: pilotageBinding.objective ?? content,
+            statement: pilotageBinding.statement,
+            objectRef: pilotageBinding.objectRef,
+            decisionId: pilotageBinding.decisionId,
+            methodRef: pilotageBinding.methodRef,
+            methodVersion: pilotageBinding.methodVersion,
+            restrictionKindHint: pilotageBinding.restrictionKindHint,
+            restrictionTargetRefHint: pilotageBinding.restrictionTargetRefHint,
+            cycleType: pilotageBinding.cycleType as
+              | import("@/domains/pilotage/cki-resolve").CycleType
+              | undefined,
+            toCycleType: pilotageBinding.toCycleType as
+              | import("@/domains/pilotage/cki-resolve").CycleType
+              | undefined,
+            semanticIntentId: pilotageBinding.intentId,
+            semanticSchemaVersion: pilotageBinding.schemaVersion,
+          };
+          const outcome = await applyConversationalAuthority({
+            pilotId,
+            projectId: ctx.project.id,
+            userMessageId: reserved.userMessageId,
+            content,
+            clientTurnKey,
+            preQualified,
+          });
+          if (outcome.humanDecisionCreated) conversationalHumanDecisionCreated = true;
+          const effectRecord = pilotageEffectFromAuthority(
+            outcome,
+            pilotageBinding.intentId,
+          );
+          if (effectRecord) {
+            pilotageEffectRecords.push(effectRecord);
+          }
+          ownerOutcomeByIntentId.set(
+            intentId,
+            outcome.command?.status ??
+              (outcome.attempted ? "FAILED" : "NOT_ATTEMPTED"),
+          );
+          pending.delete(intentId);
+          if (!authority?.attempted && outcome.attempted) {
+            authority = outcome;
+          } else if (!authority) {
+            authority = outcome;
+          }
+          emitObs({
+            event_name: "d3.turn.conversational_authority",
+            component: "d3.conversation",
+            request_id: requestId,
+            operation_id: reserved.operationId,
+            outcome: outcome.attempted
+              ? outcome.command?.status === "APPLIED" ||
+                outcome.command?.status === "ALREADY_APPLIED"
+                ? "SUCCESS"
+                : outcome.command?.status === "UNKNOWN"
+                  ? "UNKNOWN"
+                  : "FAILED"
+              : "PARTIAL",
+            meta: {
+              attempted: outcome.attempted,
+              intent_clarity: outcome.intentClarity,
+              operation: outcome.operation ?? null,
+              command_status: outcome.command?.status ?? null,
+              reason_code: outcome.command?.reasonCode ?? null,
+              decision_id: outcome.decisionId,
+              source: outcome.source,
+              semantic_gate: true,
+              semantic_intent_id: pilotageBinding.intentId,
+              pilotage_bindings_total: pilotageBindings.length,
+              pilotage_outcomes_serial: pilotageEffectRecords.length,
+              unified_conduction: true,
+            },
+          });
+          if (!(await requireTurnOwnership(reserved.commandId, reserved.ownerToken))) {
+            ownershipLostBeforeD4 = true;
+            for (const remId of [...pending]) {
+              ownerOutcomeByIntentId.set(remId, "SKIPPED");
+              const family = familyById.get(remId);
+              if (family === "pilotage") {
+                const remaining = bindingByIntentId.get(remId);
+                if (remaining) {
+                  pilotageEffectRecords.push(
+                    ownershipLostPilotageEffectRecord({ binding: remaining }),
+                  );
+                  emitObs({
+                    event_name: "d3.turn.conversational_authority",
+                    component: "d3.conversation",
+                    request_id: requestId,
+                    operation_id: reserved.operationId,
+                    outcome: "UNKNOWN",
+                    meta: {
+                      attempted: false,
+                      intent_clarity: "CLEAR",
+                      semantic_gate: true,
+                      reason_code: "OWNERSHIP_LOST",
+                      semantic_intent_id: remId,
+                      operation:
+                        "ambiguous" in remaining ? null : remaining.operation,
+                      pilotage_bindings_total: pilotageBindings.length,
+                      unified_conduction: true,
+                    },
+                  });
+                }
+              }
+              pending.delete(remId);
+            }
+            break;
+          }
+        }
+      } else if (pilotageIds.length > 0) {
+        for (const id of pilotageIds) {
+          if (!pending.has(id)) continue;
+          ownerOutcomeByIntentId.set(id, "SKIPPED");
+          pending.delete(id);
+          const binding = bindingByIntentId.get(id);
+          if (binding) {
+            pilotageEffectRecords.push(
+              ownershipLostPilotageEffectRecord({ binding }),
+            );
+          }
         }
       }
+    }
+
+    if (knowledgeEffectsConducted || [...familyById.values()].includes("knowledge")) {
+      const proposalSummary = summarizeKnowledgeProposals(allKnowledgeProposals);
+      emitObs({
+        event_name: "d3.turn.knowledge_proposals",
+        component: "d3.conversation",
+        request_id: requestId,
+        operation_id: reserved.operationId,
+        generation_id: reply.generationId,
+        outcome: proposalSummary.proposal_present ? "PARTIAL" : "SUCCESS",
+        meta: {
+          qualification_status: qualification.status,
+          reply_status: reply.status,
+          proposal_present: proposalSummary.proposal_present,
+          proposal_count: proposalSummary.proposal_count,
+          unified_conduction: true,
+          knowledge_outcomes: [...ownerOutcomeByIntentId.entries()]
+            .filter(([id]) => familyById.get(id) === "knowledge")
+            .map(([id, o]) => `${id}:${o}`)
+            .join("|")
+            .slice(0, 500),
+        },
+      });
     }
   }
 
@@ -2452,10 +2535,8 @@ export async function postUserMessageAndNora(
     }
   }
 
-  // Reuse early-minted id when early D4 ran; otherwise mint now.
-  const assistantId = capitalisationRanBeforePilotage
-    ? earlyAssistantMessageId
-    : newId("msg");
+  // Reuse id minted for unified conduction (provenance before ASSISTANT persist).
+  const assistantId = assistantMessageIdForEffects;
 
   type DocumentSaveResult = {
     status: string;
@@ -2525,10 +2606,7 @@ export async function postUserMessageAndNora(
 
   // C17: segment-limit suspension keeps work SUSPENDED (honest) but may still
   // carry a complete document fence for D4 — do not require conversational COMPLETE.
-  const interruptedWithDocument =
-    reply.status === "INTERRUPTED" &&
-    Boolean(cognitiveWorkMeta?.suspended) &&
-    extractContractualDocumentProposal(reply.content).ok;
+  const interruptedWithDocument = interruptedWithDocumentEarly;
   const replyAllowsOwnerEffects =
     allowOwnerEffects &&
     (reply.status === "COMPLETE" || interruptedWithDocument);
@@ -2539,59 +2617,12 @@ export async function postUserMessageAndNora(
     }
     if (!(await requireTurnOwnership(reserved.commandId, reserved.ownerToken))) {
       ownershipLostBeforeD4 = true;
-    } else if (capitalisationRanBeforePilotage) {
-      // Early path only wrote D4 intents required by D5/D6 — remaining D4 still apply once.
-      const allProposals = extractKnowledgeProposals(qualification);
-      const remaining = allProposals.filter((p) => !d4DepsForPilotage.has(p.intentId));
-      const proposalSummary = summarizeKnowledgeProposals(allProposals);
-      emitObs({
-        event_name: "d3.turn.knowledge_proposals",
-        component: "d3.conversation",
-        request_id: requestId,
-        operation_id: reserved.operationId,
-        generation_id: reply.generationId,
-        outcome: proposalSummary.proposal_present ? "PARTIAL" : "SUCCESS",
-        meta: {
-          qualification_status: qualification.status,
-          reply_status: reply.status,
-          proposal_present: proposalSummary.proposal_present,
-          proposal_count: proposalSummary.proposal_count,
-          early_before_pilotage: true,
-          remaining_d4: remaining.length,
-        },
-      });
-      if (remaining.length > 0 && !ownershipLostBeforeD4) {
-        try {
-          const step = await maybeCapitalizeFromExchange(pilotId, preparationId, {
-            userText: content,
-            assistantText: reply.content,
-            generationId: reply.generationId,
-            userMessageId: reserved.userMessageId,
-            assistantMessageId: assistantId,
-            proposals: remaining,
-            turnFence: {
-              commandId: reserved.commandId,
-              ownerToken: reserved.ownerToken,
-              beforeFenceCheck: turnRaceHooks.beforeD4Effect,
-            },
-          });
-          capitalisation = {
-            capitalisations: [
-              ...capitalisation.capitalisations,
-              ...step.capitalisations,
-            ],
-            selectionMethod: step.selectionMethod,
-            selectionLimit: step.selectionLimit,
-            humanDecisionCreated:
-              capitalisation.humanDecisionCreated || step.humanDecisionCreated,
-            ownershipLost: capitalisation.ownershipLost || step.ownershipLost,
-          };
-          if (step.ownershipLost) ownershipLostBeforeD4 = true;
-        } catch {
-          capitalisationError = "CAPITALISATION_EXCEPTION";
-        }
-      }
-    } else {
+    } else if (
+      // Knowledge REQUEST_EFFECT already handled by unified conduction when admissible.
+      // Fallback only when integrated loop did not admit knowledge (e.g. empty set).
+      !knowledgeEffectsConducted &&
+      ![...familyById.values()].includes("knowledge")
+    ) {
       try {
         const knowledgeProposals = extractKnowledgeProposals(qualification);
         const proposalSummary = summarizeKnowledgeProposals(knowledgeProposals);
@@ -2610,43 +2641,53 @@ export async function postUserMessageAndNora(
             subject_count: proposalSummary.subject_count,
             acquis_count: proposalSummary.acquis_count,
             open_point_count: proposalSummary.open_point_count,
+            unified_conduction_fallback: true,
           },
         });
-        capitalisation = await maybeCapitalizeFromExchange(pilotId, preparationId, {
-          userText: content,
-          assistantText: reply.content,
-          generationId: reply.generationId,
-          userMessageId: reserved.userMessageId,
-          assistantMessageId: ownershipLostBeforeD4 ? null : assistantId,
-          proposals: knowledgeProposals,
-          turnFence: {
-            commandId: reserved.commandId,
-            ownerToken: reserved.ownerToken,
-            beforeFenceCheck: turnRaceHooks.beforeD4Effect,
-          },
-        });
-        const written = capitalisation.capitalisations.filter(
-          (c) => c.status === "AVAILABLE" || c.status === "OK",
-        ).length;
-        const failed = capitalisation.capitalisations.filter((c) => c.status === "FAILED").length;
-        emitObs({
-          event_name: "d3.turn.knowledge_capitalisation",
-          component: "d3.conversation",
-          request_id: requestId,
-          operation_id: reserved.operationId,
-          generation_id: reply.generationId,
-          outcome:
-            written > 0 ? "SUCCESS" : proposalSummary.proposal_present ? "PARTIAL" : "SUCCESS",
-          meta: {
-            proposal_present: proposalSummary.proposal_present,
-            proposal_count: proposalSummary.proposal_count,
-            capitalisation_written: written,
-            capitalisation_failed_count: failed,
-            reply_status: reply.status,
-          },
-        });
-        if (capitalisation.ownershipLost) {
-          ownershipLostBeforeD4 = true;
+        if (knowledgeProposals.length > 0) {
+          capitalisation = await maybeCapitalizeFromExchange(pilotId, preparationId, {
+            userText: content,
+            assistantText: reply.content,
+            generationId: reply.generationId,
+            userMessageId: reserved.userMessageId,
+            assistantMessageId: ownershipLostBeforeD4 ? null : assistantId,
+            proposals: knowledgeProposals,
+            turnFence: {
+              commandId: reserved.commandId,
+              ownerToken: reserved.ownerToken,
+              beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+            },
+          });
+          const written = capitalisation.capitalisations.filter(
+            (c) => c.status === "AVAILABLE" || c.status === "OK",
+          ).length;
+          const failed = capitalisation.capitalisations.filter(
+            (c) => c.status === "FAILED",
+          ).length;
+          emitObs({
+            event_name: "d3.turn.knowledge_capitalisation",
+            component: "d3.conversation",
+            request_id: requestId,
+            operation_id: reserved.operationId,
+            generation_id: reply.generationId,
+            outcome:
+              written > 0
+                ? "SUCCESS"
+                : proposalSummary.proposal_present
+                  ? "PARTIAL"
+                  : "SUCCESS",
+            meta: {
+              proposal_present: proposalSummary.proposal_present,
+              proposal_count: proposalSummary.proposal_count,
+              capitalisation_written: written,
+              capitalisation_failed_count: failed,
+              reply_status: reply.status,
+              unified_conduction_fallback: true,
+            },
+          });
+          if (capitalisation.ownershipLost) {
+            ownershipLostBeforeD4 = true;
+          }
         }
       } catch {
         capitalisationError = "CAPITALISATION_EXCEPTION";
@@ -2660,8 +2701,9 @@ export async function postUserMessageAndNora(
           error_category: "CAPITALISATION_EXCEPTION",
         });
       }
+    }
 
-      if (documentAct.kind === "CREATE" && !ownershipLostBeforeD4) {
+    if (documentAct.kind === "CREATE" && !ownershipLostBeforeD4) {
         // C-02/C-03: exact proposal from prior message OR canonical documentProposal OR fence.
         type ExactProposal = { title: string; contentMarkdown: string; contentSha256: string };
         let exact: ExactProposal | null = null;
@@ -3628,7 +3670,6 @@ export async function postUserMessageAndNora(
           });
         }
       }
-    }
   }
 
   const documentEffectForAck: DocumentEffectSummary | null =

@@ -68,7 +68,15 @@
   - forecast USER_MESSAGE: refuse body.forecastJson ; mutate ignore body hors chemins directs ;
   - tests: `e1-final-safeguards.pg.test.ts` **5 PASS** + non-régression reliquats/ensemble/ml2-corrective (**38 PASS** lot) ;
   - Review Pack régularisé (RETAIN + fichiers delta)
-- **statut**: E2 GARANTIES + REL + FINAL + **INT** DEV — Cursor READY WITH RESERVES (sortie construction E2 proposée ; gate Morris / revue ChatGPT avant E3); E1 CONSTRUCTION EXIT ACCEPTED WITH RESERVES; Livraison 1 NOT ACCEPTED; NO RELEASE
+- **E2_option_B_conduite_uniforme** (2026-11-27 — même livraison, pas de nouvelle DELIV):
+  - Snapshot de base publié : `53b9d452` / tree `18e8fd99` (GO snapshot consommé — **aucun** commit/push projet dans ce mandat)
+  - ARCH-01…05 : D3 unique ; séquencement dépendances+résultats ; réutilisation acquis E1/E2 ; pas de nouvel orchestrateur/persistance
+  - Remplace early/remaining D4 + boucle D5/D6 séparée par conduite unifiée `qualified-effect-conduction` + boucle D3
+  - Préserve batches D4, autorité, C02, hors-périmètre documentaire/D2/D7
+  - tests : unit planner **5 PASS** ; PG unified SC1–SC3 **3 PASS** ; FINAL/C02 **5 PASS** ; MP09 PG **1 PASS** ; E1 continuity **1 PASS** ; B5/B6 unit **16 PASS**
+  - schéma **027** ; LIVE/RECETTE non mutés ; NO RELEASE ; E3 non engagé
+  - verdict Cursor : READY WITH RESERVES — sortie construction E2 proposée sous gate Morris ; handoff L3 Option B
+- **statut**: E2 GARANTIES + REL + FINAL + INT + **Option B** DEV — Cursor READY WITH RESERVES (sortie construction E2 proposée ; gate Morris / revue ChatGPT avant E3); E1 CONSTRUCTION EXIT ACCEPTED WITH RESERVES; Livraison 1 NOT ACCEPTED; NO RELEASE
 
 ## delivery_id: DELIV-2026-11-27-ML5-RECETTE-OPERATIONAL-ACTIVATION
 

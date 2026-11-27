@@ -84,13 +84,28 @@ Complément ciblé E1 (reliquats ChatGPT E1-REL-01…09) — même Ensemble 1, p
 
 ## E2-FINAL / E2-INT (as-built impact — 2026-11-27)
 
-- **Orchestration** : early D4 **transitif** + **vagues batch** (dépendances respectées,
-  SUBJECT parent/enfant co-présents) ; remaining D4 après pilotage ; `crossCap` +
-  `proposalKind` (subject-only ≠ APPLIED pour ACQUIS) ; FACT→ACQUIS.
+- **Orchestration (historique INT)** : early D4 transitif + vagues batch ; remaining D4 ;
+  `crossCap` + `proposalKind` ; FACT→ACQUIS. **Remplacé** par Option B ci-dessous.
 - **C02** : union stash∪projections ; projection partielle complétée ; UNKNOWN explicite.
 - **FinOps** : conflit d'attribution sur l'histoire complète (pas la fenêtre période) ;
   exclusion projet avant agrégats ; liste/détail cohérents.
 - D3 demeure conducteur unique ; D4/D5/D6 propriétaires.
+
+## E2 Option B — conduite uniforme (as-built — 2026-11-27)
+
+- **ARCH-01…05** : D3 unique ; séquencement par dépendances + résultats propriétaires ;
+  réutilisation qualification/persistance/fencing/C02 ; pas de nouvel orchestrateur /
+  registre / pivot ; qualification limitée aux garanties impactées.
+- **Mécanisme** : `qualified-effect-conduction.ts` (planificateur pur) + boucle unique dans
+  `conversation/service.ts` sur `d4.record_knowledge` / `d5` / `d6` REQUEST_EFFECT.
+- **Vagues** : intents ready (dependsOn satisfaits) → batch D4 cohérent puis D5/D6 séquentiels ;
+  réévaluation ; arrêt sans faux succès si aucune progression.
+- **Supprimé pour le périmètre intégré** : phases `early_before_pilotage` /
+  `d4DepsForPilotage` / `capitalisationRanBeforePilotage` / remaining D4 concurrentes.
+- **Préservé** : batches D4 parent/enfant ; autorité HumanDecision ; forecast durable ;
+  C02 ; chemins documentaires D4 create/revise, D2, D7 hors boucle intégrée.
+- **Preuves DET** : `qualified-effect-conduction` unit ; `e2-unified-intent-conduction.pg`
+  (D6→D4→D5, refus+indépendant, batch+pilotage) ; non-régression FINAL/C02/MP09/E1.
 
 ## Limites
 
@@ -107,3 +122,5 @@ Complément ciblé E1 (reliquats ChatGPT E1-REL-01…09) — même Ensemble 1, p
 - Suite E1 antérieure (58 PASS rapportés) + complément `e1-reliquats-integrity.pg.test.ts`
   + non-régression B.5/B.6/B.7/B.8 — voir Delivery History et Review Pack complément E1.
 - E2-FINAL : `e2-final-orchestration-c02` (unit+PG) + `e2-final-finops-attribution.pg` — 16 PASS.
+- E2 Option B : `qualified-effect-conduction` unit + `e2-unified-intent-conduction.pg` —
+  SC1–SC3 PASS ; C02/MP09/E1 non-régression PASS.
