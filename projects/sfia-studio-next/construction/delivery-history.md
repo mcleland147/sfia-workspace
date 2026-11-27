@@ -1,3 +1,19 @@
+## delivery_id: DELIV-2026-11-27-ML5-RECETTE-CUTOVER-INTEGRATED-CONVERGENCE
+
+- **date_utc**: 2026-11-27T09:35Z
+- **lane**: RECETTE cutover — candidat figé
+- **branche DEV**: `sfia/next-ml5-integrated-delivery-20261123`
+- **SHA candidat**: `e8e6e069` (après réserves audio A/B)
+- **BUILD**: `rpEczSp61evIZ7d6fnIWR`
+- **digest**: `18e014c1…`
+- **ancien runtime**: `a150926c` / `6kswoj2a2VHXCLsFYcoim`
+- **schéma**: 021 → **027** (022–027 après preuve isolée)
+- **données**: counts conservés (31/824/123)
+- **OpenAI**: empreintes RECETTE≠DEV préservées
+- **LaunchAgent**: retarget `ml4d-ux004` → worktree e8e6e069
+- **classe**: NO RELEASE · pas de LIVE campagne
+- **statut proposé**: RECETTE CUTOVER COMPLETE — CANDIDATE FROZEN — AVAILABLE WITH EXPLICIT RESTRICTIONS — MORRIS FUNCTIONAL QUALIFICATION PENDING
+
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-DICTATION-NOMINAL-PATH-FINAL
 
 - **date_utc**: 2026-11-27T09:00Z
