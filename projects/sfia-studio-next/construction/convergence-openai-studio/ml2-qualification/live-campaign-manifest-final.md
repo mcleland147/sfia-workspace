@@ -4,8 +4,8 @@
 |---|---|
 | Statut | **FINAL MANIFEST — MORRIS DEFINITIVE LIVE CAMPAIGN GO REQUIRED** |
 | Date | 2026-11-27 |
-| HEAD local | `702914109f60d63d1fea03b1538c7d3996065f5a` |
-| Tree web | `019fb7a8fe1167119c9748fcaca0909c9a834cf1` |
+| HEAD local | `49333f090c55ee36d47f4a041043a5c87cf6ebc4` |
+| Tree web | `89b27b4e9b7ba1722f7be6b16dc11a93f4c2abb0` |
 | Décisions Morris consommées | Plafonds 236 / 344k · ordre D/R/E → VS/Vision · sujets synthétiques DEV · Vision admis DEV · cleanup + Nora réservés · D3 V1 · WEB OFF · pas de migration / pas d'extension permissions / pas de persistance ops |
 | Émission | **INTERDITE** jusqu'à GO LIVE définitif explicite sur **ce** manifeste |
 
