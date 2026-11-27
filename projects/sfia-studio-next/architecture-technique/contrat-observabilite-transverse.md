@@ -1,5 +1,7 @@
 # SFIA Studio Next — Contrat transverse de diagnostic et d'observabilité
 
+> **Suivi factuel 27/11 — MaintiPlan :** [PV §5–8](../construction/recette-utilisateur-ml5-maintiplan-20261127.md). MP-11/14/15/16 : activité « Orientation du travail » insuffisante pour lire les opérations réellement faites, FinOps observations PARTIAL, 100 % couverture requêtes vs 0 % estimation connue, statuts En cours après effets visibles, segments non contigus et projet absent sur un travail. Corrélation exacte à reconstituer tour→work→segment→requête→effet→projection, décomposition latence, modèle/effort réels et usage, sources et erreurs ; pas d'accès à chaîne privée, aucun secret ni hypothèse de double comptage démontré. Admin OFF. Contrat et critères existants conservés.
+
 | Champ | Qualification |
 | --- | --- |
 | Capacité | Observabilité technique et diagnostic de l'application SFIA Studio Next, D1–D9 |

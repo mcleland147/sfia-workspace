@@ -1,5 +1,7 @@
 # SFIA Studio Next — ML5 : conception intégrée du conducteur cognitif et de la production Nora
 
+> **Suivi post-recette MaintiPlan T08 — 27/11 (factuel) :** [PV](../construction/recette-utilisateur-ml5-maintiplan-20261127.md) et [bilan intégré](../construction/convergence-openai-studio/bilan-integre-20261127.md). Dialogue cohérent, ouverture GO simple et document V1 effectifs, investigation Git aboutie et continuité lors de navigation ; GO combiné T05 ignoré, journal vide, activité trop générique, statuts de travaux à corréler, T08 ~15 min/909844 tokens/40 requêtes/6 segments Sol medium. D3 unique et propriétaires D4–D9 à préserver ; vérifier qualification, orchestration, effets, capitalisation, restitution et checkpoints avant corrections. Pas de nouveau conducteur, d'arbitrage d'architecture ou de preuve LIVE complète.
+
 > **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](../construction/recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
 
 

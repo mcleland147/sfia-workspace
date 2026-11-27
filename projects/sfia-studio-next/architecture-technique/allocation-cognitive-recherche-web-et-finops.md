@@ -1,5 +1,7 @@
 # SFIA Studio Next — Contrat technique intégré : allocation cognitive, WEB sécurisé et FinOps
 
+> **Suivi factuel de qualification 27/11 :** [bilan convergence](../construction/convergence-openai-studio/bilan-integre-20261127.md), [manifeste](../construction/ml5-recette-cutover-manifest-20261127.md) et [PV MaintiPlan](../construction/recette-utilisateur-ml5-maintiplan-20261127.md). 120/1M/2M configurés selon Cursor ; T08 909844 tokens cumulés, 40 requêtes, 6 segments Sol medium, estimation 1,05 USD, durée perçue ~15 min. Aucun constat causal avant inspection du candidat local : vérifier politique effective, modèle proposé/admis/appliqué, permissions RECETTE, overrides, latences par frontière, répétitions et compteurs. Admin/WEB OFF, historique cross-lane non réécrit ; aucune modification du contrat technique.
+
 | Champ | Valeur |
 |---|---|
 | Version | 0.1 — 26 novembre 2026 |

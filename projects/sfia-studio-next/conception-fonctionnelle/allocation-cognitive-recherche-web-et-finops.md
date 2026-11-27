@@ -1,5 +1,7 @@
 # SFIA Studio Next — Allocation cognitive adaptative, recherche WEB sécurisée et FinOps
 
+> **Suivi fonctionnel factuel 27/11 :** [PV MaintiPlan §5–6](../construction/recette-utilisateur-ml5-maintiplan-20261127.md) ; MP-14/15/16 ouverts. Nora reste qualitativement cohérente, Sol seul affiché pour les générations, efficacité et allocation réelle non démontrées. Morris demande analyse de la pertinence et de la latence sans sacrifier la qualité ; pas d'alternance systématique. 1,05 USD estimé T08, coût fournisseur indisponible (Admin OFF). Les critères fonctionnels validés ne changent pas. [Bilan convergence](../construction/convergence-openai-studio/bilan-integre-20261127.md).
+
 ## Contrat fonctionnel intégré — convergence transverse ML5
 
 | Champ | Valeur |

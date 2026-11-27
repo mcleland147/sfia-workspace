@@ -1,5 +1,7 @@
 # SFIA Studio Next — R5 · Index de construction
 
+> **Index courant 27/11/2026 (branche candidate) :** [dossier convergence OpenAI–Studio](convergence-openai-studio/cadrage.md) · [bilan intégré des trois macro-lots](convergence-openai-studio/bilan-integre-20261127.md) · [manifeste RECETTE](ml5-recette-cutover-manifest-20261127.md) · [cahier R01–R08](cahier-recette-integree-ml5-convergence-20261127.md) · [PV MaintiPlan T01–T08](recette-utilisateur-ml5-maintiplan-20261127.md) · [registre ML5](ml5-registre-couverture-et-revue-de-developpement.md) · [delivery history](delivery-history.md). R5 IN PROGRESS / ML5 OPEN ; recette suspendue, 17 écarts ouverts. L'état R5 initial ci-dessous est historique.
+
 **État :** préparation documentaire candidate sur la branche `docs/next-r5-delivery-preparation-20261104` issue de `main@a0b80b9ecd64149ed51f87235ae246e197e66462` ; pas de code Next ni `VALIDATED SPEC` ML1 acquis.
 
 | Référence | Objet | Statut |

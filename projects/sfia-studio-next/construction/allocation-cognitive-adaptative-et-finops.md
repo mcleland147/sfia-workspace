@@ -1,5 +1,7 @@
 # ML5 — Allocation cognitive adaptative et FinOps
 
+> **Checkpoint 27/11 :** le lot est intégré au socle et à la convergence OpenAI–Studio en trois macro-lots, désormais candidat RECETTE e8e6e069. [Bilan](convergence-openai-studio/bilan-integre-20261127.md) · [PV T08](recette-utilisateur-ml5-maintiplan-20261127.md) §5. Sol medium seul affiché sur 6 segments, 909844 tokens cumulés/40 requêtes/1,05 USD estimé, ~15 min ; Terra/Luna non observables, PARTIAL et statuts incohérents à diagnostiquer. Small correspond probablement au rebuild 341 tokens text-embedding-3-small. Pas de hausse de plafond, ni alternance imposée, ni collecte Admin/WEB. La trajectoire historique ci-dessous reste lisible ; diagnostic avant correction, puis rejeu.
+
 **Statut : DOCUMENTED — orientation et séquencement validés par Morris le 25/11/2026 ; conception détaillée, calibration, implémentation et recette à réaliser.** Ce document de cadrage du lot n'est ni une nouvelle doctrine normative ni un ADR adopté. R5 / ML5 OPEN ; NO RELEASE ; NOT ADOPTED.
 
 ## Actualisation de trajectoire — 26/11/2026 (arbitrages Morris acquis)
