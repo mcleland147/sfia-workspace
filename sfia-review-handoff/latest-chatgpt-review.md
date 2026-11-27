@@ -10,7 +10,10 @@
 **Handoff tip at intake:** `9897b91dc76cb1748a80d5597f2e98131dc0f456` / blob `26ce09754b196426d42b92833a23386059efdd55`
 **Classe produit:** NO RELEASE
 **Verdict (pack):** **READY WITH RESERVES** — construction DEV reprise complete at declared DET level; LIVE gates explicit.
-**Handoff publish:** integrator only — **not executed here**
+**Handoff publish:** **HANDOFF UPDATED — REMOTE VERIFIED**
+**Remote tip:** `d240b386e0d38bf3f37140225dd1c3bdad61ebcd`
+**Remote blob:** `59f29541ce3d968d6cbf0dbc8d65ebb933e56da9`
+**Commit message:** `review(next): complete integrated corrective delivery and verification`
 
 ---
 
