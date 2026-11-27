@@ -2098,7 +2098,15 @@ Interdits sans preuve : autonomie LIVE / READY FOR REAL / Livraison 1 acceptée 
 | R-E1-EMB | B.7 | derivedUsed=false | hybrid residual | mesure reuse | E2 local fix ou mesure | E2 | |
 | R-E1-NAV | B.8/oracles | DOM non exercé | next-dev 500 | projection UI | qualify:start / E3 | E3/E5 | |
 | R-E1-MERGE | B.2 | merge/split ≠ conducteur | API UI only | réorg complète Nora | intent typé ou outil | arbitrage | |
+| R-E1-RETAIN-VIS | B.6 | après RETAIN, la révision PROPOSED source reste visible à côté de RETAINED | projection D5 actuelle | ambiguïté envisagé/retenu UI | clarifier règle produit (SUPERSEDED?) | arbitrage | |
+| R-E1-FORECAST-CONV | B.6 | `forecastJson` absent des paramètres sémantiques USER_MESSAGE PROPOSE | binding durable sans steps | étapes futures via conversation | étendre paramètres/qualification | E2/arbitrage | |
 | R-E1-TSC | build hygiene | tsc fail tests hors E1 | préexistant | CI bruit | hors E1 | E5 | |
+
+
+### Addendum post-agents (2026-11-27T16:55Z)
+- Findings [B.2](local) « reparent/rename hors capitalisation » : **supersédé** — raccord SUBJECT+subjectId+parentSubjectId + API `reparent` présents dans l'état final testé.
+- Findings B.5/B.6 : réserves R-E1-RETAIN-VIS et R-E1-FORECAST-CONV ajoutées ci-dessus (pas de nouvelle implémentation structurante sans arbitrage).
+- Cartographie inspection initiale : certains écarts (reparent, shortTitle) sont résolus en construction E1 ; la matrice §10 et les réserves font foi.
 
 ## 26. Dépendances E2/E3
 
