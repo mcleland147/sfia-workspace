@@ -1,5 +1,7 @@
 # Convergence OpenAI–Studio Next — Contrat technique candidat
 
+> **Suivi as-built de synthèse 27/11/2026 — macro-lot 1 :** voir le [bilan de clôture et preuves](cloture-macro-lot-1.md) : collecteur Admin dédié, migration 026 rapportée DEV, snapshots LIVE, ledger réel, Frontier cumulative corrigée (tests substitués), tracing local exercé, V1 conservée. Limites et gates maintenus ; aucun nouvel ADR, changement de contrat, activation ou persistance externe. L'architecture candidate initiale ci-dessous reste inchangée.
+
 | Champ | Valeur |
 |---|---|
 | Version | v0.1 — 26 novembre 2026 |

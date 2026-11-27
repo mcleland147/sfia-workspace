@@ -1,5 +1,7 @@
 # Convergence OpenAI–Studio Next — Contrat fonctionnel candidat
 
+> **Suivi factuel 27/11/2026 — macro-lot 1 :** voir le [bilan de clôture accepté avec réserves](cloture-macro-lot-1.md). Le Pilote dispose du bandeau de comparaison ; estimation partielle et non-comparabilité sont explicites, agrégats fournisseur masqués sans habilitation. V1 conservée, WEB LIVE OFF. Cette note ne modifie aucun critère CONV ni ne déclare toutes les exigences BEHAVIOR PROVEN.
+
 | Champ | Valeur |
 |---|---|
 | Version | v0.1 — 26 novembre 2026 |

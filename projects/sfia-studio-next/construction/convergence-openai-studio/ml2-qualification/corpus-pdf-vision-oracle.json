@@ -1,0 +1,71 @@
+{
+  "corpusId": "ml2-pdf-vision-oracle-v1",
+  "batiNova": {
+    "used": false,
+    "reason": "No DATA GO — synthetic substitute only"
+  },
+  "cases": [
+    {
+      "id": "P-TXT-01",
+      "nature": "textual_pdf",
+      "description": "PDF textuel avec paragraphe sur capacité salle Orion = 12",
+      "oracle": {
+        "facts": ["Orion capacity 12"],
+        "pages": [1],
+        "extractLocalExpected": "SUCCESS",
+        "visionRequired": false
+      }
+    },
+    {
+      "id": "P-SCN-01",
+      "nature": "scanned_pdf",
+      "description": "Scan sans couche texte — schéma réseau",
+      "oracle": {
+        "facts": ["router R1 connects to switch S2"],
+        "pages": [1],
+        "extractLocalExpected": "SCANNED_NO_TEXT",
+        "visionRequired": true,
+        "limits": ["probabilistic_not_exhaustive_ocr"]
+      }
+    },
+    {
+      "id": "P-DIA-01",
+      "nature": "architecture_diagram",
+      "description": "Schéma boîtes D3-D4-D6",
+      "oracle": {
+        "relations": ["D3->D4 read", "D6 authority only"],
+        "extractLocalExpected": "PARTIAL_OR_EMPTY",
+        "visionRequired": true
+      }
+    },
+    {
+      "id": "P-BPMN-01",
+      "nature": "bpmn",
+      "description": "Diagramme BPMN investigation→note→inspection",
+      "oracle": {
+        "relations": ["investigation precedes note", "inspection after note"],
+        "visionRequired": true
+      }
+    },
+    {
+      "id": "P-TBL-01",
+      "nature": "complex_table",
+      "description": "Tableau tarifs modèles × efforts",
+      "oracle": {
+        "cells": [{ "row": "gpt-6-luna", "col": "medium", "value": "documented_candidate" }],
+        "extractLocalExpected": "PARTIAL",
+        "visionRequired": "optional"
+      }
+    },
+    {
+      "id": "P-ILLEG-01",
+      "nature": "illegible_zones",
+      "description": "Zone floue coin bas-droit",
+      "oracle": {
+        "undeterminable": ["bottom-right stamp text"],
+        "mustNotInvent": true,
+        "coverageMustMarkUnread": true
+      }
+    }
+  ]
+}

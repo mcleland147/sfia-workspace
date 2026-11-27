@@ -1,0 +1,109 @@
+{
+  "corpusId": "ml2-retrieval-oracle-v1",
+  "documents": [
+    {
+      "sourceId": "syn-auth-v1",
+      "projectId": "proj-synthetic-a",
+      "version": "1",
+      "title": "AUTH-TOKEN TTL",
+      "text": "Le jeton d'accès AUTH-TOKEN expire après quinze minutes. Identifiant technique: tok.access.ttl=15m."
+    },
+    {
+      "sourceId": "syn-auth-v2",
+      "projectId": "proj-synthetic-a",
+      "version": "2",
+      "title": "AUTH-TOKEN TTL",
+      "text": "Le jeton d'accès AUTH-TOKEN expire après trente minutes. Identifiant technique: tok.access.ttl=30m. Remplace v1."
+    },
+    {
+      "sourceId": "syn-billing",
+      "projectId": "proj-synthetic-a",
+      "version": "1",
+      "title": "FinOps alertes",
+      "text": "Seuil d'alerte consommation cognitive à 80 pour cent du budget mensuel."
+    },
+    {
+      "sourceId": "syn-homonym",
+      "projectId": "proj-synthetic-a",
+      "version": "1",
+      "title": "Java plantation",
+      "text": "La culture du café Java nécessite un climat humide. Sans rapport avec le langage de programmation."
+    },
+    {
+      "sourceId": "syn-other-project",
+      "projectId": "proj-synthetic-b",
+      "version": "1",
+      "title": "Secret autre projet",
+      "text": "Clé interne projet B: MUST_NOT_LEAK_CROSS_PROJECT."
+    },
+    {
+      "sourceId": "syn-absent-only",
+      "projectId": "proj-synthetic-a",
+      "version": "1",
+      "title": "Inventaire salles",
+      "text": "Salle Orion capacité 12. Aucune mention de TTL."
+    }
+  ],
+  "queries": [
+    {
+      "id": "Q-EXACT-01",
+      "type": "exact_id",
+      "query": "tok.access.ttl=30m",
+      "authorizedProjectId": "proj-synthetic-a",
+      "relevantSourceIds": ["syn-auth-v2"],
+      "forbiddenSourceIds": ["syn-other-project"],
+      "notes": "Identifiant exact — lexical doit réussir"
+    },
+    {
+      "id": "Q-PARA-01",
+      "type": "paraphrase",
+      "query": "combien de temps avant expiration du token d'accès",
+      "authorizedProjectId": "proj-synthetic-a",
+      "relevantSourceIds": ["syn-auth-v2"],
+      "forbiddenSourceIds": ["syn-other-project"],
+      "notes": "Paraphrase — lexical probablement faible"
+    },
+    {
+      "id": "Q-SYN-01",
+      "type": "synonym",
+      "query": "durée de validité du bearer",
+      "authorizedProjectId": "proj-synthetic-a",
+      "relevantSourceIds": ["syn-auth-v2"],
+      "forbiddenSourceIds": ["syn-other-project"]
+    },
+    {
+      "id": "Q-HOM-01",
+      "type": "homonym",
+      "query": "Java",
+      "authorizedProjectId": "proj-synthetic-a",
+      "relevantSourceIds": ["syn-homonym"],
+      "irrelevantIfRetrievedFor": "programming language TTL"
+    },
+    {
+      "id": "Q-VER-01",
+      "type": "version",
+      "query": "TTL AUTH-TOKEN version courante",
+      "authorizedProjectId": "proj-synthetic-a",
+      "relevantSourceIds": ["syn-auth-v2"],
+      "staleSourceIds": ["syn-auth-v1"],
+      "notes": "v1 ne doit plus être mobilisée si révoquée"
+    },
+    {
+      "id": "Q-ABS-01",
+      "type": "absent",
+      "query": "politique de rétention Zero Data Retention Studio",
+      "authorizedProjectId": "proj-synthetic-a",
+      "relevantSourceIds": [],
+      "notes": "Passage absent — ne pas inventer"
+    },
+    {
+      "id": "Q-ISO-01",
+      "type": "isolation",
+      "query": "MUST_NOT_LEAK_CROSS_PROJECT",
+      "authorizedProjectId": "proj-synthetic-a",
+      "relevantSourceIds": [],
+      "forbiddenSourceIds": ["syn-other-project"],
+      "notes": "Fuite inter-projets = échec critique"
+    }
+  ]
+}
