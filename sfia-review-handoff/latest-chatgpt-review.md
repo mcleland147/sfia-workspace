@@ -1656,3 +1656,15 @@ Diagnosis ([MP-09 residual](20658e40-e4d8-4a0e-85d8-64409a28e24d)) confirmed pri
 Residual follow-up applied: nora-adapter guidance for separate typed D5/D6 REQUEST_EFFECT intents on compound GO (no PREPARE demotion of explicit open).
 
 Still residual for LIVE/PG: postUserMessageAndNora oracle with DUAL_INTENT_QUAL (AUTH-R06 shape) under GO LIVE / PG campaign — unit coverage already present in semantic-qualification.test.ts.
+
+---
+## 21. MP-09 implementer closure ([multi-intent fix](86acda4a-4b72-41e3-b3fb-7232d380bb2a))
+
+Confirmed locally on DEV PG :5433:
+- `tests/integration/mp09-multi-pilotage-turn.pg.test.ts` **PASS** — 2× `d3.turn.conversational_authority` SUCCESS; active cycle CONCEPTION_FONCTIONNELLE.
+- C02: `semanticIntentId` skips userMessageId-only sibling reconstitution.
+- Fixture utterance T05 dual D5 in `fixture-semantic-qualify.ts`.
+
+Known unrelated/open on branch (not MP-09 loop regression claim without re-baseline):
+- `intent-continuity-global` S08 reported failing (conductor qual without D5 on full Nora path) — track as residual, not as MP-09 reopen.
+- `ml4c-s05-idempotence` S05-G04 reported failing — unrelated per implementer.
