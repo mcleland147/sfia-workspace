@@ -85,8 +85,12 @@ export function NoraConversation(props: {
   const embedded = Boolean(props.embeddedInStage);
   const composerLocked = Boolean(props.composerLocked);
   const hasDossier = Boolean(props.dossierAttachment?.attemptId);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const [imeComposing, setImeComposing] = useState(false);
+  const [dictationActive, setDictationActive] = useState(false);
   const sendDisabled =
     props.busy ||
+    dictationActive ||
     (!props.draft.trim() && !hasDossier) ||
     composerLocked;
   const lastMessageId = n > 0 ? props.messages[n - 1]!.id : null;
@@ -97,9 +101,6 @@ export function NoraConversation(props: {
     forceStickToken: props.forceStickToken ?? 0,
     focusMessageId: props.focusMessageId,
   });
-
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const [imeComposing, setImeComposing] = useState(false);
   const isMobile =
     typeof window !== "undefined" &&
     window.matchMedia &&
@@ -446,6 +447,7 @@ export function NoraConversation(props: {
           data-testid="nora-composer"
           data-composer-locked={composerLocked ? "1" : "0"}
           data-composer-expanded={props.draft.includes("\n") || props.draft.length > 80 ? "1" : "0"}
+          data-dictation-active={dictationActive ? "1" : "0"}
         >
           {composerLocked ? (
             <div
@@ -522,7 +524,11 @@ export function NoraConversation(props: {
             </div>
           ) : null}
           <div className="fig-travail-composer-row">
-            <span className="fig-travail-composer-plus" aria-hidden>
+            <span
+              className="fig-travail-composer-plus"
+              aria-hidden
+              data-dictation-hide={dictationActive ? "1" : undefined}
+            >
               +
             </span>
             <textarea
@@ -534,13 +540,16 @@ export function NoraConversation(props: {
               aria-label="Message à Nora"
               data-testid="thread-draft"
               rows={1}
-              readOnly={composerLocked}
+              readOnly={composerLocked || dictationActive}
               disabled={composerLocked}
-              aria-disabled={composerLocked}
+              aria-disabled={composerLocked || dictationActive}
+              data-dictation-hide={dictationActive ? "1" : undefined}
+              hidden={dictationActive}
+              tabIndex={dictationActive ? -1 : 0}
               onCompositionStart={() => setImeComposing(true)}
               onCompositionEnd={() => setImeComposing(false)}
               onKeyDown={(e) => {
-                if (composerLocked) {
+                if (composerLocked || dictationActive) {
                   e.preventDefault();
                   return;
                 }
@@ -560,6 +569,7 @@ export function NoraConversation(props: {
                 onDraft={props.onDraft}
                 disabled={composerLocked || props.busy}
                 enabled={props.dictationEnabled !== false}
+                onActiveChange={setDictationActive}
               />
             ) : null}
             <button
@@ -569,8 +579,18 @@ export function NoraConversation(props: {
               onClick={props.onSend}
               data-testid="thread-send"
               aria-label="Envoyer"
+              data-dictation-hide={dictationActive ? "1" : undefined}
+              hidden={dictationActive}
+              tabIndex={dictationActive ? -1 : 0}
             >
-              <span aria-hidden>↑</span>
+              <img
+                src="/figma-dictation/send.svg"
+                alt=""
+                width={20}
+                height={20}
+                aria-hidden
+                className="fig-travail-composer-send-icon"
+              />
             </button>
           </div>
           {props.status ? (
