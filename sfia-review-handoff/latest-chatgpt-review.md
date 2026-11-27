@@ -1,455 +1,635 @@
-# SFIA Review Pack FULL — DICTATION NOMINAL PATH (FINAL CORRECTIVE)
-
+# SFIA Review Pack FULL — RECETTE integrated convergence cutover
 
 | Champ | Valeur |
 |---|---|
-| Mandate | DICTATION NOMINAL PATH — FINAL CORRECTIVE DELIVERY |
-| Handoff after | `5bd6bb28` (as-built macro-lot 3 audio) |
+| Mandate | RECETTE CUTOVER — integrated convergence ML1–ML3 |
 | Workspace | `/Users/morris/Projects/sfia-wt-next-ml5-20261123` |
 | Branch | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD entrée | `f0c905e79d9244939233c36c65d44e0a92b9bf01` |
-| HEAD sortie | `8e54d7fe84df4af1149fce142b9b879910eb9d0b` |
-| tree sortie | `af5466f40a0ce6219e83dad0fc07e4fab84a538a` |
-| BUILD final | `dRmFP_CKHNL8g6MOXuA1q` |
-| digest | `0a64a2616950c13f5da39aa9212a0abd69d0c8b781ebcceeadc7b2101356b23c` |
+| HEAD entrée | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` |
+| HEAD sortie (docs) | `4d490431a35729a744c4d787f303889c8d6530dc` |
+| tree repo sortie | `30c12ad9eb48959c0326df9f7629471e8ec847a3` |
+| tree web RECETTE | `03c30e4cdb2dbb443a05a052757b3846199c8d34` |
+| RECETTE BUILD | `rpEczSp61evIZ7d6fnIWR` |
+| digest | `18e014c1ead6e050cf1aca4e4910dd8904722bd3e0e7753d25b189c03fd50535` |
 | main merge-base | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
-| Pack generated | 2026-11-27 (Cursor subagent) |
+| Pack generated | 2026-11-27T09:35Z (UTC) |
 | Reset policy | **COMPLETE RESET** — no historical append |
 
+---
 
 ## 1. Git Truth Check
 
-
 ```text
+lane=RECETTE cutover documentation (NO RELEASE)
 branch=sfia/next-ml5-integrated-delivery-20261123
-HEAD=f0c905e79d9244939233c36c65d44e0a92b9bf01
-merge-base(origin/main)=997897fd7cf914771e7d08e8030dc7123fab7d25
-git status -sb:
-## sfia/next-ml5-integrated-delivery-20261123
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-3-audio-20261127.md
- M projects/sfia-studio-next/construction/delivery-history.md
- M projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
- M projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx
- M projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-session.ts
- M projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-transport-fixture.ts
- M projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-types.ts
- M projects/sfia-studio-next/web/tests/integration/ml3-composer-dictation-integrated.pg.test.ts
- M projects/sfia-studio-next/web/tests/qualify/ml3-composer-dictation-integrated.spec.ts
- M projects/sfia-studio-next/web/tests/unit/ml3-composer-dictation-session.test.ts
-?? projects/sfia-studio-next/web/src/app/api/projects/[projectId]/dictation/capability/
-?? projects/sfia-studio-next/web/src/app/api/projects/[projectId]/dictation/sessions/[sessionId]/fixture-push/
-?? projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-admission.ts
-?? projects/sfia-studio-next/web/tests/qualify/ml3-dictation-nominal-path.spec.ts
-git log -1: f0c905e7 fix(ml3): align dictation seq and prove integrated product path
+candidate_SHA=e8e6e06961fa0a7224db3badb3b591b8be8046ac
+documented_RECETTE_historical=2a024b1c8d713ded6260d2a6427448a29f98a646
+actual_previous_served=a150926cc78fdc04522565eb198ed9f91a612142
+previous_BUILD=6kswoj2a2VHXCLsFYcoim
+commits_2a024b1c..e8e6e069=87 (git rev-list --count)
+commits_listed_evidence=86 (commits.txt — exclusive range note)
+merge-base_2a024b1c_8e54d7fe=2a024b1c (ancestor — migrations 022–027 reachable)
+worktree_served=/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-e8e6e06961fa
+DEV_branch_tip_at_cutover=e8e6e069 (same as candidate)
+HEAD_sortie_docs=4d490431a35729a744c4d787f303889c8d6530dc
 ```
 
-**Verdict:** Branch and HEAD match mandate. Merge-base equals mandated `997897fd…`. Working tree carries ML3 nominal-path deltas (uncommitted documentation + evidence path) atop commit `f0c905e7`.
+**Verdict Git :** Candidate frozen at `e8e6e069`. **Actual runtime before cutover was `a150926c`, not the historically documented `2a024b1c`.** Delta from documented baseline `2a024b1c` spans macro-lots 1–3 integrated convergence (**86–87 commits**). Evidence: `commits.txt`, `diffstat.txt`, `name-status.txt`, `capabilities-delta.md` under `.sfia-evidence/recette-cutover-20261127/`.
 
+---
 
-## 2. ENV-01 — DEV routing
+## 2. Runtime identity correction
 
+| Source | SHA | BUILD | Notes |
+|---|---|---|---|
+| Documented historical RECETTE | `2a024b1c…` | *(various docs)* | Ancestor baseline for migration inventory — **not the process actually serving :3200 at cutover** |
+| **Actually served pre-cutover** | `a150926c…` | `6kswoj2a2VHXCLsFYcoim` | Worktree `…-recette-build-a150926cc78f` — backup `previous-runtime.txt` |
+| **Candidate now served** | `e8e6e069…` | `rpEczSp61evIZ7d6fnIWR` | Worktree `…-recette-build-e8e6e06961fa` |
+
+**Interpretation:** Git truth for rollback code points to `a150926c` worktree, not `2a024b1c`. Schema/data delta vs served baseline is smaller than vs `2a024b1c` document.
+
+---
+
+## 3. Delta summary (2a024b1c → e8e6e069)
+
+| Evidence file | Path |
+|---|---|
+| Commit subjects | `web/.sfia-evidence/recette-cutover-20261127/commits.txt` (**86 lines**) |
+| Diffstat | `…/diffstat.txt` — 327 files under `projects/sfia-studio-next/`, +57 727 / −1 160 lines |
+| Name-status | `…/name-status.txt` |
+| Capabilities narrative | `…/capabilities-delta.md` |
+| Config name delta (non-secret) | `…/config-vars-delta.md` — **91 NEW** env names on DEV vs RECETTE baseline |
+| Migrations | `…/migrations-inventory.md` — **022–027** new since 021 ceiling |
+| Audio reserves audit | `…/audio-reserves-audit.md` |
+
+**Headline capabilities landed:** FinOps 022–026, derived embeddings 027, Nora/cognitive frontier, composer dictation (flag OFF on RECETTE), WEB/PDF paths (LIVE OFF), consumption UI, Pilotage forecast touchpoints, RoomBooking qualification corpus references (DEV-proven, RECETTE pending).
+
+---
+
+## 4. Audio reserves A–D (candidate e8e6e069)
+
+| Area | Status | Notes |
+|---|---|---|
+| **A — Finalization / commit drain** | **FIXED** | `maybeCompleteFinalization` / `completeFinalization` → partial when unacked commit or uncommitted PCM |
+| **B — Transport admission** | **FIXED** | Unknown `SFIA_DICTATION_TRANSPORT` → `TRANSPORT_UNKNOWN` (no implicit LIVE) |
+| **C — Admission / UI / lane** | COMPLIANT | Capability gate · mic `dictationEnabled===true` · session API admission-first |
+| **D — FinOps substituted** | COMPLIANT | `EFFECT_SUBSTITUTED` · no LIVE tariff on substituted |
+
+Vitest `ml3-composer-dictation-session.test.ts` — **18 PASS** (incl. 3 new). **RECETTE LIVE micro NOT EXECUTED** — `SFIA_COMPOSER_DICTATION=0`.
+
+Full audit: `audio-reserves-audit.md` (evidence dir).
+
+---
+
+## 5. Config non-secret manifesto (names only)
+
+Base file: `~/.config/sfia-studio-next/recette/.env.local` (Morris-corrected — **secrets not in this pack**).
+
+Cutover delta overlay (`recette-env-delta.env` — non-secret excerpt):
+
+```
+STUDIO_LANE=RECETTE
+SFIA_SOURCE_SHA=e8e6e06961fa0a7224db3badb3b591b8be8046ac
+STUDIO_FORCE_NORA_FIXTURE= (empty)
+SFIA_COMPOSER_DICTATION=0
+SFIA_DICTATION_TRANSPORT= (empty)
+SFIA_WEB_SEARCH_LIVE=0
+SFIA_WEB_SEARCH_ENABLED=0
+STUDIO_DEV_TEST_LOGIN=0
+```
+
+**91 new non-secret names** since `2a024b1c` (full list in `config-vars-delta.md`): dictation (`SFIA_COMPOSER_DICTATION`, `SFIA_DICTATION_TRANSPORT`, …), FinOps/Admin (`SFIA_ADMIN_*`, `SFIA_FINOPS_*`), cognitive (`SFIA_COGNITIVE_*`, `SFIA_BOUNDED_JUDGMENT`), embeddings (`SFIA_DERIVED_EMBEDDING_*`), LIVE caps (`SFIA_LIVE_*`), WEB/PDF (`SFIA_WEB_*`, `SFIA_PDF_*`), qualification (`SFIA_QUAL_*`, `SFIA_CHANTIERS360_REPO_ID`), lane guards (`STUDIO_LANE_*`, `SFIA_OPENAI_EXPECTED_KEY_FP`, `SFIA_OPENAI_FORBIDDEN_KEY_FP`).
+
+**Secret-class names (listed only):** `OPENAI_API_KEY`, `DATABASE_URL`, `BETTER_AUTH_*`, `OPENAI_ADMIN_KEY`, encryption/HMAC patterns — **values never in pack**.
+
+---
+
+## 6. Key separation fingerprints
+
+| Lane | Fingerprint (prefix) | Role |
+|---|---|---|
+| RECETTE runtime | `f27d814e…` | **EXPECTED** — matches `SFIA_OPENAI_EXPECTED_KEY_FP` check (smoke `openai_fp_match=true`) |
+| DEV forbidden on RECETTE | `ab6bbec8…` | **FORBIDDEN** — must not appear on RECETTE |
+| Admin collector | *(not injected)* | No new Admin key in RECETTE runtime |
+
+Smoke: `expected=f27d814e9c682020 forbidden_dev=ab6bbec84ba272ed`.
+
+---
+
+## 7. Backup · restore · migrate proof
+
+| Artifact | Location (evidence) |
+|---|---|
+| PG dump pre-cutover | `backups/sfia_next_recette_ml4-pre-cutover.dump` |
+| `.env.local` backup mode 600 | `backups/env.local.bak-pre-cutover-20261127T092806Z` |
+| Documents archive | `backups/documents-pre-cutover.tgz` |
+| Start script bak | `backups/start-recette-ml5.sh.pre-cutover-20261127T093212Z` |
+| Isolated restore counts | `restore-proof/counts-after-restore.txt` |
+| Migrate 022–027 log | `restore-proof/migrate-022-027.log`, `migrate-real-022-027.log` |
+| Post-migrate counts | `restore-proof/counts-after-real-migrate.txt` |
+
+**Post-migrate counts:** projects=31 · messages=824 · documents=123 · cognitive_works=24 · tables `provider_usage_observations`, `derived_embedding_chunks` present.
+
+**Procedure:** restore proof on isolated DB before applying 022–027 to live RECETTE PG — then cutover build + LaunchAgent retarget.
+
+---
+
+## 8. Cutover LaunchAgent retarget
 
 | Item | Value |
 |---|---|
-| Lane | **DEV** |
-| HTTP | `127.0.0.1:3100` (qualify-next-start for Playwright) |
-| PostgreSQL | `:5433` / `sfia_next_dev` |
-| Schema | **027** applied on DEV (RECETTE `:5434` **protected**, not mutated) |
-| WEB LIVE | **OFF** / blocked (0 provider emissions on public web parcours) |
-| Qualify flags (during C01–C03) | `SFIA_COMPOSER_DICTATION=1`, `SFIA_DICTATION_TRANSPORT=fixture`, `SFIA_DICTATION_SUBSTITUTED=1`, fixture auto-transcript + commit delays |
-| Flags after restore | `SFIA_COMPOSER_DICTATION` and related product flags **OFF** (default) — capability probe returns `enabled: false` |
-| Effect class | `substituted` on qualify lane — **≠ OpenAI LIVE** |
-| Provider LIVE audio | **NOT EXECUTED** |
+| Label | `com.sfia.studio.next.recette.ml4d-ux004` |
+| ProgramArguments | `/Users/morris/.local/share/sfia-studio-next/bin/start-recette-ml5.sh` |
+| WorkingDirectory | `…/sfia-workspace-next-ml5-recette-build-e8e6e06961fa/projects/sfia-studio-next/web` |
+| URL | http://127.0.0.1:3200 |
+| PID at smoke | 8539 |
 
-**Verdict:** `ENV ROUTING COMPLETE` — construction confined to DEV substituted qualify; RECETTE protected; WEB LIVE OFF; post-qualify flags restored OFF.
+---
 
+## 9. Smoke results (post-cutover)
 
-## 3. Inventory ENTRÉE → SORTIE
-
-
-### Modified (working tree / delivery scope)
-- `projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-session.ts` — Correctif A (`commitsAwaitingAck`, finalize drain)
-- `projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-transport-fixture.ts` — delayed commit/complete for qualify
-- `projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-types.ts` — flags / transport env
-- `projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-admission.ts` — **new** Correctif B
-- `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/dictation/capability/route.ts` — **new**
-- `projects/sfia-studio-next/web/src/app/api/projects/[projectId]/dictation/sessions/[sessionId]/fixture-push/route.ts` — **new** (C03 late event)
-- `projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx` — capability probe → `dictationEnabled`
-- `projects/sfia-studio-next/web/src/components/figma/NoraConversation.tsx` — mic gated `dictationEnabled === true`
-- `projects/sfia-studio-next/web/tests/unit/ml3-composer-dictation-session.test.ts` — delayed commit regression
-- `projects/sfia-studio-next/web/tests/integration/ml3-composer-dictation-integrated.pg.test.ts`
-- `projects/sfia-studio-next/web/tests/qualify/ml3-composer-dictation-integrated.spec.ts` — defers nominal proof to C01–C03 spec
-- `projects/sfia-studio-next/web/tests/qualify/ml3-dictation-nominal-path.spec.ts` — **new** Correctif C
-- `projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-3-audio-20261127.md`
-- `projects/sfia-studio-next/construction/delivery-history.md` — `DELIV-2026-11-27-…-DICTATION-NOMINAL-PATH-FINAL`
-- `.tmp-sfia-review/chatgpt-review.md` — this pack
-
-### Evidence artifacts (runtime, under web tree)
-- `projects/sfia-studio-next/web/.sfia-evidence/ml3-dictation-nominal-path/c01-oracle.json`
-- `projects/sfia-studio-next/web/.sfia-evidence/ml3-dictation-nominal-path/c02-oracle.json`
-- `projects/sfia-studio-next/web/.sfia-evidence/ml3-dictation-nominal-path/c03-oracle.json`
-- `projects/sfia-studio-next/web/.sfia-evidence/ml3-dictation-nominal-path/c01-during-dictation.png`
-- `projects/sfia-studio-next/web/.sfia-evidence/ml3-dictation-nominal-path/c01-after-draft.png`
-
-### Retained (non-nominal harness — not counted as product proof)
-- `projects/sfia-studio-next/web/src/app/dev/dictation-harness/page.tsx`
-- `projects/sfia-studio-next/web/src/app/dev/dictation-visual/[state]/page.tsx`
-
-
-## 4. Defect reproduction — finalize race
-
-
-**Symptom (pre-Correctif A):** On stop/finalize, `maybeCompleteFinalization` could run when `awaitingFinalItemIds` was already empty **while a final `input_audio_buffer.commit` was still in flight**. The provider had not yet emitted `input_audio_buffer.committed` + `conversation.item.input_audio_transcription.completed` for the trailing PCM buffer. Finalization therefore completed early (truncated transcript) or raced cancel/finalize.
-
-**Mechanism fixed:** Track `commitsAwaitingAck` (increment on `sendAudioCommit`, decrement on `input_audio_buffer.committed`). Finalize waits until `commitsAwaitingAck === 0` **and** `awaitingFinalItemIds` empty **and** no provisional items.
-
-**Deterministic unit reproduction — `delayedCommitTransport(75)`** delays commit ack + completion **after** finalize issues commit:
-
-
-```typescript
-function delayedCommitTransport(delayMs = 75): {
-  transport: RealtimeTransport;
-  push: (ev: Record<string, unknown>) => void;
-  sent: Record<string, unknown>[];
-} {
-  let handler: ((ev: Record<string, unknown>) => void) | null = null;
-  const sent: Record<string, unknown>[] = [];
-  let commitOrdinal = 0;
-  return {
-    sent,
-    push: (ev) => handler?.(ev),
-    transport: {
-      send: (p) => {
-        sent.push(p);
-        if (p.type === "session.update") {
-          queueMicrotask(() => {
-            handler?.({ type: "session.updated" });
-          });
-        }
-        if (p.type === "input_audio_buffer.commit") {
-          commitOrdinal += 1;
-          const itemId = `delayed_item_${commitOrdinal}`;
-          setTimeout(() => {
-            handler?.({
-              type: "input_audio_buffer.committed",
-              item_id: itemId,
-            });
-            handler?.({
-              type: "conversation.item.input_audio_transcription.completed",
-              item_id: itemId,
-              transcript: "phrase deux",
-            });
-          }, delayMs);
-        }
-      },
-      close: () => undefined,
-      onEvent: (h) => {
-        handler = h;
-      },
-    },
-  };
+```
+at=2026-11-27T09:32:50Z
+login=200
+build_marker=<!--rpEczSp61evIZ7d6fnIWR-->
+pid=8539
+cwd=/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-e8e6e06961fa/projects/sfia-studio-next/web
+auto_session=403
+portfolio=200
+integrations=200
+projects=31
+messages=824
+documents=123
+pilots=170
+conversations=210
+cognitive_works=24
+finops_table=provider_usage_observations
+emb_table=derived_embedding_chunks
+openai_fp_match=true expected=f27d814e9c682020 forbidden_dev=ab6bbec84ba272ed
+candidate_sha=e8e6e06961fa0a7224db3badb3b591b8be8046ac
+build=rpEczSp61evIZ7d6fnIWR
+digest=18e014c1ead6e050cf1aca4e4910dd8904722bd3e0e7753d25b189c03fd50535
+previous_served_sha=a150926cc78fdc04522565eb198ed9f91a612142
+previous_build=6kswoj2a2VHXCLsFYcoim
+schema=027
+launchagent=com.sfia.studio.next.recette.ml4d-ux004
 ```
 
+**Build marker confirmed:** `<!--rpEczSp61evIZ7d6fnIWR-->` · `auto_session=403` (DEV helpers refused).
 
-```typescript
-  it("finalize waits for delayed commit ack and includes all phrases", async () => {
-    process.env.SFIA_COMPOSER_DICTATION = "1";
-    process.env.STUDIO_LANE = "DEV";
-    const mock = delayedCommitTransport(75);
-    const created = await createDictationSession({
-      pilotId: "pilot-1",
-      projectId: "proj-1",
-      conversationKey: "proj-1",
-      baselineDraft: "",
-      transportFactory: async () => mock.transport,
-    });
-    if (!created.ok) throw new Error("create failed");
-    const sid = created.session.sessionId;
-    mock.push({
-      type: "conversation.item.input_audio_transcription.completed",
-      item_id: "phrase_1",
-      transcript: "phrase un",
-    });
-    const pcm = Buffer.alloc(320, 1).toString("base64");
-    expect(
-      appendDictationAudio({
-        sessionId: sid,
-        pilotId: "pilot-1",
-        projectId: "proj-1",
-        pcmBase64: pcm,
-      }).ok,
-    ).toBe(true);
-    const fin = await finalizeDictationSession({
-      sessionId: sid,
-      pilotId: "pilot-1",
-      projectId: "proj-1",
-    });
-    expect(fin.ok).toBe(true);
-    if (!fin.ok) return;
-    expect(fin.transcript).toContain("phrase un");
-    expect(fin.transcript).toContain("phrase deux");
-    expect(fin.partial).toBe(false);
-    expect(created.session.status).toBe("completed");
-  });
+---
+
+## 10. Capability matrix (RECETTE cutover)
+
+| Capacité | Code/shema | RECETTE cutover | Gate LIVE restant |
+|---|---|---|---|
+| Auth / portefeuille | existing | Served · smoke 200 | Morris R01 |
+| Nora / Responses | native stack | Runtime ready · RECETTE key | R03 PENDING GO LIVE |
+| Allocation cognitive | embedded | Not user-qualified | R03/R05 |
+| Decisions / D6 | embedded | Not campaign-qualified | Morris GO |
+| Embeddings hybrid | schéma 027 | Tables present · no DEV index copy | Rebuild + R05 |
+| Vision / PDF | embedded | OFF / bounded | R05 PENDING GO |
+| Dictation Realtime | ML3 | **Flag OFF** · admission fail-closed | R06 PENDING GO |
+| FinOps local | 022–026 | Tables · UI entry | R07 · no Admin collect |
+| Admin collector | architecture | **Not in runtime** | GO distinct |
+| WEB hosted search | Option B | **OFF** (`SFIA_WEB_SEARCH_*=0`) | GO distinct |
+| Git mutations | D9 | Unchanged ML4 reserves | No REAL write |
+| Tracing | ALS/SDK | Present | — |
+| Cursor / D8 | gates | Unchanged | — |
+
+---
+
+## 11. Cahier summary (R01–R08)
+
+Compact cahier: `cahier-recette-integree-ml5-convergence-20261127.md` — **eight families**, not 56 Q scenarios.
+
+| Famille | Thème | Default verdict |
+|---|---|---|
+| R01 | Non-régression données / accès | NOT RUN (smoke only on R01-08) |
+| R02 | Nouveau projet / sas | PENDING GO LIVE |
+| R03 | Nora Travail | PENDING GO LIVE · RoomBooking oracle optional |
+| R04 | Documents D4 | NOT RUN |
+| R05 | Intelligence (hybrid, PDF, vision) | PENDING GO · Chantiers360/RB corpus capitalized |
+| R06 | Dictée | PENDING GO · reserves A–D DEV-proven |
+| R07 | FinOps affichage | NOT RUN · Admin BLOCKED |
+| R08 | UX shell | NOT RUN · Figma deferred |
+
+**No Morris PASS prefilled.**
+
+---
+
+## 12. Rollback
+
+1. Stop service `com.sfia.studio.next.recette.ml4d-ux004`.
+2. Restore `sfia_next_recette_ml4-pre-cutover.dump` + `env.local.bak` if data rollback required.
+3. Point plist/script to `a150926c` worktree (`start-recette-ml5.sh.pre-cutover-…` template).
+4. **Schema 022–027 not auto-reverted** — older binary may not run against 027 DB without migration strategy.
+
+Code rollback assets preserved in evidence `backups/`.
+
+---
+
+## 13. Anti-stub checklist
+
+| Check | Status |
+|---|---|
+| Manifest FULL embedded §A | PASS |
+| Cahier FULL embedded §B | PASS |
+| start-recette-ml5.sh FULL embedded §C | PASS |
+| TRANSPORT_UNKNOWN snippet §D | PASS |
+| smoke-post-cutover.txt FULL §E | PASS |
+| Git truth a150926c vs 2a024b1c §1–2 | PASS |
+| 86-commit delta cites evidence paths §3 | PASS |
+| Audio A–D table §4 | PASS |
+| Config names-only §5 | PASS |
+| Fingerprints no secret values §6 | PASS |
+| Restore/migrate proof §7 | PASS |
+| Verdict block not TBD §14 | PASS |
+
+**Anti-stub result:** PASS (12/12)
+
+---
+
+## 14. Proposed verdict
+
+**RECETTE CUTOVER COMPLETE — CANDIDATE FROZEN — AVAILABLE WITH EXPLICIT RESTRICTIONS — MORRIS FUNCTIONAL QUALIFICATION PENDING**
+
+**Status:** READY WITH RESERVES
+
+Restrictions explicit: dictation OFF · WEB LIVE OFF · no Admin collector inject · no Morris functional PASS · embeddings index not copied · FinOps historical attribution may reference DEV · Figma/mobile deferred.
+
+**Programme:** R5 IN PROGRESS / ML5 OPEN / LIVRAISON 1 NOT ACCEPTED GLOBALLY / R6 NOT STARTED / **NO RELEASE** / STABLE NOT AVAILABLE / NOT ADOPTED
+
+---
+
+## 15. Instruction ChatGPT obligatoire (Morris review)
+
+Morris — review **remote** on this pack; do not assume live RECETTE access unless requested.
+
+1. Confirm Git Truth: served pre-cutover **`a150926c`** ≠ documented **`2a024b1c`**; candidate **`e8e6e069`** now at `:3200` with BUILD `rpEczSp61evIZ7d6fnIWR`.
+2. Confirm data preservation counts and schema 027 apply proof (§7–9).
+3. Confirm key separation RECETTE `f27d814e…` vs forbidden DEV `ab6bbec8…` without requesting secret values.
+4. Confirm audio reserves A–B landed in `e8e6e069`; RECETTE dictation remains OFF until GO.
+5. Review cahier R01–R08 for proportionality (not 61 scenarios); refuse any extrapolated PASS from smoke alone.
+6. Render binary on cutover acceptability: **ACCEPT CUTOVER DOC / ACCEPT WITH RESERVES / REJECT** — with testable reserves for Morris qualification sessions.
+
+Do not rewrite code in review; cite file+section if gap.
+
+---
+
+## Annex A — Manifest (full)
+
+# Manifeste RECETTE — Cutover convergence intégrée — 2026-11-27
+
+| Champ | Valeur |
+|---|---|
+| Lane | RECETTE |
+| URL | http://127.0.0.1:3200 |
+| Classe | NO RELEASE |
+| Candidat SHA | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` |
+| Tree repo | `30c12ad9eb48959c0326df9f7629471e8ec847a3` |
+| Tree web | `03c30e4cdb2dbb443a05a052757b3846199c8d34` |
+| BUILD_ID | `rpEczSp61evIZ7d6fnIWR` |
+| Digest | `18e014c1ead6e050cf1aca4e4910dd8904722bd3e0e7753d25b189c03fd50535` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-e8e6e06961fa` |
+| LaunchAgent | `com.sfia.studio.next.recette.ml4d-ux004` |
+| Base main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
+| Ancien runtime servi | SHA `a150926cc78fdc04522565eb198ed9f91a612142` · BUILD `6kswoj2a2VHXCLsFYcoim` |
+| SHA documenté historique | `2a024b1c` (antérieur ; non le processus réellement servi au cutover) |
+| PostgreSQL | `sfia_next_recette_ml4` · :5434 |
+| Schéma | **027** (migrations 022–027 appliquées après preuve isolée) |
+| Config | `~/.config/sfia-studio-next/recette/.env.local` (BASE Morris) + delta non secret |
+| OpenAI | Empreinte RECETTE `f27d814e…` · forbidden DEV `ab6bbec8…` · **distinct** |
+| Admin collector | Non injecté dans runtime Nora · pas de nouvelle clé Admin |
+| Dictée | Code présent · `SFIA_COMPOSER_DICTATION=0` · LIVE micro **en attente GO** |
+| WEB LIVE | OFF |
+| Auto-session DEV | refusé (403) |
+| Dataset | projects=31 · messages=824 · documents=123 · pilots=170 · conversations=210 · cognitive_works=24 |
+| Sauvegarde | dump Fc + `.env.local` bak mode 600 · documents tgz · plist/start-script bak |
+| Rollback | restaurer dump + retarget LaunchAgent/plist vers worktree `a150926c` · schéma 022+ non retiré automatiquement (compat app ancien ≠ rollback données) |
+
+## Capacités
+
+| Capacité | État cutover | Gate LIVE restant |
+|---|---|---|
+| Nora / Responses | runtime prêt · clé RECETTE | qualification utilisateur |
+| Allocation cognitive | code embarqué | parcours R03 |
+| Decisions | code embarqué | si campagne LIVE |
+| Embeddings / hybrid | schéma 027 · pas d'index DEV copié | reconstruction embeddings si GO |
+| Vision | code embarqué | GO distinct |
+| Dictée Realtime | code + admissions · flag OFF | GO micro LIVE |
+| FinOps local | tables 022–026 | pas de collecte Admin nouvelle |
+| Collecte Admin | architecture conservée hors runtime | GO Morris distinct |
+| Tracing | présent | — |
+| WEB | OFF | — |
+| Cursor / D8 | gates existants | — |
+
+## Réserves
+
+- Dictée / Vision / embeddings LIVE / Admin collect : en attente GO distinct.
+- FinOps historique éventuellement attribué projet DEV : non réécrit.
+- Documents root RECETTE vide (0 fichiers) — inchangé.
+- Figma mobile/visionneuse : reportés RECETTE utilisateur.
+
+
+---
+
+## Annex B — Cahier (full)
+
+# SFIA Studio Next — Cahier de recette intégrée ML5 convergence
+
+**Version :** 0.1 — contenu préparé pour qualification Morris  
+**Date :** 27 novembre 2026  
+**Statut :** **CANDIDATE FROZEN — MORRIS FUNCTIONAL QUALIFICATION PENDING**  
+**Programme :** R5 — convergence OpenAI Studio intégrée (macro-lots 1–3)  
+**Responsable de la réception :** Morris  
+**Périmètre :** Cutover RECETTE `e8e6e069` · schéma **027** · données préservées  
+**Classe :** NO RELEASE · STABLE NOT AVAILABLE
+
+---
+
+## 1. Objet
+
+Ce cahier organise la **recette utilisateur** du candidat RECETTE issu de la convergence intégrée ML1–ML3, sans rejouer les 56 scénarios Q du contrat ML5 ni les 61 cas ML4C. Il regroupe **huit familles R01–R08** couvrant non-régression, parcours projet, Nora, documents, intelligence documentaire, dictée, FinOps et UX shell.
+
+**Règle :** aucun verdict **PASS** n'est prérempli pour les essais Morris. Les contrôles HTTP/smoke post-cutover (login, portefeuille, intégrations, marqueur build) ne valent pas acceptation fonctionnelle.
+
+---
+
+## 2. Identité du candidat RECETTE
+
+| Élément | Référence |
+|---|---|
+| URL | http://127.0.0.1:3200 |
+| SHA candidat | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` |
+| Tree repo | `30c12ad9eb48959c0326df9f7629471e8ec847a3` |
+| Tree web | `03c30e4cdb2dbb443a05a052757b3846199c8d34` |
+| BUILD_ID | `rpEczSp61evIZ7d6fnIWR` |
+| Digest | `18e014c1ead6e050cf1aca4e4910dd8904722bd3e0e7753d25b189c03fd50535` |
+| Worktree servi | `/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-e8e6e06961fa` |
+| LaunchAgent | `com.sfia.studio.next.recette.ml4d-ux004` |
+| PostgreSQL | `sfia_next_recette_ml4` — port **5434** |
+| Schéma | **027** (migrations 022–027 après preuve restore isolée) |
+| Branche source DEV | `sfia/next-ml5-integrated-delivery-20261123` |
+| Ancien runtime réellement servi | `a150926c…` / BUILD `6kswoj2a2VHXCLsFYcoim` |
+| SHA documenté historique (non servi) | `2a024b1c…` |
+| Dataset | projects=31 · messages=824 · documents=123 · pilots=170 · conversations=210 · cognitive_works=24 |
+| OpenAI clé RECETTE | empreinte `f27d814e…` — **≠** DEV `ab6bbec8…` (forbidden) |
+| Dictée produit | `SFIA_COMPOSER_DICTATION=0` — micro **PENDING GO** |
+| WEB LIVE | **OFF** |
+| Config | `~/.config/sfia-studio-next/recette/.env.local` (base Morris) + delta non secret cutover |
+
+Manifeste détaillé : [`ml5-recette-cutover-manifest-20261127.md`](./ml5-recette-cutover-manifest-20261127.md).
+
+---
+
+## 3. Préconditions et règles
+
+- Profil navigateur **distinct** de DEV (ENV-01 cookies sur `127.0.0.1`).
+- Vérifier le marqueur HTML `<!--rpEczSp61evIZ7d6fnIWR-->` sur la page d'accueil ou login.
+- Ne pas activer `STUDIO_DEV_AUTO_SESSION`, fixtures Nora, dictée LIVE, WEB LIVE ni collecte Admin sans **GO Morris distinct**.
+- Les essais **LIVE** OpenAI (Nora, transcription micro, embeddings rebuild, vision punctuelle, hosted WEB) exigent un GO explicite et des enveloppes de coût.
+- **RoomBooking** : corpus autorisé `proj_896d204b…` sur `mcleland147/chantiers360` (commit `8c398c49…`) — **ne pas** utiliser le faux projet `proj_f57bca43…` ML5-Doc-RoomBooking sans Git.
+- **Pilotage360 / Chantiers360** : investigations historiques RB-27–31 (planning/conflits) et qualification trajectoire restent des **oracles de non-régression** à réemployer selon impact, pas des replays systématiques de 40+ scénarios.
+- Préserver les données RECETTE ; rollback code documenté sans rollback automatique des migrations 022–027.
+
+---
+
+## 4. Format de preuve (Morris)
+
+| Champ | Contenu |
+|---|---|
+| ID | Rxx-yy |
+| Date / Pilote | Session |
+| BUILD / SHA | Version testée |
+| Projet / ressource | ID non secret |
+| Action | Geste ou prompt |
+| Attendu | Comportement contractuel |
+| Observé | Fait réel |
+| Preuve | Capture, extrait, work id, révision — **sans secrets** |
+| Verdict | PASS / FAIL / BLOCKED / NOT RUN — **à remplir par Morris uniquement** |
+
+---
+
+## R01 — Non-régression portefeuille, session et données héritées
+
+**Objectif :** après cutover schéma 027, retrouver l'univers RECETTE ML4 existant sans perte comptable ni régression d'accès.
+
+| ID | Scénario | Résultat attendu | Verdict Morris |
+|---|---|---|---|
+| R01-01 | Connexion GitHub OAuth — session Pilote Morris | 200 · identité connue · pas de contournement | **NOT RUN** |
+| R01-02 | Portefeuille — 31 projets · préparations connues | Liste cohérente avec comptages pré-cutover | **NOT RUN** (smoke HTTP 200 seul) |
+| R01-03 | Ouvrir **Intervencia** ou projet de référence ML4C — fil messages | Historique retrouvable · pas de vidage | **NOT RUN** |
+| R01-04 | Documents existants — lecture d'une révision **AVAILABLE** | Inspection D4 fonctionnelle | **NOT RUN** |
+| R01-05 | Intégrations / paramètres — page charge | 200 · pas d'exposition clés | **NOT RUN** (smoke 200) |
+| R01-06 | Rafraîchissement navigateur sur projet ouvert | Contexte projet conservé | **NOT RUN** |
+| R01-07 | Réserve ML4C héritée — position fil Travail après refresh (`S07-06-R01`) | À requalifier sur ce build : retour en tête de fil ? | **NOT RUN** |
+| R01-08 | Auto-session DEV sur RECETTE | Refus 403 (prouvé post-cutover) | **AUTOMATED PASS** (smoke) — pas substitut R01-01 |
+
+**Observations capitalisées (sans multiplier les cas) :** comptages PG post-migrate identiques au manifeste ; tables FinOps (`provider_usage_observations`) et embeddings (`derived_embedding_chunks`) présentes sans reindex DEV copié.
+
+---
+
+## R02 — Nouveau projet et sas de création
+
+**Objectif :** créer ou reprendre un projet sans doublon ni perte de préparation (héritage ML4C S02, sans rejouer les 8 scénarios S02).
+
+| ID | Scénario | Résultat attendu | Verdict Morris |
+|---|---|---|---|
+| R02-01 | Nouvelle préparation — décrire le besoin à Nora (LIVE si GO) | Intention persistée · pas de création prématurée | **PENDING GO LIVE** |
+| R02-02 | Créer le projet depuis le sas · rouvrir après refresh | Un seul projet · fil initial visible | **NOT RUN** |
+| R02-03 | Réserve historique `S02-04-R01` — proposition rev.2 après création | À vérifier si toujours pertinente | **NOT RUN** |
+| R02-04 | Projet synthétique dédié recette ML5 (non production) | Isolation des essais mutatifs | **NOT RUN** |
+
+---
+
+## R03 — Nora — Travail, continuité et frontières
+
+**Objectif :** dialogue Nora sur surface Travail avec continuité provider RECETTE (sans fixture forcée).
+
+| ID | Scénario | Résultat attendu | Verdict Morris |
+|---|---|---|---|
+| R03-01 | Message texte simple — réponse Nora LIVE | Réponse complète · statuts cohérents | **PENDING GO LIVE** |
+| R03-02 | Conversation longue — compositeur visible en bas | Champ + Envoyer accessibles (requalifier `ML4C-A-003`) | **NOT RUN** |
+| R03-03 | Demande hors périmètre / cible inconnue | Refus ou `UNKNOWN` sémantiquement correct · pas d'effet silencieux | **NOT RUN** (rapprocher `S02-06-R01`) |
+| R03-04 | Capitalisation contexte métier (projet existant) | Pas de fuite cross-pilote | **NOT RUN** |
+| R03-05 | Allocation cognitive / adaptive (code embarqué) | Comportement conforme au contrat ML5 si sollicité | **PENDING GO LIVE** |
+
+**Observations RoomBooking :** preuve DEV RB-27 (`cgw_912cf02a…`) — 9 fichiers CONSULTED, reprise suspendue ; **ne pas extrapoler PASS RECETTE** sans GO campagne sur `proj_896d204b…`.
+
+---
+
+## R04 — Documents (D4), révisions et inspection
+
+| ID | Scénario | Résultat attendu | Verdict Morris |
+|---|---|---|---|
+| R04-01 | Bibliothèque — liste documents projet | Révisions **AVAILABLE** listées | **NOT RUN** |
+| R04-02 | Inspection longue — panneau latéral | Lecture intégrale possible | **NOT RUN** (réserve `S03-02-R01` ergonomie) |
+| R04-03 | Révision ciblée sans effet non demandé | V1/V2 distinctes · pas de perte | **PENDING GO** si création LIVE |
+| R04-04 | Root documents RECETTE vide (0 fichiers racine) | Inchangé — pas de régression attendue sur cutover | **NOT RUN** |
+
+---
+
+## R05 — Intelligence documentaire (embeddings, hybrid, vision, PDF)
+
+**Objectif :** qualifier les apports macro-lot 2 sans rejouer l'intégralité des oracles Gate B DEV.
+
+| ID | Scénario | Résultat attendu | Verdict Morris |
+|---|---|---|---|
+| R05-01 | Recherche hybride sur corpus connu (Chantiers360 / doc existant) | Résultats pertinents · citations traçables | **PENDING GO** (rebuild embeddings si index vide) |
+| R05-02 | Question lexicale exacte vs paraphrase (oracle CONV-F22) | Comportement comparable au DEV qualifié | **PENDING GO LIVE** |
+| R05-03 | PDF Git `Diagramme BPMN_BatiNova.pdf` | Identification OK · limite scan **SCANNED_NO_TEXT** connue | **PENDING GO** Git read |
+| R05-04 | Vision punctuelle sur image autorisée | Lecture bornée si GO vision | **PENDING GO** |
+| R05-05 | StockTrack IT-06 (qual corpus) | Ne pas confondre avec BoundTrack ; V1/V2 intactes si sollicité | **NOT RUN** |
+
+**Observations :** schéma 027 et table `derived_embedding_chunks` présents ; **pas** de copie d'index DEV — reconstruction distincte si GO.
+
+---
+
+## R06 — Dictée composer (micro)
+
+**Objectif :** CONV-F31–F34 — code présent, **flag OFF** sur RECETTE.
+
+| ID | Scénario | Résultat attendu | Verdict Morris |
+|---|---|---|---|
+| R06-01 | Capability API — flag OFF | `enabled: false` · micro non actif | **NOT RUN** (attendu OFF) |
+| R06-02 | Activer GO + permission micro — transcription FR | Texte éditable · envoi manuel unique | **PENDING GO LIVE** |
+| R06-03 | Annulation / refuse permission / navigation | Fail-closed · brouillon clavier préservé | **PENDING GO** |
+| R06-04 | Réserves techniques A–D (finalize partial, TRANSPORT_UNKNOWN) | Comportement fail-closed en anomalie env | **DEV PROVEN** — RECETTE à confirmer sous GO |
+
+**Interdit sans GO :** `SFIA_COMPOSER_DICTATION=1`, transport `live`, tests micro provider réel.
+
+---
+
+## R07 — FinOps et consommation (affichage local)
+
+| ID | Scénario | Résultat attendu | Verdict Morris |
+|---|---|---|---|
+| R07-01 | Panneau consommation / settings — chargement | Données locales ou vide explicite · pas d'appel Admin nouveau | **NOT RUN** |
+| R07-02 | Observations usage post-Nora LIVE (si campagne) | Corrélation work/attempt sans double comptage | **PENDING GO LIVE** |
+| R07-03 | Historique attribué projet DEV dans RECETTE | Non réécrit — attribution peut rester ambiguë | **NOT RUN** (réserve manifeste) |
+| R07-04 | Collecte Admin snapshot | Architecture hors runtime · pas de nouvelle clé Admin injectée | **BLOCKED** sans GO Admin distinct |
+
+---
+
+## R08 — UX shell, intégrations et convergence visuelle
+
+| ID | Scénario | Résultat attendu | Verdict Morris |
+|---|---|---|---|
+| R08-01 | Navigation surfaces Projet (Travail, Documents, Journal, …) | Transitions sans erreur bloquante | **NOT RUN** |
+| R08-02 | Typographie SafeMarkdown / conversation 12px | Lisibilité acceptable | **NOT RUN** |
+| R08-03 | Menu rail personnel — entrée consommation | Route accessible si droits | **NOT RUN** |
+| R08-04 | Comparaison Figma mobile / visionneuse | Reporté — pas gate cutover | **DEFERRED** |
+| R08-05 | Erreurs globales (404 / error boundary) | Messages distincts session vs technique | **NOT RUN** |
+
+**Observations Pilotage360 :** touchpoints `forecast-builder` / trajectoire — requalifier uniquement si parcours Pilote sollicité ; pas d'extension de campagne ici.
+
+---
+
+## 9. Synthèse de campagne (à compléter)
+
+| Famille | NOT RUN | PENDING GO | AUTOMATED only | PASS Morris |
+|---|---:|---:|---:|---:|
+| R01 | 7 | 0 | 1 | 0 |
+| R02 | 3 | 1 | 0 | 0 |
+| R03 | 3 | 2 | 0 | 0 |
+| R04 | 3 | 1 | 0 | 0 |
+| R05 | 1 | 4 | 0 | 0 |
+| R06 | 1 | 3 | 0 | 0 |
+| R07 | 2 | 1 | 0 | 0 |
+| R08 | 4 | 0 | 0 | 0 |
+
+**Verdict global proposé (Cursor, pré Morris) :** **RECETTE CUTOVER COMPLETE — CANDIDATE FROZEN — AVAILABLE WITH EXPLICIT RESTRICTIONS — MORRIS FUNCTIONAL QUALIFICATION PENDING**
+
+---
+
+## 10. Rollback (rappel)
+
+1. Arrêt LaunchAgent · restaurer dump `sfia_next_recette_ml4-pre-cutover.dump` + `.env.local.bak`  
+2. Retarget plist/script vers worktree `a150926c` (backup `start-recette-ml5.sh.pre-cutover-…`)  
+3. **Attention :** schéma 027 et tables 022–026 ne sont pas retirés automatiquement — compatibilité binaire ancien build ≠ restauration données seule.
+
+Preuves : `projects/sfia-studio-next/web/.sfia-evidence/recette-cutover-20261127/` (gitignored).
+
+---
+
+## Annex C — start-recette-ml5.sh (full, no secrets)
+
+```bash
+#!/bin/bash
+set -euo pipefail
+cd "/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-e8e6e06961fa/projects/sfia-studio-next/web"
+set -a
+source "$HOME/.config/sfia-studio-next/recette/.env.local"
+set +a
+export STUDIO_LANE=RECETTE STUDIO_PORT=3200 NODE_ENV=production PORT=3200 HOSTNAME=127.0.0.1
+export SFIA_SOURCE_SHA=e8e6e06961fa0a7224db3badb3b591b8be8046ac
+export SFIA_WEB_SEARCH_LIVE=0 SFIA_WEB_SEARCH_ENABLED=0 STUDIO_DEV_TEST_LOGIN=0
+export SFIA_COMPOSER_DICTATION=0
+unset STUDIO_FORCE_NORA_FIXTURE SFIA_DICTATION_TRANSPORT SFIA_DICTATION_SUBSTITUTED STUDIO_E2E STUDIO_DEV_AUTO_SESSION || true
+export SFIA_BUILD_ID=$(cat .next/BUILD_ID 2>/dev/null || true)
+exec npx next start -H 127.0.0.1 -p 3200
 ```
 
+---
 
-## 5. Correctif A — `composer-dictation-session.ts` (COMPLETE FUNCTIONS)
+## Annex D — TRANSPORT_UNKNOWN admission snippet
 
-### Session record fields (excerpt)
-
-```typescript
-  /** Committed item_ids not yet completed — finalize waits until empty. */
-  awaitingFinalItemIds: Set<string>;
-  /** Commits sent to provider, not yet acknowledged via input_audio_buffer.committed. */
-  commitsAwaitingAck: number;
-  /** Bytes buffered since last provider commit while listening. */
-  pcmBytesSinceLastCommit: number;
-```
-
-
-### `handleProviderEvent` — commit ack path (excerpt)
+Source: `projects/sfia-studio-next/web/src/domains/conversation/composer-dictation-admission.ts`
 
 ```typescript
-  if (type === "input_audio_buffer.committed") {
-    session.commitsAwaitingAck = Math.max(0, session.commitsAwaitingAck - 1);
-    const itemId = String(event.item_id || "");
-    if (itemId) {
-      session.pendingItemId = itemId;
-      session.awaitingFinalItemIds.add(itemId);
-    }
-    if (session.status === "finalizing") {
-      maybeCompleteFinalization(session);
-    }
-    return;
-  }
-  if (type === "conversation.item.input_audio_transcription.delta") {
-    const itemId = String(event.item_id || session.pendingItemId || "");
-    const delta = String(event.delta || "");
-    if (!itemId || !delta) return;
-    if (
-      session.status === "cancelled" ||
-      session.status === "completed" ||
-      session.status === "failed" ||
-      session.status === "expired"
-    ) {
-      return;
-    }
-    session.draft = applyTranscriptDelta(session.draft, itemId, delta);
-    emit(session, {
-      type: "transcript.delta",
-      sessionId: session.sessionId,
-      itemId,
-      delta,
-    });
-    return;
-  }
-  if (type === "conversation.item.input_audio_transcription.completed") {
-    const itemId = String(event.item_id || "");
-    const transcript = String(event.transcript || "");
-    if (!itemId) return;
-    if (
-      session.status === "cancelled" ||
-      session.status === "completed" ||
-      session.status === "failed" ||
-      session.status === "expired"
-    ) {
-      return;
-    }
-    session.draft = applyTranscriptCompleted(session.draft, itemId, transcript);
-    session.awaitingFinalItemIds.delete(itemId);
-    emit(session, {
-      type: "transcript.completed",
-      sessionId: session.sessionId,
-      itemId,
-      transcript,
-    });
-    if (session.status === "finalizing") {
-      maybeCompleteFinalization(session);
-    }
-```
+  const lane = (env.STUDIO_LANE ?? "").trim().toUpperCase() || "UNKNOWN";
+  const transportKind = (env.SFIA_DICTATION_TRANSPORT || "").trim();
 
-
-### maybeCompleteFinalization — COMPLETE FUNCTION
-
-```typescript
-function maybeCompleteFinalization(session: DictationSessionRecord): void {
-  if (isTerminalStatus(session.status) || session.status !== "finalizing") {
-    return;
-  }
-  if (session.commitsAwaitingAck > 0) {
-    return;
-  }
-  if (session.awaitingFinalItemIds.size > 0) {
-    return;
-  }
-  if (Object.keys(session.draft.provisionalByItem).length > 0) {
-    return;
-  }
-  completeFinalization(session, { partial: false });
-}
-```
-
-
-### shouldSendAudioCommit — COMPLETE FUNCTION
-
-```typescript
-function shouldSendAudioCommit(
-  session: DictationSessionRecord,
-  opts: { finalize?: boolean },
-): boolean {
-  if (session.pcmBytesSinceLastCommit > 0) return true;
-  if (!opts.finalize) return false;
-  const hasTranscriptItems =
-    Object.keys(session.draft.finalByItem).length > 0 ||
-    Object.keys(session.draft.provisionalByItem).length > 0 ||
-    session.awaitingFinalItemIds.size > 0 ||
-    session.commitsAwaitingAck > 0;
-  return session.pcmBytes > 0 && !hasTranscriptItems;
-}
-```
-
-
-### sendAudioCommit — COMPLETE FUNCTION
-
-```typescript
-function sendAudioCommit(
-  session: DictationSessionRecord,
-  opts: { finalize?: boolean } = {},
-): boolean {
-  if (!session.transport) return false;
-  if (!shouldSendAudioCommit(session, opts)) {
-    return false;
-  }
-  try {
-    session.transport.send({ type: "input_audio_buffer.commit" });
-    session.commitsAwaitingAck += 1;
-    session.pcmBytesSinceLastCommit = 0;
-    return true;
-  } catch {
-    return false;
-  }
-}
-```
-
-
-### finalizeDictationSession — COMPLETE FUNCTION
-
-```typescript
-export async function finalizeDictationSession(input: {
-  sessionId: string;
-  pilotId: string;
-  projectId: string;
-}): Promise<
-  | { ok: true; draft: string; transcript: string; partial: boolean }
-  | { ok: false; code: string; draft?: string }
-> {
-  const session = sessions.get(input.sessionId);
-  if (!session) return { ok: false, code: "NOT_FOUND" };
-  if (session.pilotId !== input.pilotId || session.projectId !== input.projectId) {
-    return { ok: false, code: "FORBIDDEN" };
-  }
-  if (isTerminalStatus(session.status)) {
-    const mergeMode =
-      session.status === "cancelled"
-        ? "cancel"
-        : session.status === "completed"
-          ? "finalize"
-          : "partial";
-    const merged = mergeDictationIntoDraft(session.draft, mergeMode);
-    return {
-      ok: session.status === "completed",
-      code: session.status.toUpperCase(),
-      draft: merged.draft,
-      transcript: merged.transcript,
-      partial: mergeMode === "partial",
-    } as
-      | { ok: true; draft: string; transcript: string; partial: boolean }
-      | { ok: false; code: string; draft: string };
-  }
-  session.status = "finalizing";
-  touch(session);
-  sendAudioCommit(session, { finalize: true });
-
-  const result = await waitForFinalization(session);
-  // Re-read after async wait (listeners may mutate status). Escape CFA narrowing.
-  const statusAfterWait = session.status as unknown as DictationSessionStatus;
-  if (
-    statusAfterWait === "cancelled" ||
-    statusAfterWait === "expired" ||
-    statusAfterWait === "failed"
-  ) {
-    const merged = mergeDictationIntoDraft(
-      session.draft,
-      statusAfterWait === "cancelled" ? "cancel" : "partial",
-    );
+  if (transportKind !== "" && transportKind !== "fixture" && transportKind !== "live") {
     return {
       ok: false,
-      code: statusAfterWait.toUpperCase(),
-      draft: merged.draft,
+      code: "TRANSPORT_UNKNOWN",
+      message: `Unknown SFIA_DICTATION_TRANSPORT value (use empty/live for provider or fixture).`,
     };
   }
-  if (statusAfterWait !== "completed") {
-    completeFinalization(session, { partial: result.partial, force: true });
-  }
-  const merged = mergeDictationIntoDraft(
-    session.draft,
-    result.partial ? "partial" : "finalize",
-  );
-  return {
-    ok: true,
-    draft: merged.draft,
-    transcript: merged.transcript,
-    partial: result.partial,
-  };
-}
 ```
 
+---
 
-### waitForFinalization — COMPLETE FUNCTION
+## Annex E — smoke-post-cutover.txt (full)
 
-```typescript
-function waitForFinalization(
-  session: DictationSessionRecord,
-): Promise<{ partial: boolean }> {
-  return new Promise((resolve) => {
-    const timeout = setTimeout(() => {
-      cleanup();
-      if (session.status === "finalizing") {
-        completeFinalization(session, { partial: true, force: true });
-      }
-      resolve({ partial: true });
-    }, session.limits.finalizeTimeoutMs);
-
-    const onEv = (ev: DictationClientEvent) => {
-      if (ev.type === "session.finalized") {
-        cleanup();
-        resolve({ partial: ev.partial });
-      }
-      if (
-        ev.type === "session.error" ||
-        ev.type === "session.expired" ||
-        ev.type === "session.cancelled"
-      ) {
-        cleanup();
-        resolve({ partial: true });
-      }
-    };
-    const cleanup = () => {
-      clearTimeout(timeout);
-      session.listeners.delete(onEv);
-    };
-    session.listeners.add(onEv);
-    maybeCompleteFinalization(session);
-  });
-}
+```
+at=2026-11-27T09:32:50Z
+login=200
+build_marker=<!--rpEczSp61evIZ7d6fnIWR-->
+pid=8539
+cwd=/Users/morris/Projects/sfia-workspace-next-ml5-recette-build-e8e6e06961fa/projects/sfia-studio-next/web
+auto_session=403
+portfolio=200
+integrations=200
+projects=31
+messages=824
+documents=123
+pilots=170
+conversations=210
+cognitive_works=24
+finops_table=provider_usage_observations
+emb_table=derived_embedding_chunks
+openai_fp_match=true expected=f27d814e9c682020 forbidden_dev=ab6bbec84ba272ed
+candidate_sha=e8e6e06961fa0a7224db3badb3b591b8be8046ac
+build=rpEczSp61evIZ7d6fnIWR
+digest=18e014c1ead6e050cf1aca4e4910dd8904722bd3e0e7753d25b189c03fd50535
+previous_served_sha=a150926cc78fdc04522565eb198ed9f91a612142
+previous_build=6kswoj2a2VHXCLsFYcoim
+schema=027
+launchagent=com.sfia.studio.next.recette.ml4d-ux004
 ```
 
+---
 
-## 6. Correctif B — admission + wiring + FinOps
+## Annex F — recette-env-delta.env (non-secret)
 
-### FULL FILE `composer-dictation-admission.ts`
+See evidence `recette-env-delta.env` — reproduced in §5.
+
+---
+
+## Annex G — composer-dictation-admission.ts (full)
 
 ```typescript
 import { assertOpenAiKeyForLane } from "@/lib/openai-lane-guard";
@@ -487,6 +667,14 @@ export function admitDictationProviderEmission(input: {
 
   const lane = (env.STUDIO_LANE ?? "").trim().toUpperCase() || "UNKNOWN";
   const transportKind = (env.SFIA_DICTATION_TRANSPORT || "").trim();
+
+  if (transportKind !== "" && transportKind !== "fixture" && transportKind !== "live") {
+    return {
+      ok: false,
+      code: "TRANSPORT_UNKNOWN",
+      message: `Unknown SFIA_DICTATION_TRANSPORT value (use empty/live for provider or fixture).`,
+    };
+  }
 
   if (transportKind === "fixture") {
     const vitest = env.VITEST === "true";
@@ -553,834 +741,3 @@ export function assertDictationEmissionAllowed(
   return { ok: true };
 }
 ```
-
-
-### Capability route
-
-```typescript
-import { NextResponse } from "next/server";
-import { requireStudioSession } from "@/domains/identity/session";
-import { studioErrorResponse } from "@/lib/http-errors";
-import { assertOwnedProject } from "@/domains/conversation/assert-owned-project";
-import { composerDictationEnabled } from "@/domains/conversation/composer-dictation-types";
-
-/** ML3 — product flag preview for composer dictation (no transport open). */
-export async function GET(
-  _req: Request,
-  ctx: { params: Promise<{ projectId: string }> },
-) {
-  try {
-    const session = await requireStudioSession();
-    const { projectId } = await ctx.params;
-    await assertOwnedProject(session.pilotId, projectId);
-    const enabled = composerDictationEnabled();
-    return NextResponse.json({
-      ok: true,
-      enabled,
-      admittedPreview: enabled,
-    });
-  } catch (e) {
-    const mapped = studioErrorResponse(e);
-    return NextResponse.json(mapped.body, { status: mapped.status });
-  }
-}
-```
-
-
-### `page.tsx` — capability probe
-
-```typescript
-  const [dictationEnabled, setDictationEnabled] = useState(false);
-  const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
-  useEffect(() => {
-    if (surface !== "travail") return;
-    let cancelled = false;
-    void (async () => {
-      try {
-        const res = await fetch(
-          `/api/projects/${params.projectId}/dictation/capability`,
-        );
-        if (!res.ok) return;
-        const data = (await res.json()) as { ok?: boolean; enabled?: boolean };
-        if (!cancelled && data.ok) {
-          setDictationEnabled(data.enabled === true);
-        }
-      } catch {
-        /* capability probe is best-effort */
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [params.projectId, surface]);
-```
-
-
-### `NoraConversation.tsx` — ComposerDictationControl wiring
-
-```tsx
-            {props.projectId ? (
-              <ComposerDictationControl
-                projectId={props.projectId}
-                draft={props.draft}
-                onDraft={props.onDraft}
-                disabled={composerLocked || props.busy}
-                enabled={props.dictationEnabled === true}
-                onActiveChange={setDictationActive}
-              />
-            ) : null}
-```
-
-
-### Fixture-push route (C03)
-
-```typescript
-import { NextResponse } from "next/server";
-import { requireStudioSession } from "@/domains/identity/session";
-import { studioErrorResponse } from "@/lib/http-errors";
-import { assertOwnedProject } from "@/domains/conversation/assert-owned-project";
-import { getDictationSession } from "@/domains/conversation/composer-dictation-session";
-import { getDictationFixtureTransport } from "@/domains/conversation/composer-dictation-transport-fixture";
-
-function dictationFixturePushAllowed(env: NodeJS.ProcessEnv = process.env): boolean {
-  if ((env.STUDIO_LANE ?? "").trim() !== "DEV") return false;
-  if (env.VITEST === "true") return true;
-  if ((env.SFIA_DICTATION_SUBSTITUTED ?? "").trim() === "1") return true;
-  return false;
-}
-
-/** DEV-only inject — push a substituted provider event into an active fixture session. */
-export async function POST(
-  req: Request,
-  ctx: {
-    params: Promise<{ projectId: string; sessionId: string }>;
-  },
-) {
-  try {
-    if (!dictationFixturePushAllowed()) {
-      return NextResponse.json(
-        { ok: false, code: "FIXTURE_PUSH_FORBIDDEN" },
-        { status: 403 },
-      );
-    }
-    if ((process.env.SFIA_DICTATION_TRANSPORT || "").trim() !== "fixture") {
-      return NextResponse.json(
-        { ok: false, code: "FIXTURE_TRANSPORT_INACTIVE" },
-        { status: 403 },
-      );
-    }
-    const session = await requireStudioSession();
-    const { projectId, sessionId } = await ctx.params;
-    await assertOwnedProject(session.pilotId, projectId);
-
-    const rec = getDictationSession(sessionId);
-    if (!rec || rec.pilotId !== session.pilotId || rec.projectId !== projectId) {
-      return NextResponse.json({ ok: false, code: "NOT_FOUND" }, { status: 404 });
-    }
-
-    const transport = getDictationFixtureTransport(sessionId);
-    if (!transport) {
-      return NextResponse.json(
-        { ok: false, code: "FIXTURE_TRANSPORT_NOT_ACTIVE" },
-        { status: 404 },
-      );
-    }
-
-    const body = (await req.json().catch(() => ({}))) as {
-      event?: Record<string, unknown>;
-    };
-    if (!body.event || typeof body.event !== "object") {
-      return NextResponse.json(
-        { ok: false, code: "INVALID_BODY", message: "event object required" },
-        { status: 400 },
-      );
-    }
-
-    transport.push(body.event);
-    return NextResponse.json({ ok: true });
-  } catch (e) {
-    const mapped = studioErrorResponse(e);
-    return NextResponse.json(mapped.body, { status: mapped.status });
-  }
-}
-```
-
-
-### FinOps `recordDictationFinops` — EFFECT_SUBSTITUTED excerpt
-
-```typescript
-async function recordDictationFinops(
-  session: DictationSessionRecord,
-  status: "succeeded" | "cancelled" | "partial" | "failed" | "expired",
-): Promise<void> {
-  if (session.finopsRecorded) return;
-  try {
-    const { recordProviderUsageObservation, buildIdempotencyKey } = await import(
-      "@/domains/conversation/usage-accounting"
-    );
-    const durationMs = Math.max(0, Date.now() - session.createdAtMs);
-    const substituted = session.emissionMode === "substituted";
-    const pcmMinutes =
-      session.pcmBytes / (COMPOSER_DICTATION_PCM_RATE * 2) / 60;
-    // Public tariff verified at cadrage: 0.017 USD/min — estimate from buffered PCM only.
-    const estimatedUsd =
-      substituted || session.pcmBytes === 0
-        ? null
-        : Math.round(pcmMinutes * 0.017 * 1_000_000) / 1_000_000;
-    const observationStatus =
-      status === "succeeded" || status === "partial" ? "succeeded" : "failed";
-    const costCoverage: "KNOWN" | "PARTIAL" | "UNKNOWN" = substituted
-      ? "UNKNOWN"
-      : status === "partial"
-        ? "PARTIAL"
-        : estimatedUsd == null
-          ? "UNKNOWN"
-          : "PARTIAL";
-    const limits = [
-      "NO_DURABLE_AUDIO",
-      "NO_D3_BEFORE_SEND",
-      "TRANSCRIPTION_ONLY",
-      `DURATION_MS_${durationMs}`,
-      `PCM_BYTES_${session.pcmBytes}`,
-      `STATUS_${status}`,
-      ...(substituted
-        ? ["EFFECT_SUBSTITUTED", `LANE_${session.admissionLane}`]
-        : ["TARIFF_GPT_LIVE_TRANSCRIBE_ESTIMATED"]),
-    ];
-    await recordProviderUsageObservation({
-      operation: "audio.composer_dictation",
-      modelRequested: session.modelRequested,
-      modelApplied: session.modelApplied,
-      inputTokens: null,
-      outputTokens: null,
-      status: observationStatus,
-      granularity: "REQUEST",
-      costCoverage,
-      projectId: session.projectId,
-      ownerPilotId: session.pilotId,
-      estimatedCostUsd: estimatedUsd,
-      idempotencyKey: buildIdempotencyKey({
-        granularity: "REQUEST",
-        lane: process.env.STUDIO_LANE || "DEV",
-        operation: "audio.composer_dictation",
-        projectId: session.projectId,
-        attemptId: session.emissionAttemptId,
-        callOrdinal: 0,
-      }),
-      limits,
-    });
-```
-
-
-## 7. Correctif C — FULL qualify spec
-
-### FULL FILE `tests/qualify/ml3-dictation-nominal-path.spec.ts`
-
-```typescript
-/**
- * ML3 dictation nominal path — product NoraConversation on /projects/{id}?surface=travail.
- *
- * Requires qualify server (`npm run qualify:start`) with:
- *   STUDIO_LANE=DEV
- *   STUDIO_DEV_TEST_LOGIN=1
- *   SFIA_COMPOSER_DICTATION=1
- *   SFIA_DICTATION_TRANSPORT=fixture
- *   SFIA_DICTATION_SUBSTITUTED=1
- *   SFIA_DICTATION_FIXTURE_AUTO_TRANSCRIPT=1
- *   SFIA_DICTATION_FIXTURE_COMMIT_DELAY_MS=80
- *   SFIA_DICTATION_FIXTURE_COMPLETE_DELAY_MS=120
- *   STUDIO_FORCE_NORA_FIXTURE=1
- *
- * Run: npx playwright test tests/qualify/ml3-dictation-nominal-path.spec.ts -c playwright.qualify.config.ts
- */
-import { test, expect } from "@playwright/test";
-import fs from "node:fs";
-import path from "node:path";
-import {
-  constituteAndCreateProject,
-  openNewPreparation,
-  uniqueProjectName,
-} from "../e2e/helpers/g4-chat-first";
-
-const EVIDENCE = path.resolve(
-  __dirname,
-  "../../.sfia-evidence/ml3-dictation-nominal-path",
-);
-
-test.describe.configure({ mode: "serial" });
-test.setTimeout(180_000);
-
-let projectId = "";
-let serverUp = false;
-
-async function ensureQualifyServer(
-  request: import("@playwright/test").APIRequestContext,
-): Promise<boolean> {
-  const res = await request.get("/login").catch(() => null);
-  return Boolean(res?.ok());
-}
-
-async function login(page: import("@playwright/test").Page) {
-  // Prefer auto-session — login button can detach under concurrent RSC remounts.
-  const auto = await page.request.post("/api/dev/auto-session");
-  if (!auto.ok()) {
-    await page.goto("/login", { waitUntil: "domcontentloaded" });
-    const testBtn = page.getByRole("button", {
-      name: /Pilote A|connexion de test|test login|entrer en session/i,
-    });
-    if (await testBtn.count()) {
-      await testBtn.first().click({ timeout: 15_000 });
-    } else {
-      throw new Error(`auto-session failed status=${auto.status()}`);
-    }
-  }
-  await page.goto("/portfolio", { waitUntil: "domcontentloaded" });
-  await page.waitForURL(/\/(portfolio|projects|preparations)/, { timeout: 60_000 });
-}
-
-async function assertDictationCapability(
-  request: import("@playwright/test").APIRequestContext,
-  pid: string,
-) {
-  const res = await request.get(
-    `/api/projects/${encodeURIComponent(pid)}/dictation/capability`,
-  );
-  if (!res.ok()) {
-    const bodyText = await res.text().catch(() => "");
-    throw new Error(
-      `dictation capability route failed status=${res.status()} body=${bodyText.slice(0, 240)}`,
-    );
-  }
-  const body = (await res.json()) as { enabled?: boolean; ok?: boolean };
-  if (!body.enabled) {
-    throw new Error(
-      "SFIA_COMPOSER_DICTATION off or capability disabled on qualify server (no skip — set env)",
-    );
-  }
-}
-
-function installOscillatorMic(page: import("@playwright/test").Page) {
-  return page.addInitScript(() => {
-    const AC =
-      window.AudioContext ||
-      (window as unknown as { webkitAudioContext?: typeof AudioContext })
-        .webkitAudioContext;
-    if (AC) {
-      const Patched = class extends AC {
-        constructor(contextOptions?: AudioContextOptions) {
-          super(contextOptions);
-          void this.resume().catch(() => undefined);
-        }
-      };
-      (window as unknown as { AudioContext: typeof AudioContext }).AudioContext =
-        Patched as typeof AudioContext;
-    }
-
-    const orig = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
-    navigator.mediaDevices.getUserMedia = async (constraints) => {
-      if (!constraints?.audio) return orig(constraints as MediaStreamConstraints);
-      const ctx = new (window.AudioContext ||
-        (window as unknown as { webkitAudioContext: typeof AudioContext })
-          .webkitAudioContext)();
-      void ctx.resume().catch(() => undefined);
-      const osc = ctx.createOscillator();
-      const dest = ctx.createMediaStreamDestination();
-      osc.frequency.value = 440;
-      osc.connect(dest);
-      osc.start();
-      const track = dest.stream.getAudioTracks()[0];
-      if (track) track.enabled = true;
-      const tracks = dest.stream.getTracks();
-      (
-        window as unknown as { __sfiaDictationMediaTracks?: MediaStreamTrack[] }
-      ).__sfiaDictationMediaTracks = tracks;
-      // Silence capture immediately — ScriptProcessor is unreliable in headless;
-      // tests pump a bounded PCM volume through the product audio route instead.
-      queueMicrotask(() => {
-        for (const t of tracks) {
-          try {
-            t.stop();
-          } catch {
-            /* */
-          }
-        }
-      });
-      return dest.stream;
-    };
-  });
-}
-
-/**
- * Real product audio route with a bounded PCM volume (~3 fixture commits).
- * Browser ScriptProcessor uploads are absorbed by page.route so only the pump
- * reaches the server (headless capture is noisy/unreliable).
- */
-async function ensureAudioFragments(
-  page: import("@playwright/test").Page,
-  pid: string,
-  sessionId: string,
-  commits = 3,
-) {
-  const pcm = Buffer.alloc(4_000, 1).toString("base64");
-  await page.waitForTimeout(100);
-  const posts = Math.max(2, commits * 2);
-  for (let i = 0; i < posts; i++) {
-    const res = await page.request.post(
-      `/api/projects/${encodeURIComponent(pid)}/dictation/sessions/${encodeURIComponent(sessionId)}/audio`,
-      {
-        data: { pcmBase64: pcm },
-        headers: { "x-sfia-dictation-pump": "1" },
-      },
-    );
-    if (!res.ok()) {
-      const body = await res.text().catch(() => "");
-      throw new Error(`audio pump failed status=${res.status()} ${body.slice(0, 160)}`);
-    }
-    await page.waitForTimeout(80);
-  }
-  await page.waitForTimeout(500);
-  return { pumped: true, posts };
-}
-
-async function gotoTravail(page: import("@playwright/test").Page, pid: string) {
-  await page.goto(`/projects/${encodeURIComponent(pid)}?surface=travail`, {
-    waitUntil: "domcontentloaded",
-  });
-  const mic = page.getByTestId("composer-mic");
-  await expect(mic).toBeVisible({ timeout: 45_000 });
-}
-
-async function waitForDictationProvisional(
-  page: import("@playwright/test").Page,
-  pattern: RegExp,
-  timeoutMs = 60_000,
-) {
-  const shell = page.getByTestId("composer-dictation");
-  await expect(shell).toBeVisible({ timeout: 45_000 });
-  const prov = page.getByTestId("dictation-provisional");
-  await expect
-    .poll(
-      async () => {
-        if (!(await prov.isVisible().catch(() => false))) return "";
-        return (await prov.innerText()).trim();
-      },
-      { timeout: timeoutMs, intervals: [250, 500, 1000] },
-    )
-    .toMatch(pattern);
-}
-
-async function stopDictationAndWaitMic(page: import("@playwright/test").Page) {
-  await page.getByTestId("dictation-stop").click();
-  await expect(page.getByTestId("composer-mic")).toBeVisible({ timeout: 60_000 });
-  await expect(page.getByTestId("composer-dictation")).toHaveCount(0);
-}
-
-async function startDictation(
-  page: import("@playwright/test").Page,
-  opts?: { projectId?: string; pumpAudio?: boolean },
-): Promise<string> {
-  // Install before mic click so native ScriptProcessor frames never reach the server.
-  if (opts?.pumpAudio !== false) {
-    await page.route("**/dictation/sessions/*/audio", async (route) => {
-      if (route.request().headers()["x-sfia-dictation-pump"] === "1") {
-        await route.continue();
-        return;
-      }
-      await route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify({ ok: true, suppressed: true }),
-      });
-    });
-  }
-
-  let sessionId = "";
-  let createError = "";
-  const onResp = async (res: import("@playwright/test").Response) => {
-    if (res.request().method() !== "POST") return;
-    if (!/\/dictation\/sessions(?:\?|$)/.test(res.url())) return;
-    if (/\/dictation\/sessions\/[^/]+\//.test(res.url())) return;
-    const j = (await res.json().catch(() => null)) as {
-      sessionId?: string;
-      ok?: boolean;
-      code?: string;
-      message?: string;
-    } | null;
-    if (j?.sessionId) sessionId = j.sessionId;
-    if (!res.ok() || j?.ok === false) {
-      createError = `${res.status()}:${j?.code || j?.message || "create_failed"}`;
-    }
-  };
-  page.on("response", onResp);
-  await page.getByTestId("composer-mic").click();
-  await expect(page.getByTestId("composer-dictation")).toBeVisible({ timeout: 45_000 });
-  await expect
-    .poll(
-      async () => (createError ? `ERR:${createError}` : sessionId),
-      { timeout: 20_000, intervals: [100, 250] },
-    )
-    .toMatch(/^[0-9a-f-]{36}$/i);
-  page.off("response", onResp);
-  if (opts?.pumpAudio !== false && opts?.projectId) {
-    await ensureAudioFragments(page, opts.projectId, sessionId);
-  }
-  return sessionId;
-}
-
-test.beforeAll(async ({ request }) => {
-  fs.mkdirSync(EVIDENCE, { recursive: true });
-  serverUp = await ensureQualifyServer(request);
-  if (!serverUp) {
-    throw new Error("qualify server required — run npm run qualify:start");
-  }
-});
-
-test.beforeEach(async ({ page }) => {
-  if (!serverUp) {
-    throw new Error("qualify server required");
-  }
-  await installOscillatorMic(page);
-  await login(page);
-  if (!projectId) {
-    await openNewPreparation(page);
-    const name = uniqueProjectName("DictNominal");
-    projectId = await constituteAndCreateProject(page, {
-      name,
-      summary: "ML3 dictation nominal path qualify",
-    });
-    // Use page.request so the authenticated browser cookie jar is shared.
-    await assertDictationCapability(page.request, projectId);
-  }
-  await gotoTravail(page, projectId);
-});
-
-test("C01 — Parcours nominal complet", async ({ page }) => {
-  const draft = page.getByTestId("thread-draft");
-  await expect(draft).toBeVisible({ timeout: 30_000 });
-  await draft.fill("Brouillon initial. ");
-  await startDictation(page, { projectId });
-  await waitForDictationProvisional(page, /Première phrase dictée|phrase dictée/i);
-
-  await page.screenshot({
-    path: path.join(EVIDENCE, "c01-during-dictation.png"),
-    fullPage: true,
-  });
-
-  const toggle = page.getByTestId("dictation-toggle-text");
-  if (await toggle.isVisible()) {
-    await toggle.click();
-    await toggle.click();
-  }
-
-  // Allow delayed complete events for the last commit, then stop.
-  await page.waitForTimeout(800);
-  const draftBeforeStop = await draft.inputValue();
-  await stopDictationAndWaitMic(page);
-
-  await expect
-    .poll(async () => draft.inputValue(), { timeout: 45_000 })
-    .toMatch(/Brouillon initial/i);
-  const draftAfterDictation = await draft.inputValue();
-  expect(draftAfterDictation).toMatch(/Première phrase dictée/i);
-  expect(draftAfterDictation).toMatch(/Deuxième phrase dictée/i);
-  expect(draftAfterDictation).toMatch(/Troisième phrase dictée/i);
-  // Ordered once each — no rotating duplication from over-pumping.
-  expect(draftAfterDictation).toMatch(
-    /Première phrase dictée\.?\s*Deuxième phrase dictée\.?\s*Troisième phrase dictée/i,
-  );
-  expect(draftAfterDictation).not.toMatch(
-    /Première phrase dictée[\s\S]*Première phrase dictée/,
-  );
-
-  await page.screenshot({
-    path: path.join(EVIDENCE, "c01-after-draft.png"),
-    fullPage: true,
-  });
-
-  await draft.fill(`${draftAfterDictation} Édité clavier.`);
-  const draftBeforeSend = await draft.inputValue();
-  const send = page.getByTestId("thread-send");
-  await expect(send).toBeEnabled({ timeout: 15_000 });
-  await send.click();
-  await expect(draft).toHaveValue("", { timeout: 60_000 });
-
-  await expect(
-    page.getByText(draftBeforeSend.slice(0, Math.min(40, draftBeforeSend.length)), {
-      exact: false,
-    }).first(),
-  ).toBeVisible({ timeout: 60_000 });
-
-  const pilotBubbles = page.getByTestId("nora-msg-pilot");
-  await expect
-    .poll(async () => pilotBubbles.count(), { timeout: 30_000 })
-    .toBeGreaterThanOrEqual(1);
-
-  const matching = await pilotBubbles.filter({ hasText: /Édité clavier/i }).count();
-  expect(matching).toBe(1);
-
-  await expect(page.getByText("openai-agents-sdk-live")).toHaveCount(0);
-  await expect(page.getByText(/contact.*fournisseur|provider.*live/i)).toHaveCount(0);
-
-  const oracle = {
-    projectId,
-    draftBeforeSend,
-    messageObserved: true,
-    ok: true,
-    draftBeforeStop,
-    draftAfterDictation,
-  };
-  fs.writeFileSync(
-    path.join(EVIDENCE, "c01-oracle.json"),
-    JSON.stringify(oracle, null, 2),
-  );
-});
-
-test("C02 — Annulation et dictées successives", async ({ page }) => {
-  const draft = page.getByTestId("thread-draft");
-  await draft.fill("Base C02. ");
-
-  await startDictation(page, { projectId });
-  await waitForDictationProvisional(page, /phrase dictée/i);
-  await page.waitForTimeout(3_000);
-  await stopDictationAndWaitMic(page);
-  const afterDict1 = await draft.inputValue();
-  expect(afterDict1).toMatch(/Base C02/i);
-  expect(afterDict1.length).toBeGreaterThan("Base C02. ".length);
-
-  await startDictation(page, { projectId });
-  await waitForDictationProvisional(page, /phrase dictée/i);
-  await page.waitForTimeout(3_000);
-  await stopDictationAndWaitMic(page);
-  const afterDict2 = await draft.inputValue();
-  expect(afterDict2.length).toBeGreaterThan(afterDict1.length);
-
-  await startDictation(page, { projectId });
-  await waitForDictationProvisional(page, /phrase dictée/i);
-  await page.waitForTimeout(500);
-  const baselineCancel = afterDict2;
-  await page.getByTestId("dictation-cancel").click();
-  await expect(page.getByTestId("composer-mic")).toBeVisible({ timeout: 45_000 });
-  await expect(page.getByTestId("composer-dictation")).toHaveCount(0);
-
-  await expect(draft).toHaveValue(baselineCancel);
-  const evidence = {
-    projectId,
-    afterDict1,
-    afterDict2,
-    afterCancel: await draft.inputValue(),
-    ok: (await draft.inputValue()) === baselineCancel,
-  };
-  fs.writeFileSync(
-    path.join(EVIDENCE, "c02-oracle.json"),
-    JSON.stringify(evidence, null, 2),
-  );
-  expect(evidence.ok).toBe(true);
-});
-
-test("C03 — Protection et finalisation différée", async ({ page, playwright }) => {
-  const draft = page.getByTestId("thread-draft");
-  const api = page.request;
-
-  const cap = await api.get(
-    `/api/projects/${encodeURIComponent(projectId)}/dictation/capability`,
-  );
-  expect(cap.ok()).toBe(true);
-  const capBody = (await cap.json()) as { enabled?: boolean };
-  expect(capBody.enabled).toBe(true);
-
-  const unowned = await api.post(
-    `/api/projects/00000000-0000-0000-0000-000000000000/dictation/sessions`,
-    { data: { baselineDraft: "x", conversationKey: "x" } },
-  );
-  expect([403, 404]).toContain(unowned.status());
-
-  const qualifyBase =
-    process.env.SFIA_QUALIFY_BASE_URL || "http://127.0.0.1:3100";
-  const bare = await playwright.request.newContext({ baseURL: qualifyBase });
-  const noAuth = await bare.post(
-    `/api/projects/${encodeURIComponent(projectId)}/dictation/sessions`,
-    { data: { baselineDraft: "probe", conversationKey: projectId } },
-  );
-  expect([401, 403]).toContain(noAuth.status());
-  await bare.dispose();
-
-  await draft.fill("Base C03. ");
-  await startDictation(page, { projectId });
-  await waitForDictationProvisional(page, /Première phrase dictée/i, 60_000);
-  await page.getByTestId("dictation-stop").click();
-  await expect
-    .poll(async () => draft.inputValue(), { timeout: 30_000, intervals: [200, 500, 1000] })
-    .toMatch(/phrase dictée/i);
-  await expect(page.getByTestId("composer-mic")).toBeVisible({ timeout: 60_000 });
-  const delayedDraft = await draft.inputValue();
-  expect(delayedDraft).toMatch(/Base C03/i);
-
-  await draft.fill("Baseline C03 late. ");
-  const baselineLate = "Baseline C03 late. ";
-  const sid = await startDictation(page, { projectId });
-  await waitForDictationProvisional(page, /phrase dictée/i, 45_000);
-  await page.getByTestId("dictation-cancel").click();
-  await expect(page.getByTestId("composer-mic")).toBeVisible({ timeout: 45_000 });
-  await expect(draft).toHaveValue(baselineLate);
-
-  const latePush = await api.post(
-    `/api/projects/${encodeURIComponent(projectId)}/dictation/sessions/${encodeURIComponent(sid)}/fixture-push`,
-    {
-      data: {
-        event: {
-          type: "conversation.item.input_audio_transcription.completed",
-          item_id: "fixture_late_fake",
-          transcript: "Événement tardif fantôme.",
-        },
-      },
-    },
-  );
-  expect(latePush.ok()).toBe(true);
-
-  await page.waitForTimeout(800);
-  await expect(draft).toHaveValue(baselineLate);
-  await expect(page.getByTestId("composer-dictation")).toHaveCount(0);
-  await expect(page.getByTestId("composer-mic")).toBeVisible();
-
-  fs.writeFileSync(
-    path.join(EVIDENCE, "c03-oracle.json"),
-    JSON.stringify(
-      {
-        projectId,
-        delayedDraft,
-        baselineLate,
-        latePushOk: true,
-        sessionId: sid,
-        ok: true,
-      },
-      null,
-      2,
-    ),
-  );
-});
-```
-
-
-**Harness note:** `/dev/dictation-harness` retained for dev fixture UX; **nominal proof is C01–C03 on real NoraConversation** (`surface=travail`).
-
-
-## 8. Commands + results
-
-
-| Command | Result |
-|---|---|
-| `cd projects/sfia-studio-next/web && npx vitest run tests/unit/ml3-composer-dictation-session.test.ts tests/unit/ml3-composer-dictation-client-seq-contract.test.ts tests/unit/ml3-composer-dictation-reducer.test.ts tests/integration/ml3-composer-dictation-integrated.pg.test.ts` | **28 PASS** (re-run this pack build: 4 files, 28 tests) |
-| `npx playwright test tests/qualify/ml3-dictation-nominal-path.spec.ts -c playwright.qualify.config.ts` | **C01 C02 C03 — 3 PASS** at delivery time (`DELIV-2026-11-27-…-DICTATION-NOMINAL-PATH-FINAL`, evidence 2026-11-27 09:58 local). Re-run without `npm run qualify:start` fails closed on missing server (expected). |
-| BUILD | `dRmFP_CKHNL8g6MOXuA1q` digest `0a64a261…` |
-| Post-restore capability | `enabled: false` when `SFIA_COMPOSER_DICTATION` unset/OFF |
-
-
-## 9. Oracle C01
-
-Source: `projects/sfia-studio-next/web/.sfia-evidence/ml3-dictation-nominal-path/c01-oracle.json` (logical alias `.sfia-evidence/ml3-dictation-nominal-path/c01-oracle.json` relative to web package root).
-
-
-```json
-{
-  "projectId": "proj_7707311c-0550-456f-b59e-6f22439f03fb",
-  "draftBeforeSend": "Brouillon initial. Première phrase dictée. Deuxième phrase dictée. Troisième phrase dictée. Édité clavier.",
-  "messageObserved": true,
-  "ok": true,
-  "draftBeforeStop": "Brouillon initial. ",
-  "draftAfterDictation": "Brouillon initial. Première phrase dictée. Deuxième phrase dictée. Troisième phrase dictée."
-}
-```
-
-
-## 10. Screenshots
-
-- `projects/sfia-studio-next/web/.sfia-evidence/ml3-dictation-nominal-path/c01-during-dictation.png` — **147220 bytes** — real composer on `/projects/{id}?surface=travail` (not harness)
-
-- `projects/sfia-studio-next/web/.sfia-evidence/ml3-dictation-nominal-path/c01-after-draft.png` — **150411 bytes** — real composer on `/projects/{id}?surface=travail` (not harness)
-
-
-Policy: path refs + sizes only (no base64).
-
-
-## 11. Fake / Real frontiers
-
-
-| Frontier | Mode | Notes |
-|---|---|---|
-| Dictation transport on qualify | **substituted fixture** | `SFIA_DICTATION_TRANSPORT=fixture` + `SFIA_DICTATION_SUBSTITUTED=1` on DEV only |
-| OpenAI Realtime LIVE | **not admitted** on qualify run | Admission fail-closed without key/lane; fixture never falls through to live |
-| Nora turn | substituted (`STUDIO_FORCE_NORA_FIXTURE=1` in qualify env) | C01 asserts no `openai-agents-sdk-live` copy |
-| Microphone capture | oscillator + bounded PCM pump | Headless ScriptProcessor suppressed; product audio route exercised |
-| FinOps cost | `EFFECT_SUBSTITUTED`, `costCoverage: UNKNOWN` | No LIVE tariff claim |
-
-**Claims forbidden:** LIVE French audio quality, RECETTE sign-off, STABLE release, global Livraison 1 acceptance, production adoption.
-
-**Interpretation:** `DETERMINISTIC PROVEN ≠ READY FOR REAL` — nominal path is technically proven under substituted qualify; functional RECETTE with real mic/provider remains pending.
-
-
-## 12. Annex — bounded historical refs
-
-
-- `as-built-macro-lot-3-audio-20261127.md` § Correctifs nominaux (handoff 5bd6bb28)
-- Prior delivery superseded: `DELIV-2026-11-27-…-INTEGRATED-DICTATION-CORRECTIVE` (`9c2afa5e`)
-- Integrated exit: `DELIV-2026-11-27-…-INTEGRATED-EXIT` (`87ce2c51`)
-- ML3 audio opening: `DELIV-2026-11-27-…-ML3-AUDIO-AND-ML2-RESIDUAL`
-
-
-## 13. Anti-stub checklist
-
-| Check | Status |
-|---|---|
-
-| composer-dictation-admission.ts FULL in §6 | PASS |
-
-| composer-dictation-session key functions COMPLETE in §5 | PASS |
-
-| capability route FULL in §6 | PASS |
-
-| ml3-dictation-nominal-path.spec.ts FULL in §7 | PASS |
-
-| c01-oracle.json embedded §9 | PASS |
-
-| Screenshots path+size §10 | PASS |
-
-| delayedCommitTransport + finalize test quoted §4 | PASS |
-
-| 28 vitest PASS evidenced §8 | PASS |
-
-| Playwright 3/3 via delivery + artifacts §8 | PASS |
-
-| FinOps EFFECT_SUBSTITUTED excerpt §6 | PASS |
-
-| No empty 'TBD' verdict block §14 | PASS |
-
-
-**Anti-stub result:** `PASS` (11/11)
-
-
-## 14. Proposed verdict
-
-
-- **MACRO-LOTS 1–3 — INTEGRATED CONVERGENCE CONSTRUCTION COMPLETE**
-- **DICTATION NOMINAL PATH TECHNICALLY PROVEN** (substituted qualify C01–C03 + unit/pg 28)
-- **FUNCTIONAL RECETTE QUALIFICATION PENDING** (real mic, FR quality, latency, long dictation, Figma mobile)
-- **MORRIS EXIT ACCEPTANCE PROPOSED**
-
-**Status:** READY WITH RESERVES
-
-**Programme:** R5 IN PROGRESS / ML5 OPEN / LIVRAISON 1 NOT ACCEPTED GLOBALLY / R6 NOT STARTED / NO RELEASE / STABLE NOT AVAILABLE / NOT ADOPTED
-
-
-## 15. Instruction ChatGPT obligatoire (Morris review)
-
-
-Morris — review remote sur ce pack **sans exécution locale** sauf si tu demandes un re-run qualify.
-
-1. Confirmer que Correctif A (`commitsAwaitingAck`) ferme la race finalize/commit ack reproduite par `delayedCommitTransport` (§4–§5).
-2. Confirmer Correctif B : fixture fail-closed hors VITEST/`SFIA_DICTATION_SUBSTITUTED`+DEV ; capability aligne l'UI ; FinOps `EFFECT_SUBSTITUTED` (§6).
-3. Confirmer Correctif C : C01 ordre des trois phrases + édition clavier + envoi unique ; C02 cancel ; C03 auth + delayed finalize + `fixture-push` ignoré après cancel (§7, §9–§10).
-4. Valider frontières §11 : refuser toute extrapolation LIVE/RECETTE/STABLE.
-5. Rendre un avis binaire sur **MORRIS EXIT ACCEPTANCE PROPOSED** : ACCEPT / ACCEPT WITH RESERVES / REJECT — avec réserves testables si reserves.
-
-Ne pas réécrire le code dans la review ; pointer fichier+ligne si écart.
-
