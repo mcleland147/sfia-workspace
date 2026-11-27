@@ -3,7 +3,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date / version | 27 novembre 2026 — v0.15, GO Morris E4 et reliquats E2/E3 intégrés |
+| Date / version | 27 novembre 2026 — v0.16, revue de fin de construction E4 et préparation gate E5 |
 | Nature | Suivi opérationnel documentaire D1, non normatif, non mergé ; ne remplace ni Roadmap, ni registre de couverture ML5, ni Delivery History, ni contrats |
 | Mandat | GO explicite Morris du 27/11 pour créer ce document sur Git et le maintenir à chaque revue Cursor ; cinq ensembles et revues intermédiaires approuvés |
 | Autorités | Morris arbitre les réserves et gates ; ChatGPT tient ce suivi et revoit ; Cursor construit et fournit les preuves |
@@ -11,7 +11,7 @@
 | Git | main `997897fd7cf914771e7d08e8030dc7123fab7d25` ; branche documentaire candidate `docs/next-openai-studio-convergence-20261126`, base avant création `f6cfd5ac01f848f6708501e1a390f37243721ab9` |
 | DEV | Branche `sfia/next-ml5-integrated-delivery-20261123` publiée @ `5f2ecad185b9784bc3956477601fe6a722459467`, tree `bdc37515a4bd0d21cecb4274943dde2858b200a3` rapporté ; commit et contenu Git vérifiés, état local NON OBSERVÉ ; :3100 / PG :5433 rapportés |
 | RECETTE protégée | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` / BUILD `rpEczSp61evIZ7d6fnIWR` / PG :5434 schéma 027, :3200 ; MaintiPlan suspendu après T08 ; WEB et Admin OFF |
-| Gate courant | E1 sortie construction VALIDÉE MORRIS (§11) ; E2 architecture achevée, lecture terminale raccordée ; E3 PARTIEL, preuves navigateur ciblées (§21). GO Morris construction intégrée E4 + reliquats E2/E3 (§22), publication finale DEV sans CI autorisée sous mandat ponctuel. Gates de sortie E2/E3/E4 et reports recette non encore acquis ; E5 non engagé. Aucun GO LIVE, PR, merge, cutover, promotion ou adoption. |
+| Gate courant | E1 sortie construction VALIDÉE MORRIS (§11). E2/E3/E4 candidat intégré publié a3305a42 et revu (§23). Avis favorable à engagement E5 avec contrôles/corrections bornés des écarts confirmés avant promotion ; aucune clôture anticipée E2/E3/E4 ni réserve nouvelle acceptée. GO publication consommé ; aucun nouveau GO E5, push projet, LIVE, PR, merge, cutover ou adoption. |
 
 ## 1. Objectif et sources
 
@@ -34,9 +34,9 @@ Les états ci-dessous sont des états de suivi, non des statuts de maturité SEF
 | Ensemble | Périmètre et résultat | État au 27/11 | Dépendances / sortie |
 | --- | --- | --- | --- |
 | E1 Continuité cognitive et fonctionnelle | B.1–B.8 ; D3/D4/D5/D6, données/projections ; Journal et réutilisation | SORTIE CONSTRUCTION VALIDÉE MORRIS AVEC RÉSERVES | §10–11 ; reports recette acceptés, reliquats E2/E3/E5 suivis ; aucune clôture RECETTE |
-| E2 Garanties cognitives résiduelles | A.1–A.7, intégration multi-intentions, reprise, recherche hybride, OBS/FinOps | REVU — architecture achevée, lecture D4 terminale raccordée | §21 ; reliquat vérité des états en reprise exceptionnelle à intégrer au prochain mandat ; gate Morris |
-| E3 Conformité UX et panneau droit | D.1–D.6 ; projections et accès directs ; Figma | REVU — construction PARTIELLE, preuves navigateur ciblées | §21 ; accès multitypes, droits/versions, rail et qualification nominale à intégrer E4/E5 ; gate Morris |
-| E4 Audio et compositeur | C.1–C.5 | GO MORRIS — construction intégrée avec reliquats E2/E3 | §22 ; transport et robustesse DET, preuve navigateur sas/projet, LIVE gate distinct |
+| E2 Garanties cognitives résiduelles | A.1–A.7, intégration multi-intentions, reprise, recherche hybride, OBS/FinOps | REVU — architecture achevée, DET ciblé | §23 : reprise sans projection à vérifier/corriger en E5 ; gate Morris |
+| E3 Conformité UX et panneau droit | D.1–D.6 | REVU — construction avancée, accès/droits et preuves nominales partiels | §23 : E5 contrôle/correction bornés avant promotion ; gate Morris |
+| E4 Audio et compositeur | C.1–C.5 | REVU — IMPLEMENTED + DET ciblé | §23 : sas/handshake/usage E5, LIVE distinct ; gate Morris |
 | E5 Qualification intégrée et exit | Candidat unique, suites applicables, 25 parcours, 18 oracles, docs/pack, mandat LIVE borné | À FAIRE | E1–E4 revus ; aucun GO LIVE avant décision Morris |
 
 Séquence approuvée ; parallélisme uniquement après qualification explicite des interfaces/fichiers, intégrateur et tests communs. Revue ChatGPT après chaque ensemble avant de poursuivre le suivant dépendant. Pas de nouveau mandat général de rattrapage par défaut. Un blocage propriétaire partagé est instruit au plus tôt, pas repoussé mécaniquement.
@@ -47,9 +47,9 @@ Séquence approuvée ; parallélisme uniquement après qualification explicite d
 | --- | --- | --- | --- |
 | A.1 | E2 | Stamp effectif version, UNVERIFIED, token versionné strict ; bare qualified rejeté ; unit ciblé | ACQUIS CIBLÉ admission ; calibration réelle et choix naturel sous gate ; extraction signal appliqué et estimation à réconcilier si nécessaire |
 | A.2 | E2 | Qualification structurée et conduite uniforme, réécriture refs sujet inter-vagues et garde refs locales non résolues | ACQUIS DET CIBLÉ ; fraîcheur sémantique et continuation naturelle non prouvées, garde limitée aux refs D4 ; §19 |
-| A.3 | E2 | Option B publiée ; knowledgeEffects lookup/terminal/projections et SC2 PG read-only | ACQUIS DET CIBLÉ ; ownership partiel/exception et reconstruction JSON absent restant §21, à intégrer au prochain mandat, pas de réarchitecture |
+| A.3 | E2 | Option B publiée ; lecture terminale et ownership/exception améliorés | ACQUIS DET CIBLÉ ; lookup JSON absent ne reconstruit pas knowledgeEffects, §23 ; E5 contrôle intégré |
 | A.4 | E2 | PG hybrid fake-embed 2 PASS rapportés, fingerprint open_point aligné, audit structurel, omit/PREFERRED conservés | ACQUIS CIBLÉ PG ; droits, fraîcheur et contribution naturelle à recetter ; T08 réel et métriques disponibles à qualifier, pas d'optimisation hypothétique |
-| A.5 | E2 | CONTINUE→OPEN et C02 acquis ciblés ; lecture knowledgeEffects terminale raccordée | ACQUIS CIBLÉ ; récupération en état UNKNOWN/FAILED sans projection à réconcilier §21 ; reprise naturelle en recette |
+| A.5 | E2 | C02 et états terminaux raccordés ; réconciliation CAS/exception terminale | ACQUIS CIBLÉ ; reprise sans projection à vérifier/corriger en E5 ; naturel en recette |
 | A.6 | E2 | Cartographie OBS existante (tour, autorité, D4, documents, fournisseur, hybrid, FinOps) | INSPECTION : E3 consomme événements réels ; latences et corrélations lecture/version non démontrées exhaustivement, inconnues explicites, mesure T08 recette |
 | A.7 | E2 | Conflits détectés hors fenêtre et avant filtre, PG exact 110/0/316, période 7j et isolation autre Pilote | ACQUIS DET CIBLÉ ; conserver mécanisme, présenter conflit distinct du hors projet E3 ; coût facturé indisponible Admin OFF, pas de nouvelle reprise générale |
 | B.1 | E1 | Extraction sélective et chemin Pilote/Nora→D4 inspectés, tests ciblés antérieurs conservés | Construction revue ; R-REC-E1-01 : autonomie et provenance réelle des contributions, zéro mutation inutile |
@@ -60,17 +60,17 @@ Séquence approuvée ; parallélisme uniquement après qualification explicite d
 | B.6 | E1 | forecastSteps durable → D5, RETAIN supersède PROPOSED ; refus body forecast USER_MESSAGE, chemin direct préservé ; tests PG ciblés | Construction revue ; R-REC-E1-01 réorientation naturelle, finalité/liens D4/CKI et historique en situation |
 | B.7 | E1 | Outils D4 exposés, PREFERRED + omit marker inspectés et PG ciblés | Construction revue ; R-REC-E1-01 exploitation des sources/version et fraîcheur ; hybrid derivedUsed=false et mesure T08 → E2 |
 | B.8 | E1 | Compteurs sujets/décisions, identité documentaire, shortTitle ; PG/service et inspection | Construction revue ; R-REC-E1-02 DOM/4 surfaces, refresh et V1→V2 à recetter ; E3 présentation ; DEV HTTP500 |
-| C.1 | E4 | NoraSharedComposer créé, sas/projet | Mutualisation réelle des interactions (deux branches textarea), contexte distinct |
-| C.2 | E4 | Saisie auto-grow et brouillons rapportés | Clavier, taille, navigation, isolation, mobile, pas d'envoi involontaire |
-| C.3 | E4 | Routes prep dictée, guards | Transport réel et diagnostic timeout LIVE ; droits/identité/finalisation DET |
-| C.4 | E4 | listening-only unit | Onde signal réel, connexion/écoute/silence/arrêt/finalisation |
-| C.5 | E4 | Guards, PARTIAL | Permissions, erreurs, interruption, reprise, sessions successives, texte préservé, attribution usage |
+| C.1 | E4 | NoraSharedComposer : interactions clavier/IME/growth/admission partagées, chrome distinct | IMPLEMENTED ; preuves navigateur projet + harness ; sas à exercer E5 |
+| C.2 | E4 | Brouillons sas sessionStorage et projet isolés ; auto-grow plafonné | IMPLEMENTED ; navigation/resize/mobile et sas à qualifier E5 |
+| C.3 | E4 | Timeout explicite et fermeture transport, fixture readiness corrigée | DET ciblé ; handshake session.created/updated et erreur pré-ready à vérifier E5 ; MP06 LIVE ouvert |
+| C.4 | E4 | Onde après écoute, analyseur réel, capture dictée fixture | DET ciblé ; silence/parole humaine LIVE, terminal/reduced motion E5/recette |
+| C.5 | E4 | Partial/cancel/finalize et erreurs exercés unit/PW | DET ciblé ; sas, fermeture/late events et vérité usage E5 ; LIVE distinct |
 | D.1 | E3 | Navigateur : body 12.5px/20.625px, tableau wrap, titres 15/12px | ACQUIS CIBLÉ ; comparaisons court/moyen/long non exhaustives, qualification intégrée E5 |
 | D.2 | E3 | Animation SAS réelle : transform change entre deux sondes | ACQUIS CIBLÉ ; terminal/erreur/reduced motion et autres activités à couvrir dans E4/E5 |
-| D.3 | E3 | Restitution métier D4 ajoutée ; lecture/projection states | PARTIEL : fidélité cas ownership/exception, activité réelle et présentation FinOps non prouvées ; §21 |
-| D.4 | E3 | D4/Git viewer après succès, coordonnées et révision, 5 max, points Journal sujet | PARTIEL : 4 types non raccordés aux consultations/accès exacts, ref Git mutable, droits avant affichage, point exact/tri, nominal navigateur non prouvé ; §21 |
-| D.5 | E3 | Rail personnel/projet 246 px, popover paramètres capturé | ACQUIS CIBLÉ ; chevauchement pied/nav 1280×720 constaté, variantes F1 et clavier/brouillon à préserver E4/E5 ; §21 |
-| D.6 | E3 | 3 Playwright PASS rapportés, captures Figma/runtime publiées | PARTIEL : viewport non apparié, panneau vide vs nominal, F2 largeur seule, parcours transverses non démontrés ; §21 |
+| D.3 | E3 | Restitution métier D4 sans limite silencieuse, états exceptionnels améliorés | ACQUIS CIBLÉ ; activité/FinOps et états de reprise à vérifier E5 |
+| D.4 | E3 | Git commit immuable, focus attempt et point, nouveaux callbacks execution/result/bilan | PARTIEL : preuve exacte et droits avant exposition incomplets, capture vide ; §23, exit E5 avant promotion |
+| D.5 | E3 | Rail scroll + foot pin ; plus de chevauchement peint 1280×720 | ACQUIS CIBLÉ ; vérifier accès Résultats après scroll, F1 variantes et clavier E5 |
+| D.6 | E3 | Captures E4 intégrées, F1 projet 246, rail hit-test | PARTIEL : F2 global et nominal multitype non prouvés ; E5 |
 | Exit commun | E5 | 1451 PASS / 2 FAIL avant derniers correctifs, build PASS rapporté | Suites finales complètes, lint, tsc tests, intégration/navigateur, docs as-built, identité exacte du diff, pack et mandat LIVE |
 
 ## 4. Registre indépendant 17 MP
@@ -194,7 +194,7 @@ Réserves historiques ENV-01 cookies/PG localhost trust et identité org/projet 
 | 27/11 | 108044ef | Neuf reliquats repris, 51 PASS (19 PG) rapportés ; GO Morris qualification proportionnée et sécurisation finale ciblée |
 | 27/11 | 41087f1b | Deux risques confirmés et corrigés, 38 PASS dont 5 nouveaux ; recommandation ChatGPT sortie construction E1 sous gate, réserves non acceptées |
 
-Prochaine action : construction intégrée E4 + reliquats E2/E3 (§21–22), publication finale DEV sans CI sous GO Morris ; revue commune puis gate E5. Aucun GO LIVE, T09, RECETTE, PR/merge ou adoption implicite.
+Prochaine action recommandée : GO Morris E5 qualification intégrée + corrections des écarts §23 confirmés, sans nouveau cycle autonome E2/E3/E4 ; gate distinct de promotion RECETTE et reprise MaintiPlan.
 
 Trajectoire finale : E1→E2→E3→E4→E5 (revues intermédiaires) → arbitrage réserves et GO LIVE borné → qualification LIVE → GO candidat et cutover RECETTE distincts → rejeu ciblé 17 MP → reprise T09 jusqu'au seuil de réalisation → gate Livraison 1 → Livraison 2 sous mandat distinct.
 
@@ -532,3 +532,22 @@ Morris valide par « ok go » la proposition de §21.3 : E4 complet C.1–C.5, r
 - E2 : uniquement fidélité ownership/exception et lecture/reprise des états D4 absents/partiels (§21.1). Préserver le planificateur et les propriétaires. E3 : terminer les consultations/accès exacts multitypes, contrôle droits/référence immuable, point précis et récence, rail sans chevauchement, restitution/activité et présentation FinOps existante (§21.2), preuve navigateur nominale. Ne pas reporter de nouveau une fonctionnalité manquante en E5.
 - SEF-08 : interfaces stabilisées, fichiers exclusifs, intégrateur unique ; pas de concurrence sur page projet, tokens, projections, docs/tests partagés. Une validation intégrée ciblée DEV/E2E, un candidat Git final, un handoff Full selon méthode actuelle ; aucune modification de méthode. Retirer l'artefact temporaire suivi Git, sans réécriture historique et sans détruire la source locale du pack ; contrôle secrets et scope avant push. Aucun push intermédiaire nécessaire. Autorisation projet limitée à ce lot et branche dédiée, pas de CI/PR/merge.
 - Revue commune avec états E2/E3/E4 distincts. E5 reste une qualification globale, non engagé. Reports naturels et LIVE sous arbitrage ultérieur, aucun gate de sortie ou acceptation réserve implicite. R5 IN PROGRESS, ML5 OPEN, 17 MP OPEN RECETTE, Livraison 1 NOT ACCEPTED, T09 NOT SENT, NO RELEASE, NOT ADOPTED.
+
+
+## 23. Revue indépendante E4 + reliquats E2/E3 — 27/11/2026
+
+[Snapshot](https://github.com/mcleland147/sfia-workspace/tree/a3305a42b3fd0f24b2a16bca825fc14eb37e84e6) commit a3305a42b3fd0f24b2a16bca825fc14eb37e84e6, parent 5f2ecad1, tree 72405eddfdd10deea324a5c0dd01a073b30c5f85, 37 fichiers ; [handoff](https://github.com/mcleland147/sfia-workspace/blob/12244641cd379bf71854b3d174b17fa645f3d75e/sfia-review-handoff/latest-chatgpt-review.md) 12244641cd379bf71854b3d174b17fa645f3d75e / blob b2f3449347deb346f3c5ada640700ba55d7b938c, 1892 lignes vérifiés. Main 997897fd inchangé ; artefact tmp retiré du suivi (pas de réécriture historique). 35 unit (31 audio/composer+4 recent), 4 PG, 5 PW (3 nominal projet +1 harness audio+1 rail) PASS et qualify build NfeXL_KgIuqKGCdf0k4gh exit0 rapportés ; commandes abrégées, tsc global préexistants allégués, lint non fourni. Pas de réexécution indépendante. ENV, absence CI/PR, RECETTE préservée rapportées ; état local NON OBSERVÉ. GO publication consommé. Handoff contient diffs principaux, pas de claim exhaustivité §7.2 pour tests/docs non reproduits ; snapshot accessible.
+
+### 23.1 Acquis et limites E4
+
+NoraSharedComposer L30–125 : interactions et props textarea communes, chrome/règles prep/travail distincts. Prep sessionStorage et scope séparés construits. As-built actualisé. Tests qualify ml3-dictation-nominal-path C01–03 uniquement projet ; ml3-composer-dictation-integrated est harness-only, pas preuve sas nominal. Capture c01-during-dictation réellement visualisée : morph in-place, baseline et texte provisoire séparés ; fixture, pas preuve humaine. Session timeout distingué et transport fermé ; test silent ready et fixture ack. composer-dictation-session.ts L340–420 : readiness accepte session.created ou session.updated et après await passe open sans recontrôler état terminal ; L478–495 erreur fournisseur ferme transport mais ne rejette pas explicitement attente ready. Vérifier contrat protocolaire réel et cas erreur/cancel pendant attente dans E5, sans changer arbitrairement modèle/payload ni ouvrir LIVE. Pas de preuve de cause exacte MP06. E5 exercer sas et protections scope, cleanup, erreur/timeout/late events, usage audio et non-auto-send ; transcription FR, latence, micro réel sous GO LIVE distinct. Pas de nouveau moteur.
+
+### 23.2 Acquis et limites E2/E3
+
+E2 ownership/attempted/UNKNOWN améliorés, SC2 lecture terminale acquis. service.ts L5100–5185 reconcileKnowledgeEffectsFromDurableInfo dans TX/CAS miss reconstruit avec records en mémoire ; L550–600 lookup retourne encore fromJsonKnowledgeEffects uniquement ; helper L915+ ne connaît pas les intentIds du stash sans records. Ne pas revendiquer reconstruction de toutes intentions après perte de projection. Vérifier/corriger en E5 à partir des mécanismes existants ; UNKNOWN si corrélation propriétaire impossible, sans faux succès ou mutation de replay. Pas de réarchitecture.
+
+E3 page.tsx L3450–3550 commit Git préféré, focalisation attempt, point id raccordé. CursorRealizationSurface L493 et L718 callbacks bilan/result et execution ; aucun appel kind proof, identité attempt seule ne suffit pas pour preuve/version distincte. L453–464 filtre documents seulement et laisse passer si docIds.size===0 ; autres types toujours visibles sans revalidation. Vérifier contrôle avant exposition, distinction chargement/vide autorisé, accès exact version/objet et droit au clic. Captures runtime-panel-recents, runtime-travail-1280x720 et c01-during-dictation effectivement visualisées : panneau récents **vide** (contrairement à tableau compare « peuplé ») ; test capture ne consulte pas six objets. Rail sans chevauchement peint, nav scroll, résultats clipés (hit-test resultsCenterIsResults=false, navOverflowY=auto), vérifier accès après scroll. F2 global non revendiqué. Préserver acquis et traiter ces écarts fonctionnels bornés dans E5 avant promotion ; preuves nominales multitypes, droits, point précis, F1/F2 appariés, activité/FinOps, navigation/visionneuse et projections E1. Ne pas les masquer en reports naturels.
+
+### 23.3 Avis et gate
+
+Favorable à engager E5 comme qualification intégrée et correction des anomalies confirmées dans le même mandat (pas de cycle autonome de construction). E2/E3/E4 READY WITH RESERVES au sens candidat d'entrée qualification, pas de validation exhaustive de construction ni READY FOR REAL. Aucune clôture anticipée des écarts §23.1–2. Préparer matrice des 26 sous-ensembles et 17 MP, contrôles transverses, suite globale unit/PG/navigateur, tsc/lint/build avec vrais exits, correction/rerun proportionnés, dossier de candidat et plan LIVE borné actualisé, sans émission ni mutation RECETTE. Publication projet éventuelle sous nouveau GO explicite. Gate Morris avant E5, puis gate distinct de cutover/recette LIVE. R-REC-E1-01/02 déjà acceptées ; reports naturels E2/E4 à arbitrer. R5 IN PROGRESS, ML5 OPEN, 17 MP OPEN RECETTE, Livraison 1 NOT ACCEPTED, T09 NOT SENT, R6 NOT STARTED, NO RELEASE, NOT ADOPTED.
