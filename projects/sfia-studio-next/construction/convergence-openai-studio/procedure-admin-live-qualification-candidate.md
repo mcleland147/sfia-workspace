@@ -1,56 +1,98 @@
-# Procédure candidate — qualification Admin LIVE bornée
+# Procédure — qualification Admin LIVE bornée (Intervention 2)
 
 | Champ | Valeur |
 |---|---|
-| Statut | **CANDIDATE — NOT EXECUTED** |
-| Gates | G-ADMIN-SECRET puis G-ADMIN-LIVE — **Morris GO requis** |
-| Date | 2026-11-26 |
+| Statut | **GO CONDITIONNEL MORRIS — exécutable après préflight PASS** |
+| Gates | G-ADMIN-SECRET + G-ADMIN-LIVE (consommés dans ce cycle après préflight) |
+| Date | 2026-11-27 |
 
-## Critères de readiness (tous requis avant demande de clé)
+## Préflight (Cursor — sans secret)
 
-1. Transport LIVE fail-closed (GO + DEV + processus collecteur + registry)
-2. Destination `https://api.openai.com/v1` + `redirect:error` + body borné à la lecture
-3. Secret inaccessible au produit / Nora / navigateur / Git / CLI argv
-4. Permissions PG exercées (`sfia_admin_collector_login` write snapshots ; `sfia_finops_reader_login` SELECT only)
-5. Intégrité snapshots (partial ↛ complete ; older ↛ newer)
-6. Séparation TEST_SUBSTITUTED / LIVE (provenance durable ; TEST exclu des projections)
-7. Collecte + persistance intégrées
-8. Lecture FinOps cloisonnée
-9. Procédure de provisionnement (ci-dessous)
-10. Enveloppe LIVE précise
+1. Rôles `*_login` : NOLOGIN + PASSWORD NULL (026)
+2. Rôle ops `sfia_admin_collector_ops` créé, grants bornés
+3. Transport LIVE fail-closed + destination fixe + redirects refusés
+4. Enveloppe LIVE : Costs + Completions Usage ; fenêtre ≤24h terminée ; 1 project_id ; ≤3 pages ; deadline
+5. Collecteur refuse `DATABASE_URL` owner ; exige `SFIA_ADMIN_COLLECTOR_DATABASE_URL` ops
+6. FinOps disclosure fail-closed (ownership + projet configuré)
 
-## Enveloppe LIVE minimale proposée
+## Provisionnement opérateur (Morris — hors agent)
+
+### A. Mot de passe PostgreSQL ops (pas la clé OpenAI)
+
+```bash
+# Terminal.app — hors Cursor
+security add-generic-password -a sfia_admin_collector_ops \
+  -s sfia-next-dev-pg-collector -w   # génère / saisit un NOUVEAU mot de passe
+cd /Users/morris/Projects/sfia-wt-next-ml5-20261123/projects/sfia-studio-next/web
+STUDIO_LANE=DEV ./scripts/finops-admin-collector-db-provision.sh
+```
+
+Noter le `dsn_template` JSON (sans secret) et construire localement :
+`SFIA_ADMIN_COLLECTOR_DATABASE_URL=postgresql://sfia_admin_collector_ops:<NOUVEAU>@127.0.0.1:5433/sfia_next_dev`
+
+### B. Clé Admin OpenAI
+
+1. Créer la clé sur le portail OpenAI (hors chat).
+2. Stocker uniquement dans `~/.sfia/operator/admin-live-dev.env` (untracked) ou Keychain.
+3. **Ne jamais** coller la clé dans Cursor, chat, Git, argv, `.env.local` partagé.
+
+Fichier opérateur exemple (local only) :
+
+```bash
+export STUDIO_LANE=DEV
+export SFIA_ADMIN_COLLECTOR_PROCESS=1
+export SFIA_ADMIN_USAGE_LIVE=1
+export OPENAI_ADMIN_KEY='…'   # jamais transmis à Cursor
+export SFIA_ADMIN_COLLECTOR_DATABASE_URL='postgresql://sfia_admin_collector_ops:…@127.0.0.1:5433/sfia_next_dev'
+```
+
+### C. Collecte LIVE bornée
+
+Choisir une journée UTC **terminée** (Costs `1d`) compatible Studio.
+
+```bash
+source ~/.sfia/operator/admin-live-dev.env
+cd …/projects/sfia-studio-next/web
+./scripts/finops-admin-live-operator.sh \
+  --path /organization/costs \
+  --start-time <unix_start> \
+  --end-time <unix_end> \
+  --project-id <proj_DEV> \
+  --max-pages 3
+# optionnel second endpoint:
+./scripts/finops-admin-live-operator.sh \
+  --path /organization/usage/completions \
+  --start-time <unix_start> \
+  --end-time <unix_end> \
+  --project-id <proj_DEV> \
+  --max-pages 3
+```
+
+Cursor lit uniquement le JSON non sensible (status, collectionId, pages, limits).
+
+### D. Après campagne
+
+1. `unset OPENAI_ADMIN_KEY SFIA_ADMIN_USAGE_LIVE`
+2. Révoquer/désactiver la clé sur le portail
+3. Optionnel : `ALTER ROLE sfia_admin_collector_ops NOLOGIN` (opérateur)
+
+## Enveloppe maximale
 
 | Paramètre | Valeur |
 |---|---|
-| Organisation | celle autorisée DEV uniquement |
-| Projet OpenAI | un `project_id` DEV explicite (`--project-id`) |
-| Endpoints | GET `/organization/costs` et/ou un Usage path allowlisté |
-| Fenêtre | `start_time` + `end_time` UTC **courte et terminée** |
-| Granularité | `1d` (ou `1h` si mandat) |
-| Pages | max 20 (défaut 10) |
-| Retries | max 3 ; re-check GO avant chaque retry |
-| Données | volume borné ; pas de balayage org entier |
-
-## Provisionnement secret (Morris)
-
-1. Créer la clé Admin sur le portail OpenAI (hors chat).
-2. Stocker **uniquement** dans le secret store local de l’opérateur (Keychain / fichier env isolé non versionné, hors `.env.local` partagé).
-3. Exporter dans le **seul** processus collecteur :
-   - `SFIA_ADMIN_COLLECTOR_PROCESS=1`
-   - `STUDIO_LANE=DEV`
-   - `SFIA_ADMIN_USAGE_LIVE=1`
-   - `OPENAI_ADMIN_KEY` (jamais argv, jamais chat, jamais Git)
-4. Lancer `scripts/finops-admin-collect.mts` avec `--start-time` `--end-time` `--project-id`.
-5. Vérifier `collection_provenance=LIVE` en PG ; lecture produit FinOps.
-6. Révocation : retirer la variable d’env ; révoquer la clé sur le portail ; `SFIA_ADMIN_USAGE_LIVE` unset.
+| Org | DEV autorisée uniquement |
+| Projet | un `project_id` explicite |
+| Endpoints | `/organization/costs` et `/organization/usage/completions` |
+| Fenêtre | UTC terminée ≤ 24h |
+| Pages | ≤ 3 / endpoint |
+| Retries | ≤ 3 ; re-check GO |
+| group_by | `project_id` |
 
 ## STOP
 
-- Fuite de secret, effet hors enveloppe, 401/403 inattendus, contamination RECETTE, balayage org non filtré.
+401/403 inattendu · projet hors scope · balayage org · malformé · fuite secret · PARTIAL nécessitant nouveau mandat · contamination RECETTE
 
 ## Non-présomptions
 
-- Les coûts peuvent arriver en retard — prévoir rejeu idempotent.
-- Permissions compte ≠ documentation SDK.
-- Aucun appel LIVE dans le cycle de préparation.
+- Clé Admin ≠ read-only garantie OpenAI ; consommateur limité aux GET allowlistés.
+- Coûts peuvent arriver en retard — rejeu idempotent, pas d’invention.

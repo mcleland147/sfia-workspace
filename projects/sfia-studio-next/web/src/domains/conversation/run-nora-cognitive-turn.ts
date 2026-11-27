@@ -1515,7 +1515,18 @@ export async function runNoraCognitiveTurn(
           policyOverride: policy,
           cognitiveWorkId: work.id,
           segmentIndex: workSegmentOrdinal,
-          continuityStudio: buildStudioContinuityFromWork(work, policy),
+          continuityStudio: buildStudioContinuityFromWork(
+            work,
+            {
+              maxTokens: cognitiveEnvelopeLimits().maxTokens,
+              maxSegments: cognitiveEnvelopeLimits().maxSegments,
+              reserveForRestitution: 12_000,
+              // Business rights: conductor already claimed work for this pilot;
+              // fencing alone is insufficient — rightsOk requires explicit true.
+              rightsOk: Boolean(work.ownerToken) && Boolean(work.ownerPilotId),
+            },
+            { checkpointRevision: work.revision },
+          ),
           continuityChain: null,
           publicWebRegistry: {
             topics: webRegistry.topics,

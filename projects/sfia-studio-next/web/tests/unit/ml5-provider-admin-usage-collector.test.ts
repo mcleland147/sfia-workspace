@@ -260,6 +260,64 @@ describe("provider-admin-usage-collector (Admin/FinOps qualification)", () => {
     ).toThrow(/ENVELOPE_MAX_PAGES/);
   });
 
+  it("LIVE campaign envelope refuses org-wide and >24h windows", () => {
+    const end = String(Math.floor(Date.now() / 1000) - 60);
+    const start = String(Number(end) - 3600);
+    expect(() =>
+      assertAdminCollectionEnvelope({
+        path: "/organization/costs",
+        query: {
+          start_time: start,
+          end_time: end,
+          bucket_width: "1d",
+          group_by: "project_id",
+        },
+        maxPages: 3,
+        liveCampaign: true,
+      }),
+    ).toThrow(/ENVELOPE_LIVE_PROJECT_IDS_REQUIRED/);
+    expect(() =>
+      assertAdminCollectionEnvelope({
+        path: "/organization/costs",
+        query: {
+          start_time: String(Number(end) - 90_000),
+          end_time: end,
+          project_ids: "proj_dev",
+          bucket_width: "1d",
+        },
+        maxPages: 3,
+        liveCampaign: true,
+      }),
+    ).toThrow(/ENVELOPE_WINDOW_EXCEEDS_24H/);
+    expect(() =>
+      assertAdminCollectionEnvelope({
+        path: "/organization/usage/embeddings",
+        query: {
+          start_time: start,
+          end_time: end,
+          project_ids: "proj_dev",
+        },
+        maxPages: 3,
+        liveCampaign: true,
+      }),
+    ).toThrow(/ENVELOPE_LIVE_PATH_NOT_IN_CAMPAIGN/);
+    expect(() =>
+      assertAdminCollectionEnvelope({
+        path: "/organization/costs",
+        query: {
+          start_time: start,
+          end_time: end,
+          project_ids: "proj_dev",
+          bucket_width: "1d",
+          group_by: "project_id",
+          evil: "1",
+        },
+        maxPages: 3,
+        liveCampaign: true,
+      }),
+    ).toThrow(/ENVELOPE_PARAM_NOT_ALLOWED/);
+  });
+
   it("sums only attributed project; refuses null projectId", () => {
     const transport = markSubstitutedAdminTransport(async () => ({
       status: 200,

@@ -1228,4 +1228,4 @@ export const providerAdminUsageSnapshots = pgTable(
   ],
 );
 
-export const schemaRevision = "025_provider_admin_security_and_canon";
+export const schemaRevision = "026_admin_collector_ops_and_password_null";

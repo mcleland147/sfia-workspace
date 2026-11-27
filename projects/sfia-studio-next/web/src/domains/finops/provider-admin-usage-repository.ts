@@ -18,8 +18,25 @@ import type {
   AdminTransportMode,
   AdminUsageSnapshot,
 } from "./provider-admin-usage-collector";
+import {
+  getAdminCollectorSql,
+  isIsolatedAdminCollectorProcess,
+  proveAdminCollectorDbIdentity,
+} from "./admin-collector-db";
 
 export type CollectionProvenance = AdminTransportMode | "UNKNOWN";
+
+/**
+ * Writes: isolated collector MUST use dedicated ops DSN.
+ * Product/tests may use lane DATABASE_URL (owner) for substituted qualification.
+ */
+async function resolveAdminWriteSql() {
+  if (isIsolatedAdminCollectorProcess()) {
+    await proveAdminCollectorDbIdentity();
+    return getAdminCollectorSql();
+  }
+  return sql;
+}
 
 function metricToNumber(
   m: AdminUsageSnapshot["metrics"][keyof AdminUsageSnapshot["metrics"]],
@@ -56,30 +73,31 @@ export async function insertAdminCollectionRun(input: {
   limits?: string[];
   lastError?: string | null;
 }): Promise<void> {
-  await db
-    .insert(providerAdminCollectionRuns)
-    .values({
-      collectionId: input.collectionId,
-      startedAt: new Date(input.startedAtUtc),
-      finishedAt: null,
-      status: input.status,
-      pagesFetched: input.pagesFetched ?? 0,
-      path: input.path,
-      organizationScope: input.organizationScope,
-      limitsJson: input.limits ?? [],
-      lastError: input.lastError ?? null,
-      collectionProvenance: input.provenance,
-    })
-    .onConflictDoUpdate({
-      target: providerAdminCollectionRuns.collectionId,
-      set: {
-        status: input.status,
-        pagesFetched: input.pagesFetched ?? 0,
-        limitsJson: input.limits ?? [],
-        lastError: input.lastError ?? null,
-        collectionProvenance: input.provenance,
-      },
-    });
+  const write = await resolveAdminWriteSql();
+  const limitsJson = JSON.stringify(input.limits ?? []);
+  await write`
+    INSERT INTO provider_admin_collection_runs (
+      collection_id, started_at, finished_at, status, pages_fetched,
+      path, organization_scope, limits_json, last_error, collection_provenance
+    ) VALUES (
+      ${input.collectionId},
+      ${input.startedAtUtc}::timestamptz,
+      NULL,
+      ${input.status},
+      ${input.pagesFetched ?? 0},
+      ${input.path},
+      ${input.organizationScope},
+      ${limitsJson}::jsonb,
+      ${input.lastError ?? null},
+      ${input.provenance}
+    )
+    ON CONFLICT (collection_id) DO UPDATE SET
+      status = EXCLUDED.status,
+      pages_fetched = EXCLUDED.pages_fetched,
+      limits_json = EXCLUDED.limits_json,
+      last_error = EXCLUDED.last_error,
+      collection_provenance = EXCLUDED.collection_provenance
+  `;
 }
 
 export async function finishAdminCollectionRun(input: {
@@ -90,16 +108,17 @@ export async function finishAdminCollectionRun(input: {
   limits: string[];
   lastError: string | null;
 }): Promise<void> {
-  await db
-    .update(providerAdminCollectionRuns)
-    .set({
-      finishedAt: new Date(input.finishedAtUtc),
-      status: input.status,
-      pagesFetched: input.pagesFetched,
-      limitsJson: input.limits,
-      lastError: input.lastError,
-    })
-    .where(eq(providerAdminCollectionRuns.collectionId, input.collectionId));
+  const write = await resolveAdminWriteSql();
+  const limitsJson = JSON.stringify(input.limits);
+  await write`
+    UPDATE provider_admin_collection_runs SET
+      finished_at = ${input.finishedAtUtc}::timestamptz,
+      status = ${input.status},
+      pages_fetched = ${input.pagesFetched},
+      limits_json = ${limitsJson}::jsonb,
+      last_error = ${input.lastError}
+    WHERE collection_id = ${input.collectionId}
+  `;
 }
 
 /**
@@ -113,7 +132,8 @@ export async function upsertAdminSnapshotsPg(
   provenance: CollectionProvenance,
 ): Promise<number> {
   let written = 0;
-  await sql.begin(async (tx) => {
+  const write = await resolveAdminWriteSql();
+  await write.begin(async (tx) => {
     for (const s of snapshots) {
       const id = randomUUID();
       const amount =

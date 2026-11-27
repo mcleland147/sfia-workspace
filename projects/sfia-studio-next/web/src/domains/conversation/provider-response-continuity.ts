@@ -155,6 +155,7 @@ export function planProviderContinuity(input: {
 
 /**
  * Build Studio continuity snapshot from the real D3 work owner — not placeholders.
+ * Lease/ownerToken alone never prove business rights; callers must pass rightsOk.
  */
 export function buildStudioContinuityFromWork(
   work: {
@@ -173,7 +174,17 @@ export function buildStudioContinuityFromWork(
       segmentCalls?: number;
     };
   },
-  _policy?: unknown,
+  policy?: {
+    maxTokens?: number | null;
+    maxSegments?: number | null;
+    reserveForRestitution?: number | null;
+    /** Explicit business rights — required for rightsOk=true. */
+    rightsOk?: boolean;
+  } | null,
+  opts?: {
+    /** Real checkpoint revision id when loaded from D3 SoT. */
+    checkpointRevision?: number | null;
+  },
 ): StudioContinuitySnapshot {
   const conclusions = work.state.conclusions ?? [];
   const acquisFingerprint =
@@ -194,18 +205,39 @@ export function buildStudioContinuityFromWork(
     .slice(0, 64);
   const tokensIn = Math.max(0, Number(work.resources.inputTokens ?? 0) || 0);
   const tokensOut = Math.max(0, Number(work.resources.outputTokens ?? 0) || 0);
+  const tokensConsumed = tokensIn + tokensOut;
   const leaseOk =
     work.leaseUntil == null || work.leaseUntil.getTime() > Date.now();
-  const rightsOk = Boolean(work.ownerToken) && leaseOk;
+  const fencingOk = Boolean(work.ownerToken) && leaseOk;
+  // Business rights must be supplied by the D3 owner path — lease ≠ habilitation.
+  const rightsOk =
+    fencingOk && policy?.rightsOk === true;
+  const tokensBudget =
+    policy?.maxTokens != null && Number.isFinite(policy.maxTokens)
+      ? Math.max(0, Number(policy.maxTokens))
+      : null;
+  const reserve =
+    policy?.reserveForRestitution != null &&
+    Number.isFinite(policy.reserveForRestitution)
+      ? Math.max(0, Number(policy.reserveForRestitution))
+      : 12_000;
+  const restitutionsRemaining =
+    tokensBudget != null
+      ? Math.max(0, tokensBudget - tokensConsumed - reserve)
+      : null;
+  const ckptRev =
+    opts?.checkpointRevision != null
+      ? opts.checkpointRevision
+      : work.revision;
   return {
     workId: work.id,
     acquisFingerprint,
     sourceVersions,
-    checkpointId: `ckpt:${work.id}:r${work.revision}`,
+    checkpointId: `ckpt:${work.id}:r${ckptRev}`,
     budgets: {
-      tokensConsumed: tokensIn + tokensOut,
-      tokensBudget: null,
-      restitutionsRemaining: null,
+      tokensConsumed,
+      tokensBudget,
+      restitutionsRemaining,
     },
     rightsOk,
   };

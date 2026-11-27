@@ -281,6 +281,7 @@ export async function loadFinOpsSummary(
   });
 
   const providerReconciliation = await buildProviderReconciliationDto(
+    pilotId,
     estimatedCostUsd,
     input,
   );
@@ -307,6 +308,7 @@ export async function loadFinOpsSummary(
 }
 
 async function buildProviderReconciliationDto(
+  pilotId: string,
   estimatedCostUsd: MeasuredValue<number>,
   filter: FinOpsFilterInput,
 ): Promise<FinOpsProviderReconciliationDto> {
@@ -470,10 +472,30 @@ async function buildProviderReconciliationDto(
     };
   }
 
-  // Pilot authorization: owner of FinOps summary path is already authenticated;
-  // revoke via SFIA_FINOPS_PROVIDER_DISCLOSE=0 for tests / emergency.
+  // Pilot authorization for provider costs — fail-closed.
+  // SFIA_FINOPS_PROVIDER_DISCLOSE=0 always denies (emergency).
+  // Default is NOT open: disclosure requires (a) explicit disclose≠0,
+  // (b) a Studio project filter the Pilot owns, (c) configured OpenAI project.
+  // A global env flag alone never proves individual financial habilitation.
+  const emergencyDeny =
+    (process.env.SFIA_FINOPS_PROVIDER_DISCLOSE ?? "").trim() === "0";
+  const studioProjectFilter = filter.projectId?.trim() || null;
+  let pilotOwnsScopedProject = false;
+  if (studioProjectFilter) {
+    try {
+      await assertProjectOwned(pilotId, studioProjectFilter);
+      pilotOwnsScopedProject = true;
+    } catch {
+      pilotOwnsScopedProject = false;
+      limits.push("PILOT_NOT_OWNER_OF_FILTERED_PROJECT");
+    }
+  } else {
+    limits.push("PROVIDER_COST_REQUIRES_STUDIO_PROJECT_FILTER");
+  }
   const pilotAuthorized =
-    (process.env.SFIA_FINOPS_PROVIDER_DISCLOSE ?? "1").trim() !== "0";
+    !emergencyDeny &&
+    pilotOwnsScopedProject &&
+    Boolean(configuredProject);
 
   const evaluated = evaluateFinOpsReconciliation({
     studioEstimatedUsd: studio,

@@ -119,8 +119,28 @@ export function createAdminHttpTransport(
     }
 
     const url = new URL(`${base}${input.path}`);
+    // Array-shaped Admin params: project_ids / group_by as repeated keys
+    // (OpenAI Usage/Costs contract), not a single CSV blob.
+    const ARRAY_KEYS = new Set([
+      "project_ids",
+      "group_by",
+      "api_key_ids",
+      "models",
+      "line_items",
+      "users",
+    ]);
     for (const [k, v] of Object.entries(input.query)) {
-      if (v != null && v !== "") url.searchParams.set(k, v);
+      if (v == null || v === "") continue;
+      if (ARRAY_KEYS.has(k)) {
+        for (const part of String(v)
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean)) {
+          url.searchParams.append(k, part);
+        }
+      } else {
+        url.searchParams.set(k, v);
+      }
     }
     if (url.origin !== "https://api.openai.com") {
       throw new Error("ADMIN_DESTINATION_REFUSED");

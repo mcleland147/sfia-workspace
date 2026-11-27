@@ -152,7 +152,10 @@ export type AdminCollectorConfig = {
   transport: AdminHttpTransport;
 };
 
-/** Paths confirmed in openai@7.50 SDK admin.organization.usage.* */
+/**
+ * Full SDK surface (parse/tests). LIVE campaign Intervention 2 is further
+ * restricted to ADMIN_LIVE_CAMPAIGN_PATHS only.
+ */
 export const ADMIN_USAGE_ALLOWED_PATHS = Object.freeze([
   "/organization/usage/completions",
   "/organization/usage/embeddings",
@@ -167,6 +170,15 @@ export const ADMIN_USAGE_ALLOWED_PATHS = Object.freeze([
   "/organization/usage/decisions",
   "/organization/costs",
 ] as const);
+
+/** Intervention 2 LIVE envelope — Costs + Completions Usage only. */
+export const ADMIN_LIVE_CAMPAIGN_PATHS = Object.freeze([
+  "/organization/costs",
+  "/organization/usage/completions",
+] as const);
+
+/** Max finished UTC window for LIVE Admin collection (seconds). */
+export const ADMIN_LIVE_MAX_WINDOW_SECONDS = 24 * 60 * 60;
 
 const ALLOWED = new Set<string>(ADMIN_USAGE_ALLOWED_PATHS);
 
@@ -495,12 +507,80 @@ function assertTransportGate(config: AdminCollectorConfig): void {
 }
 
 /** Envelope bounds for Admin collection — refuse unbounded org sweeps. */
+const LIVE_CAMPAIGN = new Set<string>(ADMIN_LIVE_CAMPAIGN_PATHS);
+
+/** Params allowed on the wire — anything else is refused at emission. */
+const ENVELOPE_ALLOWED_QUERY_KEYS = new Set([
+  "start_time",
+  "end_time",
+  "bucket_width",
+  "project_ids",
+  "group_by",
+  "page",
+  "limit",
+  "require_end_time", // internal envelope flag — stripped before emission
+]);
+
+/**
+ * Build LIVE/TEST query with endpoint-specific rules.
+ * Arrays are kept as comma-joined for Record transport; HTTP layer expands them.
+ */
+export function buildAdminCollectionQuery(input: {
+  path: string;
+  startTimeUnix: string;
+  endTimeUnix?: string | null;
+  projectId: string | null;
+  bucketWidth?: string | null;
+  groupBy?: string | null;
+  live: boolean;
+  page?: string | null;
+  limit?: string | null;
+}): Record<string, string> {
+  const q: Record<string, string> = {
+    start_time: input.startTimeUnix,
+  };
+  if (input.endTimeUnix) q.end_time = input.endTimeUnix;
+  if (input.page) q.page = input.page;
+  if (input.limit) q.limit = input.limit;
+
+  if (input.path === "/organization/costs") {
+    // Costs: only 1d supported.
+    q.bucket_width = "1d";
+    q.group_by = input.groupBy?.trim() || "project_id";
+  } else if (input.path.startsWith("/organization/usage/")) {
+    const width = (input.bucketWidth ?? "1d").trim();
+    if (width !== "1m" && width !== "1h" && width !== "1d") {
+      throw new Error("ENVELOPE_GRANULARITY_INVALID");
+    }
+    q.bucket_width = width;
+    q.group_by = input.groupBy?.trim() || "project_id";
+  }
+
+  if (input.projectId) {
+    q.project_ids = input.projectId.trim();
+  }
+  if (input.live) {
+    q.require_end_time = "1";
+  }
+  return q;
+}
+
 export function assertAdminCollectionEnvelope(input: {
   path: string;
   query: Record<string, string>;
   maxPages: number;
+  /** When true, path must be in LIVE campaign allowlist and project_ids required. */
+  liveCampaign?: boolean;
 }): void {
   assertAllowedPath(input.path);
+  if (input.liveCampaign && !LIVE_CAMPAIGN.has(input.path)) {
+    throw new Error(`ENVELOPE_LIVE_PATH_NOT_IN_CAMPAIGN:${input.path}`);
+  }
+  for (const key of Object.keys(input.query)) {
+    if (!ENVELOPE_ALLOWED_QUERY_KEYS.has(key)) {
+      throw new Error(`ENVELOPE_PARAM_NOT_ALLOWED:${key}`);
+    }
+  }
   const start = input.query.start_time;
   const end = input.query.end_time;
   if (!start || !/^\d+$/.test(start)) {
@@ -512,24 +592,66 @@ export function assertAdminCollectionEnvelope(input: {
   if (end && Number(end) <= Number(start)) {
     throw new Error("ENVELOPE_END_BEFORE_START");
   }
-  // Mandate: finished short window — end_time required for LIVE-shaped envelopes.
-  if ((input.query.require_end_time ?? "") === "1" && !end) {
-    throw new Error("ENVELOPE_END_TIME_REQUIRED");
+  if ((input.query.require_end_time ?? "") === "1" || input.liveCampaign) {
+    if (!end) throw new Error("ENVELOPE_END_TIME_REQUIRED");
+    const windowSec = Number(end) - Number(start);
+    if (windowSec > ADMIN_LIVE_MAX_WINDOW_SECONDS) {
+      throw new Error("ENVELOPE_WINDOW_EXCEEDS_24H");
+    }
+    // Finished window: end must not be in the future beyond a small skew.
+    const nowSec = Math.floor(Date.now() / 1000);
+    if (Number(end) > nowSec + 60) {
+      throw new Error("ENVELOPE_END_TIME_NOT_FINISHED");
+    }
   }
   const width = input.query.bucket_width;
-  if (width != null && width !== "" && width !== "1m" && width !== "1h" && width !== "1d") {
+  if (input.path === "/organization/costs") {
+    if (width != null && width !== "" && width !== "1d") {
+      throw new Error("ENVELOPE_COSTS_BUCKET_WIDTH_MUST_BE_1D");
+    }
+  } else if (
+    width != null &&
+    width !== "" &&
+    width !== "1m" &&
+    width !== "1h" &&
+    width !== "1d"
+  ) {
     throw new Error("ENVELOPE_GRANULARITY_INVALID");
+  }
+  if (input.liveCampaign && (input.maxPages < 1 || input.maxPages > 3)) {
+    throw new Error("ENVELOPE_LIVE_MAX_PAGES_EXCEEDED");
   }
   if (input.maxPages < 1 || input.maxPages > 20) {
     throw new Error("ENVELOPE_MAX_PAGES_OUT_OF_BOUNDS");
   }
-  // project_ids / group_by must be explicit strings when present (no open JSON).
+  if (input.liveCampaign) {
+    const pid = (input.query.project_ids ?? "").trim();
+    if (!pid || pid.includes("*") || pid.toLowerCase() === "all") {
+      throw new Error("ENVELOPE_LIVE_PROJECT_IDS_REQUIRED");
+    }
+    if (pid.includes(",")) {
+      throw new Error("ENVELOPE_LIVE_SINGLE_PROJECT_ONLY");
+    }
+  }
   for (const key of ["project_ids", "group_by", "api_key_ids", "models"]) {
     const v = input.query[key];
     if (v != null && v !== "" && typeof v !== "string") {
       throw new Error(`ENVELOPE_PARAM_INVALID:${key}`);
     }
   }
+}
+
+/** Strip internal envelope flags before the wire. */
+export function scrubAdminQueryForEmission(
+  query: Record<string, string>,
+): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const [k, v] of Object.entries(query)) {
+    if (k === "require_end_time") continue;
+    if (v == null || v === "") continue;
+    out[k] = v;
+  }
+  return out;
 }
 
 export async function collectAdminUsagePage(input: {
@@ -554,7 +676,7 @@ export async function collectAdminUsagePage(input: {
   const res = await transport({
     method: "GET",
     path: input.path,
-    query: input.query,
+    query: scrubAdminQueryForEmission(input.query),
     headers: {
       Authorization: bearer,
       "Content-Type": "application/json",
@@ -626,7 +748,11 @@ export async function runAdminCollection(input: {
     return r;
   }
 
-  const maxPages = Math.max(1, Math.min(20, input.maxPages ?? 10));
+  const liveCampaign = input.config.mode === "LIVE";
+  const maxPages = liveCampaign
+    ? Math.max(1, Math.min(3, input.maxPages ?? 3))
+    : Math.max(1, Math.min(20, input.maxPages ?? 10));
+  const deadlineMs = Date.now() + (liveCampaign ? 60_000 : 120_000);
   const all: AdminUsageSnapshot[] = [];
   let page: string | null = null;
   let pagesFetched = 0;
@@ -643,11 +769,12 @@ export async function runAdminCollection(input: {
       path: input.path,
       query: {
         ...input.query,
-        ...(input.requireEndTime || input.config.mode === "LIVE"
+        ...(input.requireEndTime || liveCampaign
           ? { require_end_time: "1" }
           : {}),
       },
       maxPages,
+      liveCampaign,
     });
     if (persist) {
       await persist.insertAdminCollectionRun({
@@ -660,6 +787,11 @@ export async function runAdminCollection(input: {
       });
     }
     for (let i = 0; i < maxPages; i++) {
+      if (Date.now() > deadlineMs) {
+        limits.push("ENVELOPE_DEADLINE_EXCEEDED");
+        partial = true;
+        break;
+      }
       const query = { ...input.query };
       if (page) query.page = page;
       const result = await collectAdminUsagePage({
