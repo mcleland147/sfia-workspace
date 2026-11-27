@@ -1,5 +1,7 @@
 # Convergence OpenAI–Studio Next — Cadrage
 
+> **Suivi 27/11/2026 — macro-lot 1 :** Morris accepte le socle DEV avec les réserves explicites et autorise la préparation du macro-lot 2. Voir le [bilan de clôture et la décision](cloture-macro-lot-1.md), qui distingue construction, preuve et régularisation du Handoff encore due. Le cadrage initial ci-dessous est conservé comme référence historique ; aucune promotion ou adoption.
+
 | Champ | Valeur |
 |---|---|
 | Version / date | v0.1 — 26 novembre 2026 |
