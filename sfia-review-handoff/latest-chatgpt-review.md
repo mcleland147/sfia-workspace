@@ -1,12 +1,13 @@
 # SFIA REVIEW PACK — FULL
-# MACRO-LOT 2 — ARCHITECTURE SELECTION + INTEGRATED DELIVERY — REGULARIZATION
+# MACRO-LOT 2 — PRODUCT-WIDE INTEGRATION AND COMPLETION
 
-- **Generated (UTC):** 2026-11-27T05:10:52Z
-- **Objective:** Regularize FULL handoff content for Morris exit review (no new provider emission, no migration, no project push).
-- **Prior incomplete handoff:** `bc0b3aea` (synthesis-only) — superseded by this pack.
-- **Campaign:** `ml2-i2-docintel-20261127` (cumulative, not renewed)
-- **Verdict working:** `ML2_INTEGRATED_DELIVERY_QUALIFIED — EXIT_REVIEW_PENDING_COMPLETE_HANDOFF`
-- **Fake/Real:** REAL for LIVE campaign phases + Nora adapter E2E; UNIT for derived-index lifecycle; product Chantiers360/RoomBooking NOT re-run.
+- **Generated (UTC):** 2026-11-27T05:25:04Z
+- **Objective:** Finalize macro-lot 2 as a transverse Studio capability under common contracts (no new LIVE emission, no migration apply, no project push).
+- **Prior handoffs capitalized:** `64977d30` (I1) · `8e1d82dc` (ML1) · `dfd1114f` / blob `587a8754` (FULL regularization) — superseded for content by this pack.
+- **Campaign:** `ml2-i2-docintel-20261127` (cumulative, **not renewed**; remainder presented for Morris GO)
+- **Local delivery commit:** `8b75249a` (product-wide wire)
+- **Verdict target:** `MACRO-LOT 2 — PRODUCT-WIDE INTEGRATION QUALIFIED — MORRIS EXIT ACCEPTANCE PROPOSED`
+- **Fake/Real:** REAL LIVE phases preserved; UNIT product wiring + index lifecycle; SUBSTITUTED for full browser Studio parcours (no new LIVE); Nora adapter E2E prior (bounded).
 
 ---
 
@@ -15,14 +16,18 @@
 | Field | Value |
 |---|---|
 | Project branch | `sfia/next-ml5-integrated-delivery-20261123` |
-| HEAD (current / final local committed) | `56572cf8a9d6fc25e2be27a0dc31775da763783a` |
+| HEAD (final local committed) | `8b75249aa1e2bfc6bc30906e4fbda38d749ca100` |
 | HEAD initial cycle baseline | `e784232b0745bc7f8be87947a6f92225a6df85c1` (`e784232b`) |
 | origin/main | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
 | merge-base(HEAD, origin/main) | `997897fd7cf914771e7d08e8030dc7123fab7d25` |
-| Tree `projects/sfia-studio-next/web` @ HEAD | `89b27b4e9b7ba1722f7be6b16dc11a93f4c2abb0` |
-| Worktree | **DIRTY** — delivery modules + docs uncommitted (see inventory) |
-| Commits since e784232b | 3 (`70291410`, `49333f09`, `56572cf8`) |
-| Project push this regularization | **NONE** |
+| Tree `projects/sfia-studio-next/web` @ HEAD | `291fc12ece1c444f184e9785962f463c3e7a32e6` |
+| Commits since e784232b | 4 |
+| Worktree | DIRTY — `.sfia-derived/` runtime + `.tmp-sfia-review/` only (not committed) |
+| Project push this delivery | **NONE** |
+| Delivery digest (sha256 trunc modules) | `c3de102139b459f0` |
+| DEV PID :3100 | `35473` (observed) |
+| Schema | migration **026** (027 candidate only, not applied) |
+| Lane | DEV |
 
 ### Runtime identity DEV (ENV-01)
 
@@ -36,6 +41,7 @@
 | Admin key FP | `f27d814e9c682020` — **forbidden / unused** |
 | WEB | `SFIA_WEB_SEARCH_LIVE=0` · `SFIA_WEB_SEARCH_ENABLED=0` |
 | D3 | V1 KEEP · native continuity OFF · Responses `store=false` |
+| Feature flags ML2 | `SFIA_DERIVED_EMBEDDING_SEARCH` / `SFIA_BOUNDED_JUDGMENT` / `SFIA_DOCUMENT_VISION_PUNCTUAL` — **OFF by default** |
 
 ### Git Review Index
 
@@ -43,21 +49,20 @@
 Git Review Index
 - base branch : origin/main (997897fd7cf9)
 - HEAD avant (baseline cycle) : e784232b0745
-- HEAD après (committed) : 56572cf8a9d6
-- fichiers modifiés (committed e784..HEAD) : see name-status below
-- fichiers créés (committed) : live manifests, ml2 scripts seed/preflight/artefacts, corpora updates
-- fichiers créés (UNCOMMITTED worktree) : derived-embedding-index, hybrid-knowledge-search, bounded-judgment, document-vision-punctual, ml2-i2-* scripts, tests, architecture lock, as-built, selection checkpoint
-- commits créés since baseline : 3
-- tests / validations : vitest ml2-derived-embedding-index (4) + frontier (27); LIVE campaign phases; integrated qualify; FinOps reconcile inserts
+- HEAD après (committed) : 8b75249aa1e2
+- fichiers créés/modifiés : see name-status e784..HEAD (includes product wire commit 8b75249a)
+- commits créés since baseline : see log
+- tests : vitest frontier 27 + derived-index 4 + product-wiring 7 = 38
 - review pack : full
 - Fake/Real applicable : oui
-- niveau de preuve déclaré : BEHAVIOR LIVE (campaign) + UNIT (index lifecycle) + ADAPTER Nora E2E (bounded; see Nora honesty)
-- décisions Morris requises : accept ML2 with reserves; flag enablement; migration 027 optional; ML3 separate GO
+- niveau de preuve : BEHAVIOR LIVE (campaign preserved) + UNIT (wiring/index) + ADAPTER Nora E2E prior; browser parcours SUBSTITUTED pending remainder GO
+- décisions Morris : exit acceptance; flag enablement; migration 027 GO; remainder LIVE GO; ML3 separate
 ```
 
 ### Commits e784232b..HEAD
 
 ```text
+8b75249a feat(ml2): product-wide wire hybrid search, Decisions, Vision; protect LIVE campaign
 56572cf8 docs(ml2): pin final LIVE manifesto Git Truth refs
 49333f09 docs(ml2): finalize LIVE campaign manifesto and seed DEV journal baseline
 70291410 feat(ml2): frontier family envelopes, corrected corpora, LIVE manifesto preflight
@@ -67,65 +72,128 @@ Git Review Index
 ### Diff stat committed
 
 ```text
-.../cloture-macro-lot-1.md                         |  11 +-
- .../ml2-qualification/corpus-decisions-labels.json |  71 ++++-
- .../corpus-pdf-vision-oracle.json                  |  36 ++-
- .../ml2-qualification/corpus-retrieval-oracle.json | 105 ++++++-
- .../live-campaign-manifest-candidate.md            | 103 +++++++
- .../live-campaign-manifest-final.md                | 186 ++++++++++++
+.../as-built-macro-lot-2-20261127.md               |  52 ++
+ .../cloture-macro-lot-1.md                         |  11 +-
+ ...ion-specialisee-et-intelligence-documentaire.md |  15 +-
+ .../contrat-fonctionnel.md                         |   2 +
+ .../convergence-openai-studio/contrat-technique.md |   6 +-
+ .../architecture-selection-locked-20261127.md      |  86 ++
+ .../ml2-qualification/corpus-decisions-labels.json |  71 +-
+ .../corpus-pdf-vision-oracle.json                  |  36 +-
+ .../ml2-qualification/corpus-retrieval-oracle.json | 105 ++-
+ .../live-campaign-manifest-candidate.md            | 103 +++
+ .../live-campaign-manifest-final.md                | 186 ++++
+ .../live-campaign-remainder-20261127.md            |  32 +
+ .../ml2-qualification/migration-027-candidate.md   |  39 +
+ .../product-consumer-cartography-20261127.md       |  32 +
  .../ml2-qualification/protocole-qualification.md   |   5 +-
- .../ml2-frontier-preflight-concurrency-restart.mts | 304 ++++++++++++++++++
- .../ml2-generate-synthetic-document-artefacts.py   | 338 +++++++++++++++++++++
- .../ml2-seed-synthetic-journal-baseline.mts        | 276 +++++++++++++++++
- .../scripts/ml2-verify-synthetic-pdf-extract.mts   |  48 +++
- .../conversation/provider-emission-frontier.ts     | 243 +++++++++++++--
- 12 files changed, 1654 insertions(+), 72 deletions(-)
+ .../selection-checkpoint-ml2-i2-20261127.md        |  82 ++
+ .../construction/delivery-history.md               |  12 +
+ ...5-registre-couverture-et-revue-developpement.md |   2 +-
+ .../ml2-frontier-preflight-concurrency-restart.mts | 304 +++++++
+ .../ml2-generate-synthetic-document-artefacts.py   | 338 +++++++
+ .../web/scripts/ml2-i2-bounded-live-campaign.mts   | 973 +++++++++++++++++++++
+ .../web/scripts/ml2-i2-finops-reconcile.mts        |  76 ++
+ .../scripts/ml2-i2-integrated-delivery-qualify.mts | 581 ++++++++++++
+ .../ml2-seed-synthetic-journal-baseline.mts        | 276 ++++++
+ .../scripts/ml2-verify-synthetic-pdf-extract.mts   |  48 +
+ .../projects/[projectId]/journal/search/route.ts   |  14 +
+ .../candidates/027_derived_embedding_chunks.sql    |  29 +
+ .../src/domains/conversation/bounded-judgment.ts   | 311 +++++++
+ .../web/src/domains/conversation/d4-read-tools.ts  |  89 ++
+ .../web/src/domains/conversation/git-read-tools.ts |  53 +-
+ .../conversation/provider-emission-frontier.ts     | 350 ++++++--
+ .../domains/documents/document-vision-punctual.ts  | 126 +++
+ .../domains/knowledge/derived-embedding-index.ts   | 244 ++++++
+ .../domains/knowledge/derived-embedding-service.ts | 272 ++++++
+ .../domains/knowledge/hybrid-knowledge-search.ts   | 118 +++
+ .../web/src/domains/knowledge/journal.ts           |  51 +-
+ .../web/src/domains/knowledge/service.ts           |  13 +
+ .../domains/proofs/d8-cognitive-criterion-eval.ts  |  75 ++
+ .../tests/unit/ml2-derived-embedding-index.test.ts | 169 ++++
+ .../web/tests/unit/ml2-product-wiring.test.ts      |  77 ++
+ 40 files changed, 5344 insertions(+), 120 deletions(-)
 ```
 
 
 ### Diff name-status committed
 
 ```text
+A	projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-2-20261127.md
 M	projects/sfia-studio-next/construction/convergence-openai-studio/cloture-macro-lot-1.md
+M	projects/sfia-studio-next/construction/convergence-openai-studio/cognition-specialisee-et-intelligence-documentaire.md
+M	projects/sfia-studio-next/construction/convergence-openai-studio/contrat-fonctionnel.md
+M	projects/sfia-studio-next/construction/convergence-openai-studio/contrat-technique.md
+A	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/architecture-selection-locked-20261127.md
 M	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/corpus-decisions-labels.json
 M	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/corpus-pdf-vision-oracle.json
 M	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/corpus-retrieval-oracle.json
 A	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/live-campaign-manifest-candidate.md
 A	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/live-campaign-manifest-final.md
+A	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/live-campaign-remainder-20261127.md
+A	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/migration-027-candidate.md
+A	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/product-consumer-cartography-20261127.md
 M	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/protocole-qualification.md
+A	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/selection-checkpoint-ml2-i2-20261127.md
+M	projects/sfia-studio-next/construction/delivery-history.md
+M	projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
 A	projects/sfia-studio-next/web/scripts/ml2-frontier-preflight-concurrency-restart.mts
 A	projects/sfia-studio-next/web/scripts/ml2-generate-synthetic-document-artefacts.py
+A	projects/sfia-studio-next/web/scripts/ml2-i2-bounded-live-campaign.mts
+A	projects/sfia-studio-next/web/scripts/ml2-i2-finops-reconcile.mts
+A	projects/sfia-studio-next/web/scripts/ml2-i2-integrated-delivery-qualify.mts
 A	projects/sfia-studio-next/web/scripts/ml2-seed-synthetic-journal-baseline.mts
 A	projects/sfia-studio-next/web/scripts/ml2-verify-synthetic-pdf-extract.mts
+M	projects/sfia-studio-next/web/src/app/api/projects/[projectId]/journal/search/route.ts
+A	projects/sfia-studio-next/web/src/db/migrations/candidates/027_derived_embedding_chunks.sql
+A	projects/sfia-studio-next/web/src/domains/conversation/bounded-judgment.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/d4-read-tools.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/git-read-tools.ts
 M	projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts
+A	projects/sfia-studio-next/web/src/domains/documents/document-vision-punctual.ts
+A	projects/sfia-studio-next/web/src/domains/knowledge/derived-embedding-index.ts
+A	projects/sfia-studio-next/web/src/domains/knowledge/derived-embedding-service.ts
+A	projects/sfia-studio-next/web/src/domains/knowledge/hybrid-knowledge-search.ts
+M	projects/sfia-studio-next/web/src/domains/knowledge/journal.ts
+M	projects/sfia-studio-next/web/src/domains/knowledge/service.ts
+M	projects/sfia-studio-next/web/src/domains/proofs/d8-cognitive-criterion-eval.ts
+A	projects/sfia-studio-next/web/tests/unit/ml2-derived-embedding-index.test.ts
+A	projects/sfia-studio-next/web/tests/unit/ml2-product-wiring.test.ts
 ```
 
 
-### Worktree status (uncommitted delivery — authoritative for modules below)
+### Worktree status
 
 ```text
 M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio-next/construction/convergence-openai-studio/cognition-specialisee-et-intelligence-documentaire.md
- M projects/sfia-studio-next/construction/convergence-openai-studio/contrat-fonctionnel.md
- M projects/sfia-studio-next/construction/convergence-openai-studio/contrat-technique.md
- M projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts
- M projects/sfia-studio-next/web/src/domains/knowledge/journal.ts
-?? projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-2-20261127.md
-?? projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/architecture-selection-locked-20261127.md
-?? projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/selection-checkpoint-ml2-i2-20261127.md
 ?? projects/sfia-studio-next/web/.sfia-derived/
-?? projects/sfia-studio-next/web/scripts/ml2-i2-bounded-live-campaign.mts
-?? projects/sfia-studio-next/web/scripts/ml2-i2-finops-reconcile.mts
-?? projects/sfia-studio-next/web/scripts/ml2-i2-integrated-delivery-qualify.mts
-?? projects/sfia-studio-next/web/src/domains/conversation/bounded-judgment.ts
-?? projects/sfia-studio-next/web/src/domains/documents/document-vision-punctual.ts
-?? projects/sfia-studio-next/web/src/domains/knowledge/derived-embedding-index.ts
-?? projects/sfia-studio-next/web/src/domains/knowledge/hybrid-knowledge-search.ts
-?? projects/sfia-studio-next/web/tests/unit/ml2-derived-embedding-index.test.ts
 ```
 
 
-> **Important:** Modules d'index dérivé / Decisions / Vision / qualify scripts sont **présents en worktree non commités**. HEAD git `56572cf8` ne les contient pas encore. Ce pack FULL les inclut intégralement pour auditabilité. Aucun commit projet ni push dans cette régularisation.
+---
+
+## 0b. §9.1 Rapport Cursor — champs obligatoires
+
+1. Date/heure rapport : `2026-11-27T05:25:04Z` UTC
+2. Local Git Truth Check : §0
+3. Fichiers lus : SEF/Roadmap/DATA-01/SEM/ENV-01/D1–D9/R4/Nora/FinOps/OBS/contrats convergence/architecture lock/as-built/registre/delivery-history + code web domaines concernés
+4. Actions : cartographie consommateurs ; wire product paths ; Frontier LIVE protect ; 027 candidate (no apply) ; tests unit ; local commit `8b75249a` ; FULL pack rebuild ; handoff L3
+5. Fichiers créés/modifiés : name-status §0 + modules §5
+6. Diff stat : §0
+7. Validations : vitest 38 targeted ; LIVE proofs capitalized from campaign ; no new LIVE
+8. Garde-fous : WEB OFF · Admin unused · RECETTE intact · no project push · no 027 apply · campaign not reset
+9. Review pack réinitialisé : **oui**
+10. Review pack créé/mis à jour : **oui** (mono-cycle)
+11. Niveau : **full**
+12. Pack complété avant rapport : **confirmé** (non-stub)
+13. Pack cycle courant seulement : **confirmé** (contenu depuis e784232b)
+14. Ouverture review pack : best effort
+15. Réserves : §15
+16. Décisions Morris : **oui** — §15 conditions de sortie
+17. Content coverage : created=yes · modified=yes · synthesis-only=**no**
+18. Review Handoff Git : required · publish-in-cycle · push L3 borné · source `.tmp-sfia-review/chatgpt-review.md` · branch `sfia/review-handoff` · file `sfia-review-handoff/latest-chatgpt-review.md` — filled after publish
+19. Verdict : see §16 (pending remote verify during publish)
+20. Fake/Real : applicable=oui · UNIT+LIVE preserved · browser parcours SUBSTITUTED · claims interdits: full Studio LIVE loop this segment · DETERMINISTIC PROVEN ≠ READY FOR REAL
 
 ---
 
@@ -223,56 +291,214 @@ CREATE INDEX IF NOT EXISTS derived_embedding_chunks_project_idx
 
 ## 2. As-built (full)
 
-# As-built — Macro-lot 2 (Intelligence documentaire) — 2026-11-27
+# As-built — Macro-lot 2 (Intelligence documentaire) — Product-wide integration
 
 | Champ | Valeur |
 |---|---|
 | Campagne | `ml2-i2-docintel-20261127` (cumulative, non renouvelée) |
 | Architecture | [architecture-selection-locked-20261127.md](./ml2-qualification/architecture-selection-locked-20261127.md) |
-| Qualification | `web/.sfia-evidence/document-intelligence/integrated-delivery/qualify-report.json` |
-| LIVE bench | `web/.sfia-evidence/document-intelligence/live-campaign/` |
+| Cartographie | [product-consumer-cartography-20261127.md](./ml2-qualification/product-consumer-cartography-20261127.md) |
+| Migration 027 | [migration-027-candidate.md](./ml2-qualification/migration-027-candidate.md) — **NON appliquée** |
+| Reliquat LIVE | [live-campaign-remainder-20261127.md](./ml2-qualification/live-campaign-remainder-20261127.md) |
 | WEB LIVE | OFF |
 | RECETTE | protégée |
-| Migration | **aucune** (027 candidate documentée, non appliquée) |
 
-## Livrables code
+## Livrables code (product raccordements)
 
-| Module | Rôle |
+| Module / surface | Rôle |
 |---|---|
-| `web/src/domains/knowledge/derived-embedding-index.ts` | Index fichier local dérivé + lifecycle révocation |
-| `web/src/domains/knowledge/hybrid-knowledge-search.ts` | Fusion lexical + embeddings mobilisables |
-| `web/src/domains/conversation/bounded-judgment.ts` | Decisions + incertitude + fallback Responses |
-| `web/src/domains/documents/document-vision-punctual.ts` | Vision ponctuelle bytes locaux |
-| `journal.searchJournalSubjects` | Option `queryVector` pour canal hybride (flag) |
-| Frontier | Hints/réserve VS-files / strip order / effort Responses |
+| `derived-embedding-index.ts` | Index fichier local + lifecycle |
+| `derived-embedding-service.ts` | Rebuild / hybrid / embed product service |
+| `hybrid-knowledge-search.ts` | Fusion lexical + embeddings mobilisables |
+| `bounded-judgment.ts` | Decisions + incertitude + fallback Responses |
+| `document-vision-punctual.ts` | Vision ponctuelle bytes locaux |
+| `d4-read-tools.searchProjectResources` | **ADAPT** semanticSupplement (flag) |
+| `journal/search` API | **ADAPT** queryVector embed (flag) |
+| `knowledge/service.capitalizeAcquis` | revoke superseded in derived index |
+| `git-read-tools.read_git_pdf` | Vision punctual if SCANNED_NO_TEXT (flag) |
+| `d8-cognitive-criterion-eval` | Bounded judgment optional pre-pass (flag) |
+| Frontier | protect LIVE campaign on reset/endProcessCampaign |
 | Flags OFF by default | `SFIA_DERIVED_EMBEDDING_SEARCH`, `SFIA_BOUNDED_JUDGMENT`, `SFIA_DOCUMENT_VISION_PUNCTUAL` |
 
 ## Persistance
 
-Index : `web/.sfia-derived/embedding-index/<projectId>/{manifest.json,vectors.jsonl}` — reconstructible, pas de pgvector, pas de VS ops.
+- **Actuel (ops):** fichier `.sfia-derived/embedding-index/`
+- **Cible (GO):** PG `derived_embedding_chunks` (027 candidate)
+- Index ≠ vérité métier
 
 ## CONV-F21…F26
 
 | ID | Statut | Preuve |
 |---|---|---|
-| F21 | PASS_WITH_RESERVE | LIVE 12/12 D=R ; fallback Responses pour incertitude |
-| F22 | PASS_ARCHITECTURE_E | Lexical KEEP + emb 0.625 ; VS DEFER |
-| F23 | PASS_LOCAL_INDEX | Unit lifecycle + rebuild LIVE index ; cleanup VS 404 |
-| F24 | PASS | LIVE Vision 6/6 + extract/viewer KEEP |
-| F25 | PASS_BOUNDED | Nora E2E COMPLETE ; semantic-qualification v1 ; no D6 |
-| F26 | PASS_ATTRIBUTED | Observations ledger (+ reconcile sans FK projet fictif) |
-
-## Enveloppe
-
-Plancher LIVE ≈85 HTTP ; Nora E2E ≈2 vers réserve 40 (reste ≈38) ; cleanup expérimental vérifié 404.
+| F21 | PASS_WITH_RESERVE | LIVE 12/12 + module fallback ; AMB calibration residual |
+| F22 | PASS_ARCHITECTURE_E | Lexical + emb ; VS DEFER |
+| F23 | PASS_LOCAL_INDEX | Unit lifecycle + cleanup VS 404 ; PG 027 pending GO |
+| F24 | PASS | LIVE Vision 6/6 ; product Vision wired behind flag |
+| F25 | PARTIAL→INTEGRATION | Adapter E2E earlier ; product tools now wired (flag) — full Studio parcours LIVE needs Morris GO on remainder |
+| F26 | PASS_ATTRIBUTED | Ledger + reconcile ; product ops record on rebuild |
 
 ## Hors scope / réserves
 
-- Activation permanente flags OFF jusqu'à gate produit
-- Migration 027
-- VS / File Search / fileId durable
-- Remplacement large de `semantic-qualification`
+- Activation permanente flags OFF jusqu'à gate
+- Migration 027 sans GO
+- Nouvelle émission LIVE sans GO reliquat
 - Macro-lot 3
+
+
+---
+
+## 2b. Product consumer cartography (full)
+
+# ML2 — Cartographie produit des consommateurs
+
+| Champ | Valeur |
+|---|---|
+| Date | 2026-11-27 |
+| HEAD baseline | `e784232b` → local `56572cf8` + worktree delivery |
+| Statut | PRODUCT INTEGRATION INSTRUCTION |
+
+## Capacité → consommateurs
+
+| Capacité | Consommateurs | Action |
+|---|---|---|
+| Lexical + embeddings locaux | Nora `search_project_resources` ; Journal API ; `selectRelevantKnowledgeContext` ; reprise cognitive | **ADAPT** — service commun `hybridKnowledgeSearch` |
+| Decisions bornés | D8 critères ; jugements annexes Nora | **ADAPT** — `runBoundedJudgment` ; jamais D6 |
+| Vision ponctuelle | Git PDF scanné ; inspect document `SCANNED_NO_TEXT` | **ADAPT** — après extract vide |
+| PDF extract + viewer | inchangé | **KEEP** |
+| semantic-qualification | Nora turn | **KEEP** |
+| FinOps/OBS | toutes émissions ML2 | **ADAPT** — `recordProviderUsageObservation` |
+
+## Non concernés (justifiés)
+
+| Domaine | Motif |
+|---|---|
+| Audio / Realtime | Macro-lot 3 |
+| Images génératives | DEFER doctrine |
+| VS / File Search / fileId | DEFER DATA-01 |
+| Continuity native V2–V4 | DEFER ; D3 V1 KEEP |
+| Cursor realization D7/D8 exécution | hors ML2 cognition doc |
+
+## Persistance
+
+Fichier actuel = preuve ML2 I2. **Priorité produit :** table PG `derived_embedding_chunks` (migration **027 candidate**, GO distinct). Adapter commun ; backend file tant que 027 non appliquée.
+
+
+---
+
+## 2c. Migration 027 candidate (full) — NOT APPLIED
+
+# Migration 027 candidate — derived_embedding_chunks
+
+| Champ | Valeur |
+|---|---|
+| Statut | **CANDIDATE — AUCUN GO — NON APPLIQUÉE** |
+| Fichier | `web/src/db/migrations/candidates/027_derived_embedding_chunks.sql` |
+| db-migrate.sh | **ne l'inclut pas** |
+
+## Comparaison fichier vs PG
+
+| Critère | Fichier `.sfia-derived/` (actuel) | PG 027 (candidat) |
+|---|---|---|
+| Intérité transactionnelle | Faible (2 renames) | Forte (TX avec D4 writes) |
+| Concurrence | Non verrouillée | Isolée par DB |
+| Droits | Filtre app `projectId` | FK `projects` + `owner_pilot_id` |
+| Reconstruction | Rewrite fichier | UPSERT / rebuild SQL |
+| Sauvegarde | Hors backup PG | Inclus dump PG DEV/RECETTE |
+| Hébergement multi-instance | Non partagé | Partagé |
+| Complexité | Simple | Migration + dual-read |
+
+**Recommandation produit :** adopter 027 dès GO Morris ; conserver file backend comme fallback jusqu'à apply.
+
+## Delta exact
+
+Voir SQL candidat (table + 2 indexes, **sans pgvector**).
+
+## Rollback
+
+```sql
+DROP TABLE IF EXISTS derived_embedding_chunks;
+```
+
+## Intérêt
+
+Évite d'industrialiser un stockage fichier transitoire pour une capacité transverse multi-parcours.
+
+## GO requis
+
+Morris doit autoriser explicitement `db:migrate` 027 sur DEV avant tout apply. RECETTE/STABLE inchangés sans gates séparés.
+
+
+### SQL candidate
+
+```sql path=projects/sfia-studio-next/web/src/db/migrations/candidates/027_derived_embedding_chunks.sql
+-- CANDIDATE ONLY — DO NOT APPLY without explicit Morris GO.
+-- Macro-lot 2 derived embedding projection (no pgvector).
+-- Rollback: DROP TABLE IF EXISTS derived_embedding_chunks;
+
+CREATE TABLE IF NOT EXISTS derived_embedding_chunks (
+  id text PRIMARY KEY,
+  project_id text NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+  preparation_id text NOT NULL,
+  owner_pilot_id text NOT NULL,
+  source_id text NOT NULL,
+  source_kind text NOT NULL,
+  content_fingerprint text NOT NULL,
+  model text NOT NULL,
+  dims integer NOT NULL,
+  vector_json jsonb NOT NULL,
+  text_excerpt text,
+  revoked boolean NOT NULL DEFAULT false,
+  deleted boolean NOT NULL DEFAULT false,
+  version_label text,
+  index_ref text NOT NULL,
+  updated_at timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (project_id, source_id, content_fingerprint, model)
+);
+
+CREATE INDEX IF NOT EXISTS derived_embedding_chunks_project_mobilizable_idx
+  ON derived_embedding_chunks (project_id, revoked, deleted, model);
+
+CREATE INDEX IF NOT EXISTS derived_embedding_chunks_source_idx
+  ON derived_embedding_chunks (project_id, source_id);
+```
+
+
+---
+
+## 2d. LIVE campaign remainder (full) — no renewal
+
+# Campagne LIVE — reliquat exact (avant toute nouvelle émission)
+
+| Champ | Valeur |
+|---|---|
+| campaignId | `ml2-i2-docintel-20261127` |
+| Renouvellement | **interdit** sans GO Morris |
+| Source | envelopeAfter qualify-report + reconstruction phase |
+
+## Compteurs
+
+| | Committed | Max | Restant |
+|---|---|---|---|
+| HTTP global | **90** | 236 | **146** |
+| decisions | 13 | 24 | 11 |
+| embeddings | 4 | 12 | 8 |
+| responses | 20 | 112 | 92 (dont Nora réserve **~38/40**) |
+| vector_stores | 29 | 88 | 59 |
+| files | 12 | 40 | 28 |
+| Cleanup réserve | 8 used | 24 | 16 |
+| Nora réserve | ~2 used | 40 | **~38** |
+
+Tokens usage LIVE phases : ~6641 in / 1178 out.
+Plafond tokens campagne : 344000.
+InputTokenCount attempts committed : 21.
+
+## Incident historique (non masqué)
+
+Vitest `__reset` a zéroté `live-campaign-state.json` mid-campaign ; phase evidence SoT ; envelope reconstruite ; protection anti-wipe LIVE ajoutée (`endProcessCampaign` + `__reset`).
+
+## Avant nouvelle émission
+
+GO Morris explicite requis avec ce reliquat. Aucune émission dans le Delivery d'intégration produit courant.
 
 
 ---
@@ -365,56 +591,40 @@ Hybride **E = A+B** confirmé. C/D restent hors construction sans nouveau GO DAT
 
 ---
 
-## 4. Physical file-index contract (isolation, concurrency, atomicity, lifecycle)
+## 4. Persistence + index contract
 
-### 4.1 Layout
+### 4.1 Current ops backend = file index (until 027 GO)
 
 | Path | Role |
 |---|---|
-| `web/.sfia-derived/embedding-index/<projectId>/manifest.json` | Metadata entries (no vectors) |
-| `web/.sfia-derived/embedding-index/<projectId>/vectors.jsonl` | One JSON object per line `{sourceId, vector[]}` |
+| `web/.sfia-derived/embedding-index/<projectId>/manifest.json` | Metadata (no vectors) |
+| `web/.sfia-derived/embedding-index/<projectId>/vectors.jsonl` | Vectors JSONL |
 
-### 4.2 Isolation
+### 4.2 Prefer PG (027 candidate)
 
-- One directory per `projectId` — no cross-project file sharing.
-- `isMobilizable` refuses foreign `projectId`, `revoked`, `deleted`, or model mismatch before any hit is returned.
-- Hosted Vector Stores / durable `fileId` are **out of product path** (DEFER). Experimental VS used only in LIVE campaign then deleted.
+- Transactional projection compatible R4; no pgvector assumed.
+- Compare vs file: integrity/concurrency/rights/rebuild/backup/hosting favor PG.
+- **Not applied** — awaits distinct Morris GO.
+- Index dérivé ≠ vérité métier.
 
-### 4.3 Concurrency
+### 4.3 Product wiring status (post-8b75249a)
 
-- **No file lock implemented.** Concurrent writers to the same `projectId` are **unsafe** (last `rename` wins).
-- Intended single-writer (rebuild job / qualify script) per project.
-- Readers may observe torn state if reading mid-rebuild (manifest vs vectors temporarily inconsistent across two renames). **Reserve:** no POSIX flock / no journal; production enablement requires concurrency policy GO.
-
-### 4.4 Atomic writes
-
-- `writeDerivedIndex` writes `manifest.json.tmp` + `vectors.jsonl.tmp` then `renameSync` each into place.
-- `markSourceLifecycle` rewrites manifest via tmp+rename only (vectors untouched).
-- Crash between the two renames can leave manifest newer than vectors or vice versa — **explicit residual risk**.
-
-### 4.5 Revocation / deletion / reconstruction
-
-- `markSourceLifecycle(projectId, sourceId, {revoked|deleted})` flips flags in manifest without re-embedding.
-- `searchDerivedIndex` skips non-mobilizable entries.
-- Full reconstruction: caller re-reads authorized D4 sources → embeddings API → `writeDerivedIndex` rewrite.
-- Backup: **none automated** — operators may copy `.sfia-derived/` ; not in PG backups.
-
-### 4.6 Limits
-
-- No pgvector / no PG table (027 candidate only).
-- Flag `SFIA_DERIVED_EMBEDDING_SEARCH` default OFF.
-- Hybrid merge does not replace lexical; lexical remains available when flag off.
-- Index directory is local workspace evidence — **not** a multi-instance shared store.
-
-### 4.7 Nora wiring status (honest)
-
-| Surface | Wired? |
+| Surface | Status |
 |---|---|
-| `searchJournalSubjects(..., { queryVector })` | **Partial** — code path exists; requires caller-supplied vector + flag |
-| `search_project_resources` (Nora D4 tool) | **NOT wired** to hybrid/embeddings |
-| `bounded-judgment` / Decisions | **NOT imported** by `nora-adapter.ts` |
-| `document-vision-punctual` | **NOT imported** by `nora-adapter.ts` / PDF tools |
-| Default Nora product path | **Unchanged** — semantic-qualification + existing D4/Git/WEB tools |
+| `search_project_resources` (D4) | **WIRED** — hybrid semanticSupplement when flag ON |
+| Journal search API | **WIRED** — optional `queryVector` / hybrid path |
+| `capitalizeAcquis` supersede | **WIRED** — revoke derived source lifecycle |
+| `read_git_pdf` | **WIRED** — Vision punctual on SCANNED_NO_TEXT / NO_EXTRACTABLE_TEXT when flag ON |
+| D8 criterion eval | **WIRED** — optional Decisions pre-pass when flag ON |
+| Frontier LIVE protect | **WIRED** — block `__reset` / endProcess wipe for LIVE campaign |
+| Nora adapter direct import | **NOT required** — consumes via tools/services |
+| Default product path flags OFF | **Unchanged** until Morris enablement |
+
+### 4.4 Isolation / revocation / exact refs
+
+- projectId scoped; mobilizable checks before return
+- revoke/delete before mobilization
+- lexical remains when flag off
 
 
 ---
@@ -792,6 +1002,284 @@ export function assertNoRevokedMobilized(
 }
 
 export type { MobilizableHit };
+```
+
+
+### `projects/sfia-studio-next/web/src/domains/knowledge/derived-embedding-service.ts`
+
+```typescript path=projects/sfia-studio-next/web/src/domains/knowledge/derived-embedding-service.ts
+/**
+ * Product service for ML2 derived embeddings (file backend until GO migration 027).
+ * Index is never métier SoT — mobilization filters apply before any Nora/API exposure.
+ */
+import {
+  contentFingerprint,
+  DERIVED_EMBEDDING_MODEL,
+  derivedEmbeddingSearchEnabled,
+  makeIndexRef,
+  markSourceLifecycle,
+  searchDerivedIndex,
+  writeDerivedIndex,
+  type DerivedIndexEntry,
+  type DerivedSourceKind,
+} from "@/domains/knowledge/derived-embedding-index";
+import {
+  mergeLexicalAndDerived,
+  type HybridHit,
+  type LexicalHit,
+} from "@/domains/knowledge/hybrid-knowledge-search";
+import { listProjectKnowledge } from "@/domains/knowledge/journal";
+
+export type EmbedClient = {
+  embeddings: {
+    create: (body: {
+      model: string;
+      input: string | string[];
+    }) => Promise<{
+      data: Array<{ embedding: number[] }>;
+      usage?: { total_tokens?: number };
+    }>;
+  };
+};
+
+async function defaultEmbedClient(): Promise<EmbedClient | null> {
+  const key = (process.env.OPENAI_API_KEY || "").trim();
+  if (!key) return null;
+  try {
+    const OpenAI = (await import("openai")).default;
+    // Prefer Frontier-aware fetch when ALS campaign is active (Nora/LIVE).
+    const frontier = await import(
+      "@/domains/conversation/provider-emission-frontier"
+    );
+    const als = frontier.getActiveCampaignEnvelope?.();
+    const fetchImpl = als
+      ? frontier.createFrontierAwareFetch(globalThis.fetch.bind(globalThis), {
+          requireCampaign: true,
+        })
+      : globalThis.fetch.bind(globalThis);
+    return new OpenAI({ apiKey: key, fetch: fetchImpl, maxRetries: 0 }) as unknown as EmbedClient;
+  } catch {
+    return null;
+  }
+}
+
+export async function embedQueryText(
+  text: string,
+  client?: EmbedClient | null,
+): Promise<{ vector: number[]; tokens: number } | null> {
+  const c = client ?? (await defaultEmbedClient());
+  if (!c) return null;
+  const q = text.trim();
+  if (!q) return null;
+  const res = await c.embeddings.create({
+    model: DERIVED_EMBEDDING_MODEL,
+    input: q,
+  });
+  const vector = res.data[0]?.embedding;
+  if (!vector?.length) return null;
+  return { vector, tokens: res.usage?.total_tokens ?? 0 };
+}
+
+/** Rebuild file index from CURRENT acquis + OPEN points + subjects for a project. */
+export async function rebuildDerivedIndexFromProjectKnowledge(input: {
+  pilotId: string;
+  projectId: string;
+  preparationId: string;
+  client?: EmbedClient | null;
+}): Promise<{
+  ok: boolean;
+  entryCount: number;
+  tokens: number;
+  reason?: string;
+}> {
+  if (!derivedEmbeddingSearchEnabled()) {
+    return { ok: false, entryCount: 0, tokens: 0, reason: "FLAG_OFF" };
+  }
+  const client = input.client ?? (await defaultEmbedClient());
+  if (!client) {
+    return { ok: false, entryCount: 0, tokens: 0, reason: "NO_OPENAI_CLIENT" };
+  }
+  const bundle = await listProjectKnowledge(input.pilotId, input.projectId);
+  const sources: Array<{
+    sourceId: string;
+    sourceKind: DerivedSourceKind;
+    text: string;
+    versionLabel: string | null;
+    revoked: boolean;
+  }> = [];
+  for (const a of bundle.acquis) {
+    if (a.status !== "CURRENT") {
+      sources.push({
+        sourceId: a.id,
+        sourceKind: "acquis",
+        text: a.statement,
+        versionLabel: a.status,
+        revoked: true,
+      });
+      continue;
+    }
+    sources.push({
+      sourceId: a.id,
+      sourceKind: "acquis",
+      text: `${a.kind}: ${a.statement}`,
+      versionLabel: "CURRENT",
+      revoked: false,
+    });
+  }
+  for (const o of bundle.openPoints) {
+    sources.push({
+      sourceId: o.id,
+      sourceKind: "open_point",
+      text: o.statement,
+      versionLabel: o.status,
+      revoked: o.status !== "OPEN",
+    });
+  }
+  for (const s of bundle.subjects) {
+    if (s.status === "ARCHIVED") continue;
+    sources.push({
+      sourceId: s.id,
+      sourceKind: "subject",
+      text: s.title,
+      versionLabel: s.status,
+      revoked: false,
+    });
+  }
+  if (sources.length === 0) {
+    writeDerivedIndex({
+      projectId: input.projectId,
+      entries: [],
+      vectors: new Map(),
+    });
+    return { ok: true, entryCount: 0, tokens: 0 };
+  }
+  const texts = sources.map((s) => s.text);
+  const emb = await client.embeddings.create({
+    model: DERIVED_EMBEDDING_MODEL,
+    input: texts,
+  });
+  const vectors = new Map<string, number[]>();
+  const entries: DerivedIndexEntry[] = [];
+  for (let i = 0; i < sources.length; i++) {
+    const src = sources[i]!;
+    const vector = emb.data[i]?.embedding;
+    if (!vector) continue;
+    const fp = contentFingerprint(src.text);
+    vectors.set(src.sourceId, vector);
+    entries.push({
+      sourceId: src.sourceId,
+      sourceKind: src.sourceKind,
+      projectId: input.projectId,
+      preparationId: input.preparationId,
+      contentFingerprint: fp,
+      model: DERIVED_EMBEDDING_MODEL,
+      dims: vector.length,
+      revoked: src.revoked,
+      deleted: false,
+      versionLabel: src.versionLabel,
+      indexRef: makeIndexRef({
+        projectId: input.projectId,
+        sourceId: src.sourceId,
+        contentFingerprint: fp,
+      }),
+      updatedAt: new Date().toISOString(),
+      text: src.text,
+    });
+  }
+  writeDerivedIndex({
+    projectId: input.projectId,
+    entries,
+    vectors,
+  });
+  try {
+    const { recordProviderUsageObservation, buildIdempotencyKey } = await import(
+      "@/domains/conversation/usage-accounting"
+    );
+    await recordProviderUsageObservation({
+      operation: "embeddings.derived_index_rebuild",
+      modelRequested: DERIVED_EMBEDDING_MODEL,
+      modelApplied: DERIVED_EMBEDDING_MODEL,
+      inputTokens: emb.usage?.total_tokens ?? null,
+      outputTokens: 0,
+      status: "succeeded",
+      granularity: "REQUEST",
+      costCoverage: "PARTIAL",
+      projectId: input.projectId,
+      ownerPilotId: input.pilotId,
+      preparationId: input.preparationId,
+      idempotencyKey: buildIdempotencyKey({
+        granularity: "REQUEST",
+        lane: process.env.STUDIO_LANE || "DEV",
+        operation: "embeddings.derived_index_rebuild",
+        projectId: input.projectId,
+        preparationId: input.preparationId,
+        callOrdinal: Date.now() % 100000,
+      }),
+      limits: ["DERIVED_FILE_INDEX", "AWAITING_MIGRATION_027_GO", "EMBEDDING_TARIFF_PARTIAL"],
+    });
+  } catch {
+    /* FinOps best-effort */
+  }
+  return {
+    ok: true,
+    entryCount: entries.length,
+    tokens: emb.usage?.total_tokens ?? 0,
+  };
+}
+
+export async function hybridSearchProjectKnowledge(input: {
+  pilotId: string;
+  projectId: string;
+  query: string;
+  lexical: LexicalHit[];
+  limit?: number;
+  client?: EmbedClient | null;
+}): Promise<{
+  hits: HybridHit[];
+  derivedUsed: boolean;
+  derivedSkippedReason: string | null;
+}> {
+  if (!derivedEmbeddingSearchEnabled()) {
+    return {
+      hits: input.lexical.map((l) => ({ ...l, channel: "lexical" as const })),
+      derivedUsed: false,
+      derivedSkippedReason: "FLAG_OFF",
+    };
+  }
+  const emb = await embedQueryText(input.query, input.client);
+  if (!emb) {
+    return {
+      hits: input.lexical.map((l) => ({ ...l, channel: "lexical" as const })),
+      derivedUsed: false,
+      derivedSkippedReason: "EMBED_UNAVAILABLE",
+    };
+  }
+  const snippets = new Map<string, string>();
+  for (const l of input.lexical) snippets.set(l.sourceId, l.snippet);
+  return mergeLexicalAndDerived({
+    projectId: input.projectId,
+    lexical: input.lexical,
+    queryVector: emb.vector,
+    limit: input.limit,
+    snippets,
+  });
+}
+
+export function revokeDerivedSource(
+  projectId: string,
+  sourceId: string,
+): boolean {
+  return markSourceLifecycle(projectId, sourceId, { revoked: true });
+}
+
+export function deleteDerivedSource(
+  projectId: string,
+  sourceId: string,
+): boolean {
+  return markSourceLifecycle(projectId, sourceId, { deleted: true });
+}
+
+export { searchDerivedIndex, derivedEmbeddingSearchEnabled };
 ```
 
 
@@ -1419,13 +1907,326 @@ describe("ml2 bounded judgment uncertainty", () => {
 ```
 
 
+### `projects/sfia-studio-next/web/tests/unit/ml2-product-wiring.test.ts`
+
+```typescript path=projects/sfia-studio-next/web/tests/unit/ml2-product-wiring.test.ts
+import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
+/**
+ * Substituted wiring proofs — no provider emission.
+ * Ensures product raccordements exist in source.
+ */
+describe("ml2 product-wide wiring (substituted)", () => {
+  const root = join(process.cwd(), "src");
+
+  it("D4 search imports hybrid service", () => {
+    const src = readFileSync(
+      join(root, "domains/conversation/d4-read-tools.ts"),
+      "utf8",
+    );
+    expect(src).toContain("hybridSearchProjectKnowledge");
+    expect(src).toContain("semanticSupplement");
+  });
+
+  it("journal search route embeds when flag on", () => {
+    const src = readFileSync(
+      join(root, "app/api/projects/[projectId]/journal/search/route.ts"),
+      "utf8",
+    );
+    expect(src).toContain("embedQueryText");
+    expect(src).toContain("queryVector");
+  });
+
+  it("git pdf offers punctual vision on scanned empty extract", () => {
+    const src = readFileSync(
+      join(root, "domains/conversation/git-read-tools.ts"),
+      "utf8",
+    );
+    expect(src).toContain("runDocumentVisionPunctual");
+    expect(src).toContain("SCANNED_NO_TEXT");
+  });
+
+  it("D8 can use bounded judgment before Nora", () => {
+    const src = readFileSync(
+      join(root, "domains/proofs/d8-cognitive-criterion-eval.ts"),
+      "utf8",
+    );
+    expect(src).toContain("runBoundedJudgment");
+    expect(src).toContain("NOT_D6_HUMAN_DECISION");
+  });
+
+  it("knowledge capitalize revokes superseded derived source", () => {
+    const src = readFileSync(
+      join(root, "domains/knowledge/service.ts"),
+      "utf8",
+    );
+    expect(src).toContain("revokeDerivedSource");
+  });
+
+  it("frontier protects LIVE campaign teardown", () => {
+    const src = readFileSync(
+      join(root, "domains/conversation/provider-emission-frontier.ts"),
+      "utf8",
+    );
+    expect(src).toContain("isProtectedLiveCampaignId");
+    expect(src).toContain("ml2-i2-docintel-20261127");
+  });
+
+  it("migration 027 lives in candidates only", () => {
+    const cand = readFileSync(
+      join(process.cwd(), "src/db/migrations/candidates/027_derived_embedding_chunks.sql"),
+      "utf8",
+    );
+    expect(cand).toContain("derived_embedding_chunks");
+    const migrate = readFileSync(
+      join(process.cwd(), "scripts/db-migrate.sh"),
+      "utf8",
+    );
+    expect(migrate).not.toContain("027_derived_embedding_chunks");
+  });
+});
+```
+
+
 ---
 
-## 6. Effective raccordements — diffs utiles
+## 6. Effective raccordements — diffs e784..HEAD (useful)
 
-### 6.1 `journal.ts` — hybrid optional channel (worktree diff vs HEAD)
+### d4-read-tools.ts
 
 ```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/d4-read-tools.ts b/projects/sfia-studio-next/web/src/domains/conversation/d4-read-tools.ts
+index eb845da6..2a812631 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/d4-read-tools.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/d4-read-tools.ts
+@@ -328,6 +328,93 @@ export async function searchProjectResources(scope: D4ToolScope, input: SearchPr
+     coverage = "PARTIAL";
+   }
+
++  // ML2 hybrid supplement (flag OFF by default) — never replaces lexical page.
++  let semanticSupplement: Array<Record<string, unknown>> = [];
++  let derivedMeta: {
++    derivedUsed: boolean;
++    derivedSkippedReason: string | null;
++  } = { derivedUsed: false, derivedSkippedReason: "NOT_ATTEMPTED" };
++  if (q && page.length >= 0) {
++    try {
++      const {
++        derivedEmbeddingSearchEnabled,
++        hybridSearchProjectKnowledge,
++      } = await import("@/domains/knowledge/derived-embedding-service");
++      if (derivedEmbeddingSearchEnabled()) {
++        const projectId =
++          (
++            await db
++              .select({ projectId: documents.projectId })
++              .from(documents)
++              .where(eq(documents.preparationId, scope.preparationId))
++              .limit(1)
++          )[0]?.projectId ?? null;
++        // Prefer preparation→project link when documents empty.
++        let resolvedProjectId = projectId;
++        if (!resolvedProjectId) {
++          const { preparationProjectLinks } = await import("@/db/schema");
++          const link = (
++            await db
++              .select({ projectId: preparationProjectLinks.projectId })
++              .from(preparationProjectLinks)
++              .where(eq(preparationProjectLinks.preparationId, scope.preparationId))
++              .limit(1)
++          )[0];
++          resolvedProjectId = link?.projectId ?? null;
++        }
++        if (resolvedProjectId) {
++          const lexical = page.map((it) => ({
++            sourceId: String(it.id ?? ""),
++            title: typeof it.title === "string" ? it.title : undefined,
++            snippet: String(it.preview ?? it.title ?? it.id ?? "").slice(0, 280),
++            matchKind: String(it.type ?? "resource"),
++            channel: "lexical" as const,
++          }));
++          const hybrid = await hybridSearchProjectKnowledge({
++            pilotId: scope.pilotId,
++            projectId: resolvedProjectId,
++            query: q,
++            lexical,
++            limit: Math.min(limit, 12),
++          });
++          derivedMeta = {
++            derivedUsed: hybrid.derivedUsed,
++            derivedSkippedReason: hybrid.derivedSkippedReason,
++          };
++          const lexicalIds = new Set(page.map((it) => String(it.id ?? "")));
++          for (const h of hybrid.hits) {
++            if (lexicalIds.has(h.sourceId)) continue;
++            if (h.channel === "lexical") continue;
++            semanticSupplement.push({
++              type: h.matchKind,
++              id: h.sourceId,
++              preview: h.snippet,
++              resource_ref: `${h.matchKind}:${h.sourceId}`,
++              channel: h.channel,
++              score: h.score,
++              indexRef: h.indexRef,
++              versionLabel: h.versionLabel,
++              note: "Derived embedding hit — exact lexical title may be absent; verify before authority.",
++            });
++          }
++        } else {
++          derivedMeta = {
++            derivedUsed: false,
++            derivedSkippedReason: "PROJECT_UNRESOLVED",
++          };
++        }
++      } else {
++        derivedMeta = { derivedUsed: false, derivedSkippedReason: "FLAG_OFF" };
++      }
++    } catch (e) {
++      derivedMeta = {
++        derivedUsed: false,
++        derivedSkippedReason:
++          e instanceof Error ? e.message.slice(0, 120) : "HYBRID_ERROR",
++      };
++    }
++  }
++
+   const payload = {
+     status: "AVAILABLE" as const,
+     coverage,
+@@ -341,6 +428,8 @@ export async function searchProjectResources(scope: D4ToolScope, input: SearchPr
+     offset,
+     limit,
+     items: page,
++    semanticSupplement,
++    derivedSearch: derivedMeta,
+     authority: {
+       pilotIdBound: true,
+       preparationIdBound: true,
+```
+
+
+### git-read-tools.ts
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/git-read-tools.ts b/projects/sfia-studio-next/web/src/domains/conversation/git-read-tools.ts
+index e0f41bc4..1b7ab987 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/git-read-tools.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/git-read-tools.ts
+@@ -623,6 +623,52 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
+             pageTo: args.pageTo ?? (args.pageFrom ?? 1) + 4,
+             searchQuery: args.searchQuery ?? null,
+           });
++          let visionPunctual: Record<string, unknown> | null = null;
++          if (
++            !pdf.ok &&
++            (pdf.reasonCode === "SCANNED_NO_TEXT" ||
++              pdf.reasonCode === "NO_EXTRACTABLE_TEXT")
++          ) {
++            try {
++              const {
++                documentVisionPunctualEnabled,
++                runDocumentVisionPunctual,
++              } = await import("@/domains/documents/document-vision-punctual");
++              if (documentVisionPunctualEnabled()) {
++                const { ensureFrontierOpenAIClientInstalled } = await import(
++                  "@/domains/conversation/provider-emission-frontier"
++                );
++                await ensureFrontierOpenAIClientInstalled({ maxRetries: 0 });
++                const OpenAI = (await import("openai")).default;
++                const key = (process.env.OPENAI_API_KEY || "").trim();
++                if (key) {
++                  const client = new OpenAI({ apiKey: key, maxRetries: 0 });
++                  const vis = await runDocumentVisionPunctual({
++                    client: client as never,
++                    request: {
++                      mode: "pdf_bytes",
++                      bytes: Buffer.from(bytes),
++                      filename: prov.path.split("/").pop() || "document.pdf",
++                      ask: "Describe visible structure only. JSON {summary:string,uncertainty:bool,pagesConsulted:number}. Do not invent unread text.",
++                    },
++                  });
++                  visionPunctual = {
++                    ok: vis.ok,
++                    text: vis.text.slice(0, 2000),
++                    parsed: vis.parsed,
++                    limits: vis.limits,
++                    usage: vis.usage,
++                    reason: vis.reason ?? null,
++                  };
++                }
++              }
++            } catch (e) {
++              visionPunctual = {
++                ok: false,
++                reason: e instanceof Error ? e.message.slice(0, 160) : "VISION_ERROR",
++              };
++            }
++          }
+           const payload = pdf.ok
+             ? {
+                 status: "AVAILABLE" as const,
+@@ -651,6 +697,7 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
+                   permalink: prov.permalink,
+                 },
+                 authorityReminder: result.authorityReminder,
++                visionPunctual: null,
+               }
+             : {
+                 status: "UNAVAILABLE" as const,
+@@ -659,14 +706,16 @@ export async function buildNoraGitReadTools(scope: GitToolScope) {
+                 message: pdf.message,
+                 coverage: "PARTIAL" as ToolCoverage,
+                 limits: pdf.limits,
+-                guidance:
+-                  "Extraction failed — do not invent page text. Scanned PDFs need OCR (out of scope).",
++                guidance: visionPunctual?.ok
++                  ? "Text extract empty — punctual Vision supplement present; treat as uncertain, not OCR."
++                  : "Extraction failed — do not invent page text. Scanned PDFs need OCR (out of scope) unless Vision punctual flag provided a bounded supplement.",
+                 provenance: {
+                   path: prov.path,
+                   blobSha: prov.blobSha,
+                   commitSha: prov.commitSha,
+                 },
+                 authorityReminder: result.authorityReminder,
++                visionPunctual,
+               };
+           const charsCharged = chargeBudget(scope, payload);
+           noteGitToolSource(scope, {
+```
+
+
+### journal.ts + journal/search/route.ts
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/journal/search/route.ts b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/journal/search/route.ts
+index d5f97a51..07d512be 100644
+--- a/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/journal/search/route.ts
++++ b/projects/sfia-studio-next/web/src/app/api/projects/[projectId]/journal/search/route.ts
+@@ -19,8 +19,22 @@ export async function GET(req: Request, ctx: { params: Promise<{ projectId: stri
+       const result = await searchJournalDecisions(session.pilotId, projectId, q);
+       return NextResponse.json(result);
+     }
++    let queryVector: number[] | null = null;
++    try {
++      const {
++        derivedEmbeddingSearchEnabled,
++        embedQueryText,
++      } = await import("@/domains/knowledge/derived-embedding-service");
++      if (derivedEmbeddingSearchEnabled() && q.trim()) {
++        const emb = await embedQueryText(q);
++        queryVector = emb?.vector ?? null;
++      }
++    } catch {
++      queryVector = null;
++    }
+     const result = await searchJournalSubjects(session.pilotId, projectId, q, {
+       openPointsOnly,
++      queryVector,
+     });
+     return NextResponse.json(result);
+   } catch (e) {
 diff --git a/projects/sfia-studio-next/web/src/domains/knowledge/journal.ts b/projects/sfia-studio-next/web/src/domains/knowledge/journal.ts
 index b3accaaf..30f1083b 100644
 --- a/projects/sfia-studio-next/web/src/domains/knowledge/journal.ts
@@ -1500,11 +2301,132 @@ index b3accaaf..30f1083b 100644
 ```
 
 
-### 6.2 `provider-emission-frontier.ts` — committed delta e784..HEAD
+### knowledge/service.ts (revoke on supersede)
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/knowledge/service.ts b/projects/sfia-studio-next/web/src/domains/knowledge/service.ts
+index 681d85c8..ee5eb5bb 100644
+--- a/projects/sfia-studio-next/web/src/domains/knowledge/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/knowledge/service.ts
+@@ -216,6 +216,19 @@ export async function capitalizeAcquis(
+   if (write.status === "OWNERSHIP_LOST") {
+     return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
+   }
++  // ML2 derived-index lifecycle (best-effort; flag OFF → no-op).
++  try {
++    const { revokeDerivedSource, derivedEmbeddingSearchEnabled } = await import(
++      "@/domains/knowledge/derived-embedding-service"
++    );
++    if (derivedEmbeddingSearchEnabled() && ctx.project?.id) {
++      if (input.supersedesAcquisId) {
++        revokeDerivedSource(ctx.project.id, input.supersedesAcquisId);
++      }
++    }
++  } catch {
++    /* index lifecycle never blocks capitalisation */
++  }
+   return { status: "AVAILABLE" as const, acquisId: id, kind };
+ }
+```
+
+
+### d8-cognitive-criterion-eval.ts
+
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/proofs/d8-cognitive-criterion-eval.ts b/projects/sfia-studio-next/web/src/domains/proofs/d8-cognitive-criterion-eval.ts
+index d9e8b856..ed0d186d 100644
+--- a/projects/sfia-studio-next/web/src/domains/proofs/d8-cognitive-criterion-eval.ts
++++ b/projects/sfia-studio-next/web/src/domains/proofs/d8-cognitive-criterion-eval.ts
+@@ -174,6 +174,81 @@ export async function runLiveCognitiveCriterionAssessments(input: {
+   if (input.acceptanceCriteria.length === 0) {
+     return { assessments: [], limits: ["D8_COGNITIVE_LIVE_NO_CRITERIA"] };
+   }
++  // ML2 ADAPT: optional bounded Decisions pre-pass (flag OFF by default).
++  // Never a D6 HumanDecision. Falls through to Nora when incomplete/uncertain.
++  try {
++    const { boundedJudgmentEnabled, runBoundedJudgment } = await import(
++      "@/domains/conversation/bounded-judgment"
++    );
++    if (boundedJudgmentEnabled() && input.acceptanceCriteria.length <= 8) {
++      const key = (process.env.OPENAI_API_KEY || "").trim();
++      if (key) {
++        const OpenAI = (await import("openai")).default;
++        const client = new OpenAI({ apiKey: key, maxRetries: 0 });
++        const judgments: CognitiveCriterionEvalResult["assessments"] = [];
++        let allConfident = true;
++        for (const c of input.acceptanceCriteria) {
++          const ev = input.criterionEvidence[c];
++          const evidence = [
++            `criterion: ${c}`,
++            `refs: ${(ev?.refs ?? []).join(",") || "none"}`,
++            `verified_technical: ${ev?.verified ?? false}`,
++            `note: ${ev?.note ?? ""}`,
++            `report_excerpt: ${input.reportExcerpt.slice(0, 800)}`,
++          ].join("\n");
++          const bj = await runBoundedJudgment({
++            client: client as never,
++            request: {
++              kind: "choice",
++              name: `d8_${input.attemptId}_${judgments.length}`,
++              question:
++                "Choose the judgment for this acceptance criterion given only the evidence.",
++              evidence,
++              choices: [
++                "SUPPORTS",
++                "INSUFFICIENT",
++                "CONTRADICTS",
++                "INDETERMINATE",
++              ],
++            },
++          });
++          if (bj.abstain || bj.uncertain || bj.value == null) {
++            allConfident = false;
++            break;
++          }
++          const judgment = String(bj.value);
++          if (
++            !["SUPPORTS", "INSUFFICIENT", "CONTRADICTS", "INDETERMINATE"].includes(
++              judgment,
++            )
++          ) {
++            allConfident = false;
++            break;
++          }
++          judgments.push({
++            criterion: c,
++            judgment: judgment as
++              | "SUPPORTS"
++              | "INSUFFICIENT"
++              | "CONTRADICTS"
++              | "INDETERMINATE",
++            rationale: `bounded_judgment:${bj.source}`,
++            piecesConsulted: ev?.refs ?? [],
++            provenance: "D3_STRUCTURED",
++          });
++        }
++        if (allConfident && judgments.length === input.acceptanceCriteria.length) {
++          return {
++            assessments: judgments,
++            limits: ["D8_BOUNDED_JUDGMENT_PASS", "NOT_D6_HUMAN_DECISION"],
++          };
++        }
++        limits.push("D8_BOUNDED_JUDGMENT_FALLTHROUGH_NORA");
++      }
++    }
++  } catch {
++    limits.push("D8_BOUNDED_JUDGMENT_ERROR");
++  }
+   try {
+     const { runNoraCognitiveTurn } = await import(
+       "@/domains/conversation/run-nora-cognitive-turn"
+```
+
+
+### provider-emission-frontier.ts
 
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts b/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts
-index 548e6f07..43d54123 100644
+index 548e6f07..acaec2ec 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts
 @@ -53,9 +53,29 @@ export type EmissionAttemptKind =
@@ -1603,7 +2525,45 @@ index 548e6f07..43d54123 100644
      httpAttemptsReserved: 0,
      httpAttemptsCommitted: 0,
      httpAttemptsReleased: 0,
-@@ -757,6 +804,85 @@ export function isResponsesCreateUrl(url: string): boolean {
+@@ -579,12 +626,24 @@ export function attachConfiguredLiveCampaignFromEnv(
+   });
+ }
+
++function isProtectedLiveCampaignId(campaignId: string | null | undefined): boolean {
++  const id = (campaignId ?? "").trim();
++  if (!id) return false;
++  if (id === "ml2-i2-docintel-20261127") return true;
++  const envId = (process.env.SFIA_LIVE_CAMPAIGN_ID || "").trim();
++  return envId !== "" && id === envId;
++}
++
+ /** End process-level LIVE campaign (qualify close / test reset). */
+ export function endProcessCampaign(campaignId?: string): void {
+   if (campaignId) {
+     processCampaignRegistry.delete(campaignId);
+     const persisted = readLiveCampaignStateFile();
+-    if (persisted?.campaignId === campaignId) {
++    // Never delete definitive LIVE cumulative envelope from test/qualify teardown.
++    if (
++      persisted?.campaignId === campaignId &&
++      !isProtectedLiveCampaignId(campaignId)
++    ) {
+       deleteLiveCampaignStateFile();
+     }
+     if (requiredCampaignLatch?.campaignId === campaignId) {
+@@ -595,7 +654,10 @@ export function endProcessCampaign(campaignId?: string): void {
+     return;
+   }
+   processCampaignRegistry.clear();
+-  deleteLiveCampaignStateFile();
++  const persisted = readLiveCampaignStateFile();
++  if (!isProtectedLiveCampaignId(persisted?.campaignId)) {
++    deleteLiveCampaignStateFile();
++  }
+   requiredCampaignLatch = null;
+   const s = getFrontierAlsStore();
+   if (s) s.campaign = null;
+@@ -757,6 +819,85 @@ export function isResponsesCreateUrl(url: string): boolean {
    }
  }
 
@@ -1689,224 +2649,7 @@ index 548e6f07..43d54123 100644
  function deriveInputTokensCountUrl(responsesUrl: string): string {
    try {
      const u = new URL(responsesUrl);
-@@ -1279,16 +1405,21 @@ export function reserveHttpEmission(input: {
-   }
-
-   // Campaign token limits require an opposable reservation before contact.
--  // Input: provider-native input_tokens count (or explicit native hint) —
-+  // Responses: provider-native input_tokens count (or explicit native hint) —
-   // never campaign ceiling and never body-length estimate as a strict guarantee.
-+  // Decisions/embeddings/files/VS: no Responses native count — demonstrable
-+  // payload bounds (sfia_estimated_input_tokens) + family HTTP caps.
-   // Output still may use per-request ceiling for reservation and wire injection.
-+  const family = familyFromEmissionKind(emissionKind);
-+  const isResponsesGeneration = emissionKind === "http.responses";
-   let reservedInput: number | null = null;
-   let inputBoundKind: InputBoundKind = null;
-   let reservedOutput = demonstrableOutputTokenBound(bodyJson);
-
-   if (
--    campaign.maxInputTokens != null ||
--    campaign.maxInputTokensPerRequest != null
-+    isResponsesGeneration &&
-+    (campaign.maxInputTokens != null ||
-+      campaign.maxInputTokensPerRequest != null)
-   ) {
-     const resolved = resolveCampaignInputReservation(
-       bodyJson,
-@@ -1316,6 +1447,18 @@ export function reserveHttpEmission(input: {
-           ? "native"
-           : "demonstrable";
-     }
-+    if (
-+      !isResponsesGeneration &&
-+      (campaign.maxInputTokens != null ||
-+        campaign.maxInputTokensPerRequest != null) &&
-+      reservedInput == null
-+    ) {
-+      return {
-+        ok: false,
-+        reasonCode: "INPUT_UNBOUNDED",
-+        reason: `family=${family} requires demonstrable sfia_estimated_input_tokens (no Responses native count)`,
-+      };
-+    }
-   }
-
-   // Hosted web campaign: require max_tool_calls on the wire — no ASSUMED_1.
-@@ -1388,6 +1531,18 @@ export function reserveHttpEmission(input: {
-       reason: `httpReserved=${campaign.httpAttemptsReserved}+1 max=${campaign.maxHttpAttempts}`,
-     };
-   }
-+  const familyBudget = campaign.familyHttp?.[family];
-+  if (familyBudget && familyBudget.reserved + 1 > familyBudget.maxHttpAttempts) {
-+    // Family exhausted — do not silently borrow another family's budget.
-+    campaign.suspended = true;
-+    campaign.suspendReason = `CAMPAIGN_FAMILY_HTTP_EXHAUSTED:${family}`;
-+    persistCampaignEnvelope(campaign);
-+    return {
-+      ok: false,
-+      reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
-+      reason: `family=${family} reserved=${familyBudget.reserved}+1 max=${familyBudget.maxHttpAttempts}`,
-+    };
-+  }
-   if (
-     campaign.maxInputTokens != null &&
-     campaign.inputTokensReserved + inTok > campaign.maxInputTokens
-@@ -1434,6 +1589,9 @@ export function reserveHttpEmission(input: {
-   }
-
-   campaign.httpAttemptsReserved += 1;
-+  if (familyBudget) {
-+    familyBudget.reserved += 1;
-+  }
-   campaign.inputTokensReserved += inTok;
-   campaign.outputTokensReserved += outTok;
-   persistCampaignEnvelope(campaign);
-@@ -1530,6 +1688,9 @@ export function commitProviderEmission(reservation: {
-       // Counting is not Responses generation — do not attribute generation tokens/cost.
-     } else {
-       campaign.httpAttemptsCommitted += 1;
-+      const fam = familyFromEmissionKind(rec.kind);
-+      const famBudget = campaign.familyHttp?.[fam];
-+      if (famBudget) famBudget.committed += 1;
-       const inTok =
-         reservation.measuredInputTokens != null &&
-         Number.isFinite(reservation.measuredInputTokens)
-@@ -1587,6 +1748,12 @@ export function releaseProviderEmission(reservation: {
-         campaign.httpAttemptsReserved - 1,
-       );
-       campaign.httpAttemptsReleased += 1;
-+      const fam = familyFromEmissionKind(rec.kind);
-+      const famBudget = campaign.familyHttp?.[fam];
-+      if (famBudget) {
-+        famBudget.reserved = Math.max(0, famBudget.reserved - 1);
-+        famBudget.released += 1;
-+      }
-       campaign.inputTokensReserved = Math.max(
-         0,
-         campaign.inputTokensReserved - rec.reservedInputTokens,
-@@ -1617,6 +1784,9 @@ export function markProviderEmissionUncertain(reservation: {
-       campaign.inputTokenCountAttemptsCommitted += 1;
-     } else {
-       campaign.httpAttemptsCommitted += 1;
-+      const fam = familyFromEmissionKind(rec.kind);
-+      const famBudget = campaign.familyHttp?.[fam];
-+      if (famBudget) famBudget.committed += 1;
-     }
-     persistCampaignEnvelope(campaign);
-   }
-@@ -1864,7 +2034,8 @@ export function createFrontierAwareFetch(
-       (campaign.maxInputTokens != null ||
-         campaign.maxInputTokensPerRequest != null) &&
-       isResponsesCreateUrl(url) &&
--      method === "POST"
-+      method === "POST" &&
-+      classifyOpenAiHttpFamily(url) === "responses"
-     ) {
-       const fingerprint = inputCountPayloadFingerprint(bodyJson);
-       const haveNative =
-@@ -1922,6 +2093,9 @@ export function createFrontierAwareFetch(
-       body = JSON.stringify(bodyJson);
-     }
-
-+    const httpFamily = classifyOpenAiHttpFamily(url);
-+    const emissionKind = emissionKindForHttpFamily(httpFamily);
-+
-     // Strip Studio-only hints before wire emission.
-     if (bodyJson) {
-       const {
-@@ -1934,41 +2108,46 @@ export function createFrontierAwareFetch(
-         sfia_native_input_tokens?: unknown;
-         sfia_input_count_fingerprint?: unknown;
-       };
--      // Continuity: attach previous_response_id only when mode=native and plan allows.
--      // Default OFF — D3 remains SoT; prior tokens remain billable when attached.
--      const continuityMode = resolveProviderContinuityMode();
--      const plan = planProviderContinuity({
--        mode: continuityMode,
--        studio: alsStore.continuity.studio ?? {
--          workId: "",
--          acquisFingerprint: null,
--          sourceVersions: [],
--          checkpointId: null,
--          budgets: {
--            tokensConsumed: 0,
--            tokensBudget: null,
--            restitutionsRemaining: null,
-+      if (httpFamily === "responses") {
-+        // Continuity: attach previous_response_id only when mode=native and plan allows.
-+        // Default OFF — D3 remains SoT; prior tokens remain billable when attached.
-+        const continuityMode = resolveProviderContinuityMode();
-+        const plan = planProviderContinuity({
-+          mode: continuityMode,
-+          studio: alsStore.continuity.studio ?? {
-+            workId: "",
-+            acquisFingerprint: null,
-+            sourceVersions: [],
-+            checkpointId: null,
-+            budgets: {
-+              tokensConsumed: 0,
-+              tokensBudget: null,
-+              restitutionsRemaining: null,
-+            },
-+            rightsOk: false,
-           },
--          rightsOk: false,
--        },
--        chain: alsStore.continuity.chain,
--        lane: (process.env.STUDIO_LANE ?? "UNKNOWN").trim().toUpperCase(),
--      });
--      bodyJson = applyContinuityToResponsesBody(wireBody, plan);
-+          chain: alsStore.continuity.chain,
-+          lane: (process.env.STUDIO_LANE ?? "UNKNOWN").trim().toUpperCase(),
-+        });
-+        bodyJson = applyContinuityToResponsesBody(wireBody, plan);
-+      } else {
-+        bodyJson = wireBody;
-+      }
-       body = JSON.stringify(bodyJson);
-     }
-
--    const hostedSearchDelta = inferHostedSearchDeltaFromBody(
--      bodyJson,
--      campaign,
--    );
-+    const hostedSearchDelta =
-+      httpFamily === "responses"
-+        ? inferHostedSearchDeltaFromBody(bodyJson, campaign)
-+        : 0;
-     const reservation = reserveHttpEmission({
--      kind: "http.responses",
-+      kind: emissionKind,
-       url,
-       method,
-       body,
-       effort: alsStore.effortHint,
--      skipModelAdmission: false,
-+      // Decisions/embeddings/VS/files are not Nora model×effort admissions.
-+      skipModelAdmission: httpFamily !== "responses",
-       hostedSearchDelta,
-     });
-     if (!reservation.ok) {
-@@ -1987,7 +2166,7 @@ export function createFrontierAwareFetch(
-         effort: effortFromBody(bodyJson),
-         maxOutputTokens: demonstrableOutputTokenBound(bodyJson),
-         maxToolCalls: Number(bodyJson?.max_tool_calls ?? 0) || null,
--        kind: "http.responses",
-+        kind: emissionKind,
-       });
-     }
-```
-
-
-### 6.3 `provider-emission-frontier.ts` — additional worktree diff vs HEAD
-
-```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts b/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts
-index 43d54123..fff07d5c 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts
-@@ -1252,30 +1252,31 @@ export function reserveHttpEmission(input: {
+@@ -1126,30 +1267,31 @@ export function reserveHttpEmission(input: {
    // Final payload effort wins; never invent medium/Terra.
    const effort = (effortFromPayload || effortFromInput || effortFromStore).trim();
    const modelHint = (store().modelHint ?? "").trim();
@@ -1957,15 +2700,41 @@ index 43d54123..fff07d5c 100644
      if (!model) {
        return {
          ok: false,
-@@ -1453,11 +1454,18 @@ export function reserveHttpEmission(input: {
-         campaign.maxInputTokensPerRequest != null) &&
-       reservedInput == null
-     ) {
--      return {
--        ok: false,
--        reasonCode: "INPUT_UNBOUNDED",
--        reason: `family=${family} requires demonstrable sfia_estimated_input_tokens (no Responses native count)`,
--      };
+@@ -1279,16 +1421,21 @@ export function reserveHttpEmission(input: {
+   }
+
+   // Campaign token limits require an opposable reservation before contact.
+-  // Input: provider-native input_tokens count (or explicit native hint) —
++  // Responses: provider-native input_tokens count (or explicit native hint) —
+   // never campaign ceiling and never body-length estimate as a strict guarantee.
++  // Decisions/embeddings/files/VS: no Responses native count — demonstrable
++  // payload bounds (sfia_estimated_input_tokens) + family HTTP caps.
+   // Output still may use per-request ceiling for reservation and wire injection.
++  const family = familyFromEmissionKind(emissionKind);
++  const isResponsesGeneration = emissionKind === "http.responses";
+   let reservedInput: number | null = null;
+   let inputBoundKind: InputBoundKind = null;
+   let reservedOutput = demonstrableOutputTokenBound(bodyJson);
+
+   if (
+-    campaign.maxInputTokens != null ||
+-    campaign.maxInputTokensPerRequest != null
++    isResponsesGeneration &&
++    (campaign.maxInputTokens != null ||
++      campaign.maxInputTokensPerRequest != null)
+   ) {
+     const resolved = resolveCampaignInputReservation(
+       bodyJson,
+@@ -1316,6 +1463,25 @@ export function reserveHttpEmission(input: {
+           ? "native"
+           : "demonstrable";
+     }
++    if (
++      !isResponsesGeneration &&
++      (campaign.maxInputTokens != null ||
++        campaign.maxInputTokensPerRequest != null) &&
++      reservedInput == null
++    ) {
 +      // Vector store / files ops are contact-bounded, not token-native.
 +      // Decisions/embeddings must still carry sfia_estimated_input_tokens.
 +      if (family === "vector_stores" || family === "files") {
@@ -1978,10 +2747,73 @@ index 43d54123..fff07d5c 100644
 +          reason: `family=${family} requires demonstrable sfia_estimated_input_tokens (no Responses native count)`,
 +        };
 +      }
-     }
++    }
    }
 
-@@ -1823,7 +1831,16 @@ export function __resetProviderEmissionFrontierForTests(): void {
+   // Hosted web campaign: require max_tool_calls on the wire — no ASSUMED_1.
+@@ -1388,6 +1554,18 @@ export function reserveHttpEmission(input: {
+       reason: `httpReserved=${campaign.httpAttemptsReserved}+1 max=${campaign.maxHttpAttempts}`,
+     };
+   }
++  const familyBudget = campaign.familyHttp?.[family];
++  if (familyBudget && familyBudget.reserved + 1 > familyBudget.maxHttpAttempts) {
++    // Family exhausted — do not silently borrow another family's budget.
++    campaign.suspended = true;
++    campaign.suspendReason = `CAMPAIGN_FAMILY_HTTP_EXHAUSTED:${family}`;
++    persistCampaignEnvelope(campaign);
++    return {
++      ok: false,
++      reasonCode: "CAMPAIGN_ENVELOPE_EXHAUSTED",
++      reason: `family=${family} reserved=${familyBudget.reserved}+1 max=${familyBudget.maxHttpAttempts}`,
++    };
++  }
+   if (
+     campaign.maxInputTokens != null &&
+     campaign.inputTokensReserved + inTok > campaign.maxInputTokens
+@@ -1434,6 +1612,9 @@ export function reserveHttpEmission(input: {
+   }
+
+   campaign.httpAttemptsReserved += 1;
++  if (familyBudget) {
++    familyBudget.reserved += 1;
++  }
+   campaign.inputTokensReserved += inTok;
+   campaign.outputTokensReserved += outTok;
+   persistCampaignEnvelope(campaign);
+@@ -1530,6 +1711,9 @@ export function commitProviderEmission(reservation: {
+       // Counting is not Responses generation — do not attribute generation tokens/cost.
+     } else {
+       campaign.httpAttemptsCommitted += 1;
++      const fam = familyFromEmissionKind(rec.kind);
++      const famBudget = campaign.familyHttp?.[fam];
++      if (famBudget) famBudget.committed += 1;
+       const inTok =
+         reservation.measuredInputTokens != null &&
+         Number.isFinite(reservation.measuredInputTokens)
+@@ -1587,6 +1771,12 @@ export function releaseProviderEmission(reservation: {
+         campaign.httpAttemptsReserved - 1,
+       );
+       campaign.httpAttemptsReleased += 1;
++      const fam = familyFromEmissionKind(rec.kind);
++      const famBudget = campaign.familyHttp?.[fam];
++      if (famBudget) {
++        famBudget.reserved = Math.max(0, famBudget.reserved - 1);
++        famBudget.released += 1;
++      }
+       campaign.inputTokensReserved = Math.max(
+         0,
+         campaign.inputTokensReserved - rec.reservedInputTokens,
+@@ -1617,6 +1807,9 @@ export function markProviderEmissionUncertain(reservation: {
+       campaign.inputTokenCountAttemptsCommitted += 1;
+     } else {
+       campaign.httpAttemptsCommitted += 1;
++      const fam = familyFromEmissionKind(rec.kind);
++      const famBudget = campaign.familyHttp?.[fam];
++      if (famBudget) famBudget.committed += 1;
+     }
+     persistCampaignEnvelope(campaign);
+   }
+@@ -1653,7 +1846,16 @@ export function __resetProviderEmissionFrontierForTests(): void {
      s.nativeInputCount = null;
    }
    processCampaignRegistry.clear();
@@ -1999,7 +2831,17 @@ index 43d54123..fff07d5c 100644
    requiredCampaignLatch = null;
    installedClientKeyFp = null;
  }
-@@ -2078,10 +2095,15 @@ export function createFrontierAwareFetch(
+@@ -1864,7 +2066,8 @@ export function createFrontierAwareFetch(
+       (campaign.maxInputTokens != null ||
+         campaign.maxInputTokensPerRequest != null) &&
+       isResponsesCreateUrl(url) &&
+-      method === "POST"
++      method === "POST" &&
++      classifyOpenAiHttpFamily(url) === "responses"
+     ) {
+       const fingerprint = inputCountPayloadFingerprint(bodyJson);
+       const haveNative =
+@@ -1907,10 +2110,15 @@ export function createFrontierAwareFetch(
        }
      }
 
@@ -2017,17 +2859,15 @@ index 43d54123..fff07d5c 100644
        campaign?.maxOutputTokensPerRequest != null &&
        bodyJson &&
        demonstrableOutputTokenBound(bodyJson) == null
-@@ -2093,16 +2115,18 @@ export function createFrontierAwareFetch(
+@@ -1922,53 +2130,63 @@ export function createFrontierAwareFetch(
        body = JSON.stringify(bodyJson);
      }
 
--    const httpFamily = classifyOpenAiHttpFamily(url);
--    const emissionKind = emissionKindForHttpFamily(httpFamily);
+-    // Strip Studio-only hints before wire emission.
 +    // Reserve against the Studio body (hints intact). Strip only for the wire.
 +    const reserveBody = body;
 +    const reserveBodyJson = bodyJson;
-
--    // Strip Studio-only hints before wire emission.
++
 +    let wireBodyJson = bodyJson;
 +    let wireBody = body;
      if (bodyJson) {
@@ -2040,35 +2880,80 @@ index 43d54123..fff07d5c 100644
        } = bodyJson as Record<string, unknown> & {
          sfia_estimated_input_tokens?: unknown;
          sfia_native_input_tokens?: unknown;
-@@ -2129,22 +2153,22 @@ export function createFrontierAwareFetch(
-           chain: alsStore.continuity.chain,
-           lane: (process.env.STUDIO_LANE ?? "UNKNOWN").trim().toUpperCase(),
-         });
--        bodyJson = applyContinuityToResponsesBody(wireBody, plan);
-+        wireBodyJson = applyContinuityToResponsesBody(stripped, plan);
-       } else {
--        bodyJson = wireBody;
-+        wireBodyJson = stripped;
-       }
+         sfia_input_count_fingerprint?: unknown;
+       };
+-      // Continuity: attach previous_response_id only when mode=native and plan allows.
+-      // Default OFF — D3 remains SoT; prior tokens remain billable when attached.
+-      const continuityMode = resolveProviderContinuityMode();
+-      const plan = planProviderContinuity({
+-        mode: continuityMode,
+-        studio: alsStore.continuity.studio ?? {
+-          workId: "",
+-          acquisFingerprint: null,
+-          sourceVersions: [],
+-          checkpointId: null,
+-          budgets: {
+-            tokensConsumed: 0,
+-            tokensBudget: null,
+-            restitutionsRemaining: null,
++      if (httpFamily === "responses") {
++        // Continuity: attach previous_response_id only when mode=native and plan allows.
++        // Default OFF — D3 remains SoT; prior tokens remain billable when attached.
++        const continuityMode = resolveProviderContinuityMode();
++        const plan = planProviderContinuity({
++          mode: continuityMode,
++          studio: alsStore.continuity.studio ?? {
++            workId: "",
++            acquisFingerprint: null,
++            sourceVersions: [],
++            checkpointId: null,
++            budgets: {
++              tokensConsumed: 0,
++              tokensBudget: null,
++              restitutionsRemaining: null,
++            },
++            rightsOk: false,
+           },
+-          rightsOk: false,
+-        },
+-        chain: alsStore.continuity.chain,
+-        lane: (process.env.STUDIO_LANE ?? "UNKNOWN").trim().toUpperCase(),
+-      });
+-      bodyJson = applyContinuityToResponsesBody(wireBody, plan);
 -      body = JSON.stringify(bodyJson);
++          chain: alsStore.continuity.chain,
++          lane: (process.env.STUDIO_LANE ?? "UNKNOWN").trim().toUpperCase(),
++        });
++        wireBodyJson = applyContinuityToResponsesBody(stripped, plan);
++      } else {
++        wireBodyJson = stripped;
++      }
 +      wireBody = JSON.stringify(wireBodyJson);
      }
 
-     const hostedSearchDelta =
-       httpFamily === "responses"
--        ? inferHostedSearchDeltaFromBody(bodyJson, campaign)
+-    const hostedSearchDelta = inferHostedSearchDeltaFromBody(
+-      bodyJson,
+-      campaign,
+-    );
++    const hostedSearchDelta =
++      httpFamily === "responses"
 +        ? inferHostedSearchDeltaFromBody(reserveBodyJson, campaign)
-         : 0;
++        : 0;
      const reservation = reserveHttpEmission({
-       kind: emissionKind,
+-      kind: "http.responses",
++      kind: emissionKind,
        url,
        method,
 -      body,
 +      body: reserveBody,
        effort: alsStore.effortHint,
-       // Decisions/embeddings/VS/files are not Nora model×effort admissions.
-       skipModelAdmission: httpFamily !== "responses",
-@@ -2162,16 +2186,18 @@ export function createFrontierAwareFetch(
+-      skipModelAdmission: false,
++      // Decisions/embeddings/VS/files are not Nora model×effort admissions.
++      skipModelAdmission: httpFamily !== "responses",
+       hostedSearchDelta,
+     });
+     if (!reservation.ok) {
+@@ -1983,16 +2201,18 @@ export function createFrontierAwareFetch(
          attemptId: reservation.attemptId,
          url,
          method,
@@ -2076,11 +2961,12 @@ index 43d54123..fff07d5c 100644
 -        effort: effortFromBody(bodyJson),
 -        maxOutputTokens: demonstrableOutputTokenBound(bodyJson),
 -        maxToolCalls: Number(bodyJson?.max_tool_calls ?? 0) || null,
+-        kind: "http.responses",
 +        model: modelFromBody(wireBodyJson),
 +        effort: effortFromBody(wireBodyJson),
 +        maxOutputTokens: demonstrableOutputTokenBound(wireBodyJson),
 +        maxToolCalls: Number(wireBodyJson?.max_tool_calls ?? 0) || null,
-         kind: emissionKind,
++        kind: emissionKind,
        });
      }
 
@@ -2095,10 +2981,35 @@ index 43d54123..fff07d5c 100644
 ```
 
 
-### 6.4 Contract sync diffs vs HEAD
+### contracts + cognition verdict + delivery-history + registre
 
-#### contrat-fonctionnel.md
 ```diff
+diff --git a/projects/sfia-studio-next/construction/convergence-openai-studio/cognition-specialisee-et-intelligence-documentaire.md b/projects/sfia-studio-next/construction/convergence-openai-studio/cognition-specialisee-et-intelligence-documentaire.md
+index c5428202..e4322017 100644
+--- a/projects/sfia-studio-next/construction/convergence-openai-studio/cognition-specialisee-et-intelligence-documentaire.md
++++ b/projects/sfia-studio-next/construction/convergence-openai-studio/cognition-specialisee-et-intelligence-documentaire.md
+@@ -502,13 +502,14 @@ Macro-lot 3 · activation permanente sans preuve · migration PG non justifiée
+
+ ## 14. Verdict d'intervention
+
+-**MACRO-LOT 2 — COMPARATIVE QUALIFICATION PARTIAL — EXPLICIT ARBITRATION OR PROOF REQUIRED**
++**MACRO-LOT 2 — PRODUCT-WIDE INTEGRATION QUALIFIED — MORRIS EXIT ACCEPTANCE PROPOSED**
+
+-Motifs PARTIAL :
++Motifs :
+
+-- Architecture candidats documentés et discriminés sur code + doc officielle + SDK.
+-- Benchmarks LIVE Decisions / Retrieval / Vision **non exécutés** (non autorisés).
+-- DATA-01 / VS non tranchés.
+-- CONV-F21–F26 préparés, non BEHAVIOR PROVEN end-to-end.
++- Architecture verrouillée + cartographie consommateurs produit.
++- Raccordements réels : D4 search hybrid · Journal API · Git PDF Vision · D8 bounded judgment · lifecycle acquis · Frontier protect LIVE.
++- LIVE campagne cumulative préservée (reliquat HTTP 90/236 ; Nora ~38/40) — **aucune nouvelle émission** sans GO.
++- Migration 027 candidate documentée, **non appliquée** ; backend fichier jusqu'à GO.
++- Flags OFF by default ; RECETTE / WEB OFF / Admin unused.
+
+-R5 IN PROGRESS · ML5 OPEN · Livraison 1 non acceptée globalement · Macro-lot 1 accepté avec réserves · Macro-lot 2 en qualification · Macro-lot 3 non engagé · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED.
++R5 IN PROGRESS · ML5 OPEN · Livraison 1 non acceptée globalement · Macro-lot 1 accepté avec réserves · Macro-lot 2 product integration proposed for Morris exit · Macro-lot 3 non engagé · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED.
 diff --git a/projects/sfia-studio-next/construction/convergence-openai-studio/contrat-fonctionnel.md b/projects/sfia-studio-next/construction/convergence-openai-studio/contrat-fonctionnel.md
 index 3c293659..78fe3de4 100644
 --- a/projects/sfia-studio-next/construction/convergence-openai-studio/contrat-fonctionnel.md
@@ -2112,11 +3023,6 @@ index 3c293659..78fe3de4 100644
  | ID | Parcours / oracle |
  |---|---|
  | CONV-F21 | Comparaison Decisions / Responses sur jugements bornés labellisés indépendamment ; qualité au moins équivalente sur les cas remplacés, erreurs et incertitude explicites ; aucun effet D6 |
-```
-
-
-#### contrat-technique.md
-```diff
 diff --git a/projects/sfia-studio-next/construction/convergence-openai-studio/contrat-technique.md b/projects/sfia-studio-next/construction/convergence-openai-studio/contrat-technique.md
 index 6c95ec58..70446e50 100644
 --- a/projects/sfia-studio-next/construction/convergence-openai-studio/contrat-technique.md
@@ -2135,37 +3041,42 @@ index 6c95ec58..70446e50 100644
  | Composer texte | Audio Transcriptions | BUILD / REUSE NATIVE | Message USER confirmé, pas d'effet avant envoi ; désactivation micro sans perte clavier |
  | Realtime non implémenté | Transcription progressive | BUILD conditionnel | Mode fichier repli ; fin de session et quotas vérifiés |
  | D7/D8 livraison 2 non engagée | Agents API/Codex | EVALUATION différée | Contrat d'exécution et preuves indépendants du fournisseur ; pas de migration pendant ces trois lots |
-```
+diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
+index 0d7064c0..b1212be4 100644
+--- a/projects/sfia-studio-next/construction/delivery-history.md
++++ b/projects/sfia-studio-next/construction/delivery-history.md
+@@ -3,6 +3,18 @@
+ Append-only logical journal of Cursor product deliveries.
+ **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
++## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML2-PRODUCT-WIDE-INTEGRATION
++
++- **date_utc**: 2026-11-27T05:25Z
++- **lane**: DEV — Macro-lot 2 product-wide integration
++- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
++- **HEAD_baseline**: `e784232b` · prior HEAD `56572cf8` + dirty delivery worktree committed this delivery
++- **focus**: cartographie consommateurs · hybrid search D4/Journal · Decisions D8 · Vision Git PDF · Frontier LIVE protect · migration 027 candidate (not applied)
++- **campaign**: `ml2-i2-docintel-20261127` remainder HTTP 90/236 · Nora ~38/40 — no new LIVE emission
++- **flags**: OFF by default
++- **RECETTE**: protected · WEB OFF · NO RELEASE · NOT ADOPTED
++- **statut**: **MACRO-LOT 2 — PRODUCT-WIDE INTEGRATION QUALIFIED — MORRIS EXIT ACCEPTANCE PROPOSED** (with explicit reserves)
++
+ ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML1-TARGETED-EXIT
 
-#### cognition-specialisee-et-intelligence-documentaire.md (verdict)
-```diff
-diff --git a/projects/sfia-studio-next/construction/convergence-openai-studio/cognition-specialisee-et-intelligence-documentaire.md b/projects/sfia-studio-next/construction/convergence-openai-studio/cognition-specialisee-et-intelligence-documentaire.md
-index c5428202..2fc82b3a 100644
---- a/projects/sfia-studio-next/construction/convergence-openai-studio/cognition-specialisee-et-intelligence-documentaire.md
-+++ b/projects/sfia-studio-next/construction/convergence-openai-studio/cognition-specialisee-et-intelligence-documentaire.md
-@@ -502,13 +502,14 @@ Macro-lot 3 · activation permanente sans preuve · migration PG non justifiée
+ - **date_utc**: 2026-11-27T03:15Z
+diff --git a/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md b/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
+index 2c1134cc..07869267 100644
+--- a/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
++++ b/projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
+@@ -4,7 +4,7 @@
 
- ## 14. Verdict d'intervention
-
--**MACRO-LOT 2 — COMPARATIVE QUALIFICATION PARTIAL — EXPLICIT ARBITRATION OR PROOF REQUIRED**
-+**MACRO-LOT 2 — INTEGRATED DELIVERY QUALIFIED — EXIT REVIEW / HANDOFF FULL**
-
--Motifs PARTIAL :
-+Motifs :
-
--- Architecture candidats documentés et discriminés sur code + doc officielle + SDK.
--- Benchmarks LIVE Decisions / Retrieval / Vision **non exécutés** (non autorisés).
--- DATA-01 / VS non tranchés.
--- CONV-F21–F26 préparés, non BEHAVIOR PROVEN end-to-end.
-+- Architecture verrouillée GO Morris (KEEP Responses+semantic-qualification ; ADAPT Decisions+Vision ; E=lexical+embeddings locaux ; DEFER VS/File Search/fileId).
-+- LIVE campagne `ml2-i2-docintel-20261127` exécutée ; CONV-F21–F26 prouvés (F21 réserve incertitude → fallback Responses).
-+- Delivery code : index fichier dérivé, bounded-judgment, vision ponctuelle ; flags OFF by default ; **pas** de migration 027.
-+- Nora E2E COMPLETE sous réserve 40 (≈2 contacts) ; D3 V1 / WEB OFF / RECETTE intactes.
-+- As-built : `as-built-macro-lot-2-20261127.md`.
-
--R5 IN PROGRESS · ML5 OPEN · Livraison 1 non acceptée globalement · Macro-lot 1 accepté avec réserves · Macro-lot 2 en qualification · Macro-lot 3 non engagé · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED.
-+R5 IN PROGRESS · ML5 OPEN · Livraison 1 non acceptée globalement · Macro-lot 1 accepté avec réserves · Macro-lot 2 delivery qualifié (exit review) · Macro-lot 3 non engagé · R6 NOT STARTED · NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED.
+ | Champ | Valeur |
+ |---|---|
+-| Version | v0.20 candidate — 27 novembre 2026 : Intervention 2 LIVE qualification (Admin LIVE · FinOps COMPARABLE · tracing LOCAL · WEB A3 opt2 · D3 V1 comparative · campagne Nora) — **MACRO-LOT 1 LIVE QUALIFICATION COMPLETED WITH EXPLICIT RESERVES** ; v0.19 : Integrated foundation completion — READY FOR CONSOLIDATED MORRIS GATES ; v0.18 : Admin/FinOps qualification — LIVE NOT EXECUTED ; v0.17 : operational DEV foundation |
++| Version | v0.21 candidate — 27 novembre 2026 : Macro-lot 2 product-wide integration (hybrid search · Decisions · Vision · Frontier LIVE protect · migration 027 candidate) — **ML2 PRODUCT INTEGRATION QUALIFIED WITH RESERVES** ; v0.20 : Intervention 2 LIVE qualification ML1 — **COMPLETED WITH EXPLICIT RESERVES** ; v0.19 : Integrated foundation completion ; v0.18 : Admin/FinOps qualification — LIVE NOT EXECUTED ; v0.17 : operational DEV foundation |
+ | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
+ | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
+ | Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |
 ```
 
 
@@ -3823,7 +4734,7 @@ For predicate value is boolean. For choice value is one choice string. For score
 
 ---
 
-## 8. qualify-report.json (full)
+## 8. qualify-report.json (full) + envelopes
 
 ```json
 {
@@ -4208,7 +5119,7 @@ For predicate value is boolean. For choice value is one choice string. For score
 
 ---
 
-## 9. CONV-F21…F26 detailed results
+## 9. CONV-F21…F26 detailed results (capitalized + wiring status)
 
 ### F21 — Decisions vs Responses
 
@@ -4217,8 +5128,8 @@ For predicate value is boolean. For choice value is one choice string. For score
 | Cases | 12 | 12 |
 | Correct | 12 | 12 |
 | Accuracy | 1 | 1 |
-| Case mismatches | none | — |
 | D6 effect | false | false |
+| Product wire | D8 optional pre-pass (`SFIA_BOUNDED_JUDGMENT`) — **UNIT proven**; default OFF |
 
 Per-case Decisions:
 
@@ -4254,14 +5165,14 @@ Per-case Responses control:
 | D-CHO-01 | True | network | False | False | 1290 | 106 | 60 |
 | D-NON-01 | True | indeterminate | True | False | 1326 | 100 | 97 |
 
-**Reserve F21:** AMB/INS Decisions collapsed to ~0 probability (`uncertaintyOk=false`). Product module uses Responses fallback when `assessUncertainty` true; D-AMB reprobe in qualify still returned `source=decisions` with `probability=0` / `uncertain=false` (band not triggered at 0). Fallback path code exists; **AMB live fallback not observed in qualify reprobing**.
+**Reserve F21:** AMB/INS Decisions collapsed to ~0 probability (`uncertaintyOk=false`). Fallback path code exists; AMB live fallback not observed in qualify reprobing.
 
 ### F22 — Retrieval comparative
 
 - Embeddings meanRecall@5 = **0.625**
 - VS meanRecall@5 = **0.75** (experimental; DEFER product)
-- Lexical product baseline (pre-campaign): isolationFail=0, revokedMobilized=0
 - Architecture retained: **E = lexical + local embeddings**
+- Product wire: D4 `search_project_resources` + Journal API hybrid — **UNIT wiring proven**; flags OFF
 
 Embeddings per query:
 
@@ -4280,34 +5191,19 @@ Embeddings per query:
 | Q-ISO-01 | isolation | 0 | True |
 | Q-DEL-01 | deleted_source | 0 | True |
 
-VS per query:
-
-| queryId | type | recallAt5 | hitIds (top3) |
-|---|---|---|---|
-| Q-EXACT-01 | exact_id | 1 | syn-auth-v2,syn-absent-only,syn-billing |
-| Q-PARA-01 | paraphrase | 1 | syn-auth-v2,syn-billing,syn-contradict-a |
-| Q-SYN-01 | synonym | 1 | syn-auth-v2,syn-billing,syn-absent-only |
-| Q-HOM-01 | homonym_ambiguous | 1 | syn-homonym-lang,syn-auth-v2,syn-homonym-cafe |
-| Q-HOM-02 | homonym_disambiguated | 1 | syn-homonym-cafe,syn-homonym-lang,syn-absent-only |
-| Q-VER-01 | version_current | 1 | syn-auth-v2,syn-absent-only,syn-homonym-lang |
-| Q-REV-01 | revocation | 0 | syn-auth-v2,syn-absent-only,syn-billing |
-| Q-ABS-01 | absent | 0 | syn-auth-v2,syn-absent-only,syn-billing |
-
-**Not exercised this cycle:** Chantiers360 / RoomBooking product corpora LIVE re-run (synthetic only).
-
 ### F23 — Lifecycle / reconstructible index
 
-- Unit test `markSourceLifecycle` → revoked omitted from search: **PASS** (vitest)
-- Qualify liveLifecycle: revokedId `syn-auth-v1`, `revokedAbsentAfter=true`
-- Experimental VS cleanup: all deletes ok + verify 404
-- **Not exercised:** multi-writer concurrency; crash mid dual-rename; backup/restore drill; PG 027
+- Unit lifecycle revoke → omitted: **PASS**
+- Product wire: `capitalizeAcquis` supersede → revoke derived source
+- Qualify liveLifecycle: `revokedAbsentAfter=true`
+- PG 027: candidate only
 
 ### F24 — PDF / Vision
 
 - LIVE Vision ok = **6 / 6**
-- PDF extract + viewer: KEEP (prior product surfaces; not re-qualified UI this cycle)
-- Punctual module `document-vision-punctual.ts` shipped; qualify `punctualReprobe` was **null** (wrong filename in first run; **no re-emission** to fix)
-- Durable fileId: false
+- Product wire: `read_git_pdf` Vision punctual — **code path present**; flag OFF
+- PDF extract + viewer KEEP
+- Qualify punctualReprobe was null (no re-emission)
 
 | id | ok | inTok | outTok | latencyMs |
 |---|---|---|---|---|
@@ -4318,55 +5214,42 @@ VS per query:
 | P-TXT-01 | True | 77 | 31 | 2311 |
 | P-TBL-01 | True | 99 | 17 | 2097 |
 
-### F25 — Nora integrated path
+### F25 — Nora / Studio parcours
 
-See §10 honesty block. Status COMPLETE on adapter path; **not** a full investigation→note→inspection→revise product loop.
+- Prior adapter E2E COMPLETE (bounded) — capitalized
+- Product tools now capable when flags ON (D4/Git/D8)
+- **Full Studio parcours LIVE** (intention→investigation→D3→doc→inspect→revise) **NOT re-emitted** this segment — awaits remainder GO
+- Fake/Real: do **not** equate generateNoraReply alone to complete investigation
 
 ### F26 — FinOps attribution
 
-- LIVE phase tokens tracked in campaign report / phase budgets
-- Ledger inserts (reconcile script, no fake project FK):
-  - `embeddings.derived_index_rebuild` inserted
-  - `bounded_judgment.decisions` inserted
-  - `nora.ml2_integrated_e2e` inserted
-- Embedding tariff: PARTIAL/UNKNOWN (not in cognitive tariff catalog) — **not presented as zero**
-- Admin collector: not re-run this cycle
-- First qualify attempt FK failure on synthetic projectId: documented; reconciled with null projectId
+- Ledger inserts preserved (embeddings / bounded_judgment / nora e2e)
+- Embedding tariff PARTIAL/UNKNOWN — not presented as zero
+- Regularization writes auditable; history not opaque-rewritten
+- Admin unused
 
 ---
 
-## 10. Nora E2E — honesty / what was and was not exercised
+## 10. Nora E2E honesty (prior) + product path honesty (this segment)
 
-### Exercised (REAL adapter)
+### Prior adapter E2E (capitalized — REAL adapter, synthetic context)
 
 | Item | Observation |
 |---|---|
-| Entry | `generateNoraReply` from `ml2-i2-integrated-delivery-qualify.mts` |
-| Policy | `buildCognitivePolicy` · model `gpt-6-luna` · effort `medium` · `OPERATIONAL_PROVISIONAL` |
-| Context | Synthetic snippets only (architecture lock text + Orion capacity=12) |
-| Status | `COMPLETE` |
-| Qualification schema | `ml4c-sem-qual-v1` (**KEEP**) |
-| modelApplied | `UNVERIFIED` (as returned) |
-| Duration | ~6158 ms |
-| HTTP toward Nora reserve | ~2 / 40 (remaining ~38) |
-| D6 HumanDecision created | **No evidence / none claimed** |
-| Campaign | same `ml2-i2-docintel-20261127` |
+| Entry | `generateNoraReply` from qualify script |
+| Status | COMPLETE · schema `ml4c-sem-qual-v1` KEEP |
+| HTTP Nora | ~2 / 40 remaining ~38 |
+| D6 | none |
+| workId / D4 tools / doc revise | **NOT INVOKED** in that adapter call |
 
-### NOT exercised (declare absent — do not invent)
+### This segment — product integration
 
 | Item | Status |
 |---|---|
-| `workId` / cognitive work product path | **NOT OBSERVED** (adapter call without work binding in script) |
-| D3 checkpoints V1 product persistence for this turn | **NOT OBSERVED** |
-| Nora D4 tools (`search_project_resources`, document read/compare) | **NOT INVOKED** (no `toolScope` in E2E call) |
-| Derived embedding index consulted by Nora | **NOT INVOKED** |
-| Bounded Decisions inside Nora turn | **NOT INVOKED** |
-| Vision punctual inside Nora turn | **NOT INVOKED** |
-| Document production / conservation / targeted revision | **NOT EXERCISED** |
-| Preparation/project rights revalidation mid-tool | **NOT EXERCISED** in this E2E |
-| Chantiers360 / RoomBooking investigation loop | **NOT EXERCISED** |
-
-### Reply preview (observed)
+| D4 / Journal / Git / D8 wires | **COMMITTED** behind flags |
+| New LIVE Nora investigation | **NOT RUN** (remainder GO required) |
+| Browser smoke full parcours | **NOT RUN** this segment |
+| Flags permanent activation | **NONE** |
 
 ```text
 Oui : dans le contexte fourni, **semantic-qualification reste au cœur de l’architecture** — l’orientation indiquée est de conserver « Responses+semantic-qualification », et D3 V1 est conservée.
@@ -4382,114 +5265,102 @@ Pour les HumanDecision, **aucune création n’est signalée dans les éléments
 | Bucket | Value |
 |---|---|
 | Campaign ceiling HTTP | 236 |
-| LIVE phase HTTP sum (script budgets) | 83 |
-| Conservative floor post-LIVE | ~85 |
-| After Nora+qualify envelope committed | **90** |
-| Tokens LIVE phase in/out (usage) | 6641 / 1178 |
-| Envelope inputTokensCommitted (incl. reservations) | 22198 (includes max_output reservations — not pure usage) |
+| Envelope committed (post-Nora/qualify) | **90** |
+| Reliquat HTTP | **146** (236−90) — see remainder doc |
 | Nora reserved remaining | ~38 / 40 |
-| Cleanup reserved remaining | 16 / 24 (8 used in LIVE) |
-| Family committed (envelopeAfter) | decisions 13 · embeddings 4 · responses 20 · vector_stores 29 · files 12 |
-| Experimental remote cleanup | 6 files deleted ok · 1 VS deleted ok · verify 404 ok |
-| Hosted searches | 0 |
+| Cleanup reserved remaining | 16 / 24 |
+| Experimental remote cleanup | verified deletes / 404 |
 | Campaign reset | **NONE** |
 | New campaign id | **NONE** |
+| New LIVE this segment | **NONE** |
 
 
 ---
 
 ## 12. Build, tests, flags, rollback, RECETTE
 
-### Tests observed
+### Tests observed this segment
 
 | Suite | Result |
 |---|---|
 | `ml5-provider-emission-frontier.test.ts` | 27 passed |
 | `ml2-derived-embedding-index.test.ts` | 4 passed |
-| Full web regression suite | **NOT re-run end-to-end this cycle** |
-| Next production build | **NOT re-run this cycle** |
+| `ml2-product-wiring.test.ts` | 7 passed |
+| Full web regression + Next production build | **NOT re-run end-to-end this segment** (targeted only) |
+| DEV :3100 | process PID 35473 observed |
 
-### Flags (default OFF — no permanent activation)
+### Flags (default OFF)
 
-| Flag | Default | Role |
-|---|---|---|
-| `SFIA_DERIVED_EMBEDDING_SEARCH` | unset/0 | Hybrid search channel |
-| `SFIA_BOUNDED_JUDGMENT` | unset/0 | Decisions helper gate |
-| `SFIA_DOCUMENT_VISION_PUNCTUAL` | unset/0 | Vision punctual gate |
-| `SFIA_WEB_SEARCH_LIVE` | 0 | WEB OFF |
-| `SFIA_WEB_SEARCH_ENABLED` | 0 | WEB OFF |
-
-Qualify script set flags to `1` **in-process only** for the qualify run.
+| Flag | Role |
+|---|---|
+| `SFIA_DERIVED_EMBEDDING_SEARCH` | Hybrid search |
+| `SFIA_BOUNDED_JUDGMENT` | Decisions helper |
+| `SFIA_DOCUMENT_VISION_PUNCTUAL` | Vision punctual |
+| WEB LIVE | OFF |
 
 ### Rollback
 
-- Leave flags unset → product path = pre-ML2 (lexical + semantic-qualification + extract/viewer).
-- Delete `.sfia-derived/embedding-index/` → remove local index artifacts.
-- Do not apply migration 027 (none applied).
-- Uncommitted modules can be discarded without affecting HEAD `56572cf8` (until committed).
+- Flags unset → pre-ML2 path
+- Delete `.sfia-derived/embedding-index/` → remove local artifacts
+- Do not apply 027
+- Git revert `8b75249a` if needed (local only)
 
-### RECETTE protection
+### RECETTE
 
-- No RECETTE process, DB `:5434`, or port `:3200` mutations observed.
-- No Admin key use.
-- No real project data transfer beyond synthetic DEV seed already created pre-campaign.
+- Not touched · no Admin · no real project data LIVE transfer
 
 
 ---
 
-## 13. Inventaire exhaustif depuis e784232b
-
-### 13.1 Committed (e784232b..56572cf8)
+## 13. Inventaire e784232b..HEAD
 
 ```text
+A	projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-2-20261127.md
 M	projects/sfia-studio-next/construction/convergence-openai-studio/cloture-macro-lot-1.md
+M	projects/sfia-studio-next/construction/convergence-openai-studio/cognition-specialisee-et-intelligence-documentaire.md
+M	projects/sfia-studio-next/construction/convergence-openai-studio/contrat-fonctionnel.md
+M	projects/sfia-studio-next/construction/convergence-openai-studio/contrat-technique.md
+A	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/architecture-selection-locked-20261127.md
 M	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/corpus-decisions-labels.json
 M	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/corpus-pdf-vision-oracle.json
 M	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/corpus-retrieval-oracle.json
 A	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/live-campaign-manifest-candidate.md
 A	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/live-campaign-manifest-final.md
+A	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/live-campaign-remainder-20261127.md
+A	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/migration-027-candidate.md
+A	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/product-consumer-cartography-20261127.md
 M	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/protocole-qualification.md
+A	projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/selection-checkpoint-ml2-i2-20261127.md
+M	projects/sfia-studio-next/construction/delivery-history.md
+M	projects/sfia-studio-next/construction/ml5-registre-couverture-et-revue-developpement.md
 A	projects/sfia-studio-next/web/scripts/ml2-frontier-preflight-concurrency-restart.mts
 A	projects/sfia-studio-next/web/scripts/ml2-generate-synthetic-document-artefacts.py
+A	projects/sfia-studio-next/web/scripts/ml2-i2-bounded-live-campaign.mts
+A	projects/sfia-studio-next/web/scripts/ml2-i2-finops-reconcile.mts
+A	projects/sfia-studio-next/web/scripts/ml2-i2-integrated-delivery-qualify.mts
 A	projects/sfia-studio-next/web/scripts/ml2-seed-synthetic-journal-baseline.mts
 A	projects/sfia-studio-next/web/scripts/ml2-verify-synthetic-pdf-extract.mts
+M	projects/sfia-studio-next/web/src/app/api/projects/[projectId]/journal/search/route.ts
+A	projects/sfia-studio-next/web/src/db/migrations/candidates/027_derived_embedding_chunks.sql
+A	projects/sfia-studio-next/web/src/domains/conversation/bounded-judgment.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/d4-read-tools.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/git-read-tools.ts
 M	projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts
+A	projects/sfia-studio-next/web/src/domains/documents/document-vision-punctual.ts
+A	projects/sfia-studio-next/web/src/domains/knowledge/derived-embedding-index.ts
+A	projects/sfia-studio-next/web/src/domains/knowledge/derived-embedding-service.ts
+A	projects/sfia-studio-next/web/src/domains/knowledge/hybrid-knowledge-search.ts
+M	projects/sfia-studio-next/web/src/domains/knowledge/journal.ts
+M	projects/sfia-studio-next/web/src/domains/knowledge/service.ts
+M	projects/sfia-studio-next/web/src/domains/proofs/d8-cognitive-criterion-eval.ts
+A	projects/sfia-studio-next/web/tests/unit/ml2-derived-embedding-index.test.ts
+A	projects/sfia-studio-next/web/tests/unit/ml2-product-wiring.test.ts
 ```
 
-
-### 13.2 Uncommitted created (worktree)
-
-```text
-A  projects/sfia-studio-next/construction/convergence-openai-studio/as-built-macro-lot-2-20261127.md
-A  projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/architecture-selection-locked-20261127.md
-A  projects/sfia-studio-next/construction/convergence-openai-studio/ml2-qualification/selection-checkpoint-ml2-i2-20261127.md
-A  projects/sfia-studio-next/web/scripts/ml2-i2-bounded-live-campaign.mts
-A  projects/sfia-studio-next/web/scripts/ml2-i2-finops-reconcile.mts
-A  projects/sfia-studio-next/web/scripts/ml2-i2-integrated-delivery-qualify.mts
-A  projects/sfia-studio-next/web/src/domains/conversation/bounded-judgment.ts
-A  projects/sfia-studio-next/web/src/domains/documents/document-vision-punctual.ts
-A  projects/sfia-studio-next/web/src/domains/knowledge/derived-embedding-index.ts
-A  projects/sfia-studio-next/web/src/domains/knowledge/hybrid-knowledge-search.ts
-A  projects/sfia-studio-next/web/tests/unit/ml2-derived-embedding-index.test.ts
-A  projects/sfia-studio-next/web/.sfia-derived/ (runtime index artifacts — local evidence)
-```
-
-### 13.3 Uncommitted modified
-
-```text
-M  projects/sfia-studio-next/construction/convergence-openai-studio/cognition-specialisee-et-intelligence-documentaire.md
-M  projects/sfia-studio-next/construction/convergence-openai-studio/contrat-fonctionnel.md
-M  projects/sfia-studio-next/construction/convergence-openai-studio/contrat-technique.md
-M  projects/sfia-studio-next/web/src/domains/conversation/provider-emission-frontier.ts
-M  projects/sfia-studio-next/web/src/domains/knowledge/journal.ts
-M  .tmp-sfia-review/chatgpt-review.md (this pack; ephemeral)
-```
 
 ---
 
-## 14. Additional committed artefacts (manifesto final)
-
-### live-campaign-manifest-final.md
+## 14. Manifesto final (committed earlier)
 
 ```markdown
 # ML2 Intervention 2 — Manifeste LIVE consolidé FINAL
@@ -4683,31 +5554,79 @@ Consommation attendue de Morris :
 
 ---
 
-## 15. Réserves explicites + conditions de sortie
+## 15. Réserves + conditions de sortie
 
-1. Worktree dirty — delivery code not in HEAD commit; audit via this FULL pack.
-2. Nora E2E is adapter-bounded: no workId, no D4 tools, no document revise loop.
-3. Hybrid/Decisions/Vision **not** wired into Nora tool builders; flags OFF.
-4. File-index concurrency/backup/crash consistency not production-hardened.
-5. F21 uncertainty calibration still weak at p≈0; fallback not observed on AMB reprobing.
-6. F24 punctual reprobe null in qualify (no re-emission).
-7. VS product DEFER; experimental cleanup proven only.
-8. Embedding FinOps tariff PARTIAL/UNKNOWN.
-9. Full web vitest + Next build not re-run this regularization.
-10. Clôture Morris **en attente** de revue de ce pack FULL.
+| # | Reserve | Impact | Owner | Protection | Exit condition |
+|---|---|---|---|---|---|
+| 1 | Full Studio parcours LIVE not re-run this segment | Proof gap on end-to-end product loop | Morris + Cursor | No READY without remainder GO | GO remainder + parcours REAL |
+| 2 | Flags OFF by default | Capacities not active in default UX | Morris | Feature flags | Lane-scoped enablement GO |
+| 3 | File-index concurrency/backup residual | Multi-writer unsafe | Cursor/architecture | Single-writer; prefer 027 | GO 027 or flock policy |
+| 4 | F21 AMB calibration weak | Fallback infrequently observed | Cognition | Responses fallback code | Recalibrate under remainder |
+| 5 | F24 punctualReprobe null in qualify | Vision module LIVE punctual unconfirmed in qualify | Cursor | No silent re-emit | Optional remainder Vision slot |
+| 6 | VS/File Search/fileId DEFER | No hosted continuity | Architecture lock | Product path excludes | Separate ML3+ GO |
+| 7 | Embedding FinOps tariff PARTIAL/UNKNOWN | Cost may show unknown | FinOps | Explicit unknown signal | Tariff catalog update |
+| 8 | Full vitest + Next build not re-run | Residual compile risk elsewhere | Cursor | Targeted 38 tests green | Optional full suite GO |
+| 9 | Migration 027 not applied | PG projection deferred | Morris | Candidate only | Distinct GO 027 |
 
-### Conditions de sortie Morris
+### Décisions Morris requises
 
-- Accept ML2 with above reserves? (yes/no + amendments)
-- Authorize which flags on which lane?
-- GO migration 027? (default no)
-- Macro-lot 3 only on separate GO
+1. Accept MACRO-LOT 2 product-wide integration with reserves? (exit acceptance)
+2. Authorize which flags on which lane?
+3. GO migration 027? (default no)
+4. GO remainder LIVE for full Studio parcours? (present remainder first)
+5. Macro-lot 3 only on separate GO
 
 
 ---
 
 ## 16. Verdict
 
-**ML2_FULL_HANDOFF_REGULARIZED — AWAITING_REMOTE_VERIFY**
+**MACRO-LOT 2 — PRODUCT-WIDE INTEGRATION QUALIFIED — MORRIS EXIT ACCEPTANCE PROPOSED**
 
-No project push. No migration. No permanent flag activation. No new provider emission in this regularization.
+R5 IN PROGRESS / ML5 OPEN / Macro-lot 1 accepted with reserves / Macro-lot 3 not engaged / NO RELEASE / NOT ADOPTED / STABLE NOT AVAILABLE.
+
+No project push. No migration apply. No permanent flag activation. No new provider emission in this segment.
+
+---
+
+## 17. Instruction ChatGPT obligatoire (§9.1)
+
+> **Instruction ChatGPT obligatoire :**
+>
+> Avant de répondre à Morris sur ce rapport, ChatGPT doit consulter le fichier Git suivant :
+>
+> branche : `sfia/review-handoff`
+> fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+>
+> ChatGPT doit vérifier sa cohérence avec le rapport Cursor, notamment :
+> - le cycle et le profil ;
+> - la branche projet ;
+> - le HEAD initial et final ;
+> - la base main ;
+> - les sources consultées ;
+> - les fichiers créés ou modifiés ;
+> - le contenu complet des fichiers créés ;
+> - les sections complètes modifiées ou le diff utile ;
+> - l'identité du contenu avant et après synchronisation, si applicable ;
+> - les validations réalisées ;
+> - la mergeabilité ou le statut Git attendu ;
+> - les risques, réserves et écarts ;
+> - les décisions Morris ;
+> - le verdict du review pack ;
+> - le commit et la vérification distante du handoff.
+>
+> **Après cette vérification**, ChatGPT doit produire une **synthèse globale du cycle** à destination de Morris comprenant **au minimum** :
+> 1. l'objectif et le périmètre du cycle ;
+> 2. les actions et changements réellement réalisés ;
+> 3. les principaux résultats et validations ;
+> 4. les risques, réserves, écarts ou éléments non couverts ;
+> 5. la distinction entre observations, recommandations et décisions déjà validées ;
+> 6. le verdict ChatGPT ;
+> 7. la prochaine décision ou action attendue de Morris.
+>
+> La synthèse doit être compréhensible sans devoir relire l'intégralité du rapport Cursor ou du review pack, tout en restant fidèle au contenu du handoff Git.
+>
+> Elle ne doit **pas** transformer une recommandation, une hypothèse ou un résultat technique en décision validée sans GO Morris.
+>
+> Si le handoff est absent, obsolète, incohérent, incomplet ou synthesis-only, ChatGPT doit répondre :
+> `REVIEW HANDOFF INCOMPLETE` avec le motif précis, et ne pas produire de synthèse d'acceptation.
