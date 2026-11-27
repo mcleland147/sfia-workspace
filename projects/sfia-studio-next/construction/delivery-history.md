@@ -1,3 +1,16 @@
+## delivery_id: DELIV-2026-11-27-ML5-RECETTE-OPERATIONAL-ACTIVATION
+
+- **date_utc**: 2026-11-27T10:00Z
+- **lane**: RECETTE — activation opérationnelle A1–A6 (pas de construction)
+- **branche DEV docs**: `sfia/next-ml5-integrated-delivery-20261123`
+- **SHA candidat inchangé**: `e8e6e069` · BUILD `rpEczSp61evIZ7d6fnIWR` · digest `18e014c1…`
+- **A2**: rotation mot de passe rôle `sfia_next_recette_ml4` · ancien rejeté SCRAM · DEV :5433 inchangé
+- **A3**: flags LIVE — dictation/live · judgment · embeddings pg+search · vision · cognitive 120/1M/2M
+- **A4**: index borné RoomBooking `proj_7514cdde` (4) + Pilotage360 `proj_04441200` (6) · 341 tokens · 2 HTTP
+- **A5**: Admin collect OFF · **A6**: WEB LIVE OFF
+- **classe**: NO RELEASE · pas de recompilation · pas de migration
+- **statut proposé**: RECETTE OPERATIONAL ACTIVATION COMPLETE — INTEGRATED CONVERGENCE CAPABILITIES AVAILABLE — MORRIS FUNCTIONAL QUALIFICATION READY — USER ACCEPTANCE PENDING
+
 ## delivery_id: DELIV-2026-11-27-ML5-RECETTE-CUTOVER-INTEGRATED-CONVERGENCE
 
 - **date_utc**: 2026-11-27T09:35Z

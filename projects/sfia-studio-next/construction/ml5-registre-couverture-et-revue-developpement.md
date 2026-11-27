@@ -4,7 +4,7 @@
 
 | Champ | Valeur |
 |---|---|
-| Version | v0.28 candidate — 27 novembre 2026 : **RECETTE cutover convergence intégrée** (`e8e6e069` · BUILD `rpEczSp61evIZ7d6fnIWR` · schéma **027** · données préservées · clés RECETTE≠DEV) — **RECETTE CUTOVER COMPLETE — CANDIDATE FROZEN — AVAILABLE WITH EXPLICIT RESTRICTIONS — MORRIS FUNCTIONAL QUALIFICATION PENDING** ; v0.27 : dictation nominal path final DEV ; v0.26 : ML1/ML2 consolidation ; … |
+| Version | v0.29 candidate — 27 novembre 2026 : **RECETTE operational activation A1–A6** (`e8e6e069` · BUILD `rpEczSp61evIZ7d6fnIWR` · PG password rotated · flags LIVE · index borné 10 chunks · WEB/Admin OFF) — **RECETTE OPERATIONAL ACTIVATION COMPLETE — MORRIS FUNCTIONAL QUALIFICATION READY — USER ACCEPTANCE PENDING** ; v0.28 : cutover ; v0.27 : dictation nominal path final DEV ; … |
 | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
 | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
 | Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |

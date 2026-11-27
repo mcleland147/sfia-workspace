@@ -1,11 +1,11 @@
 # SFIA Studio Next — Cahier de recette intégrée ML5 convergence
 
-**Version :** 0.1 — contenu préparé pour qualification Morris  
+**Version :** 0.2 — activation opérationnelle A1–A6  
 **Date :** 27 novembre 2026  
-**Statut :** **CANDIDATE FROZEN — MORRIS FUNCTIONAL QUALIFICATION PENDING**  
+**Statut :** **RECETTE OPERATIONAL ACTIVATION COMPLETE — MORRIS FUNCTIONAL QUALIFICATION READY — USER ACCEPTANCE PENDING**  
 **Programme :** R5 — convergence OpenAI Studio intégrée (macro-lots 1–3)  
 **Responsable de la réception :** Morris  
-**Périmètre :** Cutover RECETTE `e8e6e069` · schéma **027** · données préservées  
+**Périmètre :** Cutover + activation RECETTE `e8e6e069` · schéma **027** · capacités LIVE bornées  
 **Classe :** NO RELEASE · STABLE NOT AVAILABLE
 
 ---
@@ -36,10 +36,12 @@ Ce cahier organise la **recette utilisateur** du candidat RECETTE issu de la con
 | Ancien runtime réellement servi | `a150926c…` / BUILD `6kswoj2a2VHXCLsFYcoim` |
 | SHA documenté historique (non servi) | `2a024b1c…` |
 | Dataset | projects=31 · messages=824 · documents=123 · pilots=170 · conversations=210 · cognitive_works=24 |
-| OpenAI clé RECETTE | empreinte `f27d814e…` — **≠** DEV `ab6bbec8…` (forbidden) |
-| Dictée produit | `SFIA_COMPOSER_DICTATION=0` — micro **PENDING GO** |
+| OpenAI clé RECETTE | empreinte `f27d814e…` — **≠** DEV `ab6bbec8…` (forbidden) · org/projet fournisseur **non vérifié** |
+| Dictée produit | `SFIA_COMPOSER_DICTATION=1` · `SFIA_DICTATION_TRANSPORT=live` — **AVAILABLE** · micro hôte présent · **USER QUALIFIED** à faire |
+| Judgment / embeddings / vision | flags ON · backend PG · index borné RoomBooking+Pilotage360 |
 | WEB LIVE | **OFF** |
-| Config | `~/.config/sfia-studio-next/recette/.env.local` (base Morris) + delta non secret cutover |
+| Collecte Admin | **OFF** |
+| Config | `~/.config/sfia-studio-next/recette/.env.local` + surcharges `start-recette-ml5.sh` |
 
 Manifeste détaillé : [`ml5-recette-cutover-manifest-20261127.md`](./ml5-recette-cutover-manifest-20261127.md).
 
@@ -49,9 +51,9 @@ Manifeste détaillé : [`ml5-recette-cutover-manifest-20261127.md`](./ml5-recett
 
 - Profil navigateur **distinct** de DEV (ENV-01 cookies sur `127.0.0.1`).
 - Vérifier le marqueur HTML `<!--rpEczSp61evIZ7d6fnIWR-->` sur la page d'accueil ou login.
-- Ne pas activer `STUDIO_DEV_AUTO_SESSION`, fixtures Nora, dictée LIVE, WEB LIVE ni collecte Admin sans **GO Morris distinct**.
-- Les essais **LIVE** OpenAI (Nora, transcription micro, embeddings rebuild, vision punctuelle, hosted WEB) exigent un GO explicite et des enveloppes de coût.
-- **RoomBooking** : corpus autorisé `proj_896d204b…` sur `mcleland147/chantiers360` (commit `8c398c49…`) — **ne pas** utiliser le faux projet `proj_f57bca43…` ML5-Doc-RoomBooking sans Git.
+- Ne pas activer `STUDIO_DEV_AUTO_SESSION`, fixtures Nora, WEB LIVE ni collecte Admin sans **GO Morris distinct**.
+- **GO A1–A6 2026-11-27** : capacités retenues **activées** en RECETTE ; indexation bornée effectuée ; parcours utilisateur LIVE = qualification Morris (pas de campagne Cursor).
+- **RoomBooking RECETTE** : `proj_7514cdde…` attaché `mcleland147/chantiers360` (ID DEV `proj_896d204b…` absent ici) — **ne pas** utiliser le faux `proj_f57bca43…`.
 - **Pilotage360 / Chantiers360** : investigations historiques RB-27–31 (planning/conflits) et qualification trajectoire restent des **oracles de non-régression** à réemployer selon impact, pas des replays systématiques de 40+ scénarios.
 - Préserver les données RECETTE ; rollback code documenté sans rollback automatique des migrations 022–027.
 
@@ -111,11 +113,11 @@ Manifeste détaillé : [`ml5-recette-cutover-manifest-20261127.md`](./ml5-recett
 
 | ID | Scénario | Résultat attendu | Verdict Morris |
 |---|---|---|---|
-| R03-01 | Message texte simple — réponse Nora LIVE | Réponse complète · statuts cohérents | **PENDING GO LIVE** |
+| R03-01 | Message texte simple — réponse Nora LIVE | Réponse complète · statuts cohérents | **READY — USER QUALIFICATION** |
 | R03-02 | Conversation longue — compositeur visible en bas | Champ + Envoyer accessibles (requalifier `ML4C-A-003`) | **NOT RUN** |
 | R03-03 | Demande hors périmètre / cible inconnue | Refus ou `UNKNOWN` sémantiquement correct · pas d'effet silencieux | **NOT RUN** (rapprocher `S02-06-R01`) |
 | R03-04 | Capitalisation contexte métier (projet existant) | Pas de fuite cross-pilote | **NOT RUN** |
-| R03-05 | Allocation cognitive / adaptive (code embarqué) | Comportement conforme au contrat ML5 si sollicité | **PENDING GO LIVE** |
+| R03-05 | Allocation cognitive / adaptive (120 / 1M / 2M actifs) | Comportement conforme au contrat ML5 si sollicité | **READY — USER QUALIFICATION** |
 
 **Observations RoomBooking :** preuve DEV RB-27 (`cgw_912cf02a…`) — 9 fichiers CONSULTED, reprise suspendue ; **ne pas extrapoler PASS RECETTE** sans GO campagne sur `proj_896d204b…`.
 
@@ -138,28 +140,28 @@ Manifeste détaillé : [`ml5-recette-cutover-manifest-20261127.md`](./ml5-recett
 
 | ID | Scénario | Résultat attendu | Verdict Morris |
 |---|---|---|---|
-| R05-01 | Recherche hybride sur corpus connu (Chantiers360 / doc existant) | Résultats pertinents · citations traçables | **PENDING GO** (rebuild embeddings si index vide) |
+| R05-01 | Recherche hybride sur corpus connu (RoomBooking / Pilotage360 indexés) | Résultats pertinents · citations traçables | **READY — USER QUALIFICATION** (10 chunks PG) |
 | R05-02 | Question lexicale exacte vs paraphrase (oracle CONV-F22) | Comportement comparable au DEV qualifié | **PENDING GO LIVE** |
 | R05-03 | PDF Git `Diagramme BPMN_BatiNova.pdf` | Identification OK · limite scan **SCANNED_NO_TEXT** connue | **PENDING GO** Git read |
 | R05-04 | Vision punctuelle sur image autorisée | Lecture bornée si GO vision | **PENDING GO** |
 | R05-05 | StockTrack IT-06 (qual corpus) | Ne pas confondre avec BoundTrack ; V1/V2 intactes si sollicité | **NOT RUN** |
 
-**Observations :** schéma 027 et table `derived_embedding_chunks` présents ; **pas** de copie d'index DEV — reconstruction distincte si GO.
+**Observations :** schéma 027 · index borné post-activation : RoomBooking 4 chunks · Pilotage360 6 chunks · tokens 341 · **pas** de copie d'index DEV.
 
 ---
 
 ## R06 — Dictée composer (micro)
 
-**Objectif :** CONV-F31–F34 — code présent, **flag OFF** sur RECETTE.
+**Objectif :** CONV-F31–F34 — **activée** en RECETTE (A3) · qualification utilisateur restante.
 
 | ID | Scénario | Résultat attendu | Verdict Morris |
 |---|---|---|---|
-| R06-01 | Capability API — flag OFF | `enabled: false` · micro non actif | **NOT RUN** (attendu OFF) |
-| R06-02 | Activer GO + permission micro — transcription FR | Texte éditable · envoi manuel unique | **PENDING GO LIVE** |
-| R06-03 | Annulation / refuse permission / navigation | Fail-closed · brouillon clavier préservé | **PENDING GO** |
-| R06-04 | Réserves techniques A–D (finalize partial, TRANSPORT_UNKNOWN) | Comportement fail-closed en anomalie env | **DEV PROVEN** — RECETTE à confirmer sous GO |
+| R06-01 | Capability API — flag ON | `enabled: true` · admission LIVE | **READY — USER QUALIFICATION** (admission locale OK) |
+| R06-02 | Permission micro — transcription FR LIVE | Texte éditable · envoi manuel unique | **READY — USER QUALIFICATION** |
+| R06-03 | Annulation / refuse permission / navigation | Fail-closed · brouillon clavier préservé | **READY — USER QUALIFICATION** |
+| R06-04 | Réserves techniques A–D (finalize partial, TRANSPORT_UNKNOWN) | Comportement fail-closed en anomalie env | **DEV PROVEN** — à confirmer en parcours Morris |
 
-**Interdit sans GO :** `SFIA_COMPOSER_DICTATION=1`, transport `live`, tests micro provider réel.
+**Protections conservées :** durée, concurrence, droits, admission, fermeture de session · pas de fixture · pas de substitution.
 
 ---
 
@@ -201,14 +203,15 @@ Manifeste détaillé : [`ml5-recette-cutover-manifest-20261127.md`](./ml5-recett
 | R07 | 2 | 1 | 0 | 0 |
 | R08 | 4 | 0 | 0 | 0 |
 
-**Verdict global proposé (Cursor, pré Morris) :** **RECETTE CUTOVER COMPLETE — CANDIDATE FROZEN — AVAILABLE WITH EXPLICIT RESTRICTIONS — MORRIS FUNCTIONAL QUALIFICATION PENDING**
+**Verdict global proposé (Cursor, pré Morris) :** **RECETTE OPERATIONAL ACTIVATION COMPLETE — INTEGRATED CONVERGENCE CAPABILITIES AVAILABLE — MORRIS FUNCTIONAL QUALIFICATION READY — USER ACCEPTANCE PENDING**
 
 ---
 
 ## 10. Rollback (rappel)
 
-1. Arrêt LaunchAgent · restaurer dump `sfia_next_recette_ml4-pre-cutover.dump` + `.env.local.bak`  
-2. Retarget plist/script vers worktree `a150926c` (backup `start-recette-ml5.sh.pre-cutover-…`)  
-3. **Attention :** schéma 027 et tables 022–026 ne sont pas retirés automatiquement — compatibilité binaire ancien build ≠ restauration données seule.
+1. Arrêt LaunchAgent · restaurer paramètres **non secrets** depuis bak pre-op-activation · **garder le mot de passe PostgreSQL actuel**.  
+2. Cutover code : retarget plist/script vers worktree `a150926c` si besoin.  
+3. **Attention :** schéma 027 non retiré automatiquement ; ne pas réimporter une base uniquement pour annuler l’activation config.
 
-Preuves : `projects/sfia-studio-next/web/.sfia-evidence/recette-cutover-20261127/` (gitignored).
+Preuves cutover : `…/web/.sfia-evidence/recette-cutover-20261127/` (gitignored).  
+Preuves activation : `…-recette-build-e8e6e06961fa/…/web/.sfia-evidence/recette-op-activation-20261127/` (gitignored).
