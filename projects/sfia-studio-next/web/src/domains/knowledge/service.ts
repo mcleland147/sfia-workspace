@@ -218,13 +218,24 @@ export async function capitalizeAcquis(
   }
   // ML2 derived-index lifecycle (best-effort; flag OFF → no-op).
   try {
-    const { revokeDerivedSource, derivedEmbeddingSearchEnabled } = await import(
-      "@/domains/knowledge/derived-embedding-service"
-    );
+    const {
+      revokeDerivedSource,
+      upsertDerivedAdmissibleSource,
+      derivedEmbeddingSearchEnabled,
+    } = await import("@/domains/knowledge/derived-embedding-service");
     if (derivedEmbeddingSearchEnabled() && ctx.project?.id) {
       if (input.supersedesAcquisId) {
         await revokeDerivedSource(ctx.project.id, input.supersedesAcquisId);
       }
+      await upsertDerivedAdmissibleSource({
+        pilotId,
+        projectId: ctx.project.id,
+        preparationId,
+        sourceId: id,
+        sourceKind: "acquis",
+        text: `${kind}: ${statement}`,
+        versionLabel: "CURRENT",
+      });
     }
   } catch {
     /* index lifecycle never blocks capitalisation */
@@ -276,6 +287,26 @@ export async function openPoint(
   });
   if (write.status === "OWNERSHIP_LOST") {
     return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
+  }
+  // ML2 derived-index lifecycle (best-effort; flag OFF → no-op).
+  try {
+    const {
+      upsertDerivedAdmissibleSource,
+      derivedEmbeddingSearchEnabled,
+    } = await import("@/domains/knowledge/derived-embedding-service");
+    if (derivedEmbeddingSearchEnabled() && ctx.project?.id) {
+      await upsertDerivedAdmissibleSource({
+        pilotId,
+        projectId: ctx.project.id,
+        preparationId,
+        sourceId: id,
+        sourceKind: "open_point",
+        text: `OPEN: ${statement}`,
+        versionLabel: "OPEN",
+      });
+    }
+  } catch {
+    /* index lifecycle never blocks open-point write */
   }
   return { status: "AVAILABLE" as const, openPointId: id };
 }
@@ -774,6 +805,33 @@ export async function selectRelevantKnowledgeContext(
   for (const s of pickedSubjects) {
     const mark = prefS.has(s.id) ? "PREFERRED" : "AVAILABLE";
     snippets.push(`SUJET[${s.id}/${s.status}/${mark}]: ${s.title}`);
+  }
+
+  // ML2 hybrid supplement for Nora context (flag OFF by default).
+  // Does not replace rights-bounded listing; adds candidate refs to verify.
+  if (opts?.projectId && userText.trim()) {
+    try {
+      const {
+        derivedEmbeddingSearchEnabled,
+        hybridSearchProjectKnowledge,
+      } = await import("@/domains/knowledge/derived-embedding-service");
+      if (derivedEmbeddingSearchEnabled()) {
+        const hybrid = await hybridSearchProjectKnowledge({
+          pilotId,
+          projectId: opts.projectId,
+          query: userText.slice(0, 500),
+          lexical: [],
+          limit: 4,
+        });
+        for (const h of hybrid.hits.slice(0, 4)) {
+          snippets.push(
+            `DERIVED_HIT[${h.sourceId}/${h.channel}] ${h.snippet.slice(0, 200)} | indexRef=${h.indexRef ?? "∅"} — verify before authority`,
+          );
+        }
+      }
+    } catch {
+      /* hybrid context never blocks capitalisation listing */
+    }
   }
 
   return {

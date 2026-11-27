@@ -1752,16 +1752,21 @@ export function commitProviderEmission(reservation: {
       const fam = familyFromEmissionKind(rec.kind);
       const famBudget = campaign.familyHttp?.[fam];
       if (famBudget) famBudget.committed += 1;
-      const inTok =
+      // Prefer provider-measured tokens. When measurement is missing, commit the
+      // reservation for envelope accounting but do not treat it as FinOps-measured
+      // fact — reserved≠billed. Cap unmeasured commit to reserved (never invent).
+      const inMeasured =
         reservation.measuredInputTokens != null &&
-        Number.isFinite(reservation.measuredInputTokens)
-          ? Math.max(0, Math.floor(reservation.measuredInputTokens))
-          : rec.reservedInputTokens;
-      const outTok =
+        Number.isFinite(reservation.measuredInputTokens);
+      const outMeasured =
         reservation.measuredOutputTokens != null &&
-        Number.isFinite(reservation.measuredOutputTokens)
-          ? Math.max(0, Math.floor(reservation.measuredOutputTokens))
-          : rec.reservedOutputTokens;
+        Number.isFinite(reservation.measuredOutputTokens);
+      const inTok = inMeasured
+        ? Math.max(0, Math.floor(reservation.measuredInputTokens as number))
+        : Math.max(0, Math.floor(rec.reservedInputTokens));
+      const outTok = outMeasured
+        ? Math.max(0, Math.floor(reservation.measuredOutputTokens as number))
+        : Math.max(0, Math.floor(rec.reservedOutputTokens));
       campaign.inputTokensCommitted += inTok;
       campaign.outputTokensCommitted += outTok;
       // Reconcile reservation overshoot: keep reserved >= committed.

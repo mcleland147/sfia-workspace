@@ -48,12 +48,13 @@ describe("ml2 product-wide wiring (substituted)", () => {
     expect(src).toContain("createFrontierBoundOpenAIClient");
   });
 
-  it("knowledge capitalize revokes superseded derived source", () => {
+  it("knowledge capitalize revokes superseded and upserts new derived source", () => {
     const src = readFileSync(
       join(root, "domains/knowledge/service.ts"),
       "utf8",
     );
     expect(src).toContain("revokeDerivedSource");
+    expect(src).toContain("upsertDerivedAdmissibleSource");
   });
 
   it("frontier protects persisted campaigns generically (no hardcoded id)", () => {

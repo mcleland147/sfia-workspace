@@ -20,6 +20,7 @@ import {
   markDerivedChunkLifecyclePg,
   replaceDerivedChunksPg,
   searchDerivedChunksPg,
+  upsertDerivedChunkPg,
 } from "@/domains/knowledge/derived-embedding-pg";
 import {
   mergeLexicalAndDerived,
@@ -249,7 +250,10 @@ export async function rebuildDerivedIndexFromProjectKnowledge(input: {
         operation: "embeddings.derived_index_rebuild",
         projectId: input.projectId,
         preparationId: input.preparationId,
-        callOrdinal: Date.now() % 100000,
+        // Stable ordinal from admissible set size + first fingerprint — not wall-clock.
+        callOrdinal: (sources.length * 1000 + (entries[0]?.contentFingerprint
+          ? Number.parseInt(entries[0].contentFingerprint.slice(0, 4), 16)
+          : 0)) % 100000,
       }),
       limits: [
         "DERIVED_INDEX_PG",
@@ -369,6 +373,111 @@ export async function hybridSearchProjectKnowledge(input: {
     ...merged,
     rightsRevalidated: true,
     backend: derivedEmbeddingBackend(),
+  };
+}
+
+/**
+ * Product lifecycle: upsert one admissible source into the derived index.
+ * Best-effort; flag OFF / missing client → no-op. Never full-rebuild.
+ */
+export async function upsertDerivedAdmissibleSource(input: {
+  pilotId: string;
+  projectId: string;
+  preparationId: string;
+  sourceId: string;
+  sourceKind: DerivedSourceKind;
+  text: string;
+  versionLabel?: string | null;
+  client?: EmbedClient | null;
+}): Promise<{ ok: boolean; reason?: string; tokens?: number }> {
+  if (!derivedEmbeddingSearchEnabled()) {
+    return { ok: false, reason: "FLAG_OFF" };
+  }
+  const text = input.text.trim();
+  if (!text || !input.sourceId.trim()) {
+    return { ok: false, reason: "EMPTY" };
+  }
+  const client = input.client ?? (await defaultEmbedClient());
+  if (!client) return { ok: false, reason: "NO_OPENAI_CLIENT" };
+  const emb = await client.embeddings.create({
+    model: DERIVED_EMBEDDING_MODEL,
+    input: text,
+  });
+  const vector = emb.data[0]?.embedding;
+  if (!vector?.length) return { ok: false, reason: "NO_VECTOR" };
+  const fp = contentFingerprint(text);
+  const entry: DerivedIndexEntry = {
+    sourceId: input.sourceId,
+    sourceKind: input.sourceKind,
+    projectId: input.projectId,
+    preparationId: input.preparationId,
+    contentFingerprint: fp,
+    model: DERIVED_EMBEDDING_MODEL,
+    dims: vector.length,
+    revoked: false,
+    deleted: false,
+    versionLabel: input.versionLabel ?? null,
+    indexRef: makeIndexRef({
+      projectId: input.projectId,
+      sourceId: input.sourceId,
+      contentFingerprint: fp,
+    }),
+    updatedAt: new Date().toISOString(),
+    text,
+  };
+  if (derivedEmbeddingBackend() === "pg") {
+    await upsertDerivedChunkPg({
+      projectId: input.projectId,
+      preparationId: input.preparationId,
+      ownerPilotId: input.pilotId,
+      entry,
+      vector,
+    });
+  } else {
+    // File backend (unit tests): single-entry write — not product ops path.
+    writeDerivedIndex({
+      projectId: input.projectId,
+      entries: [entry],
+      vectors: new Map([[input.sourceId, vector]]),
+    });
+  }
+  try {
+    const { recordProviderUsageObservation, buildIdempotencyKey } = await import(
+      "@/domains/conversation/usage-accounting"
+    );
+    await recordProviderUsageObservation({
+      operation: "embeddings.derived_index_upsert",
+      modelRequested: DERIVED_EMBEDDING_MODEL,
+      modelApplied: DERIVED_EMBEDDING_MODEL,
+      inputTokens: emb.usage?.total_tokens ?? null,
+      outputTokens: 0,
+      status: "succeeded",
+      granularity: "REQUEST",
+      costCoverage: "PARTIAL",
+      projectId: input.projectId,
+      ownerPilotId: input.pilotId,
+      preparationId: input.preparationId,
+      idempotencyKey: buildIdempotencyKey({
+        granularity: "REQUEST",
+        lane: process.env.STUDIO_LANE || "DEV",
+        operation: "embeddings.derived_index_upsert",
+        projectId: input.projectId,
+        preparationId: input.preparationId,
+        callOrdinal: Number.parseInt(fp.slice(0, 8), 16) % 100000,
+      }),
+      limits: [
+        "DERIVED_INDEX_UPSERT",
+        "ADMISSIBLE_SOURCE",
+        `BACKEND_${derivedEmbeddingBackend().toUpperCase()}`,
+        `FP_${fp.slice(0, 12)}`,
+      ],
+    });
+  } catch {
+    /* FinOps best-effort */
+  }
+  return {
+    ok: true,
+    tokens: emb.usage?.total_tokens ?? 0,
   };
 }
 

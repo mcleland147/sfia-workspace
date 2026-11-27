@@ -3,6 +3,18 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML1-ML2-CONSOLIDATION
+
+- **date_utc**: 2026-11-27T07:55Z
+- **lane**: DEV — ML1/ML2 product completeness & engineering qualification
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_entrée**: `9321bcf7`
+- **focus**: cartographie complétude · lifecycle index upsert produit · context hybrid supplement · FinOps idempotency · distinction protections produit vs campagne · backlog RECETTE · **pas de LIVE**
+- **corrections**: LIFECYCLE-01 · CONTEXT-01 · FINOPS-IDEM-01
+- **tests**: lifecycle upsert unit + droits/wiring/frontier PASS
+- **RECETTE**: protected · WEB OFF · flags OFF · Macro-lot 3 NOT STARTED
+- **statut**: **MACRO-LOT 2 — IMPLEMENTATION COMPLETE — ENGINEERING QUALIFICATION COMPLETE — FUNCTIONAL RECETTE QUALIFICATION PENDING — MORRIS EXIT ACCEPTANCE PROPOSED**
+
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML2-FINAL-LIVE-NORA
 
 - **date_utc**: 2026-11-27T06:16Z

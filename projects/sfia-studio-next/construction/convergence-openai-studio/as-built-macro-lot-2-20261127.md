@@ -22,7 +22,9 @@
 | Module / surface | Rôle |
 |---|---|
 | `derived-embedding-index.ts` | Index fichier local + lifecycle (tests `BACKEND=file`) |
-| `derived-embedding-service.ts` | Rebuild admissible-only · hybrid + **rights revalidation** + **fresh fingerprint filter** · Frontier-bound client |
+| `derived-embedding-service.ts` | Rebuild admissible-only · **upsert produit** · hybrid + rights/fp revalidation · Frontier-bound client |
+| `derived-embedding-pg.ts` | `replaceDerivedChunksPg` (rebuild) · **`upsertDerivedChunkPg`** (lifecycle) |
+| `knowledge/service` | capitalize/openPoint → upsert ; supersede → revoke ; `selectRelevantKnowledgeContext` hybrid supplement |
 | `derived-embedding-pg.ts` | Store PG ops (`BACKEND=pg`) |
 | `hybrid-knowledge-search.ts` | Fusion + `allowedSourceIds` |
 | `bounded-judgment.ts` | Validation stricte · pas p=1 inventé · fallback p=0 |
