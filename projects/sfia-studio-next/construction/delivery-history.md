@@ -3,6 +3,22 @@
 Append-only logical journal of Cursor product deliveries.
 **Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
 
+## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML1-TARGETED-EXIT
+
+- **date_utc**: 2026-11-27T03:15Z
+- **lane**: DEV — Macro-lot 1 Targeted Exit Completion (Cycle 8)
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_entrée**: `d72ffeb1351020dc0c780aa6ca2698a4ae5af96e`
+- **focus**: Frontier cumulative envelopes · FinOps real cloisonné · UX 13.03 visual checkpoint
+- **frontier**: qualifyRenew removed · native-bound escape refused · restart restore · 10/10 substituted
+- **finops**: independent SQL oracle Studio **1.3046599200** PARTIAL vs provider **3.7127983200** LIVE · org:unspecified → not COMPARABLE · financial habilitation fail-closed
+- **ux**: GO G-FINOPS-UX Morris · transpose `Comparaison des coûts` · browser PG/API/DOM PROVEN
+- **d3**: V1 kept · V2–V4 deferred
+- **BUILD_ID**: `gBK_bNHmcAc2_20h5VGPd` · DEV :3100 · digest `dfeef73455073700bdee8af2e6662772874cdc4034c2f2eb867d689ef27f545e`
+- **RECETTE**: pid 89199 :3200 intacte · PG :5434
+- **push projet**: NON · NO RELEASE · NOT ADOPTED
+- **statut**: **MACRO-LOT 1 — TARGETED EXIT COMPLETION PROVEN — MORRIS EXIT ACCEPTANCE PROPOSED**
+
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-ML1-LIVE-QUALIFICATION
 
 - **date_utc**: 2026-11-27T02:45Z

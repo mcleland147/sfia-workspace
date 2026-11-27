@@ -60,15 +60,16 @@
 | | |
 |---|---|
 | Objet | Valider proposition visuelle page 13 (Figma inspectée RO) |
-| Prérequis | Backend `providerReconciliation` service-path COMPARABLE |
-| Preuves | Screenshot + metadata Figma `1332:2305` ; mapping états → composants ; UX actuelle non régressive |
+| Prérequis | Backend `providerReconciliation` service-path (honnête ; NON_COMPARABLE admissible) |
+| Preuves | Figma `1334:321` ; candidat HTML ; GO Morris 2026-11-27 ; transpose `FinOpsConsumptionPanel` ; browser PG/API/DOM |
 | Options | (A) Valider delta secondaire (B) Reporter (C) Ajuster mapping |
-| Recommandation | A — bloc secondaire sous KPIs existants (13.03) |
-| Risque résiduel | Transposition code non faite |
+| Recommandation | A — appliquée |
+| Décision Morris | GO G-FINOPS-UX · titre « Comparaison des coûts » · libellés Pilote · distinction Studio/fournisseur |
+| Risque résiduel | Fenêtre compare end UTC absente hors env → NON_COMPARABLE produit (honnête) |
 | Enveloppe | Aucun nouvel écran ; aucun plafond monétaire |
-| Rollback | UI actuelle inchangée |
-| Action Morris | Valider `ux-delta-finops-page13-candidate.md` |
-| Statut | **PROPOSABLE** — NOT APPLIED |
+| Rollback | Retirer bandeau compare |
+| Action Morris | Acceptation sortie macro-lot 1 |
+| Statut | **APPLIED / BEHAVIOR PROVEN** (DEV navigateur) — **NOT ADOPTED** |
 
 ## G-TRACING-LOCAL
 

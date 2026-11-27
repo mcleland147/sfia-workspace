@@ -69,3 +69,54 @@ Provenance défaut `UNKNOWN` — exclues des projections LIVE (pas de DELETE mé
 ## Version produit
 
 NO RELEASE · STABLE NOT AVAILABLE · NOT ADOPTED
+
+---
+
+## Targeted Exit Completion — 2026-11-27 (Cycle 8 Delivery)
+
+| Champ | Valeur |
+|---|---|
+| Mandat | MACRO-LOT 1 — TARGETED EXIT COMPLETION |
+| HEAD entrée | `d72ffeb1351020dc0c780aa6ca2698a4ae5af96e` |
+| Tree web entrée | `95a1c0f0e26d941e8a93b857230659b6728b54f6` |
+| D3 | Reconstruction Studio **V1 conservée** · V2–V4 **OFF / différés** |
+
+### A — Frontier enveloppes cumulatives
+
+| Correction | Statut |
+|---|---|
+| Suppression `qualifyRenew` (SFIA_QUALIFY_MODE + suspended + DEV) | BEHAVIOR PROVEN (substituted) |
+| Persistance / reload compteurs complets après restart | BEHAVIOR PROVEN |
+| `SFIA_LIVE_REQUIRE_NATIVE_INPUT_BOUND=0` inopérant sur attach LIVE | BEHAVIOR PROVEN |
+| Métriques contacts = Frontier (`getCampaignEnvelopeMetrics`) ≠ tours Studio | IMPLEMENTED |
+| Qualify 10/10 substitué | `web/.sfia-evidence/targeted-exit/frontier-qualify-report.json` |
+
+### B — FinOps réel cloisonné
+
+| Correction | Statut |
+|---|---|
+| Oracle SQL indépendant (pas `loadFinOpsSummary`) | BEHAVIOR PROVEN |
+| Studio ledger fenêtre 26→27 UTC = **1.3046599200 USD** PARTIAL (pas 3.5 fixture) | BEHAVIOR PROVEN |
+| Provider LIVE `acol_mwyd1ifk_552295cf` = **3.7127983200 USD** · `org:unspecified` | préservé |
+| Ownership Studio ≠ habilitation financière → masquage produit | IMPLEMENTED |
+| `groupingCompatible` / `coverageComplete` non hardcodés depuis READY | IMPLEMENTED |
+| LIVE → **PARTIAL / NON_COMPARABLE** honnête ; fixture COMPARABLE isolée | BEHAVIOR PROVEN |
+| Preuve | `web/.sfia-evidence/targeted-exit/finops-independent-oracle.json` |
+
+### C — UX 13.03
+
+| Élément | Statut |
+|---|---|
+| Figma `1334:321` observé | DOCUMENTED |
+| Candidat delta HTML 4 états | VALIDATED VISUALLY BY MORRIS (GO G-FINOPS-UX) |
+| Titre Pilote | **Comparaison des coûts** |
+| Transposition `FinOpsConsumptionPanel` | **IMPLEMENTED / BEHAVIOR PROVEN** (navigateur) |
+| Preuve navigateur | `web/.sfia-evidence/targeted-exit/browser/` · `FINOPS_UX_BROWSER_PROVEN` |
+| BUILD_ID candidat | `gBK_bNHmcAc2_20h5VGPd` |
+
+### Réserves acceptées
+
+- Continuité native V2–V4 différée
+- Corrélation IQ partielle (si hors autorité/Frontier)
+- org:unspecified historique non requalifié
+- RECETTE protégée · NO RELEASE · NOT ADOPTED

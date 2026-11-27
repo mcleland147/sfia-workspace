@@ -4,54 +4,39 @@
 |---|---|
 | Date | 2026-11-27 |
 | Frame Figma | `1334:321` — **13.03 · Consommation et coûts — synthèse** |
-| Parent canvas | `1332:2305` |
-| Statut | **CANDIDATE — ATTENTE VALIDATION VISUELLE MORRIS** |
-| Transposition | Interdite avant GO visuel |
+| Figma observé | `web/.sfia-evidence/targeted-exit/figma-13-03-1334-321.png` |
+| Candidat delta | `web/.sfia-evidence/targeted-exit/ux-13-03-delta-visual-candidate.html` |
+| Statut | **VALIDATED VISUALLY BY MORRIS** (GO G-FINOPS-UX) |
+| Transposition | **APPLIED** dans `FinOpsConsumptionPanel` |
 
-## Emplacement du delta (orientation Morris validée)
+## Décision Morris (ajustements mineurs)
 
-Sous la rangée des **4 indicateurs** (`FinOps / Indicateur` ×4),  
-**au-dessus** des blocs « Évolution des dépenses » / « Répartition par modèle ».
+- Conserver structure, positionnement, quatre états, design system.
+- Titre Pilote : **Comparaison des coûts** (plus « Rapprochement fournisseur »).
+- Libellés Pilote simplifiés — **aucun** terme technique interne
+  (pas de DTO, org:unspecified, disclosed, kind, ownership).
+- Distinction stricte : **Estimation Studio** ≠ **Coût fournisseur**.
 
-Un **seul bandeau secondaire** (pas de 4e KPI hero, pas de nouvel écran) :
+## Emplacement
 
-```
-┌──────────────────────────────────────────────────────────────────────┐
-│ Rapprochement fournisseur                                            │
-│ Studio (estimation)     Fournisseur (agrégé autorisé)     Période    │
-│   12,40 USD               13,10 USD / Indisponible      2025-11-25  │
-│ Comparabilité: COMPARABLE | NON_COMPARABLE | PARTIAL | UNAVAILABLE   │
-│ Fraîcheur: READY · collection … · Écart: +0,70 USD (si COMPARABLE) │
-│ Message limites métier (sanitisé) le cas échéant                     │
-└──────────────────────────────────────────────────────────────────────┘
-```
+Sous les **4 indicateurs**, au-dessus des graphiques. Un seul bandeau secondaire.
 
 ## Mapping données → UI
 
-| Zone | API `providerReconciliation` | Règle d’affichage |
+| Zone | Source API | Affichage Pilote |
 |---|---|---|
-| Studio | `studioEstimatedUsd` + kind | Toujours (estimation Studio) |
-| Fournisseur | `providerCostUsd` + currency | **Uniquement si `disclosed`** ; sinon « Indisponible » / « Non autorisé » — **jamais** de montant |
-| Période | fenêtre compare UTC | Afficher bornes utilisées |
-| Fraîcheur | `freshness.status` + count | READY/PARTIAL/IDLE/ERROR |
-| Comparabilité | `comparability` | Libellé métier |
-| Écart | `deltaUsd` | **Seulement** si COMPARABLE + disclosed |
-| Limites | `limits[]` | Sanitisé |
+| Estimation Studio | `studioEstimatedUsd` | Toujours, libellé « Estimation Studio » |
+| Coût fournisseur | `providerCostUsd` si présent | Sinon « Indisponible » / « Non autorisé » |
+| Période | `compareWindowStartUtc` / `End` | Dates UTC |
+| Fraîcheur | `freshness.status` | À jour / Partielle / … |
+| Comparabilité | `comparability` | Comparable / Non comparable / Partiel / Indisponible |
+| Écart | `deltaUsd` | Uniquement si Comparable + montant fourni |
+| Messages | `limits[]` sanitizés | Phrases métier, jamais codes bruts |
 
 ## États
 
-| État | Rendu |
-|---|---|
-| COMPARABLE | Studio + Fournisseur + écart |
-| PARTIAL | Studio éventuel ; fournisseur masqué ; message partial |
-| NON_COMPARABLE | Pas d’écart ; motif |
-| UNAVAILABLE | Pas de montant fournisseur |
-| Empty 13.06 | Inchangé si aucune estimation |
+COMPARABLE · NON_COMPARABLE · PARTIAL · UNAVAILABLE — inchangés.
 
 ## Conservation
 
-Rail, shell, tokens, filtres, graphiques et table travaux : **inchangés**.
-
-## Action Morris
-
-Valider ce candidat visuel (oui / ajuster / reporter) avant transposition dans `FinOpsConsumptionPanel`.
+Rail, shell, filtres, graphiques, table travaux : inchangés. Pas de second dashboard. Pas de budget monétaire.
