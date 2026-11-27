@@ -440,12 +440,17 @@ export async function hybridSearchProjectKnowledge(input: {
     allowedSourceIds: semanticAllowed,
     semanticHits,
   });
+  const kindBySource = new Map(
+    freshSources.map((s) => [s.sourceId, s.sourceKind] as const),
+  );
   return {
     hits: merged.hits.map((h) => ({
       ...h,
       subjectId: subjectBySource.get(h.sourceId) ?? null,
       openPointId: openPointBySource.get(h.sourceId) ?? null,
-      sourceKind: (h as { sourceKind?: DerivedSourceKind }).sourceKind,
+      sourceKind:
+        kindBySource.get(h.sourceId) ??
+        (h as { sourceKind?: DerivedSourceKind }).sourceKind,
     })),
     derivedUsed: merged.derivedUsed,
     derivedSkippedReason: merged.derivedSkippedReason,

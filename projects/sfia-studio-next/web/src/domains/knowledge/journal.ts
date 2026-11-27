@@ -1002,28 +1002,32 @@ export async function searchJournalSubjects(
     });
     return {
       status: "AVAILABLE" as const,
-      results: merged.hits.map((h) => {
-        const subjectId =
-          (h as { subjectId?: string | null }).subjectId ??
-          (byId.has(h.sourceId) ? h.sourceId : h.sourceId);
-        const resolvedSubject = byId.has(subjectId!)
-          ? subjectId!
-          : byId.has(h.sourceId)
-            ? h.sourceId
-            : subjectId || h.sourceId;
-        return {
-          subjectId: resolvedSubject,
-          sourceId: h.sourceId,
-          sourceKind: (h as { sourceKind?: string }).sourceKind ?? null,
-          openPointId: (h as { openPointId?: string | null }).openPointId ?? undefined,
-          title: h.title ?? resolvedSubject,
-          path: subjectPathTitles(resolvedSubject, byId),
-          matchKind: (h.matchKind as Hit["matchKind"]) ?? "acquis",
-          snippet: h.snippet,
-          channel: h.channel,
-          score: h.score,
-          indexRef: h.indexRef,
-        };
+      results: merged.hits.flatMap((h) => {
+        const hitSubjectId =
+          (h as { subjectId?: string | null }).subjectId ?? null;
+        const sourceKind =
+          (h as { sourceKind?: string | null }).sourceKind ?? null;
+        const resolvedSubject =
+          hitSubjectId ??
+          (sourceKind === "subject" && byId.has(h.sourceId) ? h.sourceId : null);
+        if (!resolvedSubject) return [];
+        return [
+          {
+            subjectId: resolvedSubject,
+            sourceId: h.sourceId,
+            sourceKind,
+            openPointId:
+              (h as { openPointId?: string | null }).openPointId ?? undefined,
+            title: h.title ?? byId.get(resolvedSubject)?.title ?? resolvedSubject,
+            path: subjectPathTitles(resolvedSubject, byId),
+            matchKind: (h.matchKind as Hit["matchKind"]) ?? "acquis",
+            snippet: h.snippet,
+            channel: h.channel,
+            score: h.score,
+            indexRef: h.indexRef,
+            versionLabel: h.versionLabel ?? null,
+          },
+        ];
       }),
       coverage:
         merged.hits.length === 0 ? ("NONE" as const) : ("PARTIAL" as const),

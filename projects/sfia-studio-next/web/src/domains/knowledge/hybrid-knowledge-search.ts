@@ -107,6 +107,7 @@ export function mergeLexicalAndDerived(input: {
         existing.score = s.score;
         existing.versionLabel = s.versionLabel;
         existing.indexRef = s.indexRef;
+        existing.sourceKind = s.sourceKind;
         if (!existing.snippet && s.snippet) existing.snippet = s.snippet;
       } else {
         byId.set(s.sourceId, {
@@ -117,6 +118,7 @@ export function mergeLexicalAndDerived(input: {
           score: s.score,
           versionLabel: s.versionLabel,
           indexRef: s.indexRef,
+          sourceKind: s.sourceKind,
         });
       }
     }
