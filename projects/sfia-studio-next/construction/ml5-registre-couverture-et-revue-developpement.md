@@ -4,7 +4,7 @@
 
 | Champ | Valeur |
 |---|---|
-| Version | v0.26 candidate — 27 novembre 2026 : **ML1/ML2 consolidation** (lifecycle upsert index · context hybrid · cartographie complétude · backlog RECETTE · no LIVE · BUILD `hGsURunVLzPVZv105HFHX`) — **ML2 IMPLEMENTATION COMPLETE — ENGINEERING QUALIFICATION COMPLETE — FUNCTIONAL RECETTE PENDING — EXIT ACCEPTANCE PROPOSED** ; v0.25 : FINAL LIVE Nora PARTIAL ; v0.24 : product qualification PG/API ; v0.23 : final product GO A+B ; v0.22 : checkpoint A+B ; v0.21 : product-wide integration ; v0.20 : Intervention 2 LIVE qualification ML1 ; v0.19 : Integrated foundation completion ; v0.18 : Admin/FinOps ; v0.17 : operational DEV foundation |
+| Version | v0.27 candidate — 27 novembre 2026 : **dictation nominal path final** (finalize commit-acks · Frontier admission · C01–C03 Travail Nora · BUILD `dRmFP_CKHNL8g6MOXuA1q`) — **MACRO-LOTS 1–3 INTEGRATED CONVERGENCE CONSTRUCTION COMPLETE — DICTATION NOMINAL PATH TECHNICALLY PROVEN — FUNCTIONAL RECETTE PENDING — MORRIS EXIT ACCEPTANCE PROPOSED** ; v0.26 : ML1/ML2 consolidation ; v0.25 : FINAL LIVE Nora PARTIAL ; … |
 | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
 | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
 | Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |

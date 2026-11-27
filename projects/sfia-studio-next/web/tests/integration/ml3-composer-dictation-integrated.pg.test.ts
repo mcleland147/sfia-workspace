@@ -182,13 +182,20 @@ describe("PG REAL — ML3 composer dictation integrated (T01–T11)", () => {
       transcript: "segment B",
     });
 
-    const finRes = await finalizeSession(
+    const finResPromise = finalizeSession(
       new Request(
         `http://127.0.0.1:3100/api/projects/${projectId}/dictation/sessions/${sid}/finalize`,
         { method: "POST" },
       ),
       { params: Promise.resolve({ projectId, sessionId: sid }) },
     );
+    await new Promise((r) => setTimeout(r, 5));
+    fx.push({
+      type: "conversation.item.input_audio_transcription.completed",
+      item_id: "fixture_item_1",
+      transcript: "",
+    });
+    const finRes = await finResPromise;
     const fin = await routeJson<{ ok?: boolean; draft?: string; transcript?: string }>(finRes);
     expect(fin.body.ok).toBe(true);
     expect(fin.body.transcript).toContain("segment A");
@@ -370,13 +377,20 @@ describe("PG REAL — ML3 composer dictation integrated (T01–T11)", () => {
       item_id: "fin_item",
       transcript: "observé",
     });
-    await finalizeSession(
+    const finResPromise = finalizeSession(
       new Request(
         `http://127.0.0.1:3100/api/projects/${projectId}/dictation/sessions/${sid}/finalize`,
         { method: "POST" },
       ),
       { params: Promise.resolve({ projectId, sessionId: sid }) },
     );
+    await new Promise((r) => setTimeout(r, 5));
+    fx.push({
+      type: "conversation.item.input_audio_transcription.completed",
+      item_id: "fixture_item_1",
+      transcript: "",
+    });
+    await finResPromise;
     await new Promise((r) => setTimeout(r, 20));
     expect(spy).toHaveBeenCalled();
     const call = spy.mock.calls.find(

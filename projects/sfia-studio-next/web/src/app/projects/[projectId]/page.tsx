@@ -314,6 +314,7 @@ export default function ProjectPage() {
     }>
   >([]);
   const [liveActivityHeadline, setLiveActivityHeadline] = useState("");
+  const [dictationEnabled, setDictationEnabled] = useState(false);
   const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
   const [status, setStatus] = useState("");
   const [pilotageStatus, setPilotageStatus] = useState("");
@@ -424,6 +425,28 @@ export default function ProjectPage() {
   useEffect(() => {
     pilotIdRef.current = pilotId;
   }, [pilotId]);
+
+  useEffect(() => {
+    if (surface !== "travail") return;
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch(
+          `/api/projects/${params.projectId}/dictation/capability`,
+        );
+        if (!res.ok) return;
+        const data = (await res.json()) as { ok?: boolean; enabled?: boolean };
+        if (!cancelled && data.ok) {
+          setDictationEnabled(data.enabled === true);
+        }
+      } catch {
+        /* capability probe is best-effort */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [params.projectId, surface]);
 
   useEffect(() => {
     preparationIdRef.current = preparationId;
@@ -3171,6 +3194,7 @@ export default function ProjectPage() {
             persistDraft(v);
           }}
           projectId={params.projectId}
+          dictationEnabled={dictationEnabled}
           dossierAttachment={dossierAttachment}
           onRemoveDossierAttachment={() => setDossierAttachment(null)}
           onSend={() => void sendMessage()}

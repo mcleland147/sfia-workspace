@@ -568,7 +568,7 @@ export function NoraConversation(props: {
                 draft={props.draft}
                 onDraft={props.onDraft}
                 disabled={composerLocked || props.busy}
-                enabled={props.dictationEnabled !== false}
+                enabled={props.dictationEnabled === true}
                 onActiveChange={setDictationActive}
               />
             ) : null}

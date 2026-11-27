@@ -1,5 +1,6 @@
 /**
- * ML3 dictation qualify — real ComposerDictationControl + fixture transport.
+ * ML3 dictation qualify — harness-only mount (ComposerDictationControl on /dev/dictation-harness).
+ * Functional nominal proof on product Travail: `ml3-dictation-nominal-path.spec.ts` (C01–C03).
  *
  * Requires qualify server (`npm run qualify:start`) with vars (qualify-session.env or env):
  *   STUDIO_LANE=DEV

@@ -1,3 +1,20 @@
+## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-DICTATION-NOMINAL-PATH-FINAL
+
+- **date_utc**: 2026-11-27T09:00Z
+- **lane**: DEV — dictation nominal path final corrective (A/B/C)
+- **branch**: `sfia/next-ml5-integrated-delivery-20261123`
+- **HEAD_entrée**: `f0c905e7`
+- **classe**: NO RELEASE
+- **A**: finalize waits `commitsAwaitingAck` + item completions · empty final commit skipped · timeout → partial
+- **B**: `admitDictationProviderEmission` (lane guard / fixture fail-closed) · capability API · mic gated `dictationEnabled===true` · FinOps `EFFECT_SUBSTITUTED`
+- **C**: Playwright C01/C02/C03 on `/projects/{id}?surface=travail` (NoraConversation product path) — 3/3 PASS
+- **BUILD_ID**: `dRmFP_CKHNL8g6MOXuA1q`
+- **digest**: `0a64a2616950c13f5da39aa9212a0abd69d0c8b781ebcceeadc7b2101356b23c`
+- **pid**: 77616 · flags restored OFF after qualify · effectMode LIVE ≠ OpenAI LIVE
+- **tests**: 28 unit/pg dictation PASS · C01–C03 PASS · harness retained as non-nominal
+- **LIVE audio**: NOT EXECUTED
+- **statut proposé**: MACRO-LOTS 1–3 — INTEGRATED CONVERGENCE CONSTRUCTION COMPLETE — DICTATION NOMINAL PATH TECHNICALLY PROVEN — FUNCTIONAL RECETTE QUALIFICATION PENDING — MORRIS EXIT ACCEPTANCE PROPOSED
+
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-INTEGRATED-DICTATION-CORRECTIVE
 
 - **date_utc**: 2026-11-27T08:35Z
@@ -16,7 +33,7 @@
 - **pid**: 33860 · workspace projet · effectMode LIVE ≠ OpenAI LIVE
 - **tests**: 11 session + 8 integrated API + 2 ML2 concurrency + 1 Playwright qualify
 - **LIVE audio**: NOT EXECUTED · flags restored OFF
-- **statut proposé**: MACRO-LOTS 1–3 — INTEGRATED CONVERGENCE CONSTRUCTION COMPLETE — PRODUCT DICTATION PATH TECHNICALLY PROVEN — FUNCTIONAL RECETTE QUALIFICATION PENDING — MORRIS EXIT ACCEPTANCE PROPOSED
+- **statut proposé**: superseded by DICTATION-NOMINAL-PATH-FINAL
 
 ## delivery_id: DELIV-2026-11-27-OPENAI-STUDIO-CONVERGENCE-INTEGRATED-EXIT
 

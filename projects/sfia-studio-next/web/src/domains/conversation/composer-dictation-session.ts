@@ -9,8 +9,6 @@ import {
   COMPOSER_DICTATION_SCHEMA,
   DEFAULT_DICTATION_LIMITS,
   DICTATION_VOCAB_HINT,
-  assertDictationEmissionAllowed,
-  composerDictationEnabled,
   type DictationClientEvent,
   type DictationDraftSnapshot,
   type DictationLimits,
@@ -62,9 +60,15 @@ export type DictationSessionRecord = {
   onProviderSessionReady: (() => void) | null;
   /** Committed item_ids not yet completed — finalize waits until empty. */
   awaitingFinalItemIds: Set<string>;
+  /** Commits sent to provider, not yet acknowledged via input_audio_buffer.committed. */
+  commitsAwaitingAck: number;
   /** Bytes buffered since last provider commit while listening. */
   pcmBytesSinceLastCommit: number;
   finopsPersistFailed: boolean;
+  emissionMode: "live" | "substituted";
+  effectClass: "provider_live" | "substituted";
+  admissionLane: string;
+  keyFingerprint: string | null;
 };
 
 export { resolveDictationTransportFactory } from "./composer-dictation-transport-fixture";
@@ -74,7 +78,20 @@ const TERMINAL_GC_MS = 2 * 60 * 1000;
 const SESSION_GC_INTERVAL_MS = 5_000;
 const SESSION_OPEN_TIMEOUT_MS = 10_000;
 /** ~2s mono PCM16 @ 24 kHz — periodic commit while listening. */
-const AUTO_COMMIT_PCM_BYTES = 96_000;
+const DEFAULT_AUTO_COMMIT_PCM_BYTES = 96_000;
+
+function autoCommitPcmBytes(env: NodeJS.ProcessEnv = process.env): number {
+  const raw = (env.SFIA_DICTATION_AUTO_COMMIT_PCM_BYTES || "").trim();
+  if (raw) {
+    const n = Number(raw);
+    if (Number.isFinite(n) && n >= 320) return Math.floor(n);
+  }
+  // Fixture auto-transcript: shorter threshold so headless capture still commits.
+  if ((env.SFIA_DICTATION_FIXTURE_AUTO_TRANSCRIPT || "").trim() === "1") {
+    return 8_000;
+  }
+  return DEFAULT_AUTO_COMMIT_PCM_BYTES;
+}
 
 function isTerminalStatus(status: DictationSessionStatus): boolean {
   return (
@@ -173,23 +190,30 @@ export async function createDictationSession(input: {
   | { ok: false; code: string; message: string }
 > {
   const env = input.env ?? process.env;
-  if (!composerDictationEnabled(env)) {
-    return {
-      ok: false,
-      code: "FLAG_OFF",
-      message: "Composer dictation is not enabled (SFIA_COMPOSER_DICTATION).",
-    };
+  const { admitDictationProviderEmission } = await import(
+    "./composer-dictation-admission"
+  );
+  const admission = admitDictationProviderEmission({
+    env,
+    projectId: input.projectId,
+    pilotId: input.pilotId,
+  });
+  if (!admission.ok) {
+    return { ok: false, code: admission.code, message: admission.message };
   }
   const apiKey = (env.OPENAI_API_KEY || "").trim();
   const { resolveDictationTransportFactory } = await import(
     "./composer-dictation-transport-fixture"
   );
-  const factory =
-    input.transportFactory ?? resolveDictationTransportFactory(env);
-  if (!factory) {
-    const gate = assertDictationEmissionAllowed(env);
-    if (!gate.ok) {
-      return { ok: false, code: gate.code, message: gate.message };
+  let factory = input.transportFactory;
+  if (admission.mode === "substituted") {
+    factory = factory ?? resolveDictationTransportFactory(env);
+    if (!factory) {
+      return {
+        ok: false,
+        code: "SUBSTITUTED_TRANSPORT_MISSING",
+        message: "Substituted dictation admission without transport factory.",
+      };
     }
   }
 
@@ -240,8 +264,13 @@ export async function createDictationSession(input: {
     nextAudioSeq: 0,
     onProviderSessionReady: null,
     awaitingFinalItemIds: new Set(),
+    commitsAwaitingAck: 0,
     pcmBytesSinceLastCommit: 0,
     finopsPersistFailed: false,
+    emissionMode: admission.mode,
+    effectClass: admission.effectClass,
+    admissionLane: admission.lane,
+    keyFingerprint: admission.keyFingerprint,
   };
   sessions.set(sessionId, record);
   emit(record, {
@@ -340,10 +369,14 @@ function handleProviderEvent(
   }
 
   if (type === "input_audio_buffer.committed") {
+    session.commitsAwaitingAck = Math.max(0, session.commitsAwaitingAck - 1);
     const itemId = String(event.item_id || "");
     if (itemId) {
       session.pendingItemId = itemId;
       session.awaitingFinalItemIds.add(itemId);
+    }
+    if (session.status === "finalizing") {
+      maybeCompleteFinalization(session);
     }
     return;
   }
@@ -416,13 +449,48 @@ function maybeCompleteFinalization(session: DictationSessionRecord): void {
   if (isTerminalStatus(session.status) || session.status !== "finalizing") {
     return;
   }
-  if (Object.keys(session.draft.provisionalByItem).length > 0) {
+  if (session.commitsAwaitingAck > 0) {
     return;
   }
   if (session.awaitingFinalItemIds.size > 0) {
     return;
   }
+  if (Object.keys(session.draft.provisionalByItem).length > 0) {
+    return;
+  }
   completeFinalization(session, { partial: false });
+}
+
+function shouldSendAudioCommit(
+  session: DictationSessionRecord,
+  opts: { finalize?: boolean },
+): boolean {
+  if (session.pcmBytesSinceLastCommit > 0) return true;
+  if (!opts.finalize) return false;
+  const hasTranscriptItems =
+    Object.keys(session.draft.finalByItem).length > 0 ||
+    Object.keys(session.draft.provisionalByItem).length > 0 ||
+    session.awaitingFinalItemIds.size > 0 ||
+    session.commitsAwaitingAck > 0;
+  return session.pcmBytes > 0 && !hasTranscriptItems;
+}
+
+function sendAudioCommit(
+  session: DictationSessionRecord,
+  opts: { finalize?: boolean } = {},
+): boolean {
+  if (!session.transport) return false;
+  if (!shouldSendAudioCommit(session, opts)) {
+    return false;
+  }
+  try {
+    session.transport.send({ type: "input_audio_buffer.commit" });
+    session.commitsAwaitingAck += 1;
+    session.pcmBytesSinceLastCommit = 0;
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function completeFinalization(
@@ -492,13 +560,8 @@ export function appendDictationAudio(input: {
     audio: input.pcmBase64,
   });
   session.pcmBytesSinceLastCommit += raw.length;
-  if (session.pcmBytesSinceLastCommit >= AUTO_COMMIT_PCM_BYTES) {
-    session.pcmBytesSinceLastCommit = 0;
-    try {
-      session.transport?.send({ type: "input_audio_buffer.commit" });
-    } catch {
-      /* */
-    }
+  if (session.pcmBytesSinceLastCommit >= autoCommitPcmBytes()) {
+    sendAudioCommit(session);
   }
   return { ok: true };
 }
@@ -548,12 +611,7 @@ export async function finalizeDictationSession(input: {
   }
   session.status = "finalizing";
   touch(session);
-  session.pcmBytesSinceLastCommit = 0;
-  try {
-    session.transport?.send({ type: "input_audio_buffer.commit" });
-  } catch {
-    /* */
-  }
+  sendAudioCommit(session, { finalize: true });
 
   const result = await waitForFinalization(session);
   // Re-read after async wait (listeners may mutate status). Escape CFA narrowing.
@@ -671,21 +729,34 @@ async function recordDictationFinops(
       "@/domains/conversation/usage-accounting"
     );
     const durationMs = Math.max(0, Date.now() - session.createdAtMs);
+    const substituted = session.emissionMode === "substituted";
     const pcmMinutes =
       session.pcmBytes / (COMPOSER_DICTATION_PCM_RATE * 2) / 60;
-  // Public tariff verified at cadrage: 0.017 USD/min — estimate from buffered PCM only.
+    // Public tariff verified at cadrage: 0.017 USD/min — estimate from buffered PCM only.
     const estimatedUsd =
-      session.pcmBytes === 0
+      substituted || session.pcmBytes === 0
         ? null
         : Math.round(pcmMinutes * 0.017 * 1_000_000) / 1_000_000;
     const observationStatus =
       status === "succeeded" || status === "partial" ? "succeeded" : "failed";
-    const costCoverage: "KNOWN" | "PARTIAL" | "UNKNOWN" =
-      status === "partial"
+    const costCoverage: "KNOWN" | "PARTIAL" | "UNKNOWN" = substituted
+      ? "UNKNOWN"
+      : status === "partial"
         ? "PARTIAL"
         : estimatedUsd == null
           ? "UNKNOWN"
           : "PARTIAL";
+    const limits = [
+      "NO_DURABLE_AUDIO",
+      "NO_D3_BEFORE_SEND",
+      "TRANSCRIPTION_ONLY",
+      `DURATION_MS_${durationMs}`,
+      `PCM_BYTES_${session.pcmBytes}`,
+      `STATUS_${status}`,
+      ...(substituted
+        ? ["EFFECT_SUBSTITUTED", `LANE_${session.admissionLane}`]
+        : ["TARIFF_GPT_LIVE_TRANSCRIBE_ESTIMATED"]),
+    ];
     await recordProviderUsageObservation({
       operation: "audio.composer_dictation",
       modelRequested: session.modelRequested,
@@ -706,15 +777,7 @@ async function recordDictationFinops(
         attemptId: session.emissionAttemptId,
         callOrdinal: 0,
       }),
-      limits: [
-        "NO_DURABLE_AUDIO",
-        "NO_D3_BEFORE_SEND",
-        "TRANSCRIPTION_ONLY",
-        `DURATION_MS_${durationMs}`,
-        `PCM_BYTES_${session.pcmBytes}`,
-        `STATUS_${status}`,
-        "TARIFF_GPT_LIVE_TRANSCRIBE_ESTIMATED",
-      ],
+      limits,
     });
     session.finopsRecorded = true;
   } catch (err) {
@@ -732,10 +795,6 @@ async function openOpenAiTranscriptionTransport(input: {
   model: string;
   apiKey: string;
 }): Promise<RealtimeTransport> {
-  const gate = assertDictationEmissionAllowed(process.env);
-  if (!gate.ok) {
-    throw new Error(gate.code);
-  }
   const { default: WebSocket } = await import("ws");
   const url = "wss://api.openai.com/v1/realtime?intent=transcription";
   const ws = new WebSocket(url, {
