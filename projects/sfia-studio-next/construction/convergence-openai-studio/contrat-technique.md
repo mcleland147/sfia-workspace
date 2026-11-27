@@ -1,5 +1,7 @@
 # Convergence OpenAI–Studio Next — Contrat technique candidat
 
+> **Suivi as-built rapporté / recette partielle 27/11 :** [bilan intégré](bilan-integre-20261127.md) avec références immuables des trois macro-lots, PG 027, D3 V1, Decisions ciblées (pas D6), architecture E hybrid PG, Vision ponctuelle, Realtime Studio-controlled (PCM/WS/SSE), Frontier/FinOps et Admin isolé. VS/File Search durables différés, WEB OFF. [Manifeste RECETTE](../ml5-recette-cutover-manifest-20261127.md), [PV](../recette-utilisateur-ml5-maintiplan-20261127.md) : MP-06 échec LIVE malgré preuves DEV substituées, MP-09/10/14–16 nécessitent diagnostic de la chaîne réellement implémentée. Code local non observé ; aucune modification d'architecture ni nouvelle permission par cette note.
+
 > **Suivi as-built de synthèse 27/11/2026 — macro-lot 1 :** voir le [bilan de clôture et preuves](cloture-macro-lot-1.md) : collecteur Admin dédié, migration 026 rapportée DEV, snapshots LIVE, ledger réel, Frontier cumulative corrigée (tests substitués), tracing local exercé, V1 conservée. Limites et gates maintenus ; aucun nouvel ADR, changement de contrat, activation ou persistance externe. L'architecture candidate initiale ci-dessous reste inchangée.
 
 | Champ | Valeur |

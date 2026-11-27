@@ -1,5 +1,7 @@
 # Convergence OpenAI–Studio Next — Cadrage
 
+> **Suivi courant 27/11 — post MaintiPlan T08 :** les trois macro-lots ont été livrés sur candidat RECETTE e8e6e069 après revue et GO cutover/activation, sans acceptation fonctionnelle globale. Morris suspend la recette après huit tours, 17 écarts ouverts, qualité cognitive appréciée, diagnostic puis corrections et reprise avant réalisation. [Bilan intégré](bilan-integre-20261127.md) · [PV](../recette-utilisateur-ml5-maintiplan-20261127.md). La situation initiale et les gates du cadrage sont conservés comme historique. WEB/Admin OFF, livraison 2 non engagée.
+
 > **Suivi 27/11/2026 — macro-lot 1 :** Morris accepte le socle DEV avec les réserves explicites et autorise la préparation du macro-lot 2. Voir le [bilan de clôture et la décision](cloture-macro-lot-1.md), qui distingue construction, preuve et régularisation du Handoff encore due. Le cadrage initial ci-dessous est conservé comme référence historique ; aucune promotion ou adoption.
 
 | Champ | Valeur |

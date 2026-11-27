@@ -1,5 +1,7 @@
 # Convergence OpenAI–Studio Next — Contrat fonctionnel candidat
 
+> **Suivi factuel post-recette 27/11 :** [PV MaintiPlan](../recette-utilisateur-ml5-maintiplan-20261127.md) §7 et [bilan intégré](bilan-integre-20261127.md). F01/02/04/05/08/11/12/13/25/26 partiels ; F31–34 non qualifiés, dictée nominale LIVE FAIL ; F03 cycle simple observé, multi-intentions non appliquées ; F21–24 (comparaison/droits/Vision) non requalifiés intégralement. F15 hors scope WEB OFF. V1 produite et lisible, V2 non testée ; Git investigation visible, latence et allocation à diagnostiquer. 17 MP ouverts, suspension Morris, aucun critère CONV modifié ni nouveau VALIDATED SPEC/ADOPTED.
+
 > **Suivi factuel 27/11/2026 — macro-lot 1 :** voir le [bilan de clôture accepté avec réserves](cloture-macro-lot-1.md). Le Pilote dispose du bandeau de comparaison ; estimation partielle et non-comparabilité sont explicites, agrégats fournisseur masqués sans habilitation. V1 conservée, WEB LIVE OFF. Cette note ne modifie aucun critère CONV ni ne déclare toutes les exigences BEHAVIOR PROVEN.
 
 | Champ | Valeur |

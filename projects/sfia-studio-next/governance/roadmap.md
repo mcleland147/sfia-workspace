@@ -1,5 +1,17 @@
 # SFIA Studio Next — Living Roadmap
 
+## Suivi courant ML5 — 27 NOVEMBRE 2026 : convergence intégrée livrée en RECETTE, campagne MaintiPlan suspendue après T08
+
+**Nature :** actualisation factuelle candidate autorisée par Morris, prioritaire pour l'état courant sur les instantanés antérieurs ; aucune modification de doctrine ni nouvelle décision normative. Main observé 997897fd ; branche produit locale non publiée, branche documentaire candidate distincte. R5 IN PROGRESS / ML5 OPEN / LIVRAISON 1 NOT ACCEPTED / R6 NOT STARTED / NO RELEASE / STABLE NOT AVAILABLE / NOT ADOPTED.
+
+La trajectoire du 25/11 a évolué le 26–27/11 vers les trois macro-lots internes de [convergence OpenAI–Studio](../construction/convergence-openai-studio/cadrage.md), construits puis livrés ensemble en RECETTE après GO Morris. [Bilan intégré](../construction/convergence-openai-studio/bilan-integre-20261127.md) : socle Frontier/allocation/FinOps/collecteur isolé ; cognition spécialisée et hybrid PG 027/Vision ; dictée Realtime et résiduels ML2. ML1 accepté DEV avec réserves, qualification globale non acquise ; WEB LIVE OFF et Admin différée. [Manifeste](../construction/ml5-recette-cutover-manifest-20261127.md), candidat e8e6e069 / BUILD rpEczSp61evIZ7d6fnIWR, schéma 027, Handoff activation 9ec930e2 vérifié. Réserves org/projet OpenAI et PG localhost trust.
+
+[PV MaintiPlan T01–T08](../construction/recette-utilisateur-ml5-maintiplan-20261127.md) : qualité cognitive appréciée ; création projet, cycle simple, V1 et investigation Git/asynchronisme observés ; dictée LIVE FAIL, multi-intentions, capitalisation/projections, UX et FinOps/allocation/latences à diagnostiquer. 17 MP OPEN, 1 critique/11 hautes/5 moyennes (priorités proposées) ; T09 NON ENVOYÉ. Morris décide de suspendre la recette et capitaliser avant diagnostic/corrections. Les 30 UAT Pilotage360 et 31 RB restent historiques, pas de clôture induite.
+
+**Suite :** diagnostic causal par Cursor sous mandat à qualifier SFIA v2.6, revue et GO correctifs cohérents en DEV, nouveau candidat sous ENV-01, rejeu ciblé MP et reprise T09 jusqu'au seuil de réalisation ; pas d'exécution technique dans MaintiPlan à ce stade. Livraison 2 (réalisation gouvernée et résultats) à engager après gate distinct. R6 et promotions non engagés. Aucun push projet, PR ou merge autorisé par le GO documentaire.
+
+---
+
 > **Suivi courant ML5 — 24/11/2026 (candidat documentaire) :** [journal UAT](../construction/recette-utilisateur-ml5-pilotage-360-20261124.md). Etats historiques conservés à leur SHA ; aucune nouvelle acceptation ni règle normative.
 
 ## Suivi courant ML5 — 25 NOVEMBRE 2026 : allocation cognitive adaptative et FinOps inscrits à la trajectoire

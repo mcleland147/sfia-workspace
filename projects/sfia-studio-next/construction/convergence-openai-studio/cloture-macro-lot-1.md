@@ -1,5 +1,7 @@
 # Convergence OpenAI–Studio Next — Bilan de clôture du macro-lot 1
 
+> **Capitalisation ultérieure 27/11 :** l'acceptation DEV du socle par Morris reste historique et bornée. Lots 2 et 3 intégrés, cutover et activation sur e8e6e069 ; [bilan intégré](bilan-integre-20261127.md). [PV MaintiPlan](../recette-utilisateur-ml5-maintiplan-20261127.md) : MP-14/15/16 sur efficience, allocation et FinOps en RECETTE, aucune acceptation globale. Réserves financières, Handoff, WEB et tracing conservées ; les nouvelles observations ne sont pas un retrait automatique des preuves DEV.
+
 | Champ | Valeur |
 |---|---|
 | Date | 27 novembre 2026 (Europe/Paris) |
