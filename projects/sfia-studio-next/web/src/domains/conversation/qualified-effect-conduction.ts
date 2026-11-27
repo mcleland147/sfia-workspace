@@ -161,3 +161,79 @@ export function partitionWaveByFamily(
   }
   return { knowledgeIds, pilotageIds };
 }
+
+/**
+ * Rewrite local intent-id subject refs using subjects created in prior waves.
+ * Does not invent refs — only replaces known intentId → subj_* mappings.
+ */
+export function rewriteKnowledgeProposalLocalRefs<T extends {
+  intentId: string;
+  subjectId?: string;
+  parentSubjectId?: string;
+  mergeSourceSubjectId?: string;
+}>(
+  proposals: T[],
+  createdSubjectByIntentId: ReadonlyMap<string, string>,
+): T[] {
+  if (createdSubjectByIntentId.size === 0) return proposals;
+  return proposals.map((p) => {
+    let next = p;
+    const mapRef = (ref: string | undefined) => {
+      if (!ref) return ref;
+      return createdSubjectByIntentId.get(ref) ?? ref;
+    };
+    const subjectId = mapRef(p.subjectId);
+    const parentSubjectId = mapRef(p.parentSubjectId);
+    const mergeSourceSubjectId = mapRef(p.mergeSourceSubjectId);
+    if (
+      subjectId !== p.subjectId ||
+      parentSubjectId !== p.parentSubjectId ||
+      mergeSourceSubjectId !== p.mergeSourceSubjectId
+    ) {
+      next = {
+        ...p,
+        subjectId,
+        parentSubjectId,
+        mergeSourceSubjectId,
+      };
+    }
+    return next;
+  });
+}
+
+/**
+ * Deterministic freshness gate: a local intent-id ref that was not rewritten to a
+ * durable subject must not drive a mutation (proposal prepared before prior result).
+ * Returns a block reason or null when refs are durable / same-wave peers.
+ */
+export function unresolvedLocalSubjectRefBlockReason(input: {
+  proposal: {
+    intentId: string;
+    subjectId?: string;
+    parentSubjectId?: string;
+    mergeSourceSubjectId?: string;
+  };
+  /** Intent ids still pending in this capitalisation wave (same-batch peers OK). */
+  sameWaveIntentIds: ReadonlySet<string>;
+  /** All integrated intent ids on the turn. */
+  integratedIds: ReadonlySet<string>;
+  createdSubjectByIntentId: ReadonlyMap<string, string>;
+}): string | null {
+  const refs = [
+    input.proposal.subjectId,
+    input.proposal.parentSubjectId,
+    input.proposal.mergeSourceSubjectId,
+  ].filter((r): r is string => Boolean(r && r.trim()));
+  for (const ref of refs) {
+    if (ref.startsWith("subj_")) continue;
+    if (input.sameWaveIntentIds.has(ref)) continue;
+    if (input.createdSubjectByIntentId.has(ref)) continue;
+    if (input.integratedIds.has(ref)) {
+      return (
+        `Référence locale (${ref}) non résolue après résultat préalable — ` +
+        `proposition non appliquée (fraîcheur / continuité déterministe).`
+      );
+    }
+  }
+  return null;
+}

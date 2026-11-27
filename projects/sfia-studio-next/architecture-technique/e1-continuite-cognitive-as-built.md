@@ -105,7 +105,17 @@ Complément ciblé E1 (reliquats ChatGPT E1-REL-01…09) — même Ensemble 1, p
 - **Préservé** : batches D4 parent/enfant ; autorité HumanDecision ; forecast durable ;
   C02 ; chemins documentaires D4 create/revise, D2, D7 hors boucle intégrée.
 - **Preuves DET** : `qualified-effect-conduction` unit ; `e2-unified-intent-conduction.pg`
-  (D6→D4→D5, refus+indépendant, batch+pilotage) ; non-régression FINAL/C02/MP09/E1.
+  (D6→D4→D5, refus+indépendant, batch+pilotage, fraîcheur cross-wave) ; non-régression FINAL/C02/MP09/E1.
+- **Réconciliation §18.2 (post-publication `3fe91745`)** :
+  - `TurnResult.knowledgeEffects[]` durable (NOT_EXECUTED/SKIPPED/FAILED explicites, motif, pas de mutation fictive) ;
+  - réécriture des refs locales intent→`subj_*` entre vagues ; gate `STALE_OR_UNRESOLVED_REF` ;
+  - fallback capitalisation parallèle retiré ; absence de projet ≠ ownership lost ;
+  - SC3 : deux sujets + `parentSubjectId` exact + non-duplication.
+- **E2 résiduel lecture/reprise (GO intégré E2+E3)** :
+  - `knowledgeEffects` sur `lookupDurableTurnByClientKey`, replay COMPLETE/UNKNOWN/FAILED,
+    unknownPayload post-autorité, `listTurnProjections` — lecture seule, pas de mutation ;
+  - restitution métier `knowledge-effect-restitution` (sans `semanticIntentId` en copie primaire) ;
+  - SC2 : lookup durable + NOT_EXECUTED dépendant + indépendant réussi + absence de mutation.
 
 ## Limites
 
@@ -113,9 +123,8 @@ Complément ciblé E1 (reliquats ChatGPT E1-REL-01…09) — même Ensemble 1, p
 - Hybrid embedding `derivedUsed=false` : **instruit E2** — défaut config/fixture
   (`SFIA_DERIVED_EMBEDDING_SEARCH` off ou `BACKEND=pg` sans semanticHits), pas régression B.7.
 - Pertinence cognitive naturelle merge/split / sélection / finalité : recette utilisateur.
-- UX panneau / multi-types : E3.
-- Navigateur : `next dev` :3100 HTTP 500 (tooling turbopack/`@cursor/sdk`) — preuve DOM
-  reportée ; qualify:start alternatif non imposé ici.
+- Navigateur : qualify:start DEV :3100 utilisé pour D.1/D.2/D.5/D.6 (build `zob6mblcG4SSKcii2l54o`) ;
+  `next dev` turbopack HTTP 500 historique non réouvert.
 
 ## Preuves
 

@@ -79,6 +79,7 @@ import {
   isTechnicalMissionAssistantContent,
   projectMetierMissionMessage,
 } from "@/domains/conversation/pilotage-effect-restitution";
+import { composeKnowledgeEffectRestitution } from "@/domains/conversation/knowledge-effect-restitution";
 import {
   ambiguousPilotageEffectRecord,
   crossCapOutcomeFromCapitalisations,
@@ -89,7 +90,10 @@ import {
   pickPrimaryPilotageEffect,
   pilotageEffectFromAuthority,
   unknownPilotageEffectRecord,
+  knowledgeEffectFromCapitalisation,
+  knowledgeEffectNotExecuted,
   type TurnPilotageEffect,
+  type TurnKnowledgeEffect,
 } from "@/domains/conversation/pilotage-effect-aggregate";
 import {
   appendDocumentEffectAck,
@@ -119,6 +123,8 @@ import {
   orderIntegratedEffectIntents,
   partitionWaveByFamily,
   planIntegratedEffectWave,
+  rewriteKnowledgeProposalLocalRefs,
+  unresolvedLocalSubjectRefBlockReason,
 } from "./qualified-effect-conduction";
 import {
   buildTurnCorrelationKeys,
@@ -500,6 +506,7 @@ export async function lookupDurableTurnByClientKey(
   assistantMessageId: string | null;
   pilotageEffect: TurnResult["pilotageEffect"];
   pilotageEffects?: TurnPilotageEffect[];
+  knowledgeEffects?: TurnKnowledgeEffect[];
   idempotentReplay: true;
   noraMode: "durable-lookup";
 }> {
@@ -514,6 +521,7 @@ export async function lookupDurableTurnByClientKey(
     assistantMessageId: null,
     pilotageEffect: null,
     pilotageEffects: undefined as TurnPilotageEffect[] | undefined,
+    knowledgeEffects: undefined as TurnKnowledgeEffect[] | undefined,
     idempotentReplay: true as const,
     noraMode: "durable-lookup" as const,
   };
@@ -548,12 +556,16 @@ export async function lookupDurableTurnByClientKey(
 
   let fromJson: TurnResult["pilotageEffect"] = null;
   let fromJsonEffects: TurnResult["pilotageEffects"] = undefined;
+  let fromJsonKnowledgeEffects: TurnResult["knowledgeEffects"] = undefined;
   let humanDecisionCreated = false;
   if (row.resultJson) {
     try {
       const parsed = JSON.parse(row.resultJson) as TurnResult;
       fromJson = parsed.pilotageEffect ?? null;
       fromJsonEffects = parsed.pilotageEffects;
+      fromJsonKnowledgeEffects = Array.isArray(parsed.knowledgeEffects)
+        ? parsed.knowledgeEffects
+        : undefined;
       humanDecisionCreated = Boolean(parsed.humanDecisionCreated);
     } catch {
       /* ignore corrupt payload — status row still authoritative for D3 */
@@ -585,6 +597,7 @@ export async function lookupDurableTurnByClientKey(
     assistantMessageId: row.assistantMessageId,
     pilotageEffect: resolved.pilotageEffect,
     pilotageEffects: resolved.pilotageEffects,
+    knowledgeEffects: fromJsonKnowledgeEffects,
     idempotentReplay: true,
     noraMode: "durable-lookup",
   };
@@ -618,13 +631,19 @@ export async function listTurnProjections(pilotId: string, preparationId: string
     if (!proj) continue;
     // E07 — surface durable Studio effect alongside turnProjection (sibling in resultJson).
     let pilotageEffect: TurnResult["pilotageEffect"] = null;
+    let knowledgeEffects: TurnResult["knowledgeEffects"] = undefined;
     try {
       const parsed = JSON.parse(row.resultJson) as {
         pilotageEffect?: TurnResult["pilotageEffect"];
+        knowledgeEffects?: TurnResult["knowledgeEffects"];
       };
       pilotageEffect = parsed.pilotageEffect ?? null;
+      knowledgeEffects = Array.isArray(parsed.knowledgeEffects)
+        ? parsed.knowledgeEffects
+        : undefined;
     } catch {
       pilotageEffect = null;
+      knowledgeEffects = undefined;
     }
     out.push({
       ...proj,
@@ -633,6 +652,7 @@ export async function listTurnProjections(pilotId: string, preparationId: string
       finalized: proj.finalized || row.status === "COMPLETE",
       status: proj.status || row.status,
       pilotageEffect,
+      ...(knowledgeEffects ? { knowledgeEffects } : {}),
     });
   }
   return out;
@@ -783,6 +803,11 @@ export type TurnResult = {
   pilotageEffect?: TurnPilotageEffect | null;
   /** MP-09 — every admissible binding outcome on the turn (primary kept in pilotageEffect). */
   pilotageEffects?: TurnPilotageEffect[];
+  /**
+   * Option B — every integrated d4.record_knowledge intent outcome on the turn,
+   * including NOT_EXECUTED / SKIPPED (never a fabricated knowledge mutation).
+   */
+  knowledgeEffects?: TurnKnowledgeEffect[];
   reconciled?: boolean;
   /** Durable turn id — available for mid-turn activity polling (C01/C07). */
   turnCommandId?: string | null;
@@ -1142,12 +1167,16 @@ export async function postUserMessageAndNora(
       });
       let replayPilotage: TurnResult["pilotageEffect"] = null;
       let replayPilotageEffects: TurnResult["pilotageEffects"] = undefined;
+      let replayKnowledgeEffects: TurnResult["knowledgeEffects"] = undefined;
       let replayDecision = false;
       if (reserved.resultJson) {
         try {
           const parsed = JSON.parse(reserved.resultJson) as TurnResult;
           replayPilotage = parsed.pilotageEffect ?? null;
           replayPilotageEffects = parsed.pilotageEffects;
+          replayKnowledgeEffects = Array.isArray(parsed.knowledgeEffects)
+            ? parsed.knowledgeEffects
+            : undefined;
           replayDecision = Boolean(parsed.humanDecisionCreated);
         } catch {
           /* ignore */
@@ -1183,6 +1212,7 @@ export async function postUserMessageAndNora(
         capitalisation: reconstituted.capitalisation,
         capitalisationLimit: reconstituted.capitalisationLimit,
         documentSave: reconstituted.documentSave,
+        knowledgeEffects: replayKnowledgeEffects,
       };
     }
     return {
@@ -2015,7 +2045,19 @@ export async function postUserMessageAndNora(
   const ownerOutcomeByIntentId = new Map<string, string>();
   /** @deprecated alias — kept for crossCapOutcomeFromCapitalisations call sites / OBS. */
   const crossCapOutcomeByIntentId = ownerOutcomeByIntentId;
+  const knowledgeEffectRecords: TurnKnowledgeEffect[] = [];
+  const knowledgeEffectByIntentId = new Map<string, TurnKnowledgeEffect>();
+  const recordKnowledgeEffect = (row: TurnKnowledgeEffect) => {
+    knowledgeEffectByIntentId.set(row.semanticIntentId, row);
+    const existing = knowledgeEffectRecords.findIndex(
+      (r) => r.semanticIntentId === row.semanticIntentId,
+    );
+    if (existing >= 0) knowledgeEffectRecords[existing] = row;
+    else knowledgeEffectRecords.push(row);
+  };
   let knowledgeEffectsConducted = false;
+  /** IntentId → durable subj_* created earlier this turn (cross-wave continuity). */
+  const createdSubjectByIntentId = new Map<string, string>();
   // Mint assistant id before any D4 so provenance can reference the future ASSISTANT message.
   const assistantMessageIdForEffects = newId("msg");
   const pilotageIntentIds = intentIdsFromPilotageBindings(pilotageBindings);
@@ -2032,6 +2074,9 @@ export async function postUserMessageAndNora(
     integratedOrdered.map((i) => [i.id, integratedEffectFamily(i.capabilityId)!] as const),
   );
   const allKnowledgeProposals = extractKnowledgeProposals(qualification);
+  const proposalKindByIntentId = new Map(
+    allKnowledgeProposals.map((p) => [p.intentId, p.kind] as const),
+  );
   const interruptedWithDocumentEarly =
     reply.status === "INTERRUPTED" &&
     Boolean(cognitiveWorkMeta?.suspended) &&
@@ -2048,9 +2093,44 @@ export async function postUserMessageAndNora(
     for (const intent of integratedOrdered) {
       const family = familyById.get(intent.id);
       if (family === "knowledge") {
-        if (replyAllowsKnowledgeEffects) pending.add(intent.id);
+        if (replyAllowsKnowledgeEffects) {
+          pending.add(intent.id);
+        } else {
+          ownerOutcomeByIntentId.set(intent.id, "NOT_EXECUTED");
+          recordKnowledgeEffect(
+            knowledgeEffectNotExecuted({
+              intentId: intent.id,
+              status: "NOT_EXECUTED",
+              reason:
+                "Réponse non COMPLETE (et pas de document interrompu admissible) — capitalisation non lancée.",
+              reasonCode: "REPLY_NOT_ADMISSIBLE",
+              proposalKind: proposalKindByIntentId.get(intent.id) ?? null,
+            }),
+          );
+        }
       } else if (family === "pilotage") {
-        if (ctx.project?.id) pending.add(intent.id);
+        if (ctx.project?.id) {
+          pending.add(intent.id);
+        } else {
+          ownerOutcomeByIntentId.set(intent.id, "NOT_EXECUTED");
+          // Explicit: absence of project ≠ ownership loss.
+          pilotageEffectRecords.push({
+            attempted: false,
+            intentClarity: "CLEAR",
+            status: "NOT_EXECUTED",
+            reasonCode: "NO_PROJECT_CONTEXT",
+            reason:
+              "Aucun projet actif — effet D5/D6 non exécuté (pas une perte d'ownership).",
+            decisionId: null,
+            source: "none",
+            semanticIntentId: intent.id,
+            operation:
+              bindingByIntentId.get(intent.id) &&
+              !("ambiguous" in bindingByIntentId.get(intent.id)!)
+                ? (bindingByIntentId.get(intent.id) as { operation: string }).operation
+                : undefined,
+          });
+        }
       }
     }
     const orderedIds = integratedOrdered.map((i) => i.id);
@@ -2108,6 +2188,15 @@ export async function postUserMessageAndNora(
           });
         } else {
           ownerOutcomeByIntentId.set(b.id, "SKIPPED");
+          recordKnowledgeEffect(
+            knowledgeEffectNotExecuted({
+              intentId: b.id,
+              status: "NOT_EXECUTED",
+              reason: b.reason,
+              reasonCode: "DEPENDENCY_PRECONDITION",
+              proposalKind: proposalKindByIntentId.get(b.id) ?? null,
+            }),
+          );
         }
       }
 
@@ -2127,6 +2216,17 @@ export async function postUserMessageAndNora(
                 }),
               );
             }
+          } else if (family === "knowledge") {
+            recordKnowledgeEffect(
+              knowledgeEffectNotExecuted({
+                intentId: id,
+                status: "FAILED",
+                reason:
+                  "Aucune progression admissible restante — préconditions non satisfaites.",
+                reasonCode: "NO_ADMISSIBLE_PROGRESS",
+                proposalKind: proposalKindByIntentId.get(id) ?? null,
+              }),
+            );
           }
         }
         pending.clear();
@@ -2141,14 +2241,61 @@ export async function postUserMessageAndNora(
       // D4 knowledge batch — peers ready together share one owner call (parent/enfant).
       if (knowledgeIds.length > 0) {
         try {
-          const proposalsForWave = allKnowledgeProposals.filter((p) =>
-            knowledgeIds.includes(p.intentId),
+          const waveSet = new Set(knowledgeIds);
+          let proposalsForWave = rewriteKnowledgeProposalLocalRefs(
+            allKnowledgeProposals.filter((p) => knowledgeIds.includes(p.intentId)),
+            createdSubjectByIntentId,
           );
-          if (proposalsForWave.length === 0) {
-            for (const id of knowledgeIds) {
+          // Deterministic freshness: drop proposals whose local refs remain unresolved.
+          const freshProposals: typeof proposalsForWave = [];
+          for (const id of knowledgeIds) {
+            const proposalsForIntent = proposalsForWave.filter((p) => p.intentId === id);
+            if (proposalsForIntent.length === 0) {
               ownerOutcomeByIntentId.set(id, "SKIPPED");
               pending.delete(id);
+              recordKnowledgeEffect(
+                knowledgeEffectNotExecuted({
+                  intentId: id,
+                  status: "NOT_EXECUTED",
+                  reason: "Aucune proposition D4 extractible pour cette intention.",
+                  reasonCode: "NO_VALID_PROPOSAL",
+                  proposalKind: proposalKindByIntentId.get(id) ?? null,
+                }),
+              );
+              continue;
             }
+            let blockedFresh: string | null = null;
+            for (const p of proposalsForIntent) {
+              blockedFresh = unresolvedLocalSubjectRefBlockReason({
+                proposal: p,
+                sameWaveIntentIds: waveSet,
+                integratedIds,
+                createdSubjectByIntentId,
+              });
+              if (blockedFresh) break;
+            }
+            if (blockedFresh) {
+              ownerOutcomeByIntentId.set(id, "SKIPPED");
+              pending.delete(id);
+              recordKnowledgeEffect(
+                knowledgeEffectNotExecuted({
+                  intentId: id,
+                  status: "NOT_EXECUTED",
+                  reason: blockedFresh,
+                  reasonCode: "STALE_OR_UNRESOLVED_REF",
+                  proposalKind: proposalsForIntent[0]?.kind ?? null,
+                }),
+              );
+              continue;
+            }
+            freshProposals.push(...proposalsForIntent);
+          }
+          proposalsForWave = freshProposals;
+          const runnableIds = [
+            ...new Set(proposalsForWave.map((p) => p.intentId)),
+          ];
+          if (proposalsForWave.length === 0) {
+            // All knowledge in wave already recorded as NOT_EXECUTED above.
           } else {
             const step = await maybeCapitalizeFromExchange(pilotId, preparationId, {
               userText: content,
@@ -2177,9 +2324,19 @@ export async function postUserMessageAndNora(
             };
             if (step.ownershipLost) {
               ownershipLostBeforeD4 = true;
-              for (const id of knowledgeIds) {
+              for (const id of runnableIds) {
                 ownerOutcomeByIntentId.set(id, "SKIPPED");
                 pending.delete(id);
+                recordKnowledgeEffect(
+                  knowledgeEffectNotExecuted({
+                    intentId: id,
+                    status: "SKIPPED",
+                    reason:
+                      "Propriété du tour perdue pendant la capitalisation D4 — effet non exécuté.",
+                    reasonCode: "OWNERSHIP_LOST",
+                    proposalKind: proposalKindByIntentId.get(id) ?? null,
+                  }),
+                );
               }
               for (const id of pending) {
                 ownerOutcomeByIntentId.set(id, "SKIPPED");
@@ -2191,12 +2348,34 @@ export async function postUserMessageAndNora(
                       ownershipLostPilotageEffectRecord({ binding }),
                     );
                   }
+                } else if (family === "knowledge") {
+                  recordKnowledgeEffect(
+                    knowledgeEffectNotExecuted({
+                      intentId: id,
+                      status: "SKIPPED",
+                      reason:
+                        "Propriété du tour perdue avant cet effet — non exécuté.",
+                      reasonCode: "OWNERSHIP_LOST",
+                      proposalKind: proposalKindByIntentId.get(id) ?? null,
+                    }),
+                  );
                 }
               }
               pending.clear();
               break;
             }
-            for (const id of knowledgeIds) {
+            for (const row of step.capitalisations) {
+              if (
+                row.kind === "subject" &&
+                row.intentId &&
+                (row.status === "AVAILABLE" || row.status === "OK") &&
+                typeof row.id === "string" &&
+                row.id.startsWith("subj_")
+              ) {
+                createdSubjectByIntentId.set(row.intentId, row.id);
+              }
+            }
+            for (const id of runnableIds) {
               const proposalsForIntent = proposalsForWave.filter(
                 (p) => p.intentId === id,
               );
@@ -2209,6 +2388,27 @@ export async function postUserMessageAndNora(
               });
               ownerOutcomeByIntentId.set(id, outcome);
               pending.delete(id);
+              const primary = step.capitalisations.find(
+                (c) =>
+                  c.intentId === id &&
+                  (c.kind === "subject" ||
+                    c.kind === "acquis" ||
+                    c.kind === "open_point"),
+              );
+              recordKnowledgeEffect(
+                knowledgeEffectFromCapitalisation({
+                  intentId: id,
+                  status: outcome,
+                  proposalKind: proposalsForIntent[0]?.kind ?? null,
+                  ownerRef:
+                    primary && typeof primary.id === "string" ? primary.id : null,
+                  reason:
+                    primary && "reason" in primary
+                      ? String((primary as { reason?: string }).reason ?? "") || null
+                      : null,
+                  attempted: true,
+                }),
+              );
             }
             const written = step.capitalisations.filter(
               (c) => c.status === "AVAILABLE" || c.status === "OK",
@@ -2222,7 +2422,7 @@ export async function postUserMessageAndNora(
               outcome: written > 0 ? "SUCCESS" : "PARTIAL",
               meta: {
                 unified_conduction: true,
-                wave_knowledge_intents: knowledgeIds.length,
+                wave_knowledge_intents: runnableIds.length,
                 capitalisation_written: written,
               },
             });
@@ -2230,8 +2430,18 @@ export async function postUserMessageAndNora(
         } catch {
           capitalisationError = "CAPITALISATION_EXCEPTION";
           for (const id of knowledgeIds) {
+            if (ownerOutcomeByIntentId.has(id)) continue;
             ownerOutcomeByIntentId.set(id, "FAILED");
             pending.delete(id);
+            recordKnowledgeEffect(
+              knowledgeEffectNotExecuted({
+                intentId: id,
+                status: "FAILED",
+                reason: "Exception pendant la capitalisation D4.",
+                reasonCode: "CAPITALISATION_EXCEPTION",
+                proposalKind: proposalKindByIntentId.get(id) ?? null,
+              }),
+            );
           }
         }
       }
@@ -2481,6 +2691,8 @@ export async function postUserMessageAndNora(
         humanDecisionCreated: conversationalHumanDecisionCreated,
         pilotageEffect: primaryPilotageEffect ?? pilotageEffectFromAuthority(authority),
         pilotageEffects: pilotageEffectRecords.length > 0 ? pilotageEffectRecords : undefined,
+        knowledgeEffects:
+          knowledgeEffectRecords.length > 0 ? knowledgeEffectRecords : undefined,
         noraMode: reply.mode,
       };
       try {
@@ -2531,6 +2743,9 @@ export async function postUserMessageAndNora(
         pilotageEffects:
           resolved.pilotageEffects ??
           (pilotageEffectRecords.length > 0 ? pilotageEffectRecords : undefined),
+        knowledgeEffects:
+          unknownPayload.knowledgeEffects ??
+          (knowledgeEffectRecords.length > 0 ? knowledgeEffectRecords : undefined),
       };
     }
   }
@@ -2617,91 +2832,8 @@ export async function postUserMessageAndNora(
     }
     if (!(await requireTurnOwnership(reserved.commandId, reserved.ownerToken))) {
       ownershipLostBeforeD4 = true;
-    } else if (
-      // Knowledge REQUEST_EFFECT already handled by unified conduction when admissible.
-      // Fallback only when integrated loop did not admit knowledge (e.g. empty set).
-      !knowledgeEffectsConducted &&
-      ![...familyById.values()].includes("knowledge")
-    ) {
-      try {
-        const knowledgeProposals = extractKnowledgeProposals(qualification);
-        const proposalSummary = summarizeKnowledgeProposals(knowledgeProposals);
-        emitObs({
-          event_name: "d3.turn.knowledge_proposals",
-          component: "d3.conversation",
-          request_id: requestId,
-          operation_id: reserved.operationId,
-          generation_id: reply.generationId,
-          outcome: proposalSummary.proposal_present ? "PARTIAL" : "SUCCESS",
-          meta: {
-            qualification_status: qualification.status,
-            reply_status: reply.status,
-            proposal_present: proposalSummary.proposal_present,
-            proposal_count: proposalSummary.proposal_count,
-            subject_count: proposalSummary.subject_count,
-            acquis_count: proposalSummary.acquis_count,
-            open_point_count: proposalSummary.open_point_count,
-            unified_conduction_fallback: true,
-          },
-        });
-        if (knowledgeProposals.length > 0) {
-          capitalisation = await maybeCapitalizeFromExchange(pilotId, preparationId, {
-            userText: content,
-            assistantText: reply.content,
-            generationId: reply.generationId,
-            userMessageId: reserved.userMessageId,
-            assistantMessageId: ownershipLostBeforeD4 ? null : assistantId,
-            proposals: knowledgeProposals,
-            turnFence: {
-              commandId: reserved.commandId,
-              ownerToken: reserved.ownerToken,
-              beforeFenceCheck: turnRaceHooks.beforeD4Effect,
-            },
-          });
-          const written = capitalisation.capitalisations.filter(
-            (c) => c.status === "AVAILABLE" || c.status === "OK",
-          ).length;
-          const failed = capitalisation.capitalisations.filter(
-            (c) => c.status === "FAILED",
-          ).length;
-          emitObs({
-            event_name: "d3.turn.knowledge_capitalisation",
-            component: "d3.conversation",
-            request_id: requestId,
-            operation_id: reserved.operationId,
-            generation_id: reply.generationId,
-            outcome:
-              written > 0
-                ? "SUCCESS"
-                : proposalSummary.proposal_present
-                  ? "PARTIAL"
-                  : "SUCCESS",
-            meta: {
-              proposal_present: proposalSummary.proposal_present,
-              proposal_count: proposalSummary.proposal_count,
-              capitalisation_written: written,
-              capitalisation_failed_count: failed,
-              reply_status: reply.status,
-              unified_conduction_fallback: true,
-            },
-          });
-          if (capitalisation.ownershipLost) {
-            ownershipLostBeforeD4 = true;
-          }
-        }
-      } catch {
-        capitalisationError = "CAPITALISATION_EXCEPTION";
-        emitObs({
-          event_name: "d3.turn.capitalisation_failed",
-          component: "d3.conversation",
-          request_id: requestId,
-          operation_id: reserved.operationId,
-          generation_id: reply.generationId,
-          outcome: "UNKNOWN",
-          error_category: "CAPITALISATION_EXCEPTION",
-        });
-      }
     }
+    // Knowledge REQUEST_EFFECT is solely handled by unified conduction (no parallel fallback).
 
     if (documentAct.kind === "CREATE" && !ownershipLostBeforeD4) {
         // C-02/C-03: exact proposal from prior message OR canonical documentProposal OR fence.
@@ -4505,6 +4637,13 @@ export async function postUserMessageAndNora(
       effects: pilotageEffectRecords.length > 0 ? pilotageEffectRecords : undefined,
     });
   }
+  // Option B / E3 D.3 — D4 knowledge outcomes without technical intent ids in primary copy.
+  if (!ownershipLostBeforeD4 && knowledgeEffectRecords.length > 0) {
+    assistantBody = composeKnowledgeEffectRestitution({
+      priorContent: assistantBody,
+      effects: knowledgeEffectRecords,
+    });
+  }
 
   // E08 POST-UAT — publication outcome after Studio owners; strip pre-effect hedges.
   if (!ownershipLostBeforeD4 && publicationEffectView?.attempted) {
@@ -4646,6 +4785,8 @@ export async function postUserMessageAndNora(
       Boolean(publicationMandateDecisionId),
     pilotageEffect: primaryPilotageEffect ?? pilotageEffectFromAuthority(authority),
     pilotageEffects: pilotageEffectRecords.length > 0 ? pilotageEffectRecords : undefined,
+    knowledgeEffects:
+      knowledgeEffectRecords.length > 0 ? knowledgeEffectRecords : undefined,
     missionProjection,
     nextTurnKind,
     pendingEffectBlocked,

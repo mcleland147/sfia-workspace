@@ -38,7 +38,7 @@ async function ensureSession(page: import("@playwright/test").Page) {
   await page.waitForURL("**/portfolio**", { timeout: 60_000 });
 }
 
-test("UX-TYPO — conversation body ~12px; activity titles ~12/15px", async ({
+test("UX-TYPO — conversation body 12.5px/1.65; activity titles ~12/15px", async ({
   page,
 }) => {
   await ensureSession(page);
@@ -90,10 +90,11 @@ test("UX-TYPO — conversation body ~12px; activity titles ~12/15px", async ({
     path: path.join(EVIDENCE, "01-typography-table.png"),
     fullPage: false,
   });
-  expect(measures.bodyFontSize).toBe("12px");
+  // D.1 — contract tokens.css 12.5px/1.65; tables wrap in-message (IT-04 revised).
+  expect(measures.bodyFontSize).toBe("12.5px");
   expect(measures.groupTitleFontSize).toBe("12px");
   expect(measures.headlineFontSize).toBe("15px");
-  expect(measures.tdWhiteSpace).toBe("nowrap");
+  expect(measures.tdWhiteSpace).toBe("normal");
   expect(measures.tdWordBreak).toBe("normal");
 });
 

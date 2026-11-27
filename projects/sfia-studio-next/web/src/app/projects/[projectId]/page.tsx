@@ -632,17 +632,7 @@ export default function ProjectPage() {
     projectIdAtStart: string;
     revisionNumber?: number | null;
   }) {
-    notePilotConsultation(
-      recentItemFromDocumentConsultation(
-        input.documentId,
-        input.titleHint,
-        input.revisionNumber != null
-          ? `v${input.revisionNumber}`
-          : input.revisionId
-            ? `rev:${input.revisionId.slice(0, 8)}`
-            : null,
-      ),
-    );
+    // Consultation is recorded only after a successful D4 read (available content).
     const prepId = preparationIdRef.current;
     if (!prepId) {
       applyViewerIfCurrent(
@@ -792,14 +782,16 @@ export default function ProjectPage() {
         j.status === "AVAILABLE" && typeof rev?.contentMarkdown === "string"
           ? rev.contentMarkdown
           : null;
+      const resolvedRevisionId = rev?.id ?? targetRevisionId;
+      const resolvedRevisionNumber = rev?.revisionNumber ?? null;
       applyViewerIfCurrent(
         input.seq,
         {
           kind: "document",
           documentId: input.documentId,
           title: j.document?.title ?? title,
-          revisionId: rev?.id ?? targetRevisionId,
-          revisionNumber: rev?.revisionNumber ?? null,
+          revisionId: resolvedRevisionId,
+          revisionNumber: resolvedRevisionNumber,
           versionSource: input.versionSource,
           markdown,
           available: Boolean(markdown),
@@ -809,6 +801,20 @@ export default function ProjectPage() {
         },
         input.projectIdAtStart,
       );
+      if (markdown) {
+        notePilotConsultation(
+          recentItemFromDocumentConsultation(
+            input.documentId,
+            j.document?.title ?? title,
+            resolvedRevisionNumber != null
+              ? `v${resolvedRevisionNumber}`
+              : resolvedRevisionId
+                ? `rev:${resolvedRevisionId.slice(0, 8)}`
+                : null,
+            resolvedRevisionId,
+          ),
+        );
+      }
     } catch {
       applyViewerIfCurrent(
         input.seq,
@@ -846,15 +852,6 @@ export default function ProjectPage() {
       unavailableReason: "Vérification des droits et de la version courante…",
     });
     setViewerEnlarged(false);
-    notePilotConsultation(
-      recentItemFromDocumentConsultation(
-        doc.document.id,
-        doc.document.title,
-        doc.latestRevision?.revisionNumber != null
-          ? `v${doc.latestRevision.revisionNumber}`
-          : null,
-      ),
-    );
     void fetchDocumentViewerViaD4({
       documentId: doc.document.id,
       titleHint: doc.document.title,
@@ -1110,8 +1107,6 @@ export default function ProjectPage() {
       return;
     }
     if (ref.kind === "git") {
-      const recentGit = recentItemFromTurnReference(ref);
-      if (recentGit) notePilotConsultation(recentGit);
       if (!ref.repositoryId || !ref.path || !ref.ref) {
         applyViewerIfCurrent(
           seq,
@@ -1197,6 +1192,7 @@ export default function ProjectPage() {
             j.contentKind === "pdf" ||
             j.preview?.renderer === "pdf" ||
             /\.pdf$/i.test(ref.path);
+          const commitSha = prov?.commitSha ?? ref.commit ?? null;
           applyViewerIfCurrent(
             seq,
             {
@@ -1204,7 +1200,7 @@ export default function ProjectPage() {
               title: ref.label,
               path: ref.path,
               ref: ref.ref,
-              commit: prov?.commitSha ?? ref.commit ?? null,
+              commit: commitSha,
               content,
               contentKind: isPdf ? "pdf" : j.contentKind === "markdown" ? "markdown" : "text",
               initialPage:
@@ -1217,6 +1213,13 @@ export default function ProjectPage() {
             },
             projectIdAtStart,
           );
+          if (content) {
+            const recentGit = recentItemFromTurnReference({
+              ...ref,
+              commit: commitSha ?? undefined,
+            });
+            if (recentGit) notePilotConsultation(recentGit);
+          }
         }
       } catch {
         applyViewerIfCurrent(
@@ -3415,24 +3418,89 @@ export default function ProjectPage() {
                   </p>
                 ) : (
                   <ul className="mt-1 space-y-1" data-testid="travail-aside-recents-list">
-                    {recentItems.map((item) => (
+                    {recentItems.map((item) => {
+                      const kindLabel =
+                        item.kind === "document_nora"
+                          ? "Document Nora"
+                          : item.kind === "file_git"
+                            ? "Fichier Git"
+                            : item.kind === "document_git"
+                              ? "Document Git"
+                              : item.kind === "execution"
+                                ? "Exécution"
+                                : item.kind === "result"
+                                  ? "Résultat"
+                                  : item.kind === "bilan"
+                                    ? "Bilan"
+                                    : item.kind === "proof"
+                                      ? "Preuve"
+                                      : item.kind;
+                      const kindGlyph =
+                        item.kind === "document_nora" || item.kind === "document_git"
+                          ? "☰"
+                          : item.kind === "file_git"
+                            ? "⎇"
+                            : item.kind === "execution"
+                              ? "▶"
+                              : "▦";
+                      return (
                       <li key={item.id}>
                         <button
                           type="button"
-                          className="fig-inspector-link"
+                          className="fig-inspector-link fig-recent-item"
                           data-testid={`travail-recent-${item.id}`}
+                          data-recent-kind={item.kind}
                           onClick={() => {
                             if (item.kind === "document_nora") {
-                              const docId = item.id.replace(/^doc:/, "");
-                              const doc = documents.find((d) => d.document.id === docId);
-                              if (doc) openTravailDocument(doc);
+                              const documentId =
+                                item.documentId ??
+                                item.id.replace(/^doc:/, "").replace(/:rev:.*$/, "");
+                              if (!documentId) return;
+                              const projectIdAtStart = params.projectId;
+                              const seq = ++viewerRequestSeqRef.current;
+                              viewerOpenRef.current = true;
+                              setViewer({
+                                kind: "document",
+                                documentId,
+                                title: item.title,
+                                revisionId: item.revisionId ?? null,
+                                revisionNumber: null,
+                                versionSource: item.revisionId ? "exact" : "current",
+                                markdown: null,
+                                available: false,
+                                unavailableReason: "Rechargement de la version consultée…",
+                              });
+                              setViewerEnlarged(false);
+                              selectSurface("travail");
+                              void fetchDocumentViewerViaD4({
+                                documentId,
+                                titleHint: item.title,
+                                revisionId: item.revisionId ?? null,
+                                versionSource: item.revisionId ? "exact" : "current",
+                                seq,
+                                projectIdAtStart,
+                              });
                               return;
                             }
                             if (item.kind === "file_git" || item.kind === "document_git") {
-                              selectSurface("git");
+                              if (
+                                item.repositoryId &&
+                                item.path &&
+                                item.gitRef
+                              ) {
+                                void openTravailReference({
+                                  kind: "git",
+                                  label: item.title,
+                                  repositoryId: item.repositoryId,
+                                  path: item.path,
+                                  ref: item.gitRef,
+                                  commit: item.commit ?? undefined,
+                                });
+                              }
                               return;
                             }
                             if (item.kind === "execution") {
+                              // Exact attempt reopen not yet wired as owner deep-link — surface only.
                               selectSurface("execution");
                               return;
                             }
@@ -3445,11 +3513,20 @@ export default function ProjectPage() {
                             }
                           }}
                         >
-                          {item.title}
-                          {item.refLabel ? ` · ${item.refLabel}` : ""}
+                          <span className="fig-recent-item-glyph" aria-hidden>
+                            {kindGlyph}
+                          </span>
+                          <span className="fig-recent-item-text">
+                            <span className="fig-recent-item-title">{item.title}</span>
+                            <span className="fig-recent-item-meta">
+                              {kindLabel}
+                              {item.refLabel ? ` · ${item.refLabel}` : ""}
+                            </span>
+                          </span>
                         </button>
                       </li>
-                    ))}
+                      );
+                    })}
                   </ul>
                 )}
               </div>
@@ -3461,13 +3538,25 @@ export default function ProjectPage() {
                       "shortTitle" in o && typeof o.shortTitle === "string"
                         ? o.shortTitle
                         : openPointShortTitle(o.statement);
+                    const subjectId =
+                      "subjectId" in o && typeof o.subjectId === "string" ? o.subjectId : null;
                     return (
                       <button
                         key={o.id}
                         type="button"
                         className="fig-inspector-link mb-2 block text-left"
                         data-testid={`travail-open-point-${o.id}`}
-                        onClick={() => selectSurface("journal")}
+                        onClick={() => {
+                          setJournalNav({
+                            tab: "subjects",
+                            search: "",
+                            openPointsOnly: true,
+                            selectedSubjectId: subjectId,
+                            selectedDecisionId: null,
+                            layout: "full",
+                          });
+                          selectSurface("journal");
+                        }}
                         title={o.statement}
                       >
                         {short}
@@ -3483,7 +3572,17 @@ export default function ProjectPage() {
                     type="button"
                     className="fig-inspector-link mt-1"
                     data-testid="travail-aside-all-open-points"
-                    onClick={() => selectSurface("journal")}
+                    onClick={() => {
+                      setJournalNav({
+                        tab: "subjects",
+                        search: "",
+                        openPointsOnly: true,
+                        selectedSubjectId: null,
+                        selectedDecisionId: null,
+                        layout: "full",
+                      });
+                      selectSurface("journal");
+                    }}
                   >
                     Voir tous les points ouverts
                   </button>

@@ -7,12 +7,22 @@ import {
 import { mergeProjectRecentItems } from "@/lib/project-recent-items";
 
 describe("B.8 — pilot consultation identities (MP-08)", () => {
-  it("builds stable ids for document and git consultations", () => {
+  it("builds revision-scoped ids for document consultations", () => {
+    expect(recentItemFromDocumentConsultation("d1", "Plan", "v2", "rev_abc")).toEqual({
+      id: "doc:d1:rev:rev_abc",
+      kind: "document_nora",
+      title: "Plan",
+      refLabel: "v2",
+      documentId: "d1",
+      revisionId: "rev_abc",
+    });
     expect(recentItemFromDocumentConsultation("d1", "Plan", "v2")).toEqual({
       id: "doc:d1",
       kind: "document_nora",
       title: "Plan",
       refLabel: "v2",
+      documentId: "d1",
+      revisionId: null,
     });
     const git = recentItemFromGitConsultation({
       repositoryId: "repo1",
@@ -24,16 +34,20 @@ describe("B.8 — pilot consultation identities (MP-08)", () => {
     expect(git.id).toBe("git:repo1:docs/readme.md@main");
     expect(git.kind).toBe("file_git");
     expect(git.refLabel).toBe("abc123def456");
+    expect(git.repositoryId).toBe("repo1");
+    expect(git.path).toBe("docs/readme.md");
+    expect(git.gitRef).toBe("main");
   });
 
-  it("maps Nora turn references and dedupes on merge", () => {
+  it("maps Nora turn references with exact revision and dedupes on merge", () => {
     const docRef = recentItemFromTurnReference({
       kind: "document",
       label: "Synthèse",
       resourceId: "doc_x",
       revisionId: "rev_1",
     });
-    expect(docRef?.id).toBe("doc:doc_x");
+    expect(docRef?.id).toBe("doc:doc_x:rev:rev_1");
+    expect(docRef && "revisionId" in docRef ? docRef.revisionId : null).toBe("rev_1");
     const items = mergeProjectRecentItems([], {
       ...docRef!,
       consultedAtMs: 1,
@@ -44,6 +58,19 @@ describe("B.8 — pilot consultation identities (MP-08)", () => {
     });
     expect(again).toHaveLength(1);
     expect(again[0]?.consultedAtMs).toBe(9);
+
+    const otherRev = recentItemFromTurnReference({
+      kind: "document",
+      label: "Synthèse",
+      resourceId: "doc_x",
+      revisionId: "rev_2",
+    });
+    const withBoth = mergeProjectRecentItems(again, {
+      ...otherRev!,
+      consultedAtMs: 10,
+    });
+    expect(withBoth).toHaveLength(2);
+    expect(withBoth[0]?.id).toBe("doc:doc_x:rev:rev_2");
   });
 
   it("isolates recent lists per canonical id (project A vs B)", () => {

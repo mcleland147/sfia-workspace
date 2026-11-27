@@ -260,3 +260,59 @@ export function intentIdsFromPilotageBindings(
   }
   return ids;
 }
+
+/**
+ * Durable D4-knowledge intent outcome (parallel to TurnPilotageEffect).
+ * Never invents a knowledge mutation — NOT_EXECUTED / SKIPPED are explicit.
+ */
+export type TurnKnowledgeEffect = {
+  attempted: boolean;
+  capabilityId: "d4.record_knowledge";
+  semanticIntentId: string;
+  status: string;
+  reasonCode?: string | null;
+  reason?: string | null;
+  /** Owner subject/acquis/open_point id only when actually returned. */
+  ownerRef?: string | null;
+  proposalKind?: string | null;
+};
+
+export function knowledgeEffectFromCapitalisation(input: {
+  intentId: string;
+  status: string;
+  proposalKind?: string | null;
+  ownerRef?: string | null;
+  reason?: string | null;
+  reasonCode?: string | null;
+  attempted?: boolean;
+}): TurnKnowledgeEffect {
+  return {
+    attempted: input.attempted ?? true,
+    capabilityId: "d4.record_knowledge",
+    semanticIntentId: input.intentId,
+    status: input.status,
+    reasonCode: input.reasonCode ?? null,
+    reason: input.reason ?? null,
+    ownerRef: input.ownerRef ?? null,
+    proposalKind: input.proposalKind ?? null,
+  };
+}
+
+export function knowledgeEffectNotExecuted(input: {
+  intentId: string;
+  status?: string;
+  reason: string;
+  reasonCode?: string;
+  proposalKind?: string | null;
+}): TurnKnowledgeEffect {
+  return {
+    attempted: false,
+    capabilityId: "d4.record_knowledge",
+    semanticIntentId: input.intentId,
+    status: input.status ?? "NOT_EXECUTED",
+    reasonCode: input.reasonCode ?? "DEPENDENCY_OR_FRESHNESS",
+    reason: input.reason,
+    ownerRef: null,
+    proposalKind: input.proposalKind ?? null,
+  };
+}

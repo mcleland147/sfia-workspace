@@ -2,7 +2,7 @@
  * ML5 MP-08 — pilot-consulted « Éléments récents » (max 5).
  * Client-scoped persistence only (no schema). Isolation: pilotId + projectId.
  * A Nora-only read or a mere mention does NOT populate this list — callers must
- * invoke recordProjectRecentItem on explicit Pilote consultation (viewer open, etc.).
+ * invoke recordProjectRecentItem on explicit successful Pilote consultation.
  *
  * Pure merge helpers are exported for deterministic unit tests without DOM storage.
  */
@@ -24,6 +24,15 @@ export type ProjectRecentItem = {
   /** Opaque version/ref for display continuity. */
   refLabel?: string | null;
   consultedAtMs: number;
+  /** Exact resource coordinates for direct reopen (never invent). */
+  documentId?: string | null;
+  revisionId?: string | null;
+  repositoryId?: string | null;
+  path?: string | null;
+  gitRef?: string | null;
+  commit?: string | null;
+  attemptId?: string | null;
+  resultId?: string | null;
 };
 
 const STORAGE_PREFIX = "sfia.projectRecent.v1:";
@@ -43,7 +52,10 @@ export function mergeProjectRecentItems(
   maxItems: number = PROJECT_RECENT_MAX_ITEMS,
 ): ProjectRecentItem[] {
   return [nextItem, ...existing.filter((x) => x.id !== nextItem.id)]
-    .sort((a, b) => b.consultedAtMs - a.consultedAtMs)
+    .sort((a, b) => {
+      if (b.consultedAtMs !== a.consultedAtMs) return b.consultedAtMs - a.consultedAtMs;
+      return a.id.localeCompare(b.id);
+    })
     .slice(0, maxItems);
 }
 
@@ -63,7 +75,10 @@ export function readProjectRecentItems(
         const r = x as ProjectRecentItem;
         return Boolean(r.id && r.kind && r.title && typeof r.consultedAtMs === "number");
       })
-      .sort((a, b) => b.consultedAtMs - a.consultedAtMs)
+      .sort((a, b) => {
+        if (b.consultedAtMs !== a.consultedAtMs) return b.consultedAtMs - a.consultedAtMs;
+        return a.id.localeCompare(b.id);
+      })
       .slice(0, PROJECT_RECENT_MAX_ITEMS);
   } catch {
     return [];
@@ -83,6 +98,14 @@ export function recordProjectRecentItem(input: {
     href: input.item.href ?? null,
     refLabel: input.item.refLabel ?? null,
     consultedAtMs: input.item.consultedAtMs ?? Date.now(),
+    documentId: input.item.documentId ?? null,
+    revisionId: input.item.revisionId ?? null,
+    repositoryId: input.item.repositoryId ?? null,
+    path: input.item.path ?? null,
+    gitRef: input.item.gitRef ?? null,
+    commit: input.item.commit ?? null,
+    attemptId: input.item.attemptId ?? null,
+    resultId: input.item.resultId ?? null,
   };
   const existing = readProjectRecentItems(input.pilotId, input.projectId);
   const merged = mergeProjectRecentItems(existing, nextItem);

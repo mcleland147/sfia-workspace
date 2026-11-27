@@ -8,6 +8,8 @@ import {
   partitionWaveByFamily,
   planIntegratedEffectWave,
   listIntegratedEffectIntents,
+  rewriteKnowledgeProposalLocalRefs,
+  unresolvedLocalSubjectRefBlockReason,
 } from "@/domains/conversation/qualified-effect-conduction";
 import { SEMANTIC_QUALIFICATION_SCHEMA_VERSION } from "@/domains/conversation/semantic-qualification";
 
@@ -161,5 +163,32 @@ describe("qualified-effect-conduction", () => {
     expect(plan.ready).toEqual([]);
     expect(plan.blocked[0]?.id).toBe("i-d5");
     expect(plan.blocked[0]?.reason).toMatch(/hors intentions intégrées/);
+  });
+
+  it("rewrites local intent subject refs from prior-wave creations", () => {
+    const out = rewriteKnowledgeProposalLocalRefs(
+      [
+        {
+          intentId: "i-child",
+          parentSubjectId: "i-parent",
+          subjectId: undefined,
+        },
+      ],
+      new Map([["i-parent", "subj_abc"]]),
+    );
+    expect(out[0]?.parentSubjectId).toBe("subj_abc");
+  });
+
+  it("blocks unresolved local subject refs after prior wave", () => {
+    const reason = unresolvedLocalSubjectRefBlockReason({
+      proposal: {
+        intentId: "i-child",
+        parentSubjectId: "i-missing",
+      },
+      sameWaveIntentIds: new Set(["i-child"]),
+      integratedIds: new Set(["i-child", "i-missing"]),
+      createdSubjectByIntentId: new Map(),
+    });
+    expect(reason).toMatch(/non résolue/);
   });
 });

@@ -4,7 +4,7 @@
 
 | Champ | Valeur |
 |---|---|
-| Version | v0.34 candidate — 27 novembre 2026 : **E2 Option B** (conduite uniforme D3 des intentions qualifiées D4-connaissance/D5/D6 ; ARCH-01…05) sur `sfia/next-ml5-integrated-delivery-20261123` @ base `53b9d452` dirty local — **Cursor READY WITH RESERVES** (sortie E2 proposée ; ChatGPT + Morris gate) ; v0.33 : E2-INT ; v0.32 : E2-FINAL ; … |
+| Version | v0.36 candidate — 27 novembre 2026 : **E2 résiduel + E3 UX** (GO intégré) — lecture/reprise `knowledgeEffects` ; panneau récents/version exacte ; restitution D4 sans ids techniques ; rail 246 px Figma confirmé ; candidat DEV à publier — verdicts E2/E3 distincts sous gate Morris ; v0.35 : Option B + §18.2 ; … |
 | Objet | Suivi transversal des fonctionnalités attendues, réalisations et preuves Cursor pour ML5 |
 | Références | `mcleland147/sfia-workspace` ; `main@997897fd7cf914771e7d08e8030dc7123fab7d25` ; conception `sfia/next-nora-cognition-cursor-contract-candidate@3e84d528abe548e29b6ed3e9f12a100ca5c41151` ; R-003 `5a4e4405` |
 | Cycle 9 | Scénario `ml5-c9-mono-20261123` — captures **conservées** comme avant-correction |
@@ -434,7 +434,8 @@ Les cas **Q-01…Q-56** du contrat fonctionnel ML5 sont la matrice de comporteme
 | R-E2 | 27/11/2026 | E2 garanties cognitives résiduelles A.1–A.7 — Critical Cycle 8 | même branche @ `58ca9486…` dirty ; no project commit | Review Pack E2 → `sfia/review-handoff` @`80cdef6c` | A.1–A.7 · 91 PASS unit ciblés · hybrid instruit | **Cursor** READY WITH RESERVES ; ChatGPT PARTIEL NOT READY E3 ; six reliquats → R-E2c |
 | R-E2c | 27/11/2026 | E2 complément six reliquats E2-REL-01…06 — Critical Cycle 8 | même branche @ `58ca9486…` dirty ; no project commit | Review Pack E2c → `sfia/review-handoff` | REL-01…06 · 89+ PASS unit/PG · hybrid PG DET | **Cursor** READY WITH RESERVES ; ChatGPT revue indépendante pending ; E3 non engagé |
 | R-E2f | 27/11/2026 | E2 sécurisation finale E2-FINAL-01…03 — Critical Cycle 8 | même branche @ `58ca9486…` dirty ; no project commit | Review Pack E2f → `sfia/review-handoff` | FINAL-01…03 · 16 PASS FINAL + 59 PASS lot affecté | **Cursor** READY WITH RESERVES — sortie construction E2 proposée ; ChatGPT + Morris gate ; E3 non engagé |
-| R-E2b | 27/11/2026 | E2 Option B — conduite uniforme intentions qualifiées (ARCH-01…05) | base `53b9d452` dirty local ; **no project commit** | Review Pack Option B → `sfia/review-handoff` | planner unit + unified PG SC1–SC3 · C02/MP09/E1 NR | **Cursor** READY WITH RESERVES — sortie E2 proposée ; ChatGPT + Morris gate ; E3 non engagé |
+| R-E2b | 27/11/2026 | E2 Option B — conduite uniforme intentions qualifiées (ARCH-01…05) | publié `3fe91745` / tree `94680265` | Review Pack Option B → `sfia/review-handoff` | planner unit + unified PG SC1–SC3 · C02/MP09/E1 NR | **Cursor** READY WITH RESERVES — sortie E2 proposée ; ChatGPT + Morris gate ; E3 non engagé |
+| R-E2b-r | 27/11/2026 | E2 Option B réconciliation §18.2 (états D4, fraîcheur, SC3) | base `3fe91745` ; **delta local non publié** | Review Pack reconcile → `sfia/review-handoff` | knowledgeEffects · SC2/SC3/fresh · NR C02/MP09/E1 | **Cursor** READY WITH RESERVES — sortie E2 proposée ; ChatGPT + Morris gate ; E3 non engagé |
 | R-E2i | 27/11/2026 | E2 revue d'intégration — Critical Cycle 8 | même branche @ `58ca9486…` dirty ; no project commit | Review Pack E2i → `sfia/review-handoff` | INT D4/C02/FinOps · 20 PASS ; e2e DB vérifiée | **Cursor** READY WITH RESERVES — sortie E2 proposée ; ChatGPT + Morris gate ; E3 non engagé |
 
 ### E2 — lignes de couverture (2026-11-27)

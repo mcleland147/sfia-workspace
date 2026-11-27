@@ -1,0 +1,12 @@
+{
+  "s1": {
+    "present": true,
+    "animationName": "fig-sas-progress-spin",
+    "transform": "matrix(1, 0, 0, 1, 0, 0)"
+  },
+  "s2": {
+    "present": true,
+    "animationName": "fig-sas-progress-spin",
+    "transform": "matrix(-0.654964, 0.75566, -0.75566, -0.654964, 0, 0)"
+  }
+}
