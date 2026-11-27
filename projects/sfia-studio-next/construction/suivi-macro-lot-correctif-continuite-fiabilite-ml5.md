@@ -3,15 +3,15 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Date / version | 27 novembre 2026 — v0.11, revue Option B et exit E2 |
+| Date / version | 27 novembre 2026 — v0.12, publication Option B et revue de réconciliation E2 |
 | Nature | Suivi opérationnel documentaire D1, non normatif, non mergé ; ne remplace ni Roadmap, ni registre de couverture ML5, ni Delivery History, ni contrats |
 | Mandat | GO explicite Morris du 27/11 pour créer ce document sur Git et le maintenir à chaque revue Cursor ; cinq ensembles et revues intermédiaires approuvés |
 | Autorités | Morris arbitre les réserves et gates ; ChatGPT tient ce suivi et revoit ; Cursor construit et fournit les preuves |
 | Programme | R5 IN PROGRESS / ML5 OPEN / LIVRAISON 1 NOT ACCEPTED / 17 MP OPEN EN RECETTE / T09 NOT SENT / R6 NOT STARTED / NO RELEASE / STABLE NOT AVAILABLE / NOT ADOPTED |
 | Git | main `997897fd7cf914771e7d08e8030dc7123fab7d25` ; branche documentaire candidate `docs/next-openai-studio-convergence-20261126`, base avant création `f6cfd5ac01f848f6708501e1a390f37243721ab9` |
-| DEV | Branche `sfia/next-ml5-integrated-delivery-20261123` publiée @ `53b9d452ab73732eef82677ab9a90529ccd973c8`, tree `18e8fd99a88396fed7041f146c46bd54f1f75658` vérifiés ; état local NON OBSERVÉ (deux chemins tmp dirty rapportés) ; :3100 / PG :5433 rapportés |
+| DEV | Branche `sfia/next-ml5-integrated-delivery-20261123` publiée @ `3fe91745fc58ba6bf3e1d9d1cbc4dd427bbd1f51`, tree `9468026544719c877e74626040d1832a4b914f97` vérifiés ; état local NON OBSERVÉ (delta réconciliation et tmp dirty rapportés) ; :3100 / PG :5433 rapportés |
 | RECETTE protégée | `e8e6e06961fa0a7224db3badb3b591b8be8046ac` / BUILD `rpEczSp61evIZ7d6fnIWR` / PG :5434 schéma 027, :3200 ; MaintiPlan suspendu après T08 ; WEB et Admin OFF |
-| Gate courant | Sortie construction E1 VALIDÉE MORRIS avec reports de preuves et reliquats affectés (§11) ; E2 revu — acquis DET ciblés, contrôles C02/FinOps favorables ; option B de conduite D3 VALIDÉE MORRIS et IMPLEMENTED + DET ciblé (§17–18) ; sortie E2 conditionnée à la vérification des garanties résiduelles explicites ; gate E3 non acquis. GO ponctuel snapshot consommé ; aucun nouveau GO commit/push projet, LIVE, cutover, PR, merge ou adoption. NOT READY pour qualification LIVE globale |
+| Gate courant | Sortie construction E1 VALIDÉE MORRIS avec reports de preuves et reliquats affectés (§11) ; E2 revu — acquis DET ciblés, contrôles C02/FinOps favorables ; option B de conduite D3 VALIDÉE MORRIS et IMPLEMENTED + DET ciblé (§17–18) ; architecture Option B achevée ; sortie E2 conditionnée au raccordement lecture/reprise des états D4 et à l'arbitrage des réserves §19 ; gate E3 non acquis. GO ponctuel snapshot consommé ; aucun nouveau GO commit/push projet, LIVE, cutover, PR, merge ou adoption. NOT READY pour qualification LIVE globale |
 
 ## 1. Objectif et sources
 
@@ -34,7 +34,7 @@ Les états ci-dessous sont des états de suivi, non des statuts de maturité SEF
 | Ensemble | Périmètre et résultat | État au 27/11 | Dépendances / sortie |
 | --- | --- | --- | --- |
 | E1 Continuité cognitive et fonctionnelle | B.1–B.8 ; D3/D4/D5/D6, données/projections ; Journal et réutilisation | SORTIE CONSTRUCTION VALIDÉE MORRIS AVEC RÉSERVES | §10–11 ; reports recette acceptés, reliquats E2/E3/E5 suivis ; aucune clôture RECETTE |
-| E2 Garanties cognitives résiduelles | A.1–A.7, intégration multi-intentions, reprise, recherche hybride, OBS/FinOps | REVU — conduite uniforme implémentée, preuve DET ciblée favorable | §18 ; états D4 et fraîcheur à réconcilier ; aucun nouvel arbitrage architecture ; gate Morris distinct |
+| E2 Garanties cognitives résiduelles | A.1–A.7, intégration multi-intentions, reprise, recherche hybride, OBS/FinOps | REVU — Option B publiée, construction architecturale achevée, DET ciblé favorable | §19 ; raccordement lecture/reprise D4 et réserves bornées ; gate Morris distinct |
 | E3 Conformité UX et panneau droit | D.1–D.6 ; projections et accès directs ; Figma | À FAIRE | Données E1, états E2 ; navigateur réel DEV simulé fournisseur |
 | E4 Audio et compositeur | C.1–C.5 | À FAIRE | Interfaces E2/E3 ; transport et robustesse DET ; dictée LIVE gate |
 | E5 Qualification intégrée et exit | Candidat unique, suites applicables, 25 parcours, 18 oracles, docs/pack, mandat LIVE borné | À FAIRE | E1–E4 revus ; aucun GO LIVE avant décision Morris |
@@ -46,10 +46,10 @@ Séquence approuvée ; parallélisme uniquement après qualification explicite d
 | ID | Responsable | Acquis rapporté / preuve publiée | Reliquat obligatoire |
 | --- | --- | --- | --- |
 | A.1 | E2 | Stamp effectif version, UNVERIFIED, token versionné strict ; bare qualified rejeté ; unit ciblé | ACQUIS CIBLÉ admission ; calibration réelle et choix naturel sous gate ; extraction signal appliqué et estimation à réconcilier si nécessaire |
-| A.2 | E2 | Qualification structurée, dépendances validées et exploitées par le planificateur D3 | ACQUIS DET CIBLÉ ; fraîcheur des paramètres après effet préalable à sécuriser (§18) ; naturel en recette |
-| A.3 | E2 | Option B : vagues d'intentions prêtes, batch D4, D5/D6 séquentiels, C02 union stash/projection ; PG ordre alterné et refus | IMPLEMENTED + DET CIBLÉ ; états D4 non exécutés et fraîcheur des propositions non raccordés à la restitution/reprise durable ; §18 |
+| A.2 | E2 | Qualification structurée et conduite uniforme, réécriture refs sujet inter-vagues et garde refs locales non résolues | ACQUIS DET CIBLÉ ; fraîcheur sémantique et continuation naturelle non prouvées, garde limitée aux refs D4 ; §19 |
+| A.3 | E2 | Option B publiée, états D4 knowledgeEffects dans résultat terminal, fallback supprimé ; PG ordre alterné/refus/batch/refs | IMPLEMENTED + DET CIBLÉ ; lookup/replay UNKNOWN/FAILED et fidélité des résultats ownership/exception à raccorder ; §19 |
 | A.4 | E2 | PG hybrid fake-embed 2 PASS rapportés, fingerprint open_point aligné, audit structurel, omit/PREFERRED conservés | ACQUIS CIBLÉ PG ; droits, fraîcheur et contribution naturelle à recetter ; T08 réel et métriques disponibles à qualifier, pas d'optimisation hypothétique |
-| A.5 | E2 | CONTINUE→OPEN, checkpoint CONTINUE distinct d'AWAIT_PILOT ; C02 lookup projection absente/partielle préservé | ACQUIS CIBLÉ ; vérifier finalisation et reprise des D4 non exécutées dans la conduite uniforme ; naturel en recette |
+| A.5 | E2 | CONTINUE→OPEN, checkpoint CONTINUE distinct d'AWAIT_PILOT ; C02 D5/D6 projection absente/partielle préservée | ACQUIS CIBLÉ ; raccordement lecture/reprise D4 knowledgeEffects restant §19 ; reprise réelle en recette |
 | A.6 | E2 | Cartographie OBS existante (tour, autorité, D4, documents, fournisseur, hybrid, FinOps) | INSPECTION : E3 consomme événements réels ; latences et corrélations lecture/version non démontrées exhaustivement, inconnues explicites, mesure T08 recette |
 | A.7 | E2 | Conflits détectés hors fenêtre et avant filtre, PG exact 110/0/316, période 7j et isolation autre Pilote | ACQUIS DET CIBLÉ ; conserver mécanisme, présenter conflit distinct du hors projet E3 ; coût facturé indisponible Admin OFF, pas de nouvelle reprise générale |
 | B.1 | E1 | Extraction sélective et chemin Pilote/Nora→D4 inspectés, tests ciblés antérieurs conservés | Construction revue ; R-REC-E1-01 : autonomie et provenance réelle des contributions, zéro mutation inutile |
@@ -87,7 +87,7 @@ Tous OPEN en RECETTE. État de construction/probatoire seulement, priorités du 
 | 06 Dictée | E4 | GATE LIVE + DET PARTIEL | Transport, erreurs, reprise ; Realtime distinct |
 | 07 Onde audio | E4 | ACQUIS CIBLÉ unit | Préserver et vérifier signal réel |
 | 08 Panneau droit | E3 | MANQUANT/PARTIEL | Récents multitypes, accès direct/version/droits, Figma ; E1 données points |
-| 09 Multi-intentions | E2 | Option B IMPLEMENTED + DET ciblé : D6→D4→D5, refus et indépendante | §18 : états D4 explicites, fraîcheur/reprise, batch exact ; naturel en recette |
+| 09 Multi-intentions | E2 | Option B publiée + DET ciblé : ordre alterné, refus, batch exact, refs locales et états D4 terminaux | §19 : raccordement lecture/reprise D4 ; naturel et fraîcheur sémantique en recette sous réserves explicites |
 | 10 Continuité | E1 | CONSTRUCTION REVUE — arborescence et réorganisation raccordées | R-REC-E1-01 capitalisation/consolidation/réutilisation naturelles ; E2 recherche hybride |
 | 11 Restitution/activité | E2 | CARTOGRAPHIE OBS DISPONIBLE — inspection | E3 présentation réelle, corrélation et latences non mesurées à conserver comme inconnues |
 | 12 Trajectoire | E1 | CONSTRUCTION REVUE — forecast durable, retain et admission sécurisés | R-REC-E1-01 évolution naturelle et projections |
@@ -194,7 +194,7 @@ Réserves historiques ENV-01 cookies/PG localhost trust et identité org/projet 
 | 27/11 | 108044ef | Neuf reliquats repris, 51 PASS (19 PG) rapportés ; GO Morris qualification proportionnée et sécurisation finale ciblée |
 | 27/11 | 41087f1b | Deux risques confirmés et corrigés, 38 PASS dont 5 nouveaux ; recommandation ChatGPT sortie construction E1 sous gate, réserves non acceptées |
 
-Prochaine action recommandée : publication bornée du delta Option B sous GO spécifique et réconciliation ciblée des garanties §18 avant gate E3 ; préserver E1 et acquis A ; pas de reprise générale ni nouveau cycle correctif sans arbitrage. Aucun GO LIVE, candidat RECETTE, reprise T09 ou acceptation Livraison 1 implicite.
+Prochaine action recommandée : raccorder les nouveaux états D4 aux lectures/reprises et publier le delta final sous GO spécifique, sans nouvelle campagne générale ; gate E2 puis E3 distinct ; préserver E1 et acquis A ; pas de reprise générale ni nouveau cycle correctif sans arbitrage. Aucun GO LIVE, candidat RECETTE, reprise T09 ou acceptation Livraison 1 implicite.
 
 Trajectoire finale : E1→E2→E3→E4→E5 (revues intermédiaires) → arbitrage réserves et GO LIVE borné → qualification LIVE → GO candidat et cutover RECETTE distincts → rejeu ciblé 17 MP → reprise T09 jusqu'au seuil de réalisation → gate Livraison 1 → Livraison 2 sous mandat distinct.
 
@@ -469,3 +469,24 @@ ARCH-01/04 conformes par inspection : planificateur pur interne, D3 seul conduct
 | Reprise et batch | C02 existant relecture D5/D6 absent/partiel conservée ; aucune nouvelle preuve de reprise mutante D6→D4→D5 interrompue ; SC3 oracle insuffisant sur parent/enfant. | Vérifier les mécanismes durables existants sans nouvelle infrastructure, renforcer assertions du test existant sur deux sujets et lien exact ; distinguer reprise réelle à recetter des garanties d'idempotence déterministes. |
 
 Recommandation : ne pas rouvrir l'architecture ni A.1/A.4/A.6/A.7. Publication du delta Option B sous GO Morris spécifique, sans CI ni PR/merge/promotion, puis inspection directe des raccordements finaux et traitement minimal des garanties §18.2 confirmées, dans le même lot si mandat le permet. Ne pas prolonger E2 pour davantage de preuves naturelles. Si un mécanisme est déjà satisfait, le démontrer par code sans nouveau test disproportionné. Gate sortie E2 non acquis ; pas d'acceptation implicite des réserves. E1 gate §11 inchangé ; 17 MP OPEN RECETTE, ML5 OPEN, Livraison 1 NOT ACCEPTED, E3/E4/E5 non engagés, T09 NOT SENT, NO RELEASE, NOT ADOPTED.
+
+
+## 19. Publication Option B et revue de réconciliation — 27/11/2026
+
+GO Morris ponctuel reçu après §18. Snapshot [3fe91745](https://github.com/mcleland147/sfia-workspace/tree/3fe91745fc58ba6bf3e1d9d1cbc4dd427bbd1f51), tree `9468026544719c877e74626040d1832a4b914f97`, parent 53b9d452, 7 fichiers du commit, main et tip projet vérifiés. [Handoff](https://github.com/mcleland147/sfia-workspace/blob/ce332f16d470cf64c7134edac2498b5f0a3ba35a/sfia-review-handoff/latest-chatgpt-review.md) commit ce332f16d470cf64c7134edac2498b5f0a3ba35a / blob 47e8c40b2235c7daea02a9460834137de429313d, 1092 lignes vérifiés. CI non observée, RECETTE préservée, E2E sfia_next_e2e :5433 rapportés par Cursor ; exécution indépendante et état local NON OBSERVÉS. 35 PASS unit (7+16+12) et 11 PG (4+5+1+1) rapportés, sans sommation historique ; commandes abrégées, exit codes, tsc/lint/build finaux non fournis. Diff-check clean rapporté. Delta réconciliation local non publié, diffs 8 fichiers (service, planner, aggregate, 2 tests, 3 docs) fournis, registre v0.35. GO de publication entrant consommé, pas de nouveau push autorisé.
+
+### 19.1 Acquis et limites
+
+- ARCH-01…05 : planificateur et boucle unique conservés ; fallback D4 retiré (§B.1 L434–532) ; pas de nouveau stockage. Chantier architectural considéré terminé, pas de nouvel arbitrage architecture recommandé.
+- D4 : knowledgeEffects[] ajouté à TurnResult et resultPayload L570+, avec raison, code, attempted et intentId ; le terminal sérialise resultPayload dans resultJson (snapshot service L4706). SC2 L756+ teste le résultat retourné et motif non-exécution, pas la relecture DB/lookup. Restitution L542+ explicite, limitée à 8 lignes techniques ; E3 présentation naturelle et détails d'activité.
+- SC3 L780+ : deux subjects AVAILABLE/OK, lecture listProjectKnowledge, parentSubjectId exact et unicité des titres, OPEN_CYCLE unique. Preuve ciblée renforcée. SC-fresh L828+ : parent cross-wave ref remplacée par subj_* et référence locale vers intention pilotage non résolue bloquée ; pas preuve d'une proposition sémantiquement devenue obsolète après effet réussi. Pas d'appel IA ajouté. Le helper L590–666 ne valide que les refs locales sujet, laisse subj_* aux propriétaires ; sameWaveIntentIds comprend aussi les peers finalement écartés. Ne pas élargir le contrôle à un moteur de fraîcheur générique ; qualifier les références effectivement résolues et protections propriétaire, signaler si ref non résolue. La continuation/requalification sémantique inter-effets n'est pas implémentée par ce delta ; réserve fonctionnelle explicite à arbitrer, pas PASS de fraîcheur générale. Préserver les contrôles d'état/version/autorité et ne pas accepter une proposition reconnue obsolète. Recette naturelle ciblée sous gate, avec correction si écart avéré.
+
+### 19.2 Raccordement résiduel précis — pas de nouvelle reprise générale
+
+Snapshot service.ts L510–592 lookup durable ne lit/retourne que pilotageEffects ; L1110–1192 replay COMPLETE spread parsed conserve knowledgeEffects, mais replay UNKNOWN/FAILED reconstruit uniquement capitalisations et pilotageEffects ; L2470–2545 unknownPayload post-authority ne porte pas knowledgeEffects ; L605–644 listTurnProjections ne projette que pilotageEffect. Aucun de ces chemins n'est modifié dans le diff de réconciliation. Donc persistance terminale acquise, mais accès explicite aux nouvelles données D4 en lookup/reprise non raccordé. Ne pas assimiler le test de result.knowledgeEffects à preuve de relecture durable. Les cas ownership/exception requièrent aussi vérité : L2304+ du delta marque runnableIds SKIPPED après step.ownershipLost même si des mutations ont déjà abouti ; catch L2410+ marque attempted=false FAILED après exception d'appel propriétaire, sans distinguer résultat incertain ; snapshot L2390–2445 perte ownership après D5/D6 ne crée pas de knowledgeEffects pour pending D4. Ne pas effacer un résultat propriétaire confirmé ni fabriquer non-exécution après tentative. Au besoin réutiliser reconstituteConfirmedD4Effects et qualification durable, UNKNOWN explicite si résultat indéterminé. Pas de nouveau registre ni migration.
+
+Exit minimal : raccorder knowledgeEffects existant aux chemins de lecture/lookup/replay, réconcilier les résultats propriétaires sans mutation de replay, vérifier les états de perte d'ownership/exception par inspection et tests déjà disponibles ; étendre SC2 par relecture effective du même clientTurnKey et preuve de non-duplication, distinguer résultat terminal vs incomplet. Présentation activité/texte E3, preuve de reprise naturelle recette/E5. Ne pas rouvrir le planner ou réclamer de nouvelle campagne de tests. Publier le delta final sous GO distinct sans CI et sans PR/merge/promotion, après contrôles bornés. Sortie E2 à arbitrer par Morris sur ces limites, pas de gate automatique ; ne pas présenter toutes les garanties §18.2 comme closes.
+
+### 19.3 Recommandation
+
+Conserver architecture, C02/FinOps acquis, parent/enfant et protections refs. Ne pas engager un nouveau cycle général E2. Un raccordement technique ciblé des états D4 et une publication finale dans le même mandat suffisent comme prochaine action ; E3 préparé mais non exécuté avant gate Morris. Réserve fraîcheur sémantique générale / continuation naturelle explicitement à arbitrer, avec scénario recette (effet préalable modifiant hypothèse, cible ou version ; aucun effet obsolète ; reprise utile), non une preuve DET acquise. Reports E2 §15.3 inchangés ; R-REC-E1-01/02 déjà acceptées. R5 IN PROGRESS, ML5 OPEN, 17 MP OPEN RECETTE, Livraison 1 NOT ACCEPTED, E3/E4/E5 non engagés, T09 NOT SENT, NO RELEASE, NOT ADOPTED.
