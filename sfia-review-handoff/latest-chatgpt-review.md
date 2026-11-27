@@ -10587,3 +10587,217 @@ index 4e0ed63f..88df981d 100644
 - Handoff tip pré-publish : `9897b91d` / blob `26ce0975`.
 
 **Verdict construction DEV :** READY WITH RESERVES — réserves LIVE/Morris §11–12 ; embedding hybrid residual documenté ; Figma F2 browser P4 non exhaustif.
+
+---
+
+## 17. P4 — UX residual (D.1–D.6) — embedded findings
+
+Source path canonicalisé: `.tmp-sfia-review/p4-ux-findings.md` (copie depuis `web/.tmp-sfia-review/`).
+Preuves navigateur DEV : `.tmp-sfia-review/ux-evidence/` (captures locales — chemins, pas blobs binaires dans le pack).
+
+### Note intégrateur
+
+- Playwright `tests/qualify/ml5-ux-refinements-browser.spec.ts` : **TIMEOUT** webServer — tooling gap `@cursor/sdk` `agent.d.ts.map` webpack parse (hors périmètre macro-lot). Preuves P4 = probe navigateur :3100 + units, pas la suite Playwright qualify.
+- L'agent S08 avait qualifié FAIL « préexistant » ; **contredit** par preuve comparative A.4 (`hasPriorAcquis` / `revision > 0`) — voir §7 / `s08-s05-findings.md` (PASS après correctif).
+- A.5 : le findings P3 mentionnait IDLE→OPEN ; **corrigé** ensuite — `productionIncomplete` = `IN_PROGRESS` only (§16).
+
+### Contenu P4
+
+# P4 UX residual verification — ML5 (worktree `sfia-studio-next/web`)
+
+**Date:** 2026-11-27
+**Constraints honored:** No Figma edits · No `service.ts` edits · No LIVE OpenAI · No RECETTE mutation
+**DEV:** `http://localhost:3100` responding (HTTP 307→session)
+**Evidence dir:** `.tmp-sfia-review/ux-evidence/`
+
+---
+
+## Executive summary
+
+| Scope | Status | Residual reserve |
+|-------|--------|------------------|
+| **D.1** Readability (SafeMarkdown / tokens) | **PASS** | Prior qualify typo measures (`11px` body) vs token `12.5px` — reconcile activity-title cascade |
+| **D.2** SasCreateProgressPopup animation | **PASS (bounded)** | No fresh SAS popup screenshot this session (avoided create on :3100); CSS + archived spin JSON |
+| **D.3** Multi-effect restitution (MP-09) | **PASS** | Wiring lives in `service.ts` — verified at `pilotage-effect-restitution.ts` + unit only |
+| **D.4** Repères / `project-recent-items` | **PASS (bounded)** | **Single** `recordProjectRecentItem` call site (`document_nora`); Figma row chrome (icons) not in DOM |
+| **D.5** PersonalRailSettingsMenu shared mount | **PASS** | Visual parity vs Figma 13 gear popover not pixel-audited |
+| **D.6** Empty / error / responsive | **PASS (bounded)** | Project « En bref » empty state not browser-captured (no project in portfolio) |
+
+---
+
+## Figma → component → DOM manifest
+
+File key: `itgvCulInEnFY6DvgIegvP` (read-only MCP `get_metadata`).
+
+| Figma node | Figma name | Code | DOM / test hooks |
+|------------|------------|------|------------------|
+| `700:38` | Canvas 05 · Travail avec Nora | — | Route family `/projects/[projectId]` |
+| `700:39` | 05.01 Travail · Conversation nominale | `NoraConversation`, `ProjectOverview` shell | `.fig-nora-thread`, `.fig-msg-body` |
+| `702:123` | Panneau En bref | `src/app/projects/[projectId]/page.tsx` aside | `[data-testid="travail-aside-inspector"]` |
+| `1405:610` | Repères et continuité — nominal | Same aside block | `[data-testid="travail-aside-recents-list"]` |
+| `1405:696` | Repères et continuité — initial | Same + empty copy | `[data-testid="travail-aside-recents-empty"]` (« Aucun élément consulté récemment. ») |
+| `1022:164` (ref in code) | SAS06 Création / qualification | `SasCreateProgressPopup.tsx` | `[data-testid="sas-create-progress-popup"]`, `.fig-sas-progress-ring-spin` |
+| `1332:2305` | Page 13 FinOps | Settings surfaces | `/settings/integrations`, `/settings/consumption` |
+| `1334:30` | Paramètres / Engrenage / Repos | `PersonalRailSettingsMenu.tsx` | `[data-testid="rail-settings-menu"]`, `.studio-rail-settings-trigger` |
+| `1334:70` | Navigation / Rail personnel — Paramètres | `StudioShell.tsx` | `[data-testid="studio-rail-account"]` → foot mount |
+| `1334:103–129` | Menu ouvert variantes | `PersonalRailSettingsMenu` popover | `.studio-rail-settings-popover` |
+
+---
+
+## D.1 — Readability (SafeMarkdown + tokens)
+
+**Contract**
+
+- Default `SafeMarkdown`: `safe-md text-sm` → ~**14px** / relaxed leading (`SafeMarkdown.tsx`).
+- Conversation thread override: `.fig-msg-body .safe-md` → **12.5px**, **line-height 1.65** (`tokens.css` L304–378). Document viewer paths intentionally **not** overridden (comment L316–317).
+
+**Before / after density (computed on :3100 with app CSS loaded)**
+
+| Context | font-size | line-height |
+|---------|-----------|-------------|
+| `.safe-md` alone (e.g. viewer) | **14px** | **22.75px** |
+| `.fig-msg-body .safe-md` | **12.5px** | **20.625px** (1.65 × 12.5) |
+
+Evidence: `.tmp-sfia-review/ux-evidence/d1-typography-computed.json`, prior qualify PNG `d1-typography-table-prior-qualify.png`.
+
+**Unit:** `tests/unit/safe-markdown.test.ts` — 2 tests **PASS**.
+
+**Reserve:** Archived qualify JSON (`.sfia-evidence/ml5-ux-refinements-browser/typography-measures.json`) reported `bodyFontSize: "11px"` on an injected harness — likely `.fig-msg-body` wrapper / activity cascade, not the token target. Token contract remains **12.5px** on `.safe-md` inside `.fig-msg-body`.
+
+---
+
+## D.2 — SasCreateProgressPopup animation
+
+**Implementation**
+
+- Ring: `.fig-sas-progress-ring-spin` → `animation: fig-sas-progress-spin 1.1s linear infinite` (`tokens.css` L1173–1200).
+- Stops: `[data-terminal="1"]` and `@media (prefers-reduced-motion: reduce)`.
+- Step pacing: `createProgressPreferReducedMotion` → `SAS_STEP_MIN_MS = 0` (`preparations/[preparationId]/page.tsx` L128–175).
+
+**Proof**
+
+- `:3100` injected ring → `animationName: "fig-sas-progress-spin"` (`d2-sas-motion-css-probe.json`).
+- Archived qualify: `sas-nonreg.json` shows `animationName` + **transform rotation** between t0 and t400ms.
+- Screenshots this session: prep shell `d6-prep-responsive.png` (no create clicked).
+
+**Reserve:** Did not re-open live SAS popup on operator DEV (portfolio empty; create would invoke Nora backend — **no LIVE OpenAI** guardrail).
+
+---
+
+## D.3 — Restitution (multi-effect, MP-09)
+
+**Verification mode:** Read-only — **did not edit** `src/domains/conversation/service.ts`.
+
+**Surface:** `composePilotageEffectRestitution` in `pilotage-effect-restitution.ts` (+ `pilotage-effect-aggregate.ts` helpers).
+
+**Unit tests (all PASS):**
+
+- `tests/unit/mp09-pilotage-multi-restitution.test.ts` (9)
+- `tests/unit/ensemble07-pilotage-effect-restitution.test.ts` (7)
+
+Covers multi-applied / mixed applied+rejected / no false success on partial effects.
+
+**Reserve:** Integration path MP-09 in `service.ts` not re-run in this pass; contract assumed frozen.
+
+---
+
+## D.4 — Right panel Repères (`project-recent-items`)
+
+**Library:** `src/lib/project-recent-items.ts`
+
+- `PROJECT_RECENT_MAX_ITEMS = 5`
+- Client `localStorage` key `sfia.projectRecent.v1:{pilotId}:{projectId}`
+- Documented rule: only **explicit Pilote consultation** should call `recordProjectRecentItem`
+
+**UI:** `page.tsx` — section « Repères » / « Éléments récents » (`travail-aside-recents`, max 5 via library).
+
+**Call sites (grep):**
+
+| Location | Trigger |
+|----------|---------|
+| `openTravailDocument` in `page.tsx` ~L827 | `document_nora` on viewer open |
+
+**No other** `recordProjectRecentItem` invocations in `src/`.
+
+**Unit:** `tests/unit/project-recent-items.test.ts` — dedupe, max 5 **PASS**.
+
+**Figma vs DOM:** `1405:610` shows five rich rows (icon, subtitle, arrow). DOM uses compact text buttons (`fig-inspector-link`) — functional, not visual parity.
+
+**Reserve:** Git / execution / publication kinds defined in types but **not recorded** yet; clicking recent Git only `selectSurface("git")` without re-record.
+
+---
+
+## D.5 — PersonalRailSettingsMenu shared mount
+
+**Component:** `src/components/shell/PersonalRailSettingsMenu.tsx`
+**Mount:** `StudioShell.tsx` L405–406 — `studio-shell-rail-foot`, **not** gated on `personalSpace` (MP-17).
+
+**Surfaces observed on :3100**
+
+- `/portfolio` — `[data-testid="rail-settings-menu"]` (screenshots `d5-rail-settings-collapsed.png`, `d5-rail-settings-open.png`)
+- `/preparations/...` — same gear + Integrations / Consommation menuitems (browser snapshot)
+
+**Unit:** `tests/unit/personal-rail-settings-menu.test.ts` (4) **PASS** — Escape, consumption href, foot mount regex, no duplicate `nav-integrations`.
+
+**Reserve:** Figma `1334:30` gear geometry vs `studio-rail-settings-trigger` CSS not measured.
+
+---
+
+## D.6 — Empty / error / responsive (bounded)
+
+**Empty**
+
+- Recents: `travail-aside-recents-empty` copy matches Figma `1405:696` intent (« État vide ressources » → French product copy).
+- Clarifier: empty branch in aside (open points).
+- Preparation: disabled create hint when no project name (`d6-prep-responsive.png`).
+
+**Error / unavailable**
+
+- Viewer / D4 paths set `unavailableReason` without inventing content (`page.tsx` grep).
+- Project-level `unavailableKind` routes to dedicated unavailable surface.
+
+**Responsive**
+
+- SAS card: `padding: clamp(...)`, `maxHeight: calc(100vh - 40px)`, `maxWidth: calc(100vw - 32px)` (`SasCreateProgressPopup.tsx` L114–132).
+- E2E contract: `tests/e2e/sas06-responsive-viewports.spec.ts` (not re-run here).
+
+**Reserve:** No live project page screenshot for full « En bref » column this session.
+
+---
+
+## Test runs (this verification)
+
+```
+vitest run:
+  project-recent-items.test.ts
+  personal-rail-settings-menu.test.ts
+  safe-markdown.test.ts
+  mp09-pilotage-multi-restitution.test.ts
+  ensemble07-pilotage-effect-restitution.test.ts
+→ 5 files, 24 tests PASS
+```
+
+Playwright qualify with default config **not** used (starts isolated :3101 webServer, timed out). Targeted Playwright **library** script against **existing :3100** used for CSS probes + rail screenshots only.
+
+---
+
+## Evidence index
+
+| File | Scope |
+|------|--------|
+| `ux-evidence/d1-typography-computed.json` | D.1 before/after sizes |
+| `ux-evidence/d1-typography-table-prior-qualify.png` | D.1 prior qualify capture |
+| `ux-evidence/d2-sas-motion-css-probe.json` | D.2 animation CSS + archive pointer |
+| `ux-evidence/d5-rail-settings-collapsed.png` | D.5 |
+| `ux-evidence/d5-rail-settings-open.png` | D.5 |
+| `ux-evidence/d6-prep-responsive.png` | D.6 preparation shell |
+
+---
+
+## Residual reserves (rollup)
+
+1. **D.4 recording coverage** — extend `recordProjectRecentItem` to git/execution/publication consult paths when product confirms triggers.
+2. **D.4 visual** — align recent rows with Figma `1405:618+` icon rows (optional UX polish).
+3. **D.2 browser** — re-capture SAS popup on FAKE/E2E `:3101` when operator wants fresh PNG (not :3100 LIVE).
+4. **D.1 qualify drift** — reconcile `11px` vs `12.5px` on activity harness if still seen in CI qualify.
+5. **D.6** — browser proof of `travail-aside-recents-empty` with seeded localStorage when a stable project id is available.
