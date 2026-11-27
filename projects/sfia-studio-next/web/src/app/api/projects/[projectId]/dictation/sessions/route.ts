@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { requireStudioSession } from "@/domains/identity/session";
 import { studioErrorResponse } from "@/lib/http-errors";
+import { assertOwnedProject } from "@/domains/conversation/assert-owned-project";
 import { createDictationSession } from "@/domains/conversation/composer-dictation-session";
 import { composerDictationEnabled } from "@/domains/conversation/composer-dictation-types";
 
@@ -12,6 +13,7 @@ export async function POST(
   try {
     const session = await requireStudioSession();
     const { projectId } = await ctx.params;
+    await assertOwnedProject(session.pilotId, projectId);
     const body = (await req.json().catch(() => ({}))) as {
       baselineDraft?: string;
       insertOffset?: number | null;

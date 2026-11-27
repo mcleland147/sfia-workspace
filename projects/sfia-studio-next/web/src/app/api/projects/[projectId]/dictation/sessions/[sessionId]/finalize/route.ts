@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { requireStudioSession } from "@/domains/identity/session";
 import { studioErrorResponse } from "@/lib/http-errors";
+import { assertOwnedProject } from "@/domains/conversation/assert-owned-project";
 import { finalizeDictationSession } from "@/domains/conversation/composer-dictation-session";
 
 export async function POST(
@@ -10,6 +11,7 @@ export async function POST(
   try {
     const session = await requireStudioSession();
     const { projectId, sessionId } = await ctx.params;
+    await assertOwnedProject(session.pilotId, projectId);
     const result = await finalizeDictationSession({
       sessionId,
       pilotId: session.pilotId,

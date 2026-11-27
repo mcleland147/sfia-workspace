@@ -58,6 +58,8 @@ export type DictationDraftSnapshot = {
   finalByItem: Record<string, string>;
   /** Hide provisional text in UI without stopping capture. */
   textHidden: boolean;
+  /** First-seen order of item_id values — drives transcript assembly. */
+  itemOrder: string[];
 };
 
 export type DictationLimits = {

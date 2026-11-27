@@ -17,7 +17,13 @@ export function createDictationDraftSnapshot(input: {
     provisionalByItem: {},
     finalByItem: {},
     textHidden: false,
+    itemOrder: [],
   };
+}
+
+function trackItemOrder(snap: DictationDraftSnapshot, itemId: string): string[] {
+  if (!itemId || snap.itemOrder.includes(itemId)) return snap.itemOrder;
+  return [...snap.itemOrder, itemId];
 }
 
 export function applyTranscriptDelta(
@@ -29,6 +35,7 @@ export function applyTranscriptDelta(
   const prev = snap.provisionalByItem[itemId] ?? "";
   return {
     ...snap,
+    itemOrder: trackItemOrder(snap, itemId),
     provisionalByItem: {
       ...snap.provisionalByItem,
       [itemId]: prev + delta,
@@ -46,6 +53,7 @@ export function applyTranscriptCompleted(
   delete nextProv[itemId];
   return {
     ...snap,
+    itemOrder: trackItemOrder(snap, itemId),
     provisionalByItem: nextProv,
     finalByItem: {
       ...snap.finalByItem,
@@ -61,17 +69,19 @@ export function setDictationTextHidden(
   return { ...snap, textHidden: hidden };
 }
 
-/** Ordered assembly: finals first (by key), then provisional remainders. */
+/** Ordered assembly by first-seen item_id (itemOrder), not lexical key order. */
 export function assembleDictationTranscript(snap: DictationDraftSnapshot): string {
   const parts: string[] = [];
-  const finalIds = Object.keys(snap.finalByItem).sort();
-  for (const id of finalIds) {
-    const t = snap.finalByItem[id]?.trim();
-    if (t) parts.push(t);
+  const seen = new Set<string>();
+  for (const id of snap.itemOrder) {
+    const t = snap.finalByItem[id]?.trim() || snap.provisionalByItem[id]?.trim();
+    if (t) {
+      parts.push(t);
+      seen.add(id);
+    }
   }
-  const provIds = Object.keys(snap.provisionalByItem).sort();
-  for (const id of provIds) {
-    if (snap.finalByItem[id]) continue;
+  for (const id of Object.keys(snap.provisionalByItem)) {
+    if (seen.has(id) || snap.finalByItem[id]) continue;
     const t = snap.provisionalByItem[id]?.trim();
     if (t) parts.push(t);
   }

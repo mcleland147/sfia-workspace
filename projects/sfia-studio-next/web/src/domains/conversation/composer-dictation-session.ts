@@ -56,9 +56,40 @@ export type DictationSessionRecord = {
   pendingItemId: string | null;
   limits: DictationLimits;
   errorCode: string | null;
+  /** Next expected client audio chunk sequence (0-based). */
+  nextAudioSeq: number;
+  onProviderSessionReady: (() => void) | null;
 };
 
 const sessions = new Map<string, DictationSessionRecord>();
+const TERMINAL_GC_MS = 2 * 60 * 1000;
+const SESSION_GC_INTERVAL_MS = 5_000;
+const SESSION_OPEN_TIMEOUT_MS = 10_000;
+
+function isTerminalStatus(status: DictationSessionStatus): boolean {
+  return (
+    status === "cancelled" ||
+    status === "completed" ||
+    status === "failed" ||
+    status === "expired"
+  );
+}
+
+function runDictationSessionGc(now = Date.now()): void {
+  for (const [sessionId, session] of sessions) {
+    expireIfNeeded(session, now);
+    if (isTerminalStatus(session.status) && now - session.lastActivityAtMs > TERMINAL_GC_MS) {
+      sessions.delete(sessionId);
+    }
+  }
+}
+
+if (typeof setInterval !== "undefined") {
+  const timer = setInterval(() => runDictationSessionGc(), SESSION_GC_INTERVAL_MS);
+  if (typeof timer === "object" && timer && "unref" in timer) {
+    timer.unref();
+  }
+}
 
 export function _resetDictationSessionsForTests(): void {
   for (const s of sessions.values()) {
@@ -135,14 +166,6 @@ export async function createDictationSession(input: {
       message: "Composer dictation is not enabled (SFIA_COMPOSER_DICTATION).",
     };
   }
-  const lane = (env.STUDIO_LANE || "").trim().toUpperCase();
-  if (lane && lane !== "DEV") {
-    return {
-      ok: false,
-      code: "LANE_REFUSED",
-      message: `Dictation admission refused for lane ${lane}`,
-    };
-  }
   const apiKey = (env.OPENAI_API_KEY || "").trim();
   const factory = input.transportFactory;
   if (!factory && !apiKey) {
@@ -197,6 +220,8 @@ export async function createDictationSession(input: {
     pendingItemId: null,
     limits,
     errorCode: null,
+    nextAudioSeq: 0,
+    onProviderSessionReady: null,
   };
   sessions.set(sessionId, record);
   emit(record, {
@@ -217,8 +242,33 @@ export async function createDictationSession(input: {
           model: COMPOSER_DICTATION_MODEL,
           apiKey,
         });
+    if (record.status === "cancelled") {
+      try {
+        transport.close();
+      } catch {
+        /* */
+      }
+      record.status = "failed";
+      record.errorCode = "CANCELLED_DURING_OPEN";
+      return {
+        ok: false,
+        code: "CANCELLED_DURING_OPEN",
+        message: "Dictation session cancelled during transport open.",
+      };
+    }
     record.transport = transport;
     transport.onEvent((event) => handleProviderEvent(record, event));
+    const sessionReady = new Promise<void>((resolve, reject) => {
+      const t = setTimeout(() => {
+        record.onProviderSessionReady = null;
+        reject(new Error("SESSION_OPEN_TIMEOUT"));
+      }, SESSION_OPEN_TIMEOUT_MS);
+      record.onProviderSessionReady = () => {
+        clearTimeout(t);
+        record.onProviderSessionReady = null;
+        resolve();
+      };
+    });
     transport.send({
       type: "session.update",
       session: {
@@ -228,7 +278,7 @@ export async function createDictationSession(input: {
             format: { type: "audio/pcm", rate: COMPOSER_DICTATION_PCM_RATE },
             transcription: {
               model: COMPOSER_DICTATION_MODEL,
-              language: "fr",
+              languages: ["fr"],
               prompt: DICTATION_VOCAB_HINT,
             },
             turn_detection: null,
@@ -236,6 +286,7 @@ export async function createDictationSession(input: {
         },
       },
     });
+    await sessionReady;
     record.status = "open";
     record.modelApplied = COMPOSER_DICTATION_MODEL;
     emit(record, { type: "session.open", sessionId });
@@ -261,6 +312,11 @@ function handleProviderEvent(
   if (expireIfNeeded(session)) return;
   const type = String(event.type || "");
   touch(session);
+
+  if (type === "session.updated" || type === "session.created") {
+    session.onProviderSessionReady?.();
+    return;
+  }
 
   if (type === "input_audio_buffer.committed") {
     const itemId = String(event.item_id || "");
@@ -364,6 +420,7 @@ export function appendDictationAudio(input: {
   pilotId: string;
   projectId: string;
   pcmBase64: string;
+  seq?: number;
 }): { ok: true } | { ok: false; code: string } {
   const session = sessions.get(input.sessionId);
   if (!session) return { ok: false, code: "NOT_FOUND" };
@@ -372,6 +429,14 @@ export function appendDictationAudio(input: {
   }
   if (expireIfNeeded(session)) return { ok: false, code: "EXPIRED" };
   if (session.status !== "open") return { ok: false, code: "NOT_OPEN" };
+  if (input.seq !== undefined) {
+    if (!Number.isInteger(input.seq) || input.seq < 0) {
+      return { ok: false, code: "INVALID_SEQ" };
+    }
+    if (input.seq !== session.nextAudioSeq) {
+      return { ok: false, code: "SEQ_OUT_OF_ORDER" };
+    }
+  }
   const raw = Buffer.from(input.pcmBase64, "base64");
   if (raw.length === 0 || raw.length % 2 !== 0) {
     return { ok: false, code: "INVALID_PCM" };
@@ -380,6 +445,9 @@ export function appendDictationAudio(input: {
     return { ok: false, code: "BUFFER_LIMIT" };
   }
   session.pcmBytes += raw.length;
+  if (input.seq !== undefined) {
+    session.nextAudioSeq += 1;
+  }
   touch(session);
   session.transport?.send({
     type: "input_audio_buffer.append",
@@ -540,12 +608,13 @@ async function recordDictationFinops(
       "@/domains/conversation/usage-accounting"
     );
     const durationMs = Math.max(0, Date.now() - session.createdAtMs);
-    const durationMinutes = durationMs / 60_000;
-    // Public tariff verified at cadrage: 0.017 USD/min — estimate only.
+    const pcmMinutes =
+      session.pcmBytes / (COMPOSER_DICTATION_PCM_RATE * 2) / 60;
+    // Public tariff verified at cadrage: 0.017 USD/min — estimate from buffered PCM only.
     const estimatedUsd =
       status === "cancelled" && session.pcmBytes === 0
         ? null
-        : Math.round(durationMinutes * 0.017 * 1_000_000) / 1_000_000;
+        : Math.round(pcmMinutes * 0.017 * 1_000_000) / 1_000_000;
     await recordProviderUsageObservation({
       operation: "audio.composer_dictation",
       modelRequested: session.modelRequested,

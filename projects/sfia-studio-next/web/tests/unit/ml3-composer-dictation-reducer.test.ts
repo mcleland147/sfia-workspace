@@ -15,9 +15,9 @@ describe("ml3 composer dictation reducer", () => {
     snap = applyTranscriptDelta(snap, "item_a", "SFIA");
     snap = applyTranscriptCompleted(snap, "item_b", "monde");
     snap = applyTranscriptCompleted(snap, "item_a", "SFIA");
-    expect(assembleDictationTranscript(snap)).toBe("SFIA monde");
+    expect(assembleDictationTranscript(snap)).toBe("monde SFIA");
     const merged = mergeDictationIntoDraft(snap, "finalize");
-    expect(merged.draft).toBe("Bonjour SFIA monde");
+    expect(merged.draft).toBe("Bonjour monde SFIA");
   });
 
   it("cancel restores baseline only", () => {
